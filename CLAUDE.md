@@ -1,7 +1,7 @@
 # LOTR Port (Minecraft 1.21.1 NeoForge)
 
 Future-port of The Lord of the Rings Mod (1.7.10, Update 36.15) to Minecraft 1.21.1, part of the TARDIS: Ring Bearer
-modpack project. Mod id `lotrport` (placeholder until Aaron picks one), main class `LotrPort`, package
+modpack project. Mod id `lotr_port`, main class `LotrPort`, package
 `com.porcupinestudios.lotrport`.
 
 **Keep this repo private.** LOTR's code belongs to Mevans and has no public source or license to redistribute. The
@@ -19,7 +19,13 @@ https://claude.ai/artifact/KqhSSTCuKXGuwKHBoYJdcu. Rebuild features in modern co
   packages: colonists build on the NPC base, realms register as factions. Its `docs/` folder is the feature list; its
   code is ours, so its logic can be carried over, but the LOTR-internals and reflection layer goes away.
 - Middle-earth is the TARDIS start dimension: expose it to TARDIS: Ring Bearer through its API (`CrashSiteProvider`),
-  and add `lotr:alignment`-style requirement types there.
+  and add `lotr_port:alignment`-style requirement types there.
+
+## Decisions (Aaron, 2026-11-03)
+- Reuse LOTR's textures, sounds and map image (private play).
+- Middle-earth is a world type, as in the original; in a normal world it is a dimension players travel to.
+- Many LOTR systems get redesigned around RingRealms, Create and the TARDIS rather than copied.
+- Prefer writing scripts that do the repetitive work (export, generate, rename) over porting class by class by hand.
 
 ## Build
 JDK 21, `./gradlew build`, `runClient`, `runServer`, `runGameTestServer`, `runData`. ModDevGradle 2, NeoForge 21.1.x.

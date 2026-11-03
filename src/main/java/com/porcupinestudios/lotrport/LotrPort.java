@@ -8,7 +8,7 @@ import org.slf4j.Logger;
 
 @Mod(LotrPort.MOD_ID)
 public final class LotrPort {
-    public static final String MOD_ID = "lotrport";
+    public static final String MOD_ID = "lotr_port";
     public static final Logger LOG = LogUtils.getLogger();
 
     public LotrPort(IEventBus modBus, ModContainer container) {
