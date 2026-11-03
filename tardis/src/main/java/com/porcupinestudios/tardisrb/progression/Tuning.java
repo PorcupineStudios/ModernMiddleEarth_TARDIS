@@ -120,19 +120,20 @@ public record Tuning(CrashSite crashSite, Hop hop, Winder winder, Interior inter
     /**
      * The see-through door (Immersive Portals): the interior door's lower block ({@code interior_door}, from the console
      * room's corner) and the way it faces into the room ({@code interior_facing}); the opening's {@code width} and
-     * {@code height}; and how far in front of each door face the portal plane stands ({@code offset}), so a player
-     * walking up to the door crosses it.
+     * {@code height}; and how far in front of each door face the portal plane stands ({@code offset}; negative is
+     * inside the block: the open door is a hollow shell with a 1 px frame, and the portal sits just behind the frame,
+     * in line with the doorway, Aaron 2026-11-03).
      */
     public record DoorTuning(BlockPos interiorDoor, Direction interiorFacing, double width, double height,
             double offset) {
-        static final DoorTuning DEFAULT = new DoorTuning(new BlockPos(4, 1, 0), Direction.SOUTH, 0.9, 1.9, 0.2);
+        static final DoorTuning DEFAULT = new DoorTuning(new BlockPos(4, 1, 0), Direction.SOUTH, 0.875, 1.875, -0.07);
         static final Codec<DoorTuning> CODEC = RecordCodecBuilder.create(i -> i.group(
                 BlockPos.CODEC.optionalFieldOf("interior_door", DEFAULT.interiorDoor).forGetter(DoorTuning::interiorDoor),
                 Direction.CODEC.optionalFieldOf("interior_facing", DEFAULT.interiorFacing)
                         .forGetter(DoorTuning::interiorFacing),
                 Codec.doubleRange(0.1, 4).optionalFieldOf("width", DEFAULT.width).forGetter(DoorTuning::width),
                 Codec.doubleRange(0.1, 4).optionalFieldOf("height", DEFAULT.height).forGetter(DoorTuning::height),
-                Codec.doubleRange(0, 0.5).optionalFieldOf("offset", DEFAULT.offset).forGetter(DoorTuning::offset))
+                Codec.doubleRange(-0.5, 0.5).optionalFieldOf("offset", DEFAULT.offset).forGetter(DoorTuning::offset))
                 .apply(i, DoorTuning::new));
     }
 

@@ -61,9 +61,9 @@
       0
     ],
     "interior_facing": "south",
-    "width": 0.9,
-    "height": 1.9,
-    "offset": 0.2
+    "width": 0.875,
+    "height": 1.875,
+    "offset": -0.07
   },
   "space": {
     "gravity": 0.15,

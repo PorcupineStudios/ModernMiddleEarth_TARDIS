@@ -51,7 +51,7 @@ def console_room_wreck():
     for (x, z) in [(1, 1), (7, 1), (1, 7), (7, 7)]:
         cells[(x, h - 1, z)] = "minecraft:sea_lantern"
     cells[(4, 1, 0)] = "tardis_rb:interior_door"
-    cells[(4, 2, 0)] = "tardis_rb:interior_door"
+    cells[(4, 2, 0)] = "tardis_rb:interior_door[half=upper]"
     cells[(4, 1, 5)] = "tardis_rb:console"
     for (x, y, z) in [(1, 3, 6), (7, 3, 2), (6, 1, 7), (2, 3, 1)]:
         cells[(x, y, z)] = "minecraft:cobweb"

@@ -16,6 +16,9 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
@@ -25,8 +28,8 @@ import qouteall.q_misc_util.my_util.DQuaternion;
 
 /**
  * The see-through TARDIS door (Aaron, 2026-11-03), built on Immersive Portals (a required mod): an open door is a pair
- * of portals, one in front of the police box's doors looking into the console room and its reverse in front of the
- * interior door looking out. You see the other side live and walk through with no loading screen. Closing the door,
+ * of portals, one in the police box's doorway looking into the console room and its reverse in the interior doorway
+ * looking out. The door blocks turn into open shells ({@code open=true}) so the portals sit in line with the doorway. You see the other side live and walk through with no loading screen. Closing the door,
  * or the TARDIS flying off, removes them. The open state and portal ids are kept in the record's module data.
  */
 public final class Doors {
@@ -64,7 +67,7 @@ public final class Doors {
     /** The outside opening, in front of the police box's doors. */
     public static Side outside(BlockPos base, Direction facing) {
         Tuning.DoorTuning t = TardisContent.tuning().door();
-        Vec3 c = Vec3.atBottomCenterOf(base).add(0, t.height() / 2 + 0.02, 0)
+        Vec3 c = Vec3.atBottomCenterOf(base).add(0, t.height() / 2 + 0.001, 0)
                 .add(Vec3.atLowerCornerOf(facing.getNormal()).scale(0.5 + t.offset()));
         return new Side(c, facing);
     }
@@ -72,8 +75,8 @@ public final class Doors {
     /** The inside opening, in front of the interior door, facing into the console room. */
     public static Side inside(TardisRecord tardis) {
         Tuning.DoorTuning t = TardisContent.tuning().door();
-        BlockPos door = Interiors.origin(tardis.plot()).offset(t.interiorDoor());
-        Vec3 c = Vec3.atBottomCenterOf(door).add(0, t.height() / 2 + 0.02, 0)
+        BlockPos door = interiorDoor(tardis);
+        Vec3 c = Vec3.atBottomCenterOf(door).add(0, t.height() / 2 + 0.001, 0)
                 .add(Vec3.atLowerCornerOf(t.interiorFacing().getNormal()).scale(0.5 + t.offset()));
         return new Side(c, t.interiorFacing());
     }
@@ -119,6 +122,8 @@ public final class Doors {
         tag.putUUID("outside", portal.getUUID());
         tag.putUUID("inside", back.getUUID());
         tardis.setModuleData(MODULE, tag);
+        setOpen(world, where.get().pos(), true);
+        setOpen(interior.get(), interiorDoor(tardis), true);
         TardisRB.LOG.debug("[door] {} opened at {}", tardis.name(), out.center());
         return true;
     }
@@ -151,9 +156,33 @@ public final class Doors {
         if (!tag.getBoolean("open")) {
             return;
         }
-        tardis.location().map(g -> server.getLevel(g.dimension())).ifPresent(l -> remove(l, tag, "outside"));
-        Interiors.level(server).ifPresent(l -> remove(l, tag, "inside"));
+        tardis.location().ifPresent(g -> {
+            ServerLevel l = server.getLevel(g.dimension());
+            if (l != null) {
+                remove(l, tag, "outside");
+                setOpen(l, g.pos(), false);
+            }
+        });
+        Interiors.level(server).ifPresent(l -> {
+            remove(l, tag, "inside");
+            setOpen(l, interiorDoor(tardis), false);
+        });
         tardis.setModuleData(MODULE, new CompoundTag());
+    }
+
+    /** The interior door's lower block. */
+    public static BlockPos interiorDoor(TardisRecord tardis) {
+        return Interiors.origin(tardis.plot()).offset(TardisContent.tuning().door().interiorDoor());
+    }
+
+    /** Opens or shuts the two door blocks (exterior or interior) whose lower block is at {@code base}. */
+    static void setOpen(ServerLevel level, BlockPos base, boolean open) {
+        for (BlockPos p : new BlockPos[] {base, base.above()}) {
+            BlockState state = level.getBlockState(p);
+            if (state.hasProperty(BlockStateProperties.OPEN) && state.getValue(BlockStateProperties.OPEN) != open) {
+                level.setBlock(p, state.setValue(BlockStateProperties.OPEN, open), Block.UPDATE_ALL);
+            }
+        }
     }
 
     private static void remove(ServerLevel level, CompoundTag tag, String key) {

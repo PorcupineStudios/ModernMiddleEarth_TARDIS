@@ -2,6 +2,7 @@ package com.porcupinestudios.tardisrb.gametest;
 
 import com.porcupinestudios.tardisrb.TardisRB;
 import com.porcupinestudios.tardisrb.block.ExteriorBlock;
+import com.porcupinestudios.tardisrb.block.InteriorDoorBlock;
 import com.porcupinestudios.tardisrb.block.TardisBlocks;
 import com.porcupinestudios.tardisrb.core.TardisManager;
 import com.porcupinestudios.tardisrb.core.TardisRecord;
@@ -78,7 +79,18 @@ public final class WorldCheck {
             problems.add("the door leads to " + lands + ", not " + expect);
         }
         TardisRB.LOG.info("[worldcheck] door open: {} -> {}", outPortal.getOriginPos(), lands);
+        BlockPos box = wreck.location().get().pos();
+        BlockPos door = Doors.interiorDoor(wreck);
+        if (!world.getBlockState(box).getValue(ExteriorBlock.OPEN)
+                || !inside.getBlockState(door.above()).getValue(InteriorDoorBlock.OPEN)) {
+            problems.add("the door blocks didn't open: " + world.getBlockState(box) + ", "
+                    + inside.getBlockState(door.above()));
+        }
         Doors.close(server, wreck);
+        if (world.getBlockState(box.above()).getValue(ExteriorBlock.OPEN)
+                || inside.getBlockState(door).getValue(InteriorDoorBlock.OPEN)) {
+            problems.add("the door blocks didn't shut");
+        }
         if (Doors.isOpen(wreck) || !out.isRemoved() || !in.isRemoved()) {
             problems.add("the doors didn't close");
         }

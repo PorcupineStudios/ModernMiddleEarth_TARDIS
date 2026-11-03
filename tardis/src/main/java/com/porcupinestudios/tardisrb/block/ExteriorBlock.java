@@ -12,6 +12,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
@@ -21,11 +22,15 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.Shapes;
+import net.minecraft.world.phys.shapes.VoxelShape;
 
 /**
  * The police box, two blocks tall; the lower half holds the TARDIS id. Using it: the crew open or close the doors
@@ -38,16 +43,18 @@ public final class ExteriorBlock extends Block implements EntityBlock {
     public static final EnumProperty<DoubleBlockHalf> HALF = BlockStateProperties.DOUBLE_BLOCK_HALF;
     /** Which look (model and texture set) the box wears; set from the look rules ({@code Looks}). */
     public static final IntegerProperty LOOK = IntegerProperty.create("look", 0, 3);
+    /** The doors stand open: a hollow shell with a doorway the portal sits in ({@link Doors}). */
+    public static final BooleanProperty OPEN = BlockStateProperties.OPEN;
 
     public ExteriorBlock(Properties properties) {
         super(properties);
         registerDefaultState(stateDefinition.any().setValue(FACING, Direction.NORTH)
-                .setValue(HALF, DoubleBlockHalf.LOWER).setValue(LOOK, 0));
+                .setValue(HALF, DoubleBlockHalf.LOWER).setValue(LOOK, 0).setValue(OPEN, false));
     }
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(FACING, HALF, LOOK);
+        builder.add(FACING, HALF, LOOK, OPEN);
     }
 
     @Override
@@ -117,6 +124,11 @@ public final class ExteriorBlock extends Block implements EntityBlock {
             }
         }
         return InteractionResult.CONSUME;
+    }
+
+    @Override
+    protected VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
+        return state.getValue(OPEN) ? DoorShapes.open(state.getValue(FACING)) : Shapes.block();
     }
 
     @Override
