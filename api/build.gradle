@@ -1,0 +1,7 @@
+plugins {
+    id 'java-library'
+    id 'idea'
+    id 'net.neoforged.moddev'
+}
+
+apply from: rootProject.file('gradle/mod.gradle')

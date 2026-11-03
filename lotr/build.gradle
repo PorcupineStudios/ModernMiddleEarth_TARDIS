@@ -1,0 +1,22 @@
+plugins {
+    id 'java-library'
+    id 'idea'
+    id 'net.neoforged.moddev'
+}
+
+apply from: rootProject.file('gradle/mod.gradle')
+
+evaluationDependsOn(':api')
+
+dependencies {
+    implementation project(':api')
+}
+
+// Dev runs load the shared API next to this mod.
+neoForge {
+    mods {
+        ringbearer_api {
+            sourceSet(project(':api').sourceSets.main)
+        }
+    }
+}

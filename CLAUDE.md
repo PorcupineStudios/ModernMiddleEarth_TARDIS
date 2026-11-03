@@ -1,26 +1,38 @@
-# TARDIS: Ring Bearer (Minecraft 1.21.1 NeoForge)
+# Ring Bearer (Minecraft 1.21.1 NeoForge)
 
-Mod id `tardis_rb` (Aaron's name TARDIS_RB; NeoForge needs lowercase), main class `TardisRB`, package
-`com.porcupinestudios.tardisrb`. A clean rewrite of the TARDIS Mod + TardisTimeTravelAddon for a progression modpack:
-a wrecked TARDIS crash-landed in Middle-earth, repaired stage by stage. DarkholmeTenk/TardisMod is reference only;
-copy no code or textures (Aaron makes the art).
+One private repo for the TARDIS: Ring Bearer modpack's own mods. Three Gradle subprojects, each its own NeoForge mod:
 
-## Read first
-- Port plan (decisions, progression, phases): https://claude.ai/artifact/DD8D3rShdupt1xVSpx16XZ
-- Code architecture and hooks: https://claude.ai/artifact/ELT5R1mp3XythfpsNpyKJE
-Read both with the Claude Docs tools, not a web fetch. Add notes in `docs/<area>.md` as systems get built, and a row here.
+| Folder | Mod id | Package | Read first |
+|---|---|---|---|
+| `api/` | `ringbearer_api` | `com.porcupinestudios.ringbearer.api` | this file |
+| `tardis/` | `tardis_rb` | `com.porcupinestudios.tardisrb` | `tardis/CLAUDE.md` |
+| `lotr/` | `lotr_port` | `com.porcupinestudios.lotrport` | `lotr/CLAUDE.md` |
+
+Plans (read with the Claude Docs tools, not a web fetch):
+- Shared roadmap, both mods in one order: ROADMAP_LINK
+- Plan review that shaped it: https://claude.ai/artifact/1BciPgPdz8FbnnamU9E2Rs
+
+## Dependency rule
+`tardis` and `lotr` both depend on `api`, and never on each other. Anything they share goes in `api`:
+- **history**: the world history log, recording from day one; the TARDIS recorder, colonies, AI rulers and time travel
+  all use it.
+- **condition**: one registry of condition types used by TARDIS unlocks, quests, the story engine and colony research.
+- **provider**: crash sites and start dimension, researchers, destinations, power sources; registered on the mod bus.
+`api` depends on nothing in either mod.
 
 ## Build
-JDK 21, `./gradlew build` (jar in `build/libs/`), `runClient`, `runServer`, `runGameTestServer`, `runData`.
-ModDevGradle 2, NeoForge 21.1.x, Parchment mappings. CI builds every branch (`.github/workflows/build.yml`).
+JDK 21. `./gradlew build` builds all three (jars in `*/build/libs/`); `./gradlew :tardis:runClient` etc. for one mod.
+ModDevGradle 2, NeoForge 21.1.x, Parchment. Shared Gradle setup: `gradle/mod.gradle`; versions in `gradle.properties`,
+per-mod values in each folder's `gradle.properties`. CI builds every branch. The cloud sandbox can't reach
+maven.neoforged.net, so builds there are verified only by CI.
 
 ## Rules for every task
-- No feature is on by default in code: it exists only if a data file defines it and `Unlocks` allows it.
-- Numbers (ranges, costs, caps, stage repair lists) live in datapack JSON, never Java constants.
-- State changes go only through `TardisRecord` methods, which fire events and sync.
-- Other mods only inside `compat/<modid>`, loaded when `ModList.isLoaded`. Create is the only hard dependency.
-- `api` package: interfaces, events, read-only views; depends on nothing else in the mod (moves to its own jar).
-- Client classes (renderers, screens) are never referenced from common code.
-- Saved data uses Codecs with a `dataVersion` and migrations; formats stay readable.
-- Network payloads: `CustomPacketPayload` + `StreamCodec`.
+- Tuning data (repairs, costs, research, quests, trades) loads through reload listeners so `/reload` and KubeJS apply
+  it live; datapack registries only for what world generation needs (dimensions, biomes, planets).
+- Every number and list a pack maker might tune goes in data files, never Java constants.
+- Saved data uses Codecs with a `dataVersion` and migrations; formats stay readable. New worlds only: 1.7.10 saves are
+  not converted.
+- Network payloads: `CustomPacketPayload` + `StreamCodec`. Client classes are never referenced from common code.
+- Each phase's done-when gets a GameTest (`runGameTestServer`).
+- Prefer scripts that do repetitive work (converter, ID tables, validators) over porting by hand.
 - Don't call something verified unless you ran it; say how.
