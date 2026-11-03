@@ -22,9 +22,14 @@ def open_model(front, side, up, down, half, front_dir):
     """A hollow shell open at front_dir ('north' or 'south'), frame on the open side."""
     back = "south" if front_dir == "north" else "north"
     z0, z1 = (0, 1) if front_dir == "north" else (15, 16)
-    shell = {"from": [0, 0, 0], "to": [16, 16, 16], "faces": {
-        back: face("side", back), "east": face("side", "east"), "west": face("side", "west"),
-        "up": face("up", "up"), "down": face("down", "down")}}
+    faces = {back: face("side", back), "east": face("side", "east"), "west": face("side", "west")}
+    # only the outer ends get a roof and a floor: a lower half's top and an upper half's bottom would show as a
+    # seam across the doorway, between the two blocks
+    if half == "upper":
+        faces["up"] = face("up", "up")
+    else:
+        faces["down"] = face("down", "down")
+    shell = {"from": [0, 0, 0], "to": [16, 16, 16], "faces": faces}
     els = [shell,
            {"from": [0, 0, z0], "to": [1, 16, z1], "faces": {front_dir: face("front", front_dir),
                                                              "east": face("front")}},
