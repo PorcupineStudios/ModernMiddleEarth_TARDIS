@@ -17,6 +17,8 @@ import net.minecraft.block.Block;
  */
 final class WorldExporter {
     private final JsonArray errors;
+    /** Spawn list objects to their field names, so biomes can refer to them. */
+    private final Map<Object, String> names = new java.util.IdentityHashMap<>();
 
     WorldExporter(JsonArray errors) {
         this.errors = errors;
@@ -25,6 +27,7 @@ final class WorldExporter {
     JsonObject world() {
         JsonObject root = new JsonObject();
         try {
+            JsonObject spawnLists = spawnLists(); // first: biomes refer to the lists by name
             Class<?> dimClass = Class.forName("lotr.common.LOTRDimension");
             Object me = dimClass.getField("MIDDLE_EARTH").get(null);
             Object list = dimClass.getField("biomeList").get(me);
@@ -59,10 +62,90 @@ final class WorldExporter {
             }
             root.add("map", settings);
             root.add("roads", roads());
+            root.add("spawnLists", spawnLists);
         } catch (Throwable t) {
             errors.add(new JsonPrimitive("world: " + t));
         }
         return root;
+    }
+
+    /** LOTR's named spawn lists: each entity with its weight and group size. */
+    private JsonObject spawnLists() {
+        JsonObject out = new JsonObject();
+        try {
+            Class<?> c = Class.forName("lotr.common.world.spawning.LOTRSpawnList");
+            for (Field f : c.getDeclaredFields()) {
+                if (!Modifier.isStatic(f.getModifiers()) || f.getType() != c) {
+                    continue;
+                }
+                f.setAccessible(true);
+                Object list = f.get(null);
+                JsonArray entries = new JsonArray();
+                Object raw = field(list, "spawnList");
+                if (raw instanceof Iterable<?> it) {
+                    for (Object e : it) {
+                        JsonObject entry = new JsonObject();
+                        Object cls = field(e, "entityClass");
+                        entry.addProperty("entity", cls instanceof Class<?> k ? entityName(k) : null);
+                        entry.addProperty("weight", (Number) field(e, "itemWeight"));
+                        entry.addProperty("min", (Number) field(e, "minGroupCount"));
+                        entry.addProperty("max", (Number) field(e, "maxGroupCount"));
+                        entries.add(entry);
+                    }
+                }
+                out.add(f.getName(), entries);
+                names.put(list, f.getName());
+            }
+        } catch (Throwable t) {
+            errors.add(new JsonPrimitive("spawn lists: " + t));
+        }
+        return out;
+    }
+
+    /** A biome's NPC spawns: faction groups (weight) of spawn lists (weight, chance, conquest only). */
+    private JsonArray spawns(Object spawnList) {
+        JsonArray out = new JsonArray();
+        if (spawnList == null) {
+            return out;
+        }
+        Object containers = field(spawnList, "factionContainers");
+        if (containers instanceof Iterable<?> it) {
+            for (Object fc : it) {
+                JsonObject group = new JsonObject();
+                group.addProperty("weight", (Number) field(fc, "baseWeight"));
+                Object fac = field(fc, "theFaction");
+                group.addProperty("faction", fac == null ? null : ((Enum<?>) fac).name());
+                JsonArray lists = new JsonArray();
+                Object raw = field(fc, "spawnLists");
+                if (raw instanceof Iterable<?> lit) {
+                    for (Object slc : lit) {
+                        JsonObject l = new JsonObject();
+                        Object list = field(slc, "spawnList");
+                        l.addProperty("list", list == null ? null : names.get(list));
+                        l.addProperty("weight", (Number) field(slc, "weight"));
+                        l.addProperty("chance", (Number) field(slc, "spawnChance"));
+                        l.addProperty("conquestThreshold", (Number) field(slc, "conquestThreshold"));
+                        lists.add(l);
+                    }
+                }
+                group.add("lists", lists);
+                out.add(group);
+            }
+        }
+        return out;
+    }
+
+    private static String entityName(Class<?> c) {
+        try {
+            Class<?> reg = Class.forName("lotr.common.entity.LOTREntities");
+            Object name = reg.getMethod("getStringFromClass", Class.class).invoke(null, c);
+            if (name != null) {
+                return name.toString();
+            }
+        } catch (Throwable ignored) {
+            // not a LOTR entity
+        }
+        return c.getName();
     }
 
     /** LOTR's roads: each road's name and points (map coordinates) as LOTR built them. */
@@ -229,7 +312,28 @@ final class WorldExporter {
                     }
                 }
                 o.add("ores", ores);
+                JsonArray structures = new JsonArray();
+                Object structList = field(decorator, "randomStructures");
+                if (structList instanceof Iterable<?> it) {
+                    for (Object rs : it) {
+                        Object gen = field(rs, "structureGen");
+                        JsonObject st = new JsonObject();
+                        st.addProperty("class", gen == null ? null : gen.getClass().getName());
+                        st.addProperty("chunkChance", (Number) field(rs, "chunkChance"));
+                        structures.add(st);
+                    }
+                }
+                o.add("structures", structures);
+                JsonArray villages = new JsonArray();
+                Object villageList = field(decorator, "villages");
+                if (villageList instanceof Iterable<?> it) {
+                    for (Object v : it) {
+                        villages.add(new JsonPrimitive(v.getClass().getName()));
+                    }
+                }
+                o.add("villages", villages);
             }
+            o.add("spawns", spawns(field(b, "npcSpawnList")));
         } catch (Throwable t) {
             errors.add(new JsonPrimitive("biome " + b + ": " + t));
         }
