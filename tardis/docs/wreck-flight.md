@@ -21,6 +21,6 @@ Read when: touching `block/`, `interior/`, `flight/`, `net/ConsoleNet`, `client/
 - **Winder** (`compat/create/`): `RotatedPillarKineticBlock` + `KineticBlockEntity`; charge per second =
   |RPM| x `charge_per_rpm_second`, fed to the interior it stands in or a box within `link_range`. Stress impact is
   registered in `BlockStressValues.IMPACTS` with a supplier reading the tuning file. Client uses Create's
-  `ShaftRenderer`. Create coordinates: https://wiki.createmod.net/developers/depend-on-create/neoforge-1.21.1
+  `ShaftRenderer`. Create comes from Modrinth (`maven.modrinth:create`, see `tardis/build.gradle`); its jar-in-jar libraries are unpacked for compiling.
 - **GameTest coordinates**: a template's floor is at relative y 1 (the structure block sits below), so things stand at y 2.
 - All numbers: `data/tardis_rb/tardis/tuning/main.json` (`progression/Tuning`).

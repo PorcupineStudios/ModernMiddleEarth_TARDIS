@@ -15,17 +15,6 @@ jobs:
           distribution: temurin
           java-version: '21'
       - uses: gradle/actions/setup-gradle@v4
-      - name: Probe Create mavens (temporary)
-        continue-on-error: true
-        run: |
-          curl -sS -o /dev/null -w "http %{http_code} %{redirect_url}\n" http://maven.createmod.net/com/simibubi/create/create-1.21.1/maven-metadata.xml || true
-          curl -sS http://maven.createmod.net/com/simibubi/create/create-1.21.1/maven-metadata.xml | tail -6 || true
-          curl -sS http://maven.createmod.net/net/createmod/ponder/ponder-neoforge/maven-metadata.xml | tail -6 || true
-          curl -sS -o /dev/null -w "ithundxr %{http_code}\n" https://maven.ithundxr.dev/snapshots/com/tterrag/registrate/Registrate/maven-metadata.xml || true
-          for p in flywheel ponder; do
-            curl -sS "https://api.modrinth.com/v2/project/$p/version?game_versions=%5B%221.21.1%22%5D" | python3 -c "import json,sys; [print('$p', v['version_number'], v['loaders'], [f['filename'] for f in v['files']]) for v in json.load(sys.stdin)[:4]]" || true
-          done
-          exit 1
       - run: ./gradlew build --stacktrace
       - name: GameTests
         # The game test server can exit 0 after a mod loading crash, so the log has to say the tests passed.
