@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {"item": "minecraft:paper"},
+    {"item": "minecraft:paper"},
+    {"item": "minecraft:ink_sac"},
+    {"item": "minecraft:gold_ingot"}
+  ],
+  "result": {"id": "lotr_port:colony_charter"}
+}

@@ -1,0 +1,80 @@
+{
+  "entries": [
+    {
+      "npc": "lotr_port:blackroot_archer",
+      "weight": 1
+    },
+    {
+      "npc": "lotr_port:blackroot_soldier",
+      "weight": 1
+    },
+    {
+      "npc": "lotr_port:dol_amroth_archer",
+      "weight": 1
+    },
+    {
+      "npc": "lotr_port:dol_amroth_soldier",
+      "weight": 1
+    },
+    {
+      "npc": "lotr_port:gondor_archer",
+      "weight": 1
+    },
+    {
+      "npc": "lotr_port:gondor_farmhand",
+      "weight": 3
+    },
+    {
+      "npc": "lotr_port:gondor_levyman",
+      "weight": 1
+    },
+    {
+      "npc": "lotr_port:gondor_man",
+      "weight": 3
+    },
+    {
+      "npc": "lotr_port:gondor_soldier",
+      "weight": 1
+    },
+    {
+      "npc": "lotr_port:gondor_tower_guard",
+      "weight": 1
+    },
+    {
+      "npc": "lotr_port:lamedon_archer",
+      "weight": 1
+    },
+    {
+      "npc": "lotr_port:lamedon_hillman",
+      "weight": 3
+    },
+    {
+      "npc": "lotr_port:lamedon_soldier",
+      "weight": 1
+    },
+    {
+      "npc": "lotr_port:lebennin_levyman",
+      "weight": 1
+    },
+    {
+      "npc": "lotr_port:lossarnach_axeman",
+      "weight": 1
+    },
+    {
+      "npc": "lotr_port:pelargir_marine",
+      "weight": 1
+    },
+    {
+      "npc": "lotr_port:pinnath_gelin_soldier",
+      "weight": 1
+    },
+    {
+      "npc": "lotr_port:ranger_ithilien",
+      "weight": 1
+    },
+    {
+      "npc": "lotr_port:swan_knight",
+      "weight": 1
+    }
+  ]
+}

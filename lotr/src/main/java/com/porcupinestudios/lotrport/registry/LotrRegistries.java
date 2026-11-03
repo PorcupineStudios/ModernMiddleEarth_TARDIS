@@ -34,6 +34,10 @@ public final class LotrRegistries {
     public static final Supplier<AttachmentType<TravelData>> TRAVEL = ATTACHMENTS.register("travel",
             () -> AttachmentType.builder(() -> TravelData.EMPTY).serialize(TravelData.CODEC).copyOnDeath().build());
 
+    /** The colony a citizen lives in (its id, "" for none). Read through Colonies.colonyOf. */
+    public static final Supplier<AttachmentType<String>> COLONY = ATTACHMENTS.register("colony",
+            () -> AttachmentType.builder(() -> "").serialize(Codec.STRING).build());
+
     /** The faction an entity belongs to ("" for none); NPCs set it when they spawn. Read through FactionKills. */
     public static final Supplier<AttachmentType<String>> ENTITY_FACTION = ATTACHMENTS.register("faction",
             () -> AttachmentType.builder(() -> "").serialize(Codec.STRING).build());

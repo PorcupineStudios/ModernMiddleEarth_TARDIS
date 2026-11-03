@@ -96,9 +96,6 @@ class Quests:
             en.setdefault(f"waypoint.{NS}.{wid}", old.replace("_", " ").title())
         for region in regions:
             en.setdefault(f"waypoint_region.{NS}.{region}", region.replace("_", " ").title())
-        en["key.lotr_port.map"] = "Middle-earth Map"
-        en["key.categories.lotr_port"] = "The Lord of the Rings"
-        en["screen.lotr_port.map"] = "Middle-earth"
 
     # ------------------------------------------------------------------ quests
 

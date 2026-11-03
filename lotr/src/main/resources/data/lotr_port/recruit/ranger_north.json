@@ -1,0 +1,19 @@
+{
+  "npc": "lotr_port:ranger_north",
+  "faction": "lotr_port:ranger_north",
+  "alignment": 100,
+  "min_population": 2,
+  "limit": 3,
+  "stages": [
+    {"objectives": [
+      {"type": "deliver", "target": "minecraft:bread", "count": 16},
+      {"type": "deliver", "target": "lotr_port:pipeweed", "count": 4}
+    ]},
+    {"objectives": [
+      {"type": "kill_faction", "target": "lotr_port:angmar", "count": 5}
+    ]},
+    {"objectives": [
+      {"type": "visit", "target": "lotr_port:weathertop", "radius": 48}
+    ]}
+  ]
+}

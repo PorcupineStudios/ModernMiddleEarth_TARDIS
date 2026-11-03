@@ -1,0 +1,18 @@
+{
+  "npc": "lotr_port:gandalf",
+  "min_population": 5,
+  "limit": 1,
+  "stages": [
+    {"objectives": [
+      {"type": "deliver", "target": "lotr_port:pipeweed", "count": 8},
+      {"type": "deliver", "target": "minecraft:book", "count": 1}
+    ]},
+    {"objectives": [
+      {"type": "visit", "target": "lotr_port:rivendell", "radius": 64},
+      {"type": "visit", "target": "lotr_port:minas_tirith", "radius": 64}
+    ]},
+    {"objectives": [
+      {"type": "population", "count": 8}
+    ]}
+  ]
+}

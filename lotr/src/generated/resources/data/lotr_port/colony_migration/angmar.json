@@ -1,0 +1,28 @@
+{
+  "entries": [
+    {
+      "npc": "lotr_port:angmar_hillman",
+      "weight": 3
+    },
+    {
+      "npc": "lotr_port:angmar_hillman_axe_thrower",
+      "weight": 1
+    },
+    {
+      "npc": "lotr_port:angmar_hillman_warrior",
+      "weight": 1
+    },
+    {
+      "npc": "lotr_port:angmar_orc",
+      "weight": 3
+    },
+    {
+      "npc": "lotr_port:angmar_orc_archer",
+      "weight": 1
+    },
+    {
+      "npc": "lotr_port:angmar_orc_bombardier",
+      "weight": 1
+    }
+  ]
+}

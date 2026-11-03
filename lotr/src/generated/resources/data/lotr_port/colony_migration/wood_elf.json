@@ -1,0 +1,16 @@
+{
+  "entries": [
+    {
+      "npc": "lotr_port:wood_elf",
+      "weight": 3
+    },
+    {
+      "npc": "lotr_port:wood_elf_scout",
+      "weight": 1
+    },
+    {
+      "npc": "lotr_port:wood_elf_warrior",
+      "weight": 1
+    }
+  ]
+}

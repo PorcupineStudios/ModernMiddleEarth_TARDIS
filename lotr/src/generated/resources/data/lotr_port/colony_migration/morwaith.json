@@ -1,0 +1,12 @@
+{
+  "entries": [
+    {
+      "npc": "lotr_port:moredain",
+      "weight": 3
+    },
+    {
+      "npc": "lotr_port:moredain_warrior",
+      "weight": 1
+    }
+  ]
+}

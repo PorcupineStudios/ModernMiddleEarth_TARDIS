@@ -1,0 +1,12 @@
+{
+  "entries": [
+    {
+      "npc": "lotr_port:dol_guldur_orc",
+      "weight": 3
+    },
+    {
+      "npc": "lotr_port:dol_guldur_orc_archer",
+      "weight": 1
+    }
+  ]
+}

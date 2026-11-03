@@ -1,0 +1,32 @@
+{
+  "entries": [
+    {
+      "npc": "lotr_port:easterling",
+      "weight": 3
+    },
+    {
+      "npc": "lotr_port:easterling_archer",
+      "weight": 1
+    },
+    {
+      "npc": "lotr_port:easterling_farmhand",
+      "weight": 3
+    },
+    {
+      "npc": "lotr_port:easterling_fire_thrower",
+      "weight": 1
+    },
+    {
+      "npc": "lotr_port:easterling_gold_warrior",
+      "weight": 1
+    },
+    {
+      "npc": "lotr_port:easterling_levyman",
+      "weight": 1
+    },
+    {
+      "npc": "lotr_port:easterling_warrior",
+      "weight": 1
+    }
+  ]
+}
