@@ -1,12 +1,12 @@
 package com.porcupinestudios.lotrport.npc;
 
+import com.mojang.datafixers.util.Either;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.ExtraCodecs;
 
 /**
  * A kind of NPC from data: {@code data/<namespace>/npc/<name>.json}, reloaded with {@code /reload}. Its name is the
@@ -32,6 +32,12 @@ public record NpcType(Optional<ResourceLocation> faction, List<ResourceLocation>
         boolean hostile, Optional<ResourceLocation> buy, Optional<ResourceLocation> sell,
         Optional<ResourceLocation> units, float tradeAlignment) {
 
+    /** One id, or a list of ids. */
+    private static final Codec<List<ResourceLocation>> ONE_OR_MORE =
+            Codec.either(ResourceLocation.CODEC, ResourceLocation.CODEC.listOf()).xmap(
+                    e -> e.map(List::of, l -> l),
+                    l -> l.size() == 1 ? Either.left(l.get(0)) : Either.right(l));
+
     public static final Codec<NpcType> CODEC = RecordCodecBuilder.create(i -> i.group(
             ResourceLocation.CODEC.optionalFieldOf("faction").forGetter(NpcType::faction),
             ResourceLocation.CODEC.listOf().optionalFieldOf("skins", List.of()).forGetter(NpcType::skins),
@@ -40,7 +46,7 @@ public record NpcType(Optional<ResourceLocation> faction, List<ResourceLocation>
             Codec.DOUBLE.optionalFieldOf("health", 20.0).forGetter(NpcType::health),
             Codec.DOUBLE.optionalFieldOf("speed", 0.25).forGetter(NpcType::speed),
             Codec.DOUBLE.optionalFieldOf("attack", 2.0).forGetter(NpcType::attack),
-            Codec.unboundedMap(Codec.STRING, ExtraCodecs.compactListCodec(ResourceLocation.CODEC))
+            Codec.unboundedMap(Codec.STRING, ONE_OR_MORE)
                     .optionalFieldOf("gear", Map.of())
                     .forGetter(NpcType::gear),
             ResourceLocation.CODEC.optionalFieldOf("names").forGetter(NpcType::names),
