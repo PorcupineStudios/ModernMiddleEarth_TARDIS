@@ -7,8 +7,11 @@ Read when: the doors, Immersive Portals, portals for space.
   Upstream (Fabric) is archived; community NeoForge forks fix Sodium 0.8 / Iris / Distant Horizons crashes.
 - `door/Doors`: an open door = two portals made with `PortalAPI` (`Portal.ENTITY_TYPE`, `setOrientationAndSize`,
   `PortalAPI.setPortalTransformation`, `createReversePortal`, `spawnServerEntity`), tagged `tardis_rb:door`. The
-  outside one stands `door.offset` in front of the police box's front face (so a player walking up crosses it; the
-  box itself is solid), the inside one in front of the interior door (tuning `door.interior_door`/`interior_facing`).
+  outside one stands in the police box's doorway, the inside one in the interior doorway (tuning
+  `door.interior_door`/`interior_facing`). Aaron (2026-11-03): in line with the doorway, not in front of the box. Open
+  door blocks (`open=true`) are hollow shells with a 1 px frame (2 px on top), models from `tools/door_models.py`;
+  the portal stands `door.offset` (-0.07) behind the face, just behind the frame, and the collision keeps only the
+  side and back walls so players walk in. The interior door has `half=lower/upper`.
   `rotation(from, to)` turns looking-in at the box into looking-into-the-room. State + portal ids in the record's
   module data `tardis_rb:door`.
 - Use the box (crew): open/close; sneak-use: old teleport in. Same at the interior door. `Flight.land` closes the doors
