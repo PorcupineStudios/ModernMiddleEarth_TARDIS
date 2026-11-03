@@ -95,7 +95,7 @@ public final class ColonyTests {
             LotrNpc npc = (LotrNpc) e;
             helper.assertTrue(Colonies.colonyOf(npc).equals(Optional.of(colony.id())), "citizen not marked");
             helper.assertTrue(npc.faction().equals(Optional.of(GONDOR)), "citizen of " + npc.faction());
-            helper.assertTrue(!npc.removeWhenFarAway(1000), "a citizen would despawn");
+            helper.assertTrue(npc.isPersistenceRequired(), "a citizen would despawn");
         }
 
         // a rare race: a Ranger of the North, won over in three stages
@@ -110,7 +110,7 @@ public final class ColonyTests {
         helper.assertTrue(colony.recruits().containsKey(RANGER_RECRUIT), "the recruitment did not start");
 
         player.getInventory().add(new ItemStack(Items.BREAD, 16));
-        player.getInventory().add(new ItemStack(BuiltInRegistries.ITEM.get(LotrPort.id("pipeweed")), 4));
+        player.getInventory().add(new ItemStack(BuiltInRegistries.ITEM.get(LotrPort.id("pipe_weed")), 4));
         Recruiting.interact(player, ranger);
         helper.assertTrue(stage(colony) == 1, "stage after delivering: " + stage(colony));
         helper.assertTrue(player.getInventory().countItem(Items.BREAD) == 0, "the bread was not taken");

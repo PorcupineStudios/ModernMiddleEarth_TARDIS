@@ -131,7 +131,8 @@ public final class ContentTests {
     public static void everyRecipeLoaded(GameTestHelper helper) {
         int expected = ContentData.read("summary.json").get(0).get("recipes").getAsInt();
         long loaded = helper.getLevel().getRecipeManager().getRecipes().stream()
-                .filter(r -> r.id().getNamespace().equals(LotrPort.MOD_ID)).count();
+                .filter(r -> r.id().getNamespace().equals(LotrPort.MOD_ID) && !r.id().getPath().startsWith("own/"))
+                .count(); // own/ = hand-written recipes of our own features, not converted
         helper.assertTrue(loaded == expected, "loaded " + loaded + " of " + expected + " converted recipes");
         helper.succeed();
     }
