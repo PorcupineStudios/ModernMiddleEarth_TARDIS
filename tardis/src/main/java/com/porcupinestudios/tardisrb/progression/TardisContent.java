@@ -6,6 +6,7 @@ import com.mojang.datafixers.util.Either;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.JsonOps;
 import com.porcupinestudios.tardisrb.TardisRB;
+import com.porcupinestudios.tardisrb.console.ConsoleControls;
 import java.io.Reader;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -44,9 +45,10 @@ public final class TardisContent extends SimplePreparableReloadListener<Map<Stri
     public static final String LOOK = "look";
     public static final String ROOM = "room";
     public static final String DESTINATION = "destination";
+    public static final String CONTROL = "control";
     public static final List<String> FOLDERS =
             List.of(SUBSYSTEM, STAGE, MILESTONE, REPAIR, RESEARCH, FEATURE, COST, TUNING, LOOK, ROOM,
-            DESTINATION);
+            DESTINATION, CONTROL);
     /** The look file for the police box. */
     public static final ResourceLocation EXTERIOR_LOOK = ResourceLocation.fromNamespaceAndPath("tardis_rb", "exterior");
     /** The tuning file that counts; others in the folder are ignored. */
@@ -61,10 +63,10 @@ public final class TardisContent extends SimplePreparableReloadListener<Map<Stri
             Map<ResourceLocation, Milestone> milestones, Map<ResourceLocation, Repair> repairs,
             Map<ResourceLocation, Research> research, Map<ResourceLocation, Feature> features,
             Map<ResourceLocation, Cost> costs, Tuning tuning, Map<ResourceLocation, Look> looks,
-            Map<ResourceLocation, Room> rooms, Map<ResourceLocation, Destination> destinations, List<String> problems,
-            int generation) {
+            Map<ResourceLocation, Room> rooms, Map<ResourceLocation, Destination> destinations,
+            Map<ResourceLocation, Control> controls, List<String> problems, int generation) {
         static final Snapshot EMPTY = new Snapshot(Map.of(), Map.of(), Map.of(), Map.of(), Map.of(), Map.of(),
-                Map.of(), Tuning.DEFAULT, Map.of(), Map.of(), Map.of(), List.of(), 0);
+                Map.of(), Tuning.DEFAULT, Map.of(), Map.of(), Map.of(), Map.of(), List.of(), 0);
 
         public Look exteriorLook() {
             return looks.getOrDefault(EXTERIOR_LOOK, Look.NONE);
@@ -114,6 +116,10 @@ public final class TardisContent extends SimplePreparableReloadListener<Map<Stri
         return Optional.ofNullable(current.destinations.get(id));
     }
 
+    public static Optional<Control> control(ResourceLocation id) {
+        return Optional.ofNullable(current.controls.get(id));
+    }
+
     public static Optional<Room> room(ResourceLocation id) {
         return Optional.ofNullable(current.rooms.get(id));
     }
@@ -149,9 +155,10 @@ public final class TardisContent extends SimplePreparableReloadListener<Map<Stri
         Snapshot next = build(files, ++generation);
         next.problems.forEach(p -> TardisRB.LOG.error("[tardis data] {}", p));
         TardisRB.LOG.info("[tardis data] {} subsystems, {} stages, {} milestones, {} repairs, {} research, "
-                + "{} features, {} costs, {} rooms, {} destinations; {} problems", next.subsystems.size(), next.stages.size(),
+                + "{} features, {} costs, {} rooms, {} destinations, {} controls; {} problems", next.subsystems.size(),
+                next.stages.size(),
                 next.milestones.size(), next.repairs.size(), next.research.size(), next.features.size(),
-                next.costs.size(), next.rooms.size(), next.destinations.size(), next.problems.size());
+                next.costs.size(), next.rooms.size(), next.destinations.size(), next.controls.size(), next.problems.size());
         current = next;
     }
 
@@ -169,6 +176,17 @@ public final class TardisContent extends SimplePreparableReloadListener<Map<Stri
         Map<ResourceLocation, Look> looks = parse(files, LOOK, Look.CODEC, problems);
         Map<ResourceLocation, Room> rooms = parse(files, ROOM, Room.CODEC, problems);
         Map<ResourceLocation, Destination> destinations = parse(files, DESTINATION, Destination.CODEC, problems);
+        Map<ResourceLocation, Control> controls = parse(files, CONTROL, Control.CODEC, problems);
+        controls.entrySet().removeIf(e -> {
+            Control c = e.getValue();
+            String bad = !Control.KINDS.contains(c.kind()) ? "unknown kind " + c.kind()
+                    : !ConsoleControls.ACTIONS.contains(c.action())
+                            ? "unknown action " + c.action() : null;
+            if (bad != null) {
+                problems.add("control " + e.getKey() + ": " + bad);
+            }
+            return bad != null;
+        });
 
         subsystems.entrySet().removeIf(e -> {
             if (e.getValue().levels().isEmpty()) {
@@ -219,7 +237,7 @@ public final class TardisContent extends SimplePreparableReloadListener<Map<Stri
 
         return new Snapshot(Map.copyOf(subsystems), Map.copyOf(stages), Map.copyOf(milestones), Map.copyOf(repairs),
                 Map.copyOf(research), Map.copyOf(features), Map.copyOf(costs), tuning, Map.copyOf(looks), Map.copyOf(rooms),
-                Map.copyOf(destinations), List.copyOf(problems), generation);
+                Map.copyOf(destinations), Map.copyOf(controls), List.copyOf(problems), generation);
     }
 
     private static String missingCost(Either<ResourceLocation, Cost> ref, Map<ResourceLocation, Cost> costs) {

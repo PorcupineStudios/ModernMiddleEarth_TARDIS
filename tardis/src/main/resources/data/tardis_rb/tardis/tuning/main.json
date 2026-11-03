@@ -46,5 +46,12 @@
   "research": {
     "speed_per_researcher": 0.5,
     "max_researchers": 4
+  },
+  "console": {
+    "steps": [
+      1,
+      10,
+      100
+    ]
   }
 }

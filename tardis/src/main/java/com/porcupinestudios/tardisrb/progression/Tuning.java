@@ -2,16 +2,17 @@ package com.porcupinestudios.tardisrb.progression;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import java.util.List;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 
 /**
- * Loose numbers that belong to no single subsystem: the crash site, hops, the Create winder, interiors, damage and
- * research speed. Read from
+ * Loose numbers that belong to no single subsystem: the crash site, hops, the Create winder, interiors, damage,
+ * research speed and the console's controls. Read from
  * {@code data/tardis_rb/tardis/tuning/main.json}; every field has a default, so a pack can override just one.
  */
 public record Tuning(CrashSite crashSite, Hop hop, Winder winder, Interior interior, Damage damage,
-        ResearchSpeed research) {
+        ResearchSpeed research, ConsoleTuning console) {
     /** The wreck made once at the start dimension's spawn. {@code offset}: blocks east of the spawn point. */
     public record CrashSite(boolean enabled, int offset, String name, long startCharge) {
         static final CrashSite DEFAULT = new CrashSite(true, 8, "The Wreck", 0);
@@ -106,8 +107,17 @@ public record Tuning(CrashSite crashSite, Hop hop, Winder winder, Interior inter
                 .apply(i, ResearchSpeed::new));
     }
 
+    /** The console: {@code steps} are the sizes the step dial picks from for the coordinate buttons. */
+    public record ConsoleTuning(List<Integer> steps) {
+        static final ConsoleTuning DEFAULT = new ConsoleTuning(List.of(1, 10, 100));
+        static final Codec<ConsoleTuning> CODEC = RecordCodecBuilder.create(i -> i.group(
+                Codec.intRange(1, 1 << 20).listOf().optionalFieldOf("steps", DEFAULT.steps)
+                        .forGetter(ConsoleTuning::steps))
+                .apply(i, ConsoleTuning::new));
+    }
+
     public static final Tuning DEFAULT = new Tuning(CrashSite.DEFAULT, Hop.DEFAULT, Winder.DEFAULT, Interior.DEFAULT,
-            Damage.DEFAULT, ResearchSpeed.DEFAULT);
+            Damage.DEFAULT, ResearchSpeed.DEFAULT, ConsoleTuning.DEFAULT);
 
     public static final Codec<Tuning> CODEC = RecordCodecBuilder.create(i -> i.group(
             CrashSite.CODEC.optionalFieldOf("crash_site", CrashSite.DEFAULT).forGetter(Tuning::crashSite),
@@ -115,6 +125,7 @@ public record Tuning(CrashSite crashSite, Hop hop, Winder winder, Interior inter
             Winder.CODEC.optionalFieldOf("winder", Winder.DEFAULT).forGetter(Tuning::winder),
             Interior.CODEC.optionalFieldOf("interior", Interior.DEFAULT).forGetter(Tuning::interior),
             Damage.CODEC.optionalFieldOf("damage", Damage.DEFAULT).forGetter(Tuning::damage),
-            ResearchSpeed.CODEC.optionalFieldOf("research", ResearchSpeed.DEFAULT).forGetter(Tuning::research))
+            ResearchSpeed.CODEC.optionalFieldOf("research", ResearchSpeed.DEFAULT).forGetter(Tuning::research),
+            ConsoleTuning.CODEC.optionalFieldOf("console", ConsoleTuning.DEFAULT).forGetter(Tuning::console))
             .apply(i, Tuning::new));
 }

@@ -1,0 +1,12 @@
+{
+  "kind": "button",
+  "action": "reset",
+  "panel": 2,
+  "u": 0.7,
+  "v": 0.75,
+  "requirements": {
+    "type": "tardis_rb:subsystem_level",
+    "subsystem": "tardis_rb:navigation",
+    "min": 1
+  }
+}
