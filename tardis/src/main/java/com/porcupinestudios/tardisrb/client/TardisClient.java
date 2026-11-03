@@ -19,6 +19,12 @@ public final class TardisClient {
     @SubscribeEvent
     public static void renderers(EntityRenderersEvent.RegisterRenderers event) {
         event.registerBlockEntityRenderer(TardisBlocks.WINDER_BE.get(), ShaftRenderer::new);
+        event.registerBlockEntityRenderer(TardisBlocks.CONSOLE_BE.get(), ConsoleRenderer::new);
+    }
+
+    @SubscribeEvent
+    public static void layers(EntityRenderersEvent.RegisterLayerDefinitions event) {
+        event.registerLayerDefinition(ConsoleRenderer.LAYER, ConsoleRenderer::layer);
     }
 
     @SubscribeEvent

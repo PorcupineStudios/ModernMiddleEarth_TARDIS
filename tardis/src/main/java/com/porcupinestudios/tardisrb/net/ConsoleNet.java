@@ -1,6 +1,7 @@
 package com.porcupinestudios.tardisrb.net;
 
 import com.porcupinestudios.tardisrb.TardisRB;
+import com.porcupinestudios.tardisrb.console.ConsoleControls;
 import com.porcupinestudios.tardisrb.core.TardisRecord;
 import com.porcupinestudios.tardisrb.flight.Destinations;
 import com.porcupinestudios.tardisrb.flight.Flight;
@@ -25,7 +26,7 @@ import net.neoforged.neoforge.network.registration.PayloadRegistrar;
 
 /**
  * The console screen's packets: the server sends what the console shows ({@link ConsoleView}); the client asks for a
- * hop ({@link Hop}) or a jump to a destination ({@link Jump}). The screen is opened through {@link #clientHandler}, set by client setup.
+ * hop ({@link Hop}) or a jump to a destination ({@link Jump}), or clicks a control on the console model ({@link Press}). The screen is opened through {@link #clientHandler}, set by client setup.
  */
 public final class ConsoleNet {
     public static BiConsumer<ConsoleView, IPayloadContext> clientHandler = (view, ctx) -> { };
@@ -43,6 +44,12 @@ public final class ConsoleNet {
         r.playToServer(Hop.TYPE, Hop.CODEC, (p, ctx) -> ctx.enqueueWork(() -> {
             if (ctx.player() instanceof ServerPlayer sp) {
                 hop(sp, new BlockPos(p.x(), p.y(), p.z()));
+            }
+        }));
+        r.playToServer(Press.TYPE, Press.CODEC, (p, ctx) -> ctx.enqueueWork(() -> {
+            if (ctx.player() instanceof ServerPlayer sp) {
+                ConsoleControls.press(sp, p.pos(), p.control()).filter(c -> !c.getString().isEmpty())
+                        .ifPresent(c -> sp.displayClientMessage(c, true));
             }
         }));
         r.playToServer(Jump.TYPE, Jump.CODEC, (p, ctx) -> ctx.enqueueWork(() -> {
@@ -135,6 +142,18 @@ public final class ConsoleNet {
 
         @Override
         public Type<Jump> type() {
+            return TYPE;
+        }
+    }
+
+    /** The client clicked a control on the console at {@code pos}. */
+    public record Press(BlockPos pos, String control) implements CustomPacketPayload {
+        public static final Type<Press> TYPE = new Type<>(TardisRB.id("console_press"));
+        public static final StreamCodec<ByteBuf, Press> CODEC = StreamCodec.composite(
+                BlockPos.STREAM_CODEC, Press::pos, ByteBufCodecs.STRING_UTF8, Press::control, Press::new);
+
+        @Override
+        public Type<Press> type() {
             return TYPE;
         }
     }

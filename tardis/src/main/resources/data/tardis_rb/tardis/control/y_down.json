@@ -1,0 +1,12 @@
+{
+  "kind": "button",
+  "action": "y_down",
+  "panel": 4,
+  "u": 0.7,
+  "v": 0.7,
+  "requirements": {
+    "type": "tardis_rb:subsystem_level",
+    "subsystem": "tardis_rb:navigation",
+    "min": 1
+  }
+}

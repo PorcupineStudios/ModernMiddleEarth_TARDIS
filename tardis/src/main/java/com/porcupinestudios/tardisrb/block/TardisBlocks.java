@@ -61,6 +61,10 @@ public final class TardisBlocks {
                     (pos, state) -> new WinderBlockEntity(TardisBlocks.WINDER_BE.get(), pos, state), WINDER.get())
                     .build(null));
 
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<ConsoleBlockEntity>> CONSOLE_BE =
+            BLOCK_ENTITIES.register("console",
+                    () -> BlockEntityType.Builder.of(ConsoleBlockEntity::new, CONSOLE.get()).build(null));
+
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<ExteriorBlockEntity>> EXTERIOR_BE =
             BLOCK_ENTITIES.register("exterior",
                     () -> BlockEntityType.Builder.of(ExteriorBlockEntity::new, EXTERIOR.get()).build(null));
