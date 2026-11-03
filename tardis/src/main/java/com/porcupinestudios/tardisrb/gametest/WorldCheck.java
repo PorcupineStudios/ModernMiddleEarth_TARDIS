@@ -11,6 +11,7 @@ import qouteall.imm_ptl.core.portal.Portal;
 import com.porcupinestudios.tardisrb.interior.Interiors;
 import com.porcupinestudios.tardisrb.interior.Rooms;
 import com.porcupinestudios.tardisrb.progression.TardisContent;
+import com.porcupinestudios.tardisrb.space.SpaceTravel;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -19,7 +20,12 @@ import net.minecraft.core.GlobalPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.decoration.ArmorStand;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.server.ServerStartedEvent;
 
@@ -79,6 +85,48 @@ public final class WorldCheck {
         }
     }
 
+    /** Space: an armor stand above the Overworld's ceiling comes out over the planet, and back down from the ball. */
+    private static void checkSpace(MinecraftServer server, List<String> problems) {
+        var link = SpaceTravel.linkOf(Level.OVERWORLD);
+        if (link.isEmpty()) {
+            problems.add("the Overworld has no sky link");
+            return;
+        }
+        ServerLevel world = server.overworld();
+        ServerLevel space = server.getLevel(link.get().space());
+        if (space == null) {
+            problems.add("no space dimension " + link.get().space().location());
+            return;
+        }
+        Vec3 start = new Vec3(300.5, link.get().ceiling() + 5, -700.5);
+        world.getChunk(BlockPos.containing(start));
+        ArmorStand stand = new ArmorStand(world, start.x, start.y, start.z);
+        world.addFreshEntity(stand);
+        SpaceTravel.toSpace(stand, link.get(), space);
+        Vec3 up = link.get().toSpace(start.x, start.z, 16);
+        var there = space.getEntitiesOfClass(ArmorStand.class, new AABB(up, up).inflate(2));
+        if (there.isEmpty()) {
+            problems.add("nothing came out in space at " + up);
+            return;
+        }
+        TardisRB.LOG.info("[worldcheck] up into space: {} -> {}", start, there.get(0).position());
+        if (!there.get(0).getAttribute(Attributes.GRAVITY).hasModifier(SpaceTravel.GRAVITY_ID)) {
+            problems.add("no low gravity in space");
+        }
+        SpaceTravel.toSurface(there.get(0), link.get(), world, TardisContent.tuning().space());
+        Vec3 down = new Vec3(start.x, link.get().ceiling() - link.get().arriveBelow(), start.z);
+        var back = world.getEntitiesOfClass(ArmorStand.class, new AABB(down, down).inflate(2));
+        if (back.isEmpty()) {
+            problems.add("nothing came back down at " + down);
+            return;
+        }
+        TardisRB.LOG.info("[worldcheck] down from space: {}", back.get(0).position());
+        if (back.get(0).getAttribute(Attributes.GRAVITY).hasModifier(SpaceTravel.GRAVITY_ID)) {
+            problems.add("still low gravity after coming down");
+        }
+        back.forEach(ArmorStand::discard);
+    }
+
     private static void run(MinecraftServer server) {
         List<String> problems = new ArrayList<>();
         CrashSite.place(server);
@@ -120,6 +168,7 @@ public final class WorldCheck {
                 checkDoor(server, wreck, level, inside, problems);
             }
         }
+        checkSpace(server, problems);
         if (problems.isEmpty()) {
             TardisRB.LOG.info("TARDIS WORLDCHECK PASSED");
         } else {

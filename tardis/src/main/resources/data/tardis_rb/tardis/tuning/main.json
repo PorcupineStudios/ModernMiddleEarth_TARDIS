@@ -64,5 +64,10 @@
     "width": 0.9,
     "height": 1.9,
     "offset": 0.2
+  },
+  "space": {
+    "gravity": 0.15,
+    "check_ticks": 5,
+    "landing_slow_fall": 30
   }
 }
