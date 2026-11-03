@@ -31,7 +31,7 @@ final class StructureCheck {
     /** Factions checked: the two the NPC phase tests, which LOTR gives the most structures. */
     private static final String[] FACTIONS = { "gondor", "mordor" };
     private static final int SEARCH_CHUNKS = 160;
-    private static final int LOAD_RADIUS = 4;
+    private static final int LOAD_RADIUS = 2;
     private static final int WAIT_TICKS = 60;
 
     private static final Map<ResourceLocation, BlockPos> FOUND = new LinkedHashMap<>();
