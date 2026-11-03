@@ -1,0 +1,71 @@
+{
+  "kind": "buy",
+  "entries": [
+    {
+      "item": "lotr_port:wood_elven_crafting_table",
+      "cost": 100
+    },
+    {
+      "item": "lotr_port:wood_elven_sword",
+      "cost": 18
+    },
+    {
+      "item": "lotr_port:wood_elven_dagger",
+      "cost": 14
+    },
+    {
+      "item": "lotr_port:wood_elven_spear",
+      "cost": 18
+    },
+    {
+      "item": "lotr_port:wood_elven_battlestaff",
+      "cost": 18
+    },
+    {
+      "item": "lotr_port:wood_elven_longspear",
+      "cost": 18
+    },
+    {
+      "item": "lotr_port:wood_elven_axe",
+      "cost": 15
+    },
+    {
+      "item": "lotr_port:wood_elven_pickaxe",
+      "cost": 15
+    },
+    {
+      "item": "lotr_port:wood_elven_shovel",
+      "cost": 12
+    },
+    {
+      "item": "lotr_port:wood_elven_helmet",
+      "cost": 18
+    },
+    {
+      "item": "lotr_port:wood_elven_chestplate",
+      "cost": 25
+    },
+    {
+      "item": "lotr_port:wood_elven_leggings",
+      "cost": 22
+    },
+    {
+      "item": "lotr_port:wood_elven_boots",
+      "cost": 16
+    },
+    {
+      "item": "lotr_port:wood_elven_elk_armor",
+      "cost": 25
+    },
+    {
+      "item": "lotr_port:bow_of_mirkwood",
+      "cost": 15
+    },
+    {
+      "item": "minecraft:arrow",
+      "count": 4,
+      "cost": 3
+    }
+  ],
+  "offers": 9
+}

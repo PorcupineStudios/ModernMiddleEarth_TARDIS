@@ -1,0 +1,41 @@
+{
+  "kind": "buy",
+  "entries": [
+    {
+      "item": "minecraft:beef",
+      "cost": 5
+    },
+    {
+      "item": "minecraft:porkchop",
+      "cost": 5
+    },
+    {
+      "item": "lotr_port:gammon",
+      "cost": 6
+    },
+    {
+      "item": "lotr_port:raw_mutton",
+      "cost": 5
+    },
+    {
+      "item": "minecraft:chicken",
+      "cost": 4
+    },
+    {
+      "item": "lotr_port:raw_rabbit",
+      "cost": 4
+    },
+    {
+      "item": "lotr_port:raw_venison",
+      "cost": 4
+    },
+    {
+      "item": "minecraft:leather",
+      "cost": 3
+    },
+    {
+      "item": "minecraft:feather",
+      "cost": 3
+    }
+  ]
+}

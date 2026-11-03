@@ -1,0 +1,19 @@
+{
+  "faction": "lotr_port:mordor",
+  "skins": [
+    "lotr_port:textures/entity/orc/orc/0.png",
+    "lotr_port:textures/entity/orc/orc/1.png",
+    "lotr_port:textures/entity/orc/orc/2.png",
+    "lotr_port:textures/entity/orc/orc/3.png",
+    "lotr_port:textures/entity/orc/orc/4.png",
+    "lotr_port:textures/entity/orc/orc/5.png",
+    "lotr_port:textures/entity/orc/orc/6.png",
+    "lotr_port:textures/entity/orc/orc/7.png"
+  ],
+  "scale": 0.861,
+  "health": 20.0,
+  "speed": 0.2,
+  "attack": 2.0,
+  "names": "lotr_port:orc",
+  "units": "lotr_port:mordor_orc_slaver"
+}

@@ -1,0 +1,50 @@
+{
+  "kind": "buy",
+  "entries": [
+    {
+      "item": "minecraft:cod",
+      "cost": 4
+    },
+    {
+      "item": "minecraft:salmon",
+      "cost": 6
+    },
+    {
+      "item": "minecraft:tropical_fish",
+      "cost": 8
+    },
+    {
+      "item": "minecraft:pufferfish",
+      "cost": 12
+    },
+    {
+      "item": "minecraft:fishing_rod",
+      "cost": 8
+    },
+    {
+      "item": "minecraft:boat",
+      "cost": 5
+    },
+    {
+      "item": "minecraft:ink_sac",
+      "cost": 4
+    },
+    {
+      "item": "minecraft:sponge",
+      "cost": 15
+    },
+    {
+      "item": "lotr_port:coral",
+      "cost": 9
+    },
+    {
+      "item": "lotr_port:pearl",
+      "cost": 50
+    },
+    {
+      "item": "minecraft:leather_boots",
+      "cost": 5
+    }
+  ],
+  "offers": 9
+}

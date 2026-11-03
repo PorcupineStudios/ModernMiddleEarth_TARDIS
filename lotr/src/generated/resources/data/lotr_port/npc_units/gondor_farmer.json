@@ -1,0 +1,9 @@
+{
+  "units": [
+    {
+      "npc": "lotr_port:gondor_farmhand",
+      "cost": 40,
+      "alignment": 50.0
+    }
+  ]
+}

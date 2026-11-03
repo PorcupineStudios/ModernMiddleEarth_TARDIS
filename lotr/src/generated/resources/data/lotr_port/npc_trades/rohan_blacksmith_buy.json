@@ -1,0 +1,89 @@
+{
+  "kind": "buy",
+  "entries": [
+    {
+      "item": "lotr_port:rohirric_crafting_table",
+      "cost": 100
+    },
+    {
+      "item": "lotr_port:rohirric_sword",
+      "cost": 15
+    },
+    {
+      "item": "lotr_port:rohirric_battleaxe",
+      "cost": 18
+    },
+    {
+      "item": "lotr_port:rohirric_dagger",
+      "cost": 9
+    },
+    {
+      "item": "lotr_port:rohirric_spear",
+      "cost": 16
+    },
+    {
+      "item": "lotr_port:rohirric_coif",
+      "cost": 18
+    },
+    {
+      "item": "lotr_port:rohirric_hauberk",
+      "cost": 28
+    },
+    {
+      "item": "lotr_port:rohirric_leggings",
+      "cost": 24
+    },
+    {
+      "item": "lotr_port:rohirric_boots",
+      "cost": 16
+    },
+    {
+      "item": "lotr_port:rohirric_marshal_helmet",
+      "cost": 45
+    },
+    {
+      "item": "lotr_port:rohirric_marshal_chestplate",
+      "cost": 60
+    },
+    {
+      "item": "lotr_port:rohirric_marshal_leggings",
+      "cost": 55
+    },
+    {
+      "item": "lotr_port:rohirric_marshal_boots",
+      "cost": 40
+    },
+    {
+      "item": "lotr_port:blacksmith_hammer",
+      "cost": 18
+    },
+    {
+      "item": "minecraft:iron_bars",
+      "count": 8,
+      "cost": 20
+    },
+    {
+      "item": "lotr_port:bronze_bars",
+      "count": 8,
+      "cost": 20
+    },
+    {
+      "item": "minecraft:saddle",
+      "cost": 15
+    },
+    {
+      "item": "lotr_port:crossbow_bolt",
+      "count": 4,
+      "cost": 3
+    },
+    {
+      "item": "lotr_port:iron_crossbow",
+      "cost": 15
+    },
+    {
+      "item": "lotr_port:rohirric_horse_armor",
+      "cost": 25
+    }
+  ],
+  "offers": 9
+}

@@ -1,0 +1,64 @@
+{
+  "kind": "sell",
+  "entries": [
+    {
+      "item": "minecraft:iron_ingot",
+      "cost": 3
+    },
+    {
+      "item": "minecraft:wheat",
+      "count": 3,
+      "cost": 1
+    },
+    {
+      "item": "minecraft:string",
+      "count": 3,
+      "cost": 1
+    },
+    {
+      "item": "minecraft:feather",
+      "cost": 2
+    },
+    {
+      "item": "lotr_port:mug",
+      "cost": 1
+    },
+    {
+      "item": "lotr_port:orc_bone",
+      "cost": 1
+    },
+    {
+      "item": "lotr_port:warg_bone",
+      "cost": 1
+    },
+    {
+      "item": "lotr_port:troll_bone",
+      "cost": 2
+    },
+    {
+      "item": "lotr_port:mithril_nugget",
+      "cost": 40
+    },
+    {
+      "item": "lotr_port:diamond",
+      "cost": 25
+    },
+    {
+      "item": "lotr_port:emerald",
+      "cost": 15
+    },
+    {
+      "item": "lotr_port:opal",
+      "cost": 10
+    },
+    {
+      "item": "lotr_port:pearl",
+      "cost": 25
+    },
+    {
+      "item": "lotr_port:coral",
+      "cost": 6
+    }
+  ],
+  "offers": 9
+}

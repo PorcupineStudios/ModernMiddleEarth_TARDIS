@@ -1,0 +1,19 @@
+{
+  "units": [
+    {
+      "npc": "lotr_port:harnedor_warrior",
+      "cost": 20,
+      "alignment": 150.0
+    },
+    {
+      "npc": "lotr_port:harnedor_archer",
+      "cost": 40,
+      "alignment": 200.0
+    },
+    {
+      "npc": "lotr_port:harnedor_banner_bearer",
+      "cost": 40,
+      "alignment": 300.0
+    }
+  ]
+}

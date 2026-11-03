@@ -1,7 +1,7 @@
 {
   "type": "minecraft:smelting",
   "ingredient": {
-    "item": "lotr_port:red_grapes"
+    "item": "lotr_port:green_grapes"
   },
   "result": {
     "id": "lotr_port:raisins"

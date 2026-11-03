@@ -1,0 +1,9 @@
+{
+  "faction": "lotr_port:unaligned",
+  "health": 20.0,
+  "speed": 0.2,
+  "attack": 2.0,
+  "names": "lotr_port:gondor_male",
+  "buy": "lotr_port:scrap_trader_buy",
+  "sell": "lotr_port:scrap_trader_sell"
+}

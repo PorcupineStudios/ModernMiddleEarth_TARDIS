@@ -1,0 +1,9 @@
+{
+  "units": [
+    {
+      "npc": "lotr_port:dorwinion_vinehand",
+      "cost": 40,
+      "alignment": 50.0
+    }
+  ]
+}

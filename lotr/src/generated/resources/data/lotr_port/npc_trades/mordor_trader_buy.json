@@ -1,0 +1,107 @@
+{
+  "kind": "buy",
+  "entries": [
+    {
+      "item": "lotr_port:morgul_crafting_table",
+      "cost": 100
+    },
+    {
+      "item": "lotr_port:mordor_helmet",
+      "cost": 20
+    },
+    {
+      "item": "lotr_port:mordor_chestplate",
+      "cost": 30
+    },
+    {
+      "item": "lotr_port:mordor_leggings",
+      "cost": 26
+    },
+    {
+      "item": "lotr_port:mordor_boots",
+      "cost": 18
+    },
+    {
+      "item": "lotr_port:mordor_scimitar",
+      "cost": 16
+    },
+    {
+      "item": "lotr_port:mordor_warscythe",
+      "cost": 18
+    },
+    {
+      "item": "lotr_port:mordor_spear",
+      "cost": 16
+    },
+    {
+      "item": "lotr_port:mordor_dagger",
+      "cost": 10
+    },
+    {
+      "item": "lotr_port:poisoned_mordor_dagger",
+      "cost": 15
+    },
+    {
+      "item": "lotr_port:mordor_battleaxe",
+      "cost": 18
+    },
+    {
+      "item": "lotr_port:orc_bomb",
+      "cost": 30
+    },
+    {
+      "item": "lotr_port:orc_draught",
+      "cost": 8
+    },
+    {
+      "item": "lotr_port:fur",
+      "cost": 4
+    },
+    {
+      "item": "lotr_port:orc_bow",
+      "cost": 16
+    },
+    {
+      "item": "minecraft:arrow",
+      "count": 4,
+      "cost": 3
+    },
+    {
+      "item": "lotr_port:mordor_pickaxe",
+      "cost": 14
+    },
+    {
+      "item": "lotr_port:mordor_axe",
+      "cost": 14
+    },
+    {
+      "item": "lotr_port:mordor_warhammer",
+      "cost": 16
+    },
+    {
+      "item": "lotr_port:maggoty_bread",
+      "cost": 4
+    },
+    {
+      "item": "lotr_port:fur_hat",
+      "cost": 15
+    },
+    {
+      "item": "lotr_port:fur_tunic",
+      "cost": 20
+    },
+    {
+      "item": "lotr_port:fur_leggings",
+      "cost": 16
+    },
+    {
+      "item": "lotr_port:fur_boots",
+      "cost": 12
+    },
+    {
+      "item": "lotr_port:mordor_warg_armor",
+      "cost": 25
+    }
+  ],
+  "offers": 9
+}

@@ -1,0 +1,114 @@
+{
+  "kind": "buy",
+  "entries": [
+    {
+      "item": "minecraft:apple",
+      "cost": 2
+    },
+    {
+      "item": "lotr_port:apple",
+      "cost": 2
+    },
+    {
+      "item": "lotr_port:pear",
+      "cost": 2
+    },
+    {
+      "item": "lotr_port:cherries",
+      "cost": 2
+    },
+    {
+      "item": "lotr_port:lemon",
+      "cost": 5
+    },
+    {
+      "item": "lotr_port:orange",
+      "cost": 5
+    },
+    {
+      "item": "lotr_port:lime",
+      "cost": 5
+    },
+    {
+      "item": "lotr_port:plum",
+      "cost": 3
+    },
+    {
+      "item": "lotr_port:olives",
+      "cost": 2
+    },
+    {
+      "item": "lotr_port:almond",
+      "cost": 2
+    },
+    {
+      "item": "lotr_port:date",
+      "cost": 4
+    },
+    {
+      "item": "lotr_port:pomegranate",
+      "cost": 5
+    },
+    {
+      "item": "minecraft:carrot",
+      "cost": 3
+    },
+    {
+      "item": "minecraft:potato",
+      "cost": 3
+    },
+    {
+      "item": "lotr_port:lettuce",
+      "cost": 3
+    },
+    {
+      "item": "lotr_port:leek",
+      "cost": 3
+    },
+    {
+      "item": "lotr_port:turnip",
+      "cost": 3
+    },
+    {
+      "item": "lotr_port:corn",
+      "cost": 2
+    },
+    {
+      "item": "lotr_port:red_grapes",
+      "cost": 4
+    },
+    {
+      "item": "lotr_port:green_grapes",
+      "cost": 4
+    },
+    {
+      "item": "lotr_port:raisins",
+      "cost": 3
+    },
+    {
+      "item": "lotr_port:blueberries",
+      "cost": 2
+    },
+    {
+      "item": "lotr_port:blackberries",
+      "cost": 2
+    },
+    {
+      "item": "lotr_port:cranberries",
+      "cost": 2
+    },
+    {
+      "item": "lotr_port:raspberries",
+      "cost": 2
+    },
+    {
+      "item": "lotr_port:elderberries",
+      "cost": 2
+    },
+    {
+      "item": "minecraft:melon_slice",
+      "cost": 25
+    }
+  ],
+  "offers": 9
+}

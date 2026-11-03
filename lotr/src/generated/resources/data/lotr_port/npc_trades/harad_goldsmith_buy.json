@@ -1,0 +1,50 @@
+{
+  "kind": "buy",
+  "entries": [
+    {
+      "item": "lotr_port:gold_ring",
+      "cost": 15
+    },
+    {
+      "item": "lotr_port:silver_ring",
+      "cost": 12
+    },
+    {
+      "item": "lotr_port:golden_goblet",
+      "cost": 27
+    },
+    {
+      "item": "lotr_port:silver_goblet",
+      "cost": 18
+    },
+    {
+      "item": "lotr_port:copper_goblet",
+      "cost": 8
+    },
+    {
+      "item": "lotr_port:gold_chandelier",
+      "cost": 15
+    },
+    {
+      "item": "lotr_port:silver_chandelier",
+      "cost": 12
+    },
+    {
+      "item": "lotr_port:golden_bird_cage",
+      "cost": 20
+    },
+    {
+      "item": "lotr_port:silver_bird_cage",
+      "cost": 15
+    },
+    {
+      "item": "lotr_port:gold_bars",
+      "cost": 8
+    },
+    {
+      "item": "lotr_port:silver_bars",
+      "cost": 6
+    }
+  ],
+  "offers": 9
+}

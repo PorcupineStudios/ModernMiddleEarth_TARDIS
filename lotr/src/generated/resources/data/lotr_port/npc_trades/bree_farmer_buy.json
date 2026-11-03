@@ -1,0 +1,90 @@
+{
+  "kind": "buy",
+  "entries": [
+    {
+      "item": "minecraft:wheat",
+      "cost": 2
+    },
+    {
+      "item": "minecraft:wheat_seeds",
+      "cost": 1
+    },
+    {
+      "item": "minecraft:carrot",
+      "cost": 3
+    },
+    {
+      "item": "minecraft:potato",
+      "cost": 2
+    },
+    {
+      "item": "lotr_port:lettuce",
+      "cost": 3
+    },
+    {
+      "item": "lotr_port:leek",
+      "cost": 3
+    },
+    {
+      "item": "lotr_port:turnip",
+      "cost": 3
+    },
+    {
+      "item": "lotr_port:pipe_weed_leaf",
+      "cost": 8
+    },
+    {
+      "item": "lotr_port:pipe_weed_seeds",
+      "cost": 6
+    },
+    {
+      "item": "lotr_port:corn",
+      "cost": 2
+    },
+    {
+      "item": "lotr_port:corn_stalks",
+      "cost": 1
+    },
+    {
+      "item": "minecraft:apple",
+      "cost": 3
+    },
+    {
+      "item": "lotr_port:apple",
+      "cost": 3
+    },
+    {
+      "item": "lotr_port:pear",
+      "cost": 3
+    },
+    {
+      "item": "lotr_port:cherries",
+      "cost": 2
+    },
+    {
+      "item": "lotr_port:plum",
+      "cost": 3
+    },
+    {
+      "item": "minecraft:white_wool",
+      "cost": 2
+    },
+    {
+      "item": "minecraft:milk_bucket",
+      "cost": 8
+    },
+    {
+      "item": "minecraft:lead",
+      "cost": 8
+    },
+    {
+      "item": "lotr_port:branding_iron",
+      "cost": 16
+    },
+    {
+      "item": "minecraft:hay_block",
+      "cost": 12
+    }
+  ],
+  "offers": 9
+}

@@ -1,0 +1,64 @@
+{
+  "kind": "buy",
+  "entries": [
+    {
+      "item": "minecraft:apple",
+      "cost": 3
+    },
+    {
+      "item": "lotr_port:apple",
+      "cost": 3
+    },
+    {
+      "item": "lotr_port:pear",
+      "cost": 3
+    },
+    {
+      "item": "lotr_port:plum",
+      "cost": 3
+    },
+    {
+      "item": "lotr_port:apple_wood",
+      "count": 4,
+      "cost": 5
+    },
+    {
+      "item": "lotr_port:pear_wood",
+      "count": 4,
+      "cost": 5
+    },
+    {
+      "item": "lotr_port:plum_wood",
+      "count": 4,
+      "cost": 5
+    },
+    {
+      "item": "lotr_port:apple_sapling",
+      "count": 4,
+      "cost": 8
+    },
+    {
+      "item": "lotr_port:pear_sapling",
+      "count": 4,
+      "cost": 8
+    },
+    {
+      "item": "lotr_port:plum_sapling",
+      "count": 4,
+      "cost": 8
+    },
+    {
+      "item": "lotr_port:cider",
+      "cost": 10
+    },
+    {
+      "item": "lotr_port:apple_juice",
+      "cost": 8
+    },
+    {
+      "item": "lotr_port:perry",
+      "cost": 10
+    }
+  ],
+  "offers": 9
+}

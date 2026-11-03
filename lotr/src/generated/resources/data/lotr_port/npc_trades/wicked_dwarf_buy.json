@@ -1,0 +1,155 @@
+{
+  "kind": "buy",
+  "entries": [
+    {
+      "item": "lotr_port:blacksmith_hammer",
+      "cost": 18
+    },
+    {
+      "item": "lotr_port:dwarven_sword",
+      "cost": 25
+    },
+    {
+      "item": "lotr_port:dwarven_battleaxe",
+      "cost": 25
+    },
+    {
+      "item": "lotr_port:dwarven_warhammer",
+      "cost": 25
+    },
+    {
+      "item": "lotr_port:dwarven_dagger",
+      "cost": 18
+    },
+    {
+      "item": "lotr_port:dwarven_pickaxe",
+      "cost": 20
+    },
+    {
+      "item": "lotr_port:dwarven_mattock",
+      "cost": 25
+    },
+    {
+      "item": "lotr_port:dwarven_throwing_axe",
+      "cost": 18
+    },
+    {
+      "item": "lotr_port:dwarven_steel_bars",
+      "count": 8,
+      "cost": 30
+    },
+    {
+      "item": "lotr_port:dwarven_forge",
+      "cost": 100
+    },
+    {
+      "item": "lotr_port:dwarven_ale",
+      "cost": 10
+    },
+    {
+      "item": "lotr_port:dwarven_tonic",
+      "cost": 30
+    },
+    {
+      "item": "lotr_port:dwarven_brick",
+      "count": 8,
+      "cost": 5
+    },
+    {
+      "item": "lotr_port:dwarven_brick_slab",
+      "count": 16,
+      "cost": 5
+    },
+    {
+      "item": "lotr_port:dwarven_brick_stairs",
+      "count": 5,
+      "cost": 5
+    },
+    {
+      "item": "lotr_port:dwarven_brick_wall",
+      "count": 8,
+      "cost": 5
+    },
+    {
+      "item": "lotr_port:carved_dwarven_brick",
+      "cost": 5
+    },
+    {
+      "item": "lotr_port:dwarven_pillar",
+      "count": 4,
+      "cost": 5
+    },
+    {
+      "item": "lotr_port:dwarven_pillar_slab",
+      "count": 8,
+      "cost": 5
+    },
+    {
+      "item": "lotr_port:cracked_dwarven_brick",
+      "count": 8,
+      "cost": 2
+    },
+    {
+      "item": "lotr_port:cracked_dwarven_brick_slab",
+      "count": 16,
+      "cost": 2
+    },
+    {
+      "item": "lotr_port:cracked_dwarven_brick_stairs",
+      "count": 5,
+      "cost": 2
+    },
+    {
+      "item": "lotr_port:cracked_dwarven_brick_wall",
+      "count": 8,
+      "cost": 2
+    },
+    {
+      "item": "lotr_port:cracked_dwarven_pillar",
+      "count": 4,
+      "cost": 2
+    },
+    {
+      "item": "lotr_port:cracked_dwarven_pillar_slab",
+      "count": 8,
+      "cost": 2
+    },
+    {
+      "item": "lotr_port:silver_trimmed_dwarven_brick",
+      "cost": 4
+    },
+    {
+      "item": "lotr_port:gold_trimmed_dwarven_brick",
+      "cost": 8
+    },
+    {
+      "item": "lotr_port:glowing_dwarven_brick",
+      "cost": 4
+    },
+    {
+      "item": "lotr_port:obsidian_dwarven_brick",
+      "count": 8,
+      "cost": 8
+    },
+    {
+      "item": "lotr_port:obsidian_dwarven_brick_slab",
+      "count": 16,
+      "cost": 8
+    },
+    {
+      "item": "lotr_port:obsidian_dwarven_brick_stairs",
+      "count": 5,
+      "cost": 8
+    },
+    {
+      "item": "lotr_port:obsidian_dwarven_brick_wall",
+      "count": 8,
+      "cost": 8
+    },
+    {
+      "item": "lotr_port:dwarven_gate",
+      "cost": 12
+    }
+  ],
+  "offers": 9
+}

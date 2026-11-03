@@ -1,0 +1,50 @@
+{
+  "kind": "buy",
+  "entries": [
+    {
+      "item": "minecraft:wheat",
+      "cost": 2
+    },
+    {
+      "item": "minecraft:wheat_seeds",
+      "cost": 1
+    },
+    {
+      "item": "minecraft:carrot",
+      "cost": 3
+    },
+    {
+      "item": "minecraft:potato",
+      "cost": 2
+    },
+    {
+      "item": "lotr_port:lettuce",
+      "cost": 3
+    },
+    {
+      "item": "lotr_port:mango",
+      "cost": 3
+    },
+    {
+      "item": "lotr_port:banana",
+      "cost": 3
+    },
+    {
+      "item": "lotr_port:reeds",
+      "cost": 2
+    },
+    {
+      "item": "lotr_port:dried_reeds",
+      "cost": 2
+    },
+    {
+      "item": "minecraft:cocoa_beans",
+      "cost": 8
+    },
+    {
+      "item": "lotr_port:corn",
+      "cost": 3
+    }
+  ],
+  "offers": 9
+}

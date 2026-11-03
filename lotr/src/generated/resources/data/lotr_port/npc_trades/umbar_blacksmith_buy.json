@@ -1,0 +1,121 @@
+{
+  "kind": "buy",
+  "entries": [
+    {
+      "item": "lotr_port:umbaric_crafting_table",
+      "cost": 100
+    },
+    {
+      "item": "lotr_port:umbaric_scimitar",
+      "cost": 15
+    },
+    {
+      "item": "lotr_port:umbaric_dagger",
+      "cost": 9
+    },
+    {
+      "item": "lotr_port:poisoned_umbaric_dagger",
+      "cost": 15
+    },
+    {
+      "item": "lotr_port:umbaric_spear",
+      "cost": 16
+    },
+    {
+      "item": "lotr_port:umbaric_pike",
+      "cost": 16
+    },
+    {
+      "item": "lotr_port:umbaric_poleaxe",
+      "cost": 16
+    },
+    {
+      "item": "lotr_port:umbaric_mace",
+      "cost": 16
+    },
+    {
+      "item": "lotr_port:umbaric_helmet",
+      "cost": 22
+    },
+    {
+      "item": "lotr_port:umbaric_chestplate",
+      "cost": 35
+    },
+    {
+      "item": "lotr_port:umbaric_leggings",
+      "cost": 29
+    },
+    {
+      "item": "lotr_port:umbaric_boots",
+      "cost": 19
+    },
+    {
+      "item": "lotr_port:corsair_eket",
+      "cost": 15
+    },
+    {
+      "item": "lotr_port:corsair_dagger",
+      "cost": 9
+    },
+    {
+      "item": "lotr_port:poisoned_corsair_dagger",
+      "cost": 15
+    },
+    {
+      "item": "lotr_port:corsair_harpoon",
+      "cost": 16
+    },
+    {
+      "item": "lotr_port:corsair_battleaxe",
+      "cost": 16
+    },
+    {
+      "item": "lotr_port:corsair_helmet",
+      "cost": 20
+    },
+    {
+      "item": "lotr_port:corsair_chestplate",
+      "cost": 32
+    },
+    {
+      "item": "lotr_port:corsair_leggings",
+      "cost": 26
+    },
+    {
+      "item": "lotr_port:corsair_boots",
+      "cost": 17
+    },
+    {
+      "item": "lotr_port:blacksmith_hammer",
+      "cost": 18
+    },
+    {
+      "item": "minecraft:iron_bars",
+      "count": 8,
+      "cost": 20
+    },
+    {
+      "item": "lotr_port:bronze_bars",
+      "count": 8,
+      "cost": 20
+    },
+    {
+      "item": "lotr_port:crossbow_bolt",
+      "count": 4,
+      "cost": 3
+    },
+    {
+      "item": "lotr_port:iron_crossbow",
+      "cost": 15
+    },
+    {
+      "item": "lotr_port:bronze_crossbow",
+      "cost": 12
+    },
+    {
+      "item": "lotr_port:umbaric_horse_armor",
+      "cost": 25
+    }
+  ],
+  "offers": 9
+}

@@ -1,0 +1,119 @@
+{
+  "kind": "buy",
+  "entries": [
+    {
+      "item": "lotr_port:dwarven_crafting_table",
+      "cost": 100
+    },
+    {
+      "item": "lotr_port:blacksmith_hammer",
+      "cost": 18
+    },
+    {
+      "item": "lotr_port:dwarven_marriage_ring",
+      "cost": 20
+    },
+    {
+      "item": "lotr_port:dwarven_sword",
+      "cost": 16
+    },
+    {
+      "item": "lotr_port:dwarven_spear",
+      "cost": 18
+    },
+    {
+      "item": "lotr_port:dwarven_battleaxe",
+      "cost": 18
+    },
+    {
+      "item": "lotr_port:dwarven_warhammer",
+      "cost": 18
+    },
+    {
+      "item": "lotr_port:dwarven_pike",
+      "cost": 18
+    },
+    {
+      "item": "lotr_port:dwarven_dagger",
+      "cost": 13
+    },
+    {
+      "item": "lotr_port:dwarven_axe",
+      "cost": 15
+    },
+    {
+      "item": "lotr_port:dwarven_pickaxe",
+      "cost": 14
+    },
+    {
+      "item": "lotr_port:dwarven_shovel",
+      "cost": 12
+    },
+    {
+      "item": "lotr_port:dwarven_mattock",
+      "cost": 18
+    },
+    {
+      "item": "lotr_port:dwarven_throwing_axe",
+      "cost": 15
+    },
+    {
+      "item": "lotr_port:dwarven_helmet",
+      "cost": 25
+    },
+    {
+      "item": "lotr_port:dwarven_chestplate",
+      "cost": 36
+    },
+    {
+      "item": "lotr_port:dwarven_leggings",
+      "cost": 30
+    },
+    {
+      "item": "lotr_port:dwarven_boots",
+      "cost": 22
+    },
+    {
+      "item": "lotr_port:silver_trimmed_dwarven_helmet",
+      "cost": 50
+    },
+    {
+      "item": "lotr_port:silver_trimmed_dwarven_chestplate",
+      "cost": 60
+    },
+    {
+      "item": "lotr_port:silver_trimmed_dwarven_leggings",
+      "cost": 55
+    },
+    {
+      "item": "lotr_port:silver_trimmed_dwarven_boots",
+      "cost": 50
+    },
+    {
+      "item": "lotr_port:gold_trimmed_dwarven_helmet",
+      "cost": 70
+    },
+    {
+      "item": "lotr_port:gold_trimmed_dwarven_chestplate",
+      "cost": 80
+    },
+    {
+      "item": "lotr_port:gold_trimmed_dwarven_leggings",
+      "cost": 75
+    },
+    {
+      "item": "lotr_port:gold_trimmed_dwarven_boots",
+      "cost": 70
+    },
+    {
+      "item": "lotr_port:dwarven_boar_armor",
+      "cost": 25
+    },
+    {
+      "item": "lotr_port:dwarven_steel_bars",
+      "count": 8,
+      "cost": 20
+    }
+  ],
+  "offers": 9
+}

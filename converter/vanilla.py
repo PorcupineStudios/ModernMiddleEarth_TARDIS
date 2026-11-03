@@ -34,6 +34,7 @@ RENAMED = {
     "minecraft:reeds": "sugar_cane", "minecraft:web": "cobweb", "minecraft:fence": "oak_fence",
     "minecraft:wooden_door": "oak_door", "minecraft:trapdoor": "oak_trapdoor", "minecraft:tallgrass": "short_grass",
     "minecraft:potion": "potion", "minecraft:grass": "grass_block",
+    "minecraft:cooked_fished": "cooked_cod",
 }
 
 # Wildcard (meta 32767) on a multi-variant id -> a tag.

@@ -1,0 +1,106 @@
+{
+  "kind": "buy",
+  "entries": [
+    {
+      "item": "lotr_port:umbaric_crafting_table",
+      "cost": 100
+    },
+    {
+      "item": "minecraft:stone",
+      "count": 8,
+      "cost": 2
+    },
+    {
+      "item": "minecraft:cobblestone",
+      "count": 8,
+      "cost": 1
+    },
+    {
+      "item": "minecraft:stone_bricks",
+      "count": 8,
+      "cost": 2
+    },
+    {
+      "item": "minecraft:terracotta",
+      "count": 8,
+      "cost": 4
+    },
+    {
+      "item": "minecraft:sandstone",
+      "count": 8,
+      "cost": 2
+    },
+    {
+      "item": "lotr_port:red_sandstone",
+      "count": 8,
+      "cost": 4
+    },
+    {
+      "item": "lotr_port:white_sandstone",
+      "count": 8,
+      "cost": 6
+    },
+    {
+      "item": "lotr_port:haradric_brick",
+      "count": 8,
+      "cost": 3
+    },
+    {
+      "item": "lotr_port:carved_haradric_brick",
+      "cost": 2
+    },
+    {
+      "item": "lotr_port:haradric_pillar",
+      "count": 4,
+      "cost": 3
+    },
+    {
+      "item": "lotr_port:red_haradric_brick",
+      "count": 8,
+      "cost": 6
+    },
+    {
+      "item": "lotr_port:carved_red_haradric_brick",
+      "cost": 4
+    },
+    {
+      "item": "lotr_port:red_haradric_pillar",
+      "count": 4,
+      "cost": 6
+    },
+    {
+      "item": "lotr_port:umbar_brick",
+      "count": 8,
+      "cost": 3
+    },
+    {
+      "item": "lotr_port:carved_umbar_brick",
+      "cost": 2
+    },
+    {
+      "item": "lotr_port:umbar_pillar",
+      "count": 4,
+      "cost": 3
+    },
+    {
+      "item": "lotr_port:mordor_rock",
+      "count": 8,
+      "cost": 8
+    },
+    {
+      "item": "lotr_port:n_men_rean_brick",
+      "count": 8,
+      "cost": 8
+    },
+    {
+      "item": "lotr_port:carved_black_umbar_brick",
+      "cost": 8
+    },
+    {
+      "item": "lotr_port:n_men_rean_pillar",
+      "count": 4,
+      "cost": 8
+    }
+  ],
+  "offers": 9
+}

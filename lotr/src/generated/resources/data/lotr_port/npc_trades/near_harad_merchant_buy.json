@@ -1,0 +1,380 @@
+{
+  "kind": "buy",
+  "entries": [
+    {
+      "item": "lotr_port:umbaric_scimitar",
+      "cost": 20
+    },
+    {
+      "item": "lotr_port:umbaric_spear",
+      "cost": 20
+    },
+    {
+      "item": "lotr_port:umbaric_poleaxe",
+      "cost": 20
+    },
+    {
+      "item": "lotr_port:umbaric_mace",
+      "cost": 20
+    },
+    {
+      "item": "lotr_port:umbaric_pike",
+      "cost": 20
+    },
+    {
+      "item": "lotr_port:umbaric_dagger",
+      "cost": 13
+    },
+    {
+      "item": "lotr_port:poisoned_umbaric_dagger",
+      "cost": 16
+    },
+    {
+      "item": "lotr_port:haradric_sword",
+      "cost": 18
+    },
+    {
+      "item": "lotr_port:haradric_spear",
+      "cost": 18
+    },
+    {
+      "item": "lotr_port:haradric_pike",
+      "cost": 18
+    },
+    {
+      "item": "lotr_port:haradric_dagger",
+      "cost": 12
+    },
+    {
+      "item": "lotr_port:poisoned_haradric_dagger",
+      "cost": 15
+    },
+    {
+      "item": "lotr_port:gulfen_khopesh",
+      "cost": 25
+    },
+    {
+      "item": "lotr_port:coast_southron_helmet",
+      "cost": 25
+    },
+    {
+      "item": "lotr_port:coast_southron_chestplate",
+      "cost": 36
+    },
+    {
+      "item": "lotr_port:coast_southron_leggings",
+      "cost": 30
+    },
+    {
+      "item": "lotr_port:coast_southron_boots",
+      "cost": 22
+    },
+    {
+      "item": "lotr_port:harnennor_helmet",
+      "cost": 22
+    },
+    {
+      "item": "lotr_port:harnennor_chestplate",
+      "cost": 34
+    },
+    {
+      "item": "lotr_port:harnennor_leggings",
+      "cost": 28
+    },
+    {
+      "item": "lotr_port:harnennor_boots",
+      "cost": 20
+    },
+    {
+      "item": "lotr_port:umbaric_helmet",
+      "cost": 28
+    },
+    {
+      "item": "lotr_port:umbaric_chestplate",
+      "cost": 40
+    },
+    {
+      "item": "lotr_port:umbaric_leggings",
+      "cost": 32
+    },
+    {
+      "item": "lotr_port:umbaric_boots",
+      "cost": 25
+    },
+    {
+      "item": "lotr_port:gulfen_helmet",
+      "cost": 25
+    },
+    {
+      "item": "lotr_port:gulfen_chestplate",
+      "cost": 36
+    },
+    {
+      "item": "lotr_port:gulfen_leggings",
+      "cost": 30
+    },
+    {
+      "item": "lotr_port:gulfen_boots",
+      "cost": 22
+    },
+    {
+      "item": "lotr_port:coast_southron_horse_armor",
+      "cost": 40
+    },
+    {
+      "item": "lotr_port:umbaric_horse_armor",
+      "cost": 40
+    },
+    {
+      "item": "lotr_port:bow_of_harad",
+      "cost": 20
+    },
+    {
+      "item": "minecraft:arrow",
+      "count": 4,
+      "cost": 3
+    },
+    {
+      "item": "lotr_port:morwaith_sword",
+      "cost": 18
+    },
+    {
+      "item": "lotr_port:arak",
+      "cost": 10
+    },
+    {
+      "item": "lotr_port:arak",
+      "cost": 120
+    },
+    {
+      "item": "lotr_port:arak",
+      "cost": 160
+    },
+    {
+      "item": "lotr_port:date",
+      "count": 4,
+      "cost": 8
+    },
+    {
+      "item": "lotr_port:date_palm_wood_planks",
+      "count": 4,
+      "cost": 8
+    },
+    {
+      "item": "lotr_port:date_palm_sapling",
+      "cost": 50
+    },
+    {
+      "item": "lotr_port:lemon",
+      "cost": 5
+    },
+    {
+      "item": "lotr_port:orange",
+      "cost": 5
+    },
+    {
+      "item": "lotr_port:lime",
+      "cost": 5
+    },
+    {
+      "item": "lotr_port:plum",
+      "cost": 5
+    },
+    {
+      "item": "lotr_port:olives",
+      "cost": 5
+    },
+    {
+      "item": "lotr_port:almond",
+      "cost": 5
+    },
+    {
+      "item": "lotr_port:marchpane",
+      "cost": 10
+    },
+    {
+      "item": "lotr_port:chocolate_marchpane",
+      "cost": 15
+    },
+    {
+      "item": "lotr_port:marchpane_block",
+      "cost": 25
+    },
+    {
+      "item": "minecraft:cocoa_beans",
+      "cost": 6
+    },
+    {
+      "item": "lotr_port:lemon_cake",
+      "cost": 16
+    },
+    {
+      "item": "lotr_port:orange_juice",
+      "cost": 10
+    },
+    {
+      "item": "lotr_port:lemonade",
+      "cost": 10
+    },
+    {
+      "item": "lotr_port:lemon_liqueur",
+      "cost": 10
+    },
+    {
+      "item": "lotr_port:lemon_liqueur",
+      "cost": 120
+    },
+    {
+      "item": "lotr_port:lemon_liqueur",
+      "cost": 160
+    },
+    {
+      "item": "lotr_port:lime_liqueur",
+      "cost": 10
+    },
+    {
+      "item": "lotr_port:lime_liqueur",
+      "cost": 120
+    },
+    {
+      "item": "lotr_port:lime_liqueur",
+      "cost": 160
+    },
+    {
+      "item": "lotr_port:lemon_wood_planks",
+      "count": 4,
+      "cost": 8
+    },
+    {
+      "item": "lotr_port:orange_wood_planks",
+      "count": 4,
+      "cost": 8
+    },
+    {
+      "item": "lotr_port:lime_wood_planks",
+      "count": 4,
+      "cost": 8
+    },
+    {
+      "item": "lotr_port:red_sand_gem",
+      "cost": 5
+    },
+    {
+      "item": "lotr_port:yellow_sand_gem",
+      "cost": 5
+    },
+    {
+      "item": "lotr_port:harad_daisy",
+      "cost": 8
+    },
+    {
+      "item": "lotr_port:southbells",
+      "cost": 8
+    },
+    {
+      "item": "lotr_port:flame_of_harad",
+      "cost": 12
+    },
+    {
+      "item": "lotr_port:hibiscus",
+      "cost": 8
+    },
+    {
+      "item": "lotr_port:banana",
+      "cost": 5
+    },
+    {
+      "item": "lotr_port:banana_beer",
+      "cost": 15
+    },
+    {
+      "item": "lotr_port:mango",
+      "cost": 5
+    },
+    {
+      "item": "lotr_port:mango_juice",
+      "cost": 10
+    },
+    {
+      "item": "lotr_port:lion_fur",
+      "cost": 5
+    },
+    {
+      "item": "lotr_port:cooked_lion",
+      "cost": 8
+    },
+    {
+      "item": "lotr_port:cooked_rhino",
+      "cost": 8
+    },
+    {
+      "item": "lotr_port:cooked_camel",
+      "cost": 8
+    },
+    {
+      "item": "lotr_port:rhino_horn",
+      "cost": 6
+    },
+    {
+      "item": "lotr_port:gemsbok_hide",
+      "cost": 4
+    },
+    {
+      "item": "minecraft:lapis_lazuli",
+      "cost": 1
+    },
+    {
+      "item": "minecraft:lapis_ore",
+      "cost": 8
+    },
+    {
+      "item": "lotr_port:diamond",
+      "cost": 40
+    },
+    {
+      "item": "lotr_port:emerald",
+      "cost": 25
+    },
+    {
+      "item": "lotr_port:sapphire",
+      "cost": 20
+    },
+    {
+      "item": "lotr_port:opal",
+      "cost": 15
+    },
+    {
+      "item": "lotr_port:amber",
+      "cost": 15
+    },
+    {
+      "item": "lotr_port:amethyst",
+      "cost": 12
+    },
+    {
+      "item": "lotr_port:topaz",
+      "cost": 12
+    },
+    {
+      "item": "lotr_port:pearl",
+      "cost": 50
+    },
+    {
+      "item": "lotr_port:kebab",
+      "cost": 10
+    },
+    {
+      "item": "lotr_port:shish_kebab",
+      "cost": 10
+    },
+    {
+      "item": "lotr_port:kebab_stand",
+      "cost": 40
+    },
+    {
+      "item": "lotr_port:sandstone_kebab_stand",
+      "cost": 60
+    }
+  ],
+  "offers": 9
+}

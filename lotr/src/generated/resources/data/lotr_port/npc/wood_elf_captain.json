@@ -1,0 +1,15 @@
+{
+  "faction": "lotr_port:wood_elf",
+  "skins": [
+    "lotr_port:textures/entity/elf/wood_elf_male/0.png",
+    "lotr_port:textures/entity/elf/wood_elf_male/1.png",
+    "lotr_port:textures/entity/elf/wood_elf_male/2.png",
+    "lotr_port:textures/entity/elf/wood_elf_male/3.png"
+  ],
+  "skin_height": 64,
+  "health": 30.0,
+  "speed": 0.2,
+  "attack": 2.0,
+  "names": "lotr_port:sindarin_male",
+  "units": "lotr_port:wood_elf_captain"
+}

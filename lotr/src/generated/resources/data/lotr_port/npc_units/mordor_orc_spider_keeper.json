@@ -1,0 +1,19 @@
+{
+  "units": [
+    {
+      "npc": "lotr_port:mordor_orc",
+      "cost": 20,
+      "alignment": 250.0
+    },
+    {
+      "npc": "lotr_port:mordor_orc_archer",
+      "cost": 40,
+      "alignment": 250.0
+    },
+    {
+      "npc": "lotr_port:nan_ungol_banner_bearer",
+      "cost": 40,
+      "alignment": 400.0
+    }
+  ]
+}

@@ -1,0 +1,52 @@
+{
+  "kind": "buy",
+  "entries": [
+    {
+      "item": "lotr_port:taurethrim_dagger",
+      "cost": 12
+    },
+    {
+      "item": "lotr_port:poisoned_taurethrim_dagger",
+      "cost": 20
+    },
+    {
+      "item": "lotr_port:taurethrim_blowgun",
+      "cost": 25
+    },
+    {
+      "item": "lotr_port:taurethrim_dart",
+      "count": 4,
+      "cost": 5
+    },
+    {
+      "item": "lotr_port:poisoned_taurethrim_dart",
+      "count": 4,
+      "cost": 10
+    },
+    {
+      "item": "lotr_port:bottle_of_poison",
+      "cost": 10
+    },
+    {
+      "item": "minecraft:sapling",
+      "cost": 6
+    },
+    {
+      "item": "lotr_port:mahogany_sapling",
+      "cost": 8
+    },
+    {
+      "item": "lotr_port:chocolate",
+      "cost": 4
+    },
+    {
+      "item": "lotr_port:taurethrim_cocoa",
+      "cost": 12
+    },
+    {
+      "item": "lotr_port:jungle_remedy",
+      "cost": 20
+    }
+  ],
+  "offers": 9
+}

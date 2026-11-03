@@ -1,0 +1,69 @@
+{
+  "kind": "buy",
+  "entries": [
+    {
+      "item": "lotr_port:rivendell_sword",
+      "cost": 21
+    },
+    {
+      "item": "lotr_port:rivendell_dagger",
+      "cost": 13
+    },
+    {
+      "item": "lotr_port:rivendell_spear",
+      "cost": 21
+    },
+    {
+      "item": "lotr_port:rivendell_battlestaff",
+      "cost": 21
+    },
+    {
+      "item": "lotr_port:rivendell_longspear",
+      "cost": 21
+    },
+    {
+      "item": "lotr_port:rivendell_bow",
+      "cost": 21
+    },
+    {
+      "item": "lotr_port:rivendell_helmet",
+      "cost": 25
+    },
+    {
+      "item": "lotr_port:rivendell_chestplate",
+      "cost": 36
+    },
+    {
+      "item": "lotr_port:rivendell_leggings",
+      "cost": 30
+    },
+    {
+      "item": "lotr_port:rivendell_boots",
+      "cost": 22
+    },
+    {
+      "item": "lotr_port:beech_wood_planks",
+      "count": 4,
+      "cost": 4
+    },
+    {
+      "item": "lotr_port:high_elven_torch",
+      "count": 4,
+      "cost": 8
+    },
+    {
+      "item": "lotr_port:lembas",
+      "cost": 16
+    },
+    {
+      "item": "lotr_port:miruvor",
+      "cost": 8
+    },
+    {
+      "item": "minecraft:arrow",
+      "count": 4,
+      "cost": 3
+    }
+  ],
+  "offers": 9
+}

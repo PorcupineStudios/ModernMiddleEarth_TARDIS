@@ -1,0 +1,130 @@
+{
+  "kind": "sell",
+  "entries": [
+    {
+      "item": "minecraft:iron_ingot",
+      "cost": 3
+    },
+    {
+      "item": "lotr_port:dwarven_steel_ingot",
+      "cost": 3
+    },
+    {
+      "item": "minecraft:gold_ingot",
+      "cost": 15
+    },
+    {
+      "item": "lotr_port:copper_ingot",
+      "cost": 3
+    },
+    {
+      "item": "lotr_port:tin_ingot",
+      "cost": 3
+    },
+    {
+      "item": "lotr_port:bronze_ingot",
+      "cost": 3
+    },
+    {
+      "item": "minecraft:string",
+      "count": 3,
+      "cost": 1
+    },
+    {
+      "item": "lotr_port:diamond",
+      "cost": 25
+    },
+    {
+      "item": "lotr_port:emerald",
+      "cost": 15
+    },
+    {
+      "item": "lotr_port:sapphire",
+      "cost": 12
+    },
+    {
+      "item": "lotr_port:ruby",
+      "cost": 12
+    },
+    {
+      "item": "lotr_port:opal",
+      "cost": 10
+    },
+    {
+      "item": "lotr_port:amber",
+      "cost": 10
+    },
+    {
+      "item": "lotr_port:amethyst",
+      "cost": 8
+    },
+    {
+      "item": "lotr_port:topaz",
+      "cost": 8
+    },
+    {
+      "item": "lotr_port:pearl",
+      "cost": 25
+    },
+    {
+      "item": "minecraft:cooked_beef",
+      "cost": 3
+    },
+    {
+      "item": "minecraft:cooked_porkchop",
+      "cost": 3
+    },
+    {
+      "item": "lotr_port:cooked_mutton",
+      "cost": 3
+    },
+    {
+      "item": "minecraft:cooked_chicken",
+      "cost": 3
+    },
+    {
+      "item": "lotr_port:gammon",
+      "cost": 3
+    },
+    {
+      "item": "minecraft:cooked_cod",
+      "cost": 3
+    },
+    {
+      "item": "lotr_port:cooked_rabbit",
+      "cost": 3
+    },
+    {
+      "item": "lotr_port:cooked_venison",
+      "cost": 3
+    },
+    {
+      "item": "minecraft:bread",
+      "cost": 2
+    },
+    {
+      "item": "minecraft:lava_bucket",
+      "cost": 16
+    },
+    {
+      "item": "minecraft:cobblestone",
+      "count": 8,
+      "cost": 1
+    },
+    {
+      "item": "minecraft:stone",
+      "count": 8,
+      "cost": 1
+    },
+    {
+      "item": "minecraft:glowstone_dust",
+      "count": 3,
+      "cost": 1
+    },
+    {
+      "item": "lotr_port:obsidian_shard",
+      "cost": 2
+    }
+  ],
+  "offers": 9
+}

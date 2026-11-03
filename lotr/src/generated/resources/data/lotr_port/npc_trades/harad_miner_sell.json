@@ -1,0 +1,26 @@
+{
+  "kind": "sell",
+  "entries": [
+    {
+      "item": "minecraft:bucket",
+      "cost": 3
+    },
+    {
+      "item": "minecraft:iron_pickaxe",
+      "cost": 8
+    },
+    {
+      "item": "lotr_port:bronze_pickaxe",
+      "cost": 6
+    },
+    {
+      "item": "minecraft:stone_pickaxe",
+      "cost": 1
+    },
+    {
+      "item": "minecraft:torch",
+      "count": 16,
+      "cost": 2
+    }
+  ]
+}

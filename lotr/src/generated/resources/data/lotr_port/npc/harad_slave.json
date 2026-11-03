@@ -1,0 +1,7 @@
+{
+  "faction": "lotr_port:near_harad",
+  "health": 20.0,
+  "speed": 0.2,
+  "attack": 2.0,
+  "names": "lotr_port:near_haradrim_male"
+}

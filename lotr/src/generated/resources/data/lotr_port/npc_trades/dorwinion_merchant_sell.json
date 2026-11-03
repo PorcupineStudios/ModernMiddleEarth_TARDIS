@@ -1,0 +1,127 @@
+{
+  "kind": "sell",
+  "entries": [
+    {
+      "item": "lotr_port:mug",
+      "cost": 2
+    },
+    {
+      "item": "lotr_port:silver_goblet",
+      "cost": 10
+    },
+    {
+      "item": "lotr_port:golden_goblet",
+      "cost": 15
+    },
+    {
+      "item": "lotr_port:wine_glass",
+      "cost": 4
+    },
+    {
+      "item": "lotr_port:barrel",
+      "cost": 10
+    },
+    {
+      "item": "minecraft:bucket",
+      "cost": 3
+    },
+    {
+      "item": "minecraft:water_bucket",
+      "cost": 4
+    },
+    {
+      "item": "minecraft:bone_meal",
+      "count": 6,
+      "cost": 1
+    },
+    {
+      "item": "minecraft:apple",
+      "cost": 2
+    },
+    {
+      "item": "lotr_port:apple",
+      "cost": 2
+    },
+    {
+      "item": "lotr_port:pear",
+      "cost": 2
+    },
+    {
+      "item": "lotr_port:banana",
+      "cost": 2
+    },
+    {
+      "item": "lotr_port:mango",
+      "cost": 2
+    },
+    {
+      "item": "minecraft:melon_slice",
+      "cost": 2
+    },
+    {
+      "item": "minecraft:iron_ingot",
+      "cost": 3
+    },
+    {
+      "item": "minecraft:gold_ingot",
+      "cost": 15
+    },
+    {
+      "item": "lotr_port:copper_ingot",
+      "cost": 3
+    },
+    {
+      "item": "lotr_port:tin_ingot",
+      "cost": 3
+    },
+    {
+      "item": "lotr_port:bronze_ingot",
+      "cost": 3
+    },
+    {
+      "item": "lotr_port:elven_steel_ingot",
+      "cost": 5
+    },
+    {
+      "item": "lotr_port:emerald",
+      "cost": 15
+    },
+    {
+      "item": "lotr_port:sapphire",
+      "cost": 12
+    },
+    {
+      "item": "lotr_port:ruby",
+      "cost": 12
+    },
+    {
+      "item": "lotr_port:opal",
+      "cost": 10
+    },
+    {
+      "item": "lotr_port:amethyst",
+      "cost": 8
+    },
+    {
+      "item": "lotr_port:pearl",
+      "cost": 25
+    },
+    {
+      "item": "lotr_port:pine_wood",
+      "cost": 2
+    },
+    {
+      "item": "lotr_port:fir_wood",
+      "cost": 2
+    },
+    {
+      "item": "lotr_port:mirk_oak_wood",
+      "cost": 2
+    },
+    {
+      "item": "lotr_port:green_oak_wood",
+      "cost": 2
+    }
+  ],
+  "offers": 9
+}

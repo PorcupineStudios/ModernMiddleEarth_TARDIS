@@ -1,0 +1,24 @@
+{
+  "units": [
+    {
+      "npc": "lotr_port:angmar_hillman",
+      "cost": 15,
+      "alignment": 100.0
+    },
+    {
+      "npc": "lotr_port:angmar_hillman_warrior",
+      "cost": 30,
+      "alignment": 150.0
+    },
+    {
+      "npc": "lotr_port:angmar_hillman_axe_thrower",
+      "cost": 50,
+      "alignment": 200.0
+    },
+    {
+      "npc": "lotr_port:angmar_hillman_banner_bearer",
+      "cost": 50,
+      "alignment": 300.0
+    }
+  ]
+}

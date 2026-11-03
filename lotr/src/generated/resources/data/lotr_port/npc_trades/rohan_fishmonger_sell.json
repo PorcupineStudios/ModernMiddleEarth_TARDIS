@@ -1,0 +1,40 @@
+{
+  "kind": "sell",
+  "entries": [
+    {
+      "item": "minecraft:stick",
+      "count": 8,
+      "cost": 1
+    },
+    {
+      "item": "minecraft:oak_planks",
+      "count": 4,
+      "cost": 1
+    },
+    {
+      "item": "minecraft:string",
+      "count": 3,
+      "cost": 1
+    },
+    {
+      "item": "minecraft:bucket",
+      "cost": 3
+    },
+    {
+      "item": "minecraft:iron_ingot",
+      "cost": 3
+    },
+    {
+      "item": "lotr_port:iron_dagger",
+      "cost": 3
+    },
+    {
+      "item": "lotr_port:bronze_dagger",
+      "cost": 3
+    },
+    {
+      "item": "lotr_port:salt",
+      "cost": 10
+    }
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "units": [
+    {
+      "npc": "lotr_port:gundabad_orc",
+      "cost": 15,
+      "alignment": 100.0
+    },
+    {
+      "npc": "lotr_port:gundabad_orc_archer",
+      "cost": 35,
+      "alignment": 150.0
+    },
+    {
+      "npc": "lotr_port:gundabad_uruk",
+      "cost": 40,
+      "alignment": 350.0,
+      "pledge": true
+    },
+    {
+      "npc": "lotr_port:gundabad_uruk_archer",
+      "cost": 60,
+      "alignment": 400.0,
+      "pledge": true
+    },
+    {
+      "npc": "lotr_port:gundabad_banner_bearer",
+      "cost": 35,
+      "alignment": 250.0
+    }
+  ]
+}

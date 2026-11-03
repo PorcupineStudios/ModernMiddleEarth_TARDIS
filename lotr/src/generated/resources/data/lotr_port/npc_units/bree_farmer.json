@@ -1,0 +1,9 @@
+{
+  "units": [
+    {
+      "npc": "lotr_port:bree_farmhand",
+      "cost": 40,
+      "alignment": 50.0
+    }
+  ]
+}

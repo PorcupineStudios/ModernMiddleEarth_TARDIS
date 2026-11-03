@@ -1,0 +1,18 @@
+{
+  "faction": "lotr_port:rohan",
+  "skins": [
+    "lotr_port:textures/entity/rohan/rohan_male/0.png",
+    "lotr_port:textures/entity/rohan/rohan_male/1.png",
+    "lotr_port:textures/entity/rohan/rohan_male/2.png",
+    "lotr_port:textures/entity/rohan/rohan_male/3.png",
+    "lotr_port:textures/entity/rohan/rohan_male/4.png",
+    "lotr_port:textures/entity/rohan/rohan_male/5.png"
+  ],
+  "skin_height": 64,
+  "health": 20.0,
+  "speed": 0.2,
+  "attack": 2.0,
+  "names": "lotr_port:rohan_male",
+  "buy": "lotr_port:rohan_meadhost_buy",
+  "sell": "lotr_port:rohan_meadhost_sell"
+}

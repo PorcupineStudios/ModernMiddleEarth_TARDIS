@@ -1,8 +1,19 @@
 {
   "type": "minecraft:smelting",
-  "ingredient": {
-    "item": "lotr_port:rotten_wood"
-  },
+  "ingredient": [
+    {
+      "item": "lotr_port:baobab_wood"
+    },
+    {
+      "item": "lotr_port:cedar_wood"
+    },
+    {
+      "item": "lotr_port:chestnut_wood"
+    },
+    {
+      "item": "lotr_port:fir_wood"
+    }
+  ],
   "result": {
     "id": "minecraft:charcoal"
   },

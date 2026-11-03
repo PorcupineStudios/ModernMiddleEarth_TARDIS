@@ -1,0 +1,59 @@
+{
+  "kind": "sell",
+  "entries": [
+    {
+      "item": "minecraft:beef",
+      "cost": 3
+    },
+    {
+      "item": "minecraft:porkchop",
+      "cost": 3
+    },
+    {
+      "item": "lotr_port:raw_mutton",
+      "cost": 3
+    },
+    {
+      "item": "minecraft:chicken",
+      "cost": 3
+    },
+    {
+      "item": "lotr_port:raw_rabbit",
+      "cost": 3
+    },
+    {
+      "item": "lotr_port:raw_venison",
+      "cost": 3
+    },
+    {
+      "item": "lotr_port:clay_mug",
+      "cost": 1
+    },
+    {
+      "item": "lotr_port:clay_plate",
+      "cost": 1
+    },
+    {
+      "item": "minecraft:potato",
+      "count": 2,
+      "cost": 1
+    },
+    {
+      "item": "minecraft:cod",
+      "cost": 2
+    },
+    {
+      "item": "lotr_port:salt",
+      "cost": 10
+    },
+    {
+      "item": "minecraft:bucket",
+      "cost": 3
+    },
+    {
+      "item": "minecraft:water_bucket",
+      "cost": 4
+    }
+  ],
+  "offers": 9
+}

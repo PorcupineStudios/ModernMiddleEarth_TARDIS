@@ -1,0 +1,14 @@
+{
+  "faction": "lotr_port:mordor",
+  "skins": [
+    "lotr_port:textures/entity/orc/black_uruk/0.png",
+    "lotr_port:textures/entity/orc/black_uruk/1.png",
+    "lotr_port:textures/entity/orc/black_uruk/2.png"
+  ],
+  "scale": 0.861,
+  "health": 30.0,
+  "speed": 0.2,
+  "attack": 2.0,
+  "names": "lotr_port:orc",
+  "units": "lotr_port:black_uruk_captain"
+}

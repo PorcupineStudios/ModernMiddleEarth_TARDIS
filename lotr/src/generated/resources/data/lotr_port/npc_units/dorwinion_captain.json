@@ -1,0 +1,19 @@
+{
+  "units": [
+    {
+      "npc": "lotr_port:dorwinion_guard",
+      "cost": 40,
+      "alignment": 150.0
+    },
+    {
+      "npc": "lotr_port:dorwinion_crossbower",
+      "cost": 60,
+      "alignment": 200.0
+    },
+    {
+      "npc": "lotr_port:dorwinion_banner_bearer",
+      "cost": 60,
+      "alignment": 300.0
+    }
+  ]
+}

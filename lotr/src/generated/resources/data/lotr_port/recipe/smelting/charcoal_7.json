@@ -1,19 +1,8 @@
 {
   "type": "minecraft:smelting",
-  "ingredient": [
-    {
-      "item": "lotr_port:palm_wood"
-    },
-    {
-      "item": "lotr_port:plum_wood"
-    },
-    {
-      "item": "lotr_port:pomegranate_wood"
-    },
-    {
-      "item": "lotr_port:redwood_wood"
-    }
-  ],
+  "ingredient": {
+    "item": "lotr_port:rotten_wood"
+  },
   "result": {
     "id": "minecraft:charcoal"
   },

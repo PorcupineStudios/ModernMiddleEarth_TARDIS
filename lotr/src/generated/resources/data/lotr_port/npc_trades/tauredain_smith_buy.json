@@ -1,0 +1,63 @@
+{
+  "kind": "buy",
+  "entries": [
+    {
+      "item": "lotr_port:taurethrim_crafting_table",
+      "cost": 100
+    },
+    {
+      "item": "lotr_port:blacksmith_hammer",
+      "cost": 18
+    },
+    {
+      "item": "lotr_port:taurethrim_sword",
+      "cost": 16
+    },
+    {
+      "item": "lotr_port:taurethrim_dagger",
+      "cost": 12
+    },
+    {
+      "item": "lotr_port:taurethrim_spear",
+      "cost": 15
+    },
+    {
+      "item": "lotr_port:taurethrim_battleaxe",
+      "cost": 16
+    },
+    {
+      "item": "lotr_port:taurethrim_bludgeon",
+      "cost": 16
+    },
+    {
+      "item": "lotr_port:taurethrim_pike",
+      "cost": 18
+    },
+    {
+      "item": "lotr_port:taurethrim_helmet",
+      "cost": 20
+    },
+    {
+      "item": "lotr_port:taurethrim_chestplate",
+      "cost": 32
+    },
+    {
+      "item": "lotr_port:taurethrim_leggings",
+      "cost": 25
+    },
+    {
+      "item": "lotr_port:taurethrim_boots",
+      "cost": 16
+    },
+    {
+      "item": "lotr_port:taurethrim_chieftain_helmet",
+      "cost": 40
+    },
+    {
+      "item": "lotr_port:bronze_bars",
+      "count": 8,
+      "cost": 20
+    }
+  ],
+  "offers": 9
+}

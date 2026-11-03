@@ -1,0 +1,19 @@
+{
+  "units": [
+    {
+      "npc": "lotr_port:dorwinion_elf_warrior",
+      "cost": 50,
+      "alignment": 250.0
+    },
+    {
+      "npc": "lotr_port:dorwinion_elf_archer",
+      "cost": 70,
+      "alignment": 300.0
+    },
+    {
+      "npc": "lotr_port:dorwinion_elf_banner_bearer",
+      "cost": 70,
+      "alignment": 400.0
+    }
+  ]
+}

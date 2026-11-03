@@ -1,0 +1,9 @@
+{
+  "units": [
+    {
+      "npc": "lotr_port:harad_slave",
+      "cost": 40,
+      "alignment": 0.0
+    }
+  ]
+}

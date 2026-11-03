@@ -1,0 +1,9 @@
+{
+  "units": [
+    {
+      "npc": "lotr_port:nurn_slave",
+      "cost": 40,
+      "alignment": 200.0
+    }
+  ]
+}

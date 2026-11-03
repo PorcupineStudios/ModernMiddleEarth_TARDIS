@@ -1,0 +1,49 @@
+{
+  "kind": "sell",
+  "entries": [
+    {
+      "item": "lotr_port:iron_dagger",
+      "cost": 3
+    },
+    {
+      "item": "lotr_port:bronze_dagger",
+      "cost": 3
+    },
+    {
+      "item": "lotr_port:rh_nic_dagger",
+      "cost": 3
+    },
+    {
+      "item": "lotr_port:iron_spear",
+      "cost": 5
+    },
+    {
+      "item": "lotr_port:bronze_spear",
+      "cost": 5
+    },
+    {
+      "item": "lotr_port:rh_nic_spear",
+      "cost": 5
+    },
+    {
+      "item": "minecraft:arrow",
+      "count": 4,
+      "cost": 2
+    },
+    {
+      "item": "minecraft:stick",
+      "count": 8,
+      "cost": 1
+    },
+    {
+      "item": "minecraft:string",
+      "count": 3,
+      "cost": 1
+    },
+    {
+      "item": "lotr_port:bottle_of_poison",
+      "cost": 10
+    }
+  ],
+  "offers": 9
+}

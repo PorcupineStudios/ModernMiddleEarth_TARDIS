@@ -183,7 +183,7 @@ class World:
         settings = world["map"]
         out = os.path.join(self.out, NS, "map")
         os.makedirs(out, exist_ok=True)
-        with gzip.open(os.path.join(out, "biomes.bin.gz"), "wb", compresslevel=9) as f:
+        with gzip.GzipFile(os.path.join(out, "biomes.bin.gz"), "wb", compresslevel=9, mtime=0) as f:
             f.write(bytes(pixels))
         write_json(os.path.join(out, "map.json"), {
             "width": w, "height": h,

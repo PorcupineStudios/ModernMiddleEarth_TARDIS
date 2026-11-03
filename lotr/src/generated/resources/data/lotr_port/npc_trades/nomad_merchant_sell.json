@@ -1,0 +1,86 @@
+{
+  "kind": "sell",
+  "entries": [
+    {
+      "item": "minecraft:gold_ingot",
+      "cost": 15
+    },
+    {
+      "item": "minecraft:iron_ingot",
+      "cost": 3
+    },
+    {
+      "item": "lotr_port:bronze_ingot",
+      "cost": 3
+    },
+    {
+      "item": "lotr_port:diamond",
+      "cost": 25
+    },
+    {
+      "item": "lotr_port:emerald",
+      "cost": 15
+    },
+    {
+      "item": "lotr_port:sapphire",
+      "cost": 12
+    },
+    {
+      "item": "lotr_port:ruby",
+      "cost": 12
+    },
+    {
+      "item": "lotr_port:opal",
+      "cost": 10
+    },
+    {
+      "item": "lotr_port:amber",
+      "cost": 10
+    },
+    {
+      "item": "lotr_port:pearl",
+      "cost": 25
+    },
+    {
+      "item": "minecraft:bread",
+      "cost": 2
+    },
+    {
+      "item": "lotr_port:date",
+      "cost": 2
+    },
+    {
+      "item": "lotr_port:orange",
+      "cost": 3
+    },
+    {
+      "item": "lotr_port:lemon",
+      "cost": 3
+    },
+    {
+      "item": "lotr_port:lime",
+      "cost": 3
+    },
+    {
+      "item": "lotr_port:kebab",
+      "cost": 4
+    },
+    {
+      "item": "minecraft:water_bucket",
+      "cost": 4
+    },
+    {
+      "item": "lotr_port:arak",
+      "cost": 4
+    },
+    {
+      "item": "minecraft:sugar",
+      "cost": 1
+    },
+    {
+      "item": "lotr_port:salt",
+      "cost": 10
+    }
+  ],
+  "offers": 9
+}

@@ -1,0 +1,24 @@
+{
+  "units": [
+    {
+      "npc": "lotr_port:lamedon_hillman",
+      "cost": 15,
+      "alignment": 200.0
+    },
+    {
+      "npc": "lotr_port:lamedon_soldier",
+      "cost": 30,
+      "alignment": 250.0
+    },
+    {
+      "npc": "lotr_port:lamedon_archer",
+      "cost": 50,
+      "alignment": 300.0
+    },
+    {
+      "npc": "lotr_port:lamedon_banner_bearer",
+      "cost": 50,
+      "alignment": 400.0
+    }
+  ]
+}

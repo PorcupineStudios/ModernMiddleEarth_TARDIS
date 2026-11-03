@@ -1,0 +1,128 @@
+{
+  "kind": "buy",
+  "entries": [
+    {
+      "item": "minecraft:cooked_beef",
+      "cost": 7
+    },
+    {
+      "item": "minecraft:cooked_porkchop",
+      "cost": 7
+    },
+    {
+      "item": "lotr_port:cooked_mutton",
+      "cost": 7
+    },
+    {
+      "item": "minecraft:cooked_chicken",
+      "cost": 6
+    },
+    {
+      "item": "minecraft:bread",
+      "cost": 5
+    },
+    {
+      "item": "lotr_port:pipe_weed",
+      "count": 4,
+      "cost": 4
+    },
+    {
+      "item": "lotr_port:smoking_pipe",
+      "cost": 15
+    },
+    {
+      "item": "lotr_port:mug",
+      "cost": 2
+    },
+    {
+      "item": "lotr_port:ceramic_mug",
+      "cost": 2
+    },
+    {
+      "item": "minecraft:baked_potato",
+      "count": 2,
+      "cost": 7
+    },
+    {
+      "item": "minecraft:cooked_cod",
+      "cost": 6
+    },
+    {
+      "item": "lotr_port:chocolate",
+      "cost": 4
+    },
+    {
+      "item": "lotr_port:apple_juice",
+      "cost": 6
+    },
+    {
+      "item": "lotr_port:orange_juice",
+      "cost": 6
+    },
+    {
+      "item": "lotr_port:gammon",
+      "cost": 7
+    },
+    {
+      "item": "lotr_port:cooked_venison",
+      "cost": 7
+    },
+    {
+      "item": "lotr_port:cooked_rabbit",
+      "cost": 6
+    },
+    {
+      "item": "lotr_port:rabbit_stew",
+      "cost": 10
+    },
+    {
+      "item": "minecraft:mushroom_stew",
+      "cost": 10
+    },
+    {
+      "item": "lotr_port:mushroom_pie",
+      "cost": 10
+    },
+    {
+      "item": "lotr_port:leek_soup",
+      "cost": 10
+    },
+    {
+      "item": "lotr_port:fine_plate",
+      "cost": 4
+    },
+    {
+      "item": "lotr_port:stoneware_plate",
+      "cost": 2
+    },
+    {
+      "item": "lotr_port:hobbit_marriage_ring",
+      "cost": 14
+    },
+    {
+      "item": "lotr_port:hobbit_oven",
+      "cost": 40
+    },
+    {
+      "item": "lotr_port:hobbit_crafting_table",
+      "cost": 100
+    },
+    {
+      "item": "lotr_port:ale",
+      "cost": 8
+    },
+    {
+      "item": "lotr_port:cider",
+      "cost": 8
+    },
+    {
+      "item": "lotr_port:perry",
+      "cost": 8
+    },
+    {
+      "item": "lotr_port:hobbit_pancake",
+      "cost": 10
+    }
+  ],
+  "offers": 9
+}

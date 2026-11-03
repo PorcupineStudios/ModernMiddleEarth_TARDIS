@@ -3,6 +3,7 @@ package com.porcupinestudios.lotrport;
 import com.mojang.logging.LogUtils;
 import com.porcupinestudios.lotrport.command.FactionCommand;
 import com.porcupinestudios.lotrport.command.LotrCommand;
+import com.porcupinestudios.lotrport.command.NpcCommand;
 import com.porcupinestudios.lotrport.content.LotrBlocks;
 import com.porcupinestudios.lotrport.content.LotrItems;
 import com.porcupinestudios.lotrport.content.LotrTabs;
@@ -10,6 +11,8 @@ import com.porcupinestudios.lotrport.crafting.LotrRecipes;
 import com.porcupinestudios.lotrport.faction.FactionConditions;
 import com.porcupinestudios.lotrport.faction.FactionKills;
 import com.porcupinestudios.lotrport.faction.Factions;
+import com.porcupinestudios.lotrport.npc.LotrEntities;
+import com.porcupinestudios.lotrport.npc.NpcData;
 import com.porcupinestudios.lotrport.registry.LotrRegistries;
 import com.porcupinestudios.lotrport.shared.SharedApiHooks;
 import com.porcupinestudios.lotrport.world.LotrWorldgen;
@@ -35,13 +38,16 @@ public final class LotrPort {
         LotrTabs.register(modBus);
         LotrRecipes.register(modBus);
         LotrWorldgen.register(modBus);
+        LotrEntities.register(modBus);
         SharedApiHooks.register(modBus);
         FactionConditions.register(modBus);
         Factions.register();
         FactionKills.register();
+        NpcData.register();
         NeoForge.EVENT_BUS.addListener((RegisterCommandsEvent event) -> {
             LotrCommand.register(event.getDispatcher());
             FactionCommand.register(event.getDispatcher());
+            NpcCommand.register(event.getDispatcher());
         });
     }
 

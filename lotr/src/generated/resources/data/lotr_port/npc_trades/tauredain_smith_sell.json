@@ -1,0 +1,47 @@
+{
+  "kind": "sell",
+  "entries": [
+    {
+      "item": "lotr_port:obsidian_shard",
+      "cost": 2
+    },
+    {
+      "item": "minecraft:gold_ingot",
+      "cost": 15
+    },
+    {
+      "item": "lotr_port:copper_ingot",
+      "cost": 3
+    },
+    {
+      "item": "lotr_port:tin_ingot",
+      "cost": 3
+    },
+    {
+      "item": "lotr_port:bronze_ingot",
+      "cost": 3
+    },
+    {
+      "item": "lotr_port:emerald",
+      "cost": 15
+    },
+    {
+      "item": "lotr_port:ruby",
+      "cost": 12
+    },
+    {
+      "item": "lotr_port:amber",
+      "cost": 10
+    },
+    {
+      "item": "lotr_port:topaz",
+      "cost": 8
+    },
+    {
+      "item": "lotr_port:flame_of_harad",
+      "count": 2,
+      "cost": 1
+    }
+  ],
+  "offers": 9
+}

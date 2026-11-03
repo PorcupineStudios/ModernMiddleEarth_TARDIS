@@ -1,0 +1,73 @@
+{
+  "kind": "sell",
+  "entries": [
+    {
+      "item": "lotr_port:obsidian_shard",
+      "cost": 2
+    },
+    {
+      "item": "minecraft:gold_nugget",
+      "cost": 2
+    },
+    {
+      "item": "lotr_port:emerald",
+      "cost": 15
+    },
+    {
+      "item": "lotr_port:amber",
+      "cost": 10
+    },
+    {
+      "item": "minecraft:glass_bottle",
+      "cost": 2
+    },
+    {
+      "item": "lotr_port:mug",
+      "cost": 1
+    },
+    {
+      "item": "minecraft:bone",
+      "cost": 1
+    },
+    {
+      "item": "lotr_port:rhino_horn",
+      "cost": 5
+    },
+    {
+      "item": "lotr_port:gemsbok_horn",
+      "cost": 4
+    },
+    {
+      "item": "lotr_port:hibiscus",
+      "count": 2,
+      "cost": 1
+    },
+    {
+      "item": "lotr_port:flame_of_harad",
+      "count": 2,
+      "cost": 1
+    },
+    {
+      "item": "minecraft:red_mushroom",
+      "cost": 2
+    },
+    {
+      "item": "minecraft:brown_mushroom",
+      "cost": 2
+    },
+    {
+      "item": "lotr_port:mango",
+      "cost": 1
+    },
+    {
+      "item": "lotr_port:banana",
+      "cost": 1
+    },
+    {
+      "item": "lotr_port:corn",
+      "count": 2,
+      "cost": 1
+    }
+  ],
+  "offers": 9
+}
