@@ -8,19 +8,34 @@ apply from: rootProject.file('gradle/mod.gradle')
 
 evaluationDependsOn(':api')
 
+// Create is the TARDIS's one hard dependency (the winder, Create-made repair parts). It comes from Modrinth's maven,
+// since Create's own maven (maven.createmod.net) had an expired certificate (2026-11-03). Modrinth's jar carries
+// Ponder, Flywheel and Registrate inside (jar-in-jar): the game loads them from there, and the compiler gets them
+// unpacked by unpackCreateLibs.
 repositories {
-    maven { url = 'https://maven.createmod.net' } // Create, Ponder, Flywheel
-    maven { url = 'https://maven.ithundxr.dev/snapshots' } // Registrate
+    maven {
+        url = 'https://api.modrinth.com/maven'
+        content { includeGroup 'maven.modrinth' }
+    }
 }
 
-// Create is the TARDIS's one hard dependency (the winder, Create-made repair parts).
+def createJar = configurations.detachedConfiguration(dependencies.create("maven.modrinth:create:${create_version}"))
+createJar.transitive = false
+
+def unpackCreateLibs = tasks.register('unpackCreateLibs', Copy) {
+    from({ zipTree(createJar.singleFile).matching { include 'META-INF/jarjar/*.jar' } })
+    into layout.buildDirectory.dir('create-libs')
+    eachFile { path = name }
+    includeEmptyDirs = false
+}
+
 dependencies {
     implementation project(':api')
-    implementation("com.simibubi.create:create-${minecraft_version}:${create_version}:slim") { transitive = false }
-    implementation("net.createmod.ponder:ponder-neoforge:${ponder_version}+mc${minecraft_version}")
-    compileOnly("dev.engine-room.flywheel:flywheel-neoforge-api-${minecraft_version}:${flywheel_version}")
-    runtimeOnly("dev.engine-room.flywheel:flywheel-neoforge-${minecraft_version}:${flywheel_version}")
-    implementation("com.tterrag.registrate:Registrate:${registrate_version}")
+    implementation "maven.modrinth:create:${create_version}"
+    compileOnly fileTree(layout.buildDirectory.dir('create-libs')) {
+        include '*.jar'
+        builtBy unpackCreateLibs
+    }
 }
 
 // Dev runs load the shared API next to this mod.
