@@ -293,7 +293,8 @@ class Gen:
             self.tags["minecraft:item/logs"].add(new)
 
         self.models(new, kind, icons, v, b)
-        self.loot(new, kind)
+        if new not in self.hidden:  # placed-only blocks (crops, beds, portals) drop nothing until their phase
+            self.loot(new, kind)
 
     # ------------------------------------------------------------------ models and blockstates
 

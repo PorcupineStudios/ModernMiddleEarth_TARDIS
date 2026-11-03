@@ -51,6 +51,9 @@
     [],
     [],
     [
+      "minecraft:trees_jungle",
+      "minecraft:flower_default",
+      "minecraft:patch_grass_forest",
       "minecraft:patch_sugar_cane"
     ],
     [

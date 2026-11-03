@@ -22,4 +22,4 @@ Never edit generated files by hand: change the generator and run it again.
 Known gaps (report.json): spawn eggs and structure spawners wait for the NPC and structure phases; LOTR's special
 recipes (poisoning weapons, dyeing) are code, not data; drinks keep one item per drink (vessel and strength become
 data later); a few armor sets use one texture per item; connected textures are baked to the single-block look;
-leaves and grass are untinted.
+leaves and grass are untinted; blocks only placed by an item (crops, beds, plates, portals) drop nothing yet.
