@@ -64,6 +64,79 @@ final class WorldExporter {
         return root;
     }
 
+    /**
+     * Every LOTR faction: name, colour, region, types, flags, ranks, pledge rank, map area, control zones, and the
+     * default relation with every other faction.
+     */
+    JsonArray factions() {
+        JsonArray arr = new JsonArray();
+        try {
+            Class<?> fac = Class.forName("lotr.common.fac.LOTRFaction");
+            Class<?> relations = Class.forName("lotr.common.fac.LOTRFactionRelations");
+            java.lang.reflect.Method getRelations = relations.getMethod("getRelations", fac, fac);
+            Object[] all = (Object[]) fac.getMethod("values").invoke(null);
+            for (Object f : all) {
+                JsonObject o = new JsonObject();
+                try {
+                    o.addProperty("code", (String) fac.getMethod("codeName").invoke(f));
+                    o.addProperty("name", (String) fac.getMethod("untranslatedFactionName").invoke(f));
+                    o.addProperty("color", (Integer) fac.getMethod("getFactionColor").invoke(f));
+                    o.add("fields", primitives(f));
+                    Object region = field(f, "factionRegion");
+                    o.addProperty("region", region == null ? null : ((Enum<?>) region).name());
+                    Object dim = field(f, "factionDimension");
+                    o.addProperty("dimension", dim == null ? null : ((Enum<?>) dim).name());
+                    JsonArray types = new JsonArray();
+                    Object typeSet = field(f, "factionTypes");
+                    if (typeSet instanceof Iterable<?> it) {
+                        for (Object t : it) {
+                            types.add(new JsonPrimitive(((Enum<?>) t).name()));
+                        }
+                    }
+                    o.add("types", types);
+                    JsonArray ranks = new JsonArray();
+                    Object rankList = field(f, "ranksSortedDescending");
+                    if (rankList instanceof Iterable<?> it) {
+                        for (Object r : it) {
+                            ranks.add(primitives(r));
+                        }
+                    }
+                    o.add("ranks", ranks);
+                    Object pledge = field(f, "pledgeRank");
+                    if (pledge != null) {
+                        o.add("pledgeRank", primitives(pledge));
+                    }
+                    Object mapInfo = field(f, "factionMapInfo");
+                    if (mapInfo != null) {
+                        o.add("map", primitives(mapInfo));
+                    }
+                    JsonArray zones = new JsonArray();
+                    Object zoneList = field(f, "controlZones");
+                    if (zoneList instanceof Iterable<?> it) {
+                        for (Object z : it) {
+                            zones.add(primitives(z));
+                        }
+                    }
+                    o.add("controlZones", zones);
+                    JsonObject rel = new JsonObject();
+                    for (Object other : all) {
+                        if (other != f) {
+                            Object r = getRelations.invoke(null, f, other);
+                            rel.addProperty(((Enum<?>) other).name(), r == null ? null : ((Enum<?>) r).name());
+                        }
+                    }
+                    o.add("relations", rel);
+                } catch (Throwable t) {
+                    errors.add(new JsonPrimitive("faction " + f + ": " + t));
+                }
+                arr.add(o);
+            }
+        } catch (Throwable t) {
+            errors.add(new JsonPrimitive("factions: " + t));
+        }
+        return arr;
+    }
+
     private JsonObject biome(Object b) {
         JsonObject o = new JsonObject();
         o.addProperty("class", b.getClass().getName());
