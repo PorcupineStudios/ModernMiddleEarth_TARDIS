@@ -1,0 +1,624 @@
+{
+  "apple": [
+    {
+      "item": "lotr:item.appleGreen",
+      "meta": 0
+    }
+  ],
+  "arrowTip": [
+    {
+      "item": "lotr:item.rhinoHorn",
+      "meta": 0
+    },
+    {
+      "item": "lotr:item.kineArawHorn",
+      "meta": 0
+    },
+    {
+      "item": "lotr:item.horn",
+      "meta": 0
+    }
+  ],
+  "berry": [
+    {
+      "item": "lotr:item.blueberry",
+      "meta": 0
+    },
+    {
+      "item": "lotr:item.blackberry",
+      "meta": 0
+    },
+    {
+      "item": "lotr:item.raspberry",
+      "meta": 0
+    },
+    {
+      "item": "lotr:item.cranberry",
+      "meta": 0
+    },
+    {
+      "item": "lotr:item.elderberry",
+      "meta": 0
+    },
+    {
+      "item": "lotr:item.wildberry",
+      "meta": 0
+    }
+  ],
+  "bone": [
+    {
+      "item": "lotr:item.wargBone",
+      "meta": 0
+    },
+    {
+      "item": "lotr:item.orcBone",
+      "meta": 0
+    },
+    {
+      "item": "lotr:item.elfBone",
+      "meta": 0
+    },
+    {
+      "item": "lotr:item.dwarfBone",
+      "meta": 0
+    },
+    {
+      "item": "lotr:item.hobbitBone",
+      "meta": 0
+    },
+    {
+      "item": "lotr:item.trollBone",
+      "meta": 0
+    }
+  ],
+  "clayBall": [
+    {
+      "item": "lotr:item.redClayBall",
+      "meta": 0
+    }
+  ],
+  "dyeBlack": [
+    {
+      "item": "lotr:item.dye",
+      "meta": 4
+    }
+  ],
+  "dyeBlue": [
+    {
+      "item": "lotr:item.dye",
+      "meta": 2
+    }
+  ],
+  "dyeBrown": [
+    {
+      "item": "lotr:item.dye",
+      "meta": 5
+    }
+  ],
+  "dyeGreen": [
+    {
+      "item": "lotr:item.dye",
+      "meta": 3
+    }
+  ],
+  "dyeWhite": [
+    {
+      "item": "lotr:item.dye",
+      "meta": 1
+    }
+  ],
+  "dyeYellow": [
+    {
+      "item": "lotr:item.dye",
+      "meta": 0
+    }
+  ],
+  "feather": [
+    {
+      "item": "lotr:item.swanFeather",
+      "meta": 0
+    }
+  ],
+  "horn": [
+    {
+      "item": "lotr:item.rhinoHorn",
+      "meta": 0
+    },
+    {
+      "item": "lotr:item.kineArawHorn",
+      "meta": 0
+    },
+    {
+      "item": "lotr:item.horn",
+      "meta": 0
+    }
+  ],
+  "ingotBronze": [
+    {
+      "item": "lotr:item.bronze",
+      "meta": 0
+    }
+  ],
+  "ingotCopper": [
+    {
+      "item": "lotr:item.copper",
+      "meta": 0
+    }
+  ],
+  "ingotSilver": [
+    {
+      "item": "lotr:item.silver",
+      "meta": 0
+    }
+  ],
+  "ingotTin": [
+    {
+      "item": "lotr:item.tin",
+      "meta": 0
+    }
+  ],
+  "logWood": [
+    {
+      "item": "lotr:tile.wood",
+      "meta": 32767
+    },
+    {
+      "item": "lotr:tile.fruitWood",
+      "meta": 32767
+    },
+    {
+      "item": "lotr:tile.wood2",
+      "meta": 32767
+    },
+    {
+      "item": "lotr:tile.wood3",
+      "meta": 32767
+    },
+    {
+      "item": "lotr:tile.wood4",
+      "meta": 32767
+    },
+    {
+      "item": "lotr:tile.rottenLog",
+      "meta": 32767
+    },
+    {
+      "item": "lotr:tile.wood5",
+      "meta": 32767
+    },
+    {
+      "item": "lotr:tile.wood6",
+      "meta": 32767
+    },
+    {
+      "item": "lotr:tile.wood7",
+      "meta": 32767
+    },
+    {
+      "item": "lotr:tile.wood8",
+      "meta": 32767
+    },
+    {
+      "item": "lotr:tile.wood9",
+      "meta": 32767
+    }
+  ],
+  "nuggetIron": [
+    {
+      "item": "lotr:item.ironNugget",
+      "meta": 0
+    }
+  ],
+  "nuggetSilver": [
+    {
+      "item": "lotr:item.silverNugget",
+      "meta": 0
+    }
+  ],
+  "oreCopper": [
+    {
+      "item": "lotr:tile.oreCopper",
+      "meta": 0
+    }
+  ],
+  "oreSalt": [
+    {
+      "item": "lotr:tile.oreSalt",
+      "meta": 0
+    }
+  ],
+  "oreSaltpeter": [
+    {
+      "item": "lotr:tile.oreSaltpeter",
+      "meta": 0
+    }
+  ],
+  "oreSilver": [
+    {
+      "item": "lotr:tile.oreSilver",
+      "meta": 0
+    }
+  ],
+  "oreSulfur": [
+    {
+      "item": "lotr:tile.oreSulfur",
+      "meta": 0
+    }
+  ],
+  "oreTin": [
+    {
+      "item": "lotr:tile.oreTin",
+      "meta": 0
+    }
+  ],
+  "plankWood": [
+    {
+      "item": "lotr:tile.planks",
+      "meta": 32767
+    },
+    {
+      "item": "lotr:tile.planks2",
+      "meta": 32767
+    },
+    {
+      "item": "lotr:tile.planksRotten",
+      "meta": 32767
+    },
+    {
+      "item": "lotr:tile.planks3",
+      "meta": 32767
+    }
+  ],
+  "poison": [
+    {
+      "item": "lotr:item.bottlePoison",
+      "meta": 0
+    }
+  ],
+  "salt": [
+    {
+      "item": "lotr:item.salt",
+      "meta": 0
+    }
+  ],
+  "saltpeter": [
+    {
+      "item": "lotr:item.saltpeter",
+      "meta": 0
+    }
+  ],
+  "sand": [
+    {
+      "item": "lotr:tile.whiteSand",
+      "meta": 32767
+    }
+  ],
+  "sandstone": [
+    {
+      "item": "lotr:tile.redSandstone",
+      "meta": 32767
+    },
+    {
+      "item": "lotr:tile.whiteSandstone",
+      "meta": 32767
+    }
+  ],
+  "slabWood": [
+    {
+      "item": "lotr:tile.woodSlabSingle",
+      "meta": 32767
+    },
+    {
+      "item": "lotr:tile.woodSlabDouble",
+      "meta": 32767
+    },
+    {
+      "item": "lotr:tile.woodSlabSingle2",
+      "meta": 32767
+    },
+    {
+      "item": "lotr:tile.woodSlabDouble2",
+      "meta": 32767
+    },
+    {
+      "item": "lotr:tile.woodSlabSingle3",
+      "meta": 32767
+    },
+    {
+      "item": "lotr:tile.woodSlabDouble3",
+      "meta": 32767
+    },
+    {
+      "item": "lotr:tile.rottenSlabSingle",
+      "meta": 32767
+    },
+    {
+      "item": "lotr:tile.rottenSlabDouble",
+      "meta": 32767
+    },
+    {
+      "item": "lotr:tile.woodSlabSingle4",
+      "meta": 32767
+    },
+    {
+      "item": "lotr:tile.woodSlabDouble4",
+      "meta": 32767
+    },
+    {
+      "item": "lotr:tile.woodSlabSingle5",
+      "meta": 32767
+    },
+    {
+      "item": "lotr:tile.woodSlabDouble5",
+      "meta": 32767
+    }
+  ],
+  "stairWood": [
+    {
+      "item": "lotr:tile.stairsPine",
+      "meta": 32767
+    },
+    {
+      "item": "lotr:tile.stairsMallorn",
+      "meta": 32767
+    },
+    {
+      "item": "lotr:tile.stairsApple",
+      "meta": 32767
+    },
+    {
+      "item": "lotr:tile.stairsPear",
+      "meta": 32767
+    },
+    {
+      "item": "lotr:tile.stairsCherry",
+      "meta": 32767
+    },
+    {
+      "item": "lotr:tile.stairsMirkOak",
+      "meta": 32767
+    },
+    {
+      "item": "lotr:tile.stairsCharred",
+      "meta": 32767
+    },
+    {
+      "item": "lotr:tile.stairsLebethron",
+      "meta": 32767
+    },
+    {
+      "item": "lotr:tile.stairsBeech",
+      "meta": 32767
+    },
+    {
+      "item": "lotr:tile.stairsHolly",
+      "meta": 32767
+    },
+    {
+      "item": "lotr:tile.stairsMango",
+      "meta": 32767
+    },
+    {
+      "item": "lotr:tile.stairsBanana",
+      "meta": 32767
+    },
+    {
+      "item": "lotr:tile.stairsMaple",
+      "meta": 32767
+    },
+    {
+      "item": "lotr:tile.stairsLarch",
+      "meta": 32767
+    },
+    {
+      "item": "lotr:tile.stairsDatePalm",
+      "meta": 32767
+    },
+    {
+      "item": "lotr:tile.stairsMangrove",
+      "meta": 32767
+    },
+    {
+      "item": "lotr:tile.stairsChestnut",
+      "meta": 32767
+    },
+    {
+      "item": "lotr:tile.stairsBaobab",
+      "meta": 32767
+    },
+    {
+      "item": "lotr:tile.stairsCedar",
+      "meta": 32767
+    },
+    {
+      "item": "lotr:tile.stairsFir",
+      "meta": 32767
+    },
+    {
+      "item": "lotr:tile.stairsPinePine",
+      "meta": 32767
+    },
+    {
+      "item": "lotr:tile.stairsRotten",
+      "meta": 32767
+    },
+    {
+      "item": "lotr:tile.stairsLemon",
+      "meta": 32767
+    },
+    {
+      "item": "lotr:tile.stairsOrange",
+      "meta": 32767
+    },
+    {
+      "item": "lotr:tile.stairsLime",
+      "meta": 32767
+    },
+    {
+      "item": "lotr:tile.stairsMahogany",
+      "meta": 32767
+    },
+    {
+      "item": "lotr:tile.stairsWillow",
+      "meta": 32767
+    },
+    {
+      "item": "lotr:tile.stairsCypress",
+      "meta": 32767
+    },
+    {
+      "item": "lotr:tile.stairsOlive",
+      "meta": 32767
+    },
+    {
+      "item": "lotr:tile.stairsAspen",
+      "meta": 32767
+    },
+    {
+      "item": "lotr:tile.stairsGreenOak",
+      "meta": 32767
+    },
+    {
+      "item": "lotr:tile.stairsLairelosse",
+      "meta": 32767
+    },
+    {
+      "item": "lotr:tile.stairsAlmond",
+      "meta": 32767
+    },
+    {
+      "item": "lotr:tile.stairsPlum",
+      "meta": 32767
+    },
+    {
+      "item": "lotr:tile.stairsRedwood",
+      "meta": 32767
+    },
+    {
+      "item": "lotr:tile.stairsPomegranate",
+      "meta": 32767
+    },
+    {
+      "item": "lotr:tile.stairsPalm",
+      "meta": 32767
+    },
+    {
+      "item": "lotr:tile.stairsDragon",
+      "meta": 32767
+    },
+    {
+      "item": "lotr:tile.stairsKanuka",
+      "meta": 32767
+    }
+  ],
+  "stickWood": [
+    {
+      "item": "lotr:item.mallornStick",
+      "meta": 0
+    },
+    {
+      "item": "lotr:item.blackrootStick",
+      "meta": 0
+    }
+  ],
+  "sulfur": [
+    {
+      "item": "lotr:item.sulfur",
+      "meta": 0
+    }
+  ],
+  "treeLeaves": [
+    {
+      "item": "lotr:tile.leaves",
+      "meta": 32767
+    },
+    {
+      "item": "lotr:tile.fruitLeaves",
+      "meta": 32767
+    },
+    {
+      "item": "lotr:tile.leaves2",
+      "meta": 32767
+    },
+    {
+      "item": "lotr:tile.leaves3",
+      "meta": 32767
+    },
+    {
+      "item": "lotr:tile.leaves4",
+      "meta": 32767
+    },
+    {
+      "item": "lotr:tile.leaves5",
+      "meta": 32767
+    },
+    {
+      "item": "lotr:tile.leaves6",
+      "meta": 32767
+    },
+    {
+      "item": "lotr:tile.leaves7",
+      "meta": 32767
+    },
+    {
+      "item": "lotr:tile.leaves8",
+      "meta": 32767
+    },
+    {
+      "item": "lotr:tile.leaves9",
+      "meta": 32767
+    }
+  ],
+  "treeSapling": [
+    {
+      "item": "lotr:tile.sapling",
+      "meta": 32767
+    },
+    {
+      "item": "lotr:tile.fruitSapling",
+      "meta": 32767
+    },
+    {
+      "item": "lotr:tile.sapling2",
+      "meta": 32767
+    },
+    {
+      "item": "lotr:tile.sapling3",
+      "meta": 32767
+    },
+    {
+      "item": "lotr:tile.sapling4",
+      "meta": 32767
+    },
+    {
+      "item": "lotr:tile.sapling5",
+      "meta": 32767
+    },
+    {
+      "item": "lotr:tile.sapling6",
+      "meta": 32767
+    },
+    {
+      "item": "lotr:tile.sapling7",
+      "meta": 32767
+    },
+    {
+      "item": "lotr:tile.sapling8",
+      "meta": 32767
+    },
+    {
+      "item": "lotr:tile.sapling9",
+      "meta": 32767
+    }
+  ],
+  "vine": [
+    {
+      "item": "lotr:tile.willowVines",
+      "meta": 0
+    },
+    {
+      "item": "lotr:tile.mirkVines",
+      "meta": 0
+    }
+  ]
+}
