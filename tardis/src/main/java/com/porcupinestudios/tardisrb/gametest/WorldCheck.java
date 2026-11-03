@@ -125,7 +125,8 @@ public final class WorldCheck {
             return;
         }
         TardisRB.LOG.info("[worldcheck] down from space: {}", back.position());
-        if (back instanceof ArmorStand down1 && down1.getAttribute(Attributes.GRAVITY).hasModifier(SpaceTravel.GRAVITY_ID)) {
+        if (back instanceof ArmorStand down1
+                && down1.getAttribute(Attributes.GRAVITY).hasModifier(SpaceTravel.GRAVITY_ID)) {
             problems.add("still low gravity after coming down");
         }
         back.discard();
