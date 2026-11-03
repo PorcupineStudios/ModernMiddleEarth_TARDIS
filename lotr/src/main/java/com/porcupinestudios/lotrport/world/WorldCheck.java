@@ -18,7 +18,7 @@ import net.minecraft.world.level.block.state.BlockState;
  * CI check for a new Middle-earth world: started with {@code -Dlotr_port.worldcheck=true} on a server whose
  * {@code level-type} is {@code lotr_port:middle_earth}. Checks the spawn and the TARDIS crash site are in Middle-earth,
  * generates a chunk in every biome on the map and on a road, prints WORLDCHECK PASSED or WORLDCHECK FAILED, and stops
- * the server.
+ * the JVM without saving (the check world is thrown away).
  */
 final class WorldCheck {
     private WorldCheck() {}
@@ -58,7 +58,10 @@ final class WorldCheck {
             problem = e.toString();
         }
         LotrPort.LOG.info(problem == null ? "WORLDCHECK PASSED" : "WORLDCHECK FAILED: " + problem);
-        server.halt(false);
+        // The check world is thrown away. Saving ~200 far-apart chunks on a normal stop runs the CI server out of
+        // memory, so flush the log and stop the JVM without saving.
+        org.apache.logging.log4j.LogManager.shutdown();
+        Runtime.getRuntime().halt(0);
     }
 
     /** Generates one chunk inside every biome on the map and checks the biome is there. */
