@@ -1,0 +1,15 @@
+{
+  "name": "The Marshal of the Westfold",
+  "faction": "lotr_port:rohan",
+  "home": "lotr_port:edoras",
+  "aggression": 0.1,
+  "expansion": 0.3,
+  "max_colonies": 4,
+  "colony_names": [
+    "Westfold Steading",
+    "Snowbourn Hall",
+    "Aldburg",
+    "Grimslade"
+  ],
+  "color": 3046706
+}

@@ -1,0 +1,16 @@
+{
+  "name": "The Stewards' Heirs",
+  "faction": "lotr_port:gondor",
+  "home": "lotr_port:minas_tirith",
+  "aggression": 0.1,
+  "expansion": 0.3,
+  "max_colonies": 5,
+  "colony_names": [
+    "Anfalas Watch",
+    "Lossarnach Hold",
+    "Ethring",
+    "Calembel",
+    "Tarlang Post"
+  ],
+  "color": 13158600
+}

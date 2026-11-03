@@ -1,0 +1,15 @@
+{
+  "name": "The Corsair Lords",
+  "faction": "lotr_port:near_harad",
+  "home": "lotr_port:umbar_city",
+  "aggression": 0.2,
+  "expansion": 0.3,
+  "max_colonies": 4,
+  "colony_names": [
+    "Harnen Haven",
+    "Corsair Cove",
+    "Pelargir Raid-camp",
+    "Southron Wells"
+  ],
+  "color": 12000284
+}

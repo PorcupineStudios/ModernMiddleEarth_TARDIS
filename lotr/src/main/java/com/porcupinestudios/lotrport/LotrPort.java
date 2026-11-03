@@ -20,6 +20,9 @@ import com.porcupinestudios.lotrport.quest.Quests;
 import com.porcupinestudios.lotrport.travel.FastTravel;
 import com.porcupinestudios.lotrport.net.MapNet;
 import com.porcupinestudios.lotrport.command.TravelCommand;
+import com.porcupinestudios.lotrport.ai.AiCommand;
+import com.porcupinestudios.lotrport.ai.AiData;
+import com.porcupinestudios.lotrport.ai.AiRulers;
 import com.porcupinestudios.lotrport.colony.ColonyCommand;
 import com.porcupinestudios.lotrport.colony.ColonyData;
 import com.porcupinestudios.lotrport.colony.ColonyItems;
@@ -67,6 +70,8 @@ public final class LotrPort {
         ColonyItems.register(modBus);
         ColonyData.register();
         Colonies.register();
+        AiData.register();
+        AiRulers.register();
         Recruiting.register();
         NeoForge.EVENT_BUS.addListener((RegisterCommandsEvent event) -> {
             LotrCommand.register(event.getDispatcher());
@@ -74,6 +79,7 @@ public final class LotrPort {
             NpcCommand.register(event.getDispatcher());
             TravelCommand.register(event.getDispatcher());
             ColonyCommand.register(event.getDispatcher());
+            AiCommand.register(event.getDispatcher());
         });
     }
 

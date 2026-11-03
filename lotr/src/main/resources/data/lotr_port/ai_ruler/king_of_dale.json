@@ -1,0 +1,15 @@
+{
+  "name": "The House of Bard",
+  "faction": "lotr_port:dale",
+  "home": "lotr_port:dale_city",
+  "aggression": 0.1,
+  "expansion": 0.3,
+  "max_colonies": 4,
+  "colony_names": [
+    "Long Lake Steading",
+    "Running River Mill",
+    "Celduin Ford",
+    "Esgaroth Wharf"
+  ],
+  "color": 1402304
+}

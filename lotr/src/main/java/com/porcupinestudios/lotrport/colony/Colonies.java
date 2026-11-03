@@ -8,6 +8,7 @@ import com.porcupinestudios.ringbearer.api.history.HistoryEntry;
 import com.porcupinestudios.ringbearer.api.history.HistoryLog;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,6 +19,7 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
@@ -25,6 +27,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BedBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BedPart;
@@ -46,6 +49,7 @@ public final class Colonies extends SavedData {
     public static final ResourceLocation FOUNDED_HISTORY = LotrPort.id("colony_founded");
     public static final ResourceLocation ARRIVE_HISTORY = LotrPort.id("citizen_arrive");
     public static final ResourceLocation DIED_HISTORY = LotrPort.id("citizen_die");
+    public static final ResourceLocation TRANSFER_HISTORY = LotrPort.id("colony_transferred");
     private static final SavedData.Factory<Colonies> FACTORY = new SavedData.Factory<>(Colonies::new, Colonies::load,
             null);
 
@@ -110,7 +114,7 @@ public final class Colonies extends SavedData {
         }
         long now = player.server.overworld().getGameTime();
         Colony colony = new Colony(UUID.randomUUID(), name, player.getUUID(), faction, player.level().dimension(),
-                hall.immutable(), now, now / ColonyData.settings().dayTicks(), List.of(), Map.of());
+                hall.immutable(), now, now / ColonyData.settings().dayTicks(), List.of(), Map.of(), false, 0);
         colonies.put(colony.id, colony);
         setDirty();
         CompoundTag tag = new CompoundTag();
@@ -123,6 +127,75 @@ public final class Colonies extends SavedData {
                 "You founded %s for %s", name, Component.translatable("faction." + faction.getNamespace() + "."
                         + faction.getPath())));
         return new Founding(Optional.of(colony), Component.empty());
+    }
+
+    /** Every colony owned by this player or AI ruler, oldest first. */
+    public List<Colony> ownedBy(UUID owner) {
+        return colonies.values().stream().filter(c -> c.founder.equals(owner))
+                .sorted(Comparator.comparingLong((Colony c) -> c.founded).thenComparing(c -> c.id))
+                .toList();
+    }
+
+    /** The nearest Hall in a dimension closer than the settings' {@code hall_gap}, if any. */
+    public Optional<Colony> tooClose(ResourceKey<Level> dimension, BlockPos hall) {
+        int gap = ColonyData.settings().hallGap();
+        return colonies.values().stream()
+                .filter(c -> c.dimension.equals(dimension) && c.hall.distSqr(hall) < (double) gap * gap)
+                .findFirst();
+    }
+
+    /**
+     * An AI ruler founds a sparse colony: no blocks and no bodies, just a Hall position and a counted population.
+     * {@code id} is chosen by the caller so a replay of the same seed makes the same colony.
+     */
+    public Optional<Colony> foundAi(MinecraftServer server, UUID id, UUID ruler, String name,
+            ResourceKey<Level> dimension, BlockPos hall, ResourceLocation faction, int population) {
+        if (colonies.containsKey(id) || tooClose(dimension, hall).isPresent()) {
+            return Optional.empty();
+        }
+        long now = server.overworld().getGameTime();
+        Colony colony = new Colony(id, name, ruler, faction, dimension, hall.immutable(), now,
+                now / ColonyData.settings().dayTicks(), List.of(), Map.of(), true, Math.max(0, population));
+        colonies.put(id, colony);
+        setDirty();
+        CompoundTag tag = new CompoundTag();
+        tag.putUUID("colony", id);
+        tag.putString("name", name);
+        tag.putUUID("founder", ruler);
+        tag.putString("faction", faction.toString());
+        tag.putBoolean("ai", true);
+        log(server, FOUNDED_HISTORY, colony, hall, tag);
+        return Optional.of(colony);
+    }
+
+    /** Changes an AI colony's counted population by {@code delta} (never below 0). */
+    public void growAi(Colony colony, int delta) {
+        int next = Math.max(0, colony.virtualPopulation + delta);
+        if (colony.ai && next != colony.virtualPopulation) {
+            colony.virtualPopulation = next;
+            setDirty();
+        }
+    }
+
+    /**
+     * Hands a colony to a new owner (a player or an AI ruler) and faction: conquest, sale or gift. {@code ai} says
+     * whether the new owner is an AI ruler. Written to history as {@code colony_transferred} with the reason.
+     */
+    public void transfer(MinecraftServer server, Colony colony, UUID owner, ResourceLocation faction, boolean ai,
+            String reason) {
+        UUID from = colony.founder;
+        colony.founder = owner;
+        colony.faction = faction;
+        colony.ai = ai;
+        setDirty();
+        CompoundTag tag = new CompoundTag();
+        tag.putUUID("colony", colony.id);
+        tag.putUUID("from", from);
+        tag.putUUID("to", owner);
+        tag.putString("faction", faction.toString());
+        tag.putBoolean("ai", ai);
+        tag.putString("reason", reason);
+        log(server, TRANSFER_HISTORY, colony, colony.hall, tag);
     }
 
     /** Beds (head halves) near the Hall: each is a home. Counts loaded chunks only. */
@@ -223,7 +296,7 @@ public final class Colonies extends SavedData {
         long day = server.overworld().getGameTime() / Math.max(1, ColonyData.settings().dayTicks());
         for (Colony c : new ArrayList<>(all.colonies.values())) {
             ServerLevel level = server.getLevel(c.dimension);
-            if (level == null || c.lastDay >= day || !level.hasChunkAt(c.hall)) {
+            if (c.ai || level == null || c.lastDay >= day || !level.hasChunkAt(c.hall)) {
                 continue;
             }
             c.lastDay = day;
