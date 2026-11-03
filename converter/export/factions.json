@@ -1,0 +1,3801 @@
+[
+  {
+    "code": "HOBBIT",
+    "name": "lotr.faction.HOBBIT.name",
+    "color": -10891698,
+    "fields": {
+      "factionDimension": "MIDDLE_EARTH",
+      "factionRegion": "WEST",
+      "factionColor": 5885518,
+      "allowPlayer": true,
+      "allowEntityRegistry": true,
+      "hasFixedAlignment": false,
+      "fixedAlignment": 0,
+      "achieveCategory": "SHIRE",
+      "isolationist": true,
+      "approvesWarCrimes": false,
+      "name": "HOBBIT",
+      "ordinal": 0
+    },
+    "region": "WEST",
+    "dimension": "MIDDLE_EARTH",
+    "types": [
+      "TYPE_FREE",
+      "TYPE_MAN"
+    ],
+    "ranks": [
+      {
+        "fac": "HOBBIT",
+        "alignment": 3000.0,
+        "name": "thain",
+        "isGendered": false
+      },
+      {
+        "fac": "HOBBIT",
+        "alignment": 2000.0,
+        "name": "chief",
+        "isGendered": false
+      },
+      {
+        "fac": "HOBBIT",
+        "alignment": 1000.0,
+        "name": "shirriff",
+        "isGendered": false
+      },
+      {
+        "fac": "HOBBIT",
+        "alignment": 500.0,
+        "name": "bounder",
+        "isGendered": false
+      },
+      {
+        "fac": "HOBBIT",
+        "alignment": 250.0,
+        "name": "hayward",
+        "isGendered": false
+      },
+      {
+        "fac": "HOBBIT",
+        "alignment": 100.0,
+        "name": "friend",
+        "isGendered": false
+      },
+      {
+        "fac": "HOBBIT",
+        "alignment": 10.0,
+        "name": "guest",
+        "isGendered": false
+      }
+    ],
+    "pledgeRank": {
+      "fac": "HOBBIT",
+      "alignment": 100.0,
+      "name": "friend",
+      "isGendered": false
+    },
+    "map": {
+      "mapX": 830,
+      "mapY": 745,
+      "radius": 100
+    },
+    "controlZones": [
+      {
+        "mapX": 820.0,
+        "mapY": 730.0,
+        "radius": 40,
+        "xCoord": 1344,
+        "zCoord": 64,
+        "radiusCoord": 5120,
+        "radiusCoordSq": 26214400
+      },
+      {
+        "mapX": 857.0,
+        "mapY": 734.0,
+        "radius": 15,
+        "xCoord": 6080,
+        "zCoord": 576,
+        "radiusCoord": 1920,
+        "radiusCoordSq": 3686400
+      },
+      {
+        "mapX": 858.0,
+        "mapY": 747.0,
+        "radius": 10,
+        "xCoord": 6208,
+        "zCoord": 2240,
+        "radiusCoord": 1280,
+        "radiusCoordSq": 1638400
+      },
+      {
+        "mapX": 796.0,
+        "mapY": 739.0,
+        "radius": 35,
+        "xCoord": -1728,
+        "zCoord": 1216,
+        "radiusCoord": 4480,
+        "radiusCoordSq": 20070400
+      },
+      {
+        "mapX": 762.0,
+        "mapY": 745.0,
+        "radius": 10,
+        "xCoord": -6080,
+        "zCoord": 1984,
+        "radiusCoord": 1280,
+        "radiusCoordSq": 1638400
+      },
+      {
+        "mapX": 820.0,
+        "mapY": 765.0,
+        "radius": 30,
+        "xCoord": 1344,
+        "zCoord": 4544,
+        "radiusCoord": 3840,
+        "radiusCoordSq": 14745600
+      },
+      {
+        "mapX": 915.0,
+        "mapY": 734.0,
+        "radius": 15,
+        "xCoord": 13504,
+        "zCoord": 576,
+        "radiusCoord": 1920,
+        "radiusCoordSq": 3686400
+      }
+    ],
+    "relations": {
+      "BREE": "ALLY",
+      "RANGER_NORTH": "ALLY",
+      "BLUE_MOUNTAINS": "ALLY",
+      "HIGH_ELF": "FRIEND",
+      "GUNDABAD": "MORTAL_ENEMY",
+      "ANGMAR": "MORTAL_ENEMY",
+      "WOOD_ELF": "FRIEND",
+      "DOL_GULDUR": "MORTAL_ENEMY",
+      "DALE": "ALLY",
+      "DURINS_FOLK": "ALLY",
+      "LOTHLORIEN": "FRIEND",
+      "DUNLAND": "NEUTRAL",
+      "ISENGARD": "MORTAL_ENEMY",
+      "FANGORN": "NEUTRAL",
+      "ROHAN": "FRIEND",
+      "GONDOR": "FRIEND",
+      "MORDOR": "MORTAL_ENEMY",
+      "DORWINION": "NEUTRAL",
+      "RHUDEL": "NEUTRAL",
+      "NEAR_HARAD": "NEUTRAL",
+      "MORWAITH": "NEUTRAL",
+      "TAURETHRIM": "NEUTRAL",
+      "HALF_TROLL": "MORTAL_ENEMY",
+      "DARK_HUORN": "MORTAL_ENEMY",
+      "RUFFIAN": "NEUTRAL",
+      "UTUMNO": "MORTAL_ENEMY",
+      "HOSTILE": "MORTAL_ENEMY",
+      "UNALIGNED": "NEUTRAL"
+    }
+  },
+  {
+    "code": "BREE",
+    "name": "lotr.faction.BREE.name",
+    "color": -5403790,
+    "fields": {
+      "factionDimension": "MIDDLE_EARTH",
+      "factionRegion": "WEST",
+      "factionColor": 11373426,
+      "allowPlayer": true,
+      "allowEntityRegistry": true,
+      "hasFixedAlignment": false,
+      "fixedAlignment": 0,
+      "achieveCategory": "BREE_LAND",
+      "isolationist": false,
+      "approvesWarCrimes": false,
+      "name": "BREE",
+      "ordinal": 1
+    },
+    "region": "WEST",
+    "dimension": "MIDDLE_EARTH",
+    "types": [
+      "TYPE_FREE",
+      "TYPE_MAN"
+    ],
+    "ranks": [
+      {
+        "fac": "BREE",
+        "alignment": 2000.0,
+        "name": "master",
+        "isGendered": false
+      },
+      {
+        "fac": "BREE",
+        "alignment": 1000.0,
+        "name": "captain",
+        "isGendered": false
+      },
+      {
+        "fac": "BREE",
+        "alignment": 500.0,
+        "name": "champion",
+        "isGendered": false
+      },
+      {
+        "fac": "BREE",
+        "alignment": 200.0,
+        "name": "trustee",
+        "isGendered": false
+      },
+      {
+        "fac": "BREE",
+        "alignment": 100.0,
+        "name": "townsman",
+        "isGendered": false
+      },
+      {
+        "fac": "BREE",
+        "alignment": 50.0,
+        "name": "friend",
+        "isGendered": false
+      },
+      {
+        "fac": "BREE",
+        "alignment": 10.0,
+        "name": "guest",
+        "isGendered": false
+      }
+    ],
+    "pledgeRank": {
+      "fac": "BREE",
+      "alignment": 100.0,
+      "name": "townsman",
+      "isGendered": false
+    },
+    "map": {
+      "mapX": 925,
+      "mapY": 735,
+      "radius": 50
+    },
+    "controlZones": [
+      {
+        "mapX": 915.0,
+        "mapY": 734.0,
+        "radius": 25,
+        "xCoord": 13504,
+        "zCoord": 576,
+        "radiusCoord": 3200,
+        "radiusCoordSq": 10240000
+      },
+      {
+        "mapX": 928.0,
+        "mapY": 728.0,
+        "radius": 20,
+        "xCoord": 15168,
+        "zCoord": -192,
+        "radiusCoord": 2560,
+        "radiusCoordSq": 6553600
+      },
+      {
+        "mapX": 950.0,
+        "mapY": 743.0,
+        "radius": 15,
+        "xCoord": 17984,
+        "zCoord": 1728,
+        "radiusCoord": 1920,
+        "radiusCoordSq": 3686400
+      }
+    ],
+    "relations": {
+      "HOBBIT": "ALLY",
+      "RANGER_NORTH": "FRIEND",
+      "BLUE_MOUNTAINS": "FRIEND",
+      "HIGH_ELF": "FRIEND",
+      "GUNDABAD": "MORTAL_ENEMY",
+      "ANGMAR": "MORTAL_ENEMY",
+      "WOOD_ELF": "FRIEND",
+      "DOL_GULDUR": "MORTAL_ENEMY",
+      "DALE": "FRIEND",
+      "DURINS_FOLK": "FRIEND",
+      "LOTHLORIEN": "FRIEND",
+      "DUNLAND": "NEUTRAL",
+      "ISENGARD": "MORTAL_ENEMY",
+      "FANGORN": "NEUTRAL",
+      "ROHAN": "NEUTRAL",
+      "GONDOR": "NEUTRAL",
+      "MORDOR": "MORTAL_ENEMY",
+      "DORWINION": "NEUTRAL",
+      "RHUDEL": "NEUTRAL",
+      "NEAR_HARAD": "NEUTRAL",
+      "MORWAITH": "NEUTRAL",
+      "TAURETHRIM": "NEUTRAL",
+      "HALF_TROLL": "MORTAL_ENEMY",
+      "DARK_HUORN": "MORTAL_ENEMY",
+      "RUFFIAN": "NEUTRAL",
+      "UTUMNO": "MORTAL_ENEMY",
+      "HOSTILE": "MORTAL_ENEMY",
+      "UNALIGNED": "NEUTRAL"
+    }
+  },
+  {
+    "code": "RANGER_NORTH",
+    "name": "lotr.faction.RANGER_NORTH.name",
+    "color": -12954046,
+    "fields": {
+      "factionDimension": "MIDDLE_EARTH",
+      "factionRegion": "WEST",
+      "factionColor": 3823170,
+      "allowPlayer": true,
+      "allowEntityRegistry": true,
+      "hasFixedAlignment": false,
+      "fixedAlignment": 0,
+      "achieveCategory": "ERIADOR",
+      "isolationist": false,
+      "approvesWarCrimes": false,
+      "name": "RANGER_NORTH",
+      "ordinal": 2
+    },
+    "region": "WEST",
+    "dimension": "MIDDLE_EARTH",
+    "types": [
+      "TYPE_FREE",
+      "TYPE_MAN"
+    ],
+    "ranks": [
+      {
+        "fac": "RANGER_NORTH",
+        "alignment": 2000.0,
+        "name": "captain",
+        "isGendered": false
+      },
+      {
+        "fac": "RANGER_NORTH",
+        "alignment": 1000.0,
+        "name": "champion",
+        "isGendered": false
+      },
+      {
+        "fac": "RANGER_NORTH",
+        "alignment": 500.0,
+        "name": "roquen",
+        "isGendered": false
+      },
+      {
+        "fac": "RANGER_NORTH",
+        "alignment": 200.0,
+        "name": "ohtar",
+        "isGendered": false
+      },
+      {
+        "fac": "RANGER_NORTH",
+        "alignment": 100.0,
+        "name": "ranger",
+        "isGendered": false
+      },
+      {
+        "fac": "RANGER_NORTH",
+        "alignment": 50.0,
+        "name": "warden",
+        "isGendered": false
+      },
+      {
+        "fac": "RANGER_NORTH",
+        "alignment": 10.0,
+        "name": "friend",
+        "isGendered": false
+      }
+    ],
+    "pledgeRank": {
+      "fac": "RANGER_NORTH",
+      "alignment": 100.0,
+      "name": "ranger",
+      "isGendered": false
+    },
+    "map": {
+      "mapX": 1070,
+      "mapY": 760,
+      "radius": 150
+    },
+    "controlZones": [
+      {
+        "mapX": 820.0,
+        "mapY": 730.0,
+        "radius": 110,
+        "xCoord": 1344,
+        "zCoord": 64,
+        "radiusCoord": 14080,
+        "radiusCoordSq": 198246400
+      },
+      {
+        "mapX": 883.0,
+        "mapY": 802.0,
+        "radius": 60,
+        "xCoord": 9408,
+        "zCoord": 9280,
+        "radiusCoord": 7680,
+        "radiusCoordSq": 58982400
+      },
+      {
+        "mapX": 1088.0,
+        "mapY": 714.0,
+        "radius": 110,
+        "xCoord": 35648,
+        "zCoord": -1984,
+        "radiusCoord": 14080,
+        "radiusCoordSq": 198246400
+      },
+      {
+        "mapX": 915.0,
+        "mapY": 734.0,
+        "radius": 100,
+        "xCoord": 13504,
+        "zCoord": 576,
+        "radiusCoord": 12800,
+        "radiusCoordSq": 163840000
+      },
+      {
+        "mapX": 814.0,
+        "mapY": 661.0,
+        "radius": 50,
+        "xCoord": 576,
+        "zCoord": -8768,
+        "radiusCoord": 6400,
+        "radiusCoordSq": 40960000
+      },
+      {
+        "mapX": 897.0,
+        "mapY": 652.0,
+        "radius": 50,
+        "xCoord": 11200,
+        "zCoord": -9920,
+        "radiusCoord": 6400,
+        "radiusCoordSq": 40960000
+      },
+      {
+        "mapX": 1106.0,
+        "mapY": 589.0,
+        "radius": 100,
+        "xCoord": 37952,
+        "zCoord": -17984,
+        "radiusCoord": 12800,
+        "radiusCoordSq": 163840000
+      },
+      {
+        "mapX": 1010.0,
+        "mapY": 503.0,
+        "radius": 60,
+        "xCoord": 25664,
+        "zCoord": -28992,
+        "radiusCoord": 7680,
+        "radiusCoordSq": 58982400
+      },
+      {
+        "mapX": 920.0,
+        "mapY": 810.0,
+        "radius": 60,
+        "xCoord": 14144,
+        "zCoord": 10304,
+        "radiusCoord": 7680,
+        "radiusCoordSq": 58982400
+      },
+      {
+        "mapX": 979.0,
+        "mapY": 878.0,
+        "radius": 50,
+        "xCoord": 21696,
+        "zCoord": 19008,
+        "radiusCoord": 6400,
+        "radiusCoordSq": 40960000
+      }
+    ],
+    "relations": {
+      "HOBBIT": "ALLY",
+      "BREE": "FRIEND",
+      "BLUE_MOUNTAINS": "NEUTRAL",
+      "HIGH_ELF": "ALLY",
+      "GUNDABAD": "MORTAL_ENEMY",
+      "ANGMAR": "MORTAL_ENEMY",
+      "WOOD_ELF": "FRIEND",
+      "DOL_GULDUR": "MORTAL_ENEMY",
+      "DALE": "NEUTRAL",
+      "DURINS_FOLK": "NEUTRAL",
+      "LOTHLORIEN": "ALLY",
+      "DUNLAND": "ENEMY",
+      "ISENGARD": "MORTAL_ENEMY",
+      "FANGORN": "NEUTRAL",
+      "ROHAN": "FRIEND",
+      "GONDOR": "ALLY",
+      "MORDOR": "MORTAL_ENEMY",
+      "DORWINION": "NEUTRAL",
+      "RHUDEL": "ENEMY",
+      "NEAR_HARAD": "ENEMY",
+      "MORWAITH": "ENEMY",
+      "TAURETHRIM": "NEUTRAL",
+      "HALF_TROLL": "MORTAL_ENEMY",
+      "DARK_HUORN": "MORTAL_ENEMY",
+      "RUFFIAN": "NEUTRAL",
+      "UTUMNO": "MORTAL_ENEMY",
+      "HOSTILE": "MORTAL_ENEMY",
+      "UNALIGNED": "NEUTRAL"
+    }
+  },
+  {
+    "code": "BLUE_MOUNTAINS",
+    "name": "lotr.faction.BLUE_MOUNTAINS.name",
+    "color": -10645044,
+    "fields": {
+      "factionDimension": "MIDDLE_EARTH",
+      "factionRegion": "WEST",
+      "factionColor": 6132172,
+      "allowPlayer": true,
+      "allowEntityRegistry": true,
+      "hasFixedAlignment": false,
+      "fixedAlignment": 0,
+      "achieveCategory": "BLUE_MOUNTAINS",
+      "isolationist": false,
+      "approvesWarCrimes": false,
+      "name": "BLUE_MOUNTAINS",
+      "ordinal": 3
+    },
+    "region": "WEST",
+    "dimension": "MIDDLE_EARTH",
+    "types": [
+      "TYPE_FREE",
+      "TYPE_DWARF"
+    ],
+    "ranks": [
+      {
+        "fac": "BLUE_MOUNTAINS",
+        "alignment": 3000.0,
+        "name": "lord",
+        "isGendered": true
+      },
+      {
+        "fac": "BLUE_MOUNTAINS",
+        "alignment": 1500.0,
+        "name": "noble",
+        "isGendered": false
+      },
+      {
+        "fac": "BLUE_MOUNTAINS",
+        "alignment": 1000.0,
+        "name": "captain",
+        "isGendered": false
+      },
+      {
+        "fac": "BLUE_MOUNTAINS",
+        "alignment": 500.0,
+        "name": "champion",
+        "isGendered": false
+      },
+      {
+        "fac": "BLUE_MOUNTAINS",
+        "alignment": 200.0,
+        "name": "axebearer",
+        "isGendered": false
+      },
+      {
+        "fac": "BLUE_MOUNTAINS",
+        "alignment": 100.0,
+        "name": "warden",
+        "isGendered": false
+      },
+      {
+        "fac": "BLUE_MOUNTAINS",
+        "alignment": 50.0,
+        "name": "friend",
+        "isGendered": false
+      },
+      {
+        "fac": "BLUE_MOUNTAINS",
+        "alignment": 10.0,
+        "name": "guest",
+        "isGendered": false
+      }
+    ],
+    "pledgeRank": {
+      "fac": "BLUE_MOUNTAINS",
+      "alignment": 100.0,
+      "name": "warden",
+      "isGendered": false
+    },
+    "map": {
+      "mapX": 650,
+      "mapY": 600,
+      "radius": 125
+    },
+    "controlZones": [
+      {
+        "mapX": 622.0,
+        "mapY": 600.0,
+        "radius": 40,
+        "xCoord": -24000,
+        "zCoord": -16576,
+        "radiusCoord": 5120,
+        "radiusCoordSq": 26214400
+      },
+      {
+        "mapX": 626.0,
+        "mapY": 636.0,
+        "radius": 40,
+        "xCoord": -23488,
+        "zCoord": -11968,
+        "radiusCoord": 5120,
+        "radiusCoordSq": 26214400
+      },
+      {
+        "mapX": 641.0,
+        "mapY": 671.0,
+        "radius": 50,
+        "xCoord": -21568,
+        "zCoord": -7488,
+        "radiusCoord": 6400,
+        "radiusCoordSq": 40960000
+      },
+      {
+        "mapX": 695.0,
+        "mapY": 820.0,
+        "radius": 80,
+        "xCoord": -14656,
+        "zCoord": 11584,
+        "radiusCoord": 10240,
+        "radiusCoordSq": 104857600
+      }
+    ],
+    "relations": {
+      "HOBBIT": "ALLY",
+      "BREE": "FRIEND",
+      "RANGER_NORTH": "NEUTRAL",
+      "HIGH_ELF": "NEUTRAL",
+      "GUNDABAD": "MORTAL_ENEMY",
+      "ANGMAR": "MORTAL_ENEMY",
+      "WOOD_ELF": "NEUTRAL",
+      "DOL_GULDUR": "MORTAL_ENEMY",
+      "DALE": "NEUTRAL",
+      "DURINS_FOLK": "ALLY",
+      "LOTHLORIEN": "NEUTRAL",
+      "DUNLAND": "NEUTRAL",
+      "ISENGARD": "MORTAL_ENEMY",
+      "FANGORN": "NEUTRAL",
+      "ROHAN": "NEUTRAL",
+      "GONDOR": "NEUTRAL",
+      "MORDOR": "MORTAL_ENEMY",
+      "DORWINION": "NEUTRAL",
+      "RHUDEL": "NEUTRAL",
+      "NEAR_HARAD": "NEUTRAL",
+      "MORWAITH": "NEUTRAL",
+      "TAURETHRIM": "NEUTRAL",
+      "HALF_TROLL": "MORTAL_ENEMY",
+      "DARK_HUORN": "NEUTRAL",
+      "RUFFIAN": "NEUTRAL",
+      "UTUMNO": "MORTAL_ENEMY",
+      "HOSTILE": "MORTAL_ENEMY",
+      "UNALIGNED": "NEUTRAL"
+    }
+  },
+  {
+    "code": "HIGH_ELF",
+    "name": "lotr.faction.HIGH_ELF.name",
+    "color": -3742209,
+    "fields": {
+      "factionDimension": "MIDDLE_EARTH",
+      "factionRegion": "WEST",
+      "factionColor": 13035007,
+      "allowPlayer": true,
+      "allowEntityRegistry": true,
+      "hasFixedAlignment": false,
+      "fixedAlignment": 0,
+      "achieveCategory": "LINDON",
+      "isolationist": false,
+      "approvesWarCrimes": false,
+      "name": "HIGH_ELF",
+      "ordinal": 4
+    },
+    "region": "WEST",
+    "dimension": "MIDDLE_EARTH",
+    "types": [
+      "TYPE_FREE",
+      "TYPE_ELF"
+    ],
+    "ranks": [
+      {
+        "fac": "HIGH_ELF",
+        "alignment": 3000.0,
+        "name": "lord",
+        "isGendered": true
+      },
+      {
+        "fac": "HIGH_ELF",
+        "alignment": 2000.0,
+        "name": "commander",
+        "isGendered": false
+      },
+      {
+        "fac": "HIGH_ELF",
+        "alignment": 1000.0,
+        "name": "noble",
+        "isGendered": false
+      },
+      {
+        "fac": "HIGH_ELF",
+        "alignment": 500.0,
+        "name": "captain",
+        "isGendered": false
+      },
+      {
+        "fac": "HIGH_ELF",
+        "alignment": 200.0,
+        "name": "herald",
+        "isGendered": false
+      },
+      {
+        "fac": "HIGH_ELF",
+        "alignment": 100.0,
+        "name": "warrior",
+        "isGendered": false
+      },
+      {
+        "fac": "HIGH_ELF",
+        "alignment": 50.0,
+        "name": "friend",
+        "isGendered": false
+      },
+      {
+        "fac": "HIGH_ELF",
+        "alignment": 10.0,
+        "name": "guest",
+        "isGendered": false
+      }
+    ],
+    "pledgeRank": {
+      "fac": "HIGH_ELF",
+      "alignment": 100.0,
+      "name": "warrior",
+      "isGendered": false
+    },
+    "map": {
+      "mapX": 570,
+      "mapY": 770,
+      "radius": 200
+    },
+    "controlZones": [
+      {
+        "mapX": 679.0,
+        "mapY": 729.0,
+        "radius": 60,
+        "xCoord": -16704,
+        "zCoord": -64,
+        "radiusCoord": 7680,
+        "radiusCoordSq": 58982400
+      },
+      {
+        "mapX": 526.0,
+        "mapY": 718.0,
+        "radius": 80,
+        "xCoord": -36288,
+        "zCoord": -1472,
+        "radiusCoord": 10240,
+        "radiusCoordSq": 104857600
+      },
+      {
+        "mapX": 605.0,
+        "mapY": 783.0,
+        "radius": 80,
+        "xCoord": -26176,
+        "zCoord": 6848,
+        "radiusCoord": 10240,
+        "radiusCoordSq": 104857600
+      },
+      {
+        "mapX": 1163.0,
+        "mapY": 723.0,
+        "radius": 50,
+        "xCoord": 45248,
+        "zCoord": -832,
+        "radiusCoord": 6400,
+        "radiusCoordSq": 40960000
+      }
+    ],
+    "relations": {
+      "HOBBIT": "FRIEND",
+      "BREE": "FRIEND",
+      "RANGER_NORTH": "ALLY",
+      "BLUE_MOUNTAINS": "NEUTRAL",
+      "GUNDABAD": "MORTAL_ENEMY",
+      "ANGMAR": "MORTAL_ENEMY",
+      "WOOD_ELF": "FRIEND",
+      "DOL_GULDUR": "MORTAL_ENEMY",
+      "DALE": "NEUTRAL",
+      "DURINS_FOLK": "NEUTRAL",
+      "LOTHLORIEN": "ALLY",
+      "DUNLAND": "NEUTRAL",
+      "ISENGARD": "MORTAL_ENEMY",
+      "FANGORN": "ALLY",
+      "ROHAN": "NEUTRAL",
+      "GONDOR": "FRIEND",
+      "MORDOR": "MORTAL_ENEMY",
+      "DORWINION": "NEUTRAL",
+      "RHUDEL": "ENEMY",
+      "NEAR_HARAD": "ENEMY",
+      "MORWAITH": "NEUTRAL",
+      "TAURETHRIM": "NEUTRAL",
+      "HALF_TROLL": "MORTAL_ENEMY",
+      "DARK_HUORN": "NEUTRAL",
+      "RUFFIAN": "NEUTRAL",
+      "UTUMNO": "MORTAL_ENEMY",
+      "HOSTILE": "MORTAL_ENEMY",
+      "UNALIGNED": "NEUTRAL"
+    }
+  },
+  {
+    "code": "GUNDABAD",
+    "name": "lotr.faction.GUNDABAD.name",
+    "color": -6919084,
+    "fields": {
+      "factionDimension": "MIDDLE_EARTH",
+      "factionRegion": "WEST",
+      "factionColor": 9858132,
+      "allowPlayer": true,
+      "allowEntityRegistry": true,
+      "hasFixedAlignment": false,
+      "fixedAlignment": 0,
+      "achieveCategory": "ERIADOR",
+      "isolationist": false,
+      "approvesWarCrimes": true,
+      "name": "GUNDABAD",
+      "ordinal": 5
+    },
+    "region": "WEST",
+    "dimension": "MIDDLE_EARTH",
+    "types": [
+      "TYPE_ORC"
+    ],
+    "ranks": [
+      {
+        "fac": "GUNDABAD",
+        "alignment": 2000.0,
+        "name": "chieftain",
+        "isGendered": false
+      },
+      {
+        "fac": "GUNDABAD",
+        "alignment": 1000.0,
+        "name": "warlord",
+        "isGendered": false
+      },
+      {
+        "fac": "GUNDABAD",
+        "alignment": 500.0,
+        "name": "scourge",
+        "isGendered": false
+      },
+      {
+        "fac": "GUNDABAD",
+        "alignment": 200.0,
+        "name": "ravager",
+        "isGendered": false
+      },
+      {
+        "fac": "GUNDABAD",
+        "alignment": 100.0,
+        "name": "raider",
+        "isGendered": false
+      },
+      {
+        "fac": "GUNDABAD",
+        "alignment": 50.0,
+        "name": "snaga",
+        "isGendered": false
+      },
+      {
+        "fac": "GUNDABAD",
+        "alignment": 10.0,
+        "name": "thrall",
+        "isGendered": false
+      }
+    ],
+    "pledgeRank": {
+      "fac": "GUNDABAD",
+      "alignment": 100.0,
+      "name": "raider",
+      "isGendered": false
+    },
+    "map": {
+      "mapX": 1160,
+      "mapY": 670,
+      "radius": 150
+    },
+    "controlZones": [
+      {
+        "mapX": 1195.0,
+        "mapY": 592.0,
+        "radius": 200,
+        "xCoord": 49344,
+        "zCoord": -17600,
+        "radiusCoord": 25600,
+        "radiusCoordSq": 655360000
+      },
+      {
+        "mapX": 1106.0,
+        "mapY": 589.0,
+        "radius": 200,
+        "xCoord": 37952,
+        "zCoord": -17984,
+        "radiusCoord": 25600,
+        "radiusCoordSq": 655360000
+      },
+      {
+        "mapX": 1220.0,
+        "mapY": 696.0,
+        "radius": 150,
+        "xCoord": 52544,
+        "zCoord": -4288,
+        "radiusCoord": 19200,
+        "radiusCoordSq": 368640000
+      },
+      {
+        "mapX": 1166.0,
+        "mapY": 845.0,
+        "radius": 100,
+        "xCoord": 45632,
+        "zCoord": 14784,
+        "radiusCoord": 12800,
+        "radiusCoordSq": 163840000
+      }
+    ],
+    "relations": {
+      "HOBBIT": "MORTAL_ENEMY",
+      "BREE": "MORTAL_ENEMY",
+      "RANGER_NORTH": "MORTAL_ENEMY",
+      "BLUE_MOUNTAINS": "MORTAL_ENEMY",
+      "HIGH_ELF": "MORTAL_ENEMY",
+      "ANGMAR": "FRIEND",
+      "WOOD_ELF": "MORTAL_ENEMY",
+      "DOL_GULDUR": "FRIEND",
+      "DALE": "MORTAL_ENEMY",
+      "DURINS_FOLK": "MORTAL_ENEMY",
+      "LOTHLORIEN": "MORTAL_ENEMY",
+      "DUNLAND": "NEUTRAL",
+      "ISENGARD": "NEUTRAL",
+      "FANGORN": "MORTAL_ENEMY",
+      "ROHAN": "MORTAL_ENEMY",
+      "GONDOR": "MORTAL_ENEMY",
+      "MORDOR": "FRIEND",
+      "DORWINION": "MORTAL_ENEMY",
+      "RHUDEL": "NEUTRAL",
+      "NEAR_HARAD": "NEUTRAL",
+      "MORWAITH": "NEUTRAL",
+      "TAURETHRIM": "NEUTRAL",
+      "HALF_TROLL": "NEUTRAL",
+      "DARK_HUORN": "NEUTRAL",
+      "RUFFIAN": "NEUTRAL",
+      "UTUMNO": "MORTAL_ENEMY",
+      "HOSTILE": "MORTAL_ENEMY",
+      "UNALIGNED": "NEUTRAL"
+    }
+  },
+  {
+    "code": "ANGMAR",
+    "name": "lotr.faction.ANGMAR.name",
+    "color": -8941193,
+    "fields": {
+      "factionDimension": "MIDDLE_EARTH",
+      "factionRegion": "WEST",
+      "factionColor": 7836023,
+      "allowPlayer": true,
+      "allowEntityRegistry": true,
+      "hasFixedAlignment": false,
+      "fixedAlignment": 0,
+      "achieveCategory": "ANGMAR",
+      "isolationist": false,
+      "approvesWarCrimes": true,
+      "name": "ANGMAR",
+      "ordinal": 6
+    },
+    "region": "WEST",
+    "dimension": "MIDDLE_EARTH",
+    "types": [
+      "TYPE_ORC",
+      "TYPE_TROLL"
+    ],
+    "ranks": [
+      {
+        "fac": "ANGMAR",
+        "alignment": 2000.0,
+        "name": "chieftain",
+        "isGendered": false
+      },
+      {
+        "fac": "ANGMAR",
+        "alignment": 1000.0,
+        "name": "warlord",
+        "isGendered": false
+      },
+      {
+        "fac": "ANGMAR",
+        "alignment": 500.0,
+        "name": "champion",
+        "isGendered": false
+      },
+      {
+        "fac": "ANGMAR",
+        "alignment": 200.0,
+        "name": "warrior",
+        "isGendered": false
+      },
+      {
+        "fac": "ANGMAR",
+        "alignment": 100.0,
+        "name": "kinsman",
+        "isGendered": false
+      },
+      {
+        "fac": "ANGMAR",
+        "alignment": 50.0,
+        "name": "servant",
+        "isGendered": false
+      },
+      {
+        "fac": "ANGMAR",
+        "alignment": 10.0,
+        "name": "thrall",
+        "isGendered": false
+      }
+    ],
+    "pledgeRank": {
+      "fac": "ANGMAR",
+      "alignment": 100.0,
+      "name": "kinsman",
+      "isGendered": false
+    },
+    "map": {
+      "mapX": 1080,
+      "mapY": 600,
+      "radius": 125
+    },
+    "controlZones": [
+      {
+        "mapX": 1010.0,
+        "mapY": 503.0,
+        "radius": 75,
+        "xCoord": 25664,
+        "zCoord": -28992,
+        "radiusCoord": 9600,
+        "radiusCoordSq": 92160000
+      },
+      {
+        "mapX": 1106.0,
+        "mapY": 589.0,
+        "radius": 125,
+        "xCoord": 37952,
+        "zCoord": -17984,
+        "radiusCoord": 16000,
+        "radiusCoordSq": 256000000
+      },
+      {
+        "mapX": 1130.0,
+        "mapY": 703.0,
+        "radius": 50,
+        "xCoord": 41024,
+        "zCoord": -3392,
+        "radiusCoord": 6400,
+        "radiusCoordSq": 40960000
+      }
+    ],
+    "relations": {
+      "HOBBIT": "MORTAL_ENEMY",
+      "BREE": "MORTAL_ENEMY",
+      "RANGER_NORTH": "MORTAL_ENEMY",
+      "BLUE_MOUNTAINS": "MORTAL_ENEMY",
+      "HIGH_ELF": "MORTAL_ENEMY",
+      "GUNDABAD": "FRIEND",
+      "WOOD_ELF": "MORTAL_ENEMY",
+      "DOL_GULDUR": "ALLY",
+      "DALE": "MORTAL_ENEMY",
+      "DURINS_FOLK": "MORTAL_ENEMY",
+      "LOTHLORIEN": "MORTAL_ENEMY",
+      "DUNLAND": "NEUTRAL",
+      "ISENGARD": "NEUTRAL",
+      "FANGORN": "MORTAL_ENEMY",
+      "ROHAN": "MORTAL_ENEMY",
+      "GONDOR": "MORTAL_ENEMY",
+      "MORDOR": "ALLY",
+      "DORWINION": "MORTAL_ENEMY",
+      "RHUDEL": "NEUTRAL",
+      "NEAR_HARAD": "NEUTRAL",
+      "MORWAITH": "NEUTRAL",
+      "TAURETHRIM": "NEUTRAL",
+      "HALF_TROLL": "NEUTRAL",
+      "DARK_HUORN": "NEUTRAL",
+      "RUFFIAN": "NEUTRAL",
+      "UTUMNO": "MORTAL_ENEMY",
+      "HOSTILE": "MORTAL_ENEMY",
+      "UNALIGNED": "NEUTRAL"
+    }
+  },
+  {
+    "code": "WOOD_ELF",
+    "name": "lotr.faction.WOOD_ELF.name",
+    "color": -13003186,
+    "fields": {
+      "factionDimension": "MIDDLE_EARTH",
+      "factionRegion": "WEST",
+      "factionColor": 3774030,
+      "allowPlayer": true,
+      "allowEntityRegistry": true,
+      "hasFixedAlignment": false,
+      "fixedAlignment": 0,
+      "achieveCategory": "MIRKWOOD",
+      "isolationist": false,
+      "approvesWarCrimes": false,
+      "name": "WOOD_ELF",
+      "ordinal": 7
+    },
+    "region": "WEST",
+    "dimension": "MIDDLE_EARTH",
+    "types": [
+      "TYPE_FREE",
+      "TYPE_ELF"
+    ],
+    "ranks": [
+      {
+        "fac": "WOOD_ELF",
+        "alignment": 3000.0,
+        "name": "lord",
+        "isGendered": true
+      },
+      {
+        "fac": "WOOD_ELF",
+        "alignment": 2000.0,
+        "name": "noble",
+        "isGendered": false
+      },
+      {
+        "fac": "WOOD_ELF",
+        "alignment": 1000.0,
+        "name": "captain",
+        "isGendered": false
+      },
+      {
+        "fac": "WOOD_ELF",
+        "alignment": 500.0,
+        "name": "herald",
+        "isGendered": false
+      },
+      {
+        "fac": "WOOD_ELF",
+        "alignment": 200.0,
+        "name": "guard",
+        "isGendered": false
+      },
+      {
+        "fac": "WOOD_ELF",
+        "alignment": 100.0,
+        "name": "friend",
+        "isGendered": false
+      },
+      {
+        "fac": "WOOD_ELF",
+        "alignment": 50.0,
+        "name": "guest",
+        "isGendered": false
+      }
+    ],
+    "pledgeRank": {
+      "fac": "WOOD_ELF",
+      "alignment": 100.0,
+      "name": "friend",
+      "isGendered": false
+    },
+    "map": {
+      "mapX": 1400,
+      "mapY": 640,
+      "radius": 75
+    },
+    "controlZones": [
+      {
+        "mapX": 1396.0,
+        "mapY": 650.0,
+        "radius": 75,
+        "xCoord": 75072,
+        "zCoord": -10176,
+        "radiusCoord": 9600,
+        "radiusCoordSq": 92160000
+      },
+      {
+        "mapX": 1303.0,
+        "mapY": 655.0,
+        "radius": 20,
+        "xCoord": 63168,
+        "zCoord": -9536,
+        "radiusCoord": 2560,
+        "radiusCoordSq": 6553600
+      },
+      {
+        "mapX": 1339.0,
+        "mapY": 894.0,
+        "radius": 30,
+        "xCoord": 67776,
+        "zCoord": 21056,
+        "radiusCoord": 3840,
+        "radiusCoordSq": 14745600
+      }
+    ],
+    "relations": {
+      "HOBBIT": "FRIEND",
+      "BREE": "FRIEND",
+      "RANGER_NORTH": "FRIEND",
+      "BLUE_MOUNTAINS": "NEUTRAL",
+      "HIGH_ELF": "FRIEND",
+      "GUNDABAD": "MORTAL_ENEMY",
+      "ANGMAR": "MORTAL_ENEMY",
+      "DOL_GULDUR": "MORTAL_ENEMY",
+      "DALE": "NEUTRAL",
+      "DURINS_FOLK": "NEUTRAL",
+      "LOTHLORIEN": "ALLY",
+      "DUNLAND": "NEUTRAL",
+      "ISENGARD": "MORTAL_ENEMY",
+      "FANGORN": "ALLY",
+      "ROHAN": "NEUTRAL",
+      "GONDOR": "NEUTRAL",
+      "MORDOR": "MORTAL_ENEMY",
+      "DORWINION": "ALLY",
+      "RHUDEL": "ENEMY",
+      "NEAR_HARAD": "ENEMY",
+      "MORWAITH": "NEUTRAL",
+      "TAURETHRIM": "NEUTRAL",
+      "HALF_TROLL": "MORTAL_ENEMY",
+      "DARK_HUORN": "NEUTRAL",
+      "RUFFIAN": "NEUTRAL",
+      "UTUMNO": "MORTAL_ENEMY",
+      "HOSTILE": "MORTAL_ENEMY",
+      "UNALIGNED": "NEUTRAL"
+    }
+  },
+  {
+    "code": "DOL_GULDUR",
+    "name": "lotr.faction.DOL_GULDUR.name",
+    "color": -13288636,
+    "fields": {
+      "factionDimension": "MIDDLE_EARTH",
+      "factionRegion": "WEST",
+      "factionColor": 3488580,
+      "allowPlayer": true,
+      "allowEntityRegistry": true,
+      "hasFixedAlignment": false,
+      "fixedAlignment": 0,
+      "achieveCategory": "MIRKWOOD",
+      "isolationist": false,
+      "approvesWarCrimes": true,
+      "name": "DOL_GULDUR",
+      "ordinal": 8
+    },
+    "region": "WEST",
+    "dimension": "MIDDLE_EARTH",
+    "types": [
+      "TYPE_ORC"
+    ],
+    "ranks": [
+      {
+        "fac": "DOL_GULDUR",
+        "alignment": 2000.0,
+        "name": "lieutenant",
+        "isGendered": false
+      },
+      {
+        "fac": "DOL_GULDUR",
+        "alignment": 1000.0,
+        "name": "captain",
+        "isGendered": false
+      },
+      {
+        "fac": "DOL_GULDUR",
+        "alignment": 500.0,
+        "name": "despoiler",
+        "isGendered": false
+      },
+      {
+        "fac": "DOL_GULDUR",
+        "alignment": 200.0,
+        "name": "torchbearer",
+        "isGendered": false
+      },
+      {
+        "fac": "DOL_GULDUR",
+        "alignment": 100.0,
+        "name": "brigand",
+        "isGendered": false
+      },
+      {
+        "fac": "DOL_GULDUR",
+        "alignment": 50.0,
+        "name": "servant",
+        "isGendered": false
+      },
+      {
+        "fac": "DOL_GULDUR",
+        "alignment": 10.0,
+        "name": "thrall",
+        "isGendered": false
+      }
+    ],
+    "pledgeRank": {
+      "fac": "DOL_GULDUR",
+      "alignment": 100.0,
+      "name": "brigand",
+      "isGendered": false
+    },
+    "map": {
+      "mapX": 1380,
+      "mapY": 870,
+      "radius": 100
+    },
+    "controlZones": [
+      {
+        "mapX": 1339.0,
+        "mapY": 894.0,
+        "radius": 125,
+        "xCoord": 67776,
+        "zCoord": 21056,
+        "radiusCoord": 16000,
+        "radiusCoordSq": 256000000
+      },
+      {
+        "mapX": 1396.0,
+        "mapY": 650.0,
+        "radius": 75,
+        "xCoord": 75072,
+        "zCoord": -10176,
+        "radiusCoord": 9600,
+        "radiusCoordSq": 92160000
+      }
+    ],
+    "relations": {
+      "HOBBIT": "MORTAL_ENEMY",
+      "BREE": "MORTAL_ENEMY",
+      "RANGER_NORTH": "MORTAL_ENEMY",
+      "BLUE_MOUNTAINS": "MORTAL_ENEMY",
+      "HIGH_ELF": "MORTAL_ENEMY",
+      "GUNDABAD": "FRIEND",
+      "ANGMAR": "ALLY",
+      "WOOD_ELF": "MORTAL_ENEMY",
+      "DALE": "MORTAL_ENEMY",
+      "DURINS_FOLK": "MORTAL_ENEMY",
+      "LOTHLORIEN": "MORTAL_ENEMY",
+      "DUNLAND": "NEUTRAL",
+      "ISENGARD": "NEUTRAL",
+      "FANGORN": "MORTAL_ENEMY",
+      "ROHAN": "MORTAL_ENEMY",
+      "GONDOR": "MORTAL_ENEMY",
+      "MORDOR": "ALLY",
+      "DORWINION": "MORTAL_ENEMY",
+      "RHUDEL": "NEUTRAL",
+      "NEAR_HARAD": "NEUTRAL",
+      "MORWAITH": "NEUTRAL",
+      "TAURETHRIM": "NEUTRAL",
+      "HALF_TROLL": "NEUTRAL",
+      "DARK_HUORN": "NEUTRAL",
+      "RUFFIAN": "NEUTRAL",
+      "UTUMNO": "MORTAL_ENEMY",
+      "HOSTILE": "MORTAL_ENEMY",
+      "UNALIGNED": "NEUTRAL"
+    }
+  },
+  {
+    "code": "DALE",
+    "name": "lotr.faction.DALE.name",
+    "color": -3242145,
+    "fields": {
+      "factionDimension": "MIDDLE_EARTH",
+      "factionRegion": "WEST",
+      "factionColor": 13535071,
+      "allowPlayer": true,
+      "allowEntityRegistry": true,
+      "hasFixedAlignment": false,
+      "fixedAlignment": 0,
+      "achieveCategory": "DALE",
+      "isolationist": false,
+      "approvesWarCrimes": false,
+      "name": "DALE",
+      "ordinal": 9
+    },
+    "region": "WEST",
+    "dimension": "MIDDLE_EARTH",
+    "types": [
+      "TYPE_FREE",
+      "TYPE_MAN"
+    ],
+    "ranks": [
+      {
+        "fac": "DALE",
+        "alignment": 2000.0,
+        "name": "lord",
+        "isGendered": true
+      },
+      {
+        "fac": "DALE",
+        "alignment": 1000.0,
+        "name": "marshal",
+        "isGendered": false
+      },
+      {
+        "fac": "DALE",
+        "alignment": 500.0,
+        "name": "captain",
+        "isGendered": false
+      },
+      {
+        "fac": "DALE",
+        "alignment": 200.0,
+        "name": "herald",
+        "isGendered": false
+      },
+      {
+        "fac": "DALE",
+        "alignment": 100.0,
+        "name": "soldier",
+        "isGendered": false
+      },
+      {
+        "fac": "DALE",
+        "alignment": 50.0,
+        "name": "friend",
+        "isGendered": false
+      },
+      {
+        "fac": "DALE",
+        "alignment": 10.0,
+        "name": "guest",
+        "isGendered": false
+      }
+    ],
+    "pledgeRank": {
+      "fac": "DALE",
+      "alignment": 100.0,
+      "name": "soldier",
+      "isGendered": false
+    },
+    "map": {
+      "mapX": 1530,
+      "mapY": 670,
+      "radius": 100
+    },
+    "controlZones": [
+      {
+        "mapX": 1567.0,
+        "mapY": 680.0,
+        "radius": 175,
+        "xCoord": 96960,
+        "zCoord": -6336,
+        "radiusCoord": 22400,
+        "radiusCoordSq": 501760000
+      }
+    ],
+    "relations": {
+      "HOBBIT": "ALLY",
+      "BREE": "FRIEND",
+      "RANGER_NORTH": "NEUTRAL",
+      "BLUE_MOUNTAINS": "NEUTRAL",
+      "HIGH_ELF": "NEUTRAL",
+      "GUNDABAD": "MORTAL_ENEMY",
+      "ANGMAR": "MORTAL_ENEMY",
+      "WOOD_ELF": "NEUTRAL",
+      "DOL_GULDUR": "MORTAL_ENEMY",
+      "DURINS_FOLK": "ALLY",
+      "LOTHLORIEN": "NEUTRAL",
+      "DUNLAND": "NEUTRAL",
+      "ISENGARD": "MORTAL_ENEMY",
+      "FANGORN": "NEUTRAL",
+      "ROHAN": "FRIEND",
+      "GONDOR": "FRIEND",
+      "MORDOR": "MORTAL_ENEMY",
+      "DORWINION": "NEUTRAL",
+      "RHUDEL": "ENEMY",
+      "NEAR_HARAD": "NEUTRAL",
+      "MORWAITH": "NEUTRAL",
+      "TAURETHRIM": "NEUTRAL",
+      "HALF_TROLL": "MORTAL_ENEMY",
+      "DARK_HUORN": "NEUTRAL",
+      "RUFFIAN": "NEUTRAL",
+      "UTUMNO": "MORTAL_ENEMY",
+      "HOSTILE": "MORTAL_ENEMY",
+      "UNALIGNED": "NEUTRAL"
+    }
+  },
+  {
+    "code": "DURINS_FOLK",
+    "name": "lotr.faction.DURINS_FOLK.name",
+    "color": -11837054,
+    "fields": {
+      "factionDimension": "MIDDLE_EARTH",
+      "factionRegion": "WEST",
+      "factionColor": 4940162,
+      "allowPlayer": true,
+      "allowEntityRegistry": true,
+      "hasFixedAlignment": false,
+      "fixedAlignment": 0,
+      "achieveCategory": "IRON_HILLS",
+      "isolationist": false,
+      "approvesWarCrimes": false,
+      "name": "DURINS_FOLK",
+      "ordinal": 10
+    },
+    "region": "WEST",
+    "dimension": "MIDDLE_EARTH",
+    "types": [
+      "TYPE_FREE",
+      "TYPE_DWARF"
+    ],
+    "ranks": [
+      {
+        "fac": "DURINS_FOLK",
+        "alignment": 3000.0,
+        "name": "uzbad",
+        "isGendered": true
+      },
+      {
+        "fac": "DURINS_FOLK",
+        "alignment": 1500.0,
+        "name": "lord",
+        "isGendered": true
+      },
+      {
+        "fac": "DURINS_FOLK",
+        "alignment": 1000.0,
+        "name": "commander",
+        "isGendered": false
+      },
+      {
+        "fac": "DURINS_FOLK",
+        "alignment": 500.0,
+        "name": "champion",
+        "isGendered": false
+      },
+      {
+        "fac": "DURINS_FOLK",
+        "alignment": 200.0,
+        "name": "axebearer",
+        "isGendered": false
+      },
+      {
+        "fac": "DURINS_FOLK",
+        "alignment": 100.0,
+        "name": "oathfriend",
+        "isGendered": false
+      },
+      {
+        "fac": "DURINS_FOLK",
+        "alignment": 50.0,
+        "name": "friend",
+        "isGendered": false
+      },
+      {
+        "fac": "DURINS_FOLK",
+        "alignment": 10.0,
+        "name": "guest",
+        "isGendered": false
+      }
+    ],
+    "pledgeRank": {
+      "fac": "DURINS_FOLK",
+      "alignment": 100.0,
+      "name": "oathfriend",
+      "isGendered": false
+    },
+    "map": {
+      "mapX": 1650,
+      "mapY": 650,
+      "radius": 125
+    },
+    "controlZones": [
+      {
+        "mapX": 1463.0,
+        "mapY": 609.0,
+        "radius": 75,
+        "xCoord": 83648,
+        "zCoord": -15424,
+        "radiusCoord": 9600,
+        "radiusCoordSq": 92160000
+      },
+      {
+        "mapX": 1588.0,
+        "mapY": 608.0,
+        "radius": 100,
+        "xCoord": 99648,
+        "zCoord": -15552,
+        "radiusCoord": 12800,
+        "radiusCoordSq": 163840000
+      },
+      {
+        "mapX": 1729.0,
+        "mapY": 610.0,
+        "radius": 75,
+        "xCoord": 117696,
+        "zCoord": -15296,
+        "radiusCoord": 9600,
+        "radiusCoordSq": 92160000
+      },
+      {
+        "mapX": 1651.0,
+        "mapY": 690.0,
+        "radius": 75,
+        "xCoord": 107712,
+        "zCoord": -5056,
+        "radiusCoord": 9600,
+        "radiusCoordSq": 92160000
+      },
+      {
+        "mapX": 1166.0,
+        "mapY": 845.0,
+        "radius": 100,
+        "xCoord": 45632,
+        "zCoord": 14784,
+        "radiusCoord": 12800,
+        "radiusCoordSq": 163840000
+      },
+      {
+        "mapX": 1195.0,
+        "mapY": 592.0,
+        "radius": 100,
+        "xCoord": 49344,
+        "zCoord": -17600,
+        "radiusCoord": 12800,
+        "radiusCoordSq": 163840000
+      },
+      {
+        "mapX": 1262.0,
+        "mapY": 554.0,
+        "radius": 50,
+        "xCoord": 57920,
+        "zCoord": -22464,
+        "radiusCoord": 6400,
+        "radiusCoordSq": 40960000
+      }
+    ],
+    "relations": {
+      "HOBBIT": "ALLY",
+      "BREE": "FRIEND",
+      "RANGER_NORTH": "NEUTRAL",
+      "BLUE_MOUNTAINS": "ALLY",
+      "HIGH_ELF": "NEUTRAL",
+      "GUNDABAD": "MORTAL_ENEMY",
+      "ANGMAR": "MORTAL_ENEMY",
+      "WOOD_ELF": "NEUTRAL",
+      "DOL_GULDUR": "MORTAL_ENEMY",
+      "DALE": "ALLY",
+      "LOTHLORIEN": "NEUTRAL",
+      "DUNLAND": "FRIEND",
+      "ISENGARD": "MORTAL_ENEMY",
+      "FANGORN": "NEUTRAL",
+      "ROHAN": "NEUTRAL",
+      "GONDOR": "NEUTRAL",
+      "MORDOR": "MORTAL_ENEMY",
+      "DORWINION": "NEUTRAL",
+      "RHUDEL": "NEUTRAL",
+      "NEAR_HARAD": "NEUTRAL",
+      "MORWAITH": "NEUTRAL",
+      "TAURETHRIM": "NEUTRAL",
+      "HALF_TROLL": "MORTAL_ENEMY",
+      "DARK_HUORN": "NEUTRAL",
+      "RUFFIAN": "NEUTRAL",
+      "UTUMNO": "MORTAL_ENEMY",
+      "HOSTILE": "MORTAL_ENEMY",
+      "UNALIGNED": "NEUTRAL"
+    }
+  },
+  {
+    "code": "LOTHLORIEN",
+    "name": "lotr.faction.LOTHLORIEN.name",
+    "color": -1060520,
+    "fields": {
+      "factionDimension": "MIDDLE_EARTH",
+      "factionRegion": "WEST",
+      "factionColor": 15716696,
+      "allowPlayer": true,
+      "allowEntityRegistry": true,
+      "hasFixedAlignment": false,
+      "fixedAlignment": 0,
+      "achieveCategory": "LOTHLORIEN",
+      "isolationist": false,
+      "approvesWarCrimes": false,
+      "name": "LOTHLORIEN",
+      "ordinal": 11
+    },
+    "region": "WEST",
+    "dimension": "MIDDLE_EARTH",
+    "types": [
+      "TYPE_FREE",
+      "TYPE_ELF"
+    ],
+    "ranks": [
+      {
+        "fac": "LOTHLORIEN",
+        "alignment": 3000.0,
+        "name": "lord",
+        "isGendered": true
+      },
+      {
+        "fac": "LOTHLORIEN",
+        "alignment": 2000.0,
+        "name": "noble",
+        "isGendered": false
+      },
+      {
+        "fac": "LOTHLORIEN",
+        "alignment": 1000.0,
+        "name": "captain",
+        "isGendered": false
+      },
+      {
+        "fac": "LOTHLORIEN",
+        "alignment": 500.0,
+        "name": "herald",
+        "isGendered": true
+      },
+      {
+        "fac": "LOTHLORIEN",
+        "alignment": 200.0,
+        "name": "warrior",
+        "isGendered": false
+      },
+      {
+        "fac": "LOTHLORIEN",
+        "alignment": 100.0,
+        "name": "warden",
+        "isGendered": false
+      },
+      {
+        "fac": "LOTHLORIEN",
+        "alignment": 50.0,
+        "name": "friend",
+        "isGendered": false
+      },
+      {
+        "fac": "LOTHLORIEN",
+        "alignment": 10.0,
+        "name": "guest",
+        "isGendered": false
+      }
+    ],
+    "pledgeRank": {
+      "fac": "LOTHLORIEN",
+      "alignment": 100.0,
+      "name": "warden",
+      "isGendered": false
+    },
+    "map": {
+      "mapX": 1230,
+      "mapY": 900,
+      "radius": 75
+    },
+    "controlZones": [
+      {
+        "mapX": 1242.0,
+        "mapY": 902.0,
+        "radius": 100,
+        "xCoord": 55360,
+        "zCoord": 22080,
+        "radiusCoord": 12800,
+        "radiusCoordSq": 163840000
+      }
+    ],
+    "relations": {
+      "HOBBIT": "FRIEND",
+      "BREE": "FRIEND",
+      "RANGER_NORTH": "ALLY",
+      "BLUE_MOUNTAINS": "NEUTRAL",
+      "HIGH_ELF": "ALLY",
+      "GUNDABAD": "MORTAL_ENEMY",
+      "ANGMAR": "MORTAL_ENEMY",
+      "WOOD_ELF": "ALLY",
+      "DOL_GULDUR": "MORTAL_ENEMY",
+      "DALE": "NEUTRAL",
+      "DURINS_FOLK": "NEUTRAL",
+      "DUNLAND": "NEUTRAL",
+      "ISENGARD": "MORTAL_ENEMY",
+      "FANGORN": "ALLY",
+      "ROHAN": "NEUTRAL",
+      "GONDOR": "NEUTRAL",
+      "MORDOR": "MORTAL_ENEMY",
+      "DORWINION": "NEUTRAL",
+      "RHUDEL": "ENEMY",
+      "NEAR_HARAD": "ENEMY",
+      "MORWAITH": "NEUTRAL",
+      "TAURETHRIM": "NEUTRAL",
+      "HALF_TROLL": "MORTAL_ENEMY",
+      "DARK_HUORN": "NEUTRAL",
+      "RUFFIAN": "NEUTRAL",
+      "UTUMNO": "MORTAL_ENEMY",
+      "HOSTILE": "MORTAL_ENEMY",
+      "UNALIGNED": "NEUTRAL"
+    }
+  },
+  {
+    "code": "DUNLAND",
+    "name": "lotr.faction.DUNLAND.name",
+    "color": -5729137,
+    "fields": {
+      "factionDimension": "MIDDLE_EARTH",
+      "factionRegion": "WEST",
+      "factionColor": 11048079,
+      "allowPlayer": true,
+      "allowEntityRegistry": true,
+      "hasFixedAlignment": false,
+      "fixedAlignment": 0,
+      "achieveCategory": "DUNLAND",
+      "isolationist": false,
+      "approvesWarCrimes": true,
+      "name": "DUNLAND",
+      "ordinal": 12
+    },
+    "region": "WEST",
+    "dimension": "MIDDLE_EARTH",
+    "types": [
+      "TYPE_MAN"
+    ],
+    "ranks": [
+      {
+        "fac": "DUNLAND",
+        "alignment": 2000.0,
+        "name": "chieftain",
+        "isGendered": false
+      },
+      {
+        "fac": "DUNLAND",
+        "alignment": 1000.0,
+        "name": "warlord",
+        "isGendered": false
+      },
+      {
+        "fac": "DUNLAND",
+        "alignment": 500.0,
+        "name": "avenger",
+        "isGendered": false
+      },
+      {
+        "fac": "DUNLAND",
+        "alignment": 200.0,
+        "name": "bearer",
+        "isGendered": false
+      },
+      {
+        "fac": "DUNLAND",
+        "alignment": 100.0,
+        "name": "warrior",
+        "isGendered": false
+      },
+      {
+        "fac": "DUNLAND",
+        "alignment": 50.0,
+        "name": "kinsman",
+        "isGendered": false
+      },
+      {
+        "fac": "DUNLAND",
+        "alignment": 10.0,
+        "name": "guest",
+        "isGendered": false
+      }
+    ],
+    "pledgeRank": {
+      "fac": "DUNLAND",
+      "alignment": 100.0,
+      "name": "warrior",
+      "isGendered": false
+    },
+    "map": {
+      "mapX": 1090,
+      "mapY": 1030,
+      "radius": 125
+    },
+    "controlZones": [
+      {
+        "mapX": 1070.0,
+        "mapY": 1027.0,
+        "radius": 125,
+        "xCoord": 33344,
+        "zCoord": 38080,
+        "radiusCoord": 16000,
+        "radiusCoordSq": 256000000
+      }
+    ],
+    "relations": {
+      "HOBBIT": "NEUTRAL",
+      "BREE": "NEUTRAL",
+      "RANGER_NORTH": "ENEMY",
+      "BLUE_MOUNTAINS": "NEUTRAL",
+      "HIGH_ELF": "NEUTRAL",
+      "GUNDABAD": "NEUTRAL",
+      "ANGMAR": "NEUTRAL",
+      "WOOD_ELF": "NEUTRAL",
+      "DOL_GULDUR": "NEUTRAL",
+      "DALE": "NEUTRAL",
+      "DURINS_FOLK": "FRIEND",
+      "LOTHLORIEN": "NEUTRAL",
+      "ISENGARD": "FRIEND",
+      "FANGORN": "NEUTRAL",
+      "ROHAN": "MORTAL_ENEMY",
+      "GONDOR": "ENEMY",
+      "MORDOR": "NEUTRAL",
+      "DORWINION": "NEUTRAL",
+      "RHUDEL": "NEUTRAL",
+      "NEAR_HARAD": "NEUTRAL",
+      "MORWAITH": "NEUTRAL",
+      "TAURETHRIM": "NEUTRAL",
+      "HALF_TROLL": "NEUTRAL",
+      "DARK_HUORN": "NEUTRAL",
+      "RUFFIAN": "NEUTRAL",
+      "UTUMNO": "MORTAL_ENEMY",
+      "HOSTILE": "MORTAL_ENEMY",
+      "UNALIGNED": "NEUTRAL"
+    }
+  },
+  {
+    "code": "ISENGARD",
+    "name": "lotr.faction.ISENGARD.name",
+    "color": -13420493,
+    "fields": {
+      "factionDimension": "MIDDLE_EARTH",
+      "factionRegion": "WEST",
+      "factionColor": 3356723,
+      "allowPlayer": true,
+      "allowEntityRegistry": true,
+      "hasFixedAlignment": false,
+      "fixedAlignment": 0,
+      "achieveCategory": "ROHAN",
+      "isolationist": false,
+      "approvesWarCrimes": true,
+      "name": "ISENGARD",
+      "ordinal": 13
+    },
+    "region": "WEST",
+    "dimension": "MIDDLE_EARTH",
+    "types": [
+      "TYPE_ORC"
+    ],
+    "ranks": [
+      {
+        "fac": "ISENGARD",
+        "alignment": 3000.0,
+        "name": "captain",
+        "isGendered": false
+      },
+      {
+        "fac": "ISENGARD",
+        "alignment": 1500.0,
+        "name": "hand",
+        "isGendered": false
+      },
+      {
+        "fac": "ISENGARD",
+        "alignment": 1000.0,
+        "name": "corporal",
+        "isGendered": false
+      },
+      {
+        "fac": "ISENGARD",
+        "alignment": 500.0,
+        "name": "berserker",
+        "isGendered": false
+      },
+      {
+        "fac": "ISENGARD",
+        "alignment": 200.0,
+        "name": "treefeller",
+        "isGendered": false
+      },
+      {
+        "fac": "ISENGARD",
+        "alignment": 100.0,
+        "name": "soldier",
+        "isGendered": false
+      },
+      {
+        "fac": "ISENGARD",
+        "alignment": 50.0,
+        "name": "snaga",
+        "isGendered": false
+      },
+      {
+        "fac": "ISENGARD",
+        "alignment": 10.0,
+        "name": "thrall",
+        "isGendered": false
+      }
+    ],
+    "pledgeRank": {
+      "fac": "ISENGARD",
+      "alignment": 100.0,
+      "name": "soldier",
+      "isGendered": false
+    },
+    "map": {
+      "mapX": 1110,
+      "mapY": 1070,
+      "radius": 50
+    },
+    "controlZones": [
+      {
+        "mapX": 1102.0,
+        "mapY": 1061.5,
+        "radius": 100,
+        "xCoord": 37440,
+        "zCoord": 42496,
+        "radiusCoord": 12800,
+        "radiusCoordSq": 163840000
+      },
+      {
+        "mapX": 1190.0,
+        "mapY": 1148.0,
+        "radius": 50,
+        "xCoord": 48704,
+        "zCoord": 53568,
+        "radiusCoord": 6400,
+        "radiusCoordSq": 40960000
+      }
+    ],
+    "relations": {
+      "HOBBIT": "MORTAL_ENEMY",
+      "BREE": "MORTAL_ENEMY",
+      "RANGER_NORTH": "MORTAL_ENEMY",
+      "BLUE_MOUNTAINS": "MORTAL_ENEMY",
+      "HIGH_ELF": "MORTAL_ENEMY",
+      "GUNDABAD": "NEUTRAL",
+      "ANGMAR": "NEUTRAL",
+      "WOOD_ELF": "MORTAL_ENEMY",
+      "DOL_GULDUR": "NEUTRAL",
+      "DALE": "MORTAL_ENEMY",
+      "DURINS_FOLK": "MORTAL_ENEMY",
+      "LOTHLORIEN": "MORTAL_ENEMY",
+      "DUNLAND": "FRIEND",
+      "FANGORN": "MORTAL_ENEMY",
+      "ROHAN": "MORTAL_ENEMY",
+      "GONDOR": "MORTAL_ENEMY",
+      "MORDOR": "NEUTRAL",
+      "DORWINION": "MORTAL_ENEMY",
+      "RHUDEL": "NEUTRAL",
+      "NEAR_HARAD": "NEUTRAL",
+      "MORWAITH": "NEUTRAL",
+      "TAURETHRIM": "NEUTRAL",
+      "HALF_TROLL": "FRIEND",
+      "DARK_HUORN": "NEUTRAL",
+      "RUFFIAN": "NEUTRAL",
+      "UTUMNO": "MORTAL_ENEMY",
+      "HOSTILE": "MORTAL_ENEMY",
+      "UNALIGNED": "NEUTRAL"
+    }
+  },
+  {
+    "code": "FANGORN",
+    "name": "lotr.faction.FANGORN.name",
+    "color": -11946158,
+    "fields": {
+      "factionDimension": "MIDDLE_EARTH",
+      "factionRegion": "WEST",
+      "factionColor": 4831058,
+      "allowPlayer": true,
+      "allowEntityRegistry": true,
+      "hasFixedAlignment": false,
+      "fixedAlignment": 0,
+      "achieveCategory": "FANGORN",
+      "isolationist": true,
+      "approvesWarCrimes": false,
+      "name": "FANGORN",
+      "ordinal": 14
+    },
+    "region": "WEST",
+    "dimension": "MIDDLE_EARTH",
+    "types": [
+      "TYPE_FREE",
+      "TYPE_TREE"
+    ],
+    "ranks": [
+      {
+        "fac": "FANGORN",
+        "alignment": 500.0,
+        "name": "elder",
+        "isGendered": false
+      },
+      {
+        "fac": "FANGORN",
+        "alignment": 250.0,
+        "name": "master",
+        "isGendered": false
+      },
+      {
+        "fac": "FANGORN",
+        "alignment": 100.0,
+        "name": "treeherd",
+        "isGendered": false
+      },
+      {
+        "fac": "FANGORN",
+        "alignment": 50.0,
+        "name": "friend",
+        "isGendered": false
+      },
+      {
+        "fac": "FANGORN",
+        "alignment": 10.0,
+        "name": "newcomer",
+        "isGendered": false
+      }
+    ],
+    "pledgeRank": {
+      "fac": "FANGORN",
+      "alignment": 100.0,
+      "name": "treeherd",
+      "isGendered": false
+    },
+    "map": {
+      "mapX": 1200,
+      "mapY": 1000,
+      "radius": 75
+    },
+    "controlZones": [
+      {
+        "mapX": 1180.0,
+        "mapY": 1005.0,
+        "radius": 70,
+        "xCoord": 47424,
+        "zCoord": 35264,
+        "radiusCoord": 8960,
+        "radiusCoordSq": 80281600
+      }
+    ],
+    "relations": {
+      "HOBBIT": "NEUTRAL",
+      "BREE": "NEUTRAL",
+      "RANGER_NORTH": "NEUTRAL",
+      "BLUE_MOUNTAINS": "NEUTRAL",
+      "HIGH_ELF": "ALLY",
+      "GUNDABAD": "MORTAL_ENEMY",
+      "ANGMAR": "MORTAL_ENEMY",
+      "WOOD_ELF": "ALLY",
+      "DOL_GULDUR": "MORTAL_ENEMY",
+      "DALE": "NEUTRAL",
+      "DURINS_FOLK": "NEUTRAL",
+      "LOTHLORIEN": "ALLY",
+      "DUNLAND": "NEUTRAL",
+      "ISENGARD": "MORTAL_ENEMY",
+      "ROHAN": "NEUTRAL",
+      "GONDOR": "NEUTRAL",
+      "MORDOR": "MORTAL_ENEMY",
+      "DORWINION": "NEUTRAL",
+      "RHUDEL": "NEUTRAL",
+      "NEAR_HARAD": "NEUTRAL",
+      "MORWAITH": "NEUTRAL",
+      "TAURETHRIM": "ALLY",
+      "HALF_TROLL": "MORTAL_ENEMY",
+      "DARK_HUORN": "NEUTRAL",
+      "RUFFIAN": "NEUTRAL",
+      "UTUMNO": "MORTAL_ENEMY",
+      "HOSTILE": "MORTAL_ENEMY",
+      "UNALIGNED": "NEUTRAL"
+    }
+  },
+  {
+    "code": "ROHAN",
+    "name": "lotr.faction.ROHAN.name",
+    "color": -13269209,
+    "fields": {
+      "factionDimension": "MIDDLE_EARTH",
+      "factionRegion": "WEST",
+      "factionColor": 3508007,
+      "allowPlayer": true,
+      "allowEntityRegistry": true,
+      "hasFixedAlignment": false,
+      "fixedAlignment": 0,
+      "achieveCategory": "ROHAN",
+      "isolationist": false,
+      "approvesWarCrimes": false,
+      "name": "ROHAN",
+      "ordinal": 15
+    },
+    "region": "WEST",
+    "dimension": "MIDDLE_EARTH",
+    "types": [
+      "TYPE_FREE",
+      "TYPE_MAN"
+    ],
+    "ranks": [
+      {
+        "fac": "ROHAN",
+        "alignment": 2000.0,
+        "name": "marshal",
+        "isGendered": false
+      },
+      {
+        "fac": "ROHAN",
+        "alignment": 1000.0,
+        "name": "captain",
+        "isGendered": false
+      },
+      {
+        "fac": "ROHAN",
+        "alignment": 500.0,
+        "name": "esquire",
+        "isGendered": false
+      },
+      {
+        "fac": "ROHAN",
+        "alignment": 250.0,
+        "name": "rider",
+        "isGendered": false
+      },
+      {
+        "fac": "ROHAN",
+        "alignment": 100.0,
+        "name": "atarms",
+        "isGendered": false
+      },
+      {
+        "fac": "ROHAN",
+        "alignment": 50.0,
+        "name": "footman",
+        "isGendered": false
+      },
+      {
+        "fac": "ROHAN",
+        "alignment": 10.0,
+        "name": "guest",
+        "isGendered": false
+      }
+    ],
+    "pledgeRank": {
+      "fac": "ROHAN",
+      "alignment": 100.0,
+      "name": "atarms",
+      "isGendered": false
+    },
+    "map": {
+      "mapX": 1230,
+      "mapY": 1090,
+      "radius": 150
+    },
+    "controlZones": [
+      {
+        "mapX": 1239.0,
+        "mapY": 1104.0,
+        "radius": 150,
+        "xCoord": 54976,
+        "zCoord": 47936,
+        "radiusCoord": 19200,
+        "radiusCoordSq": 368640000
+      },
+      {
+        "mapX": 1102.0,
+        "mapY": 1061.5,
+        "radius": 100,
+        "xCoord": 37440,
+        "zCoord": 42496,
+        "radiusCoord": 12800,
+        "radiusCoordSq": 163840000
+      }
+    ],
+    "relations": {
+      "HOBBIT": "FRIEND",
+      "BREE": "NEUTRAL",
+      "RANGER_NORTH": "FRIEND",
+      "BLUE_MOUNTAINS": "NEUTRAL",
+      "HIGH_ELF": "NEUTRAL",
+      "GUNDABAD": "MORTAL_ENEMY",
+      "ANGMAR": "MORTAL_ENEMY",
+      "WOOD_ELF": "NEUTRAL",
+      "DOL_GULDUR": "MORTAL_ENEMY",
+      "DALE": "FRIEND",
+      "DURINS_FOLK": "NEUTRAL",
+      "LOTHLORIEN": "NEUTRAL",
+      "DUNLAND": "MORTAL_ENEMY",
+      "ISENGARD": "MORTAL_ENEMY",
+      "FANGORN": "NEUTRAL",
+      "GONDOR": "ALLY",
+      "MORDOR": "MORTAL_ENEMY",
+      "DORWINION": "NEUTRAL",
+      "RHUDEL": "MORTAL_ENEMY",
+      "NEAR_HARAD": "ENEMY",
+      "MORWAITH": "ENEMY",
+      "TAURETHRIM": "NEUTRAL",
+      "HALF_TROLL": "MORTAL_ENEMY",
+      "DARK_HUORN": "NEUTRAL",
+      "RUFFIAN": "NEUTRAL",
+      "UTUMNO": "MORTAL_ENEMY",
+      "HOSTILE": "MORTAL_ENEMY",
+      "UNALIGNED": "NEUTRAL"
+    }
+  },
+  {
+    "code": "GONDOR",
+    "name": "lotr.faction.GONDOR.name",
+    "color": -394759,
+    "fields": {
+      "factionDimension": "MIDDLE_EARTH",
+      "factionRegion": "WEST",
+      "factionColor": 16382457,
+      "allowPlayer": true,
+      "allowEntityRegistry": true,
+      "hasFixedAlignment": false,
+      "fixedAlignment": 0,
+      "achieveCategory": "GONDOR",
+      "isolationist": false,
+      "approvesWarCrimes": false,
+      "name": "GONDOR",
+      "ordinal": 16
+    },
+    "region": "WEST",
+    "dimension": "MIDDLE_EARTH",
+    "types": [
+      "TYPE_FREE",
+      "TYPE_MAN"
+    ],
+    "ranks": [
+      {
+        "fac": "GONDOR",
+        "alignment": 3000.0,
+        "name": "lord",
+        "isGendered": true
+      },
+      {
+        "fac": "GONDOR",
+        "alignment": 1500.0,
+        "name": "captain",
+        "isGendered": false
+      },
+      {
+        "fac": "GONDOR",
+        "alignment": 1000.0,
+        "name": "champion",
+        "isGendered": false
+      },
+      {
+        "fac": "GONDOR",
+        "alignment": 500.0,
+        "name": "knight",
+        "isGendered": false
+      },
+      {
+        "fac": "GONDOR",
+        "alignment": 200.0,
+        "name": "soldier",
+        "isGendered": false
+      },
+      {
+        "fac": "GONDOR",
+        "alignment": 100.0,
+        "name": "atarms",
+        "isGendered": false
+      },
+      {
+        "fac": "GONDOR",
+        "alignment": 50.0,
+        "name": "friend",
+        "isGendered": false
+      },
+      {
+        "fac": "GONDOR",
+        "alignment": 10.0,
+        "name": "guest",
+        "isGendered": false
+      }
+    ],
+    "pledgeRank": {
+      "fac": "GONDOR",
+      "alignment": 100.0,
+      "name": "atarms",
+      "isGendered": false
+    },
+    "map": {
+      "mapX": 1170,
+      "mapY": 1300,
+      "radius": 300
+    },
+    "controlZones": [
+      {
+        "mapX": 1419.0,
+        "mapY": 1247.0,
+        "radius": 200,
+        "xCoord": 78016,
+        "zCoord": 66240,
+        "radiusCoord": 25600,
+        "radiusCoordSq": 655360000
+      },
+      {
+        "mapX": 1189.0,
+        "mapY": 1293.0,
+        "radius": 125,
+        "xCoord": 48576,
+        "zCoord": 72128,
+        "radiusCoord": 16000,
+        "radiusCoordSq": 256000000
+      },
+      {
+        "mapX": 1045.0,
+        "mapY": 1273.0,
+        "radius": 100,
+        "xCoord": 30144,
+        "zCoord": 69568,
+        "radiusCoord": 12800,
+        "radiusCoordSq": 163840000
+      },
+      {
+        "mapX": 1442.0,
+        "mapY": 1370.0,
+        "radius": 150,
+        "xCoord": 80960,
+        "zCoord": 81984,
+        "radiusCoord": 19200,
+        "radiusCoordSq": 368640000
+      },
+      {
+        "mapX": 1503.0,
+        "mapY": 1544.0,
+        "radius": 75,
+        "xCoord": 88768,
+        "zCoord": 104256,
+        "radiusCoord": 9600,
+        "radiusCoordSq": 92160000
+      },
+      {
+        "mapX": 1214.0,
+        "mapY": 1689.0,
+        "radius": 150,
+        "xCoord": 51776,
+        "zCoord": 122816,
+        "radiusCoord": 19200,
+        "radiusCoordSq": 368640000
+      }
+    ],
+    "relations": {
+      "HOBBIT": "FRIEND",
+      "BREE": "NEUTRAL",
+      "RANGER_NORTH": "ALLY",
+      "BLUE_MOUNTAINS": "NEUTRAL",
+      "HIGH_ELF": "FRIEND",
+      "GUNDABAD": "MORTAL_ENEMY",
+      "ANGMAR": "MORTAL_ENEMY",
+      "WOOD_ELF": "NEUTRAL",
+      "DOL_GULDUR": "MORTAL_ENEMY",
+      "DALE": "FRIEND",
+      "DURINS_FOLK": "NEUTRAL",
+      "LOTHLORIEN": "NEUTRAL",
+      "DUNLAND": "ENEMY",
+      "ISENGARD": "MORTAL_ENEMY",
+      "FANGORN": "NEUTRAL",
+      "ROHAN": "ALLY",
+      "MORDOR": "MORTAL_ENEMY",
+      "DORWINION": "NEUTRAL",
+      "RHUDEL": "MORTAL_ENEMY",
+      "NEAR_HARAD": "MORTAL_ENEMY",
+      "MORWAITH": "ENEMY",
+      "TAURETHRIM": "NEUTRAL",
+      "HALF_TROLL": "MORTAL_ENEMY",
+      "DARK_HUORN": "NEUTRAL",
+      "RUFFIAN": "NEUTRAL",
+      "UTUMNO": "MORTAL_ENEMY",
+      "HOSTILE": "MORTAL_ENEMY",
+      "UNALIGNED": "NEUTRAL"
+    }
+  },
+  {
+    "code": "MORDOR",
+    "name": "lotr.faction.MORDOR.name",
+    "color": -13295841,
+    "fields": {
+      "factionDimension": "MIDDLE_EARTH",
+      "factionRegion": "WEST",
+      "factionColor": 3481375,
+      "allowPlayer": true,
+      "allowEntityRegistry": true,
+      "hasFixedAlignment": false,
+      "fixedAlignment": 0,
+      "achieveCategory": "MORDOR",
+      "isolationist": false,
+      "approvesWarCrimes": true,
+      "name": "MORDOR",
+      "ordinal": 17
+    },
+    "region": "WEST",
+    "dimension": "MIDDLE_EARTH",
+    "types": [
+      "TYPE_ORC"
+    ],
+    "ranks": [
+      {
+        "fac": "MORDOR",
+        "alignment": 3000.0,
+        "name": "commander",
+        "isGendered": false
+      },
+      {
+        "fac": "MORDOR",
+        "alignment": 1500.0,
+        "name": "lieutenant",
+        "isGendered": false
+      },
+      {
+        "fac": "MORDOR",
+        "alignment": 1000.0,
+        "name": "captain",
+        "isGendered": false
+      },
+      {
+        "fac": "MORDOR",
+        "alignment": 500.0,
+        "name": "despoiler",
+        "isGendered": false
+      },
+      {
+        "fac": "MORDOR",
+        "alignment": 200.0,
+        "name": "slavedriver",
+        "isGendered": false
+      },
+      {
+        "fac": "MORDOR",
+        "alignment": 100.0,
+        "name": "brigand",
+        "isGendered": false
+      },
+      {
+        "fac": "MORDOR",
+        "alignment": 50.0,
+        "name": "snaga",
+        "isGendered": false
+      },
+      {
+        "fac": "MORDOR",
+        "alignment": 10.0,
+        "name": "thrall",
+        "isGendered": false
+      }
+    ],
+    "pledgeRank": {
+      "fac": "MORDOR",
+      "alignment": 100.0,
+      "name": "brigand",
+      "isGendered": false
+    },
+    "map": {
+      "mapX": 1620,
+      "mapY": 1290,
+      "radius": 225
+    },
+    "controlZones": [
+      {
+        "mapX": 1573.0,
+        "mapY": 1196.0,
+        "radius": 500,
+        "xCoord": 97728,
+        "zCoord": 59712,
+        "radiusCoord": 64000,
+        "radiusCoordSq": 4096000000
+      }
+    ],
+    "relations": {
+      "HOBBIT": "MORTAL_ENEMY",
+      "BREE": "MORTAL_ENEMY",
+      "RANGER_NORTH": "MORTAL_ENEMY",
+      "BLUE_MOUNTAINS": "MORTAL_ENEMY",
+      "HIGH_ELF": "MORTAL_ENEMY",
+      "GUNDABAD": "FRIEND",
+      "ANGMAR": "ALLY",
+      "WOOD_ELF": "MORTAL_ENEMY",
+      "DOL_GULDUR": "ALLY",
+      "DALE": "MORTAL_ENEMY",
+      "DURINS_FOLK": "MORTAL_ENEMY",
+      "LOTHLORIEN": "MORTAL_ENEMY",
+      "DUNLAND": "NEUTRAL",
+      "ISENGARD": "NEUTRAL",
+      "FANGORN": "MORTAL_ENEMY",
+      "ROHAN": "MORTAL_ENEMY",
+      "GONDOR": "MORTAL_ENEMY",
+      "DORWINION": "MORTAL_ENEMY",
+      "RHUDEL": "FRIEND",
+      "NEAR_HARAD": "FRIEND",
+      "MORWAITH": "FRIEND",
+      "TAURETHRIM": "MORTAL_ENEMY",
+      "HALF_TROLL": "ALLY",
+      "DARK_HUORN": "NEUTRAL",
+      "RUFFIAN": "NEUTRAL",
+      "UTUMNO": "MORTAL_ENEMY",
+      "HOSTILE": "MORTAL_ENEMY",
+      "UNALIGNED": "NEUTRAL"
+    }
+  },
+  {
+    "code": "DORWINION",
+    "name": "lotr.faction.DORWINION.name",
+    "color": -9621400,
+    "fields": {
+      "factionDimension": "MIDDLE_EARTH",
+      "factionRegion": "EAST",
+      "factionColor": 7155816,
+      "allowPlayer": true,
+      "allowEntityRegistry": true,
+      "hasFixedAlignment": false,
+      "fixedAlignment": 0,
+      "achieveCategory": "DORWINION",
+      "isolationist": false,
+      "approvesWarCrimes": false,
+      "name": "DORWINION",
+      "ordinal": 18
+    },
+    "region": "EAST",
+    "dimension": "MIDDLE_EARTH",
+    "types": [
+      "TYPE_FREE",
+      "TYPE_MAN",
+      "TYPE_ELF"
+    ],
+    "ranks": [
+      {
+        "fac": "DORWINION",
+        "alignment": 3000.0,
+        "name": "lord",
+        "isGendered": true
+      },
+      {
+        "fac": "DORWINION",
+        "alignment": 1500.0,
+        "name": "chief",
+        "isGendered": false
+      },
+      {
+        "fac": "DORWINION",
+        "alignment": 1000.0,
+        "name": "master",
+        "isGendered": false
+      },
+      {
+        "fac": "DORWINION",
+        "alignment": 500.0,
+        "name": "captain",
+        "isGendered": false
+      },
+      {
+        "fac": "DORWINION",
+        "alignment": 200.0,
+        "name": "guard",
+        "isGendered": false
+      },
+      {
+        "fac": "DORWINION",
+        "alignment": 100.0,
+        "name": "merchant",
+        "isGendered": false
+      },
+      {
+        "fac": "DORWINION",
+        "alignment": 50.0,
+        "name": "vinehand",
+        "isGendered": false
+      },
+      {
+        "fac": "DORWINION",
+        "alignment": 10.0,
+        "name": "guest",
+        "isGendered": false
+      }
+    ],
+    "pledgeRank": {
+      "fac": "DORWINION",
+      "alignment": 100.0,
+      "name": "merchant",
+      "isGendered": false
+    },
+    "map": {
+      "mapX": 1750,
+      "mapY": 900,
+      "radius": 100
+    },
+    "controlZones": [
+      {
+        "mapX": 1758.0,
+        "mapY": 939.0,
+        "radius": 175,
+        "xCoord": 121408,
+        "zCoord": 26816,
+        "radiusCoord": 22400,
+        "radiusCoordSq": 501760000
+      },
+      {
+        "mapX": 1657.0,
+        "mapY": 768.0,
+        "radius": 30,
+        "xCoord": 108480,
+        "zCoord": 4928,
+        "radiusCoord": 3840,
+        "radiusCoordSq": 14745600
+      }
+    ],
+    "relations": {
+      "HOBBIT": "NEUTRAL",
+      "BREE": "NEUTRAL",
+      "RANGER_NORTH": "NEUTRAL",
+      "BLUE_MOUNTAINS": "NEUTRAL",
+      "HIGH_ELF": "NEUTRAL",
+      "GUNDABAD": "MORTAL_ENEMY",
+      "ANGMAR": "MORTAL_ENEMY",
+      "WOOD_ELF": "ALLY",
+      "DOL_GULDUR": "MORTAL_ENEMY",
+      "DALE": "NEUTRAL",
+      "DURINS_FOLK": "NEUTRAL",
+      "LOTHLORIEN": "NEUTRAL",
+      "DUNLAND": "NEUTRAL",
+      "ISENGARD": "MORTAL_ENEMY",
+      "FANGORN": "NEUTRAL",
+      "ROHAN": "NEUTRAL",
+      "GONDOR": "NEUTRAL",
+      "MORDOR": "MORTAL_ENEMY",
+      "RHUDEL": "NEUTRAL",
+      "NEAR_HARAD": "NEUTRAL",
+      "MORWAITH": "NEUTRAL",
+      "TAURETHRIM": "NEUTRAL",
+      "HALF_TROLL": "MORTAL_ENEMY",
+      "DARK_HUORN": "NEUTRAL",
+      "RUFFIAN": "NEUTRAL",
+      "UTUMNO": "MORTAL_ENEMY",
+      "HOSTILE": "MORTAL_ENEMY",
+      "UNALIGNED": "NEUTRAL"
+    }
+  },
+  {
+    "code": "RHUDEL",
+    "name": "lotr.faction.RHUDEL.name",
+    "color": -3894745,
+    "fields": {
+      "factionDimension": "MIDDLE_EARTH",
+      "factionRegion": "EAST",
+      "factionColor": 12882471,
+      "allowPlayer": true,
+      "allowEntityRegistry": true,
+      "hasFixedAlignment": false,
+      "fixedAlignment": 0,
+      "achieveCategory": "RHUN",
+      "isolationist": false,
+      "approvesWarCrimes": false,
+      "name": "RHUDEL",
+      "ordinal": 19
+    },
+    "region": "EAST",
+    "dimension": "MIDDLE_EARTH",
+    "types": [
+      "TYPE_MAN"
+    ],
+    "ranks": [
+      {
+        "fac": "RHUDEL",
+        "alignment": 3000.0,
+        "name": "chieftain",
+        "isGendered": false
+      },
+      {
+        "fac": "RHUDEL",
+        "alignment": 1500.0,
+        "name": "warlord",
+        "isGendered": false
+      },
+      {
+        "fac": "RHUDEL",
+        "alignment": 1000.0,
+        "name": "golden",
+        "isGendered": false
+      },
+      {
+        "fac": "RHUDEL",
+        "alignment": 500.0,
+        "name": "champion",
+        "isGendered": false
+      },
+      {
+        "fac": "RHUDEL",
+        "alignment": 200.0,
+        "name": "warrior",
+        "isGendered": false
+      },
+      {
+        "fac": "RHUDEL",
+        "alignment": 100.0,
+        "name": "clansman",
+        "isGendered": false
+      },
+      {
+        "fac": "RHUDEL",
+        "alignment": 50.0,
+        "name": "levyman",
+        "isGendered": false
+      },
+      {
+        "fac": "RHUDEL",
+        "alignment": 10.0,
+        "name": "bondsman",
+        "isGendered": false
+      }
+    ],
+    "pledgeRank": {
+      "fac": "RHUDEL",
+      "alignment": 100.0,
+      "name": "clansman",
+      "isGendered": false
+    },
+    "map": {
+      "mapX": 1890,
+      "mapY": 980,
+      "radius": 200
+    },
+    "controlZones": [
+      {
+        "mapX": 1867.0,
+        "mapY": 984.0,
+        "radius": 175,
+        "xCoord": 135360,
+        "zCoord": 32576,
+        "radiusCoord": 22400,
+        "radiusCoordSq": 501760000
+      },
+      {
+        "mapX": 1419.0,
+        "mapY": 1247.0,
+        "radius": 100,
+        "xCoord": 78016,
+        "zCoord": 66240,
+        "radiusCoord": 12800,
+        "radiusCoordSq": 163840000
+      },
+      {
+        "mapX": 1464.0,
+        "mapY": 615.0,
+        "radius": 50,
+        "xCoord": 83776,
+        "zCoord": -14656,
+        "radiusCoord": 6400,
+        "radiusCoordSq": 40960000
+      }
+    ],
+    "relations": {
+      "HOBBIT": "NEUTRAL",
+      "BREE": "NEUTRAL",
+      "RANGER_NORTH": "ENEMY",
+      "BLUE_MOUNTAINS": "NEUTRAL",
+      "HIGH_ELF": "ENEMY",
+      "GUNDABAD": "NEUTRAL",
+      "ANGMAR": "NEUTRAL",
+      "WOOD_ELF": "ENEMY",
+      "DOL_GULDUR": "NEUTRAL",
+      "DALE": "ENEMY",
+      "DURINS_FOLK": "NEUTRAL",
+      "LOTHLORIEN": "ENEMY",
+      "DUNLAND": "NEUTRAL",
+      "ISENGARD": "NEUTRAL",
+      "FANGORN": "NEUTRAL",
+      "ROHAN": "MORTAL_ENEMY",
+      "GONDOR": "MORTAL_ENEMY",
+      "MORDOR": "FRIEND",
+      "DORWINION": "NEUTRAL",
+      "NEAR_HARAD": "NEUTRAL",
+      "MORWAITH": "NEUTRAL",
+      "TAURETHRIM": "NEUTRAL",
+      "HALF_TROLL": "NEUTRAL",
+      "DARK_HUORN": "NEUTRAL",
+      "RUFFIAN": "NEUTRAL",
+      "UTUMNO": "MORTAL_ENEMY",
+      "HOSTILE": "MORTAL_ENEMY",
+      "UNALIGNED": "NEUTRAL"
+    }
+  },
+  {
+    "code": "NEAR_HARAD",
+    "name": "lotr.faction.NEAR_HARAD.name",
+    "color": -4908261,
+    "fields": {
+      "factionDimension": "MIDDLE_EARTH",
+      "factionRegion": "SOUTH",
+      "factionColor": 11868955,
+      "allowPlayer": true,
+      "allowEntityRegistry": true,
+      "hasFixedAlignment": false,
+      "fixedAlignment": 0,
+      "achieveCategory": "NEAR_HARAD",
+      "isolationist": false,
+      "approvesWarCrimes": false,
+      "name": "NEAR_HARAD",
+      "ordinal": 20
+    },
+    "region": "SOUTH",
+    "dimension": "MIDDLE_EARTH",
+    "types": [
+      "TYPE_MAN"
+    ],
+    "ranks": [
+      {
+        "fac": "NEAR_HARAD",
+        "alignment": 3000.0,
+        "name": "prince",
+        "isGendered": true
+      },
+      {
+        "fac": "NEAR_HARAD",
+        "alignment": 1500.0,
+        "name": "warlord",
+        "isGendered": false
+      },
+      {
+        "fac": "NEAR_HARAD",
+        "alignment": 1000.0,
+        "name": "serpentguard",
+        "isGendered": false
+      },
+      {
+        "fac": "NEAR_HARAD",
+        "alignment": 500.0,
+        "name": "champion",
+        "isGendered": false
+      },
+      {
+        "fac": "NEAR_HARAD",
+        "alignment": 200.0,
+        "name": "warrior",
+        "isGendered": false
+      },
+      {
+        "fac": "NEAR_HARAD",
+        "alignment": 100.0,
+        "name": "kinsman",
+        "isGendered": false
+      },
+      {
+        "fac": "NEAR_HARAD",
+        "alignment": 50.0,
+        "name": "friend",
+        "isGendered": false
+      },
+      {
+        "fac": "NEAR_HARAD",
+        "alignment": 10.0,
+        "name": "guest",
+        "isGendered": false
+      }
+    ],
+    "pledgeRank": {
+      "fac": "NEAR_HARAD",
+      "alignment": 100.0,
+      "name": "kinsman",
+      "isGendered": false
+    },
+    "map": {
+      "mapX": 1400,
+      "mapY": 1730,
+      "radius": 375
+    },
+    "controlZones": [
+      {
+        "mapX": 1214.0,
+        "mapY": 1689.0,
+        "radius": 200,
+        "xCoord": 51776,
+        "zCoord": 122816,
+        "radiusCoord": 25600,
+        "radiusCoordSq": 655360000
+      },
+      {
+        "mapX": 1169.0,
+        "mapY": 1821.0,
+        "radius": 150,
+        "xCoord": 46016,
+        "zCoord": 139712,
+        "radiusCoord": 19200,
+        "radiusCoordSq": 368640000
+      },
+      {
+        "mapX": 1343.0,
+        "mapY": 1561.0,
+        "radius": 60,
+        "xCoord": 68288,
+        "zCoord": 106432,
+        "radiusCoord": 7680,
+        "radiusCoordSq": 58982400
+      },
+      {
+        "mapX": 1447.0,
+        "mapY": 1558.0,
+        "radius": 60,
+        "xCoord": 81600,
+        "zCoord": 106048,
+        "radiusCoord": 7680,
+        "radiusCoordSq": 58982400
+      },
+      {
+        "mapX": 1563.0,
+        "mapY": 1611.0,
+        "radius": 50,
+        "xCoord": 96448,
+        "zCoord": 112832,
+        "radiusCoord": 6400,
+        "radiusCoordSq": 40960000
+      },
+      {
+        "mapX": 1141.0,
+        "mapY": 1976.0,
+        "radius": 50,
+        "xCoord": 42432,
+        "zCoord": 159552,
+        "radiusCoord": 6400,
+        "radiusCoordSq": 40960000
+      },
+      {
+        "mapX": 1640.0,
+        "mapY": 1922.0,
+        "radius": 150,
+        "xCoord": 106304,
+        "zCoord": 152640,
+        "radiusCoord": 19200,
+        "radiusCoordSq": 368640000
+      },
+      {
+        "mapX": 1503.0,
+        "mapY": 1544.0,
+        "radius": 75,
+        "xCoord": 88768,
+        "zCoord": 104256,
+        "radiusCoord": 9600,
+        "radiusCoordSq": 92160000
+      },
+      {
+        "mapX": 1442.0,
+        "mapY": 1370.0,
+        "radius": 50,
+        "xCoord": 80960,
+        "zCoord": 81984,
+        "radiusCoord": 6400,
+        "radiusCoordSq": 40960000
+      },
+      {
+        "mapX": 1419.0,
+        "mapY": 1247.0,
+        "radius": 50,
+        "xCoord": 78016,
+        "zCoord": 66240,
+        "radiusCoord": 6400,
+        "radiusCoordSq": 40960000
+      },
+      {
+        "mapX": 1210.0,
+        "mapY": 1340.0,
+        "radius": 75,
+        "xCoord": 51264,
+        "zCoord": 78144,
+        "radiusCoord": 9600,
+        "radiusCoordSq": 92160000
+      },
+      {
+        "mapX": 1390.0,
+        "mapY": 1348.0,
+        "radius": 75,
+        "xCoord": 74304,
+        "zCoord": 79168,
+        "radiusCoord": 9600,
+        "radiusCoordSq": 92160000
+      },
+      {
+        "mapX": 1292.0,
+        "mapY": 1342.0,
+        "radius": 75,
+        "xCoord": 61760,
+        "zCoord": 78400,
+        "radiusCoord": 9600,
+        "radiusCoordSq": 92160000
+      }
+    ],
+    "relations": {
+      "HOBBIT": "NEUTRAL",
+      "BREE": "NEUTRAL",
+      "RANGER_NORTH": "ENEMY",
+      "BLUE_MOUNTAINS": "NEUTRAL",
+      "HIGH_ELF": "ENEMY",
+      "GUNDABAD": "NEUTRAL",
+      "ANGMAR": "NEUTRAL",
+      "WOOD_ELF": "ENEMY",
+      "DOL_GULDUR": "NEUTRAL",
+      "DALE": "NEUTRAL",
+      "DURINS_FOLK": "NEUTRAL",
+      "LOTHLORIEN": "ENEMY",
+      "DUNLAND": "NEUTRAL",
+      "ISENGARD": "NEUTRAL",
+      "FANGORN": "NEUTRAL",
+      "ROHAN": "ENEMY",
+      "GONDOR": "MORTAL_ENEMY",
+      "MORDOR": "FRIEND",
+      "DORWINION": "NEUTRAL",
+      "RHUDEL": "NEUTRAL",
+      "MORWAITH": "FRIEND",
+      "TAURETHRIM": "ENEMY",
+      "HALF_TROLL": "FRIEND",
+      "DARK_HUORN": "NEUTRAL",
+      "RUFFIAN": "NEUTRAL",
+      "UTUMNO": "MORTAL_ENEMY",
+      "HOSTILE": "MORTAL_ENEMY",
+      "UNALIGNED": "NEUTRAL"
+    }
+  },
+  {
+    "code": "MORWAITH",
+    "name": "lotr.faction.MORWAITH.name",
+    "color": -2510758,
+    "fields": {
+      "factionDimension": "MIDDLE_EARTH",
+      "factionRegion": "SOUTH",
+      "factionColor": 14266458,
+      "allowPlayer": true,
+      "allowEntityRegistry": true,
+      "hasFixedAlignment": false,
+      "fixedAlignment": 0,
+      "achieveCategory": "FAR_HARAD_SAVANNAH",
+      "isolationist": false,
+      "approvesWarCrimes": true,
+      "name": "MORWAITH",
+      "ordinal": 21
+    },
+    "region": "SOUTH",
+    "dimension": "MIDDLE_EARTH",
+    "types": [
+      "TYPE_MAN"
+    ],
+    "ranks": [
+      {
+        "fac": "MORWAITH",
+        "alignment": 3000.0,
+        "name": "greatchief",
+        "isGendered": false
+      },
+      {
+        "fac": "MORWAITH",
+        "alignment": 1000.0,
+        "name": "chief",
+        "isGendered": false
+      },
+      {
+        "fac": "MORWAITH",
+        "alignment": 500.0,
+        "name": "warrior",
+        "isGendered": false
+      },
+      {
+        "fac": "MORWAITH",
+        "alignment": 250.0,
+        "name": "hunter",
+        "isGendered": false
+      },
+      {
+        "fac": "MORWAITH",
+        "alignment": 100.0,
+        "name": "kinsman",
+        "isGendered": false
+      },
+      {
+        "fac": "MORWAITH",
+        "alignment": 50.0,
+        "name": "friend",
+        "isGendered": false
+      },
+      {
+        "fac": "MORWAITH",
+        "alignment": 10.0,
+        "name": "guest",
+        "isGendered": false
+      }
+    ],
+    "pledgeRank": {
+      "fac": "MORWAITH",
+      "alignment": 100.0,
+      "name": "kinsman",
+      "isGendered": false
+    },
+    "map": {
+      "mapX": 1400,
+      "mapY": 2360,
+      "radius": 450
+    },
+    "controlZones": [
+      {
+        "mapX": 1462.0,
+        "mapY": 2452.0,
+        "radius": 350,
+        "xCoord": 83520,
+        "zCoord": 220480,
+        "radiusCoord": 44800,
+        "radiusCoordSq": 2007040000
+      },
+      {
+        "mapX": 1048.0,
+        "mapY": 2215.0,
+        "radius": 170,
+        "xCoord": 30528,
+        "zCoord": 190144,
+        "radiusCoord": 21760,
+        "radiusCoordSq": 473497600
+      },
+      {
+        "mapX": 1637.0,
+        "mapY": 2176.0,
+        "radius": 200,
+        "xCoord": 105920,
+        "zCoord": 185152,
+        "radiusCoord": 25600,
+        "radiusCoordSq": 655360000
+      },
+      {
+        "mapX": 1308.0,
+        "mapY": 2067.0,
+        "radius": 75,
+        "xCoord": 63808,
+        "zCoord": 171200,
+        "radiusCoord": 9600,
+        "radiusCoordSq": 92160000
+      }
+    ],
+    "relations": {
+      "HOBBIT": "NEUTRAL",
+      "BREE": "NEUTRAL",
+      "RANGER_NORTH": "ENEMY",
+      "BLUE_MOUNTAINS": "NEUTRAL",
+      "HIGH_ELF": "NEUTRAL",
+      "GUNDABAD": "NEUTRAL",
+      "ANGMAR": "NEUTRAL",
+      "WOOD_ELF": "NEUTRAL",
+      "DOL_GULDUR": "NEUTRAL",
+      "DALE": "NEUTRAL",
+      "DURINS_FOLK": "NEUTRAL",
+      "LOTHLORIEN": "NEUTRAL",
+      "DUNLAND": "NEUTRAL",
+      "ISENGARD": "NEUTRAL",
+      "FANGORN": "NEUTRAL",
+      "ROHAN": "ENEMY",
+      "GONDOR": "ENEMY",
+      "MORDOR": "FRIEND",
+      "DORWINION": "NEUTRAL",
+      "RHUDEL": "NEUTRAL",
+      "NEAR_HARAD": "FRIEND",
+      "TAURETHRIM": "MORTAL_ENEMY",
+      "HALF_TROLL": "NEUTRAL",
+      "DARK_HUORN": "NEUTRAL",
+      "RUFFIAN": "NEUTRAL",
+      "UTUMNO": "MORTAL_ENEMY",
+      "HOSTILE": "MORTAL_ENEMY",
+      "UNALIGNED": "NEUTRAL"
+    }
+  },
+  {
+    "code": "TAURETHRIM",
+    "name": "lotr.faction.TAURETHRIM.name",
+    "color": -13737150,
+    "fields": {
+      "factionDimension": "MIDDLE_EARTH",
+      "factionRegion": "SOUTH",
+      "factionColor": 3040066,
+      "allowPlayer": true,
+      "allowEntityRegistry": true,
+      "hasFixedAlignment": false,
+      "fixedAlignment": 0,
+      "achieveCategory": "FAR_HARAD_JUNGLE",
+      "isolationist": false,
+      "approvesWarCrimes": true,
+      "name": "TAURETHRIM",
+      "ordinal": 22
+    },
+    "region": "SOUTH",
+    "dimension": "MIDDLE_EARTH",
+    "types": [
+      "TYPE_FREE",
+      "TYPE_MAN"
+    ],
+    "ranks": [
+      {
+        "fac": "TAURETHRIM",
+        "alignment": 3000.0,
+        "name": "splendour",
+        "isGendered": false
+      },
+      {
+        "fac": "TAURETHRIM",
+        "alignment": 1000.0,
+        "name": "warlord",
+        "isGendered": false
+      },
+      {
+        "fac": "TAURETHRIM",
+        "alignment": 500.0,
+        "name": "champion",
+        "isGendered": false
+      },
+      {
+        "fac": "TAURETHRIM",
+        "alignment": 200.0,
+        "name": "warrior",
+        "isGendered": false
+      },
+      {
+        "fac": "TAURETHRIM",
+        "alignment": 100.0,
+        "name": "forestman",
+        "isGendered": false
+      },
+      {
+        "fac": "TAURETHRIM",
+        "alignment": 50.0,
+        "name": "friend",
+        "isGendered": false
+      },
+      {
+        "fac": "TAURETHRIM",
+        "alignment": 10.0,
+        "name": "guest",
+        "isGendered": false
+      }
+    ],
+    "pledgeRank": {
+      "fac": "TAURETHRIM",
+      "alignment": 100.0,
+      "name": "forestman",
+      "isGendered": false
+    },
+    "map": {
+      "mapX": 1250,
+      "mapY": 2870,
+      "radius": 400
+    },
+    "controlZones": [
+      {
+        "mapX": 1380.0,
+        "mapY": 2861.0,
+        "radius": 400,
+        "xCoord": 73024,
+        "zCoord": 272832,
+        "radiusCoord": 51200,
+        "radiusCoordSq": 2621440000
+      },
+      {
+        "mapX": 1834.0,
+        "mapY": 2523.0,
+        "radius": 75,
+        "xCoord": 131136,
+        "zCoord": 229568,
+        "radiusCoord": 9600,
+        "radiusCoordSq": 92160000
+      }
+    ],
+    "relations": {
+      "HOBBIT": "NEUTRAL",
+      "BREE": "NEUTRAL",
+      "RANGER_NORTH": "NEUTRAL",
+      "BLUE_MOUNTAINS": "NEUTRAL",
+      "HIGH_ELF": "NEUTRAL",
+      "GUNDABAD": "NEUTRAL",
+      "ANGMAR": "NEUTRAL",
+      "WOOD_ELF": "NEUTRAL",
+      "DOL_GULDUR": "NEUTRAL",
+      "DALE": "NEUTRAL",
+      "DURINS_FOLK": "NEUTRAL",
+      "LOTHLORIEN": "NEUTRAL",
+      "DUNLAND": "NEUTRAL",
+      "ISENGARD": "NEUTRAL",
+      "FANGORN": "ALLY",
+      "ROHAN": "NEUTRAL",
+      "GONDOR": "NEUTRAL",
+      "MORDOR": "MORTAL_ENEMY",
+      "DORWINION": "NEUTRAL",
+      "RHUDEL": "NEUTRAL",
+      "NEAR_HARAD": "ENEMY",
+      "MORWAITH": "MORTAL_ENEMY",
+      "HALF_TROLL": "MORTAL_ENEMY",
+      "DARK_HUORN": "NEUTRAL",
+      "RUFFIAN": "NEUTRAL",
+      "UTUMNO": "MORTAL_ENEMY",
+      "HOSTILE": "MORTAL_ENEMY",
+      "UNALIGNED": "NEUTRAL"
+    }
+  },
+  {
+    "code": "HALF_TROLL",
+    "name": "lotr.faction.HALF_TROLL.name",
+    "color": -6388877,
+    "fields": {
+      "factionDimension": "MIDDLE_EARTH",
+      "factionRegion": "SOUTH",
+      "factionColor": 10388339,
+      "allowPlayer": true,
+      "allowEntityRegistry": true,
+      "hasFixedAlignment": false,
+      "fixedAlignment": 0,
+      "achieveCategory": "PERDOROGWAITH",
+      "isolationist": false,
+      "approvesWarCrimes": true,
+      "name": "HALF_TROLL",
+      "ordinal": 23
+    },
+    "region": "SOUTH",
+    "dimension": "MIDDLE_EARTH",
+    "types": [
+      "TYPE_MAN",
+      "TYPE_TROLL"
+    ],
+    "ranks": [
+      {
+        "fac": "HALF_TROLL",
+        "alignment": 2000.0,
+        "name": "chieftain",
+        "isGendered": false
+      },
+      {
+        "fac": "HALF_TROLL",
+        "alignment": 1000.0,
+        "name": "warlord",
+        "isGendered": false
+      },
+      {
+        "fac": "HALF_TROLL",
+        "alignment": 500.0,
+        "name": "raider",
+        "isGendered": false
+      },
+      {
+        "fac": "HALF_TROLL",
+        "alignment": 200.0,
+        "name": "warrior",
+        "isGendered": false
+      },
+      {
+        "fac": "HALF_TROLL",
+        "alignment": 100.0,
+        "name": "kin",
+        "isGendered": false
+      },
+      {
+        "fac": "HALF_TROLL",
+        "alignment": 50.0,
+        "name": "scavenger",
+        "isGendered": false
+      },
+      {
+        "fac": "HALF_TROLL",
+        "alignment": 10.0,
+        "name": "guest",
+        "isGendered": false
+      }
+    ],
+    "pledgeRank": {
+      "fac": "HALF_TROLL",
+      "alignment": 100.0,
+      "name": "kin",
+      "isGendered": false
+    },
+    "map": {
+      "mapX": 1900,
+      "mapY": 2500,
+      "radius": 200
+    },
+    "controlZones": [
+      {
+        "mapX": 1966.0,
+        "mapY": 2342.0,
+        "radius": 100,
+        "xCoord": 148032,
+        "zCoord": 206400,
+        "radiusCoord": 12800,
+        "radiusCoordSq": 163840000
+      },
+      {
+        "mapX": 1897.0,
+        "mapY": 2605.0,
+        "radius": 200,
+        "xCoord": 139200,
+        "zCoord": 240064,
+        "radiusCoord": 25600,
+        "radiusCoordSq": 655360000
+      },
+      {
+        "mapX": 1952.0,
+        "mapY": 2863.0,
+        "radius": 100,
+        "xCoord": 146240,
+        "zCoord": 273088,
+        "radiusCoord": 12800,
+        "radiusCoordSq": 163840000
+      },
+      {
+        "mapX": 1442.0,
+        "mapY": 1370.0,
+        "radius": 40,
+        "xCoord": 80960,
+        "zCoord": 81984,
+        "radiusCoord": 5120,
+        "radiusCoordSq": 26214400
+      },
+      {
+        "mapX": 1621.0,
+        "mapY": 2673.0,
+        "radius": 100,
+        "xCoord": 103872,
+        "zCoord": 248768,
+        "radiusCoord": 12800,
+        "radiusCoordSq": 163840000
+      }
+    ],
+    "relations": {
+      "HOBBIT": "MORTAL_ENEMY",
+      "BREE": "MORTAL_ENEMY",
+      "RANGER_NORTH": "MORTAL_ENEMY",
+      "BLUE_MOUNTAINS": "MORTAL_ENEMY",
+      "HIGH_ELF": "MORTAL_ENEMY",
+      "GUNDABAD": "NEUTRAL",
+      "ANGMAR": "NEUTRAL",
+      "WOOD_ELF": "MORTAL_ENEMY",
+      "DOL_GULDUR": "NEUTRAL",
+      "DALE": "MORTAL_ENEMY",
+      "DURINS_FOLK": "MORTAL_ENEMY",
+      "LOTHLORIEN": "MORTAL_ENEMY",
+      "DUNLAND": "NEUTRAL",
+      "ISENGARD": "FRIEND",
+      "FANGORN": "MORTAL_ENEMY",
+      "ROHAN": "MORTAL_ENEMY",
+      "GONDOR": "MORTAL_ENEMY",
+      "MORDOR": "ALLY",
+      "DORWINION": "MORTAL_ENEMY",
+      "RHUDEL": "NEUTRAL",
+      "NEAR_HARAD": "FRIEND",
+      "MORWAITH": "NEUTRAL",
+      "TAURETHRIM": "MORTAL_ENEMY",
+      "DARK_HUORN": "NEUTRAL",
+      "RUFFIAN": "NEUTRAL",
+      "UTUMNO": "MORTAL_ENEMY",
+      "HOSTILE": "MORTAL_ENEMY",
+      "UNALIGNED": "NEUTRAL"
+    }
+  },
+  {
+    "code": "DARK_HUORN",
+    "name": "lotr.faction.DARK_HUORN.name",
+    "color": -16777216,
+    "fields": {
+      "factionColor": 0,
+      "allowPlayer": true,
+      "allowEntityRegistry": true,
+      "hasFixedAlignment": true,
+      "fixedAlignment": -1,
+      "isolationist": false,
+      "approvesWarCrimes": true,
+      "name": "DARK_HUORN",
+      "ordinal": 24
+    },
+    "types": [],
+    "ranks": [],
+    "controlZones": [],
+    "relations": {
+      "HOBBIT": "MORTAL_ENEMY",
+      "BREE": "MORTAL_ENEMY",
+      "RANGER_NORTH": "MORTAL_ENEMY",
+      "BLUE_MOUNTAINS": "NEUTRAL",
+      "HIGH_ELF": "NEUTRAL",
+      "GUNDABAD": "NEUTRAL",
+      "ANGMAR": "NEUTRAL",
+      "WOOD_ELF": "NEUTRAL",
+      "DOL_GULDUR": "NEUTRAL",
+      "DALE": "NEUTRAL",
+      "DURINS_FOLK": "NEUTRAL",
+      "LOTHLORIEN": "NEUTRAL",
+      "DUNLAND": "NEUTRAL",
+      "ISENGARD": "NEUTRAL",
+      "FANGORN": "NEUTRAL",
+      "ROHAN": "NEUTRAL",
+      "GONDOR": "NEUTRAL",
+      "MORDOR": "NEUTRAL",
+      "DORWINION": "NEUTRAL",
+      "RHUDEL": "NEUTRAL",
+      "NEAR_HARAD": "NEUTRAL",
+      "MORWAITH": "NEUTRAL",
+      "TAURETHRIM": "NEUTRAL",
+      "HALF_TROLL": "NEUTRAL",
+      "RUFFIAN": "NEUTRAL",
+      "UTUMNO": "MORTAL_ENEMY",
+      "HOSTILE": "MORTAL_ENEMY",
+      "UNALIGNED": "NEUTRAL"
+    }
+  },
+  {
+    "code": "RUFFIAN",
+    "name": "lotr.faction.RUFFIAN.name",
+    "color": -16777216,
+    "fields": {
+      "factionColor": 0,
+      "allowPlayer": true,
+      "allowEntityRegistry": true,
+      "hasFixedAlignment": true,
+      "fixedAlignment": 0,
+      "isolationist": false,
+      "approvesWarCrimes": true,
+      "name": "RUFFIAN",
+      "ordinal": 25
+    },
+    "types": [],
+    "ranks": [],
+    "controlZones": [],
+    "relations": {
+      "HOBBIT": "NEUTRAL",
+      "BREE": "NEUTRAL",
+      "RANGER_NORTH": "NEUTRAL",
+      "BLUE_MOUNTAINS": "NEUTRAL",
+      "HIGH_ELF": "NEUTRAL",
+      "GUNDABAD": "NEUTRAL",
+      "ANGMAR": "NEUTRAL",
+      "WOOD_ELF": "NEUTRAL",
+      "DOL_GULDUR": "NEUTRAL",
+      "DALE": "NEUTRAL",
+      "DURINS_FOLK": "NEUTRAL",
+      "LOTHLORIEN": "NEUTRAL",
+      "DUNLAND": "NEUTRAL",
+      "ISENGARD": "NEUTRAL",
+      "FANGORN": "NEUTRAL",
+      "ROHAN": "NEUTRAL",
+      "GONDOR": "NEUTRAL",
+      "MORDOR": "NEUTRAL",
+      "DORWINION": "NEUTRAL",
+      "RHUDEL": "NEUTRAL",
+      "NEAR_HARAD": "NEUTRAL",
+      "MORWAITH": "NEUTRAL",
+      "TAURETHRIM": "NEUTRAL",
+      "HALF_TROLL": "NEUTRAL",
+      "DARK_HUORN": "NEUTRAL",
+      "UTUMNO": "MORTAL_ENEMY",
+      "HOSTILE": "MORTAL_ENEMY",
+      "UNALIGNED": "NEUTRAL"
+    }
+  },
+  {
+    "code": "UTUMNO",
+    "name": "lotr.faction.UTUMNO.name",
+    "color": -13433600,
+    "fields": {
+      "factionDimension": "UTUMNO",
+      "factionRegion": "REG_UTUMNO",
+      "factionColor": 3343616,
+      "allowPlayer": true,
+      "allowEntityRegistry": true,
+      "hasFixedAlignment": true,
+      "fixedAlignment": -66666,
+      "isolationist": false,
+      "approvesWarCrimes": true,
+      "name": "UTUMNO",
+      "ordinal": 26
+    },
+    "region": "REG_UTUMNO",
+    "dimension": "UTUMNO",
+    "types": [
+      "TYPE_ORC"
+    ],
+    "ranks": [],
+    "controlZones": [],
+    "relations": {
+      "HOBBIT": "MORTAL_ENEMY",
+      "BREE": "MORTAL_ENEMY",
+      "RANGER_NORTH": "MORTAL_ENEMY",
+      "BLUE_MOUNTAINS": "MORTAL_ENEMY",
+      "HIGH_ELF": "MORTAL_ENEMY",
+      "GUNDABAD": "MORTAL_ENEMY",
+      "ANGMAR": "MORTAL_ENEMY",
+      "WOOD_ELF": "MORTAL_ENEMY",
+      "DOL_GULDUR": "MORTAL_ENEMY",
+      "DALE": "MORTAL_ENEMY",
+      "DURINS_FOLK": "MORTAL_ENEMY",
+      "LOTHLORIEN": "MORTAL_ENEMY",
+      "DUNLAND": "MORTAL_ENEMY",
+      "ISENGARD": "MORTAL_ENEMY",
+      "FANGORN": "MORTAL_ENEMY",
+      "ROHAN": "MORTAL_ENEMY",
+      "GONDOR": "MORTAL_ENEMY",
+      "MORDOR": "MORTAL_ENEMY",
+      "DORWINION": "MORTAL_ENEMY",
+      "RHUDEL": "MORTAL_ENEMY",
+      "NEAR_HARAD": "MORTAL_ENEMY",
+      "MORWAITH": "MORTAL_ENEMY",
+      "TAURETHRIM": "MORTAL_ENEMY",
+      "HALF_TROLL": "MORTAL_ENEMY",
+      "DARK_HUORN": "MORTAL_ENEMY",
+      "RUFFIAN": "MORTAL_ENEMY",
+      "HOSTILE": "MORTAL_ENEMY",
+      "UNALIGNED": "NEUTRAL"
+    }
+  },
+  {
+    "code": "HOSTILE",
+    "name": "lotr.faction.HOSTILE.name",
+    "color": -16777216,
+    "fields": {
+      "factionColor": 0,
+      "allowPlayer": false,
+      "allowEntityRegistry": true,
+      "hasFixedAlignment": true,
+      "fixedAlignment": -1,
+      "isolationist": false,
+      "approvesWarCrimes": true,
+      "name": "HOSTILE",
+      "ordinal": 27
+    },
+    "types": [],
+    "ranks": [],
+    "controlZones": [],
+    "relations": {
+      "HOBBIT": "MORTAL_ENEMY",
+      "BREE": "MORTAL_ENEMY",
+      "RANGER_NORTH": "MORTAL_ENEMY",
+      "BLUE_MOUNTAINS": "MORTAL_ENEMY",
+      "HIGH_ELF": "MORTAL_ENEMY",
+      "GUNDABAD": "MORTAL_ENEMY",
+      "ANGMAR": "MORTAL_ENEMY",
+      "WOOD_ELF": "MORTAL_ENEMY",
+      "DOL_GULDUR": "MORTAL_ENEMY",
+      "DALE": "MORTAL_ENEMY",
+      "DURINS_FOLK": "MORTAL_ENEMY",
+      "LOTHLORIEN": "MORTAL_ENEMY",
+      "DUNLAND": "MORTAL_ENEMY",
+      "ISENGARD": "MORTAL_ENEMY",
+      "FANGORN": "MORTAL_ENEMY",
+      "ROHAN": "MORTAL_ENEMY",
+      "GONDOR": "MORTAL_ENEMY",
+      "MORDOR": "MORTAL_ENEMY",
+      "DORWINION": "MORTAL_ENEMY",
+      "RHUDEL": "MORTAL_ENEMY",
+      "NEAR_HARAD": "MORTAL_ENEMY",
+      "MORWAITH": "MORTAL_ENEMY",
+      "TAURETHRIM": "MORTAL_ENEMY",
+      "HALF_TROLL": "MORTAL_ENEMY",
+      "DARK_HUORN": "MORTAL_ENEMY",
+      "RUFFIAN": "MORTAL_ENEMY",
+      "UTUMNO": "MORTAL_ENEMY",
+      "UNALIGNED": "NEUTRAL"
+    }
+  },
+  {
+    "code": "UNALIGNED",
+    "name": "lotr.faction.UNALIGNED.name",
+    "color": -16777216,
+    "fields": {
+      "factionColor": 0,
+      "allowPlayer": false,
+      "allowEntityRegistry": false,
+      "hasFixedAlignment": true,
+      "fixedAlignment": 0,
+      "isolationist": false,
+      "approvesWarCrimes": true,
+      "name": "UNALIGNED",
+      "ordinal": 28
+    },
+    "types": [],
+    "ranks": [],
+    "controlZones": [],
+    "relations": {
+      "HOBBIT": "NEUTRAL",
+      "BREE": "NEUTRAL",
+      "RANGER_NORTH": "NEUTRAL",
+      "BLUE_MOUNTAINS": "NEUTRAL",
+      "HIGH_ELF": "NEUTRAL",
+      "GUNDABAD": "NEUTRAL",
+      "ANGMAR": "NEUTRAL",
+      "WOOD_ELF": "NEUTRAL",
+      "DOL_GULDUR": "NEUTRAL",
+      "DALE": "NEUTRAL",
+      "DURINS_FOLK": "NEUTRAL",
+      "LOTHLORIEN": "NEUTRAL",
+      "DUNLAND": "NEUTRAL",
+      "ISENGARD": "NEUTRAL",
+      "FANGORN": "NEUTRAL",
+      "ROHAN": "NEUTRAL",
+      "GONDOR": "NEUTRAL",
+      "MORDOR": "NEUTRAL",
+      "DORWINION": "NEUTRAL",
+      "RHUDEL": "NEUTRAL",
+      "NEAR_HARAD": "NEUTRAL",
+      "MORWAITH": "NEUTRAL",
+      "TAURETHRIM": "NEUTRAL",
+      "HALF_TROLL": "NEUTRAL",
+      "DARK_HUORN": "NEUTRAL",
+      "RUFFIAN": "NEUTRAL",
+      "UTUMNO": "NEUTRAL",
+      "HOSTILE": "NEUTRAL"
+    }
+  }
+]
