@@ -3,7 +3,9 @@ package com.porcupinestudios.tardisrb;
 import com.mojang.logging.LogUtils;
 import com.porcupinestudios.tardisrb.block.TardisBlocks;
 import com.porcupinestudios.tardisrb.command.TardisCommand;
+import com.porcupinestudios.tardisrb.compat.create.CreateCompat;
 import com.porcupinestudios.tardisrb.flight.CrashSite;
+import com.porcupinestudios.tardisrb.gametest.WorldCheck;
 import com.porcupinestudios.tardisrb.net.ConsoleNet;
 import com.porcupinestudios.tardisrb.progression.TardisConditions;
 import com.porcupinestudios.tardisrb.progression.TardisContent;
@@ -27,6 +29,8 @@ public final class TardisRB {
         TardisBlocks.register(modBus);
         ConsoleNet.register(modBus);
         CrashSite.register();
+        CreateCompat.register(modBus);
+        WorldCheck.register();
         LOG.info("TARDIS: Ring Bearer loading");
     }
 

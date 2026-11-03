@@ -3,5 +3,6 @@
   "block.tardis_rb.console": "Console",
   "block.tardis_rb.interior_door": "TARDIS Doors",
   "block.tardis_rb.salvage_wreck": "TARDIS Wreckage",
-  "itemGroup.tardis_rb.tardis": "TARDIS"
+  "itemGroup.tardis_rb.tardis": "TARDIS",
+  "block.tardis_rb.winder": "TARDIS Winder"
 }

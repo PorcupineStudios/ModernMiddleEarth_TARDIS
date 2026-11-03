@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "side": "tardis_rb:block/winder_side",
+    "end": "tardis_rb:block/winder_end"
+  }
+}

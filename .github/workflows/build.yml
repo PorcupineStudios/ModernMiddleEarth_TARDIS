@@ -37,6 +37,16 @@ jobs:
           JAVA_TOOL_OPTIONS="-Dlotr_port.worldcheck=true -Xmx6g" ./gradlew :lotr:runServer --stacktrace 2>&1 | tee worldcheck.log
           grep -E "\\[worldcheck\\]|WORLDCHECK" worldcheck.log
           grep "WORLDCHECK PASSED" worldcheck.log
+      - name: TARDIS world
+        # A dedicated server: the crash site, its police box, and its interior in the interior dimension.
+        timeout-minutes: 10
+        run: |
+          mkdir -p tardis/run
+          echo "eula=true" > tardis/run/eula.txt
+          printf 'online-mode=false\nlevel-name=tardis-check\n' > tardis/run/server.properties
+          JAVA_TOOL_OPTIONS="-Dtardis_rb.worldcheck=true" ./gradlew :tardis:runServer --stacktrace 2>&1 | tee tardis-world.log
+          grep -E "\\[worldcheck\\]|WORLDCHECK|crash site" tardis-world.log
+          grep "TARDIS WORLDCHECK PASSED" tardis-world.log
       - uses: actions/upload-artifact@v4
         with:
           name: jars

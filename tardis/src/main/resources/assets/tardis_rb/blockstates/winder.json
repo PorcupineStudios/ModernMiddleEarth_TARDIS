@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "axis=y": {
+      "model": "tardis_rb:block/winder"
+    },
+    "axis=z": {
+      "model": "tardis_rb:block/winder",
+      "x": 90
+    },
+    "axis=x": {
+      "model": "tardis_rb:block/winder",
+      "x": 90,
+      "y": 90
+    }
+  }
+}
