@@ -16,6 +16,7 @@
     "lotr_port:textures/entity/hobbit/hobbit_male/9.png"
   ],
   "skin_height": 64,
+  "model": "hobbit",
   "scale": 0.667,
   "health": 20.0,
   "speed": 0.2,

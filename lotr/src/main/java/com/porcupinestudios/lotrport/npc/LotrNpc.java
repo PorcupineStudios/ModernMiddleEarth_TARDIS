@@ -65,6 +65,8 @@ public class LotrNpc extends PathfinderMob implements Merchant {
             SynchedEntityData.defineId(LotrNpc.class, EntityDataSerializers.STRING);
     private static final EntityDataAccessor<Boolean> TALL_SKIN =
             SynchedEntityData.defineId(LotrNpc.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<String> MODEL =
+            SynchedEntityData.defineId(LotrNpc.class, EntityDataSerializers.STRING);
     /** How far a trading or hiring player may stand. */
     public static final double DEAL_DISTANCE = 8;
 
@@ -116,6 +118,7 @@ public class LotrNpc extends PathfinderMob implements Merchant {
         builder.define(TYPE, "");
         builder.define(SKIN, "");
         builder.define(TALL_SKIN, false);
+        builder.define(MODEL, "human");
     }
 
     @Override
@@ -158,6 +161,7 @@ public class LotrNpc extends PathfinderMob implements Merchant {
         List<ResourceLocation> skins = type.skins();
         entityData.set(SKIN, skins.isEmpty() ? "" : skins.get(random.nextInt(skins.size())).toString());
         entityData.set(TALL_SKIN, type.skinHeight() == 64);
+        entityData.set(MODEL, type.model());
         type.gear().forEach((slot, items) -> {
             if (items.isEmpty()) {
                 return;
@@ -194,6 +198,11 @@ public class LotrNpc extends PathfinderMob implements Merchant {
     /** Whether the skin is 64x64 (newer layout) rather than the classic 64x32. */
     public boolean tallSkin() {
         return entityData.get(TALL_SKIN);
+    }
+
+    /** The body the client draws (human, hobbit, dwarf, elf, orc). */
+    public String model() {
+        return entityData.get(MODEL);
     }
 
     public String personName() {
@@ -426,6 +435,7 @@ public class LotrNpc extends PathfinderMob implements Merchant {
         tag.putString("NpcType", entityData.get(TYPE));
         tag.putString("Skin", entityData.get(SKIN));
         tag.putBoolean("TallSkin", entityData.get(TALL_SKIN));
+        tag.putString("Model", entityData.get(MODEL));
         tag.putString("PersonName", personName);
         if (owner != null) {
             tag.putUUID("Owner", owner);
@@ -442,6 +452,14 @@ public class LotrNpc extends PathfinderMob implements Merchant {
         entityData.set(TYPE, tag.getString("NpcType"));
         entityData.set(SKIN, tag.getString("Skin"));
         entityData.set(TALL_SKIN, tag.getBoolean("TallSkin"));
+        // saves from before the model field: take it from the type
+        String model = tag.getString("Model");
+        if (model.isEmpty()) {
+            ResourceLocation typeId = ResourceLocation.tryParse(tag.getString("NpcType"));
+            NpcType type = typeId == null ? null : NpcData.type(typeId).orElse(null);
+            model = type == null ? "human" : type.model();
+        }
+        entityData.set(MODEL, model);
         personName = tag.getString("PersonName");
         owner = tag.hasUUID("Owner") ? tag.getUUID("Owner") : null;
         try {

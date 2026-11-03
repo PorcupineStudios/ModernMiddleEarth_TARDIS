@@ -10,6 +10,7 @@
     "lotr_port:textures/entity/orc/orc/6.png",
     "lotr_port:textures/entity/orc/orc/7.png"
   ],
+  "model": "orc",
   "scale": 0.861,
   "health": 24.0,
   "speed": 0.2,

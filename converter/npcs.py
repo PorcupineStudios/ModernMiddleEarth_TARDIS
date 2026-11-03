@@ -19,6 +19,8 @@ from assets import NS, snake, write_json
 from vanilla import vanilla_item
 
 PERSON_MODELS = {"LOTRModelHuman", "LOTRModelOrc", "LOTRModelElf", "LOTRModelDwarf", "LOTRModelHobbit"}
+# The head and body shape each LOTR model draws (hair layer, ears, hobbit feet); humans are the default.
+MODELS = {"LOTRModelHobbit": "hobbit", "LOTRModelDwarf": "dwarf", "LOTRModelElf": "elf", "LOTRModelOrc": "orc"}
 NOT_SKINS = ("female", "child", "outfit", "headwear", "ring", "glint", "shadow", "cape", "eyes", "hat", "overlay",
              "armor", "banner", "glow", "jacket", "robe", "hair", "beard", "trader", "hood", "scarf")
 GEAR_SLOTS = {"mainhand": ("meleeWeapon", "mainhand", "rangedWeapon"), "head": ("head",), "chest": ("chest",),
@@ -162,6 +164,9 @@ class Npcs:
                 out["skin_height"] = height
         else:
             self.report["npcs_without_skins"].append(e["name"])
+        model = MODELS.get(((e.get("render") or {}).get("model") or "").split(".")[-1])
+        if model:
+            out["model"] = model
         size = e.get("height", 1.8)
         if abs(size - 1.8) > 0.01:
             out["scale"] = round(size / 1.8, 3)

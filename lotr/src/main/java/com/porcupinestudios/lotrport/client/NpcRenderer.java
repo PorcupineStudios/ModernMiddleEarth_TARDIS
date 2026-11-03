@@ -2,6 +2,8 @@ package com.porcupinestudios.lotrport.client;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.porcupinestudios.lotrport.npc.LotrNpc;
+import java.util.HashMap;
+import java.util.Map;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.geom.ModelLayers;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -15,12 +17,14 @@ public class NpcRenderer extends HumanoidMobRenderer<LotrNpc, HumanoidModel<Lotr
     private static final ResourceLocation FALLBACK =
             ResourceLocation.fromNamespaceAndPath("lotr_port", "textures/entity/npc_fallback.png");
     private final HumanoidModel<LotrNpc> classic;
-    private final HumanoidModel<LotrNpc> tall;
+    private final Map<String, HumanoidModel<LotrNpc>> tall = new HashMap<>();
 
     public NpcRenderer(EntityRendererProvider.Context context) {
         super(context, new HumanoidModel<>(context.bakeLayer(LotrClient.NPC_LAYER)), 0.5f);
         classic = model;
-        tall = new HumanoidModel<>(context.bakeLayer(LotrClient.NPC_TALL_LAYER));
+        for (String kind : NpcModels.KINDS) {
+            tall.put(kind, new HumanoidModel<>(context.bakeLayer(NpcModels.layer(kind))));
+        }
         addLayer(new HumanoidArmorLayer<>(this,
                 new HumanoidModel<>(context.bakeLayer(ModelLayers.PLAYER_INNER_ARMOR)),
                 new HumanoidModel<>(context.bakeLayer(ModelLayers.PLAYER_OUTER_ARMOR)),
@@ -30,7 +34,8 @@ public class NpcRenderer extends HumanoidMobRenderer<LotrNpc, HumanoidModel<Lotr
     @Override
     public void render(LotrNpc npc, float yaw, float partialTick, PoseStack pose, MultiBufferSource buffers,
             int light) {
-        model = npc.tallSkin() ? tall : classic; // same shape, the skin's height decides the texture mapping
+        // 64x64 skins use LOTR's body for the race (hair layer, feet, ears); 64x32 ones the classic humanoid
+        model = npc.tallSkin() ? tall.getOrDefault(npc.model(), tall.get("human")) : classic;
         super.render(npc, yaw, partialTick, pose, buffers, light);
     }
 

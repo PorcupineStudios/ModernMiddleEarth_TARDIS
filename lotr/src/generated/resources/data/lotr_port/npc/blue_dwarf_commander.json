@@ -6,6 +6,7 @@
     "lotr_port:textures/entity/dwarf/blue_mountains_male/2.png"
   ],
   "skin_height": 64,
+  "model": "dwarf",
   "scale": 0.833,
   "health": 30.0,
   "speed": 0.2,

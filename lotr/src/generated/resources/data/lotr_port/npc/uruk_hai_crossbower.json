@@ -5,6 +5,7 @@
     "lotr_port:textures/entity/orc/uruk_hai/1.png",
     "lotr_port:textures/entity/orc/uruk_hai/2.png"
   ],
+  "model": "orc",
   "scale": 0.861,
   "health": 26.0,
   "speed": 0.22,
