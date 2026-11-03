@@ -53,3 +53,12 @@ neoForge {
         }
     }
 }
+
+// Client mods for a test instance that the build doesn't use (Sodium is client-only and would break dev servers).
+// CI copies them into the rolling test-build release.
+def testInstanceMods = configurations.detachedConfiguration(dependencies.create("maven.modrinth:sodium:${sodium_version}"))
+testInstanceMods.transitive = false
+tasks.register('testInstanceMods', Copy) {
+    from testInstanceMods
+    into layout.buildDirectory.dir('test-mods')
+}
