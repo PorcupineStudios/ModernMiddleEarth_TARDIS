@@ -19,5 +19,6 @@
     ],
     "head": "lotr_port:fur_hat"
   },
+  "speech": "lotr_port:dunlending/dunlending",
   "quests": "lotr_port:dunland"
 }

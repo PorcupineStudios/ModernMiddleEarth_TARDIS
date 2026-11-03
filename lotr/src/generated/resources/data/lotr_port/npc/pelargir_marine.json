@@ -27,5 +27,6 @@
     "feet": "lotr_port:pelargir_boots"
   },
   "names": "lotr_port:gondor_male",
+  "speech": "lotr_port:gondor/soldier",
   "quests": "lotr_port:gondor"
 }

@@ -16,5 +16,6 @@
   },
   "buy": "lotr_port:southron_bartender_buy",
   "sell": "lotr_port:southron_bartender_sell",
+  "speech": "lotr_port:moredain/moredain",
   "quests": "lotr_port:near_harad"
 }

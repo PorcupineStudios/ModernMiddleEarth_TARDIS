@@ -16,5 +16,6 @@
   "names": "lotr_port:tauredain_male",
   "buy": "lotr_port:tauredain_smith_buy",
   "sell": "lotr_port:tauredain_smith_sell",
+  "speech": "lotr_port:tauredain/smith",
   "quests": "lotr_port:tauredain"
 }

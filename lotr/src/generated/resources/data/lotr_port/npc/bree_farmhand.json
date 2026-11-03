@@ -38,5 +38,6 @@
   "attack": 2.0,
   "gear": {
     "mainhand": "minecraft:iron_hoe"
-  }
+  },
+  "speech": "lotr_port:bree/farmhand"
 }

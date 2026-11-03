@@ -23,5 +23,6 @@
     "feet": "lotr_port:blackroot_vale_boots"
   },
   "names": "lotr_port:gondor_male",
-  "units": "lotr_port:blackroot_captain"
+  "units": "lotr_port:blackroot_captain",
+  "speech": "lotr_port:gondor/soldier"
 }

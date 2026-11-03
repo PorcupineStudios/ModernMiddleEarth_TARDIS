@@ -14,5 +14,6 @@
   },
   "buy": "lotr_port:dale_baker_buy",
   "sell": "lotr_port:dale_baker_sell",
+  "speech": "lotr_port:dale/baker",
   "quests": "lotr_port:dale"
 }

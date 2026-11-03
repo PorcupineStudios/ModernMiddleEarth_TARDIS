@@ -22,5 +22,6 @@
     "feet": "lotr_port:dol_guldur_boots"
   },
   "names": "lotr_port:orc",
-  "units": "lotr_port:dol_guldur_captain"
+  "units": "lotr_port:dol_guldur_captain",
+  "speech": "lotr_port:dol_guldur/chieftain"
 }

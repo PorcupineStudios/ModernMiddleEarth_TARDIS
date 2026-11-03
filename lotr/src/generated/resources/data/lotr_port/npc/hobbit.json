@@ -21,5 +21,6 @@
   "health": 16.0,
   "speed": 0.2,
   "attack": 2.0,
+  "speech": "lotr_port:hobbit/hobbit",
   "quests": "lotr_port:hobbit"
 }

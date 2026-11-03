@@ -16,5 +16,6 @@
   },
   "names": "lotr_port:quenya_male",
   "buy": "lotr_port:galadhrim_smith_buy",
-  "sell": "lotr_port:galadhrim_smith_sell"
+  "sell": "lotr_port:galadhrim_smith_sell",
+  "speech": "lotr_port:galadhrim/smith"
 }

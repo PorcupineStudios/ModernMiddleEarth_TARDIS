@@ -18,5 +18,6 @@
   },
   "names": "lotr_port:dorwinion_male",
   "units": "lotr_port:dorwinion_captain",
+  "speech": "lotr_port:dorwinion/captain",
   "quests": "lotr_port:dorwinion"
 }

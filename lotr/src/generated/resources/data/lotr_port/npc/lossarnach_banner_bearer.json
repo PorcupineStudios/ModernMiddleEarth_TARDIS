@@ -23,5 +23,6 @@
     "legs": "lotr_port:lossarnach_leggings",
     "feet": "lotr_port:lossarnach_boots"
   },
-  "names": "lotr_port:gondor_male"
+  "names": "lotr_port:gondor_male",
+  "speech": "lotr_port:gondor/soldier"
 }

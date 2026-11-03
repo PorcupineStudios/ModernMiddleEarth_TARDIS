@@ -17,5 +17,6 @@
   },
   "names": "lotr_port:rhudaur_male",
   "units": "lotr_port:angmar_hillman_chieftain",
+  "speech": "lotr_port:angmar/hillman_chieftain",
   "quests": "lotr_port:angmar_hillman"
 }

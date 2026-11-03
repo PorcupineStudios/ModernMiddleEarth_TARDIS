@@ -46,5 +46,6 @@
   },
   "buy": "lotr_port:bree_butcher_buy",
   "sell": "lotr_port:bree_butcher_sell",
+  "speech": "lotr_port:bree/hobbit",
   "quests": "lotr_port:bree"
 }

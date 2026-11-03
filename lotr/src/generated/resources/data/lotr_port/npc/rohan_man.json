@@ -23,5 +23,6 @@
       "minecraft:stone_axe"
     ]
   },
-  "names": "lotr_port:rohan_male"
+  "names": "lotr_port:rohan_male",
+  "speech": "lotr_port:rohan/man"
 }

@@ -16,5 +16,6 @@
     "legs": "lotr_port:taurethrim_leggings",
     "feet": "lotr_port:taurethrim_boots"
   },
-  "names": "lotr_port:tauredain_male"
+  "names": "lotr_port:tauredain_male",
+  "speech": "lotr_port:tauredain/tauredain"
 }

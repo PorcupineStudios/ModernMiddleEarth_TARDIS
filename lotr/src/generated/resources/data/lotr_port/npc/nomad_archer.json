@@ -26,5 +26,6 @@
     "feet": "lotr_port:nomad_shoes"
   },
   "names": "lotr_port:nomad_male",
+  "speech": "lotr_port:moredain/moredain",
   "quests": "lotr_port:nomad"
 }

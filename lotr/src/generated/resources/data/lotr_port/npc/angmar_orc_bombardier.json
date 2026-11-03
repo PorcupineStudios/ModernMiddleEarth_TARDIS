@@ -28,5 +28,6 @@
     "feet": "lotr_port:angmar_boots"
   },
   "names": "lotr_port:orc",
+  "speech": "lotr_port:angmar/orc",
   "quests": "lotr_port:angmar"
 }

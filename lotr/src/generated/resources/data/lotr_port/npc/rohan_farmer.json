@@ -20,5 +20,6 @@
   "buy": "lotr_port:rohan_farmer_buy",
   "sell": "lotr_port:rohan_farmer_sell",
   "units": "lotr_port:rohan_farmer",
+  "speech": "lotr_port:rohan/farmer",
   "quests": "lotr_port:rohan"
 }

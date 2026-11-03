@@ -22,5 +22,6 @@
   },
   "names": "lotr_port:dale_male",
   "buy": "lotr_port:dale_merchant_buy",
-  "sell": "lotr_port:dale_merchant_sell"
+  "sell": "lotr_port:dale_merchant_sell",
+  "speech": "lotr_port:dale/merchant"
 }

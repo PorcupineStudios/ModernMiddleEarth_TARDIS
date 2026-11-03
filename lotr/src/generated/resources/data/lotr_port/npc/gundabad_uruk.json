@@ -24,5 +24,6 @@
     "feet": "lotr_port:gundabad_uruk_boots"
   },
   "names": "lotr_port:orc",
+  "speech": "lotr_port:gundabad/orc",
   "quests": "lotr_port:gundabad"
 }

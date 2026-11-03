@@ -16,5 +16,6 @@
   },
   "buy": "lotr_port:rivendell_smith_buy",
   "sell": "lotr_port:rivendell_smith_sell",
+  "speech": "lotr_port:rivendell/smith",
   "quests": "lotr_port:rivendell"
 }

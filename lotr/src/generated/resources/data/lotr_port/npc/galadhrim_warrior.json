@@ -21,5 +21,6 @@
     "legs": "lotr_port:galadhrim_leggings",
     "feet": "lotr_port:galadhrim_boots"
   },
+  "speech": "lotr_port:galadhrim/warrior",
   "quests": "lotr_port:galadhrim"
 }

@@ -22,5 +22,6 @@
   },
   "buy": "lotr_port:dunlending_bartender_buy",
   "sell": "lotr_port:dunlending_bartender_sell",
+  "speech": "lotr_port:dunlending/bartender",
   "quests": "lotr_port:dunland"
 }

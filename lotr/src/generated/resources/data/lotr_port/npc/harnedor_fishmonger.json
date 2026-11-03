@@ -18,5 +18,6 @@
   "names": "lotr_port:near_haradrim_male",
   "buy": "lotr_port:harad_fishmonger_buy",
   "sell": "lotr_port:harad_fishmonger_sell",
+  "speech": "lotr_port:moredain/moredain",
   "quests": "lotr_port:harnennor"
 }

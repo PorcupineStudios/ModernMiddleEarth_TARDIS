@@ -28,5 +28,6 @@
     "legs": "lotr_port:utumno_leggings",
     "feet": "lotr_port:utumno_boots"
   },
-  "names": "lotr_port:orc"
+  "names": "lotr_port:orc",
+  "speech": "lotr_port:utumno/orc"
 }

@@ -18,5 +18,6 @@
   "names": "lotr_port:near_haradrim_male",
   "buy": "lotr_port:harnedor_blacksmith_buy",
   "sell": "lotr_port:harnedor_blacksmith_sell",
+  "speech": "lotr_port:moredain/moredain",
   "quests": "lotr_port:harnennor"
 }

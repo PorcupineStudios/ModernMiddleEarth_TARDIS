@@ -14,5 +14,6 @@
   "gear": {
     "mainhand": "lotr_port:umbaric_dagger"
   },
+  "speech": "lotr_port:moredain/moredain",
   "quests": "lotr_port:umbar"
 }

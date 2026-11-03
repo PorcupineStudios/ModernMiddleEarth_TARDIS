@@ -30,5 +30,6 @@
   },
   "buy": "lotr_port:high_elf_smith_buy",
   "sell": "lotr_port:high_elf_smith_sell",
+  "speech": "lotr_port:high_elf/smith",
   "quests": "lotr_port:high_elf"
 }

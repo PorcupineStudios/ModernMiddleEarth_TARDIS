@@ -44,5 +44,6 @@
       "minecraft:iron_axe"
     ]
   },
+  "speech": "lotr_port:bree/man",
   "quests": "lotr_port:bree"
 }

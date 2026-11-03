@@ -13,5 +13,6 @@
   "gear": {
     "mainhand": "minecraft:iron_hoe"
   },
+  "speech": "lotr_port:dorwinion/vinehand",
   "quests": "lotr_port:dorwinion"
 }

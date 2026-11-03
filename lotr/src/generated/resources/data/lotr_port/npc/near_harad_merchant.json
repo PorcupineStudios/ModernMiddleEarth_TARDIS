@@ -17,5 +17,6 @@
   },
   "buy": "lotr_port:near_harad_merchant_buy",
   "sell": "lotr_port:near_harad_merchant_sell",
+  "speech": "lotr_port:near_harad/merchant",
   "quests": "lotr_port:near_harad"
 }

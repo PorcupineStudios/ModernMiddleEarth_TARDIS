@@ -2,6 +2,7 @@ package com.porcupinestudios.lotrport.npc;
 
 import com.mojang.datafixers.util.Either;
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import java.util.List;
 import java.util.Map;
@@ -27,12 +28,12 @@ import net.minecraft.resources.ResourceLocation;
  * @param units unit pool of the soldiers and workers it hires out
  * @param tradeAlignment alignment a player needs with its faction to trade or hire
  * @param quests quest pool ({@code quest_pool/<pool>.json}) it gives mini-quests from
- * @param model the body the client draws: human, hobbit, dwarf, elf or orc (hair layer, ears, feet)
+ * @param persona how it looks and talks: its body model and speech bank
  */
 public record NpcType(Optional<ResourceLocation> faction, List<ResourceLocation> skins, int skinHeight, float scale,
         double health, double speed, double attack, Map<String, List<ResourceLocation>> gear, Optional<ResourceLocation> names,
         boolean hostile, Optional<ResourceLocation> buy, Optional<ResourceLocation> sell,
-        Optional<ResourceLocation> units, float tradeAlignment, Optional<ResourceLocation> quests, String model) {
+        Optional<ResourceLocation> units, float tradeAlignment, Optional<ResourceLocation> quests, Persona persona) {
 
     /** One id, or a list of ids. */
     private static final Codec<List<ResourceLocation>> ONE_OR_MORE =
@@ -58,8 +59,29 @@ public record NpcType(Optional<ResourceLocation> faction, List<ResourceLocation>
             ResourceLocation.CODEC.optionalFieldOf("units").forGetter(NpcType::units),
             Codec.FLOAT.optionalFieldOf("trade_alignment", 0f).forGetter(NpcType::tradeAlignment),
             ResourceLocation.CODEC.optionalFieldOf("quests").forGetter(NpcType::quests),
-            Codec.STRING.optionalFieldOf("model", "human").forGetter(NpcType::model))
+            Persona.MAP_CODEC.forGetter(NpcType::persona))
             .apply(i, NpcType::new));
+
+    /**
+     * How an NPC looks and talks, kept as flat keys in the type's JSON (a codec group holds at most 16 fields).
+     *
+     * @param model the body the client draws: human, hobbit, dwarf, elf or orc (hair layer, ears, feet)
+     * @param speech speech bank folder ({@code speech/<bank>/<mood>.json}) it talks from when right-clicked
+     */
+    public record Persona(String model, Optional<ResourceLocation> speech) {
+        public static final MapCodec<Persona> MAP_CODEC = RecordCodecBuilder.mapCodec(i -> i.group(
+                Codec.STRING.optionalFieldOf("model", "human").forGetter(Persona::model),
+                ResourceLocation.CODEC.optionalFieldOf("speech").forGetter(Persona::speech))
+                .apply(i, Persona::new));
+    }
+
+    public String model() {
+        return persona.model();
+    }
+
+    public Optional<ResourceLocation> speech() {
+        return persona.speech();
+    }
 
     public boolean trader() {
         return buy.isPresent() || sell.isPresent();

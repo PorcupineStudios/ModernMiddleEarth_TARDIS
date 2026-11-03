@@ -23,5 +23,6 @@
     "feet": "lotr_port:rivendell_boots"
   },
   "names": "lotr_port:sindarin_male",
+  "speech": "lotr_port:rivendell/warrior",
   "quests": "lotr_port:rivendell"
 }

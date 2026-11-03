@@ -24,5 +24,6 @@
   },
   "names": "lotr_port:gondor_male",
   "units": "lotr_port:lossarnach_captain",
+  "speech": "lotr_port:gondor/soldier",
   "quests": "lotr_port:gondor"
 }

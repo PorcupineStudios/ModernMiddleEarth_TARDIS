@@ -19,5 +19,6 @@
     "feet": "lotr_port:galadhrim_cloak_boots"
   },
   "names": "lotr_port:quenya_male",
+  "speech": "lotr_port:galadhrim/trader",
   "quests": "lotr_port:galadhrim"
 }
