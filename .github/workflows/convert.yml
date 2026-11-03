@@ -35,7 +35,9 @@ jobs:
           JAVA_TOOL_OPTIONS: -Dlotrexport.run=true -Dlotrexport.out=${{ github.workspace }}/converter/export
         run: xvfb-run -a -s "-screen 0 1280x800x24 +extension RANDR +extension GLX" sh ./gradlew runClient --stacktrace
       - name: Check the export
-        run: ls -la converter/export && test -s converter/export/blocks.json && cat converter/export/errors.json | head -50
+        run: |
+          ls -la converter/export && test -s converter/export/blocks.json && cat converter/export/errors.json | head -50
+          grep -h "lotrexport\]" converter/run/client/logs/latest.log | tail -5 || true
       - uses: actions/upload-artifact@v4
         if: always()
         with:
