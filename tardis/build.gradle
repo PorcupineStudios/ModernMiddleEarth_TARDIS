@@ -29,6 +29,13 @@ def unpackCreateLibs = tasks.register('unpackCreateLibs', Copy) {
     includeEmptyDirs = false
 }
 
+// Immersive Portals (required, Aaron 2026-11-03): the see-through TARDIS door and seamless space. Its NeoForge build is
+// one "-all" jar (imm_ptl_core, q_misc_util); it needs Cloth Config at runtime.
+dependencies {
+    implementation "maven.modrinth:immersive-portals-neoforge:${immersive_portals_version}"
+    runtimeOnly "maven.modrinth:cloth-config:${cloth_config_version}"
+}
+
 dependencies {
     implementation project(':api')
     implementation "maven.modrinth:create:${create_version}"

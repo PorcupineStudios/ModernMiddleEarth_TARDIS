@@ -4,6 +4,7 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import java.util.List;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
 
 /**
@@ -12,7 +13,7 @@ import net.minecraft.resources.ResourceLocation;
  * {@code data/tardis_rb/tardis/tuning/main.json}; every field has a default, so a pack can override just one.
  */
 public record Tuning(CrashSite crashSite, Hop hop, Winder winder, Interior interior, Damage damage,
-        ResearchSpeed research, ConsoleTuning console) {
+        ResearchSpeed research, ConsoleTuning console, DoorTuning door) {
     /** The wreck made once at the start dimension's spawn. {@code offset}: blocks east of the spawn point. */
     public record CrashSite(boolean enabled, int offset, String name, long startCharge) {
         static final CrashSite DEFAULT = new CrashSite(true, 8, "The Wreck", 0);
@@ -116,8 +117,27 @@ public record Tuning(CrashSite crashSite, Hop hop, Winder winder, Interior inter
                 .apply(i, ConsoleTuning::new));
     }
 
+    /**
+     * The see-through door (Immersive Portals): the interior door's lower block ({@code interior_door}, from the console
+     * room's corner) and the way it faces into the room ({@code interior_facing}); the opening's {@code width} and
+     * {@code height}; and how far in front of each door face the portal plane stands ({@code offset}), so a player
+     * walking up to the door crosses it.
+     */
+    public record DoorTuning(BlockPos interiorDoor, Direction interiorFacing, double width, double height,
+            double offset) {
+        static final DoorTuning DEFAULT = new DoorTuning(new BlockPos(4, 1, 0), Direction.SOUTH, 0.9, 1.9, 0.2);
+        static final Codec<DoorTuning> CODEC = RecordCodecBuilder.create(i -> i.group(
+                BlockPos.CODEC.optionalFieldOf("interior_door", DEFAULT.interiorDoor).forGetter(DoorTuning::interiorDoor),
+                Direction.CODEC.optionalFieldOf("interior_facing", DEFAULT.interiorFacing)
+                        .forGetter(DoorTuning::interiorFacing),
+                Codec.doubleRange(0.1, 4).optionalFieldOf("width", DEFAULT.width).forGetter(DoorTuning::width),
+                Codec.doubleRange(0.1, 4).optionalFieldOf("height", DEFAULT.height).forGetter(DoorTuning::height),
+                Codec.doubleRange(0, 0.5).optionalFieldOf("offset", DEFAULT.offset).forGetter(DoorTuning::offset))
+                .apply(i, DoorTuning::new));
+    }
+
     public static final Tuning DEFAULT = new Tuning(CrashSite.DEFAULT, Hop.DEFAULT, Winder.DEFAULT, Interior.DEFAULT,
-            Damage.DEFAULT, ResearchSpeed.DEFAULT, ConsoleTuning.DEFAULT);
+            Damage.DEFAULT, ResearchSpeed.DEFAULT, ConsoleTuning.DEFAULT, DoorTuning.DEFAULT);
 
     public static final Codec<Tuning> CODEC = RecordCodecBuilder.create(i -> i.group(
             CrashSite.CODEC.optionalFieldOf("crash_site", CrashSite.DEFAULT).forGetter(Tuning::crashSite),
@@ -126,6 +146,7 @@ public record Tuning(CrashSite crashSite, Hop hop, Winder winder, Interior inter
             Interior.CODEC.optionalFieldOf("interior", Interior.DEFAULT).forGetter(Tuning::interior),
             Damage.CODEC.optionalFieldOf("damage", Damage.DEFAULT).forGetter(Tuning::damage),
             ResearchSpeed.CODEC.optionalFieldOf("research", ResearchSpeed.DEFAULT).forGetter(Tuning::research),
-            ConsoleTuning.CODEC.optionalFieldOf("console", ConsoleTuning.DEFAULT).forGetter(Tuning::console))
+            ConsoleTuning.CODEC.optionalFieldOf("console", ConsoleTuning.DEFAULT).forGetter(Tuning::console),
+            DoorTuning.CODEC.optionalFieldOf("door", DoorTuning.DEFAULT).forGetter(Tuning::door))
             .apply(i, Tuning::new));
 }

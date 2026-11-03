@@ -17,6 +17,7 @@ Read both with the Claude Docs tools, not a web fetch. Add notes in `docs/<area>
 | Basement repair room + Repair Station, the repair/upgrade tree screen, timed research and stat bonuses, exterior looks, explosion damage | `docs/repair-loop.md` |
 | Adding rooms, the room cap, room templates and layout | `docs/rooms.md` |
 | Dimension travel: destination files, jumps, the console's destination picker | `docs/destinations.md` |
+| The see-through door (Immersive Portals, required), portals for space | `docs/door.md` |
 | The console model, its controls (data `tardis/control/`), clicking them, the course | `docs/console.md` |
 
 ## Build

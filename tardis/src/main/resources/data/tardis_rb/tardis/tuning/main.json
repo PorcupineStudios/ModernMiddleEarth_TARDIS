@@ -53,5 +53,16 @@
       10,
       100
     ]
+  },
+  "door": {
+    "interior_door": [
+      4,
+      1,
+      0
+    ],
+    "interior_facing": "south",
+    "width": 0.9,
+    "height": 1.9,
+    "offset": 0.2
   }
 }
