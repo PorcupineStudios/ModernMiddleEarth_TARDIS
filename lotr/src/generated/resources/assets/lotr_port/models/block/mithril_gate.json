@@ -1,45 +1,40 @@
 {
   "parent": "minecraft:block/block",
   "textures": {
-    "down": "lotr_port:block/gate_mithril",
-    "up": "lotr_port:block/gate_mithril",
-    "north": "lotr_port:block/gate_mithril",
-    "south": "lotr_port:block/gate_mithril",
-    "west": "lotr_port:block/gate_mithril",
-    "east": "lotr_port:block/gate_mithril",
+    "all": "lotr_port:block/gate_mithril",
     "particle": "lotr_port:block/gate_mithril"
   },
   "render_type": "minecraft:cutout",
   "elements": [
     {
       "from": [
-        6.0,
-        0.0,
-        0.0
+        0,
+        0,
+        6
       ],
       "to": [
-        10.0,
-        16.0,
-        16.0
+        16,
+        16,
+        10
       ],
       "faces": {
         "down": {
-          "texture": "#down"
+          "texture": "#all"
         },
         "up": {
-          "texture": "#up"
+          "texture": "#all"
         },
         "north": {
-          "texture": "#north"
+          "texture": "#all"
         },
         "south": {
-          "texture": "#south"
+          "texture": "#all"
         },
         "west": {
-          "texture": "#west"
+          "texture": "#all"
         },
         "east": {
-          "texture": "#east"
+          "texture": "#all"
         }
       }
     }

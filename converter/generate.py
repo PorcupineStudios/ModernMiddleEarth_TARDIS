@@ -47,6 +47,11 @@ def load(name):
         return json.load(f)
 
 
+# LOTR blocks whose metadata 2-5 says which way the front faces, like a furnace.
+FACING_CLASSES = {"LOTRBlockForgeBase", "LOTRBlockHobbitOven", "LOTRBlockBarrel", "LOTRBlockKebabStand",
+                  "LOTRBlockChest", "LOTRBlockMillstone"}
+
+
 class Gen:
     def __init__(self):
         self.report = collections.defaultdict(list)
@@ -193,6 +198,8 @@ class Gen:
     def kind(self, b):
         c = " ".join(x.split(".")[-1] for x in b["classes"])
         rt = b["renderType"]
+        if "LOTRBlockGate" in c.split():
+            return "gate"
         for cls, k in (("BlockStairs", "stairs"), ("BlockSlab", "slab"), ("BlockWall", "wall"),
                        ("LOTRBlockFenceGate", "fence_gate"), ("BlockFence", "fence"), ("BlockPane", "pane"),
                        ("BlockDoor", "door"), ("BlockTrapDoor", "trapdoor"), ("BlockLadder", "ladder"),
@@ -264,6 +271,8 @@ class Gen:
                 e["collision"] = False
         if kind == "door":
             e["item"] = "double_high"
+        if kind in ("cube", "shaped") and FACING_CLASSES & {x.split(".")[-1] for x in b["classes"]}:
+            e["facing"] = True  # furnace-like: metadata 2-5 is the way the front faces
         if kind == "faction_table":
             self.tables[old_base] = new
         if f"{b['id']}#{v['meta']}" not in self.in_tabs:
@@ -326,7 +335,15 @@ class Gen:
         side = north
         rt = {"render_type": "minecraft:translucent"} if b.get("renderPass") == 1 else None
         item_icon = self.tex.item(v.get("itemIcon")) or side
-        if kind in ("cube", "faction_table"):
+        if kind in ("cube", "shaped") and FACING_CLASSES & {x.split(".")[-1] for x in b["classes"]}:
+            # the exported front (LOTR's side 3) is south; turn it to face the block's facing
+            m = self.cube(new, icons, rt) if kind == "cube" else self.shaped(new, icons, b)
+            self.bs(new, {"variants": {f"facing={f}": ({"model": m, "y": y} if y else {"model": m})
+                                       for f, y in (("south", 0), ("west", 90), ("north", 180), ("east", 270))}})
+            self.item_model(new, m)
+        elif kind == "gate":
+            self.gate(new, side)
+        elif kind in ("cube", "faction_table"):
             m = self.cube(new, icons, rt)
             self.bs(new, {"variants": {"": {"model": m}}})
             self.item_model(new, m)
@@ -467,6 +484,22 @@ class Gen:
             return self.bm(new, "minecraft:block/cube_bottom_top", {"top": up, "bottom": down, "side": north}, extra)
         return self.bm(new, "minecraft:block/cube", {"down": down, "up": up, "north": north, "south": south,
                                                       "west": west, "east": east, "particle": north}, extra)
+
+    def gate(self, new, tex):
+        """LOTR's gates (round hobbit doors, portcullises): a 4 px panel facing its direction; open gates vanish."""
+        faces = {f: {"texture": "#all"} for f in ("down", "up", "north", "south", "west", "east")}
+        wall = self.bm(new, "minecraft:block/block", {"all": tex, "particle": tex},
+                       {"render_type": CUTOUT, "elements": [{"from": [0, 0, 6], "to": [16, 16, 10], "faces": faces}]})
+        floor = self.bm(new + "_flat", "minecraft:block/block", {"all": tex, "particle": tex},
+                        {"render_type": CUTOUT, "elements": [{"from": [0, 6, 0], "to": [16, 10, 16], "faces": faces}]})
+        var = {}
+        for f in ("north", "south", "east", "west", "up", "down"):
+            closed = {"model": floor} if f in ("up", "down") else (
+                {"model": wall, "y": 90} if f in ("east", "west") else {"model": wall})
+            var[f"facing={f},open=false"] = closed
+            var[f"facing={f},open=true"] = {"model": "minecraft:block/air"}
+        self.bs(new, {"variants": var})
+        self.item_model(new, wall)
 
     def shaped(self, new, icons, b):
         bb = [round(x * 16, 3) for x in (b.get("bounds") or [0, 0, 0, 1, 1, 1])]

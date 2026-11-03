@@ -1,7 +1,19 @@
 {
   "variants": {
-    "": {
+    "facing=south": {
       "model": "lotr_port:block/hobbit_oven"
+    },
+    "facing=west": {
+      "model": "lotr_port:block/hobbit_oven",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "lotr_port:block/hobbit_oven",
+      "y": 180
+    },
+    "facing=east": {
+      "model": "lotr_port:block/hobbit_oven",
+      "y": 270
     }
   }
 }

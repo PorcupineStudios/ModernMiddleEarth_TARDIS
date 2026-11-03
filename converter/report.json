@@ -575,10 +575,8 @@
     ]
   },
   "structure_blocks_unmapped": {
-    "count": 17,
+    "count": 13,
     "entries": [
-      "minecraft:skull#5",
-      "minecraft:skull#5",
       "minecraft:stone_slab#11",
       "minecraft:stone_slab#11",
       "minecraft:stone_slab#11",
@@ -588,8 +586,6 @@
       "minecraft:stone_slab#8",
       "minecraft:stone_slab#8",
       "minecraft:stone_slab#8",
-      "minecraft:double_plant#8",
-      "minecraft:double_plant#8",
       "minecraft:stone_slab#8",
       "minecraft:stone_slab#8",
       "minecraft:stone_slab#8",

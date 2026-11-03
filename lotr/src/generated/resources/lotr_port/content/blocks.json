@@ -47,7 +47,8 @@
     "light": 0,
     "sound": "stone",
     "requiresTool": true,
-    "solid": true
+    "solid": true,
+    "facing": true
   },
   {
     "id": "angmar_crafting_table",
@@ -183,7 +184,8 @@
       14.0,
       13.0,
       14.0
-    ]
+    ],
+    "facing": true
   },
   {
     "id": "beacon_of_gondor",
@@ -1974,7 +1976,8 @@
       15.0,
       14.0,
       15.0
-    ]
+    ],
+    "facing": true
   },
   {
     "id": "reed_basket",
@@ -1992,7 +1995,8 @@
       15.0,
       14.0,
       15.0
-    ]
+    ],
+    "facing": true
   },
   {
     "id": "lebethron_casket",
@@ -2010,7 +2014,8 @@
       15.0,
       14.0,
       15.0
-    ]
+    ],
+    "facing": true
   },
   {
     "id": "mallorn_box",
@@ -2028,7 +2033,8 @@
       15.0,
       14.0,
       15.0
-    ]
+    ],
+    "facing": true
   },
   {
     "id": "stone_chest",
@@ -2046,7 +2052,8 @@
       15.0,
       14.0,
       15.0
-    ]
+    ],
+    "facing": true
   },
   {
     "id": "clay_tiling",
@@ -3027,39 +3034,23 @@
   },
   {
     "id": "dwarven_door",
-    "kind": "shaped",
+    "kind": "gate",
     "hardness": 4.0,
     "resistance": 10.0,
     "light": 0,
     "sound": "stone",
     "requiresTool": true,
-    "solid": false,
-    "shape": [
-      0.0,
-      0.0,
-      0.0,
-      16.0,
-      16.0,
-      16.0
-    ]
+    "solid": false
   },
   {
     "id": "ithildin_dwarven_door",
-    "kind": "shaped",
+    "kind": "gate",
     "hardness": 4.0,
     "resistance": 10.0,
     "light": 0,
     "sound": "stone",
     "requiresTool": true,
-    "solid": false,
-    "shape": [
-      0.0,
-      0.0,
-      0.0,
-      16.0,
-      16.0,
-      16.0
-    ]
+    "solid": false
   },
   {
     "id": "dwarven_forge",
@@ -3069,7 +3060,8 @@
     "light": 0,
     "sound": "stone",
     "requiresTool": true,
-    "solid": true
+    "solid": true,
+    "facing": true
   },
   {
     "id": "elanor",
@@ -3118,7 +3110,8 @@
     "light": 0,
     "sound": "stone",
     "requiresTool": true,
-    "solid": true
+    "solid": true,
+    "facing": true
   },
   {
     "id": "elven_portal",
@@ -5077,417 +5070,233 @@
   },
   {
     "id": "bronze_portcullis",
-    "kind": "shaped",
+    "kind": "gate",
     "hardness": 4.0,
     "resistance": 10.0,
     "light": 0,
     "sound": "stone",
     "requiresTool": true,
-    "solid": false,
-    "shape": [
-      6.0,
-      0.0,
-      0.0,
-      10.0,
-      16.0,
-      16.0
-    ]
+    "solid": false
   },
   {
     "id": "dol_amroth_gate",
-    "kind": "shaped",
+    "kind": "gate",
     "hardness": 4.0,
     "resistance": 5.0,
     "light": 0,
     "sound": "wood",
     "requiresTool": false,
-    "solid": false,
-    "shape": [
-      6.0,
-      0.0,
-      0.0,
-      10.0,
-      16.0,
-      16.0
-    ]
+    "solid": false
   },
   {
     "id": "dwarven_gate",
-    "kind": "shaped",
+    "kind": "gate",
     "hardness": 4.0,
     "resistance": 10.0,
     "light": 0,
     "sound": "stone",
     "requiresTool": true,
-    "solid": false,
-    "shape": [
-      6.0,
-      0.0,
-      0.0,
-      10.0,
-      16.0,
-      16.0
-    ]
+    "solid": false
   },
   {
     "id": "galadhrim_gate",
-    "kind": "shaped",
+    "kind": "gate",
     "hardness": 4.0,
     "resistance": 5.0,
     "light": 0,
     "sound": "wood",
     "requiresTool": false,
-    "solid": false,
-    "shape": [
-      6.0,
-      0.0,
-      0.0,
-      10.0,
-      16.0,
-      16.0
-    ]
+    "solid": false
   },
   {
     "id": "golden_gate",
-    "kind": "shaped",
+    "kind": "gate",
     "hardness": 4.0,
     "resistance": 10.0,
     "light": 0,
     "sound": "stone",
     "requiresTool": true,
-    "solid": false,
-    "shape": [
-      6.0,
-      0.0,
-      0.0,
-      10.0,
-      16.0,
-      16.0
-    ]
+    "solid": false
   },
   {
     "id": "gondorian_gate",
-    "kind": "shaped",
+    "kind": "gate",
     "hardness": 4.0,
     "resistance": 5.0,
     "light": 0,
     "sound": "wood",
     "requiresTool": false,
-    "solid": false,
-    "shape": [
-      6.0,
-      0.0,
-      0.0,
-      10.0,
-      16.0,
-      16.0
-    ]
+    "solid": false
   },
   {
     "id": "high_elven_gate",
-    "kind": "shaped",
+    "kind": "gate",
     "hardness": 4.0,
     "resistance": 5.0,
     "light": 0,
     "sound": "wood",
     "requiresTool": false,
-    "solid": false,
-    "shape": [
-      6.0,
-      0.0,
-      0.0,
-      10.0,
-      16.0,
-      16.0
-    ]
+    "solid": false
   },
   {
     "id": "blue_hobbit_gate",
-    "kind": "shaped",
+    "kind": "gate",
     "hardness": 4.0,
     "resistance": 5.0,
     "light": 0,
     "sound": "wood",
     "requiresTool": false,
-    "solid": false,
-    "shape": [
-      6.0,
-      0.0,
-      0.0,
-      10.0,
-      16.0,
-      16.0
-    ]
+    "solid": false
   },
   {
     "id": "green_hobbit_gate",
-    "kind": "shaped",
+    "kind": "gate",
     "hardness": 4.0,
     "resistance": 5.0,
     "light": 0,
     "sound": "wood",
     "requiresTool": false,
-    "solid": false,
-    "shape": [
-      6.0,
-      0.0,
-      0.0,
-      10.0,
-      16.0,
-      16.0
-    ]
+    "solid": false
   },
   {
     "id": "red_hobbit_gate",
-    "kind": "shaped",
+    "kind": "gate",
     "hardness": 4.0,
     "resistance": 5.0,
     "light": 0,
     "sound": "wood",
     "requiresTool": false,
-    "solid": false,
-    "shape": [
-      6.0,
-      0.0,
-      0.0,
-      10.0,
-      16.0,
-      16.0
-    ]
+    "solid": false
   },
   {
     "id": "yellow_hobbit_gate",
-    "kind": "shaped",
+    "kind": "gate",
     "hardness": 4.0,
     "resistance": 5.0,
     "light": 0,
     "sound": "wood",
     "requiresTool": false,
-    "solid": false,
-    "shape": [
-      6.0,
-      0.0,
-      0.0,
-      10.0,
-      16.0,
-      16.0
-    ]
+    "solid": false
   },
   {
     "id": "iron_portcullis",
-    "kind": "shaped",
+    "kind": "gate",
     "hardness": 4.0,
     "resistance": 10.0,
     "light": 0,
     "sound": "stone",
     "requiresTool": true,
-    "solid": false,
-    "shape": [
-      6.0,
-      0.0,
-      0.0,
-      10.0,
-      16.0,
-      16.0
-    ]
+    "solid": false
   },
   {
     "id": "mithril_gate",
-    "kind": "shaped",
+    "kind": "gate",
     "hardness": 4.0,
     "resistance": 10.0,
     "light": 0,
     "sound": "stone",
     "requiresTool": true,
-    "solid": false,
-    "shape": [
-      6.0,
-      0.0,
-      0.0,
-      10.0,
-      16.0,
-      16.0
-    ]
+    "solid": false
   },
   {
     "id": "haradric_gate",
-    "kind": "shaped",
+    "kind": "gate",
     "hardness": 4.0,
     "resistance": 5.0,
     "light": 0,
     "sound": "wood",
     "requiresTool": false,
-    "solid": false,
-    "shape": [
-      6.0,
-      0.0,
-      0.0,
-      10.0,
-      16.0,
-      16.0
-    ]
+    "solid": false
   },
   {
     "id": "orc_gate",
-    "kind": "shaped",
+    "kind": "gate",
     "hardness": 4.0,
     "resistance": 10.0,
     "light": 0,
     "sound": "stone",
     "requiresTool": true,
-    "solid": false,
-    "shape": [
-      6.0,
-      0.0,
-      0.0,
-      10.0,
-      16.0,
-      16.0
-    ]
+    "solid": false
   },
   {
     "id": "rh_nic_gate",
-    "kind": "shaped",
+    "kind": "gate",
     "hardness": 4.0,
     "resistance": 5.0,
     "light": 0,
     "sound": "wood",
     "requiresTool": false,
-    "solid": false,
-    "shape": [
-      6.0,
-      0.0,
-      0.0,
-      10.0,
-      16.0,
-      16.0
-    ]
+    "solid": false
   },
   {
     "id": "rohirric_gate",
-    "kind": "shaped",
+    "kind": "gate",
     "hardness": 4.0,
     "resistance": 5.0,
     "light": 0,
     "sound": "wood",
     "requiresTool": false,
-    "solid": false,
-    "shape": [
-      6.0,
-      0.0,
-      0.0,
-      10.0,
-      16.0,
-      16.0
-    ]
+    "solid": false
   },
   {
     "id": "silver_gate",
-    "kind": "shaped",
+    "kind": "gate",
     "hardness": 4.0,
     "resistance": 10.0,
     "light": 0,
     "sound": "stone",
     "requiresTool": true,
-    "solid": false,
-    "shape": [
-      6.0,
-      0.0,
-      0.0,
-      10.0,
-      16.0,
-      16.0
-    ]
+    "solid": false
   },
   {
     "id": "taurethrim_gate",
-    "kind": "shaped",
+    "kind": "gate",
     "hardness": 4.0,
     "resistance": 5.0,
     "light": 0,
     "sound": "wood",
     "requiresTool": false,
-    "solid": false,
-    "shape": [
-      6.0,
-      0.0,
-      0.0,
-      10.0,
-      16.0,
-      16.0
-    ]
+    "solid": false
   },
   {
     "id": "uruk_gate",
-    "kind": "shaped",
+    "kind": "gate",
     "hardness": 4.0,
     "resistance": 10.0,
     "light": 0,
     "sound": "stone",
     "requiresTool": true,
-    "solid": false,
-    "shape": [
-      6.0,
-      0.0,
-      0.0,
-      10.0,
-      16.0,
-      16.0
-    ]
+    "solid": false
   },
   {
     "id": "wood_elven_gate",
-    "kind": "shaped",
+    "kind": "gate",
     "hardness": 4.0,
     "resistance": 5.0,
     "light": 0,
     "sound": "wood",
     "requiresTool": false,
-    "solid": false,
-    "shape": [
-      6.0,
-      0.0,
-      0.0,
-      10.0,
-      16.0,
-      16.0
-    ]
+    "solid": false
   },
   {
     "id": "wooden_gate",
-    "kind": "shaped",
+    "kind": "gate",
     "hardness": 4.0,
     "resistance": 5.0,
     "light": 0,
     "sound": "wood",
     "requiresTool": false,
-    "solid": false,
-    "shape": [
-      6.0,
-      0.0,
-      0.0,
-      10.0,
-      16.0,
-      16.0
-    ]
+    "solid": false
   },
   {
     "id": "wooden_portcullis",
-    "kind": "shaped",
+    "kind": "gate",
     "hardness": 4.0,
     "resistance": 5.0,
     "light": 0,
     "sound": "wood",
     "requiresTool": false,
-    "solid": false,
-    "shape": [
-      6.0,
-      0.0,
-      0.0,
-      10.0,
-      16.0,
-      16.0
-    ]
+    "solid": false
   },
   {
     "id": "fine_glass",
@@ -6065,7 +5874,8 @@
     "light": 0,
     "sound": "stone",
     "requiresTool": true,
-    "solid": true
+    "solid": true,
+    "facing": true
   },
   {
     "id": "block_of_kebab",
@@ -6094,7 +5904,8 @@
       16.0,
       16.0
     ],
-    "collision": false
+    "collision": false,
+    "facing": true
   },
   {
     "id": "sandstone_kebab_stand",
@@ -6113,7 +5924,8 @@
       16.0,
       16.0
     ],
-    "collision": false
+    "collision": false,
+    "facing": true
   },
   {
     "id": "lavender",
@@ -6671,7 +6483,8 @@
     "light": 0,
     "sound": "stone",
     "requiresTool": true,
-    "solid": true
+    "solid": true,
+    "facing": true
   },
   {
     "id": "mirkwood_vines",
@@ -7094,7 +6907,8 @@
     "light": 0,
     "sound": "stone",
     "requiresTool": true,
-    "solid": true
+    "solid": true,
+    "facing": true
   },
   {
     "id": "orc_plating",
@@ -13681,7 +13495,8 @@
       16.0,
       16.0,
       16.0
-    ]
+    ],
+    "facing": true
   },
   {
     "id": "uruk_steel_bars",

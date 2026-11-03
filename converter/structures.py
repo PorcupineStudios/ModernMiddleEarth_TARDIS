@@ -30,6 +30,14 @@ GATE_FACING = ["south", "west", "north", "east"]
 DOOR_FACING = ["east", "south", "west", "north"]
 TRAPDOOR_FACING = ["north", "south", "west", "east"]
 LADDER_FACING = {2: "north", 3: "south", 4: "west", 5: "east"}
+GATE_DIRECTION = ["down", "up", "north", "south", "west", "east", "north", "north"]
+HOOK_FACING = ["south", "west", "north", "east"]  # tripwire hooks, beds, pumpkins: 1.7.10's player-facing order
+BUTTON = {0: ("ceiling", "north"), 1: ("wall", "east"), 2: ("wall", "west"), 3: ("wall", "south"),
+          4: ("wall", "north"), 5: ("floor", "north")}
+LEVER = {0: ("ceiling", "east"), 1: ("wall", "east"), 2: ("wall", "west"), 3: ("wall", "south"),
+         4: ("wall", "north"), 5: ("floor", "north"), 6: ("floor", "east"), 7: ("ceiling", "north")}
+DOUBLE_PLANTS = ["sunflower", "lilac", "tall_grass", "large_fern", "rose_bush", "peony"]
+ANVILS = ["anvil", "chipped_anvil", "damaged_anvil"]
 TORCH_FACING = {1: "east", 2: "west", 3: "south", 4: "north"}
 VANILLA_KIND = {"stairs": "stairs", "_slab": "slab", "log": "pillar", "log2": "pillar", "fence_gate": "fence_gate",
                 "wooden_door": "door", "iron_door": "door", "trapdoor": "trapdoor", "ladder": "ladder",
@@ -71,6 +79,7 @@ class Structures:
         self.npc_types = npc_types
         self.report = gen.report
         self.kinds = {b["id"]: b["kind"] for b in gen.blocks}
+        self.facing = {b["id"] for b in gen.blocks if b.get("facing")}
 
     # ------------------------------------------------------------------ block states
 
@@ -95,7 +104,10 @@ class Structures:
         if "[" in new:
             new, p = new[:-1].split("[")
             props.update(dict(kv.split("=") for kv in p.split(",")))
-        kind = self.kinds.get(new.split(":", 1)[1])
+        short = new.split(":", 1)[1]
+        kind = self.kinds.get(short)
+        if short in self.facing:
+            props["facing"] = LADDER_FACING.get(meta & 7, "north")
         props.update(self.props(kind, meta, props))
         return {"Name": new, **({"Properties": props} if props else {})}
 
@@ -119,10 +131,15 @@ class Structures:
             return {"half": "lower", "facing": DOOR_FACING[meta & 3], "open": str(bool(meta & 4)).lower()}
         if kind == "ladder":
             return {"facing": LADDER_FACING.get(meta, "north")}
+        if kind == "gate":
+            return {"facing": GATE_DIRECTION[meta & 7], "open": str(bool(meta & 8)).lower()}
         return {}
 
     def vanilla_state(self, old, meta):
         name = old.split(":", 1)[1]
+        special = self.vanilla_special(name, meta)
+        if special is not None:
+            return special
         if old in BY_META:
             names = BY_META[old]
             base = meta & 3 if old in ("minecraft:log", "minecraft:log2", "minecraft:leaves",
@@ -158,6 +175,41 @@ class Structures:
         if new in ("chest", "furnace", "trapped_chest") and 2 <= meta <= 5:
             props = {"facing": LADDER_FACING[meta]}
         return {"Name": "minecraft:" + new, **({"Properties": props} if props else {})}
+
+    @staticmethod
+    def vanilla_special(name, meta):
+        """1.7.10 blocks whose metadata turns into facing/face/half/rotation (None: the usual mapping)."""
+        def mc(n, **props):
+            return {"Name": "minecraft:" + n, **({"Properties": props} if props else {})}
+        if name == "tripwire_hook":
+            return mc("tripwire_hook", facing=HOOK_FACING[meta & 3], attached=str(bool(meta & 4)).lower())
+        if name == "lever":
+            face, facing = LEVER[meta & 7]
+            return mc("lever", face=face, facing=facing, powered=str(bool(meta & 8)).lower())
+        if name in ("wooden_button", "stone_button"):
+            face, facing = BUTTON.get(meta & 7, ("floor", "north"))
+            return mc("oak_button" if name == "wooden_button" else "stone_button", face=face, facing=facing)
+        if name == "skull":
+            return mc("skeleton_wall_skull", facing=LADDER_FACING[meta & 7]) if 2 <= meta & 7 <= 5 \
+                else mc("skeleton_skull")
+        if name == "wall_sign":
+            return mc("oak_wall_sign", facing=LADDER_FACING.get(meta, "north"))
+        if name == "standing_sign":
+            return mc("oak_sign", rotation=str(meta & 15))
+        if name == "anvil":
+            return mc(ANVILS[min(2, meta >> 2)], facing=["east", "south", "west", "north"][meta & 3])
+        if name in ("pumpkin", "lit_pumpkin"):
+            return mc("carved_pumpkin" if name == "pumpkin" else "jack_o_lantern", facing=HOOK_FACING[meta & 3])
+        if name == "bed":
+            return mc("red_bed", facing=HOOK_FACING[meta & 3], part="head" if meta & 8 else "foot")
+        if name == "vine":
+            return mc("vine", south=str(bool(meta & 1)).lower(), west=str(bool(meta & 2)).lower(),
+                      north=str(bool(meta & 4)).lower(), east=str(bool(meta & 8)).lower())
+        if name == "double_plant":
+            if meta & 8:
+                return {"Name": "@upper_of_below"}
+            return mc(DOUBLE_PLANTS[meta % 6], half="lower")
+        return None
 
     def item(self, it):
         new = self.gen.idtable.get(f"{it['item']}#{it.get('meta', 0)}") or self.gen.idtable.get(f"{it['item']}#0")
@@ -198,6 +250,13 @@ class Structures:
             st = states[p]
             if st is None:
                 continue
+            if st["Name"] == "@upper_of_below":
+                below = by_pos.get((x, y - 1, z))
+                below_state = states[below] if below is not None else None
+                if not below_state or below_state["Name"] == "@upper_of_below":
+                    continue
+                st = {"Name": below_state["Name"], "Properties": {**below_state.get("Properties", {}),
+                                                                  "half": "upper"}}
             if st.get("Properties", {}).get("half") == "upper" and "facing" not in st["Properties"]:
                 below = by_pos.get((x, y - 1, z))
                 below_state = states[below] if below is not None else None
@@ -213,8 +272,10 @@ class Structures:
                     new = self.item(it)
                     if new:
                         items.append({"Slot": nbt.Byte(slot), "id": new, "count": nbt.Int(it.get("count", 1))})
-                if not st["Name"].endswith("chest") and not st["Name"].endswith("barrel"):
-                    st = {"Name": "minecraft:chest"}
+                # only vanilla chests keep their contents (LOTR's chests have no storage yet)
+                if st["Name"] not in ("minecraft:chest", "minecraft:trapped_chest", "minecraft:barrel"):
+                    facing = st.get("Properties", {}).get("facing")
+                    st = {"Name": "minecraft:chest", **({"Properties": {"facing": facing}} if facing else {})}
                 entry["nbt"] = {"id": "minecraft:chest", "Items": items}
             entry["state"] = nbt.Int(state_index(st))
             blocks.append(entry)
