@@ -4,8 +4,6 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import cpw.mods.fml.common.gameevent.TickEvent;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStreamWriter;
@@ -16,96 +14,77 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Enumeration;
-import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
-import java.util.Set;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 import net.minecraft.block.Block;
+import net.minecraft.client.multiplayer.ChunkProviderClient;
+import net.minecraft.client.multiplayer.WorldClient;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityList;
 import net.minecraft.init.Blocks;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.server.MinecraftServer;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.world.WorldServer;
 import net.minecraft.world.chunk.Chunk;
 
 /**
- * Writes structures.json.gz. Builds every LOTR structure (the {@code structure2} generators) a few times, with different seeds, on a flat test
- * world, and writes what each one placed: the blocks that differ from the flat ground, chests' contents, and the NPCs
- * and NPC spawners it added. Runs on the integrated server's tick, a few structures per tick, then sets
- * {@link #finished}. Reflection on runtime state only; no LOTR code is copied.
+ * Writes structures.json.gz. Builds every LOTR structure (the {@code structure2} generators) a few times, with
+ * different seeds, on fresh flat chunks of a throwaway client world, and writes what each one placed: the blocks that
+ * differ from the flat ground, chests' contents, and the NPCs and NPC spawners it added. Reflection on runtime state
+ * only; no LOTR code is copied.
  */
 public class StructureExporter {
     /** Layouts per structure (LOTR randomises size, rooms and decoration with the seed). */
     private static final int SEEDS = 3;
-    private static final int SPACING = 192;
     private static final int RADIUS = 64;
     private static final int GROUND = 3; // flat world: bedrock 0, dirt 1-2, grass 3
-    private static final int PER_TICK = 3;
 
     private final File out;
     private final JsonArray errors = new JsonArray();
     private final List<Class<?>> generators = new ArrayList<>();
     private final JsonObject structures = new JsonObject();
     private int next;
-    private boolean started;
-    public volatile boolean finished;
 
     public StructureExporter(File out) {
         this.out = out;
     }
 
-    @SubscribeEvent
-    public void onServerTick(TickEvent.ServerTickEvent event) {
-        if (finished || event.phase != TickEvent.Phase.END) {
-            return;
-        }
-        MinecraftServer server = MinecraftServer.getServer();
-        WorldServer world = server == null ? null : server.worldServerForDimension(0);
-        if (world == null) {
-            return;
-        }
-        try {
-            if (!started) {
-                started = true;
-                world.levelSaving = true; // a throwaway world: never write chunks
-                findGenerators();
-                System.out.println("[lotrexport] " + generators.size() + " structure generators");
+    /** Builds everything in a throwaway client world (see NpcExporter), within a time budget. */
+    public void run(WorldClient world) throws Exception {
+        long deadline = System.currentTimeMillis() + Long.getLong("lotrexport.structureMinutes", 20) * 60_000L;
+        findGenerators();
+        System.out.println("[lotrexport] " + generators.size() + " structure generators");
+        int total = generators.size() * SEEDS;
+        for (next = 0; next < total; next++) {
+            if (System.currentTimeMillis() > deadline) {
+                errors.add(new JsonPrimitive("time budget used up after " + next + " of " + total + " layouts"));
+                break;
             }
-            int total = generators.size() * SEEDS;
-            for (int i = 0; i < PER_TICK && next < total; i++, next++) {
-                Class<?> c = generators.get(next / SEEDS);
-                int seed = next % SEEDS;
-                try {
-                    JsonObject layout = build(world, c, seed, next);
-                    if (layout != null) {
-                        String name = c.getSimpleName();
-                        JsonArray layouts = structures.has(name) ? structures.getAsJsonArray(name) : new JsonArray();
-                        layouts.add(layout);
-                        structures.add(name, layouts);
-                    }
-                } catch (Throwable t) {
-                    if (seed == 0) {
-                        errors.add(new JsonPrimitive("structure " + c.getSimpleName() + ": " + t));
-                    }
+            Class<?> c = generators.get(next / SEEDS);
+            int seed = next % SEEDS;
+            try {
+                JsonObject layout = build(world, c, seed);
+                if (layout != null) {
+                    String name = c.getSimpleName();
+                    JsonArray layouts = structures.has(name) ? structures.getAsJsonArray(name) : new JsonArray();
+                    layouts.add(layout);
+                    structures.add(name, layouts);
+                }
+            } catch (Throwable t) {
+                if (seed == 0) {
+                    errors.add(new JsonPrimitive("structure " + c.getSimpleName() + ": " + t));
                 }
             }
-            world.theChunkProviderServer.unloadAllChunks();
-            if (next >= total) {
-                write();
-                finished = true;
+            if (next % 60 == 0) {
+                System.out.println("[lotrexport] structures: " + next + " of " + total);
             }
-        } catch (Throwable t) {
-            t.printStackTrace();
-            finished = true;
         }
+        write();
     }
 
     /** Every concrete structure generator class in LOTR's jar. */
@@ -142,18 +121,25 @@ public class StructureExporter {
     }
 
     /** Builds one layout at its own spot and reads back what changed. */
-    private JsonObject build(WorldServer world, Class<?> c, int seed, int slot) throws Exception {
-        int cx = (slot % 40) * SPACING;
-        int cz = (slot / 40) * SPACING;
-        for (int x = cx - RADIUS; x <= cx + RADIUS; x += 16) {
-            for (int z = cz - RADIUS; z <= cz + RADIUS; z += 16) {
-                world.getChunkFromBlockCoords(x, z);
+    private JsonObject build(WorldClient world, Class<?> c, int seed) throws Exception {
+        // the same spot every time: chunks are made fresh and flat, and dropped afterwards
+        int cx = 0;
+        int cz = 0;
+        ChunkProviderClient chunks = (ChunkProviderClient) world.getChunkProvider();
+        for (int x = (cx - RADIUS - 16) >> 4; x <= (cx + RADIUS + 16) >> 4; x++) {
+            for (int z = (cz - RADIUS - 16) >> 4; z <= (cz + RADIUS + 16) >> 4; z++) {
+                chunks.unloadChunk(x, z);
+                Chunk chunk = chunks.loadChunk(x, z);
+                for (int bx = 0; bx < 16; bx++) {
+                    for (int bz = 0; bz < 16; bz++) {
+                        for (int y = 0; y <= GROUND; y++) {
+                            chunk.func_150807_a(bx, y, bz, flat(y), 0);
+                        }
+                    }
+                }
             }
         }
-        Set<Integer> before = new HashSet<>();
-        for (Object e : world.loadedEntityList) {
-            before.add(((Entity) e).getEntityId());
-        }
+        world.loadedEntityList.clear();
         Object gen = c.getConstructor(boolean.class).newInstance(false);
         setField(gen, "restrictions", false);
         setField(gen, "shouldFindSurface", false);
@@ -211,13 +197,10 @@ public class StructureExporter {
                 }
             }
         }
-        // remove what was built so the next layouts start from flat ground nearby
+        // every entity is new: the list was cleared before building
         JsonArray entities = new JsonArray();
         for (Object o : new ArrayList<Object>(world.loadedEntityList)) {
             Entity e = (Entity) o;
-            if (before.contains(e.getEntityId())) {
-                continue;
-            }
             JsonObject en = new JsonObject();
             en.addProperty("id", EntityList.getEntityString(e));
             JsonArray p = new JsonArray();
@@ -255,7 +238,6 @@ public class StructureExporter {
             a.add(new JsonPrimitive(b[2] - cz));
             a.add(new JsonPrimitive(b[3]));
             blocks.add(a);
-            world.setBlock(b[0], b[1], b[2], flat(b[1]), 0, 2);
         }
         JsonObject o = new JsonObject();
         o.addProperty("seed", seed);

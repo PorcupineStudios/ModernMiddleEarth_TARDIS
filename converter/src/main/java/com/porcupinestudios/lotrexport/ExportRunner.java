@@ -1,21 +1,22 @@
 package com.porcupinestudios.lotrexport;
 
-import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.TickEvent;
 import java.io.File;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiMainMenu;
+import net.minecraft.client.multiplayer.WorldClient;
+import net.minecraft.client.network.NetHandlerPlayClient;
+import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.WorldSettings;
 import net.minecraft.world.WorldType;
 
 /**
  * Waits for the main menu (all textures stitched), runs the export, then (unless {@code -Dlotrexport.structures=false})
- * opens a flat test world for {@link StructureExporter}, and stops the game when that is done.
+ * the {@link StructureExporter} in a throwaway client world, and stops the game.
  */
 public class ExportRunner {
     private boolean done;
-    private StructureExporter structures;
 
     @SubscribeEvent
     public void onTick(TickEvent.ClientTickEvent event) {
@@ -23,13 +24,6 @@ public class ExportRunner {
             return;
         }
         Minecraft mc = Minecraft.getMinecraft();
-        if (structures != null) {
-            if (structures.finished) {
-                System.out.println("[lotrexport] finished");
-                mc.shutdown();
-            }
-            return;
-        }
         if (done || !(mc.currentScreen instanceof GuiMainMenu)) {
             return;
         }
@@ -43,12 +37,10 @@ public class ExportRunner {
         }
         if (Boolean.parseBoolean(System.getProperty("lotrexport.structures", "true"))) {
             try {
-                structures = new StructureExporter(out);
-                FMLCommonHandler.instance().bus().register(structures);
-                WorldSettings settings = new WorldSettings(1L, WorldSettings.GameType.CREATIVE, false, false,
-                        WorldType.FLAT);
-                mc.launchIntegratedServer("lotrexport-structures", "lotrexport-structures", settings);
-                return;
+                WorldClient world = new WorldClient(new NetHandlerPlayClient(mc, null, null),
+                        new WorldSettings(1L, WorldSettings.GameType.CREATIVE, false, false, WorldType.FLAT), 0,
+                        EnumDifficulty.NORMAL, mc.mcProfiler);
+                new StructureExporter(out).run(world);
             } catch (Throwable t) {
                 t.printStackTrace();
             }
