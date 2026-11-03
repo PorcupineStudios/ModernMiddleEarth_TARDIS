@@ -1,0 +1,61 @@
+{
+  "color": 11048079,
+  "region": "west",
+  "types": [
+    "man"
+  ],
+  "playable": true,
+  "approves_war_crimes": true,
+  "ranks": [
+    {
+      "id": "chieftain",
+      "alignment": 2000.0
+    },
+    {
+      "id": "warlord",
+      "alignment": 1000.0
+    },
+    {
+      "id": "avenger",
+      "alignment": 500.0
+    },
+    {
+      "id": "bearer",
+      "alignment": 200.0
+    },
+    {
+      "id": "warrior",
+      "alignment": 100.0
+    },
+    {
+      "id": "kinsman",
+      "alignment": 50.0
+    },
+    {
+      "id": "guest",
+      "alignment": 10.0
+    }
+  ],
+  "pledge_rank": "warrior",
+  "map": {
+    "x": 1090,
+    "z": 1030,
+    "radius": 125
+  },
+  "control_zones": [
+    {
+      "x": 1070.0,
+      "z": 1027.0,
+      "radius": 125
+    }
+  ],
+  "relations": {
+    "lotr_port:durins_folk": "friend",
+    "lotr_port:gondor": "enemy",
+    "lotr_port:hostile": "mortal_enemy",
+    "lotr_port:isengard": "friend",
+    "lotr_port:ranger_north": "enemy",
+    "lotr_port:rohan": "mortal_enemy",
+    "lotr_port:utumno": "mortal_enemy"
+  }
+}

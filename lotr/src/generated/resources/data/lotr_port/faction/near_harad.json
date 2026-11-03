@@ -1,0 +1,130 @@
+{
+  "color": 11868955,
+  "region": "south",
+  "types": [
+    "man"
+  ],
+  "playable": true,
+  "ranks": [
+    {
+      "id": "prince",
+      "alignment": 3000.0,
+      "gendered": true
+    },
+    {
+      "id": "warlord",
+      "alignment": 1500.0
+    },
+    {
+      "id": "serpentguard",
+      "alignment": 1000.0
+    },
+    {
+      "id": "champion",
+      "alignment": 500.0
+    },
+    {
+      "id": "warrior",
+      "alignment": 200.0
+    },
+    {
+      "id": "kinsman",
+      "alignment": 100.0
+    },
+    {
+      "id": "friend",
+      "alignment": 50.0
+    },
+    {
+      "id": "guest",
+      "alignment": 10.0
+    }
+  ],
+  "pledge_rank": "kinsman",
+  "map": {
+    "x": 1400,
+    "z": 1730,
+    "radius": 375
+  },
+  "control_zones": [
+    {
+      "x": 1214.0,
+      "z": 1689.0,
+      "radius": 200
+    },
+    {
+      "x": 1169.0,
+      "z": 1821.0,
+      "radius": 150
+    },
+    {
+      "x": 1343.0,
+      "z": 1561.0,
+      "radius": 60
+    },
+    {
+      "x": 1447.0,
+      "z": 1558.0,
+      "radius": 60
+    },
+    {
+      "x": 1563.0,
+      "z": 1611.0,
+      "radius": 50
+    },
+    {
+      "x": 1141.0,
+      "z": 1976.0,
+      "radius": 50
+    },
+    {
+      "x": 1640.0,
+      "z": 1922.0,
+      "radius": 150
+    },
+    {
+      "x": 1503.0,
+      "z": 1544.0,
+      "radius": 75
+    },
+    {
+      "x": 1442.0,
+      "z": 1370.0,
+      "radius": 50
+    },
+    {
+      "x": 1419.0,
+      "z": 1247.0,
+      "radius": 50
+    },
+    {
+      "x": 1210.0,
+      "z": 1340.0,
+      "radius": 75
+    },
+    {
+      "x": 1390.0,
+      "z": 1348.0,
+      "radius": 75
+    },
+    {
+      "x": 1292.0,
+      "z": 1342.0,
+      "radius": 75
+    }
+  ],
+  "relations": {
+    "lotr_port:gondor": "mortal_enemy",
+    "lotr_port:half_troll": "friend",
+    "lotr_port:high_elf": "enemy",
+    "lotr_port:hostile": "mortal_enemy",
+    "lotr_port:lothlorien": "enemy",
+    "lotr_port:mordor": "friend",
+    "lotr_port:morwaith": "friend",
+    "lotr_port:ranger_north": "enemy",
+    "lotr_port:rohan": "enemy",
+    "lotr_port:taurethrim": "enemy",
+    "lotr_port:utumno": "mortal_enemy",
+    "lotr_port:wood_elf": "enemy"
+  }
+}

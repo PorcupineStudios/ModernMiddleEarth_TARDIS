@@ -1,0 +1,101 @@
+{
+  "color": 16382457,
+  "region": "west",
+  "types": [
+    "free",
+    "man"
+  ],
+  "playable": true,
+  "ranks": [
+    {
+      "id": "lord",
+      "alignment": 3000.0,
+      "gendered": true
+    },
+    {
+      "id": "captain",
+      "alignment": 1500.0
+    },
+    {
+      "id": "champion",
+      "alignment": 1000.0
+    },
+    {
+      "id": "knight",
+      "alignment": 500.0
+    },
+    {
+      "id": "soldier",
+      "alignment": 200.0
+    },
+    {
+      "id": "atarms",
+      "alignment": 100.0
+    },
+    {
+      "id": "friend",
+      "alignment": 50.0
+    },
+    {
+      "id": "guest",
+      "alignment": 10.0
+    }
+  ],
+  "pledge_rank": "atarms",
+  "map": {
+    "x": 1170,
+    "z": 1300,
+    "radius": 300
+  },
+  "control_zones": [
+    {
+      "x": 1419.0,
+      "z": 1247.0,
+      "radius": 200
+    },
+    {
+      "x": 1189.0,
+      "z": 1293.0,
+      "radius": 125
+    },
+    {
+      "x": 1045.0,
+      "z": 1273.0,
+      "radius": 100
+    },
+    {
+      "x": 1442.0,
+      "z": 1370.0,
+      "radius": 150
+    },
+    {
+      "x": 1503.0,
+      "z": 1544.0,
+      "radius": 75
+    },
+    {
+      "x": 1214.0,
+      "z": 1689.0,
+      "radius": 150
+    }
+  ],
+  "relations": {
+    "lotr_port:angmar": "mortal_enemy",
+    "lotr_port:dale": "friend",
+    "lotr_port:dol_guldur": "mortal_enemy",
+    "lotr_port:dunland": "enemy",
+    "lotr_port:gundabad": "mortal_enemy",
+    "lotr_port:half_troll": "mortal_enemy",
+    "lotr_port:high_elf": "friend",
+    "lotr_port:hobbit": "friend",
+    "lotr_port:hostile": "mortal_enemy",
+    "lotr_port:isengard": "mortal_enemy",
+    "lotr_port:mordor": "mortal_enemy",
+    "lotr_port:morwaith": "enemy",
+    "lotr_port:near_harad": "mortal_enemy",
+    "lotr_port:ranger_north": "ally",
+    "lotr_port:rhudel": "mortal_enemy",
+    "lotr_port:rohan": "ally",
+    "lotr_port:utumno": "mortal_enemy"
+  }
+}

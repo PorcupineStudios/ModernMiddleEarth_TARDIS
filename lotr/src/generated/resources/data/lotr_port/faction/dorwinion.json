@@ -1,0 +1,74 @@
+{
+  "color": 7155816,
+  "region": "east",
+  "types": [
+    "elf",
+    "free",
+    "man"
+  ],
+  "playable": true,
+  "ranks": [
+    {
+      "id": "lord",
+      "alignment": 3000.0,
+      "gendered": true
+    },
+    {
+      "id": "chief",
+      "alignment": 1500.0
+    },
+    {
+      "id": "master",
+      "alignment": 1000.0
+    },
+    {
+      "id": "captain",
+      "alignment": 500.0
+    },
+    {
+      "id": "guard",
+      "alignment": 200.0
+    },
+    {
+      "id": "merchant",
+      "alignment": 100.0
+    },
+    {
+      "id": "vinehand",
+      "alignment": 50.0
+    },
+    {
+      "id": "guest",
+      "alignment": 10.0
+    }
+  ],
+  "pledge_rank": "merchant",
+  "map": {
+    "x": 1750,
+    "z": 900,
+    "radius": 100
+  },
+  "control_zones": [
+    {
+      "x": 1758.0,
+      "z": 939.0,
+      "radius": 175
+    },
+    {
+      "x": 1657.0,
+      "z": 768.0,
+      "radius": 30
+    }
+  ],
+  "relations": {
+    "lotr_port:angmar": "mortal_enemy",
+    "lotr_port:dol_guldur": "mortal_enemy",
+    "lotr_port:gundabad": "mortal_enemy",
+    "lotr_port:half_troll": "mortal_enemy",
+    "lotr_port:hostile": "mortal_enemy",
+    "lotr_port:isengard": "mortal_enemy",
+    "lotr_port:mordor": "mortal_enemy",
+    "lotr_port:utumno": "mortal_enemy",
+    "lotr_port:wood_elf": "ally"
+  }
+}

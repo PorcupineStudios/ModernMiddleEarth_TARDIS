@@ -1,0 +1,39 @@
+{
+  "color": 3343616,
+  "region": "reg_utumno",
+  "types": [
+    "orc"
+  ],
+  "playable": true,
+  "fixed_alignment": -66666.0,
+  "approves_war_crimes": true,
+  "relations": {
+    "lotr_port:angmar": "mortal_enemy",
+    "lotr_port:blue_mountains": "mortal_enemy",
+    "lotr_port:bree": "mortal_enemy",
+    "lotr_port:dale": "mortal_enemy",
+    "lotr_port:dark_huorn": "mortal_enemy",
+    "lotr_port:dol_guldur": "mortal_enemy",
+    "lotr_port:dorwinion": "mortal_enemy",
+    "lotr_port:dunland": "mortal_enemy",
+    "lotr_port:durins_folk": "mortal_enemy",
+    "lotr_port:fangorn": "mortal_enemy",
+    "lotr_port:gondor": "mortal_enemy",
+    "lotr_port:gundabad": "mortal_enemy",
+    "lotr_port:half_troll": "mortal_enemy",
+    "lotr_port:high_elf": "mortal_enemy",
+    "lotr_port:hobbit": "mortal_enemy",
+    "lotr_port:hostile": "mortal_enemy",
+    "lotr_port:isengard": "mortal_enemy",
+    "lotr_port:lothlorien": "mortal_enemy",
+    "lotr_port:mordor": "mortal_enemy",
+    "lotr_port:morwaith": "mortal_enemy",
+    "lotr_port:near_harad": "mortal_enemy",
+    "lotr_port:ranger_north": "mortal_enemy",
+    "lotr_port:rhudel": "mortal_enemy",
+    "lotr_port:rohan": "mortal_enemy",
+    "lotr_port:ruffian": "mortal_enemy",
+    "lotr_port:taurethrim": "mortal_enemy",
+    "lotr_port:wood_elf": "mortal_enemy"
+  }
+}

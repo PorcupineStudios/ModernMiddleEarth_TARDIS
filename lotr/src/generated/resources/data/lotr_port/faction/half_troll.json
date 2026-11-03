@@ -1,0 +1,94 @@
+{
+  "color": 10388339,
+  "region": "south",
+  "types": [
+    "man",
+    "troll"
+  ],
+  "playable": true,
+  "approves_war_crimes": true,
+  "ranks": [
+    {
+      "id": "chieftain",
+      "alignment": 2000.0
+    },
+    {
+      "id": "warlord",
+      "alignment": 1000.0
+    },
+    {
+      "id": "raider",
+      "alignment": 500.0
+    },
+    {
+      "id": "warrior",
+      "alignment": 200.0
+    },
+    {
+      "id": "kin",
+      "alignment": 100.0
+    },
+    {
+      "id": "scavenger",
+      "alignment": 50.0
+    },
+    {
+      "id": "guest",
+      "alignment": 10.0
+    }
+  ],
+  "pledge_rank": "kin",
+  "map": {
+    "x": 1900,
+    "z": 2500,
+    "radius": 200
+  },
+  "control_zones": [
+    {
+      "x": 1966.0,
+      "z": 2342.0,
+      "radius": 100
+    },
+    {
+      "x": 1897.0,
+      "z": 2605.0,
+      "radius": 200
+    },
+    {
+      "x": 1952.0,
+      "z": 2863.0,
+      "radius": 100
+    },
+    {
+      "x": 1442.0,
+      "z": 1370.0,
+      "radius": 40
+    },
+    {
+      "x": 1621.0,
+      "z": 2673.0,
+      "radius": 100
+    }
+  ],
+  "relations": {
+    "lotr_port:blue_mountains": "mortal_enemy",
+    "lotr_port:bree": "mortal_enemy",
+    "lotr_port:dale": "mortal_enemy",
+    "lotr_port:dorwinion": "mortal_enemy",
+    "lotr_port:durins_folk": "mortal_enemy",
+    "lotr_port:fangorn": "mortal_enemy",
+    "lotr_port:gondor": "mortal_enemy",
+    "lotr_port:high_elf": "mortal_enemy",
+    "lotr_port:hobbit": "mortal_enemy",
+    "lotr_port:hostile": "mortal_enemy",
+    "lotr_port:isengard": "friend",
+    "lotr_port:lothlorien": "mortal_enemy",
+    "lotr_port:mordor": "ally",
+    "lotr_port:near_harad": "friend",
+    "lotr_port:ranger_north": "mortal_enemy",
+    "lotr_port:rohan": "mortal_enemy",
+    "lotr_port:taurethrim": "mortal_enemy",
+    "lotr_port:utumno": "mortal_enemy",
+    "lotr_port:wood_elf": "mortal_enemy"
+  }
+}

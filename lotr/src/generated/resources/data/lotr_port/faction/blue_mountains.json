@@ -1,0 +1,85 @@
+{
+  "color": 6132172,
+  "region": "west",
+  "types": [
+    "dwarf",
+    "free"
+  ],
+  "playable": true,
+  "ranks": [
+    {
+      "id": "lord",
+      "alignment": 3000.0,
+      "gendered": true
+    },
+    {
+      "id": "noble",
+      "alignment": 1500.0
+    },
+    {
+      "id": "captain",
+      "alignment": 1000.0
+    },
+    {
+      "id": "champion",
+      "alignment": 500.0
+    },
+    {
+      "id": "axebearer",
+      "alignment": 200.0
+    },
+    {
+      "id": "warden",
+      "alignment": 100.0
+    },
+    {
+      "id": "friend",
+      "alignment": 50.0
+    },
+    {
+      "id": "guest",
+      "alignment": 10.0
+    }
+  ],
+  "pledge_rank": "warden",
+  "map": {
+    "x": 650,
+    "z": 600,
+    "radius": 125
+  },
+  "control_zones": [
+    {
+      "x": 622.0,
+      "z": 600.0,
+      "radius": 40
+    },
+    {
+      "x": 626.0,
+      "z": 636.0,
+      "radius": 40
+    },
+    {
+      "x": 641.0,
+      "z": 671.0,
+      "radius": 50
+    },
+    {
+      "x": 695.0,
+      "z": 820.0,
+      "radius": 80
+    }
+  ],
+  "relations": {
+    "lotr_port:angmar": "mortal_enemy",
+    "lotr_port:bree": "friend",
+    "lotr_port:dol_guldur": "mortal_enemy",
+    "lotr_port:durins_folk": "ally",
+    "lotr_port:gundabad": "mortal_enemy",
+    "lotr_port:half_troll": "mortal_enemy",
+    "lotr_port:hobbit": "ally",
+    "lotr_port:hostile": "mortal_enemy",
+    "lotr_port:isengard": "mortal_enemy",
+    "lotr_port:mordor": "mortal_enemy",
+    "lotr_port:utumno": "mortal_enemy"
+  }
+}
