@@ -1,0 +1,20 @@
+/*
+ * The LOTR 36.15 jar is the only dependency: compileOnly, deobfuscated by RFG, and loaded in runClient through
+ * devRuntimeMods so the exporter can read the running game.
+ */
+def lotr = rfg.deobf(files(rootProject.file('libs/LOTRMod v36.15.jar')))
+
+configurations {
+    devRuntimeModsDeobf
+}
+
+def clientMods = tasks.register('copyDevRuntimeModsClient', Sync) {
+    from(configurations.devRuntimeModsDeobf)
+    into(file('run/client/mods/1.7.10'))
+}
+tasks.configureEach { if (it.name == 'runClient') it.dependsOn(clientMods) }
+
+dependencies {
+    compileOnly(lotr)
+    devRuntimeModsDeobf(lotr)
+}

@@ -1,0 +1,54 @@
+name: Convert LOTR
+
+# Runs the 1.7.10 exporter (converter/) in a real LOTR 36.15 client under a virtual screen and commits what it reads
+# to converter/export/. Runs when the exporter changes, or by hand from the Actions tab.
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'converter/src/**'
+      - 'converter/*.gradle*'
+      - 'converter/gradle.properties'
+      - '.github/workflows/convert.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  export:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: |
+            8
+            25
+      - uses: gradle/actions/setup-gradle@v4
+      - name: Virtual screen
+        run: sudo apt-get update -q && sudo apt-get install -y -q xvfb x11-xserver-utils libgl1-mesa-dri libglu1-mesa
+      - name: Run the exporter
+        working-directory: converter
+        env:
+          JAVA_TOOL_OPTIONS: -Dlotrexport.run=true -Dlotrexport.out=${{ github.workspace }}/converter/export
+        run: xvfb-run -a -s "-screen 0 1280x800x24 +extension RANDR +extension GLX" sh ./gradlew runClient --stacktrace
+      - name: Check the export
+        run: ls -la converter/export && test -s converter/export/blocks.json && cat converter/export/errors.json | head -50
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: export
+          path: |
+            converter/export/
+            converter/run/client/logs/
+      - name: Commit the export
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add converter/export
+          if git diff --cached --quiet; then echo "export unchanged"; exit 0; fi
+          git commit -m "Update the LOTR export"
+          git pull --rebase origin "$GITHUB_REF_NAME"
+          git push origin "HEAD:$GITHUB_REF_NAME"
