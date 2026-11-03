@@ -42,7 +42,8 @@ public class StructureExporter {
     /** Layouts per structure (LOTR randomises size, rooms and decoration with the seed). */
     private static final int SEEDS = 3;
     private static final int RADIUS = 64;
-    private static final int GROUND = 3; // flat world: bedrock 0, dirt 1-2, grass 3
+    // flat world: bedrock 0, dirt 1-39, grass 40; deep enough for cellars and basements (3 cut them off, 2026-11-03)
+    private static final int GROUND = 40;
 
     private final File out;
     private final JsonArray errors = new JsonArray();
