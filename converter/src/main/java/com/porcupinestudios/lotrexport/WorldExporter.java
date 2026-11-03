@@ -77,16 +77,30 @@ final class WorldExporter {
                 for (Object road : it) {
                     JsonObject o = new JsonObject();
                     o.addProperty("name", String.valueOf(field(road, "roadName")));
+                    // LOTR keeps a point every block or so; keep one every eighth of a map pixel (16 blocks),
+                    // plus waypoints and the ends, so the export stays small.
                     JsonArray points = new JsonArray();
                     Object pts = field(road, "roadPoints");
-                    for (int i = 0; pts != null && i < Array.getLength(pts); i++) {
+                    int n = pts == null ? 0 : Array.getLength(pts);
+                    double lastX = Double.NaN;
+                    double lastZ = Double.NaN;
+                    for (int i = 0; i < n; i++) {
                         Object p = Array.get(pts, i);
-                        JsonArray xyz = new JsonArray();
-                        xyz.add(new JsonPrimitive((Number) field(p, "x")));
-                        xyz.add(new JsonPrimitive((Number) field(p, "z")));
-                        xyz.add(new JsonPrimitive((Boolean) field(p, "isWaypoint")));
-                        points.add(xyz);
+                        double x = ((Number) field(p, "x")).doubleValue();
+                        double z = ((Number) field(p, "z")).doubleValue();
+                        boolean waypoint = Boolean.TRUE.equals(field(p, "isWaypoint"));
+                        boolean far = Double.isNaN(lastX) || Math.hypot(x - lastX, z - lastZ) >= 0.125;
+                        if (far || waypoint || i == n - 1) {
+                            JsonArray xz = new JsonArray();
+                            xz.add(new JsonPrimitive(Math.round(x * 1000) / 1000.0));
+                            xz.add(new JsonPrimitive(Math.round(z * 1000) / 1000.0));
+                            xz.add(new JsonPrimitive(waypoint));
+                            points.add(xz);
+                            lastX = x;
+                            lastZ = z;
+                        }
                     }
+                    o.addProperty("sourcePoints", n);
                     o.add("points", points);
                     arr.add(o);
                 }
