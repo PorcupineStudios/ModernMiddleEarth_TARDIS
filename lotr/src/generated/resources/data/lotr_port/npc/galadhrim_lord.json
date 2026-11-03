@@ -10,6 +10,11 @@
   "health": 30.0,
   "speed": 0.2,
   "attack": 2.0,
-  "names": "lotr_port:sindarin_male",
+  "gear": {
+    "mainhand": "lotr_port:galadhrim_sword",
+    "chest": "lotr_port:galadhrim_chestplate",
+    "legs": "lotr_port:galadhrim_leggings",
+    "feet": "lotr_port:galadhrim_boots"
+  },
   "units": "lotr_port:elf_lord"
 }

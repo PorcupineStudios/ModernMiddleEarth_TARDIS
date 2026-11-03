@@ -11,6 +11,12 @@
   "health": 20.0,
   "speed": 0.2,
   "attack": 2.0,
+  "gear": {
+    "mainhand": "lotr_port:morwaith_spear",
+    "chest": "lotr_port:morwaith_chestplate",
+    "legs": "lotr_port:morwaith_leggings",
+    "feet": "lotr_port:morwaith_boots"
+  },
   "names": "lotr_port:moredain_male",
   "buy": "lotr_port:moredain_huntsman_buy",
   "sell": "lotr_port:moredain_huntsman_sell"

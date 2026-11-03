@@ -12,6 +12,17 @@
   "health": 20.0,
   "speed": 0.2,
   "attack": 2.0,
+  "gear": {
+    "mainhand": [
+      "minecraft:iron_axe",
+      "lotr_port:bronze_battleaxe",
+      "lotr_port:bronze_dagger",
+      "lotr_port:bronze_axe",
+      "lotr_port:rohirric_battleaxe",
+      "minecraft:stone_axe"
+    ],
+    "head": "lotr_port:leather_hat"
+  },
   "names": "lotr_port:rohan_male",
   "buy": "lotr_port:rohan_stablemaster_buy",
   "sell": "lotr_port:rohan_stablemaster_sell"

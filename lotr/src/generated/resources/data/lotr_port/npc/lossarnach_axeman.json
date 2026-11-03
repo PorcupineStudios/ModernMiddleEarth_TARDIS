@@ -16,5 +16,12 @@
   "health": 20.0,
   "speed": 0.2,
   "attack": 2.0,
+  "gear": {
+    "mainhand": "lotr_port:lossarnach_battleaxe",
+    "head": "lotr_port:lossarnach_helmet",
+    "chest": "lotr_port:lossarnach_chestplate",
+    "legs": "lotr_port:lossarnach_leggings",
+    "feet": "lotr_port:lossarnach_boots"
+  },
   "names": "lotr_port:gondor_male"
 }

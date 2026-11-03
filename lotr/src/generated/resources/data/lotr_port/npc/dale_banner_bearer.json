@@ -9,5 +9,17 @@
   "health": 20.0,
   "speed": 0.2,
   "attack": 2.0,
+  "gear": {
+    "mainhand": [
+      "lotr_port:dalish_battleaxe",
+      "lotr_port:dalish_spear",
+      "lotr_port:dalish_sword",
+      "lotr_port:dalish_pitchfork"
+    ],
+    "head": "lotr_port:dalish_helmet",
+    "chest": "lotr_port:dalish_chestplate",
+    "legs": "lotr_port:dalish_leggings",
+    "feet": "lotr_port:dalish_boots"
+  },
   "names": "lotr_port:dale_male"
 }

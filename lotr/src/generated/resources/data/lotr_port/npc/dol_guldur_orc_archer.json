@@ -14,5 +14,17 @@
   "health": 20.0,
   "speed": 0.2,
   "attack": 2.0,
+  "gear": {
+    "mainhand": [
+      "lotr_port:dol_guldur_pickaxe",
+      "lotr_port:dol_guldur_spear",
+      "lotr_port:dol_guldur_warhammer",
+      "lotr_port:dol_guldur_axe"
+    ],
+    "head": "lotr_port:dol_guldur_helmet",
+    "chest": "lotr_port:dol_guldur_chestplate",
+    "legs": "lotr_port:dol_guldur_leggings",
+    "feet": "lotr_port:dol_guldur_boots"
+  },
   "names": "lotr_port:orc"
 }

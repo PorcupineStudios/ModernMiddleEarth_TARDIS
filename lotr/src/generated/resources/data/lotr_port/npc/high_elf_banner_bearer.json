@@ -24,5 +24,15 @@
   "health": 30.0,
   "speed": 0.2,
   "attack": 2.0,
-  "names": "lotr_port:quenya_male"
+  "gear": {
+    "mainhand": [
+      "lotr_port:lindon_sword",
+      "lotr_port:lindon_spear",
+      "lotr_port:lindon_battlestaff"
+    ],
+    "head": "lotr_port:lindon_helmet",
+    "chest": "lotr_port:lindon_chestplate",
+    "legs": "lotr_port:lindon_leggings",
+    "feet": "lotr_port:lindon_boots"
+  }
 }

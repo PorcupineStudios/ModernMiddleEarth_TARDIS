@@ -9,5 +9,17 @@
   "skin_height": 64,
   "health": 30.0,
   "speed": 0.2,
-  "attack": 2.0
+  "attack": 2.0,
+  "gear": {
+    "mainhand": [
+      "lotr_port:galadhrim_battlestaff",
+      "lotr_port:galadhrim_sword",
+      "lotr_port:galadhrim_spear",
+      "lotr_port:galadhrim_longspear"
+    ],
+    "head": "lotr_port:galadhrim_helmet",
+    "chest": "lotr_port:galadhrim_chestplate",
+    "legs": "lotr_port:galadhrim_leggings",
+    "feet": "lotr_port:galadhrim_boots"
+  }
 }

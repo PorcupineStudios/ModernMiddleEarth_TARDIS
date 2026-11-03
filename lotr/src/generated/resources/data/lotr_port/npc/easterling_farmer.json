@@ -11,7 +11,11 @@
   "health": 20.0,
   "speed": 0.2,
   "attack": 2.0,
-  "names": "lotr_port:rhun_male",
+  "gear": {
+    "mainhand": "lotr_port:bronze_hoe",
+    "chest": "lotr_port:kaftan",
+    "legs": "lotr_port:kaftan_leggings"
+  },
   "buy": "lotr_port:rhun_farmer_buy",
   "sell": "lotr_port:rhun_farmer_sell",
   "units": "lotr_port:easterling_farmer"

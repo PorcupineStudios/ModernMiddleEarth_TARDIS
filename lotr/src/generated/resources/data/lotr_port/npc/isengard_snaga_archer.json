@@ -14,5 +14,38 @@
   "health": 18.0,
   "speed": 0.2,
   "attack": 2.0,
+  "gear": {
+    "mainhand": [
+      "lotr_port:poisoned_uruk_dagger",
+      "lotr_port:iron_dagger",
+      "lotr_port:iron_spear",
+      "lotr_port:bronze_battleaxe",
+      "lotr_port:uruk_battleaxe",
+      "lotr_port:uruk_axe"
+    ],
+    "head": [
+      "minecraft:leather_helmet",
+      "lotr_port:bone_helmet",
+      "lotr_port:bronze_helmet"
+    ],
+    "chest": [
+      "minecraft:leather_chestplate",
+      "lotr_port:bone_chestplate",
+      "lotr_port:uruk_chestplate",
+      "lotr_port:bronze_chestplate"
+    ],
+    "legs": [
+      "lotr_port:bronze_leggings",
+      "minecraft:leather_leggings",
+      "lotr_port:uruk_leggings",
+      "lotr_port:fur_leggings"
+    ],
+    "feet": [
+      "minecraft:leather_boots",
+      "lotr_port:uruk_boots",
+      "lotr_port:bone_boots",
+      "lotr_port:bronze_boots"
+    ]
+  },
   "names": "lotr_port:orc"
 }

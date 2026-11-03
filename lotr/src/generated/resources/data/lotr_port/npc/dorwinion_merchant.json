@@ -9,6 +9,10 @@
   "health": 30.0,
   "speed": 0.2,
   "attack": 2.0,
+  "gear": {
+    "mainhand": "lotr_port:dorwinion_elven_dagger",
+    "head": "lotr_port:leather_hat"
+  },
   "buy": "lotr_port:dorwinion_merchant_buy",
   "sell": "lotr_port:dorwinion_merchant_sell"
 }

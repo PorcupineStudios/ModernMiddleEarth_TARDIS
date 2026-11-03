@@ -14,5 +14,18 @@
   "health": 24.0,
   "speed": 0.2,
   "attack": 2.0,
-  "names": "lotr_port:sindarin_male"
+  "gear": {
+    "mainhand": [
+      "lotr_port:utumno_sword",
+      "lotr_port:utumno_spear",
+      "lotr_port:poisoned_utumno_dagger",
+      "lotr_port:utumno_battleaxe",
+      "lotr_port:utumno_warhammer"
+    ],
+    "head": "lotr_port:utumno_helmet",
+    "chest": "lotr_port:utumno_chestplate",
+    "legs": "lotr_port:utumno_leggings",
+    "feet": "lotr_port:utumno_boots"
+  },
+  "names": "lotr_port:quenya_male"
 }

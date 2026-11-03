@@ -11,5 +11,20 @@
   "health": 20.0,
   "speed": 0.2,
   "attack": 2.0,
+  "gear": {
+    "mainhand": [
+      "lotr_port:haradric_spear",
+      "lotr_port:haradric_sword",
+      "lotr_port:haradric_dagger",
+      "lotr_port:poisoned_haradric_dagger"
+    ],
+    "head": [
+      "lotr_port:harnennor_helmet",
+      "lotr_port:harad_turban"
+    ],
+    "chest": "lotr_port:harnennor_chestplate",
+    "legs": "lotr_port:harnennor_leggings",
+    "feet": "lotr_port:harnennor_boots"
+  },
   "names": "lotr_port:near_haradrim_male"
 }

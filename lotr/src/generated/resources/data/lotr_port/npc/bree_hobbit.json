@@ -19,6 +19,5 @@
   "scale": 0.667,
   "health": 16.0,
   "speed": 0.2,
-  "attack": 2.0,
-  "names": "lotr_port:bree_male"
+  "attack": 2.0
 }

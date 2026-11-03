@@ -10,5 +10,15 @@
   "skin_height": 64,
   "health": 20.0,
   "speed": 0.2,
-  "attack": 2.0
+  "attack": 2.0,
+  "gear": {
+    "mainhand": [
+      "minecraft:iron_axe",
+      "lotr_port:iron_dagger",
+      "lotr_port:bronze_dagger",
+      "lotr_port:barrow_blade",
+      "lotr_port:bronze_axe"
+    ]
+  },
+  "names": "lotr_port:gondor_male"
 }

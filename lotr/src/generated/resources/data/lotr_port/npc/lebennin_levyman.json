@@ -16,5 +16,19 @@
   "health": 20.0,
   "speed": 0.2,
   "attack": 2.0,
+  "gear": {
+    "mainhand": [
+      "lotr_port:bronze_battleaxe",
+      "minecraft:iron_axe",
+      "lotr_port:iron_pike",
+      "lotr_port:gondorian_warhammer",
+      "minecraft:iron_sword",
+      "lotr_port:bronze_sword"
+    ],
+    "head": "minecraft:iron_helmet",
+    "chest": "lotr_port:lebennin_gambeson",
+    "legs": "minecraft:leather_leggings",
+    "feet": "minecraft:leather_boots"
+  },
   "names": "lotr_port:gondor_male"
 }

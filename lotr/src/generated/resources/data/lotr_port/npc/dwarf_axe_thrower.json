@@ -10,5 +10,17 @@
   "health": 26.0,
   "speed": 0.2,
   "attack": 2.0,
+  "gear": {
+    "mainhand": [
+      "lotr_port:dwarven_sword",
+      "lotr_port:dwarven_battleaxe",
+      "lotr_port:dwarven_pike",
+      "lotr_port:dwarven_warhammer"
+    ],
+    "head": "lotr_port:dwarven_helmet",
+    "chest": "lotr_port:dwarven_chestplate",
+    "legs": "lotr_port:dwarven_leggings",
+    "feet": "lotr_port:dwarven_boots"
+  },
   "names": "lotr_port:dwarf_male"
 }

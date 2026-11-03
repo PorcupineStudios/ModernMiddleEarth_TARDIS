@@ -11,5 +11,14 @@
   "skin_height": 64,
   "health": 20.0,
   "speed": 0.2,
-  "attack": 2.0
+  "attack": 2.0,
+  "gear": {
+    "mainhand": [
+      "lotr_port:iron_battleaxe",
+      "lotr_port:rohirric_dagger",
+      "minecraft:iron_axe",
+      "lotr_port:bronze_battleaxe",
+      "lotr_port:bronze_dagger"
+    ]
+  }
 }

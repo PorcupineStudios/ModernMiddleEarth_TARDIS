@@ -9,5 +9,14 @@
   "health": 20.0,
   "speed": 0.2,
   "attack": 2.0,
+  "gear": {
+    "mainhand": [
+      "lotr_port:bronze_dagger",
+      "lotr_port:bronze_axe",
+      "lotr_port:dalish_dagger",
+      "minecraft:iron_axe",
+      "minecraft:stone_axe"
+    ]
+  },
   "names": "lotr_port:dale_male"
 }

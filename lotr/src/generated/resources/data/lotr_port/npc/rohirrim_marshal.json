@@ -12,6 +12,13 @@
   "health": 25.0,
   "speed": 0.2,
   "attack": 2.0,
+  "gear": {
+    "mainhand": "lotr_port:rohirric_sword",
+    "head": "lotr_port:rohirric_marshal_helmet",
+    "chest": "lotr_port:rohirric_marshal_chestplate",
+    "legs": "lotr_port:rohirric_marshal_leggings",
+    "feet": "lotr_port:rohirric_marshal_boots"
+  },
   "names": "lotr_port:rohan_male",
   "units": "lotr_port:rohirrim_marshal"
 }

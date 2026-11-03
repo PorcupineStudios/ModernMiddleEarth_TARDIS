@@ -9,5 +9,18 @@
   "health": 26.0,
   "speed": 0.22,
   "attack": 2.0,
+  "gear": {
+    "mainhand": [
+      "lotr_port:uruk_warhammer",
+      "lotr_port:uruk_cleaver",
+      "lotr_port:uruk_pike",
+      "lotr_port:poisoned_uruk_dagger",
+      "lotr_port:uruk_spear"
+    ],
+    "head": "lotr_port:uruk_helmet",
+    "chest": "lotr_port:uruk_chestplate",
+    "legs": "lotr_port:uruk_leggings",
+    "feet": "lotr_port:uruk_boots"
+  },
   "names": "lotr_port:orc"
 }

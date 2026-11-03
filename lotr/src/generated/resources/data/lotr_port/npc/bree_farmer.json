@@ -36,6 +36,10 @@
   "health": 20.0,
   "speed": 0.2,
   "attack": 2.0,
+  "gear": {
+    "mainhand": "minecraft:iron_hoe",
+    "head": "lotr_port:leather_hat"
+  },
   "buy": "lotr_port:bree_farmer_buy",
   "sell": "lotr_port:bree_farmer_sell",
   "units": "lotr_port:bree_farmer"

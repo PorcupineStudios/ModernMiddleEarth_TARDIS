@@ -173,9 +173,9 @@ class Npcs:
         for slot, sources in GEAR_SLOTS.items():
             for src in sources:
                 stacks = sampled.get(src) if isinstance(sampled, dict) else None
-                item = self.item(stacks[0]) if stacks else None
-                if item:
-                    gear[slot] = item
+                items = list(dict.fromkeys(i for i in (self.item(st) for st in stacks or []) if i))
+                if items:
+                    gear[slot] = items[0] if len(items) == 1 else items  # several: one is picked at spawn
                     break
         if gear:
             out["gear"] = gear

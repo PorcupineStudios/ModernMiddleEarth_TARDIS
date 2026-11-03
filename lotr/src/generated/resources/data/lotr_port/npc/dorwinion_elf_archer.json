@@ -8,5 +8,15 @@
   "skin_height": 64,
   "health": 30.0,
   "speed": 0.2,
-  "attack": 2.0
+  "attack": 2.0,
+  "gear": {
+    "mainhand": [
+      "lotr_port:dorwinion_elven_sword",
+      "lotr_port:spear_of_bladorthin"
+    ],
+    "head": "lotr_port:dorwinion_elven_helmet",
+    "chest": "lotr_port:dorwinion_elven_chestplate",
+    "legs": "lotr_port:dorwinion_elven_leggings",
+    "feet": "lotr_port:dorwinion_elven_boots"
+  }
 }

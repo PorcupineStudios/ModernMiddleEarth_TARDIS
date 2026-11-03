@@ -11,6 +11,9 @@
   "health": 20.0,
   "speed": 0.2,
   "attack": 2.0,
+  "gear": {
+    "mainhand": "lotr_port:umbaric_dagger"
+  },
   "names": "lotr_port:umbar_male",
   "buy": "lotr_port:southron_bartender_buy",
   "sell": "lotr_port:southron_bartender_sell"

@@ -12,6 +12,17 @@
   "health": 20.0,
   "speed": 0.2,
   "attack": 2.0,
+  "gear": {
+    "mainhand": [
+      "lotr_port:bronze_battleaxe",
+      "lotr_port:rohirric_battleaxe",
+      "lotr_port:iron_dagger",
+      "minecraft:iron_axe",
+      "lotr_port:bronze_axe",
+      "lotr_port:rohirric_dagger"
+    ],
+    "head": "lotr_port:leather_hat"
+  },
   "buy": "lotr_port:rohan_fishmonger_buy",
   "sell": "lotr_port:rohan_fishmonger_sell"
 }

@@ -10,5 +10,11 @@
   "health": 20.0,
   "speed": 0.2,
   "attack": 2.0,
+  "gear": {
+    "mainhand": "lotr_port:taurethrim_dagger",
+    "chest": "lotr_port:taurethrim_chestplate",
+    "legs": "lotr_port:taurethrim_leggings",
+    "feet": "lotr_port:taurethrim_boots"
+  },
   "names": "lotr_port:tauredain_male"
 }

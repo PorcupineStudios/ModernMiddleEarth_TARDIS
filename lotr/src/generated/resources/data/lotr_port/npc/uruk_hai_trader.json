@@ -9,6 +9,13 @@
   "health": 26.0,
   "speed": 0.22,
   "attack": 2.0,
+  "gear": {
+    "mainhand": "lotr_port:poisoned_uruk_dagger",
+    "head": "lotr_port:fur_hat",
+    "chest": "lotr_port:fur_tunic",
+    "legs": "lotr_port:fur_leggings",
+    "feet": "lotr_port:fur_boots"
+  },
   "names": "lotr_port:orc",
   "buy": "lotr_port:uruk_hai_trader_buy",
   "sell": "lotr_port:uruk_hai_trader_sell"

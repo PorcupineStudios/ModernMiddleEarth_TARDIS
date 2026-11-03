@@ -11,6 +11,9 @@
   "health": 20.0,
   "speed": 0.2,
   "attack": 2.0,
+  "gear": {
+    "mainhand": "lotr_port:haradric_dagger"
+  },
   "buy": "lotr_port:harnedor_bartender_buy",
   "sell": "lotr_port:harnedor_bartender_sell"
 }

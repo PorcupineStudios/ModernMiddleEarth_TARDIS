@@ -10,6 +10,9 @@
   "health": 20.0,
   "speed": 0.2,
   "attack": 2.0,
+  "gear": {
+    "mainhand": "lotr_port:poisoned_taurethrim_dagger"
+  },
   "names": "lotr_port:tauredain_male",
   "buy": "lotr_port:tauredain_shaman_buy",
   "sell": "lotr_port:tauredain_shaman_sell"

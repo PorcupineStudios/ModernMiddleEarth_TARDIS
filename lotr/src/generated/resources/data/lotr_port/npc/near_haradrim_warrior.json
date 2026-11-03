@@ -11,5 +11,21 @@
   "health": 20.0,
   "speed": 0.2,
   "attack": 2.0,
+  "gear": {
+    "mainhand": [
+      "lotr_port:umbaric_scimitar",
+      "lotr_port:umbaric_pike",
+      "lotr_port:poisoned_umbaric_dagger",
+      "lotr_port:umbaric_poleaxe",
+      "lotr_port:umbaric_dagger"
+    ],
+    "head": [
+      "lotr_port:harad_turban",
+      "lotr_port:coast_southron_helmet"
+    ],
+    "chest": "lotr_port:coast_southron_chestplate",
+    "legs": "lotr_port:coast_southron_leggings",
+    "feet": "lotr_port:coast_southron_boots"
+  },
   "names": "lotr_port:umbar_male"
 }

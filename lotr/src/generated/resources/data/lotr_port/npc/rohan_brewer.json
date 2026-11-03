@@ -12,7 +12,15 @@
   "health": 20.0,
   "speed": 0.2,
   "attack": 2.0,
-  "names": "lotr_port:rohan_male",
+  "gear": {
+    "mainhand": [
+      "lotr_port:bronze_battleaxe",
+      "lotr_port:bronze_dagger",
+      "minecraft:stone_axe",
+      "lotr_port:rohirric_battleaxe",
+      "minecraft:iron_axe"
+    ]
+  },
   "buy": "lotr_port:rohan_brewer_buy",
   "sell": "lotr_port:rohan_brewer_sell"
 }

@@ -11,5 +11,8 @@
   "health": 20.0,
   "speed": 0.2,
   "attack": 2.0,
+  "gear": {
+    "mainhand": "lotr_port:morwaith_dagger"
+  },
   "names": "lotr_port:moredain_male"
 }

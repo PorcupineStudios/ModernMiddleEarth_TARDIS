@@ -9,5 +9,12 @@
   "health": 30.0,
   "speed": 0.22,
   "attack": 2.0,
+  "gear": {
+    "mainhand": "lotr_port:uruk_berserker_cleaver",
+    "head": "lotr_port:uruk_berserker_helmet",
+    "chest": "lotr_port:fur_tunic",
+    "legs": "lotr_port:fur_leggings",
+    "feet": "lotr_port:fur_boots"
+  },
   "names": "lotr_port:orc"
 }

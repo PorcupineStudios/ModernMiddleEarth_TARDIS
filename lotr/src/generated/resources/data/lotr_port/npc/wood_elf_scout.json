@@ -9,5 +9,12 @@
   "skin_height": 64,
   "health": 30.0,
   "speed": 0.2,
-  "attack": 2.0
+  "attack": 2.0,
+  "gear": {
+    "mainhand": "lotr_port:bow_of_mirkwood",
+    "head": "lotr_port:wood_elven_scout_hood",
+    "chest": "lotr_port:wood_elven_scout_tunic",
+    "legs": "lotr_port:wood_elven_scout_leggings",
+    "feet": "lotr_port:wood_elven_scout_boots"
+  }
 }

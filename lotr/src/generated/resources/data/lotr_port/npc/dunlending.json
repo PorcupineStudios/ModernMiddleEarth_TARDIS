@@ -10,5 +10,13 @@
   "health": 20.0,
   "speed": 0.2,
   "attack": 2.0,
-  "names": "lotr_port:dunlending_male"
+  "gear": {
+    "mainhand": [
+      "lotr_port:dunlending_club",
+      "minecraft:stone_hoe",
+      "lotr_port:stone_spear",
+      "minecraft:stone_sword"
+    ],
+    "head": "lotr_port:fur_hat"
+  }
 }

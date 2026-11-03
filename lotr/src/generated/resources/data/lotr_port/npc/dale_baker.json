@@ -9,6 +9,9 @@
   "health": 20.0,
   "speed": 0.2,
   "attack": 2.0,
+  "gear": {
+    "mainhand": "lotr_port:rolling_pin"
+  },
   "buy": "lotr_port:dale_baker_buy",
   "sell": "lotr_port:dale_baker_sell"
 }

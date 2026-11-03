@@ -36,5 +36,8 @@
   "health": 20.0,
   "speed": 0.2,
   "attack": 2.0,
+  "gear": {
+    "mainhand": "minecraft:iron_hoe"
+  },
   "names": "lotr_port:bree_male"
 }

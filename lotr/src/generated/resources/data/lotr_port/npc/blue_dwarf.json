@@ -10,5 +10,8 @@
   "health": 26.0,
   "speed": 0.2,
   "attack": 2.0,
+  "gear": {
+    "mainhand": "lotr_port:blue_dwarven_dagger"
+  },
   "names": "lotr_port:dwarf_male"
 }

@@ -11,6 +11,13 @@
   "health": 20.0,
   "speed": 0.2,
   "attack": 2.0,
+  "gear": {
+    "mainhand": "lotr_port:haradric_spear",
+    "head": "lotr_port:harad_turban",
+    "chest": "lotr_port:gemsbok_hide_chestplate",
+    "legs": "lotr_port:gemsbok_hide_leggings",
+    "feet": "lotr_port:gemsbok_hide_boots"
+  },
   "names": "lotr_port:gulf_male",
   "buy": "lotr_port:gulf_hunter_buy",
   "sell": "lotr_port:gulf_hunter_sell"

@@ -9,6 +9,15 @@
   "health": 20.0,
   "speed": 0.2,
   "attack": 2.0,
+  "gear": {
+    "mainhand": [
+      "minecraft:iron_axe",
+      "lotr_port:bronze_axe",
+      "minecraft:stone_axe",
+      "lotr_port:iron_dagger"
+    ],
+    "head": "lotr_port:leather_hat"
+  },
   "names": "lotr_port:dale_male",
   "buy": "lotr_port:dale_merchant_buy",
   "sell": "lotr_port:dale_merchant_sell"

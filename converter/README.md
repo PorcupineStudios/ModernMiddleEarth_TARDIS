@@ -22,6 +22,10 @@ Turns LOTR 36.15 (1.7.10) content into the 1.21.1 port's generated resources. Tw
    `converter/factions.py` writes LOTR's 29 factions (colour, region, ranks, pledge rank, map area, control zones,
    default relations) as faction data, with their lang keys.
 
+   `converter/npcs.py` (phase 6) writes LOTR's people as NPC types (350: faction, skins, size, stats, gear, names) with
+   their trade pools, captains' unit pools and name banks; the exporter builds each LOTR entity in a throwaway client
+   world and samples its spawn gear.
+
 Never edit generated files by hand: change the generator and run it again.
 
 Known gaps (report.json): spawn eggs and structure spawners wait for the NPC and structure phases; LOTR's special

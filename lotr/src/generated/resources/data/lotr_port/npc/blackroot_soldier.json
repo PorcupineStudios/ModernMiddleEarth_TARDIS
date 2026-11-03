@@ -12,5 +12,12 @@
   "health": 20.0,
   "speed": 0.2,
   "attack": 2.0,
+  "gear": {
+    "mainhand": "lotr_port:gondorian_sword",
+    "head": "lotr_port:blackroot_vale_helmet",
+    "chest": "lotr_port:blackroot_vale_chestplate",
+    "legs": "lotr_port:blackroot_vale_leggings",
+    "feet": "lotr_port:blackroot_vale_boots"
+  },
   "names": "lotr_port:gondor_male"
 }

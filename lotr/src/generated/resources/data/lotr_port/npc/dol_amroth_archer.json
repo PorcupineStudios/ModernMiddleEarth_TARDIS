@@ -9,5 +9,18 @@
   "health": 20.0,
   "speed": 0.2,
   "attack": 2.0,
+  "gear": {
+    "mainhand": [
+      "minecraft:iron_sword",
+      "lotr_port:dol_amroth_sword"
+    ],
+    "head": [
+      "minecraft:leather_helmet",
+      "minecraft:iron_helmet"
+    ],
+    "chest": "lotr_port:dol_amroth_gambeson",
+    "legs": "lotr_port:dol_amroth_chaps",
+    "feet": "minecraft:leather_boots"
+  },
   "names": "lotr_port:gondor_male"
 }

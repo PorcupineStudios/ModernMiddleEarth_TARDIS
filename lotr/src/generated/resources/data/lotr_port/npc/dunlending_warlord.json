@@ -10,6 +10,19 @@
   "health": 25.0,
   "speed": 0.2,
   "attack": 2.0,
+  "gear": {
+    "mainhand": [
+      "lotr_port:bronze_spear",
+      "minecraft:iron_sword",
+      "lotr_port:iron_pike",
+      "lotr_port:iron_battleaxe",
+      "lotr_port:iron_dagger"
+    ],
+    "head": "lotr_port:fur_hat",
+    "chest": "lotr_port:dunlending_chestplate",
+    "legs": "lotr_port:dunlending_leggings",
+    "feet": "lotr_port:dunlending_boots"
+  },
   "names": "lotr_port:dunlending_male",
   "units": "lotr_port:dunlending_warlord"
 }

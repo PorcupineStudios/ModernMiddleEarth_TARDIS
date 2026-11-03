@@ -9,5 +9,6 @@
   "skin_height": 64,
   "health": 20.0,
   "speed": 0.2,
-  "attack": 2.0
+  "attack": 2.0,
+  "names": "lotr_port:dorwinion_male"
 }

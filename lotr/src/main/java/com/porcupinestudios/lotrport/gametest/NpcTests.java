@@ -156,6 +156,7 @@ public final class NpcTests {
         LotrNpc orc = spawn(helper, "mordor_orc");
         helper.assertTrue(People.get(server).get(orc.getUUID()).isEmpty(), "a random orc got a person record");
         helper.assertTrue(orc.owner().isEmpty() && orc.command() == LotrNpc.Command.NONE, "a random orc is hired");
+        helper.assertFalse(orc.getMainHandItem().isEmpty(), "the orc spawned without a weapon");
         helper.succeed();
     }
 }

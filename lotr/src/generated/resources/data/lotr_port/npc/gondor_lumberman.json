@@ -16,6 +16,10 @@
   "health": 20.0,
   "speed": 0.2,
   "attack": 2.0,
+  "gear": {
+    "mainhand": "minecraft:iron_axe",
+    "head": "lotr_port:leather_hat"
+  },
   "names": "lotr_port:gondor_male",
   "buy": "lotr_port:gondor_lumberman_buy",
   "sell": "lotr_port:gondor_lumberman_sell"

@@ -11,5 +11,17 @@
   "health": 20.0,
   "speed": 0.2,
   "attack": 2.0,
+  "gear": {
+    "mainhand": [
+      "lotr_port:morwaith_spear",
+      "lotr_port:haradric_dagger",
+      "lotr_port:morwaith_battleaxe",
+      "lotr_port:morwaith_club"
+    ],
+    "head": "lotr_port:morwaith_helmet",
+    "chest": "lotr_port:morwaith_chestplate",
+    "legs": "lotr_port:morwaith_leggings",
+    "feet": "lotr_port:morwaith_boots"
+  },
   "names": "lotr_port:moredain_male"
 }

@@ -12,5 +12,16 @@
   "health": 20.0,
   "speed": 0.2,
   "attack": 2.0,
-  "names": "lotr_port:hobbit_male"
+  "gear": {
+    "mainhand": [
+      "lotr_port:rohirric_spear",
+      "lotr_port:rohirric_sword",
+      "lotr_port:rohirric_battleaxe"
+    ],
+    "head": "lotr_port:rohirric_coif",
+    "chest": "lotr_port:rohirric_hauberk",
+    "legs": "lotr_port:rohirric_leggings",
+    "feet": "lotr_port:rohirric_boots"
+  },
+  "names": "lotr_port:rohan_male"
 }
