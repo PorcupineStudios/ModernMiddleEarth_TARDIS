@@ -41,14 +41,15 @@ public final class AiData {
      * {@code garrison_share} of its ruler's strength, split over the ruler's colonies. A ruler marches only when its
      * strength is at least {@code march_ratio} x that defense; the siege attacks with strength x (0.5 to 1.5), and the
      * loser loses {@code siege_losses} of its strength. Wars last at least {@code min_war_days}, then end with
-     * {@code peace_chance} a day.
+     * {@code peace_chance} a day. With {@code wait_for_player} (Aaron, 2026-11-03) no ruler starts until a player
+     * has founded a colony, so the AI gets no head start.
      */
     public record Settings(boolean enabled, int foundMinDistance, int foundMaxDistance, int startStrength,
             int strengthPerDay, int strengthPerColony, int maxStrength, int startPopulation, int maxPopulation,
             double defensePerPopulation, double garrisonShare, double marchRatio, double siegeLosses,
-            int minWarDays, double peaceChance) {
+            int minWarDays, double peaceChance, boolean waitForPlayer) {
         public static final Settings DEFAULT = new Settings(true, 160, 640, 20, 1, 2, 200, 4, 24, 1.0, 0.25, 1.0,
-                0.3, 3, 0.15);
+                0.3, 3, 0.15, true);
         public static final Codec<Settings> CODEC = RecordCodecBuilder.create(i -> i.group(
                 Codec.BOOL.optionalFieldOf("enabled", DEFAULT.enabled).forGetter(Settings::enabled),
                 Codec.INT.optionalFieldOf("found_min_distance", DEFAULT.foundMinDistance)
@@ -71,7 +72,8 @@ public final class AiData {
                         .forGetter(Settings::siegeLosses),
                 Codec.INT.optionalFieldOf("min_war_days", DEFAULT.minWarDays).forGetter(Settings::minWarDays),
                 Codec.doubleRange(0, 1).optionalFieldOf("peace_chance", DEFAULT.peaceChance)
-                        .forGetter(Settings::peaceChance))
+                        .forGetter(Settings::peaceChance),
+                Codec.BOOL.optionalFieldOf("wait_for_player", DEFAULT.waitForPlayer).forGetter(Settings::waitForPlayer))
                 .apply(i, Settings::new));
     }
 

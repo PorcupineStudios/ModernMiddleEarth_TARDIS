@@ -4,6 +4,7 @@ import com.porcupinestudios.lotrport.LotrPort;
 import com.porcupinestudios.lotrport.colony.Colonies;
 import com.porcupinestudios.lotrport.colony.Colony;
 import com.porcupinestudios.lotrport.colony.ColonyData;
+import com.porcupinestudios.lotrport.colony.Migrants;
 import com.porcupinestudios.lotrport.colony.Recruiting;
 import com.porcupinestudios.lotrport.faction.Alignment;
 import com.porcupinestudios.lotrport.faction.FactionKills;
@@ -14,6 +15,7 @@ import com.porcupinestudios.lotrport.travel.Waypoint;
 import com.porcupinestudios.ringbearer.api.provider.Providers;
 import java.util.Optional;
 import java.util.Set;
+import java.util.UUID;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -36,7 +38,7 @@ import net.neoforged.neoforge.gametest.GameTestHolder;
 import net.neoforged.neoforge.gametest.PrefixGameTestTemplate;
 
 /**
- * Phase 9 done-when (Stage 3): a colony grows, and a rare race joins by quest. One test, since colonies need room
+ * Phase 9 done-when (Stage 3): a colony grows by migrants the owner accepts, and a rare race joins by quest. One test, since colonies need room
  * between their Halls and tests in a batch stand close together.
  */
 @GameTestHolder(LotrPort.MOD_ID)
@@ -81,15 +83,35 @@ public final class ColonyTests {
         helper.assertTrue(colonies.found(player, "Second", hall.offset(200, 0, 0), GONDOR).colony().isEmpty(),
                 "a player founded two colonies");
 
-        // growth: the first settler comes with no beds; then one a day while there are free beds
-        helper.assertTrue(colonies.day(level, colony) == 1, "no first settler");
-        helper.assertTrue(colonies.day(level, colony) == 0, "a second settler came with no bed");
+        // selective migration: the first migrant comes with no beds and waits at the Hall for an answer
+        helper.assertTrue(colonies.day(level, colony) == 1, "no first migrant");
+        helper.assertTrue(colony.citizens().isEmpty() && colony.applicants().size() == 1,
+                "the first migrant moved straight in");
+        helper.assertTrue(colonies.day(level, colony) == 0, "a second migrant came with no bed");
+        Colony.Applicant first = colony.applicants().get(0);
+        helper.assertTrue(level.getEntity(first.entity()) instanceof LotrNpc waiting
+                && Migrants.applicantOf(waiting).equals(Optional.of(colony.id()))
+                && Colonies.colonyOf(waiting).isEmpty(), "the migrant is not marked as waiting");
+        helper.assertTrue(Migrants.accept(player, first.entity()).ok(), "could not accept the first migrant");
+        helper.assertTrue(colony.citizens().size() == 1 && colony.applicants().isEmpty(), "not accepted");
+
+        // with two beds one more comes; turned away, they leave, and another comes the next day
         bed(helper, new BlockPos(0, 2, 0));
         bed(helper, new BlockPos(2, 2, 0));
         helper.assertTrue(Colonies.beds(level, colony) == 2, "beds counted: " + Colonies.beds(level, colony));
         helper.assertTrue(colonies.day(level, colony) == 1, "nobody came for the second bed");
+        UUID denied = colony.applicants().get(0).entity();
+        helper.assertTrue(Migrants.deny(player, denied).ok(), "could not turn the migrant away");
+        Entity gone = level.getEntity(denied);
+        helper.assertTrue(colony.applicants().isEmpty() && (gone == null || gone.isRemoved()),
+                "the turned-away migrant is still here");
+        helper.assertTrue(colonies.day(level, colony) == 1, "nobody came after one was turned away");
         helper.assertTrue(colonies.day(level, colony) == 0, "more came than there are beds");
+        UUID late = colony.applicants().get(0).entity();
+        helper.assertTrue(Migrants.accept(player, late).ok(), "could not accept the second migrant");
         helper.assertTrue(colony.citizens().size() == 2, "citizens: " + colony.citizens().size());
+        helper.assertTrue(!Migrants.accept(player, denied).ok(), "accepted a migrant who already left");
+
         for (Colony.Citizen c : colony.citizens()) {
             Entity e = level.getEntity(c.entity());
             helper.assertTrue(e instanceof LotrNpc, "citizen " + c.name() + " has no body");

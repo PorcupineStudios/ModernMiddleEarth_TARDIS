@@ -28,10 +28,15 @@ public final class ColonyData {
      * @param firstSettlers settlers that come before there are any beds
      * @param citizensPerResearcher common citizens it takes to free one researcher (0 = none); every rare citizen
      *     is a researcher of its own (TARDIS research, through the shared API)
+     * @param selectiveMigration migrants wait at the Hall until the owner accepts or turns them away (false = they
+     *     move straight in)
+     * @param maxApplicants most migrants waiting at a Hall at once
+     * @param applicantDays colony days a migrant waits for an answer before leaving
      */
     public record Settings(int dayTicks, int bedRadius, int bedHeight, int hallGap, int arrivalsPerDay,
-            int firstSettlers, int citizensPerResearcher) {
-        public static final Settings DEFAULT = new Settings(24000, 32, 16, 96, 1, 1, 5);
+            int firstSettlers, int citizensPerResearcher, boolean selectiveMigration, int maxApplicants,
+            int applicantDays) {
+        public static final Settings DEFAULT = new Settings(24000, 32, 16, 96, 1, 1, 5, true, 3, 3);
         public static final Codec<Settings> CODEC = RecordCodecBuilder.create(i -> i.group(
                 Codec.INT.optionalFieldOf("day_ticks", DEFAULT.dayTicks()).forGetter(Settings::dayTicks),
                 Codec.INT.optionalFieldOf("bed_radius", DEFAULT.bedRadius()).forGetter(Settings::bedRadius),
@@ -41,7 +46,11 @@ public final class ColonyData {
                         .forGetter(Settings::arrivalsPerDay),
                 Codec.INT.optionalFieldOf("first_settlers", DEFAULT.firstSettlers()).forGetter(Settings::firstSettlers),
                 Codec.INT.optionalFieldOf("citizens_per_researcher", DEFAULT.citizensPerResearcher())
-                        .forGetter(Settings::citizensPerResearcher))
+                        .forGetter(Settings::citizensPerResearcher),
+                Codec.BOOL.optionalFieldOf("selective_migration", DEFAULT.selectiveMigration())
+                        .forGetter(Settings::selectiveMigration),
+                Codec.INT.optionalFieldOf("max_applicants", DEFAULT.maxApplicants()).forGetter(Settings::maxApplicants),
+                Codec.INT.optionalFieldOf("applicant_days", DEFAULT.applicantDays()).forGetter(Settings::applicantDays))
                 .apply(i, Settings::new));
     }
 

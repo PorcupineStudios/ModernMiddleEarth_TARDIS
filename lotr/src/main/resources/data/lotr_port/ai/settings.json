@@ -13,5 +13,6 @@
   "march_ratio": 1.0,
   "siege_losses": 0.3,
   "min_war_days": 3,
-  "peace_chance": 0.15
+  "peace_chance": 0.15,
+  "wait_for_player": true
 }

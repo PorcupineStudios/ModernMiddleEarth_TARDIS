@@ -35,6 +35,17 @@ public final class AiRulerTests {
         helper.succeed();
     }
 
+    /** Aaron, 2026-11-03: no AI ruler starts before the first player colony, so the AI gets no head start. */
+    @GameTest(template = "empty")
+    public static void aiRulersWaitForTheFirstPlayerColony(GameTestHelper helper) {
+        AiData.Settings s = AiData.Settings.DEFAULT;
+        helper.assertTrue(s.waitForPlayer(), "the AI does not wait for the player by default");
+        helper.assertTrue(AiRulers.waits(s, -1, false), "the AI started before any player colony");
+        helper.assertTrue(!AiRulers.waits(s, -1, true), "the AI did not start after a player colony was founded");
+        helper.assertTrue(!AiRulers.waits(s, 5, false), "the AI stopped when every player colony was lost");
+        helper.succeed();
+    }
+
     @GameTest(template = "empty")
     public static void twoAiRulersFoundColoniesGoToWarAndOneTakesAColony(GameTestHelper helper) {
         MinecraftServer server = helper.getLevel().getServer();

@@ -1,5 +1,6 @@
 package com.porcupinestudios.lotrport.npc;
 
+import com.porcupinestudios.lotrport.colony.Migrants;
 import com.porcupinestudios.lotrport.colony.Recruiting;
 import com.porcupinestudios.lotrport.faction.Alignment;
 import com.porcupinestudios.lotrport.faction.FactionKills;
@@ -308,6 +309,9 @@ public class LotrNpc extends PathfinderMob implements Merchant {
             return InteractionResult.SUCCESS;
         }
         NpcType type = npcType();
+        if (owner == null && Migrants.interact(sp, this)) {
+            return InteractionResult.SUCCESS;
+        }
         if (sp.isShiftKeyDown() && owner == null && Recruiting.interact(sp, this)) {
             return InteractionResult.SUCCESS;
         }
