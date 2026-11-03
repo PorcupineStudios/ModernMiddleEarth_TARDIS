@@ -5,6 +5,9 @@ Read when: the doors, Immersive Portals, portals for space.
   the same tech is used for space. **Immersive Portals is required** (Modrinth `immersive-portals-neoforge` 6.0.7, one
   `-all` jar with mod ids `immersive_portals_core`, `imm_ptl`, `q_misc_util`; needs Cloth Config at runtime). Apache-2.0.
   Upstream (Fabric) is archived; community NeoForge forks fix Sodium 0.8 / Iris / Distant Horizons crashes.
+  Sodium clash (Aaron 2026-11-03): IP 6.0.7 works only with Sodium 0.6.0, Create 6.0.10 refuses Sodium below 0.6.9,
+  so the test instance runs without Sodium (removed from the test-build bundle). Candidate: the CurseForge
+  "Immersive Portals - Sodium/Iris/DH Compat Fork" (not yet checked for 1.21.1 NeoForge).
 - `door/Doors`: an open door = two portals made with `PortalAPI` (`Portal.ENTITY_TYPE`, `setOrientationAndSize`,
   `PortalAPI.setPortalTransformation`, `createReversePortal`, `spawnServerEntity`), tagged `tardis_rb:door`. The
   outside one stands in the police box's doorway, the inside one in the interior doorway (tuning
