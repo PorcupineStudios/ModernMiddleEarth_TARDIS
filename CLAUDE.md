@@ -15,6 +15,9 @@ https://claude.ai/artifact/KqhSSTCuKXGuwKHBoYJdcu. Rebuild features in modern co
 - NPCs: one base entity + data files per race, not one class each.
 - World gen as data: biomes, structures (`.nbt` templates), loot tables. A converter that runs the old mod and exports
   structures, recipes and models as data is the planned big time-saver.
+- RingRealms (colonies and realms, PorcupineStudios/RingRealms on 1.7.10) is part of this mod, in `colony` and `realm`
+  packages: colonists build on the NPC base, realms register as factions. Its `docs/` folder is the feature list; its
+  code is ours, so its logic can be carried over, but the LOTR-internals and reflection layer goes away.
 - Middle-earth is the TARDIS start dimension: expose it to TARDIS: Ring Bearer through its API (`CrashSiteProvider`),
   and add `lotr:alignment`-style requirement types there.
 
