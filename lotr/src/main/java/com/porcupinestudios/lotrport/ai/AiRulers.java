@@ -288,8 +288,11 @@ public final class AiRulers extends SavedData {
         }
         AiRulers ai = get(server);
         long day = server.overworld().getGameTime() / Math.max(1, ColonyData.settings().dayTicks());
+        if (waits(AiData.settings(), ai.lastDay, Colonies.get(server).all().stream().anyMatch(c -> !c.ai()))) {
+            return;
+        }
         if (ai.lastDay < 0) {
-            ai.lastDay = day; // the AI starts on the world's next day
+            ai.lastDay = day; // the AI starts on the next day after it may start
             ai.setDirty();
             return;
         }
@@ -301,6 +304,14 @@ public final class AiRulers extends SavedData {
             ai.lastDay = Math.min(day, ai.lastDay + 8);
             ai.setDirty();
         }
+    }
+
+    /**
+     * Whether the AI is still waiting to start: with {@code wait_for_player}, until the first player colony is founded.
+     * Once started ({@code lastDay >= 0}) it keeps going, even if every player colony is lost.
+     */
+    public static boolean waits(AiData.Settings settings, long lastDay, boolean anyPlayerColony) {
+        return settings.waitForPlayer() && lastDay < 0 && !anyPlayerColony;
     }
 
     /** Runs {@code n} AI days now (admin command), continuing from the last day run. */

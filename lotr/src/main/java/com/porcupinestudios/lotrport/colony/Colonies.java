@@ -39,8 +39,9 @@ import net.neoforged.neoforge.event.tick.ServerTickEvent;
 
 /**
  * Every colony (RingRealms, built in): founding, growth and citizens. Saved in the overworld's data storage. Once a
- * colony day ({@link ColonyData.Settings#dayTicks}), a colony whose Hall is loaded takes in newcomers while it has
- * free beds near the Hall; who comes is drawn from its faction's migration table. Rare races join only by
+ * colony day ({@link ColonyData.Settings#dayTicks}), migrants come to a loaded Hall while it has free beds near it;
+ * who comes is drawn from its faction's migration table. With selective migration (the default) they wait at the Hall
+ * as applicants until the owner accepts or turns them away ({@link Migrants}). Rare races join only by
  * {@link Recruiting}. Every change is written to the history log.
  */
 public final class Colonies extends SavedData {
@@ -50,6 +51,8 @@ public final class Colonies extends SavedData {
     public static final ResourceLocation ARRIVE_HISTORY = LotrPort.id("citizen_arrive");
     public static final ResourceLocation DIED_HISTORY = LotrPort.id("citizen_die");
     public static final ResourceLocation TRANSFER_HISTORY = LotrPort.id("colony_transferred");
+    public static final ResourceLocation APPLICANT_HISTORY = LotrPort.id("migrant_offer");
+    public static final ResourceLocation DENIED_HISTORY = LotrPort.id("migrant_leave");
     private static final SavedData.Factory<Colonies> FACTORY = new SavedData.Factory<>(Colonies::new, Colonies::load,
             null);
 
@@ -114,7 +117,7 @@ public final class Colonies extends SavedData {
         }
         long now = player.server.overworld().getGameTime();
         Colony colony = new Colony(UUID.randomUUID(), name, player.getUUID(), faction, player.level().dimension(),
-                hall.immutable(), now, now / ColonyData.settings().dayTicks(), List.of(), Map.of(), false, 0);
+                hall.immutable(), now, now / ColonyData.settings().dayTicks(), List.of(), Map.of(), false, 0, List.of());
         colonies.put(colony.id, colony);
         setDirty();
         CompoundTag tag = new CompoundTag();
@@ -155,7 +158,8 @@ public final class Colonies extends SavedData {
         }
         long now = server.overworld().getGameTime();
         Colony colony = new Colony(id, name, ruler, faction, dimension, hall.immutable(), now,
-                now / ColonyData.settings().dayTicks(), List.of(), Map.of(), true, Math.max(0, population));
+                now / ColonyData.settings().dayTicks(), List.of(), Map.of(), true, Math.max(0, population),
+                List.of());
         colonies.put(id, colony);
         setDirty();
         CompoundTag tag = new CompoundTag();
@@ -222,23 +226,42 @@ public final class Colonies extends SavedData {
         return beds;
     }
 
-    /** One colony day: newcomers while there are free beds (and the first settlers before any). Returns arrivals. */
+    /**
+     * One colony day: migrants come while there are free beds (and the first settlers before any). With selective
+     * migration they wait at the Hall as applicants, and those who waited too long leave. Returns how many came.
+     */
     public int day(ServerLevel level, Colony colony) {
         ColonyData.Settings s = ColonyData.settings();
-        int beds = beds(level, colony);
-        int living = colony.citizens.size();
-        int room = Math.max(beds, s.firstSettlers()) - living;
+        if (s.selectiveMigration()) {
+            Migrants.age(this, level, colony);
+        }
+        int homes = homes(level, colony);
+        int waiting = s.selectiveMigration() ? colony.applicants.size() : 0;
+        int room = homes - colony.citizens.size() - waiting;
+        if (s.selectiveMigration()) {
+            room = Math.min(room, s.maxApplicants() - waiting);
+        }
         int arrivals = Math.max(0, Math.min(room, s.arrivalsPerDay()));
         int came = 0;
         for (int i = 0; i < arrivals; i++) {
             Optional<ResourceLocation> type = pickMigrant(colony, level.random);
-            if (type.isEmpty() || arrive(level, colony, type.get()).isEmpty()) {
+            if (type.isEmpty()) {
+                break;
+            }
+            Optional<LotrNpc> npc = s.selectiveMigration() ? Migrants.offer(this, level, colony, type.get())
+                    : arrive(level, colony, type.get());
+            if (npc.isEmpty()) {
                 break;
             }
             came++;
         }
         Recruiting.tryJoinAll(level.getServer(), colony);
         return came;
+    }
+
+    /** Homes a colony has: its beds, or the first settlers' places before there are enough beds. */
+    public static int homes(ServerLevel level, Colony colony) {
+        return Math.max(beds(level, colony), ColonyData.settings().firstSettlers());
     }
 
     private static Optional<ResourceLocation> pickMigrant(Colony colony, RandomSource random) {
@@ -260,13 +283,18 @@ public final class Colonies extends SavedData {
         return Optional.empty();
     }
 
-    /** A newcomer of {@code type} walks in next to the Hall. */
+    /** A newcomer of {@code type} walks in next to the Hall and joins. */
     public Optional<LotrNpc> arrive(ServerLevel level, Colony colony, ResourceLocation type) {
-        BlockPos at = level.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
-                colony.hall.offset(level.random.nextInt(5) - 2, 0, level.random.nextInt(5) - 2));
-        Optional<LotrNpc> npc = LotrNpc.spawn(level, type, at.getX() + 0.5, at.getY(), at.getZ() + 0.5);
+        Optional<LotrNpc> npc = spawnAtHall(level, colony, type);
         npc.ifPresent(n -> join(level.getServer(), colony, n, false));
         return npc;
+    }
+
+    /** Spawns an NPC of {@code type} next to the Hall. */
+    static Optional<LotrNpc> spawnAtHall(ServerLevel level, Colony colony, ResourceLocation type) {
+        BlockPos at = level.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+                colony.hall.offset(level.random.nextInt(5) - 2, 0, level.random.nextInt(5) - 2));
+        return LotrNpc.spawn(level, type, at.getX() + 0.5, at.getY(), at.getZ() + 0.5);
     }
 
     /** Makes an NPC a citizen: it stays (never despawns), is marked with the colony and recorded. */
@@ -325,7 +353,7 @@ public final class Colonies extends SavedData {
         });
     }
 
-    private static void log(MinecraftServer server, ResourceLocation type, Colony colony, BlockPos pos,
+    static void log(MinecraftServer server, ResourceLocation type, Colony colony, BlockPos pos,
             CompoundTag tag) {
         HistoryLog.get(server).append(new HistoryEntry(server.overworld().getGameTime(), type, colony.dimension,
                 Optional.of(pos), tag));

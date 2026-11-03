@@ -27,6 +27,7 @@ import com.porcupinestudios.lotrport.colony.ColonyCommand;
 import com.porcupinestudios.lotrport.colony.ColonyData;
 import com.porcupinestudios.lotrport.colony.ColonyItems;
 import com.porcupinestudios.lotrport.colony.Colonies;
+import com.porcupinestudios.lotrport.colony.Migrants;
 import com.porcupinestudios.lotrport.colony.Recruiting;
 import com.porcupinestudios.lotrport.registry.LotrRegistries;
 import com.porcupinestudios.lotrport.shared.SharedApiHooks;
@@ -70,6 +71,7 @@ public final class LotrPort {
         ColonyItems.register(modBus);
         ColonyData.register();
         Colonies.register();
+        Migrants.register();
         AiData.register();
         AiRulers.register();
         Recruiting.register();

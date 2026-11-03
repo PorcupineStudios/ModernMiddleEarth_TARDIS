@@ -30,6 +30,19 @@ public final class Colony {
                 .apply(i, Citizen::new));
     }
 
+    /**
+     * A migrant waiting at the Hall for the owner to accept or turn them away (selective migration). {@code days} =
+     * colony days waited so far; they leave after {@code applicant_days}.
+     */
+    public record Applicant(UUID entity, ResourceLocation type, String name, int days) {
+        public static final Codec<Applicant> CODEC = RecordCodecBuilder.create(i -> i.group(
+                UUIDUtil.CODEC.fieldOf("entity").forGetter(Applicant::entity),
+                ResourceLocation.CODEC.fieldOf("type").forGetter(Applicant::type),
+                Codec.STRING.optionalFieldOf("name", "").forGetter(Applicant::name),
+                Codec.INT.optionalFieldOf("days", 0).forGetter(Applicant::days))
+                .apply(i, Applicant::new));
+    }
+
     public static final Codec<Colony> CODEC = RecordCodecBuilder.create(i -> i.group(
             UUIDUtil.CODEC.fieldOf("id").forGetter(c -> c.id),
             Codec.STRING.fieldOf("name").forGetter(c -> c.name),
@@ -43,7 +56,8 @@ public final class Colony {
             Codec.unboundedMap(ResourceLocation.CODEC, Recruitment.CODEC).optionalFieldOf("recruits", Map.of())
                     .forGetter(c -> c.recruits),
             Codec.BOOL.optionalFieldOf("ai", false).forGetter(c -> c.ai),
-            Codec.INT.optionalFieldOf("virtual_population", 0).forGetter(c -> c.virtualPopulation))
+            Codec.INT.optionalFieldOf("virtual_population", 0).forGetter(c -> c.virtualPopulation),
+            Applicant.CODEC.listOf().optionalFieldOf("applicants", List.of()).forGetter(c -> c.applicants))
             .apply(i, Colony::new));
 
     final UUID id;
@@ -61,10 +75,12 @@ public final class Colony {
     /** Run by an AI ruler: its people are counted, not spawned ({@link #virtualPopulation}). */
     boolean ai;
     int virtualPopulation;
+    /** Migrants waiting at the Hall for an answer. */
+    final List<Applicant> applicants;
 
     Colony(UUID id, String name, UUID founder, ResourceLocation faction, ResourceKey<Level> dimension, BlockPos hall,
             long founded, long lastDay, List<Citizen> citizens, Map<ResourceLocation, Recruitment> recruits,
-            boolean ai, int virtualPopulation) {
+            boolean ai, int virtualPopulation, List<Applicant> applicants) {
         this.id = id;
         this.name = name;
         this.founder = founder;
@@ -77,6 +93,7 @@ public final class Colony {
         this.recruits = new LinkedHashMap<>(recruits);
         this.ai = ai;
         this.virtualPopulation = virtualPopulation;
+        this.applicants = new ArrayList<>(applicants);
     }
 
     public UUID id() {
@@ -113,6 +130,10 @@ public final class Colony {
 
     public Map<ResourceLocation, Recruitment> recruits() {
         return Map.copyOf(recruits);
+    }
+
+    public List<Applicant> applicants() {
+        return List.copyOf(applicants);
     }
 
     public boolean ai() {
