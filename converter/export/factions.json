@@ -991,8 +991,8 @@
     "region": "WEST",
     "dimension": "MIDDLE_EARTH",
     "types": [
-      "TYPE_ORC",
-      "TYPE_TROLL"
+      "TYPE_TROLL",
+      "TYPE_ORC"
     ],
     "ranks": [
       {

@@ -377,6 +377,7 @@
         "enableRain": true,
         "biomeID": 1
       },
+      "waypointRegion": "ROHAN",
       "biomeColors": {
         "foggy": false,
         "hasCustomWater": false
@@ -928,6 +929,7 @@
         "enableRain": true,
         "biomeID": 2
       },
+      "waypointRegion": "MISTY_MOUNTAINS",
       "biomeColors": {
         "sky": 12241873,
         "foggy": false,
@@ -1449,6 +1451,7 @@
         "enableRain": true,
         "biomeID": 3
       },
+      "waypointRegion": "SHIRE",
       "biomeColors": {
         "grass": 8111137,
         "foggy": false,
@@ -1957,6 +1960,7 @@
         "enableRain": true,
         "biomeID": 4
       },
+      "waypointRegion": "SHIRE",
       "biomeColors": {
         "foggy": false,
         "hasCustomWater": false
@@ -2457,6 +2461,7 @@
         "enableRain": false,
         "biomeID": 5
       },
+      "waypointRegion": "MORDOR",
       "biomeColors": {
         "grass": 5980459,
         "foliage": 6508333,
@@ -2954,6 +2959,7 @@
         "enableRain": true,
         "biomeID": 7
       },
+      "waypointRegion": "GONDOR",
       "biomeColors": {
         "foggy": false,
         "hasCustomWater": false
@@ -3560,6 +3566,7 @@
         "enableRain": true,
         "biomeID": 8
       },
+      "waypointRegion": "WHITE_MOUNTAINS",
       "biomeColors": {
         "foggy": false,
         "hasCustomWater": false
@@ -4096,6 +4103,7 @@
         "enableRain": true,
         "biomeID": 9
       },
+      "waypointRegion": "LOTHLORIEN",
       "biomeColors": {
         "grass": 11527451,
         "fog": 16770660,
@@ -4613,6 +4621,7 @@
         "enableRain": true,
         "biomeID": 10
       },
+      "waypointRegion": "VALES_OF_ANDUIN",
       "biomeColors": {
         "grass": 9751852,
         "foggy": false,
@@ -5148,6 +5157,7 @@
         "enableRain": true,
         "biomeID": 11
       },
+      "waypointRegion": "IRON_HILLS",
       "biomeColors": {
         "foggy": false,
         "hasCustomWater": false
@@ -5675,6 +5685,7 @@
         "enableRain": true,
         "biomeID": 12
       },
+      "waypointRegion": "NINDALF",
       "biomeColors": {
         "grass": 8348751,
         "sky": 5657394,
@@ -6046,6 +6057,7 @@
         "enableRain": true,
         "biomeID": 13
       },
+      "waypointRegion": "TROLLSHAWS",
       "biomeColors": {
         "foggy": false,
         "hasCustomWater": false
@@ -6532,6 +6544,7 @@
         "enableRain": true,
         "biomeID": 14
       },
+      "waypointRegion": "WOODLAND_REALM",
       "biomeColors": {
         "foggy": false,
         "hasCustomWater": false
@@ -7026,6 +7039,7 @@
         "enableRain": true,
         "biomeID": 15
       },
+      "waypointRegion": "MIRKWOOD",
       "biomeColors": {
         "grass": 2841381,
         "foliage": 2503461,
@@ -7513,6 +7527,7 @@
         "enableRain": true,
         "biomeID": 16
       },
+      "waypointRegion": "ROHAN",
       "biomeColors": {
         "foggy": false,
         "hasCustomWater": false
@@ -7996,6 +8011,7 @@
         "enableRain": true,
         "biomeID": 17
       },
+      "waypointRegion": "EMYN_MUIL",
       "biomeColors": {
         "grass": 9539937,
         "sky": 10000788,
@@ -8381,6 +8397,7 @@
         "enableRain": true,
         "biomeID": 18
       },
+      "waypointRegion": "ITHILIEN",
       "biomeColors": {
         "foggy": false,
         "hasCustomWater": false
@@ -9061,6 +9078,7 @@
         "enableRain": true,
         "biomeID": 19
       },
+      "waypointRegion": "LEBENNIN",
       "biomeColors": {
         "foggy": false,
         "hasCustomWater": false
@@ -9659,6 +9677,7 @@
         "enableRain": true,
         "biomeID": 21
       },
+      "waypointRegion": "LONE_LANDS",
       "biomeColors": {
         "grass": 12892772,
         "foggy": false,
@@ -10197,6 +10216,7 @@
         "enableRain": true,
         "biomeID": 22
       },
+      "waypointRegion": "LONE_LANDS",
       "biomeColors": {
         "grass": 12892772,
         "foggy": false,
@@ -10735,6 +10755,7 @@
         "enableRain": true,
         "biomeID": 23
       },
+      "waypointRegion": "DUNLAND",
       "biomeColors": {
         "foggy": false,
         "hasCustomWater": false
@@ -11229,6 +11250,7 @@
         "enableRain": true,
         "biomeID": 24
       },
+      "waypointRegion": "FANGORN",
       "biomeColors": {
         "sky": 7774322,
         "fog": 3308875,
@@ -11769,6 +11791,7 @@
         "enableRain": true,
         "biomeID": 25
       },
+      "waypointRegion": "LONE_LANDS",
       "biomeColors": {
         "grass": 12892772,
         "foggy": false,
@@ -12275,6 +12298,7 @@
         "enableRain": true,
         "biomeID": 26
       },
+      "waypointRegion": "ETTENMOORS",
       "biomeColors": {
         "foggy": false,
         "hasCustomWater": false
@@ -12762,6 +12786,7 @@
         "enableRain": true,
         "biomeID": 27
       },
+      "waypointRegion": "OLD_FOREST",
       "biomeColors": {
         "grass": 4686398,
         "foliage": 3172394,
@@ -13222,6 +13247,7 @@
         "enableRain": true,
         "biomeID": 28
       },
+      "waypointRegion": "HARONDOR",
       "biomeColors": {
         "foggy": false,
         "hasCustomWater": false
@@ -13808,6 +13834,7 @@
         "enableRain": true,
         "biomeID": 29
       },
+      "waypointRegion": "ERIADOR",
       "biomeColors": {
         "foggy": false,
         "hasCustomWater": false
@@ -14336,6 +14363,7 @@
         "enableRain": true,
         "biomeID": 30
       },
+      "waypointRegion": "ERIADOR",
       "biomeColors": {
         "foggy": false,
         "hasCustomWater": false
@@ -14864,6 +14892,7 @@
         "enableRain": true,
         "biomeID": 31
       },
+      "waypointRegion": "ERIADOR",
       "biomeColors": {
         "foggy": false,
         "hasCustomWater": false
@@ -15404,6 +15433,7 @@
         "enableRain": true,
         "biomeID": 32
       },
+      "waypointRegion": "GREY_MOUNTAINS",
       "biomeColors": {
         "sky": 10862798,
         "foggy": false,
@@ -15897,6 +15927,7 @@
         "enableRain": true,
         "biomeID": 33
       },
+      "waypointRegion": "MIDGEWATER",
       "biomeColors": {
         "grass": 8553036,
         "foliage": 8546875,
@@ -16338,6 +16369,7 @@
         "enableRain": false,
         "biomeID": 34
       },
+      "waypointRegion": "BROWN_LANDS",
       "biomeColors": {
         "grass": 11373417,
         "sky": 8878434,
@@ -16702,6 +16734,7 @@
         "enableRain": true,
         "biomeID": 35
       },
+      "waypointRegion": "OCEAN",
       "biomeColors": {
         "foggy": false,
         "hasCustomWater": false
@@ -17134,6 +17167,7 @@
         "enableRain": true,
         "biomeID": 36
       },
+      "waypointRegion": "VALES_OF_ANDUIN",
       "biomeColors": {
         "foggy": false,
         "hasCustomWater": false
@@ -17675,6 +17709,7 @@
         "enableRain": true,
         "biomeID": 37
       },
+      "waypointRegion": "MENELTARMA",
       "biomeColors": {
         "foggy": false,
         "hasCustomWater": false
@@ -18106,6 +18141,7 @@
         "enableRain": true,
         "biomeID": 38
       },
+      "waypointRegion": "VALES_OF_ANDUIN",
       "biomeColors": {
         "foggy": false,
         "hasCustomWater": false
@@ -18655,6 +18691,7 @@
         "enableRain": true,
         "biomeID": 39
       },
+      "waypointRegion": "LOTHLORIEN",
       "biomeColors": {
         "grass": 11527451,
         "fog": 16770660,
@@ -19164,6 +19201,7 @@
         "enableRain": true,
         "biomeID": 40
       },
+      "waypointRegion": "FORODWAITH",
       "biomeColors": {
         "sky": 10069160,
         "foggy": false,
@@ -19548,6 +19586,7 @@
         "enableRain": true,
         "biomeID": 41
       },
+      "waypointRegion": "ENEDWAITH",
       "biomeColors": {
         "foggy": false,
         "hasCustomWater": false
@@ -20049,6 +20088,7 @@
         "enableRain": true,
         "biomeID": 42
       },
+      "waypointRegion": "ANGMAR",
       "biomeColors": {
         "grass": 7896151,
         "sky": 5324595,
@@ -20568,6 +20608,7 @@
         "enableRain": true,
         "biomeID": 43
       },
+      "waypointRegion": "EREGION",
       "biomeColors": {
         "foggy": false,
         "hasCustomWater": false
@@ -21049,6 +21090,7 @@
         "enableRain": true,
         "biomeID": 44
       },
+      "waypointRegion": "LINDON",
       "biomeColors": {
         "foggy": false,
         "hasCustomWater": false
@@ -21543,6 +21585,7 @@
         "enableRain": true,
         "biomeID": 45
       },
+      "waypointRegion": "LINDON",
       "biomeColors": {
         "foggy": false,
         "hasCustomWater": false
@@ -22037,6 +22080,7 @@
         "enableRain": true,
         "biomeID": 46
       },
+      "waypointRegion": "WILDERLAND",
       "biomeColors": {
         "foggy": false,
         "hasCustomWater": false
@@ -22595,6 +22639,7 @@
         "enableRain": true,
         "biomeID": 47
       },
+      "waypointRegion": "BLUE_MOUNTAINS",
       "biomeColors": {
         "sky": 7506425,
         "foggy": false,
@@ -23086,6 +23131,7 @@
         "enableRain": true,
         "biomeID": 48
       },
+      "waypointRegion": "MIRKWOOD",
       "biomeColors": {
         "grass": 2841381,
         "foliage": 2503461,
@@ -23573,6 +23619,7 @@
         "enableRain": true,
         "biomeID": 49
       },
+      "waypointRegion": "WILDERLAND",
       "biomeColors": {
         "foggy": false,
         "hasCustomWater": false
@@ -24159,6 +24206,7 @@
         "enableRain": false,
         "biomeID": 50
       },
+      "waypointRegion": "DAGORLAD",
       "biomeColors": {
         "sky": 5523773,
         "clouds": 3355443,
@@ -24557,6 +24605,7 @@
         "enableRain": true,
         "biomeID": 51
       },
+      "waypointRegion": "NURN",
       "biomeColors": {
         "grass": 10066237,
         "foliage": 7042874,
@@ -24825,6 +24874,7 @@
         "enableRain": true,
         "biomeID": 52
       },
+      "waypointRegion": "NURN",
       "biomeColors": {
         "grass": 10066237,
         "foliage": 7042874,
@@ -25023,6 +25073,7 @@
         "enableRain": true,
         "biomeID": 53
       },
+      "waypointRegion": "NURN",
       "biomeColors": {
         "grass": 10066237,
         "foliage": 7042874,
@@ -25277,6 +25328,7 @@
         "enableRain": true,
         "biomeID": 54
       },
+      "waypointRegion": "ROHAN",
       "biomeColors": {
         "foggy": false,
         "hasCustomWater": false
@@ -25798,6 +25850,7 @@
         "enableRain": true,
         "biomeID": 55
       },
+      "waypointRegion": "ANGMAR",
       "biomeColors": {
         "grass": 7896151,
         "sky": 5324595,
@@ -26328,6 +26381,7 @@
         "enableRain": true,
         "biomeID": 56
       },
+      "waypointRegion": "LEBENNIN",
       "biomeColors": {
         "foggy": false,
         "hasCustomWater": false
@@ -27096,6 +27150,7 @@
         "enableRain": true,
         "biomeID": 58
       },
+      "waypointRegion": "DOR_EN_ERNIL",
       "biomeColors": {
         "foggy": false,
         "hasCustomWater": false
@@ -27711,6 +27766,7 @@
         "enableRain": true,
         "biomeID": 59
       },
+      "waypointRegion": "DOR_EN_ERNIL",
       "biomeColors": {
         "foggy": false,
         "hasCustomWater": false
@@ -28841,6 +28897,7 @@
         "enableRain": true,
         "biomeID": 61
       },
+      "waypointRegion": "ROHAN",
       "biomeColors": {
         "foggy": false,
         "hasCustomWater": false
@@ -29394,6 +29451,7 @@
         "enableRain": true,
         "biomeID": 62
       },
+      "waypointRegion": "GONDOR",
       "biomeColors": {
         "foggy": false,
         "hasCustomWater": false
@@ -30348,6 +30406,7 @@
         "enableRain": true,
         "biomeID": 64
       },
+      "waypointRegion": "LINDON",
       "biomeColors": {
         "foggy": false,
         "hasCustomWater": false
@@ -30825,6 +30884,7 @@
         "enableRain": true,
         "biomeID": 65
       },
+      "waypointRegion": "ERIADOR",
       "biomeColors": {
         "foggy": false,
         "hasCustomWater": false
@@ -31312,6 +31372,7 @@
         "enableRain": true,
         "biomeID": 66
       },
+      "waypointRegion": "WILDERLAND",
       "biomeColors": {
         "sky": 13230818,
         "fog": 12112325,
@@ -31839,6 +31900,7 @@
         "enableRain": true,
         "biomeID": 67
       },
+      "waypointRegion": "FANGORN",
       "biomeColors": {
         "sky": 7774322,
         "fog": 3308875,
@@ -32258,6 +32320,7 @@
         "enableRain": true,
         "biomeID": 68
       },
+      "waypointRegion": "ITHILIEN",
       "biomeColors": {
         "foggy": false,
         "hasCustomWater": false
@@ -32938,6 +33001,7 @@
         "enableRain": true,
         "biomeID": 69
       },
+      "waypointRegion": "ITHILIEN",
       "biomeColors": {
         "foggy": false,
         "hasCustomWater": false
@@ -33630,6 +33694,7 @@
         "enableRain": true,
         "biomeID": 70
       },
+      "waypointRegion": "NINDALF",
       "biomeColors": {
         "grass": 7106635,
         "foliage": 7041093,
@@ -34044,6 +34109,7 @@
         "enableRain": true,
         "biomeID": 71
       },
+      "waypointRegion": "COLDFELLS",
       "biomeColors": {
         "foggy": false,
         "hasCustomWater": false
@@ -34543,6 +34609,7 @@
         "enableRain": true,
         "biomeID": 72
       },
+      "waypointRegion": "NAN_CURUNIR",
       "biomeColors": {
         "sky": 8683640,
         "foggy": false,
@@ -35037,6 +35104,7 @@
         "enableRain": true,
         "biomeID": 74
       },
+      "waypointRegion": "SHIRE",
       "biomeColors": {
         "foggy": false,
         "hasCustomWater": false
@@ -35544,6 +35612,7 @@
         "enableRain": true,
         "biomeID": 75
       },
+      "waypointRegion": "ERIADOR",
       "biomeColors": {
         "foggy": false,
         "hasCustomWater": false
@@ -36044,6 +36113,7 @@
         "enableRain": true,
         "biomeID": 76
       },
+      "waypointRegion": "GONDOR",
       "biomeColors": {
         "foggy": false,
         "hasCustomWater": false
@@ -36615,6 +36685,7 @@
         "enableRain": true,
         "biomeID": 77
       },
+      "waypointRegion": "ERIADOR",
       "biomeColors": {
         "foggy": false,
         "hasCustomWater": false
@@ -37159,6 +37230,7 @@
         "enableRain": true,
         "biomeID": 78
       },
+      "waypointRegion": "DALE",
       "biomeColors": {
         "foggy": false,
         "hasCustomWater": false
@@ -37713,6 +37785,7 @@
         "enableRain": true,
         "biomeID": 79
       },
+      "waypointRegion": "MIRKWOOD",
       "biomeColors": {
         "foggy": false,
         "hasCustomWater": false
@@ -38249,6 +38322,7 @@
         "enableRain": true,
         "biomeID": 80
       },
+      "waypointRegion": "WOODLAND_REALM",
       "biomeColors": {
         "foggy": false,
         "hasCustomWater": false
@@ -38748,6 +38822,7 @@
         "enableRain": false,
         "biomeID": 81
       },
+      "waypointRegion": "NAN_UNGOL",
       "biomeColors": {
         "grass": 5980459,
         "foliage": 6508333,
@@ -38956,6 +39031,7 @@
         "enableRain": true,
         "biomeID": 82
       },
+      "waypointRegion": "PINNATH_GELIN",
       "biomeColors": {
         "grass": 10930470,
         "foggy": false,
@@ -39533,6 +39609,7 @@
         "enableRain": true,
         "biomeID": 83
       },
+      "waypointRegion": "OCEAN",
       "biomeColors": {
         "foggy": false,
         "hasCustomWater": false
@@ -39965,6 +40042,7 @@
         "enableRain": true,
         "biomeID": 84
       },
+      "waypointRegion": "FORODWAITH",
       "biomeColors": {
         "sky": 10069160,
         "foggy": false,
@@ -40349,6 +40427,7 @@
         "enableRain": true,
         "biomeID": 85
       },
+      "waypointRegion": "MISTY_MOUNTAINS",
       "biomeColors": {
         "sky": 12241873,
         "foggy": false,
@@ -40870,6 +40949,7 @@
         "enableRain": true,
         "biomeID": 86
       },
+      "waypointRegion": "GREY_MOUNTAINS",
       "biomeColors": {
         "sky": 10862798,
         "foggy": false,
@@ -41363,6 +41443,7 @@
         "enableRain": true,
         "biomeID": 87
       },
+      "waypointRegion": "BLUE_MOUNTAINS",
       "biomeColors": {
         "sky": 7506425,
         "foggy": false,
@@ -41854,6 +41935,7 @@
         "enableRain": true,
         "biomeID": 88
       },
+      "waypointRegion": "FORODWAITH",
       "biomeColors": {
         "foggy": false,
         "hasCustomWater": false
@@ -42265,6 +42347,7 @@
         "enableRain": true,
         "biomeID": 89
       },
+      "waypointRegion": "FORODWAITH",
       "biomeColors": {
         "foggy": false,
         "hasCustomWater": false
@@ -42672,6 +42755,7 @@
         "enableRain": true,
         "biomeID": 90
       },
+      "waypointRegion": "BREE_LAND",
       "biomeColors": {
         "foggy": false,
         "hasCustomWater": false
@@ -43167,6 +43251,7 @@
         "enableRain": true,
         "biomeID": 91
       },
+      "waypointRegion": "BREE_LAND",
       "biomeColors": {
         "foggy": false,
         "hasCustomWater": false
@@ -43597,6 +43682,7 @@
         "enableRain": true,
         "biomeID": 92
       },
+      "waypointRegion": "FORODWAITH",
       "biomeColors": {
         "sky": 10069160,
         "foggy": false,
@@ -43981,6 +44067,7 @@
         "enableRain": true,
         "biomeID": 93
       },
+      "waypointRegion": "WHITE_MOUNTAINS",
       "biomeColors": {
         "foggy": false,
         "hasCustomWater": false
@@ -44517,6 +44604,7 @@
         "enableRain": true,
         "biomeID": 94
       },
+      "waypointRegion": "OCEAN",
       "biomeColors": {
         "foggy": false,
         "hasCustomWater": false
@@ -44949,6 +45037,7 @@
         "enableRain": true,
         "biomeID": 95
       },
+      "waypointRegion": "OCEAN",
       "biomeColors": {
         "foggy": false,
         "hasCustomWater": false
@@ -45381,6 +45470,7 @@
         "enableRain": false,
         "biomeID": 96
       },
+      "waypointRegion": "HARAD_DESERT",
       "biomeColors": {
         "fog": 16180681,
         "foggy": false,
@@ -45794,6 +45884,7 @@
         "enableRain": true,
         "biomeID": 97
       },
+      "waypointRegion": "FAR_HARAD",
       "biomeColors": {
         "foggy": false,
         "hasCustomWater": false
@@ -46312,6 +46403,7 @@
         "enableRain": true,
         "biomeID": 98
       },
+      "waypointRegion": "HARAD_MOUNTAINS",
       "biomeColors": {
         "foggy": false,
         "hasCustomWater": false
@@ -46677,6 +46769,7 @@
         "enableRain": true,
         "biomeID": 99
       },
+      "waypointRegion": "UMBAR",
       "biomeColors": {
         "grass": 11914805,
         "foggy": false,
@@ -47206,6 +47299,7 @@
         "enableRain": true,
         "biomeID": 100
       },
+      "waypointRegion": "FAR_HARAD_JUNGLE",
       "biomeColors": {
         "grass": 10607421,
         "foliage": 8376636,
@@ -47741,6 +47835,7 @@
         "enableRain": true,
         "biomeID": 101
       },
+      "waypointRegion": "UMBAR",
       "biomeColors": {
         "grass": 11914805,
         "foggy": false,
@@ -48269,6 +48364,7 @@
         "enableRain": true,
         "biomeID": 102
       },
+      "waypointRegion": "HARAD_DESERT",
       "biomeColors": {
         "fog": 16180681,
         "foggy": false,
@@ -48683,6 +48779,7 @@
         "enableRain": true,
         "biomeID": 103
       },
+      "waypointRegion": "FAR_HARAD_JUNGLE",
       "biomeColors": {
         "grass": 10607421,
         "foliage": 8376636,
@@ -49218,6 +49315,7 @@
         "enableRain": true,
         "biomeID": 104
       },
+      "waypointRegion": "LOSTLADEN",
       "biomeColors": {
         "sky": 15592678,
         "foggy": false,
@@ -49590,6 +49688,7 @@
         "enableRain": true,
         "biomeID": 105
       },
+      "waypointRegion": "FAR_HARAD",
       "biomeColors": {
         "grass": 11659848,
         "foliage": 8376636,
@@ -50110,6 +50209,7 @@
         "enableRain": true,
         "biomeID": 106
       },
+      "waypointRegion": "SOUTHRON_COASTS",
       "biomeColors": {
         "grass": 11914805,
         "foggy": false,
@@ -50665,6 +50765,7 @@
         "enableRain": true,
         "biomeID": 107
       },
+      "waypointRegion": "PERTOROGWAITH",
       "biomeColors": {
         "sky": 8551538,
         "clouds": 7500401,
@@ -51124,6 +51225,7 @@
         "enableRain": true,
         "biomeID": 108
       },
+      "waypointRegion": "UMBAR",
       "biomeColors": {
         "grass": 11914805,
         "foggy": false,
@@ -51651,6 +51753,7 @@
         "enableRain": true,
         "biomeID": 109
       },
+      "waypointRegion": "FAR_HARAD_JUNGLE",
       "biomeColors": {
         "grass": 10607421,
         "foliage": 8376636,
@@ -52153,6 +52256,7 @@
         "enableRain": true,
         "biomeID": 110
       },
+      "waypointRegion": "FAR_HARAD_JUNGLE",
       "biomeColors": {
         "grass": 10607421,
         "foliage": 8376636,
@@ -52775,6 +52879,7 @@
         "enableRain": true,
         "biomeID": 111
       },
+      "waypointRegion": "GULF_HARAD",
       "biomeColors": {
         "foggy": false,
         "hasCustomWater": false
@@ -53249,6 +53354,7 @@
         "enableRain": true,
         "biomeID": 112
       },
+      "waypointRegion": "DORWINION",
       "biomeColors": {
         "grass": 10538541,
         "foggy": false,
@@ -53796,6 +53902,7 @@
         "enableRain": true,
         "biomeID": 113
       },
+      "waypointRegion": "TOLFALAS",
       "biomeColors": {
         "foggy": false,
         "hasCustomWater": false
@@ -54228,6 +54335,7 @@
         "enableRain": true,
         "biomeID": 114
       },
+      "waypointRegion": "LEBENNIN",
       "biomeColors": {
         "foggy": false,
         "hasCustomWater": false
@@ -54828,6 +54936,7 @@
         "enableRain": true,
         "biomeID": 115
       },
+      "waypointRegion": "RHUN",
       "biomeColors": {
         "grass": 12504664,
         "foggy": false,
@@ -55227,6 +55336,7 @@
         "enableRain": true,
         "biomeID": 116
       },
+      "waypointRegion": "RHUN",
       "biomeColors": {
         "foggy": false,
         "hasCustomWater": false
@@ -55633,6 +55743,7 @@
         "enableRain": true,
         "biomeID": 117
       },
+      "waypointRegion": "RED_MOUNTAINS",
       "biomeColors": {
         "sky": 13541522,
         "foggy": false,
@@ -56043,6 +56154,7 @@
         "enableRain": true,
         "biomeID": 118
       },
+      "waypointRegion": "RED_MOUNTAINS",
       "biomeColors": {
         "sky": 13541522,
         "foggy": false,
@@ -56453,6 +56565,7 @@
         "enableRain": true,
         "biomeID": 119
       },
+      "waypointRegion": "MIRKWOOD",
       "biomeColors": {
         "grass": 3032113,
         "foliage": 3032113,
@@ -56938,6 +57051,7 @@
         "enableRain": false,
         "biomeID": 120
       },
+      "waypointRegion": "HARAD_DESERT",
       "biomeColors": {
         "fog": 16180681,
         "foggy": false,
@@ -57394,6 +57508,7 @@
         "enableRain": true,
         "biomeID": 121
       },
+      "waypointRegion": "FAR_HARAD",
       "biomeColors": {
         "grass": 14073692,
         "foggy": false,
@@ -57913,6 +58028,7 @@
         "enableRain": true,
         "biomeID": 122
       },
+      "waypointRegion": "FAR_HARAD",
       "biomeColors": {
         "grass": 14073692,
         "foggy": false,
@@ -58432,6 +58548,7 @@
         "enableRain": true,
         "biomeID": 123
       },
+      "waypointRegion": "FAR_HARAD",
       "biomeColors": {
         "foggy": false,
         "hasCustomWater": true
@@ -58801,6 +58918,7 @@
         "enableRain": true,
         "biomeID": 124
       },
+      "waypointRegion": "FAR_HARAD",
       "biomeColors": {
         "grass": 2007124,
         "foliage": 428338,
@@ -59169,6 +59287,7 @@
         "enableRain": true,
         "biomeID": 125
       },
+      "waypointRegion": "FAR_HARAD",
       "biomeColors": {
         "grass": 13414999,
         "foggy": false,
@@ -59547,6 +59666,7 @@
         "enableRain": true,
         "biomeID": 126
       },
+      "waypointRegion": "FAR_HARAD",
       "biomeColors": {
         "grass": 13414999,
         "foggy": false,
@@ -59925,6 +60045,7 @@
         "enableRain": true,
         "biomeID": 127
       },
+      "waypointRegion": "FAR_HARAD",
       "biomeColors": {
         "grass": 10466679,
         "foliage": 6715206,
@@ -60318,6 +60439,7 @@
         "enableRain": true,
         "biomeID": 128
       },
+      "waypointRegion": "SOUTHRON_COASTS",
       "biomeColors": {
         "grass": 11914805,
         "foggy": false,
@@ -60862,6 +60984,7 @@
         "enableRain": true,
         "biomeID": 129
       },
+      "waypointRegion": "VALES_OF_ANDUIN",
       "biomeColors": {
         "foggy": false,
         "hasCustomWater": false
@@ -61403,6 +61526,7 @@
         "enableRain": true,
         "biomeID": 130
       },
+      "waypointRegion": "ROHAN",
       "biomeColors": {
         "foggy": false,
         "hasCustomWater": false
@@ -61954,6 +62078,7 @@
         "enableRain": true,
         "biomeID": 131
       },
+      "waypointRegion": "SHIRE",
       "biomeColors": {
         "foggy": false,
         "hasCustomWater": false
@@ -62457,6 +62582,7 @@
         "enableRain": true,
         "biomeID": 132
       },
+      "waypointRegion": "SHIRE",
       "biomeColors": {
         "foggy": false,
         "hasCustomWater": false
@@ -62948,6 +63074,7 @@
         "enableRain": false,
         "biomeID": 133
       },
+      "waypointRegion": "HARAD_DESERT",
       "biomeColors": {
         "fog": 16180681,
         "foggy": false,
@@ -63338,6 +63465,7 @@
         "enableRain": false,
         "biomeID": 134
       },
+      "waypointRegion": "FAR_HARAD",
       "biomeColors": {
         "sky": 5986904,
         "clouds": 3355443,
@@ -63715,6 +63843,7 @@
         "enableRain": false,
         "biomeID": 135
       },
+      "waypointRegion": "MORDOR",
       "biomeColors": {
         "grass": 5980459,
         "foliage": 6508333,
@@ -63978,6 +64107,7 @@
         "enableRain": false,
         "biomeID": 136
       },
+      "waypointRegion": "MORDOR",
       "biomeColors": {
         "grass": 5980459,
         "foliage": 6508333,
@@ -64233,6 +64363,7 @@
         "enableRain": true,
         "biomeID": 137
       },
+      "waypointRegion": "MORDOR",
       "biomeColors": {
         "grass": 6054733,
         "foliage": 4475954,
@@ -64507,6 +64638,7 @@
         "enableRain": false,
         "biomeID": 138
       },
+      "waypointRegion": "MORDOR",
       "biomeColors": {
         "grass": 5980459,
         "foliage": 6508333,
@@ -64773,6 +64905,7 @@
         "enableRain": true,
         "biomeID": 139
       },
+      "waypointRegion": "DALE",
       "biomeColors": {
         "foggy": false,
         "hasCustomWater": false
@@ -65352,6 +65485,7 @@
         "enableRain": true,
         "biomeID": 140
       },
+      "waypointRegion": "DORWINION",
       "biomeColors": {
         "grass": 10538541,
         "foggy": false,
@@ -65923,6 +66057,7 @@
         "enableRain": true,
         "biomeID": 141
       },
+      "waypointRegion": "LINDON",
       "biomeColors": {
         "foggy": false,
         "hasCustomWater": false
@@ -66420,6 +66555,7 @@
         "enableRain": true,
         "biomeID": 142
       },
+      "waypointRegion": "GULF_HARAD",
       "biomeColors": {
         "foggy": false,
         "hasCustomWater": false
@@ -66883,6 +67019,7 @@
         "enableRain": true,
         "biomeID": 143
       },
+      "waypointRegion": "WILDERLAND",
       "biomeColors": {
         "foggy": false,
         "hasCustomWater": false
@@ -67395,6 +67532,7 @@
         "enableRain": true,
         "biomeID": 144
       },
+      "waypointRegion": "FORODWAITH",
       "biomeColors": {
         "sky": 10069160,
         "foggy": false,
@@ -67770,6 +67908,7 @@
         "enableRain": true,
         "biomeID": 145
       },
+      "waypointRegion": "FAR_HARAD",
       "biomeColors": {
         "foggy": false,
         "hasCustomWater": false
@@ -68174,6 +68313,7 @@
         "enableRain": true,
         "biomeID": 146
       },
+      "waypointRegion": "HARAD_DESERT",
       "biomeColors": {
         "grass": 11914805,
         "foggy": false,
@@ -68627,6 +68767,7 @@
         "enableRain": true,
         "biomeID": 147
       },
+      "waypointRegion": "LOSSARNACH",
       "biomeColors": {
         "foggy": false,
         "hasCustomWater": false
@@ -69251,6 +69392,7 @@
         "enableRain": true,
         "biomeID": 148
       },
+      "waypointRegion": "LOSSARNACH",
       "biomeColors": {
         "foggy": false,
         "hasCustomWater": false
@@ -69891,6 +70033,7 @@
         "enableRain": true,
         "biomeID": 149
       },
+      "waypointRegion": "HARAD_DESERT",
       "biomeColors": {
         "grass": 11914805,
         "foggy": false,
@@ -70341,6 +70484,7 @@
         "enableRain": true,
         "biomeID": 150
       },
+      "waypointRegion": "OCEAN",
       "biomeColors": {
         "foggy": false,
         "hasCustomWater": false
@@ -70773,6 +70917,7 @@
         "enableRain": true,
         "biomeID": 151
       },
+      "waypointRegion": "HARNEDOR",
       "biomeColors": {
         "grass": 14538086,
         "foggy": false,
@@ -71333,6 +71478,7 @@
         "enableRain": true,
         "biomeID": 152
       },
+      "waypointRegion": "LAMEDON",
       "biomeColors": {
         "grass": 11646287,
         "foggy": false,
@@ -71934,6 +72080,7 @@
         "enableRain": true,
         "biomeID": 153
       },
+      "waypointRegion": "LAMEDON",
       "biomeColors": {
         "foggy": false,
         "hasCustomWater": false
@@ -72471,6 +72618,7 @@
         "enableRain": true,
         "biomeID": 154
       },
+      "waypointRegion": "BLACKROOT_VALE",
       "biomeColors": {
         "grass": 7704878,
         "foggy": false,
@@ -73060,6 +73208,7 @@
         "enableRain": true,
         "biomeID": 155
       },
+      "waypointRegion": "GONDOR",
       "biomeColors": {
         "grass": 10202470,
         "foggy": false,
@@ -73549,6 +73698,7 @@
         "enableRain": true,
         "biomeID": 156
       },
+      "waypointRegion": "PUKEL",
       "biomeColors": {
         "grass": 6715192,
         "sky": 10927288,
@@ -73998,6 +74148,7 @@
         "enableRain": true,
         "biomeID": 157
       },
+      "waypointRegion": "RHUN_KHAGANATE",
       "biomeColors": {
         "grass": 14538041,
         "foggy": false,
@@ -74578,6 +74729,7 @@
         "enableRain": true,
         "biomeID": 158
       },
+      "waypointRegion": "RHUN_KHAGANATE",
       "biomeColors": {
         "grass": 13946702,
         "foggy": false,
@@ -75114,6 +75266,7 @@
         "enableRain": true,
         "biomeID": 159
       },
+      "waypointRegion": "RHUN_KHAGANATE",
       "biomeColors": {
         "foggy": false,
         "hasCustomWater": false
@@ -75567,6 +75720,7 @@
         "enableRain": true,
         "biomeID": 160
       },
+      "waypointRegion": "RHUN_KHAGANATE",
       "biomeColors": {
         "grass": 8951356,
         "fog": 11259063,
@@ -76060,6 +76214,7 @@
         "enableRain": true,
         "biomeID": 161
       },
+      "waypointRegion": "TOL_RHUNAER",
       "biomeColors": {
         "grass": 14538041,
         "foggy": false,
@@ -76491,6 +76646,7 @@
         "enableRain": true,
         "biomeID": 162
       },
+      "waypointRegion": "TOL_RHUNAER",
       "biomeColors": {
         "grass": 8951356,
         "fog": 6132078,
@@ -76942,6 +77098,7 @@
         "enableRain": false,
         "biomeID": 163
       },
+      "waypointRegion": "RHUN",
       "biomeColors": {
         "grass": 16767886,
         "sky": 14736588,
@@ -77299,6 +77456,7 @@
         "enableRain": true,
         "biomeID": 164
       },
+      "waypointRegion": "RHUN",
       "biomeColors": {
         "sky": 11653858,
         "foggy": false,
@@ -77681,6 +77839,7 @@
         "enableRain": true,
         "biomeID": 165
       },
+      "waypointRegion": "RHUN",
       "biomeColors": {
         "sky": 11653858,
         "foggy": false,
@@ -78063,6 +78222,7 @@
         "enableRain": true,
         "biomeID": 166
       },
+      "waypointRegion": "RIVENDELL_VALE",
       "biomeColors": {
         "foggy": false,
         "hasCustomWater": false
@@ -78549,6 +78709,7 @@
         "enableRain": true,
         "biomeID": 167
       },
+      "waypointRegion": "LONE_LANDS",
       "biomeColors": {
         "foggy": false,
         "hasCustomWater": false
@@ -78997,6 +79158,7 @@
         "enableRain": true,
         "biomeID": 168
       },
+      "waypointRegion": "FAR_HARAD_JUNGLE",
       "biomeColors": {
         "grass": 10607421,
         "foliage": 8376636,
@@ -79435,6 +79597,7 @@
         "enableRain": true,
         "biomeID": 169
       },
+      "waypointRegion": "PERTOROGWAITH_FOREST",
       "biomeColors": {
         "sky": 12698028,
         "clouds": 14869216,
@@ -79891,6 +80054,7 @@
         "enableRain": true,
         "biomeID": 170
       },
+      "waypointRegion": "FAR_HARAD",
       "biomeColors": {
         "grass": 11915563,
         "foggy": false,
