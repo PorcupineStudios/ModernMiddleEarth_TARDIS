@@ -68,15 +68,19 @@ public final class QuestNet {
     /** One open quest as the book shows it. */
     public record Entry(String giver, Component faction, Component task, int progress, int count, int coins,
             float alignment) {
-        public static final StreamCodec<RegistryFriendlyByteBuf, Entry> CODEC = StreamCodec.composite(
-                ByteBufCodecs.STRING_UTF8, Entry::giver,
-                ComponentSerialization.TRUSTED_STREAM_CODEC, Entry::faction,
-                ComponentSerialization.TRUSTED_STREAM_CODEC, Entry::task,
-                ByteBufCodecs.VAR_INT, Entry::progress,
-                ByteBufCodecs.VAR_INT, Entry::count,
-                ByteBufCodecs.VAR_INT, Entry::coins,
-                ByteBufCodecs.FLOAT, Entry::alignment,
-                Entry::new);
+        // seven fields: one more than StreamCodec.composite takes
+        public static final StreamCodec<RegistryFriendlyByteBuf, Entry> CODEC = StreamCodec.of((buf, e) -> {
+            ByteBufCodecs.STRING_UTF8.encode(buf, e.giver());
+            ComponentSerialization.TRUSTED_STREAM_CODEC.encode(buf, e.faction());
+            ComponentSerialization.TRUSTED_STREAM_CODEC.encode(buf, e.task());
+            buf.writeVarInt(e.progress());
+            buf.writeVarInt(e.count());
+            buf.writeVarInt(e.coins());
+            buf.writeFloat(e.alignment());
+        }, buf -> new Entry(ByteBufCodecs.STRING_UTF8.decode(buf),
+                ComponentSerialization.TRUSTED_STREAM_CODEC.decode(buf),
+                ComponentSerialization.TRUSTED_STREAM_CODEC.decode(buf), buf.readVarInt(), buf.readVarInt(),
+                buf.readVarInt(), buf.readFloat()));
     }
 
     /** The player's open quests and how many they have finished. */
