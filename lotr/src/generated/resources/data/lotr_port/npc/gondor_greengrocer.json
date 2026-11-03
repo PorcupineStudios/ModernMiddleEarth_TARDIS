@@ -27,6 +27,6 @@
   },
   "buy": "lotr_port:gondor_greengrocer_buy",
   "sell": "lotr_port:gondor_greengrocer_sell",
-  "speech": "lotr_port:gondor/soldier",
+  "speech": "lotr_port:gondor/man",
   "quests": "lotr_port:gondor"
 }

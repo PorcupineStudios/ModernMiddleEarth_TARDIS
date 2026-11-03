@@ -24,6 +24,6 @@
     "feet": "lotr_port:rohirric_boots"
   },
   "names": "lotr_port:rohan_male",
-  "speech": "lotr_port:rohan/stablemaster",
+  "speech": "lotr_port:rohan/warrior",
   "quests": "lotr_port:rohan"
 }

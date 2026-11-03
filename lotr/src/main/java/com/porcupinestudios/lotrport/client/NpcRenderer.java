@@ -51,12 +51,12 @@ public class NpcRenderer extends HumanoidMobRenderer<LotrNpc, HumanoidModel<Lotr
 
     /** Draws what the NPC is saying above its head, wrapped like a speech bubble, facing the camera. */
     private void renderSpeech(LotrNpc npc, PoseStack pose, MultiBufferSource buffers, int light) {
-        String line = npc.speech();
-        if (line.isEmpty() || entityRenderDispatcher.distanceToSqr(npc) > SPEECH_RANGE * SPEECH_RANGE) {
+        Component line = npc.speech();
+        if (line.getString().isEmpty() || entityRenderDispatcher.distanceToSqr(npc) > SPEECH_RANGE * SPEECH_RANGE) {
             return;
         }
         Font font = getFont();
-        List<FormattedCharSequence> rows = font.split(Component.literal(line), SPEECH_WIDTH);
+        List<FormattedCharSequence> rows = font.split(line, SPEECH_WIDTH);
         pose.pushPose();
         pose.translate(0, npc.getBbHeight() + 0.75, 0);
         pose.mulPose(entityRenderDispatcher.cameraOrientation());

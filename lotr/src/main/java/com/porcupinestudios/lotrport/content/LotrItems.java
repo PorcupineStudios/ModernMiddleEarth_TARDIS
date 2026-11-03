@@ -2,6 +2,7 @@ package com.porcupinestudios.lotrport.content;
 
 import com.google.gson.JsonObject;
 import com.porcupinestudios.lotrport.LotrPort;
+import com.porcupinestudios.lotrport.quest.RedBookItem;
 import java.util.EnumMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -94,6 +95,7 @@ public final class LotrItems {
                 JsonObject a = e.getAsJsonObject("armor");
                 yield new ArmorItem(MATERIALS.get(ContentData.str(a, "material", "")), slot(a), p);
             }
+            case "red_book" -> new RedBookItem(p);
             default -> new Item(p);
         };
     }

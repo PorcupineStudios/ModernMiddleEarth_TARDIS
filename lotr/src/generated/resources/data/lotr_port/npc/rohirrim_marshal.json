@@ -21,6 +21,6 @@
   },
   "names": "lotr_port:rohan_male",
   "units": "lotr_port:rohirrim_marshal",
-  "speech": "lotr_port:rohan/stablemaster",
+  "speech": "lotr_port:rohan/marshal",
   "quests": "lotr_port:rohan"
 }

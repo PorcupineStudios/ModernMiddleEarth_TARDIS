@@ -22,6 +22,6 @@
     "legs": "lotr_port:rivendell_leggings",
     "feet": "lotr_port:rivendell_boots"
   },
-  "speech": "lotr_port:rivendell/warrior",
+  "speech": "lotr_port:high_elf/warrior",
   "quests": "lotr_port:rivendell"
 }

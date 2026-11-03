@@ -119,7 +119,8 @@ class Gen:
         e = {"id": new}
         kind = "item"
         for cls, k in (("ItemSword", "sword"), ("ItemPickaxe", "pickaxe"), ("ItemAxe", "axe"),
-                       ("ItemSpade", "shovel"), ("ItemHoe", "hoe"), ("ItemArmor", "armor")):
+                       ("ItemSpade", "shovel"), ("ItemHoe", "hoe"), ("ItemArmor", "armor"),
+                       ("LOTRItemRedBook", "red_book")):
             if cls in classes and (k != "armor" or "armor" in it):
                 kind = k
                 break

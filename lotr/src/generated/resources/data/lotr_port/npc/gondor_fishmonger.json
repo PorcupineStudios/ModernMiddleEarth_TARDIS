@@ -27,5 +27,5 @@
   },
   "buy": "lotr_port:gondor_fishmonger_buy",
   "sell": "lotr_port:gondor_fishmonger_sell",
-  "speech": "lotr_port:gondor/soldier"
+  "speech": "lotr_port:gondor/man"
 }

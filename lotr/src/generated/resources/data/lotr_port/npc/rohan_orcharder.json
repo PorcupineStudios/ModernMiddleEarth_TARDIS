@@ -24,6 +24,6 @@
   },
   "buy": "lotr_port:rohan_orcharder_buy",
   "sell": "lotr_port:rohan_orcharder_sell",
-  "speech": "lotr_port:rohan/stablemaster",
+  "speech": "lotr_port:rohan/man",
   "quests": "lotr_port:rohan"
 }

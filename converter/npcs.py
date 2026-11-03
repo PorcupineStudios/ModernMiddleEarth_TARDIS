@@ -30,6 +30,14 @@ NOT_SKINS = ("female", "child", "outfit", "headwear", "ring", "glint", "shadow",
              "armor", "banner", "glow", "jacket", "robe", "hair", "beard", "trader", "hood", "scarf")
 GEAR_SLOTS = {"mainhand": ("meleeWeapon", "mainhand", "rangedWeapon"), "head": ("head",), "chest": ("chest",),
               "legs": ("legs",), "feet": ("feet",)}
+# Words that mark a soldier, for picking a speech bank by faction (soldiers shouldn't talk like the blacksmith)
+MILITARY = {"archer", "soldier", "warrior", "captain", "banner", "levyman", "guard", "axeman", "marine", "warden",
+            "knight", "rider", "bombardier", "thrower", "spearman", "ranger", "berserker", "commander", "marshal",
+            "bounder", "shirriff", "mercenary", "uruk", "sentry"}
+LEADERS = {"captain", "commander", "marshal", "warlord", "chieftain", "lord"}
+# best first: a plain soldier's lines before a ranger's or a shieldmaiden's
+SOLDIER_ROLES = ["soldier", "warrior", "elf_warrior", "guard", "bounder", "shirriff", "ranger", "shieldmaiden"]
+PLAIN_ROLES = {"man", "elf", "dwarf", "hobbit", "orc", "tauredain", "moredain", "dunlending", "ent", "half_troll"}
 SHOWN_OFFERS = 9  # LOTR traders show a random handful of their pool
 
 
@@ -244,13 +252,16 @@ class Npcs:
         for n in self.jar.names:
             if n.startswith(prefix) and n.endswith(".txt") and n.count("/") == 5:
                 folder, mood = n[len(prefix):-4].rsplit("/", 1)
+                if folder.startswith("miniquest/"):
+                    continue  # quest offer lines, by quest rather than by mood
                 lines = [w.strip() for w in self.jar.read(n).decode("utf-8", "replace").splitlines() if w.strip()]
                 if lines:
                     banks.setdefault(folder, {})[mood] = lines
         by_name = {}
         for folder in banks:
             f, r = (snake(x) for x in folder.split("/"))
-            for k in (f + "_" + r, r if r.startswith(f) else None, f if f == r else None):
+            # gondor/lamedonCaptain is the lamedon_captain's own bank
+            for k in (f + "_" + r, r if r.startswith(f) or "_" in r else None, f if f == r else None):
                 if k:
                     by_name.setdefault(k, folder)
 
@@ -270,10 +281,29 @@ class Npcs:
             if folder and "faction" in written[tid]:
                 by_faction.setdefault(written[tid]["faction"], []).append(folder)
         used = set()
-        for tid, folder in picked.items():
+        for tid, folder in sorted(picked.items()):
             if not folder and written[tid].get("faction") in by_faction:
-                options = by_faction[written[tid]["faction"]]
-                folder = max(set(options), key=options.count)
+                # every bank of the LOTR speech folders the faction's other NPCs use
+                used_by = by_faction[written[tid]["faction"]]
+                groups = {f.split("/")[0] for f in used_by}
+                options = used_by + [f for f in banks if f.split("/")[0] in groups and f not in used_by]
+                words = set(tid.split("_"))
+                rank = "leader" if words & LEADERS else "soldier" if words & MILITARY else "folk"
+
+                def fits(f):
+                    # leaders talk like the faction's captains, soldiers like its soldiers (or its plain folk), and
+                    # everyone else like its plain folk, never like its smith or innkeeper
+                    role = snake(f.split("/")[1])
+                    plain = role in PLAIN_ROLES or snake(f.split("/")[0]).startswith(role)
+                    role_words = set(role.split("_"))
+                    if rank == "leader":
+                        if role_words & LEADERS:
+                            return 3.1 if role in LEADERS else 3  # a plain captain before another lord's captain
+                        return 2 if role in SOLDIER_ROLES else 1 if plain else 0
+                    if rank == "soldier":
+                        return 3 - SOLDIER_ROLES.index(role) / 10 if role in SOLDIER_ROLES else 2 if plain else 0
+                    return 3 if plain else 0 if role_words & (MILITARY | LEADERS) else 1
+                folder = max(sorted(set(options)), key=lambda f: (fits(f), options.count(f)))
                 self.report["npc_speech_from_faction"].append(tid)
             if folder:
                 written[tid]["speech"] = f"{NS}:{speech_path(folder)}"

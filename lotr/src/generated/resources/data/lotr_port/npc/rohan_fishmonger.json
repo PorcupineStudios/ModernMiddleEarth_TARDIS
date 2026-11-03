@@ -25,6 +25,6 @@
   "names": "lotr_port:rohan_male",
   "buy": "lotr_port:rohan_fishmonger_buy",
   "sell": "lotr_port:rohan_fishmonger_sell",
-  "speech": "lotr_port:rohan/stablemaster",
+  "speech": "lotr_port:rohan/man",
   "quests": "lotr_port:rohan"
 }
