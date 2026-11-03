@@ -7,7 +7,7 @@
   "stages": [
     {"objectives": [
       {"type": "deliver", "target": "minecraft:bread", "count": 16},
-      {"type": "deliver", "target": "lotr_port:pipeweed", "count": 4}
+      {"type": "deliver", "target": "lotr_port:pipe_weed", "count": 4}
     ]},
     {"objectives": [
       {"type": "kill_faction", "target": "lotr_port:angmar", "count": 5}

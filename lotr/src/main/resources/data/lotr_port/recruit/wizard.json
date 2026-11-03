@@ -4,7 +4,7 @@
   "limit": 1,
   "stages": [
     {"objectives": [
-      {"type": "deliver", "target": "lotr_port:pipeweed", "count": 8},
+      {"type": "deliver", "target": "lotr_port:pipe_weed", "count": 8},
       {"type": "deliver", "target": "minecraft:book", "count": 1}
     ]},
     {"objectives": [
