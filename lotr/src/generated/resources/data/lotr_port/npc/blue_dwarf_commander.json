@@ -10,6 +10,12 @@
   "health": 30.0,
   "speed": 0.2,
   "attack": 2.0,
+  "gear": {
+    "mainhand": "lotr_port:blue_dwarven_warhammer",
+    "chest": "lotr_port:blue_dwarven_chestplate",
+    "legs": "lotr_port:blue_dwarven_leggings",
+    "feet": "lotr_port:blue_dwarven_boots"
+  },
   "names": "lotr_port:dwarf_male",
   "units": "lotr_port:blue_dwarf_commander"
 }

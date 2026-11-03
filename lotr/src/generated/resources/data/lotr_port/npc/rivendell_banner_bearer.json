@@ -9,5 +9,17 @@
   "skin_height": 64,
   "health": 30.0,
   "speed": 0.2,
-  "attack": 2.0
+  "attack": 2.0,
+  "gear": {
+    "mainhand": [
+      "lotr_port:rivendell_spear",
+      "lotr_port:rivendell_longspear",
+      "lotr_port:rivendell_sword"
+    ],
+    "head": "lotr_port:rivendell_helmet",
+    "chest": "lotr_port:rivendell_chestplate",
+    "legs": "lotr_port:rivendell_leggings",
+    "feet": "lotr_port:rivendell_boots"
+  },
+  "names": "lotr_port:sindarin_male"
 }

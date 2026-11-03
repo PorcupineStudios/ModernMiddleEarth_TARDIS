@@ -2,5 +2,8 @@
   "faction": "lotr_port:unaligned",
   "health": 30.0,
   "speed": 0.2,
-  "attack": 2.0
+  "attack": 2.0,
+  "gear": {
+    "mainhand": "lotr_port:glamdring"
+  }
 }

@@ -11,5 +11,20 @@
   "health": 20.0,
   "speed": 0.2,
   "attack": 2.0,
+  "gear": {
+    "mainhand": [
+      "lotr_port:poisoned_haradric_dagger",
+      "lotr_port:haradric_spear",
+      "lotr_port:haradric_pike",
+      "lotr_port:haradric_sword"
+    ],
+    "head": [
+      "lotr_port:nomad_cap",
+      "lotr_port:harad_turban"
+    ],
+    "chest": "lotr_port:nomad_tunic",
+    "legs": "lotr_port:nomad_leggings",
+    "feet": "lotr_port:nomad_shoes"
+  },
   "names": "lotr_port:nomad_male"
 }

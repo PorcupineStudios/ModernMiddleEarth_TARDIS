@@ -11,6 +11,10 @@
   "health": 20.0,
   "speed": 0.2,
   "attack": 2.0,
+  "gear": {
+    "mainhand": "minecraft:iron_axe",
+    "head": "lotr_port:harad_turban"
+  },
   "names": "lotr_port:umbar_male",
   "buy": "lotr_port:harad_lumberman_buy",
   "sell": "lotr_port:harad_lumberman_sell"

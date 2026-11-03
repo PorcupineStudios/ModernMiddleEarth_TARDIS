@@ -20,5 +20,13 @@
   "health": 20.0,
   "speed": 0.2,
   "attack": 2.0,
+  "gear": {
+    "mainhand": [
+      "lotr_port:iron_dagger",
+      "lotr_port:bronze_dagger"
+    ],
+    "head": "lotr_port:leather_hat"
+  },
+  "names": "lotr_port:hobbit_male",
   "units": "lotr_port:hobbit_shirriff"
 }

@@ -11,6 +11,13 @@
   "health": 25.0,
   "speed": 0.2,
   "attack": 2.0,
+  "gear": {
+    "mainhand": "lotr_port:morwaith_battleaxe",
+    "head": "lotr_port:morwaith_chieftain_helmet",
+    "chest": "lotr_port:morwaith_chieftain_chestplate",
+    "legs": "lotr_port:morwaith_chieftain_leggings",
+    "feet": "lotr_port:morwaith_chieftain_boots"
+  },
   "names": "lotr_port:moredain_male",
   "units": "lotr_port:moredain_chieftain"
 }

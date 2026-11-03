@@ -9,6 +9,12 @@
   "health": 25.0,
   "speed": 0.2,
   "attack": 2.0,
+  "gear": {
+    "mainhand": "lotr_port:angmar_sword",
+    "chest": "lotr_port:angmar_chestplate",
+    "legs": "lotr_port:angmar_leggings",
+    "feet": "lotr_port:angmar_boots"
+  },
   "names": "lotr_port:rhudaur_male",
   "units": "lotr_port:angmar_hillman_chieftain"
 }

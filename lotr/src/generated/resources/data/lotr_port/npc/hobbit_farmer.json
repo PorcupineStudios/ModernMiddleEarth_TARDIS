@@ -20,7 +20,10 @@
   "health": 16.0,
   "speed": 0.2,
   "attack": 2.0,
-  "names": "lotr_port:hobbit_male",
+  "gear": {
+    "mainhand": "minecraft:iron_hoe",
+    "head": "lotr_port:leather_hat"
+  },
   "buy": "lotr_port:hobbit_farmer_buy",
   "sell": "lotr_port:hobbit_farmer_sell",
   "units": "lotr_port:hobbit_farmer"

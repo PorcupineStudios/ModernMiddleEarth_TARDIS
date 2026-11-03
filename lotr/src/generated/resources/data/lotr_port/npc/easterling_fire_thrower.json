@@ -11,5 +11,12 @@
   "health": 20.0,
   "speed": 0.2,
   "attack": 2.0,
+  "gear": {
+    "mainhand": "lotr_port:rh_nic_dagger",
+    "head": "lotr_port:rh_nic_helmet",
+    "chest": "lotr_port:rh_nic_chestplate",
+    "legs": "lotr_port:rh_nic_leggings",
+    "feet": "lotr_port:rh_nic_boots"
+  },
   "names": "lotr_port:rhun_male"
 }

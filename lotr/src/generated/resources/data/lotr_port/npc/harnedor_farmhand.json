@@ -10,5 +10,9 @@
   "skin_height": 64,
   "health": 20.0,
   "speed": 0.2,
-  "attack": 2.0
+  "attack": 2.0,
+  "gear": {
+    "mainhand": "lotr_port:bronze_hoe"
+  },
+  "names": "lotr_port:near_haradrim_male"
 }

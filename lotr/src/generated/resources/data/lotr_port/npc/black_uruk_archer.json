@@ -9,5 +9,17 @@
   "health": 30.0,
   "speed": 0.2,
   "attack": 2.0,
+  "gear": {
+    "mainhand": [
+      "lotr_port:poisoned_black_uruk_dagger",
+      "lotr_port:black_uruk_cleaver",
+      "lotr_port:black_uruk_dagger",
+      "lotr_port:black_uruk_battleaxe"
+    ],
+    "head": "lotr_port:black_uruk_helmet",
+    "chest": "lotr_port:black_uruk_chestplate",
+    "legs": "lotr_port:black_uruk_leggings",
+    "feet": "lotr_port:black_uruk_boots"
+  },
   "names": "lotr_port:orc"
 }

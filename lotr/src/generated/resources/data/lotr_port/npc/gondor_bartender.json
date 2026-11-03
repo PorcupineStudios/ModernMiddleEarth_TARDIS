@@ -16,6 +16,14 @@
   "health": 20.0,
   "speed": 0.2,
   "attack": 2.0,
+  "gear": {
+    "mainhand": [
+      "lotr_port:gondorian_dagger",
+      "lotr_port:bronze_dagger",
+      "lotr_port:bronze_axe",
+      "lotr_port:iron_dagger"
+    ]
+  },
   "buy": "lotr_port:gondor_bartender_buy",
   "sell": "lotr_port:gondor_bartender_sell"
 }

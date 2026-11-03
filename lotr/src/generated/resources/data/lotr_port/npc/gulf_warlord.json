@@ -11,6 +11,12 @@
   "health": 25.0,
   "speed": 0.2,
   "attack": 2.0,
+  "gear": {
+    "mainhand": "lotr_port:haradric_pike",
+    "chest": "lotr_port:gulfen_chestplate",
+    "legs": "lotr_port:gulfen_leggings",
+    "feet": "lotr_port:gulfen_boots"
+  },
   "names": "lotr_port:gulf_male",
   "units": "lotr_port:gulf_warlord"
 }

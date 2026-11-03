@@ -11,5 +11,8 @@
   "health": 20.0,
   "speed": 0.2,
   "attack": 2.0,
+  "gear": {
+    "mainhand": "lotr_port:bronze_hoe"
+  },
   "names": "lotr_port:rhun_male"
 }

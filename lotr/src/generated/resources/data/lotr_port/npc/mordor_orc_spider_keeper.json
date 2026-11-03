@@ -14,6 +14,12 @@
   "health": 25.0,
   "speed": 0.2,
   "attack": 2.0,
+  "gear": {
+    "mainhand": "lotr_port:orc_skull_staff",
+    "chest": "lotr_port:mordor_chestplate",
+    "legs": "lotr_port:mordor_leggings",
+    "feet": "lotr_port:mordor_boots"
+  },
   "names": "lotr_port:orc",
   "units": "lotr_port:mordor_orc_spider_keeper"
 }

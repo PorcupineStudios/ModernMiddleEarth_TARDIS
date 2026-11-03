@@ -10,5 +10,15 @@
   "health": 30.0,
   "speed": 0.2,
   "attack": 2.0,
-  "names": "lotr_port:quenya_male"
+  "gear": {
+    "mainhand": [
+      "lotr_port:rivendell_sword",
+      "lotr_port:rivendell_spear",
+      "lotr_port:rivendell_longspear"
+    ],
+    "head": "lotr_port:rivendell_helmet",
+    "chest": "lotr_port:rivendell_chestplate",
+    "legs": "lotr_port:rivendell_leggings",
+    "feet": "lotr_port:rivendell_boots"
+  }
 }

@@ -11,6 +11,12 @@
   "health": 20.0,
   "speed": 0.2,
   "attack": 2.0,
+  "gear": {
+    "mainhand": "lotr_port:bronze_spear",
+    "chest": "minecraft:leather_chestplate",
+    "legs": "minecraft:leather_leggings",
+    "feet": "minecraft:leather_boots"
+  },
   "names": "lotr_port:rhun_male",
   "buy": "lotr_port:rhun_hunter_buy",
   "sell": "lotr_port:rhun_hunter_sell"

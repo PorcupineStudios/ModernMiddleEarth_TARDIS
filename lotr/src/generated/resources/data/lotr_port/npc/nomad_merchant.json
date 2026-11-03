@@ -11,7 +11,14 @@
   "health": 20.0,
   "speed": 0.2,
   "attack": 2.0,
-  "names": "lotr_port:nomad_male",
+  "gear": {
+    "mainhand": "lotr_port:haradric_dagger",
+    "head": "lotr_port:harad_turban",
+    "chest": "lotr_port:harad_robe",
+    "legs": "lotr_port:harad_robe_leggings",
+    "feet": "lotr_port:harad_robe_shoes"
+  },
+  "names": "lotr_port:near_haradrim_male",
   "buy": "lotr_port:nomad_merchant_buy",
   "sell": "lotr_port:nomad_merchant_sell"
 }

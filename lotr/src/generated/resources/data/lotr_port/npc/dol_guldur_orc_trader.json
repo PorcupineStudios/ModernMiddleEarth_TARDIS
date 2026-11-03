@@ -14,6 +14,13 @@
   "health": 20.0,
   "speed": 0.2,
   "attack": 2.0,
+  "gear": {
+    "mainhand": "lotr_port:poisoned_dol_guldur_dagger",
+    "head": "lotr_port:dol_guldur_helmet",
+    "chest": "lotr_port:dol_guldur_chestplate",
+    "legs": "lotr_port:dol_guldur_leggings",
+    "feet": "lotr_port:dol_guldur_boots"
+  },
   "names": "lotr_port:orc",
   "buy": "lotr_port:dol_guldur_trader_buy",
   "sell": "lotr_port:dol_guldur_trader_sell"

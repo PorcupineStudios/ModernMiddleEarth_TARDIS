@@ -9,6 +9,12 @@
   "health": 30.0,
   "speed": 0.2,
   "attack": 2.0,
+  "gear": {
+    "mainhand": "lotr_port:dol_amroth_sword",
+    "chest": "lotr_port:dol_amroth_chestplate",
+    "legs": "lotr_port:dol_amroth_leggings",
+    "feet": "lotr_port:dol_amroth_boots"
+  },
   "names": "lotr_port:gondor_male",
   "units": "lotr_port:dol_amroth_captain"
 }

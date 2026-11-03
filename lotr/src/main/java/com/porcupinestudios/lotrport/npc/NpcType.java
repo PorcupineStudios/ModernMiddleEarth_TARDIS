@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.ExtraCodecs;
 
 /**
  * A kind of NPC from data: {@code data/<namespace>/npc/<name>.json}, reloaded with {@code /reload}. Its name is the
@@ -18,7 +19,7 @@ import net.minecraft.resources.ResourceLocation;
  * @param health max health
  * @param speed movement speed attribute
  * @param attack melee damage
- * @param gear item ids by slot (mainhand, offhand, head, chest, legs, feet)
+ * @param gear item ids by slot (mainhand, offhand, head, chest, legs, feet); a list means one picked at random
  * @param names name bank ({@code npc_names/<bank>.json}) it takes a first name from; empty means no name
  * @param hostile whether it attacks players with negative alignment with its faction
  * @param buy trade pool of what it sells to players
@@ -27,7 +28,7 @@ import net.minecraft.resources.ResourceLocation;
  * @param tradeAlignment alignment a player needs with its faction to trade or hire
  */
 public record NpcType(Optional<ResourceLocation> faction, List<ResourceLocation> skins, int skinHeight, float scale,
-        double health, double speed, double attack, Map<String, ResourceLocation> gear, Optional<ResourceLocation> names,
+        double health, double speed, double attack, Map<String, List<ResourceLocation>> gear, Optional<ResourceLocation> names,
         boolean hostile, Optional<ResourceLocation> buy, Optional<ResourceLocation> sell,
         Optional<ResourceLocation> units, float tradeAlignment) {
 
@@ -39,7 +40,8 @@ public record NpcType(Optional<ResourceLocation> faction, List<ResourceLocation>
             Codec.DOUBLE.optionalFieldOf("health", 20.0).forGetter(NpcType::health),
             Codec.DOUBLE.optionalFieldOf("speed", 0.25).forGetter(NpcType::speed),
             Codec.DOUBLE.optionalFieldOf("attack", 2.0).forGetter(NpcType::attack),
-            Codec.unboundedMap(Codec.STRING, ResourceLocation.CODEC).optionalFieldOf("gear", Map.of())
+            Codec.unboundedMap(Codec.STRING, ExtraCodecs.compactListCodec(ResourceLocation.CODEC))
+                    .optionalFieldOf("gear", Map.of())
                     .forGetter(NpcType::gear),
             ResourceLocation.CODEC.optionalFieldOf("names").forGetter(NpcType::names),
             Codec.BOOL.optionalFieldOf("hostile", true).forGetter(NpcType::hostile),

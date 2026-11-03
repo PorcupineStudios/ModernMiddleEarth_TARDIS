@@ -408,20 +408,20 @@
   "npc_units_not_people": {
     "count": 14,
     "entries": [
-      "MORDOR_ORC_MERCENARY_CAPTAIN: lotr.lotr.MordorWarg",
-      "MORDOR_ORC_MERCENARY_CAPTAIN: lotr.lotr.MordorWargBombardier",
-      "MORDOR_ORC_MERCENARY_CAPTAIN: lotr.lotr.OlogHai",
-      "URUK_HAI_MERCENARY_CAPTAIN: lotr.lotr.UrukWarg",
-      "URUK_HAI_MERCENARY_CAPTAIN: lotr.lotr.UrukWargBombardier",
-      "ANGMAR_ORC_MERCENARY_CAPTAIN: lotr.lotr.AngmarWarg",
-      "ANGMAR_ORC_MERCENARY_CAPTAIN: lotr.lotr.AngmarWargBombardier",
-      "ANGMAR_ORC_MERCENARY_CAPTAIN: lotr.lotr.Troll",
-      "ANGMAR_ORC_MERCENARY_CAPTAIN: lotr.lotr.MountainTroll",
-      "MORDOR_ORC_SPIDER_KEEPER: lotr.lotr.MordorSpider",
-      "GUNDABAD_ORC_MERCENARY_CAPTAIN: lotr.lotr.GundabadWarg",
-      "DOL_GULDUR_CAPTAIN: lotr.lotr.MirkwoodSpider",
-      "DOL_GULDUR_CAPTAIN: lotr.lotr.MirkTroll",
-      "BLACK_URUK_CAPTAIN: lotr.lotr.OlogHai"
+      "MORDOR_ORC_MERCENARY_CAPTAIN: lotr.MordorWarg",
+      "MORDOR_ORC_MERCENARY_CAPTAIN: lotr.MordorWargBombardier",
+      "MORDOR_ORC_MERCENARY_CAPTAIN: lotr.OlogHai",
+      "URUK_HAI_MERCENARY_CAPTAIN: lotr.UrukWarg",
+      "URUK_HAI_MERCENARY_CAPTAIN: lotr.UrukWargBombardier",
+      "ANGMAR_ORC_MERCENARY_CAPTAIN: lotr.AngmarWarg",
+      "ANGMAR_ORC_MERCENARY_CAPTAIN: lotr.AngmarWargBombardier",
+      "ANGMAR_ORC_MERCENARY_CAPTAIN: lotr.Troll",
+      "ANGMAR_ORC_MERCENARY_CAPTAIN: lotr.MountainTroll",
+      "MORDOR_ORC_SPIDER_KEEPER: lotr.MordorSpider",
+      "GUNDABAD_ORC_MERCENARY_CAPTAIN: lotr.GundabadWarg",
+      "DOL_GULDUR_CAPTAIN: lotr.MirkwoodSpider",
+      "DOL_GULDUR_CAPTAIN: lotr.MirkTroll",
+      "BLACK_URUK_CAPTAIN: lotr.OlogHai"
     ]
   },
   "npcs_without_skins": {

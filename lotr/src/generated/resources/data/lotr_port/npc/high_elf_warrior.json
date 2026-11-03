@@ -23,5 +23,17 @@
   "skin_height": 64,
   "health": 30.0,
   "speed": 0.2,
-  "attack": 2.0
+  "attack": 2.0,
+  "gear": {
+    "mainhand": [
+      "lotr_port:lindon_sword",
+      "lotr_port:lindon_battlestaff",
+      "lotr_port:lindon_spear",
+      "lotr_port:lindon_longspear"
+    ],
+    "head": "lotr_port:lindon_helmet",
+    "chest": "lotr_port:lindon_chestplate",
+    "legs": "lotr_port:lindon_leggings",
+    "feet": "lotr_port:lindon_boots"
+  }
 }

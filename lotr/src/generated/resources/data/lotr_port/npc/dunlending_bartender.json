@@ -10,6 +10,15 @@
   "health": 20.0,
   "speed": 0.2,
   "attack": 2.0,
+  "gear": {
+    "mainhand": [
+      "lotr_port:stone_spear",
+      "lotr_port:dunlending_club",
+      "lotr_port:dunlending_trident",
+      "minecraft:stone_hoe"
+    ],
+    "head": "lotr_port:fur_hat"
+  },
   "buy": "lotr_port:dunlending_bartender_buy",
   "sell": "lotr_port:dunlending_bartender_sell"
 }

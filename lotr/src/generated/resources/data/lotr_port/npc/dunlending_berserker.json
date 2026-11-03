@@ -7,5 +7,15 @@
   "health": 30.0,
   "speed": 0.2,
   "attack": 2.0,
+  "gear": {
+    "mainhand": [
+      "lotr_port:bronze_battleaxe",
+      "lotr_port:iron_battleaxe"
+    ],
+    "head": "lotr_port:dunlending_helmet",
+    "chest": "lotr_port:bone_chestplate",
+    "legs": "lotr_port:fur_leggings",
+    "feet": "lotr_port:fur_boots"
+  },
   "names": "lotr_port:dunlending_male"
 }

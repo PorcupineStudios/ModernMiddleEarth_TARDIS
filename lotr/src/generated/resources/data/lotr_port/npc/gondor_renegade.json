@@ -16,5 +16,24 @@
   "health": 20.0,
   "speed": 0.2,
   "attack": 2.0,
+  "gear": {
+    "mainhand": [
+      "lotr_port:umbaric_scimitar",
+      "lotr_port:umbaric_pike",
+      "lotr_port:umbaric_mace"
+    ],
+    "chest": [
+      "lotr_port:gondorian_chestplate",
+      "lotr_port:pelargir_chestplate"
+    ],
+    "legs": [
+      "lotr_port:gondorian_leggings",
+      "lotr_port:pelargir_leggings"
+    ],
+    "feet": [
+      "lotr_port:gondorian_boots",
+      "lotr_port:pelargir_boots"
+    ]
+  },
   "names": "lotr_port:gondor_male"
 }

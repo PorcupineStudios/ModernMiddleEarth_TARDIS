@@ -11,5 +11,16 @@
   "health": 20.0,
   "speed": 0.2,
   "attack": 2.0,
+  "gear": {
+    "mainhand": [
+      "lotr_port:corsair_harpoon",
+      "lotr_port:corsair_eket",
+      "lotr_port:poisoned_corsair_dagger"
+    ],
+    "head": "lotr_port:corsair_helmet",
+    "chest": "lotr_port:corsair_chestplate",
+    "legs": "lotr_port:corsair_leggings",
+    "feet": "lotr_port:corsair_boots"
+  },
   "names": "lotr_port:umbar_male"
 }

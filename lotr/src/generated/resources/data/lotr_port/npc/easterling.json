@@ -11,5 +11,11 @@
   "health": 20.0,
   "speed": 0.2,
   "attack": 2.0,
-  "names": "lotr_port:rhun_male"
+  "gear": {
+    "mainhand": [
+      "lotr_port:rh_nic_dagger",
+      "lotr_port:iron_dagger",
+      "lotr_port:bronze_dagger"
+    ]
+  }
 }

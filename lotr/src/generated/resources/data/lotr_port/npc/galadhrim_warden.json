@@ -10,5 +10,12 @@
   "health": 30.0,
   "speed": 0.2,
   "attack": 2.0,
+  "gear": {
+    "mainhand": "lotr_port:galadhrim_dagger",
+    "head": "lotr_port:galadhrim_cloak_hood",
+    "chest": "lotr_port:galadhrim_cloak_tunic",
+    "legs": "lotr_port:galadhrim_cloak_leggings",
+    "feet": "lotr_port:galadhrim_cloak_boots"
+  },
   "names": "lotr_port:sindarin_male"
 }

@@ -16,6 +16,12 @@
   "health": 25.0,
   "speed": 0.2,
   "attack": 2.0,
+  "gear": {
+    "mainhand": "lotr_port:gondorian_sword",
+    "chest": "lotr_port:pinnath_gelin_chestplate",
+    "legs": "lotr_port:pinnath_gelin_leggings",
+    "feet": "lotr_port:pinnath_gelin_boots"
+  },
   "names": "lotr_port:gondor_male",
   "units": "lotr_port:pinnath_gelin_captain"
 }

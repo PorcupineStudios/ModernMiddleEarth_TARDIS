@@ -9,5 +9,11 @@
   "health": 30.0,
   "speed": 0.2,
   "attack": 2.0,
-  "names": "lotr_port:quenya_male"
+  "gear": {
+    "mainhand": [
+      "lotr_port:utumno_sword",
+      "lotr_port:utumno_dagger",
+      "lotr_port:poisoned_utumno_dagger"
+    ]
+  }
 }

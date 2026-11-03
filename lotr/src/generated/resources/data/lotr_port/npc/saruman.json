@@ -2,5 +2,8 @@
   "faction": "lotr_port:isengard",
   "health": 20.0,
   "speed": 0.5,
-  "attack": 2.0
+  "attack": 2.0,
+  "gear": {
+    "mainhand": "lotr_port:staff_of_gandalf_the_white"
+  }
 }

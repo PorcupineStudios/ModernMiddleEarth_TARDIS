@@ -36,5 +36,24 @@
   "health": 20.0,
   "speed": 0.2,
   "attack": 2.0,
+  "gear": {
+    "mainhand": [
+      "minecraft:iron_sword",
+      "lotr_port:iron_pike"
+    ],
+    "head": "minecraft:iron_helmet",
+    "chest": [
+      "minecraft:chainmail_chestplate",
+      "minecraft:leather_chestplate"
+    ],
+    "legs": [
+      "minecraft:leather_leggings",
+      "minecraft:chainmail_leggings"
+    ],
+    "feet": [
+      "minecraft:leather_boots",
+      "minecraft:chainmail_boots"
+    ]
+  },
   "names": "lotr_port:bree_male"
 }

@@ -10,6 +10,12 @@
   "health": 30.0,
   "speed": 0.2,
   "attack": 2.0,
+  "gear": {
+    "mainhand": "lotr_port:rivendell_sword",
+    "chest": "lotr_port:rivendell_chestplate",
+    "legs": "lotr_port:rivendell_leggings",
+    "feet": "lotr_port:rivendell_boots"
+  },
   "names": "lotr_port:sindarin_male",
   "units": "lotr_port:rivendell_lord"
 }

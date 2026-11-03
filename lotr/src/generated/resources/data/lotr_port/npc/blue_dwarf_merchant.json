@@ -10,6 +10,9 @@
   "health": 26.0,
   "speed": 0.2,
   "attack": 2.0,
+  "gear": {
+    "mainhand": "lotr_port:blue_dwarven_dagger"
+  },
   "names": "lotr_port:dwarf_male",
   "buy": "lotr_port:blue_dwarf_merchant_buy",
   "sell": "lotr_port:blue_dwarf_merchant_sell"

@@ -36,6 +36,10 @@
   "health": 20.0,
   "speed": 0.2,
   "attack": 2.0,
+  "gear": {
+    "mainhand": "lotr_port:rolling_pin"
+  },
+  "names": "lotr_port:bree_male",
   "buy": "lotr_port:bree_baker_buy",
   "sell": "lotr_port:bree_baker_sell"
 }

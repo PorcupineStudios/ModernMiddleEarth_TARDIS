@@ -14,6 +14,13 @@
   "health": 20.0,
   "speed": 0.2,
   "attack": 2.0,
+  "gear": {
+    "mainhand": "lotr_port:poisoned_mordor_dagger",
+    "head": "lotr_port:fur_hat",
+    "chest": "lotr_port:fur_tunic",
+    "legs": "lotr_port:fur_leggings",
+    "feet": "lotr_port:fur_boots"
+  },
   "names": "lotr_port:orc",
   "buy": "lotr_port:mordor_trader_buy",
   "sell": "lotr_port:mordor_trader_sell"

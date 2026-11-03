@@ -10,5 +10,15 @@
   "health": 30.0,
   "speed": 0.2,
   "attack": 2.0,
+  "gear": {
+    "mainhand": [
+      "lotr_port:wood_elven_sword",
+      "lotr_port:wood_elven_battlestaff"
+    ],
+    "head": "lotr_port:wood_elven_helmet",
+    "chest": "lotr_port:wood_elven_chestplate",
+    "legs": "lotr_port:wood_elven_leggings",
+    "feet": "lotr_port:wood_elven_boots"
+  },
   "names": "lotr_port:sindarin_male"
 }

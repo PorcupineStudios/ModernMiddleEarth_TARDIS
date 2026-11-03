@@ -24,6 +24,12 @@
   "health": 30.0,
   "speed": 0.2,
   "attack": 2.0,
+  "gear": {
+    "mainhand": "lotr_port:lindon_sword",
+    "chest": "lotr_port:lindon_chestplate",
+    "legs": "lotr_port:lindon_leggings",
+    "feet": "lotr_port:lindon_boots"
+  },
   "names": "lotr_port:sindarin_male",
   "units": "lotr_port:high_elf_lord"
 }

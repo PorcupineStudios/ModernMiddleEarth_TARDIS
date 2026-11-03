@@ -36,6 +36,14 @@
   "health": 20.0,
   "speed": 0.2,
   "attack": 2.0,
+  "gear": {
+    "mainhand": [
+      "lotr_port:iron_dagger",
+      "lotr_port:bronze_dagger",
+      "minecraft:stone_axe",
+      "lotr_port:bronze_axe"
+    ]
+  },
   "buy": "lotr_port:bree_innkeeper_buy",
   "sell": "lotr_port:bree_innkeeper_sell"
 }

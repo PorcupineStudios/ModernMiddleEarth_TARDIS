@@ -10,6 +10,9 @@
   "health": 26.0,
   "speed": 0.2,
   "attack": 2.0,
+  "gear": {
+    "mainhand": "lotr_port:dwarven_dagger"
+  },
   "names": "lotr_port:dwarf_male",
   "buy": "lotr_port:iron_hills_merchant_buy",
   "sell": "lotr_port:iron_hills_merchant_sell"

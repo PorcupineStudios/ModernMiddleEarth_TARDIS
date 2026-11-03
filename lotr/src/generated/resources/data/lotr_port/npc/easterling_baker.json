@@ -11,6 +11,11 @@
   "health": 20.0,
   "speed": 0.2,
   "attack": 2.0,
+  "gear": {
+    "mainhand": "lotr_port:rolling_pin",
+    "chest": "lotr_port:kaftan",
+    "legs": "lotr_port:kaftan_leggings"
+  },
   "names": "lotr_port:rhun_male",
   "buy": "lotr_port:rhun_baker_buy",
   "sell": "lotr_port:rhun_baker_sell"

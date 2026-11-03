@@ -16,6 +16,11 @@
   "health": 20.0,
   "speed": 0.2,
   "attack": 2.0,
+  "gear": {
+    "mainhand": "minecraft:iron_hoe",
+    "head": "lotr_port:leather_hat"
+  },
+  "names": "lotr_port:gondor_male",
   "buy": "lotr_port:gondor_farmer_buy",
   "sell": "lotr_port:gondor_farmer_sell",
   "units": "lotr_port:gondor_farmer"

@@ -10,5 +10,15 @@
   "health": 20.0,
   "speed": 0.2,
   "attack": 2.0,
+  "gear": {
+    "mainhand": [
+      "lotr_port:iron_battleaxe",
+      "minecraft:iron_sword"
+    ],
+    "head": "lotr_port:dorwinion_helmet",
+    "chest": "lotr_port:dorwinion_chestplate",
+    "legs": "lotr_port:dorwinion_leggings",
+    "feet": "lotr_port:dorwinion_boots"
+  },
   "names": "lotr_port:dorwinion_male"
 }

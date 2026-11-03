@@ -10,5 +10,7 @@
   "health": 30.0,
   "speed": 0.2,
   "attack": 2.0,
-  "names": "lotr_port:sindarin_male"
+  "gear": {
+    "mainhand": "lotr_port:rivendell_dagger"
+  }
 }

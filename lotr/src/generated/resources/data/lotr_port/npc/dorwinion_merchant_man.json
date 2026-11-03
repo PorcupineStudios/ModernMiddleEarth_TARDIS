@@ -10,6 +10,10 @@
   "health": 20.0,
   "speed": 0.2,
   "attack": 2.0,
+  "gear": {
+    "head": "lotr_port:leather_hat"
+  },
+  "names": "lotr_port:dorwinion_male",
   "buy": "lotr_port:dorwinion_merchant_buy",
   "sell": "lotr_port:dorwinion_merchant_sell"
 }

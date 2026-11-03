@@ -14,5 +14,18 @@
   "health": 18.0,
   "speed": 0.2,
   "attack": 2.0,
+  "gear": {
+    "mainhand": [
+      "lotr_port:angmar_dagger",
+      "lotr_port:angmar_warhammer",
+      "lotr_port:poisoned_angmar_dagger",
+      "lotr_port:angmar_spear",
+      "lotr_port:angmar_sword"
+    ],
+    "head": "lotr_port:angmar_helmet",
+    "chest": "lotr_port:angmar_chestplate",
+    "legs": "lotr_port:angmar_leggings",
+    "feet": "lotr_port:angmar_boots"
+  },
   "names": "lotr_port:orc"
 }

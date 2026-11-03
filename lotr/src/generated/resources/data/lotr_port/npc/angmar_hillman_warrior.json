@@ -9,5 +9,32 @@
   "health": 20.0,
   "speed": 0.2,
   "attack": 2.0,
+  "gear": {
+    "mainhand": [
+      "lotr_port:angmar_poleaxe",
+      "lotr_port:angmar_sword",
+      "lotr_port:angmar_dagger",
+      "lotr_port:angmar_battleaxe",
+      "lotr_port:angmar_spear"
+    ],
+    "head": [
+      "lotr_port:bone_helmet",
+      "lotr_port:fur_hat"
+    ],
+    "chest": [
+      "lotr_port:bone_chestplate",
+      "lotr_port:fur_tunic",
+      "lotr_port:angmar_chestplate"
+    ],
+    "legs": [
+      "lotr_port:angmar_leggings",
+      "lotr_port:bone_leggings"
+    ],
+    "feet": [
+      "lotr_port:bone_boots",
+      "lotr_port:angmar_boots",
+      "lotr_port:fur_boots"
+    ]
+  },
   "names": "lotr_port:rhudaur_male"
 }

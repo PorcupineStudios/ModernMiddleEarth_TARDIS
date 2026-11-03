@@ -11,6 +11,10 @@
   "health": 20.0,
   "speed": 0.2,
   "attack": 2.0,
+  "gear": {
+    "mainhand": "lotr_port:bronze_pickaxe",
+    "head": "lotr_port:harad_turban"
+  },
   "names": "lotr_port:gulf_male",
   "buy": "lotr_port:harad_miner_buy",
   "sell": "lotr_port:harad_miner_sell"

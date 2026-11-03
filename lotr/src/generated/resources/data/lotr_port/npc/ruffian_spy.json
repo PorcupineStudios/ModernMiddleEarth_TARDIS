@@ -11,5 +11,13 @@
   "health": 20.0,
   "speed": 0.2,
   "attack": 2.0,
-  "names": "lotr_port:bree_male"
+  "gear": {
+    "mainhand": [
+      "lotr_port:iron_dagger",
+      "minecraft:iron_sword",
+      "lotr_port:iron_battleaxe"
+    ],
+    "head": "lotr_port:leather_hat"
+  },
+  "names": "lotr_port:dunlending_male"
 }

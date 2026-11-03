@@ -155,7 +155,11 @@ public class LotrNpc extends PathfinderMob implements Merchant {
         List<ResourceLocation> skins = type.skins();
         entityData.set(SKIN, skins.isEmpty() ? "" : skins.get(random.nextInt(skins.size())).toString());
         entityData.set(TALL_SKIN, type.skinHeight() == 64);
-        type.gear().forEach((slot, item) -> {
+        type.gear().forEach((slot, items) -> {
+            if (items.isEmpty()) {
+                return;
+            }
+            ResourceLocation item = items.get(random.nextInt(items.size()));
             try {
                 setItemSlot(EquipmentSlot.byName(slot), new ItemStack(BuiltInRegistries.ITEM.get(item)));
             } catch (IllegalArgumentException e) {

@@ -16,5 +16,15 @@
   "health": 20.0,
   "speed": 0.2,
   "attack": 2.0,
+  "gear": {
+    "mainhand": [
+      "lotr_port:pelargir_trident",
+      "lotr_port:pelargir_eket"
+    ],
+    "head": "lotr_port:pelargir_helmet",
+    "chest": "lotr_port:pelargir_chestplate",
+    "legs": "lotr_port:pelargir_leggings",
+    "feet": "lotr_port:pelargir_boots"
+  },
   "names": "lotr_port:gondor_male"
 }
