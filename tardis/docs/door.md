@@ -18,3 +18,10 @@ Read when: the doors, Immersive Portals, portals for space.
   before any hop/jump. A door portal loaded from disk that its TARDIS no longer lists is dropped (`onJoin`).
 - Tests: `gametest/DoorTests` (turn maths, a real portal pair in the test world), `WorldCheck.checkDoor` (opens the
   wreck's door on a dedicated server, checks both portals and where they lead, closes it). Untried in a client.
+- **Police box model** (Aaron 2026-11-03): his Blockbench glTF is kept in `tools/police_box/` (model.gltf, paint.png,
+  glow.png); `python3 tardis/tools/police_box.py` writes `assets/tardis_rb/police_box/model.json` (triangles, door
+  hinges, `door_swing` degrees/ticks, `glow_from_look`) and `textures/entity/police_box/look_0..3.png` + `glow.png`.
+  `ExteriorBlock` renders as ENTITYBLOCK_ANIMATED; `client/ExteriorRenderer` draws it, turned by FACING (model front
+  = -z = north), and swings both doors open outward on their hinges over `ticks` when OPEN changes (client-only
+  `doorAnim` on the block entity). Outward, because the portal fills the doorway and would hide doors swinging in.
+  Untried in a client.
