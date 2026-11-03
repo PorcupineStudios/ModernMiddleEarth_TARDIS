@@ -12,11 +12,8 @@
   "attack": 2.0,
   "gear": {
     "mainhand": [
-      "lotr_port:bronze_battleaxe",
-      "lotr_port:bronze_spear",
-      "lotr_port:bronze_sword",
-      "lotr_port:iron_battleaxe",
       "lotr_port:iron_dagger",
+      "lotr_port:iron_pike",
       "lotr_port:iron_spear",
       "minecraft:iron_sword"
     ],
@@ -26,5 +23,6 @@
     "feet": "lotr_port:dunlending_boots"
   },
   "names": "lotr_port:dunlending_male",
-  "speech": "lotr_port:dunlending/dunlending"
+  "speech": "lotr_port:dunlending/dunlending",
+  "quests": "lotr_port:dunland"
 }

@@ -14,7 +14,7 @@
   "gear": {
     "mainhand": "lotr_port:umbaric_dagger"
   },
-  "names": "lotr_port:near_haradrim_male",
-  "speech": "lotr_port:moredain/moredain",
+  "names": "lotr_port:umbar_male",
+  "speech": "lotr_port:near_harad/merchant",
   "quests": "lotr_port:near_harad"
 }

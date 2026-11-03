@@ -19,6 +19,6 @@
   },
   "names": "lotr_port:umbar_male",
   "units": "lotr_port:umbar_captain",
-  "speech": "lotr_port:moredain/chieftain",
+  "speech": "lotr_port:near_harad/mercenary",
   "quests": "lotr_port:umbar"
 }

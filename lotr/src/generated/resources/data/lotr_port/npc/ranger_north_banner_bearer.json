@@ -22,5 +22,5 @@
   },
   "names": "lotr_port:gondor_male",
   "speech": "lotr_port:ranger_north/ranger",
-  "quests": "lotr_port:ranger_north"
+  "quests": "lotr_port:ranger_north_arnor_relic"
 }

@@ -24,6 +24,6 @@
   "gear": {
     "mainhand": "minecraft:iron_hoe"
   },
-  "speech": "lotr_port:hobbit/farmhand",
+  "speech": "lotr_port:hobbit/hobbit",
   "quests": "lotr_port:hobbit"
 }

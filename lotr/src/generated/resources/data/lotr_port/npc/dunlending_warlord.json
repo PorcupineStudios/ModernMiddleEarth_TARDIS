@@ -13,11 +13,10 @@
   "gear": {
     "mainhand": [
       "lotr_port:bronze_battleaxe",
-      "lotr_port:bronze_spear",
-      "lotr_port:bronze_sword",
+      "lotr_port:bronze_dagger",
       "lotr_port:iron_battleaxe",
-      "lotr_port:iron_pike",
-      "minecraft:iron_sword"
+      "lotr_port:iron_dagger",
+      "lotr_port:iron_spear"
     ],
     "head": "lotr_port:fur_hat",
     "chest": "lotr_port:dunlending_chestplate",

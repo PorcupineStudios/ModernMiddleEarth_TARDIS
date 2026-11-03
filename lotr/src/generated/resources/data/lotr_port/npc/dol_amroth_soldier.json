@@ -17,7 +17,6 @@
     ],
     "head": [
       "lotr_port:dol_amroth_helmet",
-      "minecraft:iron_helmet",
       "minecraft:leather_helmet"
     ],
     "chest": "lotr_port:dol_amroth_gambeson",
@@ -25,6 +24,6 @@
     "feet": "minecraft:leather_boots"
   },
   "names": "lotr_port:gondor_male",
-  "speech": "lotr_port:gondor/soldier",
+  "speech": "lotr_port:gondor/swan_knight",
   "quests": "lotr_port:gondor"
 }

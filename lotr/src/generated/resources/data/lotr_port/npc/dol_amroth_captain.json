@@ -17,5 +17,6 @@
   },
   "names": "lotr_port:gondor_male",
   "units": "lotr_port:dol_amroth_captain",
-  "speech": "lotr_port:gondor/dol_amroth_captain"
+  "speech": "lotr_port:gondor/dol_amroth_captain",
+  "quests": "lotr_port:gondor"
 }

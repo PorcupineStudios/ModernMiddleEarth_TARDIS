@@ -13,7 +13,6 @@
   "attack": 2.0,
   "gear": {
     "mainhand": [
-      "lotr_port:galadhrim_battlestaff",
       "lotr_port:galadhrim_longspear",
       "lotr_port:galadhrim_spear",
       "lotr_port:galadhrim_sword"
@@ -23,7 +22,6 @@
     "legs": "lotr_port:galadhrim_leggings",
     "feet": "lotr_port:galadhrim_boots"
   },
-  "names": "lotr_port:sindarin_male",
   "speech": "lotr_port:galadhrim/warrior",
   "quests": "lotr_port:galadhrim"
 }

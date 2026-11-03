@@ -5,5 +5,6 @@
   "attack": 2.0,
   "gear": {
     "mainhand": "lotr_port:staff_of_gandalf_the_white"
-  }
+  },
+  "speech": "lotr_port:isengard/orc"
 }

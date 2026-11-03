@@ -18,8 +18,7 @@
   "attack": 2.0,
   "gear": {
     "mainhand": [
-      "lotr_port:umbaric_mace",
-      "lotr_port:umbaric_poleaxe",
+      "lotr_port:umbaric_pike",
       "lotr_port:umbaric_scimitar",
       "lotr_port:umbaric_spear"
     ],
@@ -37,6 +36,6 @@
     ]
   },
   "names": "lotr_port:gondor_male",
-  "speech": "lotr_port:moredain/moredain",
+  "speech": "lotr_port:near_harad/renegade",
   "quests": "lotr_port:gondor_renegade"
 }

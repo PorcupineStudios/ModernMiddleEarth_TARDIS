@@ -9,8 +9,11 @@
   "attack": 2.0,
   "gear": {
     "mainhand": [
-      "lotr_port:poisoned_umbaric_dagger",
+      "lotr_port:umbaric_dagger",
+      "lotr_port:umbaric_mace",
+      "lotr_port:umbaric_pike",
       "lotr_port:umbaric_poleaxe",
+      "lotr_port:umbaric_scimitar",
       "lotr_port:umbaric_spear"
     ],
     "head": "lotr_port:umbaric_helmet",
@@ -19,6 +22,5 @@
     "feet": "lotr_port:umbaric_boots"
   },
   "names": "lotr_port:umbar_male",
-  "speech": "lotr_port:moredain/moredain",
-  "quests": "lotr_port:umbar"
+  "speech": "lotr_port:near_harad/mercenary"
 }

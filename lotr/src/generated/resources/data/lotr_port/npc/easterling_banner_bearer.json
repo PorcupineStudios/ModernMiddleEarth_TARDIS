@@ -15,7 +15,8 @@
     "mainhand": [
       "lotr_port:rh_nic_bardiche",
       "lotr_port:rh_nic_battleaxe",
-      "lotr_port:rh_nic_spear"
+      "lotr_port:rh_nic_dagger",
+      "lotr_port:rh_nic_sword"
     ],
     "head": "lotr_port:rh_nic_helmet",
     "chest": "lotr_port:rh_nic_chestplate",
@@ -23,5 +24,6 @@
     "feet": "lotr_port:rh_nic_boots"
   },
   "names": "lotr_port:rhun_male",
+  "speech": "lotr_port:rhun/warrior",
   "quests": "lotr_port:rhun"
 }

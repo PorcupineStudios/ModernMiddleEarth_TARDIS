@@ -15,8 +15,9 @@
     "mainhand": "lotr_port:haradric_dagger",
     "head": "lotr_port:harad_turban"
   },
+  "names": "lotr_port:gulf_male",
   "buy": "lotr_port:harad_fishmonger_buy",
   "sell": "lotr_port:harad_fishmonger_sell",
-  "speech": "lotr_port:moredain/moredain",
+  "speech": "lotr_port:near_harad/merchant",
   "quests": "lotr_port:gulf_harad"
 }

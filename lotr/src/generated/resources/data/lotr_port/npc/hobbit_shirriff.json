@@ -28,6 +28,6 @@
     ],
     "head": "lotr_port:leather_hat"
   },
-  "speech": "lotr_port:hobbit/shirriff",
+  "speech": "lotr_port:hobbit/bounder",
   "quests": "lotr_port:hobbit"
 }

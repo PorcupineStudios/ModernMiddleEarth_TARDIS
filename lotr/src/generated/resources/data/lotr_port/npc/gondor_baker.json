@@ -19,9 +19,8 @@
   "gear": {
     "mainhand": "lotr_port:rolling_pin"
   },
-  "names": "lotr_port:gondor_male",
   "buy": "lotr_port:gondor_baker_buy",
   "sell": "lotr_port:gondor_baker_sell",
-  "speech": "lotr_port:gondor/man",
+  "speech": "lotr_port:gondor/market_trader",
   "quests": "lotr_port:gondor"
 }

@@ -16,14 +16,14 @@
       "lotr_port:corsair_battleaxe",
       "lotr_port:corsair_dagger",
       "lotr_port:corsair_eket",
-      "lotr_port:corsair_harpoon",
-      "lotr_port:poisoned_corsair_dagger"
+      "lotr_port:corsair_harpoon"
     ],
     "head": "lotr_port:corsair_helmet",
     "chest": "lotr_port:corsair_chestplate",
     "legs": "lotr_port:corsair_leggings",
     "feet": "lotr_port:corsair_boots"
   },
-  "names": "lotr_port:near_haradrim_male",
-  "speech": "lotr_port:moredain/moredain"
+  "names": "lotr_port:umbar_male",
+  "speech": "lotr_port:near_harad/merchant",
+  "quests": "lotr_port:corsair"
 }

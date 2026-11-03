@@ -14,7 +14,5 @@
   "gear": {
     "mainhand": "lotr_port:galadhrim_dagger"
   },
-  "names": "lotr_port:quenya_male",
-  "speech": "lotr_port:galadhrim/elf",
-  "quests": "lotr_port:galadhrim"
+  "speech": "lotr_port:galadhrim/elf"
 }

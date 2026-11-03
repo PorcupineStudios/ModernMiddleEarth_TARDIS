@@ -15,9 +15,8 @@
     "mainhand": "minecraft:iron_pickaxe",
     "head": "lotr_port:harad_turban"
   },
-  "names": "lotr_port:umbar_male",
   "buy": "lotr_port:harad_miner_buy",
   "sell": "lotr_port:harad_miner_sell",
-  "speech": "lotr_port:moredain/moredain",
+  "speech": "lotr_port:near_harad/merchant",
   "quests": "lotr_port:near_harad"
 }

@@ -22,6 +22,7 @@
     "legs": "lotr_port:wood_elven_leggings",
     "feet": "lotr_port:wood_elven_boots"
   },
-  "speech": "lotr_port:wood_elf/warrior",
+  "names": "lotr_port:sindarin_male",
+  "speech": "lotr_port:wood_elf/elf",
   "quests": "lotr_port:wood_elf"
 }

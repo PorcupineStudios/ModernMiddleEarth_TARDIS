@@ -19,6 +19,5 @@
   },
   "names": "lotr_port:quenya_male",
   "units": "lotr_port:rivendell_lord",
-  "speech": "lotr_port:rivendell/lord",
-  "quests": "lotr_port:rivendell"
+  "speech": "lotr_port:rivendell/lord"
 }

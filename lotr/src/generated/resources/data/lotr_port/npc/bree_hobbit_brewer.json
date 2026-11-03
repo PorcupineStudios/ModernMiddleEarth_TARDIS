@@ -23,6 +23,5 @@
   "attack": 2.0,
   "buy": "lotr_port:bree_brewer_buy",
   "sell": "lotr_port:bree_brewer_sell",
-  "speech": "lotr_port:bree/hobbit",
-  "quests": "lotr_port:bree"
+  "speech": "lotr_port:bree/hobbit"
 }

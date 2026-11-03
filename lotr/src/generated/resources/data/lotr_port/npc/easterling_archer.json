@@ -16,7 +16,7 @@
       "lotr_port:poisoned_rh_nic_dagger",
       "lotr_port:rh_nic_battleaxe",
       "lotr_port:rh_nic_dagger",
-      "lotr_port:rh_nic_spear",
+      "lotr_port:rh_nic_pike",
       "lotr_port:rh_nic_sword"
     ],
     "head": "lotr_port:rh_nic_helmet",
@@ -25,5 +25,6 @@
     "feet": "lotr_port:rh_nic_boots"
   },
   "names": "lotr_port:rhun_male",
+  "speech": "lotr_port:rhun/warrior",
   "quests": "lotr_port:rhun"
 }

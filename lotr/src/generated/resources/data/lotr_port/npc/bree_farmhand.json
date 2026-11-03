@@ -39,5 +39,7 @@
   "gear": {
     "mainhand": "minecraft:iron_hoe"
   },
-  "speech": "lotr_port:bree/farmhand"
+  "names": "lotr_port:bree_male",
+  "speech": "lotr_port:bree/man",
+  "quests": "lotr_port:bree"
 }

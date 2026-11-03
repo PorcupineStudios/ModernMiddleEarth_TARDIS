@@ -17,5 +17,6 @@
     "feet": "lotr_port:taurethrim_boots"
   },
   "names": "lotr_port:tauredain_male",
-  "speech": "lotr_port:tauredain/tauredain"
+  "speech": "lotr_port:tauredain/warrior",
+  "quests": "lotr_port:tauredain"
 }

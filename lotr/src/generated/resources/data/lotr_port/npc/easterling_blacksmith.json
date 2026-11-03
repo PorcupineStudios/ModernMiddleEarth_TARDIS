@@ -17,5 +17,6 @@
   "names": "lotr_port:rhun_male",
   "buy": "lotr_port:rhun_blacksmith_buy",
   "sell": "lotr_port:rhun_blacksmith_sell",
+  "speech": "lotr_port:rhun/blacksmith",
   "quests": "lotr_port:rhun"
 }

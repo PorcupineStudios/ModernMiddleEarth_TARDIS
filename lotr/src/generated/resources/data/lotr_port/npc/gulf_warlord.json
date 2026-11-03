@@ -19,6 +19,6 @@
   },
   "names": "lotr_port:gulf_male",
   "units": "lotr_port:gulf_warlord",
-  "speech": "lotr_port:moredain/chieftain",
+  "speech": "lotr_port:near_harad/mercenary",
   "quests": "lotr_port:gulf_harad"
 }

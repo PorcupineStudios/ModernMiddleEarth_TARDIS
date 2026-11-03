@@ -31,7 +31,8 @@
     "legs": "lotr_port:lindon_leggings",
     "feet": "lotr_port:lindon_boots"
   },
-  "names": "lotr_port:sindarin_male",
+  "names": "lotr_port:quenya_male",
   "units": "lotr_port:high_elf_lord",
-  "speech": "lotr_port:high_elf/lord"
+  "speech": "lotr_port:high_elf/lord",
+  "quests": "lotr_port:high_elf"
 }
