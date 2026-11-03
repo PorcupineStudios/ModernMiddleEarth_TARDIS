@@ -8,6 +8,7 @@ import com.porcupinestudios.lotrport.content.LotrTabs;
 import com.porcupinestudios.lotrport.crafting.LotrRecipes;
 import com.porcupinestudios.lotrport.registry.LotrRegistries;
 import com.porcupinestudios.lotrport.shared.SharedApiHooks;
+import com.porcupinestudios.lotrport.world.LotrWorldgen;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
@@ -29,6 +30,7 @@ public final class LotrPort {
         LotrItems.register(modBus);
         LotrTabs.register(modBus);
         LotrRecipes.register(modBus);
+        LotrWorldgen.register(modBus);
         SharedApiHooks.register(modBus);
         NeoForge.EVENT_BUS.addListener((RegisterCommandsEvent event) -> LotrCommand.register(event.getDispatcher()));
     }

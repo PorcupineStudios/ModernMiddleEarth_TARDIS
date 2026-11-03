@@ -12,6 +12,11 @@ Turns LOTR 36.15 (1.7.10) content into the 1.21.1 port's generated resources. Tw
    blockstates, models, textures, 22 languages, recipes, loot tables and tags. Also writes `converter/idtable.json`
    (old id + metadata -> new id, for structures later) and `converter/report.json` (what was skipped or guessed).
 
+   `converter/world.py` does Middle-earth: one 1.21 biome per LOTR biome (climate, water colour, simple vanilla trees,
+   grass and ores for now), LOTR's map image as `lotr_port/map/biomes.bin.gz` (one biome per 128-block pixel, origin
+   pixel 810,730 = block 0,0 in the Shire), `map.json` (per-biome ground height and hilliness in blocks), the noise
+   settings with a surface rule per top/filler block pair, the dimension, dimension type and world preset.
+
 Never edit generated files by hand: change the generator and run it again.
 
 Known gaps (report.json): spawn eggs and structure spawners wait for the NPC and structure phases; LOTR's special

@@ -2,16 +2,16 @@
   "type": "minecraft:smelting",
   "ingredient": [
     {
-      "item": "lotr_port:palm_wood"
+      "item": "lotr_port:almond_wood"
     },
     {
-      "item": "lotr_port:plum_wood"
+      "item": "lotr_port:aspen_wood"
     },
     {
-      "item": "lotr_port:pomegranate_wood"
+      "item": "lotr_port:green_oak_wood"
     },
     {
-      "item": "lotr_port:redwood_wood"
+      "item": "lotr_port:laireloss_wood"
     }
   ],
   "result": {

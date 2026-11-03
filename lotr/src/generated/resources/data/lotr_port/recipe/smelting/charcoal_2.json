@@ -2,16 +2,16 @@
   "type": "minecraft:smelting",
   "ingredient": [
     {
-      "item": "lotr_port:banana_wood"
+      "item": "lotr_port:apple_wood"
     },
     {
-      "item": "lotr_port:beech_wood"
+      "item": "lotr_port:cherry_wood"
     },
     {
-      "item": "lotr_port:holly_wood"
+      "item": "lotr_port:mango_wood"
     },
     {
-      "item": "lotr_port:lebethron_wood"
+      "item": "lotr_port:pear_wood"
     }
   ],
   "result": {

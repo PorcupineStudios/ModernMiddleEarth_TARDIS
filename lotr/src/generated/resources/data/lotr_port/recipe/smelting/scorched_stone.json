@@ -1,25 +1,8 @@
 {
   "type": "minecraft:smelting",
-  "ingredient": [
-    {
-      "item": "lotr_port:cargon"
-    },
-    {
-      "item": "lotr_port:chalk"
-    },
-    {
-      "item": "lotr_port:gondor_rock"
-    },
-    {
-      "item": "lotr_port:luigon"
-    },
-    {
-      "item": "lotr_port:mordor_rock"
-    },
-    {
-      "item": "lotr_port:rohan_rock"
-    }
-  ],
+  "ingredient": {
+    "tag": "c:stones"
+  },
   "result": {
     "id": "lotr_port:scorched_stone"
   },

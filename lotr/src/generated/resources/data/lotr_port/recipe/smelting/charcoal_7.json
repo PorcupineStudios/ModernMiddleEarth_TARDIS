@@ -2,16 +2,16 @@
   "type": "minecraft:smelting",
   "ingredient": [
     {
-      "item": "lotr_port:cypress_wood"
+      "item": "lotr_port:palm_wood"
     },
     {
-      "item": "lotr_port:mahogany_wood"
+      "item": "lotr_port:plum_wood"
     },
     {
-      "item": "lotr_port:olive_wood"
+      "item": "lotr_port:pomegranate_wood"
     },
     {
-      "item": "lotr_port:willow_wood"
+      "item": "lotr_port:redwood_wood"
     }
   ],
   "result": {

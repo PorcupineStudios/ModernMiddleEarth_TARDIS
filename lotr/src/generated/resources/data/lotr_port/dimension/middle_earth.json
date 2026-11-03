@@ -1,0 +1,10 @@
+{
+  "type": "lotr_port:middle_earth",
+  "generator": {
+    "type": "minecraft:noise",
+    "settings": "lotr_port:middle_earth",
+    "biome_source": {
+      "type": "lotr_port:middle_earth"
+    }
+  }
+}
