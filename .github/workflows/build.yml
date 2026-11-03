@@ -8,6 +8,8 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-java@v4
@@ -62,3 +64,14 @@ jobs:
         with:
           name: needed-mods
           path: needed-mods/*.jar
+      - name: Rolling test build (a pre-release with our jars and the mods they need)
+        if: github.event_name == 'push'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          mkdir -p test-build
+          cp api/build/libs/*.jar tardis/build/libs/*.jar lotr/build/libs/*.jar needed-mods/*.jar test-build/
+          rm -f test-build/*-sources.jar
+          gh release delete test-build -y --cleanup-tag || true
+          gh release create test-build test-build/*.jar --prerelease --target "${{ github.sha }}" \
+            --title "Test build (${GITHUB_REF_NAME})" --notes "Latest green build of ${GITHUB_REF_NAME} at ${GITHUB_SHA}, with Create, Immersive Portals and Cloth Config."
