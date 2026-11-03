@@ -1,0 +1,18 @@
+# Gradle
+.gradle/
+build/
+out/
+# IDEs
+.idea/
+*.iml
+*.ipr
+*.iws
+.vscode/
+.classpath
+.project
+.settings/
+bin/
+# Runs
+run/
+runs/
+logs/
