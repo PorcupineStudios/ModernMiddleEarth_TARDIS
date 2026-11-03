@@ -37,5 +37,6 @@
     ]
   },
   "names": "lotr_port:gondor_male",
+  "speech": "lotr_port:moredain/moredain",
   "quests": "lotr_port:gondor_renegade"
 }

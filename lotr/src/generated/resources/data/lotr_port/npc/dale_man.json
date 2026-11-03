@@ -17,5 +17,6 @@
       "minecraft:stone_axe"
     ]
   },
+  "speech": "lotr_port:dale/man",
   "quests": "lotr_port:dale"
 }

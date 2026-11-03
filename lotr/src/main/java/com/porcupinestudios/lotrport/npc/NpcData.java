@@ -17,6 +17,9 @@ public final class NpcData {
     private static final CodecJsonLoader<UnitPool> UNITS = new CodecJsonLoader<>("npc_units", UnitPool.CODEC);
     private static final CodecJsonLoader<List<String>> NAMES =
             new CodecJsonLoader<>("npc_names", Codec.STRING.listOf());
+    /** Speech lines by bank and mood: {@code speech/<bank>/<mood>.json} = {"lines": [...]}. */
+    private static final CodecJsonLoader<List<String>> SPEECH = new CodecJsonLoader<>("speech",
+            Codec.STRING.listOf().fieldOf("lines").codec());
     private static final CodecJsonLoader<NpcType> TYPES = new CodecJsonLoader<>("npc", NpcType.CODEC);
 
     private NpcData() {}
@@ -26,6 +29,7 @@ public final class NpcData {
             event.addListener(TRADES);
             event.addListener(UNITS);
             event.addListener(NAMES);
+            event.addListener(SPEECH);
             event.addListener(TYPES);
         });
     }
@@ -50,10 +54,23 @@ public final class NpcData {
         return NAMES.entries().getOrDefault(bank, List.of());
     }
 
+    /** The lines of one mood of a speech bank ({@code bank} plus {@code /mood}); empty when it has none. */
+    public static List<String> speech(ResourceLocation bank, String mood) {
+        return SPEECH.entries().getOrDefault(bank.withSuffix("/" + mood), List.of());
+    }
+
+    /** Whether any mood of the bank has lines. */
+    public static boolean hasSpeech(ResourceLocation bank) {
+        String prefix = bank.getPath() + "/";
+        return SPEECH.entries().keySet().stream()
+                .anyMatch(id -> id.getNamespace().equals(bank.getNamespace()) && id.getPath().startsWith(prefix));
+    }
+
     public static List<String> loadProblems() {
         List<String> all = new ArrayList<>(TRADES.lastErrors());
         all.addAll(UNITS.lastErrors());
         all.addAll(NAMES.lastErrors());
+        all.addAll(SPEECH.lastErrors());
         all.addAll(TYPES.lastErrors());
         all.addAll(brokenReferences());
         return all;
@@ -71,6 +88,8 @@ public final class NpcData {
                     .ifPresent(p -> problems.add(id + ": unknown unit pool " + p));
             type.names().filter(p -> !NAMES.entries().containsKey(p))
                     .ifPresent(p -> problems.add(id + ": unknown name bank " + p));
+            type.speech().filter(p -> !hasSpeech(p))
+                    .ifPresent(p -> problems.add(id + ": unknown speech bank " + p));
             type.quests().filter(p -> QuestData.pool(p).isEmpty())
                     .ifPresent(p -> problems.add(id + ": unknown quest pool " + p));
         });

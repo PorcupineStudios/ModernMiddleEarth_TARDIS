@@ -31,5 +31,6 @@
   },
   "buy": "lotr_port:hobbit_orcharder_buy",
   "sell": "lotr_port:hobbit_orcharder_sell",
+  "speech": "lotr_port:hobbit/orcharder",
   "quests": "lotr_port:hobbit"
 }

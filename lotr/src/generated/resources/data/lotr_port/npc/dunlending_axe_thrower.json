@@ -24,5 +24,6 @@
     "legs": "lotr_port:dunlending_leggings",
     "feet": "lotr_port:dunlending_boots"
   },
-  "names": "lotr_port:dunlending_male"
+  "names": "lotr_port:dunlending_male",
+  "speech": "lotr_port:dunlending/dunlending"
 }

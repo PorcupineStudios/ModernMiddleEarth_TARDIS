@@ -19,5 +19,6 @@
   },
   "names": "lotr_port:gulf_male",
   "units": "lotr_port:gulf_warlord",
+  "speech": "lotr_port:moredain/moredain",
   "quests": "lotr_port:gulf_harad"
 }

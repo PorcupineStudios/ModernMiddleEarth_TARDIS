@@ -38,5 +38,6 @@
     "feet": "lotr_port:lindon_boots"
   },
   "names": "lotr_port:gondor_male",
+  "speech": "lotr_port:rivendell/warrior",
   "quests": "lotr_port:high_elf"
 }

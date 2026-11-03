@@ -17,5 +17,6 @@
   },
   "names": "lotr_port:near_haradrim_male",
   "buy": "lotr_port:near_harad_blacksmith_buy",
-  "sell": "lotr_port:near_harad_blacksmith_sell"
+  "sell": "lotr_port:near_harad_blacksmith_sell",
+  "speech": "lotr_port:moredain/moredain"
 }

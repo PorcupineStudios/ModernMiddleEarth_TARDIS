@@ -19,5 +19,6 @@
   "buy": "lotr_port:harad_farmer_buy",
   "sell": "lotr_port:harad_farmer_sell",
   "units": "lotr_port:harnedor_farmer",
+  "speech": "lotr_port:moredain/moredain",
   "quests": "lotr_port:harnennor"
 }

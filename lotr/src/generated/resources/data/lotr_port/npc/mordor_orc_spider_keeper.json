@@ -22,5 +22,6 @@
     "feet": "lotr_port:mordor_boots"
   },
   "names": "lotr_port:orc",
-  "units": "lotr_port:mordor_orc_spider_keeper"
+  "units": "lotr_port:mordor_orc_spider_keeper",
+  "speech": "lotr_port:mordor/orc"
 }

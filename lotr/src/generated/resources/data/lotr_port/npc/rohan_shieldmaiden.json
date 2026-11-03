@@ -19,5 +19,6 @@
     "legs": "lotr_port:rohirric_leggings",
     "feet": "lotr_port:rohirric_boots"
   },
+  "speech": "lotr_port:rohan/shieldmaiden",
   "quests": "lotr_port:rohan_shieldmaiden"
 }

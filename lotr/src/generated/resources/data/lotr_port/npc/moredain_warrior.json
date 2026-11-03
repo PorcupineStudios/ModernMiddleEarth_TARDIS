@@ -22,5 +22,6 @@
     "feet": "lotr_port:morwaith_boots"
   },
   "names": "lotr_port:moredain_male",
+  "speech": "lotr_port:moredain/moredain",
   "quests": "lotr_port:moredain"
 }

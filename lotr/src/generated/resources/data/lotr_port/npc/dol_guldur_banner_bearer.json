@@ -30,5 +30,6 @@
     "feet": "lotr_port:dol_guldur_boots"
   },
   "names": "lotr_port:orc",
+  "speech": "lotr_port:dol_guldur/orc",
   "quests": "lotr_port:dol_guldur"
 }

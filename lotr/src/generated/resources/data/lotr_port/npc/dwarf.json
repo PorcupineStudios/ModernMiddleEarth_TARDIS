@@ -15,5 +15,6 @@
     "mainhand": "lotr_port:dwarven_dagger"
   },
   "names": "lotr_port:dwarf_male",
+  "speech": "lotr_port:dwarf/dwarf",
   "quests": "lotr_port:durin"
 }

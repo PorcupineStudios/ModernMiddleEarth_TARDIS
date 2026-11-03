@@ -32,5 +32,6 @@
     "feet": "lotr_port:lindon_boots"
   },
   "names": "lotr_port:sindarin_male",
-  "units": "lotr_port:high_elf_lord"
+  "units": "lotr_port:high_elf_lord",
+  "speech": "lotr_port:high_elf/lord"
 }

@@ -24,5 +24,6 @@
     "feet": "lotr_port:umbaric_boots"
   },
   "names": "lotr_port:umbar_male",
+  "speech": "lotr_port:moredain/moredain",
   "quests": "lotr_port:umbar"
 }

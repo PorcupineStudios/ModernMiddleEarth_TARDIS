@@ -17,5 +17,6 @@
   },
   "buy": "lotr_port:harad_brewer_buy",
   "sell": "lotr_port:harad_brewer_sell",
+  "speech": "lotr_port:moredain/moredain",
   "quests": "lotr_port:umbar"
 }

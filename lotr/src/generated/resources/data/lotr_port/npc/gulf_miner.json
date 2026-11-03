@@ -17,5 +17,6 @@
   },
   "names": "lotr_port:gulf_male",
   "buy": "lotr_port:harad_miner_buy",
-  "sell": "lotr_port:harad_miner_sell"
+  "sell": "lotr_port:harad_miner_sell",
+  "speech": "lotr_port:moredain/moredain"
 }

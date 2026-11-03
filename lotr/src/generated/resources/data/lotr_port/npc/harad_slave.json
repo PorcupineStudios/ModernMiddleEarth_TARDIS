@@ -6,5 +6,6 @@
   "gear": {
     "mainhand": "lotr_port:bronze_hoe"
   },
-  "names": "lotr_port:gondor_male"
+  "names": "lotr_port:gondor_male",
+  "speech": "lotr_port:gondor/soldier"
 }

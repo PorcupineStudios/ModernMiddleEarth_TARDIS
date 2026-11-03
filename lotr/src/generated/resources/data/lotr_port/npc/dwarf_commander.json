@@ -19,5 +19,6 @@
   },
   "names": "lotr_port:dwarf_male",
   "units": "lotr_port:dwarf_commander",
+  "speech": "lotr_port:dwarf/commander",
   "quests": "lotr_port:durin"
 }

@@ -17,5 +17,6 @@
   },
   "names": "lotr_port:near_haradrim_male",
   "buy": "lotr_port:harad_brewer_buy",
-  "sell": "lotr_port:harad_brewer_sell"
+  "sell": "lotr_port:harad_brewer_sell",
+  "speech": "lotr_port:moredain/moredain"
 }

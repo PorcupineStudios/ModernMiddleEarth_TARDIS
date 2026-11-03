@@ -24,5 +24,6 @@
   },
   "names": "lotr_port:orc",
   "buy": "lotr_port:mordor_trader_buy",
-  "sell": "lotr_port:mordor_trader_sell"
+  "sell": "lotr_port:mordor_trader_sell",
+  "speech": "lotr_port:mordor/orc"
 }

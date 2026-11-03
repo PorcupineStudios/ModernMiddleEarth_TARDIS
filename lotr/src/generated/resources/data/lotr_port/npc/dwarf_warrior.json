@@ -23,5 +23,6 @@
     "legs": "lotr_port:dwarven_leggings",
     "feet": "lotr_port:dwarven_boots"
   },
-  "names": "lotr_port:dwarf_male"
+  "names": "lotr_port:dwarf_male",
+  "speech": "lotr_port:dwarf/dwarf"
 }

@@ -28,5 +28,6 @@
   "names": "lotr_port:gondor_male",
   "buy": "lotr_port:gondor_brewer_buy",
   "sell": "lotr_port:gondor_brewer_sell",
+  "speech": "lotr_port:gondor/soldier",
   "quests": "lotr_port:gondor"
 }

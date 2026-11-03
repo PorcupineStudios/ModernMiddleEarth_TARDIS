@@ -30,5 +30,6 @@
   },
   "names": "lotr_port:hobbit_male",
   "units": "lotr_port:hobbit_shirriff",
+  "speech": "lotr_port:hobbit/shirriff",
   "quests": "lotr_port:hobbit"
 }

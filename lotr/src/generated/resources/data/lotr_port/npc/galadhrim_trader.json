@@ -16,5 +16,6 @@
   },
   "buy": "lotr_port:galadhrim_trader_buy",
   "sell": "lotr_port:galadhrim_trader_sell",
+  "speech": "lotr_port:galadhrim/trader",
   "quests": "lotr_port:galadhrim"
 }

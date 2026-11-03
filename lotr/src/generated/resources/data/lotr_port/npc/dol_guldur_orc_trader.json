@@ -25,5 +25,6 @@
   "names": "lotr_port:orc",
   "buy": "lotr_port:dol_guldur_trader_buy",
   "sell": "lotr_port:dol_guldur_trader_sell",
+  "speech": "lotr_port:dol_guldur/orc",
   "quests": "lotr_port:dol_guldur"
 }

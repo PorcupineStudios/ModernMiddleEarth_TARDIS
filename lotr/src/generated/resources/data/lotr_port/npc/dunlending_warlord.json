@@ -26,5 +26,6 @@
   },
   "names": "lotr_port:dunlending_male",
   "units": "lotr_port:dunlending_warlord",
+  "speech": "lotr_port:dunlending/warlord",
   "quests": "lotr_port:dunland"
 }

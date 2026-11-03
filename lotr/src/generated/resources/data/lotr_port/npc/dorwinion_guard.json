@@ -22,5 +22,6 @@
     "feet": "lotr_port:dorwinion_boots"
   },
   "names": "lotr_port:dorwinion_male",
+  "speech": "lotr_port:dorwinion/guard",
   "quests": "lotr_port:dorwinion"
 }

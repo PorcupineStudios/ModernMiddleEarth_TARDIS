@@ -28,5 +28,6 @@
     "legs": "lotr_port:dol_guldur_leggings",
     "feet": "lotr_port:dol_guldur_boots"
   },
-  "names": "lotr_port:orc"
+  "names": "lotr_port:orc",
+  "speech": "lotr_port:dol_guldur/orc"
 }

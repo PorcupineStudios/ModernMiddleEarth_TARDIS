@@ -18,5 +18,6 @@
   "names": "lotr_port:rohan_male",
   "buy": "lotr_port:rohan_meadhost_buy",
   "sell": "lotr_port:rohan_meadhost_sell",
+  "speech": "lotr_port:rohan/meadhost",
   "quests": "lotr_port:rohan"
 }

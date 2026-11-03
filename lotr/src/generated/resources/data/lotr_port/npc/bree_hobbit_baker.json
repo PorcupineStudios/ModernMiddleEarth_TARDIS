@@ -26,5 +26,6 @@
   },
   "buy": "lotr_port:bree_baker_buy",
   "sell": "lotr_port:bree_baker_sell",
+  "speech": "lotr_port:bree/hobbit",
   "quests": "lotr_port:bree"
 }

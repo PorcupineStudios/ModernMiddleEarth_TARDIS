@@ -21,5 +21,6 @@
   "names": "lotr_port:gulf_male",
   "buy": "lotr_port:gulf_hunter_buy",
   "sell": "lotr_port:gulf_hunter_sell",
+  "speech": "lotr_port:moredain/moredain",
   "quests": "lotr_port:gulf_harad"
 }

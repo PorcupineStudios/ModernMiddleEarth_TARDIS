@@ -18,5 +18,6 @@
   },
   "names": "lotr_port:orc",
   "units": "lotr_port:black_uruk_captain",
+  "speech": "lotr_port:mordor/orc",
   "quests": "lotr_port:mordor"
 }

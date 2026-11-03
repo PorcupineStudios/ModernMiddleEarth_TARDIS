@@ -30,5 +30,6 @@
     "feet": "lotr_port:mordor_boots"
   },
   "names": "lotr_port:orc",
+  "speech": "lotr_port:mordor/orc",
   "quests": "lotr_port:mordor"
 }

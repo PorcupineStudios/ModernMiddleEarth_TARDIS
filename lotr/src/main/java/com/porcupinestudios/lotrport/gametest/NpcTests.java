@@ -55,6 +55,27 @@ public final class NpcTests {
     }
 
     @GameTest(template = EMPTY)
+    public static void npcsTalkByMood(GameTestHelper helper) {
+        ServerPlayer player = helper.makeMockServerPlayerInLevel();
+        LotrNpc hobbit = spawn(helper, "hobbit");
+        ResourceLocation shire = LotrPort.id("hobbit");
+        ResourceLocation bank = hobbit.npcType().speech().orElseThrow();
+
+        Alignment.set(player, shire, 100);
+        helper.assertTrue(hobbit.speak(player), "a hobbit had nothing to say to a friend");
+        helper.assertTrue(!hobbit.speech().isEmpty() && !hobbit.speech().contains("#"),
+                "friendly line not filled in: '" + hobbit.speech() + "'");
+
+        Alignment.set(player, shire, -100);
+        helper.assertTrue(hobbit.speak(player), "a hobbit had nothing to say to an enemy");
+        String name = player.getGameProfile().getName();
+        helper.assertTrue(NpcData.speech(bank, "hostile").stream()
+                        .anyMatch(l -> l.replace("#", name).replace("@", "here").equals(hobbit.speech())),
+                "enemy got a line that isn't hostile: '" + hobbit.speech() + "'");
+        helper.succeed();
+    }
+
+    @GameTest(template = EMPTY)
     public static void hiringFromTwoFactions(GameTestHelper helper) {
         hire(helper, "gondorian_captain", GONDOR);
         hire(helper, "mordor_orc_mercenary_captain", MORDOR);

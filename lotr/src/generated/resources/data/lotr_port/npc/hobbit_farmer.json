@@ -28,5 +28,6 @@
   "buy": "lotr_port:hobbit_farmer_buy",
   "sell": "lotr_port:hobbit_farmer_sell",
   "units": "lotr_port:hobbit_farmer",
+  "speech": "lotr_port:hobbit/farmer",
   "quests": "lotr_port:hobbit"
 }

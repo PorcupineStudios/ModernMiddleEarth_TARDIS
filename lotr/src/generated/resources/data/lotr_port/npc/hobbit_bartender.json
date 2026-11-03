@@ -24,5 +24,6 @@
   "names": "lotr_port:hobbit_male",
   "buy": "lotr_port:hobbit_bartender_buy",
   "sell": "lotr_port:hobbit_bartender_sell",
+  "speech": "lotr_port:hobbit/bartender",
   "quests": "lotr_port:hobbit"
 }

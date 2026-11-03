@@ -16,5 +16,6 @@
   },
   "names": "lotr_port:dwarf_male",
   "buy": "lotr_port:iron_hills_merchant_buy",
-  "sell": "lotr_port:iron_hills_merchant_sell"
+  "sell": "lotr_port:iron_hills_merchant_sell",
+  "speech": "lotr_port:dwarf/dwarf"
 }

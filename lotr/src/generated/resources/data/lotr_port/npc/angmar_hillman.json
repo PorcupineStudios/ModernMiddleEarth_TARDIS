@@ -18,5 +18,6 @@
       "minecraft:stone_sword",
       "minecraft:wooden_axe"
     ]
-  }
+  },
+  "speech": "lotr_port:angmar/hillman"
 }

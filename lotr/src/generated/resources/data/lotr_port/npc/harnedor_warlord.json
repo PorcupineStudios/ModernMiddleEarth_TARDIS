@@ -19,5 +19,6 @@
   },
   "names": "lotr_port:near_haradrim_male",
   "units": "lotr_port:harnedor_warlord",
+  "speech": "lotr_port:moredain/moredain",
   "quests": "lotr_port:harnennor"
 }

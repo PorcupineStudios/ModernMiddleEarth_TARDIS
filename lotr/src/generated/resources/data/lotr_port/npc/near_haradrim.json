@@ -15,5 +15,6 @@
     "mainhand": "lotr_port:umbaric_dagger"
   },
   "names": "lotr_port:near_haradrim_male",
+  "speech": "lotr_port:moredain/moredain",
   "quests": "lotr_port:near_harad"
 }

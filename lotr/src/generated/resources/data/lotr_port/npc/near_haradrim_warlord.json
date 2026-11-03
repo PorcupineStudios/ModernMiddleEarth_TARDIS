@@ -20,5 +20,6 @@
   },
   "names": "lotr_port:umbar_male",
   "units": "lotr_port:near_haradrim_warlord",
+  "speech": "lotr_port:moredain/moredain",
   "quests": "lotr_port:near_harad"
 }

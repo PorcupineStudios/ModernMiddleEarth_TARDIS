@@ -25,5 +25,6 @@
   },
   "names": "lotr_port:umbar_male",
   "units": "lotr_port:corsair_slaver",
+  "speech": "lotr_port:moredain/moredain",
   "quests": "lotr_port:corsair"
 }

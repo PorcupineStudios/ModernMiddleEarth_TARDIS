@@ -18,6 +18,11 @@ import re
 from assets import NS, snake, write_json
 from vanilla import vanilla_item
 
+def speech_path(folder):
+    """LOTR's speech folder (camelCase) as a resource path."""
+    return "/".join(snake(x) for x in folder.split("/"))
+
+
 PERSON_MODELS = {"LOTRModelHuman", "LOTRModelOrc", "LOTRModelElf", "LOTRModelDwarf", "LOTRModelHobbit"}
 # The head and body shape each LOTR model draws (hair layer, ears, hobbit feet); humans are the default.
 MODELS = {"LOTRModelHobbit": "hobbit", "LOTRModelDwarf": "dwarf", "LOTRModelElf": "elf", "LOTRModelOrc": "orc"}
@@ -215,6 +220,7 @@ class Npcs:
         used_banks = {v["names"].split(":")[1] for v in written.values() if "names" in v}
         for bank in used_banks:
             write_json(os.path.join(self.data, "npc_names", bank + ".json"), self.banks[bank])
+        self.speech(types, written)
         self.written = written
         for tid, v in written.items():
             for key, folder in (("buy", "npc_trades"), ("sell", "npc_trades"), ("units", "npc_units")):
@@ -227,6 +233,56 @@ class Npcs:
                           if e not in people})
         self.report["npc_models_not_ported"].extend(skipped)
         return {"npcs": len(written), "npc_skins": len(self.copied)}
+
+    # ------------------------------------------------------------------ speech
+
+    def speech(self, types, written):
+        """LOTR's speech banks as speech/<folder>/<mood>.json (lines; # is the player's name), and each type's folder:
+        the bank LOTR picked when exported, else the closest folder by name, else the most common one of its faction."""
+        prefix = "assets/lotr/speech/"
+        banks = {}
+        for n in self.jar.names:
+            if n.startswith(prefix) and n.endswith(".txt") and n.count("/") == 5:
+                folder, mood = n[len(prefix):-4].rsplit("/", 1)
+                lines = [w.strip() for w in self.jar.read(n).decode("utf-8", "replace").splitlines() if w.strip()]
+                if lines:
+                    banks.setdefault(folder, {})[mood] = lines
+        by_name = {}
+        for folder in banks:
+            f, r = (snake(x) for x in folder.split("/"))
+            for k in (f + "_" + r, r if r.startswith(f) else None, f if f == r else None):
+                if k:
+                    by_name.setdefault(k, folder)
+
+        def guess(tid, e):
+            bank = e.get("speechBank")
+            if bank and bank.rsplit("/", 1)[0] in banks:
+                return bank.rsplit("/", 1)[0]
+            words = tid.split("_")
+            for n in range(len(words), 0, -1):
+                if "_".join(words[:n]) in by_name:
+                    return by_name["_".join(words[:n])]
+            return None
+
+        picked = {tid: guess(tid, e) for tid, e in types.items()}
+        by_faction = {}
+        for tid, folder in picked.items():
+            if folder and "faction" in written[tid]:
+                by_faction.setdefault(written[tid]["faction"], []).append(folder)
+        used = set()
+        for tid, folder in picked.items():
+            if not folder and written[tid].get("faction") in by_faction:
+                options = by_faction[written[tid]["faction"]]
+                folder = max(set(options), key=options.count)
+                self.report["npc_speech_from_faction"].append(tid)
+            if folder:
+                written[tid]["speech"] = f"{NS}:{speech_path(folder)}"
+                used.add(folder)
+            else:
+                self.report["npc_without_speech"].append(tid)
+        for folder in used:
+            for mood, lines in banks[folder].items():
+                write_json(os.path.join(self.data, "speech", speech_path(folder), mood + ".json"), {"lines": lines})
 
     def lang(self, types):
         for code in self.jar.langs():

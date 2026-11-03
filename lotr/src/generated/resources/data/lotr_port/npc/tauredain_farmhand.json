@@ -13,5 +13,6 @@
   "gear": {
     "mainhand": "lotr_port:taurethrim_hoe"
   },
+  "speech": "lotr_port:tauredain/farmhand",
   "quests": "lotr_port:tauredain"
 }

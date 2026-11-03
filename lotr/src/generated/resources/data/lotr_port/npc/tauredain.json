@@ -13,5 +13,6 @@
   "gear": {
     "mainhand": "lotr_port:taurethrim_dagger"
   },
+  "speech": "lotr_port:tauredain/tauredain",
   "quests": "lotr_port:tauredain"
 }

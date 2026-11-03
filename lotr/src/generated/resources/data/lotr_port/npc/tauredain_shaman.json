@@ -16,5 +16,6 @@
   "names": "lotr_port:tauredain_male",
   "buy": "lotr_port:tauredain_shaman_buy",
   "sell": "lotr_port:tauredain_shaman_sell",
+  "speech": "lotr_port:tauredain/shaman",
   "quests": "lotr_port:tauredain"
 }

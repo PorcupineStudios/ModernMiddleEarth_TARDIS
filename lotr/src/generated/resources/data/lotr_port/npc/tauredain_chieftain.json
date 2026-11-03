@@ -19,5 +19,6 @@
   },
   "names": "lotr_port:tauredain_male",
   "units": "lotr_port:tauredain_chieftain",
+  "speech": "lotr_port:tauredain/chieftain",
   "quests": "lotr_port:tauredain"
 }

@@ -19,5 +19,6 @@
   },
   "names": "lotr_port:moredain_male",
   "buy": "lotr_port:moredain_huntsman_buy",
-  "sell": "lotr_port:moredain_huntsman_sell"
+  "sell": "lotr_port:moredain_huntsman_sell",
+  "speech": "lotr_port:moredain/moredain"
 }

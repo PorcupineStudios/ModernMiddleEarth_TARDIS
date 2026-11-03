@@ -27,5 +27,6 @@
     "feet": "lotr_port:harnennor_boots"
   },
   "names": "lotr_port:near_haradrim_male",
+  "speech": "lotr_port:moredain/moredain",
   "quests": "lotr_port:harnennor"
 }

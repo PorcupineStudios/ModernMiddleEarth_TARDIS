@@ -17,5 +17,6 @@
   "names": "lotr_port:dwarf_male",
   "buy": "lotr_port:blue_dwarf_merchant_buy",
   "sell": "lotr_port:blue_dwarf_merchant_sell",
+  "speech": "lotr_port:blue_dwarf/merchant",
   "quests": "lotr_port:blue_mountains"
 }

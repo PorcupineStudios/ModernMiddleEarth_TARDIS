@@ -57,5 +57,6 @@
   },
   "names": "lotr_port:bree_male",
   "units": "lotr_port:bree_captain",
+  "speech": "lotr_port:bree/captain",
   "quests": "lotr_port:bree"
 }

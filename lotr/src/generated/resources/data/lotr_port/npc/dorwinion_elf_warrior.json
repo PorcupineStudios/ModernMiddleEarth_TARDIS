@@ -20,5 +20,6 @@
     "legs": "lotr_port:dorwinion_elven_leggings",
     "feet": "lotr_port:dorwinion_elven_boots"
   },
+  "speech": "lotr_port:dorwinion/elf_warrior",
   "quests": "lotr_port:dorwinion_elf"
 }

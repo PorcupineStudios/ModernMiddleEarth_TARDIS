@@ -29,5 +29,6 @@
   },
   "names": "lotr_port:orc",
   "units": "lotr_port:mordor_orc_slaver",
+  "speech": "lotr_port:mordor/orc",
   "quests": "lotr_port:mordor"
 }

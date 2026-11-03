@@ -14,5 +14,6 @@
   "gear": {
     "mainhand": "lotr_port:bronze_hoe"
   },
+  "speech": "lotr_port:moredain/moredain",
   "quests": "lotr_port:harnennor"
 }

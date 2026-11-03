@@ -21,5 +21,6 @@
   "names": "lotr_port:nomad_male",
   "buy": "lotr_port:nomad_merchant_buy",
   "sell": "lotr_port:nomad_merchant_sell",
+  "speech": "lotr_port:moredain/moredain",
   "quests": "lotr_port:nomad"
 }

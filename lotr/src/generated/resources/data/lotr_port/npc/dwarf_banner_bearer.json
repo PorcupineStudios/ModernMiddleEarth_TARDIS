@@ -24,5 +24,6 @@
     "feet": "lotr_port:silver_trimmed_dwarven_boots"
   },
   "names": "lotr_port:dwarf_male",
+  "speech": "lotr_port:dwarf/dwarf",
   "quests": "lotr_port:durin"
 }

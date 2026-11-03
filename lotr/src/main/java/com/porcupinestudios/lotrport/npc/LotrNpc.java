@@ -67,6 +67,9 @@ public class LotrNpc extends PathfinderMob implements Merchant {
             SynchedEntityData.defineId(LotrNpc.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<String> MODEL =
             SynchedEntityData.defineId(LotrNpc.class, EntityDataSerializers.STRING);
+    /** The line it is saying, drawn above its head; empty when quiet. */
+    private static final EntityDataAccessor<String> SPEECH =
+            SynchedEntityData.defineId(LotrNpc.class, EntityDataSerializers.STRING);
     /** How far a trading or hiring player may stand. */
     public static final double DEAL_DISTANCE = 8;
 
@@ -74,6 +77,7 @@ public class LotrNpc extends PathfinderMob implements Merchant {
     public enum Command { NONE, FOLLOW, GUARD }
 
     private String personName = "";
+    private int speechTicks;
     @Nullable
     private UUID owner;
     private Command command = Command.NONE;
@@ -119,6 +123,7 @@ public class LotrNpc extends PathfinderMob implements Merchant {
         builder.define(SKIN, "");
         builder.define(TALL_SKIN, false);
         builder.define(MODEL, "human");
+        builder.define(SPEECH, "");
     }
 
     @Override
@@ -203,6 +208,54 @@ public class LotrNpc extends PathfinderMob implements Merchant {
     /** The body the client draws (human, hobbit, dwarf, elf, orc). */
     public String model() {
         return entityData.get(MODEL);
+    }
+
+    /** The line it is saying right now (client and server); empty when quiet. */
+    public String speech() {
+        return entityData.get(SPEECH);
+    }
+
+    /**
+     * Says a line from its speech bank to {@code player}, shown above its head to everyone nearby. The mood follows
+     * how it sees the player: {@code hired} for its owner, {@code hostile} below zero alignment, else
+     * {@code friendly} (then {@code neutral}). Returns false when it has nothing to say.
+     */
+    public boolean speak(ServerPlayer player) {
+        NpcType type = npcType();
+        if (type == null || type.speech().isEmpty()) {
+            return false;
+        }
+        ResourceLocation bank = type.speech().get();
+        List<String> moods;
+        if (isOwnedBy(player)) {
+            moods = List.of("hired", "friendly", "neutral");
+        } else if (faction().map(f -> Alignment.get(player, f) < 0).orElse(false)) {
+            moods = List.of("hostile", "neutral");
+        } else {
+            moods = List.of("friendly", "neutral");
+        }
+        List<String> lines = List.of();
+        for (String mood : moods) {
+            lines = NpcData.speech(bank, mood);
+            if (!lines.isEmpty()) {
+                break;
+            }
+        }
+        // '@' names the place they stand (a tavern, a town); we don't know it, so prefer lines without it
+        List<String> plain = lines.stream().filter(l -> !l.contains("@")).toList();
+        List<String> pick = plain.isEmpty() ? lines : plain;
+        if (pick.isEmpty()) {
+            return false;
+        }
+        String line = pick.get(random.nextInt(pick.size()))
+                .replace("#", player.getGameProfile().getName())
+                .replace("@", "here");
+        entityData.set(SPEECH, line);
+        // long enough to read: 3 seconds plus a little per letter, at most 12
+        speechTicks = Math.min(240, 60 + line.length() * 2);
+        getNavigation().stop();
+        getLookControl().setLookAt(player);
+        return true;
     }
 
     public String personName() {
@@ -311,6 +364,8 @@ public class LotrNpc extends PathfinderMob implements Merchant {
         if (isOwnedBy(sp)) {
             if (sp.isShiftKeyDown()) {
                 setCommand(command == Command.FOLLOW ? Command.GUARD : Command.FOLLOW);
+            } else {
+                speak(sp);
             }
             sp.displayClientMessage(Component.translatableWithFallback("npc.lotr_port.command." + command.name()
                     .toLowerCase(), command == Command.FOLLOW ? "%s is following you" : "%s is guarding here",
@@ -328,13 +383,14 @@ public class LotrNpc extends PathfinderMob implements Merchant {
             return InteractionResult.SUCCESS;
         }
         if (type == null || !(type.trader() || type.captain()) || owner != null) {
-            return InteractionResult.PASS;
+            return speak(sp) ? InteractionResult.SUCCESS : InteractionResult.PASS;
         }
         if (!willDealWith(sp)) {
-            sp.sendSystemMessage(Component.translatableWithFallback("npc.lotr_port.refuses",
+            speak(sp);
+            sp.displayClientMessage(Component.translatableWithFallback("npc.lotr_port.refuses",
                     "%s won't deal with you: you need %s alignment with %s", getDisplayName(),
                     type.tradeAlignment(), faction().map(f -> Component.translatable(
-                            "faction." + f.getNamespace() + "." + f.getPath())).orElse(Component.empty())));
+                            "faction." + f.getNamespace() + "." + f.getPath())).orElse(Component.empty())), true);
             return InteractionResult.SUCCESS;
         }
         if (type.captain() && (!type.trader() || sp.isShiftKeyDown())) {
@@ -358,6 +414,9 @@ public class LotrNpc extends PathfinderMob implements Merchant {
     @Override
     public void aiStep() {
         super.aiStep();
+        if (!level().isClientSide && speechTicks > 0 && --speechTicks == 0) {
+            entityData.set(SPEECH, "");
+        }
         if (!level().isClientSide && tradingPlayer != null) {
             if (!tradingPlayer.isAlive() || tradingPlayer.distanceTo(this) > DEAL_DISTANCE
                     || !(tradingPlayer.containerMenu instanceof net.minecraft.world.inventory.MerchantMenu)) {
