@@ -85,10 +85,11 @@ final class WorldCheck {
             }
             int x = at[0];
             int z = at[1];
-            level.getChunk(x >> 4, z >> 4);
+            var chunk = level.getChunk(x >> 4, z >> 4);
             generated++;
             BlockPos pos = LotrDimensions.surface(level, x, z);
-            boolean found = level.getBiome(pos).unwrapKey().map(k -> k.location().toString().equals(id))
+            // the chunk's stored biome, not level.getBiome, which blurs biome borders by a few blocks
+            boolean found = chunk.getNoiseBiome(x >> 2, pos.getY() >> 2, z >> 2).unwrapKey().map(k -> k.location().toString().equals(id))
                     .orElse(false);
             if (!found) {
                 missing.add(id + " at " + x + "," + z);
