@@ -24,7 +24,6 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.decoration.ArmorStand;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.server.ServerStartedEvent;
@@ -105,31 +104,31 @@ public final class WorldCheck {
             problems.add("the test armor stand wasn't added at " + start);
             return;
         }
-        SpaceTravel.toSpace(stand, link.get(), space);
+        // a fresh check world has no ticking chunks up there, so the moved entity is checked as returned
+        var there = SpaceTravel.toSpace(stand, link.get(), space);
         Vec3 up = link.get().toSpace(start.x, start.z, 16);
-        var there = space.getEntitiesOfClass(ArmorStand.class, new AABB(up, up).inflate(2));
-        if (there.isEmpty()) {
-            problems.add("nothing came out in space at " + up + "; armor stands in space: "
-                    + space.getEntitiesOfClass(ArmorStand.class, new AABB(up, up).inflate(400)).stream()
-                            .map(a -> a.position().toString()).toList());
+        if (there.level() != space || there.position().distanceTo(up) > 1) {
+            problems.add("the armor stand went to " + there.level().dimension().location() + " " + there.position()
+                    + ", not space at " + up);
             return;
         }
-        TardisRB.LOG.info("[worldcheck] up into space: {} -> {}", start, there.get(0).position());
-        if (!there.get(0).getAttribute(Attributes.GRAVITY).hasModifier(SpaceTravel.GRAVITY_ID)) {
+        TardisRB.LOG.info("[worldcheck] up into space: {} -> {}", start, there.position());
+        if (!(there instanceof ArmorStand up1)
+                || !up1.getAttribute(Attributes.GRAVITY).hasModifier(SpaceTravel.GRAVITY_ID)) {
             problems.add("no low gravity in space");
         }
-        SpaceTravel.toSurface(there.get(0), link.get(), world, TardisContent.tuning().space());
+        var back = SpaceTravel.toSurface(there, link.get(), world, TardisContent.tuning().space());
         Vec3 down = new Vec3(start.x, link.get().ceiling() - link.get().arriveBelow(), start.z);
-        var back = world.getEntitiesOfClass(ArmorStand.class, new AABB(down, down).inflate(2));
-        if (back.isEmpty()) {
-            problems.add("nothing came back down at " + down);
+        if (back.level() != world || back.position().distanceTo(down) > 1) {
+            problems.add("the armor stand came down to " + back.level().dimension().location() + " "
+                    + back.position() + ", not " + down);
             return;
         }
-        TardisRB.LOG.info("[worldcheck] down from space: {}", back.get(0).position());
-        if (back.get(0).getAttribute(Attributes.GRAVITY).hasModifier(SpaceTravel.GRAVITY_ID)) {
+        TardisRB.LOG.info("[worldcheck] down from space: {}", back.position());
+        if (back instanceof ArmorStand down1 && down1.getAttribute(Attributes.GRAVITY).hasModifier(SpaceTravel.GRAVITY_ID)) {
             problems.add("still low gravity after coming down");
         }
-        back.forEach(ArmorStand::discard);
+        back.discard();
     }
 
     private static void run(MinecraftServer server) {
