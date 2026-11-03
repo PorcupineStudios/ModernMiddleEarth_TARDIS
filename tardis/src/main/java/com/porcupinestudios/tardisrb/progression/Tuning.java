@@ -6,10 +6,12 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 
 /**
- * Loose numbers that belong to no single subsystem: the crash site, hops, the Create winder, interiors and damage. Read from
+ * Loose numbers that belong to no single subsystem: the crash site, hops, the Create winder, interiors, damage and
+ * research speed. Read from
  * {@code data/tardis_rb/tardis/tuning/main.json}; every field has a default, so a pack can override just one.
  */
-public record Tuning(CrashSite crashSite, Hop hop, Winder winder, Interior interior, Damage damage) {
+public record Tuning(CrashSite crashSite, Hop hop, Winder winder, Interior interior, Damage damage,
+        ResearchSpeed research) {
     /** The wreck made once at the start dimension's spawn. {@code offset}: blocks east of the spawn point. */
     public record CrashSite(boolean enabled, int offset, String name, long startCharge) {
         static final CrashSite DEFAULT = new CrashSite(true, 8, "The Wreck", 0);
@@ -86,14 +88,29 @@ public record Tuning(CrashSite crashSite, Hop hop, Winder winder, Interior inter
                 .apply(i, Damage::new));
     }
 
+    /**
+     * Researchers (colonists, through the shared API) working for the crew: each one makes running research go
+     * {@code speed_per_researcher} times faster on top of normal, counting at most {@code max_researchers}.
+     */
+    public record ResearchSpeed(double speedPerResearcher, int maxResearchers) {
+        static final ResearchSpeed DEFAULT = new ResearchSpeed(0.5, 4);
+        static final Codec<ResearchSpeed> CODEC = RecordCodecBuilder.create(i -> i.group(
+                Codec.DOUBLE.optionalFieldOf("speed_per_researcher", DEFAULT.speedPerResearcher)
+                        .forGetter(ResearchSpeed::speedPerResearcher),
+                Codec.INT.optionalFieldOf("max_researchers", DEFAULT.maxResearchers)
+                        .forGetter(ResearchSpeed::maxResearchers))
+                .apply(i, ResearchSpeed::new));
+    }
+
     public static final Tuning DEFAULT = new Tuning(CrashSite.DEFAULT, Hop.DEFAULT, Winder.DEFAULT, Interior.DEFAULT,
-            Damage.DEFAULT);
+            Damage.DEFAULT, ResearchSpeed.DEFAULT);
 
     public static final Codec<Tuning> CODEC = RecordCodecBuilder.create(i -> i.group(
             CrashSite.CODEC.optionalFieldOf("crash_site", CrashSite.DEFAULT).forGetter(Tuning::crashSite),
             Hop.CODEC.optionalFieldOf("hop", Hop.DEFAULT).forGetter(Tuning::hop),
             Winder.CODEC.optionalFieldOf("winder", Winder.DEFAULT).forGetter(Tuning::winder),
             Interior.CODEC.optionalFieldOf("interior", Interior.DEFAULT).forGetter(Tuning::interior),
-            Damage.CODEC.optionalFieldOf("damage", Damage.DEFAULT).forGetter(Tuning::damage))
+            Damage.CODEC.optionalFieldOf("damage", Damage.DEFAULT).forGetter(Tuning::damage),
+            ResearchSpeed.CODEC.optionalFieldOf("research", ResearchSpeed.DEFAULT).forGetter(Tuning::research))
             .apply(i, Tuning::new));
 }

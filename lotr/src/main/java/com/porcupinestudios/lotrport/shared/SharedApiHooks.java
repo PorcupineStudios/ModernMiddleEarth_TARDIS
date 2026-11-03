@@ -1,5 +1,6 @@
 package com.porcupinestudios.lotrport.shared;
 
+import com.porcupinestudios.lotrport.colony.Colonies;
 import com.porcupinestudios.lotrport.world.LotrWorldData;
 import com.porcupinestudios.ringbearer.api.provider.RegisterProvidersEvent;
 import java.util.Optional;
@@ -19,5 +20,8 @@ public final class SharedApiHooks {
                 LotrWorldData.get(server).startsInMiddleEarth()
                         ? Optional.of(Level.OVERWORLD)
                         : Optional.empty()));
+        // Colonists research TARDIS tech for their founder's crew.
+        modBus.addListener((RegisterProvidersEvent event) -> event.researchers((server, player) ->
+                Colonies.get(server).researchers(player)));
     }
 }

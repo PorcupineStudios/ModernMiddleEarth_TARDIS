@@ -36,5 +36,9 @@
     "explosion_subsystem": "tardis_rb:hull",
     "explosion_levels": 1,
     "explosion_radius": 4.0
+  },
+  "research": {
+    "speed_per_researcher": 0.5,
+    "max_researchers": 4
   }
 }

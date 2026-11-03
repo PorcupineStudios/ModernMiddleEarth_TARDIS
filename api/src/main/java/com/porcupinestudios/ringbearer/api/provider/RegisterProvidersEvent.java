@@ -14,4 +14,8 @@ public final class RegisterProvidersEvent extends Event implements IModBusEvent 
     public void crashSite(CrashSiteProvider provider) {
         builder.crashSites.add(provider);
     }
+
+    public void researchers(ResearcherProvider provider) {
+        builder.researchers.add(provider);
+    }
 }

@@ -4,5 +4,6 @@
   "bed_height": 16,
   "hall_gap": 96,
   "arrivals_per_day": 1,
-  "first_settlers": 1
+  "first_settlers": 1,
+  "citizens_per_researcher": 5
 }
