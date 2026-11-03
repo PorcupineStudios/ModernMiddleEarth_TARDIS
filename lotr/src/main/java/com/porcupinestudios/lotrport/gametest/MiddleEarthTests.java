@@ -5,12 +5,20 @@ import com.porcupinestudios.lotrport.world.LotrDimensions;
 import com.porcupinestudios.lotrport.world.map.MapBiomeSource;
 import com.porcupinestudios.lotrport.world.map.MiddleEarthMap;
 import net.minecraft.core.Holder;
+import net.minecraft.core.RegistryAccess;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.gametest.framework.GameTest;
 import net.minecraft.gametest.framework.GameTestHelper;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.level.LevelHeightAccessor;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.minecraft.world.level.levelgen.Heightmap;
+import net.minecraft.world.level.levelgen.NoiseBasedChunkGenerator;
+import net.minecraft.world.level.levelgen.NoiseGeneratorSettings;
+import net.minecraft.world.level.levelgen.NoiseSettings;
 import net.minecraft.world.level.levelgen.RandomState;
 import net.neoforged.neoforge.gametest.GameTestHolder;
 import net.neoforged.neoforge.gametest.PrefixGameTestTemplate;
@@ -33,11 +41,37 @@ public final class MiddleEarthTests {
 
     private MiddleEarthTests() {}
 
-    private static ServerLevel middleEarth(GameTestHelper helper) {
-        ServerLevel level = LotrDimensions.middleEarth(helper.getLevel().getServer());
-        helper.assertTrue(level != null, "there is no Middle-earth level");
-        helper.assertTrue(LotrDimensions.isMiddleEarth(level), "Middle-earth is not generated from the map");
-        return level;
+    /** Middle-earth's generator with what it needs to sample terrain without a level. */
+    private record Terrain(ChunkGenerator generator, RandomState random, LevelHeightAccessor heights) {
+        MapBiomeSource source() {
+            return (MapBiomeSource) generator.getBiomeSource();
+        }
+
+        int ground(int x, int z) {
+            return generator.getBaseHeight(x, z, Heightmap.Types.OCEAN_FLOOR_WG, heights, random);
+        }
+    }
+
+    /**
+     * The Middle-earth level's generator when the level exists; the GameTest server skips datapack dimensions, so
+     * otherwise the same generator is built from the loaded biomes and noise settings.
+     */
+    private static Terrain middleEarth(GameTestHelper helper) {
+        MinecraftServer server = helper.getLevel().getServer();
+        ServerLevel level = LotrDimensions.middleEarth(server);
+        if (level != null) {
+            helper.assertTrue(LotrDimensions.isMiddleEarth(level), "Middle-earth is not generated from the map");
+            return new Terrain(level.getChunkSource().getGenerator(), level.getChunkSource().randomState(), level);
+        }
+        RegistryAccess registries = server.registryAccess();
+        Holder<NoiseGeneratorSettings> settings = registries.registryOrThrow(Registries.NOISE_SETTINGS)
+                .getHolderOrThrow(ResourceKey.create(Registries.NOISE_SETTINGS, LotrPort.id("middle_earth")));
+        ChunkGenerator generator = new NoiseBasedChunkGenerator(
+                new MapBiomeSource(registries.lookupOrThrow(Registries.BIOME)), settings);
+        RandomState random =
+                RandomState.create(settings.value(), registries.lookupOrThrow(Registries.NOISE), 12345L);
+        NoiseSettings noise = settings.value().noiseSettings();
+        return new Terrain(generator, random, LevelHeightAccessor.create(noise.minY(), noise.height()));
     }
 
     private static String key(Holder<Biome> biome) {
@@ -46,24 +80,19 @@ public final class MiddleEarthTests {
 
     @GameTest(template = EMPTY)
     public static void originIsDryShire(GameTestHelper helper) {
-        ServerLevel level = middleEarth(helper);
-        ChunkGenerator generator = level.getChunkSource().getGenerator();
-        MapBiomeSource source = (MapBiomeSource) generator.getBiomeSource();
-        String biome = key(source.biomeAtBlock(0, 0));
+        Terrain terrain = middleEarth(helper);
+        String biome = key(terrain.source().biomeAtBlock(0, 0));
         helper.assertTrue(biome.equals("lotr_port:shire"), "the map origin is in " + biome + ", not the Shire");
-        int y = generator.getBaseHeight(0, 0, Heightmap.Types.OCEAN_FLOOR_WG, level,
-                level.getChunkSource().randomState());
+        int y = terrain.ground(0, 0);
         LotrPort.LOG.info("[phase3] ground at the origin: y {}", y);
-        helper.assertTrue(y > generator.getSeaLevel(), "the origin is under water (ground at y " + y + ")");
+        helper.assertTrue(y > terrain.generator().getSeaLevel(), "the origin is under water (ground at y " + y + ")");
         helper.succeed();
     }
 
     @GameTest(template = EMPTY, timeoutTicks = 400)
     public static void terrainIsSmoothAcrossBiomeBorders(GameTestHelper helper) {
-        ServerLevel level = middleEarth(helper);
-        ChunkGenerator generator = level.getChunkSource().getGenerator();
-        MapBiomeSource source = (MapBiomeSource) generator.getBiomeSource();
-        RandomState random = level.getChunkSource().randomState();
+        Terrain terrain = middleEarth(helper);
+        MapBiomeSource source = terrain.source();
         MiddleEarthMap map = source.map();
         int borders = 0;
         double worstMap = 0;
@@ -77,11 +106,11 @@ public final class MiddleEarthTests {
                 continue;
             }
             borders++;
-            int prevGround = generator.getBaseHeight(x - 128, 0, Heightmap.Types.OCEAN_FLOOR_WG, level, random);
+            int prevGround = terrain.ground(x - 128, 0);
             double prevMap = map.heightAt(x - 128, 0);
             for (int dx = x - 127; dx <= x + 128; dx++) {
                 double mapHeight = map.heightAt(dx, 0);
-                int ground = generator.getBaseHeight(dx, 0, Heightmap.Types.OCEAN_FLOOR_WG, level, random);
+                int ground = terrain.ground(dx, 0);
                 if (Math.abs(mapHeight - prevMap) > worstMap) {
                     worstMap = Math.abs(mapHeight - prevMap);
                 }
@@ -105,8 +134,7 @@ public final class MiddleEarthTests {
 
     @GameTest(template = EMPTY)
     public static void biomeLookupIsWithinBudget(GameTestHelper helper) {
-        MapBiomeSource source = (MapBiomeSource) middleEarth(helper).getChunkSource().getGenerator()
-                .getBiomeSource();
+        MapBiomeSource source = middleEarth(helper).source();
         int sink = 0;
         for (int i = 0; i < 200_000; i++) {
             sink += source.biomeAtBlock(i * 7, i * 13).hashCode();
