@@ -208,6 +208,7 @@ final class NpcExporter {
         o.addProperty("sellPool", sell == null ? null : tradePools.get(sell));
         o.addProperty("unitPool", units == null ? null : unitPools.get(units));
         o.addProperty("warhorn", enumName(call(entity, "getWarhorn")));
+        QuestExporter.questInfo(o, entity);
         o.add("fields", primitives(entity));
         if (entity instanceof EntityLivingBase living) {
             JsonObject attrs = new JsonObject();
@@ -306,7 +307,7 @@ final class NpcExporter {
 
     // ---------------------------------------------------------------- helpers
 
-    private static String entityName(Class<?> c) {
+    static String entityName(Class<?> c) {
         if (c == null) {
             return null;
         }
@@ -334,7 +335,7 @@ final class NpcExporter {
         return vanilla == null ? c.getName() : vanilla.toString();
     }
 
-    private static Object call(Object o, String name) {
+    static Object call(Object o, String name) {
         for (Class<?> c = o.getClass(); c != null; c = c.getSuperclass()) {
             for (Method m : c.getDeclaredMethods()) {
                 if (m.getName().equals(name) && m.getParameterTypes().length == 0) {
@@ -350,15 +351,15 @@ final class NpcExporter {
         return null;
     }
 
-    private static String enumName(Object v) {
+    static String enumName(Object v) {
         return v instanceof Enum<?> e ? e.name() : null;
     }
 
-    private static JsonElement number(Object v) {
+    static JsonElement number(Object v) {
         return v instanceof Number n ? new JsonPrimitive(n) : JsonNull.INSTANCE;
     }
 
-    private static JsonElement stack(ItemStack s) {
+    static JsonElement stack(ItemStack s) {
         if (s == null || s.getItem() == null) {
             return JsonNull.INSTANCE;
         }
@@ -375,7 +376,7 @@ final class NpcExporter {
     }
 
     /** Numbers, booleans, strings and enums declared on the object's own LOTR classes (not vanilla's). */
-    private static JsonObject primitives(Object obj) {
+    static JsonObject primitives(Object obj) {
         JsonObject o = new JsonObject();
         for (Class<?> c = obj.getClass(); c != null && c.getName().startsWith("lotr."); c = c.getSuperclass()) {
             for (Field f : c.getDeclaredFields()) {
@@ -412,7 +413,7 @@ final class NpcExporter {
         return null;
     }
 
-    private static Object field(Object obj, String name) {
+    static Object field(Object obj, String name) {
         for (Class<?> c = obj.getClass(); c != null; c = c.getSuperclass()) {
             try {
                 Field f = c.getDeclaredField(name);

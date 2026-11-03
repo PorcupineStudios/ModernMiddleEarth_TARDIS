@@ -274,6 +274,12 @@ final class WorldExporter {
         o.addProperty("class", b.getClass().getName());
         try {
             o.add("fields", primitives(b));
+            try {
+                Object region = b.getClass().getMethod("getBiomeWaypoints").invoke(b);
+                o.addProperty("waypointRegion", region instanceof Enum<?> e ? e.name() : null);
+            } catch (Throwable t) {
+                // not a LOTR biome
+            }
             for (String name : new String[] { "biomeColors", "biomeTerrain", "decorator" }) {
                 Object part = field(b, name);
                 if (part != null) {
