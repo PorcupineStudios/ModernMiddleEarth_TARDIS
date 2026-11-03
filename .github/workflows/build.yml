@@ -15,6 +15,27 @@ jobs:
           distribution: temurin
           java-version: '21'
       - uses: gradle/actions/setup-gradle@v4
+      - name: Immersive Portals lookup (temporary)
+        continue-on-error: true
+        run: |
+          curl -s 'https://api.modrinth.com/v2/project/immersive-portals-neoforge/version' > ip.json
+          python3 -c "
+          import json
+          for v in json.load(open('ip.json')):
+              if '1.21.1' in v['game_versions']:
+                  print('VER', v['id'], v['version_number'], v['version_type'], v['loaders'], v['date_published'][:10], [f['filename'] for f in v['files']], [(d.get('project_id'), d.get('version_id'), d['dependency_type']) for d in v['dependencies']])
+          "
+          URL=$(python3 -c "
+          import json
+          vs=[v for v in json.load(open('ip.json')) if '1.21.1' in v['game_versions'] and 'neoforge' in v['loaders']]
+          print(vs[0]['files'][0]['url'])
+          ")
+          echo "URL $URL"
+          curl -sL "$URL" -o ip.jar
+          unzip -l ip.jar | grep -E "\.jar$|api/|portal/Portal\.class|PortalAPI|DQuaternion|PortalManipulation|McHelper\.class" | head -60
+          for c in $(unzip -l ip.jar | awk '{print $4}' | grep -E "(PortalAPI|portal/Portal|DQuaternion|PortalManipulation|PortalUtils)\.class$"); do javap -cp ip.jar "${c%.class}" | grep -E "public" | head -80; done
+          for j in $(unzip -l ip.jar | awk '{print $4}' | grep -E "META-INF/jarjar/.*\.jar$"); do echo "NESTED $j"; done
+          unzip -p ip.jar META-INF/neoforge.mods.toml | head -60
       - run: ./gradlew build --stacktrace
       - name: GameTests
         # The game test server can exit 0 after a mod loading crash, so the log has to say the tests passed.
