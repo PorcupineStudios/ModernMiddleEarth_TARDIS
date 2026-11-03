@@ -4,6 +4,7 @@ import com.mojang.logging.LogUtils;
 import com.porcupinestudios.tardisrb.block.TardisBlocks;
 import com.porcupinestudios.tardisrb.command.TardisCommand;
 import com.porcupinestudios.tardisrb.compat.create.CreateCompat;
+import com.porcupinestudios.tardisrb.door.Doors;
 import com.porcupinestudios.tardisrb.flight.CrashSite;
 import com.porcupinestudios.tardisrb.gametest.WorldCheck;
 import com.porcupinestudios.tardisrb.net.ConsoleNet;
@@ -36,6 +37,7 @@ public final class TardisRB {
         WorldCheck.register();
         Researching.register();
         WorldDamage.register();
+        Doors.register();
         WorkshopNet.register(modBus);
         LOG.info("TARDIS: Ring Bearer loading");
     }

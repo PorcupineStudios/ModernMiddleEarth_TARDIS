@@ -2,6 +2,7 @@ package com.porcupinestudios.tardisrb.block;
 
 import com.porcupinestudios.tardisrb.core.TardisManager;
 import com.porcupinestudios.tardisrb.core.TardisRecord;
+import com.porcupinestudios.tardisrb.door.Doors;
 import com.porcupinestudios.tardisrb.interior.Interiors;
 import java.util.Optional;
 import net.minecraft.core.BlockPos;
@@ -27,8 +28,9 @@ import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.phys.BlockHitResult;
 
 /**
- * The police box, two blocks tall; the lower half holds the TARDIS id. Using it: the crew walk in; an unclaimed wreck
- * is claimed by the first player allowed to own one; anyone else finds it locked. Placed and moved only by code
+ * The police box, two blocks tall; the lower half holds the TARDIS id. Using it: the crew open or close the doors
+ * (see-through portals, {@link Doors}) and walk in, or sneak-use it to step straight inside; an unclaimed wreck is
+ * claimed by the first player allowed to own one; anyone else finds it locked. Placed and moved only by code
  * ({@link Exteriors}).
  */
 public final class ExteriorBlock extends Block implements EntityBlock {
@@ -102,7 +104,18 @@ public final class ExteriorBlock extends Block implements EntityBlock {
                     "The door is locked"), true);
             return InteractionResult.CONSUME;
         }
-        Interiors.enter(sp, tardis);
+        if (sp.isShiftKeyDown()) {
+            Interiors.enter(sp, tardis);
+        } else {
+            boolean wasOpen = Doors.isOpen(tardis);
+            if (!Doors.toggle(sl.getServer(), tardis)) {
+                Interiors.enter(sp, tardis);
+            } else {
+                sp.displayClientMessage(wasOpen
+                        ? Component.translatableWithFallback("tardis_rb.door.closed", "The doors close")
+                        : Component.translatableWithFallback("tardis_rb.door.opened", "The doors swing open"), true);
+            }
+        }
         return InteractionResult.CONSUME;
     }
 

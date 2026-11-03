@@ -5,6 +5,7 @@ import com.porcupinestudios.ringbearer.api.history.HistoryLog;
 import com.porcupinestudios.tardisrb.TardisRB;
 import com.porcupinestudios.tardisrb.block.Exteriors;
 import com.porcupinestudios.tardisrb.core.TardisRecord;
+import com.porcupinestudios.tardisrb.door.Doors;
 import com.porcupinestudios.tardisrb.event.JumpEvent;
 import com.porcupinestudios.tardisrb.progression.Destination;
 import com.porcupinestudios.tardisrb.progression.TardisContent;
@@ -131,6 +132,7 @@ public final class Flight {
     private static Outcome land(MinecraftServer server, TardisRecord tardis, GlobalPos from, ServerLevel level,
             ServerLevel toLevel, BlockPos target, long charge, ResourceLocation history) {
         Tuning.Hop t = TardisContent.tuning().hop();
+        Doors.close(server, tardis); // the doors shut before it moves
         Direction facing = Exteriors.lift(level, from.pos()); // so the old spot doesn't block the search
         Optional<BlockPos> spot = Landing.find(toLevel, target, t.landingRadius(), t.landingHeight());
         if (spot.isEmpty()) {

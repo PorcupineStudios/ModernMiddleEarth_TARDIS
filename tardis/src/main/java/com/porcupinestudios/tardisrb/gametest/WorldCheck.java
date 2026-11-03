@@ -6,6 +6,8 @@ import com.porcupinestudios.tardisrb.block.TardisBlocks;
 import com.porcupinestudios.tardisrb.core.TardisManager;
 import com.porcupinestudios.tardisrb.core.TardisRecord;
 import com.porcupinestudios.tardisrb.flight.CrashSite;
+import com.porcupinestudios.tardisrb.door.Doors;
+import qouteall.imm_ptl.core.portal.Portal;
 import com.porcupinestudios.tardisrb.interior.Interiors;
 import com.porcupinestudios.tardisrb.interior.Rooms;
 import com.porcupinestudios.tardisrb.progression.TardisContent;
@@ -51,6 +53,32 @@ public final class WorldCheck {
         }
     }
 
+    /** The see-through door: opening puts up a portal pair between the box and the console room; closing removes it. */
+    private static void checkDoor(MinecraftServer server, TardisRecord wreck, ServerLevel world, ServerLevel inside,
+            List<String> problems) {
+        if (world == null || !Doors.open(server, wreck)) {
+            problems.add("the doors didn't open");
+            return;
+        }
+        var tag = wreck.moduleData(Doors.MODULE);
+        var out = world.getEntity(tag.getUUID("outside"));
+        var in = inside.getEntity(tag.getUUID("inside"));
+        if (!(out instanceof Portal outPortal) || in == null) {
+            problems.add("door portals missing: " + out + ", " + in);
+            return;
+        }
+        var expect = Doors.inside(wreck).center();
+        var lands = outPortal.transformPoint(outPortal.getOriginPos());
+        if (lands.distanceTo(expect) > 0.01) {
+            problems.add("the door leads to " + lands + ", not " + expect);
+        }
+        TardisRB.LOG.info("[worldcheck] door open: {} -> {}", outPortal.getOriginPos(), lands);
+        Doors.close(server, wreck);
+        if (Doors.isOpen(wreck) || !out.isRemoved() || !in.isRemoved()) {
+            problems.add("the doors didn't close");
+        }
+    }
+
     private static void run(MinecraftServer server) {
         List<String> problems = new ArrayList<>();
         CrashSite.place(server);
@@ -89,6 +117,7 @@ public final class WorldCheck {
                     problems.add("no ladder down to the basement at " + hatch + ": " + inside.getBlockState(hatch));
                 }
                 checkRoom(server, wreck, inside, problems);
+                checkDoor(server, wreck, level, inside, problems);
             }
         }
         if (problems.isEmpty()) {
