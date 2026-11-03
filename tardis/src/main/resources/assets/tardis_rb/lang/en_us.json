@@ -5,7 +5,6 @@
   "block.tardis_rb.salvage_wreck": "TARDIS Wreckage",
   "itemGroup.tardis_rb.tardis": "TARDIS",
   "block.tardis_rb.winder": "TARDIS Winder",
-  "block.tardis_rb.part": "TARDIS Part",
   "tardis_rb.room.unknown": "There is no room %s",
   "tardis_rb.room.cap": "No space for another room (%s of %s); repair the room systems further",
   "tardis_rb.room.requirements": "Something else has to come first",
@@ -22,5 +21,6 @@
   "tardis_rb.destination.tardis_rb.overworld": "The Overworld",
   "tardis_rb.destination.tardis_rb.the_nether": "The Nether",
   "tardis_rb.destination.tardis_rb.the_end": "The End",
-  "tardis_rb.destination.tardis_rb.middle_earth": "Middle-earth"
+  "tardis_rb.destination.tardis_rb.middle_earth": "Middle-earth",
+  "block.tardis_rb.repair_station": "Repair Station"
 }

@@ -11,7 +11,6 @@ import com.porcupinestudios.tardisrb.progression.Room;
 import com.porcupinestudios.tardisrb.progression.Stage;
 import com.porcupinestudios.tardisrb.progression.TardisContent;
 import com.porcupinestudios.tardisrb.progression.Unlocks;
-import com.porcupinestudios.tardisrb.repair.Parts;
 import com.porcupinestudios.tardisrb.repair.Repairs;
 import com.porcupinestudios.tardisrb.research.Researching;
 import io.netty.buffer.ByteBuf;
@@ -37,8 +36,9 @@ import net.neoforged.neoforge.network.handling.IPayloadContext;
 import net.neoforged.neoforge.network.registration.PayloadRegistrar;
 
 /**
- * The repairs and research screen: the stage's repair list, the research tree and the rooms that can be added, with what each costs and whether
- * it can be done now. Opened from the console; works only for crew standing in the TARDIS.
+ * The repair and upgrade tree (Aaron, 2026-11-03): every repair by subsystem and level, the research tree and the rooms
+ * that can be added, with what each costs and whether it can be done now. Opened at the Repair Station in the
+ * basement; works only for crew standing in the TARDIS.
  */
 public final class WorkshopNet {
     public static final int REPAIR = 0;
@@ -48,8 +48,6 @@ public final class WorkshopNet {
     public static final int RUNNING = 1;
     public static final int AVAILABLE = 2;
     public static final int LOCKED = 3;
-    /** A physical repair: done at its part block, not from the screen. */
-    public static final int AT_PART = 4;
 
     public static BiConsumer<WorkshopView, IPayloadContext> clientHandler = (view, ctx) -> { };
 
@@ -63,19 +61,10 @@ public final class WorkshopNet {
         PayloadRegistrar r = event.registrar("1");
         r.playToClient(WorkshopView.TYPE, WorkshopView.CODEC,
                 (p, ctx) -> ctx.enqueueWork(() -> clientHandler.accept(p, ctx)));
-        r.playToServer(OpenWorkshop.TYPE, OpenWorkshop.CODEC, (p, ctx) -> ctx.enqueueWork(() -> {
-            if (ctx.player() instanceof ServerPlayer sp) {
-                mine(sp).ifPresent(t -> PacketDistributor.sendToPlayer(sp, view(sp, t, "")));
-            }
-        }));
         r.playToServer(Act.TYPE, Act.CODEC, (p, ctx) -> ctx.enqueueWork(() -> {
             if (ctx.player() instanceof ServerPlayer sp) {
                 mine(sp).ifPresent(t -> {
-                    Repairs.Outcome out = switch (p.kind()) {
-                        case REPAIR -> Repairs.attempt(sp.server, t, p.id(), Optional.of(sp));
-                        case ROOM -> Rooms.add(sp.server, t, p.id(), Optional.of(sp));
-                        default -> Researching.start(sp.server, t, p.id(), Optional.of(sp));
-                    };
+                    Repairs.Outcome out = act(sp, t, p.kind(), p.id());
                     String msg = out.done() ? Component.translatableWithFallback("tardis_rb.workshop.ok", "Done")
                             .getString() : out.problem().get().getString();
                     PacketDistributor.sendToPlayer(sp, view(sp, t, msg));
@@ -84,31 +73,38 @@ public final class WorkshopNet {
         }));
     }
 
+    /** Opens the tree for a crew member (the Repair Station). */
+    public static void open(ServerPlayer player, TardisRecord tardis) {
+        PacketDistributor.sendToPlayer(player, view(player, tardis, ""));
+    }
+
+    /** Does what a click on a node asks: a repair, a research node or a room, paid from the player. */
+    public static Repairs.Outcome act(ServerPlayer player, TardisRecord t, int kind, ResourceLocation id) {
+        return switch (kind) {
+            case REPAIR -> Repairs.attempt(player.server, t, id, Optional.of(player));
+            case ROOM -> Rooms.add(player.server, t, id, Optional.of(player));
+            default -> Researching.start(player.server, t, id, Optional.of(player));
+        };
+    }
+
     private static Optional<TardisRecord> mine(ServerPlayer player) {
         return Interiors.at(player.serverLevel(), player.blockPosition()).filter(t -> t.isCrew(player.getUUID()));
     }
 
-    /** The stage's repairs (plus any other repair that can be done now), then every research node. */
+    /** Every repair (by subsystem and level), then every research node (with its parents), then every room. */
     public static WorkshopView view(ServerPlayer player, TardisRecord t, String message) {
         TardisContent.Snapshot data = TardisContent.get();
         List<Entry> entries = new ArrayList<>();
-        Set<ResourceLocation> shown = new LinkedHashSet<>();
-        t.stage().map(data.stages()::get).map(Stage::repairs).ifPresent(shown::addAll);
-        new TreeMap<>(data.repairs()).forEach((id, r) -> {
-            if (Repairs.blocked(player.server, t, id, Optional.of(player)).isEmpty()) {
-                shown.add(id);
-            }
-        });
-        for (ResourceLocation id : shown) {
-            Repair r = data.repairs().get(id);
-            if (r == null) {
-                continue;
-            }
-            int state = Parts.fixed(t, r) ? DONE
-                    : Repairs.blocked(player.server, t, id, Optional.of(player)).isPresent() ? LOCKED
-                    : r.partPos().isPresent() ? AT_PART : AVAILABLE;
-            entries.add(new Entry(REPAIR, id, r.subsystem().getPath() + " " + r.level(), state,
-                    describe(data.cost(r.cost())), ""));
+        Set<ResourceLocation> stageRepairs = new LinkedHashSet<>();
+        t.stage().map(data.stages()::get).map(Stage::repairs).ifPresent(stageRepairs::addAll);
+        for (Map.Entry<ResourceLocation, Repair> e : new TreeMap<>(data.repairs()).entrySet()) {
+            Repair r = e.getValue();
+            int state = Unlocks.level(t, r.subsystem()) >= r.level() ? DONE
+                    : Repairs.blocked(player.server, t, e.getKey(), Optional.of(player)).isPresent() ? LOCKED
+                    : AVAILABLE;
+            entries.add(new Entry(REPAIR, e.getKey(), r.subsystem().getPath() + " " + r.level(), state,
+                    new Text(describe(data.cost(r.cost())), stageRepairs.contains(e.getKey()) ? "this stage" : ""),
+                    new Node(r.subsystem().getPath(), r.level(), List.of())));
         }
         long now = player.server.overworld().getGameTime();
         for (Map.Entry<ResourceLocation, Research> e : new TreeMap<>(data.research()).entrySet()) {
@@ -123,14 +119,16 @@ public final class WorkshopNet {
                     ? t.researching().map(j -> Math.max(0, (j.finishAt() - now) / 20) + "s left").orElse("")
                     : (e.getValue().time() / 20) + "s";
             entries.add(new Entry(RESEARCH, e.getKey(), e.getKey().getPath(), state,
-                    describe(data.cost(e.getValue().cost())), extra));
+                    new Text(describe(data.cost(e.getValue().cost())), extra),
+                    new Node("", 0, e.getValue().parents())));
         }
         for (Map.Entry<ResourceLocation, Room> e : new TreeMap<>(data.rooms()).entrySet()) {
             long count = t.rooms().stream().filter(r -> r.room().equals(e.getKey())).count();
             int state = Rooms.blocked(player.server, t, e.getKey(), Optional.of(player)).isPresent() ? LOCKED
                     : AVAILABLE;
             entries.add(new Entry(ROOM, e.getKey(), e.getKey().getPath(), state,
-                    describe(data.cost(e.getValue().cost())), count > 0 ? count + " built" : ""));
+                    new Text(describe(data.cost(e.getValue().cost())), count > 0 ? count + " built" : ""),
+                    new Node("", 0, List.of())));
         }
         String stage = t.stage().map(ResourceLocation::getPath).orElse("-");
         return new WorkshopView(t.name(), stage, (int) Unlocks.stat(t, "range"), t.charge(), entries, message);
@@ -148,15 +146,30 @@ public final class WorkshopNet {
         return parts.isEmpty() ? "free" : String.join(", ", parts);
     }
 
-    /** One line: a repair or research node. */
-    public record Entry(int kind, ResourceLocation id, String title, int state, String cost, String extra) {
+    /** What a node costs, and a short note (time left, rooms built, part of this stage). */
+    public record Text(String cost, String extra) {
+        public static final StreamCodec<ByteBuf, Text> CODEC = StreamCodec.composite(
+                ByteBufCodecs.STRING_UTF8, Text::cost, ByteBufCodecs.STRING_UTF8, Text::extra, Text::new);
+    }
+
+    /** Where a node sits in the tree: a repair's subsystem row and level column, a research node's parents. */
+    public record Node(String group, int level, List<ResourceLocation> parents) {
+        public static final StreamCodec<ByteBuf, Node> CODEC = StreamCodec.composite(
+                ByteBufCodecs.STRING_UTF8, Node::group,
+                ByteBufCodecs.VAR_INT, Node::level,
+                ResourceLocation.STREAM_CODEC.apply(ByteBufCodecs.list()), Node::parents,
+                Node::new);
+    }
+
+    /** One node: a repair, a research node or a room. */
+    public record Entry(int kind, ResourceLocation id, String title, int state, Text text, Node node) {
         public static final StreamCodec<ByteBuf, Entry> CODEC = StreamCodec.composite(
                 ByteBufCodecs.VAR_INT, Entry::kind,
                 ResourceLocation.STREAM_CODEC, Entry::id,
                 ByteBufCodecs.STRING_UTF8, Entry::title,
                 ByteBufCodecs.VAR_INT, Entry::state,
-                ByteBufCodecs.STRING_UTF8, Entry::cost,
-                ByteBufCodecs.STRING_UTF8, Entry::extra,
+                Text.CODEC, Entry::text,
+                Node.CODEC, Entry::node,
                 Entry::new);
     }
 
@@ -174,16 +187,6 @@ public final class WorkshopNet {
 
         @Override
         public Type<WorkshopView> type() {
-            return TYPE;
-        }
-    }
-
-    public record OpenWorkshop() implements CustomPacketPayload {
-        public static final Type<OpenWorkshop> TYPE = new Type<>(TardisRB.id("open_workshop"));
-        public static final StreamCodec<ByteBuf, OpenWorkshop> CODEC = StreamCodec.unit(new OpenWorkshop());
-
-        @Override
-        public Type<OpenWorkshop> type() {
             return TYPE;
         }
     }

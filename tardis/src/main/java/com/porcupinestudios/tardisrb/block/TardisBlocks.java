@@ -22,7 +22,7 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 
 /**
  * The TARDIS's blocks: the police box exterior (placed only by code, two blocks tall), the console and interior door
- * of the console room, salvage wreck debris found in the world, and the Create winder. Their creative tab is "TARDIS".
+ * of the console room, the basement's Repair Station, salvage wreck debris found in the world, and the Create winder. Their creative tab is "TARDIS".
  */
 public final class TardisBlocks {
     private static final DeferredRegister.Blocks BLOCKS = DeferredRegister.createBlocks(TardisRB.MOD_ID);
@@ -47,13 +47,9 @@ public final class TardisBlocks {
             () -> new SalvageBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_BLUE).strength(2.0F)
                     .sound(SoundType.WOOD).noOcclusion()));
 
-    /** A broken part in the console room, fixed by hand (a physical repair). */
-    public static final DeferredBlock<PartBlock> PART = BLOCKS.register("part",
-            () -> new PartBlock(fixed().mapColor(MapColor.METAL).sound(SoundType.METAL).noOcclusion()));
-
-    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<PartBlockEntity>> PART_BE =
-            BLOCK_ENTITIES.register("part",
-                    () -> BlockEntityType.Builder.of(PartBlockEntity::new, PART.get()).build(null));
+    /** In the basement under the console room: opens the repair and upgrade tree. */
+    public static final DeferredBlock<RepairStationBlock> REPAIR_STATION = BLOCKS.register("repair_station",
+            () -> new RepairStationBlock(fixed().mapColor(MapColor.METAL).sound(SoundType.METAL)));
 
     /** Create: turns rotation into charge. */
     public static final DeferredBlock<WinderBlock> WINDER = BLOCKS.register("winder",
@@ -72,6 +68,7 @@ public final class TardisBlocks {
     public static final DeferredItem<BlockItem> CONSOLE_ITEM = ITEMS.registerSimpleBlockItem(CONSOLE);
     public static final DeferredItem<BlockItem> INTERIOR_DOOR_ITEM = ITEMS.registerSimpleBlockItem(INTERIOR_DOOR);
     public static final DeferredItem<BlockItem> SALVAGE_WRECK_ITEM = ITEMS.registerSimpleBlockItem(SALVAGE_WRECK);
+    public static final DeferredItem<BlockItem> REPAIR_STATION_ITEM = ITEMS.registerSimpleBlockItem(REPAIR_STATION);
     public static final DeferredItem<BlockItem> WINDER_ITEM = ITEMS.registerSimpleBlockItem(WINDER);
 
     static {
