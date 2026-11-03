@@ -134,9 +134,10 @@ public final class TravelQuestTests {
         }
         int coins = Coins.count(player);
         float alignment = Alignment.get(player, GONDOR);
-        helper.assertTrue(Quests.handIn(player, 0), "could not hand in " + quest.kind() + " " + quest.target()
-                + " x" + quest.count() + " (progress " + Quests.progress(player, Quests.log(player).active().get(0))
-                + ")");
+        if (!Quests.handIn(player, 0)) {
+            helper.fail("could not hand in " + quest.kind() + " " + quest.target() + " x" + quest.count()
+                    + " (progress " + Quests.progress(player, Quests.log(player).active().get(0)) + ")");
+        }
         helper.assertTrue(Coins.count(player) == coins + quest.coins(), "reward coins: "
                 + (Coins.count(player) - coins) + " not " + quest.coins());
         helper.assertTrue(Alignment.get(player, GONDOR) > alignment, "no alignment reward");
