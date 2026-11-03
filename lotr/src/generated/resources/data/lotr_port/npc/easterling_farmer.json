@@ -19,5 +19,7 @@
   "names": "lotr_port:rhun_male",
   "buy": "lotr_port:rhun_farmer_buy",
   "sell": "lotr_port:rhun_farmer_sell",
-  "units": "lotr_port:easterling_farmer"
+  "units": "lotr_port:easterling_farmer",
+  "speech": "lotr_port:rhun/farmer",
+  "quests": "lotr_port:rhun"
 }

@@ -56,6 +56,5 @@
     ]
   },
   "names": "lotr_port:bree_male",
-  "speech": "lotr_port:bree/guard",
-  "quests": "lotr_port:bree"
+  "speech": "lotr_port:bree/guard"
 }

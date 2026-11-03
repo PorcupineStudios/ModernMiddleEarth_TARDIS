@@ -14,7 +14,6 @@
     "mainhand": [
       "lotr_port:iron_battleaxe",
       "lotr_port:iron_pike",
-      "lotr_port:iron_spear",
       "minecraft:iron_sword"
     ],
     "head": "lotr_port:dorwinion_helmet",
@@ -23,6 +22,6 @@
     "feet": "lotr_port:dorwinion_boots"
   },
   "names": "lotr_port:dorwinion_male",
-  "speech": "lotr_port:dorwinion/elf_warrior",
+  "speech": "lotr_port:dorwinion/guard",
   "quests": "lotr_port:dorwinion"
 }

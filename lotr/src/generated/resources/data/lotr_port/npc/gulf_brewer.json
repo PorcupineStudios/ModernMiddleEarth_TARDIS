@@ -18,6 +18,5 @@
   "names": "lotr_port:gulf_male",
   "buy": "lotr_port:harad_brewer_buy",
   "sell": "lotr_port:harad_brewer_sell",
-  "speech": "lotr_port:moredain/moredain",
-  "quests": "lotr_port:gulf_harad"
+  "speech": "lotr_port:near_harad/merchant"
 }

@@ -15,8 +15,6 @@
     "mainhand": [
       "lotr_port:dwarven_battleaxe",
       "lotr_port:dwarven_mattock",
-      "lotr_port:dwarven_pike",
-      "lotr_port:dwarven_sword",
       "lotr_port:dwarven_warhammer"
     ],
     "head": "lotr_port:dwarven_helmet",

@@ -15,6 +15,7 @@
   "gear": {
     "mainhand": [
       "lotr_port:rohirric_battleaxe",
+      "lotr_port:rohirric_spear",
       "lotr_port:rohirric_sword"
     ],
     "head": "lotr_port:rohirric_coif",
@@ -23,6 +24,6 @@
     "feet": "lotr_port:rohirric_boots"
   },
   "names": "lotr_port:rohan_male",
-  "speech": "lotr_port:rohan/man",
+  "speech": "lotr_port:rohan/warrior",
   "quests": "lotr_port:rohan"
 }

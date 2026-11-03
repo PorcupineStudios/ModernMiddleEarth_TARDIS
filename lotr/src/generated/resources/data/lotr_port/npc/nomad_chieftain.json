@@ -19,6 +19,5 @@
   },
   "names": "lotr_port:nomad_male",
   "units": "lotr_port:nomad_warlord",
-  "speech": "lotr_port:moredain/chieftain",
-  "quests": "lotr_port:nomad"
+  "speech": "lotr_port:near_harad/mercenary"
 }

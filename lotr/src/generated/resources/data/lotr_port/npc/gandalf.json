@@ -6,5 +6,5 @@
   "gear": {
     "mainhand": "lotr_port:glamdring"
   },
-  "speech": "lotr_port:misc/bandit"
+  "speech": "lotr_port:char/gandalf"
 }

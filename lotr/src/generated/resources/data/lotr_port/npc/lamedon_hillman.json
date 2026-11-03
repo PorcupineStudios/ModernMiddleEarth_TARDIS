@@ -19,8 +19,7 @@
   "gear": {
     "mainhand": [
       "lotr_port:bronze_axe",
-      "lotr_port:bronze_battleaxe",
-      "lotr_port:iron_pike",
+      "lotr_port:iron_battleaxe",
       "minecraft:iron_axe"
     ],
     "head": "lotr_port:leather_hat",
@@ -28,6 +27,6 @@
     "feet": "minecraft:leather_boots"
   },
   "names": "lotr_port:gondor_male",
-  "speech": "lotr_port:gondor/man",
+  "speech": "lotr_port:gondor/soldier",
   "quests": "lotr_port:gondor"
 }

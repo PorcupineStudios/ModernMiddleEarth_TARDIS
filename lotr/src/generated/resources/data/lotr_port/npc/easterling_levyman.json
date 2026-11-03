@@ -13,13 +13,11 @@
   "attack": 2.0,
   "gear": {
     "mainhand": [
+      "lotr_port:bronze_battleaxe",
       "lotr_port:bronze_dagger",
-      "lotr_port:bronze_sword",
-      "lotr_port:iron_battleaxe",
       "lotr_port:iron_spear",
       "lotr_port:rh_nic_dagger",
-      "lotr_port:rh_nic_spear",
-      "minecraft:iron_sword"
+      "lotr_port:rh_nic_spear"
     ],
     "chest": [
       "lotr_port:bronze_chestplate",
@@ -37,5 +35,6 @@
     ]
   },
   "names": "lotr_port:rhun_male",
+  "speech": "lotr_port:rhun/warrior",
   "quests": "lotr_port:rhun"
 }

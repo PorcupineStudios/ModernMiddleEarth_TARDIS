@@ -18,6 +18,5 @@
     "feet": "lotr_port:fur_boots"
   },
   "names": "lotr_port:dunlending_male",
-  "speech": "lotr_port:dunlending/dunlending",
-  "quests": "lotr_port:dunland"
+  "speech": "lotr_port:dunlending/dunlending"
 }

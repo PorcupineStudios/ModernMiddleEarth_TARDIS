@@ -16,7 +16,6 @@
       "lotr_port:gulfen_khopesh",
       "lotr_port:haradric_pike",
       "lotr_port:haradric_spear",
-      "lotr_port:haradric_sword",
       "lotr_port:poisoned_haradric_dagger"
     ],
     "head": "lotr_port:gulfen_helmet",
@@ -25,6 +24,6 @@
     "feet": "lotr_port:gulfen_boots"
   },
   "names": "lotr_port:gulf_male",
-  "speech": "lotr_port:moredain/moredain",
+  "speech": "lotr_port:near_harad/mercenary",
   "quests": "lotr_port:gulf_harad"
 }

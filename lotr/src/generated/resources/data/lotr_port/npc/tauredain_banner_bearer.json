@@ -15,6 +15,7 @@
       "lotr_port:poisoned_taurethrim_dagger",
       "lotr_port:taurethrim_battleaxe",
       "lotr_port:taurethrim_dagger",
+      "lotr_port:taurethrim_pike",
       "lotr_port:taurethrim_spear",
       "lotr_port:taurethrim_sword"
     ],
@@ -24,5 +25,6 @@
     "feet": "lotr_port:taurethrim_boots"
   },
   "names": "lotr_port:tauredain_male",
-  "speech": "lotr_port:tauredain/tauredain"
+  "speech": "lotr_port:tauredain/warrior",
+  "quests": "lotr_port:tauredain"
 }

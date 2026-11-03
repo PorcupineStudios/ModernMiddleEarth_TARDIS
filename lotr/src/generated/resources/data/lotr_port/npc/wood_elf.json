@@ -14,7 +14,6 @@
   "gear": {
     "mainhand": "lotr_port:bow_of_mirkwood"
   },
-  "names": "lotr_port:gondor_male",
   "speech": "lotr_port:wood_elf/elf",
   "quests": "lotr_port:wood_elf"
 }

@@ -15,7 +15,8 @@
     "mainhand": [
       "lotr_port:blue_dwarven_battleaxe",
       "lotr_port:blue_dwarven_mattock",
-      "lotr_port:blue_dwarven_spear"
+      "lotr_port:blue_dwarven_spear",
+      "lotr_port:blue_dwarven_warhammer"
     ],
     "head": "lotr_port:blue_dwarven_helmet",
     "chest": "lotr_port:blue_dwarven_chestplate",

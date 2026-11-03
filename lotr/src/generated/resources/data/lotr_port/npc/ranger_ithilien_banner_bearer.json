@@ -20,5 +20,5 @@
     "feet": "lotr_port:ithilien_ranger_boots"
   },
   "names": "lotr_port:gondor_male",
-  "speech": "lotr_port:gondor/soldier"
+  "speech": "lotr_port:gondor/ranger"
 }

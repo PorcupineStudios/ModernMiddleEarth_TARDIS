@@ -14,9 +14,9 @@
     "mainhand": [
       "lotr_port:gundabad_uruk_bludgeon",
       "lotr_port:gundabad_uruk_cleaver",
-      "lotr_port:gundabad_uruk_pike",
-      "lotr_port:gundabad_uruk_spear",
-      "lotr_port:gundabad_uruk_waraxe"
+      "lotr_port:gundabad_uruk_dagger",
+      "lotr_port:gundabad_uruk_waraxe",
+      "lotr_port:poisoned_gundabad_uruk_dagger"
     ],
     "head": "lotr_port:gundabad_uruk_helmet",
     "chest": "lotr_port:gundabad_uruk_chestplate",

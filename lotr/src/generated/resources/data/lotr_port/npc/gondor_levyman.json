@@ -19,14 +19,14 @@
   "gear": {
     "mainhand": [
       "lotr_port:bronze_battleaxe",
-      "lotr_port:gondorian_pike",
+      "lotr_port:bronze_sword",
       "lotr_port:gondorian_warhammer",
       "lotr_port:iron_battleaxe",
       "lotr_port:iron_pike"
     ],
     "head": [
-      "minecraft:iron_helmet",
-      "minecraft:leather_helmet"
+      "lotr_port:gondorian_helmet",
+      "minecraft:iron_helmet"
     ],
     "chest": "lotr_port:gondorian_gambeson",
     "legs": "minecraft:leather_leggings",

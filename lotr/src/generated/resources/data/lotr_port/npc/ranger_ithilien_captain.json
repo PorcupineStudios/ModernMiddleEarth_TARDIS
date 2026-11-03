@@ -18,6 +18,5 @@
   },
   "names": "lotr_port:gondor_male",
   "units": "lotr_port:ranger_ithilien_captain",
-  "speech": "lotr_port:gondor/captain",
-  "quests": "lotr_port:gondor"
+  "speech": "lotr_port:gondor/ranger_captain"
 }

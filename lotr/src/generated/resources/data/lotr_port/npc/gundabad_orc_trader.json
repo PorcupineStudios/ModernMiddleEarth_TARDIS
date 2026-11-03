@@ -25,6 +25,6 @@
   "names": "lotr_port:orc",
   "buy": "lotr_port:gundabad_trader_buy",
   "sell": "lotr_port:gundabad_trader_sell",
-  "speech": "lotr_port:gundabad/orc",
+  "speech": "lotr_port:gundabad/trader",
   "quests": "lotr_port:gundabad"
 }
