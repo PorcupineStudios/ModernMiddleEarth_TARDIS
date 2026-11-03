@@ -35,8 +35,22 @@ public final class TardisRecord {
 
     private static final Codec<Set<ResourceLocation>> ID_SET =
             ResourceLocation.CODEC.listOf().xmap(l -> new LinkedHashSet<>(l), s -> List.copyOf(s));
-    private static final Codec<Map<ResourceLocation, Integer>> LEVELS =
-            Codec.unboundedMap(ResourceLocation.CODEC, Codec.INT);
+
+    /** A subsystem's saved state: highest repaired level, and levels lost to damage. */
+    public record SubsystemState(int level, int damage) {
+        static final Codec<SubsystemState> CODEC = RecordCodecBuilder.create(i -> i.group(
+                Codec.INT.optionalFieldOf("level", 0).forGetter(SubsystemState::level),
+                Codec.INT.optionalFieldOf("damage", 0).forGetter(SubsystemState::damage))
+                .apply(i, SubsystemState::new));
+    }
+
+    /** Research under way: the node and the overworld game time it finishes. */
+    public record ResearchJob(ResourceLocation node, long finishAt) {
+        static final Codec<ResearchJob> CODEC = RecordCodecBuilder.create(i -> i.group(
+                ResourceLocation.CODEC.fieldOf("node").forGetter(ResearchJob::node),
+                Codec.LONG.fieldOf("finish_at").forGetter(ResearchJob::finishAt))
+                .apply(i, ResearchJob::new));
+    }
 
     public static final Codec<TardisRecord> CODEC = RecordCodecBuilder.create(i -> i.group(
             Codec.INT.optionalFieldOf("data_version", DATA_VERSION).forGetter(r -> DATA_VERSION),
@@ -49,8 +63,9 @@ public final class TardisRecord {
             ID_SET.optionalFieldOf("milestones", Set.of()).forGetter(r -> r.milestones),
             ID_SET.optionalFieldOf("repairs", Set.of()).forGetter(r -> r.repairs),
             ID_SET.optionalFieldOf("research", Set.of()).forGetter(r -> r.research),
-            LEVELS.optionalFieldOf("levels", Map.of()).forGetter(r -> r.levels),
-            LEVELS.optionalFieldOf("damage", Map.of()).forGetter(r -> r.damage),
+            Codec.unboundedMap(ResourceLocation.CODEC, SubsystemState.CODEC).optionalFieldOf("subsystems", Map.of())
+                    .forGetter(TardisRecord::subsystemStates),
+            ResearchJob.CODEC.optionalFieldOf("researching").forGetter(r -> r.researching),
             Codec.LONG.optionalFieldOf("charge", 0L).forGetter(r -> r.charge),
             Codec.unboundedMap(Codec.STRING, CompoundTag.CODEC).optionalFieldOf("modules", Map.of())
                     .forGetter(r -> r.modules),
@@ -69,6 +84,7 @@ public final class TardisRecord {
     private final Set<ResourceLocation> research;
     private final Map<ResourceLocation, Integer> levels;
     private final Map<ResourceLocation, Integer> damage;
+    private Optional<ResearchJob> researching;
     private long charge;
     private final Map<String, CompoundTag> modules;
     /** Where the exterior stands; empty while it is in flight or not placed yet. */
@@ -82,8 +98,8 @@ public final class TardisRecord {
 
     private TardisRecord(int dataVersion, UUID id, String name, Optional<UUID> owner, List<UUID> crew,
             boolean claimed, Optional<ResourceLocation> stage, Set<ResourceLocation> milestones,
-            Set<ResourceLocation> repairs, Set<ResourceLocation> research, Map<ResourceLocation, Integer> levels,
-            Map<ResourceLocation, Integer> damage, long charge, Map<String, CompoundTag> modules,
+            Set<ResourceLocation> repairs, Set<ResourceLocation> research,
+            Map<ResourceLocation, SubsystemState> subsystems, Optional<ResearchJob> researching, long charge, Map<String, CompoundTag> modules,
             Optional<GlobalPos> location, int plot) {
         this.id = id;
         this.name = name;
@@ -94,8 +110,17 @@ public final class TardisRecord {
         this.milestones = new LinkedHashSet<>(milestones);
         this.repairs = new LinkedHashSet<>(repairs);
         this.research = new LinkedHashSet<>(research);
-        this.levels = new LinkedHashMap<>(levels);
-        this.damage = new LinkedHashMap<>(damage);
+        this.levels = new LinkedHashMap<>();
+        this.damage = new LinkedHashMap<>();
+        subsystems.forEach((sub, st) -> {
+            if (st.level() > 0) {
+                levels.put(sub, st.level());
+            }
+            if (st.damage() > 0) {
+                damage.put(sub, st.damage());
+            }
+        });
+        this.researching = researching;
         this.charge = charge;
         this.modules = new LinkedHashMap<>(modules);
         this.location = location;
@@ -104,7 +129,7 @@ public final class TardisRecord {
 
     static TardisRecord fresh(UUID id, String name, Optional<UUID> owner, boolean claimed) {
         return new TardisRecord(DATA_VERSION, id, name, owner, List.of(), claimed, Optional.empty(), Set.of(),
-                Set.of(), Set.of(), Map.of(), Map.of(), 0L, Map.of(), Optional.empty(), -1);
+                Set.of(), Set.of(), Map.of(), Optional.empty(), 0L, Map.of(), Optional.empty(), -1);
     }
 
     void attach(Runnable onChange) {
@@ -167,6 +192,17 @@ public final class TardisRecord {
     /** Levels lost to damage, below the repaired level. */
     public int damage(ResourceLocation subsystem) {
         return damage.getOrDefault(subsystem, 0);
+    }
+
+    private Map<ResourceLocation, SubsystemState> subsystemStates() {
+        Map<ResourceLocation, SubsystemState> out = new LinkedHashMap<>();
+        levels.forEach((sub, l) -> out.put(sub, new SubsystemState(l, damage(sub))));
+        damage.forEach((sub, d) -> out.putIfAbsent(sub, new SubsystemState(0, d)));
+        return out;
+    }
+
+    public Optional<ResearchJob> researching() {
+        return researching;
     }
 
     public long charge() {
@@ -271,7 +307,18 @@ public final class TardisRecord {
         return lost;
     }
 
+    /** Starts a research job (checked and paid by {@code Researching.start}). */
+    public void startResearch(ResearchJob job) {
+        researching = Optional.of(job);
+        changed();
+    }
+
+    /** Finishes a node; clears the job if it was the one under way. */
     public void completeResearch(ResourceLocation node) {
+        if (researching.map(j -> j.node().equals(node)).orElse(false)) {
+            researching = Optional.empty();
+            changed();
+        }
         if (research.add(node)) {
             changed();
             NeoForge.EVENT_BUS.post(new ResearchEvent.Post(this, node));

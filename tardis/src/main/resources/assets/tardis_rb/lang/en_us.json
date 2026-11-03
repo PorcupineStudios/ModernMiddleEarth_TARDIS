@@ -4,5 +4,6 @@
   "block.tardis_rb.interior_door": "TARDIS Doors",
   "block.tardis_rb.salvage_wreck": "TARDIS Wreckage",
   "itemGroup.tardis_rb.tardis": "TARDIS",
-  "block.tardis_rb.winder": "TARDIS Winder"
+  "block.tardis_rb.winder": "TARDIS Winder",
+  "block.tardis_rb.part": "TARDIS Part"
 }

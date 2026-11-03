@@ -41,8 +41,11 @@ public final class TardisContent extends SimplePreparableReloadListener<Map<Stri
     public static final String FEATURE = "feature";
     public static final String COST = "cost";
     public static final String TUNING = "tuning";
+    public static final String LOOK = "look";
     public static final List<String> FOLDERS =
-            List.of(SUBSYSTEM, STAGE, MILESTONE, REPAIR, RESEARCH, FEATURE, COST, TUNING);
+            List.of(SUBSYSTEM, STAGE, MILESTONE, REPAIR, RESEARCH, FEATURE, COST, TUNING, LOOK);
+    /** The look file for the police box. */
+    public static final ResourceLocation EXTERIOR_LOOK = ResourceLocation.fromNamespaceAndPath("tardis_rb", "exterior");
     /** The tuning file that counts; others in the folder are ignored. */
     public static final ResourceLocation MAIN_TUNING = ResourceLocation.fromNamespaceAndPath("tardis_rb", "main");
 
@@ -54,9 +57,14 @@ public final class TardisContent extends SimplePreparableReloadListener<Map<Stri
     public record Snapshot(Map<ResourceLocation, Subsystem> subsystems, Map<ResourceLocation, Stage> stages,
             Map<ResourceLocation, Milestone> milestones, Map<ResourceLocation, Repair> repairs,
             Map<ResourceLocation, Research> research, Map<ResourceLocation, Feature> features,
-            Map<ResourceLocation, Cost> costs, Tuning tuning, List<String> problems, int generation) {
+            Map<ResourceLocation, Cost> costs, Tuning tuning, Map<ResourceLocation, Look> looks, List<String> problems,
+            int generation) {
         static final Snapshot EMPTY = new Snapshot(Map.of(), Map.of(), Map.of(), Map.of(), Map.of(), Map.of(),
-                Map.of(), Tuning.DEFAULT, List.of(), 0);
+                Map.of(), Tuning.DEFAULT, Map.of(), List.of(), 0);
+
+        public Look exteriorLook() {
+            return looks.getOrDefault(EXTERIOR_LOOK, Look.NONE);
+        }
 
         /** Stages from first to last. */
         public List<Map.Entry<ResourceLocation, Stage>> stageOrder() {
@@ -146,6 +154,7 @@ public final class TardisContent extends SimplePreparableReloadListener<Map<Stri
         Map<ResourceLocation, Feature> features = parse(files, FEATURE, Feature.CODEC, problems);
         Map<ResourceLocation, Cost> costs = parse(files, COST, Cost.CODEC, problems);
         Tuning tuning = parse(files, TUNING, Tuning.CODEC, problems).getOrDefault(MAIN_TUNING, Tuning.DEFAULT);
+        Map<ResourceLocation, Look> looks = parse(files, LOOK, Look.CODEC, problems);
 
         subsystems.entrySet().removeIf(e -> {
             if (e.getValue().levels().isEmpty()) {
@@ -188,7 +197,7 @@ public final class TardisContent extends SimplePreparableReloadListener<Map<Stri
         removeBrokenResearch(research, problems);
 
         return new Snapshot(Map.copyOf(subsystems), Map.copyOf(stages), Map.copyOf(milestones), Map.copyOf(repairs),
-                Map.copyOf(research), Map.copyOf(features), Map.copyOf(costs), tuning, List.copyOf(problems), generation);
+                Map.copyOf(research), Map.copyOf(features), Map.copyOf(costs), tuning, Map.copyOf(looks), List.copyOf(problems), generation);
     }
 
     private static String missingCost(Either<ResourceLocation, Cost> ref, Map<ResourceLocation, Cost> costs) {

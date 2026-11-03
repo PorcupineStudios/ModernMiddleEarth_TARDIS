@@ -47,6 +47,14 @@ public final class TardisBlocks {
             () -> new SalvageBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_BLUE).strength(2.0F)
                     .sound(SoundType.WOOD).noOcclusion()));
 
+    /** A broken part in the console room, fixed by hand (a physical repair). */
+    public static final DeferredBlock<PartBlock> PART = BLOCKS.register("part",
+            () -> new PartBlock(fixed().mapColor(MapColor.METAL).sound(SoundType.METAL).noOcclusion()));
+
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<PartBlockEntity>> PART_BE =
+            BLOCK_ENTITIES.register("part",
+                    () -> BlockEntityType.Builder.of(PartBlockEntity::new, PART.get()).build(null));
+
     /** Create: turns rotation into charge. */
     public static final DeferredBlock<WinderBlock> WINDER = BLOCKS.register("winder",
             () -> new WinderBlock(BlockBehaviour.Properties.of().mapColor(MapColor.METAL).strength(2.0F)

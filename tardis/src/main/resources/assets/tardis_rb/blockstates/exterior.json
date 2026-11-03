@@ -1,33 +1,123 @@
 {
   "variants": {
-    "facing=north,half=lower": {
-      "model": "tardis_rb:block/exterior_lower"
+    "facing=north,half=lower,look=0": {
+      "model": "tardis_rb:block/exterior_l0_lower"
     },
-    "facing=north,half=upper": {
-      "model": "tardis_rb:block/exterior_upper"
+    "facing=north,half=lower,look=1": {
+      "model": "tardis_rb:block/exterior_l1_lower"
     },
-    "facing=east,half=lower": {
-      "model": "tardis_rb:block/exterior_lower",
+    "facing=north,half=lower,look=2": {
+      "model": "tardis_rb:block/exterior_l2_lower"
+    },
+    "facing=north,half=lower,look=3": {
+      "model": "tardis_rb:block/exterior_l3_lower"
+    },
+    "facing=north,half=upper,look=0": {
+      "model": "tardis_rb:block/exterior_l0_upper"
+    },
+    "facing=north,half=upper,look=1": {
+      "model": "tardis_rb:block/exterior_l1_upper"
+    },
+    "facing=north,half=upper,look=2": {
+      "model": "tardis_rb:block/exterior_l2_upper"
+    },
+    "facing=north,half=upper,look=3": {
+      "model": "tardis_rb:block/exterior_l3_upper"
+    },
+    "facing=east,half=lower,look=0": {
+      "model": "tardis_rb:block/exterior_l0_lower",
       "y": 90
     },
-    "facing=east,half=upper": {
-      "model": "tardis_rb:block/exterior_upper",
+    "facing=east,half=lower,look=1": {
+      "model": "tardis_rb:block/exterior_l1_lower",
       "y": 90
     },
-    "facing=south,half=lower": {
-      "model": "tardis_rb:block/exterior_lower",
+    "facing=east,half=lower,look=2": {
+      "model": "tardis_rb:block/exterior_l2_lower",
+      "y": 90
+    },
+    "facing=east,half=lower,look=3": {
+      "model": "tardis_rb:block/exterior_l3_lower",
+      "y": 90
+    },
+    "facing=east,half=upper,look=0": {
+      "model": "tardis_rb:block/exterior_l0_upper",
+      "y": 90
+    },
+    "facing=east,half=upper,look=1": {
+      "model": "tardis_rb:block/exterior_l1_upper",
+      "y": 90
+    },
+    "facing=east,half=upper,look=2": {
+      "model": "tardis_rb:block/exterior_l2_upper",
+      "y": 90
+    },
+    "facing=east,half=upper,look=3": {
+      "model": "tardis_rb:block/exterior_l3_upper",
+      "y": 90
+    },
+    "facing=south,half=lower,look=0": {
+      "model": "tardis_rb:block/exterior_l0_lower",
       "y": 180
     },
-    "facing=south,half=upper": {
-      "model": "tardis_rb:block/exterior_upper",
+    "facing=south,half=lower,look=1": {
+      "model": "tardis_rb:block/exterior_l1_lower",
       "y": 180
     },
-    "facing=west,half=lower": {
-      "model": "tardis_rb:block/exterior_lower",
+    "facing=south,half=lower,look=2": {
+      "model": "tardis_rb:block/exterior_l2_lower",
+      "y": 180
+    },
+    "facing=south,half=lower,look=3": {
+      "model": "tardis_rb:block/exterior_l3_lower",
+      "y": 180
+    },
+    "facing=south,half=upper,look=0": {
+      "model": "tardis_rb:block/exterior_l0_upper",
+      "y": 180
+    },
+    "facing=south,half=upper,look=1": {
+      "model": "tardis_rb:block/exterior_l1_upper",
+      "y": 180
+    },
+    "facing=south,half=upper,look=2": {
+      "model": "tardis_rb:block/exterior_l2_upper",
+      "y": 180
+    },
+    "facing=south,half=upper,look=3": {
+      "model": "tardis_rb:block/exterior_l3_upper",
+      "y": 180
+    },
+    "facing=west,half=lower,look=0": {
+      "model": "tardis_rb:block/exterior_l0_lower",
       "y": 270
     },
-    "facing=west,half=upper": {
-      "model": "tardis_rb:block/exterior_upper",
+    "facing=west,half=lower,look=1": {
+      "model": "tardis_rb:block/exterior_l1_lower",
+      "y": 270
+    },
+    "facing=west,half=lower,look=2": {
+      "model": "tardis_rb:block/exterior_l2_lower",
+      "y": 270
+    },
+    "facing=west,half=lower,look=3": {
+      "model": "tardis_rb:block/exterior_l3_lower",
+      "y": 270
+    },
+    "facing=west,half=upper,look=0": {
+      "model": "tardis_rb:block/exterior_l0_upper",
+      "y": 270
+    },
+    "facing=west,half=upper,look=1": {
+      "model": "tardis_rb:block/exterior_l1_upper",
+      "y": 270
+    },
+    "facing=west,half=upper,look=2": {
+      "model": "tardis_rb:block/exterior_l2_upper",
+      "y": 270
+    },
+    "facing=west,half=upper,look=3": {
+      "model": "tardis_rb:block/exterior_l3_upper",
       "y": 270
     }
   }

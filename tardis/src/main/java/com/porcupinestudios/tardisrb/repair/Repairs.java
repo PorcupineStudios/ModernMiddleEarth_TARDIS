@@ -26,6 +26,8 @@ import net.neoforged.neoforge.common.NeoForge;
 public final class Repairs {
     /** {@code problem} is empty when the repair was done. */
     public record Outcome(Optional<Component> problem) {
+        public static final Outcome OK = new Outcome(Optional.empty());
+
         public boolean done() {
             return problem.isEmpty();
         }
@@ -81,10 +83,23 @@ public final class Repairs {
         if (pre.isCanceled()) {
             return Outcome.fail("tardis_rb.repair.cancelled", "The repair was stopped");
         }
-        Cost cost = pre.cost();
+        Optional<Component> unpaid = pay(tardis, pre.cost(), player);
+        if (unpaid.isPresent()) {
+            return new Outcome(unpaid);
+        }
+        tardis.applyRepair(id, repair);
+        Progression.update(server, tardis);
+        return new Outcome(Optional.empty());
+    }
+
+    /**
+     * Pays a cost: charge from the TARDIS, items from the player (none for a creative player or no player). Takes
+     * nothing and says why when anything is short.
+     */
+    public static Optional<Component> pay(TardisRecord tardis, Cost cost, Optional<ServerPlayer> player) {
         if (tardis.charge() < cost.charge()) {
-            return Outcome.fail("tardis_rb.repair.charge", "Needs %s charge (the TARDIS has %s)", cost.charge(),
-                    tardis.charge());
+            return Optional.of(Component.translatableWithFallback("tardis_rb.repair.charge",
+                    "Needs %s charge (the TARDIS has %s)", cost.charge(), tardis.charge()));
         }
         boolean payItems = player.isPresent() && !player.get().getAbilities().instabuild;
         if (payItems) {
@@ -92,14 +107,13 @@ public final class Repairs {
             if (missing.isPresent()) {
                 ItemStack[] shown = missing.get().ingredient().getItems();
                 Component what = shown.length > 0 ? shown[0].getHoverName() : Component.literal("?");
-                return Outcome.fail("tardis_rb.repair.items", "Needs %s x %s", missing.get().count(), what);
+                return Optional.of(Component.translatableWithFallback("tardis_rb.repair.items", "Needs %s x %s",
+                        missing.get().count(), what));
             }
             take(player.get().getInventory(), cost);
         }
         tardis.useCharge(cost.charge());
-        tardis.applyRepair(id, repair);
-        Progression.update(server, tardis);
-        return new Outcome(Optional.empty());
+        return Optional.empty();
     }
 
     /** The first item cost the inventory can't cover, counting each stack once across all costs. */

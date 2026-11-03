@@ -19,6 +19,7 @@ import com.porcupinestudios.tardisrb.progression.Subsystem;
 import com.porcupinestudios.tardisrb.progression.TardisContent;
 import com.porcupinestudios.tardisrb.progression.Unlocks;
 import com.porcupinestudios.tardisrb.repair.Repairs;
+import com.porcupinestudios.tardisrb.research.Researching;
 import java.util.Collection;
 import java.util.Map;
 import java.util.Optional;
@@ -42,7 +43,7 @@ import net.neoforged.neoforge.event.RegisterCommandsEvent;
 /**
  * Admin and testing commands (permission 2), acting on the TARDIS the player owns or crews: {@code /tardis create
  * [name]} (in front of you), {@code info}, {@code enter}, {@code hop <x y z>}, {@code repair <id>}, {@code damage <subsystem> <levels>}, {@code charge <amount>},
- * {@code research <node>}, {@code milestone <id>}, {@code check <feature>}, {@code data}.
+ * {@code study <node>} (paid, takes time), {@code research <node>} (done at once), {@code milestone <id>}, {@code check <feature>}, {@code data}.
  */
 public final class TardisCommand {
     private static final SimpleCommandExceptionType NO_TARDIS = new SimpleCommandExceptionType(
@@ -119,11 +120,22 @@ public final class TardisCommand {
                             ctx.getSource().sendSuccess(() -> Component.literal("Stored " + added + " charge."), true);
                             return (int) Math.min(Integer.MAX_VALUE, added);
                         })))
+                .then(Commands.literal("study").then(Commands.argument("node", ResourceLocationArgument.id())
+                        .suggests(ids(d -> d.research().keySet())).executes(ctx -> {
+                            var out = Researching.start(ctx.getSource().getServer(), mine(ctx),
+                                    ResourceLocationArgument.getId(ctx, "node"),
+                                    Optional.ofNullable(ctx.getSource().getPlayer()));
+                            if (!out.done()) {
+                                ctx.getSource().sendFailure(out.problem().get());
+                                return 0;
+                            }
+                            ctx.getSource().sendSuccess(() -> Component.literal("Research started."), true);
+                            return 1;
+                        })))
                 .then(Commands.literal("research").then(Commands.argument("node", ResourceLocationArgument.id())
                         .suggests(ids(d -> d.research().keySet())).executes(ctx -> {
-                            TardisRecord t = mine(ctx);
-                            t.completeResearch(ResourceLocationArgument.getId(ctx, "node"));
-                            Progression.update(ctx.getSource().getServer(), t);
+                            Researching.finish(ctx.getSource().getServer(), mine(ctx),
+                                    ResourceLocationArgument.getId(ctx, "node"));
                             return 1;
                         })))
                 .then(Commands.literal("milestone").then(Commands.argument("milestone", ResourceLocationArgument.id())

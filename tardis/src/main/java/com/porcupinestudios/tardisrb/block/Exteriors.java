@@ -1,5 +1,7 @@
 package com.porcupinestudios.tardisrb.block;
 
+import com.porcupinestudios.tardisrb.core.TardisManager;
+import com.porcupinestudios.tardisrb.look.Looks;
 import java.util.UUID;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -14,7 +16,10 @@ public final class Exteriors {
     private Exteriors() {}
 
     public static void place(ServerLevel level, BlockPos base, Direction facing, UUID tardis) {
-        BlockState lower = TardisBlocks.EXTERIOR.get().defaultBlockState().setValue(ExteriorBlock.FACING, facing);
+        int look = TardisManager.get(level.getServer()).get(tardis)
+                .map(t -> Looks.exterior(level.getServer(), t)).orElse(0);
+        BlockState lower = TardisBlocks.EXTERIOR.get().defaultBlockState().setValue(ExteriorBlock.FACING, facing)
+                .setValue(ExteriorBlock.LOOK, look);
         level.setBlock(base, lower, Block.UPDATE_ALL);
         level.setBlock(base.above(), lower.setValue(ExteriorBlock.HALF, DoubleBlockHalf.UPPER), Block.UPDATE_ALL);
         if (level.getBlockEntity(base) instanceof ExteriorBlockEntity be) {

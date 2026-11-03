@@ -1,6 +1,7 @@
 package com.porcupinestudios.tardisrb.client;
 
 import com.porcupinestudios.tardisrb.net.ConsoleNet;
+import com.porcupinestudios.tardisrb.net.WorkshopNet;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
@@ -46,6 +47,9 @@ public final class ConsoleScreen extends Screen {
         hop = addRenderableWidget(Button.builder(Component.translatableWithFallback("tardis_rb.console.hop", "Hop"),
                 b -> send()).bounds(cx - 40, top + 28, 80, 20).build());
         hop.active = view.canHop();
+        addRenderableWidget(Button.builder(Component.translatableWithFallback("tardis_rb.console.workshop",
+                "Repairs & research"), b -> PacketDistributor.sendToServer(new WorkshopNet.OpenWorkshop()))
+                .bounds(cx - 70, top + 52, 140, 20).build());
     }
 
     private EditBox box(int left, int top, String value) {
@@ -79,7 +83,7 @@ public final class ConsoleScreen extends Screen {
         g.drawString(font, "Y", cx - 30, top + 40, 0xA0A0A0);
         g.drawString(font, "Z", cx + 35, top + 40, 0xA0A0A0);
         if (!view.message().isEmpty()) {
-            g.drawCenteredString(font, Component.literal(view.message()), cx, height / 2 + 36, 0xFFD080);
+            g.drawCenteredString(font, Component.literal(view.message()), cx, height / 2 + 60, 0xFFD080);
         }
     }
 

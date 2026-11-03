@@ -6,10 +6,10 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 
 /**
- * Loose numbers that belong to no single subsystem: the crash site, hops, the Create winder and interiors. Read from
+ * Loose numbers that belong to no single subsystem: the crash site, hops, the Create winder, interiors and damage. Read from
  * {@code data/tardis_rb/tardis/tuning/main.json}; every field has a default, so a pack can override just one.
  */
-public record Tuning(CrashSite crashSite, Hop hop, Winder winder, Interior interior) {
+public record Tuning(CrashSite crashSite, Hop hop, Winder winder, Interior interior, Damage damage) {
     /** The wreck made once at the start dimension's spawn. {@code offset}: blocks east of the spawn point. */
     public record CrashSite(boolean enabled, int offset, String name, long startCharge) {
         static final CrashSite DEFAULT = new CrashSite(true, 8, "The Wreck", 0);
@@ -65,12 +65,29 @@ public record Tuning(CrashSite crashSite, Hop hop, Winder winder, Interior inter
                 .apply(i, Interior::new));
     }
 
-    public static final Tuning DEFAULT = new Tuning(CrashSite.DEFAULT, Hop.DEFAULT, Winder.DEFAULT, Interior.DEFAULT);
+    /**
+     * Damage from the world: an explosion within {@code explosion_radius} blocks of the police box knocks
+     * {@code explosion_subsystem} down {@code explosion_levels} levels (0 = explosions do nothing).
+     */
+    public record Damage(ResourceLocation explosionSubsystem, int explosionLevels, double explosionRadius) {
+        static final Damage DEFAULT = new Damage(ResourceLocation.fromNamespaceAndPath("tardis_rb", "hull"), 1, 4.0);
+        static final Codec<Damage> CODEC = RecordCodecBuilder.create(i -> i.group(
+                ResourceLocation.CODEC.optionalFieldOf("explosion_subsystem", DEFAULT.explosionSubsystem)
+                        .forGetter(Damage::explosionSubsystem),
+                Codec.INT.optionalFieldOf("explosion_levels", DEFAULT.explosionLevels).forGetter(Damage::explosionLevels),
+                Codec.DOUBLE.optionalFieldOf("explosion_radius", DEFAULT.explosionRadius)
+                        .forGetter(Damage::explosionRadius))
+                .apply(i, Damage::new));
+    }
+
+    public static final Tuning DEFAULT = new Tuning(CrashSite.DEFAULT, Hop.DEFAULT, Winder.DEFAULT, Interior.DEFAULT,
+            Damage.DEFAULT);
 
     public static final Codec<Tuning> CODEC = RecordCodecBuilder.create(i -> i.group(
             CrashSite.CODEC.optionalFieldOf("crash_site", CrashSite.DEFAULT).forGetter(Tuning::crashSite),
             Hop.CODEC.optionalFieldOf("hop", Hop.DEFAULT).forGetter(Tuning::hop),
             Winder.CODEC.optionalFieldOf("winder", Winder.DEFAULT).forGetter(Tuning::winder),
-            Interior.CODEC.optionalFieldOf("interior", Interior.DEFAULT).forGetter(Tuning::interior))
+            Interior.CODEC.optionalFieldOf("interior", Interior.DEFAULT).forGetter(Tuning::interior),
+            Damage.CODEC.optionalFieldOf("damage", Damage.DEFAULT).forGetter(Tuning::damage))
             .apply(i, Tuning::new));
 }

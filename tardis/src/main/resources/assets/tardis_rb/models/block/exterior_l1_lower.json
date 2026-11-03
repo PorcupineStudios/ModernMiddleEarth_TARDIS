@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "particle": "tardis_rb:block/exterior_l1_lower_side",
+    "north": "tardis_rb:block/exterior_l1_lower_front",
+    "south": "tardis_rb:block/exterior_l1_lower_side",
+    "east": "tardis_rb:block/exterior_l1_lower_side",
+    "west": "tardis_rb:block/exterior_l1_lower_side",
+    "up": "tardis_rb:block/exterior_bottom",
+    "down": "tardis_rb:block/exterior_bottom"
+  }
+}

@@ -2,6 +2,8 @@ package com.porcupinestudios.tardisrb.progression;
 
 import com.porcupinestudios.ringbearer.api.condition.ConditionContext;
 import com.porcupinestudios.tardisrb.core.TardisRecord;
+import com.porcupinestudios.tardisrb.look.Looks;
+import com.porcupinestudios.tardisrb.repair.Parts;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -10,13 +12,19 @@ import net.minecraft.server.MinecraftServer;
 
 /**
  * Moves a TARDIS along: passes milestones whose requirements now hold, and enters the next stage once the current
- * stage's repairs are all done and the next stage's milestone (if any) is passed. Call after any change that could
- * matter (repairs, research, data reloads); it is cheap.
+ * stage's repairs are all done and the next stage's milestone (if any) is passed; then updates the box's look and the
+ * part blocks. Call after any change that could matter (repairs, research, damage); it is cheap.
  */
 public final class Progression {
     private Progression() {}
 
     public static void update(MinecraftServer server, TardisRecord tardis) {
+        advance(server, tardis);
+        Looks.update(server, tardis);
+        Parts.sync(server, tardis);
+    }
+
+    private static void advance(MinecraftServer server, TardisRecord tardis) {
         TardisContent.Snapshot data = TardisContent.get();
         List<Map.Entry<ResourceLocation, Stage>> order = data.stageOrder();
         if (order.isEmpty()) {
