@@ -1,0 +1,13 @@
+{
+  "dimension": "minecraft:overworld",
+  "space": "tardis_rb:space",
+  "center": [
+    0,
+    0,
+    0
+  ],
+  "radius": 120,
+  "ceiling": 340,
+  "half_size": 4096,
+  "arrive_below": 24
+}

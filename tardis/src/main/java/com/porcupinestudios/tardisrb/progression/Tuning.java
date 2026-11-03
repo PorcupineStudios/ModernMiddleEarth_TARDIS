@@ -13,7 +13,7 @@ import net.minecraft.resources.ResourceLocation;
  * {@code data/tardis_rb/tardis/tuning/main.json}; every field has a default, so a pack can override just one.
  */
 public record Tuning(CrashSite crashSite, Hop hop, Winder winder, Interior interior, Damage damage,
-        ResearchSpeed research, ConsoleTuning console, DoorTuning door) {
+        ResearchSpeed research, ConsoleTuning console, DoorTuning door, SpaceTuning space) {
     /** The wreck made once at the start dimension's spawn. {@code offset}: blocks east of the spawn point. */
     public record CrashSite(boolean enabled, int offset, String name, long startCharge) {
         static final CrashSite DEFAULT = new CrashSite(true, 8, "The Wreck", 0);
@@ -136,8 +136,23 @@ public record Tuning(CrashSite crashSite, Hop hop, Winder winder, Interior inter
                 .apply(i, DoorTuning::new));
     }
 
+    /**
+     * Space: {@code gravity} is the share of normal gravity in space dimensions (0.15 = 15%); sky links are checked
+     * every {@code check_ticks}; coming down from space you fall slowly for {@code landing_slow_fall} seconds.
+     */
+    public record SpaceTuning(double gravity, int checkTicks, int landingSlowFall) {
+        static final SpaceTuning DEFAULT = new SpaceTuning(0.15, 5, 30);
+        static final Codec<SpaceTuning> CODEC = RecordCodecBuilder.create(i -> i.group(
+                Codec.doubleRange(0, 1).optionalFieldOf("gravity", DEFAULT.gravity).forGetter(SpaceTuning::gravity),
+                Codec.intRange(1, 200).optionalFieldOf("check_ticks", DEFAULT.checkTicks)
+                        .forGetter(SpaceTuning::checkTicks),
+                Codec.intRange(0, 600).optionalFieldOf("landing_slow_fall", DEFAULT.landingSlowFall)
+                        .forGetter(SpaceTuning::landingSlowFall))
+                .apply(i, SpaceTuning::new));
+    }
+
     public static final Tuning DEFAULT = new Tuning(CrashSite.DEFAULT, Hop.DEFAULT, Winder.DEFAULT, Interior.DEFAULT,
-            Damage.DEFAULT, ResearchSpeed.DEFAULT, ConsoleTuning.DEFAULT, DoorTuning.DEFAULT);
+            Damage.DEFAULT, ResearchSpeed.DEFAULT, ConsoleTuning.DEFAULT, DoorTuning.DEFAULT, SpaceTuning.DEFAULT);
 
     public static final Codec<Tuning> CODEC = RecordCodecBuilder.create(i -> i.group(
             CrashSite.CODEC.optionalFieldOf("crash_site", CrashSite.DEFAULT).forGetter(Tuning::crashSite),
@@ -147,6 +162,7 @@ public record Tuning(CrashSite crashSite, Hop hop, Winder winder, Interior inter
             Damage.CODEC.optionalFieldOf("damage", Damage.DEFAULT).forGetter(Tuning::damage),
             ResearchSpeed.CODEC.optionalFieldOf("research", ResearchSpeed.DEFAULT).forGetter(Tuning::research),
             ConsoleTuning.CODEC.optionalFieldOf("console", ConsoleTuning.DEFAULT).forGetter(Tuning::console),
-            DoorTuning.CODEC.optionalFieldOf("door", DoorTuning.DEFAULT).forGetter(Tuning::door))
+            DoorTuning.CODEC.optionalFieldOf("door", DoorTuning.DEFAULT).forGetter(Tuning::door),
+            SpaceTuning.CODEC.optionalFieldOf("space", SpaceTuning.DEFAULT).forGetter(Tuning::space))
             .apply(i, Tuning::new));
 }
