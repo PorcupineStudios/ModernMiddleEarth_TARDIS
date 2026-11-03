@@ -208,6 +208,7 @@ final class NpcExporter {
         o.addProperty("sellPool", sell == null ? null : tradePools.get(sell));
         o.addProperty("unitPool", units == null ? null : unitPools.get(units));
         o.addProperty("warhorn", enumName(call(entity, "getWarhorn")));
+        o.addProperty("speechBank", speechBank(entity, world));
         QuestExporter.questInfo(o, entity);
         o.add("fields", primitives(entity));
         if (entity instanceof EntityLivingBase living) {
@@ -333,6 +334,33 @@ final class NpcExporter {
         }
         Object vanilla = map instanceof Map<?, ?> m ? m.get(c) : null;
         return vanilla == null ? c.getName() : vanilla.toString();
+    }
+
+    /** The speech bank LOTR picks for the client player (e.g. hobbit/hobbit/friendly); its folder is the NPC's voice. */
+    static String speechBank(Entity entity, World world) {
+        net.minecraft.entity.player.EntityPlayer player = net.minecraft.client.Minecraft.getMinecraft().thePlayer;
+        if (player == null) {
+            try {
+                player = new net.minecraft.client.entity.EntityOtherPlayerMP(world,
+                        new com.mojang.authlib.GameProfile(java.util.UUID.nameUUIDFromBytes(new byte[] {1}), "Exporter"));
+            } catch (Throwable t) {
+                return null;
+            }
+        }
+        for (Class<?> c = entity.getClass(); c != null; c = c.getSuperclass()) {
+            for (Method m : c.getDeclaredMethods()) {
+                if (m.getName().equals("getSpeechBank") && m.getParameterTypes().length == 1) {
+                    try {
+                        m.setAccessible(true);
+                        Object bank = m.invoke(entity, player);
+                        return bank == null ? null : bank.toString();
+                    } catch (Throwable t) {
+                        return null;
+                    }
+                }
+            }
+        }
+        return null;
     }
 
     static Object call(Object o, String name) {
