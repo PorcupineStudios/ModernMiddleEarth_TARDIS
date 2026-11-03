@@ -10,10 +10,7 @@
   "speed": 0.25,
   "attack": 2.0,
   "gear": {
-    "mainhand": [
-      "lotr_port:barrow_blade",
-      "lotr_port:iron_dagger"
-    ],
+    "mainhand": "lotr_port:iron_dagger",
     "head": "lotr_port:ranger_hood",
     "chest": "lotr_port:ranger_tunic",
     "legs": "lotr_port:ranger_leggings",

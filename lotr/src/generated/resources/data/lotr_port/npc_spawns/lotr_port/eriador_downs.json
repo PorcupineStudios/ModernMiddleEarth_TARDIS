@@ -1,0 +1,46 @@
+{
+  "entries": [
+    {
+      "npc": "lotr_port:angmar_orc",
+      "weight": 1,
+      "min": 4,
+      "max": 6
+    },
+    {
+      "npc": "lotr_port:angmar_orc_archer",
+      "weight": 1,
+      "min": 4,
+      "max": 6
+    },
+    {
+      "npc": "lotr_port:gundabad_orc",
+      "weight": 100,
+      "min": 4,
+      "max": 6
+    },
+    {
+      "npc": "lotr_port:gundabad_orc_archer",
+      "weight": 50,
+      "min": 4,
+      "max": 6
+    },
+    {
+      "npc": "lotr_port:high_elf_warrior",
+      "weight": 1,
+      "min": 4,
+      "max": 4
+    },
+    {
+      "npc": "lotr_port:ranger_north",
+      "weight": 16,
+      "min": 1,
+      "max": 4
+    },
+    {
+      "npc": "lotr_port:rivendell_warrior",
+      "weight": 1,
+      "min": 4,
+      "max": 4
+    }
+  ]
+}

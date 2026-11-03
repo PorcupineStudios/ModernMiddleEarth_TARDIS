@@ -20,7 +20,6 @@
     "mainhand": "minecraft:iron_hoe",
     "head": "lotr_port:leather_hat"
   },
-  "names": "lotr_port:gondor_male",
   "buy": "lotr_port:gondor_farmer_buy",
   "sell": "lotr_port:gondor_farmer_sell",
   "units": "lotr_port:gondor_farmer"

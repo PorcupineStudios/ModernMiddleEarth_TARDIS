@@ -173,7 +173,7 @@ class Npcs:
         for slot, sources in GEAR_SLOTS.items():
             for src in sources:
                 stacks = sampled.get(src) if isinstance(sampled, dict) else None
-                items = list(dict.fromkeys(i for i in (self.item(st) for st in stacks or []) if i))
+                items = sorted({i for i in (self.item(st) for st in stacks or []) if i})
                 if items:
                     gear[slot] = items[0] if len(items) == 1 else items  # several: one is picked at spawn
                     break
@@ -210,6 +210,7 @@ class Npcs:
         used_banks = {v["names"].split(":")[1] for v in written.values() if "names" in v}
         for bank in used_banks:
             write_json(os.path.join(self.data, "npc_names", bank + ".json"), self.banks[bank])
+        self.written = written
         for tid, v in written.items():
             for key, folder in (("buy", "npc_trades"), ("sell", "npc_trades"), ("units", "npc_units")):
                 if key in v and not os.path.exists(os.path.join(self.data, folder, v[key].split(":")[1] + ".json")):

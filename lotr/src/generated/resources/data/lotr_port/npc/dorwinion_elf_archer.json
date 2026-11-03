@@ -18,5 +18,6 @@
     "chest": "lotr_port:dorwinion_elven_chestplate",
     "legs": "lotr_port:dorwinion_elven_leggings",
     "feet": "lotr_port:dorwinion_elven_boots"
-  }
+  },
+  "names": "lotr_port:sindarin_male"
 }

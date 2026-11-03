@@ -16,6 +16,7 @@
     "mainhand": "minecraft:iron_hoe",
     "head": "lotr_port:leather_hat"
   },
+  "names": "lotr_port:rohan_male",
   "buy": "lotr_port:rohan_farmer_buy",
   "sell": "lotr_port:rohan_farmer_sell",
   "units": "lotr_port:rohan_farmer"

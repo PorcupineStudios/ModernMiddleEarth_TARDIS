@@ -12,10 +12,9 @@
   "attack": 2.0,
   "gear": {
     "mainhand": [
-      "lotr_port:iron_pike",
       "lotr_port:iron_battleaxe",
-      "minecraft:iron_sword",
-      "lotr_port:iron_spear"
+      "lotr_port:iron_pike",
+      "minecraft:iron_sword"
     ],
     "head": "lotr_port:dorwinion_helmet",
     "chest": "lotr_port:dorwinion_chestplate",

@@ -1,5 +1,6 @@
 package com.porcupinestudios.lotrport.world.map;
 
+import net.minecraft.core.BlockPos;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -181,6 +182,12 @@ public final class MiddleEarthMap {
 
     public List<Entry> biomes() {
         return biomes;
+    }
+
+    /** The block at a map pixel position (pixel centres at .5). */
+    public BlockPos blockOfPixel(double px, double pz) {
+        return new BlockPos((int) Math.floor((px - originX) * blocksPerPixel), 0,
+                (int) Math.floor((pz - originZ) * blocksPerPixel));
     }
 
     public int blocksPerPixel() {

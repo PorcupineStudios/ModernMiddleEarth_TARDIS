@@ -1,0 +1,10 @@
+{
+  "values": [
+    "lotr_port:hobbit_burrow",
+    "lotr_port:hobbit_farm",
+    "lotr_port:hobbit_hole",
+    "lotr_port:hobbit_house",
+    "lotr_port:hobbit_tavern",
+    "lotr_port:hobbit_windmill"
+  ]
+}

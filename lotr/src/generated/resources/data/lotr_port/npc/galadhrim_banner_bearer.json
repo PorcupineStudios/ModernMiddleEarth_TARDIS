@@ -12,14 +12,15 @@
   "attack": 2.0,
   "gear": {
     "mainhand": [
-      "lotr_port:galadhrim_sword",
+      "lotr_port:galadhrim_battlestaff",
       "lotr_port:galadhrim_longspear",
-      "lotr_port:galadhrim_battlestaff"
+      "lotr_port:galadhrim_spear",
+      "lotr_port:galadhrim_sword"
     ],
     "head": "lotr_port:galadhrim_helmet",
     "chest": "lotr_port:galadhrim_chestplate",
     "legs": "lotr_port:galadhrim_leggings",
     "feet": "lotr_port:galadhrim_boots"
   },
-  "names": "lotr_port:quenya_male"
+  "names": "lotr_port:sindarin_male"
 }

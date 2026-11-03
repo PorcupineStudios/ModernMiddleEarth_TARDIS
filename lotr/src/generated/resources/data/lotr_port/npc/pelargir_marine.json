@@ -18,8 +18,8 @@
   "attack": 2.0,
   "gear": {
     "mainhand": [
-      "lotr_port:pelargir_trident",
-      "lotr_port:pelargir_eket"
+      "lotr_port:pelargir_eket",
+      "lotr_port:pelargir_trident"
     ],
     "head": "lotr_port:pelargir_helmet",
     "chest": "lotr_port:pelargir_chestplate",

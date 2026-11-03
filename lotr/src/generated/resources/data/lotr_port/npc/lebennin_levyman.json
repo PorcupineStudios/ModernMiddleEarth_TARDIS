@@ -18,14 +18,17 @@
   "attack": 2.0,
   "gear": {
     "mainhand": [
-      "lotr_port:bronze_battleaxe",
-      "minecraft:iron_axe",
+      "lotr_port:bronze_axe",
+      "lotr_port:gondorian_sword",
       "lotr_port:iron_pike",
-      "lotr_port:gondorian_warhammer",
-      "minecraft:iron_sword",
-      "lotr_port:bronze_sword"
+      "minecraft:iron_axe",
+      "minecraft:iron_sword"
     ],
-    "head": "minecraft:iron_helmet",
+    "head": [
+      "lotr_port:gondorian_helmet",
+      "minecraft:iron_helmet",
+      "minecraft:leather_helmet"
+    ],
     "chest": "lotr_port:lebennin_gambeson",
     "legs": "minecraft:leather_leggings",
     "feet": "minecraft:leather_boots"

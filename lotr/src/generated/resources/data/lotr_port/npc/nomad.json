@@ -14,5 +14,6 @@
   "gear": {
     "mainhand": "lotr_port:haradric_dagger",
     "head": "lotr_port:harad_turban"
-  }
+  },
+  "names": "lotr_port:nomad_male"
 }

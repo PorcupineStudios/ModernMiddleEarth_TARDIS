@@ -1,0 +1,14 @@
+{
+  "structures": [
+    {
+      "structure": "lotr_port:hobbit_hole",
+      "weight": 1
+    }
+  ],
+  "placement": {
+    "type": "minecraft:random_spread",
+    "spacing": 9,
+    "separation": 3,
+    "salt": 1017674521
+  }
+}

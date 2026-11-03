@@ -38,8 +38,8 @@
   "attack": 2.0,
   "gear": {
     "mainhand": [
-      "minecraft:iron_sword",
-      "lotr_port:iron_pike"
+      "lotr_port:iron_pike",
+      "minecraft:iron_sword"
     ],
     "head": "minecraft:iron_helmet",
     "chest": [
@@ -47,12 +47,12 @@
       "minecraft:leather_chestplate"
     ],
     "legs": [
-      "minecraft:leather_leggings",
-      "minecraft:chainmail_leggings"
+      "minecraft:chainmail_leggings",
+      "minecraft:leather_leggings"
     ],
     "feet": [
-      "minecraft:leather_boots",
-      "minecraft:chainmail_boots"
+      "minecraft:chainmail_boots",
+      "minecraft:leather_boots"
     ]
   },
   "names": "lotr_port:bree_male"

@@ -1,0 +1,14 @@
+{
+  "structures": [
+    {
+      "structure": "lotr_port:dorwinion_house",
+      "weight": 1
+    }
+  ],
+  "placement": {
+    "type": "minecraft:random_spread",
+    "spacing": 14,
+    "separation": 4,
+    "salt": 2041220915
+  }
+}

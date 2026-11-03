@@ -1,0 +1,14 @@
+{
+  "structures": [
+    {
+      "structure": "lotr_port:rivendell_house",
+      "weight": 1
+    }
+  ],
+  "placement": {
+    "type": "minecraft:random_spread",
+    "spacing": 10,
+    "separation": 3,
+    "salt": 1860066943
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "structures": [
+    {
+      "structure": "lotr_port:ithilien_hideout",
+      "weight": 1
+    }
+  ],
+  "placement": {
+    "type": "minecraft:random_spread",
+    "spacing": 7,
+    "separation": 2,
+    "salt": 629779181
+  }
+}

@@ -12,26 +12,22 @@
   "gear": {
     "mainhand": [
       "lotr_port:angmar_dagger",
-      "lotr_port:angmar_warhammer",
-      "lotr_port:angmar_spear",
-      "lotr_port:angmar_poleaxe"
+      "lotr_port:angmar_poleaxe",
+      "lotr_port:angmar_sword",
+      "lotr_port:angmar_warhammer"
     ],
-    "head": [
-      "lotr_port:fur_hat",
-      "lotr_port:bone_helmet"
-    ],
+    "head": "lotr_port:fur_hat",
     "chest": [
       "lotr_port:angmar_chestplate",
-      "lotr_port:fur_tunic",
-      "lotr_port:bone_chestplate"
+      "lotr_port:bone_chestplate",
+      "lotr_port:fur_tunic"
     ],
     "legs": [
-      "lotr_port:fur_leggings",
+      "lotr_port:angmar_leggings",
       "lotr_port:bone_leggings",
-      "lotr_port:angmar_leggings"
+      "lotr_port:fur_leggings"
     ],
     "feet": [
-      "lotr_port:fur_boots",
       "lotr_port:angmar_boots",
       "lotr_port:bone_boots"
     ]

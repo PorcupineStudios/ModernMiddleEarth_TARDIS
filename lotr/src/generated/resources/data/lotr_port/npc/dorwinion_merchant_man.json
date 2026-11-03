@@ -13,7 +13,6 @@
   "gear": {
     "head": "lotr_port:leather_hat"
   },
-  "names": "lotr_port:dorwinion_male",
   "buy": "lotr_port:dorwinion_merchant_buy",
   "sell": "lotr_port:dorwinion_merchant_sell"
 }

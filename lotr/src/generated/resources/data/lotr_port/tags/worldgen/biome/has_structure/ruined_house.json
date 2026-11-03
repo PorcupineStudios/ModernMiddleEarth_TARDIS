@@ -1,0 +1,30 @@
+{
+  "values": [
+    "lotr_port:adornland",
+    "lotr_port:anduin_hills",
+    "lotr_port:anduin_vale",
+    "lotr_port:angle",
+    "lotr_port:celebrant",
+    "lotr_port:dale",
+    "lotr_port:east_bight",
+    "lotr_port:enedwaith",
+    "lotr_port:eriador",
+    "lotr_port:eriador_downs",
+    "lotr_port:eryn_vorn",
+    "lotr_port:forodwaith",
+    "lotr_port:forodwaith_glacier",
+    "lotr_port:forodwaith_mountains",
+    "lotr_port:gladden_fields",
+    "lotr_port:lone_lands",
+    "lotr_port:lone_lands_hills",
+    "lotr_port:long_marshes",
+    "lotr_port:minhiriath",
+    "lotr_port:nan_curunir",
+    "lotr_port:pukel",
+    "lotr_port:swanfleet",
+    "lotr_port:taiga",
+    "lotr_port:tundra",
+    "lotr_port:wilderland",
+    "lotr_port:wilderland_north"
+  ]
+}

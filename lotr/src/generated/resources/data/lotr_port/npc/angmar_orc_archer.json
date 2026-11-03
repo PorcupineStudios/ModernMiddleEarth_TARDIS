@@ -16,9 +16,8 @@
   "attack": 2.0,
   "gear": {
     "mainhand": [
-      "lotr_port:angmar_dagger",
-      "lotr_port:angmar_warhammer",
-      "lotr_port:poisoned_angmar_dagger",
+      "lotr_port:angmar_axe",
+      "lotr_port:angmar_pickaxe",
       "lotr_port:angmar_spear",
       "lotr_port:angmar_sword"
     ],

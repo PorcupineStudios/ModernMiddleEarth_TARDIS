@@ -1,0 +1,22 @@
+{
+  "entries": [
+    {
+      "npc": "lotr_port:gundabad_orc",
+      "weight": 100,
+      "min": 4,
+      "max": 6
+    },
+    {
+      "npc": "lotr_port:gundabad_orc_archer",
+      "weight": 50,
+      "min": 4,
+      "max": 6
+    },
+    {
+      "npc": "lotr_port:ranger_north",
+      "weight": 22,
+      "min": 1,
+      "max": 4
+    }
+  ]
+}

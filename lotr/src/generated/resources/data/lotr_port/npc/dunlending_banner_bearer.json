@@ -12,11 +12,11 @@
   "attack": 2.0,
   "gear": {
     "mainhand": [
-      "minecraft:iron_sword",
       "lotr_port:bronze_battleaxe",
+      "lotr_port:bronze_spear",
       "lotr_port:iron_battleaxe",
-      "lotr_port:bronze_dagger",
-      "lotr_port:iron_dagger"
+      "lotr_port:iron_pike",
+      "lotr_port:iron_spear"
     ],
     "head": "lotr_port:dunlending_helmet",
     "chest": "lotr_port:dunlending_chestplate",

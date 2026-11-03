@@ -1,0 +1,112 @@
+{
+  "entries": [
+    {
+      "npc": "lotr_port:dunlending",
+      "weight": 81,
+      "min": 4,
+      "max": 6
+    },
+    {
+      "npc": "lotr_port:dunlending_archer",
+      "weight": 18,
+      "min": 4,
+      "max": 6
+    },
+    {
+      "npc": "lotr_port:dunlending_axe_thrower",
+      "weight": 18,
+      "min": 4,
+      "max": 6
+    },
+    {
+      "npc": "lotr_port:dunlending_berserker",
+      "weight": 9,
+      "min": 1,
+      "max": 2
+    },
+    {
+      "npc": "lotr_port:dunlending_warrior",
+      "weight": 36,
+      "min": 4,
+      "max": 6
+    },
+    {
+      "npc": "lotr_port:gondor_archer",
+      "weight": 1,
+      "min": 2,
+      "max": 8
+    },
+    {
+      "npc": "lotr_port:gondor_levyman",
+      "weight": 3,
+      "min": 2,
+      "max": 4
+    },
+    {
+      "npc": "lotr_port:gondor_soldier",
+      "weight": 2,
+      "min": 2,
+      "max": 8
+    },
+    {
+      "npc": "lotr_port:isengard_snaga",
+      "weight": 100,
+      "min": 4,
+      "max": 6
+    },
+    {
+      "npc": "lotr_port:isengard_snaga_archer",
+      "weight": 25,
+      "min": 4,
+      "max": 6
+    },
+    {
+      "npc": "lotr_port:rohirrim",
+      "weight": 4,
+      "min": 3,
+      "max": 8
+    },
+    {
+      "npc": "lotr_port:rohirrim_archer",
+      "weight": 2,
+      "min": 3,
+      "max": 8
+    },
+    {
+      "npc": "lotr_port:ruffian_brute",
+      "weight": 9,
+      "min": 1,
+      "max": 4
+    },
+    {
+      "npc": "lotr_port:ruffian_spy",
+      "weight": 18,
+      "min": 1,
+      "max": 4
+    },
+    {
+      "npc": "lotr_port:uruk_hai",
+      "weight": 79,
+      "min": 4,
+      "max": 6
+    },
+    {
+      "npc": "lotr_port:uruk_hai_berserker",
+      "weight": 20,
+      "min": 4,
+      "max": 6
+    },
+    {
+      "npc": "lotr_port:uruk_hai_crossbower",
+      "weight": 39,
+      "min": 4,
+      "max": 6
+    },
+    {
+      "npc": "lotr_port:uruk_hai_sapper",
+      "weight": 12,
+      "min": 1,
+      "max": 2
+    }
+  ]
+}

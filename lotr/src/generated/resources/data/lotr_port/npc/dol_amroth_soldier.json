@@ -16,8 +16,9 @@
       "minecraft:iron_sword"
     ],
     "head": [
-      "minecraft:leather_helmet",
-      "minecraft:iron_helmet"
+      "lotr_port:dol_amroth_helmet",
+      "minecraft:iron_helmet",
+      "minecraft:leather_helmet"
     ],
     "chest": "lotr_port:dol_amroth_gambeson",
     "legs": "lotr_port:dol_amroth_chaps",

@@ -12,5 +12,6 @@
   "attack": 2.0,
   "gear": {
     "mainhand": "lotr_port:taurethrim_dagger"
-  }
+  },
+  "names": "lotr_port:tauredain_male"
 }

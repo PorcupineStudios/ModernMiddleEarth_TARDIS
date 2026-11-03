@@ -42,15 +42,15 @@
       "minecraft:iron_sword"
     ],
     "head": "minecraft:iron_helmet",
-    "chest": [
-      "minecraft:leather_chestplate",
-      "minecraft:chainmail_chestplate"
-    ],
+    "chest": "minecraft:leather_chestplate",
     "legs": [
       "minecraft:chainmail_leggings",
       "minecraft:leather_leggings"
     ],
-    "feet": "minecraft:leather_boots"
+    "feet": [
+      "minecraft:chainmail_boots",
+      "minecraft:leather_boots"
+    ]
   },
   "names": "lotr_port:bree_male"
 }

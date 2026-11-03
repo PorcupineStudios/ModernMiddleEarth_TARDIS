@@ -25,6 +25,7 @@ import vanilla  # noqa: E402
 from world import World  # noqa: E402
 from factions import FactionData  # noqa: E402
 from npcs import Npcs  # noqa: E402
+from structures import Structures  # noqa: E402
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 EXPORT = os.path.join(ROOT, "converter", "export")
@@ -626,7 +627,9 @@ class Gen:
                 fname = name if n == 1 else f"{name}_{n}"
                 write_json(os.path.join(out_dir, group, fname + ".json"), j)
                 self.recipe_count += 1
-        for s in rec["smelting"]:
+        # LOTR keeps smelting in a HashMap: sort so file names (name, name_2) don't change between exports
+        smelting = sorted(rec["smelting"], key=lambda s: json.dumps(s, sort_keys=True))
+        for s in smelting:
             ing = self.ingredient(s["input"])
             res = self.result(s["output"])
             if not ing or not res:
@@ -766,7 +769,9 @@ class Gen:
         self.write_tags()
         world = World(self, load("world.json"), OUT, self.jar).run()
         factions = FactionData(self, load("factions.json"), DATA, self.jar).run()
-        npcs = Npcs(self, load("npcs.json"), DATA, ASSETS, self.jar).run()
+        npc_gen = Npcs(self, load("npcs.json"), DATA, ASSETS, self.jar)
+        npcs = npc_gen.run()
+        npcs.update(Structures(self, EXPORT, load("world.json"), DATA, npc_gen.written).run())
         content = os.path.join(OUT, NS, "content")
         write_json(os.path.join(content, "blocks.json"), self.blocks)
         write_json(os.path.join(content, "items.json"), self.items)

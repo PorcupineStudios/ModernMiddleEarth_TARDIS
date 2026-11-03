@@ -19,7 +19,8 @@
   "gear": {
     "mainhand": [
       "lotr_port:gondorian_pike",
-      "lotr_port:gondorian_sword"
+      "lotr_port:gondorian_sword",
+      "lotr_port:gondorian_warhammer"
     ],
     "head": "lotr_port:lamedon_helmet",
     "chest": "lotr_port:lamedon_chestplate",

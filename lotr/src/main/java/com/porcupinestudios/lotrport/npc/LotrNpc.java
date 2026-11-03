@@ -438,6 +438,14 @@ public class LotrNpc extends PathfinderMob implements Merchant {
             command = Command.NONE;
         }
         guardPos = NbtUtils.readBlockPos(tag, "GuardPos").orElse(null);
+        // Structure templates hold only the type and "Fresh": roll skin, gear and name when placed.
+        if (tag.getBoolean("Fresh") && !level().isClientSide) {
+            ResourceLocation id = ResourceLocation.tryParse(tag.getString("NpcType"));
+            Optional<NpcType> type = id == null ? Optional.empty() : NpcData.type(id);
+            if (type.isPresent()) {
+                setNpcType(id, type.get());
+            }
+        }
     }
 
     // ---------------------------------------------------------------- goals for hired units

@@ -19,7 +19,6 @@
   "gear": {
     "mainhand": "lotr_port:rolling_pin"
   },
-  "names": "lotr_port:gondor_male",
   "buy": "lotr_port:gondor_baker_buy",
   "sell": "lotr_port:gondor_baker_sell"
 }

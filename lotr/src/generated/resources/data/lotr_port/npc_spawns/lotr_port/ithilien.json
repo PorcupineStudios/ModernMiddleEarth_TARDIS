@@ -1,0 +1,148 @@
+{
+  "entries": [
+    {
+      "npc": "lotr_port:easterling_archer",
+      "weight": 1,
+      "min": 3,
+      "max": 6
+    },
+    {
+      "npc": "lotr_port:easterling_fire_thrower",
+      "weight": 1,
+      "min": 1,
+      "max": 3
+    },
+    {
+      "npc": "lotr_port:easterling_levyman",
+      "weight": 1,
+      "min": 2,
+      "max": 4
+    },
+    {
+      "npc": "lotr_port:easterling_warrior",
+      "weight": 1,
+      "min": 3,
+      "max": 6
+    },
+    {
+      "npc": "lotr_port:gondor_archer",
+      "weight": 1,
+      "min": 2,
+      "max": 8
+    },
+    {
+      "npc": "lotr_port:gondor_levyman",
+      "weight": 1,
+      "min": 2,
+      "max": 4
+    },
+    {
+      "npc": "lotr_port:gondor_soldier",
+      "weight": 1,
+      "min": 2,
+      "max": 8
+    },
+    {
+      "npc": "lotr_port:harnedor_archer",
+      "weight": 1,
+      "min": 3,
+      "max": 6
+    },
+    {
+      "npc": "lotr_port:harnedor_warrior",
+      "weight": 1,
+      "min": 3,
+      "max": 6
+    },
+    {
+      "npc": "lotr_port:lossarnach_axeman",
+      "weight": 1,
+      "min": 2,
+      "max": 6
+    },
+    {
+      "npc": "lotr_port:mordor_orc",
+      "weight": 100,
+      "min": 4,
+      "max": 6
+    },
+    {
+      "npc": "lotr_port:mordor_orc_archer",
+      "weight": 50,
+      "min": 4,
+      "max": 6
+    },
+    {
+      "npc": "lotr_port:mordor_orc_bombardier",
+      "weight": 15,
+      "min": 1,
+      "max": 2
+    },
+    {
+      "npc": "lotr_port:moredain_warrior",
+      "weight": 2,
+      "min": 4,
+      "max": 6
+    },
+    {
+      "npc": "lotr_port:near_haradrim_archer",
+      "weight": 1,
+      "min": 3,
+      "max": 6
+    },
+    {
+      "npc": "lotr_port:near_haradrim_warrior",
+      "weight": 1,
+      "min": 3,
+      "max": 6
+    },
+    {
+      "npc": "lotr_port:ranger_ithilien",
+      "weight": 23,
+      "min": 1,
+      "max": 4
+    },
+    {
+      "npc": "lotr_port:rohirrim",
+      "weight": 1,
+      "min": 3,
+      "max": 8
+    },
+    {
+      "npc": "lotr_port:rohirrim_archer",
+      "weight": 1,
+      "min": 3,
+      "max": 8
+    },
+    {
+      "npc": "lotr_port:southron_champion",
+      "weight": 1,
+      "min": 1,
+      "max": 2
+    },
+    {
+      "npc": "lotr_port:uruk_hai",
+      "weight": 1,
+      "min": 4,
+      "max": 6
+    },
+    {
+      "npc": "lotr_port:uruk_hai_berserker",
+      "weight": 1,
+      "min": 4,
+      "max": 6
+    },
+    {
+      "npc": "lotr_port:uruk_hai_crossbower",
+      "weight": 1,
+      "min": 4,
+      "max": 6
+    },
+    {
+      "npc": "lotr_port:uruk_hai_sapper",
+      "weight": 1,
+      "min": 1,
+      "max": 2
+    }
+  ]
+}

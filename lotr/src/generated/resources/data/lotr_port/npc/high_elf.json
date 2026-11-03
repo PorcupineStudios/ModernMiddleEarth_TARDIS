@@ -26,5 +26,6 @@
   "attack": 2.0,
   "gear": {
     "mainhand": "lotr_port:lindon_dagger"
-  }
+  },
+  "names": "lotr_port:sindarin_male"
 }
