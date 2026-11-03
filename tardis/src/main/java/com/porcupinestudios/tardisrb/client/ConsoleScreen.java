@@ -8,10 +8,12 @@ import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import net.neoforged.neoforge.network.PacketDistributor;
 
 /**
- * The wreck's flight console: where the TARDIS is, its charge and hop range, and X/Y/Z boxes with a Hop button. A
+ * The wreck's flight console: where the TARDIS is, its charge and hop range, and X/Y/Z boxes with a Hop button, and
+ * a destination picker with a Jump button that lands near the same X/Y/Z in the chosen dimension. A
  * placeholder screen until Aaron's console art and the repaired controls come in.
  */
 public final class ConsoleScreen extends Screen {
@@ -20,6 +22,9 @@ public final class ConsoleScreen extends Screen {
     private EditBox y;
     private EditBox z;
     private Button hop;
+    private Button destination;
+    private Button jump;
+    private int picked;
 
     private ConsoleScreen(ConsoleNet.ConsoleView view) {
         super(Component.literal(view.name()));
@@ -32,6 +37,7 @@ public final class ConsoleScreen extends Screen {
         if (mc.screen instanceof ConsoleScreen open) {
             open.view = view;
             open.hop.active = view.canHop();
+            open.refreshDestinations();
         } else {
             mc.setScreen(new ConsoleScreen(view));
         }
@@ -47,9 +53,45 @@ public final class ConsoleScreen extends Screen {
         hop = addRenderableWidget(Button.builder(Component.translatableWithFallback("tardis_rb.console.hop", "Hop"),
                 b -> send()).bounds(cx - 40, top + 28, 80, 20).build());
         hop.active = view.canHop();
+        destination = addRenderableWidget(Button.builder(Component.empty(), b -> {
+            picked++;
+            refreshDestinations();
+        }).bounds(cx - 150, top + 76, 200, 20).build());
+        jump = addRenderableWidget(Button.builder(Component.translatableWithFallback("tardis_rb.console.jump",
+                "Jump"), b -> sendJump()).bounds(cx + 55, top + 76, 95, 20).build());
+        refreshDestinations();
         addRenderableWidget(Button.builder(Component.translatableWithFallback("tardis_rb.console.workshop",
                 "Repairs & research"), b -> PacketDistributor.sendToServer(new WorkshopNet.OpenWorkshop()))
                 .bounds(cx - 70, top + 52, 140, 20).build());
+    }
+
+    private void refreshDestinations() {
+        destination.setMessage(destinationLabel());
+        destination.active = view.destinations().size() > 1;
+        jump.active = !view.destinations().isEmpty();
+    }
+
+    private Component destinationLabel() {
+        if (view.destinations().isEmpty()) {
+            return Component.translatableWithFallback("tardis_rb.console.no_destinations", "No destinations open");
+        }
+        ResourceLocation id = view.destinations().get(Math.floorMod(picked, view.destinations().size()));
+        return Component.translatableWithFallback("tardis_rb.console.destination", "To: %s",
+                Component.translatableWithFallback("tardis_rb.destination." + id.getNamespace() + "." + id.getPath(),
+                        id.getPath()));
+    }
+
+    private void sendJump() {
+        if (view.destinations().isEmpty()) {
+            return;
+        }
+        try {
+            PacketDistributor.sendToServer(new ConsoleNet.Jump(
+                    view.destinations().get(Math.floorMod(picked, view.destinations().size())),
+                    Integer.parseInt(x.getValue()), Integer.parseInt(y.getValue()), Integer.parseInt(z.getValue())));
+        } catch (NumberFormatException e) {
+            // an empty or "-" box: nothing to send
+        }
     }
 
     private EditBox box(int left, int top, String value) {
@@ -83,7 +125,7 @@ public final class ConsoleScreen extends Screen {
         g.drawString(font, "Y", cx - 30, top + 40, 0xA0A0A0);
         g.drawString(font, "Z", cx + 35, top + 40, 0xA0A0A0);
         if (!view.message().isEmpty()) {
-            g.drawCenteredString(font, Component.literal(view.message()), cx, height / 2 + 60, 0xFFD080);
+            g.drawCenteredString(font, Component.literal(view.message()), cx, height / 2 + 84, 0xFFD080);
         }
     }
 

@@ -16,6 +16,7 @@ Read both with the Claude Docs tools, not a web fetch. Add notes in `docs/<area>
 | Police box, interior dimension and plots, crash site, salvage, short hops, console screen, Create winder | `docs/wreck-flight.md` |
 | Part blocks, timed research and stat bonuses, Repairs & research screen, exterior looks, explosion damage | `docs/repair-loop.md` |
 | Adding rooms, the room cap, room templates and layout | `docs/rooms.md` |
+| Dimension travel: destination files, jumps, the console's destination picker | `docs/destinations.md` |
 
 ## Build
 From the repo root: `./gradlew :tardis:build` (jar in `tardis/build/libs/`), `:tardis:runClient`, `:tardis:runServer`,
