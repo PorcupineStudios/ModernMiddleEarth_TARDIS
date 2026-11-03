@@ -2620,8 +2620,8 @@
     "dimension": "MIDDLE_EARTH",
     "types": [
       "TYPE_FREE",
-      "TYPE_MAN",
-      "TYPE_ELF"
+      "TYPE_ELF",
+      "TYPE_MAN"
     ],
     "ranks": [
       {
