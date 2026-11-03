@@ -536,8 +536,8 @@
     "region": "WEST",
     "dimension": "MIDDLE_EARTH",
     "types": [
-      "TYPE_FREE",
-      "TYPE_DWARF"
+      "TYPE_DWARF",
+      "TYPE_FREE"
     ],
     "ranks": [
       {
@@ -1519,8 +1519,8 @@
     "region": "WEST",
     "dimension": "MIDDLE_EARTH",
     "types": [
-      "TYPE_FREE",
-      "TYPE_DWARF"
+      "TYPE_DWARF",
+      "TYPE_FREE"
     ],
     "ranks": [
       {
@@ -2082,8 +2082,8 @@
     "region": "WEST",
     "dimension": "MIDDLE_EARTH",
     "types": [
-      "TYPE_FREE",
-      "TYPE_TREE"
+      "TYPE_TREE",
+      "TYPE_FREE"
     ],
     "ranks": [
       {
@@ -3411,8 +3411,8 @@
     "region": "SOUTH",
     "dimension": "MIDDLE_EARTH",
     "types": [
-      "TYPE_MAN",
-      "TYPE_TROLL"
+      "TYPE_TROLL",
+      "TYPE_MAN"
     ],
     "ranks": [
       {
