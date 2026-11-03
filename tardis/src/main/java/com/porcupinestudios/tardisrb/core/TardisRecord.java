@@ -18,6 +18,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
+import net.minecraft.core.GlobalPos;
 import net.minecraft.core.UUIDUtil;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
@@ -52,7 +53,9 @@ public final class TardisRecord {
             LEVELS.optionalFieldOf("damage", Map.of()).forGetter(r -> r.damage),
             Codec.LONG.optionalFieldOf("charge", 0L).forGetter(r -> r.charge),
             Codec.unboundedMap(Codec.STRING, CompoundTag.CODEC).optionalFieldOf("modules", Map.of())
-                    .forGetter(r -> r.modules))
+                    .forGetter(r -> r.modules),
+            GlobalPos.CODEC.optionalFieldOf("location").forGetter(r -> r.location),
+            Codec.INT.optionalFieldOf("plot", -1).forGetter(r -> r.plot))
             .apply(i, TardisRecord::new));
 
     private final UUID id;
@@ -68,6 +71,10 @@ public final class TardisRecord {
     private final Map<ResourceLocation, Integer> damage;
     private long charge;
     private final Map<String, CompoundTag> modules;
+    /** Where the exterior stands; empty while it is in flight or not placed yet. */
+    private Optional<GlobalPos> location;
+    /** Its plot in the shared interior dimension; -1 until the interior is first built. */
+    private int plot;
 
     /** Goes up on every change; caches compare it. Not saved. */
     private int revision;
@@ -76,7 +83,8 @@ public final class TardisRecord {
     private TardisRecord(int dataVersion, UUID id, String name, Optional<UUID> owner, List<UUID> crew,
             boolean claimed, Optional<ResourceLocation> stage, Set<ResourceLocation> milestones,
             Set<ResourceLocation> repairs, Set<ResourceLocation> research, Map<ResourceLocation, Integer> levels,
-            Map<ResourceLocation, Integer> damage, long charge, Map<String, CompoundTag> modules) {
+            Map<ResourceLocation, Integer> damage, long charge, Map<String, CompoundTag> modules,
+            Optional<GlobalPos> location, int plot) {
         this.id = id;
         this.name = name;
         this.owner = owner;
@@ -90,11 +98,13 @@ public final class TardisRecord {
         this.damage = new LinkedHashMap<>(damage);
         this.charge = charge;
         this.modules = new LinkedHashMap<>(modules);
+        this.location = location;
+        this.plot = plot;
     }
 
     static TardisRecord fresh(UUID id, String name, Optional<UUID> owner, boolean claimed) {
         return new TardisRecord(DATA_VERSION, id, name, owner, List.of(), claimed, Optional.empty(), Set.of(),
-                Set.of(), Set.of(), Map.of(), Map.of(), 0L, Map.of());
+                Set.of(), Set.of(), Map.of(), Map.of(), 0L, Map.of(), Optional.empty(), -1);
     }
 
     void attach(Runnable onChange) {
@@ -163,6 +173,14 @@ public final class TardisRecord {
         return charge;
     }
 
+    public Optional<GlobalPos> location() {
+        return location;
+    }
+
+    public int plot() {
+        return plot;
+    }
+
     public int revision() {
         return revision;
     }
@@ -197,6 +215,18 @@ public final class TardisRecord {
         if (crew.remove(player)) {
             changed();
         }
+    }
+
+    /** Records where the exterior now stands. Moving the block itself is {@code Flight}'s job. */
+    public void setLocation(Optional<GlobalPos> where) {
+        location = where;
+        changed();
+    }
+
+    /** Set once, by {@code TardisManager}, when the interior is first built. */
+    void setPlot(int newPlot) {
+        plot = newPlot;
+        changed();
     }
 
     public void setModuleData(String module, CompoundTag tag) {
