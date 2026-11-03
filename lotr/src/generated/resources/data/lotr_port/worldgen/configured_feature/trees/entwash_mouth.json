@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:random_selector",
+  "config": {
+    "features": [
+      {
+        "feature": "lotr_port:tree/oak_swamp",
+        "chance": 0.5455
+      },
+      {
+        "feature": "lotr_port:tree/oak_large",
+        "chance": 0.8
+      }
+    ],
+    "default": "lotr_port:tree/oak_tall"
+  }
+}

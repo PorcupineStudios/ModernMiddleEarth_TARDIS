@@ -35,7 +35,12 @@ https://claude.ai/artifact/KqhSSTCuKXGuwKHBoYJdcu. Rebuild features in modern co
 - World type "Middle-earth" (`lotr_port:middle_earth` preset): the overworld is generated from the map, so spawn and
   respawn are vanilla. Any other world gets the `lotr_port:middle_earth` dimension; `/lotr travel` goes there and
   back. `LotrDimensions.middleEarth(server)` returns whichever level is Middle-earth.
-- CI "Middle-earth world" step makes a new Middle-earth world on a dedicated server (`WorldCheck`).
+- Rivers: `MiddleEarthMap.Rivers` (noise, cut into ground under `max_height`); roads: `map/Roads` +
+  `world/feature/RoadFeature` (no bridges yet). Trees and ores per biome are generated data (`converter/trees.py`,
+  `world.py`); tree shapes are vanilla stand-ins for LOTR's hand-made ones.
+- The crash-site provider answers the overworld in a Middle-earth world (the wreck lands at the Shire spawn).
+- CI "Middle-earth world" step makes a new Middle-earth world on a dedicated server (`WorldCheck`): spawn, crash
+  site, one chunk in every biome on the map, road blocks on a road.
 
 ## Factions and realms (phase 4)
 - Great powers are data: `data/<ns>/faction/*.json` (`FactionDef`, reloads), generated from LOTR by

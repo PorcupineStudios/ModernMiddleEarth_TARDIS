@@ -1,0 +1,76 @@
+{
+  "type": "minecraft:random_selector",
+  "config": {
+    "features": [
+      {
+        "feature": "lotr_port:tree/birch",
+        "chance": 0.1815
+      },
+      {
+        "feature": "lotr_port:tree/birch_tall",
+        "chance": 0.2217
+      },
+      {
+        "feature": "lotr_port:tree/birch_large",
+        "chance": 0.2849
+      },
+      {
+        "feature": "lotr_port:tree/oak",
+        "chance": 0.1992
+      },
+      {
+        "feature": "lotr_port:tree/oak_tall",
+        "chance": 0.2488
+      },
+      {
+        "feature": "lotr_port:tree/oak_large",
+        "chance": 0.3311
+      },
+      {
+        "feature": "lotr_port:tree/cedar",
+        "chance": 0.495
+      },
+      {
+        "feature": "lotr_port:tree/cypress",
+        "chance": 0.4902
+      },
+      {
+        "feature": "lotr_port:tree/cypress_large",
+        "chance": 0.1923
+      },
+      {
+        "feature": "lotr_port:tree/apple",
+        "chance": 0.119
+      },
+      {
+        "feature": "lotr_port:tree/pear",
+        "chance": 0.1351
+      },
+      {
+        "feature": "lotr_port:tree/lemon",
+        "chance": 0.1562
+      },
+      {
+        "feature": "lotr_port:tree/orange",
+        "chance": 0.1852
+      },
+      {
+        "feature": "lotr_port:tree/lime",
+        "chance": 0.2273
+      },
+      {
+        "feature": "lotr_port:tree/olive",
+        "chance": 0.2941
+      },
+      {
+        "feature": "lotr_port:tree/almond",
+        "chance": 0.4167
+      },
+      {
+        "feature": "lotr_port:tree/plum",
+        "chance": 0.7143
+      }
+    ],
+    "default": "lotr_port:tree/olive_large"
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "type": "minecraft:random_selector",
+  "config": {
+    "features": [
+      {
+        "feature": "lotr_port:tree/oak_tall",
+        "chance": 0.2381
+      },
+      {
+        "feature": "lotr_port:tree/dark_oak",
+        "chance": 0.3125
+      },
+      {
+        "feature": "lotr_port:tree/oak",
+        "chance": 0.2273
+      },
+      {
+        "feature": "lotr_port:tree/oak_large",
+        "chance": 0.2941
+      },
+      {
+        "feature": "lotr_port:tree/fir",
+        "chance": 0.4167
+      },
+      {
+        "feature": "lotr_port:tree/pine",
+        "chance": 0.7143
+      }
+    ],
+    "default": "lotr_port:tree/oak_taller"
+  }
+}

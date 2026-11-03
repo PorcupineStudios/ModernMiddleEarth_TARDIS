@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:random_selector",
+  "config": {
+    "features": [
+      {
+        "feature": "lotr_port:tree/oak_dead",
+        "chance": 0.3333
+      },
+      {
+        "feature": "lotr_port:tree/spruce_dead",
+        "chance": 0.5
+      }
+    ],
+    "default": "lotr_port:tree/beech_dead"
+  }
+}

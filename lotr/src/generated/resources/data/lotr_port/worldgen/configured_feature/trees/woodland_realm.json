@@ -1,0 +1,72 @@
+{
+  "type": "minecraft:random_selector",
+  "config": {
+    "features": [
+      {
+        "feature": "lotr_port:tree/green_oak",
+        "chance": 0.2857
+      },
+      {
+        "feature": "lotr_port:tree/fir",
+        "chance": 0.16
+      },
+      {
+        "feature": "lotr_port:tree/pine",
+        "chance": 0.1905
+      },
+      {
+        "feature": "lotr_port:tree/oak_large",
+        "chance": 0.1176
+      },
+      {
+        "feature": "lotr_port:tree/spruce",
+        "chance": 0.1333
+      },
+      {
+        "feature": "lotr_port:tree/beech_large",
+        "chance": 0.1538
+      },
+      {
+        "feature": "lotr_port:tree/larch",
+        "chance": 0.1818
+      },
+      {
+        "feature": "lotr_port:tree/green_oak_extreme",
+        "chance": 0.1778
+      },
+      {
+        "feature": "lotr_port:tree/green_oak_large",
+        "chance": 0.1351
+      },
+      {
+        "feature": "lotr_port:tree/oak",
+        "chance": 0.1562
+      },
+      {
+        "feature": "lotr_port:tree/chestnut",
+        "chance": 0.1852
+      },
+      {
+        "feature": "lotr_port:tree/chestnut_large",
+        "chance": 0.2273
+      },
+      {
+        "feature": "lotr_port:tree/beech",
+        "chance": 0.2941
+      },
+      {
+        "feature": "lotr_port:tree/aspen",
+        "chance": 0.4167
+      },
+      {
+        "feature": "lotr_port:tree/red_oak",
+        "chance": 0.5714
+      },
+      {
+        "feature": "lotr_port:tree/red_oak_large",
+        "chance": 0.6667
+      }
+    ],
+    "default": "lotr_port:tree/aspen_large"
+  }
+}

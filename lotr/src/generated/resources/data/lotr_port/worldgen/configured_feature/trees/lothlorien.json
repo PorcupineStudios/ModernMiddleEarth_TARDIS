@@ -1,0 +1,52 @@
+{
+  "type": "minecraft:random_selector",
+  "config": {
+    "features": [
+      {
+        "feature": "lotr_port:tree/mallorn_boughs",
+        "chance": 0.3209
+      },
+      {
+        "feature": "lotr_port:tree/oak",
+        "chance": 0.2362
+      },
+      {
+        "feature": "lotr_port:tree/mallorn",
+        "chance": 0.3093
+      },
+      {
+        "feature": "lotr_port:tree/larch",
+        "chance": 0.2985
+      },
+      {
+        "feature": "lotr_port:tree/beech",
+        "chance": 0.2128
+      },
+      {
+        "feature": "lotr_port:tree/mallorn_party",
+        "chance": 0.2703
+      },
+      {
+        "feature": "lotr_port:tree/aspen",
+        "chance": 0.3704
+      },
+      {
+        "feature": "lotr_port:tree/oak_large",
+        "chance": 0.2941
+      },
+      {
+        "feature": "lotr_port:tree/lairelosse",
+        "chance": 0.4167
+      },
+      {
+        "feature": "lotr_port:tree/mallorn_extreme",
+        "chance": 0.4286
+      },
+      {
+        "feature": "lotr_port:tree/beech_large",
+        "chance": 0.5
+      }
+    ],
+    "default": "lotr_port:tree/aspen_large"
+  }
+}

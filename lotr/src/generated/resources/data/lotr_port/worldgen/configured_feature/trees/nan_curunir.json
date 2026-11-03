@@ -1,0 +1,32 @@
+{
+  "type": "minecraft:random_selector",
+  "config": {
+    "features": [
+      {
+        "feature": "lotr_port:tree/charred",
+        "chance": 0.3
+      },
+      {
+        "feature": "lotr_port:tree/oak_dead",
+        "chance": 0.2857
+      },
+      {
+        "feature": "lotr_port:tree/oak",
+        "chance": 0.2
+      },
+      {
+        "feature": "lotr_port:tree/oak_tall",
+        "chance": 0.25
+      },
+      {
+        "feature": "lotr_port:tree/oak_large",
+        "chance": 0.3333
+      },
+      {
+        "feature": "lotr_port:tree/spruce",
+        "chance": 0.5
+      }
+    ],
+    "default": "lotr_port:tree/spruce_dead"
+  }
+}

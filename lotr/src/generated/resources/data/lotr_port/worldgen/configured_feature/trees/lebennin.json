@@ -1,0 +1,52 @@
+{
+  "type": "minecraft:random_selector",
+  "config": {
+    "features": [
+      {
+        "feature": "lotr_port:tree/oak",
+        "chance": 0.5063
+      },
+      {
+        "feature": "lotr_port:tree/oak_large",
+        "chance": 0.3077
+      },
+      {
+        "feature": "lotr_port:tree/birch",
+        "chance": 0.4444
+      },
+      {
+        "feature": "lotr_port:tree/beech",
+        "chance": 0.4
+      },
+      {
+        "feature": "lotr_port:tree/birch_large",
+        "chance": 0.4444
+      },
+      {
+        "feature": "lotr_port:tree/beech_large",
+        "chance": 0.4
+      },
+      {
+        "feature": "lotr_port:tree/maple",
+        "chance": 0.6667
+      },
+      {
+        "feature": "lotr_port:tree/apple",
+        "chance": 0.2
+      },
+      {
+        "feature": "lotr_port:tree/pear",
+        "chance": 0.25
+      },
+      {
+        "feature": "lotr_port:tree/olive",
+        "chance": 0.3333
+      },
+      {
+        "feature": "lotr_port:tree/almond",
+        "chance": 0.5
+      }
+    ],
+    "default": "lotr_port:tree/plum"
+  }
+}

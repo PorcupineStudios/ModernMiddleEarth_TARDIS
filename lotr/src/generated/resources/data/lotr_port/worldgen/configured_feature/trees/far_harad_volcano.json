@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:random_selector",
+  "config": {
+    "features": [
+      {
+        "feature": "lotr_port:tree/charred",
+        "chance": 0.625
+      },
+      {
+        "feature": "lotr_port:tree/acacia_dead",
+        "chance": 0.6667
+      }
+    ],
+    "default": "lotr_port:tree/oak_dead"
+  }
+}

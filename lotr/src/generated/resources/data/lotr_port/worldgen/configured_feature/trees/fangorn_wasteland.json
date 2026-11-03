@@ -1,0 +1,32 @@
+{
+  "type": "minecraft:random_selector",
+  "config": {
+    "features": [
+      {
+        "feature": "lotr_port:tree/charred",
+        "chance": 0.495
+      },
+      {
+        "feature": "lotr_port:tree/oak_dead",
+        "chance": 0.5882
+      },
+      {
+        "feature": "lotr_port:tree/beech_dead",
+        "chance": 0.4762
+      },
+      {
+        "feature": "lotr_port:tree/charred_fangorn",
+        "chance": 0.4545
+      },
+      {
+        "feature": "lotr_port:tree/oak_fangorn_dead",
+        "chance": 0.5
+      },
+      {
+        "feature": "lotr_port:tree/birch_dead",
+        "chance": 0.6667
+      }
+    ],
+    "default": "lotr_port:tree/beech_fangorn_dead"
+  }
+}

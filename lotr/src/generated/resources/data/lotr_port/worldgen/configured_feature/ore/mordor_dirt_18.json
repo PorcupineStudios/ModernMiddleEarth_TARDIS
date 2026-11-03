@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:ore",
+  "config": {
+    "targets": [
+      {
+        "target": {
+          "predicate_type": "minecraft:block_match",
+          "block": "lotr_port:mordor_rock"
+        },
+        "state": {
+          "Name": "lotr_port:mordor_dirt"
+        }
+      }
+    ],
+    "size": 60,
+    "discard_chance_on_air_exposure": 0.0
+  }
+}
