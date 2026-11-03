@@ -5,6 +5,7 @@
     "lotr_port:textures/entity/orc/black_uruk/1.png",
     "lotr_port:textures/entity/orc/black_uruk/2.png"
   ],
+  "model": "orc",
   "scale": 0.861,
   "health": 30.0,
   "speed": 0.2,

@@ -46,6 +46,9 @@ public final class LotrClient {
                 () -> LayerDefinition.create(HumanoidModel.createMesh(CubeDeformation.NONE, 0f), 64, 32));
         event.registerLayerDefinition(NPC_TALL_LAYER,
                 () -> LayerDefinition.create(HumanoidModel.createMesh(CubeDeformation.NONE, 0f), 64, 64));
+        for (String kind : NpcModels.KINDS) {
+            event.registerLayerDefinition(NpcModels.layer(kind), () -> NpcModels.tall(kind));
+        }
     }
 
     @SubscribeEvent

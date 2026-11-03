@@ -6,6 +6,7 @@
     "lotr_port:textures/entity/elf/tormented/2.png"
   ],
   "skin_height": 64,
+  "model": "elf",
   "health": 30.0,
   "speed": 0.2,
   "attack": 2.0,
