@@ -17,7 +17,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.GlobalPos;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.gametest.framework.GameTest;
 import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.resources.ResourceLocation;
@@ -71,14 +70,12 @@ public final class WreckTests {
     }
 
     /**
-     * The game test server makes only the overworld, so this checks that the interior dimension file loads and that
-     * the console room template has its console and doors. The dedicated-server world check (CI) enters a real one.
+     * The game test server makes only the overworld (and doesn't load dimension files), so this checks the console
+     * room template has its console and doors. The dedicated-server world check (CI) builds a real interior.
      */
     @GameTest(template = PLATFORM)
     public static void theConsoleRoomTemplateLoads(GameTestHelper helper) {
         MinecraftServer server = helper.getLevel().getServer();
-        helper.assertTrue(server.registryAccess().registryOrThrow(Registries.LEVEL_STEM)
-                .containsKey(Interiors.DIMENSION.location()), "no interior dimension file");
         StructureTemplate room = server.getStructureManager()
                 .get(TardisContent.tuning().interior().room()).orElse(null);
         helper.assertTrue(room != null, "no console room template");

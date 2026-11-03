@@ -2,6 +2,7 @@ package com.porcupinestudios.tardisrb.gametest;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
+import com.mojang.authlib.GameProfile;
 import com.porcupinestudios.tardisrb.TardisRB;
 import com.porcupinestudios.tardisrb.core.TardisManager;
 import com.porcupinestudios.tardisrb.core.TardisRecord;
@@ -18,6 +19,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.UUID;
 import net.minecraft.gametest.framework.GameTest;
 import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.nbt.NbtOps;
@@ -28,6 +30,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.storage.LevelResource;
+import net.neoforged.neoforge.common.util.FakePlayerFactory;
 import net.neoforged.neoforge.gametest.GameTestHolder;
 import net.neoforged.neoforge.gametest.PrefixGameTestTemplate;
 
@@ -98,7 +101,10 @@ public final class FoundationTests {
     @GameTest(template = EMPTY)
     public static void repairRaisesAndDamageLowersALevel(GameTestHelper helper) {
         MinecraftServer server = helper.getLevel().getServer();
-        ServerPlayer player = helper.makeMockServerPlayerInLevel();
+        // A fake player, not a mock one: mock players join the player list, and Create's sync packets to them throw.
+        ServerPlayer player = FakePlayerFactory.get(helper.getLevel(),
+                new GameProfile(UUID.fromString("7a7d15c0-0000-4000-8000-000000000001"), "tardis_test"));
+        player.getInventory().clearContent();
         player.getAbilities().instabuild = false;
         TardisRecord t = fresh(helper, "Repairs");
         ResourceLocation repair = TardisRB.id("navigation_1");
