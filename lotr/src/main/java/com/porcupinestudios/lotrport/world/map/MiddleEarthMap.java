@@ -213,19 +213,25 @@ public final class MiddleEarthMap {
      */
     public int[][] samplePositions() {
         int[][] best = new int[biomes.size()][];
-        boolean[] interior = new boolean[biomes.size()];
+        int[] score = new int[biomes.size()];
         for (int pz = 0; pz < height; pz++) {
             for (int px = 0; px < width; px++) {
                 int b = pixels[pz * width + px] & 0xFF;
-                if (b >= biomes.size() || interior[b]) {
+                if (b >= biomes.size() || score[b] == 25) {
                     continue;
                 }
-                boolean inside = pixelIndex(px - 1, pz) == b && pixelIndex(px + 1, pz) == b
-                        && pixelIndex(px, pz - 1) == b && pixelIndex(px, pz + 1) == b;
-                if (best[b] == null || inside) {
+                int same = 0; // pixels of the same biome in the 5x5 around this one: deep inside is best
+                for (int dz = -2; dz <= 2; dz++) {
+                    for (int dx = -2; dx <= 2; dx++) {
+                        if (pixelIndex(px + dx, pz + dz) == b) {
+                            same++;
+                        }
+                    }
+                }
+                if (best[b] == null || same > score[b]) {
                     best[b] = new int[] { (px - originX) * blocksPerPixel + blocksPerPixel / 2,
                             (pz - originZ) * blocksPerPixel + blocksPerPixel / 2 };
-                    interior[b] = inside;
+                    score[b] = same;
                 }
             }
         }

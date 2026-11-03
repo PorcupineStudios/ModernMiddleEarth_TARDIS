@@ -75,18 +75,21 @@ final class WorldCheck {
                 LotrPort.LOG.info("[worldcheck] {} is not on the map", id);
                 continue;
             }
-            int x = samples[i][0];
-            int z = samples[i][1];
+            // the map pixel is 128 blocks wide; rivers and border wobble can cover its centre, so look for a
+            // column inside it where the biome source itself answers this biome
+            int[] at = columnWithBiome(map, i, samples[i][0], samples[i][1]);
+            if (at == null) {
+                missing.add(id + " (rivers or borders cover its whole pixel at " + samples[i][0] + ","
+                        + samples[i][1] + ")");
+                continue;
+            }
+            int x = at[0];
+            int z = at[1];
             level.getChunk(x >> 4, z >> 4);
             generated++;
-            boolean found = false;
-            for (int dx = 0; dx < 16 && !found; dx += 4) {
-                for (int dz = 0; dz < 16 && !found; dz += 4) {
-                    BlockPos pos = LotrDimensions.surface(level, (x & ~15) + dx, (z & ~15) + dz);
-                    found = level.getBiome(pos).unwrapKey().map(k -> k.location().toString().equals(id))
-                            .orElse(false);
-                }
-            }
+            BlockPos pos = LotrDimensions.surface(level, x, z);
+            boolean found = level.getBiome(pos).unwrapKey().map(k -> k.location().toString().equals(id))
+                    .orElse(false);
             if (!found) {
                 missing.add(id + " at " + x + "," + z);
             }
@@ -94,6 +97,26 @@ final class WorldCheck {
         LotrPort.LOG.info("[worldcheck] generated {} biome chunks in {} s, missing: {}", generated,
                 (System.nanoTime() - start) / 1_000_000_000L, missing);
         return missing.isEmpty() ? null : "biomes not found where the map has them: " + missing;
+    }
+
+    /** A column within the sample's map pixel (searched outward from its centre) where the map gives the biome. */
+    private static int[] columnWithBiome(MiddleEarthMap map, int biome, int cx, int cz) {
+        int half = map.blocksPerPixel() / 2;
+        for (int r = 0; r <= half; r += 8) {
+            for (int dx = -r; dx <= r; dx += 8) {
+                for (int dz = -r; dz <= r; dz += 8) {
+                    if (Math.max(Math.abs(dx), Math.abs(dz)) != r) {
+                        continue;
+                    }
+                    int x = (cx + dx) & ~3; // biomes are stored per 4x4 column
+                    int z = (cz + dz) & ~3;
+                    if (map.biomeIndexAt(x, z) == biome) {
+                        return new int[] { x, z };
+                    }
+                }
+            }
+        }
+        return null;
     }
 
     /** Generates chunks on the first few roads and checks road blocks were laid. */
