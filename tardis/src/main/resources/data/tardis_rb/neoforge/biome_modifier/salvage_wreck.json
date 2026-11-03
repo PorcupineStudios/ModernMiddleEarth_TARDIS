@@ -1,0 +1,6 @@
+{
+  "type": "neoforge:add_features",
+  "biomes": "#tardis_rb:has_salvage_wreck",
+  "features": "tardis_rb:salvage_wreck",
+  "step": "surface_structures"
+}

@@ -25,6 +25,8 @@ public final class TardisManager extends SavedData {
             new SavedData.Factory<>(TardisManager::new, TardisManager::load, null);
 
     private final Map<UUID, TardisRecord> records = new LinkedHashMap<>();
+    private boolean crashSitePlaced;
+    private int nextPlot;
 
     public static TardisManager get(MinecraftServer server) {
         return server.overworld().getDataStorage().computeIfAbsent(FACTORY, FILE);
@@ -65,6 +67,30 @@ public final class TardisManager extends SavedData {
         return record;
     }
 
+    /** The TARDIS whose interior plot this is. */
+    public Optional<TardisRecord> byPlot(int plot) {
+        return plot < 0 ? Optional.empty() : records.values().stream().filter(r -> r.plot() == plot).findFirst();
+    }
+
+    /** Gives the TARDIS the next free interior plot, if it has none; returns its plot. */
+    public int assignPlot(TardisRecord record) {
+        if (record.plot() < 0) {
+            record.setPlot(nextPlot++);
+            setDirty();
+        }
+        return record.plot();
+    }
+
+    /** Whether this world's crash site was already made (it is made once, on the first start). */
+    public boolean crashSitePlaced() {
+        return crashSitePlaced;
+    }
+
+    public void markCrashSitePlaced() {
+        crashSitePlaced = true;
+        setDirty();
+    }
+
     public void remove(UUID id) {
         if (records.remove(id) != null) {
             setDirty();
@@ -80,6 +106,8 @@ public final class TardisManager extends SavedData {
     @Override
     public CompoundTag save(CompoundTag tag, HolderLookup.Provider registries) {
         tag.putInt("data_version", TardisRecord.DATA_VERSION);
+        tag.putBoolean("crash_site_placed", crashSitePlaced);
+        tag.putInt("next_plot", nextPlot);
         tag.put("tardises", Codec.list(TardisRecord.CODEC)
                 .encodeStart(NbtOps.INSTANCE, List.copyOf(records.values())).getOrThrow());
         return tag;
@@ -87,6 +115,8 @@ public final class TardisManager extends SavedData {
 
     public static TardisManager load(CompoundTag tag, HolderLookup.Provider registries) {
         TardisManager out = new TardisManager();
+        out.crashSitePlaced = tag.getBoolean("crash_site_placed");
+        out.nextPlot = tag.getInt("next_plot");
         if (tag.contains("tardises")) {
             // Version 1 is the first format; later versions add migration steps here, oldest first.
             Codec.list(TardisRecord.CODEC).parse(NbtOps.INSTANCE, tag.get("tardises"))

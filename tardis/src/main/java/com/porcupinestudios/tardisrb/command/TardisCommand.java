@@ -8,8 +8,12 @@ import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.brigadier.exceptions.SimpleCommandExceptionType;
 import com.mojang.brigadier.suggestion.SuggestionProvider;
+import com.porcupinestudios.tardisrb.block.Exteriors;
 import com.porcupinestudios.tardisrb.core.TardisManager;
 import com.porcupinestudios.tardisrb.core.TardisRecord;
+import com.porcupinestudios.tardisrb.flight.Flight;
+import com.porcupinestudios.tardisrb.flight.Landing;
+import com.porcupinestudios.tardisrb.interior.Interiors;
 import com.porcupinestudios.tardisrb.progression.Progression;
 import com.porcupinestudios.tardisrb.progression.Subsystem;
 import com.porcupinestudios.tardisrb.progression.TardisContent;
@@ -24,15 +28,20 @@ import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.commands.SharedSuggestionProvider;
 import net.minecraft.commands.arguments.ResourceLocationArgument;
+import net.minecraft.commands.arguments.coordinates.BlockPosArgument;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.core.GlobalPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.RegisterCommandsEvent;
 
 /**
  * Admin and testing commands (permission 2), acting on the TARDIS the player owns or crews: {@code /tardis create
- * [name]}, {@code info}, {@code repair <id>}, {@code damage <subsystem> <levels>}, {@code charge <amount>},
+ * [name]} (in front of you), {@code info}, {@code enter}, {@code hop <x y z>}, {@code repair <id>}, {@code damage <subsystem> <levels>}, {@code charge <amount>},
  * {@code research <node>}, {@code milestone <id>}, {@code check <feature>}, {@code data}.
  */
 public final class TardisCommand {
@@ -57,6 +66,21 @@ public final class TardisCommand {
                         .then(Commands.argument("name", StringArgumentType.greedyString())
                                 .executes(ctx -> create(ctx, StringArgumentType.getString(ctx, "name")))))
                 .then(Commands.literal("info").executes(TardisCommand::info))
+                .then(Commands.literal("enter").executes(ctx -> Interiors.enter(ctx.getSource().getPlayerOrException(),
+                        mine(ctx)) ? 1 : 0))
+                .then(Commands.literal("hop").then(Commands.argument("pos", BlockPosArgument.blockPos())
+                        .executes(ctx -> {
+                            var out = Flight.hop(ctx.getSource().getServer(), mine(ctx),
+                                    BlockPosArgument.getBlockPos(ctx, "pos"),
+                                    Optional.ofNullable(ctx.getSource().getPlayer()));
+                            if (!out.done()) {
+                                ctx.getSource().sendFailure(out.problem().get());
+                                return 0;
+                            }
+                            ctx.getSource().sendSuccess(() -> Component.literal("Landed at "
+                                    + out.landed().get().pos().toShortString()), true);
+                            return 1;
+                        })))
                 .then(Commands.literal("data").executes(ctx -> {
                     var data = TardisContent.get();
                     ctx.getSource().sendSuccess(() -> Component.literal(data.subsystems().size() + " subsystems, "
@@ -134,6 +158,13 @@ public final class TardisCommand {
             return 0;
         }
         TardisRecord t = manager.create(ctx.getSource().getServer(), name, Optional.of(player.getUUID()));
+        ServerLevel level = player.serverLevel();
+        Direction facing = player.getDirection();
+        BlockPos near = player.blockPosition().relative(facing, 2);
+        Landing.find(level, near, 4, 4).ifPresent(spot -> {
+            Exteriors.place(level, spot, facing.getOpposite(), t.id());
+            t.setLocation(Optional.of(GlobalPos.of(level.dimension(), spot)));
+        });
         ctx.getSource().sendSuccess(() -> Component.literal("Made " + t.name() + " (" + t.id() + ")"), true);
         return 1;
     }
