@@ -1,7 +1,6 @@
 package com.porcupinestudios.tardisrb.client;
 
 import com.porcupinestudios.tardisrb.net.ConsoleNet;
-import com.porcupinestudios.tardisrb.net.WorkshopNet;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
@@ -60,9 +59,6 @@ public final class ConsoleScreen extends Screen {
         jump = addRenderableWidget(Button.builder(Component.translatableWithFallback("tardis_rb.console.jump",
                 "Jump"), b -> sendJump()).bounds(cx + 55, top + 76, 95, 20).build());
         refreshDestinations();
-        addRenderableWidget(Button.builder(Component.translatableWithFallback("tardis_rb.console.workshop",
-                "Repairs & research"), b -> PacketDistributor.sendToServer(new WorkshopNet.OpenWorkshop()))
-                .bounds(cx - 70, top + 52, 140, 20).build());
     }
 
     private void refreshDestinations() {

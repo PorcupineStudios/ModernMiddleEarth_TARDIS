@@ -1,16 +1,19 @@
-# TARDIS: repair loop (parts, research, looks, damage)
-Read when: part blocks, timed research, the Repairs & research screen, exterior looks, world damage.
+# TARDIS: repair loop (basement repair room, research, looks, damage)
+Read when: the Repair Station and repair tree, timed research, exterior looks, world damage.
 
-- **Part blocks** (`block/PartBlock`, `repair/Parts`): a repair with `part_pos` (relative to the plot origin) gets a broken
-  part block in the console room. Right-clicking it pays the repair's cost from the player (`Repairs.pay`, shared with
-  research) and applies it. `Parts.sync` (run by `Progression.update`) flips the FIXED state to match the record, so
-  `/tardis repair` and damage keep the blocks honest. Repairs with a `part_pos` show as AT_PART in the screen.
+- **Basement repair room** (Aaron 2026-11-03, replaced the phase 3 part blocks): `Interiors.ensure` places the
+  `interior.basement` template (`tools/rooms.py repair_basement`) at `basement_offset` (0,-5,0) under the console room;
+  a ladder in the console room floor at (7,0,3) leads down. The Repair Station (`block/RepairStationBlock`, at basement
+  (4,1,4)) opens the tree for crew. Every repair is done there (`WorkshopNet.act` -> `Repairs.attempt`, paid from the
+  player). Interiors built before this have no basement (dev worlds only). An old `part_pos` key in repair data is ignored.
 - **Research** (`research/Researching`): one job at a time in `TardisRecord.researching` (node + finish game time).
   `start` fires `ResearchEvent.Pre` (listeners may change cost/time or cancel), pays, then stores the job; time 0 finishes
   at once. A server tick every 20 ticks finishes due jobs, also when the TARDIS's chunks are unloaded.
   Research `stats` (e.g. `range: 16`) add to `Unlocks.stat`, so hop range = subsystem stat + research stats.
-- **Screen** (`net/WorkshopNet`, `client/WorkshopScreen`): opened from the console screen. The server builds the whole list
-  (state codes DONE 0, RUNNING 1, AVAILABLE 2, LOCKED 3, AT_PART 4) and resends it after each action.
+- **Tree screen** (`net/WorkshopNet`, `client/WorkshopScreen`): opened only at the Repair Station. The server sends every
+  repair, research node and room (state DONE 0, RUNNING 1, AVAILABLE 2, LOCKED 3; `Node` = subsystem row + level
+  column, or research parents) and resends after each action. Tabs Repairs / Research / Rooms; research columns are
+  depth by parents with lines; click a bright node; drag/scroll to pan. Untried in a client.
 - **Looks** (`look/Looks`, data `look/exterior.json`): the exterior's LOOK (0-3) is the highest rule whose requirements
   pass, after `LookEvent`. 32 blockstate variants (facing × half × look); textures are placeholders for Aaron's art.
 - **Damage** (`repair/WorldDamage`): an explosion within `tuning.damage.explosion_radius` of the box lowers

@@ -58,10 +58,11 @@ public record Tuning(CrashSite crashSite, Hop hop, Winder winder, Interior inter
      * the 1 x 2 opening carved through the wall between a room and the next.
      */
     public record Interior(int plotSpacing, int floorY, ResourceLocation room, BlockPos spawn, int roomStep,
-            BlockPos doorway) {
+            BlockPos doorway, ResourceLocation basement, BlockPos basementOffset) {
         static final Interior DEFAULT = new Interior(1024, 64,
                 ResourceLocation.fromNamespaceAndPath("tardis_rb", "interior/console_room_wreck"), new BlockPos(4, 1, 1),
-                9, new BlockPos(5, 1, 0));
+                9, new BlockPos(5, 1, 0), ResourceLocation.fromNamespaceAndPath("tardis_rb", "interior/repair_basement"),
+                new BlockPos(0, -5, 0));
         static final Codec<Interior> CODEC = RecordCodecBuilder.create(i -> i.group(
                 Codec.intRange(64, 1 << 16).optionalFieldOf("plot_spacing", DEFAULT.plotSpacing)
                         .forGetter(Interior::plotSpacing),
@@ -69,7 +70,10 @@ public record Tuning(CrashSite crashSite, Hop hop, Winder winder, Interior inter
                 ResourceLocation.CODEC.optionalFieldOf("room", DEFAULT.room).forGetter(Interior::room),
                 BlockPos.CODEC.optionalFieldOf("spawn", DEFAULT.spawn).forGetter(Interior::spawn),
                 Codec.intRange(1, 256).optionalFieldOf("room_step", DEFAULT.roomStep).forGetter(Interior::roomStep),
-                BlockPos.CODEC.optionalFieldOf("doorway", DEFAULT.doorway).forGetter(Interior::doorway))
+                BlockPos.CODEC.optionalFieldOf("doorway", DEFAULT.doorway).forGetter(Interior::doorway),
+                ResourceLocation.CODEC.optionalFieldOf("basement", DEFAULT.basement).forGetter(Interior::basement),
+                BlockPos.CODEC.optionalFieldOf("basement_offset", DEFAULT.basementOffset)
+                        .forGetter(Interior::basementOffset))
                 .apply(i, Interior::new));
     }
 

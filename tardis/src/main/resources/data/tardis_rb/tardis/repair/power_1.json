@@ -1,10 +1,5 @@
 {
   "subsystem": "tardis_rb:power",
   "level": 1,
-  "cost": "tardis_rb:power_cell",
-  "part_pos": [
-    6,
-    1,
-    4
-  ]
+  "cost": "tardis_rb:power_cell"
 }

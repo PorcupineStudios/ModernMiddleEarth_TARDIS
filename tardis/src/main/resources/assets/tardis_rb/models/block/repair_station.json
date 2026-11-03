@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/cube_all",
   "textures": {
-    "all": "tardis_rb:block/part_fixed"
+    "all": "tardis_rb:block/repair_station"
   }
 }
