@@ -89,7 +89,9 @@ final class WorldExporter {
                         double x = ((Number) field(p, "x")).doubleValue();
                         double z = ((Number) field(p, "z")).doubleValue();
                         boolean waypoint = Boolean.TRUE.equals(field(p, "isWaypoint"));
-                        boolean far = Double.isNaN(lastX) || Math.hypot(x - lastX, z - lastZ) >= 0.125;
+                        // map pixels are at most a few thousand; anything larger is already in blocks
+                        double spacing = Math.abs(x) > 5000 || Math.abs(z) > 5000 ? 16 : 0.125;
+                        boolean far = Double.isNaN(lastX) || Math.hypot(x - lastX, z - lastZ) >= spacing;
                         if (far || waypoint || i == n - 1) {
                             JsonArray xz = new JsonArray();
                             xz.add(new JsonPrimitive(Math.round(x * 1000) / 1000.0));
