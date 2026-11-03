@@ -12,5 +12,15 @@
   "tardis_rb.room.no_interior": "The interior can't be reached",
   "tardis_rb.room.no_template": "This room's building plan is missing",
   "tardis_rb.room.cancelled": "The room wasn't added",
-  "tardis_rb.workshop.build": "Build"
+  "tardis_rb.workshop.build": "Build",
+  "tardis_rb.jump.unknown": "There is no destination %s",
+  "tardis_rb.jump.missing": "That dimension isn't in this world",
+  "tardis_rb.jump.locked": "The TARDIS can't reach %s yet",
+  "tardis_rb.console.jump": "Jump",
+  "tardis_rb.console.no_destinations": "No destinations open",
+  "tardis_rb.console.destination": "To: %s",
+  "tardis_rb.destination.tardis_rb.overworld": "The Overworld",
+  "tardis_rb.destination.tardis_rb.the_nether": "The Nether",
+  "tardis_rb.destination.tardis_rb.the_end": "The End",
+  "tardis_rb.destination.tardis_rb.middle_earth": "Middle-earth"
 }

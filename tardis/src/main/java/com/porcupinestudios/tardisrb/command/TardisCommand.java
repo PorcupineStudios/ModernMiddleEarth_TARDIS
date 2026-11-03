@@ -43,7 +43,7 @@ import net.neoforged.neoforge.event.RegisterCommandsEvent;
 
 /**
  * Admin and testing commands (permission 2), acting on the TARDIS the player owns or crews: {@code /tardis create
- * [name]} (in front of you), {@code info}, {@code enter}, {@code hop <x y z>}, {@code repair <id>}, {@code damage <subsystem> <levels>}, {@code charge <amount>},
+ * [name]} (in front of you), {@code info}, {@code enter}, {@code hop <x y z>}, {@code jump <destination> [x y z]}, {@code repair <id>}, {@code damage <subsystem> <levels>}, {@code charge <amount>},
  * {@code study <node>} (paid, takes time), {@code room <room>} (paid), {@code research <node>} (done at once), {@code milestone <id>}, {@code check <feature>}, {@code data}.
  */
 public final class TardisCommand {
@@ -133,6 +133,11 @@ public final class TardisCommand {
                             ctx.getSource().sendSuccess(() -> Component.literal("Research started."), true);
                             return 1;
                         })))
+                .then(Commands.literal("jump").then(Commands.argument("destination", ResourceLocationArgument.id())
+                        .suggests(ids(d -> d.destinations().keySet()))
+                        .executes(ctx -> jump(ctx, Optional.empty()))
+                        .then(Commands.argument("pos", BlockPosArgument.blockPos())
+                                .executes(ctx -> jump(ctx, Optional.of(BlockPosArgument.getBlockPos(ctx, "pos")))))))
                 .then(Commands.literal("room").then(Commands.argument("room", ResourceLocationArgument.id())
                         .suggests(ids(d -> d.rooms().keySet())).executes(ctx -> {
                             var out = Rooms.add(ctx.getSource().getServer(), mine(ctx),
@@ -167,6 +172,20 @@ public final class TardisCommand {
                                     : Component.literal("Locked: ").append(r.reason()), false);
                             return r.allowed() ? 1 : 0;
                         }))));
+    }
+
+    private static int jump(CommandContext<CommandSourceStack> ctx, Optional<BlockPos> pos)
+            throws CommandSyntaxException {
+        var out = Flight.jump(ctx.getSource().getServer(), mine(ctx),
+                ResourceLocationArgument.getId(ctx, "destination"), pos,
+                Optional.ofNullable(ctx.getSource().getPlayer()));
+        if (!out.done()) {
+            ctx.getSource().sendFailure(out.problem().get());
+            return 0;
+        }
+        ctx.getSource().sendSuccess(() -> Component.literal("Landed in "
+                + out.landed().get().dimension().location() + " at " + out.landed().get().pos().toShortString()), true);
+        return 1;
     }
 
     private static TardisRecord mine(CommandContext<CommandSourceStack> ctx) throws CommandSyntaxException {

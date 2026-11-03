@@ -1,0 +1,8 @@
+{
+  "dimension": "lotr_port:middle_earth",
+  "requirements": {
+    "type": "tardis_rb:milestone",
+    "milestone": "tardis_rb:restored_core"
+  },
+  "charge": 500
+}
