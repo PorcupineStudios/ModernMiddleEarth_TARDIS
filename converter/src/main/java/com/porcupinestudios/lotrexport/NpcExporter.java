@@ -222,18 +222,48 @@ final class NpcExporter {
             o.add("attributes", attrs);
         }
         if (entity instanceof EntityLiving living) {
-            try {
-                living.setPosition(0, 64, 0);
-                living.onSpawnWithEgg((IEntityLivingData) null);
-            } catch (Throwable t) {
-                error("spawn gear " + c.getSimpleName(), t);
-            }
-            JsonArray gear = new JsonArray(); // 0 held, 1 boots, 2 legs, 3 chest, 4 helmet
-            for (int slot = 0; slot < 5; slot++) {
-                gear.add(stack(living.getEquipmentInSlot(slot)));
+            // LOTR picks gear at random when an NPC spawns: sample it a few times and keep every distinct item.
+            JsonObject gear = new JsonObject();
+            for (int sample = 0; sample < 8; sample++) {
+                try {
+                    living.setPosition(0, 64, 0);
+                    living.onSpawnWithEgg((IEntityLivingData) null);
+                } catch (Throwable t) {
+                    if (sample == 0) {
+                        error("spawn gear " + c.getSimpleName(), t);
+                    }
+                    break;
+                }
+                String[] slots = { "mainhand", "feet", "legs", "chest", "head" };
+                for (int slot = 0; slot < 5; slot++) {
+                    addGear(gear, slots[slot], living.getEquipmentInSlot(slot));
+                }
+                Object inv = field(entity, "npcItemsInv");
+                if (inv != null) {
+                    for (String m : new String[] { "getMeleeWeapon", "getRangedWeapon", "getIdleItem",
+                            "getMeleeWeaponMounted" }) {
+                        Object item = call(inv, m);
+                        addGear(gear, m.substring(3, 4).toLowerCase() + m.substring(4), (ItemStack) item);
+                    }
+                }
             }
             o.add("gear", gear);
         }
+    }
+
+    private static void addGear(JsonObject gear, String slot, ItemStack stack) {
+        if (stack == null || stack.getItem() == null) {
+            return;
+        }
+        JsonArray list = gear.has(slot) ? gear.getAsJsonArray(slot) : new JsonArray();
+        JsonElement s = stack(stack);
+        for (JsonElement e : list) {
+            if (e.equals(s)) {
+                return;
+            }
+        }
+        list.add(s);
+        gear.add(slot, list);
     }
 
     /** The renderer's model class and every texture it holds: fixed skins and LOTR random-skin folders. */
@@ -284,7 +314,7 @@ final class NpcExporter {
             Class<?> reg = Class.forName("lotr.common.entity.LOTREntities");
             Object name = reg.getMethod("getStringFromClass", Class.class).invoke(null, c);
             if (name != null) {
-                return "lotr." + name;
+                return name.toString();
             }
         } catch (Throwable ignored) {
             // vanilla entity
