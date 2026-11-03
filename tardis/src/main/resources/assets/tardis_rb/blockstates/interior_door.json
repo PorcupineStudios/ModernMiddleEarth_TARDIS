@@ -1,7 +1,16 @@
 {
   "variants": {
-    "": {
+    "half=lower,open=false": {
       "model": "tardis_rb:block/interior_door"
+    },
+    "half=lower,open=true": {
+      "model": "tardis_rb:block/interior_door_lower_open"
+    },
+    "half=upper,open=false": {
+      "model": "tardis_rb:block/interior_door"
+    },
+    "half=upper,open=true": {
+      "model": "tardis_rb:block/interior_door_upper_open"
     }
   }
 }

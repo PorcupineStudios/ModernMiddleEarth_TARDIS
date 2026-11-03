@@ -42,7 +42,7 @@ public final class TardisBlocks {
     public static final DeferredBlock<ConsoleBlock> CONSOLE =
             BLOCKS.register("console", () -> new ConsoleBlock(fixed().mapColor(MapColor.METAL).noOcclusion()));
     public static final DeferredBlock<InteriorDoorBlock> INTERIOR_DOOR =
-            BLOCKS.register("interior_door", () -> new InteriorDoorBlock(fixed()));
+            BLOCKS.register("interior_door", () -> new InteriorDoorBlock(fixed().noOcclusion()));
     public static final DeferredBlock<Block> SALVAGE_WRECK = BLOCKS.register("salvage_wreck",
             () -> new SalvageBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_BLUE).strength(2.0F)
                     .sound(SoundType.WOOD).noOcclusion()));

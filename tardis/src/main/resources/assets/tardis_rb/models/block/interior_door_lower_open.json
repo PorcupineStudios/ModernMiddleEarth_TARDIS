@@ -1,0 +1,88 @@
+{
+  "parent": "minecraft:block/block",
+  "textures": {
+    "particle": "#side",
+    "front": "tardis_rb:block/interior_door",
+    "side": "tardis_rb:block/interior_door",
+    "up": "tardis_rb:block/interior_door",
+    "down": "tardis_rb:block/interior_door"
+  },
+  "elements": [
+    {
+      "from": [
+        0,
+        0,
+        0
+      ],
+      "to": [
+        16,
+        16,
+        16
+      ],
+      "faces": {
+        "north": {
+          "texture": "#side",
+          "cullface": "north"
+        },
+        "east": {
+          "texture": "#side",
+          "cullface": "east"
+        },
+        "west": {
+          "texture": "#side",
+          "cullface": "west"
+        },
+        "up": {
+          "texture": "#up",
+          "cullface": "up"
+        },
+        "down": {
+          "texture": "#down",
+          "cullface": "down"
+        }
+      }
+    },
+    {
+      "from": [
+        0,
+        0,
+        15
+      ],
+      "to": [
+        1,
+        16,
+        16
+      ],
+      "faces": {
+        "south": {
+          "texture": "#front",
+          "cullface": "south"
+        },
+        "east": {
+          "texture": "#front"
+        }
+      }
+    },
+    {
+      "from": [
+        15,
+        0,
+        15
+      ],
+      "to": [
+        16,
+        16,
+        16
+      ],
+      "faces": {
+        "south": {
+          "texture": "#front",
+          "cullface": "south"
+        },
+        "west": {
+          "texture": "#front"
+        }
+      }
+    }
+  ]
+}
