@@ -18,6 +18,7 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.EntityBlock;
+import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
@@ -124,6 +125,12 @@ public final class ExteriorBlock extends Block implements EntityBlock {
             }
         }
         return InteractionResult.CONSUME;
+    }
+
+    @Override
+    protected RenderShape getRenderShape(BlockState state) {
+        // drawn by the exterior renderer from Aaron's model, with the doors animated
+        return RenderShape.ENTITYBLOCK_ANIMATED;
     }
 
     @Override

@@ -15,7 +15,9 @@ Read when: the Repair Station and repair tree, timed research, exterior looks, w
   column, or research parents) and resends after each action. Tabs Repairs / Research / Rooms; research columns are
   depth by parents with lines; click a bright node; drag/scroll to pan. Untried in a client.
 - **Looks** (`look/Looks`, data `look/exterior.json`): the exterior's LOOK (0-3) is the highest rule whose requirements
-  pass, after `LookEvent`. 32 blockstate variants (facing × half × look); textures are placeholders for Aaron's art.
+  pass, after `LookEvent`. 32 blockstate variants (facing × half × look), now used only for break particles: the box is drawn by
+  `client/ExteriorRenderer` from Aaron's Blockbench model (see `docs/door.md`). Look 3 is his original paint; looks 0-2
+  are the same texture with paint chipped off to bare wood (55/32/12%), made by `tools/police_box.py`.
 - **Damage** (`repair/WorldDamage`): an explosion within `tuning.damage.explosion_radius` of the box lowers
   `explosion_subsystem` by `explosion_levels`.
 - Tests: `gametest/RepairLoopTests` (fix a part + research a node → range up and look changes; a blast lowers the hull).

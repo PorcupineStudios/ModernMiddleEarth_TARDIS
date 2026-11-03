@@ -11,6 +11,9 @@ import net.minecraft.world.level.block.state.BlockState;
 /** The lower half of a police box: holds only the id of its TARDIS record. */
 public final class ExteriorBlockEntity extends BlockEntity {
     private UUID tardis;
+    /** Client only, for the door animation: how far open the doors are drawn and when that was last advanced. */
+    public float doorAnim;
+    public float doorAnimTime = -1;
 
     public ExteriorBlockEntity(BlockPos pos, BlockState state) {
         super(TardisBlocks.EXTERIOR_BE.get(), pos, state);

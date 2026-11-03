@@ -6,11 +6,13 @@ import com.porcupinestudios.tardisrb.net.ConsoleNet;
 import com.porcupinestudios.tardisrb.net.SkyNet;
 import com.porcupinestudios.tardisrb.net.WorkshopNet;
 import com.simibubi.create.content.kinetics.base.ShaftRenderer;
+import net.minecraft.server.packs.resources.ResourceManagerReloadListener;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
+import net.neoforged.neoforge.client.event.RegisterClientReloadListenersEvent;
 
 /** Client setup. Never referenced from common code. */
 @EventBusSubscriber(modid = TardisRB.MOD_ID, bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
@@ -21,11 +23,17 @@ public final class TardisClient {
     public static void renderers(EntityRenderersEvent.RegisterRenderers event) {
         event.registerBlockEntityRenderer(TardisBlocks.WINDER_BE.get(), ShaftRenderer::new);
         event.registerBlockEntityRenderer(TardisBlocks.CONSOLE_BE.get(), ConsoleRenderer::new);
+        event.registerBlockEntityRenderer(TardisBlocks.EXTERIOR_BE.get(), ExteriorRenderer::new);
     }
 
     @SubscribeEvent
     public static void layers(EntityRenderersEvent.RegisterLayerDefinitions event) {
         event.registerLayerDefinition(ConsoleRenderer.LAYER, ConsoleRenderer::layer);
+    }
+
+    @SubscribeEvent
+    public static void reloads(RegisterClientReloadListenersEvent event) {
+        event.registerReloadListener((ResourceManagerReloadListener) manager -> PoliceBoxModel.reset());
     }
 
     @SubscribeEvent
