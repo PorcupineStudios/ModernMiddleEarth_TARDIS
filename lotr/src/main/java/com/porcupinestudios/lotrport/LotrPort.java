@@ -19,6 +19,7 @@ import com.porcupinestudios.lotrport.quest.QuestData;
 import com.porcupinestudios.lotrport.quest.Quests;
 import com.porcupinestudios.lotrport.travel.FastTravel;
 import com.porcupinestudios.lotrport.net.MapNet;
+import com.porcupinestudios.lotrport.net.QuestNet;
 import com.porcupinestudios.lotrport.command.TravelCommand;
 import com.porcupinestudios.lotrport.ai.AiCommand;
 import com.porcupinestudios.lotrport.ai.AiData;
@@ -68,6 +69,7 @@ public final class LotrPort {
         Quests.register();
         FastTravel.register();
         MapNet.register(modBus);
+        QuestNet.register(modBus);
         ColonyItems.register(modBus);
         ColonyData.register();
         Colonies.register();

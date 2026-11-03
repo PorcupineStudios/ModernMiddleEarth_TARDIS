@@ -3,6 +3,7 @@ package com.porcupinestudios.lotrport.client;
 import com.mojang.blaze3d.platform.InputConstants;
 import com.porcupinestudios.lotrport.LotrPort;
 import com.porcupinestudios.lotrport.net.MapNet;
+import com.porcupinestudios.lotrport.net.QuestNet;
 import com.porcupinestudios.lotrport.npc.LotrEntities;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.model.HumanoidModel;
@@ -33,6 +34,8 @@ public final class LotrClient {
     @SubscribeEvent
     public static void setup(FMLClientSetupEvent event) {
         MapNet.clientHandler = (data, ctx) -> MapScreen.open(data);
+        QuestNet.offerHandler = QuestOfferScreen::open;
+        QuestNet.bookHandler = RedBookScreen::show;
     }
 
     @SubscribeEvent

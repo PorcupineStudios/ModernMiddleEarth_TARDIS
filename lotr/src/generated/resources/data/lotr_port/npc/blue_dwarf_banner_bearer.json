@@ -24,6 +24,6 @@
     "feet": "lotr_port:blue_dwarven_boots"
   },
   "names": "lotr_port:dwarf_male",
-  "speech": "lotr_port:blue_dwarf/smith",
+  "speech": "lotr_port:blue_dwarf/dwarf",
   "quests": "lotr_port:blue_mountains"
 }

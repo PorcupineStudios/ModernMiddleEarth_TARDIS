@@ -24,6 +24,6 @@
   },
   "names": "lotr_port:gondor_male",
   "units": "lotr_port:pinnath_gelin_captain",
-  "speech": "lotr_port:gondor/soldier",
+  "speech": "lotr_port:gondor/pinnath_gelin_captain",
   "quests": "lotr_port:gondor"
 }

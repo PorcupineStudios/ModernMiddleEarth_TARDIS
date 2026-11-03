@@ -24,6 +24,6 @@
     "feet": "lotr_port:galadhrim_boots"
   },
   "names": "lotr_port:sindarin_male",
-  "speech": "lotr_port:galadhrim/trader",
+  "speech": "lotr_port:galadhrim/warrior",
   "quests": "lotr_port:galadhrim"
 }

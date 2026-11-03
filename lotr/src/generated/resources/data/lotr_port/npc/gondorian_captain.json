@@ -24,6 +24,6 @@
   },
   "names": "lotr_port:gondor_male",
   "units": "lotr_port:gondorian_captain",
-  "speech": "lotr_port:gondor/soldier",
+  "speech": "lotr_port:gondor/captain",
   "quests": "lotr_port:gondor"
 }

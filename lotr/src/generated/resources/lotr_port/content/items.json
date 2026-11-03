@@ -7454,7 +7454,7 @@
   },
   {
     "id": "red_book",
-    "kind": "item",
+    "kind": "red_book",
     "stack": 1,
     "level": 2,
     "speed": 6.0

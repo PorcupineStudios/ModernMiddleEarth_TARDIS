@@ -23,6 +23,6 @@
     "feet": "lotr_port:dorwinion_boots"
   },
   "names": "lotr_port:dorwinion_male",
-  "speech": "lotr_port:dorwinion/elf",
+  "speech": "lotr_port:dorwinion/elf_warrior",
   "quests": "lotr_port:dorwinion"
 }

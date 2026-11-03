@@ -6,6 +6,7 @@ LOTR's waypoints and mini-quests (quests.json from the exporter) as data for the
   data/lotr_port/fast_travel/settings.json                    LOTR's cooldown range (seconds)
   data/lotr_port/quest_pool/<group>.json                      collect and kill quests per LOTR quest group
   assets/lotr_port/textures/gui/map.png                       LOTR's map image, for the map screen
+  assets/lotr_port/textures/gui/quest/*.png                   LOTR's Red Book and quest offer pages
   lang: waypoint.lotr_port.<id>, waypoint_region.lotr_port.<r>
 
 NPC types whose LOTR entity gives quests get "quests": "lotr_port:<group>". Bounty, retrieve and pickpocket quests
@@ -80,6 +81,15 @@ class Quests:
             os.makedirs(os.path.dirname(dst), exist_ok=True)
             with open(dst, "wb") as fh:
                 fh.write(self.jar.read("assets/lotr/map/map.png"))
+        # the Red Book and quest offer pages
+        for name in ("redBook", "redBook_miniquests", "miniquest"):
+            src = f"assets/lotr/gui/quest/{name}.png"
+            if self.jar.has(src):
+                file = "".join("_" + c.lower() if c.isupper() else c for c in name)
+                dst = os.path.join(self.assets, "textures", "gui", "quest", file + ".png")
+                os.makedirs(os.path.dirname(dst), exist_ok=True)
+                with open(dst, "wb") as fh:
+                    fh.write(self.jar.read(src))
         return len(names)
 
     def waypoint_lang(self, names, regions):

@@ -63,15 +63,16 @@ public final class NpcTests {
 
         Alignment.set(player, shire, 100);
         helper.assertTrue(hobbit.speak(player), "a hobbit had nothing to say to a friend");
-        helper.assertTrue(!hobbit.speech().isEmpty() && !hobbit.speech().contains("#"),
-                "friendly line not filled in: '" + hobbit.speech() + "'");
+        String friendly = hobbit.speech().getString();
+        helper.assertTrue(!friendly.isEmpty() && !friendly.contains("#"), "friendly line not filled in: '" + friendly
+                + "'");
 
         Alignment.set(player, shire, -100);
         helper.assertTrue(hobbit.speak(player), "a hobbit had nothing to say to an enemy");
         String name = player.getGameProfile().getName();
         helper.assertTrue(NpcData.speech(bank, "hostile").stream()
-                        .anyMatch(l -> l.replace("#", name).replace("@", "here").equals(hobbit.speech())),
-                "enemy got a line that isn't hostile: '" + hobbit.speech() + "'");
+                        .anyMatch(l -> l.replace("#", name).replace("@", "here").equals(hobbit.speech().getString())),
+                "enemy got a line that isn't hostile: '" + hobbit.speech().getString() + "'");
         helper.succeed();
     }
 

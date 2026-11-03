@@ -68,8 +68,8 @@ public class LotrNpc extends PathfinderMob implements Merchant {
     private static final EntityDataAccessor<String> MODEL =
             SynchedEntityData.defineId(LotrNpc.class, EntityDataSerializers.STRING);
     /** The line it is saying, drawn above its head; empty when quiet. */
-    private static final EntityDataAccessor<String> SPEECH =
-            SynchedEntityData.defineId(LotrNpc.class, EntityDataSerializers.STRING);
+    private static final EntityDataAccessor<Component> SPEECH =
+            SynchedEntityData.defineId(LotrNpc.class, EntityDataSerializers.COMPONENT);
     /** How far a trading or hiring player may stand. */
     public static final double DEAL_DISTANCE = 8;
 
@@ -123,7 +123,7 @@ public class LotrNpc extends PathfinderMob implements Merchant {
         builder.define(SKIN, "");
         builder.define(TALL_SKIN, false);
         builder.define(MODEL, "human");
-        builder.define(SPEECH, "");
+        builder.define(SPEECH, Component.empty());
     }
 
     @Override
@@ -211,8 +211,17 @@ public class LotrNpc extends PathfinderMob implements Merchant {
     }
 
     /** The line it is saying right now (client and server); empty when quiet. */
-    public String speech() {
+    public Component speech() {
         return entityData.get(SPEECH);
+    }
+
+    /** Says {@code line} above its head to everyone nearby, facing {@code listener}. */
+    public void say(Component line, Player listener) {
+        entityData.set(SPEECH, line);
+        // long enough to read: 3 seconds plus a little per letter, at most 12
+        speechTicks = Math.min(240, 60 + line.getString().length() * 2);
+        getNavigation().stop();
+        getLookControl().setLookAt(listener);
     }
 
     /**
@@ -250,11 +259,7 @@ public class LotrNpc extends PathfinderMob implements Merchant {
         String line = pick.get(random.nextInt(pick.size()))
                 .replace("#", player.getGameProfile().getName())
                 .replace("@", "here");
-        entityData.set(SPEECH, line);
-        // long enough to read: 3 seconds plus a little per letter, at most 12
-        speechTicks = Math.min(240, 60 + line.length() * 2);
-        getNavigation().stop();
-        getLookControl().setLookAt(player);
+        say(Component.literal(line), player);
         return true;
     }
 
@@ -415,7 +420,7 @@ public class LotrNpc extends PathfinderMob implements Merchant {
     public void aiStep() {
         super.aiStep();
         if (!level().isClientSide && speechTicks > 0 && --speechTicks == 0) {
-            entityData.set(SPEECH, "");
+            entityData.set(SPEECH, Component.empty());
         }
         if (!level().isClientSide && tradingPlayer != null) {
             if (!tradingPlayer.isAlive() || tradingPlayer.distanceTo(this) > DEAL_DISTANCE

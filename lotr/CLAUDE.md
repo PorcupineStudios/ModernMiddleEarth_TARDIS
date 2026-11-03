@@ -93,10 +93,14 @@ https://claude.ai/artifact/KqhSSTCuKXGuwKHBoYJdcu. Rebuild features in modern co
 - Map screen: key M (`client/MapScreen`, LOTR's map image `textures/gui/map.png`); packets in `net/MapNet` (the client
   handler is set in client setup, so common code never names the screen). Click a green waypoint to travel.
 - Mini-quests: `quest_pool/<group>.json` (collect / kill_faction / kill_npc, min-max, weight, reward factor; coins
-  and alignment per target), named by an NPC type's `quests`. Right-click a giver (not traders/captains) to get one,
-  again to see progress or hand in. Player attachment `quests` (`quest/QuestLog`); history `quest_completed`.
-  `/lotr_quests [abandon <n>]`.
-- Not yet: bounty, retrieve and pickpocket quests, fellowships, titles, custom waypoints, the Red Book, LOTR's quest
+  and alignment per target), named by an NPC type's `quests`. Right-click a giver (not traders/captains) to get LOTR's
+  offer page (`client/QuestOfferScreen`, `QuestNet.Offer`; the roll waits server-side in `Quests.PENDING` until
+  Accept/Decline). Right-click again: progress or thanks above its head. Using the Red Book (item kind `red_book`)
+  opens `client/RedBookScreen` (list, details, abandon). Textures: LOTR's `gui/quest/*` copied by `quests.py`.
+  Player attachment `quests` (`quest/QuestLog`); history `quest_completed`. `/lotr_quests [abandon <n>]`.
+  LOTR's per-quest lines (`speech/miniquest/<group>/<quest>_start|progress|complete`) need the exporter to record each
+  quest's speech key first.
+- Not yet: bounty, retrieve and pickpocket quests, fellowships, titles, custom waypoints, LOTR's quest
   speech. The map screen has not been tried in a game client.
 
 ## Colonies (phase 9, RingRealms built in: `colony/`)
