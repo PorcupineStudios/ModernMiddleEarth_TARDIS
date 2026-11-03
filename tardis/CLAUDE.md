@@ -13,6 +13,7 @@ Read both with the Claude Docs tools, not a web fetch. Add notes in `docs/<area>
 | Read when the task touches | File |
 |---|---|
 | TARDIS record, data folders + validator, unlocks, conditions, repairs, damage, stages, `/tardis` | `docs/progression.md` |
+| Police box, interior dimension and plots, crash site, salvage, short hops, console screen, Create winder | `docs/wreck-flight.md` |
 
 ## Build
 From the repo root: `./gradlew :tardis:build` (jar in `tardis/build/libs/`), `:tardis:runClient`, `:tardis:runServer`,

@@ -1,6 +1,8 @@
 package com.porcupinestudios.tardisrb.block;
 
 import com.porcupinestudios.tardisrb.TardisRB;
+import com.porcupinestudios.tardisrb.compat.create.WinderBlock;
+import com.porcupinestudios.tardisrb.compat.create.WinderBlockEntity;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.BlockItem;
@@ -20,7 +22,7 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 
 /**
  * The TARDIS's blocks: the police box exterior (placed only by code, two blocks tall), the console and interior door
- * of the console room, and salvage wreck debris found in the world. Their creative tab is "TARDIS".
+ * of the console room, salvage wreck debris found in the world, and the Create winder. Their creative tab is "TARDIS".
  */
 public final class TardisBlocks {
     private static final DeferredRegister.Blocks BLOCKS = DeferredRegister.createBlocks(TardisRB.MOD_ID);
@@ -45,6 +47,16 @@ public final class TardisBlocks {
             () -> new SalvageBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_BLUE).strength(2.0F)
                     .sound(SoundType.WOOD).noOcclusion()));
 
+    /** Create: turns rotation into charge. */
+    public static final DeferredBlock<WinderBlock> WINDER = BLOCKS.register("winder",
+            () -> new WinderBlock(BlockBehaviour.Properties.of().mapColor(MapColor.METAL).strength(2.0F)
+                    .sound(SoundType.COPPER).noOcclusion()));
+
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<WinderBlockEntity>> WINDER_BE =
+            BLOCK_ENTITIES.register("winder", () -> BlockEntityType.Builder.of(
+                    (pos, state) -> new WinderBlockEntity(TardisBlocks.WINDER_BE.get(), pos, state), WINDER.get())
+                    .build(null));
+
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<ExteriorBlockEntity>> EXTERIOR_BE =
             BLOCK_ENTITIES.register("exterior",
                     () -> BlockEntityType.Builder.of(ExteriorBlockEntity::new, EXTERIOR.get()).build(null));
@@ -52,6 +64,7 @@ public final class TardisBlocks {
     public static final DeferredItem<BlockItem> CONSOLE_ITEM = ITEMS.registerSimpleBlockItem(CONSOLE);
     public static final DeferredItem<BlockItem> INTERIOR_DOOR_ITEM = ITEMS.registerSimpleBlockItem(INTERIOR_DOOR);
     public static final DeferredItem<BlockItem> SALVAGE_WRECK_ITEM = ITEMS.registerSimpleBlockItem(SALVAGE_WRECK);
+    public static final DeferredItem<BlockItem> WINDER_ITEM = ITEMS.registerSimpleBlockItem(WINDER);
 
     static {
         TABS.register("tardis", () -> CreativeModeTab.builder()

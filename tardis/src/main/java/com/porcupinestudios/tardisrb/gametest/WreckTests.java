@@ -5,20 +5,29 @@ import com.porcupinestudios.tardisrb.TardisRB;
 import com.porcupinestudios.tardisrb.block.ExteriorBlock;
 import com.porcupinestudios.tardisrb.block.Exteriors;
 import com.porcupinestudios.tardisrb.block.TardisBlocks;
+import com.porcupinestudios.tardisrb.compat.create.WinderBlock;
 import com.porcupinestudios.tardisrb.core.TardisManager;
 import com.porcupinestudios.tardisrb.core.TardisRecord;
 import com.porcupinestudios.tardisrb.flight.Flight;
 import com.porcupinestudios.tardisrb.interior.Interiors;
+import com.porcupinestudios.tardisrb.progression.TardisContent;
 import com.porcupinestudios.tardisrb.repair.Repairs;
 import java.util.Optional;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.GlobalPos;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.gametest.framework.GameTest;
 import net.minecraft.gametest.framework.GameTestHelper;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.levelgen.structure.templatesystem.StructurePlaceSettings;
+import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplate;
 import net.neoforged.neoforge.gametest.GameTestHolder;
 import net.neoforged.neoforge.gametest.PrefixGameTestTemplate;
 
@@ -30,11 +39,11 @@ public final class WreckTests {
 
     private WreckTests() {}
 
-    /** A TARDIS standing on the test platform at (1,1,2), able to hop (navigation repaired, some charge). */
+    /** A TARDIS standing on the test platform at (1,2,2) (the template's floor is at relative y 1), able to hop (navigation repaired, some charge). */
     static TardisRecord onPlatform(GameTestHelper helper, Optional<ServerPlayer> owner) {
         MinecraftServer server = helper.getLevel().getServer();
         TardisRecord t = TardisManager.get(server).create(server, "Test box", owner.map(ServerPlayer::getUUID));
-        BlockPos base = helper.absolutePos(new BlockPos(1, 1, 2));
+        BlockPos base = helper.absolutePos(new BlockPos(1, 2, 2));
         Exteriors.place(helper.getLevel(), base, Direction.EAST, t.id());
         t.setLocation(Optional.of(GlobalPos.of(helper.getLevel().dimension(), base)));
         return t;
@@ -61,21 +70,31 @@ public final class WreckTests {
         helper.succeed();
     }
 
+    /**
+     * The game test server makes only the overworld, so this checks that the interior dimension file loads and that
+     * the console room template has its console and doors. The dedicated-server world check (CI) enters a real one.
+     */
     @GameTest(template = PLATFORM)
-    public static void theInteriorHasAConsoleRoom(GameTestHelper helper) {
+    public static void theConsoleRoomTemplateLoads(GameTestHelper helper) {
         MinecraftServer server = helper.getLevel().getServer();
-        TardisRecord t = onPlatform(helper, Optional.empty());
-        helper.assertTrue(Interiors.ensure(server, t), "interior not built");
-        ServerLevel inside = Interiors.level(server).orElseThrow();
-        BlockPos origin = Interiors.origin(t.plot());
-        helper.assertTrue(inside.getBlockState(origin.offset(4, 1, 5)).is(TardisBlocks.CONSOLE.get()),
-                "no console in the room: " + inside.getBlockState(origin.offset(4, 1, 5)));
-        helper.assertTrue(inside.getBlockState(origin.offset(4, 1, 0)).is(TardisBlocks.INTERIOR_DOOR.get()),
+        helper.assertTrue(server.registryAccess().registryOrThrow(Registries.LEVEL_STEM)
+                .containsKey(Interiors.DIMENSION.location()), "no interior dimension file");
+        StructureTemplate room = server.getStructureManager()
+                .get(TardisContent.tuning().interior().room()).orElse(null);
+        helper.assertTrue(room != null, "no console room template");
+        BlockPos origin = helper.absolutePos(new BlockPos(0, 20, 0));
+        room.placeInWorld(helper.getLevel(), origin, origin, new StructurePlaceSettings(), helper.getLevel().getRandom(),
+                Block.UPDATE_CLIENTS);
+        helper.assertTrue(helper.getLevel().getBlockState(origin.offset(4, 1, 5)).is(TardisBlocks.CONSOLE.get()),
+                "no console in the room");
+        helper.assertTrue(helper.getLevel().getBlockState(origin.offset(4, 1, 0)).is(TardisBlocks.INTERIOR_DOOR.get()),
                 "no doors in the room");
-        helper.assertTrue(Interiors.at(inside, origin.offset(4, 1, 5)).map(r -> r == t).orElse(false),
-                "console doesn't know its TARDIS");
-        helper.assertTrue(inside.getBlockState(Interiors.spawn(t)).isAir()
-                && inside.getBlockState(Interiors.spawn(t).above()).isAir(), "spawn point is blocked");
+        BlockPos spawn = origin.offset(TardisContent.tuning().interior().spawn());
+        helper.assertTrue(helper.getLevel().getBlockState(spawn).isAir()
+                && helper.getLevel().getBlockState(spawn.above()).isAir(), "spawn point is blocked");
+        for (BlockPos p : BlockPos.betweenClosed(origin, origin.offset(room.getSize()).offset(-1, -1, -1))) {
+            helper.getLevel().setBlock(p, net.minecraft.world.level.block.Blocks.AIR.defaultBlockState(), Block.UPDATE_CLIENTS);
+        }
         helper.succeed();
     }
 
@@ -84,7 +103,7 @@ public final class WreckTests {
         MinecraftServer server = helper.getLevel().getServer();
         TardisRecord t = onPlatform(helper, Optional.empty());
         BlockPos from = t.location().get().pos();
-        BlockPos target = helper.absolutePos(new BlockPos(11, 1, 2));
+        BlockPos target = helper.absolutePos(new BlockPos(11, 2, 2));
         helper.assertFalse(Flight.hop(server, t, target, Optional.empty()).done(), "the wreck hopped unrepaired");
         helper.assertTrue(Repairs.attempt(server, t, TardisRB.id("navigation_1"), Optional.empty()).done(),
                 "navigation repair");
@@ -99,11 +118,41 @@ public final class WreckTests {
         }
         helper.assertTrue(out.landed().get().pos().equals(target), "landed at " + out.landed().get().pos());
         helper.assertTrue(t.location().get().pos().equals(target), "record not moved");
-        helper.assertBlockPresent(TardisBlocks.EXTERIOR.get(), new BlockPos(11, 1, 2));
         helper.assertBlockPresent(TardisBlocks.EXTERIOR.get(), new BlockPos(11, 2, 2));
+        helper.assertBlockPresent(TardisBlocks.EXTERIOR.get(), new BlockPos(11, 3, 2));
         helper.assertTrue(helper.getLevel().getBlockState(from).isAir(), "old box left behind");
         helper.assertTrue(t.charge() == before - Flight.baseCost(10), "charge " + t.charge());
         Exteriors.lift(helper.getLevel(), target);
         helper.succeed();
+    }
+
+    /**
+     * Phase 2 done-when: a Create creative motor turns the winder next to the box; once wound up, the TARDIS hops.
+     * Motor at (3,2,4) facing west drives the winder at (2,2,4), within reach of the box at (1,2,2).
+     */
+    @GameTest(template = PLATFORM, timeoutTicks = 800)
+    public static void windingWithCreateLetsTheWreckHop(GameTestHelper helper) {
+        MinecraftServer server = helper.getLevel().getServer();
+        TardisRecord t = onPlatform(helper, Optional.empty());
+        helper.assertTrue(Repairs.attempt(server, t, TardisRB.id("navigation_1"), Optional.empty()).done(),
+                "navigation repair");
+        helper.setBlock(new BlockPos(2, 2, 4), TardisBlocks.WINDER.get().defaultBlockState()
+                .setValue(WinderBlock.AXIS, Direction.Axis.X));
+        Block motor = BuiltInRegistries.BLOCK.get(ResourceLocation.fromNamespaceAndPath("create", "creative_motor"));
+        helper.setBlock(new BlockPos(3, 2, 4), motor.defaultBlockState()
+                .setValue(BlockStateProperties.FACING, Direction.WEST));
+        BlockPos target = helper.absolutePos(new BlockPos(11, 2, 2));
+        long cost = Flight.baseCost(Math.sqrt(t.location().get().pos().distSqr(target)));
+        helper.startSequence()
+                .thenWaitUntil(() -> helper.assertTrue(t.charge() >= cost, "charge " + t.charge() + " of " + cost))
+                .thenExecute(() -> {
+                    Flight.Outcome out = Flight.hop(server, t, target, Optional.empty());
+                    if (!out.done()) {
+                        helper.fail("hop failed: " + out.problem().get().getString());
+                    }
+                    helper.assertBlockPresent(TardisBlocks.EXTERIOR.get(), new BlockPos(11, 2, 2));
+                    Exteriors.lift(helper.getLevel(), target);
+                })
+                .thenSucceed();
     }
 }
