@@ -137,7 +137,7 @@
   },
   {
     "id": "armor_stand",
-    "kind": "armor",
+    "kind": "item",
     "stack": 1,
     "level": 2,
     "speed": 6.0

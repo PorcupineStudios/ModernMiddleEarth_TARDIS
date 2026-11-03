@@ -88,6 +88,9 @@ public final class LotrItems {
             case "shovel" -> new ShovelItem(tier, p.attributes(ShovelItem.createAttributes(tier, damage, -3.0f)));
             case "hoe" -> new HoeItem(tier, p.attributes(HoeItem.createAttributes(tier, damage, -1.0f)));
             case "armor" -> {
+                if (!e.has("armor")) {
+                    yield new Item(p);
+                }
                 JsonObject a = e.getAsJsonObject("armor");
                 yield new ArmorItem(MATERIALS.get(ContentData.str(a, "material", "")), slot(a), p);
             }
