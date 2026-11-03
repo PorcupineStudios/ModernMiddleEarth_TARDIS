@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:random_selector",
+  "config": {
+    "features": [
+      {
+        "feature": "lotr_port:tree/jungle_shrub",
+        "chance": 0.7663
+      },
+      {
+        "feature": "lotr_port:tree/jungle",
+        "chance": 0.6557
+      },
+      {
+        "feature": "lotr_port:tree/jungle_large",
+        "chance": 0.4762
+      },
+      {
+        "feature": "lotr_port:tree/mahogany",
+        "chance": 0.9091
+      }
+    ],
+    "default": "lotr_port:tree/mango"
+  }
+}

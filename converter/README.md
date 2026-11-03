@@ -16,6 +16,9 @@ Turns LOTR 36.15 (1.7.10) content into the 1.21.1 port's generated resources. Tw
    grass and ores for now), LOTR's map image as `lotr_port/map/biomes.bin.gz` (one biome per 128-block pixel, origin
    pixel 810,730 = block 0,0 in the Shire), `map.json` (per-biome ground height and hilliness in blocks), the noise
    settings with a surface rule per top/filler block pair, the dimension, dimension type and world preset.
+   Phase 5 adds small rivers (noise lines cut into low ground, settings in `map.json`), LOTR's 225 roads
+   (`lotr_port/map/roads.json`, laid by the `lotr_port:roads` feature), each biome's ores and LOTR's weighted tree mix
+   (`converter/trees.py`: 95 tree types as vanilla-shaped trees with LOTR's woods and leaves).
    `converter/factions.py` writes LOTR's 29 factions (colour, region, ranks, pledge rank, map area, control zones,
    default relations) as faction data, with their lang keys.
 

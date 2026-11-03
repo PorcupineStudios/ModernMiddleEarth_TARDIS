@@ -13,6 +13,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.zip.GZIPInputStream;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.level.levelgen.synth.ImprovedNoise;
 
 /**
  * The map of Middle-earth: one biome per map pixel (LOTR's own map image, 128 blocks a pixel), and per biome a ground
@@ -39,6 +41,66 @@ public final class MiddleEarthMap {
     private final List<Entry> biomes;
     private final float[] biomeHeights;
     private final float[] biomeVariations;
+    private final Rivers rivers;
+
+    /**
+     * Small rivers LOTR drew with its river layer rather than on the map: lines where a fixed noise crosses zero, cut
+     * down to {@code bed} and given the river biome. They fade out on high ground and stay out of water.
+     *
+     * @param scale noise scale in blocks (bigger = longer, straighter rivers)
+     * @param width noise distance that counts as the river itself
+     * @param bank how many river widths the valley sides reach
+     * @param bed y of the river bed
+     * @param maxHeight ground above this has no rivers
+     * @param minHeight ground below this (lakes, sea) has no rivers
+     * @param biomeWidth river widths from the middle that get the river biome
+     */
+    record Rivers(int biome, double scale, double width, double bank, double bed, double maxHeight,
+            double minHeight, double biomeWidth, ImprovedNoise noise) {
+        static Rivers read(JsonObject o, List<Entry> biomes) {
+            if (o == null) {
+                return null;
+            }
+            String id = o.get("biome").getAsString();
+            int index = -1;
+            for (int i = 0; i < biomes.size(); i++) {
+                if (biomes.get(i).id().equals(id)) {
+                    index = i;
+                }
+            }
+            if (index < 0) {
+                throw new IllegalArgumentException("river biome " + id + " is not in the biome table");
+            }
+            return new Rivers(index, o.get("scale").getAsDouble(), o.get("width").getAsDouble(),
+                    o.get("bank").getAsDouble(), o.get("bed").getAsDouble(), o.get("max_height").getAsDouble(),
+                    o.get("min_height").getAsDouble(), o.get("biome_width").getAsDouble(),
+                    new ImprovedNoise(RandomSource.create(o.get("seed").getAsLong())));
+        }
+
+        /** Distance from the river's middle, in river widths. */
+        double distance(double x, double z) {
+            return Math.abs(noise.noise(x / scale, 0.37, z / scale)) / width;
+        }
+
+        /** How strongly a river can cut here, from the ground height without rivers. */
+        double strength(double ground) {
+            if (ground < minHeight) {
+                return 0;
+            }
+            return Math.max(0, Math.min(1, (maxHeight - ground) / 25.0)) * Math.min(1, (ground - minHeight) / 3.0);
+        }
+
+        /** 1 in the river and its near banks, falling to 0 at the valley edge. */
+        double cut(double distance) {
+            if (distance <= 0.5) {
+                return 1;
+            }
+            if (distance >= bank) {
+                return 0;
+            }
+            return 1 - smooth((distance - 0.5) / (bank - 0.5));
+        }
+    }
 
     /** One biome of the map: its id, ground height (y of the surface) and hilliness (blocks up or down). */
     public record Entry(String id, float height, float variation) {}
@@ -79,6 +141,7 @@ public final class MiddleEarthMap {
         this.oceanIndex = oceanAt;
         biomeHeights[255] = biomeHeights[oceanAt];
         biomeVariations[255] = biomeVariations[oceanAt];
+        this.rivers = Rivers.read(settings.has("rivers") ? settings.getAsJsonObject("rivers") : null, list);
     }
 
     public static MiddleEarthMap get() {
@@ -126,9 +189,14 @@ public final class MiddleEarthMap {
 
     /** The biome index at a block position: the map pixel under it, with borders wobbled. */
     public int biomeIndexAt(int blockX, int blockZ) {
-        double fx = wobbledX(blockX, blockZ) / blocksPerPixel + originX;
-        double fz = wobbledZ(blockX, blockZ) / blocksPerPixel + originZ;
-        return pixelIndex((int) Math.floor(fx), (int) Math.floor(fz));
+        double wx = wobbledX(blockX, blockZ);
+        double wz = wobbledZ(blockX, blockZ);
+        if (rivers != null && rivers.distance(wx, wz) < rivers.biomeWidth()
+                && rivers.strength(smoothed(wx, wz, biomeHeights)) > 0.5) {
+            return rivers.biome();
+        }
+        return pixelIndex((int) Math.floor(wx / blocksPerPixel + originX),
+                (int) Math.floor(wz / blocksPerPixel + originZ));
     }
 
     private double wobbledX(int blockX, int blockZ) {
@@ -137,6 +205,31 @@ public final class MiddleEarthMap {
 
     private double wobbledZ(int blockX, int blockZ) {
         return blockZ + 0.5 + wobble(blockX, blockZ, 0x2545F4914F6CDD1DL) * borderWobble;
+    }
+
+    /**
+     * A block position inside each biome, by biome index: the centre of a pixel whose four neighbours are the same
+     * biome where there is one, else any pixel of it. Null for a biome that isn't on the map. For tests and tools.
+     */
+    public int[][] samplePositions() {
+        int[][] best = new int[biomes.size()][];
+        boolean[] interior = new boolean[biomes.size()];
+        for (int pz = 0; pz < height; pz++) {
+            for (int px = 0; px < width; px++) {
+                int b = pixels[pz * width + px] & 0xFF;
+                if (b >= biomes.size() || interior[b]) {
+                    continue;
+                }
+                boolean inside = pixelIndex(px - 1, pz) == b && pixelIndex(px + 1, pz) == b
+                        && pixelIndex(px, pz - 1) == b && pixelIndex(px, pz + 1) == b;
+                if (best[b] == null || inside) {
+                    best[b] = new int[] { (px - originX) * blocksPerPixel + blocksPerPixel / 2,
+                            (pz - originZ) * blocksPerPixel + blocksPerPixel / 2 };
+                    interior[b] = inside;
+                }
+            }
+        }
+        return best;
     }
 
     /** The biome index of a map pixel; outside the map is ocean. */
@@ -150,21 +243,37 @@ public final class MiddleEarthMap {
 
     /** Ground height (surface y) at a block position, smoothed across biome borders. */
     public double heightAt(int blockX, int blockZ) {
-        return smoothed(blockX, blockZ, biomeHeights);
+        double wx = wobbledX(blockX, blockZ);
+        double wz = wobbledZ(blockX, blockZ);
+        double ground = smoothed(wx, wz, biomeHeights);
+        double cut = riverCut(wx, wz, ground);
+        return cut == 0 ? ground : ground - (ground - rivers.bed()) * cut;
     }
 
     /** Hilliness (how far the ground rises and falls, in blocks) at a block position, smoothed like the height. */
     public double variationAt(int blockX, int blockZ) {
-        return smoothed(blockX, blockZ, biomeVariations);
+        double wx = wobbledX(blockX, blockZ);
+        double wz = wobbledZ(blockX, blockZ);
+        double variation = smoothed(wx, wz, biomeVariations);
+        double cut = riverCut(wx, wz, smoothed(wx, wz, biomeHeights));
+        return variation * (1 - cut);
+    }
+
+    private double riverCut(double wx, double wz, double ground) {
+        if (rivers == null) {
+            return 0;
+        }
+        double strength = rivers.strength(ground);
+        return strength == 0 ? 0 : strength * rivers.cut(rivers.distance(wx, wz));
     }
 
     /**
      * Read between the four nearest pixel centres with smoothstep weights (no creases along the pixel grid), at the
      * same wobbled position the biome lookup uses, so a river's water lines up with the river biome.
      */
-    private double smoothed(int blockX, int blockZ, float[] table) {
-        double fx = wobbledX(blockX, blockZ) / blocksPerPixel + originX - 0.5;
-        double fz = wobbledZ(blockX, blockZ) / blocksPerPixel + originZ - 0.5;
+    private double smoothed(double wx, double wz, float[] table) {
+        double fx = wx / blocksPerPixel + originX - 0.5;
+        double fz = wz / blocksPerPixel + originZ - 0.5;
         int x0 = (int) Math.floor(fx);
         int z0 = (int) Math.floor(fz);
         double tx = smooth(fx - x0);

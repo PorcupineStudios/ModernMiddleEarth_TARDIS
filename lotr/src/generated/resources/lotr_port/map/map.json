@@ -7,6 +7,17 @@
   "blur": 0,
   "border_wobble": 40,
   "ocean": "lotr_port:ocean",
+  "rivers": {
+    "biome": "lotr_port:river",
+    "scale": 900,
+    "width": 0.025,
+    "bank": 3.0,
+    "biome_width": 1.5,
+    "bed": 56,
+    "max_height": 100,
+    "min_height": 63,
+    "seed": 1937
+  },
   "biomes": [
     {
       "id": "lotr_port:river",

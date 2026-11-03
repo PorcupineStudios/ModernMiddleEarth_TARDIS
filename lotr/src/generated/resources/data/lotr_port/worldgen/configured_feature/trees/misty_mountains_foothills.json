@@ -1,0 +1,32 @@
+{
+  "type": "minecraft:random_selector",
+  "config": {
+    "features": [
+      {
+        "feature": "lotr_port:tree/fir",
+        "chance": 0.2252
+      },
+      {
+        "feature": "lotr_port:tree/pine",
+        "chance": 0.2907
+      },
+      {
+        "feature": "lotr_port:tree/spruce",
+        "chance": 0.3279
+      },
+      {
+        "feature": "lotr_port:tree/spruce_thin",
+        "chance": 0.4878
+      },
+      {
+        "feature": "lotr_port:tree/larch",
+        "chance": 0.7143
+      },
+      {
+        "feature": "lotr_port:tree/spruce_mega",
+        "chance": 0.8333
+      }
+    ],
+    "default": "lotr_port:tree/spruce_mega_thin"
+  }
+}

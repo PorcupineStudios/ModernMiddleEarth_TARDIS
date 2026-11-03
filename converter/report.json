@@ -8,6 +8,9 @@
     "tabs": 9,
     "biomes": 169,
     "map": "3200x4000",
+    "roads": 225,
+    "tree_types": 95,
+    "ore_features": 52,
     "factions": 29
   },
   "added_to_misc_tab": {

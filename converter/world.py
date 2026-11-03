@@ -10,12 +10,14 @@ Every number here that changes how the world looks is a starting value; the gene
 """
 import colorsys
 import gzip
+import json
 import io
 import os
 
 from PIL import Image
 
 from assets import NS, snake, write_json
+from trees import Trees
 
 # Old biome numbers -> blocks. LOTR's heightBaseParameter is roughly vanilla's depth (0 = sea level, 1 = high hills,
 # 2 = mountains) and heightVariation its scale.
@@ -27,6 +29,10 @@ MIN_HEIGHT, MAX_HEIGHT = -40, 300
 BORDER_WOBBLE = 40  # blocks a biome border or slope can shift
 BLUR = 0  # pixels of box blur on heights (0 keeps one-pixel rivers)
 OCEAN = "ocean"
+ROAD_HALF_WIDTH = 1.6  # blocks either side of a road's middle
+# Small rivers (LOTR made these with a river layer, not on the map). Widths are in noise units: one is about 11 blocks.
+RIVERS = {"biome": f"{NS}:river", "scale": 900, "width": 0.025, "bank": 3.0, "biome_width": 1.5, "bed": 56,
+          "max_height": 100, "min_height": 63, "seed": 1937}
 
 # Old surface blocks (registry name + meta) that are vanilla in 1.21.
 VANILLA_SURFACE = {
@@ -80,6 +86,8 @@ class World:
         new = self.gen.idtable.get(key)
         if new:
             return new
+        if block.startswith("minecraft:") and meta == 0:
+            return block  # ores, ice: same name in 1.21
         self.report["unknown_surface_blocks"].append(key)
         return "minecraft:stone"
 
@@ -99,9 +107,10 @@ class World:
                            "offset": 2.0},
         }
         trees = dec.get("treesPerChunk", 0)
+        lotr_trees = self.trees.biome(self.biome_id(b), b)
         veg = set()
         if top == "minecraft:grass_block" or top.endswith("jungle_grass"):
-            if trees > 0:
+            if trees > 0 and not lotr_trees:
                 if temp < 0.3:
                     veg.add("minecraft:trees_taiga")
                 elif top.endswith("jungle_grass") or trees >= 20:
@@ -122,8 +131,9 @@ class World:
         if dec.get("canePerChunk", 0) > 0 or dec.get("reedPerChunk", 0) > 0:
             veg.add("minecraft:patch_sugar_cane")
         features = [[] for _ in range(11)]
-        features[6] = list(ORES)
-        features[9] = [v for v in VEGETATION if v in veg]
+        features[2] = [f"{NS}:roads"]
+        features[6] = self.biome_ores.get(self.biome_id(b)) or list(ORES)
+        features[9] = ([lotr_trees] if lotr_trees else []) + [v for v in VEGETATION if v in veg]
         features[10] = ["minecraft:freeze_top_layer"]
         creatures = []
         if top == "minecraft:grass_block" and temp < 1.5:
@@ -181,6 +191,7 @@ class World:
             "origin_x": settings.get("originX", 0), "origin_z": settings.get("originZ", 0),
             "blur": BLUR, "border_wobble": BORDER_WOBBLE,
             "ocean": f"{NS}:{OCEAN}",
+            "rivers": RIVERS,
             "biomes": [{"id": f"{NS}:{i}", "height": self.height(b), "variation": self.variation(b)}
                        for i, b in zip(ids, biomes)],
         })
@@ -223,6 +234,17 @@ class World:
             })
         rules.append({"type": "minecraft:condition", "if_true": {"type": "minecraft:above_preliminary_surface"},
                       "then_run": {"type": "minecraft:sequence", "sequence": per_biome}})
+        # Lands of rock (Mordor, Gorgoroth...) are that rock all the way down, as in LOTR, so their ores find it.
+        rock_fillers = sorted({filler for (top, filler) in groups if filler.endswith("_rock")})
+        for filler in rock_fillers:
+            ids = sorted(i for (t, f), group in groups.items() if f == filler for i in group)
+            rules.append({"type": "minecraft:condition", "if_true": {"type": "minecraft:biome", "biome_is": ids},
+                          "then_run": {"type": "minecraft:condition", "if_true": {
+                              "type": "minecraft:not", "invert": {"type": "minecraft:vertical_gradient",
+                                                                 "random_name": "minecraft:deepslate",
+                                                                 "true_at_and_below": {"absolute": -48},
+                                                                 "false_at_and_above": {"absolute": -40}}},
+                              "then_run": block_rule(filler)}})
         return {"type": "minecraft:sequence", "sequence": rules}
 
     def noise_settings(self, biomes):
@@ -304,8 +326,82 @@ class World:
                     dst[f"biome.{NS}.{self.biome_id(b)}"] = name
                     self.report["untranslated_biomes"].append(name)
 
+    def ores(self, biomes):
+        """LOTR's ores per biome as ore features; every biome lists its ores in one shared order."""
+        specs = {}
+        per_biome = {}
+        for b in biomes:
+            mine = []
+            for o in b.get("ores", []):
+                g = o.get("gen", {})
+                block = g.get("field_150519_a")
+                if not block or o.get("genClass", "").split(".")[-1] != "WorldGenMinable":
+                    continue
+                state = self.surface_block(block, g.get("mineableBlockMeta", 0))
+                target = g.get("field_150518_c", "minecraft:stone")
+                key = (state, target, g.get("numberOfBlocks", 8), float(o.get("oreChance", 1)),
+                       o.get("minHeight", 0), o.get("maxHeight", 64))
+                specs.setdefault(key, None)
+                mine.append(key)
+            per_biome[self.biome_id(b)] = mine
+        order = sorted(specs, key=lambda k: (k[0], k[1], k[2], -k[3], k[4], k[5]))
+        gen = os.path.join(self.data, NS, "worldgen")
+        names = {}
+        for i, (state, target, size, chance, lo, hi) in enumerate(order):
+            name = f"ore/{state.split(':')[1]}_{i}"
+            names[(state, target, size, chance, lo, hi)] = f"{NS}:{name}"
+            if target == "minecraft:stone":
+                rule = {"predicate_type": "minecraft:tag_match", "tag": "minecraft:stone_ore_replaceables"}
+            else:
+                rule = {"predicate_type": "minecraft:block_match", "block": self.surface_block(target, 0)}
+            write_json(os.path.join(gen, "configured_feature", name + ".json"), {"type": "minecraft:ore", "config": {
+                "targets": [{"target": rule, "state": {"Name": state}}], "size": size,
+                "discard_chance_on_air_exposure": 0.0}})
+            if chance >= 1:
+                count = [{"type": "minecraft:count", "count": int(round(chance))}]
+            else:
+                count = [{"type": "minecraft:rarity_filter", "chance": max(1, int(round(1 / max(chance, 0.001))))}]
+            bottom = -64 if lo <= 0 else lo
+            write_json(os.path.join(gen, "placed_feature", name + ".json"), {"feature": f"{NS}:{name}", "placement":
+                count + [{"type": "minecraft:in_square"},
+                         {"type": "minecraft:height_range", "height": {
+                             "type": "minecraft:uniform", "min_inclusive": {"absolute": bottom},
+                             "max_inclusive": {"absolute": max(bottom + 1, min(hi, 319))}}},
+                         {"type": "minecraft:biome"}]})
+        rank = {k: i for i, k in enumerate(order)}
+        self.biome_ores = {bid: [names[k] for k in sorted(set(keys), key=rank.get)] for bid, keys in per_biome.items()}
+        return len(order)
+
+    def roads(self, world):
+        """LOTR's roads in block coordinates (map pixel -> block, the same way as the biome map), and the feature."""
+        settings = world["map"]
+        scale = settings.get("scale", 128)
+        ox, oz = settings.get("originX", 0), settings.get("originZ", 0)
+        roads = []
+        all_points = [p for road in world.get("roads", []) for p in road["points"]]
+        in_blocks = any(abs(p[0]) > 5000 or abs(p[1]) > 5000 for p in all_points)  # else map pixels
+        for road in world.get("roads", []):
+            if in_blocks:
+                points = [[round(p[0], 1), round(p[1], 1)] for p in road["points"]]
+            else:
+                points = [[round((p[0] - ox) * scale, 1), round((p[1] - oz) * scale, 1)] for p in road["points"]]
+            if len(points) >= 2:
+                roads.append({"name": road["name"], "points": points})
+        path = os.path.join(self.out, NS, "map", "roads.json")
+        os.makedirs(os.path.dirname(path), exist_ok=True)
+        with open(path, "w", encoding="utf-8") as f:  # compact: ~150k points
+            json.dump({"width": ROAD_HALF_WIDTH, "roads": roads}, f, separators=(",", ":"))
+        gen = os.path.join(self.data, NS, "worldgen")
+        write_json(os.path.join(gen, "configured_feature", "roads.json"), {"type": f"{NS}:roads", "config": {}})
+        write_json(os.path.join(gen, "placed_feature", "roads.json"), {"feature": f"{NS}:roads", "placement": []})
+        return len(roads)
+
     def run(self):
         world = self.export
+        self.trees = Trees(self.gen, self.data, self.report)
+        road_count = self.roads(world)
+        biomes_all = [b for b in world["biomes"] if "biomeName" in b.get("fields", {})]
+        ore_count = self.ores(biomes_all)
         biomes = [b for b in world["biomes"] if "biomeName" in b.get("fields", {})]
         if len(biomes) > 255:
             raise SystemExit(f"{len(biomes)} biomes do not fit the byte map")
@@ -323,7 +419,8 @@ class World:
                    self.noise_settings(biomes))
         self.dimension_files()
         self.lang(biomes)
-        return {"biomes": len(biomes), "map": f"{w}x{h}"}
+        return {"biomes": len(biomes), "map": f"{w}x{h}", "roads": road_count, "tree_types": len(self.trees.written),
+                "ore_features": ore_count}
 
 
 def block_rule(name):

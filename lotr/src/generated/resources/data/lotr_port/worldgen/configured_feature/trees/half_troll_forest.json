@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:random_selector",
+  "config": {
+    "features": [
+      {
+        "feature": "lotr_port:tree/acacia",
+        "chance": 0.4918
+      },
+      {
+        "feature": "lotr_port:tree/acacia_dead",
+        "chance": 0.4839
+      },
+      {
+        "feature": "lotr_port:tree/oak_desert",
+        "chance": 0.625
+      },
+      {
+        "feature": "lotr_port:tree/oak_dead",
+        "chance": 0.8333
+      }
+    ],
+    "default": "lotr_port:tree/baobab"
+  }
+}

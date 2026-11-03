@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:random_selector",
+  "config": {
+    "features": [
+      {
+        "feature": "lotr_port:tree/mirk_oak_dead",
+        "chance": 0.8333
+      }
+    ],
+    "default": "lotr_port:tree/mirk_oak"
+  }
+}

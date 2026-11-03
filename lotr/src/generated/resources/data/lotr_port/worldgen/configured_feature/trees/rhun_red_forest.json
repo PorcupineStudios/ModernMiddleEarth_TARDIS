@@ -1,0 +1,104 @@
+{
+  "type": "minecraft:random_selector",
+  "config": {
+    "features": [
+      {
+        "feature": "lotr_port:tree/redwood",
+        "chance": 0.2981
+      },
+      {
+        "feature": "lotr_port:tree/redwood_2",
+        "chance": 0.4247
+      },
+      {
+        "feature": "lotr_port:tree/redwood_3",
+        "chance": 0.3692
+      },
+      {
+        "feature": "lotr_port:tree/redwood_4",
+        "chance": 0.5852
+      },
+      {
+        "feature": "lotr_port:tree/redwood_5",
+        "chance": 0.5643
+      },
+      {
+        "feature": "lotr_port:tree/oak_shrub",
+        "chance": 0.3886
+      },
+      {
+        "feature": "lotr_port:tree/cypress",
+        "chance": 0.4237
+      },
+      {
+        "feature": "lotr_port:tree/oak",
+        "chance": 0.1838
+      },
+      {
+        "feature": "lotr_port:tree/oak_large",
+        "chance": 0.1126
+      },
+      {
+        "feature": "lotr_port:tree/birch",
+        "chance": 0.1269
+      },
+      {
+        "feature": "lotr_port:tree/birch_tall",
+        "chance": 0.1453
+      },
+      {
+        "feature": "lotr_port:tree/beech",
+        "chance": 0.1701
+      },
+      {
+        "feature": "lotr_port:tree/maple",
+        "chance": 0.2049
+      },
+      {
+        "feature": "lotr_port:tree/cypress_large",
+        "chance": 0.2577
+      },
+      {
+        "feature": "lotr_port:tree/date_palm",
+        "chance": 0.1736
+      },
+      {
+        "feature": "lotr_port:tree/pomegranate",
+        "chance": 0.2101
+      },
+      {
+        "feature": "lotr_port:tree/birch_large",
+        "chance": 0.2128
+      },
+      {
+        "feature": "lotr_port:tree/olive",
+        "chance": 0.2703
+      },
+      {
+        "feature": "lotr_port:tree/olive_large",
+        "chance": 0.3704
+      },
+      {
+        "feature": "lotr_port:tree/beech_large",
+        "chance": 0.2941
+      },
+      {
+        "feature": "lotr_port:tree/maple_large",
+        "chance": 0.4167
+      },
+      {
+        "feature": "lotr_port:tree/almond",
+        "chance": 0.3571
+      },
+      {
+        "feature": "lotr_port:tree/plum",
+        "chance": 0.5556
+      },
+      {
+        "feature": "lotr_port:tree/apple",
+        "chance": 0.5
+      }
+    ],
+    "default": "lotr_port:tree/pear"
+  }
+}
