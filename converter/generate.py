@@ -102,12 +102,12 @@ class Gen:
         name = self.english(v.get("unlocalized"), v.get("name")) or old_base
         new = self.claim(name, old_base if v["meta"] == 0 else f"{old_base}_{v['meta']}")
         self.map_id(it["id"], v["meta"], new)
-        classes = " ".join(it["classes"])
+        classes = {c.split(".")[-1] for c in it["classes"]}
         e = {"id": new}
         kind = "item"
         for cls, k in (("ItemSword", "sword"), ("ItemPickaxe", "pickaxe"), ("ItemAxe", "axe"),
                        ("ItemSpade", "shovel"), ("ItemHoe", "hoe"), ("ItemArmor", "armor")):
-            if cls in classes:
+            if cls in classes and (k != "armor" or "armor" in it):
                 kind = k
                 break
         e["kind"] = kind
