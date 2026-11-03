@@ -1,0 +1,24 @@
+{
+  "entries": [
+    {
+      "npc": "lotr_port:rohan_farmhand",
+      "weight": 3
+    },
+    {
+      "npc": "lotr_port:rohan_man",
+      "weight": 3
+    },
+    {
+      "npc": "lotr_port:rohan_shieldmaiden",
+      "weight": 3
+    },
+    {
+      "npc": "lotr_port:rohirrim",
+      "weight": 3
+    },
+    {
+      "npc": "lotr_port:rohirrim_archer",
+      "weight": 1
+    }
+  ]
+}

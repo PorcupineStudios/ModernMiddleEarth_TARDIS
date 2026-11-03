@@ -1,0 +1,16 @@
+{
+  "entries": [
+    {
+      "npc": "lotr_port:hobbit",
+      "weight": 3
+    },
+    {
+      "npc": "lotr_port:hobbit_farmhand",
+      "weight": 3
+    },
+    {
+      "npc": "lotr_port:hobbit_shirriff",
+      "weight": 1
+    }
+  ]
+}

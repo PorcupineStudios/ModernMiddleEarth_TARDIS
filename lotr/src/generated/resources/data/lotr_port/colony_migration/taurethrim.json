@@ -1,0 +1,20 @@
+{
+  "entries": [
+    {
+      "npc": "lotr_port:tauredain",
+      "weight": 3
+    },
+    {
+      "npc": "lotr_port:tauredain_blowgunner",
+      "weight": 1
+    },
+    {
+      "npc": "lotr_port:tauredain_farmhand",
+      "weight": 3
+    },
+    {
+      "npc": "lotr_port:tauredain_warrior",
+      "weight": 1
+    }
+  ]
+}

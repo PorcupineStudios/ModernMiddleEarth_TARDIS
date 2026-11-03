@@ -1,0 +1,28 @@
+{
+  "entries": [
+    {
+      "npc": "lotr_port:isengard_snaga",
+      "weight": 3
+    },
+    {
+      "npc": "lotr_port:isengard_snaga_archer",
+      "weight": 1
+    },
+    {
+      "npc": "lotr_port:uruk_hai",
+      "weight": 1
+    },
+    {
+      "npc": "lotr_port:uruk_hai_berserker",
+      "weight": 1
+    },
+    {
+      "npc": "lotr_port:uruk_hai_crossbower",
+      "weight": 1
+    },
+    {
+      "npc": "lotr_port:uruk_hai_sapper",
+      "weight": 1
+    }
+  ]
+}

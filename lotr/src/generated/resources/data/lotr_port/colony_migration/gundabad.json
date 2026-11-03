@@ -1,0 +1,20 @@
+{
+  "entries": [
+    {
+      "npc": "lotr_port:gundabad_orc",
+      "weight": 3
+    },
+    {
+      "npc": "lotr_port:gundabad_orc_archer",
+      "weight": 1
+    },
+    {
+      "npc": "lotr_port:gundabad_uruk",
+      "weight": 1
+    },
+    {
+      "npc": "lotr_port:gundabad_uruk_archer",
+      "weight": 1
+    }
+  ]
+}

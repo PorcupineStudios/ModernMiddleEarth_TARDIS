@@ -1,0 +1,32 @@
+{
+  "entries": [
+    {
+      "npc": "lotr_port:dorwinion_crossbower",
+      "weight": 1
+    },
+    {
+      "npc": "lotr_port:dorwinion_elf",
+      "weight": 3
+    },
+    {
+      "npc": "lotr_port:dorwinion_elf_archer",
+      "weight": 1
+    },
+    {
+      "npc": "lotr_port:dorwinion_elf_warrior",
+      "weight": 1
+    },
+    {
+      "npc": "lotr_port:dorwinion_guard",
+      "weight": 1
+    },
+    {
+      "npc": "lotr_port:dorwinion_man",
+      "weight": 3
+    },
+    {
+      "npc": "lotr_port:dorwinion_vinehand",
+      "weight": 3
+    }
+  ]
+}

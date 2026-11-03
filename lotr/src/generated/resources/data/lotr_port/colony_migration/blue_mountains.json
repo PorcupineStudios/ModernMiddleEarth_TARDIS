@@ -1,0 +1,16 @@
+{
+  "entries": [
+    {
+      "npc": "lotr_port:blue_dwarf",
+      "weight": 3
+    },
+    {
+      "npc": "lotr_port:blue_dwarf_axe_thrower",
+      "weight": 1
+    },
+    {
+      "npc": "lotr_port:blue_dwarf_warrior",
+      "weight": 1
+    }
+  ]
+}

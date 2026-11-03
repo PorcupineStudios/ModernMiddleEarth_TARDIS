@@ -1,0 +1,20 @@
+{
+  "entries": [
+    {
+      "npc": "lotr_port:high_elf",
+      "weight": 3
+    },
+    {
+      "npc": "lotr_port:high_elf_warrior",
+      "weight": 1
+    },
+    {
+      "npc": "lotr_port:rivendell_elf",
+      "weight": 3
+    },
+    {
+      "npc": "lotr_port:rivendell_warrior",
+      "weight": 1
+    }
+  ]
+}

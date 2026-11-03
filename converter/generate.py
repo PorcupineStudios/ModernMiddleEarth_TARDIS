@@ -27,6 +27,7 @@ from factions import FactionData  # noqa: E402
 from npcs import Npcs  # noqa: E402
 from structures import Structures  # noqa: E402
 from quests import Quests  # noqa: E402
+from colonies import Colonies  # noqa: E402
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 EXPORT = os.path.join(ROOT, "converter", "export")
@@ -775,6 +776,8 @@ class Gen:
         npcs.update(Structures(self, EXPORT, load("world.json"), DATA, npc_gen.written).run())
         quests = load("quests.json") if os.path.exists(os.path.join(EXPORT, "quests.json")) else {}
         npcs.update(Quests(self, quests, load("npcs.json"), load("world.json"), DATA, ASSETS, self.jar, npc_gen).run())
+        recruit_dir = os.path.join(ROOT, "lotr", "src", "main", "resources", "data", NS, "recruit")
+        npcs.update(Colonies(self, DATA, npc_gen.written, recruit_dir).run())
         content = os.path.join(OUT, NS, "content")
         write_json(os.path.join(content, "blocks.json"), self.blocks)
         write_json(os.path.join(content, "items.json"), self.items)

@@ -1,0 +1,8 @@
+{
+  "day_ticks": 24000,
+  "bed_radius": 32,
+  "bed_height": 16,
+  "hall_gap": 96,
+  "arrivals_per_day": 1,
+  "first_settlers": 1
+}

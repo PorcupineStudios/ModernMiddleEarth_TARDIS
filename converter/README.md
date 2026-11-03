@@ -36,6 +36,9 @@ Turns LOTR 36.15 (1.7.10) content into the 1.21.1 port's generated resources. Tw
    the map image and the mini-quest pools (collect and kill quests per LOTR quest group) from `quests.json`, and
    names each quest-giving NPC type's pool.
 
+   `converter/colonies.py` (phase 9) writes each faction's colony migration table and the English text of the mod's
+   own screens and messages (`UI_EN`).
+
 Never edit generated files by hand: change the generator and run it again.
 
 Known gaps (report.json): spawn eggs and structure spawners wait for the NPC and structure phases; LOTR's special
