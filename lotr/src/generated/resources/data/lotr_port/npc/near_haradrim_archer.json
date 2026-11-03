@@ -13,19 +13,18 @@
   "attack": 2.0,
   "gear": {
     "mainhand": [
-      "lotr_port:haradric_spear",
-      "lotr_port:umbaric_scimitar",
+      "lotr_port:haradric_sword",
+      "lotr_port:poisoned_haradric_dagger",
       "lotr_port:poisoned_umbaric_dagger",
+      "lotr_port:umbaric_dagger",
+      "lotr_port:umbaric_mace",
       "lotr_port:umbaric_poleaxe",
-      "lotr_port:haradric_sword"
+      "lotr_port:umbaric_scimitar"
     ],
-    "head": [
-      "lotr_port:coast_southron_helmet",
-      "lotr_port:harad_turban"
-    ],
+    "head": "lotr_port:coast_southron_helmet",
     "chest": "lotr_port:coast_southron_chestplate",
     "legs": "lotr_port:coast_southron_leggings",
     "feet": "lotr_port:coast_southron_boots"
   },
-  "names": "lotr_port:umbar_male"
+  "names": "lotr_port:near_haradrim_male"
 }

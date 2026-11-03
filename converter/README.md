@@ -26,6 +26,12 @@ Turns LOTR 36.15 (1.7.10) content into the 1.21.1 port's generated resources. Tw
    their trade pools, captains' unit pools and name banks; the exporter builds each LOTR entity in a throwaway client
    world and samples its spawn gear.
 
+   `converter/structures.py` (phase 7) turns `structures.json.gz` (every LOTR structure built 3 times with different
+   seeds on fresh flat chunks of a throwaway client world) into NBT templates (`nbt.py`), one-element jigsaw pools,
+   structures and structure sets (spacing from LOTR's chance per chunk), `has_structure/<id>` biome tags and
+   `faction/<f>` structure tags, plus `npc_spawns/` tables from each biome's LOTR spawn lists. Only structures a biome
+   places directly are wired (82); village parts and fortress pieces wait for villages (`structures_in_no_biome`).
+
 Never edit generated files by hand: change the generator and run it again.
 
 Known gaps (report.json): spawn eggs and structure spawners wait for the NPC and structure phases; LOTR's special

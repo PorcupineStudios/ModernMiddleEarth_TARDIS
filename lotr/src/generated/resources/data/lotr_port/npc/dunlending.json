@@ -13,10 +13,13 @@
   "gear": {
     "mainhand": [
       "lotr_port:dunlending_club",
-      "minecraft:stone_hoe",
+      "lotr_port:dunlending_trident",
       "lotr_port:stone_spear",
-      "minecraft:stone_sword"
+      "minecraft:stone_hoe",
+      "minecraft:stone_sword",
+      "minecraft:wooden_sword"
     ],
     "head": "lotr_port:fur_hat"
-  }
+  },
+  "names": "lotr_port:dunlending_male"
 }

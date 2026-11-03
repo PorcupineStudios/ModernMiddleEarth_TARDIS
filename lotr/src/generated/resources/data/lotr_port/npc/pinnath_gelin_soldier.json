@@ -14,8 +14,8 @@
   "attack": 2.0,
   "gear": {
     "mainhand": [
-      "lotr_port:gondorian_sword",
-      "lotr_port:gondorian_pike"
+      "lotr_port:gondorian_pike",
+      "lotr_port:gondorian_sword"
     ],
     "head": "lotr_port:pinnath_gelin_helmet",
     "chest": "lotr_port:pinnath_gelin_chestplate",

@@ -15,8 +15,7 @@
   "gear": {
     "mainhand": [
       "lotr_port:rohirric_battleaxe",
-      "lotr_port:rohirric_sword",
-      "lotr_port:rohirric_spear"
+      "lotr_port:rohirric_sword"
     ],
     "head": "lotr_port:rohirric_coif",
     "chest": "lotr_port:rohirric_hauberk",

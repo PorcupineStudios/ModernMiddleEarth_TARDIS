@@ -3,6 +3,9 @@
     "recipes": 2591,
     "factions": 29,
     "npcs": 350,
-    "npc_skins": 205
+    "npc_skins": 205,
+    "structures": 82,
+    "structures_with_npcs": 65,
+    "npc_spawn_tables": 129
   }
 ]

@@ -38,11 +38,10 @@
   "attack": 2.0,
   "gear": {
     "mainhand": [
-      "minecraft:stone_axe",
       "lotr_port:bronze_dagger",
-      "minecraft:iron_axe",
       "lotr_port:iron_dagger",
-      "lotr_port:bronze_axe"
+      "minecraft:iron_axe",
+      "minecraft:stone_axe"
     ]
   },
   "buy": "lotr_port:bree_butcher_buy",

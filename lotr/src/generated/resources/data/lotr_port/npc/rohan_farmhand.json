@@ -14,5 +14,6 @@
   "attack": 2.0,
   "gear": {
     "mainhand": "minecraft:iron_hoe"
-  }
+  },
+  "names": "lotr_port:rohan_male"
 }

@@ -13,10 +13,11 @@
   "attack": 2.0,
   "gear": {
     "mainhand": [
+      "lotr_port:haradric_sword",
+      "lotr_port:morwaith_battleaxe",
+      "lotr_port:morwaith_dagger",
       "lotr_port:morwaith_spear",
-      "lotr_port:haradric_dagger",
-      "lotr_port:morwaith_sword",
-      "lotr_port:umbaric_scimitar"
+      "lotr_port:poisoned_morwaith_dagger"
     ],
     "head": "lotr_port:morwaith_helmet",
     "chest": "lotr_port:morwaith_chestplate",

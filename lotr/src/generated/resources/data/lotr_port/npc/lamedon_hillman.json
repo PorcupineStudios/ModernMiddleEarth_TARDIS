@@ -18,11 +18,9 @@
   "attack": 2.0,
   "gear": {
     "mainhand": [
-      "lotr_port:iron_pike",
-      "lotr_port:bronze_axe",
+      "lotr_port:bronze_battleaxe",
       "lotr_port:iron_battleaxe",
-      "minecraft:iron_axe",
-      "lotr_port:bronze_battleaxe"
+      "lotr_port:iron_pike"
     ],
     "head": "lotr_port:leather_hat",
     "chest": "lotr_port:lamedon_jacket",

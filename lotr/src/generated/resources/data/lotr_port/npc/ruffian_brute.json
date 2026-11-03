@@ -14,7 +14,7 @@
   "gear": {
     "mainhand": [
       "lotr_port:iron_dagger",
-      "lotr_port:iron_battleaxe"
+      "minecraft:iron_sword"
     ],
     "head": "lotr_port:leather_hat"
   },

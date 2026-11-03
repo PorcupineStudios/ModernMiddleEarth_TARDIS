@@ -18,7 +18,7 @@
     "legs": "lotr_port:harad_robe_leggings",
     "feet": "lotr_port:harad_robe_shoes"
   },
-  "names": "lotr_port:near_haradrim_male",
+  "names": "lotr_port:nomad_male",
   "buy": "lotr_port:nomad_merchant_buy",
   "sell": "lotr_port:nomad_merchant_sell"
 }

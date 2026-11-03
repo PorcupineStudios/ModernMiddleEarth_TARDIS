@@ -22,10 +22,9 @@
   "attack": 2.0,
   "gear": {
     "mainhand": [
-      "lotr_port:iron_dagger",
-      "lotr_port:bronze_dagger"
+      "lotr_port:bronze_dagger",
+      "lotr_port:iron_dagger"
     ],
     "head": "lotr_port:leather_hat"
-  },
-  "names": "lotr_port:hobbit_male"
+  }
 }

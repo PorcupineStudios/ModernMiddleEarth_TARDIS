@@ -13,5 +13,6 @@
   "attack": 2.0,
   "gear": {
     "mainhand": "lotr_port:umbaric_dagger"
-  }
+  },
+  "names": "lotr_port:umbar_male"
 }

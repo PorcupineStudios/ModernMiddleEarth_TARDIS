@@ -1,0 +1,52 @@
+{
+  "entries": [
+    {
+      "npc": "lotr_port:gulf_archer",
+      "weight": 43,
+      "min": 3,
+      "max": 6
+    },
+    {
+      "npc": "lotr_port:gulf_warrior",
+      "weight": 87,
+      "min": 3,
+      "max": 6
+    },
+    {
+      "npc": "lotr_port:mordor_orc",
+      "weight": 87,
+      "min": 4,
+      "max": 6
+    },
+    {
+      "npc": "lotr_port:mordor_orc_archer",
+      "weight": 43,
+      "min": 4,
+      "max": 6
+    },
+    {
+      "npc": "lotr_port:moredain",
+      "weight": 30,
+      "min": 4,
+      "max": 6
+    },
+    {
+      "npc": "lotr_port:moredain_warrior",
+      "weight": 100,
+      "min": 4,
+      "max": 6
+    },
+    {
+      "npc": "lotr_port:tauredain_blowgunner",
+      "weight": 87,
+      "min": 4,
+      "max": 6
+    },
+    {
+      "npc": "lotr_port:tauredain_warrior",
+      "weight": 43,
+      "min": 4,
+      "max": 6
+    }
+  ]
+}

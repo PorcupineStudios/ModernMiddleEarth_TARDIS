@@ -12,9 +12,10 @@
   "attack": 2.0,
   "gear": {
     "mainhand": [
-      "lotr_port:rivendell_sword",
+      "lotr_port:rivendell_battlestaff",
+      "lotr_port:rivendell_longspear",
       "lotr_port:rivendell_spear",
-      "lotr_port:rivendell_longspear"
+      "lotr_port:rivendell_sword"
     ],
     "head": "lotr_port:rivendell_helmet",
     "chest": "lotr_port:rivendell_chestplate",

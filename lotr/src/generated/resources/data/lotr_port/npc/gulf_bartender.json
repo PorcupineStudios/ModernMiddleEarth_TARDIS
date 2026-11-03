@@ -14,6 +14,7 @@
   "gear": {
     "mainhand": "lotr_port:haradric_dagger"
   },
+  "names": "lotr_port:gulf_male",
   "buy": "lotr_port:gulf_bartender_buy",
   "sell": "lotr_port:gulf_bartender_sell"
 }

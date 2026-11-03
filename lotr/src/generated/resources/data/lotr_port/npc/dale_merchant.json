@@ -11,10 +11,10 @@
   "attack": 2.0,
   "gear": {
     "mainhand": [
-      "minecraft:iron_axe",
       "lotr_port:bronze_axe",
-      "minecraft:stone_axe",
-      "lotr_port:iron_dagger"
+      "lotr_port:dalish_dagger",
+      "lotr_port:iron_dagger",
+      "minecraft:iron_axe"
     ],
     "head": "lotr_port:leather_hat"
   },

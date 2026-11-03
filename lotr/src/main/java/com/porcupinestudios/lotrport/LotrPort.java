@@ -13,6 +13,8 @@ import com.porcupinestudios.lotrport.faction.FactionKills;
 import com.porcupinestudios.lotrport.faction.Factions;
 import com.porcupinestudios.lotrport.npc.LotrEntities;
 import com.porcupinestudios.lotrport.npc.NpcData;
+import com.porcupinestudios.lotrport.npc.NpcSpawner;
+import com.porcupinestudios.lotrport.npc.NpcSpawns;
 import com.porcupinestudios.lotrport.registry.LotrRegistries;
 import com.porcupinestudios.lotrport.shared.SharedApiHooks;
 import com.porcupinestudios.lotrport.world.LotrWorldgen;
@@ -44,6 +46,8 @@ public final class LotrPort {
         Factions.register();
         FactionKills.register();
         NpcData.register();
+        NpcSpawns.register();
+        NpcSpawner.register();
         NeoForge.EVENT_BUS.addListener((RegisterCommandsEvent event) -> {
             LotrCommand.register(event.getDispatcher());
             FactionCommand.register(event.getDispatcher());

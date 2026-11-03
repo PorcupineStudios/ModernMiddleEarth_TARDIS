@@ -5,12 +5,12 @@
   "attack": 2.0,
   "gear": {
     "mainhand": [
-      "lotr_port:iron_dagger",
-      "lotr_port:bronze_dagger"
+      "lotr_port:bronze_dagger",
+      "lotr_port:iron_dagger"
     ],
     "head": "lotr_port:leather_hat"
   },
-  "names": "lotr_port:rohan_male",
+  "names": "lotr_port:bree_male",
   "buy": "lotr_port:scrap_trader_buy",
   "sell": "lotr_port:scrap_trader_sell"
 }

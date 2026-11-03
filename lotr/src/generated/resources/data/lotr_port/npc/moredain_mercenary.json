@@ -13,27 +13,28 @@
   "attack": 2.0,
   "gear": {
     "mainhand": [
-      "lotr_port:umbaric_poleaxe",
-      "lotr_port:umbaric_scimitar",
       "lotr_port:haradric_sword",
       "lotr_port:umbaric_mace",
+      "lotr_port:umbaric_pike",
+      "lotr_port:umbaric_poleaxe",
+      "lotr_port:umbaric_scimitar",
       "lotr_port:umbaric_spear"
     ],
     "head": "lotr_port:harad_turban",
     "chest": [
-      "lotr_port:gulfen_chestplate",
-      "lotr_port:umbaric_chestplate",
-      "lotr_port:coast_southron_chestplate"
+      "lotr_port:coast_southron_chestplate",
+      "lotr_port:harnennor_chestplate",
+      "lotr_port:umbaric_chestplate"
     ],
     "legs": [
-      "lotr_port:gulfen_leggings",
-      "lotr_port:umbaric_leggings",
-      "lotr_port:coast_southron_leggings"
+      "lotr_port:coast_southron_leggings",
+      "lotr_port:harnennor_leggings",
+      "lotr_port:umbaric_leggings"
     ],
     "feet": [
-      "lotr_port:gulfen_boots",
-      "lotr_port:umbaric_boots",
-      "lotr_port:coast_southron_boots"
+      "lotr_port:coast_southron_boots",
+      "lotr_port:harnennor_boots",
+      "lotr_port:umbaric_boots"
     ]
   },
   "names": "lotr_port:moredain_male"

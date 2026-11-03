@@ -64,8 +64,21 @@ https://claude.ai/artifact/KqhSSTCuKXGuwKHBoYJdcu. Rebuild features in modern co
   right-click a captain (sneak if it also trades) lists units in chat with [Hire] links running `/lotr_hire`;
   `Hiring.hire` checks alignment, pledge and coins. Hired units: sneak + right-click switches follow/guard; they defend
   the owner. `People` (SavedData) keeps a record only for hired units (history: `npc_hired`, `npc_died`).
-- Not yet: animals, trolls, wargs, spiders (other models), mounts for mounted units, natural spawning, female NPCs,
+- Not yet: animals, trolls, wargs, spiders (other models), mounts for mounted units, female NPCs,
   LOTR's trader outfits and speech. `/lotr npc spawn|types|people` for testing.
+
+## Structures and spawning (phase 7)
+- 82 LOTR structures as vanilla jigsaw structures (`converter/structures.py`): `structure/<id>/<0-2>.nbt` (3 seeded
+  layouts in the start pool), `worldgen/structure`, `structure_set` (random_spread), biome tag
+  `has_structure/<id>`, structure tag `faction/<f>` (structures holding that faction's NPCs). Pack makers tune
+  spacing/biomes in data.
+- Template NPCs are `{id:lotr_port:npc, NpcType, Fresh:1b, PersistenceRequired:1b}`; `LotrNpc` rolls skin, gear and
+  name on load when `Fresh` is set. LOTR's spawner blocks become up to 3 placed NPCs (no respawning yet).
+- Natural spawning: `npc_spawns/<biome ns>/<biome path>.json` (entries npc/weight/min/max, cap, chance, interval),
+  run by `npc/NpcSpawner` per player on `LevelTickEvent`. Conquest and invasion lists are not ported yet.
+- CI world check (`world/StructureCheck`): nearest gondor and mordor structure from the faction's map home must hold
+  NPCs of that faction.
+- Not yet: villages and town walls (LOTR's village generators), invasions, respawner blocks, non-person creatures.
 
 ## Build
 From the repo root: `./gradlew :lotr:build`, `:lotr:runClient`, `:lotr:runServer`, `:lotr:runGameTestServer`,

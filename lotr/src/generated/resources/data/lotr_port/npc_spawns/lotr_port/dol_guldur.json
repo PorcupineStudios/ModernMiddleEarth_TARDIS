@@ -1,0 +1,40 @@
+{
+  "entries": [
+    {
+      "npc": "lotr_port:dol_guldur_orc",
+      "weight": 100,
+      "min": 4,
+      "max": 6
+    },
+    {
+      "npc": "lotr_port:dol_guldur_orc_archer",
+      "weight": 50,
+      "min": 4,
+      "max": 6
+    },
+    {
+      "npc": "lotr_port:galadhrim_warden",
+      "weight": 1,
+      "min": 4,
+      "max": 4
+    },
+    {
+      "npc": "lotr_port:galadhrim_warrior",
+      "weight": 2,
+      "min": 4,
+      "max": 4
+    },
+    {
+      "npc": "lotr_port:wood_elf_scout",
+      "weight": 2,
+      "min": 4,
+      "max": 4
+    },
+    {
+      "npc": "lotr_port:wood_elf_warrior",
+      "weight": 1,
+      "min": 4,
+      "max": 4
+    }
+  ]
+}

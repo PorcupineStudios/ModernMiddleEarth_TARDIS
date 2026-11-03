@@ -53,10 +53,21 @@ final class WorldCheck {
             if (problem == null) {
                 problem = roadsAreLaid(overworld);
             }
+            if (problem == null) {
+                problem = StructureCheck.start(server);
+                if (problem == null) {
+                    return; // finishes on a later tick, once structure NPCs are in the world
+                }
+            }
         } catch (RuntimeException e) {
             LotrPort.LOG.error("[worldcheck] crashed", e);
             problem = e.toString();
         }
+        finish(problem);
+    }
+
+    /** Prints the result and stops the JVM without saving. */
+    static void finish(String problem) {
         LotrPort.LOG.info(problem == null ? "WORLDCHECK PASSED" : "WORLDCHECK FAILED: " + problem);
         // The check world is thrown away. Saving ~200 far-apart chunks on a normal stop runs the CI server out of
         // memory, so flush the log and stop the JVM without saving.

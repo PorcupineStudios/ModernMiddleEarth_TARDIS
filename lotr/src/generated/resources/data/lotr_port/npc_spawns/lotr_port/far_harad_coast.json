@@ -1,0 +1,10 @@
+{
+  "entries": [
+    {
+      "npc": "lotr_port:corsair",
+      "weight": 100,
+      "min": 2,
+      "max": 6
+    }
+  ]
+}

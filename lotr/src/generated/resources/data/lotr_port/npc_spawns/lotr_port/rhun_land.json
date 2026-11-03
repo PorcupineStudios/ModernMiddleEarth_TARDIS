@@ -1,0 +1,130 @@
+{
+  "entries": [
+    {
+      "npc": "lotr_port:dale_archer",
+      "weight": 1,
+      "min": 2,
+      "max": 8
+    },
+    {
+      "npc": "lotr_port:dale_levyman",
+      "weight": 2,
+      "min": 2,
+      "max": 4
+    },
+    {
+      "npc": "lotr_port:dale_soldier",
+      "weight": 1,
+      "min": 2,
+      "max": 8
+    },
+    {
+      "npc": "lotr_port:dorwinion_crossbower",
+      "weight": 1,
+      "min": 1,
+      "max": 3
+    },
+    {
+      "npc": "lotr_port:dorwinion_guard",
+      "weight": 2,
+      "min": 1,
+      "max": 3
+    },
+    {
+      "npc": "lotr_port:dwarf",
+      "weight": 2,
+      "min": 4,
+      "max": 4
+    },
+    {
+      "npc": "lotr_port:dwarf_axe_thrower",
+      "weight": 1,
+      "min": 4,
+      "max": 4
+    },
+    {
+      "npc": "lotr_port:dwarf_miner",
+      "weight": 1,
+      "min": 1,
+      "max": 3
+    },
+    {
+      "npc": "lotr_port:dwarf_warrior",
+      "weight": 1,
+      "min": 4,
+      "max": 4
+    },
+    {
+      "npc": "lotr_port:easterling",
+      "weight": 100,
+      "min": 2,
+      "max": 4
+    },
+    {
+      "npc": "lotr_port:easterling_archer",
+      "weight": 20,
+      "min": 3,
+      "max": 6
+    },
+    {
+      "npc": "lotr_port:easterling_fire_thrower",
+      "weight": 8,
+      "min": 1,
+      "max": 3
+    },
+    {
+      "npc": "lotr_port:easterling_gold_warrior",
+      "weight": 25,
+      "min": 2,
+      "max": 4
+    },
+    {
+      "npc": "lotr_port:easterling_levyman",
+      "weight": 81,
+      "min": 2,
+      "max": 4
+    },
+    {
+      "npc": "lotr_port:easterling_warrior",
+      "weight": 41,
+      "min": 3,
+      "max": 6
+    },
+    {
+      "npc": "lotr_port:gondor_archer",
+      "weight": 1,
+      "min": 2,
+      "max": 8
+    },
+    {
+      "npc": "lotr_port:gondor_levyman",
+      "weight": 2,
+      "min": 2,
+      "max": 4
+    },
+    {
+      "npc": "lotr_port:gondor_soldier",
+      "weight": 1,
+      "min": 2,
+      "max": 8
+    },
+    {
+      "npc": "lotr_port:mordor_orc",
+      "weight": 2,
+      "min": 4,
+      "max": 6
+    },
+    {
+      "npc": "lotr_port:mordor_orc_archer",
+      "weight": 1,
+      "min": 4,
+      "max": 6
+    },
+    {
+      "npc": "lotr_port:wicked_dwarf",
+      "weight": 3,
+      "min": 1,
+      "max": 3
+    }
+  ]
+}

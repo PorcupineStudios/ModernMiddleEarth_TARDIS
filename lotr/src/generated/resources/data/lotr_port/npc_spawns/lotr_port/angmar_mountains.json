@@ -1,0 +1,58 @@
+{
+  "entries": [
+    {
+      "npc": "lotr_port:angmar_hillman",
+      "weight": 50,
+      "min": 4,
+      "max": 6
+    },
+    {
+      "npc": "lotr_port:angmar_hillman_axe_thrower",
+      "weight": 25,
+      "min": 4,
+      "max": 6
+    },
+    {
+      "npc": "lotr_port:angmar_hillman_warrior",
+      "weight": 25,
+      "min": 4,
+      "max": 6
+    },
+    {
+      "npc": "lotr_port:angmar_orc",
+      "weight": 100,
+      "min": 4,
+      "max": 6
+    },
+    {
+      "npc": "lotr_port:angmar_orc_archer",
+      "weight": 50,
+      "min": 4,
+      "max": 6
+    },
+    {
+      "npc": "lotr_port:angmar_orc_bombardier",
+      "weight": 25,
+      "min": 1,
+      "max": 2
+    },
+    {
+      "npc": "lotr_port:ranger_north",
+      "weight": 7,
+      "min": 1,
+      "max": 4
+    },
+    {
+      "npc": "lotr_port:rivendell_warrior",
+      "weight": 7,
+      "min": 4,
+      "max": 4
+    },
+    {
+      "npc": "lotr_port:wicked_dwarf",
+      "weight": 14,
+      "min": 1,
+      "max": 3
+    }
+  ]
+}

@@ -23,10 +23,12 @@
   "gear": {
     "mainhand": [
       "lotr_port:bronze_axe",
-      "minecraft:iron_axe"
+      "minecraft:iron_axe",
+      "minecraft:stone_axe"
     ],
     "head": "lotr_port:leather_hat"
   },
+  "names": "lotr_port:hobbit_male",
   "buy": "lotr_port:hobbit_orcharder_buy",
   "sell": "lotr_port:hobbit_orcharder_sell"
 }

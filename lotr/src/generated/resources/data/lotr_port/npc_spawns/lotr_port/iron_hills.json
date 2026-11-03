@@ -1,0 +1,82 @@
+{
+  "entries": [
+    {
+      "npc": "lotr_port:dwarf",
+      "weight": 100,
+      "min": 4,
+      "max": 4
+    },
+    {
+      "npc": "lotr_port:dwarf_axe_thrower",
+      "weight": 10,
+      "min": 4,
+      "max": 4
+    },
+    {
+      "npc": "lotr_port:dwarf_miner",
+      "weight": 15,
+      "min": 1,
+      "max": 3
+    },
+    {
+      "npc": "lotr_port:dwarf_warrior",
+      "weight": 20,
+      "min": 4,
+      "max": 4
+    },
+    {
+      "npc": "lotr_port:easterling_archer",
+      "weight": 1,
+      "min": 3,
+      "max": 6
+    },
+    {
+      "npc": "lotr_port:easterling_fire_thrower",
+      "weight": 1,
+      "min": 1,
+      "max": 3
+    },
+    {
+      "npc": "lotr_port:easterling_gold_warrior",
+      "weight": 1,
+      "min": 2,
+      "max": 4
+    },
+    {
+      "npc": "lotr_port:easterling_levyman",
+      "weight": 1,
+      "min": 2,
+      "max": 4
+    },
+    {
+      "npc": "lotr_port:easterling_warrior",
+      "weight": 1,
+      "min": 3,
+      "max": 6
+    },
+    {
+      "npc": "lotr_port:gundabad_orc",
+      "weight": 1,
+      "min": 4,
+      "max": 6
+    },
+    {
+      "npc": "lotr_port:gundabad_orc_archer",
+      "weight": 1,
+      "min": 4,
+      "max": 6
+    },
+    {
+      "npc": "lotr_port:mordor_orc",
+      "weight": 1,
+      "min": 4,
+      "max": 6
+    },
+    {
+      "npc": "lotr_port:mordor_orc_archer",
+      "weight": 1,
+      "min": 4,
+      "max": 6
+    }
+  ]
+}

@@ -13,14 +13,15 @@
   "attack": 2.0,
   "gear": {
     "mainhand": [
-      "lotr_port:poisoned_haradric_dagger",
-      "lotr_port:haradric_spear",
+      "lotr_port:haradric_dagger",
       "lotr_port:haradric_pike",
-      "lotr_port:haradric_sword"
+      "lotr_port:haradric_spear",
+      "lotr_port:haradric_sword",
+      "lotr_port:poisoned_haradric_dagger"
     ],
     "head": [
-      "lotr_port:nomad_cap",
-      "lotr_port:harad_turban"
+      "lotr_port:harad_turban",
+      "lotr_port:nomad_cap"
     ],
     "chest": "lotr_port:nomad_tunic",
     "legs": "lotr_port:nomad_leggings",

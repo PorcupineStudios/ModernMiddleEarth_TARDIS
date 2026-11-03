@@ -15,14 +15,14 @@
   "gear": {
     "mainhand": [
       "lotr_port:bronze_battleaxe",
+      "lotr_port:bronze_dagger",
+      "lotr_port:iron_battleaxe",
       "lotr_port:rohirric_battleaxe",
-      "lotr_port:iron_dagger",
-      "minecraft:iron_axe",
-      "lotr_port:bronze_axe",
-      "lotr_port:rohirric_dagger"
+      "minecraft:iron_axe"
     ],
     "head": "lotr_port:leather_hat"
   },
+  "names": "lotr_port:rohan_male",
   "buy": "lotr_port:rohan_fishmonger_buy",
   "sell": "lotr_port:rohan_fishmonger_sell"
 }
