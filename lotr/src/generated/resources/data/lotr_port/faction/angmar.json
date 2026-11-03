@@ -1,0 +1,83 @@
+{
+  "color": 7836023,
+  "region": "west",
+  "types": [
+    "orc",
+    "troll"
+  ],
+  "playable": true,
+  "approves_war_crimes": true,
+  "ranks": [
+    {
+      "id": "chieftain",
+      "alignment": 2000.0
+    },
+    {
+      "id": "warlord",
+      "alignment": 1000.0
+    },
+    {
+      "id": "champion",
+      "alignment": 500.0
+    },
+    {
+      "id": "warrior",
+      "alignment": 200.0
+    },
+    {
+      "id": "kinsman",
+      "alignment": 100.0
+    },
+    {
+      "id": "servant",
+      "alignment": 50.0
+    },
+    {
+      "id": "thrall",
+      "alignment": 10.0
+    }
+  ],
+  "pledge_rank": "kinsman",
+  "map": {
+    "x": 1080,
+    "z": 600,
+    "radius": 125
+  },
+  "control_zones": [
+    {
+      "x": 1010.0,
+      "z": 503.0,
+      "radius": 75
+    },
+    {
+      "x": 1106.0,
+      "z": 589.0,
+      "radius": 125
+    },
+    {
+      "x": 1130.0,
+      "z": 703.0,
+      "radius": 50
+    }
+  ],
+  "relations": {
+    "lotr_port:blue_mountains": "mortal_enemy",
+    "lotr_port:bree": "mortal_enemy",
+    "lotr_port:dale": "mortal_enemy",
+    "lotr_port:dol_guldur": "ally",
+    "lotr_port:dorwinion": "mortal_enemy",
+    "lotr_port:durins_folk": "mortal_enemy",
+    "lotr_port:fangorn": "mortal_enemy",
+    "lotr_port:gondor": "mortal_enemy",
+    "lotr_port:gundabad": "friend",
+    "lotr_port:high_elf": "mortal_enemy",
+    "lotr_port:hobbit": "mortal_enemy",
+    "lotr_port:hostile": "mortal_enemy",
+    "lotr_port:lothlorien": "mortal_enemy",
+    "lotr_port:mordor": "ally",
+    "lotr_port:ranger_north": "mortal_enemy",
+    "lotr_port:rohan": "mortal_enemy",
+    "lotr_port:utumno": "mortal_enemy",
+    "lotr_port:wood_elf": "mortal_enemy"
+  }
+}

@@ -1,0 +1,104 @@
+{
+  "color": 5885518,
+  "region": "west",
+  "types": [
+    "free",
+    "man"
+  ],
+  "playable": true,
+  "isolationist": true,
+  "ranks": [
+    {
+      "id": "thain",
+      "alignment": 3000.0
+    },
+    {
+      "id": "chief",
+      "alignment": 2000.0
+    },
+    {
+      "id": "shirriff",
+      "alignment": 1000.0
+    },
+    {
+      "id": "bounder",
+      "alignment": 500.0
+    },
+    {
+      "id": "hayward",
+      "alignment": 250.0
+    },
+    {
+      "id": "friend",
+      "alignment": 100.0
+    },
+    {
+      "id": "guest",
+      "alignment": 10.0
+    }
+  ],
+  "pledge_rank": "friend",
+  "map": {
+    "x": 830,
+    "z": 745,
+    "radius": 100
+  },
+  "control_zones": [
+    {
+      "x": 820.0,
+      "z": 730.0,
+      "radius": 40
+    },
+    {
+      "x": 857.0,
+      "z": 734.0,
+      "radius": 15
+    },
+    {
+      "x": 858.0,
+      "z": 747.0,
+      "radius": 10
+    },
+    {
+      "x": 796.0,
+      "z": 739.0,
+      "radius": 35
+    },
+    {
+      "x": 762.0,
+      "z": 745.0,
+      "radius": 10
+    },
+    {
+      "x": 820.0,
+      "z": 765.0,
+      "radius": 30
+    },
+    {
+      "x": 915.0,
+      "z": 734.0,
+      "radius": 15
+    }
+  ],
+  "relations": {
+    "lotr_port:angmar": "mortal_enemy",
+    "lotr_port:blue_mountains": "ally",
+    "lotr_port:bree": "ally",
+    "lotr_port:dale": "ally",
+    "lotr_port:dark_huorn": "mortal_enemy",
+    "lotr_port:dol_guldur": "mortal_enemy",
+    "lotr_port:durins_folk": "ally",
+    "lotr_port:gondor": "friend",
+    "lotr_port:gundabad": "mortal_enemy",
+    "lotr_port:half_troll": "mortal_enemy",
+    "lotr_port:high_elf": "friend",
+    "lotr_port:hostile": "mortal_enemy",
+    "lotr_port:isengard": "mortal_enemy",
+    "lotr_port:lothlorien": "friend",
+    "lotr_port:mordor": "mortal_enemy",
+    "lotr_port:ranger_north": "ally",
+    "lotr_port:rohan": "friend",
+    "lotr_port:utumno": "mortal_enemy",
+    "lotr_port:wood_elf": "friend"
+  }
+}

@@ -16,10 +16,11 @@ import net.neoforged.neoforge.common.NeoForge;
 
 /**
  * Reads and changes alignment. Every change goes through {@link #set}, which fires {@link AlignmentChangeEvent} and
- * writes the change to the world history log. Faction ids aren't checked yet; the faction registry arrives in phase 4.
+ * writes the change to the world history log. Alignment stays within +-{@link #MAX}, as in LOTR.
  */
 public final class Alignment {
     public static final ResourceLocation HISTORY_TYPE = LotrPort.id("alignment_change");
+    public static final float MAX = 10000f;
 
     private Alignment() {}
 
@@ -28,6 +29,7 @@ public final class Alignment {
     }
 
     public static void set(ServerPlayer player, ResourceLocation faction, float value) {
+        value = Math.max(-MAX, Math.min(MAX, value));
         PlayerLotrData data = player.getData(LotrRegistries.PLAYER_DATA);
         float old = data.alignment(faction);
         if (old == value) {

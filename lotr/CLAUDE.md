@@ -37,6 +37,17 @@ https://claude.ai/artifact/KqhSSTCuKXGuwKHBoYJdcu. Rebuild features in modern co
   back. `LotrDimensions.middleEarth(server)` returns whichever level is Middle-earth.
 - CI "Middle-earth world" step makes a new Middle-earth world on a dedicated server (`WorldCheck`).
 
+## Factions and realms (phase 4)
+- Great powers are data: `data/<ns>/faction/*.json` (`FactionDef`, reloads), generated from LOTR by
+  `converter/factions.py`; names and ranks are lang keys `faction.<ns>.<id>[.rank.<rank>]`.
+- `Factions` merges them with realms (`Realms` SavedData, ids `lotr_port:realm/<n>`); a realm without its own
+  relations uses its culture's. Relations: `Diplomacy` SavedData overrides the data defaults; vassals live there too.
+  Every change goes into the history log.
+- Kills: `FactionKills` reads the `lotr_port:faction` entity attachment; the faction and its allies lose its
+  `kill_value`, its enemies gain it. Pledging (`Pledges`) needs the pledge rank and makes the player's realm a vassal.
+- Conditions `lotr_port:alignment`, `lotr_port:pledged`, `lotr_port:relation`. Commands under `/lotr faction`,
+  `/lotr pledge`, `/lotr realm found`. Faction data isn't synced to clients yet (no screens need it).
+
 ## Build
 From the repo root: `./gradlew :lotr:build`, `:lotr:runClient`, `:lotr:runServer`, `:lotr:runGameTestServer`,
 `:lotr:runData`. Shared rules are in the root `CLAUDE.md`.

@@ -1,0 +1,67 @@
+{
+  "color": 3040066,
+  "region": "south",
+  "types": [
+    "free",
+    "man"
+  ],
+  "playable": true,
+  "approves_war_crimes": true,
+  "ranks": [
+    {
+      "id": "splendour",
+      "alignment": 3000.0
+    },
+    {
+      "id": "warlord",
+      "alignment": 1000.0
+    },
+    {
+      "id": "champion",
+      "alignment": 500.0
+    },
+    {
+      "id": "warrior",
+      "alignment": 200.0
+    },
+    {
+      "id": "forestman",
+      "alignment": 100.0
+    },
+    {
+      "id": "friend",
+      "alignment": 50.0
+    },
+    {
+      "id": "guest",
+      "alignment": 10.0
+    }
+  ],
+  "pledge_rank": "forestman",
+  "map": {
+    "x": 1250,
+    "z": 2870,
+    "radius": 400
+  },
+  "control_zones": [
+    {
+      "x": 1380.0,
+      "z": 2861.0,
+      "radius": 400
+    },
+    {
+      "x": 1834.0,
+      "z": 2523.0,
+      "radius": 75
+    }
+  ],
+  "relations": {
+    "lotr_port:fangorn": "ally",
+    "lotr_port:half_troll": "mortal_enemy",
+    "lotr_port:hostile": "mortal_enemy",
+    "lotr_port:mordor": "mortal_enemy",
+    "lotr_port:morwaith": "mortal_enemy",
+    "lotr_port:near_harad": "enemy",
+    "lotr_port:utumno": "mortal_enemy"
+  }
+}

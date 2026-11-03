@@ -1,0 +1,77 @@
+{
+  "color": 12882471,
+  "region": "east",
+  "types": [
+    "man"
+  ],
+  "playable": true,
+  "ranks": [
+    {
+      "id": "chieftain",
+      "alignment": 3000.0
+    },
+    {
+      "id": "warlord",
+      "alignment": 1500.0
+    },
+    {
+      "id": "golden",
+      "alignment": 1000.0
+    },
+    {
+      "id": "champion",
+      "alignment": 500.0
+    },
+    {
+      "id": "warrior",
+      "alignment": 200.0
+    },
+    {
+      "id": "clansman",
+      "alignment": 100.0
+    },
+    {
+      "id": "levyman",
+      "alignment": 50.0
+    },
+    {
+      "id": "bondsman",
+      "alignment": 10.0
+    }
+  ],
+  "pledge_rank": "clansman",
+  "map": {
+    "x": 1890,
+    "z": 980,
+    "radius": 200
+  },
+  "control_zones": [
+    {
+      "x": 1867.0,
+      "z": 984.0,
+      "radius": 175
+    },
+    {
+      "x": 1419.0,
+      "z": 1247.0,
+      "radius": 100
+    },
+    {
+      "x": 1464.0,
+      "z": 615.0,
+      "radius": 50
+    }
+  ],
+  "relations": {
+    "lotr_port:dale": "enemy",
+    "lotr_port:gondor": "mortal_enemy",
+    "lotr_port:high_elf": "enemy",
+    "lotr_port:hostile": "mortal_enemy",
+    "lotr_port:lothlorien": "enemy",
+    "lotr_port:mordor": "friend",
+    "lotr_port:ranger_north": "enemy",
+    "lotr_port:rohan": "mortal_enemy",
+    "lotr_port:utumno": "mortal_enemy",
+    "lotr_port:wood_elf": "enemy"
+  }
+}

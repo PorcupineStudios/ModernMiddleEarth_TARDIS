@@ -1,0 +1,103 @@
+{
+  "color": 4940162,
+  "region": "west",
+  "types": [
+    "dwarf",
+    "free"
+  ],
+  "playable": true,
+  "ranks": [
+    {
+      "id": "uzbad",
+      "alignment": 3000.0,
+      "gendered": true
+    },
+    {
+      "id": "lord",
+      "alignment": 1500.0,
+      "gendered": true
+    },
+    {
+      "id": "commander",
+      "alignment": 1000.0
+    },
+    {
+      "id": "champion",
+      "alignment": 500.0
+    },
+    {
+      "id": "axebearer",
+      "alignment": 200.0
+    },
+    {
+      "id": "oathfriend",
+      "alignment": 100.0
+    },
+    {
+      "id": "friend",
+      "alignment": 50.0
+    },
+    {
+      "id": "guest",
+      "alignment": 10.0
+    }
+  ],
+  "pledge_rank": "oathfriend",
+  "map": {
+    "x": 1650,
+    "z": 650,
+    "radius": 125
+  },
+  "control_zones": [
+    {
+      "x": 1463.0,
+      "z": 609.0,
+      "radius": 75
+    },
+    {
+      "x": 1588.0,
+      "z": 608.0,
+      "radius": 100
+    },
+    {
+      "x": 1729.0,
+      "z": 610.0,
+      "radius": 75
+    },
+    {
+      "x": 1651.0,
+      "z": 690.0,
+      "radius": 75
+    },
+    {
+      "x": 1166.0,
+      "z": 845.0,
+      "radius": 100
+    },
+    {
+      "x": 1195.0,
+      "z": 592.0,
+      "radius": 100
+    },
+    {
+      "x": 1262.0,
+      "z": 554.0,
+      "radius": 50
+    }
+  ],
+  "relations": {
+    "lotr_port:angmar": "mortal_enemy",
+    "lotr_port:blue_mountains": "ally",
+    "lotr_port:bree": "friend",
+    "lotr_port:dale": "ally",
+    "lotr_port:dol_guldur": "mortal_enemy",
+    "lotr_port:dunland": "friend",
+    "lotr_port:gundabad": "mortal_enemy",
+    "lotr_port:half_troll": "mortal_enemy",
+    "lotr_port:hobbit": "ally",
+    "lotr_port:hostile": "mortal_enemy",
+    "lotr_port:isengard": "mortal_enemy",
+    "lotr_port:mordor": "mortal_enemy",
+    "lotr_port:utumno": "mortal_enemy"
+  }
+}

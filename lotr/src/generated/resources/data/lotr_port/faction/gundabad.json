@@ -1,0 +1,87 @@
+{
+  "color": 9858132,
+  "region": "west",
+  "types": [
+    "orc"
+  ],
+  "playable": true,
+  "approves_war_crimes": true,
+  "ranks": [
+    {
+      "id": "chieftain",
+      "alignment": 2000.0
+    },
+    {
+      "id": "warlord",
+      "alignment": 1000.0
+    },
+    {
+      "id": "scourge",
+      "alignment": 500.0
+    },
+    {
+      "id": "ravager",
+      "alignment": 200.0
+    },
+    {
+      "id": "raider",
+      "alignment": 100.0
+    },
+    {
+      "id": "snaga",
+      "alignment": 50.0
+    },
+    {
+      "id": "thrall",
+      "alignment": 10.0
+    }
+  ],
+  "pledge_rank": "raider",
+  "map": {
+    "x": 1160,
+    "z": 670,
+    "radius": 150
+  },
+  "control_zones": [
+    {
+      "x": 1195.0,
+      "z": 592.0,
+      "radius": 200
+    },
+    {
+      "x": 1106.0,
+      "z": 589.0,
+      "radius": 200
+    },
+    {
+      "x": 1220.0,
+      "z": 696.0,
+      "radius": 150
+    },
+    {
+      "x": 1166.0,
+      "z": 845.0,
+      "radius": 100
+    }
+  ],
+  "relations": {
+    "lotr_port:angmar": "friend",
+    "lotr_port:blue_mountains": "mortal_enemy",
+    "lotr_port:bree": "mortal_enemy",
+    "lotr_port:dale": "mortal_enemy",
+    "lotr_port:dol_guldur": "friend",
+    "lotr_port:dorwinion": "mortal_enemy",
+    "lotr_port:durins_folk": "mortal_enemy",
+    "lotr_port:fangorn": "mortal_enemy",
+    "lotr_port:gondor": "mortal_enemy",
+    "lotr_port:high_elf": "mortal_enemy",
+    "lotr_port:hobbit": "mortal_enemy",
+    "lotr_port:hostile": "mortal_enemy",
+    "lotr_port:lothlorien": "mortal_enemy",
+    "lotr_port:mordor": "friend",
+    "lotr_port:ranger_north": "mortal_enemy",
+    "lotr_port:rohan": "mortal_enemy",
+    "lotr_port:utumno": "mortal_enemy",
+    "lotr_port:wood_elf": "mortal_enemy"
+  }
+}

@@ -1,5 +1,6 @@
 package com.porcupinestudios.lotrport.registry;
 
+import com.mojang.serialization.Codec;
 import com.porcupinestudios.lotrport.LotrPort;
 import com.porcupinestudios.lotrport.player.PlayerLotrData;
 import java.util.function.Supplier;
@@ -22,6 +23,10 @@ public final class LotrRegistries {
                     .serialize(PlayerLotrData.CODEC)
                     .copyOnDeath()
                     .build());
+
+    /** The faction an entity belongs to ("" for none); NPCs set it when they spawn. Read through FactionKills. */
+    public static final Supplier<AttachmentType<String>> ENTITY_FACTION = ATTACHMENTS.register("faction",
+            () -> AttachmentType.builder(() -> "").serialize(Codec.STRING).build());
 
     private LotrRegistries() {}
 

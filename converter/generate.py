@@ -7,6 +7,7 @@ lang files into the 1.21.1 port's generated resources:
   lotr/src/generated/resources/assets/lotr_port/     blockstates, models, textures, lang files
   lotr/src/generated/resources/data/                 recipes, loot tables, tags, Middle-earth world gen (world.py)
   lotr/src/generated/resources/lotr_port/map/        the Middle-earth biome map (world.py)
+  lotr/src/generated/resources/data/lotr_port/faction/  LOTR's factions (factions.py)
   converter/idtable.json                              old id + metadata -> new id (for structures and saves later)
   converter/report.json                               everything that was skipped or guessed
 
@@ -22,6 +23,7 @@ sys.path.insert(0, os.path.dirname(__file__))
 from assets import NS, Jar, Textures, id_from_name, snake, write_json  # noqa: E402
 import vanilla  # noqa: E402
 from world import World  # noqa: E402
+from factions import FactionData  # noqa: E402
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 EXPORT = os.path.join(ROOT, "converter", "export")
@@ -762,16 +764,17 @@ class Gen:
         self.other_langs()
         self.write_tags()
         world = World(self, load("world.json"), OUT, self.jar).run()
+        factions = FactionData(self, load("factions.json"), DATA, self.jar).run()
         content = os.path.join(OUT, NS, "content")
         write_json(os.path.join(content, "blocks.json"), self.blocks)
         write_json(os.path.join(content, "items.json"), self.items)
         write_json(os.path.join(content, "tabs.json"), tabs)
-        write_json(os.path.join(content, "summary.json"), [{"recipes": self.recipe_count}])
+        write_json(os.path.join(content, "summary.json"), [{"recipes": self.recipe_count, **factions}])
         for code, entries in self.lang.items():
             write_json(os.path.join(ASSETS, "lang", code + ".json"), dict(sorted(entries.items())))
         write_json(os.path.join(ROOT, "converter", "idtable.json"), dict(sorted(self.idtable.items())))
         summary = {"blocks": len(self.blocks), "items": len(self.items), "recipes": self.recipe_count,
-                   "textures": len(self.tex.copied), "languages": len(self.lang), "tabs": len(tabs), **world}
+                   "textures": len(self.tex.copied), "languages": len(self.lang), "tabs": len(tabs), **world, **factions}
         self.report["missing_textures"] = [m for m in self.report["missing_textures"] if not m.endswith("_mug")]
         rep = {"summary": summary}
         for k, v in sorted(self.report.items()):

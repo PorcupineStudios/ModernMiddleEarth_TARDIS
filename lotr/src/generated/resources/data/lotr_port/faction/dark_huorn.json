@@ -1,0 +1,15 @@
+{
+  "color": 0,
+  "region": "none",
+  "types": [],
+  "playable": true,
+  "fixed_alignment": -1.0,
+  "approves_war_crimes": true,
+  "relations": {
+    "lotr_port:bree": "mortal_enemy",
+    "lotr_port:hobbit": "mortal_enemy",
+    "lotr_port:hostile": "mortal_enemy",
+    "lotr_port:ranger_north": "mortal_enemy",
+    "lotr_port:utumno": "mortal_enemy"
+  }
+}
