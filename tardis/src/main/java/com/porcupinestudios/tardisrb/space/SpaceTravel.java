@@ -136,14 +136,14 @@ public final class SpaceTravel {
     }
 
     /** Up through the sky: out over the same spot on the planet. */
-    public static void toSpace(Entity e, SkyLink link, ServerLevel space) {
+    public static Entity toSpace(Entity e, SkyLink link, ServerLevel space) {
         Vec3 to = link.toSpace(e.getX(), e.getZ(), LIFT);
         space.getChunk(BlockPos.containing(to));
-        move(e, space, to);
+        return move(e, space, to);
     }
 
     /** Down from space: to the spot below, under the ceiling, falling slowly. */
-    public static void toSurface(Entity e, SkyLink link, ServerLevel world, Tuning.SpaceTuning tuning) {
+    public static Entity toSurface(Entity e, SkyLink link, ServerLevel world, Tuning.SpaceTuning tuning) {
         double[] xz = link.toSurface(e.position());
         Vec3 to = new Vec3(xz[0], link.ceiling() - link.arriveBelow(), xz[1]);
         world.getChunk(BlockPos.containing(to));
@@ -154,22 +154,26 @@ public final class SpaceTravel {
             }
         }
         e.fallDistance = 0;
-        move(e, world, to);
+        return move(e, world, to);
     }
 
     /**
      * Players go through Immersive Portals' seamless teleport (no loading screen); everything else changes dimension
      * the vanilla way, which is done at once (IP's teleport of other entities waits a tick).
      */
-    private static void move(Entity e, ServerLevel to, Vec3 pos) {
+    /** Moves the entity and returns it where it ended up (a non-player is a new entity after a dimension change). */
+    private static Entity move(Entity e, ServerLevel to, Vec3 pos) {
         if (e instanceof ServerPlayer) {
             PortalAPI.teleportEntity(e, to, pos);
-        } else if (e.level() == to) {
-            e.teleportTo(pos.x, pos.y, pos.z);
-        } else {
-            e.changeDimension(new DimensionTransition(to, pos, e.getDeltaMovement(), e.getYRot(), e.getXRot(),
-                    DimensionTransition.DO_NOTHING));
+            return e;
         }
+        if (e.level() == to) {
+            e.teleportTo(pos.x, pos.y, pos.z);
+            return e;
+        }
+        Entity moved = e.changeDimension(new DimensionTransition(to, pos, e.getDeltaMovement(), e.getYRot(),
+                e.getXRot(), DimensionTransition.DO_NOTHING));
+        return moved != null ? moved : e;
     }
 
     /** Low gravity in space, normal gravity elsewhere. */
