@@ -1,0 +1,13 @@
+{
+  "time": 1200,
+  "cost": {
+    "items": [
+      {
+        "ingredient": {
+          "item": "minecraft:book"
+        },
+        "count": 1
+      }
+    ]
+  }
+}

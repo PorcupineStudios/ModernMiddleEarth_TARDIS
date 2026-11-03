@@ -1,0 +1,16 @@
+{
+  "items": [
+    {
+      "ingredient": {
+        "item": "minecraft:copper_block"
+      },
+      "count": 2
+    },
+    {
+      "ingredient": {
+        "item": "minecraft:redstone_block"
+      },
+      "count": 1
+    }
+  ]
+}

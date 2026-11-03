@@ -1,0 +1,23 @@
+{
+  "start_cap": 3,
+  "levels": [
+    {
+      "range": 0
+    },
+    {
+      "range": 32
+    },
+    {
+      "range": 128
+    },
+    {
+      "range": 512
+    },
+    {
+      "range": 2048
+    },
+    {
+      "range": 8192
+    }
+  ]
+}

@@ -1,0 +1,7 @@
+{
+  "requirements": {
+    "type": "tardis_rb:subsystem_level",
+    "subsystem": "tardis_rb:rooms",
+    "min": 1
+  }
+}

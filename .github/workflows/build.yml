@@ -21,6 +21,10 @@ jobs:
         run: |
           ./gradlew :lotr:runGameTestServer --stacktrace 2>&1 | tee gametest.log
           grep -E "All [0-9]+ required tests passed" gametest.log
+      - name: TARDIS GameTests
+        run: |
+          ./gradlew :tardis:runGameTestServer --stacktrace 2>&1 | tee tardis-gametest.log
+          grep -E "All [0-9]+ required tests passed" tardis-gametest.log
       - name: Middle-earth world
         # A new world of the Middle-earth world type on a dedicated server: WorldCheck logs the spawn and stops it.
         # It generates ~160 far-apart chunks plus two structures in one tick: watchdog off (max-tick-time=-1), 6 GB heap.

@@ -1,0 +1,15 @@
+{
+  "subsystem": "tardis_rb:rooms",
+  "level": 1,
+  "cost": {
+    "items": [
+      {
+        "ingredient": {
+          "tag": "minecraft:logs"
+        },
+        "count": 32
+      }
+    ],
+    "charge": 100
+  }
+}

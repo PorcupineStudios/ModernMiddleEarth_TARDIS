@@ -1,0 +1,15 @@
+{
+  "start_cap": 2,
+  "levels": [
+    {},
+    {
+      "controls": 1
+    },
+    {
+      "controls": 2
+    },
+    {
+      "controls": 3
+    }
+  ]
+}

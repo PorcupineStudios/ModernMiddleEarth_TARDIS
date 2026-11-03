@@ -1,0 +1,5 @@
+{
+  "subsystem": "tardis_rb:hull",
+  "level": 2,
+  "cost": "tardis_rb:hull_plating"
+}

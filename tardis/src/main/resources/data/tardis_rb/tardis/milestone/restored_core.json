@@ -1,0 +1,14 @@
+{
+  "requirements": {
+    "type": "tardis_rb:stage",
+    "stage": "tardis_rb:patched",
+    "finished": true
+  },
+  "caps": {
+    "tardis_rb:navigation": 4,
+    "tardis_rb:power": 3,
+    "tardis_rb:console": 3,
+    "tardis_rb:hull": 3,
+    "tardis_rb:rooms": 2
+  }
+}

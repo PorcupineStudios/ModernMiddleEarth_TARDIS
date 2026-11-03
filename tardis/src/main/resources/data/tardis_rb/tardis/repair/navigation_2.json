@@ -1,0 +1,21 @@
+{
+  "subsystem": "tardis_rb:navigation",
+  "level": 2,
+  "cost": {
+    "items": [
+      {
+        "ingredient": {
+          "item": "minecraft:compass"
+        },
+        "count": 1
+      },
+      {
+        "ingredient": {
+          "tag": "c:ingots/gold"
+        },
+        "count": 4
+      }
+    ],
+    "charge": 50
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "order": 0,
+  "repairs": [
+    "tardis_rb:navigation_1",
+    "tardis_rb:power_1",
+    "tardis_rb:console_1"
+  ]
+}

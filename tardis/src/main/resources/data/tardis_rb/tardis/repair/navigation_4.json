@@ -1,0 +1,15 @@
+{
+  "subsystem": "tardis_rb:navigation",
+  "level": 4,
+  "cost": {
+    "items": [
+      {
+        "ingredient": {
+          "item": "minecraft:ender_eye"
+        },
+        "count": 4
+      }
+    ],
+    "charge": 800
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "subsystem": "tardis_rb:navigation",
+  "level": 3,
+  "cost": {
+    "items": [
+      {
+        "ingredient": {
+          "item": "minecraft:recovery_compass"
+        },
+        "count": 1
+      }
+    ],
+    "charge": 200
+  },
+  "requirements": {
+    "type": "tardis_rb:research",
+    "research": "tardis_rb:spatial_mapping"
+  }
+}
