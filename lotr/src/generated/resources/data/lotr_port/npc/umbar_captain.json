@@ -18,5 +18,6 @@
     "feet": "lotr_port:umbaric_boots"
   },
   "names": "lotr_port:umbar_male",
-  "units": "lotr_port:umbar_captain"
+  "units": "lotr_port:umbar_captain",
+  "quests": "lotr_port:umbar"
 }

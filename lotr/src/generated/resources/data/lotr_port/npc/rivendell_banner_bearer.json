@@ -21,5 +21,5 @@
     "legs": "lotr_port:rivendell_leggings",
     "feet": "lotr_port:rivendell_boots"
   },
-  "names": "lotr_port:sindarin_male"
+  "quests": "lotr_port:rivendell"
 }

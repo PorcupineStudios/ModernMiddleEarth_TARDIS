@@ -3,6 +3,8 @@ package com.porcupinestudios.lotrport.registry;
 import com.mojang.serialization.Codec;
 import com.porcupinestudios.lotrport.LotrPort;
 import com.porcupinestudios.lotrport.player.PlayerLotrData;
+import com.porcupinestudios.lotrport.quest.QuestLog;
+import com.porcupinestudios.lotrport.travel.TravelData;
 import java.util.function.Supplier;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.attachment.AttachmentType;
@@ -23,6 +25,14 @@ public final class LotrRegistries {
                     .serialize(PlayerLotrData.CODEC)
                     .copyOnDeath()
                     .build());
+
+    /** Per-player mini-quests; saved with the player and kept on death. */
+    public static final Supplier<AttachmentType<QuestLog>> QUEST_LOG = ATTACHMENTS.register("quests",
+            () -> AttachmentType.builder(() -> QuestLog.EMPTY).serialize(QuestLog.CODEC).copyOnDeath().build());
+
+    /** Per-player fast travel state (unlocked regions, last travel); saved with the player and kept on death. */
+    public static final Supplier<AttachmentType<TravelData>> TRAVEL = ATTACHMENTS.register("travel",
+            () -> AttachmentType.builder(() -> TravelData.EMPTY).serialize(TravelData.CODEC).copyOnDeath().build());
 
     /** The faction an entity belongs to ("" for none); NPCs set it when they spawn. Read through FactionKills. */
     public static final Supplier<AttachmentType<String>> ENTITY_FACTION = ATTACHMENTS.register("faction",

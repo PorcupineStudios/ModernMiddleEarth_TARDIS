@@ -16,5 +16,6 @@
   "names": "lotr_port:dorwinion_male",
   "buy": "lotr_port:dorwinion_vinekeeper_buy",
   "sell": "lotr_port:dorwinion_vinekeeper_sell",
-  "units": "lotr_port:dorwinion_vinekeeper"
+  "units": "lotr_port:dorwinion_vinekeeper",
+  "quests": "lotr_port:dorwinion"
 }

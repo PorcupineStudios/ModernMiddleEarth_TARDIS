@@ -23,5 +23,6 @@
     "feet": "lotr_port:gondorian_boots"
   },
   "names": "lotr_port:gondor_male",
-  "units": "lotr_port:gondorian_captain"
+  "units": "lotr_port:gondorian_captain",
+  "quests": "lotr_port:gondor"
 }

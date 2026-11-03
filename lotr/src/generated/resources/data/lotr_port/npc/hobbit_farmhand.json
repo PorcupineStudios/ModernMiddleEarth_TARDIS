@@ -22,5 +22,6 @@
   "attack": 2.0,
   "gear": {
     "mainhand": "minecraft:iron_hoe"
-  }
+  },
+  "quests": "lotr_port:hobbit"
 }

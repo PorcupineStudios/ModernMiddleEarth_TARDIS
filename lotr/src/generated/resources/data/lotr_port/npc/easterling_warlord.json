@@ -18,6 +18,7 @@
     "legs": "lotr_port:golden_rh_nic_leggings",
     "feet": "lotr_port:golden_rh_nic_boots"
   },
-  "names": "lotr_port:rhun_male",
-  "units": "lotr_port:easterling_warlord"
+  "names": "lotr_port:rhudaur_male",
+  "units": "lotr_port:easterling_warlord",
+  "quests": "lotr_port:rhun"
 }

@@ -22,5 +22,6 @@
     "legs": "lotr_port:nomad_leggings",
     "feet": "lotr_port:nomad_shoes"
   },
-  "names": "lotr_port:nomad_male"
+  "names": "lotr_port:nomad_male",
+  "quests": "lotr_port:nomad"
 }

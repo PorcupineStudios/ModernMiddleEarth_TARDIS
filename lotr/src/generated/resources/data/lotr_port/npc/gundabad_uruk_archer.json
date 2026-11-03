@@ -13,15 +13,15 @@
     "mainhand": [
       "lotr_port:gundabad_uruk_bludgeon",
       "lotr_port:gundabad_uruk_cleaver",
-      "lotr_port:gundabad_uruk_dagger",
       "lotr_port:gundabad_uruk_pike",
       "lotr_port:gundabad_uruk_spear",
-      "lotr_port:poisoned_gundabad_uruk_dagger"
+      "lotr_port:gundabad_uruk_waraxe"
     ],
     "head": "lotr_port:gundabad_uruk_helmet",
     "chest": "lotr_port:gundabad_uruk_chestplate",
     "legs": "lotr_port:gundabad_uruk_leggings",
     "feet": "lotr_port:gundabad_uruk_boots"
   },
-  "names": "lotr_port:orc"
+  "names": "lotr_port:orc",
+  "quests": "lotr_port:gundabad"
 }

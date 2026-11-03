@@ -16,5 +16,6 @@
     "feet": "lotr_port:dalish_boots"
   },
   "names": "lotr_port:dale_male",
-  "units": "lotr_port:dale_captain"
+  "units": "lotr_port:dale_captain",
+  "quests": "lotr_port:dale"
 }

@@ -15,5 +15,5 @@
   "gear": {
     "mainhand": "minecraft:iron_hoe"
   },
-  "names": "lotr_port:rohan_male"
+  "quests": "lotr_port:rohan"
 }

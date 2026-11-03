@@ -1,0 +1,372 @@
+{
+  "quests": [
+    {
+      "kind": "kill_faction",
+      "target": "lotr_port:gondor",
+      "min": 10,
+      "max": 30,
+      "reward": 1.0,
+      "weight": 160
+    },
+    {
+      "kind": "kill_faction",
+      "target": "lotr_port:gondor",
+      "min": 20,
+      "max": 40,
+      "reward": 1.0,
+      "weight": 160
+    },
+    {
+      "kind": "kill_npc",
+      "target": "lotr_port:gondor_soldier",
+      "min": 20,
+      "max": 50,
+      "reward": 1.0,
+      "weight": 160
+    },
+    {
+      "kind": "kill_npc",
+      "target": "lotr_port:ranger_ithilien",
+      "min": 10,
+      "max": 40,
+      "reward": 1.0,
+      "weight": 160
+    },
+    {
+      "kind": "kill_npc",
+      "target": "lotr_port:swan_knight",
+      "min": 10,
+      "max": 30,
+      "reward": 1.0,
+      "weight": 160
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:mordor_rock",
+      "min": 30,
+      "max": 50,
+      "reward": 0.5,
+      "weight": 24
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:date",
+      "min": 8,
+      "max": 15,
+      "reward": 2.0,
+      "weight": 24
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:lemon",
+      "min": 4,
+      "max": 12,
+      "reward": 2.0,
+      "weight": 24
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:orange",
+      "min": 4,
+      "max": 12,
+      "reward": 2.0,
+      "weight": 24
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:lime",
+      "min": 4,
+      "max": 12,
+      "reward": 2.0,
+      "weight": 24
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:plum",
+      "min": 4,
+      "max": 12,
+      "reward": 2.0,
+      "weight": 24
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:orange_juice",
+      "min": 2,
+      "max": 6,
+      "reward": 4.0,
+      "weight": 24
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:lemon_liqueur",
+      "min": 2,
+      "max": 6,
+      "reward": 4.0,
+      "weight": 24
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:bottle_of_poison",
+      "min": 2,
+      "max": 4,
+      "reward": 5.0,
+      "weight": 24
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:gulfen_khopesh",
+      "min": 1,
+      "max": 1,
+      "reward": 5.0,
+      "weight": 24
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:gold_ring",
+      "min": 2,
+      "max": 5,
+      "reward": 2.0,
+      "weight": 24
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:silver_ring",
+      "min": 2,
+      "max": 5,
+      "reward": 2.0,
+      "weight": 24
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:pearl",
+      "min": 1,
+      "max": 1,
+      "reward": 20.0,
+      "weight": 24
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:dried_reeds",
+      "min": 10,
+      "max": 20,
+      "reward": 0.5,
+      "weight": 24
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:reed_block",
+      "min": 10,
+      "max": 20,
+      "reward": 0.5,
+      "weight": 24
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:reed_slab",
+      "min": 20,
+      "max": 40,
+      "reward": 0.25,
+      "weight": 24
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:cedar_wood",
+      "min": 30,
+      "max": 60,
+      "reward": 0.25,
+      "weight": 24
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:cedar_wood_planks",
+      "min": 60,
+      "max": 120,
+      "reward": 0.125,
+      "weight": 24
+    },
+    {
+      "kind": "collect",
+      "target": "minecraft:sandstone",
+      "min": 30,
+      "max": 80,
+      "reward": 0.25,
+      "weight": 24
+    },
+    {
+      "kind": "collect",
+      "target": "minecraft:stone",
+      "min": 30,
+      "max": 80,
+      "reward": 0.25,
+      "weight": 24
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:haradric_brick",
+      "min": 30,
+      "max": 60,
+      "reward": 0.5,
+      "weight": 24
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:umbar_brick",
+      "min": 30,
+      "max": 60,
+      "reward": 0.5,
+      "weight": 24
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:cooked_lion",
+      "min": 2,
+      "max": 4,
+      "reward": 4.0,
+      "weight": 24
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:umbaric_scimitar",
+      "min": 1,
+      "max": 3,
+      "reward": 5.0,
+      "weight": 24
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:umbaric_spear",
+      "min": 1,
+      "max": 3,
+      "reward": 5.0,
+      "weight": 24
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:umbaric_mace",
+      "min": 1,
+      "max": 3,
+      "reward": 5.0,
+      "weight": 24
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:gondorian_sword",
+      "min": 1,
+      "max": 2,
+      "reward": 8.0,
+      "weight": 24
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:gondorian_helmet",
+      "min": 1,
+      "max": 2,
+      "reward": 8.0,
+      "weight": 24
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:winged_gondorian_helmet",
+      "min": 1,
+      "max": 1,
+      "reward": 20.0,
+      "weight": 24
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:gondorian_chestplate",
+      "min": 1,
+      "max": 2,
+      "reward": 8.0,
+      "weight": 24
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:arnorian_sword",
+      "min": 1,
+      "max": 1,
+      "reward": 40.0,
+      "weight": 24
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:arnorian_helmet",
+      "min": 1,
+      "max": 1,
+      "reward": 40.0,
+      "weight": 24
+    },
+    {
+      "kind": "collect",
+      "target": "minecraft:iron_ingot",
+      "min": 4,
+      "max": 8,
+      "reward": 2.0,
+      "weight": 24
+    },
+    {
+      "kind": "collect",
+      "target": "minecraft:gold_ingot",
+      "min": 3,
+      "max": 6,
+      "reward": 4.0,
+      "weight": 24
+    },
+    {
+      "kind": "collect",
+      "target": "minecraft:lava_bucket",
+      "min": 2,
+      "max": 4,
+      "reward": 5.0,
+      "weight": 24
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:kebab",
+      "min": 4,
+      "max": 8,
+      "reward": 2.0,
+      "weight": 24
+    },
+    {
+      "kind": "collect",
+      "target": "minecraft:cooked_beef",
+      "min": 4,
+      "max": 8,
+      "reward": 2.0,
+      "weight": 24
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:cooked_mutton",
+      "min": 4,
+      "max": 8,
+      "reward": 2.0,
+      "weight": 24
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:arak",
+      "min": 3,
+      "max": 5,
+      "reward": 4.0,
+      "weight": 24
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:waterskin",
+      "min": 8,
+      "max": 20,
+      "reward": 0.75,
+      "weight": 24
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:old_haradric_sacrificial_dagger",
+      "min": 1,
+      "max": 2,
+      "reward": 20.0,
+      "weight": 24
+    }
+  ]
+}

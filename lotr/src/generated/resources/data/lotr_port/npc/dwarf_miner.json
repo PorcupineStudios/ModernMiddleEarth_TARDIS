@@ -15,5 +15,6 @@
   },
   "names": "lotr_port:dwarf_male",
   "buy": "lotr_port:dwarf_miner_buy",
-  "sell": "lotr_port:dwarf_miner_sell"
+  "sell": "lotr_port:dwarf_miner_sell",
+  "quests": "lotr_port:durin"
 }

@@ -23,5 +23,6 @@
     "feet": "lotr_port:lossarnach_boots"
   },
   "names": "lotr_port:gondor_male",
-  "units": "lotr_port:lossarnach_captain"
+  "units": "lotr_port:lossarnach_captain",
+  "quests": "lotr_port:gondor"
 }

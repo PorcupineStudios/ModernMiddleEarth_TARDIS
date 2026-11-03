@@ -21,5 +21,6 @@
   "speed": 0.2,
   "attack": 2.0,
   "buy": "lotr_port:bree_brewer_buy",
-  "sell": "lotr_port:bree_brewer_sell"
+  "sell": "lotr_port:bree_brewer_sell",
+  "quests": "lotr_port:bree"
 }

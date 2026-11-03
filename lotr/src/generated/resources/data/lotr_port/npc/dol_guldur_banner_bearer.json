@@ -16,16 +16,18 @@
   "attack": 2.0,
   "gear": {
     "mainhand": [
+      "lotr_port:dol_guldur_axe",
       "lotr_port:dol_guldur_battleaxe",
-      "lotr_port:dol_guldur_dagger",
       "lotr_port:dol_guldur_pickaxe",
       "lotr_port:dol_guldur_spear",
-      "lotr_port:dol_guldur_sword"
+      "lotr_port:dol_guldur_sword",
+      "lotr_port:dol_guldur_warhammer"
     ],
     "head": "lotr_port:dol_guldur_helmet",
     "chest": "lotr_port:dol_guldur_chestplate",
     "legs": "lotr_port:dol_guldur_leggings",
     "feet": "lotr_port:dol_guldur_boots"
   },
-  "names": "lotr_port:orc"
+  "names": "lotr_port:orc",
+  "quests": "lotr_port:dol_guldur"
 }

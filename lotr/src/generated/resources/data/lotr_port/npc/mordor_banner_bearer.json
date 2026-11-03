@@ -20,6 +20,8 @@
       "lotr_port:mordor_battleaxe",
       "lotr_port:mordor_pickaxe",
       "lotr_port:mordor_spear",
+      "lotr_port:mordor_warhammer",
+      "lotr_port:mordor_warscythe",
       "lotr_port:poisoned_mordor_dagger"
     ],
     "head": "lotr_port:mordor_helmet",
@@ -27,5 +29,6 @@
     "legs": "lotr_port:mordor_leggings",
     "feet": "lotr_port:mordor_boots"
   },
-  "names": "lotr_port:orc"
+  "names": "lotr_port:orc",
+  "quests": "lotr_port:mordor"
 }

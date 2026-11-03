@@ -1,6 +1,7 @@
 package com.porcupinestudios.lotrport.npc;
 
 import com.mojang.serialization.Codec;
+import com.porcupinestudios.lotrport.quest.QuestData;
 import com.porcupinestudios.ringbearer.api.data.CodecJsonLoader;
 import java.util.ArrayList;
 import java.util.List;
@@ -70,6 +71,8 @@ public final class NpcData {
                     .ifPresent(p -> problems.add(id + ": unknown unit pool " + p));
             type.names().filter(p -> !NAMES.entries().containsKey(p))
                     .ifPresent(p -> problems.add(id + ": unknown name bank " + p));
+            type.quests().filter(p -> QuestData.pool(p).isEmpty())
+                    .ifPresent(p -> problems.add(id + ": unknown quest pool " + p));
         });
         UNITS.entries().forEach((id, pool) -> pool.units().stream()
                 .filter(u -> !TYPES.entries().containsKey(u.npc()))

@@ -1,0 +1,412 @@
+{
+  "quests": [
+    {
+      "kind": "kill_npc",
+      "target": "lotr_port:gondor_man",
+      "min": 10,
+      "max": 30,
+      "reward": 1.0,
+      "weight": 67
+    },
+    {
+      "kind": "kill_npc",
+      "target": "lotr_port:ranger_ithilien",
+      "min": 10,
+      "max": 30,
+      "reward": 1.0,
+      "weight": 67
+    },
+    {
+      "kind": "kill_npc",
+      "target": "lotr_port:dale_man",
+      "min": 10,
+      "max": 30,
+      "reward": 1.0,
+      "weight": 67
+    },
+    {
+      "kind": "kill_npc",
+      "target": "lotr_port:rohirrim",
+      "min": 10,
+      "max": 30,
+      "reward": 1.0,
+      "weight": 67
+    },
+    {
+      "kind": "kill_npc",
+      "target": "lotr_port:dale_soldier",
+      "min": 10,
+      "max": 30,
+      "reward": 1.0,
+      "weight": 67
+    },
+    {
+      "kind": "kill_npc",
+      "target": "lotr_port:dol_amroth_soldier",
+      "min": 10,
+      "max": 30,
+      "reward": 1.0,
+      "weight": 67
+    },
+    {
+      "kind": "kill_npc",
+      "target": "lotr_port:lossarnach_axeman",
+      "min": 10,
+      "max": 30,
+      "reward": 1.0,
+      "weight": 67
+    },
+    {
+      "kind": "kill_faction",
+      "target": "lotr_port:dale",
+      "min": 20,
+      "max": 40,
+      "reward": 1.0,
+      "weight": 67
+    },
+    {
+      "kind": "kill_faction",
+      "target": "lotr_port:dale",
+      "min": 10,
+      "max": 40,
+      "reward": 1.0,
+      "weight": 67
+    },
+    {
+      "kind": "kill_faction",
+      "target": "lotr_port:durins_folk",
+      "min": 10,
+      "max": 40,
+      "reward": 1.0,
+      "weight": 67
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:pomegranate",
+      "min": 4,
+      "max": 12,
+      "reward": 2.0,
+      "weight": 24
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:date",
+      "min": 4,
+      "max": 12,
+      "reward": 2.0,
+      "weight": 24
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:blue_chrysanthemum",
+      "min": 2,
+      "max": 5,
+      "reward": 2.0,
+      "weight": 24
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:orange_chrysanthemum",
+      "min": 2,
+      "max": 5,
+      "reward": 2.0,
+      "weight": 24
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:pink_chrysanthemum",
+      "min": 2,
+      "max": 5,
+      "reward": 2.0,
+      "weight": 24
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:yellow_chrysanthemum",
+      "min": 2,
+      "max": 5,
+      "reward": 2.0,
+      "weight": 24
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:white_chrysanthemum",
+      "min": 2,
+      "max": 5,
+      "reward": 2.0,
+      "weight": 24
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:redwood_sapling",
+      "min": 3,
+      "max": 5,
+      "reward": 3.0,
+      "weight": 24
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:mordor_scimitar",
+      "min": 3,
+      "max": 5,
+      "reward": 3.0,
+      "weight": 24
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:mordor_spear",
+      "min": 3,
+      "max": 5,
+      "reward": 3.0,
+      "weight": 24
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:orc_steel_ingot",
+      "min": 5,
+      "max": 10,
+      "reward": 2.0,
+      "weight": 24
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:mordor_helmet",
+      "min": 2,
+      "max": 4,
+      "reward": 4.0,
+      "weight": 24
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:mordor_chestplate",
+      "min": 2,
+      "max": 4,
+      "reward": 4.0,
+      "weight": 24
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:mordor_leggings",
+      "min": 2,
+      "max": 4,
+      "reward": 4.0,
+      "weight": 24
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:mordor_boots",
+      "min": 2,
+      "max": 4,
+      "reward": 4.0,
+      "weight": 24
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:raw_rabbit",
+      "min": 5,
+      "max": 10,
+      "reward": 2.0,
+      "weight": 24
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:raw_venison",
+      "min": 5,
+      "max": 10,
+      "reward": 2.0,
+      "weight": 24
+    },
+    {
+      "kind": "collect",
+      "target": "minecraft:beef",
+      "min": 5,
+      "max": 10,
+      "reward": 2.0,
+      "weight": 24
+    },
+    {
+      "kind": "collect",
+      "target": "minecraft:leather",
+      "min": 8,
+      "max": 16,
+      "reward": 1.0,
+      "weight": 24
+    },
+    {
+      "kind": "collect",
+      "target": "minecraft:feather",
+      "min": 8,
+      "max": 16,
+      "reward": 1.0,
+      "weight": 24
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:kine_of_araw_horn",
+      "min": 1,
+      "max": 2,
+      "reward": 10.0,
+      "weight": 24
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:durnor",
+      "min": 4,
+      "max": 8,
+      "reward": 3.0,
+      "weight": 24
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:sulfur",
+      "min": 4,
+      "max": 8,
+      "reward": 2.0,
+      "weight": 24
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:niter",
+      "min": 4,
+      "max": 8,
+      "reward": 2.0,
+      "weight": 24
+    },
+    {
+      "kind": "collect",
+      "target": "minecraft:bread",
+      "min": 5,
+      "max": 8,
+      "reward": 2.0,
+      "weight": 24
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:olive_bread",
+      "min": 5,
+      "max": 8,
+      "reward": 2.0,
+      "weight": 24
+    },
+    {
+      "kind": "collect",
+      "target": "minecraft:cooked_beef",
+      "min": 2,
+      "max": 8,
+      "reward": 2.0,
+      "weight": 24
+    },
+    {
+      "kind": "collect",
+      "target": "minecraft:cooked_cod",
+      "min": 2,
+      "max": 8,
+      "reward": 2.0,
+      "weight": 24
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:cooked_mutton",
+      "min": 2,
+      "max": 8,
+      "reward": 2.0,
+      "weight": 24
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:cooked_venison",
+      "min": 2,
+      "max": 8,
+      "reward": 2.0,
+      "weight": 24
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:raisins",
+      "min": 6,
+      "max": 12,
+      "reward": 1.5,
+      "weight": 24
+    },
+    {
+      "kind": "collect",
+      "target": "minecraft:oak_log",
+      "min": 30,
+      "max": 60,
+      "reward": 0.25,
+      "weight": 24
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:redwood_wood",
+      "min": 30,
+      "max": 60,
+      "reward": 0.25,
+      "weight": 24
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:cypress_wood",
+      "min": 30,
+      "max": 60,
+      "reward": 0.25,
+      "weight": 24
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:rh_nic_brick",
+      "min": 40,
+      "max": 100,
+      "reward": 0.2,
+      "weight": 24
+    },
+    {
+      "kind": "collect",
+      "target": "minecraft:cobblestone",
+      "min": 40,
+      "max": 100,
+      "reward": 0.25,
+      "weight": 24
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:kine_of_araw_horn",
+      "min": 1,
+      "max": 1,
+      "reward": 30.0,
+      "weight": 24
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:red_wine",
+      "min": 3,
+      "max": 8,
+      "reward": 3.0,
+      "weight": 24
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:white_wine",
+      "min": 3,
+      "max": 8,
+      "reward": 3.0,
+      "weight": 24
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:bottle_of_poison",
+      "min": 2,
+      "max": 4,
+      "reward": 5.0,
+      "weight": 24
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:sulfur",
+      "min": 4,
+      "max": 8,
+      "reward": 2.0,
+      "weight": 24
+    }
+  ]
+}

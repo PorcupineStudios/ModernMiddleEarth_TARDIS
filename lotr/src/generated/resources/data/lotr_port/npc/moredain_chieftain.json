@@ -19,5 +19,6 @@
     "feet": "lotr_port:morwaith_chieftain_boots"
   },
   "names": "lotr_port:moredain_male",
-  "units": "lotr_port:moredain_chieftain"
+  "units": "lotr_port:moredain_chieftain",
+  "quests": "lotr_port:moredain"
 }

@@ -13,5 +13,7 @@
   "attack": 2.0,
   "gear": {
     "mainhand": "lotr_port:bronze_hoe"
-  }
+  },
+  "names": "lotr_port:rhun_male",
+  "quests": "lotr_port:rhun"
 }

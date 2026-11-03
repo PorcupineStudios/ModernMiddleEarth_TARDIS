@@ -1,0 +1,236 @@
+{
+  "quests": [
+    {
+      "kind": "kill_faction",
+      "target": "lotr_port:gondor",
+      "min": 20,
+      "max": 50,
+      "reward": 1.0,
+      "weight": 100
+    },
+    {
+      "kind": "kill_npc",
+      "target": "lotr_port:gondor_soldier",
+      "min": 10,
+      "max": 30,
+      "reward": 1.0,
+      "weight": 100
+    },
+    {
+      "kind": "kill_npc",
+      "target": "lotr_port:ranger_ithilien",
+      "min": 10,
+      "max": 30,
+      "reward": 1.0,
+      "weight": 100
+    },
+    {
+      "kind": "kill_faction",
+      "target": "lotr_port:taurethrim",
+      "min": 20,
+      "max": 50,
+      "reward": 1.0,
+      "weight": 100
+    },
+    {
+      "kind": "kill_npc",
+      "target": "lotr_port:tauredain_blowgunner",
+      "min": 10,
+      "max": 30,
+      "reward": 1.0,
+      "weight": 100
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:lion_fur",
+      "min": 3,
+      "max": 6,
+      "reward": 3.0,
+      "weight": 42
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:cooked_lion",
+      "min": 4,
+      "max": 6,
+      "reward": 3.0,
+      "weight": 42
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:cooked_zebra",
+      "min": 4,
+      "max": 6,
+      "reward": 2.0,
+      "weight": 42
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:cooked_rhino",
+      "min": 4,
+      "max": 6,
+      "reward": 3.0,
+      "weight": 42
+    },
+    {
+      "kind": "collect",
+      "target": "minecraft:bread",
+      "min": 5,
+      "max": 8,
+      "reward": 2.0,
+      "weight": 42
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:roast_yam",
+      "min": 5,
+      "max": 8,
+      "reward": 2.0,
+      "weight": 42
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:gemsbok_hide",
+      "min": 4,
+      "max": 12,
+      "reward": 2.0,
+      "weight": 42
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:banana",
+      "min": 4,
+      "max": 6,
+      "reward": 4.0,
+      "weight": 42
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:morwaith_battleaxe",
+      "min": 1,
+      "max": 4,
+      "reward": 5.0,
+      "weight": 42
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:morwaith_dagger",
+      "min": 1,
+      "max": 4,
+      "reward": 5.0,
+      "weight": 42
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:morwaith_spear",
+      "min": 1,
+      "max": 4,
+      "reward": 5.0,
+      "weight": 42
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:morwaith_sword",
+      "min": 1,
+      "max": 4,
+      "reward": 5.0,
+      "weight": 42
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:morwaith_club",
+      "min": 1,
+      "max": 4,
+      "reward": 5.0,
+      "weight": 42
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:rhino_horn",
+      "min": 1,
+      "max": 3,
+      "reward": 8.0,
+      "weight": 42
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:date",
+      "min": 3,
+      "max": 5,
+      "reward": 4.0,
+      "weight": 42
+    },
+    {
+      "kind": "collect",
+      "target": "minecraft:oak_log",
+      "min": 30,
+      "max": 60,
+      "reward": 0.3,
+      "weight": 42
+    },
+    {
+      "kind": "collect",
+      "target": "minecraft:acacia_log",
+      "min": 30,
+      "max": 60,
+      "reward": 0.3,
+      "weight": 42
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:gemsbok_hide",
+      "min": 6,
+      "max": 15,
+      "reward": 1.5,
+      "weight": 42
+    },
+    {
+      "kind": "collect",
+      "target": "minecraft:stick",
+      "min": 80,
+      "max": 200,
+      "reward": 0.05,
+      "weight": 42
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:morwaith_brick",
+      "min": 40,
+      "max": 60,
+      "reward": 0.2,
+      "weight": 42
+    },
+    {
+      "kind": "collect",
+      "target": "minecraft:terracotta",
+      "min": 20,
+      "max": 30,
+      "reward": 0.5,
+      "weight": 42
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:thatch_block",
+      "min": 10,
+      "max": 20,
+      "reward": 0.5,
+      "weight": 42
+    },
+    {
+      "kind": "collect",
+      "target": "minecraft:jungle_log",
+      "min": 40,
+      "max": 80,
+      "reward": 0.25,
+      "weight": 42
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:mahogany_wood",
+      "min": 40,
+      "max": 80,
+      "reward": 0.25,
+      "weight": 42
+    }
+  ]
+}

@@ -17,5 +17,6 @@
     "feet": "lotr_port:dorwinion_boots"
   },
   "names": "lotr_port:dorwinion_male",
-  "units": "lotr_port:dorwinion_captain"
+  "units": "lotr_port:dorwinion_captain",
+  "quests": "lotr_port:dorwinion"
 }

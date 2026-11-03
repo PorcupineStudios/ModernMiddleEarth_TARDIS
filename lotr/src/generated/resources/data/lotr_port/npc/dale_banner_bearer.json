@@ -11,7 +11,6 @@
   "attack": 2.0,
   "gear": {
     "mainhand": [
-      "lotr_port:dalish_battleaxe",
       "lotr_port:dalish_pitchfork",
       "lotr_port:dalish_spear",
       "lotr_port:dalish_sword"
@@ -21,5 +20,6 @@
     "legs": "lotr_port:dalish_leggings",
     "feet": "lotr_port:dalish_boots"
   },
-  "names": "lotr_port:dale_male"
+  "names": "lotr_port:dale_male",
+  "quests": "lotr_port:dale"
 }

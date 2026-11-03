@@ -19,5 +19,6 @@
     ],
     "head": "lotr_port:leather_hat"
   },
-  "names": "lotr_port:bree_male"
+  "names": "lotr_port:bree_male",
+  "quests": "lotr_port:ruffian_spy"
 }

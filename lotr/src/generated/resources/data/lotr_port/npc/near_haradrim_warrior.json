@@ -13,9 +13,11 @@
   "attack": 2.0,
   "gear": {
     "mainhand": [
+      "lotr_port:haradric_pike",
+      "lotr_port:haradric_spear",
       "lotr_port:haradric_sword",
-      "lotr_port:umbaric_poleaxe",
-      "lotr_port:umbaric_scimitar",
+      "lotr_port:poisoned_haradric_dagger",
+      "lotr_port:umbaric_dagger",
       "lotr_port:umbaric_spear"
     ],
     "head": [
@@ -26,5 +28,6 @@
     "legs": "lotr_port:coast_southron_leggings",
     "feet": "lotr_port:coast_southron_boots"
   },
-  "names": "lotr_port:umbar_male"
+  "names": "lotr_port:near_haradrim_male",
+  "quests": "lotr_port:near_harad"
 }

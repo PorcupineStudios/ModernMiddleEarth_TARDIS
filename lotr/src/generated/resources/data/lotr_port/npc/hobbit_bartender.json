@@ -22,5 +22,6 @@
   "attack": 2.0,
   "names": "lotr_port:hobbit_male",
   "buy": "lotr_port:hobbit_bartender_buy",
-  "sell": "lotr_port:hobbit_bartender_sell"
+  "sell": "lotr_port:hobbit_bartender_sell",
+  "quests": "lotr_port:hobbit"
 }

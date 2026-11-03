@@ -16,9 +16,8 @@
   "attack": 2.0,
   "gear": {
     "mainhand": [
-      "lotr_port:angmar_axe",
-      "lotr_port:angmar_pickaxe",
-      "lotr_port:angmar_spear",
+      "lotr_port:angmar_dagger",
+      "lotr_port:angmar_poleaxe",
       "lotr_port:angmar_sword"
     ],
     "head": "lotr_port:angmar_helmet",
@@ -26,5 +25,6 @@
     "legs": "lotr_port:angmar_leggings",
     "feet": "lotr_port:angmar_boots"
   },
-  "names": "lotr_port:orc"
+  "names": "lotr_port:orc",
+  "quests": "lotr_port:angmar"
 }

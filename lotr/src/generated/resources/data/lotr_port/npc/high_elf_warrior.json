@@ -27,12 +27,13 @@
   "gear": {
     "mainhand": [
       "lotr_port:lindon_battlestaff",
-      "lotr_port:lindon_longspear",
       "lotr_port:lindon_sword"
     ],
     "head": "lotr_port:lindon_helmet",
     "chest": "lotr_port:lindon_chestplate",
     "legs": "lotr_port:lindon_leggings",
     "feet": "lotr_port:lindon_boots"
-  }
+  },
+  "names": "lotr_port:quenya_male",
+  "quests": "lotr_port:high_elf"
 }

@@ -26,11 +26,12 @@ import net.minecraft.resources.ResourceLocation;
  * @param sell trade pool of what it buys from players
  * @param units unit pool of the soldiers and workers it hires out
  * @param tradeAlignment alignment a player needs with its faction to trade or hire
+ * @param quests quest pool ({@code quest_pool/<pool>.json}) it gives mini-quests from
  */
 public record NpcType(Optional<ResourceLocation> faction, List<ResourceLocation> skins, int skinHeight, float scale,
         double health, double speed, double attack, Map<String, List<ResourceLocation>> gear, Optional<ResourceLocation> names,
         boolean hostile, Optional<ResourceLocation> buy, Optional<ResourceLocation> sell,
-        Optional<ResourceLocation> units, float tradeAlignment) {
+        Optional<ResourceLocation> units, float tradeAlignment, Optional<ResourceLocation> quests) {
 
     /** One id, or a list of ids. */
     private static final Codec<List<ResourceLocation>> ONE_OR_MORE =
@@ -54,7 +55,8 @@ public record NpcType(Optional<ResourceLocation> faction, List<ResourceLocation>
             ResourceLocation.CODEC.optionalFieldOf("buy").forGetter(NpcType::buy),
             ResourceLocation.CODEC.optionalFieldOf("sell").forGetter(NpcType::sell),
             ResourceLocation.CODEC.optionalFieldOf("units").forGetter(NpcType::units),
-            Codec.FLOAT.optionalFieldOf("trade_alignment", 0f).forGetter(NpcType::tradeAlignment))
+            Codec.FLOAT.optionalFieldOf("trade_alignment", 0f).forGetter(NpcType::tradeAlignment),
+            ResourceLocation.CODEC.optionalFieldOf("quests").forGetter(NpcType::quests))
             .apply(i, NpcType::new));
 
     public boolean trader() {

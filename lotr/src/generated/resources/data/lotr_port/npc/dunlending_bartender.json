@@ -14,14 +14,13 @@
     "mainhand": [
       "lotr_port:dunlending_club",
       "lotr_port:dunlending_trident",
-      "lotr_port:stone_spear",
+      "minecraft:stone_axe",
       "minecraft:stone_hoe",
-      "minecraft:stone_sword",
-      "minecraft:wooden_sword"
+      "minecraft:stone_sword"
     ],
     "head": "lotr_port:fur_hat"
   },
-  "names": "lotr_port:dunlending_male",
   "buy": "lotr_port:dunlending_bartender_buy",
-  "sell": "lotr_port:dunlending_bartender_sell"
+  "sell": "lotr_port:dunlending_bartender_sell",
+  "quests": "lotr_port:dunland"
 }

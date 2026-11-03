@@ -18,5 +18,6 @@
     "feet": "lotr_port:nomad_shoes"
   },
   "names": "lotr_port:nomad_male",
-  "units": "lotr_port:nomad_warlord"
+  "units": "lotr_port:nomad_warlord",
+  "quests": "lotr_port:nomad"
 }

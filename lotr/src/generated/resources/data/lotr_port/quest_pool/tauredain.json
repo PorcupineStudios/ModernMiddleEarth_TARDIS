@@ -1,0 +1,228 @@
+{
+  "quests": [
+    {
+      "kind": "kill_faction",
+      "target": "lotr_port:morwaith",
+      "min": 20,
+      "max": 50,
+      "reward": 1.0,
+      "weight": 160
+    },
+    {
+      "kind": "kill_npc",
+      "target": "lotr_port:moredain_warrior",
+      "min": 10,
+      "max": 30,
+      "reward": 1.0,
+      "weight": 160
+    },
+    {
+      "kind": "kill_faction",
+      "target": "lotr_port:half_troll",
+      "min": 10,
+      "max": 40,
+      "reward": 1.0,
+      "weight": 160
+    },
+    {
+      "kind": "kill_faction",
+      "target": "lotr_port:near_harad",
+      "min": 20,
+      "max": 50,
+      "reward": 1.0,
+      "weight": 160
+    },
+    {
+      "kind": "kill_npc",
+      "target": "lotr_port:near_haradrim_warrior",
+      "min": 10,
+      "max": 30,
+      "reward": 1.0,
+      "weight": 160
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:taurethrim_sword",
+      "min": 1,
+      "max": 4,
+      "reward": 5.0,
+      "weight": 43
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:taurethrim_dagger",
+      "min": 1,
+      "max": 4,
+      "reward": 4.0,
+      "weight": 43
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:poisoned_taurethrim_dagger",
+      "min": 1,
+      "max": 3,
+      "reward": 6.0,
+      "weight": 43
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:taurethrim_axe",
+      "min": 1,
+      "max": 4,
+      "reward": 5.0,
+      "weight": 43
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:taurethrim_spear",
+      "min": 1,
+      "max": 4,
+      "reward": 5.0,
+      "weight": 43
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:taurethrim_bludgeon",
+      "min": 1,
+      "max": 4,
+      "reward": 5.0,
+      "weight": 43
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:taurethrim_battleaxe",
+      "min": 1,
+      "max": 4,
+      "reward": 5.0,
+      "weight": 43
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:taurethrim_pike",
+      "min": 1,
+      "max": 4,
+      "reward": 5.0,
+      "weight": 43
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:obsidian_shard",
+      "min": 10,
+      "max": 30,
+      "reward": 0.75,
+      "weight": 43
+    },
+    {
+      "kind": "collect",
+      "target": "minecraft:cocoa_beans",
+      "min": 8,
+      "max": 20,
+      "reward": 1.0,
+      "weight": 43
+    },
+    {
+      "kind": "collect",
+      "target": "minecraft:bread",
+      "min": 5,
+      "max": 8,
+      "reward": 2.0,
+      "weight": 43
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:banana_bread",
+      "min": 5,
+      "max": 8,
+      "reward": 2.0,
+      "weight": 43
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:corn_bread",
+      "min": 5,
+      "max": 8,
+      "reward": 2.0,
+      "weight": 43
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:banana",
+      "min": 4,
+      "max": 6,
+      "reward": 4.0,
+      "weight": 43
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:mango",
+      "min": 4,
+      "max": 6,
+      "reward": 4.0,
+      "weight": 43
+    },
+    {
+      "kind": "collect",
+      "target": "minecraft:melon_slice",
+      "min": 10,
+      "max": 20,
+      "reward": 0.75,
+      "weight": 43
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:melon_soup",
+      "min": 3,
+      "max": 8,
+      "reward": 2.0,
+      "weight": 43
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:corn",
+      "min": 6,
+      "max": 12,
+      "reward": 1.5,
+      "weight": 43
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:cooked_corn",
+      "min": 5,
+      "max": 10,
+      "reward": 2.0,
+      "weight": 43
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:taurethrim_dart",
+      "min": 20,
+      "max": 40,
+      "reward": 0.5,
+      "weight": 43
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:poisoned_taurethrim_dart",
+      "min": 10,
+      "max": 20,
+      "reward": 1.0,
+      "weight": 43
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:banner_of_the_taurethrim",
+      "min": 5,
+      "max": 15,
+      "reward": 1.5,
+      "weight": 43
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:taurethrim_amulet",
+      "min": 1,
+      "max": 4,
+      "reward": 20.0,
+      "weight": 43
+    }
+  ]
+}

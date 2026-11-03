@@ -17,5 +17,6 @@
   },
   "names": "lotr_port:near_haradrim_male",
   "buy": "lotr_port:harnedor_blacksmith_buy",
-  "sell": "lotr_port:harnedor_blacksmith_sell"
+  "sell": "lotr_port:harnedor_blacksmith_sell",
+  "quests": "lotr_port:harnennor"
 }

@@ -12,7 +12,7 @@
   "gear": {
     "mainhand": "lotr_port:dorwinion_elven_dagger"
   },
-  "names": "lotr_port:gondor_male",
   "buy": "lotr_port:dorwinion_vintner_buy",
-  "sell": "lotr_port:dorwinion_vintner_sell"
+  "sell": "lotr_port:dorwinion_vintner_sell",
+  "quests": "lotr_port:dorwinion_elf"
 }

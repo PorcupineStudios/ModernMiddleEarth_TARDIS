@@ -15,8 +15,8 @@
     "mainhand": [
       "lotr_port:barrow_blade",
       "lotr_port:bronze_axe",
-      "lotr_port:bronze_dagger",
-      "minecraft:iron_axe"
+      "minecraft:iron_axe",
+      "minecraft:stone_axe"
     ]
   },
   "names": "lotr_port:gondor_male"

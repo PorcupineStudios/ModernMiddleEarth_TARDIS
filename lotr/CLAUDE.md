@@ -80,6 +80,21 @@ https://claude.ai/artifact/KqhSSTCuKXGuwKHBoYJdcu. Rebuild features in modern co
   NPCs of that faction.
 - Not yet: villages and town walls (LOTR's village generators), invasions, respawner blocks, non-person creatures.
 
+## Map, waypoints and mini-quests (phase 8)
+- Waypoints: `data/<ns>/waypoint/<id>.json` (x, z, map pixel, region, faction, hidden); 274 from LOTR. Entering a biome
+  tagged `waypoint_region/<r>` unlocks region r (`travel/FastTravel`, player attachment `travel`). Travel needs the
+  region, alignment >= 0 with the waypoint's faction, no mob attacking you, and the wait over
+  (`fast_travel/settings.json`: 180-1800 s by distance). `/lotr_travel`, `/lotr_waypoints`; admin
+  `/lotr waypoint unlock|ready|info`.
+- Map screen: key M (`client/MapScreen`, LOTR's map image `textures/gui/map.png`); packets in `net/MapNet` (the client
+  handler is set in client setup, so common code never names the screen). Click a green waypoint to travel.
+- Mini-quests: `quest_pool/<group>.json` (collect / kill_faction / kill_npc, min-max, weight, reward factor; coins
+  and alignment per target), named by an NPC type's `quests`. Right-click a giver (not traders/captains) to get one,
+  again to see progress or hand in. Player attachment `quests` (`quest/QuestLog`); history `quest_completed`.
+  `/lotr_quests [abandon <n>]`.
+- Not yet: bounty, retrieve and pickpocket quests, fellowships, titles, custom waypoints, the Red Book, LOTR's quest
+  speech. The map screen has not been tried in a game client.
+
 ## Build
 From the repo root: `./gradlew :lotr:build`, `:lotr:runClient`, `:lotr:runServer`, `:lotr:runGameTestServer`,
 `:lotr:runData`. Shared rules are in the root `CLAUDE.md`.

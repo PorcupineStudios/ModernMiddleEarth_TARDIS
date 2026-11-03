@@ -15,6 +15,8 @@
     "mainhand": "minecraft:iron_pickaxe",
     "head": "lotr_port:harad_turban"
   },
+  "names": "lotr_port:umbar_male",
   "buy": "lotr_port:harad_miner_buy",
-  "sell": "lotr_port:harad_miner_sell"
+  "sell": "lotr_port:harad_miner_sell",
+  "quests": "lotr_port:umbar"
 }

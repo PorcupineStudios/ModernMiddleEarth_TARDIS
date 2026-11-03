@@ -19,5 +19,6 @@
   },
   "names": "lotr_port:rhun_male",
   "buy": "lotr_port:rhun_hunter_buy",
-  "sell": "lotr_port:rhun_hunter_sell"
+  "sell": "lotr_port:rhun_hunter_sell",
+  "quests": "lotr_port:rhun"
 }

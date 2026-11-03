@@ -1,0 +1,212 @@
+{
+  "quests": [
+    {
+      "kind": "kill_npc",
+      "target": "lotr_port:bandit_harad",
+      "min": 1,
+      "max": 3,
+      "reward": 8.0,
+      "weight": 200
+    },
+    {
+      "kind": "kill_npc",
+      "target": "lotr_port:ranger_ithilien",
+      "min": 10,
+      "max": 20,
+      "reward": 1.0,
+      "weight": 200
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:date",
+      "min": 8,
+      "max": 15,
+      "reward": 2.0,
+      "weight": 42
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:lemon",
+      "min": 4,
+      "max": 12,
+      "reward": 2.0,
+      "weight": 42
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:orange",
+      "min": 4,
+      "max": 12,
+      "reward": 2.0,
+      "weight": 42
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:lime",
+      "min": 4,
+      "max": 12,
+      "reward": 2.0,
+      "weight": 42
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:plum",
+      "min": 4,
+      "max": 12,
+      "reward": 2.0,
+      "weight": 42
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:orange_juice",
+      "min": 2,
+      "max": 6,
+      "reward": 4.0,
+      "weight": 42
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:lemon_liqueur",
+      "min": 2,
+      "max": 6,
+      "reward": 4.0,
+      "weight": 42
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:bottle_of_poison",
+      "min": 2,
+      "max": 4,
+      "reward": 5.0,
+      "weight": 42
+    },
+    {
+      "kind": "collect",
+      "target": "minecraft:carpet",
+      "min": 8,
+      "max": 15,
+      "reward": 0.75,
+      "weight": 42
+    },
+    {
+      "kind": "collect",
+      "target": "minecraft:carpet",
+      "min": 8,
+      "max": 15,
+      "reward": 0.75,
+      "weight": 42
+    },
+    {
+      "kind": "collect",
+      "target": "minecraft:carpet",
+      "min": 8,
+      "max": 15,
+      "reward": 0.75,
+      "weight": 42
+    },
+    {
+      "kind": "collect",
+      "target": "minecraft:carpet",
+      "min": 8,
+      "max": 15,
+      "reward": 0.75,
+      "weight": 42
+    },
+    {
+      "kind": "collect",
+      "target": "minecraft:carpet",
+      "min": 8,
+      "max": 15,
+      "reward": 0.75,
+      "weight": 42
+    },
+    {
+      "kind": "collect",
+      "target": "minecraft:carpet",
+      "min": 8,
+      "max": 15,
+      "reward": 0.75,
+      "weight": 42
+    },
+    {
+      "kind": "collect",
+      "target": "minecraft:carpet",
+      "min": 8,
+      "max": 15,
+      "reward": 0.75,
+      "weight": 42
+    },
+    {
+      "kind": "collect",
+      "target": "minecraft:carpet",
+      "min": 8,
+      "max": 15,
+      "reward": 0.75,
+      "weight": 42
+    },
+    {
+      "kind": "collect",
+      "target": "minecraft:carpet",
+      "min": 8,
+      "max": 15,
+      "reward": 0.75,
+      "weight": 42
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:waterskin",
+      "min": 8,
+      "max": 16,
+      "reward": 1.0,
+      "weight": 42
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:gulfen_khopesh",
+      "min": 1,
+      "max": 2,
+      "reward": 8.0,
+      "weight": 42
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:gulfen_helmet",
+      "min": 1,
+      "max": 2,
+      "reward": 8.0,
+      "weight": 42
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:gulfen_chestplate",
+      "min": 1,
+      "max": 2,
+      "reward": 8.0,
+      "weight": 42
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:umbaric_scimitar",
+      "min": 1,
+      "max": 2,
+      "reward": 8.0,
+      "weight": 42
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:umbaric_helmet",
+      "min": 1,
+      "max": 2,
+      "reward": 8.0,
+      "weight": 42
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:umbaric_chestplate",
+      "min": 1,
+      "max": 2,
+      "reward": 8.0,
+      "weight": 42
+    }
+  ]
+}

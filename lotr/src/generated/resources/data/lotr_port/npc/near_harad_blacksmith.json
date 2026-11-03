@@ -15,7 +15,7 @@
     "mainhand": "lotr_port:blacksmith_hammer",
     "head": "lotr_port:harad_turban"
   },
-  "names": "lotr_port:umbar_male",
+  "names": "lotr_port:near_haradrim_male",
   "buy": "lotr_port:near_harad_blacksmith_buy",
   "sell": "lotr_port:near_harad_blacksmith_sell"
 }

@@ -22,9 +22,10 @@
       "lotr_port:bronze_dagger",
       "lotr_port:gondorian_dagger",
       "lotr_port:iron_dagger",
-      "minecraft:stone_axe"
+      "minecraft:iron_axe"
     ]
   },
   "buy": "lotr_port:gondor_greengrocer_buy",
-  "sell": "lotr_port:gondor_greengrocer_sell"
+  "sell": "lotr_port:gondor_greengrocer_sell",
+  "quests": "lotr_port:gondor"
 }

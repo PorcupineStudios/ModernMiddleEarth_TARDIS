@@ -15,13 +15,13 @@
     "mainhand": [
       "lotr_port:rh_nic_bardiche",
       "lotr_port:rh_nic_battleaxe",
-      "lotr_port:rh_nic_pike",
-      "lotr_port:rh_nic_sword"
+      "lotr_port:rh_nic_spear"
     ],
     "head": "lotr_port:rh_nic_helmet",
     "chest": "lotr_port:rh_nic_chestplate",
     "legs": "lotr_port:rh_nic_leggings",
     "feet": "lotr_port:rh_nic_boots"
   },
-  "names": "lotr_port:rhun_male"
+  "names": "lotr_port:rhun_male",
+  "quests": "lotr_port:rhun"
 }

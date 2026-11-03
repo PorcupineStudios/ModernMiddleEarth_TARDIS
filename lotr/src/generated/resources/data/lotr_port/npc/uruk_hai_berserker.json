@@ -16,5 +16,6 @@
     "legs": "lotr_port:fur_leggings",
     "feet": "lotr_port:fur_boots"
   },
-  "names": "lotr_port:orc"
+  "names": "lotr_port:orc",
+  "quests": "lotr_port:isengard"
 }

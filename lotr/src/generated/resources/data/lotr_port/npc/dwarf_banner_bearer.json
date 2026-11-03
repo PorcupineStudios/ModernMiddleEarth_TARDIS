@@ -12,7 +12,7 @@
   "attack": 2.0,
   "gear": {
     "mainhand": [
-      "lotr_port:dwarven_battleaxe",
+      "lotr_port:dwarven_mattock",
       "lotr_port:dwarven_pike",
       "lotr_port:dwarven_spear",
       "lotr_port:dwarven_warhammer"
@@ -22,5 +22,6 @@
     "legs": "lotr_port:silver_trimmed_dwarven_leggings",
     "feet": "lotr_port:silver_trimmed_dwarven_boots"
   },
-  "names": "lotr_port:dwarf_male"
+  "names": "lotr_port:dwarf_male",
+  "quests": "lotr_port:durin"
 }

@@ -12,12 +12,11 @@
   "gear": {
     "mainhand": [
       "lotr_port:bronze_axe",
-      "lotr_port:bronze_sword",
+      "lotr_port:iron_dagger",
       "lotr_port:iron_spear",
-      "minecraft:iron_sword",
+      "lotr_port:stone_spear",
       "minecraft:stone_sword",
-      "minecraft:wooden_sword"
+      "minecraft:wooden_axe"
     ]
-  },
-  "names": "lotr_port:rhudaur_male"
+  }
 }

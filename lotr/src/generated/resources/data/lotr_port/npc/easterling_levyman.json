@@ -13,11 +13,13 @@
   "attack": 2.0,
   "gear": {
     "mainhand": [
-      "lotr_port:bronze_spear",
+      "lotr_port:bronze_dagger",
+      "lotr_port:bronze_sword",
       "lotr_port:iron_battleaxe",
       "lotr_port:iron_spear",
-      "lotr_port:poisoned_rh_nic_dagger",
-      "lotr_port:rh_nic_spear"
+      "lotr_port:rh_nic_dagger",
+      "lotr_port:rh_nic_spear",
+      "minecraft:iron_sword"
     ],
     "chest": [
       "lotr_port:bronze_chestplate",
@@ -26,6 +28,7 @@
     ],
     "legs": [
       "lotr_port:bronze_leggings",
+      "lotr_port:kaftan_leggings",
       "minecraft:leather_leggings"
     ],
     "feet": [
@@ -33,5 +36,6 @@
       "minecraft:leather_boots"
     ]
   },
-  "names": "lotr_port:rhun_male"
+  "names": "lotr_port:rhun_male",
+  "quests": "lotr_port:rhun"
 }

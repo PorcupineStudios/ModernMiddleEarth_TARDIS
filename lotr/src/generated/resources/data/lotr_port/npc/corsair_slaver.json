@@ -24,5 +24,6 @@
     "feet": "lotr_port:corsair_boots"
   },
   "names": "lotr_port:umbar_male",
-  "units": "lotr_port:corsair_slaver"
+  "units": "lotr_port:corsair_slaver",
+  "quests": "lotr_port:corsair"
 }

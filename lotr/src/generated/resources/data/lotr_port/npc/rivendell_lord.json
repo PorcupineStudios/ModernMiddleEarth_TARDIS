@@ -16,6 +16,7 @@
     "legs": "lotr_port:rivendell_leggings",
     "feet": "lotr_port:rivendell_boots"
   },
-  "names": "lotr_port:sindarin_male",
-  "units": "lotr_port:rivendell_lord"
+  "names": "lotr_port:quenya_male",
+  "units": "lotr_port:rivendell_lord",
+  "quests": "lotr_port:rivendell"
 }

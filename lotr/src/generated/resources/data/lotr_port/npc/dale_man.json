@@ -11,10 +11,11 @@
   "attack": 2.0,
   "gear": {
     "mainhand": [
-      "lotr_port:bronze_axe",
       "lotr_port:bronze_dagger",
-      "lotr_port:dalish_dagger"
+      "lotr_port:dalish_dagger",
+      "minecraft:iron_axe",
+      "minecraft:stone_axe"
     ]
   },
-  "names": "lotr_port:dale_male"
+  "quests": "lotr_port:dale"
 }

@@ -24,5 +24,6 @@
     "legs": "lotr_port:dol_amroth_chaps",
     "feet": "minecraft:leather_boots"
   },
-  "names": "lotr_port:gondor_male"
+  "names": "lotr_port:gondor_male",
+  "quests": "lotr_port:gondor"
 }

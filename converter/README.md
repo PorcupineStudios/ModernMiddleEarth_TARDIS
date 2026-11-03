@@ -32,6 +32,10 @@ Turns LOTR 36.15 (1.7.10) content into the 1.21.1 port's generated resources. Tw
    `faction/<f>` structure tags, plus `npc_spawns/` tables from each biome's LOTR spawn lists. Only structures a biome
    places directly are wired (82); village parts and fortress pieces wait for villages (`structures_in_no_biome`).
 
+   `converter/quests.py` (phase 8) writes LOTR's waypoints, waypoint-region biome tags, the fast travel cooldown,
+   the map image and the mini-quest pools (collect and kill quests per LOTR quest group) from `quests.json`, and
+   names each quest-giving NPC type's pool.
+
 Never edit generated files by hand: change the generator and run it again.
 
 Known gaps (report.json): spawn eggs and structure spawners wait for the NPC and structure phases; LOTR's special

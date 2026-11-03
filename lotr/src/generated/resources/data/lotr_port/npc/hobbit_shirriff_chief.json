@@ -27,5 +27,7 @@
     ],
     "head": "lotr_port:leather_hat"
   },
-  "units": "lotr_port:hobbit_shirriff"
+  "names": "lotr_port:hobbit_male",
+  "units": "lotr_port:hobbit_shirriff",
+  "quests": "lotr_port:hobbit"
 }

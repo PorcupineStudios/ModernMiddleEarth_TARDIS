@@ -11,8 +11,12 @@
   "gear": {
     "mainhand": [
       "lotr_port:dwarven_battleaxe",
+      "lotr_port:dwarven_sword",
       "lotr_port:dwarven_warhammer"
-    ]
+    ],
+    "chest": "lotr_port:dwarven_chestplate",
+    "legs": "lotr_port:dwarven_leggings",
+    "feet": "lotr_port:dwarven_boots"
   },
   "names": "lotr_port:dwarf_male",
   "buy": "lotr_port:wicked_dwarf_buy",

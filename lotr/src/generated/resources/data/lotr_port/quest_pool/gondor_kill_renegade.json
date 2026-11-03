@@ -1,0 +1,12 @@
+{
+  "quests": [
+    {
+      "kind": "kill_npc",
+      "target": "lotr_port:gondor_renegade",
+      "min": 2,
+      "max": 6,
+      "reward": 8.0,
+      "weight": 800
+    }
+  ]
+}

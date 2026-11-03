@@ -1,0 +1,164 @@
+{
+  "quests": [
+    {
+      "kind": "kill_faction",
+      "target": "lotr_port:dol_guldur",
+      "min": 10,
+      "max": 40,
+      "reward": 1.0,
+      "weight": 133
+    },
+    {
+      "kind": "kill_npc",
+      "target": "lotr_port:gundabad_orc",
+      "min": 10,
+      "max": 30,
+      "reward": 1.0,
+      "weight": 133
+    },
+    {
+      "kind": "kill_npc",
+      "target": "lotr_port:dol_guldur_orc",
+      "min": 10,
+      "max": 40,
+      "reward": 1.0,
+      "weight": 133
+    },
+    {
+      "kind": "kill_faction",
+      "target": "lotr_port:gundabad",
+      "min": 10,
+      "max": 30,
+      "reward": 1.0,
+      "weight": 133
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:mallorn_leaves",
+      "min": 10,
+      "max": 20,
+      "reward": 1.0,
+      "weight": 62
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:mallorn_sapling",
+      "min": 3,
+      "max": 10,
+      "reward": 2.0,
+      "weight": 62
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:mallorn_nut",
+      "min": 1,
+      "max": 3,
+      "reward": 5.0,
+      "weight": 62
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:elanor",
+      "min": 2,
+      "max": 7,
+      "reward": 2.5,
+      "weight": 62
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:niphredil",
+      "min": 2,
+      "max": 7,
+      "reward": 2.5,
+      "weight": 62
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:wood_elven_sword",
+      "min": 1,
+      "max": 4,
+      "reward": 3.0,
+      "weight": 62
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:wood_elven_battlestaff",
+      "min": 1,
+      "max": 4,
+      "reward": 3.0,
+      "weight": 62
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:wood_elven_longspear",
+      "min": 1,
+      "max": 4,
+      "reward": 3.0,
+      "weight": 62
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:wood_elven_spear",
+      "min": 1,
+      "max": 4,
+      "reward": 2.0,
+      "weight": 62
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:wood_elven_helmet",
+      "min": 1,
+      "max": 4,
+      "reward": 3.0,
+      "weight": 62
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:wood_elven_chestplate",
+      "min": 1,
+      "max": 4,
+      "reward": 4.0,
+      "weight": 62
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:green_oak_sapling",
+      "min": 4,
+      "max": 8,
+      "reward": 2.0,
+      "weight": 62
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:red_oak_sapling",
+      "min": 2,
+      "max": 5,
+      "reward": 4.0,
+      "weight": 62
+    },
+    {
+      "kind": "collect",
+      "target": "minecraft:string",
+      "min": 5,
+      "max": 20,
+      "reward": 1.0,
+      "weight": 62
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:mordor_helmet",
+      "min": 1,
+      "max": 1,
+      "reward": 10.0,
+      "weight": 62
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:dol_guldur_helmet",
+      "min": 1,
+      "max": 1,
+      "reward": 10.0,
+      "weight": 62
+    }
+  ]
+}

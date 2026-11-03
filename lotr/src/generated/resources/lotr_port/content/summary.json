@@ -6,6 +6,9 @@
     "npc_skins": 205,
     "structures": 82,
     "structures_with_npcs": 65,
-    "npc_spawn_tables": 129
+    "npc_spawn_tables": 129,
+    "waypoints": 274,
+    "quest_pools": 37,
+    "quest_givers": 287
   }
 ]

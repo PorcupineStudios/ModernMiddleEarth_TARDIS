@@ -16,5 +16,6 @@
     "feet": "lotr_port:uruk_boots"
   },
   "names": "lotr_port:orc",
-  "units": "lotr_port:uruk_hai_mercenary_captain"
+  "units": "lotr_port:uruk_hai_mercenary_captain",
+  "quests": "lotr_port:isengard"
 }

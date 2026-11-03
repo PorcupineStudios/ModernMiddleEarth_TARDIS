@@ -23,5 +23,6 @@
     "feet": "lotr_port:pinnath_gelin_boots"
   },
   "names": "lotr_port:gondor_male",
-  "units": "lotr_port:pinnath_gelin_captain"
+  "units": "lotr_port:pinnath_gelin_captain",
+  "quests": "lotr_port:gondor"
 }

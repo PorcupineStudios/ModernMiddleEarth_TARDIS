@@ -15,5 +15,6 @@
     "mainhand": "lotr_port:umbaric_dagger"
   },
   "buy": "lotr_port:southron_bartender_buy",
-  "sell": "lotr_port:southron_bartender_sell"
+  "sell": "lotr_port:southron_bartender_sell",
+  "quests": "lotr_port:near_harad"
 }

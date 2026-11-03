@@ -22,5 +22,6 @@
   },
   "names": "lotr_port:rhun_male",
   "buy": "lotr_port:rhun_brewer_buy",
-  "sell": "lotr_port:rhun_brewer_sell"
+  "sell": "lotr_port:rhun_brewer_sell",
+  "quests": "lotr_port:rhun"
 }

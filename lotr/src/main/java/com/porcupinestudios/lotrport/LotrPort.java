@@ -15,6 +15,11 @@ import com.porcupinestudios.lotrport.npc.LotrEntities;
 import com.porcupinestudios.lotrport.npc.NpcData;
 import com.porcupinestudios.lotrport.npc.NpcSpawner;
 import com.porcupinestudios.lotrport.npc.NpcSpawns;
+import com.porcupinestudios.lotrport.quest.QuestData;
+import com.porcupinestudios.lotrport.quest.Quests;
+import com.porcupinestudios.lotrport.travel.FastTravel;
+import com.porcupinestudios.lotrport.net.MapNet;
+import com.porcupinestudios.lotrport.command.TravelCommand;
 import com.porcupinestudios.lotrport.registry.LotrRegistries;
 import com.porcupinestudios.lotrport.shared.SharedApiHooks;
 import com.porcupinestudios.lotrport.world.LotrWorldgen;
@@ -48,10 +53,15 @@ public final class LotrPort {
         NpcData.register();
         NpcSpawns.register();
         NpcSpawner.register();
+        QuestData.register();
+        Quests.register();
+        FastTravel.register();
+        MapNet.register(modBus);
         NeoForge.EVENT_BUS.addListener((RegisterCommandsEvent event) -> {
             LotrCommand.register(event.getDispatcher());
             FactionCommand.register(event.getDispatcher());
             NpcCommand.register(event.getDispatcher());
+            TravelCommand.register(event.getDispatcher());
         });
     }
 
