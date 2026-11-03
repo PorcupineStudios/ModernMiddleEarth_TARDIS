@@ -3,9 +3,11 @@ package com.porcupinestudios.tardisrb.net;
 import com.porcupinestudios.tardisrb.TardisRB;
 import com.porcupinestudios.tardisrb.core.TardisRecord;
 import com.porcupinestudios.tardisrb.interior.Interiors;
+import com.porcupinestudios.tardisrb.interior.Rooms;
 import com.porcupinestudios.tardisrb.progression.Cost;
 import com.porcupinestudios.tardisrb.progression.Repair;
 import com.porcupinestudios.tardisrb.progression.Research;
+import com.porcupinestudios.tardisrb.progression.Room;
 import com.porcupinestudios.tardisrb.progression.Stage;
 import com.porcupinestudios.tardisrb.progression.TardisContent;
 import com.porcupinestudios.tardisrb.progression.Unlocks;
@@ -35,12 +37,13 @@ import net.neoforged.neoforge.network.handling.IPayloadContext;
 import net.neoforged.neoforge.network.registration.PayloadRegistrar;
 
 /**
- * The repairs and research screen: the stage's repair list and the research tree, with what each costs and whether
+ * The repairs and research screen: the stage's repair list, the research tree and the rooms that can be added, with what each costs and whether
  * it can be done now. Opened from the console; works only for crew standing in the TARDIS.
  */
 public final class WorkshopNet {
     public static final int REPAIR = 0;
     public static final int RESEARCH = 1;
+    public static final int ROOM = 2;
     public static final int DONE = 0;
     public static final int RUNNING = 1;
     public static final int AVAILABLE = 2;
@@ -68,9 +71,11 @@ public final class WorkshopNet {
         r.playToServer(Act.TYPE, Act.CODEC, (p, ctx) -> ctx.enqueueWork(() -> {
             if (ctx.player() instanceof ServerPlayer sp) {
                 mine(sp).ifPresent(t -> {
-                    Repairs.Outcome out = p.kind() == REPAIR
-                            ? Repairs.attempt(sp.server, t, p.id(), Optional.of(sp))
-                            : Researching.start(sp.server, t, p.id(), Optional.of(sp));
+                    Repairs.Outcome out = switch (p.kind()) {
+                        case REPAIR -> Repairs.attempt(sp.server, t, p.id(), Optional.of(sp));
+                        case ROOM -> Rooms.add(sp.server, t, p.id(), Optional.of(sp));
+                        default -> Researching.start(sp.server, t, p.id(), Optional.of(sp));
+                    };
                     String msg = out.done() ? Component.translatableWithFallback("tardis_rb.workshop.ok", "Done")
                             .getString() : out.problem().get().getString();
                     PacketDistributor.sendToPlayer(sp, view(sp, t, msg));
@@ -119,6 +124,13 @@ public final class WorkshopNet {
                     : (e.getValue().time() / 20) + "s";
             entries.add(new Entry(RESEARCH, e.getKey(), e.getKey().getPath(), state,
                     describe(data.cost(e.getValue().cost())), extra));
+        }
+        for (Map.Entry<ResourceLocation, Room> e : new TreeMap<>(data.rooms()).entrySet()) {
+            long count = t.rooms().stream().filter(r -> r.room().equals(e.getKey())).count();
+            int state = Rooms.blocked(player.server, t, e.getKey(), Optional.of(player)).isPresent() ? LOCKED
+                    : AVAILABLE;
+            entries.add(new Entry(ROOM, e.getKey(), e.getKey().getPath(), state,
+                    describe(data.cost(e.getValue().cost())), count > 0 ? count + " built" : ""));
         }
         String stage = t.stage().map(ResourceLocation::getPath).orElse("-");
         return new WorkshopView(t.name(), stage, (int) Unlocks.stat(t, "range"), t.charge(), entries, message);

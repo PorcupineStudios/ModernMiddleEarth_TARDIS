@@ -52,16 +52,22 @@ public record Tuning(CrashSite crashSite, Hop hop, Winder winder, Interior inter
     /**
      * Interiors in the shared dimension: plot n starts at x = n x {@code plot_spacing}, z = 0, y = {@code floor_y}.
      * {@code room} is the structure template of the first console room; {@code spawn} is where players appear in it.
+     * Added rooms go {@code room_step} blocks further along z each; {@code doorway} (x and y; z unused) is the corner of
+     * the 1 x 2 opening carved through the wall between a room and the next.
      */
-    public record Interior(int plotSpacing, int floorY, ResourceLocation room, BlockPos spawn) {
+    public record Interior(int plotSpacing, int floorY, ResourceLocation room, BlockPos spawn, int roomStep,
+            BlockPos doorway) {
         static final Interior DEFAULT = new Interior(1024, 64,
-                ResourceLocation.fromNamespaceAndPath("tardis_rb", "interior/console_room_wreck"), new BlockPos(4, 1, 1));
+                ResourceLocation.fromNamespaceAndPath("tardis_rb", "interior/console_room_wreck"), new BlockPos(4, 1, 1),
+                9, new BlockPos(5, 1, 0));
         static final Codec<Interior> CODEC = RecordCodecBuilder.create(i -> i.group(
                 Codec.intRange(64, 1 << 16).optionalFieldOf("plot_spacing", DEFAULT.plotSpacing)
                         .forGetter(Interior::plotSpacing),
                 Codec.INT.optionalFieldOf("floor_y", DEFAULT.floorY).forGetter(Interior::floorY),
                 ResourceLocation.CODEC.optionalFieldOf("room", DEFAULT.room).forGetter(Interior::room),
-                BlockPos.CODEC.optionalFieldOf("spawn", DEFAULT.spawn).forGetter(Interior::spawn))
+                BlockPos.CODEC.optionalFieldOf("spawn", DEFAULT.spawn).forGetter(Interior::spawn),
+                Codec.intRange(1, 256).optionalFieldOf("room_step", DEFAULT.roomStep).forGetter(Interior::roomStep),
+                BlockPos.CODEC.optionalFieldOf("doorway", DEFAULT.doorway).forGetter(Interior::doorway))
                 .apply(i, Interior::new));
     }
 

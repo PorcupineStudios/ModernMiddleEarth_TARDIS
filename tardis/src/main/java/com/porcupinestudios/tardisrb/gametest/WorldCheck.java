@@ -7,12 +7,17 @@ import com.porcupinestudios.tardisrb.core.TardisManager;
 import com.porcupinestudios.tardisrb.core.TardisRecord;
 import com.porcupinestudios.tardisrb.flight.CrashSite;
 import com.porcupinestudios.tardisrb.interior.Interiors;
+import com.porcupinestudios.tardisrb.interior.Rooms;
+import com.porcupinestudios.tardisrb.progression.TardisContent;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.GlobalPos;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.level.block.Blocks;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.server.ServerStartedEvent;
 
@@ -27,6 +32,22 @@ public final class WorldCheck {
     public static void register() {
         if (Boolean.getBoolean("tardis_rb.worldcheck")) {
             NeoForge.EVENT_BUS.addListener((ServerStartedEvent e) -> run(e.getServer()));
+        }
+    }
+
+    /** Repairs the room systems and adds a library in the real interior dimension. */
+    private static void checkRoom(MinecraftServer server, TardisRecord wreck, ServerLevel inside, List<String> problems) {
+        ResourceLocation repairId = TardisRB.id("rooms_1");
+        TardisContent.repair(repairId).ifPresent(r -> wreck.applyRepair(repairId, r));
+        wreck.addCharge(1000);
+        var out = Rooms.add(server, wreck, TardisRB.id("library"), Optional.empty());
+        if (!out.done()) {
+            problems.add("library not added: " + out.problem().get().getString());
+            return;
+        }
+        BlockPos shelf = Rooms.corner(Interiors.origin(wreck.plot()), 1).offset(1, 1, 2);
+        if (!inside.getBlockState(shelf).is(Blocks.BOOKSHELF)) {
+            problems.add("no library shelf at " + shelf + ": " + inside.getBlockState(shelf));
         }
     }
 
@@ -55,6 +76,7 @@ public final class WorldCheck {
                 if (Interiors.at(inside, console).map(r -> r != wreck).orElse(true)) {
                     problems.add("the console doesn't find its TARDIS");
                 }
+                checkRoom(server, wreck, inside, problems);
             }
         }
         if (problems.isEmpty()) {
