@@ -46,8 +46,8 @@ import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
 
 /**
- * Writes blocks.json, items.json, recipes.json, tabs.json, oredict.json and world.json. Only reads public game state
- * through reflection and the normal Block/Item methods; no LOTR code is copied.
+ * Writes blocks.json, items.json, recipes.json, tabs.json, oredict.json, world.json and factions.json. Only reads
+ * public game state through reflection and the normal Block/Item methods; no LOTR code is copied.
  */
 public class Exporter {
     private static final String NS = "lotr";
@@ -70,7 +70,9 @@ public class Exporter {
         write("recipes.json", recipes());
         write("tabs.json", tabs());
         write("oredict.json", oredict());
-        write("world.json", new WorldExporter(errors).world());
+        WorldExporter world = new WorldExporter(errors);
+        write("world.json", world.world());
+        write("factions.json", world.factions());
         write("errors.json", errors);
     }
 
