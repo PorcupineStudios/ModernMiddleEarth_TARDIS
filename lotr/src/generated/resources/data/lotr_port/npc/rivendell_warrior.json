@@ -12,7 +12,6 @@
   "attack": 2.0,
   "gear": {
     "mainhand": [
-      "lotr_port:rivendell_battlestaff",
       "lotr_port:rivendell_longspear",
       "lotr_port:rivendell_spear",
       "lotr_port:rivendell_sword"
@@ -21,5 +20,7 @@
     "chest": "lotr_port:rivendell_chestplate",
     "legs": "lotr_port:rivendell_leggings",
     "feet": "lotr_port:rivendell_boots"
-  }
+  },
+  "names": "lotr_port:sindarin_male",
+  "quests": "lotr_port:rivendell"
 }

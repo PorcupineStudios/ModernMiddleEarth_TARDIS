@@ -18,5 +18,6 @@
   },
   "names": "lotr_port:rohan_male",
   "buy": "lotr_port:rohan_lumberman_buy",
-  "sell": "lotr_port:rohan_lumberman_sell"
+  "sell": "lotr_port:rohan_lumberman_sell",
+  "quests": "lotr_port:rohan"
 }

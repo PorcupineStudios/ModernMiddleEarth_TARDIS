@@ -17,5 +17,6 @@
   },
   "names": "lotr_port:rohan_male",
   "buy": "lotr_port:rohan_builder_buy",
-  "sell": "lotr_port:rohan_builder_sell"
+  "sell": "lotr_port:rohan_builder_sell",
+  "quests": "lotr_port:rohan"
 }

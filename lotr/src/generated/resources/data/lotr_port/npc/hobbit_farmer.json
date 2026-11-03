@@ -24,8 +24,8 @@
     "mainhand": "minecraft:iron_hoe",
     "head": "lotr_port:leather_hat"
   },
-  "names": "lotr_port:hobbit_male",
   "buy": "lotr_port:hobbit_farmer_buy",
   "sell": "lotr_port:hobbit_farmer_sell",
-  "units": "lotr_port:hobbit_farmer"
+  "units": "lotr_port:hobbit_farmer",
+  "quests": "lotr_port:hobbit"
 }

@@ -13,5 +13,6 @@
   "gear": {
     "mainhand": "lotr_port:dwarven_dagger"
   },
-  "names": "lotr_port:dwarf_male"
+  "names": "lotr_port:dwarf_male",
+  "quests": "lotr_port:durin"
 }

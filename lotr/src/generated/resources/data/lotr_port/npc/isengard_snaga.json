@@ -16,23 +16,26 @@
   "attack": 2.0,
   "gear": {
     "mainhand": [
+      "lotr_port:bronze_dagger",
       "lotr_port:iron_battleaxe",
-      "lotr_port:iron_dagger",
-      "lotr_port:poisoned_bronze_dagger",
+      "lotr_port:iron_spear",
       "lotr_port:stone_spear",
       "lotr_port:uruk_battleaxe",
-      "minecraft:stone_axe",
-      "minecraft:stone_pickaxe"
+      "lotr_port:uruk_dagger",
+      "minecraft:iron_sword",
+      "minecraft:stone_sword"
     ],
     "head": [
       "lotr_port:bone_helmet",
-      "lotr_port:fur_hat",
-      "minecraft:leather_helmet"
+      "lotr_port:bronze_helmet",
+      "lotr_port:fur_hat"
     ],
     "chest": [
       "lotr_port:bone_chestplate",
+      "lotr_port:bronze_chestplate",
       "lotr_port:fur_tunic",
-      "lotr_port:uruk_chestplate"
+      "lotr_port:uruk_chestplate",
+      "minecraft:leather_chestplate"
     ],
     "legs": [
       "lotr_port:bone_leggings",
@@ -47,5 +50,6 @@
       "lotr_port:uruk_boots"
     ]
   },
-  "names": "lotr_port:orc"
+  "names": "lotr_port:orc",
+  "quests": "lotr_port:isengard"
 }

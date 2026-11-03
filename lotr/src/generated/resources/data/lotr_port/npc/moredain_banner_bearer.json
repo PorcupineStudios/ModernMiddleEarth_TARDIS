@@ -13,9 +13,8 @@
   "attack": 2.0,
   "gear": {
     "mainhand": [
-      "lotr_port:haradric_sword",
+      "lotr_port:haradric_spear",
       "lotr_port:morwaith_battleaxe",
-      "lotr_port:morwaith_dagger",
       "lotr_port:morwaith_spear",
       "lotr_port:poisoned_morwaith_dagger"
     ],
@@ -24,5 +23,6 @@
     "legs": "lotr_port:morwaith_leggings",
     "feet": "lotr_port:morwaith_boots"
   },
-  "names": "lotr_port:moredain_male"
+  "names": "lotr_port:moredain_male",
+  "quests": "lotr_port:moredain"
 }

@@ -190,6 +190,16 @@ public final class MiddleEarthMap {
                 (int) Math.floor((pz - originZ) * blocksPerPixel));
     }
 
+    /** The map pixel x (fractional) under a block x: the inverse of {@link #blockOfPixel}. */
+    public double pixelX(double blockX) {
+        return blockX / blocksPerPixel + originX;
+    }
+
+    /** The map pixel y (fractional) under a block z. */
+    public double pixelZ(double blockZ) {
+        return blockZ / blocksPerPixel + originZ;
+    }
+
     public int blocksPerPixel() {
         return blocksPerPixel;
     }

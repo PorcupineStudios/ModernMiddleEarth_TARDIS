@@ -18,5 +18,6 @@
     "feet": "lotr_port:corsair_boots"
   },
   "names": "lotr_port:umbar_male",
-  "units": "lotr_port:corsair_captain"
+  "units": "lotr_port:corsair_captain",
+  "quests": "lotr_port:corsair"
 }

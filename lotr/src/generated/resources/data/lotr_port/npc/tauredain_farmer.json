@@ -13,8 +13,8 @@
   "gear": {
     "mainhand": "lotr_port:taurethrim_hoe"
   },
-  "names": "lotr_port:tauredain_male",
   "buy": "lotr_port:tauredain_farmer_buy",
   "sell": "lotr_port:tauredain_farmer_sell",
-  "units": "lotr_port:tauredain_farmer"
+  "units": "lotr_port:tauredain_farmer",
+  "quests": "lotr_port:tauredain"
 }

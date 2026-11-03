@@ -17,5 +17,6 @@
     "feet": "lotr_port:ranger_boots"
   },
   "names": "lotr_port:gondor_male",
-  "units": "lotr_port:ranger_north_captain"
+  "units": "lotr_port:ranger_north_captain",
+  "quests": "lotr_port:ranger_north"
 }

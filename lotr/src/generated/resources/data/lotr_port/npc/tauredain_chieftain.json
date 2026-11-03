@@ -18,5 +18,6 @@
     "feet": "lotr_port:taurethrim_boots"
   },
   "names": "lotr_port:tauredain_male",
-  "units": "lotr_port:tauredain_chieftain"
+  "units": "lotr_port:tauredain_chieftain",
+  "quests": "lotr_port:tauredain"
 }

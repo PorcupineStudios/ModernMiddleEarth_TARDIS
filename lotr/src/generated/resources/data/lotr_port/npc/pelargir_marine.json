@@ -26,5 +26,6 @@
     "legs": "lotr_port:pelargir_leggings",
     "feet": "lotr_port:pelargir_boots"
   },
-  "names": "lotr_port:gondor_male"
+  "names": "lotr_port:gondor_male",
+  "quests": "lotr_port:gondor"
 }

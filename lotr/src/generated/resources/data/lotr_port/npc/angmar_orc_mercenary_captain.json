@@ -21,5 +21,6 @@
     "feet": "lotr_port:angmar_boots"
   },
   "names": "lotr_port:orc",
-  "units": "lotr_port:angmar_orc_mercenary_captain"
+  "units": "lotr_port:angmar_orc_mercenary_captain",
+  "quests": "lotr_port:angmar"
 }

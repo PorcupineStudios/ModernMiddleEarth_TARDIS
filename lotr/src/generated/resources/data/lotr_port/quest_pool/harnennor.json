@@ -1,0 +1,316 @@
+{
+  "quests": [
+    {
+      "kind": "kill_faction",
+      "target": "lotr_port:gondor",
+      "min": 20,
+      "max": 50,
+      "reward": 1.0,
+      "weight": 133
+    },
+    {
+      "kind": "kill_faction",
+      "target": "lotr_port:gondor",
+      "min": 20,
+      "max": 50,
+      "reward": 1.0,
+      "weight": 133
+    },
+    {
+      "kind": "kill_npc",
+      "target": "lotr_port:ranger_ithilien",
+      "min": 10,
+      "max": 30,
+      "reward": 1.0,
+      "weight": 133
+    },
+    {
+      "kind": "kill_npc",
+      "target": "lotr_port:gondor_soldier",
+      "min": 10,
+      "max": 30,
+      "reward": 1.0,
+      "weight": 133
+    },
+    {
+      "kind": "kill_npc",
+      "target": "lotr_port:gondor_soldier",
+      "min": 10,
+      "max": 30,
+      "reward": 1.0,
+      "weight": 133
+    },
+    {
+      "kind": "kill_npc",
+      "target": "lotr_port:rohirrim",
+      "min": 10,
+      "max": 30,
+      "reward": 1.0,
+      "weight": 133
+    },
+    {
+      "kind": "collect",
+      "target": "minecraft:water_bucket",
+      "min": 3,
+      "max": 5,
+      "reward": 5.0,
+      "weight": 30
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:mordor_rock",
+      "min": 30,
+      "max": 50,
+      "reward": 0.5,
+      "weight": 30
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:date",
+      "min": 8,
+      "max": 15,
+      "reward": 2.0,
+      "weight": 30
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:lemon",
+      "min": 4,
+      "max": 12,
+      "reward": 2.0,
+      "weight": 30
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:orange",
+      "min": 4,
+      "max": 12,
+      "reward": 2.0,
+      "weight": 30
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:lime",
+      "min": 4,
+      "max": 12,
+      "reward": 2.0,
+      "weight": 30
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:plum",
+      "min": 4,
+      "max": 12,
+      "reward": 2.0,
+      "weight": 30
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:orange_juice",
+      "min": 2,
+      "max": 6,
+      "reward": 4.0,
+      "weight": 30
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:lemon_liqueur",
+      "min": 2,
+      "max": 6,
+      "reward": 4.0,
+      "weight": 30
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:bottle_of_poison",
+      "min": 2,
+      "max": 4,
+      "reward": 5.0,
+      "weight": 30
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:bow_of_harad",
+      "min": 1,
+      "max": 3,
+      "reward": 5.0,
+      "weight": 30
+    },
+    {
+      "kind": "collect",
+      "target": "minecraft:arrow",
+      "min": 20,
+      "max": 40,
+      "reward": 0.5,
+      "weight": 30
+    },
+    {
+      "kind": "collect",
+      "target": "minecraft:lapis_lazuli",
+      "min": 3,
+      "max": 8,
+      "reward": 3.0,
+      "weight": 30
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:lion_fur",
+      "min": 3,
+      "max": 6,
+      "reward": 3.0,
+      "weight": 30
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:flame_of_harad",
+      "min": 5,
+      "max": 15,
+      "reward": 1.5,
+      "weight": 30
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:olives",
+      "min": 10,
+      "max": 20,
+      "reward": 1.0,
+      "weight": 30
+    },
+    {
+      "kind": "collect",
+      "target": "minecraft:bread",
+      "min": 5,
+      "max": 8,
+      "reward": 2.0,
+      "weight": 30
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:cooked_rabbit",
+      "min": 5,
+      "max": 12,
+      "reward": 1.5,
+      "weight": 30
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:cooked_venison",
+      "min": 5,
+      "max": 12,
+      "reward": 1.5,
+      "weight": 30
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:orange",
+      "min": 4,
+      "max": 8,
+      "reward": 2.5,
+      "weight": 30
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:lemon",
+      "min": 4,
+      "max": 8,
+      "reward": 2.0,
+      "weight": 30
+    },
+    {
+      "kind": "collect",
+      "target": "minecraft:oak_log",
+      "min": 20,
+      "max": 60,
+      "reward": 0.25,
+      "weight": 30
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:cedar_wood",
+      "min": 20,
+      "max": 60,
+      "reward": 0.25,
+      "weight": 30
+    },
+    {
+      "kind": "collect",
+      "target": "minecraft:oak_planks",
+      "min": 80,
+      "max": 160,
+      "reward": 0.125,
+      "weight": 30
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:cedar_wood_planks",
+      "min": 80,
+      "max": 160,
+      "reward": 0.125,
+      "weight": 30
+    },
+    {
+      "kind": "collect",
+      "target": "minecraft:sandstone",
+      "min": 30,
+      "max": 80,
+      "reward": 0.25,
+      "weight": 30
+    },
+    {
+      "kind": "collect",
+      "target": "minecraft:chiseled_sandstone",
+      "min": 15,
+      "max": 40,
+      "reward": 0.5,
+      "weight": 30
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:reed_block",
+      "min": 20,
+      "max": 40,
+      "reward": 0.5,
+      "weight": 30
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:orange",
+      "min": 4,
+      "max": 8,
+      "reward": 2.0,
+      "weight": 30
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:lemon",
+      "min": 4,
+      "max": 8,
+      "reward": 2.0,
+      "weight": 30
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:mango",
+      "min": 2,
+      "max": 4,
+      "reward": 4.0,
+      "weight": 30
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:banana",
+      "min": 2,
+      "max": 4,
+      "reward": 4.0,
+      "weight": 30
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:cooked_lion",
+      "min": 3,
+      "max": 6,
+      "reward": 3.0,
+      "weight": 30
+    }
+  ]
+}

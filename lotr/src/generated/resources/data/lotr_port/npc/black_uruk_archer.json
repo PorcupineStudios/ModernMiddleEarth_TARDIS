@@ -11,15 +11,15 @@
   "attack": 2.0,
   "gear": {
     "mainhand": [
-      "lotr_port:black_uruk_cleaver",
       "lotr_port:black_uruk_dagger",
       "lotr_port:black_uruk_spear",
-      "lotr_port:black_uruk_warhammer"
+      "lotr_port:poisoned_black_uruk_dagger"
     ],
     "head": "lotr_port:black_uruk_helmet",
     "chest": "lotr_port:black_uruk_chestplate",
     "legs": "lotr_port:black_uruk_leggings",
     "feet": "lotr_port:black_uruk_boots"
   },
-  "names": "lotr_port:orc"
+  "names": "lotr_port:orc",
+  "quests": "lotr_port:mordor"
 }

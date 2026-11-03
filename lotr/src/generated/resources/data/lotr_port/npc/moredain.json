@@ -13,5 +13,6 @@
   "attack": 2.0,
   "gear": {
     "mainhand": "lotr_port:morwaith_dagger"
-  }
+  },
+  "quests": "lotr_port:moredain"
 }

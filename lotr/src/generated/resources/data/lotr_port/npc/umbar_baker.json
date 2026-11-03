@@ -17,5 +17,6 @@
   },
   "names": "lotr_port:umbar_male",
   "buy": "lotr_port:harad_baker_buy",
-  "sell": "lotr_port:harad_baker_sell"
+  "sell": "lotr_port:harad_baker_sell",
+  "quests": "lotr_port:umbar"
 }

@@ -1,0 +1,228 @@
+{
+  "quests": [
+    {
+      "kind": "kill_npc",
+      "target": "lotr_port:gondor_soldier",
+      "min": 10,
+      "max": 30,
+      "reward": 1.0,
+      "weight": 267
+    },
+    {
+      "kind": "kill_npc",
+      "target": "lotr_port:ranger_ithilien",
+      "min": 10,
+      "max": 20,
+      "reward": 1.5,
+      "weight": 267
+    },
+    {
+      "kind": "kill_faction",
+      "target": "lotr_port:taurethrim",
+      "min": 10,
+      "max": 30,
+      "reward": 1.0,
+      "weight": 267
+    },
+    {
+      "kind": "collect",
+      "target": "minecraft:string",
+      "min": 5,
+      "max": 12,
+      "reward": 1.0,
+      "weight": 40
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:rope",
+      "min": 5,
+      "max": 12,
+      "reward": 1.1,
+      "weight": 40
+    },
+    {
+      "kind": "collect",
+      "target": "minecraft:leather",
+      "min": 10,
+      "max": 20,
+      "reward": 0.75,
+      "weight": 40
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:orange",
+      "min": 6,
+      "max": 12,
+      "reward": 1.75,
+      "weight": 40
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:lemon",
+      "min": 6,
+      "max": 12,
+      "reward": 1.75,
+      "weight": 40
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:lemon",
+      "min": 6,
+      "max": 12,
+      "reward": 1.75,
+      "weight": 40
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:arak",
+      "min": 4,
+      "max": 10,
+      "reward": 2.5,
+      "weight": 40
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:rum",
+      "min": 4,
+      "max": 10,
+      "reward": 2.5,
+      "weight": 40
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:cactus_liqueur",
+      "min": 4,
+      "max": 10,
+      "reward": 2.5,
+      "weight": 40
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:carrot_wine",
+      "min": 4,
+      "max": 10,
+      "reward": 2.5,
+      "weight": 40
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:banana_beer",
+      "min": 4,
+      "max": 10,
+      "reward": 2.5,
+      "weight": 40
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:corn_liquor",
+      "min": 4,
+      "max": 10,
+      "reward": 2.5,
+      "weight": 40
+    },
+    {
+      "kind": "collect",
+      "target": "minecraft:chest",
+      "min": 8,
+      "max": 16,
+      "reward": 1.0,
+      "weight": 40
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:reed_basket",
+      "min": 5,
+      "max": 10,
+      "reward": 2.0,
+      "weight": 40
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:small_pouch",
+      "min": 3,
+      "max": 5,
+      "reward": 5.0,
+      "weight": 40
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:bottle_of_poison",
+      "min": 2,
+      "max": 4,
+      "reward": 5.0,
+      "weight": 40
+    },
+    {
+      "kind": "collect",
+      "target": "minecraft:string",
+      "min": 5,
+      "max": 12,
+      "reward": 1.0,
+      "weight": 40
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:rope",
+      "min": 5,
+      "max": 12,
+      "reward": 1.1,
+      "weight": 40
+    },
+    {
+      "kind": "collect",
+      "target": "minecraft:black_wool",
+      "min": 6,
+      "max": 15,
+      "reward": 1.0,
+      "weight": 40
+    },
+    {
+      "kind": "collect",
+      "target": "minecraft:red_wool",
+      "min": 6,
+      "max": 15,
+      "reward": 1.0,
+      "weight": 40
+    },
+    {
+      "kind": "collect",
+      "target": "minecraft:brown_wool",
+      "min": 6,
+      "max": 15,
+      "reward": 1.0,
+      "weight": 40
+    },
+    {
+      "kind": "collect",
+      "target": "minecraft:white_wool",
+      "min": 6,
+      "max": 15,
+      "reward": 1.0,
+      "weight": 40
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:cedar_wood_planks",
+      "min": 60,
+      "max": 120,
+      "reward": 0.2,
+      "weight": 40
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:palm_wood_planks",
+      "min": 60,
+      "max": 120,
+      "reward": 0.2,
+      "weight": 40
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:olive_wood_planks",
+      "min": 60,
+      "max": 120,
+      "reward": 0.2,
+      "weight": 40
+    }
+  ]
+}

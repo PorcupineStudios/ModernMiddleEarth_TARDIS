@@ -13,12 +13,13 @@
   "gear": {
     "mainhand": [
       "lotr_port:wood_elven_battlestaff",
-      "lotr_port:wood_elven_longspear",
+      "lotr_port:wood_elven_spear",
       "lotr_port:wood_elven_sword"
     ],
     "head": "lotr_port:wood_elven_helmet",
     "chest": "lotr_port:wood_elven_chestplate",
     "legs": "lotr_port:wood_elven_leggings",
     "feet": "lotr_port:wood_elven_boots"
-  }
+  },
+  "quests": "lotr_port:wood_elf"
 }

@@ -12,5 +12,6 @@
   "attack": 2.0,
   "gear": {
     "mainhand": "lotr_port:taurethrim_hoe"
-  }
+  },
+  "quests": "lotr_port:tauredain"
 }

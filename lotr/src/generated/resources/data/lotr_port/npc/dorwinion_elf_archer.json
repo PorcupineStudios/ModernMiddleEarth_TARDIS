@@ -19,5 +19,5 @@
     "legs": "lotr_port:dorwinion_elven_leggings",
     "feet": "lotr_port:dorwinion_elven_boots"
   },
-  "names": "lotr_port:sindarin_male"
+  "quests": "lotr_port:dorwinion_elf"
 }

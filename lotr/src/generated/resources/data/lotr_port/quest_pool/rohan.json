@@ -1,0 +1,180 @@
+{
+  "quests": [
+    {
+      "kind": "kill_npc",
+      "target": "lotr_port:isengard_snaga",
+      "min": 10,
+      "max": 30,
+      "reward": 1.0,
+      "weight": 160
+    },
+    {
+      "kind": "kill_npc",
+      "target": "lotr_port:uruk_hai",
+      "min": 10,
+      "max": 30,
+      "reward": 1.0,
+      "weight": 160
+    },
+    {
+      "kind": "kill_npc",
+      "target": "lotr_port:mordor_orc",
+      "min": 10,
+      "max": 30,
+      "reward": 1.0,
+      "weight": 160
+    },
+    {
+      "kind": "kill_faction",
+      "target": "lotr_port:dunland",
+      "min": 10,
+      "max": 40,
+      "reward": 1.0,
+      "weight": 160
+    },
+    {
+      "kind": "collect",
+      "target": "minecraft:cooked_porkchop",
+      "min": 3,
+      "max": 8,
+      "reward": 2.0,
+      "weight": 56
+    },
+    {
+      "kind": "collect",
+      "target": "minecraft:cooked_beef",
+      "min": 3,
+      "max": 8,
+      "reward": 2.0,
+      "weight": 56
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:cooked_mutton",
+      "min": 3,
+      "max": 8,
+      "reward": 2.0,
+      "weight": 56
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:cooked_venison",
+      "min": 3,
+      "max": 8,
+      "reward": 2.0,
+      "weight": 56
+    },
+    {
+      "kind": "collect",
+      "target": "minecraft:cooked_chicken",
+      "min": 3,
+      "max": 8,
+      "reward": 2.0,
+      "weight": 56
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:cooked_rabbit",
+      "min": 3,
+      "max": 12,
+      "reward": 2.0,
+      "weight": 56
+    },
+    {
+      "kind": "collect",
+      "target": "minecraft:bread",
+      "min": 5,
+      "max": 15,
+      "reward": 1.0,
+      "weight": 56
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:mead",
+      "min": 3,
+      "max": 20,
+      "reward": 1.0,
+      "weight": 56
+    },
+    {
+      "kind": "collect",
+      "target": "minecraft:oak_log",
+      "min": 20,
+      "max": 60,
+      "reward": 0.25,
+      "weight": 56
+    },
+    {
+      "kind": "collect",
+      "target": "minecraft:spruce_log",
+      "min": 20,
+      "max": 60,
+      "reward": 0.25,
+      "weight": 56
+    },
+    {
+      "kind": "collect",
+      "target": "minecraft:oak_planks",
+      "min": 80,
+      "max": 160,
+      "reward": 0.125,
+      "weight": 56
+    },
+    {
+      "kind": "collect",
+      "target": "minecraft:spruce_planks",
+      "min": 80,
+      "max": 160,
+      "reward": 0.125,
+      "weight": 56
+    },
+    {
+      "kind": "collect",
+      "target": "minecraft:cobblestone",
+      "min": 30,
+      "max": 80,
+      "reward": 0.25,
+      "weight": 56
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:rohirric_sword",
+      "min": 1,
+      "max": 4,
+      "reward": 3.0,
+      "weight": 56
+    },
+    {
+      "kind": "collect",
+      "target": "minecraft:iron_ingot",
+      "min": 3,
+      "max": 8,
+      "reward": 2.0,
+      "weight": 56
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:uruk_crafting_table",
+      "min": 1,
+      "max": 2,
+      "reward": 10.0,
+      "weight": 56
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:orc_bone",
+      "min": 15,
+      "max": 30,
+      "reward": 0.5,
+      "weight": 56
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:warg_bone",
+      "min": 15,
+      "max": 30,
+      "reward": 0.75,
+      "weight": 56
+    }
+  ]
+}

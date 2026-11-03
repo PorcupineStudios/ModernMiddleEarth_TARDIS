@@ -17,5 +17,6 @@
   },
   "names": "lotr_port:near_haradrim_male",
   "buy": "lotr_port:harad_butcher_buy",
-  "sell": "lotr_port:harad_butcher_sell"
+  "sell": "lotr_port:harad_butcher_sell",
+  "quests": "lotr_port:harnennor"
 }

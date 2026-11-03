@@ -1,0 +1,116 @@
+{
+  "quests": [
+    {
+      "kind": "kill_faction",
+      "target": "lotr_port:gundabad",
+      "min": 20,
+      "max": 40,
+      "reward": 1.0,
+      "weight": 200
+    },
+    {
+      "kind": "kill_npc",
+      "target": "lotr_port:gundabad_orc",
+      "min": 10,
+      "max": 30,
+      "reward": 1.0,
+      "weight": 200
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:mithril_ingot",
+      "min": 1,
+      "max": 2,
+      "reward": 50.0,
+      "weight": 83
+    },
+    {
+      "kind": "collect",
+      "target": "minecraft:gold_ingot",
+      "min": 3,
+      "max": 15,
+      "reward": 4.0,
+      "weight": 83
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:silver_ingot",
+      "min": 3,
+      "max": 15,
+      "reward": 4.0,
+      "weight": 83
+    },
+    {
+      "kind": "collect",
+      "target": "minecraft:glowstone_dust",
+      "min": 5,
+      "max": 15,
+      "reward": 2.0,
+      "weight": 83
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:diamond",
+      "min": 1,
+      "max": 3,
+      "reward": 15.0,
+      "weight": 83
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:emerald",
+      "min": 1,
+      "max": 3,
+      "reward": 12.0,
+      "weight": 83
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:ruby",
+      "min": 1,
+      "max": 3,
+      "reward": 12.0,
+      "weight": 83
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:opal",
+      "min": 1,
+      "max": 3,
+      "reward": 10.0,
+      "weight": 83
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:dwarven_warhammer",
+      "min": 1,
+      "max": 3,
+      "reward": 5.0,
+      "weight": 83
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:dwarven_battleaxe",
+      "min": 1,
+      "max": 3,
+      "reward": 5.0,
+      "weight": 83
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:dwarven_throwing_axe",
+      "min": 1,
+      "max": 4,
+      "reward": 4.0,
+      "weight": 83
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:dwarven_ale",
+      "min": 2,
+      "max": 5,
+      "reward": 3.0,
+      "weight": 83
+    }
+  ]
+}

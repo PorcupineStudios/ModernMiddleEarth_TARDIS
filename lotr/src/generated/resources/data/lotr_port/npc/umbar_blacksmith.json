@@ -17,5 +17,6 @@
   },
   "names": "lotr_port:umbar_male",
   "buy": "lotr_port:umbar_blacksmith_buy",
-  "sell": "lotr_port:umbar_blacksmith_sell"
+  "sell": "lotr_port:umbar_blacksmith_sell",
+  "quests": "lotr_port:umbar"
 }

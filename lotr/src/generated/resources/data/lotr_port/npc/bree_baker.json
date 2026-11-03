@@ -40,5 +40,6 @@
     "mainhand": "lotr_port:rolling_pin"
   },
   "buy": "lotr_port:bree_baker_buy",
-  "sell": "lotr_port:bree_baker_sell"
+  "sell": "lotr_port:bree_baker_sell",
+  "quests": "lotr_port:bree"
 }

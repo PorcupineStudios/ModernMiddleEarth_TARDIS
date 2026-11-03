@@ -1,0 +1,236 @@
+{
+  "quests": [
+    {
+      "kind": "kill_npc",
+      "target": "lotr_port:bandit",
+      "min": 1,
+      "max": 3,
+      "reward": 8.0,
+      "weight": 200
+    },
+    {
+      "kind": "kill_npc",
+      "target": "lotr_port:scrap_trader",
+      "min": 1,
+      "max": 2,
+      "reward": 15.0,
+      "weight": 200
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:barrel",
+      "min": 3,
+      "max": 6,
+      "reward": 4.0,
+      "weight": 37
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:red_grapes",
+      "min": 4,
+      "max": 12,
+      "reward": 2.0,
+      "weight": 37
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:green_grapes",
+      "min": 4,
+      "max": 12,
+      "reward": 2.0,
+      "weight": 37
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:raisins",
+      "min": 4,
+      "max": 12,
+      "reward": 2.0,
+      "weight": 37
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:red_wine",
+      "min": 2,
+      "max": 6,
+      "reward": 4.0,
+      "weight": 37
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:white_wine",
+      "min": 2,
+      "max": 6,
+      "reward": 4.0,
+      "weight": 37
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:red_grape_juice",
+      "min": 2,
+      "max": 6,
+      "reward": 4.0,
+      "weight": 37
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:green_grape_juice",
+      "min": 2,
+      "max": 6,
+      "reward": 4.0,
+      "weight": 37
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:olives",
+      "min": 10,
+      "max": 20,
+      "reward": 1.0,
+      "weight": 37
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:cooked_venison",
+      "min": 5,
+      "max": 12,
+      "reward": 1.5,
+      "weight": 37
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:cooked_rabbit",
+      "min": 5,
+      "max": 12,
+      "reward": 1.5,
+      "weight": 37
+    },
+    {
+      "kind": "collect",
+      "target": "minecraft:cooked_beef",
+      "min": 5,
+      "max": 12,
+      "reward": 1.5,
+      "weight": 37
+    },
+    {
+      "kind": "collect",
+      "target": "minecraft:bucket",
+      "min": 3,
+      "max": 5,
+      "reward": 3.0,
+      "weight": 37
+    },
+    {
+      "kind": "collect",
+      "target": "minecraft:water_bucket",
+      "min": 3,
+      "max": 5,
+      "reward": 4.0,
+      "weight": 37
+    },
+    {
+      "kind": "collect",
+      "target": "minecraft:iron_hoe",
+      "min": 1,
+      "max": 3,
+      "reward": 4.0,
+      "weight": 37
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:bronze_hoe",
+      "min": 1,
+      "max": 3,
+      "reward": 4.0,
+      "weight": 37
+    },
+    {
+      "kind": "collect",
+      "target": "minecraft:stone_hoe",
+      "min": 2,
+      "max": 6,
+      "reward": 2.0,
+      "weight": 37
+    },
+    {
+      "kind": "collect",
+      "target": "minecraft:wooden_hoe",
+      "min": 3,
+      "max": 8,
+      "reward": 1.0,
+      "weight": 37
+    },
+    {
+      "kind": "collect",
+      "target": "minecraft:bone_meal",
+      "min": 12,
+      "max": 40,
+      "reward": 0.25,
+      "weight": 37
+    },
+    {
+      "kind": "collect",
+      "target": "minecraft:iron_sword",
+      "min": 2,
+      "max": 4,
+      "reward": 3.0,
+      "weight": 37
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:iron_dagger",
+      "min": 2,
+      "max": 6,
+      "reward": 2.0,
+      "weight": 37
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:iron_pike",
+      "min": 2,
+      "max": 4,
+      "reward": 3.0,
+      "weight": 37
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:dorwinion_helmet",
+      "min": 2,
+      "max": 5,
+      "reward": 3.0,
+      "weight": 37
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:dorwinion_chestplate",
+      "min": 2,
+      "max": 5,
+      "reward": 4.0,
+      "weight": 37
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:dorwinion_leggings",
+      "min": 2,
+      "max": 5,
+      "reward": 3.0,
+      "weight": 37
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:dorwinion_boots",
+      "min": 2,
+      "max": 5,
+      "reward": 3.0,
+      "weight": 37
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:kine_of_araw_horn",
+      "min": 1,
+      "max": 3,
+      "reward": 20.0,
+      "weight": 37
+    }
+  ]
+}

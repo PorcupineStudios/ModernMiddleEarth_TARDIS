@@ -19,5 +19,6 @@
     "chest": "lotr_port:galadhrim_chestplate",
     "legs": "lotr_port:galadhrim_leggings",
     "feet": "lotr_port:galadhrim_boots"
-  }
+  },
+  "quests": "lotr_port:galadhrim"
 }

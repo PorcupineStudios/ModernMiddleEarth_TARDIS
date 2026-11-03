@@ -18,12 +18,15 @@
   "attack": 2.0,
   "gear": {
     "mainhand": [
+      "lotr_port:bronze_axe",
       "lotr_port:bronze_dagger",
-      "lotr_port:iron_dagger",
+      "lotr_port:gondorian_dagger",
       "minecraft:iron_axe",
       "minecraft:stone_axe"
     ]
   },
+  "names": "lotr_port:gondor_male",
   "buy": "lotr_port:gondor_butcher_buy",
-  "sell": "lotr_port:gondor_butcher_sell"
+  "sell": "lotr_port:gondor_butcher_sell",
+  "quests": "lotr_port:gondor"
 }

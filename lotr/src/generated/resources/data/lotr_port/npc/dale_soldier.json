@@ -13,6 +13,7 @@
     "mainhand": [
       "lotr_port:dalish_battleaxe",
       "lotr_port:dalish_pitchfork",
+      "lotr_port:dalish_spear",
       "lotr_port:dalish_sword"
     ],
     "head": "lotr_port:dalish_helmet",

@@ -14,7 +14,6 @@
     "mainhand": [
       "lotr_port:iron_battleaxe",
       "lotr_port:iron_pike",
-      "lotr_port:iron_spear",
       "minecraft:iron_sword"
     ],
     "head": "lotr_port:dorwinion_helmet",
@@ -22,5 +21,6 @@
     "legs": "lotr_port:dorwinion_leggings",
     "feet": "lotr_port:dorwinion_boots"
   },
-  "names": "lotr_port:dorwinion_male"
+  "names": "lotr_port:dorwinion_male",
+  "quests": "lotr_port:dorwinion"
 }

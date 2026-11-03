@@ -14,5 +14,6 @@
     "mainhand": "lotr_port:rivendell_dagger"
   },
   "buy": "lotr_port:rivendell_smith_buy",
-  "sell": "lotr_port:rivendell_smith_sell"
+  "sell": "lotr_port:rivendell_smith_sell",
+  "quests": "lotr_port:rivendell"
 }

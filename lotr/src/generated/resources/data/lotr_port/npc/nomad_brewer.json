@@ -15,6 +15,8 @@
     "mainhand": "lotr_port:haradric_dagger",
     "head": "lotr_port:harad_turban"
   },
+  "names": "lotr_port:nomad_male",
   "buy": "lotr_port:harad_brewer_buy",
-  "sell": "lotr_port:harad_brewer_sell"
+  "sell": "lotr_port:harad_brewer_sell",
+  "quests": "lotr_port:nomad"
 }

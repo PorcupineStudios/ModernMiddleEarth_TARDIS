@@ -12,5 +12,6 @@
   "attack": 2.0,
   "gear": {
     "mainhand": "lotr_port:rivendell_dagger"
-  }
+  },
+  "quests": "lotr_port:rivendell"
 }

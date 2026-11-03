@@ -1,0 +1,308 @@
+{
+  "quests": [
+    {
+      "kind": "kill_faction",
+      "target": "lotr_port:gondor",
+      "min": 20,
+      "max": 50,
+      "reward": 1.0,
+      "weight": 160
+    },
+    {
+      "kind": "kill_npc",
+      "target": "lotr_port:gondor_soldier",
+      "min": 20,
+      "max": 40,
+      "reward": 1.0,
+      "weight": 160
+    },
+    {
+      "kind": "kill_npc",
+      "target": "lotr_port:ranger_ithilien",
+      "min": 10,
+      "max": 30,
+      "reward": 1.0,
+      "weight": 160
+    },
+    {
+      "kind": "kill_npc",
+      "target": "lotr_port:rohirrim",
+      "min": 10,
+      "max": 30,
+      "reward": 1.0,
+      "weight": 160
+    },
+    {
+      "kind": "kill_faction",
+      "target": "lotr_port:taurethrim",
+      "min": 20,
+      "max": 50,
+      "reward": 1.0,
+      "weight": 160
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:half_troll_scimitar",
+      "min": 2,
+      "max": 5,
+      "reward": 3.0,
+      "weight": 30
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:half_troll_mace",
+      "min": 2,
+      "max": 5,
+      "reward": 3.0,
+      "weight": 30
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:half_troll_pike",
+      "min": 2,
+      "max": 5,
+      "reward": 3.0,
+      "weight": 30
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:half_troll_dagger",
+      "min": 2,
+      "max": 5,
+      "reward": 3.0,
+      "weight": 30
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:half_troll_battleaxe",
+      "min": 2,
+      "max": 5,
+      "reward": 3.0,
+      "weight": 30
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:half_troll_helmet",
+      "min": 1,
+      "max": 4,
+      "reward": 4.0,
+      "weight": 30
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:half_troll_chestplate",
+      "min": 1,
+      "max": 4,
+      "reward": 5.0,
+      "weight": 30
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:half_troll_leggings",
+      "min": 1,
+      "max": 4,
+      "reward": 4.0,
+      "weight": 30
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:half_troll_boots",
+      "min": 1,
+      "max": 4,
+      "reward": 4.0,
+      "weight": 30
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:raw_lion",
+      "min": 2,
+      "max": 6,
+      "reward": 3.0,
+      "weight": 30
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:raw_zebra",
+      "min": 2,
+      "max": 6,
+      "reward": 2.0,
+      "weight": 30
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:raw_rhino",
+      "min": 2,
+      "max": 6,
+      "reward": 3.0,
+      "weight": 30
+    },
+    {
+      "kind": "collect",
+      "target": "minecraft:rotten_flesh",
+      "min": 3,
+      "max": 8,
+      "reward": 2.0,
+      "weight": 30
+    },
+    {
+      "kind": "collect",
+      "target": "minecraft:oak_log",
+      "min": 30,
+      "max": 60,
+      "reward": 0.3,
+      "weight": 30
+    },
+    {
+      "kind": "collect",
+      "target": "minecraft:acacia_log",
+      "min": 30,
+      "max": 60,
+      "reward": 0.3,
+      "weight": 30
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:baobab_wood",
+      "min": 20,
+      "max": 40,
+      "reward": 0.5,
+      "weight": 30
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:gondorian_sword",
+      "min": 1,
+      "max": 1,
+      "reward": 20.0,
+      "weight": 30
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:gondorian_bow",
+      "min": 1,
+      "max": 1,
+      "reward": 20.0,
+      "weight": 30
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:beacon_of_gondor",
+      "min": 1,
+      "max": 1,
+      "reward": 20.0,
+      "weight": 30
+    },
+    {
+      "kind": "collect",
+      "target": "minecraft:oak_log",
+      "min": 30,
+      "max": 80,
+      "reward": 0.25,
+      "weight": 30
+    },
+    {
+      "kind": "collect",
+      "target": "minecraft:coal",
+      "min": 10,
+      "max": 30,
+      "reward": 0.5,
+      "weight": 30
+    },
+    {
+      "kind": "collect",
+      "target": "minecraft:cobblestone",
+      "min": 30,
+      "max": 80,
+      "reward": 0.25,
+      "weight": 30
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:gemsbok_hide",
+      "min": 10,
+      "max": 30,
+      "reward": 0.5,
+      "weight": 30
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:raw_lion",
+      "min": 4,
+      "max": 8,
+      "reward": 2.0,
+      "weight": 30
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:rhino_horn",
+      "min": 3,
+      "max": 6,
+      "reward": 3.0,
+      "weight": 30
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:gemsbok_hide",
+      "min": 4,
+      "max": 10,
+      "reward": 2.0,
+      "weight": 30
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:gemsbok_horn",
+      "min": 3,
+      "max": 6,
+      "reward": 3.0,
+      "weight": 30
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:orc_steel_ingot",
+      "min": 4,
+      "max": 8,
+      "reward": 3.0,
+      "weight": 30
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:mordor_scimitar",
+      "min": 3,
+      "max": 5,
+      "reward": 3.0,
+      "weight": 30
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:mordor_battleaxe",
+      "min": 3,
+      "max": 5,
+      "reward": 3.0,
+      "weight": 30
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:mordor_warhammer",
+      "min": 3,
+      "max": 5,
+      "reward": 3.0,
+      "weight": 30
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:taurethrim_sword",
+      "min": 1,
+      "max": 1,
+      "reward": 20.0,
+      "weight": 30
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:taurethrim_dagger",
+      "min": 1,
+      "max": 1,
+      "reward": 20.0,
+      "weight": 30
+    }
+  ]
+}

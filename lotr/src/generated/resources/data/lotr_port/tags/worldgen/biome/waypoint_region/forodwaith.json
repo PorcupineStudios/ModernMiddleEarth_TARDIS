@@ -1,0 +1,10 @@
+{
+  "values": [
+    "lotr_port:forodwaith",
+    "lotr_port:forodwaith_coast",
+    "lotr_port:forodwaith_glacier",
+    "lotr_port:forodwaith_mountains",
+    "lotr_port:taiga",
+    "lotr_port:tundra"
+  ]
+}

@@ -22,5 +22,6 @@
   },
   "buy": "lotr_port:gondor_farmer_buy",
   "sell": "lotr_port:gondor_farmer_sell",
-  "units": "lotr_port:gondor_farmer"
+  "units": "lotr_port:gondor_farmer",
+  "quests": "lotr_port:gondor"
 }

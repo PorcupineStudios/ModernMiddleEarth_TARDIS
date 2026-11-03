@@ -16,5 +16,7 @@
     "chest": "lotr_port:wood_elven_scout_tunic",
     "legs": "lotr_port:wood_elven_scout_leggings",
     "feet": "lotr_port:wood_elven_scout_boots"
-  }
+  },
+  "names": "lotr_port:sindarin_male",
+  "quests": "lotr_port:wood_elf"
 }

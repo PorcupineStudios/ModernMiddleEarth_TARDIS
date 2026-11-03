@@ -17,5 +17,6 @@
     "feet": "lotr_port:gold_trimmed_dwarven_boots"
   },
   "names": "lotr_port:dwarf_male",
-  "units": "lotr_port:dwarf_commander"
+  "units": "lotr_port:dwarf_commander",
+  "quests": "lotr_port:durin"
 }

@@ -20,5 +20,5 @@
   "health": 16.0,
   "speed": 0.2,
   "attack": 2.0,
-  "names": "lotr_port:hobbit_male"
+  "quests": "lotr_port:hobbit"
 }

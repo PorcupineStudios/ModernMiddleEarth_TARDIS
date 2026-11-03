@@ -17,5 +17,6 @@
     "feet": "lotr_port:ithilien_ranger_boots"
   },
   "names": "lotr_port:gondor_male",
-  "units": "lotr_port:ranger_ithilien_captain"
+  "units": "lotr_port:ranger_ithilien_captain",
+  "quests": "lotr_port:gondor"
 }

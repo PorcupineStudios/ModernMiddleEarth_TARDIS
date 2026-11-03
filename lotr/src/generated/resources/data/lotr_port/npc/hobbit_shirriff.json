@@ -26,5 +26,6 @@
       "lotr_port:iron_dagger"
     ],
     "head": "lotr_port:leather_hat"
-  }
+  },
+  "quests": "lotr_port:hobbit"
 }

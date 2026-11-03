@@ -23,5 +23,6 @@
   },
   "names": "lotr_port:orc",
   "buy": "lotr_port:angmar_trader_buy",
-  "sell": "lotr_port:angmar_trader_sell"
+  "sell": "lotr_port:angmar_trader_sell",
+  "quests": "lotr_port:angmar"
 }

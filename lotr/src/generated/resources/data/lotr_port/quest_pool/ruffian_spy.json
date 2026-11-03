@@ -1,0 +1,68 @@
+{
+  "quests": [
+    {
+      "kind": "collect",
+      "target": "lotr_port:pipe_weed",
+      "min": 10,
+      "max": 20,
+      "reward": 0.5,
+      "weight": 125
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:ale",
+      "min": 3,
+      "max": 6,
+      "reward": 3.0,
+      "weight": 125
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:cider",
+      "min": 3,
+      "max": 6,
+      "reward": 3.0,
+      "weight": 125
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:perry",
+      "min": 3,
+      "max": 6,
+      "reward": 3.0,
+      "weight": 125
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:mead",
+      "min": 3,
+      "max": 6,
+      "reward": 4.0,
+      "weight": 125
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:banner_of_the_hobbits",
+      "min": 10,
+      "max": 15,
+      "reward": 1.5,
+      "weight": 125
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:smoking_pipe",
+      "min": 1,
+      "max": 2,
+      "reward": 15.0,
+      "weight": 125
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:pipe_weed",
+      "min": 10,
+      "max": 20,
+      "reward": 0.5,
+      "weight": 125
+    }
+  ]
+}

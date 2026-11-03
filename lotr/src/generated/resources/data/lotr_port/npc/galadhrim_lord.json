@@ -17,5 +17,6 @@
     "feet": "lotr_port:galadhrim_boots"
   },
   "names": "lotr_port:quenya_male",
-  "units": "lotr_port:elf_lord"
+  "units": "lotr_port:elf_lord",
+  "quests": "lotr_port:galadhrim"
 }

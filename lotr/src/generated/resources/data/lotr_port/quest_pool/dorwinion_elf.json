@@ -1,0 +1,180 @@
+{
+  "quests": [
+    {
+      "kind": "kill_npc",
+      "target": "lotr_port:gundabad_orc",
+      "min": 10,
+      "max": 30,
+      "reward": 1.0,
+      "weight": 200
+    },
+    {
+      "kind": "kill_npc",
+      "target": "lotr_port:mordor_orc",
+      "min": 10,
+      "max": 30,
+      "reward": 1.0,
+      "weight": 200
+    },
+    {
+      "kind": "collect",
+      "target": "minecraft:oak_log",
+      "min": 20,
+      "max": 60,
+      "reward": 0.25,
+      "weight": 50
+    },
+    {
+      "kind": "collect",
+      "target": "minecraft:birch_log",
+      "min": 20,
+      "max": 60,
+      "reward": 0.25,
+      "weight": 50
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:cypress_wood",
+      "min": 20,
+      "max": 60,
+      "reward": 0.25,
+      "weight": 50
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:olive_wood",
+      "min": 20,
+      "max": 60,
+      "reward": 0.25,
+      "weight": 50
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:red_grapes",
+      "min": 4,
+      "max": 12,
+      "reward": 2.0,
+      "weight": 50
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:green_grapes",
+      "min": 4,
+      "max": 12,
+      "reward": 2.0,
+      "weight": 50
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:barrel",
+      "min": 3,
+      "max": 6,
+      "reward": 4.0,
+      "weight": 50
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:red_wine",
+      "min": 2,
+      "max": 6,
+      "reward": 4.0,
+      "weight": 50
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:white_wine",
+      "min": 2,
+      "max": 6,
+      "reward": 4.0,
+      "weight": 50
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:barrel",
+      "min": 3,
+      "max": 6,
+      "reward": 4.0,
+      "weight": 50
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:green_oak_wood",
+      "min": 20,
+      "max": 40,
+      "reward": 0.5,
+      "weight": 50
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:green_oak_leaves",
+      "min": 40,
+      "max": 80,
+      "reward": 0.25,
+      "weight": 50
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:green_oak_sapling",
+      "min": 5,
+      "max": 10,
+      "reward": 1.5,
+      "weight": 50
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:green_oak_wood_planks",
+      "min": 40,
+      "max": 80,
+      "reward": 0.25,
+      "weight": 50
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:red_grapes",
+      "min": 4,
+      "max": 12,
+      "reward": 2.0,
+      "weight": 50
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:green_grapes",
+      "min": 4,
+      "max": 12,
+      "reward": 2.0,
+      "weight": 50
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:barrel",
+      "min": 3,
+      "max": 6,
+      "reward": 4.0,
+      "weight": 50
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:mug",
+      "min": 5,
+      "max": 12,
+      "reward": 1.5,
+      "weight": 50
+    },
+    {
+      "kind": "collect",
+      "target": "minecraft:bucket",
+      "min": 3,
+      "max": 5,
+      "reward": 3.0,
+      "weight": 50
+    },
+    {
+      "kind": "collect",
+      "target": "minecraft:water_bucket",
+      "min": 3,
+      "max": 5,
+      "reward": 4.0,
+      "weight": 50
+    }
+  ]
+}

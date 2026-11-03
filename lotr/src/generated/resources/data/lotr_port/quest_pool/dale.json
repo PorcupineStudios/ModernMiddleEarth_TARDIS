@@ -1,0 +1,356 @@
+{
+  "quests": [
+    {
+      "kind": "kill_faction",
+      "target": "lotr_port:dol_guldur",
+      "min": 10,
+      "max": 40,
+      "reward": 1.0,
+      "weight": 160
+    },
+    {
+      "kind": "kill_faction",
+      "target": "lotr_port:mordor",
+      "min": 10,
+      "max": 40,
+      "reward": 1.0,
+      "weight": 160
+    },
+    {
+      "kind": "kill_npc",
+      "target": "lotr_port:gundabad_orc",
+      "min": 10,
+      "max": 30,
+      "reward": 1.0,
+      "weight": 160
+    },
+    {
+      "kind": "kill_npc",
+      "target": "lotr_port:dol_guldur_orc",
+      "min": 10,
+      "max": 30,
+      "reward": 1.0,
+      "weight": 160
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:dalish_pastry",
+      "min": 3,
+      "max": 8,
+      "reward": 4.0,
+      "weight": 25
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:red_wine",
+      "min": 2,
+      "max": 5,
+      "reward": 5.0,
+      "weight": 25
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:white_wine",
+      "min": 2,
+      "max": 5,
+      "reward": 5.0,
+      "weight": 25
+    },
+    {
+      "kind": "collect",
+      "target": "minecraft:arrow",
+      "min": 10,
+      "max": 30,
+      "reward": 0.5,
+      "weight": 25
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:olive_bread",
+      "min": 2,
+      "max": 5,
+      "reward": 3.0,
+      "weight": 25
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:banana",
+      "min": 3,
+      "max": 6,
+      "reward": 4.0,
+      "weight": 25
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:mango",
+      "min": 3,
+      "max": 6,
+      "reward": 4.0,
+      "weight": 25
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:gondorian_dagger",
+      "min": 1,
+      "max": 1,
+      "reward": 15.0,
+      "weight": 25
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:rohirric_dagger",
+      "min": 1,
+      "max": 1,
+      "reward": 15.0,
+      "weight": 25
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:blue_dwarven_dagger",
+      "min": 1,
+      "max": 1,
+      "reward": 15.0,
+      "weight": 25
+    },
+    {
+      "kind": "collect",
+      "target": "minecraft:gold_ingot",
+      "min": 3,
+      "max": 10,
+      "reward": 3.0,
+      "weight": 25
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:silver_ingot",
+      "min": 3,
+      "max": 10,
+      "reward": 3.0,
+      "weight": 25
+    },
+    {
+      "kind": "collect",
+      "target": "minecraft:iron_ingot",
+      "min": 5,
+      "max": 12,
+      "reward": 2.0,
+      "weight": 25
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:bronze_ingot",
+      "min": 5,
+      "max": 12,
+      "reward": 2.0,
+      "weight": 25
+    },
+    {
+      "kind": "collect",
+      "target": "minecraft:wheat",
+      "min": 20,
+      "max": 40,
+      "reward": 0.5,
+      "weight": 25
+    },
+    {
+      "kind": "collect",
+      "target": "minecraft:bread",
+      "min": 3,
+      "max": 10,
+      "reward": 2.0,
+      "weight": 25
+    },
+    {
+      "kind": "collect",
+      "target": "minecraft:oak_log",
+      "min": 20,
+      "max": 60,
+      "reward": 0.25,
+      "weight": 25
+    },
+    {
+      "kind": "collect",
+      "target": "minecraft:spruce_log",
+      "min": 20,
+      "max": 60,
+      "reward": 0.25,
+      "weight": 25
+    },
+    {
+      "kind": "collect",
+      "target": "minecraft:coal",
+      "min": 10,
+      "max": 30,
+      "reward": 0.5,
+      "weight": 25
+    },
+    {
+      "kind": "collect",
+      "target": "minecraft:iron_ingot",
+      "min": 3,
+      "max": 10,
+      "reward": 1.5,
+      "weight": 25
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:bronze_ingot",
+      "min": 3,
+      "max": 10,
+      "reward": 1.5,
+      "weight": 25
+    },
+    {
+      "kind": "collect",
+      "target": "minecraft:bucket",
+      "min": 3,
+      "max": 5,
+      "reward": 3.0,
+      "weight": 25
+    },
+    {
+      "kind": "collect",
+      "target": "minecraft:lava_bucket",
+      "min": 2,
+      "max": 4,
+      "reward": 5.0,
+      "weight": 25
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:dalish_sword",
+      "min": 1,
+      "max": 4,
+      "reward": 5.0,
+      "weight": 25
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:dalish_dagger",
+      "min": 2,
+      "max": 6,
+      "reward": 3.0,
+      "weight": 25
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:dalish_spear",
+      "min": 1,
+      "max": 4,
+      "reward": 4.0,
+      "weight": 25
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:dalish_pitchfork",
+      "min": 1,
+      "max": 4,
+      "reward": 4.0,
+      "weight": 25
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:dalish_helmet",
+      "min": 2,
+      "max": 5,
+      "reward": 3.0,
+      "weight": 25
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:dalish_chestplate",
+      "min": 2,
+      "max": 5,
+      "reward": 4.0,
+      "weight": 25
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:dalish_leggings",
+      "min": 2,
+      "max": 5,
+      "reward": 3.0,
+      "weight": 25
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:dalish_boots",
+      "min": 2,
+      "max": 5,
+      "reward": 3.0,
+      "weight": 25
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:dalish_longbow",
+      "min": 3,
+      "max": 5,
+      "reward": 3.0,
+      "weight": 25
+    },
+    {
+      "kind": "collect",
+      "target": "minecraft:arrow",
+      "min": 10,
+      "max": 40,
+      "reward": 0.5,
+      "weight": 25
+    },
+    {
+      "kind": "collect",
+      "target": "minecraft:leather",
+      "min": 10,
+      "max": 30,
+      "reward": 0.5,
+      "weight": 25
+    },
+    {
+      "kind": "collect",
+      "target": "minecraft:apple",
+      "min": 3,
+      "max": 8,
+      "reward": 2.0,
+      "weight": 25
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:apple",
+      "min": 3,
+      "max": 8,
+      "reward": 2.0,
+      "weight": 25
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:apple_crumble",
+      "min": 2,
+      "max": 5,
+      "reward": 3.0,
+      "weight": 25
+    },
+    {
+      "kind": "collect",
+      "target": "minecraft:cooked_beef",
+      "min": 2,
+      "max": 6,
+      "reward": 3.0,
+      "weight": 25
+    },
+    {
+      "kind": "collect",
+      "target": "minecraft:cooked_chicken",
+      "min": 2,
+      "max": 6,
+      "reward": 3.0,
+      "weight": 25
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:cherry_pie",
+      "min": 2,
+      "max": 5,
+      "reward": 3.0,
+      "weight": 25
+    }
+  ]
+}

@@ -1,0 +1,212 @@
+{
+  "quests": [
+    {
+      "kind": "kill_faction",
+      "target": "lotr_port:mordor",
+      "min": 10,
+      "max": 40,
+      "reward": 1.0,
+      "weight": 114
+    },
+    {
+      "kind": "kill_faction",
+      "target": "lotr_port:mordor",
+      "min": 30,
+      "max": 40,
+      "reward": 1.0,
+      "weight": 114
+    },
+    {
+      "kind": "kill_faction",
+      "target": "lotr_port:dunland",
+      "min": 30,
+      "max": 40,
+      "reward": 1.0,
+      "weight": 114
+    },
+    {
+      "kind": "kill_faction",
+      "target": "lotr_port:isengard",
+      "min": 30,
+      "max": 40,
+      "reward": 1.0,
+      "weight": 114
+    },
+    {
+      "kind": "kill_faction",
+      "target": "lotr_port:mordor",
+      "min": 60,
+      "max": 90,
+      "reward": 1.0,
+      "weight": 114
+    },
+    {
+      "kind": "kill_faction",
+      "target": "lotr_port:near_harad",
+      "min": 10,
+      "max": 40,
+      "reward": 1.0,
+      "weight": 114
+    },
+    {
+      "kind": "kill_npc",
+      "target": "lotr_port:harnedor_warrior",
+      "min": 20,
+      "max": 30,
+      "reward": 1.0,
+      "weight": 114
+    },
+    {
+      "kind": "collect",
+      "target": "minecraft:oak_log",
+      "min": 20,
+      "max": 60,
+      "reward": 0.25,
+      "weight": 53
+    },
+    {
+      "kind": "collect",
+      "target": "minecraft:oak_planks",
+      "min": 80,
+      "max": 160,
+      "reward": 0.125,
+      "weight": 53
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:gondor_rock",
+      "min": 30,
+      "max": 80,
+      "reward": 0.25,
+      "weight": 53
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:gondor_brick",
+      "min": 30,
+      "max": 60,
+      "reward": 0.5,
+      "weight": 53
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:gondor_cobblebrick",
+      "min": 30,
+      "max": 60,
+      "reward": 0.5,
+      "weight": 53
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:lebethron_wood",
+      "min": 10,
+      "max": 30,
+      "reward": 1.0,
+      "weight": 53
+    },
+    {
+      "kind": "collect",
+      "target": "minecraft:iron_ore",
+      "min": 10,
+      "max": 20,
+      "reward": 1.0,
+      "weight": 53
+    },
+    {
+      "kind": "collect",
+      "target": "minecraft:iron_ingot",
+      "min": 6,
+      "max": 15,
+      "reward": 1.5,
+      "weight": 53
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:mordor_rock",
+      "min": 25,
+      "max": 35,
+      "reward": 1.0,
+      "weight": 53
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:gondorian_sword",
+      "min": 1,
+      "max": 4,
+      "reward": 5.0,
+      "weight": 53
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:gondorian_spear",
+      "min": 1,
+      "max": 4,
+      "reward": 5.0,
+      "weight": 53
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:gondorian_pike",
+      "min": 1,
+      "max": 4,
+      "reward": 5.0,
+      "weight": 53
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:gondorian_helmet",
+      "min": 1,
+      "max": 4,
+      "reward": 5.0,
+      "weight": 53
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:winged_gondorian_helmet",
+      "min": 1,
+      "max": 4,
+      "reward": 5.0,
+      "weight": 53
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:gondorian_chestplate",
+      "min": 1,
+      "max": 4,
+      "reward": 5.0,
+      "weight": 53
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:rohirric_sword",
+      "min": 1,
+      "max": 1,
+      "reward": 15.0,
+      "weight": 53
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:rohirric_coif",
+      "min": 1,
+      "max": 1,
+      "reward": 15.0,
+      "weight": 53
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:rohirric_marshal_helmet",
+      "min": 1,
+      "max": 1,
+      "reward": 20.0,
+      "weight": 53
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:pipe_weed_plant",
+      "min": 2,
+      "max": 4,
+      "reward": 6.0,
+      "weight": 53
+    }
+  ]
+}

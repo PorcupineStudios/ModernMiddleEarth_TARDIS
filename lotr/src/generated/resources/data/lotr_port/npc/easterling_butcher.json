@@ -14,13 +14,12 @@
   "gear": {
     "mainhand": [
       "lotr_port:bronze_dagger",
-      "lotr_port:iron_dagger",
       "lotr_port:rh_nic_dagger"
     ],
     "chest": "lotr_port:kaftan",
     "legs": "lotr_port:kaftan_leggings"
   },
-  "names": "lotr_port:rhun_male",
   "buy": "lotr_port:rhun_butcher_buy",
-  "sell": "lotr_port:rhun_butcher_sell"
+  "sell": "lotr_port:rhun_butcher_sell",
+  "quests": "lotr_port:rhun"
 }

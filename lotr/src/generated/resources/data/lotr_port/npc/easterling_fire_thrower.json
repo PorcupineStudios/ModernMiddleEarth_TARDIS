@@ -18,5 +18,6 @@
     "legs": "lotr_port:rh_nic_leggings",
     "feet": "lotr_port:rh_nic_boots"
   },
-  "names": "lotr_port:rhun_male"
+  "names": "lotr_port:rhun_male",
+  "quests": "lotr_port:rhun"
 }

@@ -17,5 +17,6 @@
   },
   "names": "lotr_port:gulf_male",
   "buy": "lotr_port:gulf_blacksmith_buy",
-  "sell": "lotr_port:gulf_blacksmith_sell"
+  "sell": "lotr_port:gulf_blacksmith_sell",
+  "quests": "lotr_port:gulf_harad"
 }

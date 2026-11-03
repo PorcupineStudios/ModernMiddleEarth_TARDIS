@@ -21,5 +21,6 @@
   },
   "names": "lotr_port:gondor_male",
   "buy": "lotr_port:gondor_mason_buy",
-  "sell": "lotr_port:gondor_mason_sell"
+  "sell": "lotr_port:gondor_mason_sell",
+  "quests": "lotr_port:gondor"
 }

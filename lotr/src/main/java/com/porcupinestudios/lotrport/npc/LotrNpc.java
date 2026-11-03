@@ -3,6 +3,7 @@ package com.porcupinestudios.lotrport.npc;
 import com.porcupinestudios.lotrport.faction.Alignment;
 import com.porcupinestudios.lotrport.faction.FactionKills;
 import com.porcupinestudios.lotrport.faction.Factions;
+import com.porcupinestudios.lotrport.quest.Quests;
 import java.util.EnumSet;
 import java.util.List;
 import java.util.Optional;
@@ -306,6 +307,9 @@ public class LotrNpc extends PathfinderMob implements Merchant {
             return InteractionResult.SUCCESS;
         }
         NpcType type = npcType();
+        if (type != null && owner == null && Quests.interact(sp, this)) {
+            return InteractionResult.SUCCESS;
+        }
         if (type == null || !(type.trader() || type.captain()) || owner != null) {
             return InteractionResult.PASS;
         }

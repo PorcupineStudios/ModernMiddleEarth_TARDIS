@@ -26,6 +26,8 @@
   "attack": 2.0,
   "gear": {
     "mainhand": [
+      "lotr_port:lindon_battlestaff",
+      "lotr_port:lindon_longspear",
       "lotr_port:lindon_spear",
       "lotr_port:lindon_sword"
     ],
@@ -33,5 +35,7 @@
     "chest": "lotr_port:lindon_chestplate",
     "legs": "lotr_port:lindon_leggings",
     "feet": "lotr_port:lindon_boots"
-  }
+  },
+  "names": "lotr_port:gondor_male",
+  "quests": "lotr_port:high_elf"
 }

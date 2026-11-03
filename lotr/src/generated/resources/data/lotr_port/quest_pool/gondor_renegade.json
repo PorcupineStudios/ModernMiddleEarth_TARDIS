@@ -1,0 +1,12 @@
+{
+  "quests": [
+    {
+      "kind": "kill_npc",
+      "target": "lotr_port:gondor_soldier",
+      "min": 3,
+      "max": 8,
+      "reward": 1.0,
+      "weight": 800
+    }
+  ]
+}

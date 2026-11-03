@@ -1,0 +1,196 @@
+{
+  "quests": [
+    {
+      "kind": "kill_faction",
+      "target": "lotr_port:rohan",
+      "min": 10,
+      "max": 40,
+      "reward": 1.0,
+      "weight": 160
+    },
+    {
+      "kind": "kill_faction",
+      "target": "lotr_port:gondor",
+      "min": 10,
+      "max": 40,
+      "reward": 1.0,
+      "weight": 160
+    },
+    {
+      "kind": "kill_npc",
+      "target": "lotr_port:rohirrim",
+      "min": 10,
+      "max": 30,
+      "reward": 1.0,
+      "weight": 160
+    },
+    {
+      "kind": "kill_npc",
+      "target": "lotr_port:gondor_soldier",
+      "min": 10,
+      "max": 30,
+      "reward": 1.0,
+      "weight": 160
+    },
+    {
+      "kind": "kill_npc",
+      "target": "lotr_port:ranger_ithilien",
+      "min": 10,
+      "max": 30,
+      "reward": 1.0,
+      "weight": 160
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:mordor_scimitar",
+      "min": 1,
+      "max": 5,
+      "reward": 3.0,
+      "weight": 53
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:mordor_warscythe",
+      "min": 1,
+      "max": 5,
+      "reward": 3.0,
+      "weight": 53
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:mordor_battleaxe",
+      "min": 1,
+      "max": 5,
+      "reward": 3.0,
+      "weight": 53
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:mordor_axe",
+      "min": 1,
+      "max": 5,
+      "reward": 3.0,
+      "weight": 53
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:mordor_dagger",
+      "min": 1,
+      "max": 6,
+      "reward": 2.0,
+      "weight": 53
+    },
+    {
+      "kind": "collect",
+      "target": "minecraft:cooked_porkchop",
+      "min": 2,
+      "max": 8,
+      "reward": 2.0,
+      "weight": 53
+    },
+    {
+      "kind": "collect",
+      "target": "minecraft:cooked_beef",
+      "min": 2,
+      "max": 8,
+      "reward": 2.0,
+      "weight": 53
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:cooked_mutton",
+      "min": 2,
+      "max": 8,
+      "reward": 2.0,
+      "weight": 53
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:cooked_venison",
+      "min": 2,
+      "max": 8,
+      "reward": 2.0,
+      "weight": 53
+    },
+    {
+      "kind": "collect",
+      "target": "minecraft:bone",
+      "min": 2,
+      "max": 8,
+      "reward": 2.0,
+      "weight": 53
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:mordor_helmet",
+      "min": 2,
+      "max": 5,
+      "reward": 3.0,
+      "weight": 53
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:mordor_chestplate",
+      "min": 2,
+      "max": 5,
+      "reward": 4.0,
+      "weight": 53
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:mordor_leggings",
+      "min": 2,
+      "max": 5,
+      "reward": 3.0,
+      "weight": 53
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:mordor_boots",
+      "min": 2,
+      "max": 5,
+      "reward": 3.0,
+      "weight": 53
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:orc_steel_ingot",
+      "min": 3,
+      "max": 10,
+      "reward": 2.0,
+      "weight": 53
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:durnor",
+      "min": 4,
+      "max": 12,
+      "reward": 2.0,
+      "weight": 53
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:gulduril",
+      "min": 3,
+      "max": 6,
+      "reward": 4.0,
+      "weight": 53
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:diamond",
+      "min": 1,
+      "max": 3,
+      "reward": 15.0,
+      "weight": 53
+    },
+    {
+      "kind": "collect",
+      "target": "lotr_port:ruby",
+      "min": 1,
+      "max": 3,
+      "reward": 12.0,
+      "weight": 53
+    }
+  ]
+}

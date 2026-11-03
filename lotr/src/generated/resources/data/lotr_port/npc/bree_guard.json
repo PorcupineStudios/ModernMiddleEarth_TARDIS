@@ -55,5 +55,6 @@
       "minecraft:leather_boots"
     ]
   },
-  "names": "lotr_port:bree_male"
+  "names": "lotr_port:bree_male",
+  "quests": "lotr_port:bree"
 }

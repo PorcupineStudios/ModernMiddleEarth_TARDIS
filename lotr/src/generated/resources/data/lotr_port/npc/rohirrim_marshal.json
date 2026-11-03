@@ -20,5 +20,6 @@
     "feet": "lotr_port:rohirric_marshal_boots"
   },
   "names": "lotr_port:rohan_male",
-  "units": "lotr_port:rohirrim_marshal"
+  "units": "lotr_port:rohirrim_marshal",
+  "quests": "lotr_port:rohan"
 }

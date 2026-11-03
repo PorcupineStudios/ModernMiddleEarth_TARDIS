@@ -1,0 +1,16 @@
+{
+  "values": [
+    "lotr_port:far_harad",
+    "lotr_port:far_harad_arid",
+    "lotr_port:far_harad_arid_hills",
+    "lotr_port:far_harad_bushland",
+    "lotr_port:far_harad_bushland_hills",
+    "lotr_port:far_harad_cloud_forest",
+    "lotr_port:far_harad_coast",
+    "lotr_port:far_harad_forest",
+    "lotr_port:far_harad_kanuka",
+    "lotr_port:far_harad_mangrove",
+    "lotr_port:far_harad_swamp",
+    "lotr_port:far_harad_volcano"
+  ]
+}
