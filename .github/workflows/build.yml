@@ -59,6 +59,8 @@ jobs:
           for m in create immersive-portals-neoforge cloth-config; do
             find ~/.gradle/caches/modules-2/files-2.1/maven.modrinth/$m -name "*.jar" ! -name "*-sources.jar" -exec cp {} needed-mods/ \;
           done
+          ./gradlew :tardis:testInstanceMods
+          cp tardis/build/test-mods/*.jar needed-mods/
           ls -la needed-mods
       - uses: actions/upload-artifact@v4
         with:
@@ -74,4 +76,4 @@ jobs:
           rm -f test-build/*-sources.jar
           gh release delete test-build -y --cleanup-tag || true
           gh release create test-build test-build/*.jar --prerelease --target "${{ github.sha }}" \
-            --title "Test build (${GITHUB_REF_NAME})" --notes "Latest green build of ${GITHUB_REF_NAME} at ${GITHUB_SHA}, with Create, Immersive Portals and Cloth Config."
+            --title "Test build (${GITHUB_REF_NAME})" --notes "Latest green build of ${GITHUB_REF_NAME} at ${GITHUB_SHA}, with Create, Immersive Portals, Cloth Config and the one Sodium version Immersive Portals supports."
