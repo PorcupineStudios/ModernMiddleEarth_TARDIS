@@ -1,6 +1,7 @@
 """Turns Aaron's police box (a Blockbench glTF, tools/police_box/model.gltf) into what the exterior renderer draws.
 
-Writes assets/tardis_rb/police_box/model.json: triangles (x y z u v, normal) for the body and for each door, with the
+paint.png is the texture embedded in the glTF (the zip's separate copy was flipped upside down; glow.png is the
+zip's emissive layer flipped to match). Writes assets/tardis_rb/police_box/model.json: triangles (x y z u v, normal) for the body and for each door, with the
 door's hinge, plus the door swing and from which look the windows glow. Writes the textures
 textures/entity/police_box/look_0..3.png: look 3 is the original paint; looks 0-2 are the same box with the paint
 chipped and scratched off so bare wood shows (most on the crashed wreck, least when nearly repaired), and glow.png

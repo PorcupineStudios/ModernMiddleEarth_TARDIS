@@ -35,10 +35,6 @@
         "up": {
           "texture": "#up",
           "cullface": "up"
-        },
-        "down": {
-          "texture": "#down",
-          "cullface": "down"
         }
       }
     },
