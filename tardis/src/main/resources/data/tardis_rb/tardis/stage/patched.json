@@ -1,0 +1,9 @@
+{
+  "order": 1,
+  "repairs": [
+    "tardis_rb:navigation_2",
+    "tardis_rb:power_2",
+    "tardis_rb:hull_1",
+    "tardis_rb:rooms_1"
+  ]
+}

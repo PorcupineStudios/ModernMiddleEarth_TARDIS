@@ -1,0 +1,9 @@
+{
+  "subsystem": "tardis_rb:power",
+  "level": 2,
+  "cost": "tardis_rb:power_cell",
+  "requirements": {
+    "type": "tardis_rb:research",
+    "research": "tardis_rb:artron_theory"
+  }
+}

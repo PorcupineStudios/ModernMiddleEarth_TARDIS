@@ -10,6 +10,10 @@ copy no code or textures (Aaron makes the art).
 - Code architecture and hooks: https://claude.ai/artifact/ELT5R1mp3XythfpsNpyKJE
 Read both with the Claude Docs tools, not a web fetch. Add notes in `docs/<area>.md` as systems get built, and a row here.
 
+| Read when the task touches | File |
+|---|---|
+| TARDIS record, data folders + validator, unlocks, conditions, repairs, damage, stages, `/tardis` | `docs/progression.md` |
+
 ## Build
 From the repo root: `./gradlew :tardis:build` (jar in `tardis/build/libs/`), `:tardis:runClient`, `:tardis:runServer`,
 `:tardis:runGameTestServer`, `:tardis:runData`. Dev runs load the shared API too. Shared rules are in the root `CLAUDE.md`.

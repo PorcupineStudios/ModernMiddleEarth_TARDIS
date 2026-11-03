@@ -1,0 +1,17 @@
+{
+  "parents": [
+    "tardis_rb:artron_theory"
+  ],
+  "time": 2400,
+  "cost": {
+    "items": [
+      {
+        "ingredient": {
+          "item": "minecraft:map"
+        },
+        "count": 4
+      }
+    ],
+    "charge": 50
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "subsystem": "tardis_rb:console",
+  "level": 2,
+  "cost": {
+    "items": [
+      {
+        "ingredient": {
+          "item": "minecraft:comparator"
+        },
+        "count": 2
+      },
+      {
+        "ingredient": {
+          "item": "minecraft:repeater"
+        },
+        "count": 4
+      }
+    ],
+    "charge": 50
+  }
+}

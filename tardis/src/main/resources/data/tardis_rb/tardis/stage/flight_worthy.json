@@ -1,0 +1,9 @@
+{
+  "order": 2,
+  "milestone": "tardis_rb:restored_core",
+  "repairs": [
+    "tardis_rb:navigation_3",
+    "tardis_rb:console_2",
+    "tardis_rb:hull_2"
+  ]
+}

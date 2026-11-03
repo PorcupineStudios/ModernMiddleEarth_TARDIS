@@ -1,0 +1,20 @@
+{
+  "start_cap": 2,
+  "levels": [
+    {
+      "charge_cap": 100
+    },
+    {
+      "charge_cap": 300
+    },
+    {
+      "charge_cap": 1000
+    },
+    {
+      "charge_cap": 3000
+    },
+    {
+      "charge_cap": 10000
+    }
+  ]
+}

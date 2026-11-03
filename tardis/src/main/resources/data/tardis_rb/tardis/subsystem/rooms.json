@@ -1,0 +1,17 @@
+{
+  "start_cap": 1,
+  "levels": [
+    {
+      "room_cap": 1
+    },
+    {
+      "room_cap": 2
+    },
+    {
+      "room_cap": 3
+    },
+    {
+      "room_cap": 5
+    }
+  ]
+}

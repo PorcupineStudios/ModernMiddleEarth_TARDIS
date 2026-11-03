@@ -1,0 +1,16 @@
+{
+  "items": [
+    {
+      "ingredient": {
+        "tag": "c:ingots/iron"
+      },
+      "count": 12
+    },
+    {
+      "ingredient": {
+        "tag": "minecraft:planks"
+      },
+      "count": 16
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "subsystem": "tardis_rb:power",
+  "level": 3,
+  "cost": {
+    "items": [
+      {
+        "ingredient": {
+          "item": "minecraft:amethyst_block"
+        },
+        "count": 4
+      }
+    ],
+    "charge": 500
+  }
+}
