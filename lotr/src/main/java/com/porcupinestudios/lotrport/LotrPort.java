@@ -28,6 +28,7 @@ import com.porcupinestudios.lotrport.colony.Recruiting;
 import com.porcupinestudios.lotrport.registry.LotrRegistries;
 import com.porcupinestudios.lotrport.shared.SharedApiHooks;
 import com.porcupinestudios.lotrport.world.LotrWorldgen;
+import com.porcupinestudios.lotrport.world.WorldConditions;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
@@ -53,6 +54,7 @@ public final class LotrPort {
         LotrEntities.register(modBus);
         SharedApiHooks.register(modBus);
         FactionConditions.register(modBus);
+        WorldConditions.register(modBus);
         Factions.register();
         FactionKills.register();
         NpcData.register();

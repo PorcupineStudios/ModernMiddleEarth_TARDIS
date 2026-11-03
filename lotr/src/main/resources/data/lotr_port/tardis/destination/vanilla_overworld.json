@@ -1,0 +1,16 @@
+{
+  "dimension": "lotr_port:vanilla_overworld",
+  "requirements": {
+    "type": "ringbearer_api:all",
+    "conditions": [
+      {
+        "type": "tardis_rb:milestone",
+        "milestone": "tardis_rb:restored_core"
+      },
+      {
+        "type": "lotr_port:middle_earth_world"
+      }
+    ]
+  },
+  "charge": 500
+}
