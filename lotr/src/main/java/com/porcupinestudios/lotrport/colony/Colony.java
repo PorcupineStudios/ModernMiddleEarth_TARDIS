@@ -15,7 +15,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.Level;
 
 /**
- * A colony (RingRealms): a Hall founded by a player for a faction, and the citizens who moved in. Mutable; changed
+ * A colony (RingRealms): a Hall founded by a player or an AI ruler for a faction, and the citizens who moved in. Mutable; changed
  * only through {@link Colonies}, which saves it and writes history.
  */
 public final class Colony {
@@ -41,13 +41,16 @@ public final class Colony {
             Codec.LONG.optionalFieldOf("last_day", 0L).forGetter(c -> c.lastDay),
             Citizen.CODEC.listOf().optionalFieldOf("citizens", List.of()).forGetter(c -> c.citizens),
             Codec.unboundedMap(ResourceLocation.CODEC, Recruitment.CODEC).optionalFieldOf("recruits", Map.of())
-                    .forGetter(c -> c.recruits))
+                    .forGetter(c -> c.recruits),
+            Codec.BOOL.optionalFieldOf("ai", false).forGetter(c -> c.ai),
+            Codec.INT.optionalFieldOf("virtual_population", 0).forGetter(c -> c.virtualPopulation))
             .apply(i, Colony::new));
 
     final UUID id;
     final String name;
-    final UUID founder;
-    final ResourceLocation faction;
+    /** The owner: the founder, or whoever took or was handed the colony since. */
+    UUID founder;
+    ResourceLocation faction;
     final ResourceKey<Level> dimension;
     final BlockPos hall;
     final long founded;
@@ -55,9 +58,13 @@ public final class Colony {
     final List<Citizen> citizens;
     /** Open recruitment quests by recruit definition id. */
     final Map<ResourceLocation, Recruitment> recruits;
+    /** Run by an AI ruler: its people are counted, not spawned ({@link #virtualPopulation}). */
+    boolean ai;
+    int virtualPopulation;
 
     Colony(UUID id, String name, UUID founder, ResourceLocation faction, ResourceKey<Level> dimension, BlockPos hall,
-            long founded, long lastDay, List<Citizen> citizens, Map<ResourceLocation, Recruitment> recruits) {
+            long founded, long lastDay, List<Citizen> citizens, Map<ResourceLocation, Recruitment> recruits,
+            boolean ai, int virtualPopulation) {
         this.id = id;
         this.name = name;
         this.founder = founder;
@@ -68,6 +75,8 @@ public final class Colony {
         this.lastDay = lastDay;
         this.citizens = new ArrayList<>(citizens);
         this.recruits = new LinkedHashMap<>(recruits);
+        this.ai = ai;
+        this.virtualPopulation = virtualPopulation;
     }
 
     public UUID id() {
@@ -104,6 +113,15 @@ public final class Colony {
 
     public Map<ResourceLocation, Recruitment> recruits() {
         return Map.copyOf(recruits);
+    }
+
+    public boolean ai() {
+        return ai;
+    }
+
+    /** Citizens with bodies plus counted ones (AI colonies). */
+    public int population() {
+        return citizens.size() + virtualPopulation;
     }
 
     public boolean hasCitizen(UUID entity) {

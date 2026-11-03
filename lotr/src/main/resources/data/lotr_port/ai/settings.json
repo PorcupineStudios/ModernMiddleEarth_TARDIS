@@ -1,0 +1,17 @@
+{
+  "enabled": true,
+  "found_min_distance": 160,
+  "found_max_distance": 640,
+  "start_strength": 20,
+  "strength_per_day": 1,
+  "strength_per_colony": 2,
+  "max_strength": 200,
+  "start_population": 4,
+  "max_population": 24,
+  "defense_per_population": 1.0,
+  "garrison_share": 0.25,
+  "march_ratio": 1.0,
+  "siege_losses": 0.3,
+  "min_war_days": 3,
+  "peace_chance": 0.15
+}

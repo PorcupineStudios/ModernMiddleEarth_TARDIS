@@ -114,6 +114,18 @@ https://claude.ai/artifact/KqhSSTCuKXGuwKHBoYJdcu. Rebuild features in modern co
 - Not yet (RingRealms has them on 1.7.10): buildings and the validator, jobs, needs and happiness, the Ledger and
   other screens, realms on the colony, envoy spawning (rare NPCs come from normal spawning or commands for now).
 
+## AI rulers (phase 10: `ai/`)
+- Rulers from data (`ai_ruler/<id>.json`: name, faction, home waypoint, aggression, expansion, max_colonies, colony
+  names); numbers in `ai/settings.json`. Each gets an AI realm (`Realms`). One `AiRulers.step` per colony day, rulers in
+  id order, each with a random source from (world seed, day, ruler) so the same world replays the same.
+- A day: AI colonies grow (counted population, no bodies: `Colony.ai`, `virtual_population`), strength grows, maybe found
+  a colony near home (`Colonies.foundAi`, id from ruler/day/count), maybe declare war on a hostile ruler (faction
+  relation is bad), march on the nearest enemy AI colony only when strength >= march_ratio x its defense, peace after
+  min_war_days. A won siege is `Colonies.transfer` (history `colony_transferred`, also for handing colonies to players).
+- History: `colony_founded` (with `ai`), `ai_relation`, `ai_siege`, `colony_transferred`; `AiReplay` rebuilds owners
+  and wars from the log alone. Admin: `/lotr ai list|day [n]`. Not yet: attacking player colonies (needs RingRealms'
+  offline protections), real soldiers on the march, trade and treaties beyond war/peace, refugees.
+
 ## Build
 From the repo root: `./gradlew :lotr:build`, `:lotr:runClient`, `:lotr:runServer`, `:lotr:runGameTestServer`,
 `:lotr:runData`. Shared rules are in the root `CLAUDE.md`.

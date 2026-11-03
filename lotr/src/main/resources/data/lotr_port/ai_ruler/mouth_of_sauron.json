@@ -1,0 +1,16 @@
+{
+  "name": "The Lieutenant of Barad-dur",
+  "faction": "lotr_port:mordor",
+  "home": "lotr_port:minas_morgul",
+  "aggression": 0.3,
+  "expansion": 0.3,
+  "max_colonies": 5,
+  "colony_names": [
+    "Gorgoroth Pit",
+    "Cirith Gorgor Camp",
+    "Udun Forge",
+    "Nurn Slave-fields",
+    "Durthang"
+  ],
+  "color": 4198416
+}

@@ -1,0 +1,15 @@
+{
+  "name": "The White Hand",
+  "faction": "lotr_port:isengard",
+  "home": "lotr_port:isengard",
+  "aggression": 0.3,
+  "expansion": 0.25,
+  "max_colonies": 4,
+  "colony_names": [
+    "Nan Curunir Mill",
+    "Wulf's Camp",
+    "Isen Fords Post",
+    "Angrenost Pits"
+  ],
+  "color": 2105376
+}
