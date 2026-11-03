@@ -58,10 +58,43 @@ final class WorldExporter {
                 }
             }
             root.add("map", settings);
+            root.add("roads", roads());
         } catch (Throwable t) {
             errors.add(new JsonPrimitive("world: " + t));
         }
         return root;
+    }
+
+    /** LOTR's roads: each road's name and points (map coordinates) as LOTR built them. */
+    private JsonArray roads() {
+        JsonArray arr = new JsonArray();
+        try {
+            Class<?> roads = Class.forName("lotr.common.world.map.LOTRRoads");
+            Field all = roads.getDeclaredField("allRoads");
+            all.setAccessible(true);
+            Object list = all.get(null);
+            if (list instanceof Iterable<?> it) {
+                for (Object road : it) {
+                    JsonObject o = new JsonObject();
+                    o.addProperty("name", String.valueOf(field(road, "roadName")));
+                    JsonArray points = new JsonArray();
+                    Object pts = field(road, "roadPoints");
+                    for (int i = 0; pts != null && i < Array.getLength(pts); i++) {
+                        Object p = Array.get(pts, i);
+                        JsonArray xyz = new JsonArray();
+                        xyz.add(new JsonPrimitive((Number) field(p, "x")));
+                        xyz.add(new JsonPrimitive((Number) field(p, "z")));
+                        xyz.add(new JsonPrimitive((Boolean) field(p, "isWaypoint")));
+                        points.add(xyz);
+                    }
+                    o.add("points", points);
+                    arr.add(o);
+                }
+            }
+        } catch (Throwable t) {
+            errors.add(new JsonPrimitive("roads: " + t));
+        }
+        return arr;
     }
 
     /**
@@ -147,6 +180,39 @@ final class WorldExporter {
                 if (part != null) {
                     o.add(name, primitives(part));
                 }
+            }
+            Object decorator = field(b, "decorator");
+            if (decorator != null) {
+                JsonArray trees = new JsonArray();
+                Object treeList = field(decorator, "treeTypes");
+                if (treeList instanceof Iterable<?> it) {
+                    for (Object t : it) {
+                        JsonObject tree = new JsonObject();
+                        Object type = field(t, "treeType");
+                        tree.addProperty("type", type == null ? null : ((Enum<?>) type).name());
+                        Object weight = field(t, "itemWeight");
+                        tree.addProperty("weight", weight instanceof Number n ? n : 1);
+                        trees.add(tree);
+                    }
+                }
+                o.add("trees", trees);
+                JsonArray ores = new JsonArray();
+                for (String kind : new String[] { "biomeSoils", "biomeOres", "biomeGems" }) {
+                    Object list = field(decorator, kind);
+                    if (list instanceof Iterable<?> it) {
+                        for (Object g : it) {
+                            JsonObject ore = primitives(g);
+                            ore.addProperty("kind", kind);
+                            Object gen = field(g, "oreGen");
+                            if (gen != null) {
+                                ore.addProperty("genClass", gen.getClass().getName());
+                                ore.add("gen", primitives(gen));
+                            }
+                            ores.add(ore);
+                        }
+                    }
+                }
+                o.add("ores", ores);
             }
         } catch (Throwable t) {
             errors.add(new JsonPrimitive("biome " + b + ": " + t));
