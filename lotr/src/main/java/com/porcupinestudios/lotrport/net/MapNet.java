@@ -8,7 +8,11 @@ import io.netty.buffer.ByteBuf;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.function.BiConsumer;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.ComponentSerialization;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
@@ -58,26 +62,30 @@ public final class MapNet {
             if (w.hidden() && !unlocked) {
                 continue;
             }
-            int state = !unlocked ? Mark.LOCKED : FastTravel.problem(player, e.getKey()).isPresent() ? Mark.BLOCKED
-                    : Mark.READY;
-            marks.add(new Mark(e.getKey(), (float) w.mapX(), (float) w.mapZ(), state));
+            Optional<Component> problem = unlocked ? FastTravel.problem(player, e.getKey()) : Optional.empty();
+            int state = !unlocked ? Mark.LOCKED : problem.isPresent() ? Mark.BLOCKED : Mark.READY;
+            int distance = (int) Math.round(Math.hypot(w.x() - player.getX(), w.z() - player.getZ()));
+            marks.add(new Mark(e.getKey(), (float) w.mapX(), (float) w.mapZ(), state, distance,
+                    problem.orElse(Component.empty())));
         }
         MiddleEarthMap map = MiddleEarthMap.get();
         return new MapData(marks, (float) map.pixelX(player.getX()), (float) map.pixelZ(player.getZ()),
                 (int) FastTravel.waitTicks(player));
     }
 
-    /** One waypoint on the map. */
-    public record Mark(ResourceLocation id, float mapX, float mapZ, int state) {
+    /** One waypoint on the map: where, whether the player may travel there, how far it is, and why not. */
+    public record Mark(ResourceLocation id, float mapX, float mapZ, int state, int distance, Component problem) {
         public static final int LOCKED = 0;
         public static final int BLOCKED = 1;
         public static final int READY = 2;
 
-        public static final StreamCodec<ByteBuf, Mark> CODEC = StreamCodec.composite(
+        public static final StreamCodec<RegistryFriendlyByteBuf, Mark> CODEC = StreamCodec.composite(
                 ResourceLocation.STREAM_CODEC, Mark::id,
                 ByteBufCodecs.FLOAT, Mark::mapX,
                 ByteBufCodecs.FLOAT, Mark::mapZ,
                 ByteBufCodecs.VAR_INT, Mark::state,
+                ByteBufCodecs.VAR_INT, Mark::distance,
+                ComponentSerialization.TRUSTED_STREAM_CODEC, Mark::problem,
                 Mark::new);
     }
 
@@ -108,7 +116,7 @@ public final class MapNet {
     public record MapData(List<Mark> marks, float playerX, float playerZ, int waitTicks)
             implements CustomPacketPayload {
         public static final Type<MapData> TYPE = new Type<>(LotrPort.id("map_data"));
-        public static final StreamCodec<ByteBuf, MapData> CODEC = StreamCodec.composite(
+        public static final StreamCodec<RegistryFriendlyByteBuf, MapData> CODEC = StreamCodec.composite(
                 Mark.CODEC.apply(ByteBufCodecs.list()), MapData::marks,
                 ByteBufCodecs.FLOAT, MapData::playerX,
                 ByteBufCodecs.FLOAT, MapData::playerZ,

@@ -90,7 +90,9 @@ https://claude.ai/artifact/KqhSSTCuKXGuwKHBoYJdcu. Rebuild features in modern co
   region, alignment >= 0 with the waypoint's faction, no mob attacking you, and the wait over
   (`fast_travel/settings.json`: 180-1800 s by distance). `/lotr_travel`, `/lotr_waypoints`; admin
   `/lotr waypoint unlock|ready|info`.
-- Map screen: key M (`client/MapScreen`, LOTR's map image `textures/gui/map.png`); packets in `net/MapNet` (the client
+- Map screen: key M (`client/MapScreen`, LOTR's map image `textures/gui/map.png`, framed, with LOTR's parchment
+  overlay, waypoint icons and compass from `textures/gui/map/`; names show when zoomed in; tooltips give distance and
+  why travel is blocked); packets in `net/MapNet` (the client
   handler is set in client setup, so common code never names the screen). Click a green waypoint to travel.
 - Mini-quests: `quest_pool/<group>.json` (collect / kill_faction / kill_npc, min-max, weight, reward factor; coins
   and alignment per target), named by an NPC type's `quests`. Right-click a giver (not traders/captains) to get LOTR's
