@@ -9,7 +9,7 @@ One private repo for the TARDIS: Ring Bearer modpack's own mods. Three Gradle su
 | `lotr/` | `lotr_port` | `com.porcupinestudios.lotrport` | `lotr/CLAUDE.md` |
 
 Plans (read with the Claude Docs tools, not a web fetch):
-- Shared roadmap, both mods in one order: ROADMAP_LINK
+- Shared roadmap, both mods in one order: https://claude.ai/artifact/H9foA8JKxCZEc4ArAyaXjZ
 - Plan review that shaped it: https://claude.ai/artifact/1BciPgPdz8FbnnamU9E2Rs
 
 ## Dependency rule
