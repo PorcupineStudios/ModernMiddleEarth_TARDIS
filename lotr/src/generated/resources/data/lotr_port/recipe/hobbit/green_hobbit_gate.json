@@ -1,0 +1,29 @@
+{
+  "type": "lotr_port:faction_crafting",
+  "table": "lotr_port:hobbit_crafting_table",
+  "recipe": {
+    "type": "minecraft:crafting_shaped",
+    "category": "building",
+    "group": "hobbit",
+    "pattern": [
+      "AAA",
+      "BCB",
+      "AAA"
+    ],
+    "key": {
+      "A": {
+        "tag": "minecraft:planks"
+      },
+      "B": {
+        "tag": "c:dyes/green"
+      },
+      "C": {
+        "item": "lotr_port:gate_gears"
+      }
+    },
+    "result": {
+      "id": "lotr_port:green_hobbit_gate",
+      "count": 4
+    }
+  }
+}

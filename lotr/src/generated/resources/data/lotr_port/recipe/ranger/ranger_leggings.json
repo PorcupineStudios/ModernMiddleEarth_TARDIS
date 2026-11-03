@@ -1,0 +1,25 @@
+{
+  "type": "lotr_port:faction_crafting",
+  "table": "lotr_port:ranger_crafting_table",
+  "recipe": {
+    "type": "minecraft:crafting_shaped",
+    "category": "misc",
+    "group": "ranger",
+    "pattern": [
+      "AAA",
+      "B B",
+      "A A"
+    ],
+    "key": {
+      "A": {
+        "item": "minecraft:leather"
+      },
+      "B": {
+        "tag": "c:ingots/iron"
+      }
+    },
+    "result": {
+      "id": "lotr_port:ranger_leggings"
+    }
+  }
+}

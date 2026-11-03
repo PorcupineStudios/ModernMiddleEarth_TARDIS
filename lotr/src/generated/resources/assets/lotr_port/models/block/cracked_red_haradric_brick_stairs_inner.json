@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/inner_stairs",
+  "textures": {
+    "bottom": "lotr_port:block/brick3_near_harad_red_cracked",
+    "top": "lotr_port:block/brick3_near_harad_red_cracked",
+    "side": "lotr_port:block/brick3_near_harad_red_cracked"
+  }
+}

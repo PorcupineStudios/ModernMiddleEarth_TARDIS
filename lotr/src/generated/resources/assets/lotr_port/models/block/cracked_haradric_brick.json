@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "lotr_port:block/brick3_near_harad_cracked"
+  }
+}

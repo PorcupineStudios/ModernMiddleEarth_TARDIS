@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cross",
+  "textures": {
+    "cross": "lotr_port:block/sapling6_olive"
+  },
+  "render_type": "minecraft:cutout"
+}

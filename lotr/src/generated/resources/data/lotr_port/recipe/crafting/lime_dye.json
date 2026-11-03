@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "crafting",
+  "ingredients": [
+    {
+      "item": "lotr_port:tears_of_yavanna"
+    }
+  ],
+  "result": {
+    "id": "minecraft:lime_dye"
+  }
+}

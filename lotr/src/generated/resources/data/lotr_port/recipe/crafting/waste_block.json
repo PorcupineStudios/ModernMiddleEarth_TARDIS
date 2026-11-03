@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "group": "crafting",
+  "pattern": [
+    "AB",
+    "BC"
+  ],
+  "key": {
+    "A": {
+      "item": "minecraft:rotten_flesh"
+    },
+    "B": {
+      "tag": "minecraft:dirt"
+    },
+    "C": {
+      "tag": "c:bones"
+    }
+  },
+  "result": {
+    "id": "lotr_port:waste_block",
+    "count": 4
+  }
+}

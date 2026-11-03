@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "lotr_port:block/fruit_wood_cherry_top",
+    "side": "lotr_port:block/fruit_wood_cherry_side"
+  }
+}

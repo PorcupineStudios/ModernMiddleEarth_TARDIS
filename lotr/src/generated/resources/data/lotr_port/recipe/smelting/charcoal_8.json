@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": [
+    {
+      "item": "lotr_port:dragonblood_wood"
+    },
+    {
+      "item": "lotr_port:kanuka_wood"
+    }
+  ],
+  "result": {
+    "id": "minecraft:charcoal"
+  },
+  "experience": 0.15,
+  "cookingtime": 200
+}

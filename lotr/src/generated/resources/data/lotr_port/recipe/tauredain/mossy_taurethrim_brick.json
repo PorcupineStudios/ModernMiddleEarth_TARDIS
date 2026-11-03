@@ -1,0 +1,20 @@
+{
+  "type": "lotr_port:faction_crafting",
+  "table": "lotr_port:taurethrim_crafting_table",
+  "recipe": {
+    "type": "minecraft:crafting_shapeless",
+    "category": "building",
+    "group": "tauredain",
+    "ingredients": [
+      {
+        "item": "lotr_port:taurethrim_brick"
+      },
+      {
+        "tag": "lotr_port:vines"
+      }
+    ],
+    "result": {
+      "id": "lotr_port:mossy_taurethrim_brick"
+    }
+  }
+}

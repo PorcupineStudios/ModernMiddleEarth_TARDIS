@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "crafting",
+  "pattern": [
+    "AA",
+    "AA"
+  ],
+  "key": {
+    "A": {
+      "tag": "c:nuggets/silver"
+    }
+  },
+  "result": {
+    "id": "lotr_port:silver_coin",
+    "count": 4
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/cube_bottom_top",
+  "textures": {
+    "top": "lotr_port:block/rivendell_crafting_table_top",
+    "bottom": "minecraft:block/oak_planks",
+    "side": "lotr_port:block/rivendell_crafting_table_side"
+  }
+}

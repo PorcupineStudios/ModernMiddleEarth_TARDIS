@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cross",
+  "textures": {
+    "cross": "lotr_port:block/rhun_flower_chrys_yellow"
+  },
+  "render_type": "minecraft:cutout"
+}

@@ -1,0 +1,26 @@
+{
+  "type": "lotr_port:faction_crafting",
+  "table": "lotr_port:half_troll_crafting_table",
+  "recipe": {
+    "type": "minecraft:crafting_shapeless",
+    "category": "misc",
+    "group": "half_troll",
+    "ingredients": [
+      {
+        "item": "minecraft:bowl"
+      },
+      {
+        "item": "minecraft:rotten_flesh"
+      },
+      {
+        "tag": "c:bones"
+      },
+      {
+        "item": "minecraft:dirt"
+      }
+    ],
+    "result": {
+      "id": "lotr_port:torog_stew"
+    }
+  }
+}

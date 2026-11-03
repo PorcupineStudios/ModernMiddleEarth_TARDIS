@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "lotr_port:block/pillar2_rhun_face",
+    "side": "lotr_port:block/pillar2_rhun_side"
+  }
+}

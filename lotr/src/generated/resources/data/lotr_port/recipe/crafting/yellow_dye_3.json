@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "crafting",
+  "ingredients": [
+    {
+      "item": "lotr_port:yellow_sand_gem"
+    }
+  ],
+  "result": {
+    "id": "lotr_port:yellow_dye"
+  }
+}

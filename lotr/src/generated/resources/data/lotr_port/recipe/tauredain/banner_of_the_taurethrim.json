@@ -1,0 +1,28 @@
+{
+  "type": "lotr_port:faction_crafting",
+  "table": "lotr_port:taurethrim_crafting_table",
+  "recipe": {
+    "type": "minecraft:crafting_shaped",
+    "category": "misc",
+    "group": "tauredain",
+    "pattern": [
+      "A",
+      "B",
+      "C"
+    ],
+    "key": {
+      "A": {
+        "tag": "minecraft:wool"
+      },
+      "B": {
+        "tag": "c:rods/wooden"
+      },
+      "C": {
+        "tag": "minecraft:planks"
+      }
+    },
+    "result": {
+      "id": "lotr_port:banner_of_the_taurethrim"
+    }
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "type": "lotr_port:faction_crafting",
+  "table": "lotr_port:gulfen_crafting_table",
+  "recipe": {
+    "type": "minecraft:crafting_shaped",
+    "category": "building",
+    "group": "gulf",
+    "pattern": [
+      "ABA",
+      "BCB",
+      "ABA"
+    ],
+    "key": {
+      "A": {
+        "tag": "c:ingots/bronze"
+      },
+      "B": {
+        "tag": "minecraft:planks"
+      },
+      "C": {
+        "item": "lotr_port:gate_gears"
+      }
+    },
+    "result": {
+      "id": "lotr_port:haradric_gate",
+      "count": 4
+    }
+  }
+}

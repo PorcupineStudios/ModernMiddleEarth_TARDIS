@@ -1,0 +1,47 @@
+{
+  "parent": "minecraft:block/block",
+  "textures": {
+    "down": "minecraft:block/glass",
+    "up": "minecraft:block/glass",
+    "north": "minecraft:block/glass",
+    "south": "minecraft:block/glass",
+    "west": "minecraft:block/glass",
+    "east": "minecraft:block/glass",
+    "particle": "minecraft:block/glass"
+  },
+  "render_type": "minecraft:cutout",
+  "elements": [
+    {
+      "from": [
+        6.125,
+        0.0,
+        6.125
+      ],
+      "to": [
+        9.875,
+        7.5,
+        9.875
+      ],
+      "faces": {
+        "down": {
+          "texture": "#down"
+        },
+        "up": {
+          "texture": "#up"
+        },
+        "north": {
+          "texture": "#north"
+        },
+        "south": {
+          "texture": "#south"
+        },
+        "west": {
+          "texture": "#west"
+        },
+        "east": {
+          "texture": "#east"
+        }
+      }
+    }
+  ]
+}

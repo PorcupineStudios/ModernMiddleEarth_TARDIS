@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [
+    "lotr_port:mirkwood_vines",
+    "lotr_port:willow_vines",
+    "minecraft:vine"
+  ]
+}

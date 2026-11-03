@@ -1,0 +1,25 @@
+{
+  "type": "lotr_port:faction_crafting",
+  "table": "lotr_port:gulfen_crafting_table",
+  "recipe": {
+    "type": "minecraft:crafting_shaped",
+    "category": "misc",
+    "group": "gulf",
+    "pattern": [
+      "A A",
+      "BBB",
+      "AAA"
+    ],
+    "key": {
+      "A": {
+        "tag": "c:ingots/bronze"
+      },
+      "B": {
+        "item": "lotr_port:dried_reeds"
+      }
+    },
+    "result": {
+      "id": "lotr_port:gulfen_chestplate"
+    }
+  }
+}

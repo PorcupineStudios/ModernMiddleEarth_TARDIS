@@ -1,0 +1,8773 @@
+[
+  {
+    "id": "ale_horn",
+    "kind": "item",
+    "stack": 64,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "golden_ale_horn",
+    "kind": "item",
+    "stack": 64,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "almond",
+    "kind": "item",
+    "stack": 64,
+    "level": 2,
+    "speed": 6.0,
+    "food": {
+      "nutrition": 2,
+      "saturation": 0.2
+    }
+  },
+  {
+    "id": "amber",
+    "kind": "item",
+    "stack": 64,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "amethyst",
+    "kind": "item",
+    "stack": 64,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "ancient_sword",
+    "kind": "item",
+    "stack": 1,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "ancient_dagger",
+    "kind": "item",
+    "stack": 1,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "ancient_helmet",
+    "kind": "item",
+    "stack": 1,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "ancient_chestplate",
+    "kind": "item",
+    "stack": 1,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "ancient_leggings",
+    "kind": "item",
+    "stack": 1,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "ancient_boots",
+    "kind": "item",
+    "stack": 1,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "ancient_sword_tip",
+    "kind": "item",
+    "stack": 64,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "ancient_sword_blade",
+    "kind": "item",
+    "stack": 64,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "ancient_sword_hilt",
+    "kind": "item",
+    "stack": 64,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "ancient_armor_plate",
+    "kind": "item",
+    "stack": 64,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "and_ril",
+    "kind": "sword",
+    "durability": 1500,
+    "enchant": 14,
+    "damage": 9.0,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "apple_crumble",
+    "kind": "item",
+    "stack": 1,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "apple",
+    "kind": "item",
+    "stack": 64,
+    "level": 2,
+    "speed": 6.0,
+    "food": {
+      "nutrition": 4,
+      "saturation": 0.3
+    }
+  },
+  {
+    "id": "armor_stand",
+    "kind": "armor",
+    "stack": 1,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "poisoned_arrow",
+    "kind": "item",
+    "stack": 64,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "angmar_axe",
+    "kind": "axe",
+    "durability": 350,
+    "enchant": 8,
+    "damage": 5.5,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "blue_dwarven_axe",
+    "kind": "axe",
+    "durability": 650,
+    "enchant": 12,
+    "damage": 6.0,
+    "level": 3,
+    "speed": 8.0
+  },
+  {
+    "id": "bronze_axe",
+    "kind": "axe",
+    "durability": 230,
+    "enchant": 10,
+    "damage": 4.5,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "dol_guldur_axe",
+    "kind": "axe",
+    "durability": 350,
+    "enchant": 10,
+    "damage": 5.5,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "dwarven_axe",
+    "kind": "axe",
+    "durability": 700,
+    "enchant": 10,
+    "damage": 6.0,
+    "level": 3,
+    "speed": 8.0
+  },
+  {
+    "id": "galadhrim_axe",
+    "kind": "axe",
+    "durability": 600,
+    "enchant": 15,
+    "damage": 6.0,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "lindon_axe",
+    "kind": "axe",
+    "durability": 700,
+    "enchant": 15,
+    "damage": 6.0,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "mallorn_axe",
+    "kind": "axe",
+    "durability": 200,
+    "enchant": 15,
+    "damage": 4.5,
+    "level": 1,
+    "speed": 4.0
+  },
+  {
+    "id": "mithril_axe",
+    "kind": "axe",
+    "durability": 2400,
+    "enchant": 8,
+    "damage": 8.0,
+    "level": 4,
+    "speed": 9.0
+  },
+  {
+    "id": "mordor_axe",
+    "kind": "axe",
+    "durability": 400,
+    "enchant": 7,
+    "damage": 5.5,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "rivendell_axe",
+    "kind": "axe",
+    "durability": 700,
+    "enchant": 15,
+    "damage": 6.0,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "taurethrim_axe",
+    "kind": "axe",
+    "durability": 300,
+    "enchant": 10,
+    "damage": 5.5,
+    "level": 3,
+    "speed": 8.0
+  },
+  {
+    "id": "uruk_axe",
+    "kind": "axe",
+    "durability": 550,
+    "enchant": 5,
+    "damage": 6.0,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "wood_elven_axe",
+    "kind": "axe",
+    "durability": 500,
+    "enchant": 15,
+    "damage": 6.0,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "flame_of_ud_n",
+    "kind": "item",
+    "stack": 64,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "balrog_whip",
+    "kind": "sword",
+    "durability": 1000,
+    "damage": 7.0,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "banana",
+    "kind": "item",
+    "stack": 64,
+    "level": 2,
+    "speed": 6.0,
+    "food": {
+      "nutrition": 2,
+      "saturation": 0.5
+    }
+  },
+  {
+    "id": "banana_bread",
+    "kind": "item",
+    "stack": 64,
+    "level": 2,
+    "speed": 6.0,
+    "food": {
+      "nutrition": 5,
+      "saturation": 0.6
+    }
+  },
+  {
+    "id": "banana_cake",
+    "kind": "item",
+    "stack": 1,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "banner_of_gondor",
+    "kind": "item",
+    "stack": 16,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "banner_of_rohan",
+    "kind": "item",
+    "stack": 16,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "banner_of_mordor",
+    "kind": "item",
+    "stack": 16,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "banner_of_lothl_rien",
+    "kind": "item",
+    "stack": 16,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "banner_of_the_woodland_realm",
+    "kind": "item",
+    "stack": 16,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "banner_of_dunland",
+    "kind": "item",
+    "stack": 16,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "banner_of_isengard",
+    "kind": "item",
+    "stack": 16,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "banner_of_durins_folk",
+    "kind": "item",
+    "stack": 16,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "banner_of_angmar",
+    "kind": "item",
+    "stack": 16,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "banner_of_near_harad",
+    "kind": "item",
+    "stack": 16,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "banner_of_lindon",
+    "kind": "item",
+    "stack": 16,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "banner_of_the_blue_mountains",
+    "kind": "item",
+    "stack": 16,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "banner_of_the_d_nedain_of_the_north",
+    "kind": "item",
+    "stack": 16,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "banner_of_dol_guldur",
+    "kind": "item",
+    "stack": 16,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "banner_of_gundabad",
+    "kind": "item",
+    "stack": 16,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "banner_of_the_half_trolls",
+    "kind": "item",
+    "stack": 16,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "banner_of_dol_amroth",
+    "kind": "item",
+    "stack": 16,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "banner_of_the_morwaith",
+    "kind": "item",
+    "stack": 16,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "banner_of_the_taurethrim",
+    "kind": "item",
+    "stack": 16,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "banner_of_dale",
+    "kind": "item",
+    "stack": 16,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "banner_of_dorwinion",
+    "kind": "item",
+    "stack": 16,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "banner_of_the_hobbits",
+    "kind": "item",
+    "stack": 16,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "banner_of_an_rien",
+    "kind": "item",
+    "stack": 16,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "banner_of_ithilien",
+    "kind": "item",
+    "stack": 16,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "banner_of_lossarnach",
+    "kind": "item",
+    "stack": 16,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "banner_of_lebennin",
+    "kind": "item",
+    "stack": 16,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "banner_of_pelargir",
+    "kind": "item",
+    "stack": 16,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "banner_of_blackroot_vale",
+    "kind": "item",
+    "stack": 16,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "banner_of_pinnath_gelin",
+    "kind": "item",
+    "stack": 16,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "banner_of_minas_morgul",
+    "kind": "item",
+    "stack": 16,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "banner_of_the_black_uruks",
+    "kind": "item",
+    "stack": 16,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "banner_of_the_stewards_of_gondor",
+    "kind": "item",
+    "stack": 16,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "banner_of_nan_ungol",
+    "kind": "item",
+    "stack": 16,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "banner_of_the_rhudaur_hillmen",
+    "kind": "item",
+    "stack": 16,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "banner_of_lamedon",
+    "kind": "item",
+    "stack": 16,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "banner_of_rh_del",
+    "kind": "item",
+    "stack": 16,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "banner_of_rivendell",
+    "kind": "item",
+    "stack": 16,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "banner_of_esgaroth",
+    "kind": "item",
+    "stack": 16,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "banner_of_umbar",
+    "kind": "item",
+    "stack": 16,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "banner_of_the_southron_nomads",
+    "kind": "item",
+    "stack": 16,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "banner_of_the_gulf_of_harad",
+    "kind": "item",
+    "stack": 16,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "banner_of_bree_land",
+    "kind": "item",
+    "stack": 16,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "angmar_battleaxe",
+    "kind": "sword",
+    "durability": 350,
+    "enchant": 8,
+    "damage": 8.5,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "black_uruk_battleaxe",
+    "kind": "sword",
+    "durability": 550,
+    "enchant": 6,
+    "damage": 9.0,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "blue_dwarven_battleaxe",
+    "kind": "sword",
+    "durability": 650,
+    "enchant": 12,
+    "damage": 9.0,
+    "level": 3,
+    "speed": 8.0
+  },
+  {
+    "id": "bronze_battleaxe",
+    "kind": "sword",
+    "durability": 230,
+    "enchant": 10,
+    "damage": 7.5,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "corsair_battleaxe",
+    "kind": "sword",
+    "durability": 300,
+    "enchant": 10,
+    "damage": 8.5,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "dalish_battleaxe",
+    "kind": "sword",
+    "durability": 300,
+    "enchant": 10,
+    "damage": 8.5,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "dol_guldur_battleaxe",
+    "kind": "sword",
+    "durability": 350,
+    "enchant": 10,
+    "damage": 8.5,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "dwarven_battleaxe",
+    "kind": "sword",
+    "durability": 700,
+    "enchant": 10,
+    "damage": 9.0,
+    "level": 3,
+    "speed": 8.0
+  },
+  {
+    "id": "gundabad_uruk_waraxe",
+    "kind": "sword",
+    "durability": 500,
+    "enchant": 5,
+    "damage": 9.0,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "half_troll_battleaxe",
+    "kind": "sword",
+    "durability": 300,
+    "enchant": 5,
+    "damage": 8.5,
+    "level": 1,
+    "speed": 4.0
+  },
+  {
+    "id": "iron_battleaxe",
+    "kind": "sword",
+    "durability": 250,
+    "enchant": 14,
+    "damage": 8.0,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "lossarnach_battleaxe",
+    "kind": "sword",
+    "durability": 300,
+    "enchant": 10,
+    "damage": 8.5,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "mithril_battleaxe",
+    "kind": "sword",
+    "durability": 2400,
+    "enchant": 8,
+    "damage": 11.0,
+    "level": 4,
+    "speed": 9.0
+  },
+  {
+    "id": "morwaith_battleaxe",
+    "kind": "sword",
+    "durability": 250,
+    "enchant": 10,
+    "damage": 8.0,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "mordor_battleaxe",
+    "kind": "sword",
+    "durability": 400,
+    "enchant": 7,
+    "damage": 8.5,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "rh_nic_battleaxe",
+    "kind": "sword",
+    "durability": 400,
+    "enchant": 10,
+    "damage": 8.5,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "rohirric_battleaxe",
+    "kind": "sword",
+    "durability": 300,
+    "enchant": 10,
+    "damage": 8.5,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "taurethrim_battleaxe",
+    "kind": "sword",
+    "durability": 300,
+    "enchant": 10,
+    "damage": 8.5,
+    "level": 3,
+    "speed": 8.0
+  },
+  {
+    "id": "uruk_battleaxe",
+    "kind": "sword",
+    "durability": 550,
+    "enchant": 5,
+    "damage": 9.0,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "utumno_battleaxe",
+    "kind": "sword",
+    "durability": 400,
+    "enchant": 12,
+    "damage": 9.5,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "bearskin_rug",
+    "kind": "item",
+    "stack": 1,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "berry_pie",
+    "kind": "item",
+    "stack": 1,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "black_uruk_bow",
+    "kind": "item",
+    "durability": 825,
+    "enchant": 2,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "black_uruk_steel_ingot",
+    "kind": "item",
+    "stack": 64,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "blackberries",
+    "kind": "item",
+    "stack": 64,
+    "level": 2,
+    "speed": 6.0,
+    "food": {
+      "nutrition": 2,
+      "saturation": 0.2
+    }
+  },
+  {
+    "id": "blackroot_bow",
+    "kind": "item",
+    "durability": 600,
+    "enchant": 3,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "blackroot_stick",
+    "kind": "item",
+    "stack": 64,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "blacksmith_hammer",
+    "kind": "sword",
+    "durability": 450,
+    "enchant": 10,
+    "damage": 8.5,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "blue_dwarven_steel_ingot",
+    "kind": "item",
+    "stack": 64,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "blueberries",
+    "kind": "item",
+    "stack": 64,
+    "level": 2,
+    "speed": 6.0,
+    "food": {
+      "nutrition": 2,
+      "saturation": 0.2
+    }
+  },
+  {
+    "id": "blue_dwarven_boar_armor",
+    "kind": "item",
+    "stack": 1,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "dwarven_boar_armor",
+    "kind": "item",
+    "stack": 1,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "angmar_chestplate",
+    "kind": "armor",
+    "durability": 336,
+    "enchant": 8,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "chest",
+      "defense": 6,
+      "material": "angmar",
+      "texture": "angmar"
+    }
+  },
+  {
+    "id": "arnorian_chestplate",
+    "kind": "armor",
+    "durability": 432,
+    "enchant": 10,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "chest",
+      "defense": 6,
+      "material": "arnor",
+      "texture": "arnor"
+    }
+  },
+  {
+    "id": "black_n_men_rean_chestplate",
+    "kind": "armor",
+    "durability": 432,
+    "enchant": 10,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "chest",
+      "defense": 6,
+      "material": "black_numenorean",
+      "texture": "black_numenorean"
+    }
+  },
+  {
+    "id": "black_uruk_chestplate",
+    "kind": "armor",
+    "durability": 528,
+    "enchant": 6,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "chest",
+      "defense": 7,
+      "material": "black_uruk",
+      "texture": "black_uruk"
+    }
+  },
+  {
+    "id": "blackroot_vale_chestplate",
+    "kind": "armor",
+    "durability": 384,
+    "enchant": 10,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "chest",
+      "defense": 6,
+      "material": "blackroot",
+      "texture": "blackroot"
+    }
+  },
+  {
+    "id": "blue_dwarven_chestplate",
+    "kind": "armor",
+    "durability": 624,
+    "enchant": 12,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "chest",
+      "defense": 7,
+      "material": "blue_dwarven",
+      "texture": "blue_dwarven"
+    }
+  },
+  {
+    "id": "bone_chestplate",
+    "kind": "armor",
+    "durability": 144,
+    "enchant": 10,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "chest",
+      "defense": 3,
+      "material": "bone",
+      "texture": "bone"
+    }
+  },
+  {
+    "id": "bronze_chestplate",
+    "kind": "armor",
+    "durability": 224,
+    "enchant": 10,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "chest",
+      "defense": 5,
+      "material": "bronze",
+      "texture": "bronze"
+    }
+  },
+  {
+    "id": "corsair_chestplate",
+    "kind": "armor",
+    "durability": 288,
+    "enchant": 10,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "chest",
+      "defense": 5,
+      "material": "corsair",
+      "texture": "corsair"
+    }
+  },
+  {
+    "id": "dalish_chestplate",
+    "kind": "armor",
+    "durability": 288,
+    "enchant": 10,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "chest",
+      "defense": 6,
+      "material": "dale",
+      "texture": "dale"
+    }
+  },
+  {
+    "id": "dalish_gambeson",
+    "kind": "armor",
+    "durability": 192,
+    "enchant": 10,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "chest",
+      "defense": 4,
+      "material": "gambeson",
+      "texture": "gambeson"
+    }
+  },
+  {
+    "id": "dol_amroth_chestplate",
+    "kind": "armor",
+    "durability": 480,
+    "enchant": 10,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "chest",
+      "defense": 6,
+      "material": "dol_amroth",
+      "texture": "dol_amroth"
+    }
+  },
+  {
+    "id": "dol_amroth_gambeson",
+    "kind": "armor",
+    "durability": 192,
+    "enchant": 10,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "chest",
+      "defense": 4,
+      "material": "gambeson",
+      "texture": "gambeson"
+    }
+  },
+  {
+    "id": "dol_guldur_chestplate",
+    "kind": "armor",
+    "durability": 336,
+    "enchant": 10,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "chest",
+      "defense": 6,
+      "material": "dol_guldur",
+      "texture": "dol_guldur"
+    }
+  },
+  {
+    "id": "dorwinion_chestplate",
+    "kind": "armor",
+    "durability": 384,
+    "enchant": 10,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "chest",
+      "defense": 5,
+      "material": "dorwinion",
+      "texture": "dorwinion"
+    }
+  },
+  {
+    "id": "dorwinion_elven_chestplate",
+    "kind": "armor",
+    "durability": 480,
+    "enchant": 15,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "chest",
+      "defense": 6,
+      "material": "dorwinion_elf",
+      "texture": "dorwinion_elf"
+    }
+  },
+  {
+    "id": "dunlending_chestplate",
+    "kind": "armor",
+    "durability": 240,
+    "enchant": 8,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "chest",
+      "defense": 5,
+      "material": "dunlending",
+      "texture": "dunlending"
+    }
+  },
+  {
+    "id": "dwarven_chestplate",
+    "kind": "armor",
+    "durability": 672,
+    "enchant": 10,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "chest",
+      "defense": 7,
+      "material": "dwarven",
+      "texture": "dwarven"
+    }
+  },
+  {
+    "id": "gold_trimmed_dwarven_chestplate",
+    "kind": "armor",
+    "durability": 672,
+    "enchant": 10,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "chest",
+      "defense": 7,
+      "material": "dwarven",
+      "texture": "dwarven"
+    }
+  },
+  {
+    "id": "mithril_trimmed_dwarven_chestplate",
+    "kind": "armor",
+    "durability": 672,
+    "enchant": 10,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "chest",
+      "defense": 7,
+      "material": "dwarven",
+      "texture": "dwarven"
+    }
+  },
+  {
+    "id": "silver_trimmed_dwarven_chestplate",
+    "kind": "armor",
+    "durability": 672,
+    "enchant": 10,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "chest",
+      "defense": 7,
+      "material": "dwarven",
+      "texture": "dwarven"
+    }
+  },
+  {
+    "id": "galadhrim_chestplate",
+    "kind": "armor",
+    "durability": 576,
+    "enchant": 15,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "chest",
+      "defense": 6,
+      "material": "galadhrim",
+      "texture": "galadhrim"
+    }
+  },
+  {
+    "id": "galvorn_chestplate",
+    "kind": "armor",
+    "durability": 576,
+    "enchant": 15,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "chest",
+      "defense": 6,
+      "material": "galvorn",
+      "texture": "galvorn"
+    }
+  },
+  {
+    "id": "gemsbok_hide_chestplate",
+    "kind": "armor",
+    "durability": 176,
+    "enchant": 10,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "chest",
+      "defense": 4,
+      "material": "gemsbok",
+      "texture": "gemsbok"
+    }
+  },
+  {
+    "id": "gondolinian_chestplate",
+    "kind": "armor",
+    "durability": 1440,
+    "enchant": 15,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "chest",
+      "defense": 7,
+      "material": "gondolin",
+      "texture": "gondolin"
+    }
+  },
+  {
+    "id": "gondorian_chestplate",
+    "kind": "armor",
+    "durability": 432,
+    "enchant": 10,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "chest",
+      "defense": 6,
+      "material": "gondor",
+      "texture": "gondor"
+    }
+  },
+  {
+    "id": "gondorian_gambeson",
+    "kind": "armor",
+    "durability": 192,
+    "enchant": 10,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "chest",
+      "defense": 4,
+      "material": "gambeson",
+      "texture": "gambeson"
+    }
+  },
+  {
+    "id": "gulfen_chestplate",
+    "kind": "armor",
+    "durability": 336,
+    "enchant": 10,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "chest",
+      "defense": 5,
+      "material": "gulf_harad",
+      "texture": "gulf_harad"
+    }
+  },
+  {
+    "id": "gundabad_uruk_chestplate",
+    "kind": "armor",
+    "durability": 480,
+    "enchant": 5,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "chest",
+      "defense": 7,
+      "material": "gundabad_uruk",
+      "texture": "gundabad_uruk"
+    }
+  },
+  {
+    "id": "half_troll_chestplate",
+    "kind": "armor",
+    "durability": 288,
+    "enchant": 5,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "chest",
+      "defense": 5,
+      "material": "half_troll",
+      "texture": "half_troll"
+    }
+  },
+  {
+    "id": "harad_robe",
+    "kind": "armor",
+    "stack": 1,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "chest",
+      "defense": 0,
+      "material": "harad_robes",
+      "texture": "harad_robes"
+    }
+  },
+  {
+    "id": "harnennor_chestplate",
+    "kind": "armor",
+    "durability": 240,
+    "enchant": 8,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "chest",
+      "defense": 5,
+      "material": "harnedor",
+      "texture": "harnedor"
+    }
+  },
+  {
+    "id": "lindon_chestplate",
+    "kind": "armor",
+    "durability": 672,
+    "enchant": 15,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "chest",
+      "defense": 6,
+      "material": "high_elven",
+      "texture": "high_elven"
+    }
+  },
+  {
+    "id": "galadhrim_cloak_tunic",
+    "kind": "armor",
+    "durability": 288,
+    "enchant": 15,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "chest",
+      "defense": 3,
+      "material": "hithlain",
+      "texture": "hithlain"
+    }
+  },
+  {
+    "id": "kaftan",
+    "kind": "armor",
+    "stack": 1,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "chest",
+      "defense": 0,
+      "material": "kaftan",
+      "texture": "kaftan"
+    }
+  },
+  {
+    "id": "lamedon_chestplate",
+    "kind": "armor",
+    "durability": 288,
+    "enchant": 10,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "chest",
+      "defense": 5,
+      "material": "lamedon",
+      "texture": "lamedon"
+    }
+  },
+  {
+    "id": "lamedon_jacket",
+    "kind": "armor",
+    "durability": 144,
+    "enchant": 10,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "chest",
+      "defense": 4,
+      "material": "jacket",
+      "texture": "jacket"
+    }
+  },
+  {
+    "id": "lebennin_gambeson",
+    "kind": "armor",
+    "durability": 192,
+    "enchant": 10,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "chest",
+      "defense": 4,
+      "material": "gambeson",
+      "texture": "gambeson"
+    }
+  },
+  {
+    "id": "lossarnach_chestplate",
+    "kind": "armor",
+    "durability": 288,
+    "enchant": 10,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "chest",
+      "defense": 5,
+      "material": "lossarnach",
+      "texture": "lossarnach"
+    }
+  },
+  {
+    "id": "mithril_chestplate",
+    "kind": "armor",
+    "durability": 2304,
+    "enchant": 8,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "chest",
+      "defense": 8,
+      "material": "mithril",
+      "texture": "mithril"
+    }
+  },
+  {
+    "id": "morwaith_chestplate",
+    "kind": "armor",
+    "durability": 240,
+    "enchant": 10,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "chest",
+      "defense": 5,
+      "material": "moredain",
+      "texture": "moredain"
+    }
+  },
+  {
+    "id": "morwaith_chieftain_chestplate",
+    "kind": "armor",
+    "durability": 288,
+    "enchant": 8,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "chest",
+      "defense": 4,
+      "material": "moredain_lion_armor",
+      "texture": "moredain_lion_armor"
+    }
+  },
+  {
+    "id": "morgul_chestplate",
+    "kind": "armor",
+    "durability": 432,
+    "enchant": 10,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "chest",
+      "defense": 6,
+      "material": "morgul",
+      "texture": "morgul"
+    }
+  },
+  {
+    "id": "coast_southron_chestplate",
+    "kind": "armor",
+    "durability": 288,
+    "enchant": 10,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "chest",
+      "defense": 5,
+      "material": "near_harad",
+      "texture": "near_harad"
+    }
+  },
+  {
+    "id": "nomad_tunic",
+    "kind": "armor",
+    "durability": 192,
+    "enchant": 8,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "chest",
+      "defense": 4,
+      "material": "harad_nomad",
+      "texture": "harad_nomad"
+    }
+  },
+  {
+    "id": "mordor_chestplate",
+    "kind": "armor",
+    "durability": 384,
+    "enchant": 7,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "chest",
+      "defense": 6,
+      "material": "mordor",
+      "texture": "mordor"
+    }
+  },
+  {
+    "id": "pelargir_chestplate",
+    "kind": "armor",
+    "durability": 432,
+    "enchant": 10,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "chest",
+      "defense": 6,
+      "material": "pelargir",
+      "texture": "pelargir"
+    }
+  },
+  {
+    "id": "pinnath_gelin_chestplate",
+    "kind": "armor",
+    "durability": 384,
+    "enchant": 10,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "chest",
+      "defense": 6,
+      "material": "pinnath_gelin",
+      "texture": "pinnath_gelin"
+    }
+  },
+  {
+    "id": "ranger_tunic",
+    "kind": "armor",
+    "durability": 336,
+    "enchant": 12,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "chest",
+      "defense": 5,
+      "material": "ranger",
+      "texture": "ranger"
+    }
+  },
+  {
+    "id": "ithilien_ranger_tunic",
+    "kind": "armor",
+    "durability": 336,
+    "enchant": 12,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "chest",
+      "defense": 5,
+      "material": "ranger_ithilien",
+      "texture": "ranger_ithilien"
+    }
+  },
+  {
+    "id": "rh_nic_chestplate",
+    "kind": "armor",
+    "durability": 384,
+    "enchant": 10,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "chest",
+      "defense": 5,
+      "material": "rhun",
+      "texture": "rhun"
+    }
+  },
+  {
+    "id": "golden_rh_nic_chestplate",
+    "kind": "armor",
+    "durability": 432,
+    "enchant": 10,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "chest",
+      "defense": 6,
+      "material": "rhun_gold",
+      "texture": "rhun_gold"
+    }
+  },
+  {
+    "id": "rivendell_chestplate",
+    "kind": "armor",
+    "durability": 672,
+    "enchant": 15,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "chest",
+      "defense": 6,
+      "material": "rivendell",
+      "texture": "rivendell"
+    }
+  },
+  {
+    "id": "rohirric_hauberk",
+    "kind": "armor",
+    "durability": 288,
+    "enchant": 10,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "chest",
+      "defense": 5,
+      "material": "rohan",
+      "texture": "rohan"
+    }
+  },
+  {
+    "id": "rohirric_marshal_chestplate",
+    "kind": "armor",
+    "durability": 384,
+    "enchant": 10,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "chest",
+      "defense": 6,
+      "material": "rohan_marshal",
+      "texture": "rohan_marshal"
+    }
+  },
+  {
+    "id": "taurethrim_chestplate",
+    "kind": "armor",
+    "durability": 288,
+    "enchant": 10,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "chest",
+      "defense": 5,
+      "material": "tauredain",
+      "texture": "tauredain"
+    }
+  },
+  {
+    "id": "golden_taurethrim_chestplate",
+    "kind": "armor",
+    "durability": 384,
+    "enchant": 10,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "chest",
+      "defense": 6,
+      "material": "tauredain_gold",
+      "texture": "tauredain_gold"
+    }
+  },
+  {
+    "id": "umbaric_chestplate",
+    "kind": "armor",
+    "durability": 432,
+    "enchant": 10,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "chest",
+      "defense": 6,
+      "material": "umbar",
+      "texture": "umbar"
+    }
+  },
+  {
+    "id": "uruk_chestplate",
+    "kind": "armor",
+    "durability": 528,
+    "enchant": 5,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "chest",
+      "defense": 7,
+      "material": "uruk",
+      "texture": "uruk"
+    }
+  },
+  {
+    "id": "utumno_chestplate",
+    "kind": "armor",
+    "durability": 384,
+    "enchant": 12,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "chest",
+      "defense": 7,
+      "material": "utumno",
+      "texture": "utumno"
+    }
+  },
+  {
+    "id": "fur_tunic",
+    "kind": "armor",
+    "durability": 176,
+    "enchant": 8,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "chest",
+      "defense": 4,
+      "material": "fur",
+      "texture": "fur"
+    }
+  },
+  {
+    "id": "wood_elven_chestplate",
+    "kind": "armor",
+    "durability": 480,
+    "enchant": 15,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "chest",
+      "defense": 6,
+      "material": "wood_elven",
+      "texture": "wood_elven"
+    }
+  },
+  {
+    "id": "wood_elven_scout_tunic",
+    "kind": "armor",
+    "durability": 288,
+    "enchant": 15,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "chest",
+      "defense": 4,
+      "material": "wood_elven_scout",
+      "texture": "wood_elven_scout"
+    }
+  },
+  {
+    "id": "angmar_boots",
+    "kind": "armor",
+    "durability": 273,
+    "enchant": 8,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "feet",
+      "defense": 2,
+      "material": "angmar",
+      "texture": "angmar"
+    }
+  },
+  {
+    "id": "arnorian_boots",
+    "kind": "armor",
+    "durability": 351,
+    "enchant": 10,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "feet",
+      "defense": 2,
+      "material": "arnor",
+      "texture": "arnor"
+    }
+  },
+  {
+    "id": "black_n_men_rean_boots",
+    "kind": "armor",
+    "durability": 351,
+    "enchant": 10,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "feet",
+      "defense": 2,
+      "material": "black_numenorean",
+      "texture": "black_numenorean"
+    }
+  },
+  {
+    "id": "black_uruk_boots",
+    "kind": "armor",
+    "durability": 429,
+    "enchant": 6,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "feet",
+      "defense": 2,
+      "material": "black_uruk",
+      "texture": "black_uruk"
+    }
+  },
+  {
+    "id": "blackroot_vale_boots",
+    "kind": "armor",
+    "durability": 312,
+    "enchant": 10,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "feet",
+      "defense": 2,
+      "material": "blackroot",
+      "texture": "blackroot"
+    }
+  },
+  {
+    "id": "blue_dwarven_boots",
+    "kind": "armor",
+    "durability": 507,
+    "enchant": 12,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "feet",
+      "defense": 2,
+      "material": "blue_dwarven",
+      "texture": "blue_dwarven"
+    }
+  },
+  {
+    "id": "bone_boots",
+    "kind": "armor",
+    "durability": 117,
+    "enchant": 10,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "feet",
+      "defense": 1,
+      "material": "bone",
+      "texture": "bone"
+    }
+  },
+  {
+    "id": "bronze_boots",
+    "kind": "armor",
+    "durability": 182,
+    "enchant": 10,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "feet",
+      "defense": 2,
+      "material": "bronze",
+      "texture": "bronze"
+    }
+  },
+  {
+    "id": "corsair_boots",
+    "kind": "armor",
+    "durability": 234,
+    "enchant": 10,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "feet",
+      "defense": 2,
+      "material": "corsair",
+      "texture": "corsair"
+    }
+  },
+  {
+    "id": "dalish_boots",
+    "kind": "armor",
+    "durability": 234,
+    "enchant": 10,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "feet",
+      "defense": 2,
+      "material": "dale",
+      "texture": "dale"
+    }
+  },
+  {
+    "id": "dol_amroth_boots",
+    "kind": "armor",
+    "durability": 390,
+    "enchant": 10,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "feet",
+      "defense": 2,
+      "material": "dol_amroth",
+      "texture": "dol_amroth"
+    }
+  },
+  {
+    "id": "dol_guldur_boots",
+    "kind": "armor",
+    "durability": 273,
+    "enchant": 10,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "feet",
+      "defense": 2,
+      "material": "dol_guldur",
+      "texture": "dol_guldur"
+    }
+  },
+  {
+    "id": "dorwinion_boots",
+    "kind": "armor",
+    "durability": 312,
+    "enchant": 10,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "feet",
+      "defense": 2,
+      "material": "dorwinion",
+      "texture": "dorwinion"
+    }
+  },
+  {
+    "id": "dorwinion_elven_boots",
+    "kind": "armor",
+    "durability": 390,
+    "enchant": 15,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "feet",
+      "defense": 2,
+      "material": "dorwinion_elf",
+      "texture": "dorwinion_elf"
+    }
+  },
+  {
+    "id": "dunlending_boots",
+    "kind": "armor",
+    "durability": 195,
+    "enchant": 8,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "feet",
+      "defense": 2,
+      "material": "dunlending",
+      "texture": "dunlending"
+    }
+  },
+  {
+    "id": "dwarven_boots",
+    "kind": "armor",
+    "durability": 546,
+    "enchant": 10,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "feet",
+      "defense": 2,
+      "material": "dwarven",
+      "texture": "dwarven"
+    }
+  },
+  {
+    "id": "gold_trimmed_dwarven_boots",
+    "kind": "armor",
+    "durability": 546,
+    "enchant": 10,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "feet",
+      "defense": 2,
+      "material": "dwarven",
+      "texture": "dwarven"
+    }
+  },
+  {
+    "id": "mithril_trimmed_dwarven_boots",
+    "kind": "armor",
+    "durability": 546,
+    "enchant": 10,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "feet",
+      "defense": 2,
+      "material": "dwarven",
+      "texture": "dwarven"
+    }
+  },
+  {
+    "id": "silver_trimmed_dwarven_boots",
+    "kind": "armor",
+    "durability": 546,
+    "enchant": 10,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "feet",
+      "defense": 2,
+      "material": "dwarven",
+      "texture": "dwarven"
+    }
+  },
+  {
+    "id": "galadhrim_boots",
+    "kind": "armor",
+    "durability": 468,
+    "enchant": 15,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "feet",
+      "defense": 2,
+      "material": "galadhrim",
+      "texture": "galadhrim"
+    }
+  },
+  {
+    "id": "galvorn_boots",
+    "kind": "armor",
+    "durability": 468,
+    "enchant": 15,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "feet",
+      "defense": 2,
+      "material": "galvorn",
+      "texture": "galvorn"
+    }
+  },
+  {
+    "id": "gemsbok_hide_boots",
+    "kind": "armor",
+    "durability": 143,
+    "enchant": 10,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "feet",
+      "defense": 1,
+      "material": "gemsbok",
+      "texture": "gemsbok"
+    }
+  },
+  {
+    "id": "gondolinian_boots",
+    "kind": "armor",
+    "durability": 1170,
+    "enchant": 15,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "feet",
+      "defense": 2,
+      "material": "gondolin",
+      "texture": "gondolin"
+    }
+  },
+  {
+    "id": "gondorian_boots",
+    "kind": "armor",
+    "durability": 351,
+    "enchant": 10,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "feet",
+      "defense": 2,
+      "material": "gondor",
+      "texture": "gondor"
+    }
+  },
+  {
+    "id": "gulfen_boots",
+    "kind": "armor",
+    "durability": 273,
+    "enchant": 10,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "feet",
+      "defense": 2,
+      "material": "gulf_harad",
+      "texture": "gulf_harad"
+    }
+  },
+  {
+    "id": "gundabad_uruk_boots",
+    "kind": "armor",
+    "durability": 390,
+    "enchant": 5,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "feet",
+      "defense": 2,
+      "material": "gundabad_uruk",
+      "texture": "gundabad_uruk"
+    }
+  },
+  {
+    "id": "half_troll_boots",
+    "kind": "armor",
+    "durability": 234,
+    "enchant": 5,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "feet",
+      "defense": 2,
+      "material": "half_troll",
+      "texture": "half_troll"
+    }
+  },
+  {
+    "id": "harad_robe_shoes",
+    "kind": "armor",
+    "stack": 1,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "feet",
+      "defense": 0,
+      "material": "harad_robes",
+      "texture": "harad_robes"
+    }
+  },
+  {
+    "id": "harnennor_boots",
+    "kind": "armor",
+    "durability": 195,
+    "enchant": 8,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "feet",
+      "defense": 2,
+      "material": "harnedor",
+      "texture": "harnedor"
+    }
+  },
+  {
+    "id": "lindon_boots",
+    "kind": "armor",
+    "durability": 546,
+    "enchant": 15,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "feet",
+      "defense": 2,
+      "material": "high_elven",
+      "texture": "high_elven"
+    }
+  },
+  {
+    "id": "galadhrim_cloak_boots",
+    "kind": "armor",
+    "durability": 234,
+    "enchant": 15,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "feet",
+      "defense": 1,
+      "material": "hithlain",
+      "texture": "hithlain"
+    }
+  },
+  {
+    "id": "lamedon_boots",
+    "kind": "armor",
+    "durability": 234,
+    "enchant": 10,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "feet",
+      "defense": 2,
+      "material": "lamedon",
+      "texture": "lamedon"
+    }
+  },
+  {
+    "id": "lossarnach_boots",
+    "kind": "armor",
+    "durability": 234,
+    "enchant": 10,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "feet",
+      "defense": 2,
+      "material": "lossarnach",
+      "texture": "lossarnach"
+    }
+  },
+  {
+    "id": "mithril_boots",
+    "kind": "armor",
+    "durability": 1872,
+    "enchant": 8,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "feet",
+      "defense": 3,
+      "material": "mithril",
+      "texture": "mithril"
+    }
+  },
+  {
+    "id": "morwaith_boots",
+    "kind": "armor",
+    "durability": 195,
+    "enchant": 10,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "feet",
+      "defense": 2,
+      "material": "moredain",
+      "texture": "moredain"
+    }
+  },
+  {
+    "id": "morwaith_chieftain_boots",
+    "kind": "armor",
+    "durability": 234,
+    "enchant": 8,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "feet",
+      "defense": 1,
+      "material": "moredain_lion_armor",
+      "texture": "moredain_lion_armor"
+    }
+  },
+  {
+    "id": "morgul_boots",
+    "kind": "armor",
+    "durability": 351,
+    "enchant": 10,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "feet",
+      "defense": 2,
+      "material": "morgul",
+      "texture": "morgul"
+    }
+  },
+  {
+    "id": "coast_southron_boots",
+    "kind": "armor",
+    "durability": 234,
+    "enchant": 10,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "feet",
+      "defense": 2,
+      "material": "near_harad",
+      "texture": "near_harad"
+    }
+  },
+  {
+    "id": "nomad_shoes",
+    "kind": "armor",
+    "durability": 156,
+    "enchant": 8,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "feet",
+      "defense": 1,
+      "material": "harad_nomad",
+      "texture": "harad_nomad"
+    }
+  },
+  {
+    "id": "mordor_boots",
+    "kind": "armor",
+    "durability": 312,
+    "enchant": 7,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "feet",
+      "defense": 2,
+      "material": "mordor",
+      "texture": "mordor"
+    }
+  },
+  {
+    "id": "pelargir_boots",
+    "kind": "armor",
+    "durability": 351,
+    "enchant": 10,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "feet",
+      "defense": 2,
+      "material": "pelargir",
+      "texture": "pelargir"
+    }
+  },
+  {
+    "id": "pinnath_gelin_boots",
+    "kind": "armor",
+    "durability": 312,
+    "enchant": 10,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "feet",
+      "defense": 2,
+      "material": "pinnath_gelin",
+      "texture": "pinnath_gelin"
+    }
+  },
+  {
+    "id": "ranger_boots",
+    "kind": "armor",
+    "durability": 273,
+    "enchant": 12,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "feet",
+      "defense": 2,
+      "material": "ranger",
+      "texture": "ranger"
+    }
+  },
+  {
+    "id": "ithilien_ranger_boots",
+    "kind": "armor",
+    "durability": 273,
+    "enchant": 12,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "feet",
+      "defense": 2,
+      "material": "ranger_ithilien",
+      "texture": "ranger_ithilien"
+    }
+  },
+  {
+    "id": "rh_nic_boots",
+    "kind": "armor",
+    "durability": 312,
+    "enchant": 10,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "feet",
+      "defense": 2,
+      "material": "rhun",
+      "texture": "rhun"
+    }
+  },
+  {
+    "id": "golden_rh_nic_boots",
+    "kind": "armor",
+    "durability": 351,
+    "enchant": 10,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "feet",
+      "defense": 2,
+      "material": "rhun_gold",
+      "texture": "rhun_gold"
+    }
+  },
+  {
+    "id": "rivendell_boots",
+    "kind": "armor",
+    "durability": 546,
+    "enchant": 15,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "feet",
+      "defense": 2,
+      "material": "rivendell",
+      "texture": "rivendell"
+    }
+  },
+  {
+    "id": "rohirric_boots",
+    "kind": "armor",
+    "durability": 234,
+    "enchant": 10,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "feet",
+      "defense": 2,
+      "material": "rohan",
+      "texture": "rohan"
+    }
+  },
+  {
+    "id": "rohirric_marshal_boots",
+    "kind": "armor",
+    "durability": 312,
+    "enchant": 10,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "feet",
+      "defense": 2,
+      "material": "rohan_marshal",
+      "texture": "rohan_marshal"
+    }
+  },
+  {
+    "id": "taurethrim_boots",
+    "kind": "armor",
+    "durability": 234,
+    "enchant": 10,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "feet",
+      "defense": 2,
+      "material": "tauredain",
+      "texture": "tauredain"
+    }
+  },
+  {
+    "id": "golden_taurethrim_boots",
+    "kind": "armor",
+    "durability": 312,
+    "enchant": 10,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "feet",
+      "defense": 2,
+      "material": "tauredain_gold",
+      "texture": "tauredain_gold"
+    }
+  },
+  {
+    "id": "umbaric_boots",
+    "kind": "armor",
+    "durability": 351,
+    "enchant": 10,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "feet",
+      "defense": 2,
+      "material": "umbar",
+      "texture": "umbar"
+    }
+  },
+  {
+    "id": "uruk_boots",
+    "kind": "armor",
+    "durability": 429,
+    "enchant": 5,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "feet",
+      "defense": 2,
+      "material": "uruk",
+      "texture": "uruk"
+    }
+  },
+  {
+    "id": "utumno_boots",
+    "kind": "armor",
+    "durability": 312,
+    "enchant": 12,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "feet",
+      "defense": 2,
+      "material": "utumno",
+      "texture": "utumno"
+    }
+  },
+  {
+    "id": "fur_boots",
+    "kind": "armor",
+    "durability": 143,
+    "enchant": 8,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "feet",
+      "defense": 1,
+      "material": "fur",
+      "texture": "fur"
+    }
+  },
+  {
+    "id": "wood_elven_boots",
+    "kind": "armor",
+    "durability": 390,
+    "enchant": 15,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "feet",
+      "defense": 2,
+      "material": "wood_elven",
+      "texture": "wood_elven"
+    }
+  },
+  {
+    "id": "wood_elven_scout_boots",
+    "kind": "armor",
+    "durability": 234,
+    "enchant": 15,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "feet",
+      "defense": 1,
+      "material": "wood_elven_scout",
+      "texture": "wood_elven_scout"
+    }
+  },
+  {
+    "id": "hill_troll_chieftain_skull",
+    "kind": "item",
+    "stack": 1,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "mallorn_ent_trunk",
+    "kind": "item",
+    "stack": 1,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "bottle_of_poison",
+    "kind": "item",
+    "stack": 1,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "headhunters_trophy",
+    "kind": "item",
+    "stack": 64,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "branding_iron",
+    "kind": "item",
+    "durability": 100,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "bronze_ingot",
+    "kind": "item",
+    "stack": 64,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "bronze_crossbow",
+    "kind": "item",
+    "durability": 287,
+    "enchant": 3,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "cooked_camel",
+    "kind": "item",
+    "stack": 64,
+    "level": 2,
+    "speed": 6.0,
+    "food": {
+      "nutrition": 6,
+      "saturation": 0.6
+    }
+  },
+  {
+    "id": "raw_camel",
+    "kind": "item",
+    "stack": 64,
+    "level": 2,
+    "speed": 6.0,
+    "food": {
+      "nutrition": 2,
+      "saturation": 0.2
+    }
+  },
+  {
+    "id": "ceramic_mug",
+    "kind": "item",
+    "stack": 64,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "stoneware_plate",
+    "kind": "item",
+    "stack": 64,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "cherries",
+    "kind": "item",
+    "stack": 64,
+    "level": 2,
+    "speed": 6.0,
+    "food": {
+      "nutrition": 2,
+      "saturation": 0.2
+    }
+  },
+  {
+    "id": "cherry_pie",
+    "kind": "item",
+    "stack": 1,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "conker",
+    "kind": "item",
+    "stack": 16,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "roast_chestnut",
+    "kind": "item",
+    "stack": 64,
+    "level": 2,
+    "speed": 6.0,
+    "food": {
+      "nutrition": 2,
+      "saturation": 0.2
+    }
+  },
+  {
+    "id": "chill_of_daedelos",
+    "kind": "item",
+    "stack": 64,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "chisel",
+    "kind": "item",
+    "durability": 100,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "moon_chisel",
+    "kind": "item",
+    "durability": 100,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "clay_mug",
+    "kind": "item",
+    "stack": 64,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "clay_plate",
+    "kind": "item",
+    "stack": 64,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "morwaith_club",
+    "kind": "sword",
+    "durability": 250,
+    "enchant": 10,
+    "damage": 8.0,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "silver_coin",
+    "kind": "item",
+    "stack": 64,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "silver_coin_10",
+    "kind": "item",
+    "stack": 64,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "silver_coin_100",
+    "kind": "item",
+    "stack": 64,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "horn_of_command",
+    "kind": "item",
+    "stack": 1,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "horn_of_command_halt_units",
+    "kind": "item",
+    "stack": 1,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "horn_of_command_ready_units",
+    "kind": "item",
+    "stack": 1,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "horn_of_command_summon_units",
+    "kind": "item",
+    "stack": 1,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "sword_of_command",
+    "kind": "sword",
+    "stack": 1,
+    "damage": 1.0,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "warhorn",
+    "kind": "item",
+    "stack": 1,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "copper_ingot",
+    "kind": "item",
+    "stack": 64,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "coral",
+    "kind": "item",
+    "stack": 64,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "corn",
+    "kind": "item",
+    "stack": 64,
+    "level": 2,
+    "speed": 6.0,
+    "food": {
+      "nutrition": 2,
+      "saturation": 0.3
+    }
+  },
+  {
+    "id": "corn_bread",
+    "kind": "item",
+    "stack": 64,
+    "level": 2,
+    "speed": 6.0,
+    "food": {
+      "nutrition": 5,
+      "saturation": 0.6
+    }
+  },
+  {
+    "id": "cooked_corn",
+    "kind": "item",
+    "stack": 64,
+    "level": 2,
+    "speed": 6.0,
+    "food": {
+      "nutrition": 4,
+      "saturation": 0.4
+    }
+  },
+  {
+    "id": "cram",
+    "kind": "item",
+    "stack": 64,
+    "level": 2,
+    "speed": 6.0,
+    "food": {
+      "nutrition": 8,
+      "saturation": 1.0
+    }
+  },
+  {
+    "id": "cranberries",
+    "kind": "item",
+    "stack": 64,
+    "level": 2,
+    "speed": 6.0,
+    "food": {
+      "nutrition": 2,
+      "saturation": 0.2
+    }
+  },
+  {
+    "id": "crossbow_bolt",
+    "kind": "item",
+    "stack": 64,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "poisoned_crossbow_bolt",
+    "kind": "item",
+    "stack": 64,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "old_haradric_sacrificial_dagger",
+    "kind": "sword",
+    "durability": 450,
+    "enchant": 10,
+    "damage": 3.5,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "angmar_dagger",
+    "kind": "sword",
+    "durability": 350,
+    "enchant": 8,
+    "damage": 3.5,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "poisoned_angmar_dagger",
+    "kind": "sword",
+    "durability": 350,
+    "enchant": 8,
+    "damage": 3.5,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "arnorian_dagger",
+    "kind": "sword",
+    "durability": 450,
+    "enchant": 10,
+    "damage": 3.5,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "poisoned_arnorian_dagger",
+    "kind": "sword",
+    "durability": 450,
+    "enchant": 10,
+    "damage": 3.5,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "barrow_blade",
+    "kind": "sword",
+    "durability": 600,
+    "enchant": 10,
+    "damage": 4.0,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "poisoned_barrow_blade",
+    "kind": "sword",
+    "durability": 600,
+    "enchant": 10,
+    "damage": 4.0,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "black_n_men_rean_dagger",
+    "kind": "sword",
+    "durability": 450,
+    "enchant": 10,
+    "damage": 3.5,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "poisoned_black_n_men_rean_dagger",
+    "kind": "sword",
+    "durability": 450,
+    "enchant": 10,
+    "damage": 3.5,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "black_uruk_dagger",
+    "kind": "sword",
+    "durability": 550,
+    "enchant": 6,
+    "damage": 4.0,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "poisoned_black_uruk_dagger",
+    "kind": "sword",
+    "durability": 550,
+    "enchant": 6,
+    "damage": 4.0,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "blue_dwarven_dagger",
+    "kind": "sword",
+    "durability": 650,
+    "enchant": 12,
+    "damage": 4.0,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "poisoned_blue_dwarven_dagger",
+    "kind": "sword",
+    "durability": 650,
+    "enchant": 12,
+    "damage": 4.0,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "bronze_dagger",
+    "kind": "sword",
+    "durability": 230,
+    "enchant": 10,
+    "damage": 2.5,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "poisoned_bronze_dagger",
+    "kind": "sword",
+    "durability": 230,
+    "enchant": 10,
+    "damage": 2.5,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "corsair_dagger",
+    "kind": "sword",
+    "durability": 300,
+    "enchant": 10,
+    "damage": 3.5,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "poisoned_corsair_dagger",
+    "kind": "sword",
+    "durability": 300,
+    "enchant": 10,
+    "damage": 3.5,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "dalish_dagger",
+    "kind": "sword",
+    "durability": 300,
+    "enchant": 10,
+    "damage": 3.5,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "poisoned_dalish_dagger",
+    "kind": "sword",
+    "durability": 300,
+    "enchant": 10,
+    "damage": 3.5,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "dol_amroth_dagger",
+    "kind": "sword",
+    "durability": 500,
+    "enchant": 10,
+    "damage": 4.0,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "poisoned_dol_amroth_dagger",
+    "kind": "sword",
+    "durability": 500,
+    "enchant": 10,
+    "damage": 4.0,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "dol_guldur_dagger",
+    "kind": "sword",
+    "durability": 350,
+    "enchant": 10,
+    "damage": 3.5,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "poisoned_dol_guldur_dagger",
+    "kind": "sword",
+    "durability": 350,
+    "enchant": 10,
+    "damage": 3.5,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "dorwinion_elven_dagger",
+    "kind": "sword",
+    "durability": 500,
+    "enchant": 15,
+    "damage": 4.0,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "poisoned_dorwinion_elven_dagger",
+    "kind": "sword",
+    "durability": 500,
+    "enchant": 15,
+    "damage": 4.0,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "dwarven_dagger",
+    "kind": "sword",
+    "durability": 700,
+    "enchant": 10,
+    "damage": 4.0,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "poisoned_dwarven_dagger",
+    "kind": "sword",
+    "durability": 700,
+    "enchant": 10,
+    "damage": 4.0,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "galadhrim_dagger",
+    "kind": "sword",
+    "durability": 600,
+    "enchant": 15,
+    "damage": 4.0,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "poisoned_galadhrim_dagger",
+    "kind": "sword",
+    "durability": 600,
+    "enchant": 15,
+    "damage": 4.0,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "gondorian_dagger",
+    "kind": "sword",
+    "durability": 450,
+    "enchant": 10,
+    "damage": 3.5,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "poisoned_gondorian_dagger",
+    "kind": "sword",
+    "durability": 450,
+    "enchant": 10,
+    "damage": 3.5,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "gundabad_uruk_dagger",
+    "kind": "sword",
+    "durability": 500,
+    "enchant": 5,
+    "damage": 4.0,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "poisoned_gundabad_uruk_dagger",
+    "kind": "sword",
+    "durability": 500,
+    "enchant": 5,
+    "damage": 4.0,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "half_troll_dagger",
+    "kind": "sword",
+    "durability": 300,
+    "enchant": 5,
+    "damage": 3.5,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "poisoned_half_troll_dagger",
+    "kind": "sword",
+    "durability": 300,
+    "enchant": 5,
+    "damage": 3.5,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "haradric_dagger",
+    "kind": "sword",
+    "durability": 300,
+    "enchant": 10,
+    "damage": 3.5,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "poisoned_haradric_dagger",
+    "kind": "sword",
+    "durability": 300,
+    "enchant": 10,
+    "damage": 3.5,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "lindon_dagger",
+    "kind": "sword",
+    "durability": 700,
+    "enchant": 15,
+    "damage": 4.0,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "poisoned_lindon_dagger",
+    "kind": "sword",
+    "durability": 700,
+    "enchant": 15,
+    "damage": 4.0,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "iron_dagger",
+    "kind": "sword",
+    "durability": 250,
+    "enchant": 14,
+    "damage": 3.0,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "poisoned_iron_dagger",
+    "kind": "sword",
+    "durability": 250,
+    "enchant": 14,
+    "damage": 3.0,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "mithril_dagger",
+    "kind": "sword",
+    "durability": 2400,
+    "enchant": 8,
+    "damage": 6.0,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "poisoned_mithril_dagger",
+    "kind": "sword",
+    "durability": 2400,
+    "enchant": 8,
+    "damage": 6.0,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "morwaith_dagger",
+    "kind": "sword",
+    "durability": 250,
+    "enchant": 10,
+    "damage": 3.0,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "poisoned_morwaith_dagger",
+    "kind": "sword",
+    "durability": 250,
+    "enchant": 10,
+    "damage": 3.0,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "umbaric_dagger",
+    "kind": "sword",
+    "durability": 450,
+    "enchant": 10,
+    "damage": 3.5,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "poisoned_umbaric_dagger",
+    "kind": "sword",
+    "durability": 450,
+    "enchant": 10,
+    "damage": 3.5,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "mordor_dagger",
+    "kind": "sword",
+    "durability": 400,
+    "enchant": 7,
+    "damage": 3.5,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "poisoned_mordor_dagger",
+    "kind": "sword",
+    "durability": 400,
+    "enchant": 7,
+    "damage": 3.5,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "rh_nic_dagger",
+    "kind": "sword",
+    "durability": 400,
+    "enchant": 10,
+    "damage": 3.5,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "poisoned_rh_nic_dagger",
+    "kind": "sword",
+    "durability": 400,
+    "enchant": 10,
+    "damage": 3.5,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "rivendell_dagger",
+    "kind": "sword",
+    "durability": 700,
+    "enchant": 15,
+    "damage": 4.0,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "poisoned_rivendell_dagger",
+    "kind": "sword",
+    "durability": 700,
+    "enchant": 15,
+    "damage": 4.0,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "rohirric_dagger",
+    "kind": "sword",
+    "durability": 300,
+    "enchant": 10,
+    "damage": 3.5,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "poisoned_rohirric_dagger",
+    "kind": "sword",
+    "durability": 300,
+    "enchant": 10,
+    "damage": 3.5,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "taurethrim_dagger",
+    "kind": "sword",
+    "durability": 300,
+    "enchant": 10,
+    "damage": 3.5,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "poisoned_taurethrim_dagger",
+    "kind": "sword",
+    "durability": 300,
+    "enchant": 10,
+    "damage": 3.5,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "uruk_dagger",
+    "kind": "sword",
+    "durability": 550,
+    "enchant": 5,
+    "damage": 4.0,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "poisoned_uruk_dagger",
+    "kind": "sword",
+    "durability": 550,
+    "enchant": 5,
+    "damage": 4.0,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "utumno_dagger",
+    "kind": "sword",
+    "durability": 400,
+    "enchant": 12,
+    "damage": 4.5,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "poisoned_utumno_dagger",
+    "kind": "sword",
+    "durability": 400,
+    "enchant": 12,
+    "damage": 4.5,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "wood_elven_dagger",
+    "kind": "sword",
+    "durability": 500,
+    "enchant": 15,
+    "damage": 4.0,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "poisoned_wood_elven_dagger",
+    "kind": "sword",
+    "durability": 500,
+    "enchant": 15,
+    "damage": 4.0,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "dalish_longbow",
+    "kind": "item",
+    "durability": 450,
+    "enchant": 3,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "dalish_cracker",
+    "kind": "item",
+    "stack": 1,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "dalish_pastry",
+    "kind": "item",
+    "stack": 1,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "date",
+    "kind": "item",
+    "stack": 64,
+    "level": 2,
+    "speed": 6.0,
+    "food": {
+      "nutrition": 2,
+      "saturation": 0.3
+    }
+  },
+  {
+    "id": "cooked_venison",
+    "kind": "item",
+    "stack": 64,
+    "level": 2,
+    "speed": 6.0,
+    "food": {
+      "nutrition": 8,
+      "saturation": 0.8
+    }
+  },
+  {
+    "id": "raw_venison",
+    "kind": "item",
+    "stack": 64,
+    "level": 2,
+    "speed": 6.0,
+    "food": {
+      "nutrition": 3,
+      "saturation": 0.3
+    }
+  },
+  {
+    "id": "diamond",
+    "kind": "item",
+    "stack": 64,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "dorwinion_elven_bow",
+    "kind": "item",
+    "durability": 750,
+    "enchant": 4,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "dunlending_club",
+    "kind": "sword",
+    "durability": 59,
+    "enchant": 15,
+    "damage": 4.0,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "dunlending_trident",
+    "kind": "sword",
+    "durability": 250,
+    "enchant": 14,
+    "damage": 6.0,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "dwarf_bone",
+    "kind": "item",
+    "stack": 64,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "dwarven_steel_ingot",
+    "kind": "item",
+    "stack": 64,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "dwarven_bed",
+    "kind": "item",
+    "stack": 1,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "dwarven_marriage_ring",
+    "kind": "item",
+    "stack": 64,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "yellow_dye",
+    "kind": "item",
+    "stack": 64,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "white_dye",
+    "kind": "item",
+    "stack": 64,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "bluebell_blue",
+    "kind": "item",
+    "stack": 64,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "clover_green",
+    "kind": "item",
+    "stack": 64,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "charcoal_dust",
+    "kind": "item",
+    "stack": 64,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "brown_dye",
+    "kind": "item",
+    "stack": 64,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "elderberries",
+    "kind": "item",
+    "stack": 64,
+    "level": 2,
+    "speed": 6.0,
+    "food": {
+      "nutrition": 2,
+      "saturation": 0.2
+    }
+  },
+  {
+    "id": "elf_bone",
+    "kind": "item",
+    "stack": 64,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "elven_steel_ingot",
+    "kind": "item",
+    "stack": 64,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "wood_elven_elk_armor",
+    "kind": "item",
+    "stack": 1,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "galadhrim_bed",
+    "kind": "item",
+    "stack": 1,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "galadhrim_bow",
+    "kind": "item",
+    "durability": 900,
+    "enchant": 4,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "emerald",
+    "kind": "item",
+    "stack": 64,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "green_ent_draught",
+    "kind": "item",
+    "stack": 1,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "brown_ent_draught",
+    "kind": "item",
+    "stack": 1,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "golden_ent_draught",
+    "kind": "item",
+    "stack": 1,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "yellow_ent_draught",
+    "kind": "item",
+    "stack": 1,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "red_ent_draught",
+    "kind": "item",
+    "stack": 1,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "silver_ent_draught",
+    "kind": "item",
+    "stack": 1,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "blue_ent_draught",
+    "kind": "item",
+    "stack": 1,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "dyed_feather",
+    "kind": "item",
+    "stack": 1,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "flax",
+    "kind": "item",
+    "stack": 64,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "flax_seeds",
+    "kind": "item",
+    "stack": 64,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "galvorn_ingot",
+    "kind": "item",
+    "stack": 64,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "gammon",
+    "kind": "item",
+    "stack": 64,
+    "level": 2,
+    "speed": 6.0,
+    "food": {
+      "nutrition": 8,
+      "saturation": 0.8
+    }
+  },
+  {
+    "id": "staff_of_gandalf_the_grey",
+    "kind": "sword",
+    "durability": 1000,
+    "enchant": 15,
+    "damage": 4.0,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "staff_of_gandalf_the_white",
+    "kind": "sword",
+    "durability": 1500,
+    "enchant": 15,
+    "damage": 8.0,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "gate_gears",
+    "kind": "item",
+    "stack": 64,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "gemsbok_hide",
+    "kind": "item",
+    "stack": 64,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "gemsbok_horn",
+    "kind": "item",
+    "stack": 64,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "gilded_iron_ingot",
+    "kind": "item",
+    "stack": 64,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "giraffeskin_rug",
+    "kind": "item",
+    "stack": 1,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "glamdring",
+    "kind": "sword",
+    "durability": 1500,
+    "enchant": 15,
+    "damage": 9.0,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "copper_goblet",
+    "kind": "item",
+    "stack": 64,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "golden_goblet",
+    "kind": "item",
+    "stack": 64,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "silver_goblet",
+    "kind": "item",
+    "stack": 64,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "wooden_cup",
+    "kind": "item",
+    "stack": 64,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "gold_ring",
+    "kind": "item",
+    "stack": 64,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "gondorian_bow",
+    "kind": "item",
+    "durability": 675,
+    "enchant": 3,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "red_grapes",
+    "kind": "item",
+    "stack": 64,
+    "level": 2,
+    "speed": 6.0,
+    "food": {
+      "nutrition": 2,
+      "saturation": 0.2
+    }
+  },
+  {
+    "id": "green_grapes",
+    "kind": "item",
+    "stack": 64,
+    "level": 2,
+    "speed": 6.0,
+    "food": {
+      "nutrition": 2,
+      "saturation": 0.2
+    }
+  },
+  {
+    "id": "gulduril",
+    "kind": "item",
+    "stack": 64,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "gundabad_uruk_bow",
+    "kind": "item",
+    "durability": 750,
+    "enchant": 2,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "mithril_halberd",
+    "kind": "sword",
+    "durability": 2400,
+    "enchant": 8,
+    "damage": 9.0,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "angmar_warhammer",
+    "kind": "sword",
+    "durability": 350,
+    "enchant": 8,
+    "damage": 8.5,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "black_uruk_warhammer",
+    "kind": "sword",
+    "durability": 550,
+    "enchant": 6,
+    "damage": 9.0,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "blue_dwarven_warhammer",
+    "kind": "sword",
+    "durability": 650,
+    "enchant": 12,
+    "damage": 9.0,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "dol_guldur_warhammer",
+    "kind": "sword",
+    "durability": 350,
+    "enchant": 10,
+    "damage": 8.5,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "dwarven_warhammer",
+    "kind": "sword",
+    "durability": 700,
+    "enchant": 10,
+    "damage": 9.0,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "gondorian_warhammer",
+    "kind": "sword",
+    "durability": 450,
+    "enchant": 10,
+    "damage": 8.5,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "gundabad_uruk_bludgeon",
+    "kind": "sword",
+    "durability": 500,
+    "enchant": 5,
+    "damage": 9.0,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "half_troll_warhammer",
+    "kind": "sword",
+    "durability": 300,
+    "enchant": 5,
+    "damage": 8.5,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "mithril_warhammer",
+    "kind": "sword",
+    "durability": 2400,
+    "enchant": 8,
+    "damage": 11.0,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "mordor_warhammer",
+    "kind": "sword",
+    "durability": 400,
+    "enchant": 7,
+    "damage": 8.5,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "taurethrim_bludgeon",
+    "kind": "sword",
+    "durability": 300,
+    "enchant": 10,
+    "damage": 8.5,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "uruk_warhammer",
+    "kind": "sword",
+    "durability": 550,
+    "enchant": 5,
+    "damage": 9.0,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "utumno_warhammer",
+    "kind": "sword",
+    "durability": 400,
+    "enchant": 12,
+    "damage": 9.5,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "angmar_helmet",
+    "kind": "armor",
+    "durability": 231,
+    "enchant": 8,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "head",
+      "defense": 2,
+      "material": "angmar",
+      "texture": "angmar"
+    }
+  },
+  {
+    "id": "arnorian_helmet",
+    "kind": "armor",
+    "durability": 297,
+    "enchant": 10,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "head",
+      "defense": 2,
+      "material": "arnor",
+      "texture": "arnor"
+    }
+  },
+  {
+    "id": "black_n_men_rean_helmet",
+    "kind": "armor",
+    "durability": 297,
+    "enchant": 10,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "head",
+      "defense": 2,
+      "material": "black_numenorean",
+      "texture": "black_numenorean"
+    }
+  },
+  {
+    "id": "black_uruk_helmet",
+    "kind": "armor",
+    "durability": 363,
+    "enchant": 6,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "head",
+      "defense": 2,
+      "material": "black_uruk",
+      "texture": "black_uruk"
+    }
+  },
+  {
+    "id": "blackroot_vale_helmet",
+    "kind": "armor",
+    "durability": 264,
+    "enchant": 10,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "head",
+      "defense": 2,
+      "material": "blackroot",
+      "texture": "blackroot"
+    }
+  },
+  {
+    "id": "blue_dwarven_helmet",
+    "kind": "armor",
+    "durability": 429,
+    "enchant": 12,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "head",
+      "defense": 2,
+      "material": "blue_dwarven",
+      "texture": "blue_dwarven"
+    }
+  },
+  {
+    "id": "bone_helmet",
+    "kind": "armor",
+    "durability": 99,
+    "enchant": 10,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "head",
+      "defense": 1,
+      "material": "bone",
+      "texture": "bone"
+    }
+  },
+  {
+    "id": "bronze_helmet",
+    "kind": "armor",
+    "durability": 154,
+    "enchant": 10,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "head",
+      "defense": 2,
+      "material": "bronze",
+      "texture": "bronze"
+    }
+  },
+  {
+    "id": "corsair_helmet",
+    "kind": "armor",
+    "durability": 198,
+    "enchant": 10,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "head",
+      "defense": 2,
+      "material": "corsair",
+      "texture": "corsair"
+    }
+  },
+  {
+    "id": "dalish_helmet",
+    "kind": "armor",
+    "durability": 198,
+    "enchant": 10,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "head",
+      "defense": 2,
+      "material": "dale",
+      "texture": "dale"
+    }
+  },
+  {
+    "id": "dol_amroth_helmet",
+    "kind": "armor",
+    "durability": 330,
+    "enchant": 10,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "head",
+      "defense": 2,
+      "material": "dol_amroth",
+      "texture": "dol_amroth"
+    }
+  },
+  {
+    "id": "dol_guldur_helmet",
+    "kind": "armor",
+    "durability": 231,
+    "enchant": 10,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "head",
+      "defense": 2,
+      "material": "dol_guldur",
+      "texture": "dol_guldur"
+    }
+  },
+  {
+    "id": "dorwinion_helmet",
+    "kind": "armor",
+    "durability": 264,
+    "enchant": 10,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "head",
+      "defense": 2,
+      "material": "dorwinion",
+      "texture": "dorwinion"
+    }
+  },
+  {
+    "id": "dorwinion_elven_helmet",
+    "kind": "armor",
+    "durability": 330,
+    "enchant": 15,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "head",
+      "defense": 2,
+      "material": "dorwinion_elf",
+      "texture": "dorwinion_elf"
+    }
+  },
+  {
+    "id": "dunlending_helmet",
+    "kind": "armor",
+    "durability": 165,
+    "enchant": 8,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "head",
+      "defense": 2,
+      "material": "dunlending",
+      "texture": "dunlending"
+    }
+  },
+  {
+    "id": "dwarven_helmet",
+    "kind": "armor",
+    "durability": 462,
+    "enchant": 10,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "head",
+      "defense": 2,
+      "material": "dwarven",
+      "texture": "dwarven"
+    }
+  },
+  {
+    "id": "gold_trimmed_dwarven_helmet",
+    "kind": "armor",
+    "durability": 462,
+    "enchant": 10,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "head",
+      "defense": 2,
+      "material": "dwarven",
+      "texture": "dwarven"
+    }
+  },
+  {
+    "id": "mithril_trimmed_dwarven_helmet",
+    "kind": "armor",
+    "durability": 462,
+    "enchant": 10,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "head",
+      "defense": 2,
+      "material": "dwarven",
+      "texture": "dwarven"
+    }
+  },
+  {
+    "id": "silver_trimmed_dwarven_helmet",
+    "kind": "armor",
+    "durability": 462,
+    "enchant": 10,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "head",
+      "defense": 2,
+      "material": "dwarven",
+      "texture": "dwarven"
+    }
+  },
+  {
+    "id": "galadhrim_helmet",
+    "kind": "armor",
+    "durability": 396,
+    "enchant": 15,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "head",
+      "defense": 2,
+      "material": "galadhrim",
+      "texture": "galadhrim"
+    }
+  },
+  {
+    "id": "galvorn_helmet",
+    "kind": "armor",
+    "durability": 396,
+    "enchant": 15,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "head",
+      "defense": 2,
+      "material": "galvorn",
+      "texture": "galvorn"
+    }
+  },
+  {
+    "id": "gemsbok_hide_helmet",
+    "kind": "armor",
+    "durability": 121,
+    "enchant": 10,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "head",
+      "defense": 1,
+      "material": "gemsbok",
+      "texture": "gemsbok"
+    }
+  },
+  {
+    "id": "gondolinian_helmet",
+    "kind": "armor",
+    "durability": 990,
+    "enchant": 15,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "head",
+      "defense": 2,
+      "material": "gondolin",
+      "texture": "gondolin"
+    }
+  },
+  {
+    "id": "gondorian_helmet",
+    "kind": "armor",
+    "durability": 297,
+    "enchant": 10,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "head",
+      "defense": 2,
+      "material": "gondor",
+      "texture": "gondor"
+    }
+  },
+  {
+    "id": "winged_gondorian_helmet",
+    "kind": "armor",
+    "durability": 297,
+    "enchant": 10,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "head",
+      "defense": 2,
+      "material": "gondor",
+      "texture": "gondor"
+    }
+  },
+  {
+    "id": "gulfen_helmet",
+    "kind": "armor",
+    "durability": 231,
+    "enchant": 10,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "head",
+      "defense": 2,
+      "material": "gulf_harad",
+      "texture": "gulf_harad"
+    }
+  },
+  {
+    "id": "gundabad_uruk_helmet",
+    "kind": "armor",
+    "durability": 330,
+    "enchant": 5,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "head",
+      "defense": 2,
+      "material": "gundabad_uruk",
+      "texture": "gundabad_uruk"
+    }
+  },
+  {
+    "id": "half_troll_helmet",
+    "kind": "armor",
+    "durability": 198,
+    "enchant": 5,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "head",
+      "defense": 2,
+      "material": "half_troll",
+      "texture": "half_troll"
+    }
+  },
+  {
+    "id": "harad_turban",
+    "kind": "armor",
+    "stack": 1,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "head",
+      "defense": 0,
+      "material": "harad_robes",
+      "texture": "harad_robes"
+    }
+  },
+  {
+    "id": "harnennor_helmet",
+    "kind": "armor",
+    "durability": 165,
+    "enchant": 8,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "head",
+      "defense": 2,
+      "material": "harnedor",
+      "texture": "harnedor"
+    }
+  },
+  {
+    "id": "lindon_helmet",
+    "kind": "armor",
+    "durability": 462,
+    "enchant": 15,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "head",
+      "defense": 2,
+      "material": "high_elven",
+      "texture": "high_elven"
+    }
+  },
+  {
+    "id": "galadhrim_cloak_hood",
+    "kind": "armor",
+    "durability": 198,
+    "enchant": 15,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "head",
+      "defense": 1,
+      "material": "hithlain",
+      "texture": "hithlain"
+    }
+  },
+  {
+    "id": "lamedon_helmet",
+    "kind": "armor",
+    "durability": 198,
+    "enchant": 10,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "head",
+      "defense": 2,
+      "material": "lamedon",
+      "texture": "lamedon"
+    }
+  },
+  {
+    "id": "lossarnach_helmet",
+    "kind": "armor",
+    "durability": 198,
+    "enchant": 10,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "head",
+      "defense": 2,
+      "material": "lossarnach",
+      "texture": "lossarnach"
+    }
+  },
+  {
+    "id": "mithril_helmet",
+    "kind": "armor",
+    "durability": 1584,
+    "enchant": 8,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "head",
+      "defense": 3,
+      "material": "mithril",
+      "texture": "mithril"
+    }
+  },
+  {
+    "id": "morwaith_helmet",
+    "kind": "armor",
+    "durability": 165,
+    "enchant": 10,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "head",
+      "defense": 2,
+      "material": "moredain",
+      "texture": "moredain"
+    }
+  },
+  {
+    "id": "morwaith_chieftain_helmet",
+    "kind": "armor",
+    "durability": 198,
+    "enchant": 8,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "head",
+      "defense": 1,
+      "material": "moredain_lion_armor",
+      "texture": "moredain_lion_armor"
+    }
+  },
+  {
+    "id": "morgul_helmet",
+    "kind": "armor",
+    "durability": 297,
+    "enchant": 10,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "head",
+      "defense": 2,
+      "material": "morgul",
+      "texture": "morgul"
+    }
+  },
+  {
+    "id": "coast_southron_helmet",
+    "kind": "armor",
+    "durability": 198,
+    "enchant": 10,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "head",
+      "defense": 2,
+      "material": "near_harad",
+      "texture": "near_harad"
+    }
+  },
+  {
+    "id": "southron_champion_helmet",
+    "kind": "armor",
+    "durability": 198,
+    "enchant": 10,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "head",
+      "defense": 2,
+      "material": "near_harad",
+      "texture": "near_harad"
+    }
+  },
+  {
+    "id": "nomad_cap",
+    "kind": "armor",
+    "durability": 132,
+    "enchant": 8,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "head",
+      "defense": 1,
+      "material": "harad_nomad",
+      "texture": "harad_nomad"
+    }
+  },
+  {
+    "id": "mordor_helmet",
+    "kind": "armor",
+    "durability": 264,
+    "enchant": 7,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "head",
+      "defense": 2,
+      "material": "mordor",
+      "texture": "mordor"
+    }
+  },
+  {
+    "id": "pelargir_helmet",
+    "kind": "armor",
+    "durability": 297,
+    "enchant": 10,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "head",
+      "defense": 2,
+      "material": "pelargir",
+      "texture": "pelargir"
+    }
+  },
+  {
+    "id": "pinnath_gelin_helmet",
+    "kind": "armor",
+    "durability": 264,
+    "enchant": 10,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "head",
+      "defense": 2,
+      "material": "pinnath_gelin",
+      "texture": "pinnath_gelin"
+    }
+  },
+  {
+    "id": "ranger_hood",
+    "kind": "armor",
+    "durability": 231,
+    "enchant": 12,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "head",
+      "defense": 2,
+      "material": "ranger",
+      "texture": "ranger"
+    }
+  },
+  {
+    "id": "ithilien_ranger_hood",
+    "kind": "armor",
+    "durability": 231,
+    "enchant": 12,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "head",
+      "defense": 2,
+      "material": "ranger_ithilien",
+      "texture": "ranger_ithilien"
+    }
+  },
+  {
+    "id": "rh_nic_helmet",
+    "kind": "armor",
+    "durability": 264,
+    "enchant": 10,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "head",
+      "defense": 2,
+      "material": "rhun",
+      "texture": "rhun"
+    }
+  },
+  {
+    "id": "golden_rh_nic_helmet",
+    "kind": "armor",
+    "durability": 297,
+    "enchant": 10,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "head",
+      "defense": 2,
+      "material": "rhun_gold",
+      "texture": "rhun_gold"
+    }
+  },
+  {
+    "id": "rh_nic_warlord_helmet",
+    "kind": "armor",
+    "durability": 297,
+    "enchant": 10,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "head",
+      "defense": 2,
+      "material": "rhun_gold",
+      "texture": "rhun_gold"
+    }
+  },
+  {
+    "id": "rivendell_helmet",
+    "kind": "armor",
+    "durability": 462,
+    "enchant": 15,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "head",
+      "defense": 2,
+      "material": "rivendell",
+      "texture": "rivendell"
+    }
+  },
+  {
+    "id": "rohirric_coif",
+    "kind": "armor",
+    "durability": 198,
+    "enchant": 10,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "head",
+      "defense": 2,
+      "material": "rohan",
+      "texture": "rohan"
+    }
+  },
+  {
+    "id": "rohirric_marshal_helmet",
+    "kind": "armor",
+    "durability": 264,
+    "enchant": 10,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "head",
+      "defense": 2,
+      "material": "rohan_marshal",
+      "texture": "rohan_marshal"
+    }
+  },
+  {
+    "id": "taurethrim_helmet",
+    "kind": "armor",
+    "durability": 198,
+    "enchant": 10,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "head",
+      "defense": 2,
+      "material": "tauredain",
+      "texture": "tauredain"
+    }
+  },
+  {
+    "id": "taurethrim_chieftain_helmet",
+    "kind": "armor",
+    "durability": 198,
+    "enchant": 10,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "head",
+      "defense": 2,
+      "material": "tauredain",
+      "texture": "tauredain"
+    }
+  },
+  {
+    "id": "golden_taurethrim_helmet",
+    "kind": "armor",
+    "durability": 264,
+    "enchant": 10,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "head",
+      "defense": 2,
+      "material": "tauredain_gold",
+      "texture": "tauredain_gold"
+    }
+  },
+  {
+    "id": "umbaric_helmet",
+    "kind": "armor",
+    "durability": 297,
+    "enchant": 10,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "head",
+      "defense": 2,
+      "material": "umbar",
+      "texture": "umbar"
+    }
+  },
+  {
+    "id": "uruk_helmet",
+    "kind": "armor",
+    "durability": 363,
+    "enchant": 5,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "head",
+      "defense": 2,
+      "material": "uruk",
+      "texture": "uruk"
+    }
+  },
+  {
+    "id": "uruk_berserker_helmet",
+    "kind": "armor",
+    "durability": 363,
+    "enchant": 5,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "head",
+      "defense": 2,
+      "material": "uruk",
+      "texture": "uruk"
+    }
+  },
+  {
+    "id": "utumno_helmet",
+    "kind": "armor",
+    "durability": 264,
+    "enchant": 12,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "head",
+      "defense": 2,
+      "material": "utumno",
+      "texture": "utumno"
+    }
+  },
+  {
+    "id": "fur_hat",
+    "kind": "armor",
+    "durability": 121,
+    "enchant": 8,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "head",
+      "defense": 1,
+      "material": "fur",
+      "texture": "fur"
+    }
+  },
+  {
+    "id": "wood_elven_helmet",
+    "kind": "armor",
+    "durability": 330,
+    "enchant": 15,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "head",
+      "defense": 2,
+      "material": "wood_elven",
+      "texture": "wood_elven"
+    }
+  },
+  {
+    "id": "wood_elven_scout_hood",
+    "kind": "armor",
+    "durability": 198,
+    "enchant": 15,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "head",
+      "defense": 1,
+      "material": "wood_elven_scout",
+      "texture": "wood_elven_scout"
+    }
+  },
+  {
+    "id": "high_elven_bed",
+    "kind": "item",
+    "stack": 1,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "lindon_bow",
+    "kind": "item",
+    "durability": 1050,
+    "enchant": 4,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "hithlain",
+    "kind": "item",
+    "stack": 64,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "hobbit_bone",
+    "kind": "item",
+    "stack": 64,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "hobbit_pancake",
+    "kind": "item",
+    "stack": 64,
+    "level": 2,
+    "speed": 6.0,
+    "food": {
+      "nutrition": 4,
+      "saturation": 0.6
+    }
+  },
+  {
+    "id": "hobbit_pancake_with_maple_syrup",
+    "kind": "item",
+    "stack": 64,
+    "level": 2,
+    "speed": 6.0,
+    "food": {
+      "nutrition": 5,
+      "saturation": 0.6
+    }
+  },
+  {
+    "id": "smoking_pipe",
+    "kind": "item",
+    "durability": 300,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "hobbit_marriage_ring",
+    "kind": "item",
+    "stack": 64,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "angmar_hoe",
+    "kind": "hoe",
+    "durability": 350,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "blue_dwarven_hoe",
+    "kind": "hoe",
+    "durability": 650,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "bronze_hoe",
+    "kind": "hoe",
+    "durability": 230,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "dol_guldur_hoe",
+    "kind": "hoe",
+    "durability": 350,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "dwarven_hoe",
+    "kind": "hoe",
+    "durability": 700,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "galadhrim_hoe",
+    "kind": "hoe",
+    "durability": 600,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "lindon_hoe",
+    "kind": "hoe",
+    "durability": 700,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "mallorn_hoe",
+    "kind": "hoe",
+    "durability": 200,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "mithril_hoe",
+    "kind": "hoe",
+    "durability": 2400,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "mordor_hoe",
+    "kind": "hoe",
+    "durability": 400,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "rivendell_hoe",
+    "kind": "hoe",
+    "durability": 700,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "taurethrim_hoe",
+    "kind": "hoe",
+    "durability": 300,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "uruk_hoe",
+    "kind": "hoe",
+    "durability": 550,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "wood_elven_hoe",
+    "kind": "hoe",
+    "durability": 500,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "horn",
+    "kind": "item",
+    "stack": 64,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "dalish_horse_armor",
+    "kind": "item",
+    "stack": 1,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "diamond_horse_armor",
+    "kind": "item",
+    "stack": 1,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "dol_amroth_horse_armor",
+    "kind": "item",
+    "stack": 1,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "galadhrim_horse_armor",
+    "kind": "item",
+    "stack": 1,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "gold_horse_armor",
+    "kind": "item",
+    "stack": 1,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "gondorian_horse_armor",
+    "kind": "item",
+    "stack": 1,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "lindon_horse_armor",
+    "kind": "item",
+    "stack": 1,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "iron_horse_armor",
+    "kind": "item",
+    "stack": 1,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "lamedon_horse_armor",
+    "kind": "item",
+    "stack": 1,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "mithril_horse_armor",
+    "kind": "item",
+    "stack": 1,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "morgul_horse_armor",
+    "kind": "item",
+    "stack": 1,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "coast_southron_horse_armor",
+    "kind": "item",
+    "stack": 1,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "rh_nic_horse_armor",
+    "kind": "item",
+    "stack": 1,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "rivendell_horse_armor",
+    "kind": "item",
+    "stack": 1,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "rohirric_horse_armor",
+    "kind": "item",
+    "stack": 1,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "umbaric_horse_armor",
+    "kind": "item",
+    "stack": 1,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "iron_crossbow",
+    "kind": "item",
+    "durability": 312,
+    "enchant": 3,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "iron_nugget",
+    "kind": "item",
+    "stack": 64,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "ithildin",
+    "kind": "item",
+    "stack": 64,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "kebab",
+    "kind": "item",
+    "stack": 64,
+    "level": 2,
+    "speed": 6.0,
+    "food": {
+      "nutrition": 8,
+      "saturation": 0.8
+    }
+  },
+  {
+    "id": "kine_of_araw_horn",
+    "kind": "item",
+    "stack": 64,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "dol_amroth_lance",
+    "kind": "sword",
+    "durability": 500,
+    "enchant": 10,
+    "damage": 7.0,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "gondorian_lance",
+    "kind": "sword",
+    "durability": 450,
+    "enchant": 10,
+    "damage": 6.5,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "rohirric_lance",
+    "kind": "sword",
+    "durability": 300,
+    "enchant": 10,
+    "damage": 6.5,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "leather_hat",
+    "kind": "armor",
+    "stack": 1,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "head",
+      "defense": 0,
+      "material": "cosmetic",
+      "texture": "cosmetic"
+    }
+  },
+  {
+    "id": "leek",
+    "kind": "item",
+    "stack": 64,
+    "level": 2,
+    "speed": 6.0,
+    "food": {
+      "nutrition": 2,
+      "saturation": 0.3
+    }
+  },
+  {
+    "id": "leek_soup",
+    "kind": "item",
+    "stack": 1,
+    "level": 2,
+    "speed": 6.0,
+    "food": {
+      "nutrition": 8,
+      "saturation": 0.8
+    }
+  },
+  {
+    "id": "angmar_leggings",
+    "kind": "armor",
+    "durability": 315,
+    "enchant": 8,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "legs",
+      "defense": 5,
+      "material": "angmar",
+      "texture": "angmar"
+    }
+  },
+  {
+    "id": "arnorian_leggings",
+    "kind": "armor",
+    "durability": 405,
+    "enchant": 10,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "legs",
+      "defense": 5,
+      "material": "arnor",
+      "texture": "arnor"
+    }
+  },
+  {
+    "id": "black_n_men_rean_leggings",
+    "kind": "armor",
+    "durability": 405,
+    "enchant": 10,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "legs",
+      "defense": 5,
+      "material": "black_numenorean",
+      "texture": "black_numenorean"
+    }
+  },
+  {
+    "id": "black_uruk_leggings",
+    "kind": "armor",
+    "durability": 495,
+    "enchant": 6,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "legs",
+      "defense": 6,
+      "material": "black_uruk",
+      "texture": "black_uruk"
+    }
+  },
+  {
+    "id": "blackroot_vale_leggings",
+    "kind": "armor",
+    "durability": 360,
+    "enchant": 10,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "legs",
+      "defense": 5,
+      "material": "blackroot",
+      "texture": "blackroot"
+    }
+  },
+  {
+    "id": "blue_dwarven_leggings",
+    "kind": "armor",
+    "durability": 585,
+    "enchant": 12,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "legs",
+      "defense": 6,
+      "material": "blue_dwarven",
+      "texture": "blue_dwarven"
+    }
+  },
+  {
+    "id": "bone_leggings",
+    "kind": "armor",
+    "durability": 135,
+    "enchant": 10,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "legs",
+      "defense": 2,
+      "material": "bone",
+      "texture": "bone"
+    }
+  },
+  {
+    "id": "bronze_leggings",
+    "kind": "armor",
+    "durability": 210,
+    "enchant": 10,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "legs",
+      "defense": 4,
+      "material": "bronze",
+      "texture": "bronze"
+    }
+  },
+  {
+    "id": "corsair_leggings",
+    "kind": "armor",
+    "durability": 270,
+    "enchant": 10,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "legs",
+      "defense": 4,
+      "material": "corsair",
+      "texture": "corsair"
+    }
+  },
+  {
+    "id": "dalish_leggings",
+    "kind": "armor",
+    "durability": 270,
+    "enchant": 10,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "legs",
+      "defense": 5,
+      "material": "dale",
+      "texture": "dale"
+    }
+  },
+  {
+    "id": "dol_amroth_leggings",
+    "kind": "armor",
+    "durability": 450,
+    "enchant": 10,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "legs",
+      "defense": 5,
+      "material": "dol_amroth",
+      "texture": "dol_amroth"
+    }
+  },
+  {
+    "id": "dol_amroth_chaps",
+    "kind": "armor",
+    "durability": 180,
+    "enchant": 10,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "legs",
+      "defense": 3,
+      "material": "gambeson",
+      "texture": "gambeson"
+    }
+  },
+  {
+    "id": "dol_guldur_leggings",
+    "kind": "armor",
+    "durability": 315,
+    "enchant": 10,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "legs",
+      "defense": 5,
+      "material": "dol_guldur",
+      "texture": "dol_guldur"
+    }
+  },
+  {
+    "id": "dorwinion_leggings",
+    "kind": "armor",
+    "durability": 360,
+    "enchant": 10,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "legs",
+      "defense": 4,
+      "material": "dorwinion",
+      "texture": "dorwinion"
+    }
+  },
+  {
+    "id": "dorwinion_elven_leggings",
+    "kind": "armor",
+    "durability": 450,
+    "enchant": 15,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "legs",
+      "defense": 5,
+      "material": "dorwinion_elf",
+      "texture": "dorwinion_elf"
+    }
+  },
+  {
+    "id": "dunlending_leggings",
+    "kind": "armor",
+    "durability": 225,
+    "enchant": 8,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "legs",
+      "defense": 4,
+      "material": "dunlending",
+      "texture": "dunlending"
+    }
+  },
+  {
+    "id": "dwarven_leggings",
+    "kind": "armor",
+    "durability": 630,
+    "enchant": 10,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "legs",
+      "defense": 6,
+      "material": "dwarven",
+      "texture": "dwarven"
+    }
+  },
+  {
+    "id": "gold_trimmed_dwarven_leggings",
+    "kind": "armor",
+    "durability": 630,
+    "enchant": 10,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "legs",
+      "defense": 6,
+      "material": "dwarven",
+      "texture": "dwarven"
+    }
+  },
+  {
+    "id": "mithril_trimmed_dwarven_leggings",
+    "kind": "armor",
+    "durability": 630,
+    "enchant": 10,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "legs",
+      "defense": 6,
+      "material": "dwarven",
+      "texture": "dwarven"
+    }
+  },
+  {
+    "id": "silver_trimmed_dwarven_leggings",
+    "kind": "armor",
+    "durability": 630,
+    "enchant": 10,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "legs",
+      "defense": 6,
+      "material": "dwarven",
+      "texture": "dwarven"
+    }
+  },
+  {
+    "id": "galadhrim_leggings",
+    "kind": "armor",
+    "durability": 540,
+    "enchant": 15,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "legs",
+      "defense": 5,
+      "material": "galadhrim",
+      "texture": "galadhrim"
+    }
+  },
+  {
+    "id": "galvorn_leggings",
+    "kind": "armor",
+    "durability": 540,
+    "enchant": 15,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "legs",
+      "defense": 5,
+      "material": "galvorn",
+      "texture": "galvorn"
+    }
+  },
+  {
+    "id": "gemsbok_hide_leggings",
+    "kind": "armor",
+    "durability": 165,
+    "enchant": 10,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "legs",
+      "defense": 3,
+      "material": "gemsbok",
+      "texture": "gemsbok"
+    }
+  },
+  {
+    "id": "gondolinian_leggings",
+    "kind": "armor",
+    "durability": 1350,
+    "enchant": 15,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "legs",
+      "defense": 6,
+      "material": "gondolin",
+      "texture": "gondolin"
+    }
+  },
+  {
+    "id": "gondorian_leggings",
+    "kind": "armor",
+    "durability": 405,
+    "enchant": 10,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "legs",
+      "defense": 5,
+      "material": "gondor",
+      "texture": "gondor"
+    }
+  },
+  {
+    "id": "gulfen_leggings",
+    "kind": "armor",
+    "durability": 315,
+    "enchant": 10,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "legs",
+      "defense": 4,
+      "material": "gulf_harad",
+      "texture": "gulf_harad"
+    }
+  },
+  {
+    "id": "gundabad_uruk_leggings",
+    "kind": "armor",
+    "durability": 450,
+    "enchant": 5,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "legs",
+      "defense": 6,
+      "material": "gundabad_uruk",
+      "texture": "gundabad_uruk"
+    }
+  },
+  {
+    "id": "half_troll_leggings",
+    "kind": "armor",
+    "durability": 270,
+    "enchant": 5,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "legs",
+      "defense": 4,
+      "material": "half_troll",
+      "texture": "half_troll"
+    }
+  },
+  {
+    "id": "harad_robe_leggings",
+    "kind": "armor",
+    "stack": 1,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "legs",
+      "defense": 0,
+      "material": "harad_robes",
+      "texture": "harad_robes"
+    }
+  },
+  {
+    "id": "harnennor_leggings",
+    "kind": "armor",
+    "durability": 225,
+    "enchant": 8,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "legs",
+      "defense": 4,
+      "material": "harnedor",
+      "texture": "harnedor"
+    }
+  },
+  {
+    "id": "lindon_leggings",
+    "kind": "armor",
+    "durability": 630,
+    "enchant": 15,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "legs",
+      "defense": 5,
+      "material": "high_elven",
+      "texture": "high_elven"
+    }
+  },
+  {
+    "id": "galadhrim_cloak_leggings",
+    "kind": "armor",
+    "durability": 270,
+    "enchant": 15,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "legs",
+      "defense": 2,
+      "material": "hithlain",
+      "texture": "hithlain"
+    }
+  },
+  {
+    "id": "kaftan_leggings",
+    "kind": "armor",
+    "stack": 1,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "legs",
+      "defense": 0,
+      "material": "kaftan",
+      "texture": "kaftan"
+    }
+  },
+  {
+    "id": "lamedon_leggings",
+    "kind": "armor",
+    "durability": 270,
+    "enchant": 10,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "legs",
+      "defense": 4,
+      "material": "lamedon",
+      "texture": "lamedon"
+    }
+  },
+  {
+    "id": "lossarnach_leggings",
+    "kind": "armor",
+    "durability": 270,
+    "enchant": 10,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "legs",
+      "defense": 4,
+      "material": "lossarnach",
+      "texture": "lossarnach"
+    }
+  },
+  {
+    "id": "mithril_leggings",
+    "kind": "armor",
+    "durability": 2160,
+    "enchant": 8,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "legs",
+      "defense": 6,
+      "material": "mithril",
+      "texture": "mithril"
+    }
+  },
+  {
+    "id": "morwaith_leggings",
+    "kind": "armor",
+    "durability": 225,
+    "enchant": 10,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "legs",
+      "defense": 4,
+      "material": "moredain",
+      "texture": "moredain"
+    }
+  },
+  {
+    "id": "morwaith_chieftain_leggings",
+    "kind": "armor",
+    "durability": 270,
+    "enchant": 8,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "legs",
+      "defense": 3,
+      "material": "moredain_lion_armor",
+      "texture": "moredain_lion_armor"
+    }
+  },
+  {
+    "id": "morgul_leggings",
+    "kind": "armor",
+    "durability": 405,
+    "enchant": 10,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "legs",
+      "defense": 5,
+      "material": "morgul",
+      "texture": "morgul"
+    }
+  },
+  {
+    "id": "coast_southron_leggings",
+    "kind": "armor",
+    "durability": 270,
+    "enchant": 10,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "legs",
+      "defense": 4,
+      "material": "near_harad",
+      "texture": "near_harad"
+    }
+  },
+  {
+    "id": "nomad_leggings",
+    "kind": "armor",
+    "durability": 180,
+    "enchant": 8,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "legs",
+      "defense": 3,
+      "material": "harad_nomad",
+      "texture": "harad_nomad"
+    }
+  },
+  {
+    "id": "mordor_leggings",
+    "kind": "armor",
+    "durability": 360,
+    "enchant": 7,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "legs",
+      "defense": 5,
+      "material": "mordor",
+      "texture": "mordor"
+    }
+  },
+  {
+    "id": "pelargir_leggings",
+    "kind": "armor",
+    "durability": 405,
+    "enchant": 10,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "legs",
+      "defense": 5,
+      "material": "pelargir",
+      "texture": "pelargir"
+    }
+  },
+  {
+    "id": "pinnath_gelin_leggings",
+    "kind": "armor",
+    "durability": 360,
+    "enchant": 10,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "legs",
+      "defense": 5,
+      "material": "pinnath_gelin",
+      "texture": "pinnath_gelin"
+    }
+  },
+  {
+    "id": "ranger_leggings",
+    "kind": "armor",
+    "durability": 315,
+    "enchant": 12,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "legs",
+      "defense": 4,
+      "material": "ranger",
+      "texture": "ranger"
+    }
+  },
+  {
+    "id": "ithilien_ranger_leggings",
+    "kind": "armor",
+    "durability": 315,
+    "enchant": 12,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "legs",
+      "defense": 4,
+      "material": "ranger_ithilien",
+      "texture": "ranger_ithilien"
+    }
+  },
+  {
+    "id": "rh_nic_leggings",
+    "kind": "armor",
+    "durability": 360,
+    "enchant": 10,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "legs",
+      "defense": 4,
+      "material": "rhun",
+      "texture": "rhun"
+    }
+  },
+  {
+    "id": "golden_rh_nic_leggings",
+    "kind": "armor",
+    "durability": 405,
+    "enchant": 10,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "legs",
+      "defense": 5,
+      "material": "rhun_gold",
+      "texture": "rhun_gold"
+    }
+  },
+  {
+    "id": "rivendell_leggings",
+    "kind": "armor",
+    "durability": 630,
+    "enchant": 15,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "legs",
+      "defense": 5,
+      "material": "rivendell",
+      "texture": "rivendell"
+    }
+  },
+  {
+    "id": "rohirric_leggings",
+    "kind": "armor",
+    "durability": 270,
+    "enchant": 10,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "legs",
+      "defense": 4,
+      "material": "rohan",
+      "texture": "rohan"
+    }
+  },
+  {
+    "id": "rohirric_marshal_leggings",
+    "kind": "armor",
+    "durability": 360,
+    "enchant": 10,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "legs",
+      "defense": 5,
+      "material": "rohan_marshal",
+      "texture": "rohan_marshal"
+    }
+  },
+  {
+    "id": "taurethrim_leggings",
+    "kind": "armor",
+    "durability": 270,
+    "enchant": 10,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "legs",
+      "defense": 4,
+      "material": "tauredain",
+      "texture": "tauredain"
+    }
+  },
+  {
+    "id": "golden_taurethrim_leggings",
+    "kind": "armor",
+    "durability": 360,
+    "enchant": 10,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "legs",
+      "defense": 5,
+      "material": "tauredain_gold",
+      "texture": "tauredain_gold"
+    }
+  },
+  {
+    "id": "umbaric_leggings",
+    "kind": "armor",
+    "durability": 405,
+    "enchant": 10,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "legs",
+      "defense": 5,
+      "material": "umbar",
+      "texture": "umbar"
+    }
+  },
+  {
+    "id": "uruk_leggings",
+    "kind": "armor",
+    "durability": 495,
+    "enchant": 5,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "legs",
+      "defense": 6,
+      "material": "uruk",
+      "texture": "uruk"
+    }
+  },
+  {
+    "id": "utumno_leggings",
+    "kind": "armor",
+    "durability": 360,
+    "enchant": 12,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "legs",
+      "defense": 6,
+      "material": "utumno",
+      "texture": "utumno"
+    }
+  },
+  {
+    "id": "fur_leggings",
+    "kind": "armor",
+    "durability": 165,
+    "enchant": 8,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "legs",
+      "defense": 3,
+      "material": "fur",
+      "texture": "fur"
+    }
+  },
+  {
+    "id": "wood_elven_leggings",
+    "kind": "armor",
+    "durability": 450,
+    "enchant": 15,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "legs",
+      "defense": 5,
+      "material": "wood_elven",
+      "texture": "wood_elven"
+    }
+  },
+  {
+    "id": "wood_elven_scout_leggings",
+    "kind": "armor",
+    "durability": 270,
+    "enchant": 15,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "legs",
+      "defense": 3,
+      "material": "wood_elven_scout",
+      "texture": "wood_elven_scout"
+    }
+  },
+  {
+    "id": "lembas",
+    "kind": "item",
+    "stack": 64,
+    "level": 2,
+    "speed": 6.0,
+    "food": {
+      "nutrition": 20,
+      "saturation": 2.0
+    }
+  },
+  {
+    "id": "lemon",
+    "kind": "item",
+    "stack": 64,
+    "level": 2,
+    "speed": 6.0,
+    "food": {
+      "nutrition": 2,
+      "saturation": 0.2
+    }
+  },
+  {
+    "id": "lemon_cake",
+    "kind": "item",
+    "stack": 1,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "lettuce",
+    "kind": "item",
+    "stack": 64,
+    "level": 2,
+    "speed": 6.0,
+    "food": {
+      "nutrition": 3,
+      "saturation": 0.4
+    }
+  },
+  {
+    "id": "lime",
+    "kind": "item",
+    "stack": 64,
+    "level": 2,
+    "speed": 6.0,
+    "food": {
+      "nutrition": 2,
+      "saturation": 0.2
+    }
+  },
+  {
+    "id": "lion_fur_bed",
+    "kind": "item",
+    "stack": 1,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "cooked_lion",
+    "kind": "item",
+    "stack": 64,
+    "level": 2,
+    "speed": 6.0,
+    "food": {
+      "nutrition": 8,
+      "saturation": 0.8
+    }
+  },
+  {
+    "id": "lion_fur",
+    "kind": "item",
+    "stack": 64,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "raw_lion",
+    "kind": "item",
+    "stack": 64,
+    "level": 2,
+    "speed": 6.0,
+    "food": {
+      "nutrition": 3,
+      "saturation": 0.3
+    }
+  },
+  {
+    "id": "lionskin_rug",
+    "kind": "item",
+    "stack": 1,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "dol_amroth_longspear",
+    "kind": "sword",
+    "durability": 500,
+    "enchant": 10,
+    "damage": 7.0,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "galadhrim_longspear",
+    "kind": "sword",
+    "durability": 600,
+    "enchant": 15,
+    "damage": 7.0,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "lindon_longspear",
+    "kind": "sword",
+    "durability": 700,
+    "enchant": 15,
+    "damage": 7.0,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "rivendell_longspear",
+    "kind": "sword",
+    "durability": 700,
+    "enchant": 15,
+    "damage": 7.0,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "wood_elven_longspear",
+    "kind": "sword",
+    "durability": 500,
+    "enchant": 15,
+    "damage": 7.0,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "black_n_men_rean_mace",
+    "kind": "sword",
+    "durability": 450,
+    "enchant": 10,
+    "damage": 8.5,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "half_troll_mace",
+    "kind": "sword",
+    "durability": 300,
+    "enchant": 5,
+    "damage": 8.5,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "charred_mallorn_mace",
+    "kind": "sword",
+    "durability": 1500,
+    "enchant": 15,
+    "damage": 10.5,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "umbaric_mace",
+    "kind": "sword",
+    "durability": 450,
+    "enchant": 10,
+    "damage": 8.5,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "maggoty_bread",
+    "kind": "item",
+    "stack": 64,
+    "level": 2,
+    "speed": 6.0,
+    "food": {
+      "nutrition": 4,
+      "saturation": 0.5
+    }
+  },
+  {
+    "id": "mallorn_bow",
+    "kind": "item",
+    "durability": 300,
+    "enchant": 4,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "mallorn_nut",
+    "kind": "item",
+    "stack": 64,
+    "level": 2,
+    "speed": 6.0,
+    "food": {
+      "nutrition": 4,
+      "saturation": 0.4
+    }
+  },
+  {
+    "id": "mallorn_stick",
+    "kind": "item",
+    "stack": 64,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "man_flesh",
+    "kind": "item",
+    "stack": 64,
+    "level": 2,
+    "speed": 6.0,
+    "food": {
+      "nutrition": 6,
+      "saturation": 0.6
+    }
+  },
+  {
+    "id": "mango",
+    "kind": "item",
+    "stack": 64,
+    "level": 2,
+    "speed": 6.0,
+    "food": {
+      "nutrition": 4,
+      "saturation": 0.3
+    }
+  },
+  {
+    "id": "maple_syrup",
+    "kind": "item",
+    "stack": 1,
+    "level": 2,
+    "speed": 6.0,
+    "food": {
+      "nutrition": 2,
+      "saturation": 0.1
+    }
+  },
+  {
+    "id": "marchpane",
+    "kind": "item",
+    "stack": 64,
+    "level": 2,
+    "speed": 6.0,
+    "food": {
+      "nutrition": 6,
+      "saturation": 0.6
+    }
+  },
+  {
+    "id": "chocolate_marchpane",
+    "kind": "item",
+    "stack": 64,
+    "level": 2,
+    "speed": 6.0,
+    "food": {
+      "nutrition": 8,
+      "saturation": 0.8
+    }
+  },
+  {
+    "id": "blue_dwarven_mattock",
+    "kind": "pickaxe",
+    "durability": 650,
+    "enchant": 12,
+    "damage": 5.0,
+    "level": 3,
+    "speed": 8.0
+  },
+  {
+    "id": "dwarven_mattock",
+    "kind": "pickaxe",
+    "durability": 700,
+    "enchant": 10,
+    "damage": 5.0,
+    "level": 3,
+    "speed": 8.0
+  },
+  {
+    "id": "mithril_mattock",
+    "kind": "pickaxe",
+    "durability": 2400,
+    "enchant": 8,
+    "damage": 7.0,
+    "level": 4,
+    "speed": 9.0
+  },
+  {
+    "id": "mechanism",
+    "kind": "item",
+    "stack": 64,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "melon_soup",
+    "kind": "item",
+    "stack": 1,
+    "level": 2,
+    "speed": 6.0,
+    "food": {
+      "nutrition": 5,
+      "saturation": 0.5
+    }
+  },
+  {
+    "id": "bow_of_mirkwood",
+    "kind": "item",
+    "durability": 750,
+    "enchant": 4,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "mithril_ingot",
+    "kind": "item",
+    "stack": 64,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "book_of_true_silver",
+    "kind": "item",
+    "stack": 64,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "mithril_crossbow",
+    "kind": "item",
+    "durability": 3000,
+    "enchant": 2,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "mithril_mail",
+    "kind": "item",
+    "stack": 64,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "mithril_nugget",
+    "kind": "item",
+    "stack": 64,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "mithril_ring",
+    "kind": "item",
+    "stack": 64,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "s_smiths_scroll",
+    "kind": "item",
+    "stack": 1,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "morgul_blade",
+    "kind": "sword",
+    "durability": 450,
+    "enchant": 10,
+    "damage": 6.5,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "morgul_steel_ingot",
+    "kind": "item",
+    "stack": 64,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "mug",
+    "kind": "item",
+    "stack": 64,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "ale",
+    "kind": "item",
+    "stack": 1,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "apple_juice",
+    "kind": "item",
+    "stack": 1,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "arak",
+    "kind": "item",
+    "stack": 1,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "athelas_brew",
+    "kind": "item",
+    "stack": 1,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "banana_beer",
+    "kind": "item",
+    "stack": 1,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "blackberry_juice",
+    "kind": "item",
+    "stack": 1,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "blueberry_juice",
+    "kind": "item",
+    "stack": 1,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "cactus_liqueur",
+    "kind": "item",
+    "stack": 1,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "carrot_wine",
+    "kind": "item",
+    "stack": 1,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "cherry_liqueur",
+    "kind": "item",
+    "stack": 1,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "chocolate",
+    "kind": "item",
+    "stack": 1,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "cider",
+    "kind": "item",
+    "stack": 1,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "corn_liquor",
+    "kind": "item",
+    "stack": 1,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "cranberry_juice",
+    "kind": "item",
+    "stack": 1,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "dwarven_ale",
+    "kind": "item",
+    "stack": 1,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "dwarven_tonic",
+    "kind": "item",
+    "stack": 1,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "elderberry_juice",
+    "kind": "item",
+    "stack": 1,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "lemon_liqueur",
+    "kind": "item",
+    "stack": 1,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "lemonade",
+    "kind": "item",
+    "stack": 1,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "lime_liqueur",
+    "kind": "item",
+    "stack": 1,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "mango_juice",
+    "kind": "item",
+    "stack": 1,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "maple_beer",
+    "kind": "item",
+    "stack": 1,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "mead",
+    "kind": "item",
+    "stack": 1,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "melon_liqueur",
+    "kind": "item",
+    "stack": 1,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "milk",
+    "kind": "item",
+    "stack": 1,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "miruvor",
+    "kind": "item",
+    "stack": 1,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "morgul_draught",
+    "kind": "item",
+    "stack": 1,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "orange_juice",
+    "kind": "item",
+    "stack": 1,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "orc_draught",
+    "kind": "item",
+    "stack": 1,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "perry",
+    "kind": "item",
+    "stack": 1,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "plum_kvass",
+    "kind": "item",
+    "stack": 1,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "pomegranate_juice",
+    "kind": "item",
+    "stack": 1,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "pomegranate_wine",
+    "kind": "item",
+    "stack": 1,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "raspberry_juice",
+    "kind": "item",
+    "stack": 1,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "red_grape_juice",
+    "kind": "item",
+    "stack": 1,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "red_wine",
+    "kind": "item",
+    "stack": 1,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "rum",
+    "kind": "item",
+    "stack": 1,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "soured_milk",
+    "kind": "item",
+    "stack": 1,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "taurethrim_cocoa",
+    "kind": "item",
+    "stack": 1,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "jungle_remedy",
+    "kind": "item",
+    "stack": 1,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "termite_tequila",
+    "kind": "item",
+    "stack": 1,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "torog_draught",
+    "kind": "item",
+    "stack": 1,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "vodka",
+    "kind": "item",
+    "stack": 1,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "water",
+    "kind": "item",
+    "stack": 1,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "green_grape_juice",
+    "kind": "item",
+    "stack": 1,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "white_wine",
+    "kind": "item",
+    "stack": 1,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "mushroom_pie",
+    "kind": "item",
+    "stack": 64,
+    "level": 2,
+    "speed": 6.0,
+    "food": {
+      "nutrition": 8,
+      "saturation": 0.3
+    }
+  },
+  {
+    "id": "cooked_mutton",
+    "kind": "item",
+    "stack": 64,
+    "level": 2,
+    "speed": 6.0,
+    "food": {
+      "nutrition": 8,
+      "saturation": 0.8
+    }
+  },
+  {
+    "id": "raw_mutton",
+    "kind": "item",
+    "stack": 64,
+    "level": 2,
+    "speed": 6.0,
+    "food": {
+      "nutrition": 3,
+      "saturation": 0.3
+    }
+  },
+  {
+    "id": "mystery_web",
+    "kind": "item",
+    "stack": 64,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "durnor",
+    "kind": "item",
+    "stack": 64,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "bow_of_harad",
+    "kind": "item",
+    "durability": 450,
+    "enchant": 3,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "npc_respawner",
+    "kind": "item",
+    "stack": 1,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "obsidian_shard",
+    "kind": "item",
+    "stack": 64,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "olives",
+    "kind": "item",
+    "stack": 64,
+    "level": 2,
+    "speed": 6.0,
+    "food": {
+      "nutrition": 1,
+      "saturation": 0.1
+    }
+  },
+  {
+    "id": "olive_bread",
+    "kind": "item",
+    "stack": 64,
+    "level": 2,
+    "speed": 6.0,
+    "food": {
+      "nutrition": 5,
+      "saturation": 0.6
+    }
+  },
+  {
+    "id": "opal",
+    "kind": "item",
+    "stack": 64,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "orange",
+    "kind": "item",
+    "stack": 64,
+    "level": 2,
+    "speed": 6.0,
+    "food": {
+      "nutrition": 4,
+      "saturation": 0.3
+    }
+  },
+  {
+    "id": "orc_bed",
+    "kind": "item",
+    "stack": 1,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "orc_bone",
+    "kind": "item",
+    "stack": 64,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "orc_bow",
+    "kind": "item",
+    "durability": 600,
+    "enchant": 2,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "orc_skull_staff",
+    "kind": "sword",
+    "durability": 400,
+    "enchant": 7,
+    "damage": 6.5,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "orc_steel_ingot",
+    "kind": "item",
+    "stack": 64,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "orc_torch",
+    "kind": "item",
+    "stack": 64,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "party_hat",
+    "kind": "armor",
+    "stack": 1,
+    "level": 2,
+    "speed": 6.0,
+    "armor": {
+      "slot": "head",
+      "defense": 0,
+      "material": "cosmetic",
+      "texture": "cosmetic"
+    }
+  },
+  {
+    "id": "pear",
+    "kind": "item",
+    "stack": 64,
+    "level": 2,
+    "speed": 6.0,
+    "food": {
+      "nutrition": 4,
+      "saturation": 0.3
+    }
+  },
+  {
+    "id": "pearl",
+    "kind": "item",
+    "stack": 64,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "pebble",
+    "kind": "item",
+    "stack": 64,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "angmar_pickaxe",
+    "kind": "pickaxe",
+    "durability": 350,
+    "enchant": 8,
+    "damage": 4.5,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "blue_dwarven_pickaxe",
+    "kind": "pickaxe",
+    "durability": 650,
+    "enchant": 12,
+    "damage": 5.0,
+    "level": 3,
+    "speed": 8.0
+  },
+  {
+    "id": "bronze_pickaxe",
+    "kind": "pickaxe",
+    "durability": 230,
+    "enchant": 10,
+    "damage": 3.5,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "dol_guldur_pickaxe",
+    "kind": "pickaxe",
+    "durability": 350,
+    "enchant": 10,
+    "damage": 4.5,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "dwarven_pickaxe",
+    "kind": "pickaxe",
+    "durability": 700,
+    "enchant": 10,
+    "damage": 5.0,
+    "level": 3,
+    "speed": 8.0
+  },
+  {
+    "id": "galadhrim_pickaxe",
+    "kind": "pickaxe",
+    "durability": 600,
+    "enchant": 15,
+    "damage": 5.0,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "lindon_pickaxe",
+    "kind": "pickaxe",
+    "durability": 700,
+    "enchant": 15,
+    "damage": 5.0,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "mallorn_pickaxe",
+    "kind": "pickaxe",
+    "durability": 200,
+    "enchant": 15,
+    "damage": 3.5,
+    "level": 1,
+    "speed": 4.0
+  },
+  {
+    "id": "mithril_pickaxe",
+    "kind": "pickaxe",
+    "durability": 2400,
+    "enchant": 8,
+    "damage": 7.0,
+    "level": 4,
+    "speed": 9.0
+  },
+  {
+    "id": "mordor_pickaxe",
+    "kind": "pickaxe",
+    "durability": 400,
+    "enchant": 7,
+    "damage": 4.5,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "rivendell_pickaxe",
+    "kind": "pickaxe",
+    "durability": 700,
+    "enchant": 15,
+    "damage": 5.0,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "taurethrim_pickaxe",
+    "kind": "pickaxe",
+    "durability": 300,
+    "enchant": 10,
+    "damage": 4.5,
+    "level": 3,
+    "speed": 8.0
+  },
+  {
+    "id": "uruk_pickaxe",
+    "kind": "pickaxe",
+    "durability": 550,
+    "enchant": 5,
+    "damage": 5.0,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "wood_elven_pickaxe",
+    "kind": "pickaxe",
+    "durability": 500,
+    "enchant": 15,
+    "damage": 5.0,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "blue_dwarven_pike",
+    "kind": "sword",
+    "durability": 650,
+    "enchant": 12,
+    "damage": 7.0,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "dalish_pitchfork",
+    "kind": "sword",
+    "durability": 300,
+    "enchant": 10,
+    "damage": 6.5,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "dol_guldur_spike",
+    "kind": "sword",
+    "durability": 350,
+    "enchant": 10,
+    "damage": 6.5,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "dwarven_pike",
+    "kind": "sword",
+    "durability": 700,
+    "enchant": 10,
+    "damage": 7.0,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "gondorian_pike",
+    "kind": "sword",
+    "durability": 450,
+    "enchant": 10,
+    "damage": 6.5,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "gundabad_uruk_pike",
+    "kind": "sword",
+    "durability": 500,
+    "enchant": 5,
+    "damage": 7.0,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "half_troll_pike",
+    "kind": "sword",
+    "durability": 300,
+    "enchant": 5,
+    "damage": 6.5,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "haradric_pike",
+    "kind": "sword",
+    "durability": 300,
+    "enchant": 10,
+    "damage": 6.5,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "iron_pike",
+    "kind": "sword",
+    "durability": 250,
+    "enchant": 14,
+    "damage": 6.0,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "umbaric_pike",
+    "kind": "sword",
+    "durability": 450,
+    "enchant": 10,
+    "damage": 6.5,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "rh_nic_pike",
+    "kind": "sword",
+    "durability": 400,
+    "enchant": 10,
+    "damage": 6.5,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "taurethrim_pike",
+    "kind": "sword",
+    "durability": 300,
+    "enchant": 10,
+    "damage": 6.5,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "uruk_pike",
+    "kind": "sword",
+    "durability": 550,
+    "enchant": 5,
+    "damage": 7.0,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "pipe_weed",
+    "kind": "item",
+    "stack": 64,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "pipe_weed_leaf",
+    "kind": "item",
+    "stack": 64,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "pipe_weed_seeds",
+    "kind": "item",
+    "stack": 64,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "fine_plate",
+    "kind": "item",
+    "stack": 64,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "plum",
+    "kind": "item",
+    "stack": 64,
+    "level": 2,
+    "speed": 6.0,
+    "food": {
+      "nutrition": 4,
+      "saturation": 0.3
+    }
+  },
+  {
+    "id": "angmar_poleaxe",
+    "kind": "sword",
+    "durability": 350,
+    "enchant": 8,
+    "damage": 6.5,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "galadhrim_battlestaff",
+    "kind": "sword",
+    "durability": 600,
+    "enchant": 15,
+    "damage": 7.0,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "lindon_battlestaff",
+    "kind": "sword",
+    "durability": 700,
+    "enchant": 15,
+    "damage": 7.0,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "mordor_warscythe",
+    "kind": "sword",
+    "durability": 400,
+    "enchant": 7,
+    "damage": 6.5,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "rh_nic_bardiche",
+    "kind": "sword",
+    "durability": 400,
+    "enchant": 10,
+    "damage": 6.5,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "rivendell_battlestaff",
+    "kind": "sword",
+    "durability": 700,
+    "enchant": 15,
+    "damage": 7.0,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "wood_elven_battlestaff",
+    "kind": "sword",
+    "durability": 500,
+    "enchant": 15,
+    "damage": 7.0,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "umbaric_poleaxe",
+    "kind": "sword",
+    "durability": 450,
+    "enchant": 10,
+    "damage": 6.5,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "pomegranate",
+    "kind": "item",
+    "stack": 64,
+    "level": 2,
+    "speed": 6.0,
+    "food": {
+      "nutrition": 4,
+      "saturation": 0.3
+    }
+  },
+  {
+    "id": "small_pouch",
+    "kind": "item",
+    "stack": 1,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "medium_pouch",
+    "kind": "item",
+    "stack": 1,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "large_pouch",
+    "kind": "item",
+    "stack": 1,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "edhelvir",
+    "kind": "item",
+    "stack": 64,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "cooked_rabbit",
+    "kind": "item",
+    "stack": 64,
+    "level": 2,
+    "speed": 6.0,
+    "food": {
+      "nutrition": 6,
+      "saturation": 0.6
+    }
+  },
+  {
+    "id": "raw_rabbit",
+    "kind": "item",
+    "stack": 64,
+    "level": 2,
+    "speed": 6.0,
+    "food": {
+      "nutrition": 2,
+      "saturation": 0.3
+    }
+  },
+  {
+    "id": "rabbit_stew",
+    "kind": "item",
+    "stack": 1,
+    "level": 2,
+    "speed": 6.0,
+    "food": {
+      "nutrition": 10,
+      "saturation": 0.8
+    }
+  },
+  {
+    "id": "raisins",
+    "kind": "item",
+    "stack": 64,
+    "level": 2,
+    "speed": 6.0,
+    "food": {
+      "nutrition": 1,
+      "saturation": 0.1
+    }
+  },
+  {
+    "id": "ranger_bow",
+    "kind": "item",
+    "durability": 525,
+    "enchant": 3,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "raspberries",
+    "kind": "item",
+    "stack": 64,
+    "level": 2,
+    "speed": 6.0,
+    "food": {
+      "nutrition": 2,
+      "saturation": 0.2
+    }
+  },
+  {
+    "id": "red_book",
+    "kind": "item",
+    "stack": 1,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "red_clay",
+    "kind": "item",
+    "stack": 64,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "half_troll_rhino_armor",
+    "kind": "item",
+    "stack": 1,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "cooked_rhino",
+    "kind": "item",
+    "stack": 64,
+    "level": 2,
+    "speed": 6.0,
+    "food": {
+      "nutrition": 7,
+      "saturation": 0.4
+    }
+  },
+  {
+    "id": "rhino_horn",
+    "kind": "item",
+    "stack": 64,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "raw_rhino",
+    "kind": "item",
+    "stack": 64,
+    "level": 2,
+    "speed": 6.0,
+    "food": {
+      "nutrition": 2,
+      "saturation": 0.1
+    }
+  },
+  {
+    "id": "rh_nic_bow",
+    "kind": "item",
+    "durability": 600,
+    "enchant": 3,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "rh_nic_fire_pot",
+    "kind": "item",
+    "stack": 4,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "ringil",
+    "kind": "sword",
+    "durability": 1500,
+    "enchant": 15,
+    "damage": 9.0,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "rivendell_bow",
+    "kind": "item",
+    "durability": 1050,
+    "enchant": 4,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "rohirric_bow",
+    "kind": "item",
+    "durability": 450,
+    "enchant": 3,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "rolling_pin",
+    "kind": "sword",
+    "durability": 59,
+    "enchant": 15,
+    "damage": 4.0,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "ruby",
+    "kind": "item",
+    "stack": 64,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "salt",
+    "kind": "item",
+    "stack": 64,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "suspicious_meat",
+    "kind": "item",
+    "stack": 64,
+    "level": 2,
+    "speed": 6.0,
+    "food": {
+      "nutrition": 6,
+      "saturation": 0.6
+    }
+  },
+  {
+    "id": "niter",
+    "kind": "item",
+    "stack": 64,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "sapphire",
+    "kind": "item",
+    "stack": 64,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "mace_of_sauron",
+    "kind": "sword",
+    "durability": 1500,
+    "enchant": 7,
+    "damage": 8.0,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "black_uruk_cleaver",
+    "kind": "sword",
+    "durability": 550,
+    "enchant": 6,
+    "damage": 7.0,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "half_troll_scimitar",
+    "kind": "sword",
+    "durability": 300,
+    "enchant": 5,
+    "damage": 6.5,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "umbaric_scimitar",
+    "kind": "sword",
+    "durability": 450,
+    "enchant": 10,
+    "damage": 6.5,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "mordor_scimitar",
+    "kind": "sword",
+    "durability": 400,
+    "enchant": 7,
+    "damage": 6.5,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "uruk_cleaver",
+    "kind": "sword",
+    "durability": 550,
+    "enchant": 5,
+    "damage": 7.0,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "uruk_berserker_cleaver",
+    "kind": "sword",
+    "durability": 550,
+    "enchant": 5,
+    "damage": 7.0,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "red_grape_seeds",
+    "kind": "item",
+    "stack": 64,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "green_grape_seeds",
+    "kind": "item",
+    "stack": 64,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "shish_kebab",
+    "kind": "item",
+    "stack": 64,
+    "level": 2,
+    "speed": 6.0,
+    "food": {
+      "nutrition": 8,
+      "saturation": 0.8
+    }
+  },
+  {
+    "id": "angmar_shovel",
+    "kind": "shovel",
+    "durability": 350,
+    "enchant": 8,
+    "damage": 3.5,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "blue_dwarven_shovel",
+    "kind": "shovel",
+    "durability": 650,
+    "enchant": 12,
+    "damage": 4.0,
+    "level": 3,
+    "speed": 8.0
+  },
+  {
+    "id": "bronze_shovel",
+    "kind": "shovel",
+    "durability": 230,
+    "enchant": 10,
+    "damage": 2.5,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "dol_guldur_shovel",
+    "kind": "shovel",
+    "durability": 350,
+    "enchant": 10,
+    "damage": 3.5,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "dwarven_shovel",
+    "kind": "shovel",
+    "durability": 700,
+    "enchant": 10,
+    "damage": 4.0,
+    "level": 3,
+    "speed": 8.0
+  },
+  {
+    "id": "galadhrim_shovel",
+    "kind": "shovel",
+    "durability": 600,
+    "enchant": 15,
+    "damage": 4.0,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "lindon_shovel",
+    "kind": "shovel",
+    "durability": 700,
+    "enchant": 15,
+    "damage": 4.0,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "mallorn_shovel",
+    "kind": "shovel",
+    "durability": 200,
+    "enchant": 15,
+    "damage": 2.5,
+    "level": 1,
+    "speed": 4.0
+  },
+  {
+    "id": "mithril_shovel",
+    "kind": "shovel",
+    "durability": 2400,
+    "enchant": 8,
+    "damage": 6.0,
+    "level": 4,
+    "speed": 9.0
+  },
+  {
+    "id": "mordor_shovel",
+    "kind": "shovel",
+    "durability": 400,
+    "enchant": 7,
+    "damage": 3.5,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "rivendell_shovel",
+    "kind": "shovel",
+    "durability": 700,
+    "enchant": 15,
+    "damage": 4.0,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "taurethrim_shovel",
+    "kind": "shovel",
+    "durability": 300,
+    "enchant": 10,
+    "damage": 3.5,
+    "level": 3,
+    "speed": 8.0
+  },
+  {
+    "id": "uruk_shovel",
+    "kind": "shovel",
+    "durability": 550,
+    "enchant": 5,
+    "damage": 4.0,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "wood_elven_shovel",
+    "kind": "shovel",
+    "durability": 500,
+    "enchant": 15,
+    "damage": 4.0,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "silver_ingot",
+    "kind": "item",
+    "stack": 64,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "silver_nugget",
+    "kind": "item",
+    "stack": 64,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "silver_ring",
+    "kind": "item",
+    "stack": 64,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "skull_cup",
+    "kind": "item",
+    "stack": 64,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "sling",
+    "kind": "item",
+    "durability": 250,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "angmar_spear",
+    "kind": "sword",
+    "durability": 350,
+    "enchant": 8,
+    "damage": 5.5,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "arnorian_spear",
+    "kind": "sword",
+    "durability": 450,
+    "enchant": 10,
+    "damage": 5.5,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "black_n_men_rean_spear",
+    "kind": "sword",
+    "durability": 450,
+    "enchant": 10,
+    "damage": 5.5,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "black_uruk_spear",
+    "kind": "sword",
+    "durability": 550,
+    "enchant": 6,
+    "damage": 6.0,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "spear_of_bladorthin",
+    "kind": "sword",
+    "durability": 600,
+    "enchant": 10,
+    "damage": 6.0,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "blue_dwarven_spear",
+    "kind": "sword",
+    "durability": 650,
+    "enchant": 12,
+    "damage": 6.0,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "bronze_spear",
+    "kind": "sword",
+    "durability": 230,
+    "enchant": 10,
+    "damage": 4.5,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "corsair_harpoon",
+    "kind": "sword",
+    "durability": 300,
+    "enchant": 10,
+    "damage": 5.5,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "dalish_spear",
+    "kind": "sword",
+    "durability": 300,
+    "enchant": 10,
+    "damage": 5.5,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "dol_guldur_spear",
+    "kind": "sword",
+    "durability": 350,
+    "enchant": 10,
+    "damage": 5.5,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "dwarven_spear",
+    "kind": "sword",
+    "durability": 700,
+    "enchant": 10,
+    "damage": 6.0,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "galadhrim_spear",
+    "kind": "sword",
+    "durability": 600,
+    "enchant": 15,
+    "damage": 6.0,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "gondorian_spear",
+    "kind": "sword",
+    "durability": 450,
+    "enchant": 10,
+    "damage": 5.5,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "gundabad_uruk_spear",
+    "kind": "sword",
+    "durability": 500,
+    "enchant": 5,
+    "damage": 6.0,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "haradric_spear",
+    "kind": "sword",
+    "durability": 300,
+    "enchant": 10,
+    "damage": 5.5,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "lindon_spear",
+    "kind": "sword",
+    "durability": 700,
+    "enchant": 15,
+    "damage": 6.0,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "iron_spear",
+    "kind": "sword",
+    "durability": 250,
+    "enchant": 14,
+    "damage": 5.0,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "mithril_spear",
+    "kind": "sword",
+    "durability": 2400,
+    "enchant": 8,
+    "damage": 8.0,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "morwaith_spear",
+    "kind": "sword",
+    "durability": 250,
+    "enchant": 10,
+    "damage": 6.0,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "umbaric_spear",
+    "kind": "sword",
+    "durability": 450,
+    "enchant": 10,
+    "damage": 5.5,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "mordor_spear",
+    "kind": "sword",
+    "durability": 400,
+    "enchant": 7,
+    "damage": 5.5,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "rh_nic_spear",
+    "kind": "sword",
+    "durability": 400,
+    "enchant": 10,
+    "damage": 5.5,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "rivendell_spear",
+    "kind": "sword",
+    "durability": 700,
+    "enchant": 15,
+    "damage": 6.0,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "rohirric_spear",
+    "kind": "sword",
+    "durability": 300,
+    "enchant": 10,
+    "damage": 5.5,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "stone_spear",
+    "kind": "sword",
+    "durability": 131,
+    "enchant": 5,
+    "damage": 4.0,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "taurethrim_spear",
+    "kind": "sword",
+    "durability": 300,
+    "enchant": 10,
+    "damage": 5.5,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "uruk_spear",
+    "kind": "sword",
+    "durability": 550,
+    "enchant": 5,
+    "damage": 6.0,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "utumno_spear",
+    "kind": "sword",
+    "durability": 400,
+    "enchant": 12,
+    "damage": 6.5,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "wood_elven_spear",
+    "kind": "sword",
+    "durability": 500,
+    "enchant": 15,
+    "damage": 6.0,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "sting",
+    "kind": "sword",
+    "durability": 700,
+    "enchant": 15,
+    "damage": 5.0,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "straw_bed",
+    "kind": "item",
+    "stack": 1,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "sulfur",
+    "kind": "item",
+    "stack": 64,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "sulfur_match",
+    "kind": "item",
+    "stack": 64,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "swan_feather",
+    "kind": "item",
+    "stack": 64,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "angmar_sword",
+    "kind": "sword",
+    "durability": 350,
+    "enchant": 8,
+    "damage": 6.5,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "arnorian_sword",
+    "kind": "sword",
+    "durability": 450,
+    "enchant": 10,
+    "damage": 6.5,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "black_n_men_rean_sword",
+    "kind": "sword",
+    "durability": 450,
+    "enchant": 10,
+    "damage": 6.5,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "blue_dwarven_sword",
+    "kind": "sword",
+    "durability": 650,
+    "enchant": 12,
+    "damage": 7.0,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "bronze_sword",
+    "kind": "sword",
+    "durability": 230,
+    "enchant": 10,
+    "damage": 5.5,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "corsair_eket",
+    "kind": "sword",
+    "durability": 300,
+    "enchant": 10,
+    "damage": 6.5,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "dalish_sword",
+    "kind": "sword",
+    "durability": 300,
+    "enchant": 10,
+    "damage": 6.5,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "dol_amroth_sword",
+    "kind": "sword",
+    "durability": 500,
+    "enchant": 10,
+    "damage": 7.0,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "dol_guldur_sword",
+    "kind": "sword",
+    "durability": 350,
+    "enchant": 10,
+    "damage": 6.5,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "dorwinion_elven_sword",
+    "kind": "sword",
+    "durability": 500,
+    "enchant": 15,
+    "damage": 7.0,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "dwarven_sword",
+    "kind": "sword",
+    "durability": 700,
+    "enchant": 10,
+    "damage": 7.0,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "galadhrim_sword",
+    "kind": "sword",
+    "durability": 600,
+    "enchant": 15,
+    "damage": 7.0,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "gondolinian_sword",
+    "kind": "sword",
+    "durability": 1500,
+    "enchant": 15,
+    "damage": 9.0,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "gondorian_sword",
+    "kind": "sword",
+    "durability": 450,
+    "enchant": 10,
+    "damage": 6.5,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "gulfen_khopesh",
+    "kind": "sword",
+    "durability": 350,
+    "enchant": 10,
+    "damage": 6.5,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "gundabad_uruk_cleaver",
+    "kind": "sword",
+    "durability": 500,
+    "enchant": 5,
+    "damage": 7.0,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "haradric_sword",
+    "kind": "sword",
+    "durability": 300,
+    "enchant": 10,
+    "damage": 6.5,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "lindon_sword",
+    "kind": "sword",
+    "durability": 700,
+    "enchant": 15,
+    "damage": 7.0,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "mallorn_sword",
+    "kind": "sword",
+    "durability": 200,
+    "enchant": 15,
+    "damage": 5.5,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "mithril_sword",
+    "kind": "sword",
+    "durability": 2400,
+    "enchant": 8,
+    "damage": 9.0,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "morwaith_sword",
+    "kind": "sword",
+    "durability": 230,
+    "enchant": 10,
+    "damage": 5.5,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "pelargir_eket",
+    "kind": "sword",
+    "durability": 450,
+    "enchant": 10,
+    "damage": 6.5,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "rh_nic_sword",
+    "kind": "sword",
+    "durability": 400,
+    "enchant": 10,
+    "damage": 6.5,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "rivendell_sword",
+    "kind": "sword",
+    "durability": 700,
+    "enchant": 15,
+    "damage": 7.0,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "rohirric_sword",
+    "kind": "sword",
+    "durability": 300,
+    "enchant": 10,
+    "damage": 6.5,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "taurethrim_sword",
+    "kind": "sword",
+    "durability": 300,
+    "enchant": 10,
+    "damage": 6.5,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "utumno_sword",
+    "kind": "sword",
+    "durability": 400,
+    "enchant": 12,
+    "damage": 7.5,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "wood_elven_sword",
+    "kind": "sword",
+    "durability": 500,
+    "enchant": 15,
+    "damage": 7.0,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "taurethrim_amulet",
+    "kind": "item",
+    "stack": 64,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "taurethrim_blowgun",
+    "kind": "item",
+    "durability": 300,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "taurethrim_dart",
+    "kind": "item",
+    "stack": 64,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "poisoned_taurethrim_dart",
+    "kind": "item",
+    "stack": 64,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "taurethrim_torch",
+    "kind": "item",
+    "stack": 64,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "exploding_termite",
+    "kind": "item",
+    "stack": 16,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "blue_dwarven_throwing_axe",
+    "kind": "item",
+    "durability": 650,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "bronze_throwing_axe",
+    "kind": "item",
+    "durability": 230,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "dwarven_throwing_axe",
+    "kind": "item",
+    "durability": 700,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "iron_throwing_axe",
+    "kind": "item",
+    "durability": 250,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "lossarnach_throwing_axe",
+    "kind": "item",
+    "durability": 300,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "tin_ingot",
+    "kind": "item",
+    "stack": 64,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "topaz",
+    "kind": "item",
+    "stack": 64,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "torog_stew",
+    "kind": "item",
+    "stack": 1,
+    "level": 2,
+    "speed": 6.0,
+    "food": {
+      "nutrition": 8,
+      "saturation": 0.6
+    }
+  },
+  {
+    "id": "pelargir_trident",
+    "kind": "sword",
+    "durability": 450,
+    "enchant": 10,
+    "damage": 6.5,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "troll_bone",
+    "kind": "item",
+    "stack": 64,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "troll_statue_1",
+    "kind": "item",
+    "stack": 1,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "troll_statue_2",
+    "kind": "item",
+    "stack": 1,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "troll_statue_3",
+    "kind": "item",
+    "stack": 1,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "turnip",
+    "kind": "item",
+    "stack": 64,
+    "level": 2,
+    "speed": 6.0,
+    "food": {
+      "nutrition": 2,
+      "saturation": 0.3
+    }
+  },
+  {
+    "id": "roast_turnip",
+    "kind": "item",
+    "stack": 64,
+    "level": 2,
+    "speed": 6.0,
+    "food": {
+      "nutrition": 6,
+      "saturation": 0.6
+    }
+  },
+  {
+    "id": "uruk_crossbow",
+    "kind": "item",
+    "durability": 687,
+    "enchant": 2,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "uruk_steel_ingot",
+    "kind": "item",
+    "stack": 64,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "utumno_bow",
+    "kind": "item",
+    "durability": 600,
+    "enchant": 3,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "key_of_ice",
+    "kind": "item",
+    "stack": 1,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "key_of_obsidian",
+    "kind": "item",
+    "stack": 1,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "key_handle",
+    "kind": "item",
+    "stack": 1,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "key_shaft",
+    "kind": "item",
+    "stack": 1,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "key_pin",
+    "kind": "item",
+    "stack": 1,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "key_handle_utumno_key_5",
+    "kind": "item",
+    "stack": 1,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "key_shaft_utumno_key_6",
+    "kind": "item",
+    "stack": 1,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "key_pin_utumno_key_7",
+    "kind": "item",
+    "stack": 1,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "pickaxe_of_the_underworld",
+    "kind": "pickaxe",
+    "durability": 80,
+    "enchant": 12,
+    "damage": 5.5,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "angmar_warg_armor",
+    "kind": "item",
+    "stack": 1,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "mordor_warg_armor",
+    "kind": "item",
+    "stack": 1,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "isengard_warg_armor",
+    "kind": "item",
+    "stack": 1,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "warg_bone",
+    "kind": "item",
+    "stack": 64,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "fur",
+    "kind": "item",
+    "stack": 64,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "fur_bed",
+    "kind": "item",
+    "stack": 1,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "wargskin_rug",
+    "kind": "item",
+    "stack": 1,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "waterskin",
+    "kind": "item",
+    "stack": 64,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "wildberries",
+    "kind": "item",
+    "stack": 64,
+    "level": 2,
+    "speed": 6.0,
+    "food": {
+      "nutrition": 2,
+      "saturation": 0.2
+    }
+  },
+  {
+    "id": "wine_glass",
+    "kind": "item",
+    "stack": 64,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "wood_elven_bed",
+    "kind": "item",
+    "stack": 1,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "wooden_plate",
+    "kind": "item",
+    "stack": 64,
+    "level": 2,
+    "speed": 6.0
+  },
+  {
+    "id": "yam",
+    "kind": "item",
+    "stack": 64,
+    "level": 2,
+    "speed": 6.0,
+    "food": {
+      "nutrition": 1,
+      "saturation": 0.4
+    }
+  },
+  {
+    "id": "roast_yam",
+    "kind": "item",
+    "stack": 64,
+    "level": 2,
+    "speed": 6.0,
+    "food": {
+      "nutrition": 6,
+      "saturation": 0.6
+    }
+  },
+  {
+    "id": "cooked_zebra",
+    "kind": "item",
+    "stack": 64,
+    "level": 2,
+    "speed": 6.0,
+    "food": {
+      "nutrition": 6,
+      "saturation": 0.6
+    }
+  },
+  {
+    "id": "raw_zebra",
+    "kind": "item",
+    "stack": 64,
+    "level": 2,
+    "speed": 6.0,
+    "food": {
+      "nutrition": 2,
+      "saturation": 0.1
+    }
+  }
+]

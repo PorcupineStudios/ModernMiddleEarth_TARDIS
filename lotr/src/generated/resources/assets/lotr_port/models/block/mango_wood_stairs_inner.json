@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/inner_stairs",
+  "textures": {
+    "bottom": "lotr_port:block/planks_mango",
+    "top": "lotr_port:block/planks_mango",
+    "side": "lotr_port:block/planks_mango"
+  }
+}

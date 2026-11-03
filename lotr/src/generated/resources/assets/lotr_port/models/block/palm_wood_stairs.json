@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/stairs",
+  "textures": {
+    "bottom": "lotr_port:block/planks3_palm",
+    "top": "lotr_port:block/planks3_palm",
+    "side": "lotr_port:block/planks3_palm"
+  }
+}

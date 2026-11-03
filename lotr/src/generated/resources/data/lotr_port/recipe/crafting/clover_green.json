@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "crafting",
+  "ingredients": [
+    [
+      {
+        "item": "lotr_port:clover"
+      },
+      {
+        "item": "lotr_port:four_leaf_clover"
+      }
+    ]
+  ],
+  "result": {
+    "id": "lotr_port:clover_green"
+  }
+}

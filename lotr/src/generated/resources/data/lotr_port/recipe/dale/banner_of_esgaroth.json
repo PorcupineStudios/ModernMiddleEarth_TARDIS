@@ -1,0 +1,31 @@
+{
+  "type": "lotr_port:faction_crafting",
+  "table": "lotr_port:dalish_crafting_table",
+  "recipe": {
+    "type": "minecraft:crafting_shaped",
+    "category": "misc",
+    "group": "dale",
+    "pattern": [
+      "AB",
+      "C ",
+      "D "
+    ],
+    "key": {
+      "A": {
+        "tag": "minecraft:wool"
+      },
+      "B": {
+        "item": "minecraft:cod"
+      },
+      "C": {
+        "tag": "c:rods/wooden"
+      },
+      "D": {
+        "tag": "minecraft:planks"
+      }
+    },
+    "result": {
+      "id": "lotr_port:banner_of_esgaroth"
+    }
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "type": "lotr_port:faction_crafting",
+  "table": "lotr_port:dalish_crafting_table",
+  "recipe": {
+    "type": "minecraft:crafting_shaped",
+    "category": "misc",
+    "group": "dale",
+    "pattern": [
+      " A ",
+      "BCB"
+    ],
+    "key": {
+      "A": {
+        "tag": "c:dyes/white"
+      },
+      "B": {
+        "item": "minecraft:paper"
+      },
+      "C": {
+        "item": "minecraft:gunpowder"
+      }
+    },
+    "result": {
+      "id": "lotr_port:dalish_cracker"
+    }
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "type": "lotr_port:faction_crafting",
+  "table": "lotr_port:angmar_crafting_table",
+  "recipe": {
+    "type": "minecraft:crafting_shaped",
+    "category": "misc",
+    "group": "angmar",
+    "pattern": [
+      " A ",
+      "BCB",
+      " A "
+    ],
+    "key": {
+      "A": {
+        "tag": "c:ingots/copper"
+      },
+      "B": {
+        "item": "minecraft:flint"
+      },
+      "C": {
+        "item": "lotr_port:orc_steel_ingot"
+      }
+    },
+    "result": {
+      "id": "lotr_port:mechanism"
+    }
+  }
+}

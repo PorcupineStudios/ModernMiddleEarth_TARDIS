@@ -1,0 +1,25 @@
+{
+  "type": "lotr_port:faction_crafting",
+  "table": "lotr_port:dorwinion_crafting_table",
+  "recipe": {
+    "type": "minecraft:crafting_shaped",
+    "category": "misc",
+    "group": "dorwinion",
+    "pattern": [
+      "  A",
+      " B ",
+      "B  "
+    ],
+    "key": {
+      "A": {
+        "item": "lotr_port:dwarven_steel_ingot"
+      },
+      "B": {
+        "tag": "c:rods/wooden"
+      }
+    },
+    "result": {
+      "id": "lotr_port:spear_of_bladorthin"
+    }
+  }
+}

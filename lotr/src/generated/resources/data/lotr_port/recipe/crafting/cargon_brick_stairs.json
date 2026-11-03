@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "group": "crafting",
+  "pattern": [
+    "A  ",
+    "AA ",
+    "AAA"
+  ],
+  "key": {
+    "A": {
+      "item": "lotr_port:cargon_brick"
+    }
+  },
+  "result": {
+    "id": "lotr_port:cargon_brick_stairs",
+    "count": 4
+  }
+}

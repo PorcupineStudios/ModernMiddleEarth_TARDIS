@@ -1,0 +1,25 @@
+{
+  "type": "lotr_port:faction_crafting",
+  "table": "lotr_port:gondorian_crafting_table",
+  "recipe": {
+    "type": "minecraft:crafting_shaped",
+    "category": "misc",
+    "group": "gondorian",
+    "pattern": [
+      "ABA",
+      "AAA",
+      "AAA"
+    ],
+    "key": {
+      "A": {
+        "tag": "minecraft:wool"
+      },
+      "B": {
+        "tag": "c:dyes/light_blue"
+      }
+    },
+    "result": {
+      "id": "lotr_port:lebennin_gambeson"
+    }
+  }
+}

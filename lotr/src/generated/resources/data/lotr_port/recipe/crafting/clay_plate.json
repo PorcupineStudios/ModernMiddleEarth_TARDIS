@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "crafting",
+  "pattern": [
+    "AA"
+  ],
+  "key": {
+    "A": {
+      "tag": "c:clay_balls"
+    }
+  },
+  "result": {
+    "id": "lotr_port:clay_plate",
+    "count": 2
+  }
+}

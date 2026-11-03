@@ -1,0 +1,22 @@
+{
+  "type": "lotr_port:faction_crafting",
+  "table": "lotr_port:rohirric_crafting_table",
+  "recipe": {
+    "type": "minecraft:crafting_shaped",
+    "category": "building",
+    "group": "rohirric",
+    "pattern": [
+      "AAA",
+      "AAA"
+    ],
+    "key": {
+      "A": {
+        "item": "lotr_port:rohan_brick"
+      }
+    },
+    "result": {
+      "id": "lotr_port:rohan_brick_wall",
+      "count": 6
+    }
+  }
+}

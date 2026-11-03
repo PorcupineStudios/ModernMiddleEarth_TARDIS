@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [
+    "lotr_port:horn",
+    "lotr_port:kine_of_araw_horn",
+    "lotr_port:rhino_horn"
+  ]
+}

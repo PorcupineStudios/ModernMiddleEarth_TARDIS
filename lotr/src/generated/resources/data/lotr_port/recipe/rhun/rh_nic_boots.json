@@ -1,0 +1,24 @@
+{
+  "type": "lotr_port:faction_crafting",
+  "table": "lotr_port:rh_nic_crafting_table",
+  "recipe": {
+    "type": "minecraft:crafting_shaped",
+    "category": "misc",
+    "group": "rhun",
+    "pattern": [
+      "A A",
+      "B B"
+    ],
+    "key": {
+      "A": {
+        "item": "minecraft:leather"
+      },
+      "B": {
+        "tag": "c:ingots/iron"
+      }
+    },
+    "result": {
+      "id": "lotr_port:rh_nic_boots"
+    }
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "parent": "minecraft:block/block",
+  "textures": {
+    "down": "lotr_port:block/brick2_angmar",
+    "up": "lotr_port:block/brick2_angmar",
+    "north": "lotr_port:block/brick2_angmar",
+    "south": "lotr_port:block/brick2_angmar",
+    "west": "lotr_port:block/brick2_angmar",
+    "east": "lotr_port:block/brick2_angmar",
+    "particle": "lotr_port:block/brick2_angmar"
+  },
+  "render_type": "minecraft:cutout",
+  "elements": [
+    {
+      "from": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "to": [
+        16.0,
+        16.0,
+        16.0
+      ],
+      "faces": {
+        "down": {
+          "texture": "#down"
+        },
+        "up": {
+          "texture": "#up"
+        },
+        "north": {
+          "texture": "#north"
+        },
+        "south": {
+          "texture": "#south"
+        },
+        "west": {
+          "texture": "#west"
+        },
+        "east": {
+          "texture": "#east"
+        }
+      }
+    }
+  ]
+}

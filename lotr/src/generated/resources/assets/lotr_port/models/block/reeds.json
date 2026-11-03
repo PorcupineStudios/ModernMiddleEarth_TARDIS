@@ -1,0 +1,47 @@
+{
+  "parent": "minecraft:block/block",
+  "textures": {
+    "down": "lotr_port:block/reeds_mid",
+    "up": "lotr_port:block/reeds_mid",
+    "north": "lotr_port:block/reeds_mid",
+    "south": "lotr_port:block/reeds_mid",
+    "west": "lotr_port:block/reeds_mid",
+    "east": "lotr_port:block/reeds_mid",
+    "particle": "lotr_port:block/reeds_mid"
+  },
+  "render_type": "minecraft:cutout",
+  "elements": [
+    {
+      "from": [
+        2.0,
+        0.0,
+        2.0
+      ],
+      "to": [
+        14.0,
+        16.0,
+        14.0
+      ],
+      "faces": {
+        "down": {
+          "texture": "#down"
+        },
+        "up": {
+          "texture": "#up"
+        },
+        "north": {
+          "texture": "#north"
+        },
+        "south": {
+          "texture": "#south"
+        },
+        "west": {
+          "texture": "#west"
+        },
+        "east": {
+          "texture": "#east"
+        }
+      }
+    }
+  ]
+}

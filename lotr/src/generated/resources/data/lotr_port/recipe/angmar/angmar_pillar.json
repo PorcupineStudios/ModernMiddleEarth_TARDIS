@@ -1,0 +1,23 @@
+{
+  "type": "lotr_port:faction_crafting",
+  "table": "lotr_port:angmar_crafting_table",
+  "recipe": {
+    "type": "minecraft:crafting_shaped",
+    "category": "building",
+    "group": "angmar",
+    "pattern": [
+      "A",
+      "A",
+      "A"
+    ],
+    "key": {
+      "A": {
+        "tag": "c:stones"
+      }
+    },
+    "result": {
+      "id": "lotr_port:angmar_pillar",
+      "count": 3
+    }
+  }
+}

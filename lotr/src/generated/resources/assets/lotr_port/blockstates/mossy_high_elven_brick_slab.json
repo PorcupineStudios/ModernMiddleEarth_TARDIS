@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "lotr_port:block/mossy_high_elven_brick_slab"
+    },
+    "type=top": {
+      "model": "lotr_port:block/mossy_high_elven_brick_slab_top"
+    },
+    "type=double": {
+      "model": "lotr_port:block/mossy_high_elven_brick_slab_double"
+    }
+  }
+}

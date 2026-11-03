@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab_top",
+  "textures": {
+    "bottom": "lotr_port:block/planks3_plum",
+    "top": "lotr_port:block/planks3_plum",
+    "side": "lotr_port:block/planks3_plum"
+  }
+}

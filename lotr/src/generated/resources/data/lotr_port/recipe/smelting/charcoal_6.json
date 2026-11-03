@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": [
+    {
+      "item": "lotr_port:charred_wood"
+    },
+    {
+      "item": "lotr_port:mallorn_wood"
+    },
+    {
+      "item": "lotr_port:mirk_oak_wood"
+    },
+    {
+      "item": "lotr_port:shire_pine_wood"
+    }
+  ],
+  "result": {
+    "id": "minecraft:charcoal"
+  },
+  "experience": 0.15,
+  "cookingtime": 200
+}

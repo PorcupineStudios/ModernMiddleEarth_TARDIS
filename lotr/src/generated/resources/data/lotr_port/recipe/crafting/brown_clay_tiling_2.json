@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "group": "crafting",
+  "pattern": [
+    "AA",
+    "AA"
+  ],
+  "key": {
+    "A": {
+      "item": "minecraft:brown_terracotta"
+    }
+  },
+  "result": {
+    "id": "lotr_port:brown_clay_tiling",
+    "count": 4
+  }
+}

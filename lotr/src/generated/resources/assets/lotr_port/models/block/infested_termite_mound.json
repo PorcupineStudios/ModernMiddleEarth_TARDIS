@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "lotr_port:block/termite_mound",
+    "side": "lotr_port:block/termite_mound_side"
+  }
+}

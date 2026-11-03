@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "lotr_port:item/conquest_horn_base",
+    "layer1": "lotr_port:item/conquest_horn_overlay"
+  }
+}

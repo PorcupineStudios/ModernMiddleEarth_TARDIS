@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "lotr_port:item/pouch_large",
+    "layer1": "lotr_port:item/pouch_large_overlay"
+  }
+}

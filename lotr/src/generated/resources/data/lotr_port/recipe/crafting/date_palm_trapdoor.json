@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "group": "crafting",
+  "pattern": [
+    "AAA",
+    "AAA"
+  ],
+  "key": {
+    "A": {
+      "item": "lotr_port:date_palm_wood_planks"
+    }
+  },
+  "result": {
+    "id": "lotr_port:date_palm_trapdoor",
+    "count": 2
+  }
+}

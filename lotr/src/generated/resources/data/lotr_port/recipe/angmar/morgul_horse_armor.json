@@ -1,0 +1,25 @@
+{
+  "type": "lotr_port:faction_crafting",
+  "table": "lotr_port:angmar_crafting_table",
+  "recipe": {
+    "type": "minecraft:crafting_shaped",
+    "category": "misc",
+    "group": "angmar",
+    "pattern": [
+      "A  ",
+      "ABA",
+      "AAA"
+    ],
+    "key": {
+      "A": {
+        "item": "lotr_port:morgul_steel_ingot"
+      },
+      "B": {
+        "item": "minecraft:leather"
+      }
+    },
+    "result": {
+      "id": "lotr_port:morgul_horse_armor"
+    }
+  }
+}

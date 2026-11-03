@@ -1,0 +1,23 @@
+{
+  "type": "lotr_port:faction_crafting",
+  "table": "lotr_port:dol_amroth_crafting_table",
+  "recipe": {
+    "type": "minecraft:crafting_shaped",
+    "category": "building",
+    "group": "dol_amroth",
+    "pattern": [
+      "A",
+      "A",
+      "A"
+    ],
+    "key": {
+      "A": {
+        "item": "lotr_port:mordor_rock"
+      }
+    },
+    "result": {
+      "id": "lotr_port:n_men_rean_pillar",
+      "count": 3
+    }
+  }
+}

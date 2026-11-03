@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "crafting",
+  "pattern": [
+    "AA"
+  ],
+  "key": {
+    "A": {
+      "tag": "minecraft:logs"
+    }
+  },
+  "result": {
+    "id": "lotr_port:wooden_plate",
+    "count": 2
+  }
+}

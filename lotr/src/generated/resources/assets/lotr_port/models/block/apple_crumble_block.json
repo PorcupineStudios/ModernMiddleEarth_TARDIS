@@ -1,0 +1,47 @@
+{
+  "parent": "minecraft:block/block",
+  "textures": {
+    "down": "lotr_port:block/apple_crumble_bottom",
+    "up": "lotr_port:block/apple_crumble_top",
+    "north": "lotr_port:block/apple_crumble_side",
+    "south": "lotr_port:block/apple_crumble_side",
+    "west": "lotr_port:block/apple_crumble_side",
+    "east": "lotr_port:block/apple_crumble_side",
+    "particle": "lotr_port:block/apple_crumble_side"
+  },
+  "render_type": "minecraft:cutout",
+  "elements": [
+    {
+      "from": [
+        1.0,
+        0.0,
+        1.0
+      ],
+      "to": [
+        15.0,
+        8.0,
+        15.0
+      ],
+      "faces": {
+        "down": {
+          "texture": "#down"
+        },
+        "up": {
+          "texture": "#up"
+        },
+        "north": {
+          "texture": "#north"
+        },
+        "south": {
+          "texture": "#south"
+        },
+        "west": {
+          "texture": "#west"
+        },
+        "east": {
+          "texture": "#east"
+        }
+      }
+    }
+  ]
+}

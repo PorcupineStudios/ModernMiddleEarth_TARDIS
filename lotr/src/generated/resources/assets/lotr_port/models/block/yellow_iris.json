@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cross",
+  "textures": {
+    "cross": "lotr_port:block/double_flower_yellow_iris_bottom"
+  },
+  "render_type": "minecraft:cutout"
+}

@@ -1,0 +1,28 @@
+{
+  "type": "lotr_port:faction_crafting",
+  "table": "lotr_port:gondorian_crafting_table",
+  "recipe": {
+    "type": "minecraft:crafting_shaped",
+    "category": "misc",
+    "group": "gondorian",
+    "pattern": [
+      "AAA",
+      "BCB",
+      "A A"
+    ],
+    "key": {
+      "A": {
+        "tag": "c:ingots/iron"
+      },
+      "B": {
+        "item": "minecraft:leather"
+      },
+      "C": {
+        "tag": "c:dyes/blue"
+      }
+    },
+    "result": {
+      "id": "lotr_port:lamedon_leggings"
+    }
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "crafting",
+  "pattern": [
+    "A",
+    "B",
+    "A"
+  ],
+  "key": {
+    "A": {
+      "tag": "c:ingots/tin"
+    },
+    "B": {
+      "tag": "c:clay_balls"
+    }
+  },
+  "result": {
+    "id": "lotr_port:clay_mug",
+    "count": 2
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "type": "lotr_port:faction_crafting",
+  "table": "lotr_port:galadhrim_crafting_table",
+  "recipe": {
+    "type": "minecraft:crafting_shaped",
+    "category": "building",
+    "group": "elven",
+    "pattern": [
+      " A ",
+      "ABA",
+      " A "
+    ],
+    "key": {
+      "A": {
+        "tag": "c:nuggets/gold"
+      },
+      "B": {
+        "item": "lotr_port:galadhrim_brick"
+      }
+    },
+    "result": {
+      "id": "lotr_port:gold_trimmed_galadhrim_brick"
+    }
+  }
+}

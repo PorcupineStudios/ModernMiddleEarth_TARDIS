@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "group": "crafting",
+  "pattern": [
+    "ABA",
+    "ABA"
+  ],
+  "key": {
+    "A": {
+      "tag": "c:rods/wooden"
+    },
+    "B": {
+      "item": "lotr_port:charred_wood_planks"
+    }
+  },
+  "result": {
+    "id": "lotr_port:charred_fence_gate"
+  }
+}

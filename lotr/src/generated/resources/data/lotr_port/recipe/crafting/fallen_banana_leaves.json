@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "group": "crafting",
+  "pattern": [
+    "AAA"
+  ],
+  "key": {
+    "A": {
+      "item": "lotr_port:banana_leaves"
+    }
+  },
+  "result": {
+    "id": "lotr_port:fallen_banana_leaves",
+    "count": 6
+  }
+}

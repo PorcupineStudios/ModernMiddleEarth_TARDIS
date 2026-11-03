@@ -1,0 +1,29 @@
+{
+  "type": "lotr_port:faction_crafting",
+  "table": "lotr_port:lindon_crafting_table",
+  "recipe": {
+    "type": "minecraft:crafting_shaped",
+    "category": "building",
+    "group": "high_elven",
+    "pattern": [
+      "ABA",
+      "BCB",
+      "ABA"
+    ],
+    "key": {
+      "A": {
+        "item": "lotr_port:elven_steel_ingot"
+      },
+      "B": {
+        "tag": "minecraft:planks"
+      },
+      "C": {
+        "item": "lotr_port:gate_gears"
+      }
+    },
+    "result": {
+      "id": "lotr_port:high_elven_gate",
+      "count": 4
+    }
+  }
+}

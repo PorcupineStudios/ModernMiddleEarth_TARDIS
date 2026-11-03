@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "lotr_port:block/pillar2_dorwinion_face",
+    "side": "lotr_port:block/pillar2_dorwinion_side"
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "crafting",
+  "ingredients": [
+    {
+      "item": "lotr_port:copper_goblet"
+    },
+    {
+      "item": "lotr_port:cranberries"
+    },
+    {
+      "item": "lotr_port:cranberries"
+    },
+    {
+      "item": "lotr_port:cranberries"
+    }
+  ],
+  "result": {
+    "id": "lotr_port:cranberry_juice"
+  }
+}

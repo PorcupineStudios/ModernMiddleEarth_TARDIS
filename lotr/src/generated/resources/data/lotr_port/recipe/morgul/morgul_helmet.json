@@ -1,0 +1,21 @@
+{
+  "type": "lotr_port:faction_crafting",
+  "table": "lotr_port:morgul_crafting_table",
+  "recipe": {
+    "type": "minecraft:crafting_shaped",
+    "category": "misc",
+    "group": "morgul",
+    "pattern": [
+      "AAA",
+      "A A"
+    ],
+    "key": {
+      "A": {
+        "item": "lotr_port:morgul_steel_ingot"
+      }
+    },
+    "result": {
+      "id": "lotr_port:morgul_helmet"
+    }
+  }
+}

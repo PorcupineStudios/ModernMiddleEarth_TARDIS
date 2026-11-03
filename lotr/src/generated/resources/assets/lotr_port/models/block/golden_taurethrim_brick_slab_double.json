@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/cube_bottom_top",
+  "textures": {
+    "bottom": "lotr_port:block/brick4_tauredain_gold",
+    "top": "lotr_port:block/brick4_tauredain_gold",
+    "side": "lotr_port:block/brick4_tauredain_gold"
+  }
+}

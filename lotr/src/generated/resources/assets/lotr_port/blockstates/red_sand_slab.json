@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "lotr_port:block/red_sand_slab"
+    },
+    "type=top": {
+      "model": "lotr_port:block/red_sand_slab_top"
+    },
+    "type=double": {
+      "model": "lotr_port:block/red_sand_slab_double"
+    }
+  }
+}

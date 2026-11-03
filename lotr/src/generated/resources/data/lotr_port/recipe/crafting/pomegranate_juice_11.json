@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "crafting",
+  "ingredients": [
+    {
+      "item": "lotr_port:ale_horn"
+    },
+    {
+      "item": "lotr_port:pomegranate"
+    },
+    {
+      "item": "lotr_port:pomegranate"
+    }
+  ],
+  "result": {
+    "id": "lotr_port:pomegranate_juice"
+  }
+}

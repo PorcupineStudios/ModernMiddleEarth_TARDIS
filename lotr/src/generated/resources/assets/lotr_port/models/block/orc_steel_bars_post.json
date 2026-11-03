@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/template_glass_pane_post",
+  "textures": {
+    "pane": "lotr_port:block/orc_steel_bars",
+    "edge": "lotr_port:block/orc_steel_bars"
+  },
+  "render_type": "minecraft:cutout"
+}

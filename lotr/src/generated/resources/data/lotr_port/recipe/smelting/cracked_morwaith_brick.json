@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "item": "lotr_port:morwaith_brick"
+  },
+  "result": {
+    "id": "lotr_port:cracked_morwaith_brick"
+  },
+  "experience": 0.1,
+  "cookingtime": 200
+}

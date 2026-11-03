@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "group": "crafting",
+  "pattern": [
+    "AAA",
+    "ABA",
+    "AAA"
+  ],
+  "key": {
+    "A": {
+      "item": "lotr_port:fine_glass"
+    },
+    "B": {
+      "tag": "c:dyes/pink"
+    }
+  },
+  "result": {
+    "id": "lotr_port:pink_fine_glass",
+    "count": 8
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "parent": "minecraft:block/block",
+  "textures": {
+    "down": "minecraft:block/oak_planks",
+    "up": "lotr_port:block/high_elven_bed_feet_top",
+    "north": "lotr_port:block/high_elven_bed_feet_end",
+    "south": "lotr_port:block/high_elven_bed_feet_top",
+    "west": "lotr_port:block/high_elven_bed_feet_side",
+    "east": "lotr_port:block/high_elven_bed_feet_side",
+    "particle": "lotr_port:block/high_elven_bed_feet_end"
+  },
+  "render_type": "minecraft:cutout",
+  "elements": [
+    {
+      "from": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "to": [
+        16.0,
+        9.0,
+        16.0
+      ],
+      "faces": {
+        "down": {
+          "texture": "#down"
+        },
+        "up": {
+          "texture": "#up"
+        },
+        "north": {
+          "texture": "#north"
+        },
+        "south": {
+          "texture": "#south"
+        },
+        "west": {
+          "texture": "#west"
+        },
+        "east": {
+          "texture": "#east"
+        }
+      }
+    }
+  ]
+}

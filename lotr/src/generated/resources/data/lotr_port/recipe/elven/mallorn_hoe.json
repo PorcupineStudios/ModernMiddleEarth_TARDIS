@@ -1,0 +1,25 @@
+{
+  "type": "lotr_port:faction_crafting",
+  "table": "lotr_port:galadhrim_crafting_table",
+  "recipe": {
+    "type": "minecraft:crafting_shaped",
+    "category": "misc",
+    "group": "elven",
+    "pattern": [
+      "AA",
+      " B",
+      " B"
+    ],
+    "key": {
+      "A": {
+        "item": "lotr_port:mallorn_wood_planks"
+      },
+      "B": {
+        "item": "lotr_port:mallorn_stick"
+      }
+    },
+    "result": {
+      "id": "lotr_port:mallorn_hoe"
+    }
+  }
+}

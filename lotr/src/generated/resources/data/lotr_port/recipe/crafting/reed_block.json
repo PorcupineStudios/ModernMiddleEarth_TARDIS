@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "group": "crafting",
+  "pattern": [
+    "AA",
+    "AA"
+  ],
+  "key": {
+    "A": {
+      "item": "lotr_port:dried_reeds"
+    }
+  },
+  "result": {
+    "id": "lotr_port:reed_block",
+    "count": 4
+  }
+}

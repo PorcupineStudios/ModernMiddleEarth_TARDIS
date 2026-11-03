@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "group": "crafting",
+  "pattern": [
+    "A",
+    "A",
+    "A"
+  ],
+  "key": {
+    "A": {
+      "item": "lotr_port:cedar_wood"
+    }
+  },
+  "result": {
+    "id": "lotr_port:cedar_wood_beam",
+    "count": 3
+  }
+}

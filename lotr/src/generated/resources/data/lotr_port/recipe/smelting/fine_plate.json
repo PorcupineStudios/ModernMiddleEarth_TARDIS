@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "item": "lotr_port:stoneware_plate"
+  },
+  "result": {
+    "id": "lotr_port:fine_plate"
+  },
+  "experience": 0.3,
+  "cookingtime": 200
+}

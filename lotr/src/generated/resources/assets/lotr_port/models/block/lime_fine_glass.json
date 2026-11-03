@@ -1,0 +1,47 @@
+{
+  "parent": "minecraft:block/block",
+  "textures": {
+    "down": "lotr_port:block/stained_glass_lime",
+    "up": "lotr_port:block/stained_glass_lime",
+    "north": "lotr_port:block/stained_glass_lime",
+    "south": "lotr_port:block/stained_glass_lime",
+    "west": "lotr_port:block/stained_glass_lime",
+    "east": "lotr_port:block/stained_glass_lime",
+    "particle": "lotr_port:block/stained_glass_lime"
+  },
+  "render_type": "minecraft:cutout",
+  "elements": [
+    {
+      "from": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "to": [
+        16.0,
+        16.0,
+        16.0
+      ],
+      "faces": {
+        "down": {
+          "texture": "#down"
+        },
+        "up": {
+          "texture": "#up"
+        },
+        "north": {
+          "texture": "#north"
+        },
+        "south": {
+          "texture": "#south"
+        },
+        "west": {
+          "texture": "#west"
+        },
+        "east": {
+          "texture": "#east"
+        }
+      }
+    }
+  ]
+}

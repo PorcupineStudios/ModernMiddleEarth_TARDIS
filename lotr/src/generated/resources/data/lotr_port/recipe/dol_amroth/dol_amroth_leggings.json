@@ -1,0 +1,22 @@
+{
+  "type": "lotr_port:faction_crafting",
+  "table": "lotr_port:dol_amroth_crafting_table",
+  "recipe": {
+    "type": "minecraft:crafting_shaped",
+    "category": "misc",
+    "group": "dol_amroth",
+    "pattern": [
+      "AAA",
+      "A A",
+      "A A"
+    ],
+    "key": {
+      "A": {
+        "tag": "c:ingots/iron"
+      }
+    },
+    "result": {
+      "id": "lotr_port:dol_amroth_leggings"
+    }
+  }
+}

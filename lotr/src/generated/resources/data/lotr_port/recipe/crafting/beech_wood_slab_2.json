@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "group": "crafting",
+  "pattern": [
+    "AAA"
+  ],
+  "key": {
+    "A": {
+      "item": "lotr_port:beech_wood_planks"
+    }
+  },
+  "result": {
+    "id": "lotr_port:beech_wood_slab",
+    "count": 6
+  }
+}

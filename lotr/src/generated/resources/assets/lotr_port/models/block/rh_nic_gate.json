@@ -1,0 +1,47 @@
+{
+  "parent": "minecraft:block/block",
+  "textures": {
+    "down": "lotr_port:block/gate_rhun",
+    "up": "lotr_port:block/gate_rhun",
+    "north": "lotr_port:block/gate_rhun",
+    "south": "lotr_port:block/gate_rhun",
+    "west": "lotr_port:block/gate_rhun",
+    "east": "lotr_port:block/gate_rhun",
+    "particle": "lotr_port:block/gate_rhun"
+  },
+  "render_type": "minecraft:cutout",
+  "elements": [
+    {
+      "from": [
+        6.0,
+        0.0,
+        0.0
+      ],
+      "to": [
+        10.0,
+        16.0,
+        16.0
+      ],
+      "faces": {
+        "down": {
+          "texture": "#down"
+        },
+        "up": {
+          "texture": "#up"
+        },
+        "north": {
+          "texture": "#north"
+        },
+        "south": {
+          "texture": "#south"
+        },
+        "west": {
+          "texture": "#west"
+        },
+        "east": {
+          "texture": "#east"
+        }
+      }
+    }
+  ]
+}

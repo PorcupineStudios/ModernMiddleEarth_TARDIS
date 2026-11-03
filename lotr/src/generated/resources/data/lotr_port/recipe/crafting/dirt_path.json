@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "group": "crafting",
+  "pattern": [
+    "AA"
+  ],
+  "key": {
+    "A": {
+      "tag": "minecraft:dirt"
+    }
+  },
+  "result": {
+    "id": "lotr_port:dirt_path",
+    "count": 2
+  }
+}

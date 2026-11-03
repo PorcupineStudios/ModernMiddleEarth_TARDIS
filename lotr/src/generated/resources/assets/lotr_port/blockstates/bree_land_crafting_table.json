@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "lotr_port:block/bree_land_crafting_table"
+    }
+  }
+}

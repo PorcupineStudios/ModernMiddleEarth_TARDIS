@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "lotr_port:block/morgul_crafting_table"
+    }
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "crafting",
+  "ingredients": [
+    {
+      "item": "lotr_port:flax_plant"
+    }
+  ],
+  "result": {
+    "id": "lotr_port:flax_seeds",
+    "count": 2
+  }
+}

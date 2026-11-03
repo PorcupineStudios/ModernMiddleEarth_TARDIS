@@ -1,0 +1,26 @@
+{
+  "type": "lotr_port:faction_crafting",
+  "table": "lotr_port:morgul_crafting_table",
+  "recipe": {
+    "type": "minecraft:crafting_shaped",
+    "category": "building",
+    "group": "morgul",
+    "pattern": [
+      "ABA",
+      "BAB",
+      "ABA"
+    ],
+    "key": {
+      "A": {
+        "item": "minecraft:gunpowder"
+      },
+      "B": {
+        "item": "lotr_port:orc_steel_ingot"
+      }
+    },
+    "result": {
+      "id": "lotr_port:orc_bomb",
+      "count": 4
+    }
+  }
+}

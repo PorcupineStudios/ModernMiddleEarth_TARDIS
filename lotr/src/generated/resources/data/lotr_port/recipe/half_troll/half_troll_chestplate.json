@@ -1,0 +1,25 @@
+{
+  "type": "lotr_port:faction_crafting",
+  "table": "lotr_port:half_troll_crafting_table",
+  "recipe": {
+    "type": "minecraft:crafting_shaped",
+    "category": "misc",
+    "group": "half_troll",
+    "pattern": [
+      "A A",
+      "ABA",
+      "ABA"
+    ],
+    "key": {
+      "A": {
+        "item": "lotr_port:gemsbok_hide"
+      },
+      "B": {
+        "item": "minecraft:string"
+      }
+    },
+    "result": {
+      "id": "lotr_port:half_troll_chestplate"
+    }
+  }
+}

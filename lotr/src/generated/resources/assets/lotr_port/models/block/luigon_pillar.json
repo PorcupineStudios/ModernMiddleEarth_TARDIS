@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "lotr_port:block/pillar_blue_rock_face",
+    "side": "lotr_port:block/pillar_blue_rock_side"
+  }
+}

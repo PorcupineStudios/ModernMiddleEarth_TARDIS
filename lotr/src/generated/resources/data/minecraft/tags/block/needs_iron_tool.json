@@ -1,0 +1,33 @@
+{
+  "replace": false,
+  "values": [
+    "lotr_port:amber_block",
+    "lotr_port:amber_vein",
+    "lotr_port:amethyst_block",
+    "lotr_port:amethyst_vein",
+    "lotr_port:block_of_edhelvir",
+    "lotr_port:block_of_galvorn",
+    "lotr_port:block_of_gulduril",
+    "lotr_port:block_of_mithril",
+    "lotr_port:block_of_morgul_steel",
+    "lotr_port:block_of_silver",
+    "lotr_port:diamond_block",
+    "lotr_port:diamond_vein",
+    "lotr_port:edhelvir_ore",
+    "lotr_port:emerald_block",
+    "lotr_port:emerald_vein",
+    "lotr_port:gulduril_ore",
+    "lotr_port:gulduril_ore_block",
+    "lotr_port:mithril_ore",
+    "lotr_port:opal_block",
+    "lotr_port:opal_vein",
+    "lotr_port:pearl_block",
+    "lotr_port:ruby_block",
+    "lotr_port:ruby_vein",
+    "lotr_port:sapphire_block",
+    "lotr_port:sapphire_vein",
+    "lotr_port:silver_ore",
+    "lotr_port:topaz_block",
+    "lotr_port:topaz_vein"
+  ]
+}

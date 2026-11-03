@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "lotr_port:block/wood_beam3_maple_top",
+    "side": "lotr_port:block/wood_beam3_maple_side"
+  }
+}

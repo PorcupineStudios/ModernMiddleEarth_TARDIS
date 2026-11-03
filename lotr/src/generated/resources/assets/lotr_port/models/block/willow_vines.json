@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cross",
+  "textures": {
+    "cross": "lotr_port:block/willow_vines"
+  },
+  "render_type": "minecraft:cutout"
+}

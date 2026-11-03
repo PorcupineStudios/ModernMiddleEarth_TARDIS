@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "group": "crafting",
+  "pattern": [
+    "AAA",
+    "ABA",
+    "AAA"
+  ],
+  "key": {
+    "A": {
+      "item": "lotr_port:fine_glass"
+    },
+    "B": {
+      "tag": "c:dyes/light_blue"
+    }
+  },
+  "result": {
+    "id": "lotr_port:light_blue_fine_glass",
+    "count": 8
+  }
+}

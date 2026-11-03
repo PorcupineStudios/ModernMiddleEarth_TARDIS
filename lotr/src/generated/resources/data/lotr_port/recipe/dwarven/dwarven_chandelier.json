@@ -1,0 +1,28 @@
+{
+  "type": "lotr_port:faction_crafting",
+  "table": "lotr_port:dwarven_crafting_table",
+  "recipe": {
+    "type": "minecraft:crafting_shaped",
+    "category": "building",
+    "group": "dwarven",
+    "pattern": [
+      " A ",
+      "BCB"
+    ],
+    "key": {
+      "A": {
+        "tag": "c:rods/wooden"
+      },
+      "B": {
+        "item": "minecraft:torch"
+      },
+      "C": {
+        "item": "lotr_port:dwarven_steel_ingot"
+      }
+    },
+    "result": {
+      "id": "lotr_port:dwarven_chandelier",
+      "count": 2
+    }
+  }
+}

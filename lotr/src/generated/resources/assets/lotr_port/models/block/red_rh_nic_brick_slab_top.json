@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab_top",
+  "textures": {
+    "bottom": "lotr_port:block/brick6_rhun_red",
+    "top": "lotr_port:block/brick6_rhun_red",
+    "side": "lotr_port:block/brick6_rhun_red"
+  }
+}

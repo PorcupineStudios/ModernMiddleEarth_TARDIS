@@ -1,0 +1,22 @@
+{
+  "type": "lotr_port:faction_crafting",
+  "table": "lotr_port:morwaith_crafting_table",
+  "recipe": {
+    "type": "minecraft:crafting_shaped",
+    "category": "building",
+    "group": "moredain",
+    "pattern": [
+      "AAA",
+      "AAA"
+    ],
+    "key": {
+      "A": {
+        "item": "lotr_port:cracked_morwaith_brick"
+      }
+    },
+    "result": {
+      "id": "lotr_port:cracked_morwaith_brick_wall",
+      "count": 6
+    }
+  }
+}

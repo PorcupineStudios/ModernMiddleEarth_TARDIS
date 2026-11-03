@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "crafting",
+  "ingredients": [
+    {
+      "item": "lotr_port:block_of_gilded_iron"
+    }
+  ],
+  "result": {
+    "id": "lotr_port:gilded_iron_ingot",
+    "count": 9
+  }
+}

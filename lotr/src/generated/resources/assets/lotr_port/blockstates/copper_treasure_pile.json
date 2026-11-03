@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "lotr_port:block/copper_treasure_pile"
+    }
+  }
+}

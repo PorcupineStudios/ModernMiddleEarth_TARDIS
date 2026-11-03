@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "lotr_port:block/utumno_brick_fire_tile",
+    "side": "lotr_port:block/utumno_brick_fire_tile_side"
+  }
+}

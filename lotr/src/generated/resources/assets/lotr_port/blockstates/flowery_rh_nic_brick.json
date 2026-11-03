@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "lotr_port:block/flowery_rh_nic_brick"
+    }
+  }
+}

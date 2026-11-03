@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column_horizontal",
+  "textures": {
+    "end": "lotr_port:block/wood_beam2_lebethron_top",
+    "side": "lotr_port:block/wood_beam2_lebethron_side"
+  }
+}

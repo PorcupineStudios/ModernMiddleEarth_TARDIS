@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "crafting",
+  "pattern": [
+    "A",
+    "B"
+  ],
+  "key": {
+    "A": {
+      "item": "minecraft:skeleton_skull"
+    },
+    "B": {
+      "tag": "c:ingots/tin"
+    }
+  },
+  "result": {
+    "id": "lotr_port:skull_cup"
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "type": "lotr_port:faction_crafting",
+  "table": "lotr_port:taurethrim_crafting_table",
+  "recipe": {
+    "type": "minecraft:crafting_shaped",
+    "category": "misc",
+    "group": "tauredain",
+    "pattern": [
+      "AAA",
+      "ABA",
+      " B "
+    ],
+    "key": {
+      "A": {
+        "item": "lotr_port:obsidian_shard"
+      },
+      "B": {
+        "tag": "c:rods/wooden"
+      }
+    },
+    "result": {
+      "id": "lotr_port:taurethrim_battleaxe"
+    }
+  }
+}

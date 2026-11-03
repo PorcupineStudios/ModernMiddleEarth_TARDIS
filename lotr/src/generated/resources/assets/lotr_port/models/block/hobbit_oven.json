@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "lotr_port:block/hobbit_oven_top",
+    "up": "lotr_port:block/hobbit_oven_top",
+    "north": "lotr_port:block/hobbit_oven_side",
+    "south": "lotr_port:block/hobbit_oven_front",
+    "west": "lotr_port:block/hobbit_oven_side",
+    "east": "lotr_port:block/hobbit_oven_side",
+    "particle": "lotr_port:block/hobbit_oven_side"
+  }
+}

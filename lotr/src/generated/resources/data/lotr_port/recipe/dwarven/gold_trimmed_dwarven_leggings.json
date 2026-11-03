@@ -1,0 +1,25 @@
+{
+  "type": "lotr_port:faction_crafting",
+  "table": "lotr_port:dwarven_crafting_table",
+  "recipe": {
+    "type": "minecraft:crafting_shaped",
+    "category": "misc",
+    "group": "dwarven",
+    "pattern": [
+      "AAA",
+      "ABA",
+      "AAA"
+    ],
+    "key": {
+      "A": {
+        "tag": "c:nuggets/gold"
+      },
+      "B": {
+        "item": "lotr_port:dwarven_leggings"
+      }
+    },
+    "result": {
+      "id": "lotr_port:gold_trimmed_dwarven_leggings"
+    }
+  }
+}

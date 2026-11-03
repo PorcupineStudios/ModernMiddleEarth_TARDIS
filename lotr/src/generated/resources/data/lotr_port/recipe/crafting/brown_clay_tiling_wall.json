@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "group": "crafting",
+  "pattern": [
+    "AAA",
+    "AAA"
+  ],
+  "key": {
+    "A": {
+      "item": "lotr_port:brown_clay_tiling"
+    }
+  },
+  "result": {
+    "id": "lotr_port:brown_clay_tiling_wall",
+    "count": 6
+  }
+}

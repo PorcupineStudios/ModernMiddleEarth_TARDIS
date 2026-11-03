@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "lotr_port:block/smooth_gondor_rock"
+    }
+  }
+}

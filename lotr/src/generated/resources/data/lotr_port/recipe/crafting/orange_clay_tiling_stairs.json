@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "group": "crafting",
+  "pattern": [
+    "A  ",
+    "AA ",
+    "AAA"
+  ],
+  "key": {
+    "A": {
+      "item": "lotr_port:orange_clay_tiling"
+    }
+  },
+  "result": {
+    "id": "lotr_port:orange_clay_tiling_stairs",
+    "count": 4
+  }
+}

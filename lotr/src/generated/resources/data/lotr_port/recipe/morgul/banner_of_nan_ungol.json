@@ -1,0 +1,31 @@
+{
+  "type": "lotr_port:faction_crafting",
+  "table": "lotr_port:morgul_crafting_table",
+  "recipe": {
+    "type": "minecraft:crafting_shaped",
+    "category": "misc",
+    "group": "morgul",
+    "pattern": [
+      "AB",
+      "C ",
+      "D "
+    ],
+    "key": {
+      "A": {
+        "tag": "minecraft:wool"
+      },
+      "B": {
+        "item": "minecraft:string"
+      },
+      "C": {
+        "tag": "c:rods/wooden"
+      },
+      "D": {
+        "tag": "minecraft:planks"
+      }
+    },
+    "result": {
+      "id": "lotr_port:banner_of_nan_ungol"
+    }
+  }
+}

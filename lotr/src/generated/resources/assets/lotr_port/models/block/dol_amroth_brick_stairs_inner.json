@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/inner_stairs",
+  "textures": {
+    "bottom": "lotr_port:block/brick3_dol_amroth",
+    "top": "lotr_port:block/brick3_dol_amroth",
+    "side": "lotr_port:block/brick3_dol_amroth"
+  }
+}

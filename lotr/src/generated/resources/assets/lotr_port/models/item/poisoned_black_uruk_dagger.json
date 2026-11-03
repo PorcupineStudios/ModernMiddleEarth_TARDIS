@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/handheld",
+  "textures": {
+    "layer0": "lotr_port:item/dagger_black_uruk_poisoned"
+  }
+}

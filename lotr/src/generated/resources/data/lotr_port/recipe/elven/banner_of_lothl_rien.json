@@ -1,0 +1,28 @@
+{
+  "type": "lotr_port:faction_crafting",
+  "table": "lotr_port:galadhrim_crafting_table",
+  "recipe": {
+    "type": "minecraft:crafting_shaped",
+    "category": "misc",
+    "group": "elven",
+    "pattern": [
+      "A",
+      "B",
+      "C"
+    ],
+    "key": {
+      "A": {
+        "tag": "minecraft:wool"
+      },
+      "B": {
+        "item": "lotr_port:mallorn_stick"
+      },
+      "C": {
+        "item": "lotr_port:mallorn_wood_planks"
+      }
+    },
+    "result": {
+      "id": "lotr_port:banner_of_lothl_rien"
+    }
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column_horizontal",
+  "textures": {
+    "end": "lotr_port:block/wood7_aspen_top",
+    "side": "lotr_port:block/wood7_aspen_side"
+  }
+}

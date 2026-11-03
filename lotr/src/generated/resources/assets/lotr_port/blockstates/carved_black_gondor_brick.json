@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "lotr_port:block/carved_black_gondor_brick"
+    }
+  }
+}

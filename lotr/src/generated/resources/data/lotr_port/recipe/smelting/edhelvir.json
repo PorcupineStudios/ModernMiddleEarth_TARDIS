@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "item": "lotr_port:edhelvir_ore"
+  },
+  "result": {
+    "id": "lotr_port:edhelvir"
+  },
+  "experience": 1.0,
+  "cookingtime": 200
+}

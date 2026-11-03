@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/stairs",
+  "textures": {
+    "bottom": "lotr_port:block/red_brick_cracked",
+    "top": "lotr_port:block/red_brick_cracked",
+    "side": "lotr_port:block/red_brick_cracked"
+  }
+}

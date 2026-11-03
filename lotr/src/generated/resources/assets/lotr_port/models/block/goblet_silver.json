@@ -1,0 +1,47 @@
+{
+  "parent": "minecraft:block/block",
+  "textures": {
+    "down": "lotr_port:block/ore_storage_silver",
+    "up": "lotr_port:block/ore_storage_silver",
+    "north": "lotr_port:block/ore_storage_silver",
+    "south": "lotr_port:block/ore_storage_silver",
+    "west": "lotr_port:block/ore_storage_silver",
+    "east": "lotr_port:block/ore_storage_silver",
+    "particle": "lotr_port:block/ore_storage_silver"
+  },
+  "render_type": "minecraft:cutout",
+  "elements": [
+    {
+      "from": [
+        6.125,
+        0.0,
+        6.125
+      ],
+      "to": [
+        9.875,
+        6.75,
+        9.875
+      ],
+      "faces": {
+        "down": {
+          "texture": "#down"
+        },
+        "up": {
+          "texture": "#up"
+        },
+        "north": {
+          "texture": "#north"
+        },
+        "south": {
+          "texture": "#south"
+        },
+        "west": {
+          "texture": "#west"
+        },
+        "east": {
+          "texture": "#east"
+        }
+      }
+    }
+  ]
+}

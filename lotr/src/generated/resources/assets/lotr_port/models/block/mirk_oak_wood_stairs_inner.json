@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/inner_stairs",
+  "textures": {
+    "bottom": "lotr_port:block/planks_mirk_oak",
+    "top": "lotr_port:block/planks_mirk_oak",
+    "side": "lotr_port:block/planks_mirk_oak"
+  }
+}

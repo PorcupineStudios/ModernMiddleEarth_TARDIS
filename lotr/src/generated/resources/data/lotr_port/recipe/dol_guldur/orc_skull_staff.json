@@ -1,0 +1,25 @@
+{
+  "type": "lotr_port:faction_crafting",
+  "table": "lotr_port:dol_guldur_crafting_table",
+  "recipe": {
+    "type": "minecraft:crafting_shaped",
+    "category": "misc",
+    "group": "dol_guldur",
+    "pattern": [
+      "A",
+      "B",
+      "B"
+    ],
+    "key": {
+      "A": {
+        "item": "minecraft:skeleton_skull"
+      },
+      "B": {
+        "tag": "c:rods/wooden"
+      }
+    },
+    "result": {
+      "id": "lotr_port:orc_skull_staff"
+    }
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "parent": "minecraft:block/block",
+  "textures": {
+    "down": "minecraft:block/hardened_clay_stained_white",
+    "up": "minecraft:block/hardened_clay_stained_white",
+    "north": "minecraft:block/hardened_clay_stained_white",
+    "south": "minecraft:block/hardened_clay_stained_white",
+    "west": "minecraft:block/hardened_clay_stained_white",
+    "east": "minecraft:block/hardened_clay_stained_white",
+    "particle": "minecraft:block/hardened_clay_stained_white"
+  },
+  "render_type": "minecraft:cutout",
+  "elements": [
+    {
+      "from": [
+        4.25,
+        0.0,
+        4.25
+      ],
+      "to": [
+        11.75,
+        9.0,
+        11.75
+      ],
+      "faces": {
+        "down": {
+          "texture": "#down"
+        },
+        "up": {
+          "texture": "#up"
+        },
+        "north": {
+          "texture": "#north"
+        },
+        "south": {
+          "texture": "#south"
+        },
+        "west": {
+          "texture": "#west"
+        },
+        "east": {
+          "texture": "#east"
+        }
+      }
+    }
+  ]
+}

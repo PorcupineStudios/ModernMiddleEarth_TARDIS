@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cross",
+  "textures": {
+    "cross": "lotr_port:block/sapling2_lebethron"
+  },
+  "render_type": "minecraft:cutout"
+}

@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "crafting",
+  "pattern": [
+    "A",
+    "B"
+  ],
+  "key": {
+    "A": {
+      "tag": "lotr_port:horn"
+    },
+    "B": {
+      "tag": "c:ingots/gold"
+    }
+  },
+  "result": {
+    "id": "lotr_port:golden_ale_horn"
+  }
+}

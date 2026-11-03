@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "crafting",
+  "ingredients": [
+    {
+      "item": "lotr_port:pipe_weed_plant"
+    }
+  ],
+  "result": {
+    "id": "lotr_port:pipe_weed_seeds",
+    "count": 2
+  }
+}

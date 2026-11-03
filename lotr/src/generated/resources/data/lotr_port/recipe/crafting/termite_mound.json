@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "group": "crafting",
+  "pattern": [
+    " A ",
+    "ABA",
+    " A "
+  ],
+  "key": {
+    "A": {
+      "item": "lotr_port:exploding_termite"
+    },
+    "B": {
+      "tag": "c:stones"
+    }
+  },
+  "result": {
+    "id": "lotr_port:termite_mound"
+  }
+}

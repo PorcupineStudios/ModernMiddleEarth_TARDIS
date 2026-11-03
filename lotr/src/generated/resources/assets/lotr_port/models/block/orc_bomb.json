@@ -1,0 +1,47 @@
+{
+  "parent": "minecraft:block/block",
+  "textures": {
+    "down": "lotr_port:block/orc_bomb_side",
+    "up": "lotr_port:block/orc_bomb_top",
+    "north": "lotr_port:block/orc_bomb_side",
+    "south": "lotr_port:block/orc_bomb_side",
+    "west": "lotr_port:block/orc_bomb_side",
+    "east": "lotr_port:block/orc_bomb_side",
+    "particle": "lotr_port:block/orc_bomb_side"
+  },
+  "render_type": "minecraft:cutout",
+  "elements": [
+    {
+      "from": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "to": [
+        16.0,
+        16.0,
+        16.0
+      ],
+      "faces": {
+        "down": {
+          "texture": "#down"
+        },
+        "up": {
+          "texture": "#up"
+        },
+        "north": {
+          "texture": "#north"
+        },
+        "south": {
+          "texture": "#south"
+        },
+        "west": {
+          "texture": "#west"
+        },
+        "east": {
+          "texture": "#east"
+        }
+      }
+    }
+  ]
+}

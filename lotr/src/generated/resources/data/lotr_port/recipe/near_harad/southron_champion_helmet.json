@@ -1,0 +1,27 @@
+{
+  "type": "lotr_port:faction_crafting",
+  "table": "lotr_port:haradric_crafting_table",
+  "recipe": {
+    "type": "minecraft:crafting_shaped",
+    "category": "misc",
+    "group": "near_harad",
+    "pattern": [
+      "ABA",
+      " C "
+    ],
+    "key": {
+      "A": {
+        "tag": "c:rods/wooden"
+      },
+      "B": {
+        "item": "minecraft:leather"
+      },
+      "C": {
+        "item": "lotr_port:coast_southron_helmet"
+      }
+    },
+    "result": {
+      "id": "lotr_port:southron_champion_helmet"
+    }
+  }
+}

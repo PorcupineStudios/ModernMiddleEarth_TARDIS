@@ -1,0 +1,26 @@
+{
+  "type": "lotr_port:faction_crafting",
+  "table": "lotr_port:haradric_crafting_table",
+  "recipe": {
+    "type": "minecraft:crafting_shaped",
+    "category": "misc",
+    "group": "near_harad",
+    "pattern": [
+      "  A",
+      " A ",
+      "B  "
+    ],
+    "key": {
+      "A": {
+        "item": "lotr_port:kebab"
+      },
+      "B": {
+        "tag": "c:rods/wooden"
+      }
+    },
+    "result": {
+      "id": "lotr_port:shish_kebab",
+      "count": 2
+    }
+  }
+}

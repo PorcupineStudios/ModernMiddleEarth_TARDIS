@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "crafting",
+  "ingredients": [
+    {
+      "item": "lotr_port:orange_chrysanthemum"
+    }
+  ],
+  "result": {
+    "id": "minecraft:orange_dye"
+  }
+}

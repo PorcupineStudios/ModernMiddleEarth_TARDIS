@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "item": "lotr_port:green_grapes"
+  },
+  "result": {
+    "id": "lotr_port:raisins"
+  },
+  "experience": 0.3,
+  "cookingtime": 200
+}

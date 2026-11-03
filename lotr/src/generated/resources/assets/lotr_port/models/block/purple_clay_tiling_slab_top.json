@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab_top",
+  "textures": {
+    "bottom": "lotr_port:block/clay_tile_dyed_purple",
+    "top": "lotr_port:block/clay_tile_dyed_purple",
+    "side": "lotr_port:block/clay_tile_dyed_purple"
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "type": "lotr_port:faction_crafting",
+  "table": "lotr_port:gondorian_crafting_table",
+  "recipe": {
+    "type": "minecraft:crafting_shapeless",
+    "category": "building",
+    "group": "gondorian",
+    "ingredients": [
+      {
+        "item": "lotr_port:gondor_brick"
+      },
+      {
+        "tag": "lotr_port:vines"
+      }
+    ],
+    "result": {
+      "id": "lotr_port:mossy_gondor_brick"
+    }
+  }
+}

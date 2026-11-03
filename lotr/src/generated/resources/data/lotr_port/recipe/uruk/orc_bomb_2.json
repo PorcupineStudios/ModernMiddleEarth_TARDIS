@@ -1,0 +1,23 @@
+{
+  "type": "lotr_port:faction_crafting",
+  "table": "lotr_port:uruk_crafting_table",
+  "recipe": {
+    "type": "minecraft:crafting_shapeless",
+    "category": "building",
+    "group": "uruk",
+    "ingredients": [
+      {
+        "item": "lotr_port:orc_bomb_block"
+      },
+      {
+        "item": "minecraft:gunpowder"
+      },
+      {
+        "item": "lotr_port:uruk_steel_ingot"
+      }
+    ],
+    "result": {
+      "id": "lotr_port:orc_bomb_2"
+    }
+  }
+}

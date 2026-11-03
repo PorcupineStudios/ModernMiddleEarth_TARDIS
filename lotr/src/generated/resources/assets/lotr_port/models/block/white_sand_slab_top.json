@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab_top",
+  "textures": {
+    "bottom": "lotr_port:block/white_sand",
+    "top": "lotr_port:block/white_sand",
+    "side": "lotr_port:block/white_sand"
+  }
+}

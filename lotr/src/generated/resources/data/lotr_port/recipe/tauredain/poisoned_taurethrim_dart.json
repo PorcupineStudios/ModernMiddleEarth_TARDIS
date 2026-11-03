@@ -1,0 +1,26 @@
+{
+  "type": "lotr_port:faction_crafting",
+  "table": "lotr_port:taurethrim_crafting_table",
+  "recipe": {
+    "type": "minecraft:crafting_shaped",
+    "category": "misc",
+    "group": "tauredain",
+    "pattern": [
+      " A ",
+      "ABA",
+      " A "
+    ],
+    "key": {
+      "A": {
+        "item": "lotr_port:taurethrim_dart"
+      },
+      "B": {
+        "tag": "lotr_port:poison"
+      }
+    },
+    "result": {
+      "id": "lotr_port:poisoned_taurethrim_dart",
+      "count": 4
+    }
+  }
+}

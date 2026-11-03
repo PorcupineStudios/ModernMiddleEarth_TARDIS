@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "lotr_port:block/mossy_rh_nic_brick"
+    }
+  }
+}

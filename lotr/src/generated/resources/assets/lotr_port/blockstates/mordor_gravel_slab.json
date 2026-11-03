@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "lotr_port:block/mordor_gravel_slab"
+    },
+    "type=top": {
+      "model": "lotr_port:block/mordor_gravel_slab_top"
+    },
+    "type=double": {
+      "model": "lotr_port:block/mordor_gravel_slab_double"
+    }
+  }
+}

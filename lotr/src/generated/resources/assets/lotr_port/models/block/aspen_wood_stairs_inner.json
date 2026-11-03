@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/inner_stairs",
+  "textures": {
+    "bottom": "lotr_port:block/planks2_aspen",
+    "top": "lotr_port:block/planks2_aspen",
+    "side": "lotr_port:block/planks2_aspen"
+  }
+}

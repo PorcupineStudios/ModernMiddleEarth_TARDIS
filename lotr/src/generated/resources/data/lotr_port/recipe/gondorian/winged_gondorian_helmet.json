@@ -1,0 +1,23 @@
+{
+  "type": "lotr_port:faction_crafting",
+  "table": "lotr_port:gondorian_crafting_table",
+  "recipe": {
+    "type": "minecraft:crafting_shaped",
+    "category": "misc",
+    "group": "gondorian",
+    "pattern": [
+      "ABA"
+    ],
+    "key": {
+      "A": {
+        "tag": "c:feathers"
+      },
+      "B": {
+        "item": "lotr_port:gondorian_helmet"
+      }
+    },
+    "result": {
+      "id": "lotr_port:winged_gondorian_helmet"
+    }
+  }
+}

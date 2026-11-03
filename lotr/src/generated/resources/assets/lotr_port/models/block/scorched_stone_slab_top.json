@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab_top",
+  "textures": {
+    "bottom": "lotr_port:block/scorched_stone",
+    "top": "lotr_port:block/scorched_stone",
+    "side": "lotr_port:block/scorched_stone"
+  }
+}

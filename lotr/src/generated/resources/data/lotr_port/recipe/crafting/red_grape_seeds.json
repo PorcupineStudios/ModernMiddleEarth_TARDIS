@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "crafting",
+  "ingredients": [
+    {
+      "item": "lotr_port:red_grapes"
+    }
+  ],
+  "result": {
+    "id": "lotr_port:red_grape_seeds"
+  }
+}

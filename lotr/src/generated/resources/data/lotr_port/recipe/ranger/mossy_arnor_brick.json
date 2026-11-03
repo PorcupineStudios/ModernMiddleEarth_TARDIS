@@ -1,0 +1,20 @@
+{
+  "type": "lotr_port:faction_crafting",
+  "table": "lotr_port:ranger_crafting_table",
+  "recipe": {
+    "type": "minecraft:crafting_shapeless",
+    "category": "building",
+    "group": "ranger",
+    "ingredients": [
+      {
+        "item": "lotr_port:arnor_brick"
+      },
+      {
+        "tag": "lotr_port:vines"
+      }
+    ],
+    "result": {
+      "id": "lotr_port:mossy_arnor_brick"
+    }
+  }
+}

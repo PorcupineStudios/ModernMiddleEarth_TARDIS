@@ -1,0 +1,47 @@
+{
+  "parent": "minecraft:block/block",
+  "textures": {
+    "down": "lotr_port:block/tauredain_double_torch_bottom",
+    "up": "lotr_port:block/tauredain_double_torch_bottom",
+    "north": "lotr_port:block/tauredain_double_torch_bottom",
+    "south": "lotr_port:block/tauredain_double_torch_bottom",
+    "west": "lotr_port:block/tauredain_double_torch_bottom",
+    "east": "lotr_port:block/tauredain_double_torch_bottom",
+    "particle": "lotr_port:block/tauredain_double_torch_bottom"
+  },
+  "render_type": "minecraft:cutout",
+  "elements": [
+    {
+      "from": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "to": [
+        16.0,
+        16.0,
+        16.0
+      ],
+      "faces": {
+        "down": {
+          "texture": "#down"
+        },
+        "up": {
+          "texture": "#up"
+        },
+        "north": {
+          "texture": "#north"
+        },
+        "south": {
+          "texture": "#south"
+        },
+        "west": {
+          "texture": "#west"
+        },
+        "east": {
+          "texture": "#east"
+        }
+      }
+    }
+  ]
+}

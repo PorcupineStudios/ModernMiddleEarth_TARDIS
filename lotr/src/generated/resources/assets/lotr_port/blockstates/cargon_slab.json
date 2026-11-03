@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "lotr_port:block/cargon_slab"
+    },
+    "type=top": {
+      "model": "lotr_port:block/cargon_slab_top"
+    },
+    "type=double": {
+      "model": "lotr_port:block/cargon_slab_double"
+    }
+  }
+}

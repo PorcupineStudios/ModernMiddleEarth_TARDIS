@@ -1,0 +1,26 @@
+{
+  "type": "lotr_port:faction_crafting",
+  "table": "lotr_port:gundabad_crafting_table",
+  "recipe": {
+    "type": "minecraft:crafting_shaped",
+    "category": "misc",
+    "group": "gundabad",
+    "pattern": [
+      " A ",
+      "ABA",
+      " A "
+    ],
+    "key": {
+      "A": {
+        "item": "minecraft:arrow"
+      },
+      "B": {
+        "tag": "lotr_port:poison"
+      }
+    },
+    "result": {
+      "id": "lotr_port:poisoned_arrow",
+      "count": 4
+    }
+  }
+}

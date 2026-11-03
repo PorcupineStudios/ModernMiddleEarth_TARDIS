@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab_top",
+  "textures": {
+    "bottom": "lotr_port:block/brick4_tauredain_obsidian",
+    "top": "lotr_port:block/brick4_tauredain_obsidian",
+    "side": "lotr_port:block/brick4_tauredain_obsidian"
+  }
+}

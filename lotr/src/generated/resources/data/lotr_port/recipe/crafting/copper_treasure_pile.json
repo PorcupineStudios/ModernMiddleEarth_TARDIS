@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "group": "crafting",
+  "pattern": [
+    "AA",
+    "AA"
+  ],
+  "key": {
+    "A": {
+      "item": "lotr_port:copper_ingot"
+    }
+  },
+  "result": {
+    "id": "lotr_port:copper_treasure_pile",
+    "count": 8
+  }
+}

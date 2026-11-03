@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "crafting",
+  "ingredients": [
+    {
+      "item": "lotr_port:yellow_iris"
+    }
+  ],
+  "result": {
+    "id": "lotr_port:yellow_dye",
+    "count": 2
+  }
+}

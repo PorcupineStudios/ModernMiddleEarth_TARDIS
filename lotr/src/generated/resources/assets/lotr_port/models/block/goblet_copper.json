@@ -1,0 +1,47 @@
+{
+  "parent": "minecraft:block/block",
+  "textures": {
+    "down": "lotr_port:block/ore_storage_copper",
+    "up": "lotr_port:block/ore_storage_copper",
+    "north": "lotr_port:block/ore_storage_copper",
+    "south": "lotr_port:block/ore_storage_copper",
+    "west": "lotr_port:block/ore_storage_copper",
+    "east": "lotr_port:block/ore_storage_copper",
+    "particle": "lotr_port:block/ore_storage_copper"
+  },
+  "render_type": "minecraft:cutout",
+  "elements": [
+    {
+      "from": [
+        6.125,
+        0.0,
+        6.125
+      ],
+      "to": [
+        9.875,
+        6.75,
+        9.875
+      ],
+      "faces": {
+        "down": {
+          "texture": "#down"
+        },
+        "up": {
+          "texture": "#up"
+        },
+        "north": {
+          "texture": "#north"
+        },
+        "south": {
+          "texture": "#south"
+        },
+        "west": {
+          "texture": "#west"
+        },
+        "east": {
+          "texture": "#east"
+        }
+      }
+    }
+  ]
+}

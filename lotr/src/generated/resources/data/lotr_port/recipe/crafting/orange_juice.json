@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "crafting",
+  "ingredients": [
+    {
+      "item": "lotr_port:mug"
+    },
+    {
+      "item": "lotr_port:orange"
+    },
+    {
+      "item": "lotr_port:orange"
+    }
+  ],
+  "result": {
+    "id": "lotr_port:orange_juice"
+  }
+}

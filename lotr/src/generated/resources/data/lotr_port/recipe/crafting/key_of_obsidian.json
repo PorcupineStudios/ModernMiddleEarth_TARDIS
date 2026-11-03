@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "crafting",
+  "ingredients": [
+    {
+      "item": "lotr_port:key_handle_utumno_key_5"
+    },
+    {
+      "item": "lotr_port:key_shaft_utumno_key_6"
+    },
+    {
+      "item": "lotr_port:key_pin_utumno_key_7"
+    }
+  ],
+  "result": {
+    "id": "lotr_port:key_of_obsidian"
+  }
+}
