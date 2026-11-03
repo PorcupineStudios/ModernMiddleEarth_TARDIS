@@ -1,5 +1,10 @@
 {
   "subsystem": "tardis_rb:navigation",
   "level": 1,
-  "cost": "tardis_rb:scrap_wiring"
+  "cost": "tardis_rb:scrap_wiring",
+  "part_pos": [
+    2,
+    1,
+    6
+  ]
 }

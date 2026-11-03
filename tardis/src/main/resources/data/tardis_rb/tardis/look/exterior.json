@@ -1,0 +1,27 @@
+{
+  "rules": [
+    {
+      "look": 1,
+      "requirements": {
+        "type": "tardis_rb:subsystem_level",
+        "subsystem": "tardis_rb:navigation",
+        "min": 1
+      }
+    },
+    {
+      "look": 2,
+      "requirements": {
+        "type": "tardis_rb:subsystem_level",
+        "subsystem": "tardis_rb:hull",
+        "min": 1
+      }
+    },
+    {
+      "look": 3,
+      "requirements": {
+        "type": "tardis_rb:stage",
+        "stage": "tardis_rb:flight_worthy"
+      }
+    }
+  ]
+}

@@ -23,6 +23,7 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
+import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.phys.BlockHitResult;
 
 /**
@@ -33,16 +34,18 @@ import net.minecraft.world.phys.BlockHitResult;
 public final class ExteriorBlock extends Block implements EntityBlock {
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
     public static final EnumProperty<DoubleBlockHalf> HALF = BlockStateProperties.DOUBLE_BLOCK_HALF;
+    /** Which look (model and texture set) the box wears; set from the look rules ({@code Looks}). */
+    public static final IntegerProperty LOOK = IntegerProperty.create("look", 0, 3);
 
     public ExteriorBlock(Properties properties) {
         super(properties);
         registerDefaultState(stateDefinition.any().setValue(FACING, Direction.NORTH)
-                .setValue(HALF, DoubleBlockHalf.LOWER));
+                .setValue(HALF, DoubleBlockHalf.LOWER).setValue(LOOK, 0));
     }
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(FACING, HALF);
+        builder.add(FACING, HALF, LOOK);
     }
 
     @Override

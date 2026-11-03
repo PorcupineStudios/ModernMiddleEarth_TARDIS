@@ -6,19 +6,22 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.porcupinestudios.ringbearer.api.condition.Condition;
 import com.porcupinestudios.ringbearer.api.condition.Conditions;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import net.minecraft.resources.ResourceLocation;
 
 /**
  * A research tree node ({@code tardis/research}): needs every {@code parents} node first, costs {@code cost}, takes
- * {@code time} ticks. What it unlocks is written on the other side, as {@code tardis_rb:research} requirements.
+ * {@code time} ticks. {@code stats} adds to named numbers once done (e.g. {@code "range": 16}); anything else it
+ * unlocks is written on the other side, as {@code tardis_rb:research} requirements.
  */
 public record Research(List<ResourceLocation> parents, Either<ResourceLocation, Cost> cost, int time,
-        Optional<Condition> requirements) {
+        Optional<Condition> requirements, Map<String, Double> stats) {
     public static final Codec<Research> CODEC = RecordCodecBuilder.create(i -> i.group(
             ResourceLocation.CODEC.listOf().optionalFieldOf("parents", List.of()).forGetter(Research::parents),
             Cost.REF_CODEC.optionalFieldOf("cost", Cost.NONE).forGetter(Research::cost),
             Codec.intRange(0, Integer.MAX_VALUE).optionalFieldOf("time", 0).forGetter(Research::time),
-            Conditions.CODEC.optionalFieldOf("requirements").forGetter(Research::requirements))
+            Conditions.CODEC.optionalFieldOf("requirements").forGetter(Research::requirements),
+            Codec.unboundedMap(Codec.STRING, Codec.DOUBLE).optionalFieldOf("stats", Map.of()).forGetter(Research::stats))
             .apply(i, Research::new));
 }

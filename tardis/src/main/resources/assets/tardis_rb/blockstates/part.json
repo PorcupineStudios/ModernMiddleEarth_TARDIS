@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "fixed=false": {
+      "model": "tardis_rb:block/part_broken"
+    },
+    "fixed=true": {
+      "model": "tardis_rb:block/part_fixed"
+    }
+  }
+}

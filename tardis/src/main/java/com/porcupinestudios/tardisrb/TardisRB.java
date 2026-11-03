@@ -7,6 +7,9 @@ import com.porcupinestudios.tardisrb.compat.create.CreateCompat;
 import com.porcupinestudios.tardisrb.flight.CrashSite;
 import com.porcupinestudios.tardisrb.gametest.WorldCheck;
 import com.porcupinestudios.tardisrb.net.ConsoleNet;
+import com.porcupinestudios.tardisrb.net.WorkshopNet;
+import com.porcupinestudios.tardisrb.repair.WorldDamage;
+import com.porcupinestudios.tardisrb.research.Researching;
 import com.porcupinestudios.tardisrb.progression.TardisConditions;
 import com.porcupinestudios.tardisrb.progression.TardisContent;
 import net.minecraft.resources.ResourceLocation;
@@ -31,6 +34,9 @@ public final class TardisRB {
         CrashSite.register();
         CreateCompat.register(modBus);
         WorldCheck.register();
+        Researching.register();
+        WorldDamage.register();
+        WorkshopNet.register(modBus);
         LOG.info("TARDIS: Ring Bearer loading");
     }
 

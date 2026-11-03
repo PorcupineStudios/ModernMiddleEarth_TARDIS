@@ -62,11 +62,21 @@ public final class Unlocks {
         return sub == null ? cap : Math.min(cap, sub.maxLevel());
     }
 
-    /** A named number added up over every subsystem at its current level, such as {@code range}. */
+    /**
+     * A named number such as {@code range}: added up over every subsystem at its current level, plus the bonuses of
+     * finished research.
+     */
     public static double stat(TardisRecord tardis, String key) {
+        TardisContent.Snapshot data = TardisContent.get();
         double total = 0;
-        for (Map.Entry<ResourceLocation, Subsystem> e : TardisContent.get().subsystems().entrySet()) {
+        for (Map.Entry<ResourceLocation, Subsystem> e : data.subsystems().entrySet()) {
             total += e.getValue().value(level(tardis, e.getKey()), key);
+        }
+        for (ResourceLocation node : tardis.research()) {
+            Research r = data.research().get(node);
+            if (r != null) {
+                total += r.stats().getOrDefault(key, 0.0);
+            }
         }
         return total;
     }

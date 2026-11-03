@@ -5,6 +5,7 @@ import com.porcupinestudios.tardisrb.block.Exteriors;
 import com.porcupinestudios.tardisrb.core.TardisManager;
 import com.porcupinestudios.tardisrb.core.TardisRecord;
 import com.porcupinestudios.tardisrb.progression.TardisContent;
+import com.porcupinestudios.tardisrb.repair.Parts;
 import com.porcupinestudios.tardisrb.progression.Tuning;
 import java.util.Optional;
 import net.minecraft.core.BlockPos;
@@ -73,6 +74,7 @@ public final class Interiors {
         BlockPos origin = origin(plot);
         room.get().placeInWorld(level.get(), origin, origin, new StructurePlaceSettings(), level.get().getRandom(),
                 Block.UPDATE_CLIENTS);
+        Parts.placeAll(level.get(), tardis);
         return true;
     }
 

@@ -1,0 +1,22 @@
+{
+  "time": 200,
+  "stats": {
+    "range": 16
+  },
+  "cost": {
+    "items": [
+      {
+        "ingredient": {
+          "item": "minecraft:paper"
+        },
+        "count": 4
+      },
+      {
+        "ingredient": {
+          "item": "minecraft:redstone"
+        },
+        "count": 2
+      }
+    ]
+  }
+}

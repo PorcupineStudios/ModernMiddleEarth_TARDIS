@@ -3,6 +3,7 @@ package com.porcupinestudios.tardisrb.client;
 import com.porcupinestudios.tardisrb.TardisRB;
 import com.porcupinestudios.tardisrb.block.TardisBlocks;
 import com.porcupinestudios.tardisrb.net.ConsoleNet;
+import com.porcupinestudios.tardisrb.net.WorkshopNet;
 import com.simibubi.create.content.kinetics.base.ShaftRenderer;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -23,5 +24,6 @@ public final class TardisClient {
     @SubscribeEvent
     public static void setup(FMLClientSetupEvent event) {
         ConsoleNet.clientHandler = (view, ctx) -> ConsoleScreen.show(view);
+        WorkshopNet.clientHandler = (view, ctx) -> WorkshopScreen.show(view);
     }
 }
