@@ -1,0 +1,51 @@
+{
+  "kind": "sell",
+  "entries": [
+    {
+      "item": "minecraft:gold_ingot",
+      "cost": 15
+    },
+    {
+      "item": "lotr_port:copper_ingot",
+      "cost": 3
+    },
+    {
+      "item": "lotr_port:tin_ingot",
+      "cost": 3
+    },
+    {
+      "item": "lotr_port:bronze_ingot",
+      "cost": 3
+    },
+    {
+      "item": "lotr_port:emerald",
+      "cost": 15
+    },
+    {
+      "item": "lotr_port:ruby",
+      "cost": 12
+    },
+    {
+      "item": "lotr_port:amber",
+      "cost": 10
+    },
+    {
+      "item": "lotr_port:topaz",
+      "cost": 12
+    },
+    {
+      "item": "minecraft:string",
+      "count": 3,
+      "cost": 1
+    },
+    {
+      "item": "minecraft:leather",
+      "cost": 2
+    },
+    {
+      "item": "lotr_port:bottle_of_poison",
+      "cost": 10
+    }
+  ],
+  "offers": 9
+}

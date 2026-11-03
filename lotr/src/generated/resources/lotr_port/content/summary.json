@@ -1,6 +1,8 @@
 [
   {
     "recipes": 2591,
-    "factions": 29
+    "factions": 29,
+    "npcs": 350,
+    "npc_skins": 205
   }
 ]

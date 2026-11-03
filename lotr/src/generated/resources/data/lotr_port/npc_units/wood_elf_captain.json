@@ -1,0 +1,27 @@
+{
+  "units": [
+    {
+      "npc": "lotr_port:wood_elf",
+      "cost": 30,
+      "alignment": 250.0
+    },
+    {
+      "npc": "lotr_port:wood_elf_scout",
+      "cost": 40,
+      "alignment": 300.0,
+      "pledge": true
+    },
+    {
+      "npc": "lotr_port:wood_elf_warrior",
+      "cost": 50,
+      "alignment": 350.0,
+      "pledge": true
+    },
+    {
+      "npc": "lotr_port:wood_elf_banner_bearer",
+      "cost": 70,
+      "alignment": 500.0,
+      "pledge": true
+    }
+  ]
+}

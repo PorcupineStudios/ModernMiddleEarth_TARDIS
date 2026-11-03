@@ -1,0 +1,30 @@
+{
+  "units": [
+    {
+      "npc": "lotr_port:gondor_levyman",
+      "cost": 20,
+      "alignment": 200.0
+    },
+    {
+      "npc": "lotr_port:gondor_soldier",
+      "cost": 30,
+      "alignment": 250.0
+    },
+    {
+      "npc": "lotr_port:gondor_archer",
+      "cost": 50,
+      "alignment": 300.0
+    },
+    {
+      "npc": "lotr_port:gondor_tower_guard",
+      "cost": 50,
+      "alignment": 450.0,
+      "pledge": true
+    },
+    {
+      "npc": "lotr_port:gondor_banner_bearer",
+      "cost": 50,
+      "alignment": 400.0
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "units": [
+    {
+      "npc": "lotr_port:hobbit_shirriff",
+      "cost": 20,
+      "alignment": 50.0
+    }
+  ]
+}

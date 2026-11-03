@@ -1,0 +1,21 @@
+{
+  "units": [
+    {
+      "npc": "lotr_port:rivendell_elf",
+      "cost": 30,
+      "alignment": 300.0
+    },
+    {
+      "npc": "lotr_port:rivendell_warrior",
+      "cost": 50,
+      "alignment": 400.0,
+      "pledge": true
+    },
+    {
+      "npc": "lotr_port:rivendell_banner_bearer",
+      "cost": 70,
+      "alignment": 550.0,
+      "pledge": true
+    }
+  ]
+}

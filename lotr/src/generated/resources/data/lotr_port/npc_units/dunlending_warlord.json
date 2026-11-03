@@ -1,0 +1,35 @@
+{
+  "units": [
+    {
+      "npc": "lotr_port:dunlending",
+      "cost": 15,
+      "alignment": 100.0
+    },
+    {
+      "npc": "lotr_port:dunlending_warrior",
+      "cost": 30,
+      "alignment": 150.0
+    },
+    {
+      "npc": "lotr_port:dunlending_archer",
+      "cost": 50,
+      "alignment": 200.0
+    },
+    {
+      "npc": "lotr_port:dunlending_axe_thrower",
+      "cost": 50,
+      "alignment": 200.0
+    },
+    {
+      "npc": "lotr_port:dunlending_berserker",
+      "cost": 50,
+      "alignment": 300.0,
+      "pledge": true
+    },
+    {
+      "npc": "lotr_port:dunlending_banner_bearer",
+      "cost": 50,
+      "alignment": 300.0
+    }
+  ]
+}

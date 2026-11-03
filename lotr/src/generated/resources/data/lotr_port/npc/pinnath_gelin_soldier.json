@@ -1,0 +1,16 @@
+{
+  "faction": "lotr_port:gondor",
+  "skins": [
+    "lotr_port:textures/entity/gondor/gondor_soldier/0.png",
+    "lotr_port:textures/entity/gondor/gondor_soldier/1.png",
+    "lotr_port:textures/entity/gondor/gondor_soldier/2.png",
+    "lotr_port:textures/entity/gondor/gondor_soldier/3.png",
+    "lotr_port:textures/entity/gondor/gondor_soldier/4.png",
+    "lotr_port:textures/entity/gondor/gondor_soldier/5.png"
+  ],
+  "skin_height": 64,
+  "health": 20.0,
+  "speed": 0.2,
+  "attack": 2.0,
+  "names": "lotr_port:gondor_male"
+}

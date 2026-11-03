@@ -24,6 +24,7 @@ from assets import NS, Jar, Textures, id_from_name, snake, write_json  # noqa: E
 import vanilla  # noqa: E402
 from world import World  # noqa: E402
 from factions import FactionData  # noqa: E402
+from npcs import Npcs  # noqa: E402
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 EXPORT = os.path.join(ROOT, "converter", "export")
@@ -765,16 +766,17 @@ class Gen:
         self.write_tags()
         world = World(self, load("world.json"), OUT, self.jar).run()
         factions = FactionData(self, load("factions.json"), DATA, self.jar).run()
+        npcs = Npcs(self, load("npcs.json"), DATA, ASSETS, self.jar).run()
         content = os.path.join(OUT, NS, "content")
         write_json(os.path.join(content, "blocks.json"), self.blocks)
         write_json(os.path.join(content, "items.json"), self.items)
         write_json(os.path.join(content, "tabs.json"), tabs)
-        write_json(os.path.join(content, "summary.json"), [{"recipes": self.recipe_count, **factions}])
+        write_json(os.path.join(content, "summary.json"), [{"recipes": self.recipe_count, **factions, **npcs}])
         for code, entries in self.lang.items():
             write_json(os.path.join(ASSETS, "lang", code + ".json"), dict(sorted(entries.items())))
         write_json(os.path.join(ROOT, "converter", "idtable.json"), dict(sorted(self.idtable.items())))
         summary = {"blocks": len(self.blocks), "items": len(self.items), "recipes": self.recipe_count,
-                   "textures": len(self.tex.copied), "languages": len(self.lang), "tabs": len(tabs), **world, **factions}
+                   "textures": len(self.tex.copied), "languages": len(self.lang), "tabs": len(tabs), **world, **factions, **npcs}
         self.report["missing_textures"] = [m for m in self.report["missing_textures"] if not m.endswith("_mug")]
         rep = {"summary": summary}
         for k, v in sorted(self.report.items()):

@@ -1,0 +1,34 @@
+{
+  "kind": "buy",
+  "entries": [
+    {
+      "item": "lotr_port:morwaith_crafting_table",
+      "cost": 100
+    },
+    {
+      "item": "lotr_port:morwaith_brick",
+      "count": 4,
+      "cost": 1
+    },
+    {
+      "item": "minecraft:terracotta",
+      "count": 4,
+      "cost": 2
+    },
+    {
+      "item": "minecraft:orange_terracotta",
+      "count": 4,
+      "cost": 3
+    },
+    {
+      "item": "lotr_port:thatch_block",
+      "count": 4,
+      "cost": 2
+    },
+    {
+      "item": "minecraft:acacia_planks",
+      "count": 4,
+      "cost": 3
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "kind": "buy",
+  "entries": [
+    {
+      "item": "lotr_port:red_grapes",
+      "cost": 3
+    },
+    {
+      "item": "lotr_port:green_grapes",
+      "cost": 3
+    },
+    {
+      "item": "lotr_port:grapevine_post",
+      "cost": 4
+    }
+  ]
+}

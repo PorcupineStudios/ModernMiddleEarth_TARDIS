@@ -1,0 +1,55 @@
+{
+  "kind": "sell",
+  "entries": [
+    {
+      "item": "minecraft:bucket",
+      "cost": 3
+    },
+    {
+      "item": "minecraft:water_bucket",
+      "cost": 4
+    },
+    {
+      "item": "minecraft:iron_axe",
+      "cost": 8
+    },
+    {
+      "item": "minecraft:stone_axe",
+      "cost": 1
+    },
+    {
+      "item": "lotr_port:bronze_axe",
+      "cost": 6
+    },
+    {
+      "item": "minecraft:bone_meal",
+      "count": 6,
+      "cost": 1
+    },
+    {
+      "item": "lotr_port:mug",
+      "cost": 1
+    },
+    {
+      "item": "lotr_port:ceramic_mug",
+      "cost": 1
+    },
+    {
+      "item": "lotr_port:wooden_cup",
+      "cost": 1
+    },
+    {
+      "item": "lotr_port:copper_goblet",
+      "cost": 3
+    },
+    {
+      "item": "lotr_port:waterskin",
+      "cost": 2
+    },
+    {
+      "item": "lotr_port:ale_horn",
+      "cost": 3
+    }
+  ],
+  "offers": 9
+}

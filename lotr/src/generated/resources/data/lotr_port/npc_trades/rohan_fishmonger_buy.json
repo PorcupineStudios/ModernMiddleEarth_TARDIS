@@ -1,0 +1,37 @@
+{
+  "kind": "buy",
+  "entries": [
+    {
+      "item": "minecraft:cod",
+      "cost": 4
+    },
+    {
+      "item": "minecraft:salmon",
+      "cost": 6
+    },
+    {
+      "item": "minecraft:tropical_fish",
+      "cost": 8
+    },
+    {
+      "item": "minecraft:pufferfish",
+      "cost": 12
+    },
+    {
+      "item": "minecraft:fishing_rod",
+      "cost": 8
+    },
+    {
+      "item": "minecraft:boat",
+      "cost": 5
+    },
+    {
+      "item": "lotr_port:pearl",
+      "cost": 70
+    },
+    {
+      "item": "minecraft:leather_boots",
+      "cost": 5
+    }
+  ]
+}

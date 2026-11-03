@@ -1,0 +1,60 @@
+{
+  "kind": "sell",
+  "entries": [
+    {
+      "item": "minecraft:bucket",
+      "cost": 3
+    },
+    {
+      "item": "minecraft:water_bucket",
+      "cost": 4
+    },
+    {
+      "item": "minecraft:wheat",
+      "count": 2,
+      "cost": 1
+    },
+    {
+      "item": "minecraft:sugar",
+      "count": 2,
+      "cost": 1
+    },
+    {
+      "item": "minecraft:apple",
+      "cost": 1
+    },
+    {
+      "item": "lotr_port:apple",
+      "cost": 1
+    },
+    {
+      "item": "minecraft:milk_bucket",
+      "cost": 4
+    },
+    {
+      "item": "lotr_port:date",
+      "cost": 1
+    },
+    {
+      "item": "lotr_port:plum",
+      "cost": 1
+    },
+    {
+      "item": "minecraft:potato",
+      "cost": 1
+    },
+    {
+      "item": "lotr_port:red_grapes",
+      "cost": 1
+    },
+    {
+      "item": "lotr_port:green_grapes",
+      "cost": 1
+    },
+    {
+      "item": "lotr_port:pomegranate",
+      "cost": 1
+    }
+  ],
+  "offers": 9
+}

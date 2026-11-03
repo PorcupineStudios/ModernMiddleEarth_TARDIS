@@ -1,0 +1,54 @@
+{
+  "kind": "sell",
+  "entries": [
+    {
+      "item": "minecraft:gold_ingot",
+      "cost": 15
+    },
+    {
+      "item": "minecraft:gold_nugget",
+      "cost": 2
+    },
+    {
+      "item": "lotr_port:diamond",
+      "cost": 25
+    },
+    {
+      "item": "lotr_port:emerald",
+      "cost": 15
+    },
+    {
+      "item": "lotr_port:sapphire",
+      "cost": 12
+    },
+    {
+      "item": "lotr_port:ruby",
+      "cost": 12
+    },
+    {
+      "item": "lotr_port:opal",
+      "cost": 10
+    },
+    {
+      "item": "lotr_port:amber",
+      "cost": 10
+    },
+    {
+      "item": "lotr_port:amethyst",
+      "cost": 8
+    },
+    {
+      "item": "lotr_port:topaz",
+      "cost": 8
+    },
+    {
+      "item": "lotr_port:pearl",
+      "cost": 25
+    },
+    {
+      "item": "lotr_port:coral",
+      "cost": 6
+    }
+  ],
+  "offers": 9
+}

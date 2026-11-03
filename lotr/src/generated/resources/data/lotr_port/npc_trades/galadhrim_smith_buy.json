@@ -1,0 +1,71 @@
+{
+  "kind": "buy",
+  "entries": [
+    {
+      "item": "lotr_port:galadhrim_crafting_table",
+      "cost": 100
+    },
+    {
+      "item": "lotr_port:galadhrim_sword",
+      "cost": 18
+    },
+    {
+      "item": "lotr_port:galadhrim_dagger",
+      "cost": 14
+    },
+    {
+      "item": "lotr_port:galadhrim_spear",
+      "cost": 18
+    },
+    {
+      "item": "lotr_port:galadhrim_battlestaff",
+      "cost": 18
+    },
+    {
+      "item": "lotr_port:galadhrim_longspear",
+      "cost": 18
+    },
+    {
+      "item": "lotr_port:galadhrim_axe",
+      "cost": 15
+    },
+    {
+      "item": "lotr_port:galadhrim_pickaxe",
+      "cost": 15
+    },
+    {
+      "item": "lotr_port:galadhrim_shovel",
+      "cost": 12
+    },
+    {
+      "item": "lotr_port:galadhrim_helmet",
+      "cost": 18
+    },
+    {
+      "item": "lotr_port:galadhrim_chestplate",
+      "cost": 25
+    },
+    {
+      "item": "lotr_port:galadhrim_leggings",
+      "cost": 22
+    },
+    {
+      "item": "lotr_port:galadhrim_boots",
+      "cost": 16
+    },
+    {
+      "item": "lotr_port:galadhrim_horse_armor",
+      "cost": 25
+    },
+    {
+      "item": "lotr_port:galadhrim_bow",
+      "cost": 20
+    },
+    {
+      "item": "minecraft:arrow",
+      "count": 4,
+      "cost": 3
+    }
+  ],
+  "offers": 9
+}

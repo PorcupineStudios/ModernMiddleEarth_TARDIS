@@ -1,0 +1,14 @@
+{
+  "units": [
+    {
+      "npc": "lotr_port:ranger_north",
+      "cost": 50,
+      "alignment": 300.0
+    },
+    {
+      "npc": "lotr_port:ranger_north_banner_bearer",
+      "cost": 70,
+      "alignment": 450.0
+    }
+  ]
+}

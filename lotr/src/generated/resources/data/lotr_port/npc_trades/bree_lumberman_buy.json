@@ -1,0 +1,385 @@
+{
+  "kind": "buy",
+  "entries": [
+    {
+      "item": "minecraft:oak_log",
+      "cost": 2
+    },
+    {
+      "item": "minecraft:oak_planks",
+      "count": 4,
+      "cost": 2
+    },
+    {
+      "item": "lotr_port:oak_wood_beam",
+      "count": 3,
+      "cost": 2
+    },
+    {
+      "item": "minecraft:oak_leaves",
+      "cost": 2
+    },
+    {
+      "item": "minecraft:sapling",
+      "cost": 4
+    },
+    {
+      "item": "minecraft:spruce_log",
+      "cost": 4
+    },
+    {
+      "item": "minecraft:spruce_planks",
+      "count": 4,
+      "cost": 4
+    },
+    {
+      "item": "lotr_port:spruce_wood_beam",
+      "count": 3,
+      "cost": 4
+    },
+    {
+      "item": "minecraft:spruce_leaves",
+      "cost": 4
+    },
+    {
+      "item": "minecraft:sapling",
+      "cost": 8
+    },
+    {
+      "item": "minecraft:birch_log",
+      "cost": 3
+    },
+    {
+      "item": "minecraft:birch_planks",
+      "count": 4,
+      "cost": 3
+    },
+    {
+      "item": "lotr_port:birch_wood_beam",
+      "count": 3,
+      "cost": 3
+    },
+    {
+      "item": "minecraft:birch_leaves",
+      "cost": 3
+    },
+    {
+      "item": "minecraft:sapling",
+      "cost": 6
+    },
+    {
+      "item": "minecraft:dark_oak_log",
+      "cost": 6
+    },
+    {
+      "item": "minecraft:dark_oak_planks",
+      "count": 4,
+      "cost": 6
+    },
+    {
+      "item": "lotr_port:dark_oak_wood_beam",
+      "count": 3,
+      "cost": 6
+    },
+    {
+      "item": "minecraft:dark_oak_leaves",
+      "cost": 6
+    },
+    {
+      "item": "minecraft:sapling",
+      "cost": 12
+    },
+    {
+      "item": "lotr_port:shire_pine_wood",
+      "cost": 6
+    },
+    {
+      "item": "lotr_port:shire_pine_wood_planks",
+      "count": 4,
+      "cost": 6
+    },
+    {
+      "item": "lotr_port:shire_pine_wood_beam",
+      "count": 3,
+      "cost": 6
+    },
+    {
+      "item": "lotr_port:shire_pine_leaves",
+      "cost": 6
+    },
+    {
+      "item": "lotr_port:shire_pine_sapling",
+      "cost": 12
+    },
+    {
+      "item": "lotr_port:apple_wood",
+      "cost": 5
+    },
+    {
+      "item": "lotr_port:apple_wood_planks",
+      "count": 4,
+      "cost": 5
+    },
+    {
+      "item": "lotr_port:apple_wood_beam",
+      "count": 3,
+      "cost": 5
+    },
+    {
+      "item": "lotr_port:apple_leaves",
+      "cost": 5
+    },
+    {
+      "item": "lotr_port:apple_sapling",
+      "cost": 10
+    },
+    {
+      "item": "lotr_port:pear_wood",
+      "cost": 5
+    },
+    {
+      "item": "lotr_port:pear_wood_planks",
+      "count": 4,
+      "cost": 5
+    },
+    {
+      "item": "lotr_port:pear_wood_beam",
+      "count": 3,
+      "cost": 5
+    },
+    {
+      "item": "lotr_port:pear_leaves",
+      "cost": 5
+    },
+    {
+      "item": "lotr_port:pear_sapling",
+      "cost": 10
+    },
+    {
+      "item": "lotr_port:beech_wood",
+      "cost": 3
+    },
+    {
+      "item": "lotr_port:beech_wood_planks",
+      "count": 4,
+      "cost": 3
+    },
+    {
+      "item": "lotr_port:beech_wood_beam",
+      "count": 3,
+      "cost": 3
+    },
+    {
+      "item": "lotr_port:beech_leaves",
+      "cost": 3
+    },
+    {
+      "item": "lotr_port:beech_sapling",
+      "cost": 6
+    },
+    {
+      "item": "lotr_port:holly_wood",
+      "cost": 6
+    },
+    {
+      "item": "lotr_port:holly_wood_planks",
+      "count": 4,
+      "cost": 6
+    },
+    {
+      "item": "lotr_port:holly_wood_beam",
+      "count": 3,
+      "cost": 6
+    },
+    {
+      "item": "lotr_port:holly_leaves",
+      "cost": 6
+    },
+    {
+      "item": "lotr_port:holly_sapling",
+      "cost": 12
+    },
+    {
+      "item": "lotr_port:maple_wood",
+      "cost": 4
+    },
+    {
+      "item": "lotr_port:maple_wood_planks",
+      "count": 4,
+      "cost": 4
+    },
+    {
+      "item": "lotr_port:maple_wood_beam",
+      "count": 3,
+      "cost": 4
+    },
+    {
+      "item": "lotr_port:maple_leaves",
+      "cost": 4
+    },
+    {
+      "item": "lotr_port:maple_sapling",
+      "cost": 8
+    },
+    {
+      "item": "lotr_port:larch_wood",
+      "cost": 4
+    },
+    {
+      "item": "lotr_port:larch_wood_planks",
+      "count": 4,
+      "cost": 4
+    },
+    {
+      "item": "lotr_port:larch_wood_beam",
+      "count": 3,
+      "cost": 4
+    },
+    {
+      "item": "lotr_port:larch_leaves",
+      "cost": 4
+    },
+    {
+      "item": "lotr_port:larch_sapling",
+      "cost": 8
+    },
+    {
+      "item": "lotr_port:chestnut_wood",
+      "cost": 3
+    },
+    {
+      "item": "lotr_port:chestnut_wood_planks",
+      "count": 4,
+      "cost": 3
+    },
+    {
+      "item": "lotr_port:chestnut_wood_beam",
+      "count": 3,
+      "cost": 3
+    },
+    {
+      "item": "lotr_port:chestnut_leaves",
+      "cost": 3
+    },
+    {
+      "item": "lotr_port:chestnut_sapling",
+      "cost": 6
+    },
+    {
+      "item": "lotr_port:fir_wood",
+      "cost": 4
+    },
+    {
+      "item": "lotr_port:fir_wood_planks",
+      "count": 4,
+      "cost": 4
+    },
+    {
+      "item": "lotr_port:fir_wood_beam",
+      "count": 3,
+      "cost": 4
+    },
+    {
+      "item": "lotr_port:fir_leaves",
+      "cost": 4
+    },
+    {
+      "item": "lotr_port:fir_sapling",
+      "cost": 8
+    },
+    {
+      "item": "lotr_port:pine_wood",
+      "cost": 4
+    },
+    {
+      "item": "lotr_port:pine_wood_planks",
+      "count": 4,
+      "cost": 4
+    },
+    {
+      "item": "lotr_port:pine_wood_beam",
+      "count": 3,
+      "cost": 4
+    },
+    {
+      "item": "lotr_port:pine_leaves",
+      "cost": 4
+    },
+    {
+      "item": "lotr_port:pine_sapling",
+      "cost": 8
+    },
+    {
+      "item": "lotr_port:willow_wood",
+      "cost": 4
+    },
+    {
+      "item": "lotr_port:willow_wood_planks",
+      "count": 4,
+      "cost": 4
+    },
+    {
+      "item": "lotr_port:willow_wood_beam",
+      "count": 3,
+      "cost": 4
+    },
+    {
+      "item": "lotr_port:willow_leaves",
+      "cost": 4
+    },
+    {
+      "item": "lotr_port:willow_sapling",
+      "cost": 8
+    },
+    {
+      "item": "lotr_port:aspen_wood",
+      "cost": 3
+    },
+    {
+      "item": "lotr_port:aspen_wood_planks",
+      "count": 4,
+      "cost": 3
+    },
+    {
+      "item": "lotr_port:aspen_wood_beam",
+      "count": 3,
+      "cost": 3
+    },
+    {
+      "item": "lotr_port:aspen_leaves",
+      "cost": 3
+    },
+    {
+      "item": "lotr_port:aspen_sapling",
+      "cost": 6
+    },
+    {
+      "item": "lotr_port:plum_wood",
+      "cost": 5
+    },
+    {
+      "item": "lotr_port:plum_wood_planks",
+      "count": 4,
+      "cost": 5
+    },
+    {
+      "item": "lotr_port:plum_wood_beam",
+      "count": 3,
+      "cost": 5
+    },
+    {
+      "item": "lotr_port:plum_leaves",
+      "cost": 5
+    },
+    {
+      "item": "lotr_port:plum_sapling",
+      "cost": 10
+    },
+    {
+      "item": "minecraft:stick",
+      "count": 4,
+      "cost": 1
+    }
+  ],
+  "offers": 9
+}

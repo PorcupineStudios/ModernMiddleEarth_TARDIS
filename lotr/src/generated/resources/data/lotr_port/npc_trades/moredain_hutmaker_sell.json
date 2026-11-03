@@ -1,0 +1,37 @@
+{
+  "kind": "sell",
+  "entries": [
+    {
+      "item": "minecraft:wheat",
+      "count": 2,
+      "cost": 1
+    },
+    {
+      "item": "lotr_port:red_clay",
+      "count": 16,
+      "cost": 1
+    },
+    {
+      "item": "lotr_port:red_sand_gem",
+      "count": 4,
+      "cost": 1
+    },
+    {
+      "item": "lotr_port:yellow_sand_gem",
+      "count": 4,
+      "cost": 1
+    },
+    {
+      "item": "minecraft:gold_nugget",
+      "cost": 2
+    },
+    {
+      "item": "lotr_port:diamond",
+      "cost": 25
+    },
+    {
+      "item": "lotr_port:ruby",
+      "cost": 12
+    }
+  ]
+}

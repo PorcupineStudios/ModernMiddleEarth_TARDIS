@@ -1,0 +1,86 @@
+{
+  "kind": "buy",
+  "entries": [
+    {
+      "item": "lotr_port:rh_nic_crafting_table",
+      "cost": 100
+    },
+    {
+      "item": "minecraft:stone",
+      "count": 8,
+      "cost": 2
+    },
+    {
+      "item": "minecraft:cobblestone",
+      "count": 8,
+      "cost": 1
+    },
+    {
+      "item": "minecraft:stone_bricks",
+      "count": 8,
+      "cost": 2
+    },
+    {
+      "item": "lotr_port:rh_nic_brick",
+      "count": 8,
+      "cost": 3
+    },
+    {
+      "item": "lotr_port:carved_rh_nic_brick",
+      "cost": 2
+    },
+    {
+      "item": "lotr_port:flowery_rh_nic_brick",
+      "cost": 2
+    },
+    {
+      "item": "lotr_port:gold_trimmed_rh_nic_brick",
+      "cost": 2
+    },
+    {
+      "item": "lotr_port:rh_nic_pillar",
+      "count": 4,
+      "cost": 3
+    },
+    {
+      "item": "lotr_port:cargon",
+      "count": 8,
+      "cost": 8
+    },
+    {
+      "item": "lotr_port:red_rh_nic_brick",
+      "count": 8,
+      "cost": 8
+    },
+    {
+      "item": "lotr_port:carved_red_rh_nic_brick",
+      "cost": 8
+    },
+    {
+      "item": "lotr_port:red_rh_nic_pillar",
+      "count": 4,
+      "cost": 8
+    },
+    {
+      "item": "minecraft:terracotta",
+      "count": 8,
+      "cost": 4
+    },
+    {
+      "item": "minecraft:sandstone",
+      "count": 8,
+      "cost": 4
+    },
+    {
+      "item": "lotr_port:red_sandstone",
+      "count": 8,
+      "cost": 12
+    },
+    {
+      "item": "lotr_port:white_sandstone",
+      "count": 8,
+      "cost": 6
+    }
+  ],
+  "offers": 9
+}

@@ -1,0 +1,71 @@
+{
+  "kind": "buy",
+  "entries": [
+    {
+      "item": "lotr_port:rivendell_crafting_table",
+      "cost": 100
+    },
+    {
+      "item": "lotr_port:rivendell_sword",
+      "cost": 20
+    },
+    {
+      "item": "lotr_port:rivendell_battlestaff",
+      "cost": 20
+    },
+    {
+      "item": "lotr_port:rivendell_longspear",
+      "cost": 20
+    },
+    {
+      "item": "lotr_port:rivendell_dagger",
+      "cost": 14
+    },
+    {
+      "item": "lotr_port:rivendell_spear",
+      "cost": 18
+    },
+    {
+      "item": "lotr_port:rivendell_axe",
+      "cost": 15
+    },
+    {
+      "item": "lotr_port:rivendell_pickaxe",
+      "cost": 15
+    },
+    {
+      "item": "lotr_port:rivendell_shovel",
+      "cost": 12
+    },
+    {
+      "item": "lotr_port:rivendell_helmet",
+      "cost": 18
+    },
+    {
+      "item": "lotr_port:rivendell_chestplate",
+      "cost": 25
+    },
+    {
+      "item": "lotr_port:rivendell_leggings",
+      "cost": 22
+    },
+    {
+      "item": "lotr_port:rivendell_boots",
+      "cost": 16
+    },
+    {
+      "item": "lotr_port:rivendell_horse_armor",
+      "cost": 25
+    },
+    {
+      "item": "lotr_port:rivendell_bow",
+      "cost": 20
+    },
+    {
+      "item": "minecraft:arrow",
+      "count": 4,
+      "cost": 3
+    }
+  ],
+  "offers": 9
+}

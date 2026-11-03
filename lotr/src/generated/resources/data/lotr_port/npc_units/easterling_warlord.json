@@ -1,0 +1,35 @@
+{
+  "units": [
+    {
+      "npc": "lotr_port:easterling_levyman",
+      "cost": 20,
+      "alignment": 150.0
+    },
+    {
+      "npc": "lotr_port:easterling_warrior",
+      "cost": 30,
+      "alignment": 200.0
+    },
+    {
+      "npc": "lotr_port:easterling_archer",
+      "cost": 50,
+      "alignment": 250.0
+    },
+    {
+      "npc": "lotr_port:easterling_gold_warrior",
+      "cost": 50,
+      "alignment": 350.0,
+      "pledge": true
+    },
+    {
+      "npc": "lotr_port:easterling_fire_thrower",
+      "cost": 60,
+      "alignment": 300.0
+    },
+    {
+      "npc": "lotr_port:easterling_banner_bearer",
+      "cost": 50,
+      "alignment": 350.0
+    }
+  ]
+}

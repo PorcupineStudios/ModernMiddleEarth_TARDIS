@@ -1,0 +1,13 @@
+{
+  "kind": "buy",
+  "entries": [
+    {
+      "item": "lotr_port:shire_heather",
+      "cost": 8
+    },
+    {
+      "item": "lotr_port:suspicious_meat",
+      "cost": 7
+    }
+  ]
+}

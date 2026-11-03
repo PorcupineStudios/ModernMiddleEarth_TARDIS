@@ -1,0 +1,107 @@
+{
+  "kind": "buy",
+  "entries": [
+    {
+      "item": "lotr_port:uruk_crafting_table",
+      "cost": 100
+    },
+    {
+      "item": "lotr_port:uruk_helmet",
+      "cost": 24
+    },
+    {
+      "item": "lotr_port:uruk_chestplate",
+      "cost": 36
+    },
+    {
+      "item": "lotr_port:uruk_leggings",
+      "cost": 30
+    },
+    {
+      "item": "lotr_port:uruk_boots",
+      "cost": 22
+    },
+    {
+      "item": "lotr_port:uruk_cleaver",
+      "cost": 20
+    },
+    {
+      "item": "lotr_port:uruk_spear",
+      "cost": 18
+    },
+    {
+      "item": "lotr_port:uruk_dagger",
+      "cost": 9
+    },
+    {
+      "item": "lotr_port:poisoned_uruk_dagger",
+      "cost": 11
+    },
+    {
+      "item": "lotr_port:uruk_battleaxe",
+      "cost": 20
+    },
+    {
+      "item": "lotr_port:uruk_warhammer",
+      "cost": 18
+    },
+    {
+      "item": "lotr_port:uruk_pike",
+      "cost": 18
+    },
+    {
+      "item": "lotr_port:orc_bomb",
+      "cost": 30
+    },
+    {
+      "item": "lotr_port:orc_draught",
+      "cost": 8
+    },
+    {
+      "item": "lotr_port:fur",
+      "cost": 4
+    },
+    {
+      "item": "lotr_port:uruk_crossbow",
+      "cost": 18
+    },
+    {
+      "item": "lotr_port:crossbow_bolt",
+      "count": 4,
+      "cost": 3
+    },
+    {
+      "item": "lotr_port:uruk_pickaxe",
+      "cost": 16
+    },
+    {
+      "item": "lotr_port:uruk_axe",
+      "cost": 16
+    },
+    {
+      "item": "lotr_port:maggoty_bread",
+      "cost": 4
+    },
+    {
+      "item": "lotr_port:fur_hat",
+      "cost": 15
+    },
+    {
+      "item": "lotr_port:fur_tunic",
+      "cost": 20
+    },
+    {
+      "item": "lotr_port:fur_leggings",
+      "cost": 16
+    },
+    {
+      "item": "lotr_port:fur_boots",
+      "cost": 12
+    },
+    {
+      "item": "lotr_port:isengard_warg_armor",
+      "cost": 25
+    }
+  ],
+  "offers": 9
+}

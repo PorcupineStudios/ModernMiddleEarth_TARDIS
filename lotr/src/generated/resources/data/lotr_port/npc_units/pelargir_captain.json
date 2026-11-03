@@ -1,0 +1,19 @@
+{
+  "units": [
+    {
+      "npc": "lotr_port:lebennin_levyman",
+      "cost": 20,
+      "alignment": 200.0
+    },
+    {
+      "npc": "lotr_port:pelargir_marine",
+      "cost": 30,
+      "alignment": 250.0
+    },
+    {
+      "npc": "lotr_port:pelargir_banner_bearer",
+      "cost": 50,
+      "alignment": 400.0
+    }
+  ]
+}

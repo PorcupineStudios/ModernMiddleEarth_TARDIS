@@ -1,0 +1,25 @@
+{
+  "units": [
+    {
+      "npc": "lotr_port:dol_amroth_soldier",
+      "cost": 30,
+      "alignment": 200.0
+    },
+    {
+      "npc": "lotr_port:dol_amroth_archer",
+      "cost": 50,
+      "alignment": 250.0
+    },
+    {
+      "npc": "lotr_port:swan_knight",
+      "cost": 50,
+      "alignment": 300.0,
+      "pledge": true
+    },
+    {
+      "npc": "lotr_port:dol_amroth_banner_bearer",
+      "cost": 50,
+      "alignment": 350.0
+    }
+  ]
+}

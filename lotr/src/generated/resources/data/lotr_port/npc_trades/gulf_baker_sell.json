@@ -1,0 +1,77 @@
+{
+  "kind": "sell",
+  "entries": [
+    {
+      "item": "minecraft:wheat",
+      "count": 2,
+      "cost": 1
+    },
+    {
+      "item": "minecraft:sugar",
+      "count": 2,
+      "cost": 1
+    },
+    {
+      "item": "minecraft:egg",
+      "count": 2,
+      "cost": 1
+    },
+    {
+      "item": "minecraft:bucket",
+      "cost": 3
+    },
+    {
+      "item": "minecraft:water_bucket",
+      "cost": 4
+    },
+    {
+      "item": "minecraft:milk_bucket",
+      "cost": 4
+    },
+    {
+      "item": "lotr_port:lemon",
+      "cost": 1
+    },
+    {
+      "item": "lotr_port:banana",
+      "cost": 2
+    },
+    {
+      "item": "lotr_port:blueberries",
+      "cost": 1
+    },
+    {
+      "item": "lotr_port:blackberries",
+      "cost": 1
+    },
+    {
+      "item": "lotr_port:raspberries",
+      "cost": 1
+    },
+    {
+      "item": "lotr_port:cranberries",
+      "cost": 1
+    },
+    {
+      "item": "lotr_port:elderberries",
+      "cost": 1
+    },
+    {
+      "item": "lotr_port:almond",
+      "cost": 1
+    },
+    {
+      "item": "lotr_port:olives",
+      "cost": 1
+    },
+    {
+      "item": "lotr_port:salt",
+      "cost": 10
+    },
+    {
+      "item": "lotr_port:clay_plate",
+      "cost": 1
+    }
+  ],
+  "offers": 9
+}

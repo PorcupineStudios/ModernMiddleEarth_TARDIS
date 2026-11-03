@@ -1,0 +1,29 @@
+{
+  "units": [
+    {
+      "npc": "lotr_port:mordor_orc",
+      "cost": 20,
+      "alignment": 150.0
+    },
+    {
+      "npc": "lotr_port:mordor_orc_archer",
+      "cost": 40,
+      "alignment": 200.0
+    },
+    {
+      "npc": "lotr_port:mordor_orc_bombardier",
+      "cost": 50,
+      "alignment": 250.0
+    },
+    {
+      "npc": "lotr_port:mordor_banner_bearer",
+      "cost": 40,
+      "alignment": 300.0
+    },
+    {
+      "npc": "lotr_port:minas_morgul_banner_bearer",
+      "cost": 40,
+      "alignment": 300.0
+    }
+  ]
+}

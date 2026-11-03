@@ -1,0 +1,17 @@
+{
+  "kind": "buy",
+  "entries": [
+    {
+      "item": "minecraft:saddle",
+      "cost": 10
+    },
+    {
+      "item": "minecraft:lead",
+      "cost": 8
+    },
+    {
+      "item": "minecraft:string",
+      "cost": 2
+    }
+  ]
+}

@@ -1,0 +1,98 @@
+{
+  "kind": "buy",
+  "entries": [
+    {
+      "item": "lotr_port:dorwinion_helmet",
+      "cost": 25
+    },
+    {
+      "item": "lotr_port:dorwinion_chestplate",
+      "cost": 35
+    },
+    {
+      "item": "lotr_port:dorwinion_leggings",
+      "cost": 30
+    },
+    {
+      "item": "lotr_port:dorwinion_boots",
+      "cost": 20
+    },
+    {
+      "item": "lotr_port:red_grapes",
+      "cost": 4
+    },
+    {
+      "item": "lotr_port:green_grapes",
+      "cost": 4
+    },
+    {
+      "item": "lotr_port:raisins",
+      "cost": 3
+    },
+    {
+      "item": "lotr_port:red_wine",
+      "cost": 15
+    },
+    {
+      "item": "lotr_port:white_wine",
+      "cost": 15
+    },
+    {
+      "item": "lotr_port:red_wine",
+      "cost": 160
+    },
+    {
+      "item": "lotr_port:red_wine",
+      "cost": 220
+    },
+    {
+      "item": "lotr_port:white_wine",
+      "cost": 160
+    },
+    {
+      "item": "lotr_port:white_wine",
+      "cost": 220
+    },
+    {
+      "item": "lotr_port:red_grape_juice",
+      "cost": 8
+    },
+    {
+      "item": "lotr_port:green_grape_juice",
+      "cost": 8
+    },
+    {
+      "item": "lotr_port:banner_of_dorwinion",
+      "cost": 20
+    },
+    {
+      "item": "lotr_port:dorwinion_brick",
+      "cost": 4
+    },
+    {
+      "item": "lotr_port:blue_chrysanthemum",
+      "cost": 8
+    },
+    {
+      "item": "lotr_port:orange_chrysanthemum",
+      "cost": 5
+    },
+    {
+      "item": "lotr_port:pink_chrysanthemum",
+      "cost": 10
+    },
+    {
+      "item": "lotr_port:yellow_chrysanthemum",
+      "cost": 5
+    },
+    {
+      "item": "lotr_port:white_chrysanthemum",
+      "cost": 5
+    },
+    {
+      "item": "lotr_port:black_iris",
+      "cost": 12
+    }
+  ],
+  "offers": 9
+}

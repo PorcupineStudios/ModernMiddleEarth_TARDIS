@@ -1,0 +1,24 @@
+{
+  "faction": "lotr_port:hobbit",
+  "skins": [
+    "lotr_port:textures/entity/hobbit/hobbit_male/0.png",
+    "lotr_port:textures/entity/hobbit/hobbit_male/1.png",
+    "lotr_port:textures/entity/hobbit/hobbit_male/10.png",
+    "lotr_port:textures/entity/hobbit/hobbit_male/11.png",
+    "lotr_port:textures/entity/hobbit/hobbit_male/12.png",
+    "lotr_port:textures/entity/hobbit/hobbit_male/2.png",
+    "lotr_port:textures/entity/hobbit/hobbit_male/3.png",
+    "lotr_port:textures/entity/hobbit/hobbit_male/4.png",
+    "lotr_port:textures/entity/hobbit/hobbit_male/5.png",
+    "lotr_port:textures/entity/hobbit/hobbit_male/6.png",
+    "lotr_port:textures/entity/hobbit/hobbit_male/7.png",
+    "lotr_port:textures/entity/hobbit/hobbit_male/8.png",
+    "lotr_port:textures/entity/hobbit/hobbit_male/9.png"
+  ],
+  "skin_height": 64,
+  "scale": 0.667,
+  "health": 20.0,
+  "speed": 0.2,
+  "attack": 2.0,
+  "units": "lotr_port:hobbit_shirriff"
+}

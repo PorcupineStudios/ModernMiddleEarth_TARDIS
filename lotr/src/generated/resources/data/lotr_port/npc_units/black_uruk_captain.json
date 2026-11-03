@@ -1,0 +1,22 @@
+{
+  "units": [
+    {
+      "npc": "lotr_port:black_uruk",
+      "cost": 60,
+      "alignment": 650.0,
+      "pledge": true
+    },
+    {
+      "npc": "lotr_port:black_uruk_archer",
+      "cost": 80,
+      "alignment": 700.0,
+      "pledge": true
+    },
+    {
+      "npc": "lotr_port:black_uruk_banner_bearer",
+      "cost": 80,
+      "alignment": 800.0,
+      "pledge": true
+    }
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "units": [
+    {
+      "npc": "lotr_port:dale_levyman",
+      "cost": 20,
+      "alignment": 100.0
+    },
+    {
+      "npc": "lotr_port:dale_soldier",
+      "cost": 30,
+      "alignment": 150.0
+    },
+    {
+      "npc": "lotr_port:dale_archer",
+      "cost": 50,
+      "alignment": 200.0
+    },
+    {
+      "npc": "lotr_port:dale_banner_bearer",
+      "cost": 50,
+      "alignment": 300.0
+    },
+    {
+      "npc": "lotr_port:esgaroth_banner_bearer",
+      "cost": 50,
+      "alignment": 300.0
+    }
+  ]
+}

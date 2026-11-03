@@ -1,0 +1,149 @@
+{
+  "kind": "buy",
+  "entries": [
+    {
+      "item": "lotr_port:dwarven_forge",
+      "cost": 40
+    },
+    {
+      "item": "lotr_port:dwarven_marriage_ring",
+      "cost": 16
+    },
+    {
+      "item": "lotr_port:dwarven_sword",
+      "cost": 16
+    },
+    {
+      "item": "lotr_port:dwarven_spear",
+      "cost": 18
+    },
+    {
+      "item": "lotr_port:dwarven_battleaxe",
+      "cost": 18
+    },
+    {
+      "item": "lotr_port:dwarven_warhammer",
+      "cost": 18
+    },
+    {
+      "item": "lotr_port:dwarven_pike",
+      "cost": 18
+    },
+    {
+      "item": "lotr_port:dwarven_dagger",
+      "cost": 13
+    },
+    {
+      "item": "lotr_port:dwarven_axe",
+      "cost": 15
+    },
+    {
+      "item": "lotr_port:dwarven_pickaxe",
+      "cost": 14
+    },
+    {
+      "item": "lotr_port:dwarven_shovel",
+      "cost": 12
+    },
+    {
+      "item": "lotr_port:dwarven_mattock",
+      "cost": 18
+    },
+    {
+      "item": "lotr_port:dwarven_throwing_axe",
+      "cost": 15
+    },
+    {
+      "item": "lotr_port:dwarven_helmet",
+      "cost": 25
+    },
+    {
+      "item": "lotr_port:dwarven_chestplate",
+      "cost": 36
+    },
+    {
+      "item": "lotr_port:dwarven_leggings",
+      "cost": 30
+    },
+    {
+      "item": "lotr_port:dwarven_boots",
+      "cost": 22
+    },
+    {
+      "item": "lotr_port:silver_trimmed_dwarven_helmet",
+      "cost": 50
+    },
+    {
+      "item": "lotr_port:silver_trimmed_dwarven_chestplate",
+      "cost": 60
+    },
+    {
+      "item": "lotr_port:silver_trimmed_dwarven_leggings",
+      "cost": 55
+    },
+    {
+      "item": "lotr_port:silver_trimmed_dwarven_boots",
+      "cost": 50
+    },
+    {
+      "item": "lotr_port:dwarven_ale",
+      "cost": 9
+    },
+    {
+      "item": "lotr_port:dwarven_tonic",
+      "cost": 14
+    },
+    {
+      "item": "lotr_port:dwarven_ale",
+      "cost": 120
+    },
+    {
+      "item": "lotr_port:dwarven_ale",
+      "cost": 160
+    },
+    {
+      "item": "lotr_port:dwarfwort",
+      "cost": 10
+    },
+    {
+      "item": "minecraft:glowstone_dust",
+      "count": 4,
+      "cost": 2
+    },
+    {
+      "item": "lotr_port:glowing_dwarven_brick",
+      "cost": 4
+    },
+    {
+      "item": "lotr_port:cram",
+      "cost": 12
+    },
+    {
+      "item": "lotr_port:dalish_pastry",
+      "cost": 16
+    },
+    {
+      "item": "minecraft:cobblestone",
+      "count": 8,
+      "cost": 2
+    },
+    {
+      "item": "minecraft:stone",
+      "count": 8,
+      "cost": 2
+    },
+    {
+      "item": "lotr_port:amber",
+      "cost": 15
+    },
+    {
+      "item": "lotr_port:amethyst",
+      "cost": 12
+    },
+    {
+      "item": "lotr_port:topaz",
+      "cost": 12
+    }
+  ],
+  "offers": 9
+}

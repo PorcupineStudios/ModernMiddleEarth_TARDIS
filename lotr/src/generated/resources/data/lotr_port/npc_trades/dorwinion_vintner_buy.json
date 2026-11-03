@@ -1,0 +1,62 @@
+{
+  "kind": "buy",
+  "entries": [
+    {
+      "item": "lotr_port:dorwinion_crafting_table",
+      "cost": 100
+    },
+    {
+      "item": "lotr_port:red_wine",
+      "cost": 5
+    },
+    {
+      "item": "lotr_port:red_wine",
+      "cost": 7
+    },
+    {
+      "item": "lotr_port:red_wine",
+      "cost": 10
+    },
+    {
+      "item": "lotr_port:red_wine",
+      "cost": 15
+    },
+    {
+      "item": "lotr_port:red_wine",
+      "cost": 25
+    },
+    {
+      "item": "lotr_port:white_wine",
+      "cost": 5
+    },
+    {
+      "item": "lotr_port:white_wine",
+      "cost": 7
+    },
+    {
+      "item": "lotr_port:white_wine",
+      "cost": 10
+    },
+    {
+      "item": "lotr_port:white_wine",
+      "cost": 15
+    },
+    {
+      "item": "lotr_port:white_wine",
+      "cost": 25
+    },
+    {
+      "item": "lotr_port:red_grape_juice",
+      "cost": 6
+    },
+    {
+      "item": "lotr_port:green_grape_juice",
+      "cost": 6
+    },
+    {
+      "item": "lotr_port:mug",
+      "cost": 2
+    }
+  ],
+  "offers": 9
+}

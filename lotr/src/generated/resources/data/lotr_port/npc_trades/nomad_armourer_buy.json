@@ -1,0 +1,80 @@
+{
+  "kind": "buy",
+  "entries": [
+    {
+      "item": "lotr_port:haradric_crafting_table",
+      "cost": 100
+    },
+    {
+      "item": "lotr_port:haradric_sword",
+      "cost": 14
+    },
+    {
+      "item": "lotr_port:haradric_dagger",
+      "cost": 8
+    },
+    {
+      "item": "lotr_port:poisoned_haradric_dagger",
+      "cost": 14
+    },
+    {
+      "item": "lotr_port:haradric_spear",
+      "cost": 15
+    },
+    {
+      "item": "lotr_port:haradric_pike",
+      "cost": 15
+    },
+    {
+      "item": "lotr_port:nomad_cap",
+      "cost": 20
+    },
+    {
+      "item": "lotr_port:nomad_tunic",
+      "cost": 30
+    },
+    {
+      "item": "lotr_port:nomad_leggings",
+      "cost": 25
+    },
+    {
+      "item": "lotr_port:nomad_shoes",
+      "cost": 16
+    },
+    {
+      "item": "lotr_port:harad_turban",
+      "cost": 18
+    },
+    {
+      "item": "lotr_port:harad_robe",
+      "cost": 25
+    },
+    {
+      "item": "lotr_port:harad_robe_leggings",
+      "cost": 22
+    },
+    {
+      "item": "lotr_port:harad_robe_shoes",
+      "cost": 15
+    },
+    {
+      "item": "lotr_port:blacksmith_hammer",
+      "cost": 18
+    },
+    {
+      "item": "lotr_port:bronze_bars",
+      "count": 8,
+      "cost": 20
+    },
+    {
+      "item": "lotr_port:crossbow_bolt",
+      "count": 4,
+      "cost": 3
+    },
+    {
+      "item": "lotr_port:bronze_crossbow",
+      "cost": 12
+    }
+  ],
+  "offers": 9
+}

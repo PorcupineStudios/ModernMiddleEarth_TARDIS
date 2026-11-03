@@ -1,0 +1,102 @@
+{
+  "kind": "buy",
+  "entries": [
+    {
+      "item": "lotr_port:rohirric_crafting_table",
+      "cost": 100
+    },
+    {
+      "item": "minecraft:dirt",
+      "count": 8,
+      "cost": 1
+    },
+    {
+      "item": "minecraft:stone",
+      "count": 8,
+      "cost": 2
+    },
+    {
+      "item": "minecraft:cobblestone",
+      "count": 8,
+      "cost": 1
+    },
+    {
+      "item": "minecraft:stone_bricks",
+      "count": 8,
+      "cost": 2
+    },
+    {
+      "item": "lotr_port:rohan_rock",
+      "count": 8,
+      "cost": 3
+    },
+    {
+      "item": "lotr_port:rohan_brick",
+      "count": 8,
+      "cost": 3
+    },
+    {
+      "item": "lotr_port:carved_rohan_brick",
+      "cost": 2
+    },
+    {
+      "item": "minecraft:terracotta",
+      "count": 8,
+      "cost": 4
+    },
+    {
+      "item": "minecraft:oak_log",
+      "cost": 2
+    },
+    {
+      "item": "minecraft:oak_planks",
+      "count": 4,
+      "cost": 2
+    },
+    {
+      "item": "lotr_port:oak_wood_beam",
+      "count": 3,
+      "cost": 2
+    },
+    {
+      "item": "minecraft:spruce_log",
+      "cost": 2
+    },
+    {
+      "item": "minecraft:spruce_planks",
+      "count": 4,
+      "cost": 2
+    },
+    {
+      "item": "lotr_port:spruce_wood_beam",
+      "count": 3,
+      "cost": 2
+    },
+    {
+      "item": "lotr_port:rohan_wood_beam",
+      "count": 3,
+      "cost": 4
+    },
+    {
+      "item": "lotr_port:gold_trimmed_rohan_wood_beam",
+      "count": 3,
+      "cost": 8
+    },
+    {
+      "item": "lotr_port:thatch_block",
+      "count": 4,
+      "cost": 2
+    },
+    {
+      "item": "lotr_port:reed_block",
+      "count": 4,
+      "cost": 4
+    },
+    {
+      "item": "lotr_port:thatch_flooring",
+      "count": 16,
+      "cost": 2
+    }
+  ],
+  "offers": 9
+}

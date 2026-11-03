@@ -1,0 +1,50 @@
+{
+  "kind": "sell",
+  "entries": [
+    {
+      "item": "minecraft:wheat",
+      "count": 3,
+      "cost": 1
+    },
+    {
+      "item": "minecraft:hay_block",
+      "cost": 3
+    },
+    {
+      "item": "minecraft:apple",
+      "cost": 2
+    },
+    {
+      "item": "lotr_port:apple",
+      "cost": 2
+    },
+    {
+      "item": "lotr_port:plum",
+      "cost": 2
+    },
+    {
+      "item": "minecraft:carrot",
+      "cost": 1
+    },
+    {
+      "item": "lotr_port:turnip",
+      "count": 2,
+      "cost": 1
+    },
+    {
+      "item": "lotr_port:lettuce",
+      "count": 2,
+      "cost": 1
+    },
+    {
+      "item": "minecraft:sugar",
+      "count": 2,
+      "cost": 1
+    },
+    {
+      "item": "minecraft:water_bucket",
+      "cost": 4
+    }
+  ],
+  "offers": 9
+}

@@ -1,0 +1,13 @@
+{
+  "faction": "lotr_port:isengard",
+  "skins": [
+    "lotr_port:textures/entity/orc/uruk_hai/0.png",
+    "lotr_port:textures/entity/orc/uruk_hai/1.png",
+    "lotr_port:textures/entity/orc/uruk_hai/2.png"
+  ],
+  "scale": 0.861,
+  "health": 30.0,
+  "speed": 0.22,
+  "attack": 2.0,
+  "names": "lotr_port:orc"
+}

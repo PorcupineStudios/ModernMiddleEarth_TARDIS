@@ -1,0 +1,63 @@
+{
+  "kind": "sell",
+  "entries": [
+    {
+      "item": "minecraft:iron_pickaxe",
+      "cost": 8
+    },
+    {
+      "item": "minecraft:stone_pickaxe",
+      "cost": 1
+    },
+    {
+      "item": "lotr_port:bronze_pickaxe",
+      "cost": 6
+    },
+    {
+      "item": "minecraft:torch",
+      "count": 16,
+      "cost": 2
+    },
+    {
+      "item": "minecraft:bucket",
+      "cost": 3
+    },
+    {
+      "item": "minecraft:water_bucket",
+      "cost": 4
+    },
+    {
+      "item": "minecraft:bread",
+      "cost": 2
+    },
+    {
+      "item": "lotr_port:olive_bread",
+      "cost": 3
+    },
+    {
+      "item": "minecraft:cooked_beef",
+      "cost": 3
+    },
+    {
+      "item": "minecraft:cooked_porkchop",
+      "cost": 3
+    },
+    {
+      "item": "lotr_port:cooked_mutton",
+      "cost": 3
+    },
+    {
+      "item": "minecraft:cooked_chicken",
+      "cost": 3
+    },
+    {
+      "item": "lotr_port:cooked_rabbit",
+      "cost": 3
+    },
+    {
+      "item": "lotr_port:cooked_venison",
+      "cost": 3
+    }
+  ],
+  "offers": 9
+}

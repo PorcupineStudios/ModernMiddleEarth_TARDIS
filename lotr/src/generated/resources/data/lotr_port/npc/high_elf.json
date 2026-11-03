@@ -1,0 +1,28 @@
+{
+  "faction": "lotr_port:high_elf",
+  "skins": [
+    "lotr_port:textures/entity/elf/high_elf_male/0.png",
+    "lotr_port:textures/entity/elf/high_elf_male/1.png",
+    "lotr_port:textures/entity/elf/high_elf_male/10.png",
+    "lotr_port:textures/entity/elf/high_elf_male/11.png",
+    "lotr_port:textures/entity/elf/high_elf_male/12.png",
+    "lotr_port:textures/entity/elf/high_elf_male/13.png",
+    "lotr_port:textures/entity/elf/high_elf_male/14.png",
+    "lotr_port:textures/entity/elf/high_elf_male/15.png",
+    "lotr_port:textures/entity/elf/high_elf_male/16.png",
+    "lotr_port:textures/entity/elf/high_elf_male/17.png",
+    "lotr_port:textures/entity/elf/high_elf_male/2.png",
+    "lotr_port:textures/entity/elf/high_elf_male/3.png",
+    "lotr_port:textures/entity/elf/high_elf_male/4.png",
+    "lotr_port:textures/entity/elf/high_elf_male/5.png",
+    "lotr_port:textures/entity/elf/high_elf_male/6.png",
+    "lotr_port:textures/entity/elf/high_elf_male/7.png",
+    "lotr_port:textures/entity/elf/high_elf_male/8.png",
+    "lotr_port:textures/entity/elf/high_elf_male/9.png"
+  ],
+  "skin_height": 64,
+  "health": 30.0,
+  "speed": 0.2,
+  "attack": 2.0,
+  "names": "lotr_port:sindarin_male"
+}

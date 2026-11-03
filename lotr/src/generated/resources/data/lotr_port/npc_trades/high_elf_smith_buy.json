@@ -1,0 +1,71 @@
+{
+  "kind": "buy",
+  "entries": [
+    {
+      "item": "lotr_port:lindon_crafting_table",
+      "cost": 100
+    },
+    {
+      "item": "lotr_port:lindon_sword",
+      "cost": 20
+    },
+    {
+      "item": "lotr_port:lindon_battlestaff",
+      "cost": 20
+    },
+    {
+      "item": "lotr_port:lindon_longspear",
+      "cost": 20
+    },
+    {
+      "item": "lotr_port:lindon_dagger",
+      "cost": 14
+    },
+    {
+      "item": "lotr_port:lindon_spear",
+      "cost": 18
+    },
+    {
+      "item": "lotr_port:lindon_axe",
+      "cost": 15
+    },
+    {
+      "item": "lotr_port:lindon_pickaxe",
+      "cost": 15
+    },
+    {
+      "item": "lotr_port:lindon_shovel",
+      "cost": 12
+    },
+    {
+      "item": "lotr_port:lindon_helmet",
+      "cost": 18
+    },
+    {
+      "item": "lotr_port:lindon_chestplate",
+      "cost": 25
+    },
+    {
+      "item": "lotr_port:lindon_leggings",
+      "cost": 22
+    },
+    {
+      "item": "lotr_port:lindon_boots",
+      "cost": 16
+    },
+    {
+      "item": "lotr_port:lindon_horse_armor",
+      "cost": 25
+    },
+    {
+      "item": "lotr_port:lindon_bow",
+      "cost": 20
+    },
+    {
+      "item": "minecraft:arrow",
+      "count": 4,
+      "cost": 3
+    }
+  ],
+  "offers": 9
+}

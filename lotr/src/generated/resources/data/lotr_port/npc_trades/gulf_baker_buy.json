@@ -1,0 +1,50 @@
+{
+  "kind": "buy",
+  "entries": [
+    {
+      "item": "minecraft:bread",
+      "cost": 5
+    },
+    {
+      "item": "lotr_port:olive_bread",
+      "cost": 5
+    },
+    {
+      "item": "minecraft:cake",
+      "cost": 12
+    },
+    {
+      "item": "lotr_port:lemon_cake",
+      "cost": 12
+    },
+    {
+      "item": "lotr_port:banana_cake",
+      "cost": 16
+    },
+    {
+      "item": "lotr_port:berry_pie",
+      "cost": 12
+    },
+    {
+      "item": "lotr_port:marchpane",
+      "cost": 5
+    },
+    {
+      "item": "lotr_port:chocolate_marchpane",
+      "cost": 8
+    },
+    {
+      "item": "lotr_port:marchpane_block",
+      "cost": 16
+    },
+    {
+      "item": "lotr_port:stoneware_plate",
+      "cost": 2
+    },
+    {
+      "item": "lotr_port:wooden_plate",
+      "cost": 2
+    }
+  ],
+  "offers": 9
+}

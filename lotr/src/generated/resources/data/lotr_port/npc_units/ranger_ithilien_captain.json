@@ -1,0 +1,14 @@
+{
+  "units": [
+    {
+      "npc": "lotr_port:ranger_ithilien",
+      "cost": 50,
+      "alignment": 300.0
+    },
+    {
+      "npc": "lotr_port:ranger_ithilien_banner_bearer",
+      "cost": 70,
+      "alignment": 450.0
+    }
+  ]
+}

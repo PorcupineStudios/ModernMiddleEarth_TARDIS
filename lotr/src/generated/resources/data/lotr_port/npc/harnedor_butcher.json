@@ -1,0 +1,17 @@
+{
+  "faction": "lotr_port:near_harad",
+  "skins": [
+    "lotr_port:textures/entity/near_harad/harnedor_male/0.png",
+    "lotr_port:textures/entity/near_harad/harnedor_male/1.png",
+    "lotr_port:textures/entity/near_harad/harnedor_male/2.png",
+    "lotr_port:textures/entity/near_harad/harnedor_male/3.png",
+    "lotr_port:textures/entity/near_harad/harnedor_male/4.png"
+  ],
+  "skin_height": 64,
+  "health": 20.0,
+  "speed": 0.2,
+  "attack": 2.0,
+  "names": "lotr_port:near_haradrim_male",
+  "buy": "lotr_port:harad_butcher_buy",
+  "sell": "lotr_port:harad_butcher_sell"
+}

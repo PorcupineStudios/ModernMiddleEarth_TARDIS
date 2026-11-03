@@ -1,0 +1,41 @@
+{
+  "kind": "buy",
+  "entries": [
+    {
+      "item": "minecraft:bread",
+      "cost": 5
+    },
+    {
+      "item": "lotr_port:corn_bread",
+      "cost": 5
+    },
+    {
+      "item": "lotr_port:olive_bread",
+      "cost": 6
+    },
+    {
+      "item": "minecraft:cake",
+      "cost": 12
+    },
+    {
+      "item": "lotr_port:apple_crumble",
+      "cost": 12
+    },
+    {
+      "item": "lotr_port:berry_pie",
+      "cost": 12
+    },
+    {
+      "item": "lotr_port:cherry_pie",
+      "cost": 12
+    },
+    {
+      "item": "lotr_port:stoneware_plate",
+      "cost": 2
+    },
+    {
+      "item": "lotr_port:wooden_plate",
+      "cost": 2
+    }
+  ]
+}

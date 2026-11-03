@@ -1,0 +1,94 @@
+{
+  "kind": "buy",
+  "entries": [
+    {
+      "item": "minecraft:coal",
+      "count": 2,
+      "cost": 4
+    },
+    {
+      "item": "minecraft:iron_ore",
+      "cost": 8
+    },
+    {
+      "item": "lotr_port:copper_ore",
+      "cost": 7
+    },
+    {
+      "item": "lotr_port:tin_ore",
+      "cost": 7
+    },
+    {
+      "item": "lotr_port:silver_ore",
+      "cost": 12
+    },
+    {
+      "item": "minecraft:gold_ore",
+      "cost": 22
+    },
+    {
+      "item": "minecraft:glowstone_dust",
+      "count": 4,
+      "cost": 3
+    },
+    {
+      "item": "minecraft:cobblestone",
+      "count": 8,
+      "cost": 1
+    },
+    {
+      "item": "minecraft:stone",
+      "count": 8,
+      "cost": 1
+    },
+    {
+      "item": "minecraft:lava_bucket",
+      "cost": 20
+    },
+    {
+      "item": "minecraft:flint",
+      "cost": 2
+    },
+    {
+      "item": "lotr_port:sulfur",
+      "cost": 6
+    },
+    {
+      "item": "lotr_port:niter",
+      "cost": 6
+    },
+    {
+      "item": "lotr_port:diamond",
+      "cost": 40
+    },
+    {
+      "item": "lotr_port:emerald",
+      "cost": 25
+    },
+    {
+      "item": "lotr_port:sapphire",
+      "cost": 20
+    },
+    {
+      "item": "lotr_port:ruby",
+      "cost": 20
+    },
+    {
+      "item": "lotr_port:opal",
+      "cost": 15
+    },
+    {
+      "item": "lotr_port:amber",
+      "cost": 15
+    },
+    {
+      "item": "lotr_port:amethyst",
+      "cost": 12
+    },
+    {
+      "item": "lotr_port:topaz",
+      "cost": 12
+    }
+  ],
+  "offers": 9
+}

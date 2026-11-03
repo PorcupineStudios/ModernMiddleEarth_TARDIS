@@ -1,0 +1,19 @@
+{
+  "faction": "lotr_port:gondor",
+  "skins": [
+    "lotr_port:textures/entity/gondor/gondor_male/0.png",
+    "lotr_port:textures/entity/gondor/gondor_male/1.png",
+    "lotr_port:textures/entity/gondor/gondor_male/2.png",
+    "lotr_port:textures/entity/gondor/gondor_male/3.png",
+    "lotr_port:textures/entity/gondor/gondor_male/4.png",
+    "lotr_port:textures/entity/gondor/gondor_male/5.png",
+    "lotr_port:textures/entity/gondor/gondor_male/6.png",
+    "lotr_port:textures/entity/gondor/gondor_male/7.png",
+    "lotr_port:textures/entity/gondor/gondor_male/8.png",
+    "lotr_port:textures/entity/gondor/gondor_male/9.png"
+  ],
+  "skin_height": 64,
+  "health": 20.0,
+  "speed": 0.2,
+  "attack": 2.0
+}

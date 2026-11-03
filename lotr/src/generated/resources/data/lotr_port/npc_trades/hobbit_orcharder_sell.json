@@ -1,0 +1,34 @@
+{
+  "kind": "sell",
+  "entries": [
+    {
+      "item": "minecraft:bucket",
+      "cost": 3
+    },
+    {
+      "item": "minecraft:water_bucket",
+      "cost": 4
+    },
+    {
+      "item": "lotr_port:mug",
+      "cost": 1
+    },
+    {
+      "item": "minecraft:iron_axe",
+      "cost": 8
+    },
+    {
+      "item": "minecraft:stone_axe",
+      "cost": 1
+    },
+    {
+      "item": "lotr_port:bronze_axe",
+      "cost": 6
+    },
+    {
+      "item": "minecraft:bone_meal",
+      "count": 6,
+      "cost": 1
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "faction": "lotr_port:durins_folk",
+  "skins": [
+    "lotr_port:textures/entity/dwarf/dwarf_male/0.png",
+    "lotr_port:textures/entity/dwarf/dwarf_male/1.png",
+    "lotr_port:textures/entity/dwarf/dwarf_male/2.png"
+  ],
+  "skin_height": 64,
+  "scale": 0.833,
+  "health": 26.0,
+  "speed": 0.2,
+  "attack": 2.0,
+  "names": "lotr_port:dwarf_male",
+  "buy": "lotr_port:dwarf_smith_buy",
+  "sell": "lotr_port:dwarf_smith_sell"
+}

@@ -1,0 +1,13 @@
+{
+  "faction": "lotr_port:dale",
+  "skins": [
+    "lotr_port:textures/entity/dale/dale_soldier/0.png",
+    "lotr_port:textures/entity/dale/dale_soldier/1.png",
+    "lotr_port:textures/entity/dale/dale_soldier/2.png"
+  ],
+  "skin_height": 64,
+  "health": 20.0,
+  "speed": 0.2,
+  "attack": 2.0,
+  "names": "lotr_port:dale_male"
+}

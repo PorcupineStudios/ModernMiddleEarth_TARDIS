@@ -1,0 +1,43 @@
+{
+  "kind": "sell",
+  "entries": [
+    {
+      "item": "minecraft:bread",
+      "cost": 2
+    },
+    {
+      "item": "lotr_port:roast_yam",
+      "cost": 2
+    },
+    {
+      "item": "minecraft:stick",
+      "count": 8,
+      "cost": 1
+    },
+    {
+      "item": "minecraft:string",
+      "count": 3,
+      "cost": 1
+    },
+    {
+      "item": "lotr_port:mango",
+      "cost": 2
+    },
+    {
+      "item": "lotr_port:banana",
+      "cost": 2
+    },
+    {
+      "item": "lotr_port:morwaith_spear",
+      "cost": 10
+    },
+    {
+      "item": "lotr_port:bottle_of_poison",
+      "cost": 10
+    },
+    {
+      "item": "minecraft:gold_nugget",
+      "cost": 2
+    }
+  ]
+}

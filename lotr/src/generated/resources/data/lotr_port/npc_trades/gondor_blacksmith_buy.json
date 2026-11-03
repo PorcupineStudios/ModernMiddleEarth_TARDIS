@@ -1,0 +1,69 @@
+{
+  "kind": "buy",
+  "entries": [
+    {
+      "item": "lotr_port:gondorian_crafting_table",
+      "cost": 100
+    },
+    {
+      "item": "lotr_port:gondorian_sword",
+      "cost": 15
+    },
+    {
+      "item": "lotr_port:gondorian_dagger",
+      "cost": 9
+    },
+    {
+      "item": "lotr_port:gondorian_spear",
+      "cost": 16
+    },
+    {
+      "item": "lotr_port:gondorian_helmet",
+      "cost": 20
+    },
+    {
+      "item": "lotr_port:gondorian_chestplate",
+      "cost": 32
+    },
+    {
+      "item": "lotr_port:gondorian_leggings",
+      "cost": 26
+    },
+    {
+      "item": "lotr_port:gondorian_boots",
+      "cost": 17
+    },
+    {
+      "item": "lotr_port:blacksmith_hammer",
+      "cost": 18
+    },
+    {
+      "item": "minecraft:iron_bars",
+      "count": 8,
+      "cost": 20
+    },
+    {
+      "item": "lotr_port:bronze_bars",
+      "count": 8,
+      "cost": 20
+    },
+    {
+      "item": "lotr_port:gondorian_warhammer",
+      "cost": 18
+    },
+    {
+      "item": "lotr_port:crossbow_bolt",
+      "count": 4,
+      "cost": 3
+    },
+    {
+      "item": "lotr_port:iron_crossbow",
+      "cost": 15
+    },
+    {
+      "item": "lotr_port:gondorian_horse_armor",
+      "cost": 25
+    }
+  ],
+  "offers": 9
+}

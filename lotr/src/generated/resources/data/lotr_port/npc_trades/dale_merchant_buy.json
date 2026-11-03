@@ -1,0 +1,123 @@
+{
+  "kind": "buy",
+  "entries": [
+    {
+      "item": "lotr_port:dalish_sword",
+      "cost": 15
+    },
+    {
+      "item": "lotr_port:dalish_spear",
+      "cost": 17
+    },
+    {
+      "item": "lotr_port:dalish_battleaxe",
+      "cost": 17
+    },
+    {
+      "item": "lotr_port:dalish_pitchfork",
+      "cost": 17
+    },
+    {
+      "item": "lotr_port:dalish_dagger",
+      "cost": 12
+    },
+    {
+      "item": "lotr_port:dalish_helmet",
+      "cost": 25
+    },
+    {
+      "item": "lotr_port:dalish_chestplate",
+      "cost": 35
+    },
+    {
+      "item": "lotr_port:dalish_leggings",
+      "cost": 30
+    },
+    {
+      "item": "lotr_port:dalish_boots",
+      "cost": 25
+    },
+    {
+      "item": "lotr_port:dwarven_sword",
+      "cost": 20
+    },
+    {
+      "item": "lotr_port:dwarven_battleaxe",
+      "cost": 24
+    },
+    {
+      "item": "lotr_port:dwarven_warhammer",
+      "cost": 24
+    },
+    {
+      "item": "lotr_port:vodka",
+      "cost": 9
+    },
+    {
+      "item": "lotr_port:dwarven_ale",
+      "cost": 14
+    },
+    {
+      "item": "lotr_port:dalish_horse_armor",
+      "cost": 25
+    },
+    {
+      "item": "lotr_port:dalish_longbow",
+      "cost": 20
+    },
+    {
+      "item": "minecraft:arrow",
+      "count": 4,
+      "cost": 3
+    },
+    {
+      "item": "lotr_port:cram",
+      "cost": 12
+    },
+    {
+      "item": "lotr_port:dalish_pastry",
+      "cost": 12
+    },
+    {
+      "item": "lotr_port:dalish_cracker",
+      "cost": 10
+    },
+    {
+      "item": "lotr_port:dalish_cracker",
+      "cost": 10
+    },
+    {
+      "item": "lotr_port:dalish_cracker",
+      "cost": 10
+    },
+    {
+      "item": "lotr_port:dalish_cracker",
+      "cost": 10
+    },
+    {
+      "item": "lotr_port:dalish_cracker",
+      "cost": 10
+    },
+    {
+      "item": "lotr_port:diamond",
+      "cost": 40
+    },
+    {
+      "item": "lotr_port:emerald",
+      "cost": 25
+    },
+    {
+      "item": "lotr_port:sapphire",
+      "cost": 20
+    },
+    {
+      "item": "lotr_port:ruby",
+      "cost": 20
+    },
+    {
+      "item": "lotr_port:opal",
+      "cost": 15
+    }
+  ],
+  "offers": 9
+}

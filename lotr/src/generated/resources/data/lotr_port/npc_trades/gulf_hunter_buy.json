@@ -1,0 +1,62 @@
+{
+  "kind": "buy",
+  "entries": [
+    {
+      "item": "lotr_port:raw_rabbit",
+      "cost": 4
+    },
+    {
+      "item": "lotr_port:raw_venison",
+      "cost": 4
+    },
+    {
+      "item": "minecraft:leather",
+      "cost": 3
+    },
+    {
+      "item": "lotr_port:fur",
+      "cost": 3
+    },
+    {
+      "item": "minecraft:feather",
+      "cost": 3
+    },
+    {
+      "item": "lotr_port:horn",
+      "cost": 4
+    },
+    {
+      "item": "lotr_port:lion_fur",
+      "cost": 6
+    },
+    {
+      "item": "lotr_port:gemsbok_hide",
+      "cost": 4
+    },
+    {
+      "item": "lotr_port:gemsbok_horn",
+      "cost": 12
+    },
+    {
+      "item": "lotr_port:rhino_horn",
+      "cost": 15
+    },
+    {
+      "item": "lotr_port:raw_lion",
+      "cost": 8
+    },
+    {
+      "item": "lotr_port:raw_zebra",
+      "cost": 6
+    },
+    {
+      "item": "lotr_port:raw_rhino",
+      "cost": 8
+    },
+    {
+      "item": "minecraft:rotten_flesh",
+      "cost": 3
+    }
+  ],
+  "offers": 9
+}

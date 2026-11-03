@@ -1,0 +1,97 @@
+{
+  "kind": "buy",
+  "entries": [
+    {
+      "item": "lotr_port:rh_nic_crafting_table",
+      "cost": 100
+    },
+    {
+      "item": "lotr_port:rh_nic_sword",
+      "cost": 15
+    },
+    {
+      "item": "lotr_port:rh_nic_dagger",
+      "cost": 9
+    },
+    {
+      "item": "lotr_port:rh_nic_spear",
+      "cost": 16
+    },
+    {
+      "item": "lotr_port:rh_nic_pike",
+      "cost": 16
+    },
+    {
+      "item": "lotr_port:rh_nic_bardiche",
+      "cost": 16
+    },
+    {
+      "item": "lotr_port:rh_nic_battleaxe",
+      "cost": 18
+    },
+    {
+      "item": "lotr_port:rh_nic_helmet",
+      "cost": 20
+    },
+    {
+      "item": "lotr_port:rh_nic_chestplate",
+      "cost": 32
+    },
+    {
+      "item": "lotr_port:rh_nic_leggings",
+      "cost": 26
+    },
+    {
+      "item": "lotr_port:rh_nic_boots",
+      "cost": 17
+    },
+    {
+      "item": "lotr_port:golden_rh_nic_helmet",
+      "cost": 30
+    },
+    {
+      "item": "lotr_port:golden_rh_nic_chestplate",
+      "cost": 45
+    },
+    {
+      "item": "lotr_port:golden_rh_nic_leggings",
+      "cost": 35
+    },
+    {
+      "item": "lotr_port:golden_rh_nic_boots",
+      "cost": 25
+    },
+    {
+      "item": "lotr_port:blacksmith_hammer",
+      "cost": 18
+    },
+    {
+      "item": "minecraft:iron_bars",
+      "count": 8,
+      "cost": 20
+    },
+    {
+      "item": "lotr_port:bronze_bars",
+      "count": 8,
+      "cost": 20
+    },
+    {
+      "item": "lotr_port:crossbow_bolt",
+      "count": 4,
+      "cost": 3
+    },
+    {
+      "item": "lotr_port:iron_crossbow",
+      "cost": 15
+    },
+    {
+      "item": "lotr_port:bronze_crossbow",
+      "cost": 12
+    },
+    {
+      "item": "lotr_port:rh_nic_horse_armor",
+      "cost": 25
+    }
+  ],
+  "offers": 9
+}

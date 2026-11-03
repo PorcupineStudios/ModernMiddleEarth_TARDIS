@@ -1,0 +1,19 @@
+{
+  "units": [
+    {
+      "npc": "lotr_port:tauredain_warrior",
+      "cost": 30,
+      "alignment": 200.0
+    },
+    {
+      "npc": "lotr_port:tauredain_blowgunner",
+      "cost": 50,
+      "alignment": 250.0
+    },
+    {
+      "npc": "lotr_port:tauredain_banner_bearer",
+      "cost": 50,
+      "alignment": 350.0
+    }
+  ]
+}

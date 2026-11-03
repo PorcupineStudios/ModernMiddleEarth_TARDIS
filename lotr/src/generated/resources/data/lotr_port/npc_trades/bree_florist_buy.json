@@ -1,0 +1,86 @@
+{
+  "kind": "buy",
+  "entries": [
+    {
+      "item": "minecraft:red_flower",
+      "cost": 3
+    },
+    {
+      "item": "minecraft:red_flower",
+      "cost": 8
+    },
+    {
+      "item": "minecraft:red_flower",
+      "cost": 6
+    },
+    {
+      "item": "minecraft:red_flower",
+      "cost": 3
+    },
+    {
+      "item": "minecraft:red_flower",
+      "cost": 3
+    },
+    {
+      "item": "minecraft:red_flower",
+      "cost": 3
+    },
+    {
+      "item": "minecraft:red_flower",
+      "cost": 3
+    },
+    {
+      "item": "minecraft:red_flower",
+      "cost": 3
+    },
+    {
+      "item": "minecraft:red_flower",
+      "cost": 3
+    },
+    {
+      "item": "minecraft:yellow_flower",
+      "cost": 3
+    },
+    {
+      "item": "lotr_port:bluebell",
+      "cost": 3
+    },
+    {
+      "item": "lotr_port:marigold",
+      "cost": 3
+    },
+    {
+      "item": "lotr_port:lavender",
+      "cost": 3
+    },
+    {
+      "item": "minecraft:sunflower",
+      "cost": 10
+    },
+    {
+      "item": "minecraft:lilac",
+      "cost": 8
+    },
+    {
+      "item": "minecraft:rose_bush",
+      "cost": 8
+    },
+    {
+      "item": "minecraft:peony",
+      "cost": 8
+    },
+    {
+      "item": "lotr_port:yellow_iris",
+      "cost": 10
+    },
+    {
+      "item": "lotr_port:black_iris",
+      "cost": 25
+    },
+    {
+      "item": "lotr_port:shire_heather",
+      "cost": 6
+    }
+  ],
+  "offers": 9
+}

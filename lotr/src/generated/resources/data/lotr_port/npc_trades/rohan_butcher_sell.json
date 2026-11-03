@@ -1,0 +1,30 @@
+{
+  "kind": "sell",
+  "entries": [
+    {
+      "item": "lotr_port:iron_dagger",
+      "cost": 3
+    },
+    {
+      "item": "lotr_port:bronze_dagger",
+      "cost": 3
+    },
+    {
+      "item": "minecraft:iron_ingot",
+      "cost": 3
+    },
+    {
+      "item": "minecraft:lead",
+      "cost": 4
+    },
+    {
+      "item": "minecraft:wheat",
+      "count": 3,
+      "cost": 1
+    },
+    {
+      "item": "lotr_port:salt",
+      "cost": 10
+    }
+  ]
+}

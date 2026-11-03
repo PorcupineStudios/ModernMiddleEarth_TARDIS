@@ -1,0 +1,87 @@
+{
+  "kind": "buy",
+  "entries": [
+    {
+      "item": "lotr_port:blue_mountains_crafting_table",
+      "cost": 100
+    },
+    {
+      "item": "lotr_port:blacksmith_hammer",
+      "cost": 18
+    },
+    {
+      "item": "lotr_port:dwarven_marriage_ring",
+      "cost": 20
+    },
+    {
+      "item": "lotr_port:blue_dwarven_sword",
+      "cost": 16
+    },
+    {
+      "item": "lotr_port:blue_dwarven_spear",
+      "cost": 18
+    },
+    {
+      "item": "lotr_port:blue_dwarven_battleaxe",
+      "cost": 18
+    },
+    {
+      "item": "lotr_port:blue_dwarven_warhammer",
+      "cost": 18
+    },
+    {
+      "item": "lotr_port:blue_dwarven_pike",
+      "cost": 18
+    },
+    {
+      "item": "lotr_port:blue_dwarven_dagger",
+      "cost": 13
+    },
+    {
+      "item": "lotr_port:blue_dwarven_axe",
+      "cost": 15
+    },
+    {
+      "item": "lotr_port:blue_dwarven_pickaxe",
+      "cost": 14
+    },
+    {
+      "item": "lotr_port:blue_dwarven_shovel",
+      "cost": 12
+    },
+    {
+      "item": "lotr_port:blue_dwarven_mattock",
+      "cost": 18
+    },
+    {
+      "item": "lotr_port:blue_dwarven_throwing_axe",
+      "cost": 15
+    },
+    {
+      "item": "lotr_port:blue_dwarven_helmet",
+      "cost": 25
+    },
+    {
+      "item": "lotr_port:blue_dwarven_chestplate",
+      "cost": 36
+    },
+    {
+      "item": "lotr_port:blue_dwarven_leggings",
+      "cost": 30
+    },
+    {
+      "item": "lotr_port:blue_dwarven_boots",
+      "cost": 22
+    },
+    {
+      "item": "lotr_port:blue_dwarven_boar_armor",
+      "cost": 25
+    },
+    {
+      "item": "lotr_port:blue_dwarven_steel_bars",
+      "count": 8,
+      "cost": 20
+    }
+  ],
+  "offers": 9
+}

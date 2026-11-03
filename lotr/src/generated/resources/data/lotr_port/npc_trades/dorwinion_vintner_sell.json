@@ -1,0 +1,32 @@
+{
+  "kind": "sell",
+  "entries": [
+    {
+      "item": "lotr_port:red_grapes",
+      "count": 3,
+      "cost": 1
+    },
+    {
+      "item": "lotr_port:green_grapes",
+      "count": 3,
+      "cost": 1
+    },
+    {
+      "item": "minecraft:bucket",
+      "cost": 3
+    },
+    {
+      "item": "minecraft:water_bucket",
+      "cost": 4
+    },
+    {
+      "item": "minecraft:sugar",
+      "count": 2,
+      "cost": 1
+    },
+    {
+      "item": "lotr_port:clay_mug",
+      "cost": 1
+    }
+  ]
+}

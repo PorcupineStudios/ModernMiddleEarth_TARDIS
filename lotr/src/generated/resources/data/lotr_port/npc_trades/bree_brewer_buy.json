@@ -1,0 +1,114 @@
+{
+  "kind": "buy",
+  "entries": [
+    {
+      "item": "lotr_port:ale",
+      "cost": 10
+    },
+    {
+      "item": "lotr_port:ale",
+      "cost": 120
+    },
+    {
+      "item": "lotr_port:ale",
+      "cost": 170
+    },
+    {
+      "item": "lotr_port:cider",
+      "cost": 10
+    },
+    {
+      "item": "lotr_port:cider",
+      "cost": 120
+    },
+    {
+      "item": "lotr_port:cider",
+      "cost": 170
+    },
+    {
+      "item": "lotr_port:perry",
+      "cost": 10
+    },
+    {
+      "item": "lotr_port:perry",
+      "cost": 120
+    },
+    {
+      "item": "lotr_port:perry",
+      "cost": 170
+    },
+    {
+      "item": "lotr_port:maple_beer",
+      "cost": 10
+    },
+    {
+      "item": "lotr_port:maple_beer",
+      "cost": 120
+    },
+    {
+      "item": "lotr_port:maple_beer",
+      "cost": 170
+    },
+    {
+      "item": "lotr_port:plum_kvass",
+      "cost": 10
+    },
+    {
+      "item": "lotr_port:plum_kvass",
+      "cost": 120
+    },
+    {
+      "item": "lotr_port:plum_kvass",
+      "cost": 170
+    },
+    {
+      "item": "lotr_port:mead",
+      "cost": 12
+    },
+    {
+      "item": "lotr_port:mead",
+      "cost": 140
+    },
+    {
+      "item": "lotr_port:mead",
+      "cost": 180
+    },
+    {
+      "item": "lotr_port:cherry_liqueur",
+      "cost": 12
+    },
+    {
+      "item": "lotr_port:cherry_liqueur",
+      "cost": 140
+    },
+    {
+      "item": "lotr_port:cherry_liqueur",
+      "cost": 180
+    },
+    {
+      "item": "lotr_port:apple_juice",
+      "cost": 6
+    },
+    {
+      "item": "lotr_port:blueberry_juice",
+      "cost": 5
+    },
+    {
+      "item": "lotr_port:blackberry_juice",
+      "cost": 5
+    },
+    {
+      "item": "lotr_port:raspberry_juice",
+      "cost": 5
+    },
+    {
+      "item": "lotr_port:cranberry_juice",
+      "cost": 5
+    },
+    {
+      "item": "lotr_port:elderberry_juice",
+      "cost": 5
+    }
+  ],
+  "offers": 9
+}

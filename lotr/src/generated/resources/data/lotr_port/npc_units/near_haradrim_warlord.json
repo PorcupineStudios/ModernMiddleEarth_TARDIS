@@ -1,0 +1,19 @@
+{
+  "units": [
+    {
+      "npc": "lotr_port:near_haradrim_warrior",
+      "cost": 30,
+      "alignment": 150.0
+    },
+    {
+      "npc": "lotr_port:near_haradrim_archer",
+      "cost": 50,
+      "alignment": 200.0
+    },
+    {
+      "npc": "lotr_port:near_harad_banner_bearer",
+      "cost": 50,
+      "alignment": 300.0
+    }
+  ]
+}

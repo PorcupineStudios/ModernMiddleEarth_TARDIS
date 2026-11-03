@@ -1,0 +1,80 @@
+{
+  "kind": "sell",
+  "entries": [
+    {
+      "item": "minecraft:iron_ore",
+      "cost": 5
+    },
+    {
+      "item": "minecraft:gold_ore",
+      "cost": 15
+    },
+    {
+      "item": "lotr_port:copper_ore",
+      "cost": 5
+    },
+    {
+      "item": "lotr_port:tin_ore",
+      "cost": 5
+    },
+    {
+      "item": "minecraft:iron_ingot",
+      "cost": 3
+    },
+    {
+      "item": "lotr_port:elven_steel_ingot",
+      "cost": 3
+    },
+    {
+      "item": "lotr_port:bronze_ingot",
+      "cost": 3
+    },
+    {
+      "item": "minecraft:gold_ingot",
+      "cost": 15
+    },
+    {
+      "item": "lotr_port:diamond",
+      "cost": 25
+    },
+    {
+      "item": "lotr_port:emerald",
+      "cost": 15
+    },
+    {
+      "item": "lotr_port:ruby",
+      "cost": 12
+    },
+    {
+      "item": "lotr_port:opal",
+      "cost": 10
+    },
+    {
+      "item": "lotr_port:amber",
+      "cost": 10
+    },
+    {
+      "item": "lotr_port:topaz",
+      "cost": 8
+    },
+    {
+      "item": "minecraft:lava_bucket",
+      "cost": 16
+    },
+    {
+      "item": "minecraft:stick",
+      "count": 8,
+      "cost": 1
+    },
+    {
+      "item": "minecraft:string",
+      "count": 3,
+      "cost": 1
+    },
+    {
+      "item": "lotr_port:mithril_nugget",
+      "cost": 40
+    }
+  ],
+  "offers": 9
+}

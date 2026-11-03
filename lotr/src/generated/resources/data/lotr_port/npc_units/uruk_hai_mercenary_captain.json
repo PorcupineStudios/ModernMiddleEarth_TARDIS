@@ -1,0 +1,40 @@
+{
+  "units": [
+    {
+      "npc": "lotr_port:isengard_snaga",
+      "cost": 20,
+      "alignment": 150.0
+    },
+    {
+      "npc": "lotr_port:isengard_snaga_archer",
+      "cost": 40,
+      "alignment": 200.0
+    },
+    {
+      "npc": "lotr_port:uruk_hai",
+      "cost": 40,
+      "alignment": 150.0
+    },
+    {
+      "npc": "lotr_port:uruk_hai_crossbower",
+      "cost": 60,
+      "alignment": 200.0
+    },
+    {
+      "npc": "lotr_port:uruk_hai_sapper",
+      "cost": 70,
+      "alignment": 250.0
+    },
+    {
+      "npc": "lotr_port:uruk_hai_berserker",
+      "cost": 60,
+      "alignment": 300.0,
+      "pledge": true
+    },
+    {
+      "npc": "lotr_port:uruk_hai_banner_bearer",
+      "cost": 60,
+      "alignment": 300.0
+    }
+  ]
+}

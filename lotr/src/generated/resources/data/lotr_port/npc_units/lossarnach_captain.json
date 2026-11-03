@@ -1,0 +1,19 @@
+{
+  "units": [
+    {
+      "npc": "lotr_port:gondor_levyman",
+      "cost": 20,
+      "alignment": 150.0
+    },
+    {
+      "npc": "lotr_port:lossarnach_axeman",
+      "cost": 30,
+      "alignment": 200.0
+    },
+    {
+      "npc": "lotr_port:lossarnach_banner_bearer",
+      "cost": 50,
+      "alignment": 350.0
+    }
+  ]
+}

@@ -1,0 +1,73 @@
+{
+  "kind": "sell",
+  "entries": [
+    {
+      "item": "minecraft:bucket",
+      "cost": 3
+    },
+    {
+      "item": "minecraft:water_bucket",
+      "cost": 4
+    },
+    {
+      "item": "minecraft:wheat",
+      "count": 2,
+      "cost": 1
+    },
+    {
+      "item": "minecraft:sugar",
+      "count": 2,
+      "cost": 1
+    },
+    {
+      "item": "minecraft:apple",
+      "cost": 1
+    },
+    {
+      "item": "lotr_port:apple",
+      "cost": 1
+    },
+    {
+      "item": "lotr_port:cherries",
+      "cost": 2
+    },
+    {
+      "item": "lotr_port:date",
+      "cost": 1
+    },
+    {
+      "item": "minecraft:cactus",
+      "cost": 1
+    },
+    {
+      "item": "lotr_port:orange",
+      "cost": 1
+    },
+    {
+      "item": "lotr_port:lemon",
+      "cost": 1
+    },
+    {
+      "item": "lotr_port:lime",
+      "cost": 1
+    },
+    {
+      "item": "lotr_port:pomegranate",
+      "cost": 2
+    },
+    {
+      "item": "lotr_port:banana",
+      "cost": 2
+    },
+    {
+      "item": "minecraft:melon_slice",
+      "count": 2,
+      "cost": 1
+    },
+    {
+      "item": "lotr_port:mango",
+      "cost": 2
+    }
+  ],
+  "offers": 9
+}

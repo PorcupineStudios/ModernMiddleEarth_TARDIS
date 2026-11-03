@@ -1,0 +1,9 @@
+{
+  "units": [
+    {
+      "npc": "lotr_port:harnedor_farmhand",
+      "cost": 40,
+      "alignment": 50.0
+    }
+  ]
+}

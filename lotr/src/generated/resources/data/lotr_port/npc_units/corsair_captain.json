@@ -1,0 +1,9 @@
+{
+  "units": [
+    {
+      "npc": "lotr_port:corsair",
+      "cost": 20,
+      "alignment": 150.0
+    }
+  ]
+}
