@@ -46,6 +46,8 @@ final class WorldCheck {
             } else if (Providers.startDimension(server) != Level.OVERWORLD) {
                 problem = "the TARDIS would crash in " + Providers.startDimension(server).location()
                         + ", not at the Middle-earth spawn";
+            } else if (server.getLevel(LotrDimensions.VANILLA_OVERWORLD) == null) {
+                problem = "no vanilla Overworld dimension (" + LotrDimensions.VANILLA_OVERWORLD.location() + ")";
             }
             if (problem == null) {
                 problem = everyBiomeGenerates(overworld);

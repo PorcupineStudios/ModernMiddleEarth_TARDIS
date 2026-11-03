@@ -17,6 +17,12 @@ import net.minecraft.world.level.levelgen.Heightmap;
 public final class LotrDimensions {
     public static final ResourceKey<Level> MIDDLE_EARTH = ResourceKey.create(Registries.DIMENSION,
             LotrPort.id("middle_earth"));
+    /**
+     * A plain vanilla Overworld, for Middle-earth worlds where the real overworld is Middle-earth; the TARDIS reaches
+     * it as its second dimension (data {@code tardis/destination/vanilla_overworld.json}).
+     */
+    public static final ResourceKey<Level> VANILLA_OVERWORLD = ResourceKey.create(Registries.DIMENSION,
+            LotrPort.id("vanilla_overworld"));
 
     private LotrDimensions() {}
 
