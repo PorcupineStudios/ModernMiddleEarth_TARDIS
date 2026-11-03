@@ -1,0 +1,20 @@
+{
+  "template": "tardis_rb:interior/workshop",
+  "cost": {
+    "items": [
+      {
+        "ingredient": {
+          "tag": "c:ingots/iron"
+        },
+        "count": 8
+      },
+      {
+        "ingredient": {
+          "tag": "minecraft:planks"
+        },
+        "count": 16
+      }
+    ],
+    "charge": 40
+  }
+}

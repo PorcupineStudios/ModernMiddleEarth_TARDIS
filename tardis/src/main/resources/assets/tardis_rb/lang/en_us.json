@@ -5,5 +5,12 @@
   "block.tardis_rb.salvage_wreck": "TARDIS Wreckage",
   "itemGroup.tardis_rb.tardis": "TARDIS",
   "block.tardis_rb.winder": "TARDIS Winder",
-  "block.tardis_rb.part": "TARDIS Part"
+  "block.tardis_rb.part": "TARDIS Part",
+  "tardis_rb.room.unknown": "There is no room %s",
+  "tardis_rb.room.cap": "No space for another room (%s of %s); repair the room systems further",
+  "tardis_rb.room.requirements": "Something else has to come first",
+  "tardis_rb.room.no_interior": "The interior can't be reached",
+  "tardis_rb.room.no_template": "This room's building plan is missing",
+  "tardis_rb.room.cancelled": "The room wasn't added",
+  "tardis_rb.workshop.build": "Build"
 }

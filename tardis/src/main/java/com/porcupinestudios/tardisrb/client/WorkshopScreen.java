@@ -52,9 +52,11 @@ public final class WorkshopScreen extends Screen {
             if (e.state() != WorkshopNet.AVAILABLE) {
                 continue;
             }
-            Component label = e.kind() == WorkshopNet.REPAIR
-                    ? Component.translatableWithFallback("tardis_rb.workshop.repair", "Repair")
-                    : Component.translatableWithFallback("tardis_rb.workshop.research", "Research");
+            Component label = switch (e.kind()) {
+                case WorkshopNet.REPAIR -> Component.translatableWithFallback("tardis_rb.workshop.repair", "Repair");
+                case WorkshopNet.ROOM -> Component.translatableWithFallback("tardis_rb.workshop.build", "Build");
+                default -> Component.translatableWithFallback("tardis_rb.workshop.research", "Research");
+            };
             addRenderableWidget(Button.builder(label, b -> PacketDistributor.sendToServer(
                     new WorkshopNet.Act(e.kind(), e.id()))).bounds(right - 70, top() + i * ROW, 70, 18).build());
         }
@@ -82,7 +84,11 @@ public final class WorkshopScreen extends Screen {
         for (int i = 0; i < visibleRows() && scroll + i < entries.size(); i++) {
             WorkshopNet.Entry e = entries.get(scroll + i);
             int y = top() + i * ROW;
-            String kind = e.kind() == WorkshopNet.REPAIR ? "Repair" : "Research";
+            String kind = switch (e.kind()) {
+                case WorkshopNet.REPAIR -> "Repair";
+                case WorkshopNet.ROOM -> "Room";
+                default -> "Research";
+            };
             int color = switch (e.state()) {
                 case WorkshopNet.DONE -> 0x70D070;
                 case WorkshopNet.RUNNING -> 0x70B0FF;
@@ -93,7 +99,8 @@ public final class WorkshopScreen extends Screen {
                 case WorkshopNet.DONE -> "done";
                 case WorkshopNet.RUNNING -> "under way " + e.extra();
                 case WorkshopNet.AT_PART -> "fix the part in the room";
-                case WorkshopNet.LOCKED -> "locked";
+                case WorkshopNet.LOCKED -> e.extra().isEmpty() || e.kind() != WorkshopNet.ROOM ? "locked"
+                        : "locked, " + e.extra();
                 default -> e.extra();
             };
             g.drawString(font, kind + ": " + e.title() + "  (" + state + ")", left, y, color);

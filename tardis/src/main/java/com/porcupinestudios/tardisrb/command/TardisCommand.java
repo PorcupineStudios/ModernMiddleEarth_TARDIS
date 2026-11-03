@@ -14,6 +14,7 @@ import com.porcupinestudios.tardisrb.core.TardisRecord;
 import com.porcupinestudios.tardisrb.flight.Flight;
 import com.porcupinestudios.tardisrb.flight.Landing;
 import com.porcupinestudios.tardisrb.interior.Interiors;
+import com.porcupinestudios.tardisrb.interior.Rooms;
 import com.porcupinestudios.tardisrb.progression.Progression;
 import com.porcupinestudios.tardisrb.progression.Subsystem;
 import com.porcupinestudios.tardisrb.progression.TardisContent;
@@ -43,7 +44,7 @@ import net.neoforged.neoforge.event.RegisterCommandsEvent;
 /**
  * Admin and testing commands (permission 2), acting on the TARDIS the player owns or crews: {@code /tardis create
  * [name]} (in front of you), {@code info}, {@code enter}, {@code hop <x y z>}, {@code repair <id>}, {@code damage <subsystem> <levels>}, {@code charge <amount>},
- * {@code study <node>} (paid, takes time), {@code research <node>} (done at once), {@code milestone <id>}, {@code check <feature>}, {@code data}.
+ * {@code study <node>} (paid, takes time), {@code room <room>} (paid), {@code research <node>} (done at once), {@code milestone <id>}, {@code check <feature>}, {@code data}.
  */
 public final class TardisCommand {
     private static final SimpleCommandExceptionType NO_TARDIS = new SimpleCommandExceptionType(
@@ -130,6 +131,18 @@ public final class TardisCommand {
                                 return 0;
                             }
                             ctx.getSource().sendSuccess(() -> Component.literal("Research started."), true);
+                            return 1;
+                        })))
+                .then(Commands.literal("room").then(Commands.argument("room", ResourceLocationArgument.id())
+                        .suggests(ids(d -> d.rooms().keySet())).executes(ctx -> {
+                            var out = Rooms.add(ctx.getSource().getServer(), mine(ctx),
+                                    ResourceLocationArgument.getId(ctx, "room"),
+                                    Optional.ofNullable(ctx.getSource().getPlayer()));
+                            if (!out.done()) {
+                                ctx.getSource().sendFailure(out.problem().get());
+                                return 0;
+                            }
+                            ctx.getSource().sendSuccess(() -> Component.literal("Room added."), true);
                             return 1;
                         })))
                 .then(Commands.literal("research").then(Commands.argument("node", ResourceLocationArgument.id())

@@ -14,6 +14,8 @@ Read both with the Claude Docs tools, not a web fetch. Add notes in `docs/<area>
 |---|---|
 | TARDIS record, data folders + validator, unlocks, conditions, repairs, damage, stages, `/tardis` | `docs/progression.md` |
 | Police box, interior dimension and plots, crash site, salvage, short hops, console screen, Create winder | `docs/wreck-flight.md` |
+| Part blocks, timed research and stat bonuses, Repairs & research screen, exterior looks, explosion damage | `docs/repair-loop.md` |
+| Adding rooms, the room cap, room templates and layout | `docs/rooms.md` |
 
 ## Build
 From the repo root: `./gradlew :tardis:build` (jar in `tardis/build/libs/`), `:tardis:runClient`, `:tardis:runServer`,

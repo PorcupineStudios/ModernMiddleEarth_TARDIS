@@ -1,11 +1,14 @@
 package com.porcupinestudios.tardisrb.core;
 
+import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.porcupinestudios.tardisrb.event.DamageEvent;
 import com.porcupinestudios.tardisrb.event.MilestoneEvent;
 import com.porcupinestudios.tardisrb.event.RepairEvent;
 import com.porcupinestudios.tardisrb.event.ResearchEvent;
+import com.porcupinestudios.tardisrb.event.RoomEvent;
 import com.porcupinestudios.tardisrb.event.StageEvent;
 import com.porcupinestudios.tardisrb.progression.Repair;
 import com.porcupinestudios.tardisrb.progression.Unlocks;
@@ -52,7 +55,16 @@ public final class TardisRecord {
                 .apply(i, ResearchJob::new));
     }
 
-    public static final Codec<TardisRecord> CODEC = RecordCodecBuilder.create(i -> i.group(
+    /** A room added behind the console room; {@code slot} 1 is the first behind it. */
+    public record PlacedRoom(ResourceLocation room, int slot) {
+        static final Codec<PlacedRoom> CODEC = RecordCodecBuilder.create(i -> i.group(
+                ResourceLocation.CODEC.fieldOf("room").forGetter(PlacedRoom::room),
+                Codec.INT.fieldOf("slot").forGetter(PlacedRoom::slot))
+                .apply(i, PlacedRoom::new));
+    }
+
+    /** The first 16 fields (a codec group holds at most 16); {@link #CODEC} adds the rest beside them, flat. */
+    private static final MapCodec<TardisRecord> BASE = RecordCodecBuilder.mapCodec(i -> i.group(
             Codec.INT.optionalFieldOf("data_version", DATA_VERSION).forGetter(r -> DATA_VERSION),
             UUIDUtil.STRING_CODEC.fieldOf("id").forGetter(r -> r.id),
             Codec.STRING.optionalFieldOf("name", "").forGetter(r -> r.name),
@@ -73,6 +85,14 @@ public final class TardisRecord {
             Codec.INT.optionalFieldOf("plot", -1).forGetter(r -> r.plot))
             .apply(i, TardisRecord::new));
 
+    public static final Codec<TardisRecord> CODEC = Codec.mapPair(BASE,
+            PlacedRoom.CODEC.listOf().optionalFieldOf("rooms", List.of()))
+            .xmap(p -> {
+                p.getFirst().rooms.addAll(p.getSecond());
+                return p.getFirst();
+            }, r -> Pair.of(r, List.copyOf(r.rooms)))
+            .codec();
+
     private final UUID id;
     private String name;
     private Optional<UUID> owner;
@@ -91,6 +111,7 @@ public final class TardisRecord {
     private Optional<GlobalPos> location;
     /** Its plot in the shared interior dimension; -1 until the interior is first built. */
     private int plot;
+    private final List<PlacedRoom> rooms = new ArrayList<>();
 
     /** Goes up on every change; caches compare it. Not saved. */
     private int revision;
@@ -217,6 +238,16 @@ public final class TardisRecord {
         return plot;
     }
 
+    /** Rooms added behind the console room, in the order they were built. */
+    public List<PlacedRoom> rooms() {
+        return Collections.unmodifiableList(rooms);
+    }
+
+    /** All rooms including the console room. */
+    public int roomCount() {
+        return 1 + rooms.size();
+    }
+
     public int revision() {
         return revision;
     }
@@ -263,6 +294,13 @@ public final class TardisRecord {
     void setPlot(int newPlot) {
         plot = newPlot;
         changed();
+    }
+
+    /** Records a room that {@code Rooms.add} already checked, paid for and built. Fires {@link RoomEvent.Post}. */
+    public void addRoom(PlacedRoom room) {
+        rooms.add(room);
+        changed();
+        NeoForge.EVENT_BUS.post(new RoomEvent.Post(this, room.room(), room.slot()));
     }
 
     public void setModuleData(String module, CompoundTag tag) {

@@ -1,0 +1,20 @@
+{
+  "template": "tardis_rb:interior/library",
+  "cost": {
+    "items": [
+      {
+        "ingredient": {
+          "item": "minecraft:book"
+        },
+        "count": 6
+      },
+      {
+        "ingredient": {
+          "tag": "minecraft:planks"
+        },
+        "count": 16
+      }
+    ],
+    "charge": 40
+  }
+}
