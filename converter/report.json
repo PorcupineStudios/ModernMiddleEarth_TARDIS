@@ -5,7 +5,9 @@
     "recipes": 2591,
     "textures": 2014,
     "languages": 22,
-    "tabs": 9
+    "tabs": 9,
+    "biomes": 169,
+    "map": "3200x4000"
   },
   "added_to_misc_tab": {
     "count": 1,

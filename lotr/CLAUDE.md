@@ -28,6 +28,15 @@ https://claude.ai/artifact/KqhSSTCuKXGuwKHBoYJdcu. Rebuild features in modern co
 - Many LOTR systems get redesigned around RingRealms, Create and the TARDIS rather than copied.
 - Prefer writing scripts that do the repetitive work (export, generate, rename) over porting class by class by hand.
 
+## World generation (phase 3)
+- `world/map/MiddleEarthMap` reads the generated map; `MapBiomeSource` (`lotr_port:middle_earth`) gives one biome
+  per map pixel with wobbled borders; density function `lotr_port:map_terrain` gives ground height or hilliness,
+  and the noise settings JSON shapes terrain from them. Tune heights in `converter/world.py` (or the JSON), not Java.
+- World type "Middle-earth" (`lotr_port:middle_earth` preset): the overworld is generated from the map, so spawn and
+  respawn are vanilla. Any other world gets the `lotr_port:middle_earth` dimension; `/lotr travel` goes there and
+  back. `LotrDimensions.middleEarth(server)` returns whichever level is Middle-earth.
+- CI "Middle-earth world" step makes a new Middle-earth world on a dedicated server (`WorldCheck`).
+
 ## Build
 From the repo root: `./gradlew :lotr:build`, `:lotr:runClient`, `:lotr:runServer`, `:lotr:runGameTestServer`,
 `:lotr:runData`. Shared rules are in the root `CLAUDE.md`.

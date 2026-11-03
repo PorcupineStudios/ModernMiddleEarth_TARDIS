@@ -1,0 +1,857 @@
+{
+  "width": 3200,
+  "height": 4000,
+  "blocks_per_pixel": 128,
+  "origin_x": 810,
+  "origin_z": 730,
+  "blur": 0,
+  "border_wobble": 40,
+  "ocean": "lotr_port:ocean",
+  "biomes": [
+    {
+      "id": "lotr_port:river",
+      "height": 47.0,
+      "variation": 0.0
+    },
+    {
+      "id": "lotr_port:rohan",
+      "height": 70.8,
+      "variation": 3.6
+    },
+    {
+      "id": "lotr_port:misty_mountains",
+      "height": 132.0,
+      "variation": 48.0
+    },
+    {
+      "id": "lotr_port:shire",
+      "height": 69.1,
+      "variation": 7.2
+    },
+    {
+      "id": "lotr_port:shire_woodlands",
+      "height": 74.2,
+      "variation": 12.0
+    },
+    {
+      "id": "lotr_port:mordor",
+      "height": 74.2,
+      "variation": 12.0
+    },
+    {
+      "id": "lotr_port:mordor_mountains",
+      "height": 132.0,
+      "variation": 72.0
+    },
+    {
+      "id": "lotr_port:gondor",
+      "height": 67.4,
+      "variation": 3.6
+    },
+    {
+      "id": "lotr_port:white_mountains",
+      "height": 115.0,
+      "variation": 48.0
+    },
+    {
+      "id": "lotr_port:lothlorien",
+      "height": 67.4,
+      "variation": 7.2
+    },
+    {
+      "id": "lotr_port:celebrant",
+      "height": 67.4,
+      "variation": 1.2
+    },
+    {
+      "id": "lotr_port:iron_hills",
+      "height": 74.2,
+      "variation": 33.6
+    },
+    {
+      "id": "lotr_port:dead_marshes",
+      "height": 64.0,
+      "variation": 2.4
+    },
+    {
+      "id": "lotr_port:trollshaws",
+      "height": 69.1,
+      "variation": 24.0
+    },
+    {
+      "id": "lotr_port:woodland_realm",
+      "height": 70.8,
+      "variation": 7.2
+    },
+    {
+      "id": "lotr_port:mirkwood_corrupted",
+      "height": 70.8,
+      "variation": 9.6
+    },
+    {
+      "id": "lotr_port:rohan_uruk_highlands",
+      "height": 91.2,
+      "variation": 7.2
+    },
+    {
+      "id": "lotr_port:emyn_muil",
+      "height": 70.8,
+      "variation": 19.2
+    },
+    {
+      "id": "lotr_port:ithilien",
+      "height": 69.1,
+      "variation": 12.0
+    },
+    {
+      "id": "lotr_port:pelargir",
+      "height": 66.72,
+      "variation": 4.8
+    },
+    {
+      "id": "lotr_port:lone_lands",
+      "height": 69.1,
+      "variation": 9.6
+    },
+    {
+      "id": "lotr_port:lone_lands_hills",
+      "height": 84.4,
+      "variation": 19.2
+    },
+    {
+      "id": "lotr_port:dunland",
+      "height": 74.2,
+      "variation": 12.0
+    },
+    {
+      "id": "lotr_port:fangorn",
+      "height": 70.8,
+      "variation": 9.6
+    },
+    {
+      "id": "lotr_port:angle",
+      "height": 69.1,
+      "variation": 7.2
+    },
+    {
+      "id": "lotr_port:ettenmoors",
+      "height": 81.0,
+      "variation": 14.4
+    },
+    {
+      "id": "lotr_port:old_forest",
+      "height": 70.8,
+      "variation": 7.2
+    },
+    {
+      "id": "lotr_port:harondor",
+      "height": 70.8,
+      "variation": 7.2
+    },
+    {
+      "id": "lotr_port:eriador",
+      "height": 67.4,
+      "variation": 9.6
+    },
+    {
+      "id": "lotr_port:eriador_downs",
+      "height": 81.0,
+      "variation": 12.0
+    },
+    {
+      "id": "lotr_port:eryn_vorn",
+      "height": 67.4,
+      "variation": 9.6
+    },
+    {
+      "id": "lotr_port:grey_mountains",
+      "height": 125.2,
+      "variation": 48.0
+    },
+    {
+      "id": "lotr_port:midgewater",
+      "height": 64.0,
+      "variation": 2.4
+    },
+    {
+      "id": "lotr_port:brown_lands",
+      "height": 70.8,
+      "variation": 4.8
+    },
+    {
+      "id": "lotr_port:ocean",
+      "height": 30.0,
+      "variation": 7.2
+    },
+    {
+      "id": "lotr_port:anduin_hills",
+      "height": 84.4,
+      "variation": 9.6
+    },
+    {
+      "id": "lotr_port:meneltarma",
+      "height": 67.4,
+      "variation": 4.8
+    },
+    {
+      "id": "lotr_port:gladden_fields",
+      "height": 64.0,
+      "variation": 2.4
+    },
+    {
+      "id": "lotr_port:lothlorien_edge",
+      "height": 67.4,
+      "variation": 4.8
+    },
+    {
+      "id": "lotr_port:forodwaith",
+      "height": 67.4,
+      "variation": 2.4
+    },
+    {
+      "id": "lotr_port:enedwaith",
+      "height": 70.8,
+      "variation": 7.2
+    },
+    {
+      "id": "lotr_port:angmar",
+      "height": 70.8,
+      "variation": 14.4
+    },
+    {
+      "id": "lotr_port:eregion",
+      "height": 70.8,
+      "variation": 7.2
+    },
+    {
+      "id": "lotr_port:lindon",
+      "height": 69.1,
+      "variation": 4.8
+    },
+    {
+      "id": "lotr_port:lindon_woodlands",
+      "height": 70.8,
+      "variation": 12.0
+    },
+    {
+      "id": "lotr_port:east_bight",
+      "height": 69.1,
+      "variation": 1.2
+    },
+    {
+      "id": "lotr_port:blue_mountains",
+      "height": 98.0,
+      "variation": 60.0
+    },
+    {
+      "id": "lotr_port:mirkwood_mountains",
+      "height": 104.8,
+      "variation": 36.0
+    },
+    {
+      "id": "lotr_port:wilderland",
+      "height": 70.8,
+      "variation": 9.6
+    },
+    {
+      "id": "lotr_port:dagorlad",
+      "height": 67.4,
+      "variation": 1.2
+    },
+    {
+      "id": "lotr_port:nurn",
+      "height": 67.4,
+      "variation": 4.8
+    },
+    {
+      "id": "lotr_port:nurnen",
+      "height": 30.0,
+      "variation": 7.2
+    },
+    {
+      "id": "lotr_port:nurn_marshes",
+      "height": 64.0,
+      "variation": 2.4
+    },
+    {
+      "id": "lotr_port:adornland",
+      "height": 70.8,
+      "variation": 4.8
+    },
+    {
+      "id": "lotr_port:angmar_mountains",
+      "height": 118.4,
+      "variation": 36.0
+    },
+    {
+      "id": "lotr_port:anduin_mouth",
+      "height": 64.0,
+      "variation": 2.4
+    },
+    {
+      "id": "lotr_port:entwash_mouth",
+      "height": 64.0,
+      "variation": 2.4
+    },
+    {
+      "id": "lotr_port:dor_en_ernil",
+      "height": 66.38,
+      "variation": 4.8
+    },
+    {
+      "id": "lotr_port:dor_en_ernil_hills",
+      "height": 81.0,
+      "variation": 12.0
+    },
+    {
+      "id": "lotr_port:fangorn_wasteland",
+      "height": 70.8,
+      "variation": 9.6
+    },
+    {
+      "id": "lotr_port:rohan_woodlands",
+      "height": 70.8,
+      "variation": 9.6
+    },
+    {
+      "id": "lotr_port:gondor_woodlands",
+      "height": 70.8,
+      "variation": 4.8
+    },
+    {
+      "id": "lotr_port:lake",
+      "height": 47.0,
+      "variation": 4.8
+    },
+    {
+      "id": "lotr_port:lindon_coast",
+      "height": 64.0,
+      "variation": 12.0
+    },
+    {
+      "id": "lotr_port:barrow_downs",
+      "height": 74.2,
+      "variation": 9.6
+    },
+    {
+      "id": "lotr_port:long_marshes",
+      "height": 64.0,
+      "variation": 2.4
+    },
+    {
+      "id": "lotr_port:fangorn_clearing",
+      "height": 70.8,
+      "variation": 2.4
+    },
+    {
+      "id": "lotr_port:ithilien_hills",
+      "height": 84.4,
+      "variation": 14.4
+    },
+    {
+      "id": "lotr_port:ithilien_wasteland",
+      "height": 69.1,
+      "variation": 4.8
+    },
+    {
+      "id": "lotr_port:nindalf",
+      "height": 64.0,
+      "variation": 2.4
+    },
+    {
+      "id": "lotr_port:coldfells",
+      "height": 77.6,
+      "variation": 19.2
+    },
+    {
+      "id": "lotr_port:nan_curunir",
+      "height": 70.8,
+      "variation": 2.4
+    },
+    {
+      "id": "lotr_port:white_downs",
+      "height": 84.4,
+      "variation": 14.4
+    },
+    {
+      "id": "lotr_port:swanfleet",
+      "height": 64.0,
+      "variation": 2.4
+    },
+    {
+      "id": "lotr_port:pelennor",
+      "height": 67.4,
+      "variation": 0.48
+    },
+    {
+      "id": "lotr_port:minhiriath",
+      "height": 67.4,
+      "variation": 4.8
+    },
+    {
+      "id": "lotr_port:erebor",
+      "height": 77.6,
+      "variation": 14.4
+    },
+    {
+      "id": "lotr_port:mirkwood_north",
+      "height": 70.8,
+      "variation": 9.6
+    },
+    {
+      "id": "lotr_port:woodland_realm_hills",
+      "height": 94.6,
+      "variation": 16.8
+    },
+    {
+      "id": "lotr_port:nan_ungol",
+      "height": 67.4,
+      "variation": 9.6
+    },
+    {
+      "id": "lotr_port:pinnath_gelin",
+      "height": 81.0,
+      "variation": 12.0
+    },
+    {
+      "id": "lotr_port:island",
+      "height": 64.0,
+      "variation": 7.2
+    },
+    {
+      "id": "lotr_port:forodwaith_mountains",
+      "height": 132.0,
+      "variation": 48.0
+    },
+    {
+      "id": "lotr_port:misty_mountains_foothills",
+      "height": 87.8,
+      "variation": 21.6
+    },
+    {
+      "id": "lotr_port:grey_mountains_foothills",
+      "height": 81.0,
+      "variation": 21.6
+    },
+    {
+      "id": "lotr_port:blue_mountains_foothills",
+      "height": 81.0,
+      "variation": 21.6
+    },
+    {
+      "id": "lotr_port:tundra",
+      "height": 67.4,
+      "variation": 4.8
+    },
+    {
+      "id": "lotr_port:taiga",
+      "height": 67.4,
+      "variation": 12.0
+    },
+    {
+      "id": "lotr_port:breeland",
+      "height": 67.4,
+      "variation": 4.8
+    },
+    {
+      "id": "lotr_port:chetwood",
+      "height": 70.8,
+      "variation": 9.6
+    },
+    {
+      "id": "lotr_port:forodwaith_glacier",
+      "height": 98.0,
+      "variation": 2.4
+    },
+    {
+      "id": "lotr_port:white_mountains_foothills",
+      "height": 81.0,
+      "variation": 21.6
+    },
+    {
+      "id": "lotr_port:beach",
+      "height": 67.4,
+      "variation": 0.0
+    },
+    {
+      "id": "lotr_port:beach_gravel",
+      "height": 67.4,
+      "variation": 0.0
+    },
+    {
+      "id": "lotr_port:near_harad",
+      "height": 70.8,
+      "variation": 2.4
+    },
+    {
+      "id": "lotr_port:far_harad",
+      "height": 67.4,
+      "variation": 2.4
+    },
+    {
+      "id": "lotr_port:harad_mountains",
+      "height": 125.2,
+      "variation": 48.0
+    },
+    {
+      "id": "lotr_port:umbar",
+      "height": 67.4,
+      "variation": 4.8
+    },
+    {
+      "id": "lotr_port:far_harad_jungle",
+      "height": 70.8,
+      "variation": 9.6
+    },
+    {
+      "id": "lotr_port:umbar_hills",
+      "height": 104.8,
+      "variation": 19.2
+    },
+    {
+      "id": "lotr_port:near_harad_hills",
+      "height": 81.0,
+      "variation": 19.2
+    },
+    {
+      "id": "lotr_port:far_harad_jungle_lake",
+      "height": 47.0,
+      "variation": 4.8
+    },
+    {
+      "id": "lotr_port:lostladen",
+      "height": 70.8,
+      "variation": 2.4
+    },
+    {
+      "id": "lotr_port:far_harad_forest",
+      "height": 74.2,
+      "variation": 9.6
+    },
+    {
+      "id": "lotr_port:near_harad_fertile",
+      "height": 70.8,
+      "variation": 2.4
+    },
+    {
+      "id": "lotr_port:pertorogwaith",
+      "height": 70.8,
+      "variation": 12.0
+    },
+    {
+      "id": "lotr_port:umbar_forest",
+      "height": 70.8,
+      "variation": 7.2
+    },
+    {
+      "id": "lotr_port:far_harad_jungle_edge",
+      "height": 70.8,
+      "variation": 4.8
+    },
+    {
+      "id": "lotr_port:tauredain_clearing",
+      "height": 70.8,
+      "variation": 4.8
+    },
+    {
+      "id": "lotr_port:gulf_harad",
+      "height": 69.1,
+      "variation": 2.4
+    },
+    {
+      "id": "lotr_port:dorwinion_hills",
+      "height": 91.2,
+      "variation": 19.2
+    },
+    {
+      "id": "lotr_port:tolfalas",
+      "height": 74.2,
+      "variation": 24.0
+    },
+    {
+      "id": "lotr_port:lebennin",
+      "height": 67.4,
+      "variation": 7.2
+    },
+    {
+      "id": "lotr_port:rhun",
+      "height": 74.2,
+      "variation": 0.0
+    },
+    {
+      "id": "lotr_port:rhun_forest",
+      "height": 74.2,
+      "variation": 12.0
+    },
+    {
+      "id": "lotr_port:red_mountains",
+      "height": 115.0,
+      "variation": 48.0
+    },
+    {
+      "id": "lotr_port:red_mountains_foothills",
+      "height": 81.0,
+      "variation": 21.6
+    },
+    {
+      "id": "lotr_port:dol_guldur",
+      "height": 70.8,
+      "variation": 12.0
+    },
+    {
+      "id": "lotr_port:near_harad_semi_desert",
+      "height": 70.8,
+      "variation": 2.4
+    },
+    {
+      "id": "lotr_port:far_harad_arid",
+      "height": 70.8,
+      "variation": 3.6
+    },
+    {
+      "id": "lotr_port:far_harad_arid_hills",
+      "height": 98.0,
+      "variation": 14.4
+    },
+    {
+      "id": "lotr_port:far_harad_swamp",
+      "height": 64.0,
+      "variation": 2.4
+    },
+    {
+      "id": "lotr_port:far_harad_cloud_forest",
+      "height": 87.8,
+      "variation": 9.6
+    },
+    {
+      "id": "lotr_port:far_harad_bushland",
+      "height": 70.8,
+      "variation": 2.4
+    },
+    {
+      "id": "lotr_port:far_harad_bushland_hills",
+      "height": 91.2,
+      "variation": 19.2
+    },
+    {
+      "id": "lotr_port:far_harad_mangrove",
+      "height": 62.3,
+      "variation": 1.2
+    },
+    {
+      "id": "lotr_port:near_harad_fertile_forest",
+      "height": 70.8,
+      "variation": 9.6
+    },
+    {
+      "id": "lotr_port:anduin_vale",
+      "height": 65.7,
+      "variation": 1.2
+    },
+    {
+      "id": "lotr_port:wold",
+      "height": 77.6,
+      "variation": 7.2
+    },
+    {
+      "id": "lotr_port:shire_moors",
+      "height": 77.6,
+      "variation": 14.4
+    },
+    {
+      "id": "lotr_port:shire_marshes",
+      "height": 64.0,
+      "variation": 2.4
+    },
+    {
+      "id": "lotr_port:near_harad_red_desert",
+      "height": 70.8,
+      "variation": 0.0
+    },
+    {
+      "id": "lotr_port:far_harad_volcano",
+      "height": 84.4,
+      "variation": 28.8
+    },
+    {
+      "id": "lotr_port:udun",
+      "height": 70.8,
+      "variation": 16.8
+    },
+    {
+      "id": "lotr_port:gorgoroth",
+      "height": 84.4,
+      "variation": 4.8
+    },
+    {
+      "id": "lotr_port:morgul_vale",
+      "height": 70.8,
+      "variation": 2.4
+    },
+    {
+      "id": "lotr_port:eastern_desolation",
+      "height": 70.8,
+      "variation": 4.8
+    },
+    {
+      "id": "lotr_port:dale",
+      "height": 67.4,
+      "variation": 4.8
+    },
+    {
+      "id": "lotr_port:dorwinion",
+      "height": 67.4,
+      "variation": 7.2
+    },
+    {
+      "id": "lotr_port:tower_hills",
+      "height": 81.0,
+      "variation": 12.0
+    },
+    {
+      "id": "lotr_port:gulf_harad_forest",
+      "height": 70.8,
+      "variation": 9.6
+    },
+    {
+      "id": "lotr_port:wilderland_north",
+      "height": 70.8,
+      "variation": 12.0
+    },
+    {
+      "id": "lotr_port:forodwaith_coast",
+      "height": 64.0,
+      "variation": 12.0
+    },
+    {
+      "id": "lotr_port:far_harad_coast",
+      "height": 64.0,
+      "variation": 12.0
+    },
+    {
+      "id": "lotr_port:near_harad_riverbank",
+      "height": 67.4,
+      "variation": 2.4
+    },
+    {
+      "id": "lotr_port:lossarnach",
+      "height": 67.4,
+      "variation": 4.8
+    },
+    {
+      "id": "lotr_port:imloth_melui",
+      "height": 67.4,
+      "variation": 4.8
+    },
+    {
+      "id": "lotr_port:near_harad_oasis",
+      "height": 67.4,
+      "variation": 2.4
+    },
+    {
+      "id": "lotr_port:beach_white",
+      "height": 67.4,
+      "variation": 0.0
+    },
+    {
+      "id": "lotr_port:harnedor",
+      "height": 67.4,
+      "variation": 7.2
+    },
+    {
+      "id": "lotr_port:lamedon",
+      "height": 70.8,
+      "variation": 4.8
+    },
+    {
+      "id": "lotr_port:lamedon_hills",
+      "height": 84.4,
+      "variation": 21.6
+    },
+    {
+      "id": "lotr_port:blackroot_vale",
+      "height": 70.8,
+      "variation": 2.88
+    },
+    {
+      "id": "lotr_port:andrast",
+      "height": 70.8,
+      "variation": 4.8
+    },
+    {
+      "id": "lotr_port:pukel",
+      "height": 70.8,
+      "variation": 9.6
+    },
+    {
+      "id": "lotr_port:rhun_land",
+      "height": 67.4,
+      "variation": 7.2
+    },
+    {
+      "id": "lotr_port:rhun_land_steppe",
+      "height": 70.8,
+      "variation": 1.2
+    },
+    {
+      "id": "lotr_port:rhun_land_hills",
+      "height": 84.4,
+      "variation": 19.2
+    },
+    {
+      "id": "lotr_port:rhun_red_forest",
+      "height": 67.4,
+      "variation": 7.2
+    },
+    {
+      "id": "lotr_port:rhun_island",
+      "height": 67.4,
+      "variation": 9.6
+    },
+    {
+      "id": "lotr_port:rhun_island_forest",
+      "height": 67.4,
+      "variation": 9.6
+    },
+    {
+      "id": "lotr_port:last_desert",
+      "height": 70.8,
+      "variation": 1.2
+    },
+    {
+      "id": "lotr_port:wind_mountains",
+      "height": 132.0,
+      "variation": 48.0
+    },
+    {
+      "id": "lotr_port:wind_mountains_foothills",
+      "height": 81.0,
+      "variation": 14.4
+    },
+    {
+      "id": "lotr_port:rivendell",
+      "height": 69.1,
+      "variation": 7.2
+    },
+    {
+      "id": "lotr_port:rivendell_hills",
+      "height": 132.0,
+      "variation": 12.0
+    },
+    {
+      "id": "lotr_port:far_harad_jungle_mountains",
+      "height": 125.2,
+      "variation": 36.0
+    },
+    {
+      "id": "lotr_port:half_troll_forest",
+      "height": 74.2,
+      "variation": 9.6
+    },
+    {
+      "id": "lotr_port:far_harad_kanuka",
+      "height": 74.2,
+      "variation": 12.0
+    }
+  ]
+}
