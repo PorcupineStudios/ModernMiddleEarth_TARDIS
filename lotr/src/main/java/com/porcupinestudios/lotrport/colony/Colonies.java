@@ -73,6 +73,16 @@ public final class Colonies extends SavedData {
     }
 
     /** The colony an entity lives in, if it is a citizen. */
+    /** Researchers in the player's colony: every rare citizen, plus one per {@code citizens_per_researcher} others. */
+    public int researchers(UUID player) {
+        return ofFounder(player).map(c -> {
+            int rare = (int) c.citizens().stream().filter(Colony.Citizen::rare).count();
+            int per = ColonyData.settings().citizensPerResearcher();
+            int common = c.citizens().size() - rare;
+            return rare + (per > 0 ? common / per : 0);
+        }).orElse(0);
+    }
+
     public static Optional<UUID> colonyOf(Entity entity) {
         String id = entity.getData(LotrRegistries.COLONY);
         try {

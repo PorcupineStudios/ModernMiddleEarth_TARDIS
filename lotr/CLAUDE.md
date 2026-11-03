@@ -108,6 +108,8 @@ https://claude.ai/artifact/KqhSSTCuKXGuwKHBoYJdcu. Rebuild features in modern co
   limit. Stages of objectives: deliver (sneak + right-click the envoy again), kill_faction, kill_npc, visit (a
   waypoint), population. After the last stage the envoy walks to the Hall as a rare citizen. Shipped: Rangers of the
   North, a Wizard (Gandalf's type).
+- TARDIS researchers (shared API `ResearcherProvider`, in `shared/SharedApiHooks`): a founder's colony counts every rare
+  citizen plus one per `citizens_per_researcher` others; the TARDIS runs its research faster for each.
 - `/lotr_colony` (info, citizens, open recruitments); admin `/lotr colony list|day [n]`.
 - Not yet (RingRealms has them on 1.7.10): buildings and the validator, jobs, needs and happiness, the Ledger and
   other screens, realms on the colony, envoy spawning (rare NPCs come from normal spawning or commands for now).

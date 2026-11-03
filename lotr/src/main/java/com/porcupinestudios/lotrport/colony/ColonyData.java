@@ -26,10 +26,12 @@ public final class ColonyData {
      * @param hallGap fewest blocks between two colonies' Halls
      * @param arrivalsPerDay newcomers per day while there are free beds
      * @param firstSettlers settlers that come before there are any beds
+     * @param citizensPerResearcher common citizens it takes to free one researcher (0 = none); every rare citizen
+     *     is a researcher of its own (TARDIS research, through the shared API)
      */
     public record Settings(int dayTicks, int bedRadius, int bedHeight, int hallGap, int arrivalsPerDay,
-            int firstSettlers) {
-        public static final Settings DEFAULT = new Settings(24000, 32, 16, 96, 1, 1);
+            int firstSettlers, int citizensPerResearcher) {
+        public static final Settings DEFAULT = new Settings(24000, 32, 16, 96, 1, 1, 5);
         public static final Codec<Settings> CODEC = RecordCodecBuilder.create(i -> i.group(
                 Codec.INT.optionalFieldOf("day_ticks", DEFAULT.dayTicks()).forGetter(Settings::dayTicks),
                 Codec.INT.optionalFieldOf("bed_radius", DEFAULT.bedRadius()).forGetter(Settings::bedRadius),
@@ -37,7 +39,9 @@ public final class ColonyData {
                 Codec.INT.optionalFieldOf("hall_gap", DEFAULT.hallGap()).forGetter(Settings::hallGap),
                 Codec.INT.optionalFieldOf("arrivals_per_day", DEFAULT.arrivalsPerDay())
                         .forGetter(Settings::arrivalsPerDay),
-                Codec.INT.optionalFieldOf("first_settlers", DEFAULT.firstSettlers()).forGetter(Settings::firstSettlers))
+                Codec.INT.optionalFieldOf("first_settlers", DEFAULT.firstSettlers()).forGetter(Settings::firstSettlers),
+                Codec.INT.optionalFieldOf("citizens_per_researcher", DEFAULT.citizensPerResearcher())
+                        .forGetter(Settings::citizensPerResearcher))
                 .apply(i, Settings::new));
     }
 

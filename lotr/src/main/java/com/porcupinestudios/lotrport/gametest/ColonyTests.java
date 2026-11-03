@@ -11,6 +11,7 @@ import com.porcupinestudios.lotrport.npc.LotrNpc;
 import com.porcupinestudios.lotrport.npc.NpcData;
 import com.porcupinestudios.lotrport.travel.FastTravel;
 import com.porcupinestudios.lotrport.travel.Waypoint;
+import com.porcupinestudios.ringbearer.api.provider.Providers;
 import java.util.Optional;
 import java.util.Set;
 import net.minecraft.core.BlockPos;
@@ -98,6 +99,9 @@ public final class ColonyTests {
             helper.assertTrue(npc.isPersistenceRequired(), "a citizen would despawn");
         }
 
+        helper.assertTrue(Providers.researchers(level.getServer(), Set.of(player.getUUID())) == 0,
+                "two common citizens already research");
+
         // a rare race: a Ranger of the North, won over in three stages
         Vec3 at = helper.absoluteVec(new Vec3(3.5, 2, 3.5));
         LotrNpc ranger = LotrNpc.spawn(level, RANGERS, at.x, at.y, at.z).orElseThrow();
@@ -135,6 +139,9 @@ public final class ColonyTests {
                 "the Ranger is not a rare citizen");
         helper.assertTrue(Colonies.colonyOf(ranger).equals(Optional.of(colony.id())), "the Ranger is not marked");
         helper.assertTrue(ranger.blockPosition().closerThan(hall, 8), "the Ranger did not come to the Hall");
+        // Stage 4: colonists research TARDIS tech; the rare Ranger is a researcher for the founder
+        int researchers = Providers.researchers(level.getServer(), Set.of(player.getUUID()));
+        helper.assertTrue(researchers == 1, "researchers after the Ranger joined: " + researchers);
         helper.succeed();
     }
 

@@ -111,4 +111,23 @@ public final class RepairLoopTests {
         helper.assertTrue(Unlocks.level(t, NAVIGATION) == 0, "far explosion");
         helper.succeed();
     }
+
+    /** Stage 4: colonist researchers (through the shared API) make running research finish sooner. */
+    @GameTest(template = PLATFORM)
+    public static void researchersSpeedUpResearch(GameTestHelper helper) {
+        TardisRecord t = WreckTests.onPlatform(helper, Optional.empty());
+        long now = helper.getLevel().getServer().overworld().getGameTime();
+        ResourceLocation node = TardisRB.id("hop_calibration");
+        t.startResearch(new TardisRecord.ResearchJob(node, now + 200));
+        helper.assertTrue(Researching.bonusTicks(0, 100) == 0, "no researchers still helped");
+        long bonus = Researching.bonusTicks(2, 100);
+        double speed = TardisContent.tuning().research().speedPerResearcher();
+        helper.assertTrue(bonus == Math.round(100 * 2 * speed), "bonus " + bonus);
+        helper.assertTrue(Researching.bonusTicks(99, 100) == Researching.bonusTicks(
+                TardisContent.tuning().research().maxResearchers(), 100), "the researcher cap didn't hold");
+        t.hurryResearch(bonus);
+        helper.assertTrue(t.researching().get().finishAt() == now + 200 - bonus,
+                "finish at " + t.researching().get().finishAt());
+        helper.succeed();
+    }
 }

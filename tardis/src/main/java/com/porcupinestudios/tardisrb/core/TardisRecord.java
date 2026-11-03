@@ -351,6 +351,15 @@ public final class TardisRecord {
         changed();
     }
 
+    /** Brings the running job's finish time {@code ticks} earlier (researchers helping). */
+    public void hurryResearch(long ticks) {
+        if (ticks > 0 && researching.isPresent()) {
+            ResearchJob j = researching.get();
+            researching = Optional.of(new ResearchJob(j.node(), j.finishAt() - ticks));
+            changed();
+        }
+    }
+
     /** Finishes a node; clears the job if it was the one under way. */
     public void completeResearch(ResourceLocation node) {
         if (researching.map(j -> j.node().equals(node)).orElse(false)) {
