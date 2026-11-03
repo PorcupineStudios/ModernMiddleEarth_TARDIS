@@ -1,0 +1,24 @@
+{
+  "type": "lotr_port:faction_crafting",
+  "table": "lotr_port:blue_mountains_crafting_table",
+  "recipe": {
+    "type": "minecraft:crafting_shaped",
+    "category": "building",
+    "group": "blue_mountains",
+    "pattern": [
+      "AA",
+      "BB"
+    ],
+    "key": {
+      "A": {
+        "tag": "minecraft:planks"
+      },
+      "B": {
+        "item": "lotr_port:luigon_brick"
+      }
+    },
+    "result": {
+      "id": "lotr_port:blue_mountains_crafting_table"
+    }
+  }
+}

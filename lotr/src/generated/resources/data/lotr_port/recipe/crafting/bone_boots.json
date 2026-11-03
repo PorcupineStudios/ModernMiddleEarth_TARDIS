@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "crafting",
+  "pattern": [
+    "A A",
+    "A A"
+  ],
+  "key": {
+    "A": {
+      "tag": "c:bones"
+    }
+  },
+  "result": {
+    "id": "lotr_port:bone_boots"
+  }
+}

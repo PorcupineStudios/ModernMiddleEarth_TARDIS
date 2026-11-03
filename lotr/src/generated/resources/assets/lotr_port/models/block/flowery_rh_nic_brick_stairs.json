@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/stairs",
+  "textures": {
+    "bottom": "lotr_port:block/brick5_rhun_flowers",
+    "top": "lotr_port:block/brick5_rhun_flowers",
+    "side": "lotr_port:block/brick5_rhun_flowers"
+  }
+}

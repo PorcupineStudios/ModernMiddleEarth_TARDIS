@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "group": "crafting",
+  "pattern": [
+    "A",
+    "A",
+    "A"
+  ],
+  "key": {
+    "A": {
+      "item": "minecraft:string"
+    }
+  },
+  "result": {
+    "id": "lotr_port:rope",
+    "count": 3
+  }
+}

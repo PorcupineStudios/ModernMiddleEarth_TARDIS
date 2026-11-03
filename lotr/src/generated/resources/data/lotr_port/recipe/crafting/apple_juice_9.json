@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "crafting",
+  "ingredients": [
+    {
+      "item": "minecraft:glass_bottle"
+    },
+    {
+      "tag": "lotr_port:apples"
+    },
+    {
+      "tag": "lotr_port:apples"
+    }
+  ],
+  "result": {
+    "id": "lotr_port:apple_juice"
+  }
+}

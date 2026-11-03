@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "lotr_port:block/ore_storage_morgul_steel",
+    "side": "lotr_port:block/ore_storage_morgul_steel_side"
+  }
+}

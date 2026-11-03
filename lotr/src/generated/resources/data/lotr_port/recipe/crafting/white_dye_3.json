@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "crafting",
+  "ingredients": [
+    {
+      "item": "lotr_port:simbelmyn"
+    }
+  ],
+  "result": {
+    "id": "lotr_port:white_dye"
+  }
+}

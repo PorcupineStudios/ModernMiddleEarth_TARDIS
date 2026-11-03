@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "lotr_port:block/rotten_planks"
+    }
+  }
+}

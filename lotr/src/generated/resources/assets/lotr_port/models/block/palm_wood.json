@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "lotr_port:block/wood8_palm_top",
+    "side": "lotr_port:block/wood8_palm_side"
+  }
+}

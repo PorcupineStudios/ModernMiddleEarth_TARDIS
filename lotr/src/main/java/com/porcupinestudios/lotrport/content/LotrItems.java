@@ -1,0 +1,135 @@
+package com.porcupinestudios.lotrport.content;
+
+import com.google.gson.JsonObject;
+import com.porcupinestudios.lotrport.LotrPort;
+import java.util.EnumMap;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.function.Supplier;
+import net.minecraft.core.Holder;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.food.FoodProperties;
+import net.minecraft.world.item.ArmorItem;
+import net.minecraft.world.item.ArmorMaterial;
+import net.minecraft.world.item.AxeItem;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.DoubleHighBlockItem;
+import net.minecraft.world.item.HoeItem;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.PickaxeItem;
+import net.minecraft.world.item.ShovelItem;
+import net.minecraft.world.item.SwordItem;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.level.block.Block;
+import net.neoforged.bus.api.IEventBus;
+import net.neoforged.neoforge.registries.DeferredHolder;
+import net.neoforged.neoforge.registries.DeferredItem;
+import net.neoforged.neoforge.registries.DeferredRegister;
+
+/** Every converted LOTR item, plus an item for each converted block that had one, from the generated data. */
+public final class LotrItems {
+    public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(LotrPort.MOD_ID);
+    private static final DeferredRegister<ArmorMaterial> ARMOR_MATERIALS =
+            DeferredRegister.create(Registries.ARMOR_MATERIAL, LotrPort.MOD_ID);
+    /** Registered items by id, block items included, in file order. */
+    public static final Map<String, DeferredItem<? extends Item>> BY_ID = new LinkedHashMap<>();
+    private static final Map<String, DeferredHolder<ArmorMaterial, ArmorMaterial>> MATERIALS = new LinkedHashMap<>();
+
+    private LotrItems() {}
+
+    public static void register(IEventBus modBus) {
+        for (Map.Entry<String, JsonObject> e : LotrBlocks.ENTRIES.entrySet()) {
+            String item = ContentData.str(e.getValue(), "item", "block");
+            if (item.equals("none")) {
+                continue;
+            }
+            Supplier<? extends Block> block = LotrBlocks.BY_ID.get(e.getKey());
+            BY_ID.put(e.getKey(), ITEMS.register(e.getKey(), () -> item.equals("double_high")
+                    ? new DoubleHighBlockItem(block.get(), new Item.Properties())
+                    : new BlockItem(block.get(), new Item.Properties())));
+        }
+        List<JsonObject> items = ContentData.read("items.json");
+        for (JsonObject e : items) {
+            if (e.has("armor")) {
+                material(e.getAsJsonObject("armor"), items);
+            }
+        }
+        for (JsonObject e : items) {
+            String id = e.get("id").getAsString();
+            BY_ID.put(id, ITEMS.register(id, () -> item(e)));
+        }
+        ITEMS.register(modBus);
+        ARMOR_MATERIALS.register(modBus);
+    }
+
+    private static Item item(JsonObject e) {
+        Item.Properties p = new Item.Properties();
+        int durability = ContentData.integer(e, "durability", 0);
+        if (durability > 0) {
+            p.durability(durability);
+        } else {
+            p.stacksTo(Math.max(1, Math.min(99, ContentData.integer(e, "stack", 64))));
+        }
+        if (e.has("food")) {
+            JsonObject f = e.getAsJsonObject("food");
+            p.food(new FoodProperties.Builder().nutrition(ContentData.integer(f, "nutrition", 1))
+                    .saturationModifier(ContentData.num(f, "saturation", 0.3f)).build());
+        }
+        String kind = ContentData.str(e, "kind", "item");
+        ConvertedTier tier = new ConvertedTier(Math.max(1, durability), ContentData.num(e, "speed", 4f),
+                ContentData.integer(e, "level", 0), ContentData.integer(e, "enchant", 10));
+        float damage = ContentData.num(e, "damage", 1f);
+        return switch (kind) {
+            case "sword" -> new SwordItem(tier, p.attributes(SwordItem.createAttributes(tier, (int) damage, -2.4f)));
+            case "pickaxe" -> new PickaxeItem(tier, p.attributes(PickaxeItem.createAttributes(tier, damage, -2.8f)));
+            case "axe" -> new AxeItem(tier, p.attributes(AxeItem.createAttributes(tier, damage, -3.0f)));
+            case "shovel" -> new ShovelItem(tier, p.attributes(ShovelItem.createAttributes(tier, damage, -3.0f)));
+            case "hoe" -> new HoeItem(tier, p.attributes(HoeItem.createAttributes(tier, damage, -1.0f)));
+            case "armor" -> {
+                JsonObject a = e.getAsJsonObject("armor");
+                yield new ArmorItem(MATERIALS.get(ContentData.str(a, "material", "")), slot(a), p);
+            }
+            default -> new Item(p);
+        };
+    }
+
+    private static ArmorItem.Type slot(JsonObject armor) {
+        return switch (ContentData.str(armor, "slot", "chest")) {
+            case "head" -> ArmorItem.Type.HELMET;
+            case "legs" -> ArmorItem.Type.LEGGINGS;
+            case "feet" -> ArmorItem.Type.BOOTS;
+            default -> ArmorItem.Type.CHESTPLATE;
+        };
+    }
+
+    /** One armor material per old material name, with the defense of each piece that uses it. */
+    private static void material(JsonObject armor, List<JsonObject> items) {
+        String name = ContentData.str(armor, "material", "");
+        if (MATERIALS.containsKey(name)) {
+            return;
+        }
+        Map<ArmorItem.Type, Integer> defense = new EnumMap<>(ArmorItem.Type.class);
+        int enchant = 10;
+        for (JsonObject e : items) {
+            if (e.has("armor") && name.equals(ContentData.str(e.getAsJsonObject("armor"), "material", ""))) {
+                JsonObject a = e.getAsJsonObject("armor");
+                defense.put(slot(a), ContentData.integer(a, "defense", 1));
+                enchant = ContentData.integer(e, "enchant", enchant);
+            }
+        }
+        for (ArmorItem.Type t : ArmorItem.Type.values()) {
+            defense.putIfAbsent(t, 0);
+        }
+        int enchantValue = enchant;
+        String texture = ContentData.str(armor, "texture", name);
+        MATERIALS.put(name, ARMOR_MATERIALS.register(name, () -> new ArmorMaterial(defense, enchantValue,
+                SoundEvents.ARMOR_EQUIP_IRON, () -> Ingredient.EMPTY,
+                List.of(new ArmorMaterial.Layer(LotrPort.id(texture))), 0f, 0f)));
+    }
+
+    static Holder<ArmorMaterial> material(String name) {
+        return MATERIALS.get(name);
+    }
+}

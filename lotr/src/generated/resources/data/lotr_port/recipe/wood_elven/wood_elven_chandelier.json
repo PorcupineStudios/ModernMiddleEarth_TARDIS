@@ -1,0 +1,28 @@
+{
+  "type": "lotr_port:faction_crafting",
+  "table": "lotr_port:wood_elven_crafting_table",
+  "recipe": {
+    "type": "minecraft:crafting_shaped",
+    "category": "building",
+    "group": "wood_elven",
+    "pattern": [
+      " A ",
+      "BCB"
+    ],
+    "key": {
+      "A": {
+        "tag": "c:rods/wooden"
+      },
+      "B": {
+        "item": "lotr_port:wood_elven_torch"
+      },
+      "C": {
+        "tag": "minecraft:planks"
+      }
+    },
+    "result": {
+      "id": "lotr_port:wood_elven_chandelier",
+      "count": 2
+    }
+  }
+}

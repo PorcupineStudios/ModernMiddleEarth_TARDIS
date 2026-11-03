@@ -1,0 +1,47 @@
+{
+  "parent": "minecraft:block/block",
+  "textures": {
+    "down": "lotr_port:block/thatch_reed",
+    "up": "lotr_port:block/thatch_reed",
+    "north": "lotr_port:block/thatch_reed",
+    "south": "lotr_port:block/thatch_reed",
+    "west": "lotr_port:block/thatch_reed",
+    "east": "lotr_port:block/thatch_reed",
+    "particle": "lotr_port:block/thatch_reed"
+  },
+  "render_type": "minecraft:cutout",
+  "elements": [
+    {
+      "from": [
+        1.0,
+        0.0,
+        1.0
+      ],
+      "to": [
+        15.0,
+        14.0,
+        15.0
+      ],
+      "faces": {
+        "down": {
+          "texture": "#down"
+        },
+        "up": {
+          "texture": "#up"
+        },
+        "north": {
+          "texture": "#north"
+        },
+        "south": {
+          "texture": "#south"
+        },
+        "west": {
+          "texture": "#west"
+        },
+        "east": {
+          "texture": "#east"
+        }
+      }
+    }
+  ]
+}

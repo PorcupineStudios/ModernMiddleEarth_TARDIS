@@ -1,0 +1,25 @@
+{
+  "type": "lotr_port:faction_crafting",
+  "table": "lotr_port:gulfen_crafting_table",
+  "recipe": {
+    "type": "minecraft:crafting_shaped",
+    "category": "building",
+    "group": "gulf",
+    "pattern": [
+      " A ",
+      "ABA",
+      " A "
+    ],
+    "key": {
+      "A": {
+        "tag": "c:gems/lapis"
+      },
+      "B": {
+        "item": "lotr_port:haradric_brick"
+      }
+    },
+    "result": {
+      "id": "lotr_port:lapis_trimmed_haradric_brick"
+    }
+  }
+}

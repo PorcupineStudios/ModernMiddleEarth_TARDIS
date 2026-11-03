@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "group": "crafting",
+  "pattern": [
+    "AAA",
+    "AAA"
+  ],
+  "key": {
+    "A": {
+      "item": "minecraft:acacia_planks"
+    }
+  },
+  "result": {
+    "id": "lotr_port:acacia_trapdoor",
+    "count": 2
+  }
+}

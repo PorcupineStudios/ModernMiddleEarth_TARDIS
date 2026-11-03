@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "group": "crafting",
+  "pattern": [
+    "AA",
+    "AA"
+  ],
+  "key": {
+    "A": {
+      "tag": "c:cobblestones"
+    }
+  },
+  "result": {
+    "id": "lotr_port:drystone",
+    "count": 4
+  }
+}

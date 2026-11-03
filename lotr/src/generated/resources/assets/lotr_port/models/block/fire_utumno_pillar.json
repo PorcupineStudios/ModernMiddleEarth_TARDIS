@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "lotr_port:block/utumno_pillar_fire_face",
+    "side": "lotr_port:block/utumno_pillar_fire_side"
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "crafting",
+  "pattern": [
+    "AAA"
+  ],
+  "key": {
+    "A": {
+      "item": "lotr_port:corn"
+    }
+  },
+  "result": {
+    "id": "lotr_port:corn_bread"
+  }
+}

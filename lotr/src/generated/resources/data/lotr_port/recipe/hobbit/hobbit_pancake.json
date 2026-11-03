@@ -1,0 +1,23 @@
+{
+  "type": "lotr_port:faction_crafting",
+  "table": "lotr_port:hobbit_crafting_table",
+  "recipe": {
+    "type": "minecraft:crafting_shapeless",
+    "category": "misc",
+    "group": "hobbit",
+    "ingredients": [
+      {
+        "item": "minecraft:wheat"
+      },
+      {
+        "item": "minecraft:egg"
+      },
+      {
+        "item": "minecraft:milk_bucket"
+      }
+    ],
+    "result": {
+      "id": "lotr_port:hobbit_pancake"
+    }
+  }
+}

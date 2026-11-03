@@ -1,0 +1,25 @@
+{
+  "type": "lotr_port:faction_crafting",
+  "table": "lotr_port:dalish_crafting_table",
+  "recipe": {
+    "type": "minecraft:crafting_shaped",
+    "category": "misc",
+    "group": "dale",
+    "pattern": [
+      "A  ",
+      "ABA",
+      "AAA"
+    ],
+    "key": {
+      "A": {
+        "tag": "c:ingots/iron"
+      },
+      "B": {
+        "item": "minecraft:leather"
+      }
+    },
+    "result": {
+      "id": "lotr_port:dalish_horse_armor"
+    }
+  }
+}

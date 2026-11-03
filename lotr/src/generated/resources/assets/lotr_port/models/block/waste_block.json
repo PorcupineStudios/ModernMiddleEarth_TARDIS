@@ -1,0 +1,47 @@
+{
+  "parent": "minecraft:block/block",
+  "textures": {
+    "down": "lotr_port:block/waste_block_var2",
+    "up": "lotr_port:block/waste_block_var4",
+    "north": "lotr_port:block/waste_block_var1",
+    "south": "lotr_port:block/waste_block_var5",
+    "west": "lotr_port:block/waste_block_var4",
+    "east": "lotr_port:block/waste_block_var1",
+    "particle": "lotr_port:block/waste_block_var1"
+  },
+  "render_type": "minecraft:cutout",
+  "elements": [
+    {
+      "from": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "to": [
+        16.0,
+        16.0,
+        16.0
+      ],
+      "faces": {
+        "down": {
+          "texture": "#down"
+        },
+        "up": {
+          "texture": "#up"
+        },
+        "north": {
+          "texture": "#north"
+        },
+        "south": {
+          "texture": "#south"
+        },
+        "west": {
+          "texture": "#west"
+        },
+        "east": {
+          "texture": "#east"
+        }
+      }
+    }
+  ]
+}

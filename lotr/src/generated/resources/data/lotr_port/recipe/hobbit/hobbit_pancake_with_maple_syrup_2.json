@@ -1,0 +1,24 @@
+{
+  "type": "lotr_port:faction_crafting",
+  "table": "lotr_port:hobbit_crafting_table",
+  "recipe": {
+    "type": "minecraft:crafting_shapeless",
+    "category": "misc",
+    "group": "hobbit",
+    "ingredients": [
+      {
+        "item": "lotr_port:maple_syrup"
+      },
+      {
+        "item": "lotr_port:hobbit_pancake"
+      },
+      {
+        "item": "lotr_port:hobbit_pancake"
+      }
+    ],
+    "result": {
+      "id": "lotr_port:hobbit_pancake_with_maple_syrup",
+      "count": 2
+    }
+  }
+}

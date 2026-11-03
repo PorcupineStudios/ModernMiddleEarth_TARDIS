@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "lotr_port:block/wood_beam_s_rohan_gold_top",
+    "side": "lotr_port:block/wood_beam_s_rohan_gold_side"
+  }
+}

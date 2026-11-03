@@ -1,0 +1,47 @@
+{
+  "parent": "minecraft:block/block",
+  "textures": {
+    "down": "lotr_port:block/brick_gondor_mossy",
+    "up": "lotr_port:block/brick_gondor_mossy",
+    "north": "lotr_port:block/brick_gondor_mossy",
+    "south": "lotr_port:block/brick_gondor_mossy",
+    "west": "lotr_port:block/brick_gondor_mossy",
+    "east": "lotr_port:block/brick_gondor_mossy",
+    "particle": "lotr_port:block/brick_gondor_mossy"
+  },
+  "render_type": "minecraft:cutout",
+  "elements": [
+    {
+      "from": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "to": [
+        16.0,
+        16.0,
+        16.0
+      ],
+      "faces": {
+        "down": {
+          "texture": "#down"
+        },
+        "up": {
+          "texture": "#up"
+        },
+        "north": {
+          "texture": "#north"
+        },
+        "south": {
+          "texture": "#south"
+        },
+        "west": {
+          "texture": "#west"
+        },
+        "east": {
+          "texture": "#east"
+        }
+      }
+    }
+  ]
+}

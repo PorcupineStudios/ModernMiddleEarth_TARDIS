@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "crafting",
+  "ingredients": [
+    {
+      "item": "lotr_port:ceramic_mug"
+    },
+    {
+      "item": "lotr_port:blackberries"
+    },
+    {
+      "item": "lotr_port:blackberries"
+    },
+    {
+      "item": "lotr_port:blackberries"
+    }
+  ],
+  "result": {
+    "id": "lotr_port:blackberry_juice"
+  }
+}

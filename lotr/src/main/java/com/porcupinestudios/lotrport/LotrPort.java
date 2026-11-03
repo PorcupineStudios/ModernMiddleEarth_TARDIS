@@ -2,6 +2,10 @@ package com.porcupinestudios.lotrport;
 
 import com.mojang.logging.LogUtils;
 import com.porcupinestudios.lotrport.command.LotrCommand;
+import com.porcupinestudios.lotrport.content.LotrBlocks;
+import com.porcupinestudios.lotrport.content.LotrItems;
+import com.porcupinestudios.lotrport.content.LotrTabs;
+import com.porcupinestudios.lotrport.crafting.LotrRecipes;
 import com.porcupinestudios.lotrport.registry.LotrRegistries;
 import com.porcupinestudios.lotrport.shared.SharedApiHooks;
 import net.minecraft.resources.ResourceLocation;
@@ -21,6 +25,10 @@ public final class LotrPort {
     public LotrPort(IEventBus modBus, ModContainer container) {
         container.registerConfig(ModConfig.Type.SERVER, LotrConfig.SPEC);
         LotrRegistries.register(modBus);
+        LotrBlocks.register(modBus);
+        LotrItems.register(modBus);
+        LotrTabs.register(modBus);
+        LotrRecipes.register(modBus);
         SharedApiHooks.register(modBus);
         NeoForge.EVENT_BUS.addListener((RegisterCommandsEvent event) -> LotrCommand.register(event.getDispatcher()));
     }

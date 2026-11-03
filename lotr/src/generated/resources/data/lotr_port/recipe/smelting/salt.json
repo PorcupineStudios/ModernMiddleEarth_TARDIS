@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "item": "lotr_port:rock_salt"
+  },
+  "result": {
+    "id": "lotr_port:salt"
+  },
+  "experience": 1.0,
+  "cookingtime": 200
+}

@@ -1,0 +1,22 @@
+{
+  "type": "lotr_port:faction_crafting",
+  "table": "lotr_port:galadhrim_crafting_table",
+  "recipe": {
+    "type": "minecraft:crafting_shaped",
+    "category": "building",
+    "group": "elven",
+    "pattern": [
+      "AAA",
+      "AAA"
+    ],
+    "key": {
+      "A": {
+        "item": "lotr_port:mallorn_stick"
+      }
+    },
+    "result": {
+      "id": "lotr_port:galadhrim_wood_bars",
+      "count": 8
+    }
+  }
+}

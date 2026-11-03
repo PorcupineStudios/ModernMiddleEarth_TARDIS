@@ -1,0 +1,22 @@
+{
+  "type": "lotr_port:faction_crafting",
+  "table": "lotr_port:gulfen_crafting_table",
+  "recipe": {
+    "type": "minecraft:crafting_shaped",
+    "category": "misc",
+    "group": "gulf",
+    "pattern": [
+      "AAA",
+      "A A",
+      "A A"
+    ],
+    "key": {
+      "A": {
+        "item": "minecraft:blue_wool"
+      }
+    },
+    "result": {
+      "id": "lotr_port:harad_robe_leggings"
+    }
+  }
+}

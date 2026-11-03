@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "crafting",
+  "ingredients": [
+    {
+      "item": "lotr_port:diamond_block"
+    }
+  ],
+  "result": {
+    "id": "lotr_port:diamond",
+    "count": 9
+  }
+}

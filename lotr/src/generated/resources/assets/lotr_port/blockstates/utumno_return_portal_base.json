@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "lotr_port:block/utumno_return_portal_base"
+    }
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "type": "lotr_port:faction_crafting",
+  "table": "lotr_port:galadhrim_crafting_table",
+  "recipe": {
+    "type": "minecraft:crafting_shaped",
+    "category": "building",
+    "group": "elven",
+    "pattern": [
+      "A  ",
+      "AA ",
+      "AAA"
+    ],
+    "key": {
+      "A": {
+        "item": "lotr_port:galadhrim_brick"
+      }
+    },
+    "result": {
+      "id": "lotr_port:galadhrim_brick_stairs",
+      "count": 4
+    }
+  }
+}

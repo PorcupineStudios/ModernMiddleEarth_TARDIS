@@ -1,0 +1,20 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "lotr_port:block/elven_rope",
+      "y": 0
+    },
+    "facing=east": {
+      "model": "lotr_port:block/elven_rope",
+      "y": 90
+    },
+    "facing=south": {
+      "model": "lotr_port:block/elven_rope",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "lotr_port:block/elven_rope",
+      "y": 270
+    }
+  }
+}

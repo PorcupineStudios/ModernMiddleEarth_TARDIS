@@ -1,0 +1,22 @@
+{
+  "type": "lotr_port:faction_crafting",
+  "table": "lotr_port:taurethrim_crafting_table",
+  "recipe": {
+    "type": "minecraft:crafting_shaped",
+    "category": "building",
+    "group": "tauredain",
+    "pattern": [
+      "AA",
+      "AA"
+    ],
+    "key": {
+      "A": {
+        "tag": "c:ingots/gold"
+      }
+    },
+    "result": {
+      "id": "lotr_port:golden_taurethrim_brick",
+      "count": 4
+    }
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "lotr_port:block/snowy_angmar_brick"
+    }
+  }
+}

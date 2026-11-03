@@ -1,0 +1,47 @@
+{
+  "parent": "minecraft:block/block",
+  "textures": {
+    "down": "lotr_port:block/gate_orc",
+    "up": "lotr_port:block/gate_orc",
+    "north": "lotr_port:block/gate_orc",
+    "south": "lotr_port:block/gate_orc",
+    "west": "lotr_port:block/gate_orc",
+    "east": "lotr_port:block/gate_orc",
+    "particle": "lotr_port:block/gate_orc"
+  },
+  "render_type": "minecraft:cutout",
+  "elements": [
+    {
+      "from": [
+        6.0,
+        0.0,
+        0.0
+      ],
+      "to": [
+        10.0,
+        16.0,
+        16.0
+      ],
+      "faces": {
+        "down": {
+          "texture": "#down"
+        },
+        "up": {
+          "texture": "#up"
+        },
+        "north": {
+          "texture": "#north"
+        },
+        "south": {
+          "texture": "#south"
+        },
+        "west": {
+          "texture": "#west"
+        },
+        "east": {
+          "texture": "#east"
+        }
+      }
+    }
+  ]
+}

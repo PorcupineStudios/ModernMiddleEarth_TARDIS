@@ -1,0 +1,23 @@
+{
+  "type": "lotr_port:faction_crafting",
+  "table": "lotr_port:dalish_crafting_table",
+  "recipe": {
+    "type": "minecraft:crafting_shaped",
+    "category": "misc",
+    "group": "dale",
+    "pattern": [
+      "ABA"
+    ],
+    "key": {
+      "A": {
+        "item": "minecraft:wheat"
+      },
+      "B": {
+        "item": "lotr_port:salt"
+      }
+    },
+    "result": {
+      "id": "lotr_port:cram"
+    }
+  }
+}

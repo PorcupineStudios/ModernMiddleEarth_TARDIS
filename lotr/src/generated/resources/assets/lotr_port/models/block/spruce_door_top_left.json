@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/door_top_left",
+  "textures": {
+    "bottom": "lotr_port:block/door_spruce_lower",
+    "top": "lotr_port:block/door_spruce_upper"
+  },
+  "render_type": "minecraft:cutout"
+}

@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/stairs",
+  "textures": {
+    "bottom": "lotr_port:block/brick5_mud",
+    "top": "lotr_port:block/brick5_mud",
+    "side": "lotr_port:block/brick5_mud"
+  }
+}

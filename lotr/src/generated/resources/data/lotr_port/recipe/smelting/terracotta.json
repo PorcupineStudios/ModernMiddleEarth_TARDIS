@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "item": "lotr_port:red_clay_block"
+  },
+  "result": {
+    "id": "minecraft:terracotta"
+  },
+  "experience": 0.35,
+  "cookingtime": 200
+}

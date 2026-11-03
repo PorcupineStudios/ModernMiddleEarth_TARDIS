@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/ladder",
+  "textures": {
+    "particle": "lotr_port:block/rope",
+    "texture": "lotr_port:block/rope"
+  },
+  "render_type": "minecraft:cutout"
+}

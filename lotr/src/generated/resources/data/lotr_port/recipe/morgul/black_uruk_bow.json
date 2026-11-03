@@ -1,0 +1,25 @@
+{
+  "type": "lotr_port:faction_crafting",
+  "table": "lotr_port:morgul_crafting_table",
+  "recipe": {
+    "type": "minecraft:crafting_shaped",
+    "category": "misc",
+    "group": "morgul",
+    "pattern": [
+      " AB",
+      "A B",
+      " AB"
+    ],
+    "key": {
+      "A": {
+        "item": "lotr_port:black_uruk_steel_ingot"
+      },
+      "B": {
+        "item": "minecraft:string"
+      }
+    },
+    "result": {
+      "id": "lotr_port:black_uruk_bow"
+    }
+  }
+}

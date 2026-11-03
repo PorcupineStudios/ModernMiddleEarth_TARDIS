@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "group": "crafting",
+  "pattern": [
+    "AA"
+  ],
+  "key": {
+    "A": {
+      "item": "lotr_port:thatch_block"
+    }
+  },
+  "result": {
+    "id": "lotr_port:thatch_flooring",
+    "count": 3
+  }
+}

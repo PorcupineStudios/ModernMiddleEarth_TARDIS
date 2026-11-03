@@ -1,0 +1,25 @@
+{
+  "type": "lotr_port:faction_crafting",
+  "table": "lotr_port:taurethrim_crafting_table",
+  "recipe": {
+    "type": "minecraft:crafting_shaped",
+    "category": "building",
+    "group": "tauredain",
+    "pattern": [
+      "AAA",
+      "ABA",
+      "AAA"
+    ],
+    "key": {
+      "A": {
+        "item": "lotr_port:golden_taurethrim_brick"
+      },
+      "B": {
+        "item": "lotr_port:taurethrim_blowgun"
+      }
+    },
+    "result": {
+      "id": "lotr_port:golden_taurethrim_dart_trap"
+    }
+  }
+}

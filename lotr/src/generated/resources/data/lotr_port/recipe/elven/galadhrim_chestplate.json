@@ -1,0 +1,22 @@
+{
+  "type": "lotr_port:faction_crafting",
+  "table": "lotr_port:galadhrim_crafting_table",
+  "recipe": {
+    "type": "minecraft:crafting_shaped",
+    "category": "misc",
+    "group": "elven",
+    "pattern": [
+      "A A",
+      "AAA",
+      "AAA"
+    ],
+    "key": {
+      "A": {
+        "item": "lotr_port:elven_steel_ingot"
+      }
+    },
+    "result": {
+      "id": "lotr_port:galadhrim_chestplate"
+    }
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "crafting",
+  "pattern": [
+    "ABA"
+  ],
+  "key": {
+    "A": {
+      "tag": "c:ingots/bronze"
+    },
+    "B": {
+      "tag": "lotr_port:horn"
+    }
+  },
+  "result": {
+    "id": "lotr_port:horn_of_command"
+  }
+}

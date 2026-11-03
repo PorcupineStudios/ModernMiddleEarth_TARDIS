@@ -1,0 +1,28 @@
+{
+  "type": "lotr_port:faction_crafting",
+  "table": "lotr_port:dol_guldur_crafting_table",
+  "recipe": {
+    "type": "minecraft:crafting_shaped",
+    "category": "building",
+    "group": "dol_guldur",
+    "pattern": [
+      " A ",
+      "BCB"
+    ],
+    "key": {
+      "A": {
+        "tag": "c:rods/wooden"
+      },
+      "B": {
+        "item": "lotr_port:orc_torch"
+      },
+      "C": {
+        "item": "lotr_port:orc_steel_ingot"
+      }
+    },
+    "result": {
+      "id": "lotr_port:orc_chandelier",
+      "count": 2
+    }
+  }
+}

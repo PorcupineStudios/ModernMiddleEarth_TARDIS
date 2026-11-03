@@ -1,0 +1,26 @@
+{
+  "type": "lotr_port:faction_crafting",
+  "table": "lotr_port:uruk_crafting_table",
+  "recipe": {
+    "type": "minecraft:crafting_shaped",
+    "category": "misc",
+    "group": "uruk",
+    "pattern": [
+      "A",
+      "B",
+      "B"
+    ],
+    "key": {
+      "A": {
+        "tag": "minecraft:coals"
+      },
+      "B": {
+        "tag": "c:rods/wooden"
+      }
+    },
+    "result": {
+      "id": "lotr_port:orc_torch",
+      "count": 2
+    }
+  }
+}

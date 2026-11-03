@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "axis=y": {
+      "model": "lotr_port:block/mahogany_wood_beam"
+    },
+    "axis=z": {
+      "model": "lotr_port:block/mahogany_wood_beam_horizontal",
+      "x": 90
+    },
+    "axis=x": {
+      "model": "lotr_port:block/mahogany_wood_beam_horizontal",
+      "x": 90,
+      "y": 90
+    }
+  }
+}

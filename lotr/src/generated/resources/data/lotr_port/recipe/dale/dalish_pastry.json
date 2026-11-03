@@ -1,0 +1,34 @@
+{
+  "type": "lotr_port:faction_crafting",
+  "table": "lotr_port:dalish_crafting_table",
+  "recipe": {
+    "type": "minecraft:crafting_shaped",
+    "category": "misc",
+    "group": "dale",
+    "pattern": [
+      "ABA",
+      "CDC",
+      "EEE"
+    ],
+    "key": {
+      "A": {
+        "item": "lotr_port:maple_syrup"
+      },
+      "B": {
+        "item": "minecraft:milk_bucket"
+      },
+      "C": {
+        "item": "lotr_port:raisins"
+      },
+      "D": {
+        "item": "minecraft:egg"
+      },
+      "E": {
+        "item": "minecraft:wheat"
+      }
+    },
+    "result": {
+      "id": "lotr_port:dalish_pastry"
+    }
+  }
+}

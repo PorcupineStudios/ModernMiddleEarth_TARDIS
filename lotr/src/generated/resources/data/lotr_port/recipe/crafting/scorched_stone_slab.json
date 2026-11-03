@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "group": "crafting",
+  "pattern": [
+    "AAA"
+  ],
+  "key": {
+    "A": {
+      "item": "lotr_port:scorched_stone"
+    }
+  },
+  "result": {
+    "id": "lotr_port:scorched_stone_slab",
+    "count": 6
+  }
+}

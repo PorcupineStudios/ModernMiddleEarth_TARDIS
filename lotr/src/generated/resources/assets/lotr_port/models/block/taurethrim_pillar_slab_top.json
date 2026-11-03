@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab_top",
+  "textures": {
+    "bottom": "lotr_port:block/pillar_tauredain_face",
+    "top": "lotr_port:block/pillar_tauredain_face",
+    "side": "lotr_port:block/pillar_tauredain_side"
+  }
+}

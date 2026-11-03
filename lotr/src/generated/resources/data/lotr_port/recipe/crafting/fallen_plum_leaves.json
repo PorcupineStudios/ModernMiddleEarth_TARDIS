@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "group": "crafting",
+  "pattern": [
+    "AAA"
+  ],
+  "key": {
+    "A": {
+      "item": "lotr_port:plum_leaves"
+    }
+  },
+  "result": {
+    "id": "lotr_port:fallen_plum_leaves",
+    "count": 6
+  }
+}

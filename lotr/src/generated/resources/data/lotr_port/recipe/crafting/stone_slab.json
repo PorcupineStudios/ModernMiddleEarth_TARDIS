@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "group": "crafting",
+  "pattern": [
+    "AAA"
+  ],
+  "key": {
+    "A": {
+      "item": "minecraft:stone"
+    }
+  },
+  "result": {
+    "id": "lotr_port:stone_slab",
+    "count": 6
+  }
+}

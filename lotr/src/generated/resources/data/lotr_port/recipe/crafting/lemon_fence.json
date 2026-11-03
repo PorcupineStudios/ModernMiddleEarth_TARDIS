@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "group": "crafting",
+  "pattern": [
+    "ABA",
+    "ABA"
+  ],
+  "key": {
+    "A": {
+      "item": "lotr_port:lemon_wood_planks"
+    },
+    "B": {
+      "tag": "c:rods/wooden"
+    }
+  },
+  "result": {
+    "id": "lotr_port:lemon_fence",
+    "count": 3
+  }
+}

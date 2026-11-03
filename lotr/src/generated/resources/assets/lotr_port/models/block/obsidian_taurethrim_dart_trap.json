@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "lotr_port:block/brick4_tauredain_obsidian",
+    "up": "lotr_port:block/brick4_tauredain_obsidian",
+    "north": "lotr_port:block/brick4_tauredain_obsidian",
+    "south": "lotr_port:block/tauredain_dart_trap_obsidian_face",
+    "west": "lotr_port:block/brick4_tauredain_obsidian",
+    "east": "lotr_port:block/brick4_tauredain_obsidian",
+    "particle": "lotr_port:block/brick4_tauredain_obsidian"
+  }
+}

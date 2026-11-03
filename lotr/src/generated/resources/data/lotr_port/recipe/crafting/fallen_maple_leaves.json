@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "group": "crafting",
+  "pattern": [
+    "AAA"
+  ],
+  "key": {
+    "A": {
+      "item": "lotr_port:maple_leaves"
+    }
+  },
+  "result": {
+    "id": "lotr_port:fallen_maple_leaves",
+    "count": 6
+  }
+}

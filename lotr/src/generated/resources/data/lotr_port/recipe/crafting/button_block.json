@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "group": "crafting",
+  "ingredients": [
+    {
+      "item": "lotr_port:chalk"
+    }
+  ],
+  "result": {
+    "id": "lotr_port:button_block"
+  }
+}

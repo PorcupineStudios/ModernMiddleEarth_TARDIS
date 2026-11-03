@@ -1,0 +1,47 @@
+{
+  "parent": "minecraft:block/block",
+  "textures": {
+    "down": "minecraft:block/gold_block",
+    "up": "minecraft:block/gold_block",
+    "north": "minecraft:block/gold_block",
+    "south": "minecraft:block/gold_block",
+    "west": "minecraft:block/gold_block",
+    "east": "minecraft:block/gold_block",
+    "particle": "minecraft:block/gold_block"
+  },
+  "render_type": "minecraft:cutout",
+  "elements": [
+    {
+      "from": [
+        6.125,
+        0.0,
+        6.125
+      ],
+      "to": [
+        9.875,
+        6.75,
+        9.875
+      ],
+      "faces": {
+        "down": {
+          "texture": "#down"
+        },
+        "up": {
+          "texture": "#up"
+        },
+        "north": {
+          "texture": "#north"
+        },
+        "south": {
+          "texture": "#south"
+        },
+        "west": {
+          "texture": "#west"
+        },
+        "east": {
+          "texture": "#east"
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "type": "lotr_port:faction_crafting",
+  "table": "lotr_port:angmar_crafting_table",
+  "recipe": {
+    "type": "minecraft:crafting_shapeless",
+    "category": "building",
+    "group": "angmar",
+    "ingredients": [
+      {
+        "item": "lotr_port:orc_bomb"
+      },
+      {
+        "item": "minecraft:lava_bucket"
+      }
+    ],
+    "result": {
+      "id": "lotr_port:orc_bomb_3"
+    }
+  }
+}

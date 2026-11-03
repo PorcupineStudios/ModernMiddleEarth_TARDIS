@@ -1,0 +1,23 @@
+{
+  "type": "lotr_port:faction_crafting",
+  "table": "lotr_port:taurethrim_crafting_table",
+  "recipe": {
+    "type": "minecraft:crafting_shaped",
+    "category": "misc",
+    "group": "tauredain",
+    "pattern": [
+      "ABB"
+    ],
+    "key": {
+      "A": {
+        "tag": "c:rods/wooden"
+      },
+      "B": {
+        "item": "lotr_port:reeds"
+      }
+    },
+    "result": {
+      "id": "lotr_port:taurethrim_blowgun"
+    }
+  }
+}

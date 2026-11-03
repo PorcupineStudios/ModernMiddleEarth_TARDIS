@@ -1,0 +1,34 @@
+{
+  "type": "lotr_port:faction_crafting",
+  "table": "lotr_port:galadhrim_crafting_table",
+  "recipe": {
+    "type": "minecraft:crafting_shaped",
+    "category": "building",
+    "group": "elven",
+    "pattern": [
+      "A",
+      "B",
+      "C"
+    ],
+    "key": {
+      "A": [
+        {
+          "item": "lotr_port:clover"
+        },
+        {
+          "item": "lotr_port:four_leaf_clover"
+        }
+      ],
+      "B": {
+        "tag": "minecraft:coals"
+      },
+      "C": {
+        "item": "lotr_port:mallorn_stick"
+      }
+    },
+    "result": {
+      "id": "lotr_port:green_mallorn_torch",
+      "count": 4
+    }
+  }
+}

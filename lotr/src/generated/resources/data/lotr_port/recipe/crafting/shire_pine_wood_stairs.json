@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "group": "crafting",
+  "pattern": [
+    "A  ",
+    "AA ",
+    "AAA"
+  ],
+  "key": {
+    "A": {
+      "item": "lotr_port:shire_pine_wood_planks"
+    }
+  },
+  "result": {
+    "id": "lotr_port:shire_pine_wood_stairs",
+    "count": 4
+  }
+}

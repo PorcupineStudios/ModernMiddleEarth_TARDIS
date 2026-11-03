@@ -1,0 +1,22 @@
+{
+  "type": "lotr_port:faction_crafting",
+  "table": "lotr_port:rohirric_crafting_table",
+  "recipe": {
+    "type": "minecraft:crafting_shaped",
+    "category": "building",
+    "group": "rohirric",
+    "pattern": [
+      "A",
+      "A"
+    ],
+    "key": {
+      "A": {
+        "item": "lotr_port:rohan_rock"
+      }
+    },
+    "result": {
+      "id": "lotr_port:smooth_rohan_rock",
+      "count": 2
+    }
+  }
+}

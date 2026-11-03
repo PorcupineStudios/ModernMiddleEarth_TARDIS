@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "values": [
+    "lotr_port:dwarf_bone",
+    "lotr_port:elf_bone",
+    "lotr_port:hobbit_bone",
+    "lotr_port:orc_bone",
+    "lotr_port:troll_bone",
+    "lotr_port:warg_bone"
+  ]
+}

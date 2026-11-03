@@ -1,0 +1,23 @@
+{
+  "type": "lotr_port:faction_crafting",
+  "table": "lotr_port:rh_nic_crafting_table",
+  "recipe": {
+    "type": "minecraft:crafting_shaped",
+    "category": "misc",
+    "group": "rhun",
+    "pattern": [
+      "ABA"
+    ],
+    "key": {
+      "A": {
+        "item": "lotr_port:kine_of_araw_horn"
+      },
+      "B": {
+        "item": "lotr_port:golden_rh_nic_helmet"
+      }
+    },
+    "result": {
+      "id": "lotr_port:rh_nic_warlord_helmet"
+    }
+  }
+}

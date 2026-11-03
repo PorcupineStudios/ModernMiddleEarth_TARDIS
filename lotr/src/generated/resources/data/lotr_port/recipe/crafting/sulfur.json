@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "crafting",
+  "ingredients": [
+    {
+      "item": "lotr_port:block_of_sulfur"
+    }
+  ],
+  "result": {
+    "id": "lotr_port:sulfur",
+    "count": 9
+  }
+}

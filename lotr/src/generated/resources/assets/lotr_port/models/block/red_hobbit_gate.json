@@ -1,0 +1,47 @@
+{
+  "parent": "minecraft:block/block",
+  "textures": {
+    "down": "lotr_port:block/gate_hobbit_red",
+    "up": "lotr_port:block/gate_hobbit_red",
+    "north": "lotr_port:block/gate_hobbit_red",
+    "south": "lotr_port:block/gate_hobbit_red",
+    "west": "lotr_port:block/gate_hobbit_red",
+    "east": "lotr_port:block/gate_hobbit_red",
+    "particle": "lotr_port:block/gate_hobbit_red"
+  },
+  "render_type": "minecraft:cutout",
+  "elements": [
+    {
+      "from": [
+        6.0,
+        0.0,
+        0.0
+      ],
+      "to": [
+        10.0,
+        16.0,
+        16.0
+      ],
+      "faces": {
+        "down": {
+          "texture": "#down"
+        },
+        "up": {
+          "texture": "#up"
+        },
+        "north": {
+          "texture": "#north"
+        },
+        "south": {
+          "texture": "#south"
+        },
+        "west": {
+          "texture": "#west"
+        },
+        "east": {
+          "texture": "#east"
+        }
+      }
+    }
+  ]
+}

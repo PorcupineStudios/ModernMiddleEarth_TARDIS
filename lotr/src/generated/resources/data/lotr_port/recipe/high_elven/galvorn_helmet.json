@@ -1,0 +1,21 @@
+{
+  "type": "lotr_port:faction_crafting",
+  "table": "lotr_port:lindon_crafting_table",
+  "recipe": {
+    "type": "minecraft:crafting_shaped",
+    "category": "misc",
+    "group": "high_elven",
+    "pattern": [
+      "AAA",
+      "A A"
+    ],
+    "key": {
+      "A": {
+        "item": "lotr_port:galvorn_ingot"
+      }
+    },
+    "result": {
+      "id": "lotr_port:galvorn_helmet"
+    }
+  }
+}

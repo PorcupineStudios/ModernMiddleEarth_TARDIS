@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "crafting",
+  "ingredients": [
+    {
+      "item": "lotr_port:golden_ale_horn"
+    },
+    {
+      "item": "lotr_port:elderberries"
+    },
+    {
+      "item": "lotr_port:elderberries"
+    },
+    {
+      "item": "lotr_port:elderberries"
+    }
+  ],
+  "result": {
+    "id": "lotr_port:elderberry_juice"
+  }
+}

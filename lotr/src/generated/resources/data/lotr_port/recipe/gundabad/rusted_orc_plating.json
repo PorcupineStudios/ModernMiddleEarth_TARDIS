@@ -1,0 +1,26 @@
+{
+  "type": "lotr_port:faction_crafting",
+  "table": "lotr_port:gundabad_crafting_table",
+  "recipe": {
+    "type": "minecraft:crafting_shaped",
+    "category": "building",
+    "group": "gundabad",
+    "pattern": [
+      "AAA",
+      "ABA",
+      "AAA"
+    ],
+    "key": {
+      "A": {
+        "item": "lotr_port:orc_plating"
+      },
+      "B": {
+        "item": "minecraft:water_bucket"
+      }
+    },
+    "result": {
+      "id": "lotr_port:rusted_orc_plating",
+      "count": 8
+    }
+  }
+}

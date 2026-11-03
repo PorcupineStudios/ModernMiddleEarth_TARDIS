@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "group": "crafting",
+  "pattern": [
+    "AA"
+  ],
+  "key": {
+    "A": [
+      {
+        "item": "lotr_port:barren_jungle_mud"
+      },
+      {
+        "item": "lotr_port:jungle_mud"
+      }
+    ]
+  },
+  "result": {
+    "id": "lotr_port:jungle_mud_path",
+    "count": 2
+  }
+}

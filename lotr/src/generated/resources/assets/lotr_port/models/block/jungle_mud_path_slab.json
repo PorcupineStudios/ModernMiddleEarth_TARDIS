@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab",
+  "textures": {
+    "bottom": "lotr_port:block/dirt_path_mud",
+    "top": "lotr_port:block/dirt_path_mud",
+    "side": "lotr_port:block/dirt_path_mud"
+  }
+}

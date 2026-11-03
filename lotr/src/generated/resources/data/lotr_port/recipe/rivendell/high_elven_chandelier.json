@@ -1,0 +1,28 @@
+{
+  "type": "lotr_port:faction_crafting",
+  "table": "lotr_port:rivendell_crafting_table",
+  "recipe": {
+    "type": "minecraft:crafting_shaped",
+    "category": "building",
+    "group": "rivendell",
+    "pattern": [
+      " A ",
+      "BCB"
+    ],
+    "key": {
+      "A": {
+        "tag": "c:rods/wooden"
+      },
+      "B": {
+        "item": "lotr_port:high_elven_torch"
+      },
+      "C": {
+        "item": "lotr_port:elven_steel_ingot"
+      }
+    },
+    "result": {
+      "id": "lotr_port:high_elven_chandelier",
+      "count": 2
+    }
+  }
+}

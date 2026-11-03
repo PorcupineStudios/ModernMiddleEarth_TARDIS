@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cross",
+  "textures": {
+    "cross": "lotr_port:block/chandelier_mallorn_blue"
+  },
+  "render_type": "minecraft:cutout"
+}

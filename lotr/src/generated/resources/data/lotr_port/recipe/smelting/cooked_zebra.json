@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "item": "lotr_port:raw_zebra"
+  },
+  "result": {
+    "id": "lotr_port:cooked_zebra"
+  },
+  "experience": 0.35,
+  "cookingtime": 200
+}

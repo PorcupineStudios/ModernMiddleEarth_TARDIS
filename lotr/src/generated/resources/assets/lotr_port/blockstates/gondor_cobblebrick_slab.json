@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "lotr_port:block/gondor_cobblebrick_slab"
+    },
+    "type=top": {
+      "model": "lotr_port:block/gondor_cobblebrick_slab_top"
+    },
+    "type=double": {
+      "model": "lotr_port:block/gondor_cobblebrick_slab_double"
+    }
+  }
+}

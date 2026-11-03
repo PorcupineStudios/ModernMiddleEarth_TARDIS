@@ -1,0 +1,30 @@
+{
+  "replace": false,
+  "values": [
+    "lotr_port:barren_jungle_mud",
+    "lotr_port:dirt_path",
+    "lotr_port:dirt_path_slab",
+    "lotr_port:dirt_slab",
+    "lotr_port:elvengrass",
+    "lotr_port:gravel_slab",
+    "lotr_port:jungle_grass",
+    "lotr_port:jungle_mud",
+    "lotr_port:jungle_mud_farmland",
+    "lotr_port:jungle_mud_path",
+    "lotr_port:jungle_mud_path_slab",
+    "lotr_port:jungle_mud_slab",
+    "lotr_port:mordor_dirt",
+    "lotr_port:mordor_dirt_slab",
+    "lotr_port:mordor_gravel",
+    "lotr_port:mordor_gravel_slab",
+    "lotr_port:obsidian_gravel",
+    "lotr_port:obsidian_gravel_slab",
+    "lotr_port:quagmire",
+    "lotr_port:red_clay_block",
+    "lotr_port:red_sand_slab",
+    "lotr_port:remains",
+    "lotr_port:sand_slab",
+    "lotr_port:white_sand",
+    "lotr_port:white_sand_slab"
+  ]
+}

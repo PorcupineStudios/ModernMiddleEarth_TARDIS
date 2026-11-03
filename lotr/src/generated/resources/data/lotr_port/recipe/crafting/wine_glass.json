@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "crafting",
+  "pattern": [
+    "A A",
+    " A ",
+    " A "
+  ],
+  "key": {
+    "A": {
+      "item": "minecraft:glass"
+    }
+  },
+  "result": {
+    "id": "lotr_port:wine_glass",
+    "count": 2
+  }
+}

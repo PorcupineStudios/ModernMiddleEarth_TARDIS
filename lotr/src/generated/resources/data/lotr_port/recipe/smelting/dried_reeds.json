@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "item": "lotr_port:reeds"
+  },
+  "result": {
+    "id": "lotr_port:dried_reeds"
+  },
+  "experience": 0.25,
+  "cookingtime": 200
+}

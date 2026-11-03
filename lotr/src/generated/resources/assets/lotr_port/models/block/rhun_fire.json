@@ -1,0 +1,47 @@
+{
+  "parent": "minecraft:block/block",
+  "textures": {
+    "down": "lotr_port:block/rhun_fire_layer_0",
+    "up": "lotr_port:block/rhun_fire_layer_0",
+    "north": "lotr_port:block/rhun_fire_layer_0",
+    "south": "lotr_port:block/rhun_fire_layer_0",
+    "west": "lotr_port:block/rhun_fire_layer_0",
+    "east": "lotr_port:block/rhun_fire_layer_0",
+    "particle": "lotr_port:block/rhun_fire_layer_0"
+  },
+  "render_type": "minecraft:cutout",
+  "elements": [
+    {
+      "from": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "to": [
+        16.0,
+        16.0,
+        16.0
+      ],
+      "faces": {
+        "down": {
+          "texture": "#down"
+        },
+        "up": {
+          "texture": "#up"
+        },
+        "north": {
+          "texture": "#north"
+        },
+        "south": {
+          "texture": "#south"
+        },
+        "west": {
+          "texture": "#west"
+        },
+        "east": {
+          "texture": "#east"
+        }
+      }
+    }
+  ]
+}

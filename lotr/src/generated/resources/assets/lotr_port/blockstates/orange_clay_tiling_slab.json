@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "lotr_port:block/orange_clay_tiling_slab"
+    },
+    "type=top": {
+      "model": "lotr_port:block/orange_clay_tiling_slab_top"
+    },
+    "type=double": {
+      "model": "lotr_port:block/orange_clay_tiling_slab_double"
+    }
+  }
+}

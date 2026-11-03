@@ -1,0 +1,28 @@
+{
+  "type": "lotr_port:faction_crafting",
+  "table": "lotr_port:rohirric_crafting_table",
+  "recipe": {
+    "type": "minecraft:crafting_shaped",
+    "category": "misc",
+    "group": "rohirric",
+    "pattern": [
+      " A ",
+      "BCB",
+      " A "
+    ],
+    "key": {
+      "A": {
+        "tag": "c:nuggets/gold"
+      },
+      "B": {
+        "item": "minecraft:leather"
+      },
+      "C": {
+        "item": "lotr_port:rohirric_coif"
+      }
+    },
+    "result": {
+      "id": "lotr_port:rohirric_marshal_helmet"
+    }
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "lotr_port:block/wood7_green_oak_top",
+    "side": "lotr_port:block/wood7_green_oak_side"
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "type": "lotr_port:faction_crafting",
+  "table": "lotr_port:dorwinion_crafting_table",
+  "recipe": {
+    "type": "minecraft:crafting_shapeless",
+    "category": "building",
+    "group": "dorwinion",
+    "ingredients": [
+      {
+        "item": "lotr_port:dorwinion_brick"
+      },
+      {
+        "item": "lotr_port:pink_chrysanthemum"
+      }
+    ],
+    "result": {
+      "id": "lotr_port:flowery_dorwinion_brick"
+    }
+  }
+}

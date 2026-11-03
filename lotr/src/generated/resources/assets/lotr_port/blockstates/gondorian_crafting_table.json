@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "lotr_port:block/gondorian_crafting_table"
+    }
+  }
+}

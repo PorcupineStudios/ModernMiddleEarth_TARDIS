@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "crafting",
+  "pattern": [
+    "AAA",
+    "A A",
+    "A A"
+  ],
+  "key": {
+    "A": {
+      "item": "lotr_port:ancient_armor_plate"
+    }
+  },
+  "result": {
+    "id": "lotr_port:ancient_leggings"
+  }
+}

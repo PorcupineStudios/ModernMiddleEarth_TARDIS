@@ -1,0 +1,25 @@
+{
+  "type": "lotr_port:faction_crafting",
+  "table": "lotr_port:gondorian_crafting_table",
+  "recipe": {
+    "type": "minecraft:crafting_shaped",
+    "category": "building",
+    "group": "gondorian",
+    "pattern": [
+      "AAA",
+      "AAA",
+      "BBB"
+    ],
+    "key": {
+      "A": {
+        "tag": "minecraft:logs"
+      },
+      "B": {
+        "tag": "c:cobblestones"
+      }
+    },
+    "result": {
+      "id": "lotr_port:beacon_of_gondor"
+    }
+  }
+}

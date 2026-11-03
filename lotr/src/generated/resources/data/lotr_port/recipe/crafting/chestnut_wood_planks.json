@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "group": "crafting",
+  "ingredients": [
+    {
+      "item": "lotr_port:chestnut_wood"
+    }
+  ],
+  "result": {
+    "id": "lotr_port:chestnut_wood_planks",
+    "count": 4
+  }
+}

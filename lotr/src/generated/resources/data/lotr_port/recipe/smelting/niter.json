@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "item": "lotr_port:niter_ore"
+  },
+  "result": {
+    "id": "lotr_port:niter"
+  },
+  "experience": 1.0,
+  "cookingtime": 200
+}

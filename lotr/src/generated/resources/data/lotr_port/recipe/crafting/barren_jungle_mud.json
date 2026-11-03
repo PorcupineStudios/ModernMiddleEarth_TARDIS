@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "group": "crafting",
+  "pattern": [
+    "AB",
+    "BA"
+  ],
+  "key": {
+    "A": {
+      "item": "lotr_port:jungle_mud"
+    },
+    "B": {
+      "item": "minecraft:gravel"
+    }
+  },
+  "result": {
+    "id": "lotr_port:barren_jungle_mud",
+    "count": 4
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "parent": "minecraft:block/block",
+  "textures": {
+    "down": "minecraft:block/soul_sand",
+    "up": "minecraft:block/soul_sand",
+    "north": "minecraft:block/soul_sand",
+    "south": "minecraft:block/soul_sand",
+    "west": "minecraft:block/soul_sand",
+    "east": "minecraft:block/soul_sand",
+    "particle": "minecraft:block/soul_sand"
+  },
+  "render_type": "minecraft:cutout",
+  "elements": [
+    {
+      "from": [
+        5.0,
+        0.0,
+        5.0
+      ],
+      "to": [
+        11.0,
+        7.5,
+        11.0
+      ],
+      "faces": {
+        "down": {
+          "texture": "#down"
+        },
+        "up": {
+          "texture": "#up"
+        },
+        "north": {
+          "texture": "#north"
+        },
+        "south": {
+          "texture": "#south"
+        },
+        "west": {
+          "texture": "#west"
+        },
+        "east": {
+          "texture": "#east"
+        }
+      }
+    }
+  ]
+}

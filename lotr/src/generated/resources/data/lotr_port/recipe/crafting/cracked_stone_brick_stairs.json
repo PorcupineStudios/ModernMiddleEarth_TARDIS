@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "group": "crafting",
+  "pattern": [
+    "A  ",
+    "AA ",
+    "AAA"
+  ],
+  "key": {
+    "A": {
+      "item": "minecraft:cracked_stone_bricks"
+    }
+  },
+  "result": {
+    "id": "lotr_port:cracked_stone_brick_stairs",
+    "count": 4
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "crafting",
+  "ingredients": [
+    {
+      "item": "lotr_port:shire_heather"
+    }
+  ],
+  "result": {
+    "id": "minecraft:magenta_dye"
+  }
+}

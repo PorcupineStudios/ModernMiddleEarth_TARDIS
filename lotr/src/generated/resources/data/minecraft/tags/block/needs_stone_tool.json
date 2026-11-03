@@ -1,0 +1,18 @@
+{
+  "replace": false,
+  "values": [
+    "lotr_port:block_of_black_uruk_steel",
+    "lotr_port:block_of_blue_dwarven_steel",
+    "lotr_port:block_of_bronze",
+    "lotr_port:block_of_copper",
+    "lotr_port:block_of_dwarven_steel",
+    "lotr_port:block_of_orc_steel",
+    "lotr_port:block_of_tin",
+    "lotr_port:block_of_uruk_steel",
+    "lotr_port:copper_ore",
+    "lotr_port:glowstone_ore",
+    "lotr_port:morgul_iron_ore",
+    "lotr_port:morgul_iron_ore_block",
+    "lotr_port:tin_ore"
+  ]
+}

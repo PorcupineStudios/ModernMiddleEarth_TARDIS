@@ -1,0 +1,29 @@
+{
+  "type": "lotr_port:faction_crafting",
+  "table": "lotr_port:rh_nic_crafting_table",
+  "recipe": {
+    "type": "minecraft:crafting_shaped",
+    "category": "misc",
+    "group": "rhun",
+    "pattern": [
+      "A",
+      "B",
+      "C"
+    ],
+    "key": {
+      "A": {
+        "item": "lotr_port:durnor"
+      },
+      "B": {
+        "item": "minecraft:gunpowder"
+      },
+      "C": {
+        "item": "lotr_port:gilded_iron_ingot"
+      }
+    },
+    "result": {
+      "id": "lotr_port:rh_nic_fire_pot",
+      "count": 4
+    }
+  }
+}

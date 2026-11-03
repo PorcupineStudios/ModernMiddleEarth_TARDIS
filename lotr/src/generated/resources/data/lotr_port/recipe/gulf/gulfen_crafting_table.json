@@ -1,0 +1,24 @@
+{
+  "type": "lotr_port:faction_crafting",
+  "table": "lotr_port:gulfen_crafting_table",
+  "recipe": {
+    "type": "minecraft:crafting_shaped",
+    "category": "building",
+    "group": "gulf",
+    "pattern": [
+      "AA",
+      "BB"
+    ],
+    "key": {
+      "A": {
+        "tag": "minecraft:planks"
+      },
+      "B": {
+        "item": "minecraft:sandstone"
+      }
+    },
+    "result": {
+      "id": "lotr_port:gulfen_crafting_table"
+    }
+  }
+}

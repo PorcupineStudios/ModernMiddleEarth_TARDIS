@@ -1,0 +1,31 @@
+{
+  "type": "lotr_port:faction_crafting",
+  "table": "lotr_port:gondorian_crafting_table",
+  "recipe": {
+    "type": "minecraft:crafting_shaped",
+    "category": "misc",
+    "group": "gondorian",
+    "pattern": [
+      "AB",
+      "C ",
+      "D "
+    ],
+    "key": {
+      "A": {
+        "tag": "minecraft:wool"
+      },
+      "B": {
+        "item": "lotr_port:blackroot"
+      },
+      "C": {
+        "tag": "c:rods/wooden"
+      },
+      "D": {
+        "tag": "minecraft:planks"
+      }
+    },
+    "result": {
+      "id": "lotr_port:banner_of_blackroot_vale"
+    }
+  }
+}

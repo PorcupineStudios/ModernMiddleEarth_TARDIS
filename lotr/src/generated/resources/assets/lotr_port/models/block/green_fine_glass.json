@@ -1,0 +1,47 @@
+{
+  "parent": "minecraft:block/block",
+  "textures": {
+    "down": "lotr_port:block/stained_glass_green",
+    "up": "lotr_port:block/stained_glass_green",
+    "north": "lotr_port:block/stained_glass_green",
+    "south": "lotr_port:block/stained_glass_green",
+    "west": "lotr_port:block/stained_glass_green",
+    "east": "lotr_port:block/stained_glass_green",
+    "particle": "lotr_port:block/stained_glass_green"
+  },
+  "render_type": "minecraft:cutout",
+  "elements": [
+    {
+      "from": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "to": [
+        16.0,
+        16.0,
+        16.0
+      ],
+      "faces": {
+        "down": {
+          "texture": "#down"
+        },
+        "up": {
+          "texture": "#up"
+        },
+        "north": {
+          "texture": "#north"
+        },
+        "south": {
+          "texture": "#south"
+        },
+        "west": {
+          "texture": "#west"
+        },
+        "east": {
+          "texture": "#east"
+        }
+      }
+    }
+  ]
+}

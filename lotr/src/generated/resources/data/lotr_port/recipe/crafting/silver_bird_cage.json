@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "group": "crafting",
+  "pattern": [
+    "AAA",
+    "A A",
+    "BBB"
+  ],
+  "key": {
+    "A": {
+      "item": "lotr_port:silver_bars"
+    },
+    "B": {
+      "tag": "c:ingots/silver"
+    }
+  },
+  "result": {
+    "id": "lotr_port:silver_bird_cage"
+  }
+}

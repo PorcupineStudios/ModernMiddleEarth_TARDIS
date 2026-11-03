@@ -1,0 +1,22 @@
+{
+  "type": "lotr_port:faction_crafting",
+  "table": "lotr_port:rh_nic_crafting_table",
+  "recipe": {
+    "type": "minecraft:crafting_shaped",
+    "category": "misc",
+    "group": "rhun",
+    "pattern": [
+      "AAA",
+      "A A",
+      "A A"
+    ],
+    "key": {
+      "A": {
+        "item": "lotr_port:gilded_iron_ingot"
+      }
+    },
+    "result": {
+      "id": "lotr_port:golden_rh_nic_leggings"
+    }
+  }
+}

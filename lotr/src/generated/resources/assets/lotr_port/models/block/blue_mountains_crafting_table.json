@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "lotr_port:block/brick_blue_rock",
+    "up": "lotr_port:block/blue_dwarven_crafting_table_top",
+    "north": "lotr_port:block/blue_dwarven_crafting_table_side1",
+    "south": "lotr_port:block/blue_dwarven_crafting_table_side1",
+    "west": "lotr_port:block/blue_dwarven_crafting_table_side0",
+    "east": "lotr_port:block/blue_dwarven_crafting_table_side0",
+    "particle": "lotr_port:block/blue_dwarven_crafting_table_side1"
+  }
+}

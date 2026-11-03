@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "crafting",
+  "pattern": [
+    "AAA"
+  ],
+  "key": {
+    "A": {
+      "item": "lotr_port:reeds"
+    }
+  },
+  "result": {
+    "id": "minecraft:paper",
+    "count": 3
+  }
+}

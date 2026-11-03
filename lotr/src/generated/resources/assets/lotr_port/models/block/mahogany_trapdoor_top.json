@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/template_orientable_trapdoor_top",
+  "textures": {
+    "texture": "lotr_port:block/trapdoor_mahogany"
+  },
+  "render_type": "minecraft:cutout"
+}

@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "crafting",
+  "ingredients": [
+    {
+      "item": "lotr_port:block_of_morgul_steel"
+    }
+  ],
+  "result": {
+    "id": "lotr_port:morgul_steel_ingot",
+    "count": 9
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "parent": "minecraft:block/block",
+  "textures": {
+    "down": "minecraft:block/flower_pot",
+    "up": "minecraft:block/flower_pot",
+    "north": "minecraft:block/flower_pot",
+    "south": "minecraft:block/flower_pot",
+    "west": "minecraft:block/flower_pot",
+    "east": "minecraft:block/flower_pot",
+    "particle": "minecraft:block/flower_pot"
+  },
+  "render_type": "minecraft:cutout",
+  "elements": [
+    {
+      "from": [
+        5.0,
+        0.0,
+        5.0
+      ],
+      "to": [
+        11.0,
+        6.0,
+        11.0
+      ],
+      "faces": {
+        "down": {
+          "texture": "#down"
+        },
+        "up": {
+          "texture": "#up"
+        },
+        "north": {
+          "texture": "#north"
+        },
+        "south": {
+          "texture": "#south"
+        },
+        "west": {
+          "texture": "#west"
+        },
+        "east": {
+          "texture": "#east"
+        }
+      }
+    }
+  ]
+}

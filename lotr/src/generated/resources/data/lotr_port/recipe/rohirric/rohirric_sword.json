@@ -1,0 +1,25 @@
+{
+  "type": "lotr_port:faction_crafting",
+  "table": "lotr_port:rohirric_crafting_table",
+  "recipe": {
+    "type": "minecraft:crafting_shaped",
+    "category": "misc",
+    "group": "rohirric",
+    "pattern": [
+      "A",
+      "A",
+      "B"
+    ],
+    "key": {
+      "A": {
+        "tag": "c:ingots/iron"
+      },
+      "B": {
+        "tag": "c:rods/wooden"
+      }
+    },
+    "result": {
+      "id": "lotr_port:rohirric_sword"
+    }
+  }
+}

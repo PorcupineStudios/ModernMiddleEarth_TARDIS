@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "crafting",
+  "pattern": [
+    " A ",
+    " A ",
+    "BBB"
+  ],
+  "key": {
+    "A": {
+      "tag": "c:rods/wooden"
+    },
+    "B": {
+      "tag": "c:stones"
+    }
+  },
+  "result": {
+    "id": "lotr_port:armor_stand"
+  }
+}

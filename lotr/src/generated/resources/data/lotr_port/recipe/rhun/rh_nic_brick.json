@@ -1,0 +1,22 @@
+{
+  "type": "lotr_port:faction_crafting",
+  "table": "lotr_port:rh_nic_crafting_table",
+  "recipe": {
+    "type": "minecraft:crafting_shaped",
+    "category": "building",
+    "group": "rhun",
+    "pattern": [
+      "AA",
+      "AA"
+    ],
+    "key": {
+      "A": {
+        "tag": "lotr_port:rhun_stone"
+      }
+    },
+    "result": {
+      "id": "lotr_port:rh_nic_brick",
+      "count": 4
+    }
+  }
+}

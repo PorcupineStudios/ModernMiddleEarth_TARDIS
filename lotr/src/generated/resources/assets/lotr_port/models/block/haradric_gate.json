@@ -1,0 +1,47 @@
+{
+  "parent": "minecraft:block/block",
+  "textures": {
+    "down": "lotr_port:block/gate_near_harad",
+    "up": "lotr_port:block/gate_near_harad",
+    "north": "lotr_port:block/gate_near_harad",
+    "south": "lotr_port:block/gate_near_harad",
+    "west": "lotr_port:block/gate_near_harad",
+    "east": "lotr_port:block/gate_near_harad",
+    "particle": "lotr_port:block/gate_near_harad"
+  },
+  "render_type": "minecraft:cutout",
+  "elements": [
+    {
+      "from": [
+        6.0,
+        0.0,
+        0.0
+      ],
+      "to": [
+        10.0,
+        16.0,
+        16.0
+      ],
+      "faces": {
+        "down": {
+          "texture": "#down"
+        },
+        "up": {
+          "texture": "#up"
+        },
+        "north": {
+          "texture": "#north"
+        },
+        "south": {
+          "texture": "#south"
+        },
+        "west": {
+          "texture": "#west"
+        },
+        "east": {
+          "texture": "#east"
+        }
+      }
+    }
+  ]
+}

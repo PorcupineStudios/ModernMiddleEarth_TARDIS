@@ -1,0 +1,25 @@
+{
+  "type": "lotr_port:faction_crafting",
+  "table": "lotr_port:dwarven_crafting_table",
+  "recipe": {
+    "type": "minecraft:crafting_shaped",
+    "category": "building",
+    "group": "dwarven",
+    "pattern": [
+      "AA",
+      "AB",
+      "AA"
+    ],
+    "key": {
+      "A": {
+        "tag": "c:stones"
+      },
+      "B": {
+        "item": "lotr_port:ithildin"
+      }
+    },
+    "result": {
+      "id": "lotr_port:ithildin_dwarven_door"
+    }
+  }
+}

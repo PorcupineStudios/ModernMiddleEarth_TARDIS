@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/stairs",
+  "textures": {
+    "bottom": "lotr_port:block/planks_charred",
+    "top": "lotr_port:block/planks_charred",
+    "side": "lotr_port:block/planks_charred"
+  }
+}

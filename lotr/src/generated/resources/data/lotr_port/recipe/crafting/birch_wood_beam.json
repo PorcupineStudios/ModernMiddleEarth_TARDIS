@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "group": "crafting",
+  "pattern": [
+    "A",
+    "A",
+    "A"
+  ],
+  "key": {
+    "A": {
+      "item": "minecraft:birch_log"
+    }
+  },
+  "result": {
+    "id": "lotr_port:birch_wood_beam",
+    "count": 3
+  }
+}

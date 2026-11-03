@@ -1,0 +1,22 @@
+{
+  "type": "lotr_port:faction_crafting",
+  "table": "lotr_port:ranger_crafting_table",
+  "recipe": {
+    "type": "minecraft:crafting_shaped",
+    "category": "building",
+    "group": "ranger",
+    "pattern": [
+      "AA",
+      "AA"
+    ],
+    "key": {
+      "A": {
+        "tag": "c:stones"
+      }
+    },
+    "result": {
+      "id": "lotr_port:arnor_brick",
+      "count": 4
+    }
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "parent": "minecraft:block/block",
+  "textures": {
+    "down": "lotr_port:block/orc_plating_rust",
+    "up": "lotr_port:block/orc_plating_rust",
+    "north": "lotr_port:block/orc_plating_rust",
+    "south": "lotr_port:block/orc_plating_rust",
+    "west": "lotr_port:block/orc_plating_rust",
+    "east": "lotr_port:block/orc_plating_rust",
+    "particle": "lotr_port:block/orc_plating_rust"
+  },
+  "render_type": "minecraft:cutout",
+  "elements": [
+    {
+      "from": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "to": [
+        16.0,
+        16.0,
+        16.0
+      ],
+      "faces": {
+        "down": {
+          "texture": "#down"
+        },
+        "up": {
+          "texture": "#up"
+        },
+        "north": {
+          "texture": "#north"
+        },
+        "south": {
+          "texture": "#south"
+        },
+        "west": {
+          "texture": "#west"
+        },
+        "east": {
+          "texture": "#east"
+        }
+      }
+    }
+  ]
+}

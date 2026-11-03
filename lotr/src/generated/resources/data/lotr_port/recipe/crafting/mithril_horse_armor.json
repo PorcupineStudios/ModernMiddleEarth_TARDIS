@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "crafting",
+  "pattern": [
+    "A  ",
+    "ABA",
+    "AAA"
+  ],
+  "key": {
+    "A": {
+      "item": "lotr_port:mithril_mail"
+    },
+    "B": {
+      "item": "minecraft:leather"
+    }
+  },
+  "result": {
+    "id": "lotr_port:mithril_horse_armor"
+  }
+}

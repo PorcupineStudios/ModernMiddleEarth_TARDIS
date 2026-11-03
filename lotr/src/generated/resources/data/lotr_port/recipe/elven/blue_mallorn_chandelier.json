@@ -1,0 +1,28 @@
+{
+  "type": "lotr_port:faction_crafting",
+  "table": "lotr_port:galadhrim_crafting_table",
+  "recipe": {
+    "type": "minecraft:crafting_shaped",
+    "category": "building",
+    "group": "elven",
+    "pattern": [
+      " A ",
+      "BCB"
+    ],
+    "key": {
+      "A": {
+        "item": "lotr_port:mallorn_stick"
+      },
+      "B": {
+        "item": "lotr_port:blue_mallorn_torch"
+      },
+      "C": {
+        "item": "lotr_port:mallorn_wood_planks"
+      }
+    },
+    "result": {
+      "id": "lotr_port:blue_mallorn_chandelier",
+      "count": 2
+    }
+  }
+}

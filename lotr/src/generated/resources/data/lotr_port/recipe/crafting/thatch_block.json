@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "group": "crafting",
+  "pattern": [
+    "ABA",
+    "BAB",
+    "ABA"
+  ],
+  "key": {
+    "A": {
+      "item": "minecraft:wheat"
+    },
+    "B": {
+      "tag": "minecraft:dirt"
+    }
+  },
+  "result": {
+    "id": "lotr_port:thatch_block",
+    "count": 6
+  }
+}

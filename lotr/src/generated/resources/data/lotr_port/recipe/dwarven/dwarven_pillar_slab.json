@@ -1,0 +1,21 @@
+{
+  "type": "lotr_port:faction_crafting",
+  "table": "lotr_port:dwarven_crafting_table",
+  "recipe": {
+    "type": "minecraft:crafting_shaped",
+    "category": "building",
+    "group": "dwarven",
+    "pattern": [
+      "AAA"
+    ],
+    "key": {
+      "A": {
+        "item": "lotr_port:dwarven_pillar"
+      }
+    },
+    "result": {
+      "id": "lotr_port:dwarven_pillar_slab",
+      "count": 6
+    }
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "type": "lotr_port:faction_crafting",
+  "table": "lotr_port:ranger_crafting_table",
+  "recipe": {
+    "type": "minecraft:crafting_shaped",
+    "category": "misc",
+    "group": "ranger",
+    "pattern": [
+      " AB",
+      "A B",
+      " AB"
+    ],
+    "key": {
+      "A": {
+        "tag": "c:rods/wooden"
+      },
+      "B": {
+        "item": "minecraft:string"
+      }
+    },
+    "result": {
+      "id": "lotr_port:ranger_bow"
+    }
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "type": "lotr_port:faction_crafting",
+  "table": "lotr_port:gondorian_crafting_table",
+  "recipe": {
+    "type": "minecraft:crafting_shaped",
+    "category": "building",
+    "group": "gondorian",
+    "pattern": [
+      "AA",
+      "AA"
+    ],
+    "key": {
+      "A": {
+        "item": "lotr_port:gondor_rock"
+      }
+    },
+    "result": {
+      "id": "lotr_port:gondor_brick",
+      "count": 4
+    }
+  }
+}

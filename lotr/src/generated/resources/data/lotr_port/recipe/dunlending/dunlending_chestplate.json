@@ -1,0 +1,25 @@
+{
+  "type": "lotr_port:faction_crafting",
+  "table": "lotr_port:dunlending_crafting_table",
+  "recipe": {
+    "type": "minecraft:crafting_shaped",
+    "category": "misc",
+    "group": "dunlending",
+    "pattern": [
+      "A A",
+      "BBB",
+      "AAA"
+    ],
+    "key": {
+      "A": {
+        "tag": "c:ingots/iron"
+      },
+      "B": {
+        "item": "minecraft:leather"
+      }
+    },
+    "result": {
+      "id": "lotr_port:dunlending_chestplate"
+    }
+  }
+}

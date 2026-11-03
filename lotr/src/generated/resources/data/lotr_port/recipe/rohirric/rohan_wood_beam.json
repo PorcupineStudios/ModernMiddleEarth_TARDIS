@@ -1,0 +1,23 @@
+{
+  "type": "lotr_port:faction_crafting",
+  "table": "lotr_port:rohirric_crafting_table",
+  "recipe": {
+    "type": "minecraft:crafting_shaped",
+    "category": "building",
+    "group": "rohirric",
+    "pattern": [
+      "A",
+      "A",
+      "A"
+    ],
+    "key": {
+      "A": {
+        "tag": "minecraft:logs"
+      }
+    },
+    "result": {
+      "id": "lotr_port:rohan_wood_beam",
+      "count": 3
+    }
+  }
+}

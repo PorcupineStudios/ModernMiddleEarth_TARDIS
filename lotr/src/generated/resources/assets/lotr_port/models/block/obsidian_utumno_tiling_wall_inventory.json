@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/wall_inventory",
+  "textures": {
+    "wall": "lotr_port:block/utumno_brick_obsidian_tile"
+  }
+}

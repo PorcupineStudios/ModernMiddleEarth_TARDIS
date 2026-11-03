@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "item": "lotr_port:conker"
+  },
+  "result": {
+    "id": "lotr_port:roast_chestnut"
+  },
+  "experience": 0.3,
+  "cookingtime": 200
+}

@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "lotr_port:block/lindon_crafting_table"
+    }
+  }
+}

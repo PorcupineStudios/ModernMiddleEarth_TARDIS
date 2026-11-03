@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "crafting",
+  "pattern": [
+    " A ",
+    " BA",
+    "B  "
+  ],
+  "key": {
+    "A": {
+      "tag": "c:ingots/iron"
+    },
+    "B": {
+      "tag": "c:rods/wooden"
+    }
+  },
+  "result": {
+    "id": "lotr_port:iron_throwing_axe"
+  }
+}

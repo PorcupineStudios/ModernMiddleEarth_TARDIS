@@ -1,0 +1,47 @@
+{
+  "parent": "minecraft:block/block",
+  "textures": {
+    "down": "lotr_port:block/barrel_top",
+    "up": "lotr_port:block/barrel_top",
+    "north": "lotr_port:block/barrel_side",
+    "south": "lotr_port:block/barrel_side",
+    "west": "lotr_port:block/barrel_side",
+    "east": "lotr_port:block/barrel_side",
+    "particle": "lotr_port:block/barrel_side"
+  },
+  "render_type": "minecraft:cutout",
+  "elements": [
+    {
+      "from": [
+        2.0,
+        0.0,
+        2.0
+      ],
+      "to": [
+        14.0,
+        13.0,
+        14.0
+      ],
+      "faces": {
+        "down": {
+          "texture": "#down"
+        },
+        "up": {
+          "texture": "#up"
+        },
+        "north": {
+          "texture": "#north"
+        },
+        "south": {
+          "texture": "#south"
+        },
+        "west": {
+          "texture": "#west"
+        },
+        "east": {
+          "texture": "#east"
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "crafting",
+  "ingredients": [
+    {
+      "item": "minecraft:glass_bottle"
+    },
+    {
+      "item": "lotr_port:wildberries"
+    }
+  ],
+  "result": {
+    "id": "lotr_port:bottle_of_poison"
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "type": "lotr_port:faction_crafting",
+  "table": "lotr_port:umbaric_crafting_table",
+  "recipe": {
+    "type": "minecraft:crafting_shaped",
+    "category": "building",
+    "group": "umbar",
+    "pattern": [
+      "AA",
+      "BB"
+    ],
+    "key": {
+      "A": {
+        "tag": "minecraft:planks"
+      },
+      "B": {
+        "item": "minecraft:sandstone"
+      }
+    },
+    "result": {
+      "id": "lotr_port:umbaric_crafting_table"
+    }
+  }
+}

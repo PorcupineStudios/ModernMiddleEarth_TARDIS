@@ -1,0 +1,21 @@
+{
+  "type": "lotr_port:faction_crafting",
+  "table": "lotr_port:gulfen_crafting_table",
+  "recipe": {
+    "type": "minecraft:crafting_shaped",
+    "category": "misc",
+    "group": "gulf",
+    "pattern": [
+      "AAA",
+      "A A"
+    ],
+    "key": {
+      "A": {
+        "item": "minecraft:purple_wool"
+      }
+    },
+    "result": {
+      "id": "lotr_port:harad_turban"
+    }
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "lotr_port:block/four_leaf_clover"
+    }
+  }
+}

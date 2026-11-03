@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "crafting",
+  "ingredients": [
+    {
+      "item": "lotr_port:block_of_galvorn"
+    }
+  ],
+  "result": {
+    "id": "lotr_port:galvorn_ingot",
+    "count": 9
+  }
+}

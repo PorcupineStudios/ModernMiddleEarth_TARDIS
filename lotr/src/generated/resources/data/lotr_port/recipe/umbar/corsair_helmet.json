@@ -1,0 +1,24 @@
+{
+  "type": "lotr_port:faction_crafting",
+  "table": "lotr_port:umbaric_crafting_table",
+  "recipe": {
+    "type": "minecraft:crafting_shaped",
+    "category": "misc",
+    "group": "umbar",
+    "pattern": [
+      "AAA",
+      "B B"
+    ],
+    "key": {
+      "A": {
+        "tag": "c:ingots/bronze"
+      },
+      "B": {
+        "item": "minecraft:leather"
+      }
+    },
+    "result": {
+      "id": "lotr_port:corsair_helmet"
+    }
+  }
+}

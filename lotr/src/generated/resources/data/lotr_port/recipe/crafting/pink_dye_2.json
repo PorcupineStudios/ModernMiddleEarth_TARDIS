@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "crafting",
+  "ingredients": [
+    {
+      "item": "lotr_port:pink_chrysanthemum"
+    }
+  ],
+  "result": {
+    "id": "minecraft:pink_dye"
+  }
+}

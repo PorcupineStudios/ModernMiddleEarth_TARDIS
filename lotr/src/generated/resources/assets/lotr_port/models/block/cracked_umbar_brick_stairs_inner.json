@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/inner_stairs",
+  "textures": {
+    "bottom": "lotr_port:block/brick6_umbar_cracked",
+    "top": "lotr_port:block/brick6_umbar_cracked",
+    "side": "lotr_port:block/brick6_umbar_cracked"
+  }
+}

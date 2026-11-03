@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "axis=y": {
+      "model": "lotr_port:block/green_oak_wood"
+    },
+    "axis=z": {
+      "model": "lotr_port:block/green_oak_wood_horizontal",
+      "x": 90
+    },
+    "axis=x": {
+      "model": "lotr_port:block/green_oak_wood_horizontal",
+      "x": 90,
+      "y": 90
+    }
+  }
+}

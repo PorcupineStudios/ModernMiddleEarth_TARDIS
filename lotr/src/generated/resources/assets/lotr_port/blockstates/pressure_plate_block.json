@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "powered=false": {
+      "model": "lotr_port:block/pressure_plate_block"
+    },
+    "powered=true": {
+      "model": "lotr_port:block/pressure_plate_block_down"
+    }
+  }
+}

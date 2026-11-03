@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "group": "crafting",
+  "pattern": [
+    "A",
+    "A"
+  ],
+  "key": {
+    "A": {
+      "item": "lotr_port:luigon"
+    }
+  },
+  "result": {
+    "id": "lotr_port:smooth_luigon",
+    "count": 2
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/outer_stairs",
+  "textures": {
+    "bottom": "lotr_port:block/rock_rohan",
+    "top": "lotr_port:block/rock_rohan",
+    "side": "lotr_port:block/rock_rohan"
+  }
+}

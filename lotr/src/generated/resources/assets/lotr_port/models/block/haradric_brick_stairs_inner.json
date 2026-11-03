@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/inner_stairs",
+  "textures": {
+    "bottom": "lotr_port:block/brick_near_harad",
+    "top": "lotr_port:block/brick_near_harad",
+    "side": "lotr_port:block/brick_near_harad"
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "crafting",
+  "ingredients": [
+    {
+      "item": "lotr_port:dragonblood_wood"
+    },
+    {
+      "item": "lotr_port:dragonblood_wood"
+    }
+  ],
+  "result": {
+    "id": "minecraft:red_dye",
+    "count": 4
+  }
+}

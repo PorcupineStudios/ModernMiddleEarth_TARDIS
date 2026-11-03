@@ -1,0 +1,21 @@
+{
+  "type": "lotr_port:faction_crafting",
+  "table": "lotr_port:morgul_crafting_table",
+  "recipe": {
+    "type": "minecraft:crafting_shaped",
+    "category": "misc",
+    "group": "morgul",
+    "pattern": [
+      "A A",
+      "A A"
+    ],
+    "key": {
+      "A": {
+        "item": "lotr_port:orc_steel_ingot"
+      }
+    },
+    "result": {
+      "id": "lotr_port:mordor_boots"
+    }
+  }
+}

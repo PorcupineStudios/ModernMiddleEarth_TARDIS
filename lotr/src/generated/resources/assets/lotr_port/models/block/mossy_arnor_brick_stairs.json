@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/stairs",
+  "textures": {
+    "bottom": "lotr_port:block/brick2_arnor_mossy",
+    "top": "lotr_port:block/brick2_arnor_mossy",
+    "side": "lotr_port:block/brick2_arnor_mossy"
+  }
+}

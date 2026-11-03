@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "crafting",
+  "ingredients": [
+    {
+      "item": "lotr_port:skull_cup"
+    },
+    {
+      "item": "lotr_port:red_grapes"
+    },
+    {
+      "item": "lotr_port:red_grapes"
+    },
+    {
+      "item": "lotr_port:red_grapes"
+    }
+  ],
+  "result": {
+    "id": "lotr_port:red_grape_juice"
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "item": "lotr_port:pipe_weed_leaf"
+  },
+  "result": {
+    "id": "lotr_port:pipe_weed"
+  },
+  "experience": 0.25,
+  "cookingtime": 200
+}

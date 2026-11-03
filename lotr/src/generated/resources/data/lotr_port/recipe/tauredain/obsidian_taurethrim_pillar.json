@@ -1,0 +1,23 @@
+{
+  "type": "lotr_port:faction_crafting",
+  "table": "lotr_port:taurethrim_crafting_table",
+  "recipe": {
+    "type": "minecraft:crafting_shaped",
+    "category": "building",
+    "group": "tauredain",
+    "pattern": [
+      "A",
+      "A",
+      "A"
+    ],
+    "key": {
+      "A": {
+        "item": "lotr_port:obsidian_shard"
+      }
+    },
+    "result": {
+      "id": "lotr_port:obsidian_taurethrim_pillar",
+      "count": 3
+    }
+  }
+}

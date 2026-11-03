@@ -1,0 +1,21 @@
+{
+  "type": "lotr_port:faction_crafting",
+  "table": "lotr_port:lindon_crafting_table",
+  "recipe": {
+    "type": "minecraft:crafting_shaped",
+    "category": "building",
+    "group": "high_elven",
+    "pattern": [
+      "AAA"
+    ],
+    "key": {
+      "A": {
+        "item": "lotr_port:cracked_high_elven_brick"
+      }
+    },
+    "result": {
+      "id": "lotr_port:cracked_high_elven_brick_slab",
+      "count": 6
+    }
+  }
+}

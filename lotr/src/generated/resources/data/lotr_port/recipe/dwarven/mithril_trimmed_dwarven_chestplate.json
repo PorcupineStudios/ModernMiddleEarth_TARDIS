@@ -1,0 +1,25 @@
+{
+  "type": "lotr_port:faction_crafting",
+  "table": "lotr_port:dwarven_crafting_table",
+  "recipe": {
+    "type": "minecraft:crafting_shaped",
+    "category": "misc",
+    "group": "dwarven",
+    "pattern": [
+      "AAA",
+      "ABA",
+      "AAA"
+    ],
+    "key": {
+      "A": {
+        "item": "lotr_port:mithril_nugget"
+      },
+      "B": {
+        "item": "lotr_port:dwarven_chestplate"
+      }
+    },
+    "result": {
+      "id": "lotr_port:mithril_trimmed_dwarven_chestplate"
+    }
+  }
+}

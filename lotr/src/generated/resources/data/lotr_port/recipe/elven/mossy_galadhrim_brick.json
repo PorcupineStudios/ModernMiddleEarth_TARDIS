@@ -1,0 +1,20 @@
+{
+  "type": "lotr_port:faction_crafting",
+  "table": "lotr_port:galadhrim_crafting_table",
+  "recipe": {
+    "type": "minecraft:crafting_shapeless",
+    "category": "building",
+    "group": "elven",
+    "ingredients": [
+      {
+        "item": "lotr_port:galadhrim_brick"
+      },
+      {
+        "tag": "lotr_port:vines"
+      }
+    ],
+    "result": {
+      "id": "lotr_port:mossy_galadhrim_brick"
+    }
+  }
+}

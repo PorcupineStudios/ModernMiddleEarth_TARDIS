@@ -1,0 +1,47 @@
+{
+  "parent": "minecraft:block/block",
+  "textures": {
+    "down": "lotr_port:block/berry_bush_blackberry_bare",
+    "up": "lotr_port:block/berry_bush_blackberry_bare",
+    "north": "lotr_port:block/berry_bush_blackberry_bare",
+    "south": "lotr_port:block/berry_bush_blackberry_bare",
+    "west": "lotr_port:block/berry_bush_blackberry_bare",
+    "east": "lotr_port:block/berry_bush_blackberry_bare",
+    "particle": "lotr_port:block/berry_bush_blackberry_bare"
+  },
+  "render_type": "minecraft:cutout",
+  "elements": [
+    {
+      "from": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "to": [
+        16.0,
+        16.0,
+        16.0
+      ],
+      "faces": {
+        "down": {
+          "texture": "#down"
+        },
+        "up": {
+          "texture": "#up"
+        },
+        "north": {
+          "texture": "#north"
+        },
+        "south": {
+          "texture": "#south"
+        },
+        "west": {
+          "texture": "#west"
+        },
+        "east": {
+          "texture": "#east"
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "group": "crafting",
+  "pattern": [
+    "AAA",
+    "AAA"
+  ],
+  "key": {
+    "A": {
+      "tag": "c:ingots/silver"
+    }
+  },
+  "result": {
+    "id": "lotr_port:silver_bars",
+    "count": 16
+  }
+}

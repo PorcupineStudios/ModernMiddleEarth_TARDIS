@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/leaves",
+  "textures": {
+    "all": "lotr_port:block/leaves2_banana_fancy"
+  },
+  "render_type": "minecraft:cutout"
+}

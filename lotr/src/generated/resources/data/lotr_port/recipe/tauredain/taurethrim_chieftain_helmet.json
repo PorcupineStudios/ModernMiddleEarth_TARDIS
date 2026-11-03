@@ -1,0 +1,24 @@
+{
+  "type": "lotr_port:faction_crafting",
+  "table": "lotr_port:taurethrim_crafting_table",
+  "recipe": {
+    "type": "minecraft:crafting_shaped",
+    "category": "misc",
+    "group": "tauredain",
+    "pattern": [
+      "A",
+      "B"
+    ],
+    "key": {
+      "A": {
+        "item": "lotr_port:flame_of_harad"
+      },
+      "B": {
+        "item": "lotr_port:taurethrim_helmet"
+      }
+    },
+    "result": {
+      "id": "lotr_port:taurethrim_chieftain_helmet"
+    }
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/cube_bottom_top",
+  "textures": {
+    "bottom": "lotr_port:block/utumno_brick_fire_tile",
+    "top": "lotr_port:block/utumno_brick_fire_tile",
+    "side": "lotr_port:block/utumno_brick_fire_tile_side"
+  }
+}

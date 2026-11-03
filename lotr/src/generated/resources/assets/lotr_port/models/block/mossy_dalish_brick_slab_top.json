@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab_top",
+  "textures": {
+    "bottom": "lotr_port:block/brick6_dale_mossy",
+    "top": "lotr_port:block/brick6_dale_mossy",
+    "side": "lotr_port:block/brick6_dale_mossy"
+  }
+}

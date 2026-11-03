@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/template_glass_pane_noside",
+  "textures": {
+    "pane": "lotr_port:block/stained_glass_gray",
+    "edge": "lotr_port:block/stained_glass_gray"
+  },
+  "render_type": "minecraft:cutout"
+}

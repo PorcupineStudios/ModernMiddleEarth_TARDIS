@@ -1,0 +1,27 @@
+{
+  "type": "lotr_port:faction_crafting",
+  "table": "lotr_port:gondorian_crafting_table",
+  "recipe": {
+    "type": "minecraft:crafting_shaped",
+    "category": "misc",
+    "group": "gondorian",
+    "pattern": [
+      "ABA",
+      "C C"
+    ],
+    "key": {
+      "A": {
+        "item": "minecraft:leather"
+      },
+      "B": {
+        "tag": "c:dyes/green"
+      },
+      "C": {
+        "tag": "c:ingots/iron"
+      }
+    },
+    "result": {
+      "id": "lotr_port:pinnath_gelin_boots"
+    }
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "crafting",
+  "pattern": [
+    "A",
+    "B",
+    "C"
+  ],
+  "key": {
+    "A": {
+      "item": "lotr_port:ancient_sword_tip"
+    },
+    "B": {
+      "item": "lotr_port:ancient_sword_blade"
+    },
+    "C": {
+      "item": "lotr_port:ancient_sword_hilt"
+    }
+  },
+  "result": {
+    "id": "lotr_port:ancient_sword"
+  }
+}

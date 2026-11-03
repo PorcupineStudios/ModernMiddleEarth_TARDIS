@@ -1,0 +1,20 @@
+# Converter
+
+Turns LOTR 36.15 (1.7.10) content into the 1.21.1 port's generated resources. Two steps:
+
+1. **Export** (`converter/src`, a small 1.7.10 mod built with the GTNH toolchain). CI's "Convert LOTR" workflow
+   starts a real LOTR client under a virtual screen, the exporter reads every LOTR block, item, recipe, creative tab
+   and ore dictionary entry from the running game, writes `converter/export/*.json` and CI commits them. It runs when
+   `converter/src` or the Gradle files change, or by hand from the Actions tab. Reflection on public game state only;
+   no LOTR code is copied.
+2. **Generate** (`python3 converter/generate.py`, needs Pillow). Reads the export and the LOTR jar
+   (`converter/libs/`) and writes `lotr/src/generated/resources/`: the block/item/tab lists the mod registers from,
+   blockstates, models, textures, 22 languages, recipes, loot tables and tags. Also writes `converter/idtable.json`
+   (old id + metadata -> new id, for structures later) and `converter/report.json` (what was skipped or guessed).
+
+Never edit generated files by hand: change the generator and run it again.
+
+Known gaps (report.json): spawn eggs and structure spawners wait for the NPC and structure phases; LOTR's special
+recipes (poisoning weapons, dyeing) are code, not data; drinks keep one item per drink (vessel and strength become
+data later); a few armor sets use one texture per item; connected textures are baked to the single-block look;
+leaves and grass are untinted.

@@ -1,0 +1,26 @@
+{
+  "type": "lotr_port:faction_crafting",
+  "table": "lotr_port:dol_guldur_crafting_table",
+  "recipe": {
+    "type": "minecraft:crafting_shaped",
+    "category": "building",
+    "group": "dol_guldur",
+    "pattern": [
+      "ABA",
+      "BAB",
+      "ABA"
+    ],
+    "key": {
+      "A": {
+        "item": "minecraft:gunpowder"
+      },
+      "B": {
+        "item": "lotr_port:orc_steel_ingot"
+      }
+    },
+    "result": {
+      "id": "lotr_port:orc_bomb",
+      "count": 4
+    }
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cross",
+  "textures": {
+    "cross": "lotr_port:block/sapling_mirk_oak_red"
+  },
+  "render_type": "minecraft:cutout"
+}

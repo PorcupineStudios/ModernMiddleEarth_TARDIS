@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cross",
+  "textures": {
+    "cross": "lotr_port:block/fangorn_plant_gold"
+  },
+  "render_type": "minecraft:cutout"
+}

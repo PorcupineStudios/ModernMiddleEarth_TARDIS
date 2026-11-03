@@ -1,0 +1,23 @@
+{
+  "type": "lotr_port:faction_crafting",
+  "table": "lotr_port:umbaric_crafting_table",
+  "recipe": {
+    "type": "minecraft:crafting_shaped",
+    "category": "building",
+    "group": "umbar",
+    "pattern": [
+      "A  ",
+      "AA ",
+      "AAA"
+    ],
+    "key": {
+      "A": {
+        "item": "lotr_port:haradric_brick"
+      }
+    },
+    "result": {
+      "id": "lotr_port:haradric_brick_stairs",
+      "count": 4
+    }
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/cube_bottom_top",
+  "textures": {
+    "bottom": "lotr_port:block/brick2_red_rock",
+    "top": "lotr_port:block/brick2_red_rock",
+    "side": "lotr_port:block/brick2_red_rock"
+  }
+}

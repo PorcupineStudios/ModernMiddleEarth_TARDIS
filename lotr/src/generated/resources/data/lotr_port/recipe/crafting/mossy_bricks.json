@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "group": "crafting",
+  "ingredients": [
+    {
+      "item": "minecraft:bricks"
+    },
+    {
+      "tag": "lotr_port:vines"
+    }
+  ],
+  "result": {
+    "id": "lotr_port:mossy_bricks"
+  }
+}

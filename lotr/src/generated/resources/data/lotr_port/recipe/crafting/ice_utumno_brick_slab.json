@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "group": "crafting",
+  "pattern": [
+    "AAA"
+  ],
+  "key": {
+    "A": {
+      "item": "lotr_port:ice_utumno_brick"
+    }
+  },
+  "result": {
+    "id": "lotr_port:ice_utumno_brick_slab",
+    "count": 6
+  }
+}

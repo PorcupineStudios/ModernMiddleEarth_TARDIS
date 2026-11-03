@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cross",
+  "textures": {
+    "cross": "lotr_port:block/tall_grass_flower"
+  },
+  "render_type": "minecraft:cutout"
+}

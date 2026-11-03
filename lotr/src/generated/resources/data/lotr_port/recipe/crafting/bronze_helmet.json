@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "crafting",
+  "pattern": [
+    "AAA",
+    "A A"
+  ],
+  "key": {
+    "A": {
+      "item": "lotr_port:bronze_ingot"
+    }
+  },
+  "result": {
+    "id": "lotr_port:bronze_helmet"
+  }
+}
