@@ -51,3 +51,14 @@ jobs:
         with:
           name: jars
           path: "*/build/libs/*.jar"
+      - name: Mods the TARDIS needs (for a test instance)
+        run: |
+          mkdir -p needed-mods
+          for m in create immersive-portals-neoforge cloth-config; do
+            find ~/.gradle/caches/modules-2/files-2.1/maven.modrinth/$m -name "*.jar" ! -name "*-sources.jar" -exec cp {} needed-mods/ \;
+          done
+          ls -la needed-mods
+      - uses: actions/upload-artifact@v4
+        with:
+          name: needed-mods
+          path: needed-mods/*.jar
