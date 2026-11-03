@@ -1,45 +1,40 @@
 {
   "parent": "minecraft:block/block",
   "textures": {
-    "down": "minecraft:block/stone",
-    "up": "minecraft:block/stone",
-    "north": "minecraft:block/stone",
-    "south": "minecraft:block/stone",
-    "west": "minecraft:block/stone",
-    "east": "minecraft:block/stone",
+    "all": "minecraft:block/stone",
     "particle": "minecraft:block/stone"
   },
   "render_type": "minecraft:cutout",
   "elements": [
     {
       "from": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        6
       ],
       "to": [
-        16.0,
-        16.0,
-        16.0
+        16,
+        16,
+        10
       ],
       "faces": {
         "down": {
-          "texture": "#down"
+          "texture": "#all"
         },
         "up": {
-          "texture": "#up"
+          "texture": "#all"
         },
         "north": {
-          "texture": "#north"
+          "texture": "#all"
         },
         "south": {
-          "texture": "#south"
+          "texture": "#all"
         },
         "west": {
-          "texture": "#west"
+          "texture": "#all"
         },
         "east": {
-          "texture": "#east"
+          "texture": "#all"
         }
       }
     }

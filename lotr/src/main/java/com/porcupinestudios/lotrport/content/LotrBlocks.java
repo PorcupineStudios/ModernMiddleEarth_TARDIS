@@ -58,7 +58,12 @@ public final class LotrBlocks {
     }
 
     private static Function<BlockBehaviour.Properties, Block> factory(String kind, JsonObject e) {
+        if (ContentData.bool(e, "facing", false)) {
+            float[] box = "shaped".equals(kind) ? box(e) : null;
+            return p -> new FacingBlock(p, box);
+        }
         return switch (kind) {
+            case "gate" -> GateBlock::new;
             case "pillar" -> RotatedPillarBlock::new;
             case "slab" -> SlabBlock::new;
             case "stairs" -> p -> new StairBlock(Blocks.STONE.defaultBlockState(), p);
@@ -125,6 +130,7 @@ public final class LotrBlocks {
                     .pushReaction(PushReaction.DESTROY);
             case "plant", "torch", "button", "pressure_plate" -> p.noCollission().pushReaction(PushReaction.DESTROY);
             case "door", "trapdoor" -> p.pushReaction(PushReaction.DESTROY);
+            case "gate" -> p.noOcclusion().isViewBlocking((s, l, pos) -> false);
             default -> { }
         }
         return p;
