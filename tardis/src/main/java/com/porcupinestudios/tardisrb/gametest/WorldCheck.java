@@ -101,12 +101,17 @@ public final class WorldCheck {
         Vec3 start = new Vec3(300.5, link.get().ceiling() + 5, -700.5);
         world.getChunk(BlockPos.containing(start));
         ArmorStand stand = new ArmorStand(world, start.x, start.y, start.z);
-        world.addFreshEntity(stand);
+        if (!world.addFreshEntity(stand)) {
+            problems.add("the test armor stand wasn't added at " + start);
+            return;
+        }
         SpaceTravel.toSpace(stand, link.get(), space);
         Vec3 up = link.get().toSpace(start.x, start.z, 16);
         var there = space.getEntitiesOfClass(ArmorStand.class, new AABB(up, up).inflate(2));
         if (there.isEmpty()) {
-            problems.add("nothing came out in space at " + up);
+            problems.add("nothing came out in space at " + up + "; armor stands in space: "
+                    + space.getEntitiesOfClass(ArmorStand.class, new AABB(up, up).inflate(400)).stream()
+                            .map(a -> a.position().toString()).toList());
             return;
         }
         TardisRB.LOG.info("[worldcheck] up into space: {} -> {}", start, there.get(0).position());

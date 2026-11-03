@@ -25,6 +25,7 @@ import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.portal.DimensionTransition;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.common.NeoForge;
@@ -138,7 +139,7 @@ public final class SpaceTravel {
     public static void toSpace(Entity e, SkyLink link, ServerLevel space) {
         Vec3 to = link.toSpace(e.getX(), e.getZ(), LIFT);
         space.getChunk(BlockPos.containing(to));
-        PortalAPI.teleportEntity(e, space, to);
+        move(e, space, to);
     }
 
     /** Down from space: to the spot below, under the ceiling, falling slowly. */
@@ -153,7 +154,22 @@ public final class SpaceTravel {
             }
         }
         e.fallDistance = 0;
-        PortalAPI.teleportEntity(e, world, to);
+        move(e, world, to);
+    }
+
+    /**
+     * Players go through Immersive Portals' seamless teleport (no loading screen); everything else changes dimension
+     * the vanilla way, which is done at once (IP's teleport of other entities waits a tick).
+     */
+    private static void move(Entity e, ServerLevel to, Vec3 pos) {
+        if (e instanceof ServerPlayer) {
+            PortalAPI.teleportEntity(e, to, pos);
+        } else if (e.level() == to) {
+            e.teleportTo(pos.x, pos.y, pos.z);
+        } else {
+            e.changeDimension(new DimensionTransition(to, pos, e.getDeltaMovement(), e.getYRot(), e.getXRot(),
+                    DimensionTransition.DO_NOTHING));
+        }
     }
 
     /** Low gravity in space, normal gravity elsewhere. */
