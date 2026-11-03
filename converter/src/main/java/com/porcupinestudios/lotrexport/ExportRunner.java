@@ -19,15 +19,14 @@ public class ExportRunner {
             return;
         }
         done = true;
-        int code = 0;
         try {
             new Exporter(new File(System.getProperty("lotrexport.out", "export"))).run();
+            System.out.println("[lotrexport] finished");
         } catch (Throwable t) {
+            // CI checks that blocks.json exists, so a failed export fails the job.
             t.printStackTrace();
-            code = 1;
         }
-        System.out.println("[lotrexport] finished with code " + code);
-        System.out.flush();
-        Runtime.getRuntime().halt(code);
+        // FML traps System.exit and Runtime.halt; a normal shutdown ends the game loop with exit code 0.
+        Minecraft.getMinecraft().shutdown();
     }
 }
