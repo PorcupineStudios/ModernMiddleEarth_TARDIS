@@ -200,6 +200,15 @@ public final class MiddleEarthMap {
         return blockZ / blocksPerPixel + originZ;
     }
 
+    /** Map size in pixels. */
+    public int width() {
+        return width;
+    }
+
+    public int height() {
+        return height;
+    }
+
     public int blocksPerPixel() {
         return blocksPerPixel;
     }

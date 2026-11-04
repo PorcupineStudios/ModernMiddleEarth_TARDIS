@@ -182,8 +182,7 @@ public final class TardisContent extends SimplePreparableReloadListener<Map<Stri
         Map<ResourceLocation, SkyLink> skies = parse(files, SKY, SkyLink.CODEC, problems);
         skies.entrySet().removeIf(e -> {
             SkyLink k = e.getValue();
-            String bad = k.dimension().equals(k.space()) ? "a dimension can't be its own space"
-                    : k.arriveBelow() <= 0 ? "arrive_below must be above 0" : null;
+            String bad = k.problem();
             if (bad != null) {
                 problems.add("sky " + e.getKey() + ": " + bad);
             }

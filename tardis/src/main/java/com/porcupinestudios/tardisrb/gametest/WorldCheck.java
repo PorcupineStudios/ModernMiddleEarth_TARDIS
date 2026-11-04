@@ -12,6 +12,9 @@ import qouteall.imm_ptl.core.portal.Portal;
 import com.porcupinestudios.tardisrb.interior.Interiors;
 import com.porcupinestudios.tardisrb.interior.Rooms;
 import com.porcupinestudios.tardisrb.progression.TardisContent;
+import com.porcupinestudios.tardisrb.space.Planet;
+import com.porcupinestudios.tardisrb.space.Planets;
+import com.porcupinestudios.tardisrb.space.SeamPortals;
 import com.porcupinestudios.tardisrb.space.SpaceTravel;
 import java.util.ArrayList;
 import java.util.List;
@@ -119,20 +122,25 @@ public final class WorldCheck {
         }
     }
 
-    /** Space: an armor stand above the Overworld's ceiling comes out over the planet, and back down from the ball. */
+    /**
+     * Space: an armor stand above the Overworld's ceiling comes out at the bottom of its orbit layer over the same spot,
+     * and back down under the ceiling; one past the planet's east edge wraps to the west edge; a probe at the edge
+     * puts up seam portals that lead round the globe.
+     */
     private static void checkSpace(MinecraftServer server, List<String> problems) {
-        var link = SpaceTravel.linkOf(Level.OVERWORLD);
-        if (link.isEmpty()) {
-            problems.add("the Overworld has no sky link");
+        var found = Planets.of(server, Level.OVERWORLD);
+        if (found.isEmpty()) {
+            problems.add("the Overworld is no planet");
             return;
         }
+        Planet planet = found.get();
         ServerLevel world = server.overworld();
-        ServerLevel space = server.getLevel(link.get().space());
+        ServerLevel space = server.getLevel(planet.link().space());
         if (space == null) {
-            problems.add("no space dimension " + link.get().space().location());
+            problems.add("no space dimension " + planet.link().space().location());
             return;
         }
-        Vec3 start = new Vec3(300.5, link.get().ceiling() + 5, -700.5);
+        Vec3 start = new Vec3(300.5, planet.link().ceiling() + 5, -700.5);
         world.getChunk(BlockPos.containing(start));
         ArmorStand stand = new ArmorStand(world, start.x, start.y, start.z);
         if (!world.addFreshEntity(stand)) {
@@ -140,20 +148,21 @@ public final class WorldCheck {
             return;
         }
         // a fresh check world has no ticking chunks up there, so the moved entity is checked as returned
-        var there = SpaceTravel.toSpace(stand, link.get(), space);
-        Vec3 up = link.get().toSpace(start.x, start.z, 16);
+        var there = SpaceTravel.toSpace(stand, planet, space);
+        Vec3 up = new Vec3(planet.spaceX(start.x), planet.link().orbit().floor() + 3, planet.spaceZ(start.z));
         if (there.level() != space || there.position().distanceTo(up) > 1) {
             problems.add("the armor stand went to " + there.level().dimension().location() + " " + there.position()
                     + ", not space at " + up);
             return;
         }
-        TardisRB.LOG.info("[worldcheck] up into space: {} -> {}", start, there.position());
+        TardisRB.LOG.info("[worldcheck] up into space: {} -> {} (altitude {})", start, there.position(),
+                (int) planet.altitude(there.getY()));
         if (!(there instanceof ArmorStand up1)
                 || !up1.getAttribute(Attributes.GRAVITY).hasModifier(SpaceTravel.GRAVITY_ID)) {
             problems.add("no low gravity in space");
         }
-        var back = SpaceTravel.toSurface(there, link.get(), world, TardisContent.tuning().space());
-        Vec3 down = new Vec3(start.x, link.get().ceiling() - link.get().arriveBelow(), start.z);
+        var back = SpaceTravel.toSurface(there, planet, world, TardisContent.tuning().space());
+        Vec3 down = new Vec3(start.x, planet.link().ceiling() - 3, start.z);
         if (back.level() != world || back.position().distanceTo(down) > 1) {
             problems.add("the armor stand came down to " + back.level().dimension().location() + " "
                     + back.position() + ", not " + down);
@@ -164,7 +173,37 @@ public final class WorldCheck {
                 && down1.getAttribute(Attributes.GRAVITY).hasModifier(SpaceTravel.GRAVITY_ID)) {
             problems.add("still low gravity after coming down");
         }
+        // off the east edge comes out at the west edge
+        var b = planet.link().surface();
+        Vec3 off = new Vec3(b.maxX() + 4.5, 100, 20.5);
+        world.getChunk(BlockPos.containing(off));
+        back.teleportTo(off.x, off.y, off.z);
+        SpaceTravel.wrapOnSurface(back, planet);
+        if (Math.abs(back.getX() - (b.minX() + 4.5)) > 0.01 || Math.abs(back.getZ() - 20.5) > 0.01) {
+            problems.add("off the east edge went to " + back.position() + ", not x " + (b.minX() + 4.5));
+        } else {
+            TardisRB.LOG.info("[worldcheck] wrapped round the planet: {} -> {}", off, back.position());
+        }
         back.discard();
+        // a probe near the east edge puts up seam portals there that look round to the west edge
+        for (int dz = -160; dz <= 160; dz += 16) {
+            world.getChunk(BlockPos.containing(b.maxX() + 1, 64, dz));
+        }
+        SeamPortals.update(server, List.of(new SeamPortals.Probe(planet.id(), b.maxX() - 8, 0)));
+        List<Portal> seams = SeamPortals.portals(world);
+        if (seams.isEmpty()) {
+            problems.add("no seam portals at the east edge");
+        } else {
+            Portal s = seams.get(0);
+            boolean right = Math.abs(s.getOriginPos().x - b.maxX()) < 0.01
+                    && Math.abs(s.getDestPos().x - b.minX()) < 0.01 && s.getDestDim() == world.dimension();
+            if (!right) {
+                problems.add("seam portal at " + s.getOriginPos() + " leads to " + s.getDestPos());
+            } else {
+                TardisRB.LOG.info("[worldcheck] {} seam portals, e.g. {} -> {}", seams.size(), s.getOriginPos(),
+                        s.getDestPos());
+            }
+        }
     }
 
     private static void run(MinecraftServer server) {

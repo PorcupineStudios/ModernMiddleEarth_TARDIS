@@ -18,4 +18,8 @@ public final class RegisterProvidersEvent extends Event implements IModBusEvent 
     public void researchers(ResearcherProvider provider) {
         builder.researchers.add(provider);
     }
+
+    public void planet(PlanetProvider provider) {
+        builder.planets.add(provider);
+    }
 }

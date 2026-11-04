@@ -2,17 +2,12 @@ package com.porcupinestudios.tardisrb.space;
 
 import com.porcupinestudios.tardisrb.TardisRB;
 import com.porcupinestudios.tardisrb.net.SkyNet;
-import com.porcupinestudios.tardisrb.progression.SkyLink;
 import com.porcupinestudios.tardisrb.progression.TardisContent;
 import com.porcupinestudios.tardisrb.progression.Tuning;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
-import java.util.stream.Collectors;
 import net.minecraft.core.BlockPos;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
@@ -24,9 +19,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.portal.DimensionTransition;
-import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
@@ -36,16 +29,22 @@ import qouteall.imm_ptl.core.api.PortalAPI;
 import qouteall.imm_ptl.core.portal.Portal;
 
 /**
- * Seamless space, first slice (Aaron, 2026-11-03: Outer Wilds-style space, in any dimension). Every dimension with a
- * sky link ({@code tardis/sky}) leads into its space dimension above its ceiling: whatever flies higher comes out over
- * the same spot on the planet, a ball in space. Whatever falls into the ball (or out of the bottom of space) comes down
- * to the spot below it, under the ceiling, falling slowly. Space has low gravity. The globe itself is drawn by the
- * client ({@code client/GlobeRenderer}); walking round a looping planet comes in a later slice.
+ * Going up into space and coming back down (Aaron, 2026-11-03: seamless Outer Wilds-style space, from any dimension;
+ * 2026-11-04: there was no way back to Middle-earth). Each planet's space is a scale model of it: its orbit layer
+ * ({@link Planet}). Climb above the ceiling and you come out at the bottom of the layer over the same spot; sink below
+ * the layer's floor and you come back down under the ceiling over the spot you're above. Both swaps happen inside the
+ * cloud bank the client draws there, so they don't show. Walking (or flying) off a surface or layer edge wraps round
+ * the globe; near players, {@link SeamPortals} make the edge see-through. Space has low gravity.
  */
 public final class SpaceTravel {
     public static final ResourceLocation GRAVITY_ID = TardisRB.id("space_gravity");
-    private static final double LIFT = 16;
-    private static final int BOTTOM_MARGIN = 16;
+    /** How far inside the boundary you come out, so you don't bounce straight back. */
+    private static final double ARRIVE_INSIDE = 3;
+    /** How far past an edge something must be before the server wraps it (a seam portal usually does it first). */
+    private static final double WRAP_SLACK = 1.5;
+
+    /** The planet list players last got (sent again when the data reloads). */
+    private static List<Planet> sent;
 
     private SpaceTravel() {}
 
@@ -54,27 +53,15 @@ public final class SpaceTravel {
         NeoForge.EVENT_BUS.addListener(SpaceTravel::onJoin);
         NeoForge.EVENT_BUS.addListener(SpaceTravel::onLogin);
         NeoForge.EVENT_BUS.addListener(SpaceTravel::onChangeDimension);
+        SeamPortals.register();
+        PlanetMaps.register();
     }
 
-    public static Collection<SkyLink> links() {
-        return TardisContent.get().skies().values();
+    public static boolean isSpace(net.minecraft.world.level.Level level) {
+        return level.getServer() != null && Planets.isSpace(level.getServer(), level.dimension());
     }
 
-    /** The space dimensions some sky leads to. */
-    public static Set<ResourceKey<Level>> spaces() {
-        return links().stream().map(SkyLink::space).collect(Collectors.toSet());
-    }
-
-    public static boolean isSpace(Level level) {
-        return spaces().contains(level.dimension());
-    }
-
-    /** The sky link of this dimension, if it has one. */
-    public static Optional<SkyLink> linkOf(ResourceKey<Level> dimension) {
-        return links().stream().filter(l -> l.dimension().equals(dimension)).findFirst();
-    }
-
-    /** Whether this entity is moved by the sky links (not portals, riders or vehicles with riders). */
+    /** Whether this entity is moved by the sky (not portals, riders or vehicles with riders). */
     static boolean travels(Entity e) {
         return e.isAlive() && !(e instanceof Portal) && !e.isPassenger() && !e.isVehicle();
     }
@@ -82,70 +69,105 @@ public final class SpaceTravel {
     private static void onTick(ServerTickEvent.Post event) {
         MinecraftServer server = event.getServer();
         Tuning.SpaceTuning tuning = TardisContent.tuning().space();
-        if (server.getTickCount() % tuning.checkTicks() != 0 || links().isEmpty()) {
+        if (server.getTickCount() % tuning.checkTicks() != 0) {
             return;
         }
-        for (SkyLink link : links()) {
-            ServerLevel world = server.getLevel(link.dimension());
-            ServerLevel space = server.getLevel(link.space());
+        List<Planet> planets = Planets.all(server);
+        if (planets != sent) {
+            sent = planets;
+            server.getPlayerList().getPlayers().forEach(SkyNet::sendPlanets);
+        }
+        if (planets.isEmpty()) {
+            return;
+        }
+        for (Planet planet : planets) {
+            ServerLevel world = server.getLevel(planet.link().dimension());
+            ServerLevel space = server.getLevel(planet.link().space());
             if (world == null || space == null) {
                 continue;
             }
             List<Entity> up = new ArrayList<>();
+            List<Entity> off = new ArrayList<>();
             for (Entity e : world.getAllEntities()) {
-                if (e.getY() > link.ceiling() && travels(e)) {
+                if (!travels(e)) {
+                    continue;
+                }
+                if (e.getY() > planet.link().ceiling()) {
                     up.add(e);
+                } else if (outside(planet, e.getX(), e.getZ())) {
+                    off.add(e);
                 }
             }
-            up.forEach(e -> toSpace(e, link, space));
-            double reach = link.radius() + 2;
-            List<Entity> down = space.getEntitiesOfClass(Entity.class, new AABB(link.center(), link.center())
-                    .inflate(reach), e -> travels(e) && e.position().distanceTo(link.center()) < reach);
-            down.forEach(e -> toSurface(e, link, world, tuning));
+            up.forEach(e -> toSpace(e, planet, space));
+            off.forEach(e -> wrapOnSurface(e, planet));
         }
-        for (ResourceKey<Level> key : spaces()) {
-            ServerLevel space = server.getLevel(key);
-            if (space == null) {
-                continue;
-            }
-            List<Entity> lost = new ArrayList<>();
+        for (ServerLevel space : spaceLevels(server, planets)) {
+            List<Entity> down = new ArrayList<>();
             for (Entity e : space.getAllEntities()) {
                 if (e instanceof LivingEntity living) {
                     setGravity(living, true);
                 }
-                if (e.getY() < space.getMinBuildHeight() + BOTTOM_MARGIN && travels(e)) {
-                    lost.add(e);
+                if (travels(e)) {
+                    down.add(e);
                 }
             }
-            for (Entity e : lost) {
-                nearest(key, e.position()).ifPresent(link -> {
-                    ServerLevel world = server.getLevel(link.dimension());
+            for (Entity e : down) {
+                Optional<Planet> under = Planets.under(server, space.dimension(), e.getX(), e.getZ());
+                if (under.isEmpty()) {
+                    continue;
+                }
+                Planet planet = under.get();
+                boolean belowFloor = e.getY() < planet.link().orbit().floor()
+                        || e.getY() < space.getMinBuildHeight() + 16;
+                if (belowFloor) {
+                    ServerLevel world = server.getLevel(planet.link().dimension());
                     if (world != null) {
-                        toSurface(e, link, world, tuning);
+                        toSurface(e, planet, world, tuning);
                     }
-                });
+                } else if (!planet.overLayer(e.getX(), e.getZ(), WRAP_SLACK)) {
+                    wrapInSpace(e, planet);
+                }
             }
         }
     }
 
-    /** The planet in this space whose surface is nearest. */
-    static Optional<SkyLink> nearest(ResourceKey<Level> space, Vec3 at) {
-        return links().stream().filter(l -> l.space().equals(space))
-                .min((a, b) -> Double.compare(at.distanceTo(a.center()) - a.radius(),
-                        at.distanceTo(b.center()) - b.radius()));
+    private static List<ServerLevel> spaceLevels(MinecraftServer server, List<Planet> planets) {
+        List<ServerLevel> out = new ArrayList<>();
+        for (Planet p : planets) {
+            ServerLevel s = server.getLevel(p.link().space());
+            if (s != null && !out.contains(s)) {
+                out.add(s);
+            }
+        }
+        return out;
     }
 
-    /** Up through the sky: out over the same spot on the planet. */
-    public static Entity toSpace(Entity e, SkyLink link, ServerLevel space) {
-        Vec3 to = link.toSpace(e.getX(), e.getZ(), LIFT);
+    private static boolean outside(Planet p, double x, double z) {
+        var b = p.link().surface();
+        return x < b.minX() - WRAP_SLACK || x > b.maxX() + WRAP_SLACK || z < b.minZ() - WRAP_SLACK
+                || z > b.maxZ() + WRAP_SLACK;
+    }
+
+    /** Up through the clouds: out at the bottom of the planet's orbit layer, over the same spot. */
+    public static Entity toSpace(Entity e, Planet planet, ServerLevel space) {
+        Vec3 to = new Vec3(planet.spaceX(e.getX()), planet.link().orbit().floor() + ARRIVE_INSIDE,
+                planet.spaceZ(e.getZ()));
         space.getChunk(BlockPos.containing(to));
-        return move(e, space, to);
+        return move(e, space, to, 0);
     }
 
-    /** Down from space: to the spot below, under the ceiling, falling slowly. */
-    public static Entity toSurface(Entity e, SkyLink link, ServerLevel world, Tuning.SpaceTuning tuning) {
-        double[] xz = link.toSurface(e.position());
-        Vec3 to = new Vec3(xz[0], link.ceiling() - link.arriveBelow(), xz[1]);
+    /** Down from space: under the ceiling over the spot below, falling slowly. */
+    public static Entity toSurface(Entity e, Planet planet, ServerLevel world, Tuning.SpaceTuning tuning) {
+        double x = planet.surfaceX(e.getX());
+        double z = planet.surfaceZ(e.getZ());
+        float turn = 0;
+        Planet.Wrapped w = planet.wrap(x, z);
+        if (w != null) {
+            x = w.x();
+            z = w.z();
+            turn = w.turn();
+        }
+        Vec3 to = new Vec3(x, planet.link().ceiling() - ARRIVE_INSIDE, z);
         world.getChunk(BlockPos.containing(to));
         if (e instanceof LivingEntity living) {
             setGravity(living, false);
@@ -154,25 +176,55 @@ public final class SpaceTravel {
             }
         }
         e.fallDistance = 0;
-        return move(e, world, to);
+        return move(e, world, to, turn);
+    }
+
+    /** Off the edge of the surface: round the globe to where that really is. */
+    public static void wrapOnSurface(Entity e, Planet planet) {
+        Planet.Wrapped w = planet.wrap(e.getX(), e.getZ());
+        if (w != null) {
+            move(e, (ServerLevel) e.level(), new Vec3(w.x(), e.getY(), w.z()), w.turn());
+        }
+    }
+
+    /** Off the edge of the orbit layer: the same wrap as the surface, at orbit scale. */
+    static void wrapInSpace(Entity e, Planet planet) {
+        Planet.Wrapped w = planet.wrap(planet.surfaceX(e.getX()), planet.surfaceZ(e.getZ()));
+        if (w != null) {
+            move(e, (ServerLevel) e.level(), new Vec3(planet.spaceX(w.x()), e.getY(), planet.spaceZ(w.z())),
+                    w.turn());
+        }
     }
 
     /**
-     * Players go through Immersive Portals' seamless teleport (no loading screen); everything else changes dimension
-     * the vanilla way, which is done at once (IP's teleport of other entities waits a tick).
+     * Moves the entity and returns it where it ended up (a non-player is a new entity after a dimension change).
+     * Players go through Immersive Portals' seamless teleport (no loading screen) unless they must turn round (over a
+     * pole); everything else moves the vanilla way, at once.
      */
-    /** Moves the entity and returns it where it ended up (a non-player is a new entity after a dimension change). */
-    private static Entity move(Entity e, ServerLevel to, Vec3 pos) {
-        if (e instanceof ServerPlayer) {
-            PortalAPI.teleportEntity(e, to, pos);
+    private static Entity move(Entity e, ServerLevel to, Vec3 pos, float turn) {
+        if (e instanceof ServerPlayer sp) {
+            if (to != e.level()) {
+                setGravity(sp, isSpace(to));
+            }
+            if (turn == 0) {
+                PortalAPI.teleportEntity(e, to, pos);
+            } else {
+                sp.teleportTo(to, pos.x, pos.y, pos.z, sp.getYRot() + turn, sp.getXRot());
+            }
             return e;
+        }
+        Vec3 v = e.getDeltaMovement();
+        if (turn != 0) {
+            v = new Vec3(-v.x, v.y, -v.z);
         }
         if (e.level() == to) {
             e.teleportTo(pos.x, pos.y, pos.z);
+            e.setYRot(e.getYRot() + turn);
+            e.setDeltaMovement(v);
             return e;
         }
-        Entity moved = e.changeDimension(new DimensionTransition(to, pos, e.getDeltaMovement(), e.getYRot(),
-                e.getXRot(), DimensionTransition.DO_NOTHING));
+        Entity moved = e.changeDimension(new DimensionTransition(to, pos, v, e.getYRot() + turn, e.getXRot(),
+                DimensionTransition.DO_NOTHING));
         return moved != null ? moved : e;
     }
 
@@ -202,14 +254,13 @@ public final class SpaceTravel {
 
     private static void onLogin(PlayerEvent.PlayerLoggedInEvent event) {
         if (event.getEntity() instanceof ServerPlayer sp) {
-            SkyNet.sendGlobes(sp);
+            SkyNet.sendPlanets(sp);
         }
     }
 
     private static void onChangeDimension(PlayerEvent.PlayerChangedDimensionEvent event) {
         if (event.getEntity() instanceof ServerPlayer sp) {
             setGravity(sp, isSpace(sp.level()));
-            SkyNet.sendGlobes(sp);
         }
     }
 }

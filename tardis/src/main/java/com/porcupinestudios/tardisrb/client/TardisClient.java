@@ -39,5 +39,6 @@ public final class TardisClient {
         ConsoleNet.clientHandler = (view, ctx) -> ConsoleScreen.show(view);
         WorkshopNet.clientHandler = (view, ctx) -> WorkshopScreen.show(view);
         SkyNet.clientHandler = GlobeRenderer::set;
+        SkyNet.clientMapHandler = GlobeRenderer::setMap;
     }
 }

@@ -170,16 +170,28 @@ public record Tuning(CrashSite crashSite, Hop hop, Winder winder, Interior inter
 
     /**
      * Space: {@code gravity} is the share of normal gravity in space dimensions (0.15 = 15%); sky links are checked
-     * every {@code check_ticks}; coming down from space you fall slowly for {@code landing_slow_fall} seconds.
+     * every {@code check_ticks}; coming down from space you fall slowly for {@code landing_slow_fall} seconds. Seam
+     * portals (see-through planet edges) are put up for players within {@code seam_view} blocks of an edge, in pieces
+     * {@code seam_segment} blocks long, and taken down {@code seam_linger} ticks after nobody needs them. Globe maps of
+     * planets without a picture are sampled for at most {@code map_budget_ms} milliseconds a tick.
      */
-    public record SpaceTuning(double gravity, int checkTicks, int landingSlowFall) {
-        static final SpaceTuning DEFAULT = new SpaceTuning(0.15, 5, 30);
+    public record SpaceTuning(double gravity, int checkTicks, int landingSlowFall, int seamView, int seamSegment,
+            int seamLinger, double mapBudgetMs) {
+        static final SpaceTuning DEFAULT = new SpaceTuning(0.15, 5, 30, 160, 64, 200, 2.0);
         static final Codec<SpaceTuning> CODEC = RecordCodecBuilder.create(i -> i.group(
                 Codec.doubleRange(0, 1).optionalFieldOf("gravity", DEFAULT.gravity).forGetter(SpaceTuning::gravity),
                 Codec.intRange(1, 200).optionalFieldOf("check_ticks", DEFAULT.checkTicks)
                         .forGetter(SpaceTuning::checkTicks),
                 Codec.intRange(0, 600).optionalFieldOf("landing_slow_fall", DEFAULT.landingSlowFall)
-                        .forGetter(SpaceTuning::landingSlowFall))
+                        .forGetter(SpaceTuning::landingSlowFall),
+                Codec.intRange(0, 1024).optionalFieldOf("seam_view", DEFAULT.seamView)
+                        .forGetter(SpaceTuning::seamView),
+                Codec.intRange(16, 1024).optionalFieldOf("seam_segment", DEFAULT.seamSegment)
+                        .forGetter(SpaceTuning::seamSegment),
+                Codec.intRange(0, 72000).optionalFieldOf("seam_linger", DEFAULT.seamLinger)
+                        .forGetter(SpaceTuning::seamLinger),
+                Codec.doubleRange(0, 50).optionalFieldOf("map_budget_ms", DEFAULT.mapBudgetMs)
+                        .forGetter(SpaceTuning::mapBudgetMs))
                 .apply(i, SpaceTuning::new));
     }
 

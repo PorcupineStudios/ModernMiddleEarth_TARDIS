@@ -1,0 +1,13 @@
+{
+  "dimension": "lotr_port:vanilla_overworld",
+  "space": "tardis_rb:space",
+  "ceiling": 340,
+  "ground": 64,
+  "orbit": {
+    "x": 2000000,
+    "z": 0,
+    "scale": 16
+  },
+  "wrap": "globe",
+  "cloud_band": 40
+}

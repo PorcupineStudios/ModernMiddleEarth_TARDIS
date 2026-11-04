@@ -8,6 +8,7 @@ import java.util.Optional;
 import java.util.UUID;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.Level;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModLoader;
@@ -17,6 +18,7 @@ import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 public final class Providers {
     private static List<CrashSiteProvider> crashSites = List.of();
     private static List<ResearcherProvider> researchers = List.of();
+    private static List<PlanetProvider> planets = List.of();
 
     private Providers() {}
 
@@ -26,6 +28,7 @@ public final class Providers {
             ModLoader.postEvent(new RegisterProvidersEvent(builder));
             crashSites = List.copyOf(builder.crashSites);
             researchers = List.copyOf(builder.researchers);
+            planets = List.copyOf(builder.planets);
         }));
     }
 
@@ -51,8 +54,20 @@ public final class Providers {
         return total;
     }
 
+    /** What this dimension looks like as a planet: the first provider with an answer, if any. */
+    public static Optional<PlanetSurface> planet(ServerLevel level) {
+        for (PlanetProvider provider : planets) {
+            Optional<PlanetSurface> planet = provider.planet(level);
+            if (planet.isPresent()) {
+                return planet;
+            }
+        }
+        return Optional.empty();
+    }
+
     static final class Builder {
         final List<CrashSiteProvider> crashSites = new ArrayList<>();
         final List<ResearcherProvider> researchers = new ArrayList<>();
+        final List<PlanetProvider> planets = new ArrayList<>();
     }
 }
