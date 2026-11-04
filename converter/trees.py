@@ -207,7 +207,7 @@ class Trees:
         if not templates:
             return None
         return {"type": f"{NS}:template_tree", "config": {
-            "templates": templates, "trunk": trunks, "trunk_width": widths,
+            "id": f"{NS}:tree/{name}", "templates": templates, "trunk": trunks, "trunk_width": widths,
             "on_sand": any(k in tree for k in ("DESERT", "PALM", "DATE_PALM", "CACTUS"))}}
 
     @staticmethod

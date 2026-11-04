@@ -67,6 +67,7 @@ public final class LotrPort {
         NpcSpawner.register();
         QuestData.register();
         com.porcupinestudios.lotrport.content.SaplingRules.register();
+        com.porcupinestudios.lotrport.tree.TreeRecords.register();
         Quests.register();
         FastTravel.register();
         MapNet.register(modBus);
