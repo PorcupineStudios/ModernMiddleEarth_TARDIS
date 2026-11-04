@@ -14,10 +14,13 @@ lang files into the 1.21.1 port's generated resources:
 Run from the repo root: python3 converter/generate.py
 """
 import collections
+import io
 import json
 import os
 import shutil
 import sys
+
+from PIL import Image
 
 sys.path.insert(0, os.path.dirname(__file__))
 from assets import NS, Jar, Textures, id_from_name, snake, write_json  # noqa: E402
@@ -50,6 +53,41 @@ def load(name):
 # LOTR blocks whose metadata 2-5 says which way the front faces, like a furnace.
 FACING_CLASSES = {"LOTRBlockForgeBase", "LOTRBlockHobbitOven", "LOTRBlockBarrel", "LOTRBlockKebabStand",
                   "LOTRBlockChest", "LOTRBlockMillstone"}
+
+
+# Armor items whose texture is their own file in assets/lotr/armor/ (no _1/_2 layers): item id -> file stem.
+ITEM_ARMOR = {"dalish_gambeson": "gambeson_dale", "dol_amroth_gambeson": "gambeson_dolAmroth",
+              "gondorian_gambeson": "gambeson_gondor", "lamedon_jacket": "jacket_lamedon",
+              "lebennin_gambeson": "gambeson_lebennin", "dol_amroth_chaps": "gambeson_dolAmrothLegs",
+              "leather_hat": "hat", "party_hat": "partyhat"}
+# LOTR dyes its hats; these are the undyed colours (leather brown, a festive red).
+HAT_TINTS = {"leather_hat": (0x68, 0x4A, 0x36), "party_hat": (0xC8, 0x3A, 0x3A)}
+
+
+def hat_layer(src, tint):
+    """
+    A cap for the vanilla helmet layer (64x32, head box at UV 0,0) painted from a LOTR hat texture (made for its own
+    hat model): the head's top face and the upper half of its sides take the hat's shading, tinted; the lowest painted
+    row is the brim, darker. Everything else stays clear.
+    """
+    out = Image.new("RGBA", (64, 32), (0, 0, 0, 0))
+    box = src.getbbox() or (0, 0, src.width, src.height)
+    w, h = max(1, box[2] - box[0]), max(1, box[3] - box[1])
+
+    def shade(x, y, dark=1.0):
+        r, g, b, a = src.getpixel((box[0] + x % w, box[1] + y % h))
+        if a == 0:
+            r = g = b = 220
+        k = (r + g + b) / 3 / 255 * dark
+        return (int(tint[0] * k), int(tint[1] * k), int(tint[2] * k), 255)
+
+    for x in range(8, 16):
+        for y in range(0, 8):
+            out.putpixel((x, y), shade(x, y))
+    for x in range(0, 32):
+        for y in range(8, 12):
+            out.putpixel((x, y), shade(x, y, 0.7 if y == 11 else 1.0))
+    return out
 
 
 class Gen:
@@ -141,8 +179,9 @@ class Gen:
         if "armor" in it:
             a = it["armor"]
             mat = snake(a["material"].replace("LOTR_", "")) or "armor"
-            e["armor"] = {"slot": ["head", "chest", "legs", "feet"][a["slot"]], "defense": a["defense"],
-                          "material": mat, "texture": self.armor_texture(mat)}
+            slot = ["head", "chest", "legs", "feet"][a["slot"]]
+            texture = self.item_armor_texture(new, slot) or self.armor_texture(mat)
+            e["armor"] = {"slot": slot, "defense": a["defense"], "material": mat, "texture": texture}
         food = v.get("food")
         if food and food.get("heal") is not None:
             e["food"] = {"nutrition": food["heal"], "saturation": food.get("saturation") or 0.3}
@@ -185,6 +224,24 @@ class Gen:
                     return mat
         self.report["armor_without_texture"].append(mat)
         return mat
+
+    def item_armor_texture(self, item, slot):
+        """
+        Armor whose LOTR texture is per item, not per material: the gambesons and jacket (one armor/<name>.png already
+        in the vanilla layer layout) and the hats (drawn on LOTR's own hat models, so a cap is painted from their
+        texture onto the helmet's head box). Returns the texture name (the item id), or None for other items.
+        """
+        src = ITEM_ARMOR.get(item)
+        if src is None or not self.jar.has(f"assets/lotr/armor/{src}.png"):
+            return None
+        img = Image.open(io.BytesIO(self.jar.read(f"assets/lotr/armor/{src}.png"))).convert("RGBA")
+        if item in HAT_TINTS:
+            img = hat_layer(img, HAT_TINTS[item])
+        layer = 2 if slot == "legs" else 1
+        dst = os.path.join(ASSETS, "textures", "models", "armor", f"{item}_layer_{layer}.png")
+        os.makedirs(os.path.dirname(dst), exist_ok=True)
+        img.save(dst)
+        return item
 
     def armor_sources(self, cand):
         want = cand.replace("_", "").lower()
@@ -503,6 +560,12 @@ class Gen:
         self.item_model(new, wall)
 
     def shaped(self, new, icons, b):
+        if new == "flower_pot":
+            # LOTR's flower pot is vanilla's shape; a plain box with the whole pot texture looked like a brown cube
+            return self.bm(new, "minecraft:block/flower_pot", {"flowerpot": "minecraft:block/flower_pot",
+                                                                 "dirt": "minecraft:block/dirt",
+                                                                 "particle": "minecraft:block/flower_pot"},
+                           {"render_type": CUTOUT})
         bb = [round(x * 16, 3) for x in (b.get("bounds") or [0, 0, 0, 1, 1, 1])]
         if bb[3] - bb[0] <= 0 or bb[4] - bb[1] <= 0 or bb[5] - bb[2] <= 0:
             bb = [0, 0, 0, 16, 16, 16]

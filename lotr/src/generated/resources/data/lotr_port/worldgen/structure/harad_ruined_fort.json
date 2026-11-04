@@ -3,7 +3,7 @@
   "biomes": "#lotr_port:has_structure/harad_ruined_fort",
   "step": "surface_structures",
   "spawn_overrides": {},
-  "terrain_adaptation": "beard_thin",
+  "terrain_adaptation": "beard_box",
   "start_pool": "lotr_port:harad_ruined_fort",
   "size": 1,
   "start_height": {

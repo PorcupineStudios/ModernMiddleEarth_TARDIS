@@ -93,7 +93,7 @@ public final class LotrItems {
                     yield new Item(p);
                 }
                 JsonObject a = e.getAsJsonObject("armor");
-                yield new ArmorItem(MATERIALS.get(ContentData.str(a, "material", "")), slot(a), p);
+                yield new ArmorItem(MATERIALS.get(key(a)), slot(a), p);
             }
             case "red_book" -> new RedBookItem(p);
             default -> new Item(p);
@@ -109,10 +109,19 @@ public final class LotrItems {
         };
     }
 
-    /** One armor material per old material name, with the defense of each piece that uses it. */
+    /**
+     * The armor material for a piece: one per old material name, or per texture where pieces of one material look
+     * different (LOTR's gambesons and hats have a texture per item).
+     */
+    private static String key(JsonObject armor) {
+        return ContentData.str(armor, "texture", ContentData.str(armor, "material", ""));
+    }
+
+    /** One armor material per {@link #key}, with the defense of each piece of its old material. */
     private static void material(JsonObject armor, List<JsonObject> items) {
         String name = ContentData.str(armor, "material", "");
-        if (MATERIALS.containsKey(name)) {
+        String key = key(armor);
+        if (MATERIALS.containsKey(key)) {
             return;
         }
         Map<ArmorItem.Type, Integer> defense = new EnumMap<>(ArmorItem.Type.class);
@@ -129,7 +138,7 @@ public final class LotrItems {
         }
         int enchantValue = enchant;
         String texture = ContentData.str(armor, "texture", name);
-        MATERIALS.put(name, ARMOR_MATERIALS.register(name, () -> new ArmorMaterial(defense, enchantValue,
+        MATERIALS.put(key, ARMOR_MATERIALS.register(key, () -> new ArmorMaterial(defense, enchantValue,
                 SoundEvents.ARMOR_EQUIP_IRON, () -> Ingredient.EMPTY,
                 List.of(new ArmorMaterial.Layer(LotrPort.id(texture))), 0f, 0f)));
     }

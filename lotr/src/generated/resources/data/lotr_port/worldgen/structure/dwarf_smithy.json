@@ -3,7 +3,7 @@
   "biomes": "#lotr_port:has_structure/dwarf_smithy",
   "step": "surface_structures",
   "spawn_overrides": {},
-  "terrain_adaptation": "beard_thin",
+  "terrain_adaptation": "beard_box",
   "start_pool": "lotr_port:dwarf_smithy",
   "size": 1,
   "start_height": {

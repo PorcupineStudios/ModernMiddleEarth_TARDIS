@@ -1040,7 +1040,7 @@
       "slot": "chest",
       "defense": 4,
       "material": "gambeson",
-      "texture": "gambeson"
+      "texture": "dalish_gambeson"
     }
   },
   {
@@ -1068,7 +1068,7 @@
       "slot": "chest",
       "defense": 4,
       "material": "gambeson",
-      "texture": "gambeson"
+      "texture": "dol_amroth_gambeson"
     }
   },
   {
@@ -1264,7 +1264,7 @@
       "slot": "chest",
       "defense": 4,
       "material": "gambeson",
-      "texture": "gambeson"
+      "texture": "gondorian_gambeson"
     }
   },
   {
@@ -1402,7 +1402,7 @@
       "slot": "chest",
       "defense": 4,
       "material": "jacket",
-      "texture": "jacket"
+      "texture": "lamedon_jacket"
     }
   },
   {
@@ -1416,7 +1416,7 @@
       "slot": "chest",
       "defense": 4,
       "material": "gambeson",
-      "texture": "gambeson"
+      "texture": "lebennin_gambeson"
     }
   },
   {
@@ -5240,7 +5240,7 @@
       "slot": "head",
       "defense": 0,
       "material": "cosmetic",
-      "texture": "cosmetic"
+      "texture": "leather_hat"
     }
   },
   {
@@ -5430,7 +5430,7 @@
       "slot": "legs",
       "defense": 3,
       "material": "gambeson",
-      "texture": "gambeson"
+      "texture": "dol_amroth_chaps"
     }
   },
   {
@@ -6968,7 +6968,7 @@
       "slot": "head",
       "defense": 0,
       "material": "cosmetic",
-      "texture": "cosmetic"
+      "texture": "party_hat"
     }
   },
   {
