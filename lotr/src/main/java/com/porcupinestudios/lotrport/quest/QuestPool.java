@@ -16,15 +16,20 @@ import net.minecraft.resources.ResourceLocation;
  * @param coinsPerTarget coins paid per item brought or enemy killed (times the quest's reward factor)
  * @param alignmentPerTarget alignment gained with the giver's faction per item or kill (times the reward factor)
  * @param minAlignment alignment a player needs with the giver's faction to be offered a quest
+ * @param offerChance a giver not offering starts offering with chance 1 in this, each tick (LOTR: 20000, about once
+ *     every 17 minutes), so most NPCs have nothing to ask at any moment
+ * @param offerTicks how long an offer stays open (LOTR: 24000, one day)
  */
 public record QuestPool(List<Entry> quests, int maxActive, float coinsPerTarget, float alignmentPerTarget,
-        float minAlignment) {
+        float minAlignment, int offerChance, int offerTicks) {
     public static final Codec<QuestPool> CODEC = RecordCodecBuilder.create(i -> i.group(
             Entry.CODEC.listOf().fieldOf("quests").forGetter(QuestPool::quests),
             Codec.INT.optionalFieldOf("max_active", 5).forGetter(QuestPool::maxActive),
             Codec.FLOAT.optionalFieldOf("coins_per_target", 2f).forGetter(QuestPool::coinsPerTarget),
             Codec.FLOAT.optionalFieldOf("alignment_per_target", 1f).forGetter(QuestPool::alignmentPerTarget),
-            Codec.FLOAT.optionalFieldOf("min_alignment", 0f).forGetter(QuestPool::minAlignment))
+            Codec.FLOAT.optionalFieldOf("min_alignment", 0f).forGetter(QuestPool::minAlignment),
+            Codec.INT.optionalFieldOf("offer_chance", 20000).forGetter(QuestPool::offerChance),
+            Codec.INT.optionalFieldOf("offer_ticks", 24000).forGetter(QuestPool::offerTicks))
             .apply(i, QuestPool::new));
 
     /** What a quest asks for. */

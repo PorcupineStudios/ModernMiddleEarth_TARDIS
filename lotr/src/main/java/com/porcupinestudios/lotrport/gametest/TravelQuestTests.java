@@ -94,6 +94,30 @@ public final class TravelQuestTests {
                 "player at " + player.blockPosition().toShortString() + ", not " + w.x() + ", " + w.z());
     }
 
+    /** As in LOTR, a quest giver only asks while it shows the quest mark, and taking the quest ends its offer. */
+    @GameTest(template = EMPTY)
+    public static void onlyMarkedGiversOfferQuests(GameTestHelper helper) {
+        ServerPlayer player = helper.makeMockServerPlayerInLevel();
+        Optional<ResourceLocation> giverType = NpcData.types().entrySet().stream()
+                .filter(e -> e.getValue().faction().equals(Optional.of(GONDOR)) && e.getValue().quests().isPresent()
+                        && !e.getValue().trader() && !e.getValue().captain())
+                .map(Map.Entry::getKey).sorted().findFirst();
+        helper.assertTrue(giverType.isPresent(), "no Gondor NPC gives quests");
+        LotrNpc giver = spawn(helper, giverType.get());
+        Alignment.set(player, GONDOR, 10);
+        giver.clearQuestOffer();
+        helper.assertFalse(Quests.interact(player, giver), "an NPC without the quest mark offered a quest");
+        helper.assertTrue(giver.startQuestOffer(), "the giver could not start an offer");
+        helper.assertTrue(giver.isOfferingQuest() && giver.questOfferColor() != -1, "no quest mark");
+        Quests.Offer offer = Quests.roll(player, giver);
+        helper.assertTrue(offer.quest().isPresent(), "no quest: " + offer.problem().getString());
+        helper.assertTrue(Quests.accept(player, giver, offer.quest().get()), "could not take the offered quest");
+        helper.assertFalse(giver.isOfferingQuest(), "the offer stayed open after the quest was taken");
+        helper.assertFalse(Quests.accept(player, giver, offer.quest().get()), "took a second quest without a mark");
+        helper.assertTrue(Quests.log(player).active().size() == 1, "quest not taken");
+        helper.succeed();
+    }
+
     @GameTest(template = EMPTY)
     public static void finishAMiniQuestFromGondor(GameTestHelper helper) {
         ServerPlayer player = helper.makeMockServerPlayerInLevel();

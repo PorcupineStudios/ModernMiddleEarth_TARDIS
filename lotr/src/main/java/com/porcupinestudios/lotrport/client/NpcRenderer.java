@@ -1,6 +1,10 @@
 package com.porcupinestudios.lotrport.client;
 
 import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
+import net.minecraft.client.renderer.LightTexture;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.texture.OverlayTexture;
 import com.porcupinestudios.lotrport.npc.LotrNpc;
 import java.util.HashMap;
 import java.util.List;
@@ -25,6 +29,11 @@ public class NpcRenderer extends HumanoidMobRenderer<LotrNpc, HumanoidModel<Lotr
     /** Speech is drawn within this many blocks, wrapped at this many pixels. */
     private static final double SPEECH_RANGE = 24;
     private static final int SPEECH_WIDTH = 160;
+    private static final ResourceLocation QUEST_MARK =
+            ResourceLocation.fromNamespaceAndPath("lotr_port", "textures/gui/quest/quest_offer.png");
+    /** The quest mark shows within this many blocks, this many blocks wide (as LOTR's). */
+    private static final double MARK_RANGE = 16;
+    private static final float MARK_SIZE = 0.75f;
     private final HumanoidModel<LotrNpc> classic;
     private final Map<String, HumanoidModel<LotrNpc>> tall = new HashMap<>();
 
@@ -47,6 +56,38 @@ public class NpcRenderer extends HumanoidMobRenderer<LotrNpc, HumanoidModel<Lotr
         model = npc.tallSkin() ? tall.getOrDefault(npc.model(), tall.get("human")) : classic;
         super.render(npc, yaw, partialTick, pose, buffers, light);
         renderSpeech(npc, pose, buffers, light);
+        renderQuestMark(npc, pose, buffers);
+    }
+
+    /**
+     * LOTR's quest mark: its quest-offer icon above the head of an NPC offering a quest, tinted with the faction
+     * colour, facing the camera, within 16 blocks (higher when the NPC is talking, so it clears the speech).
+     */
+    private void renderQuestMark(LotrNpc npc, PoseStack pose, MultiBufferSource buffers) {
+        int color = npc.questOfferColor();
+        if (color == -1 || entityRenderDispatcher.distanceToSqr(npc) > MARK_RANGE * MARK_RANGE) {
+            return;
+        }
+        float r = ((color >> 16) & 0xFF) / 255f;
+        float g = ((color >> 8) & 0xFF) / 255f;
+        float b = (color & 0xFF) / 255f;
+        boolean talking = !npc.speech().getString().isEmpty();
+        pose.pushPose();
+        pose.translate(0, npc.getBbHeight() + (talking ? 1.25 : 0.6), 0);
+        pose.mulPose(entityRenderDispatcher.cameraOrientation());
+        pose.scale(-MARK_SIZE, -MARK_SIZE, MARK_SIZE);
+        Matrix4f m = pose.last().pose();
+        VertexConsumer v = buffers.getBuffer(RenderType.entityCutoutNoCull(QUEST_MARK));
+        int full = LightTexture.FULL_BRIGHT;
+        v.addVertex(m, -0.5f, -0.5f, 0).setColor(r, g, b, 1f).setUv(0, 0).setOverlay(OverlayTexture.NO_OVERLAY)
+                .setLight(full).setNormal(0, 1, 0);
+        v.addVertex(m, 0.5f, -0.5f, 0).setColor(r, g, b, 1f).setUv(1, 0).setOverlay(OverlayTexture.NO_OVERLAY)
+                .setLight(full).setNormal(0, 1, 0);
+        v.addVertex(m, 0.5f, 0.5f, 0).setColor(r, g, b, 1f).setUv(1, 1).setOverlay(OverlayTexture.NO_OVERLAY)
+                .setLight(full).setNormal(0, 1, 0);
+        v.addVertex(m, -0.5f, 0.5f, 0).setColor(r, g, b, 1f).setUv(0, 1).setOverlay(OverlayTexture.NO_OVERLAY)
+                .setLight(full).setNormal(0, 1, 0);
+        pose.popPose();
     }
 
     /** Draws what the NPC is saying above its head, wrapped like a speech bubble, facing the camera. */

@@ -70,6 +70,9 @@ public class LotrNpc extends PathfinderMob implements Merchant {
     /** The line it is saying, drawn above its head; empty when quiet. */
     private static final EntityDataAccessor<Component> SPEECH =
             SynchedEntityData.defineId(LotrNpc.class, EntityDataSerializers.COMPONENT);
+    /** Colour of the quest mark above its head while it offers a quest (the faction colour); -1 when it doesn't. */
+    private static final EntityDataAccessor<Integer> QUEST_OFFER =
+            SynchedEntityData.defineId(LotrNpc.class, EntityDataSerializers.INT);
     /** How far a trading or hiring player may stand. */
     public static final double DEAL_DISTANCE = 8;
 
@@ -124,6 +127,65 @@ public class LotrNpc extends PathfinderMob implements Merchant {
         builder.define(TALL_SKIN, false);
         builder.define(MODEL, "human");
         builder.define(SPEECH, Component.empty());
+        builder.define(QUEST_OFFER, -1);
+    }
+
+    /** Ticks left on the quest it is offering; 0 when it offers none. */
+    private int questOfferTicks;
+
+    /** The quest mark's colour, or -1 when it isn't offering a quest. */
+    public int questOfferColor() {
+        return entityData.get(QUEST_OFFER);
+    }
+
+    public boolean isOfferingQuest() {
+        return entityData.get(QUEST_OFFER) != -1;
+    }
+
+    /** Starts offering a quest now, for the pool's offer time (tests and admin commands). */
+    public boolean startQuestOffer() {
+        NpcType type = npcType();
+        Optional<com.porcupinestudios.lotrport.quest.QuestPool> pool = type == null || type.trader()
+                || type.captain() || owner != null ? Optional.empty()
+                : type.quests().flatMap(com.porcupinestudios.lotrport.quest.QuestData::pool);
+        if (pool.isEmpty()) {
+            return false;
+        }
+        questOfferTicks = Math.max(1, pool.get().offerTicks());
+        entityData.set(QUEST_OFFER, faction().flatMap(f -> Optional.ofNullable(
+                com.porcupinestudios.lotrport.faction.Factions.definitions().get(f)))
+                .map(com.porcupinestudios.lotrport.faction.FactionDef::color).orElse(0xFFFFFF) & 0xFFFFFF);
+        return true;
+    }
+
+    /** Ends its offer (the quest was taken, or it can't give quests any more). */
+    public void clearQuestOffer() {
+        questOfferTicks = 0;
+        entityData.set(QUEST_OFFER, -1);
+    }
+
+    /**
+     * LOTR's offers: a quest giver not offering starts with chance 1 in the pool's {@code offer_chance} each tick and
+     * keeps the offer {@code offer_ticks}. Traders, captains and hired units never offer.
+     */
+    private void tickQuestOffer() {
+        NpcType type = npcType();
+        Optional<com.porcupinestudios.lotrport.quest.QuestPool> pool = type == null || type.trader()
+                || type.captain() || owner != null ? Optional.empty()
+                : type.quests().flatMap(com.porcupinestudios.lotrport.quest.QuestData::pool);
+        if (pool.isEmpty()) {
+            if (isOfferingQuest()) {
+                clearQuestOffer();
+            }
+            return;
+        }
+        if (questOfferTicks > 0) {
+            if (--questOfferTicks == 0) {
+                clearQuestOffer();
+            }
+        } else if (getRandom().nextInt(Math.max(1, pool.get().offerChance())) == 0) {
+            startQuestOffer();
+        }
     }
 
     @Override
@@ -419,6 +481,9 @@ public class LotrNpc extends PathfinderMob implements Merchant {
     @Override
     public void aiStep() {
         super.aiStep();
+        if (!level().isClientSide) {
+            tickQuestOffer();
+        }
         if (!level().isClientSide && speechTicks > 0 && --speechTicks == 0) {
             entityData.set(SPEECH, Component.empty());
         }
@@ -505,6 +570,10 @@ public class LotrNpc extends PathfinderMob implements Merchant {
             tag.putUUID("Owner", owner);
         }
         tag.putString("Command", command.name());
+        if (questOfferTicks > 0) {
+            tag.putInt("QuestOfferTicks", questOfferTicks);
+            tag.putInt("QuestOfferColor", entityData.get(QUEST_OFFER));
+        }
         if (guardPos != null) {
             tag.put("GuardPos", NbtUtils.writeBlockPos(guardPos));
         }
@@ -532,6 +601,8 @@ public class LotrNpc extends PathfinderMob implements Merchant {
             command = Command.NONE;
         }
         guardPos = NbtUtils.readBlockPos(tag, "GuardPos").orElse(null);
+        questOfferTicks = tag.getInt("QuestOfferTicks");
+        entityData.set(QUEST_OFFER, questOfferTicks > 0 ? tag.getInt("QuestOfferColor") : -1);
         // Structure templates hold only the type and "Fresh": roll skin, gear and name when placed.
         if (tag.getBoolean("Fresh") && !level().isClientSide) {
             ResourceLocation id = ResourceLocation.tryParse(tag.getString("NpcType"));
