@@ -21,7 +21,7 @@
       "lotr_port:dol_guldur_dagger",
       "lotr_port:dol_guldur_pickaxe",
       "lotr_port:dol_guldur_spear",
-      "lotr_port:dol_guldur_spike",
+      "lotr_port:dol_guldur_sword",
       "lotr_port:dol_guldur_warhammer"
     ],
     "head": "lotr_port:dol_guldur_helmet",
@@ -30,5 +30,6 @@
     "feet": "lotr_port:dol_guldur_boots"
   },
   "names": "lotr_port:orc",
-  "speech": "lotr_port:dol_guldur/orc"
+  "speech": "lotr_port:dol_guldur/orc",
+  "quests": "lotr_port:dol_guldur"
 }

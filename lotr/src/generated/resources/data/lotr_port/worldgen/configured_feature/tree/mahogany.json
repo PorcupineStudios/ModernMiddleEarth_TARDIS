@@ -1,44 +1,47 @@
 {
-  "type": "minecraft:tree",
+  "type": "lotr_port:template_tree",
   "config": {
-    "trunk_provider": {
-      "type": "minecraft:simple_state_provider",
-      "state": {
-        "Name": "lotr_port:mahogany_wood"
-      }
-    },
-    "trunk_placer": {
-      "type": "minecraft:straight_trunk_placer",
-      "base_height": 5,
-      "height_rand_a": 5,
-      "height_rand_b": 0
-    },
-    "foliage_provider": {
-      "type": "minecraft:simple_state_provider",
-      "state": {
-        "Name": "lotr_port:mahogany_leaves"
-      }
-    },
-    "foliage_placer": {
-      "type": "minecraft:blob_foliage_placer",
-      "radius": 2,
-      "offset": 0,
-      "height": 3
-    },
-    "minimum_size": {
-      "type": "minecraft:two_layers_feature_size",
-      "limit": 1,
-      "lower_size": 0,
-      "upper_size": 1
-    },
-    "dirt_provider": {
-      "type": "minecraft:simple_state_provider",
-      "state": {
-        "Name": "minecraft:dirt"
-      }
-    },
-    "decorators": [],
-    "ignore_vines": true,
-    "force_dirt": false
+    "id": "lotr_port:tree/mahogany",
+    "templates": [
+      "lotr_port:tree/mahogany/0",
+      "lotr_port:tree/mahogany/1",
+      "lotr_port:tree/mahogany/2",
+      "lotr_port:tree/mahogany/3",
+      "lotr_port:tree/mahogany/4",
+      "lotr_port:tree/mahogany/5"
+    ],
+    "trunk": [
+      [
+        4,
+        0,
+        5
+      ],
+      [
+        4,
+        0,
+        9
+      ],
+      [
+        8,
+        0,
+        7
+      ],
+      [
+        7,
+        0,
+        5
+      ],
+      [
+        8,
+        0,
+        7
+      ],
+      [
+        9,
+        0,
+        8
+      ]
+    ],
+    "on_sand": false
   }
 }

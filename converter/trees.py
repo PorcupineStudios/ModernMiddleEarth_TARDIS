@@ -167,7 +167,7 @@ class Trees:
     def template_config(self, tree, shapes):
         """Writes the shapes as templates; the template_tree feature config, or None if none could be mapped."""
         name = tree.lower()
-        templates, trunks, widths = [], [], []
+        templates, trunks = [], []
         for n, shape in enumerate(shapes):
             states = [self.state_of(k) for k in shape["palette"]]
             lo = shape["min"]
@@ -197,40 +197,15 @@ class Trees:
             nbt.write(path, {"DataVersion": nbt.Int(3955), "size": [nbt.Int(v) for v in size],
                              "palette": palette, "blocks": blocks, "entities": []})
             templates.append(f"{NS}:tree/{name}/{n_out}")
-            # the tree grew from 0, ground + 1, 0. Its trunk: the logs just above the ground touching that column
-            # (2x2 and 3x3 trees have wider trunks); trunk = its lowest x/z corner on the soil layer, in template
-            # coordinates, so a sapling square lines up with it however the tree is turned
+            # where LOTR's generator was started (0, ground + 1, 0), on the soil layer, in template coordinates:
+            # saplings set this point where LOTR did (the middle of a 3x3, the inner corner of a 2x2...)
             ground = shape.get("ground", 40)
-            tx0, tz0, width = self.trunk(placed, ground + 1)
-            trunks.append([tx0 - lo[0], ground - lo[1], tz0 - lo[2]])
-            widths.append(width)
+            trunks.append([-lo[0], ground - lo[1], -lo[2]])
         if not templates:
             return None
         return {"type": f"{NS}:template_tree", "config": {
-            "id": f"{NS}:tree/{name}", "templates": templates, "trunk": trunks, "trunk_width": widths,
+            "id": f"{NS}:tree/{name}", "templates": templates, "trunk": trunks,
             "on_sand": any(k in tree for k in ("DESERT", "PALM", "DATE_PALM", "CACTUS"))}}
-
-    @staticmethod
-    def trunk(placed, y):
-        """Lowest x, z corner and width of the trunk at height y: the logs connected to column 0, 0 (or next to it)."""
-        def is_log(pos):
-            st = placed.get(pos)
-            return st is not None and not st["Name"].endswith("leaves")
-        start = next(((dx, y, dz) for dx in range(-1, 2) for dz in range(-1, 2) if is_log((dx, y, dz))), None)
-        if start is None:
-            return 0, 0, 1
-        seen = {start}
-        todo = deque([start])
-        while todo and len(seen) < 25:
-            x, _, z = todo.popleft()
-            for dx, dz in ((1, 0), (-1, 0), (0, 1), (0, -1)):
-                q = (x + dx, y, z + dz)
-                if q not in seen and is_log(q) and abs(q[0]) <= 3 and abs(q[2]) <= 3:
-                    seen.add(q)
-                    todo.append(q)
-        xs = [p[0] for p in seen]
-        zs = [p[2] for p in seen]
-        return min(xs), min(zs), max(1, min(max(xs) - min(xs), max(zs) - min(zs)) + 1)
 
     @staticmethod
     def leaf_distance(placed):

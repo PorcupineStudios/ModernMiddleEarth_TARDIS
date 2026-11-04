@@ -152,9 +152,10 @@ public class LotrSaplingBlock extends BushBlock implements BonemealableBlock {
         boolean grown;
         if (f.config() instanceof TemplateTreeFeature.Config config) {
             int pick = random.nextInt(Math.max(1, config.templates().size()));
-            int width = pick < config.trunkWidth().size() ? Math.max(1, config.trunkWidth().get(pick)) : 1;
-            int in = Math.max(0, (size - width) / 2);
-            grown = TemplateTreeFeature.grow(level, random, corner.offset(in, 0, in), config, pick, true);
+            // LOTR started the generator at the square's middle (3x3, 5x5, 9x9) or inner corner (2x2: 0..1, 4x4:
+            // -1..2), so the origin is the corner plus (size - 1) / 2; a plus of five grows from its centre
+            int in = (size - 1) / 2;
+            grown = TemplateTreeFeature.grow(level, random, corner.offset(in, 0, in), config, pick, true, -in, size);
         } else {
             int in = (size - 1) / 2;
             grown = f.place(level, level.getChunkSource().getGenerator(), random, corner.offset(in, 0, in));

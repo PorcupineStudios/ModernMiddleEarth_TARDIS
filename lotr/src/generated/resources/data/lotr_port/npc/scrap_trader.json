@@ -10,7 +10,7 @@
     ],
     "head": "lotr_port:leather_hat"
   },
-  "names": "lotr_port:bree_male",
+  "names": "lotr_port:dunlending_male",
   "buy": "lotr_port:scrap_trader_buy",
   "sell": "lotr_port:scrap_trader_sell",
   "speech": "lotr_port:misc/scrap_trader"

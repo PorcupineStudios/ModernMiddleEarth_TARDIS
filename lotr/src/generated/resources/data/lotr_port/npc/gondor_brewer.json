@@ -26,6 +26,5 @@
   },
   "buy": "lotr_port:gondor_brewer_buy",
   "sell": "lotr_port:gondor_brewer_sell",
-  "speech": "lotr_port:gondor/market_trader",
-  "quests": "lotr_port:gondor"
+  "speech": "lotr_port:gondor/market_trader"
 }

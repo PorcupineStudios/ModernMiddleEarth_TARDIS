@@ -1,45 +1,47 @@
 {
-  "type": "minecraft:tree",
+  "type": "lotr_port:template_tree",
   "config": {
-    "trunk_provider": {
-      "type": "minecraft:simple_state_provider",
-      "state": {
-        "Name": "lotr_port:holly_wood"
-      }
-    },
-    "trunk_placer": {
-      "type": "minecraft:fancy_trunk_placer",
-      "base_height": 8,
-      "height_rand_a": 6,
-      "height_rand_b": 0
-    },
-    "foliage_provider": {
-      "type": "minecraft:simple_state_provider",
-      "state": {
-        "Name": "lotr_port:holly_leaves"
-      }
-    },
-    "foliage_placer": {
-      "type": "minecraft:fancy_foliage_placer",
-      "radius": 2,
-      "offset": 4,
-      "height": 4
-    },
-    "minimum_size": {
-      "type": "minecraft:two_layers_feature_size",
-      "limit": 0,
-      "lower_size": 0,
-      "upper_size": 0,
-      "min_clipped_height": 4
-    },
-    "dirt_provider": {
-      "type": "minecraft:simple_state_provider",
-      "state": {
-        "Name": "minecraft:dirt"
-      }
-    },
-    "decorators": [],
-    "ignore_vines": true,
-    "force_dirt": false
+    "id": "lotr_port:tree/holly_large",
+    "templates": [
+      "lotr_port:tree/holly_large/0",
+      "lotr_port:tree/holly_large/1",
+      "lotr_port:tree/holly_large/2",
+      "lotr_port:tree/holly_large/3",
+      "lotr_port:tree/holly_large/4",
+      "lotr_port:tree/holly_large/5"
+    ],
+    "trunk": [
+      [
+        3,
+        0,
+        3
+      ],
+      [
+        3,
+        0,
+        3
+      ],
+      [
+        3,
+        0,
+        3
+      ],
+      [
+        3,
+        0,
+        3
+      ],
+      [
+        3,
+        0,
+        3
+      ],
+      [
+        3,
+        0,
+        3
+      ]
+    ],
+    "on_sand": false
   }
 }

@@ -33,6 +33,5 @@
   },
   "names": "lotr_port:quenya_male",
   "units": "lotr_port:high_elf_lord",
-  "speech": "lotr_port:high_elf/lord",
-  "quests": "lotr_port:high_elf"
+  "speech": "lotr_port:high_elf/lord"
 }

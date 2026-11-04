@@ -25,7 +25,6 @@
       "minecraft:stone_axe"
     ]
   },
-  "names": "lotr_port:gondor_male",
   "buy": "lotr_port:gondor_bartender_buy",
   "sell": "lotr_port:gondor_bartender_sell",
   "speech": "lotr_port:gondor/bartender",

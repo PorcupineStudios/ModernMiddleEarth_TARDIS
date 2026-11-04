@@ -14,8 +14,8 @@
   "gear": {
     "mainhand": [
       "lotr_port:gulfen_khopesh",
-      "lotr_port:haradric_pike",
       "lotr_port:haradric_spear",
+      "lotr_port:haradric_sword",
       "lotr_port:poisoned_haradric_dagger"
     ],
     "head": "lotr_port:gulfen_helmet",

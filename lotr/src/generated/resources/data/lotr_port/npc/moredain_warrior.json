@@ -12,13 +12,7 @@
   "speed": 0.2,
   "attack": 2.0,
   "gear": {
-    "mainhand": [
-      "lotr_port:haradric_sword",
-      "lotr_port:morwaith_battleaxe",
-      "lotr_port:morwaith_club",
-      "lotr_port:morwaith_dagger",
-      "lotr_port:morwaith_spear"
-    ],
+    "mainhand": "lotr_port:morwaith_spear",
     "head": "lotr_port:morwaith_helmet",
     "chest": "lotr_port:morwaith_chestplate",
     "legs": "lotr_port:morwaith_leggings",

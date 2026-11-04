@@ -28,19 +28,17 @@ import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemp
  * trees grow into each other and into hillsides like LOTR's. Big trees are clipped to the chunks a feature may write.
  *
  * @param templates the shapes; their trunk base is at template {@code x0, ground, z0}
- * @param trunk the lowest x/z corner of each template's trunk, on its ground layer (same order as templates)
- * @param trunkWidth each trunk's width (2x2 and 3x3 trees); the trunk's corner lands on the origin however the tree
- *     is turned, so a square of saplings becomes the trunk
+ * @param trunk where LOTR's generator started each shape, on its ground layer (same order as templates): the origin
+ *     goes there. Saplings pass their square too, so the tree stays on the square however it is turned
  */
 public final class TemplateTreeFeature extends Feature<TemplateTreeFeature.Config> {
     public record Config(Optional<ResourceLocation> id, List<ResourceLocation> templates, List<Vec3i> trunk,
-            List<Integer> trunkWidth, boolean onSand)
+            boolean onSand)
             implements FeatureConfiguration {
         public static final Codec<Config> CODEC = RecordCodecBuilder.create(i -> i.group(
                 ResourceLocation.CODEC.optionalFieldOf("id").forGetter(Config::id),
                 ResourceLocation.CODEC.listOf().fieldOf("templates").forGetter(Config::templates),
                 Vec3i.CODEC.listOf().fieldOf("trunk").forGetter(Config::trunk),
-                Codec.INT.listOf().optionalFieldOf("trunk_width", List.of()).forGetter(Config::trunkWidth),
                 Codec.BOOL.optionalFieldOf("on_sand", false).forGetter(Config::onSand))
                 .apply(i, Config::new));
     }
@@ -51,7 +49,7 @@ public final class TemplateTreeFeature extends Feature<TemplateTreeFeature.Confi
 
     @Override
     public boolean place(FeaturePlaceContext<Config> context) {
-        return grow(context.level(), context.random(), context.origin(), context.config(), -1, false);
+        return grow(context.level(), context.random(), context.origin(), context.config(), -1, false, 0, 1);
     }
 
     /**
@@ -59,7 +57,7 @@ public final class TemplateTreeFeature extends Feature<TemplateTreeFeature.Confi
      * Saplings call this with the corner of their square.
      */
     public static boolean grow(WorldGenLevel level, RandomSource random, BlockPos origin, Config config, int pick,
-            boolean planted) {
+            boolean planted, int squareLo, int squareSize) {
         if (config.templates().isEmpty() || config.templates().size() != config.trunk().size()) {
             return false;
         }
@@ -70,7 +68,6 @@ public final class TemplateTreeFeature extends Feature<TemplateTreeFeature.Confi
             return false;
         }
         int n = pick >= 0 && pick < config.templates().size() ? pick : random.nextInt(config.templates().size());
-        int width = n < config.trunkWidth().size() ? Math.max(1, config.trunkWidth().get(n)) : 1;
         Optional<StructureTemplate> template = level.getLevel().getStructureManager().get(config.templates().get(n));
         if (template.isEmpty()) {
             return false;
@@ -79,8 +76,9 @@ public final class TemplateTreeFeature extends Feature<TemplateTreeFeature.Confi
         Rotation rotation = Rotation.getRandom(random);
         // the template's ground layer goes on the soil block under the origin, its trunk on the origin column
         BlockPos pivot = new BlockPos(trunk.getX(), 0, trunk.getZ());
-        // turning about the trunk's corner block moves a wide trunk off it; shift it back onto the origin square
-        int w = width - 1;
+        // the sapling square spans origin + squareLo .. + squareSize - 1; turning about the origin block moves an
+        // uneven square (2x2: 0..1, 4x4: -1..2) by one, so shift it back onto the saplings
+        int w = 2 * squareLo + squareSize - 1;
         int sx = rotation == Rotation.CLOCKWISE_90 || rotation == Rotation.CLOCKWISE_180 ? w : 0;
         int sz = rotation == Rotation.CLOCKWISE_180 || rotation == Rotation.COUNTERCLOCKWISE_90 ? w : 0;
         BlockPos corner = below.offset(-trunk.getX() + sx, -trunk.getY(), -trunk.getZ() + sz);
@@ -96,7 +94,8 @@ public final class TemplateTreeFeature extends Feature<TemplateTreeFeature.Confi
         // remember the tree, so whoever fells it (colonists) takes all of it (see tree/Trees)
         StructurePlaceSettings unclipped = new StructurePlaceSettings().setRotation(rotation).setRotationPivot(pivot);
         com.porcupinestudios.lotrport.tree.Trees.record(level.getLevel(), new com.porcupinestudios.lotrport.tree
-                .TreeRecord(config.id().orElse(config.templates().get(n)), origin, width,
+                .TreeRecord(config.id().orElse(config.templates().get(n)), origin.offset(squareLo, 0, squareLo),
+                        squareSize,
                         template.get().getBoundingBox(unclipped, corner), planted));
         return true;
     }

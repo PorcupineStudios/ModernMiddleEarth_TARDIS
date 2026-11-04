@@ -10,7 +10,10 @@
   "speed": 0.25,
   "attack": 2.0,
   "gear": {
-    "mainhand": "lotr_port:gondorian_dagger",
+    "mainhand": [
+      "lotr_port:gondorian_dagger",
+      "lotr_port:gondorian_sword"
+    ],
     "head": "lotr_port:ithilien_ranger_hood",
     "chest": "lotr_port:ithilien_ranger_tunic",
     "legs": "lotr_port:ithilien_ranger_leggings",

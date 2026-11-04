@@ -1,48 +1,47 @@
 {
-  "type": "minecraft:tree",
+  "type": "lotr_port:template_tree",
   "config": {
-    "trunk_provider": {
-      "type": "minecraft:simple_state_provider",
-      "state": {
-        "Name": "lotr_port:cypress_wood"
-      }
-    },
-    "trunk_placer": {
-      "type": "minecraft:giant_trunk_placer",
-      "base_height": 13,
-      "height_rand_a": 2,
-      "height_rand_b": 14
-    },
-    "foliage_provider": {
-      "type": "minecraft:simple_state_provider",
-      "state": {
-        "Name": "lotr_port:cypress_leaves"
-      }
-    },
-    "foliage_placer": {
-      "type": "minecraft:mega_pine_foliage_placer",
-      "radius": 0,
-      "offset": 0,
-      "crown_height": {
-        "type": "minecraft:uniform",
-        "min_inclusive": 13,
-        "max_inclusive": 17
-      }
-    },
-    "minimum_size": {
-      "type": "minecraft:two_layers_feature_size",
-      "limit": 1,
-      "lower_size": 1,
-      "upper_size": 2
-    },
-    "dirt_provider": {
-      "type": "minecraft:simple_state_provider",
-      "state": {
-        "Name": "minecraft:dirt"
-      }
-    },
-    "decorators": [],
-    "ignore_vines": true,
-    "force_dirt": false
+    "id": "lotr_port:tree/cypress_large",
+    "templates": [
+      "lotr_port:tree/cypress_large/0",
+      "lotr_port:tree/cypress_large/1",
+      "lotr_port:tree/cypress_large/2",
+      "lotr_port:tree/cypress_large/3",
+      "lotr_port:tree/cypress_large/4",
+      "lotr_port:tree/cypress_large/5"
+    ],
+    "trunk": [
+      [
+        1,
+        0,
+        1
+      ],
+      [
+        1,
+        0,
+        1
+      ],
+      [
+        1,
+        0,
+        1
+      ],
+      [
+        1,
+        0,
+        1
+      ],
+      [
+        1,
+        0,
+        1
+      ],
+      [
+        1,
+        0,
+        1
+      ]
+    ],
+    "on_sand": false
   }
 }

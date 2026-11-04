@@ -41,8 +41,10 @@ https://claude.ai/artifact/KqhSSTCuKXGuwKHBoYJdcu. Rebuild features in modern co
 - Trees (2026-11-04): the exporter grows each of LOTR's 111 tree types with its own generator, up to six shapes each
   (`TreeExporter`, `trees.json.gz`, run in CI). `converter/trees.py` saves shapes as `structure/tree/<type>/<n>.nbt`
   (leaves get their real distance to a log so they don't decay) and the type's feature as `lotr_port:template_tree`
-  (`world/feature/TemplateTreeFeature`: random shape and turn, trunk corner + `trunk_width` kept on the origin square,
-  soil a sapling could take, sand for desert trees). Types without exported shapes keep vanilla-shaped stand-ins.
+  (`world/feature/TemplateTreeFeature`: random shape and turn; `trunk` = where LOTR's generator started the shape,
+  set on the origin; saplings pass their square (origin = corner + (size-1)/2, as LOTR) and turned trees are shifted
+  back onto it; soil a sapling could take, sand for desert trees). Export: 108 types, 648 shapes; the giant mallorn
+  (9x9 on elven grass) and the water willow grew nothing in the exporter and stay stand-ins. 
 - Saplings: kind `sapling` (`content/LotrSaplingBlock`: random ticks in light, 2 stages, bone meal). What grows is
   `data/<ns>/sapling/<block>.json` (`SaplingRules`), read by `converter/saplings.py` from the constants in LOTR's
   sapling classes' growTree: rules tried in order, `square` N (2x2, 3x3 party trees, 4x4/5x5 redwood and

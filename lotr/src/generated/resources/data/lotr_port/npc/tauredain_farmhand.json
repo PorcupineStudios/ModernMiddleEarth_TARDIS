@@ -13,5 +13,7 @@
   "gear": {
     "mainhand": "lotr_port:taurethrim_hoe"
   },
-  "speech": "lotr_port:tauredain/tauredain"
+  "names": "lotr_port:tauredain_male",
+  "speech": "lotr_port:tauredain/tauredain",
+  "quests": "lotr_port:tauredain"
 }
