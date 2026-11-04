@@ -15,7 +15,7 @@
     "mainhand": "minecraft:iron_axe",
     "head": "lotr_port:harad_turban"
   },
-  "names": "lotr_port:umbar_male",
+  "names": "lotr_port:near_haradrim_male",
   "buy": "lotr_port:harad_lumberman_buy",
   "sell": "lotr_port:harad_lumberman_sell",
   "speech": "lotr_port:near_harad/merchant",

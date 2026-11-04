@@ -19,7 +19,7 @@
     ],
     "head": "lotr_port:leather_hat"
   },
-  "names": "lotr_port:dunlending_male",
+  "names": "lotr_port:bree_male",
   "speech": "lotr_port:bree/ruffian",
   "quests": "lotr_port:ruffian_spy"
 }

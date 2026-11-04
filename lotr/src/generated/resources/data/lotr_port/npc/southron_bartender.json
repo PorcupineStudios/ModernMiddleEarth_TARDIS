@@ -14,7 +14,7 @@
   "gear": {
     "mainhand": "lotr_port:umbaric_dagger"
   },
-  "names": "lotr_port:near_haradrim_male",
+  "names": "lotr_port:umbar_male",
   "buy": "lotr_port:southron_bartender_buy",
   "sell": "lotr_port:southron_bartender_sell",
   "speech": "lotr_port:near_harad/merchant",

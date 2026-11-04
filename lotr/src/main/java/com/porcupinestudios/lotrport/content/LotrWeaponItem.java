@@ -22,7 +22,7 @@ import net.neoforged.neoforge.common.ItemAbility;
  * 3-block base. Here the generator turns that into {@code weapon.attack_speed} (20 / LOTR's ticks; a sword is 1.33,
  * a dagger 2, a pike 0.67), {@code weapon.reach} (added to player entity_interaction_range) and {@code
  * weapon.knockback} (attack_knockback, hammers and lances +1). Damage is LOTR's own (fractions kept; 1.7.10's +1 base
- * hand damage is the same in 1.21). Only plain swords sweep. NPCs swing at LOTR's mob rate ({@link #mobAttackTicks}).
+ * hand damage is the same in 1.21). Swords sweep; battleaxes sweep harder ({@code weapon.sweep_ratio}). NPCs swing at LOTR's mob rate ({@link #mobAttackTicks}).
  */
 public class LotrWeaponItem extends SwordItem {
     private final boolean sweep;
@@ -40,6 +40,7 @@ public class LotrWeaponItem extends SwordItem {
         float speed = ContentData.num(weapon, "attack_speed", 1.6f);
         float reach = ContentData.num(weapon, "reach", 0f);
         float knockback = ContentData.num(weapon, "knockback", 0f);
+        float sweepRatio = ContentData.num(weapon, "sweep_ratio", 0f);
         ItemAttributeModifiers.Builder b = ItemAttributeModifiers.builder()
                 .add(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_ID, damage,
                         AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND)
@@ -52,6 +53,10 @@ public class LotrWeaponItem extends SwordItem {
         }
         if (knockback != 0f) {
             b.add(Attributes.ATTACK_KNOCKBACK, new AttributeModifier(LotrPort.id("weapon_knockback"), knockback,
+                    AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND);
+        }
+        if (sweepRatio != 0f) {
+            b.add(Attributes.SWEEPING_DAMAGE_RATIO, new AttributeModifier(LotrPort.id("weapon_sweep"), sweepRatio,
                     AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND);
         }
         return b.build();

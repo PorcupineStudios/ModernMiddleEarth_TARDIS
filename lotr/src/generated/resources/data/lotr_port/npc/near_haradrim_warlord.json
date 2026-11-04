@@ -20,6 +20,5 @@
   },
   "names": "lotr_port:near_haradrim_male",
   "units": "lotr_port:near_haradrim_warlord",
-  "speech": "lotr_port:near_harad/mercenary",
-  "quests": "lotr_port:near_harad"
+  "speech": "lotr_port:near_harad/mercenary"
 }

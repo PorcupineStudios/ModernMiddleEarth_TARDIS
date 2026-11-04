@@ -18,6 +18,7 @@
     "legs": "lotr_port:galadhrim_cloak_leggings",
     "feet": "lotr_port:galadhrim_cloak_boots"
   },
-  "names": "lotr_port:sindarin_male",
-  "speech": "lotr_port:galadhrim/warrior"
+  "names": "lotr_port:quenya_male",
+  "speech": "lotr_port:galadhrim/warrior",
+  "quests": "lotr_port:galadhrim"
 }

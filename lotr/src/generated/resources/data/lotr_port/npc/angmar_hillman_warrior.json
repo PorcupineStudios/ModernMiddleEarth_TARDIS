@@ -14,7 +14,7 @@
       "lotr_port:angmar_battleaxe",
       "lotr_port:angmar_dagger",
       "lotr_port:angmar_poleaxe",
-      "lotr_port:angmar_spear",
+      "lotr_port:angmar_sword",
       "lotr_port:angmar_warhammer"
     ],
     "head": [
@@ -38,5 +38,6 @@
     ]
   },
   "names": "lotr_port:rhudaur_male",
-  "speech": "lotr_port:angmar/hillman"
+  "speech": "lotr_port:angmar/hillman",
+  "quests": "lotr_port:angmar_hillman"
 }

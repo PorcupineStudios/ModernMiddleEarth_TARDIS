@@ -15,8 +15,9 @@
     "mainhand": "lotr_port:bronze_hoe",
     "head": "lotr_port:harad_turban"
   },
-  "names": "lotr_port:near_haradrim_male",
+  "names": "lotr_port:umbar_male",
   "buy": "lotr_port:harad_farmer_buy",
   "sell": "lotr_port:harad_farmer_sell",
-  "speech": "lotr_port:near_harad/merchant"
+  "speech": "lotr_port:near_harad/merchant",
+  "quests": "lotr_port:near_harad"
 }

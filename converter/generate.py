@@ -72,7 +72,12 @@ LOTR_MOB_MELEE_TICKS = 20
 # seconds. A 1.21 arrow carries a fixed effect, so poisoned arrows and bolts take the normal-difficulty middle (7 s).
 LOTR_POISON = {"base_seconds": 1, "per_difficulty": 2, "arrow_ticks": 140}
 # Only plain swords sweep (1.9's sweeping edge; LOTR had none). Daggers, spears, polearms and hammers hit one target.
-SWEEPING_WEAPONS = {"sword"}
+SWEEPING_WEAPONS = {"sword", "battleaxe"}
+# Extra sweeping_damage_ratio (player attribute; a sweep hits for 1 + ratio x damage). Battleaxes cleave harder than
+# swords: +0.5 is Sweeping Edge II's worth on top (Aaron, 2026-11-04).
+SWEEP_RATIO = {"battleaxe": 0.5}
+# Armor toughness (1.9; LOTR had none). Mithril like netherite, dwarven like diamond (Aaron, 2026-11-04).
+ARMOR_TOUGHNESS = {"mithril": 3.0, "dwarven": 2.0, "blue_dwarven": 2.0}
 # LOTR draws icons in folders large/ (2x) and large2/ (3x) at that scale in the hand (LOTRRenderLargeItem).
 LARGE_ICON_FOLDERS = (("large2", 3), ("large", 2))
 
@@ -222,6 +227,8 @@ class Gen:
             slot = ["head", "chest", "legs", "feet"][a["slot"]]
             texture = self.item_armor_texture(new, slot) or self.armor_texture(mat)
             e["armor"] = {"slot": slot, "defense": a["defense"], "material": mat, "texture": texture}
+            if mat in ARMOR_TOUGHNESS:
+                e["armor"]["toughness"] = ARMOR_TOUGHNESS[mat]
         food = v.get("food")
         if food and food.get("heal") is not None:
             e["food"] = {"nutrition": food["heal"], "saturation": food.get("saturation") or 0.3}
@@ -266,7 +273,8 @@ class Gen:
         ticks = ex.get("playerTicks") or max(1, round(LOTR_PLAYER_MELEE_TICKS / speed))
         mob_ticks = ex.get("mobTicks") or max(1, round(LOTR_MOB_MELEE_TICKS / speed))
         return {"type": typ, "attack_speed": round(20 / ticks, 3), "lotr_ticks": ticks, "mob_ticks": mob_ticks,
-                "reach": round(3.0 * (reach - 1.0), 3), "knockback": knock, "sweep": typ in SWEEPING_WEAPONS}
+                "reach": round(3.0 * (reach - 1.0), 3), "knockback": knock, "sweep": typ in SWEEPING_WEAPONS,
+                "sweep_ratio": SWEEP_RATIO.get(typ, 0.0)}
 
     def ranged_weapon(self, it, v):
         """Draw time (ticks to full power; vanilla bows 20) and arrow damage factor of a LOTR bow or crossbow, from

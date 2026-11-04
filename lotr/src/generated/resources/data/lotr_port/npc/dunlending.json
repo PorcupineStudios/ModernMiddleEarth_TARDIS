@@ -14,12 +14,13 @@
     "mainhand": [
       "lotr_port:dunlending_club",
       "lotr_port:dunlending_trident",
+      "lotr_port:stone_spear",
       "minecraft:stone_axe",
       "minecraft:stone_hoe"
     ],
     "head": "lotr_port:fur_hat"
   },
-  "names": "lotr_port:dunlending_male",
+  "names": "lotr_port:bree_male",
   "speech": "lotr_port:dunlending/dunlending",
   "quests": "lotr_port:dunland"
 }

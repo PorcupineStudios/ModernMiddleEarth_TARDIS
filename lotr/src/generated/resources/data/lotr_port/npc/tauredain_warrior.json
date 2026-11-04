@@ -12,9 +12,10 @@
   "attack": 2.0,
   "gear": {
     "mainhand": [
+      "lotr_port:poisoned_taurethrim_dagger",
+      "lotr_port:taurethrim_bludgeon",
       "lotr_port:taurethrim_dagger",
       "lotr_port:taurethrim_pike",
-      "lotr_port:taurethrim_spear",
       "lotr_port:taurethrim_sword"
     ],
     "head": "lotr_port:taurethrim_helmet",

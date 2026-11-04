@@ -14,7 +14,8 @@
   "attack": 2.0,
   "gear": {
     "mainhand": [
-      "lotr_port:gondorian_spear",
+      "lotr_port:gondorian_pike",
+      "lotr_port:gondorian_sword",
       "lotr_port:gondorian_warhammer"
     ],
     "head": "lotr_port:gondorian_helmet",
