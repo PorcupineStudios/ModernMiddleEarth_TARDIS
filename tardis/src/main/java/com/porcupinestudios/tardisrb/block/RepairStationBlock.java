@@ -14,7 +14,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 
 /**
- * The Repair Station in the basement under the console room (Aaron, 2026-11-03): the crew open the repair and upgrade
+ * The Repair Station (Aaron, 2026-11-03; no longer built into the interior since the basement went, 2026-11-04): the crew open the repair and upgrade
  * tree here. Repairs are paid and done from that screen; there are no physical part blocks.
  */
 public final class RepairStationBlock extends Block {

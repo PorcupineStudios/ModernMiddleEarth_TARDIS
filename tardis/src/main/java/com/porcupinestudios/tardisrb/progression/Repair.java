@@ -10,7 +10,7 @@ import net.minecraft.resources.ResourceLocation;
 
 /**
  * One repair ({@code tardis/repair}): raises {@code subsystem} to {@code level} (from the level below) for
- * {@code cost}, when {@code requirements} hold. Done from the repair tree at the Repair Station in the basement
+ * {@code cost}, when {@code requirements} hold. Done from the repair tree at the Repair Station (the lower deck will replace it)
  * (Aaron, 2026-11-03: no physical part blocks). An old {@code part_pos} key is ignored.
  */
 public record Repair(ResourceLocation subsystem, int level, Either<ResourceLocation, Cost> cost,

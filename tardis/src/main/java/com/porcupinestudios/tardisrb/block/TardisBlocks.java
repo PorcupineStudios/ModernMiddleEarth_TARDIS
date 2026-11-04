@@ -25,7 +25,7 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 
 /**
  * The TARDIS's blocks: the police box exterior (placed only by code, two blocks tall), the console and interior door
- * of the console room, the basement's Repair Station, salvage wreck debris found in the world, and the Create winder. Their creative tab is "TARDIS".
+ * of the console room, the Repair Station, salvage wreck debris found in the world, and the Create winder. Their creative tab is "TARDIS".
  */
 public final class TardisBlocks {
     private static final DeferredRegister.Blocks BLOCKS = DeferredRegister.createBlocks(TardisRB.MOD_ID);
@@ -50,7 +50,7 @@ public final class TardisBlocks {
             () -> new SalvageBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_BLUE).strength(2.0F)
                     .sound(SoundType.WOOD).noOcclusion()));
 
-    /** In the basement under the console room: opens the repair and upgrade tree. */
+    /** Opens the repair and upgrade tree; placed by hand until the lower deck replaces it (2026-11-04). */
     public static final DeferredBlock<RepairStationBlock> REPAIR_STATION = BLOCKS.register("repair_station",
             () -> new RepairStationBlock(fixed().mapColor(MapColor.METAL).sound(SoundType.METAL)));
 

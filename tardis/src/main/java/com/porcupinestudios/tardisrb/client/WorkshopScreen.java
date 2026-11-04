@@ -16,7 +16,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.neoforged.neoforge.network.PacketDistributor;
 
 /**
- * The repair and upgrade tree at the basement's Repair Station (Aaron, 2026-11-03). Three tabs: Repairs (a row per
+ * The repair and upgrade tree at the Repair Station (Aaron, 2026-11-03). Three tabs: Repairs (a row per
  * subsystem, a column per level), Research (columns by depth, lines from each node's parents) and Rooms. Click a
  * bright node to do it; drag or scroll to pan; hover for the cost. Placeholder look until Aaron's art.
  */

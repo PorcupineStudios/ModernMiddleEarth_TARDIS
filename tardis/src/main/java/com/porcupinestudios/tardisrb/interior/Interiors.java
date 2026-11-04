@@ -24,9 +24,7 @@ import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemp
 /**
  * Interiors: every TARDIS gets a plot in one shared void dimension ({@code tardis_rb:interior}), spaced
  * {@code plot_spacing} blocks apart along x. The console room (Aaron 2026-11-04: the Capaldi room) is a structure
- * template from the tuning file, placed when the plot is handed out, with the repair basement ({@code basement}) at
- * {@code basement_offset} under its lower deck; a ladder in the lower deck's floor ({@code hatch}) leads down to the
- * Repair Station. A block's TARDIS is found from its plot.
+ * template from the tuning file, placed when the plot is handed out. A block's TARDIS is found from its plot.
  */
 public final class Interiors {
     public static final ResourceKey<Level> DIMENSION = ResourceKey.create(Registries.DIMENSION, TardisRB.id("interior"));
@@ -78,21 +76,13 @@ public final class Interiors {
     }
 
     /**
-     * Builds the console room with its origin at {@code origin} (the floor in front of the console) and the repair
-     * basement under it. Game tests build one anywhere.
+     * Builds the console room with its origin at {@code origin} (the floor in front of the console). Game tests build
+     * one anywhere.
      */
     public static void build(ServerLevel level, BlockPos origin, StructureTemplate room) {
         Tuning.Interior t = TardisContent.tuning().interior();
         BlockPos corner = origin.offset(t.roomOffset());
         room.placeInWorld(level, corner, corner, new StructurePlaceSettings(), level.getRandom(), Block.UPDATE_CLIENTS);
-        Optional<StructureTemplate> basement = level.getStructureManager().get(t.basement());
-        if (basement.isPresent()) {
-            BlockPos at = origin.offset(t.basementOffset());
-            basement.get().placeInWorld(level, at, at, new StructurePlaceSettings(), level.getRandom(),
-                    Block.UPDATE_CLIENTS);
-        } else {
-            TardisRB.LOG.error("[interior] basement template {} is missing", t.basement());
-        }
     }
 
     /**
@@ -121,11 +111,6 @@ public final class Interiors {
         }
         TardisRB.LOG.info("[interior] {} rebuilt in plot {} (was {})", tardis.name(), plot, old);
         return true;
-    }
-
-    /** The corner of a TARDIS's repair basement. */
-    public static BlockPos basement(TardisRecord tardis) {
-        return origin(tardis.plot()).offset(TardisContent.tuning().interior().basementOffset());
     }
 
     /** Where a player appears inside. */

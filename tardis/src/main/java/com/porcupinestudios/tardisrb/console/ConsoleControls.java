@@ -6,7 +6,6 @@ import com.porcupinestudios.tardisrb.core.TardisRecord;
 import com.porcupinestudios.tardisrb.flight.Destinations;
 import com.porcupinestudios.tardisrb.flight.Flight;
 import com.porcupinestudios.tardisrb.interior.Interiors;
-import com.porcupinestudios.tardisrb.net.ConsoleNet;
 import com.porcupinestudios.tardisrb.progression.Control;
 import com.porcupinestudios.tardisrb.progression.TardisContent;
 import com.porcupinestudios.tardisrb.progression.Unlocks;
@@ -26,14 +25,19 @@ import net.minecraft.world.phys.Vec3;
 /**
  * What the console's controls do (Aaron, 2026-11-03: a console like the original mod's, with buttons, levers and dials
  * on the model instead of a flat screen). A control is on the console once its requirements hold. Actions:
- * {@code screen} opens the flight screen (the monitor); {@code x_up}..{@code z_down} move the course by the step size;
+ * {@code screen} (the monitor) says where the TARDIS is; {@code x_up}..{@code z_down} move the course by the step size;
  * {@code step} turns the step dial; {@code reset} clears the course; {@code hop} flies a short hop to where the
  * TARDIS stands plus the course; {@code destination} turns the destination dial; {@code jump} jumps there;
- * {@code none} only moves (decoration).
+ * {@code none} only moves (decoration). There is no console screen (Aaron, 2026-11-04: 100% physical controls like
+ * the 1.7.10 mod): the monitor shows {@link #readout} and clicking the time rotor's column ({@link #COLUMN}) turns the
+ * monitor to face the player.
  */
 public final class ConsoleControls {
     public static final List<String> ACTIONS = List.of("screen", "x_up", "x_down", "y_up", "y_down", "z_up", "z_down",
             "step", "reset", "hop", "destination", "jump", "none");
+
+    /** The pseudo-control a click on the time rotor's column sends: turns the monitor toward the player. */
+    public static final String COLUMN = "column";
 
     private ConsoleControls() {}
 
@@ -65,13 +69,17 @@ public final class ConsoleControls {
         if (tardis.isEmpty() || !tardis.get().isCrew(player.getUUID())) {
             return Optional.of(Component.translatableWithFallback("tardis_rb.console.dead", "The console stays dark"));
         }
+        // the controls are within the console's radius of its block
+        if (player.getEyePosition().distanceTo(Vec3.atCenterOf(pos)) > ConsoleLayout.REACH + ConsoleLayout.RADIUS) {
+            return Optional.empty();
+        }
+        if (controlId.equals(COLUMN)) {
+            faceMonitor(console, player);
+            return Optional.empty();
+        }
         Optional<ConsoleBlockEntity.Shown> control = console.shown().stream()
                 .filter(c -> c.id().equals(controlId)).findFirst();
         if (control.isEmpty()) {
-            return Optional.empty();
-        }
-        // the controls are within the console's radius of its block
-        if (player.getEyePosition().distanceTo(Vec3.atCenterOf(pos)) > ConsoleLayout.REACH + ConsoleLayout.RADIUS) {
             return Optional.empty();
         }
         return Optional.of(use(player.server, tardis.get(), console, control.get(), Optional.of(player)));
@@ -85,8 +93,13 @@ public final class ConsoleControls {
         int step = steps.isEmpty() ? 1 : steps.get(Math.floorMod(console.step(), steps.size()));
         switch (control.action()) {
             case "screen" -> {
-                player.ifPresent(p -> ConsoleNet.open(p, tardis));
-                return Component.empty();
+                return tardis.location().isEmpty()
+                        ? Component.translatableWithFallback("tardis_rb.console.nowhere",
+                                "The TARDIS isn't standing anywhere")
+                        : Component.translatableWithFallback("tardis_rb.console.at", "At %s %s %s in %s",
+                                tardis.location().get().pos().getX(), tardis.location().get().pos().getY(),
+                                tardis.location().get().pos().getZ(),
+                                tardis.location().get().dimension().location().getPath());
             }
             case "x_up" -> console.setOffset(console.dx() + step, console.dy(), console.dz());
             case "x_down" -> console.setOffset(console.dx() - step, console.dy(), console.dz());
@@ -137,6 +150,42 @@ public final class ConsoleControls {
         }
         return Component.translatableWithFallback("tardis_rb.console.course", "Course: %s %s %s (step %s)",
                 signed(console.dx()), signed(console.dy()), signed(console.dz()), step);
+    }
+
+    /**
+     * Turns the monitor round the time rotor to face the player, as clicking the console's column did in the 1.7.10
+     * mod. The angle is the player's direction from the rotor axis ({@code atan2(z, x)} in degrees).
+     */
+    public static void faceMonitor(ConsoleBlockEntity console, ServerPlayer player) {
+        double dx = player.getX() - (console.getBlockPos().getX() + ConsoleLayout.PIVOT_X);
+        double dz = player.getZ() - (console.getBlockPos().getZ() + ConsoleLayout.PIVOT_Z);
+        console.setMonitorAngle((float) Math.toDegrees(Math.atan2(dz, dx)));
+    }
+
+    /**
+     * What the monitor shows, refreshed every second on the server: the TARDIS's name, where it stands, the course
+     * being set, the picked destination and the charge. Plain text, worked out on the server.
+     */
+    public static List<String> readout(MinecraftServer server, TardisRecord tardis, ConsoleBlockEntity console) {
+        List<String> out = new ArrayList<>();
+        out.add(tardis.name());
+        if (tardis.location().isPresent()) {
+            BlockPos at = tardis.location().get().pos();
+            out.add(at.getX() + " " + at.getY() + " " + at.getZ());
+            out.add(tardis.location().get().dimension().location().getPath());
+        } else {
+            out.add("-");
+            out.add("in flight");
+        }
+        List<Integer> steps = TardisContent.tuning().console().steps();
+        int step = steps.isEmpty() ? 1 : steps.get(Math.floorMod(console.step(), steps.size()));
+        out.add("Course " + signed(console.dx()) + " " + signed(console.dy()) + " " + signed(console.dz())
+                + " x" + step);
+        List<ResourceLocation> open = Destinations.open(server, tardis, Optional.empty());
+        out.add(open.isEmpty() ? "No destinations"
+                : "To " + name(open.get(Math.floorMod(console.destination(), open.size()))).getString());
+        out.add("Charge " + tardis.charge() + "/" + Unlocks.chargeCap(tardis));
+        return out;
     }
 
     private static Component result(Flight.Outcome out) {

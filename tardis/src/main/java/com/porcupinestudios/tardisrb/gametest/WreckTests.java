@@ -71,7 +71,7 @@ public final class WreckTests {
 
     /**
      * The game test server makes only the overworld (and doesn't load dimension files), so this builds the console
-     * room 48 blocks above the test and checks it has its console, hull, doors, basement ladder and open hallway ends.
+     * room 48 blocks above the test and checks it has its console, hull, doors and open hallway ends.
      * The dedicated-server world check (CI) builds a real interior.
      */
     @GameTest(template = PLATFORM)
@@ -94,9 +94,6 @@ public final class WreckTests {
         BlockPos spawn = origin.offset(t.spawn());
         helper.assertTrue(level.getBlockState(spawn).isAir() && level.getBlockState(spawn.above()).isAir()
                 && !level.getBlockState(spawn.below()).isAir(), "spawn point is blocked or has no floor");
-        helper.assertTrue(level.getBlockState(origin.offset(t.hatch())).is(Blocks.LADDER), "no ladder to the basement");
-        helper.assertTrue(level.getBlockState(origin.offset(t.basementOffset()).offset(4, 1, 4))
-                .is(TardisBlocks.REPAIR_STATION.get()), "no repair station under the room");
         for (var anchor : t.roomAnchors()) {
             for (BlockPos p : BlockPos.betweenClosed(origin.offset(anchor.min()), origin.offset(anchor.max()))) {
                 helper.assertTrue(level.getBlockState(p).isAir(), "hallway end blocked at " + p.subtract(origin));
@@ -106,7 +103,7 @@ public final class WreckTests {
         helper.succeed();
     }
 
-    /** Clears a console room built at {@code origin} by a test, with its basement and the rooms near it. */
+    /** Clears a console room built at {@code origin} by a test, with the rooms near it. */
     public static void clearInterior(ServerLevel level, BlockPos origin) {
         for (BlockPos p : BlockPos.betweenClosed(origin.offset(-34, -10, -34), origin.offset(34, 8, 20))) {
             if (!level.getBlockState(p).isAir()) {

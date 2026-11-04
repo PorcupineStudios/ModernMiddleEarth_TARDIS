@@ -3,7 +3,7 @@
   "biomes": "#lotr_port:has_structure/ruined_dwarven_tower",
   "step": "surface_structures",
   "spawn_overrides": {},
-  "terrain_adaptation": "beard_thin",
+  "terrain_adaptation": "beard_box",
   "start_pool": "lotr_port:ruined_dwarven_tower",
   "size": 1,
   "start_height": {

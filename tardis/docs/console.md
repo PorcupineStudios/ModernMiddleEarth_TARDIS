@@ -14,12 +14,21 @@ Read when: the console block/renderer, console controls (data `tardis/control/`)
   are `decor_*` with action `none`, shown from navigation 1). Click boxes come from the model file; the server checks
   reach from the console's centre (`ConsoleLayout.REACH + RADIUS`). Used controls sink, levers/switches lean 35
   degrees while flipped (odd use count), rotor column bobs, ceiling rings spin. Untried in a client.
+- **No console screen** (Aaron 2026-11-04: 100% physical controls like the 1.7.10 mod). `ConsoleNet` has only
+  `Press`. The monitor (`screen_1`, action `screen`: says where the TARDIS is) shows `ConsoleControls.readout` (name,
+  position, dimension, course, picked destination, charge), worked out on the server every 20 ticks and synced in the
+  block entity; `ConsoleRenderer` writes it on the glass (`ConsoleModel.Glass`, the highest big face of the part).
+- **Monitor faces you**: clicking the time rotor's column (client ray test against a 0.4-radius box round the pivot,
+  sent as the pseudo-control `column`) or the console block sets `monitor_angle` (`ConsoleControls.faceMonitor`,
+  atan2 from `ConsoleLayout.PIVOT_X/Z`). The renderer eases toward it and turns `screen_1` round the pivot, raised
+  `ConsoleModel.MONITOR_LIFT` (0.5) once off its panel so it clears the other panels' controls; its click box turns
+  the same way (`ConsoleModel.monitorBox`). Untried in a client.
 - Old notes (the placeholder console, 2026-11-03):
 - Aaron 2026-11-03: a console like the original mod's, a custom model with buttons, levers and dials that don't follow
   block shapes; controls appear on it only once repaired. The block is just the central column
   (`block/ConsoleBlock`, render shape ENTITYBLOCK_ANIMATED); `client/ConsoleRenderer` draws the plinth, six sloped
   panels, a bobbing rotor and each control (ModelPart layer `tardis_rb:console`, texture `textures/entity/console.png`,
-  placeholder colours for Aaron's art). Clicking the column opens the flight screen.
+  placeholder colours for Aaron's art). (The flight screen it opened is gone.)
 - Shape math shared by renderer, click test and server reach check: `console/ConsoleLayout` (panel 0 faces +z, each
   next one +60 degrees; `point(panel, u, v)` is a control's centre from the block's corner).
 - Controls are data: `tardis/control/<id>.json` = kind (button/lever/dial/monitor), action, panel 0-5, u, v,
