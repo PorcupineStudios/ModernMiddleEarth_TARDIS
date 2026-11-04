@@ -17,7 +17,9 @@ Read when: the doors, Immersive Portals, portals for space.
   side and back walls so players walk in. The interior door has `half=lower/upper`.
   `rotation(from, to)` turns looking-in at the box into looking-into-the-room. State + portal ids in the record's
   module data `tardis_rb:door`.
-- Use the box (crew): open/close; sneak-use: old teleport in. Same at the interior door. `Flight.land` closes the doors
+- Use the box: open/close if `DoorLock` allows (outside: OPEN all / OWNER / CREW (default) / LOCKED; inside: anyone
+  unless LOCKED). Sneak-use cycles the lock with the original mod's rules (`DoorLock.cycle`; crew stand in for its key
+  holders; LOCKED only from inside). The sneak teleport in/out was removed (it crashed Aaron's server, 2026-11-04). `Flight.land` closes the doors
   before any hop/jump. A door portal loaded from disk that its TARDIS no longer lists is dropped (`onJoin`).
 - Tests: `gametest/DoorTests` (turn maths, a real portal pair in the test world), `WorldCheck.checkDoor` (opens the
   wreck's door on a dedicated server, checks both portals and where they lead, closes it). Untried in a client.

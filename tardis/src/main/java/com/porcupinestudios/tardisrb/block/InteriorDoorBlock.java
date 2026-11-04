@@ -1,5 +1,6 @@
 package com.porcupinestudios.tardisrb.block;
 
+import com.porcupinestudios.tardisrb.door.DoorLock;
 import com.porcupinestudios.tardisrb.door.Doors;
 import com.porcupinestudios.tardisrb.interior.Interiors;
 import com.porcupinestudios.tardisrb.progression.TardisContent;
@@ -24,8 +25,8 @@ import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 /**
- * The inside of the police box doors: the crew open or close them (see-through portals, {@link Doors}); sneak-use
- * steps straight out to wherever the exterior stands.
+ * The inside of the police box doors: anyone inside opens or closes them unless they are locked (see-through
+ * portals, {@link Doors}); sneak-use cycles the lock ({@link DoorLock}).
  */
 public final class InteriorDoorBlock extends Block {
     public static final EnumProperty<DoubleBlockHalf> HALF = BlockStateProperties.DOUBLE_BLOCK_HALF;
@@ -55,14 +56,23 @@ public final class InteriorDoorBlock extends Block {
         }
         if (player instanceof ServerPlayer sp && level instanceof ServerLevel sl) {
             var tardis = Interiors.at(sl, pos);
-            if (tardis.isPresent() && !sp.isShiftKeyDown() && tardis.get().isCrew(sp.getUUID())) {
-                boolean closing = Doors.isOpen(tardis.get()) && !Doors.isClosing(tardis.get());
-                if (Doors.toggle(sl.getServer(), tardis.get())) {
-                    sp.displayClientMessage(Doors.message(closing), true);
-                    return InteractionResult.CONSUME;
-                }
+            if (tardis.isEmpty()) {
+                return InteractionResult.CONSUME;
             }
-            if (tardis.isEmpty() || !Interiors.exit(sp, tardis.get())) {
+            if (sp.isShiftKeyDown()) {
+                // sneak-use cycles the lock, as in the original mod (Aaron, 2026-11-04)
+                DoorLock.cycle(tardis.get(), sp, true);
+                return InteractionResult.CONSUME;
+            }
+            if (!DoorLock.mayUse(tardis.get(), sp, true)) {
+                sp.displayClientMessage(Component.translatableWithFallback("tardis_rb.exterior.locked",
+                        "The door is locked"), true);
+                return InteractionResult.CONSUME;
+            }
+            boolean closing = Doors.isOpen(tardis.get()) && !Doors.isClosing(tardis.get());
+            if (Doors.toggle(sl.getServer(), tardis.get())) {
+                sp.displayClientMessage(Doors.message(closing), true);
+            } else {
                 sp.displayClientMessage(Component.translatableWithFallback("tardis_rb.door.stuck",
                         "The doors won't open: the TARDIS is between places"), true);
             }
