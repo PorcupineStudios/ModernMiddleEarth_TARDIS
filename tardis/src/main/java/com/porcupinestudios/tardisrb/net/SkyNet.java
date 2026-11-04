@@ -2,6 +2,8 @@ package com.porcupinestudios.tardisrb.net;
 
 import com.porcupinestudios.tardisrb.TardisRB;
 import com.porcupinestudios.tardisrb.progression.SkyLink;
+import com.porcupinestudios.tardisrb.progression.TardisContent;
+import com.porcupinestudios.tardisrb.progression.Tuning;
 import com.porcupinestudios.tardisrb.space.Planet;
 import com.porcupinestudios.tardisrb.space.PlanetMaps;
 import io.netty.buffer.ByteBuf;
@@ -39,7 +41,7 @@ public final class SkyNet {
     /** Every planet, then every finished globe map. */
     public static void sendPlanets(ServerPlayer player) {
         List<Planet> all = com.porcupinestudios.tardisrb.space.Planets.all(player.server);
-        PacketDistributor.sendToPlayer(player, new Planets(all));
+        PacketDistributor.sendToPlayer(player, new Planets(all, TardisContent.tuning().space()));
         for (Planet p : all) {
             PlanetMaps.map(p.id()).ifPresent(m -> sendMap(player, m));
         }
@@ -52,10 +54,11 @@ public final class SkyNet {
     static final StreamCodec<ByteBuf, Planet> PLANET = StreamCodec.composite(ResourceLocation.STREAM_CODEC,
             Planet::id, ByteBufCodecs.fromCodec(SkyLink.CODEC), Planet::link, Planet::new);
 
-    public record Planets(List<Planet> planets) implements CustomPacketPayload {
+    /** Every planet, and the space tuning the client needs to move its player the same way the server would. */
+    public record Planets(List<Planet> planets, Tuning.SpaceTuning tuning) implements CustomPacketPayload {
         public static final Type<Planets> TYPE = new Type<>(TardisRB.id("planets"));
-        static final StreamCodec<ByteBuf, Planets> CODEC = PLANET.apply(ByteBufCodecs.list())
-                .map(Planets::new, Planets::planets);
+        static final StreamCodec<ByteBuf, Planets> CODEC = StreamCodec.composite(PLANET.apply(ByteBufCodecs.list()),
+                Planets::planets, ByteBufCodecs.fromCodec(Tuning.SpaceTuning.CODEC), Planets::tuning, Planets::new);
 
         @Override
         public Type<? extends CustomPacketPayload> type() {

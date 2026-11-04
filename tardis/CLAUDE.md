@@ -19,6 +19,7 @@ Read both with the Claude Docs tools, not a web fetch. Add notes in `docs/<area>
 | Dimension travel: destination files, jumps, the console's destination picker | `docs/destinations.md` |
 | The see-through door (Immersive Portals, required), portals for space | `docs/door.md` |
 | Space: full-size planets, orbit layers, going up/down, wrapping + seam portals, the globe (`space/`, `SkyLink`, `client/Globe*`) | `docs/space.md` |
+| Gravity and orbits in space, no drag, thrust, the `/gravity` command, the Gravity Changer reference (`space/Orbits`, `gravity/`) | `docs/gravity.md` |
 | The Capaldi console room (blocks, structure, models), the console, its controls (data `tardis/control/`), clicking them | `docs/console.md` |
 
 ## Build

@@ -6,7 +6,7 @@
   "orbit": {
     "x": 2000000,
     "z": 0,
-    "scale": 16
+    "scale": 64
   },
   "wrap": "torus",
   "cloud_band": 40
