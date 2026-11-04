@@ -29,6 +29,10 @@ MAP_TEXT = {f"lotr.gui.map.{k}": f"screen.{NS}.map.{v}" for k, v in {
     "widget.fullScreen": "widget.fullscreen", "widget.sepia": "widget.sepia", "widget.labels": "widget.labels",
 }.items()}
 
+# LOTR NPC classes that call setOfferChance / setMinAlignment (LOTREntityGondorRenegade, LOTREntityRohanShieldmaiden):
+# their quest pools, offer chance and minimum alignment
+OFFER_OVERRIDES = {"gondor_renegade": (4000, 50.0), "rohan_shieldmaiden": (4000, 150.0)}
+
 # by quest factory class (the factories map is keyed by the quest class, which is the same for both kill kinds)
 KINDS = {"QFCollect": "collect", "QFKillFaction": "kill_faction", "QFKillEntity": "kill_npc"}
 
@@ -104,6 +108,12 @@ class Quests:
                 os.makedirs(os.path.dirname(dst), exist_ok=True)
                 with open(dst, "wb") as fh:
                     fh.write(self.jar.read(src))
+        # the quest mark LOTR draws above an NPC offering a quest (tinted with the faction colour)
+        if self.jar.has("assets/lotr/textures/items/questOffer.png"):
+            dst = os.path.join(self.assets, "textures", "gui", "quest", "quest_offer.png")
+            os.makedirs(os.path.dirname(dst), exist_ok=True)
+            with open(dst, "wb") as fh:
+                fh.write(self.jar.read("assets/lotr/textures/items/questOffer.png"))
         return len(names)
 
     def waypoint_lang(self, names, regions):
@@ -202,7 +212,12 @@ class Quests:
                     entries.append(e)
             if entries:
                 pid = snake(name)
-                write_json(os.path.join(self.data, "quest_pool", pid + ".json"), {"quests": entries})
+                out = {"quests": entries}
+                # LOTR's NPCs offer a quest now and then, not on every click: 1 in offer_chance per tick (default
+                # 20000), the offer lasting offer_ticks (24000). Two of its NPC classes set their own chance and alignment.
+                if pid in OFFER_OVERRIDES:
+                    out["offer_chance"], out["min_alignment"] = OFFER_OVERRIDES[pid]
+                write_json(os.path.join(self.data, "quest_pool", pid + ".json"), out)
                 written.add(pid)
         givers = 0
         for e in self.npc_export.get("entities", []):

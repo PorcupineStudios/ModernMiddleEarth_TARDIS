@@ -8,5 +8,7 @@
       "reward": 1.0,
       "weight": 800
     }
-  ]
+  ],
+  "offer_chance": 4000,
+  "min_alignment": 50.0
 }

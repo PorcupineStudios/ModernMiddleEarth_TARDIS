@@ -78,6 +78,10 @@ public final class Quests {
         if (type == null || type.quests().isEmpty() || type.trader() || type.captain()) {
             return false;
         }
+        // as in LOTR, only an NPC showing the quest mark has something to ask; the rest just talk
+        if (!npc.isOfferingQuest()) {
+            return false;
+        }
         Offer offer = roll(player, npc);
         if (offer.quest().isEmpty()) {
             npc.say(offer.problem(), player);
@@ -109,7 +113,19 @@ public final class Quests {
             npc.say(again.problem(), player);
             return;
         }
-        giveQuest(player, npc, pending.quest());
+        accept(player, npc, pending.quest());
+    }
+
+    /** Takes an offered quest: only while the giver still shows the quest mark; taking it ends the offer. */
+    public static boolean accept(ServerPlayer player, LotrNpc npc, ActiveQuest quest) {
+        if (!npc.isOfferingQuest()) {
+            player.displayClientMessage(Component.translatableWithFallback("quest.lotr_port.gone",
+                    "The quest giver is no longer here"), true);
+            return false;
+        }
+        giveQuest(player, npc, quest);
+        npc.clearQuestOffer();
+        return true;
     }
 
     /** Gives the player a new quest from this NPC's pool straight away, if they may take one (tests, commands). */

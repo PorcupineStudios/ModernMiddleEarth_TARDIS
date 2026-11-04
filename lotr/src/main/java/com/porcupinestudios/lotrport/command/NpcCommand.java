@@ -29,6 +29,20 @@ public final class NpcCommand {
 
     private NpcCommand() {}
 
+    private static int offer(CommandSourceStack source, int radius) {
+        Vec3 at = source.getPosition();
+        int n = 0;
+        for (LotrNpc npc : source.getLevel().getEntitiesOfClass(LotrNpc.class,
+                new net.minecraft.world.phys.AABB(at, at).inflate(radius))) {
+            if (npc.startQuestOffer()) {
+                n++;
+            }
+        }
+        int count = n;
+        source.sendSuccess(() -> Component.literal(count + " NPCs now offer a quest"), true);
+        return count;
+    }
+
     public static void register(CommandDispatcher<CommandSourceStack> dispatcher) {
         dispatcher.register(Commands.literal("lotr")
                 .requires(source -> source.hasPermission(2))
@@ -50,6 +64,11 @@ public final class NpcCommand {
                                                         return 0;
                                                     });
                                         })))
+                        // /lotr npc offer [radius]: quest givers nearby start offering a quest now (testing)
+                        .then(Commands.literal("offer").executes(ctx -> offer(ctx.getSource(), 16))
+                                .then(Commands.argument("radius", IntegerArgumentType.integer(1, 128))
+                                        .executes(ctx -> offer(ctx.getSource(),
+                                                IntegerArgumentType.getInteger(ctx, "radius")))))
                         .then(Commands.literal("types").executes(ctx -> {
                             int n = NpcData.types().size();
                             ctx.getSource().sendSuccess(() -> Component.literal(n + " NPC types, problems: "
