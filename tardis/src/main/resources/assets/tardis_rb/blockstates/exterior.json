@@ -1,242 +1,482 @@
 {
   "variants": {
-    "facing=north,half=lower,look=0,open=false": {
+    "closing=false,facing=north,half=lower,look=0,open=false": {
       "model": "tardis_rb:block/exterior_l0_lower"
     },
-    "facing=north,half=lower,look=0,open=true": {
+    "closing=true,facing=north,half=lower,look=0,open=false": {
+      "model": "tardis_rb:block/exterior_l0_lower"
+    },
+    "closing=false,facing=north,half=lower,look=0,open=true": {
       "model": "tardis_rb:block/exterior_l0_lower_open"
     },
-    "facing=east,half=lower,look=0,open=false": {
+    "closing=true,facing=north,half=lower,look=0,open=true": {
+      "model": "tardis_rb:block/exterior_l0_lower_open"
+    },
+    "closing=false,facing=east,half=lower,look=0,open=false": {
       "model": "tardis_rb:block/exterior_l0_lower",
       "y": 90
     },
-    "facing=east,half=lower,look=0,open=true": {
+    "closing=true,facing=east,half=lower,look=0,open=false": {
+      "model": "tardis_rb:block/exterior_l0_lower",
+      "y": 90
+    },
+    "closing=false,facing=east,half=lower,look=0,open=true": {
       "model": "tardis_rb:block/exterior_l0_lower_open",
       "y": 90
     },
-    "facing=south,half=lower,look=0,open=false": {
+    "closing=true,facing=east,half=lower,look=0,open=true": {
+      "model": "tardis_rb:block/exterior_l0_lower_open",
+      "y": 90
+    },
+    "closing=false,facing=south,half=lower,look=0,open=false": {
       "model": "tardis_rb:block/exterior_l0_lower",
       "y": 180
     },
-    "facing=south,half=lower,look=0,open=true": {
+    "closing=true,facing=south,half=lower,look=0,open=false": {
+      "model": "tardis_rb:block/exterior_l0_lower",
+      "y": 180
+    },
+    "closing=false,facing=south,half=lower,look=0,open=true": {
       "model": "tardis_rb:block/exterior_l0_lower_open",
       "y": 180
     },
-    "facing=west,half=lower,look=0,open=false": {
+    "closing=true,facing=south,half=lower,look=0,open=true": {
+      "model": "tardis_rb:block/exterior_l0_lower_open",
+      "y": 180
+    },
+    "closing=false,facing=west,half=lower,look=0,open=false": {
       "model": "tardis_rb:block/exterior_l0_lower",
       "y": 270
     },
-    "facing=west,half=lower,look=0,open=true": {
+    "closing=true,facing=west,half=lower,look=0,open=false": {
+      "model": "tardis_rb:block/exterior_l0_lower",
+      "y": 270
+    },
+    "closing=false,facing=west,half=lower,look=0,open=true": {
       "model": "tardis_rb:block/exterior_l0_lower_open",
       "y": 270
     },
-    "facing=north,half=upper,look=0,open=false": {
+    "closing=true,facing=west,half=lower,look=0,open=true": {
+      "model": "tardis_rb:block/exterior_l0_lower_open",
+      "y": 270
+    },
+    "closing=false,facing=north,half=upper,look=0,open=false": {
       "model": "tardis_rb:block/exterior_l0_upper"
     },
-    "facing=north,half=upper,look=0,open=true": {
+    "closing=true,facing=north,half=upper,look=0,open=false": {
+      "model": "tardis_rb:block/exterior_l0_upper"
+    },
+    "closing=false,facing=north,half=upper,look=0,open=true": {
       "model": "tardis_rb:block/exterior_l0_upper_open"
     },
-    "facing=east,half=upper,look=0,open=false": {
+    "closing=true,facing=north,half=upper,look=0,open=true": {
+      "model": "tardis_rb:block/exterior_l0_upper_open"
+    },
+    "closing=false,facing=east,half=upper,look=0,open=false": {
       "model": "tardis_rb:block/exterior_l0_upper",
       "y": 90
     },
-    "facing=east,half=upper,look=0,open=true": {
+    "closing=true,facing=east,half=upper,look=0,open=false": {
+      "model": "tardis_rb:block/exterior_l0_upper",
+      "y": 90
+    },
+    "closing=false,facing=east,half=upper,look=0,open=true": {
       "model": "tardis_rb:block/exterior_l0_upper_open",
       "y": 90
     },
-    "facing=south,half=upper,look=0,open=false": {
+    "closing=true,facing=east,half=upper,look=0,open=true": {
+      "model": "tardis_rb:block/exterior_l0_upper_open",
+      "y": 90
+    },
+    "closing=false,facing=south,half=upper,look=0,open=false": {
       "model": "tardis_rb:block/exterior_l0_upper",
       "y": 180
     },
-    "facing=south,half=upper,look=0,open=true": {
+    "closing=true,facing=south,half=upper,look=0,open=false": {
+      "model": "tardis_rb:block/exterior_l0_upper",
+      "y": 180
+    },
+    "closing=false,facing=south,half=upper,look=0,open=true": {
       "model": "tardis_rb:block/exterior_l0_upper_open",
       "y": 180
     },
-    "facing=west,half=upper,look=0,open=false": {
+    "closing=true,facing=south,half=upper,look=0,open=true": {
+      "model": "tardis_rb:block/exterior_l0_upper_open",
+      "y": 180
+    },
+    "closing=false,facing=west,half=upper,look=0,open=false": {
       "model": "tardis_rb:block/exterior_l0_upper",
       "y": 270
     },
-    "facing=west,half=upper,look=0,open=true": {
+    "closing=true,facing=west,half=upper,look=0,open=false": {
+      "model": "tardis_rb:block/exterior_l0_upper",
+      "y": 270
+    },
+    "closing=false,facing=west,half=upper,look=0,open=true": {
       "model": "tardis_rb:block/exterior_l0_upper_open",
       "y": 270
     },
-    "facing=north,half=lower,look=1,open=false": {
+    "closing=true,facing=west,half=upper,look=0,open=true": {
+      "model": "tardis_rb:block/exterior_l0_upper_open",
+      "y": 270
+    },
+    "closing=false,facing=north,half=lower,look=1,open=false": {
       "model": "tardis_rb:block/exterior_l1_lower"
     },
-    "facing=north,half=lower,look=1,open=true": {
+    "closing=true,facing=north,half=lower,look=1,open=false": {
+      "model": "tardis_rb:block/exterior_l1_lower"
+    },
+    "closing=false,facing=north,half=lower,look=1,open=true": {
       "model": "tardis_rb:block/exterior_l1_lower_open"
     },
-    "facing=east,half=lower,look=1,open=false": {
+    "closing=true,facing=north,half=lower,look=1,open=true": {
+      "model": "tardis_rb:block/exterior_l1_lower_open"
+    },
+    "closing=false,facing=east,half=lower,look=1,open=false": {
       "model": "tardis_rb:block/exterior_l1_lower",
       "y": 90
     },
-    "facing=east,half=lower,look=1,open=true": {
+    "closing=true,facing=east,half=lower,look=1,open=false": {
+      "model": "tardis_rb:block/exterior_l1_lower",
+      "y": 90
+    },
+    "closing=false,facing=east,half=lower,look=1,open=true": {
       "model": "tardis_rb:block/exterior_l1_lower_open",
       "y": 90
     },
-    "facing=south,half=lower,look=1,open=false": {
+    "closing=true,facing=east,half=lower,look=1,open=true": {
+      "model": "tardis_rb:block/exterior_l1_lower_open",
+      "y": 90
+    },
+    "closing=false,facing=south,half=lower,look=1,open=false": {
       "model": "tardis_rb:block/exterior_l1_lower",
       "y": 180
     },
-    "facing=south,half=lower,look=1,open=true": {
+    "closing=true,facing=south,half=lower,look=1,open=false": {
+      "model": "tardis_rb:block/exterior_l1_lower",
+      "y": 180
+    },
+    "closing=false,facing=south,half=lower,look=1,open=true": {
       "model": "tardis_rb:block/exterior_l1_lower_open",
       "y": 180
     },
-    "facing=west,half=lower,look=1,open=false": {
+    "closing=true,facing=south,half=lower,look=1,open=true": {
+      "model": "tardis_rb:block/exterior_l1_lower_open",
+      "y": 180
+    },
+    "closing=false,facing=west,half=lower,look=1,open=false": {
       "model": "tardis_rb:block/exterior_l1_lower",
       "y": 270
     },
-    "facing=west,half=lower,look=1,open=true": {
+    "closing=true,facing=west,half=lower,look=1,open=false": {
+      "model": "tardis_rb:block/exterior_l1_lower",
+      "y": 270
+    },
+    "closing=false,facing=west,half=lower,look=1,open=true": {
       "model": "tardis_rb:block/exterior_l1_lower_open",
       "y": 270
     },
-    "facing=north,half=upper,look=1,open=false": {
+    "closing=true,facing=west,half=lower,look=1,open=true": {
+      "model": "tardis_rb:block/exterior_l1_lower_open",
+      "y": 270
+    },
+    "closing=false,facing=north,half=upper,look=1,open=false": {
       "model": "tardis_rb:block/exterior_l1_upper"
     },
-    "facing=north,half=upper,look=1,open=true": {
+    "closing=true,facing=north,half=upper,look=1,open=false": {
+      "model": "tardis_rb:block/exterior_l1_upper"
+    },
+    "closing=false,facing=north,half=upper,look=1,open=true": {
       "model": "tardis_rb:block/exterior_l1_upper_open"
     },
-    "facing=east,half=upper,look=1,open=false": {
+    "closing=true,facing=north,half=upper,look=1,open=true": {
+      "model": "tardis_rb:block/exterior_l1_upper_open"
+    },
+    "closing=false,facing=east,half=upper,look=1,open=false": {
       "model": "tardis_rb:block/exterior_l1_upper",
       "y": 90
     },
-    "facing=east,half=upper,look=1,open=true": {
+    "closing=true,facing=east,half=upper,look=1,open=false": {
+      "model": "tardis_rb:block/exterior_l1_upper",
+      "y": 90
+    },
+    "closing=false,facing=east,half=upper,look=1,open=true": {
       "model": "tardis_rb:block/exterior_l1_upper_open",
       "y": 90
     },
-    "facing=south,half=upper,look=1,open=false": {
+    "closing=true,facing=east,half=upper,look=1,open=true": {
+      "model": "tardis_rb:block/exterior_l1_upper_open",
+      "y": 90
+    },
+    "closing=false,facing=south,half=upper,look=1,open=false": {
       "model": "tardis_rb:block/exterior_l1_upper",
       "y": 180
     },
-    "facing=south,half=upper,look=1,open=true": {
+    "closing=true,facing=south,half=upper,look=1,open=false": {
+      "model": "tardis_rb:block/exterior_l1_upper",
+      "y": 180
+    },
+    "closing=false,facing=south,half=upper,look=1,open=true": {
       "model": "tardis_rb:block/exterior_l1_upper_open",
       "y": 180
     },
-    "facing=west,half=upper,look=1,open=false": {
+    "closing=true,facing=south,half=upper,look=1,open=true": {
+      "model": "tardis_rb:block/exterior_l1_upper_open",
+      "y": 180
+    },
+    "closing=false,facing=west,half=upper,look=1,open=false": {
       "model": "tardis_rb:block/exterior_l1_upper",
       "y": 270
     },
-    "facing=west,half=upper,look=1,open=true": {
+    "closing=true,facing=west,half=upper,look=1,open=false": {
+      "model": "tardis_rb:block/exterior_l1_upper",
+      "y": 270
+    },
+    "closing=false,facing=west,half=upper,look=1,open=true": {
       "model": "tardis_rb:block/exterior_l1_upper_open",
       "y": 270
     },
-    "facing=north,half=lower,look=2,open=false": {
+    "closing=true,facing=west,half=upper,look=1,open=true": {
+      "model": "tardis_rb:block/exterior_l1_upper_open",
+      "y": 270
+    },
+    "closing=false,facing=north,half=lower,look=2,open=false": {
       "model": "tardis_rb:block/exterior_l2_lower"
     },
-    "facing=north,half=lower,look=2,open=true": {
+    "closing=true,facing=north,half=lower,look=2,open=false": {
+      "model": "tardis_rb:block/exterior_l2_lower"
+    },
+    "closing=false,facing=north,half=lower,look=2,open=true": {
       "model": "tardis_rb:block/exterior_l2_lower_open"
     },
-    "facing=east,half=lower,look=2,open=false": {
+    "closing=true,facing=north,half=lower,look=2,open=true": {
+      "model": "tardis_rb:block/exterior_l2_lower_open"
+    },
+    "closing=false,facing=east,half=lower,look=2,open=false": {
       "model": "tardis_rb:block/exterior_l2_lower",
       "y": 90
     },
-    "facing=east,half=lower,look=2,open=true": {
+    "closing=true,facing=east,half=lower,look=2,open=false": {
+      "model": "tardis_rb:block/exterior_l2_lower",
+      "y": 90
+    },
+    "closing=false,facing=east,half=lower,look=2,open=true": {
       "model": "tardis_rb:block/exterior_l2_lower_open",
       "y": 90
     },
-    "facing=south,half=lower,look=2,open=false": {
+    "closing=true,facing=east,half=lower,look=2,open=true": {
+      "model": "tardis_rb:block/exterior_l2_lower_open",
+      "y": 90
+    },
+    "closing=false,facing=south,half=lower,look=2,open=false": {
       "model": "tardis_rb:block/exterior_l2_lower",
       "y": 180
     },
-    "facing=south,half=lower,look=2,open=true": {
+    "closing=true,facing=south,half=lower,look=2,open=false": {
+      "model": "tardis_rb:block/exterior_l2_lower",
+      "y": 180
+    },
+    "closing=false,facing=south,half=lower,look=2,open=true": {
       "model": "tardis_rb:block/exterior_l2_lower_open",
       "y": 180
     },
-    "facing=west,half=lower,look=2,open=false": {
+    "closing=true,facing=south,half=lower,look=2,open=true": {
+      "model": "tardis_rb:block/exterior_l2_lower_open",
+      "y": 180
+    },
+    "closing=false,facing=west,half=lower,look=2,open=false": {
       "model": "tardis_rb:block/exterior_l2_lower",
       "y": 270
     },
-    "facing=west,half=lower,look=2,open=true": {
+    "closing=true,facing=west,half=lower,look=2,open=false": {
+      "model": "tardis_rb:block/exterior_l2_lower",
+      "y": 270
+    },
+    "closing=false,facing=west,half=lower,look=2,open=true": {
       "model": "tardis_rb:block/exterior_l2_lower_open",
       "y": 270
     },
-    "facing=north,half=upper,look=2,open=false": {
+    "closing=true,facing=west,half=lower,look=2,open=true": {
+      "model": "tardis_rb:block/exterior_l2_lower_open",
+      "y": 270
+    },
+    "closing=false,facing=north,half=upper,look=2,open=false": {
       "model": "tardis_rb:block/exterior_l2_upper"
     },
-    "facing=north,half=upper,look=2,open=true": {
+    "closing=true,facing=north,half=upper,look=2,open=false": {
+      "model": "tardis_rb:block/exterior_l2_upper"
+    },
+    "closing=false,facing=north,half=upper,look=2,open=true": {
       "model": "tardis_rb:block/exterior_l2_upper_open"
     },
-    "facing=east,half=upper,look=2,open=false": {
+    "closing=true,facing=north,half=upper,look=2,open=true": {
+      "model": "tardis_rb:block/exterior_l2_upper_open"
+    },
+    "closing=false,facing=east,half=upper,look=2,open=false": {
       "model": "tardis_rb:block/exterior_l2_upper",
       "y": 90
     },
-    "facing=east,half=upper,look=2,open=true": {
+    "closing=true,facing=east,half=upper,look=2,open=false": {
+      "model": "tardis_rb:block/exterior_l2_upper",
+      "y": 90
+    },
+    "closing=false,facing=east,half=upper,look=2,open=true": {
       "model": "tardis_rb:block/exterior_l2_upper_open",
       "y": 90
     },
-    "facing=south,half=upper,look=2,open=false": {
+    "closing=true,facing=east,half=upper,look=2,open=true": {
+      "model": "tardis_rb:block/exterior_l2_upper_open",
+      "y": 90
+    },
+    "closing=false,facing=south,half=upper,look=2,open=false": {
       "model": "tardis_rb:block/exterior_l2_upper",
       "y": 180
     },
-    "facing=south,half=upper,look=2,open=true": {
+    "closing=true,facing=south,half=upper,look=2,open=false": {
+      "model": "tardis_rb:block/exterior_l2_upper",
+      "y": 180
+    },
+    "closing=false,facing=south,half=upper,look=2,open=true": {
       "model": "tardis_rb:block/exterior_l2_upper_open",
       "y": 180
     },
-    "facing=west,half=upper,look=2,open=false": {
+    "closing=true,facing=south,half=upper,look=2,open=true": {
+      "model": "tardis_rb:block/exterior_l2_upper_open",
+      "y": 180
+    },
+    "closing=false,facing=west,half=upper,look=2,open=false": {
       "model": "tardis_rb:block/exterior_l2_upper",
       "y": 270
     },
-    "facing=west,half=upper,look=2,open=true": {
+    "closing=true,facing=west,half=upper,look=2,open=false": {
+      "model": "tardis_rb:block/exterior_l2_upper",
+      "y": 270
+    },
+    "closing=false,facing=west,half=upper,look=2,open=true": {
       "model": "tardis_rb:block/exterior_l2_upper_open",
       "y": 270
     },
-    "facing=north,half=lower,look=3,open=false": {
+    "closing=true,facing=west,half=upper,look=2,open=true": {
+      "model": "tardis_rb:block/exterior_l2_upper_open",
+      "y": 270
+    },
+    "closing=false,facing=north,half=lower,look=3,open=false": {
       "model": "tardis_rb:block/exterior_l3_lower"
     },
-    "facing=north,half=lower,look=3,open=true": {
+    "closing=true,facing=north,half=lower,look=3,open=false": {
+      "model": "tardis_rb:block/exterior_l3_lower"
+    },
+    "closing=false,facing=north,half=lower,look=3,open=true": {
       "model": "tardis_rb:block/exterior_l3_lower_open"
     },
-    "facing=east,half=lower,look=3,open=false": {
+    "closing=true,facing=north,half=lower,look=3,open=true": {
+      "model": "tardis_rb:block/exterior_l3_lower_open"
+    },
+    "closing=false,facing=east,half=lower,look=3,open=false": {
       "model": "tardis_rb:block/exterior_l3_lower",
       "y": 90
     },
-    "facing=east,half=lower,look=3,open=true": {
+    "closing=true,facing=east,half=lower,look=3,open=false": {
+      "model": "tardis_rb:block/exterior_l3_lower",
+      "y": 90
+    },
+    "closing=false,facing=east,half=lower,look=3,open=true": {
       "model": "tardis_rb:block/exterior_l3_lower_open",
       "y": 90
     },
-    "facing=south,half=lower,look=3,open=false": {
+    "closing=true,facing=east,half=lower,look=3,open=true": {
+      "model": "tardis_rb:block/exterior_l3_lower_open",
+      "y": 90
+    },
+    "closing=false,facing=south,half=lower,look=3,open=false": {
       "model": "tardis_rb:block/exterior_l3_lower",
       "y": 180
     },
-    "facing=south,half=lower,look=3,open=true": {
+    "closing=true,facing=south,half=lower,look=3,open=false": {
+      "model": "tardis_rb:block/exterior_l3_lower",
+      "y": 180
+    },
+    "closing=false,facing=south,half=lower,look=3,open=true": {
       "model": "tardis_rb:block/exterior_l3_lower_open",
       "y": 180
     },
-    "facing=west,half=lower,look=3,open=false": {
+    "closing=true,facing=south,half=lower,look=3,open=true": {
+      "model": "tardis_rb:block/exterior_l3_lower_open",
+      "y": 180
+    },
+    "closing=false,facing=west,half=lower,look=3,open=false": {
       "model": "tardis_rb:block/exterior_l3_lower",
       "y": 270
     },
-    "facing=west,half=lower,look=3,open=true": {
+    "closing=true,facing=west,half=lower,look=3,open=false": {
+      "model": "tardis_rb:block/exterior_l3_lower",
+      "y": 270
+    },
+    "closing=false,facing=west,half=lower,look=3,open=true": {
       "model": "tardis_rb:block/exterior_l3_lower_open",
       "y": 270
     },
-    "facing=north,half=upper,look=3,open=false": {
+    "closing=true,facing=west,half=lower,look=3,open=true": {
+      "model": "tardis_rb:block/exterior_l3_lower_open",
+      "y": 270
+    },
+    "closing=false,facing=north,half=upper,look=3,open=false": {
       "model": "tardis_rb:block/exterior_l3_upper"
     },
-    "facing=north,half=upper,look=3,open=true": {
+    "closing=true,facing=north,half=upper,look=3,open=false": {
+      "model": "tardis_rb:block/exterior_l3_upper"
+    },
+    "closing=false,facing=north,half=upper,look=3,open=true": {
       "model": "tardis_rb:block/exterior_l3_upper_open"
     },
-    "facing=east,half=upper,look=3,open=false": {
+    "closing=true,facing=north,half=upper,look=3,open=true": {
+      "model": "tardis_rb:block/exterior_l3_upper_open"
+    },
+    "closing=false,facing=east,half=upper,look=3,open=false": {
       "model": "tardis_rb:block/exterior_l3_upper",
       "y": 90
     },
-    "facing=east,half=upper,look=3,open=true": {
+    "closing=true,facing=east,half=upper,look=3,open=false": {
+      "model": "tardis_rb:block/exterior_l3_upper",
+      "y": 90
+    },
+    "closing=false,facing=east,half=upper,look=3,open=true": {
       "model": "tardis_rb:block/exterior_l3_upper_open",
       "y": 90
     },
-    "facing=south,half=upper,look=3,open=false": {
+    "closing=true,facing=east,half=upper,look=3,open=true": {
+      "model": "tardis_rb:block/exterior_l3_upper_open",
+      "y": 90
+    },
+    "closing=false,facing=south,half=upper,look=3,open=false": {
       "model": "tardis_rb:block/exterior_l3_upper",
       "y": 180
     },
-    "facing=south,half=upper,look=3,open=true": {
+    "closing=true,facing=south,half=upper,look=3,open=false": {
+      "model": "tardis_rb:block/exterior_l3_upper",
+      "y": 180
+    },
+    "closing=false,facing=south,half=upper,look=3,open=true": {
       "model": "tardis_rb:block/exterior_l3_upper_open",
       "y": 180
     },
-    "facing=west,half=upper,look=3,open=false": {
+    "closing=true,facing=south,half=upper,look=3,open=true": {
+      "model": "tardis_rb:block/exterior_l3_upper_open",
+      "y": 180
+    },
+    "closing=false,facing=west,half=upper,look=3,open=false": {
       "model": "tardis_rb:block/exterior_l3_upper",
       "y": 270
     },
-    "facing=west,half=upper,look=3,open=true": {
+    "closing=true,facing=west,half=upper,look=3,open=false": {
+      "model": "tardis_rb:block/exterior_l3_upper",
+      "y": 270
+    },
+    "closing=false,facing=west,half=upper,look=3,open=true": {
+      "model": "tardis_rb:block/exterior_l3_upper_open",
+      "y": 270
+    },
+    "closing=true,facing=west,half=upper,look=3,open=true": {
       "model": "tardis_rb:block/exterior_l3_upper_open",
       "y": 270
     }

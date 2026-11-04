@@ -86,7 +86,29 @@ public final class WorldCheck {
             problems.add("the door blocks didn't open: " + world.getBlockState(box) + ", "
                     + inside.getBlockState(door.above()));
         }
+        // shutting: the doors swing shut first; the portals stay until they are closed
+        Doors.toggle(server, wreck);
+        if (!Doors.isClosing(wreck) || out.isRemoved() || !world.getBlockState(box).getValue(ExteriorBlock.CLOSING)
+                || !world.getBlockState(box).getValue(ExteriorBlock.OPEN)) {
+            problems.add("the doors didn't start swinging shut with the portals still up");
+        }
+        // someone half through the doorway is stepped out into the console room, not left inside the shut door
+        var stand = net.minecraft.world.entity.EntityType.ARMOR_STAND.create(inside);
+        if (stand != null) {
+            stand.moveTo(Vec3.atBottomCenterOf(door));
+            inside.addFreshEntity(stand);
+        }
         Doors.close(server, wreck);
+        if (stand != null) {
+            BlockPos expectStand = door.relative(TardisContent.tuning().door().interiorFacing());
+            if (!stand.blockPosition().equals(expectStand)) {
+                problems.add("someone in the doorway wasn't stepped out: " + stand.blockPosition());
+            }
+            stand.discard();
+        }
+        if (world.getBlockState(box).getValue(ExteriorBlock.CLOSING)) {
+            problems.add("the police box is still marked closing");
+        }
         if (world.getBlockState(box.above()).getValue(ExteriorBlock.OPEN)
                 || inside.getBlockState(door).getValue(InteriorDoorBlock.OPEN)) {
             problems.add("the door blocks didn't shut");

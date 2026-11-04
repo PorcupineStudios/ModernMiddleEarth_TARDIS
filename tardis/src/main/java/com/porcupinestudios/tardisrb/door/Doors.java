@@ -7,21 +7,25 @@ import com.porcupinestudios.tardisrb.core.TardisRecord;
 import com.porcupinestudios.tardisrb.interior.Interiors;
 import com.porcupinestudios.tardisrb.progression.TardisContent;
 import com.porcupinestudios.tardisrb.progression.Tuning;
+import com.porcupinestudios.tardisrb.block.ExteriorBlock;
 import java.util.Optional;
 import java.util.UUID;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.GlobalPos;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
+import net.neoforged.neoforge.event.tick.ServerTickEvent;
 import qouteall.imm_ptl.core.api.PortalAPI;
 import qouteall.imm_ptl.core.portal.Portal;
 import qouteall.q_misc_util.my_util.DQuaternion;
@@ -40,6 +44,19 @@ public final class Doors {
 
     public static void register() {
         NeoForge.EVENT_BUS.addListener(Doors::onJoin);
+        NeoForge.EVENT_BUS.addListener(Doors::onTick);
+    }
+
+    /** Doors that have finished swinging shut lose their portals. */
+    private static void onTick(ServerTickEvent.Post event) {
+        MinecraftServer server = event.getServer();
+        long now = server.overworld().getGameTime();
+        for (TardisRecord tardis : TardisManager.get(server).all()) {
+            CompoundTag tag = tardis.moduleData(MODULE);
+            if (tag.contains("closing_at") && now >= tag.getLong("closing_at")) {
+                close(server, tardis);
+            }
+        }
     }
 
     /** A door portal loading from disk whose TARDIS no longer has it open (closed while unloaded) is dropped. */
@@ -59,6 +76,18 @@ public final class Doors {
 
     public static boolean isOpen(TardisRecord tardis) {
         return tardis.moduleData(MODULE).getBoolean("open");
+    }
+
+    /** The doors are swinging shut; the portals stay until they are closed. */
+    public static boolean isClosing(TardisRecord tardis) {
+        return tardis.moduleData(MODULE).contains("closing_at");
+    }
+
+    /** What a player who used the doors is told: {@code closing} if they started to shut. */
+    public static Component message(boolean closing) {
+        return closing
+                ? Component.translatableWithFallback("tardis_rb.door.closed", "The doors close")
+                : Component.translatableWithFallback("tardis_rb.door.opened", "The doors swing open");
     }
 
     /** One side of the doorway: where the portal plane's centre is, and the way the door faces (towards the viewer). */
@@ -150,7 +179,42 @@ public final class Doors {
         return Optional.of(new Portal[] {portal, back});
     }
 
-    /** Closes the doors: removes both portals wherever they are. */
+    /**
+     * Starts shutting the doors (Aaron, 2026-11-04): the doors swing shut, and only once they are closed
+     * ({@code door.close_ticks} later) do the portals go, so the view through the doorway lasts as long as the gap.
+     * With no swing time the doors close at once.
+     */
+    public static void shut(MinecraftServer server, TardisRecord tardis) {
+        CompoundTag tag = tardis.moduleData(MODULE);
+        if (!tag.getBoolean("open") || tag.contains("closing_at")) {
+            return;
+        }
+        int ticks = TardisContent.tuning().door().closeTicks();
+        if (ticks <= 0) {
+            close(server, tardis);
+            return;
+        }
+        tag.putLong("closing_at", server.overworld().getGameTime() + ticks);
+        tardis.setModuleData(MODULE, tag);
+        exterior(server, tardis).ifPresent(l -> setClosing(l, tardis.location().get().pos(), true));
+    }
+
+    /** Stops the doors shutting: they swing open again and the portals stay. */
+    static void reopen(MinecraftServer server, TardisRecord tardis) {
+        CompoundTag tag = tardis.moduleData(MODULE);
+        tag.remove("closing_at");
+        tardis.setModuleData(MODULE, tag);
+        exterior(server, tardis).ifPresent(l -> setClosing(l, tardis.location().get().pos(), false));
+    }
+
+    private static Optional<ServerLevel> exterior(MinecraftServer server, TardisRecord tardis) {
+        return tardis.location().map(g -> server.getLevel(g.dimension()));
+    }
+
+    /**
+     * Closes the doors now: anyone standing in a doorway is first stepped out in front of it (into the world outside,
+     * or into the console room), so nobody is left inside the shut door block; then both portals go.
+     */
     public static void close(MinecraftServer server, TardisRecord tardis) {
         CompoundTag tag = tardis.moduleData(MODULE);
         if (!tag.getBoolean("open")) {
@@ -160,14 +224,32 @@ public final class Doors {
             ServerLevel l = server.getLevel(g.dimension());
             if (l != null) {
                 remove(l, tag, "outside");
+                clearDoorway(l, g.pos(), Exteriors.facing(l, g.pos()));
                 setOpen(l, g.pos(), false);
             }
         });
         Interiors.level(server).ifPresent(l -> {
             remove(l, tag, "inside");
+            clearDoorway(l, interiorDoor(tardis), TardisContent.tuning().door().interiorFacing());
             setOpen(l, interiorDoor(tardis), false);
         });
         tardis.setModuleData(MODULE, new CompoundTag());
+    }
+
+    /**
+     * Moves every entity overlapping the two door blocks at {@code base} to just in front of the doorway (the way
+     * {@code facing} points), keeping its look, so the closed door doesn't trap it or let it slip through the wall.
+     */
+    static void clearDoorway(ServerLevel level, BlockPos base, Direction facing) {
+        AABB doorway = new AABB(base).expandTowards(0, 1, 0).deflate(0.01);
+        Vec3 front = Vec3.atBottomCenterOf(base.relative(facing));
+        for (Entity e : level.getEntitiesOfClass(Entity.class, doorway, x -> !(x instanceof Portal) && !x.isRemoved()
+                && !x.isPassenger())) {
+            e.teleportTo(front.x, front.y, front.z);
+            e.setDeltaMovement(Vec3.ZERO);
+            e.resetFallDistance();
+            TardisRB.LOG.debug("[door] stepped {} out of the closing doorway at {}", e.getName().getString(), base);
+        }
     }
 
     /** The interior door's lower block. */
@@ -179,8 +261,25 @@ public final class Doors {
     static void setOpen(ServerLevel level, BlockPos base, boolean open) {
         for (BlockPos p : new BlockPos[] {base, base.above()}) {
             BlockState state = level.getBlockState(p);
-            if (state.hasProperty(BlockStateProperties.OPEN) && state.getValue(BlockStateProperties.OPEN) != open) {
-                level.setBlock(p, state.setValue(BlockStateProperties.OPEN, open), Block.UPDATE_ALL);
+            if (!state.hasProperty(BlockStateProperties.OPEN)) {
+                continue;
+            }
+            BlockState next = state.setValue(BlockStateProperties.OPEN, open);
+            if (next.hasProperty(ExteriorBlock.CLOSING)) {
+                next = next.setValue(ExteriorBlock.CLOSING, false);
+            }
+            if (next != state) {
+                level.setBlock(p, next, Block.UPDATE_ALL);
+            }
+        }
+    }
+
+    /** Marks the police box's doors as swinging shut (the renderer plays the swing) or not. */
+    static void setClosing(ServerLevel level, BlockPos base, boolean closing) {
+        for (BlockPos p : new BlockPos[] {base, base.above()}) {
+            BlockState state = level.getBlockState(p);
+            if (state.hasProperty(ExteriorBlock.CLOSING) && state.getValue(ExteriorBlock.CLOSING) != closing) {
+                level.setBlock(p, state.setValue(ExteriorBlock.CLOSING, closing), Block.UPDATE_ALL);
             }
         }
     }
@@ -196,9 +295,14 @@ public final class Doors {
         }
     }
 
+    /** Using the doors: open ones start to shut, shutting ones swing open again, shut ones open. */
     public static boolean toggle(MinecraftServer server, TardisRecord tardis) {
+        if (isClosing(tardis)) {
+            reopen(server, tardis);
+            return true;
+        }
         if (isOpen(tardis)) {
-            close(server, tardis);
+            shut(server, tardis);
             return true;
         }
         return open(server, tardis);

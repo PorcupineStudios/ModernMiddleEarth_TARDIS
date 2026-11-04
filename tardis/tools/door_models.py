@@ -61,7 +61,9 @@ def main():
                     v = {"model": f"tardis_rb:block/{base}" + ("_open" if is_open == "true" else "")}
                     if y:
                         v["y"] = y
-                    variants[f"facing={facing},half={half},look={look},open={is_open}"] = v
+                    # closing: still open (portal up) while the doors swing shut
+                    for closing in ("false", "true"):
+                        variants[f"closing={closing},facing={facing},half={half},look={look},open={is_open}"] = v
     write("blockstates/exterior.json", {"variants": variants})
 
     door = "tardis_rb:block/interior_door"

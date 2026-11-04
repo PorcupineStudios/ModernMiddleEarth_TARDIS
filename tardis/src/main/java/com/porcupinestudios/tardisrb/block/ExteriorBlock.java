@@ -46,16 +46,22 @@ public final class ExteriorBlock extends Block implements EntityBlock {
     public static final IntegerProperty LOOK = IntegerProperty.create("look", 0, 3);
     /** The doors stand open: a hollow shell with a doorway the portal sits in ({@link Doors}). */
     public static final BooleanProperty OPEN = BlockStateProperties.OPEN;
+    /**
+     * The doors are swinging shut: still open (portal up, hollow shape) until they are fully closed, but the renderer
+     * already plays the closing swing ({@link Doors#shut}).
+     */
+    public static final BooleanProperty CLOSING = BooleanProperty.create("closing");
 
     public ExteriorBlock(Properties properties) {
         super(properties);
         registerDefaultState(stateDefinition.any().setValue(FACING, Direction.NORTH)
-                .setValue(HALF, DoubleBlockHalf.LOWER).setValue(LOOK, 0).setValue(OPEN, false));
+                .setValue(HALF, DoubleBlockHalf.LOWER).setValue(LOOK, 0).setValue(OPEN, false)
+                .setValue(CLOSING, false));
     }
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(FACING, HALF, LOOK, OPEN);
+        builder.add(FACING, HALF, LOOK, OPEN, CLOSING);
     }
 
     @Override
@@ -115,13 +121,11 @@ public final class ExteriorBlock extends Block implements EntityBlock {
         if (sp.isShiftKeyDown()) {
             Interiors.enter(sp, tardis);
         } else {
-            boolean wasOpen = Doors.isOpen(tardis);
+            boolean closing = Doors.isOpen(tardis) && !Doors.isClosing(tardis);
             if (!Doors.toggle(sl.getServer(), tardis)) {
                 Interiors.enter(sp, tardis);
             } else {
-                sp.displayClientMessage(wasOpen
-                        ? Component.translatableWithFallback("tardis_rb.door.closed", "The doors close")
-                        : Component.translatableWithFallback("tardis_rb.door.opened", "The doors swing open"), true);
+                sp.displayClientMessage(Doors.message(closing), true);
             }
         }
         return InteractionResult.CONSUME;

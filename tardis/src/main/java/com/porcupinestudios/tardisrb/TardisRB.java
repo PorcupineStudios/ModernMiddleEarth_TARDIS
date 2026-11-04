@@ -8,6 +8,7 @@ import com.porcupinestudios.tardisrb.door.Doors;
 import com.porcupinestudios.tardisrb.flight.CrashSite;
 import com.porcupinestudios.tardisrb.gametest.WorldCheck;
 import com.porcupinestudios.tardisrb.net.ConsoleNet;
+import com.porcupinestudios.tardisrb.net.DoorNet;
 import com.porcupinestudios.tardisrb.net.SkyNet;
 import com.porcupinestudios.tardisrb.net.WorkshopNet;
 import com.porcupinestudios.tardisrb.repair.WorldDamage;
@@ -34,6 +35,7 @@ public final class TardisRB {
         TardisCommand.register();
         TardisBlocks.register(modBus);
         ConsoleNet.register(modBus);
+        DoorNet.register(modBus);
         CrashSite.register();
         CreateCompat.register(modBus);
         WorldCheck.register();

@@ -28,3 +28,12 @@ Read when: the doors, Immersive Portals, portals for space.
   = -z = north), and swings both doors open outward on their hinges over `ticks` when OPEN changes (client-only
   `doorAnim` on the block entity). Outward, because the portal fills the doorway and would hide doors swinging in.
   Untried in a client.
+- **Closing** (Aaron 2026-11-04): using open doors calls `Doors.shut`: `closing_at` (game time + `door.close_ticks`,
+  keep equal to the model's `door_swing.ticks`) goes in the module data and the box gets `closing=true`, so the
+  renderer swings the doors shut while OPEN (portal, hollow shape) stays. `Doors.onTick` calls `close` when due; using
+  the doors meanwhile reopens them. `close` (also used at once by Flight) first steps every entity overlapping a
+  door's two blocks out in front of it (`clearDoorway`: outside the box, or into the console room), so nobody is
+  left inside the solid door. `WorldCheck.checkDoor` tests both with an armor stand.
+- **Using the doorway**: the portal eats right-clicks, so `client/DoorInput` walks the view in 0.05 steps and, if it
+  reaches an open door block before anything solid (not sneaking, not standing in it), sends `DoorNet.Use`; the server
+  checks reach (8) and OPEN and runs the block's normal use. Untried in a client.
