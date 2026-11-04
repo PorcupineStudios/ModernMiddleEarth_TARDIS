@@ -43,5 +43,6 @@
   "buy": "lotr_port:bree_farmer_buy",
   "sell": "lotr_port:bree_farmer_sell",
   "units": "lotr_port:bree_farmer",
-  "speech": "lotr_port:bree/farmer"
+  "speech": "lotr_port:bree/farmer",
+  "quests": "lotr_port:bree"
 }

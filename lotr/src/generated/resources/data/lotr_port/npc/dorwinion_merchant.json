@@ -16,5 +16,6 @@
   },
   "buy": "lotr_port:dorwinion_merchant_buy",
   "sell": "lotr_port:dorwinion_merchant_sell",
-  "speech": "lotr_port:dorwinion/merchant_elf"
+  "speech": "lotr_port:dorwinion/merchant_elf",
+  "quests": "lotr_port:dorwinion_elf"
 }

@@ -29,7 +29,6 @@
     "mainhand": [
       "lotr_port:lindon_battlestaff",
       "lotr_port:lindon_longspear",
-      "lotr_port:lindon_spear",
       "lotr_port:lindon_sword"
     ],
     "head": "lotr_port:lindon_helmet",

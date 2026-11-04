@@ -15,9 +15,9 @@
   "gear": {
     "mainhand": [
       "lotr_port:bronze_axe",
-      "lotr_port:iron_battleaxe",
+      "lotr_port:bronze_dagger",
+      "lotr_port:iron_dagger",
       "lotr_port:rohirric_battleaxe",
-      "minecraft:iron_axe",
       "minecraft:stone_axe"
     ],
     "head": "lotr_port:leather_hat"

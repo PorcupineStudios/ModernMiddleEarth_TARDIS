@@ -50,10 +50,12 @@
       "minecraft:chainmail_leggings",
       "minecraft:leather_leggings"
     ],
-    "feet": "minecraft:leather_boots"
+    "feet": [
+      "minecraft:chainmail_boots",
+      "minecraft:leather_boots"
+    ]
   },
   "names": "lotr_port:bree_male",
   "units": "lotr_port:bree_captain",
-  "speech": "lotr_port:bree/captain",
-  "quests": "lotr_port:bree"
+  "speech": "lotr_port:bree/captain"
 }

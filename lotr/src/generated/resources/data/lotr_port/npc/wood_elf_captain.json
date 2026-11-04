@@ -17,6 +17,8 @@
     "legs": "lotr_port:wood_elven_leggings",
     "feet": "lotr_port:wood_elven_boots"
   },
+  "names": "lotr_port:sindarin_male",
   "units": "lotr_port:wood_elf_captain",
-  "speech": "lotr_port:wood_elf/captain"
+  "speech": "lotr_port:wood_elf/captain",
+  "quests": "lotr_port:wood_elf"
 }

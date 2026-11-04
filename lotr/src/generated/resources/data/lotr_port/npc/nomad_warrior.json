@@ -10,7 +10,6 @@
   "gear": {
     "mainhand": [
       "lotr_port:haradric_dagger",
-      "lotr_port:haradric_spear",
       "lotr_port:haradric_sword",
       "lotr_port:poisoned_haradric_dagger"
     ],

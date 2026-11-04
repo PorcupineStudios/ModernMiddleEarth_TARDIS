@@ -13,5 +13,6 @@
   "gear": {
     "mainhand": "lotr_port:dorwinion_elven_dagger"
   },
-  "speech": "lotr_port:dorwinion/elf"
+  "speech": "lotr_port:dorwinion/elf",
+  "quests": "lotr_port:dorwinion_elf"
 }

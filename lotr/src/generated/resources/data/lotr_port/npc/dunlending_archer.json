@@ -12,8 +12,8 @@
   "attack": 2.0,
   "gear": {
     "mainhand": [
+      "lotr_port:bronze_dagger",
       "lotr_port:bronze_sword",
-      "lotr_port:iron_dagger",
       "lotr_port:iron_pike",
       "lotr_port:iron_spear",
       "minecraft:iron_sword"

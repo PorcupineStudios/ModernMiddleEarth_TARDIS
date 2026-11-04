@@ -212,6 +212,9 @@ public final class ContentTests {
         helper.assertTrue(pike.getItem() instanceof LotrWeaponItem, "gondorian_pike is not a LOTR weapon");
         helper.assertTrue(near(modifier(pike, Attributes.ENTITY_INTERACTION_RANGE), 3.0), "pike reach");
         helper.assertTrue(near(modifier(pike, Attributes.ATTACK_SPEED) + 4.0, 0.667), "pike attack speed");
+        ItemStack axe = new ItemStack(BuiltInRegistries.ITEM.get(LotrPort.id("dwarven_battleaxe")));
+        helper.assertTrue(axe.canPerformAction(ItemAbilities.SWORD_SWEEP), "battleaxes sweep");
+        helper.assertTrue(modifier(axe, Attributes.SWEEPING_DAMAGE_RATIO) > 0, "battleaxes sweep harder than swords");
         boolean bow = false;
         boolean crossbow = false;
         for (Item item : BuiltInRegistries.ITEM) {

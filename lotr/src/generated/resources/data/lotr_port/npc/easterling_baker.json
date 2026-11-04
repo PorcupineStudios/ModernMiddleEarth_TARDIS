@@ -18,5 +18,6 @@
   },
   "buy": "lotr_port:rhun_baker_buy",
   "sell": "lotr_port:rhun_baker_sell",
-  "speech": "lotr_port:rhun/market_trader"
+  "speech": "lotr_port:rhun/market_trader",
+  "quests": "lotr_port:rhun"
 }

@@ -18,6 +18,5 @@
   "names": "lotr_port:rohan_male",
   "buy": "lotr_port:rohan_blacksmith_buy",
   "sell": "lotr_port:rohan_blacksmith_sell",
-  "speech": "lotr_port:rohan/blacksmith",
-  "quests": "lotr_port:rohan"
+  "speech": "lotr_port:rohan/blacksmith"
 }

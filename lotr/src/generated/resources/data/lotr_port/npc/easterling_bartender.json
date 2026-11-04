@@ -18,6 +18,7 @@
       "lotr_port:rh_nic_dagger"
     ]
   },
+  "names": "lotr_port:rhun_male",
   "buy": "lotr_port:rhun_bartender_buy",
   "sell": "lotr_port:rhun_bartender_sell",
   "speech": "lotr_port:rhun/bartender",

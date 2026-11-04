@@ -18,17 +18,14 @@
   "attack": 2.0,
   "gear": {
     "mainhand": [
-      "lotr_port:bronze_axe",
       "lotr_port:bronze_dagger",
       "lotr_port:gondorian_dagger",
       "lotr_port:iron_dagger",
-      "minecraft:iron_axe",
       "minecraft:stone_axe"
     ],
     "head": "lotr_port:leather_hat"
   },
   "buy": "lotr_port:gondor_fishmonger_buy",
   "sell": "lotr_port:gondor_fishmonger_sell",
-  "speech": "lotr_port:gondor/market_trader",
-  "quests": "lotr_port:gondor"
+  "speech": "lotr_port:gondor/market_trader"
 }

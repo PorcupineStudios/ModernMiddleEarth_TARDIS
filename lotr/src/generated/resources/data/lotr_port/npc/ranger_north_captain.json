@@ -19,5 +19,5 @@
   "names": "lotr_port:gondor_male",
   "units": "lotr_port:ranger_north_captain",
   "speech": "lotr_port:ranger_north/captain",
-  "quests": "lotr_port:ranger_north_arnor_relic"
+  "quests": "lotr_port:ranger_north"
 }

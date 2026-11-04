@@ -14,7 +14,7 @@
   "gear": {
     "mainhand": [
       "lotr_port:corsair_battleaxe",
-      "lotr_port:corsair_dagger",
+      "lotr_port:corsair_eket",
       "lotr_port:corsair_harpoon"
     ],
     "chest": "lotr_port:corsair_chestplate",
@@ -23,5 +23,6 @@
   },
   "names": "lotr_port:umbar_male",
   "units": "lotr_port:corsair_slaver",
-  "speech": "lotr_port:near_harad/merchant"
+  "speech": "lotr_port:near_harad/merchant",
+  "quests": "lotr_port:corsair"
 }

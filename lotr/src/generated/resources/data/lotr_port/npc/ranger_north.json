@@ -11,7 +11,6 @@
   "attack": 2.0,
   "gear": {
     "mainhand": [
-      "lotr_port:barrow_blade",
       "lotr_port:bronze_dagger",
       "lotr_port:iron_dagger"
     ],
@@ -21,6 +20,5 @@
     "feet": "lotr_port:ranger_boots"
   },
   "names": "lotr_port:gondor_male",
-  "speech": "lotr_port:ranger_north/ranger",
-  "quests": "lotr_port:ranger_north"
+  "speech": "lotr_port:ranger_north/ranger"
 }

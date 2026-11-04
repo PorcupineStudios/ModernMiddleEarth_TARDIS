@@ -11,6 +11,7 @@
   "attack": 2.0,
   "gear": {
     "mainhand": [
+      "lotr_port:dwarven_battleaxe",
       "lotr_port:dwarven_sword",
       "lotr_port:dwarven_warhammer"
     ],

@@ -14,7 +14,6 @@
   "gear": {
     "mainhand": "lotr_port:haradric_dagger"
   },
-  "names": "lotr_port:near_haradrim_male",
   "buy": "lotr_port:harnedor_bartender_buy",
   "sell": "lotr_port:harnedor_bartender_sell",
   "speech": "lotr_port:near_harad/merchant",

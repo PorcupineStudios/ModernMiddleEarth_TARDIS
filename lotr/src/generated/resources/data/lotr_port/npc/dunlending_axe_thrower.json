@@ -12,21 +12,18 @@
   "attack": 2.0,
   "gear": {
     "mainhand": [
+      "lotr_port:bronze_battleaxe",
       "lotr_port:bronze_dagger",
-      "lotr_port:bronze_sword",
-      "lotr_port:iron_battleaxe",
       "lotr_port:iron_dagger",
-      "lotr_port:iron_pike",
+      "lotr_port:iron_spear",
       "minecraft:iron_sword"
     ],
-    "head": [
-      "lotr_port:dunlending_helmet",
-      "lotr_port:fur_hat"
-    ],
+    "head": "lotr_port:dunlending_helmet",
     "chest": "lotr_port:dunlending_chestplate",
     "legs": "lotr_port:dunlending_leggings",
     "feet": "lotr_port:dunlending_boots"
   },
   "names": "lotr_port:dunlending_male",
-  "speech": "lotr_port:dunlending/dunlending"
+  "speech": "lotr_port:dunlending/dunlending",
+  "quests": "lotr_port:dunland"
 }

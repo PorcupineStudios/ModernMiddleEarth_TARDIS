@@ -24,6 +24,5 @@
   },
   "names": "lotr_port:gondor_male",
   "units": "lotr_port:lossarnach_captain",
-  "speech": "lotr_port:gondor/lossarnach_captain",
-  "quests": "lotr_port:gondor_kill_renegade"
+  "speech": "lotr_port:gondor/lossarnach_captain"
 }

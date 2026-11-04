@@ -28,6 +28,7 @@
   "gear": {
     "mainhand": "lotr_port:lindon_dagger"
   },
+  "names": "lotr_port:gondor_male",
   "buy": "lotr_port:high_elf_smith_buy",
   "sell": "lotr_port:high_elf_smith_sell",
   "speech": "lotr_port:high_elf/smith",
