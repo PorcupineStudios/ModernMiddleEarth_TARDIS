@@ -20,13 +20,13 @@ import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL30;
 
 /**
- * The globes' textures: one equirectangular image per planet (north up), from the planet's picture (the LOTR map for
+ * The globes' textures: one image of each planet's surface rectangle (north up, looping), from the planet's picture (the LOTR map for
  * Middle-earth) or the server's sampled biome map. Pictures are read and resized off the render thread, once; the
  * finished image is mipmapped so a far-off globe doesn't shimmer, and drawn blocky (nearest) up close.
  */
 final class GlobeTextures {
-    /** Width of a texture made from a picture (height is half). 4096 keeps Middle-earth at ~250 blocks a pixel. */
-    private static final int PICTURE_WIDTH = 4096;
+    /** Longer side of a texture made from a picture (Middle-earth: 2048 x 2560, 200 blocks a pixel). */
+    private static final int PICTURE_SIZE = 2560;
     private static final Map<ResourceLocation, Entry> TEXTURES = new HashMap<>();
     private static final Map<ResourceLocation, SkyNet.PlanetMap> MAPS = new HashMap<>();
 
@@ -102,7 +102,7 @@ final class GlobeTextures {
         GlStateManager._texParameter(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MIN_FILTER, GL11.GL_LINEAR_MIPMAP_LINEAR);
         GlStateManager._texParameter(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MAG_FILTER, GL11.GL_NEAREST);
         GlStateManager._texParameter(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_WRAP_S, GL11.GL_REPEAT);
-        GlStateManager._texParameter(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_WRAP_T, GL30.GL_CLAMP_TO_EDGE);
+        GlStateManager._texParameter(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_WRAP_T, GL11.GL_REPEAT);
     }
 
     private static NativeImage fromMap(SkyNet.PlanetMap map) {
@@ -150,8 +150,8 @@ final class GlobeTextures {
     }
 
     private static NativeImage paint(Planet planet, PlanetSurface.Picture pic, NativeImage src) {
-        int w = PICTURE_WIDTH;
-        int h = w / 2;
+        int w = (int) Math.max(1, Math.round(PICTURE_SIZE * Math.min(1, planet.width() / planet.height())));
+        int h = (int) Math.max(1, Math.round(PICTURE_SIZE * Math.min(1, planet.height() / planet.width())));
         NativeImage out = new NativeImage(w, h, false);
         int fill = pic.fill() >= 0 ? abgr(pic.fill()) : (src.getPixelRGBA(0, 0) | 0xFF000000);
         double pw = pic.maxX() - (double) pic.minX();

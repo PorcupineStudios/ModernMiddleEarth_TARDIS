@@ -25,9 +25,8 @@ public final class SharedApiHooks {
                 LotrWorldData.get(server).startsInMiddleEarth()
                         ? Optional.of(Level.OVERWORLD)
                         : Optional.empty()));
-        // Middle-earth is a planet at full size (Aaron, 2026-11-04): north to south is the whole map, and once round
-        // is twice that (so the globe isn't squashed), the map in the middle and open sea the rest of the way round.
-        // The globe seen from space is painted from LOTR's map.
+        // Middle-earth is a planet at full size (Aaron, 2026-11-04): exactly LOTR's map, looping at its edges, and the
+        // globe seen from space is painted from the map.
         modBus.addListener((RegisterProvidersEvent event) -> event.planet(level ->
                 LotrDimensions.isMiddleEarth(level) ? Optional.of(middleEarthPlanet()) : Optional.empty()));
         // Colonists research TARDIS tech for their founder's crew.
@@ -35,14 +34,12 @@ public final class SharedApiHooks {
                 Colonies.get(server).researchers(player)));
     }
 
-    /** Middle-earth's planet surface: the map's full height, twice as wide, centred on the map. */
+    /** Middle-earth's planet surface: exactly the map. */
     public static PlanetSurface middleEarthPlanet() {
         MiddleEarthMap map = MiddleEarthMap.get();
         BlockPos min = map.blockOfPixel(0, 0);
         BlockPos max = map.blockOfPixel(map.width(), map.height());
-        int height = max.getZ() - min.getZ();
-        int centreX = (min.getX() + max.getX()) / 2;
-        return new PlanetSurface(centreX - height, centreX + height, min.getZ(), max.getZ(),
+        return new PlanetSurface(min.getX(), max.getX(), min.getZ(), max.getZ(),
                 Optional.of(new PlanetSurface.Picture(LotrPort.id("textures/gui/map.png"), min.getX(), max.getX(),
                         min.getZ(), max.getZ(), -1)));
     }

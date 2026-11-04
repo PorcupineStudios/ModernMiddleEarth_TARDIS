@@ -148,4 +148,22 @@ public final class MiddleEarthTests {
         helper.assertTrue(ms <= LOOKUP_BUDGET_MS, LOOKUPS + " biome lookups took " + ms + " ms");
         helper.succeed();
     }
+
+    /**
+     * Aaron (2026-11-04): the planet seen from space and the world's looping edges must agree on where the world is
+     * cut off. Both come from one surface: the map's block bounds, and the globe's picture covers exactly that.
+     */
+    @GameTest(template = EMPTY)
+    public static void planetEdgesAreTheMapEdges(GameTestHelper helper) {
+        MiddleEarthMap map = MiddleEarthMap.get();
+        var planet = com.porcupinestudios.lotrport.shared.SharedApiHooks.middleEarthPlanet();
+        var min = map.blockOfPixel(0, 0);
+        var max = map.blockOfPixel(map.width(), map.height());
+        helper.assertTrue(planet.minX() == min.getX() && planet.maxX() == max.getX() && planet.minZ() == min.getZ()
+                && planet.maxZ() == max.getZ(), "planet " + planet + " isn't the map " + min + " .. " + max);
+        var pic = planet.picture().orElseThrow();
+        helper.assertTrue(pic.minX() == planet.minX() && pic.maxX() == planet.maxX() && pic.minZ() == planet.minZ()
+                && pic.maxZ() == planet.maxZ(), "the globe's picture doesn't cover exactly the planet: " + pic);
+        helper.succeed();
+    }
 }

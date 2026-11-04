@@ -8,6 +8,6 @@
     "z": 0,
     "scale": 16
   },
-  "wrap": "globe",
+  "wrap": "torus",
   "cloud_band": 40
 }

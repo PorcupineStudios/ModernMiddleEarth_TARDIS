@@ -37,9 +37,12 @@ public record Planet(ResourceLocation id, SkyLink link) {
         return minZ() + height() / 2;
     }
 
-    /** The globe's radius at full size: the surface's width is once round its equator. */
+    /**
+     * The globe's radius at full size: the surface's longer side is once round it. The globe is drawn unwrapped round
+     * each viewer's own spot (see {@code GlobeRenderer}), so any rectangle fits without stretching where you look.
+     */
     public double radius() {
-        return width() / (2 * Math.PI);
+        return Math.max(width(), height()) / (2 * Math.PI);
     }
 
     /** Longitude in radians (-pi..pi) of a surface x. */
