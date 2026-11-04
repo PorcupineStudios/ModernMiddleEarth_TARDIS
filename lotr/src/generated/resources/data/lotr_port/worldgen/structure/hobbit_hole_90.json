@@ -9,6 +9,8 @@
     "lotr_port:hobbit_hole/1",
     "lotr_port:hobbit_hole/2"
   ],
+  "chance": 90,
+  "salt": 894636781,
   "ground": 0,
   "max_slope": 6,
   "road_distance": 16

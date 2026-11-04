@@ -9,6 +9,8 @@
     "lotr_port:half_troll_house/1",
     "lotr_port:half_troll_house/2"
   ],
+  "chance": 40,
+  "salt": 57910424,
   "ground": 4,
   "max_slope": 6,
   "road_distance": 16

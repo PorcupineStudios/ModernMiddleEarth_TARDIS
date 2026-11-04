@@ -9,6 +9,8 @@
     "lotr_port:lamedon_watchfort/1",
     "lotr_port:lamedon_watchfort/2"
   ],
+  "chance": 700,
+  "salt": 1513112081,
   "ground": 0,
   "max_slope": 6,
   "road_distance": 16

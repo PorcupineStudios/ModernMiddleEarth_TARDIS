@@ -16,8 +16,8 @@ import net.minecraft.world.level.levelgen.structure.StructureType;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplate;
 
 /**
- * A LOTR structure, placed the way LOTR's biome decorator placed it. How often comes from the structure set (spacing
- * 1 and {@code frequency} = 1 / LOTR's chance per chunk, so each chunk rolls once, like LOTR). Then, as LOTR's own
+ * A LOTR structure, placed the way LOTR's biome decorator placed it. Every chunk is a candidate (structure set
+ * spacing 1) and rolls 1 in {@code chance}, LOTR's chance per chunk for these biomes. Then, as LOTR's own
  * generators did, it gives up on ground that isn't fit: water at the surface, more than {@code max_slope} blocks
  * between the highest and lowest ground under its footprint, or a road within {@code road_distance} blocks. One of
  * the {@code templates} is picked and turned at random.
@@ -31,6 +31,8 @@ public final class LotrStructure extends Structure {
     public static final MapCodec<LotrStructure> CODEC = RecordCodecBuilder.mapCodec(i -> i.group(
             settingsCodec(i),
             ResourceLocation.CODEC.listOf().fieldOf("templates").forGetter(s -> s.templates),
+            Codec.INT.optionalFieldOf("chance", 1).forGetter(s -> s.chance),
+            Codec.INT.optionalFieldOf("salt", 0).forGetter(s -> s.salt),
             Codec.INT.fieldOf("ground").forGetter(s -> s.ground),
             Codec.INT.optionalFieldOf("max_slope", 6).forGetter(s -> s.maxSlope),
             Codec.INT.optionalFieldOf("road_distance", 16).forGetter(s -> s.roadDistance),
@@ -41,15 +43,19 @@ public final class LotrStructure extends Structure {
     private static final int SAMPLE_STEP = 3;
 
     private final List<ResourceLocation> templates;
+    private final int chance;
+    private final int salt;
     private final int ground;
     private final int maxSlope;
     private final int roadDistance;
     private final int maxFoundation;
 
-    public LotrStructure(StructureSettings settings, List<ResourceLocation> templates, int ground, int maxSlope,
-            int roadDistance, int maxFoundation) {
+    public LotrStructure(StructureSettings settings, List<ResourceLocation> templates, int chance, int salt,
+            int ground, int maxSlope, int roadDistance, int maxFoundation) {
         super(settings);
         this.templates = templates;
+        this.chance = Math.max(1, chance);
+        this.salt = salt;
         this.ground = ground;
         this.maxSlope = maxSlope;
         this.roadDistance = roadDistance;
@@ -58,7 +64,7 @@ public final class LotrStructure extends Structure {
 
     @Override
     protected Optional<GenerationStub> findGenerationPoint(GenerationContext ctx) {
-        if (templates.isEmpty()) {
+        if (templates.isEmpty() || !rolls(ctx.seed(), ctx.chunkPos().x, ctx.chunkPos().z)) {
             return Optional.empty();
         }
         // where in the chunk, which layout, which way round
@@ -102,6 +108,22 @@ public final class LotrStructure extends Structure {
         BlockPos corner = new BlockPos(cx, top - ground, cz);
         return Optional.of(new GenerationStub(origin, builder -> builder.addPiece(
                 new LotrStructurePiece(ctx.structureTemplateManager(), id, corner, rotation, ground, maxFoundation))));
+    }
+
+    /**
+     * LOTR's roll: 1 in {@code chance} for this chunk. A well-mixed hash of seed, chunk and salt; the vanilla
+     * placement {@code frequency} seeds its random linearly from the chunk position, and with every chunk rolling
+     * that left structures in long lines of neighbours (a row of overlapping hobbit houses, 2026-11-04).
+     */
+    private boolean rolls(long seed, int chunkX, int chunkZ) {
+        long h = mix(seed ^ mix(chunkX * 0x9E3779B97F4A7C15L ^ mix(chunkZ * 0xC2B2AE3D27D4EB4FL ^ salt)));
+        return Long.remainderUnsigned(h, chance) == 0;
+    }
+
+    private static long mix(long z) {
+        z = (z ^ (z >>> 30)) * 0xBF58476D1CE4E5B9L;
+        z = (z ^ (z >>> 27)) * 0x94D049BB133111EBL;
+        return z ^ (z >>> 31);
     }
 
     private static boolean nearRoad(int x, int z, int range) {

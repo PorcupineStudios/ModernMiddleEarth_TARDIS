@@ -9,6 +9,8 @@
     "lotr_port:pelargir_watchfort/1",
     "lotr_port:pelargir_watchfort/2"
   ],
+  "chance": 600,
+  "salt": 930401036,
   "ground": 0,
   "max_slope": 6,
   "road_distance": 16

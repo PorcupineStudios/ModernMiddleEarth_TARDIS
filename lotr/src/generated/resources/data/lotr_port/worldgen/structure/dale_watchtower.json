@@ -9,6 +9,8 @@
     "lotr_port:dale_watchtower/1",
     "lotr_port:dale_watchtower/2"
   ],
+  "chance": 500,
+  "salt": 948920511,
   "ground": 0,
   "max_slope": 6,
   "road_distance": 16

@@ -9,6 +9,8 @@
     "lotr_port:corsair_cove/1",
     "lotr_port:corsair_cove/2"
   ],
+  "chance": 10,
+  "salt": 1923899087,
   "ground": 0,
   "max_slope": 6,
   "road_distance": 16

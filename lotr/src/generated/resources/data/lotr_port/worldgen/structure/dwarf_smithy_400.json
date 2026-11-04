@@ -9,6 +9,8 @@
     "lotr_port:dwarf_smithy/1",
     "lotr_port:dwarf_smithy/2"
   ],
+  "chance": 400,
+  "salt": 1935898354,
   "ground": 0,
   "max_slope": 6,
   "road_distance": 16

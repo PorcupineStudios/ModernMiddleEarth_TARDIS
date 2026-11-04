@@ -9,6 +9,8 @@
     "lotr_port:rohan_watchtower/1",
     "lotr_port:rohan_watchtower/2"
   ],
+  "chance": 600,
+  "salt": 2013613155,
   "ground": 0,
   "max_slope": 6,
   "road_distance": 16

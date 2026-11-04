@@ -76,8 +76,10 @@ https://claude.ai/artifact/KqhSSTCuKXGuwKHBoYJdcu. Rebuild features in modern co
   structure type `lotr_port:lotr` (`world/structure/LotrStructure` + `LotrStructurePiece`, 2026-11-04 rework):
   - Rarity is LOTR's: LOTR gives each biome its own chance per chunk, so there is one structure + set per (structure,
     chance): `worldgen/structure/<id>[_<chance>]`, biome tag `has_structure/<id>[_<chance>]`, set `random_spread`
-    spacing 1 with `frequency` = 1/chance (every chunk rolls once). Before, one spacing ~sqrt(lowest chance) applied
-    to every biome, so structures were far too common.
+    spacing 1 (every chunk is a candidate) and the structure's own `chance` + `salt` roll 1 in chance per chunk with a
+    mixed hash. Not vanilla's `frequency`: it seeds its random linearly from the chunk, and with every chunk rolling
+    that put structures in long rows of overlapping neighbours. Before all this, one spacing ~sqrt(lowest chance)
+    applied to every biome, so structures were far too common.
   - Then the structure turns down ground the way LOTR's generators did: water at the surface, more than `max_slope`
     (6) blocks between highest and lowest ground under the footprint, a road within `road_distance` (16). Random
     layout and rotation; template layer `ground` sits at the surface.

@@ -9,6 +9,8 @@
     "lotr_port:rhudaur_castle/1",
     "lotr_port:rhudaur_castle/2"
   ],
+  "chance": 3000,
+  "salt": 2049539133,
   "ground": 0,
   "max_slope": 6,
   "road_distance": 16

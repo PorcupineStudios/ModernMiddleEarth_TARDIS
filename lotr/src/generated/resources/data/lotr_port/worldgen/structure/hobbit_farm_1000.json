@@ -9,6 +9,8 @@
     "lotr_port:hobbit_farm/1",
     "lotr_port:hobbit_farm/2"
   ],
+  "chance": 1000,
+  "salt": 696431792,
   "ground": 0,
   "max_slope": 6,
   "road_distance": 16

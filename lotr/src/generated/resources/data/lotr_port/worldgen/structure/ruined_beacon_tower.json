@@ -9,6 +9,8 @@
     "lotr_port:ruined_beacon_tower/1",
     "lotr_port:ruined_beacon_tower/2"
   ],
+  "chance": 200,
+  "salt": 1487868789,
   "ground": 0,
   "max_slope": 6,
   "road_distance": 16

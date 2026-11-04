@@ -9,6 +9,8 @@
     "lotr_port:angmar_hillman_house/1",
     "lotr_port:angmar_hillman_house/2"
   ],
+  "chance": 500,
+  "salt": 771240603,
   "ground": 0,
   "max_slope": 6,
   "road_distance": 16

@@ -486,6 +486,9 @@ class Structures:
             "spawn_overrides": {},
             "terrain_adaptation": "none",
             "templates": [f"{NS}:{sid}/{n}" for n in range(layouts)],
+            # LOTR's chance per chunk (1 in chance), rolled by the structure itself with a well-mixed hash
+            "chance": chunk_chance,
+            "salt": zlib.crc32((cls + str(chunk_chance)).encode()) & 0x7FFFFFFF,
             # the template's layer that sits at the surface (the old flat world's grass layer)
             "ground": ground,
             "max_slope": 6,
@@ -493,8 +496,9 @@ class Structures:
         })
         write_json(os.path.join(wg, "structure_set", wid + ".json"), {
             "structures": [{"structure": f"{NS}:{wid}", "weight": 1}],
+            # every chunk is a candidate; the structure rolls LOTR's chance itself (vanilla's frequency seeds its random
+            # linearly from the chunk and lined structures up in rows when every chunk rolls)
             "placement": {"type": "minecraft:random_spread", "spacing": 1, "separation": 0,
-                          "frequency": round(1 / chunk_chance, 7), "frequency_reduction_method": "default",
                           "salt": zlib.crc32((cls + str(chunk_chance)).encode()) & 0x7FFFFFFF},
         })
         write_json(os.path.join(self.data, "tags", "worldgen", "biome", "has_structure", wid + ".json"),

@@ -9,6 +9,8 @@
     "lotr_port:burnt_house/1",
     "lotr_port:burnt_house/2"
   ],
+  "chance": 1500,
+  "salt": 1643475805,
   "ground": 0,
   "max_slope": 6,
   "road_distance": 16

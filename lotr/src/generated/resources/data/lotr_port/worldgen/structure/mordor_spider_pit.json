@@ -9,6 +9,8 @@
     "lotr_port:mordor_spider_pit/1",
     "lotr_port:mordor_spider_pit/2"
   ],
+  "chance": 40,
+  "salt": 1828191098,
   "ground": 6,
   "max_slope": 6,
   "road_distance": 16

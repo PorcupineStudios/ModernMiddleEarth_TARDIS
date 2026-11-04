@@ -9,6 +9,8 @@
     "lotr_port:harad_pyramid/1",
     "lotr_port:harad_pyramid/2"
   ],
+  "chance": 3000,
+  "salt": 1326746837,
   "ground": 7,
   "max_slope": 6,
   "road_distance": 16

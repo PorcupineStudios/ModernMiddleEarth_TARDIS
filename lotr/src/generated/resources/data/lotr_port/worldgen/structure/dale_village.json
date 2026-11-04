@@ -9,6 +9,8 @@
     "lotr_port:dale_village/1",
     "lotr_port:dale_village/2"
   ],
+  "chance": 400,
+  "salt": 2014958784,
   "ground": 0,
   "max_slope": 6,
   "road_distance": 16

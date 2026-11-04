@@ -9,6 +9,8 @@
     "lotr_port:beacon_tower/1",
     "lotr_port:beacon_tower/2"
   ],
+  "chance": 100,
+  "salt": 1165342472,
   "ground": 0,
   "max_slope": 6,
   "road_distance": 16

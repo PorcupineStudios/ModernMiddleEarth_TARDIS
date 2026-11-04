@@ -9,6 +9,8 @@
     "lotr_port:black_uruk_fort/1",
     "lotr_port:black_uruk_fort/2"
   ],
+  "chance": 2000,
+  "salt": 874713989,
   "ground": 1,
   "max_slope": 6,
   "road_distance": 16

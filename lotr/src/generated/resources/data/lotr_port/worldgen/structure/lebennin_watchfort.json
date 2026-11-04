@@ -9,6 +9,8 @@
     "lotr_port:lebennin_watchfort/1",
     "lotr_port:lebennin_watchfort/2"
   ],
+  "chance": 800,
+  "salt": 2113249430,
   "ground": 0,
   "max_slope": 6,
   "road_distance": 16

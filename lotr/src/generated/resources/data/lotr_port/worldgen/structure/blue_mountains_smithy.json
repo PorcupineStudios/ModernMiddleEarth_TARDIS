@@ -9,6 +9,8 @@
     "lotr_port:blue_mountains_smithy/1",
     "lotr_port:blue_mountains_smithy/2"
   ],
+  "chance": 150,
+  "salt": 511235435,
   "ground": 0,
   "max_slope": 6,
   "road_distance": 16

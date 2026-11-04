@@ -9,6 +9,8 @@
     "lotr_port:gondor_turret/1",
     "lotr_port:gondor_turret/2"
   ],
+  "chance": 500,
+  "salt": 744360569,
   "ground": 0,
   "max_slope": 6,
   "road_distance": 16
