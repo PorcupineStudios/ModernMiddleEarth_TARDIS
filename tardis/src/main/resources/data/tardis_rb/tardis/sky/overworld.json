@@ -1,13 +1,24 @@
 {
   "dimension": "minecraft:overworld",
   "space": "tardis_rb:space",
-  "center": [
-    0,
-    0,
-    0
-  ],
-  "radius": 120,
+  "surface": {
+    "min_x": -32768,
+    "max_x": 32768,
+    "min_z": -16384,
+    "max_z": 16384
+  },
   "ceiling": 340,
-  "half_size": 4096,
-  "arrive_below": 24
+  "ground": 64,
+  "orbit": {
+    "x": 0,
+    "z": 0,
+    "scale": 16,
+    "floor": -1950,
+    "top": 1950,
+    "max_altitude": 3.0
+  },
+  "wrap": "globe",
+  "seam_portals": true,
+  "cloud_band": 40,
+  "map_size": 512
 }
