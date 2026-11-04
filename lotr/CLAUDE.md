@@ -38,6 +38,16 @@ https://claude.ai/artifact/KqhSSTCuKXGuwKHBoYJdcu. Rebuild features in modern co
 - Rivers: `MiddleEarthMap.Rivers` (noise, cut into ground under `max_height`); roads: `map/Roads` +
   `world/feature/RoadFeature` (no bridges yet). Trees and ores per biome are generated data (`converter/trees.py`,
   `world.py`); tree shapes are vanilla stand-ins for LOTR's hand-made ones.
+- Trees (2026-11-04): the exporter grows each of LOTR's 111 tree types with its own generator, up to six shapes each
+  (`TreeExporter`, `trees.json.gz`, run in CI). `converter/trees.py` saves shapes as `structure/tree/<type>/<n>.nbt`
+  (leaves get their real distance to a log so they don't decay) and the type's feature as `lotr_port:template_tree`
+  (`world/feature/TemplateTreeFeature`: random shape and turn, trunk corner + `trunk_width` kept on the origin square,
+  soil a sapling could take, sand for desert trees). Types without exported shapes keep vanilla-shaped stand-ins.
+- Saplings: kind `sapling` (`content/LotrSaplingBlock`: random ticks in light, 2 stages, bone meal). What grows is
+  `data/<ns>/sapling/<block>.json` (`SaplingRules`), read by `converter/saplings.py` from the constants in LOTR's
+  sapling classes' growTree: rules tried in order, `square` N (2x2, 3x3 party trees, 4x4/5x5 redwood and
+  dragonblood, the mallorn's 9x9 on elven grass), `cross` (mallorn boughs), `chance` (1 in N large trees), else a lone
+  sapling. The arrangement's saplings become the trunk. GameTest `SaplingTests`.
 - The crash-site provider answers the overworld in a Middle-earth world (the wreck lands at the Shire spawn).
 - CI "Middle-earth world" step makes a new Middle-earth world on a dedicated server (`WorldCheck`): spawn, crash
   site, one chunk in every biome on the map, road blocks on a road.

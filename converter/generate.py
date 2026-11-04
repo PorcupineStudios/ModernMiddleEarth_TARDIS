@@ -259,6 +259,8 @@ class Gen:
         rt = b["renderType"]
         if "LOTRBlockGate" in c.split():
             return "gate"
+        if "LOTRBlockSaplingBase" in c.split():
+            return "sapling"
         for cls, k in (("BlockStairs", "stairs"), ("BlockSlab", "slab"), ("BlockWall", "wall"),
                        ("LOTRBlockFenceGate", "fence_gate"), ("BlockFence", "fence"), ("BlockPane", "pane"),
                        ("BlockDoor", "door"), ("BlockTrapDoor", "trapdoor"), ("BlockLadder", "ladder"),
@@ -494,7 +496,7 @@ class Gen:
             m = self.bm(new, "minecraft:block/leaves", {"all": side}, {"render_type": CUTOUT})
             self.bs(new, {"variants": {"": {"model": m}}})
             self.item_model(new, m)
-        elif kind == "plant":
+        elif kind in ("plant", "sapling"):
             m = self.bm(new, "minecraft:block/cross", {"cross": side}, {"render_type": CUTOUT})
             self.bs(new, {"variants": {"": {"model": m}}})
             self.item_model(new, layer=item_icon)
