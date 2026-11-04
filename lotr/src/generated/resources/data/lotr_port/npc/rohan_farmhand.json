@@ -15,6 +15,6 @@
   "gear": {
     "mainhand": "minecraft:iron_hoe"
   },
-  "speech": "lotr_port:rohan/man",
-  "quests": "lotr_port:rohan"
+  "names": "lotr_port:rohan_male",
+  "speech": "lotr_port:rohan/man"
 }

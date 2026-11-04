@@ -19,6 +19,7 @@
   "gear": {
     "mainhand": [
       "lotr_port:bronze_axe",
+      "lotr_port:bronze_dagger",
       "lotr_port:gondorian_dagger",
       "lotr_port:iron_dagger",
       "minecraft:iron_axe",
@@ -26,7 +27,6 @@
     ],
     "head": "lotr_port:leather_hat"
   },
-  "names": "lotr_port:gondor_male",
   "buy": "lotr_port:gondor_fishmonger_buy",
   "sell": "lotr_port:gondor_fishmonger_sell",
   "speech": "lotr_port:gondor/market_trader",

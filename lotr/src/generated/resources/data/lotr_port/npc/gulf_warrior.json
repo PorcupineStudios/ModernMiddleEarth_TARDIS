@@ -19,6 +19,5 @@
     "feet": "lotr_port:gulfen_boots"
   },
   "names": "lotr_port:gulf_male",
-  "speech": "lotr_port:near_harad/mercenary",
-  "quests": "lotr_port:gulf_harad"
+  "speech": "lotr_port:near_harad/mercenary"
 }

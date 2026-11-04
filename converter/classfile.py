@@ -22,9 +22,11 @@ class ClassFile:
                 self.pool[i] = ("int", struct.unpack(">i", self.take(4))[0])
             elif tag == 4:
                 self.pool[i] = ("float", struct.unpack(">f", self.take(4))[0])
-            elif tag in (5, 6):
-                self.take(8)
-                self.pool[i] = ("wide", None)
+            elif tag == 5:
+                self.pool[i] = ("long", struct.unpack(">q", self.take(8))[0])
+                i += 1
+            elif tag == 6:
+                self.pool[i] = ("double", struct.unpack(">d", self.take(8))[0])
                 i += 1
             elif tag in (7, 8, 16, 19, 20):
                 self.pool[i] = ({7: "class", 8: "string"}.get(tag, "other"), self.u2())
@@ -37,7 +39,10 @@ class ClassFile:
             else:
                 raise ValueError(f"constant tag {tag}")
             i += 1
-        self.take(6)  # access, this, super
+        self.take(2)  # access
+        self.this_name = self.utf8(self.pool[self.u2()][1])
+        sup = self.u2()
+        self.super_name = self.utf8(self.pool[sup][1]) if sup else None
         self.take(2 * self.u2())  # interfaces
         for _ in range(self.u2()):  # fields
             self.take(6)
@@ -82,13 +87,66 @@ class ClassFile:
         cls, nat = self.pool[i][1]
         return self.utf8(self.pool[cls][1]), self.utf8(self.pool[nat][1][0])
 
+    def ref_full(self, i):
+        """(owner class, member name, descriptor) of a field or method reference."""
+        cls, nat = self.pool[i][1]
+        name, desc = self.pool[nat][1]
+        return self.utf8(self.pool[cls][1]), self.utf8(name), self.utf8(desc)
+
     def constant(self, i):
         kind, v = self.pool[i]
         if kind == "string":
             return self.utf8(v)
-        if kind in ("int", "float"):
+        if kind == "class":
+            return ("class", self.utf8(v))
+        if kind in ("int", "float", "long", "double"):
             return v
         return None
+
+    def static_calls(self, method="<clinit>", desc="()V"):
+        """Each invokestatic in a method as (method name, [constant arguments]): ldc'd classes come as
+        ('class', name). Enough for register(SomeClass.class, 1.5F)-style tables."""
+        code = self.methods.get((method, desc)) or b""
+        out, args, i = [], [], 0
+        while i < len(code):
+            op = code[i]
+            if op == 0x12:
+                args.append(self.constant(code[i + 1]))
+                i += 2
+            elif op in (0x13, 0x14):
+                args.append(self.constant(struct.unpack(">H", code[i + 1:i + 3])[0]))
+                i += 3
+            elif 0x02 <= op <= 0x08:
+                args.append(op - 0x03)
+                i += 1
+            elif 0x0B <= op <= 0x0D:
+                args.append(float(op - 0x0B))
+                i += 1
+            elif op == 0x10:
+                args.append(struct.unpack(">b", code[i + 1:i + 2])[0])
+                i += 2
+            elif op == 0x11:
+                args.append(struct.unpack(">h", code[i + 1:i + 3])[0])
+                i += 3
+            elif op == 0xB8:
+                _, name, _ = self.ref_full(struct.unpack(">H", code[i + 1:i + 3])[0])
+                out.append((name, args))
+                args = []
+                i += 3
+            else:
+                args = []
+                if op in (0xB2, 0xB3, 0xB4, 0xB5, 0xB6, 0xB7, 0xBB, 0xBD, 0xC0, 0xC1):
+                    i += 3
+                elif op in (0xB9,):
+                    i += 5
+                elif op in (0x15, 0x16, 0x17, 0x18, 0x19, 0x36, 0x37, 0x38, 0x39, 0x3A, 0xBC, 0xA9):
+                    i += 2
+                elif op in (0x99, 0x9A, 0x9B, 0x9C, 0x9D, 0x9E, 0x9F, 0xA0, 0xA1, 0xA2, 0xA3, 0xA4, 0xA5, 0xA6,
+                            0xA7, 0xA8, 0xC6, 0xC7, 0x84):
+                    i += 3
+                else:
+                    i += 1
+        return out
 
     def enum_entries(self):
         """Each constructor call in <clinit> as the list of its constant arguments (getstatic gives ('field', owner,

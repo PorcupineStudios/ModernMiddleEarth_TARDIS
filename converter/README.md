@@ -39,6 +39,11 @@ Turns LOTR 36.15 (1.7.10) content into the 1.21.1 port's generated resources. Tw
    `converter/colonies.py` (phase 9) writes each faction's colony migration table and the English text of the mod's
    own screens and messages (`UI_EN`).
 
+   `converter/armor_models.py` replays the constructors of LOTR's special armor models (`LOTRArmorModels`: crested
+   helmets, robes, hats) on a small bytecode interpreter and writes their boxes as `lotr_port/content/armor_models.json`.
+   Melee weapon speed, reach and knockback come from the `LOTRWeaponStats` tables (`classfile.py static_calls`) or,
+   once exported, from each item's `weapon` stats in `items.json`.
+
 Never edit generated files by hand: change the generator and run it again.
 
 Known gaps (report.json): spawn eggs and structure spawners wait for the NPC and structure phases; LOTR's special

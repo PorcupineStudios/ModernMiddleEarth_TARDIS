@@ -1,44 +1,55 @@
 {
-  "type": "minecraft:tree",
+  "type": "lotr_port:template_tree",
   "config": {
-    "trunk_provider": {
-      "type": "minecraft:simple_state_provider",
-      "state": {
-        "Name": "minecraft:jungle_log"
-      }
-    },
-    "trunk_placer": {
-      "type": "minecraft:mega_jungle_trunk_placer",
-      "base_height": 10,
-      "height_rand_a": 2,
-      "height_rand_b": 19
-    },
-    "foliage_provider": {
-      "type": "minecraft:simple_state_provider",
-      "state": {
-        "Name": "minecraft:jungle_leaves"
-      }
-    },
-    "foliage_placer": {
-      "type": "minecraft:jungle_foliage_placer",
-      "radius": 2,
-      "offset": 0,
-      "height": 2
-    },
-    "minimum_size": {
-      "type": "minecraft:two_layers_feature_size",
-      "limit": 1,
-      "lower_size": 1,
-      "upper_size": 2
-    },
-    "dirt_provider": {
-      "type": "minecraft:simple_state_provider",
-      "state": {
-        "Name": "minecraft:dirt"
-      }
-    },
-    "decorators": [],
-    "ignore_vines": true,
-    "force_dirt": false
+    "id": "lotr_port:tree/jungle_large",
+    "templates": [
+      "lotr_port:tree/jungle_large/0",
+      "lotr_port:tree/jungle_large/1",
+      "lotr_port:tree/jungle_large/2",
+      "lotr_port:tree/jungle_large/3",
+      "lotr_port:tree/jungle_large/4",
+      "lotr_port:tree/jungle_large/5"
+    ],
+    "trunk": [
+      [
+        5,
+        0,
+        5
+      ],
+      [
+        5,
+        0,
+        5
+      ],
+      [
+        5,
+        0,
+        5
+      ],
+      [
+        5,
+        0,
+        5
+      ],
+      [
+        5,
+        0,
+        5
+      ],
+      [
+        5,
+        0,
+        5
+      ]
+    ],
+    "trunk_width": [
+      2,
+      2,
+      2,
+      2,
+      2,
+      2
+    ],
+    "on_sand": false
   }
 }

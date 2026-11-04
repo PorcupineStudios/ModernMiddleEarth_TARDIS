@@ -197,6 +197,20 @@ https://claude.ai/artifact/KqhSSTCuKXGuwKHBoYJdcu. Rebuild features in modern co
   and wars from the log alone. Admin: `/lotr ai list|day [n]`. Not yet: attacking player colonies (needs RingRealms'
   offline protections), real soldiers on the march, trade and treaties beyond war/peace, refugees.
 
+## Combat and armor models (2026-11-04)
+- 1.7.10 had no attack cooldown. LOTR's melee timing (`LOTRWeaponStats`: 15 ticks for a player's sword ÷ the
+  class's speed factor, reach 3 × factor, extra knockback) is generated onto each melee weapon's `weapon` block in
+  `content/items.json`. `content/LotrWeaponItem` turns that into attack speed (20 / ticks), entity interaction
+  range, attack knockback, sweep only for plain swords, and LOTR's poison for poisoned daggers. NPCs swing at the
+  weapon's `mob_ticks` (`LotrNpc.WeaponMeleeGoal`). Damage is LOTR's own, with fractions kept.
+- Bows (`LotrBowItem`: draw time, arrow damage factor), crossbows (`LotrCrossbowItem`: vanilla crossbow, bolts only,
+  `#lotr_port:crossbow_bolts`), and bolts and poisoned arrows (`ArrowItem` + a fixed Poison effect). Pull and charged
+  predicates are in `LotrClient.rangedProperties`.
+- LOTR's large in-hand icons: `separate_transforms` item models on `item/large_2x` / `large_3x`.
+- Special armor models: `converter/armor_models.py` → `lotr_port/content/armor_models.json` → `client/ArmorModels`
+  (`RegisterClientExtensionsEvent`). Animated parts keep their resting pose.
+- Every 1.7.10 → 1.21.1 mismatch and what was decided: `lotr/docs/missing-features.md`.
+
 ## Build
 From the repo root: `./gradlew :lotr:build`, `:lotr:runClient`, `:lotr:runServer`, `:lotr:runGameTestServer`,
 `:lotr:runData`. Shared rules are in the root `CLAUDE.md`.

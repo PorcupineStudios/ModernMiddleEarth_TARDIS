@@ -1,45 +1,55 @@
 {
-  "type": "minecraft:tree",
+  "type": "lotr_port:template_tree",
   "config": {
-    "trunk_provider": {
-      "type": "minecraft:simple_state_provider",
-      "state": {
-        "Name": "lotr_port:mirk_oak_wood"
-      }
-    },
-    "trunk_placer": {
-      "type": "minecraft:dark_oak_trunk_placer",
-      "base_height": 6,
-      "height_rand_a": 2,
-      "height_rand_b": 1
-    },
-    "foliage_provider": {
-      "type": "minecraft:simple_state_provider",
-      "state": {
-        "Name": "lotr_port:mirk_oak_leaves"
-      }
-    },
-    "foliage_placer": {
-      "type": "minecraft:dark_oak_foliage_placer",
-      "radius": 0,
-      "offset": 0
-    },
-    "minimum_size": {
-      "type": "minecraft:three_layers_feature_size",
-      "limit": 1,
-      "upper_limit": 1,
-      "lower_size": 0,
-      "middle_size": 1,
-      "upper_size": 1
-    },
-    "dirt_provider": {
-      "type": "minecraft:simple_state_provider",
-      "state": {
-        "Name": "minecraft:dirt"
-      }
-    },
-    "decorators": [],
-    "ignore_vines": true,
-    "force_dirt": false
+    "id": "lotr_port:tree/mirk_oak_large",
+    "templates": [
+      "lotr_port:tree/mirk_oak_large/0",
+      "lotr_port:tree/mirk_oak_large/1",
+      "lotr_port:tree/mirk_oak_large/2",
+      "lotr_port:tree/mirk_oak_large/3",
+      "lotr_port:tree/mirk_oak_large/4",
+      "lotr_port:tree/mirk_oak_large/5"
+    ],
+    "trunk": [
+      [
+        10,
+        0,
+        10
+      ],
+      [
+        9,
+        0,
+        8
+      ],
+      [
+        7,
+        0,
+        6
+      ],
+      [
+        5,
+        0,
+        10
+      ],
+      [
+        8,
+        0,
+        6
+      ],
+      [
+        10,
+        0,
+        9
+      ]
+    ],
+    "trunk_width": [
+      5,
+      5,
+      5,
+      6,
+      6,
+      5
+    ],
+    "on_sand": false
   }
 }

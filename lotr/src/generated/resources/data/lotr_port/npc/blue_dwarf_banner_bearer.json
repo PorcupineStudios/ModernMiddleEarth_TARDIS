@@ -15,8 +15,9 @@
     "mainhand": [
       "lotr_port:blue_dwarven_battleaxe",
       "lotr_port:blue_dwarven_mattock",
-      "lotr_port:blue_dwarven_pike",
-      "lotr_port:blue_dwarven_sword"
+      "lotr_port:blue_dwarven_spear",
+      "lotr_port:blue_dwarven_sword",
+      "lotr_port:blue_dwarven_warhammer"
     ],
     "head": "lotr_port:blue_dwarven_helmet",
     "chest": "lotr_port:blue_dwarven_chestplate",
@@ -24,5 +25,6 @@
     "feet": "lotr_port:blue_dwarven_boots"
   },
   "names": "lotr_port:dwarf_male",
-  "speech": "lotr_port:blue_dwarf/dwarf"
+  "speech": "lotr_port:blue_dwarf/dwarf",
+  "quests": "lotr_port:blue_mountains"
 }

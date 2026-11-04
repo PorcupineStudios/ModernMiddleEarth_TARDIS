@@ -18,5 +18,6 @@
   "names": "lotr_port:nomad_male",
   "buy": "lotr_port:harad_miner_buy",
   "sell": "lotr_port:harad_miner_sell",
-  "speech": "lotr_port:near_harad/merchant"
+  "speech": "lotr_port:near_harad/merchant",
+  "quests": "lotr_port:nomad"
 }

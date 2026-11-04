@@ -13,7 +13,5 @@
   "gear": {
     "mainhand": "lotr_port:dorwinion_elven_dagger"
   },
-  "names": "lotr_port:sindarin_male",
-  "speech": "lotr_port:dorwinion/elf",
-  "quests": "lotr_port:dorwinion_elf"
+  "speech": "lotr_port:dorwinion/elf"
 }

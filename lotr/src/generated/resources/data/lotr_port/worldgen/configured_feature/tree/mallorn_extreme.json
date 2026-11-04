@@ -1,45 +1,55 @@
 {
-  "type": "minecraft:tree",
+  "type": "lotr_port:template_tree",
   "config": {
-    "trunk_provider": {
-      "type": "minecraft:simple_state_provider",
-      "state": {
-        "Name": "lotr_port:mallorn_wood"
-      }
-    },
-    "trunk_placer": {
-      "type": "minecraft:fancy_trunk_placer",
-      "base_height": 14,
-      "height_rand_a": 8,
-      "height_rand_b": 6
-    },
-    "foliage_provider": {
-      "type": "minecraft:simple_state_provider",
-      "state": {
-        "Name": "lotr_port:mallorn_leaves"
-      }
-    },
-    "foliage_placer": {
-      "type": "minecraft:fancy_foliage_placer",
-      "radius": 2,
-      "offset": 4,
-      "height": 4
-    },
-    "minimum_size": {
-      "type": "minecraft:two_layers_feature_size",
-      "limit": 0,
-      "lower_size": 0,
-      "upper_size": 0,
-      "min_clipped_height": 4
-    },
-    "dirt_provider": {
-      "type": "minecraft:simple_state_provider",
-      "state": {
-        "Name": "minecraft:dirt"
-      }
-    },
-    "decorators": [],
-    "ignore_vines": true,
-    "force_dirt": false
+    "id": "lotr_port:tree/mallorn_extreme",
+    "templates": [
+      "lotr_port:tree/mallorn_extreme/0",
+      "lotr_port:tree/mallorn_extreme/1",
+      "lotr_port:tree/mallorn_extreme/2",
+      "lotr_port:tree/mallorn_extreme/3",
+      "lotr_port:tree/mallorn_extreme/4",
+      "lotr_port:tree/mallorn_extreme/5"
+    ],
+    "trunk": [
+      [
+        29,
+        0,
+        27
+      ],
+      [
+        28,
+        0,
+        29
+      ],
+      [
+        28,
+        0,
+        29
+      ],
+      [
+        30,
+        0,
+        26
+      ],
+      [
+        26,
+        0,
+        24
+      ],
+      [
+        29,
+        0,
+        27
+      ]
+    ],
+    "trunk_width": [
+      6,
+      6,
+      6,
+      6,
+      6,
+      6
+    ],
+    "on_sand": false
   }
 }

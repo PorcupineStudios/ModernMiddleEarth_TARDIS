@@ -29,9 +29,61 @@ records each item's and block's LOTR class (`classes[0]`), so tagging them by fu
 
 ---
 
+## 1.7.10 → 1.21.1: where the game itself changed under LOTR
+
+LOTR was built for a game without the 1.9 combat update, data components, the flattening or data-driven
+enchantments. Copying its numbers one-to-one gives wrong results in these places. **Done** means handled on this
+branch, and **Decision** means it needs Aaron to choose.
+
+### Combat
+
+| 1.7.10 LOTR | 1.21.1 | What we do | Status |
+|---|---|---|---|
+| No attack cooldown. LOTR timed melee itself (`LOTRWeaponStats`): a player swings every 15 ticks ÷ class speed factor. Dagger 1.5 → 10 t, spear 0.833 → 18 t, polearm and hammer 0.667 → 22 t, battleaxe 0.75 → 20 t, long polearm, pike and lance 0.5 → 30 t | Attack speed attribute (attacks per second), and a hit before the cooldown ends is weaker. Vanilla swords are 1.6 | `attack_speed = 20 / LOTR ticks`: sword 1.33, dagger 2.0, spear 1.11, polearm and hammer 0.91, battleaxe 1.0, pike and lance 0.67. Speeds are read from `LOTRWeaponStats` by `generate.py` and from the export once CI reruns it (`Exporter.weaponStats`) | Done |
+| Weapon damage (`generic.attackDamage` modifier) used fractions: daggers 3.5, hammers 8.5 | Same base +1 hand damage. 1.9 lowered vanilla swords by 1 (iron sword 7 → 6) | Keep LOTR's damage as is, because LOTR's NPC health is balanced around it. **Bug fixed:** `SwordItem.createAttributes(tier, (int) damage, …)` dropped every .5, so 3.5 became 3. Floats are kept now | Done |
+| Reach = 3 blocks × factor (dagger 0.75, spear and polearm 1.5, pike, long polearm and lance 2.0) | `player.entity_interaction_range` attribute (base 3) | Mainhand modifier `+3 × (factor − 1)`: dagger −0.75, spear +1.5, pike +3 | Done |
+| Extra knockback (hammer, lance +1) | `attack_knockback` attribute | +1 modifier | Done |
+| No sweep attack | Swords sweep (1.9) | Only plain swords sweep (`ItemAbilities.SWORD_SWEEP`). Daggers, spears, polearms, hammers and battleaxes hit one target | Done (Decision: battleaxes?) |
+| NPCs swing every 20 ticks ÷ speed factor | `MeleeAttackGoal` always waits 20 ticks | `LotrNpc.WeaponMeleeGoal` uses the held weapon's `mob_ticks` | Done |
+| NPC reach scaled with the weapon | Mob melee range comes from the hitbox (`isWithinMeleeAttackRange`), not an attribute | Pike NPCs still reach like sword NPCs | Todo |
+| Crits whenever falling | Crits need a full-charge hit (1.9) | Nothing to port. Fast daggers crit easily, slow pikes rarely | Note |
+| No off-hand, no shield | Off-hand and vanilla shields (1.9) block LOTR NPCs' melee and arrows | Accept it. LOTR's "shields" are cosmetic back-banners, not the vanilla shield | Decision |
+| Armor: flat 4% per point, capped at 80% | Reduction falls as hits get bigger, offset by toughness (1.9) | LOTR armor keeps its defense points with toughness 0, so trolls and 9–11 damage hammers pierce more than in 1.7.10. `armor.toughness` / `knockback_resistance` are now optional data fields (`LotrItems.material`) | Decision (e.g. give mithril and dwarven armor toughness) |
+| Bows: `LOTRItemBow` draw time (`bowPullTime`) and `arrowDamageFactor` | `BowItem` is fixed at 20 ticks | `LotrBowItem` scales held ticks to the bow's draw time and multiplies arrow damage (`customArrow`). Pull frames use LOTR's large `_pull_0..2` icons | Done (real numbers arrive with the next export; until then 20 t and ×1.0, see `report.json ranged_stats_defaulted`) |
+| Crossbow = a bow subclass that fires bolts | Vanilla crossbow (load, then fire, 1.14) | `LotrCrossbowItem` extends `CrossbowItem`, takes only `#lotr_port:crossbow_bolts`, and scales bolt damage. Load time stays 1.25 s because `getChargeDuration` is static in 1.21.1. Bolts fly as vanilla arrows. Multishot and Piercing would now apply | Done (bolt entity look: Todo) |
+| Poisoned daggers, bolts and darts: Poison I for n…2n−1 s, n = 1 + 2 × difficulty | Tipped arrows carry a fixed potion | Daggers apply LOTR's formula on hit (`LotrWeaponItem.applyPoison`). Poisoned arrows and bolts carry a fixed 7 s Poison (the normal-difficulty middle) | Done |
+| LOTR trident = melee polearm | Vanilla trident is thrown (1.13) | Kept as melee polearm | Note |
+| Spears: melee and thrown | No vanilla spear in 1.21.1 (it arrives in 1.21.11) | Melee done. Throwing needs a projectile entity (task 28) | Todo |
+| LOTR enchantments ("modifiers") replace vanilla's | Enchantments are data (1.21) | Task 18 | Todo |
+
+### Rendering and items
+
+| 1.7.10 LOTR | 1.21.1 | What we do | Status |
+|---|---|---|---|
+| `LOTRRenderLargeItem`: 179 `large/` icons drawn 2× and 25 `large2/` icons 3× in the hand, scaled about the centre | Item models with display transforms | `separate_transforms` model: small icon in GUI, ground and frames, large icon on `item/large_2x` / `large_3x` (vanilla handheld with x and y scaled). 140 items | Done (in-hand offsets are untested in a client) |
+| `LOTRArmorModels`: 34 armor pieces on their own ModelBiped (crested and winged helmets, Morgul spikes, lion head, turbans, robes, swan and Gulf chestplates, hats) | `IClientItemExtensions.getHumanoidArmorModel` | `converter/armor_models.py` replays each model's constructor bytecode into `armor_models.json`. `client/ArmorModels` builds a `HumanoidModel` from it. All 34 convert, and 31 distinct models result | Done |
+| Animated armor parts (swan wings, robes following the legs) and items drawn on armor (leather hat feather) | `setupModelAnimations` hook | Resting pose only, so the swan chestplate's wings stay spread | Todo |
+| Dyed hats via `getColorFromItemStack` | `dyed_color` component | Hats tinted their undyed LOTR colour. Dyeing is task 36 | Todo |
+| Item damage values (metadata) for variants | Flattening (1.13), data components (1.20.5) | Separate ids. 138 drink metas merged (task 16) | Partly |
+| Horse armor in metadata, many mount types | Body slot / `AnimalArmorItem` | Task 27 | Todo |
+| `IItemRenderer` for bows (`LOTRRenderBow`), crossbows, elven blades glowing near orcs, skull staff, horns | Item model overrides and properties | Bows and crossbows done (pull, charged). Glowing blades: Todo | Partly |
+
+### World and data (already handled by earlier phases, listed so nobody redoes them)
+
+- World height is 0–256 in 1.7.10 and −64–320 in 1.21. Middle-earth heights are tuned in `converter/world.py`.
+- LOTR's `WorldProvider` dimension is now a datapack dimension and world preset. Its biome IDs are now one data biome
+  per LOTR biome (`MapBiomeSource`).
+- TileEntities became BlockEntities with menus. GUIs are task 31.
+- Enchantments, recipes, loot and tags are data.
+- Sounds need a registry of sound events (task 7).
+- 1.7.10 saves are not converted (repo rule).
+
+---
+
 ## Tier 1 — generator only (data already exported)
 
-1. **GEN — item kinds from LOTR class.** In `generate.py`, map `classes[0]` to a new `kind` in `content/items.json`:
+1. **GEN — item kinds from LOTR class.** *Partly done:* melee weapons carry a `weapon` block (type, speed, reach,
+   knockback, sweep), and `bow`, `crossbow`, `bolt` and `arrow` are kinds. The rest below is still to do. In `generate.py`, map `classes[0]` to a new `kind` in `content/items.json`:
    `LOTRItemSpear→spear`, `LOTRItemDagger→dagger`, `LOTRItemBow→bow`, `LOTRItemCrossbow→crossbow`,
    `LOTRItemThrowingAxe→throwing_axe`, `LOTRItemPike/Polearm/PolearmLong/Lance/Trident→polearm` (keep a `reach`
    field), `LOTRItemHammer→hammer`, `LOTRItemBattleaxe→battleaxe`, `LOTRItemMug/Vessel→drink`,
@@ -102,9 +154,10 @@ Each is "read the LOTR registry/list from the running game, dump JSON". Pattern:
 16. **EXP — drink stats.** For every `LOTRItemMug`: heal/food amount, alcoholicity, potion effects per strength,
     allowed vessels (`LOTRItemMug.Vessel` enum: mug, wood cup, goblets, skull, glass, bottle, horns...). Replaces the
     138 `merged_item_metas` mug variants with one item + `strength`/`vessel` components.
-17. **EXP — weapon stats.** Per weapon item: LOTR's melee reach factor, attack speed factor, knockback, spear/throwing
-    damage, bow draw speed and damage factor, crossbow reload, dagger poison flag. (`LOTRWeaponStats` keeps these in
-    maps keyed by item/class; read them through its public static getters for every item.)
+17. **EXP — weapon stats. Done:** `Exporter.weaponStats` records `LOTRWeaponStats`' getters per item plus bows'
+    draw time and damage factor. The generator falls back to the class tables until CI's "Convert LOTR" run commits
+    a new export. **Still to do:** rerun the export, and use `rangedDamage` for spears and throwing axes once they
+    can be thrown.
 18. **EXP — LOTR enchantments/modifiers.** `LOTREnchantment` registry (24 classes: keen, sharp, swift, mithril
     protection, ranged...), what applies to what, weights, cost, incompatibilities, and the anvil reforge/engrave
     costs. → 1.21 data-driven enchantments (`data/lotr_port/enchantment/*.json`). Most map onto vanilla enchantment
@@ -137,11 +190,12 @@ Each task picks up one `kind` from Tier 1 and makes it work; stats come from Tie
     `addBox` call constants) and writes Java or entity-model JSON. Start with warg, spider, troll, horse.
 27. **Mounts.** Horses (LOTR stats per breed), ponies, wargs, elk, boars, camels, rhinos, zebras, giraffes; NPCs
     riding them (task 11 data), horse armour items (`horse_armor` kind).
-28. **Ranged weapons.** `bow`, `crossbow`, `throwing_axe`, `spear` (throw + melee), `projectile` kinds with entities
+28. **Ranged weapons.** Bows, crossbows and bolts are done (`LotrBowItem`, `LotrCrossbowItem`). Left:
+    `throwing_axe`, `spear` (thrown), `projectile` kinds with entities
     (`LOTREntitySpear`, `ThrowingAxe`, `CrossbowBolt`, `Dart`, `Plate`, `Pebble`, `FirePot`, `MysteryWeb`) and the 14
     dispenser behaviours. NPC archers use them.
-29. **Melee reach/speed.** `polearm`, `dagger`, `hammer`, `battleaxe`: reach and speed via attribute modifiers from
-    task 17 (no Java beyond the item kind). Poisoned daggers + `LOTRRecipePoisonWeapon` as a special recipe.
+29. **Melee reach/speed. Done** (`LotrWeaponItem`, see the table above). Left: the `LOTRRecipePoisonWeapon` special
+    recipe (dagger + poison bottle).
 30. **Drinks and drunkenness.** `drink` kind with strength/vessel components (task 16), placeable mugs (`mug` block
     kind, holds the item), nausea at high alcohol, `LOTRDrunkenSpeech` scrambling chat (word table from constants).
 31. **Station blocks.** `furnace` kind (faction forges: alloy recipes; hobbit oven: 9-slot food oven), `barrel`

@@ -12,8 +12,8 @@
   "attack": 2.0,
   "gear": {
     "mainhand": [
-      "lotr_port:bronze_battleaxe",
-      "lotr_port:bronze_dagger",
+      "lotr_port:bronze_spear",
+      "lotr_port:bronze_sword",
       "lotr_port:iron_battleaxe",
       "lotr_port:iron_dagger",
       "lotr_port:iron_spear"
@@ -25,6 +25,5 @@
   },
   "names": "lotr_port:dunlending_male",
   "units": "lotr_port:dunlending_warlord",
-  "speech": "lotr_port:dunlending/warlord",
-  "quests": "lotr_port:dunland"
+  "speech": "lotr_port:dunlending/warlord"
 }

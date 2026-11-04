@@ -1,45 +1,55 @@
 {
-  "type": "minecraft:tree",
+  "type": "lotr_port:template_tree",
   "config": {
-    "trunk_provider": {
-      "type": "minecraft:simple_state_provider",
-      "state": {
-        "Name": "lotr_port:chestnut_wood"
-      }
-    },
-    "trunk_placer": {
-      "type": "minecraft:fancy_trunk_placer",
-      "base_height": 8,
-      "height_rand_a": 6,
-      "height_rand_b": 0
-    },
-    "foliage_provider": {
-      "type": "minecraft:simple_state_provider",
-      "state": {
-        "Name": "lotr_port:chestnut_leaves"
-      }
-    },
-    "foliage_placer": {
-      "type": "minecraft:fancy_foliage_placer",
-      "radius": 2,
-      "offset": 4,
-      "height": 4
-    },
-    "minimum_size": {
-      "type": "minecraft:two_layers_feature_size",
-      "limit": 0,
-      "lower_size": 0,
-      "upper_size": 0,
-      "min_clipped_height": 4
-    },
-    "dirt_provider": {
-      "type": "minecraft:simple_state_provider",
-      "state": {
-        "Name": "minecraft:dirt"
-      }
-    },
-    "decorators": [],
-    "ignore_vines": true,
-    "force_dirt": false
+    "id": "lotr_port:tree/chestnut_party",
+    "templates": [
+      "lotr_port:tree/chestnut_party/0",
+      "lotr_port:tree/chestnut_party/1",
+      "lotr_port:tree/chestnut_party/2",
+      "lotr_port:tree/chestnut_party/3",
+      "lotr_port:tree/chestnut_party/4",
+      "lotr_port:tree/chestnut_party/5"
+    ],
+    "trunk": [
+      [
+        13,
+        0,
+        12
+      ],
+      [
+        8,
+        0,
+        11
+      ],
+      [
+        11,
+        0,
+        13
+      ],
+      [
+        14,
+        0,
+        11
+      ],
+      [
+        11,
+        0,
+        8
+      ],
+      [
+        10,
+        0,
+        14
+      ]
+    ],
+    "trunk_width": [
+      6,
+      6,
+      7,
+      6,
+      6,
+      4
+    ],
+    "on_sand": false
   }
 }

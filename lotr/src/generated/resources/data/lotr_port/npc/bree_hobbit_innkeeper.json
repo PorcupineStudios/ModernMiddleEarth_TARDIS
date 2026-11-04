@@ -21,8 +21,9 @@
   "health": 16.0,
   "speed": 0.2,
   "attack": 2.0,
-  "names": "lotr_port:bree_male",
+  "names": "lotr_port:hobbit_male",
   "buy": "lotr_port:bree_innkeeper_buy",
   "sell": "lotr_port:bree_innkeeper_sell",
-  "speech": "lotr_port:bree/hobbit"
+  "speech": "lotr_port:bree/hobbit",
+  "quests": "lotr_port:bree"
 }

@@ -13,6 +13,7 @@
   "attack": 2.0,
   "gear": {
     "mainhand": [
+      "lotr_port:wood_elven_longspear",
       "lotr_port:wood_elven_spear",
       "lotr_port:wood_elven_sword"
     ],
@@ -21,6 +22,7 @@
     "legs": "lotr_port:wood_elven_leggings",
     "feet": "lotr_port:wood_elven_boots"
   },
+  "names": "lotr_port:sindarin_male",
   "speech": "lotr_port:wood_elf/elf",
   "quests": "lotr_port:wood_elf"
 }

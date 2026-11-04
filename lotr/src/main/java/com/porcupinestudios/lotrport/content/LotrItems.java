@@ -7,10 +7,16 @@ import java.util.EnumMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.function.Supplier;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.item.ArrowItem;
+import net.minecraft.world.item.alchemy.PotionContents;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ArmorMaterial;
@@ -83,7 +89,18 @@ public final class LotrItems {
                 ContentData.integer(e, "level", 0), ContentData.integer(e, "enchant", 10));
         float damage = ContentData.num(e, "damage", 1f);
         return switch (kind) {
-            case "sword" -> new SwordItem(tier, p.attributes(SwordItem.createAttributes(tier, (int) damage, -2.4f)));
+            case "sword" -> e.has("weapon")
+                    ? new LotrWeaponItem(tier, p, damage, e.getAsJsonObject("weapon"), poison(e))
+                    : new SwordItem(tier, p.attributes(SwordItem.createAttributes(tier, damage, -2.4f)));
+            case "bow" -> {
+                JsonObject r = ranged(e);
+                yield new LotrBowItem(p, ContentData.integer(r, "draw_time", 20), ContentData.num(r, "damage_factor", 1f));
+            }
+            case "crossbow" -> new LotrCrossbowItem(p, ContentData.num(ranged(e), "damage_factor", 1f));
+            case "bolt", "arrow" -> new ArrowItem(poison(e) == null ? p
+                    : p.component(DataComponents.POTION_CONTENTS, new PotionContents(Optional.empty(), Optional.empty(),
+                            List.of(new MobEffectInstance(MobEffects.POISON,
+                                    ContentData.integer(poison(e), "arrow_ticks", 140))))));
             case "pickaxe" -> new PickaxeItem(tier, p.attributes(PickaxeItem.createAttributes(tier, damage, -2.8f)));
             case "axe" -> new AxeItem(tier, p.attributes(AxeItem.createAttributes(tier, damage, -3.0f)));
             case "shovel" -> new ShovelItem(tier, p.attributes(ShovelItem.createAttributes(tier, damage, -3.0f)));
@@ -98,6 +115,15 @@ public final class LotrItems {
             case "red_book" -> new RedBookItem(p);
             default -> new Item(p);
         };
+    }
+
+    private static JsonObject ranged(JsonObject e) {
+        return e.has("ranged") ? e.getAsJsonObject("ranged") : new JsonObject();
+    }
+
+    /** LOTR's poison settings for a poisoned dagger, arrow or bolt, or null. */
+    private static JsonObject poison(JsonObject e) {
+        return e.has("poison") && e.get("poison").isJsonObject() ? e.getAsJsonObject("poison") : null;
     }
 
     private static ArmorItem.Type slot(JsonObject armor) {
@@ -138,9 +164,12 @@ public final class LotrItems {
         }
         int enchantValue = enchant;
         String texture = ContentData.str(armor, "texture", name);
+        // 1.7.10 had no toughness: LOTR armor keeps 0 unless the data gives some (see lotr/docs/missing-features.md)
+        float toughness = ContentData.num(armor, "toughness", 0f);
+        float knockbackResistance = ContentData.num(armor, "knockback_resistance", 0f);
         MATERIALS.put(key, ARMOR_MATERIALS.register(key, () -> new ArmorMaterial(defense, enchantValue,
                 SoundEvents.ARMOR_EQUIP_IRON, () -> Ingredient.EMPTY,
-                List.of(new ArmorMaterial.Layer(LotrPort.id(texture))), 0f, 0f)));
+                List.of(new ArmorMaterial.Layer(LotrPort.id(texture))), toughness, knockbackResistance)));
     }
 
     static Holder<ArmorMaterial> material(String name) {

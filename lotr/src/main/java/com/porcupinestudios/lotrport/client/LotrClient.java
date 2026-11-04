@@ -5,7 +5,15 @@ import com.porcupinestudios.lotrport.LotrPort;
 import com.porcupinestudios.lotrport.net.MapNet;
 import com.porcupinestudios.lotrport.net.QuestNet;
 import com.porcupinestudios.lotrport.npc.LotrEntities;
+import com.porcupinestudios.lotrport.content.LotrBowItem;
+import com.porcupinestudios.lotrport.content.LotrCrossbowItem;
+import com.porcupinestudios.lotrport.content.LotrItems;
 import net.minecraft.client.KeyMapping;
+import net.minecraft.client.renderer.item.ItemProperties;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.CrossbowItem;
+import net.minecraft.world.item.Item;
+import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent;
 import net.neoforged.neoforge.client.settings.KeyConflictContext;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
@@ -45,6 +53,39 @@ public final class LotrClient {
         MapNet.clientHandler = (data, ctx) -> MapScreen.open(data);
         QuestNet.offerHandler = QuestOfferScreen::open;
         QuestNet.bookHandler = RedBookScreen::show;
+        event.enqueueWork(LotrClient::rangedProperties);
+    }
+
+    @SubscribeEvent
+    public static void clientExtensions(RegisterClientExtensionsEvent event) {
+        ArmorModels.register(event);
+    }
+
+    /**
+     * Bow and crossbow pull frames: vanilla registers its "pulling"/"pull"/"charged" predicates only for its own bow
+     * and crossbow. A LOTR bow's pull runs over its own draw time.
+     */
+    private static void rangedProperties() {
+        ResourceLocation pulling = ResourceLocation.withDefaultNamespace("pulling");
+        ResourceLocation pull = ResourceLocation.withDefaultNamespace("pull");
+        ResourceLocation charged = ResourceLocation.withDefaultNamespace("charged");
+        for (var holder : LotrItems.BY_ID.values()) {
+            Item item = holder.get();
+            if (item instanceof LotrBowItem bow) {
+                ItemProperties.register(item, pulling,
+                        (stack, level, e, seed) -> e != null && e.isUsingItem() && e.getUseItem() == stack ? 1f : 0f);
+                ItemProperties.register(item, pull, (stack, level, e, seed) -> e == null || e.getUseItem() != stack ? 0f
+                        : (stack.getUseDuration(e) - e.getUseItemRemainingTicks()) / (float) bow.drawTime());
+            } else if (item instanceof LotrCrossbowItem) {
+                ItemProperties.register(item, pulling, (stack, level, e, seed) -> e != null && e.isUsingItem()
+                        && e.getUseItem() == stack && !CrossbowItem.isCharged(stack) ? 1f : 0f);
+                ItemProperties.register(item, pull, (stack, level, e, seed) -> e == null || CrossbowItem.isCharged(stack)
+                        ? 0f : (stack.getUseDuration(e) - e.getUseItemRemainingTicks())
+                                / (float) CrossbowItem.getChargeDuration(stack, e));
+                ItemProperties.register(item, charged,
+                        (stack, level, e, seed) -> CrossbowItem.isCharged(stack) ? 1f : 0f);
+            }
+        }
     }
 
     @SubscribeEvent

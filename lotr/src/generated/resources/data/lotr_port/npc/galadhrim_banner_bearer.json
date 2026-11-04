@@ -14,7 +14,6 @@
   "gear": {
     "mainhand": [
       "lotr_port:galadhrim_longspear",
-      "lotr_port:galadhrim_spear",
       "lotr_port:galadhrim_sword"
     ],
     "head": "lotr_port:galadhrim_helmet",
@@ -22,6 +21,5 @@
     "legs": "lotr_port:galadhrim_leggings",
     "feet": "lotr_port:galadhrim_boots"
   },
-  "speech": "lotr_port:galadhrim/warrior",
-  "quests": "lotr_port:galadhrim"
+  "speech": "lotr_port:galadhrim/warrior"
 }

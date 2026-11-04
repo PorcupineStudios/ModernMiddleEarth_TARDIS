@@ -1,44 +1,55 @@
 {
-  "type": "minecraft:tree",
+  "type": "lotr_port:template_tree",
   "config": {
-    "trunk_provider": {
-      "type": "minecraft:simple_state_provider",
-      "state": {
-        "Name": "lotr_port:green_oak_wood"
-      }
-    },
-    "trunk_placer": {
-      "type": "minecraft:straight_trunk_placer",
-      "base_height": 4,
-      "height_rand_a": 2,
-      "height_rand_b": 0
-    },
-    "foliage_provider": {
-      "type": "minecraft:simple_state_provider",
-      "state": {
-        "Name": "lotr_port:green_oak_leaves"
-      }
-    },
-    "foliage_placer": {
-      "type": "minecraft:blob_foliage_placer",
-      "radius": 2,
-      "offset": 0,
-      "height": 3
-    },
-    "minimum_size": {
-      "type": "minecraft:two_layers_feature_size",
-      "limit": 1,
-      "lower_size": 0,
-      "upper_size": 1
-    },
-    "dirt_provider": {
-      "type": "minecraft:simple_state_provider",
-      "state": {
-        "Name": "minecraft:dirt"
-      }
-    },
-    "decorators": [],
-    "ignore_vines": true,
-    "force_dirt": false
+    "id": "lotr_port:tree/green_oak",
+    "templates": [
+      "lotr_port:tree/green_oak/0",
+      "lotr_port:tree/green_oak/1",
+      "lotr_port:tree/green_oak/2",
+      "lotr_port:tree/green_oak/3",
+      "lotr_port:tree/green_oak/4",
+      "lotr_port:tree/green_oak/5"
+    ],
+    "trunk": [
+      [
+        4,
+        0,
+        5
+      ],
+      [
+        4,
+        0,
+        4
+      ],
+      [
+        4,
+        0,
+        3
+      ],
+      [
+        3,
+        0,
+        4
+      ],
+      [
+        3,
+        0,
+        4
+      ],
+      [
+        3,
+        0,
+        4
+      ]
+    ],
+    "trunk_width": [
+      2,
+      1,
+      3,
+      2,
+      1,
+      4
+    ],
+    "on_sand": false
   }
 }

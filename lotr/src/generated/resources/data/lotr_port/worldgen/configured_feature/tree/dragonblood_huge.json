@@ -1,43 +1,55 @@
 {
-  "type": "minecraft:tree",
+  "type": "lotr_port:template_tree",
   "config": {
-    "trunk_provider": {
-      "type": "minecraft:simple_state_provider",
-      "state": {
-        "Name": "lotr_port:dragonblood_wood"
-      }
-    },
-    "trunk_placer": {
-      "type": "minecraft:forking_trunk_placer",
-      "base_height": 5,
-      "height_rand_a": 2,
-      "height_rand_b": 2
-    },
-    "foliage_provider": {
-      "type": "minecraft:simple_state_provider",
-      "state": {
-        "Name": "lotr_port:dragonblood_leaves"
-      }
-    },
-    "foliage_placer": {
-      "type": "minecraft:acacia_foliage_placer",
-      "radius": 2,
-      "offset": 0
-    },
-    "minimum_size": {
-      "type": "minecraft:two_layers_feature_size",
-      "limit": 1,
-      "lower_size": 0,
-      "upper_size": 1
-    },
-    "dirt_provider": {
-      "type": "minecraft:simple_state_provider",
-      "state": {
-        "Name": "minecraft:dirt"
-      }
-    },
-    "decorators": [],
-    "ignore_vines": true,
-    "force_dirt": false
+    "id": "lotr_port:tree/dragonblood_huge",
+    "templates": [
+      "lotr_port:tree/dragonblood_huge/0",
+      "lotr_port:tree/dragonblood_huge/1",
+      "lotr_port:tree/dragonblood_huge/2",
+      "lotr_port:tree/dragonblood_huge/3",
+      "lotr_port:tree/dragonblood_huge/4",
+      "lotr_port:tree/dragonblood_huge/5"
+    ],
+    "trunk": [
+      [
+        12,
+        0,
+        15
+      ],
+      [
+        17,
+        0,
+        12
+      ],
+      [
+        15,
+        0,
+        17
+      ],
+      [
+        8,
+        0,
+        17
+      ],
+      [
+        13,
+        0,
+        8
+      ],
+      [
+        17,
+        0,
+        11
+      ]
+    ],
+    "trunk_width": [
+      6,
+      6,
+      6,
+      6,
+      6,
+      6
+    ],
+    "on_sand": false
   }
 }

@@ -12,12 +12,15 @@
   "gear": {
     "mainhand": [
       "lotr_port:bronze_axe",
+      "lotr_port:bronze_battleaxe",
+      "lotr_port:bronze_sword",
       "lotr_port:dalish_sword",
-      "lotr_port:iron_battleaxe",
-      "lotr_port:iron_pike",
-      "minecraft:iron_axe"
+      "minecraft:iron_sword"
     ],
-    "head": "minecraft:iron_helmet",
+    "head": [
+      "minecraft:iron_helmet",
+      "minecraft:leather_helmet"
+    ],
     "chest": "lotr_port:dalish_gambeson",
     "legs": "minecraft:leather_leggings",
     "feet": "minecraft:leather_boots"

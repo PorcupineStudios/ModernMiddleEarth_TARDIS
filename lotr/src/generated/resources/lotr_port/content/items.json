@@ -115,7 +115,16 @@
     "enchant": 14,
     "damage": 9.0,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "sword",
+      "attack_speed": 1.333,
+      "lotr_ticks": 15,
+      "mob_ticks": 20,
+      "reach": 0.0,
+      "knockback": 0,
+      "sweep": true
+    }
   },
   {
     "id": "apple_crumble",
@@ -144,10 +153,15 @@
   },
   {
     "id": "poisoned_arrow",
-    "kind": "item",
+    "kind": "arrow",
     "stack": 64,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "poison": {
+      "base_seconds": 1,
+      "per_difficulty": 2,
+      "arrow_ticks": 140
+    }
   },
   {
     "id": "angmar_axe",
@@ -288,7 +302,16 @@
     "durability": 1000,
     "damage": 7.0,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "whip",
+      "attack_speed": 1.333,
+      "lotr_ticks": 15,
+      "mob_ticks": 20,
+      "reach": 1.5,
+      "knockback": 0,
+      "sweep": false
+    }
   },
   {
     "id": "banana",
@@ -620,7 +643,16 @@
     "enchant": 8,
     "damage": 8.5,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "battleaxe",
+      "attack_speed": 1.0,
+      "lotr_ticks": 20,
+      "mob_ticks": 27,
+      "reach": 0.0,
+      "knockback": 0,
+      "sweep": false
+    }
   },
   {
     "id": "black_uruk_battleaxe",
@@ -629,7 +661,16 @@
     "enchant": 6,
     "damage": 9.0,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "battleaxe",
+      "attack_speed": 1.0,
+      "lotr_ticks": 20,
+      "mob_ticks": 27,
+      "reach": 0.0,
+      "knockback": 0,
+      "sweep": false
+    }
   },
   {
     "id": "blue_dwarven_battleaxe",
@@ -638,7 +679,16 @@
     "enchant": 12,
     "damage": 9.0,
     "level": 3,
-    "speed": 8.0
+    "speed": 8.0,
+    "weapon": {
+      "type": "battleaxe",
+      "attack_speed": 1.0,
+      "lotr_ticks": 20,
+      "mob_ticks": 27,
+      "reach": 0.0,
+      "knockback": 0,
+      "sweep": false
+    }
   },
   {
     "id": "bronze_battleaxe",
@@ -647,7 +697,16 @@
     "enchant": 10,
     "damage": 7.5,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "battleaxe",
+      "attack_speed": 1.0,
+      "lotr_ticks": 20,
+      "mob_ticks": 27,
+      "reach": 0.0,
+      "knockback": 0,
+      "sweep": false
+    }
   },
   {
     "id": "corsair_battleaxe",
@@ -656,7 +715,16 @@
     "enchant": 10,
     "damage": 8.5,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "battleaxe",
+      "attack_speed": 1.0,
+      "lotr_ticks": 20,
+      "mob_ticks": 27,
+      "reach": 0.0,
+      "knockback": 0,
+      "sweep": false
+    }
   },
   {
     "id": "dalish_battleaxe",
@@ -665,7 +733,16 @@
     "enchant": 10,
     "damage": 8.5,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "battleaxe",
+      "attack_speed": 1.0,
+      "lotr_ticks": 20,
+      "mob_ticks": 27,
+      "reach": 0.0,
+      "knockback": 0,
+      "sweep": false
+    }
   },
   {
     "id": "dol_guldur_battleaxe",
@@ -674,7 +751,16 @@
     "enchant": 10,
     "damage": 8.5,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "battleaxe",
+      "attack_speed": 1.0,
+      "lotr_ticks": 20,
+      "mob_ticks": 27,
+      "reach": 0.0,
+      "knockback": 0,
+      "sweep": false
+    }
   },
   {
     "id": "dwarven_battleaxe",
@@ -683,7 +769,16 @@
     "enchant": 10,
     "damage": 9.0,
     "level": 3,
-    "speed": 8.0
+    "speed": 8.0,
+    "weapon": {
+      "type": "battleaxe",
+      "attack_speed": 1.0,
+      "lotr_ticks": 20,
+      "mob_ticks": 27,
+      "reach": 0.0,
+      "knockback": 0,
+      "sweep": false
+    }
   },
   {
     "id": "gundabad_uruk_waraxe",
@@ -692,7 +787,16 @@
     "enchant": 5,
     "damage": 9.0,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "battleaxe",
+      "attack_speed": 1.0,
+      "lotr_ticks": 20,
+      "mob_ticks": 27,
+      "reach": 0.0,
+      "knockback": 0,
+      "sweep": false
+    }
   },
   {
     "id": "half_troll_battleaxe",
@@ -701,7 +805,16 @@
     "enchant": 5,
     "damage": 8.5,
     "level": 1,
-    "speed": 4.0
+    "speed": 4.0,
+    "weapon": {
+      "type": "battleaxe",
+      "attack_speed": 1.0,
+      "lotr_ticks": 20,
+      "mob_ticks": 27,
+      "reach": 0.0,
+      "knockback": 0,
+      "sweep": false
+    }
   },
   {
     "id": "iron_battleaxe",
@@ -710,7 +823,16 @@
     "enchant": 14,
     "damage": 8.0,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "battleaxe",
+      "attack_speed": 1.0,
+      "lotr_ticks": 20,
+      "mob_ticks": 27,
+      "reach": 0.0,
+      "knockback": 0,
+      "sweep": false
+    }
   },
   {
     "id": "lossarnach_battleaxe",
@@ -719,7 +841,16 @@
     "enchant": 10,
     "damage": 8.5,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "battleaxe",
+      "attack_speed": 1.0,
+      "lotr_ticks": 20,
+      "mob_ticks": 27,
+      "reach": 0.0,
+      "knockback": 0,
+      "sweep": false
+    }
   },
   {
     "id": "mithril_battleaxe",
@@ -728,7 +859,16 @@
     "enchant": 8,
     "damage": 11.0,
     "level": 4,
-    "speed": 9.0
+    "speed": 9.0,
+    "weapon": {
+      "type": "battleaxe",
+      "attack_speed": 1.0,
+      "lotr_ticks": 20,
+      "mob_ticks": 27,
+      "reach": 0.0,
+      "knockback": 0,
+      "sweep": false
+    }
   },
   {
     "id": "morwaith_battleaxe",
@@ -737,7 +877,16 @@
     "enchant": 10,
     "damage": 8.0,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "battleaxe",
+      "attack_speed": 1.0,
+      "lotr_ticks": 20,
+      "mob_ticks": 27,
+      "reach": 0.0,
+      "knockback": 0,
+      "sweep": false
+    }
   },
   {
     "id": "mordor_battleaxe",
@@ -746,7 +895,16 @@
     "enchant": 7,
     "damage": 8.5,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "battleaxe",
+      "attack_speed": 1.0,
+      "lotr_ticks": 20,
+      "mob_ticks": 27,
+      "reach": 0.0,
+      "knockback": 0,
+      "sweep": false
+    }
   },
   {
     "id": "rh_nic_battleaxe",
@@ -755,7 +913,16 @@
     "enchant": 10,
     "damage": 8.5,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "battleaxe",
+      "attack_speed": 1.0,
+      "lotr_ticks": 20,
+      "mob_ticks": 27,
+      "reach": 0.0,
+      "knockback": 0,
+      "sweep": false
+    }
   },
   {
     "id": "rohirric_battleaxe",
@@ -764,7 +931,16 @@
     "enchant": 10,
     "damage": 8.5,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "battleaxe",
+      "attack_speed": 1.0,
+      "lotr_ticks": 20,
+      "mob_ticks": 27,
+      "reach": 0.0,
+      "knockback": 0,
+      "sweep": false
+    }
   },
   {
     "id": "taurethrim_battleaxe",
@@ -773,7 +949,16 @@
     "enchant": 10,
     "damage": 8.5,
     "level": 3,
-    "speed": 8.0
+    "speed": 8.0,
+    "weapon": {
+      "type": "battleaxe",
+      "attack_speed": 1.0,
+      "lotr_ticks": 20,
+      "mob_ticks": 27,
+      "reach": 0.0,
+      "knockback": 0,
+      "sweep": false
+    }
   },
   {
     "id": "uruk_battleaxe",
@@ -782,7 +967,16 @@
     "enchant": 5,
     "damage": 9.0,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "battleaxe",
+      "attack_speed": 1.0,
+      "lotr_ticks": 20,
+      "mob_ticks": 27,
+      "reach": 0.0,
+      "knockback": 0,
+      "sweep": false
+    }
   },
   {
     "id": "utumno_battleaxe",
@@ -791,7 +985,16 @@
     "enchant": 12,
     "damage": 9.5,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "battleaxe",
+      "attack_speed": 1.0,
+      "lotr_ticks": 20,
+      "mob_ticks": 27,
+      "reach": 0.0,
+      "knockback": 0,
+      "sweep": false
+    }
   },
   {
     "id": "bearskin_rug",
@@ -809,11 +1012,15 @@
   },
   {
     "id": "black_uruk_bow",
-    "kind": "item",
+    "kind": "bow",
     "durability": 825,
     "enchant": 2,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "ranged": {
+      "draw_time": 20,
+      "damage_factor": 1.0
+    }
   },
   {
     "id": "black_uruk_steel_ingot",
@@ -835,11 +1042,15 @@
   },
   {
     "id": "blackroot_bow",
-    "kind": "item",
+    "kind": "bow",
     "durability": 600,
     "enchant": 3,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "ranged": {
+      "draw_time": 20,
+      "damage_factor": 1.0
+    }
   },
   {
     "id": "blackroot_stick",
@@ -855,7 +1066,16 @@
     "enchant": 10,
     "damage": 8.5,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "hammer",
+      "attack_speed": 0.909,
+      "lotr_ticks": 22,
+      "mob_ticks": 30,
+      "reach": 0.0,
+      "knockback": 1,
+      "sweep": false
+    }
   },
   {
     "id": "blue_dwarven_steel_ingot",
@@ -2610,11 +2830,15 @@
   },
   {
     "id": "bronze_crossbow",
-    "kind": "item",
+    "kind": "crossbow",
     "durability": 287,
     "enchant": 3,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "ranged": {
+      "draw_time": 20,
+      "damage_factor": 1.0
+    }
   },
   {
     "id": "cooked_camel",
@@ -2730,7 +2954,16 @@
     "enchant": 10,
     "damage": 8.0,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "hammer",
+      "attack_speed": 0.909,
+      "lotr_ticks": 22,
+      "mob_ticks": 30,
+      "reach": 0.0,
+      "knockback": 1,
+      "sweep": false
+    }
   },
   {
     "id": "silver_coin",
@@ -2787,7 +3020,16 @@
     "stack": 1,
     "damage": 1.0,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "sword",
+      "attack_speed": 1.333,
+      "lotr_ticks": 15,
+      "mob_ticks": 20,
+      "reach": 0.0,
+      "knockback": 0,
+      "sweep": true
+    }
   },
   {
     "id": "warhorn",
@@ -2867,17 +3109,22 @@
   },
   {
     "id": "crossbow_bolt",
-    "kind": "item",
+    "kind": "bolt",
     "stack": 64,
     "level": 2,
     "speed": 6.0
   },
   {
     "id": "poisoned_crossbow_bolt",
-    "kind": "item",
+    "kind": "bolt",
     "stack": 64,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "poison": {
+      "base_seconds": 1,
+      "per_difficulty": 2,
+      "arrow_ticks": 140
+    }
   },
   {
     "id": "old_haradric_sacrificial_dagger",
@@ -2886,7 +3133,16 @@
     "enchant": 10,
     "damage": 3.5,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "dagger",
+      "attack_speed": 2.0,
+      "lotr_ticks": 10,
+      "mob_ticks": 13,
+      "reach": -0.75,
+      "knockback": 0,
+      "sweep": false
+    }
   },
   {
     "id": "angmar_dagger",
@@ -2895,7 +3151,16 @@
     "enchant": 8,
     "damage": 3.5,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "dagger",
+      "attack_speed": 2.0,
+      "lotr_ticks": 10,
+      "mob_ticks": 13,
+      "reach": -0.75,
+      "knockback": 0,
+      "sweep": false
+    }
   },
   {
     "id": "poisoned_angmar_dagger",
@@ -2904,7 +3169,21 @@
     "enchant": 8,
     "damage": 3.5,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "dagger",
+      "attack_speed": 2.0,
+      "lotr_ticks": 10,
+      "mob_ticks": 13,
+      "reach": -0.75,
+      "knockback": 0,
+      "sweep": false
+    },
+    "poison": {
+      "base_seconds": 1,
+      "per_difficulty": 2,
+      "arrow_ticks": 140
+    }
   },
   {
     "id": "arnorian_dagger",
@@ -2913,7 +3192,16 @@
     "enchant": 10,
     "damage": 3.5,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "dagger",
+      "attack_speed": 2.0,
+      "lotr_ticks": 10,
+      "mob_ticks": 13,
+      "reach": -0.75,
+      "knockback": 0,
+      "sweep": false
+    }
   },
   {
     "id": "poisoned_arnorian_dagger",
@@ -2922,7 +3210,21 @@
     "enchant": 10,
     "damage": 3.5,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "dagger",
+      "attack_speed": 2.0,
+      "lotr_ticks": 10,
+      "mob_ticks": 13,
+      "reach": -0.75,
+      "knockback": 0,
+      "sweep": false
+    },
+    "poison": {
+      "base_seconds": 1,
+      "per_difficulty": 2,
+      "arrow_ticks": 140
+    }
   },
   {
     "id": "barrow_blade",
@@ -2931,7 +3233,16 @@
     "enchant": 10,
     "damage": 4.0,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "dagger",
+      "attack_speed": 2.0,
+      "lotr_ticks": 10,
+      "mob_ticks": 13,
+      "reach": -0.75,
+      "knockback": 0,
+      "sweep": false
+    }
   },
   {
     "id": "poisoned_barrow_blade",
@@ -2940,7 +3251,21 @@
     "enchant": 10,
     "damage": 4.0,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "dagger",
+      "attack_speed": 2.0,
+      "lotr_ticks": 10,
+      "mob_ticks": 13,
+      "reach": -0.75,
+      "knockback": 0,
+      "sweep": false
+    },
+    "poison": {
+      "base_seconds": 1,
+      "per_difficulty": 2,
+      "arrow_ticks": 140
+    }
   },
   {
     "id": "black_n_men_rean_dagger",
@@ -2949,7 +3274,16 @@
     "enchant": 10,
     "damage": 3.5,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "dagger",
+      "attack_speed": 2.0,
+      "lotr_ticks": 10,
+      "mob_ticks": 13,
+      "reach": -0.75,
+      "knockback": 0,
+      "sweep": false
+    }
   },
   {
     "id": "poisoned_black_n_men_rean_dagger",
@@ -2958,7 +3292,21 @@
     "enchant": 10,
     "damage": 3.5,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "dagger",
+      "attack_speed": 2.0,
+      "lotr_ticks": 10,
+      "mob_ticks": 13,
+      "reach": -0.75,
+      "knockback": 0,
+      "sweep": false
+    },
+    "poison": {
+      "base_seconds": 1,
+      "per_difficulty": 2,
+      "arrow_ticks": 140
+    }
   },
   {
     "id": "black_uruk_dagger",
@@ -2967,7 +3315,16 @@
     "enchant": 6,
     "damage": 4.0,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "dagger",
+      "attack_speed": 2.0,
+      "lotr_ticks": 10,
+      "mob_ticks": 13,
+      "reach": -0.75,
+      "knockback": 0,
+      "sweep": false
+    }
   },
   {
     "id": "poisoned_black_uruk_dagger",
@@ -2976,7 +3333,21 @@
     "enchant": 6,
     "damage": 4.0,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "dagger",
+      "attack_speed": 2.0,
+      "lotr_ticks": 10,
+      "mob_ticks": 13,
+      "reach": -0.75,
+      "knockback": 0,
+      "sweep": false
+    },
+    "poison": {
+      "base_seconds": 1,
+      "per_difficulty": 2,
+      "arrow_ticks": 140
+    }
   },
   {
     "id": "blue_dwarven_dagger",
@@ -2985,7 +3356,16 @@
     "enchant": 12,
     "damage": 4.0,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "dagger",
+      "attack_speed": 2.0,
+      "lotr_ticks": 10,
+      "mob_ticks": 13,
+      "reach": -0.75,
+      "knockback": 0,
+      "sweep": false
+    }
   },
   {
     "id": "poisoned_blue_dwarven_dagger",
@@ -2994,7 +3374,21 @@
     "enchant": 12,
     "damage": 4.0,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "dagger",
+      "attack_speed": 2.0,
+      "lotr_ticks": 10,
+      "mob_ticks": 13,
+      "reach": -0.75,
+      "knockback": 0,
+      "sweep": false
+    },
+    "poison": {
+      "base_seconds": 1,
+      "per_difficulty": 2,
+      "arrow_ticks": 140
+    }
   },
   {
     "id": "bronze_dagger",
@@ -3003,7 +3397,16 @@
     "enchant": 10,
     "damage": 2.5,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "dagger",
+      "attack_speed": 2.0,
+      "lotr_ticks": 10,
+      "mob_ticks": 13,
+      "reach": -0.75,
+      "knockback": 0,
+      "sweep": false
+    }
   },
   {
     "id": "poisoned_bronze_dagger",
@@ -3012,7 +3415,21 @@
     "enchant": 10,
     "damage": 2.5,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "dagger",
+      "attack_speed": 2.0,
+      "lotr_ticks": 10,
+      "mob_ticks": 13,
+      "reach": -0.75,
+      "knockback": 0,
+      "sweep": false
+    },
+    "poison": {
+      "base_seconds": 1,
+      "per_difficulty": 2,
+      "arrow_ticks": 140
+    }
   },
   {
     "id": "corsair_dagger",
@@ -3021,7 +3438,16 @@
     "enchant": 10,
     "damage": 3.5,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "dagger",
+      "attack_speed": 2.0,
+      "lotr_ticks": 10,
+      "mob_ticks": 13,
+      "reach": -0.75,
+      "knockback": 0,
+      "sweep": false
+    }
   },
   {
     "id": "poisoned_corsair_dagger",
@@ -3030,7 +3456,21 @@
     "enchant": 10,
     "damage": 3.5,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "dagger",
+      "attack_speed": 2.0,
+      "lotr_ticks": 10,
+      "mob_ticks": 13,
+      "reach": -0.75,
+      "knockback": 0,
+      "sweep": false
+    },
+    "poison": {
+      "base_seconds": 1,
+      "per_difficulty": 2,
+      "arrow_ticks": 140
+    }
   },
   {
     "id": "dalish_dagger",
@@ -3039,7 +3479,16 @@
     "enchant": 10,
     "damage": 3.5,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "dagger",
+      "attack_speed": 2.0,
+      "lotr_ticks": 10,
+      "mob_ticks": 13,
+      "reach": -0.75,
+      "knockback": 0,
+      "sweep": false
+    }
   },
   {
     "id": "poisoned_dalish_dagger",
@@ -3048,7 +3497,21 @@
     "enchant": 10,
     "damage": 3.5,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "dagger",
+      "attack_speed": 2.0,
+      "lotr_ticks": 10,
+      "mob_ticks": 13,
+      "reach": -0.75,
+      "knockback": 0,
+      "sweep": false
+    },
+    "poison": {
+      "base_seconds": 1,
+      "per_difficulty": 2,
+      "arrow_ticks": 140
+    }
   },
   {
     "id": "dol_amroth_dagger",
@@ -3057,7 +3520,16 @@
     "enchant": 10,
     "damage": 4.0,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "dagger",
+      "attack_speed": 2.0,
+      "lotr_ticks": 10,
+      "mob_ticks": 13,
+      "reach": -0.75,
+      "knockback": 0,
+      "sweep": false
+    }
   },
   {
     "id": "poisoned_dol_amroth_dagger",
@@ -3066,7 +3538,21 @@
     "enchant": 10,
     "damage": 4.0,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "dagger",
+      "attack_speed": 2.0,
+      "lotr_ticks": 10,
+      "mob_ticks": 13,
+      "reach": -0.75,
+      "knockback": 0,
+      "sweep": false
+    },
+    "poison": {
+      "base_seconds": 1,
+      "per_difficulty": 2,
+      "arrow_ticks": 140
+    }
   },
   {
     "id": "dol_guldur_dagger",
@@ -3075,7 +3561,16 @@
     "enchant": 10,
     "damage": 3.5,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "dagger",
+      "attack_speed": 2.0,
+      "lotr_ticks": 10,
+      "mob_ticks": 13,
+      "reach": -0.75,
+      "knockback": 0,
+      "sweep": false
+    }
   },
   {
     "id": "poisoned_dol_guldur_dagger",
@@ -3084,7 +3579,21 @@
     "enchant": 10,
     "damage": 3.5,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "dagger",
+      "attack_speed": 2.0,
+      "lotr_ticks": 10,
+      "mob_ticks": 13,
+      "reach": -0.75,
+      "knockback": 0,
+      "sweep": false
+    },
+    "poison": {
+      "base_seconds": 1,
+      "per_difficulty": 2,
+      "arrow_ticks": 140
+    }
   },
   {
     "id": "dorwinion_elven_dagger",
@@ -3093,7 +3602,16 @@
     "enchant": 15,
     "damage": 4.0,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "dagger",
+      "attack_speed": 2.0,
+      "lotr_ticks": 10,
+      "mob_ticks": 13,
+      "reach": -0.75,
+      "knockback": 0,
+      "sweep": false
+    }
   },
   {
     "id": "poisoned_dorwinion_elven_dagger",
@@ -3102,7 +3620,21 @@
     "enchant": 15,
     "damage": 4.0,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "dagger",
+      "attack_speed": 2.0,
+      "lotr_ticks": 10,
+      "mob_ticks": 13,
+      "reach": -0.75,
+      "knockback": 0,
+      "sweep": false
+    },
+    "poison": {
+      "base_seconds": 1,
+      "per_difficulty": 2,
+      "arrow_ticks": 140
+    }
   },
   {
     "id": "dwarven_dagger",
@@ -3111,7 +3643,16 @@
     "enchant": 10,
     "damage": 4.0,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "dagger",
+      "attack_speed": 2.0,
+      "lotr_ticks": 10,
+      "mob_ticks": 13,
+      "reach": -0.75,
+      "knockback": 0,
+      "sweep": false
+    }
   },
   {
     "id": "poisoned_dwarven_dagger",
@@ -3120,7 +3661,21 @@
     "enchant": 10,
     "damage": 4.0,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "dagger",
+      "attack_speed": 2.0,
+      "lotr_ticks": 10,
+      "mob_ticks": 13,
+      "reach": -0.75,
+      "knockback": 0,
+      "sweep": false
+    },
+    "poison": {
+      "base_seconds": 1,
+      "per_difficulty": 2,
+      "arrow_ticks": 140
+    }
   },
   {
     "id": "galadhrim_dagger",
@@ -3129,7 +3684,16 @@
     "enchant": 15,
     "damage": 4.0,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "dagger",
+      "attack_speed": 2.0,
+      "lotr_ticks": 10,
+      "mob_ticks": 13,
+      "reach": -0.75,
+      "knockback": 0,
+      "sweep": false
+    }
   },
   {
     "id": "poisoned_galadhrim_dagger",
@@ -3138,7 +3702,21 @@
     "enchant": 15,
     "damage": 4.0,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "dagger",
+      "attack_speed": 2.0,
+      "lotr_ticks": 10,
+      "mob_ticks": 13,
+      "reach": -0.75,
+      "knockback": 0,
+      "sweep": false
+    },
+    "poison": {
+      "base_seconds": 1,
+      "per_difficulty": 2,
+      "arrow_ticks": 140
+    }
   },
   {
     "id": "gondorian_dagger",
@@ -3147,7 +3725,16 @@
     "enchant": 10,
     "damage": 3.5,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "dagger",
+      "attack_speed": 2.0,
+      "lotr_ticks": 10,
+      "mob_ticks": 13,
+      "reach": -0.75,
+      "knockback": 0,
+      "sweep": false
+    }
   },
   {
     "id": "poisoned_gondorian_dagger",
@@ -3156,7 +3743,21 @@
     "enchant": 10,
     "damage": 3.5,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "dagger",
+      "attack_speed": 2.0,
+      "lotr_ticks": 10,
+      "mob_ticks": 13,
+      "reach": -0.75,
+      "knockback": 0,
+      "sweep": false
+    },
+    "poison": {
+      "base_seconds": 1,
+      "per_difficulty": 2,
+      "arrow_ticks": 140
+    }
   },
   {
     "id": "gundabad_uruk_dagger",
@@ -3165,7 +3766,16 @@
     "enchant": 5,
     "damage": 4.0,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "dagger",
+      "attack_speed": 2.0,
+      "lotr_ticks": 10,
+      "mob_ticks": 13,
+      "reach": -0.75,
+      "knockback": 0,
+      "sweep": false
+    }
   },
   {
     "id": "poisoned_gundabad_uruk_dagger",
@@ -3174,7 +3784,21 @@
     "enchant": 5,
     "damage": 4.0,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "dagger",
+      "attack_speed": 2.0,
+      "lotr_ticks": 10,
+      "mob_ticks": 13,
+      "reach": -0.75,
+      "knockback": 0,
+      "sweep": false
+    },
+    "poison": {
+      "base_seconds": 1,
+      "per_difficulty": 2,
+      "arrow_ticks": 140
+    }
   },
   {
     "id": "half_troll_dagger",
@@ -3183,7 +3807,16 @@
     "enchant": 5,
     "damage": 3.5,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "dagger",
+      "attack_speed": 2.0,
+      "lotr_ticks": 10,
+      "mob_ticks": 13,
+      "reach": -0.75,
+      "knockback": 0,
+      "sweep": false
+    }
   },
   {
     "id": "poisoned_half_troll_dagger",
@@ -3192,7 +3825,21 @@
     "enchant": 5,
     "damage": 3.5,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "dagger",
+      "attack_speed": 2.0,
+      "lotr_ticks": 10,
+      "mob_ticks": 13,
+      "reach": -0.75,
+      "knockback": 0,
+      "sweep": false
+    },
+    "poison": {
+      "base_seconds": 1,
+      "per_difficulty": 2,
+      "arrow_ticks": 140
+    }
   },
   {
     "id": "haradric_dagger",
@@ -3201,7 +3848,16 @@
     "enchant": 10,
     "damage": 3.5,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "dagger",
+      "attack_speed": 2.0,
+      "lotr_ticks": 10,
+      "mob_ticks": 13,
+      "reach": -0.75,
+      "knockback": 0,
+      "sweep": false
+    }
   },
   {
     "id": "poisoned_haradric_dagger",
@@ -3210,7 +3866,21 @@
     "enchant": 10,
     "damage": 3.5,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "dagger",
+      "attack_speed": 2.0,
+      "lotr_ticks": 10,
+      "mob_ticks": 13,
+      "reach": -0.75,
+      "knockback": 0,
+      "sweep": false
+    },
+    "poison": {
+      "base_seconds": 1,
+      "per_difficulty": 2,
+      "arrow_ticks": 140
+    }
   },
   {
     "id": "lindon_dagger",
@@ -3219,7 +3889,16 @@
     "enchant": 15,
     "damage": 4.0,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "dagger",
+      "attack_speed": 2.0,
+      "lotr_ticks": 10,
+      "mob_ticks": 13,
+      "reach": -0.75,
+      "knockback": 0,
+      "sweep": false
+    }
   },
   {
     "id": "poisoned_lindon_dagger",
@@ -3228,7 +3907,21 @@
     "enchant": 15,
     "damage": 4.0,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "dagger",
+      "attack_speed": 2.0,
+      "lotr_ticks": 10,
+      "mob_ticks": 13,
+      "reach": -0.75,
+      "knockback": 0,
+      "sweep": false
+    },
+    "poison": {
+      "base_seconds": 1,
+      "per_difficulty": 2,
+      "arrow_ticks": 140
+    }
   },
   {
     "id": "iron_dagger",
@@ -3237,7 +3930,16 @@
     "enchant": 14,
     "damage": 3.0,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "dagger",
+      "attack_speed": 2.0,
+      "lotr_ticks": 10,
+      "mob_ticks": 13,
+      "reach": -0.75,
+      "knockback": 0,
+      "sweep": false
+    }
   },
   {
     "id": "poisoned_iron_dagger",
@@ -3246,7 +3948,21 @@
     "enchant": 14,
     "damage": 3.0,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "dagger",
+      "attack_speed": 2.0,
+      "lotr_ticks": 10,
+      "mob_ticks": 13,
+      "reach": -0.75,
+      "knockback": 0,
+      "sweep": false
+    },
+    "poison": {
+      "base_seconds": 1,
+      "per_difficulty": 2,
+      "arrow_ticks": 140
+    }
   },
   {
     "id": "mithril_dagger",
@@ -3255,7 +3971,16 @@
     "enchant": 8,
     "damage": 6.0,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "dagger",
+      "attack_speed": 2.0,
+      "lotr_ticks": 10,
+      "mob_ticks": 13,
+      "reach": -0.75,
+      "knockback": 0,
+      "sweep": false
+    }
   },
   {
     "id": "poisoned_mithril_dagger",
@@ -3264,7 +3989,21 @@
     "enchant": 8,
     "damage": 6.0,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "dagger",
+      "attack_speed": 2.0,
+      "lotr_ticks": 10,
+      "mob_ticks": 13,
+      "reach": -0.75,
+      "knockback": 0,
+      "sweep": false
+    },
+    "poison": {
+      "base_seconds": 1,
+      "per_difficulty": 2,
+      "arrow_ticks": 140
+    }
   },
   {
     "id": "morwaith_dagger",
@@ -3273,7 +4012,16 @@
     "enchant": 10,
     "damage": 3.0,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "dagger",
+      "attack_speed": 2.0,
+      "lotr_ticks": 10,
+      "mob_ticks": 13,
+      "reach": -0.75,
+      "knockback": 0,
+      "sweep": false
+    }
   },
   {
     "id": "poisoned_morwaith_dagger",
@@ -3282,7 +4030,21 @@
     "enchant": 10,
     "damage": 3.0,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "dagger",
+      "attack_speed": 2.0,
+      "lotr_ticks": 10,
+      "mob_ticks": 13,
+      "reach": -0.75,
+      "knockback": 0,
+      "sweep": false
+    },
+    "poison": {
+      "base_seconds": 1,
+      "per_difficulty": 2,
+      "arrow_ticks": 140
+    }
   },
   {
     "id": "umbaric_dagger",
@@ -3291,7 +4053,16 @@
     "enchant": 10,
     "damage": 3.5,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "dagger",
+      "attack_speed": 2.0,
+      "lotr_ticks": 10,
+      "mob_ticks": 13,
+      "reach": -0.75,
+      "knockback": 0,
+      "sweep": false
+    }
   },
   {
     "id": "poisoned_umbaric_dagger",
@@ -3300,7 +4071,21 @@
     "enchant": 10,
     "damage": 3.5,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "dagger",
+      "attack_speed": 2.0,
+      "lotr_ticks": 10,
+      "mob_ticks": 13,
+      "reach": -0.75,
+      "knockback": 0,
+      "sweep": false
+    },
+    "poison": {
+      "base_seconds": 1,
+      "per_difficulty": 2,
+      "arrow_ticks": 140
+    }
   },
   {
     "id": "mordor_dagger",
@@ -3309,7 +4094,16 @@
     "enchant": 7,
     "damage": 3.5,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "dagger",
+      "attack_speed": 2.0,
+      "lotr_ticks": 10,
+      "mob_ticks": 13,
+      "reach": -0.75,
+      "knockback": 0,
+      "sweep": false
+    }
   },
   {
     "id": "poisoned_mordor_dagger",
@@ -3318,7 +4112,21 @@
     "enchant": 7,
     "damage": 3.5,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "dagger",
+      "attack_speed": 2.0,
+      "lotr_ticks": 10,
+      "mob_ticks": 13,
+      "reach": -0.75,
+      "knockback": 0,
+      "sweep": false
+    },
+    "poison": {
+      "base_seconds": 1,
+      "per_difficulty": 2,
+      "arrow_ticks": 140
+    }
   },
   {
     "id": "rh_nic_dagger",
@@ -3327,7 +4135,16 @@
     "enchant": 10,
     "damage": 3.5,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "dagger",
+      "attack_speed": 2.0,
+      "lotr_ticks": 10,
+      "mob_ticks": 13,
+      "reach": -0.75,
+      "knockback": 0,
+      "sweep": false
+    }
   },
   {
     "id": "poisoned_rh_nic_dagger",
@@ -3336,7 +4153,21 @@
     "enchant": 10,
     "damage": 3.5,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "dagger",
+      "attack_speed": 2.0,
+      "lotr_ticks": 10,
+      "mob_ticks": 13,
+      "reach": -0.75,
+      "knockback": 0,
+      "sweep": false
+    },
+    "poison": {
+      "base_seconds": 1,
+      "per_difficulty": 2,
+      "arrow_ticks": 140
+    }
   },
   {
     "id": "rivendell_dagger",
@@ -3345,7 +4176,16 @@
     "enchant": 15,
     "damage": 4.0,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "dagger",
+      "attack_speed": 2.0,
+      "lotr_ticks": 10,
+      "mob_ticks": 13,
+      "reach": -0.75,
+      "knockback": 0,
+      "sweep": false
+    }
   },
   {
     "id": "poisoned_rivendell_dagger",
@@ -3354,7 +4194,21 @@
     "enchant": 15,
     "damage": 4.0,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "dagger",
+      "attack_speed": 2.0,
+      "lotr_ticks": 10,
+      "mob_ticks": 13,
+      "reach": -0.75,
+      "knockback": 0,
+      "sweep": false
+    },
+    "poison": {
+      "base_seconds": 1,
+      "per_difficulty": 2,
+      "arrow_ticks": 140
+    }
   },
   {
     "id": "rohirric_dagger",
@@ -3363,7 +4217,16 @@
     "enchant": 10,
     "damage": 3.5,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "dagger",
+      "attack_speed": 2.0,
+      "lotr_ticks": 10,
+      "mob_ticks": 13,
+      "reach": -0.75,
+      "knockback": 0,
+      "sweep": false
+    }
   },
   {
     "id": "poisoned_rohirric_dagger",
@@ -3372,7 +4235,21 @@
     "enchant": 10,
     "damage": 3.5,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "dagger",
+      "attack_speed": 2.0,
+      "lotr_ticks": 10,
+      "mob_ticks": 13,
+      "reach": -0.75,
+      "knockback": 0,
+      "sweep": false
+    },
+    "poison": {
+      "base_seconds": 1,
+      "per_difficulty": 2,
+      "arrow_ticks": 140
+    }
   },
   {
     "id": "taurethrim_dagger",
@@ -3381,7 +4258,16 @@
     "enchant": 10,
     "damage": 3.5,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "dagger",
+      "attack_speed": 2.0,
+      "lotr_ticks": 10,
+      "mob_ticks": 13,
+      "reach": -0.75,
+      "knockback": 0,
+      "sweep": false
+    }
   },
   {
     "id": "poisoned_taurethrim_dagger",
@@ -3390,7 +4276,21 @@
     "enchant": 10,
     "damage": 3.5,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "dagger",
+      "attack_speed": 2.0,
+      "lotr_ticks": 10,
+      "mob_ticks": 13,
+      "reach": -0.75,
+      "knockback": 0,
+      "sweep": false
+    },
+    "poison": {
+      "base_seconds": 1,
+      "per_difficulty": 2,
+      "arrow_ticks": 140
+    }
   },
   {
     "id": "uruk_dagger",
@@ -3399,7 +4299,16 @@
     "enchant": 5,
     "damage": 4.0,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "dagger",
+      "attack_speed": 2.0,
+      "lotr_ticks": 10,
+      "mob_ticks": 13,
+      "reach": -0.75,
+      "knockback": 0,
+      "sweep": false
+    }
   },
   {
     "id": "poisoned_uruk_dagger",
@@ -3408,7 +4317,21 @@
     "enchant": 5,
     "damage": 4.0,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "dagger",
+      "attack_speed": 2.0,
+      "lotr_ticks": 10,
+      "mob_ticks": 13,
+      "reach": -0.75,
+      "knockback": 0,
+      "sweep": false
+    },
+    "poison": {
+      "base_seconds": 1,
+      "per_difficulty": 2,
+      "arrow_ticks": 140
+    }
   },
   {
     "id": "utumno_dagger",
@@ -3417,7 +4340,16 @@
     "enchant": 12,
     "damage": 4.5,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "dagger",
+      "attack_speed": 2.0,
+      "lotr_ticks": 10,
+      "mob_ticks": 13,
+      "reach": -0.75,
+      "knockback": 0,
+      "sweep": false
+    }
   },
   {
     "id": "poisoned_utumno_dagger",
@@ -3426,7 +4358,21 @@
     "enchant": 12,
     "damage": 4.5,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "dagger",
+      "attack_speed": 2.0,
+      "lotr_ticks": 10,
+      "mob_ticks": 13,
+      "reach": -0.75,
+      "knockback": 0,
+      "sweep": false
+    },
+    "poison": {
+      "base_seconds": 1,
+      "per_difficulty": 2,
+      "arrow_ticks": 140
+    }
   },
   {
     "id": "wood_elven_dagger",
@@ -3435,7 +4381,16 @@
     "enchant": 15,
     "damage": 4.0,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "dagger",
+      "attack_speed": 2.0,
+      "lotr_ticks": 10,
+      "mob_ticks": 13,
+      "reach": -0.75,
+      "knockback": 0,
+      "sweep": false
+    }
   },
   {
     "id": "poisoned_wood_elven_dagger",
@@ -3444,15 +4399,33 @@
     "enchant": 15,
     "damage": 4.0,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "dagger",
+      "attack_speed": 2.0,
+      "lotr_ticks": 10,
+      "mob_ticks": 13,
+      "reach": -0.75,
+      "knockback": 0,
+      "sweep": false
+    },
+    "poison": {
+      "base_seconds": 1,
+      "per_difficulty": 2,
+      "arrow_ticks": 140
+    }
   },
   {
     "id": "dalish_longbow",
-    "kind": "item",
+    "kind": "bow",
     "durability": 450,
     "enchant": 3,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "ranged": {
+      "draw_time": 20,
+      "damage_factor": 1.0
+    }
   },
   {
     "id": "dalish_cracker",
@@ -3510,11 +4483,15 @@
   },
   {
     "id": "dorwinion_elven_bow",
-    "kind": "item",
+    "kind": "bow",
     "durability": 750,
     "enchant": 4,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "ranged": {
+      "draw_time": 20,
+      "damage_factor": 1.0
+    }
   },
   {
     "id": "dunlending_club",
@@ -3523,7 +4500,16 @@
     "enchant": 15,
     "damage": 4.0,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "hammer",
+      "attack_speed": 0.909,
+      "lotr_ticks": 22,
+      "mob_ticks": 30,
+      "reach": 0.0,
+      "knockback": 1,
+      "sweep": false
+    }
   },
   {
     "id": "dunlending_trident",
@@ -3532,7 +4518,16 @@
     "enchant": 14,
     "damage": 6.0,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "trident",
+      "attack_speed": 0.909,
+      "lotr_ticks": 22,
+      "mob_ticks": 30,
+      "reach": 1.5,
+      "knockback": 0,
+      "sweep": false
+    }
   },
   {
     "id": "dwarf_bone",
@@ -3645,11 +4640,15 @@
   },
   {
     "id": "galadhrim_bow",
-    "kind": "item",
+    "kind": "bow",
     "durability": 900,
     "enchant": 4,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "ranged": {
+      "draw_time": 20,
+      "damage_factor": 1.0
+    }
   },
   {
     "id": "emerald",
@@ -3753,7 +4752,16 @@
     "enchant": 15,
     "damage": 4.0,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "sword",
+      "attack_speed": 1.333,
+      "lotr_ticks": 15,
+      "mob_ticks": 20,
+      "reach": 0.0,
+      "knockback": 0,
+      "sweep": true
+    }
   },
   {
     "id": "staff_of_gandalf_the_white",
@@ -3762,7 +4770,16 @@
     "enchant": 15,
     "damage": 8.0,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "sword",
+      "attack_speed": 1.333,
+      "lotr_ticks": 15,
+      "mob_ticks": 20,
+      "reach": 0.0,
+      "knockback": 0,
+      "sweep": true
+    }
   },
   {
     "id": "gate_gears",
@@ -3806,7 +4823,16 @@
     "enchant": 15,
     "damage": 9.0,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "sword",
+      "attack_speed": 1.333,
+      "lotr_ticks": 15,
+      "mob_ticks": 20,
+      "reach": 0.0,
+      "knockback": 0,
+      "sweep": true
+    }
   },
   {
     "id": "copper_goblet",
@@ -3845,11 +4871,15 @@
   },
   {
     "id": "gondorian_bow",
-    "kind": "item",
+    "kind": "bow",
     "durability": 675,
     "enchant": 3,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "ranged": {
+      "draw_time": 20,
+      "damage_factor": 1.0
+    }
   },
   {
     "id": "red_grapes",
@@ -3882,11 +4912,15 @@
   },
   {
     "id": "gundabad_uruk_bow",
-    "kind": "item",
+    "kind": "bow",
     "durability": 750,
     "enchant": 2,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "ranged": {
+      "draw_time": 20,
+      "damage_factor": 1.0
+    }
   },
   {
     "id": "mithril_halberd",
@@ -3895,7 +4929,16 @@
     "enchant": 8,
     "damage": 9.0,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "long_polearm",
+      "attack_speed": 0.667,
+      "lotr_ticks": 30,
+      "mob_ticks": 40,
+      "reach": 3.0,
+      "knockback": 0,
+      "sweep": false
+    }
   },
   {
     "id": "angmar_warhammer",
@@ -3904,7 +4947,16 @@
     "enchant": 8,
     "damage": 8.5,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "hammer",
+      "attack_speed": 0.909,
+      "lotr_ticks": 22,
+      "mob_ticks": 30,
+      "reach": 0.0,
+      "knockback": 1,
+      "sweep": false
+    }
   },
   {
     "id": "black_uruk_warhammer",
@@ -3913,7 +4965,16 @@
     "enchant": 6,
     "damage": 9.0,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "hammer",
+      "attack_speed": 0.909,
+      "lotr_ticks": 22,
+      "mob_ticks": 30,
+      "reach": 0.0,
+      "knockback": 1,
+      "sweep": false
+    }
   },
   {
     "id": "blue_dwarven_warhammer",
@@ -3922,7 +4983,16 @@
     "enchant": 12,
     "damage": 9.0,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "hammer",
+      "attack_speed": 0.909,
+      "lotr_ticks": 22,
+      "mob_ticks": 30,
+      "reach": 0.0,
+      "knockback": 1,
+      "sweep": false
+    }
   },
   {
     "id": "dol_guldur_warhammer",
@@ -3931,7 +5001,16 @@
     "enchant": 10,
     "damage": 8.5,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "hammer",
+      "attack_speed": 0.909,
+      "lotr_ticks": 22,
+      "mob_ticks": 30,
+      "reach": 0.0,
+      "knockback": 1,
+      "sweep": false
+    }
   },
   {
     "id": "dwarven_warhammer",
@@ -3940,7 +5019,16 @@
     "enchant": 10,
     "damage": 9.0,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "hammer",
+      "attack_speed": 0.909,
+      "lotr_ticks": 22,
+      "mob_ticks": 30,
+      "reach": 0.0,
+      "knockback": 1,
+      "sweep": false
+    }
   },
   {
     "id": "gondorian_warhammer",
@@ -3949,7 +5037,16 @@
     "enchant": 10,
     "damage": 8.5,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "hammer",
+      "attack_speed": 0.909,
+      "lotr_ticks": 22,
+      "mob_ticks": 30,
+      "reach": 0.0,
+      "knockback": 1,
+      "sweep": false
+    }
   },
   {
     "id": "gundabad_uruk_bludgeon",
@@ -3958,7 +5055,16 @@
     "enchant": 5,
     "damage": 9.0,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "hammer",
+      "attack_speed": 0.909,
+      "lotr_ticks": 22,
+      "mob_ticks": 30,
+      "reach": 0.0,
+      "knockback": 1,
+      "sweep": false
+    }
   },
   {
     "id": "half_troll_warhammer",
@@ -3967,7 +5073,16 @@
     "enchant": 5,
     "damage": 8.5,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "hammer",
+      "attack_speed": 0.909,
+      "lotr_ticks": 22,
+      "mob_ticks": 30,
+      "reach": 0.0,
+      "knockback": 1,
+      "sweep": false
+    }
   },
   {
     "id": "mithril_warhammer",
@@ -3976,7 +5091,16 @@
     "enchant": 8,
     "damage": 11.0,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "hammer",
+      "attack_speed": 0.909,
+      "lotr_ticks": 22,
+      "mob_ticks": 30,
+      "reach": 0.0,
+      "knockback": 1,
+      "sweep": false
+    }
   },
   {
     "id": "mordor_warhammer",
@@ -3985,7 +5109,16 @@
     "enchant": 7,
     "damage": 8.5,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "hammer",
+      "attack_speed": 0.909,
+      "lotr_ticks": 22,
+      "mob_ticks": 30,
+      "reach": 0.0,
+      "knockback": 1,
+      "sweep": false
+    }
   },
   {
     "id": "taurethrim_bludgeon",
@@ -3994,7 +5127,16 @@
     "enchant": 10,
     "damage": 8.5,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "hammer",
+      "attack_speed": 0.909,
+      "lotr_ticks": 22,
+      "mob_ticks": 30,
+      "reach": 0.0,
+      "knockback": 1,
+      "sweep": false
+    }
   },
   {
     "id": "uruk_warhammer",
@@ -4003,7 +5145,16 @@
     "enchant": 5,
     "damage": 9.0,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "hammer",
+      "attack_speed": 0.909,
+      "lotr_ticks": 22,
+      "mob_ticks": 30,
+      "reach": 0.0,
+      "knockback": 1,
+      "sweep": false
+    }
   },
   {
     "id": "utumno_warhammer",
@@ -4012,7 +5163,16 @@
     "enchant": 12,
     "damage": 9.5,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "hammer",
+      "attack_speed": 0.909,
+      "lotr_ticks": 22,
+      "mob_ticks": 30,
+      "reach": 0.0,
+      "knockback": 1,
+      "sweep": false
+    }
   },
   {
     "id": "angmar_helmet",
@@ -4890,11 +6050,15 @@
   },
   {
     "id": "lindon_bow",
-    "kind": "item",
+    "kind": "bow",
     "durability": 1050,
     "enchant": 4,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "ranged": {
+      "draw_time": 20,
+      "damage_factor": 1.0
+    }
   },
   {
     "id": "hithlain",
@@ -5165,11 +6329,15 @@
   },
   {
     "id": "iron_crossbow",
-    "kind": "item",
+    "kind": "crossbow",
     "durability": 312,
     "enchant": 3,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "ranged": {
+      "draw_time": 20,
+      "damage_factor": 1.0
+    }
   },
   {
     "id": "iron_nugget",
@@ -5210,7 +6378,16 @@
     "enchant": 10,
     "damage": 7.0,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "lance",
+      "attack_speed": 0.667,
+      "lotr_ticks": 30,
+      "mob_ticks": 40,
+      "reach": 3.0,
+      "knockback": 1,
+      "sweep": false
+    }
   },
   {
     "id": "gondorian_lance",
@@ -5219,7 +6396,16 @@
     "enchant": 10,
     "damage": 6.5,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "lance",
+      "attack_speed": 0.667,
+      "lotr_ticks": 30,
+      "mob_ticks": 40,
+      "reach": 3.0,
+      "knockback": 1,
+      "sweep": false
+    }
   },
   {
     "id": "rohirric_lance",
@@ -5228,7 +6414,16 @@
     "enchant": 10,
     "damage": 6.5,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "lance",
+      "attack_speed": 0.667,
+      "lotr_ticks": 30,
+      "mob_ticks": 40,
+      "reach": 3.0,
+      "knockback": 1,
+      "sweep": false
+    }
   },
   {
     "id": "leather_hat",
@@ -6190,7 +7385,16 @@
     "enchant": 10,
     "damage": 7.0,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "long_polearm",
+      "attack_speed": 0.667,
+      "lotr_ticks": 30,
+      "mob_ticks": 40,
+      "reach": 3.0,
+      "knockback": 0,
+      "sweep": false
+    }
   },
   {
     "id": "galadhrim_longspear",
@@ -6199,7 +7403,16 @@
     "enchant": 15,
     "damage": 7.0,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "long_polearm",
+      "attack_speed": 0.667,
+      "lotr_ticks": 30,
+      "mob_ticks": 40,
+      "reach": 3.0,
+      "knockback": 0,
+      "sweep": false
+    }
   },
   {
     "id": "lindon_longspear",
@@ -6208,7 +7421,16 @@
     "enchant": 15,
     "damage": 7.0,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "long_polearm",
+      "attack_speed": 0.667,
+      "lotr_ticks": 30,
+      "mob_ticks": 40,
+      "reach": 3.0,
+      "knockback": 0,
+      "sweep": false
+    }
   },
   {
     "id": "rivendell_longspear",
@@ -6217,7 +7439,16 @@
     "enchant": 15,
     "damage": 7.0,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "long_polearm",
+      "attack_speed": 0.667,
+      "lotr_ticks": 30,
+      "mob_ticks": 40,
+      "reach": 3.0,
+      "knockback": 0,
+      "sweep": false
+    }
   },
   {
     "id": "wood_elven_longspear",
@@ -6226,7 +7457,16 @@
     "enchant": 15,
     "damage": 7.0,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "long_polearm",
+      "attack_speed": 0.667,
+      "lotr_ticks": 30,
+      "mob_ticks": 40,
+      "reach": 3.0,
+      "knockback": 0,
+      "sweep": false
+    }
   },
   {
     "id": "black_n_men_rean_mace",
@@ -6235,7 +7475,16 @@
     "enchant": 10,
     "damage": 8.5,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "hammer",
+      "attack_speed": 0.909,
+      "lotr_ticks": 22,
+      "mob_ticks": 30,
+      "reach": 0.0,
+      "knockback": 1,
+      "sweep": false
+    }
   },
   {
     "id": "half_troll_mace",
@@ -6244,7 +7493,16 @@
     "enchant": 5,
     "damage": 8.5,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "hammer",
+      "attack_speed": 0.909,
+      "lotr_ticks": 22,
+      "mob_ticks": 30,
+      "reach": 0.0,
+      "knockback": 1,
+      "sweep": false
+    }
   },
   {
     "id": "charred_mallorn_mace",
@@ -6253,7 +7511,16 @@
     "enchant": 15,
     "damage": 10.5,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "hammer",
+      "attack_speed": 0.909,
+      "lotr_ticks": 22,
+      "mob_ticks": 30,
+      "reach": 0.0,
+      "knockback": 1,
+      "sweep": false
+    }
   },
   {
     "id": "umbaric_mace",
@@ -6262,7 +7529,16 @@
     "enchant": 10,
     "damage": 8.5,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "hammer",
+      "attack_speed": 0.909,
+      "lotr_ticks": 22,
+      "mob_ticks": 30,
+      "reach": 0.0,
+      "knockback": 1,
+      "sweep": false
+    }
   },
   {
     "id": "maggoty_bread",
@@ -6277,11 +7553,15 @@
   },
   {
     "id": "mallorn_bow",
-    "kind": "item",
+    "kind": "bow",
     "durability": 300,
     "enchant": 4,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "ranged": {
+      "draw_time": 20,
+      "damage_factor": 1.0
+    }
   },
   {
     "id": "mallorn_nut",
@@ -6403,11 +7683,15 @@
   },
   {
     "id": "bow_of_mirkwood",
-    "kind": "item",
+    "kind": "bow",
     "durability": 750,
     "enchant": 4,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "ranged": {
+      "draw_time": 20,
+      "damage_factor": 1.0
+    }
   },
   {
     "id": "mithril_ingot",
@@ -6425,11 +7709,15 @@
   },
   {
     "id": "mithril_crossbow",
-    "kind": "item",
+    "kind": "crossbow",
     "durability": 3000,
     "enchant": 2,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "ranged": {
+      "draw_time": 20,
+      "damage_factor": 1.0
+    }
   },
   {
     "id": "mithril_mail",
@@ -6466,7 +7754,16 @@
     "enchant": 10,
     "damage": 6.5,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "sword",
+      "attack_speed": 1.333,
+      "lotr_ticks": 15,
+      "mob_ticks": 20,
+      "reach": 0.0,
+      "knockback": 0,
+      "sweep": true
+    }
   },
   {
     "id": "morgul_steel_ingot",
@@ -6853,11 +8150,15 @@
   },
   {
     "id": "bow_of_harad",
-    "kind": "item",
+    "kind": "bow",
     "durability": 450,
     "enchant": 3,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "ranged": {
+      "draw_time": 20,
+      "damage_factor": 1.0
+    }
   },
   {
     "id": "npc_respawner",
@@ -6929,11 +8230,15 @@
   },
   {
     "id": "orc_bow",
-    "kind": "item",
+    "kind": "bow",
     "durability": 600,
     "enchant": 2,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "ranged": {
+      "draw_time": 20,
+      "damage_factor": 1.0
+    }
   },
   {
     "id": "orc_skull_staff",
@@ -6942,7 +8247,16 @@
     "enchant": 7,
     "damage": 6.5,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "sword",
+      "attack_speed": 1.333,
+      "lotr_ticks": 15,
+      "mob_ticks": 20,
+      "reach": 0.0,
+      "knockback": 0,
+      "sweep": true
+    }
   },
   {
     "id": "orc_steel_ingot",
@@ -7129,7 +8443,16 @@
     "enchant": 12,
     "damage": 7.0,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "pike",
+      "attack_speed": 0.667,
+      "lotr_ticks": 30,
+      "mob_ticks": 40,
+      "reach": 3.0,
+      "knockback": 0,
+      "sweep": false
+    }
   },
   {
     "id": "dalish_pitchfork",
@@ -7138,7 +8461,16 @@
     "enchant": 10,
     "damage": 6.5,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "pike",
+      "attack_speed": 0.667,
+      "lotr_ticks": 30,
+      "mob_ticks": 40,
+      "reach": 3.0,
+      "knockback": 0,
+      "sweep": false
+    }
   },
   {
     "id": "dol_guldur_spike",
@@ -7147,7 +8479,16 @@
     "enchant": 10,
     "damage": 6.5,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "pike",
+      "attack_speed": 0.667,
+      "lotr_ticks": 30,
+      "mob_ticks": 40,
+      "reach": 3.0,
+      "knockback": 0,
+      "sweep": false
+    }
   },
   {
     "id": "dwarven_pike",
@@ -7156,7 +8497,16 @@
     "enchant": 10,
     "damage": 7.0,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "pike",
+      "attack_speed": 0.667,
+      "lotr_ticks": 30,
+      "mob_ticks": 40,
+      "reach": 3.0,
+      "knockback": 0,
+      "sweep": false
+    }
   },
   {
     "id": "gondorian_pike",
@@ -7165,7 +8515,16 @@
     "enchant": 10,
     "damage": 6.5,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "pike",
+      "attack_speed": 0.667,
+      "lotr_ticks": 30,
+      "mob_ticks": 40,
+      "reach": 3.0,
+      "knockback": 0,
+      "sweep": false
+    }
   },
   {
     "id": "gundabad_uruk_pike",
@@ -7174,7 +8533,16 @@
     "enchant": 5,
     "damage": 7.0,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "pike",
+      "attack_speed": 0.667,
+      "lotr_ticks": 30,
+      "mob_ticks": 40,
+      "reach": 3.0,
+      "knockback": 0,
+      "sweep": false
+    }
   },
   {
     "id": "half_troll_pike",
@@ -7183,7 +8551,16 @@
     "enchant": 5,
     "damage": 6.5,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "pike",
+      "attack_speed": 0.667,
+      "lotr_ticks": 30,
+      "mob_ticks": 40,
+      "reach": 3.0,
+      "knockback": 0,
+      "sweep": false
+    }
   },
   {
     "id": "haradric_pike",
@@ -7192,7 +8569,16 @@
     "enchant": 10,
     "damage": 6.5,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "pike",
+      "attack_speed": 0.667,
+      "lotr_ticks": 30,
+      "mob_ticks": 40,
+      "reach": 3.0,
+      "knockback": 0,
+      "sweep": false
+    }
   },
   {
     "id": "iron_pike",
@@ -7201,7 +8587,16 @@
     "enchant": 14,
     "damage": 6.0,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "pike",
+      "attack_speed": 0.667,
+      "lotr_ticks": 30,
+      "mob_ticks": 40,
+      "reach": 3.0,
+      "knockback": 0,
+      "sweep": false
+    }
   },
   {
     "id": "umbaric_pike",
@@ -7210,7 +8605,16 @@
     "enchant": 10,
     "damage": 6.5,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "pike",
+      "attack_speed": 0.667,
+      "lotr_ticks": 30,
+      "mob_ticks": 40,
+      "reach": 3.0,
+      "knockback": 0,
+      "sweep": false
+    }
   },
   {
     "id": "rh_nic_pike",
@@ -7219,7 +8623,16 @@
     "enchant": 10,
     "damage": 6.5,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "pike",
+      "attack_speed": 0.667,
+      "lotr_ticks": 30,
+      "mob_ticks": 40,
+      "reach": 3.0,
+      "knockback": 0,
+      "sweep": false
+    }
   },
   {
     "id": "taurethrim_pike",
@@ -7228,7 +8641,16 @@
     "enchant": 10,
     "damage": 6.5,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "pike",
+      "attack_speed": 0.667,
+      "lotr_ticks": 30,
+      "mob_ticks": 40,
+      "reach": 3.0,
+      "knockback": 0,
+      "sweep": false
+    }
   },
   {
     "id": "uruk_pike",
@@ -7237,7 +8659,16 @@
     "enchant": 5,
     "damage": 7.0,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "pike",
+      "attack_speed": 0.667,
+      "lotr_ticks": 30,
+      "mob_ticks": 40,
+      "reach": 3.0,
+      "knockback": 0,
+      "sweep": false
+    }
   },
   {
     "id": "pipe_weed",
@@ -7285,7 +8716,16 @@
     "enchant": 8,
     "damage": 6.5,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "polearm",
+      "attack_speed": 0.909,
+      "lotr_ticks": 22,
+      "mob_ticks": 30,
+      "reach": 1.5,
+      "knockback": 0,
+      "sweep": false
+    }
   },
   {
     "id": "galadhrim_battlestaff",
@@ -7294,7 +8734,16 @@
     "enchant": 15,
     "damage": 7.0,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "polearm",
+      "attack_speed": 0.909,
+      "lotr_ticks": 22,
+      "mob_ticks": 30,
+      "reach": 1.5,
+      "knockback": 0,
+      "sweep": false
+    }
   },
   {
     "id": "lindon_battlestaff",
@@ -7303,7 +8752,16 @@
     "enchant": 15,
     "damage": 7.0,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "polearm",
+      "attack_speed": 0.909,
+      "lotr_ticks": 22,
+      "mob_ticks": 30,
+      "reach": 1.5,
+      "knockback": 0,
+      "sweep": false
+    }
   },
   {
     "id": "mordor_warscythe",
@@ -7312,7 +8770,16 @@
     "enchant": 7,
     "damage": 6.5,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "polearm",
+      "attack_speed": 0.909,
+      "lotr_ticks": 22,
+      "mob_ticks": 30,
+      "reach": 1.5,
+      "knockback": 0,
+      "sweep": false
+    }
   },
   {
     "id": "rh_nic_bardiche",
@@ -7321,7 +8788,16 @@
     "enchant": 10,
     "damage": 6.5,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "polearm",
+      "attack_speed": 0.909,
+      "lotr_ticks": 22,
+      "mob_ticks": 30,
+      "reach": 1.5,
+      "knockback": 0,
+      "sweep": false
+    }
   },
   {
     "id": "rivendell_battlestaff",
@@ -7330,7 +8806,16 @@
     "enchant": 15,
     "damage": 7.0,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "polearm",
+      "attack_speed": 0.909,
+      "lotr_ticks": 22,
+      "mob_ticks": 30,
+      "reach": 1.5,
+      "knockback": 0,
+      "sweep": false
+    }
   },
   {
     "id": "wood_elven_battlestaff",
@@ -7339,7 +8824,16 @@
     "enchant": 15,
     "damage": 7.0,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "polearm",
+      "attack_speed": 0.909,
+      "lotr_ticks": 22,
+      "mob_ticks": 30,
+      "reach": 1.5,
+      "knockback": 0,
+      "sweep": false
+    }
   },
   {
     "id": "umbaric_poleaxe",
@@ -7348,7 +8842,16 @@
     "enchant": 10,
     "damage": 6.5,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "polearm",
+      "attack_speed": 0.909,
+      "lotr_ticks": 22,
+      "mob_ticks": 30,
+      "reach": 1.5,
+      "knockback": 0,
+      "sweep": false
+    }
   },
   {
     "id": "pomegranate",
@@ -7435,11 +8938,15 @@
   },
   {
     "id": "ranger_bow",
-    "kind": "item",
+    "kind": "bow",
     "durability": 525,
     "enchant": 3,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "ranged": {
+      "draw_time": 20,
+      "damage_factor": 1.0
+    }
   },
   {
     "id": "raspberries",
@@ -7504,11 +9011,15 @@
   },
   {
     "id": "rh_nic_bow",
-    "kind": "item",
+    "kind": "bow",
     "durability": 600,
     "enchant": 3,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "ranged": {
+      "draw_time": 20,
+      "damage_factor": 1.0
+    }
   },
   {
     "id": "rh_nic_fire_pot",
@@ -7524,23 +9035,40 @@
     "enchant": 15,
     "damage": 9.0,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "sword",
+      "attack_speed": 1.333,
+      "lotr_ticks": 15,
+      "mob_ticks": 20,
+      "reach": 0.0,
+      "knockback": 0,
+      "sweep": true
+    }
   },
   {
     "id": "rivendell_bow",
-    "kind": "item",
+    "kind": "bow",
     "durability": 1050,
     "enchant": 4,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "ranged": {
+      "draw_time": 20,
+      "damage_factor": 1.0
+    }
   },
   {
     "id": "rohirric_bow",
-    "kind": "item",
+    "kind": "bow",
     "durability": 450,
     "enchant": 3,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "ranged": {
+      "draw_time": 20,
+      "damage_factor": 1.0
+    }
   },
   {
     "id": "rolling_pin",
@@ -7549,7 +9077,16 @@
     "enchant": 15,
     "damage": 4.0,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "sword",
+      "attack_speed": 1.333,
+      "lotr_ticks": 15,
+      "mob_ticks": 20,
+      "reach": 0.0,
+      "knockback": 0,
+      "sweep": true
+    }
   },
   {
     "id": "ruby",
@@ -7597,7 +9134,16 @@
     "enchant": 7,
     "damage": 8.0,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "hammer",
+      "attack_speed": 0.909,
+      "lotr_ticks": 22,
+      "mob_ticks": 30,
+      "reach": 0.0,
+      "knockback": 1,
+      "sweep": false
+    }
   },
   {
     "id": "black_uruk_cleaver",
@@ -7606,7 +9152,16 @@
     "enchant": 6,
     "damage": 7.0,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "sword",
+      "attack_speed": 1.333,
+      "lotr_ticks": 15,
+      "mob_ticks": 20,
+      "reach": 0.0,
+      "knockback": 0,
+      "sweep": true
+    }
   },
   {
     "id": "half_troll_scimitar",
@@ -7615,7 +9170,16 @@
     "enchant": 5,
     "damage": 6.5,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "sword",
+      "attack_speed": 1.333,
+      "lotr_ticks": 15,
+      "mob_ticks": 20,
+      "reach": 0.0,
+      "knockback": 0,
+      "sweep": true
+    }
   },
   {
     "id": "umbaric_scimitar",
@@ -7624,7 +9188,16 @@
     "enchant": 10,
     "damage": 6.5,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "sword",
+      "attack_speed": 1.333,
+      "lotr_ticks": 15,
+      "mob_ticks": 20,
+      "reach": 0.0,
+      "knockback": 0,
+      "sweep": true
+    }
   },
   {
     "id": "mordor_scimitar",
@@ -7633,7 +9206,16 @@
     "enchant": 7,
     "damage": 6.5,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "sword",
+      "attack_speed": 1.333,
+      "lotr_ticks": 15,
+      "mob_ticks": 20,
+      "reach": 0.0,
+      "knockback": 0,
+      "sweep": true
+    }
   },
   {
     "id": "uruk_cleaver",
@@ -7642,7 +9224,16 @@
     "enchant": 5,
     "damage": 7.0,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "sword",
+      "attack_speed": 1.333,
+      "lotr_ticks": 15,
+      "mob_ticks": 20,
+      "reach": 0.0,
+      "knockback": 0,
+      "sweep": true
+    }
   },
   {
     "id": "uruk_berserker_cleaver",
@@ -7651,7 +9242,16 @@
     "enchant": 5,
     "damage": 7.0,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "sword",
+      "attack_speed": 1.333,
+      "lotr_ticks": 15,
+      "mob_ticks": 20,
+      "reach": 0.0,
+      "knockback": 0,
+      "sweep": true
+    }
   },
   {
     "id": "red_grape_seeds",
@@ -7846,7 +9446,16 @@
     "enchant": 8,
     "damage": 5.5,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "spear",
+      "attack_speed": 1.111,
+      "lotr_ticks": 18,
+      "mob_ticks": 24,
+      "reach": 1.5,
+      "knockback": 0,
+      "sweep": false
+    }
   },
   {
     "id": "arnorian_spear",
@@ -7855,7 +9464,16 @@
     "enchant": 10,
     "damage": 5.5,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "spear",
+      "attack_speed": 1.111,
+      "lotr_ticks": 18,
+      "mob_ticks": 24,
+      "reach": 1.5,
+      "knockback": 0,
+      "sweep": false
+    }
   },
   {
     "id": "black_n_men_rean_spear",
@@ -7864,7 +9482,16 @@
     "enchant": 10,
     "damage": 5.5,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "spear",
+      "attack_speed": 1.111,
+      "lotr_ticks": 18,
+      "mob_ticks": 24,
+      "reach": 1.5,
+      "knockback": 0,
+      "sweep": false
+    }
   },
   {
     "id": "black_uruk_spear",
@@ -7873,7 +9500,16 @@
     "enchant": 6,
     "damage": 6.0,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "spear",
+      "attack_speed": 1.111,
+      "lotr_ticks": 18,
+      "mob_ticks": 24,
+      "reach": 1.5,
+      "knockback": 0,
+      "sweep": false
+    }
   },
   {
     "id": "spear_of_bladorthin",
@@ -7882,7 +9518,16 @@
     "enchant": 10,
     "damage": 6.0,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "spear",
+      "attack_speed": 1.111,
+      "lotr_ticks": 18,
+      "mob_ticks": 24,
+      "reach": 1.5,
+      "knockback": 0,
+      "sweep": false
+    }
   },
   {
     "id": "blue_dwarven_spear",
@@ -7891,7 +9536,16 @@
     "enchant": 12,
     "damage": 6.0,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "spear",
+      "attack_speed": 1.111,
+      "lotr_ticks": 18,
+      "mob_ticks": 24,
+      "reach": 1.5,
+      "knockback": 0,
+      "sweep": false
+    }
   },
   {
     "id": "bronze_spear",
@@ -7900,7 +9554,16 @@
     "enchant": 10,
     "damage": 4.5,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "spear",
+      "attack_speed": 1.111,
+      "lotr_ticks": 18,
+      "mob_ticks": 24,
+      "reach": 1.5,
+      "knockback": 0,
+      "sweep": false
+    }
   },
   {
     "id": "corsair_harpoon",
@@ -7909,7 +9572,16 @@
     "enchant": 10,
     "damage": 5.5,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "spear",
+      "attack_speed": 1.111,
+      "lotr_ticks": 18,
+      "mob_ticks": 24,
+      "reach": 1.5,
+      "knockback": 0,
+      "sweep": false
+    }
   },
   {
     "id": "dalish_spear",
@@ -7918,7 +9590,16 @@
     "enchant": 10,
     "damage": 5.5,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "spear",
+      "attack_speed": 1.111,
+      "lotr_ticks": 18,
+      "mob_ticks": 24,
+      "reach": 1.5,
+      "knockback": 0,
+      "sweep": false
+    }
   },
   {
     "id": "dol_guldur_spear",
@@ -7927,7 +9608,16 @@
     "enchant": 10,
     "damage": 5.5,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "spear",
+      "attack_speed": 1.111,
+      "lotr_ticks": 18,
+      "mob_ticks": 24,
+      "reach": 1.5,
+      "knockback": 0,
+      "sweep": false
+    }
   },
   {
     "id": "dwarven_spear",
@@ -7936,7 +9626,16 @@
     "enchant": 10,
     "damage": 6.0,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "spear",
+      "attack_speed": 1.111,
+      "lotr_ticks": 18,
+      "mob_ticks": 24,
+      "reach": 1.5,
+      "knockback": 0,
+      "sweep": false
+    }
   },
   {
     "id": "galadhrim_spear",
@@ -7945,7 +9644,16 @@
     "enchant": 15,
     "damage": 6.0,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "spear",
+      "attack_speed": 1.111,
+      "lotr_ticks": 18,
+      "mob_ticks": 24,
+      "reach": 1.5,
+      "knockback": 0,
+      "sweep": false
+    }
   },
   {
     "id": "gondorian_spear",
@@ -7954,7 +9662,16 @@
     "enchant": 10,
     "damage": 5.5,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "spear",
+      "attack_speed": 1.111,
+      "lotr_ticks": 18,
+      "mob_ticks": 24,
+      "reach": 1.5,
+      "knockback": 0,
+      "sweep": false
+    }
   },
   {
     "id": "gundabad_uruk_spear",
@@ -7963,7 +9680,16 @@
     "enchant": 5,
     "damage": 6.0,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "spear",
+      "attack_speed": 1.111,
+      "lotr_ticks": 18,
+      "mob_ticks": 24,
+      "reach": 1.5,
+      "knockback": 0,
+      "sweep": false
+    }
   },
   {
     "id": "haradric_spear",
@@ -7972,7 +9698,16 @@
     "enchant": 10,
     "damage": 5.5,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "spear",
+      "attack_speed": 1.111,
+      "lotr_ticks": 18,
+      "mob_ticks": 24,
+      "reach": 1.5,
+      "knockback": 0,
+      "sweep": false
+    }
   },
   {
     "id": "lindon_spear",
@@ -7981,7 +9716,16 @@
     "enchant": 15,
     "damage": 6.0,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "spear",
+      "attack_speed": 1.111,
+      "lotr_ticks": 18,
+      "mob_ticks": 24,
+      "reach": 1.5,
+      "knockback": 0,
+      "sweep": false
+    }
   },
   {
     "id": "iron_spear",
@@ -7990,7 +9734,16 @@
     "enchant": 14,
     "damage": 5.0,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "spear",
+      "attack_speed": 1.111,
+      "lotr_ticks": 18,
+      "mob_ticks": 24,
+      "reach": 1.5,
+      "knockback": 0,
+      "sweep": false
+    }
   },
   {
     "id": "mithril_spear",
@@ -7999,7 +9752,16 @@
     "enchant": 8,
     "damage": 8.0,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "spear",
+      "attack_speed": 1.111,
+      "lotr_ticks": 18,
+      "mob_ticks": 24,
+      "reach": 1.5,
+      "knockback": 0,
+      "sweep": false
+    }
   },
   {
     "id": "morwaith_spear",
@@ -8008,7 +9770,16 @@
     "enchant": 10,
     "damage": 6.0,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "spear",
+      "attack_speed": 1.111,
+      "lotr_ticks": 18,
+      "mob_ticks": 24,
+      "reach": 1.5,
+      "knockback": 0,
+      "sweep": false
+    }
   },
   {
     "id": "umbaric_spear",
@@ -8017,7 +9788,16 @@
     "enchant": 10,
     "damage": 5.5,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "spear",
+      "attack_speed": 1.111,
+      "lotr_ticks": 18,
+      "mob_ticks": 24,
+      "reach": 1.5,
+      "knockback": 0,
+      "sweep": false
+    }
   },
   {
     "id": "mordor_spear",
@@ -8026,7 +9806,16 @@
     "enchant": 7,
     "damage": 5.5,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "spear",
+      "attack_speed": 1.111,
+      "lotr_ticks": 18,
+      "mob_ticks": 24,
+      "reach": 1.5,
+      "knockback": 0,
+      "sweep": false
+    }
   },
   {
     "id": "rh_nic_spear",
@@ -8035,7 +9824,16 @@
     "enchant": 10,
     "damage": 5.5,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "spear",
+      "attack_speed": 1.111,
+      "lotr_ticks": 18,
+      "mob_ticks": 24,
+      "reach": 1.5,
+      "knockback": 0,
+      "sweep": false
+    }
   },
   {
     "id": "rivendell_spear",
@@ -8044,7 +9842,16 @@
     "enchant": 15,
     "damage": 6.0,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "spear",
+      "attack_speed": 1.111,
+      "lotr_ticks": 18,
+      "mob_ticks": 24,
+      "reach": 1.5,
+      "knockback": 0,
+      "sweep": false
+    }
   },
   {
     "id": "rohirric_spear",
@@ -8053,7 +9860,16 @@
     "enchant": 10,
     "damage": 5.5,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "spear",
+      "attack_speed": 1.111,
+      "lotr_ticks": 18,
+      "mob_ticks": 24,
+      "reach": 1.5,
+      "knockback": 0,
+      "sweep": false
+    }
   },
   {
     "id": "stone_spear",
@@ -8062,7 +9878,16 @@
     "enchant": 5,
     "damage": 4.0,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "spear",
+      "attack_speed": 1.111,
+      "lotr_ticks": 18,
+      "mob_ticks": 24,
+      "reach": 1.5,
+      "knockback": 0,
+      "sweep": false
+    }
   },
   {
     "id": "taurethrim_spear",
@@ -8071,7 +9896,16 @@
     "enchant": 10,
     "damage": 5.5,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "spear",
+      "attack_speed": 1.111,
+      "lotr_ticks": 18,
+      "mob_ticks": 24,
+      "reach": 1.5,
+      "knockback": 0,
+      "sweep": false
+    }
   },
   {
     "id": "uruk_spear",
@@ -8080,7 +9914,16 @@
     "enchant": 5,
     "damage": 6.0,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "spear",
+      "attack_speed": 1.111,
+      "lotr_ticks": 18,
+      "mob_ticks": 24,
+      "reach": 1.5,
+      "knockback": 0,
+      "sweep": false
+    }
   },
   {
     "id": "utumno_spear",
@@ -8089,7 +9932,16 @@
     "enchant": 12,
     "damage": 6.5,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "spear",
+      "attack_speed": 1.111,
+      "lotr_ticks": 18,
+      "mob_ticks": 24,
+      "reach": 1.5,
+      "knockback": 0,
+      "sweep": false
+    }
   },
   {
     "id": "wood_elven_spear",
@@ -8098,7 +9950,16 @@
     "enchant": 15,
     "damage": 6.0,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "spear",
+      "attack_speed": 1.111,
+      "lotr_ticks": 18,
+      "mob_ticks": 24,
+      "reach": 1.5,
+      "knockback": 0,
+      "sweep": false
+    }
   },
   {
     "id": "sting",
@@ -8107,7 +9968,16 @@
     "enchant": 15,
     "damage": 5.0,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "dagger",
+      "attack_speed": 2.0,
+      "lotr_ticks": 10,
+      "mob_ticks": 13,
+      "reach": -0.75,
+      "knockback": 0,
+      "sweep": false
+    }
   },
   {
     "id": "straw_bed",
@@ -8144,7 +10014,16 @@
     "enchant": 8,
     "damage": 6.5,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "sword",
+      "attack_speed": 1.333,
+      "lotr_ticks": 15,
+      "mob_ticks": 20,
+      "reach": 0.0,
+      "knockback": 0,
+      "sweep": true
+    }
   },
   {
     "id": "arnorian_sword",
@@ -8153,7 +10032,16 @@
     "enchant": 10,
     "damage": 6.5,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "sword",
+      "attack_speed": 1.333,
+      "lotr_ticks": 15,
+      "mob_ticks": 20,
+      "reach": 0.0,
+      "knockback": 0,
+      "sweep": true
+    }
   },
   {
     "id": "black_n_men_rean_sword",
@@ -8162,7 +10050,16 @@
     "enchant": 10,
     "damage": 6.5,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "sword",
+      "attack_speed": 1.333,
+      "lotr_ticks": 15,
+      "mob_ticks": 20,
+      "reach": 0.0,
+      "knockback": 0,
+      "sweep": true
+    }
   },
   {
     "id": "blue_dwarven_sword",
@@ -8171,7 +10068,16 @@
     "enchant": 12,
     "damage": 7.0,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "sword",
+      "attack_speed": 1.333,
+      "lotr_ticks": 15,
+      "mob_ticks": 20,
+      "reach": 0.0,
+      "knockback": 0,
+      "sweep": true
+    }
   },
   {
     "id": "bronze_sword",
@@ -8180,7 +10086,16 @@
     "enchant": 10,
     "damage": 5.5,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "sword",
+      "attack_speed": 1.333,
+      "lotr_ticks": 15,
+      "mob_ticks": 20,
+      "reach": 0.0,
+      "knockback": 0,
+      "sweep": true
+    }
   },
   {
     "id": "corsair_eket",
@@ -8189,7 +10104,16 @@
     "enchant": 10,
     "damage": 6.5,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "sword",
+      "attack_speed": 1.333,
+      "lotr_ticks": 15,
+      "mob_ticks": 20,
+      "reach": 0.0,
+      "knockback": 0,
+      "sweep": true
+    }
   },
   {
     "id": "dalish_sword",
@@ -8198,7 +10122,16 @@
     "enchant": 10,
     "damage": 6.5,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "sword",
+      "attack_speed": 1.333,
+      "lotr_ticks": 15,
+      "mob_ticks": 20,
+      "reach": 0.0,
+      "knockback": 0,
+      "sweep": true
+    }
   },
   {
     "id": "dol_amroth_sword",
@@ -8207,7 +10140,16 @@
     "enchant": 10,
     "damage": 7.0,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "sword",
+      "attack_speed": 1.333,
+      "lotr_ticks": 15,
+      "mob_ticks": 20,
+      "reach": 0.0,
+      "knockback": 0,
+      "sweep": true
+    }
   },
   {
     "id": "dol_guldur_sword",
@@ -8216,7 +10158,16 @@
     "enchant": 10,
     "damage": 6.5,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "sword",
+      "attack_speed": 1.333,
+      "lotr_ticks": 15,
+      "mob_ticks": 20,
+      "reach": 0.0,
+      "knockback": 0,
+      "sweep": true
+    }
   },
   {
     "id": "dorwinion_elven_sword",
@@ -8225,7 +10176,16 @@
     "enchant": 15,
     "damage": 7.0,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "sword",
+      "attack_speed": 1.333,
+      "lotr_ticks": 15,
+      "mob_ticks": 20,
+      "reach": 0.0,
+      "knockback": 0,
+      "sweep": true
+    }
   },
   {
     "id": "dwarven_sword",
@@ -8234,7 +10194,16 @@
     "enchant": 10,
     "damage": 7.0,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "sword",
+      "attack_speed": 1.333,
+      "lotr_ticks": 15,
+      "mob_ticks": 20,
+      "reach": 0.0,
+      "knockback": 0,
+      "sweep": true
+    }
   },
   {
     "id": "galadhrim_sword",
@@ -8243,7 +10212,16 @@
     "enchant": 15,
     "damage": 7.0,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "sword",
+      "attack_speed": 1.333,
+      "lotr_ticks": 15,
+      "mob_ticks": 20,
+      "reach": 0.0,
+      "knockback": 0,
+      "sweep": true
+    }
   },
   {
     "id": "gondolinian_sword",
@@ -8252,7 +10230,16 @@
     "enchant": 15,
     "damage": 9.0,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "sword",
+      "attack_speed": 1.333,
+      "lotr_ticks": 15,
+      "mob_ticks": 20,
+      "reach": 0.0,
+      "knockback": 0,
+      "sweep": true
+    }
   },
   {
     "id": "gondorian_sword",
@@ -8261,7 +10248,16 @@
     "enchant": 10,
     "damage": 6.5,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "sword",
+      "attack_speed": 1.333,
+      "lotr_ticks": 15,
+      "mob_ticks": 20,
+      "reach": 0.0,
+      "knockback": 0,
+      "sweep": true
+    }
   },
   {
     "id": "gulfen_khopesh",
@@ -8270,7 +10266,16 @@
     "enchant": 10,
     "damage": 6.5,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "sword",
+      "attack_speed": 1.333,
+      "lotr_ticks": 15,
+      "mob_ticks": 20,
+      "reach": 0.0,
+      "knockback": 0,
+      "sweep": true
+    }
   },
   {
     "id": "gundabad_uruk_cleaver",
@@ -8279,7 +10284,16 @@
     "enchant": 5,
     "damage": 7.0,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "sword",
+      "attack_speed": 1.333,
+      "lotr_ticks": 15,
+      "mob_ticks": 20,
+      "reach": 0.0,
+      "knockback": 0,
+      "sweep": true
+    }
   },
   {
     "id": "haradric_sword",
@@ -8288,7 +10302,16 @@
     "enchant": 10,
     "damage": 6.5,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "sword",
+      "attack_speed": 1.333,
+      "lotr_ticks": 15,
+      "mob_ticks": 20,
+      "reach": 0.0,
+      "knockback": 0,
+      "sweep": true
+    }
   },
   {
     "id": "lindon_sword",
@@ -8297,7 +10320,16 @@
     "enchant": 15,
     "damage": 7.0,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "sword",
+      "attack_speed": 1.333,
+      "lotr_ticks": 15,
+      "mob_ticks": 20,
+      "reach": 0.0,
+      "knockback": 0,
+      "sweep": true
+    }
   },
   {
     "id": "mallorn_sword",
@@ -8306,7 +10338,16 @@
     "enchant": 15,
     "damage": 5.5,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "sword",
+      "attack_speed": 1.333,
+      "lotr_ticks": 15,
+      "mob_ticks": 20,
+      "reach": 0.0,
+      "knockback": 0,
+      "sweep": true
+    }
   },
   {
     "id": "mithril_sword",
@@ -8315,7 +10356,16 @@
     "enchant": 8,
     "damage": 9.0,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "sword",
+      "attack_speed": 1.333,
+      "lotr_ticks": 15,
+      "mob_ticks": 20,
+      "reach": 0.0,
+      "knockback": 0,
+      "sweep": true
+    }
   },
   {
     "id": "morwaith_sword",
@@ -8324,7 +10374,16 @@
     "enchant": 10,
     "damage": 5.5,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "sword",
+      "attack_speed": 1.333,
+      "lotr_ticks": 15,
+      "mob_ticks": 20,
+      "reach": 0.0,
+      "knockback": 0,
+      "sweep": true
+    }
   },
   {
     "id": "pelargir_eket",
@@ -8333,7 +10392,16 @@
     "enchant": 10,
     "damage": 6.5,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "sword",
+      "attack_speed": 1.333,
+      "lotr_ticks": 15,
+      "mob_ticks": 20,
+      "reach": 0.0,
+      "knockback": 0,
+      "sweep": true
+    }
   },
   {
     "id": "rh_nic_sword",
@@ -8342,7 +10410,16 @@
     "enchant": 10,
     "damage": 6.5,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "sword",
+      "attack_speed": 1.333,
+      "lotr_ticks": 15,
+      "mob_ticks": 20,
+      "reach": 0.0,
+      "knockback": 0,
+      "sweep": true
+    }
   },
   {
     "id": "rivendell_sword",
@@ -8351,7 +10428,16 @@
     "enchant": 15,
     "damage": 7.0,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "sword",
+      "attack_speed": 1.333,
+      "lotr_ticks": 15,
+      "mob_ticks": 20,
+      "reach": 0.0,
+      "knockback": 0,
+      "sweep": true
+    }
   },
   {
     "id": "rohirric_sword",
@@ -8360,7 +10446,16 @@
     "enchant": 10,
     "damage": 6.5,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "sword",
+      "attack_speed": 1.333,
+      "lotr_ticks": 15,
+      "mob_ticks": 20,
+      "reach": 0.0,
+      "knockback": 0,
+      "sweep": true
+    }
   },
   {
     "id": "taurethrim_sword",
@@ -8369,7 +10464,16 @@
     "enchant": 10,
     "damage": 6.5,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "sword",
+      "attack_speed": 1.333,
+      "lotr_ticks": 15,
+      "mob_ticks": 20,
+      "reach": 0.0,
+      "knockback": 0,
+      "sweep": true
+    }
   },
   {
     "id": "utumno_sword",
@@ -8378,7 +10482,16 @@
     "enchant": 12,
     "damage": 7.5,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "sword",
+      "attack_speed": 1.333,
+      "lotr_ticks": 15,
+      "mob_ticks": 20,
+      "reach": 0.0,
+      "knockback": 0,
+      "sweep": true
+    }
   },
   {
     "id": "wood_elven_sword",
@@ -8387,7 +10500,16 @@
     "enchant": 15,
     "damage": 7.0,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "sword",
+      "attack_speed": 1.333,
+      "lotr_ticks": 15,
+      "mob_ticks": 20,
+      "reach": 0.0,
+      "knockback": 0,
+      "sweep": true
+    }
   },
   {
     "id": "taurethrim_amulet",
@@ -8498,7 +10620,16 @@
     "enchant": 10,
     "damage": 6.5,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "weapon": {
+      "type": "trident",
+      "attack_speed": 0.909,
+      "lotr_ticks": 22,
+      "mob_ticks": 30,
+      "reach": 1.5,
+      "knockback": 0,
+      "sweep": false
+    }
   },
   {
     "id": "troll_bone",
@@ -8552,11 +10683,15 @@
   },
   {
     "id": "uruk_crossbow",
-    "kind": "item",
+    "kind": "crossbow",
     "durability": 687,
     "enchant": 2,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "ranged": {
+      "draw_time": 20,
+      "damage_factor": 1.0
+    }
   },
   {
     "id": "uruk_steel_ingot",
@@ -8567,11 +10702,15 @@
   },
   {
     "id": "utumno_bow",
-    "kind": "item",
+    "kind": "bow",
     "durability": 600,
     "enchant": 3,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "ranged": {
+      "draw_time": 20,
+      "damage_factor": 1.0
+    }
   },
   {
     "id": "key_of_ice",

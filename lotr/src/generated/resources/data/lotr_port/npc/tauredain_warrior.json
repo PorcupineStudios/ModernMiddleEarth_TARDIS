@@ -13,6 +13,7 @@
   "gear": {
     "mainhand": [
       "lotr_port:taurethrim_dagger",
+      "lotr_port:taurethrim_pike",
       "lotr_port:taurethrim_spear",
       "lotr_port:taurethrim_sword"
     ],
