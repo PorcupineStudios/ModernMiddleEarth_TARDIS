@@ -60,6 +60,7 @@ public final class SpaceTravel {
         SpacePhysics.register();
         com.porcupinestudios.tardisrb.gravity.GravityScale.register();
         com.porcupinestudios.tardisrb.gravity.GravityDirection.register();
+        com.porcupinestudios.tardisrb.gravity.Tilt.register();
         PlanetMaps.register();
     }
 
@@ -219,6 +220,7 @@ public final class SpaceTravel {
 
     /** Sets gravity at once (no view turn) and the world velocity, and tells a player's client the speed. */
     private static Entity arrive(Entity e, net.minecraft.core.Direction down, Vec3 worldVelocity) {
+        com.porcupinestudios.tardisrb.gravity.Tilt.clear(e);
         com.porcupinestudios.tardisrb.gravity.GravityDirection.set(e, down, 0);
         GravityChangerAPI.setWorldVelocity(e, worldVelocity);
         e.hurtMarked = true;

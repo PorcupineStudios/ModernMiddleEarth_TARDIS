@@ -1,6 +1,7 @@
 package com.porcupinestudios.tardisrb.client;
 
 import com.porcupinestudios.tardisrb.TardisRB;
+import com.porcupinestudios.tardisrb.gravity.Tilt;
 import com.porcupinestudios.tardisrb.space.Orbits;
 import com.porcupinestudios.tardisrb.space.Planet;
 import com.porcupinestudios.tardisrb.space.StarSystem;
@@ -21,6 +22,11 @@ public final class ClientSpacePhysics {
 
     @SubscribeEvent
     public static void onTick(PlayerTickEvent.Post event) {
+        if (event.getEntity().level().isClientSide()) {
+            // every player this client sees leans (own view, others' bodies); the server does the same for aiming
+            Tilt.tick(event.getEntity(), GlobeRenderer.systemNear(event.getEntity().level(),
+                    event.getEntity().position()), GlobeRenderer.tuning());
+        }
         if (!(event.getEntity() instanceof LocalPlayer player) || player != Minecraft.getInstance().player
                 || !Orbits.moves(player)) {
             return;

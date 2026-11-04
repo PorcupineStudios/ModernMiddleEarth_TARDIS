@@ -99,6 +99,13 @@ public abstract class CameraMixin {
     )
     private void inject_setRotation(CallbackInfo ci) {
         if (this.entity != null) {
+            com.porcupinestudios.tardisrb.gravity.Tilt tilt = com.porcupinestudios.tardisrb.gravity.Tilt.of(this.entity);
+            if (tilt != null) {
+                float partial = Minecraft.getInstance().getTimer().getGameTimeDeltaPartialTick(true);
+                Quaternionf leaned = tilt.at(partial).mul(this.rotation);
+                this.rotation.set(leaned.x(), leaned.y(), leaned.z(), leaned.w());
+                return;
+            }
             Direction gravityDirection = GravityChangerAPI.getGravityDirection(this.entity);
             RotationAnimation animation = GravityChangerAPI.getRotationAnimation(entity);
             if (animation == null) {

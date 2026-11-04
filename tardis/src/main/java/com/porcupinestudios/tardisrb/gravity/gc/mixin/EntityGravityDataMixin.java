@@ -34,6 +34,19 @@ public abstract class EntityGravityDataMixin implements GravityHolder {
         tardis_rb$gravity = direction;
     }
 
+    @Unique
+    private com.porcupinestudios.tardisrb.gravity.Tilt tardis_rb$tilt;
+
+    @Override
+    public com.porcupinestudios.tardisrb.gravity.Tilt tardis_rb$tilt() {
+        return tardis_rb$tilt;
+    }
+
+    @Override
+    public void tardis_rb$setTilt(com.porcupinestudios.tardisrb.gravity.Tilt tilt) {
+        tardis_rb$tilt = tilt;
+    }
+
     @Override
     public RotationAnimation tardis_rb$animation() {
         Entity self = (Entity) (Object) this;

@@ -10,4 +10,9 @@ public interface GravityHolder {
 
     /** Client only: the turn animation when gravity changes (null on the server). */
     RotationAnimation tardis_rb$animation();
+
+    /** The free lean while floating in a solar system, or null ({@code gravity.Tilt}). */
+    com.porcupinestudios.tardisrb.gravity.Tilt tardis_rb$tilt();
+
+    void tardis_rb$setTilt(com.porcupinestudios.tardisrb.gravity.Tilt tilt);
 }

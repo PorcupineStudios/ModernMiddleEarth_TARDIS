@@ -97,7 +97,9 @@ public final class Orbits {
         // world directions; thrust pushes along the entity's own up.
         net.minecraft.core.Direction g = GravityChangerAPI.getGravityDirection(e);
         v = RotationUtil.vecPlayerToWorld(v, g);
-        v = v.add(pull.apply(v)).add(RotationUtil.vecPlayerToWorld(0.0, thrust * m.thrust(), 0.0, g));
+        com.porcupinestudios.tardisrb.gravity.Tilt tilt = com.porcupinestudios.tardisrb.gravity.Tilt.of(e);
+        Vec3 up = tilt != null ? tilt.toWorld(new Vec3(0, 1, 0)) : RotationUtil.vecPlayerToWorld(0.0, 1.0, 0.0, g);
+        v = v.add(pull.apply(v)).add(up.scale(thrust * m.thrust()));
         double speed = v.length();
         if (speed > m.maxSpeed()) {
             v = v.scale(m.maxSpeed() / speed);

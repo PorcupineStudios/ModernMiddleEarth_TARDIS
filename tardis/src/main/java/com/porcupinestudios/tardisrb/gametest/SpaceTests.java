@@ -1,6 +1,9 @@
 package com.porcupinestudios.tardisrb.gametest;
 
 import com.porcupinestudios.tardisrb.TardisRB;
+import com.porcupinestudios.tardisrb.gravity.Tilt;
+import com.porcupinestudios.tardisrb.gravity.gc.GravityHolder;
+import com.porcupinestudios.tardisrb.gravity.gc.util.RotationUtil;
 import com.porcupinestudios.tardisrb.progression.SkyLink;
 import com.porcupinestudios.tardisrb.progression.Tuning;
 import com.porcupinestudios.tardisrb.space.Planet;
@@ -253,6 +256,72 @@ public final class SpaceTests {
         helper.assertTrue(g.normalize().dot(new Vec3(-1, 0, 0)) > 0.999999, "doesn't pull towards the ball: " + g);
         helper.assertTrue(system.down(at, t) == net.minecraft.core.Direction.WEST, "down isn't west: "
                 + system.down(at, t));
+        helper.succeed();
+    }
+
+    /**
+     * Slice 3 (free tilt): floating, a player leans to the true pull at any angle and aims where it looks; a gravity
+     * turn underneath keeps the look; on blocks it goes back to six-way; with {@code free_tilt} off there is no lean.
+     */
+    @GameTest(template = "platform")
+    public static void freeTiltLeansToThePull(GameTestHelper helper) {
+        // the six-way frames agree with Gravity Changer's own vector turning
+        for (net.minecraft.core.Direction g : net.minecraft.core.Direction.values()) {
+            for (Vec3 v : List.of(new Vec3(1, 0, 0), new Vec3(0, 1, 0), new Vec3(0, 0, 1))) {
+                org.joml.Vector3f f = Tilt.frame(g).transform(new org.joml.Vector3f((float) v.x, (float) v.y,
+                        (float) v.z));
+                Vec3 r = RotationUtil.vecPlayerToWorld(v, g);
+                helper.assertTrue(new Vec3(f.x, f.y, f.z).distanceTo(r) < 1e-5, "frame " + g + " turns " + v
+                        + " to " + f + ", not " + r);
+            }
+        }
+        Planet p = bigPlanet(SkyLink.Wrap.TORUS);
+        Tuning.SpaceTuning t = Tuning.DEFAULT.space();
+        var system = testSystem(p, 0);
+        var body = system.body(p.id());
+        Vec3 out = new Vec3(2, 1, 0).normalize();
+        net.minecraft.world.entity.player.Player player = helper.makeMockPlayer(net.minecraft.world.level.GameType.SURVIVAL);
+        player.setPos(body.center().add(out.scale(body.entry() + 20)));
+        player.setOnGround(false);
+        ((GravityHolder) player).tardis_rb$setGravityField(system.down(player.position(), t));
+        helper.assertTrue(system.down(player.position(), t) == net.minecraft.core.Direction.WEST, "down isn't west");
+        player.setYRot(30);
+        player.setXRot(-20);
+        player.setYHeadRot(30);
+        player.yHeadRotO = 30;
+        for (int i = 0; i < 200; i++) {
+            Tilt.tick(player, system, t);
+        }
+        Tilt tilt = Tilt.of(player);
+        helper.assertTrue(tilt != null, "no lean while floating in a system");
+        Vec3 up = tilt.toWorld(new Vec3(0, 1, 0));
+        helper.assertTrue(up.dot(out) > 0.9999, "leans to " + up + ", not " + out);
+        Vec3 aim = player.getViewVector(1);
+        Vec3 expected = tilt.toWorld(RotationUtil.rotToVec(player.getYRot(), player.getXRot()));
+        helper.assertTrue(aim.distanceTo(expected) < 1e-3, "aims at " + aim + " but looks at " + expected);
+
+        Tilt.regravitate(player, net.minecraft.core.Direction.DOWN);
+        ((GravityHolder) player).tardis_rb$setGravityField(net.minecraft.core.Direction.DOWN);
+        helper.assertTrue(player.getViewVector(1).distanceTo(aim) < 1e-3, "a gravity turn moved the look from "
+                + aim + " to " + player.getViewVector(1));
+        helper.assertTrue(Tilt.of(player).toWorld(new Vec3(0, 1, 0)).dot(up) > 0.9999, "a gravity turn moved the lean");
+
+        player.setOnGround(true);
+        for (int i = 0; i < 200; i++) {
+            Tilt.tick(player, system, t);
+        }
+        Vec3 standing = Tilt.of(player).toWorld(new Vec3(0, 1, 0));
+        helper.assertTrue(standing.dot(new Vec3(0, 1, 0)) > 0.9999, "on blocks it still leans: " + standing);
+
+        var m = t.motion();
+        var off = new Tuning.SpaceTuning(t.gravity(), t.checkTicks(), t.landingSlowFall(), t.seamView(),
+                t.seamSegment(), t.seamLinger(), t.mapBudgetMs(), new Tuning.Motion(m.orbitSpeed(), m.thrust(),
+                        m.maxSpeed(), m.dragFree(), false, m.tiltSpeed()));
+        Tilt.tick(player, system, off);
+        helper.assertTrue(Tilt.of(player) == null, "leans with free_tilt off");
+        Tilt.tick(player, system, t);
+        Tilt.tick(player, null, t);
+        helper.assertTrue(Tilt.of(player) == null, "leans outside a system");
         helper.succeed();
     }
 }
