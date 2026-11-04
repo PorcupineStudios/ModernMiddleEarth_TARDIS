@@ -367,6 +367,14 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 9.0
+        },
+        "weapon": {
+          "meleeSpeed": 1.0,
+          "meleeReach": 1.0,
+          "knockback": 0,
+          "playerTicks": 15,
+          "mobTicks": 20,
+          "poisoned": false
         }
       }
     ]
@@ -530,6 +538,14 @@
         },
         "attributes": {
           "generic.attackDamage": 5.5
+        },
+        "weapon": {
+          "meleeSpeed": 1.0,
+          "meleeReach": 1.0,
+          "knockback": 0,
+          "playerTicks": 15,
+          "mobTicks": 20,
+          "poisoned": false
         }
       }
     ]
@@ -567,6 +583,14 @@
         },
         "attributes": {
           "generic.attackDamage": 6.0
+        },
+        "weapon": {
+          "meleeSpeed": 1.0,
+          "meleeReach": 1.0,
+          "knockback": 0,
+          "playerTicks": 15,
+          "mobTicks": 20,
+          "poisoned": false
         }
       }
     ]
@@ -604,6 +628,14 @@
         },
         "attributes": {
           "generic.attackDamage": 4.5
+        },
+        "weapon": {
+          "meleeSpeed": 1.0,
+          "meleeReach": 1.0,
+          "knockback": 0,
+          "playerTicks": 15,
+          "mobTicks": 20,
+          "poisoned": false
         }
       }
     ]
@@ -641,6 +673,14 @@
         },
         "attributes": {
           "generic.attackDamage": 5.5
+        },
+        "weapon": {
+          "meleeSpeed": 1.0,
+          "meleeReach": 1.0,
+          "knockback": 0,
+          "playerTicks": 15,
+          "mobTicks": 20,
+          "poisoned": false
         }
       }
     ]
@@ -678,6 +718,14 @@
         },
         "attributes": {
           "generic.attackDamage": 6.0
+        },
+        "weapon": {
+          "meleeSpeed": 1.0,
+          "meleeReach": 1.0,
+          "knockback": 0,
+          "playerTicks": 15,
+          "mobTicks": 20,
+          "poisoned": false
         }
       }
     ]
@@ -715,6 +763,14 @@
         },
         "attributes": {
           "generic.attackDamage": 6.0
+        },
+        "weapon": {
+          "meleeSpeed": 1.0,
+          "meleeReach": 1.0,
+          "knockback": 0,
+          "playerTicks": 15,
+          "mobTicks": 20,
+          "poisoned": false
         }
       }
     ]
@@ -752,6 +808,14 @@
         },
         "attributes": {
           "generic.attackDamage": 6.0
+        },
+        "weapon": {
+          "meleeSpeed": 1.0,
+          "meleeReach": 1.0,
+          "knockback": 0,
+          "playerTicks": 15,
+          "mobTicks": 20,
+          "poisoned": false
         }
       }
     ]
@@ -789,6 +853,14 @@
         },
         "attributes": {
           "generic.attackDamage": 4.5
+        },
+        "weapon": {
+          "meleeSpeed": 1.0,
+          "meleeReach": 1.0,
+          "knockback": 0,
+          "playerTicks": 15,
+          "mobTicks": 20,
+          "poisoned": false
         }
       }
     ]
@@ -826,6 +898,14 @@
         },
         "attributes": {
           "generic.attackDamage": 8.0
+        },
+        "weapon": {
+          "meleeSpeed": 1.0,
+          "meleeReach": 1.0,
+          "knockback": 0,
+          "playerTicks": 15,
+          "mobTicks": 20,
+          "poisoned": false
         }
       }
     ]
@@ -863,6 +943,14 @@
         },
         "attributes": {
           "generic.attackDamage": 5.5
+        },
+        "weapon": {
+          "meleeSpeed": 1.0,
+          "meleeReach": 1.0,
+          "knockback": 0,
+          "playerTicks": 15,
+          "mobTicks": 20,
+          "poisoned": false
         }
       }
     ]
@@ -900,6 +988,14 @@
         },
         "attributes": {
           "generic.attackDamage": 6.0
+        },
+        "weapon": {
+          "meleeSpeed": 1.0,
+          "meleeReach": 1.0,
+          "knockback": 0,
+          "playerTicks": 15,
+          "mobTicks": 20,
+          "poisoned": false
         }
       }
     ]
@@ -937,6 +1033,14 @@
         },
         "attributes": {
           "generic.attackDamage": 5.5
+        },
+        "weapon": {
+          "meleeSpeed": 1.0,
+          "meleeReach": 1.0,
+          "knockback": 0,
+          "playerTicks": 15,
+          "mobTicks": 20,
+          "poisoned": false
         }
       }
     ]
@@ -974,6 +1078,14 @@
         },
         "attributes": {
           "generic.attackDamage": 6.0
+        },
+        "weapon": {
+          "meleeSpeed": 1.0,
+          "meleeReach": 1.0,
+          "knockback": 0,
+          "playerTicks": 15,
+          "mobTicks": 20,
+          "poisoned": false
         }
       }
     ]
@@ -1011,6 +1123,14 @@
         },
         "attributes": {
           "generic.attackDamage": 6.0
+        },
+        "weapon": {
+          "meleeSpeed": 1.0,
+          "meleeReach": 1.0,
+          "knockback": 0,
+          "playerTicks": 15,
+          "mobTicks": 20,
+          "poisoned": false
         }
       }
     ]
@@ -1076,6 +1196,14 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 7.0
+        },
+        "weapon": {
+          "meleeSpeed": 1.0,
+          "meleeReach": 1.5,
+          "knockback": 0,
+          "playerTicks": 15,
+          "mobTicks": 20,
+          "poisoned": false
         }
       }
     ]
@@ -1819,6 +1947,14 @@
         },
         "attributes": {
           "generic.attackDamage": 8.5
+        },
+        "weapon": {
+          "meleeSpeed": 0.75,
+          "meleeReach": 1.0,
+          "knockback": 0,
+          "playerTicks": 20,
+          "mobTicks": 27,
+          "poisoned": false
         }
       }
     ]
@@ -1856,6 +1992,14 @@
         },
         "attributes": {
           "generic.attackDamage": 9.0
+        },
+        "weapon": {
+          "meleeSpeed": 0.75,
+          "meleeReach": 1.0,
+          "knockback": 0,
+          "playerTicks": 20,
+          "mobTicks": 27,
+          "poisoned": false
         }
       }
     ]
@@ -1893,6 +2037,14 @@
         },
         "attributes": {
           "generic.attackDamage": 9.0
+        },
+        "weapon": {
+          "meleeSpeed": 0.75,
+          "meleeReach": 1.0,
+          "knockback": 0,
+          "playerTicks": 20,
+          "mobTicks": 27,
+          "poisoned": false
         }
       }
     ]
@@ -1930,6 +2082,14 @@
         },
         "attributes": {
           "generic.attackDamage": 7.5
+        },
+        "weapon": {
+          "meleeSpeed": 0.75,
+          "meleeReach": 1.0,
+          "knockback": 0,
+          "playerTicks": 20,
+          "mobTicks": 27,
+          "poisoned": false
         }
       }
     ]
@@ -1967,6 +2127,14 @@
         },
         "attributes": {
           "generic.attackDamage": 8.5
+        },
+        "weapon": {
+          "meleeSpeed": 0.75,
+          "meleeReach": 1.0,
+          "knockback": 0,
+          "playerTicks": 20,
+          "mobTicks": 27,
+          "poisoned": false
         }
       }
     ]
@@ -2004,6 +2172,14 @@
         },
         "attributes": {
           "generic.attackDamage": 8.5
+        },
+        "weapon": {
+          "meleeSpeed": 0.75,
+          "meleeReach": 1.0,
+          "knockback": 0,
+          "playerTicks": 20,
+          "mobTicks": 27,
+          "poisoned": false
         }
       }
     ]
@@ -2041,6 +2217,14 @@
         },
         "attributes": {
           "generic.attackDamage": 8.5
+        },
+        "weapon": {
+          "meleeSpeed": 0.75,
+          "meleeReach": 1.0,
+          "knockback": 0,
+          "playerTicks": 20,
+          "mobTicks": 27,
+          "poisoned": false
         }
       }
     ]
@@ -2078,6 +2262,14 @@
         },
         "attributes": {
           "generic.attackDamage": 9.0
+        },
+        "weapon": {
+          "meleeSpeed": 0.75,
+          "meleeReach": 1.0,
+          "knockback": 0,
+          "playerTicks": 20,
+          "mobTicks": 27,
+          "poisoned": false
         }
       }
     ]
@@ -2115,6 +2307,14 @@
         },
         "attributes": {
           "generic.attackDamage": 9.0
+        },
+        "weapon": {
+          "meleeSpeed": 0.75,
+          "meleeReach": 1.0,
+          "knockback": 0,
+          "playerTicks": 20,
+          "mobTicks": 27,
+          "poisoned": false
         }
       }
     ]
@@ -2152,6 +2352,14 @@
         },
         "attributes": {
           "generic.attackDamage": 8.5
+        },
+        "weapon": {
+          "meleeSpeed": 0.75,
+          "meleeReach": 1.0,
+          "knockback": 0,
+          "playerTicks": 20,
+          "mobTicks": 27,
+          "poisoned": false
         }
       }
     ]
@@ -2189,6 +2397,14 @@
         },
         "attributes": {
           "generic.attackDamage": 8.0
+        },
+        "weapon": {
+          "meleeSpeed": 0.75,
+          "meleeReach": 1.0,
+          "knockback": 0,
+          "playerTicks": 20,
+          "mobTicks": 27,
+          "poisoned": false
         }
       }
     ]
@@ -2226,6 +2442,14 @@
         },
         "attributes": {
           "generic.attackDamage": 8.5
+        },
+        "weapon": {
+          "meleeSpeed": 0.75,
+          "meleeReach": 1.0,
+          "knockback": 0,
+          "playerTicks": 20,
+          "mobTicks": 27,
+          "poisoned": false
         }
       }
     ]
@@ -2263,6 +2487,14 @@
         },
         "attributes": {
           "generic.attackDamage": 11.0
+        },
+        "weapon": {
+          "meleeSpeed": 0.75,
+          "meleeReach": 1.0,
+          "knockback": 0,
+          "playerTicks": 20,
+          "mobTicks": 27,
+          "poisoned": false
         }
       }
     ]
@@ -2300,6 +2532,14 @@
         },
         "attributes": {
           "generic.attackDamage": 8.0
+        },
+        "weapon": {
+          "meleeSpeed": 0.75,
+          "meleeReach": 1.0,
+          "knockback": 0,
+          "playerTicks": 20,
+          "mobTicks": 27,
+          "poisoned": false
         }
       }
     ]
@@ -2337,6 +2577,14 @@
         },
         "attributes": {
           "generic.attackDamage": 8.5
+        },
+        "weapon": {
+          "meleeSpeed": 0.75,
+          "meleeReach": 1.0,
+          "knockback": 0,
+          "playerTicks": 20,
+          "mobTicks": 27,
+          "poisoned": false
         }
       }
     ]
@@ -2374,6 +2622,14 @@
         },
         "attributes": {
           "generic.attackDamage": 8.5
+        },
+        "weapon": {
+          "meleeSpeed": 0.75,
+          "meleeReach": 1.0,
+          "knockback": 0,
+          "playerTicks": 20,
+          "mobTicks": 27,
+          "poisoned": false
         }
       }
     ]
@@ -2411,6 +2667,14 @@
         },
         "attributes": {
           "generic.attackDamage": 8.5
+        },
+        "weapon": {
+          "meleeSpeed": 0.75,
+          "meleeReach": 1.0,
+          "knockback": 0,
+          "playerTicks": 20,
+          "mobTicks": 27,
+          "poisoned": false
         }
       }
     ]
@@ -2448,6 +2712,14 @@
         },
         "attributes": {
           "generic.attackDamage": 8.5
+        },
+        "weapon": {
+          "meleeSpeed": 0.75,
+          "meleeReach": 1.0,
+          "knockback": 0,
+          "playerTicks": 20,
+          "mobTicks": 27,
+          "poisoned": false
         }
       }
     ]
@@ -2485,6 +2757,14 @@
         },
         "attributes": {
           "generic.attackDamage": 9.0
+        },
+        "weapon": {
+          "meleeSpeed": 0.75,
+          "meleeReach": 1.0,
+          "knockback": 0,
+          "playerTicks": 20,
+          "mobTicks": 27,
+          "poisoned": false
         }
       }
     ]
@@ -2522,6 +2802,14 @@
         },
         "attributes": {
           "generic.attackDamage": 9.5
+        },
+        "weapon": {
+          "meleeSpeed": 0.75,
+          "meleeReach": 1.0,
+          "knockback": 0,
+          "playerTicks": 20,
+          "mobTicks": 27,
+          "poisoned": false
         }
       }
     ]
@@ -2643,7 +2931,15 @@
           16777215
         ],
         "toolClasses": {},
-        "attributes": {}
+        "attributes": {},
+        "weapon": {
+          "poisoned": false,
+          "rangedSpeed": 0.6666667,
+          "rangedDamage": 1.25,
+          "rangedKnockback": 0,
+          "drawTime": 30,
+          "damageFactor": 1.25
+        }
       }
     ]
   },
@@ -2739,7 +3035,15 @@
           16777215
         ],
         "toolClasses": {},
-        "attributes": {}
+        "attributes": {},
+        "weapon": {
+          "poisoned": false,
+          "rangedSpeed": 1.25,
+          "rangedDamage": 1.0,
+          "rangedKnockback": 0,
+          "drawTime": 16,
+          "damageFactor": 1.0
+        }
       }
     ]
   },
@@ -2803,6 +3107,14 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 8.5
+        },
+        "weapon": {
+          "meleeSpeed": 0.6818182,
+          "meleeReach": 1.0,
+          "knockback": 1,
+          "playerTicks": 22,
+          "mobTicks": 30,
+          "poisoned": false
         }
       }
     ]
@@ -7448,7 +7760,15 @@
           16777215
         ],
         "toolClasses": {},
-        "attributes": {}
+        "attributes": {},
+        "weapon": {
+          "poisoned": false,
+          "rangedSpeed": 0.4,
+          "rangedDamage": 2.0,
+          "rangedKnockback": 0,
+          "drawTime": 50,
+          "damageFactor": 1.0
+        }
       }
     ]
   },
@@ -7894,6 +8214,14 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 8.0
+        },
+        "weapon": {
+          "meleeSpeed": 0.6818182,
+          "meleeReach": 1.0,
+          "knockback": 1,
+          "playerTicks": 22,
+          "mobTicks": 30,
+          "poisoned": false
         }
       }
     ]
@@ -8063,6 +8391,14 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 1.0
+        },
+        "weapon": {
+          "meleeSpeed": 1.0,
+          "meleeReach": 1.0,
+          "knockback": 0,
+          "playerTicks": 15,
+          "mobTicks": 20,
+          "poisoned": false
         }
       }
     ]
@@ -8425,6 +8761,14 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 3.5
+        },
+        "weapon": {
+          "meleeSpeed": 1.5,
+          "meleeReach": 0.75,
+          "knockback": 0,
+          "playerTicks": 10,
+          "mobTicks": 13,
+          "poisoned": false
         }
       }
     ]
@@ -8460,6 +8804,14 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 3.5
+        },
+        "weapon": {
+          "meleeSpeed": 1.5,
+          "meleeReach": 0.75,
+          "knockback": 0,
+          "playerTicks": 10,
+          "mobTicks": 13,
+          "poisoned": false
         }
       }
     ]
@@ -8495,6 +8847,14 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 3.5
+        },
+        "weapon": {
+          "meleeSpeed": 1.5,
+          "meleeReach": 0.75,
+          "knockback": 0,
+          "playerTicks": 10,
+          "mobTicks": 13,
+          "poisoned": true
         }
       }
     ]
@@ -8530,6 +8890,14 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 3.5
+        },
+        "weapon": {
+          "meleeSpeed": 1.5,
+          "meleeReach": 0.75,
+          "knockback": 0,
+          "playerTicks": 10,
+          "mobTicks": 13,
+          "poisoned": false
         }
       }
     ]
@@ -8565,6 +8933,14 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 3.5
+        },
+        "weapon": {
+          "meleeSpeed": 1.5,
+          "meleeReach": 0.75,
+          "knockback": 0,
+          "playerTicks": 10,
+          "mobTicks": 13,
+          "poisoned": true
         }
       }
     ]
@@ -8600,6 +8976,14 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 4.0
+        },
+        "weapon": {
+          "meleeSpeed": 1.5,
+          "meleeReach": 0.75,
+          "knockback": 0,
+          "playerTicks": 10,
+          "mobTicks": 13,
+          "poisoned": false
         }
       }
     ]
@@ -8635,6 +9019,14 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 4.0
+        },
+        "weapon": {
+          "meleeSpeed": 1.5,
+          "meleeReach": 0.75,
+          "knockback": 0,
+          "playerTicks": 10,
+          "mobTicks": 13,
+          "poisoned": true
         }
       }
     ]
@@ -8670,6 +9062,14 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 3.5
+        },
+        "weapon": {
+          "meleeSpeed": 1.5,
+          "meleeReach": 0.75,
+          "knockback": 0,
+          "playerTicks": 10,
+          "mobTicks": 13,
+          "poisoned": false
         }
       }
     ]
@@ -8705,6 +9105,14 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 3.5
+        },
+        "weapon": {
+          "meleeSpeed": 1.5,
+          "meleeReach": 0.75,
+          "knockback": 0,
+          "playerTicks": 10,
+          "mobTicks": 13,
+          "poisoned": true
         }
       }
     ]
@@ -8740,6 +9148,14 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 4.0
+        },
+        "weapon": {
+          "meleeSpeed": 1.5,
+          "meleeReach": 0.75,
+          "knockback": 0,
+          "playerTicks": 10,
+          "mobTicks": 13,
+          "poisoned": false
         }
       }
     ]
@@ -8775,6 +9191,14 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 4.0
+        },
+        "weapon": {
+          "meleeSpeed": 1.5,
+          "meleeReach": 0.75,
+          "knockback": 0,
+          "playerTicks": 10,
+          "mobTicks": 13,
+          "poisoned": true
         }
       }
     ]
@@ -8810,6 +9234,14 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 4.0
+        },
+        "weapon": {
+          "meleeSpeed": 1.5,
+          "meleeReach": 0.75,
+          "knockback": 0,
+          "playerTicks": 10,
+          "mobTicks": 13,
+          "poisoned": false
         }
       }
     ]
@@ -8845,6 +9277,14 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 4.0
+        },
+        "weapon": {
+          "meleeSpeed": 1.5,
+          "meleeReach": 0.75,
+          "knockback": 0,
+          "playerTicks": 10,
+          "mobTicks": 13,
+          "poisoned": true
         }
       }
     ]
@@ -8880,6 +9320,14 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 2.5
+        },
+        "weapon": {
+          "meleeSpeed": 1.5,
+          "meleeReach": 0.75,
+          "knockback": 0,
+          "playerTicks": 10,
+          "mobTicks": 13,
+          "poisoned": false
         }
       }
     ]
@@ -8915,6 +9363,14 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 2.5
+        },
+        "weapon": {
+          "meleeSpeed": 1.5,
+          "meleeReach": 0.75,
+          "knockback": 0,
+          "playerTicks": 10,
+          "mobTicks": 13,
+          "poisoned": true
         }
       }
     ]
@@ -8950,6 +9406,14 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 3.5
+        },
+        "weapon": {
+          "meleeSpeed": 1.5,
+          "meleeReach": 0.75,
+          "knockback": 0,
+          "playerTicks": 10,
+          "mobTicks": 13,
+          "poisoned": false
         }
       }
     ]
@@ -8985,6 +9449,14 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 3.5
+        },
+        "weapon": {
+          "meleeSpeed": 1.5,
+          "meleeReach": 0.75,
+          "knockback": 0,
+          "playerTicks": 10,
+          "mobTicks": 13,
+          "poisoned": true
         }
       }
     ]
@@ -9020,6 +9492,14 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 3.5
+        },
+        "weapon": {
+          "meleeSpeed": 1.5,
+          "meleeReach": 0.75,
+          "knockback": 0,
+          "playerTicks": 10,
+          "mobTicks": 13,
+          "poisoned": false
         }
       }
     ]
@@ -9055,6 +9535,14 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 3.5
+        },
+        "weapon": {
+          "meleeSpeed": 1.5,
+          "meleeReach": 0.75,
+          "knockback": 0,
+          "playerTicks": 10,
+          "mobTicks": 13,
+          "poisoned": true
         }
       }
     ]
@@ -9090,6 +9578,14 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 4.0
+        },
+        "weapon": {
+          "meleeSpeed": 1.5,
+          "meleeReach": 0.75,
+          "knockback": 0,
+          "playerTicks": 10,
+          "mobTicks": 13,
+          "poisoned": false
         }
       }
     ]
@@ -9125,6 +9621,14 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 4.0
+        },
+        "weapon": {
+          "meleeSpeed": 1.5,
+          "meleeReach": 0.75,
+          "knockback": 0,
+          "playerTicks": 10,
+          "mobTicks": 13,
+          "poisoned": true
         }
       }
     ]
@@ -9160,6 +9664,14 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 3.5
+        },
+        "weapon": {
+          "meleeSpeed": 1.5,
+          "meleeReach": 0.75,
+          "knockback": 0,
+          "playerTicks": 10,
+          "mobTicks": 13,
+          "poisoned": false
         }
       }
     ]
@@ -9195,6 +9707,14 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 3.5
+        },
+        "weapon": {
+          "meleeSpeed": 1.5,
+          "meleeReach": 0.75,
+          "knockback": 0,
+          "playerTicks": 10,
+          "mobTicks": 13,
+          "poisoned": true
         }
       }
     ]
@@ -9230,6 +9750,14 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 4.0
+        },
+        "weapon": {
+          "meleeSpeed": 1.5,
+          "meleeReach": 0.75,
+          "knockback": 0,
+          "playerTicks": 10,
+          "mobTicks": 13,
+          "poisoned": false
         }
       }
     ]
@@ -9265,6 +9793,14 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 4.0
+        },
+        "weapon": {
+          "meleeSpeed": 1.5,
+          "meleeReach": 0.75,
+          "knockback": 0,
+          "playerTicks": 10,
+          "mobTicks": 13,
+          "poisoned": true
         }
       }
     ]
@@ -9300,6 +9836,14 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 4.0
+        },
+        "weapon": {
+          "meleeSpeed": 1.5,
+          "meleeReach": 0.75,
+          "knockback": 0,
+          "playerTicks": 10,
+          "mobTicks": 13,
+          "poisoned": false
         }
       }
     ]
@@ -9335,6 +9879,14 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 4.0
+        },
+        "weapon": {
+          "meleeSpeed": 1.5,
+          "meleeReach": 0.75,
+          "knockback": 0,
+          "playerTicks": 10,
+          "mobTicks": 13,
+          "poisoned": true
         }
       }
     ]
@@ -9370,6 +9922,14 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 4.0
+        },
+        "weapon": {
+          "meleeSpeed": 1.5,
+          "meleeReach": 0.75,
+          "knockback": 0,
+          "playerTicks": 10,
+          "mobTicks": 13,
+          "poisoned": false
         }
       }
     ]
@@ -9405,6 +9965,14 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 4.0
+        },
+        "weapon": {
+          "meleeSpeed": 1.5,
+          "meleeReach": 0.75,
+          "knockback": 0,
+          "playerTicks": 10,
+          "mobTicks": 13,
+          "poisoned": true
         }
       }
     ]
@@ -9440,6 +10008,14 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 3.5
+        },
+        "weapon": {
+          "meleeSpeed": 1.5,
+          "meleeReach": 0.75,
+          "knockback": 0,
+          "playerTicks": 10,
+          "mobTicks": 13,
+          "poisoned": false
         }
       }
     ]
@@ -9475,6 +10051,14 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 3.5
+        },
+        "weapon": {
+          "meleeSpeed": 1.5,
+          "meleeReach": 0.75,
+          "knockback": 0,
+          "playerTicks": 10,
+          "mobTicks": 13,
+          "poisoned": true
         }
       }
     ]
@@ -9510,6 +10094,14 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 4.0
+        },
+        "weapon": {
+          "meleeSpeed": 1.5,
+          "meleeReach": 0.75,
+          "knockback": 0,
+          "playerTicks": 10,
+          "mobTicks": 13,
+          "poisoned": false
         }
       }
     ]
@@ -9545,6 +10137,14 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 4.0
+        },
+        "weapon": {
+          "meleeSpeed": 1.5,
+          "meleeReach": 0.75,
+          "knockback": 0,
+          "playerTicks": 10,
+          "mobTicks": 13,
+          "poisoned": true
         }
       }
     ]
@@ -9580,6 +10180,14 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 3.5
+        },
+        "weapon": {
+          "meleeSpeed": 1.5,
+          "meleeReach": 0.75,
+          "knockback": 0,
+          "playerTicks": 10,
+          "mobTicks": 13,
+          "poisoned": false
         }
       }
     ]
@@ -9615,6 +10223,14 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 3.5
+        },
+        "weapon": {
+          "meleeSpeed": 1.5,
+          "meleeReach": 0.75,
+          "knockback": 0,
+          "playerTicks": 10,
+          "mobTicks": 13,
+          "poisoned": true
         }
       }
     ]
@@ -9650,6 +10266,14 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 3.5
+        },
+        "weapon": {
+          "meleeSpeed": 1.5,
+          "meleeReach": 0.75,
+          "knockback": 0,
+          "playerTicks": 10,
+          "mobTicks": 13,
+          "poisoned": false
         }
       }
     ]
@@ -9685,6 +10309,14 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 3.5
+        },
+        "weapon": {
+          "meleeSpeed": 1.5,
+          "meleeReach": 0.75,
+          "knockback": 0,
+          "playerTicks": 10,
+          "mobTicks": 13,
+          "poisoned": true
         }
       }
     ]
@@ -9720,6 +10352,14 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 4.0
+        },
+        "weapon": {
+          "meleeSpeed": 1.5,
+          "meleeReach": 0.75,
+          "knockback": 0,
+          "playerTicks": 10,
+          "mobTicks": 13,
+          "poisoned": false
         }
       }
     ]
@@ -9755,6 +10395,14 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 4.0
+        },
+        "weapon": {
+          "meleeSpeed": 1.5,
+          "meleeReach": 0.75,
+          "knockback": 0,
+          "playerTicks": 10,
+          "mobTicks": 13,
+          "poisoned": true
         }
       }
     ]
@@ -9790,6 +10438,14 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 3.0
+        },
+        "weapon": {
+          "meleeSpeed": 1.5,
+          "meleeReach": 0.75,
+          "knockback": 0,
+          "playerTicks": 10,
+          "mobTicks": 13,
+          "poisoned": false
         }
       }
     ]
@@ -9825,6 +10481,14 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 3.0
+        },
+        "weapon": {
+          "meleeSpeed": 1.5,
+          "meleeReach": 0.75,
+          "knockback": 0,
+          "playerTicks": 10,
+          "mobTicks": 13,
+          "poisoned": true
         }
       }
     ]
@@ -9860,6 +10524,14 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 6.0
+        },
+        "weapon": {
+          "meleeSpeed": 1.5,
+          "meleeReach": 0.75,
+          "knockback": 0,
+          "playerTicks": 10,
+          "mobTicks": 13,
+          "poisoned": false
         }
       }
     ]
@@ -9895,6 +10567,14 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 6.0
+        },
+        "weapon": {
+          "meleeSpeed": 1.5,
+          "meleeReach": 0.75,
+          "knockback": 0,
+          "playerTicks": 10,
+          "mobTicks": 13,
+          "poisoned": true
         }
       }
     ]
@@ -9930,6 +10610,14 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 3.0
+        },
+        "weapon": {
+          "meleeSpeed": 1.5,
+          "meleeReach": 0.75,
+          "knockback": 0,
+          "playerTicks": 10,
+          "mobTicks": 13,
+          "poisoned": false
         }
       }
     ]
@@ -9965,6 +10653,14 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 3.0
+        },
+        "weapon": {
+          "meleeSpeed": 1.5,
+          "meleeReach": 0.75,
+          "knockback": 0,
+          "playerTicks": 10,
+          "mobTicks": 13,
+          "poisoned": true
         }
       }
     ]
@@ -10000,6 +10696,14 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 3.5
+        },
+        "weapon": {
+          "meleeSpeed": 1.5,
+          "meleeReach": 0.75,
+          "knockback": 0,
+          "playerTicks": 10,
+          "mobTicks": 13,
+          "poisoned": false
         }
       }
     ]
@@ -10035,6 +10739,14 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 3.5
+        },
+        "weapon": {
+          "meleeSpeed": 1.5,
+          "meleeReach": 0.75,
+          "knockback": 0,
+          "playerTicks": 10,
+          "mobTicks": 13,
+          "poisoned": true
         }
       }
     ]
@@ -10070,6 +10782,14 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 3.5
+        },
+        "weapon": {
+          "meleeSpeed": 1.5,
+          "meleeReach": 0.75,
+          "knockback": 0,
+          "playerTicks": 10,
+          "mobTicks": 13,
+          "poisoned": false
         }
       }
     ]
@@ -10105,6 +10825,14 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 3.5
+        },
+        "weapon": {
+          "meleeSpeed": 1.5,
+          "meleeReach": 0.75,
+          "knockback": 0,
+          "playerTicks": 10,
+          "mobTicks": 13,
+          "poisoned": true
         }
       }
     ]
@@ -10140,6 +10868,14 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 3.5
+        },
+        "weapon": {
+          "meleeSpeed": 1.5,
+          "meleeReach": 0.75,
+          "knockback": 0,
+          "playerTicks": 10,
+          "mobTicks": 13,
+          "poisoned": false
         }
       }
     ]
@@ -10175,6 +10911,14 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 3.5
+        },
+        "weapon": {
+          "meleeSpeed": 1.5,
+          "meleeReach": 0.75,
+          "knockback": 0,
+          "playerTicks": 10,
+          "mobTicks": 13,
+          "poisoned": true
         }
       }
     ]
@@ -10210,6 +10954,14 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 4.0
+        },
+        "weapon": {
+          "meleeSpeed": 1.5,
+          "meleeReach": 0.75,
+          "knockback": 0,
+          "playerTicks": 10,
+          "mobTicks": 13,
+          "poisoned": false
         }
       }
     ]
@@ -10245,6 +10997,14 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 4.0
+        },
+        "weapon": {
+          "meleeSpeed": 1.5,
+          "meleeReach": 0.75,
+          "knockback": 0,
+          "playerTicks": 10,
+          "mobTicks": 13,
+          "poisoned": true
         }
       }
     ]
@@ -10280,6 +11040,14 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 3.5
+        },
+        "weapon": {
+          "meleeSpeed": 1.5,
+          "meleeReach": 0.75,
+          "knockback": 0,
+          "playerTicks": 10,
+          "mobTicks": 13,
+          "poisoned": false
         }
       }
     ]
@@ -10315,6 +11083,14 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 3.5
+        },
+        "weapon": {
+          "meleeSpeed": 1.5,
+          "meleeReach": 0.75,
+          "knockback": 0,
+          "playerTicks": 10,
+          "mobTicks": 13,
+          "poisoned": true
         }
       }
     ]
@@ -10350,6 +11126,14 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 3.5
+        },
+        "weapon": {
+          "meleeSpeed": 1.5,
+          "meleeReach": 0.75,
+          "knockback": 0,
+          "playerTicks": 10,
+          "mobTicks": 13,
+          "poisoned": false
         }
       }
     ]
@@ -10385,6 +11169,14 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 3.5
+        },
+        "weapon": {
+          "meleeSpeed": 1.5,
+          "meleeReach": 0.75,
+          "knockback": 0,
+          "playerTicks": 10,
+          "mobTicks": 13,
+          "poisoned": true
         }
       }
     ]
@@ -10420,6 +11212,14 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 4.0
+        },
+        "weapon": {
+          "meleeSpeed": 1.5,
+          "meleeReach": 0.75,
+          "knockback": 0,
+          "playerTicks": 10,
+          "mobTicks": 13,
+          "poisoned": false
         }
       }
     ]
@@ -10455,6 +11255,14 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 4.0
+        },
+        "weapon": {
+          "meleeSpeed": 1.5,
+          "meleeReach": 0.75,
+          "knockback": 0,
+          "playerTicks": 10,
+          "mobTicks": 13,
+          "poisoned": true
         }
       }
     ]
@@ -10490,6 +11298,14 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 4.5
+        },
+        "weapon": {
+          "meleeSpeed": 1.5,
+          "meleeReach": 0.75,
+          "knockback": 0,
+          "playerTicks": 10,
+          "mobTicks": 13,
+          "poisoned": false
         }
       }
     ]
@@ -10525,6 +11341,14 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 4.5
+        },
+        "weapon": {
+          "meleeSpeed": 1.5,
+          "meleeReach": 0.75,
+          "knockback": 0,
+          "playerTicks": 10,
+          "mobTicks": 13,
+          "poisoned": true
         }
       }
     ]
@@ -10560,6 +11384,14 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 4.0
+        },
+        "weapon": {
+          "meleeSpeed": 1.5,
+          "meleeReach": 0.75,
+          "knockback": 0,
+          "playerTicks": 10,
+          "mobTicks": 13,
+          "poisoned": false
         }
       }
     ]
@@ -10595,6 +11427,14 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 4.0
+        },
+        "weapon": {
+          "meleeSpeed": 1.5,
+          "meleeReach": 0.75,
+          "knockback": 0,
+          "playerTicks": 10,
+          "mobTicks": 13,
+          "poisoned": true
         }
       }
     ]
@@ -10626,7 +11466,15 @@
           16777215
         ],
         "toolClasses": {},
-        "attributes": {}
+        "attributes": {},
+        "weapon": {
+          "poisoned": false,
+          "rangedSpeed": 0.6666667,
+          "rangedDamage": 1.25,
+          "rangedKnockback": 0,
+          "drawTime": 30,
+          "damageFactor": 1.25
+        }
       }
     ]
   },
@@ -10983,7 +11831,15 @@
           16777215
         ],
         "toolClasses": {},
-        "attributes": {}
+        "attributes": {},
+        "weapon": {
+          "poisoned": false,
+          "rangedSpeed": 1.0,
+          "rangedDamage": 1.2,
+          "rangedKnockback": 0,
+          "drawTime": 20,
+          "damageFactor": 1.2
+        }
       }
     ]
   },
@@ -11018,6 +11874,14 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 4.0
+        },
+        "weapon": {
+          "meleeSpeed": 0.6818182,
+          "meleeReach": 1.0,
+          "knockback": 1,
+          "playerTicks": 22,
+          "mobTicks": 30,
+          "poisoned": false
         }
       }
     ]
@@ -11054,6 +11918,14 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 6.0
+        },
+        "weapon": {
+          "meleeSpeed": 0.6818182,
+          "meleeReach": 1.5,
+          "knockback": 0,
+          "playerTicks": 22,
+          "mobTicks": 30,
+          "poisoned": false
         }
       }
     ]
@@ -11458,7 +12330,15 @@
           16777215
         ],
         "toolClasses": {},
-        "attributes": {}
+        "attributes": {},
+        "weapon": {
+          "poisoned": false,
+          "rangedSpeed": 1.25,
+          "rangedDamage": 1.25,
+          "rangedKnockback": 0,
+          "drawTime": 16,
+          "damageFactor": 1.25
+        }
       }
     ]
   },
@@ -11797,6 +12677,14 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 4.0
+        },
+        "weapon": {
+          "meleeSpeed": 1.0,
+          "meleeReach": 1.0,
+          "knockback": 0,
+          "playerTicks": 15,
+          "mobTicks": 20,
+          "poisoned": false
         }
       }
     ]
@@ -11834,6 +12722,14 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 8.0
+        },
+        "weapon": {
+          "meleeSpeed": 1.0,
+          "meleeReach": 1.0,
+          "knockback": 0,
+          "playerTicks": 15,
+          "mobTicks": 20,
+          "poisoned": false
         }
       }
     ]
@@ -12018,6 +12914,14 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 9.0
+        },
+        "weapon": {
+          "meleeSpeed": 1.0,
+          "meleeReach": 1.0,
+          "knockback": 0,
+          "playerTicks": 15,
+          "mobTicks": 20,
+          "poisoned": false
         }
       }
     ]
@@ -12203,7 +13107,15 @@
           16777215
         ],
         "toolClasses": {},
-        "attributes": {}
+        "attributes": {},
+        "weapon": {
+          "poisoned": false,
+          "rangedSpeed": 1.0,
+          "rangedDamage": 1.125,
+          "rangedKnockback": 0,
+          "drawTime": 20,
+          "damageFactor": 1.125
+        }
       }
     ]
   },
@@ -12337,7 +13249,15 @@
           16777215
         ],
         "toolClasses": {},
-        "attributes": {}
+        "attributes": {},
+        "weapon": {
+          "poisoned": false,
+          "rangedSpeed": 0.6666667,
+          "rangedDamage": 1.2,
+          "rangedKnockback": 0,
+          "drawTime": 30,
+          "damageFactor": 1.2
+        }
       }
     ]
   },
@@ -12373,6 +13293,14 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 9.0
+        },
+        "weapon": {
+          "meleeSpeed": 0.5,
+          "meleeReach": 2.0,
+          "knockback": 0,
+          "playerTicks": 30,
+          "mobTicks": 40,
+          "poisoned": false
         }
       }
     ]
@@ -12408,6 +13336,14 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 8.5
+        },
+        "weapon": {
+          "meleeSpeed": 0.6818182,
+          "meleeReach": 1.0,
+          "knockback": 1,
+          "playerTicks": 22,
+          "mobTicks": 30,
+          "poisoned": false
         }
       }
     ]
@@ -12443,6 +13379,14 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 9.0
+        },
+        "weapon": {
+          "meleeSpeed": 0.6818182,
+          "meleeReach": 1.0,
+          "knockback": 1,
+          "playerTicks": 22,
+          "mobTicks": 30,
+          "poisoned": false
         }
       }
     ]
@@ -12478,6 +13422,14 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 9.0
+        },
+        "weapon": {
+          "meleeSpeed": 0.6818182,
+          "meleeReach": 1.0,
+          "knockback": 1,
+          "playerTicks": 22,
+          "mobTicks": 30,
+          "poisoned": false
         }
       }
     ]
@@ -12513,6 +13465,14 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 8.5
+        },
+        "weapon": {
+          "meleeSpeed": 0.6818182,
+          "meleeReach": 1.0,
+          "knockback": 1,
+          "playerTicks": 22,
+          "mobTicks": 30,
+          "poisoned": false
         }
       }
     ]
@@ -12548,6 +13508,14 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 9.0
+        },
+        "weapon": {
+          "meleeSpeed": 0.6818182,
+          "meleeReach": 1.0,
+          "knockback": 1,
+          "playerTicks": 22,
+          "mobTicks": 30,
+          "poisoned": false
         }
       }
     ]
@@ -12583,6 +13551,14 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 8.5
+        },
+        "weapon": {
+          "meleeSpeed": 0.6818182,
+          "meleeReach": 1.0,
+          "knockback": 1,
+          "playerTicks": 22,
+          "mobTicks": 30,
+          "poisoned": false
         }
       }
     ]
@@ -12618,6 +13594,14 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 9.0
+        },
+        "weapon": {
+          "meleeSpeed": 0.6818182,
+          "meleeReach": 1.0,
+          "knockback": 1,
+          "playerTicks": 22,
+          "mobTicks": 30,
+          "poisoned": false
         }
       }
     ]
@@ -12653,6 +13637,14 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 8.5
+        },
+        "weapon": {
+          "meleeSpeed": 0.6818182,
+          "meleeReach": 1.0,
+          "knockback": 1,
+          "playerTicks": 22,
+          "mobTicks": 30,
+          "poisoned": false
         }
       }
     ]
@@ -12688,6 +13680,14 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 11.0
+        },
+        "weapon": {
+          "meleeSpeed": 0.6818182,
+          "meleeReach": 1.0,
+          "knockback": 1,
+          "playerTicks": 22,
+          "mobTicks": 30,
+          "poisoned": false
         }
       }
     ]
@@ -12723,6 +13723,14 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 8.5
+        },
+        "weapon": {
+          "meleeSpeed": 0.6818182,
+          "meleeReach": 1.0,
+          "knockback": 1,
+          "playerTicks": 22,
+          "mobTicks": 30,
+          "poisoned": false
         }
       }
     ]
@@ -12758,6 +13766,14 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 8.5
+        },
+        "weapon": {
+          "meleeSpeed": 0.6818182,
+          "meleeReach": 1.0,
+          "knockback": 1,
+          "playerTicks": 22,
+          "mobTicks": 30,
+          "poisoned": false
         }
       }
     ]
@@ -12793,6 +13809,14 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 9.0
+        },
+        "weapon": {
+          "meleeSpeed": 0.6818182,
+          "meleeReach": 1.0,
+          "knockback": 1,
+          "playerTicks": 22,
+          "mobTicks": 30,
+          "poisoned": false
         }
       }
     ]
@@ -12828,6 +13852,14 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 9.5
+        },
+        "weapon": {
+          "meleeSpeed": 0.6818182,
+          "meleeReach": 1.0,
+          "knockback": 1,
+          "playerTicks": 22,
+          "mobTicks": 30,
+          "poisoned": false
         }
       }
     ]
@@ -15125,7 +16157,15 @@
           16777215
         ],
         "toolClasses": {},
-        "attributes": {}
+        "attributes": {},
+        "weapon": {
+          "poisoned": false,
+          "rangedSpeed": 1.25,
+          "rangedDamage": 1.25,
+          "rangedKnockback": 0,
+          "drawTime": 16,
+          "damageFactor": 1.25
+        }
       }
     ]
   },
@@ -16287,7 +17327,15 @@
           16777215
         ],
         "toolClasses": {},
-        "attributes": {}
+        "attributes": {},
+        "weapon": {
+          "poisoned": false,
+          "rangedSpeed": 0.4,
+          "rangedDamage": 2.0,
+          "rangedKnockback": 0,
+          "drawTime": 50,
+          "damageFactor": 1.0
+        }
       }
     ]
   },
@@ -16447,6 +17495,14 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 7.0
+        },
+        "weapon": {
+          "meleeSpeed": 0.5,
+          "meleeReach": 2.0,
+          "knockback": 1,
+          "playerTicks": 30,
+          "mobTicks": 40,
+          "poisoned": false
         }
       }
     ]
@@ -16484,6 +17540,14 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 6.5
+        },
+        "weapon": {
+          "meleeSpeed": 0.5,
+          "meleeReach": 2.0,
+          "knockback": 1,
+          "playerTicks": 30,
+          "mobTicks": 40,
+          "poisoned": false
         }
       }
     ]
@@ -16521,6 +17585,14 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 6.5
+        },
+        "weapon": {
+          "meleeSpeed": 0.5,
+          "meleeReach": 2.0,
+          "knockback": 1,
+          "playerTicks": 30,
+          "mobTicks": 40,
+          "poisoned": false
         }
       }
     ]
@@ -19144,6 +20216,14 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 7.0
+        },
+        "weapon": {
+          "meleeSpeed": 0.5,
+          "meleeReach": 2.0,
+          "knockback": 0,
+          "playerTicks": 30,
+          "mobTicks": 40,
+          "poisoned": false
         }
       }
     ]
@@ -19180,6 +20260,14 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 7.0
+        },
+        "weapon": {
+          "meleeSpeed": 0.5,
+          "meleeReach": 2.0,
+          "knockback": 0,
+          "playerTicks": 30,
+          "mobTicks": 40,
+          "poisoned": false
         }
       }
     ]
@@ -19216,6 +20304,14 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 7.0
+        },
+        "weapon": {
+          "meleeSpeed": 0.5,
+          "meleeReach": 2.0,
+          "knockback": 0,
+          "playerTicks": 30,
+          "mobTicks": 40,
+          "poisoned": false
         }
       }
     ]
@@ -19252,6 +20348,14 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 7.0
+        },
+        "weapon": {
+          "meleeSpeed": 0.5,
+          "meleeReach": 2.0,
+          "knockback": 0,
+          "playerTicks": 30,
+          "mobTicks": 40,
+          "poisoned": false
         }
       }
     ]
@@ -19288,6 +20392,14 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 7.0
+        },
+        "weapon": {
+          "meleeSpeed": 0.5,
+          "meleeReach": 2.0,
+          "knockback": 0,
+          "playerTicks": 30,
+          "mobTicks": 40,
+          "poisoned": false
         }
       }
     ]
@@ -19323,6 +20435,14 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 8.5
+        },
+        "weapon": {
+          "meleeSpeed": 0.6818182,
+          "meleeReach": 1.0,
+          "knockback": 1,
+          "playerTicks": 22,
+          "mobTicks": 30,
+          "poisoned": false
         }
       }
     ]
@@ -19358,6 +20478,14 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 8.5
+        },
+        "weapon": {
+          "meleeSpeed": 0.6818182,
+          "meleeReach": 1.0,
+          "knockback": 1,
+          "playerTicks": 22,
+          "mobTicks": 30,
+          "poisoned": false
         }
       }
     ]
@@ -19393,6 +20521,14 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 10.5
+        },
+        "weapon": {
+          "meleeSpeed": 0.6818182,
+          "meleeReach": 1.0,
+          "knockback": 1,
+          "playerTicks": 22,
+          "mobTicks": 30,
+          "poisoned": false
         }
       }
     ]
@@ -19428,6 +20564,14 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 8.5
+        },
+        "weapon": {
+          "meleeSpeed": 0.6818182,
+          "meleeReach": 1.0,
+          "knockback": 1,
+          "playerTicks": 22,
+          "mobTicks": 30,
+          "poisoned": false
         }
       }
     ]
@@ -19494,7 +20638,15 @@
           16777215
         ],
         "toolClasses": {},
-        "attributes": {}
+        "attributes": {},
+        "weapon": {
+          "poisoned": false,
+          "rangedSpeed": 1.0,
+          "rangedDamage": 1.0,
+          "rangedKnockback": 0,
+          "drawTime": 20,
+          "damageFactor": 1.0
+        }
       }
     ]
   },
@@ -19771,6 +20923,14 @@
         },
         "attributes": {
           "generic.attackDamage": 5.0
+        },
+        "weapon": {
+          "meleeSpeed": 1.0,
+          "meleeReach": 1.0,
+          "knockback": 0,
+          "playerTicks": 15,
+          "mobTicks": 20,
+          "poisoned": false
         }
       }
     ]
@@ -19809,6 +20969,14 @@
         },
         "attributes": {
           "generic.attackDamage": 5.0
+        },
+        "weapon": {
+          "meleeSpeed": 1.0,
+          "meleeReach": 1.0,
+          "knockback": 0,
+          "playerTicks": 15,
+          "mobTicks": 20,
+          "poisoned": false
         }
       }
     ]
@@ -19847,6 +21015,14 @@
         },
         "attributes": {
           "generic.attackDamage": 7.0
+        },
+        "weapon": {
+          "meleeSpeed": 1.0,
+          "meleeReach": 1.0,
+          "knockback": 0,
+          "playerTicks": 15,
+          "mobTicks": 20,
+          "poisoned": false
         }
       }
     ]
@@ -19943,7 +21119,15 @@
           16777215
         ],
         "toolClasses": {},
-        "attributes": {}
+        "attributes": {},
+        "weapon": {
+          "poisoned": false,
+          "rangedSpeed": 1.4285715,
+          "rangedDamage": 1.0,
+          "rangedKnockback": 0,
+          "drawTime": 14,
+          "damageFactor": 1.0
+        }
       }
     ]
   },
@@ -20033,7 +21217,15 @@
           16777215
         ],
         "toolClasses": {},
-        "attributes": {}
+        "attributes": {},
+        "weapon": {
+          "poisoned": false,
+          "rangedSpeed": 0.4,
+          "rangedDamage": 2.6,
+          "rangedKnockback": 0,
+          "drawTime": 50,
+          "damageFactor": 1.2999999523162842
+        }
       }
     ]
   },
@@ -20185,6 +21377,14 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 6.5
+        },
+        "weapon": {
+          "meleeSpeed": 1.0,
+          "meleeReach": 1.0,
+          "knockback": 0,
+          "playerTicks": 15,
+          "mobTicks": 20,
+          "poisoned": false
         }
       }
     ]
@@ -23506,7 +24706,15 @@
           16777215
         ],
         "toolClasses": {},
-        "attributes": {}
+        "attributes": {},
+        "weapon": {
+          "poisoned": false,
+          "rangedSpeed": 0.8,
+          "rangedDamage": 1.1,
+          "rangedKnockback": 0,
+          "drawTime": 25,
+          "damageFactor": 1.1
+        }
       }
     ]
   },
@@ -23794,7 +25002,15 @@
           16777215
         ],
         "toolClasses": {},
-        "attributes": {}
+        "attributes": {},
+        "weapon": {
+          "poisoned": false,
+          "rangedSpeed": 1.0,
+          "rangedDamage": 1.125,
+          "rangedKnockback": 0,
+          "drawTime": 20,
+          "damageFactor": 1.125
+        }
       }
     ]
   },
@@ -23829,6 +25045,14 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 6.5
+        },
+        "weapon": {
+          "meleeSpeed": 1.0,
+          "meleeReach": 1.0,
+          "knockback": 0,
+          "playerTicks": 15,
+          "mobTicks": 20,
+          "poisoned": false
         }
       }
     ]
@@ -24057,6 +25281,14 @@
         },
         "attributes": {
           "generic.attackDamage": 4.5
+        },
+        "weapon": {
+          "meleeSpeed": 1.0,
+          "meleeReach": 1.0,
+          "knockback": 0,
+          "playerTicks": 15,
+          "mobTicks": 20,
+          "poisoned": false
         }
       }
     ]
@@ -24094,6 +25326,14 @@
         },
         "attributes": {
           "generic.attackDamage": 5.0
+        },
+        "weapon": {
+          "meleeSpeed": 1.0,
+          "meleeReach": 1.0,
+          "knockback": 0,
+          "playerTicks": 15,
+          "mobTicks": 20,
+          "poisoned": false
         }
       }
     ]
@@ -24131,6 +25371,14 @@
         },
         "attributes": {
           "generic.attackDamage": 3.5
+        },
+        "weapon": {
+          "meleeSpeed": 1.0,
+          "meleeReach": 1.0,
+          "knockback": 0,
+          "playerTicks": 15,
+          "mobTicks": 20,
+          "poisoned": false
         }
       }
     ]
@@ -24168,6 +25416,14 @@
         },
         "attributes": {
           "generic.attackDamage": 4.5
+        },
+        "weapon": {
+          "meleeSpeed": 1.0,
+          "meleeReach": 1.0,
+          "knockback": 0,
+          "playerTicks": 15,
+          "mobTicks": 20,
+          "poisoned": false
         }
       }
     ]
@@ -24205,6 +25461,14 @@
         },
         "attributes": {
           "generic.attackDamage": 5.0
+        },
+        "weapon": {
+          "meleeSpeed": 1.0,
+          "meleeReach": 1.0,
+          "knockback": 0,
+          "playerTicks": 15,
+          "mobTicks": 20,
+          "poisoned": false
         }
       }
     ]
@@ -24242,6 +25506,14 @@
         },
         "attributes": {
           "generic.attackDamage": 5.0
+        },
+        "weapon": {
+          "meleeSpeed": 1.0,
+          "meleeReach": 1.0,
+          "knockback": 0,
+          "playerTicks": 15,
+          "mobTicks": 20,
+          "poisoned": false
         }
       }
     ]
@@ -24279,6 +25551,14 @@
         },
         "attributes": {
           "generic.attackDamage": 5.0
+        },
+        "weapon": {
+          "meleeSpeed": 1.0,
+          "meleeReach": 1.0,
+          "knockback": 0,
+          "playerTicks": 15,
+          "mobTicks": 20,
+          "poisoned": false
         }
       }
     ]
@@ -24316,6 +25596,14 @@
         },
         "attributes": {
           "generic.attackDamage": 3.5
+        },
+        "weapon": {
+          "meleeSpeed": 1.0,
+          "meleeReach": 1.0,
+          "knockback": 0,
+          "playerTicks": 15,
+          "mobTicks": 20,
+          "poisoned": false
         }
       }
     ]
@@ -24353,6 +25641,14 @@
         },
         "attributes": {
           "generic.attackDamage": 7.0
+        },
+        "weapon": {
+          "meleeSpeed": 1.0,
+          "meleeReach": 1.0,
+          "knockback": 0,
+          "playerTicks": 15,
+          "mobTicks": 20,
+          "poisoned": false
         }
       }
     ]
@@ -24390,6 +25686,14 @@
         },
         "attributes": {
           "generic.attackDamage": 4.5
+        },
+        "weapon": {
+          "meleeSpeed": 1.0,
+          "meleeReach": 1.0,
+          "knockback": 0,
+          "playerTicks": 15,
+          "mobTicks": 20,
+          "poisoned": false
         }
       }
     ]
@@ -24427,6 +25731,14 @@
         },
         "attributes": {
           "generic.attackDamage": 5.0
+        },
+        "weapon": {
+          "meleeSpeed": 1.0,
+          "meleeReach": 1.0,
+          "knockback": 0,
+          "playerTicks": 15,
+          "mobTicks": 20,
+          "poisoned": false
         }
       }
     ]
@@ -24464,6 +25776,14 @@
         },
         "attributes": {
           "generic.attackDamage": 4.5
+        },
+        "weapon": {
+          "meleeSpeed": 1.0,
+          "meleeReach": 1.0,
+          "knockback": 0,
+          "playerTicks": 15,
+          "mobTicks": 20,
+          "poisoned": false
         }
       }
     ]
@@ -24501,6 +25821,14 @@
         },
         "attributes": {
           "generic.attackDamage": 5.0
+        },
+        "weapon": {
+          "meleeSpeed": 1.0,
+          "meleeReach": 1.0,
+          "knockback": 0,
+          "playerTicks": 15,
+          "mobTicks": 20,
+          "poisoned": false
         }
       }
     ]
@@ -24538,6 +25866,14 @@
         },
         "attributes": {
           "generic.attackDamage": 5.0
+        },
+        "weapon": {
+          "meleeSpeed": 1.0,
+          "meleeReach": 1.0,
+          "knockback": 0,
+          "playerTicks": 15,
+          "mobTicks": 20,
+          "poisoned": false
         }
       }
     ]
@@ -24575,6 +25911,14 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 7.0
+        },
+        "weapon": {
+          "meleeSpeed": 0.5,
+          "meleeReach": 2.0,
+          "knockback": 0,
+          "playerTicks": 30,
+          "mobTicks": 40,
+          "poisoned": false
         }
       }
     ]
@@ -24612,6 +25956,14 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 6.5
+        },
+        "weapon": {
+          "meleeSpeed": 0.5,
+          "meleeReach": 2.0,
+          "knockback": 0,
+          "playerTicks": 30,
+          "mobTicks": 40,
+          "poisoned": false
         }
       }
     ]
@@ -24649,6 +26001,14 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 6.5
+        },
+        "weapon": {
+          "meleeSpeed": 0.5,
+          "meleeReach": 2.0,
+          "knockback": 0,
+          "playerTicks": 30,
+          "mobTicks": 40,
+          "poisoned": false
         }
       }
     ]
@@ -24686,6 +26046,14 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 7.0
+        },
+        "weapon": {
+          "meleeSpeed": 0.5,
+          "meleeReach": 2.0,
+          "knockback": 0,
+          "playerTicks": 30,
+          "mobTicks": 40,
+          "poisoned": false
         }
       }
     ]
@@ -24723,6 +26091,14 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 6.5
+        },
+        "weapon": {
+          "meleeSpeed": 0.5,
+          "meleeReach": 2.0,
+          "knockback": 0,
+          "playerTicks": 30,
+          "mobTicks": 40,
+          "poisoned": false
         }
       }
     ]
@@ -24760,6 +26136,14 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 7.0
+        },
+        "weapon": {
+          "meleeSpeed": 0.5,
+          "meleeReach": 2.0,
+          "knockback": 0,
+          "playerTicks": 30,
+          "mobTicks": 40,
+          "poisoned": false
         }
       }
     ]
@@ -24797,6 +26181,14 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 6.5
+        },
+        "weapon": {
+          "meleeSpeed": 0.5,
+          "meleeReach": 2.0,
+          "knockback": 0,
+          "playerTicks": 30,
+          "mobTicks": 40,
+          "poisoned": false
         }
       }
     ]
@@ -24834,6 +26226,14 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 6.5
+        },
+        "weapon": {
+          "meleeSpeed": 0.5,
+          "meleeReach": 2.0,
+          "knockback": 0,
+          "playerTicks": 30,
+          "mobTicks": 40,
+          "poisoned": false
         }
       }
     ]
@@ -24871,6 +26271,14 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 6.0
+        },
+        "weapon": {
+          "meleeSpeed": 0.5,
+          "meleeReach": 2.0,
+          "knockback": 0,
+          "playerTicks": 30,
+          "mobTicks": 40,
+          "poisoned": false
         }
       }
     ]
@@ -24908,6 +26316,14 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 6.5
+        },
+        "weapon": {
+          "meleeSpeed": 0.5,
+          "meleeReach": 2.0,
+          "knockback": 0,
+          "playerTicks": 30,
+          "mobTicks": 40,
+          "poisoned": false
         }
       }
     ]
@@ -24945,6 +26361,14 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 6.5
+        },
+        "weapon": {
+          "meleeSpeed": 0.5,
+          "meleeReach": 2.0,
+          "knockback": 0,
+          "playerTicks": 30,
+          "mobTicks": 40,
+          "poisoned": false
         }
       }
     ]
@@ -24982,6 +26406,14 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 6.5
+        },
+        "weapon": {
+          "meleeSpeed": 0.5,
+          "meleeReach": 2.0,
+          "knockback": 0,
+          "playerTicks": 30,
+          "mobTicks": 40,
+          "poisoned": false
         }
       }
     ]
@@ -25019,6 +26451,14 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 7.0
+        },
+        "weapon": {
+          "meleeSpeed": 0.5,
+          "meleeReach": 2.0,
+          "knockback": 0,
+          "playerTicks": 30,
+          "mobTicks": 40,
+          "poisoned": false
         }
       }
     ]
@@ -25211,6 +26651,14 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 6.5
+        },
+        "weapon": {
+          "meleeSpeed": 0.6818182,
+          "meleeReach": 1.5,
+          "knockback": 0,
+          "playerTicks": 22,
+          "mobTicks": 30,
+          "poisoned": false
         }
       }
     ]
@@ -25246,6 +26694,14 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 7.0
+        },
+        "weapon": {
+          "meleeSpeed": 0.6818182,
+          "meleeReach": 1.5,
+          "knockback": 0,
+          "playerTicks": 22,
+          "mobTicks": 30,
+          "poisoned": false
         }
       }
     ]
@@ -25281,6 +26737,14 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 7.0
+        },
+        "weapon": {
+          "meleeSpeed": 0.6818182,
+          "meleeReach": 1.5,
+          "knockback": 0,
+          "playerTicks": 22,
+          "mobTicks": 30,
+          "poisoned": false
         }
       }
     ]
@@ -25316,6 +26780,14 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 6.5
+        },
+        "weapon": {
+          "meleeSpeed": 0.6818182,
+          "meleeReach": 1.5,
+          "knockback": 0,
+          "playerTicks": 22,
+          "mobTicks": 30,
+          "poisoned": false
         }
       }
     ]
@@ -25351,6 +26823,14 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 6.5
+        },
+        "weapon": {
+          "meleeSpeed": 0.6818182,
+          "meleeReach": 1.5,
+          "knockback": 0,
+          "playerTicks": 22,
+          "mobTicks": 30,
+          "poisoned": false
         }
       }
     ]
@@ -25386,6 +26866,14 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 7.0
+        },
+        "weapon": {
+          "meleeSpeed": 0.6818182,
+          "meleeReach": 1.5,
+          "knockback": 0,
+          "playerTicks": 22,
+          "mobTicks": 30,
+          "poisoned": false
         }
       }
     ]
@@ -25421,6 +26909,14 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 7.0
+        },
+        "weapon": {
+          "meleeSpeed": 0.6818182,
+          "meleeReach": 1.5,
+          "knockback": 0,
+          "playerTicks": 22,
+          "mobTicks": 30,
+          "poisoned": false
         }
       }
     ]
@@ -25456,6 +26952,14 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 6.5
+        },
+        "weapon": {
+          "meleeSpeed": 0.6818182,
+          "meleeReach": 1.5,
+          "knockback": 0,
+          "playerTicks": 22,
+          "mobTicks": 30,
+          "poisoned": false
         }
       }
     ]
@@ -25759,7 +27263,15 @@
           16777215
         ],
         "toolClasses": {},
-        "attributes": {}
+        "attributes": {},
+        "weapon": {
+          "poisoned": false,
+          "rangedSpeed": 1.0,
+          "rangedDamage": 1.0,
+          "rangedKnockback": 0,
+          "drawTime": 20,
+          "damageFactor": 1.0
+        }
       }
     ]
   },
@@ -26014,7 +27526,15 @@
           16777215
         ],
         "toolClasses": {},
-        "attributes": {}
+        "attributes": {},
+        "weapon": {
+          "poisoned": false,
+          "rangedSpeed": 1.25,
+          "rangedDamage": 1.0,
+          "rangedKnockback": 0,
+          "drawTime": 16,
+          "damageFactor": 1.0
+        }
       }
     ]
   },
@@ -26081,6 +27601,14 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 9.0
+        },
+        "weapon": {
+          "meleeSpeed": 1.0,
+          "meleeReach": 1.0,
+          "knockback": 0,
+          "playerTicks": 15,
+          "mobTicks": 20,
+          "poisoned": false
         }
       }
     ]
@@ -26112,7 +27640,15 @@
           16777215
         ],
         "toolClasses": {},
-        "attributes": {}
+        "attributes": {},
+        "weapon": {
+          "poisoned": false,
+          "rangedSpeed": 1.25,
+          "rangedDamage": 1.25,
+          "rangedKnockback": 0,
+          "drawTime": 16,
+          "damageFactor": 1.25
+        }
       }
     ]
   },
@@ -26143,7 +27679,15 @@
           16777215
         ],
         "toolClasses": {},
-        "attributes": {}
+        "attributes": {},
+        "weapon": {
+          "poisoned": false,
+          "rangedSpeed": 1.0,
+          "rangedDamage": 1.0,
+          "rangedKnockback": 0,
+          "drawTime": 20,
+          "damageFactor": 1.0
+        }
       }
     ]
   },
@@ -26177,6 +27721,14 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 4.0
+        },
+        "weapon": {
+          "meleeSpeed": 1.0,
+          "meleeReach": 1.0,
+          "knockback": 0,
+          "playerTicks": 15,
+          "mobTicks": 20,
+          "poisoned": false
         }
       }
     ]
@@ -26375,6 +27927,14 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 8.0
+        },
+        "weapon": {
+          "meleeSpeed": 0.6818182,
+          "meleeReach": 1.0,
+          "knockback": 1,
+          "playerTicks": 22,
+          "mobTicks": 30,
+          "poisoned": false
         }
       }
     ]
@@ -26409,6 +27969,14 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 7.0
+        },
+        "weapon": {
+          "meleeSpeed": 1.0,
+          "meleeReach": 1.0,
+          "knockback": 0,
+          "playerTicks": 15,
+          "mobTicks": 20,
+          "poisoned": false
         }
       }
     ]
@@ -26443,6 +28011,14 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 6.5
+        },
+        "weapon": {
+          "meleeSpeed": 1.0,
+          "meleeReach": 1.0,
+          "knockback": 0,
+          "playerTicks": 15,
+          "mobTicks": 20,
+          "poisoned": false
         }
       }
     ]
@@ -26477,6 +28053,14 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 6.5
+        },
+        "weapon": {
+          "meleeSpeed": 1.0,
+          "meleeReach": 1.0,
+          "knockback": 0,
+          "playerTicks": 15,
+          "mobTicks": 20,
+          "poisoned": false
         }
       }
     ]
@@ -26511,6 +28095,14 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 6.5
+        },
+        "weapon": {
+          "meleeSpeed": 1.0,
+          "meleeReach": 1.0,
+          "knockback": 0,
+          "playerTicks": 15,
+          "mobTicks": 20,
+          "poisoned": false
         }
       }
     ]
@@ -26545,6 +28137,14 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 7.0
+        },
+        "weapon": {
+          "meleeSpeed": 1.0,
+          "meleeReach": 1.0,
+          "knockback": 0,
+          "playerTicks": 15,
+          "mobTicks": 20,
+          "poisoned": false
         }
       }
     ]
@@ -26579,6 +28179,14 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 7.0
+        },
+        "weapon": {
+          "meleeSpeed": 1.0,
+          "meleeReach": 1.0,
+          "knockback": 0,
+          "playerTicks": 15,
+          "mobTicks": 20,
+          "poisoned": false
         }
       }
     ]
@@ -26716,6 +28324,14 @@
         },
         "attributes": {
           "generic.attackDamage": 3.5
+        },
+        "weapon": {
+          "meleeSpeed": 1.0,
+          "meleeReach": 1.0,
+          "knockback": 0,
+          "playerTicks": 15,
+          "mobTicks": 20,
+          "poisoned": false
         }
       }
     ]
@@ -26753,6 +28369,14 @@
         },
         "attributes": {
           "generic.attackDamage": 4.0
+        },
+        "weapon": {
+          "meleeSpeed": 1.0,
+          "meleeReach": 1.0,
+          "knockback": 0,
+          "playerTicks": 15,
+          "mobTicks": 20,
+          "poisoned": false
         }
       }
     ]
@@ -26790,6 +28414,14 @@
         },
         "attributes": {
           "generic.attackDamage": 2.5
+        },
+        "weapon": {
+          "meleeSpeed": 1.0,
+          "meleeReach": 1.0,
+          "knockback": 0,
+          "playerTicks": 15,
+          "mobTicks": 20,
+          "poisoned": false
         }
       }
     ]
@@ -26827,6 +28459,14 @@
         },
         "attributes": {
           "generic.attackDamage": 3.5
+        },
+        "weapon": {
+          "meleeSpeed": 1.0,
+          "meleeReach": 1.0,
+          "knockback": 0,
+          "playerTicks": 15,
+          "mobTicks": 20,
+          "poisoned": false
         }
       }
     ]
@@ -26864,6 +28504,14 @@
         },
         "attributes": {
           "generic.attackDamage": 4.0
+        },
+        "weapon": {
+          "meleeSpeed": 1.0,
+          "meleeReach": 1.0,
+          "knockback": 0,
+          "playerTicks": 15,
+          "mobTicks": 20,
+          "poisoned": false
         }
       }
     ]
@@ -26901,6 +28549,14 @@
         },
         "attributes": {
           "generic.attackDamage": 4.0
+        },
+        "weapon": {
+          "meleeSpeed": 1.0,
+          "meleeReach": 1.0,
+          "knockback": 0,
+          "playerTicks": 15,
+          "mobTicks": 20,
+          "poisoned": false
         }
       }
     ]
@@ -26938,6 +28594,14 @@
         },
         "attributes": {
           "generic.attackDamage": 4.0
+        },
+        "weapon": {
+          "meleeSpeed": 1.0,
+          "meleeReach": 1.0,
+          "knockback": 0,
+          "playerTicks": 15,
+          "mobTicks": 20,
+          "poisoned": false
         }
       }
     ]
@@ -26975,6 +28639,14 @@
         },
         "attributes": {
           "generic.attackDamage": 2.5
+        },
+        "weapon": {
+          "meleeSpeed": 1.0,
+          "meleeReach": 1.0,
+          "knockback": 0,
+          "playerTicks": 15,
+          "mobTicks": 20,
+          "poisoned": false
         }
       }
     ]
@@ -27012,6 +28684,14 @@
         },
         "attributes": {
           "generic.attackDamage": 6.0
+        },
+        "weapon": {
+          "meleeSpeed": 1.0,
+          "meleeReach": 1.0,
+          "knockback": 0,
+          "playerTicks": 15,
+          "mobTicks": 20,
+          "poisoned": false
         }
       }
     ]
@@ -27049,6 +28729,14 @@
         },
         "attributes": {
           "generic.attackDamage": 3.5
+        },
+        "weapon": {
+          "meleeSpeed": 1.0,
+          "meleeReach": 1.0,
+          "knockback": 0,
+          "playerTicks": 15,
+          "mobTicks": 20,
+          "poisoned": false
         }
       }
     ]
@@ -27086,6 +28774,14 @@
         },
         "attributes": {
           "generic.attackDamage": 4.0
+        },
+        "weapon": {
+          "meleeSpeed": 1.0,
+          "meleeReach": 1.0,
+          "knockback": 0,
+          "playerTicks": 15,
+          "mobTicks": 20,
+          "poisoned": false
         }
       }
     ]
@@ -27123,6 +28819,14 @@
         },
         "attributes": {
           "generic.attackDamage": 3.5
+        },
+        "weapon": {
+          "meleeSpeed": 1.0,
+          "meleeReach": 1.0,
+          "knockback": 0,
+          "playerTicks": 15,
+          "mobTicks": 20,
+          "poisoned": false
         }
       }
     ]
@@ -27160,6 +28864,14 @@
         },
         "attributes": {
           "generic.attackDamage": 4.0
+        },
+        "weapon": {
+          "meleeSpeed": 1.0,
+          "meleeReach": 1.0,
+          "knockback": 0,
+          "playerTicks": 15,
+          "mobTicks": 20,
+          "poisoned": false
         }
       }
     ]
@@ -27197,6 +28909,14 @@
         },
         "attributes": {
           "generic.attackDamage": 4.0
+        },
+        "weapon": {
+          "meleeSpeed": 1.0,
+          "meleeReach": 1.0,
+          "knockback": 0,
+          "playerTicks": 15,
+          "mobTicks": 20,
+          "poisoned": false
         }
       }
     ]
@@ -34085,6 +35805,18 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 5.5
+        },
+        "weapon": {
+          "meleeSpeed": 0.8333333,
+          "meleeReach": 1.5,
+          "knockback": 0,
+          "playerTicks": 18,
+          "mobTicks": 24,
+          "poisoned": false,
+          "rangedSpeed": 1.0,
+          "rangedDamage": 1.925,
+          "rangedKnockback": 0,
+          "drawTime": 20
         }
       }
     ]
@@ -34120,6 +35852,18 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 5.5
+        },
+        "weapon": {
+          "meleeSpeed": 0.8333333,
+          "meleeReach": 1.5,
+          "knockback": 0,
+          "playerTicks": 18,
+          "mobTicks": 24,
+          "poisoned": false,
+          "rangedSpeed": 1.0,
+          "rangedDamage": 1.925,
+          "rangedKnockback": 0,
+          "drawTime": 20
         }
       }
     ]
@@ -34155,6 +35899,18 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 5.5
+        },
+        "weapon": {
+          "meleeSpeed": 0.8333333,
+          "meleeReach": 1.5,
+          "knockback": 0,
+          "playerTicks": 18,
+          "mobTicks": 24,
+          "poisoned": false,
+          "rangedSpeed": 1.0,
+          "rangedDamage": 1.925,
+          "rangedKnockback": 0,
+          "drawTime": 20
         }
       }
     ]
@@ -34190,6 +35946,18 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 6.0
+        },
+        "weapon": {
+          "meleeSpeed": 0.8333333,
+          "meleeReach": 1.5,
+          "knockback": 0,
+          "playerTicks": 18,
+          "mobTicks": 24,
+          "poisoned": false,
+          "rangedSpeed": 1.0,
+          "rangedDamage": 2.1,
+          "rangedKnockback": 0,
+          "drawTime": 20
         }
       }
     ]
@@ -34225,6 +35993,18 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 6.0
+        },
+        "weapon": {
+          "meleeSpeed": 0.8333333,
+          "meleeReach": 1.5,
+          "knockback": 0,
+          "playerTicks": 18,
+          "mobTicks": 24,
+          "poisoned": false,
+          "rangedSpeed": 1.0,
+          "rangedDamage": 2.1,
+          "rangedKnockback": 0,
+          "drawTime": 20
         }
       }
     ]
@@ -34260,6 +36040,18 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 6.0
+        },
+        "weapon": {
+          "meleeSpeed": 0.8333333,
+          "meleeReach": 1.5,
+          "knockback": 0,
+          "playerTicks": 18,
+          "mobTicks": 24,
+          "poisoned": false,
+          "rangedSpeed": 1.0,
+          "rangedDamage": 2.1,
+          "rangedKnockback": 0,
+          "drawTime": 20
         }
       }
     ]
@@ -34295,6 +36087,18 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 4.5
+        },
+        "weapon": {
+          "meleeSpeed": 0.8333333,
+          "meleeReach": 1.5,
+          "knockback": 0,
+          "playerTicks": 18,
+          "mobTicks": 24,
+          "poisoned": false,
+          "rangedSpeed": 1.0,
+          "rangedDamage": 1.5749999,
+          "rangedKnockback": 0,
+          "drawTime": 20
         }
       }
     ]
@@ -34330,6 +36134,18 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 5.5
+        },
+        "weapon": {
+          "meleeSpeed": 0.8333333,
+          "meleeReach": 1.5,
+          "knockback": 0,
+          "playerTicks": 18,
+          "mobTicks": 24,
+          "poisoned": false,
+          "rangedSpeed": 1.0,
+          "rangedDamage": 1.925,
+          "rangedKnockback": 0,
+          "drawTime": 20
         }
       }
     ]
@@ -34365,6 +36181,18 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 5.5
+        },
+        "weapon": {
+          "meleeSpeed": 0.8333333,
+          "meleeReach": 1.5,
+          "knockback": 0,
+          "playerTicks": 18,
+          "mobTicks": 24,
+          "poisoned": false,
+          "rangedSpeed": 1.0,
+          "rangedDamage": 1.925,
+          "rangedKnockback": 0,
+          "drawTime": 20
         }
       }
     ]
@@ -34400,6 +36228,18 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 5.5
+        },
+        "weapon": {
+          "meleeSpeed": 0.8333333,
+          "meleeReach": 1.5,
+          "knockback": 0,
+          "playerTicks": 18,
+          "mobTicks": 24,
+          "poisoned": false,
+          "rangedSpeed": 1.0,
+          "rangedDamage": 1.925,
+          "rangedKnockback": 0,
+          "drawTime": 20
         }
       }
     ]
@@ -34435,6 +36275,18 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 6.0
+        },
+        "weapon": {
+          "meleeSpeed": 0.8333333,
+          "meleeReach": 1.5,
+          "knockback": 0,
+          "playerTicks": 18,
+          "mobTicks": 24,
+          "poisoned": false,
+          "rangedSpeed": 1.0,
+          "rangedDamage": 2.1,
+          "rangedKnockback": 0,
+          "drawTime": 20
         }
       }
     ]
@@ -34470,6 +36322,18 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 6.0
+        },
+        "weapon": {
+          "meleeSpeed": 0.8333333,
+          "meleeReach": 1.5,
+          "knockback": 0,
+          "playerTicks": 18,
+          "mobTicks": 24,
+          "poisoned": false,
+          "rangedSpeed": 1.0,
+          "rangedDamage": 2.1,
+          "rangedKnockback": 0,
+          "drawTime": 20
         }
       }
     ]
@@ -34505,6 +36369,18 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 5.5
+        },
+        "weapon": {
+          "meleeSpeed": 0.8333333,
+          "meleeReach": 1.5,
+          "knockback": 0,
+          "playerTicks": 18,
+          "mobTicks": 24,
+          "poisoned": false,
+          "rangedSpeed": 1.0,
+          "rangedDamage": 1.925,
+          "rangedKnockback": 0,
+          "drawTime": 20
         }
       }
     ]
@@ -34540,6 +36416,18 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 6.0
+        },
+        "weapon": {
+          "meleeSpeed": 0.8333333,
+          "meleeReach": 1.5,
+          "knockback": 0,
+          "playerTicks": 18,
+          "mobTicks": 24,
+          "poisoned": false,
+          "rangedSpeed": 1.0,
+          "rangedDamage": 2.1,
+          "rangedKnockback": 0,
+          "drawTime": 20
         }
       }
     ]
@@ -34575,6 +36463,18 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 5.5
+        },
+        "weapon": {
+          "meleeSpeed": 0.8333333,
+          "meleeReach": 1.5,
+          "knockback": 0,
+          "playerTicks": 18,
+          "mobTicks": 24,
+          "poisoned": false,
+          "rangedSpeed": 1.0,
+          "rangedDamage": 1.925,
+          "rangedKnockback": 0,
+          "drawTime": 20
         }
       }
     ]
@@ -34610,6 +36510,18 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 6.0
+        },
+        "weapon": {
+          "meleeSpeed": 0.8333333,
+          "meleeReach": 1.5,
+          "knockback": 0,
+          "playerTicks": 18,
+          "mobTicks": 24,
+          "poisoned": false,
+          "rangedSpeed": 1.0,
+          "rangedDamage": 2.1,
+          "rangedKnockback": 0,
+          "drawTime": 20
         }
       }
     ]
@@ -34645,6 +36557,18 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 5.0
+        },
+        "weapon": {
+          "meleeSpeed": 0.8333333,
+          "meleeReach": 1.5,
+          "knockback": 0,
+          "playerTicks": 18,
+          "mobTicks": 24,
+          "poisoned": false,
+          "rangedSpeed": 1.0,
+          "rangedDamage": 1.75,
+          "rangedKnockback": 0,
+          "drawTime": 20
         }
       }
     ]
@@ -34680,6 +36604,18 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 8.0
+        },
+        "weapon": {
+          "meleeSpeed": 0.8333333,
+          "meleeReach": 1.5,
+          "knockback": 0,
+          "playerTicks": 18,
+          "mobTicks": 24,
+          "poisoned": false,
+          "rangedSpeed": 1.0,
+          "rangedDamage": 2.8,
+          "rangedKnockback": 0,
+          "drawTime": 20
         }
       }
     ]
@@ -34715,6 +36651,18 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 6.0
+        },
+        "weapon": {
+          "meleeSpeed": 0.8333333,
+          "meleeReach": 1.5,
+          "knockback": 0,
+          "playerTicks": 18,
+          "mobTicks": 24,
+          "poisoned": false,
+          "rangedSpeed": 1.0,
+          "rangedDamage": 2.1,
+          "rangedKnockback": 0,
+          "drawTime": 20
         }
       }
     ]
@@ -34750,6 +36698,18 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 5.5
+        },
+        "weapon": {
+          "meleeSpeed": 0.8333333,
+          "meleeReach": 1.5,
+          "knockback": 0,
+          "playerTicks": 18,
+          "mobTicks": 24,
+          "poisoned": false,
+          "rangedSpeed": 1.0,
+          "rangedDamage": 1.925,
+          "rangedKnockback": 0,
+          "drawTime": 20
         }
       }
     ]
@@ -34785,6 +36745,18 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 5.5
+        },
+        "weapon": {
+          "meleeSpeed": 0.8333333,
+          "meleeReach": 1.5,
+          "knockback": 0,
+          "playerTicks": 18,
+          "mobTicks": 24,
+          "poisoned": false,
+          "rangedSpeed": 1.0,
+          "rangedDamage": 1.925,
+          "rangedKnockback": 0,
+          "drawTime": 20
         }
       }
     ]
@@ -34820,6 +36792,18 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 5.5
+        },
+        "weapon": {
+          "meleeSpeed": 0.8333333,
+          "meleeReach": 1.5,
+          "knockback": 0,
+          "playerTicks": 18,
+          "mobTicks": 24,
+          "poisoned": false,
+          "rangedSpeed": 1.0,
+          "rangedDamage": 1.925,
+          "rangedKnockback": 0,
+          "drawTime": 20
         }
       }
     ]
@@ -34855,6 +36839,18 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 6.0
+        },
+        "weapon": {
+          "meleeSpeed": 0.8333333,
+          "meleeReach": 1.5,
+          "knockback": 0,
+          "playerTicks": 18,
+          "mobTicks": 24,
+          "poisoned": false,
+          "rangedSpeed": 1.0,
+          "rangedDamage": 2.1,
+          "rangedKnockback": 0,
+          "drawTime": 20
         }
       }
     ]
@@ -34890,6 +36886,18 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 5.5
+        },
+        "weapon": {
+          "meleeSpeed": 0.8333333,
+          "meleeReach": 1.5,
+          "knockback": 0,
+          "playerTicks": 18,
+          "mobTicks": 24,
+          "poisoned": false,
+          "rangedSpeed": 1.0,
+          "rangedDamage": 1.925,
+          "rangedKnockback": 0,
+          "drawTime": 20
         }
       }
     ]
@@ -34925,6 +36933,18 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 4.0
+        },
+        "weapon": {
+          "meleeSpeed": 0.8333333,
+          "meleeReach": 1.5,
+          "knockback": 0,
+          "playerTicks": 18,
+          "mobTicks": 24,
+          "poisoned": false,
+          "rangedSpeed": 1.0,
+          "rangedDamage": 1.4,
+          "rangedKnockback": 0,
+          "drawTime": 20
         }
       }
     ]
@@ -34960,6 +36980,18 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 5.5
+        },
+        "weapon": {
+          "meleeSpeed": 0.8333333,
+          "meleeReach": 1.5,
+          "knockback": 0,
+          "playerTicks": 18,
+          "mobTicks": 24,
+          "poisoned": false,
+          "rangedSpeed": 1.0,
+          "rangedDamage": 1.925,
+          "rangedKnockback": 0,
+          "drawTime": 20
         }
       }
     ]
@@ -34995,6 +37027,18 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 6.0
+        },
+        "weapon": {
+          "meleeSpeed": 0.8333333,
+          "meleeReach": 1.5,
+          "knockback": 0,
+          "playerTicks": 18,
+          "mobTicks": 24,
+          "poisoned": false,
+          "rangedSpeed": 1.0,
+          "rangedDamage": 2.1,
+          "rangedKnockback": 0,
+          "drawTime": 20
         }
       }
     ]
@@ -35030,6 +37074,18 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 6.5
+        },
+        "weapon": {
+          "meleeSpeed": 0.8333333,
+          "meleeReach": 1.5,
+          "knockback": 0,
+          "playerTicks": 18,
+          "mobTicks": 24,
+          "poisoned": false,
+          "rangedSpeed": 1.0,
+          "rangedDamage": 2.2749999,
+          "rangedKnockback": 0,
+          "drawTime": 20
         }
       }
     ]
@@ -35065,6 +37121,18 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 6.0
+        },
+        "weapon": {
+          "meleeSpeed": 0.8333333,
+          "meleeReach": 1.5,
+          "knockback": 0,
+          "playerTicks": 18,
+          "mobTicks": 24,
+          "poisoned": false,
+          "rangedSpeed": 1.0,
+          "rangedDamage": 2.1,
+          "rangedKnockback": 0,
+          "drawTime": 20
         }
       }
     ]
@@ -35103,6 +37171,14 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 5.0
+        },
+        "weapon": {
+          "meleeSpeed": 1.5,
+          "meleeReach": 0.75,
+          "knockback": 0,
+          "playerTicks": 10,
+          "mobTicks": 13,
+          "poisoned": false
         }
       }
     ]
@@ -41319,6 +43395,14 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 6.5
+        },
+        "weapon": {
+          "meleeSpeed": 1.0,
+          "meleeReach": 1.0,
+          "knockback": 0,
+          "playerTicks": 15,
+          "mobTicks": 20,
+          "poisoned": false
         }
       }
     ]
@@ -41353,6 +43437,14 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 6.5
+        },
+        "weapon": {
+          "meleeSpeed": 1.0,
+          "meleeReach": 1.0,
+          "knockback": 0,
+          "playerTicks": 15,
+          "mobTicks": 20,
+          "poisoned": false
         }
       }
     ]
@@ -41387,6 +43479,14 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 6.5
+        },
+        "weapon": {
+          "meleeSpeed": 1.0,
+          "meleeReach": 1.0,
+          "knockback": 0,
+          "playerTicks": 15,
+          "mobTicks": 20,
+          "poisoned": false
         }
       }
     ]
@@ -41421,6 +43521,14 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 7.0
+        },
+        "weapon": {
+          "meleeSpeed": 1.0,
+          "meleeReach": 1.0,
+          "knockback": 0,
+          "playerTicks": 15,
+          "mobTicks": 20,
+          "poisoned": false
         }
       }
     ]
@@ -41455,6 +43563,14 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 5.5
+        },
+        "weapon": {
+          "meleeSpeed": 1.0,
+          "meleeReach": 1.0,
+          "knockback": 0,
+          "playerTicks": 15,
+          "mobTicks": 20,
+          "poisoned": false
         }
       }
     ]
@@ -41489,6 +43605,14 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 6.5
+        },
+        "weapon": {
+          "meleeSpeed": 1.0,
+          "meleeReach": 1.0,
+          "knockback": 0,
+          "playerTicks": 15,
+          "mobTicks": 20,
+          "poisoned": false
         }
       }
     ]
@@ -41523,6 +43647,14 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 6.5
+        },
+        "weapon": {
+          "meleeSpeed": 1.0,
+          "meleeReach": 1.0,
+          "knockback": 0,
+          "playerTicks": 15,
+          "mobTicks": 20,
+          "poisoned": false
         }
       }
     ]
@@ -41557,6 +43689,14 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 7.0
+        },
+        "weapon": {
+          "meleeSpeed": 1.0,
+          "meleeReach": 1.0,
+          "knockback": 0,
+          "playerTicks": 15,
+          "mobTicks": 20,
+          "poisoned": false
         }
       }
     ]
@@ -41591,6 +43731,14 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 6.5
+        },
+        "weapon": {
+          "meleeSpeed": 1.0,
+          "meleeReach": 1.0,
+          "knockback": 0,
+          "playerTicks": 15,
+          "mobTicks": 20,
+          "poisoned": false
         }
       }
     ]
@@ -41625,6 +43773,14 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 7.0
+        },
+        "weapon": {
+          "meleeSpeed": 1.0,
+          "meleeReach": 1.0,
+          "knockback": 0,
+          "playerTicks": 15,
+          "mobTicks": 20,
+          "poisoned": false
         }
       }
     ]
@@ -41659,6 +43815,14 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 7.0
+        },
+        "weapon": {
+          "meleeSpeed": 1.0,
+          "meleeReach": 1.0,
+          "knockback": 0,
+          "playerTicks": 15,
+          "mobTicks": 20,
+          "poisoned": false
         }
       }
     ]
@@ -41693,6 +43857,14 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 7.0
+        },
+        "weapon": {
+          "meleeSpeed": 1.0,
+          "meleeReach": 1.0,
+          "knockback": 0,
+          "playerTicks": 15,
+          "mobTicks": 20,
+          "poisoned": false
         }
       }
     ]
@@ -41727,6 +43899,14 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 9.0
+        },
+        "weapon": {
+          "meleeSpeed": 1.0,
+          "meleeReach": 1.0,
+          "knockback": 0,
+          "playerTicks": 15,
+          "mobTicks": 20,
+          "poisoned": false
         }
       }
     ]
@@ -41761,6 +43941,14 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 6.5
+        },
+        "weapon": {
+          "meleeSpeed": 1.0,
+          "meleeReach": 1.0,
+          "knockback": 0,
+          "playerTicks": 15,
+          "mobTicks": 20,
+          "poisoned": false
         }
       }
     ]
@@ -41795,6 +43983,14 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 6.5
+        },
+        "weapon": {
+          "meleeSpeed": 1.0,
+          "meleeReach": 1.0,
+          "knockback": 0,
+          "playerTicks": 15,
+          "mobTicks": 20,
+          "poisoned": false
         }
       }
     ]
@@ -41829,6 +44025,14 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 7.0
+        },
+        "weapon": {
+          "meleeSpeed": 1.0,
+          "meleeReach": 1.0,
+          "knockback": 0,
+          "playerTicks": 15,
+          "mobTicks": 20,
+          "poisoned": false
         }
       }
     ]
@@ -41863,6 +44067,14 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 6.5
+        },
+        "weapon": {
+          "meleeSpeed": 1.0,
+          "meleeReach": 1.0,
+          "knockback": 0,
+          "playerTicks": 15,
+          "mobTicks": 20,
+          "poisoned": false
         }
       }
     ]
@@ -41897,6 +44109,14 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 7.0
+        },
+        "weapon": {
+          "meleeSpeed": 1.0,
+          "meleeReach": 1.0,
+          "knockback": 0,
+          "playerTicks": 15,
+          "mobTicks": 20,
+          "poisoned": false
         }
       }
     ]
@@ -41931,6 +44151,14 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 5.5
+        },
+        "weapon": {
+          "meleeSpeed": 1.0,
+          "meleeReach": 1.0,
+          "knockback": 0,
+          "playerTicks": 15,
+          "mobTicks": 20,
+          "poisoned": false
         }
       }
     ]
@@ -41965,6 +44193,14 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 9.0
+        },
+        "weapon": {
+          "meleeSpeed": 1.0,
+          "meleeReach": 1.0,
+          "knockback": 0,
+          "playerTicks": 15,
+          "mobTicks": 20,
+          "poisoned": false
         }
       }
     ]
@@ -41999,6 +44235,14 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 5.5
+        },
+        "weapon": {
+          "meleeSpeed": 1.0,
+          "meleeReach": 1.0,
+          "knockback": 0,
+          "playerTicks": 15,
+          "mobTicks": 20,
+          "poisoned": false
         }
       }
     ]
@@ -42033,6 +44277,14 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 6.5
+        },
+        "weapon": {
+          "meleeSpeed": 1.0,
+          "meleeReach": 1.0,
+          "knockback": 0,
+          "playerTicks": 15,
+          "mobTicks": 20,
+          "poisoned": false
         }
       }
     ]
@@ -42067,6 +44319,14 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 6.5
+        },
+        "weapon": {
+          "meleeSpeed": 1.0,
+          "meleeReach": 1.0,
+          "knockback": 0,
+          "playerTicks": 15,
+          "mobTicks": 20,
+          "poisoned": false
         }
       }
     ]
@@ -42101,6 +44361,14 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 7.0
+        },
+        "weapon": {
+          "meleeSpeed": 1.0,
+          "meleeReach": 1.0,
+          "knockback": 0,
+          "playerTicks": 15,
+          "mobTicks": 20,
+          "poisoned": false
         }
       }
     ]
@@ -42135,6 +44403,14 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 6.5
+        },
+        "weapon": {
+          "meleeSpeed": 1.0,
+          "meleeReach": 1.0,
+          "knockback": 0,
+          "playerTicks": 15,
+          "mobTicks": 20,
+          "poisoned": false
         }
       }
     ]
@@ -42169,6 +44445,14 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 6.5
+        },
+        "weapon": {
+          "meleeSpeed": 1.0,
+          "meleeReach": 1.0,
+          "knockback": 0,
+          "playerTicks": 15,
+          "mobTicks": 20,
+          "poisoned": false
         }
       }
     ]
@@ -42203,6 +44487,14 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 7.5
+        },
+        "weapon": {
+          "meleeSpeed": 1.0,
+          "meleeReach": 1.0,
+          "knockback": 0,
+          "playerTicks": 15,
+          "mobTicks": 20,
+          "poisoned": false
         }
       }
     ]
@@ -42237,6 +44529,14 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 7.0
+        },
+        "weapon": {
+          "meleeSpeed": 1.0,
+          "meleeReach": 1.0,
+          "knockback": 0,
+          "playerTicks": 15,
+          "mobTicks": 20,
+          "poisoned": false
         }
       }
     ]
@@ -42296,7 +44596,14 @@
           16777215
         ],
         "toolClasses": {},
-        "attributes": {}
+        "attributes": {},
+        "weapon": {
+          "poisoned": false,
+          "rangedSpeed": 4.0,
+          "rangedDamage": 0.5,
+          "rangedKnockback": 0,
+          "drawTime": 5
+        }
       }
     ]
   },
@@ -42446,7 +44753,13 @@
           16777215
         ],
         "toolClasses": {},
-        "attributes": {}
+        "attributes": {},
+        "weapon": {
+          "poisoned": false,
+          "rangedSpeed": 0.0,
+          "rangedDamage": 1.75,
+          "rangedKnockback": 0
+        }
       }
     ]
   },
@@ -42476,7 +44789,13 @@
           16777215
         ],
         "toolClasses": {},
-        "attributes": {}
+        "attributes": {},
+        "weapon": {
+          "poisoned": false,
+          "rangedSpeed": 0.0,
+          "rangedDamage": 1.375,
+          "rangedKnockback": 0
+        }
       }
     ]
   },
@@ -42506,7 +44825,13 @@
           16777215
         ],
         "toolClasses": {},
-        "attributes": {}
+        "attributes": {},
+        "weapon": {
+          "poisoned": false,
+          "rangedSpeed": 0.0,
+          "rangedDamage": 1.75,
+          "rangedKnockback": 0
+        }
       }
     ]
   },
@@ -42536,7 +44861,13 @@
           16777215
         ],
         "toolClasses": {},
-        "attributes": {}
+        "attributes": {},
+        "weapon": {
+          "poisoned": false,
+          "rangedSpeed": 0.0,
+          "rangedDamage": 1.5,
+          "rangedKnockback": 0
+        }
       }
     ]
   },
@@ -42566,7 +44897,13 @@
           16777215
         ],
         "toolClasses": {},
-        "attributes": {}
+        "attributes": {},
+        "weapon": {
+          "poisoned": false,
+          "rangedSpeed": 0.0,
+          "rangedDamage": 1.625,
+          "rangedKnockback": 0
+        }
       }
     ]
   },
@@ -42699,6 +45036,14 @@
         "toolClasses": {},
         "attributes": {
           "generic.attackDamage": 6.5
+        },
+        "weapon": {
+          "meleeSpeed": 0.6818182,
+          "meleeReach": 1.5,
+          "knockback": 0,
+          "playerTicks": 22,
+          "mobTicks": 30,
+          "poisoned": false
         }
       }
     ]
@@ -42890,7 +45235,15 @@
           16777215
         ],
         "toolClasses": {},
-        "attributes": {}
+        "attributes": {},
+        "weapon": {
+          "poisoned": false,
+          "rangedSpeed": 0.4,
+          "rangedDamage": 2.2,
+          "rangedKnockback": 0,
+          "drawTime": 50,
+          "damageFactor": 1.100000023841858
+        }
       }
     ]
   },
@@ -42950,7 +45303,15 @@
           16777215
         ],
         "toolClasses": {},
-        "attributes": {}
+        "attributes": {},
+        "weapon": {
+          "poisoned": false,
+          "rangedSpeed": 1.0,
+          "rangedDamage": 1.25,
+          "rangedKnockback": 0,
+          "drawTime": 20,
+          "damageFactor": 1.25
+        }
       }
     ]
   },
@@ -43115,6 +45476,14 @@
         },
         "attributes": {
           "generic.attackDamage": 5.5
+        },
+        "weapon": {
+          "meleeSpeed": 1.0,
+          "meleeReach": 1.0,
+          "knockback": 0,
+          "playerTicks": 15,
+          "mobTicks": 20,
+          "poisoned": false
         }
       }
     ]
