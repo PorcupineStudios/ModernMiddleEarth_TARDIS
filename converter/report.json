@@ -11,6 +11,7 @@
     "roads": 225,
     "tree_types": 95,
     "ore_features": 52,
+    "saplings": 34,
     "factions": 29,
     "npcs": 350,
     "npc_skins": 205,
@@ -912,7 +913,7 @@
     ]
   },
   "trees_as_stand_ins": {
-    "count": 95,
+    "count": 103,
     "entries": [
       "OAK_LARGE",
       "OAK",
@@ -1008,7 +1009,15 @@
       "REDWOOD_3",
       "REDWOOD_4",
       "REDWOOD_5",
-      "KANUKA"
+      "KANUKA",
+      "MALLORN_EXTREME_SAPLING",
+      "LEBETHRON_PARTY",
+      "BEECH_PARTY",
+      "MAPLE_PARTY",
+      "CHESTNUT_PARTY",
+      "WILLOW",
+      "LAIRELOSSE_LARGE",
+      "DRAGONBLOOD_HUGE"
     ]
   },
   "trees_not_exported": {

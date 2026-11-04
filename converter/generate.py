@@ -31,6 +31,7 @@ from npcs import Npcs  # noqa: E402
 from structures import Structures  # noqa: E402
 from quests import Quests  # noqa: E402
 from colonies import Colonies  # noqa: E402
+from saplings import Saplings  # noqa: E402
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 EXPORT = os.path.join(ROOT, "converter", "export")
@@ -866,7 +867,9 @@ class Gen:
         tabs = self.do_tabs()
         self.other_langs()
         self.write_tags()
-        world = World(self, load("world.json"), OUT, self.jar).run()
+        world_gen = World(self, load("world.json"), OUT, self.jar)
+        world = world_gen.run()
+        world.update(Saplings(self, DATA, self.jar, world_gen.trees).run())
         factions = FactionData(self, load("factions.json"), DATA, self.jar).run()
         npc_gen = Npcs(self, load("npcs.json"), DATA, ASSETS, self.jar)
         npcs = npc_gen.run()
