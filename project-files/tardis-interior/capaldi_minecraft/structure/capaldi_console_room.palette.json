@@ -1,0 +1,128 @@
+{
+ "offset": [
+  -15,
+  -4,
+  -15
+ ],
+ "size": [
+  31,
+  12,
+  26
+ ],
+ "palette": [
+  {
+   "Name": "tardis_rb:floor_plate",
+   "Properties": {}
+  },
+  {
+   "Name": "tardis_rb:wall_panel",
+   "Properties": {}
+  },
+  {
+   "Name": "tardis_rb:frame",
+   "Properties": {}
+  },
+  {
+   "Name": "tardis_rb:light_strip",
+   "Properties": {}
+  },
+  {
+   "Name": "tardis_rb:roundel_wall_lit",
+   "Properties": {}
+  },
+  {
+   "Name": "tardis_rb:roundel_wall",
+   "Properties": {}
+  },
+  {
+   "Name": "minecraft:bookshelf",
+   "Properties": {}
+  },
+  {
+   "Name": "tardis_rb:collision_post",
+   "Properties": {}
+  },
+  {
+   "Name": "tardis_rb:frame_stairs",
+   "Properties": {
+    "facing": "west",
+    "half": "top",
+    "shape": "straight",
+    "waterlogged": "false"
+   }
+  },
+  {
+   "Name": "tardis_rb:floor_plate_stairs",
+   "Properties": {
+    "facing": "west",
+    "half": "bottom",
+    "shape": "straight",
+    "waterlogged": "false"
+   }
+  },
+  {
+   "Name": "tardis_rb:frame_slab",
+   "Properties": {
+    "type": "bottom",
+    "waterlogged": "false"
+   }
+  },
+  {
+   "Name": "tardis_rb:frame_stairs",
+   "Properties": {
+    "facing": "north",
+    "half": "top",
+    "shape": "straight",
+    "waterlogged": "false"
+   }
+  },
+  {
+   "Name": "tardis_rb:frame_stairs",
+   "Properties": {
+    "facing": "south",
+    "half": "top",
+    "shape": "straight",
+    "waterlogged": "false"
+   }
+  },
+  {
+   "Name": "tardis_rb:grille_plate",
+   "Properties": {}
+  },
+  {
+   "Name": "tardis_rb:floor_plate_stairs",
+   "Properties": {
+    "facing": "south",
+    "half": "bottom",
+    "shape": "straight",
+    "waterlogged": "false"
+   }
+  },
+  {
+   "Name": "tardis_rb:collision_pillar",
+   "Properties": {}
+  },
+  {
+   "Name": "tardis_rb:floor_plate_stairs",
+   "Properties": {
+    "facing": "east",
+    "half": "bottom",
+    "shape": "straight",
+    "waterlogged": "false"
+   }
+  },
+  {
+   "Name": "tardis_rb:frame_stairs",
+   "Properties": {
+    "facing": "east",
+    "half": "top",
+    "shape": "straight",
+    "waterlogged": "false"
+   }
+  },
+  {
+   "Name": "minecraft:air",
+   "Properties": {}
+  }
+ ]
+}

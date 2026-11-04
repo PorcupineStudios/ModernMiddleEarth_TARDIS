@@ -1,0 +1,34 @@
+newmtl beams
+Kd 1 1 1
+map_Kd ../textures/beams.png
+map_Ke ../textures/beams_emissive.png
+
+newmtl exterior_door
+Kd 1 1 1
+map_Kd ../textures/exterior_door.png
+map_Ke ../textures/exterior_door_emissive.png
+
+newmtl extras
+Kd 1 1 1
+map_Kd ../textures/extras.png
+map_Ke ../textures/extras_emissive.png
+
+newmtl floor
+Kd 1 1 1
+map_Kd ../textures/floor.png
+map_Ke ../textures/floor_emissive.png
+
+newmtl lower_levels
+Kd 1 1 1
+map_Kd ../textures/lower_levels.png
+
+newmtl room
+Kd 1 1 1
+map_Kd ../textures/room.png
+map_Ke ../textures/room_emissive.png
+
+newmtl side_consoles
+Kd 1 1 1
+map_Kd ../textures/side_consoles.png
+map_Ke ../textures/side_consoles_emissive.png
+

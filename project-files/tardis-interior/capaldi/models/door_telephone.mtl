@@ -1,0 +1,5 @@
+newmtl exterior_door
+Kd 1 1 1
+map_Kd ../textures/exterior_door.png
+map_Ke ../textures/exterior_door_emissive.png
+

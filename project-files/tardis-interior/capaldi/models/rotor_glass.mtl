@@ -1,0 +1,4 @@
+newmtl rotor_glass
+Kd 1 1 1
+map_Kd ../textures/rotor_glass.png
+

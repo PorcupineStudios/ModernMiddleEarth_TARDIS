@@ -1,0 +1,2018 @@
+{
+ "units": "1 unit = 1 block; +X east, +Y up, +Z south. Room origin as before: door centred x=0.5, door frame face z=8, main floor y=0, basement floor y=-3.",
+ "parts": {
+  "console": {
+   "file": "models/console.obj",
+   "triangles": 4320,
+   "min": [
+    -1.0,
+    -2.4375,
+    -1.0625
+   ],
+   "max": [
+    2.0,
+    2.75,
+    1.5625
+   ]
+  },
+  "door_left": {
+   "file": "models/door_left.obj",
+   "triangles": 377,
+   "min": [
+    -0.0625,
+    0.25,
+    7.75
+   ],
+   "max": [
+    0.5625,
+    2.5625,
+    7.875
+   ]
+  },
+  "door_right": {
+   "file": "models/door_right.obj",
+   "triangles": 405,
+   "min": [
+    0.5,
+    0.1875,
+    7.75
+   ],
+   "max": [
+    1.0625,
+    2.5625,
+    7.9375
+   ]
+  },
+  "door_telephone": {
+   "file": "models/door_telephone.obj",
+   "triangles": 148,
+   "min": [
+    0.0,
+    1.4375,
+    7.625
+   ],
+   "max": [
+    0.4375,
+    1.9375,
+    7.875
+   ]
+  },
+  "room": {
+   "file": "models/room.obj",
+   "triangles": 40188,
+   "min": [
+    -8.0,
+    -3.5,
+    -9.25
+   ],
+   "max": [
+    10.25,
+    7.0,
+    8.75
+   ]
+  },
+  "rotor_column": {
+   "file": "models/rotor_column.obj",
+   "triangles": 34,
+   "min": [
+    0.375,
+    0.875,
+    0.125
+   ],
+   "max": [
+    0.625,
+    3.875,
+    0.375
+   ]
+  },
+  "rotor_glass": {
+   "file": "models/rotor_glass.obj",
+   "triangles": 859,
+   "min": [
+    -0.875,
+    0.0,
+    -1.25
+   ],
+   "max": [
+    1.875,
+    4.375,
+    1.625
+   ]
+  },
+  "rotor_spinner_mid": {
+   "file": "models/rotor_spinner_mid.obj",
+   "triangles": 1765,
+   "min": [
+    -1.5,
+    4.5,
+    -1.875
+   ],
+   "max": [
+    2.625,
+    5.125,
+    2.375
+   ]
+  },
+  "rotor_spinners": {
+   "file": "models/rotor_spinners.obj",
+   "triangles": 3730,
+   "min": [
+    -1.875,
+    4.125,
+    -2.25
+   ],
+   "max": [
+    3.0,
+    5.625,
+    2.625
+   ]
+  },
+  "controls": {
+   "file": "models/controls.obj",
+   "triangles": 4597,
+   "note": "one OBJ object (o ...) per control, named as in 'controls'"
+  }
+ },
+ "controls": [
+  {
+   "name": "button_000",
+   "kind": "button",
+   "console_side": "west",
+   "hitbox_min": [
+    -0.75,
+    0.8125,
+    0.375
+   ],
+   "hitbox_max": [
+    -0.5,
+    0.9062,
+    0.5938
+   ]
+  },
+  {
+   "name": "button_001",
+   "kind": "button",
+   "console_side": "west",
+   "hitbox_min": [
+    -0.625,
+    0.8125,
+    0.5938
+   ],
+   "hitbox_max": [
+    -0.5,
+    0.9062,
+    0.7188
+   ]
+  },
+  {
+   "name": "button_002",
+   "kind": "button",
+   "console_side": "west",
+   "hitbox_min": [
+    -0.5938,
+    0.875,
+    0.375
+   ],
+   "hitbox_max": [
+    -0.4688,
+    0.9375,
+    0.5
+   ]
+  },
+  {
+   "name": "button_003",
+   "kind": "button",
+   "console_side": "south-west",
+   "hitbox_min": [
+    -0.4375,
+    0.8125,
+    0.9062
+   ],
+   "hitbox_max": [
+    -0.3125,
+    0.9062,
+    1.0312
+   ]
+  },
+  {
+   "name": "button_004",
+   "kind": "button",
+   "console_side": "south-west",
+   "hitbox_min": [
+    -0.375,
+    0.8125,
+    0.9688
+   ],
+   "hitbox_max": [
+    -0.125,
+    0.9375,
+    1.2188
+   ]
+  },
+  {
+   "name": "button_005",
+   "kind": "button",
+   "console_side": "west",
+   "hitbox_min": [
+    -0.1875,
+    1.0,
+    0.375
+   ],
+   "hitbox_max": [
+    -0.125,
+    1.0625,
+    0.4688
+   ]
+  },
+  {
+   "name": "button_006",
+   "kind": "button",
+   "console_side": "south-west",
+   "hitbox_min": [
+    -0.125,
+    1.0,
+    0.4688
+   ],
+   "hitbox_max": [
+    0.0312,
+    1.0625,
+    0.6875
+   ]
+  },
+  {
+   "name": "button_007",
+   "kind": "button",
+   "console_side": "west",
+   "hitbox_min": [
+    -0.0625,
+    1.125,
+    0.1875
+   ],
+   "hitbox_max": [
+    -0.0312,
+    1.1562,
+    0.2188
+   ]
+  },
+  {
+   "name": "button_008",
+   "kind": "button",
+   "console_side": "west",
+   "hitbox_min": [
+    -0.0625,
+    1.125,
+    0.2812
+   ],
+   "hitbox_max": [
+    -0.0312,
+    1.1562,
+    0.3125
+   ]
+  },
+  {
+   "name": "button_009",
+   "kind": "button",
+   "console_side": "south-west",
+   "hitbox_min": [
+    -0.0312,
+    1.0,
+    0.6875
+   ],
+   "hitbox_max": [
+    0.0625,
+    1.0625,
+    0.7812
+   ]
+  },
+  {
+   "name": "button_010",
+   "kind": "button",
+   "console_side": "west",
+   "hitbox_min": [
+    -0.0312,
+    1.125,
+    0.1562
+   ],
+   "hitbox_max": [
+    0.0,
+    1.1562,
+    0.1875
+   ]
+  },
+  {
+   "name": "button_011",
+   "kind": "button",
+   "console_side": "west",
+   "hitbox_min": [
+    -0.0312,
+    1.125,
+    0.3125
+   ],
+   "hitbox_max": [
+    0.0,
+    1.1562,
+    0.3438
+   ]
+  },
+  {
+   "name": "button_012",
+   "kind": "button",
+   "console_side": "west",
+   "hitbox_min": [
+    0.0,
+    1.125,
+    0.0938
+   ],
+   "hitbox_max": [
+    0.0312,
+    1.1562,
+    0.125
+   ]
+  },
+  {
+   "name": "button_013",
+   "kind": "button",
+   "console_side": "west",
+   "hitbox_min": [
+    0.0,
+    1.125,
+    0.375
+   ],
+   "hitbox_max": [
+    0.0312,
+    1.1562,
+    0.4062
+   ]
+  },
+  {
+   "name": "button_014",
+   "kind": "button",
+   "console_side": "south-west",
+   "hitbox_min": [
+    0.0,
+    0.7812,
+    1.3125
+   ],
+   "hitbox_max": [
+    0.125,
+    0.9062,
+    1.4375
+   ]
+  },
+  {
+   "name": "button_015",
+   "kind": "button",
+   "console_side": "north-west",
+   "hitbox_min": [
+    0.0312,
+    0.8125,
+    -0.9375
+   ],
+   "hitbox_max": [
+    0.0938,
+    0.875,
+    -0.8125
+   ]
+  },
+  {
+   "name": "button_016",
+   "kind": "button",
+   "console_side": "west",
+   "hitbox_min": [
+    0.0312,
+    1.125,
+    0.0312
+   ],
+   "hitbox_max": [
+    0.0625,
+    1.1562,
+    0.0625
+   ]
+  },
+  {
+   "name": "button_017",
+   "kind": "button",
+   "console_side": "west",
+   "hitbox_min": [
+    0.0312,
+    1.125,
+    0.4375
+   ],
+   "hitbox_max": [
+    0.0625,
+    1.1562,
+    0.4688
+   ]
+  },
+  {
+   "name": "button_018",
+   "kind": "button",
+   "console_side": "west",
+   "hitbox_min": [
+    0.0625,
+    1.125,
+    -0.0
+   ],
+   "hitbox_max": [
+    0.0938,
+    1.1562,
+    0.0312
+   ]
+  },
+  {
+   "name": "button_019",
+   "kind": "button",
+   "console_side": "south-west",
+   "hitbox_min": [
+    0.0625,
+    1.125,
+    0.4688
+   ],
+   "hitbox_max": [
+    0.0938,
+    1.1562,
+    0.5
+   ]
+  },
+  {
+   "name": "button_020",
+   "kind": "button",
+   "console_side": "north-west",
+   "hitbox_min": [
+    0.0938,
+    1.125,
+    -0.0625
+   ],
+   "hitbox_max": [
+    0.125,
+    1.1562,
+    -0.0312
+   ]
+  },
+  {
+   "name": "button_021",
+   "kind": "button",
+   "console_side": "south-west",
+   "hitbox_min": [
+    0.0938,
+    1.125,
+    0.5312
+   ],
+   "hitbox_max": [
+    0.125,
+    1.1562,
+    0.5625
+   ]
+  },
+  {
+   "name": "button_022",
+   "kind": "button",
+   "console_side": "north-west",
+   "hitbox_min": [
+    0.0938,
+    0.8125,
+    -0.9375
+   ],
+   "hitbox_max": [
+    0.3438,
+    0.9688,
+    -0.7188
+   ]
+  },
+  {
+   "name": "button_023",
+   "kind": "button",
+   "console_side": "north-west",
+   "hitbox_min": [
+    0.125,
+    1.125,
+    -0.125
+   ],
+   "hitbox_max": [
+    0.1562,
+    1.1562,
+    -0.0625
+   ]
+  },
+  {
+   "name": "button_024",
+   "kind": "button",
+   "console_side": "south-west",
+   "hitbox_min": [
+    0.125,
+    1.125,
+    0.5625
+   ],
+   "hitbox_max": [
+    0.1562,
+    1.1562,
+    0.625
+   ]
+  },
+  {
+   "name": "button_025",
+   "kind": "button",
+   "console_side": "south-west",
+   "hitbox_min": [
+    0.1562,
+    0.875,
+    1.0
+   ],
+   "hitbox_max": [
+    0.3125,
+    1.0312,
+    1.3125
+   ]
+  },
+  {
+   "name": "button_026",
+   "kind": "button",
+   "console_side": "north-west",
+   "hitbox_min": [
+    0.1562,
+    0.9062,
+    -0.7188
+   ],
+   "hitbox_max": [
+    0.2188,
+    0.9375,
+    -0.6562
+   ]
+  },
+  {
+   "name": "button_027",
+   "kind": "button",
+   "console_side": "north-west",
+   "hitbox_min": [
+    0.1562,
+    1.125,
+    -0.1562
+   ],
+   "hitbox_max": [
+    0.1875,
+    1.1562,
+    -0.125
+   ]
+  },
+  {
+   "name": "button_028",
+   "kind": "button",
+   "console_side": "south-west",
+   "hitbox_min": [
+    0.1562,
+    1.125,
+    0.625
+   ],
+   "hitbox_max": [
+    0.1875,
+    1.1562,
+    0.6562
+   ]
+  },
+  {
+   "name": "button_029",
+   "kind": "button",
+   "console_side": "north-west",
+   "hitbox_min": [
+    0.1562,
+    0.9375,
+    -0.6562
+   ],
+   "hitbox_max": [
+    0.2188,
+    1.0,
+    -0.5625
+   ]
+  },
+  {
+   "name": "button_030",
+   "kind": "button",
+   "console_side": "north-west",
+   "hitbox_min": [
+    0.1875,
+    1.125,
+    -0.2188
+   ],
+   "hitbox_max": [
+    0.2188,
+    1.1562,
+    -0.1875
+   ]
+  },
+  {
+   "name": "button_031",
+   "kind": "button",
+   "console_side": "south-west",
+   "hitbox_min": [
+    0.1875,
+    1.125,
+    0.6875
+   ],
+   "hitbox_max": [
+    0.2188,
+    1.1562,
+    0.7188
+   ]
+  },
+  {
+   "name": "button_032",
+   "kind": "button",
+   "console_side": "north-west",
+   "hitbox_min": [
+    0.2188,
+    0.9062,
+    -0.6562
+   ],
+   "hitbox_max": [
+    0.3125,
+    1.0312,
+    -0.5625
+   ]
+  },
+  {
+   "name": "button_033",
+   "kind": "button",
+   "console_side": "north-west",
+   "hitbox_min": [
+    0.2188,
+    0.9062,
+    -0.7188
+   ],
+   "hitbox_max": [
+    0.2812,
+    0.9375,
+    -0.6562
+   ]
+  },
+  {
+   "name": "button_034",
+   "kind": "button",
+   "console_side": "south-west",
+   "hitbox_min": [
+    0.25,
+    1.125,
+    0.7188
+   ],
+   "hitbox_max": [
+    0.2812,
+    1.1562,
+    0.75
+   ]
+  },
+  {
+   "name": "button_035",
+   "kind": "button",
+   "console_side": "north-west",
+   "hitbox_min": [
+    0.25,
+    1.125,
+    -0.25
+   ],
+   "hitbox_max": [
+    0.2812,
+    1.1562,
+    -0.2188
+   ]
+  },
+  {
+   "name": "button_036",
+   "kind": "button",
+   "console_side": "south-west",
+   "hitbox_min": [
+    0.25,
+    1.0,
+    0.9062
+   ],
+   "hitbox_max": [
+    0.3125,
+    1.0938,
+    1.0
+   ]
+  },
+  {
+   "name": "button_037",
+   "kind": "button",
+   "console_side": "south-west",
+   "hitbox_min": [
+    0.25,
+    0.8125,
+    1.3125
+   ],
+   "hitbox_max": [
+    0.75,
+    0.9062,
+    1.4375
+   ]
+  },
+  {
+   "name": "button_038",
+   "kind": "button",
+   "console_side": "south-west",
+   "hitbox_min": [
+    0.2812,
+    0.8438,
+    1.2188
+   ],
+   "hitbox_max": [
+    0.4688,
+    0.875,
+    1.25
+   ]
+  },
+  {
+   "name": "button_039",
+   "kind": "button",
+   "console_side": "south-west",
+   "hitbox_min": [
+    0.2812,
+    0.8438,
+    1.2188
+   ],
+   "hitbox_max": [
+    0.4688,
+    0.875,
+    1.2812
+   ]
+  },
+  {
+   "name": "button_040",
+   "kind": "button",
+   "console_side": "south-west",
+   "hitbox_min": [
+    0.3125,
+    1.125,
+    0.7188
+   ],
+   "hitbox_max": [
+    0.3438,
+    1.1562,
+    0.75
+   ]
+  },
+  {
+   "name": "button_041",
+   "kind": "button",
+   "console_side": "north-west",
+   "hitbox_min": [
+    0.3125,
+    1.125,
+    -0.25
+   ],
+   "hitbox_max": [
+    0.3438,
+    1.1562,
+    -0.2188
+   ]
+  },
+  {
+   "name": "button_042",
+   "kind": "button",
+   "console_side": "south-west",
+   "hitbox_min": [
+    0.3125,
+    1.0,
+    0.875
+   ],
+   "hitbox_max": [
+    0.4375,
+    1.0625,
+    0.9375
+   ]
+  },
+  {
+   "name": "button_043",
+   "kind": "button",
+   "console_side": "north-east",
+   "hitbox_min": [
+    0.3438,
+    0.8125,
+    -0.7188
+   ],
+   "hitbox_max": [
+    0.6562,
+    0.9688,
+    -0.5625
+   ]
+  },
+  {
+   "name": "button_044",
+   "kind": "button",
+   "console_side": "south-west",
+   "hitbox_min": [
+    0.3438,
+    0.8438,
+    1.0
+   ],
+   "hitbox_max": [
+    0.6562,
+    1.0312,
+    1.1875
+   ]
+  },
+  {
+   "name": "button_045",
+   "kind": "button",
+   "console_side": "south-west",
+   "hitbox_min": [
+    0.3438,
+    0.9688,
+    0.9375
+   ],
+   "hitbox_max": [
+    0.4062,
+    1.0,
+    1.0
+   ]
+  },
+  {
+   "name": "button_046",
+   "kind": "button",
+   "console_side": "north-west",
+   "hitbox_min": [
+    0.3438,
+    1.0312,
+    -0.4062
+   ],
+   "hitbox_max": [
+    0.4062,
+    1.0625,
+    -0.3438
+   ]
+  },
+  {
+   "name": "button_047",
+   "kind": "button",
+   "console_side": "south-west",
+   "hitbox_min": [
+    0.375,
+    1.125,
+    0.7188
+   ],
+   "hitbox_max": [
+    0.4062,
+    1.1562,
+    0.75
+   ]
+  },
+  {
+   "name": "button_048",
+   "kind": "button",
+   "console_side": "north-west",
+   "hitbox_min": [
+    0.375,
+    1.125,
+    -0.25
+   ],
+   "hitbox_max": [
+    0.4062,
+    1.1562,
+    -0.2188
+   ]
+  },
+  {
+   "name": "button_049",
+   "kind": "button",
+   "console_side": "north-east",
+   "hitbox_min": [
+    0.375,
+    0.8125,
+    -0.9062
+   ],
+   "hitbox_max": [
+    0.625,
+    0.9062,
+    -0.75
+   ]
+  },
+  {
+   "name": "button_050",
+   "kind": "button",
+   "console_side": "south-west",
+   "hitbox_min": [
+    0.4062,
+    0.9688,
+    0.9375
+   ],
+   "hitbox_max": [
+    0.4375,
+    1.0,
+    1.0
+   ]
+  },
+  {
+   "name": "button_051",
+   "kind": "button",
+   "console_side": "north-west",
+   "hitbox_min": [
+    0.4062,
+    1.0312,
+    -0.4062
+   ],
+   "hitbox_max": [
+    0.4688,
+    1.0625,
+    -0.3438
+   ]
+  },
+  {
+   "name": "button_052",
+   "kind": "button",
+   "console_side": "south-west",
+   "hitbox_min": [
+    0.4375,
+    1.125,
+    0.7188
+   ],
+   "hitbox_max": [
+    0.4688,
+    1.1562,
+    0.75
+   ]
+  },
+  {
+   "name": "button_053",
+   "kind": "button",
+   "console_side": "north-west",
+   "hitbox_min": [
+    0.4375,
+    1.125,
+    -0.25
+   ],
+   "hitbox_max": [
+    0.4688,
+    1.1562,
+    -0.2188
+   ]
+  },
+  {
+   "name": "button_054",
+   "kind": "button",
+   "console_side": "south-west",
+   "hitbox_min": [
+    0.4375,
+    1.0,
+    0.8438
+   ],
+   "hitbox_max": [
+    0.5625,
+    1.0625,
+    0.9688
+   ]
+  },
+  {
+   "name": "button_055",
+   "kind": "button",
+   "console_side": "south-west",
+   "hitbox_min": [
+    0.4375,
+    0.9688,
+    0.9375
+   ],
+   "hitbox_max": [
+    0.5,
+    1.0,
+    1.0
+   ]
+  },
+  {
+   "name": "button_056",
+   "kind": "button",
+   "console_side": "south-west",
+   "hitbox_min": [
+    0.4688,
+    0.8438,
+    1.2188
+   ],
+   "hitbox_max": [
+    0.5312,
+    0.875,
+    1.2812
+   ]
+  },
+  {
+   "name": "button_057",
+   "kind": "button",
+   "console_side": "north-east",
+   "hitbox_min": [
+    0.4688,
+    1.0312,
+    -0.4062
+   ],
+   "hitbox_max": [
+    0.5312,
+    1.0625,
+    -0.3438
+   ]
+  },
+  {
+   "name": "button_058",
+   "kind": "button",
+   "console_side": "south-west",
+   "hitbox_min": [
+    0.4688,
+    1.125,
+    0.7188
+   ],
+   "hitbox_max": [
+    0.5312,
+    1.1562,
+    0.75
+   ]
+  },
+  {
+   "name": "button_059",
+   "kind": "button",
+   "console_side": "north-east",
+   "hitbox_min": [
+    0.4688,
+    1.125,
+    -0.25
+   ],
+   "hitbox_max": [
+    0.5312,
+    1.1562,
+    -0.2188
+   ]
+  },
+  {
+   "name": "button_060",
+   "kind": "button",
+   "console_side": "south-east",
+   "hitbox_min": [
+    0.5,
+    0.9688,
+    0.9375
+   ],
+   "hitbox_max": [
+    0.5625,
+    1.0,
+    1.0
+   ]
+  },
+  {
+   "name": "button_061",
+   "kind": "button",
+   "console_side": "south-east",
+   "hitbox_min": [
+    0.5312,
+    0.8438,
+    1.2188
+   ],
+   "hitbox_max": [
+    0.7188,
+    0.875,
+    1.25
+   ]
+  },
+  {
+   "name": "button_062",
+   "kind": "button",
+   "console_side": "south-east",
+   "hitbox_min": [
+    0.5312,
+    0.8438,
+    1.2188
+   ],
+   "hitbox_max": [
+    0.7188,
+    0.875,
+    1.2812
+   ]
+  },
+  {
+   "name": "button_063",
+   "kind": "button",
+   "console_side": "north-east",
+   "hitbox_min": [
+    0.5312,
+    1.0312,
+    -0.4062
+   ],
+   "hitbox_max": [
+    0.5938,
+    1.0625,
+    -0.3438
+   ]
+  },
+  {
+   "name": "button_064",
+   "kind": "button",
+   "console_side": "south-east",
+   "hitbox_min": [
+    0.5312,
+    1.125,
+    0.7188
+   ],
+   "hitbox_max": [
+    0.5625,
+    1.1562,
+    0.75
+   ]
+  },
+  {
+   "name": "button_065",
+   "kind": "button",
+   "console_side": "north-east",
+   "hitbox_min": [
+    0.5312,
+    1.125,
+    -0.25
+   ],
+   "hitbox_max": [
+    0.5625,
+    1.1562,
+    -0.2188
+   ]
+  },
+  {
+   "name": "button_066",
+   "kind": "button",
+   "console_side": "south-east",
+   "hitbox_min": [
+    0.5625,
+    0.9688,
+    0.9375
+   ],
+   "hitbox_max": [
+    0.5938,
+    1.0,
+    1.0
+   ]
+  },
+  {
+   "name": "button_067",
+   "kind": "button",
+   "console_side": "south-east",
+   "hitbox_min": [
+    0.5625,
+    1.0,
+    0.875
+   ],
+   "hitbox_max": [
+    0.75,
+    1.0625,
+    1.0
+   ]
+  },
+  {
+   "name": "button_068",
+   "kind": "button",
+   "console_side": "north-east",
+   "hitbox_min": [
+    0.5938,
+    1.0312,
+    -0.4062
+   ],
+   "hitbox_max": [
+    0.6562,
+    1.0625,
+    -0.3438
+   ]
+  },
+  {
+   "name": "button_069",
+   "kind": "button",
+   "console_side": "south-east",
+   "hitbox_min": [
+    0.5938,
+    1.125,
+    0.7188
+   ],
+   "hitbox_max": [
+    0.625,
+    1.1562,
+    0.75
+   ]
+  },
+  {
+   "name": "button_070",
+   "kind": "button",
+   "console_side": "north-east",
+   "hitbox_min": [
+    0.5938,
+    1.125,
+    -0.25
+   ],
+   "hitbox_max": [
+    0.625,
+    1.1562,
+    -0.2188
+   ]
+  },
+  {
+   "name": "button_071",
+   "kind": "button",
+   "console_side": "south-east",
+   "hitbox_min": [
+    0.5938,
+    0.9688,
+    0.9375
+   ],
+   "hitbox_max": [
+    0.6562,
+    1.0,
+    1.0
+   ]
+  },
+  {
+   "name": "button_072",
+   "kind": "button",
+   "console_side": "south-east",
+   "hitbox_min": [
+    0.6562,
+    1.125,
+    0.7188
+   ],
+   "hitbox_max": [
+    0.6875,
+    1.1562,
+    0.75
+   ]
+  },
+  {
+   "name": "button_073",
+   "kind": "button",
+   "console_side": "north-east",
+   "hitbox_min": [
+    0.6562,
+    1.125,
+    -0.25
+   ],
+   "hitbox_max": [
+    0.6875,
+    1.1562,
+    -0.2188
+   ]
+  },
+  {
+   "name": "button_074",
+   "kind": "button",
+   "console_side": "south-east",
+   "hitbox_min": [
+    0.6562,
+    0.9375,
+    1.0312
+   ],
+   "hitbox_max": [
+    0.8125,
+    1.0312,
+    1.125
+   ]
+  },
+  {
+   "name": "button_075",
+   "kind": "button",
+   "console_side": "north-east",
+   "hitbox_min": [
+    0.6562,
+    0.875,
+    -0.7812
+   ],
+   "hitbox_max": [
+    0.7188,
+    0.9062,
+    -0.7188
+   ]
+  },
+  {
+   "name": "button_076",
+   "kind": "button",
+   "console_side": "north-east",
+   "hitbox_min": [
+    0.6562,
+    0.9062,
+    -0.6562
+   ],
+   "hitbox_max": [
+    0.8438,
+    1.0312,
+    -0.4688
+   ]
+  },
+  {
+   "name": "button_077",
+   "kind": "button",
+   "console_side": "north-east",
+   "hitbox_min": [
+    0.6875,
+    0.8125,
+    -0.9062
+   ],
+   "hitbox_max": [
+    0.9375,
+    0.9688,
+    -0.6562
+   ]
+  },
+  {
+   "name": "button_078",
+   "kind": "button",
+   "console_side": "north-east",
+   "hitbox_min": [
+    0.6875,
+    0.875,
+    -0.75
+   ],
+   "hitbox_max": [
+    0.7812,
+    0.9688,
+    -0.625
+   ]
+  },
+  {
+   "name": "button_079",
+   "kind": "button",
+   "console_side": "south-east",
+   "hitbox_min": [
+    0.7188,
+    1.125,
+    0.7188
+   ],
+   "hitbox_max": [
+    0.75,
+    1.1562,
+    0.75
+   ]
+  },
+  {
+   "name": "button_080",
+   "kind": "button",
+   "console_side": "north-east",
+   "hitbox_min": [
+    0.7188,
+    1.125,
+    -0.25
+   ],
+   "hitbox_max": [
+    0.75,
+    1.1562,
+    -0.2188
+   ]
+  },
+  {
+   "name": "button_081",
+   "kind": "button",
+   "console_side": "south-east",
+   "hitbox_min": [
+    0.7188,
+    0.875,
+    1.1875
+   ],
+   "hitbox_max": [
+    0.8438,
+    0.9688,
+    1.3125
+   ]
+  },
+  {
+   "name": "button_082",
+   "kind": "button",
+   "console_side": "south-east",
+   "hitbox_min": [
+    0.7812,
+    1.125,
+    0.6875
+   ],
+   "hitbox_max": [
+    0.8125,
+    1.1562,
+    0.7188
+   ]
+  },
+  {
+   "name": "button_083",
+   "kind": "button",
+   "console_side": "north-east",
+   "hitbox_min": [
+    0.7812,
+    1.125,
+    -0.2188
+   ],
+   "hitbox_max": [
+    0.8125,
+    1.1562,
+    -0.1875
+   ]
+  },
+  {
+   "name": "button_084",
+   "kind": "button",
+   "console_side": "south-east",
+   "hitbox_min": [
+    0.8125,
+    1.125,
+    0.625
+   ],
+   "hitbox_max": [
+    0.8438,
+    1.1562,
+    0.6562
+   ]
+  },
+  {
+   "name": "button_085",
+   "kind": "button",
+   "console_side": "north-east",
+   "hitbox_min": [
+    0.8125,
+    1.125,
+    -0.1562
+   ],
+   "hitbox_max": [
+    0.8438,
+    1.1562,
+    -0.125
+   ]
+  },
+  {
+   "name": "button_086",
+   "kind": "button",
+   "console_side": "south-east",
+   "hitbox_min": [
+    0.8438,
+    1.125,
+    0.5625
+   ],
+   "hitbox_max": [
+    0.875,
+    1.1562,
+    0.625
+   ]
+  },
+  {
+   "name": "button_087",
+   "kind": "button",
+   "console_side": "north-east",
+   "hitbox_min": [
+    0.8438,
+    1.125,
+    -0.125
+   ],
+   "hitbox_max": [
+    0.875,
+    1.1562,
+    -0.0625
+   ]
+  },
+  {
+   "name": "button_088",
+   "kind": "button",
+   "console_side": "south-east",
+   "hitbox_min": [
+    0.8438,
+    0.7812,
+    1.2812
+   ],
+   "hitbox_max": [
+    0.9375,
+    0.9062,
+    1.4375
+   ]
+  },
+  {
+   "name": "button_089",
+   "kind": "button",
+   "console_side": "south-east",
+   "hitbox_min": [
+    0.875,
+    1.125,
+    0.5312
+   ],
+   "hitbox_max": [
+    0.9062,
+    1.1562,
+    0.5625
+   ]
+  },
+  {
+   "name": "button_090",
+   "kind": "button",
+   "console_side": "north-east",
+   "hitbox_min": [
+    0.875,
+    1.125,
+    -0.0625
+   ],
+   "hitbox_max": [
+    0.9062,
+    1.1562,
+    -0.0312
+   ]
+  },
+  {
+   "name": "button_091",
+   "kind": "button",
+   "console_side": "south-east",
+   "hitbox_min": [
+    0.9062,
+    1.125,
+    0.4688
+   ],
+   "hitbox_max": [
+    0.9375,
+    1.1562,
+    0.5
+   ]
+  },
+  {
+   "name": "button_092",
+   "kind": "button",
+   "console_side": "east",
+   "hitbox_min": [
+    0.9062,
+    1.125,
+    -0.0
+   ],
+   "hitbox_max": [
+    0.9375,
+    1.1562,
+    0.0312
+   ]
+  },
+  {
+   "name": "button_093",
+   "kind": "button",
+   "console_side": "south-east",
+   "hitbox_min": [
+    0.9062,
+    1.0,
+    0.6875
+   ],
+   "hitbox_max": [
+    1.0,
+    1.0625,
+    0.7812
+   ]
+  },
+  {
+   "name": "button_094",
+   "kind": "button",
+   "console_side": "south-east",
+   "hitbox_min": [
+    0.9062,
+    0.7812,
+    1.3438
+   ],
+   "hitbox_max": [
+    1.0,
+    0.9375,
+    1.4375
+   ]
+  },
+  {
+   "name": "button_095",
+   "kind": "button",
+   "console_side": "east",
+   "hitbox_min": [
+    0.9375,
+    1.125,
+    0.4375
+   ],
+   "hitbox_max": [
+    0.9688,
+    1.1562,
+    0.4688
+   ]
+  },
+  {
+   "name": "button_096",
+   "kind": "button",
+   "console_side": "east",
+   "hitbox_min": [
+    0.9375,
+    1.125,
+    0.0312
+   ],
+   "hitbox_max": [
+    0.9688,
+    1.1562,
+    0.0625
+   ]
+  },
+  {
+   "name": "button_097",
+   "kind": "button",
+   "console_side": "east",
+   "hitbox_min": [
+    0.9688,
+    1.125,
+    0.375
+   ],
+   "hitbox_max": [
+    1.0,
+    1.1562,
+    0.4062
+   ]
+  },
+  {
+   "name": "button_098",
+   "kind": "button",
+   "console_side": "east",
+   "hitbox_min": [
+    0.9688,
+    1.125,
+    0.0938
+   ],
+   "hitbox_max": [
+    1.0,
+    1.1562,
+    0.125
+   ]
+  },
+  {
+   "name": "button_099",
+   "kind": "button",
+   "console_side": "north-east",
+   "hitbox_min": [
+    0.9688,
+    1.0,
+    -0.25
+   ],
+   "hitbox_max": [
+    1.0625,
+    1.0938,
+    -0.125
+   ]
+  },
+  {
+   "name": "button_100",
+   "kind": "button",
+   "console_side": "east",
+   "hitbox_min": [
+    1.0,
+    1.125,
+    0.3125
+   ],
+   "hitbox_max": [
+    1.0312,
+    1.1562,
+    0.3438
+   ]
+  },
+  {
+   "name": "button_101",
+   "kind": "button",
+   "console_side": "east",
+   "hitbox_min": [
+    1.0,
+    1.125,
+    0.1562
+   ],
+   "hitbox_max": [
+    1.0312,
+    1.1562,
+    0.1875
+   ]
+  },
+  {
+   "name": "button_102",
+   "kind": "button",
+   "console_side": "north-east",
+   "hitbox_min": [
+    1.0,
+    0.9688,
+    -0.375
+   ],
+   "hitbox_max": [
+    1.0312,
+    1.0312,
+    -0.3125
+   ]
+  },
+  {
+   "name": "button_103",
+   "kind": "button",
+   "console_side": "south-east",
+   "hitbox_min": [
+    1.0,
+    0.75,
+    0.4062
+   ],
+   "hitbox_max": [
+    1.5,
+    1.0312,
+    0.9688
+   ]
+  },
+  {
+   "name": "button_104",
+   "kind": "button",
+   "console_side": "east",
+   "hitbox_min": [
+    1.0312,
+    1.125,
+    0.2812
+   ],
+   "hitbox_max": [
+    1.0625,
+    1.1562,
+    0.3125
+   ]
+  },
+  {
+   "name": "button_105",
+   "kind": "button",
+   "console_side": "east",
+   "hitbox_min": [
+    1.0312,
+    1.125,
+    0.1875
+   ],
+   "hitbox_max": [
+    1.0625,
+    1.1562,
+    0.2188
+   ]
+  },
+  {
+   "name": "button_106",
+   "kind": "button",
+   "console_side": "east",
+   "hitbox_min": [
+    1.0312,
+    0.9062,
+    -0.4688
+   ],
+   "hitbox_max": [
+    1.4375,
+    1.0938,
+    0.125
+   ]
+  },
+  {
+   "name": "button_107",
+   "kind": "button",
+   "console_side": "north-east",
+   "hitbox_min": [
+    1.0312,
+    0.9688,
+    -0.4062
+   ],
+   "hitbox_max": [
+    1.0938,
+    1.0,
+    -0.3438
+   ]
+  },
+  {
+   "name": "button_108",
+   "kind": "button",
+   "console_side": "east",
+   "hitbox_min": [
+    1.0938,
+    1.0,
+    0.375
+   ],
+   "hitbox_max": [
+    1.1875,
+    1.0938,
+    0.4375
+   ]
+  },
+  {
+   "name": "button_109",
+   "kind": "button",
+   "console_side": "north-east",
+   "hitbox_min": [
+    1.125,
+    0.8125,
+    -0.75
+   ],
+   "hitbox_max": [
+    1.5,
+    0.9375,
+    -0.25
+   ]
+  },
+  {
+   "name": "button_110",
+   "kind": "button",
+   "console_side": "south-east",
+   "hitbox_min": [
+    1.1562,
+    0.8438,
+    1.0312
+   ],
+   "hitbox_max": [
+    1.2812,
+    0.9375,
+    1.125
+   ]
+  },
+  {
+   "name": "button_111",
+   "kind": "button",
+   "console_side": "south-east",
+   "hitbox_min": [
+    1.1875,
+    0.8125,
+    1.125
+   ],
+   "hitbox_max": [
+    1.3125,
+    0.9062,
+    1.2188
+   ]
+  },
+  {
+   "name": "button_112",
+   "kind": "button",
+   "console_side": "east",
+   "hitbox_min": [
+    1.4062,
+    0.7812,
+    -0.1562
+   ],
+   "hitbox_max": [
+    1.75,
+    0.9375,
+    0.125
+   ]
+  },
+  {
+   "name": "button_113",
+   "kind": "button",
+   "console_side": "east",
+   "hitbox_min": [
+    1.5625,
+    0.8438,
+    0.4375
+   ],
+   "hitbox_max": [
+    1.6875,
+    0.9375,
+    0.5625
+   ]
+  },
+  {
+   "name": "handle_left",
+   "kind": "lever",
+   "console_side": "south-west",
+   "hitbox_min": [
+    0.1562,
+    0.8438,
+    1.2188
+   ],
+   "hitbox_max": [
+    0.25,
+    0.9375,
+    1.5
+   ]
+  },
+  {
+   "name": "handle_right",
+   "kind": "lever",
+   "console_side": "south-east",
+   "hitbox_min": [
+    0.75,
+    0.8438,
+    1.2188
+   ],
+   "hitbox_max": [
+    0.8438,
+    0.9375,
+    1.5
+   ]
+  },
+  {
+   "name": "main_lever_left",
+   "kind": "lever",
+   "console_side": "north-west",
+   "hitbox_min": [
+    0.2188,
+    0.8438,
+    -0.9375
+   ],
+   "hitbox_max": [
+    0.3125,
+    1.0938,
+    -0.7812
+   ]
+  },
+  {
+   "name": "main_lever_right",
+   "kind": "lever",
+   "console_side": "north-west",
+   "hitbox_min": [
+    0.125,
+    0.8438,
+    -0.9375
+   ],
+   "hitbox_max": [
+    0.2188,
+    1.0938,
+    -0.7812
+   ]
+  },
+  {
+   "name": "screen_1",
+   "kind": "screen",
+   "console_side": "east",
+   "hitbox_min": [
+    0.9062,
+    1.1875,
+    -0.0625
+   ],
+   "hitbox_max": [
+    1.4688,
+    1.5938,
+    0.5625
+   ]
+  },
+  {
+   "name": "screen_2",
+   "kind": "screen",
+   "console_side": "west",
+   "hitbox_min": [
+    -0.4688,
+    1.1875,
+    -0.0625
+   ],
+   "hitbox_max": [
+    0.0938,
+    1.5938,
+    0.5625
+   ]
+  },
+  {
+   "name": "slider_1",
+   "kind": "slider",
+   "console_side": "north-east",
+   "hitbox_min": [
+    0.5938,
+    0.8125,
+    -0.5625
+   ],
+   "hitbox_max": [
+    0.6562,
+    1.1562,
+    -0.4062
+   ]
+  },
+  {
+   "name": "slider_2",
+   "kind": "slider",
+   "console_side": "north-east",
+   "hitbox_min": [
+    0.5312,
+    0.8125,
+    -0.5625
+   ],
+   "hitbox_max": [
+    0.5938,
+    1.1562,
+    -0.4062
+   ]
+  },
+  {
+   "name": "slider_3",
+   "kind": "slider",
+   "console_side": "north-east",
+   "hitbox_min": [
+    0.4688,
+    0.8125,
+    -0.5625
+   ],
+   "hitbox_max": [
+    0.5312,
+    1.1562,
+    -0.4062
+   ]
+  },
+  {
+   "name": "slider_4",
+   "kind": "slider",
+   "console_side": "north-west",
+   "hitbox_min": [
+    0.4062,
+    0.8125,
+    -0.5625
+   ],
+   "hitbox_max": [
+    0.4688,
+    1.1562,
+    -0.4062
+   ]
+  },
+  {
+   "name": "slider_5",
+   "kind": "slider",
+   "console_side": "north-west",
+   "hitbox_min": [
+    0.3438,
+    0.8125,
+    -0.5625
+   ],
+   "hitbox_max": [
+    0.4062,
+    1.1562,
+    -0.4062
+   ]
+  }
+ ],
+ "collision": {
+  "file": "collision.json",
+  "block_cells": 1865,
+  "unique_shapes": 1475
+ }
+}

@@ -1,0 +1,4 @@
+newmtl console
+Kd 1 1 1
+map_Kd ../textures/console.png
+map_Ke ../textures/console_emissive.png

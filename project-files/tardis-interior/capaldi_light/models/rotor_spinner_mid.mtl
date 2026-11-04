@@ -1,0 +1,5 @@
+newmtl rotor
+Kd 1 1 1
+map_Kd ../textures/rotor.png
+map_Ke ../textures/rotor_emissive.png
+

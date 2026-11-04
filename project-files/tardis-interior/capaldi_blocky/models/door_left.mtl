@@ -1,0 +1,5 @@
+newmtl palette
+Kd 1 1 1
+map_Kd ../textures/palette.png
+map_Ke ../textures/palette_emissive.png
+

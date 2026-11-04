@@ -1,0 +1,399 @@
+{
+ "units": "1 unit = 1 block. Origin is the model origin; +X east, +Y up, +Z south (Minecraft axes).",
+ "parts": {
+  "room": {
+   "file": "models/room.obj",
+   "triangles": 148372,
+   "min": [
+    -9.3295,
+    -2.1974,
+    -9.0677
+   ],
+   "max": [
+    10.369,
+    6.9514,
+    8.5026
+   ],
+   "materials": [
+    "beams",
+    "exterior_door",
+    "extras",
+    "floor",
+    "lower_levels",
+    "room",
+    "side_consoles"
+   ]
+  },
+  "console": {
+   "file": "models/console.obj",
+   "triangles": 42933,
+   "min": [
+    -0.9432,
+    -1.1569,
+    -1.0465
+   ],
+   "max": [
+    1.9432,
+    2.7906,
+    1.4665
+   ],
+   "materials": [
+    "console"
+   ]
+  },
+  "screen_1": {
+   "file": "models/screen_1.obj",
+   "triangles": 236,
+   "min": [
+    0.9114,
+    1.2644,
+    -0.1001
+   ],
+   "max": [
+    1.44,
+    1.6398,
+    0.5201
+   ],
+   "materials": [
+    "console"
+   ]
+  },
+  "screen_2": {
+   "file": "models/screen_2.obj",
+   "triangles": 236,
+   "min": [
+    -0.44,
+    1.2644,
+    -0.1001
+   ],
+   "max": [
+    0.0886,
+    1.6398,
+    0.5201
+   ],
+   "materials": [
+    "console"
+   ]
+  },
+  "rotor_column": {
+   "file": "models/rotor_column.obj",
+   "triangles": 251,
+   "min": [
+    0.44,
+    0.9664,
+    0.1503
+   ],
+   "max": [
+    0.56,
+    3.8736,
+    0.2697
+   ],
+   "materials": [
+    "rotor"
+   ]
+  },
+  "rotor_glass": {
+   "file": "models/rotor_glass.obj",
+   "triangles": 1087,
+   "min": [
+    -0.8636,
+    0.1229,
+    -1.1536
+   ],
+   "max": [
+    1.8636,
+    4.3695,
+    1.5736
+   ],
+   "materials": [
+    "rotor_glass"
+   ]
+  },
+  "rotor_spinners": {
+   "file": "models/rotor_spinners.obj",
+   "triangles": 2524,
+   "min": [
+    -1.9442,
+    4.274,
+    -2.1972
+   ],
+   "max": [
+    2.9442,
+    5.5094,
+    2.6172
+   ],
+   "materials": [
+    "rotor"
+   ]
+  },
+  "rotor_spinner_mid": {
+   "file": "models/rotor_spinner_mid.obj",
+   "triangles": 1262,
+   "min": [
+    -1.5638,
+    4.6675,
+    -1.8609
+   ],
+   "max": [
+    2.5638,
+    5.1147,
+    2.3057
+   ],
+   "materials": [
+    "rotor"
+   ]
+  },
+  "door_left": {
+   "file": "models/door_left.obj",
+   "triangles": 142,
+   "min": [
+    -0.0613,
+    0.249,
+    7.8138
+   ],
+   "max": [
+    0.5064,
+    2.5338,
+    7.8786
+   ],
+   "materials": [
+    "exterior_door"
+   ]
+  },
+  "door_right": {
+   "file": "models/door_right.obj",
+   "triangles": 1057,
+   "min": [
+    0.5058,
+    0.249,
+    7.7947
+   ],
+   "max": [
+    1.061,
+    2.5338,
+    7.8838
+   ],
+   "materials": [
+    "exterior_door"
+   ]
+  },
+  "door_telephone": {
+   "file": "models/door_telephone.obj",
+   "triangles": 713,
+   "min": [
+    0.0001,
+    1.4439,
+    7.6752
+   ],
+   "max": [
+    0.3969,
+    1.8969,
+    7.8684
+   ],
+   "materials": [
+    "exterior_door"
+   ]
+  },
+  "handle_left": {
+   "file": "models/handle_left.obj",
+   "triangles": 132,
+   "min": [
+    0.1814,
+    0.9171,
+    1.2015
+   ],
+   "max": [
+    0.2367,
+    0.9931,
+    1.4331
+   ],
+   "materials": [
+    "console"
+   ]
+  },
+  "handle_right": {
+   "file": "models/handle_right.obj",
+   "triangles": 132,
+   "min": [
+    0.7634,
+    0.9172,
+    1.2015
+   ],
+   "max": [
+    0.8187,
+    0.9931,
+    1.4334
+   ],
+   "materials": [
+    "console"
+   ]
+  },
+  "main_lever_left": {
+   "file": "models/main_lever_left.obj",
+   "triangles": 122,
+   "min": [
+    0.2226,
+    0.9361,
+    -0.9459
+   ],
+   "max": [
+    0.3048,
+    1.1549,
+    -0.8285
+   ],
+   "materials": [
+    "console"
+   ]
+  },
+  "main_lever_right": {
+   "file": "models/main_lever_right.obj",
+   "triangles": 122,
+   "min": [
+    0.1358,
+    0.9361,
+    -0.9466
+   ],
+   "max": [
+    0.2167,
+    1.1548,
+    -0.8285
+   ],
+   "materials": [
+    "console"
+   ]
+  },
+  "slider_1": {
+   "file": "models/slider_1.obj",
+   "triangles": 146,
+   "min": [
+    0.6062,
+    0.9053,
+    -0.599
+   ],
+   "max": [
+    0.6338,
+    1.1986,
+    -0.4489
+   ],
+   "materials": [
+    "console"
+   ]
+  },
+  "slider_2": {
+   "file": "models/slider_2.obj",
+   "triangles": 146,
+   "min": [
+    0.5462,
+    0.9053,
+    -0.599
+   ],
+   "max": [
+    0.5738,
+    1.1985,
+    -0.4489
+   ],
+   "materials": [
+    "console"
+   ]
+  },
+  "slider_3": {
+   "file": "models/slider_3.obj",
+   "triangles": 146,
+   "min": [
+    0.4862,
+    0.9053,
+    -0.599
+   ],
+   "max": [
+    0.5138,
+    1.1986,
+    -0.4489
+   ],
+   "materials": [
+    "console"
+   ]
+  },
+  "slider_4": {
+   "file": "models/slider_4.obj",
+   "triangles": 146,
+   "min": [
+    0.4262,
+    0.9053,
+    -0.599
+   ],
+   "max": [
+    0.4538,
+    1.1985,
+    -0.4489
+   ],
+   "materials": [
+    "console"
+   ]
+  },
+  "slider_5": {
+   "file": "models/slider_5.obj",
+   "triangles": 146,
+   "min": [
+    0.3662,
+    0.9053,
+    -0.599
+   ],
+   "max": [
+    0.3938,
+    1.1986,
+    -0.4489
+   ],
+   "materials": [
+    "console"
+   ]
+  }
+ },
+ "source": "liamjmwilson 'TARDIS Exterior AND Interior - Smith and Capaldi Design' (CGTrader, bought by Aaron). Capaldi interior OBJ, 2k textures.",
+ "grid": {
+  "main_floor_y": 0.0,
+  "door_centre_x": 0.5,
+  "door_frame_front_z": 8.0,
+  "room_base_floor_y": -1.82,
+  "lower_level_floor_y": -0.79,
+  "gallery_floor_y": 2.74
+ },
+ "exits": [
+  {
+   "name": "main_door",
+   "facing": "south",
+   "x": 0.5,
+   "y": 0.25,
+   "plane_z": 8.0,
+   "width": 1.1,
+   "note": "police-box doors, hinges at x=-0.06 (left) and x=1.06 (right)"
+  },
+  {
+   "name": "north_lower",
+   "facing": "north",
+   "x": 0.5,
+   "plane_z": -9.0,
+   "note": "arched doorway at the lower level under the north stairs, opens into the north alcove"
+  },
+  {
+   "name": "east_lower",
+   "facing": "east",
+   "z": -1.5,
+   "plane_x": 9.0,
+   "floor_y": -0.79,
+   "width": 2.0,
+   "note": "arched doorway into a short east recess (recess back wall at x=10.2); a hallway can run east along z=-1.5"
+  },
+  {
+   "name": "west",
+   "facing": "west",
+   "plane_x": -8.0,
+   "note": "solid wall; no doorway in the model (could mirror the east one)"
+  },
+  {
+   "name": "gallery_doors",
+   "facing": "not cardinal",
+   "note": "two framed doorways on the upper gallery either side of the main door, 20 degrees off south; treat as decoration"
+  }
+ ],
+ "pivots_note": "Moving parts share the room origin. Rotate levers/sliders about the bottom of their box, doors about their hinge, rotor spinners about the Y axis through x=0.5,z=0.21."
+}
