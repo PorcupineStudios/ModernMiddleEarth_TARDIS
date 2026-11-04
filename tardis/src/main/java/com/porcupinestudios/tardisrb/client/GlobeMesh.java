@@ -18,6 +18,7 @@ final class GlobeMesh {
     static final int[] DETAIL = {16, 32, 64, 128, 256};
     private static final Map<Integer, GlobeSurface> SURFACE = new HashMap<>();
     private static VertexBuffer shade;
+    private static VertexBuffer sphere;
 
     private GlobeMesh() {}
 
@@ -32,7 +33,19 @@ final class GlobeMesh {
         return shade;
     }
 
+    /** A plain textured unit ball (u = longitude, v = from the north pole), for balls seen from outside. */
+    static VertexBuffer sphere() {
+        if (sphere == null) {
+            sphere = buildSphere(96);
+        }
+        return sphere;
+    }
+
     static void clear() {
+        if (sphere != null) {
+            sphere.close();
+            sphere = null;
+        }
         SURFACE.values().forEach(GlobeSurface::close);
         SURFACE.clear();
         if (shade != null) {
@@ -53,6 +66,30 @@ final class GlobeMesh {
             }
         }
         return upload(buf);
+    }
+
+    private static VertexBuffer buildSphere(int lonSteps) {
+        int latSteps = lonSteps / 2;
+        BufferBuilder buf = Tesselator.getInstance().begin(VertexFormat.Mode.QUADS,
+                DefaultVertexFormat.POSITION_TEX_COLOR);
+        for (int i = 0; i < lonSteps; i++) {
+            for (int j = 0; j < latSteps; j++) {
+                sphereVertex(buf, i, j, lonSteps, latSteps);
+                sphereVertex(buf, i, j + 1, lonSteps, latSteps);
+                sphereVertex(buf, i + 1, j + 1, lonSteps, latSteps);
+                sphereVertex(buf, i + 1, j, lonSteps, latSteps);
+            }
+        }
+        return upload(buf);
+    }
+
+    private static void sphereVertex(BufferBuilder buf, int i, int j, int lonSteps, int latSteps) {
+        double lon = i / (double) lonSteps * 2 * Math.PI - Math.PI;
+        double lat = Math.PI / 2 - j / (double) latSteps * Math.PI;
+        float x = (float) (Math.cos(lat) * Math.sin(lon));
+        float y = (float) Math.sin(lat);
+        float z = (float) (Math.cos(lat) * Math.cos(lon));
+        buf.addVertex(x, y, z).setUv(i / (float) lonSteps, j / (float) latSteps).setColor(255, 255, 255, 255);
     }
 
     private static void shadeVertex(BufferBuilder buf, int i, int j, int lonSteps, int latSteps) {

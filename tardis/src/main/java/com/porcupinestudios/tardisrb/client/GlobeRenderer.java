@@ -11,6 +11,7 @@ import com.porcupinestudios.tardisrb.TardisRB;
 import com.porcupinestudios.tardisrb.net.SkyNet;
 import com.porcupinestudios.tardisrb.progression.Tuning;
 import com.porcupinestudios.tardisrb.space.Planet;
+import com.porcupinestudios.tardisrb.space.StarSystem;
 import java.util.List;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GameRenderer;
@@ -41,6 +42,7 @@ import org.joml.Matrix4f;
 public final class GlobeRenderer {
     private static final float[] CLOUD = {0.93f, 0.95f, 0.98f};
     private static List<Planet> planets = List.of();
+    private static List<StarSystem> systems = List.of();
     private static Tuning.SpaceTuning tuning = Tuning.SpaceTuning.DEFAULT;
     private static ResourceLocation blank;
 
@@ -49,6 +51,19 @@ public final class GlobeRenderer {
     public static void set(SkyNet.Planets p) {
         planets = p.planets();
         tuning = p.tuning();
+        List<StarSystem> list = new java.util.ArrayList<>();
+        for (SkyNet.SystemData d : p.systems()) {
+            StarSystem s = StarSystem.resolve(d.id(), d.file(), planets);
+            if (s != null) {
+                list.add(s);
+            }
+        }
+        systems = List.copyOf(list);
+    }
+
+    /** The solar system nearest a point, if this level is a system dimension. */
+    static StarSystem systemNear(Level level, Vec3 pos) {
+        return com.porcupinestudios.tardisrb.space.Systems.near(systems, level.dimension(), pos).orElse(null);
     }
 
     static Tuning.SpaceTuning tuning() {
@@ -62,6 +77,7 @@ public final class GlobeRenderer {
     @SubscribeEvent
     public static void onLogout(ClientPlayerNetworkEvent.LoggingOut event) {
         planets = List.of();
+        systems = List.of();
         RenderSystem.recordRenderCall(() -> {
             GlobeTextures.clear();
             GlobeMesh.clear();
@@ -134,6 +150,19 @@ public final class GlobeRenderer {
             return;
         }
         Vec3 cam = event.getCamera().getPosition();
+        StarSystem system = systemNear(level, cam);
+        if (system != null) {
+            RenderSystem.disableDepthTest();
+            RenderSystem.depthMask(false);
+            RenderSystem.enableCull();
+            SystemRenderer.draw(mc, event, system, cam);
+            RenderSystem.setShaderColor(1, 1, 1, 1);
+            RenderSystem.defaultBlendFunc();
+            RenderSystem.disableBlend();
+            RenderSystem.depthMask(true);
+            RenderSystem.enableDepthTest();
+            return;
+        }
         Planet planet = planetBelow(level, cam.x, cam.z);
         double cloud = cloudiness(level, cam);
         if (planet == null && cloud <= 0) {
@@ -239,7 +268,7 @@ public final class GlobeRenderer {
         RenderSystem.enableCull();
     }
 
-    private static ResourceLocation blank() {
+    static ResourceLocation blank() {
         if (blank == null) {
             NativeImage white = new NativeImage(1, 1, false);
             white.setPixelRGBA(0, 0, 0xFFFFFFFF);

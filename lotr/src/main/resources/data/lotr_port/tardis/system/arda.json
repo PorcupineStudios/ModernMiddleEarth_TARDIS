@@ -1,0 +1,9 @@
+{
+  "dimension": "tardis_rb:solar_system",
+  "sun": {"x": 0, "y": 0, "z": 0, "radius": 600, "gravity": 4.0, "color": "#FFE2A0", "burn": 4.0},
+  "bodies": [
+    {"planet": "lotr_port:middle_earth", "x": -7000, "y": 0, "z": 6000, "radius": 400},
+    {"planet": "tardis_rb:overworld", "x": 9000, "y": 0, "z": 0, "radius": 160},
+    {"planet": "lotr_port:vanilla_overworld", "x": -7000, "y": 0, "z": -6000, "radius": 160}
+  ]
+}

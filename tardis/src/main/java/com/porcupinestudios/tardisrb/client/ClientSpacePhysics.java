@@ -3,6 +3,7 @@ package com.porcupinestudios.tardisrb.client;
 import com.porcupinestudios.tardisrb.TardisRB;
 import com.porcupinestudios.tardisrb.space.Orbits;
 import com.porcupinestudios.tardisrb.space.Planet;
+import com.porcupinestudios.tardisrb.space.StarSystem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
 import net.neoforged.api.distmarker.Dist;
@@ -24,13 +25,18 @@ public final class ClientSpacePhysics {
                 || !Orbits.moves(player)) {
             return;
         }
-        Planet p = GlobeRenderer.planetBelow(player.level(), player.getX(), player.getZ());
-        if (p == null) {
-            return;
-        }
         int thrust = 0;
         if (!player.onGround()) {
             thrust = (player.input.jumping ? 1 : 0) - (player.input.shiftKeyDown ? 1 : 0);
+        }
+        StarSystem system = GlobeRenderer.systemNear(player.level(), player.position());
+        if (system != null) {
+            Orbits.stepSystem(player, system, GlobeRenderer.tuning(), thrust);
+            return;
+        }
+        Planet p = GlobeRenderer.planetBelow(player.level(), player.getX(), player.getZ());
+        if (p == null) {
+            return;
         }
         Orbits.step(player, p, GlobeRenderer.tuning(), thrust);
     }

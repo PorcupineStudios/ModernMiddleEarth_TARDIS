@@ -25,6 +25,11 @@ public final class SpacePhysics {
             return;
         }
         MinecraftServer server = level.getServer();
+        if (Systems.isSystem(server, level.dimension())) {
+            Systems.near(Systems.all(server), level.dimension(), e.position())
+                    .ifPresent(s -> Orbits.stepSystem(e, s, TardisContent.tuning().space(), 0));
+            return;
+        }
         if (!Planets.isSpace(server, level.dimension())) {
             return;
         }

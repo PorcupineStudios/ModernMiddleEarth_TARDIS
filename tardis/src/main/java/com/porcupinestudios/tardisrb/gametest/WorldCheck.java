@@ -185,6 +185,7 @@ public final class WorldCheck {
             TardisRB.LOG.info("[worldcheck] wrapped round the planet: {} -> {}", off, back.position());
         }
         back.discard();
+        checkSystem(server, planet, space, problems);
         // a probe near the east edge puts up seam portals there that look round to the west edge
         for (int dz = -160; dz <= 160; dz += 16) {
             world.getChunk(BlockPos.containing(b.maxX() + 1, 64, dz));
@@ -204,6 +205,42 @@ public final class WorldCheck {
                         s.getDestPos());
             }
         }
+    }
+
+    /** Out of the top of the Overworld's layer into the solar system beside its ball, and back in. */
+    private static void checkSystem(MinecraftServer server, Planet planet, ServerLevel space, List<String> problems) {
+        var system = com.porcupinestudios.tardisrb.space.Systems.ofPlanet(server, planet.id());
+        if (system.isEmpty()) {
+            problems.add("the Overworld is in no solar system");
+            return;
+        }
+        ServerLevel sys = server.getLevel(system.get().dimension());
+        var body = system.get().body(planet.id());
+        Vec3 top = new Vec3(planet.spaceX(1000.5), planet.link().orbit().top() + 1, planet.spaceZ(-500.5));
+        space.getChunk(BlockPos.containing(top));
+        ArmorStand stand = new ArmorStand(space, top.x, top.y, top.z);
+        space.addFreshEntity(stand);
+        var out = SpaceTravel.toSystem(stand, planet, body, sys, TardisContent.tuning().space());
+        Vec3 expected = body.fromLayer(1000.5, -500.5);
+        if (out.level() != sys || out.position().distanceTo(expected) > 1) {
+            problems.add("out of the layer top went to " + out.level().dimension().location() + " " + out.position()
+                    + ", not " + expected);
+            return;
+        }
+        TardisRB.LOG.info("[worldcheck] into the solar system: {} -> {} (ball at {})", top, out.position(),
+                body.center());
+        Vec3 inside = body.center().add(out.position().subtract(body.center()).normalize().scale(body.entry() - 2));
+        sys.getChunk(BlockPos.containing(inside));
+        out.teleportTo(inside.x, inside.y, inside.z);
+        var back = SpaceTravel.toLayer(out, body, space);
+        Vec3 again = new Vec3(planet.spaceX(1000.5), planet.link().orbit().top() - 3, planet.spaceZ(-500.5));
+        if (back.level() != space || back.position().distanceTo(again) > 1) {
+            problems.add("into the ball went to " + back.level().dimension().location() + " " + back.position()
+                    + ", not " + again);
+        } else {
+            TardisRB.LOG.info("[worldcheck] back into the layer: {}", back.position());
+        }
+        back.discard();
     }
 
     private static void run(MinecraftServer server) {

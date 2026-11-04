@@ -1,0 +1,7 @@
+{
+  "dimension": "tardis_rb:solar_system",
+  "sun": {"x": 0, "y": 0, "z": 0, "radius": 600, "gravity": 4.0, "color": "#FFE9A0", "burn": 4.0},
+  "bodies": [
+    {"planet": "tardis_rb:overworld", "x": 9000, "y": 0, "z": 0, "radius": 160}
+  ]
+}

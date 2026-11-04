@@ -63,10 +63,21 @@ public final class Orbits {
     }
 
     /**
-     * One tick of space physics, after vanilla's own tick: drag undone (in the air), the planet's pull and any thrust
-     * added, speed capped. {@code thrust} is -1, 0 or 1 (sneak, nothing, jump).
+     * One tick of space physics over a planet, after vanilla's own tick: drag undone (in the air), the planet's pull
+     * (world down, with orbits) and any thrust added, speed capped. {@code thrust} is -1, 0 or 1 (sneak, nothing,
+     * jump).
      */
     public static void step(Entity e, Planet p, Tuning.SpaceTuning t, int thrust) {
+        apply(e, t, thrust, v -> new Vec3(0, -down(p, e.getY(), v, t) * GravityScale.of(e), 0));
+    }
+
+    /** The same between the planets of a solar system: every ball and the sun pull ({@link StarSystem#gravity}). */
+    public static void stepSystem(Entity e, StarSystem s, Tuning.SpaceTuning t, int thrust) {
+        apply(e, t, thrust, v -> s.gravity(e.position(), t).scale(GravityScale.of(e)));
+    }
+
+    private static void apply(Entity e, Tuning.SpaceTuning t, int thrust,
+            java.util.function.UnaryOperator<Vec3> pull) {
         Vec3 v = e.getDeltaMovement();
         Tuning.Motion m = t.motion();
         boolean living = e instanceof LivingEntity;
@@ -82,11 +93,11 @@ public final class Orbits {
         } else if (!living) {
             v = v.add(0, e.getGravity(), 0);
         }
-        // Drag and the entity's own gravity act in its frame; the planet pulls world-down, thrust pushes its own up.
+        // Drag and the entity's own gravity act in its frame (turned with its gravity direction); the pull is in
+        // world directions; thrust pushes along the entity's own up.
         net.minecraft.core.Direction g = GravityChangerAPI.getGravityDirection(e);
         v = RotationUtil.vecPlayerToWorld(v, g);
-        v = v.add(0, -down(p, e.getY(), v, t) * GravityScale.of(e), 0)
-                .add(RotationUtil.vecPlayerToWorld(0.0, thrust * m.thrust(), 0.0, g));
+        v = v.add(pull.apply(v)).add(RotationUtil.vecPlayerToWorld(0.0, thrust * m.thrust(), 0.0, g));
         double speed = v.length();
         if (speed > m.maxSpeed()) {
             v = v.scale(m.maxSpeed() / speed);

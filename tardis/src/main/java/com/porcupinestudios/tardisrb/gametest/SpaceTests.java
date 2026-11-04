@@ -5,12 +5,14 @@ import com.porcupinestudios.tardisrb.progression.SkyLink;
 import com.porcupinestudios.tardisrb.progression.Tuning;
 import com.porcupinestudios.tardisrb.space.Planet;
 import com.porcupinestudios.tardisrb.space.SeamPortals;
+import java.util.List;
 import java.util.Optional;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.gametest.framework.GameTest;
 import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.gametest.GameTestHolder;
 import net.neoforged.neoforge.gametest.PrefixGameTestTemplate;
 
@@ -189,5 +191,68 @@ public final class SpaceTests {
                     "not standing on the wall: x " + side.getX() + " (wall " + wallX + ")");
             helper.assertTrue(com.porcupinestudios.tardisrb.gravity.GravityDirection.of(high) == up, "lost");
         });
+    }
+
+    private static com.porcupinestudios.tardisrb.space.StarSystem testSystem(Planet p, double sunRadius) {
+        var file = new com.porcupinestudios.tardisrb.progression.SystemFile(Level.OVERWORLD,
+                new com.porcupinestudios.tardisrb.progression.SystemFile.Sun(0, 0, 0, sunRadius, 1, 0xFFFFFF, 4),
+                List.of(new com.porcupinestudios.tardisrb.progression.SystemFile.Body(p.id(), 5000, 100, -2000, 200,
+                        1)));
+        helper(file.problem() == null, "system rejected: " + file.problem());
+        return com.porcupinestudios.tardisrb.space.StarSystem.resolve(TardisRB.id("sys"), file, List.of(p));
+    }
+
+    private static void helper(boolean ok, String message) {
+        if (!ok) {
+            throw new net.minecraft.gametest.framework.GameTestAssertException(message);
+        }
+    }
+
+    /**
+     * Slice 2 (Aaron 2026-11-04: "do slice 2 and 3 after"): leaving the top of a layer puts you beside the planet's
+     * ball on the ray through your spot, flying into the ball drops you over the same spot, velocity carried both ways.
+     */
+    @GameTest(template = "platform")
+    public static void solarSystemRoundTrip(GameTestHelper helper) {
+        Planet p = bigPlanet(SkyLink.Wrap.TORUS);
+        var system = testSystem(p, 300);
+        var body = system.body(p.id());
+        helper.assertTrue(body != null, "the planet isn't in the system");
+        double[][] spots = {{0, 0}, {100_000, -2000}, {-300_000, 300_000}, {500_000, 100}};
+        Vec3 v = new Vec3(0.3, 0.1, -0.2);
+        for (double[] s : spots) {
+            Vec3 out = body.fromLayer(s[0], s[1]);
+            double d = out.distanceTo(body.center());
+            helper.assertTrue(Math.abs(d - body.entry() - 3) < 1e-6, "came out " + d + " from the centre");
+            helper.assertTrue(system.entered(out) == null, "came out inside the entry sphere");
+            double[] back = body.surfaceUnder(out);
+            helper.assertTrue(Math.abs(back[0] - s[0]) < 1 && Math.abs(back[1] - s[1]) < 1,
+                    "spot " + s[0] + "," + s[1] + " came back as " + back[0] + "," + back[1]);
+            Vec3 w = body.velocityToLayer(s[0], s[1], body.velocityFromLayer(s[0], s[1], v));
+            helper.assertTrue(w.distanceTo(v) < 1e-9, "velocity " + v + " came back as " + w);
+            Vec3 up = body.velocityFromLayer(s[0], s[1], new Vec3(0, 1, 0));
+            helper.assertTrue(up.dot(out.subtract(body.center()).normalize()) > 0.999999, "layer up isn't outward");
+        }
+        helper.assertTrue(system.entered(body.center().add(body.entry() - 1, 0, 0)) == body, "didn't enter the ball");
+        helper.assertTrue(system.inSun(new Vec3(10, 0, 0)), "not in the sun");
+        helper.succeed();
+    }
+
+    /** Between the planets every ball pulls, falling off with distance squared, matching the layer at its top. */
+    @GameTest(template = "platform")
+    public static void solarSystemGravity(GameTestHelper helper) {
+        Planet p = bigPlanet(SkyLink.Wrap.TORUS);
+        Tuning.SpaceTuning t = Tuning.DEFAULT.space();
+        var system = testSystem(p, 0);
+        var body = system.body(p.id());
+        Vec3 at = body.center().add(body.entry(), 0, 0);
+        Vec3 g = system.gravity(at, t);
+        double topOfLayer = com.porcupinestudios.tardisrb.space.Orbits.gravity(p, p.link().orbit().top(), t);
+        helper.assertTrue(Math.abs(g.length() - topOfLayer) < 1e-9,
+                "pull at the entry sphere " + g.length() + " vs the top of the layer " + topOfLayer);
+        helper.assertTrue(g.normalize().dot(new Vec3(-1, 0, 0)) > 0.999999, "doesn't pull towards the ball: " + g);
+        helper.assertTrue(system.down(at, t) == net.minecraft.core.Direction.WEST, "down isn't west: "
+                + system.down(at, t));
+        helper.succeed();
     }
 }
