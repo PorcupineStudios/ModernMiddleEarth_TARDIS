@@ -6,6 +6,7 @@ import com.porcupinestudios.lotrport.net.MapNet;
 import com.porcupinestudios.lotrport.net.QuestNet;
 import com.porcupinestudios.lotrport.npc.LotrEntities;
 import net.minecraft.client.KeyMapping;
+import net.neoforged.neoforge.client.settings.KeyConflictContext;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.builders.CubeDeformation;
@@ -29,6 +30,14 @@ public final class LotrClient {
     public static final KeyMapping MAP_KEY = new KeyMapping("key.lotr_port.map", InputConstants.Type.KEYSYM,
             GLFW.GLFW_KEY_M, "key.categories.lotr_port");
 
+    /** On the map screen: teleport to the block under the cursor (operators and creative players), as LOTR's. */
+    public static final KeyMapping MAP_TELEPORT_KEY = new KeyMapping("key.lotr_port.map_teleport",
+            KeyConflictContext.GUI, InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_T, "key.categories.lotr_port");
+
+    /** On the map screen: fast travel to the selected waypoint, as LOTR's. */
+    public static final KeyMapping FAST_TRAVEL_KEY = new KeyMapping("key.lotr_port.fast_travel",
+            KeyConflictContext.GUI, InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_F, "key.categories.lotr_port");
+
     private LotrClient() {}
 
     @SubscribeEvent
@@ -41,6 +50,8 @@ public final class LotrClient {
     @SubscribeEvent
     public static void keys(RegisterKeyMappingsEvent event) {
         event.register(MAP_KEY);
+        event.register(MAP_TELEPORT_KEY);
+        event.register(FAST_TRAVEL_KEY);
     }
 
     @SubscribeEvent

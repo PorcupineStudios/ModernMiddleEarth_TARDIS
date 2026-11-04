@@ -694,5 +694,7 @@
   "npc.lotr_port.wood_elf": "Šumski Vilenjak",
   "npc.lotr_port.wood_elf_captain": "Kapetan Šumskih Vilenjaka",
   "npc.lotr_port.wood_elf_scout": "Izviđač Šumskih Vilenjaka",
-  "npc.lotr_port.wood_elf_warrior": "Borac Šumskih Vilenjaka"
+  "npc.lotr_port.wood_elf_warrior": "Borac Šumskih Vilenjaka",
+  "screen.lotr_port.map.title": "Karta Međuzemlja",
+  "screen.lotr_port.map.tp": "Pritisni te '%s' za /tp (teleportaciju)"
 }
