@@ -1,0 +1,11 @@
+{
+  "kind": "screen",
+  "action": "none",
+  "part": "screen_2",
+  "panel": 5,
+  "requirements": {
+    "type": "tardis_rb:subsystem_level",
+    "subsystem": "tardis_rb:navigation",
+    "min": 1
+  }
+}

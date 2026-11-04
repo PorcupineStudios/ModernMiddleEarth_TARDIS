@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "tardis_rb:block/capaldi/frame_slab"
+    },
+    "type=top": {
+      "model": "tardis_rb:block/capaldi/frame_slab_top"
+    },
+    "type=double": {
+      "model": "tardis_rb:block/capaldi/frame"
+    }
+  }
+}

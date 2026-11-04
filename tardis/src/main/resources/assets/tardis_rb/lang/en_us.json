@@ -22,5 +22,18 @@
   "tardis_rb.destination.tardis_rb.the_nether": "The Nether",
   "tardis_rb.destination.tardis_rb.the_end": "The End",
   "tardis_rb.destination.tardis_rb.middle_earth": "Middle-earth",
-  "block.tardis_rb.repair_station": "Repair Station"
+  "block.tardis_rb.repair_station": "Repair Station",
+  "block.tardis_rb.floor_plate": "Console Room Floor Plate",
+  "block.tardis_rb.wall_panel": "Console Room Wall Panel",
+  "block.tardis_rb.frame": "Console Room Frame",
+  "block.tardis_rb.light_strip": "Console Room Light Strip",
+  "block.tardis_rb.roundel_wall": "Roundel Wall",
+  "block.tardis_rb.roundel_wall_lit": "Lit Roundel Wall",
+  "block.tardis_rb.grille_plate": "Glowing Floor Grille",
+  "block.tardis_rb.frame_stairs": "Console Room Frame Stairs",
+  "block.tardis_rb.floor_plate_stairs": "Console Room Floor Stairs",
+  "block.tardis_rb.frame_slab": "Console Room Frame Slab",
+  "block.tardis_rb.collision_post": "Arch Post (invisible)",
+  "block.tardis_rb.collision_pillar": "Pedestal Post (invisible)",
+  "block.tardis_rb.console_hull": "Console Hull (invisible)"
 }

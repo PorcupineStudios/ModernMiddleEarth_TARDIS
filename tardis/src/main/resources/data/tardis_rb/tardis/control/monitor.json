@@ -1,7 +1,6 @@
 {
   "kind": "monitor",
   "action": "screen",
-  "panel": 3,
-  "u": 0.5,
-  "v": 0.35
+  "panel": 1,
+  "part": "screen_1"
 }

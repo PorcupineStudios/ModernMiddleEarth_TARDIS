@@ -22,13 +22,16 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 /**
- * The console (Aaron, 2026-11-03: like the original mod's, a custom model with buttons, levers and dials). The block is
- * only the central column; the panels and controls around it are drawn by the client renderer and clicked through
- * {@code client/ConsoleInput}. Clicking the column itself opens the flight screen. It belongs to the TARDIS whose
+ * The console (Aaron, 2026-11-03: like the original mod's, a custom model with buttons, levers and dials; 2026-11-04 the
+ * Capaldi console). The block is the middle of the console; the model, its controls, the time rotor and the room's
+ * arches are drawn by the client renderer, controls are clicked through {@code client/ConsoleInput}, and invisible
+ * {@link ConsoleHullBlock}s round it give the rest of the body its collision. Clicking the block opens the flight
+ * screen. It belongs to the TARDIS whose
  * interior plot it stands in.
  */
 public final class ConsoleBlock extends Block implements EntityBlock {
-    private static final VoxelShape COLUMN = Block.box(3, 0, 3, 13, 16, 13);
+    /** The middle of the console's body; the cells round it are {@link ConsoleHullBlock}s. */
+    private static final VoxelShape BODY = ConsoleHullBlock.shape(0, 0);
 
     public ConsoleBlock(Properties properties) {
         super(properties);
@@ -54,7 +57,7 @@ public final class ConsoleBlock extends Block implements EntityBlock {
 
     @Override
     protected VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
-        return COLUMN;
+        return BODY;
     }
 
     @Override

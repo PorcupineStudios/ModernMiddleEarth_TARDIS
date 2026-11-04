@@ -1,0 +1,11 @@
+{
+  "kind": "wheel",
+  "action": "none",
+  "part": "crank",
+  "panel": 2,
+  "requirements": {
+    "type": "tardis_rb:subsystem_level",
+    "subsystem": "tardis_rb:navigation",
+    "min": 1
+  }
+}

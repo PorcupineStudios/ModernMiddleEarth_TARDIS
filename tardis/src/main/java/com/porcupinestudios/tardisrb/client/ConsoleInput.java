@@ -19,8 +19,9 @@ import net.neoforged.neoforge.network.PacketDistributor;
 
 /**
  * Clicking console controls: the controls stand outside the console block, so a right-click is tested against each
- * shown control's small box along the player's view; the nearest hit is sent to the server ({@code ConsoleNet.Press}).
- * A block in front of the control wins as usual.
+ * shown control's click box from the console model along the player's view; the nearest hit is sent to the server
+ * ({@code ConsoleNet.Press}). A block in front of the control wins as usual (the console's invisible hull has no
+ * outline, so it never does).
  */
 @EventBusSubscriber(modid = TardisRB.MOD_ID, value = Dist.CLIENT)
 public final class ConsoleInput {
@@ -35,6 +36,7 @@ public final class ConsoleInput {
         }
         Vec3 eye = mc.player.getEyePosition();
         Vec3 end = eye.add(mc.player.getViewVector(1F).scale(ConsoleLayout.REACH));
+        ConsoleModel model = ConsoleModel.get();
         double best = Double.MAX_VALUE;
         ConsoleBlockEntity console = null;
         String control = null;
@@ -45,8 +47,11 @@ public final class ConsoleInput {
             }
             Vec3 corner = Vec3.atLowerCornerOf(be.getBlockPos());
             for (ConsoleBlockEntity.Shown c : be.shown()) {
-                Vec3 at = corner.add(ConsoleLayout.point(c.panel(), c.u(), c.v()));
-                Optional<Vec3> hit = new AABB(at, at).inflate(ConsoleLayout.HIT).clip(eye, end);
+                ConsoleModel.ControlPart part = model.controls.get(c.part());
+                if (part == null) {
+                    continue;
+                }
+                Optional<Vec3> hit = part.box().move(corner).inflate(0.02).clip(eye, end);
                 if (hit.isPresent() && hit.get().distanceToSqr(eye) < best) {
                     best = hit.get().distanceToSqr(eye);
                     console = be;

@@ -24,8 +24,8 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.level.levelgen.structure.templatesystem.StructurePlaceSettings;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplate;
 import net.neoforged.neoforge.gametest.GameTestHolder;
 import net.neoforged.neoforge.gametest.PrefixGameTestTemplate;
@@ -70,8 +70,9 @@ public final class WreckTests {
     }
 
     /**
-     * The game test server makes only the overworld (and doesn't load dimension files), so this checks the console
-     * room template has its console and doors. The dedicated-server world check (CI) builds a real interior.
+     * The game test server makes only the overworld (and doesn't load dimension files), so this builds the console
+     * room 48 blocks above the test and checks it has its console, hull, doors, basement ladder and open hallway ends.
+     * The dedicated-server world check (CI) builds a real interior.
      */
     @GameTest(template = PLATFORM)
     public static void theConsoleRoomTemplateLoads(GameTestHelper helper) {
@@ -79,20 +80,39 @@ public final class WreckTests {
         StructureTemplate room = server.getStructureManager()
                 .get(TardisContent.tuning().interior().room()).orElse(null);
         helper.assertTrue(room != null, "no console room template");
-        BlockPos origin = helper.absolutePos(new BlockPos(0, 20, 0));
-        room.placeInWorld(helper.getLevel(), origin, origin, new StructurePlaceSettings(), helper.getLevel().getRandom(),
-                Block.UPDATE_CLIENTS);
-        helper.assertTrue(helper.getLevel().getBlockState(origin.offset(4, 1, 5)).is(TardisBlocks.CONSOLE.get()),
-                "no console in the room");
-        helper.assertTrue(helper.getLevel().getBlockState(origin.offset(4, 1, 0)).is(TardisBlocks.INTERIOR_DOOR.get()),
-                "no doors in the room");
-        BlockPos spawn = origin.offset(TardisContent.tuning().interior().spawn());
-        helper.assertTrue(helper.getLevel().getBlockState(spawn).isAir()
-                && helper.getLevel().getBlockState(spawn.above()).isAir(), "spawn point is blocked");
-        for (BlockPos p : BlockPos.betweenClosed(origin, origin.offset(room.getSize()).offset(-1, -1, -1))) {
-            helper.getLevel().setBlock(p, net.minecraft.world.level.block.Blocks.AIR.defaultBlockState(), Block.UPDATE_CLIENTS);
+        BlockPos origin = helper.absolutePos(new BlockPos(0, 48, 0));
+        ServerLevel level = helper.getLevel();
+        Interiors.build(level, origin, room);
+        var t = TardisContent.tuning().interior();
+        BlockPos console = origin.offset(t.console());
+        helper.assertTrue(level.getBlockState(console).is(TardisBlocks.CONSOLE.get()), "no console in the room");
+        helper.assertTrue(level.getBlockState(console.west()).is(TardisBlocks.CONSOLE_HULL.get())
+                && level.getBlockState(console.south()).is(TardisBlocks.CONSOLE_HULL.get()), "no hull round the console");
+        BlockPos door = origin.offset(TardisContent.tuning().door().interiorDoor());
+        helper.assertTrue(level.getBlockState(door).is(TardisBlocks.INTERIOR_DOOR.get())
+                && level.getBlockState(door.above()).is(TardisBlocks.INTERIOR_DOOR.get()), "no doors in the room");
+        BlockPos spawn = origin.offset(t.spawn());
+        helper.assertTrue(level.getBlockState(spawn).isAir() && level.getBlockState(spawn.above()).isAir()
+                && !level.getBlockState(spawn.below()).isAir(), "spawn point is blocked or has no floor");
+        helper.assertTrue(level.getBlockState(origin.offset(t.hatch())).is(Blocks.LADDER), "no ladder to the basement");
+        helper.assertTrue(level.getBlockState(origin.offset(t.basementOffset()).offset(4, 1, 4))
+                .is(TardisBlocks.REPAIR_STATION.get()), "no repair station under the room");
+        for (var anchor : t.roomAnchors()) {
+            for (BlockPos p : BlockPos.betweenClosed(origin.offset(anchor.min()), origin.offset(anchor.max()))) {
+                helper.assertTrue(level.getBlockState(p).isAir(), "hallway end blocked at " + p.subtract(origin));
+            }
         }
+        clearInterior(level, origin);
         helper.succeed();
+    }
+
+    /** Clears a console room built at {@code origin} by a test, with its basement and the rooms near it. */
+    public static void clearInterior(ServerLevel level, BlockPos origin) {
+        for (BlockPos p : BlockPos.betweenClosed(origin.offset(-34, -10, -34), origin.offset(34, 8, 20))) {
+            if (!level.getBlockState(p).isAir()) {
+                level.setBlock(p, Blocks.AIR.defaultBlockState(), Block.UPDATE_CLIENTS);
+            }
+        }
     }
 
     @GameTest(template = PLATFORM)

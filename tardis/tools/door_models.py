@@ -73,7 +73,7 @@ def main():
     door = "tardis_rb:block/interior_door"
     inner = {}
     for half in ("lower", "upper"):
-        write(f"models/block/interior_door_{half}_open.json", open_model(door, door, door, door, half, "south"))
+        write(f"models/block/interior_door_{half}_open.json", open_model(door, door, door, door, half, "north"))
         inner[f"half={half},open=false"] = {"model": door}
         inner[f"half={half},open=true"] = {"model": f"tardis_rb:block/interior_door_{half}_open"}
     write("blockstates/interior_door.json", {"variants": inner})

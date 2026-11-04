@@ -5,130 +5,124 @@ import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;
 import com.porcupinestudios.tardisrb.TardisRB;
 import com.porcupinestudios.tardisrb.block.ConsoleBlockEntity;
-import com.porcupinestudios.tardisrb.console.ConsoleLayout;
-import net.minecraft.client.model.geom.ModelLayerLocation;
-import net.minecraft.client.model.geom.ModelPart;
-import net.minecraft.client.model.geom.PartPose;
-import net.minecraft.client.model.geom.builders.CubeListBuilder;
-import net.minecraft.client.model.geom.builders.LayerDefinition;
-import net.minecraft.client.model.geom.builders.MeshDefinition;
-import net.minecraft.client.model.geom.builders.PartDefinition;
+import java.util.List;
+import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
+import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
 /**
- * Draws the console (Aaron, 2026-11-03: like the original mod's): a plinth and column, six sloped panels, a bobbing time
- * rotor, and each control on it (button, lever, dial, monitor) where the synced control list puts it. Buttons sink
- * when pressed, levers flip, dials turn. Placeholder colours until Aaron's model and textures.
+ * Draws the Capaldi console room's models (Aaron, 2026-11-04): the console with its pedestal down to the lower deck,
+ * the time rotor (glass and column bob, the ceiling rings turn opposite ways) and the arches. The room's walls and
+ * floors are real blocks. Each control is drawn only once it is on the console (repaired); a used control sinks
+ * into its panel for a moment and levers and switches stay over while flipped. The glowing bits get a second,
+ * full-bright pass.
  */
 public final class ConsoleRenderer implements BlockEntityRenderer<ConsoleBlockEntity> {
-    public static final ModelLayerLocation LAYER = new ModelLayerLocation(TardisRB.id("console"), "main");
-    private static final ResourceLocation TEXTURE = TardisRB.id("textures/entity/console.png");
+    private static final ResourceLocation TEXTURE = TardisRB.id("textures/entity/capaldi/console.png");
+    private static final ResourceLocation GLOW = TardisRB.id("textures/entity/capaldi/console_glow.png");
+    private static final List<String> STATIC = List.of("body", "arches");
 
-    private final ModelPart root;
-
-    public ConsoleRenderer(BlockEntityRendererProvider.Context context) {
-        root = context.bakeLayer(LAYER);
-    }
-
-    /** The model, in pixels, y up, centred on the console block's floor. */
-    public static LayerDefinition layer() {
-        MeshDefinition mesh = new MeshDefinition();
-        PartDefinition top = mesh.getRoot();
-        PartDefinition body = top.addOrReplaceChild("body", CubeListBuilder.create()
-                .texOffs(0, 0).addBox(-6, 0, -6, 12, 2, 12)
-                .texOffs(0, 16).addBox(-3, 2, -3, 6, 14, 6)
-                .texOffs(0, 40).addBox(-5, 15, -5, 10, 1, 10), PartPose.ZERO);
-        float mid = (float) ((ConsoleLayout.INNER + ConsoleLayout.OUTER) / 2 * 16);
-        float midY = (float) ((ConsoleLayout.INNER_Y + ConsoleLayout.OUTER_Y) / 2 * 16);
-        float tilt = (float) ConsoleLayout.tilt();
-        for (int i = 0; i < 6; i++) {
-            float yaw = (float) ConsoleLayout.yaw(i);
-            float sin = (float) Math.sin(yaw);
-            float cos = (float) Math.cos(yaw);
-            body.addOrReplaceChild("panel" + i, CubeListBuilder.create().texOffs(64, 0)
-                    .addBox(-7.5F, -1, -7.5F, 15, 1, 15), PartPose.offsetAndRotation(sin * mid, midY, cos * mid,
-                    tilt, yaw, 0));
-            body.addOrReplaceChild("strut" + i, CubeListBuilder.create().texOffs(96, 32)
-                    .addBox(-1, 0, -1, 2, 12, 2), PartPose.offsetAndRotation(sin * 5, 1, cos * 5, -0.35F, yaw, 0));
-        }
-        top.addOrReplaceChild("rotor", CubeListBuilder.create().texOffs(64, 32).addBox(-2, 0, -2, 4, 12, 4),
-                PartPose.ZERO);
-        top.addOrReplaceChild("button", CubeListBuilder.create().texOffs(0, 64).addBox(-1.5F, 0, -1.5F, 3, 2, 3),
-                PartPose.ZERO);
-        PartDefinition lever = top.addOrReplaceChild("lever", CubeListBuilder.create().texOffs(32, 64)
-                .addBox(-1.5F, 0, -2, 3, 1, 4), PartPose.ZERO);
-        lever.addOrReplaceChild("handle", CubeListBuilder.create().texOffs(32, 80).addBox(-0.5F, 0, -0.5F, 1, 6, 1)
-                .texOffs(48, 80).addBox(-1, 6, -1, 2, 2, 2), PartPose.offset(0, 1, 0));
-        PartDefinition dial = top.addOrReplaceChild("dial", CubeListBuilder.create().texOffs(64, 64)
-                .addBox(-2.5F, 0, -2.5F, 5, 1, 5), PartPose.ZERO);
-        dial.addOrReplaceChild("pointer", CubeListBuilder.create().texOffs(96, 64).addBox(-0.5F, 0, -2.5F, 1, 1, 3),
-                PartPose.offset(0, 1, 0));
-        PartDefinition monitor = top.addOrReplaceChild("monitor", CubeListBuilder.create().texOffs(0, 96)
-                .addBox(-4, 0, -1, 8, 7, 1), PartPose.ZERO);
-        monitor.addOrReplaceChild("screen", CubeListBuilder.create().texOffs(32, 96).addBox(-3, 1, 0, 6, 5, 0.3F),
-                PartPose.ZERO);
-        return LayerDefinition.create(mesh, 128, 128);
-    }
+    public ConsoleRenderer(BlockEntityRendererProvider.Context context) {}
 
     @Override
     public void render(ConsoleBlockEntity be, float partialTick, PoseStack pose, MultiBufferSource buffers, int light,
             int overlay) {
-        VertexConsumer vc = buffers.getBuffer(RenderType.entityCutoutNoCull(TEXTURE));
+        ConsoleModel model = ConsoleModel.get();
         float time = (be.getLevel() == null ? 0 : be.getLevel().getGameTime()) + partialTick;
-        pose.pushPose();
-        pose.translate(0.5, 0, 0.5);
-        root.getChild("body").render(pose, vc, light, overlay);
-        ModelPart rotor = root.getChild("rotor");
-        rotor.y = 17 + (float) Math.sin(time * 0.1) * 1.5F;
-        rotor.render(pose, vc, light, overlay);
-        pose.popPose();
-        float tilt = (float) ConsoleLayout.tilt();
-        for (ConsoleBlockEntity.Shown c : be.shown()) {
-            Vec3 at = ConsoleLayout.point(c.panel(), c.u(), c.v());
-            pose.pushPose();
-            pose.translate(at.x, at.y - 0.04, at.z);
-            pose.mulPose(Axis.YP.rotation((float) ConsoleLayout.yaw(c.panel())));
-            pose.mulPose(Axis.XP.rotation(tilt));
-            float since = time - be.usedAt(c.id());
-            switch (c.kind()) {
-                case "button" -> {
-                    ModelPart b = root.getChild("button");
-                    b.y = since >= 0 && since < 6 ? -1 : 0;
-                    b.render(pose, vc, light, overlay);
-                }
-                case "lever" -> {
-                    ModelPart l = root.getChild("lever");
-                    l.getChild("handle").xRot = be.uses(c.id()) % 2 == 0 ? -0.6F : 0.6F;
-                    l.render(pose, vc, light, overlay);
-                }
-                case "dial" -> {
-                    ModelPart d = root.getChild("dial");
-                    int turns = switch (c.action()) {
-                        case "step" -> be.step();
-                        case "destination" -> be.destination();
-                        default -> be.uses(c.id());
-                    };
-                    d.getChild("pointer").yRot = turns * (float) (Math.PI / 2);
-                    d.render(pose, vc, light, overlay);
-                }
-                case "monitor" -> {
-                    pose.mulPose(Axis.XP.rotation(-tilt - 0.25F));
-                    root.getChild("monitor").render(pose, vc, light, overlay);
-                }
-                default -> { }
+        // two passes: the textured model lit by the world, then its glowing bits at full brightness
+        for (int pass = 0; pass < 2; pass++) {
+            boolean glow = pass == 1;
+            int l = glow ? LightTexture.FULL_BRIGHT : light;
+            VertexConsumer solid = buffers.getBuffer(RenderType.entityCutoutNoCull(glow ? GLOW : TEXTURE));
+            for (String part : STATIC) {
+                draw(model.part(part), pose, solid, l);
             }
+            for (ConsoleBlockEntity.Shown c : be.shown()) {
+                ConsoleModel.ControlPart ctl = model.controls.get(c.part());
+                if (ctl == null) {
+                    continue;
+                }
+                pose.pushPose();
+                animate(be, c, ctl, model, time, pose);
+                draw(model.part("ctl_" + c.part()), pose, solid, l);
+                pose.popPose();
+            }
+            // the rotor: the ceiling rings turn opposite ways, the column rises and falls inside the glass
+            spin(model, "rotor_spinners", time * 0.6F, pose, solid, l);
+            spin(model, "rotor_spinner_mid", -time * 0.9F, pose, solid, l);
+            pose.pushPose();
+            pose.translate(0, Math.sin(time * 0.08) * 0.12, 0);
+            draw(model.part("rotor_column"), pose, solid, l);
             pose.popPose();
+            VertexConsumer glass = buffers.getBuffer(glow ? RenderType.entityCutoutNoCull(GLOW)
+                    : RenderType.entityTranslucent(TEXTURE));
+            draw(model.part("rotor_glass"), pose, glass, l);
+        }
+    }
+
+    private static void spin(ConsoleModel model, String part, float degrees, PoseStack pose, VertexConsumer vc,
+            int light) {
+        pose.pushPose();
+        pose.translate(model.pivotX, 0, model.pivotZ);
+        pose.mulPose(Axis.YP.rotationDegrees(degrees));
+        pose.translate(-model.pivotX, 0, -model.pivotZ);
+        draw(model.part(part), pose, vc, light);
+        pose.popPose();
+    }
+
+    /** A used control sinks a little into its panel; levers and switches lean over while flipped. */
+    private static void animate(ConsoleBlockEntity be, ConsoleBlockEntity.Shown c, ConsoleModel.ControlPart ctl,
+            ConsoleModel model, float time, PoseStack pose) {
+        Vec3 centre = ctl.box().getCenter();
+        // the way out of the panel: away from the rotor axis and up
+        Vec3 out = new Vec3(centre.x - model.pivotX, 0, centre.z - model.pivotZ).normalize().add(0, 1.4, 0)
+                .normalize();
+        float since = time - be.usedAt(c.id());
+        if (since >= 0 && since < 6) {
+            Vec3 in = out.scale(-0.03 * (1 - since / 6));
+            pose.translate(in.x, in.y, in.z);
+        }
+        boolean flips = c.kind().equals("lever") || c.kind().equals("switch");
+        if (flips && be.uses(c.id()) % 2 == 1) {
+            // lean over about the control's base, round the panel's horizontal axis
+            Vec3 axis = new Vec3(-(centre.z - model.pivotZ), 0, centre.x - model.pivotX).normalize();
+            pose.translate(centre.x, ctl.box().minY, centre.z);
+            pose.mulPose(Axis.of(axis.toVector3f()).rotationDegrees(-35));
+            pose.translate(-centre.x, -ctl.box().minY, -centre.z);
+        }
+    }
+
+    private static void draw(List<ConsoleModel.Quad> quads, PoseStack pose, VertexConsumer vc, int light) {
+        PoseStack.Pose p = pose.last();
+        for (ConsoleModel.Quad q : quads) {
+            for (int i = 0; i < 4; i++) {
+                float[] v = q.v()[i];
+                vc.addVertex(p, v[0], v[1], v[2]).setColor(255, 255, 255, 255).setUv(v[3], v[4])
+                        .setOverlay(OverlayTexture.NO_OVERLAY).setLight(light)
+                        .setNormal(p, q.n()[0], q.n()[1], q.n()[2]);
+            }
         }
     }
 
     @Override
+    public boolean shouldRenderOffScreen(ConsoleBlockEntity be) {
+        return true;
+    }
+
+    @Override
+    public int getViewDistance() {
+        return 96;
+    }
+
+    @Override
     public AABB getRenderBoundingBox(ConsoleBlockEntity be) {
-        return new AABB(be.getBlockPos()).inflate(1.5, 1.0, 1.5);
+        // the arches span the whole room and the pedestal reaches the lower deck
+        return new AABB(be.getBlockPos()).inflate(12, 0, 12).expandTowards(0, 8, 0).expandTowards(0, -4, 0);
     }
 }

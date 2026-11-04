@@ -54,29 +54,53 @@ public record Tuning(CrashSite crashSite, Hop hop, Winder winder, Interior inter
     }
 
     /**
-     * Interiors in the shared dimension: plot n starts at x = n x {@code plot_spacing}, z = 0, y = {@code floor_y}.
-     * {@code room} is the structure template of the first console room; {@code spawn} is where players appear in it.
-     * Added rooms go {@code room_step} blocks further along z each; {@code doorway} (x and y; z unused) is the corner of
-     * the 1 x 2 opening carved through the wall between a room and the next.
+     * Interiors in the shared dimension: plot n's origin is x = n x {@code plot_spacing}, z = 0, y = {@code floor_y}, the
+     * floor in front of the console (Aaron 2026-11-04: the Capaldi console room). {@code room} is the console room's
+     * structure template, placed with its corner at {@code room_offset} from the origin; {@code console} is where its
+     * console stands and {@code spawn} where players appear. Added rooms grow out from the open ends of the room's
+     * hallways ({@code room_anchors}, taken in turn), {@code room_step} blocks deeper each time, joined by an opening
+     * the size of the hallway. The repair basement ({@code basement}) goes at {@code basement_offset}, reached by the
+     * ladder at {@code hatch}.
      */
-    public record Interior(int plotSpacing, int floorY, ResourceLocation room, BlockPos spawn, int roomStep,
-            BlockPos doorway, ResourceLocation basement, BlockPos basementOffset) {
+    public record Interior(int plotSpacing, int floorY, ResourceLocation room, BlockPos roomOffset, BlockPos console,
+            BlockPos spawn, int roomStep, List<Anchor> roomAnchors, ResourceLocation basement, BlockPos basementOffset,
+            BlockPos hatch) {
         static final Interior DEFAULT = new Interior(1024, 64,
-                ResourceLocation.fromNamespaceAndPath("tardis_rb", "interior/console_room_wreck"), new BlockPos(4, 1, 1),
-                9, new BlockPos(5, 1, 0), ResourceLocation.fromNamespaceAndPath("tardis_rb", "interior/repair_basement"),
-                new BlockPos(0, -5, 0));
+                ResourceLocation.fromNamespaceAndPath("tardis_rb", "interior/console_room_capaldi"),
+                new BlockPos(-15, -4, -15), BlockPos.ZERO, new BlockPos(0, 0, 6), 9,
+                List.of(new Anchor(new BlockPos(-1, -3, -15), new BlockPos(2, -1, -15), Direction.NORTH),
+                        new Anchor(new BlockPos(15, -3, -3), new BlockPos(15, -1, 0), Direction.EAST),
+                        new Anchor(new BlockPos(-15, -3, -3), new BlockPos(-15, -1, 0), Direction.WEST)),
+                ResourceLocation.fromNamespaceAndPath("tardis_rb", "interior/repair_basement"),
+                new BlockPos(-1, -9, -5), new BlockPos(6, -4, -2));
         static final Codec<Interior> CODEC = RecordCodecBuilder.create(i -> i.group(
                 Codec.intRange(64, 1 << 16).optionalFieldOf("plot_spacing", DEFAULT.plotSpacing)
                         .forGetter(Interior::plotSpacing),
                 Codec.INT.optionalFieldOf("floor_y", DEFAULT.floorY).forGetter(Interior::floorY),
                 ResourceLocation.CODEC.optionalFieldOf("room", DEFAULT.room).forGetter(Interior::room),
+                BlockPos.CODEC.optionalFieldOf("room_offset", DEFAULT.roomOffset).forGetter(Interior::roomOffset),
+                BlockPos.CODEC.optionalFieldOf("console", DEFAULT.console).forGetter(Interior::console),
                 BlockPos.CODEC.optionalFieldOf("spawn", DEFAULT.spawn).forGetter(Interior::spawn),
                 Codec.intRange(1, 256).optionalFieldOf("room_step", DEFAULT.roomStep).forGetter(Interior::roomStep),
-                BlockPos.CODEC.optionalFieldOf("doorway", DEFAULT.doorway).forGetter(Interior::doorway),
+                Anchor.CODEC.listOf().optionalFieldOf("room_anchors", DEFAULT.roomAnchors)
+                        .forGetter(Interior::roomAnchors),
                 ResourceLocation.CODEC.optionalFieldOf("basement", DEFAULT.basement).forGetter(Interior::basement),
                 BlockPos.CODEC.optionalFieldOf("basement_offset", DEFAULT.basementOffset)
-                        .forGetter(Interior::basementOffset))
+                        .forGetter(Interior::basementOffset),
+                BlockPos.CODEC.optionalFieldOf("hatch", DEFAULT.hatch).forGetter(Interior::hatch))
                 .apply(i, Interior::new));
+
+        /**
+         * The open end of a hallway rooms grow from: its last cells ({@code min} to {@code max}, from the origin) and
+         * the way it leads ({@code facing}).
+         */
+        public record Anchor(BlockPos min, BlockPos max, Direction facing) {
+            static final Codec<Anchor> CODEC = RecordCodecBuilder.create(i -> i.group(
+                    BlockPos.CODEC.fieldOf("min").forGetter(Anchor::min),
+                    BlockPos.CODEC.fieldOf("max").forGetter(Anchor::max),
+                    Direction.CODEC.fieldOf("facing").forGetter(Anchor::facing))
+                    .apply(i, Anchor::new));
+        }
     }
 
     /**
@@ -129,7 +153,7 @@ public record Tuning(CrashSite crashSite, Hop hop, Winder winder, Interior inter
      */
     public record DoorTuning(BlockPos interiorDoor, Direction interiorFacing, double width, double height,
             double offset, double bottom, int closeTicks) {
-        static final DoorTuning DEFAULT = new DoorTuning(new BlockPos(4, 1, 0), Direction.SOUTH, 0.75, 1.625, -0.0625,
+        static final DoorTuning DEFAULT = new DoorTuning(new BlockPos(0, 0, 8), Direction.NORTH, 0.75, 1.625, -0.0625,
                 0.125, 8);
         static final Codec<DoorTuning> CODEC = RecordCodecBuilder.create(i -> i.group(
                 BlockPos.CODEC.optionalFieldOf("interior_door", DEFAULT.interiorDoor).forGetter(DoorTuning::interiorDoor),

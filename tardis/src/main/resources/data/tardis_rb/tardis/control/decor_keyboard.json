@@ -1,0 +1,11 @@
+{
+  "kind": "keyboard",
+  "action": "none",
+  "part": "keyboard",
+  "panel": 3,
+  "requirements": {
+    "type": "tardis_rb:subsystem_level",
+    "subsystem": "tardis_rb:navigation",
+    "min": 1
+  }
+}

@@ -10,8 +10,10 @@ import com.porcupinestudios.tardisrb.progression.TardisContent;
 import com.porcupinestudios.tardisrb.progression.Tuning;
 import com.porcupinestudios.tardisrb.progression.Unlocks;
 import com.porcupinestudios.tardisrb.repair.Repairs;
+import java.util.List;
 import java.util.Optional;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -20,14 +22,19 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.Mirror;
+import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructurePlaceSettings;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplate;
 import net.neoforged.neoforge.common.NeoForge;
 
 /**
  * Adding rooms. A room needs the {@code tardis_rb:add_room} feature, a free place under the room cap (the
- * {@code room_cap} stat, which counts the console room), its own requirements and its cost. Slot n's corner is the
- * plot origin plus n x {@code room_step} along z; a doorway is carved through the walls between slot n-1 and n.
+ * {@code room_cap} stat, which counts the console room), its own requirements and its cost. Rooms grow out from the
+ * open ends of the console room's hallways (Aaron 2026-11-04, {@code interior.room_anchors}): slot 1 at the first
+ * hallway, slot 2 at the second and so on round, then a room further along each ({@code room_step} deeper). A room is
+ * turned to face along its hallway, and an opening the size of the hallway is cut through its front wall (and the back
+ * wall of the room before it).
  */
 public final class Rooms {
     public static final ResourceLocation ADD_ROOM = TardisRB.id("add_room");
@@ -79,7 +86,7 @@ public final class Rooms {
         return add(Interiors.level(server).orElseThrow(), Interiors.origin(tardis.plot()), tardis, id, player);
     }
 
-    /** Adds a room to an interior whose console room's corner is {@code origin} (game tests build one anywhere). */
+    /** Adds a room to an interior whose origin is {@code origin} (game tests build one anywhere). */
     public static Repairs.Outcome add(ServerLevel level, BlockPos origin, TardisRecord tardis, ResourceLocation id,
             Optional<ServerPlayer> player) {
         MinecraftServer server = level.getServer();
@@ -105,34 +112,88 @@ public final class Rooms {
         if (unpaid.isPresent()) {
             return new Repairs.Outcome(unpaid);
         }
-        build(level, origin, template.get(), slot);
+        Placement at = build(level, origin, template.get(), slot);
         tardis.addRoom(new TardisRecord.PlacedRoom(id, slot));
         CompoundTag tag = new CompoundTag();
         tag.putUUID("tardis", tardis.id());
         tag.putString("room", id.toString());
         tag.putInt("slot", slot);
-        BlockPos corner = corner(origin, slot);
+        BlockPos corner = at.corner();
         HistoryLog.get(server).append(new HistoryEntry(server.overworld().getGameTime(), ROOM_HISTORY,
                 level.dimension(), Optional.of(corner), tag));
         return Repairs.Outcome.OK;
     }
 
-    /** The corner of a slot's room. */
-    public static BlockPos corner(BlockPos origin, int slot) {
-        return origin.offset(0, 0, slot * TardisContent.tuning().interior().roomStep());
+    /** Builds a TARDIS's recorded rooms again in an interior whose origin is {@code origin} (a rebuilt plot). */
+    public static void rebuild(ServerLevel level, BlockPos origin, TardisRecord tardis) {
+        for (TardisRecord.PlacedRoom placed : tardis.rooms()) {
+            Optional<StructureTemplate> template = TardisContent.room(placed.room())
+                    .flatMap(r -> level.getServer().getStructureManager().get(r.template()));
+            if (template.isEmpty()) {
+                TardisRB.LOG.error("[rooms] can't rebuild room {}: no template", placed.room());
+                continue;
+            }
+            build(level, origin, template.get(), placed.slot());
+        }
     }
 
-    private static void build(ServerLevel level, BlockPos origin, StructureTemplate template, int slot) {
+    /**
+     * Where a slot's room goes: its structure {@code corner} and {@code rotation} (local +z runs along the hallway,
+     * {@code facing}), the hallway's opening ({@code width} x {@code height}, starting at local x {@code openX}, y 1)
+     * and how deep along the hallway it is ({@code depth}, 0 for the room at the hallway's end).
+     */
+    public record Placement(BlockPos corner, Rotation rotation, Direction facing, int openX, int width, int height,
+            int depth) {
+        /** A block of the room (local x, y, z in its template) in the world. */
+        public BlockPos at(int x, int y, int z) {
+            return corner.offset(StructureTemplate.transform(new BlockPos(x, y, z), Mirror.NONE, rotation,
+                    BlockPos.ZERO));
+        }
+    }
+
+    /** Where slot {@code slot} (1 and up) goes for a room template {@code roomWidth} blocks wide. */
+    public static Placement placement(BlockPos origin, int slot, int roomWidth) {
         Tuning.Interior t = TardisContent.tuning().interior();
-        BlockPos corner = corner(origin, slot);
-        template.placeInWorld(level, corner, corner, new StructurePlaceSettings(), level.getRandom(),
-                Block.UPDATE_CLIENTS);
-        // The doorway: the back wall of the room before (z = corner - 1) and this room's front wall (z = corner).
-        for (int dz = -1; dz <= 0; dz++) {
-            for (int dy = 0; dy < 2; dy++) {
-                BlockPos p = corner.offset(t.doorway().getX(), t.doorway().getY() + dy, dz);
+        List<Tuning.Interior.Anchor> anchors = t.roomAnchors();
+        Tuning.Interior.Anchor anchor = anchors.get(Math.floorMod(slot - 1, anchors.size()));
+        int depth = Math.max(0, slot - 1) / anchors.size();
+        Direction f = anchor.facing();
+        Rotation rotation = switch (f) {
+            case NORTH -> Rotation.CLOCKWISE_180;
+            case WEST -> Rotation.CLOCKWISE_90;
+            case EAST -> Rotation.COUNTERCLOCKWISE_90;
+            default -> Rotation.NONE;
+        };
+        // the room's local +x in the world, and the hallway's last cell furthest that way back (its first)
+        BlockPos side = StructureTemplate.transform(new BlockPos(1, 0, 0), Mirror.NONE, rotation, BlockPos.ZERO);
+        BlockPos lo = anchor.min();
+        BlockPos hi = anchor.max();
+        int width = Math.abs(f.getAxis() == Direction.Axis.X ? hi.getZ() - lo.getZ() : hi.getX() - lo.getX()) + 1;
+        int height = hi.getY() - lo.getY() + 1;
+        BlockPos first = new BlockPos(side.getX() < 0 ? hi.getX() : lo.getX(), lo.getY(),
+                side.getZ() < 0 ? hi.getZ() : lo.getZ());
+        int openX = Math.max(0, (roomWidth - width) / 2);
+        BlockPos front = origin.offset(first).relative(f, 1 + depth * t.roomStep());
+        BlockPos corner = front.subtract(StructureTemplate.transform(new BlockPos(openX, 1, 0), Mirror.NONE, rotation,
+                BlockPos.ZERO));
+        return new Placement(corner, rotation, f, openX, width, height, depth);
+    }
+
+    private static Placement build(ServerLevel level, BlockPos origin, StructureTemplate template, int slot) {
+        Placement at = placement(origin, slot, template.getSize().getX());
+        template.placeInWorld(level, at.corner(), at.corner(), new StructurePlaceSettings().setRotation(at.rotation()),
+                level.getRandom(), Block.UPDATE_CLIENTS);
+        // the opening: this room's front wall, and the back wall of the room before it on this hallway
+        for (int x = at.openX(); x < at.openX() + at.width(); x++) {
+            for (int y = 1; y <= at.height(); y++) {
+                BlockPos p = at.at(x, y, 0);
                 level.setBlock(p, Blocks.AIR.defaultBlockState(), Block.UPDATE_CLIENTS);
+                if (at.depth() > 0) {
+                    level.setBlock(p.relative(at.facing().getOpposite()), Blocks.AIR.defaultBlockState(),
+                            Block.UPDATE_CLIENTS);
+                }
             }
         }
+        return at;
     }
 }

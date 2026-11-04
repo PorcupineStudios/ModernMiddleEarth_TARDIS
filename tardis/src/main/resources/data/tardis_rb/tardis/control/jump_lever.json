@@ -1,11 +1,10 @@
 {
   "kind": "lever",
   "action": "jump",
-  "panel": 5,
-  "u": 0.5,
-  "v": 0.5,
+  "panel": 0,
   "requirements": {
     "type": "tardis_rb:milestone",
     "milestone": "tardis_rb:restored_core"
-  }
+  },
+  "part": "main_lever_right"
 }

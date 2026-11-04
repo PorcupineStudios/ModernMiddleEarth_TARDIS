@@ -1,0 +1,11 @@
+{
+  "kind": "slider",
+  "action": "none",
+  "part": "slider_1",
+  "panel": 0,
+  "requirements": {
+    "type": "tardis_rb:subsystem_level",
+    "subsystem": "tardis_rb:navigation",
+    "min": 1
+  }
+}

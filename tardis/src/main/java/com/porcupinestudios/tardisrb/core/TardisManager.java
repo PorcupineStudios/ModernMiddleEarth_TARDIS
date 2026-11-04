@@ -72,6 +72,13 @@ public final class TardisManager extends SavedData {
         return plot < 0 ? Optional.empty() : records.values().stream().filter(r -> r.plot() == plot).findFirst();
     }
 
+    /** Gives the TARDIS a fresh plot, leaving its old one (rebuilding an interior on a new layout). */
+    public int newPlot(TardisRecord record) {
+        record.setPlot(nextPlot++);
+        setDirty();
+        return record.plot();
+    }
+
     /** Gives the TARDIS the next free interior plot, if it has none; returns its plot. */
     public int assignPlot(TardisRecord record) {
         if (record.plot() < 0) {
