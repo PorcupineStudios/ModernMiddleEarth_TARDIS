@@ -9,6 +9,8 @@
     "lotr_port:dol_amroth_watchfort/1",
     "lotr_port:dol_amroth_watchfort/2"
   ],
+  "chance": 800,
+  "salt": 1963887309,
   "ground": 0,
   "max_slope": 6,
   "road_distance": 16

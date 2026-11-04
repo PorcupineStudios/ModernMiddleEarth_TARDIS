@@ -9,6 +9,8 @@
     "lotr_port:numenor_ruin/1",
     "lotr_port:numenor_ruin/2"
   ],
+  "chance": 500,
+  "salt": 768793586,
   "ground": 0,
   "max_slope": 6,
   "road_distance": 16

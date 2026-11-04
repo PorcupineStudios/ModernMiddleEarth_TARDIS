@@ -9,6 +9,8 @@
     "lotr_port:moredain_village/1",
     "lotr_port:moredain_village/2"
   ],
+  "chance": 200,
+  "salt": 1699761978,
   "ground": 0,
   "max_slope": 6,
   "road_distance": 16

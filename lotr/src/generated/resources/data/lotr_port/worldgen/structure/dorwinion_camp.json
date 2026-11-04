@@ -9,6 +9,8 @@
     "lotr_port:dorwinion_camp/1",
     "lotr_port:dorwinion_camp/2"
   ],
+  "chance": 400,
+  "salt": 645698603,
   "ground": 0,
   "max_slope": 6,
   "road_distance": 16

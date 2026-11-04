@@ -9,6 +9,8 @@
     "lotr_port:angmar_warg_pit/1",
     "lotr_port:angmar_warg_pit/2"
   ],
+  "chance": 200,
+  "salt": 874572037,
   "ground": 6,
   "max_slope": 6,
   "road_distance": 16

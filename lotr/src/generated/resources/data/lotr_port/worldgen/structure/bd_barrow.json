@@ -9,6 +9,8 @@
     "lotr_port:bd_barrow/1",
     "lotr_port:bd_barrow/2"
   ],
+  "chance": 10,
+  "salt": 1042639792,
   "ground": 2,
   "max_slope": 6,
   "road_distance": 16

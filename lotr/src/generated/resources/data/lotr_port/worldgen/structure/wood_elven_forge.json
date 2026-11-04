@@ -9,6 +9,8 @@
     "lotr_port:wood_elven_forge/1",
     "lotr_port:wood_elven_forge/2"
   ],
+  "chance": 80,
+  "salt": 1428228106,
   "ground": -1,
   "max_slope": 6,
   "road_distance": 16

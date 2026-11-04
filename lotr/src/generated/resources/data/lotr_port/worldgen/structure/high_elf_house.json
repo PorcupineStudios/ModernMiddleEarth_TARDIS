@@ -9,6 +9,8 @@
     "lotr_port:high_elf_house/1",
     "lotr_port:high_elf_house/2"
   ],
+  "chance": 300,
+  "salt": 1498738199,
   "ground": 0,
   "max_slope": 6,
   "road_distance": 16

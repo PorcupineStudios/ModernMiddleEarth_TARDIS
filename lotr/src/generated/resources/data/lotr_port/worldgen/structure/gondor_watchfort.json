@@ -9,6 +9,8 @@
     "lotr_port:gondor_watchfort/1",
     "lotr_port:gondor_watchfort/2"
   ],
+  "chance": 800,
+  "salt": 783980615,
   "ground": 0,
   "max_slope": 6,
   "road_distance": 16

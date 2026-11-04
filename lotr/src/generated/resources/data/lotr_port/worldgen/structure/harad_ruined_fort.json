@@ -9,6 +9,8 @@
     "lotr_port:harad_ruined_fort/1",
     "lotr_port:harad_ruined_fort/2"
   ],
+  "chance": 3000,
+  "salt": 1901442522,
   "ground": 8,
   "max_slope": 6,
   "road_distance": 16

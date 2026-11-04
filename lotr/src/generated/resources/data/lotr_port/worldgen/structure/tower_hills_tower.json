@@ -9,6 +9,8 @@
     "lotr_port:tower_hills_tower/1",
     "lotr_port:tower_hills_tower/2"
   ],
+  "chance": 600,
+  "salt": 2133435528,
   "ground": 0,
   "max_slope": 6,
   "road_distance": 16

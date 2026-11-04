@@ -9,6 +9,8 @@
     "lotr_port:dorwinion_brewery/1",
     "lotr_port:dorwinion_brewery/2"
   ],
+  "chance": 500,
+  "salt": 868799589,
   "ground": 0,
   "max_slope": 6,
   "road_distance": 16

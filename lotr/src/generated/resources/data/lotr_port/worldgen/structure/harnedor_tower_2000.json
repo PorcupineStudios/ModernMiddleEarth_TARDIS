@@ -9,6 +9,8 @@
     "lotr_port:harnedor_tower/1",
     "lotr_port:harnedor_tower/2"
   ],
+  "chance": 2000,
+  "salt": 1298631890,
   "ground": -1,
   "max_slope": 6,
   "road_distance": 16

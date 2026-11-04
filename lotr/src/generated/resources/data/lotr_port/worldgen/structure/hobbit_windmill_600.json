@@ -9,6 +9,8 @@
     "lotr_port:hobbit_windmill/1",
     "lotr_port:hobbit_windmill/2"
   ],
+  "chance": 600,
+  "salt": 2057406587,
   "ground": 0,
   "max_slope": 6,
   "road_distance": 16

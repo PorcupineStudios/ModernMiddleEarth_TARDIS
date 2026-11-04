@@ -9,6 +9,8 @@
     "lotr_port:corsair_camp/1",
     "lotr_port:corsair_camp/2"
   ],
+  "chance": 100,
+  "salt": 890227728,
   "ground": 0,
   "max_slope": 6,
   "road_distance": 16

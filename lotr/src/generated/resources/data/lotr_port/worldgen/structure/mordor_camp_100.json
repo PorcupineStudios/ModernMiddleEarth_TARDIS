@@ -9,6 +9,8 @@
     "lotr_port:mordor_camp/1",
     "lotr_port:mordor_camp/2"
   ],
+  "chance": 100,
+  "salt": 1298042699,
   "ground": 0,
   "max_slope": 6,
   "road_distance": 16

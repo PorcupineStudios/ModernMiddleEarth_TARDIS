@@ -9,6 +9,8 @@
     "lotr_port:gondor_obelisk/1",
     "lotr_port:gondor_obelisk/2"
   ],
+  "chance": 800,
+  "salt": 1811806199,
   "ground": 0,
   "max_slope": 6,
   "road_distance": 16

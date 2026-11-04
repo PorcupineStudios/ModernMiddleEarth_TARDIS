@@ -9,6 +9,8 @@
     "lotr_port:gundabad_camp/1",
     "lotr_port:gundabad_camp/2"
   ],
+  "chance": 4000,
+  "salt": 844837897,
   "ground": 0,
   "max_slope": 6,
   "road_distance": 16

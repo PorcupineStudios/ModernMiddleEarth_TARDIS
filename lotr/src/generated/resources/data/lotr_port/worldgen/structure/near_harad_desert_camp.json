@@ -9,6 +9,8 @@
     "lotr_port:near_harad_desert_camp/1",
     "lotr_port:near_harad_desert_camp/2"
   ],
+  "chance": 3000,
+  "salt": 515070712,
   "ground": -1,
   "max_slope": 6,
   "road_distance": 16

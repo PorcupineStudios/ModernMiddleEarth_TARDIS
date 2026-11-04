@@ -9,6 +9,8 @@
     "lotr_port:dorwinion_garden/1",
     "lotr_port:dorwinion_garden/2"
   ],
+  "chance": 300,
+  "salt": 1099843069,
   "ground": 2,
   "max_slope": 6,
   "road_distance": 16

@@ -9,6 +9,8 @@
     "lotr_port:high_elven_tower/1",
     "lotr_port:high_elven_tower/2"
   ],
+  "chance": 900,
+  "salt": 729446469,
   "ground": 0,
   "max_slope": 6,
   "road_distance": 16

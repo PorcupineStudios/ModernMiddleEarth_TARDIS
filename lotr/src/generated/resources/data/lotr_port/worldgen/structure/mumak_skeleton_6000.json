@@ -9,6 +9,8 @@
     "lotr_port:mumak_skeleton/1",
     "lotr_port:mumak_skeleton/2"
   ],
+  "chance": 6000,
+  "salt": 477456998,
   "ground": 6,
   "max_slope": 6,
   "road_distance": 16

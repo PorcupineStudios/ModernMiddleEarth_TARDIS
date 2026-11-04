@@ -9,6 +9,8 @@
     "lotr_port:ruined_house/1",
     "lotr_port:ruined_house/2"
   ],
+  "chance": 4000,
+  "salt": 80634147,
   "ground": 0,
   "max_slope": 6,
   "road_distance": 16

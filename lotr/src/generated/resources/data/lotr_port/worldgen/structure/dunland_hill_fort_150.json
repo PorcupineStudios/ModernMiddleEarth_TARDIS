@@ -9,6 +9,8 @@
     "lotr_port:dunland_hill_fort/1",
     "lotr_port:dunland_hill_fort/2"
   ],
+  "chance": 150,
+  "salt": 1630596516,
   "ground": 2,
   "max_slope": 6,
   "road_distance": 16

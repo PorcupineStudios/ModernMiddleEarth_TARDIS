@@ -9,6 +9,8 @@
     "lotr_port:high_elven_forge/1",
     "lotr_port:high_elven_forge/2"
   ],
+  "chance": 1000,
+  "salt": 2020906848,
   "ground": -1,
   "max_slope": 6,
   "road_distance": 16

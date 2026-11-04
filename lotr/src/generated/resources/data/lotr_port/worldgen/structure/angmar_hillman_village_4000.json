@@ -9,6 +9,8 @@
     "lotr_port:angmar_hillman_village/1",
     "lotr_port:angmar_hillman_village/2"
   ],
+  "chance": 4000,
+  "salt": 320557466,
   "ground": 6,
   "max_slope": 6,
   "road_distance": 16

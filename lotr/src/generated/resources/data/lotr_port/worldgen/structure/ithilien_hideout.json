@@ -9,6 +9,8 @@
     "lotr_port:ithilien_hideout/1",
     "lotr_port:ithilien_hideout/2"
   ],
+  "chance": 50,
+  "salt": 417464891,
   "ground": 9,
   "max_slope": 6,
   "road_distance": 16

@@ -9,6 +9,8 @@
     "lotr_port:angmar_camp/1",
     "lotr_port:angmar_camp/2"
   ],
+  "chance": 50,
+  "salt": 1002625782,
   "ground": 0,
   "max_slope": 6,
   "road_distance": 16

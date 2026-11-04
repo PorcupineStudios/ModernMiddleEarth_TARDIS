@@ -9,6 +9,8 @@
     "lotr_port:uruk_warg_pit/1",
     "lotr_port:uruk_warg_pit/2"
   ],
+  "chance": 300,
+  "salt": 1803472246,
   "ground": 6,
   "max_slope": 6,
   "road_distance": 16

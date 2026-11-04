@@ -9,6 +9,8 @@
     "lotr_port:small_stone_ruin/1",
     "lotr_port:small_stone_ruin/2"
   ],
+  "chance": 300,
+  "salt": 1684903334,
   "ground": 1,
   "max_slope": 6,
   "road_distance": 16
