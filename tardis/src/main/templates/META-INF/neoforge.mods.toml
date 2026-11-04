@@ -43,3 +43,7 @@ type = "required"
 versionRange = "[6.0.7,)"
 ordering = "AFTER"
 side = "BOTH"
+
+# Six-direction gravity: Gravity Changer's mixins, ported (gravity/gc, see its NOTICE).
+[[mixins]]
+config = "tardis_rb.mixins.json"

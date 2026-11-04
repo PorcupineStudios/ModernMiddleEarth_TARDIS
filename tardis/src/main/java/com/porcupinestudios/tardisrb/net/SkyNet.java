@@ -33,9 +33,11 @@ public final class SkyNet {
     }
 
     private static void payloads(RegisterPayloadHandlersEvent event) {
-        var r = event.registrar("2");
+        var r = event.registrar("3");
         r.playToClient(Planets.TYPE, Planets.CODEC, (p, ctx) -> ctx.enqueueWork(() -> clientHandler.accept(p)));
         r.playToClient(PlanetMap.TYPE, PlanetMap.CODEC, (p, ctx) -> ctx.enqueueWork(() -> clientMapHandler.accept(p)));
+        r.playToClient(GravityDir.TYPE, GravityDir.CODEC, (p, ctx) -> ctx.enqueueWork(
+                () -> com.porcupinestudios.tardisrb.gravity.GravityDirection.receive(ctx.player().level(), p)));
     }
 
     /** Every planet, then every finished globe map. */
@@ -73,6 +75,19 @@ public final class SkyNet {
         static final StreamCodec<ByteBuf, PlanetMap> CODEC = StreamCodec.composite(ResourceLocation.STREAM_CODEC,
                 PlanetMap::planet, ByteBufCodecs.VAR_INT, PlanetMap::width, ByteBufCodecs.VAR_INT,
                 PlanetMap::height, ByteBufCodecs.byteArray(4 << 20), PlanetMap::packed, PlanetMap::new);
+
+        @Override
+        public Type<? extends CustomPacketPayload> type() {
+            return TYPE;
+        }
+    }
+
+    /** An entity's gravity direction ({@code Direction.get3DDataValue}) and how long its view takes to turn. */
+    public record GravityDir(int entity, int direction, int turnMs) implements CustomPacketPayload {
+        public static final Type<GravityDir> TYPE = new Type<>(TardisRB.id("gravity_direction"));
+        static final StreamCodec<ByteBuf, GravityDir> CODEC = StreamCodec.composite(ByteBufCodecs.VAR_INT,
+                GravityDir::entity, ByteBufCodecs.VAR_INT, GravityDir::direction, ByteBufCodecs.VAR_INT,
+                GravityDir::turnMs, GravityDir::new);
 
         @Override
         public Type<? extends CustomPacketPayload> type() {

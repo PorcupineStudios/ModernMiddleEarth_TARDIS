@@ -157,4 +157,37 @@ public final class SpaceTests {
         stand.discard();
         helper.succeed();
     }
+
+    /**
+     * Aaron (2026-11-04): gravity direction by command. Gravity up drops an armor stand onto a ceiling, gravity east
+     * onto a wall, and turning it back down drops it to the floor; saving keeps the direction.
+     */
+    @GameTest(template = "platform", timeoutTicks = 200)
+    public static void gravityDirectionTurns(GameTestHelper helper) {
+        var up = net.minecraft.core.Direction.UP;
+        var east = net.minecraft.core.Direction.EAST;
+        var ceiling = new net.minecraft.core.BlockPos(1, 6, 1);
+        var wall = new net.minecraft.core.BlockPos(4, 4, 3);
+        helper.setBlock(ceiling, net.minecraft.world.level.block.Blocks.STONE);
+        helper.setBlock(wall, net.minecraft.world.level.block.Blocks.STONE);
+        helper.setBlock(wall.above(), net.minecraft.world.level.block.Blocks.STONE);
+        var high = helper.spawn(net.minecraft.world.entity.EntityType.ARMOR_STAND, new net.minecraft.world.phys.Vec3(1.5, 3.0, 1.5));
+        var side = helper.spawn(net.minecraft.world.entity.EntityType.ARMOR_STAND, new net.minecraft.world.phys.Vec3(1.5, 4.5, 3.5));
+        helper.assertTrue(com.porcupinestudios.tardisrb.gravity.GravityDirection.set(high, up), "can't turn gravity");
+        com.porcupinestudios.tardisrb.gravity.GravityDirection.set(side, east);
+        var box = high.getBoundingBox();
+        helper.assertTrue(Math.abs(box.maxY - high.getY()) < 1e-3 && box.minY < high.getY() - 1,
+                "an upside-down stand should hang from its feet: " + box + " at " + high.position());
+        var saved = high.saveWithoutId(new net.minecraft.nbt.CompoundTag());
+        helper.assertTrue("up".equals(saved.getString("tardis_rb:gravity")), "direction not saved: " + saved);
+        double ceilingY = helper.absolutePos(ceiling).getY();
+        double wallX = helper.absolutePos(wall).getX();
+        helper.succeedWhen(() -> {
+            helper.assertTrue(high.onGround() && Math.abs(high.getY() - ceilingY) < 1e-3,
+                    "not standing on the ceiling: y " + high.getY() + " (ceiling " + ceilingY + ")");
+            helper.assertTrue(side.onGround() && Math.abs(side.getX() - wallX) < 1e-3,
+                    "not standing on the wall: x " + side.getX() + " (wall " + wallX + ")");
+            helper.assertTrue(com.porcupinestudios.tardisrb.gravity.GravityDirection.of(high) == up, "lost");
+        });
+    }
 }
