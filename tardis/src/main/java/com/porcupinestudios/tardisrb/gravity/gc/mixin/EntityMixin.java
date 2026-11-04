@@ -148,6 +148,11 @@ public abstract class EntityMixin {
         cancellable = true
     )
     private void inject_getRotationVector(CallbackInfoReturnable<Vec3> cir) {
+        com.porcupinestudios.tardisrb.gravity.Tilt tilt = com.porcupinestudios.tardisrb.gravity.Tilt.of((Entity) (Object) this);
+        if (tilt != null) {
+            cir.setReturnValue(tilt.toWorld(cir.getReturnValue()));
+            return;
+        }
         Direction gravityDirection = GravityChangerAPI.getGravityDirection((Entity) (Object) this);
         if (gravityDirection == Direction.DOWN) return;
         

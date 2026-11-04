@@ -25,3 +25,18 @@ Read when touching `space/StarSystem`, `Systems`, `progression/SystemFile`, `cli
 - Tests: `SpaceTests.solarSystemRoundTrip`, `solarSystemGravity`; world check goes layer top -> system -> back.
   Headless client (2026-11-04): the sun with its glow and a planet ball lit on the sun side both draw. Not yet
   felt in play: the gravity turns while flying.
+
+## Free tilt (slice 3, `gravity/Tilt`)
+- Floating in a system, players lean to the true pull at any angle; the hitbox stays six-way (Minecraft boxes can't
+  turn). On blocks (`onGround`) the lean returns to the six-way frame. Data: `space.motion.free_tilt` (on),
+  `tilt_speed` (share of the way per tick, 0.12). Players only; outside a system there is no lean.
+- Kept as the world orientation of the player's own frame (`Tilt.now/prev`, on `GravityHolder`), ticked the same on
+  the server (aiming: `calculateViewVector` in `EntityMixin`, projectiles) and the client (`ClientSpacePhysics`, every
+  player: view in `CameraMixin.setRotation`, bodies in `EntityRenderDispatcherMixin` turned round the eyes so camera,
+  aim and body agree). Jump/sneak thrust pushes along the leaned up (`Orbits.apply`).
+- A gravity turn under a leaning player (`GravityDirection.apply`) skips the turning animation; `Tilt.regravitate`
+  keeps the lean and the world look and moves the difference into yaw/pitch.
+- Known: the eye still jumps when the six-way direction flips mid-flight (the box turns instantly); WASD air control
+  is in the six-way frame.
+- Tests: `SpaceTests.freeTiltLeansToThePull` (frames match `RotationUtil`, lean, aim, gravity turn keeps the look, on
+  blocks, setting off). Headless client: looking straight down (local) centres the planet ball under the crosshair.

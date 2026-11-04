@@ -60,6 +60,18 @@ public abstract class EntityRenderDispatcherMixin {
             if (!this.shouldRenderShadow) return;
             
             matrices.pushPose();
+            com.porcupinestudios.tardisrb.gravity.Tilt tilt = com.porcupinestudios.tardisrb.gravity.Tilt.of(entity);
+            if (tilt != null) {
+                // the six-way frame, then the lean turned round the eyes (where the camera and aiming are)
+                Quaternionf frame = com.porcupinestudios.tardisrb.gravity.Tilt.frame(gravityDirection);
+                Quaternionf lean = new Quaternionf(frame).conjugate().mul(tilt.at(tickDelta));
+                float eye = entity.getEyeHeight();
+                matrices.mulPose(frame);
+                matrices.translate(0, eye, 0);
+                matrices.mulPose(lean);
+                matrices.translate(0, -eye, 0);
+                return;
+            }
             RotationAnimation animation = GravityChangerAPI.getRotationAnimation(entity);
             if (animation == null) {
                 return;

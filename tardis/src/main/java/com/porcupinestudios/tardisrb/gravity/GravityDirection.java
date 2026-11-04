@@ -114,6 +114,11 @@ public final class GravityDirection {
      * on the client starts the view turning.
      */
     static void apply(Entity e, Direction old, Direction now, int turnMs) {
+        if (Tilt.of(e) != null) {
+            // a leaning entity keeps its view; the lean takes up the turn, so no turning animation
+            Tilt.regravitate(e, now);
+            turnMs = 0;
+        }
         Vec3 worldVelocity = RotationUtil.vecPlayerToWorld(e.getDeltaMovement(), old);
         ((GravityHolder) e).tardis_rb$setGravityField(now);
         e.setBoundingBox(((EntityAccessor) e).gc_makeBoundingBox());

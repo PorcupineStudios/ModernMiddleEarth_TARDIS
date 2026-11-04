@@ -193,16 +193,22 @@ public record Tuning(CrashSite crashSite, Hop hop, Winder winder, Interior inter
      * clouds and falls with the square of the distance from the planet's centre. Going sideways at
      * {@code orbit_speed} (blocks a tick in space, at the layer floor; slower higher up, as real orbits are) cancels it:
      * you orbit. Without air there is no drag ({@code drag_free}); jump and sneak push up and down by {@code thrust};
-     * nothing goes faster than {@code max_speed} blocks a tick (the server rubber-bands players above ~10).
+     * nothing goes faster than {@code max_speed} blocks a tick (the server rubber-bands players above ~10). Floating in
+     * a solar system, a player's view and body lean to the true pull ({@code free_tilt}), turning {@code tilt_speed}
+     * of the way each tick; standing on blocks they stay six-way.
      */
-    public record Motion(double orbitSpeed, double thrust, double maxSpeed, boolean dragFree) {
-        public static final Motion DEFAULT = new Motion(2.5, 0.02, 8.0, true);
+    public record Motion(double orbitSpeed, double thrust, double maxSpeed, boolean dragFree, boolean freeTilt,
+            double tiltSpeed) {
+        public static final Motion DEFAULT = new Motion(2.5, 0.02, 8.0, true, true, 0.12);
         public static final Codec<Motion> CODEC = RecordCodecBuilder.create(i -> i.group(
                 Codec.doubleRange(0, 64).optionalFieldOf("orbit_speed", DEFAULT.orbitSpeed)
                         .forGetter(Motion::orbitSpeed),
                 Codec.doubleRange(0, 1).optionalFieldOf("thrust", DEFAULT.thrust).forGetter(Motion::thrust),
                 Codec.doubleRange(0.1, 9.5).optionalFieldOf("max_speed", DEFAULT.maxSpeed).forGetter(Motion::maxSpeed),
-                Codec.BOOL.optionalFieldOf("drag_free", DEFAULT.dragFree).forGetter(Motion::dragFree))
+                Codec.BOOL.optionalFieldOf("drag_free", DEFAULT.dragFree).forGetter(Motion::dragFree),
+                Codec.BOOL.optionalFieldOf("free_tilt", DEFAULT.freeTilt).forGetter(Motion::freeTilt),
+                Codec.doubleRange(0.01, 1).optionalFieldOf("tilt_speed", DEFAULT.tiltSpeed)
+                        .forGetter(Motion::tiltSpeed))
                 .apply(i, Motion::new));
     }
 
