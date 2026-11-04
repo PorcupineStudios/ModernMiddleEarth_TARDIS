@@ -19,6 +19,8 @@ FIGHTERS = re.compile(r"warrior|soldier|archer|guard|levyman|berserker|axe|scout
 
 UI_EN = {
     "key.lotr_port.map": "Middle-earth Map",
+    "key.lotr_port.map_teleport": "Map Teleport",
+    "key.lotr_port.fast_travel": "Fast Travel",
     "key.categories.lotr_port": "The Lord of the Rings",
     "screen.lotr_port.map": "Middle-earth",
     "item.lotr_port.colony_charter": "Colony Charter",

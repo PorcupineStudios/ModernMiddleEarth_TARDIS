@@ -1,0 +1,1016 @@
+{
+  "labels": [
+    {
+      "id": "belegaer",
+      "x": 250,
+      "y": 1100,
+      "scale": 16.0,
+      "angle": 0,
+      "min_zoom": -6.0,
+      "max_zoom": -1.0
+    },
+    {
+      "id": "belegaer_sub",
+      "x": 250,
+      "y": 1220,
+      "scale": 6.0,
+      "angle": 0,
+      "min_zoom": -6.0,
+      "max_zoom": -1.0
+    },
+    {
+      "id": "western_isles",
+      "x": 290,
+      "y": 620,
+      "scale": 4.0,
+      "angle": -20,
+      "min_zoom": -4.5,
+      "max_zoom": 1.5
+    },
+    {
+      "id": "forodwaith",
+      "x": 1680,
+      "y": 380,
+      "scale": 15.0,
+      "angle": 2,
+      "min_zoom": -5.5,
+      "max_zoom": -0.5,
+      "biome": "lotr_port:forodwaith"
+    },
+    {
+      "id": "forochel",
+      "x": 780,
+      "y": 420,
+      "scale": 3.0,
+      "angle": 10,
+      "min_zoom": -2.5,
+      "max_zoom": 1.5
+    },
+    {
+      "id": "shire",
+      "x": 820,
+      "y": 750,
+      "scale": 2.0,
+      "angle": -10,
+      "min_zoom": -2.5,
+      "max_zoom": 0.5,
+      "biome": "lotr_port:shire"
+    },
+    {
+      "id": "white_downs",
+      "x": 783,
+      "y": 730,
+      "scale": 0.5,
+      "angle": -5,
+      "min_zoom": -0.5,
+      "max_zoom": 2.5,
+      "biome": "lotr_port:white_downs"
+    },
+    {
+      "id": "north_moors",
+      "x": 805,
+      "y": 690,
+      "scale": 1.0,
+      "angle": -5,
+      "min_zoom": -2.5,
+      "max_zoom": 2.5
+    },
+    {
+      "id": "old_forest",
+      "x": 875,
+      "y": 745,
+      "scale": 0.5,
+      "angle": -5,
+      "min_zoom": -0.5,
+      "max_zoom": 2.5,
+      "biome": "lotr_port:old_forest"
+    },
+    {
+      "id": "bree_land",
+      "x": 920,
+      "y": 740,
+      "scale": 1.0,
+      "angle": 15,
+      "min_zoom": -1.5,
+      "max_zoom": 1.5,
+      "biome": "lotr_port:breeland"
+    },
+    {
+      "id": "barrow_downs",
+      "x": 900,
+      "y": 760,
+      "scale": 0.5,
+      "angle": -10,
+      "min_zoom": -0.5,
+      "max_zoom": 2.5,
+      "biome": "lotr_port:barrow_downs"
+    },
+    {
+      "id": "eriador",
+      "x": 900,
+      "y": 750,
+      "scale": 10.0,
+      "angle": -15,
+      "min_zoom": -4.5,
+      "max_zoom": -1.5,
+      "biome": "lotr_port:eriador"
+    },
+    {
+      "id": "minhiriath",
+      "x": 850,
+      "y": 900,
+      "scale": 3.0,
+      "angle": -40,
+      "min_zoom": -2.5,
+      "max_zoom": 1.5,
+      "biome": "lotr_port:minhiriath"
+    },
+    {
+      "id": "hills_evendim",
+      "x": 800,
+      "y": 630,
+      "scale": 1.5,
+      "angle": -30,
+      "min_zoom": -2.5,
+      "max_zoom": 2.5
+    },
+    {
+      "id": "north_downs",
+      "x": 930,
+      "y": 620,
+      "scale": 1.0,
+      "angle": -25,
+      "min_zoom": -2.5,
+      "max_zoom": 2.5
+    },
+    {
+      "id": "south_downs",
+      "x": 965,
+      "y": 775,
+      "scale": 1.0,
+      "angle": 0,
+      "min_zoom": -2.5,
+      "max_zoom": 2.5
+    },
+    {
+      "id": "lone_lands",
+      "x": 1080,
+      "y": 740,
+      "scale": 3.0,
+      "angle": -5,
+      "min_zoom": -2.5,
+      "max_zoom": 0.5,
+      "biome": "lotr_port:lone_lands"
+    },
+    {
+      "id": "the_angle",
+      "x": 1110,
+      "y": 755,
+      "scale": 1.0,
+      "angle": -50,
+      "min_zoom": -0.5,
+      "max_zoom": 2.5,
+      "biome": "lotr_port:angle"
+    },
+    {
+      "id": "weather_hills",
+      "x": 985,
+      "y": 695,
+      "scale": 1.0,
+      "angle": 30,
+      "min_zoom": -2.5,
+      "max_zoom": 2.5
+    },
+    {
+      "id": "trollshaws",
+      "x": 1130,
+      "y": 695,
+      "scale": 1.0,
+      "angle": -5,
+      "min_zoom": -1.5,
+      "max_zoom": 2.5,
+      "biome": "lotr_port:trollshaws"
+    },
+    {
+      "id": "ettenmoors",
+      "x": 1085,
+      "y": 605,
+      "scale": 2.0,
+      "angle": 25,
+      "min_zoom": -1.5,
+      "max_zoom": 1.5,
+      "biome": "lotr_port:ettenmoors"
+    },
+    {
+      "id": "coldfells",
+      "x": 1180,
+      "y": 640,
+      "scale": 1.0,
+      "angle": -5,
+      "min_zoom": -1.5,
+      "max_zoom": 2.5,
+      "biome": "lotr_port:coldfells"
+    },
+    {
+      "id": "angmar",
+      "x": 1080,
+      "y": 550,
+      "scale": 4.0,
+      "angle": 17,
+      "min_zoom": -2.5,
+      "max_zoom": 0.5,
+      "biome": "lotr_port:angmar"
+    },
+    {
+      "id": "misty_mountains",
+      "x": 1175,
+      "y": 830,
+      "scale": 4.0,
+      "angle": -75,
+      "min_zoom": -3.5,
+      "max_zoom": 0.5,
+      "biome": "lotr_port:misty_mountains"
+    },
+    {
+      "id": "lindon",
+      "x": 570,
+      "y": 750,
+      "scale": 8.0,
+      "angle": 70,
+      "min_zoom": -5.5,
+      "max_zoom": -0.5,
+      "biome": "lotr_port:lindon"
+    },
+    {
+      "id": "forlindon",
+      "x": 535,
+      "y": 665,
+      "scale": 2.0,
+      "angle": -5,
+      "min_zoom": -1.5,
+      "max_zoom": 2.5
+    },
+    {
+      "id": "harlindon",
+      "x": 580,
+      "y": 825,
+      "scale": 2.0,
+      "angle": 15,
+      "min_zoom": -1.5,
+      "max_zoom": 2.5
+    },
+    {
+      "id": "gulf_lune",
+      "x": 570,
+      "y": 760,
+      "scale": 1.5,
+      "angle": -10,
+      "min_zoom": -0.5,
+      "max_zoom": 2.5
+    },
+    {
+      "id": "tower_hills",
+      "x": 710,
+      "y": 750,
+      "scale": 0.5,
+      "angle": 10,
+      "min_zoom": -0.5,
+      "max_zoom": 2.5,
+      "biome": "lotr_port:tower_hills"
+    },
+    {
+      "id": "far_downs",
+      "x": 755,
+      "y": 738,
+      "scale": 0.5,
+      "angle": 0,
+      "min_zoom": -0.5,
+      "max_zoom": 2.5
+    },
+    {
+      "id": "blue_mountains",
+      "x": 625,
+      "y": 620,
+      "scale": 3.0,
+      "angle": 80,
+      "min_zoom": -3.5,
+      "max_zoom": 0.5,
+      "biome": "lotr_port:blue_mountains"
+    },
+    {
+      "id": "eregion",
+      "x": 1125,
+      "y": 845,
+      "scale": 1.0,
+      "angle": -50,
+      "min_zoom": -2.5,
+      "max_zoom": 2.5,
+      "biome": "lotr_port:eregion"
+    },
+    {
+      "id": "enedwaith",
+      "x": 950,
+      "y": 1020,
+      "scale": 4.0,
+      "angle": -50,
+      "min_zoom": -4.5,
+      "max_zoom": 0.5,
+      "biome": "lotr_port:enedwaith"
+    },
+    {
+      "id": "dunland",
+      "x": 1055,
+      "y": 990,
+      "scale": 1.5,
+      "angle": -70,
+      "min_zoom": -1.5,
+      "max_zoom": 1.5,
+      "biome": "lotr_port:dunland"
+    },
+    {
+      "id": "swanfleet",
+      "x": 1020,
+      "y": 875,
+      "scale": 1.0,
+      "angle": 5,
+      "min_zoom": -1.5,
+      "max_zoom": 2.5,
+      "biome": "lotr_port:swanfleet"
+    },
+    {
+      "id": "pukel",
+      "x": 920,
+      "y": 1180,
+      "scale": 1.5,
+      "angle": -30,
+      "min_zoom": -2.5,
+      "max_zoom": 1.5,
+      "biome": "lotr_port:pukel"
+    },
+    {
+      "id": "rhovanion",
+      "x": 1490,
+      "y": 810,
+      "scale": 10.0,
+      "angle": 40,
+      "min_zoom": -4.5,
+      "max_zoom": -1.5
+    },
+    {
+      "id": "vales_anduin",
+      "x": 1260,
+      "y": 775,
+      "scale": 2.299999952316284,
+      "angle": -80,
+      "min_zoom": -2.5,
+      "max_zoom": 0.5,
+      "biome": "lotr_port:anduin_vale"
+    },
+    {
+      "id": "gladden_fields",
+      "x": 1290,
+      "y": 775,
+      "scale": 1.0,
+      "angle": -3,
+      "min_zoom": -0.5,
+      "max_zoom": 2.5,
+      "biome": "lotr_port:gladden_fields"
+    },
+    {
+      "id": "lothlorien",
+      "x": 1225,
+      "y": 930,
+      "scale": 1.0,
+      "angle": 15,
+      "min_zoom": -2.5,
+      "max_zoom": 1.5,
+      "biome": "lotr_port:lothlorien"
+    },
+    {
+      "id": "mirkwood",
+      "x": 1400,
+      "y": 730,
+      "scale": 3.0,
+      "angle": -2,
+      "min_zoom": -2.5,
+      "max_zoom": 1.5,
+      "biome": "lotr_port:mirkwood_corrupted"
+    },
+    {
+      "id": "woodland_realm",
+      "x": 1385,
+      "y": 620,
+      "scale": 1.0,
+      "angle": -5,
+      "min_zoom": -1.5,
+      "max_zoom": 2.5,
+      "biome": "lotr_port:woodland_realm"
+    },
+    {
+      "id": "dale",
+      "x": 1560,
+      "y": 700,
+      "scale": 4.0,
+      "angle": 10,
+      "min_zoom": -3.5,
+      "max_zoom": 0.5,
+      "biome": "lotr_port:dale"
+    },
+    {
+      "id": "grey_mountains",
+      "x": 1360,
+      "y": 565,
+      "scale": 2.0,
+      "angle": 5,
+      "min_zoom": -3.5,
+      "max_zoom": 0.5,
+      "biome": "lotr_port:grey_mountains"
+    },
+    {
+      "id": "iron_hills",
+      "x": 1660,
+      "y": 600,
+      "scale": 2.0,
+      "angle": -2,
+      "min_zoom": -3.5,
+      "max_zoom": 0.5,
+      "biome": "lotr_port:iron_hills"
+    },
+    {
+      "id": "rohan",
+      "x": 1240,
+      "y": 1080,
+      "scale": 5.0,
+      "angle": -10,
+      "min_zoom": -4.5,
+      "max_zoom": -0.5,
+      "biome": "lotr_port:rohan"
+    },
+    {
+      "id": "westemnet",
+      "x": 1180,
+      "y": 1080,
+      "scale": 1.5,
+      "angle": 10,
+      "min_zoom": -1.5,
+      "max_zoom": 1.5
+    },
+    {
+      "id": "eastemnet",
+      "x": 1290,
+      "y": 1100,
+      "scale": 1.5,
+      "angle": -15,
+      "min_zoom": -1.5,
+      "max_zoom": 1.5
+    },
+    {
+      "id": "wold",
+      "x": 1270,
+      "y": 1000,
+      "scale": 1.5,
+      "angle": 10,
+      "min_zoom": -1.5,
+      "max_zoom": 1.5,
+      "biome": "lotr_port:wold"
+    },
+    {
+      "id": "westfold",
+      "x": 1165,
+      "y": 1110,
+      "scale": 1.0,
+      "angle": 40,
+      "min_zoom": -1.5,
+      "max_zoom": 2.5
+    },
+    {
+      "id": "eastfold",
+      "x": 1250,
+      "y": 1175,
+      "scale": 1.0,
+      "angle": 20,
+      "min_zoom": -1.5,
+      "max_zoom": 2.5
+    },
+    {
+      "id": "westmarch",
+      "x": 1060,
+      "y": 1115,
+      "scale": 1.0,
+      "angle": 2,
+      "min_zoom": -1.5,
+      "max_zoom": 2.5
+    },
+    {
+      "id": "fangorn",
+      "x": 1190,
+      "y": 1000,
+      "scale": 1.5,
+      "angle": 0,
+      "min_zoom": -2.5,
+      "max_zoom": 2.5,
+      "biome": "lotr_port:fangorn"
+    },
+    {
+      "id": "emyn_muil",
+      "x": 1360,
+      "y": 1100,
+      "scale": 1.5,
+      "angle": -12,
+      "min_zoom": -2.5,
+      "max_zoom": 1.5,
+      "biome": "lotr_port:emyn_muil"
+    },
+    {
+      "id": "nindalf",
+      "x": 1395,
+      "y": 1165,
+      "scale": 1.0,
+      "angle": 0,
+      "min_zoom": -1.5,
+      "max_zoom": 1.5,
+      "biome": "lotr_port:nindalf"
+    },
+    {
+      "id": "dead_marshes",
+      "x": 1420,
+      "y": 1125,
+      "scale": 1.0,
+      "angle": 0,
+      "min_zoom": -1.5,
+      "max_zoom": 1.5,
+      "biome": "lotr_port:dead_marshes"
+    },
+    {
+      "id": "brown_lands",
+      "x": 1480,
+      "y": 1050,
+      "scale": 3.0,
+      "angle": 15,
+      "min_zoom": -2.5,
+      "max_zoom": 0.5,
+      "biome": "lotr_port:brown_lands"
+    },
+    {
+      "id": "dagorlad",
+      "x": 1470,
+      "y": 1110,
+      "scale": 1.5,
+      "angle": 5,
+      "min_zoom": -1.5,
+      "max_zoom": 1.5,
+      "biome": "lotr_port:dagorlad"
+    },
+    {
+      "id": "gondor",
+      "x": 1150,
+      "y": 1250,
+      "scale": 8.0,
+      "angle": 10,
+      "min_zoom": -4.5,
+      "max_zoom": -0.5,
+      "biome": "lotr_port:gondor"
+    },
+    {
+      "id": "anorien",
+      "x": 1370,
+      "y": 1205,
+      "scale": 1.5,
+      "angle": 15,
+      "min_zoom": -2.5,
+      "max_zoom": 2.5
+    },
+    {
+      "id": "ithilien",
+      "x": 1440,
+      "y": 1320,
+      "scale": 2.0,
+      "angle": -80,
+      "min_zoom": -2.5,
+      "max_zoom": 2.5,
+      "biome": "lotr_port:ithilien"
+    },
+    {
+      "id": "lebennin",
+      "x": 1360,
+      "y": 1320,
+      "scale": 2.0,
+      "angle": -20,
+      "min_zoom": -2.5,
+      "max_zoom": 2.5,
+      "biome": "lotr_port:lebennin"
+    },
+    {
+      "id": "lossarnach",
+      "x": 1405,
+      "y": 1265,
+      "scale": 0.75,
+      "angle": -10,
+      "min_zoom": -1.5,
+      "max_zoom": 2.5,
+      "biome": "lotr_port:lossarnach"
+    },
+    {
+      "id": "lamedon",
+      "x": 1260,
+      "y": 1240,
+      "scale": 1.5,
+      "angle": 5,
+      "min_zoom": -1.5,
+      "max_zoom": 2.5,
+      "biome": "lotr_port:lamedon"
+    },
+    {
+      "id": "blackroot_vale",
+      "x": 1150,
+      "y": 1225,
+      "scale": 1.0,
+      "angle": -25,
+      "min_zoom": -1.5,
+      "max_zoom": 2.5,
+      "biome": "lotr_port:blackroot_vale"
+    },
+    {
+      "id": "pinnath_gelin",
+      "x": 1035,
+      "y": 1255,
+      "scale": 1.5,
+      "angle": -10,
+      "min_zoom": -1.5,
+      "max_zoom": 2.5,
+      "biome": "lotr_port:pinnath_gelin"
+    },
+    {
+      "id": "dor_en_ernil",
+      "x": 1220,
+      "y": 1330,
+      "scale": 1.5,
+      "angle": -30,
+      "min_zoom": -2.5,
+      "max_zoom": 2.5,
+      "biome": "lotr_port:dor_en_ernil"
+    },
+    {
+      "id": "anfalas",
+      "x": 1045,
+      "y": 1320,
+      "scale": 2.0,
+      "angle": -15,
+      "min_zoom": -2.5,
+      "max_zoom": 1.5
+    },
+    {
+      "id": "andrast",
+      "x": 860,
+      "y": 1365,
+      "scale": 1.5,
+      "angle": -25,
+      "min_zoom": -2.5,
+      "max_zoom": 1.5,
+      "biome": "lotr_port:andrast"
+    },
+    {
+      "id": "harondor",
+      "x": 1405,
+      "y": 1470,
+      "scale": 4.0,
+      "angle": -5,
+      "min_zoom": -2.5,
+      "max_zoom": 1.5,
+      "biome": "lotr_port:harondor"
+    },
+    {
+      "id": "bay_belfalas",
+      "x": 1050,
+      "y": 1450,
+      "scale": 4.0,
+      "angle": 0,
+      "min_zoom": -4.5,
+      "max_zoom": 1.5
+    },
+    {
+      "id": "white_mountains",
+      "x": 1125,
+      "y": 1180,
+      "scale": 3.0,
+      "angle": 5,
+      "min_zoom": -3.5,
+      "max_zoom": 1.5,
+      "biome": "lotr_port:white_mountains"
+    },
+    {
+      "id": "mordor",
+      "x": 1650,
+      "y": 1280,
+      "scale": 8.0,
+      "angle": -20,
+      "min_zoom": -4.5,
+      "max_zoom": -0.5,
+      "biome": "lotr_port:mordor"
+    },
+    {
+      "id": "ash_mountains",
+      "x": 1640,
+      "y": 1160,
+      "scale": 2.0,
+      "angle": -5,
+      "min_zoom": -2.5,
+      "max_zoom": 0.5
+    },
+    {
+      "id": "shadow_mountains",
+      "x": 1480,
+      "y": 1285,
+      "scale": 2.0,
+      "angle": 85,
+      "min_zoom": -2.5,
+      "max_zoom": 0.5
+    },
+    {
+      "id": "gorgoroth",
+      "x": 1580,
+      "y": 1220,
+      "scale": 2.0,
+      "angle": -15,
+      "min_zoom": -1.5,
+      "max_zoom": 1.5,
+      "biome": "lotr_port:gorgoroth"
+    },
+    {
+      "id": "nurn",
+      "x": 1660,
+      "y": 1310,
+      "scale": 5.0,
+      "angle": -25,
+      "min_zoom": -0.5,
+      "max_zoom": 1.5,
+      "biome": "lotr_port:nurn"
+    },
+    {
+      "id": "nurnen",
+      "x": 1710,
+      "y": 1345,
+      "scale": 1.0,
+      "angle": -15,
+      "min_zoom": -1.5,
+      "max_zoom": 2.5,
+      "biome": "lotr_port:nurnen"
+    },
+    {
+      "id": "dorwinion",
+      "x": 1730,
+      "y": 890,
+      "scale": 2.0,
+      "angle": -10,
+      "min_zoom": -2.5,
+      "max_zoom": 2.5,
+      "biome": "lotr_port:dorwinion"
+    },
+    {
+      "id": "rhun",
+      "x": 2400,
+      "y": 1150,
+      "scale": 20.0,
+      "angle": -5,
+      "min_zoom": -3.5,
+      "max_zoom": -2.5
+    },
+    {
+      "id": "sea_rhun",
+      "x": 1830,
+      "y": 930,
+      "scale": 1.5,
+      "angle": -5,
+      "min_zoom": -3.5,
+      "max_zoom": 1.5
+    },
+    {
+      "id": "palisor",
+      "x": 2120,
+      "y": 1020,
+      "scale": 12.0,
+      "angle": 2,
+      "min_zoom": -3.5,
+      "max_zoom": -1.0
+    },
+    {
+      "id": "rhun_land",
+      "x": 1870,
+      "y": 1010,
+      "scale": 3.0,
+      "angle": -10,
+      "min_zoom": -2.0,
+      "max_zoom": 0.5,
+      "biome": "lotr_port:rhun_land"
+    },
+    {
+      "id": "rhun_red_forest",
+      "x": 1880,
+      "y": 835,
+      "scale": 1.25,
+      "angle": 10,
+      "min_zoom": -1.5,
+      "max_zoom": 1.5,
+      "biome": "lotr_port:rhun_red_forest"
+    },
+    {
+      "id": "wild_wood",
+      "x": 2450,
+      "y": 1120,
+      "scale": 6.0,
+      "angle": 60,
+      "min_zoom": -2.5,
+      "max_zoom": 0.5
+    },
+    {
+      "id": "harunnor",
+      "x": 2610,
+      "y": 1760,
+      "scale": 10.0,
+      "angle": -5,
+      "min_zoom": -3.5,
+      "max_zoom": -0.5
+    },
+    {
+      "id": "mountains_wind",
+      "x": 2490,
+      "y": 1610,
+      "scale": 4.0,
+      "angle": -10,
+      "min_zoom": -3.5,
+      "max_zoom": 0.5,
+      "biome": "lotr_port:wind_mountains"
+    },
+    {
+      "id": "last_desert",
+      "x": 2540,
+      "y": 1460,
+      "scale": 4.0,
+      "angle": -20,
+      "min_zoom": -2.5,
+      "max_zoom": 0.5,
+      "biome": "lotr_port:last_desert"
+    },
+    {
+      "id": "utter_east",
+      "x": 2740,
+      "y": 1000,
+      "scale": 10.0,
+      "angle": 60,
+      "min_zoom": -3.5,
+      "max_zoom": -1.0
+    },
+    {
+      "id": "orocarni",
+      "x": 2420,
+      "y": 870,
+      "scale": 6.0,
+      "angle": 60,
+      "min_zoom": -3.5,
+      "max_zoom": -0.5,
+      "biome": "lotr_port:red_mountains"
+    },
+    {
+      "id": "near_harad",
+      "x": 1590,
+      "y": 1685,
+      "scale": 8.0,
+      "angle": -2,
+      "min_zoom": -4.5,
+      "max_zoom": -0.5
+    },
+    {
+      "id": "harnennor",
+      "x": 1440,
+      "y": 1580,
+      "scale": 3.0,
+      "angle": -3,
+      "min_zoom": -2.5,
+      "max_zoom": 1.5,
+      "biome": "lotr_port:harnedor"
+    },
+    {
+      "id": "lithnen",
+      "x": 1615,
+      "y": 1615,
+      "scale": 1.5,
+      "angle": -15,
+      "min_zoom": -1.5,
+      "max_zoom": 1.5
+    },
+    {
+      "id": "umbar",
+      "x": 1160,
+      "y": 1685,
+      "scale": 4.0,
+      "angle": -15,
+      "min_zoom": -3.5,
+      "max_zoom": 1.5,
+      "biome": "lotr_port:umbar"
+    },
+    {
+      "id": "lostladen",
+      "x": 1685,
+      "y": 1470,
+      "scale": 2.0,
+      "angle": -5,
+      "min_zoom": -2.5,
+      "max_zoom": 1.5
+    },
+    {
+      "id": "southron_coasts",
+      "x": 1125,
+      "y": 1790,
+      "scale": 3.0,
+      "angle": -20,
+      "min_zoom": -2.5,
+      "max_zoom": 0.5,
+      "biome": "lotr_port:near_harad_fertile"
+    },
+    {
+      "id": "gulf_harad",
+      "x": 1930,
+      "y": 2165,
+      "scale": 4.0,
+      "angle": 40,
+      "min_zoom": -4.5,
+      "max_zoom": 1.5,
+      "biome": "lotr_port:gulf_harad"
+    },
+    {
+      "id": "khand",
+      "x": 1940,
+      "y": 1420,
+      "scale": 4.0,
+      "angle": 5,
+      "min_zoom": -3.5,
+      "max_zoom": 0.5
+    },
+    {
+      "id": "far_harad",
+      "x": 1350,
+      "y": 2500,
+      "scale": 15.0,
+      "angle": 5,
+      "min_zoom": -5.5,
+      "max_zoom": -1.5
+    },
+    {
+      "id": "far_harad_hills",
+      "x": 1200,
+      "y": 2050,
+      "scale": 3.0,
+      "angle": 25,
+      "min_zoom": -2.5,
+      "max_zoom": 0.5
+    },
+    {
+      "id": "great_plains",
+      "x": 1370,
+      "y": 2280,
+      "scale": 7.5,
+      "angle": 2,
+      "min_zoom": -2.5,
+      "max_zoom": -0.5
+    },
+    {
+      "id": "forests_south",
+      "x": 1300,
+      "y": 3000,
+      "scale": 6.0,
+      "angle": 2,
+      "min_zoom": -2.5,
+      "max_zoom": -0.5
+    },
+    {
+      "id": "harad_mountains",
+      "x": 850,
+      "y": 2280,
+      "scale": 5.0,
+      "angle": 80,
+      "min_zoom": -2.5,
+      "max_zoom": 0.5,
+      "biome": "lotr_port:harad_mountains"
+    },
+    {
+      "id": "perdorogwaith",
+      "x": 1920,
+      "y": 2560,
+      "scale": 5.0,
+      "angle": -10,
+      "min_zoom": -2.5,
+      "max_zoom": 0.5,
+      "biome": "lotr_port:pertorogwaith"
+    },
+    {
+      "id": "forest_trolls",
+      "x": 1740,
+      "y": 2530,
+      "scale": 2.0,
+      "angle": 5,
+      "min_zoom": -2.0,
+      "max_zoom": 1.5,
+      "biome": "lotr_port:half_troll_forest"
+    }
+  ]
+}

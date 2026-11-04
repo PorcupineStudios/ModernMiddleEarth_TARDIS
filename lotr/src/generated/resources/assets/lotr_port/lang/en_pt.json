@@ -770,6 +770,8 @@
   "npc.lotr_port.wood_elf_captain": "Wood-elf Captain",
   "npc.lotr_port.wood_elf_scout": "Wood-elf Scout",
   "npc.lotr_port.wood_elf_warrior": "Wood-elf Warrior",
+  "screen.lotr_port.map.title": "Chart o' yer' Course",
+  "screen.lotr_port.map.tp": "Press '%s' to travel here with all speed",
   "waypoint.lotr_port.anduin_mouth": "Ethir Anduin",
   "waypoint.lotr_port.annuminas": "Annúminas",
   "waypoint.lotr_port.barad_dur": "Barad-dûr",
