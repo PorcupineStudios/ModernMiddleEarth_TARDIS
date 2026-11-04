@@ -102,4 +102,59 @@ public final class SpaceTests {
         helper.assertTrue(corner == 6, "a corner should need the side and the pole: " + corner);
         helper.succeed();
     }
+
+    @GameTest(template = "platform")
+    public static void gravityFadesAndOrbitsHold(GameTestHelper helper) {
+        Planet p = bigPlanet(SkyLink.Wrap.TORUS);
+        Tuning.SpaceTuning t = Tuning.DEFAULT.space();
+        double floor = p.link().orbit().floor();
+        double g0 = com.porcupinestudios.tardisrb.space.Orbits.gravity(p, floor, t);
+        helper.assertTrue(Math.abs(g0 - 0.08 * t.gravity()) < 0.0001, "gravity just above the clouds: " + g0);
+        double top = com.porcupinestudios.tardisrb.space.Orbits.gravity(p, p.link().orbit().top(), t);
+        helper.assertTrue(Math.abs(top / (0.08 * t.gravity()) - 1.0 / 16) < 1e-6,
+                "gravity at 3 radii up should be 1/16: " + top / (0.08 * t.gravity()));
+        double v = com.porcupinestudios.tardisrb.space.Orbits.orbitSpeed(p, floor, t);
+        double still = com.porcupinestudios.tardisrb.space.Orbits.down(p, floor, net.minecraft.world.phys.Vec3.ZERO, t);
+        double orbiting = com.porcupinestudios.tardisrb.space.Orbits.down(p, floor,
+                new net.minecraft.world.phys.Vec3(v, 0, 0), t);
+        helper.assertTrue(Math.abs(still - g0) < 1e-9, "standing still should feel full gravity");
+        helper.assertTrue(Math.abs(orbiting) < 1e-9, "orbit speed should cancel gravity: " + orbiting);
+        // one tick of physics on a real entity: no drag, pulled down, capped
+        var stand = new net.minecraft.world.entity.decoration.ArmorStand(helper.getLevel(), 0, 200, 0);
+        stand.setDeltaMovement(0.91, 0, 0);
+        stand.setOnGround(false);
+        com.porcupinestudios.tardisrb.space.Orbits.step(stand, p, t, 0);
+        var after = stand.getDeltaMovement();
+        helper.assertTrue(Math.abs(after.x - 1.0) < 1e-6, "drag wasn't undone: " + after);
+        helper.assertTrue(after.y < 0, "not pulled down: " + after);
+        stand.setDeltaMovement(50, 0, 0);
+        com.porcupinestudios.tardisrb.space.Orbits.step(stand, p, t, 0);
+        helper.assertTrue(stand.getDeltaMovement().length() <= t.motion().maxSpeed() + 1e-6, "speed not capped");
+        // a command's gravity scale reaches space gravity too
+        com.porcupinestudios.tardisrb.gravity.GravityScale.setEntity(stand, 0);
+        stand.setDeltaMovement(0, 0, 0);
+        com.porcupinestudios.tardisrb.space.Orbits.step(stand, p, t, 0);
+        helper.assertTrue(Math.abs(stand.getDeltaMovement().y) < 1e-9, "gravity x0 still fell: " + stand.getDeltaMovement());
+        helper.succeed();
+    }
+
+    @GameTest(template = "platform")
+    public static void gravityCommandsScaleGravity(GameTestHelper helper) {
+        var level = helper.getLevel();
+        var stand = new net.minecraft.world.entity.decoration.ArmorStand(level, 0, 200, 0);
+        var gravity = stand.getAttribute(net.minecraft.world.entity.ai.attributes.Attributes.GRAVITY);
+        double normal = gravity.getValue();
+        com.porcupinestudios.tardisrb.gravity.GravityScale.setEntity(stand, 0.5);
+        helper.assertTrue(Math.abs(gravity.getValue() - normal * 0.5) < 1e-9, "entity x0.5: " + gravity.getValue());
+        var server = level.getServer();
+        com.porcupinestudios.tardisrb.gravity.GravityScale.setDimension(server, level.dimension(), 0.2);
+        level.addFreshEntity(stand);
+        helper.assertTrue(Math.abs(com.porcupinestudios.tardisrb.gravity.GravityScale.of(stand) - 0.1) < 1e-9,
+                "entity x0.5 in a x0.2 dimension: " + com.porcupinestudios.tardisrb.gravity.GravityScale.of(stand));
+        com.porcupinestudios.tardisrb.gravity.GravityScale.setDimension(server, level.dimension(), 1);
+        com.porcupinestudios.tardisrb.gravity.GravityScale.setEntity(stand, 1);
+        helper.assertTrue(Math.abs(gravity.getValue() - normal) < 1e-9, "reset didn't restore gravity");
+        stand.discard();
+        helper.succeed();
+    }
 }

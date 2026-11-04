@@ -53,7 +53,7 @@ public record SkyLink(ResourceKey<Level> dimension, ResourceKey<Level> space, Bo
 
     /** The planet's layer of space; see the class comment. */
     public record Orbit(double x, double z, double scale, int floor, int top, double maxAltitude) {
-        public static final Orbit DEFAULT = new Orbit(0, 0, 16, -1950, 1950, 3.0);
+        public static final Orbit DEFAULT = new Orbit(0, 0, 64, -1950, 1950, 3.0);
         public static final Codec<Orbit> CODEC = RecordCodecBuilder.create(i -> i.group(
                 Codec.DOUBLE.optionalFieldOf("x", 0.0).forGetter(Orbit::x),
                 Codec.DOUBLE.optionalFieldOf("z", 0.0).forGetter(Orbit::z),

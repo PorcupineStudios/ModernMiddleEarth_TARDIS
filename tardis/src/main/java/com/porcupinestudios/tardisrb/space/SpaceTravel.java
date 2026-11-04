@@ -54,6 +54,8 @@ public final class SpaceTravel {
         NeoForge.EVENT_BUS.addListener(SpaceTravel::onLogin);
         NeoForge.EVENT_BUS.addListener(SpaceTravel::onChangeDimension);
         SeamPortals.register();
+        SpacePhysics.register();
+        com.porcupinestudios.tardisrb.gravity.GravityScale.register();
         PlanetMaps.register();
     }
 
@@ -69,9 +71,8 @@ public final class SpaceTravel {
     private static void onTick(ServerTickEvent.Post event) {
         MinecraftServer server = event.getServer();
         Tuning.SpaceTuning tuning = TardisContent.tuning().space();
-        if (server.getTickCount() % tuning.checkTicks() != 0) {
-            return;
-        }
+        // players every tick (fast movers can't overshoot far before being caught), everything else every check_ticks
+        boolean all = server.getTickCount() % tuning.checkTicks() == 0;
         List<Planet> planets = Planets.all(server);
         if (planets != sent) {
             sent = planets;
@@ -88,7 +89,7 @@ public final class SpaceTravel {
             }
             List<Entity> up = new ArrayList<>();
             List<Entity> off = new ArrayList<>();
-            for (Entity e : world.getAllEntities()) {
+            for (Entity e : all ? world.getAllEntities() : List.<Entity>copyOf(world.players())) {
                 if (!travels(e)) {
                     continue;
                 }
@@ -103,8 +104,8 @@ public final class SpaceTravel {
         }
         for (ServerLevel space : spaceLevels(server, planets)) {
             List<Entity> down = new ArrayList<>();
-            for (Entity e : space.getAllEntities()) {
-                if (e instanceof LivingEntity living) {
+            for (Entity e : all ? space.getAllEntities() : List.<Entity>copyOf(space.players())) {
+                if (all && e instanceof LivingEntity living) {
                     setGravity(living, true);
                 }
                 if (travels(e)) {
@@ -228,14 +229,14 @@ public final class SpaceTravel {
         return moved != null ? moved : e;
     }
 
-    /** Low gravity in space, normal gravity elsewhere. */
+    /** Vanilla gravity off in space ({@link Orbits} pulls instead), normal gravity elsewhere. */
     public static void setGravity(LivingEntity living, boolean inSpace) {
         AttributeInstance gravity = living.getAttribute(Attributes.GRAVITY);
         if (gravity == null) {
             return;
         }
         if (inSpace) {
-            double amount = TardisContent.tuning().space().gravity() - 1;
+            double amount = -1; // our own gravity takes over (Orbits)
             AttributeModifier now = gravity.getModifier(GRAVITY_ID);
             if (now == null || now.amount() != amount) {
                 gravity.addOrUpdateTransientModifier(new AttributeModifier(GRAVITY_ID, amount,

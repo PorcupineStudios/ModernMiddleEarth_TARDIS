@@ -8,7 +8,7 @@ shared API's `PlanetProvider`.
 - **Planets stay full size; space is a scale model.** `tardis/sky/<name>.json` (`SkyLink`): `dimension`, `space`,
   `surface` {min/max x/z} (the world's rectangle, north = min z; any shape), `ceiling`, `ground`, `orbit` {x, z, scale, floor, top, max_altitude}, `wrap` (torus default / globe / none),
   `seam_portals`, `cloud_band`, `picture` {texture, min/max x/z, fill}, `map_size`. `space/Planet` holds the maths.
-- **Orbit layer**: each planet's space is a layer of the space dimension: surface x/z shrunk `orbit.scale` times round
+- **Orbit layer**: each planet's space is a layer of the space dimension: surface x/z shrunk `orbit.scale` (64, Aaron 2026-11-04) times round
   `orbit.x/z`; height is altitude, `altitude(y) = (ceiling - ground) * e^(k (y - floor))`, reaching `max_altitude`
   planet radii at `top`. Several planets share `tardis_rb:space` at different `orbit.x` (overworld 0; LOTR's
   `middle_earth` / `vanilla_overworld` links at 2,000,000).

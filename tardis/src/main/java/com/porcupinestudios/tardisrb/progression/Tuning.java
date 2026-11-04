@@ -168,9 +168,9 @@ public record Tuning(CrashSite crashSite, Hop hop, Winder winder, Interior inter
      * planets without a picture are sampled for at most {@code map_budget_ms} milliseconds a tick.
      */
     public record SpaceTuning(double gravity, int checkTicks, int landingSlowFall, int seamView, int seamSegment,
-            int seamLinger, double mapBudgetMs) {
-        static final SpaceTuning DEFAULT = new SpaceTuning(0.15, 5, 30, 160, 64, 200, 2.0);
-        static final Codec<SpaceTuning> CODEC = RecordCodecBuilder.create(i -> i.group(
+            int seamLinger, double mapBudgetMs, Motion motion) {
+        public static final SpaceTuning DEFAULT = new SpaceTuning(0.15, 5, 30, 160, 64, 200, 2.0, Motion.DEFAULT);
+        public static final Codec<SpaceTuning> CODEC = RecordCodecBuilder.create(i -> i.group(
                 Codec.doubleRange(0, 1).optionalFieldOf("gravity", DEFAULT.gravity).forGetter(SpaceTuning::gravity),
                 Codec.intRange(1, 200).optionalFieldOf("check_ticks", DEFAULT.checkTicks)
                         .forGetter(SpaceTuning::checkTicks),
@@ -183,8 +183,27 @@ public record Tuning(CrashSite crashSite, Hop hop, Winder winder, Interior inter
                 Codec.intRange(0, 72000).optionalFieldOf("seam_linger", DEFAULT.seamLinger)
                         .forGetter(SpaceTuning::seamLinger),
                 Codec.doubleRange(0, 50).optionalFieldOf("map_budget_ms", DEFAULT.mapBudgetMs)
-                        .forGetter(SpaceTuning::mapBudgetMs))
+                        .forGetter(SpaceTuning::mapBudgetMs),
+                Motion.CODEC.optionalFieldOf("motion", Motion.DEFAULT).forGetter(SpaceTuning::motion))
                 .apply(i, SpaceTuning::new));
+    }
+
+    /**
+     * Moving in space ({@code space/Orbits}). Gravity over a planet is {@code gravity} (share of normal) just above the
+     * clouds and falls with the square of the distance from the planet's centre. Going sideways at
+     * {@code orbit_speed} (blocks a tick in space, at the layer floor; slower higher up, as real orbits are) cancels it:
+     * you orbit. Without air there is no drag ({@code drag_free}); jump and sneak push up and down by {@code thrust};
+     * nothing goes faster than {@code max_speed} blocks a tick (the server rubber-bands players above ~10).
+     */
+    public record Motion(double orbitSpeed, double thrust, double maxSpeed, boolean dragFree) {
+        public static final Motion DEFAULT = new Motion(2.5, 0.02, 8.0, true);
+        public static final Codec<Motion> CODEC = RecordCodecBuilder.create(i -> i.group(
+                Codec.doubleRange(0, 64).optionalFieldOf("orbit_speed", DEFAULT.orbitSpeed)
+                        .forGetter(Motion::orbitSpeed),
+                Codec.doubleRange(0, 1).optionalFieldOf("thrust", DEFAULT.thrust).forGetter(Motion::thrust),
+                Codec.doubleRange(0.1, 9.5).optionalFieldOf("max_speed", DEFAULT.maxSpeed).forGetter(Motion::maxSpeed),
+                Codec.BOOL.optionalFieldOf("drag_free", DEFAULT.dragFree).forGetter(Motion::dragFree))
+                .apply(i, Motion::new));
     }
 
     public static final Tuning DEFAULT = new Tuning(CrashSite.DEFAULT, Hop.DEFAULT, Winder.DEFAULT, Interior.DEFAULT,

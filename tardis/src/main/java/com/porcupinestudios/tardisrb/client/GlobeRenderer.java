@@ -9,6 +9,7 @@ import com.mojang.blaze3d.vertex.Tesselator;
 import com.mojang.blaze3d.vertex.VertexFormat;
 import com.porcupinestudios.tardisrb.TardisRB;
 import com.porcupinestudios.tardisrb.net.SkyNet;
+import com.porcupinestudios.tardisrb.progression.Tuning;
 import com.porcupinestudios.tardisrb.space.Planet;
 import java.util.List;
 import net.minecraft.client.Minecraft;
@@ -40,12 +41,18 @@ import org.joml.Matrix4f;
 public final class GlobeRenderer {
     private static final float[] CLOUD = {0.93f, 0.95f, 0.98f};
     private static List<Planet> planets = List.of();
+    private static Tuning.SpaceTuning tuning = Tuning.SpaceTuning.DEFAULT;
     private static ResourceLocation blank;
 
     private GlobeRenderer() {}
 
     public static void set(SkyNet.Planets p) {
         planets = p.planets();
+        tuning = p.tuning();
+    }
+
+    static Tuning.SpaceTuning tuning() {
+        return tuning;
     }
 
     public static void setMap(SkyNet.PlanetMap map) {

@@ -12,7 +12,7 @@
   "orbit": {
     "x": 0,
     "z": 0,
-    "scale": 16,
+    "scale": 64,
     "floor": -1950,
     "top": 1950,
     "max_altitude": 3.0
