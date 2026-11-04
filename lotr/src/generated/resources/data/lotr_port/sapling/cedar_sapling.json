@@ -1,0 +1,7 @@
+{
+  "rules": [
+    {
+      "tree": "lotr_port:tree/cedar"
+    }
+  ]
+}

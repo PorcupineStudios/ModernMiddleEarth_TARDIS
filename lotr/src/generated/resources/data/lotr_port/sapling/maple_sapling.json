@@ -1,0 +1,15 @@
+{
+  "rules": [
+    {
+      "tree": "lotr_port:tree/maple_party",
+      "square": 3
+    },
+    {
+      "tree": "lotr_port:tree/maple_large",
+      "chance": 10
+    },
+    {
+      "tree": "lotr_port:tree/maple"
+    }
+  ]
+}

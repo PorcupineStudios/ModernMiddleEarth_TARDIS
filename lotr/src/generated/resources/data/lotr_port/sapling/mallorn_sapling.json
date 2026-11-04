@@ -1,0 +1,20 @@
+{
+  "rules": [
+    {
+      "tree": "lotr_port:tree/mallorn_extreme_sapling",
+      "square": 9,
+      "soil": "lotr_port:elvengrass"
+    },
+    {
+      "tree": "lotr_port:tree/mallorn_party",
+      "square": 3
+    },
+    {
+      "tree": "lotr_port:tree/mallorn_boughs",
+      "cross": true
+    },
+    {
+      "tree": "lotr_port:tree/mallorn"
+    }
+  ]
+}

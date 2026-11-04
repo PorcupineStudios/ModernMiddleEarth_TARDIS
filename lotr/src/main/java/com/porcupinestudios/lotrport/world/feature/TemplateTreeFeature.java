@@ -28,14 +28,18 @@ import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemp
  * trees grow into each other and into hillsides like LOTR's. Big trees are clipped to the chunks a feature may write.
  *
  * @param templates the shapes; their trunk base is at template {@code x0, ground, z0}
- * @param trunk where the trunk stands in each template (x, y = the ground layer, z), same order as templates
+ * @param trunk the lowest x/z corner of each template's trunk, on its ground layer (same order as templates)
+ * @param trunkWidth each trunk's width (2x2 and 3x3 trees); the trunk's corner lands on the origin however the tree
+ *     is turned, so a square of saplings becomes the trunk
  */
 public final class TemplateTreeFeature extends Feature<TemplateTreeFeature.Config> {
-    public record Config(List<ResourceLocation> templates, List<Vec3i> trunk, boolean onSand)
+    public record Config(List<ResourceLocation> templates, List<Vec3i> trunk, List<Integer> trunkWidth,
+            boolean onSand)
             implements FeatureConfiguration {
         public static final Codec<Config> CODEC = RecordCodecBuilder.create(i -> i.group(
                 ResourceLocation.CODEC.listOf().fieldOf("templates").forGetter(Config::templates),
                 Vec3i.CODEC.listOf().fieldOf("trunk").forGetter(Config::trunk),
+                Codec.INT.listOf().optionalFieldOf("trunk_width", List.of()).forGetter(Config::trunkWidth),
                 Codec.BOOL.optionalFieldOf("on_sand", false).forGetter(Config::onSand))
                 .apply(i, Config::new));
     }
@@ -46,20 +50,25 @@ public final class TemplateTreeFeature extends Feature<TemplateTreeFeature.Confi
 
     @Override
     public boolean place(FeaturePlaceContext<Config> context) {
-        Config config = context.config();
+        return grow(context.level(), context.random(), context.origin(), context.config(), -1);
+    }
+
+    /**
+     * Grows the tree with its trunk's lowest corner on {@code origin} (shape {@code pick}, or a random one if -1).
+     * Saplings call this with the corner of their square.
+     */
+    public static boolean grow(WorldGenLevel level, RandomSource random, BlockPos origin, Config config, int pick) {
         if (config.templates().isEmpty() || config.templates().size() != config.trunk().size()) {
             return false;
         }
-        WorldGenLevel level = context.level();
-        RandomSource random = context.random();
-        BlockPos origin = context.origin();
         BlockPos below = origin.below();
         BlockState soil = level.getBlockState(below);
         boolean soilOk = soil.is(BlockTags.DIRT) || config.onSand() && soil.is(BlockTags.SAND);
         if (!soilOk || !level.getBlockState(origin).canBeReplaced()) {
             return false;
         }
-        int n = random.nextInt(config.templates().size());
+        int n = pick >= 0 && pick < config.templates().size() ? pick : random.nextInt(config.templates().size());
+        int width = n < config.trunkWidth().size() ? Math.max(1, config.trunkWidth().get(n)) : 1;
         Optional<StructureTemplate> template = level.getLevel().getStructureManager().get(config.templates().get(n));
         if (template.isEmpty()) {
             return false;
@@ -68,7 +77,11 @@ public final class TemplateTreeFeature extends Feature<TemplateTreeFeature.Confi
         Rotation rotation = Rotation.getRandom(random);
         // the template's ground layer goes on the soil block under the origin, its trunk on the origin column
         BlockPos pivot = new BlockPos(trunk.getX(), 0, trunk.getZ());
-        BlockPos corner = below.offset(-trunk.getX(), -trunk.getY(), -trunk.getZ());
+        // turning about the trunk's corner block moves a wide trunk off it; shift it back onto the origin square
+        int w = width - 1;
+        int sx = rotation == Rotation.CLOCKWISE_90 || rotation == Rotation.CLOCKWISE_180 ? w : 0;
+        int sz = rotation == Rotation.CLOCKWISE_180 || rotation == Rotation.COUNTERCLOCKWISE_90 ? w : 0;
+        BlockPos corner = below.offset(-trunk.getX() + sx, -trunk.getY(), -trunk.getZ() + sz);
         ChunkPos chunk = new ChunkPos(origin);
         BoundingBox writable = new BoundingBox(chunk.getMinBlockX() - 16, level.getMinBuildHeight(),
                 chunk.getMinBlockZ() - 16, chunk.getMaxBlockX() + 16, level.getMaxBuildHeight() - 1,

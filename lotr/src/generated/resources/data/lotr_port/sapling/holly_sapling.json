@@ -1,0 +1,11 @@
+{
+  "rules": [
+    {
+      "tree": "lotr_port:tree/holly_large",
+      "square": 2
+    },
+    {
+      "tree": "lotr_port:tree/holly"
+    }
+  ]
+}

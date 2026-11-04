@@ -1,0 +1,15 @@
+{
+  "rules": [
+    {
+      "tree": "lotr_port:tree/dragonblood_huge",
+      "square": 5
+    },
+    {
+      "tree": "lotr_port:tree/dragonblood_large",
+      "square": 3
+    },
+    {
+      "tree": "lotr_port:tree/dragonblood"
+    }
+  ]
+}

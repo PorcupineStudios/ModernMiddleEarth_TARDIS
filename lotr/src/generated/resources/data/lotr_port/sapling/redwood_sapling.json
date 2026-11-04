@@ -1,0 +1,23 @@
+{
+  "rules": [
+    {
+      "tree": "lotr_port:tree/redwood_5",
+      "square": 5
+    },
+    {
+      "tree": "lotr_port:tree/redwood_4",
+      "square": 4
+    },
+    {
+      "tree": "lotr_port:tree/redwood_3",
+      "square": 3
+    },
+    {
+      "tree": "lotr_port:tree/redwood_2",
+      "square": 2
+    },
+    {
+      "tree": "lotr_port:tree/redwood"
+    }
+  ]
+}
