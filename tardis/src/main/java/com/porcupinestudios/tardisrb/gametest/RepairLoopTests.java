@@ -24,7 +24,7 @@ import net.neoforged.neoforge.common.util.FakePlayerFactory;
 import net.neoforged.neoforge.gametest.GameTestHolder;
 import net.neoforged.neoforge.gametest.PrefixGameTestTemplate;
 
-/** TARDIS phase 3: repairs from the basement's repair tree, timed research, the box's look, explosion damage. */
+/** TARDIS phase 3: repairs from the repair tree, timed research, the box's look, explosion damage. */
 @GameTestHolder(TardisRB.MOD_ID)
 @PrefixGameTestTemplate(false)
 public final class RepairLoopTests {
@@ -59,7 +59,7 @@ public final class RepairLoopTests {
     }
 
     /**
-     * Phase 3 done-when (reworked 2026-11-03 for the basement repair room): repairing navigation from the repair tree
+     * Phase 3 done-when (reworked 2026-11-03 for the repair tree): repairing navigation from the repair tree
      * and researching one node (hop calibration, which takes time) raise the jump range, and the box's look changes.
      */
     @GameTest(template = PLATFORM, timeoutTicks = 700)

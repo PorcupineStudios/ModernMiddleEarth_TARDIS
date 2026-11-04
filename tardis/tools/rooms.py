@@ -32,54 +32,6 @@ def write(name, size, cells):
                                                  "palette": palette, "blocks": blocks, "entities": []})
 
 
-def console_room_wreck():
-    """9 x 5 x 9: cracked walls, the doors at (4,1,0), the console at (4,1,5), spawn (4,1,2) in the tuning file.
-    A ladder in the floor at (7,0,3) leads down to the repair basement (basement_offset 0,-5,0)."""
-    rnd = random.Random(11)
-    w, h, d = 9, 5, 9
-    cells = {}
-    for x in range(w):
-        for z in range(d):
-            cells[(x, 0, z)] = "minecraft:smooth_stone" if rnd.random() < .75 else "minecraft:cobbled_deepslate"
-            cells[(x, h - 1, z)] = "minecraft:polished_deepslate"
-    for y in range(1, h - 1):
-        for x in range(w):
-            for z in range(d):
-                if x in (0, w - 1) or z in (0, d - 1):
-                    cells[(x, y, z)] = ("minecraft:cracked_deepslate_bricks" if rnd.random() < .4
-                                        else "minecraft:deepslate_bricks")
-    for (x, z) in [(1, 1), (7, 1), (1, 7), (7, 7)]:
-        cells[(x, h - 1, z)] = "minecraft:sea_lantern"
-    cells[(4, 1, 0)] = "tardis_rb:interior_door"
-    cells[(4, 2, 0)] = "tardis_rb:interior_door[half=upper]"
-    cells[(4, 1, 5)] = "tardis_rb:console"
-    for (x, y, z) in [(1, 3, 6), (7, 3, 2), (6, 1, 7), (2, 3, 1)]:
-        cells[(x, y, z)] = "minecraft:cobweb"
-    cells[(7, 1, 6)] = "minecraft:chest[facing=west]"
-    cells[(7, 0, 3)] = "minecraft:ladder[facing=west,waterlogged=false]"
-    write("console_room_wreck", (w, h, d), cells)
-
-
-def repair_basement():
-    """9 x 5 x 9 under the console room (its top at console y-1): the Repair Station at (4,1,4), the ladder up the
-    east side at (7,1..4,3) to the hatch in the console room floor."""
-    w, h, d = 9, 5, 9
-    rnd = random.Random(41)
-    cells = shell(rnd, w, h, d, "minecraft:polished_deepslate", "minecraft:deepslate_tiles", "minecraft:sea_lantern")
-    for y in range(1, h - 1):
-        for x in range(1, w - 1):
-            for z in range(1, d - 1):
-                if rnd.random() < .03:
-                    cells[(x, y, z)] = "minecraft:cobweb"
-    for y in range(1, h):
-        cells[(7, y, 3)] = "minecraft:ladder[facing=west,waterlogged=false]"
-    cells[(4, 1, 4)] = "tardis_rb:repair_station"
-    cells.pop((4, 2, 4), None)
-    for (x, z) in [(1, 1), (1, 7)]:
-        cells[(x, 1, z)] = "minecraft:barrel[facing=up,open=false]"
-    write("repair_basement", (w, h, d), cells)
-
-
 def shell(rnd, w, h, d, floor, wall, light):
     """A plain closed box of w x h x d; added rooms are carved open at the doorway when built."""
     cells = {}
@@ -132,8 +84,6 @@ def test_platform():
 
 
 if __name__ == "__main__":
-    console_room_wreck()
-    repair_basement()
     library()
     workshop()
     test_platform()

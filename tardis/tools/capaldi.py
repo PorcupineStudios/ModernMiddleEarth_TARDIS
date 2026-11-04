@@ -8,8 +8,7 @@ renderer. Writes:
 - data/tardis_rb/structure/interior/console_room_capaldi.nbt: the room (31 x 12 x 26, min corner at room_offset
   -15,-4,-15 from the plot origin, which is the floor in front of the console). Adds what our mod needs to the
   hand-built layout: the console at 0,0,0, invisible console_hull blocks round it (its collision), the interior door
-  at 0,0,8 facing north (the 2-wide opening's other column is frame), and a ladder hatch at 6,-4,-2 down to the repair
-  basement (basement_offset -1,-9,-5).
+  at 0,0,8 facing north (the 2-wide opening's other column is frame).
 - the room's blocks: blockstates, block and item models, textures (glowing ones get a full-bright overlay layer).
 - assets/tardis_rb/console/capaldi.json: the models as quads in blocks from the console block's corner, one part per
   control (ctl_<name>, with its click box) plus body, rotor_glass, rotor_column, rotor_spinners, rotor_spinner_mid,
@@ -42,7 +41,6 @@ INVISIBLE = ["collision_post", "collision_pillar", "console_hull"]
 HULL_CELLS = [(-1, -1), (0, -1), (1, -1), (-1, 0), (1, 0), (-1, 1), (0, 1), (1, 1)]
 DOOR = (0, 0, 8)
 DOOR_FILL = [(1, 0, 8), (1, 1, 8), (1, 2, 8), (0, 2, 8)]
-HATCH = (6, -4, -2)
 
 # Our control files and the model part each one is. Model controls with no file of ours become plain decoration
 # (action "none"), shown from the first navigation repair.
@@ -172,8 +170,6 @@ def room_structure():
     put((DOOR[0], DOOR[1] + 1, DOOR[2]), "tardis_rb:interior_door[half=upper,open=false]")
     for p in DOOR_FILL:
         put(p, "tardis_rb:frame")
-    cells.pop(HATCH, None)
-    cells[HATCH] = "minecraft:ladder[facing=west,waterlogged=false]"
     palette, index, blocks = [], {}, []
     mx, my, mz = ROOM_MIN
     sx, sy, sz = ROOM_SIZE

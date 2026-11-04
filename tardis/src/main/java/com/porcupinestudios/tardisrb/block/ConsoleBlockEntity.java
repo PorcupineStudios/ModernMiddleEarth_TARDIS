@@ -1,17 +1,21 @@
 package com.porcupinestudios.tardisrb.block;
 
 import com.porcupinestudios.tardisrb.console.ConsoleControls;
+import com.porcupinestudios.tardisrb.core.TardisRecord;
+import com.porcupinestudios.tardisrb.interior.Interiors;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 import java.util.WeakHashMap;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
+import net.minecraft.nbt.StringTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
@@ -25,7 +29,8 @@ import net.minecraft.world.level.block.state.BlockState;
 /**
  * The console's state: which controls are on it (those whose requirements hold, refreshed every second on the server
  * and synced to clients, so the renderer and click test need no data files), the course being set (offset from where
- * the TARDIS stands, step size, picked destination) and when each control was last used (for the animations).
+ * the TARDIS stands, step size, picked destination), when each control was last used (for the animations), what the
+ * monitor shows and which way it faces round the time rotor.
  */
 public final class ConsoleBlockEntity extends BlockEntity {
     /** A control as the client sees it. */
@@ -41,6 +46,11 @@ public final class ConsoleBlockEntity extends BlockEntity {
     private int destination;
     private final Map<String, Long> usedAt = new HashMap<>();
     private final Map<String, Integer> uses = new HashMap<>();
+    private List<String> readout = new ArrayList<>();
+    /** Which way the monitor faces from the rotor axis, degrees ({@code atan2(z, x)}); NaN = where the model has it. */
+    private float monitorAngle = Float.NaN;
+    /** Client only: the angle the monitor is drawn at, easing toward {@link #monitorAngle}. */
+    public float drawnAngle = Float.NaN;
 
     public ConsoleBlockEntity(BlockPos pos, BlockState state) {
         super(TardisBlocks.CONSOLE_BE.get(), pos, state);
@@ -56,8 +66,12 @@ public final class ConsoleBlockEntity extends BlockEntity {
     public static void serverTick(Level level, BlockPos pos, BlockState state, ConsoleBlockEntity be) {
         if (level.getGameTime() % 20 == 0 && level instanceof ServerLevel sl) {
             List<Shown> now = ConsoleControls.shown(sl, pos);
-            if (!now.equals(be.shown)) {
+            Optional<TardisRecord> tardis = Interiors.at(sl, pos);
+            List<String> lines = tardis.isEmpty() ? List.of()
+                    : ConsoleControls.readout(sl.getServer(), tardis.get(), be);
+            if (!now.equals(be.shown) || !lines.equals(be.readout)) {
                 be.shown = now;
+                be.readout = new ArrayList<>(lines);
                 be.changed();
             }
         }
@@ -134,6 +148,19 @@ public final class ConsoleBlockEntity extends BlockEntity {
         changed();
     }
 
+    public List<String> readout() {
+        return List.copyOf(readout);
+    }
+
+    public float monitorAngle() {
+        return monitorAngle;
+    }
+
+    public void setMonitorAngle(float degrees) {
+        monitorAngle = degrees;
+        changed();
+    }
+
     public long usedAt(String control) {
         return usedAt.getOrDefault(control, Long.MIN_VALUE / 2);
     }
@@ -172,6 +199,12 @@ public final class ConsoleBlockEntity extends BlockEntity {
         CompoundTag count = new CompoundTag();
         uses.forEach(count::putInt);
         tag.put("uses", count);
+        ListTag lines = new ListTag();
+        readout.forEach(l -> lines.add(StringTag.valueOf(l)));
+        tag.put("readout", lines);
+        if (!Float.isNaN(monitorAngle)) {
+            tag.putFloat("monitor_angle", monitorAngle);
+        }
     }
 
     @Override
@@ -195,6 +228,11 @@ public final class ConsoleBlockEntity extends BlockEntity {
         uses.clear();
         CompoundTag count = tag.getCompound("uses");
         count.getAllKeys().forEach(k -> uses.put(k, count.getInt(k)));
+        readout = new ArrayList<>();
+        for (Tag t : tag.getList("readout", Tag.TAG_STRING)) {
+            readout.add(t.getAsString());
+        }
+        monitorAngle = tag.contains("monitor_angle") ? tag.getFloat("monitor_angle") : Float.NaN;
     }
 
     @Override

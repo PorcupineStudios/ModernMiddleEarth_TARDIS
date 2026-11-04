@@ -1,7 +1,7 @@
 package com.porcupinestudios.tardisrb.block;
 
 import com.porcupinestudios.tardisrb.interior.Interiors;
-import com.porcupinestudios.tardisrb.net.ConsoleNet;
+import com.porcupinestudios.tardisrb.console.ConsoleControls;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
@@ -71,8 +71,9 @@ public final class ConsoleBlock extends Block implements EntityBlock {
             if (tardis.isEmpty() || !tardis.get().isCrew(sp.getUUID())) {
                 sp.displayClientMessage(Component.translatableWithFallback("tardis_rb.console.dead",
                         "The console stays dark"), true);
-            } else {
-                ConsoleNet.open(sp, tardis.get());
+            } else if (level.getBlockEntity(pos) instanceof ConsoleBlockEntity console) {
+                // no screen: clicking the console turns the monitor toward the player, like the 1.7.10 mod
+                ConsoleControls.faceMonitor(console, sp);
             }
         }
         return InteractionResult.CONSUME;

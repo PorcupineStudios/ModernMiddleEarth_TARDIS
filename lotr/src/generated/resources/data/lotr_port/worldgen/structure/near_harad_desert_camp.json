@@ -3,7 +3,7 @@
   "biomes": "#lotr_port:has_structure/near_harad_desert_camp",
   "step": "surface_structures",
   "spawn_overrides": {},
-  "terrain_adaptation": "beard_thin",
+  "terrain_adaptation": "beard_box",
   "start_pool": "lotr_port:near_harad_desert_camp",
   "size": 1,
   "start_height": {

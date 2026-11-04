@@ -52,11 +52,19 @@ public final class ConsoleTests {
             helper.assertTrue(!c.part().isEmpty(), c.id() + " names no part of the console model");
         }
 
+        // no screen: the monitor's readout says where the TARDIS is and the course
+        List<String> readout = ConsoleControls.readout(server, t, console);
+        BlockPos at = t.location().get().pos();
+        helper.assertTrue(readout.contains(at.getX() + " " + at.getY() + " " + at.getZ()),
+                "the monitor doesn't show where the TARDIS is: " + readout);
+
         ConsoleControls.use(server, t, console, find(shown, "step_dial").get(), Optional.empty());
         ConsoleControls.use(server, t, console, find(shown, "x_up").get(), Optional.empty());
         helper.assertTrue(console.dx() == 10 && console.dy() == 0 && console.dz() == 0,
                 "course " + console.dx() + " " + console.dy() + " " + console.dz());
         helper.assertTrue(console.uses(find(shown, "x_up").get().id()) == 1, "the button press wasn't counted");
+        helper.assertTrue(ConsoleControls.readout(server, t, console).contains("Course +10 +0 +0 x10"),
+                "the monitor doesn't show the course: " + ConsoleControls.readout(server, t, console));
 
         t.addCharge(100);
         BlockPos target = t.location().get().pos().offset(10, 0, 0);

@@ -16,8 +16,7 @@ Read when: touching `block/`, `interior/`, `flight/`, `net/ConsoleNet`, `client/
 - **Hops** `flight/Flight.hop`: feature `short_hop`, same dimension, distance ≤ `range` stat, cost
   max(`min_charge`, distance x `charge_per_block`), `Landing.find` (nearest column, then up/down; sturdy floor, two
   free dry blocks). Events `JumpEvent.Plan/Cost/Land/Arrived`; history type `tardis_rb:hop`. The box keeps its facing.
-- **Console** screen (`client/ConsoleScreen`) via `ConsoleNet` (`ConsoleView` S2C, `Hop` C2S); the server checks the
-  player stands in that TARDIS's plot and is crew.
+- **Console**: no screen (Aaron 2026-11-04). Only physical controls, `ConsoleNet.Press`; see `docs/console.md`.
 - **Winder** (`compat/create/`): `RotatedPillarKineticBlock` + `KineticBlockEntity`; charge per second =
   |RPM| x `charge_per_rpm_second`, fed to the interior it stands in or a box within `link_range`. Stress impact is
   registered in `BlockStressValues.IMPACTS` with a supplier reading the tuning file. Client uses Create's

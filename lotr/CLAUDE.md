@@ -82,6 +82,13 @@ https://claude.ai/artifact/KqhSSTCuKXGuwKHBoYJdcu. Rebuild features in modern co
   run by `npc/NpcSpawner` per player on `LevelTickEvent`. Conquest and invasion lists are not ported yet.
 - CI world check (`world/StructureCheck`): nearest gondor and mordor structure from the faction's map home must hold
   NPCs of that faction.
+- Templates are placed without block updates, so `structures.py` sets pane/fence/wall sides from the neighbours
+  (lone pane posts showed as dark squares) and fills pots with a vanilla potted flower picked by position (1.7.10 kept
+  the plant in a tile entity the export lacks). `terrain_adaptation` is `beard_box` (beard_thin left houses on slopes
+  floating over a hollow, Aaron 2026-11-04).
+- Armor whose LOTR texture is per item (gambesons, jacket, hats) gets a material per texture (`LotrItems.key`); the
+  hats are drawn on LOTR's own hat model, so `generate.py hat_layer` paints a cap onto the helmet layer instead
+  (the Shirriff's missing hat texture was the purple head).
 - Not yet: villages and town walls (LOTR's village generators), invasions, respawner blocks, non-person creatures.
 
 ## Map, waypoints and mini-quests (phase 8)
