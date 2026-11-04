@@ -56,6 +56,7 @@ public final class SpaceTravel {
         SeamPortals.register();
         SpacePhysics.register();
         com.porcupinestudios.tardisrb.gravity.GravityScale.register();
+        com.porcupinestudios.tardisrb.gravity.GravityDirection.register();
         PlanetMaps.register();
     }
 
@@ -216,7 +217,11 @@ public final class SpaceTravel {
         }
         Vec3 v = e.getDeltaMovement();
         if (turn != 0) {
-            v = new Vec3(-v.x, v.y, -v.z);
+            // Half a turn about world up; the velocity is in the entity's own frame when its gravity is turned.
+            var g = com.porcupinestudios.tardisrb.gravity.gc.api.GravityChangerAPI.getGravityDirection(e);
+            Vec3 w = com.porcupinestudios.tardisrb.gravity.gc.util.RotationUtil.vecPlayerToWorld(v, g);
+            v = com.porcupinestudios.tardisrb.gravity.gc.util.RotationUtil.vecWorldToPlayer(
+                    new Vec3(-w.x, w.y, -w.z), g);
         }
         if (e.level() == to) {
             e.teleportTo(pos.x, pos.y, pos.z);

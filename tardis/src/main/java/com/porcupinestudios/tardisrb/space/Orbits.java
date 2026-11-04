@@ -1,6 +1,8 @@
 package com.porcupinestudios.tardisrb.space;
 
 import com.porcupinestudios.tardisrb.gravity.GravityScale;
+import com.porcupinestudios.tardisrb.gravity.gc.api.GravityChangerAPI;
+import com.porcupinestudios.tardisrb.gravity.gc.util.RotationUtil;
 import com.porcupinestudios.tardisrb.progression.Tuning;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
@@ -80,13 +82,16 @@ public final class Orbits {
         } else if (!living) {
             v = v.add(0, e.getGravity(), 0);
         }
-        double y = v.y - down(p, e.getY(), v, t) * GravityScale.of(e) + thrust * m.thrust();
-        v = new Vec3(v.x, y, v.z);
+        // Drag and the entity's own gravity act in its frame; the planet pulls world-down, thrust pushes its own up.
+        net.minecraft.core.Direction g = GravityChangerAPI.getGravityDirection(e);
+        v = RotationUtil.vecPlayerToWorld(v, g);
+        v = v.add(0, -down(p, e.getY(), v, t) * GravityScale.of(e), 0)
+                .add(RotationUtil.vecPlayerToWorld(0.0, thrust * m.thrust(), 0.0, g));
         double speed = v.length();
         if (speed > m.maxSpeed()) {
             v = v.scale(m.maxSpeed() / speed);
         }
-        e.setDeltaMovement(v);
+        e.setDeltaMovement(RotationUtil.vecWorldToPlayer(v, g));
         e.fallDistance = 0;
     }
 }
