@@ -4970,7 +4970,7 @@
   },
   {
     "id": "apple_sapling",
-    "kind": "plant",
+    "kind": "sapling",
     "hardness": 0,
     "resistance": 0.0,
     "light": 0,
@@ -4980,7 +4980,7 @@
   },
   {
     "id": "pear_sapling",
-    "kind": "plant",
+    "kind": "sapling",
     "hardness": 0,
     "resistance": 0.0,
     "light": 0,
@@ -4990,7 +4990,7 @@
   },
   {
     "id": "cherry_sapling",
-    "kind": "plant",
+    "kind": "sapling",
     "hardness": 0,
     "resistance": 0.0,
     "light": 0,
@@ -5000,7 +5000,7 @@
   },
   {
     "id": "mango_sapling",
-    "kind": "plant",
+    "kind": "sapling",
     "hardness": 0,
     "resistance": 0.0,
     "light": 0,
@@ -8543,7 +8543,7 @@
   },
   {
     "id": "shire_pine_sapling",
-    "kind": "plant",
+    "kind": "sapling",
     "hardness": 0,
     "resistance": 0.0,
     "light": 0,
@@ -8553,7 +8553,7 @@
   },
   {
     "id": "mallorn_sapling",
-    "kind": "plant",
+    "kind": "sapling",
     "hardness": 0,
     "resistance": 0.0,
     "light": 0,
@@ -8563,7 +8563,7 @@
   },
   {
     "id": "mirk_oak_sapling",
-    "kind": "plant",
+    "kind": "sapling",
     "hardness": 0,
     "resistance": 0.0,
     "light": 0,
@@ -8573,7 +8573,7 @@
   },
   {
     "id": "red_oak_sapling",
-    "kind": "plant",
+    "kind": "sapling",
     "hardness": 0,
     "resistance": 0.0,
     "light": 0,
@@ -8583,7 +8583,7 @@
   },
   {
     "id": "lebethron_sapling",
-    "kind": "plant",
+    "kind": "sapling",
     "hardness": 0,
     "resistance": 0.0,
     "light": 0,
@@ -8593,7 +8593,7 @@
   },
   {
     "id": "beech_sapling",
-    "kind": "plant",
+    "kind": "sapling",
     "hardness": 0,
     "resistance": 0.0,
     "light": 0,
@@ -8603,7 +8603,7 @@
   },
   {
     "id": "holly_sapling",
-    "kind": "plant",
+    "kind": "sapling",
     "hardness": 0,
     "resistance": 0.0,
     "light": 0,
@@ -8613,7 +8613,7 @@
   },
   {
     "id": "banana_sapling",
-    "kind": "plant",
+    "kind": "sapling",
     "hardness": 0,
     "resistance": 0.0,
     "light": 0,
@@ -8623,7 +8623,7 @@
   },
   {
     "id": "maple_sapling",
-    "kind": "plant",
+    "kind": "sapling",
     "hardness": 0,
     "resistance": 0.0,
     "light": 0,
@@ -8633,7 +8633,7 @@
   },
   {
     "id": "larch_sapling",
-    "kind": "plant",
+    "kind": "sapling",
     "hardness": 0,
     "resistance": 0.0,
     "light": 0,
@@ -8643,7 +8643,7 @@
   },
   {
     "id": "date_palm_sapling",
-    "kind": "plant",
+    "kind": "sapling",
     "hardness": 0,
     "resistance": 0.0,
     "light": 0,
@@ -8653,7 +8653,7 @@
   },
   {
     "id": "mangrove_sapling",
-    "kind": "plant",
+    "kind": "sapling",
     "hardness": 0,
     "resistance": 0.0,
     "light": 0,
@@ -8663,7 +8663,7 @@
   },
   {
     "id": "chestnut_sapling",
-    "kind": "plant",
+    "kind": "sapling",
     "hardness": 0,
     "resistance": 0.0,
     "light": 0,
@@ -8673,7 +8673,7 @@
   },
   {
     "id": "baobab_sapling",
-    "kind": "plant",
+    "kind": "sapling",
     "hardness": 0,
     "resistance": 0.0,
     "light": 0,
@@ -8683,7 +8683,7 @@
   },
   {
     "id": "cedar_sapling",
-    "kind": "plant",
+    "kind": "sapling",
     "hardness": 0,
     "resistance": 0.0,
     "light": 0,
@@ -8693,7 +8693,7 @@
   },
   {
     "id": "fir_sapling",
-    "kind": "plant",
+    "kind": "sapling",
     "hardness": 0,
     "resistance": 0.0,
     "light": 0,
@@ -8703,7 +8703,7 @@
   },
   {
     "id": "pine_sapling",
-    "kind": "plant",
+    "kind": "sapling",
     "hardness": 0,
     "resistance": 0.0,
     "light": 0,
@@ -8713,7 +8713,7 @@
   },
   {
     "id": "lemon_sapling",
-    "kind": "plant",
+    "kind": "sapling",
     "hardness": 0,
     "resistance": 0.0,
     "light": 0,
@@ -8723,7 +8723,7 @@
   },
   {
     "id": "orange_sapling",
-    "kind": "plant",
+    "kind": "sapling",
     "hardness": 0,
     "resistance": 0.0,
     "light": 0,
@@ -8733,7 +8733,7 @@
   },
   {
     "id": "lime_sapling",
-    "kind": "plant",
+    "kind": "sapling",
     "hardness": 0,
     "resistance": 0.0,
     "light": 0,
@@ -8743,7 +8743,7 @@
   },
   {
     "id": "mahogany_sapling",
-    "kind": "plant",
+    "kind": "sapling",
     "hardness": 0,
     "resistance": 0.0,
     "light": 0,
@@ -8753,7 +8753,7 @@
   },
   {
     "id": "willow_sapling",
-    "kind": "plant",
+    "kind": "sapling",
     "hardness": 0,
     "resistance": 0.0,
     "light": 0,
@@ -8763,7 +8763,7 @@
   },
   {
     "id": "cypress_sapling",
-    "kind": "plant",
+    "kind": "sapling",
     "hardness": 0,
     "resistance": 0.0,
     "light": 0,
@@ -8773,7 +8773,7 @@
   },
   {
     "id": "olive_sapling",
-    "kind": "plant",
+    "kind": "sapling",
     "hardness": 0,
     "resistance": 0.0,
     "light": 0,
@@ -8783,7 +8783,7 @@
   },
   {
     "id": "aspen_sapling",
-    "kind": "plant",
+    "kind": "sapling",
     "hardness": 0,
     "resistance": 0.0,
     "light": 0,
@@ -8793,7 +8793,7 @@
   },
   {
     "id": "green_oak_sapling",
-    "kind": "plant",
+    "kind": "sapling",
     "hardness": 0,
     "resistance": 0.0,
     "light": 0,
@@ -8803,7 +8803,7 @@
   },
   {
     "id": "laireloss_sapling",
-    "kind": "plant",
+    "kind": "sapling",
     "hardness": 0,
     "resistance": 0.0,
     "light": 0,
@@ -8813,7 +8813,7 @@
   },
   {
     "id": "almond_sapling",
-    "kind": "plant",
+    "kind": "sapling",
     "hardness": 0,
     "resistance": 0.0,
     "light": 0,
@@ -8823,7 +8823,7 @@
   },
   {
     "id": "plum_sapling",
-    "kind": "plant",
+    "kind": "sapling",
     "hardness": 0,
     "resistance": 0.0,
     "light": 0,
@@ -8833,7 +8833,7 @@
   },
   {
     "id": "redwood_sapling",
-    "kind": "plant",
+    "kind": "sapling",
     "hardness": 0,
     "resistance": 0.0,
     "light": 0,
@@ -8843,7 +8843,7 @@
   },
   {
     "id": "pomegranate_sapling",
-    "kind": "plant",
+    "kind": "sapling",
     "hardness": 0,
     "resistance": 0.0,
     "light": 0,
@@ -8853,7 +8853,7 @@
   },
   {
     "id": "palm_sapling",
-    "kind": "plant",
+    "kind": "sapling",
     "hardness": 0,
     "resistance": 0.0,
     "light": 0,
@@ -8863,7 +8863,7 @@
   },
   {
     "id": "dragonblood_sapling",
-    "kind": "plant",
+    "kind": "sapling",
     "hardness": 0,
     "resistance": 0.0,
     "light": 0,
@@ -8873,7 +8873,7 @@
   },
   {
     "id": "kanuka_sapling",
-    "kind": "plant",
+    "kind": "sapling",
     "hardness": 0,
     "resistance": 0.0,
     "light": 0,

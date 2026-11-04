@@ -25,7 +25,9 @@ OPERANDS = {0x10: 1, 0x11: 2, 0x12: 1, 0x13: 2, 0x14: 2, 0x15: 1, 0x16: 1, 0x17:
             0xC7: 2, 0xC8: 4, 0xC9: 4}
 for op in range(0x99, 0xA9):  # if*, goto, jsr
     OPERANDS[op] = 2
-CLASSES = ["LOTRBlockSapling"] + [f"LOTRBlockSapling{i}" for i in range(2, 10)]
+# sapling class -> its old block id
+CLASSES = {"LOTRBlockSapling": "lotr:tile.sapling", "LOTRBlockFruitSapling": "lotr:tile.fruitSapling",
+           **{f"LOTRBlockSapling{i}": f"lotr:tile.sapling{i}" for i in range(2, 10)}}
 
 
 def instructions(code):
@@ -127,7 +129,7 @@ class Saplings:
             if not self.jar.has(path):
                 continue
             rules = rules_of(ClassFile(self.jar.read(path)))
-            old = "lotr:tile.sapling" + cls.removeprefix("LOTRBlockSapling")
+            old = CLASSES[cls]
             for meta, rs in sorted(rules.items()):
                 new = self.gen.idtable.get(f"{old}#{meta}")
                 if not new:
