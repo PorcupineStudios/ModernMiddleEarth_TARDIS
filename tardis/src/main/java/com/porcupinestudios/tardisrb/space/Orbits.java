@@ -68,15 +68,24 @@ public final class Orbits {
      * jump).
      */
     public static void step(Entity e, Planet p, Tuning.SpaceTuning t, int thrust) {
-        apply(e, t, thrust, v -> new Vec3(0, -down(p, e.getY(), v, t) * GravityScale.of(e), 0));
+        step(e, p, t, thrust, 0);
+    }
+
+    /** As {@link #step}, with {@code boost} 1 (sprint + forward: along the look), -1 (sprint + back: slow down) or 0. */
+    public static void step(Entity e, Planet p, Tuning.SpaceTuning t, int thrust, int boost) {
+        apply(e, t, thrust, boost, v -> new Vec3(0, -down(p, e.getY(), v, t) * GravityScale.of(e), 0));
     }
 
     /** The same between the planets of a solar system: every ball and the sun pull ({@link StarSystem#gravity}). */
     public static void stepSystem(Entity e, StarSystem s, Tuning.SpaceTuning t, int thrust) {
-        apply(e, t, thrust, v -> s.gravity(e.position(), t).scale(GravityScale.of(e)));
+        stepSystem(e, s, t, thrust, 0);
     }
 
-    private static void apply(Entity e, Tuning.SpaceTuning t, int thrust,
+    public static void stepSystem(Entity e, StarSystem s, Tuning.SpaceTuning t, int thrust, int boost) {
+        apply(e, t, thrust, boost, v -> s.gravity(e.position(), t).scale(GravityScale.of(e)));
+    }
+
+    private static void apply(Entity e, Tuning.SpaceTuning t, int thrust, int boost,
             java.util.function.UnaryOperator<Vec3> pull) {
         Vec3 v = e.getDeltaMovement();
         Tuning.Motion m = t.motion();
@@ -100,6 +109,12 @@ public final class Orbits {
         com.porcupinestudios.tardisrb.gravity.Tilt tilt = com.porcupinestudios.tardisrb.gravity.Tilt.of(e);
         Vec3 up = tilt != null ? tilt.toWorld(new Vec3(0, 1, 0)) : RotationUtil.vecPlayerToWorld(0.0, 1.0, 0.0, g);
         v = v.add(pull.apply(v)).add(up.scale(thrust * m.thrust()));
+        if (boost > 0 && m.boost() > 0) {
+            v = v.add(e.getViewVector(1).scale(m.boost()));
+        } else if (boost < 0 && m.boost() > 0) {
+            double s = v.length();
+            v = s <= m.boost() ? Vec3.ZERO : v.scale((s - m.boost()) / s);
+        }
         double speed = v.length();
         if (speed > m.maxSpeed()) {
             v = v.scale(m.maxSpeed() / speed);

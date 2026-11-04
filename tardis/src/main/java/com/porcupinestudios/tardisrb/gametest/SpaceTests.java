@@ -140,6 +140,22 @@ public final class SpaceTests {
         stand.setDeltaMovement(0, 0, 0);
         com.porcupinestudios.tardisrb.space.Orbits.step(stand, p, t, 0);
         helper.assertTrue(Math.abs(stand.getDeltaMovement().y) < 1e-9, "gravity x0 still fell: " + stand.getDeltaMovement());
+        // sprint + forward boosts along the look past the old ~10 a tick limit; sprint + back stops you
+        stand.setYRot(-90);
+        stand.setYHeadRot(-90);
+        stand.yHeadRotO = -90;
+        stand.setXRot(0);
+        for (int i = 0; i < 100; i++) {
+            com.porcupinestudios.tardisrb.space.Orbits.step(stand, p, t, 0, 1);
+        }
+        var fast = stand.getDeltaMovement();
+        helper.assertTrue(fast.x > 20 && fast.length() <= t.motion().maxSpeed() + 1e-6, "boost gave " + fast);
+        for (int i = 0; i < 200; i++) {
+            // vanilla's air drag, which the step undoes
+            stand.setDeltaMovement(stand.getDeltaMovement().multiply(0.91, 0.98, 0.91));
+            com.porcupinestudios.tardisrb.space.Orbits.step(stand, p, t, 0, -1);
+        }
+        helper.assertTrue(stand.getDeltaMovement().length() < 1e-9, "brake left " + stand.getDeltaMovement());
         helper.succeed();
     }
 
@@ -316,7 +332,7 @@ public final class SpaceTests {
         var m = t.motion();
         var off = new Tuning.SpaceTuning(t.gravity(), t.checkTicks(), t.landingSlowFall(), t.seamView(),
                 t.seamSegment(), t.seamLinger(), t.mapBudgetMs(), new Tuning.Motion(m.orbitSpeed(), m.thrust(),
-                        m.maxSpeed(), m.dragFree(), false, m.tiltSpeed()));
+                        m.maxSpeed(), m.dragFree(), false, m.tiltSpeed(), m.boost()));
         Tilt.tick(player, system, off);
         helper.assertTrue(Tilt.of(player) == null, "leans with free_tilt off");
         Tilt.tick(player, system, t);
