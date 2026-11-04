@@ -1,6 +1,8 @@
 {
   "values": [
-    "lotr_port:gundabad_camp",
+    "lotr_port:gundabad_camp_1500",
+    "lotr_port:gundabad_camp_2000",
+    "lotr_port:gundabad_camp_4000",
     "lotr_port:ruined_dwarven_tower"
   ]
 }

@@ -1,0 +1,16 @@
+{
+  "structures": [
+    {
+      "structure": "lotr_port:dunland_hill_fort_700",
+      "weight": 1
+    }
+  ],
+  "placement": {
+    "type": "minecraft:random_spread",
+    "spacing": 1,
+    "separation": 0,
+    "frequency": 0.0014286,
+    "frequency_reduction_method": "default",
+    "salt": 415917395
+  }
+}

@@ -1,15 +1,15 @@
 {
-  "type": "minecraft:jigsaw",
+  "type": "lotr_port:lotr",
   "biomes": "#lotr_port:has_structure/dale_watchtower",
   "step": "surface_structures",
   "spawn_overrides": {},
-  "terrain_adaptation": "beard_box",
-  "start_pool": "lotr_port:dale_watchtower",
-  "size": 1,
-  "start_height": {
-    "absolute": -1
-  },
-  "project_start_to_heightmap": "WORLD_SURFACE_WG",
-  "max_distance_from_center": 80,
-  "use_expansion_hack": false
+  "terrain_adaptation": "none",
+  "templates": [
+    "lotr_port:dale_watchtower/0",
+    "lotr_port:dale_watchtower/1",
+    "lotr_port:dale_watchtower/2"
+  ],
+  "ground": 0,
+  "max_slope": 6,
+  "road_distance": 16
 }

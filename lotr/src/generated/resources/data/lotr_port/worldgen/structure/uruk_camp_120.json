@@ -1,0 +1,15 @@
+{
+  "type": "lotr_port:lotr",
+  "biomes": "#lotr_port:has_structure/uruk_camp_120",
+  "step": "surface_structures",
+  "spawn_overrides": {},
+  "terrain_adaptation": "none",
+  "templates": [
+    "lotr_port:uruk_camp/0",
+    "lotr_port:uruk_camp/1",
+    "lotr_port:uruk_camp/2"
+  ],
+  "ground": 0,
+  "max_slope": 6,
+  "road_distance": 16
+}

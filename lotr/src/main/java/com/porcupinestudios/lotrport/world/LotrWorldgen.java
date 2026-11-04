@@ -36,6 +36,7 @@ public final class LotrWorldgen {
         BIOME_SOURCES.register(modBus);
         DENSITY_FUNCTIONS.register(modBus);
         FEATURES.register(modBus);
+        com.porcupinestudios.lotrport.world.structure.LotrStructures.register(modBus);
         NeoForge.EVENT_BUS.addListener(LotrWorldgen::onServerStarted);
     }
 

@@ -1,0 +1,16 @@
+{
+  "structures": [
+    {
+      "structure": "lotr_port:ruined_house_4000",
+      "weight": 1
+    }
+  ],
+  "placement": {
+    "type": "minecraft:random_spread",
+    "spacing": 1,
+    "separation": 0,
+    "frequency": 0.00025,
+    "frequency_reduction_method": "default",
+    "salt": 80634147
+  }
+}

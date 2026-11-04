@@ -1,8 +1,13 @@
 {
   "values": [
     "lotr_port:angmar_camp",
-    "lotr_port:angmar_hillman_house",
-    "lotr_port:angmar_hillman_village",
+    "lotr_port:angmar_hillman_house_1000",
+    "lotr_port:angmar_hillman_house_500",
+    "lotr_port:angmar_hillman_house_800",
+    "lotr_port:angmar_hillman_village_1000",
+    "lotr_port:angmar_hillman_village_2000",
+    "lotr_port:angmar_hillman_village_400",
+    "lotr_port:angmar_hillman_village_4000",
     "lotr_port:angmar_warg_pit"
   ]
 }

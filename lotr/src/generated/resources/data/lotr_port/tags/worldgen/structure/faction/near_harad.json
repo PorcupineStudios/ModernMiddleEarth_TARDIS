@@ -1,9 +1,13 @@
 {
   "values": [
-    "lotr_port:corsair_camp",
+    "lotr_port:corsair_camp_100",
+    "lotr_port:corsair_camp_800",
     "lotr_port:corsair_cove",
-    "lotr_port:harnedor_tower",
-    "lotr_port:moredain_merc_camp",
+    "lotr_port:harnedor_tower_2000",
+    "lotr_port:harnedor_tower_800",
+    "lotr_port:moredain_merc_camp_1000",
+    "lotr_port:moredain_merc_camp_1500",
+    "lotr_port:moredain_merc_camp_2000",
     "lotr_port:near_harad_desert_camp"
   ]
 }

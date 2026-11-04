@@ -1,0 +1,16 @@
+{
+  "structures": [
+    {
+      "structure": "lotr_port:angmar_hillman_village_1000",
+      "weight": 1
+    }
+  ],
+  "placement": {
+    "type": "minecraft:random_spread",
+    "spacing": 1,
+    "separation": 0,
+    "frequency": 0.001,
+    "frequency_reduction_method": "default",
+    "salt": 616931752
+  }
+}

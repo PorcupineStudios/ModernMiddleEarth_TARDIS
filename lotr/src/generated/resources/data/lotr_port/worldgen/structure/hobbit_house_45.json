@@ -1,0 +1,15 @@
+{
+  "type": "lotr_port:lotr",
+  "biomes": "#lotr_port:has_structure/hobbit_house_45",
+  "step": "surface_structures",
+  "spawn_overrides": {},
+  "terrain_adaptation": "none",
+  "templates": [
+    "lotr_port:hobbit_house/0",
+    "lotr_port:hobbit_house/1",
+    "lotr_port:hobbit_house/2"
+  ],
+  "ground": 0,
+  "max_slope": 6,
+  "road_distance": 16
+}

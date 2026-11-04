@@ -1,0 +1,16 @@
+{
+  "structures": [
+    {
+      "structure": "lotr_port:burnt_house_3000",
+      "weight": 1
+    }
+  ],
+  "placement": {
+    "type": "minecraft:random_spread",
+    "spacing": 1,
+    "separation": 0,
+    "frequency": 0.0003333,
+    "frequency_reduction_method": "default",
+    "salt": 1295481149
+  }
+}

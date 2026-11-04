@@ -1,0 +1,25 @@
+{
+  "values": [
+    "lotr_port:blackroot_vale",
+    "lotr_port:breeland",
+    "lotr_port:chetwood",
+    "lotr_port:dale",
+    "lotr_port:gondor",
+    "lotr_port:gondor_woodlands",
+    "lotr_port:grey_mountains",
+    "lotr_port:grey_mountains_foothills",
+    "lotr_port:imloth_melui",
+    "lotr_port:lamedon",
+    "lotr_port:lamedon_hills",
+    "lotr_port:lebennin",
+    "lotr_port:lossarnach",
+    "lotr_port:pelargir",
+    "lotr_port:pinnath_gelin",
+    "lotr_port:rohan",
+    "lotr_port:rohan_woodlands",
+    "lotr_port:taiga",
+    "lotr_port:tundra",
+    "lotr_port:white_mountains",
+    "lotr_port:white_mountains_foothills"
+  ]
+}

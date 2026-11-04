@@ -1,0 +1,15 @@
+{
+  "type": "lotr_port:lotr",
+  "biomes": "#lotr_port:has_structure/harnedor_tower_800",
+  "step": "surface_structures",
+  "spawn_overrides": {},
+  "terrain_adaptation": "none",
+  "templates": [
+    "lotr_port:harnedor_tower/0",
+    "lotr_port:harnedor_tower/1",
+    "lotr_port:harnedor_tower/2"
+  ],
+  "ground": -1,
+  "max_slope": 6,
+  "road_distance": 16
+}

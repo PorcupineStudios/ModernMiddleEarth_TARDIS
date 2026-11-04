@@ -1,10 +1,18 @@
 {
   "values": [
-    "lotr_port:hobbit_burrow",
-    "lotr_port:hobbit_farm",
-    "lotr_port:hobbit_hole",
-    "lotr_port:hobbit_house",
-    "lotr_port:hobbit_tavern",
-    "lotr_port:hobbit_windmill"
+    "lotr_port:hobbit_burrow_150",
+    "lotr_port:hobbit_burrow_45",
+    "lotr_port:hobbit_farm_1000",
+    "lotr_port:hobbit_farm_2000",
+    "lotr_port:hobbit_farm_500",
+    "lotr_port:hobbit_hole_300",
+    "lotr_port:hobbit_hole_90",
+    "lotr_port:hobbit_house_150",
+    "lotr_port:hobbit_house_45",
+    "lotr_port:hobbit_tavern_200",
+    "lotr_port:hobbit_tavern_300",
+    "lotr_port:hobbit_tavern_70",
+    "lotr_port:hobbit_windmill_500",
+    "lotr_port:hobbit_windmill_600"
   ]
 }

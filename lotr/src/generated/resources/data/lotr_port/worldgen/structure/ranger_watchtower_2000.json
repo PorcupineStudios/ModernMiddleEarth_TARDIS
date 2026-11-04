@@ -1,0 +1,15 @@
+{
+  "type": "lotr_port:lotr",
+  "biomes": "#lotr_port:has_structure/ranger_watchtower_2000",
+  "step": "surface_structures",
+  "spawn_overrides": {},
+  "terrain_adaptation": "none",
+  "templates": [
+    "lotr_port:ranger_watchtower/0",
+    "lotr_port:ranger_watchtower/1",
+    "lotr_port:ranger_watchtower/2"
+  ],
+  "ground": 0,
+  "max_slope": 6,
+  "road_distance": 16
+}

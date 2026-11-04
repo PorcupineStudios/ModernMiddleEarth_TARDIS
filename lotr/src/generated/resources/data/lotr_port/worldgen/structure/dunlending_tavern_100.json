@@ -1,0 +1,15 @@
+{
+  "type": "lotr_port:lotr",
+  "biomes": "#lotr_port:has_structure/dunlending_tavern_100",
+  "step": "surface_structures",
+  "spawn_overrides": {},
+  "terrain_adaptation": "none",
+  "templates": [
+    "lotr_port:dunlending_tavern/0",
+    "lotr_port:dunlending_tavern/1",
+    "lotr_port:dunlending_tavern/2"
+  ],
+  "ground": 2,
+  "max_slope": 6,
+  "road_distance": 16
+}

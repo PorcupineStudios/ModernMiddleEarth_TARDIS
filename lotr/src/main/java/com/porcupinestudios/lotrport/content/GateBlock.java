@@ -15,6 +15,8 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.DirectionalBlock;
+import net.minecraft.world.level.block.Mirror;
+import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -56,6 +58,18 @@ public class GateBlock extends DirectionalBlock {
         return defaultBlockState().setValue(FACING, context.getNearestLookingDirection().getOpposite());
     }
 
+    /** Structures are placed turned and mirrored; without these a gate kept its old facing and stood across the
+     * doorway's sides instead of filling it. */
+    @Override
+    protected BlockState rotate(BlockState state, Rotation rotation) {
+        return state.setValue(FACING, rotation.rotate(state.getValue(FACING)));
+    }
+
+    @Override
+    protected BlockState mirror(BlockState state, Mirror mirror) {
+        return state.rotate(mirror.getRotation(state.getValue(FACING)));
+    }
+
     @Override
     protected VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
         if (state.getValue(OPEN)) {
@@ -78,7 +92,7 @@ public class GateBlock extends DirectionalBlock {
             BlockHitResult hit) {
         if (!level.isClientSide) {
             boolean open = !state.getValue(OPEN);
-            for (BlockPos p : gate(level, pos, state.getBlock())) {
+            for (BlockPos p : gate(level, pos, state)) {
                 level.setBlock(p, level.getBlockState(p).setValue(OPEN, open), Block.UPDATE_ALL);
             }
             level.playSound(null, pos, open ? SoundEvents.WOODEN_DOOR_OPEN : SoundEvents.WOODEN_DOOR_CLOSE,
@@ -87,8 +101,13 @@ public class GateBlock extends DirectionalBlock {
         return InteractionResult.sidedSuccess(level.isClientSide);
     }
 
-    /** The blocks of one gate: this one and every touching block of the same kind. */
-    static Set<BlockPos> gate(Level level, BlockPos start, Block block) {
+    /**
+     * The blocks of one gate: this one and every touching block of the same kind facing the same way (the gate's
+     * plane), so two gates side by side in a gatehouse open on their own.
+     */
+    static Set<BlockPos> gate(Level level, BlockPos start, BlockState from) {
+        Block block = from.getBlock();
+        Direction facing = from.getValue(FACING);
         Set<BlockPos> seen = new HashSet<>();
         ArrayDeque<BlockPos> todo = new ArrayDeque<>();
         todo.add(start);
@@ -97,7 +116,8 @@ public class GateBlock extends DirectionalBlock {
             BlockPos p = todo.poll();
             for (Direction d : Direction.values()) {
                 BlockPos n = p.relative(d);
-                if (!seen.contains(n) && level.getBlockState(n).is(block)) {
+                BlockState other = level.getBlockState(n);
+                if (!seen.contains(n) && other.is(block) && other.getValue(FACING).getAxis() == facing.getAxis()) {
                     seen.add(n);
                     todo.add(n);
                 }
