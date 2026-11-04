@@ -76,17 +76,6 @@
         ],
         "facing": "west"
       }
-    ],
-    "basement": "tardis_rb:interior/repair_basement",
-    "basement_offset": [
-      -1,
-      -9,
-      -5
-    ],
-    "hatch": [
-      6,
-      -4,
-      -2
     ]
   },
   "damage": {

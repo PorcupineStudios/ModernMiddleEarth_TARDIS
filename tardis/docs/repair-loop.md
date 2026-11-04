@@ -1,11 +1,10 @@
-# TARDIS: repair loop (basement repair room, research, looks, damage)
+# TARDIS: repair loop (Repair Station, research, looks, damage)
 Read when: the Repair Station and repair tree, timed research, exterior looks, world damage.
 
-- **Basement repair room** (Aaron 2026-11-03, replaced the phase 3 part blocks): `Interiors.ensure` places the
-  `interior.basement` template (`tools/rooms.py repair_basement`) at `basement_offset` (0,-5,0) under the console room;
-  a ladder in the console room floor at (7,0,3) leads down. The Repair Station (`block/RepairStationBlock`, at basement
-  (4,1,4)) opens the tree for crew. Every repair is done there (`WorkshopNet.act` -> `Repairs.attempt`, paid from the
-  player). Interiors built before this have no basement (dev worlds only). An old `part_pos` key in repair data is ignored.
+- **Repair Station** (`block/RepairStationBlock`): opens the tree for crew; every repair is done there
+  (`WorkshopNet.act` -> `Repairs.attempt`, paid from the player). The basement room and its ladder were removed
+  (Aaron 2026-11-04): the lower deck will do this job differently, so for now the station is placed by hand
+  (creative tab "TARDIS"). An old `part_pos` key in repair data is ignored.
 - **Research** (`research/Researching`): one job at a time in `TardisRecord.researching` (node + finish game time).
   `start` fires `ResearchEvent.Pre` (listeners may change cost/time or cancel), pays, then stores the job; time 0 finishes
   at once. A server tick every 20 ticks finishes due jobs, also when the TARDIS's chunks are unloaded.

@@ -192,18 +192,6 @@ public final class WorldCheck {
                 if (Interiors.at(inside, console).map(r -> r != wreck).orElse(true)) {
                     problems.add("the console doesn't find its TARDIS");
                 }
-                BlockPos station = Interiors.basement(wreck).offset(4, 1, 4);
-                if (!inside.getBlockState(station).is(TardisBlocks.REPAIR_STATION.get())) {
-                    problems.add("no repair station in the basement at " + station + ": "
-                            + inside.getBlockState(station));
-                }
-                if (Interiors.at(inside, station).map(r -> r != wreck).orElse(true)) {
-                    problems.add("the repair station doesn't find its TARDIS");
-                }
-                BlockPos hatch = Interiors.origin(wreck.plot()).offset(TardisContent.tuning().interior().hatch());
-                if (!inside.getBlockState(hatch).is(Blocks.LADDER)) {
-                    problems.add("no ladder down to the basement at " + hatch + ": " + inside.getBlockState(hatch));
-                }
                 checkRoom(server, wreck, inside, problems);
                 checkDoor(server, wreck, level, inside, problems);
             }
