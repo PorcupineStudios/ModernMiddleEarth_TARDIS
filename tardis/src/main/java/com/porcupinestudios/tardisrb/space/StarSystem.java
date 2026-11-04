@@ -52,7 +52,7 @@ public record StarSystem(ResourceLocation id, ResourceKey<Level> dimension, Syst
         }
 
         /** East, north and up at a surface spot, in system directions. */
-        private Vec3[] frame(double surfaceX, double surfaceZ) {
+        public Vec3[] frame(double surfaceX, double surfaceZ) {
             double lon = planet.lon(surfaceX);
             double lat = planet.lat(surfaceZ);
             Vec3 east = new Vec3(Math.cos(lon), 0, -Math.sin(lon));
