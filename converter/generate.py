@@ -502,8 +502,10 @@ class Gen:
             self.tags["minecraft:item/logs"].add(new)
 
         self.models(new, kind, icons, v, b)
-        if new not in self.hidden:  # placed-only blocks (crops, beds, portals) drop nothing until their phase
+        if new not in self.hidden:
             self.loot(new, kind)
+        else:
+            self.placed_loot(new, b, v)
 
     # ------------------------------------------------------------------ models and blockstates
 
@@ -790,6 +792,39 @@ class Gen:
                     {"enchantments": "minecraft:silk_touch", "levels": {"min": 1}}]}}}]}]
         write_json(os.path.join(DATA, NS, "loot_table", "blocks", new + ".json"),
                    {"type": "minecraft:block", "pools": [pool]})
+
+    def placed_loot(self, new, b, v):
+        """
+        Blocks only an item places (crops, beds, placed food, plates, mugs, torches) drop what LOTR's block dropped:
+        Block.getItemDropped / damageDropped / quantityDropped per metadata, exported as `drops`. The port's block
+        has no age or part state yet, so the variant's own metadata is used, else the first that drops something.
+        Blocks that drop nothing in LOTR (portals, placed food eaten in place) get no loot table.
+        """
+        drops = b.get("drops")
+        if drops is None:
+            self.report["placed_blocks_without_drop_export"].append(new)
+            return
+        hits = [d for d in drops if d.get("item")]
+        d = next((x for x in hits if x["meta"] == v["meta"]), hits[0] if hits else None)
+        if d is None:
+            self.report["placed_blocks_dropping_nothing"].append(new)
+            return
+        ing = self.ingredient({"item": d["item"], "meta": d.get("damage", 0)})
+        if not ing or "item" not in ing:
+            self.report["placed_block_drops_unmapped"].append(f"{new}: {d['item']}#{d.get('damage', 0)}")
+            return
+        entry = {"type": "minecraft:item", "name": ing["item"]}
+        lo, hi = d.get("min", 1), d.get("max", 1)
+        if hi == 0:
+            self.report["placed_blocks_dropping_nothing"].append(new)
+            return
+        if (lo, hi) != (1, 1):
+            entry["functions"] = [{"function": "minecraft:set_count",
+                                   "count": lo if lo == hi else {"type": "minecraft:uniform", "min": lo, "max": hi}}]
+        write_json(os.path.join(DATA, NS, "loot_table", "blocks", new + ".json"),
+                   {"type": "minecraft:block", "pools": [{"rolls": 1, "entries": [entry],
+                    "conditions": [{"condition": "minecraft:survives_explosion"}]}]})
+        self.report["placed_blocks_with_loot"].append(f"{new} -> {ing['item']}")
 
     # ------------------------------------------------------------------ recipes
 

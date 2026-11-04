@@ -175,7 +175,44 @@ public class Exporter {
             variants.add(v);
         }
         o.add("variants", variants);
+        o.add("drops", drops(key, block));
         return o;
+    }
+
+    /**
+     * What breaking the block drops for each metadata 0-15 (crop stages, bed halves, placed food...), through
+     * Block.getItemDropped / damageDropped / quantityDropped without a world, the counts sampled 64 times.
+     */
+    private JsonArray drops(String key, Block block) {
+        JsonArray out = new JsonArray();
+        java.util.Random rand = new java.util.Random(0);
+        for (int meta = 0; meta < 16; meta++) {
+            try {
+                Item dropped = block.getItemDropped(meta, rand, 0);
+                JsonObject d = new JsonObject();
+                d.addProperty("meta", meta);
+                if (dropped == null) {
+                    d.add("item", JsonNull.INSTANCE);
+                } else {
+                    d.addProperty("item", Item.itemRegistry.getNameForObject(dropped));
+                    d.addProperty("damage", block.damageDropped(meta));
+                    int min = Integer.MAX_VALUE;
+                    int max = 0;
+                    for (int i = 0; i < 64; i++) {
+                        int n = block.quantityDropped(meta, 0, rand);
+                        min = Math.min(min, n);
+                        max = Math.max(max, n);
+                    }
+                    d.addProperty("min", min);
+                    d.addProperty("max", max);
+                }
+                out.add(d);
+            } catch (Throwable t) {
+                error("drops " + key + "#" + meta, t);
+                break;
+            }
+        }
+        return out;
     }
 
     // ---------------------------------------------------------------- items
