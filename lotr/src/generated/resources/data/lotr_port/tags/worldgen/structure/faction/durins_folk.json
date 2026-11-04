@@ -1,6 +1,8 @@
 {
   "values": [
-    "lotr_port:dwarf_smithy",
-    "lotr_port:dwarven_tower"
+    "lotr_port:dwarf_smithy_150",
+    "lotr_port:dwarf_smithy_400",
+    "lotr_port:dwarven_tower_300",
+    "lotr_port:dwarven_tower_400"
   ]
 }

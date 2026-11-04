@@ -1,0 +1,15 @@
+{
+  "type": "lotr_port:lotr",
+  "biomes": "#lotr_port:has_structure/mordor_camp_20",
+  "step": "surface_structures",
+  "spawn_overrides": {},
+  "terrain_adaptation": "none",
+  "templates": [
+    "lotr_port:mordor_camp/0",
+    "lotr_port:mordor_camp/1",
+    "lotr_port:mordor_camp/2"
+  ],
+  "ground": 0,
+  "max_slope": 6,
+  "road_distance": 16
+}

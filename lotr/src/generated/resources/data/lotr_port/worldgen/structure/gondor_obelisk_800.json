@@ -1,0 +1,15 @@
+{
+  "type": "lotr_port:lotr",
+  "biomes": "#lotr_port:has_structure/gondor_obelisk_800",
+  "step": "surface_structures",
+  "spawn_overrides": {},
+  "terrain_adaptation": "none",
+  "templates": [
+    "lotr_port:gondor_obelisk/0",
+    "lotr_port:gondor_obelisk/1",
+    "lotr_port:gondor_obelisk/2"
+  ],
+  "ground": 0,
+  "max_slope": 6,
+  "road_distance": 16
+}

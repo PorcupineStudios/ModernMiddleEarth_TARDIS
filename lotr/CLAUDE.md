@@ -72,10 +72,24 @@ https://claude.ai/artifact/KqhSSTCuKXGuwKHBoYJdcu. Rebuild features in modern co
   LOTR's trader outfits. `/lotr npc spawn|types|people` for testing.
 
 ## Structures and spawning (phase 7)
-- 82 LOTR structures as vanilla jigsaw structures (`converter/structures.py`): `structure/<id>/<0-2>.nbt` (3 seeded
-  layouts in the start pool), `worldgen/structure`, `structure_set` (random_spread), biome tag
-  `has_structure/<id>`, structure tag `faction/<f>` (structures holding that faction's NPCs). Pack makers tune
-  spacing/biomes in data.
+- 82 LOTR structures (`converter/structures.py`): `structure/<id>/<0-2>.nbt` (3 seeded layouts), placed by our own
+  structure type `lotr_port:lotr` (`world/structure/LotrStructure` + `LotrStructurePiece`, 2026-11-04 rework):
+  - Rarity is LOTR's: LOTR gives each biome its own chance per chunk, so there is one structure + set per (structure,
+    chance): `worldgen/structure/<id>[_<chance>]`, biome tag `has_structure/<id>[_<chance>]`, set `random_spread`
+    spacing 1 with `frequency` = 1/chance (every chunk rolls once). Before, one spacing ~sqrt(lowest chance) applied
+    to every biome, so structures were far too common.
+  - Then the structure turns down ground the way LOTR's generators did: water at the surface, more than `max_slope`
+    (6) blocks between highest and lowest ground under the footprint, a road within `road_distance` (16). Random
+    layout and rotation; template layer `ground` sits at the surface.
+  - Air: templates hold real air only where LOTR cleared space (dug cellars from the export; above ground, a
+    column's open space under its highest block, i.e. rooms and under roofs). Everywhere else is structure void, so
+    natural terrain stays. `terrain_adaptation` is `none` (beard_box carved the air ditches round every building);
+    the piece fills under the ground layer down to solid ground instead (dirt under dirt/grass, else the same block,
+    up to `max_foundation` 24).
+  - Doors: the lower half takes the upper half's hinge (1.7.10 kept it only on top; split doors). Gates
+    (`content/GateBlock`, LOTR's multi-block gates) rotate and mirror with the structure and open as one gate: the
+    touching blocks of the same kind in the same plane.
+  - Not yet: LOTR's quirk of no structures within 32 blocks of the x/z axes, biome variants that disable structures.
 - Template NPCs are `{id:lotr_port:npc, NpcType, Fresh:1b, PersistenceRequired:1b}`; `LotrNpc` rolls skin, gear and
   name on load when `Fresh` is set. LOTR's spawner blocks become up to 3 placed NPCs (no respawning yet).
 - Natural spawning: `npc_spawns/<biome ns>/<biome path>.json` (entries npc/weight/min/max, cap, chance, interval),
@@ -84,8 +98,8 @@ https://claude.ai/artifact/KqhSSTCuKXGuwKHBoYJdcu. Rebuild features in modern co
   NPCs of that faction.
 - Templates are placed without block updates, so `structures.py` sets pane/fence/wall sides from the neighbours
   (lone pane posts showed as dark squares) and fills pots with a vanilla potted flower picked by position (1.7.10 kept
-  the plant in a tile entity the export lacks). `terrain_adaptation` is `beard_box` (beard_thin left houses on slopes
-  floating over a hollow, Aaron 2026-11-04).
+  the plant in a tile entity the export lacks). Foundations, not terrain adaptation, keep houses on slopes off the ground
+  (beard_thin left them floating, beard_box dug ditches; Aaron 2026-11-04).
 - Armor whose LOTR texture is per item (gambesons, jacket, hats) gets a material per texture (`LotrItems.key`); the
   hats are drawn on LOTR's own hat model, so `generate.py hat_layer` paints a cap onto the helmet layer instead
   (the Shirriff's missing hat texture was the purple head).
@@ -97,10 +111,17 @@ https://claude.ai/artifact/KqhSSTCuKXGuwKHBoYJdcu. Rebuild features in modern co
   region, alignment >= 0 with the waypoint's faction, no mob attacking you, and the wait over
   (`fast_travel/settings.json`: 180-1800 s by distance). `/lotr_travel`, `/lotr_waypoints`; admin
   `/lotr waypoint unlock|ready|info`.
-- Map screen: key M (`client/MapScreen`, LOTR's map image `textures/gui/map.png`, framed, with LOTR's parchment
-  overlay, waypoint icons and compass from `textures/gui/map/`; names show when zoomed in; tooltips give distance and
-  why travel is blocked); packets in `net/MapNet` (the client
-  handler is set in client setup, so common code never names the screen). Click a green waypoint to travel.
+- Map screen (rebuilt 2026-11-04 to match LOTR's `LOTRGuiMap`): key M opens it (`client/MapScreen`). Fullscreen by
+  default, widget for a framed window (30 px border); zoom powers -3..4 eased over 6 ticks; drag or WASD/arrows to
+  pan; LOTR's 105 map labels (`assets/lotr_port/map/labels.json`, read by `converter/classfile.py` from the constants
+  in LOTR's label class, lang `map_label.lotr_port.<id>` or the biome name) fading over their zoom range; widgets for
+  waypoints, labels, zoom, fullscreen and sepia (icons from LOTR's map sheet). Hovering shows the biome and block
+  x, z; an operator or creative player in Middle-earth presses Map Teleport (T, `MapNet.Teleport`, checked again on
+  the server) to go there. Click a waypoint to select it, Fast Travel (F) travels; tooltips give distance and why
+  travel is blocked. `client/MapTextures` keeps the map at full size and halved three times (box filter, plain and
+  sepia) and the screen draws the copy that fits the zoom with float positions, so zoomed-out maps don't shimmer;
+  the parchment overlay is one stretch over the window at 20% (as LOTR), the sea beyond the edge the map's ocean
+  colour. Packets in `net/MapNet` (the client handler is set in client setup, so common code never names the screen).
 - Mini-quests: `quest_pool/<group>.json` (collect / kill_faction / kill_npc, min-max, weight, reward factor; coins
   and alignment per target), named by an NPC type's `quests`. Right-click a giver (not traders/captains) to get LOTR's
   offer page (`client/QuestOfferScreen`, `QuestNet.Offer`; the roll waits server-side in `Quests.PENDING` until
@@ -110,7 +131,7 @@ https://claude.ai/artifact/KqhSSTCuKXGuwKHBoYJdcu. Rebuild features in modern co
   LOTR's per-quest lines (`speech/miniquest/<group>/<quest>_start|progress|complete`) need the exporter to record each
   quest's speech key first.
 - Not yet: bounty, retrieve and pickpocket quests, fellowships, titles, custom waypoints, LOTR's quest
-  speech. The map screen has not been tried in a game client.
+  speech.
 
 ## Colonies (phase 9, RingRealms built in: `colony/`)
 - Founding: a Colony Charter (`colony_charter`, tab "Colonies") used on a block makes the Hall there, for the

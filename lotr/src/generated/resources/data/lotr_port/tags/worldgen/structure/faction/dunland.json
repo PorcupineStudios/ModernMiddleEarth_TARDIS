@@ -1,7 +1,10 @@
 {
   "values": [
-    "lotr_port:dunland_hill_fort",
-    "lotr_port:dunlending_house",
-    "lotr_port:dunlending_tavern"
+    "lotr_port:dunland_hill_fort_150",
+    "lotr_port:dunland_hill_fort_700",
+    "lotr_port:dunlending_house_150",
+    "lotr_port:dunlending_house_25",
+    "lotr_port:dunlending_tavern_100",
+    "lotr_port:dunlending_tavern_250"
   ]
 }

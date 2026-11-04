@@ -1,8 +1,11 @@
 {
   "values": [
     "lotr_port:black_uruk_fort",
-    "lotr_port:mordor_camp",
+    "lotr_port:mordor_camp_100",
+    "lotr_port:mordor_camp_20",
+    "lotr_port:mordor_camp_3000",
     "lotr_port:mordor_spider_pit",
-    "lotr_port:mordor_warg_pit"
+    "lotr_port:mordor_warg_pit_100",
+    "lotr_port:mordor_warg_pit_300"
   ]
 }

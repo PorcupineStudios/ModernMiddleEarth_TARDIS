@@ -1,0 +1,15 @@
+{
+  "type": "lotr_port:lotr",
+  "biomes": "#lotr_port:has_structure/small_stone_ruin_400",
+  "step": "surface_structures",
+  "spawn_overrides": {},
+  "terrain_adaptation": "none",
+  "templates": [
+    "lotr_port:small_stone_ruin/0",
+    "lotr_port:small_stone_ruin/1",
+    "lotr_port:small_stone_ruin/2"
+  ],
+  "ground": 1,
+  "max_slope": 6,
+  "road_distance": 16
+}

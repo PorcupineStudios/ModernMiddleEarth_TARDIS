@@ -1,0 +1,33 @@
+{
+  "values": [
+    "lotr_port:andrast",
+    "lotr_port:anduin_hills",
+    "lotr_port:anduin_vale",
+    "lotr_port:angle",
+    "lotr_port:beach",
+    "lotr_port:beach_gravel",
+    "lotr_port:beach_white",
+    "lotr_port:coldfells",
+    "lotr_port:dol_guldur",
+    "lotr_port:east_bight",
+    "lotr_port:enedwaith",
+    "lotr_port:eriador",
+    "lotr_port:eriador_downs",
+    "lotr_port:eryn_vorn",
+    "lotr_port:ettenmoors",
+    "lotr_port:gladden_fields",
+    "lotr_port:island",
+    "lotr_port:ithilien",
+    "lotr_port:ithilien_hills",
+    "lotr_port:ithilien_wasteland",
+    "lotr_port:minhiriath",
+    "lotr_port:misty_mountains",
+    "lotr_port:misty_mountains_foothills",
+    "lotr_port:nurn",
+    "lotr_port:nurnen",
+    "lotr_port:ocean",
+    "lotr_port:pukel",
+    "lotr_port:swanfleet",
+    "lotr_port:wilderland"
+  ]
+}

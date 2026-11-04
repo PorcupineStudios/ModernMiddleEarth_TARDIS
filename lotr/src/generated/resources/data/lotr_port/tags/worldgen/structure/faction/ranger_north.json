@@ -1,6 +1,10 @@
 {
   "values": [
-    "lotr_port:ranger_camp",
-    "lotr_port:ranger_watchtower"
+    "lotr_port:ranger_camp_1500",
+    "lotr_port:ranger_camp_2000",
+    "lotr_port:ranger_camp_500",
+    "lotr_port:ranger_camp_800",
+    "lotr_port:ranger_watchtower_1500",
+    "lotr_port:ranger_watchtower_2000"
   ]
 }

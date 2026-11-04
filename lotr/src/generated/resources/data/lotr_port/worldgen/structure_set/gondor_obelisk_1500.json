@@ -1,0 +1,16 @@
+{
+  "structures": [
+    {
+      "structure": "lotr_port:gondor_obelisk_1500",
+      "weight": 1
+    }
+  ],
+  "placement": {
+    "type": "minecraft:random_spread",
+    "spacing": 1,
+    "separation": 0,
+    "frequency": 0.0006667,
+    "frequency_reduction_method": "default",
+    "salt": 749389832
+  }
+}

@@ -280,6 +280,13 @@ class Structures:
                     st = {"Name": st["Name"], "Properties": {**st["Properties"],
                                                              "facing": below_state["Properties"]["facing"],
                                                              "open": below_state["Properties"].get("open", "false")}}
+            if st.get("Properties", {}).get("half") == "lower" and "hinge" not in st["Properties"]:
+                # 1.7.10 kept the hinge in the upper half only; both halves must agree or the door splits in two
+                above = by_pos.get((x, y + 1, z))
+                above_state = states[above] if above is not None else None
+                if above_state and above_state.get("Properties", {}).get("half") == "upper":
+                    st = {"Name": st["Name"], "Properties": {**st["Properties"],
+                                                             "hinge": above_state["Properties"].get("hinge", "left")}}
             if st["Name"] in ("minecraft:flower_pot", f"{NS}:flower_pot"):
                 pick = zlib.crc32(f"{sid}/{n}/{x},{y},{z}".encode()) % len(POTTED)
                 st = {"Name": "minecraft:" + POTTED[pick]}
@@ -297,6 +304,19 @@ class Structures:
                     st = {"Name": "minecraft:chest", **({"Properties": {"facing": facing}} if facing else {})}
                 entry["nbt"] = {"id": "minecraft:chest", "Items": items}
             placed[(x, y, z)] = (st, entry)
+        # Real air only where LOTR cleared space; every other spot is left out (structure void), so the natural ground
+        # stays there. Below the ground layer the export already holds the air LOTR dug (cellars). Above it, a column's
+        # open space under its highest block is inside the building (rooms, under roofs and eaves) and is cleared, so
+        # a hillside can't fill a room; open space beside or above the building keeps the terrain.
+        ground_y = layout.get("ground", base_y)
+        tops = {}
+        for (x, y, z), (st, _) in placed.items():
+            if y > ground_y and st["Name"] != "minecraft:air":
+                tops[(x, z)] = max(tops.get((x, z), y), y)
+        for (x, z), top in tops.items():
+            for y in range(ground_y + 1, top):
+                if (x, y, z) not in placed:
+                    placed[(x, y, z)] = ({"Name": "minecraft:air"}, {"pos": [x - lo[0], y - base_y, z - lo[2]]})
         # templates are placed without block updates, so panes, fences and walls need their sides set here (a lone
         # pane post showed as a small dark square by the windows)
         for (x, y, z), (st, entry) in placed.items():
@@ -407,16 +427,18 @@ class Structures:
             export = json.load(f)
         for err in export.get("errors", [])[:200]:
             self.report["structure_export_errors"].append(err)
-        biomes_of = {}
-        chance_of = {}
+        # LOTR gives each biome its own chance per chunk for a structure (a Mordor camp is 1 in 20 chunks in one biome
+        # and 1 in 3000 in another), so each chance gets its own structure and biome tag
+        chance_in = {}
         for b in self.world["biomes"]:
             if "biomeName" not in b.get("fields", {}):
                 continue
             bid = snake(b["fields"]["biomeName"])
             for st in b.get("structures", []):
                 cls = (st.get("class") or "").split(".")[-1]
-                biomes_of.setdefault(cls, set()).add(bid)
-                chance_of[cls] = min(chance_of.get(cls, 10 ** 9), max(1, st.get("chunkChance") or 1))
+                per = chance_in.setdefault(cls, {})
+                per[bid] = min(per.get(bid, 10 ** 9), max(1, st.get("chunkChance") or 1))
+        biomes_of = {cls: set(per) for cls, per in chance_in.items()}
         count = 0
         with_npcs = 0
         faction_tags = {}
@@ -430,7 +452,14 @@ class Structures:
             npcs = 0
             for n, layout in enumerate(layouts):
                 npcs += self.template(sid, n, layout, base_y)
-            self.worldgen(sid, len(layouts), ground - base_y, biomes_of[cls], chance_of[cls], cls)
+            by_chance = {}
+            for bid, chance in chance_in[cls].items():
+                by_chance.setdefault(chance, set()).add(bid)
+            ids = []
+            for chance, biomes in sorted(by_chance.items()):
+                wid = sid if len(by_chance) == 1 else f"{sid}_{chance}"
+                self.worldgen(wid, sid, len(layouts), ground - base_y, biomes, chance, cls)
+                ids.append(wid)
             count += 1
             if npcs:
                 with_npcs += 1
@@ -438,45 +467,37 @@ class Structures:
                     for npc, _ in self.npcs_of(e):
                         fac = (self.npc_types[npc].get("faction") or "").split(":")[-1]
                         if fac:
-                            faction_tags.setdefault(fac, set()).add(f"{NS}:{sid}")
+                            faction_tags.setdefault(fac, set()).update(f"{NS}:{w}" for w in ids)
         for fac, ids in faction_tags.items():
             write_json(os.path.join(self.data, "tags", "worldgen", "structure", "faction", fac + ".json"),
                        {"values": sorted(ids)})
         spawn_tables = self.spawns()
         return {"structures": count, "structures_with_npcs": with_npcs, "npc_spawn_tables": spawn_tables}
 
-    def worldgen(self, sid, layouts, ground, biomes, chunk_chance, cls):
+    def worldgen(self, wid, sid, layouts, ground, biomes, chunk_chance, cls):
+        """One placement of a structure: lotr_port:lotr (LOTR's ground checks, foundations, no carving) in the biomes
+        that share one LOTR chance per chunk. Every chunk rolls once with that chance, as LOTR's decorator did; then
+        the structure itself turns down water, slopes and roads like LOTR's generators."""
         wg = os.path.join(self.data, "worldgen")
-        write_json(os.path.join(wg, "template_pool", sid + ".json"), {
-            "fallback": "minecraft:empty",
-            "elements": [{"weight": 1, "element": {
-                "element_type": "minecraft:single_pool_element", "location": f"{NS}:{sid}/{n}",
-                "processors": "minecraft:empty", "projection": "rigid"}} for n in range(layouts)],
-        })
-        write_json(os.path.join(wg, "structure", sid + ".json"), {
-            "type": "minecraft:jigsaw",
-            "biomes": f"#{NS}:has_structure/{sid}",
+        write_json(os.path.join(wg, "structure", wid + ".json"), {
+            "type": f"{NS}:lotr",
+            "biomes": f"#{NS}:has_structure/{wid}",
             "step": "surface_structures",
             "spawn_overrides": {},
-            # beard_box fills the ground under the whole footprint and clears it above (beard_thin left houses on
-            # slopes floating over a hollow, Aaron 2026-11-04)
-            "terrain_adaptation": "beard_box",
-            "start_pool": f"{NS}:{sid}",
-            "size": 1,
-            # the template's ground layer sits one below the surface
-            "start_height": {"absolute": -1 - ground},
-            "project_start_to_heightmap": "WORLD_SURFACE_WG",
-            "max_distance_from_center": 80,
-            "use_expansion_hack": False,
+            "terrain_adaptation": "none",
+            "templates": [f"{NS}:{sid}/{n}" for n in range(layouts)],
+            # the template's layer that sits at the surface (the old flat world's grass layer)
+            "ground": ground,
+            "max_slope": 6,
+            "road_distance": 16,
         })
-        # LOTR tries each structure in a chunk with chance 1/chunkChance; spacing^2 chunks gives about the same density
-        spacing = max(6, min(96, round(math.sqrt(chunk_chance))))
-        write_json(os.path.join(wg, "structure_set", sid + ".json"), {
-            "structures": [{"structure": f"{NS}:{sid}", "weight": 1}],
-            "placement": {"type": "minecraft:random_spread", "spacing": spacing, "separation": max(2, spacing // 3),
-                          "salt": zlib.crc32(cls.encode()) & 0x7FFFFFFF},
+        write_json(os.path.join(wg, "structure_set", wid + ".json"), {
+            "structures": [{"structure": f"{NS}:{wid}", "weight": 1}],
+            "placement": {"type": "minecraft:random_spread", "spacing": 1, "separation": 0,
+                          "frequency": round(1 / chunk_chance, 7), "frequency_reduction_method": "default",
+                          "salt": zlib.crc32((cls + str(chunk_chance)).encode()) & 0x7FFFFFFF},
         })
-        write_json(os.path.join(self.data, "tags", "worldgen", "biome", "has_structure", sid + ".json"),
+        write_json(os.path.join(self.data, "tags", "worldgen", "biome", "has_structure", wid + ".json"),
                    {"values": sorted(f"{NS}:{b}" for b in biomes)})
 
     def spawns(self):
