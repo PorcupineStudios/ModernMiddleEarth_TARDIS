@@ -154,10 +154,18 @@ public class LotrSaplingBlock extends BushBlock implements BonemealableBlock {
             int pick = random.nextInt(Math.max(1, config.templates().size()));
             int width = pick < config.trunkWidth().size() ? Math.max(1, config.trunkWidth().get(pick)) : 1;
             int in = Math.max(0, (size - width) / 2);
-            grown = TemplateTreeFeature.grow(level, random, corner.offset(in, 0, in), config, pick);
+            grown = TemplateTreeFeature.grow(level, random, corner.offset(in, 0, in), config, pick, true);
         } else {
             int in = (size - 1) / 2;
             grown = f.place(level, level.getChunkSource().getGenerator(), random, corner.offset(in, 0, in));
+            if (grown) {
+                // vanilla-shaped stand-in: no exact shape to record, so a generous box round the trunk
+                BlockPos trunk = corner.offset(in, 0, in);
+                com.porcupinestudios.lotrport.tree.Trees.record(level, new com.porcupinestudios.lotrport.tree
+                        .TreeRecord(tree, trunk, 1, new net.minecraft.world.level.levelgen.structure.BoundingBox(
+                                trunk.getX() - 8, trunk.getY() - 2, trunk.getZ() - 8, trunk.getX() + 8,
+                                trunk.getY() + 32, trunk.getZ() + 8), true));
+            }
         }
         if (!grown) {
             for (int i = 0; i < shape.size(); i++) {

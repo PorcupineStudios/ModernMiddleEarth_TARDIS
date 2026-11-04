@@ -3,6 +3,8 @@ package com.porcupinestudios.lotrport.gametest;
 import com.porcupinestudios.lotrport.LotrPort;
 import com.porcupinestudios.lotrport.content.LotrSaplingBlock;
 import com.porcupinestudios.lotrport.content.SaplingRules;
+import com.porcupinestudios.lotrport.tree.Trees;
+import java.util.Optional;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.gametest.framework.GameTest;
@@ -57,6 +59,30 @@ public final class SaplingTests {
         helper.assertTrue(saplings == 0, saplings + " saplings left in the party tree's square");
         helper.assertTrue(helper.getLevel().getBlockState(corner.offset(1, 0, 1)).is(BlockTags.LOGS)
                 || !helper.getLevel().getBlockState(corner.offset(1, 0, 1)).isAir(), "no trunk in the square's middle");
+
+        // a colonist (or anyone) felling it from one trunk log takes the whole tree and gets the sapling back
+        BlockPos log = null;
+        for (int dy = 0; dy < 4 && log == null; dy++) {
+            for (int dx = 0; dx < 3 && log == null; dx++) {
+                for (int dz = 0; dz < 3 && log == null; dz++) {
+                    BlockPos p = corner.offset(dx, dy, dz);
+                    if (Trees.isLog(helper.getLevel().getBlockState(p))) {
+                        log = p;
+                    }
+                }
+            }
+        }
+        helper.assertTrue(log != null, "no trunk log to fell");
+        Optional<Trees.Tree> tree = Trees.find(helper.getLevel(), log);
+        helper.assertTrue(tree.isPresent() && tree.get().record().isPresent(), "the grown tree was not recorded");
+        int logs = tree.get().logs().size();
+        Optional<Trees.Harvest> cut = Trees.harvest(helper.getLevel(), log, null, true);
+        helper.assertTrue(cut.isPresent() && !cut.get().drops().isEmpty(), "felling gave no drops");
+        for (BlockPos p : tree.get().logs()) {
+            helper.assertTrue(!Trees.isLog(helper.getLevel().getBlockState(p)), "a log was left standing at " + p);
+        }
+        helper.assertTrue(cut.get().sapling().map(b -> b == beech).orElse(false), "no beech sapling to replant");
+        helper.assertTrue(logs > 1, "felled tree had only " + logs + " logs");
         helper.succeed();
     }
 }

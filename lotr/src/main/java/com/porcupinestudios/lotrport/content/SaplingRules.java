@@ -42,6 +42,11 @@ public record SaplingRules(List<Rule> rules) {
         NeoForge.EVENT_BUS.addListener((AddReloadListenerEvent event) -> event.addListener(LOADER));
     }
 
+    /** Every sapling's rules, by sapling block id. */
+    public static java.util.Map<ResourceLocation, SaplingRules> all() {
+        return LOADER.entries();
+    }
+
     /** The rules for a sapling block id. */
     public static Optional<SaplingRules> of(ResourceLocation sapling) {
         return Optional.ofNullable(LOADER.entries().get(sapling));

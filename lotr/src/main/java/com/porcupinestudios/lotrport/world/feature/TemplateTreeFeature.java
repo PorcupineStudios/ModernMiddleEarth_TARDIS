@@ -33,10 +33,11 @@ import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemp
  *     is turned, so a square of saplings becomes the trunk
  */
 public final class TemplateTreeFeature extends Feature<TemplateTreeFeature.Config> {
-    public record Config(List<ResourceLocation> templates, List<Vec3i> trunk, List<Integer> trunkWidth,
-            boolean onSand)
+    public record Config(Optional<ResourceLocation> id, List<ResourceLocation> templates, List<Vec3i> trunk,
+            List<Integer> trunkWidth, boolean onSand)
             implements FeatureConfiguration {
         public static final Codec<Config> CODEC = RecordCodecBuilder.create(i -> i.group(
+                ResourceLocation.CODEC.optionalFieldOf("id").forGetter(Config::id),
                 ResourceLocation.CODEC.listOf().fieldOf("templates").forGetter(Config::templates),
                 Vec3i.CODEC.listOf().fieldOf("trunk").forGetter(Config::trunk),
                 Codec.INT.listOf().optionalFieldOf("trunk_width", List.of()).forGetter(Config::trunkWidth),
@@ -50,14 +51,15 @@ public final class TemplateTreeFeature extends Feature<TemplateTreeFeature.Confi
 
     @Override
     public boolean place(FeaturePlaceContext<Config> context) {
-        return grow(context.level(), context.random(), context.origin(), context.config(), -1);
+        return grow(context.level(), context.random(), context.origin(), context.config(), -1, false);
     }
 
     /**
      * Grows the tree with its trunk's lowest corner on {@code origin} (shape {@code pick}, or a random one if -1).
      * Saplings call this with the corner of their square.
      */
-    public static boolean grow(WorldGenLevel level, RandomSource random, BlockPos origin, Config config, int pick) {
+    public static boolean grow(WorldGenLevel level, RandomSource random, BlockPos origin, Config config, int pick,
+            boolean planted) {
         if (config.templates().isEmpty() || config.templates().size() != config.trunk().size()) {
             return false;
         }
@@ -88,6 +90,14 @@ public final class TemplateTreeFeature extends Feature<TemplateTreeFeature.Confi
                 chunk.getMaxBlockZ() + 16);
         StructurePlaceSettings settings = new StructurePlaceSettings().setRotation(rotation).setRotationPivot(pivot)
                 .setBoundingBox(writable).setIgnoreEntities(true);
-        return template.get().placeInWorld(level, corner, corner, settings, random, 2);
+        if (!template.get().placeInWorld(level, corner, corner, settings, random, 2)) {
+            return false;
+        }
+        // remember the tree, so whoever fells it (colonists) takes all of it (see tree/Trees)
+        StructurePlaceSettings unclipped = new StructurePlaceSettings().setRotation(rotation).setRotationPivot(pivot);
+        com.porcupinestudios.lotrport.tree.Trees.record(level.getLevel(), new com.porcupinestudios.lotrport.tree
+                .TreeRecord(config.id().orElse(config.templates().get(n)), origin, width,
+                        template.get().getBoundingBox(unclipped, corner), planted));
+        return true;
     }
 }
