@@ -28,7 +28,10 @@ public record SkyLink(ResourceKey<Level> dimension, ResourceKey<Level> space, Bo
         int mapSize) {
     public static final Bounds DEFAULT_SURFACE = new Bounds(-32768, 32768, -16384, 16384);
 
-    /** How the surface wraps: round a globe (x loops, crossing a pole comes out on the far side), a torus, or not. */
+    /**
+     * How the surface wraps: a torus (Aaron, 2026-11-04: off the north edge you come back in at the south edge, off
+     * the east edge at the west), round a globe (x loops, crossing a pole comes out on the far side), or not.
+     */
     public enum Wrap implements StringRepresentable {
         GLOBE, TORUS, NONE;
 
@@ -78,7 +81,7 @@ public record SkyLink(ResourceKey<Level> dimension, ResourceKey<Level> space, Bo
             Codec.INT.optionalFieldOf("ceiling", 340).forGetter(SkyLink::ceiling),
             Codec.INT.optionalFieldOf("ground", 64).forGetter(SkyLink::ground),
             Orbit.CODEC.optionalFieldOf("orbit", Orbit.DEFAULT).forGetter(SkyLink::orbit),
-            Wrap.CODEC.optionalFieldOf("wrap", Wrap.GLOBE).forGetter(SkyLink::wrap),
+            Wrap.CODEC.optionalFieldOf("wrap", Wrap.TORUS).forGetter(SkyLink::wrap),
             Codec.BOOL.optionalFieldOf("seam_portals", true).forGetter(SkyLink::seamPortals),
             Codec.intRange(0, 256).optionalFieldOf("cloud_band", 40).forGetter(SkyLink::cloudBand),
             PICTURE_CODEC.optionalFieldOf("picture").forGetter(SkyLink::picture),

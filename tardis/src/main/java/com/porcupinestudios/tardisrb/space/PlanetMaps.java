@@ -33,7 +33,7 @@ import net.neoforged.neoforge.event.tick.ServerTickEvent;
  * clients, which draw it as the globe's texture.
  */
 public final class PlanetMaps {
-    private static final int VERSION = 1;
+    private static final int VERSION = 2;
     private static final Map<ResourceLocation, Job> JOBS = new HashMap<>();
 
     /** A map being sampled (or finished: {@code packed} is set). */
@@ -48,7 +48,7 @@ public final class PlanetMaps {
         Job(Planet planet) {
             this.planet = planet;
             this.width = planet.link().mapSize();
-            this.height = Math.max(1, width / 2);
+            this.height = Math.max(1, (int) Math.round(width * planet.height() / planet.width()));
             this.rgb = new byte[width * height * 3];
         }
 

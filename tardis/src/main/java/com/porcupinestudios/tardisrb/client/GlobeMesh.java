@@ -9,20 +9,20 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * The globe's meshes, built once and kept on the graphics card: a textured unit sphere (u = longitude, v = latitude,
- * north up) at a few levels of detail, and a shading sphere whose dark half is baked around its -y pole (it is turned
+ * The globe's meshes, kept on the graphics card: the textured surface at a few levels of detail ({@link GlobeSurface}),
+ * and a shading sphere whose dark half is baked around its -y pole (it is turned
  * so +y points at the sun, so day and night move without rebuilding anything).
  */
 final class GlobeMesh {
-    /** Longitude steps per level of detail; latitude has half as many. */
+    /** Steps round per level of detail; there are half as many rings. */
     static final int[] DETAIL = {16, 32, 64, 128, 256};
-    private static final Map<Integer, VertexBuffer> SURFACE = new HashMap<>();
+    private static final Map<Integer, GlobeSurface> SURFACE = new HashMap<>();
     private static VertexBuffer shade;
 
     private GlobeMesh() {}
 
-    static VertexBuffer surface(int detail) {
-        return SURFACE.computeIfAbsent(detail, GlobeMesh::buildSurface);
+    static GlobeSurface surface(int detail) {
+        return SURFACE.computeIfAbsent(detail, GlobeSurface::new);
     }
 
     static VertexBuffer shade() {
@@ -33,39 +33,12 @@ final class GlobeMesh {
     }
 
     static void clear() {
-        SURFACE.values().forEach(VertexBuffer::close);
+        SURFACE.values().forEach(GlobeSurface::close);
         SURFACE.clear();
         if (shade != null) {
             shade.close();
             shade = null;
         }
-    }
-
-    private static VertexBuffer buildSurface(int lonSteps) {
-        int latSteps = lonSteps / 2;
-        BufferBuilder buf = Tesselator.getInstance().begin(VertexFormat.Mode.QUADS,
-                DefaultVertexFormat.POSITION_TEX_COLOR);
-        for (int i = 0; i < lonSteps; i++) {
-            for (int j = 0; j < latSteps; j++) {
-                // counter-clockwise seen from outside
-                surfaceVertex(buf, i, j, lonSteps, latSteps);
-                surfaceVertex(buf, i, j + 1, lonSteps, latSteps);
-                surfaceVertex(buf, i + 1, j + 1, lonSteps, latSteps);
-                surfaceVertex(buf, i + 1, j, lonSteps, latSteps);
-            }
-        }
-        return upload(buf);
-    }
-
-    private static void surfaceVertex(BufferBuilder buf, int i, int j, int lonSteps, int latSteps) {
-        float u = i / (float) lonSteps;
-        float v = j / (float) latSteps;
-        double lon = u * 2 * Math.PI - Math.PI;
-        double lat = Math.PI / 2 - v * Math.PI;
-        float x = (float) (Math.cos(lat) * Math.sin(lon));
-        float y = (float) Math.sin(lat);
-        float z = (float) (Math.cos(lat) * Math.cos(lon));
-        buf.addVertex(x, y, z).setUv(u, v).setColor(255, 255, 255, 255);
     }
 
     private static VertexBuffer buildShade(int lonSteps) {

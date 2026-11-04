@@ -4,9 +4,8 @@ import java.util.Optional;
 import net.minecraft.resources.ResourceLocation;
 
 /**
- * A planet's surface in blocks: x from {@code minX} to {@code maxX} goes once round the globe (longitude), z from
- * {@code minZ} (north pole) to {@code maxZ} (south pole) is the latitude. For an undistorted globe make it twice as
- * wide as it is tall. {@code picture}, if any, is a client texture showing part of the surface.
+ * A planet's surface in blocks: the rectangle {@code minX..maxX}, {@code minZ..maxZ} (north = min z), which loops at
+ * its edges. {@code picture}, if any, is a client texture showing part of the surface (north up).
  */
 public record PlanetSurface(int minX, int maxX, int minZ, int maxZ, Optional<Picture> picture) {
     /**

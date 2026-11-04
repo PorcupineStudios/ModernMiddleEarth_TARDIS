@@ -31,7 +31,7 @@ import org.joml.Matrix4f;
  * <p>Space is a scale model of each planet (Aaron, 2026-11-04: Middle-earth stays full size, so cheat as long as it's
  * immersive). The globe is drawn under each player from their own spot, at full size and their full-size altitude
  * ({@link Planet#altitude}), so the ground you'd land on is always straight below you, and it shrinks to a ball as you
- * climb. It is drawn behind everything (right after the sky, without depth), shrunk towards the camera to fit inside
+ * climb. The map is unwrapped round that spot ({@link GlobeSurface}), so it never stretches where you look. It is drawn behind everything (right after the sky, without depth), shrunk towards the camera to fit inside
  * the far plane, which keeps its look the same. One draw call for the surface and one for day and night: the meshes
  * are built once ({@link GlobeMesh}) and the detail drops as the globe gets smaller on screen. The swap between the
  * world and space happens inside a cloud bank (fog and a white haze) so it doesn't show.
@@ -151,31 +151,13 @@ public final class GlobeRenderer {
     private static void drawGlobe(Minecraft mc, RenderLevelStageEvent event, Level level, Planet p, Vec3 cam) {
         double radius = p.radius();
         double altitude = p.altitude(cam.y);
-        double lon = p.lon(p.surfaceX(cam.x));
-        double lat = p.lat(p.surfaceZ(cam.z));
-        // the frame at the spot below: east, up and south (world +x, +y, +z) on the globe
-        double sinLon = Math.sin(lon);
-        double cosLon = Math.cos(lon);
-        double sinLat = Math.sin(lat);
-        double cosLat = Math.cos(lat);
-        float ex = (float) cosLon;
-        float ey = 0;
-        float ez = (float) -sinLon;
-        float ux = (float) (cosLat * sinLon);
-        float uy = (float) sinLat;
-        float uz = (float) (cosLat * cosLon);
-        float sx = (float) (sinLat * sinLon);
-        float sy = (float) -cosLat;
-        float sz = (float) (sinLat * cosLon);
-        // globe -> world: rows east, up, south (JOML takes columns)
-        Matrix4f frame = new Matrix4f(ex, ux, sx, 0, ey, uy, sy, 0, ez, uz, sz, 0, 0, 0, 0, 1);
-
         double distance = radius + altitude;
+        // shrink everything towards the camera so the ball fits inside the far plane; it looks the same
         double far = mc.gameRenderer.getDepthFar();
         double k = Math.min(1.0, far * 0.45 / distance);
         float r = (float) (radius * k);
         Matrix4f view = new Matrix4f(event.getModelViewMatrix()).translate(0, (float) (-distance * k), 0);
-        Matrix4f surface = new Matrix4f(view).mul(frame).scale(r);
+        Matrix4f ball = new Matrix4f(view).scale(r);
 
         // detail from the globe's size on screen
         double angular = Math.asin(Math.min(1, radius / distance));
@@ -199,9 +181,11 @@ public final class GlobeRenderer {
             RenderSystem.setShaderTexture(0, texture);
             RenderSystem.setShaderColor(1, 1, 1, 1);
         }
-        var mesh = GlobeMesh.surface(detail);
-        mesh.bind();
-        mesh.drawWithShader(surface, event.getProjectionMatrix(), RenderSystem.getShader());
+        // the map spot below the camera, and the ball's radius in map widths and heights
+        double u = (p.surfaceX(cam.x) - p.minX()) / p.width();
+        double v = (p.surfaceZ(cam.z) - p.minZ()) / p.height();
+        GlobeMesh.surface(detail).draw(ball, event.getProjectionMatrix(), RenderSystem.getShader(), u, v,
+                radius / p.width(), radius / p.height(), 1.0 / 4096);
         RenderSystem.setShaderColor(1, 1, 1, 1);
 
         // day and night: the shade sphere's lit pole turned to the sun, which stands where it does in the world
