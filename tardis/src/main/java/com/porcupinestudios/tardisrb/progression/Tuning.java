@@ -122,13 +122,15 @@ public record Tuning(CrashSite crashSite, Hop hop, Winder winder, Interior inter
      * room's corner) and the way it faces into the room ({@code interior_facing}); the opening's {@code width} and
      * {@code height}; and how far in front of each door face the portal plane stands ({@code offset}; negative is
      * inside the block: the open door is a hollow shell with a 1 px frame, and the portal sits just behind the frame,
-     * in line with the doorway, Aaron 2026-11-03); {@code close_ticks}: how long the doors take to swing shut before
+     * in line with the doorway, Aaron 2026-11-03); {@code bottom}: how high above the door block's floor the opening
+     * starts. The opening matches the police box model's doorway (0.75 x 1.625 from 0.125 up, the doors' outer face
+     * 1 px in), so no portal shows past the frame at steep angles (Aaron 2026-11-04); {@code close_ticks}: how long the doors take to swing shut before
      * the portals go (match the model's {@code door_swing.ticks}, Aaron 2026-11-04).
      */
     public record DoorTuning(BlockPos interiorDoor, Direction interiorFacing, double width, double height,
-            double offset, int closeTicks) {
-        static final DoorTuning DEFAULT = new DoorTuning(new BlockPos(4, 1, 0), Direction.SOUTH, 0.875, 1.875, -0.07,
-                8);
+            double offset, double bottom, int closeTicks) {
+        static final DoorTuning DEFAULT = new DoorTuning(new BlockPos(4, 1, 0), Direction.SOUTH, 0.75, 1.625, -0.0625,
+                0.125, 8);
         static final Codec<DoorTuning> CODEC = RecordCodecBuilder.create(i -> i.group(
                 BlockPos.CODEC.optionalFieldOf("interior_door", DEFAULT.interiorDoor).forGetter(DoorTuning::interiorDoor),
                 Direction.CODEC.optionalFieldOf("interior_facing", DEFAULT.interiorFacing)
@@ -136,6 +138,7 @@ public record Tuning(CrashSite crashSite, Hop hop, Winder winder, Interior inter
                 Codec.doubleRange(0.1, 4).optionalFieldOf("width", DEFAULT.width).forGetter(DoorTuning::width),
                 Codec.doubleRange(0.1, 4).optionalFieldOf("height", DEFAULT.height).forGetter(DoorTuning::height),
                 Codec.doubleRange(-0.5, 0.5).optionalFieldOf("offset", DEFAULT.offset).forGetter(DoorTuning::offset),
+                Codec.doubleRange(0, 1).optionalFieldOf("bottom", DEFAULT.bottom).forGetter(DoorTuning::bottom),
                 Codec.intRange(0, 200).optionalFieldOf("close_ticks", DEFAULT.closeTicks)
                         .forGetter(DoorTuning::closeTicks))
                 .apply(i, DoorTuning::new));

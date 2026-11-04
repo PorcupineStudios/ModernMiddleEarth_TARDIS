@@ -36,4 +36,12 @@ Read when: the doors, Immersive Portals, portals for space.
   left inside the solid door. `WorldCheck.checkDoor` tests both with an armor stand.
 - **Using the doorway**: the portal eats right-clicks, so `client/DoorInput` walks the view in 0.05 steps and, if it
   reaches an open door block before anything solid (not sneaking, not standing in it), sends `DoorNet.Use`; the server
-  checks reach (8) and OPEN and runs the block's normal use. Untried in a client.
+  checks reach (8) and OPEN and runs the block's normal use. Immersive Portals takes clicks aimed through a portal
+  before NeoForge's `InteractionKeyMappingTriggered` (Aaron's test, 2026-11-04: nothing happened), so it runs in
+  `ClientTickEvent.Pre`, draining `keyUse.consumeClick()` and `setDown(false)` before the game handles keys.
+- **Portal size = the model's doorway** (2026-11-04): Aaron saw glitches at the edges at steep angles: the portal
+  (0.875 x 1.875) was bigger than the police box model's doorway (x +-0.375, y 0.125-1.75, doors' outer face at
+  z -0.4375). Now 0.75 x 1.625, `bottom` 0.125, offset -0.0625; the interior door shell's frame and `DoorShapes`
+  walls match (2 px sides, 2 px sill, lintel at 28 px). Portals opened before keep their old size until reopened.
+- The glow layer is a full-bright `entityCutoutNoCull`, not `RenderType.eyes`: the eyes pass doesn't seem to get IP's
+  clipping, and the glowing lantern showed as a white box through the doorway (a guess from the screenshot).

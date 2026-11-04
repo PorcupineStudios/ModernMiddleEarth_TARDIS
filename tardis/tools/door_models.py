@@ -1,7 +1,8 @@
 """Writes the open-door block models and the exterior / interior door blockstates.
 
-An open door is a hollow shell: no front face, a 1 px frame round the doorway (2 px on top), so the Immersive
-Portals portal can sit in the doorway, just behind the frame (door tuning: offset -0.07, 0.875 x 1.875).
+An open door is a hollow shell: no front face, a frame round the doorway the size of the police box model's (2 px at
+the sides and the sill, 4 px on top: 12 x 26 px), so the Immersive Portals portal sits in the doorway, just behind the
+1 px deep frame (door tuning: offset -0.0625, 0.75 x 1.625 from 0.125 up).
 Run from the repo root: python3 tardis/tools/door_models.py
 """
 import json
@@ -31,13 +32,16 @@ def open_model(front, side, up, down, half, front_dir):
         faces["down"] = face("down", "down")
     shell = {"from": [0, 0, 0], "to": [16, 16, 16], "faces": faces}
     els = [shell,
-           {"from": [0, 0, z0], "to": [1, 16, z1], "faces": {front_dir: face("front", front_dir),
+           {"from": [0, 0, z0], "to": [2, 16, z1], "faces": {front_dir: face("front", front_dir),
                                                              "east": face("front")}},
-           {"from": [15, 0, z0], "to": [16, 16, z1], "faces": {front_dir: face("front", front_dir),
+           {"from": [14, 0, z0], "to": [16, 16, z1], "faces": {front_dir: face("front", front_dir),
                                                                "west": face("front")}}]
     if half == "upper":
-        els.append({"from": [1, 14, z0], "to": [15, 16, z1], "faces": {front_dir: face("front", front_dir),
+        els.append({"from": [2, 12, z0], "to": [14, 16, z1], "faces": {front_dir: face("front", front_dir),
                                                                        "down": face("front")}})
+    else:
+        els.append({"from": [2, 0, z0], "to": [14, 2, z1], "faces": {front_dir: face("front", front_dir),
+                                                                     "up": face("front")}})
     return {"parent": "minecraft:block/block", "textures": {"particle": "#side", "front": front, "side": side,
                                                             "up": up, "down": down}, "elements": els}
 
