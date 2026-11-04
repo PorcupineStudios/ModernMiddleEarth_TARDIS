@@ -13,7 +13,7 @@ import net.minecraft.world.WorldType;
 
 /**
  * Waits for the main menu (all textures stitched), runs the export, then (unless {@code -Dlotrexport.structures=false})
- * the {@link StructureExporter} in a throwaway client world, and stops the game.
+ * the {@link StructureExporter} and {@link TreeExporter} in throwaway client worlds, and stops the game.
  */
 public class ExportRunner {
     private boolean done;
@@ -41,6 +41,14 @@ public class ExportRunner {
                         new WorldSettings(1L, WorldSettings.GameType.CREATIVE, false, false, WorldType.FLAT), 0,
                         EnumDifficulty.NORMAL, mc.mcProfiler);
                 new StructureExporter(out).run(world);
+            } catch (Throwable t) {
+                t.printStackTrace();
+            }
+            try {
+                WorldClient world = new WorldClient(new NetHandlerPlayClient(mc, null, null),
+                        new WorldSettings(1L, WorldSettings.GameType.CREATIVE, false, false, WorldType.FLAT), 0,
+                        EnumDifficulty.NORMAL, mc.mcProfiler);
+                new TreeExporter(out).run(world);
             } catch (Throwable t) {
                 t.printStackTrace();
             }
