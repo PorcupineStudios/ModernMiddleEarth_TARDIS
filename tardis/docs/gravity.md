@@ -10,7 +10,7 @@ Read when: touching `space/Orbits`, `space/SpacePhysics`, `client/ClientSpacePhy
 - **Slice 1 (built)**: in a planet's orbit layer down is the planet. `Orbits.gravity` = 0.08 x `space.gravity` x
   (R / (R + altitude))^2; sideways speed cancels it (`orbit_speed` at the floor, x sqrt(R / (R + a)) higher up), so
   orbits hold. Vanilla gravity is off in space (GRAVITY modifier -1) and vanilla air drag is undone after each tick
-  (`drag_free`); speed capped at `max_speed` (under the server's ~10 blocks/tick rubber-band). Jump / sneak in the air
+  (`drag_free`); speed capped at `max_speed` (40; the server's "moved too quickly" check is off in space levels, `SpaceSpeedMixin`, Aaron 2026-11-04: faster navigation). Sprint + forward in the air boosts along the look by `boost` (0.25) a tick, sprint + back brakes. Jump / sneak in the air
   push up / down (`thrust`). Players run it on their client (`ClientSpacePhysics`, tuning comes in `SkyNet.Planets`),
   everything else on the server (`SpacePhysics`, EntityTickEvent.Post). Creative flyers, spectators, riders skip it.
 - Players' sky / floor / edge checks run every tick (others every `check_ticks`), so fast movers can't overshoot far.

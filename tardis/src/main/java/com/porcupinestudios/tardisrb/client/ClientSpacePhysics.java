@@ -35,15 +35,19 @@ public final class ClientSpacePhysics {
         if (!player.onGround()) {
             thrust = (player.input.jumping ? 1 : 0) - (player.input.shiftKeyDown ? 1 : 0);
         }
+        int boost = 0;
+        if (!player.onGround() && Minecraft.getInstance().options.keySprint.isDown()) {
+            boost = player.input.forwardImpulse > 0 ? 1 : player.input.forwardImpulse < 0 ? -1 : 0;
+        }
         StarSystem system = GlobeRenderer.systemNear(player.level(), player.position());
         if (system != null) {
-            Orbits.stepSystem(player, system, GlobeRenderer.tuning(), thrust);
+            Orbits.stepSystem(player, system, GlobeRenderer.tuning(), thrust, boost);
             return;
         }
         Planet p = GlobeRenderer.planetBelow(player.level(), player.getX(), player.getZ());
         if (p == null) {
             return;
         }
-        Orbits.step(player, p, GlobeRenderer.tuning(), thrust);
+        Orbits.step(player, p, GlobeRenderer.tuning(), thrust, boost);
     }
 }

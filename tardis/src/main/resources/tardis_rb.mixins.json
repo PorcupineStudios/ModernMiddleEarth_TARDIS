@@ -18,6 +18,7 @@
     "EntityAccessor",
     "EntityCollisionContextMixin",
     "EntityGravityDataMixin",
+    "SpaceSpeedMixin",
     "EntityMixin",
     "ExperienceBottleItemMixin",
     "ExplosionMixin",
