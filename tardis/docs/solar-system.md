@@ -18,8 +18,10 @@ Read when touching `space/StarSystem`, `Systems`, `progression/SystemFile`, `cli
   (`SpacePhysics`), both through `Orbits.stepSystem`.
 - The sun: inside its radius you burn (fire + `inFire` hurt, `burn` per hit) and get pushed out. Zone edges: build
   height +-8 is clamped.
-- Drawing (`SystemRenderer`, AFTER_SKY, no depth): balls far to near, shrunk to the far plane; planets use their globe
-  textures (`GlobeTextures`) on a lat/long ball with a shade turned to the sun; the sun has 3 additive glow shells.
+- Drawing (`SystemRenderer`, AFTER_SKY, no depth): balls far to near, shrunk to the far plane; planets are painted like
+  their own globe (`GlobeSurface`: map at true size, radius = longer side / 2 pi, unwrapped round the spot facing the
+  camera, which is where you'd land; Aaron 2026-11-04: a lat/long wrap squashed Middle-earth 2.5x north-south), with a
+  shade turned to the sun; the sun has 3 additive glow shells.
 - Planets cache (`Planets`) is keyed also by the level count: during startup it cached an empty list and the world
   check said "the Overworld is no planet".
 - Tests: `SpaceTests.solarSystemRoundTrip`, `solarSystemGravity`; world check goes layer top -> system -> back.

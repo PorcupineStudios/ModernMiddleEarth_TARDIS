@@ -51,14 +51,19 @@ final class SystemRenderer {
             if (ball.body == null) {
                 drawSun(at, projection, r, system.sun().color(), sphere);
             } else {
-                drawPlanet(at, projection, r, ball.body, system, sphere);
+                drawPlanet(mc, at, projection, r, ball.body, system, cam, d);
             }
         }
         VertexBuffer.unbind();
     }
 
-    private static void drawPlanet(Matrix4f at, Matrix4f projection, float r, StarSystem.Body body,
-            StarSystem system, VertexBuffer sphere) {
+    /**
+     * The planet painted the way its own globe is (Aaron 2026-11-04: the map didn't match the planet's scale): the map
+     * at its true size (ball radius = longer side / 2 pi, square pixels), unwrapped round the spot facing the camera,
+     * which is the spot you'd come down on. A plain longitude/latitude wrap squeezed Middle-earth 2.5 times north-south.
+     */
+    private static void drawPlanet(Minecraft mc, Matrix4f at, Matrix4f projection, float r, StarSystem.Body body,
+            StarSystem system, Vec3 cam, double distance) {
         ResourceLocation texture = GlobeTextures.texture(body.planet());
         RenderSystem.disableBlend();
         RenderSystem.setShader(GameRenderer::getPositionTexColorShader);
@@ -69,8 +74,29 @@ final class SystemRenderer {
             RenderSystem.setShaderTexture(0, texture);
             RenderSystem.setShaderColor(1, 1, 1, 1);
         }
-        sphere.bind();
-        sphere.drawWithShader(new Matrix4f(at).scale(r), projection, RenderSystem.getShader());
+        com.porcupinestudios.tardisrb.space.Planet p = body.planet();
+        double[] spot = body.surfaceUnder(cam);
+        Vec3[] f = body.frame(spot[0], spot[1]);
+        Vec3 east = f[0];
+        Vec3 up = f[2];
+        Vec3 south = f[1].scale(-1);
+        // the surface mesh's pole (+y) on the spot facing us, its +x east and +z south
+        Matrix4f onSpot = new Matrix4f((float) east.x, (float) east.y, (float) east.z, 0, (float) up.x, (float) up.y,
+                (float) up.z, 0, (float) south.x, (float) south.y, (float) south.z, 0, 0, 0, 0, 1);
+        double angular = Math.asin(Math.min(1, body.radius() / Math.max(distance, body.radius())));
+        double fov = Math.toRadians(mc.options.fov().get());
+        double pixels = angular / Math.max(0.1, fov) * mc.getWindow().getHeight() * 2;
+        int detail = GlobeMesh.DETAIL[GlobeMesh.DETAIL.length - 1];
+        for (int d : GlobeMesh.DETAIL) {
+            if (d * 4 >= pixels) {
+                detail = d;
+                break;
+            }
+        }
+        double u = (spot[0] - p.minX()) / p.width();
+        double v = (spot[1] - p.minZ()) / p.height();
+        GlobeMesh.surface(Math.max(32, detail)).draw(new Matrix4f(at).scale(r).mul(onSpot), projection,
+                RenderSystem.getShader(), u, v, p.radius() / p.width(), p.radius() / p.height(), 1.0 / 4096);
         RenderSystem.setShaderColor(1, 1, 1, 1);
         if (system.sun().radius() <= 0) {
             return;
