@@ -39,6 +39,21 @@ LEVER = {0: ("ceiling", "east"), 1: ("wall", "east"), 2: ("wall", "west"), 3: ("
 DOUBLE_PLANTS = ["sunflower", "lilac", "tall_grass", "large_fern", "rose_bush", "peony"]
 ANVILS = ["anvil", "chipped_anvil", "damaged_anvil"]
 TORCH_FACING = {1: "east", 2: "west", 3: "south", 4: "north"}
+# 1.7.10 kept a pot's plant in its tile entity, which the export doesn't carry; LOTR's houses fill pots with flowers,
+# so each pot gets one of these, picked from its position (the same every run).
+POTTED = ["potted_poppy", "potted_dandelion", "potted_blue_orchid", "potted_allium", "potted_azure_bluet",
+          "potted_red_tulip", "potted_orange_tulip", "potted_white_tulip", "potted_pink_tulip", "potted_oxeye_daisy",
+          "potted_cornflower", "potted_fern"]
+SIDES = {"north": (0, -1), "south": (0, 1), "west": (-1, 0), "east": (1, 0)}
+# vanilla blocks that aren't a full solid side (fences, panes and walls don't join them)
+NOT_SOLID = ("air", "stairs", "slab", "fence", "gate", "door", "trapdoor", "torch", "pane", "bars", "wall", "flower",
+             "sapling", "leaves", "carpet", "ladder", "sign", "button", "lever", "pressure_plate", "rail", "grass",
+             "fern", "chest", "bed", "pot", "skull", "head", "cauldron", "hopper", "anvil", "cake", "wheat", "carrots",
+             "potatoes", "water", "lava", "snow", "banner", "lantern", "chain", "cobweb", "vine", "lily", "tripwire",
+             "hook", "farmland", "dandelion", "poppy", "tulip", "orchid", "allium", "bluet", "daisy", "cornflower",
+             "rose", "lilac", "peony", "sunflower", "bush", "cactus", "sugar_cane", "mushroom", "frame", "glass_pane",
+             "brewing_stand", "enchanting_table", "end_portal", "piston_head", "repeater", "comparator", "redstone_wire",
+             "daylight", "candle")
 VANILLA_KIND = {"stairs": "stairs", "_slab": "slab", "log": "pillar", "log2": "pillar", "fence_gate": "fence_gate",
                 "wooden_door": "door", "iron_door": "door", "trapdoor": "trapdoor", "ladder": "ladder",
                 "leaves": "leaves", "leaves2": "leaves", "torch": "torch", "hay_block": "pillar"}
@@ -238,6 +253,7 @@ class Structures:
         for x, y, z, p in layout["blocks"]:
             by_pos[(x, y, z)] = p
         palette, index, blocks = [], {}, []
+        placed = {}
 
         def state_index(st):
             key = json.dumps(st, sort_keys=True)
@@ -264,6 +280,9 @@ class Structures:
                     st = {"Name": st["Name"], "Properties": {**st["Properties"],
                                                              "facing": below_state["Properties"]["facing"],
                                                              "open": below_state["Properties"].get("open", "false")}}
+            if st["Name"] in ("minecraft:flower_pot", f"{NS}:flower_pot"):
+                pick = zlib.crc32(f"{sid}/{n}/{x},{y},{z}".encode()) % len(POTTED)
+                st = {"Name": "minecraft:" + POTTED[pick]}
             entry = {"pos": [x - lo[0], y - base_y, z - lo[2]]}
             chest = chests.get((x, y, z))
             if chest is not None:
@@ -277,6 +296,11 @@ class Structures:
                     facing = st.get("Properties", {}).get("facing")
                     st = {"Name": "minecraft:chest", **({"Properties": {"facing": facing}} if facing else {})}
                 entry["nbt"] = {"id": "minecraft:chest", "Items": items}
+            placed[(x, y, z)] = (st, entry)
+        # templates are placed without block updates, so panes, fences and walls need their sides set here (a lone
+        # pane post showed as a small dark square by the windows)
+        for (x, y, z), (st, entry) in placed.items():
+            st = self.connected(st, (x, y, z), placed)
             entry["state"] = nbt.Int(state_index(st))
             blocks.append(entry)
         entities = []
@@ -297,6 +321,62 @@ class Structures:
         nbt.write(path, {"DataVersion": nbt.Int(DATA_VERSION), "size": [nbt.Int(v) for v in size],
                          "palette": palette, "blocks": blocks, "entities": entities})
         return len(entities)
+
+    def joins(self, name):
+        """'pane', 'fence' or 'wall' for blocks that join their neighbours, else None."""
+        ns, short = name.split(":", 1)
+        if ns == NS:
+            kind = self.kinds.get(short)
+            return kind if kind in ("pane", "fence", "wall") else ("gate" if kind == "fence_gate" else None)
+        if short.endswith("glass_pane") or short == "iron_bars":
+            return "pane"
+        if short.endswith("_fence"):
+            return "fence"
+        if short.endswith("_fence_gate"):
+            return "gate"
+        if short.endswith("_wall") and not short.endswith(("wall_torch", "wall_sign", "wall_skull", "wall_banner",
+                                                           "wall_head", "wall_fan", "wall_hanging_sign")):
+            return "wall"
+        return None
+
+    def solid(self, name):
+        """Whether a block has full solid sides (what panes, fences and walls join besides each other)."""
+        ns, short = name.split(":", 1)
+        if ns == NS:
+            return self.kinds.get(short) in ("cube", "pillar", "faction_table")
+        return not any(w in short for w in NOT_SOLID)
+
+    def connected(self, st, pos, placed):
+        """The state with north/east/south/west set from the neighbours, for panes, fences and walls."""
+        kind = self.joins(st["Name"])
+        if kind not in ("pane", "fence", "wall"):
+            return st
+        x, y, z = pos
+        props = dict(st.get("Properties", {}))
+        joined = {}
+        for side, (dx, dz) in SIDES.items():
+            other = placed.get((x + dx, y, z + dz))
+            ok = False
+            if other is not None:
+                name = other[0]["Name"]
+                theirs = self.joins(name)
+                if kind == "pane":
+                    ok = theirs in ("pane", "wall") or self.solid(name)
+                elif kind == "fence":
+                    ok = theirs in ("fence", "gate") or self.solid(name)
+                else:
+                    ok = theirs in ("pane", "wall", "gate", "fence") or self.solid(name)
+            joined[side] = ok
+        if kind == "wall":
+            for side, ok in joined.items():
+                props[side] = "low" if ok else "none"
+            straight = (joined["north"] and joined["south"] and not joined["east"] and not joined["west"]) or \
+                       (joined["east"] and joined["west"] and not joined["north"] and not joined["south"])
+            props["up"] = "false" if straight and (x, y + 1, z) not in placed else "true"
+        else:
+            for side, ok in joined.items():
+                props[side] = "true" if ok else "false"
+        return {"Name": st["Name"], "Properties": props}
 
     def npcs_of(self, e):
         """The NPCs an exported entity becomes: itself, or a few of what a spawner would make."""
@@ -378,7 +458,9 @@ class Structures:
             "biomes": f"#{NS}:has_structure/{sid}",
             "step": "surface_structures",
             "spawn_overrides": {},
-            "terrain_adaptation": "beard_thin",
+            # beard_box fills the ground under the whole footprint and clears it above (beard_thin left houses on
+            # slopes floating over a hollow, Aaron 2026-11-04)
+            "terrain_adaptation": "beard_box",
             "start_pool": f"{NS}:{sid}",
             "size": 1,
             # the template's ground layer sits one below the surface

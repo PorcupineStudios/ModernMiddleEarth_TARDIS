@@ -28,19 +28,6 @@
       "dyed_feather"
     ]
   },
-  "armor_without_texture": {
-    "count": 8,
-    "entries": [
-      "gambeson",
-      "gambeson",
-      "gambeson",
-      "jacket",
-      "gambeson",
-      "cosmetic",
-      "gambeson",
-      "cosmetic"
-    ]
-  },
   "blocks_named_from_id": {
     "count": 58,
     "entries": [
