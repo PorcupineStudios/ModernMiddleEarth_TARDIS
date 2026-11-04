@@ -11,15 +11,15 @@
   "attack": 2.0,
   "gear": {
     "mainhand": [
-      "lotr_port:bronze_axe",
-      "lotr_port:bronze_battleaxe",
+      "lotr_port:bronze_dagger",
+      "lotr_port:bronze_spear",
+      "lotr_port:bronze_sword",
+      "lotr_port:iron_battleaxe",
+      "lotr_port:iron_dagger",
+      "lotr_port:iron_pike",
       "lotr_port:iron_spear",
-      "lotr_port:stone_spear",
-      "minecraft:iron_axe",
-      "minecraft:iron_sword",
-      "minecraft:stone_axe"
+      "lotr_port:stone_spear"
     ]
   },
-  "speech": "lotr_port:angmar/hillman",
-  "quests": "lotr_port:angmar_hillman"
+  "speech": "lotr_port:angmar/hillman"
 }

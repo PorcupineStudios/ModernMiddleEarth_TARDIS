@@ -1,6 +1,29 @@
 {
-  "parent": "minecraft:item/handheld",
-  "textures": {
-    "layer0": "lotr_port:item/spear_black_numenorean"
+  "loader": "neoforge:separate_transforms",
+  "base": {
+    "parent": "lotr_port:item/large_2x",
+    "textures": {
+      "layer0": "lotr_port:item/large/spear_black_numenorean"
+    }
+  },
+  "perspectives": {
+    "gui": {
+      "parent": "minecraft:item/handheld",
+      "textures": {
+        "layer0": "lotr_port:item/spear_black_numenorean"
+      }
+    },
+    "ground": {
+      "parent": "minecraft:item/handheld",
+      "textures": {
+        "layer0": "lotr_port:item/spear_black_numenorean"
+      }
+    },
+    "fixed": {
+      "parent": "minecraft:item/handheld",
+      "textures": {
+        "layer0": "lotr_port:item/spear_black_numenorean"
+      }
+    }
   }
 }

@@ -1,48 +1,55 @@
 {
-  "type": "minecraft:tree",
+  "type": "lotr_port:template_tree",
   "config": {
-    "trunk_provider": {
-      "type": "minecraft:simple_state_provider",
-      "state": {
-        "Name": "minecraft:spruce_log"
-      }
-    },
-    "trunk_placer": {
-      "type": "minecraft:straight_trunk_placer",
-      "base_height": 7,
-      "height_rand_a": 4,
-      "height_rand_b": 0
-    },
-    "foliage_provider": {
-      "type": "minecraft:simple_state_provider",
-      "state": {
-        "Name": "minecraft:spruce_leaves"
-      }
-    },
-    "foliage_placer": {
-      "type": "minecraft:pine_foliage_placer",
-      "radius": 1,
-      "offset": 1,
-      "height": {
-        "type": "minecraft:uniform",
-        "min_inclusive": 3,
-        "max_inclusive": 4
-      }
-    },
-    "minimum_size": {
-      "type": "minecraft:two_layers_feature_size",
-      "limit": 1,
-      "lower_size": 0,
-      "upper_size": 1
-    },
-    "dirt_provider": {
-      "type": "minecraft:simple_state_provider",
-      "state": {
-        "Name": "minecraft:dirt"
-      }
-    },
-    "decorators": [],
-    "ignore_vines": true,
-    "force_dirt": false
+    "id": "lotr_port:tree/spruce_thin",
+    "templates": [
+      "lotr_port:tree/spruce_thin/0",
+      "lotr_port:tree/spruce_thin/1",
+      "lotr_port:tree/spruce_thin/2",
+      "lotr_port:tree/spruce_thin/3",
+      "lotr_port:tree/spruce_thin/4",
+      "lotr_port:tree/spruce_thin/5"
+    ],
+    "trunk": [
+      [
+        3,
+        0,
+        3
+      ],
+      [
+        1,
+        0,
+        1
+      ],
+      [
+        3,
+        0,
+        3
+      ],
+      [
+        2,
+        0,
+        2
+      ],
+      [
+        3,
+        0,
+        3
+      ],
+      [
+        2,
+        0,
+        2
+      ]
+    ],
+    "trunk_width": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "on_sand": false
   }
 }

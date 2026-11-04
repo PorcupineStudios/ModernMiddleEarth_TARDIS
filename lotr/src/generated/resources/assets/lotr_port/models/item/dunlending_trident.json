@@ -1,6 +1,29 @@
 {
-  "parent": "minecraft:item/handheld",
-  "textures": {
-    "layer0": "lotr_port:item/dunlending_trident"
+  "loader": "neoforge:separate_transforms",
+  "base": {
+    "parent": "lotr_port:item/large_2x",
+    "textures": {
+      "layer0": "lotr_port:item/large/dunlending_trident"
+    }
+  },
+  "perspectives": {
+    "gui": {
+      "parent": "minecraft:item/handheld",
+      "textures": {
+        "layer0": "lotr_port:item/dunlending_trident"
+      }
+    },
+    "ground": {
+      "parent": "minecraft:item/handheld",
+      "textures": {
+        "layer0": "lotr_port:item/dunlending_trident"
+      }
+    },
+    "fixed": {
+      "parent": "minecraft:item/handheld",
+      "textures": {
+        "layer0": "lotr_port:item/dunlending_trident"
+      }
+    }
   }
 }

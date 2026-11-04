@@ -1,6 +1,29 @@
 {
-  "parent": "minecraft:item/handheld",
-  "textures": {
-    "layer0": "lotr_port:item/lance_gondor"
+  "loader": "neoforge:separate_transforms",
+  "base": {
+    "parent": "lotr_port:item/large_3x",
+    "textures": {
+      "layer0": "lotr_port:item/large2/lance_gondor"
+    }
+  },
+  "perspectives": {
+    "gui": {
+      "parent": "minecraft:item/handheld",
+      "textures": {
+        "layer0": "lotr_port:item/lance_gondor"
+      }
+    },
+    "ground": {
+      "parent": "minecraft:item/handheld",
+      "textures": {
+        "layer0": "lotr_port:item/lance_gondor"
+      }
+    },
+    "fixed": {
+      "parent": "minecraft:item/handheld",
+      "textures": {
+        "layer0": "lotr_port:item/lance_gondor"
+      }
+    }
   }
 }

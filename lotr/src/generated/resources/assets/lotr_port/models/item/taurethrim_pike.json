@@ -1,6 +1,29 @@
 {
-  "parent": "minecraft:item/handheld",
-  "textures": {
-    "layer0": "lotr_port:item/pike_tauredain"
+  "loader": "neoforge:separate_transforms",
+  "base": {
+    "parent": "lotr_port:item/large_3x",
+    "textures": {
+      "layer0": "lotr_port:item/large2/pike_tauredain"
+    }
+  },
+  "perspectives": {
+    "gui": {
+      "parent": "minecraft:item/handheld",
+      "textures": {
+        "layer0": "lotr_port:item/pike_tauredain"
+      }
+    },
+    "ground": {
+      "parent": "minecraft:item/handheld",
+      "textures": {
+        "layer0": "lotr_port:item/pike_tauredain"
+      }
+    },
+    "fixed": {
+      "parent": "minecraft:item/handheld",
+      "textures": {
+        "layer0": "lotr_port:item/pike_tauredain"
+      }
+    }
   }
 }

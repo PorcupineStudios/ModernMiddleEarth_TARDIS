@@ -23,6 +23,5 @@
   },
   "names": "lotr_port:orc",
   "units": "lotr_port:mordor_orc_mercenary_captain",
-  "speech": "lotr_port:mordor/chieftain",
-  "quests": "lotr_port:mordor"
+  "speech": "lotr_port:mordor/chieftain"
 }

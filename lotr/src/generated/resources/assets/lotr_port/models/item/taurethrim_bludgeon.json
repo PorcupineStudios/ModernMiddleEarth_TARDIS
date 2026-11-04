@@ -1,6 +1,29 @@
 {
-  "parent": "minecraft:item/handheld",
-  "textures": {
-    "layer0": "lotr_port:item/hammer_tauredain"
+  "loader": "neoforge:separate_transforms",
+  "base": {
+    "parent": "lotr_port:item/large_2x",
+    "textures": {
+      "layer0": "lotr_port:item/large/hammer_tauredain"
+    }
+  },
+  "perspectives": {
+    "gui": {
+      "parent": "minecraft:item/handheld",
+      "textures": {
+        "layer0": "lotr_port:item/hammer_tauredain"
+      }
+    },
+    "ground": {
+      "parent": "minecraft:item/handheld",
+      "textures": {
+        "layer0": "lotr_port:item/hammer_tauredain"
+      }
+    },
+    "fixed": {
+      "parent": "minecraft:item/handheld",
+      "textures": {
+        "layer0": "lotr_port:item/hammer_tauredain"
+      }
+    }
   }
 }

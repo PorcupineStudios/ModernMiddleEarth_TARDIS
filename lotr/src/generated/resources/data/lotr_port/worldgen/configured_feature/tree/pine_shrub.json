@@ -1,56 +1,55 @@
 {
-  "type": "minecraft:tree",
+  "type": "lotr_port:template_tree",
   "config": {
-    "trunk_provider": {
-      "type": "minecraft:simple_state_provider",
-      "state": {
-        "Name": "lotr_port:pine_wood"
-      }
-    },
-    "trunk_placer": {
-      "type": "minecraft:straight_trunk_placer",
-      "base_height": 6,
-      "height_rand_a": 3,
-      "height_rand_b": 1
-    },
-    "foliage_provider": {
-      "type": "minecraft:simple_state_provider",
-      "state": {
-        "Name": "lotr_port:pine_leaves"
-      }
-    },
-    "foliage_placer": {
-      "type": "minecraft:spruce_foliage_placer",
-      "radius": {
-        "type": "minecraft:uniform",
-        "min_inclusive": 2,
-        "max_inclusive": 3
-      },
-      "offset": {
-        "type": "minecraft:uniform",
-        "min_inclusive": 0,
-        "max_inclusive": 2
-      },
-      "trunk_height": {
-        "type": "minecraft:uniform",
-        "min_inclusive": 1,
-        "max_inclusive": 2
-      }
-    },
-    "minimum_size": {
-      "type": "minecraft:two_layers_feature_size",
-      "limit": 2,
-      "lower_size": 0,
-      "upper_size": 2
-    },
-    "dirt_provider": {
-      "type": "minecraft:simple_state_provider",
-      "state": {
-        "Name": "minecraft:dirt"
-      }
-    },
-    "decorators": [],
-    "ignore_vines": true,
-    "force_dirt": false
+    "id": "lotr_port:tree/pine_shrub",
+    "templates": [
+      "lotr_port:tree/pine_shrub/0",
+      "lotr_port:tree/pine_shrub/1",
+      "lotr_port:tree/pine_shrub/2",
+      "lotr_port:tree/pine_shrub/3",
+      "lotr_port:tree/pine_shrub/4",
+      "lotr_port:tree/pine_shrub/5"
+    ],
+    "trunk": [
+      [
+        2,
+        -1,
+        2
+      ],
+      [
+        2,
+        -1,
+        2
+      ],
+      [
+        2,
+        -1,
+        2
+      ],
+      [
+        2,
+        -1,
+        2
+      ],
+      [
+        2,
+        -1,
+        2
+      ],
+      [
+        2,
+        -1,
+        2
+      ]
+    ],
+    "trunk_width": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "on_sand": false
   }
 }

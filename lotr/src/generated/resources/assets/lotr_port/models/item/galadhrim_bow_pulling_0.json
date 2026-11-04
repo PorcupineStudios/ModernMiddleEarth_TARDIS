@@ -1,0 +1,29 @@
+{
+  "loader": "neoforge:separate_transforms",
+  "base": {
+    "parent": "lotr_port:item/large_2x",
+    "textures": {
+      "layer0": "lotr_port:item/large/elven_bow_pull_0"
+    }
+  },
+  "perspectives": {
+    "gui": {
+      "parent": "minecraft:item/generated",
+      "textures": {
+        "layer0": "lotr_port:item/elven_bow"
+      }
+    },
+    "ground": {
+      "parent": "minecraft:item/generated",
+      "textures": {
+        "layer0": "lotr_port:item/elven_bow"
+      }
+    },
+    "fixed": {
+      "parent": "minecraft:item/generated",
+      "textures": {
+        "layer0": "lotr_port:item/elven_bow"
+      }
+    }
+  }
+}

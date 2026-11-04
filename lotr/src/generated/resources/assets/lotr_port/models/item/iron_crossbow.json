@@ -2,5 +2,33 @@
   "parent": "minecraft:item/generated",
   "textures": {
     "layer0": "lotr_port:item/iron_crossbow"
-  }
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "minecraft:pulling": 1
+      },
+      "model": "lotr_port:item/iron_crossbow_pulling_0"
+    },
+    {
+      "predicate": {
+        "minecraft:pulling": 1,
+        "minecraft:pull": 0.65
+      },
+      "model": "lotr_port:item/iron_crossbow_pulling_1"
+    },
+    {
+      "predicate": {
+        "minecraft:pulling": 1,
+        "minecraft:pull": 0.9
+      },
+      "model": "lotr_port:item/iron_crossbow_pulling_2"
+    },
+    {
+      "predicate": {
+        "minecraft:charged": 1
+      },
+      "model": "lotr_port:item/iron_crossbow_pulling_2"
+    }
+  ]
 }

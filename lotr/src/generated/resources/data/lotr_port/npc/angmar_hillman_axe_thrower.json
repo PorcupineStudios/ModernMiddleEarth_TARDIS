@@ -12,7 +12,7 @@
   "gear": {
     "mainhand": [
       "lotr_port:angmar_battleaxe",
-      "lotr_port:angmar_poleaxe",
+      "lotr_port:angmar_dagger",
       "lotr_port:angmar_spear",
       "lotr_port:angmar_sword",
       "lotr_port:angmar_warhammer"
@@ -23,7 +23,8 @@
     ],
     "chest": [
       "lotr_port:angmar_chestplate",
-      "lotr_port:bone_chestplate"
+      "lotr_port:bone_chestplate",
+      "lotr_port:fur_tunic"
     ],
     "legs": [
       "lotr_port:angmar_leggings",

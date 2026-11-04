@@ -14,10 +14,9 @@
   "gear": {
     "mainhand": [
       "lotr_port:bronze_dagger",
+      "lotr_port:iron_dagger",
       "lotr_port:rh_nic_dagger"
     ]
   },
-  "names": "lotr_port:rhun_male",
-  "speech": "lotr_port:rhun/man",
-  "quests": "lotr_port:rhun"
+  "speech": "lotr_port:rhun/man"
 }

@@ -12,10 +12,10 @@
   "attack": 2.0,
   "gear": {
     "mainhand": [
-      "lotr_port:poisoned_uruk_dagger",
       "lotr_port:uruk_battleaxe",
+      "lotr_port:uruk_cleaver",
+      "lotr_port:uruk_dagger",
       "lotr_port:uruk_pike",
-      "lotr_port:uruk_spear",
       "lotr_port:uruk_warhammer"
     ],
     "head": "lotr_port:uruk_helmet",

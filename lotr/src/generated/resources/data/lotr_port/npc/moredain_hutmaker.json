@@ -14,7 +14,9 @@
   "gear": {
     "mainhand": "lotr_port:morwaith_dagger"
   },
+  "names": "lotr_port:moredain_male",
   "buy": "lotr_port:moredain_hutmaker_buy",
   "sell": "lotr_port:moredain_hutmaker_sell",
-  "speech": "lotr_port:moredain/trader"
+  "speech": "lotr_port:moredain/trader",
+  "quests": "lotr_port:moredain"
 }

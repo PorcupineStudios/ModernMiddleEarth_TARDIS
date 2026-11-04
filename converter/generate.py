@@ -32,6 +32,8 @@ from structures import Structures  # noqa: E402
 from quests import Quests  # noqa: E402
 from colonies import Colonies  # noqa: E402
 from saplings import Saplings  # noqa: E402
+from classfile import ClassFile  # noqa: E402
+from armor_models import ArmorModels  # noqa: E402
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 EXPORT = os.path.join(ROOT, "converter", "export")
@@ -56,6 +58,25 @@ FACING_CLASSES = {"LOTRBlockForgeBase", "LOTRBlockHobbitOven", "LOTRBlockBarrel"
                   "LOTRBlockChest", "LOTRBlockMillstone"}
 
 
+# LOTR's melee weapon families, most specific first (a pike is a long polearm is a polearm is a sword).
+WEAPON_TYPES = (("LOTRItemLance", "lance"), ("LOTRItemPike", "pike"), ("LOTRItemPolearmLong", "long_polearm"),
+                ("LOTRItemTrident", "trident"), ("LOTRItemPolearm", "polearm"), ("LOTRItemSpear", "spear"),
+                ("LOTRItemDagger", "dagger"), ("LOTRItemSauronMace", "hammer"), ("LOTRItemHammer", "hammer"),
+                ("LOTRItemBattleaxe", "battleaxe"), ("LOTRItemBalrogWhip", "whip"))
+# 1.7.10 LOTR: a player's melee attack takes LOTRWeaponStats.basePlayerMeleeTime / speed factor ticks, a mob's
+# baseMobMeleeTime / speed factor; reach is 3 blocks x the reach factor. Read from LOTRWeaponStats' fields would need
+# the running game, so these two are the class's constants (bipush 15 / bipush 20 in its <clinit>).
+LOTR_PLAYER_MELEE_TICKS = 15
+LOTR_MOB_MELEE_TICKS = 20
+# LOTRItemDagger.applyStandardPoison (daggers, bolts, darts): n = 1 + 2 x difficulty, Poison I for n to 2n - 1
+# seconds. A 1.21 arrow carries a fixed effect, so poisoned arrows and bolts take the normal-difficulty middle (7 s).
+LOTR_POISON = {"base_seconds": 1, "per_difficulty": 2, "arrow_ticks": 140}
+# Only plain swords sweep (1.9's sweeping edge; LOTR had none). Daggers, spears, polearms and hammers hit one target.
+SWEEPING_WEAPONS = {"sword"}
+# LOTR draws icons in folders large/ (2x) and large2/ (3x) at that scale in the hand (LOTRRenderLargeItem).
+LARGE_ICON_FOLDERS = (("large2", 3), ("large", 2))
+
+
 # Armor items whose texture is their own file in assets/lotr/armor/ (no _1/_2 layers): item id -> file stem.
 ITEM_ARMOR = {"dalish_gambeson": "gambeson_dale", "dol_amroth_gambeson": "gambeson_dolAmroth",
               "gondorian_gambeson": "gambeson_gondor", "lamedon_jacket": "jacket_lamedon",
@@ -65,30 +86,13 @@ ITEM_ARMOR = {"dalish_gambeson": "gambeson_dale", "dol_amroth_gambeson": "gambes
 HAT_TINTS = {"leather_hat": (0x68, 0x4A, 0x36), "party_hat": (0xC8, 0x3A, 0x3A)}
 
 
-def hat_layer(src, tint):
-    """
-    A cap for the vanilla helmet layer (64x32, head box at UV 0,0) painted from a LOTR hat texture (made for its own
-    hat model): the head's top face and the upper half of its sides take the hat's shading, tinted; the lowest painted
-    row is the brim, darker. Everything else stays clear.
-    """
-    out = Image.new("RGBA", (64, 32), (0, 0, 0, 0))
-    box = src.getbbox() or (0, 0, src.width, src.height)
-    w, h = max(1, box[2] - box[0]), max(1, box[3] - box[1])
-
-    def shade(x, y, dark=1.0):
-        r, g, b, a = src.getpixel((box[0] + x % w, box[1] + y % h))
-        if a == 0:
-            r = g = b = 220
-        k = (r + g + b) / 3 / 255 * dark
-        return (int(tint[0] * k), int(tint[1] * k), int(tint[2] * k), 255)
-
-    for x in range(8, 16):
-        for y in range(0, 8):
-            out.putpixel((x, y), shade(x, y))
-    for x in range(0, 32):
-        for y in range(8, 12):
-            out.putpixel((x, y), shade(x, y, 0.7 if y == 11 else 1.0))
-    return out
+def tint(img, rgb):
+    """Multiplies an image by a colour, as LOTR's dyed hats are drawn."""
+    r, g, b, a = img.split()
+    r = r.point(lambda x: x * rgb[0] // 255)
+    g = g.point(lambda x: x * rgb[1] // 255)
+    b = b.point(lambda x: x * rgb[2] // 255)
+    return Image.merge("RGBA", (r, g, b, a))
 
 
 class Gen:
@@ -108,6 +112,23 @@ class Gen:
         self.unloc = {}  # new id -> old unlocalized key (for other languages)
         self.tags = collections.defaultdict(set)  # "minecraft:block/mineable/pickaxe" -> ids
         self.recipe_count = 0
+        self.melee = self.weapon_tables()
+
+    def weapon_tables(self):
+        """LOTR's per-class melee speed, reach and knockback tables, read from LOTRWeaponStats' static initialiser
+        (registerMeleeSpeed(LOTRItemDagger.class, 1.5F) ...)."""
+        out = {"registerMeleeSpeed": {}, "registerMeleeReach": {}, "registerMeleeExtraKnockback": {}}
+        cf = ClassFile(self.jar.read("lotr/common/item/LOTRWeaponStats.class"))
+        for name, args in cf.static_calls():
+            if name in out and len(args) == 2 and isinstance(args[0], tuple):
+                out[name][args[0][1].split("/")[-1]] = round(args[1], 3)
+        return out
+
+    def class_stat(self, chain, table, default):
+        for c in chain:
+            if c in self.melee[table]:
+                return self.melee[table][c]
+        return default
 
     # ------------------------------------------------------------------ names
 
@@ -163,6 +184,16 @@ class Gen:
             if cls in classes and (k != "armor" or "armor" in it):
                 kind = k
                 break
+        chain = [c.split(".")[-1] for c in it["classes"]]
+        if kind == "item":
+            if "LOTRItemCrossbow" in chain:
+                kind = "crossbow"
+            elif "ItemBow" in chain:
+                kind = "bow"
+            elif "LOTRItemCrossbowBolt" in chain:
+                kind = "bolt"
+            elif "LOTRItemArrowPoisoned" in chain:
+                kind = "arrow"
         e["kind"] = kind
         if it.get("maxDamage", 0) > 0 and not it.get("hasSubtypes"):
             e["durability"] = it["maxDamage"]
@@ -177,6 +208,14 @@ class Gen:
         level = max(levels) if levels else 2
         e["level"] = level
         e["speed"] = {0: 2.0, 1: 4.0, 2: 6.0, 3: 8.0}.get(level, 9.0)
+        if kind == "sword":
+            e["weapon"] = self.melee_weapon(it, v, chain)
+        elif kind in ("bow", "crossbow"):
+            e["ranged"] = self.ranged_weapon(it, v)
+        if kind == "bolt":
+            self.tags[f"{NS}:item/crossbow_bolts"].add(new)
+        if (v.get("weapon") or {}).get("poisoned") or (kind in ("sword", "bolt", "arrow") and "oisoned" in it["id"]):
+            e["poison"] = dict(LOTR_POISON)
         if "armor" in it:
             a = it["armor"]
             mat = snake(a["material"].replace("LOTR_", "")) or "armor"
@@ -207,8 +246,93 @@ class Gen:
             icons = ["minecraft:item/barrier"]
         parent = "minecraft:item/handheld" if it.get("full3D") or kind in ("sword", "pickaxe", "axe", "shovel",
                                                                              "hoe") else "minecraft:item/generated"
-        write_json(os.path.join(ASSETS, "models", "item", new + ".json"),
-                   {"parent": parent, "textures": {f"layer{i}": t for i, t in enumerate(icons)}})
+        raw = next((i for i in v.get("icons", []) if i), None)
+        self.item_models(new, kind, icons, parent, raw)
+
+    def melee_weapon(self, it, v, chain):
+        """
+        1.7.10 LOTR had no attack cooldown: a weapon's speed was LOTR's own timer (15 ticks for a sword, divided by the
+        class's speed factor), and reach was 3 blocks times a reach factor. 1.21 has both as attributes: attack speed
+        is attacks per second (20 / ticks; vanilla swords 1.6), reach is player.entity_interaction_range (base 3).
+        Exported numbers (LOTRWeaponStats read in the running game) win; the class tables are the fallback.
+        """
+        typ = next((t for c, t in WEAPON_TYPES if c in chain), "sword")
+        ex = v.get("weapon") or {}
+        speed = ex.get("meleeSpeed", self.class_stat(chain, "registerMeleeSpeed", 1.0))
+        reach = ex.get("meleeReach", self.class_stat(chain, "registerMeleeReach", 1.0))
+        knock = ex.get("knockback", self.class_stat(chain, "registerMeleeExtraKnockback", 0))
+        if not ex:
+            self.report["weapon_stats_from_class_tables"].append(it["id"])
+        ticks = ex.get("playerTicks") or max(1, round(LOTR_PLAYER_MELEE_TICKS / speed))
+        mob_ticks = ex.get("mobTicks") or max(1, round(LOTR_MOB_MELEE_TICKS / speed))
+        return {"type": typ, "attack_speed": round(20 / ticks, 3), "lotr_ticks": ticks, "mob_ticks": mob_ticks,
+                "reach": round(3.0 * (reach - 1.0), 3), "knockback": knock, "sweep": typ in SWEEPING_WEAPONS}
+
+    def ranged_weapon(self, it, v):
+        """Draw time (ticks to full power; vanilla bows 20) and arrow damage factor of a LOTR bow or crossbow, from
+        the export. Until the exporter has run with weapon stats, vanilla's numbers stand in."""
+        ex = v.get("weapon") or {}
+        if "drawTime" not in ex:
+            self.report["ranged_stats_defaulted"].append(it["id"])
+        return {"draw_time": ex.get("drawTime", 20), "damage_factor": round(ex.get("damageFactor", 1.0), 3)}
+
+    def large_icon(self, icon):
+        """LOTR's bigger in-hand icon for a texture name, with its scale, or None."""
+        if not icon or not icon.startswith("lotr:"):
+            return None
+        path = icon.split(":", 1)[1]
+        for folder, scale in LARGE_ICON_FOLDERS:
+            if self.jar.has(f"assets/lotr/textures/items/{folder}/{path}.png"):
+                return self.tex.item(f"lotr:{folder}/{path}"), scale, folder, path
+        return None
+
+    def item_models(self, new, kind, icons, parent, raw_icon):
+        """
+        The item model. LOTR draws many weapons (and bows' pull frames) with a bigger icon in the hand, scaled 2x or 3x
+        about the item's centre: those get NeoForge's separate_transforms model, the small icon in the GUI, on the
+        ground and in frames, and the big one (on lotr_port:item/large_<n>x, vanilla handheld scaled) elsewhere.
+        """
+        small = {"parent": parent, "textures": {f"layer{i}": t for i, t in enumerate(icons)}}
+        large = self.large_icon(raw_icon)
+
+        def model(layer0_large, small_model):
+            if not large:
+                return small_model
+            return {"loader": "neoforge:separate_transforms",
+                    "base": {"parent": f"{NS}:item/large_{large[1]}x", "textures": {"layer0": layer0_large}},
+                    "perspectives": {p: small_model for p in ("gui", "ground", "fixed")}}
+
+        top = model(large[0] if large else None, small)
+        if kind in ("bow", "crossbow"):
+            frames = []
+            if large:
+                for n in range(3):
+                    t = self.tex.item(f"lotr:{large[2]}/{large[3]}_pull_{n}")
+                    if t:
+                        frames.append(model(t, small))
+            elif raw_icon:
+                for n in range(3):
+                    t = self.tex.item(f"{raw_icon}_pull_{n}")
+                    if t:
+                        frames.append({"parent": parent, "textures": {"layer0": t}})
+            if frames:
+                overrides = []
+                for n, (f, pull) in enumerate(zip(frames, (0.0, 0.65, 0.9))):
+                    name = f"{new}_pulling_{n}"
+                    write_json(os.path.join(ASSETS, "models", "item", name + ".json"), f)
+                    pred = {"minecraft:pulling": 1}
+                    if pull:
+                        pred["minecraft:pull"] = pull
+                    overrides.append({"predicate": pred, "model": f"{NS}:item/{name}"})
+                if kind == "crossbow":
+                    overrides.append({"predicate": {"minecraft:charged": 1},
+                                      "model": f"{NS}:item/{new}_pulling_{len(frames) - 1}"})
+                top["overrides"] = overrides
+            else:
+                self.report["bows_without_pull_frames"].append(new)
+        if large:
+            self.report["large_in_hand_icons"].append(f"{new} ({large[2]})")
+        write_json(os.path.join(ASSETS, "models", "item", new + ".json"), top)
 
     def armor_texture(self, mat):
         """Copies armor/<name>_1.png and _2.png to the 1.21.1 armor layer paths."""
@@ -229,15 +353,16 @@ class Gen:
     def item_armor_texture(self, item, slot):
         """
         Armor whose LOTR texture is per item, not per material: the gambesons and jacket (one armor/<name>.png already
-        in the vanilla layer layout) and the hats (drawn on LOTR's own hat models, so a cap is painted from their
-        texture onto the helmet's head box). Returns the texture name (the item id), or None for other items.
+        in the vanilla layer layout) and the hats (LOTR's own hat models, ported by armor_models.py, so the texture
+        keeps LOTR's layout, tinted the colour LOTR dyes it). Returns the texture name (the item id), or None.
         """
         src = ITEM_ARMOR.get(item)
         if src is None or not self.jar.has(f"assets/lotr/armor/{src}.png"):
             return None
         img = Image.open(io.BytesIO(self.jar.read(f"assets/lotr/armor/{src}.png"))).convert("RGBA")
         if item in HAT_TINTS:
-            img = hat_layer(img, HAT_TINTS[item])
+            # drawn on LOTR's own hat model (armor_models.py), so the texture keeps LOTR's layout; LOTR dyes it
+            img = tint(img, HAT_TINTS[item])
         layer = 2 if slot == "legs" else 1
         dst = os.path.join(ASSETS, "textures", "models", "armor", f"{item}_layer_{layer}.png")
         os.makedirs(os.path.dirname(dst), exist_ok=True)
@@ -856,6 +981,19 @@ class Gen:
             write_json(os.path.join(DATA, ns, "tags", path + ".json"),
                        {"replace": False, "values": sorted(f"{NS}:{i}" for i in ids)})
 
+    def large_parents(self):
+        """lotr_port:item/large_2x and _3x: vanilla's handheld transforms with x and y scaled (LOTRRenderLargeItem
+        scales the icon about its centre and leaves its thickness)."""
+        hand = {"thirdperson_righthand": ([0, -90, 55], [0, 4.0, 0.5], [0.85, 0.85, 0.85]),
+                "thirdperson_lefthand": ([0, 90, -55], [0, 4.0, 0.5], [0.85, 0.85, 0.85]),
+                "firstperson_righthand": ([0, -90, 25], [1.13, 3.2, 1.13], [0.68, 0.68, 0.68]),
+                "firstperson_lefthand": ([0, 90, -25], [1.13, 3.2, 1.13], [0.68, 0.68, 0.68])}
+        for k in (2, 3):
+            display = {p: {"rotation": r, "translation": t, "scale": [sc[0] * k, sc[1] * k, sc[2]]}
+                       for p, (r, t, sc) in hand.items()}
+            write_json(os.path.join(ASSETS, "models", "item", f"large_{k}x.json"),
+                       {"parent": "minecraft:item/generated", "display": display})
+
     # ------------------------------------------------------------------ main
 
     def run(self):
@@ -881,6 +1019,9 @@ class Gen:
         recruit_dir = os.path.join(ROOT, "lotr", "src", "main", "resources", "data", NS, "recruit")
         npcs.update(Colonies(self, DATA, npc_gen.written, recruit_dir).run())
         content = os.path.join(OUT, NS, "content")
+        self.large_parents()
+        armor_models = ArmorModels(self.jar, self.idtable, self.report).run()
+        write_json(os.path.join(content, "armor_models.json"), armor_models)
         write_json(os.path.join(content, "blocks.json"), self.blocks)
         write_json(os.path.join(content, "items.json"), self.items)
         write_json(os.path.join(content, "tabs.json"), tabs)

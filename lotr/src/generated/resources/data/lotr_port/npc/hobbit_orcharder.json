@@ -29,6 +29,7 @@
     ],
     "head": "lotr_port:leather_hat"
   },
+  "names": "lotr_port:hobbit_male",
   "buy": "lotr_port:hobbit_orcharder_buy",
   "sell": "lotr_port:hobbit_orcharder_sell",
   "speech": "lotr_port:hobbit/orcharder",

@@ -14,15 +14,13 @@
   "attack": 2.0,
   "gear": {
     "mainhand": [
-      "lotr_port:bronze_axe",
+      "lotr_port:bronze_battleaxe",
+      "lotr_port:iron_battleaxe",
       "lotr_port:iron_dagger",
       "lotr_port:rohirric_battleaxe",
-      "lotr_port:rohirric_dagger",
-      "minecraft:iron_axe",
-      "minecraft:stone_axe"
+      "lotr_port:rohirric_dagger"
     ]
   },
-  "names": "lotr_port:rohan_male",
   "speech": "lotr_port:rohan/man",
   "quests": "lotr_port:rohan"
 }

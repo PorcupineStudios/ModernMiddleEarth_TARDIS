@@ -270,6 +270,10 @@ public class Exporter {
             }
             v.add("toolClasses", tools);
             v.add("attributes", attributes(item, stack));
+            JsonObject weapon = weaponStats(item, stack);
+            if (weapon.entrySet().size() > 0) {
+                v.add("weapon", weapon);
+            }
             if (item instanceof ItemFood) {
                 JsonObject f = new JsonObject();
                 f.add("heal", callNumber(item, new String[] { "func_150905_g", "getHealAmount" }, stack));
@@ -279,6 +283,56 @@ public class Exporter {
             variants.add(v);
         }
         o.add("variants", variants);
+        return o;
+    }
+
+    /**
+     * LOTR's own combat numbers for one item, read through {@code LOTRWeaponStats}' public getters (melee speed and
+     * reach factors, extra knockback, poison, ranged speed and damage) and the bows' public draw time and damage
+     * factor. 1.7.10 had no attack cooldown, so LOTR kept these outside the item's attributes.
+     */
+    private JsonObject weaponStats(Item item, ItemStack stack) {
+        JsonObject o = new JsonObject();
+        try {
+            Class<?> stats = Class.forName("lotr.common.item.LOTRWeaponStats");
+            if (Boolean.TRUE.equals(stats.getMethod("isMeleeWeapon", ItemStack.class).invoke(null, stack))) {
+                o.addProperty("meleeSpeed", (Number) stats.getMethod("getMeleeSpeed", ItemStack.class).invoke(null, stack));
+                o.addProperty("meleeReach",
+                        (Number) stats.getMethod("getMeleeReachFactor", ItemStack.class).invoke(null, stack));
+                o.addProperty("knockback",
+                        (Number) stats.getMethod("getBaseExtraKnockback", ItemStack.class).invoke(null, stack));
+                o.addProperty("playerTicks",
+                        (Number) stats.getMethod("getAttackTimePlayer", ItemStack.class).invoke(null, stack));
+                o.addProperty("mobTicks", (Number) stats.getMethod("getAttackTimeMob", ItemStack.class).invoke(null, stack));
+            }
+            o.addProperty("poisoned", (Boolean) stats.getMethod("isPoisoned", ItemStack.class).invoke(null, stack));
+            if (Boolean.TRUE.equals(stats.getMethod("isRangedWeapon", ItemStack.class).invoke(null, stack))) {
+                o.addProperty("rangedSpeed", (Number) stats.getMethod("getRangedSpeed", ItemStack.class).invoke(null, stack));
+                o.addProperty("rangedDamage", (Number) stats.getMethod("getRangedDamageFactor", ItemStack.class,
+                        boolean.class).invoke(null, stack, false));
+                o.addProperty("rangedKnockback",
+                        (Number) stats.getMethod("getRangedKnockback", ItemStack.class).invoke(null, stack));
+            }
+            for (String m : new String[] { "getMaxDrawTime" }) {
+                try {
+                    o.addProperty("drawTime", (Number) item.getClass().getMethod(m).invoke(item));
+                } catch (NoSuchMethodException ignored) {
+                    // not a drawn weapon
+                }
+            }
+            for (String f : new String[] { "arrowDamageFactor", "boltDamageFactor" }) {
+                try {
+                    o.addProperty("damageFactor", item.getClass().getField(f).getDouble(item));
+                } catch (NoSuchFieldException ignored) {
+                    // not a bow or crossbow
+                }
+            }
+        } catch (Throwable t) {
+            error("weaponStats " + Item.itemRegistry.getNameForObject(item), t);
+        }
+        if (o.has("poisoned") && !o.get("poisoned").getAsBoolean() && o.entrySet().size() == 1) {
+            o.remove("poisoned");
+        }
         return o;
     }
 

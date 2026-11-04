@@ -1,6 +1,51 @@
 {
-  "parent": "minecraft:item/generated",
-  "textures": {
-    "layer0": "lotr_port:item/rohan_bow"
-  }
+  "loader": "neoforge:separate_transforms",
+  "base": {
+    "parent": "lotr_port:item/large_2x",
+    "textures": {
+      "layer0": "lotr_port:item/large/rohan_bow"
+    }
+  },
+  "perspectives": {
+    "gui": {
+      "parent": "minecraft:item/generated",
+      "textures": {
+        "layer0": "lotr_port:item/rohan_bow"
+      }
+    },
+    "ground": {
+      "parent": "minecraft:item/generated",
+      "textures": {
+        "layer0": "lotr_port:item/rohan_bow"
+      }
+    },
+    "fixed": {
+      "parent": "minecraft:item/generated",
+      "textures": {
+        "layer0": "lotr_port:item/rohan_bow"
+      }
+    }
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "minecraft:pulling": 1
+      },
+      "model": "lotr_port:item/rohirric_bow_pulling_0"
+    },
+    {
+      "predicate": {
+        "minecraft:pulling": 1,
+        "minecraft:pull": 0.65
+      },
+      "model": "lotr_port:item/rohirric_bow_pulling_1"
+    },
+    {
+      "predicate": {
+        "minecraft:pulling": 1,
+        "minecraft:pull": 0.9
+      },
+      "model": "lotr_port:item/rohirric_bow_pulling_2"
+    }
+  ]
 }

@@ -2,6 +2,7 @@ package com.porcupinestudios.lotrport.npc;
 
 import com.porcupinestudios.lotrport.colony.Migrants;
 import com.porcupinestudios.lotrport.colony.Recruiting;
+import com.porcupinestudios.lotrport.content.LotrWeaponItem;
 import com.porcupinestudios.lotrport.faction.Alignment;
 import com.porcupinestudios.lotrport.faction.FactionKills;
 import com.porcupinestudios.lotrport.faction.Factions;
@@ -191,7 +192,7 @@ public class LotrNpc extends PathfinderMob implements Merchant {
     @Override
     protected void registerGoals() {
         goalSelector.addGoal(0, new FloatGoal(this));
-        goalSelector.addGoal(1, new MeleeAttackGoal(this, 1.2, false));
+        goalSelector.addGoal(1, new WeaponMeleeGoal());
         goalSelector.addGoal(2, new FollowOwnerGoal());
         goalSelector.addGoal(3, new GuardGoal());
         goalSelector.addGoal(5, new WaterAvoidingRandomStrollGoal(this, 0.8) {
@@ -212,6 +213,29 @@ public class LotrNpc extends PathfinderMob implements Merchant {
         targetSelector.addGoal(2, new DefendOwnerGoal());
         targetSelector.addGoal(3,
                 new NearestAttackableTargetGoal<>(this, LivingEntity.class, 10, true, false, this::isEnemy));
+    }
+
+    /**
+     * Melee at LOTR's mob pace: 1.21's MeleeAttackGoal swings every 20 ticks whatever the weapon; LOTR's NPCs swung
+     * every 20 / speed-factor ticks (a dagger 13, a pike 40), which the held {@link LotrWeaponItem} carries.
+     */
+    private final class WeaponMeleeGoal extends MeleeAttackGoal {
+        private long nextAttack;
+
+        WeaponMeleeGoal() {
+            super(LotrNpc.this, 1.2, false);
+        }
+
+        @Override
+        protected void resetAttackCooldown() {
+            int ticks = getMainHandItem().getItem() instanceof LotrWeaponItem w ? w.mobAttackTicks() : 20;
+            nextAttack = level().getGameTime() + adjustedTickDelay(ticks);
+        }
+
+        @Override
+        protected boolean isTimeToAttack() {
+            return level().getGameTime() >= nextAttack;
+        }
     }
 
     // ---------------------------------------------------------------- type

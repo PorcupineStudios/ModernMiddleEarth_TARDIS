@@ -40,10 +40,8 @@
     "mainhand": "minecraft:iron_hoe",
     "head": "lotr_port:leather_hat"
   },
-  "names": "lotr_port:bree_male",
   "buy": "lotr_port:bree_farmer_buy",
   "sell": "lotr_port:bree_farmer_sell",
   "units": "lotr_port:bree_farmer",
-  "speech": "lotr_port:bree/farmer",
-  "quests": "lotr_port:bree"
+  "speech": "lotr_port:bree/farmer"
 }

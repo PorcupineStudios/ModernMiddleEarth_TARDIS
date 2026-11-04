@@ -19,5 +19,6 @@
   },
   "names": "lotr_port:nomad_male",
   "units": "lotr_port:nomad_warlord",
-  "speech": "lotr_port:near_harad/mercenary"
+  "speech": "lotr_port:near_harad/mercenary",
+  "quests": "lotr_port:nomad"
 }
