@@ -38,7 +38,7 @@ import net.neoforged.neoforge.network.registration.PayloadRegistrar;
 /**
  * The repair and upgrade tree (Aaron, 2026-11-03): every repair by subsystem and level, the research tree and the rooms
  * that can be added, with what each costs and whether it can be done now. Opened at the Repair Station in the
- * basement; works only for crew standing in the TARDIS.
+ * Repair Station; works only for crew standing in the TARDIS.
  */
 public final class WorkshopNet {
     public static final int REPAIR = 0;

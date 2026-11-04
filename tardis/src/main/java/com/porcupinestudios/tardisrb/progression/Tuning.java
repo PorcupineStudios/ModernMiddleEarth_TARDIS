@@ -59,20 +59,16 @@ public record Tuning(CrashSite crashSite, Hop hop, Winder winder, Interior inter
      * structure template, placed with its corner at {@code room_offset} from the origin; {@code console} is where its
      * console stands and {@code spawn} where players appear. Added rooms grow out from the open ends of the room's
      * hallways ({@code room_anchors}, taken in turn), {@code room_step} blocks deeper each time, joined by an opening
-     * the size of the hallway. The repair basement ({@code basement}) goes at {@code basement_offset}, reached by the
-     * ladder at {@code hatch}.
+     * the size of the hallway. (The repair basement is gone, Aaron 2026-11-04: the lower deck will take its place.)
      */
     public record Interior(int plotSpacing, int floorY, ResourceLocation room, BlockPos roomOffset, BlockPos console,
-            BlockPos spawn, int roomStep, List<Anchor> roomAnchors, ResourceLocation basement, BlockPos basementOffset,
-            BlockPos hatch) {
+            BlockPos spawn, int roomStep, List<Anchor> roomAnchors) {
         static final Interior DEFAULT = new Interior(1024, 64,
                 ResourceLocation.fromNamespaceAndPath("tardis_rb", "interior/console_room_capaldi"),
                 new BlockPos(-15, -4, -15), BlockPos.ZERO, new BlockPos(0, 0, 6), 9,
                 List.of(new Anchor(new BlockPos(-1, -3, -15), new BlockPos(2, -1, -15), Direction.NORTH),
                         new Anchor(new BlockPos(15, -3, -3), new BlockPos(15, -1, 0), Direction.EAST),
-                        new Anchor(new BlockPos(-15, -3, -3), new BlockPos(-15, -1, 0), Direction.WEST)),
-                ResourceLocation.fromNamespaceAndPath("tardis_rb", "interior/repair_basement"),
-                new BlockPos(-1, -9, -5), new BlockPos(6, -4, -2));
+                        new Anchor(new BlockPos(-15, -3, -3), new BlockPos(-15, -1, 0), Direction.WEST)));
         static final Codec<Interior> CODEC = RecordCodecBuilder.create(i -> i.group(
                 Codec.intRange(64, 1 << 16).optionalFieldOf("plot_spacing", DEFAULT.plotSpacing)
                         .forGetter(Interior::plotSpacing),
@@ -83,11 +79,7 @@ public record Tuning(CrashSite crashSite, Hop hop, Winder winder, Interior inter
                 BlockPos.CODEC.optionalFieldOf("spawn", DEFAULT.spawn).forGetter(Interior::spawn),
                 Codec.intRange(1, 256).optionalFieldOf("room_step", DEFAULT.roomStep).forGetter(Interior::roomStep),
                 Anchor.CODEC.listOf().optionalFieldOf("room_anchors", DEFAULT.roomAnchors)
-                        .forGetter(Interior::roomAnchors),
-                ResourceLocation.CODEC.optionalFieldOf("basement", DEFAULT.basement).forGetter(Interior::basement),
-                BlockPos.CODEC.optionalFieldOf("basement_offset", DEFAULT.basementOffset)
-                        .forGetter(Interior::basementOffset),
-                BlockPos.CODEC.optionalFieldOf("hatch", DEFAULT.hatch).forGetter(Interior::hatch))
+                        .forGetter(Interior::roomAnchors))
                 .apply(i, Interior::new));
 
         /**

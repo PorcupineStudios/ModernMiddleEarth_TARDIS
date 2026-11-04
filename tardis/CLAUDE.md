@@ -13,8 +13,8 @@ Read both with the Claude Docs tools, not a web fetch. Add notes in `docs/<area>
 | Read when the task touches | File |
 |---|---|
 | TARDIS record, data folders + validator, unlocks, conditions, repairs, damage, stages, `/tardis` | `docs/progression.md` |
-| Police box, interior dimension and plots, crash site, salvage, short hops, console screen, Create winder | `docs/wreck-flight.md` |
-| Basement repair room + Repair Station, the repair/upgrade tree screen, timed research and stat bonuses, exterior looks, explosion damage | `docs/repair-loop.md` |
+| Police box, interior dimension and plots, crash site, salvage, short hops, Create winder | `docs/wreck-flight.md` |
+| Repair Station, the repair/upgrade tree screen, timed research and stat bonuses, exterior looks, explosion damage | `docs/repair-loop.md` |
 | Adding rooms, the room cap, room templates and layout | `docs/rooms.md` |
 | Dimension travel: destination files, jumps, the console's destination picker | `docs/destinations.md` |
 | The see-through door (Immersive Portals, required), portals for space | `docs/door.md` |
