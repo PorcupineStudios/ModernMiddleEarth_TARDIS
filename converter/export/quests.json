@@ -3023,10 +3023,10 @@
   },
   "factories": {
     "_classWeights": {
-      "LOTRMiniQuestBounty": 4,
       "LOTRMiniQuestKill": 8,
-      "LOTRMiniQuestCollect": 10,
-      "LOTRMiniQuestPickpocket": 6
+      "LOTRMiniQuestBounty": 4,
+      "LOTRMiniQuestPickpocket": 6,
+      "LOTRMiniQuestCollect": 10
     },
     "HOBBIT": {
       "baseName": "hobbit",
@@ -3549,15 +3549,6 @@
       "noAlignRewardForEnemy": false,
       "quests": [
         {
-          "kind": "LOTRMiniQuestBounty",
-          "factory": "QFBounty",
-          "questFactoryGroup": "BREE",
-          "questName": "bounty",
-          "rewardFactor": 1.0,
-          "willHire": false,
-          "hiringAlignment": 0.0
-        },
-        {
           "kind": "LOTRMiniQuestKill",
           "factory": "QFKillEntity",
           "entityType": "lotr.GundabadWarg",
@@ -3626,6 +3617,15 @@
           "questFactoryGroup": "BREE",
           "questName": "killWight",
           "rewardFactor": 3.0,
+          "willHire": false,
+          "hiringAlignment": 0.0
+        },
+        {
+          "kind": "LOTRMiniQuestBounty",
+          "factory": "QFBounty",
+          "questFactoryGroup": "BREE",
+          "questName": "bounty",
+          "rewardFactor": 1.0,
           "willHire": false,
           "hiringAlignment": 0.0
         },
@@ -4496,15 +4496,6 @@
       "noAlignRewardForEnemy": false,
       "quests": [
         {
-          "kind": "LOTRMiniQuestBounty",
-          "factory": "QFBounty",
-          "questFactoryGroup": "RANGER_NORTH",
-          "questName": "bounty",
-          "rewardFactor": 1.0,
-          "willHire": false,
-          "hiringAlignment": 0.0
-        },
-        {
           "kind": "LOTRMiniQuestKill",
           "factory": "QFKillFaction",
           "killFaction": "GUNDABAD",
@@ -4620,6 +4611,15 @@
           "maxTarget": 30,
           "questFactoryGroup": "RANGER_NORTH",
           "questName": "killHillmen",
+          "rewardFactor": 1.0,
+          "willHire": false,
+          "hiringAlignment": 0.0
+        },
+        {
+          "kind": "LOTRMiniQuestBounty",
+          "factory": "QFBounty",
+          "questFactoryGroup": "RANGER_NORTH",
+          "questName": "bounty",
           "rewardFactor": 1.0,
           "willHire": false,
           "hiringAlignment": 0.0
@@ -5198,15 +5198,6 @@
       "noAlignRewardForEnemy": false,
       "quests": [
         {
-          "kind": "LOTRMiniQuestBounty",
-          "factory": "QFBounty",
-          "questFactoryGroup": "BLUE_MOUNTAINS",
-          "questName": "bounty",
-          "rewardFactor": 1.0,
-          "willHire": false,
-          "hiringAlignment": 0.0
-        },
-        {
           "kind": "LOTRMiniQuestKill",
           "factory": "QFKillFaction",
           "killFaction": "GUNDABAD",
@@ -5238,6 +5229,15 @@
           "maxTarget": 30,
           "questFactoryGroup": "BLUE_MOUNTAINS",
           "questName": "killWarg",
+          "rewardFactor": 1.0,
+          "willHire": false,
+          "hiringAlignment": 0.0
+        },
+        {
+          "kind": "LOTRMiniQuestBounty",
+          "factory": "QFBounty",
+          "questFactoryGroup": "BLUE_MOUNTAINS",
+          "questName": "bounty",
           "rewardFactor": 1.0,
           "willHire": false,
           "hiringAlignment": 0.0
@@ -5429,15 +5429,6 @@
       "noAlignRewardForEnemy": false,
       "quests": [
         {
-          "kind": "LOTRMiniQuestBounty",
-          "factory": "QFBounty",
-          "questFactoryGroup": "HIGH_ELF",
-          "questName": "bounty",
-          "rewardFactor": 1.0,
-          "willHire": false,
-          "hiringAlignment": 0.0
-        },
-        {
           "kind": "LOTRMiniQuestKill",
           "factory": "QFKillEntity",
           "entityType": "lotr.GundabadOrc",
@@ -5517,6 +5508,15 @@
           "maxTarget": 30,
           "questFactoryGroup": "HIGH_ELF",
           "questName": "killTroll",
+          "rewardFactor": 1.0,
+          "willHire": false,
+          "hiringAlignment": 0.0
+        },
+        {
+          "kind": "LOTRMiniQuestBounty",
+          "factory": "QFBounty",
+          "questFactoryGroup": "HIGH_ELF",
+          "questName": "bounty",
           "rewardFactor": 1.0,
           "willHire": false,
           "hiringAlignment": 0.0
@@ -6038,15 +6038,6 @@
       "noAlignRewardForEnemy": false,
       "quests": [
         {
-          "kind": "LOTRMiniQuestBounty",
-          "factory": "QFBounty",
-          "questFactoryGroup": "RIVENDELL",
-          "questName": "bounty",
-          "rewardFactor": 1.0,
-          "willHire": false,
-          "hiringAlignment": 0.0
-        },
-        {
           "kind": "LOTRMiniQuestKill",
           "factory": "QFKillEntity",
           "entityType": "lotr.GundabadOrc",
@@ -6126,6 +6117,15 @@
           "maxTarget": 30,
           "questFactoryGroup": "RIVENDELL",
           "questName": "killTroll",
+          "rewardFactor": 1.0,
+          "willHire": false,
+          "hiringAlignment": 0.0
+        },
+        {
+          "kind": "LOTRMiniQuestBounty",
+          "factory": "QFBounty",
+          "questFactoryGroup": "RIVENDELL",
+          "questName": "bounty",
           "rewardFactor": 1.0,
           "willHire": false,
           "hiringAlignment": 0.0
@@ -6647,15 +6647,6 @@
       "noAlignRewardForEnemy": false,
       "quests": [
         {
-          "kind": "LOTRMiniQuestBounty",
-          "factory": "QFBounty",
-          "questFactoryGroup": "GUNDABAD",
-          "questName": "bounty",
-          "rewardFactor": 1.0,
-          "willHire": false,
-          "hiringAlignment": 0.0
-        },
-        {
           "kind": "LOTRMiniQuestKill",
           "factory": "QFKillFaction",
           "killFaction": "HOBBIT",
@@ -6759,6 +6750,15 @@
           "maxTarget": 30,
           "questFactoryGroup": "GUNDABAD",
           "questName": "killDwarf",
+          "rewardFactor": 1.0,
+          "willHire": false,
+          "hiringAlignment": 0.0
+        },
+        {
+          "kind": "LOTRMiniQuestBounty",
+          "factory": "QFBounty",
+          "questFactoryGroup": "GUNDABAD",
+          "questName": "bounty",
           "rewardFactor": 1.0,
           "willHire": false,
           "hiringAlignment": 0.0
@@ -7010,15 +7010,6 @@
       "noAlignRewardForEnemy": false,
       "quests": [
         {
-          "kind": "LOTRMiniQuestBounty",
-          "factory": "QFBounty",
-          "questFactoryGroup": "ANGMAR",
-          "questName": "bounty",
-          "rewardFactor": 1.0,
-          "willHire": false,
-          "hiringAlignment": 0.0
-        },
-        {
           "kind": "LOTRMiniQuestKill",
           "factory": "QFKillFaction",
           "killFaction": "RANGER_NORTH",
@@ -7074,6 +7065,15 @@
           "maxTarget": 30,
           "questFactoryGroup": "ANGMAR",
           "questName": "killElf",
+          "rewardFactor": 1.0,
+          "willHire": false,
+          "hiringAlignment": 0.0
+        },
+        {
+          "kind": "LOTRMiniQuestBounty",
+          "factory": "QFBounty",
+          "questFactoryGroup": "ANGMAR",
+          "questName": "bounty",
           "rewardFactor": 1.0,
           "willHire": false,
           "hiringAlignment": 0.0
@@ -7385,15 +7385,6 @@
       "noAlignRewardForEnemy": false,
       "quests": [
         {
-          "kind": "LOTRMiniQuestBounty",
-          "factory": "QFBounty",
-          "questFactoryGroup": "ANGMAR_HILLMAN",
-          "questName": "bounty",
-          "rewardFactor": 1.0,
-          "willHire": false,
-          "hiringAlignment": 0.0
-        },
-        {
           "kind": "LOTRMiniQuestKill",
           "factory": "QFKillFaction",
           "killFaction": "RANGER_NORTH",
@@ -7425,6 +7416,15 @@
           "maxTarget": 30,
           "questFactoryGroup": "ANGMAR_HILLMAN",
           "questName": "killHighElf",
+          "rewardFactor": 1.0,
+          "willHire": false,
+          "hiringAlignment": 0.0
+        },
+        {
+          "kind": "LOTRMiniQuestBounty",
+          "factory": "QFBounty",
+          "questFactoryGroup": "ANGMAR_HILLMAN",
+          "questName": "bounty",
           "rewardFactor": 1.0,
           "willHire": false,
           "hiringAlignment": 0.0
@@ -7946,15 +7946,6 @@
       "noAlignRewardForEnemy": false,
       "quests": [
         {
-          "kind": "LOTRMiniQuestBounty",
-          "factory": "QFBounty",
-          "questFactoryGroup": "WOOD_ELF",
-          "questName": "bounty",
-          "rewardFactor": 1.0,
-          "willHire": false,
-          "hiringAlignment": 0.0
-        },
-        {
           "kind": "LOTRMiniQuestKill",
           "factory": "QFKillFaction",
           "killFaction": "DOL_GULDUR",
@@ -8022,6 +8013,15 @@
           "maxTarget": 40,
           "questFactoryGroup": "WOOD_ELF",
           "questName": "killSpider",
+          "rewardFactor": 1.0,
+          "willHire": false,
+          "hiringAlignment": 0.0
+        },
+        {
+          "kind": "LOTRMiniQuestBounty",
+          "factory": "QFBounty",
+          "questFactoryGroup": "WOOD_ELF",
+          "questName": "bounty",
           "rewardFactor": 1.0,
           "willHire": false,
           "hiringAlignment": 0.0
@@ -8273,15 +8273,6 @@
       "noAlignRewardForEnemy": false,
       "quests": [
         {
-          "kind": "LOTRMiniQuestBounty",
-          "factory": "QFBounty",
-          "questFactoryGroup": "DOL_GULDUR",
-          "questName": "bounty",
-          "rewardFactor": 1.0,
-          "willHire": false,
-          "hiringAlignment": 0.0
-        },
-        {
           "kind": "LOTRMiniQuestKill",
           "factory": "QFKillFaction",
           "killFaction": "LOTHLORIEN",
@@ -8337,6 +8328,15 @@
           "maxTarget": 30,
           "questFactoryGroup": "DOL_GULDUR",
           "questName": "killElf",
+          "rewardFactor": 1.0,
+          "willHire": false,
+          "hiringAlignment": 0.0
+        },
+        {
+          "kind": "LOTRMiniQuestBounty",
+          "factory": "QFBounty",
+          "questFactoryGroup": "DOL_GULDUR",
+          "questName": "bounty",
           "rewardFactor": 1.0,
           "willHire": false,
           "hiringAlignment": 0.0
@@ -8663,15 +8663,6 @@
       "noAlignRewardForEnemy": false,
       "quests": [
         {
-          "kind": "LOTRMiniQuestBounty",
-          "factory": "QFBounty",
-          "questFactoryGroup": "DALE",
-          "questName": "bounty",
-          "rewardFactor": 1.0,
-          "willHire": false,
-          "hiringAlignment": 0.0
-        },
-        {
           "kind": "LOTRMiniQuestKill",
           "factory": "QFKillFaction",
           "killFaction": "DOL_GULDUR",
@@ -8727,6 +8718,15 @@
           "maxTarget": 30,
           "questFactoryGroup": "DALE",
           "questName": "killWarg",
+          "rewardFactor": 1.0,
+          "willHire": false,
+          "hiringAlignment": 0.0
+        },
+        {
+          "kind": "LOTRMiniQuestBounty",
+          "factory": "QFBounty",
+          "questFactoryGroup": "DALE",
+          "questName": "bounty",
           "rewardFactor": 1.0,
           "willHire": false,
           "hiringAlignment": 0.0
@@ -9338,15 +9338,6 @@
       "noAlignRewardForEnemy": false,
       "quests": [
         {
-          "kind": "LOTRMiniQuestBounty",
-          "factory": "QFBounty",
-          "questFactoryGroup": "DURIN",
-          "questName": "bounty",
-          "rewardFactor": 1.0,
-          "willHire": false,
-          "hiringAlignment": 0.0
-        },
-        {
           "kind": "LOTRMiniQuestKill",
           "factory": "QFKillFaction",
           "killFaction": "GUNDABAD",
@@ -9390,6 +9381,15 @@
           "maxTarget": 30,
           "questFactoryGroup": "DURIN",
           "questName": "killSpider",
+          "rewardFactor": 1.0,
+          "willHire": false,
+          "hiringAlignment": 0.0
+        },
+        {
+          "kind": "LOTRMiniQuestBounty",
+          "factory": "QFBounty",
+          "questFactoryGroup": "DURIN",
+          "questName": "bounty",
           "rewardFactor": 1.0,
           "willHire": false,
           "hiringAlignment": 0.0
@@ -9581,15 +9581,6 @@
       "noAlignRewardForEnemy": false,
       "quests": [
         {
-          "kind": "LOTRMiniQuestBounty",
-          "factory": "QFBounty",
-          "questFactoryGroup": "GALADHRIM",
-          "questName": "bounty",
-          "rewardFactor": 1.0,
-          "willHire": false,
-          "hiringAlignment": 0.0
-        },
-        {
           "kind": "LOTRMiniQuestKill",
           "factory": "QFKillFaction",
           "killFaction": "DOL_GULDUR",
@@ -9645,6 +9636,15 @@
           "maxTarget": 30,
           "questFactoryGroup": "GALADHRIM",
           "questName": "killWarg",
+          "rewardFactor": 1.0,
+          "willHire": false,
+          "hiringAlignment": 0.0
+        },
+        {
+          "kind": "LOTRMiniQuestBounty",
+          "factory": "QFBounty",
+          "questFactoryGroup": "GALADHRIM",
+          "questName": "bounty",
           "rewardFactor": 1.0,
           "willHire": false,
           "hiringAlignment": 0.0
@@ -10061,15 +10061,6 @@
       "noAlignRewardForEnemy": false,
       "quests": [
         {
-          "kind": "LOTRMiniQuestBounty",
-          "factory": "QFBounty",
-          "questFactoryGroup": "DUNLAND",
-          "questName": "bounty",
-          "rewardFactor": 1.0,
-          "willHire": false,
-          "hiringAlignment": 0.0
-        },
-        {
           "kind": "LOTRMiniQuestKill",
           "factory": "QFKillFaction",
           "killFaction": "ROHAN",
@@ -10101,6 +10092,15 @@
           "maxTarget": 20,
           "questFactoryGroup": "DUNLAND",
           "questName": "killHorse",
+          "rewardFactor": 1.0,
+          "willHire": false,
+          "hiringAlignment": 0.0
+        },
+        {
+          "kind": "LOTRMiniQuestBounty",
+          "factory": "QFBounty",
+          "questFactoryGroup": "DUNLAND",
+          "questName": "bounty",
           "rewardFactor": 1.0,
           "willHire": false,
           "hiringAlignment": 0.0
@@ -10412,15 +10412,6 @@
       "noAlignRewardForEnemy": false,
       "quests": [
         {
-          "kind": "LOTRMiniQuestBounty",
-          "factory": "QFBounty",
-          "questFactoryGroup": "ISENGARD",
-          "questName": "bounty",
-          "rewardFactor": 1.0,
-          "willHire": false,
-          "hiringAlignment": 0.0
-        },
-        {
           "kind": "LOTRMiniQuestKill",
           "factory": "QFKillFaction",
           "killFaction": "ROHAN",
@@ -10464,6 +10455,15 @@
           "maxTarget": 30,
           "questFactoryGroup": "ISENGARD",
           "questName": "killMen",
+          "rewardFactor": 1.0,
+          "willHire": false,
+          "hiringAlignment": 0.0
+        },
+        {
+          "kind": "LOTRMiniQuestBounty",
+          "factory": "QFBounty",
+          "questFactoryGroup": "ISENGARD",
+          "questName": "bounty",
           "rewardFactor": 1.0,
           "willHire": false,
           "hiringAlignment": 0.0
@@ -10795,15 +10795,6 @@
       "noAlignRewardForEnemy": false,
       "quests": [
         {
-          "kind": "LOTRMiniQuestBounty",
-          "factory": "QFBounty",
-          "questFactoryGroup": "ROHAN",
-          "questName": "bounty",
-          "rewardFactor": 1.0,
-          "willHire": false,
-          "hiringAlignment": 0.0
-        },
-        {
           "kind": "LOTRMiniQuestKill",
           "factory": "QFKillEntity",
           "entityType": "lotr.IsengardSnaga",
@@ -10859,6 +10850,15 @@
           "maxTarget": 40,
           "questFactoryGroup": "ROHAN",
           "questName": "killDunland",
+          "rewardFactor": 1.0,
+          "willHire": false,
+          "hiringAlignment": 0.0
+        },
+        {
+          "kind": "LOTRMiniQuestBounty",
+          "factory": "QFBounty",
+          "questFactoryGroup": "ROHAN",
+          "questName": "bounty",
           "rewardFactor": 1.0,
           "willHire": false,
           "hiringAlignment": 0.0
@@ -11170,15 +11170,6 @@
       "noAlignRewardForEnemy": false,
       "quests": [
         {
-          "kind": "LOTRMiniQuestBounty",
-          "factory": "QFBounty",
-          "questFactoryGroup": "GONDOR",
-          "questName": "bounty",
-          "rewardFactor": 1.0,
-          "willHire": false,
-          "hiringAlignment": 0.0
-        },
-        {
           "kind": "LOTRMiniQuestKill",
           "factory": "QFKillFaction",
           "killFaction": "MORDOR",
@@ -11258,6 +11249,15 @@
           "maxTarget": 30,
           "questFactoryGroup": "GONDOR",
           "questName": "killHarnennor",
+          "rewardFactor": 1.0,
+          "willHire": false,
+          "hiringAlignment": 0.0
+        },
+        {
+          "kind": "LOTRMiniQuestBounty",
+          "factory": "QFBounty",
+          "questFactoryGroup": "GONDOR",
+          "questName": "bounty",
           "rewardFactor": 1.0,
           "willHire": false,
           "hiringAlignment": 0.0
@@ -11572,15 +11572,6 @@
       "noAlignRewardForEnemy": false,
       "quests": [
         {
-          "kind": "LOTRMiniQuestBounty",
-          "factory": "QFBounty",
-          "questFactoryGroup": "MORDOR",
-          "questName": "bounty",
-          "rewardFactor": 1.0,
-          "willHire": false,
-          "hiringAlignment": 0.0
-        },
-        {
           "kind": "LOTRMiniQuestKill",
           "factory": "QFKillFaction",
           "killFaction": "ROHAN",
@@ -11636,6 +11627,15 @@
           "maxTarget": 30,
           "questFactoryGroup": "MORDOR",
           "questName": "killRanger",
+          "rewardFactor": 1.0,
+          "willHire": false,
+          "hiringAlignment": 0.0
+        },
+        {
+          "kind": "LOTRMiniQuestBounty",
+          "factory": "QFBounty",
+          "questFactoryGroup": "MORDOR",
+          "questName": "bounty",
           "rewardFactor": 1.0,
           "willHire": false,
           "hiringAlignment": 0.0
@@ -11932,15 +11932,6 @@
       "noAlignRewardForEnemy": false,
       "quests": [
         {
-          "kind": "LOTRMiniQuestBounty",
-          "factory": "QFBounty",
-          "questFactoryGroup": "DORWINION",
-          "questName": "bounty",
-          "rewardFactor": 1.0,
-          "willHire": false,
-          "hiringAlignment": 0.0
-        },
-        {
           "kind": "LOTRMiniQuestKill",
           "factory": "QFKillEntity",
           "entityType": "lotr.Rabbit",
@@ -11985,6 +11976,15 @@
           "questFactoryGroup": "DORWINION",
           "questName": "killOddmentCollector",
           "rewardFactor": 15.0,
+          "willHire": false,
+          "hiringAlignment": 0.0
+        },
+        {
+          "kind": "LOTRMiniQuestBounty",
+          "factory": "QFBounty",
+          "questFactoryGroup": "DORWINION",
+          "questName": "bounty",
+          "rewardFactor": 1.0,
           "willHire": false,
           "hiringAlignment": 0.0
         },
@@ -12400,15 +12400,6 @@
       "noAlignRewardForEnemy": false,
       "quests": [
         {
-          "kind": "LOTRMiniQuestBounty",
-          "factory": "QFBounty",
-          "questFactoryGroup": "DORWINION_ELF",
-          "questName": "bounty",
-          "rewardFactor": 1.0,
-          "willHire": false,
-          "hiringAlignment": 0.0
-        },
-        {
           "kind": "LOTRMiniQuestKill",
           "factory": "QFKillEntity",
           "entityType": "lotr.GundabadOrc",
@@ -12452,6 +12443,15 @@
           "maxTarget": 30,
           "questFactoryGroup": "DORWINION_ELF",
           "questName": "killWarg",
+          "rewardFactor": 1.0,
+          "willHire": false,
+          "hiringAlignment": 0.0
+        },
+        {
+          "kind": "LOTRMiniQuestBounty",
+          "factory": "QFBounty",
+          "questFactoryGroup": "DORWINION_ELF",
+          "questName": "bounty",
           "rewardFactor": 1.0,
           "willHire": false,
           "hiringAlignment": 0.0
@@ -12763,15 +12763,6 @@
       "noAlignRewardForEnemy": false,
       "quests": [
         {
-          "kind": "LOTRMiniQuestBounty",
-          "factory": "QFBounty",
-          "questFactoryGroup": "RHUN",
-          "questName": "bounty",
-          "rewardFactor": 1.0,
-          "willHire": false,
-          "hiringAlignment": 0.0
-        },
-        {
           "kind": "LOTRMiniQuestKill",
           "factory": "QFKillEntity",
           "entityType": "lotr.GondorMan",
@@ -12911,6 +12902,15 @@
           "maxTarget": 40,
           "questFactoryGroup": "RHUN",
           "questName": "killDwarves",
+          "rewardFactor": 1.0,
+          "willHire": false,
+          "hiringAlignment": 0.0
+        },
+        {
+          "kind": "LOTRMiniQuestBounty",
+          "factory": "QFBounty",
+          "questFactoryGroup": "RHUN",
+          "questName": "bounty",
           "rewardFactor": 1.0,
           "willHire": false,
           "hiringAlignment": 0.0
@@ -13537,15 +13537,6 @@
       "noAlignRewardForEnemy": false,
       "quests": [
         {
-          "kind": "LOTRMiniQuestBounty",
-          "factory": "QFBounty",
-          "questFactoryGroup": "HARNENNOR",
-          "questName": "bounty",
-          "rewardFactor": 1.0,
-          "willHire": false,
-          "hiringAlignment": 0.0
-        },
-        {
           "kind": "LOTRMiniQuestKill",
           "factory": "QFKillFaction",
           "killFaction": "GONDOR",
@@ -13613,6 +13604,15 @@
           "maxTarget": 30,
           "questFactoryGroup": "HARNENNOR",
           "questName": "killRohirrim",
+          "rewardFactor": 1.0,
+          "willHire": false,
+          "hiringAlignment": 0.0
+        },
+        {
+          "kind": "LOTRMiniQuestBounty",
+          "factory": "QFBounty",
+          "questFactoryGroup": "HARNENNOR",
+          "questName": "bounty",
           "rewardFactor": 1.0,
           "willHire": false,
           "hiringAlignment": 0.0
@@ -14119,15 +14119,6 @@
       "noAlignRewardForEnemy": false,
       "quests": [
         {
-          "kind": "LOTRMiniQuestBounty",
-          "factory": "QFBounty",
-          "questFactoryGroup": "NEAR_HARAD",
-          "questName": "bounty",
-          "rewardFactor": 1.0,
-          "willHire": false,
-          "hiringAlignment": 0.0
-        },
-        {
           "kind": "LOTRMiniQuestKill",
           "factory": "QFKillFaction",
           "killFaction": "GONDOR",
@@ -14195,6 +14186,15 @@
           "maxTarget": 30,
           "questFactoryGroup": "NEAR_HARAD",
           "questName": "killGondorSoldiers",
+          "rewardFactor": 1.0,
+          "willHire": false,
+          "hiringAlignment": 0.0
+        },
+        {
+          "kind": "LOTRMiniQuestBounty",
+          "factory": "QFBounty",
+          "questFactoryGroup": "NEAR_HARAD",
+          "questName": "bounty",
           "rewardFactor": 1.0,
           "willHire": false,
           "hiringAlignment": 0.0
@@ -14746,15 +14746,6 @@
       "noAlignRewardForEnemy": false,
       "quests": [
         {
-          "kind": "LOTRMiniQuestBounty",
-          "factory": "QFBounty",
-          "questFactoryGroup": "UMBAR",
-          "questName": "bounty",
-          "rewardFactor": 1.0,
-          "willHire": false,
-          "hiringAlignment": 0.0
-        },
-        {
           "kind": "LOTRMiniQuestKill",
           "factory": "QFKillFaction",
           "killFaction": "GONDOR",
@@ -14810,6 +14801,15 @@
           "maxTarget": 30,
           "questFactoryGroup": "UMBAR",
           "questName": "killSwanKnights",
+          "rewardFactor": 1.0,
+          "willHire": false,
+          "hiringAlignment": 0.0
+        },
+        {
+          "kind": "LOTRMiniQuestBounty",
+          "factory": "QFBounty",
+          "questFactoryGroup": "UMBAR",
+          "questName": "bounty",
           "rewardFactor": 1.0,
           "willHire": false,
           "hiringAlignment": 0.0
@@ -15436,15 +15436,6 @@
       "noAlignRewardForEnemy": false,
       "quests": [
         {
-          "kind": "LOTRMiniQuestBounty",
-          "factory": "QFBounty",
-          "questFactoryGroup": "CORSAIR",
-          "questName": "bounty",
-          "rewardFactor": 1.0,
-          "willHire": false,
-          "hiringAlignment": 0.0
-        },
-        {
           "kind": "LOTRMiniQuestKill",
           "factory": "QFKillEntity",
           "entityType": "lotr.GondorSoldier",
@@ -15476,6 +15467,15 @@
           "maxTarget": 30,
           "questFactoryGroup": "CORSAIR",
           "questName": "killTaurethrim",
+          "rewardFactor": 1.0,
+          "willHire": false,
+          "hiringAlignment": 0.0
+        },
+        {
+          "kind": "LOTRMiniQuestBounty",
+          "factory": "QFBounty",
+          "questFactoryGroup": "CORSAIR",
+          "questName": "bounty",
           "rewardFactor": 1.0,
           "willHire": false,
           "hiringAlignment": 0.0
@@ -15880,15 +15880,6 @@
       "noAlignRewardForEnemy": false,
       "quests": [
         {
-          "kind": "LOTRMiniQuestBounty",
-          "factory": "QFBounty",
-          "questFactoryGroup": "NOMAD",
-          "questName": "bounty",
-          "rewardFactor": 1.0,
-          "willHire": false,
-          "hiringAlignment": 0.0
-        },
-        {
           "kind": "LOTRMiniQuestKill",
           "factory": "QFKillEntity",
           "entityType": "lotr.DesertScorpion",
@@ -15932,6 +15923,15 @@
           "maxTarget": 20,
           "questFactoryGroup": "NOMAD",
           "questName": "killRangers",
+          "rewardFactor": 1.0,
+          "willHire": false,
+          "hiringAlignment": 0.0
+        },
+        {
+          "kind": "LOTRMiniQuestBounty",
+          "factory": "QFBounty",
+          "questFactoryGroup": "NOMAD",
+          "questName": "bounty",
           "rewardFactor": 1.0,
           "willHire": false,
           "hiringAlignment": 0.0
@@ -16311,15 +16311,6 @@
       "noAlignRewardForEnemy": false,
       "quests": [
         {
-          "kind": "LOTRMiniQuestBounty",
-          "factory": "QFBounty",
-          "questFactoryGroup": "GULF_HARAD",
-          "questName": "bounty",
-          "rewardFactor": 1.0,
-          "willHire": false,
-          "hiringAlignment": 0.0
-        },
-        {
           "kind": "LOTRMiniQuestKill",
           "factory": "QFKillFaction",
           "killFaction": "TAURETHRIM",
@@ -16363,6 +16354,15 @@
           "maxTarget": 40,
           "questFactoryGroup": "GULF_HARAD",
           "questName": "killRangers",
+          "rewardFactor": 1.0,
+          "willHire": false,
+          "hiringAlignment": 0.0
+        },
+        {
+          "kind": "LOTRMiniQuestBounty",
+          "factory": "QFBounty",
+          "questFactoryGroup": "GULF_HARAD",
+          "questName": "bounty",
           "rewardFactor": 1.0,
           "willHire": false,
           "hiringAlignment": 0.0
@@ -16779,15 +16779,6 @@
       "noAlignRewardForEnemy": false,
       "quests": [
         {
-          "kind": "LOTRMiniQuestBounty",
-          "factory": "QFBounty",
-          "questFactoryGroup": "MOREDAIN",
-          "questName": "bounty",
-          "rewardFactor": 1.0,
-          "willHire": false,
-          "hiringAlignment": 0.0
-        },
-        {
           "kind": "LOTRMiniQuestKill",
           "factory": "QFKillFaction",
           "killFaction": "GONDOR",
@@ -16879,6 +16870,15 @@
           "maxTarget": 30,
           "questFactoryGroup": "MOREDAIN",
           "questName": "killTauredainBlowgunner",
+          "rewardFactor": 1.0,
+          "willHire": false,
+          "hiringAlignment": 0.0
+        },
+        {
+          "kind": "LOTRMiniQuestBounty",
+          "factory": "QFBounty",
+          "questFactoryGroup": "MOREDAIN",
+          "questName": "bounty",
           "rewardFactor": 1.0,
           "willHire": false,
           "hiringAlignment": 0.0
@@ -17250,15 +17250,6 @@
       "noAlignRewardForEnemy": false,
       "quests": [
         {
-          "kind": "LOTRMiniQuestBounty",
-          "factory": "QFBounty",
-          "questFactoryGroup": "TAUREDAIN",
-          "questName": "bounty",
-          "rewardFactor": 1.0,
-          "willHire": false,
-          "hiringAlignment": 0.0
-        },
-        {
           "kind": "LOTRMiniQuestKill",
           "factory": "QFKillFaction",
           "killFaction": "MORWAITH",
@@ -17314,6 +17305,15 @@
           "maxTarget": 30,
           "questFactoryGroup": "TAUREDAIN",
           "questName": "killNearHaradWarrior",
+          "rewardFactor": 1.0,
+          "willHire": false,
+          "hiringAlignment": 0.0
+        },
+        {
+          "kind": "LOTRMiniQuestBounty",
+          "factory": "QFBounty",
+          "questFactoryGroup": "TAUREDAIN",
+          "questName": "bounty",
           "rewardFactor": 1.0,
           "willHire": false,
           "hiringAlignment": 0.0
@@ -17670,15 +17670,6 @@
       "noAlignRewardForEnemy": false,
       "quests": [
         {
-          "kind": "LOTRMiniQuestBounty",
-          "factory": "QFBounty",
-          "questFactoryGroup": "HALF_TROLL",
-          "questName": "bounty",
-          "rewardFactor": 1.0,
-          "willHire": false,
-          "hiringAlignment": 0.0
-        },
-        {
           "kind": "LOTRMiniQuestKill",
           "factory": "QFKillFaction",
           "killFaction": "GONDOR",
@@ -17734,6 +17725,15 @@
           "maxTarget": 50,
           "questFactoryGroup": "HALF_TROLL",
           "questName": "killTauredain",
+          "rewardFactor": 1.0,
+          "willHire": false,
+          "hiringAlignment": 0.0
+        },
+        {
+          "kind": "LOTRMiniQuestBounty",
+          "factory": "QFBounty",
+          "questFactoryGroup": "HALF_TROLL",
+          "questName": "bounty",
           "rewardFactor": 1.0,
           "willHire": false,
           "hiringAlignment": 0.0

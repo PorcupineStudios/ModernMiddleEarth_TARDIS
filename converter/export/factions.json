@@ -690,8 +690,8 @@
     "region": "WEST",
     "dimension": "MIDDLE_EARTH",
     "types": [
-      "TYPE_FREE",
-      "TYPE_ELF"
+      "TYPE_ELF",
+      "TYPE_FREE"
     ],
     "ranks": [
       {
@@ -991,8 +991,8 @@
     "region": "WEST",
     "dimension": "MIDDLE_EARTH",
     "types": [
-      "TYPE_TROLL",
-      "TYPE_ORC"
+      "TYPE_ORC",
+      "TYPE_TROLL"
     ],
     "ranks": [
       {
@@ -1130,8 +1130,8 @@
     "region": "WEST",
     "dimension": "MIDDLE_EARTH",
     "types": [
-      "TYPE_FREE",
-      "TYPE_ELF"
+      "TYPE_ELF",
+      "TYPE_FREE"
     ],
     "ranks": [
       {
@@ -1700,8 +1700,8 @@
     "region": "WEST",
     "dimension": "MIDDLE_EARTH",
     "types": [
-      "TYPE_FREE",
-      "TYPE_ELF"
+      "TYPE_ELF",
+      "TYPE_FREE"
     ],
     "ranks": [
       {
@@ -2619,8 +2619,8 @@
     "region": "EAST",
     "dimension": "MIDDLE_EARTH",
     "types": [
-      "TYPE_FREE",
       "TYPE_ELF",
+      "TYPE_FREE",
       "TYPE_MAN"
     ],
     "ranks": [
