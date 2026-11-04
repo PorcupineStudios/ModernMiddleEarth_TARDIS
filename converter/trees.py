@@ -6,10 +6,20 @@ LOTR's tree types as 1.21 tree features built from vanilla trunk and foliage pla
   data/lotr_port/worldgen/configured_feature/trees/<biome>.json the biome's weighted mix (LOTR's weights)
   data/lotr_port/worldgen/placed_feature/trees/<biome>.json     how many per chunk (LOTR's treesPerChunk)
 
-The shapes are stand-ins chosen by name (large, tall, dead, pine-like...); LOTR's hand-made shapes come later.
+Tree types LOTR's generators grew in the exporter (trees.json.gz: up to six shapes each) use those real shapes:
+
+  data/lotr_port/structure/tree/<type>/<n>.nbt                  one shape (logs, leaves, branches, roots)
+  data/lotr_port/worldgen/configured_feature/tree/<type>.json   lotr_port:template_tree picking a shape
+
+Types without exported shapes fall back to vanilla-shaped stand-ins chosen by name (large, tall, dead, pine...).
 """
+import gzip
+import json
 import os
 import re
+from collections import deque
+
+import nbt
 
 from assets import NS, write_json
 
@@ -48,6 +58,18 @@ class Trees:
         self.report = report
         self.block_ids = {b["id"] for b in gen.blocks}
         self.written = set()
+        self.data_root = data_dir
+        path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "export", "trees.json.gz")
+        self.shapes = {}
+        if os.path.exists(path):
+            with gzip.open(path, "rt", encoding="utf-8") as f:
+                export = json.load(f)
+            self.shapes = export.get("trees", {})
+            for err in export.get("errors", [])[:200]:
+                self.report["tree_export_errors"].append(err)
+        else:
+            self.report["trees_not_exported"].append(path)
+        self._states = None
 
     def blocks(self, tree):
         wood = base_wood(tree)
@@ -133,13 +155,108 @@ class Trees:
             "force_dirt": False,
         }}
 
+    # ------------------------------------------------------------------ LOTR's own shapes
+
+    def state_of(self, key):
+        """Old 'id#meta' -> new block state, with the structure converter's mapping (logs' axes, leaves...)."""
+        if self._states is None:
+            from structures import Structures
+            self._states = Structures(self.gen, None, {}, self.data_root, {})
+        return self._states.state(key)
+
+    def template_config(self, tree, shapes):
+        """Writes the shapes as templates; the template_tree feature config, or None if none could be mapped."""
+        name = tree.lower()
+        templates, trunks = [], []
+        for n, shape in enumerate(shapes):
+            states = [self.state_of(k) for k in shape["palette"]]
+            lo = shape["min"]
+            hi = shape["max"]
+            placed = {}
+            for x, y, z, p in shape["blocks"]:
+                st = states[p]
+                if st is None or st["Name"] == "minecraft:air":
+                    if st is None:
+                        self.report["tree_blocks_unmapped"].append(shape["palette"][p])
+                    continue
+                placed[(x, y, z)] = st
+            if not placed:
+                continue
+            self.leaf_distance(placed)
+            palette, index, blocks = [], {}, []
+            for (x, y, z), st in placed.items():
+                key = json.dumps(st, sort_keys=True)
+                if key not in index:
+                    index[key] = len(palette)
+                    palette.append(st)
+                blocks.append({"pos": [x - lo[0], y - lo[1], z - lo[2]], "state": nbt.Int(index[key])})
+            size = [hi[0] - lo[0] + 1, hi[1] - lo[1] + 1, hi[2] - lo[2] + 1]
+            n_out = len(templates)
+            path = os.path.join(self.data_root, NS, "structure", "tree", name, f"{n_out}.nbt")
+            os.makedirs(os.path.dirname(path), exist_ok=True)
+            nbt.write(path, {"DataVersion": nbt.Int(3955), "size": [nbt.Int(v) for v in size],
+                             "palette": palette, "blocks": blocks, "entities": []})
+            templates.append(f"{NS}:tree/{name}/{n_out}")
+            # the tree grew from 0, ground + 1, 0: its soil block is the template's (-min x, ground - min y, -min z)
+            trunks.append([-lo[0], shape.get("ground", 40) - lo[1], -lo[2]])
+        if not templates:
+            return None
+        return {"type": f"{NS}:template_tree", "config": {
+            "templates": templates, "trunk": trunks,
+            "on_sand": any(k in tree for k in ("DESERT", "PALM", "DATE_PALM", "CACTUS"))}}
+
+    @staticmethod
+    def leaf_distance(placed):
+        """Leaves get their real distance to the nearest log (templates are placed without updates, and leaves
+        at distance 7 decay); leaves more than 6 from any log stay persistent so the shape keeps its crown."""
+        def is_leaves(st):
+            return st["Name"].endswith("leaves")
+
+        def is_log(st):
+            n = st["Name"]
+            return not is_leaves(st) and (n.endswith(("_log", "_wood", "_stem", "_hyphae")) or "log" in n
+                                          or "wood" in n)
+        dist = {}
+        todo = deque()
+        for pos, st in placed.items():
+            if is_log(st):
+                dist[pos] = 0
+                todo.append(pos)
+        while todo:
+            x, y, z = todo.popleft()
+            d = dist[(x, y, z)]
+            if d >= 6:
+                continue
+            for dx, dy, dz in ((1, 0, 0), (-1, 0, 0), (0, 1, 0), (0, -1, 0), (0, 0, 1), (0, 0, -1)):
+                q = (x + dx, y + dy, z + dz)
+                if q in placed and q not in dist and is_leaves(placed[q]):
+                    dist[q] = d + 1
+                    todo.append(q)
+        for pos, st in placed.items():
+            if is_leaves(st):
+                props = dict(st.get("Properties", {}))
+                if pos in dist:
+                    props["distance"] = str(dist[pos])
+                    props["persistent"] = "false"
+                else:
+                    props["persistent"] = "true"
+                placed[pos] = {"Name": st["Name"], "Properties": props}
+
     def tree(self, tree):
         name = tree.lower()
         if name not in self.written:  # each tree type is written once, shared by every biome that has it
-            write_json(os.path.join(self.data, "configured_feature", "tree", name + ".json"), self.config(tree))
+            config = None
+            if tree in self.shapes:
+                config = self.template_config(tree, self.shapes[tree])
+            if config is None:
+                self.report["trees_as_stand_ins"].append(tree)
+                config = self.config(tree)
+            write_json(os.path.join(self.data, "configured_feature", "tree", name + ".json"), config)
+            # desert trees stand on sand, where a sapling wouldn't survive; the feature checks their soil itself
+            on_sand = config.get("config", {}).get("on_sand", False)
             write_json(os.path.join(self.data, "placed_feature", "tree", name + ".json"), {
                 "feature": f"{NS}:tree/{name}",
-                "placement": [{"type": "minecraft:block_predicate_filter", "predicate": {
+                "placement": [] if on_sand else [{"type": "minecraft:block_predicate_filter", "predicate": {
                     "type": "minecraft:would_survive", "state": {"Name": "minecraft:oak_sapling",
                                                                   "Properties": {"stage": "0"}}}}],
             })
