@@ -29,7 +29,7 @@ import net.minecraft.world.level.block.state.BlockState;
  */
 public final class ConsoleBlockEntity extends BlockEntity {
     /** A control as the client sees it. */
-    public record Shown(String id, String kind, String action, int panel, float u, float v) {}
+    public record Shown(String id, String kind, String action, String part) {}
 
     private static final Set<ConsoleBlockEntity> CLIENT = Collections.newSetFromMap(new WeakHashMap<>());
 
@@ -159,9 +159,7 @@ public final class ConsoleBlockEntity extends BlockEntity {
             c.putString("id", s.id());
             c.putString("kind", s.kind());
             c.putString("action", s.action());
-            c.putInt("panel", s.panel());
-            c.putFloat("u", s.u());
-            c.putFloat("v", s.v());
+            c.putString("part", s.part());
             list.add(c);
         }
         tag.put("shown", list);
@@ -182,8 +180,8 @@ public final class ConsoleBlockEntity extends BlockEntity {
         shown = new ArrayList<>();
         for (Tag t : tag.getList("shown", Tag.TAG_COMPOUND)) {
             CompoundTag c = (CompoundTag) t;
-            shown.add(new Shown(c.getString("id"), c.getString("kind"), c.getString("action"), c.getInt("panel"),
-                    c.getFloat("u"), c.getFloat("v")));
+            shown.add(new Shown(c.getString("id"), c.getString("kind"), c.getString("action"),
+                    c.getString("part")));
         }
         int[] off = tag.getIntArray("offset");
         dx = off.length == 3 ? off[0] : 0;

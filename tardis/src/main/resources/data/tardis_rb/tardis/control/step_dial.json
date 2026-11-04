@@ -1,12 +1,11 @@
 {
   "kind": "dial",
   "action": "step",
-  "panel": 2,
-  "u": 0.7,
-  "v": 0.35,
+  "panel": 1,
   "requirements": {
     "type": "tardis_rb:subsystem_level",
     "subsystem": "tardis_rb:navigation",
     "min": 1
-  }
+  },
+  "part": "dial_1"
 }

@@ -290,7 +290,7 @@ public final class TardisRecord {
         changed();
     }
 
-    /** Set once, by {@code TardisManager}, when the interior is first built. */
+    /** Set by {@code TardisManager} when the interior is first built, or rebuilt in a fresh plot. */
     void setPlot(int newPlot) {
         plot = newPlot;
         changed();

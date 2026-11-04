@@ -6,7 +6,7 @@ Read when: touching `block/`, `interior/`, `flight/`, `net/ConsoleNet`, `client/
   enter, others → locked. Placeholder textures from a PIL script (Aaron paints the real ones).
 - **Interior**: one void dimension `tardis_rb:interior` (datapack `dimension/` + `dimension_type/`). Plot n at
   x = n x `plot_spacing`; the plot is handed out by `TardisManager.assignPlot` and the room template
-  (`structure/interior/console_room_wreck.nbt`, made by `tardis/tools/rooms.py`) placed once. Blocks find their
+  (since 2026-11-04 `structure/interior/console_room_capaldi.nbt` from `tools/capaldi.py`, corner at `room_offset`; see `docs/console.md`) placed once. Blocks find their
   TARDIS by plot (`Interiors.at`). The **game test server makes only the overworld**, so the interior is checked by
   the dedicated-server world check (`gametest/WorldCheck`, CI step "TARDIS world").
 - **Crash site** `flight/CrashSite`: first `ServerStartedEvent`, an unclaimed record "The Wreck" placed `offset`

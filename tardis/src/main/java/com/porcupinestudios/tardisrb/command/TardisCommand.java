@@ -70,6 +70,16 @@ public final class TardisCommand {
                 .then(Commands.literal("info").executes(TardisCommand::info))
                 .then(Commands.literal("enter").executes(ctx -> Interiors.enter(ctx.getSource().getPlayerOrException(),
                         mine(ctx)) ? 1 : 0))
+                // a fresh plot with the console room and rooms built on the current layout (old interiors)
+                .then(Commands.literal("rebuild_interior").executes(ctx -> {
+                    boolean ok = Interiors.rebuild(ctx.getSource().getServer(), mine(ctx));
+                    if (ok) {
+                        ctx.getSource().sendSuccess(() -> Component.literal("Interior rebuilt"), true);
+                    } else {
+                        ctx.getSource().sendFailure(Component.literal("The interior couldn't be built"));
+                    }
+                    return ok ? 1 : 0;
+                }))
                 .then(Commands.literal("hop").then(Commands.argument("pos", BlockPosArgument.blockPos())
                         .executes(ctx -> {
                             var out = Flight.hop(ctx.getSource().getServer(), mine(ctx),

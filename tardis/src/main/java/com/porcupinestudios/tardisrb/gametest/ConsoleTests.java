@@ -4,7 +4,6 @@ import com.porcupinestudios.tardisrb.TardisRB;
 import com.porcupinestudios.tardisrb.block.ConsoleBlockEntity;
 import com.porcupinestudios.tardisrb.block.TardisBlocks;
 import com.porcupinestudios.tardisrb.console.ConsoleControls;
-import com.porcupinestudios.tardisrb.console.ConsoleLayout;
 import com.porcupinestudios.tardisrb.core.TardisRecord;
 import com.porcupinestudios.tardisrb.repair.Repairs;
 import java.util.List;
@@ -13,7 +12,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.gametest.framework.GameTest;
 import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.gametest.GameTestHolder;
 import net.neoforged.neoforge.gametest.PrefixGameTestTemplate;
 
@@ -50,8 +48,9 @@ public final class ConsoleTests {
             helper.assertTrue(find(shown, id).isPresent(), id + " did not appear after the navigation repair");
         }
         helper.assertTrue(find(shown, "jump_lever").isEmpty(), "the jump lever is there before the core milestone");
-        Vec3 p = ConsoleLayout.point(0, 0.5, 0.5);
-        helper.assertTrue(Math.hypot(p.x - 0.5, p.z - 0.5) > 0.5, "controls sit inside the column: " + p);
+        for (ConsoleBlockEntity.Shown c : shown) {
+            helper.assertTrue(!c.part().isEmpty(), c.id() + " names no part of the console model");
+        }
 
         ConsoleControls.use(server, t, console, find(shown, "step_dial").get(), Optional.empty());
         ConsoleControls.use(server, t, console, find(shown, "x_up").get(), Optional.empty());

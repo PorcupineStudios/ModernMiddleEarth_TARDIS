@@ -53,7 +53,8 @@ public final class WorldCheck {
             problems.add("library not added: " + out.problem().get().getString());
             return;
         }
-        BlockPos shelf = Rooms.corner(Interiors.origin(wreck.plot()), 1).offset(1, 1, 2);
+        // the first room goes at the end of the first hallway, turned to face along it
+        BlockPos shelf = Rooms.placement(Interiors.origin(wreck.plot()), 1, 9).at(1, 1, 2);
         if (!inside.getBlockState(shelf).is(Blocks.BOOKSHELF)) {
             problems.add("no library shelf at " + shelf + ": " + inside.getBlockState(shelf));
         }
@@ -184,7 +185,7 @@ public final class WorldCheck {
                 problems.add("interior not built");
             } else {
                 ServerLevel inside = Interiors.level(server).orElseThrow();
-                BlockPos console = Interiors.origin(wreck.plot()).offset(4, 1, 5);
+                BlockPos console = Interiors.origin(wreck.plot()).offset(TardisContent.tuning().interior().console());
                 if (!inside.getBlockState(console).is(TardisBlocks.CONSOLE.get())) {
                     problems.add("no console at " + console + ": " + inside.getBlockState(console));
                 }
@@ -199,7 +200,7 @@ public final class WorldCheck {
                 if (Interiors.at(inside, station).map(r -> r != wreck).orElse(true)) {
                     problems.add("the repair station doesn't find its TARDIS");
                 }
-                BlockPos hatch = Interiors.origin(wreck.plot()).offset(7, 0, 3);
+                BlockPos hatch = Interiors.origin(wreck.plot()).offset(TardisContent.tuning().interior().hatch());
                 if (!inside.getBlockState(hatch).is(Blocks.LADDER)) {
                     problems.add("no ladder down to the basement at " + hatch + ": " + inside.getBlockState(hatch));
                 }

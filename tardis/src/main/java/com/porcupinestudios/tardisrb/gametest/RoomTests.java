@@ -3,6 +3,7 @@ package com.porcupinestudios.tardisrb.gametest;
 import com.porcupinestudios.tardisrb.TardisRB;
 import com.porcupinestudios.tardisrb.core.TardisManager;
 import com.porcupinestudios.tardisrb.core.TardisRecord;
+import com.porcupinestudios.tardisrb.interior.Interiors;
 import com.porcupinestudios.tardisrb.interior.Rooms;
 import com.porcupinestudios.tardisrb.progression.Repair;
 import com.porcupinestudios.tardisrb.progression.TardisContent;
@@ -15,9 +16,7 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.levelgen.structure.templatesystem.StructurePlaceSettings;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplate;
 import net.neoforged.neoforge.gametest.GameTestHolder;
 import net.neoforged.neoforge.gametest.PrefixGameTestTemplate;
@@ -32,8 +31,9 @@ public final class RoomTests {
     private RoomTests() {}
 
     /**
-     * Phase 4 done-when: a repaired TARDIS can add a second room, and the cap blocks a third. Built 20 blocks above
-     * the test (the interior dimension isn't made by the game test server; the CI world check covers it there).
+     * Phase 4 done-when: a repaired TARDIS can add a second room, and the cap blocks a third. Built 80 blocks above
+     * the test (the interior dimension isn't made by the game test server; the CI world check covers it there). The
+     * room goes at the end of the first hallway, turned along it, with an opening the hallway's size.
      */
     @GameTest(template = "platform")
     public static void aRepairedTardisAddsASecondRoomAndTheCapBlocksAThird(GameTestHelper helper) {
@@ -41,11 +41,10 @@ public final class RoomTests {
         ServerLevel level = helper.getLevel();
         ServerPlayer player = RepairLoopTests.crew(helper, "rooms");
         TardisRecord t = TardisManager.get(server).create(server, "Room test", Optional.of(player.getUUID()));
-        BlockPos origin = helper.absolutePos(new BlockPos(0, 20, 0));
+        BlockPos origin = helper.absolutePos(new BlockPos(0, 80, 0));
         StructureTemplate console = server.getStructureManager().get(TardisContent.tuning().interior().room())
                 .orElseThrow();
-        console.placeInWorld(level, origin, origin, new StructurePlaceSettings(), level.getRandom(),
-                Block.UPDATE_CLIENTS);
+        Interiors.build(level, origin, console);
 
         helper.assertFalse(Rooms.add(level, origin, t, LIBRARY, Optional.of(player)).done(),
                 "added a room before the room systems were repaired");
@@ -61,13 +60,15 @@ public final class RoomTests {
         helper.assertTrue(t.roomCount() == 2, "room count " + t.roomCount());
         helper.assertTrue(player.getInventory().countItem(Items.BOOK) == 0, "the books weren't taken");
 
-        BlockPos corner = Rooms.corner(origin, 1);
-        helper.assertTrue(level.getBlockState(corner.offset(1, 1, 2)).is(Blocks.BOOKSHELF), "no shelves in the library");
-        BlockPos door = TardisContent.tuning().interior().doorway();
-        for (int dz = -1; dz <= 0; dz++) {
-            for (int dy = 0; dy < 2; dy++) {
-                BlockPos p = corner.offset(door.getX(), door.getY() + dy, dz);
-                helper.assertTrue(level.getBlockState(p).isAir(), "doorway blocked at " + p);
+        Rooms.Placement at = Rooms.placement(origin, 1, 9);
+        helper.assertTrue(level.getBlockState(at.at(1, 1, 2)).is(Blocks.BOOKSHELF), "no shelves in the library");
+        for (int x = at.openX(); x < at.openX() + at.width(); x++) {
+            for (int y = 1; y <= at.height(); y++) {
+                BlockPos p = at.at(x, y, 0);
+                helper.assertTrue(level.getBlockState(p).isAir(), "opening blocked at " + p.subtract(origin));
+                // the hallway it opens onto
+                helper.assertTrue(level.getBlockState(p.relative(at.facing().getOpposite())).isAir(),
+                        "hallway blocked at " + p.subtract(origin));
             }
         }
 
@@ -76,10 +77,7 @@ public final class RoomTests {
         helper.assertFalse(third.done(), "a third room got past the cap");
         helper.assertTrue(t.roomCount() == 2, "room count after the blocked room " + t.roomCount());
 
-        int step = TardisContent.tuning().interior().roomStep();
-        for (BlockPos p : BlockPos.betweenClosed(origin, origin.offset(8, 4, step * 2 - 1))) {
-            level.setBlock(p, Blocks.AIR.defaultBlockState(), Block.UPDATE_CLIENTS);
-        }
+        WreckTests.clearInterior(level, origin);
         helper.succeed();
     }
 }

@@ -28,11 +28,12 @@ import net.minecraft.world.phys.Vec3;
  * on the model instead of a flat screen). A control is on the console once its requirements hold. Actions:
  * {@code screen} opens the flight screen (the monitor); {@code x_up}..{@code z_down} move the course by the step size;
  * {@code step} turns the step dial; {@code reset} clears the course; {@code hop} flies a short hop to where the
- * TARDIS stands plus the course; {@code destination} turns the destination dial; {@code jump} jumps there.
+ * TARDIS stands plus the course; {@code destination} turns the destination dial; {@code jump} jumps there;
+ * {@code none} only moves (decoration).
  */
 public final class ConsoleControls {
     public static final List<String> ACTIONS = List.of("screen", "x_up", "x_down", "y_up", "y_down", "z_up", "z_down",
-            "step", "reset", "hop", "destination", "jump");
+            "step", "reset", "hop", "destination", "jump", "none");
 
     private ConsoleControls() {}
 
@@ -48,8 +49,7 @@ public final class ConsoleControls {
         for (Map.Entry<ResourceLocation, Control> e : new TreeMap<>(TardisContent.get().controls()).entrySet()) {
             Control c = e.getValue();
             if (c.requirements().map(r -> r.test(ctx)).orElse(true)) {
-                out.add(new ConsoleBlockEntity.Shown(e.getKey().toString(), c.kind(), c.action(), c.panel(), c.u(),
-                        c.v()));
+                out.add(new ConsoleBlockEntity.Shown(e.getKey().toString(), c.kind(), c.action(), c.part()));
             }
         }
         return out;
@@ -70,9 +70,8 @@ public final class ConsoleControls {
         if (control.isEmpty()) {
             return Optional.empty();
         }
-        Vec3 at = Vec3.atLowerCornerOf(pos).add(ConsoleLayout.point(control.get().panel(), control.get().u(),
-                control.get().v()));
-        if (player.getEyePosition().distanceTo(at) > ConsoleLayout.REACH + 1) {
+        // the controls are within the console's radius of its block
+        if (player.getEyePosition().distanceTo(Vec3.atCenterOf(pos)) > ConsoleLayout.REACH + ConsoleLayout.RADIUS) {
             return Optional.empty();
         }
         return Optional.of(use(player.server, tardis.get(), console, control.get(), Optional.of(player)));

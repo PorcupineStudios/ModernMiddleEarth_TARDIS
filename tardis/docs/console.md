@@ -1,6 +1,20 @@
 # TARDIS: the console model and its controls
 Read when: the console block/renderer, console controls (data `tardis/control/`), clicking controls, the course.
 
+- **2026-11-04: the Capaldi console room** (hand-built in another thread, sources in `tools/capaldi/`,
+  `python3 tardis/tools/capaldi.py` writes everything). Aaron: what looks like full blocks is real blocks (structure
+  `interior/console_room_capaldi`, blocks floor_plate, wall_panel, frame, roundel_wall(_lit), light_strip,
+  grille_plate, frame/floor_plate stairs, frame_slab; glowing ones have a full-bright overlay element via
+  `neoforge_data`), only non-cubes stay models: console + pedestal down to the lower deck, time rotor, arches, all
+  drawn by `ConsoleRenderer` from `assets/tardis_rb/console/capaldi.json` (`client/ConsoleModel`, quads in blocks from
+  the console block's corner; OBJ faces mapped to bbmodel elements in order to get the `ctl_*` groups). Invisible
+  `collision_post` (arch pillars), `collision_pillar` (pedestal) and `console_hull[part]` (8 cells round the console,
+  hexagon apothem 1.12, 19 px tall; `ConsoleHullBlock`) give collision with no outline, so they never block clicks.
+- Controls name their model part (`part`; 12 working ones mapped in `tools/capaldi.py` CONTROL_PARTS, the other 16
+  are `decor_*` with action `none`, shown from navigation 1). Click boxes come from the model file; the server checks
+  reach from the console's centre (`ConsoleLayout.REACH + RADIUS`). Used controls sink, levers/switches lean 35
+  degrees while flipped (odd use count), rotor column bobs, ceiling rings spin. Untried in a client.
+- Old notes (the placeholder console, 2026-11-03):
 - Aaron 2026-11-03: a console like the original mod's, a custom model with buttons, levers and dials that don't follow
   block shapes; controls appear on it only once repaired. The block is just the central column
   (`block/ConsoleBlock`, render shape ENTITYBLOCK_ANIMATED); `client/ConsoleRenderer` draws the plinth, six sloped

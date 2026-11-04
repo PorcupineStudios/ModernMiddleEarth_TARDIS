@@ -2,11 +2,10 @@
   "kind": "button",
   "action": "z_down",
   "panel": 2,
-  "u": 0.3,
-  "v": 0.7,
   "requirements": {
     "type": "tardis_rb:subsystem_level",
     "subsystem": "tardis_rb:navigation",
     "min": 1
-  }
+  },
+  "part": "toggle_4"
 }

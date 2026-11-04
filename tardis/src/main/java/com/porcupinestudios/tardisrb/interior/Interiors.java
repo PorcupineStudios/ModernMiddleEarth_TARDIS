@@ -3,6 +3,7 @@ package com.porcupinestudios.tardisrb.interior;
 import com.porcupinestudios.tardisrb.TardisRB;
 import com.porcupinestudios.tardisrb.block.Exteriors;
 import com.porcupinestudios.tardisrb.core.TardisManager;
+import com.porcupinestudios.tardisrb.door.Doors;
 import com.porcupinestudios.tardisrb.core.TardisRecord;
 import com.porcupinestudios.tardisrb.progression.TardisContent;
 import com.porcupinestudios.tardisrb.progression.Tuning;
@@ -22,9 +23,10 @@ import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemp
 
 /**
  * Interiors: every TARDIS gets a plot in one shared void dimension ({@code tardis_rb:interior}), spaced
- * {@code plot_spacing} blocks apart along x. The first console room is a structure template from the tuning file,
- * placed when the plot is handed out, with the repair basement ({@code basement}) at {@code basement_offset} under
- * it; a ladder in the console room floor leads down to the Repair Station. A block's TARDIS is found from its plot.
+ * {@code plot_spacing} blocks apart along x. The console room (Aaron 2026-11-04: the Capaldi room) is a structure
+ * template from the tuning file, placed when the plot is handed out, with the repair basement ({@code basement}) at
+ * {@code basement_offset} under its lower deck; a ladder in the lower deck's floor ({@code hatch}) leads down to the
+ * Repair Station. A block's TARDIS is found from its plot.
  */
 public final class Interiors {
     public static final ResourceKey<Level> DIMENSION = ResourceKey.create(Registries.DIMENSION, TardisRB.id("interior"));
@@ -71,17 +73,53 @@ public final class Interiors {
             return false;
         }
         int plot = TardisManager.get(server).assignPlot(tardis);
-        BlockPos origin = origin(plot);
-        room.get().placeInWorld(level.get(), origin, origin, new StructurePlaceSettings(), level.get().getRandom(),
-                Block.UPDATE_CLIENTS);
-        Optional<StructureTemplate> basement = level.get().getStructureManager().get(t.basement());
+        build(level.get(), origin(plot), room.get());
+        return true;
+    }
+
+    /**
+     * Builds the console room with its origin at {@code origin} (the floor in front of the console) and the repair
+     * basement under it. Game tests build one anywhere.
+     */
+    public static void build(ServerLevel level, BlockPos origin, StructureTemplate room) {
+        Tuning.Interior t = TardisContent.tuning().interior();
+        BlockPos corner = origin.offset(t.roomOffset());
+        room.placeInWorld(level, corner, corner, new StructurePlaceSettings(), level.getRandom(), Block.UPDATE_CLIENTS);
+        Optional<StructureTemplate> basement = level.getStructureManager().get(t.basement());
         if (basement.isPresent()) {
             BlockPos at = origin.offset(t.basementOffset());
-            basement.get().placeInWorld(level.get(), at, at, new StructurePlaceSettings(), level.get().getRandom(),
+            basement.get().placeInWorld(level, at, at, new StructurePlaceSettings(), level.getRandom(),
                     Block.UPDATE_CLIENTS);
         } else {
             TardisRB.LOG.error("[interior] basement template {} is missing", t.basement());
         }
+    }
+
+    /**
+     * Moves a TARDIS into a fresh plot with a newly built console room and its rooms rebuilt on the current layout
+     * (for interiors made before a layout change). The old plot is left as it is. Players inside are moved along.
+     */
+    public static boolean rebuild(MinecraftServer server, TardisRecord tardis) {
+        Optional<ServerLevel> level = level(server);
+        Optional<StructureTemplate> room = level.flatMap(l -> l.getStructureManager().get(
+                TardisContent.tuning().interior().room()));
+        if (level.isEmpty() || room.isEmpty()) {
+            return false;
+        }
+        Doors.close(server, tardis);
+        int old = tardis.plot();
+        int plot = TardisManager.get(server).newPlot(tardis);
+        build(level.get(), origin(plot), room.get());
+        Rooms.rebuild(level.get(), origin(plot), tardis);
+        if (old >= 0) {
+            for (ServerPlayer p : level.get().players()) {
+                if (plotAt(p.blockPosition()) == old) {
+                    BlockPos at = spawn(tardis);
+                    p.teleportTo(level.get(), at.getX() + 0.5, at.getY(), at.getZ() + 0.5, 180F, 0F);
+                }
+            }
+        }
+        TardisRB.LOG.info("[interior] {} rebuilt in plot {} (was {})", tardis.name(), plot, old);
         return true;
     }
 
@@ -101,7 +139,8 @@ public final class Interiors {
         }
         ServerLevel level = level(player.server).orElseThrow();
         BlockPos at = spawn(tardis);
-        player.teleportTo(level, at.getX() + 0.5, at.getY(), at.getZ() + 0.5, 0F, 0F);
+        // the spawn is just inside the main doors, looking at the console
+        player.teleportTo(level, at.getX() + 0.5, at.getY(), at.getZ() + 0.5, 180F, 0F);
         return true;
     }
 

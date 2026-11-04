@@ -27,13 +27,11 @@ public final class TardisClient {
     }
 
     @SubscribeEvent
-    public static void layers(EntityRenderersEvent.RegisterLayerDefinitions event) {
-        event.registerLayerDefinition(ConsoleRenderer.LAYER, ConsoleRenderer::layer);
-    }
-
-    @SubscribeEvent
     public static void reloads(RegisterClientReloadListenersEvent event) {
-        event.registerReloadListener((ResourceManagerReloadListener) manager -> PoliceBoxModel.reset());
+        event.registerReloadListener((ResourceManagerReloadListener) manager -> {
+            PoliceBoxModel.reset();
+            ConsoleModel.reset();
+        });
     }
 
     @SubscribeEvent

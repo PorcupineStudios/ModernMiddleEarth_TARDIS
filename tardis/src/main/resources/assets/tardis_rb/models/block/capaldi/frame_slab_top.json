@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab_top",
+  "textures": {
+    "bottom": "tardis_rb:block/capaldi/frame",
+    "top": "tardis_rb:block/capaldi/frame",
+    "side": "tardis_rb:block/capaldi/frame"
+  }
+}
