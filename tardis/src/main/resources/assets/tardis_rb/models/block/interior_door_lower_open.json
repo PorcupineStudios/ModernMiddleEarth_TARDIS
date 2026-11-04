@@ -45,7 +45,7 @@
         15
       ],
       "to": [
-        1,
+        2,
         16,
         16
       ],
@@ -61,7 +61,7 @@
     },
     {
       "from": [
-        15,
+        14,
         0,
         15
       ],
@@ -76,6 +76,27 @@
           "cullface": "south"
         },
         "west": {
+          "texture": "#front"
+        }
+      }
+    },
+    {
+      "from": [
+        2,
+        0,
+        15
+      ],
+      "to": [
+        14,
+        2,
+        16
+      ],
+      "faces": {
+        "south": {
+          "texture": "#front",
+          "cullface": "south"
+        },
+        "up": {
           "texture": "#front"
         }
       }

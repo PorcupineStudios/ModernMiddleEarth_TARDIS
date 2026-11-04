@@ -53,7 +53,10 @@ public final class ExteriorRenderer implements BlockEntityRenderer<ExteriorBlock
         pose.mulPose(Axis.YP.rotationDegrees(180 - facing.toYRot()));
         drawAll(model, angle, pose, buffers.getBuffer(RenderType.entityCutoutNoCull(LOOKS[look])), light);
         if (look >= model.glowFromLook) {
-            drawAll(model, angle, pose, buffers.getBuffer(RenderType.eyes(GLOW)), LightTexture.FULL_BRIGHT);
+            // a full-bright cutout layer, not RenderType.eyes: Immersive Portals doesn't clip the eyes shader, so the
+            // glowing lantern showed as a white box in the view through the doorway (Aaron 2026-11-04)
+            drawAll(model, angle, pose, buffers.getBuffer(RenderType.entityCutoutNoCull(GLOW)),
+                    LightTexture.FULL_BRIGHT);
         }
         pose.popPose();
     }

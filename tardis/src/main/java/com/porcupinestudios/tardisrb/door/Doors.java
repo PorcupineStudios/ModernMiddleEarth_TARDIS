@@ -96,7 +96,7 @@ public final class Doors {
     /** The outside opening, in front of the police box's doors. */
     public static Side outside(BlockPos base, Direction facing) {
         Tuning.DoorTuning t = TardisContent.tuning().door();
-        Vec3 c = Vec3.atBottomCenterOf(base).add(0, t.height() / 2 + 0.001, 0)
+        Vec3 c = Vec3.atBottomCenterOf(base).add(0, t.bottom() + t.height() / 2, 0)
                 .add(Vec3.atLowerCornerOf(facing.getNormal()).scale(0.5 + t.offset()));
         return new Side(c, facing);
     }
@@ -105,7 +105,7 @@ public final class Doors {
     public static Side inside(TardisRecord tardis) {
         Tuning.DoorTuning t = TardisContent.tuning().door();
         BlockPos door = interiorDoor(tardis);
-        Vec3 c = Vec3.atBottomCenterOf(door).add(0, t.height() / 2 + 0.001, 0)
+        Vec3 c = Vec3.atBottomCenterOf(door).add(0, t.bottom() + t.height() / 2, 0)
                 .add(Vec3.atLowerCornerOf(t.interiorFacing().getNormal()).scale(0.5 + t.offset()));
         return new Side(c, t.interiorFacing());
     }

@@ -16,7 +16,7 @@ import net.minecraft.world.phys.Vec3;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.neoforge.client.event.InputEvent;
+import net.neoforged.neoforge.client.event.ClientTickEvent;
 import net.neoforged.neoforge.network.PacketDistributor;
 
 /**
@@ -24,6 +24,10 @@ import net.neoforged.neoforge.network.PacketDistributor;
  * would otherwise go through it. The player's view is walked in small steps; if it enters an open police box or
  * interior door block before anything solid, that door is used ({@code DoorNet.Use}). Sneaking, or standing in the
  * doorway yourself, leaves the click alone.
+ *
+ * <p>Immersive Portals takes right-clicks aimed through a portal before NeoForge's click event fires, so the use key
+ * is read at the start of the client tick instead, before the game handles key presses: pending clicks are taken
+ * and the key is let go, so neither the game nor the portal acts on it.
  */
 @EventBusSubscriber(modid = TardisRB.MOD_ID, value = Dist.CLIENT)
 public final class DoorInput {
@@ -32,19 +36,27 @@ public final class DoorInput {
     private DoorInput() {}
 
     @SubscribeEvent
-    public static void onUse(InputEvent.InteractionKeyMappingTriggered event) {
+    public static void onTick(ClientTickEvent.Pre event) {
         Minecraft mc = Minecraft.getInstance();
         LocalPlayer player = mc.player;
-        if (!event.isUseItem() || event.getHand() != InteractionHand.MAIN_HAND || player == null || mc.level == null
-                || player.isShiftKeyDown() || player.isSpectator()) {
+        if (mc.screen != null || player == null || mc.level == null || player.isShiftKeyDown()
+                || player.isSpectator()) {
             return;
         }
         BlockPos door = openDoorInView(mc.level, player);
         if (door == null) {
             return;
         }
-        event.setCanceled(true);
-        event.setSwingHand(true);
+        int clicks = 0;
+        while (mc.options.keyUse.consumeClick()) {
+            clicks++;
+        }
+        if (clicks == 0) {
+            return;
+        }
+        // let go of the key, so holding it doesn't repeat the use through the portal
+        mc.options.keyUse.setDown(false);
+        player.swing(InteractionHand.MAIN_HAND);
         PacketDistributor.sendToServer(new DoorNet.Use(door));
     }
 
