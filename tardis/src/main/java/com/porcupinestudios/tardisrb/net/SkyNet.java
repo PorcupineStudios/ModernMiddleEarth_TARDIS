@@ -33,7 +33,7 @@ public final class SkyNet {
     }
 
     private static void payloads(RegisterPayloadHandlersEvent event) {
-        var r = event.registrar("3");
+        var r = event.registrar("4");
         r.playToClient(Planets.TYPE, Planets.CODEC, (p, ctx) -> ctx.enqueueWork(() -> clientHandler.accept(p)));
         r.playToClient(PlanetMap.TYPE, PlanetMap.CODEC, (p, ctx) -> ctx.enqueueWork(() -> clientMapHandler.accept(p)));
         r.playToClient(GravityDir.TYPE, GravityDir.CODEC, (p, ctx) -> ctx.enqueueWork(
@@ -43,7 +43,9 @@ public final class SkyNet {
     /** Every planet, then every finished globe map. */
     public static void sendPlanets(ServerPlayer player) {
         List<Planet> all = com.porcupinestudios.tardisrb.space.Planets.all(player.server);
-        PacketDistributor.sendToPlayer(player, new Planets(all, TardisContent.tuning().space()));
+        List<SystemData> systems = com.porcupinestudios.tardisrb.space.Systems.all(player.server).stream()
+                .map(st -> new SystemData(st.id(), TardisContent.get().systems().get(st.id()))).toList();
+        PacketDistributor.sendToPlayer(player, new Planets(all, systems, TardisContent.tuning().space()));
         for (Planet p : all) {
             PlanetMaps.map(p.id()).ifPresent(m -> sendMap(player, m));
         }
@@ -56,11 +58,23 @@ public final class SkyNet {
     static final StreamCodec<ByteBuf, Planet> PLANET = StreamCodec.composite(ResourceLocation.STREAM_CODEC,
             Planet::id, ByteBufCodecs.fromCodec(SkyLink.CODEC), Planet::link, Planet::new);
 
-    /** Every planet, and the space tuning the client needs to move its player the same way the server would. */
-    public record Planets(List<Planet> planets, Tuning.SpaceTuning tuning) implements CustomPacketPayload {
+    /** A solar system file as the server resolved it (the client finds the bodies among the planets). */
+    public record SystemData(ResourceLocation id, com.porcupinestudios.tardisrb.progression.SystemFile file) {
+        static final StreamCodec<ByteBuf, SystemData> CODEC = StreamCodec.composite(ResourceLocation.STREAM_CODEC,
+                SystemData::id, ByteBufCodecs.fromCodec(com.porcupinestudios.tardisrb.progression.SystemFile.CODEC),
+                SystemData::file, SystemData::new);
+    }
+
+    /**
+     * Every planet and solar system, and the space tuning the client needs to move its player the same way the server
+     * would.
+     */
+    public record Planets(List<Planet> planets, List<SystemData> systems, Tuning.SpaceTuning tuning)
+            implements CustomPacketPayload {
         public static final Type<Planets> TYPE = new Type<>(TardisRB.id("planets"));
         static final StreamCodec<ByteBuf, Planets> CODEC = StreamCodec.composite(PLANET.apply(ByteBufCodecs.list()),
-                Planets::planets, ByteBufCodecs.fromCodec(Tuning.SpaceTuning.CODEC), Planets::tuning, Planets::new);
+                Planets::planets, SystemData.CODEC.apply(ByteBufCodecs.list()), Planets::systems,
+                ByteBufCodecs.fromCodec(Tuning.SpaceTuning.CODEC), Planets::tuning, Planets::new);
 
         @Override
         public Type<? extends CustomPacketPayload> type() {

@@ -42,5 +42,6 @@ shared API's `PlanetProvider`.
 - Tests: `SpaceTests` (layer round trip, altitude, wrap + pole fold, seam pieces), world check (up, down, east edge
   wrap, seam portals at the edge leading to the west edge). **Not tried in a game client**: the globe drawing, fog,
   haze, the look of the seams, IP teleport smoothness.
-- Next: inter-planet travel (TARDIS / leaving the layer top), atmosphere rim, a sharper local map patch when low,
+- Leaving the layer top into the solar system: `docs/solar-system.md`.
+- Next: atmosphere rim, a sharper local map patch when low,
   terrain relief on the globe.

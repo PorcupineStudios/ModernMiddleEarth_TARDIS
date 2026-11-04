@@ -1,6 +1,7 @@
 package com.porcupinestudios.tardisrb.space;
 
 import com.porcupinestudios.tardisrb.TardisRB;
+import com.porcupinestudios.tardisrb.gravity.gc.api.GravityChangerAPI;
 import com.porcupinestudios.tardisrb.net.SkyNet;
 import com.porcupinestudios.tardisrb.progression.TardisContent;
 import com.porcupinestudios.tardisrb.progression.Tuning;
@@ -40,6 +41,8 @@ public final class SpaceTravel {
     public static final ResourceLocation GRAVITY_ID = TardisRB.id("space_gravity");
     /** How far inside the boundary you come out, so you don't bounce straight back. */
     private static final double ARRIVE_INSIDE = 3;
+    /** How long the view takes to turn when down changes between the planets (ms). */
+    private static final int TURN_MS = 1000;
     /** How far past an edge something must be before the server wraps it (a seam portal usually does it first). */
     private static final double WRAP_SLACK = 1.5;
 
@@ -60,8 +63,11 @@ public final class SpaceTravel {
         PlanetMaps.register();
     }
 
+    /** Whether a level is space (a planet's orbit layers or a solar system): vanilla gravity is off there. */
     public static boolean isSpace(net.minecraft.world.level.Level level) {
-        return level.getServer() != null && Planets.isSpace(level.getServer(), level.dimension());
+        MinecraftServer server = level.getServer();
+        return server != null && (Planets.isSpace(server, level.dimension())
+                || Systems.isSystem(server, level.dimension()));
     }
 
     /** Whether this entity is moved by the sky (not portals, riders or vehicles with riders). */
@@ -103,6 +109,7 @@ public final class SpaceTravel {
             up.forEach(e -> toSpace(e, planet, space));
             off.forEach(e -> wrapOnSurface(e, planet));
         }
+        tickSystems(server, tuning, all);
         for (ServerLevel space : spaceLevels(server, planets)) {
             List<Entity> down = new ArrayList<>();
             for (Entity e : all ? space.getAllEntities() : List.<Entity>copyOf(space.players())) {
@@ -126,10 +133,120 @@ public final class SpaceTravel {
                     if (world != null) {
                         toSurface(e, planet, world, tuning);
                     }
+                } else if (e.getY() > planet.link().orbit().top()) {
+                    Optional<StarSystem> system = Systems.ofPlanet(server, planet.id());
+                    ServerLevel sys = system.map(st -> server.getLevel(st.dimension())).orElse(null);
+                    if (sys != null) {
+                        toSystem(e, planet, system.get().body(planet.id()), sys, tuning);
+                    }
                 } else if (!planet.overLayer(e.getX(), e.getZ(), WRAP_SLACK)) {
                     wrapInSpace(e, planet);
                 }
             }
+        }
+    }
+
+    /** Between the planets: into a ball's layer, burnt by the sun, down turning towards the strongest pull. */
+    private static void tickSystems(MinecraftServer server, Tuning.SpaceTuning tuning, boolean all) {
+        List<StarSystem> systems = Systems.all(server);
+        List<ServerLevel> levels = new ArrayList<>();
+        for (StarSystem st : systems) {
+            ServerLevel l = server.getLevel(st.dimension());
+            if (l != null && !levels.contains(l)) {
+                levels.add(l);
+            }
+        }
+        for (ServerLevel level : levels) {
+            List<Entity> here = new ArrayList<>();
+            for (Entity e : all ? level.getAllEntities() : List.<Entity>copyOf(level.players())) {
+                if (all && e instanceof LivingEntity living) {
+                    setGravity(living, true);
+                }
+                if (travels(e)) {
+                    here.add(e);
+                }
+            }
+            for (Entity e : here) {
+                Vec3 pos = e.position();
+                StarSystem st = Systems.near(systems, level.dimension(), pos).orElse(null);
+                if (st == null) {
+                    continue;
+                }
+                StarSystem.Body body = st.entered(pos);
+                if (body != null) {
+                    ServerLevel space = server.getLevel(body.planet().link().space());
+                    if (space != null) {
+                        toLayer(e, body, space);
+                    }
+                } else if (st.inSun(pos)) {
+                    burn(e, st);
+                } else if (all && Orbits.moves(e) && !e.onGround()) {
+                    net.minecraft.core.Direction down = st.down(pos, tuning);
+                    if (down != com.porcupinestudios.tardisrb.gravity.GravityDirection.of(e)) {
+                        com.porcupinestudios.tardisrb.gravity.GravityDirection.set(e, down, TURN_MS);
+                    }
+                }
+                keepInside(e, level);
+            }
+        }
+    }
+
+    /** Out of the top of a planet's layer: beside its ball in the solar system, moving the same way. */
+    public static Entity toSystem(Entity e, Planet planet, StarSystem.Body body, ServerLevel system,
+            Tuning.SpaceTuning tuning) {
+        double sx = planet.surfaceX(e.getX());
+        double sz = Math.max(planet.minZ(), Math.min(Math.nextDown(planet.minZ() + planet.height()),
+                planet.surfaceZ(e.getZ())));
+        Vec3 to = body.fromLayer(sx, sz);
+        Vec3 velocity = body.velocityFromLayer(sx, sz, GravityChangerAPI.getWorldVelocity(e));
+        system.getChunk(BlockPos.containing(to));
+        Entity moved = move(e, system, to, 0);
+        StarSystem st = Systems.ofPlanet(system.getServer(), planet.id()).orElse(null);
+        net.minecraft.core.Direction down = st == null ? net.minecraft.core.Direction.DOWN : st.down(to, tuning);
+        return arrive(moved, down, velocity);
+    }
+
+    /** Into a ball: back at the top of its planet's layer over the spot below you, down being down again. */
+    public static Entity toLayer(Entity e, StarSystem.Body body, ServerLevel space) {
+        Planet planet = body.planet();
+        double[] spot = body.surfaceUnder(e.position());
+        Vec3 velocity = body.velocityToLayer(spot[0], spot[1], GravityChangerAPI.getWorldVelocity(e));
+        Vec3 to = new Vec3(planet.spaceX(spot[0]), planet.link().orbit().top() - ARRIVE_INSIDE,
+                planet.spaceZ(spot[1]));
+        space.getChunk(BlockPos.containing(to));
+        return arrive(move(e, space, to, 0), net.minecraft.core.Direction.DOWN, velocity);
+    }
+
+    /** Sets gravity at once (no view turn) and the world velocity, and tells a player's client the speed. */
+    private static Entity arrive(Entity e, net.minecraft.core.Direction down, Vec3 worldVelocity) {
+        com.porcupinestudios.tardisrb.gravity.GravityDirection.set(e, down, 0);
+        GravityChangerAPI.setWorldVelocity(e, worldVelocity);
+        e.hurtMarked = true;
+        return e;
+    }
+
+    /** Inside the sun: set alight, hurt, and thrown back out. */
+    private static void burn(Entity e, StarSystem st) {
+        Vec3 out = e.position().subtract(st.sunCenter());
+        out = out.lengthSqr() < 1e-6 ? new Vec3(0, 1, 0) : out.normalize();
+        e.igniteForSeconds(8);
+        if (st.sun().burn() > 0) {
+            e.hurt(e.damageSources().inFire(), st.sun().burn());
+        }
+        GravityChangerAPI.setWorldVelocity(e, out.scale(1.5));
+        e.hurtMarked = true;
+    }
+
+    /** The system dimension has a floor and a roof (build height): stop there instead of falling out. */
+    private static void keepInside(Entity e, ServerLevel level) {
+        double low = level.getMinBuildHeight() + 8;
+        double high = level.getMaxBuildHeight() - 8;
+        if (e.getY() < low || e.getY() > high) {
+            Vec3 w = GravityChangerAPI.getWorldVelocity(e);
+            double y = Math.max(low, Math.min(high, e.getY()));
+            e.teleportTo(e.getX(), y, e.getZ());
+            GravityChangerAPI.setWorldVelocity(e, new Vec3(w.x, 0, w.z));
+            e.hurtMarked = true;
         }
     }
 

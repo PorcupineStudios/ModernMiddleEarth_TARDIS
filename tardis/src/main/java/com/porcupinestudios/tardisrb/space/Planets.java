@@ -20,13 +20,16 @@ import net.minecraft.world.level.Level;
 public final class Planets {
     private static Object builtFrom;
     private static MinecraftServer builtFor;
+    /** How many levels the server had: levels are made one by one at start, so look again once they all exist. */
+    private static int builtLevels;
     private static List<Planet> planets = List.of();
 
     private Planets() {}
 
     public static synchronized List<Planet> all(MinecraftServer server) {
         Object content = TardisContent.get();
-        if (content != builtFrom || server != builtFor) {
+        int levels = server.levelKeys().size();
+        if (content != builtFrom || server != builtFor || levels != builtLevels) {
             List<Planet> list = new ArrayList<>();
             for (Map.Entry<ResourceLocation, SkyLink> e : TardisContent.get().skies().entrySet()) {
                 SkyLink link = e.getValue();
@@ -42,6 +45,7 @@ public final class Planets {
             planets = List.copyOf(list);
             builtFrom = content;
             builtFor = server;
+            builtLevels = levels;
         }
         return planets;
     }
