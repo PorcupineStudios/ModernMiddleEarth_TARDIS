@@ -43,7 +43,8 @@ public final class ExteriorRenderer implements BlockEntityRenderer<ExteriorBlock
         }
         PoliceBoxModel model = PoliceBoxModel.get();
         int look = Math.max(0, Math.min(LOOKS.length - 1, state.getValue(ExteriorBlock.LOOK)));
-        float open = doorProgress(be, state.getValue(ExteriorBlock.OPEN), partialTick, model.swingTicks);
+        float open = doorProgress(be,
+                state.getValue(ExteriorBlock.OPEN) && !state.getValue(ExteriorBlock.CLOSING), partialTick, model.swingTicks);
         // ease in and out
         float angle = model.swingDegrees * open * open * (3 - 2 * open);
         Direction facing = state.getValue(ExteriorBlock.FACING);

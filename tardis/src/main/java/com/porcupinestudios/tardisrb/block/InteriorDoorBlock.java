@@ -56,12 +56,9 @@ public final class InteriorDoorBlock extends Block {
         if (player instanceof ServerPlayer sp && level instanceof ServerLevel sl) {
             var tardis = Interiors.at(sl, pos);
             if (tardis.isPresent() && !sp.isShiftKeyDown() && tardis.get().isCrew(sp.getUUID())) {
-                boolean wasOpen = Doors.isOpen(tardis.get());
+                boolean closing = Doors.isOpen(tardis.get()) && !Doors.isClosing(tardis.get());
                 if (Doors.toggle(sl.getServer(), tardis.get())) {
-                    sp.displayClientMessage(wasOpen
-                            ? Component.translatableWithFallback("tardis_rb.door.closed", "The doors close")
-                            : Component.translatableWithFallback("tardis_rb.door.opened", "The doors swing open"),
-                            true);
+                    sp.displayClientMessage(Doors.message(closing), true);
                     return InteractionResult.CONSUME;
                 }
             }
