@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:far_harad_savannah/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:baobab_sapling"
+    },
+    "title": {
+      "translate": "lotr.achievement.growBaobab.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.growBaobab.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

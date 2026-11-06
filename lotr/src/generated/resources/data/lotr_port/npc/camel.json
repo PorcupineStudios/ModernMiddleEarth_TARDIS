@@ -1,0 +1,26 @@
+{
+  "model": "lotr_port:camel",
+  "width": 1.4,
+  "height": 1.6,
+  "behaviours": [
+    "animal"
+  ],
+  "lotr_classes": [
+    "LOTREntityCamel",
+    "LOTREntityHorse",
+    "EntityHorse",
+    "EntityAnimal",
+    "EntityAgeable",
+    "EntityCreature",
+    "EntityLiving",
+    "EntityLivingBase"
+  ],
+  "behaviour_data": {
+    "fights_back": 0,
+    "panic_speed": 1.25,
+    "state.renderer": 0
+  },
+  "health": 20.0,
+  "speed": 0.22499999403953552,
+  "attack": 2.0
+}

@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:shire/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:chalk"
+    },
+    "title": {
+      "translate": "lotr.achievement.enterWhiteDowns.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.enterWhiteDowns.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

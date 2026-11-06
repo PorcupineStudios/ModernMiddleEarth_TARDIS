@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:rhun/root",
+  "display": {
+    "icon": {
+      "id": "minecraft:boat"
+    },
+    "title": {
+      "translate": "lotr.achievement.enterRhunIsland.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.enterRhunIsland.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

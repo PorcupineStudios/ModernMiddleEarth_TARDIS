@@ -1,0 +1,10 @@
+{
+  "faction": "lotr_port:gondor",
+  "mobs": [
+    "lotr_port:gondor_levyman",
+    "lotr_port:pinnath_gelin_soldier",
+    "lotr_port:pinnath_gelin_banner_bearer"
+  ],
+  "icon": "lotr_port:gondorian_sword",
+  "lang": "lotr.invasion.GONDOR_PINNATH_GELIN"
+}

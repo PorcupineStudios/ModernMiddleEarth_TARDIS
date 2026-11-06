@@ -1,0 +1,31 @@
+{
+  "entries": [
+    {
+      "npc": "lotr_port:deer",
+      "weight": 10,
+      "min": 4,
+      "max": 4
+    },
+    {
+      "npc": "lotr_port:aurochs",
+      "weight": 6,
+      "min": 4,
+      "max": 4
+    },
+    {
+      "npc": "lotr_port:bear",
+      "weight": 4,
+      "min": 1,
+      "max": 4
+    },
+    {
+      "npc": "lotr_port:bear",
+      "weight": 10,
+      "min": 1,
+      "max": 4
+    }
+  ],
+  "cap": 4,
+  "chance": 0.1,
+  "interval": 400
+}

@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "lotr_port:bronze_crossbow",
+    "lotr_port:iron_crossbow",
+    "lotr_port:mithril_crossbow",
+    "lotr_port:uruk_crossbow"
+  ]
+}

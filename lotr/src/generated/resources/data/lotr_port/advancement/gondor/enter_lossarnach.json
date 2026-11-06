@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:gondor/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:apple_sapling"
+    },
+    "title": {
+      "translate": "lotr.achievement.enterLossarnach.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.enterLossarnach.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

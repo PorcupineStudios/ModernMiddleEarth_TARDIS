@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:rohan/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:fur"
+    },
+    "title": {
+      "translate": "lotr.achievement.hireWargBombardier.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.hireWargBombardier.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

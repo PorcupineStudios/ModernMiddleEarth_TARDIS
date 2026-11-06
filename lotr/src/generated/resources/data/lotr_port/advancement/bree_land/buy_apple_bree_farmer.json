@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:bree_land/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:apple"
+    },
+    "title": {
+      "translate": "lotr.achievement.buyAppleBreeFarmer.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.buyAppleBreeFarmer.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "faction": "lotr_port:angmar",
+  "mobs": [
+    "lotr_port:angmar_orc",
+    "lotr_port:angmar_orc_archer",
+    "lotr_port:angmar_orc_bombardier",
+    "lotr_port:angmar_banner_bearer",
+    "lotr_port:angmar_warg",
+    "lotr_port:angmar_warg_bombardier"
+  ],
+  "icon": "lotr_port:angmar_sword",
+  "lang": "lotr.invasion.ANGMAR"
+}

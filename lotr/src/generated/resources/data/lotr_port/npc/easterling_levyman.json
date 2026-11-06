@@ -15,11 +15,11 @@
     "mainhand": [
       "lotr_port:bronze_dagger",
       "lotr_port:bronze_spear",
-      "lotr_port:iron_spear",
+      "lotr_port:iron_dagger",
       "lotr_port:poisoned_rh_nic_dagger",
-      "lotr_port:rh_nic_battleaxe",
       "lotr_port:rh_nic_dagger",
-      "minecraft:iron_sword"
+      "lotr_port:rh_nic_spear",
+      "lotr_port:rh_nic_sword"
     ],
     "chest": [
       "lotr_port:bronze_chestplate",

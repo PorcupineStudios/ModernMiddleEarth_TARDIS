@@ -37,7 +37,10 @@
   "speed": 0.2,
   "attack": 2.0,
   "gear": {
-    "mainhand": "minecraft:iron_sword",
+    "mainhand": [
+      "lotr_port:iron_pike",
+      "minecraft:iron_sword"
+    ],
     "head": "lotr_port:leather_hat",
     "chest": [
       "minecraft:chainmail_chestplate",

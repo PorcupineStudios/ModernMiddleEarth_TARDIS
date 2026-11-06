@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:iron_hills/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:dwarven_steel_ingot"
+    },
+    "title": {
+      "translate": "lotr.achievement.smeltDwarfSteel.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.smeltDwarfSteel.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

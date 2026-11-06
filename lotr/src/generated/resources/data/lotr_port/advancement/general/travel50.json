@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:general/root",
+  "display": {
+    "icon": {
+      "id": "minecraft:map"
+    },
+    "title": {
+      "translate": "lotr.achievement.travel50.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.travel50.desc"
+    },
+    "frame": "challenge"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

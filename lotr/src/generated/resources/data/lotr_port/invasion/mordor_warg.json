@@ -1,0 +1,8 @@
+{
+  "faction": "lotr_port:mordor",
+  "mobs": [
+    "lotr_port:mordor_warg"
+  ],
+  "icon": "lotr_port:warg_bone",
+  "lang": "lotr.invasion.MORDOR_WARG"
+}

@@ -35,7 +35,6 @@
     "legs": "lotr_port:lindon_leggings",
     "feet": "lotr_port:lindon_boots"
   },
-  "names": "lotr_port:gondor_male",
   "units": "lotr_port:high_elf_lord",
   "speech": "lotr_port:high_elf/lord",
   "quests": "lotr_port:high_elf"

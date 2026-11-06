@@ -42,5 +42,6 @@
   "names": "lotr_port:bree_male",
   "buy": "lotr_port:bree_mason_buy",
   "sell": "lotr_port:bree_mason_sell",
-  "speech": "lotr_port:bree/hobbit"
+  "speech": "lotr_port:bree/hobbit",
+  "quests": "lotr_port:bree"
 }

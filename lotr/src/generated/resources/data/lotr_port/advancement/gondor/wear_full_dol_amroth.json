@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:gondor/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:dol_amroth_chestplate"
+    },
+    "title": {
+      "translate": "lotr.achievement.wearFullDolAmroth.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.wearFullDolAmroth.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

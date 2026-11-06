@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:near_harad/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:harnennor_chestplate"
+    },
+    "title": {
+      "translate": "lotr.achievement.wearFullHarnedor.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.wearFullHarnedor.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:utumno/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:burning_utumno_brick"
+    },
+    "title": {
+      "translate": "lotr.achievement.enterUtumnoFire.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.enterUtumnoFire.desc"
+    },
+    "frame": "challenge"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:blue_mountains/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:luigon"
+    },
+    "title": {
+      "translate": "lotr.achievement.enterBlueMountains.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.enterBlueMountains.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

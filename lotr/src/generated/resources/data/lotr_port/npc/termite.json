@@ -1,0 +1,19 @@
+{
+  "model": "lotr_port:termite",
+  "width": 0.4,
+  "height": 0.4,
+  "behaviours": [],
+  "lotr_classes": [
+    "LOTREntityTermite",
+    "EntityMob",
+    "EntityCreature",
+    "EntityLiving",
+    "EntityLivingBase"
+  ],
+  "behaviour_data": {
+    "state.renderer": 0
+  },
+  "health": 8.0,
+  "speed": 0.3,
+  "attack": 2.0
+}

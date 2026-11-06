@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:far_harad_jungle/root",
+  "display": {
+    "icon": {
+      "id": "minecraft:bone"
+    },
+    "title": {
+      "translate": "lotr.achievement.killTauredain.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.killTauredain.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

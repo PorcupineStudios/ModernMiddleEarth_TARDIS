@@ -1,0 +1,9 @@
+{
+  "faction": "lotr_port:lothlorien",
+  "mobs": [
+    "lotr_port:galadhrim_warrior",
+    "lotr_port:galadhrim_banner_bearer"
+  ],
+  "icon": "lotr_port:galadhrim_sword",
+  "lang": "lotr.invasion.GALADHRIM"
+}

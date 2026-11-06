@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:shire/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:four_leaf_clover"
+    },
+    "title": {
+      "translate": "lotr.achievement.findFourLeafClover.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.findFourLeafClover.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

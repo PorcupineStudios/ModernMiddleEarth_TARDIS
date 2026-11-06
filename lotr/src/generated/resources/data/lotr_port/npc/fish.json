@@ -1,0 +1,19 @@
+{
+  "model": "lotr_port:fish",
+  "width": 0.5,
+  "height": 0.5,
+  "behaviours": [],
+  "lotr_classes": [
+    "LOTREntityFish",
+    "EntityWaterMob",
+    "EntityCreature",
+    "EntityLiving",
+    "EntityLivingBase"
+  ],
+  "behaviour_data": {
+    "state.renderer": 0
+  },
+  "health": 4.0,
+  "speed": 0.05459217633515445,
+  "attack": 2.0
+}

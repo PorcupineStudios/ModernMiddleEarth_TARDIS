@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:near_harad/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:black_n_men_rean_chestplate"
+    },
+    "title": {
+      "translate": "lotr.achievement.wearFullBlackNumenorean.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.wearFullBlackNumenorean.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

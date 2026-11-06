@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:general/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:athelas_brew"
+    },
+    "title": {
+      "translate": "lotr.achievement.drinkAthelasBrew.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.drinkAthelasBrew.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

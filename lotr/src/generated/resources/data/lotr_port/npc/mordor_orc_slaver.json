@@ -23,8 +23,9 @@
   "gear": {
     "mainhand": [
       "lotr_port:mordor_battleaxe",
+      "lotr_port:mordor_pickaxe",
       "lotr_port:mordor_scimitar",
-      "lotr_port:mordor_warhammer",
+      "lotr_port:mordor_spear",
       "lotr_port:mordor_warscythe",
       "lotr_port:poisoned_mordor_dagger"
     ],
@@ -34,6 +35,5 @@
   },
   "names": "lotr_port:orc",
   "units": "lotr_port:mordor_orc_slaver",
-  "speech": "lotr_port:mordor/slaver",
-  "quests": "lotr_port:mordor"
+  "speech": "lotr_port:mordor/slaver"
 }

@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:near_harad/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:haradric_crafting_table"
+    },
+    "title": {
+      "translate": "lotr.achievement.useNearHaradTable.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.useNearHaradTable.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

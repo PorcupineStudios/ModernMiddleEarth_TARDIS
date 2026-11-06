@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:rhun/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:silver_coin"
+    },
+    "title": {
+      "translate": "lotr.achievement.tradeRhunCaptain.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.tradeRhunCaptain.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

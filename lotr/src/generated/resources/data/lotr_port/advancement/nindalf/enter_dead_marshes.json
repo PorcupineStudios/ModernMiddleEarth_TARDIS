@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:nindalf/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:dead_marsh_plant"
+    },
+    "title": {
+      "translate": "lotr.achievement.enterDeadMarshes.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.enterDeadMarshes.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

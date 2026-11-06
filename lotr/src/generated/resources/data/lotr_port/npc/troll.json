@@ -23,7 +23,7 @@
     "tickle_alignment": 100,
     "scale": 1.0,
     "sun_immune": 0,
-    "state.renderer": 5
+    "state.renderer": 3
   },
   "sounds": {
     "ambient": "lotr_port:troll.say",
@@ -32,6 +32,6 @@
   "health": 60.0,
   "speed": 0.2,
   "attack": 5.0,
-  "names": "lotr_port:bree_male",
+  "names": "lotr_port:troll",
   "speech": "lotr_port:angmar/orc"
 }

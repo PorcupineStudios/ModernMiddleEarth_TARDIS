@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:utumno/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:key_of_ice"
+    },
+    "title": {
+      "translate": "lotr.achievement.craftUtumnoKey.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.craftUtumnoKey.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

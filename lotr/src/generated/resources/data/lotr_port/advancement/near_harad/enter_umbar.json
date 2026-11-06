@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:near_harad/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:umbaric_scimitar"
+    },
+    "title": {
+      "translate": "lotr.achievement.enterUmbar.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.enterUmbar.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

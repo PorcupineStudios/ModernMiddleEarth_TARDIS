@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:mordor/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:black_uruk_steel_ingot"
+    },
+    "title": {
+      "translate": "lotr.achievement.smeltBlackUrukSteel.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.smeltBlackUrukSteel.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

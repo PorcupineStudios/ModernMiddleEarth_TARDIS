@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:dorwinion/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:chalk"
+    },
+    "title": {
+      "translate": "lotr.achievement.enterDorwinionHills.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.enterDorwinionHills.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

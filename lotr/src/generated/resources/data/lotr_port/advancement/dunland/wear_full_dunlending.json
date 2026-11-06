@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:dunland/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:dunlending_chestplate"
+    },
+    "title": {
+      "translate": "lotr.achievement.wearFullDunlending.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.wearFullDunlending.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

@@ -40,6 +40,5 @@
     "mainhand": "minecraft:iron_hoe"
   },
   "names": "lotr_port:bree_male",
-  "speech": "lotr_port:bree/man",
-  "quests": "lotr_port:bree"
+  "speech": "lotr_port:bree/man"
 }

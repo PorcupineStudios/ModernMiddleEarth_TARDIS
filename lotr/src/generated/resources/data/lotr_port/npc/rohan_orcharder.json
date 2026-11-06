@@ -14,14 +14,15 @@
   "attack": 2.0,
   "gear": {
     "mainhand": [
-      "lotr_port:bronze_axe",
       "lotr_port:bronze_battleaxe",
       "lotr_port:bronze_dagger",
       "lotr_port:iron_battleaxe",
-      "lotr_port:rohirric_dagger",
+      "lotr_port:iron_dagger",
+      "minecraft:iron_axe",
       "minecraft:stone_axe"
     ]
   },
+  "names": "lotr_port:rohan_male",
   "buy": "lotr_port:rohan_orcharder_buy",
   "sell": "lotr_port:rohan_orcharder_sell",
   "speech": "lotr_port:rohan/market_trader",

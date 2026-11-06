@@ -1,0 +1,13 @@
+{
+  "entries": [
+    {
+      "npc": "lotr_port:camel",
+      "weight": 10,
+      "min": 2,
+      "max": 6
+    }
+  ],
+  "cap": 4,
+  "chance": 0.1,
+  "interval": 400
+}

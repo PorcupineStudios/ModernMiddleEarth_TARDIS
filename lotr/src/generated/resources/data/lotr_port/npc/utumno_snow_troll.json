@@ -31,7 +31,7 @@
     "throw_damage": 3,
     "scale": 0.8,
     "sun_immune": 0,
-    "state.renderer": 1
+    "state.renderer": 2
   },
   "sounds": {
     "ambient": "lotr_port:troll.say",

@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:general/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:gold_ring"
+    },
+    "title": {
+      "translate": "lotr.achievement.pledgeService.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.pledgeService.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:gondor/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:bronze_axe"
+    },
+    "title": {
+      "translate": "lotr.achievement.enterLamedon.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.enterLamedon.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

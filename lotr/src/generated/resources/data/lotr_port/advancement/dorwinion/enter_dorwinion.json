@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:dorwinion/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:white_wine"
+    },
+    "title": {
+      "translate": "lotr.achievement.enterDorwinion.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.enterDorwinion.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

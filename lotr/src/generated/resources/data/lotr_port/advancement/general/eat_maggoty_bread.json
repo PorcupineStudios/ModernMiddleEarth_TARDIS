@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:general/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:maggoty_bread"
+    },
+    "title": {
+      "translate": "lotr.achievement.eatMaggotyBread.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.eatMaggotyBread.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

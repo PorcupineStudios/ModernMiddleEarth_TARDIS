@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:rohan/root",
+  "display": {
+    "icon": {
+      "id": "minecraft:skull"
+    },
+    "title": {
+      "translate": "lotr.achievement.raidUrukCamp.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.raidUrukCamp.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

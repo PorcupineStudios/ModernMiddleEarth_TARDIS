@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:angmar/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:angmar_chestplate"
+    },
+    "title": {
+      "translate": "lotr.achievement.wearFullAngmar.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.wearFullAngmar.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

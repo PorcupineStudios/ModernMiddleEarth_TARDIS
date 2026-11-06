@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:dorwinion/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:dorwinion_crafting_table"
+    },
+    "title": {
+      "translate": "lotr.achievement.useDorwinionTable.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.useDorwinionTable.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

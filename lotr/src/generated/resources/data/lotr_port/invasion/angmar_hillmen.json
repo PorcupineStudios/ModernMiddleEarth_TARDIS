@@ -1,0 +1,11 @@
+{
+  "faction": "lotr_port:angmar",
+  "mobs": [
+    "lotr_port:angmar_hillman",
+    "lotr_port:angmar_hillman_warrior",
+    "lotr_port:angmar_hillman_axe_thrower",
+    "lotr_port:angmar_hillman_banner_bearer"
+  ],
+  "icon": "lotr_port:bronze_sword",
+  "lang": "lotr.invasion.ANGMAR_HILLMEN"
+}

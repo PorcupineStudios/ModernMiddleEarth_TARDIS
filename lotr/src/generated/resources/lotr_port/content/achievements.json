@@ -1,0 +1,1970 @@
+{
+  "enterMiddleEarth": {
+    "id": "lotr_port:general/enter_middle_earth",
+    "biome": false
+  },
+  "doGreyQuest": {
+    "id": "lotr_port:general/do_grey_quest",
+    "biome": false
+  },
+  "killOrc": {
+    "id": "lotr_port:general/kill_orc",
+    "biome": false
+  },
+  "mineMithril": {
+    "id": "lotr_port:general/mine_mithril",
+    "biome": false
+  },
+  "rideWarg": {
+    "id": "lotr_port:general/ride_warg",
+    "biome": false
+  },
+  "killWarg": {
+    "id": "lotr_port:general/kill_warg",
+    "biome": false
+  },
+  "useSpearFromFar": {
+    "id": "lotr_port:general/use_spear_from_far",
+    "biome": false
+  },
+  "wearFullMithril": {
+    "id": "lotr_port:general/wear_full_mithril",
+    "biome": false
+  },
+  "gainHighAlcoholTolerance": {
+    "id": "lotr_port:general/gain_high_alcohol_tolerance",
+    "biome": false
+  },
+  "craftSaddle": {
+    "id": "lotr_port:general/craft_saddle",
+    "biome": false
+  },
+  "drinkOrcDraught": {
+    "id": "lotr_port:general/drink_orc_draught",
+    "biome": false
+  },
+  "getPouch": {
+    "id": "lotr_port:general/get_pouch",
+    "biome": false
+  },
+  "craftBronze": {
+    "id": "lotr_port:general/craft_bronze",
+    "biome": false
+  },
+  "killUsingOnlyPlates": {
+    "id": "lotr_port:general/kill_using_only_plates",
+    "biome": false
+  },
+  "wearFullFur": {
+    "id": "lotr_port:general/wear_full_fur",
+    "biome": false
+  },
+  "brewDrinkInBarrel": {
+    "id": "lotr_port:general/brew_drink_in_barrel",
+    "biome": false
+  },
+  "findAthelas": {
+    "id": "lotr_port:general/find_athelas",
+    "biome": false
+  },
+  "drinkAthelasBrew": {
+    "id": "lotr_port:general/drink_athelas_brew",
+    "biome": false
+  },
+  "killLargeMobWithSlingshot": {
+    "id": "lotr_port:general/kill_large_mob_with_slingshot",
+    "biome": false
+  },
+  "eatMaggotyBread": {
+    "id": "lotr_port:general/eat_maggoty_bread",
+    "biome": false
+  },
+  "killWhileDrunk": {
+    "id": "lotr_port:general/kill_while_drunk",
+    "biome": false
+  },
+  "collectCraftingTables": {
+    "id": "lotr_port:general/collect_crafting_tables",
+    "biome": false
+  },
+  "hitByOrcSpear": {
+    "id": "lotr_port:general/hit_by_orc_spear",
+    "biome": false
+  },
+  "killBombardier": {
+    "id": "lotr_port:general/kill_bombardier",
+    "biome": false
+  },
+  "earnManyCoins": {
+    "id": "lotr_port:general/earn_many_coins",
+    "biome": false
+  },
+  "craftAppleCrumble": {
+    "id": "lotr_port:general/craft_apple_crumble",
+    "biome": false
+  },
+  "killButterfly": {
+    "id": "lotr_port:general/kill_butterfly",
+    "biome": false
+  },
+  "fishRing": {
+    "id": "lotr_port:general/fish_ring",
+    "biome": false
+  },
+  "useCrossbow": {
+    "id": "lotr_port:general/use_crossbow",
+    "biome": false
+  },
+  "collectCrossbowBolts": {
+    "id": "lotr_port:general/collect_crossbow_bolts",
+    "biome": false
+  },
+  "travel10": {
+    "id": "lotr_port:general/travel10",
+    "biome": false
+  },
+  "travel20": {
+    "id": "lotr_port:general/travel20",
+    "biome": false
+  },
+  "travel30": {
+    "id": "lotr_port:general/travel30",
+    "biome": false
+  },
+  "attackRabbit": {
+    "id": "lotr_port:general/attack_rabbit",
+    "biome": false
+  },
+  "craftRabbitStew": {
+    "id": "lotr_port:general/craft_rabbit_stew",
+    "biome": false
+  },
+  "drinkSkull": {
+    "id": "lotr_port:general/drink_skull",
+    "biome": false
+  },
+  "travel40": {
+    "id": "lotr_port:general/travel40",
+    "biome": false
+  },
+  "travel50": {
+    "id": "lotr_port:general/travel50",
+    "biome": false
+  },
+  "killThievingBandit": {
+    "id": "lotr_port:general/kill_thieving_bandit",
+    "biome": false
+  },
+  "hundreds": {
+    "id": "lotr_port:general/hundreds",
+    "biome": false
+  },
+  "alloyBronze": {
+    "id": "lotr_port:general/alloy_bronze",
+    "biome": false
+  },
+  "bannerProtect": {
+    "id": "lotr_port:general/banner_protect",
+    "biome": false
+  },
+  "catchButterfly": {
+    "id": "lotr_port:general/catch_butterfly",
+    "biome": false
+  },
+  "unsmelt": {
+    "id": "lotr_port:general/unsmelt",
+    "biome": false
+  },
+  "tradeScrapTrader": {
+    "id": "lotr_port:general/trade_scrap_trader",
+    "biome": false
+  },
+  "cookDeer": {
+    "id": "lotr_port:general/cook_deer",
+    "biome": false
+  },
+  "eatManFlesh": {
+    "id": "lotr_port:general/eat_man_flesh",
+    "biome": false
+  },
+  "craftSaltedFlesh": {
+    "id": "lotr_port:general/craft_salted_flesh",
+    "biome": false
+  },
+  "enchantBaneElf": {
+    "id": "lotr_port:general/enchant_bane_elf",
+    "biome": false
+  },
+  "enchantBaneOrc": {
+    "id": "lotr_port:general/enchant_bane_orc",
+    "biome": false
+  },
+  "enchantBaneDwarf": {
+    "id": "lotr_port:general/enchant_bane_dwarf",
+    "biome": false
+  },
+  "enchantBaneWarg": {
+    "id": "lotr_port:general/enchant_bane_warg",
+    "biome": false
+  },
+  "enchantBaneTroll": {
+    "id": "lotr_port:general/enchant_bane_troll",
+    "biome": false
+  },
+  "enchantBaneSpider": {
+    "id": "lotr_port:general/enchant_bane_spider",
+    "biome": false
+  },
+  "enchantBaneWight": {
+    "id": "lotr_port:general/enchant_bane_wight",
+    "biome": false
+  },
+  "getDrunk": {
+    "id": "lotr_port:general/get_drunk",
+    "biome": false
+  },
+  "reforge": {
+    "id": "lotr_port:general/reforge",
+    "biome": false
+  },
+  "doMiniquestHunter": {
+    "id": "lotr_port:general/do_miniquest_hunter",
+    "biome": false
+  },
+  "doMiniquestHunter5": {
+    "id": "lotr_port:general/do_miniquest_hunter5",
+    "biome": false
+  },
+  "killHuntingPlayer": {
+    "id": "lotr_port:general/kill_hunting_player",
+    "biome": false
+  },
+  "pledgeService": {
+    "id": "lotr_port:general/pledge_service",
+    "biome": false
+  },
+  "factionConquest": {
+    "id": "lotr_port:general/faction_conquest",
+    "biome": false
+  },
+  "defeatInvasion": {
+    "id": "lotr_port:general/defeat_invasion",
+    "biome": false
+  },
+  "pickpocket": {
+    "id": "lotr_port:general/pickpocket",
+    "biome": false
+  },
+  "combineSmithScrolls": {
+    "id": "lotr_port:general/combine_smith_scrolls",
+    "biome": false
+  },
+  "engraveOwnership": {
+    "id": "lotr_port:general/engrave_ownership",
+    "biome": false
+  },
+  "killHobbit": {
+    "id": "lotr_port:shire/kill_hobbit",
+    "biome": false
+  },
+  "sellPipeweedLeaf": {
+    "id": "lotr_port:shire/sell_pipeweed_leaf",
+    "biome": false
+  },
+  "marryHobbit": {
+    "id": "lotr_port:shire/marry_hobbit",
+    "biome": false
+  },
+  "findFourLeafClover": {
+    "id": "lotr_port:shire/find_four_leaf_clover",
+    "biome": false
+  },
+  "useMagicPipe": {
+    "id": "lotr_port:shire/use_magic_pipe",
+    "biome": false
+  },
+  "rideShirePony": {
+    "id": "lotr_port:shire/ride_shire_pony",
+    "biome": false
+  },
+  "tradeBartender": {
+    "id": "lotr_port:shire/trade_bartender",
+    "biome": false
+  },
+  "speakToDrunkard": {
+    "id": "lotr_port:shire/speak_to_drunkard",
+    "biome": false
+  },
+  "tradeHobbitShirriff": {
+    "id": "lotr_port:shire/trade_hobbit_shirriff",
+    "biome": false
+  },
+  "killDarkHuorn": {
+    "id": "lotr_port:shire/kill_dark_huorn",
+    "biome": false
+  },
+  "enterOldForest": {
+    "id": "lotr_port:shire/enter_old_forest",
+    "biome": true
+  },
+  "buyOrcharderFood": {
+    "id": "lotr_port:shire/buy_orcharder_food",
+    "biome": false
+  },
+  "rideGiraffeShire": {
+    "id": "lotr_port:shire/ride_giraffe_shire",
+    "biome": false
+  },
+  "buyPotatoHobbitFarmer": {
+    "id": "lotr_port:shire/buy_potato_hobbit_farmer",
+    "biome": false
+  },
+  "doMiniquestHobbit": {
+    "id": "lotr_port:shire/do_miniquest_hobbit",
+    "biome": false
+  },
+  "enterWhiteDowns": {
+    "id": "lotr_port:shire/enter_white_downs",
+    "biome": true
+  },
+  "useHobbitTable": {
+    "id": "lotr_port:shire/use_hobbit_table",
+    "biome": false
+  },
+  "hireHobbitFarmer": {
+    "id": "lotr_port:shire/hire_hobbit_farmer",
+    "biome": false
+  },
+  "enterBlueMountains": {
+    "id": "lotr_port:blue_mountains/enter_blue_mountains",
+    "biome": true
+  },
+  "smeltBlueDwarfSteel": {
+    "id": "lotr_port:blue_mountains/smelt_blue_dwarf_steel",
+    "biome": false
+  },
+  "killBlueDwarf": {
+    "id": "lotr_port:blue_mountains/kill_blue_dwarf",
+    "biome": false
+  },
+  "wearFullBlueDwarven": {
+    "id": "lotr_port:blue_mountains/wear_full_blue_dwarven",
+    "biome": false
+  },
+  "useBlueDwarvenTable": {
+    "id": "lotr_port:blue_mountains/use_blue_dwarven_table",
+    "biome": false
+  },
+  "tradeBlueDwarfMiner": {
+    "id": "lotr_port:blue_mountains/trade_blue_dwarf_miner",
+    "biome": false
+  },
+  "tradeBlueDwarfCommander": {
+    "id": "lotr_port:blue_mountains/trade_blue_dwarf_commander",
+    "biome": false
+  },
+  "tradeBlueDwarfMerchant": {
+    "id": "lotr_port:blue_mountains/trade_blue_dwarf_merchant",
+    "biome": false
+  },
+  "marryBlueDwarf": {
+    "id": "lotr_port:blue_mountains/marry_blue_dwarf",
+    "biome": false
+  },
+  "doMiniquestBlueMountains": {
+    "id": "lotr_port:blue_mountains/do_miniquest_blue_mountains",
+    "biome": false
+  },
+  "tradeBlueDwarfSmith": {
+    "id": "lotr_port:blue_mountains/trade_blue_dwarf_smith",
+    "biome": false
+  },
+  "enterLindon": {
+    "id": "lotr_port:lindon/enter_lindon",
+    "biome": true
+  },
+  "doMiniquestHighElf": {
+    "id": "lotr_port:lindon/do_miniquest_high_elf",
+    "biome": false
+  },
+  "killHighElf": {
+    "id": "lotr_port:lindon/kill_high_elf",
+    "biome": false
+  },
+  "tradeHighElfLord": {
+    "id": "lotr_port:lindon/trade_high_elf_lord",
+    "biome": false
+  },
+  "useHighElvenTable": {
+    "id": "lotr_port:lindon/use_high_elven_table",
+    "biome": false
+  },
+  "wearFullHighElven": {
+    "id": "lotr_port:lindon/wear_full_high_elven",
+    "biome": false
+  },
+  "smeltElfSteel": {
+    "id": "lotr_port:lindon/smelt_elf_steel",
+    "biome": false
+  },
+  "tradeHighElfSmith": {
+    "id": "lotr_port:lindon/trade_high_elf_smith",
+    "biome": false
+  },
+  "wearFullGondolin": {
+    "id": "lotr_port:lindon/wear_full_gondolin",
+    "biome": false
+  },
+  "enterTowerHills": {
+    "id": "lotr_port:lindon/enter_tower_hills",
+    "biome": true
+  },
+  "wearFullGalvorn": {
+    "id": "lotr_port:lindon/wear_full_galvorn",
+    "biome": false
+  },
+  "enterBreeland": {
+    "id": "lotr_port:bree_land/enter_breeland",
+    "biome": true
+  },
+  "enterChetwood": {
+    "id": "lotr_port:bree_land/enter_chetwood",
+    "biome": true
+  },
+  "killBreelander": {
+    "id": "lotr_port:bree_land/kill_breelander",
+    "biome": false
+  },
+  "doMiniquestBree": {
+    "id": "lotr_port:bree_land/do_miniquest_bree",
+    "biome": false
+  },
+  "tradeBreeCaptain": {
+    "id": "lotr_port:bree_land/trade_bree_captain",
+    "biome": false
+  },
+  "useBreeTable": {
+    "id": "lotr_port:bree_land/use_bree_table",
+    "biome": false
+  },
+  "tradeBreeBlacksmith": {
+    "id": "lotr_port:bree_land/trade_bree_blacksmith",
+    "biome": false
+  },
+  "tradeBreeInnkeeper": {
+    "id": "lotr_port:bree_land/trade_bree_innkeeper",
+    "biome": false
+  },
+  "killBreeHobbit": {
+    "id": "lotr_port:bree_land/kill_bree_hobbit",
+    "biome": false
+  },
+  "killRuffianSpy": {
+    "id": "lotr_port:bree_land/kill_ruffian_spy",
+    "biome": false
+  },
+  "killRuffianBrute": {
+    "id": "lotr_port:bree_land/kill_ruffian_brute",
+    "biome": false
+  },
+  "doMiniquestRuffianSpy": {
+    "id": "lotr_port:bree_land/do_miniquest_ruffian_spy",
+    "biome": false
+  },
+  "doMiniquestRuffianBrute": {
+    "id": "lotr_port:bree_land/do_miniquest_ruffian_brute",
+    "biome": false
+  },
+  "tradeBreeMarketTrader": {
+    "id": "lotr_port:bree_land/trade_bree_market_trader",
+    "biome": false
+  },
+  "buyAppleBreeFarmer": {
+    "id": "lotr_port:bree_land/buy_apple_bree_farmer",
+    "biome": false
+  },
+  "hireBreeFarmer": {
+    "id": "lotr_port:bree_land/hire_bree_farmer",
+    "biome": false
+  },
+  "killRangerNorth": {
+    "id": "lotr_port:eriador/kill_ranger_north",
+    "biome": false
+  },
+  "wearFullRanger": {
+    "id": "lotr_port:eriador/wear_full_ranger",
+    "biome": false
+  },
+  "killTroll": {
+    "id": "lotr_port:eriador/kill_troll",
+    "biome": false
+  },
+  "getTrollStatue": {
+    "id": "lotr_port:eriador/get_troll_statue",
+    "biome": false
+  },
+  "makeTrollSneeze": {
+    "id": "lotr_port:eriador/make_troll_sneeze",
+    "biome": false
+  },
+  "killMountainTroll": {
+    "id": "lotr_port:eriador/kill_mountain_troll",
+    "biome": false
+  },
+  "killTrollFleeingSun": {
+    "id": "lotr_port:eriador/kill_troll_fleeing_sun",
+    "biome": false
+  },
+  "killMountainTrollChieftain": {
+    "id": "lotr_port:eriador/kill_mountain_troll_chieftain",
+    "biome": false
+  },
+  "shootDownMidges": {
+    "id": "lotr_port:eriador/shoot_down_midges",
+    "biome": false
+  },
+  "enterTrollshaws": {
+    "id": "lotr_port:eriador/enter_trollshaws",
+    "biome": true
+  },
+  "enterMidgewater": {
+    "id": "lotr_port:eriador/enter_midgewater",
+    "biome": true
+  },
+  "enterLoneLands": {
+    "id": "lotr_port:eriador/enter_lone_lands",
+    "biome": true
+  },
+  "enterEttenmoors": {
+    "id": "lotr_port:eriador/enter_ettenmoors",
+    "biome": true
+  },
+  "enterEriador": {
+    "id": "lotr_port:eriador/enter_eriador",
+    "biome": true
+  },
+  "enterColdfells": {
+    "id": "lotr_port:eriador/enter_coldfells",
+    "biome": true
+  },
+  "enterSwanfleet": {
+    "id": "lotr_port:eriador/enter_swanfleet",
+    "biome": true
+  },
+  "enterMinhiriath": {
+    "id": "lotr_port:eriador/enter_minhiriath",
+    "biome": true
+  },
+  "tradeGundabadCaptain": {
+    "id": "lotr_port:eriador/trade_gundabad_captain",
+    "biome": false
+  },
+  "tradeRangerNorthCaptain": {
+    "id": "lotr_port:eriador/trade_ranger_north_captain",
+    "biome": false
+  },
+  "enterBarrowDowns": {
+    "id": "lotr_port:eriador/enter_barrow_downs",
+    "biome": true
+  },
+  "useRangerTable": {
+    "id": "lotr_port:eriador/use_ranger_table",
+    "biome": false
+  },
+  "useGundabadTable": {
+    "id": "lotr_port:eriador/use_gundabad_table",
+    "biome": false
+  },
+  "doMiniquestRanger": {
+    "id": "lotr_port:eriador/do_miniquest_ranger",
+    "biome": false
+  },
+  "doMiniquestGundabad": {
+    "id": "lotr_port:eriador/do_miniquest_gundabad",
+    "biome": false
+  },
+  "killBarrowWight": {
+    "id": "lotr_port:eriador/kill_barrow_wight",
+    "biome": false
+  },
+  "killGundabadOrc": {
+    "id": "lotr_port:eriador/kill_gundabad_orc",
+    "biome": false
+  },
+  "killGundabadUruk": {
+    "id": "lotr_port:eriador/kill_gundabad_uruk",
+    "biome": false
+  },
+  "wearFullGundabadUruk": {
+    "id": "lotr_port:eriador/wear_full_gundabad_uruk",
+    "biome": false
+  },
+  "killDunedain": {
+    "id": "lotr_port:eriador/kill_dunedain",
+    "biome": false
+  },
+  "enterAngle": {
+    "id": "lotr_port:eriador/enter_angle",
+    "biome": true
+  },
+  "wearFullArnor": {
+    "id": "lotr_port:eriador/wear_full_arnor",
+    "biome": false
+  },
+  "tradeDunedainBlacksmith": {
+    "id": "lotr_port:eriador/trade_dunedain_blacksmith",
+    "biome": false
+  },
+  "enterRivendell": {
+    "id": "lotr_port:eriador/enter_rivendell",
+    "biome": true
+  },
+  "useRivendellTable": {
+    "id": "lotr_port:eriador/use_rivendell_table",
+    "biome": false
+  },
+  "wearFullRivendell": {
+    "id": "lotr_port:eriador/wear_full_rivendell",
+    "biome": false
+  },
+  "tradeRivendellSmith": {
+    "id": "lotr_port:eriador/trade_rivendell_smith",
+    "biome": false
+  },
+  "tradeRivendellLord": {
+    "id": "lotr_port:eriador/trade_rivendell_lord",
+    "biome": false
+  },
+  "tradeRivendellTrader": {
+    "id": "lotr_port:eriador/trade_rivendell_trader",
+    "biome": false
+  },
+  "doMiniquestRivendell": {
+    "id": "lotr_port:eriador/do_miniquest_rivendell",
+    "biome": false
+  },
+  "killRivendellElf": {
+    "id": "lotr_port:eriador/kill_rivendell_elf",
+    "biome": false
+  },
+  "tradeGundabadTrader": {
+    "id": "lotr_port:eriador/trade_gundabad_trader",
+    "biome": false
+  },
+  "tradeAngmarCaptain": {
+    "id": "lotr_port:angmar/trade_angmar_captain",
+    "biome": false
+  },
+  "killAngmarOrc": {
+    "id": "lotr_port:angmar/kill_angmar_orc",
+    "biome": false
+  },
+  "enterAngmar": {
+    "id": "lotr_port:angmar/enter_angmar",
+    "biome": true
+  },
+  "useAngmarTable": {
+    "id": "lotr_port:angmar/use_angmar_table",
+    "biome": false
+  },
+  "wearFullAngmar": {
+    "id": "lotr_port:angmar/wear_full_angmar",
+    "biome": false
+  },
+  "doMiniquestAngmar": {
+    "id": "lotr_port:angmar/do_miniquest_angmar",
+    "biome": false
+  },
+  "tradeAngmarTrader": {
+    "id": "lotr_port:angmar/trade_angmar_trader",
+    "biome": false
+  },
+  "killAngmarHillman": {
+    "id": "lotr_port:angmar/kill_angmar_hillman",
+    "biome": false
+  },
+  "tradeAngmarHillmanChieftain": {
+    "id": "lotr_port:angmar/trade_angmar_hillman_chieftain",
+    "biome": false
+  },
+  "killSnowTroll": {
+    "id": "lotr_port:angmar/kill_snow_troll",
+    "biome": false
+  },
+  "enterEregion": {
+    "id": "lotr_port:eregion/enter_eregion",
+    "biome": true
+  },
+  "enterEnedwaith": {
+    "id": "lotr_port:enedwaith/enter_enedwaith",
+    "biome": true
+  },
+  "enterNanCurunir": {
+    "id": "lotr_port:enedwaith/enter_nan_curunir",
+    "biome": true
+  },
+  "enterPukel": {
+    "id": "lotr_port:enedwaith/enter_pukel",
+    "biome": true
+  },
+  "killDunlending": {
+    "id": "lotr_port:dunland/kill_dunlending",
+    "biome": false
+  },
+  "wearFullDunlending": {
+    "id": "lotr_port:dunland/wear_full_dunlending",
+    "biome": false
+  },
+  "useDunlendingTable": {
+    "id": "lotr_port:dunland/use_dunlending_table",
+    "biome": false
+  },
+  "tradeDunlendingWarlord": {
+    "id": "lotr_port:dunland/trade_dunlending_warlord",
+    "biome": false
+  },
+  "useDunlendingTrident": {
+    "id": "lotr_port:dunland/use_dunlending_trident",
+    "biome": false
+  },
+  "tradeDunlendingBartender": {
+    "id": "lotr_port:dunland/trade_dunlending_bartender",
+    "biome": false
+  },
+  "enterDunland": {
+    "id": "lotr_port:dunland/enter_dunland",
+    "biome": true
+  },
+  "doMiniquestDunland": {
+    "id": "lotr_port:dunland/do_miniquest_dunland",
+    "biome": false
+  },
+  "climbMistyMountains": {
+    "id": "lotr_port:misty_mountains/climb_misty_mountains",
+    "biome": false
+  },
+  "enterMistyMountains": {
+    "id": "lotr_port:misty_mountains/enter_misty_mountains",
+    "biome": true
+  },
+  "tameGollum": {
+    "id": "lotr_port:misty_mountains/tame_gollum",
+    "biome": false
+  },
+  "enterForodwaith": {
+    "id": "lotr_port:forodwaith/enter_forodwaith",
+    "biome": true
+  },
+  "enterValesOfAnduin": {
+    "id": "lotr_port:rhovanion/enter_vales_of_anduin",
+    "biome": true
+  },
+  "enterGreyMountains": {
+    "id": "lotr_port:rhovanion/enter_grey_mountains",
+    "biome": true
+  },
+  "enterGladdenFields": {
+    "id": "lotr_port:rhovanion/enter_gladden_fields",
+    "biome": true
+  },
+  "enterEmynMuil": {
+    "id": "lotr_port:rhovanion/enter_emyn_muil",
+    "biome": true
+  },
+  "enterBrownLands": {
+    "id": "lotr_port:rhovanion/enter_brown_lands",
+    "biome": true
+  },
+  "enterWilderland": {
+    "id": "lotr_port:rhovanion/enter_wilderland",
+    "biome": true
+  },
+  "enterDagorlad": {
+    "id": "lotr_port:rhovanion/enter_dagorlad",
+    "biome": true
+  },
+  "enterCelebrant": {
+    "id": "lotr_port:rhovanion/enter_celebrant",
+    "biome": true
+  },
+  "enterLongMarshes": {
+    "id": "lotr_port:rhovanion/enter_long_marshes",
+    "biome": true
+  },
+  "enterEastBight": {
+    "id": "lotr_port:rhovanion/enter_east_bight",
+    "biome": true
+  },
+  "killMirkwoodSpider": {
+    "id": "lotr_port:mirkwood/kill_mirkwood_spider",
+    "biome": false
+  },
+  "killWoodElf": {
+    "id": "lotr_port:mirkwood/kill_wood_elf",
+    "biome": false
+  },
+  "useWoodElvenTable": {
+    "id": "lotr_port:mirkwood/use_wood_elven_table",
+    "biome": false
+  },
+  "wearFullWoodElvenScout": {
+    "id": "lotr_port:mirkwood/wear_full_wood_elven_scout",
+    "biome": false
+  },
+  "tradeWoodElfCaptain": {
+    "id": "lotr_port:mirkwood/trade_wood_elf_captain",
+    "biome": false
+  },
+  "rideBarrelMirkwood": {
+    "id": "lotr_port:mirkwood/ride_barrel_mirkwood",
+    "biome": false
+  },
+  "enterMirkwood": {
+    "id": "lotr_port:mirkwood/enter_mirkwood",
+    "biome": true
+  },
+  "enterWoodlandRealm": {
+    "id": "lotr_port:mirkwood/enter_woodland_realm",
+    "biome": true
+  },
+  "wearFullWoodElven": {
+    "id": "lotr_port:mirkwood/wear_full_wood_elven",
+    "biome": false
+  },
+  "enterDolGuldur": {
+    "id": "lotr_port:mirkwood/enter_dol_guldur",
+    "biome": true
+  },
+  "killDolGuldurOrc": {
+    "id": "lotr_port:mirkwood/kill_dol_guldur_orc",
+    "biome": false
+  },
+  "useDolGuldurTable": {
+    "id": "lotr_port:mirkwood/use_dol_guldur_table",
+    "biome": false
+  },
+  "tradeDolGuldurCaptain": {
+    "id": "lotr_port:mirkwood/trade_dol_guldur_captain",
+    "biome": false
+  },
+  "killMirkTroll": {
+    "id": "lotr_port:mirkwood/kill_mirk_troll",
+    "biome": false
+  },
+  "wearFullDolGuldur": {
+    "id": "lotr_port:mirkwood/wear_full_dol_guldur",
+    "biome": false
+  },
+  "doMiniquestWoodElf": {
+    "id": "lotr_port:mirkwood/do_miniquest_wood_elf",
+    "biome": false
+  },
+  "doMiniquestDolGuldur": {
+    "id": "lotr_port:mirkwood/do_miniquest_dol_guldur",
+    "biome": false
+  },
+  "tradeDolGuldurTrader": {
+    "id": "lotr_port:mirkwood/trade_dol_guldur_trader",
+    "biome": false
+  },
+  "tradeWoodElfSmith": {
+    "id": "lotr_port:mirkwood/trade_wood_elf_smith",
+    "biome": false
+  },
+  "enterDale": {
+    "id": "lotr_port:dale/enter_dale",
+    "biome": true
+  },
+  "doMiniquestDale": {
+    "id": "lotr_port:dale/do_miniquest_dale",
+    "biome": false
+  },
+  "useDaleTable": {
+    "id": "lotr_port:dale/use_dale_table",
+    "biome": false
+  },
+  "wearFullDale": {
+    "id": "lotr_port:dale/wear_full_dale",
+    "biome": false
+  },
+  "killDalish": {
+    "id": "lotr_port:dale/kill_dalish",
+    "biome": false
+  },
+  "tradeDaleCaptain": {
+    "id": "lotr_port:dale/trade_dale_captain",
+    "biome": false
+  },
+  "tradeDaleBlacksmith": {
+    "id": "lotr_port:dale/trade_dale_blacksmith",
+    "biome": false
+  },
+  "tradeDaleBaker": {
+    "id": "lotr_port:dale/trade_dale_baker",
+    "biome": false
+  },
+  "tradeDaleMerchant": {
+    "id": "lotr_port:dale/trade_dale_merchant",
+    "biome": false
+  },
+  "enterErebor": {
+    "id": "lotr_port:dale/enter_erebor",
+    "biome": true
+  },
+  "openDaleCracker": {
+    "id": "lotr_port:dale/open_dale_cracker",
+    "biome": false
+  },
+  "killDwarf": {
+    "id": "lotr_port:iron_hills/kill_dwarf",
+    "biome": false
+  },
+  "wearFullDwarven": {
+    "id": "lotr_port:iron_hills/wear_full_dwarven",
+    "biome": false
+  },
+  "useDwarvenThrowingAxe": {
+    "id": "lotr_port:iron_hills/use_dwarven_throwing_axe",
+    "biome": false
+  },
+  "useDwarvenTable": {
+    "id": "lotr_port:iron_hills/use_dwarven_table",
+    "biome": false
+  },
+  "tradeDwarfMiner": {
+    "id": "lotr_port:iron_hills/trade_dwarf_miner",
+    "biome": false
+  },
+  "tradeDwarfCommander": {
+    "id": "lotr_port:iron_hills/trade_dwarf_commander",
+    "biome": false
+  },
+  "mineGlowstone": {
+    "id": "lotr_port:iron_hills/mine_glowstone",
+    "biome": false
+  },
+  "smeltDwarfSteel": {
+    "id": "lotr_port:iron_hills/smelt_dwarf_steel",
+    "biome": false
+  },
+  "drinkDwarvenTonic": {
+    "id": "lotr_port:iron_hills/drink_dwarven_tonic",
+    "biome": false
+  },
+  "craftMithrilDwarvenBrick": {
+    "id": "lotr_port:iron_hills/craft_mithril_dwarven_brick",
+    "biome": false
+  },
+  "talkDwarfWoman": {
+    "id": "lotr_port:iron_hills/talk_dwarf_woman",
+    "biome": false
+  },
+  "enterIronHills": {
+    "id": "lotr_port:iron_hills/enter_iron_hills",
+    "biome": true
+  },
+  "useDwarvenDoor": {
+    "id": "lotr_port:iron_hills/use_dwarven_door",
+    "biome": false
+  },
+  "marryDwarf": {
+    "id": "lotr_port:iron_hills/marry_dwarf",
+    "biome": false
+  },
+  "doMiniquestDwarf": {
+    "id": "lotr_port:iron_hills/do_miniquest_dwarf",
+    "biome": false
+  },
+  "tradeIronHillsMerchant": {
+    "id": "lotr_port:iron_hills/trade_iron_hills_merchant",
+    "biome": false
+  },
+  "tradeDwarfSmith": {
+    "id": "lotr_port:iron_hills/trade_dwarf_smith",
+    "biome": false
+  },
+  "killElf": {
+    "id": "lotr_port:lothlorien/kill_elf",
+    "biome": false
+  },
+  "useElvenPortal": {
+    "id": "lotr_port:lothlorien/use_elven_portal",
+    "biome": false
+  },
+  "wearFullElven": {
+    "id": "lotr_port:lothlorien/wear_full_elven",
+    "biome": false
+  },
+  "useElvenTable": {
+    "id": "lotr_port:lothlorien/use_elven_table",
+    "biome": false
+  },
+  "tradeElfLord": {
+    "id": "lotr_port:lothlorien/trade_elf_lord",
+    "biome": false
+  },
+  "mineQuendite": {
+    "id": "lotr_port:lothlorien/mine_quendite",
+    "biome": false
+  },
+  "takeMallornWood": {
+    "id": "lotr_port:lothlorien/take_mallorn_wood",
+    "biome": false
+  },
+  "enterLothlorien": {
+    "id": "lotr_port:lothlorien/enter_lothlorien",
+    "biome": true
+  },
+  "tradeElvenTrader": {
+    "id": "lotr_port:lothlorien/trade_elven_trader",
+    "biome": false
+  },
+  "doMiniquestGaladhrim": {
+    "id": "lotr_port:lothlorien/do_miniquest_galadhrim",
+    "biome": false
+  },
+  "tradeGaladhrimSmith": {
+    "id": "lotr_port:lothlorien/trade_galadhrim_smith",
+    "biome": false
+  },
+  "wearFullHithlain": {
+    "id": "lotr_port:lothlorien/wear_full_hithlain",
+    "biome": false
+  },
+  "killEnt": {
+    "id": "lotr_port:fangorn/kill_ent",
+    "biome": false
+  },
+  "drinkEntDraught": {
+    "id": "lotr_port:fangorn/drink_ent_draught",
+    "biome": false
+  },
+  "killHuorn": {
+    "id": "lotr_port:fangorn/kill_huorn",
+    "biome": false
+  },
+  "talkEnt": {
+    "id": "lotr_port:fangorn/talk_ent",
+    "biome": false
+  },
+  "enterFangorn": {
+    "id": "lotr_port:fangorn/enter_fangorn",
+    "biome": true
+  },
+  "summonHuorn": {
+    "id": "lotr_port:fangorn/summon_huorn",
+    "biome": false
+  },
+  "killMallornEnt": {
+    "id": "lotr_port:fangorn/kill_mallorn_ent",
+    "biome": false
+  },
+  "raidUrukCamp": {
+    "id": "lotr_port:rohan/raid_uruk_camp",
+    "biome": false
+  },
+  "useUrukTable": {
+    "id": "lotr_port:rohan/use_uruk_table",
+    "biome": false
+  },
+  "tradeUrukTrader": {
+    "id": "lotr_port:rohan/trade_uruk_trader",
+    "biome": false
+  },
+  "tradeUrukCaptain": {
+    "id": "lotr_port:rohan/trade_uruk_captain",
+    "biome": false
+  },
+  "useRohirricTable": {
+    "id": "lotr_port:rohan/use_rohirric_table",
+    "biome": false
+  },
+  "smeltUrukSteel": {
+    "id": "lotr_port:rohan/smelt_uruk_steel",
+    "biome": false
+  },
+  "wearFullUruk": {
+    "id": "lotr_port:rohan/wear_full_uruk",
+    "biome": false
+  },
+  "hireWargBombardier": {
+    "id": "lotr_port:rohan/hire_warg_bombardier",
+    "biome": false
+  },
+  "killRohirrim": {
+    "id": "lotr_port:rohan/kill_rohirrim",
+    "biome": false
+  },
+  "tradeRohirrimMarshal": {
+    "id": "lotr_port:rohan/trade_rohirrim_marshal",
+    "biome": false
+  },
+  "wearFullRohirric": {
+    "id": "lotr_port:rohan/wear_full_rohirric",
+    "biome": false
+  },
+  "tradeRohanBlacksmith": {
+    "id": "lotr_port:rohan/trade_rohan_blacksmith",
+    "biome": false
+  },
+  "buyRohanMead": {
+    "id": "lotr_port:rohan/buy_rohan_mead",
+    "biome": false
+  },
+  "enterRohan": {
+    "id": "lotr_port:rohan/enter_rohan",
+    "biome": true
+  },
+  "enterRohanUrukHighlands": {
+    "id": "lotr_port:rohan/enter_rohan_uruk_highlands",
+    "biome": true
+  },
+  "doMiniquestRohan": {
+    "id": "lotr_port:rohan/do_miniquest_rohan",
+    "biome": false
+  },
+  "doMiniquestIsengard": {
+    "id": "lotr_port:rohan/do_miniquest_isengard",
+    "biome": false
+  },
+  "killUrukHai": {
+    "id": "lotr_port:rohan/kill_uruk_hai",
+    "biome": false
+  },
+  "enterEntwashMouth": {
+    "id": "lotr_port:rohan/enter_entwash_mouth",
+    "biome": true
+  },
+  "wearFullRohirricMarshal": {
+    "id": "lotr_port:rohan/wear_full_rohirric_marshal",
+    "biome": false
+  },
+  "killIsengardSnaga": {
+    "id": "lotr_port:rohan/kill_isengard_snaga",
+    "biome": false
+  },
+  "doMiniquestRohanShieldmaiden": {
+    "id": "lotr_port:rohan/do_miniquest_rohan_shieldmaiden",
+    "biome": false
+  },
+  "tradeRohanFarmer": {
+    "id": "lotr_port:rohan/trade_rohan_farmer",
+    "biome": false
+  },
+  "hireRohanFarmer": {
+    "id": "lotr_port:rohan/hire_rohan_farmer",
+    "biome": false
+  },
+  "tradeRohanMarketTrader": {
+    "id": "lotr_port:rohan/trade_rohan_market_trader",
+    "biome": false
+  },
+  "tradeRohanStablemaster": {
+    "id": "lotr_port:rohan/trade_rohan_stablemaster",
+    "biome": false
+  },
+  "enterAdornland": {
+    "id": "lotr_port:rohan/enter_adornland",
+    "biome": true
+  },
+  "killGondorian": {
+    "id": "lotr_port:gondor/kill_gondorian",
+    "biome": false
+  },
+  "lightGondorBeacon": {
+    "id": "lotr_port:gondor/light_gondor_beacon",
+    "biome": false
+  },
+  "useGondorianTable": {
+    "id": "lotr_port:gondor/use_gondorian_table",
+    "biome": false
+  },
+  "tradeGondorBlacksmith": {
+    "id": "lotr_port:gondor/trade_gondor_blacksmith",
+    "biome": false
+  },
+  "tradeGondorianCaptain": {
+    "id": "lotr_port:gondor/trade_gondorian_captain",
+    "biome": false
+  },
+  "wearFullGondorian": {
+    "id": "lotr_port:gondor/wear_full_gondorian",
+    "biome": false
+  },
+  "killRangerIthilien": {
+    "id": "lotr_port:gondor/kill_ranger_ithilien",
+    "biome": false
+  },
+  "enterGondor": {
+    "id": "lotr_port:gondor/enter_gondor",
+    "biome": true
+  },
+  "enterIthilien": {
+    "id": "lotr_port:gondor/enter_ithilien",
+    "biome": true
+  },
+  "enterWhiteMountains": {
+    "id": "lotr_port:gondor/enter_white_mountains",
+    "biome": true
+  },
+  "enterTolfalas": {
+    "id": "lotr_port:gondor/enter_tolfalas",
+    "biome": true
+  },
+  "enterLebennin": {
+    "id": "lotr_port:gondor/enter_lebennin",
+    "biome": true
+  },
+  "doMiniquestGondor": {
+    "id": "lotr_port:gondor/do_miniquest_gondor",
+    "biome": false
+  },
+  "tradeRangerIthilienCaptain": {
+    "id": "lotr_port:gondor/trade_ranger_ithilien_captain",
+    "biome": false
+  },
+  "useDolAmrothTable": {
+    "id": "lotr_port:gondor/use_dol_amroth_table",
+    "biome": false
+  },
+  "wearFullDolAmroth": {
+    "id": "lotr_port:gondor/wear_full_dol_amroth",
+    "biome": false
+  },
+  "killSwanKnight": {
+    "id": "lotr_port:gondor/kill_swan_knight",
+    "biome": false
+  },
+  "enterDorEnErnil": {
+    "id": "lotr_port:gondor/enter_dor_en_ernil",
+    "biome": true
+  },
+  "tradeDolAmrothCaptain": {
+    "id": "lotr_port:gondor/trade_dol_amroth_captain",
+    "biome": false
+  },
+  "enterAnduinMouth": {
+    "id": "lotr_port:gondor/enter_anduin_mouth",
+    "biome": true
+  },
+  "enterPelennor": {
+    "id": "lotr_port:gondor/enter_pelennor",
+    "biome": true
+  },
+  "wearFullRangerIthilien": {
+    "id": "lotr_port:gondor/wear_full_ranger_ithilien",
+    "biome": false
+  },
+  "enterLossarnach": {
+    "id": "lotr_port:gondor/enter_lossarnach",
+    "biome": true
+  },
+  "enterImlothMelui": {
+    "id": "lotr_port:gondor/enter_imloth_melui",
+    "biome": true
+  },
+  "wearFullLossarnach": {
+    "id": "lotr_port:gondor/wear_full_lossarnach",
+    "biome": false
+  },
+  "wearFullPelargir": {
+    "id": "lotr_port:gondor/wear_full_pelargir",
+    "biome": false
+  },
+  "wearFullPinnathGelin": {
+    "id": "lotr_port:gondor/wear_full_pinnath_gelin",
+    "biome": false
+  },
+  "wearFullBlackroot": {
+    "id": "lotr_port:gondor/wear_full_blackroot",
+    "biome": false
+  },
+  "hireGondorFarmer": {
+    "id": "lotr_port:gondor/hire_gondor_farmer",
+    "biome": false
+  },
+  "buyPipeweedGondorFarmer": {
+    "id": "lotr_port:gondor/buy_pipeweed_gondor_farmer",
+    "biome": false
+  },
+  "tradeGondorBartender": {
+    "id": "lotr_port:gondor/trade_gondor_bartender",
+    "biome": false
+  },
+  "tradeGondorMarketTrader": {
+    "id": "lotr_port:gondor/trade_gondor_market_trader",
+    "biome": false
+  },
+  "tradeLossarnachCaptain": {
+    "id": "lotr_port:gondor/trade_lossarnach_captain",
+    "biome": false
+  },
+  "tradePelargirCaptain": {
+    "id": "lotr_port:gondor/trade_pelargir_captain",
+    "biome": false
+  },
+  "tradePinnathGelinCaptain": {
+    "id": "lotr_port:gondor/trade_pinnath_gelin_captain",
+    "biome": false
+  },
+  "tradeBlackrootCaptain": {
+    "id": "lotr_port:gondor/trade_blackroot_captain",
+    "biome": false
+  },
+  "tradeLebenninCaptain": {
+    "id": "lotr_port:gondor/trade_lebennin_captain",
+    "biome": false
+  },
+  "enterPelargir": {
+    "id": "lotr_port:gondor/enter_pelargir",
+    "biome": true
+  },
+  "wearFullLamedon": {
+    "id": "lotr_port:gondor/wear_full_lamedon",
+    "biome": false
+  },
+  "tradeLamedonCaptain": {
+    "id": "lotr_port:gondor/trade_lamedon_captain",
+    "biome": false
+  },
+  "enterLamedon": {
+    "id": "lotr_port:gondor/enter_lamedon",
+    "biome": true
+  },
+  "enterBlackrootVale": {
+    "id": "lotr_port:gondor/enter_blackroot_vale",
+    "biome": true
+  },
+  "enterPinnathGelin": {
+    "id": "lotr_port:gondor/enter_pinnath_gelin",
+    "biome": true
+  },
+  "enterAndrast": {
+    "id": "lotr_port:gondor/enter_andrast",
+    "biome": true
+  },
+  "doMiniquestGondorKillRenegade": {
+    "id": "lotr_port:gondor/do_miniquest_gondor_kill_renegade",
+    "biome": false
+  },
+  "mineRemains": {
+    "id": "lotr_port:nindalf/mine_remains",
+    "biome": false
+  },
+  "craftAncientItem": {
+    "id": "lotr_port:nindalf/craft_ancient_item",
+    "biome": false
+  },
+  "enterDeadMarshes": {
+    "id": "lotr_port:nindalf/enter_dead_marshes",
+    "biome": true
+  },
+  "enterNindalf": {
+    "id": "lotr_port:nindalf/enter_nindalf",
+    "biome": true
+  },
+  "killMarshWraith": {
+    "id": "lotr_port:nindalf/kill_marsh_wraith",
+    "biome": false
+  },
+  "killOlogHai": {
+    "id": "lotr_port:mordor/kill_olog_hai",
+    "biome": false
+  },
+  "useMorgulTable": {
+    "id": "lotr_port:mordor/use_morgul_table",
+    "biome": false
+  },
+  "smeltOrcSteel": {
+    "id": "lotr_port:mordor/smelt_orc_steel",
+    "biome": false
+  },
+  "wearFullOrc": {
+    "id": "lotr_port:mordor/wear_full_orc",
+    "biome": false
+  },
+  "tradeOrcTrader": {
+    "id": "lotr_port:mordor/trade_orc_trader",
+    "biome": false
+  },
+  "tradeOrcCaptain": {
+    "id": "lotr_port:mordor/trade_orc_captain",
+    "biome": false
+  },
+  "mineNaurite": {
+    "id": "lotr_port:mordor/mine_naurite",
+    "biome": false
+  },
+  "eatMorgulShroom": {
+    "id": "lotr_port:mordor/eat_morgul_shroom",
+    "biome": false
+  },
+  "craftOrcBomb": {
+    "id": "lotr_port:mordor/craft_orc_bomb",
+    "biome": false
+  },
+  "hireOlogHai": {
+    "id": "lotr_port:mordor/hire_olog_hai",
+    "biome": false
+  },
+  "mineGulduril": {
+    "id": "lotr_port:mordor/mine_gulduril",
+    "biome": false
+  },
+  "useMorgulPortal": {
+    "id": "lotr_port:mordor/use_morgul_portal",
+    "biome": false
+  },
+  "wearFullMorgul": {
+    "id": "lotr_port:mordor/wear_full_morgul",
+    "biome": false
+  },
+  "enterMordor": {
+    "id": "lotr_port:mordor/enter_mordor",
+    "biome": true
+  },
+  "enterNurn": {
+    "id": "lotr_port:mordor/enter_nurn",
+    "biome": true
+  },
+  "enterNanUngol": {
+    "id": "lotr_port:mordor/enter_nan_ungol",
+    "biome": true
+  },
+  "killMordorSpider": {
+    "id": "lotr_port:mordor/kill_mordor_spider",
+    "biome": false
+  },
+  "tradeOrcSpiderKeeper": {
+    "id": "lotr_port:mordor/trade_orc_spider_keeper",
+    "biome": false
+  },
+  "killMordorOrc": {
+    "id": "lotr_port:mordor/kill_mordor_orc",
+    "biome": false
+  },
+  "doMiniquestMordor": {
+    "id": "lotr_port:mordor/do_miniquest_mordor",
+    "biome": false
+  },
+  "smeltBlackUrukSteel": {
+    "id": "lotr_port:mordor/smelt_black_uruk_steel",
+    "biome": false
+  },
+  "wearFullBlackUruk": {
+    "id": "lotr_port:mordor/wear_full_black_uruk",
+    "biome": false
+  },
+  "killBlackUruk": {
+    "id": "lotr_port:mordor/kill_black_uruk",
+    "biome": false
+  },
+  "hireNurnSlave": {
+    "id": "lotr_port:mordor/hire_nurn_slave",
+    "biome": false
+  },
+  "enterMorgulVale": {
+    "id": "lotr_port:mordor/enter_morgul_vale",
+    "biome": true
+  },
+  "tradeBlackUrukCaptain": {
+    "id": "lotr_port:mordor/trade_black_uruk_captain",
+    "biome": false
+  },
+  "killWickedDwarf": {
+    "id": "lotr_port:mordor/kill_wicked_dwarf",
+    "biome": false
+  },
+  "tradeWickedDwarf": {
+    "id": "lotr_port:mordor/trade_wicked_dwarf",
+    "biome": false
+  },
+  "enterDorwinion": {
+    "id": "lotr_port:dorwinion/enter_dorwinion",
+    "biome": true
+  },
+  "doMiniquestDorwinion": {
+    "id": "lotr_port:dorwinion/do_miniquest_dorwinion",
+    "biome": false
+  },
+  "useDorwinionTable": {
+    "id": "lotr_port:dorwinion/use_dorwinion_table",
+    "biome": false
+  },
+  "wearFullDorwinion": {
+    "id": "lotr_port:dorwinion/wear_full_dorwinion",
+    "biome": false
+  },
+  "wearFullDorwinionElf": {
+    "id": "lotr_port:dorwinion/wear_full_dorwinion_elf",
+    "biome": false
+  },
+  "killDorwinion": {
+    "id": "lotr_port:dorwinion/kill_dorwinion",
+    "biome": false
+  },
+  "tradeDorwinionCaptain": {
+    "id": "lotr_port:dorwinion/trade_dorwinion_captain",
+    "biome": false
+  },
+  "killDorwinionElf": {
+    "id": "lotr_port:dorwinion/kill_dorwinion_elf",
+    "biome": false
+  },
+  "tradeDorwinionElfCaptain": {
+    "id": "lotr_port:dorwinion/trade_dorwinion_elf_captain",
+    "biome": false
+  },
+  "drinkWine": {
+    "id": "lotr_port:dorwinion/drink_wine",
+    "biome": false
+  },
+  "harvestGrapes": {
+    "id": "lotr_port:dorwinion/harvest_grapes",
+    "biome": false
+  },
+  "buyWineVintner": {
+    "id": "lotr_port:dorwinion/buy_wine_vintner",
+    "biome": false
+  },
+  "hireDorwinionVinekeeper": {
+    "id": "lotr_port:dorwinion/hire_dorwinion_vinekeeper",
+    "biome": false
+  },
+  "stealDorwinionGrapes": {
+    "id": "lotr_port:dorwinion/steal_dorwinion_grapes",
+    "biome": false
+  },
+  "tradeDorwinionMerchant": {
+    "id": "lotr_port:dorwinion/trade_dorwinion_merchant",
+    "biome": false
+  },
+  "enterDorwinionHills": {
+    "id": "lotr_port:dorwinion/enter_dorwinion_hills",
+    "biome": true
+  },
+  "enterRhun": {
+    "id": "lotr_port:rhun/enter_rhun",
+    "biome": true
+  },
+  "useRhunTable": {
+    "id": "lotr_port:rhun/use_rhun_table",
+    "biome": false
+  },
+  "killEasterling": {
+    "id": "lotr_port:rhun/kill_easterling",
+    "biome": false
+  },
+  "doMiniquestRhun": {
+    "id": "lotr_port:rhun/do_miniquest_rhun",
+    "biome": false
+  },
+  "wearFullRhun": {
+    "id": "lotr_port:rhun/wear_full_rhun",
+    "biome": false
+  },
+  "tradeRhunBlacksmith": {
+    "id": "lotr_port:rhun/trade_rhun_blacksmith",
+    "biome": false
+  },
+  "tradeRhunCaptain": {
+    "id": "lotr_port:rhun/trade_rhun_captain",
+    "biome": false
+  },
+  "hitBirdFirePot": {
+    "id": "lotr_port:rhun/hit_bird_fire_pot",
+    "biome": false
+  },
+  "getKineArawHorn": {
+    "id": "lotr_port:rhun/get_kine_araw_horn",
+    "biome": false
+  },
+  "wearFullRhunGold": {
+    "id": "lotr_port:rhun/wear_full_rhun_gold",
+    "biome": false
+  },
+  "enterLastDesert": {
+    "id": "lotr_port:rhun/enter_last_desert",
+    "biome": true
+  },
+  "enterMountainsWind": {
+    "id": "lotr_port:rhun/enter_mountains_wind",
+    "biome": true
+  },
+  "tradeRhunMarketTrader": {
+    "id": "lotr_port:rhun/trade_rhun_market_trader",
+    "biome": false
+  },
+  "tradeRhunBartender": {
+    "id": "lotr_port:rhun/trade_rhun_bartender",
+    "biome": false
+  },
+  "hireRhunFarmer": {
+    "id": "lotr_port:rhun/hire_rhun_farmer",
+    "biome": false
+  },
+  "enterRhunLand": {
+    "id": "lotr_port:rhun/enter_rhun_land",
+    "biome": true
+  },
+  "enterRhunRedwood": {
+    "id": "lotr_port:rhun/enter_rhun_redwood",
+    "biome": true
+  },
+  "enterRhunIsland": {
+    "id": "lotr_port:rhun/enter_rhun_island",
+    "biome": true
+  },
+  "enterRedMountains": {
+    "id": "lotr_port:orocarni/enter_red_mountains",
+    "biome": true
+  },
+  "enterHarondor": {
+    "id": "lotr_port:near_harad/enter_harondor",
+    "biome": true
+  },
+  "enterNearHarad": {
+    "id": "lotr_port:near_harad/enter_near_harad",
+    "biome": true
+  },
+  "killNearHaradrim": {
+    "id": "lotr_port:near_harad/kill_near_haradrim",
+    "biome": false
+  },
+  "useNearHaradTable": {
+    "id": "lotr_port:near_harad/use_near_harad_table",
+    "biome": false
+  },
+  "wearFullNearHarad": {
+    "id": "lotr_port:near_harad/wear_full_near_harad",
+    "biome": false
+  },
+  "tradeNearHaradWarlord": {
+    "id": "lotr_port:near_harad/trade_near_harad_warlord",
+    "biome": false
+  },
+  "rideCamel": {
+    "id": "lotr_port:near_harad/ride_camel",
+    "biome": false
+  },
+  "tradeBazaarTrader": {
+    "id": "lotr_port:near_harad/trade_bazaar_trader",
+    "biome": false
+  },
+  "tradeNearHaradMerchant": {
+    "id": "lotr_port:near_harad/trade_near_harad_merchant",
+    "biome": false
+  },
+  "doMiniquestNearHarad": {
+    "id": "lotr_port:near_harad/do_miniquest_near_harad",
+    "biome": false
+  },
+  "cookKebab": {
+    "id": "lotr_port:near_harad/cook_kebab",
+    "biome": false
+  },
+  "enterNearHaradOasis": {
+    "id": "lotr_port:near_harad/enter_near_harad_oasis",
+    "biome": true
+  },
+  "tradeNearHaradBlacksmith": {
+    "id": "lotr_port:near_harad/trade_near_harad_blacksmith",
+    "biome": false
+  },
+  "enterHarnedor": {
+    "id": "lotr_port:near_harad/enter_harnedor",
+    "biome": true
+  },
+  "enterSouthronCoasts": {
+    "id": "lotr_port:near_harad/enter_southron_coasts",
+    "biome": true
+  },
+  "enterUmbar": {
+    "id": "lotr_port:near_harad/enter_umbar",
+    "biome": true
+  },
+  "enterLostladen": {
+    "id": "lotr_port:near_harad/enter_lostladen",
+    "biome": true
+  },
+  "enterGulfHarad": {
+    "id": "lotr_port:near_harad/enter_gulf_harad",
+    "biome": true
+  },
+  "useUmbarTable": {
+    "id": "lotr_port:near_harad/use_umbar_table",
+    "biome": false
+  },
+  "useGulfTable": {
+    "id": "lotr_port:near_harad/use_gulf_table",
+    "biome": false
+  },
+  "wearFullGulfHarad": {
+    "id": "lotr_port:near_harad/wear_full_gulf_harad",
+    "biome": false
+  },
+  "wearFullCorsair": {
+    "id": "lotr_port:near_harad/wear_full_corsair",
+    "biome": false
+  },
+  "wearFullUmbar": {
+    "id": "lotr_port:near_harad/wear_full_umbar",
+    "biome": false
+  },
+  "wearFullHarnedor": {
+    "id": "lotr_port:near_harad/wear_full_harnedor",
+    "biome": false
+  },
+  "wearFullNomad": {
+    "id": "lotr_port:near_harad/wear_full_nomad",
+    "biome": false
+  },
+  "tradeHarnedorWarlord": {
+    "id": "lotr_port:near_harad/trade_harnedor_warlord",
+    "biome": false
+  },
+  "tradeUmbarCaptain": {
+    "id": "lotr_port:near_harad/trade_umbar_captain",
+    "biome": false
+  },
+  "tradeCorsairCaptain": {
+    "id": "lotr_port:near_harad/trade_corsair_captain",
+    "biome": false
+  },
+  "tradeNomadWarlord": {
+    "id": "lotr_port:near_harad/trade_nomad_warlord",
+    "biome": false
+  },
+  "tradeGulfWarlord": {
+    "id": "lotr_port:near_harad/trade_gulf_warlord",
+    "biome": false
+  },
+  "hireHaradSlave": {
+    "id": "lotr_port:near_harad/hire_harad_slave",
+    "biome": false
+  },
+  "hireMoredainMercenary": {
+    "id": "lotr_port:near_harad/hire_moredain_mercenary",
+    "biome": false
+  },
+  "tradeHarnedorBlacksmith": {
+    "id": "lotr_port:near_harad/trade_harnedor_blacksmith",
+    "biome": false
+  },
+  "tradeUmbarBlacksmith": {
+    "id": "lotr_port:near_harad/trade_umbar_blacksmith",
+    "biome": false
+  },
+  "tradeGulfBlacksmith": {
+    "id": "lotr_port:near_harad/trade_gulf_blacksmith",
+    "biome": false
+  },
+  "doMiniquestGondorRenegade": {
+    "id": "lotr_port:near_harad/do_miniquest_gondor_renegade",
+    "biome": false
+  },
+  "tradeNomadMerchant": {
+    "id": "lotr_port:near_harad/trade_nomad_merchant",
+    "biome": false
+  },
+  "tradeHaradBartender": {
+    "id": "lotr_port:near_harad/trade_harad_bartender",
+    "biome": false
+  },
+  "tradeNomadArmourer": {
+    "id": "lotr_port:near_harad/trade_nomad_armourer",
+    "biome": false
+  },
+  "hireHarnedorFarmer": {
+    "id": "lotr_port:near_harad/hire_harnedor_farmer",
+    "biome": false
+  },
+  "tradeHaradFarmer": {
+    "id": "lotr_port:near_harad/trade_harad_farmer",
+    "biome": false
+  },
+  "wearFullBlackNumenorean": {
+    "id": "lotr_port:near_harad/wear_full_black_numenorean",
+    "biome": false
+  },
+  "enterFarHaradSavannah": {
+    "id": "lotr_port:far_harad_savannah/enter_far_harad_savannah",
+    "biome": true
+  },
+  "pickBanana": {
+    "id": "lotr_port:far_harad_savannah/pick_banana",
+    "biome": false
+  },
+  "growBaobab": {
+    "id": "lotr_port:far_harad_savannah/grow_baobab",
+    "biome": false
+  },
+  "enterFarHaradVolcano": {
+    "id": "lotr_port:far_harad_savannah/enter_far_harad_volcano",
+    "biome": true
+  },
+  "killMoredain": {
+    "id": "lotr_port:far_harad_savannah/kill_moredain",
+    "biome": false
+  },
+  "useMoredainTable": {
+    "id": "lotr_port:far_harad_savannah/use_moredain_table",
+    "biome": false
+  },
+  "wearFullMoredain": {
+    "id": "lotr_port:far_harad_savannah/wear_full_moredain",
+    "biome": false
+  },
+  "tradeMoredainChieftain": {
+    "id": "lotr_port:far_harad_savannah/trade_moredain_chieftain",
+    "biome": false
+  },
+  "doMiniquestMoredain": {
+    "id": "lotr_port:far_harad_savannah/do_miniquest_moredain",
+    "biome": false
+  },
+  "tradeMoredainVillager": {
+    "id": "lotr_port:far_harad_savannah/trade_moredain_villager",
+    "biome": false
+  },
+  "enterCorsairCoasts": {
+    "id": "lotr_port:far_harad_savannah/enter_corsair_coasts",
+    "biome": true
+  },
+  "enterFarHaradJungle": {
+    "id": "lotr_port:far_harad_jungle/enter_far_harad_jungle",
+    "biome": true
+  },
+  "drinkMangoJuice": {
+    "id": "lotr_port:far_harad_jungle/drink_mango_juice",
+    "biome": false
+  },
+  "doMiniquestTauredain": {
+    "id": "lotr_port:far_harad_jungle/do_miniquest_tauredain",
+    "biome": false
+  },
+  "useTauredainTable": {
+    "id": "lotr_port:far_harad_jungle/use_tauredain_table",
+    "biome": false
+  },
+  "wearFullTauredain": {
+    "id": "lotr_port:far_harad_jungle/wear_full_tauredain",
+    "biome": false
+  },
+  "killTauredain": {
+    "id": "lotr_port:far_harad_jungle/kill_tauredain",
+    "biome": false
+  },
+  "tradeTauredainChieftain": {
+    "id": "lotr_port:far_harad_jungle/trade_tauredain_chieftain",
+    "biome": false
+  },
+  "tradeTauredainShaman": {
+    "id": "lotr_port:far_harad_jungle/trade_tauredain_shaman",
+    "biome": false
+  },
+  "smeltObsidianShard": {
+    "id": "lotr_port:far_harad_jungle/smelt_obsidian_shard",
+    "biome": false
+  },
+  "tradeTauredainFarmer": {
+    "id": "lotr_port:far_harad_jungle/trade_tauredain_farmer",
+    "biome": false
+  },
+  "hireTauredainFarmer": {
+    "id": "lotr_port:far_harad_jungle/hire_tauredain_farmer",
+    "biome": false
+  },
+  "tradeTauredainSmith": {
+    "id": "lotr_port:far_harad_jungle/trade_tauredain_smith",
+    "biome": false
+  },
+  "wearFullTaurethrimGold": {
+    "id": "lotr_port:far_harad_jungle/wear_full_taurethrim_gold",
+    "biome": false
+  },
+  "enterPertorogwaith": {
+    "id": "lotr_port:perdorogwaith/enter_pertorogwaith",
+    "biome": true
+  },
+  "killHalfTroll": {
+    "id": "lotr_port:perdorogwaith/kill_half_troll",
+    "biome": false
+  },
+  "wearFullHalfTroll": {
+    "id": "lotr_port:perdorogwaith/wear_full_half_troll",
+    "biome": false
+  },
+  "tradeHalfTrollWarlord": {
+    "id": "lotr_port:perdorogwaith/trade_half_troll_warlord",
+    "biome": false
+  },
+  "useHalfTrollTable": {
+    "id": "lotr_port:perdorogwaith/use_half_troll_table",
+    "biome": false
+  },
+  "doMiniquestHalfTroll": {
+    "id": "lotr_port:perdorogwaith/do_miniquest_half_troll",
+    "biome": false
+  },
+  "tradeHalfTrollScavenger": {
+    "id": "lotr_port:perdorogwaith/trade_half_troll_scavenger",
+    "biome": false
+  },
+  "enterHalfTrollForest": {
+    "id": "lotr_port:perdorogwaith/enter_half_troll_forest",
+    "biome": true
+  },
+  "enterOcean": {
+    "id": "lotr_port:ocean/enter_ocean",
+    "biome": true
+  },
+  "enterMeneltarma": {
+    "id": "lotr_port:ocean/enter_meneltarma",
+    "biome": true
+  },
+  "enterUtumnoIce": {
+    "id": "lotr_port:utumno/enter_utumno_ice",
+    "biome": false
+  },
+  "enterUtumnoObsidian": {
+    "id": "lotr_port:utumno/enter_utumno_obsidian",
+    "biome": false
+  },
+  "enterUtumnoFire": {
+    "id": "lotr_port:utumno/enter_utumno_fire",
+    "biome": false
+  },
+  "wearFullUtumno": {
+    "id": "lotr_port:utumno/wear_full_utumno",
+    "biome": false
+  },
+  "killUtumnoOrc": {
+    "id": "lotr_port:utumno/kill_utumno_orc",
+    "biome": false
+  },
+  "killUtumnoWarg": {
+    "id": "lotr_port:utumno/kill_utumno_warg",
+    "biome": false
+  },
+  "killBalrog": {
+    "id": "lotr_port:utumno/kill_balrog",
+    "biome": false
+  },
+  "killTormentedElf": {
+    "id": "lotr_port:utumno/kill_tormented_elf",
+    "biome": false
+  },
+  "killUtumnoTroll": {
+    "id": "lotr_port:utumno/kill_utumno_troll",
+    "biome": false
+  },
+  "craftUtumnoKey": {
+    "id": "lotr_port:utumno/craft_utumno_key",
+    "biome": false
+  },
+  "leaveUtumno": {
+    "id": "lotr_port:utumno/leave_utumno",
+    "biome": false
+  }
+}

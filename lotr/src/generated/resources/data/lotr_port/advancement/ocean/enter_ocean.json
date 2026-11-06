@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:ocean/root",
+  "display": {
+    "icon": {
+      "id": "minecraft:boat"
+    },
+    "title": {
+      "translate": "lotr.achievement.enterOcean.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.enterOcean.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

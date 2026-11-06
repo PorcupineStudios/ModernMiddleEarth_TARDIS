@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:perdorogwaith/root",
+  "display": {
+    "icon": {
+      "id": "minecraft:stone"
+    },
+    "title": {
+      "translate": "lotr.achievement.enterPertorogwaith.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.enterPertorogwaith.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

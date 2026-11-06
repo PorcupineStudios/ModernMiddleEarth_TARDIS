@@ -1,0 +1,19 @@
+{
+  "model": "lotr_port:crocodile",
+  "width": 2.1,
+  "height": 0.7,
+  "behaviours": [],
+  "lotr_classes": [
+    "LOTREntityCrocodile",
+    "EntityMob",
+    "EntityCreature",
+    "EntityLiving",
+    "EntityLivingBase"
+  ],
+  "behaviour_data": {
+    "state.renderer": 0
+  },
+  "health": 20.0,
+  "speed": 0.2,
+  "attack": 2.0
+}

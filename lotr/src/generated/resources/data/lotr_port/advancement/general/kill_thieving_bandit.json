@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:general/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:leather_hat"
+    },
+    "title": {
+      "translate": "lotr.achievement.killThievingBandit.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.killThievingBandit.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

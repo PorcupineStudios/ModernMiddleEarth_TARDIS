@@ -3,14 +3,14 @@
     "recipes": 2798,
     "create_compat_recipes": 134,
     "factions": 29,
-    "npcs": 389,
-    "npc_skins": 250,
+    "npcs": 416,
+    "npc_skins": 269,
     "structures": 82,
     "structures_with_npcs": 67,
     "npc_spawn_tables": 135,
     "waypoints": 274,
     "quest_pools": 37,
-    "quest_givers": 283,
+    "quest_givers": 279,
     "migration_tables": 28
   }
 ]

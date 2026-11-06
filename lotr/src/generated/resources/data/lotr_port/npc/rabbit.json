@@ -1,0 +1,25 @@
+{
+  "skins": [
+    "lotr_port:textures/entity/rabbit/0.png",
+    "lotr_port:textures/entity/rabbit/1.png",
+    "lotr_port:textures/entity/rabbit/2.png",
+    "lotr_port:textures/entity/rabbit/3.png",
+    "lotr_port:textures/entity/rabbit/4.png"
+  ],
+  "model": "lotr_port:rabbit",
+  "width": 0.5,
+  "height": 0.5,
+  "behaviours": [],
+  "lotr_classes": [
+    "LOTREntityRabbit",
+    "EntityCreature",
+    "EntityLiving",
+    "EntityLivingBase"
+  ],
+  "behaviour_data": {
+    "state.renderer": 0
+  },
+  "health": 4.0,
+  "speed": 0.25,
+  "attack": 2.0
+}

@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:general/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:athelas"
+    },
+    "title": {
+      "translate": "lotr.achievement.findAthelas.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.findAthelas.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

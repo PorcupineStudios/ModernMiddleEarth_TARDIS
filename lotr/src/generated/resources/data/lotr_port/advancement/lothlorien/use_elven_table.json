@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:lothlorien/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:galadhrim_crafting_table"
+    },
+    "title": {
+      "translate": "lotr.achievement.useElvenTable.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.useElvenTable.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

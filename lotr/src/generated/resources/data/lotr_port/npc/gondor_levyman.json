@@ -20,13 +20,13 @@
     "mainhand": [
       "lotr_port:bronze_axe",
       "lotr_port:gondorian_pike",
-      "lotr_port:gondorian_sword",
       "lotr_port:gondorian_warhammer",
-      "lotr_port:iron_battleaxe",
+      "lotr_port:iron_pike",
+      "minecraft:iron_axe",
       "minecraft:iron_sword"
     ],
     "head": [
-      "minecraft:iron_helmet",
+      "lotr_port:gondorian_helmet",
       "minecraft:leather_helmet"
     ],
     "chest": "lotr_port:gondorian_gambeson",
@@ -34,6 +34,5 @@
     "feet": "minecraft:leather_boots"
   },
   "names": "lotr_port:gondor_male",
-  "speech": "lotr_port:gondor/soldier",
-  "quests": "lotr_port:gondor"
+  "speech": "lotr_port:gondor/soldier"
 }

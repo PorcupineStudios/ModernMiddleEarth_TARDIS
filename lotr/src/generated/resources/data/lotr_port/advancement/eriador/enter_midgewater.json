@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:eriador/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:quagmire"
+    },
+    "title": {
+      "translate": "lotr.achievement.enterMidgewater.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.enterMidgewater.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:rohan/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:mead"
+    },
+    "title": {
+      "translate": "lotr.achievement.buyRohanMead.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.buyRohanMead.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "faction": "lotr_port:gundabad",
+  "mobs": [
+    "lotr_port:gundabad_warg"
+  ],
+  "icon": "lotr_port:warg_bone",
+  "lang": "lotr.invasion.GUNDABAD_WARG"
+}

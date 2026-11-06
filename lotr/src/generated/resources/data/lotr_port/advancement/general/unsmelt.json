@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:general/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:unsmeltery"
+    },
+    "title": {
+      "translate": "lotr.achievement.unsmelt.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.unsmelt.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

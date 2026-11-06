@@ -1,0 +1,10 @@
+{
+  "faction": "lotr_port:blue_mountains",
+  "mobs": [
+    "lotr_port:blue_dwarf_warrior",
+    "lotr_port:blue_dwarf_axe_thrower",
+    "lotr_port:blue_dwarf_banner_bearer"
+  ],
+  "icon": "lotr_port:blue_dwarven_warhammer",
+  "lang": "lotr.invasion.BLUE_MOUNTAINS"
+}

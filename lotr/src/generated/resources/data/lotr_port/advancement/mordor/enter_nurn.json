@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:mordor/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:mordor_hoe"
+    },
+    "title": {
+      "translate": "lotr.achievement.enterNurn.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.enterNurn.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

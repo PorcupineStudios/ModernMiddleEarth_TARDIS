@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:eriador/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:ranger_crafting_table"
+    },
+    "title": {
+      "translate": "lotr.achievement.useRangerTable.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.useRangerTable.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

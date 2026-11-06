@@ -22,7 +22,7 @@
     "size_min": 0,
     "size_max": 3,
     "venom": 1,
-    "state.renderer": 2
+    "state.renderer": 0
   },
   "sounds": {
     "ambient": "minecraft:entity.spider.ambient",
@@ -30,8 +30,8 @@
     "death": "minecraft:entity.spider.death",
     "step": "minecraft:entity.spider.step"
   },
-  "health": 12.0,
-  "speed": 0.35,
-  "attack": 2.0,
+  "health": 24.0,
+  "speed": 0.29,
+  "attack": 4.0,
   "speech": "lotr_port:utumno/orc"
 }

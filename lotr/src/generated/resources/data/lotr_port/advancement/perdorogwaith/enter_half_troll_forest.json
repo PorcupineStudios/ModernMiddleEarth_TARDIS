@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:perdorogwaith/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:cracked_taurethrim_brick"
+    },
+    "title": {
+      "translate": "lotr.achievement.enterHalfTrollForest.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.enterHalfTrollForest.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

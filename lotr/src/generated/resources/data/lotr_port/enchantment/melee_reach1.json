@@ -1,0 +1,35 @@
+{
+  "description": {
+    "translate": "lotr.enchant.meleeReach1"
+  },
+  "supported_items": "#lotr_port:enchantable/melee",
+  "weight": 6,
+  "max_level": 1,
+  "min_cost": {
+    "base": 1,
+    "per_level_above_first": 0
+  },
+  "max_cost": {
+    "base": 41,
+    "per_level_above_first": 0
+  },
+  "anvil_cost": 2,
+  "slots": [
+    "mainhand"
+  ],
+  "effects": {
+    "minecraft:attributes": [
+      {
+        "id": "lotr_port:enchantment.melee_reach1",
+        "attribute": "minecraft:player.entity_interaction_range",
+        "amount": {
+          "type": "minecraft:linear",
+          "base": 0.25,
+          "per_level_above_first": 0
+        },
+        "operation": "add_multiplied_total"
+      }
+    ]
+  },
+  "exclusive_set": "#lotr_port:exclusive_set/melee_reach"
+}

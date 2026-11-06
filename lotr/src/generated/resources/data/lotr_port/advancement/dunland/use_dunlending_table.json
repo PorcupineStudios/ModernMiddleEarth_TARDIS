@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:dunland/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:dunlending_crafting_table"
+    },
+    "title": {
+      "translate": "lotr.achievement.useDunlendingTable.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.useDunlendingTable.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

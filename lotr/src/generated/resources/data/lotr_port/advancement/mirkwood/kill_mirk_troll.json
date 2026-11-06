@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:mirkwood/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:troll_bone"
+    },
+    "title": {
+      "translate": "lotr.achievement.killMirkTroll.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.killMirkTroll.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:utumno/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:orc_bone"
+    },
+    "title": {
+      "translate": "lotr.achievement.killUtumnoOrc.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.killUtumnoOrc.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

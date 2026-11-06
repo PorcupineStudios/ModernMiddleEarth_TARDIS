@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:rohan/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:uruk_crafting_table"
+    },
+    "title": {
+      "translate": "lotr.achievement.useUrukTable.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.useUrukTable.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

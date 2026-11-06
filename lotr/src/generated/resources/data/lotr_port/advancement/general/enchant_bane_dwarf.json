@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:general/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:gundabad_uruk_waraxe"
+    },
+    "title": {
+      "translate": "lotr.achievement.enchantBaneDwarf.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.enchantBaneDwarf.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

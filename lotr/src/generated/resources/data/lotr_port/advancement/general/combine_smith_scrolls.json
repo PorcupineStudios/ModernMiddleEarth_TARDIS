@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:general/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:s_smiths_scroll"
+    },
+    "title": {
+      "translate": "lotr.achievement.combineSmithScrolls.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.combineSmithScrolls.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

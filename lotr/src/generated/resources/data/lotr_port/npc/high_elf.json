@@ -32,6 +32,5 @@
   "gear": {
     "mainhand": "lotr_port:lindon_dagger"
   },
-  "speech": "lotr_port:high_elf/elf",
-  "quests": "lotr_port:high_elf"
+  "speech": "lotr_port:high_elf/elf"
 }

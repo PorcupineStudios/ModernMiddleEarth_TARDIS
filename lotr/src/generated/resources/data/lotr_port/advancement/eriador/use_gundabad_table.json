@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:eriador/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:gundabad_crafting_table"
+    },
+    "title": {
+      "translate": "lotr.achievement.useGundabadTable.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.useGundabadTable.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

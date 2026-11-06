@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:utumno/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:warg_bone"
+    },
+    "title": {
+      "translate": "lotr.achievement.killUtumnoWarg.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.killUtumnoWarg.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

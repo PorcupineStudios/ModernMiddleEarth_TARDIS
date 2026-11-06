@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:rhun/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:rh_nic_fire_pot"
+    },
+    "title": {
+      "translate": "lotr.achievement.hitBirdFirePot.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.hitBirdFirePot.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

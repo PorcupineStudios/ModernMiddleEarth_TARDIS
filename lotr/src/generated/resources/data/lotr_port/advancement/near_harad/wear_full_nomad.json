@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:near_harad/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:nomad_tunic"
+    },
+    "title": {
+      "translate": "lotr.achievement.wearFullNomad.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.wearFullNomad.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

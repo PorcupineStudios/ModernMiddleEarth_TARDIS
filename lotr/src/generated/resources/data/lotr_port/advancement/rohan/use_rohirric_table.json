@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:rohan/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:rohirric_crafting_table"
+    },
+    "title": {
+      "translate": "lotr.achievement.useRohirricTable.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.useRohirricTable.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

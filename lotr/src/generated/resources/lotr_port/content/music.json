@@ -1,0 +1,674 @@
+{
+  "rohan": {
+    "region": "rohan",
+    "sub": "rohan"
+  },
+  "misty_mountains": {
+    "region": "misty_mountains",
+    "sub": "misty_mountains"
+  },
+  "shire": {
+    "region": "shire",
+    "sub": "shire"
+  },
+  "shire_woodlands": {
+    "region": "shire",
+    "sub": "woodland"
+  },
+  "mordor": {
+    "region": "mordor",
+    "sub": "mordor"
+  },
+  "mordor_mountains": {
+    "region": "mordor",
+    "sub": "mountains"
+  },
+  "gondor": {
+    "region": "gondor",
+    "sub": "gondor"
+  },
+  "white_mountains": {
+    "region": "gondor",
+    "sub": "white_mountains"
+  },
+  "lothlorien": {
+    "region": "lothlorien",
+    "sub": "lothlorien"
+  },
+  "celebrant": {
+    "region": "rhovanion",
+    "sub": "celebrant"
+  },
+  "iron_hills": {
+    "region": "dwarven",
+    "sub": "iron_hills"
+  },
+  "dead_marshes": {
+    "region": "dead_marshes",
+    "sub": "dead_marshes"
+  },
+  "trollshaws": {
+    "region": "eriador",
+    "sub": "trollshaws"
+  },
+  "woodland_realm": {
+    "region": "woodland_realm",
+    "sub": "woodland_realm"
+  },
+  "mirkwood_corrupted": {
+    "region": "mirkwood",
+    "sub": "mirkwood"
+  },
+  "rohan_uruk_highlands": {
+    "region": "isengard",
+    "sub": "rohan"
+  },
+  "emyn_muil": {
+    "region": "brown_lands",
+    "sub": "emyn_muil"
+  },
+  "ithilien": {
+    "region": "gondor",
+    "sub": "ithilien"
+  },
+  "pelargir": {
+    "region": "gondor",
+    "sub": "pelargir"
+  },
+  "lone_lands": {
+    "region": "eriador",
+    "sub": "lone_lands"
+  },
+  "lone_lands_hills": {
+    "region": "eriador",
+    "sub": "lone_lands"
+  },
+  "dunland": {
+    "region": "dunland",
+    "sub": "dunland"
+  },
+  "fangorn": {
+    "region": "fangorn",
+    "sub": "fangorn"
+  },
+  "angle": {
+    "region": "eriador",
+    "sub": "angle"
+  },
+  "ettenmoors": {
+    "region": "angmar",
+    "sub": "ettenmoors"
+  },
+  "old_forest": {
+    "region": "old_forest",
+    "sub": "old_forest"
+  },
+  "harondor": {
+    "region": "near_harad",
+    "sub": "harondor"
+  },
+  "eriador": {
+    "region": "eriador",
+    "sub": "eriador"
+  },
+  "eriador_downs": {
+    "region": "eriador",
+    "sub": "eriador"
+  },
+  "eryn_vorn": {
+    "region": "eriador",
+    "sub": "eriador"
+  },
+  "grey_mountains": {
+    "region": "grey_mountains",
+    "sub": "grey_mountains"
+  },
+  "midgewater": {
+    "region": "eriador",
+    "sub": "midgewater"
+  },
+  "brown_lands": {
+    "region": "brown_lands",
+    "sub": "brown_lands"
+  },
+  "ocean": {
+    "region": "sea",
+    "sub": "sea"
+  },
+  "anduin_hills": {
+    "region": "rhovanion",
+    "sub": "anduin"
+  },
+  "meneltarma": {
+    "region": "sea",
+    "sub": "meneltarma"
+  },
+  "gladden_fields": {
+    "region": "rhovanion",
+    "sub": "gladden"
+  },
+  "lothlorien_edge": {
+    "region": "lothlorien",
+    "sub": "edge"
+  },
+  "forodwaith": {
+    "region": "forodwaith",
+    "sub": "forodwaith"
+  },
+  "enedwaith": {
+    "region": "enedwaith",
+    "sub": "enedwaith"
+  },
+  "angmar": {
+    "region": "angmar",
+    "sub": "angmar"
+  },
+  "eregion": {
+    "region": "eregion",
+    "sub": "eregion"
+  },
+  "lindon": {
+    "region": "lindon",
+    "sub": "lindon"
+  },
+  "lindon_woodlands": {
+    "region": "lindon",
+    "sub": "lindon"
+  },
+  "east_bight": {
+    "region": "rhovanion",
+    "sub": "wilderland"
+  },
+  "blue_mountains": {
+    "region": "dwarven",
+    "sub": "blue_mountains"
+  },
+  "mirkwood_mountains": {
+    "region": "mirkwood",
+    "sub": "mirkwood"
+  },
+  "wilderland": {
+    "region": "rhovanion",
+    "sub": "wilderland"
+  },
+  "dagorlad": {
+    "region": "mordor",
+    "sub": "dagorlad"
+  },
+  "nurn": {
+    "region": "mordor",
+    "sub": "nurn"
+  },
+  "nurnen": {
+    "region": "mordor",
+    "sub": "nurn"
+  },
+  "nurn_marshes": {
+    "region": "mordor",
+    "sub": "nurn"
+  },
+  "adornland": {
+    "region": "dunland",
+    "sub": "adorn"
+  },
+  "angmar_mountains": {
+    "region": "angmar",
+    "sub": "angmar"
+  },
+  "anduin_mouth": {
+    "region": "gondor",
+    "sub": "lebennin"
+  },
+  "entwash_mouth": {
+    "region": "gondor",
+    "sub": "gondor"
+  },
+  "dor_en_ernil": {
+    "region": "gondor",
+    "sub": "dol_amroth"
+  },
+  "dor_en_ernil_hills": {
+    "region": "gondor",
+    "sub": "dol_amroth"
+  },
+  "fangorn_wasteland": {
+    "region": "isengard",
+    "sub": "fangorn"
+  },
+  "rohan_woodlands": {
+    "region": "rohan",
+    "sub": "rohan"
+  },
+  "gondor_woodlands": {
+    "region": "gondor",
+    "sub": "gondor"
+  },
+  "lake": {
+    "region": "sea",
+    "sub": "lake"
+  },
+  "lindon_coast": {
+    "region": "lindon",
+    "sub": "lindon"
+  },
+  "barrow_downs": {
+    "region": "barrow_downs",
+    "sub": "barrow_downs"
+  },
+  "long_marshes": {
+    "region": "rhovanion",
+    "sub": "long_marshes"
+  },
+  "fangorn_clearing": {
+    "region": "fangorn",
+    "sub": "fangorn"
+  },
+  "ithilien_hills": {
+    "region": "gondor",
+    "sub": "ithilien"
+  },
+  "ithilien_wasteland": {
+    "region": "gondor",
+    "sub": "ithilien"
+  },
+  "nindalf": {
+    "region": "dead_marshes",
+    "sub": "nindalf"
+  },
+  "coldfells": {
+    "region": "angmar",
+    "sub": "coldfells"
+  },
+  "nan_curunir": {
+    "region": "isengard",
+    "sub": "isengard"
+  },
+  "white_downs": {
+    "region": "shire",
+    "sub": "white_downs"
+  },
+  "swanfleet": {
+    "region": "eriador",
+    "sub": "swanfleet"
+  },
+  "pelennor": {
+    "region": "gondor",
+    "sub": "pelennor"
+  },
+  "minhiriath": {
+    "region": "eriador",
+    "sub": "minhiriath"
+  },
+  "erebor": {
+    "region": "dwarven",
+    "sub": "erebor"
+  },
+  "mirkwood_north": {
+    "region": "mirkwood",
+    "sub": "north"
+  },
+  "woodland_realm_hills": {
+    "region": "woodland_realm",
+    "sub": "woodland_realm"
+  },
+  "nan_ungol": {
+    "region": "mordor",
+    "sub": "nan_ungol"
+  },
+  "pinnath_gelin": {
+    "region": "gondor",
+    "sub": "pinnath_gelin"
+  },
+  "island": {
+    "region": "sea",
+    "sub": "sea"
+  },
+  "forodwaith_mountains": {
+    "region": "forodwaith",
+    "sub": "forodwaith"
+  },
+  "misty_mountains_foothills": {
+    "region": "misty_mountains",
+    "sub": "misty_mountains"
+  },
+  "grey_mountains_foothills": {
+    "region": "grey_mountains",
+    "sub": "grey_mountains"
+  },
+  "blue_mountains_foothills": {
+    "region": "dwarven",
+    "sub": "blue_mountains"
+  },
+  "tundra": {
+    "region": "forodwaith",
+    "sub": "tundra"
+  },
+  "taiga": {
+    "region": "forodwaith",
+    "sub": "tundra"
+  },
+  "breeland": {
+    "region": "bree",
+    "sub": "bree"
+  },
+  "chetwood": {
+    "region": "bree",
+    "sub": "chetwood"
+  },
+  "forodwaith_glacier": {
+    "region": "forodwaith",
+    "sub": "forodwaith"
+  },
+  "white_mountains_foothills": {
+    "region": "gondor",
+    "sub": "white_mountains"
+  },
+  "beach": {
+    "region": "sea",
+    "sub": "sea"
+  },
+  "beach_gravel": {
+    "region": "sea",
+    "sub": "sea"
+  },
+  "near_harad": {
+    "region": "near_harad",
+    "sub": "desert"
+  },
+  "far_harad": {
+    "region": "far_harad",
+    "sub": "savannah"
+  },
+  "harad_mountains": {
+    "region": "far_harad",
+    "sub": "mountains"
+  },
+  "umbar": {
+    "region": "near_harad",
+    "sub": "umbar"
+  },
+  "far_harad_jungle": {
+    "region": "far_harad_jungle",
+    "sub": "jungle"
+  },
+  "umbar_hills": {
+    "region": "near_harad",
+    "sub": "umbar"
+  },
+  "near_harad_hills": {
+    "region": "near_harad",
+    "sub": "desert"
+  },
+  "far_harad_jungle_lake": {
+    "region": "far_harad_jungle",
+    "sub": "jungle"
+  },
+  "lostladen": {
+    "region": "near_harad",
+    "sub": "lostladen"
+  },
+  "far_harad_forest": {
+    "region": "far_harad",
+    "sub": "savannah"
+  },
+  "near_harad_fertile": {
+    "region": "near_harad",
+    "sub": "fertile"
+  },
+  "pertorogwaith": {
+    "region": "perdorogwaith",
+    "sub": "pertorogwaith"
+  },
+  "umbar_forest": {
+    "region": "near_harad",
+    "sub": "umbar"
+  },
+  "far_harad_jungle_edge": {
+    "region": "far_harad_jungle",
+    "sub": "edge"
+  },
+  "tauredain_clearing": {
+    "region": "far_harad_jungle",
+    "sub": "jungle"
+  },
+  "gulf_harad": {
+    "region": "near_harad",
+    "sub": "gulf"
+  },
+  "dorwinion_hills": {
+    "region": "dorwinion",
+    "sub": "dorwinion"
+  },
+  "tolfalas": {
+    "region": "gondor",
+    "sub": "tolfalas"
+  },
+  "lebennin": {
+    "region": "gondor",
+    "sub": "lebennin"
+  },
+  "rhun": {
+    "region": "rhun",
+    "sub": "rhun"
+  },
+  "rhun_forest": {
+    "region": "rhun",
+    "sub": "rhun"
+  },
+  "red_mountains": {
+    "region": "dwarven",
+    "sub": "red_mountains"
+  },
+  "red_mountains_foothills": {
+    "region": "dwarven",
+    "sub": "red_mountains"
+  },
+  "dol_guldur": {
+    "region": "mirkwood",
+    "sub": "dol_guldur"
+  },
+  "near_harad_semi_desert": {
+    "region": "near_harad",
+    "sub": "desert"
+  },
+  "far_harad_arid": {
+    "region": "far_harad",
+    "sub": "savannah"
+  },
+  "far_harad_arid_hills": {
+    "region": "far_harad",
+    "sub": "savannah"
+  },
+  "far_harad_swamp": {
+    "region": "far_harad",
+    "sub": "swamp"
+  },
+  "far_harad_cloud_forest": {
+    "region": "far_harad_jungle",
+    "sub": "cloud_forest"
+  },
+  "far_harad_bushland": {
+    "region": "far_harad",
+    "sub": "bushland"
+  },
+  "far_harad_bushland_hills": {
+    "region": "far_harad",
+    "sub": "bushland"
+  },
+  "far_harad_mangrove": {
+    "region": "far_harad",
+    "sub": "mangrove"
+  },
+  "near_harad_fertile_forest": {
+    "region": "near_harad",
+    "sub": "fertile"
+  },
+  "anduin_vale": {
+    "region": "rhovanion",
+    "sub": "anduin"
+  },
+  "wold": {
+    "region": "rohan",
+    "sub": "wold"
+  },
+  "shire_moors": {
+    "region": "shire",
+    "sub": "moors"
+  },
+  "shire_marshes": {
+    "region": "shire",
+    "sub": "shire"
+  },
+  "near_harad_red_desert": {
+    "region": "near_harad",
+    "sub": "desert"
+  },
+  "far_harad_volcano": {
+    "region": "far_harad",
+    "sub": "volcano"
+  },
+  "udun": {
+    "region": "mordor",
+    "sub": "mordor"
+  },
+  "gorgoroth": {
+    "region": "mordor",
+    "sub": "mordor"
+  },
+  "morgul_vale": {
+    "region": "mordor",
+    "sub": "morgul_vale"
+  },
+  "eastern_desolation": {
+    "region": "mordor",
+    "sub": "east"
+  },
+  "dale": {
+    "region": "dale",
+    "sub": "dale"
+  },
+  "dorwinion": {
+    "region": "dorwinion",
+    "sub": "dorwinion"
+  },
+  "tower_hills": {
+    "region": "lindon",
+    "sub": "tower_hills"
+  },
+  "gulf_harad_forest": {
+    "region": "near_harad",
+    "sub": "gulf"
+  },
+  "wilderland_north": {
+    "region": "rhovanion",
+    "sub": "wilderland"
+  },
+  "forodwaith_coast": {
+    "region": "forodwaith",
+    "sub": "forodwaith"
+  },
+  "far_harad_coast": {
+    "region": "far_harad",
+    "sub": "savannah"
+  },
+  "near_harad_riverbank": {
+    "region": "near_harad",
+    "sub": "fertile"
+  },
+  "lossarnach": {
+    "region": "gondor",
+    "sub": "lossarnach"
+  },
+  "imloth_melui": {
+    "region": "gondor",
+    "sub": "lossarnach"
+  },
+  "near_harad_oasis": {
+    "region": "near_harad",
+    "sub": "oasis"
+  },
+  "beach_white": {
+    "region": "sea",
+    "sub": "sea"
+  },
+  "harnedor": {
+    "region": "near_harad",
+    "sub": "harnedor"
+  },
+  "lamedon": {
+    "region": "gondor",
+    "sub": "lamedon"
+  },
+  "lamedon_hills": {
+    "region": "gondor",
+    "sub": "lamedon"
+  },
+  "blackroot_vale": {
+    "region": "gondor",
+    "sub": "blackroot"
+  },
+  "andrast": {
+    "region": "pukel",
+    "sub": "andrast"
+  },
+  "pukel": {
+    "region": "pukel",
+    "sub": "pukel"
+  },
+  "rhun_land": {
+    "region": "rhun",
+    "sub": "rhudel"
+  },
+  "rhun_land_steppe": {
+    "region": "rhun",
+    "sub": "rhudel"
+  },
+  "rhun_land_hills": {
+    "region": "rhun",
+    "sub": "rhudel"
+  },
+  "rhun_red_forest": {
+    "region": "rhun",
+    "sub": "rhudel"
+  },
+  "rhun_island": {
+    "region": "rhun",
+    "sub": "rhudel"
+  },
+  "rhun_island_forest": {
+    "region": "rhun",
+    "sub": "rhudel"
+  },
+  "last_desert": {
+    "region": "rhun",
+    "sub": "last_desert"
+  },
+  "wind_mountains": {
+    "region": "rhun",
+    "sub": "wind_mountains"
+  },
+  "wind_mountains_foothills": {
+    "region": "rhun",
+    "sub": "wind_mountains"
+  },
+  "rivendell": {
+    "region": "rivendell",
+    "sub": "rivendell"
+  },
+  "rivendell_hills": {
+    "region": "eriador",
+    "sub": "lone_lands"
+  },
+  "far_harad_jungle_mountains": {
+    "region": "far_harad_jungle",
+    "sub": "jungle"
+  },
+  "half_troll_forest": {
+    "region": "perdorogwaith",
+    "sub": "pertorogwaith"
+  },
+  "far_harad_kanuka": {
+    "region": "far_harad",
+    "sub": "kanuka"
+  }
+}

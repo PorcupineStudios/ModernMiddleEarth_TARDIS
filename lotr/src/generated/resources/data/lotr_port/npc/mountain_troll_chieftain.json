@@ -32,7 +32,7 @@
     "scale": 2.0,
     "sun_immune": 0,
     "two_heads": 1,
-    "state.renderer": 6
+    "state.renderer": 4
   },
   "sounds": {
     "ambient": "lotr_port:troll.say",

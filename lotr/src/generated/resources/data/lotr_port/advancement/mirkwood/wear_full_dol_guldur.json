@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:mirkwood/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:dol_guldur_chestplate"
+    },
+    "title": {
+      "translate": "lotr.achievement.wearFullDolGuldur.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.wearFullDolGuldur.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

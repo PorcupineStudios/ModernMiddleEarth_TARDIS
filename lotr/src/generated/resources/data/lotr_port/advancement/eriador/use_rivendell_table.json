@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:eriador/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:rivendell_crafting_table"
+    },
+    "title": {
+      "translate": "lotr.achievement.useRivendellTable.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.useRivendellTable.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

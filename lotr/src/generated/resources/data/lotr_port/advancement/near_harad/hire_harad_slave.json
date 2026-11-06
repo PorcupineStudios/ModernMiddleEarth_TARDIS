@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:near_harad/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:branding_iron"
+    },
+    "title": {
+      "translate": "lotr.achievement.hireHaradSlave.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.hireHaradSlave.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

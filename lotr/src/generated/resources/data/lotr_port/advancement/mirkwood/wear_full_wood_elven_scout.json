@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:mirkwood/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:wood_elven_scout_tunic"
+    },
+    "title": {
+      "translate": "lotr.achievement.wearFullWoodElvenScout.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.wearFullWoodElvenScout.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

@@ -39,16 +39,26 @@ public final class NpcSpawns {
     }
 
     private static final CodecJsonLoader<Table> LOADER = new CodecJsonLoader<>("npc_spawns", Table.CODEC);
+    /** LOTR's animals per biome (its creature lists), same format: {@code npc_animals/<biome ns>/<biome path>}. */
+    private static final CodecJsonLoader<Table> ANIMALS = new CodecJsonLoader<>("npc_animals", Table.CODEC);
 
     private NpcSpawns() {}
 
     public static void register() {
-        NeoForge.EVENT_BUS.addListener((AddReloadListenerEvent event) -> event.addListener(LOADER));
+        NeoForge.EVENT_BUS.addListener((AddReloadListenerEvent event) -> {
+            event.addListener(LOADER);
+            event.addListener(ANIMALS);
+        });
     }
 
     /** The table for a biome; files are named {@code <biome namespace>/<biome path>}. */
     public static Optional<Table> forBiome(ResourceLocation biome) {
         return Optional.ofNullable(LOADER.entries().get(ResourceLocation.fromNamespaceAndPath(
+                "lotr_port", biome.getNamespace() + "/" + biome.getPath())));
+    }
+
+    public static Optional<Table> animalsForBiome(ResourceLocation biome) {
+        return Optional.ofNullable(ANIMALS.entries().get(ResourceLocation.fromNamespaceAndPath(
                 "lotr_port", biome.getNamespace() + "/" + biome.getPath())));
     }
 

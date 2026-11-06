@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:general/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:arnorian_sword"
+    },
+    "title": {
+      "translate": "lotr.achievement.enchantBaneTroll.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.enchantBaneTroll.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

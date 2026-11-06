@@ -1,0 +1,10 @@
+{
+  "faction": "lotr_port:near_harad",
+  "mobs": [
+    "lotr_port:gulf_warrior",
+    "lotr_port:gulf_archer",
+    "lotr_port:gulf_banner_bearer"
+  ],
+  "icon": "lotr_port:gulfen_khopesh",
+  "lang": "lotr.invasion.NEAR_HARAD_GULF"
+}

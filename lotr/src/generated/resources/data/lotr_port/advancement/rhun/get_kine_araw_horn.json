@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:rhun/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:kine_of_araw_horn"
+    },
+    "title": {
+      "translate": "lotr.achievement.getKineArawHorn.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.getKineArawHorn.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

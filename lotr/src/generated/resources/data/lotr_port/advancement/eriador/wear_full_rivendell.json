@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:eriador/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:rivendell_chestplate"
+    },
+    "title": {
+      "translate": "lotr.achievement.wearFullRivendell.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.wearFullRivendell.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:gondor/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:pinnath_gelin_chestplate"
+    },
+    "title": {
+      "translate": "lotr.achievement.wearFullPinnathGelin.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.wearFullPinnathGelin.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

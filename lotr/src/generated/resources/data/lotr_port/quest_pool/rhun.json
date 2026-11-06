@@ -354,6 +354,22 @@
     },
     {
       "kind": "kill_npc",
+      "target": "lotr_port:rabbit",
+      "min": 10,
+      "max": 30,
+      "reward": 1.0,
+      "weight": 67
+    },
+    {
+      "kind": "kill_npc",
+      "target": "lotr_port:deer",
+      "min": 10,
+      "max": 30,
+      "reward": 1.0,
+      "weight": 67
+    },
+    {
+      "kind": "kill_npc",
       "target": "lotr_port:rohirrim",
       "min": 10,
       "max": 30,

@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:dorwinion/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:red_grapes"
+    },
+    "title": {
+      "translate": "lotr.achievement.stealDorwinionGrapes.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.stealDorwinionGrapes.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

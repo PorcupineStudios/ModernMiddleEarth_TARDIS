@@ -1,0 +1,23 @@
+{
+  "skins": [
+    "lotr_port:textures/entity/dikdik/0.png",
+    "lotr_port:textures/entity/dikdik/1.png",
+    "lotr_port:textures/entity/dikdik/2.png"
+  ],
+  "model": "lotr_port:dik_dik",
+  "width": 0.6,
+  "height": 1.0,
+  "behaviours": [],
+  "lotr_classes": [
+    "LOTREntityDikDik",
+    "EntityCreature",
+    "EntityLiving",
+    "EntityLivingBase"
+  ],
+  "behaviour_data": {
+    "state.renderer": 0
+  },
+  "health": 12.0,
+  "speed": 0.25,
+  "attack": 2.0
+}

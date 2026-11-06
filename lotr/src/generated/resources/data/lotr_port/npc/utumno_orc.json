@@ -22,11 +22,9 @@
   "attack": 2.0,
   "gear": {
     "mainhand": [
-      "lotr_port:poisoned_utumno_dagger",
       "lotr_port:utumno_battleaxe",
-      "lotr_port:utumno_dagger",
-      "lotr_port:utumno_sword",
-      "lotr_port:utumno_warhammer"
+      "lotr_port:utumno_spear",
+      "lotr_port:utumno_sword"
     ],
     "head": "lotr_port:utumno_helmet",
     "chest": "lotr_port:utumno_chestplate",

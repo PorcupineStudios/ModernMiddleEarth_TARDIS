@@ -23,6 +23,5 @@
   },
   "names": "lotr_port:quenya_male",
   "units": "lotr_port:elf_lord",
-  "speech": "lotr_port:galadhrim/lord",
-  "quests": "lotr_port:galadhrim"
+  "speech": "lotr_port:galadhrim/lord"
 }

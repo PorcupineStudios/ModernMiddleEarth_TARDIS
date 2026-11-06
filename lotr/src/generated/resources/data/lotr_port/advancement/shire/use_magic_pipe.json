@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:shire/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:smoking_pipe"
+    },
+    "title": {
+      "translate": "lotr.achievement.useMagicPipe.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.useMagicPipe.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

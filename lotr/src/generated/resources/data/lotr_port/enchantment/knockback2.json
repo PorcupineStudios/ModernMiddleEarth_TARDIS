@@ -1,0 +1,42 @@
+{
+  "description": {
+    "translate": "lotr.enchant.knockback2"
+  },
+  "supported_items": "#lotr_port:enchantable/melee",
+  "weight": 2,
+  "max_level": 1,
+  "min_cost": {
+    "base": 1,
+    "per_level_above_first": 0
+  },
+  "max_cost": {
+    "base": 41,
+    "per_level_above_first": 0
+  },
+  "anvil_cost": 4,
+  "slots": [
+    "mainhand"
+  ],
+  "effects": {
+    "minecraft:knockback": [
+      {
+        "effect": {
+          "type": "minecraft:add",
+          "value": 2
+        },
+        "requirements": {
+          "condition": "minecraft:damage_source_properties",
+          "predicate": {
+            "tags": [
+              {
+                "id": "minecraft:is_projectile",
+                "expected": false
+              }
+            ]
+          }
+        }
+      }
+    ]
+  },
+  "exclusive_set": "#lotr_port:exclusive_set/knockback"
+}

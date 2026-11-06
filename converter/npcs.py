@@ -334,7 +334,8 @@ class Npcs:
         self.models = EntityModels(self.jar, self.assets, self.report)
         people = [e for e in self.export.get("entities", [])
                   if ((e.get("render") or {}).get("model") or "").split(".")[-1] in PERSON_MODELS
-                  or (".npc." in (e.get("classes") or [""])[0] and self.creature_model(e))]
+                  or ((".npc." in (e.get("classes") or [""])[0] or ".animal." in (e.get("classes") or [""])[0])
+                      and self.creature_model(e))]
         types = {type_id(e["name"]): e for e in people}
         written = {}
         for tid, e in sorted(types.items()):

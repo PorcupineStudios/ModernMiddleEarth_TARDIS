@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:general/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:barrow_blade"
+    },
+    "title": {
+      "translate": "lotr.achievement.enchantBaneWight.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.enchantBaneWight.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

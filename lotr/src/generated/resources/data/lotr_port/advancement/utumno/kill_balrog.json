@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:utumno/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:balrog_whip"
+    },
+    "title": {
+      "translate": "lotr.achievement.killBalrog.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.killBalrog.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "faction": "lotr_port:near_harad",
+  "mobs": [
+    "lotr_port:near_haradrim_warrior",
+    "lotr_port:near_haradrim_archer",
+    "lotr_port:near_harad_banner_bearer",
+    "lotr_port:southron_champion",
+    "lotr_port:moredain_mercenary"
+  ],
+  "icon": "lotr_port:umbaric_scimitar",
+  "lang": "lotr.invasion.NEAR_HARAD_COAST"
+}

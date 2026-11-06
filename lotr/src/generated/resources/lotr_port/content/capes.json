@@ -1,0 +1,110 @@
+[
+  {
+    "id": "gondor",
+    "texture": "lotr_port:textures/entity/cape/gondor.png"
+  },
+  {
+    "id": "tower_guard",
+    "texture": "lotr_port:textures/entity/cape/gondorTowerGuard.png"
+  },
+  {
+    "id": "ranger",
+    "texture": "lotr_port:textures/entity/cape/ranger.png"
+  },
+  {
+    "id": "ranger_ithilien",
+    "texture": "lotr_port:textures/entity/cape/ranger_ithilien.png"
+  },
+  {
+    "id": "lossarnach",
+    "texture": "lotr_port:textures/entity/cape/lossarnach.png"
+  },
+  {
+    "id": "pelargir",
+    "texture": "lotr_port:textures/entity/cape/pelargir.png"
+  },
+  {
+    "id": "blackroot",
+    "texture": "lotr_port:textures/entity/cape/blackroot.png"
+  },
+  {
+    "id": "pinnath_gelin",
+    "texture": "lotr_port:textures/entity/cape/pinnathGelin.png"
+  },
+  {
+    "id": "lamedon",
+    "texture": "lotr_port:textures/entity/cape/lamedon.png"
+  },
+  {
+    "id": "rohan",
+    "texture": "lotr_port:textures/entity/cape/rohan.png"
+  },
+  {
+    "id": "dale",
+    "texture": "lotr_port:textures/entity/cape/dale.png"
+  },
+  {
+    "id": "dunlending_berserker",
+    "texture": "lotr_port:textures/entity/cape/dunlendingBerserker.png"
+  },
+  {
+    "id": "galadhrim",
+    "texture": "lotr_port:textures/entity/cape/galadhrim.png"
+  },
+  {
+    "id": "galadhrim_trader",
+    "texture": "lotr_port:textures/entity/cape/galadhrimTrader.png"
+  },
+  {
+    "id": "wood_elf",
+    "texture": "lotr_port:textures/entity/cape/woodElf.png"
+  },
+  {
+    "id": "high_elf",
+    "texture": "lotr_port:textures/entity/cape/highElf.png"
+  },
+  {
+    "id": "rivendell",
+    "texture": "lotr_port:textures/entity/cape/rivendell.png"
+  },
+  {
+    "id": "rivendell_trader",
+    "texture": "lotr_port:textures/entity/cape/rivendellTrader.png"
+  },
+  {
+    "id": "near_harad",
+    "texture": "lotr_port:textures/entity/cape/nearHarad.png"
+  },
+  {
+    "id": "southron_champion",
+    "texture": "lotr_port:textures/entity/cape/haradChampion.png"
+  },
+  {
+    "id": "gulf_harad",
+    "texture": "lotr_port:textures/entity/cape/gulf.png"
+  },
+  {
+    "id": "taurethrim",
+    "texture": "lotr_port:textures/entity/cape/taurethrim.png"
+  },
+  {
+    "id": "galadhrim_smith",
+    "texture": "lotr_port:textures/entity/cape/galadhrimSmith.png"
+  },
+  {
+    "id": "dorwinion_captain",
+    "texture": "lotr_port:textures/entity/cape/dorwinionCaptain.png"
+  },
+  {
+    "id": "dorwinion_elf_captain",
+    "texture": "lotr_port:textures/entity/cape/dorwinionElfCaptain.png"
+  },
+  {
+    "id": "gandalf",
+    "texture": "lotr_port:textures/entity/cape/gandalf.png"
+  },
+  {
+    "id": "gandalf_santa",
+    "texture": "lotr_port:textures/entity/cape/santa.png"
+  }
+]

@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:general/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:ale"
+    },
+    "title": {
+      "translate": "lotr.achievement.getDrunk.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.getDrunk.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

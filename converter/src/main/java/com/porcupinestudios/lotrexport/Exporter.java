@@ -75,7 +75,14 @@ public class Exporter {
         write("factions.json", world.factions());
         write("npcs.json", new NpcExporter(errors).npcs());
         write("quests.json", new QuestExporter(errors).quests());
-        write("extra.json", new ReflectionDump(this).dump());
+        // compact and gzipped: with every biome's fields it is over GitHub's 100 MB file limit as plain JSON
+        try (java.io.Writer w = new java.io.OutputStreamWriter(new java.util.zip.GZIPOutputStream(
+                new java.io.FileOutputStream(new java.io.File(out, "extra.json.gz"))),
+                java.nio.charset.StandardCharsets.UTF_8)) {
+            new com.google.gson.Gson().toJson(new ReflectionDump(this).dump(), w);
+        } catch (Exception e) {
+            report("write extra.json.gz", e);
+        }
         write("errors.json", errors);
     }
 

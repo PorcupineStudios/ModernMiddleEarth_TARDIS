@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:bree_land/root",
+  "display": {
+    "icon": {
+      "id": "minecraft:iron_hoe"
+    },
+    "title": {
+      "translate": "lotr.achievement.hireBreeFarmer.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.hireBreeFarmer.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

@@ -18,6 +18,7 @@
   "attack": 2.0,
   "gear": {
     "mainhand": [
+      "lotr_port:umbaric_mace",
       "lotr_port:umbaric_pike",
       "lotr_port:umbaric_poleaxe",
       "lotr_port:umbaric_scimitar",

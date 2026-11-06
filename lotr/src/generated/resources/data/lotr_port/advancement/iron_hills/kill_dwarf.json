@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:iron_hills/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:dwarf_bone"
+    },
+    "title": {
+      "translate": "lotr.achievement.killDwarf.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.killDwarf.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

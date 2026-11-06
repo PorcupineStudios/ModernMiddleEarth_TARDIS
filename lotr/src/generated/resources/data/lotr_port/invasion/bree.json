@@ -1,0 +1,9 @@
+{
+  "faction": "lotr_port:bree",
+  "mobs": [
+    "lotr_port:bree_guard",
+    "lotr_port:bree_banner_bearer"
+  ],
+  "icon": "lotr_port:iron_pike",
+  "lang": "lotr.invasion.BREE"
+}

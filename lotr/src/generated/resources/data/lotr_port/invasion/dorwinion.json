@@ -1,0 +1,10 @@
+{
+  "faction": "lotr_port:dorwinion",
+  "mobs": [
+    "lotr_port:dorwinion_guard",
+    "lotr_port:dorwinion_crossbower",
+    "lotr_port:dorwinion_banner_bearer"
+  ],
+  "icon": "lotr_port:red_wine",
+  "lang": "lotr.invasion.DORWINION"
+}

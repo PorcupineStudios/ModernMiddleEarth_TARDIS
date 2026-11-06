@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:gondor/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:pelargir_chestplate"
+    },
+    "title": {
+      "translate": "lotr.achievement.wearFullPelargir.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.wearFullPelargir.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

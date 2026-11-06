@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:rhovanion/root",
+  "display": {
+    "icon": {
+      "id": "minecraft:log"
+    },
+    "title": {
+      "translate": "lotr.achievement.enterEastBight.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.enterEastBight.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:mirkwood/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:web_of_ungoliant"
+    },
+    "title": {
+      "translate": "lotr.achievement.enterMirkwood.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.enterMirkwood.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:nindalf/root",
+  "display": {
+    "icon": {
+      "id": "minecraft:tallgrass"
+    },
+    "title": {
+      "translate": "lotr.achievement.enterNindalf.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.enterNindalf.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

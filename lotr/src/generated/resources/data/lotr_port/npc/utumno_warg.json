@@ -30,6 +30,6 @@
   },
   "health": 40.0,
   "speed": 0.25,
-  "attack": 5.0,
+  "attack": 4.0,
   "speech": "lotr_port:utumno/orc"
 }

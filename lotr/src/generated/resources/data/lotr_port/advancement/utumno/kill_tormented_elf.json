@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:utumno/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:elf_bone"
+    },
+    "title": {
+      "translate": "lotr.achievement.killTormentedElf.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.killTormentedElf.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

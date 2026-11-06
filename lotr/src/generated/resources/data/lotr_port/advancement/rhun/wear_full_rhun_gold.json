@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:rhun/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:golden_rh_nic_chestplate"
+    },
+    "title": {
+      "translate": "lotr.achievement.wearFullRhunGold.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.wearFullRhunGold.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

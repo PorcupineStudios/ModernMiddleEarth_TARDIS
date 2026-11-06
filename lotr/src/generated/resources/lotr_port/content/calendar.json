@@ -1,0 +1,183 @@
+{
+  "ticks_per_day": 24000,
+  "lotr_ticks_per_day": 48000,
+  "start_year": 3001,
+  "shire_offset": 1600,
+  "start_day": 0,
+  "months": [
+    {
+      "id": "yule2",
+      "lang": "lotr.date.shire.month.yule2",
+      "days": 1,
+      "weekdays": true,
+      "leap_only": false,
+      "season": "winter"
+    },
+    {
+      "id": "afteryule",
+      "lang": "lotr.date.shire.month.afteryule",
+      "days": 30,
+      "weekdays": true,
+      "leap_only": false,
+      "season": "winter"
+    },
+    {
+      "id": "solmath",
+      "lang": "lotr.date.shire.month.solmath",
+      "days": 30,
+      "weekdays": true,
+      "leap_only": false,
+      "season": "winter"
+    },
+    {
+      "id": "rethe",
+      "lang": "lotr.date.shire.month.rethe",
+      "days": 30,
+      "weekdays": true,
+      "leap_only": false,
+      "season": "winter"
+    },
+    {
+      "id": "astron",
+      "lang": "lotr.date.shire.month.astron",
+      "days": 30,
+      "weekdays": true,
+      "leap_only": false,
+      "season": "spring"
+    },
+    {
+      "id": "thrimidge",
+      "lang": "lotr.date.shire.month.thrimidge",
+      "days": 30,
+      "weekdays": true,
+      "leap_only": false,
+      "season": "spring"
+    },
+    {
+      "id": "forelithe",
+      "lang": "lotr.date.shire.month.forelithe",
+      "days": 30,
+      "weekdays": true,
+      "leap_only": false,
+      "season": "spring"
+    },
+    {
+      "id": "lithe1",
+      "lang": "lotr.date.shire.month.lithe1",
+      "days": 1,
+      "weekdays": true,
+      "leap_only": false,
+      "season": "spring"
+    },
+    {
+      "id": "midyearsday",
+      "lang": "lotr.date.shire.month.midyearsday",
+      "days": 1,
+      "weekdays": false,
+      "leap_only": false,
+      "season": "summer"
+    },
+    {
+      "id": "overlithe",
+      "lang": "lotr.date.shire.month.overlithe",
+      "days": 1,
+      "weekdays": false,
+      "leap_only": true,
+      "season": "summer"
+    },
+    {
+      "id": "lithe2",
+      "lang": "lotr.date.shire.month.lithe2",
+      "days": 1,
+      "weekdays": true,
+      "leap_only": false,
+      "season": "summer"
+    },
+    {
+      "id": "afterlithe",
+      "lang": "lotr.date.shire.month.afterlithe",
+      "days": 30,
+      "weekdays": true,
+      "leap_only": false,
+      "season": "summer"
+    },
+    {
+      "id": "wedmath",
+      "lang": "lotr.date.shire.month.wedmath",
+      "days": 30,
+      "weekdays": true,
+      "leap_only": false,
+      "season": "summer"
+    },
+    {
+      "id": "halimath",
+      "lang": "lotr.date.shire.month.halimath",
+      "days": 30,
+      "weekdays": true,
+      "leap_only": false,
+      "season": "summer"
+    },
+    {
+      "id": "winterfilth",
+      "lang": "lotr.date.shire.month.winterfilth",
+      "days": 30,
+      "weekdays": true,
+      "leap_only": false,
+      "season": "autumn"
+    },
+    {
+      "id": "blotmath",
+      "lang": "lotr.date.shire.month.blotmath",
+      "days": 30,
+      "weekdays": true,
+      "leap_only": false,
+      "season": "autumn"
+    },
+    {
+      "id": "foreyule",
+      "lang": "lotr.date.shire.month.foreyule",
+      "days": 30,
+      "weekdays": true,
+      "leap_only": false,
+      "season": "autumn"
+    },
+    {
+      "id": "yule1",
+      "lang": "lotr.date.shire.month.yule1",
+      "days": 1,
+      "weekdays": true,
+      "leap_only": false,
+      "season": "autumn"
+    }
+  ],
+  "weekdays": [
+    {
+      "id": "sterday",
+      "lang": "lotr.date.shire.day.sterday"
+    },
+    {
+      "id": "sunday",
+      "lang": "lotr.date.shire.day.sunday"
+    },
+    {
+      "id": "monday",
+      "lang": "lotr.date.shire.day.monday"
+    },
+    {
+      "id": "trewsday",
+      "lang": "lotr.date.shire.day.trewsday"
+    },
+    {
+      "id": "hevensday",
+      "lang": "lotr.date.shire.day.hevensday"
+    },
+    {
+      "id": "mersday",
+      "lang": "lotr.date.shire.day.mersday"
+    },
+    {
+      "id": "highday",
+      "lang": "lotr.date.shire.day.highday"
+    }
+  ]
+}

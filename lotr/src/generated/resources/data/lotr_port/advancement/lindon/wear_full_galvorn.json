@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:lindon/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:galvorn_chestplate"
+    },
+    "title": {
+      "translate": "lotr.achievement.wearFullGalvorn.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.wearFullGalvorn.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

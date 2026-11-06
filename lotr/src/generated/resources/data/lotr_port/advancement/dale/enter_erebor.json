@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:dale/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:dwarven_brick"
+    },
+    "title": {
+      "translate": "lotr.achievement.enterErebor.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.enterErebor.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

@@ -24,7 +24,7 @@
     "tickle_alignment": 100,
     "scale": 1.25,
     "sun_immune": 1,
-    "state.renderer": 0
+    "state.renderer": 5
   },
   "sounds": {
     "ambient": "lotr_port:troll.say",

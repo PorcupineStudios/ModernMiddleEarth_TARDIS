@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:iron_hills/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:dwarven_pickaxe"
+    },
+    "title": {
+      "translate": "lotr.achievement.enterIronHills.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.enterIronHills.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

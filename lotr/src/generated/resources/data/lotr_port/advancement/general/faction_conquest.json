@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:general/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:table_of_command"
+    },
+    "title": {
+      "translate": "lotr.achievement.factionConquest.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.factionConquest.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

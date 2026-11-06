@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:perdorogwaith/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:silver_coin"
+    },
+    "title": {
+      "translate": "lotr.achievement.tradeHalfTrollWarlord.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.tradeHalfTrollWarlord.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

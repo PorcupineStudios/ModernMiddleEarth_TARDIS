@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:gondor/root",
+  "display": {
+    "icon": {
+      "id": "minecraft:grass"
+    },
+    "title": {
+      "translate": "lotr.achievement.enterPinnathGelin.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.enterPinnathGelin.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "values": [
+    "lotr_port:tool_slow1",
+    "lotr_port:tool_speed1",
+    "lotr_port:tool_speed2",
+    "lotr_port:tool_speed3",
+    "lotr_port:tool_speed4"
+  ]
+}

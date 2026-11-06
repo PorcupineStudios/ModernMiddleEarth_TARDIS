@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:forodwaith/root",
+  "display": {
+    "icon": {
+      "id": "minecraft:ice"
+    },
+    "title": {
+      "translate": "lotr.achievement.enterForodwaith.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.enterForodwaith.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

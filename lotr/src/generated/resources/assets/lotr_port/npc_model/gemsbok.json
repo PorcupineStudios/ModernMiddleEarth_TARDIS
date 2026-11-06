@@ -1,0 +1,1223 @@
+{
+  "texture": [
+    64,
+    32
+  ],
+  "render_scale": 1.0,
+  "parts": {
+    "head": {
+      "pivot": [
+        0.0,
+        4.0,
+        -9.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "cubes": [
+        {
+          "uv": [
+            28,
+            0
+          ],
+          "origin": [
+            -3.0,
+            -10.0,
+            -6.0
+          ],
+          "size": [
+            6,
+            7,
+            12
+          ],
+          "inflate": 0.0,
+          "mirror": false
+        }
+      ],
+      "children": []
+    },
+    "tail": {
+      "pivot": [
+        -1.0,
+        3.0,
+        11.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "cubes": [
+        {
+          "uv": [
+            0,
+            0
+          ],
+          "origin": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "size": [
+            2,
+            12,
+            2
+          ],
+          "inflate": 0.0,
+          "mirror": false
+        }
+      ],
+      "children": []
+    },
+    "ear_left": {
+      "pivot": [
+        0.0,
+        4.0,
+        -9.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "cubes": [
+        {
+          "uv": [
+            28,
+            19
+          ],
+          "origin": [
+            -3.8,
+            -12.0,
+            3.0
+          ],
+          "size": [
+            1,
+            3,
+            2
+          ],
+          "inflate": 0.0,
+          "mirror": false
+        }
+      ],
+      "children": []
+    },
+    "ear_right": {
+      "pivot": [
+        0.0,
+        4.0,
+        -9.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "cubes": [
+        {
+          "uv": [
+            34,
+            19
+          ],
+          "origin": [
+            2.8,
+            -12.0,
+            3.0
+          ],
+          "size": [
+            1,
+            3,
+            2
+          ],
+          "inflate": 0.0,
+          "mirror": false
+        }
+      ],
+      "children": []
+    },
+    "neck": {
+      "pivot": [
+        0.0,
+        4.0,
+        -9.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "cubes": [
+        {
+          "uv": [
+            0,
+            14
+          ],
+          "origin": [
+            -2.5,
+            -6.0,
+            -5.0
+          ],
+          "size": [
+            5,
+            8,
+            9
+          ],
+          "inflate": 0.0,
+          "mirror": false
+        }
+      ],
+      "children": []
+    },
+    "body": {
+      "pivot": [
+        0.5,
+        12.0,
+        -3.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "cubes": [
+        {
+          "uv": [
+            0,
+            31
+          ],
+          "origin": [
+            -7.0,
+            -10.0,
+            -7.0
+          ],
+          "size": [
+            13,
+            10,
+            23
+          ],
+          "inflate": 0.0,
+          "mirror": false
+        }
+      ],
+      "children": []
+    },
+    "leg1": {
+      "pivot": [
+        -4.0,
+        12.0,
+        10.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "cubes": [
+        {
+          "uv": [
+            0,
+            38
+          ],
+          "origin": [
+            -2.0,
+            0.0,
+            -2.0
+          ],
+          "size": [
+            4,
+            12,
+            4
+          ],
+          "inflate": 0.0,
+          "mirror": false
+        }
+      ],
+      "children": []
+    },
+    "leg2": {
+      "pivot": [
+        4.0,
+        12.0,
+        10.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "cubes": [
+        {
+          "uv": [
+            0,
+            38
+          ],
+          "origin": [
+            -2.0,
+            0.0,
+            -2.0
+          ],
+          "size": [
+            4,
+            12,
+            4
+          ],
+          "inflate": 0.0,
+          "mirror": false
+        }
+      ],
+      "children": []
+    },
+    "leg3": {
+      "pivot": [
+        -4.0,
+        12.0,
+        -7.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "cubes": [
+        {
+          "uv": [
+            0,
+            38
+          ],
+          "origin": [
+            -2.0,
+            0.0,
+            -3.0
+          ],
+          "size": [
+            4,
+            12,
+            4
+          ],
+          "inflate": 0.0,
+          "mirror": false
+        }
+      ],
+      "children": []
+    },
+    "leg4": {
+      "pivot": [
+        4.0,
+        12.0,
+        -7.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "cubes": [
+        {
+          "uv": [
+            0,
+            38
+          ],
+          "origin": [
+            -2.0,
+            0.0,
+            -3.0
+          ],
+          "size": [
+            4,
+            12,
+            4
+          ],
+          "inflate": 0.0,
+          "mirror": false
+        }
+      ],
+      "children": []
+    },
+    "left_horn": {
+      "pivot": [
+        0.0,
+        4.0,
+        -9.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "cubes": [
+        {
+          "uv": [
+            0,
+            0
+          ],
+          "origin": [
+            -2.8,
+            -9.5,
+            5.8
+          ],
+          "size": [
+            1,
+            1,
+            13
+          ],
+          "inflate": 0.0,
+          "mirror": false
+        }
+      ],
+      "children": []
+    },
+    "right_horn": {
+      "pivot": [
+        0.0,
+        4.0,
+        -9.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "cubes": [
+        {
+          "uv": [
+            0,
+            0
+          ],
+          "origin": [
+            1.8,
+            -9.5,
+            5.8
+          ],
+          "size": [
+            1,
+            1,
+            13
+          ],
+          "inflate": 0.0,
+          "mirror": false
+        }
+      ],
+      "children": []
+    }
+  },
+  "hidden": [],
+  "renderers": [
+    {
+      "name": "LOTRRenderWhiteOryx",
+      "pre": {
+        "ops": [
+          [
+            "scale",
+            0.8999999761581421,
+            0.8999999761581421,
+            0.8999999761581421
+          ]
+        ],
+        "color": [
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "blend": false
+      }
+    },
+    {
+      "name": "LOTRRenderGemsbok"
+    }
+  ],
+  "anim": {
+    "biped": false,
+    "set": [
+      [
+        "head",
+        "xRot",
+        [
+          "ref",
+          0
+        ]
+      ],
+      [
+        "head",
+        "yRot",
+        [
+          "rad",
+          [
+            "in",
+            "yaw"
+          ]
+        ]
+      ],
+      [
+        "neck",
+        "xRot",
+        -1.064650843716541
+      ],
+      [
+        "neck",
+        "yRot",
+        [
+          "mul",
+          [
+            "rad",
+            [
+              "in",
+              "yaw"
+            ]
+          ],
+          0.699999988079071
+        ]
+      ],
+      [
+        "right_horn",
+        "xRot",
+        [
+          "ref",
+          0
+        ]
+      ],
+      [
+        "right_horn",
+        "yRot",
+        [
+          "rad",
+          [
+            "in",
+            "yaw"
+          ]
+        ]
+      ],
+      [
+        "left_horn",
+        "xRot",
+        [
+          "ref",
+          0
+        ]
+      ],
+      [
+        "left_horn",
+        "yRot",
+        [
+          "rad",
+          [
+            "in",
+            "yaw"
+          ]
+        ]
+      ],
+      [
+        "ear_left",
+        "xRot",
+        [
+          "ref",
+          0
+        ]
+      ],
+      [
+        "ear_left",
+        "yRot",
+        [
+          "rad",
+          [
+            "in",
+            "yaw"
+          ]
+        ]
+      ],
+      [
+        "ear_right",
+        "xRot",
+        [
+          "ref",
+          0
+        ]
+      ],
+      [
+        "ear_right",
+        "yRot",
+        [
+          "rad",
+          [
+            "in",
+            "yaw"
+          ]
+        ]
+      ],
+      [
+        "leg1",
+        "xRot",
+        [
+          "ref",
+          2
+        ]
+      ],
+      [
+        "leg2",
+        "xRot",
+        [
+          "ref",
+          3
+        ]
+      ],
+      [
+        "leg3",
+        "xRot",
+        [
+          "ref",
+          3
+        ]
+      ],
+      [
+        "leg4",
+        "xRot",
+        [
+          "ref",
+          2
+        ]
+      ],
+      [
+        "tail",
+        "xRot",
+        0.29670597283903605
+      ]
+    ],
+    "draws": [
+      {
+        "part": "head",
+        "ops": [
+          [
+            "scale",
+            0.5,
+            0.5,
+            0.5
+          ],
+          [
+            "ref",
+            4
+          ]
+        ],
+        "color": [
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "blend": false,
+        "cond": [
+          "not",
+          [
+            "eq",
+            [
+              "in",
+              "child"
+            ],
+            0
+          ]
+        ]
+      },
+      {
+        "part": "ear_left",
+        "ops": [
+          [
+            "scale",
+            0.5,
+            0.5,
+            0.5
+          ],
+          [
+            "ref",
+            4
+          ]
+        ],
+        "color": [
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "blend": false,
+        "cond": [
+          "not",
+          [
+            "eq",
+            [
+              "in",
+              "child"
+            ],
+            0
+          ]
+        ]
+      },
+      {
+        "part": "ear_right",
+        "ops": [
+          [
+            "scale",
+            0.5,
+            0.5,
+            0.5
+          ],
+          [
+            "ref",
+            4
+          ]
+        ],
+        "color": [
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "blend": false,
+        "cond": [
+          "not",
+          [
+            "eq",
+            [
+              "in",
+              "child"
+            ],
+            0
+          ]
+        ]
+      },
+      {
+        "part": "neck",
+        "ops": [
+          [
+            "scale",
+            0.5,
+            0.5,
+            0.5
+          ],
+          [
+            "ref",
+            4
+          ]
+        ],
+        "color": [
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "blend": false,
+        "cond": [
+          "not",
+          [
+            "eq",
+            [
+              "in",
+              "child"
+            ],
+            0
+          ]
+        ]
+      },
+      {
+        "part": "body",
+        "ops": [
+          [
+            "scale",
+            0.5,
+            0.5,
+            0.5
+          ],
+          [
+            "ref",
+            4
+          ]
+        ],
+        "color": [
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "blend": false,
+        "cond": [
+          "not",
+          [
+            "eq",
+            [
+              "in",
+              "child"
+            ],
+            0
+          ]
+        ]
+      },
+      {
+        "part": "leg1",
+        "ops": [
+          [
+            "scale",
+            0.5,
+            0.5,
+            0.5
+          ],
+          [
+            "ref",
+            4
+          ]
+        ],
+        "color": [
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "blend": false,
+        "cond": [
+          "not",
+          [
+            "eq",
+            [
+              "in",
+              "child"
+            ],
+            0
+          ]
+        ]
+      },
+      {
+        "part": "leg2",
+        "ops": [
+          [
+            "scale",
+            0.5,
+            0.5,
+            0.5
+          ],
+          [
+            "ref",
+            4
+          ]
+        ],
+        "color": [
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "blend": false,
+        "cond": [
+          "not",
+          [
+            "eq",
+            [
+              "in",
+              "child"
+            ],
+            0
+          ]
+        ]
+      },
+      {
+        "part": "leg3",
+        "ops": [
+          [
+            "scale",
+            0.5,
+            0.5,
+            0.5
+          ],
+          [
+            "ref",
+            4
+          ]
+        ],
+        "color": [
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "blend": false,
+        "cond": [
+          "not",
+          [
+            "eq",
+            [
+              "in",
+              "child"
+            ],
+            0
+          ]
+        ]
+      },
+      {
+        "part": "leg4",
+        "ops": [
+          [
+            "scale",
+            0.5,
+            0.5,
+            0.5
+          ],
+          [
+            "ref",
+            4
+          ]
+        ],
+        "color": [
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "blend": false,
+        "cond": [
+          "not",
+          [
+            "eq",
+            [
+              "in",
+              "child"
+            ],
+            0
+          ]
+        ]
+      },
+      {
+        "part": "tail",
+        "ops": [
+          [
+            "scale",
+            0.5,
+            0.5,
+            0.5
+          ],
+          [
+            "ref",
+            4
+          ]
+        ],
+        "color": [
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "blend": false,
+        "cond": [
+          "not",
+          [
+            "eq",
+            [
+              "in",
+              "child"
+            ],
+            0
+          ]
+        ]
+      },
+      {
+        "part": "head",
+        "ops": [],
+        "color": [
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "blend": false,
+        "cond": [
+          "eq",
+          [
+            "in",
+            "child"
+          ],
+          0
+        ]
+      },
+      {
+        "part": "neck",
+        "ops": [],
+        "color": [
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "blend": false,
+        "cond": [
+          "eq",
+          [
+            "in",
+            "child"
+          ],
+          0
+        ]
+      },
+      {
+        "part": "left_horn",
+        "ops": [],
+        "color": [
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "blend": false,
+        "cond": [
+          "eq",
+          [
+            "in",
+            "child"
+          ],
+          0
+        ]
+      },
+      {
+        "part": "right_horn",
+        "ops": [],
+        "color": [
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "blend": false,
+        "cond": [
+          "eq",
+          [
+            "in",
+            "child"
+          ],
+          0
+        ]
+      },
+      {
+        "part": "ear_left",
+        "ops": [],
+        "color": [
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "blend": false,
+        "cond": [
+          "eq",
+          [
+            "in",
+            "child"
+          ],
+          0
+        ]
+      },
+      {
+        "part": "ear_right",
+        "ops": [],
+        "color": [
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "blend": false,
+        "cond": [
+          "eq",
+          [
+            "in",
+            "child"
+          ],
+          0
+        ]
+      },
+      {
+        "part": "body",
+        "ops": [],
+        "color": [
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "blend": false,
+        "cond": [
+          "eq",
+          [
+            "in",
+            "child"
+          ],
+          0
+        ]
+      },
+      {
+        "part": "leg1",
+        "ops": [],
+        "color": [
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "blend": false,
+        "cond": [
+          "eq",
+          [
+            "in",
+            "child"
+          ],
+          0
+        ]
+      },
+      {
+        "part": "leg2",
+        "ops": [],
+        "color": [
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "blend": false,
+        "cond": [
+          "eq",
+          [
+            "in",
+            "child"
+          ],
+          0
+        ]
+      },
+      {
+        "part": "leg3",
+        "ops": [],
+        "color": [
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "blend": false,
+        "cond": [
+          "eq",
+          [
+            "in",
+            "child"
+          ],
+          0
+        ]
+      },
+      {
+        "part": "leg4",
+        "ops": [],
+        "color": [
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "blend": false,
+        "cond": [
+          "eq",
+          [
+            "in",
+            "child"
+          ],
+          0
+        ]
+      },
+      {
+        "part": "tail",
+        "ops": [],
+        "color": [
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "blend": false,
+        "cond": [
+          "eq",
+          [
+            "in",
+            "child"
+          ],
+          0
+        ]
+      }
+    ]
+  },
+  "defs": [
+    [
+      "add",
+      [
+        "rad",
+        [
+          "in",
+          "pitch"
+        ]
+      ],
+      0.40142568945884705
+    ],
+    [
+      "mul",
+      [
+        "in",
+        "limb"
+      ],
+      0.6661999821662903
+    ],
+    [
+      "mul",
+      [
+        "mul",
+        [
+          "cos",
+          [
+            "ref",
+            1
+          ]
+        ],
+        1.399999976158142
+      ],
+      [
+        "in",
+        "amount"
+      ]
+    ],
+    [
+      "mul",
+      [
+        "mul",
+        [
+          "cos",
+          [
+            "add",
+            [
+              "ref",
+              1
+            ],
+            3.1415927410125732
+          ]
+        ],
+        1.399999976158142
+      ],
+      [
+        "in",
+        "amount"
+      ]
+    ],
+    [
+      "translate",
+      0.0,
+      [
+        "mul",
+        24.0,
+        [
+          "in",
+          "scale"
+        ]
+      ],
+      0.0
+    ]
+  ],
+  "inputs": []
+}

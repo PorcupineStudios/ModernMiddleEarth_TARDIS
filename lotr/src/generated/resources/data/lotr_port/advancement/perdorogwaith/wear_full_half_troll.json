@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:perdorogwaith/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:half_troll_chestplate"
+    },
+    "title": {
+      "translate": "lotr.achievement.wearFullHalfTroll.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.wearFullHalfTroll.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

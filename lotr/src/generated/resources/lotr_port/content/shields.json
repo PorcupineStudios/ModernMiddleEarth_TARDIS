@@ -1,0 +1,526 @@
+[
+  {
+    "id": "alignment_bree",
+    "type": "alignment",
+    "texture": "lotr_port:textures/entity/shield/alignment_bree.png",
+    "hidden": false,
+    "lang": "lotr.shields.ALIGNMENT_BREE",
+    "faction": "lotr_port:bree",
+    "alignment": 1000
+  },
+  {
+    "id": "alignment_ranger",
+    "type": "alignment",
+    "texture": "lotr_port:textures/entity/shield/alignment_ranger.png",
+    "hidden": false,
+    "lang": "lotr.shields.ALIGNMENT_RANGER",
+    "faction": "lotr_port:ranger_north",
+    "alignment": 1000
+  },
+  {
+    "id": "alignment_blue_mountains",
+    "type": "alignment",
+    "texture": "lotr_port:textures/entity/shield/alignment_blue_mountains.png",
+    "hidden": false,
+    "lang": "lotr.shields.ALIGNMENT_BLUE_MOUNTAINS",
+    "faction": "lotr_port:blue_mountains",
+    "alignment": 1000
+  },
+  {
+    "id": "alignment_high_elf",
+    "type": "alignment",
+    "texture": "lotr_port:textures/entity/shield/alignment_high_elf.png",
+    "hidden": false,
+    "lang": "lotr.shields.ALIGNMENT_HIGH_ELF",
+    "faction": "lotr_port:high_elf",
+    "alignment": 1000
+  },
+  {
+    "id": "alignment_rivendell",
+    "type": "alignment",
+    "texture": "lotr_port:textures/entity/shield/alignment_rivendell.png",
+    "hidden": false,
+    "lang": "lotr.shields.ALIGNMENT_RIVENDELL",
+    "faction": "lotr_port:high_elf",
+    "alignment": 1000
+  },
+  {
+    "id": "alignment_gundabad",
+    "type": "alignment",
+    "texture": "lotr_port:textures/entity/shield/alignment_gundabad.png",
+    "hidden": false,
+    "lang": "lotr.shields.ALIGNMENT_GUNDABAD",
+    "faction": "lotr_port:gundabad",
+    "alignment": 1000
+  },
+  {
+    "id": "alignment_angmar",
+    "type": "alignment",
+    "texture": "lotr_port:textures/entity/shield/alignment_angmar.png",
+    "hidden": false,
+    "lang": "lotr.shields.ALIGNMENT_ANGMAR",
+    "faction": "lotr_port:angmar",
+    "alignment": 1000
+  },
+  {
+    "id": "alignment_wood_elf",
+    "type": "alignment",
+    "texture": "lotr_port:textures/entity/shield/alignment_wood_elf.png",
+    "hidden": false,
+    "lang": "lotr.shields.ALIGNMENT_WOOD_ELF",
+    "faction": "lotr_port:wood_elf",
+    "alignment": 1000
+  },
+  {
+    "id": "alignment_dol_guldur",
+    "type": "alignment",
+    "texture": "lotr_port:textures/entity/shield/alignment_dol_guldur.png",
+    "hidden": false,
+    "lang": "lotr.shields.ALIGNMENT_DOL_GULDUR",
+    "faction": "lotr_port:dol_guldur",
+    "alignment": 1000
+  },
+  {
+    "id": "alignment_dale",
+    "type": "alignment",
+    "texture": "lotr_port:textures/entity/shield/alignment_dale.png",
+    "hidden": false,
+    "lang": "lotr.shields.ALIGNMENT_DALE",
+    "faction": "lotr_port:dale",
+    "alignment": 1000
+  },
+  {
+    "id": "alignment_esgaroth",
+    "type": "alignment",
+    "texture": "lotr_port:textures/entity/shield/alignment_esgaroth.png",
+    "hidden": false,
+    "lang": "lotr.shields.ALIGNMENT_ESGAROTH",
+    "faction": "lotr_port:dale",
+    "alignment": 1000
+  },
+  {
+    "id": "alignment_dwarf",
+    "type": "alignment",
+    "texture": "lotr_port:textures/entity/shield/alignment_dwarf.png",
+    "hidden": false,
+    "lang": "lotr.shields.ALIGNMENT_DWARF",
+    "faction": "lotr_port:durins_folk",
+    "alignment": 1000
+  },
+  {
+    "id": "alignment_galadhrim",
+    "type": "alignment",
+    "texture": "lotr_port:textures/entity/shield/alignment_galadhrim.png",
+    "hidden": false,
+    "lang": "lotr.shields.ALIGNMENT_GALADHRIM",
+    "faction": "lotr_port:lothlorien",
+    "alignment": 1000
+  },
+  {
+    "id": "alignment_dunland",
+    "type": "alignment",
+    "texture": "lotr_port:textures/entity/shield/alignment_dunland.png",
+    "hidden": false,
+    "lang": "lotr.shields.ALIGNMENT_DUNLAND",
+    "faction": "lotr_port:dunland",
+    "alignment": 1000
+  },
+  {
+    "id": "alignment_uruk_hai",
+    "type": "alignment",
+    "texture": "lotr_port:textures/entity/shield/alignment_uruk_hai.png",
+    "hidden": false,
+    "lang": "lotr.shields.ALIGNMENT_URUK_HAI",
+    "faction": "lotr_port:isengard",
+    "alignment": 1000
+  },
+  {
+    "id": "alignment_rohan",
+    "type": "alignment",
+    "texture": "lotr_port:textures/entity/shield/alignment_rohan.png",
+    "hidden": false,
+    "lang": "lotr.shields.ALIGNMENT_ROHAN",
+    "faction": "lotr_port:rohan",
+    "alignment": 1000
+  },
+  {
+    "id": "alignment_gondor",
+    "type": "alignment",
+    "texture": "lotr_port:textures/entity/shield/alignment_gondor.png",
+    "hidden": false,
+    "lang": "lotr.shields.ALIGNMENT_GONDOR",
+    "faction": "lotr_port:gondor",
+    "alignment": 1000
+  },
+  {
+    "id": "alignment_dol_amroth",
+    "type": "alignment",
+    "texture": "lotr_port:textures/entity/shield/alignment_dol_amroth.png",
+    "hidden": false,
+    "lang": "lotr.shields.ALIGNMENT_DOL_AMROTH",
+    "faction": "lotr_port:gondor",
+    "alignment": 1000
+  },
+  {
+    "id": "alignment_lossarnach",
+    "type": "alignment",
+    "texture": "lotr_port:textures/entity/shield/alignment_lossarnach.png",
+    "hidden": false,
+    "lang": "lotr.shields.ALIGNMENT_LOSSARNACH",
+    "faction": "lotr_port:gondor",
+    "alignment": 1000
+  },
+  {
+    "id": "alignment_lebennin",
+    "type": "alignment",
+    "texture": "lotr_port:textures/entity/shield/alignment_lebennin.png",
+    "hidden": false,
+    "lang": "lotr.shields.ALIGNMENT_LEBENNIN",
+    "faction": "lotr_port:gondor",
+    "alignment": 1000
+  },
+  {
+    "id": "alignment_pelargir",
+    "type": "alignment",
+    "texture": "lotr_port:textures/entity/shield/alignment_pelargir.png",
+    "hidden": false,
+    "lang": "lotr.shields.ALIGNMENT_PELARGIR",
+    "faction": "lotr_port:gondor",
+    "alignment": 1000
+  },
+  {
+    "id": "alignment_blackroot_vale",
+    "type": "alignment",
+    "texture": "lotr_port:textures/entity/shield/alignment_blackroot_vale.png",
+    "hidden": false,
+    "lang": "lotr.shields.ALIGNMENT_BLACKROOT_VALE",
+    "faction": "lotr_port:gondor",
+    "alignment": 1000
+  },
+  {
+    "id": "alignment_pinnath_gelin",
+    "type": "alignment",
+    "texture": "lotr_port:textures/entity/shield/alignment_pinnath_gelin.png",
+    "hidden": false,
+    "lang": "lotr.shields.ALIGNMENT_PINNATH_GELIN",
+    "faction": "lotr_port:gondor",
+    "alignment": 1000
+  },
+  {
+    "id": "alignment_lamedon",
+    "type": "alignment",
+    "texture": "lotr_port:textures/entity/shield/alignment_lamedon.png",
+    "hidden": false,
+    "lang": "lotr.shields.ALIGNMENT_LAMEDON",
+    "faction": "lotr_port:gondor",
+    "alignment": 1000
+  },
+  {
+    "id": "alignment_mordor",
+    "type": "alignment",
+    "texture": "lotr_port:textures/entity/shield/alignment_mordor.png",
+    "hidden": false,
+    "lang": "lotr.shields.ALIGNMENT_MORDOR",
+    "faction": "lotr_port:mordor",
+    "alignment": 1000
+  },
+  {
+    "id": "alignment_minas_morgul",
+    "type": "alignment",
+    "texture": "lotr_port:textures/entity/shield/alignment_minas_morgul.png",
+    "hidden": false,
+    "lang": "lotr.shields.ALIGNMENT_MINAS_MORGUL",
+    "faction": "lotr_port:mordor",
+    "alignment": 1000
+  },
+  {
+    "id": "alignment_black_uruk",
+    "type": "alignment",
+    "texture": "lotr_port:textures/entity/shield/alignment_black_uruk.png",
+    "hidden": false,
+    "lang": "lotr.shields.ALIGNMENT_BLACK_URUK",
+    "faction": "lotr_port:mordor",
+    "alignment": 1000
+  },
+  {
+    "id": "alignment_dorwinion",
+    "type": "alignment",
+    "texture": "lotr_port:textures/entity/shield/alignment_dorwinion.png",
+    "hidden": false,
+    "lang": "lotr.shields.ALIGNMENT_DORWINION",
+    "faction": "lotr_port:dorwinion",
+    "alignment": 1000
+  },
+  {
+    "id": "alignment_dorwinion_elf",
+    "type": "alignment",
+    "texture": "lotr_port:textures/entity/shield/alignment_dorwinion_elf.png",
+    "hidden": false,
+    "lang": "lotr.shields.ALIGNMENT_DORWINION_ELF",
+    "faction": "lotr_port:dorwinion",
+    "alignment": 1000
+  },
+  {
+    "id": "alignment_rhun",
+    "type": "alignment",
+    "texture": "lotr_port:textures/entity/shield/alignment_rhun.png",
+    "hidden": false,
+    "lang": "lotr.shields.ALIGNMENT_RHUN",
+    "faction": "lotr_port:rhudel",
+    "alignment": 1000
+  },
+  {
+    "id": "alignment_harnedor",
+    "type": "alignment",
+    "texture": "lotr_port:textures/entity/shield/alignment_harnedor.png",
+    "hidden": false,
+    "lang": "lotr.shields.ALIGNMENT_HARNEDOR",
+    "faction": "lotr_port:near_harad",
+    "alignment": 1000
+  },
+  {
+    "id": "alignment_near_harad",
+    "type": "alignment",
+    "texture": "lotr_port:textures/entity/shield/alignment_near_harad.png",
+    "hidden": false,
+    "lang": "lotr.shields.ALIGNMENT_NEAR_HARAD",
+    "faction": "lotr_port:near_harad",
+    "alignment": 1000
+  },
+  {
+    "id": "alignment_umbar",
+    "type": "alignment",
+    "texture": "lotr_port:textures/entity/shield/alignment_umbar.png",
+    "hidden": false,
+    "lang": "lotr.shields.ALIGNMENT_UMBAR",
+    "faction": "lotr_port:near_harad",
+    "alignment": 1000
+  },
+  {
+    "id": "alignment_corsair",
+    "type": "alignment",
+    "texture": "lotr_port:textures/entity/shield/alignment_corsair.png",
+    "hidden": false,
+    "lang": "lotr.shields.ALIGNMENT_CORSAIR",
+    "faction": "lotr_port:near_harad",
+    "alignment": 1000
+  },
+  {
+    "id": "alignment_gulf",
+    "type": "alignment",
+    "texture": "lotr_port:textures/entity/shield/alignment_gulf.png",
+    "hidden": false,
+    "lang": "lotr.shields.ALIGNMENT_GULF",
+    "faction": "lotr_port:near_harad",
+    "alignment": 1000
+  },
+  {
+    "id": "alignment_moredain",
+    "type": "alignment",
+    "texture": "lotr_port:textures/entity/shield/alignment_moredain.png",
+    "hidden": false,
+    "lang": "lotr.shields.ALIGNMENT_MOREDAIN",
+    "faction": "lotr_port:morwaith",
+    "alignment": 1000
+  },
+  {
+    "id": "alignment_tauredain",
+    "type": "alignment",
+    "texture": "lotr_port:textures/entity/shield/alignment_tauredain.png",
+    "hidden": false,
+    "lang": "lotr.shields.ALIGNMENT_TAUREDAIN",
+    "faction": "lotr_port:taurethrim",
+    "alignment": 1000
+  },
+  {
+    "id": "alignment_half_troll",
+    "type": "alignment",
+    "texture": "lotr_port:textures/entity/shield/alignment_half_troll.png",
+    "hidden": false,
+    "lang": "lotr.shields.ALIGNMENT_HALF_TROLL",
+    "faction": "lotr_port:half_troll",
+    "alignment": 1000
+  },
+  {
+    "id": "achievement_bronze",
+    "type": "achievable",
+    "texture": "lotr_port:textures/entity/shield/achievement_bronze.png",
+    "hidden": false,
+    "lang": "lotr.shields.ACHIEVEMENT_BRONZE"
+  },
+  {
+    "id": "achievement_silver",
+    "type": "achievable",
+    "texture": "lotr_port:textures/entity/shield/achievement_silver.png",
+    "hidden": false,
+    "lang": "lotr.shields.ACHIEVEMENT_SILVER"
+  },
+  {
+    "id": "achievement_gold",
+    "type": "achievable",
+    "texture": "lotr_port:textures/entity/shield/achievement_gold.png",
+    "hidden": false,
+    "lang": "lotr.shields.ACHIEVEMENT_GOLD"
+  },
+  {
+    "id": "achievement_mithril",
+    "type": "achievable",
+    "texture": "lotr_port:textures/entity/shield/achievement_mithril.png",
+    "hidden": false,
+    "lang": "lotr.shields.ACHIEVEMENT_MITHRIL"
+  },
+  {
+    "id": "alcoholic",
+    "type": "achievable",
+    "texture": "lotr_port:textures/entity/shield/alcoholic.png",
+    "hidden": false,
+    "lang": "lotr.shields.ALCOHOLIC"
+  },
+  {
+    "id": "defeat_mtc",
+    "type": "achievable",
+    "texture": "lotr_port:textures/entity/shield/defeat_mtc.png",
+    "hidden": false,
+    "lang": "lotr.shields.DEFEAT_MTC"
+  },
+  {
+    "id": "defeat_mallorn_ent",
+    "type": "achievable",
+    "texture": "lotr_port:textures/entity/shield/defeat_mallorn_ent.png",
+    "hidden": false,
+    "lang": "lotr.shields.DEFEAT_MALLORN_ENT"
+  },
+  {
+    "id": "elven_contest",
+    "type": "exclusive",
+    "texture": "lotr_port:textures/entity/shield/elven_contest.png",
+    "hidden": false,
+    "lang": "lotr.shields.ELVEN_CONTEST"
+  },
+  {
+    "id": "evil_contest",
+    "type": "exclusive",
+    "texture": "lotr_port:textures/entity/shield/evil_contest.png",
+    "hidden": false,
+    "lang": "lotr.shields.EVIL_CONTEST"
+  },
+  {
+    "id": "shire_contest",
+    "type": "exclusive",
+    "texture": "lotr_port:textures/entity/shield/shire_contest.png",
+    "hidden": false,
+    "lang": "lotr.shields.SHIRE_CONTEST"
+  },
+  {
+    "id": "gondor_contest",
+    "type": "exclusive",
+    "texture": "lotr_port:textures/entity/shield/gondor_contest.png",
+    "hidden": false,
+    "lang": "lotr.shields.GONDOR_CONTEST"
+  },
+  {
+    "id": "harad_contest",
+    "type": "exclusive",
+    "texture": "lotr_port:textures/entity/shield/harad_contest.png",
+    "hidden": false,
+    "lang": "lotr.shields.HARAD_CONTEST"
+  },
+  {
+    "id": "rhun_contest",
+    "type": "exclusive",
+    "texture": "lotr_port:textures/entity/shield/rhun_contest.png",
+    "hidden": false,
+    "lang": "lotr.shields.RHUN_CONTEST"
+  },
+  {
+    "id": "structure_contest",
+    "type": "exclusive",
+    "texture": "lotr_port:textures/entity/shield/structure_contest.png",
+    "hidden": false,
+    "lang": "lotr.shields.STRUCTURE_CONTEST"
+  },
+  {
+    "id": "renewed_contest",
+    "type": "exclusive",
+    "texture": "lotr_port:textures/entity/shield/renewed_contest.png",
+    "hidden": false,
+    "lang": "lotr.shields.RENEWED_CONTEST"
+  },
+  {
+    "id": "mod",
+    "type": "exclusive",
+    "texture": "lotr_port:textures/entity/shield/mod.png",
+    "hidden": false,
+    "lang": "lotr.shields.MOD"
+  },
+  {
+    "id": "gruk",
+    "type": "exclusive",
+    "texture": "lotr_port:textures/entity/shield/gruk.png",
+    "hidden": true,
+    "lang": "lotr.shields.GRUK"
+  },
+  {
+    "id": "boyd",
+    "type": "exclusive",
+    "texture": "lotr_port:textures/entity/shield/boyd.png",
+    "hidden": true,
+    "lang": "lotr.shields.BOYD"
+  },
+  {
+    "id": "electrician",
+    "type": "exclusive",
+    "texture": "lotr_port:textures/entity/shield/electrician.png",
+    "hidden": true,
+    "lang": "lotr.shields.ELECTRICIAN"
+  },
+  {
+    "id": "ogre",
+    "type": "exclusive",
+    "texture": "lotr_port:textures/entity/shield/ogre.png",
+    "hidden": false,
+    "lang": "lotr.shields.OGRE"
+  },
+  {
+    "id": "translator",
+    "type": "exclusive",
+    "texture": "lotr_port:textures/entity/shield/translator.png",
+    "hidden": false,
+    "lang": "lotr.shields.TRANSLATOR"
+  },
+  {
+    "id": "patron",
+    "type": "exclusive",
+    "texture": "lotr_port:textures/entity/shield/patron.png",
+    "hidden": false,
+    "lang": "lotr.shields.PATRON"
+  },
+  {
+    "id": "loremaster_2013",
+    "type": "exclusive",
+    "texture": "lotr_port:textures/entity/shield/loremaster_2013.png",
+    "hidden": false,
+    "lang": "lotr.shields.LOREMASTER_2013"
+  },
+  {
+    "id": "loremaster_2014",
+    "type": "exclusive",
+    "texture": "lotr_port:textures/entity/shield/loremaster_2014.png",
+    "hidden": false,
+    "lang": "lotr.shields.LOREMASTER_2014"
+  },
+  {
+    "id": "loremaster_2015",
+    "type": "exclusive",
+    "texture": "lotr_port:textures/entity/shield/loremaster_2015.png",
+    "hidden": false,
+    "lang": "lotr.shields.LOREMASTER_2015"
+  },
+  {
+    "id": "loremaster_2016",
+    "type": "exclusive",
+    "texture": "lotr_port:textures/entity/shield/loremaster_2016.png",
+    "hidden": false,
+    "lang": "lotr.shields.LOREMASTER_2016"
+  }
+]

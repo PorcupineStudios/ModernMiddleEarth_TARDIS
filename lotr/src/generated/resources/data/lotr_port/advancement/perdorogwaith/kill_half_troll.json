@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:perdorogwaith/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:troll_bone"
+    },
+    "title": {
+      "translate": "lotr.achievement.killHalfTroll.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.killHalfTroll.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:rhovanion/root",
+  "display": {
+    "icon": {
+      "id": "minecraft:grass"
+    },
+    "title": {
+      "translate": "lotr.achievement.enterWilderland.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.enterWilderland.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

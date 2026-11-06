@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:general/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:skull_cup"
+    },
+    "title": {
+      "translate": "lotr.achievement.drinkSkull.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.drinkSkull.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

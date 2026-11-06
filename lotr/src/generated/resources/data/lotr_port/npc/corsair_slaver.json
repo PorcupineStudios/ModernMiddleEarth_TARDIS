@@ -24,6 +24,5 @@
   },
   "names": "lotr_port:umbar_male",
   "units": "lotr_port:corsair_slaver",
-  "speech": "lotr_port:near_harad/merchant",
-  "quests": "lotr_port:corsair"
+  "speech": "lotr_port:near_harad/merchant"
 }

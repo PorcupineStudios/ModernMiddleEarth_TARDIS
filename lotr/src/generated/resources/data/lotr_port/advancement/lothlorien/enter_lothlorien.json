@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:lothlorien/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:mallorn_sapling"
+    },
+    "title": {
+      "translate": "lotr.achievement.enterLothlorien.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.enterLothlorien.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

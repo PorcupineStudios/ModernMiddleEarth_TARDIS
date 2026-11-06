@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:shire/root",
+  "display": {
+    "icon": {
+      "id": "minecraft:potato"
+    },
+    "title": {
+      "translate": "lotr.achievement.buyPotatoHobbitFarmer.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.buyPotatoHobbitFarmer.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

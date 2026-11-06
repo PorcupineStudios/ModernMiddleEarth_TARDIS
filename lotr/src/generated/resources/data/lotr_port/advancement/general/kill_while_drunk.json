@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:general/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:ale"
+    },
+    "title": {
+      "translate": "lotr.achievement.killWhileDrunk.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.killWhileDrunk.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

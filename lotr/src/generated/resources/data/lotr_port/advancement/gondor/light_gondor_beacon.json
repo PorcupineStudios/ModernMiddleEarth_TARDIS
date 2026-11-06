@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:gondor/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:beacon_of_gondor"
+    },
+    "title": {
+      "translate": "lotr.achievement.lightGondorBeacon.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.lightGondorBeacon.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

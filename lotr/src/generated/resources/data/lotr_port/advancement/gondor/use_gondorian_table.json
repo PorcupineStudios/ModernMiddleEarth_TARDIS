@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:gondor/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:gondorian_crafting_table"
+    },
+    "title": {
+      "translate": "lotr.achievement.useGondorianTable.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.useGondorianTable.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

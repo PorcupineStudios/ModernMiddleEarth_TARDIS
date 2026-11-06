@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:far_harad_savannah/root",
+  "display": {
+    "icon": {
+      "id": "minecraft:lava"
+    },
+    "title": {
+      "translate": "lotr.achievement.enterFarHaradVolcano.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.enterFarHaradVolcano.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:rhun/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:bronze_hoe"
+    },
+    "title": {
+      "translate": "lotr.achievement.hireRhunFarmer.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.hireRhunFarmer.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

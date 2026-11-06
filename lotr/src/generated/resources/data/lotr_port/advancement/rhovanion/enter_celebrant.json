@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:rhovanion/root",
+  "display": {
+    "icon": {
+      "id": "minecraft:red_flower"
+    },
+    "title": {
+      "translate": "lotr.achievement.enterCelebrant.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.enterCelebrant.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

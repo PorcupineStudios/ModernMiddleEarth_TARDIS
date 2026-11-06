@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:eriador/root",
+  "display": {
+    "icon": {
+      "id": "minecraft:wool"
+    },
+    "title": {
+      "translate": "lotr.achievement.enterAngle.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.enterAngle.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

@@ -12,7 +12,6 @@
   "attack": 2.0,
   "gear": {
     "mainhand": [
-      "lotr_port:iron_battleaxe",
       "lotr_port:iron_pike",
       "lotr_port:iron_spear",
       "minecraft:iron_sword"

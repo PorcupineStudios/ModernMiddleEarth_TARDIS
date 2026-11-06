@@ -1,0 +1,8 @@
+{
+  "faction": "lotr_port:angmar",
+  "mobs": [
+    "lotr_port:angmar_warg"
+  ],
+  "icon": "lotr_port:warg_bone",
+  "lang": "lotr.invasion.ANGMAR_WARG"
+}

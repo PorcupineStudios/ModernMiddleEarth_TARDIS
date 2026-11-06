@@ -1,0 +1,19 @@
+{
+  "entries": [
+    {
+      "npc": "lotr_port:deer",
+      "weight": 5,
+      "min": 4,
+      "max": 4
+    },
+    {
+      "npc": "lotr_port:deer",
+      "weight": 20,
+      "min": 4,
+      "max": 6
+    }
+  ],
+  "cap": 4,
+  "chance": 0.1,
+  "interval": 400
+}

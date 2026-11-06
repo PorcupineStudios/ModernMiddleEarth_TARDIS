@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:eriador/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:gundabad_uruk_helmet"
+    },
+    "title": {
+      "translate": "lotr.achievement.killGundabadUruk.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.killGundabadUruk.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

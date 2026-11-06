@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:general/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:mithril_chestplate"
+    },
+    "title": {
+      "translate": "lotr.achievement.wearFullMithril.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.wearFullMithril.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

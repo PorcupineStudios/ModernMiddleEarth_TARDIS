@@ -217,6 +217,30 @@
       "weight": 100
     },
     {
+      "kind": "kill_npc",
+      "target": "lotr_port:crocodile",
+      "min": 10,
+      "max": 20,
+      "reward": 1.0,
+      "weight": 100
+    },
+    {
+      "kind": "kill_npc",
+      "target": "lotr_port:lion",
+      "min": 10,
+      "max": 20,
+      "reward": 1.0,
+      "weight": 100
+    },
+    {
+      "kind": "kill_npc",
+      "target": "lotr_port:lioness",
+      "min": 10,
+      "max": 20,
+      "reward": 1.0,
+      "weight": 100
+    },
+    {
       "kind": "kill_faction",
       "target": "lotr_port:taurethrim",
       "min": 20,

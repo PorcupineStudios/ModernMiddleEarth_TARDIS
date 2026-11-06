@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:general/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:gondolinian_sword"
+    },
+    "title": {
+      "translate": "lotr.achievement.engraveOwnership.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.engraveOwnership.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "entries": [
+    {
+      "npc": "lotr_port:aurochs",
+      "weight": 6,
+      "min": 4,
+      "max": 4
+    },
+    {
+      "npc": "lotr_port:white_oryx",
+      "weight": 12,
+      "min": 4,
+      "max": 4
+    },
+    {
+      "npc": "lotr_port:camel",
+      "weight": 2,
+      "min": 4,
+      "max": 4
+    }
+  ],
+  "cap": 4,
+  "chance": 0.1,
+  "interval": 400
+}

@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:lindon/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:high_elven_brick"
+    },
+    "title": {
+      "translate": "lotr.achievement.enterLindon.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.enterLindon.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

@@ -516,6 +516,24 @@
   "hidden": [],
   "renderers": [
     {
+      "name": "LOTRRenderUtumnoIceSpider",
+      "pre": {
+        "ops": [
+          [
+            "ref",
+            10
+          ]
+        ],
+        "color": [
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "blend": false
+      }
+    },
+    {
       "name": "LOTRRenderMordorSpider",
       "pre": {
         "ops": [
@@ -535,24 +553,6 @@
     },
     {
       "name": "LOTRRenderMirkwoodSpider",
-      "pre": {
-        "ops": [
-          [
-            "ref",
-            10
-          ]
-        ],
-        "color": [
-          1.0,
-          1.0,
-          1.0,
-          1.0
-        ],
-        "blend": false
-      }
-    },
-    {
-      "name": "LOTRRenderUtumnoIceSpider",
       "pre": {
         "ops": [
           [

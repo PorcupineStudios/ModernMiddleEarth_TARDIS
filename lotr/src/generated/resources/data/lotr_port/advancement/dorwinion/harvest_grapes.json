@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:dorwinion/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:green_grapes"
+    },
+    "title": {
+      "translate": "lotr.achievement.harvestGrapes.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.harvestGrapes.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

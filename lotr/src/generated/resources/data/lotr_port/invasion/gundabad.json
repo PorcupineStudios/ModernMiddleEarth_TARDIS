@@ -1,0 +1,13 @@
+{
+  "faction": "lotr_port:gundabad",
+  "mobs": [
+    "lotr_port:gundabad_orc",
+    "lotr_port:gundabad_orc_archer",
+    "lotr_port:gundabad_warg",
+    "lotr_port:gundabad_banner_bearer",
+    "lotr_port:gundabad_uruk",
+    "lotr_port:gundabad_uruk_archer"
+  ],
+  "icon": "lotr_port:gundabad_uruk_cleaver",
+  "lang": "lotr.invasion.GUNDABAD"
+}

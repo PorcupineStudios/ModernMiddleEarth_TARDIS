@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:general/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:bronze_ingot"
+    },
+    "title": {
+      "translate": "lotr.achievement.craftBronze.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.craftBronze.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

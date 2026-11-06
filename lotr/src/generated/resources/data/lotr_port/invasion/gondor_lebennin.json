@@ -1,0 +1,11 @@
+{
+  "faction": "lotr_port:gondor",
+  "mobs": [
+    "lotr_port:lebennin_levyman",
+    "lotr_port:gondor_soldier",
+    "lotr_port:gondor_archer",
+    "lotr_port:lebennin_banner_bearer"
+  ],
+  "icon": "lotr_port:gondorian_sword",
+  "lang": "lotr.invasion.GONDOR_LEBENNIN"
+}

@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:far_harad_savannah/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:silver_coin"
+    },
+    "title": {
+      "translate": "lotr.achievement.tradeMoredainChieftain.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.tradeMoredainChieftain.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

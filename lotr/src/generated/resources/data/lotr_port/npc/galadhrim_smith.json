@@ -18,6 +18,7 @@
   "gear": {
     "mainhand": "lotr_port:galadhrim_dagger"
   },
+  "names": "lotr_port:sindarin_male",
   "buy": "lotr_port:galadhrim_smith_buy",
   "sell": "lotr_port:galadhrim_smith_sell",
   "speech": "lotr_port:galadhrim/smith"

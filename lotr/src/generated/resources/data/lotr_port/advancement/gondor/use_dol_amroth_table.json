@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:gondor/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:dol_amroth_crafting_table"
+    },
+    "title": {
+      "translate": "lotr.achievement.useDolAmrothTable.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.useDolAmrothTable.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

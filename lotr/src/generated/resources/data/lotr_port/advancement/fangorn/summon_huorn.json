@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:fangorn/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:golden_ent_draught"
+    },
+    "title": {
+      "translate": "lotr.achievement.summonHuorn.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.summonHuorn.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

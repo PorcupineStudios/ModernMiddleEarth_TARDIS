@@ -20,7 +20,6 @@
     "chest": "lotr_port:kaftan",
     "legs": "lotr_port:kaftan_leggings"
   },
-  "names": "lotr_port:rhun_male",
   "buy": "lotr_port:rhun_brewer_buy",
   "sell": "lotr_port:rhun_brewer_sell",
   "speech": "lotr_port:rhun/market_trader",

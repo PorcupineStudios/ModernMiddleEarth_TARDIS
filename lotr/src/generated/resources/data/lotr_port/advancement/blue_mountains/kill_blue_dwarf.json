@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:blue_mountains/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:dwarf_bone"
+    },
+    "title": {
+      "translate": "lotr.achievement.killBlueDwarf.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.killBlueDwarf.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:enedwaith/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:uruk_cleaver"
+    },
+    "title": {
+      "translate": "lotr.achievement.enterNanCurunir.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.enterNanCurunir.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

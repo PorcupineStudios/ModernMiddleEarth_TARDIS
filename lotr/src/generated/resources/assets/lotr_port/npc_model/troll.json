@@ -678,71 +678,7 @@
   "hidden": [],
   "renderers": [
     {
-      "name": "LOTRRenderOlogHai",
-      "pre": {
-        "ops": [
-          [
-            "ref",
-            62
-          ]
-        ],
-        "color": [
-          [
-            "ref",
-            66
-          ],
-          [
-            "ref",
-            67
-          ],
-          [
-            "ref",
-            68
-          ],
-          1.0
-        ],
-        "blend": false
-      },
-      "layers": [
-        {
-          "model": "troll_shirt",
-          "textures": [
-            "lotr_port:textures/entity/troll/olog_hai_armor/0.png",
-            "lotr_port:textures/entity/troll/olog_hai_armor/1.png"
-          ],
-          "pick": "outfitSkin"
-        },
-        {
-          "model": "troll_trousers",
-          "textures": [
-            "lotr_port:textures/entity/troll/olog_hai_armor/0.png",
-            "lotr_port:textures/entity/troll/olog_hai_armor/1.png"
-          ],
-          "pick": "outfitSkin"
-        },
-        {
-          "draws": [
-            {
-              "part": "warhammer",
-              "ops": [],
-              "color": [
-                1.0,
-                1.0,
-                1.0,
-                1.0
-              ],
-              "blend": false,
-              "cond": true
-            }
-          ],
-          "textures": [
-            "lotr_port:textures/entity/troll/weapons.png"
-          ]
-        }
-      ]
-    },
-    {
-      "name": "LOTRRenderSnowTroll",
+      "name": "LOTRRenderUtumnoTroll",
       "pre": {
         "ops": [
           [
@@ -878,69 +814,7 @@
       ]
     },
     {
-      "name": "LOTRRenderMirkTroll",
-      "pre": {
-        "ops": [
-          [
-            "ref",
-            62
-          ]
-        ],
-        "color": [
-          [
-            "ref",
-            66
-          ],
-          [
-            "ref",
-            67
-          ],
-          [
-            "ref",
-            68
-          ],
-          1.0
-        ],
-        "blend": false
-      },
-      "layers": [
-        {
-          "model": "troll_shirt",
-          "textures": [
-            "lotr_port:textures/entity/troll/mirk_troll_armor/0.png"
-          ],
-          "pick": "outfitSkin"
-        },
-        {
-          "model": "troll_trousers",
-          "textures": [
-            "lotr_port:textures/entity/troll/mirk_troll_armor/0.png"
-          ],
-          "pick": "outfitSkin"
-        },
-        {
-          "draws": [
-            {
-              "part": "battleaxe",
-              "ops": [],
-              "color": [
-                1.0,
-                1.0,
-                1.0,
-                1.0
-              ],
-              "blend": false,
-              "cond": true
-            }
-          ],
-          "textures": [
-            "lotr_port:textures/entity/troll/weapons.png"
-          ]
-        }
-      ]
-    },
-    {
-      "name": "LOTRRenderUtumnoTroll",
+      "name": "LOTRRenderSnowTroll",
       "pre": {
         "ops": [
           [
@@ -1150,6 +1024,132 @@
             "lotr_port:textures/entity/troll/weapons.png"
           ],
           "hide_when": "isThrowingRocks"
+        }
+      ]
+    },
+    {
+      "name": "LOTRRenderOlogHai",
+      "pre": {
+        "ops": [
+          [
+            "ref",
+            62
+          ]
+        ],
+        "color": [
+          [
+            "ref",
+            66
+          ],
+          [
+            "ref",
+            67
+          ],
+          [
+            "ref",
+            68
+          ],
+          1.0
+        ],
+        "blend": false
+      },
+      "layers": [
+        {
+          "model": "troll_shirt",
+          "textures": [
+            "lotr_port:textures/entity/troll/olog_hai_armor/0.png",
+            "lotr_port:textures/entity/troll/olog_hai_armor/1.png"
+          ],
+          "pick": "outfitSkin"
+        },
+        {
+          "model": "troll_trousers",
+          "textures": [
+            "lotr_port:textures/entity/troll/olog_hai_armor/0.png",
+            "lotr_port:textures/entity/troll/olog_hai_armor/1.png"
+          ],
+          "pick": "outfitSkin"
+        },
+        {
+          "draws": [
+            {
+              "part": "warhammer",
+              "ops": [],
+              "color": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "blend": false,
+              "cond": true
+            }
+          ],
+          "textures": [
+            "lotr_port:textures/entity/troll/weapons.png"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "LOTRRenderMirkTroll",
+      "pre": {
+        "ops": [
+          [
+            "ref",
+            62
+          ]
+        ],
+        "color": [
+          [
+            "ref",
+            66
+          ],
+          [
+            "ref",
+            67
+          ],
+          [
+            "ref",
+            68
+          ],
+          1.0
+        ],
+        "blend": false
+      },
+      "layers": [
+        {
+          "model": "troll_shirt",
+          "textures": [
+            "lotr_port:textures/entity/troll/mirk_troll_armor/0.png"
+          ],
+          "pick": "outfitSkin"
+        },
+        {
+          "model": "troll_trousers",
+          "textures": [
+            "lotr_port:textures/entity/troll/mirk_troll_armor/0.png"
+          ],
+          "pick": "outfitSkin"
+        },
+        {
+          "draws": [
+            {
+              "part": "battleaxe",
+              "ops": [],
+              "color": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "blend": false,
+              "cond": true
+            }
+          ],
+          "textures": [
+            "lotr_port:textures/entity/troll/weapons.png"
+          ]
         }
       ]
     }

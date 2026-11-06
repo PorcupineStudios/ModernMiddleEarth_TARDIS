@@ -1,0 +1,10 @@
+{
+  "faction": "lotr_port:gondor",
+  "mobs": [
+    "lotr_port:lebennin_levyman",
+    "lotr_port:pelargir_marine",
+    "lotr_port:pelargir_banner_bearer"
+  ],
+  "icon": "lotr_port:pelargir_trident",
+  "lang": "lotr.invasion.GONDOR_PELARGIR"
+}

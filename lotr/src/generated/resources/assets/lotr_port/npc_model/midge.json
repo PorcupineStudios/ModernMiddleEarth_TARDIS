@@ -1,0 +1,215 @@
+{
+  "texture": [
+    64,
+    32
+  ],
+  "render_scale": 1.0,
+  "parts": {
+    "body": {
+      "pivot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "cubes": [
+        {
+          "uv": [
+            0,
+            0
+          ],
+          "origin": [
+            -0.5,
+            -1.5,
+            -0.5
+          ],
+          "size": [
+            1,
+            5,
+            1
+          ],
+          "inflate": 0.0,
+          "mirror": false
+        }
+      ],
+      "children": [
+        {
+          "pivot": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rotation": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "cubes": [
+            {
+              "uv": [
+                0,
+                6
+              ],
+              "origin": [
+                -5.0,
+                -2.5,
+                0.0
+              ],
+              "size": [
+                5,
+                5,
+                1
+              ],
+              "inflate": 0.0,
+              "mirror": false
+            }
+          ],
+          "children": [],
+          "name": "right_wing"
+        },
+        {
+          "pivot": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rotation": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "cubes": [
+            {
+              "uv": [
+                0,
+                6
+              ],
+              "origin": [
+                0.0,
+                -2.5,
+                0.0
+              ],
+              "size": [
+                5,
+                5,
+                1
+              ],
+              "inflate": 0.0,
+              "mirror": true
+            }
+          ],
+          "children": [],
+          "name": "left_wing"
+        }
+      ]
+    }
+  },
+  "hidden": [],
+  "renderers": [
+    {
+      "name": "LOTRRenderMidges"
+    }
+  ],
+  "anim": {
+    "biped": false,
+    "set": [
+      [
+        "body",
+        "x",
+        0.0
+      ],
+      [
+        "body",
+        "y",
+        8.0
+      ],
+      [
+        "body",
+        "z",
+        0.0
+      ],
+      [
+        "body",
+        "xRot",
+        [
+          "add",
+          0.7853981852531433,
+          [
+            "mul",
+            [
+              "cos",
+              [
+                "mul",
+                [
+                  "in",
+                  "age"
+                ],
+                0.10000000149011612
+              ]
+            ],
+            0.15000000596046448
+          ]
+        ]
+      ],
+      [
+        "right_wing",
+        "yRot",
+        [
+          "ref",
+          0
+        ]
+      ],
+      [
+        "left_wing",
+        "yRot",
+        [
+          "neg",
+          [
+            "ref",
+            0
+          ]
+        ]
+      ]
+    ],
+    "draws": [
+      {
+        "part": "body",
+        "ops": [],
+        "color": [
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "blend": false,
+        "cond": true
+      }
+    ]
+  },
+  "defs": [
+    [
+      "mul",
+      [
+        "mul",
+        [
+          "cos",
+          [
+            "mul",
+            [
+              "in",
+              "age"
+            ],
+            4.0
+          ]
+        ],
+        3.1415927410125732
+      ],
+      0.25
+    ]
+  ],
+  "inputs": []
+}
