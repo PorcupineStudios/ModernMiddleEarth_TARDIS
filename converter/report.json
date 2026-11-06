@@ -29,11 +29,11 @@
     "factions": 29,
     "npcs": 416,
     "npc_skins": 269,
-    "structures": 82,
-    "structures_with_npcs": 67,
+    "structures": 93,
+    "structures_with_npcs": 77,
     "npc_spawn_tables": 135,
     "lore_books": 114,
-    "lore_books_in_chests": 64,
+    "lore_books_in_chests": 136,
     "waypoints": 274,
     "quest_pools": 37,
     "quest_givers": 287,
@@ -823,6 +823,12 @@
       "lotr.common.recipe.LOTRRecipeHaradTurbanOrnament",
       "lotr.common.recipe.LOTRRecipeHaradRobesDye",
       "lotr.common.recipe.LOTRRecipeHaradTurbanOrnament"
+    ]
+  },
+  "structure_blocks_unmapped": {
+    "count": 1,
+    "entries": [
+      "minecraft:dirt#5"
     ]
   },
   "structure_export_errors": {

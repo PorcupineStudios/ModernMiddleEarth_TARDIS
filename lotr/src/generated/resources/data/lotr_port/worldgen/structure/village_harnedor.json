@@ -1,0 +1,16 @@
+{
+  "type": "lotr_port:lotr",
+  "biomes": "#lotr_port:has_structure/village_harnedor",
+  "step": "surface_structures",
+  "spawn_overrides": {},
+  "terrain_adaptation": "none",
+  "templates": [
+    "lotr_port:village_harnedor/0",
+    "lotr_port:village_harnedor/1"
+  ],
+  "chance": 1440,
+  "salt": 896342615,
+  "ground": 1,
+  "max_slope": 24,
+  "road_distance": 0
+}

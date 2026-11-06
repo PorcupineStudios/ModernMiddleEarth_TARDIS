@@ -1,0 +1,16 @@
+{
+  "type": "lotr_port:lotr",
+  "biomes": "#lotr_port:has_structure/village_bree",
+  "step": "surface_structures",
+  "spawn_overrides": {},
+  "terrain_adaptation": "none",
+  "templates": [
+    "lotr_port:village_bree/0",
+    "lotr_port:village_bree/1"
+  ],
+  "chance": 144,
+  "salt": 2109679304,
+  "ground": 4,
+  "max_slope": 24,
+  "road_distance": 0
+}
