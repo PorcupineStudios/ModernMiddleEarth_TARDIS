@@ -1,0 +1,21 @@
+{
+  "faction": "lotr_port:utumno",
+  "skins": [
+    "lotr_port:textures/entity/troll/utumno/0.png",
+    "lotr_port:textures/entity/troll/utumno/1.png",
+    "lotr_port:textures/entity/troll/utumno/2.png",
+    "lotr_port:textures/entity/troll/utumno/3.png"
+  ],
+  "skin_height": 128,
+  "model": "lotr_port:troll",
+  "width": 2.4,
+  "height": 4.8,
+  "sounds": {
+    "ambient": "lotr_port:troll.say",
+    "step": "lotr_port:troll.step"
+  },
+  "health": 60.0,
+  "speed": 0.2,
+  "attack": 7.0,
+  "speech": "lotr_port:utumno/orc"
+}

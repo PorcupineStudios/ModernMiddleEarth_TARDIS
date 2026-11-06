@@ -303,6 +303,30 @@
       "max": 30,
       "reward": 1.0,
       "weight": 114
+    },
+    {
+      "kind": "kill_npc",
+      "target": "lotr_port:gundabad_warg",
+      "min": 10,
+      "max": 30,
+      "reward": 1.0,
+      "weight": 114
+    },
+    {
+      "kind": "kill_npc",
+      "target": "lotr_port:angmar_warg",
+      "min": 10,
+      "max": 30,
+      "reward": 1.0,
+      "weight": 114
+    },
+    {
+      "kind": "kill_npc",
+      "target": "lotr_port:troll",
+      "min": 10,
+      "max": 30,
+      "reward": 1.0,
+      "weight": 114
     }
   ]
 }

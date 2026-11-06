@@ -86,8 +86,14 @@ https://claude.ai/artifact/KqhSSTCuKXGuwKHBoYJdcu. Rebuild features in modern co
   banks; the type's `speech` names the bank. Right-click (not trade/hire) says a line above the head (synced `SPEECH`,
   drawn by `NpcRenderer`): `hired` for the owner, `hostile` below 0 alignment, else `friendly`, then `neutral`.
   Model + speech share the `NpcType.Persona` codec (a codec group holds at most 16 fields).
-- Not yet: animals, trolls, wargs, spiders (other models), mounts for mounted units, female NPCs,
-  LOTR's trader outfits. `/lotr npc spawn|types|people` for testing.
+- Creature NPCs (2026-11-06): a type whose `model` is an id (`lotr_port:warg`) is drawn on one of LOTR's creature
+  models, `assets/<ns>/npc_model/<id>.json`, which `converter/entity_models.py` builds by replaying the LOTRModel*
+  constructor. It's drawn with `client/CreatureModel` and `CreatureRenderer`, parts animated by name, at
+  `render_scale`. Its hitbox is `width` x `height` (synced; `LotrNpc.getDefaultDimensions`). Huorns are trees of
+  real blocks with a face (`client/HuornRenderer`). Skins LOTR picked in code (warg colours per kind, ents,
+  spiders, char/) come from `npcs.py CODE_SKINS` and `warg_type`.
+- Not yet: animals, creature behaviour (troll stone, spider webs, ent rooting...), mounts for mounted units,
+  female NPCs, LOTR's trader outfits. `/lotr npc spawn|types|people` for testing.
 
 ## Structures and spawning (phase 7)
 - 82 LOTR structures (`converter/structures.py`): `structure/<id>/<0-2>.nbt` (3 seeded layouts), placed by our own

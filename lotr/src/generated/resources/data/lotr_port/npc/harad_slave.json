@@ -1,5 +1,14 @@
 {
   "faction": "lotr_port:near_harad",
+  "skins": [
+    "lotr_port:textures/entity/near_harad/slave/gondor_male/0.png",
+    "lotr_port:textures/entity/near_harad/slave/gondor_male/1.png",
+    "lotr_port:textures/entity/near_harad/slave/morwaith_male/0.png",
+    "lotr_port:textures/entity/near_harad/slave/near_harad_male/0.png",
+    "lotr_port:textures/entity/near_harad/slave/near_harad_male/1.png",
+    "lotr_port:textures/entity/near_harad/slave/taurethrim_male/0.png"
+  ],
+  "skin_height": 64,
   "health": 20.0,
   "speed": 0.2,
   "attack": 2.0,

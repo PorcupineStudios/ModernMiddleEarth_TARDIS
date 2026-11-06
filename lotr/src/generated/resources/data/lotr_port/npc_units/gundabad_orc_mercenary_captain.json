@@ -11,6 +11,11 @@
       "alignment": 150.0
     },
     {
+      "npc": "lotr_port:gundabad_warg",
+      "cost": 20,
+      "alignment": 150.0
+    },
+    {
       "npc": "lotr_port:gundabad_uruk",
       "cost": 40,
       "alignment": 350.0,

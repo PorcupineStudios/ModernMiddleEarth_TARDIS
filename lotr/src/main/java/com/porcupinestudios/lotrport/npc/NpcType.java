@@ -68,14 +68,30 @@ public record NpcType(Optional<ResourceLocation> faction, List<ResourceLocation>
      * @param model the body the client draws: human, hobbit, dwarf, elf or orc (hair layer, ears, feet)
      * @param speech speech bank folder ({@code speech/<bank>/<mood>.json}) it talks from when right-clicked
      * @param sounds LOTR's voice for each event, see {@link #sound}
+     * @param width creature hitbox width (0 = the person default, sized by {@code scale})
+     * @param height creature hitbox height
+     * @param renderScale how big a creature model is drawn (LOTR's renderer scale)
      */
-    public record Persona(String model, Optional<ResourceLocation> speech, Map<String, ResourceLocation> sounds) {
+    public record Persona(String model, Optional<ResourceLocation> speech, Map<String, ResourceLocation> sounds,
+            float width, float height, float renderScale) {
         public static final MapCodec<Persona> MAP_CODEC = RecordCodecBuilder.mapCodec(i -> i.group(
                 Codec.STRING.optionalFieldOf("model", "human").forGetter(Persona::model),
                 ResourceLocation.CODEC.optionalFieldOf("speech").forGetter(Persona::speech),
                 Codec.unboundedMap(Codec.STRING, ResourceLocation.CODEC).optionalFieldOf("sounds", Map.of())
-                        .forGetter(Persona::sounds))
+                        .forGetter(Persona::sounds),
+                Codec.FLOAT.optionalFieldOf("width", 0f).forGetter(Persona::width),
+                Codec.FLOAT.optionalFieldOf("height", 0f).forGetter(Persona::height),
+                Codec.FLOAT.optionalFieldOf("render_scale", 1f).forGetter(Persona::renderScale))
                 .apply(i, Persona::new));
+    }
+
+    /**
+     * A creature body: {@code model} is a creature model id ({@code lotr_port:warg},
+     * {@code assets/<ns>/npc_model/<path>.json}) rather than a humanoid kind. Creatures have their own hitbox
+     * ({@code width} x {@code height}, LOTR's) and are drawn at {@code render_scale}.
+     */
+    public boolean creature() {
+        return persona.model().contains(":");
     }
 
     /**

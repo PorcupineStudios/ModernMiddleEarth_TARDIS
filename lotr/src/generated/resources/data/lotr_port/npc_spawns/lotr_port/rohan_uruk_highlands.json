@@ -31,6 +31,18 @@
       "max": 6
     },
     {
+      "npc": "lotr_port:ent",
+      "weight": 1,
+      "min": 4,
+      "max": 4
+    },
+    {
+      "npc": "lotr_port:huorn",
+      "weight": 2,
+      "min": 4,
+      "max": 4
+    },
+    {
       "npc": "lotr_port:rohirrim",
       "weight": 2,
       "min": 3,
@@ -65,6 +77,12 @@
       "weight": 15,
       "min": 1,
       "max": 2
+    },
+    {
+      "npc": "lotr_port:uruk_warg",
+      "weight": 76,
+      "min": 4,
+      "max": 4
     }
   ]
 }

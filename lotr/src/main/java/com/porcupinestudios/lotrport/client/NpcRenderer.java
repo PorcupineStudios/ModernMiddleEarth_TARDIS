@@ -36,6 +36,8 @@ public class NpcRenderer extends HumanoidMobRenderer<LotrNpc, HumanoidModel<Lotr
     private static final float MARK_SIZE = 0.75f;
     private final HumanoidModel<LotrNpc> classic;
     private final Map<String, HumanoidModel<LotrNpc>> tall = new HashMap<>();
+    /** Wargs, trolls, spiders, ents and the other creature bodies. */
+    private final CreatureRenderer creatures;
 
     public NpcRenderer(EntityRendererProvider.Context context) {
         super(context, new HumanoidModel<>(context.bakeLayer(LotrClient.NPC_LAYER)), 0.5f);
@@ -47,14 +49,19 @@ public class NpcRenderer extends HumanoidMobRenderer<LotrNpc, HumanoidModel<Lotr
                 new HumanoidModel<>(context.bakeLayer(ModelLayers.PLAYER_INNER_ARMOR)),
                 new HumanoidModel<>(context.bakeLayer(ModelLayers.PLAYER_OUTER_ARMOR)),
                 context.getModelManager()));
+        creatures = new CreatureRenderer(context, this);
     }
 
     @Override
     public void render(LotrNpc npc, float yaw, float partialTick, PoseStack pose, MultiBufferSource buffers,
             int light) {
-        // 64x64 skins use LOTR's body for the race (hair layer, feet, ears); 64x32 ones the classic humanoid
-        model = npc.tallSkin() ? tall.getOrDefault(npc.model(), tall.get("human")) : classic;
-        super.render(npc, yaw, partialTick, pose, buffers, light);
+        if (npc.model().equals("lotr_port:huorn")) {
+            HuornRenderer.render(npc, yaw, partialTick, pose, buffers, light, getTextureLocation(npc));
+        } else if (!npc.model().contains(":") || !creatures.draw(npc, yaw, partialTick, pose, buffers, light)) {
+            // 64x64 skins use LOTR's body for the race (hair layer, feet, ears); 64x32 ones the classic humanoid
+            model = npc.tallSkin() ? tall.getOrDefault(npc.model(), tall.get("human")) : classic;
+            super.render(npc, yaw, partialTick, pose, buffers, light);
+        }
         renderSpeech(npc, pose, buffers, light);
         renderQuestMark(npc, pose, buffers);
     }

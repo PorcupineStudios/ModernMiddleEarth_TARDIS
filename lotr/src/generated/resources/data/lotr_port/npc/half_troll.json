@@ -1,0 +1,22 @@
+{
+  "faction": "lotr_port:half_troll",
+  "skins": [
+    "lotr_port:textures/entity/half_troll/half_troll/0.png",
+    "lotr_port:textures/entity/half_troll/half_troll/1.png",
+    "lotr_port:textures/entity/half_troll/half_troll/2.png"
+  ],
+  "skin_height": 64,
+  "model": "lotr_port:half_troll",
+  "width": 1.0,
+  "height": 2.4,
+  "sounds": {
+    "ambient": "lotr_port:half_troll.say",
+    "hurt": "lotr_port:half_troll.hurt",
+    "death": "lotr_port:half_troll.death"
+  },
+  "health": 35.0,
+  "speed": 0.2,
+  "attack": 6.0,
+  "names": "lotr_port:orc",
+  "speech": "lotr_port:half_troll/half_troll"
+}

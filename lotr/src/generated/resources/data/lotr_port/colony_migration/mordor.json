@@ -19,6 +19,22 @@
     {
       "npc": "lotr_port:mordor_orc_bombardier",
       "weight": 1
+    },
+    {
+      "npc": "lotr_port:mordor_spider",
+      "weight": 3
+    },
+    {
+      "npc": "lotr_port:mordor_warg",
+      "weight": 3
+    },
+    {
+      "npc": "lotr_port:mordor_warg_bombardier",
+      "weight": 1
+    },
+    {
+      "npc": "lotr_port:olog_hai",
+      "weight": 3
     }
   ]
 }

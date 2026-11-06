@@ -1,0 +1,19 @@
+{
+  "units": [
+    {
+      "npc": "lotr_port:half_troll",
+      "cost": 30,
+      "alignment": 200.0
+    },
+    {
+      "npc": "lotr_port:half_troll_warrior",
+      "cost": 50,
+      "alignment": 300.0
+    },
+    {
+      "npc": "lotr_port:half_troll_banner_bearer",
+      "cost": 70,
+      "alignment": 350.0
+    }
+  ]
+}

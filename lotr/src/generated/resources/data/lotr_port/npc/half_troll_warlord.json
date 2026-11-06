@@ -1,0 +1,30 @@
+{
+  "faction": "lotr_port:half_troll",
+  "skins": [
+    "lotr_port:textures/entity/half_troll/half_troll/0.png",
+    "lotr_port:textures/entity/half_troll/half_troll/1.png",
+    "lotr_port:textures/entity/half_troll/half_troll/2.png"
+  ],
+  "skin_height": 64,
+  "model": "lotr_port:half_troll",
+  "width": 1.0,
+  "height": 2.4,
+  "sounds": {
+    "ambient": "lotr_port:half_troll.say",
+    "hurt": "lotr_port:half_troll.hurt",
+    "death": "lotr_port:half_troll.death"
+  },
+  "health": 40.0,
+  "speed": 0.24,
+  "attack": 6.0,
+  "gear": {
+    "mainhand": "lotr_port:half_troll_scimitar",
+    "chest": "lotr_port:half_troll_chestplate",
+    "legs": "lotr_port:half_troll_leggings",
+    "feet": "lotr_port:half_troll_boots"
+  },
+  "names": "lotr_port:orc",
+  "units": "lotr_port:half_troll_warlord",
+  "speech": "lotr_port:half_troll/warlord",
+  "quests": "lotr_port:half_troll"
+}

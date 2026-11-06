@@ -1,0 +1,19 @@
+{
+  "faction": "lotr_port:angmar",
+  "skins": [
+    "lotr_port:textures/entity/troll/troll/0.png"
+  ],
+  "skin_height": 128,
+  "model": "lotr_port:troll",
+  "width": 1.6,
+  "height": 3.2,
+  "sounds": {
+    "ambient": "lotr_port:troll.say",
+    "step": "lotr_port:troll.step"
+  },
+  "health": 60.0,
+  "speed": 0.2,
+  "attack": 5.0,
+  "names": "lotr_port:bree_male",
+  "speech": "lotr_port:angmar/orc"
+}

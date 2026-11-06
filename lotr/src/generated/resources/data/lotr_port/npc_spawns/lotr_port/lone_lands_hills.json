@@ -31,6 +31,12 @@
       "max": 6
     },
     {
+      "npc": "lotr_port:angmar_warg",
+      "weight": 1,
+      "min": 4,
+      "max": 4
+    },
+    {
       "npc": "lotr_port:gundabad_orc",
       "weight": 100,
       "min": 4,
@@ -41,6 +47,12 @@
       "weight": 50,
       "min": 4,
       "max": 6
+    },
+    {
+      "npc": "lotr_port:gundabad_warg",
+      "weight": 30,
+      "min": 4,
+      "max": 4
     },
     {
       "npc": "lotr_port:ranger_north",

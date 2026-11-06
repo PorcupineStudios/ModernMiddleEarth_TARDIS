@@ -1,0 +1,30 @@
+{
+  "faction": "lotr_port:hostile",
+  "skins": [
+    "minecraft:textures/entity/skeleton/skeleton.png"
+  ],
+  "model": "lotr_port:skeleton",
+  "width": 0.6,
+  "height": 1.8,
+  "sounds": {
+    "ambient": "minecraft:entity.skeleton.ambient",
+    "hurt": "minecraft:entity.skeleton.hurt",
+    "death": "minecraft:entity.skeleton.death",
+    "step": "minecraft:entity.skeleton.step"
+  },
+  "health": 24.0,
+  "speed": 0.25,
+  "attack": 2.0,
+  "gear": {
+    "mainhand": [
+      "lotr_port:poisoned_taurethrim_dagger",
+      "lotr_port:taurethrim_bludgeon",
+      "lotr_port:taurethrim_dagger",
+      "lotr_port:taurethrim_sword"
+    ],
+    "chest": "lotr_port:taurethrim_chestplate",
+    "legs": "lotr_port:taurethrim_leggings",
+    "feet": "lotr_port:taurethrim_boots"
+  },
+  "speech": "lotr_port:tauredain/tauredain"
+}

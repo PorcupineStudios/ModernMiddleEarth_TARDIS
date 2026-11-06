@@ -121,6 +121,12 @@
       "max": 6
     },
     {
+      "npc": "lotr_port:mordor_warg",
+      "weight": 1,
+      "min": 4,
+      "max": 4
+    },
+    {
       "npc": "lotr_port:wicked_dwarf",
       "weight": 3,
       "min": 1,

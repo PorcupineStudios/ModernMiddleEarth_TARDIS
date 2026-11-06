@@ -1,0 +1,19 @@
+{
+  "faction": "lotr_port:hostile",
+  "skins": [
+    "lotr_port:textures/entity/wraith/marsh_wraith.png"
+  ],
+  "skin_height": 64,
+  "model": "lotr_port:marsh_wraith",
+  "width": 0.6,
+  "height": 1.8,
+  "render_scale": 0.9375,
+  "sounds": {
+    "hurt": "lotr_port:wight.hurt",
+    "death": "lotr_port:wight.death"
+  },
+  "health": 50.0,
+  "speed": 0.2,
+  "attack": 2.0,
+  "speech": "lotr_port:tauredain/tauredain"
+}

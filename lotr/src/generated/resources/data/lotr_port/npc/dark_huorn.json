@@ -1,0 +1,16 @@
+{
+  "faction": "lotr_port:dark_huorn",
+  "skins": [
+    "lotr_port:textures/entity/huorn/face/0.png",
+    "lotr_port:textures/entity/huorn/face/1.png",
+    "lotr_port:textures/entity/huorn/face/2.png",
+    "lotr_port:textures/entity/huorn/face/3.png",
+    "lotr_port:textures/entity/huorn/face/4.png"
+  ],
+  "model": "lotr_port:huorn",
+  "width": 1.5,
+  "height": 4.0,
+  "health": 60.0,
+  "speed": 0.3,
+  "attack": 4.0
+}

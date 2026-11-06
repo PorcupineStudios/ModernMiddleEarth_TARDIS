@@ -1,12 +1,44 @@
 {
   "entries": [
     {
+      "npc": "lotr_port:balrog",
+      "weight": 3
+    },
+    {
+      "npc": "lotr_port:utumno_fire_warg",
+      "weight": 3
+    },
+    {
+      "npc": "lotr_port:utumno_ice_spider",
+      "weight": 3
+    },
+    {
+      "npc": "lotr_port:utumno_ice_warg",
+      "weight": 3
+    },
+    {
+      "npc": "lotr_port:utumno_obsidian_warg",
+      "weight": 3
+    },
+    {
       "npc": "lotr_port:utumno_orc",
       "weight": 3
     },
     {
       "npc": "lotr_port:utumno_orc_archer",
       "weight": 1
+    },
+    {
+      "npc": "lotr_port:utumno_snow_troll",
+      "weight": 3
+    },
+    {
+      "npc": "lotr_port:utumno_troll",
+      "weight": 3
+    },
+    {
+      "npc": "lotr_port:utumno_warg",
+      "weight": 3
     }
   ]
 }

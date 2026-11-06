@@ -43,6 +43,18 @@
       "max": 6
     },
     {
+      "npc": "lotr_port:gundabad_warg",
+      "weight": 1,
+      "min": 4,
+      "max": 4
+    },
+    {
+      "npc": "lotr_port:mirkwood_spider",
+      "weight": 1,
+      "min": 4,
+      "max": 6
+    },
+    {
       "npc": "lotr_port:mordor_orc",
       "weight": 1,
       "min": 4,
@@ -53,6 +65,12 @@
       "weight": 1,
       "min": 4,
       "max": 6
+    },
+    {
+      "npc": "lotr_port:mordor_warg",
+      "weight": 1,
+      "min": 4,
+      "max": 4
     }
   ]
 }

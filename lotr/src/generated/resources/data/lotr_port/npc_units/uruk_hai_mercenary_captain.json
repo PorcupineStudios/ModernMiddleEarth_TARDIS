@@ -32,6 +32,16 @@
       "pledge": true
     },
     {
+      "npc": "lotr_port:uruk_warg",
+      "cost": 20,
+      "alignment": 150.0
+    },
+    {
+      "npc": "lotr_port:uruk_warg_bombardier",
+      "cost": 50,
+      "alignment": 400.0
+    },
+    {
       "npc": "lotr_port:uruk_hai_banner_bearer",
       "cost": 60,
       "alignment": 300.0

@@ -16,6 +16,22 @@
       "alignment": 250.0
     },
     {
+      "npc": "lotr_port:mordor_warg",
+      "cost": 20,
+      "alignment": 150.0
+    },
+    {
+      "npc": "lotr_port:mordor_warg_bombardier",
+      "cost": 50,
+      "alignment": 400.0
+    },
+    {
+      "npc": "lotr_port:olog_hai",
+      "cost": 120,
+      "alignment": 500.0,
+      "pledge": true
+    },
+    {
       "npc": "lotr_port:mordor_banner_bearer",
       "cost": 40,
       "alignment": 300.0

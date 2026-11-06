@@ -30,7 +30,14 @@ NPC_SOUNDS = {
     "LOTREntityGollum": {"ambient": "gollum.say", "hurt": "gollum.hurt", "death": "gollum.death"},
     "LOTREntityBarrowWight": {"hurt": "wight.hurt", "death": "wight.death"},
     "LOTREntityMarshWraith": {"hurt": "wight.hurt", "death": "wight.death"},
-    "LOTREntityTroll": {"ambient": "troll.say"},
+    "LOTREntityTroll": {"ambient": "troll.say", "step": "troll.step"},
+    "LOTREntityBalrog": {"ambient": "troll.say", "step": "troll.step"},
+    "LOTREntityEnt": {"step": "ent.step"},
+    "LOTREntitySpiderBase": {"ambient": "minecraft:entity.spider.ambient", "hurt": "minecraft:entity.spider.hurt",
+                             "death": "minecraft:entity.spider.death", "step": "minecraft:entity.spider.step"},
+    "LOTREntitySkeletalWraith": {"ambient": "minecraft:entity.skeleton.ambient",
+                                 "hurt": "minecraft:entity.skeleton.hurt", "death": "minecraft:entity.skeleton.death",
+                                 "step": "minecraft:entity.skeleton.step"},
     "LOTREntityWarg": {"ambient": "warg.say", "hurt": "warg.hurt", "death": "warg.death", "attack": "warg.attack"},
 }
 # Creatures not ported yet (missing-features task 9/26): their LOTR sounds, for the creature types when they land.
@@ -112,7 +119,7 @@ def npc_sounds(classes):
     for c in classes:
         name = c.split(".")[-1]
         if name in NPC_SOUNDS:
-            return {k: f"{NS}:{v}" for k, v in NPC_SOUNDS[name].items()}
+            return {k: v if ":" in v else f"{NS}:{v}" for k, v in NPC_SOUNDS[name].items()}
     return {}
 
 

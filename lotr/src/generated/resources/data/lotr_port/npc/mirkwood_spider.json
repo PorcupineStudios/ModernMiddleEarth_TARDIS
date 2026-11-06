@@ -1,0 +1,21 @@
+{
+  "faction": "lotr_port:dol_guldur",
+  "skins": [
+    "lotr_port:textures/entity/spider/spider_mirkwood.png",
+    "lotr_port:textures/entity/spider/spider_mirkwood_poison.png",
+    "lotr_port:textures/entity/spider/spider_mirkwood_slowness.png"
+  ],
+  "model": "lotr_port:spider",
+  "width": 1.4,
+  "height": 0.8,
+  "sounds": {
+    "ambient": "minecraft:entity.spider.ambient",
+    "hurt": "minecraft:entity.spider.hurt",
+    "death": "minecraft:entity.spider.death",
+    "step": "minecraft:entity.spider.step"
+  },
+  "health": 24.0,
+  "speed": 0.29,
+  "attack": 4.0,
+  "speech": "lotr_port:dol_guldur/orc"
+}

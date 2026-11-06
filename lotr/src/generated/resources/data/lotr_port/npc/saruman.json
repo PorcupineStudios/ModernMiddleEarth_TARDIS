@@ -1,5 +1,9 @@
 {
   "faction": "lotr_port:isengard",
+  "skins": [
+    "lotr_port:textures/entity/char/saruman.png"
+  ],
+  "skin_height": 64,
   "sounds": {
     "ambient": "lotr_port:orc.say"
   },

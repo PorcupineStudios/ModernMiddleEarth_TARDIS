@@ -37,6 +37,12 @@
       "max": 2
     },
     {
+      "npc": "lotr_port:mordor_warg",
+      "weight": 30,
+      "min": 4,
+      "max": 4
+    },
+    {
       "npc": "lotr_port:ranger_ithilien",
       "weight": 1,
       "min": 1,

@@ -12,8 +12,10 @@ Only people (LOTR's human, elf, dwarf, hobbit and orc models) for now; animals, 
 models. One skin set per type (64x32 or 64x64): male skins (female NPCs and families come with colonists), no outfit overlays.
 """
 import io
+import json
 import os
 
+from entity_models import EntityModels, troll_scale
 from sounds import npc_sounds
 import re
 
@@ -70,7 +72,9 @@ class Npcs:
             return vid if kind == "item" else None
         return new.split("[")[0] if new else None
 
-    def skins(self, e):
+    def skins(self, e, want=None):
+        """The type's skin textures. People: 64x32 or 64x64. Creatures (want = the model's texture size): textures
+        of exactly that size."""
         render = e.get("render") or {}
         textures = render.get("textures") or {}
         words = [w.lower() for w in re.findall(r"[A-Z][a-z]+", e["name"].removeprefix("lotr."))]
@@ -88,10 +92,23 @@ class Npcs:
         files = sorted(n for n in self.jar.names if n.startswith(folder) and n.endswith(".png")
                        and "/" not in n[len(folder):])
         sizes = {f: image_size(self.jar.read(f)) for f in files}
-        usable = [f for f in files if sizes[f] in ((64, 32), (64, 64))]
+        usable = [f for f in files if (sizes[f] == tuple(want) if want else sizes[f] in ((64, 32), (64, 64)))
+                  and not any(n in f.rsplit("/", 1)[1].lower() for n in NOT_SKINS)]
         if not usable:
             self.report["npc_skins_odd_size"].append(f"{folder} {sorted(set(map(str, sizes.values())))}")
             return [], 32
+        if want:
+            out = []
+            for f in usable:
+                new = "entity/" + snake(f[len("assets/lotr/"):-4].removeprefix("mob/"))
+                if new not in self.copied:
+                    dst = os.path.join(self.assets, "textures", new + ".png")
+                    os.makedirs(os.path.dirname(dst), exist_ok=True)
+                    with open(dst, "wb") as fh:
+                        fh.write(self.jar.read(f))
+                    self.copied.add(new)
+                out.append(f"{NS}:textures/{new}.png")
+            return out, want[1]
         heights = [sizes[f][1] for f in usable]
         height = max(set(heights), key=heights.count)  # one model per type: keep the usual size
         out = []
@@ -108,6 +125,84 @@ class Npcs:
                 self.copied.add(new)
             out.append(f"{NS}:textures/{new}.png")
         return out, height
+
+    # Skins LOTR's renderers pick in code (by type or at random), as jar files under assets/lotr/mob/ or a vanilla
+    # texture; read from LOTRRenderWarg/Spider/Ent/Skeleton and the char/ folder.
+    CODE_SKINS = (("Gandalf", ["char/gandalf"]), ("Saruman", ["char/saruman"]), ("Gollum", ["char/gollum"]),
+                  ("MallornEnt", ["ent/mallorn"]), ("Ent", ["ent/oak", "ent/beech", "ent/birch"]),
+                  ("MirkwoodSpider", ["spider/spider_mirkwood", "spider/spider_mirkwoodPoison",
+                                      "spider/spider_mirkwoodSlowness"]),
+                  ("MordorSpider", ["spider/spider_mordor"]), ("UtumnoIceSpider", ["spider/spider_utumnoIce"]),
+                  ("MarshWraith", ["wraith/marshWraith"]), ("ScrapTrader", ["scrapTrader/0", "scrapTrader/1"]),
+                  ("HaradSlave", ["nearHarad/slave/gondor_male/0", "nearHarad/slave/gondor_male/1",
+                                  "nearHarad/slave/morwaith_male/0", "nearHarad/slave/nearHarad_male/0",
+                                  "nearHarad/slave/nearHarad_male/1", "nearHarad/slave/taurethrim_male/0"]),
+                  ("Wraith", ["minecraft:textures/entity/skeleton/skeleton.png"]))
+    WARG_COLOURS = ("black", "brown", "grey", "white")
+
+    def code_skins(self, e):
+        """(skins, height) for types whose renderer picks the texture in code, else None."""
+        name = e["name"].removeprefix("lotr.")
+        files = None
+        if "Warg" in name:
+            colour = self.warg_type(e)
+            files = [f"warg/{colour}"] if colour else [f"warg/{c}" for c in self.WARG_COLOURS]
+        else:
+            for key, paths in self.CODE_SKINS:
+                if name.endswith(key) or name == key:
+                    files = paths
+                    break
+        if not files:
+            return None
+        out, height = [], 32
+        for f in files:
+            if f.startswith("minecraft:"):
+                out.append(f)
+                continue
+            src = f"assets/lotr/mob/{f}.png"
+            if not self.jar.has(src):
+                self.report["npc_code_skins_missing"].append(f"{name}: {src}")
+                continue
+            height = image_size(self.jar.read(src))[1]
+            new = "entity/" + snake(f)
+            if new not in self.copied:
+                dst = os.path.join(self.assets, "textures", new + ".png")
+                os.makedirs(os.path.dirname(dst), exist_ok=True)
+                with open(dst, "wb") as fh:
+                    fh.write(self.jar.read(src))
+                self.copied.add(new)
+            out.append(f"{NS}:textures/{new}.png")
+        return (out, height) if out else None
+
+    def warg_type(self, e):
+        """The WargType a warg class fixes in its constructor (getstatic LOTREntityWarg$WargType.BLACK...)."""
+        from classfile import ClassFile
+        for c in e.get("classes") or []:
+            path = c.replace(".", "/") + ".class"
+            if not self.jar.has(path):
+                continue
+            cf = ClassFile(self.jar.read(path))
+            for entry in cf.pool:
+                if entry and entry[0] == "field":
+                    owner, field = cf.ref_name(cf.pool.index(entry))
+                    if owner.endswith("LOTREntityWarg$WargType") and field.lower() in (
+                            "black", "brown", "grey", "white", "fire", "ice", "obsidian"):
+                        return field.lower()
+        return None
+
+    def creature_model(self, e):
+        """(model name, model json) for an NPC drawn on one of LOTR's creature models, else None."""
+        cls = ((e.get("render") or {}).get("model") or "")
+        if not cls or cls.split(".")[-1] in PERSON_MODELS:
+            return None
+        if cls.endswith("LOTRModelHuorn"):
+            # huorns are trees of log and leaf blocks with a face (client/HuornRenderer), not a box model
+            return "huorn", {"texture": [64, 32], "render_scale": 1.0}
+        name = self.models.build(cls)
+        if not name:
+            return None
+        with open(os.path.join(self.assets, "npc_model", name + ".json"), encoding="utf-8") as f:
+            return name, json.load(f)
 
     def load_banks(self):
         raw = {}
@@ -172,7 +267,14 @@ class Npcs:
         fac = (e.get("faction") or "").lower()
         if fac in factions:
             out["faction"] = f"{NS}:{fac}"
-        skins, height = self.skins(e)
+        creature = self.creature_model(e)
+        if creature:
+            model_json = creature[1]
+            skins, height = self.skins(e, model_json["texture"])
+        else:
+            skins, height = self.skins(e)
+        if not skins:
+            skins, height = self.code_skins(e) or ([], 32)
         if skins:
             out["skins"] = skins
             if height != 32:
@@ -180,13 +282,21 @@ class Npcs:
         else:
             self.report["npcs_without_skins"].append(e["name"])
         model = MODELS.get(((e.get("render") or {}).get("model") or "").split(".")[-1])
-        if model:
+        if creature:
+            # a creature body (wargs, trolls, spiders...): its own model, its own hitbox, drawn at LOTR's scale
+            out["model"] = f"{NS}:{creature[0]}"
+            out["width"] = round(e.get("width", 0.6), 3)
+            out["height"] = round(e.get("height", 1.8), 3)
+            rs = model_json.get("render_scale", 1.0) * (troll_scale(e.get("classes") or []) or 1.0)
+            if rs != 1.0:
+                out["render_scale"] = rs
+        elif model:
             out["model"] = model
         voice = npc_sounds(e.get("classes") or [e.get("class", "")])
         if voice:
             out["sounds"] = voice
         size = e.get("height", 1.8)
-        if abs(size - 1.8) > 0.01:
+        if not creature and abs(size - 1.8) > 0.01:
             out["scale"] = round(size / 1.8, 3)
         out["health"] = attrs.get("generic.maxHealth", 20.0)
         out["speed"] = attrs.get("generic.movementSpeed", 0.2)
@@ -215,8 +325,10 @@ class Npcs:
     def run(self):
         factions = {f[:-5] for f in os.listdir(os.path.join(self.data, "faction"))}
         self.load_banks()
+        self.models = EntityModels(self.jar, self.assets, self.report)
         people = [e for e in self.export.get("entities", [])
-                  if ((e.get("render") or {}).get("model") or "").split(".")[-1] in PERSON_MODELS]
+                  if ((e.get("render") or {}).get("model") or "").split(".")[-1] in PERSON_MODELS
+                  or (".npc." in (e.get("classes") or [""])[0] and self.creature_model(e))]
         types = {type_id(e["name"]): e for e in people}
         written = {}
         for tid, e in sorted(types.items()):

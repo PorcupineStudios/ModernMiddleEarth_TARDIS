@@ -15,6 +15,10 @@
     {
       "npc": "lotr_port:gundabad_uruk_archer",
       "weight": 1
+    },
+    {
+      "npc": "lotr_port:gundabad_warg",
+      "weight": 3
     }
   ]
 }
