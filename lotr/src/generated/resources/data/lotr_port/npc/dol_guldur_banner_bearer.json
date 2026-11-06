@@ -18,11 +18,11 @@
   "gear": {
     "mainhand": [
       "lotr_port:dol_guldur_axe",
-      "lotr_port:dol_guldur_dagger",
+      "lotr_port:dol_guldur_battleaxe",
       "lotr_port:dol_guldur_pickaxe",
       "lotr_port:dol_guldur_spear",
-      "lotr_port:dol_guldur_spike",
       "lotr_port:dol_guldur_sword",
+      "lotr_port:dol_guldur_warhammer",
       "lotr_port:poisoned_dol_guldur_dagger"
     ],
     "head": "lotr_port:dol_guldur_helmet",

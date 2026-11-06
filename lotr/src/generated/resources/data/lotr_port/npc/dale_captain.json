@@ -17,6 +17,5 @@
   },
   "names": "lotr_port:dale_male",
   "units": "lotr_port:dale_captain",
-  "speech": "lotr_port:dale/captain",
-  "quests": "lotr_port:dale"
+  "speech": "lotr_port:dale/captain"
 }

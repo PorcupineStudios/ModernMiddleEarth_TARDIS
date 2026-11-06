@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "equipment",
+  "group": "poison_weapon",
+  "ingredients": [
+    {
+      "item": "lotr_port:gundabad_uruk_dagger"
+    },
+    {
+      "tag": "lotr_port:poison"
+    }
+  ],
+  "result": {
+    "id": "lotr_port:poisoned_gundabad_uruk_dagger"
+  }
+}

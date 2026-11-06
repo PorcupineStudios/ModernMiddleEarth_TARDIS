@@ -1,0 +1,15 @@
+{
+  "type": "lotr_port:alloy_forge",
+  "ingredients": [
+    {
+      "item": "lotr_port:silver_ore"
+    },
+    {
+      "item": "lotr_port:mithril_nugget"
+    }
+  ],
+  "result": {
+    "id": "lotr_port:ithildin"
+  },
+  "station": "lotr_port:elven_forge"
+}

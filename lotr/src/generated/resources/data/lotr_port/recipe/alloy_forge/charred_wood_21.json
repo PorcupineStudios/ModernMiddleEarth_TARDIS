@@ -1,0 +1,12 @@
+{
+  "type": "lotr_port:alloy_forge",
+  "ingredients": [
+    {
+      "item": "lotr_port:pine_wood"
+    }
+  ],
+  "result": {
+    "id": "lotr_port:charred_wood"
+  },
+  "station": "lotr_port:orc_forge"
+}

@@ -19,6 +19,5 @@
   "names": "lotr_port:rhun_male",
   "buy": "lotr_port:rhun_mason_buy",
   "sell": "lotr_port:rhun_mason_sell",
-  "speech": "lotr_port:rhun/market_trader",
-  "quests": "lotr_port:rhun"
+  "speech": "lotr_port:rhun/market_trader"
 }

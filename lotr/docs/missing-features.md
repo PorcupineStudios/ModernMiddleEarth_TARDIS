@@ -101,7 +101,10 @@ branch, and **Decision** means it needs Aaron to choose.
    `HithlainRope`, `OrcChain`→`climbable`; `LOTRBlockQuagmire`→`quagmire`; `LOTRBlockMud/MudFarmland`→`farmland`;
    `LOTRBlockTreasurePile`→`layered`; `LOTRBlockChandelier/DoubleTorch/MallornTorch/ElvenTorch/MorgulTorch`→
    `torch`; `LOTRBlockStalactite`→`stalactite`; `LOTRBlockWeaponRack/ArmorStand`→`display`.
-3. **GEN — loot for blocks only placed by an item** (known gap): crops, beds, plates, mugs, portals drop nothing.
+3. **Done (2026-11-06)** for crops, beds, plates and the like: the exporter records LOTR's drops and 26 blocks
+   drop what LOTR's did. 11 drop nothing in LOTR either (placed pies are eaten in place, portals). Left: the 26
+   vessels, chests and pots that LOTR dropped as themselves (their contents came from the tile entity); they need
+   their block items or block entities. Original task: **GEN — loot for blocks only placed by an item** (known gap): crops, beds, plates, mugs, portals drop nothing.
    Generate loot tables from the item↔block pairs (`itemClass`, `blocks_named_from_id` in the report).
 4. **GEN — leaf and grass tint.** Export has `blockColor`/`renderPass` per block and biome `biomeColors`; emit
    `tintindex` in models and a `block_colors.json` (biome grass/foliage colour or fixed) for a tiny client colour
@@ -146,7 +149,11 @@ branch, and **Decision** means it needs Aaron to choose.
 
 Each is "read the LOTR registry/list from the running game, dump JSON". Pattern: copy `QuestExporter`.
 
-15. **EXP — station recipes.** `recipes.json` has crafting tables and smelting only. Add: `LOTRBrewingRecipes`
+15. **Mostly done (2026-11-06):** barrel 29, millstone 35, Ent jar 7, and the four forges' alloys and smelting
+    are now `lotr_port:<machine>` recipes (`MachineRecipe`), shown in JEI (`compat/jei`). Poisoning a weapon is a
+    crafting recipe. Left: the unsmeltery export came back empty (its result needs a world, so compute it from the
+    crafting recipes in the generator instead), the hobbit oven and kebab stand, LOTR's dye recipes (task 36), and
+    the machines' own blocks (task 31). Original task: **EXP — station recipes.** `recipes.json` has crafting tables and smelting only. Add: `LOTRBrewingRecipes`
     (barrel, ingredients → drink, brew time), `LOTRMillstoneRecipes`, alloy-forge recipes (each forge TE class has
     them as methods: call `getSmeltingResult`/`getAlloySmeltingResult` over every item in the registry and record
     hits), `LOTREntJarRecipes`, unsmeltery (`uncraftableUnsmeltingRecipes` is listed as a station already; export the

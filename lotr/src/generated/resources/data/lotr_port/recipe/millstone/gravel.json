@@ -1,0 +1,12 @@
+{
+  "type": "lotr_port:millstone",
+  "ingredients": [
+    {
+      "tag": "c:cobblestones"
+    }
+  ],
+  "result": {
+    "id": "minecraft:gravel"
+  },
+  "chance": 0.75
+}

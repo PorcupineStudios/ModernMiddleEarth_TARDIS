@@ -1,30 +1,6 @@
 {
   "quests": [
     {
-      "kind": "kill_npc",
-      "target": "lotr_port:gondor_soldier",
-      "min": 10,
-      "max": 30,
-      "reward": 1.0,
-      "weight": 267
-    },
-    {
-      "kind": "kill_npc",
-      "target": "lotr_port:ranger_ithilien",
-      "min": 10,
-      "max": 20,
-      "reward": 1.5,
-      "weight": 267
-    },
-    {
-      "kind": "kill_faction",
-      "target": "lotr_port:taurethrim",
-      "min": 10,
-      "max": 30,
-      "reward": 1.0,
-      "weight": 267
-    },
-    {
       "kind": "collect",
       "target": "minecraft:string",
       "min": 5,
@@ -223,6 +199,30 @@
       "max": 120,
       "reward": 0.2,
       "weight": 40
+    },
+    {
+      "kind": "kill_npc",
+      "target": "lotr_port:gondor_soldier",
+      "min": 10,
+      "max": 30,
+      "reward": 1.0,
+      "weight": 267
+    },
+    {
+      "kind": "kill_npc",
+      "target": "lotr_port:ranger_ithilien",
+      "min": 10,
+      "max": 20,
+      "reward": 1.5,
+      "weight": 267
+    },
+    {
+      "kind": "kill_faction",
+      "target": "lotr_port:taurethrim",
+      "min": 10,
+      "max": 30,
+      "reward": 1.0,
+      "weight": 267
     }
   ]
 }

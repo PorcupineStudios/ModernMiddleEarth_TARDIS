@@ -1,38 +1,6 @@
 {
   "quests": [
     {
-      "kind": "kill_faction",
-      "target": "lotr_port:gundabad",
-      "min": 10,
-      "max": 40,
-      "reward": 1.0,
-      "weight": 80
-    },
-    {
-      "kind": "kill_faction",
-      "target": "lotr_port:angmar",
-      "min": 10,
-      "max": 30,
-      "reward": 1.0,
-      "weight": 80
-    },
-    {
-      "kind": "kill_npc",
-      "target": "lotr_port:gundabad_orc",
-      "min": 10,
-      "max": 30,
-      "reward": 1.0,
-      "weight": 80
-    },
-    {
-      "kind": "kill_npc",
-      "target": "lotr_port:angmar_hillman",
-      "min": 10,
-      "max": 30,
-      "reward": 1.0,
-      "weight": 80
-    },
-    {
       "kind": "collect",
       "target": "minecraft:oak_log",
       "min": 30,
@@ -263,6 +231,38 @@
       "max": 30,
       "reward": 0.75,
       "weight": 34
+    },
+    {
+      "kind": "kill_faction",
+      "target": "lotr_port:gundabad",
+      "min": 10,
+      "max": 40,
+      "reward": 1.0,
+      "weight": 80
+    },
+    {
+      "kind": "kill_faction",
+      "target": "lotr_port:angmar",
+      "min": 10,
+      "max": 30,
+      "reward": 1.0,
+      "weight": 80
+    },
+    {
+      "kind": "kill_npc",
+      "target": "lotr_port:gundabad_orc",
+      "min": 10,
+      "max": 30,
+      "reward": 1.0,
+      "weight": 80
+    },
+    {
+      "kind": "kill_npc",
+      "target": "lotr_port:angmar_hillman",
+      "min": 10,
+      "max": 30,
+      "reward": 1.0,
+      "weight": 80
     }
   ]
 }

@@ -1,0 +1,27 @@
+{
+  "type": "lotr_port:brewing",
+  "ingredients": [
+    {
+      "item": "lotr_port:corn"
+    },
+    {
+      "item": "lotr_port:corn"
+    },
+    {
+      "item": "lotr_port:corn"
+    },
+    {
+      "item": "lotr_port:corn"
+    },
+    {
+      "item": "lotr_port:corn"
+    },
+    {
+      "item": "lotr_port:corn"
+    }
+  ],
+  "result": {
+    "id": "lotr_port:corn_liquor",
+    "count": 16
+  }
+}

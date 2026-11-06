@@ -1,0 +1,12 @@
+{
+  "type": "lotr_port:millstone",
+  "ingredients": [
+    {
+      "item": "lotr_port:mordor_rock"
+    }
+  ],
+  "result": {
+    "id": "lotr_port:mordor_gravel"
+  },
+  "chance": 0.75
+}

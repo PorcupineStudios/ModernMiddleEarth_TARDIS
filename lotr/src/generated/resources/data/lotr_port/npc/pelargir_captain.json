@@ -25,5 +25,5 @@
   "names": "lotr_port:gondor_male",
   "units": "lotr_port:pelargir_captain",
   "speech": "lotr_port:gondor/pelargir_captain",
-  "quests": "lotr_port:gondor_kill_renegade"
+  "quests": "lotr_port:gondor"
 }

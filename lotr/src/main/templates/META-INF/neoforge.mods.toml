@@ -29,3 +29,11 @@ type = "required"
 versionRange = "[0.1.0,)"
 ordering = "AFTER"
 side = "BOTH"
+
+# JEI is optional: with it installed, compat/jei/LotrJeiPlugin shows faction tables and LOTR's machines.
+[[dependencies.${mod_id}]]
+modId = "jei"
+type = "optional"
+versionRange = "[19.0,)"
+ordering = "NONE"
+side = "CLIENT"

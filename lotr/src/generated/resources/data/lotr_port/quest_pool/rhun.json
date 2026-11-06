@@ -1,86 +1,6 @@
 {
   "quests": [
     {
-      "kind": "kill_npc",
-      "target": "lotr_port:gondor_man",
-      "min": 10,
-      "max": 30,
-      "reward": 1.0,
-      "weight": 67
-    },
-    {
-      "kind": "kill_npc",
-      "target": "lotr_port:ranger_ithilien",
-      "min": 10,
-      "max": 30,
-      "reward": 1.0,
-      "weight": 67
-    },
-    {
-      "kind": "kill_npc",
-      "target": "lotr_port:dale_man",
-      "min": 10,
-      "max": 30,
-      "reward": 1.0,
-      "weight": 67
-    },
-    {
-      "kind": "kill_npc",
-      "target": "lotr_port:rohirrim",
-      "min": 10,
-      "max": 30,
-      "reward": 1.0,
-      "weight": 67
-    },
-    {
-      "kind": "kill_npc",
-      "target": "lotr_port:dale_soldier",
-      "min": 10,
-      "max": 30,
-      "reward": 1.0,
-      "weight": 67
-    },
-    {
-      "kind": "kill_npc",
-      "target": "lotr_port:dol_amroth_soldier",
-      "min": 10,
-      "max": 30,
-      "reward": 1.0,
-      "weight": 67
-    },
-    {
-      "kind": "kill_npc",
-      "target": "lotr_port:lossarnach_axeman",
-      "min": 10,
-      "max": 30,
-      "reward": 1.0,
-      "weight": 67
-    },
-    {
-      "kind": "kill_faction",
-      "target": "lotr_port:dale",
-      "min": 20,
-      "max": 40,
-      "reward": 1.0,
-      "weight": 67
-    },
-    {
-      "kind": "kill_faction",
-      "target": "lotr_port:dale",
-      "min": 10,
-      "max": 40,
-      "reward": 1.0,
-      "weight": 67
-    },
-    {
-      "kind": "kill_faction",
-      "target": "lotr_port:durins_folk",
-      "min": 10,
-      "max": 40,
-      "reward": 1.0,
-      "weight": 67
-    },
-    {
       "kind": "collect",
       "target": "lotr_port:pomegranate",
       "min": 4,
@@ -407,6 +327,86 @@
       "max": 8,
       "reward": 2.0,
       "weight": 24
+    },
+    {
+      "kind": "kill_npc",
+      "target": "lotr_port:gondor_man",
+      "min": 10,
+      "max": 30,
+      "reward": 1.0,
+      "weight": 67
+    },
+    {
+      "kind": "kill_npc",
+      "target": "lotr_port:ranger_ithilien",
+      "min": 10,
+      "max": 30,
+      "reward": 1.0,
+      "weight": 67
+    },
+    {
+      "kind": "kill_npc",
+      "target": "lotr_port:dale_man",
+      "min": 10,
+      "max": 30,
+      "reward": 1.0,
+      "weight": 67
+    },
+    {
+      "kind": "kill_npc",
+      "target": "lotr_port:rohirrim",
+      "min": 10,
+      "max": 30,
+      "reward": 1.0,
+      "weight": 67
+    },
+    {
+      "kind": "kill_npc",
+      "target": "lotr_port:dale_soldier",
+      "min": 10,
+      "max": 30,
+      "reward": 1.0,
+      "weight": 67
+    },
+    {
+      "kind": "kill_npc",
+      "target": "lotr_port:dol_amroth_soldier",
+      "min": 10,
+      "max": 30,
+      "reward": 1.0,
+      "weight": 67
+    },
+    {
+      "kind": "kill_npc",
+      "target": "lotr_port:lossarnach_axeman",
+      "min": 10,
+      "max": 30,
+      "reward": 1.0,
+      "weight": 67
+    },
+    {
+      "kind": "kill_faction",
+      "target": "lotr_port:dale",
+      "min": 20,
+      "max": 40,
+      "reward": 1.0,
+      "weight": 67
+    },
+    {
+      "kind": "kill_faction",
+      "target": "lotr_port:dale",
+      "min": 10,
+      "max": 40,
+      "reward": 1.0,
+      "weight": 67
+    },
+    {
+      "kind": "kill_faction",
+      "target": "lotr_port:durins_folk",
+      "min": 10,
+      "max": 40,
+      "reward": 1.0,
+      "weight": 67
     }
   ]
 }

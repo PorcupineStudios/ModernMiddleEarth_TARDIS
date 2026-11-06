@@ -1,22 +1,6 @@
 {
   "quests": [
     {
-      "kind": "kill_npc",
-      "target": "lotr_port:gundabad_orc",
-      "min": 10,
-      "max": 30,
-      "reward": 1.0,
-      "weight": 200
-    },
-    {
-      "kind": "kill_npc",
-      "target": "lotr_port:mordor_orc",
-      "min": 10,
-      "max": 30,
-      "reward": 1.0,
-      "weight": 200
-    },
-    {
       "kind": "collect",
       "target": "minecraft:oak_log",
       "min": 20,
@@ -175,6 +159,22 @@
       "max": 5,
       "reward": 4.0,
       "weight": 50
+    },
+    {
+      "kind": "kill_npc",
+      "target": "lotr_port:gundabad_orc",
+      "min": 10,
+      "max": 30,
+      "reward": 1.0,
+      "weight": 200
+    },
+    {
+      "kind": "kill_npc",
+      "target": "lotr_port:mordor_orc",
+      "min": 10,
+      "max": 30,
+      "reward": 1.0,
+      "weight": 200
     }
   ]
 }

@@ -17,7 +17,7 @@
     "legs": "lotr_port:galadhrim_leggings",
     "feet": "lotr_port:galadhrim_boots"
   },
-  "names": "lotr_port:sindarin_male",
+  "names": "lotr_port:quenya_male",
   "units": "lotr_port:elf_lord",
   "speech": "lotr_port:galadhrim/lord",
   "quests": "lotr_port:galadhrim"

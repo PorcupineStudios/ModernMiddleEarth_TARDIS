@@ -813,6 +813,10 @@ class Gen:
         if not ing or "item" not in ing:
             self.report["placed_block_drops_unmapped"].append(f"{new}: {d['item']}#{d.get('damage', 0)}")
             return
+        if ing["item"].split(":")[1] in self.hidden:
+            # LOTR dropped the block itself (its contents came from the tile entity); the port's block has no item
+            self.report["placed_blocks_dropping_themselves"].append(new)
+            return
         entry = {"type": "minecraft:item", "name": ing["item"]}
         lo, hi = d.get("min", 1), d.get("max", 1)
         if hi == 0:

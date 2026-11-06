@@ -21,6 +21,6 @@
   "health": 16.0,
   "speed": 0.2,
   "attack": 2.0,
-  "names": "lotr_port:hobbit_male",
-  "speech": "lotr_port:bree/hobbit"
+  "speech": "lotr_port:bree/hobbit",
+  "quests": "lotr_port:bree"
 }

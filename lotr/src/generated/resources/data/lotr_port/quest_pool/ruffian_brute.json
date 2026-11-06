@@ -1,14 +1,6 @@
 {
   "quests": [
     {
-      "kind": "kill_faction",
-      "target": "lotr_port:bree",
-      "min": 10,
-      "max": 30,
-      "reward": 1.0,
-      "weight": 800
-    },
-    {
       "kind": "collect",
       "target": "lotr_port:ale",
       "min": 3,
@@ -47,6 +39,14 @@
       "max": 40,
       "reward": 1.0,
       "weight": 200
+    },
+    {
+      "kind": "kill_faction",
+      "target": "lotr_port:bree",
+      "min": 10,
+      "max": 30,
+      "reward": 1.0,
+      "weight": 800
     }
   ]
 }

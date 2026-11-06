@@ -1,0 +1,11 @@
+{
+  "type": "lotr_port:ent_jar",
+  "ingredients": [
+    {
+      "item": "lotr_port:sunfruit"
+    }
+  ],
+  "result": {
+    "id": "lotr_port:red_ent_draught"
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "type": "lotr_port:alloy_forge",
+  "ingredients": [
+    {
+      "item": "minecraft:iron_ingot"
+    },
+    {
+      "item": "minecraft:gold_nugget"
+    }
+  ],
+  "result": {
+    "id": "lotr_port:gilded_iron_ingot"
+  },
+  "station": "lotr_port:alloy_forge"
+}

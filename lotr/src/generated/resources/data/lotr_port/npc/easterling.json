@@ -14,6 +14,7 @@
   "gear": {
     "mainhand": [
       "lotr_port:bronze_dagger",
+      "lotr_port:iron_dagger",
       "lotr_port:rh_nic_dagger"
     ]
   },

@@ -1,22 +1,6 @@
 {
   "quests": [
     {
-      "kind": "kill_npc",
-      "target": "lotr_port:bandit",
-      "min": 1,
-      "max": 3,
-      "reward": 8.0,
-      "weight": 200
-    },
-    {
-      "kind": "kill_npc",
-      "target": "lotr_port:scrap_trader",
-      "min": 1,
-      "max": 2,
-      "reward": 15.0,
-      "weight": 200
-    },
-    {
       "kind": "collect",
       "target": "lotr_port:barrel",
       "min": 3,
@@ -231,6 +215,22 @@
       "max": 3,
       "reward": 20.0,
       "weight": 37
+    },
+    {
+      "kind": "kill_npc",
+      "target": "lotr_port:bandit",
+      "min": 1,
+      "max": 3,
+      "reward": 8.0,
+      "weight": 200
+    },
+    {
+      "kind": "kill_npc",
+      "target": "lotr_port:scrap_trader",
+      "min": 1,
+      "max": 2,
+      "reward": 15.0,
+      "weight": 200
     }
   ]
 }

@@ -1,0 +1,16 @@
+{
+  "type": "lotr_port:alloy_forge",
+  "ingredients": [
+    {
+      "item": "lotr_port:copper_ore"
+    },
+    {
+      "item": "lotr_port:tin_ore"
+    }
+  ],
+  "result": {
+    "id": "lotr_port:bronze_ingot",
+    "count": 2
+  },
+  "station": "lotr_port:orc_forge"
+}

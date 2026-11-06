@@ -1,0 +1,12 @@
+{
+  "type": "lotr_port:alloy_forge",
+  "ingredients": [
+    {
+      "item": "lotr_port:mithril_ore"
+    }
+  ],
+  "result": {
+    "id": "lotr_port:mithril_ingot"
+  },
+  "station": "lotr_port:dwarven_forge"
+}

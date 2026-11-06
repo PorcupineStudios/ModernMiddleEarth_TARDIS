@@ -8,8 +8,19 @@ apply from: rootProject.file('gradle/mod.gradle')
 
 evaluationDependsOn(':api')
 
+// JEI (optional at runtime): compiled against its API, and loaded in dev runs so the plugin can be seen.
+repositories {
+    maven {
+        url = 'https://maven.blamejared.com'
+        content { includeGroup 'mezz.jei' }
+    }
+}
+
 dependencies {
     implementation project(':api')
+    compileOnly "mezz.jei:jei-${minecraft_version}-common-api:${jei_version}"
+    compileOnly "mezz.jei:jei-${minecraft_version}-neoforge-api:${jei_version}"
+    runtimeOnly "mezz.jei:jei-${minecraft_version}-neoforge:${jei_version}"
 }
 
 // Dev runs load the shared API next to this mod.

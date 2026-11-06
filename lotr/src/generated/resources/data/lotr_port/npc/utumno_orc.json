@@ -20,7 +20,8 @@
       "lotr_port:poisoned_utumno_dagger",
       "lotr_port:utumno_battleaxe",
       "lotr_port:utumno_dagger",
-      "lotr_port:utumno_spear"
+      "lotr_port:utumno_sword",
+      "lotr_port:utumno_warhammer"
     ],
     "head": "lotr_port:utumno_helmet",
     "chest": "lotr_port:utumno_chestplate",

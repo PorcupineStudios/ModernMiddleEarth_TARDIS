@@ -13,9 +13,9 @@
   "gear": {
     "mainhand": [
       "lotr_port:uruk_cleaver",
+      "lotr_port:uruk_dagger",
       "lotr_port:uruk_pike",
-      "lotr_port:uruk_spear",
-      "lotr_port:uruk_warhammer"
+      "lotr_port:uruk_spear"
     ],
     "head": "lotr_port:uruk_helmet",
     "chest": "lotr_port:uruk_chestplate",
@@ -23,6 +23,5 @@
     "feet": "lotr_port:uruk_boots"
   },
   "names": "lotr_port:orc",
-  "speech": "lotr_port:isengard/orc",
-  "quests": "lotr_port:isengard"
+  "speech": "lotr_port:isengard/orc"
 }

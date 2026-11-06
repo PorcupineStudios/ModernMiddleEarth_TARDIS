@@ -1,0 +1,11 @@
+{
+  "type": "lotr_port:millstone",
+  "ingredients": [
+    {
+      "item": "lotr_port:galadhrim_brick"
+    }
+  ],
+  "result": {
+    "id": "lotr_port:cracked_galadhrim_brick"
+  }
+}

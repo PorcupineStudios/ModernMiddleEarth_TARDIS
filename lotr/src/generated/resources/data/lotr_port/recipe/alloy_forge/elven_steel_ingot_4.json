@@ -1,0 +1,15 @@
+{
+  "type": "lotr_port:alloy_forge",
+  "ingredients": [
+    {
+      "item": "minecraft:iron_ore"
+    },
+    {
+      "item": "minecraft:charcoal"
+    }
+  ],
+  "result": {
+    "id": "lotr_port:elven_steel_ingot"
+  },
+  "station": "lotr_port:elven_forge"
+}

@@ -1,38 +1,6 @@
 {
   "quests": [
     {
-      "kind": "kill_npc",
-      "target": "lotr_port:gundabad_orc",
-      "min": 10,
-      "max": 30,
-      "reward": 1.0,
-      "weight": 133
-    },
-    {
-      "kind": "kill_faction",
-      "target": "lotr_port:gundabad",
-      "min": 10,
-      "max": 30,
-      "reward": 1.0,
-      "weight": 133
-    },
-    {
-      "kind": "kill_npc",
-      "target": "lotr_port:bandit",
-      "min": 1,
-      "max": 3,
-      "reward": 8.0,
-      "weight": 133
-    },
-    {
-      "kind": "kill_npc",
-      "target": "lotr_port:gundabad_orc",
-      "min": 10,
-      "max": 40,
-      "reward": 1.0,
-      "weight": 133
-    },
-    {
       "kind": "collect",
       "target": "minecraft:bucket",
       "min": 1,
@@ -359,6 +327,38 @@
       "max": 40,
       "reward": 0.25,
       "weight": 24
+    },
+    {
+      "kind": "kill_npc",
+      "target": "lotr_port:gundabad_orc",
+      "min": 10,
+      "max": 30,
+      "reward": 1.0,
+      "weight": 133
+    },
+    {
+      "kind": "kill_faction",
+      "target": "lotr_port:gundabad",
+      "min": 10,
+      "max": 30,
+      "reward": 1.0,
+      "weight": 133
+    },
+    {
+      "kind": "kill_npc",
+      "target": "lotr_port:bandit",
+      "min": 1,
+      "max": 3,
+      "reward": 8.0,
+      "weight": 133
+    },
+    {
+      "kind": "kill_npc",
+      "target": "lotr_port:gundabad_orc",
+      "min": 10,
+      "max": 40,
+      "reward": 1.0,
+      "weight": 133
     }
   ]
 }

@@ -1,0 +1,12 @@
+{
+  "type": "lotr_port:millstone",
+  "ingredients": [
+    {
+      "item": "minecraft:gravel"
+    }
+  ],
+  "result": {
+    "id": "minecraft:flint"
+  },
+  "chance": 0.25
+}

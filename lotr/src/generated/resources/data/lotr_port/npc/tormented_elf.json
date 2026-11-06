@@ -17,5 +17,6 @@
       "lotr_port:utumno_sword"
     ]
   },
+  "names": "lotr_port:sindarin_male",
   "speech": "lotr_port:utumno/elf"
 }

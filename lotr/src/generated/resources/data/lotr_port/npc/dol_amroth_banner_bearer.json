@@ -12,7 +12,6 @@
   "gear": {
     "mainhand": [
       "lotr_port:dol_amroth_sword",
-      "lotr_port:gondorian_sword",
       "minecraft:iron_sword"
     ],
     "head": [

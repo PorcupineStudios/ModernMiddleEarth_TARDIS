@@ -19,6 +19,7 @@
   "gear": {
     "mainhand": [
       "lotr_port:bronze_axe",
+      "lotr_port:iron_battleaxe",
       "lotr_port:iron_pike",
       "minecraft:iron_axe"
     ],

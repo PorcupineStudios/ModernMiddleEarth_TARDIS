@@ -14,6 +14,7 @@
   "gear": {
     "mainhand": "lotr_port:rivendell_dagger"
   },
+  "names": "lotr_port:sindarin_male",
   "buy": "lotr_port:rivendell_trader_buy",
   "sell": "lotr_port:rivendell_trader_sell",
   "speech": "lotr_port:rivendell/trader",

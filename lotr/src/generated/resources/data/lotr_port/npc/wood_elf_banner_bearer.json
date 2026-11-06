@@ -13,8 +13,6 @@
   "attack": 2.0,
   "gear": {
     "mainhand": [
-      "lotr_port:wood_elven_battlestaff",
-      "lotr_port:wood_elven_longspear",
       "lotr_port:wood_elven_spear",
       "lotr_port:wood_elven_sword"
     ],

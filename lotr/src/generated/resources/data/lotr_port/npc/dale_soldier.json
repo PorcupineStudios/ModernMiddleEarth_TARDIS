@@ -21,5 +21,6 @@
     "feet": "lotr_port:dalish_boots"
   },
   "names": "lotr_port:dale_male",
-  "speech": "lotr_port:dale/soldier"
+  "speech": "lotr_port:dale/soldier",
+  "quests": "lotr_port:dale"
 }

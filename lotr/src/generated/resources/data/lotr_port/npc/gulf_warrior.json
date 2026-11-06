@@ -10,7 +10,10 @@
   "gear": {
     "mainhand": [
       "lotr_port:gulfen_khopesh",
-      "lotr_port:poisoned_haradric_dagger"
+      "lotr_port:haradric_dagger",
+      "lotr_port:haradric_pike",
+      "lotr_port:haradric_spear",
+      "lotr_port:haradric_sword"
     ],
     "head": "lotr_port:gulfen_helmet",
     "chest": "lotr_port:gulfen_chestplate",
@@ -18,6 +21,5 @@
     "feet": "lotr_port:gulfen_boots"
   },
   "names": "lotr_port:gulf_male",
-  "speech": "lotr_port:near_harad/mercenary",
-  "quests": "lotr_port:gulf_harad"
+  "speech": "lotr_port:near_harad/mercenary"
 }

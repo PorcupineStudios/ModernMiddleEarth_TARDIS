@@ -13,6 +13,7 @@
   "gear": {
     "mainhand": "lotr_port:dorwinion_elven_dagger"
   },
+  "names": "lotr_port:sindarin_male",
   "buy": "lotr_port:dorwinion_vintner_buy",
   "sell": "lotr_port:dorwinion_vintner_sell",
   "speech": "lotr_port:dorwinion/elf_vintner",

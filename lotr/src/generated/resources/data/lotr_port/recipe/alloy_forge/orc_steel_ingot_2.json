@@ -1,0 +1,12 @@
+{
+  "type": "lotr_port:alloy_forge",
+  "ingredients": [
+    {
+      "item": "lotr_port:morgul_iron_ore_block"
+    }
+  ],
+  "result": {
+    "id": "lotr_port:orc_steel_ingot"
+  },
+  "station": "lotr_port:orc_forge"
+}

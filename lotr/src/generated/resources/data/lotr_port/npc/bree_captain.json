@@ -37,10 +37,7 @@
   "speed": 0.2,
   "attack": 2.0,
   "gear": {
-    "mainhand": [
-      "lotr_port:iron_pike",
-      "minecraft:iron_sword"
-    ],
+    "mainhand": "minecraft:iron_sword",
     "head": "lotr_port:leather_hat",
     "chest": [
       "minecraft:chainmail_chestplate",
@@ -57,5 +54,6 @@
   },
   "names": "lotr_port:bree_male",
   "units": "lotr_port:bree_captain",
-  "speech": "lotr_port:bree/captain"
+  "speech": "lotr_port:bree/captain",
+  "quests": "lotr_port:bree"
 }

@@ -1,78 +1,6 @@
 {
   "quests": [
     {
-      "kind": "kill_faction",
-      "target": "lotr_port:hobbit",
-      "min": 10,
-      "max": 30,
-      "reward": 1.0,
-      "weight": 89
-    },
-    {
-      "kind": "kill_faction",
-      "target": "lotr_port:ranger_north",
-      "min": 10,
-      "max": 40,
-      "reward": 1.0,
-      "weight": 89
-    },
-    {
-      "kind": "kill_faction",
-      "target": "lotr_port:high_elf",
-      "min": 10,
-      "max": 40,
-      "reward": 1.0,
-      "weight": 89
-    },
-    {
-      "kind": "kill_faction",
-      "target": "lotr_port:lothlorien",
-      "min": 10,
-      "max": 40,
-      "reward": 1.0,
-      "weight": 89
-    },
-    {
-      "kind": "kill_npc",
-      "target": "lotr_port:ranger_north",
-      "min": 10,
-      "max": 30,
-      "reward": 1.0,
-      "weight": 89
-    },
-    {
-      "kind": "kill_npc",
-      "target": "lotr_port:high_elf",
-      "min": 10,
-      "max": 30,
-      "reward": 1.0,
-      "weight": 89
-    },
-    {
-      "kind": "kill_npc",
-      "target": "lotr_port:rivendell_elf",
-      "min": 10,
-      "max": 30,
-      "reward": 1.0,
-      "weight": 89
-    },
-    {
-      "kind": "kill_npc",
-      "target": "lotr_port:galadhrim_elf",
-      "min": 10,
-      "max": 30,
-      "reward": 1.0,
-      "weight": 89
-    },
-    {
-      "kind": "kill_npc",
-      "target": "lotr_port:dwarf",
-      "min": 10,
-      "max": 30,
-      "reward": 1.0,
-      "weight": 89
-    },
-    {
       "kind": "collect",
       "target": "minecraft:iron_sword",
       "min": 1,
@@ -199,6 +127,78 @@
       "max": 3,
       "reward": 12.0,
       "weight": 62
+    },
+    {
+      "kind": "kill_faction",
+      "target": "lotr_port:hobbit",
+      "min": 10,
+      "max": 30,
+      "reward": 1.0,
+      "weight": 89
+    },
+    {
+      "kind": "kill_faction",
+      "target": "lotr_port:ranger_north",
+      "min": 10,
+      "max": 40,
+      "reward": 1.0,
+      "weight": 89
+    },
+    {
+      "kind": "kill_faction",
+      "target": "lotr_port:high_elf",
+      "min": 10,
+      "max": 40,
+      "reward": 1.0,
+      "weight": 89
+    },
+    {
+      "kind": "kill_faction",
+      "target": "lotr_port:lothlorien",
+      "min": 10,
+      "max": 40,
+      "reward": 1.0,
+      "weight": 89
+    },
+    {
+      "kind": "kill_npc",
+      "target": "lotr_port:ranger_north",
+      "min": 10,
+      "max": 30,
+      "reward": 1.0,
+      "weight": 89
+    },
+    {
+      "kind": "kill_npc",
+      "target": "lotr_port:high_elf",
+      "min": 10,
+      "max": 30,
+      "reward": 1.0,
+      "weight": 89
+    },
+    {
+      "kind": "kill_npc",
+      "target": "lotr_port:rivendell_elf",
+      "min": 10,
+      "max": 30,
+      "reward": 1.0,
+      "weight": 89
+    },
+    {
+      "kind": "kill_npc",
+      "target": "lotr_port:galadhrim_elf",
+      "min": 10,
+      "max": 30,
+      "reward": 1.0,
+      "weight": 89
+    },
+    {
+      "kind": "kill_npc",
+      "target": "lotr_port:dwarf",
+      "min": 10,
+      "max": 30,
+      "reward": 1.0,
+      "weight": 89
     }
   ]
 }
