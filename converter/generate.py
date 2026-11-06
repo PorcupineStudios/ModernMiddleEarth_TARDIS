@@ -897,6 +897,11 @@ class Gen:
                 fname = name if n == 1 else f"{name}_{n}"
                 write_json(os.path.join(out_dir, group, fname + ".json"), j)
                 self.recipe_count += 1
+        self.machine_counts = collections.Counter()
+        if rec.get("machines"):
+            self.do_machine_recipes(rec["machines"], out_dir, seen)
+        else:
+            self.report["machine_recipes_not_exported"].append("recipes.json has no machines section")
         # LOTR keeps smelting in a HashMap: sort so file names (name, name_2) don't change between exports
         smelting = sorted(rec["smelting"], key=lambda s: json.dumps(s, sort_keys=True))
         for s in smelting:
@@ -913,10 +918,67 @@ class Gen:
             write_json(os.path.join(out_dir, "smelting", (name if n == 1 else f"{name}_{n}") + ".json"), j)
             self.recipe_count += 1
 
+    def special_recipe(self, r, group):
+        """
+        LOTR's code-only crafting recipes. Poisoning a weapon (LOTRRecipePoisonWeapon: weapon + catalyst, usually a
+        bottle of poison) is a plain shapeless recipe once its fields are known. Dyeing (armor, hats, feathers, robes,
+        pouches) needs dyed-colour support on those items first (missing-features task 36), so it stays reported.
+        """
+        f = r.get("fields") or {}
+        if r["class"].endswith("LOTRRecipePoisonWeapon") and f.get("inputItem") and f.get("resultItem"):
+            ings = [self.ingredient(f["inputItem"]), self.ingredient(f.get("catalystObj"))]
+            res = self.result(dict(f["resultItem"], meta=0))
+            if res and all(i for i in ings):
+                return {"type": "minecraft:crafting_shapeless", "category": "equipment", "group": "poison_weapon",
+                        "ingredients": ings, "result": res}
+        self.report["special_recipes"].append(r["class"])
+        return None
+
+    # LOTR forge tile entity -> the port's forge block
+    FORGE_BLOCKS = {"LOTRTileEntityAlloyForge": "alloy_forge", "LOTRTileEntityDwarvenForge": "dwarven_forge",
+                    "LOTRTileEntityElvenForge": "elven_forge", "LOTRTileEntityOrcForge": "orc_forge"}
+
+    def do_machine_recipes(self, machines, out_dir, seen):
+        """LOTR's machine recipes (exported by StationExporter) as lotr_port:<machine> recipes (MachineRecipe)."""
+        def write(machine, inputs, output, extra=None):
+            ings = [self.ingredient(i) for i in inputs]
+            res = self.result(output) if output else None
+            if not res or not ings or any(i is None for i in ings):
+                self.report[f"unmapped_{machine}_recipes"].append({"in": inputs, "out": output})
+                return
+            j = {"type": f"{NS}:{machine}", "ingredients": ings, "result": res, **(extra or {})}
+            name = res["id"].split(":")[1]
+            seen[(machine, name)] += 1
+            n = seen[(machine, name)]
+            write_json(os.path.join(out_dir, machine, (name if n == 1 else f"{name}_{n}") + ".json"), j)
+            self.recipe_count += 1
+            self.machine_counts[machine] += 1
+
+        key = lambda x: json.dumps(x, sort_keys=True)  # noqa: E731 - stable file names across exports
+        brewing = machines.get("brewing") or {}
+        for r in sorted(brewing.get("recipes", []), key=key):
+            write("brewing", r.get("input") or [], r.get("output"))
+        for r in sorted(machines.get("millstone", []), key=key):
+            write("millstone", [r["input"]], r.get("output"),
+                  {"chance": r["chance"]} if r.get("chance") not in (None, 1, 1.0) else None)
+        for r in sorted(machines.get("ent_jar", []), key=key):
+            write("ent_jar", [r["input"]], r.get("output"))
+        for te, forge in sorted((machines.get("forges") or {}).items()):
+            block = self.FORGE_BLOCKS.get(te)
+            if not block:
+                self.report["forges_without_block"].append(te)
+                continue
+            station = {"station": f"{NS}:{block}"}
+            for r in sorted(forge.get("smelting", []), key=key):
+                write("alloy_forge", [r["input"]], r.get("output"), station)
+            for r in sorted(forge.get("alloys", []), key=key):
+                write("alloy_forge", [r["input"], r["alloy"]], r.get("output"), station)
+        for r in sorted(machines.get("unsmeltery", []), key=key):
+            write("unsmelting", [r["input"]], r.get("output"))
+
     def recipe(self, r, group):
         if r["type"] == "special":
-            self.report["special_recipes"].append(r["class"])
-            return None
+            return self.special_recipe(r, group)
         res = self.result(r.get("output"))
         if not res:
             self.report["unmapped_recipe_results"].append(r.get("output"))

@@ -394,7 +394,8 @@ public class Exporter {
         JsonArray table = new JsonArray();
         for (Object r : CraftingManager.getInstance().getRecipeList()) {
             JsonObject j = recipe((IRecipe) r);
-            if (j != null && j.toString().contains("\"" + NS + ":")) {
+            if (j != null && (j.toString().contains("\"" + NS + ":")
+                    || r.getClass().getName().startsWith("lotr."))) {
                 table.add(j);
             }
         }
@@ -439,7 +440,24 @@ public class Exporter {
             }
         }
         o.add("smelting", smelting);
+        o.add("machines", new StationExporter(this).export());
         return o;
+    }
+
+    JsonElement stackJson(ItemStack s) {
+        return stack(s);
+    }
+
+    JsonElement ingredientJson(Object i) {
+        return ingredient(i);
+    }
+
+    JsonObject recipeJson(IRecipe r) {
+        return recipe(r);
+    }
+
+    void report(String where, Throwable t) {
+        error(where, t);
     }
 
     private JsonObject recipe(IRecipe r) {
@@ -481,6 +499,15 @@ public class Exporter {
                 o.add("input", in);
             } else {
                 o.addProperty("type", "special");
+                JsonObject fields = new JsonObject();
+                for (Field f : r.getClass().getDeclaredFields()) {
+                    if (Modifier.isStatic(f.getModifiers())) {
+                        continue;
+                    }
+                    f.setAccessible(true);
+                    fields.add(f.getName(), ingredient(f.get(r)));
+                }
+                o.add("fields", fields);
             }
         } catch (Throwable t) {
             error("recipe " + r.getClass().getName(), t);
@@ -495,6 +522,17 @@ public class Exporter {
         }
         if (i instanceof ItemStack s) {
             return stack(s);
+        }
+        if (i instanceof Item it) {
+            return stack(new ItemStack(it, 1, OreDictionary.WILDCARD_VALUE));
+        }
+        if (i instanceof Block b) {
+            return stack(new ItemStack(b, 1, OreDictionary.WILDCARD_VALUE));
+        }
+        if (i instanceof String ore) {
+            JsonObject o = new JsonObject();
+            o.addProperty("ore", ore);
+            return o;
         }
         if (i instanceof Collection<?> c) {
             String ore = oreLists.get(i);

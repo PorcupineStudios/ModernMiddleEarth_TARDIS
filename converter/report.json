@@ -299,6 +299,12 @@
       "pickaxe_of_the_underworld (large)"
     ]
   },
+  "machine_recipes_not_exported": {
+    "count": 1,
+    "entries": [
+      "recipes.json has no machines section"
+    ]
+  },
   "merged_item_metas": {
     "count": 138,
     "entries": [
