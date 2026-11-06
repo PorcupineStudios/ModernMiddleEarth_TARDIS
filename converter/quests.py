@@ -8,6 +8,8 @@ LOTR's waypoints and mini-quests (quests.json from the exporter) as data for the
   assets/lotr_port/textures/gui/map.png                       LOTR's map image, for the map screen
   assets/lotr_port/textures/gui/quest/*.png                   LOTR's Red Book and quest offer pages
   assets/lotr_port/textures/gui/map/*.png                     LOTR's map icons, compass and parchment overlay
+  assets/lotr_port/textures/gui/{alignment,attack_meter,compass,compass_ring,compass_writing}.png
+                                                              LOTR's HUD: alignment bar, attack meter, compass
   lang: waypoint.lotr_port.<id>, waypoint_region.lotr_port.<r>
 
 NPC types whose LOTR entity gives quests get "quests": "lotr_port:<group>". Bounty, retrieve and pickpocket quests
@@ -29,6 +31,19 @@ MAP_TEXT = {f"lotr.gui.map.{k}": f"screen.{NS}.map.{v}" for k, v in {
     "widget.toggleWPs": "widget.waypoints", "widget.zoomIn": "widget.zoom_in", "widget.zoomOut": "widget.zoom_out",
     "widget.fullScreen": "widget.fullscreen", "widget.sepia": "widget.sepia", "widget.labels": "widget.labels",
 }.items()}
+
+# LOTR's HUD text -> the port's keys (client.LotrHud reads them with English fallbacks)
+HUD_TEXT = {
+    "lotr.faction.rank.enemy": f"faction.{NS}.rank.enemy",
+    "lotr.faction.rank.neutral": f"faction.{NS}.rank.neutral",
+    "lotr.gui.factions.alignment.limits": f"faction.{NS}.alignment.limits",
+}
+
+# LOTR's HUD textures (LOTRTickHandlerClient, LOTRAttackTiming, LOTRModelCompass) -> textures/gui/<name>.png
+HUD_TEXTURES = {
+    "gui/alignment": "alignment", "gui/attackMeter": "attack_meter", "misc/compass": "compass",
+    "misc/portal": "compass_ring", "misc/portal_writing": "compass_writing",
+}
 
 # LOTR NPC classes that call setOfferChance / setMinAlignment (LOTREntityGondorRenegade, LOTREntityRohanShieldmaiden):
 # their quest pools, offer chance and minimum alignment
@@ -119,6 +134,14 @@ class Quests:
             os.makedirs(os.path.dirname(dst), exist_ok=True)
             with open(dst, "wb") as fh:
                 fh.write(self.jar.read("assets/lotr/textures/items/questOffer.png"))
+        # the HUD: alignment bar, attack meter, and the compass with the Ring's band and inscription
+        for src, name in HUD_TEXTURES.items():
+            src = f"assets/lotr/{src}.png"
+            if self.jar.has(src):
+                dst = os.path.join(self.assets, "textures", "gui", name + ".png")
+                os.makedirs(os.path.dirname(dst), exist_ok=True)
+                with open(dst, "wb") as fh:
+                    fh.write(self.jar.read(src))
         return len(names)
 
     def waypoint_lang(self, names, regions):
@@ -169,8 +192,8 @@ class Quests:
             for lid, old in keys.items():
                 if old in src_lang:
                     dst[f"map_label.{NS}.{lid}"] = src_lang[old]
-            # the map screen's own text, as LOTR words it
-            for old, new in MAP_TEXT.items():
+            # the map screen's and HUD's own text, as LOTR words it
+            for old, new in {**MAP_TEXT, **HUD_TEXT}.items():
                 if old in src_lang:
                     dst[new] = src_lang[old].replace("%d", "%s")  # Minecraft formats only %s
 

@@ -8,6 +8,8 @@ import com.porcupinestudios.lotrport.content.LotrBlocks;
 import com.porcupinestudios.lotrport.content.LotrItems;
 import com.porcupinestudios.lotrport.content.LotrTabs;
 import com.porcupinestudios.lotrport.crafting.LotrRecipes;
+import com.porcupinestudios.lotrport.combat.AttackTiming;
+import com.porcupinestudios.lotrport.faction.AlignmentHud;
 import com.porcupinestudios.lotrport.faction.FactionConditions;
 import com.porcupinestudios.lotrport.faction.FactionKills;
 import com.porcupinestudios.lotrport.faction.Factions;
@@ -19,6 +21,7 @@ import com.porcupinestudios.lotrport.quest.QuestData;
 import com.porcupinestudios.lotrport.quest.Quests;
 import com.porcupinestudios.lotrport.travel.FastTravel;
 import com.porcupinestudios.lotrport.net.MapNet;
+import com.porcupinestudios.lotrport.net.HudNet;
 import com.porcupinestudios.lotrport.net.QuestNet;
 import com.porcupinestudios.lotrport.command.TravelCommand;
 import com.porcupinestudios.lotrport.ai.AiCommand;
@@ -51,6 +54,7 @@ public final class LotrPort {
 
     public LotrPort(IEventBus modBus, ModContainer container) {
         container.registerConfig(ModConfig.Type.SERVER, LotrConfig.SPEC);
+        container.registerConfig(ModConfig.Type.CLIENT, LotrClientConfig.SPEC);
         LotrRegistries.register(modBus);
         LotrSounds.register(modBus);
         LotrBlocks.register(modBus);
@@ -75,6 +79,9 @@ public final class LotrPort {
         FastTravel.register();
         MapNet.register(modBus);
         QuestNet.register(modBus);
+        HudNet.register(modBus);
+        AlignmentHud.register();
+        AttackTiming.register();
         ColonyItems.register(modBus);
         ColonyData.register();
         Colonies.register();
@@ -95,6 +102,7 @@ public final class LotrPort {
             com.porcupinestudios.lotrport.progress.Titles.registerCommands(event.getDispatcher());
             com.porcupinestudios.lotrport.progress.Cosmetics.registerCommands(event.getDispatcher());
             com.porcupinestudios.lotrport.progress.Calendar.registerCommands(event.getDispatcher());
+            AlignmentHud.registerCommands(event.getDispatcher());
         });
     }
 

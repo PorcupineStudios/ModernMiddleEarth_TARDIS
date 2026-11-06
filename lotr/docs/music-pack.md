@@ -1,18 +1,23 @@
 # Middle-earth music pack
 
-The mod plays a shuffled playlist per biome (`client/LotrMusic`) but ships no tracks; they come from a
-**resource pack**. The built pack (the six films' scores) is kept in `music-pack/` at the repo root. The
-recordings are copyrighted: this is a private, single-user repo and keeping them here is the owner's choice. Don't
-make the repo public or add collaborators while they're in it, and remember git history keeps them even after
-they're deleted. The mod's jar never includes them.
+The mod plays a shuffled playlist per biome (`client/LotrMusic`). The tracks (the six films' scores, 184 levelled
+tracks, ~310 MB) ship **inside the jar** as a built-in resource pack, `lotr/src/main/resources/resourcepacks/
+middle_earth_music`, which `LotrMusic` registers always-on ("Middle-earth Music" in the pack list). Its
+`sounds.json` and `music/playlists.json` merge over the mod's own. `tracklist.txt` there lists every land's calm,
+suspense and fight tracks.
 
-To use it, zip the folder's contents (or copy the folder) into Minecraft's `resourcepacks`:
+The recordings are copyrighted. This is a private, single-user repo and shipping them in the jar is the owner's
+choice: **the jar itself now carries them**, so don't upload it (CurseForge, Modrinth, a public modpack) or share
+it, don't make the repo public or add collaborators, and remember git history keeps them even after deletion.
+
+To rebuild the built-in copy (new tracks, changed rules), from the repo root:
 
 ```bash
-python3 converter/music_pack.py --zip-pack music-pack
+python3 converter/music_pack.py "/path/to/your/soundtracks" --into-mod
 ```
 
-`music-pack/tracklist.txt` lists every land's calm, suspense and fight tracks.
+A separate resource pack still works on top (it merges over the built-in one), e.g. a zip of the folder:
+`python3 converter/music_pack.py --zip-pack lotr/src/main/resources/resourcepacks/middle_earth_music`.
 
 ## Quick way: build it from your files
 

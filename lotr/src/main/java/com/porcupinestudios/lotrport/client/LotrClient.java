@@ -2,6 +2,7 @@ package com.porcupinestudios.lotrport.client;
 
 import com.mojang.blaze3d.platform.InputConstants;
 import com.porcupinestudios.lotrport.LotrPort;
+import com.porcupinestudios.lotrport.net.HudNet;
 import com.porcupinestudios.lotrport.net.MapNet;
 import com.porcupinestudios.lotrport.net.QuestNet;
 import com.porcupinestudios.lotrport.npc.LotrEntities;
@@ -53,6 +54,7 @@ public final class LotrClient {
         MapNet.clientHandler = (data, ctx) -> MapScreen.open(data);
         QuestNet.offerHandler = QuestOfferScreen::open;
         QuestNet.bookHandler = RedBookScreen::show;
+        HudNet.barHandler = LotrHud::receive;
         event.enqueueWork(LotrClient::rangedProperties);
     }
 
@@ -93,6 +95,12 @@ public final class LotrClient {
         event.register((stack, layer) -> layer == 0
                 ? net.minecraft.world.item.component.DyedItemColor.getOrDefault(stack, -1) : -1,
                 com.porcupinestudios.lotrport.content.LotrItems.dyeable().toArray(new net.minecraft.world.item.Item[0]));
+    }
+
+    /** LOTR's alignment bar, compass and attack meter. */
+    @SubscribeEvent
+    public static void guiLayers(net.neoforged.neoforge.client.event.RegisterGuiLayersEvent event) {
+        LotrHud.registerLayers(event);
     }
 
     @SubscribeEvent

@@ -2,6 +2,7 @@ package com.porcupinestudios.lotrport.registry;
 
 import com.mojang.serialization.Codec;
 import com.porcupinestudios.lotrport.LotrPort;
+import com.porcupinestudios.lotrport.combat.AttackTiming;
 import com.porcupinestudios.lotrport.player.PlayerLotrData;
 import com.porcupinestudios.lotrport.quest.QuestLog;
 import com.porcupinestudios.lotrport.travel.TravelData;
@@ -53,6 +54,14 @@ public final class LotrRegistries {
     /** The player's chosen LOTR cape id ("" for none); kept on death. */
     public static final Supplier<AttachmentType<String>> CAPE = ATTACHMENTS.register("cape",
             () -> AttachmentType.builder(() -> "").serialize(Codec.STRING).copyOnDeath().build());
+
+    /** The faction whose alignment bar the player watches ("" = automatic: pledge, then strongest); kept on death. */
+    public static final Supplier<AttachmentType<String>> VIEW_FACTION = ATTACHMENTS.register("view_faction",
+            () -> AttachmentType.builder(() -> "").serialize(Codec.STRING).copyOnDeath().build());
+
+    /** LOTR's melee wait in progress (not saved; on both sides, each counting its own player's ticks). */
+    public static final Supplier<AttachmentType<AttackTiming.Wait>> ATTACK_WAIT = ATTACHMENTS.register("attack_wait",
+            () -> AttachmentType.builder(() -> AttackTiming.Wait.NONE).build());
 
     private LotrRegistries() {}
 
