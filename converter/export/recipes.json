@@ -26091,6 +26091,76 @@
       ]
     },
     {
+      "class": "lotr.common.recipe.LOTRRecipePartyHatDye",
+      "type": "special",
+      "fields": {}
+    },
+    {
+      "class": "lotr.common.recipe.LOTRRecipesPouch",
+      "type": "special",
+      "fields": {
+        "overrideColor": "?java.lang.Integer",
+        "hasOverrideColor": "?java.lang.Boolean"
+      }
+    },
+    {
+      "class": "lotr.common.recipe.LOTRRecipeFeatherDye",
+      "type": "special",
+      "fields": {}
+    },
+    {
+      "class": "lotr.common.recipe.LOTRRecipesArmorDyes",
+      "type": "special",
+      "fields": {}
+    },
+    {
+      "class": "lotr.common.recipe.LOTRRecipeLeatherHatDye",
+      "type": "special",
+      "fields": {}
+    },
+    {
+      "class": "lotr.common.recipe.LOTRRecipesTreasurePile",
+      "type": "special",
+      "fields": {
+        "treasureBlock": {
+          "item": "lotr:tile.treasureCopper",
+          "meta": 32767
+        },
+        "ingotItem": {
+          "item": "lotr:item.copper",
+          "meta": 32767
+        }
+      }
+    },
+    {
+      "class": "lotr.common.recipe.LOTRRecipesTreasurePile",
+      "type": "special",
+      "fields": {
+        "treasureBlock": {
+          "item": "lotr:tile.treasureSilver",
+          "meta": 32767
+        },
+        "ingotItem": {
+          "item": "lotr:item.silver",
+          "meta": 32767
+        }
+      }
+    },
+    {
+      "class": "lotr.common.recipe.LOTRRecipesTreasurePile",
+      "type": "special",
+      "fields": {
+        "treasureBlock": {
+          "item": "lotr:tile.treasureGold",
+          "meta": 32767
+        },
+        "ingotItem": {
+          "item": "minecraft:gold_ingot",
+          "meta": 32767
+        }
+      }
+    },
+    {
       "class": "net.minecraft.item.crafting.ShapelessRecipes",
       "output": {
         "item": "lotr:item.rabbitStew",
@@ -30175,6 +30245,21 @@
       ]
     },
     {
+      "class": "lotr.common.recipe.LOTRRecipeLeatherHatFeather",
+      "type": "special",
+      "fields": {}
+    },
+    {
+      "class": "lotr.common.recipe.LOTRRecipesPoisonDrinks",
+      "type": "special",
+      "fields": {}
+    },
+    {
+      "class": "lotr.common.recipe.LOTRRecipeHobbitPipe",
+      "type": "special",
+      "fields": {}
+    },
+    {
       "class": "net.minecraftforge.oredict.ShapelessOreRecipe",
       "output": {
         "item": "lotr:item.dye",
@@ -30284,7 +30369,20 @@
         "item": "lotr:item.daggerOrcPoisoned",
         "meta": 0
       },
-      "type": "special"
+      "type": "special",
+      "fields": {
+        "inputItem": {
+          "item": "lotr:item.daggerOrc",
+          "meta": 32767
+        },
+        "resultItem": {
+          "item": "lotr:item.daggerOrcPoisoned",
+          "meta": 32767
+        },
+        "catalystObj": {
+          "ore": "poison"
+        }
+      }
     },
     {
       "class": "lotr.common.recipe.LOTRRecipePoisonWeapon",
@@ -30292,7 +30390,20 @@
         "item": "lotr:item.daggerUrukPoisoned",
         "meta": 0
       },
-      "type": "special"
+      "type": "special",
+      "fields": {
+        "inputItem": {
+          "item": "lotr:item.daggerUruk",
+          "meta": 32767
+        },
+        "resultItem": {
+          "item": "lotr:item.daggerUrukPoisoned",
+          "meta": 32767
+        },
+        "catalystObj": {
+          "ore": "poison"
+        }
+      }
     },
     {
       "class": "lotr.common.recipe.LOTRRecipePoisonWeapon",
@@ -30300,7 +30411,20 @@
         "item": "lotr:item.daggerBronzePoisoned",
         "meta": 0
       },
-      "type": "special"
+      "type": "special",
+      "fields": {
+        "inputItem": {
+          "item": "lotr:item.daggerBronze",
+          "meta": 32767
+        },
+        "resultItem": {
+          "item": "lotr:item.daggerBronzePoisoned",
+          "meta": 32767
+        },
+        "catalystObj": {
+          "ore": "poison"
+        }
+      }
     },
     {
       "class": "lotr.common.recipe.LOTRRecipePoisonWeapon",
@@ -30308,7 +30432,20 @@
         "item": "lotr:item.daggerIronPoisoned",
         "meta": 0
       },
-      "type": "special"
+      "type": "special",
+      "fields": {
+        "inputItem": {
+          "item": "lotr:item.daggerIron",
+          "meta": 32767
+        },
+        "resultItem": {
+          "item": "lotr:item.daggerIronPoisoned",
+          "meta": 32767
+        },
+        "catalystObj": {
+          "ore": "poison"
+        }
+      }
     },
     {
       "class": "lotr.common.recipe.LOTRRecipePoisonWeapon",
@@ -30316,7 +30453,20 @@
         "item": "lotr:item.daggerMithrilPoisoned",
         "meta": 0
       },
-      "type": "special"
+      "type": "special",
+      "fields": {
+        "inputItem": {
+          "item": "lotr:item.daggerMithril",
+          "meta": 32767
+        },
+        "resultItem": {
+          "item": "lotr:item.daggerMithrilPoisoned",
+          "meta": 32767
+        },
+        "catalystObj": {
+          "ore": "poison"
+        }
+      }
     },
     {
       "class": "lotr.common.recipe.LOTRRecipePoisonWeapon",
@@ -30324,7 +30474,20 @@
         "item": "lotr:item.daggerGondorPoisoned",
         "meta": 0
       },
-      "type": "special"
+      "type": "special",
+      "fields": {
+        "inputItem": {
+          "item": "lotr:item.daggerGondor",
+          "meta": 32767
+        },
+        "resultItem": {
+          "item": "lotr:item.daggerGondorPoisoned",
+          "meta": 32767
+        },
+        "catalystObj": {
+          "ore": "poison"
+        }
+      }
     },
     {
       "class": "lotr.common.recipe.LOTRRecipePoisonWeapon",
@@ -30332,7 +30495,20 @@
         "item": "lotr:item.daggerElvenPoisoned",
         "meta": 0
       },
-      "type": "special"
+      "type": "special",
+      "fields": {
+        "inputItem": {
+          "item": "lotr:item.daggerElven",
+          "meta": 32767
+        },
+        "resultItem": {
+          "item": "lotr:item.daggerElvenPoisoned",
+          "meta": 32767
+        },
+        "catalystObj": {
+          "ore": "poison"
+        }
+      }
     },
     {
       "class": "lotr.common.recipe.LOTRRecipePoisonWeapon",
@@ -30340,7 +30516,20 @@
         "item": "lotr:item.daggerDwarvenPoisoned",
         "meta": 0
       },
-      "type": "special"
+      "type": "special",
+      "fields": {
+        "inputItem": {
+          "item": "lotr:item.daggerDwarven",
+          "meta": 32767
+        },
+        "resultItem": {
+          "item": "lotr:item.daggerDwarvenPoisoned",
+          "meta": 32767
+        },
+        "catalystObj": {
+          "ore": "poison"
+        }
+      }
     },
     {
       "class": "lotr.common.recipe.LOTRRecipePoisonWeapon",
@@ -30348,7 +30537,20 @@
         "item": "lotr:item.daggerRohanPoisoned",
         "meta": 0
       },
-      "type": "special"
+      "type": "special",
+      "fields": {
+        "inputItem": {
+          "item": "lotr:item.daggerRohan",
+          "meta": 32767
+        },
+        "resultItem": {
+          "item": "lotr:item.daggerRohanPoisoned",
+          "meta": 32767
+        },
+        "catalystObj": {
+          "ore": "poison"
+        }
+      }
     },
     {
       "class": "lotr.common.recipe.LOTRRecipePoisonWeapon",
@@ -30356,7 +30558,20 @@
         "item": "lotr:item.daggerWoodElvenPoisoned",
         "meta": 0
       },
-      "type": "special"
+      "type": "special",
+      "fields": {
+        "inputItem": {
+          "item": "lotr:item.daggerWoodElven",
+          "meta": 32767
+        },
+        "resultItem": {
+          "item": "lotr:item.daggerWoodElvenPoisoned",
+          "meta": 32767
+        },
+        "catalystObj": {
+          "ore": "poison"
+        }
+      }
     },
     {
       "class": "lotr.common.recipe.LOTRRecipePoisonWeapon",
@@ -30364,7 +30579,20 @@
         "item": "lotr:item.daggerAngmarPoisoned",
         "meta": 0
       },
-      "type": "special"
+      "type": "special",
+      "fields": {
+        "inputItem": {
+          "item": "lotr:item.daggerAngmar",
+          "meta": 32767
+        },
+        "resultItem": {
+          "item": "lotr:item.daggerAngmarPoisoned",
+          "meta": 32767
+        },
+        "catalystObj": {
+          "ore": "poison"
+        }
+      }
     },
     {
       "class": "lotr.common.recipe.LOTRRecipePoisonWeapon",
@@ -30372,7 +30600,20 @@
         "item": "lotr:item.daggerHighElvenPoisoned",
         "meta": 0
       },
-      "type": "special"
+      "type": "special",
+      "fields": {
+        "inputItem": {
+          "item": "lotr:item.daggerHighElven",
+          "meta": 32767
+        },
+        "resultItem": {
+          "item": "lotr:item.daggerHighElvenPoisoned",
+          "meta": 32767
+        },
+        "catalystObj": {
+          "ore": "poison"
+        }
+      }
     },
     {
       "class": "lotr.common.recipe.LOTRRecipePoisonWeapon",
@@ -30380,7 +30621,20 @@
         "item": "lotr:item.daggerNearHaradPoisoned",
         "meta": 0
       },
-      "type": "special"
+      "type": "special",
+      "fields": {
+        "inputItem": {
+          "item": "lotr:item.daggerNearHarad",
+          "meta": 32767
+        },
+        "resultItem": {
+          "item": "lotr:item.daggerNearHaradPoisoned",
+          "meta": 32767
+        },
+        "catalystObj": {
+          "ore": "poison"
+        }
+      }
     },
     {
       "class": "lotr.common.recipe.LOTRRecipePoisonWeapon",
@@ -30388,7 +30642,20 @@
         "item": "lotr:item.daggerBlueDwarvenPoisoned",
         "meta": 0
       },
-      "type": "special"
+      "type": "special",
+      "fields": {
+        "inputItem": {
+          "item": "lotr:item.daggerBlueDwarven",
+          "meta": 32767
+        },
+        "resultItem": {
+          "item": "lotr:item.daggerBlueDwarvenPoisoned",
+          "meta": 32767
+        },
+        "catalystObj": {
+          "ore": "poison"
+        }
+      }
     },
     {
       "class": "lotr.common.recipe.LOTRRecipePoisonWeapon",
@@ -30396,7 +30663,20 @@
         "item": "lotr:item.daggerDolGuldurPoisoned",
         "meta": 0
       },
-      "type": "special"
+      "type": "special",
+      "fields": {
+        "inputItem": {
+          "item": "lotr:item.daggerDolGuldur",
+          "meta": 32767
+        },
+        "resultItem": {
+          "item": "lotr:item.daggerDolGuldurPoisoned",
+          "meta": 32767
+        },
+        "catalystObj": {
+          "ore": "poison"
+        }
+      }
     },
     {
       "class": "lotr.common.recipe.LOTRRecipePoisonWeapon",
@@ -30404,7 +30684,20 @@
         "item": "lotr:item.daggerBlackUrukPoisoned",
         "meta": 0
       },
-      "type": "special"
+      "type": "special",
+      "fields": {
+        "inputItem": {
+          "item": "lotr:item.daggerBlackUruk",
+          "meta": 32767
+        },
+        "resultItem": {
+          "item": "lotr:item.daggerBlackUrukPoisoned",
+          "meta": 32767
+        },
+        "catalystObj": {
+          "ore": "poison"
+        }
+      }
     },
     {
       "class": "lotr.common.recipe.LOTRRecipePoisonWeapon",
@@ -30412,7 +30705,20 @@
         "item": "lotr:item.daggerUtumnoPoisoned",
         "meta": 0
       },
-      "type": "special"
+      "type": "special",
+      "fields": {
+        "inputItem": {
+          "item": "lotr:item.daggerUtumno",
+          "meta": 32767
+        },
+        "resultItem": {
+          "item": "lotr:item.daggerUtumnoPoisoned",
+          "meta": 32767
+        },
+        "catalystObj": {
+          "ore": "poison"
+        }
+      }
     },
     {
       "class": "lotr.common.recipe.LOTRRecipePoisonWeapon",
@@ -30420,7 +30726,20 @@
         "item": "lotr:item.daggerHalfTrollPoisoned",
         "meta": 0
       },
-      "type": "special"
+      "type": "special",
+      "fields": {
+        "inputItem": {
+          "item": "lotr:item.daggerHalfTroll",
+          "meta": 32767
+        },
+        "resultItem": {
+          "item": "lotr:item.daggerHalfTrollPoisoned",
+          "meta": 32767
+        },
+        "catalystObj": {
+          "ore": "poison"
+        }
+      }
     },
     {
       "class": "lotr.common.recipe.LOTRRecipePoisonWeapon",
@@ -30428,7 +30747,20 @@
         "item": "lotr:item.daggerMoredainPoisoned",
         "meta": 0
       },
-      "type": "special"
+      "type": "special",
+      "fields": {
+        "inputItem": {
+          "item": "lotr:item.daggerMoredain",
+          "meta": 32767
+        },
+        "resultItem": {
+          "item": "lotr:item.daggerMoredainPoisoned",
+          "meta": 32767
+        },
+        "catalystObj": {
+          "ore": "poison"
+        }
+      }
     },
     {
       "class": "lotr.common.recipe.LOTRRecipePoisonWeapon",
@@ -30436,7 +30768,20 @@
         "item": "lotr:item.daggerTauredainPoisoned",
         "meta": 0
       },
-      "type": "special"
+      "type": "special",
+      "fields": {
+        "inputItem": {
+          "item": "lotr:item.daggerTauredain",
+          "meta": 32767
+        },
+        "resultItem": {
+          "item": "lotr:item.daggerTauredainPoisoned",
+          "meta": 32767
+        },
+        "catalystObj": {
+          "ore": "poison"
+        }
+      }
     },
     {
       "class": "lotr.common.recipe.LOTRRecipePoisonWeapon",
@@ -30444,7 +30789,20 @@
         "item": "lotr:item.daggerBarrowPoisoned",
         "meta": 0
       },
-      "type": "special"
+      "type": "special",
+      "fields": {
+        "inputItem": {
+          "item": "lotr:item.daggerBarrow",
+          "meta": 32767
+        },
+        "resultItem": {
+          "item": "lotr:item.daggerBarrowPoisoned",
+          "meta": 32767
+        },
+        "catalystObj": {
+          "ore": "poison"
+        }
+      }
     },
     {
       "class": "lotr.common.recipe.LOTRRecipePoisonWeapon",
@@ -30452,7 +30810,20 @@
         "item": "lotr:item.daggerDolAmrothPoisoned",
         "meta": 0
       },
-      "type": "special"
+      "type": "special",
+      "fields": {
+        "inputItem": {
+          "item": "lotr:item.daggerDolAmroth",
+          "meta": 32767
+        },
+        "resultItem": {
+          "item": "lotr:item.daggerDolAmrothPoisoned",
+          "meta": 32767
+        },
+        "catalystObj": {
+          "ore": "poison"
+        }
+      }
     },
     {
       "class": "lotr.common.recipe.LOTRRecipePoisonWeapon",
@@ -30460,7 +30831,20 @@
         "item": "lotr:item.daggerDalePoisoned",
         "meta": 0
       },
-      "type": "special"
+      "type": "special",
+      "fields": {
+        "inputItem": {
+          "item": "lotr:item.daggerDale",
+          "meta": 32767
+        },
+        "resultItem": {
+          "item": "lotr:item.daggerDalePoisoned",
+          "meta": 32767
+        },
+        "catalystObj": {
+          "ore": "poison"
+        }
+      }
     },
     {
       "class": "lotr.common.recipe.LOTRRecipePoisonWeapon",
@@ -30468,7 +30852,20 @@
         "item": "lotr:item.daggerGundabadUrukPoisoned",
         "meta": 0
       },
-      "type": "special"
+      "type": "special",
+      "fields": {
+        "inputItem": {
+          "item": "lotr:item.daggerGundabadUruk",
+          "meta": 32767
+        },
+        "resultItem": {
+          "item": "lotr:item.daggerGundabadUrukPoisoned",
+          "meta": 32767
+        },
+        "catalystObj": {
+          "ore": "poison"
+        }
+      }
     },
     {
       "class": "lotr.common.recipe.LOTRRecipePoisonWeapon",
@@ -30476,7 +30873,20 @@
         "item": "lotr:item.daggerDorwinionElfPoisoned",
         "meta": 0
       },
-      "type": "special"
+      "type": "special",
+      "fields": {
+        "inputItem": {
+          "item": "lotr:item.daggerDorwinionElf",
+          "meta": 32767
+        },
+        "resultItem": {
+          "item": "lotr:item.daggerDorwinionElfPoisoned",
+          "meta": 32767
+        },
+        "catalystObj": {
+          "ore": "poison"
+        }
+      }
     },
     {
       "class": "lotr.common.recipe.LOTRRecipePoisonWeapon",
@@ -30484,7 +30894,20 @@
         "item": "lotr:item.daggerRhunPoisoned",
         "meta": 0
       },
-      "type": "special"
+      "type": "special",
+      "fields": {
+        "inputItem": {
+          "item": "lotr:item.daggerRhun",
+          "meta": 32767
+        },
+        "resultItem": {
+          "item": "lotr:item.daggerRhunPoisoned",
+          "meta": 32767
+        },
+        "catalystObj": {
+          "ore": "poison"
+        }
+      }
     },
     {
       "class": "lotr.common.recipe.LOTRRecipePoisonWeapon",
@@ -30492,7 +30915,20 @@
         "item": "lotr:item.daggerRivendellPoisoned",
         "meta": 0
       },
-      "type": "special"
+      "type": "special",
+      "fields": {
+        "inputItem": {
+          "item": "lotr:item.daggerRivendell",
+          "meta": 32767
+        },
+        "resultItem": {
+          "item": "lotr:item.daggerRivendellPoisoned",
+          "meta": 32767
+        },
+        "catalystObj": {
+          "ore": "poison"
+        }
+      }
     },
     {
       "class": "lotr.common.recipe.LOTRRecipePoisonWeapon",
@@ -30500,7 +30936,20 @@
         "item": "lotr:item.daggerArnorPoisoned",
         "meta": 0
       },
-      "type": "special"
+      "type": "special",
+      "fields": {
+        "inputItem": {
+          "item": "lotr:item.daggerArnor",
+          "meta": 32767
+        },
+        "resultItem": {
+          "item": "lotr:item.daggerArnorPoisoned",
+          "meta": 32767
+        },
+        "catalystObj": {
+          "ore": "poison"
+        }
+      }
     },
     {
       "class": "lotr.common.recipe.LOTRRecipePoisonWeapon",
@@ -30508,7 +30957,20 @@
         "item": "lotr:item.daggerCorsairPoisoned",
         "meta": 0
       },
-      "type": "special"
+      "type": "special",
+      "fields": {
+        "inputItem": {
+          "item": "lotr:item.daggerCorsair",
+          "meta": 32767
+        },
+        "resultItem": {
+          "item": "lotr:item.daggerCorsairPoisoned",
+          "meta": 32767
+        },
+        "catalystObj": {
+          "ore": "poison"
+        }
+      }
     },
     {
       "class": "lotr.common.recipe.LOTRRecipePoisonWeapon",
@@ -30516,7 +30978,20 @@
         "item": "lotr:item.daggerHaradPoisoned",
         "meta": 0
       },
-      "type": "special"
+      "type": "special",
+      "fields": {
+        "inputItem": {
+          "item": "lotr:item.daggerHarad",
+          "meta": 32767
+        },
+        "resultItem": {
+          "item": "lotr:item.daggerHaradPoisoned",
+          "meta": 32767
+        },
+        "catalystObj": {
+          "ore": "poison"
+        }
+      }
     },
     {
       "class": "lotr.common.recipe.LOTRRecipePoisonWeapon",
@@ -30524,7 +30999,20 @@
         "item": "lotr:item.daggerBlackNumenoreanPoisoned",
         "meta": 0
       },
-      "type": "special"
+      "type": "special",
+      "fields": {
+        "inputItem": {
+          "item": "lotr:item.daggerBlackNumenorean",
+          "meta": 32767
+        },
+        "resultItem": {
+          "item": "lotr:item.daggerBlackNumenoreanPoisoned",
+          "meta": 32767
+        },
+        "catalystObj": {
+          "ore": "poison"
+        }
+      }
     },
     {
       "class": "net.minecraft.item.crafting.ShapelessRecipes",
@@ -32349,6 +32837,11 @@
           "meta": 0
         }
       ]
+    },
+    {
+      "class": "lotr.common.recipe.LOTRRecipesBanners",
+      "type": "special",
+      "fields": {}
     },
     {
       "class": "net.minecraftforge.oredict.ShapelessOreRecipe",
@@ -35820,7 +36313,21 @@
           "item": "lotr:item.chiselIthildin",
           "meta": 0
         },
-        "type": "special"
+        "type": "special",
+        "fields": {
+          "inputItem": {
+            "item": "lotr:item.chisel",
+            "meta": 32767
+          },
+          "resultItem": {
+            "item": "lotr:item.chiselIthildin",
+            "meta": 32767
+          },
+          "catalystObj": {
+            "item": "lotr:item.ithildin",
+            "meta": 0
+          }
+        }
       },
       {
         "class": "net.minecraftforge.oredict.ShapelessOreRecipe",
@@ -38928,7 +39435,21 @@
           "item": "lotr:item.chiselIthildin",
           "meta": 0
         },
-        "type": "special"
+        "type": "special",
+        "fields": {
+          "inputItem": {
+            "item": "lotr:item.chisel",
+            "meta": 32767
+          },
+          "resultItem": {
+            "item": "lotr:item.chiselIthildin",
+            "meta": 32767
+          },
+          "catalystObj": {
+            "item": "lotr:item.ithildin",
+            "meta": 0
+          }
+        }
       },
       {
         "class": "net.minecraftforge.oredict.ShapedOreRecipe",
@@ -41799,7 +42320,21 @@
           "item": "lotr:item.chiselIthildin",
           "meta": 0
         },
-        "type": "special"
+        "type": "special",
+        "fields": {
+          "inputItem": {
+            "item": "lotr:item.chisel",
+            "meta": 32767
+          },
+          "resultItem": {
+            "item": "lotr:item.chiselIthildin",
+            "meta": 32767
+          },
+          "catalystObj": {
+            "item": "lotr:item.ithildin",
+            "meta": 0
+          }
+        }
       },
       {
         "class": "net.minecraftforge.oredict.ShapedOreRecipe",
@@ -52306,11 +52841,15 @@
       },
       {
         "class": "lotr.common.recipe.LOTRRecipeHaradRobesDye",
-        "type": "special"
+        "type": "special",
+        "fields": {
+          "robeMaterial": "?net.minecraft.item.ItemArmor$ArmorMaterial"
+        }
       },
       {
         "class": "lotr.common.recipe.LOTRRecipeHaradTurbanOrnament",
-        "type": "special"
+        "type": "special",
+        "fields": {}
       },
       {
         "class": "net.minecraftforge.oredict.ShapedOreRecipe",
@@ -53600,7 +54139,21 @@
           "item": "lotr:item.chiselIthildin",
           "meta": 0
         },
-        "type": "special"
+        "type": "special",
+        "fields": {
+          "inputItem": {
+            "item": "lotr:item.chisel",
+            "meta": 32767
+          },
+          "resultItem": {
+            "item": "lotr:item.chiselIthildin",
+            "meta": 32767
+          },
+          "catalystObj": {
+            "item": "lotr:item.ithildin",
+            "meta": 0
+          }
+        }
       },
       {
         "class": "net.minecraftforge.oredict.ShapedOreRecipe",
@@ -55654,7 +56207,21 @@
           "item": "lotr:item.chiselIthildin",
           "meta": 0
         },
-        "type": "special"
+        "type": "special",
+        "fields": {
+          "inputItem": {
+            "item": "lotr:item.chisel",
+            "meta": 32767
+          },
+          "resultItem": {
+            "item": "lotr:item.chiselIthildin",
+            "meta": 32767
+          },
+          "catalystObj": {
+            "item": "lotr:item.ithildin",
+            "meta": 0
+          }
+        }
       },
       {
         "class": "net.minecraftforge.oredict.ShapedOreRecipe",
@@ -69317,7 +69884,10 @@
       },
       {
         "class": "lotr.common.recipe.LOTRRecipeHaradRobesDye",
-        "type": "special"
+        "type": "special",
+        "fields": {
+          "robeMaterial": "?net.minecraft.item.ItemArmor$ArmorMaterial"
+        }
       },
       {
         "class": "net.minecraftforge.oredict.ShapedOreRecipe",
@@ -69686,7 +70256,21 @@
           "item": "lotr:item.chiselIthildin",
           "meta": 0
         },
-        "type": "special"
+        "type": "special",
+        "fields": {
+          "inputItem": {
+            "item": "lotr:item.chisel",
+            "meta": 32767
+          },
+          "resultItem": {
+            "item": "lotr:item.chiselIthildin",
+            "meta": 32767
+          },
+          "catalystObj": {
+            "item": "lotr:item.ithildin",
+            "meta": 0
+          }
+        }
       },
       {
         "class": "net.minecraftforge.oredict.ShapedOreRecipe",
@@ -74007,11 +74591,15 @@
       },
       {
         "class": "lotr.common.recipe.LOTRRecipeHaradRobesDye",
-        "type": "special"
+        "type": "special",
+        "fields": {
+          "robeMaterial": "?net.minecraft.item.ItemArmor$ArmorMaterial"
+        }
       },
       {
         "class": "lotr.common.recipe.LOTRRecipeHaradTurbanOrnament",
-        "type": "special"
+        "type": "special",
+        "fields": {}
       },
       {
         "class": "net.minecraftforge.oredict.ShapedOreRecipe",
@@ -78548,11 +79136,15 @@
       },
       {
         "class": "lotr.common.recipe.LOTRRecipeHaradRobesDye",
-        "type": "special"
+        "type": "special",
+        "fields": {
+          "robeMaterial": "?net.minecraft.item.ItemArmor$ArmorMaterial"
+        }
       },
       {
         "class": "lotr.common.recipe.LOTRRecipeHaradTurbanOrnament",
-        "type": "special"
+        "type": "special",
+        "fields": {}
       },
       {
         "class": "net.minecraftforge.oredict.ShapedOreRecipe",
@@ -80747,11 +81339,264 @@
   "smelting": [
     {
       "input": {
-        "item": "lotr:tile.brick2",
+        "item": "lotr:item.corn",
+        "meta": 32767
+      },
+      "output": {
+        "item": "lotr:item.cornCooked",
+        "meta": 0
+      },
+      "xp": 0.3
+    },
+    {
+      "input": {
+        "item": "lotr:tile.wood4",
+        "meta": 32767
+      },
+      "output": {
+        "item": "minecraft:coal",
+        "meta": 1
+      },
+      "xp": 0.15
+    },
+    {
+      "input": {
+        "item": "lotr:tile.oreNaurite",
+        "meta": 32767
+      },
+      "output": {
+        "item": "lotr:item.naurite",
+        "meta": 0
+      },
+      "xp": 1.0
+    },
+    {
+      "input": {
+        "item": "lotr:tile.brick4",
         "meta": 0
       },
       "output": {
-        "item": "lotr:tile.brick2",
+        "item": "lotr:tile.brick4",
+        "meta": 2
+      },
+      "xp": 0.1
+    },
+    {
+      "input": {
+        "item": "lotr:tile.rottenLog",
+        "meta": 32767
+      },
+      "output": {
+        "item": "minecraft:coal",
+        "meta": 1
+      },
+      "xp": 0.15
+    },
+    {
+      "input": {
+        "item": "lotr:tile.brick",
+        "meta": 6
+      },
+      "output": {
+        "item": "lotr:tile.brick4",
+        "meta": 5
+      },
+      "xp": 0.1
+    },
+    {
+      "input": {
+        "item": "lotr:item.muttonRaw",
+        "meta": 32767
+      },
+      "output": {
+        "item": "lotr:item.muttonCooked",
+        "meta": 0
+      },
+      "xp": 0.35
+    },
+    {
+      "input": {
+        "item": "lotr:tile.brick5",
+        "meta": 2
+      },
+      "output": {
+        "item": "lotr:tile.brick5",
+        "meta": 5
+      },
+      "xp": 0.1
+    },
+    {
+      "input": {
+        "item": "lotr:tile.brick",
+        "meta": 1
+      },
+      "output": {
+        "item": "lotr:tile.brick",
+        "meta": 3
+      },
+      "xp": 0.1
+    },
+    {
+      "input": {
+        "item": "lotr:tile.pillar",
+        "meta": 12
+      },
+      "output": {
+        "item": "lotr:tile.pillar",
+        "meta": 13
+      },
+      "xp": 0.1
+    },
+    {
+      "input": {
+        "item": "lotr:item.chestnut",
+        "meta": 32767
+      },
+      "output": {
+        "item": "lotr:item.chestnutRoast",
+        "meta": 0
+      },
+      "xp": 0.3
+    },
+    {
+      "input": {
+        "item": "lotr:item.turnip",
+        "meta": 32767
+      },
+      "output": {
+        "item": "lotr:item.turnipCooked",
+        "meta": 0
+      },
+      "xp": 0.3
+    },
+    {
+      "input": {
+        "item": "lotr:tile.wood2",
+        "meta": 32767
+      },
+      "output": {
+        "item": "minecraft:coal",
+        "meta": 1
+      },
+      "xp": 0.15
+    },
+    {
+      "input": {
+        "item": "lotr:item.ceramicPlate",
+        "meta": 32767
+      },
+      "output": {
+        "item": "lotr:item.plate",
+        "meta": 0
+      },
+      "xp": 0.3
+    },
+    {
+      "input": {
+        "item": "lotr:tile.oreCopper",
+        "meta": 32767
+      },
+      "output": {
+        "item": "lotr:item.copper",
+        "meta": 0
+      },
+      "xp": 0.35
+    },
+    {
+      "input": {
+        "item": "lotr:tile.pillar",
+        "meta": 10
+      },
+      "output": {
+        "item": "lotr:tile.pillar",
+        "meta": 11
+      },
+      "xp": 0.1
+    },
+    {
+      "input": {
+        "item": "lotr:tile.brick3",
+        "meta": 2
+      },
+      "output": {
+        "item": "lotr:tile.brick3",
+        "meta": 4
+      },
+      "xp": 0.1
+    },
+    {
+      "input": {
+        "item": "lotr:tile.oreSalt",
+        "meta": 32767
+      },
+      "output": {
+        "item": "lotr:item.salt",
+        "meta": 0
+      },
+      "xp": 1.0
+    },
+    {
+      "input": {
+        "item": "lotr:tile.reeds",
+        "meta": 0
+      },
+      "output": {
+        "item": "lotr:tile.driedReeds",
+        "meta": 0
+      },
+      "xp": 0.25
+    },
+    {
+      "input": {
+        "item": "lotr:tile.redClay",
+        "meta": 32767
+      },
+      "output": {
+        "item": "minecraft:hardened_clay",
+        "meta": 0
+      },
+      "xp": 0.35
+    },
+    {
+      "input": {
+        "item": "lotr:tile.brick3",
+        "meta": 13
+      },
+      "output": {
+        "item": "lotr:tile.brick3",
+        "meta": 14
+      },
+      "xp": 0.1
+    },
+    {
+      "input": {
+        "item": "lotr:tile.pillar2",
+        "meta": 13
+      },
+      "output": {
+        "item": "lotr:tile.pillar2",
+        "meta": 14
+      },
+      "xp": 0.1
+    },
+    {
+      "input": {
+        "item": "lotr:item.grapeRed",
+        "meta": 32767
+      },
+      "output": {
+        "item": "lotr:item.raisins",
+        "meta": 0
+      },
+      "xp": 0.3
+    },
+    {
+      "input": {
+        "item": "minecraft:brick_block",
+        "meta": 0
+      },
+      "output": {
+        "item": "lotr:tile.redBrick",
         "meta": 1
       },
       "xp": 0.1
@@ -80769,45 +81614,34 @@
     },
     {
       "input": {
-        "item": "lotr:item.muttonRaw",
+        "item": "lotr:item.lionRaw",
         "meta": 32767
       },
       "output": {
-        "item": "lotr:item.muttonCooked",
+        "item": "lotr:item.lionCooked",
         "meta": 0
       },
       "xp": 0.35
     },
     {
       "input": {
-        "item": "lotr:tile.brick",
-        "meta": 0
+        "item": "lotr:tile.brick5",
+        "meta": 8
       },
       "output": {
-        "item": "lotr:tile.brick",
-        "meta": 7
+        "item": "lotr:tile.brick5",
+        "meta": 10
       },
       "xp": 0.1
     },
     {
       "input": {
-        "item": "lotr:tile.oreSulfur",
-        "meta": 32767
-      },
-      "output": {
-        "item": "lotr:item.sulfur",
-        "meta": 0
-      },
-      "xp": 1.0
-    },
-    {
-      "input": {
         "item": "lotr:tile.pillar",
-        "meta": 0
+        "meta": 1
       },
       "output": {
-        "item": "lotr:tile.pillar2",
-        "meta": 0
+        "item": "lotr:tile.pillar",
+        "meta": 2
       },
       "xp": 0.1
     },
@@ -80824,256 +81658,14 @@
     },
     {
       "input": {
-        "item": "lotr:tile.whiteSand",
+        "item": "lotr:tile.oreSilver",
         "meta": 32767
       },
       "output": {
-        "item": "minecraft:glass",
+        "item": "lotr:item.silver",
         "meta": 0
       },
-      "xp": 0.1
-    },
-    {
-      "input": {
-        "item": "lotr:tile.brick",
-        "meta": 11
-      },
-      "output": {
-        "item": "lotr:tile.brick",
-        "meta": 13
-      },
-      "xp": 0.1
-    },
-    {
-      "input": {
-        "item": "lotr:tile.oreQuendite",
-        "meta": 32767
-      },
-      "output": {
-        "item": "lotr:item.quenditeCrystal",
-        "meta": 0
-      },
-      "xp": 1.0
-    },
-    {
-      "input": {
-        "item": "lotr:item.grapeRed",
-        "meta": 32767
-      },
-      "output": {
-        "item": "lotr:item.raisins",
-        "meta": 0
-      },
-      "xp": 0.3
-    },
-    {
-      "input": {
-        "item": "lotr:item.lionRaw",
-        "meta": 32767
-      },
-      "output": {
-        "item": "lotr:item.lionCooked",
-        "meta": 0
-      },
-      "xp": 0.35
-    },
-    {
-      "input": {
-        "item": "lotr:tile.fruitWood",
-        "meta": 32767
-      },
-      "output": {
-        "item": "minecraft:coal",
-        "meta": 1
-      },
-      "xp": 0.15
-    },
-    {
-      "input": {
-        "item": "lotr:tile.brick5",
-        "meta": 1
-      },
-      "output": {
-        "item": "lotr:tile.brick6",
-        "meta": 4
-      },
-      "xp": 0.1
-    },
-    {
-      "input": {
-        "item": "lotr:tile.rock",
-        "meta": 32767
-      },
-      "output": {
-        "item": "lotr:tile.scorchedStone",
-        "meta": 0
-      },
-      "xp": 0.1
-    },
-    {
-      "input": {
-        "item": "lotr:item.corn",
-        "meta": 32767
-      },
-      "output": {
-        "item": "lotr:item.cornCooked",
-        "meta": 0
-      },
-      "xp": 0.3
-    },
-    {
-      "input": {
-        "item": "lotr:tile.brick5",
-        "meta": 2
-      },
-      "output": {
-        "item": "lotr:tile.brick5",
-        "meta": 5
-      },
-      "xp": 0.1
-    },
-    {
-      "input": {
-        "item": "minecraft:brick_block",
-        "meta": 0
-      },
-      "output": {
-        "item": "lotr:tile.redBrick",
-        "meta": 1
-      },
-      "xp": 0.1
-    },
-    {
-      "input": {
-        "item": "lotr:tile.wood4",
-        "meta": 32767
-      },
-      "output": {
-        "item": "minecraft:coal",
-        "meta": 1
-      },
-      "xp": 0.15
-    },
-    {
-      "input": {
-        "item": "lotr:tile.wood6",
-        "meta": 32767
-      },
-      "output": {
-        "item": "minecraft:coal",
-        "meta": 1
-      },
-      "xp": 0.15
-    },
-    {
-      "input": {
-        "item": "lotr:tile.reeds",
-        "meta": 0
-      },
-      "output": {
-        "item": "lotr:tile.driedReeds",
-        "meta": 0
-      },
-      "xp": 0.25
-    },
-    {
-      "input": {
-        "item": "lotr:tile.brick4",
-        "meta": 0
-      },
-      "output": {
-        "item": "lotr:tile.brick4",
-        "meta": 2
-      },
-      "xp": 0.1
-    },
-    {
-      "input": {
-        "item": "lotr:item.rhinoRaw",
-        "meta": 32767
-      },
-      "output": {
-        "item": "lotr:item.rhinoCooked",
-        "meta": 0
-      },
-      "xp": 0.35
-    },
-    {
-      "input": {
-        "item": "lotr:tile.pillar",
-        "meta": 1
-      },
-      "output": {
-        "item": "lotr:tile.pillar",
-        "meta": 2
-      },
-      "xp": 0.1
-    },
-    {
-      "input": {
-        "item": "lotr:item.zebraRaw",
-        "meta": 32767
-      },
-      "output": {
-        "item": "lotr:item.zebraCooked",
-        "meta": 0
-      },
-      "xp": 0.35
-    },
-    {
-      "input": {
-        "item": "lotr:tile.brick5",
-        "meta": 11
-      },
-      "output": {
-        "item": "lotr:tile.brick5",
-        "meta": 14
-      },
-      "xp": 0.1
-    },
-    {
-      "input": {
-        "item": "lotr:item.camelRaw",
-        "meta": 32767
-      },
-      "output": {
-        "item": "lotr:item.camelCooked",
-        "meta": 0
-      },
-      "xp": 0.35
-    },
-    {
-      "input": {
-        "item": "lotr:tile.pillar",
-        "meta": 12
-      },
-      "output": {
-        "item": "lotr:tile.pillar",
-        "meta": 13
-      },
-      "xp": 0.1
-    },
-    {
-      "input": {
-        "item": "lotr:tile.wood2",
-        "meta": 32767
-      },
-      "output": {
-        "item": "minecraft:coal",
-        "meta": 1
-      },
-      "xp": 0.15
-    },
-    {
-      "input": {
-        "item": "lotr:item.chestnut",
-        "meta": 32767
-      },
-      "output": {
-        "item": "lotr:item.chestnutRoast",
-        "meta": 0
-      },
-      "xp": 0.3
+      "xp": 0.8
     },
     {
       "input": {
@@ -81088,34 +81680,89 @@
     },
     {
       "input": {
-        "item": "lotr:tile.pillar",
-        "meta": 10
+        "item": "lotr:tile.brick",
+        "meta": 11
       },
       "output": {
-        "item": "lotr:tile.pillar",
-        "meta": 11
+        "item": "lotr:tile.brick",
+        "meta": 13
       },
       "xp": 0.1
     },
     {
       "input": {
-        "item": "lotr:tile.wood7",
+        "item": "lotr:tile.pillar",
+        "meta": 0
+      },
+      "output": {
+        "item": "lotr:tile.pillar2",
+        "meta": 0
+      },
+      "xp": 0.1
+    },
+    {
+      "input": {
+        "item": "lotr:tile.oreTin",
         "meta": 32767
       },
       "output": {
-        "item": "minecraft:coal",
-        "meta": 1
+        "item": "lotr:item.tin",
+        "meta": 0
       },
-      "xp": 0.15
+      "xp": 0.35
     },
     {
       "input": {
         "item": "lotr:tile.brick",
-        "meta": 1
+        "meta": 0
       },
       "output": {
         "item": "lotr:tile.brick",
-        "meta": 3
+        "meta": 7
+      },
+      "xp": 0.1
+    },
+    {
+      "input": {
+        "item": "lotr:tile.brick5",
+        "meta": 1
+      },
+      "output": {
+        "item": "lotr:tile.brick6",
+        "meta": 4
+      },
+      "xp": 0.1
+    },
+    {
+      "input": {
+        "item": "lotr:item.deerRaw",
+        "meta": 32767
+      },
+      "output": {
+        "item": "lotr:item.deerCooked",
+        "meta": 0
+      },
+      "xp": 0.35
+    },
+    {
+      "input": {
+        "item": "lotr:tile.oreGlowstone",
+        "meta": 32767
+      },
+      "output": {
+        "item": "minecraft:glowstone_dust",
+        "meta": 0
+      },
+      "xp": 1.0
+    },
+    {
+      "input": {
+        "item": "lotr:tile.brick2",
+        "meta": 0
+      },
+      "output": {
+        "item": "lotr:tile.brick2",
+        "meta": 1
       },
       "xp": 0.1
     },
@@ -81132,69 +81779,14 @@
     },
     {
       "input": {
-        "item": "lotr:tile.oreGlowstone",
-        "meta": 32767
+        "item": "lotr:tile.brick5",
+        "meta": 11
       },
       "output": {
-        "item": "minecraft:glowstone_dust",
-        "meta": 0
+        "item": "lotr:tile.brick5",
+        "meta": 14
       },
-      "xp": 1.0
-    },
-    {
-      "input": {
-        "item": "lotr:item.pipeweedLeaf",
-        "meta": 32767
-      },
-      "output": {
-        "item": "lotr:item.pipeweed",
-        "meta": 0
-      },
-      "xp": 0.25
-    },
-    {
-      "input": {
-        "item": "lotr:item.turnip",
-        "meta": 32767
-      },
-      "output": {
-        "item": "lotr:item.turnipCooked",
-        "meta": 0
-      },
-      "xp": 0.3
-    },
-    {
-      "input": {
-        "item": "lotr:item.yam",
-        "meta": 32767
-      },
-      "output": {
-        "item": "lotr:item.yamRoast",
-        "meta": 0
-      },
-      "xp": 0.3
-    },
-    {
-      "input": {
-        "item": "lotr:tile.oreTin",
-        "meta": 32767
-      },
-      "output": {
-        "item": "lotr:item.tin",
-        "meta": 0
-      },
-      "xp": 0.35
-    },
-    {
-      "input": {
-        "item": "lotr:item.ceramicPlate",
-        "meta": 32767
-      },
-      "output": {
-        "item": "lotr:item.plate",
-        "meta": 0
-      },
-      "xp": 0.3
+      "xp": 0.1
     },
     {
       "input": {
@@ -81209,7 +81801,7 @@
     },
     {
       "input": {
-        "item": "lotr:tile.rottenLog",
+        "item": "lotr:tile.wood5",
         "meta": 32767
       },
       "output": {
@@ -81220,168 +81812,14 @@
     },
     {
       "input": {
-        "item": "lotr:tile.wood",
+        "item": "lotr:item.yam",
         "meta": 32767
       },
       "output": {
-        "item": "minecraft:coal",
-        "meta": 1
-      },
-      "xp": 0.15
-    },
-    {
-      "input": {
-        "item": "lotr:tile.brick2",
-        "meta": 8
-      },
-      "output": {
-        "item": "lotr:tile.brick2",
-        "meta": 9
-      },
-      "xp": 0.1
-    },
-    {
-      "input": {
-        "item": "lotr:tile.brick3",
-        "meta": 5
-      },
-      "output": {
-        "item": "lotr:tile.brick3",
-        "meta": 7
-      },
-      "xp": 0.1
-    },
-    {
-      "input": {
-        "item": "minecraft:stone",
-        "meta": 32767
-      },
-      "output": {
-        "item": "lotr:tile.scorchedStone",
-        "meta": 0
-      },
-      "xp": 0.1
-    },
-    {
-      "input": {
-        "item": "lotr:tile.oreSalt",
-        "meta": 32767
-      },
-      "output": {
-        "item": "lotr:item.salt",
-        "meta": 0
-      },
-      "xp": 1.0
-    },
-    {
-      "input": {
-        "item": "lotr:item.rabbitRaw",
-        "meta": 32767
-      },
-      "output": {
-        "item": "lotr:item.rabbitCooked",
-        "meta": 0
-      },
-      "xp": 0.35
-    },
-    {
-      "input": {
-        "item": "lotr:tile.wood9",
-        "meta": 32767
-      },
-      "output": {
-        "item": "minecraft:coal",
-        "meta": 1
-      },
-      "xp": 0.15
-    },
-    {
-      "input": {
-        "item": "lotr:tile.brick2",
-        "meta": 3
-      },
-      "output": {
-        "item": "lotr:tile.brick2",
-        "meta": 5
-      },
-      "xp": 0.1
-    },
-    {
-      "input": {
-        "item": "lotr:tile.oreCopper",
-        "meta": 32767
-      },
-      "output": {
-        "item": "lotr:item.copper",
-        "meta": 0
-      },
-      "xp": 0.35
-    },
-    {
-      "input": {
-        "item": "lotr:item.deerRaw",
-        "meta": 32767
-      },
-      "output": {
-        "item": "lotr:item.deerCooked",
-        "meta": 0
-      },
-      "xp": 0.35
-    },
-    {
-      "input": {
-        "item": "lotr:item.grapeWhite",
-        "meta": 32767
-      },
-      "output": {
-        "item": "lotr:item.raisins",
+        "item": "lotr:item.yamRoast",
         "meta": 0
       },
       "xp": 0.3
-    },
-    {
-      "input": {
-        "item": "lotr:tile.oreSilver",
-        "meta": 32767
-      },
-      "output": {
-        "item": "lotr:item.silver",
-        "meta": 0
-      },
-      "xp": 0.8
-    },
-    {
-      "input": {
-        "item": "lotr:tile.redClay",
-        "meta": 32767
-      },
-      "output": {
-        "item": "minecraft:hardened_clay",
-        "meta": 0
-      },
-      "xp": 0.35
-    },
-    {
-      "input": {
-        "item": "lotr:tile.oreNaurite",
-        "meta": 32767
-      },
-      "output": {
-        "item": "lotr:item.naurite",
-        "meta": 0
-      },
-      "xp": 1.0
-    },
-    {
-      "input": {
-        "item": "lotr:tile.brick3",
-        "meta": 2
-      },
-      "output": {
-        "item": "lotr:tile.brick3",
-        "meta": 4
-      },
-      "xp": 0.1
     },
     {
       "input": {
@@ -81393,6 +81831,28 @@
         "meta": 1
       },
       "xp": 0.15
+    },
+    {
+      "input": {
+        "item": "lotr:item.pipeweedLeaf",
+        "meta": 32767
+      },
+      "output": {
+        "item": "lotr:item.pipeweed",
+        "meta": 0
+      },
+      "xp": 0.25
+    },
+    {
+      "input": {
+        "item": "lotr:tile.oreSulfur",
+        "meta": 32767
+      },
+      "output": {
+        "item": "lotr:item.sulfur",
+        "meta": 0
+      },
+      "xp": 1.0
     },
     {
       "input": {
@@ -81418,6 +81878,116 @@
     },
     {
       "input": {
+        "item": "lotr:tile.wood9",
+        "meta": 32767
+      },
+      "output": {
+        "item": "minecraft:coal",
+        "meta": 1
+      },
+      "xp": 0.15
+    },
+    {
+      "input": {
+        "item": "lotr:tile.wood6",
+        "meta": 32767
+      },
+      "output": {
+        "item": "minecraft:coal",
+        "meta": 1
+      },
+      "xp": 0.15
+    },
+    {
+      "input": {
+        "item": "lotr:tile.whiteSand",
+        "meta": 32767
+      },
+      "output": {
+        "item": "minecraft:glass",
+        "meta": 0
+      },
+      "xp": 0.1
+    },
+    {
+      "input": {
+        "item": "lotr:item.grapeWhite",
+        "meta": 32767
+      },
+      "output": {
+        "item": "lotr:item.raisins",
+        "meta": 0
+      },
+      "xp": 0.3
+    },
+    {
+      "input": {
+        "item": "lotr:item.rabbitRaw",
+        "meta": 32767
+      },
+      "output": {
+        "item": "lotr:item.rabbitCooked",
+        "meta": 0
+      },
+      "xp": 0.35
+    },
+    {
+      "input": {
+        "item": "lotr:item.zebraRaw",
+        "meta": 32767
+      },
+      "output": {
+        "item": "lotr:item.zebraCooked",
+        "meta": 0
+      },
+      "xp": 0.35
+    },
+    {
+      "input": {
+        "item": "lotr:tile.brick3",
+        "meta": 5
+      },
+      "output": {
+        "item": "lotr:tile.brick3",
+        "meta": 7
+      },
+      "xp": 0.1
+    },
+    {
+      "input": {
+        "item": "lotr:item.rhinoRaw",
+        "meta": 32767
+      },
+      "output": {
+        "item": "lotr:item.rhinoCooked",
+        "meta": 0
+      },
+      "xp": 0.35
+    },
+    {
+      "input": {
+        "item": "lotr:tile.brick2",
+        "meta": 8
+      },
+      "output": {
+        "item": "lotr:tile.brick2",
+        "meta": 9
+      },
+      "xp": 0.1
+    },
+    {
+      "input": {
+        "item": "lotr:tile.oreQuendite",
+        "meta": 32767
+      },
+      "output": {
+        "item": "lotr:item.quenditeCrystal",
+        "meta": 0
+      },
+      "xp": 1.0
+    },
+    {
+      "input": {
         "item": "lotr:item.redClayBall",
         "meta": 32767
       },
@@ -81426,6 +81996,61 @@
         "meta": 0
       },
       "xp": 0.3
+    },
+    {
+      "input": {
+        "item": "lotr:tile.wood",
+        "meta": 32767
+      },
+      "output": {
+        "item": "minecraft:coal",
+        "meta": 1
+      },
+      "xp": 0.15
+    },
+    {
+      "input": {
+        "item": "lotr:tile.rock",
+        "meta": 32767
+      },
+      "output": {
+        "item": "lotr:tile.scorchedStone",
+        "meta": 0
+      },
+      "xp": 0.1
+    },
+    {
+      "input": {
+        "item": "lotr:tile.fruitWood",
+        "meta": 32767
+      },
+      "output": {
+        "item": "minecraft:coal",
+        "meta": 1
+      },
+      "xp": 0.15
+    },
+    {
+      "input": {
+        "item": "lotr:item.camelRaw",
+        "meta": 32767
+      },
+      "output": {
+        "item": "lotr:item.camelCooked",
+        "meta": 0
+      },
+      "xp": 0.35
+    },
+    {
+      "input": {
+        "item": "lotr:tile.wood7",
+        "meta": 32767
+      },
+      "output": {
+        "item": "minecraft:coal",
+        "meta": 1
+      },
+      "xp": 0.15
     },
     {
       "input": {
@@ -81440,58 +82065,2620 @@
     },
     {
       "input": {
-        "item": "lotr:tile.brick5",
-        "meta": 8
-      },
-      "output": {
-        "item": "lotr:tile.brick5",
-        "meta": 10
-      },
-      "xp": 0.1
-    },
-    {
-      "input": {
-        "item": "lotr:tile.brick3",
-        "meta": 13
-      },
-      "output": {
-        "item": "lotr:tile.brick3",
-        "meta": 14
-      },
-      "xp": 0.1
-    },
-    {
-      "input": {
-        "item": "lotr:tile.pillar2",
-        "meta": 13
-      },
-      "output": {
-        "item": "lotr:tile.pillar2",
-        "meta": 14
-      },
-      "xp": 0.1
-    },
-    {
-      "input": {
-        "item": "lotr:tile.wood5",
+        "item": "minecraft:stone",
         "meta": 32767
       },
       "output": {
-        "item": "minecraft:coal",
-        "meta": 1
+        "item": "lotr:tile.scorchedStone",
+        "meta": 0
       },
-      "xp": 0.15
+      "xp": 0.1
     },
     {
       "input": {
-        "item": "lotr:tile.brick",
-        "meta": 6
+        "item": "lotr:tile.brick2",
+        "meta": 3
       },
       "output": {
-        "item": "lotr:tile.brick4",
+        "item": "lotr:tile.brick2",
         "meta": 5
       },
       "xp": 0.1
     }
-  ]
+  ],
+  "machines": {
+    "brewing": {
+      "barrelCapacity": 16,
+      "recipes": [
+        {
+          "class": "net.minecraftforge.oredict.ShapelessOreRecipe",
+          "output": {
+            "item": "lotr:item.mugAle",
+            "meta": 0,
+            "count": 16
+          },
+          "type": "shapeless",
+          "input": [
+            {
+              "item": "minecraft:wheat",
+              "meta": 0
+            },
+            {
+              "item": "minecraft:wheat",
+              "meta": 0
+            },
+            {
+              "item": "minecraft:wheat",
+              "meta": 0
+            },
+            {
+              "item": "minecraft:wheat",
+              "meta": 0
+            },
+            {
+              "item": "minecraft:wheat",
+              "meta": 0
+            },
+            {
+              "item": "minecraft:wheat",
+              "meta": 0
+            }
+          ]
+        },
+        {
+          "class": "net.minecraftforge.oredict.ShapelessOreRecipe",
+          "output": {
+            "item": "lotr:item.mugMiruvor",
+            "meta": 0,
+            "count": 16
+          },
+          "type": "shapeless",
+          "input": [
+            {
+              "item": "lotr:item.mallornNut",
+              "meta": 0
+            },
+            {
+              "item": "lotr:item.mallornNut",
+              "meta": 0
+            },
+            {
+              "item": "lotr:item.mallornNut",
+              "meta": 0
+            },
+            {
+              "item": "lotr:tile.elanor",
+              "meta": 0
+            },
+            {
+              "item": "lotr:tile.niphredil",
+              "meta": 0
+            },
+            {
+              "item": "minecraft:sugar",
+              "meta": 0
+            }
+          ]
+        },
+        {
+          "class": "net.minecraftforge.oredict.ShapelessOreRecipe",
+          "output": {
+            "item": "lotr:item.mugOrcDraught",
+            "meta": 0,
+            "count": 16
+          },
+          "type": "shapeless",
+          "input": [
+            {
+              "item": "lotr:tile.morgulShroom",
+              "meta": 0
+            },
+            {
+              "item": "lotr:tile.morgulShroom",
+              "meta": 0
+            },
+            {
+              "item": "lotr:tile.morgulShroom",
+              "meta": 0
+            },
+            {
+              "ore": "bone"
+            },
+            {
+              "ore": "bone"
+            },
+            {
+              "ore": "bone"
+            }
+          ]
+        },
+        {
+          "class": "net.minecraftforge.oredict.ShapelessOreRecipe",
+          "output": {
+            "item": "lotr:item.mugMead",
+            "meta": 0,
+            "count": 16
+          },
+          "type": "shapeless",
+          "input": [
+            {
+              "item": "minecraft:sugar",
+              "meta": 0
+            },
+            {
+              "item": "minecraft:sugar",
+              "meta": 0
+            },
+            {
+              "item": "minecraft:sugar",
+              "meta": 0
+            },
+            {
+              "item": "minecraft:sugar",
+              "meta": 0
+            },
+            {
+              "item": "minecraft:sugar",
+              "meta": 0
+            },
+            {
+              "item": "minecraft:sugar",
+              "meta": 0
+            }
+          ]
+        },
+        {
+          "class": "net.minecraftforge.oredict.ShapelessOreRecipe",
+          "output": {
+            "item": "lotr:item.mugCider",
+            "meta": 0,
+            "count": 16
+          },
+          "type": "shapeless",
+          "input": [
+            {
+              "ore": "apple"
+            },
+            {
+              "ore": "apple"
+            },
+            {
+              "ore": "apple"
+            },
+            {
+              "ore": "apple"
+            },
+            {
+              "ore": "apple"
+            },
+            {
+              "ore": "apple"
+            }
+          ]
+        },
+        {
+          "class": "net.minecraftforge.oredict.ShapelessOreRecipe",
+          "output": {
+            "item": "lotr:item.mugPerry",
+            "meta": 0,
+            "count": 16
+          },
+          "type": "shapeless",
+          "input": [
+            {
+              "item": "lotr:item.pear",
+              "meta": 0
+            },
+            {
+              "item": "lotr:item.pear",
+              "meta": 0
+            },
+            {
+              "item": "lotr:item.pear",
+              "meta": 0
+            },
+            {
+              "item": "lotr:item.pear",
+              "meta": 0
+            },
+            {
+              "item": "lotr:item.pear",
+              "meta": 0
+            },
+            {
+              "item": "lotr:item.pear",
+              "meta": 0
+            }
+          ]
+        },
+        {
+          "class": "net.minecraftforge.oredict.ShapelessOreRecipe",
+          "output": {
+            "item": "lotr:item.mugCherryLiqueur",
+            "meta": 0,
+            "count": 16
+          },
+          "type": "shapeless",
+          "input": [
+            {
+              "item": "lotr:item.cherry",
+              "meta": 0
+            },
+            {
+              "item": "lotr:item.cherry",
+              "meta": 0
+            },
+            {
+              "item": "lotr:item.cherry",
+              "meta": 0
+            },
+            {
+              "item": "lotr:item.cherry",
+              "meta": 0
+            },
+            {
+              "item": "lotr:item.cherry",
+              "meta": 0
+            },
+            {
+              "item": "lotr:item.cherry",
+              "meta": 0
+            }
+          ]
+        },
+        {
+          "class": "net.minecraftforge.oredict.ShapelessOreRecipe",
+          "output": {
+            "item": "lotr:item.mugRum",
+            "meta": 0,
+            "count": 16
+          },
+          "type": "shapeless",
+          "input": [
+            {
+              "item": "minecraft:reeds",
+              "meta": 0
+            },
+            {
+              "item": "minecraft:reeds",
+              "meta": 0
+            },
+            {
+              "item": "minecraft:reeds",
+              "meta": 0
+            },
+            {
+              "item": "minecraft:reeds",
+              "meta": 0
+            },
+            {
+              "item": "minecraft:reeds",
+              "meta": 0
+            },
+            {
+              "item": "minecraft:reeds",
+              "meta": 0
+            }
+          ]
+        },
+        {
+          "class": "net.minecraftforge.oredict.ShapelessOreRecipe",
+          "output": {
+            "item": "lotr:item.mugAthelasBrew",
+            "meta": 0,
+            "count": 16
+          },
+          "type": "shapeless",
+          "input": [
+            {
+              "item": "lotr:tile.athelas",
+              "meta": 0
+            },
+            {
+              "item": "lotr:tile.athelas",
+              "meta": 0
+            },
+            {
+              "item": "lotr:tile.athelas",
+              "meta": 0
+            },
+            {
+              "item": "lotr:tile.athelas",
+              "meta": 0
+            },
+            {
+              "item": "lotr:tile.athelas",
+              "meta": 0
+            },
+            {
+              "item": "lotr:tile.athelas",
+              "meta": 0
+            }
+          ]
+        },
+        {
+          "class": "net.minecraftforge.oredict.ShapelessOreRecipe",
+          "output": {
+            "item": "lotr:item.mugDwarvenTonic",
+            "meta": 0,
+            "count": 16
+          },
+          "type": "shapeless",
+          "input": [
+            {
+              "item": "minecraft:wheat",
+              "meta": 0
+            },
+            {
+              "item": "minecraft:wheat",
+              "meta": 0
+            },
+            {
+              "item": "minecraft:wheat",
+              "meta": 0
+            },
+            {
+              "item": "lotr:tile.dwarfHerb",
+              "meta": 0
+            },
+            {
+              "item": "lotr:tile.dwarfHerb",
+              "meta": 0
+            },
+            {
+              "item": "lotr:item.mithrilNugget",
+              "meta": 0
+            }
+          ]
+        },
+        {
+          "class": "net.minecraftforge.oredict.ShapelessOreRecipe",
+          "output": {
+            "item": "lotr:item.mugDwarvenAle",
+            "meta": 0,
+            "count": 16
+          },
+          "type": "shapeless",
+          "input": [
+            {
+              "item": "minecraft:wheat",
+              "meta": 0
+            },
+            {
+              "item": "minecraft:wheat",
+              "meta": 0
+            },
+            {
+              "item": "minecraft:wheat",
+              "meta": 0
+            },
+            {
+              "item": "minecraft:wheat",
+              "meta": 0
+            },
+            {
+              "item": "lotr:tile.dwarfHerb",
+              "meta": 0
+            },
+            {
+              "item": "lotr:tile.dwarfHerb",
+              "meta": 0
+            }
+          ]
+        },
+        {
+          "class": "net.minecraftforge.oredict.ShapelessOreRecipe",
+          "output": {
+            "item": "lotr:item.mugVodka",
+            "meta": 0,
+            "count": 16
+          },
+          "type": "shapeless",
+          "input": [
+            {
+              "item": "minecraft:potato",
+              "meta": 0
+            },
+            {
+              "item": "minecraft:potato",
+              "meta": 0
+            },
+            {
+              "item": "minecraft:potato",
+              "meta": 0
+            },
+            {
+              "item": "minecraft:potato",
+              "meta": 0
+            },
+            {
+              "item": "minecraft:potato",
+              "meta": 0
+            },
+            {
+              "item": "minecraft:potato",
+              "meta": 0
+            }
+          ]
+        },
+        {
+          "class": "net.minecraftforge.oredict.ShapelessOreRecipe",
+          "output": {
+            "item": "lotr:item.mugMapleBeer",
+            "meta": 0,
+            "count": 16
+          },
+          "type": "shapeless",
+          "input": [
+            {
+              "item": "minecraft:wheat",
+              "meta": 0
+            },
+            {
+              "item": "minecraft:wheat",
+              "meta": 0
+            },
+            {
+              "item": "minecraft:wheat",
+              "meta": 0
+            },
+            {
+              "item": "minecraft:wheat",
+              "meta": 0
+            },
+            {
+              "item": "lotr:item.mapleSyrup",
+              "meta": 0
+            },
+            {
+              "item": "lotr:item.mapleSyrup",
+              "meta": 0
+            }
+          ]
+        },
+        {
+          "class": "net.minecraftforge.oredict.ShapelessOreRecipe",
+          "output": {
+            "item": "lotr:item.mugAraq",
+            "meta": 0,
+            "count": 16
+          },
+          "type": "shapeless",
+          "input": [
+            {
+              "item": "lotr:item.date",
+              "meta": 0
+            },
+            {
+              "item": "lotr:item.date",
+              "meta": 0
+            },
+            {
+              "item": "lotr:item.date",
+              "meta": 0
+            },
+            {
+              "item": "lotr:item.date",
+              "meta": 0
+            },
+            {
+              "item": "lotr:item.date",
+              "meta": 0
+            },
+            {
+              "item": "lotr:item.date",
+              "meta": 0
+            }
+          ]
+        },
+        {
+          "class": "net.minecraftforge.oredict.ShapelessOreRecipe",
+          "output": {
+            "item": "lotr:item.mugCarrotWine",
+            "meta": 0,
+            "count": 16
+          },
+          "type": "shapeless",
+          "input": [
+            {
+              "item": "minecraft:carrot",
+              "meta": 0
+            },
+            {
+              "item": "minecraft:carrot",
+              "meta": 0
+            },
+            {
+              "item": "minecraft:carrot",
+              "meta": 0
+            },
+            {
+              "item": "minecraft:carrot",
+              "meta": 0
+            },
+            {
+              "item": "minecraft:carrot",
+              "meta": 0
+            },
+            {
+              "item": "minecraft:carrot",
+              "meta": 0
+            }
+          ]
+        },
+        {
+          "class": "net.minecraftforge.oredict.ShapelessOreRecipe",
+          "output": {
+            "item": "lotr:item.mugBananaBeer",
+            "meta": 0,
+            "count": 16
+          },
+          "type": "shapeless",
+          "input": [
+            {
+              "item": "lotr:item.banana",
+              "meta": 0
+            },
+            {
+              "item": "lotr:item.banana",
+              "meta": 0
+            },
+            {
+              "item": "lotr:item.banana",
+              "meta": 0
+            },
+            {
+              "item": "lotr:item.banana",
+              "meta": 0
+            },
+            {
+              "item": "lotr:item.banana",
+              "meta": 0
+            },
+            {
+              "item": "lotr:item.banana",
+              "meta": 0
+            }
+          ]
+        },
+        {
+          "class": "net.minecraftforge.oredict.ShapelessOreRecipe",
+          "output": {
+            "item": "lotr:item.mugMelonLiqueur",
+            "meta": 0,
+            "count": 16
+          },
+          "type": "shapeless",
+          "input": [
+            {
+              "item": "minecraft:melon",
+              "meta": 0
+            },
+            {
+              "item": "minecraft:melon",
+              "meta": 0
+            },
+            {
+              "item": "minecraft:melon",
+              "meta": 0
+            },
+            {
+              "item": "minecraft:melon",
+              "meta": 0
+            },
+            {
+              "item": "minecraft:melon",
+              "meta": 0
+            },
+            {
+              "item": "minecraft:melon",
+              "meta": 0
+            }
+          ]
+        },
+        {
+          "class": "net.minecraftforge.oredict.ShapelessOreRecipe",
+          "output": {
+            "item": "lotr:item.mugCactusLiqueur",
+            "meta": 0,
+            "count": 16
+          },
+          "type": "shapeless",
+          "input": [
+            {
+              "item": "minecraft:cactus",
+              "meta": 0
+            },
+            {
+              "item": "minecraft:cactus",
+              "meta": 0
+            },
+            {
+              "item": "minecraft:cactus",
+              "meta": 0
+            },
+            {
+              "item": "minecraft:cactus",
+              "meta": 0
+            },
+            {
+              "item": "minecraft:cactus",
+              "meta": 0
+            },
+            {
+              "item": "minecraft:cactus",
+              "meta": 0
+            }
+          ]
+        },
+        {
+          "class": "net.minecraftforge.oredict.ShapelessOreRecipe",
+          "output": {
+            "item": "lotr:item.mugTorogDraught",
+            "meta": 0,
+            "count": 16
+          },
+          "type": "shapeless",
+          "input": [
+            {
+              "item": "minecraft:reeds",
+              "meta": 0
+            },
+            {
+              "item": "minecraft:reeds",
+              "meta": 0
+            },
+            {
+              "item": "minecraft:rotten_flesh",
+              "meta": 0
+            },
+            {
+              "item": "minecraft:rotten_flesh",
+              "meta": 0
+            },
+            {
+              "item": "minecraft:dirt",
+              "meta": 0
+            },
+            {
+              "item": "lotr:item.rhinoHorn",
+              "meta": 0
+            }
+          ]
+        },
+        {
+          "class": "net.minecraftforge.oredict.ShapelessOreRecipe",
+          "output": {
+            "item": "lotr:item.mugLemonLiqueur",
+            "meta": 0,
+            "count": 16
+          },
+          "type": "shapeless",
+          "input": [
+            {
+              "item": "lotr:item.lemon",
+              "meta": 0
+            },
+            {
+              "item": "lotr:item.lemon",
+              "meta": 0
+            },
+            {
+              "item": "lotr:item.lemon",
+              "meta": 0
+            },
+            {
+              "item": "lotr:item.lemon",
+              "meta": 0
+            },
+            {
+              "item": "lotr:item.lemon",
+              "meta": 0
+            },
+            {
+              "item": "lotr:item.lemon",
+              "meta": 0
+            }
+          ]
+        },
+        {
+          "class": "net.minecraftforge.oredict.ShapelessOreRecipe",
+          "output": {
+            "item": "lotr:item.mugLimeLiqueur",
+            "meta": 0,
+            "count": 16
+          },
+          "type": "shapeless",
+          "input": [
+            {
+              "item": "lotr:item.lime",
+              "meta": 0
+            },
+            {
+              "item": "lotr:item.lime",
+              "meta": 0
+            },
+            {
+              "item": "lotr:item.lime",
+              "meta": 0
+            },
+            {
+              "item": "lotr:item.lime",
+              "meta": 0
+            },
+            {
+              "item": "lotr:item.lime",
+              "meta": 0
+            },
+            {
+              "item": "lotr:item.lime",
+              "meta": 0
+            }
+          ]
+        },
+        {
+          "class": "net.minecraftforge.oredict.ShapelessOreRecipe",
+          "output": {
+            "item": "lotr:item.mugCornLiquor",
+            "meta": 0,
+            "count": 16
+          },
+          "type": "shapeless",
+          "input": [
+            {
+              "item": "lotr:item.corn",
+              "meta": 0
+            },
+            {
+              "item": "lotr:item.corn",
+              "meta": 0
+            },
+            {
+              "item": "lotr:item.corn",
+              "meta": 0
+            },
+            {
+              "item": "lotr:item.corn",
+              "meta": 0
+            },
+            {
+              "item": "lotr:item.corn",
+              "meta": 0
+            },
+            {
+              "item": "lotr:item.corn",
+              "meta": 0
+            }
+          ]
+        },
+        {
+          "class": "net.minecraftforge.oredict.ShapelessOreRecipe",
+          "output": {
+            "item": "lotr:item.mugRedWine",
+            "meta": 0,
+            "count": 16
+          },
+          "type": "shapeless",
+          "input": [
+            {
+              "item": "lotr:item.grapeRed",
+              "meta": 0
+            },
+            {
+              "item": "lotr:item.grapeRed",
+              "meta": 0
+            },
+            {
+              "item": "lotr:item.grapeRed",
+              "meta": 0
+            },
+            {
+              "item": "lotr:item.grapeRed",
+              "meta": 0
+            },
+            {
+              "item": "lotr:item.grapeRed",
+              "meta": 0
+            },
+            {
+              "item": "lotr:item.grapeRed",
+              "meta": 0
+            }
+          ]
+        },
+        {
+          "class": "net.minecraftforge.oredict.ShapelessOreRecipe",
+          "output": {
+            "item": "lotr:item.mugWhiteWine",
+            "meta": 0,
+            "count": 16
+          },
+          "type": "shapeless",
+          "input": [
+            {
+              "item": "lotr:item.grapeWhite",
+              "meta": 0
+            },
+            {
+              "item": "lotr:item.grapeWhite",
+              "meta": 0
+            },
+            {
+              "item": "lotr:item.grapeWhite",
+              "meta": 0
+            },
+            {
+              "item": "lotr:item.grapeWhite",
+              "meta": 0
+            },
+            {
+              "item": "lotr:item.grapeWhite",
+              "meta": 0
+            },
+            {
+              "item": "lotr:item.grapeWhite",
+              "meta": 0
+            }
+          ]
+        },
+        {
+          "class": "net.minecraftforge.oredict.ShapelessOreRecipe",
+          "output": {
+            "item": "lotr:item.mugMorgulDraught",
+            "meta": 0,
+            "count": 16
+          },
+          "type": "shapeless",
+          "input": [
+            {
+              "item": "lotr:tile.morgulFlower",
+              "meta": 0
+            },
+            {
+              "item": "lotr:tile.morgulFlower",
+              "meta": 0
+            },
+            {
+              "item": "lotr:tile.morgulFlower",
+              "meta": 0
+            },
+            {
+              "ore": "bone"
+            },
+            {
+              "ore": "bone"
+            },
+            {
+              "ore": "bone"
+            }
+          ]
+        },
+        {
+          "class": "net.minecraftforge.oredict.ShapelessOreRecipe",
+          "output": {
+            "item": "lotr:item.mugPlumKvass",
+            "meta": 0,
+            "count": 16
+          },
+          "type": "shapeless",
+          "input": [
+            {
+              "item": "minecraft:wheat",
+              "meta": 0
+            },
+            {
+              "item": "minecraft:wheat",
+              "meta": 0
+            },
+            {
+              "item": "minecraft:wheat",
+              "meta": 0
+            },
+            {
+              "item": "lotr:item.plum",
+              "meta": 0
+            },
+            {
+              "item": "lotr:item.plum",
+              "meta": 0
+            },
+            {
+              "item": "lotr:item.plum",
+              "meta": 0
+            }
+          ]
+        },
+        {
+          "class": "net.minecraftforge.oredict.ShapelessOreRecipe",
+          "output": {
+            "item": "lotr:item.mugTermiteTequila",
+            "meta": 0,
+            "count": 16
+          },
+          "type": "shapeless",
+          "input": [
+            {
+              "item": "minecraft:cactus",
+              "meta": 0
+            },
+            {
+              "item": "minecraft:cactus",
+              "meta": 0
+            },
+            {
+              "item": "minecraft:cactus",
+              "meta": 0
+            },
+            {
+              "item": "minecraft:cactus",
+              "meta": 0
+            },
+            {
+              "item": "minecraft:cactus",
+              "meta": 0
+            },
+            {
+              "item": "lotr:item.termite",
+              "meta": 0
+            }
+          ]
+        },
+        {
+          "class": "net.minecraftforge.oredict.ShapelessOreRecipe",
+          "output": {
+            "item": "lotr:item.mugSourMilk",
+            "meta": 0,
+            "count": 16
+          },
+          "type": "shapeless",
+          "input": [
+            {
+              "item": "minecraft:milk_bucket",
+              "meta": 0
+            },
+            {
+              "item": "minecraft:milk_bucket",
+              "meta": 0
+            },
+            {
+              "item": "minecraft:milk_bucket",
+              "meta": 0
+            },
+            {
+              "item": "minecraft:milk_bucket",
+              "meta": 0
+            },
+            {
+              "item": "minecraft:milk_bucket",
+              "meta": 0
+            },
+            {
+              "item": "minecraft:milk_bucket",
+              "meta": 0
+            }
+          ]
+        },
+        {
+          "class": "net.minecraftforge.oredict.ShapelessOreRecipe",
+          "output": {
+            "item": "lotr:item.mugPomegranateWine",
+            "meta": 0,
+            "count": 16
+          },
+          "type": "shapeless",
+          "input": [
+            {
+              "item": "lotr:item.pomegranate",
+              "meta": 0
+            },
+            {
+              "item": "lotr:item.pomegranate",
+              "meta": 0
+            },
+            {
+              "item": "lotr:item.pomegranate",
+              "meta": 0
+            },
+            {
+              "item": "lotr:item.pomegranate",
+              "meta": 0
+            },
+            {
+              "item": "lotr:item.pomegranate",
+              "meta": 0
+            },
+            {
+              "item": "lotr:item.pomegranate",
+              "meta": 0
+            }
+          ]
+        }
+      ]
+    },
+    "millstone": [
+      {
+        "input": {
+          "item": "lotr:tile.brick3",
+          "meta": 10
+        },
+        "output": {
+          "item": "lotr:tile.brick6",
+          "meta": 13
+        },
+        "chance": 1.0
+      },
+      {
+        "input": {
+          "item": "lotr:tile.brick",
+          "meta": 11
+        },
+        "output": {
+          "item": "lotr:tile.brick",
+          "meta": 13
+        },
+        "chance": 1.0
+      },
+      {
+        "input": {
+          "item": "minecraft:cobblestone",
+          "meta": 32767
+        },
+        "output": {
+          "item": "minecraft:gravel",
+          "meta": 0
+        },
+        "chance": 0.75
+      },
+      {
+        "input": {
+          "item": "lotr:tile.pillar",
+          "meta": 0
+        },
+        "output": {
+          "item": "lotr:tile.pillar2",
+          "meta": 0
+        },
+        "chance": 1.0
+      },
+      {
+        "input": {
+          "item": "lotr:tile.brick",
+          "meta": 0
+        },
+        "output": {
+          "item": "lotr:tile.brick",
+          "meta": 7
+        },
+        "chance": 1.0
+      },
+      {
+        "input": {
+          "item": "lotr:tile.brick4",
+          "meta": 0
+        },
+        "output": {
+          "item": "lotr:tile.brick4",
+          "meta": 2
+        },
+        "chance": 1.0
+      },
+      {
+        "input": {
+          "item": "lotr:tile.brick5",
+          "meta": 1
+        },
+        "output": {
+          "item": "lotr:tile.brick6",
+          "meta": 4
+        },
+        "chance": 1.0
+      },
+      {
+        "input": {
+          "item": "lotr:tile.brick",
+          "meta": 6
+        },
+        "output": {
+          "item": "lotr:tile.brick4",
+          "meta": 5
+        },
+        "chance": 1.0
+      },
+      {
+        "input": {
+          "item": "lotr:tile.brick5",
+          "meta": 2
+        },
+        "output": {
+          "item": "lotr:tile.brick5",
+          "meta": 5
+        },
+        "chance": 1.0
+      },
+      {
+        "input": {
+          "item": "lotr:tile.brick2",
+          "meta": 0
+        },
+        "output": {
+          "item": "lotr:tile.brick2",
+          "meta": 1
+        },
+        "chance": 1.0
+      },
+      {
+        "input": {
+          "item": "lotr:tile.brick",
+          "meta": 1
+        },
+        "output": {
+          "item": "lotr:tile.brick",
+          "meta": 3
+        },
+        "chance": 1.0
+      },
+      {
+        "input": {
+          "item": "lotr:tile.pillar",
+          "meta": 12
+        },
+        "output": {
+          "item": "lotr:tile.pillar",
+          "meta": 13
+        },
+        "chance": 1.0
+      },
+      {
+        "input": {
+          "item": "lotr:tile.rock",
+          "meta": 0
+        },
+        "output": {
+          "item": "lotr:tile.mordorGravel",
+          "meta": 0
+        },
+        "chance": 0.75
+      },
+      {
+        "input": {
+          "item": "lotr:tile.obsidianGravel",
+          "meta": 32767
+        },
+        "output": {
+          "item": "lotr:item.obsidianShard",
+          "meta": 0
+        },
+        "chance": 1.0
+      },
+      {
+        "input": {
+          "item": "lotr:tile.brick5",
+          "meta": 11
+        },
+        "output": {
+          "item": "lotr:tile.brick5",
+          "meta": 14
+        },
+        "chance": 1.0
+      },
+      {
+        "input": {
+          "item": "lotr:tile.brick",
+          "meta": 15
+        },
+        "output": {
+          "item": "lotr:tile.brick3",
+          "meta": 11
+        },
+        "chance": 1.0
+      },
+      {
+        "input": {
+          "item": "lotr:tile.pillar",
+          "meta": 10
+        },
+        "output": {
+          "item": "lotr:tile.pillar",
+          "meta": 11
+        },
+        "chance": 1.0
+      },
+      {
+        "input": {
+          "item": "lotr:tile.redSandstone",
+          "meta": 0
+        },
+        "output": {
+          "item": "minecraft:sand",
+          "meta": 1,
+          "count": 2
+        },
+        "chance": 1.0
+      },
+      {
+        "input": {
+          "item": "lotr:tile.brick3",
+          "meta": 2
+        },
+        "output": {
+          "item": "lotr:tile.brick3",
+          "meta": 4
+        },
+        "chance": 1.0
+      },
+      {
+        "input": {
+          "item": "minecraft:stone",
+          "meta": 32767
+        },
+        "output": {
+          "item": "minecraft:cobblestone",
+          "meta": 0
+        },
+        "chance": 1.0
+      },
+      {
+        "input": {
+          "item": "minecraft:gravel",
+          "meta": 32767
+        },
+        "output": {
+          "item": "minecraft:flint",
+          "meta": 0
+        },
+        "chance": 0.25
+      },
+      {
+        "input": {
+          "item": "lotr:tile.brick3",
+          "meta": 13
+        },
+        "output": {
+          "item": "lotr:tile.brick3",
+          "meta": 14
+        },
+        "chance": 1.0
+      },
+      {
+        "input": {
+          "item": "lotr:tile.brick3",
+          "meta": 5
+        },
+        "output": {
+          "item": "lotr:tile.brick3",
+          "meta": 7
+        },
+        "chance": 1.0
+      },
+      {
+        "input": {
+          "item": "lotr:tile.pillar2",
+          "meta": 13
+        },
+        "output": {
+          "item": "lotr:tile.pillar2",
+          "meta": 14
+        },
+        "chance": 1.0
+      },
+      {
+        "input": {
+          "item": "minecraft:brick_block",
+          "meta": 0
+        },
+        "output": {
+          "item": "lotr:tile.redBrick",
+          "meta": 1
+        },
+        "chance": 1.0
+      },
+      {
+        "input": {
+          "item": "lotr:tile.brick2",
+          "meta": 8
+        },
+        "output": {
+          "item": "lotr:tile.brick2",
+          "meta": 9
+        },
+        "chance": 1.0
+      },
+      {
+        "input": {
+          "item": "minecraft:sandstone",
+          "meta": 0
+        },
+        "output": {
+          "item": "minecraft:sand",
+          "meta": 0,
+          "count": 2
+        },
+        "chance": 1.0
+      },
+      {
+        "input": {
+          "item": "lotr:tile.whiteSandstone",
+          "meta": 0
+        },
+        "output": {
+          "item": "lotr:tile.whiteSand",
+          "meta": 0,
+          "count": 2
+        },
+        "chance": 1.0
+      },
+      {
+        "input": {
+          "item": "minecraft:stonebrick",
+          "meta": 0
+        },
+        "output": {
+          "item": "minecraft:stonebrick",
+          "meta": 2
+        },
+        "chance": 1.0
+      },
+      {
+        "input": {
+          "item": "lotr:tile.oreSalt",
+          "meta": 32767
+        },
+        "output": {
+          "item": "lotr:item.salt",
+          "meta": 0
+        },
+        "chance": 1.0
+      },
+      {
+        "input": {
+          "item": "lotr:tile.brick5",
+          "meta": 8
+        },
+        "output": {
+          "item": "lotr:tile.brick5",
+          "meta": 10
+        },
+        "chance": 1.0
+      },
+      {
+        "input": {
+          "item": "lotr:tile.mordorGravel",
+          "meta": 32767
+        },
+        "output": {
+          "item": "minecraft:flint",
+          "meta": 0
+        },
+        "chance": 0.25
+      },
+      {
+        "input": {
+          "item": "lotr:tile.brick2",
+          "meta": 3
+        },
+        "output": {
+          "item": "lotr:tile.brick2",
+          "meta": 5
+        },
+        "chance": 1.0
+      },
+      {
+        "input": {
+          "item": "lotr:tile.pillar",
+          "meta": 1
+        },
+        "output": {
+          "item": "lotr:tile.pillar",
+          "meta": 2
+        },
+        "chance": 1.0
+      },
+      {
+        "input": {
+          "item": "lotr:tile.brick6",
+          "meta": 6
+        },
+        "output": {
+          "item": "lotr:tile.brick6",
+          "meta": 7
+        },
+        "chance": 1.0
+      }
+    ],
+    "ent_jar": [
+      {
+        "input": {
+          "item": "lotr:tile.fangornPlant",
+          "meta": 5
+        },
+        "output": {
+          "item": "lotr:item.entDraught",
+          "meta": 5
+        }
+      },
+      {
+        "input": {
+          "item": "lotr:tile.fangornPlant",
+          "meta": 1
+        },
+        "output": {
+          "item": "lotr:item.entDraught",
+          "meta": 1
+        }
+      },
+      {
+        "input": {
+          "item": "lotr:tile.fangornPlant",
+          "meta": 2
+        },
+        "output": {
+          "item": "lotr:item.entDraught",
+          "meta": 2
+        }
+      },
+      {
+        "input": {
+          "item": "lotr:tile.fangornPlant",
+          "meta": 4
+        },
+        "output": {
+          "item": "lotr:item.entDraught",
+          "meta": 4
+        }
+      },
+      {
+        "input": {
+          "item": "lotr:tile.fangornPlant",
+          "meta": 0
+        },
+        "output": {
+          "item": "lotr:item.entDraught",
+          "meta": 0
+        }
+      },
+      {
+        "input": {
+          "item": "lotr:tile.fangornRiverweed",
+          "meta": 0
+        },
+        "output": {
+          "item": "lotr:item.entDraught",
+          "meta": 6
+        }
+      },
+      {
+        "input": {
+          "item": "lotr:tile.fangornPlant",
+          "meta": 3
+        },
+        "output": {
+          "item": "lotr:item.entDraught",
+          "meta": 3
+        }
+      }
+    ],
+    "forges": {
+      "LOTRTileEntityAlloyForge": {
+        "smelting": [],
+        "alloys": [
+          {
+            "input": {
+              "item": "minecraft:iron_ore",
+              "meta": 0
+            },
+            "alloy": {
+              "item": "minecraft:gold_nugget",
+              "meta": 0
+            },
+            "output": {
+              "item": "lotr:item.gildedIron",
+              "meta": 0
+            }
+          },
+          {
+            "input": {
+              "item": "lotr:tile.oreCopper",
+              "meta": 0
+            },
+            "alloy": {
+              "item": "lotr:tile.oreTin",
+              "meta": 0
+            },
+            "output": {
+              "item": "lotr:item.bronze",
+              "meta": 0,
+              "count": 2
+            }
+          },
+          {
+            "input": {
+              "item": "lotr:tile.oreTin",
+              "meta": 0
+            },
+            "alloy": {
+              "item": "lotr:tile.oreCopper",
+              "meta": 0
+            },
+            "output": {
+              "item": "lotr:item.bronze",
+              "meta": 0,
+              "count": 2
+            }
+          },
+          {
+            "input": {
+              "item": "minecraft:iron_ingot",
+              "meta": 0
+            },
+            "alloy": {
+              "item": "minecraft:gold_nugget",
+              "meta": 0
+            },
+            "output": {
+              "item": "lotr:item.gildedIron",
+              "meta": 0
+            }
+          }
+        ]
+      },
+      "LOTRTileEntityDwarvenForge": {
+        "smelting": [
+          {
+            "input": {
+              "item": "lotr:tile.oreMithril",
+              "meta": 0
+            },
+            "output": {
+              "item": "lotr:item.mithril",
+              "meta": 0
+            }
+          }
+        ],
+        "alloys": [
+          {
+            "input": {
+              "item": "minecraft:iron_ore",
+              "meta": 0
+            },
+            "alloy": {
+              "item": "lotr:tile.rock",
+              "meta": 3
+            },
+            "output": {
+              "item": "lotr:item.blueDwarfSteel",
+              "meta": 0
+            }
+          },
+          {
+            "input": {
+              "item": "minecraft:iron_ore",
+              "meta": 0
+            },
+            "alloy": {
+              "item": "minecraft:coal",
+              "meta": 0
+            },
+            "output": {
+              "item": "lotr:item.dwarfSteel",
+              "meta": 0
+            }
+          },
+          {
+            "input": {
+              "item": "minecraft:iron_ore",
+              "meta": 0
+            },
+            "alloy": {
+              "item": "minecraft:coal",
+              "meta": 1
+            },
+            "output": {
+              "item": "lotr:item.dwarfSteel",
+              "meta": 0
+            }
+          },
+          {
+            "input": {
+              "item": "lotr:tile.oreCopper",
+              "meta": 0
+            },
+            "alloy": {
+              "item": "lotr:tile.oreTin",
+              "meta": 0
+            },
+            "output": {
+              "item": "lotr:item.bronze",
+              "meta": 0,
+              "count": 2
+            }
+          },
+          {
+            "input": {
+              "item": "lotr:tile.oreTin",
+              "meta": 0
+            },
+            "alloy": {
+              "item": "lotr:tile.oreCopper",
+              "meta": 0
+            },
+            "output": {
+              "item": "lotr:item.bronze",
+              "meta": 0,
+              "count": 2
+            }
+          },
+          {
+            "input": {
+              "item": "minecraft:iron_ingot",
+              "meta": 0
+            },
+            "alloy": {
+              "item": "lotr:tile.rock",
+              "meta": 3
+            },
+            "output": {
+              "item": "lotr:item.blueDwarfSteel",
+              "meta": 0
+            }
+          },
+          {
+            "input": {
+              "item": "minecraft:iron_ingot",
+              "meta": 0
+            },
+            "alloy": {
+              "item": "minecraft:coal",
+              "meta": 0
+            },
+            "output": {
+              "item": "lotr:item.dwarfSteel",
+              "meta": 0
+            }
+          },
+          {
+            "input": {
+              "item": "minecraft:iron_ingot",
+              "meta": 0
+            },
+            "alloy": {
+              "item": "minecraft:coal",
+              "meta": 1
+            },
+            "output": {
+              "item": "lotr:item.dwarfSteel",
+              "meta": 0
+            }
+          }
+        ]
+      },
+      "LOTRTileEntityElvenForge": {
+        "smelting": [],
+        "alloys": [
+          {
+            "input": {
+              "item": "minecraft:iron_ore",
+              "meta": 0
+            },
+            "alloy": {
+              "item": "minecraft:coal",
+              "meta": 0
+            },
+            "output": {
+              "item": "lotr:item.elfSteel",
+              "meta": 0
+            }
+          },
+          {
+            "input": {
+              "item": "minecraft:iron_ore",
+              "meta": 0
+            },
+            "alloy": {
+              "item": "minecraft:coal",
+              "meta": 1
+            },
+            "output": {
+              "item": "lotr:item.elfSteel",
+              "meta": 0
+            }
+          },
+          {
+            "input": {
+              "item": "lotr:tile.oreCopper",
+              "meta": 0
+            },
+            "alloy": {
+              "item": "lotr:tile.oreTin",
+              "meta": 0
+            },
+            "output": {
+              "item": "lotr:item.bronze",
+              "meta": 0,
+              "count": 2
+            }
+          },
+          {
+            "input": {
+              "item": "lotr:tile.oreTin",
+              "meta": 0
+            },
+            "alloy": {
+              "item": "lotr:tile.oreCopper",
+              "meta": 0
+            },
+            "output": {
+              "item": "lotr:item.bronze",
+              "meta": 0,
+              "count": 2
+            }
+          },
+          {
+            "input": {
+              "item": "lotr:tile.oreSilver",
+              "meta": 0
+            },
+            "alloy": {
+              "item": "lotr:item.mithrilNugget",
+              "meta": 0
+            },
+            "output": {
+              "item": "lotr:item.ithildin",
+              "meta": 0
+            }
+          },
+          {
+            "input": {
+              "item": "minecraft:iron_ingot",
+              "meta": 0
+            },
+            "alloy": {
+              "item": "minecraft:coal",
+              "meta": 0
+            },
+            "output": {
+              "item": "lotr:item.elfSteel",
+              "meta": 0
+            }
+          },
+          {
+            "input": {
+              "item": "minecraft:iron_ingot",
+              "meta": 0
+            },
+            "alloy": {
+              "item": "minecraft:coal",
+              "meta": 1
+            },
+            "output": {
+              "item": "lotr:item.elfSteel",
+              "meta": 0
+            }
+          }
+        ]
+      },
+      "LOTRTileEntityOrcForge": {
+        "smelting": [
+          {
+            "input": {
+              "item": "minecraft:log",
+              "meta": 0
+            },
+            "output": {
+              "item": "lotr:tile.wood",
+              "meta": 3
+            }
+          },
+          {
+            "input": {
+              "item": "minecraft:log",
+              "meta": 1
+            },
+            "output": {
+              "item": "lotr:tile.wood",
+              "meta": 3
+            }
+          },
+          {
+            "input": {
+              "item": "minecraft:log",
+              "meta": 2
+            },
+            "output": {
+              "item": "lotr:tile.wood",
+              "meta": 3
+            }
+          },
+          {
+            "input": {
+              "item": "minecraft:log",
+              "meta": 3
+            },
+            "output": {
+              "item": "lotr:tile.wood",
+              "meta": 3
+            }
+          },
+          {
+            "input": {
+              "item": "minecraft:log2",
+              "meta": 0
+            },
+            "output": {
+              "item": "lotr:tile.wood",
+              "meta": 3
+            }
+          },
+          {
+            "input": {
+              "item": "minecraft:log2",
+              "meta": 1
+            },
+            "output": {
+              "item": "lotr:tile.wood",
+              "meta": 3
+            }
+          },
+          {
+            "input": {
+              "item": "lotr:tile.wood",
+              "meta": 0
+            },
+            "output": {
+              "item": "lotr:tile.wood",
+              "meta": 3
+            }
+          },
+          {
+            "input": {
+              "item": "lotr:tile.wood",
+              "meta": 1
+            },
+            "output": {
+              "item": "lotr:tile.wood",
+              "meta": 3
+            }
+          },
+          {
+            "input": {
+              "item": "lotr:tile.wood",
+              "meta": 2
+            },
+            "output": {
+              "item": "lotr:tile.wood",
+              "meta": 3
+            }
+          },
+          {
+            "input": {
+              "item": "lotr:tile.oreMorgulIron",
+              "meta": 0
+            },
+            "output": {
+              "item": "lotr:item.orcSteel",
+              "meta": 0
+            }
+          },
+          {
+            "input": {
+              "item": "lotr:tile.oreMorgulIron",
+              "meta": 1
+            },
+            "output": {
+              "item": "lotr:item.orcSteel",
+              "meta": 0
+            }
+          },
+          {
+            "input": {
+              "item": "lotr:tile.fruitWood",
+              "meta": 0
+            },
+            "output": {
+              "item": "lotr:tile.wood",
+              "meta": 3
+            }
+          },
+          {
+            "input": {
+              "item": "lotr:tile.fruitWood",
+              "meta": 1
+            },
+            "output": {
+              "item": "lotr:tile.wood",
+              "meta": 3
+            }
+          },
+          {
+            "input": {
+              "item": "lotr:tile.fruitWood",
+              "meta": 2
+            },
+            "output": {
+              "item": "lotr:tile.wood",
+              "meta": 3
+            }
+          },
+          {
+            "input": {
+              "item": "lotr:tile.fruitWood",
+              "meta": 3
+            },
+            "output": {
+              "item": "lotr:tile.wood",
+              "meta": 3
+            }
+          },
+          {
+            "input": {
+              "item": "minecraft:porkchop",
+              "meta": 0
+            },
+            "output": {
+              "item": "minecraft:rotten_flesh",
+              "meta": 0
+            }
+          },
+          {
+            "input": {
+              "item": "minecraft:cooked_porkchop",
+              "meta": 0
+            },
+            "output": {
+              "item": "minecraft:rotten_flesh",
+              "meta": 0
+            }
+          },
+          {
+            "input": {
+              "item": "minecraft:beef",
+              "meta": 0
+            },
+            "output": {
+              "item": "minecraft:rotten_flesh",
+              "meta": 0
+            }
+          },
+          {
+            "input": {
+              "item": "minecraft:cooked_beef",
+              "meta": 0
+            },
+            "output": {
+              "item": "minecraft:rotten_flesh",
+              "meta": 0
+            }
+          },
+          {
+            "input": {
+              "item": "minecraft:chicken",
+              "meta": 0
+            },
+            "output": {
+              "item": "minecraft:rotten_flesh",
+              "meta": 0
+            }
+          },
+          {
+            "input": {
+              "item": "minecraft:cooked_chicken",
+              "meta": 0
+            },
+            "output": {
+              "item": "minecraft:rotten_flesh",
+              "meta": 0
+            }
+          },
+          {
+            "input": {
+              "item": "minecraft:rotten_flesh",
+              "meta": 0
+            },
+            "output": {
+              "item": "minecraft:rotten_flesh",
+              "meta": 0
+            }
+          },
+          {
+            "input": {
+              "item": "lotr:tile.wood2",
+              "meta": 0
+            },
+            "output": {
+              "item": "lotr:tile.wood",
+              "meta": 3
+            }
+          },
+          {
+            "input": {
+              "item": "lotr:tile.wood2",
+              "meta": 1
+            },
+            "output": {
+              "item": "lotr:tile.wood",
+              "meta": 3
+            }
+          },
+          {
+            "input": {
+              "item": "lotr:tile.wood2",
+              "meta": 2
+            },
+            "output": {
+              "item": "lotr:tile.wood",
+              "meta": 3
+            }
+          },
+          {
+            "input": {
+              "item": "lotr:tile.wood2",
+              "meta": 3
+            },
+            "output": {
+              "item": "lotr:tile.wood",
+              "meta": 3
+            }
+          },
+          {
+            "input": {
+              "item": "lotr:tile.wood3",
+              "meta": 0
+            },
+            "output": {
+              "item": "lotr:tile.wood",
+              "meta": 3
+            }
+          },
+          {
+            "input": {
+              "item": "lotr:tile.wood3",
+              "meta": 1
+            },
+            "output": {
+              "item": "lotr:tile.wood",
+              "meta": 3
+            }
+          },
+          {
+            "input": {
+              "item": "lotr:tile.wood3",
+              "meta": 2
+            },
+            "output": {
+              "item": "lotr:tile.wood",
+              "meta": 3
+            }
+          },
+          {
+            "input": {
+              "item": "lotr:tile.wood3",
+              "meta": 3
+            },
+            "output": {
+              "item": "lotr:tile.wood",
+              "meta": 3
+            }
+          },
+          {
+            "input": {
+              "item": "lotr:tile.wood4",
+              "meta": 0
+            },
+            "output": {
+              "item": "lotr:tile.wood",
+              "meta": 3
+            }
+          },
+          {
+            "input": {
+              "item": "lotr:tile.wood4",
+              "meta": 1
+            },
+            "output": {
+              "item": "lotr:tile.wood",
+              "meta": 3
+            }
+          },
+          {
+            "input": {
+              "item": "lotr:tile.wood4",
+              "meta": 2
+            },
+            "output": {
+              "item": "lotr:tile.wood",
+              "meta": 3
+            }
+          },
+          {
+            "input": {
+              "item": "lotr:tile.wood4",
+              "meta": 3
+            },
+            "output": {
+              "item": "lotr:tile.wood",
+              "meta": 3
+            }
+          },
+          {
+            "input": {
+              "item": "lotr:tile.rottenLog",
+              "meta": 0
+            },
+            "output": {
+              "item": "lotr:tile.wood",
+              "meta": 3
+            }
+          },
+          {
+            "input": {
+              "item": "lotr:tile.wood5",
+              "meta": 0
+            },
+            "output": {
+              "item": "lotr:tile.wood",
+              "meta": 3
+            }
+          },
+          {
+            "input": {
+              "item": "lotr:tile.wood5",
+              "meta": 1
+            },
+            "output": {
+              "item": "lotr:tile.wood",
+              "meta": 3
+            }
+          },
+          {
+            "input": {
+              "item": "lotr:tile.wood5",
+              "meta": 2
+            },
+            "output": {
+              "item": "lotr:tile.wood",
+              "meta": 3
+            }
+          },
+          {
+            "input": {
+              "item": "lotr:tile.wood5",
+              "meta": 3
+            },
+            "output": {
+              "item": "lotr:tile.wood",
+              "meta": 3
+            }
+          },
+          {
+            "input": {
+              "item": "lotr:tile.wood6",
+              "meta": 0
+            },
+            "output": {
+              "item": "lotr:tile.wood",
+              "meta": 3
+            }
+          },
+          {
+            "input": {
+              "item": "lotr:tile.wood6",
+              "meta": 1
+            },
+            "output": {
+              "item": "lotr:tile.wood",
+              "meta": 3
+            }
+          },
+          {
+            "input": {
+              "item": "lotr:tile.wood6",
+              "meta": 2
+            },
+            "output": {
+              "item": "lotr:tile.wood",
+              "meta": 3
+            }
+          },
+          {
+            "input": {
+              "item": "lotr:tile.wood6",
+              "meta": 3
+            },
+            "output": {
+              "item": "lotr:tile.wood",
+              "meta": 3
+            }
+          },
+          {
+            "input": {
+              "item": "lotr:tile.wood7",
+              "meta": 0
+            },
+            "output": {
+              "item": "lotr:tile.wood",
+              "meta": 3
+            }
+          },
+          {
+            "input": {
+              "item": "lotr:tile.wood7",
+              "meta": 1
+            },
+            "output": {
+              "item": "lotr:tile.wood",
+              "meta": 3
+            }
+          },
+          {
+            "input": {
+              "item": "lotr:tile.wood7",
+              "meta": 2
+            },
+            "output": {
+              "item": "lotr:tile.wood",
+              "meta": 3
+            }
+          },
+          {
+            "input": {
+              "item": "lotr:tile.wood7",
+              "meta": 3
+            },
+            "output": {
+              "item": "lotr:tile.wood",
+              "meta": 3
+            }
+          },
+          {
+            "input": {
+              "item": "lotr:tile.wood8",
+              "meta": 0
+            },
+            "output": {
+              "item": "lotr:tile.wood",
+              "meta": 3
+            }
+          },
+          {
+            "input": {
+              "item": "lotr:tile.wood8",
+              "meta": 1
+            },
+            "output": {
+              "item": "lotr:tile.wood",
+              "meta": 3
+            }
+          },
+          {
+            "input": {
+              "item": "lotr:tile.wood8",
+              "meta": 2
+            },
+            "output": {
+              "item": "lotr:tile.wood",
+              "meta": 3
+            }
+          },
+          {
+            "input": {
+              "item": "lotr:tile.wood8",
+              "meta": 3
+            },
+            "output": {
+              "item": "lotr:tile.wood",
+              "meta": 3
+            }
+          },
+          {
+            "input": {
+              "item": "lotr:tile.wood9",
+              "meta": 0
+            },
+            "output": {
+              "item": "lotr:tile.wood",
+              "meta": 3
+            }
+          },
+          {
+            "input": {
+              "item": "lotr:tile.wood9",
+              "meta": 1
+            },
+            "output": {
+              "item": "lotr:tile.wood",
+              "meta": 3
+            }
+          },
+          {
+            "input": {
+              "item": "lotr:item.gammon",
+              "meta": 0
+            },
+            "output": {
+              "item": "minecraft:rotten_flesh",
+              "meta": 0
+            }
+          },
+          {
+            "input": {
+              "item": "lotr:item.rabbitRaw",
+              "meta": 0
+            },
+            "output": {
+              "item": "minecraft:rotten_flesh",
+              "meta": 0
+            }
+          },
+          {
+            "input": {
+              "item": "lotr:item.rabbitCooked",
+              "meta": 0
+            },
+            "output": {
+              "item": "minecraft:rotten_flesh",
+              "meta": 0
+            }
+          },
+          {
+            "input": {
+              "item": "lotr:item.rabbitStew",
+              "meta": 0
+            },
+            "output": {
+              "item": "minecraft:rotten_flesh",
+              "meta": 0
+            }
+          },
+          {
+            "input": {
+              "item": "lotr:item.lionRaw",
+              "meta": 0
+            },
+            "output": {
+              "item": "minecraft:rotten_flesh",
+              "meta": 0
+            }
+          },
+          {
+            "input": {
+              "item": "lotr:item.lionCooked",
+              "meta": 0
+            },
+            "output": {
+              "item": "minecraft:rotten_flesh",
+              "meta": 0
+            }
+          },
+          {
+            "input": {
+              "item": "lotr:item.zebraRaw",
+              "meta": 0
+            },
+            "output": {
+              "item": "minecraft:rotten_flesh",
+              "meta": 0
+            }
+          },
+          {
+            "input": {
+              "item": "lotr:item.zebraCooked",
+              "meta": 0
+            },
+            "output": {
+              "item": "minecraft:rotten_flesh",
+              "meta": 0
+            }
+          },
+          {
+            "input": {
+              "item": "lotr:item.rhinoRaw",
+              "meta": 0
+            },
+            "output": {
+              "item": "minecraft:rotten_flesh",
+              "meta": 0
+            }
+          },
+          {
+            "input": {
+              "item": "lotr:item.rhinoCooked",
+              "meta": 0
+            },
+            "output": {
+              "item": "minecraft:rotten_flesh",
+              "meta": 0
+            }
+          },
+          {
+            "input": {
+              "item": "lotr:item.torogStew",
+              "meta": 0
+            },
+            "output": {
+              "item": "minecraft:rotten_flesh",
+              "meta": 0
+            }
+          },
+          {
+            "input": {
+              "item": "lotr:item.muttonRaw",
+              "meta": 0
+            },
+            "output": {
+              "item": "minecraft:rotten_flesh",
+              "meta": 0
+            }
+          },
+          {
+            "input": {
+              "item": "lotr:item.muttonCooked",
+              "meta": 0
+            },
+            "output": {
+              "item": "minecraft:rotten_flesh",
+              "meta": 0
+            }
+          },
+          {
+            "input": {
+              "item": "lotr:item.deerRaw",
+              "meta": 0
+            },
+            "output": {
+              "item": "minecraft:rotten_flesh",
+              "meta": 0
+            }
+          },
+          {
+            "input": {
+              "item": "lotr:item.deerCooked",
+              "meta": 0
+            },
+            "output": {
+              "item": "minecraft:rotten_flesh",
+              "meta": 0
+            }
+          },
+          {
+            "input": {
+              "item": "lotr:item.kebab",
+              "meta": 0
+            },
+            "output": {
+              "item": "minecraft:rotten_flesh",
+              "meta": 0
+            }
+          },
+          {
+            "input": {
+              "item": "lotr:item.camelRaw",
+              "meta": 0
+            },
+            "output": {
+              "item": "minecraft:rotten_flesh",
+              "meta": 0
+            }
+          },
+          {
+            "input": {
+              "item": "lotr:item.camelCooked",
+              "meta": 0
+            },
+            "output": {
+              "item": "minecraft:rotten_flesh",
+              "meta": 0
+            }
+          },
+          {
+            "input": {
+              "item": "lotr:item.manFlesh",
+              "meta": 0
+            },
+            "output": {
+              "item": "minecraft:rotten_flesh",
+              "meta": 0
+            }
+          },
+          {
+            "input": {
+              "item": "lotr:item.saltedFlesh",
+              "meta": 0
+            },
+            "output": {
+              "item": "minecraft:rotten_flesh",
+              "meta": 0
+            }
+          }
+        ],
+        "alloys": [
+          {
+            "input": {
+              "item": "minecraft:iron_ore",
+              "meta": 0
+            },
+            "alloy": {
+              "item": "minecraft:coal",
+              "meta": 0
+            },
+            "output": {
+              "item": "lotr:item.urukSteel",
+              "meta": 0
+            }
+          },
+          {
+            "input": {
+              "item": "minecraft:iron_ore",
+              "meta": 0
+            },
+            "alloy": {
+              "item": "minecraft:coal",
+              "meta": 1
+            },
+            "output": {
+              "item": "lotr:item.urukSteel",
+              "meta": 0
+            }
+          },
+          {
+            "input": {
+              "item": "lotr:tile.oreCopper",
+              "meta": 0
+            },
+            "alloy": {
+              "item": "lotr:tile.oreTin",
+              "meta": 0
+            },
+            "output": {
+              "item": "lotr:item.bronze",
+              "meta": 0,
+              "count": 2
+            }
+          },
+          {
+            "input": {
+              "item": "lotr:tile.oreTin",
+              "meta": 0
+            },
+            "alloy": {
+              "item": "lotr:tile.oreCopper",
+              "meta": 0
+            },
+            "output": {
+              "item": "lotr:item.bronze",
+              "meta": 0,
+              "count": 2
+            }
+          },
+          {
+            "input": {
+              "item": "minecraft:iron_ingot",
+              "meta": 0
+            },
+            "alloy": {
+              "item": "minecraft:coal",
+              "meta": 0
+            },
+            "output": {
+              "item": "lotr:item.urukSteel",
+              "meta": 0
+            }
+          },
+          {
+            "input": {
+              "item": "minecraft:iron_ingot",
+              "meta": 0
+            },
+            "alloy": {
+              "item": "minecraft:coal",
+              "meta": 1
+            },
+            "output": {
+              "item": "lotr:item.urukSteel",
+              "meta": 0
+            }
+          }
+        ]
+      }
+    },
+    "unsmeltery": []
+  }
 }

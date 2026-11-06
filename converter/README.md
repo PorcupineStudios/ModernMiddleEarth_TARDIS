@@ -7,6 +7,22 @@ Turns LOTR 36.15 (1.7.10) content into the 1.21.1 port's generated resources. Tw
    and ore dictionary entry from the running game, writes `converter/export/*.json` and CI commits them. It runs when
    `converter/src` or the Gradle files change, or by hand from the Actions tab. Reflection on public game state only;
    no LOTR code is copied.
+   **Running it locally** (how it's normally run; the GitHub workflow is only a fallback):
+
+   ```bash
+   sudo apt-get install -y openjdk-8-jdk xvfb x11-xserver-utils libgl1-mesa-dri libglu1-mesa
+   sudo sed -i 's/^assistive_technologies=/#assistive_technologies=/' /etc/java-8-openjdk/accessibility.properties
+   cd converter
+   JAVA_TOOL_OPTIONS="-Dlotrexport.run=true -Dlotrexport.out=$PWD/export" \
+     xvfb-run -a -s "-screen 0 1280x800x24 +extension RANDR +extension GLX" ./gradlew runClient \
+     -Porg.gradle.java.installations.paths=/usr/lib/jvm/java-8-openjdk-amd64
+   ```
+
+   About 15 minutes; the game closes itself when the export is written. Gotchas: LWJGL 2 needs `xrandr`
+   (x11-xserver-utils), or the game fails with `LinuxDisplay.getAvailableDisplayModes`. Ubuntu's Java 8 enables an
+   accessibility bridge that isn't installed (`AWTError: Assistive Technology not found`), hence the sed. Where
+   Maven Central answers 429 (rate limit), point Gradle at a mirror with an init script in `~/.gradle/init.d`.
+
 2. **Generate** (`python3 converter/generate.py`, needs Pillow). Reads the export and the LOTR jar
    (`converter/libs/`) and writes `lotr/src/generated/resources/`: the block/item/tab lists the mod registers from,
    blockstates, models, textures, 22 languages, recipes, loot tables and tags. Also writes `converter/idtable.json`
@@ -43,6 +59,10 @@ Turns LOTR 36.15 (1.7.10) content into the 1.21.1 port's generated resources. Tw
    helmets, robes, hats) on a small bytecode interpreter and writes their boxes as `lotr_port/content/armor_models.json`.
    Melee weapon speed, reach and knockback come from the `LOTRWeaponStats` tables (`classfile.py static_calls`) or,
    once exported, from each item's `weapon` stats in `items.json`.
+
+   Recipes: crafting, smelting, each faction table, and LOTR's machines (`StationExporter`: barrel, millstone, Ent
+   jar, each alloy forge's smelting and alloys, the unsmeltery) as `lotr_port:<machine>` recipes; weapon poisoning
+   becomes shapeless crafting. Blocks only an item places drop what LOTR's block dropped (exported `drops`).
 
 Never edit generated files by hand: change the generator and run it again.
 

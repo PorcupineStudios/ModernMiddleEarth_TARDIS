@@ -1,22 +1,6 @@
 {
   "quests": [
     {
-      "kind": "kill_faction",
-      "target": "lotr_port:rohan",
-      "min": 10,
-      "max": 40,
-      "reward": 1.0,
-      "weight": 267
-    },
-    {
-      "kind": "kill_faction",
-      "target": "lotr_port:rohan",
-      "min": 30,
-      "max": 60,
-      "reward": 1.0,
-      "weight": 267
-    },
-    {
       "kind": "collect",
       "target": "minecraft:oak_log",
       "min": 30,
@@ -175,6 +159,22 @@
       "max": 15,
       "reward": 1.0,
       "weight": 50
+    },
+    {
+      "kind": "kill_faction",
+      "target": "lotr_port:rohan",
+      "min": 10,
+      "max": 40,
+      "reward": 1.0,
+      "weight": 267
+    },
+    {
+      "kind": "kill_faction",
+      "target": "lotr_port:rohan",
+      "min": 30,
+      "max": 60,
+      "reward": 1.0,
+      "weight": 267
     }
   ]
 }

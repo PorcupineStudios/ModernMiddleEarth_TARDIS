@@ -40,11 +40,10 @@
     "mainhand": [
       "lotr_port:bronze_axe",
       "lotr_port:bronze_dagger",
-      "lotr_port:iron_dagger",
       "minecraft:iron_axe",
       "minecraft:stone_axe"
     ]
   },
-  "speech": "lotr_port:bree/man",
-  "quests": "lotr_port:bree"
+  "names": "lotr_port:bree_male",
+  "speech": "lotr_port:bree/man"
 }

@@ -17,13 +17,14 @@
   "attack": 2.0,
   "gear": {
     "mainhand": [
-      "lotr_port:bronze_axe",
       "lotr_port:bronze_dagger",
+      "lotr_port:bronze_spear",
       "lotr_port:poisoned_bronze_dagger",
       "lotr_port:stone_spear",
-      "lotr_port:uruk_axe",
-      "lotr_port:uruk_battleaxe",
-      "lotr_port:uruk_spear"
+      "lotr_port:uruk_cleaver",
+      "lotr_port:uruk_dagger",
+      "lotr_port:uruk_pike",
+      "minecraft:iron_sword"
     ],
     "head": [
       "lotr_port:bone_helmet",
@@ -35,18 +36,21 @@
       "lotr_port:bone_chestplate",
       "lotr_port:bronze_chestplate",
       "lotr_port:fur_tunic",
-      "lotr_port:uruk_chestplate"
+      "lotr_port:uruk_chestplate",
+      "minecraft:leather_chestplate"
     ],
     "legs": [
       "lotr_port:bone_leggings",
       "lotr_port:bronze_leggings",
+      "lotr_port:fur_leggings",
       "lotr_port:uruk_leggings",
       "minecraft:leather_leggings"
     ],
     "feet": [
       "lotr_port:bone_boots",
-      "lotr_port:bronze_boots",
-      "lotr_port:fur_boots"
+      "lotr_port:fur_boots",
+      "lotr_port:uruk_boots",
+      "minecraft:leather_boots"
     ]
   },
   "names": "lotr_port:orc",

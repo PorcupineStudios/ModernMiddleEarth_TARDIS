@@ -13,8 +13,7 @@
     "mainhand": [
       "lotr_port:dalish_dagger",
       "lotr_port:iron_dagger",
-      "minecraft:iron_axe",
-      "minecraft:stone_axe"
+      "minecraft:iron_axe"
     ]
   },
   "speech": "lotr_port:dale/man",

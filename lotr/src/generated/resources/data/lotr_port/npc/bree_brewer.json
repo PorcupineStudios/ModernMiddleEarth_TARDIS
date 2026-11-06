@@ -40,7 +40,6 @@
     "mainhand": [
       "lotr_port:bronze_axe",
       "lotr_port:bronze_dagger",
-      "lotr_port:iron_dagger",
       "minecraft:iron_axe",
       "minecraft:stone_axe"
     ]
@@ -48,6 +47,5 @@
   "names": "lotr_port:bree_male",
   "buy": "lotr_port:bree_brewer_buy",
   "sell": "lotr_port:bree_brewer_sell",
-  "speech": "lotr_port:bree/hobbit",
-  "quests": "lotr_port:bree"
+  "speech": "lotr_port:bree/hobbit"
 }

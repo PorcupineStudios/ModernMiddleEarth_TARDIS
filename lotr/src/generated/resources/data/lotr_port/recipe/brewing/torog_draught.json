@@ -1,0 +1,27 @@
+{
+  "type": "lotr_port:brewing",
+  "ingredients": [
+    {
+      "item": "minecraft:sugar_cane"
+    },
+    {
+      "item": "minecraft:sugar_cane"
+    },
+    {
+      "item": "minecraft:rotten_flesh"
+    },
+    {
+      "item": "minecraft:rotten_flesh"
+    },
+    {
+      "item": "minecraft:dirt"
+    },
+    {
+      "item": "lotr_port:rhino_horn"
+    }
+  ],
+  "result": {
+    "id": "lotr_port:torog_draught",
+    "count": 16
+  }
+}

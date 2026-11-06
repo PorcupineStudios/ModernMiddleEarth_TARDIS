@@ -18,12 +18,12 @@
   "attack": 2.0,
   "gear": {
     "mainhand": [
-      "lotr_port:bronze_sword",
+      "lotr_port:bronze_axe",
       "lotr_port:gondorian_pike",
       "lotr_port:gondorian_sword",
+      "lotr_port:gondorian_warhammer",
       "lotr_port:iron_battleaxe",
-      "lotr_port:iron_pike",
-      "minecraft:iron_axe"
+      "minecraft:iron_sword"
     ],
     "head": [
       "minecraft:iron_helmet",

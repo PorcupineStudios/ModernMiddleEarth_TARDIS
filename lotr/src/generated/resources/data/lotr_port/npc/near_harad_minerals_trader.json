@@ -15,7 +15,6 @@
     "mainhand": "minecraft:iron_pickaxe",
     "head": "lotr_port:harad_turban"
   },
-  "names": "lotr_port:near_haradrim_male",
   "buy": "lotr_port:harad_miner_buy",
   "sell": "lotr_port:harad_miner_sell",
   "speech": "lotr_port:near_harad/merchant",

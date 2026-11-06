@@ -12,7 +12,6 @@
   "gear": {
     "mainhand": [
       "lotr_port:dwarven_battleaxe",
-      "lotr_port:dwarven_sword",
       "lotr_port:dwarven_warhammer"
     ],
     "chest": "lotr_port:dwarven_chestplate",

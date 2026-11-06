@@ -17,11 +17,11 @@
   "attack": 2.0,
   "gear": {
     "mainhand": [
+      "lotr_port:mordor_axe",
       "lotr_port:mordor_battleaxe",
       "lotr_port:mordor_dagger",
       "lotr_port:mordor_spear",
       "lotr_port:mordor_warhammer",
-      "lotr_port:mordor_warscythe",
       "lotr_port:poisoned_mordor_dagger"
     ],
     "head": "lotr_port:mordor_helmet",

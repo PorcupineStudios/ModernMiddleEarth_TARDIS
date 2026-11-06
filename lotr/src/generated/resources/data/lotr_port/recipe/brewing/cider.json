@@ -1,0 +1,27 @@
+{
+  "type": "lotr_port:brewing",
+  "ingredients": [
+    {
+      "tag": "lotr_port:apples"
+    },
+    {
+      "tag": "lotr_port:apples"
+    },
+    {
+      "tag": "lotr_port:apples"
+    },
+    {
+      "tag": "lotr_port:apples"
+    },
+    {
+      "tag": "lotr_port:apples"
+    },
+    {
+      "tag": "lotr_port:apples"
+    }
+  ],
+  "result": {
+    "id": "lotr_port:cider",
+    "count": 16
+  }
+}

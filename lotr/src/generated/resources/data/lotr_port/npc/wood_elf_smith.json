@@ -14,9 +14,7 @@
   "gear": {
     "mainhand": "lotr_port:bow_of_mirkwood"
   },
-  "names": "lotr_port:sindarin_male",
   "buy": "lotr_port:wood_elf_smith_buy",
   "sell": "lotr_port:wood_elf_smith_sell",
-  "speech": "lotr_port:wood_elf/smith",
-  "quests": "lotr_port:wood_elf"
+  "speech": "lotr_port:wood_elf/smith"
 }

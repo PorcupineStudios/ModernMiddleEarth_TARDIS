@@ -13,9 +13,10 @@
   "attack": 2.0,
   "gear": {
     "mainhand": [
-      "lotr_port:corsair_battleaxe",
+      "lotr_port:corsair_dagger",
       "lotr_port:corsair_eket",
-      "lotr_port:corsair_harpoon"
+      "lotr_port:corsair_harpoon",
+      "lotr_port:poisoned_corsair_dagger"
     ],
     "chest": "lotr_port:corsair_chestplate",
     "legs": "lotr_port:corsair_leggings",

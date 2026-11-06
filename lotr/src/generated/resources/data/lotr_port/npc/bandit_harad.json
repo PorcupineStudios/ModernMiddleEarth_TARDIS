@@ -17,8 +17,7 @@
       "lotr_port:haradric_dagger",
       "lotr_port:iron_dagger",
       "lotr_port:poisoned_haradric_dagger",
-      "lotr_port:poisoned_umbaric_dagger",
-      "lotr_port:umbaric_dagger"
+      "lotr_port:poisoned_umbaric_dagger"
     ],
     "head": "lotr_port:harad_turban"
   },

@@ -1,22 +1,6 @@
 {
   "quests": [
     {
-      "kind": "kill_npc",
-      "target": "lotr_port:bandit_harad",
-      "min": 1,
-      "max": 3,
-      "reward": 8.0,
-      "weight": 200
-    },
-    {
-      "kind": "kill_npc",
-      "target": "lotr_port:ranger_ithilien",
-      "min": 10,
-      "max": 20,
-      "reward": 1.0,
-      "weight": 200
-    },
-    {
       "kind": "collect",
       "target": "lotr_port:date",
       "min": 8,
@@ -207,6 +191,22 @@
       "max": 2,
       "reward": 8.0,
       "weight": 42
+    },
+    {
+      "kind": "kill_npc",
+      "target": "lotr_port:bandit_harad",
+      "min": 1,
+      "max": 3,
+      "reward": 8.0,
+      "weight": 200
+    },
+    {
+      "kind": "kill_npc",
+      "target": "lotr_port:ranger_ithilien",
+      "min": 10,
+      "max": 20,
+      "reward": 1.0,
+      "weight": 200
     }
   ]
 }

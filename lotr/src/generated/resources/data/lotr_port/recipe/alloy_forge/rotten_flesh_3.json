@@ -1,0 +1,12 @@
+{
+  "type": "lotr_port:alloy_forge",
+  "ingredients": [
+    {
+      "item": "lotr_port:cooked_venison"
+    }
+  ],
+  "result": {
+    "id": "minecraft:rotten_flesh"
+  },
+  "station": "lotr_port:orc_forge"
+}

@@ -28,7 +28,6 @@
   "gear": {
     "mainhand": "lotr_port:lindon_dagger"
   },
-  "names": "lotr_port:quenya_male",
   "speech": "lotr_port:high_elf/elf",
   "quests": "lotr_port:high_elf"
 }

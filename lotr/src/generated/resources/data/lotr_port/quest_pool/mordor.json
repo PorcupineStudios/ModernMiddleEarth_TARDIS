@@ -1,46 +1,6 @@
 {
   "quests": [
     {
-      "kind": "kill_faction",
-      "target": "lotr_port:rohan",
-      "min": 10,
-      "max": 40,
-      "reward": 1.0,
-      "weight": 160
-    },
-    {
-      "kind": "kill_faction",
-      "target": "lotr_port:gondor",
-      "min": 10,
-      "max": 40,
-      "reward": 1.0,
-      "weight": 160
-    },
-    {
-      "kind": "kill_npc",
-      "target": "lotr_port:rohirrim",
-      "min": 10,
-      "max": 30,
-      "reward": 1.0,
-      "weight": 160
-    },
-    {
-      "kind": "kill_npc",
-      "target": "lotr_port:gondor_soldier",
-      "min": 10,
-      "max": 30,
-      "reward": 1.0,
-      "weight": 160
-    },
-    {
-      "kind": "kill_npc",
-      "target": "lotr_port:ranger_ithilien",
-      "min": 10,
-      "max": 30,
-      "reward": 1.0,
-      "weight": 160
-    },
-    {
       "kind": "collect",
       "target": "lotr_port:mordor_scimitar",
       "min": 1,
@@ -191,6 +151,46 @@
       "max": 3,
       "reward": 12.0,
       "weight": 53
+    },
+    {
+      "kind": "kill_faction",
+      "target": "lotr_port:rohan",
+      "min": 10,
+      "max": 40,
+      "reward": 1.0,
+      "weight": 160
+    },
+    {
+      "kind": "kill_faction",
+      "target": "lotr_port:gondor",
+      "min": 10,
+      "max": 40,
+      "reward": 1.0,
+      "weight": 160
+    },
+    {
+      "kind": "kill_npc",
+      "target": "lotr_port:rohirrim",
+      "min": 10,
+      "max": 30,
+      "reward": 1.0,
+      "weight": 160
+    },
+    {
+      "kind": "kill_npc",
+      "target": "lotr_port:gondor_soldier",
+      "min": 10,
+      "max": 30,
+      "reward": 1.0,
+      "weight": 160
+    },
+    {
+      "kind": "kill_npc",
+      "target": "lotr_port:ranger_ithilien",
+      "min": 10,
+      "max": 30,
+      "reward": 1.0,
+      "weight": 160
     }
   ]
 }

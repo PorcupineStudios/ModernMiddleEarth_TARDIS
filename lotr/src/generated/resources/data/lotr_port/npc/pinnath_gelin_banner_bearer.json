@@ -28,5 +28,5 @@
   },
   "names": "lotr_port:gondor_male",
   "speech": "lotr_port:gondor/soldier",
-  "quests": "lotr_port:gondor_kill_renegade"
+  "quests": "lotr_port:gondor"
 }

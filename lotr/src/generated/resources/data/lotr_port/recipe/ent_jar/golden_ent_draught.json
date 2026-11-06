@@ -1,0 +1,11 @@
+{
+  "type": "lotr_port:ent_jar",
+  "ingredients": [
+    {
+      "item": "lotr_port:huorn_leaf"
+    }
+  ],
+  "result": {
+    "id": "lotr_port:golden_ent_draught"
+  }
+}

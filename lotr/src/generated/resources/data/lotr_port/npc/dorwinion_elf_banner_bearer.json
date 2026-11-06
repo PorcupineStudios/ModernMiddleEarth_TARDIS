@@ -21,5 +21,6 @@
     "feet": "lotr_port:dorwinion_elven_boots"
   },
   "names": "lotr_port:sindarin_male",
-  "speech": "lotr_port:dorwinion/elf_warrior"
+  "speech": "lotr_port:dorwinion/elf_warrior",
+  "quests": "lotr_port:dorwinion_elf"
 }

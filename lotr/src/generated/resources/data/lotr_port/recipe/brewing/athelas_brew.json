@@ -1,0 +1,27 @@
+{
+  "type": "lotr_port:brewing",
+  "ingredients": [
+    {
+      "item": "lotr_port:athelas"
+    },
+    {
+      "item": "lotr_port:athelas"
+    },
+    {
+      "item": "lotr_port:athelas"
+    },
+    {
+      "item": "lotr_port:athelas"
+    },
+    {
+      "item": "lotr_port:athelas"
+    },
+    {
+      "item": "lotr_port:athelas"
+    }
+  ],
+  "result": {
+    "id": "lotr_port:athelas_brew",
+    "count": 16
+  }
+}

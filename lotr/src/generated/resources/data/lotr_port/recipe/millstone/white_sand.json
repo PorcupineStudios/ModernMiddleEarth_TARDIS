@@ -1,0 +1,12 @@
+{
+  "type": "lotr_port:millstone",
+  "ingredients": [
+    {
+      "item": "lotr_port:white_sandstone"
+    }
+  ],
+  "result": {
+    "id": "lotr_port:white_sand",
+    "count": 2
+  }
+}

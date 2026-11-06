@@ -1,38 +1,6 @@
 {
   "quests": [
     {
-      "kind": "kill_npc",
-      "target": "lotr_port:isengard_snaga",
-      "min": 10,
-      "max": 30,
-      "reward": 1.0,
-      "weight": 160
-    },
-    {
-      "kind": "kill_npc",
-      "target": "lotr_port:uruk_hai",
-      "min": 10,
-      "max": 30,
-      "reward": 1.0,
-      "weight": 160
-    },
-    {
-      "kind": "kill_npc",
-      "target": "lotr_port:mordor_orc",
-      "min": 10,
-      "max": 30,
-      "reward": 1.0,
-      "weight": 160
-    },
-    {
-      "kind": "kill_faction",
-      "target": "lotr_port:dunland",
-      "min": 10,
-      "max": 40,
-      "reward": 1.0,
-      "weight": 160
-    },
-    {
       "kind": "collect",
       "target": "minecraft:cooked_porkchop",
       "min": 3,
@@ -175,6 +143,38 @@
       "max": 30,
       "reward": 0.75,
       "weight": 56
+    },
+    {
+      "kind": "kill_npc",
+      "target": "lotr_port:isengard_snaga",
+      "min": 10,
+      "max": 30,
+      "reward": 1.0,
+      "weight": 160
+    },
+    {
+      "kind": "kill_npc",
+      "target": "lotr_port:uruk_hai",
+      "min": 10,
+      "max": 30,
+      "reward": 1.0,
+      "weight": 160
+    },
+    {
+      "kind": "kill_npc",
+      "target": "lotr_port:mordor_orc",
+      "min": 10,
+      "max": 30,
+      "reward": 1.0,
+      "weight": 160
+    },
+    {
+      "kind": "kill_faction",
+      "target": "lotr_port:dunland",
+      "min": 10,
+      "max": 40,
+      "reward": 1.0,
+      "weight": 160
     }
   ]
 }

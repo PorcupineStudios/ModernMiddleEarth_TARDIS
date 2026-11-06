@@ -1,22 +1,6 @@
 {
   "quests": [
     {
-      "kind": "kill_faction",
-      "target": "lotr_port:gundabad",
-      "min": 20,
-      "max": 40,
-      "reward": 1.0,
-      "weight": 200
-    },
-    {
-      "kind": "kill_npc",
-      "target": "lotr_port:gundabad_orc",
-      "min": 10,
-      "max": 30,
-      "reward": 1.0,
-      "weight": 200
-    },
-    {
       "kind": "collect",
       "target": "lotr_port:mithril_ingot",
       "min": 1,
@@ -111,6 +95,22 @@
       "max": 5,
       "reward": 3.0,
       "weight": 83
+    },
+    {
+      "kind": "kill_faction",
+      "target": "lotr_port:gundabad",
+      "min": 20,
+      "max": 40,
+      "reward": 1.0,
+      "weight": 200
+    },
+    {
+      "kind": "kill_npc",
+      "target": "lotr_port:gundabad_orc",
+      "min": 10,
+      "max": 30,
+      "reward": 1.0,
+      "weight": 200
     }
   ]
 }

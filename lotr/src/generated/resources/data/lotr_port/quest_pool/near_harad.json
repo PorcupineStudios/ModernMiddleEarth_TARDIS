@@ -1,54 +1,6 @@
 {
   "quests": [
     {
-      "kind": "kill_faction",
-      "target": "lotr_port:gondor",
-      "min": 20,
-      "max": 50,
-      "reward": 1.0,
-      "weight": 133
-    },
-    {
-      "kind": "kill_faction",
-      "target": "lotr_port:gondor",
-      "min": 10,
-      "max": 40,
-      "reward": 1.0,
-      "weight": 133
-    },
-    {
-      "kind": "kill_faction",
-      "target": "lotr_port:rohan",
-      "min": 10,
-      "max": 30,
-      "reward": 1.0,
-      "weight": 133
-    },
-    {
-      "kind": "kill_npc",
-      "target": "lotr_port:ranger_ithilien",
-      "min": 10,
-      "max": 30,
-      "reward": 1.0,
-      "weight": 133
-    },
-    {
-      "kind": "kill_npc",
-      "target": "lotr_port:ranger_ithilien",
-      "min": 10,
-      "max": 20,
-      "reward": 1.0,
-      "weight": 133
-    },
-    {
-      "kind": "kill_npc",
-      "target": "lotr_port:gondor_soldier",
-      "min": 10,
-      "max": 30,
-      "reward": 1.0,
-      "weight": 133
-    },
-    {
       "kind": "collect",
       "target": "minecraft:water_bucket",
       "min": 3,
@@ -335,6 +287,54 @@
       "max": 3,
       "reward": 5.0,
       "weight": 28
+    },
+    {
+      "kind": "kill_faction",
+      "target": "lotr_port:gondor",
+      "min": 20,
+      "max": 50,
+      "reward": 1.0,
+      "weight": 133
+    },
+    {
+      "kind": "kill_faction",
+      "target": "lotr_port:gondor",
+      "min": 10,
+      "max": 40,
+      "reward": 1.0,
+      "weight": 133
+    },
+    {
+      "kind": "kill_faction",
+      "target": "lotr_port:rohan",
+      "min": 10,
+      "max": 30,
+      "reward": 1.0,
+      "weight": 133
+    },
+    {
+      "kind": "kill_npc",
+      "target": "lotr_port:ranger_ithilien",
+      "min": 10,
+      "max": 30,
+      "reward": 1.0,
+      "weight": 133
+    },
+    {
+      "kind": "kill_npc",
+      "target": "lotr_port:ranger_ithilien",
+      "min": 10,
+      "max": 20,
+      "reward": 1.0,
+      "weight": 133
+    },
+    {
+      "kind": "kill_npc",
+      "target": "lotr_port:gondor_soldier",
+      "min": 10,
+      "max": 30,
+      "reward": 1.0,
+      "weight": 133
     }
   ]
 }

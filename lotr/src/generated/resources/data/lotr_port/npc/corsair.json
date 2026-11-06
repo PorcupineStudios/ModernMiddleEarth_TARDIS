@@ -13,8 +13,8 @@
   "attack": 2.0,
   "gear": {
     "mainhand": [
-      "lotr_port:corsair_battleaxe",
       "lotr_port:corsair_dagger",
+      "lotr_port:corsair_eket",
       "lotr_port:corsair_harpoon"
     ],
     "head": "lotr_port:corsair_helmet",

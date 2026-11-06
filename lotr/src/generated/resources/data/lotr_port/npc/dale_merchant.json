@@ -12,13 +12,16 @@
   "gear": {
     "mainhand": [
       "lotr_port:bronze_axe",
+      "lotr_port:bronze_dagger",
       "lotr_port:dalish_dagger",
-      "minecraft:iron_axe"
+      "lotr_port:iron_dagger",
+      "minecraft:iron_axe",
+      "minecraft:stone_axe"
     ],
     "head": "lotr_port:leather_hat"
   },
-  "names": "lotr_port:dale_male",
   "buy": "lotr_port:dale_merchant_buy",
   "sell": "lotr_port:dale_merchant_sell",
-  "speech": "lotr_port:dale/merchant"
+  "speech": "lotr_port:dale/merchant",
+  "quests": "lotr_port:dale"
 }

@@ -1,0 +1,11 @@
+{
+  "type": "lotr_port:ent_jar",
+  "ingredients": [
+    {
+      "item": "lotr_port:riverweed"
+    }
+  ],
+  "result": {
+    "id": "lotr_port:blue_ent_draught"
+  }
+}

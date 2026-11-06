@@ -211,6 +211,14 @@ https://claude.ai/artifact/KqhSSTCuKXGuwKHBoYJdcu. Rebuild features in modern co
   (`RegisterClientExtensionsEvent`). Animated parts keep their resting pose.
 - Every 1.7.10 → 1.21.1 mismatch and what was decided: `lotr/docs/missing-features.md`.
 
+## Recipes and JEI (2026-11-06)
+- Machine recipes are `crafting/MachineRecipe`: one recipe type and serializer per machine (`alloy_forge`,
+  `millstone`, `brewing`, `ent_jar`, `unsmelting`). Inputs match in any order, plus optional `station`, `chance`
+  and `time`. They load and show in JEI; the machine blocks don't run them yet.
+- JEI is optional (`compileOnly` API, `jei_version` in `lotr/gradle.properties`, optional dependency in
+  mods.toml). `compat/jei/LotrJeiPlugin` adds one category for faction tables, which shows the table each recipe
+  needs, and one category per machine, with the machine blocks as catalysts.
+
 ## Build
 From the repo root: `./gradlew :lotr:build`, `:lotr:runClient`, `:lotr:runServer`, `:lotr:runGameTestServer`,
 `:lotr:runData`. Shared rules are in the root `CLAUDE.md`.

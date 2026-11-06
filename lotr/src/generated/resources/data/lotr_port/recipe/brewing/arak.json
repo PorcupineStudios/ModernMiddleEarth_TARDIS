@@ -1,0 +1,27 @@
+{
+  "type": "lotr_port:brewing",
+  "ingredients": [
+    {
+      "item": "lotr_port:date"
+    },
+    {
+      "item": "lotr_port:date"
+    },
+    {
+      "item": "lotr_port:date"
+    },
+    {
+      "item": "lotr_port:date"
+    },
+    {
+      "item": "lotr_port:date"
+    },
+    {
+      "item": "lotr_port:date"
+    }
+  ],
+  "result": {
+    "id": "lotr_port:arak",
+    "count": 16
+  }
+}
