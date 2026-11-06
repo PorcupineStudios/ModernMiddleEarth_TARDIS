@@ -31,6 +31,7 @@ import com.porcupinestudios.lotrport.colony.Colonies;
 import com.porcupinestudios.lotrport.colony.Migrants;
 import com.porcupinestudios.lotrport.colony.Recruiting;
 import com.porcupinestudios.lotrport.registry.LotrRegistries;
+import com.porcupinestudios.lotrport.sound.LotrSounds;
 import com.porcupinestudios.lotrport.shared.SharedApiHooks;
 import com.porcupinestudios.lotrport.world.LotrWorldgen;
 import com.porcupinestudios.lotrport.world.WorldConditions;
@@ -51,6 +52,7 @@ public final class LotrPort {
     public LotrPort(IEventBus modBus, ModContainer container) {
         container.registerConfig(ModConfig.Type.SERVER, LotrConfig.SPEC);
         LotrRegistries.register(modBus);
+        LotrSounds.register(modBus);
         LotrBlocks.register(modBus);
         LotrItems.register(modBus);
         LotrTabs.register(modBus);

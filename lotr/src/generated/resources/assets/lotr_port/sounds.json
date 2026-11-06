@@ -1,0 +1,700 @@
+{
+  "ambient.terrain.sea": {
+    "sounds": [
+      "lotr_port:ambient/terrain/sea1",
+      "lotr_port:ambient/terrain/sea2",
+      "lotr_port:ambient/terrain/sea3"
+    ],
+    "subtitle": "subtitles.lotr_port.ambient.terrain.sea"
+  },
+  "ambient.weather.rain": {
+    "sounds": [
+      "lotr_port:ambient/weather/rain1",
+      "lotr_port:ambient/weather/rain2",
+      "lotr_port:ambient/weather/rain3"
+    ],
+    "subtitle": "subtitles.lotr_port.ambient.weather.rain"
+  },
+  "ambient.weather.thunder": {
+    "sounds": [
+      "lotr_port:ambient/weather/thunder1",
+      "lotr_port:ambient/weather/thunder2",
+      "lotr_port:ambient/weather/thunder3"
+    ],
+    "subtitle": "subtitles.lotr_port.ambient.weather.thunder"
+  },
+  "ambient.weather.wind": {
+    "sounds": [
+      "lotr_port:ambient/weather/wind1",
+      "lotr_port:ambient/weather/wind2",
+      "lotr_port:ambient/weather/wind3"
+    ],
+    "subtitle": "subtitles.lotr_port.ambient.weather.wind"
+  },
+  "aurochs.death": {
+    "sounds": [
+      "lotr_port:aurochs/death"
+    ],
+    "subtitle": "subtitles.lotr_port.aurochs.death"
+  },
+  "aurochs.hurt": {
+    "sounds": [
+      "lotr_port:aurochs/hurt1"
+    ],
+    "subtitle": "subtitles.lotr_port.aurochs.hurt"
+  },
+  "aurochs.say": {
+    "sounds": [
+      "lotr_port:aurochs/say1",
+      "lotr_port:aurochs/say2",
+      "lotr_port:aurochs/say3"
+    ],
+    "subtitle": "subtitles.lotr_port.aurochs.say"
+  },
+  "bear.death": {
+    "sounds": [
+      "lotr_port:bear/death"
+    ],
+    "subtitle": "subtitles.lotr_port.bear.death"
+  },
+  "bear.hurt": {
+    "sounds": [
+      "lotr_port:bear/hurt1",
+      "lotr_port:bear/hurt2"
+    ],
+    "subtitle": "subtitles.lotr_port.bear.hurt"
+  },
+  "bear.say": {
+    "sounds": [
+      "lotr_port:bear/say1",
+      "lotr_port:bear/say2"
+    ],
+    "subtitle": "subtitles.lotr_port.bear.say"
+  },
+  "bird.crow.hurt": {
+    "sounds": [
+      "lotr_port:bird/crow/hurt1",
+      "lotr_port:bird/crow/hurt2"
+    ],
+    "subtitle": "subtitles.lotr_port.bird.crow.hurt"
+  },
+  "bird.crow.say": {
+    "sounds": [
+      "lotr_port:bird/crow/say1",
+      "lotr_port:bird/crow/say2",
+      "lotr_port:bird/crow/say3"
+    ],
+    "subtitle": "subtitles.lotr_port.bird.crow.say"
+  },
+  "bird.hurt": {
+    "sounds": [
+      "lotr_port:bird/hurt1"
+    ],
+    "subtitle": "subtitles.lotr_port.bird.hurt"
+  },
+  "bird.say": {
+    "sounds": [
+      "lotr_port:bird/say1",
+      "lotr_port:bird/say2",
+      "lotr_port:bird/say3",
+      "lotr_port:bird/say4",
+      "lotr_port:bird/say5",
+      "lotr_port:bird/say6",
+      "lotr_port:bird/say7",
+      "lotr_port:bird/say8",
+      "lotr_port:bird/say9",
+      "lotr_port:bird/say10",
+      "lotr_port:bird/say11",
+      "lotr_port:bird/say12",
+      "lotr_port:bird/say13",
+      "lotr_port:bird/say14",
+      "lotr_port:bird/say15"
+    ],
+    "subtitle": "subtitles.lotr_port.bird.say"
+  },
+  "bird.seagull.hurt": {
+    "sounds": [
+      "lotr_port:bird/seagull/hurt1"
+    ],
+    "subtitle": "subtitles.lotr_port.bird.seagull.hurt"
+  },
+  "bird.seagull.say": {
+    "sounds": [
+      "lotr_port:bird/seagull/say1",
+      "lotr_port:bird/seagull/say2",
+      "lotr_port:bird/seagull/say3"
+    ],
+    "subtitle": "subtitles.lotr_port.bird.seagull.say"
+  },
+  "block.gate.close": {
+    "sounds": [
+      "lotr_port:block/gate/close"
+    ],
+    "subtitle": "subtitles.lotr_port.block.gate.close"
+  },
+  "block.gate.open": {
+    "sounds": [
+      "lotr_port:block/gate/open"
+    ],
+    "subtitle": "subtitles.lotr_port.block.gate.open"
+  },
+  "block.gate.stone_close": {
+    "sounds": [
+      "lotr_port:block/gate/stone_close"
+    ],
+    "subtitle": "subtitles.lotr_port.block.gate.stone_close"
+  },
+  "block.gate.stone_open": {
+    "sounds": [
+      "lotr_port:block/gate/stone_open"
+    ],
+    "subtitle": "subtitles.lotr_port.block.gate.stone_open"
+  },
+  "block.plate.break": {
+    "sounds": [
+      "lotr_port:block/plate/break"
+    ],
+    "subtitle": "subtitles.lotr_port.block.plate.break"
+  },
+  "block.treasure.break": {
+    "sounds": [
+      "lotr_port:block/treasure/break1",
+      "lotr_port:block/treasure/break2",
+      "lotr_port:block/treasure/break3"
+    ],
+    "subtitle": "subtitles.lotr_port.block.treasure.break"
+  },
+  "block.treasure.place": {
+    "sounds": [
+      "lotr_port:block/treasure/place1"
+    ],
+    "subtitle": "subtitles.lotr_port.block.treasure.place"
+  },
+  "block.treasure.step": {
+    "sounds": [
+      "lotr_port:block/treasure/step1",
+      "lotr_port:block/treasure/step2",
+      "lotr_port:block/treasure/step3"
+    ],
+    "subtitle": "subtitles.lotr_port.block.treasure.step"
+  },
+  "crocodile.death": {
+    "sounds": [
+      "lotr_port:crocodile/death"
+    ],
+    "subtitle": "subtitles.lotr_port.crocodile.death"
+  },
+  "crocodile.say": {
+    "sounds": [
+      "lotr_port:crocodile/say"
+    ],
+    "subtitle": "subtitles.lotr_port.crocodile.say"
+  },
+  "crocodile.snap": {
+    "sounds": [
+      "lotr_port:crocodile/snap"
+    ],
+    "subtitle": "subtitles.lotr_port.crocodile.snap"
+  },
+  "deer.death": {
+    "sounds": [
+      "lotr_port:deer/death"
+    ],
+    "subtitle": "subtitles.lotr_port.deer.death"
+  },
+  "deer.hurt": {
+    "sounds": [
+      "lotr_port:deer/hurt"
+    ],
+    "subtitle": "subtitles.lotr_port.deer.hurt"
+  },
+  "deer.say": {
+    "sounds": [
+      "lotr_port:deer/say1",
+      "lotr_port:deer/say2"
+    ],
+    "subtitle": "subtitles.lotr_port.deer.say"
+  },
+  "dwarf.attack": {
+    "sounds": [
+      "lotr_port:dwarf/attack"
+    ],
+    "subtitle": "subtitles.lotr_port.dwarf.attack"
+  },
+  "dwarf.hurt": {
+    "sounds": [
+      "lotr_port:dwarf/hurt"
+    ],
+    "subtitle": "subtitles.lotr_port.dwarf.hurt"
+  },
+  "dwarf.kill": {
+    "sounds": [
+      "lotr_port:dwarf/kill1",
+      "lotr_port:dwarf/kill2"
+    ],
+    "subtitle": "subtitles.lotr_port.dwarf.kill"
+  },
+  "elf.male.attack": {
+    "sounds": [
+      "lotr_port:elf/male/attack"
+    ],
+    "subtitle": "subtitles.lotr_port.elf.male.attack"
+  },
+  "elf.male.say": {
+    "sounds": [
+      "lotr_port:elf/male/say1",
+      "lotr_port:elf/male/say2"
+    ],
+    "subtitle": "subtitles.lotr_port.elf.male.say"
+  },
+  "elf.wood_elf_teleport": {
+    "sounds": [
+      "lotr_port:elf/wood_elf_teleport"
+    ],
+    "subtitle": "subtitles.lotr_port.elf.wood_elf_teleport"
+  },
+  "elk.death": {
+    "sounds": [
+      "lotr_port:elk/death"
+    ],
+    "subtitle": "subtitles.lotr_port.elk.death"
+  },
+  "elk.hurt": {
+    "sounds": [
+      "lotr_port:elk/hurt"
+    ],
+    "subtitle": "subtitles.lotr_port.elk.hurt"
+  },
+  "elk.say": {
+    "sounds": [
+      "lotr_port:elk/say1",
+      "lotr_port:elk/say2"
+    ],
+    "subtitle": "subtitles.lotr_port.elk.say"
+  },
+  "ent.mallorn.leaf_attack": {
+    "sounds": [
+      "lotr_port:ent/mallorn/leaf_attack"
+    ],
+    "subtitle": "subtitles.lotr_port.ent.mallorn.leaf_attack"
+  },
+  "ent.mallorn.summon_ent": {
+    "sounds": [
+      "lotr_port:ent/mallorn/summon_ent"
+    ],
+    "subtitle": "subtitles.lotr_port.ent.mallorn.summon_ent"
+  },
+  "ent.step": {
+    "sounds": [
+      "lotr_port:ent/step"
+    ],
+    "subtitle": "subtitles.lotr_port.ent.step"
+  },
+  "event.fast_travel": {
+    "sounds": [
+      "lotr_port:event/fast_travel"
+    ],
+    "subtitle": "subtitles.lotr_port.event.fast_travel"
+  },
+  "event.pledge": {
+    "sounds": [
+      "lotr_port:event/pledge"
+    ],
+    "subtitle": "subtitles.lotr_port.event.pledge"
+  },
+  "event.trade": {
+    "sounds": [
+      "lotr_port:event/trade1",
+      "lotr_port:event/trade2",
+      "lotr_port:event/trade3",
+      "lotr_port:event/trade4"
+    ],
+    "subtitle": "subtitles.lotr_port.event.trade"
+  },
+  "event.unpledge": {
+    "sounds": [
+      "lotr_port:event/unpledge"
+    ],
+    "subtitle": "subtitles.lotr_port.event.unpledge"
+  },
+  "flamingo.death": {
+    "sounds": [
+      "lotr_port:flamingo/death"
+    ],
+    "subtitle": "subtitles.lotr_port.flamingo.death"
+  },
+  "flamingo.hurt": {
+    "sounds": [
+      "lotr_port:flamingo/hurt1",
+      "lotr_port:flamingo/hurt2"
+    ],
+    "subtitle": "subtitles.lotr_port.flamingo.hurt"
+  },
+  "flamingo.say": {
+    "sounds": [
+      "lotr_port:flamingo/say1",
+      "lotr_port:flamingo/say2"
+    ],
+    "subtitle": "subtitles.lotr_port.flamingo.say"
+  },
+  "gollum.death": {
+    "sounds": [
+      "lotr_port:gollum/death"
+    ],
+    "subtitle": "subtitles.lotr_port.gollum.death"
+  },
+  "gollum.hurt": {
+    "sounds": [
+      "lotr_port:gollum/hurt1",
+      "lotr_port:gollum/hurt2"
+    ],
+    "subtitle": "subtitles.lotr_port.gollum.hurt"
+  },
+  "gollum.say": {
+    "sounds": [
+      "lotr_port:gollum/say1",
+      "lotr_port:gollum/say2"
+    ],
+    "subtitle": "subtitles.lotr_port.gollum.say"
+  },
+  "half_troll.death": {
+    "sounds": [
+      "lotr_port:half_troll/death"
+    ],
+    "subtitle": "subtitles.lotr_port.half_troll.death"
+  },
+  "half_troll.hurt": {
+    "sounds": [
+      "lotr_port:half_troll/hurt1",
+      "lotr_port:half_troll/hurt2"
+    ],
+    "subtitle": "subtitles.lotr_port.half_troll.hurt"
+  },
+  "half_troll.say": {
+    "sounds": [
+      "lotr_port:half_troll/say1",
+      "lotr_port:half_troll/say2"
+    ],
+    "subtitle": "subtitles.lotr_port.half_troll.say"
+  },
+  "item.balrog_whip": {
+    "sounds": [
+      "lotr_port:item/balrog_whip"
+    ],
+    "subtitle": "subtitles.lotr_port.item.balrog_whip"
+  },
+  "item.crossbow": {
+    "sounds": [
+      "lotr_port:item/crossbow"
+    ],
+    "subtitle": "subtitles.lotr_port.item.crossbow"
+  },
+  "item.crossbow_load": {
+    "sounds": [
+      "lotr_port:item/crossbow_load"
+    ],
+    "subtitle": "subtitles.lotr_port.item.crossbow_load"
+  },
+  "item.dart": {
+    "sounds": [
+      "lotr_port:item/dart1",
+      "lotr_port:item/dart2",
+      "lotr_port:item/dart3"
+    ],
+    "subtitle": "subtitles.lotr_port.item.dart"
+  },
+  "item.gandalf_fireball": {
+    "sounds": [
+      "lotr_port:item/gandalf_fireball"
+    ],
+    "subtitle": "subtitles.lotr_port.item.gandalf_fireball"
+  },
+  "item.horn": {
+    "sounds": [
+      "lotr_port:item/horn"
+    ],
+    "subtitle": "subtitles.lotr_port.item.horn"
+  },
+  "item.mace_sauron": {
+    "sounds": [
+      "lotr_port:item/mace_sauron"
+    ],
+    "subtitle": "subtitles.lotr_port.item.mace_sauron"
+  },
+  "item.mug_fill": {
+    "sounds": [
+      "lotr_port:item/mug_fill"
+    ],
+    "subtitle": "subtitles.lotr_port.item.mug_fill"
+  },
+  "item.puff": {
+    "sounds": [
+      "lotr_port:item/puff"
+    ],
+    "subtitle": "subtitles.lotr_port.item.puff"
+  },
+  "item.structure_spawner": {
+    "sounds": [
+      "lotr_port:item/structure_spawner"
+    ],
+    "subtitle": "subtitles.lotr_port.item.structure_spawner"
+  },
+  "lion.death": {
+    "sounds": [
+      "lotr_port:lion/death"
+    ],
+    "subtitle": "subtitles.lotr_port.lion.death"
+  },
+  "lion.hurt": {
+    "sounds": [
+      "lotr_port:lion/hurt"
+    ],
+    "subtitle": "subtitles.lotr_port.lion.hurt"
+  },
+  "lion.say": {
+    "sounds": [
+      "lotr_port:lion/say"
+    ],
+    "subtitle": "subtitles.lotr_port.lion.say"
+  },
+  "midges.swarm": {
+    "sounds": [
+      "lotr_port:midges/swarm1",
+      "lotr_port:midges/swarm2",
+      "lotr_port:midges/swarm3"
+    ],
+    "subtitle": "subtitles.lotr_port.midges.swarm"
+  },
+  "misc.heyguys": {
+    "sounds": [
+      "lotr_port:misc/heyguys"
+    ],
+    "subtitle": "subtitles.lotr_port.misc.heyguys"
+  },
+  "music.jazzelf": {
+    "sounds": [
+      {
+        "name": "lotr_port:music/jazzelf",
+        "stream": true
+      }
+    ],
+    "subtitle": "subtitles.lotr_port.music.jazzelf"
+  },
+  "orc.death": {
+    "sounds": [
+      "lotr_port:orc/death"
+    ],
+    "subtitle": "subtitles.lotr_port.orc.death"
+  },
+  "orc.fire": {
+    "sounds": [
+      "lotr_port:orc/fire"
+    ],
+    "subtitle": "subtitles.lotr_port.orc.fire"
+  },
+  "orc.hurt": {
+    "sounds": [
+      "lotr_port:orc/hurt1",
+      "lotr_port:orc/hurt2"
+    ],
+    "subtitle": "subtitles.lotr_port.orc.hurt"
+  },
+  "orc.say": {
+    "sounds": [
+      "lotr_port:orc/say"
+    ],
+    "subtitle": "subtitles.lotr_port.orc.say"
+  },
+  "rabbit.death": {
+    "sounds": [
+      "lotr_port:rabbit/death1"
+    ],
+    "subtitle": "subtitles.lotr_port.rabbit.death"
+  },
+  "rabbit.flee": {
+    "sounds": [
+      "lotr_port:rabbit/flee1",
+      "lotr_port:rabbit/flee2"
+    ],
+    "subtitle": "subtitles.lotr_port.rabbit.flee"
+  },
+  "rabbit.hurt": {
+    "sounds": [
+      "lotr_port:rabbit/hurt1",
+      "lotr_port:rabbit/hurt2"
+    ],
+    "subtitle": "subtitles.lotr_port.rabbit.hurt"
+  },
+  "rhino.death": {
+    "sounds": [
+      "lotr_port:rhino/death"
+    ],
+    "subtitle": "subtitles.lotr_port.rhino.death"
+  },
+  "rhino.hurt": {
+    "sounds": [
+      "lotr_port:rhino/hurt"
+    ],
+    "subtitle": "subtitles.lotr_port.rhino.hurt"
+  },
+  "rhino.say": {
+    "sounds": [
+      "lotr_port:rhino/say"
+    ],
+    "subtitle": "subtitles.lotr_port.rhino.say"
+  },
+  "swan.hiss": {
+    "sounds": [
+      "lotr_port:swan/hiss"
+    ],
+    "subtitle": "subtitles.lotr_port.swan.hiss"
+  },
+  "troll.olog_hai_hammer": {
+    "sounds": [
+      "lotr_port:troll/olog_hai_hammer"
+    ],
+    "subtitle": "subtitles.lotr_port.troll.olog_hai_hammer"
+  },
+  "troll.rock_smash": {
+    "sounds": [
+      "lotr_port:troll/rock_smash"
+    ],
+    "subtitle": "subtitles.lotr_port.troll.rock_smash"
+  },
+  "troll.say": {
+    "sounds": [
+      "lotr_port:troll/say"
+    ],
+    "subtitle": "subtitles.lotr_port.troll.say"
+  },
+  "troll.sneeze": {
+    "sounds": [
+      "lotr_port:troll/sneeze"
+    ],
+    "subtitle": "subtitles.lotr_port.troll.sneeze"
+  },
+  "troll.sniff": {
+    "sounds": [
+      "lotr_port:troll/sniff"
+    ],
+    "subtitle": "subtitles.lotr_port.troll.sniff"
+  },
+  "troll.step": {
+    "sounds": [
+      "lotr_port:troll/step"
+    ],
+    "subtitle": "subtitles.lotr_port.troll.step"
+  },
+  "troll.transform": {
+    "sounds": [
+      "lotr_port:troll/transform"
+    ],
+    "subtitle": "subtitles.lotr_port.troll.transform"
+  },
+  "warg.attack": {
+    "sounds": [
+      "lotr_port:warg/attack1",
+      "lotr_port:warg/attack2",
+      "lotr_port:warg/attack3"
+    ],
+    "subtitle": "subtitles.lotr_port.warg.attack"
+  },
+  "warg.death": {
+    "sounds": [
+      "lotr_port:warg/death1",
+      "lotr_port:warg/death2",
+      "lotr_port:warg/death3",
+      "lotr_port:warg/death4"
+    ],
+    "subtitle": "subtitles.lotr_port.warg.death"
+  },
+  "warg.hurt": {
+    "sounds": [
+      "lotr_port:warg/hurt1",
+      "lotr_port:warg/hurt2",
+      "lotr_port:warg/hurt3",
+      "lotr_port:warg/hurt4"
+    ],
+    "subtitle": "subtitles.lotr_port.warg.hurt"
+  },
+  "warg.say": {
+    "sounds": [
+      "lotr_port:warg/say1",
+      "lotr_port:warg/say2",
+      "lotr_port:warg/say3",
+      "lotr_port:warg/say4",
+      "lotr_port:warg/say5",
+      "lotr_port:warg/say6",
+      "lotr_port:warg/say7"
+    ],
+    "subtitle": "subtitles.lotr_port.warg.say"
+  },
+  "wight.ambience": {
+    "sounds": [
+      "lotr_port:wight/noise1",
+      "lotr_port:wight/noise2",
+      "lotr_port:wight/noise3",
+      "lotr_port:wight/noise4",
+      "lotr_port:wight/noise5",
+      "lotr_port:wight/voice1",
+      "lotr_port:wight/voice2",
+      "lotr_port:wight/voice3",
+      "lotr_port:wight/voice4",
+      "lotr_port:wight/voice5",
+      "lotr_port:wight/voice6",
+      "lotr_port:wight/voice7",
+      "lotr_port:wight/voice8",
+      "lotr_port:wight/scream1",
+      "lotr_port:wight/scream2",
+      "lotr_port:wight/whisper1"
+    ],
+    "subtitle": "subtitles.lotr_port.wight.ambience"
+  },
+  "wight.death": {
+    "sounds": [
+      "lotr_port:wight/death1",
+      "lotr_port:wight/death2",
+      "lotr_port:wight/death3"
+    ],
+    "subtitle": "subtitles.lotr_port.wight.death"
+  },
+  "wight.hurt": {
+    "sounds": [
+      "lotr_port:wight/hurt1",
+      "lotr_port:wight/hurt2",
+      "lotr_port:wight/hurt3",
+      "lotr_port:wight/hurt4"
+    ],
+    "subtitle": "subtitles.lotr_port.wight.hurt"
+  },
+  "wraith.marsh_wraith_shoot": {
+    "sounds": [
+      "lotr_port:wraith/marsh_wraith_shoot"
+    ],
+    "subtitle": "subtitles.lotr_port.wraith.marsh_wraith_shoot"
+  },
+  "wraith.spawn": {
+    "sounds": [
+      "lotr_port:wraith/spawn"
+    ],
+    "subtitle": "subtitles.lotr_port.wraith.spawn"
+  },
+  "zebra.death": {
+    "sounds": [
+      "lotr_port:zebra/death"
+    ],
+    "subtitle": "subtitles.lotr_port.zebra.death"
+  },
+  "zebra.hurt": {
+    "sounds": [
+      "lotr_port:zebra/hurt"
+    ],
+    "subtitle": "subtitles.lotr_port.zebra.hurt"
+  },
+  "zebra.say": {
+    "sounds": [
+      "lotr_port:zebra/say"
+    ],
+    "subtitle": "subtitles.lotr_port.zebra.say"
+  }
+}

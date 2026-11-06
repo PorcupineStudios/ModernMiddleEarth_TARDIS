@@ -35,6 +35,7 @@ from saplings import Saplings  # noqa: E402
 from classfile import ClassFile  # noqa: E402
 from armor_models import ArmorModels  # noqa: E402
 from create_compat import CreateCompat  # noqa: E402
+from sounds import Sounds  # noqa: E402
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 EXPORT = os.path.join(ROOT, "converter", "export")
@@ -118,6 +119,7 @@ class Gen:
         self.unloc = {}  # new id -> old unlocalized key (for other languages)
         self.tags = collections.defaultdict(set)  # "minecraft:block/mineable/pickaxe" -> ids
         self.recipe_count = 0
+        self.pending_vessels = []  # vessels met before the water mug got its id
         self.melee = self.weapon_tables()
 
     def weapon_tables(self):
@@ -175,6 +177,10 @@ class Gen:
                 variants = variants[:1]
             for v in variants:
                 self.item(it, v)
+        water = self.idtable.get("lotr:item.mugWater#0")
+        for e in self.pending_vessels:
+            if water:
+                e["fills"] = water.split("[")[0]
 
     def item(self, it, v):
         old_base = it["id"].split(".", 1)[1]
@@ -200,7 +206,19 @@ class Gen:
                 kind = "bolt"
             elif "LOTRItemArrowPoisoned" in chain:
                 kind = "arrow"
+            elif "LOTRItemCommandHorn" in chain or "LOTRItemConquestHorn" in chain:
+                kind = "horn"
+            elif "LOTRItemHobbitPipe" in chain:
+                kind = "pipe"
+            elif chain[0] == "LOTRItemVessel":
+                kind = "vessel"  # empty mugs, goblets, cups: fill with water (lotr:item.mugWater)
         e["kind"] = kind
+        if kind == "vessel":
+            water = self.idtable.get("lotr:item.mugWater#0")
+            if water:
+                e["fills"] = water.split("[")[0]
+            else:
+                self.pending_vessels.append(e)
         if it.get("maxDamage", 0) > 0 and not it.get("hasSubtypes"):
             e["durability"] = it["maxDamage"]
         else:
@@ -1118,6 +1136,7 @@ class Gen:
         tabs = self.do_tabs()
         self.other_langs()
         self.write_tags()
+        sounds = Sounds(self, self.jar, ASSETS, os.path.join(OUT, NS, "content"), load("world.json")).run()
         world_gen = World(self, load("world.json"), OUT, self.jar)
         world = world_gen.run()
         world.update(Saplings(self, DATA, self.jar, world_gen.trees).run())
@@ -1141,7 +1160,7 @@ class Gen:
         for code, entries in self.lang.items():
             write_json(os.path.join(ASSETS, "lang", code + ".json"), dict(sorted(entries.items())))
         write_json(os.path.join(ROOT, "converter", "idtable.json"), dict(sorted(self.idtable.items())))
-        summary = {"blocks": len(self.blocks), "items": len(self.items), "recipes": self.recipe_count,
+        summary = {"blocks": len(self.blocks), "items": len(self.items), "recipes": self.recipe_count, **sounds,
                    "textures": len(self.tex.copied), "languages": len(self.lang), "tabs": len(tabs), **world, **factions, **npcs}
         self.report["missing_textures"] = [m for m in self.report["missing_textures"] if not m.endswith("_mug")]
         rep = {"summary": summary}

@@ -18,11 +18,22 @@ and `[x]`) as they land, with the commit. Details and the 1.7.10 → 1.21.1 mism
 - [x] ~~World: biomes (169), map, roads, ores, trees, saplings, 82 structures~~
 - [x] ~~Factions (29), NPC types (350), trades, units, speech, waypoints (274), mini-quest pools~~
 
-## 1. Sounds
+## ~~1. Sounds~~ (done)
 
-- [ ] Copy the 229 sound files and convert `sounds.json` to 1.21 format
-- [ ] Register the sound events from data (`LotrSounds`)
-- [ ] Point blocks, NPCs and items at LOTR's sounds
+- [x] ~~Copy the sound files (190 .ogg) and convert `sounds.json` (101 events) to 1.21 format, with subtitles~~
+- [x] ~~Register the sound events from data (`sound/LotrSounds`)~~
+- [x] ~~NPC voices: orcs, elves, dwarves (say/hurt/death/attack/kill) on their NPC types~~
+- [x] ~~Blocks: gates (wood and stone), plates, treasure piles~~
+- [x] ~~Items: horns, smoking pipe, filling mugs and vessels, crossbow shoot/load~~
+- [x] ~~Events: fast travel, pledge, unpledge, trade~~
+- [x] ~~Ambience: wight moans in haunted biomes, wind high up, sea waves on coasts, LOTR's rain and thunder in
+  Middle-earth~~
+- [ ] Creature sounds (60): registered; they play once the creatures exist (sections 9, 11; table in
+  `converter/sounds.py` CREATURE_SOUNDS)
+- [ ] Ability sounds: Sauron's mace, Balrog whip, Gandalf's fireball, darts, orc bombs, structure spawner,
+  wood-elf teleport, mallorn-ent; they play once those items and NPC abilities are ported
+- [ ] Barrel and Ent jar filling; wraith rising from spawner chests; the elves' jazz easter egg (needs the
+  machines, spawner chests and elf behaviour)
 
 ## 2. Small data fixes
 

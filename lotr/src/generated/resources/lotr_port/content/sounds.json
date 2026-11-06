@@ -1,0 +1,406 @@
+[
+  {
+    "id": "ambient.terrain.sea",
+    "category": "ambient"
+  },
+  {
+    "id": "ambient.weather.rain",
+    "category": "weather"
+  },
+  {
+    "id": "ambient.weather.thunder",
+    "category": "weather"
+  },
+  {
+    "id": "ambient.weather.wind",
+    "category": "weather"
+  },
+  {
+    "id": "aurochs.death",
+    "category": "neutral"
+  },
+  {
+    "id": "aurochs.hurt",
+    "category": "neutral"
+  },
+  {
+    "id": "aurochs.say",
+    "category": "neutral"
+  },
+  {
+    "id": "bear.death",
+    "category": "neutral"
+  },
+  {
+    "id": "bear.hurt",
+    "category": "neutral"
+  },
+  {
+    "id": "bear.say",
+    "category": "neutral"
+  },
+  {
+    "id": "bird.crow.hurt",
+    "category": "neutral"
+  },
+  {
+    "id": "bird.crow.say",
+    "category": "neutral"
+  },
+  {
+    "id": "bird.hurt",
+    "category": "neutral"
+  },
+  {
+    "id": "bird.say",
+    "category": "neutral"
+  },
+  {
+    "id": "bird.seagull.hurt",
+    "category": "neutral"
+  },
+  {
+    "id": "bird.seagull.say",
+    "category": "neutral"
+  },
+  {
+    "id": "block.gate.close",
+    "category": "block"
+  },
+  {
+    "id": "block.gate.open",
+    "category": "block"
+  },
+  {
+    "id": "block.gate.stone_close",
+    "category": "block"
+  },
+  {
+    "id": "block.gate.stone_open",
+    "category": "block"
+  },
+  {
+    "id": "block.plate.break",
+    "category": "block"
+  },
+  {
+    "id": "block.treasure.break",
+    "category": "block"
+  },
+  {
+    "id": "block.treasure.place",
+    "category": "block"
+  },
+  {
+    "id": "block.treasure.step",
+    "category": "block"
+  },
+  {
+    "id": "crocodile.death",
+    "category": "hostile"
+  },
+  {
+    "id": "crocodile.say",
+    "category": "hostile"
+  },
+  {
+    "id": "crocodile.snap",
+    "category": "hostile"
+  },
+  {
+    "id": "deer.death",
+    "category": "neutral"
+  },
+  {
+    "id": "deer.hurt",
+    "category": "neutral"
+  },
+  {
+    "id": "deer.say",
+    "category": "neutral"
+  },
+  {
+    "id": "dwarf.attack",
+    "category": "neutral"
+  },
+  {
+    "id": "dwarf.hurt",
+    "category": "neutral"
+  },
+  {
+    "id": "dwarf.kill",
+    "category": "neutral"
+  },
+  {
+    "id": "elf.male.attack",
+    "category": "neutral"
+  },
+  {
+    "id": "elf.male.say",
+    "category": "neutral"
+  },
+  {
+    "id": "elf.wood_elf_teleport",
+    "category": "neutral"
+  },
+  {
+    "id": "elk.death",
+    "category": "neutral"
+  },
+  {
+    "id": "elk.hurt",
+    "category": "neutral"
+  },
+  {
+    "id": "elk.say",
+    "category": "neutral"
+  },
+  {
+    "id": "ent.mallorn.leaf_attack",
+    "category": "neutral"
+  },
+  {
+    "id": "ent.mallorn.summon_ent",
+    "category": "neutral"
+  },
+  {
+    "id": "ent.step",
+    "category": "neutral"
+  },
+  {
+    "id": "event.fast_travel",
+    "category": "player"
+  },
+  {
+    "id": "event.pledge",
+    "category": "player"
+  },
+  {
+    "id": "event.trade",
+    "category": "player"
+  },
+  {
+    "id": "event.unpledge",
+    "category": "player"
+  },
+  {
+    "id": "flamingo.death",
+    "category": "neutral"
+  },
+  {
+    "id": "flamingo.hurt",
+    "category": "neutral"
+  },
+  {
+    "id": "flamingo.say",
+    "category": "neutral"
+  },
+  {
+    "id": "gollum.death",
+    "category": "neutral"
+  },
+  {
+    "id": "gollum.hurt",
+    "category": "neutral"
+  },
+  {
+    "id": "gollum.say",
+    "category": "neutral"
+  },
+  {
+    "id": "half_troll.death",
+    "category": "neutral"
+  },
+  {
+    "id": "half_troll.hurt",
+    "category": "neutral"
+  },
+  {
+    "id": "half_troll.say",
+    "category": "neutral"
+  },
+  {
+    "id": "item.balrog_whip",
+    "category": "neutral"
+  },
+  {
+    "id": "item.crossbow",
+    "category": "neutral"
+  },
+  {
+    "id": "item.crossbow_load",
+    "category": "neutral"
+  },
+  {
+    "id": "item.dart",
+    "category": "neutral"
+  },
+  {
+    "id": "item.gandalf_fireball",
+    "category": "neutral"
+  },
+  {
+    "id": "item.horn",
+    "category": "neutral"
+  },
+  {
+    "id": "item.mace_sauron",
+    "category": "neutral"
+  },
+  {
+    "id": "item.mug_fill",
+    "category": "block"
+  },
+  {
+    "id": "item.puff",
+    "category": "neutral"
+  },
+  {
+    "id": "item.structure_spawner",
+    "category": "neutral"
+  },
+  {
+    "id": "lion.death",
+    "category": "neutral"
+  },
+  {
+    "id": "lion.hurt",
+    "category": "neutral"
+  },
+  {
+    "id": "lion.say",
+    "category": "neutral"
+  },
+  {
+    "id": "midges.swarm",
+    "category": "ambient"
+  },
+  {
+    "id": "misc.heyguys",
+    "category": "neutral"
+  },
+  {
+    "id": "music.jazzelf",
+    "category": "record"
+  },
+  {
+    "id": "orc.death",
+    "category": "neutral"
+  },
+  {
+    "id": "orc.fire",
+    "category": "neutral"
+  },
+  {
+    "id": "orc.hurt",
+    "category": "neutral"
+  },
+  {
+    "id": "orc.say",
+    "category": "neutral"
+  },
+  {
+    "id": "rabbit.death",
+    "category": "neutral"
+  },
+  {
+    "id": "rabbit.flee",
+    "category": "neutral"
+  },
+  {
+    "id": "rabbit.hurt",
+    "category": "neutral"
+  },
+  {
+    "id": "rhino.death",
+    "category": "neutral"
+  },
+  {
+    "id": "rhino.hurt",
+    "category": "neutral"
+  },
+  {
+    "id": "rhino.say",
+    "category": "neutral"
+  },
+  {
+    "id": "swan.hiss",
+    "category": "neutral"
+  },
+  {
+    "id": "troll.olog_hai_hammer",
+    "category": "neutral"
+  },
+  {
+    "id": "troll.rock_smash",
+    "category": "neutral"
+  },
+  {
+    "id": "troll.say",
+    "category": "neutral"
+  },
+  {
+    "id": "troll.sneeze",
+    "category": "neutral"
+  },
+  {
+    "id": "troll.sniff",
+    "category": "neutral"
+  },
+  {
+    "id": "troll.step",
+    "category": "neutral"
+  },
+  {
+    "id": "troll.transform",
+    "category": "neutral"
+  },
+  {
+    "id": "warg.attack",
+    "category": "neutral"
+  },
+  {
+    "id": "warg.death",
+    "category": "neutral"
+  },
+  {
+    "id": "warg.hurt",
+    "category": "neutral"
+  },
+  {
+    "id": "warg.say",
+    "category": "neutral"
+  },
+  {
+    "id": "wight.ambience",
+    "category": "neutral"
+  },
+  {
+    "id": "wight.death",
+    "category": "neutral"
+  },
+  {
+    "id": "wight.hurt",
+    "category": "neutral"
+  },
+  {
+    "id": "wraith.marsh_wraith_shoot",
+    "category": "hostile"
+  },
+  {
+    "id": "wraith.spawn",
+    "category": "hostile"
+  },
+  {
+    "id": "zebra.death",
+    "category": "neutral"
+  },
+  {
+    "id": "zebra.hurt",
+    "category": "neutral"
+  },
+  {
+    "id": "zebra.say",
+    "category": "neutral"
+  }
+]

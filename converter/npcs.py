@@ -13,6 +13,8 @@ models. One skin set per type (64x32 or 64x64): male skins (female NPCs and fami
 """
 import io
 import os
+
+from sounds import npc_sounds
 import re
 
 from assets import NS, snake, write_json
@@ -180,6 +182,9 @@ class Npcs:
         model = MODELS.get(((e.get("render") or {}).get("model") or "").split(".")[-1])
         if model:
             out["model"] = model
+        voice = npc_sounds(e.get("classes") or [e.get("class", "")])
+        if voice:
+            out["sounds"] = voice
         size = e.get("height", 1.8)
         if abs(size - 1.8) > 0.01:
             out["scale"] = round(size / 1.8, 3)

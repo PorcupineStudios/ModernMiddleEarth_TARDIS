@@ -225,6 +225,16 @@ https://claude.ai/artifact/KqhSSTCuKXGuwKHBoYJdcu. Rebuild features in modern co
   `converter/create/crossref.json`. Re-extract Create's recipes when the pack's Create version changes. The recipe
   count GameTest skips `create/`, because the test server runs without Create.
 
+## Sounds (2026-11-06)
+- `converter/sounds.py` copies LOTR's 190 sound files and 101 events. Ids are LOTR's, snake_cased per part:
+  `half_troll.say`. `sound/LotrSounds` registers them from `content/sounds.json`.
+- NPC types carry `sounds` (ambient/hurt/death/attack/kill), set from the LOTR class (`sounds.NPC_SOUNDS`) and
+  played by `LotrNpc`. Blocks: `LotrBlocks.sound` (treasure, plate) and `GateBlock`. Items: `content/LotrUseItem`
+  (horn, pipe, vessel). Crossbows: `sound/SoundHooks` swaps vanilla's crossbow sounds. Events: FastTravel, Pledges,
+  `LotrNpc.notifyTrade`.
+- `client/LotrAmbience` plays LOTR's ambience from `assets/lotr_port/ambience.json` (wight moans, wind, sea,
+  rain and thunder). "In Middle-earth" = standing in a lotr_port biome.
+
 ## Build
 From the repo root: `./gradlew :lotr:build`, `:lotr:runClient`, `:lotr:runServer`, `:lotr:runGameTestServer`,
 `:lotr:runData`. Shared rules are in the root `CLAUDE.md`.

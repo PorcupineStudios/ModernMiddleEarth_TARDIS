@@ -7,6 +7,7 @@ import com.porcupinestudios.lotrport.faction.Alignment;
 import com.porcupinestudios.lotrport.faction.FactionKills;
 import com.porcupinestudios.lotrport.faction.Factions;
 import com.porcupinestudios.lotrport.quest.Quests;
+import com.porcupinestudios.lotrport.sound.LotrSounds;
 import java.util.EnumSet;
 import java.util.List;
 import java.util.Optional;
@@ -25,9 +26,11 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
@@ -431,6 +434,52 @@ public class LotrNpc extends PathfinderMob implements Merchant {
         return owner != null && e instanceof Enemy;
     }
 
+    // ---------------------------------------------------------------- sounds (LOTR's voices from the type's data)
+
+    @Nullable
+    private SoundEvent typeSound(String event) {
+        NpcType type = npcType();
+        return type == null ? null : type.sound(event).flatMap(LotrSounds::byId).orElse(null);
+    }
+
+    @Override
+    @Nullable
+    protected SoundEvent getAmbientSound() {
+        SoundEvent s = typeSound("ambient");
+        return s != null ? s : super.getAmbientSound();
+    }
+
+    @Override
+    protected SoundEvent getHurtSound(DamageSource source) {
+        SoundEvent s = typeSound("hurt");
+        return s != null ? s : super.getHurtSound(source);
+    }
+
+    @Override
+    protected SoundEvent getDeathSound() {
+        SoundEvent s = typeSound("death");
+        return s != null ? s : super.getDeathSound();
+    }
+
+    @Override
+    public boolean doHurtTarget(Entity target) {
+        boolean hit = super.doHurtTarget(target);
+        if (hit) {
+            playTypeSound("attack");
+            if (target instanceof LivingEntity living && living.isDeadOrDying()) {
+                playTypeSound("kill");
+            }
+        }
+        return hit;
+    }
+
+    private void playTypeSound(String event) {
+        SoundEvent s = typeSound(event);
+        if (s != null) {
+            playSound(s, getSoundVolume(), getVoicePitch());
+        }
+    }
+
     @Override
     public void die(DamageSource source) {
         super.die(source);
@@ -552,6 +601,8 @@ public class LotrNpc extends PathfinderMob implements Merchant {
     public void notifyTrade(MerchantOffer offer) {
         offer.increaseUses();
         ambientSoundTime = -getAmbientSoundInterval();
+        // LOTR's coin jingle on every trade (LOTREntityNPC)
+        LotrSounds.playAt(level(), getX(), getY(), getZ(), "event.trade", SoundSource.NEUTRAL, 1f, 1f);
     }
 
     @Override

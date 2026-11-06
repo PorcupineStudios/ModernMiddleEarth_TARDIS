@@ -1,0 +1,72 @@
+{
+  "wight": {
+    "sound": "lotr_port:wight.ambience",
+    "biomes": {
+      "lotr_port:barrow_downs": {
+        "chance": 3000,
+        "pitch": 1.0
+      },
+      "lotr_port:dol_guldur": {
+        "chance": 1000,
+        "pitch": 0.85
+      },
+      "lotr_port:dead_marshes": {
+        "chance": 2400,
+        "pitch": 1.0
+      },
+      "lotr_port:mirkwood_corrupted": {
+        "chance": 3000,
+        "pitch": 1.0
+      },
+      "lotr_port:old_forest": {
+        "chance": 6000,
+        "pitch": 1.0
+      }
+    },
+    "cave_biomes": {}
+  },
+  "wind": {
+    "sound": "lotr_port:ambient.weather.wind",
+    "max": 4,
+    "chance": 20,
+    "range": 16,
+    "clear": [
+      100,
+      180
+    ],
+    "rain": [
+      80,
+      120
+    ],
+    "sandstorm": [
+      60,
+      80
+    ],
+    "sandstorm_biomes": [
+      "lotr_port:last_desert",
+      "lotr_port:near_harad",
+      "lotr_port:near_harad_red_desert",
+      "lotr_port:near_harad_semi_desert"
+    ]
+  },
+  "sea": {
+    "sound": "lotr_port:ambient.terrain.sea",
+    "max": 3,
+    "range": 64,
+    "tries": 8,
+    "biomes": [
+      "lotr_port:beach",
+      "lotr_port:beach_gravel",
+      "lotr_port:beach_white",
+      "lotr_port:far_harad_coast",
+      "lotr_port:island",
+      "lotr_port:lindon_coast",
+      "lotr_port:ocean"
+    ]
+  },
+  "weather": {
+    "minecraft:weather.rain": "lotr_port:ambient.weather.rain",
+    "minecraft:weather.rain.above": "lotr_port:ambient.weather.rain",
+    "minecraft:entity.lightning_bolt.thunder": "lotr_port:ambient.weather.thunder"
+  }
+}

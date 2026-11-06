@@ -241,6 +241,26 @@ public final class ContentTests {
         return Math.abs(a - b) < 0.01;
     }
 
+    /** Every LOTR sound is registered and each of its .ogg files is in the jar; orcs have LOTR's voice. */
+    @GameTest(template = "empty")
+    public static void everySoundIsRegisteredWithItsFiles(GameTestHelper helper) {
+        List<String> ids = ids("sounds.json", false);
+        helper.assertTrue(ids.size() >= 100, "LOTR's sounds are missing: " + ids.size());
+        JsonObject sounds = json("/assets/lotr_port/sounds.json");
+        helper.assertTrue(sounds != null, "assets/lotr_port/sounds.json missing");
+        for (String id : ids) {
+            helper.assertTrue(BuiltInRegistries.SOUND_EVENT.containsKey(LotrPort.id(id)), "sound not registered: " + id);
+            for (JsonElement f : sounds.getAsJsonObject(id).getAsJsonArray("sounds")) {
+                String name = f.isJsonObject() ? f.getAsJsonObject().get("name").getAsString() : f.getAsString();
+                String path = "/assets/lotr_port/sounds/" + name.substring(LotrPort.MOD_ID.length() + 1) + ".ogg";
+                helper.assertTrue(LotrPort.class.getResource(path) != null, "missing sound file " + path);
+            }
+        }
+        var orc = com.porcupinestudios.lotrport.npc.NpcData.type(LotrPort.id("mordor_orc"));
+        helper.assertTrue(orc.isPresent() && orc.get().sound("ambient").isPresent(), "Mordor orcs have no voice");
+        helper.succeed();
+    }
+
     private static JsonObject json(String path) {
         try (InputStream in = LotrPort.class.getResourceAsStream(path)) {
             return in == null ? null

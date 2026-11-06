@@ -6,7 +6,11 @@ import java.util.HashSet;
 import java.util.Set;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import com.porcupinestudios.lotrport.sound.LotrSounds;
+import net.minecraft.core.Holder;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.level.block.SoundType;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -95,8 +99,12 @@ public class GateBlock extends DirectionalBlock {
             for (BlockPos p : gate(level, pos, state)) {
                 level.setBlock(p, level.getBlockState(p).setValue(OPEN, open), Block.UPDATE_ALL);
             }
-            level.playSound(null, pos, open ? SoundEvents.WOODEN_DOOR_OPEN : SoundEvents.WOODEN_DOOR_CLOSE,
-                    SoundSource.BLOCKS, 1f, 1f);
+            // LOTR's own gate sounds: stone gates grind, the rest creak (LOTRBlockGate)
+            String stone = state.getSoundType(level, pos, player) == SoundType.STONE ? "stone_" : "";
+            SoundEvent sound = LotrSounds.get("block.gate." + stone + (open ? "open" : "close"))
+                    .map(Holder::value)
+                    .orElse(open ? SoundEvents.WOODEN_DOOR_OPEN : SoundEvents.WOODEN_DOOR_CLOSE);
+            level.playSound(null, pos, sound, SoundSource.BLOCKS, 1f, 1f);
         }
         return InteractionResult.sidedSuccess(level.isClientSide);
     }
