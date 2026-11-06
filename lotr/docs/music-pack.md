@@ -4,7 +4,29 @@ The mod plays a shuffled playlist per biome (`client/LotrMusic`) but ships no tr
 **resource pack** kept on your machine. Don't commit audio to this repo: the files are someone else's recordings,
 and pushing them to GitHub distributes them, even from a private repo.
 
-## Layout
+## Quick way: build it from your files
+
+On the computer with your tracks (Python 3, plus ffmpeg for anything that isn't .ogg):
+
+```bash
+python3 converter/music_pack.py "/path/to/your/soundtrack"
+```
+
+It converts every audio file in the folder, sorts tracks onto playlists by words in their file names (Shire,
+Moria, Rohan, Mordor...), and writes the pack straight into Minecraft's `resourcepacks` folder, outside this repo.
+It lists the tracks it couldn't place. To change the sorting:
+
+```bash
+python3 converter/music_pack.py --write-map my_map.json
+```
+
+Edit `my_map.json` (file-name word → playlists; the first match wins), then:
+
+```bash
+python3 converter/music_pack.py "/path/to/your/soundtrack" --map my_map.json
+```
+
+## Layout (what the script makes)
 
 ```
 middle-earth-music/

@@ -16,3 +16,8 @@ bin/
 run/
 runs/
 logs/
+
+# private music packs built by converter/music_pack.py: never commit
+*.ogg.tmp
+Middle-earth Music/
+Middle-earth Music.zip
