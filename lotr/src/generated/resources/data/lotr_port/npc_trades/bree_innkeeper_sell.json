@@ -61,6 +61,11 @@
       "cost": 4
     },
     {
+      "item": "minecraft:coal",
+      "count": 2,
+      "cost": 1
+    },
+    {
       "item": "lotr_port:salt",
       "cost": 10
     },

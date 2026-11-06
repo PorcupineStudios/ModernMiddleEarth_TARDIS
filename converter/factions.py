@@ -14,6 +14,11 @@ def faction_id(code):
     return code.lower()
 
 
+# LOTR factions without a lang name (creatures and the faction-less)
+INTERNAL_NAMES = {"DARK_HUORN": "Dark Huorns", "HOSTILE": "Hostile", "RUFFIAN": "Ruffians",
+                  "UNALIGNED": "Unaligned"}
+
+
 class FactionData:
     def __init__(self, gen, export, data_dir, jar):
         self.gen = gen
@@ -73,8 +78,10 @@ class FactionData:
                 for code in codes:
                     key = f"faction.{NS}.{faction_id(code)}"
                     if key not in dst:
-                        dst[key] = code.replace("_", " ").title()
-                        self.gen.report["untranslated_factions"].append(code)
+                        # LOTR's internal factions have no lang entry: name them in plain English
+                        dst[key] = INTERNAL_NAMES.get(code, code.replace("_", " ").title())
+                        if code not in INTERNAL_NAMES:
+                            self.gen.report["untranslated_factions"].append(code)
 
     def run(self):
         factions = [f for f in self.export if f.get("code")]

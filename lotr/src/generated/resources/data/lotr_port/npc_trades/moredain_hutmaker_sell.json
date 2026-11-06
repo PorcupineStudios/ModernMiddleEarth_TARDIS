@@ -22,6 +22,11 @@
       "cost": 1
     },
     {
+      "item": "minecraft:coal",
+      "count": 2,
+      "cost": 1
+    },
+    {
       "item": "minecraft:gold_nugget",
       "cost": 2
     },

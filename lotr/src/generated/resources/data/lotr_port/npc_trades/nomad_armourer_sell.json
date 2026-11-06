@@ -2,6 +2,11 @@
   "kind": "sell",
   "entries": [
     {
+      "item": "minecraft:coal",
+      "count": 2,
+      "cost": 1
+    },
+    {
       "item": "minecraft:gold_ingot",
       "cost": 15
     },
@@ -25,6 +30,10 @@
     {
       "item": "lotr_port:dried_reeds",
       "cost": 1
+    },
+    {
+      "item": "minecraft:white_wool",
+      "cost": 2
     },
     {
       "item": "lotr_port:emerald",

@@ -21,7 +21,7 @@
     }
   ],
   "result": {
-    "id": "lotr_port:ale",
-    "count": 16
-  }
+    "id": "lotr_port:ale"
+  },
+  "servings": 16
 }

@@ -21,7 +21,7 @@
     }
   ],
   "result": {
-    "id": "lotr_port:dwarven_ale",
-    "count": 16
-  }
+    "id": "lotr_port:dwarven_ale"
+  },
+  "servings": 16
 }

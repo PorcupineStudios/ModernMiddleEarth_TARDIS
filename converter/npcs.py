@@ -69,7 +69,9 @@ class Npcs:
         new = self.gen.idtable.get(f"{stack['item']}#{stack.get('meta', 0)}") or self.gen.idtable.get(
             f"{stack['item']}#0")
         if not new and stack["item"].startswith("minecraft:"):
-            kind, vid = vanilla_item(stack["item"], stack.get("meta", 0)) or (None, None)
+            # a trader deals in one real item: "any coal" (meta 32767) is coal, "any wool" white wool
+            meta = 0 if stack.get("meta", 0) == 32767 else stack.get("meta", 0)
+            kind, vid = vanilla_item(stack["item"], meta) or (None, None)
             return vid if kind == "item" else None
         return new.split("[")[0] if new else None
 

@@ -969,6 +969,9 @@ class Gen:
             if not res or not ings or any(i is None for i in ings):
                 self.report[f"unmapped_{machine}_recipes"].append({"in": inputs, "out": output})
                 return
+            if machine == "brewing" and res.get("count", 1) > 1:
+                # a barrel brews servings of an unstackable drink (LOTRBrewingRecipes.BARREL_CAPACITY)
+                extra = {**(extra or {}), "servings": res.pop("count")}
             j = {"type": f"{NS}:{machine}", "ingredients": ings, "result": res, **(extra or {})}
             name = res["id"].split(":")[1]
             seen[(machine, name)] += 1

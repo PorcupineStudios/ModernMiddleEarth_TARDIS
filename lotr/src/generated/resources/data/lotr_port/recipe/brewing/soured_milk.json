@@ -21,7 +21,7 @@
     }
   ],
   "result": {
-    "id": "lotr_port:soured_milk",
-    "count": 16
-  }
+    "id": "lotr_port:soured_milk"
+  },
+  "servings": 16
 }

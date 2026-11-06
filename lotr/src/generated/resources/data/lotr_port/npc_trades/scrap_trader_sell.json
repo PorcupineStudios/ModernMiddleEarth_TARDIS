@@ -82,6 +82,11 @@
       "cost": 6
     },
     {
+      "item": "minecraft:coal",
+      "count": 2,
+      "cost": 1
+    },
+    {
       "item": "lotr_port:obsidian_shard",
       "cost": 2
     },

@@ -21,7 +21,7 @@
     }
   ],
   "result": {
-    "id": "lotr_port:dwarven_tonic",
-    "count": 16
-  }
+    "id": "lotr_port:dwarven_tonic"
+  },
+  "servings": 16
 }

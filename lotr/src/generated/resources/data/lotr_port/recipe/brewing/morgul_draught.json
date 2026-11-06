@@ -21,7 +21,7 @@
     }
   ],
   "result": {
-    "id": "lotr_port:morgul_draught",
-    "count": 16
-  }
+    "id": "lotr_port:morgul_draught"
+  },
+  "servings": 16
 }

@@ -296,7 +296,8 @@ class CreateCompat:
         for f in sorted(os.listdir(folder)):
             with open(os.path.join(folder, f), encoding="utf-8") as fh:
                 r = json.load(fh)
-            m = {"type": "create:mixing", "ingredients": r["ingredients"] + [water], "results": [r["result"]]}
+            m = {"type": "create:mixing", "ingredients": r["ingredients"] + [water],
+                 "results": [{"id": r["result"]["id"], "count": 1}]}
             self.write("create:mixing", "brewing_" + f[:-5], m, "LOTR barrel drink, mixed with water")
 
     def lookalikes(self):

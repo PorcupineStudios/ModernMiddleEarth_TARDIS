@@ -653,54 +653,6 @@
       "utumno_warg"
     ]
   },
-  "npc_trades_unmapped": {
-    "count": 43,
-    "entries": [
-      "HOBBIT_BARTENDER_SELL: {'item': 'minecraft:coal', 'meta': 32767, 'count': 2}",
-      "GONDOR_BLACKSMITH_SELL: {'item': 'minecraft:coal', 'meta': 32767, 'count': 2}",
-      "URUK_HAI_TRADER_SELL: {'item': 'minecraft:coal', 'meta': 32767, 'count': 2}",
-      "ROHAN_BLACKSMITH_SELL: {'item': 'minecraft:coal', 'meta': 32767, 'count': 2}",
-      "DUNLENDING_BARTENDER_SELL: {'item': 'minecraft:coal', 'meta': 32767, 'count': 2}",
-      "BLUE_DWARF_MERCHANT_SELL: {'item': 'minecraft:coal', 'meta': 32767, 'count': 2}",
-      "NEAR_HARAD_MERCHANT_SELL: {'item': 'minecraft:coal', 'meta': 32767, 'count': 2}",
-      "GALADHRIM_SMITH_SELL: {'item': 'minecraft:coal', 'meta': 32767, 'count': 2}",
-      "HIGH_ELF_SMITH_SELL: {'item': 'minecraft:coal', 'meta': 32767, 'count': 2}",
-      "WOOD_ELF_SMITH_SELL: {'item': 'minecraft:coal', 'meta': 32767, 'count': 2}",
-      "MOREDAIN_HUNTSMAN_SELL: {'item': 'minecraft:coal', 'meta': 32767, 'count': 2}",
-      "MOREDAIN_HUTMAKER_SELL: {'item': 'minecraft:coal', 'meta': 32767, 'count': 2}",
-      "IRON_HILLS_MERCHANT_SELL: {'item': 'minecraft:coal', 'meta': 32767, 'count': 2}",
-      "SCRAP_TRADER_SELL: {'item': 'minecraft:coal', 'meta': 32767, 'count': 2}",
-      "DWARF_SMITH_SELL: {'item': 'minecraft:coal', 'meta': 32767, 'count': 2}",
-      "BLUE_DWARF_SMITH_SELL: {'item': 'minecraft:coal', 'meta': 32767, 'count': 2}",
-      "DALE_BLACKSMITH_SELL: {'item': 'minecraft:coal', 'meta': 32767, 'count': 2}",
-      "DORWINION_MERCHANT_SELL: {'item': 'minecraft:coal', 'meta': 32767, 'count': 2}",
-      "DALE_MERCHANT_SELL: {'item': 'minecraft:coal', 'meta': 32767, 'count': 2}",
-      "GONDOR_BARTENDER_SELL: {'item': 'minecraft:coal', 'meta': 32767, 'count': 2}",
-      "GONDOR_MASON_SELL: {'item': 'minecraft:coal', 'meta': 32767, 'count': 2}",
-      "ROHAN_BUILDER_SELL: {'item': 'minecraft:coal', 'meta': 32767, 'count': 2}",
-      "DUNEDAIN_BLACKSMITH_SELL: {'item': 'minecraft:coal', 'meta': 32767, 'count': 2}",
-      "RHUN_BLACKSMITH_SELL: {'item': 'minecraft:coal', 'meta': 32767, 'count': 2}",
-      "RHUN_MASON_SELL: {'item': 'minecraft:coal', 'meta': 32767, 'count': 2}",
-      "RHUN_BARTENDER_SELL: {'item': 'minecraft:coal', 'meta': 32767, 'count': 2}",
-      "RIVENDELL_SMITH_SELL: {'item': 'minecraft:coal', 'meta': 32767, 'count': 2}",
-      "NEAR_HARAD_BLACKSMITH_SELL: {'item': 'minecraft:coal', 'meta': 32767, 'count': 2}",
-      "HARNEDOR_BLACKSMITH_SELL: {'item': 'minecraft:coal', 'meta': 32767, 'count': 2}",
-      "UMBAR_BLACKSMITH_SELL: {'item': 'minecraft:coal', 'meta': 32767, 'count': 2}",
-      "GULF_BLACKSMITH_SELL: {'item': 'minecraft:coal', 'meta': 32767, 'count': 2}",
-      "HARNEDOR_BARTENDER_SELL: {'item': 'minecraft:coal', 'meta': 32767, 'count': 2}",
-      "HARAD_MASON_SELL: {'item': 'minecraft:coal', 'meta': 32767, 'count': 2}",
-      "UMBAR_MASON_SELL: {'item': 'minecraft:coal', 'meta': 32767, 'count': 2}",
-      "NOMAD_ARMOURER_SELL: {'item': 'minecraft:coal', 'meta': 32767, 'count': 2}",
-      "NOMAD_ARMOURER_SELL: {'item': 'minecraft:wool', 'meta': 32767}",
-      "SOUTHRON_BARTENDER_SELL: {'item': 'minecraft:coal', 'meta': 32767, 'count': 2}",
-      "GULF_BARTENDER_SELL: {'item': 'minecraft:coal', 'meta': 32767, 'count': 2}",
-      "TAUREDAIN_SMITH_SELL: {'item': 'minecraft:coal', 'meta': 32767, 'count': 2}",
-      "WICKED_DWARF_SELL: {'item': 'minecraft:coal', 'meta': 32767, 'count': 2}",
-      "BREE_BLACKSMITH_SELL: {'item': 'minecraft:coal', 'meta': 32767, 'count': 2}",
-      "BREE_INNKEEPER_SELL: {'item': 'minecraft:coal', 'meta': 32767, 'count': 2}",
-      "BREE_MASON_SELL: {'item': 'minecraft:coal', 'meta': 32767, 'count': 2}"
-    ]
-  },
   "npc_without_speech": {
     "count": 1,
     "entries": [
@@ -867,24 +819,6 @@
       "lotr.common.recipe.LOTRRecipeHaradTurbanOrnament",
       "lotr.common.recipe.LOTRRecipeHaradRobesDye",
       "lotr.common.recipe.LOTRRecipeHaradTurbanOrnament"
-    ]
-  },
-  "structure_blocks_unmapped": {
-    "count": 13,
-    "entries": [
-      "minecraft:stone_slab#11",
-      "minecraft:stone_slab#11",
-      "minecraft:stone_slab#11",
-      "minecraft:stone_slab#11",
-      "minecraft:stone_slab#11",
-      "minecraft:stone_slab#11",
-      "minecraft:stone_slab#8",
-      "minecraft:stone_slab#8",
-      "minecraft:stone_slab#8",
-      "minecraft:stone_slab#8",
-      "minecraft:stone_slab#8",
-      "minecraft:stone_slab#8",
-      "minecraft:stone_slab#8"
     ]
   },
   "structure_export_errors": {
@@ -1111,15 +1045,6 @@
     "count": 1,
     "entries": [
       "MALLORN_EXTREME_SAPLING"
-    ]
-  },
-  "untranslated_factions": {
-    "count": 4,
-    "entries": [
-      "DARK_HUORN",
-      "HOSTILE",
-      "RUFFIAN",
-      "UNALIGNED"
     ]
   }
 }

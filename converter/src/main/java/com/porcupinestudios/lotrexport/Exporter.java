@@ -75,6 +75,7 @@ public class Exporter {
         write("factions.json", world.factions());
         write("npcs.json", new NpcExporter(errors).npcs());
         write("quests.json", new QuestExporter(errors).quests());
+        write("extra.json", new ReflectionDump(this).dump());
         write("errors.json", errors);
     }
 

@@ -58,6 +58,11 @@
     {
       "item": "minecraft:water_bucket",
       "cost": 4
+    },
+    {
+      "item": "minecraft:coal",
+      "count": 2,
+      "cost": 1
     }
   ],
   "offers": 9

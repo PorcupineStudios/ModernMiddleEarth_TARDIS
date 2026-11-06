@@ -30,7 +30,7 @@ import net.minecraft.world.level.Level;
  * entities use these; until each machine's block lands (missing-features task 31) they load and are listed only.
  */
 public record MachineRecipe(Machine machine, Optional<ResourceLocation> station, List<Ingredient> ingredients,
-        ItemStack result, float chance, int time) implements Recipe<RecipeInput> {
+        ItemStack result, float chance, int time, int servings) implements Recipe<RecipeInput> {
 
     public enum Machine {
         ALLOY_FORGE("alloy_forge"), MILLSTONE("millstone"), BREWING("brewing"), ENT_JAR("ent_jar"),
@@ -48,8 +48,9 @@ public record MachineRecipe(Machine machine, Optional<ResourceLocation> station,
                     Ingredient.CODEC_NONEMPTY.listOf().fieldOf("ingredients").forGetter(MachineRecipe::ingredients),
                     ItemStack.STRICT_CODEC.fieldOf("result").forGetter(MachineRecipe::result),
                     Codec.FLOAT.optionalFieldOf("chance", 1f).forGetter(MachineRecipe::chance),
-                    Codec.INT.optionalFieldOf("time", 0).forGetter(MachineRecipe::time))
-                    .apply(i, (s, in, r, c, t) -> new MachineRecipe(this, s, in, r, c, t)));
+                    Codec.INT.optionalFieldOf("time", 0).forGetter(MachineRecipe::time),
+                    Codec.INT.optionalFieldOf("servings", 1).forGetter(MachineRecipe::servings))
+                    .apply(i, (s, in, r, c, t, n) -> new MachineRecipe(this, s, in, r, c, t, n)));
         }
 
         StreamCodec<RegistryFriendlyByteBuf, MachineRecipe> streamCodec() {
@@ -59,7 +60,8 @@ public record MachineRecipe(Machine machine, Optional<ResourceLocation> station,
                     ItemStack.STREAM_CODEC, MachineRecipe::result,
                     ByteBufCodecs.FLOAT, MachineRecipe::chance,
                     ByteBufCodecs.VAR_INT, MachineRecipe::time,
-                    (s, in, r, c, t) -> new MachineRecipe(this, s, in, r, c, t));
+                    ByteBufCodecs.VAR_INT, MachineRecipe::servings,
+                    (s, in, r, c, t, n) -> new MachineRecipe(this, s, in, r, c, t, n));
         }
     }
 

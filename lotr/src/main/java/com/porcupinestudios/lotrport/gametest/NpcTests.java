@@ -248,7 +248,10 @@ public final class NpcTests {
         troll.setNoGravity(true);
         troll.setState("burnTime", 2);
         helper.runAfterDelay(20, () -> {
-            helper.assertTrue(troll.state("is.LOTREntityStoneTroll") > 0, "the troll did not turn to stone");
+            helper.assertTrue(troll.state("is.LOTREntityStoneTroll") > 0, "the troll did not turn to stone (burn "
+                    + troll.state("burnTime") + ", day " + troll.level().isDay() + ", sky "
+                    + troll.level().canSeeSky(troll.blockPosition()) + ", rain " + troll.level().isRaining()
+                    + ", behaviours " + troll.behaviours().size() + ")");
             helper.assertTrue(troll.isNoAi(), "a stone troll still thinks");
             helper.succeed();
         });

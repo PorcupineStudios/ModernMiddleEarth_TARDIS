@@ -21,7 +21,7 @@
     }
   ],
   "result": {
-    "id": "lotr_port:melon_liqueur",
-    "count": 16
-  }
+    "id": "lotr_port:melon_liqueur"
+  },
+  "servings": 16
 }

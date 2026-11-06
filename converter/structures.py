@@ -155,6 +155,10 @@ class Structures:
         special = self.vanilla_special(name, meta)
         if special is not None:
             return special
+        if old in ("minecraft:stone_slab", "minecraft:wooden_slab"):
+            # 1.7.10 slabs: low 3 bits the material, bit 8 the top half
+            slab = SLABS[meta & 7] if old == "minecraft:stone_slab" else WOOD_SLABS[(meta & 7) % 6]
+            return {"Name": "minecraft:" + slab, "Properties": {"type": "top" if meta & 8 else "bottom"}}
         if old in BY_META:
             names = BY_META[old]
             base = meta & 3 if old in ("minecraft:log", "minecraft:log2", "minecraft:leaves",
