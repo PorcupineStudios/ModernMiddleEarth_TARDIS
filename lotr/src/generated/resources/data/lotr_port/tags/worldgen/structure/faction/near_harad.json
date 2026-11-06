@@ -8,6 +8,10 @@
     "lotr_port:moredain_merc_camp_1000",
     "lotr_port:moredain_merc_camp_1500",
     "lotr_port:moredain_merc_camp_2000",
-    "lotr_port:near_harad_desert_camp"
+    "lotr_port:near_harad_desert_camp",
+    "lotr_port:village_gulf_harad",
+    "lotr_port:village_harad_nomad",
+    "lotr_port:village_southron",
+    "lotr_port:village_umbar"
   ]
 }

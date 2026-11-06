@@ -1,0 +1,16 @@
+{
+  "type": "lotr_port:lotr",
+  "biomes": "#lotr_port:has_structure/village_gulf_harad",
+  "step": "surface_structures",
+  "spawn_overrides": {},
+  "terrain_adaptation": "none",
+  "templates": [
+    "lotr_port:village_gulf_harad/0",
+    "lotr_port:village_gulf_harad/1"
+  ],
+  "chance": 261,
+  "salt": 1313166381,
+  "ground": 1,
+  "max_slope": 24,
+  "road_distance": 0
+}

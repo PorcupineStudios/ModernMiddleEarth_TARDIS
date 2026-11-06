@@ -1,0 +1,16 @@
+{
+  "type": "lotr_port:lotr",
+  "biomes": "#lotr_port:has_structure/village_dunedain",
+  "step": "surface_structures",
+  "spawn_overrides": {},
+  "terrain_adaptation": "none",
+  "templates": [
+    "lotr_port:village_dunedain/0",
+    "lotr_port:village_dunedain/1"
+  ],
+  "chance": 206,
+  "salt": 1785697596,
+  "ground": 7,
+  "max_slope": 24,
+  "road_distance": 0
+}

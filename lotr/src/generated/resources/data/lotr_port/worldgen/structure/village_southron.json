@@ -1,0 +1,16 @@
+{
+  "type": "lotr_port:lotr",
+  "biomes": "#lotr_port:has_structure/village_southron",
+  "step": "surface_structures",
+  "spawn_overrides": {},
+  "terrain_adaptation": "none",
+  "templates": [
+    "lotr_port:village_southron/0",
+    "lotr_port:village_southron/1"
+  ],
+  "chance": 327,
+  "salt": 1257992078,
+  "ground": 5,
+  "max_slope": 24,
+  "road_distance": 0
+}

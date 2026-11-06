@@ -1,0 +1,16 @@
+{
+  "type": "lotr_port:lotr",
+  "biomes": "#lotr_port:has_structure/village_tauredain",
+  "step": "surface_structures",
+  "spawn_overrides": {},
+  "terrain_adaptation": "none",
+  "templates": [
+    "lotr_port:village_tauredain/0",
+    "lotr_port:village_tauredain/1"
+  ],
+  "chance": 167,
+  "salt": 10157547,
+  "ground": 4,
+  "max_slope": 24,
+  "road_distance": 0
+}

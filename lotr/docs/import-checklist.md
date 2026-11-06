@@ -41,8 +41,8 @@ and `[x]`) as they land, with the commit. Details and the 1.7.10 → 1.21.1 mism
 - [x] ~~13 unmapped structure blocks (`stone_slab#8/#11`, top-half slabs)~~
 - [x] ~~Skins for Gandalf, Saruman, Harad slave, scrap trader~~
 - [x] ~~4 untranslated factions~~
-- **Skipped:** the Gondor and Easterling town walls. Their generators only build as part of a village (private
-  constructors taking the wall segment), so they come with the villages in section 10, not on their own.
+- [x] ~~The Gondor and Easterling town walls: they only build as part of a village, and come with the exported
+  villages (section 10)~~
 
 ## ~~3. Recipes still missing~~ (done)
 
@@ -96,11 +96,11 @@ and `[x]`) as they land, with the commit. Details and the 1.7.10 → 1.21.1 mism
 - **Skipped:** LOTR's own music-pack format (`music.json` inside a zip) and its "now playing" overlay; packs use
   vanilla's sounds.json instead.
 
-## 8. Shields and capes
+## 8. Shields and capes (partly)
 
 - [x] ~~64 shields and 27 capes with textures and unlock rules (`content/shields.json`, `capes.json`)~~
 - [x] ~~`/lotr_shield` and `/lotr_cape` choose one (alignment shields at +1000 with their faction)~~
-- [ ] **Skipped:** drawing the shield and cape on the player (needs a synced payload and LOTR's shield model);
+- **Skipped:** drawing the shield and cape on the player (needs a synced payload and LOTR's shield model);
   capes on NPCs. Achievable and exclusive shields are operator-only (LOTR gave them out per player).
 
 ## ~~9. Spawning: animals, creatures, invasions~~ (done)
@@ -117,13 +117,14 @@ and `[x]`) as they land, with the commit. Details and the 1.7.10 → 1.21.1 mism
   vanilla's models, which the converter can't replay). Invasion size (6–12) is the port's, in each invasion file
   (LOTR's invasion banner and waves aren't ported). Conquest spawns (they need LOTR's conquest system).
 
-## 10. Structures: villages and big builds
+## ~~10. Structures: villages and big builds~~ (done)
 
-- [ ] Villages: the exporter grows each of LOTR's village generators whole (`StructureExporter.villages`) and they
-  are placed by LOTR's grid (1 in gridScale² / spawnChance chunks) in their biomes
+- [x] ~~Villages: the exporter grows each of LOTR's 11 village generators whole, twice (`StructureExporter.villages`:
+  Bree, Dúnedain, Gondor towns with their walls, Rohan, Rhûn, Southron, Umbar, Gulf, Harnedor, nomads, Taurëdain),
+  placed as `village_<kind>` in their biomes at LOTR's grid rate (1 in gridScale² / spawnChance chunks)~~
 - [x] ~~The 75 structure scans (`strscan`): LOTR's generators read them while they build, so the structure export
   already holds them (barns, gatehouses, forts...)~~
-- [ ] **Skipped:** fixed-position builds (Isengard walls, Rammas Echor, Minas Tirith and the other fixed
+- **Skipped:** each village is one fixed layout per seed (LOTR laid them out fresh each time); fixed-position builds (Isengard walls, Rammas Echor, Minas Tirith and the other fixed
   settlements at waypoints): they need placing at map coordinates.
 
 ## 11. NPC data still skipped
