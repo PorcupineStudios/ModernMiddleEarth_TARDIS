@@ -1,0 +1,34 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "create"
+    }
+  ],
+  "ingredients": [
+    {
+      "item": "lotr_port:niter_ore"
+    }
+  ],
+  "processing_time": 350,
+  "results": [
+    {
+      "id": "lotr_port:niter",
+      "count": 2
+    },
+    {
+      "chance": 0.75,
+      "id": "lotr_port:niter",
+      "count": 2
+    },
+    {
+      "chance": 0.75,
+      "id": "create:experience_nugget"
+    },
+    {
+      "chance": 0.125,
+      "id": "minecraft:cobblestone"
+    }
+  ],
+  "type": "create:crushing"
+}

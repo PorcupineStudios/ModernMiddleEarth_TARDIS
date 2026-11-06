@@ -219,6 +219,12 @@ https://claude.ai/artifact/KqhSSTCuKXGuwKHBoYJdcu. Rebuild features in modern co
   mods.toml). `compat/jei/LotrJeiPlugin` adds one category for faction tables, which shows the table each recipe
   needs, and one category per machine, with the machine blocks as catalysts.
 
+## Create compat (2026-11-06)
+- `converter/create_compat.py` writes 134 cross-mod recipes under `recipe/create/` (conditional on
+  `neoforge:mod_loaded` create) and `c:ores/*` / `c:nuggets/*` tags; every match and why is in
+  `converter/create/crossref.json`. Re-extract Create's recipes when the pack's Create version changes. The recipe
+  count GameTest skips `create/`, because the test server runs without Create.
+
 ## Build
 From the repo root: `./gradlew :lotr:build`, `:lotr:runClient`, `:lotr:runServer`, `:lotr:runGameTestServer`,
 `:lotr:runData`. Shared rules are in the root `CLAUDE.md`.

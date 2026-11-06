@@ -64,6 +64,14 @@ Turns LOTR 36.15 (1.7.10) content into the 1.21.1 port's generated resources. Tw
    jar, each alloy forge's smelting and alloys, the unsmeltery) as `lotr_port:<machine>` recipes; weapon poisoning
    becomes shapeless crafting. Blocks only an item places drop what LOTR's block dropped (exported `drops`).
 
+   `converter/create_compat.py` (Create cross-mod recipes): `--extract <create jar>` reads all of Create's recipes into
+   `converter/create/recipes.json.gz`. On every run, the generator cross-references them with LOTR's recipes, ore
+   dictionary and block drops, and writes `data/lotr_port/recipe/create/**`, which loads only with Create installed.
+   It copies the pattern Create uses for the vanilla analogue: LOTR ores get `c:ores/*` tags and crush like diamond
+   or iron ore; the millstone becomes milling, alloys heated mixing, barrel drinks mixing with water, flowers mill
+   into dyes, and LOTR sands and gravels wash like vanilla's. `converter/create/crossref.json` lists every match and
+   why.
+
 Never edit generated files by hand: change the generator and run it again.
 
 Known gaps (report.json): spawn eggs and structure spawners wait for the NPC and structure phases; LOTR's special

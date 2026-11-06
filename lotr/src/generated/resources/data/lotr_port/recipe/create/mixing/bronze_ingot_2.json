@@ -1,0 +1,24 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "create"
+    }
+  ],
+  "heat_requirement": "heated",
+  "ingredients": [
+    {
+      "item": "lotr_port:copper_ore"
+    },
+    {
+      "item": "lotr_port:tin_ore"
+    }
+  ],
+  "results": [
+    {
+      "id": "lotr_port:bronze_ingot",
+      "count": 2
+    }
+  ],
+  "type": "create:mixing"
+}

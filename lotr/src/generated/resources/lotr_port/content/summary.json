@@ -1,6 +1,7 @@
 [
   {
     "recipes": 2798,
+    "create_compat_recipes": 134,
     "factions": 29,
     "npcs": 350,
     "npc_skins": 205,

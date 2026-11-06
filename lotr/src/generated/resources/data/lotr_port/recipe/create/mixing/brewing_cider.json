@@ -1,0 +1,40 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "create"
+    }
+  ],
+  "type": "create:mixing",
+  "ingredients": [
+    {
+      "tag": "lotr_port:apples"
+    },
+    {
+      "tag": "lotr_port:apples"
+    },
+    {
+      "tag": "lotr_port:apples"
+    },
+    {
+      "tag": "lotr_port:apples"
+    },
+    {
+      "tag": "lotr_port:apples"
+    },
+    {
+      "tag": "lotr_port:apples"
+    },
+    {
+      "amount": 1000,
+      "fluid": "minecraft:water",
+      "type": "neoforge:single"
+    }
+  ],
+  "results": [
+    {
+      "id": "lotr_port:cider",
+      "count": 16
+    }
+  ]
+}
