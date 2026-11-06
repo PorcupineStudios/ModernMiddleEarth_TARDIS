@@ -247,6 +247,14 @@
       "max": 30,
       "reward": 1.0,
       "weight": 160
+    },
+    {
+      "kind": "kill_npc",
+      "target": "lotr_port:gundabad_warg",
+      "min": 10,
+      "max": 30,
+      "reward": 1.0,
+      "weight": 160
     }
   ]
 }

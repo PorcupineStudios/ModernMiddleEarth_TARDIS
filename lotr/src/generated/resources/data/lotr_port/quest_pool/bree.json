@@ -330,6 +330,14 @@
     },
     {
       "kind": "kill_npc",
+      "target": "lotr_port:gundabad_warg",
+      "min": 10,
+      "max": 30,
+      "reward": 1.0,
+      "weight": 133
+    },
+    {
+      "kind": "kill_npc",
       "target": "lotr_port:gundabad_orc",
       "min": 10,
       "max": 30,
@@ -358,6 +366,14 @@
       "min": 10,
       "max": 40,
       "reward": 1.0,
+      "weight": 133
+    },
+    {
+      "kind": "kill_npc",
+      "target": "lotr_port:barrow_wight",
+      "min": 5,
+      "max": 10,
+      "reward": 3.0,
       "weight": 133
     }
   ]

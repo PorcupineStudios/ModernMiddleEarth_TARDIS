@@ -132,7 +132,7 @@ class Machine:
     def construct(self, cls_name, args, this=None, desc=None):
         """Runs <init> of cls_name on this (a new Obj) with the given arguments."""
         this = this or Obj(cls_name)
-        if cls_name in (BIPED, "net/minecraft/client/model/ModelBiped"):
+        if cls_name in (BIPED, "net/minecraft/client/model/ModelZombie"):
             if len(args) == 0:
                 biped(this, 0.0)
             elif len(args) == 1:

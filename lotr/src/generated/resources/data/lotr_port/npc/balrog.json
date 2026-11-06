@@ -1,0 +1,26 @@
+{
+  "faction": "lotr_port:utumno",
+  "skins": [
+    "lotr_port:textures/entity/balrog/balrog/0.png"
+  ],
+  "skin_height": 256,
+  "model": "lotr_port:balrog",
+  "width": 2.4,
+  "height": 5.0,
+  "render_scale": 2.0,
+  "sounds": {
+    "ambient": "lotr_port:troll.say",
+    "step": "lotr_port:troll.step"
+  },
+  "health": 300.0,
+  "speed": 0.25,
+  "attack": 10.0,
+  "gear": {
+    "mainhand": [
+      "lotr_port:balrog_whip",
+      "lotr_port:utumno_sword",
+      "lotr_port:utumno_warhammer"
+    ]
+  },
+  "speech": "lotr_port:utumno/orc"
+}

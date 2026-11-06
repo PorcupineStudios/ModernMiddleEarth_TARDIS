@@ -1,0 +1,19 @@
+{
+  "faction": "lotr_port:angmar",
+  "skins": [
+    "lotr_port:textures/entity/troll/mountain_troll/0.png"
+  ],
+  "skin_height": 128,
+  "model": "lotr_port:troll",
+  "width": 3.2,
+  "height": 6.4,
+  "render_scale": 1.6,
+  "sounds": {
+    "ambient": "lotr_port:troll.say",
+    "step": "lotr_port:troll.step"
+  },
+  "health": 50.0,
+  "speed": 0.2,
+  "attack": 8.0,
+  "speech": "lotr_port:angmar/chieftain"
+}

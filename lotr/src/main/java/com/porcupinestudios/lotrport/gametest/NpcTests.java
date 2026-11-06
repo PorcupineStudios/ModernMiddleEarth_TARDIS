@@ -181,4 +181,25 @@ public final class NpcTests {
         helper.assertFalse(orc.getMainHandItem().isEmpty(), "the orc spawned without a weapon");
         helper.succeed();
     }
+
+    /**
+     * LOTR's non-person NPCs exist: trolls, wargs, half-trolls, spiders, ents, huorns, the Balrog and the rest have
+     * their creature body, LOTR's hitbox and their voice.
+     */
+    @GameTest(template = EMPTY)
+    public static void creaturesHaveTheirBodies(GameTestHelper helper) {
+        LotrNpc troll = spawn(helper, "troll");
+        helper.assertTrue(troll.model().equals("lotr_port:troll"), "troll body: " + troll.model());
+        helper.assertTrue(Math.abs(troll.getBbHeight() - 3.2f) < 0.01f, "troll height " + troll.getBbHeight());
+        helper.assertTrue(troll.npcType().sound("ambient").isPresent(), "trolls have no voice");
+        LotrNpc warg = spawn(helper, "mordor_warg");
+        helper.assertTrue(Math.abs(warg.getBbWidth() - 1.5f) < 0.01f, "warg width " + warg.getBbWidth());
+        helper.assertTrue(warg.skin().contains("warg/black"), "Mordor wargs are black: " + warg.skin());
+        for (String type : new String[] { "half_troll", "mirkwood_spider", "ent", "huorn", "balrog", "gollum",
+                "barrow_wight", "marsh_wraith", "gondor_ruins_wraith", "gandalf", "saruman" }) {
+            helper.assertTrue(NpcData.type(LotrPort.id(type)).isPresent(), "missing NPC type " + type);
+            helper.assertTrue(!spawn(helper, type).skin().isEmpty(), type + " has no skin");
+        }
+        helper.succeed();
+    }
 }

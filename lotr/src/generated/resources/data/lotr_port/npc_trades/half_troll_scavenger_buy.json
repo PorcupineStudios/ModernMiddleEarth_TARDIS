@@ -1,0 +1,175 @@
+{
+  "kind": "buy",
+  "entries": [
+    {
+      "item": "lotr_port:half_troll_crafting_table",
+      "cost": 100
+    },
+    {
+      "item": "minecraft:gold_ingot",
+      "cost": 22
+    },
+    {
+      "item": "minecraft:gold_nugget",
+      "cost": 5
+    },
+    {
+      "item": "lotr_port:silver_ingot",
+      "cost": 18
+    },
+    {
+      "item": "lotr_port:silver_nugget",
+      "cost": 4
+    },
+    {
+      "item": "lotr_port:bronze_ingot",
+      "cost": 12
+    },
+    {
+      "item": "lotr_port:torog_draught",
+      "cost": 7
+    },
+    {
+      "item": "lotr_port:umbaric_scimitar",
+      "cost": 16
+    },
+    {
+      "item": "lotr_port:umbaric_spear",
+      "cost": 16
+    },
+    {
+      "item": "lotr_port:haradric_sword",
+      "cost": 14
+    },
+    {
+      "item": "lotr_port:haradric_spear",
+      "cost": 14
+    },
+    {
+      "item": "lotr_port:coast_southron_helmet",
+      "cost": 15
+    },
+    {
+      "item": "lotr_port:mordor_scimitar",
+      "cost": 15
+    },
+    {
+      "item": "lotr_port:mordor_battleaxe",
+      "cost": 15
+    },
+    {
+      "item": "lotr_port:mordor_helmet",
+      "cost": 14
+    },
+    {
+      "item": "lotr_port:half_troll_scimitar",
+      "cost": 16
+    },
+    {
+      "item": "lotr_port:half_troll_mace",
+      "cost": 16
+    },
+    {
+      "item": "lotr_port:half_troll_pike",
+      "cost": 16
+    },
+    {
+      "item": "lotr_port:half_troll_dagger",
+      "cost": 12
+    },
+    {
+      "item": "lotr_port:poisoned_half_troll_dagger",
+      "cost": 15
+    },
+    {
+      "item": "lotr_port:half_troll_warhammer",
+      "cost": 16
+    },
+    {
+      "item": "lotr_port:gondorian_sword",
+      "cost": 20
+    },
+    {
+      "item": "lotr_port:gondorian_warhammer",
+      "cost": 20
+    },
+    {
+      "item": "lotr_port:morwaith_spear",
+      "cost": 15
+    },
+    {
+      "item": "lotr_port:morwaith_battleaxe",
+      "cost": 15
+    },
+    {
+      "item": "lotr_port:morwaith_dagger",
+      "cost": 12
+    },
+    {
+      "item": "lotr_port:morwaith_club",
+      "cost": 14
+    },
+    {
+      "item": "lotr_port:morwaith_sword",
+      "cost": 15
+    },
+    {
+      "item": "minecraft:arrow",
+      "count": 4,
+      "cost": 3
+    },
+    {
+      "item": "minecraft:bone",
+      "cost": 2
+    },
+    {
+      "item": "lotr_port:orc_bone",
+      "cost": 3
+    },
+    {
+      "item": "lotr_port:troll_bone",
+      "cost": 6
+    },
+    {
+      "item": "lotr_port:man_flesh",
+      "cost": 8
+    },
+    {
+      "item": "lotr_port:diamond",
+      "cost": 40
+    },
+    {
+      "item": "lotr_port:emerald",
+      "cost": 25
+    },
+    {
+      "item": "lotr_port:sapphire",
+      "cost": 20
+    },
+    {
+      "item": "lotr_port:ruby",
+      "cost": 20
+    },
+    {
+      "item": "lotr_port:opal",
+      "cost": 15
+    },
+    {
+      "item": "lotr_port:amber",
+      "cost": 15
+    },
+    {
+      "item": "lotr_port:amethyst",
+      "cost": 12
+    },
+    {
+      "item": "lotr_port:topaz",
+      "cost": 12
+    },
+    {
+      "item": "lotr_port:pearl",
+      "cost": 50
+    }
+  ],
+  "offers": 9
+}

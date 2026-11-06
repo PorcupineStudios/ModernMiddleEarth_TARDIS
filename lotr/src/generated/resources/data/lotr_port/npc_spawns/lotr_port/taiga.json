@@ -13,6 +13,12 @@
       "max": 6
     },
     {
+      "npc": "lotr_port:gundabad_warg",
+      "weight": 75,
+      "min": 4,
+      "max": 4
+    },
+    {
       "npc": "lotr_port:ranger_north",
       "weight": 22,
       "min": 1,

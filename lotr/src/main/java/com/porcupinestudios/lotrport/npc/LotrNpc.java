@@ -32,6 +32,10 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
+import com.porcupinestudios.lotrport.LotrPort;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.entity.Pose;
+import net.minecraft.world.entity.EntityDimensions;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
@@ -71,6 +75,13 @@ public class LotrNpc extends PathfinderMob implements Merchant {
             SynchedEntityData.defineId(LotrNpc.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<String> MODEL =
             SynchedEntityData.defineId(LotrNpc.class, EntityDataSerializers.STRING);
+    /** Creature hitbox (0 = person, sized by the scale attribute) and the scale its model is drawn at. */
+    private static final EntityDataAccessor<Float> WIDTH =
+            SynchedEntityData.defineId(LotrNpc.class, EntityDataSerializers.FLOAT);
+    private static final EntityDataAccessor<Float> HEIGHT =
+            SynchedEntityData.defineId(LotrNpc.class, EntityDataSerializers.FLOAT);
+    private static final EntityDataAccessor<Float> RENDER_SCALE =
+            SynchedEntityData.defineId(LotrNpc.class, EntityDataSerializers.FLOAT);
     /** The line it is saying, drawn above its head; empty when quiet. */
     private static final EntityDataAccessor<Component> SPEECH =
             SynchedEntityData.defineId(LotrNpc.class, EntityDataSerializers.COMPONENT);
@@ -130,6 +141,9 @@ public class LotrNpc extends PathfinderMob implements Merchant {
         builder.define(SKIN, "");
         builder.define(TALL_SKIN, false);
         builder.define(MODEL, "human");
+        builder.define(WIDTH, 0f);
+        builder.define(HEIGHT, 0f);
+        builder.define(RENDER_SCALE, 1f);
         builder.define(SPEECH, Component.empty());
         builder.define(QUEST_OFFER, -1);
     }
@@ -256,6 +270,7 @@ public class LotrNpc extends PathfinderMob implements Merchant {
         entityData.set(SKIN, skins.isEmpty() ? "" : skins.get(random.nextInt(skins.size())).toString());
         entityData.set(TALL_SKIN, type.skinHeight() == 64);
         entityData.set(MODEL, type.model());
+        setBody(type);
         type.gear().forEach((slot, items) -> {
             if (items.isEmpty()) {
                 return;
@@ -277,6 +292,42 @@ public class LotrNpc extends PathfinderMob implements Merchant {
     public ResourceLocation typeId() {
         ResourceLocation id = ResourceLocation.tryParse(entityData.get(TYPE));
         return id == null ? LotrEntities.NPC.getId() : id;
+    }
+
+    private void setBody(NpcType type) {
+        entityData.set(WIDTH, type.persona().width());
+        entityData.set(HEIGHT, type.persona().height());
+        entityData.set(RENDER_SCALE, type.persona().renderScale());
+    }
+
+    /** The scale a creature model is drawn at (LOTR's renderer scale); 1 for people. */
+    public float renderScale() {
+        return entityData.get(RENDER_SCALE);
+    }
+
+    @Override
+    protected EntityDimensions getDefaultDimensions(Pose pose) {
+        float w = entityData.get(WIDTH);
+        float h = entityData.get(HEIGHT);
+        return w > 0 && h > 0 ? EntityDimensions.scalable(w, h) : super.getDefaultDimensions(pose);
+    }
+
+    @Override
+    public void onSyncedDataUpdated(EntityDataAccessor<?> key) {
+        super.onSyncedDataUpdated(key);
+        if (WIDTH.equals(key) || HEIGHT.equals(key)) {
+            refreshDimensions();
+        }
+    }
+
+    @Override
+    protected void playStepSound(BlockPos pos, BlockState state) {
+        SoundEvent s = typeSound("step");
+        if (s != null) {
+            playSound(s, 0.5f, 1f);
+        } else {
+            super.playStepSound(pos, state);
+        }
     }
 
     @Nullable
@@ -640,6 +691,9 @@ public class LotrNpc extends PathfinderMob implements Merchant {
         tag.putString("Skin", entityData.get(SKIN));
         tag.putBoolean("TallSkin", entityData.get(TALL_SKIN));
         tag.putString("Model", entityData.get(MODEL));
+        tag.putFloat("Width", entityData.get(WIDTH));
+        tag.putFloat("Height", entityData.get(HEIGHT));
+        tag.putFloat("RenderScale", entityData.get(RENDER_SCALE));
         tag.putString("PersonName", personName);
         if (owner != null) {
             tag.putUUID("Owner", owner);
@@ -668,6 +722,14 @@ public class LotrNpc extends PathfinderMob implements Merchant {
             model = type == null ? "human" : type.model();
         }
         entityData.set(MODEL, model);
+        if (tag.contains("Width")) {
+            entityData.set(WIDTH, tag.getFloat("Width"));
+            entityData.set(HEIGHT, tag.getFloat("Height"));
+            entityData.set(RENDER_SCALE, tag.getFloat("RenderScale"));
+        } else {
+            ResourceLocation typeId = ResourceLocation.tryParse(tag.getString("NpcType"));
+            NpcData.type(typeId == null ? LotrPort.id("none") : typeId).ifPresent(this::setBody);
+        }
         personName = tag.getString("PersonName");
         owner = tag.hasUUID("Owner") ? tag.getUUID("Owner") : null;
         try {

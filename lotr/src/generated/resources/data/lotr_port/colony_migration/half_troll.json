@@ -1,0 +1,12 @@
+{
+  "entries": [
+    {
+      "npc": "lotr_port:half_troll",
+      "weight": 3
+    },
+    {
+      "npc": "lotr_port:half_troll_warrior",
+      "weight": 1
+    }
+  ]
+}

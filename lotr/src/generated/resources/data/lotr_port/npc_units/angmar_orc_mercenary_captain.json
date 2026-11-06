@@ -16,6 +16,27 @@
       "alignment": 250.0
     },
     {
+      "npc": "lotr_port:angmar_warg",
+      "cost": 20,
+      "alignment": 150.0
+    },
+    {
+      "npc": "lotr_port:angmar_warg_bombardier",
+      "cost": 50,
+      "alignment": 400.0
+    },
+    {
+      "npc": "lotr_port:troll",
+      "cost": 100,
+      "alignment": 400.0
+    },
+    {
+      "npc": "lotr_port:mountain_troll",
+      "cost": 120,
+      "alignment": 500.0,
+      "pledge": true
+    },
+    {
       "npc": "lotr_port:angmar_banner_bearer",
       "cost": 40,
       "alignment": 300.0

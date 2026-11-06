@@ -169,6 +169,14 @@
       "weight": 160
     },
     {
+      "kind": "kill_npc",
+      "target": "lotr_port:uruk_warg",
+      "min": 10,
+      "max": 20,
+      "reward": 1.0,
+      "weight": 160
+    },
+    {
       "kind": "kill_faction",
       "target": "lotr_port:dunland",
       "min": 10,

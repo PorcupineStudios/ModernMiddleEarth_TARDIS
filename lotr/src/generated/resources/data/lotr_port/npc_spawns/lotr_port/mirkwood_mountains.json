@@ -37,6 +37,24 @@
       "max": 6
     },
     {
+      "npc": "lotr_port:gundabad_warg",
+      "weight": 31,
+      "min": 4,
+      "max": 4
+    },
+    {
+      "npc": "lotr_port:huorn",
+      "weight": 4,
+      "min": 4,
+      "max": 4
+    },
+    {
+      "npc": "lotr_port:mirkwood_spider",
+      "weight": 100,
+      "min": 4,
+      "max": 6
+    },
+    {
       "npc": "lotr_port:wood_elf_scout",
       "weight": 3,
       "min": 4,

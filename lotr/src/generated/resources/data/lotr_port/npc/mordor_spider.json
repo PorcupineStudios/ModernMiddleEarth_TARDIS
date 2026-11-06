@@ -1,0 +1,19 @@
+{
+  "faction": "lotr_port:mordor",
+  "skins": [
+    "lotr_port:textures/entity/spider/spider_mordor.png"
+  ],
+  "model": "lotr_port:spider",
+  "width": 1.4,
+  "height": 0.8,
+  "sounds": {
+    "ambient": "minecraft:entity.spider.ambient",
+    "hurt": "minecraft:entity.spider.hurt",
+    "death": "minecraft:entity.spider.death",
+    "step": "minecraft:entity.spider.step"
+  },
+  "health": 24.0,
+  "speed": 0.29,
+  "attack": 4.0,
+  "speech": "lotr_port:mordor/orc"
+}

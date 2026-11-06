@@ -250,7 +250,55 @@
     },
     {
       "kind": "kill_npc",
+      "target": "lotr_port:troll",
+      "min": 10,
+      "max": 30,
+      "reward": 1.0,
+      "weight": 80
+    },
+    {
+      "kind": "kill_npc",
+      "target": "lotr_port:mountain_troll",
+      "min": 20,
+      "max": 40,
+      "reward": 1.0,
+      "weight": 80
+    },
+    {
+      "kind": "kill_npc",
+      "target": "lotr_port:gundabad_warg",
+      "min": 10,
+      "max": 40,
+      "reward": 1.0,
+      "weight": 80
+    },
+    {
+      "kind": "kill_npc",
+      "target": "lotr_port:angmar_warg",
+      "min": 10,
+      "max": 30,
+      "reward": 1.0,
+      "weight": 80
+    },
+    {
+      "kind": "kill_npc",
+      "target": "lotr_port:dark_huorn",
+      "min": 20,
+      "max": 30,
+      "reward": 1.0,
+      "weight": 80
+    },
+    {
+      "kind": "kill_npc",
       "target": "lotr_port:gundabad_orc",
+      "min": 10,
+      "max": 30,
+      "reward": 1.0,
+      "weight": 80
+    },
+    {
+      "kind": "kill_npc",
+      "target": "lotr_port:gundabad_warg",
       "min": 10,
       "max": 30,
       "reward": 1.0,

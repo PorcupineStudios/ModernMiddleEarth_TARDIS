@@ -1,0 +1,19 @@
+{
+  "faction": "lotr_port:dol_guldur",
+  "skins": [
+    "lotr_port:textures/entity/troll/mirk_troll/0.png"
+  ],
+  "skin_height": 128,
+  "model": "lotr_port:troll",
+  "width": 1.92,
+  "height": 3.84,
+  "render_scale": 1.2,
+  "sounds": {
+    "ambient": "lotr_port:troll.say",
+    "step": "lotr_port:troll.step"
+  },
+  "health": 70.0,
+  "speed": 0.2,
+  "attack": 6.0,
+  "speech": "lotr_port:dol_guldur/orc"
+}

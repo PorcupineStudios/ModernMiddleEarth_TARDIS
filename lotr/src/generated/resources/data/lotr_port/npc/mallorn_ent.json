@@ -1,0 +1,17 @@
+{
+  "faction": "lotr_port:fangorn",
+  "skins": [
+    "lotr_port:textures/entity/ent/mallorn.png"
+  ],
+  "skin_height": 128,
+  "model": "lotr_port:ent",
+  "width": 1.4,
+  "height": 4.6,
+  "sounds": {
+    "step": "lotr_port:ent.step"
+  },
+  "health": 300.0,
+  "speed": 0.2,
+  "attack": 8.0,
+  "speech": "lotr_port:ent/mallorn_ent"
+}

@@ -13,6 +13,12 @@
       "pledge": true
     },
     {
+      "npc": "lotr_port:olog_hai",
+      "cost": 120,
+      "alignment": 750.0,
+      "pledge": true
+    },
+    {
       "npc": "lotr_port:black_uruk_banner_bearer",
       "cost": 80,
       "alignment": 800.0,

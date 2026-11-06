@@ -23,6 +23,26 @@
     {
       "npc": "lotr_port:angmar_orc_bombardier",
       "weight": 1
+    },
+    {
+      "npc": "lotr_port:angmar_warg",
+      "weight": 3
+    },
+    {
+      "npc": "lotr_port:angmar_warg_bombardier",
+      "weight": 1
+    },
+    {
+      "npc": "lotr_port:mountain_troll",
+      "weight": 3
+    },
+    {
+      "npc": "lotr_port:snow_troll",
+      "weight": 3
+    },
+    {
+      "npc": "lotr_port:troll",
+      "weight": 3
     }
   ]
 }

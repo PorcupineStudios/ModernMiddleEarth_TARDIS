@@ -1,0 +1,19 @@
+{
+  "faction": "lotr_port:unaligned",
+  "skins": [
+    "lotr_port:textures/entity/char/gollum.png"
+  ],
+  "model": "lotr_port:gollum",
+  "width": 0.6,
+  "height": 1.2,
+  "render_scale": 0.85,
+  "sounds": {
+    "ambient": "lotr_port:gollum.say",
+    "hurt": "lotr_port:gollum.hurt",
+    "death": "lotr_port:gollum.death"
+  },
+  "health": 30.0,
+  "speed": 0.25,
+  "attack": 2.0,
+  "speech": "lotr_port:char/gollum"
+}

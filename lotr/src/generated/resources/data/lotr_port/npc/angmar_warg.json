@@ -1,0 +1,20 @@
+{
+  "faction": "lotr_port:angmar",
+  "skins": [
+    "lotr_port:textures/entity/warg/white.png"
+  ],
+  "skin_height": 64,
+  "model": "lotr_port:warg",
+  "width": 1.5,
+  "height": 1.7,
+  "sounds": {
+    "ambient": "lotr_port:warg.say",
+    "hurt": "lotr_port:warg.hurt",
+    "death": "lotr_port:warg.death",
+    "attack": "lotr_port:warg.attack"
+  },
+  "health": 29.0,
+  "speed": 0.22,
+  "attack": 4.0,
+  "speech": "lotr_port:angmar/orc"
+}

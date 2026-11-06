@@ -1,5 +1,10 @@
 {
   "faction": "lotr_port:unaligned",
+  "skins": [
+    "lotr_port:textures/entity/scrap_trader/0.png",
+    "lotr_port:textures/entity/scrap_trader/1.png"
+  ],
+  "skin_height": 64,
   "health": 20.0,
   "speed": 0.2,
   "attack": 2.0,

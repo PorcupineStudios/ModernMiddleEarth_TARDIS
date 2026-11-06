@@ -11,6 +11,17 @@
       "alignment": 200.0
     },
     {
+      "npc": "lotr_port:mirkwood_spider",
+      "cost": 20,
+      "alignment": 150.0
+    },
+    {
+      "npc": "lotr_port:mirk_troll",
+      "cost": 100,
+      "alignment": 500.0,
+      "pledge": true
+    },
+    {
       "npc": "lotr_port:dol_guldur_banner_bearer",
       "cost": 40,
       "alignment": 150.0

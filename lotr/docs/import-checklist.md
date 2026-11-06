@@ -39,7 +39,7 @@ and `[x]`) as they land, with the commit. Details and the 1.7.10 → 1.21.1 mism
 
 - [ ] 43 unmapped trade entries (mostly `minecraft:coal` meta 32767 → `#minecraft:coals`)
 - [ ] 13 unmapped structure blocks (`stone_slab#8/#11`)
-- [ ] Skins for Gandalf, Saruman, Harad slave, scrap trader
+- [x] ~~Skins for Gandalf, Saruman, Harad slave, scrap trader~~
 - [ ] 2 town-wall generators that failed to export (Gondor, Easterling)
 - [ ] 4 untranslated factions
 
@@ -88,14 +88,21 @@ and `[x]`) as they land, with the commit. Details and the 1.7.10 → 1.21.1 mism
 
 ## 11. NPC data still skipped
 
-- [ ] 46 mounted units (record the mount for later)
-- [ ] 14 non-person units in captains' pools
-- [ ] 20 non-person structure spawners
+- [x] ~~Non-person NPCs (39 types): half-trolls, trolls (incl. mountain, olog-hai, snow, Mirk, Utumno), wargs (11),
+  spiders (3), ents, huorns, the Balrog, barrow-wight, skeleton wraiths, marsh-wraith, Gollum, tormented elf;
+  creature bodies from LOTR's models (`converter/entity_models.py`, `client/CreatureModel`), LOTR's hitboxes,
+  skins and voices~~
+- [x] ~~14 non-person units in captains' pools~~ (now hired like the rest)
+- [x] ~~20 non-person structure spawners~~ (now place their creatures)
+- [ ] 47 mounted units (need mounts: wargs and horses to ride)
+- [ ] Creature behaviour LOTR had: trolls turning to stone in daylight, spiders climbing and webbing, ents and
+  huorns rooting, the Balrog's fire, wights' drain, Gollum, warg riders and bombardiers
+- [ ] Animals (23 models: deer, bears, horses, birds...) are not NPCs; they come with section 9
 
 ## 12. Quests
 
 - [ ] 32 bounty, retrieve and pickpocket quests
-- [ ] 36 kill targets that point at creatures
+- [ ] 11 kill targets that point at animals (25 creature targets now resolve)
 - [ ] Per-quest speech lines
 
 ## 13. Drinks
