@@ -11,6 +11,12 @@
       "alignment": 250.0
     },
     {
+      "npc": "lotr_port:pinnath_gelin_soldier",
+      "cost": 50,
+      "alignment": 350.0,
+      "mount": "minecraft:horse"
+    },
+    {
       "npc": "lotr_port:pinnath_gelin_banner_bearer",
       "cost": 50,
       "alignment": 400.0

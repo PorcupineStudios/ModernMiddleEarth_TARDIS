@@ -137,7 +137,8 @@ public final class Quests {
 
     private static void giveQuest(ServerPlayer player, LotrNpc npc, ActiveQuest quest) {
         save(player, log(player).with(quest));
-        npc.say(Component.translatableWithFallback("quest.lotr_port.given", "Please %s", describe(quest)), player);
+        npc.say(questLine(quest, "start", player).orElse(
+                Component.translatableWithFallback("quest.lotr_port.given", "Please %s", describe(quest))), player);
         player.displayClientMessage(Component.translatableWithFallback("quest.lotr_port.written",
                 "Quest written in your Red Book"), true);
     }
@@ -178,7 +179,8 @@ public final class Quests {
         int coins = Math.max(1, Math.round(count * e.reward() * pool.coinsPerTarget()));
         float alignment = Math.round(count * e.reward() * pool.alignmentPerTarget() * 10f) / 10f;
         ActiveQuest quest = new ActiveQuest(npc.getUUID(), npc.getDisplayName().getString(), faction, e.kind(),
-                e.target(), count, 0, coins, alignment, player.server.overworld().getGameTime());
+                e.target(), count, 0, coins, alignment, player.server.overworld().getGameTime(),
+                e.speech().map(ResourceLocation::toString).orElse(""));
         return new Offer(Optional.of(quest), Component.empty());
     }
 
@@ -210,7 +212,7 @@ public final class Quests {
                     "You haven't finished yet: %s (%s of %s)", describe(quest), progress(player, quest),
                     quest.count());
             if (npc != null) {
-                npc.say(line, player);
+                npc.say(questLine(quest, "progress", player).orElse(line), player);
             } else {
                 player.displayClientMessage(line, true);
             }
@@ -220,8 +222,8 @@ public final class Quests {
         Coins.give(player, quest.coins());
         Alignment.add(player, quest.faction(), quest.alignment());
         if (npc != null) {
-            npc.say(Component.translatableWithFallback("quest.lotr_port.thanks", "Thank you, %s!",
-                    player.getGameProfile().getName()), player);
+            npc.say(questLine(quest, "complete", player).orElse(Component.translatableWithFallback(
+                    "quest.lotr_port.thanks", "Thank you, %s!", player.getGameProfile().getName())), player);
         }
         player.displayClientMessage(Component.translatableWithFallback("quest.lotr_port.complete",
                 "Quest complete: %s coins, %s alignment", quest.coins(), quest.alignment()), true);
@@ -235,6 +237,70 @@ public final class Quests {
         HistoryLog.get(player.server).append(new HistoryEntry(player.server.overworld().getGameTime(),
                 COMPLETED_HISTORY, player.level().dimension(), Optional.of(player.blockPosition()), tag));
         return true;
+    }
+
+    /**
+     * One of LOTR's own lines for this quest ({@code speech/miniquest/<group>/<quest>/<mood>}), with # the player's
+     * name and $ what the quest asks for; empty when the quest has none.
+     */
+    static Optional<Component> questLine(ActiveQuest quest, String mood, ServerPlayer player) {
+        if (quest.speech().isEmpty()) {
+            return Optional.empty();
+        }
+        ResourceLocation bank = ResourceLocation.tryParse(quest.speech());
+        java.util.List<String> lines = bank == null ? java.util.List.of()
+                : com.porcupinestudios.lotrport.npc.NpcData.speech(bank, mood);
+        if (lines.isEmpty()) {
+            return Optional.empty();
+        }
+        String line = lines.get(player.getRandom().nextInt(lines.size()))
+                .replace("#", player.getGameProfile().getName());
+        String what = quest.count() + " " + switch (quest.kind()) {
+            case COLLECT -> BuiltInRegistries.ITEM.get(quest.target()).getDescription().getString();
+            case KILL_FACTION, PICKPOCKET -> factionName(quest.faction().equals(quest.target()) ? quest.faction()
+                    : quest.target()).getString();
+            case KILL_NPC -> Component.translatable("npc." + quest.target().getNamespace() + "."
+                    + quest.target().getPath()).getString();
+        };
+        return Optional.of(Component.literal(line.replace("$", what)));
+    }
+
+    /**
+     * A sneaking player uses an NPC from behind, unseen: one pocket picked toward their pickpocket quests
+     * (LOTRMiniQuestPickpocket). Each NPC can be picked once. Returns whether it counted.
+     */
+    public static boolean pickpocket(ServerPlayer player, LotrNpc npc) {
+        if (!player.isShiftKeyDown() || npc.getPersistentData().getBoolean("lotr_pickpocketed")
+                || npc.getTarget() == player) {
+            return false;
+        }
+        Optional<ResourceLocation> faction = FactionKills.factionOf(npc);
+        QuestLog log = log(player);
+        for (int i = 0; i < log.active().size(); i++) {
+            ActiveQuest q = log.active().get(i);
+            if (q.kind() != QuestPool.Kind.PICKPOCKET || q.killsDone() || faction.isEmpty()
+                    || !faction.get().equals(q.target())) {
+                continue;
+            }
+            // behind it: the player stands in the half-space opposite where the NPC looks
+            var look = npc.getLookAngle();
+            var toPlayer = player.position().subtract(npc.position()).normalize();
+            if (look.x * toPlayer.x + look.z * toPlayer.z > 0) {
+                player.displayClientMessage(Component.translatableWithFallback("quest.lotr_port.pickpocket_seen",
+                        "%s sees you coming", npc.getDisplayName()), true);
+                return true;
+            }
+            npc.getPersistentData().putBoolean("lotr_pickpocketed", true);
+            ActiveQuest next = q.withProgress(q.progress() + 1);
+            save(player, log.replace(i, next));
+            player.displayClientMessage(next.killsDone()
+                    ? Component.translatableWithFallback("quest.lotr_port.return", "Quest done: return to %s",
+                            q.giverName())
+                    : Component.translatableWithFallback("quest.lotr_port.kills", "%s: %s of %s", describe(q),
+                            next.progress(), q.count()), true);
+            return true;
+        }
+        return false;
     }
 
     /** A faction's name. */
@@ -277,7 +343,12 @@ public final class Quests {
                     "kill %s of %s", quest.count(), Component.translatable("faction." + t.getNamespace() + "."
                             + t.getPath()));
             case KILL_NPC -> Component.translatableWithFallback("quest.lotr_port.kill_npc", "kill %s %s",
-                    quest.count(), Component.translatable("npc." + t.getNamespace() + "." + t.getPath()));
+                    quest.count(), t.getNamespace().equals("minecraft")
+                            ? BuiltInRegistries.ENTITY_TYPE.get(t).getDescription()
+                            : Component.translatable("npc." + t.getNamespace() + "." + t.getPath()));
+            case PICKPOCKET -> Component.translatableWithFallback("quest.lotr_port.pickpocket",
+                    "pick the pockets of %s of %s", quest.count(), Component.translatable("faction."
+                            + t.getNamespace() + "." + t.getPath()));
         };
     }
 
@@ -318,8 +389,9 @@ public final class Quests {
             ActiveQuest q = log.active().get(i);
             boolean counts = switch (q.kind()) {
                 case KILL_FACTION -> faction.isPresent() && faction.get().equals(q.target());
-                case KILL_NPC -> q.target().equals(npcType);
-                case COLLECT -> false;
+                case KILL_NPC -> q.target().equals(npcType)
+                        || q.target().equals(BuiltInRegistries.ENTITY_TYPE.getKey(victim.getType()));
+                case COLLECT, PICKPOCKET -> false;
             };
             if (!counts || q.killsDone()) {
                 continue;

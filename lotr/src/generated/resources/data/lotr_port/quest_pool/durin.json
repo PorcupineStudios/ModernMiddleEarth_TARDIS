@@ -6,6 +6,7 @@
       "min": 1,
       "max": 2,
       "reward": 50.0,
+      "speech": "lotr_port:miniquest/durin/mine_mithril",
       "weight": 83
     },
     {
@@ -14,6 +15,7 @@
       "min": 3,
       "max": 15,
       "reward": 4.0,
+      "speech": "lotr_port:miniquest/durin/collect_mineral",
       "weight": 83
     },
     {
@@ -22,6 +24,7 @@
       "min": 3,
       "max": 15,
       "reward": 4.0,
+      "speech": "lotr_port:miniquest/durin/collect_mineral",
       "weight": 83
     },
     {
@@ -30,6 +33,7 @@
       "min": 5,
       "max": 15,
       "reward": 2.0,
+      "speech": "lotr_port:miniquest/durin/collect_mineral",
       "weight": 83
     },
     {
@@ -38,6 +42,7 @@
       "min": 1,
       "max": 3,
       "reward": 15.0,
+      "speech": "lotr_port:miniquest/durin/collect_mineral",
       "weight": 83
     },
     {
@@ -46,6 +51,7 @@
       "min": 1,
       "max": 3,
       "reward": 12.0,
+      "speech": "lotr_port:miniquest/durin/collect_mineral",
       "weight": 83
     },
     {
@@ -54,6 +60,7 @@
       "min": 1,
       "max": 3,
       "reward": 12.0,
+      "speech": "lotr_port:miniquest/durin/collect_mineral",
       "weight": 83
     },
     {
@@ -62,6 +69,7 @@
       "min": 1,
       "max": 3,
       "reward": 10.0,
+      "speech": "lotr_port:miniquest/durin/collect_mineral",
       "weight": 83
     },
     {
@@ -70,6 +78,7 @@
       "min": 1,
       "max": 3,
       "reward": 5.0,
+      "speech": "lotr_port:miniquest/durin/forge_dwarf_weapon",
       "weight": 83
     },
     {
@@ -78,6 +87,7 @@
       "min": 1,
       "max": 3,
       "reward": 5.0,
+      "speech": "lotr_port:miniquest/durin/forge_dwarf_weapon",
       "weight": 83
     },
     {
@@ -86,6 +96,7 @@
       "min": 1,
       "max": 4,
       "reward": 4.0,
+      "speech": "lotr_port:miniquest/durin/forge_dwarf_weapon",
       "weight": 83
     },
     {
@@ -94,6 +105,7 @@
       "min": 2,
       "max": 5,
       "reward": 3.0,
+      "speech": "lotr_port:miniquest/durin/collect_drink",
       "weight": 83
     },
     {
@@ -102,6 +114,7 @@
       "min": 20,
       "max": 40,
       "reward": 1.0,
+      "speech": "lotr_port:miniquest/durin/kill_gundabad",
       "weight": 200
     },
     {
@@ -110,6 +123,7 @@
       "min": 10,
       "max": 30,
       "reward": 1.0,
+      "speech": "lotr_port:miniquest/durin/kill_orc",
       "weight": 200
     },
     {
@@ -118,6 +132,7 @@
       "min": 10,
       "max": 30,
       "reward": 1.0,
+      "speech": "lotr_port:miniquest/durin/kill_warg",
       "weight": 200
     },
     {
@@ -126,6 +141,7 @@
       "min": 20,
       "max": 30,
       "reward": 1.0,
+      "speech": "lotr_port:miniquest/durin/kill_spider",
       "weight": 200
     }
   ]

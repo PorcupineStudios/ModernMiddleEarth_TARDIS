@@ -4,6 +4,12 @@
       "npc": "lotr_port:hobbit_shirriff",
       "cost": 20,
       "alignment": 50.0
+    },
+    {
+      "npc": "lotr_port:hobbit_shirriff",
+      "cost": 40,
+      "alignment": 100.0,
+      "mount": "minecraft:donkey"
     }
   ]
 }

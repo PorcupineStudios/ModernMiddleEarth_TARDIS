@@ -28,6 +28,10 @@ def speech_path(folder):
     return "/".join(snake(x) for x in folder.split("/"))
 
 
+# LOTR mounts drawn on vanilla's horse and pig models: the vanilla animal stands in (dwarves' war boars ride pigs
+# until LOTR's boar model converts)
+MOUNT_STAND_INS = {"Horse": "minecraft:horse", "Boar": "minecraft:pig", "Camel": "minecraft:camel",
+                   "ShirePony": "minecraft:donkey", "Zebra": "minecraft:horse"}
 PERSON_MODELS = {"LOTRModelHuman", "LOTRModelOrc", "LOTRModelElf", "LOTRModelDwarf", "LOTRModelHobbit"}
 # The head and body shape each LOTR model draws (hair layer, ears, hobbit feet); humans are the default.
 MODELS = {"LOTRModelHobbit": "hobbit", "LOTRModelDwarf": "dwarf", "LOTRModelElf": "elf", "LOTRModelOrc": "orc"}
@@ -252,14 +256,20 @@ class Npcs:
         units = []
         for u in pool.get("entries", []):
             npc = type_id(u.get("entity") or "")
+            mount = None
             if u.get("mount"):
-                self.report["npc_mounted_units_skipped"].append(f"{name}: {u.get('name')}")
-                continue
+                # LOTR's mounted units: wargs are NPC types; its horses, boars and the like are vanilla stand-ins
+                mid = type_id(u["mount"])
+                mount = f"{NS}:{mid}" if mid in types else MOUNT_STAND_INS.get(u["mount"].split(".")[-1])
+                if not mount:
+                    self.report["npc_mounted_units_skipped"].append(f"{name}: {u.get('name')} ({u['mount']})")
+                    continue
             if npc not in types:
                 self.report["npc_units_not_people"].append(f"{name}: {u.get('entity')}")
                 continue
             units.append({"npc": f"{NS}:{npc}", "cost": u.get("cost", 0), "alignment": u.get("alignment", 0),
-                          **({"pledge": True} if u.get("pledge") not in (None, "NONE") else {})})
+                          **({"pledge": True} if u.get("pledge") not in (None, "NONE") else {}),
+                          **({"mount": mount} if mount else {})})
         return {"units": units}
 
     # ------------------------------------------------------------------ types

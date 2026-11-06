@@ -3,6 +3,7 @@ package com.porcupinestudios.lotrport.npc;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import java.util.List;
+import java.util.Optional;
 import net.minecraft.resources.ResourceLocation;
 
 /**
@@ -14,12 +15,18 @@ import net.minecraft.resources.ResourceLocation;
  * @param pledge whether the player must be pledged to the captain's faction
  */
 public record UnitPool(List<Unit> units) {
-    public record Unit(ResourceLocation npc, int cost, float alignment, boolean pledge) {
+    /**
+     * @param mount what it rides (LOTR's mounted units): an NPC type (wargs) or a vanilla entity (horses), spawned
+     *              with it and ridden; a mount NPC is hired along with the rider
+     */
+    public record Unit(ResourceLocation npc, int cost, float alignment, boolean pledge,
+            Optional<ResourceLocation> mount) {
         public static final Codec<Unit> CODEC = RecordCodecBuilder.create(i -> i.group(
                 ResourceLocation.CODEC.fieldOf("npc").forGetter(Unit::npc),
                 Codec.INT.fieldOf("cost").forGetter(Unit::cost),
                 Codec.FLOAT.optionalFieldOf("alignment", 0f).forGetter(Unit::alignment),
-                Codec.BOOL.optionalFieldOf("pledge", false).forGetter(Unit::pledge))
+                Codec.BOOL.optionalFieldOf("pledge", false).forGetter(Unit::pledge),
+                ResourceLocation.CODEC.optionalFieldOf("mount").forGetter(Unit::mount))
                 .apply(i, Unit::new));
     }
 

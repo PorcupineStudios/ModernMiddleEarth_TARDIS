@@ -16,6 +16,18 @@
       "alignment": 150.0
     },
     {
+      "npc": "lotr_port:gundabad_orc",
+      "cost": 35,
+      "alignment": 200.0,
+      "mount": "lotr_port:gundabad_warg"
+    },
+    {
+      "npc": "lotr_port:gundabad_orc_archer",
+      "cost": 55,
+      "alignment": 250.0,
+      "mount": "lotr_port:gundabad_warg"
+    },
+    {
       "npc": "lotr_port:gundabad_uruk",
       "cost": 40,
       "alignment": 350.0,

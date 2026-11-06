@@ -38,8 +38,10 @@ public record QuestPool(List<Entry> quests, int maxActive, float coinsPerTarget,
         COLLECT,
         /** Kill {@code count} members of a faction. */
         KILL_FACTION,
-        /** Kill {@code count} NPCs of one type. */
-        KILL_NPC;
+        /** Kill {@code count} NPCs of one type (or vanilla animals of one entity type). */
+        KILL_NPC,
+        /** Pick the pockets of {@code count} members of a faction: sneak up behind and use them unseen. */
+        PICKPOCKET;
 
         public static final Codec<Kind> CODEC = Codec.STRING.xmap(s -> valueOf(s.toUpperCase(Locale.ROOT)),
                 k -> k.name().toLowerCase(Locale.ROOT));
@@ -53,14 +55,17 @@ public record QuestPool(List<Entry> quests, int maxActive, float coinsPerTarget,
      * @param max most asked for
      * @param reward reward factor (LOTR's): harder quests pay more per target
      */
-    public record Entry(Kind kind, ResourceLocation target, int min, int max, int weight, float reward) {
+    /** @param speech LOTR's lines for this quest: a speech bank with start, progress and complete moods */
+    public record Entry(Kind kind, ResourceLocation target, int min, int max, int weight, float reward,
+            Optional<ResourceLocation> speech) {
         public static final Codec<Entry> CODEC = RecordCodecBuilder.create(i -> i.group(
                 Kind.CODEC.fieldOf("kind").forGetter(Entry::kind),
                 ResourceLocation.CODEC.fieldOf("target").forGetter(Entry::target),
                 Codec.INT.optionalFieldOf("min", 1).forGetter(Entry::min),
                 Codec.INT.optionalFieldOf("max", 1).forGetter(Entry::max),
                 Codec.INT.optionalFieldOf("weight", 1).forGetter(Entry::weight),
-                Codec.FLOAT.optionalFieldOf("reward", 1f).forGetter(Entry::reward))
+                Codec.FLOAT.optionalFieldOf("reward", 1f).forGetter(Entry::reward),
+                ResourceLocation.CODEC.optionalFieldOf("speech").forGetter(Entry::speech))
                 .apply(i, Entry::new));
     }
 

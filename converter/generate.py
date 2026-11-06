@@ -834,9 +834,15 @@ class Gen:
             self.report["placed_block_drops_unmapped"].append(f"{new}: {d['item']}#{d.get('damage', 0)}")
             return
         if ing["item"].split(":")[1] in self.hidden:
-            # LOTR dropped the block itself (its contents came from the tile entity); the port's block has no item
-            self.report["placed_blocks_dropping_themselves"].append(new)
-            return
+            # LOTR dropped the block itself (its contents came from the tile entity); the port's block has no item.
+            # Vessels drop the empty vessel (the port keeps no drink in the placed block), vines their grapes' vine
+            # seeds, the storage bookshelf a bookshelf; portals, fire and rails dropped nothing a player could get.
+            item = self.SELF_DROPS.get(new)
+            if item:
+                ing = {"item": item}
+            else:
+                self.report["placed_blocks_dropping_themselves"].append(new)
+                return
         entry = {"type": "minecraft:item", "name": ing["item"]}
         lo, hi = d.get("min", 1), d.get("max", 1)
         if hi == 0:
@@ -849,6 +855,15 @@ class Gen:
                    {"type": "minecraft:block", "pools": [{"rolls": 1, "entries": [entry],
                     "conditions": [{"condition": "minecraft:survives_explosion"}]}]})
         self.report["placed_blocks_with_loot"].append(f"{new} -> {ing['item']}")
+
+    SELF_DROPS = {"mug_block": f"{NS}:mug", "ceramic_mug_block": f"{NS}:ceramic_mug",
+                  "goblet_gold": f"{NS}:golden_goblet", "goblet_silver": f"{NS}:silver_goblet",
+                  "goblet_copper": f"{NS}:copper_goblet", "goblet_wood": f"{NS}:wooden_cup",
+                  "skull_cup_block": f"{NS}:skull_cup", "wine_glass_block": f"{NS}:wine_glass",
+                  "ale_horn_block": f"{NS}:ale_horn", "ale_horn_gold": f"{NS}:golden_ale_horn",
+                  "glass_bottle": "minecraft:glass_bottle", "flower_pot": "minecraft:flower_pot",
+                  "bookshelf_storage": "minecraft:bookshelf", "grapevine_red": f"{NS}:red_grape_seeds",
+                  "grapevine_white": f"{NS}:green_grape_seeds"}
 
     # ------------------------------------------------------------------ recipes
 

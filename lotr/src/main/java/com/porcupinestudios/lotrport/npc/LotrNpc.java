@@ -668,6 +668,9 @@ public class LotrNpc extends PathfinderMob implements Merchant {
             return InteractionResult.SUCCESS;
         }
         NpcType type = npcType();
+        if (owner == null && com.porcupinestudios.lotrport.quest.Quests.pickpocket(sp, this)) {
+            return InteractionResult.SUCCESS;
+        }
         if (owner == null && Migrants.interact(sp, this)) {
             return InteractionResult.SUCCESS;
         }

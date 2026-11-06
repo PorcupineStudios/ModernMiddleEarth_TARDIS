@@ -12,6 +12,13 @@
       "pledge": true
     },
     {
+      "npc": "lotr_port:high_elf_warrior",
+      "cost": 70,
+      "alignment": 500.0,
+      "pledge": true,
+      "mount": "minecraft:horse"
+    },
+    {
       "npc": "lotr_port:high_elf_banner_bearer",
       "cost": 70,
       "alignment": 550.0,

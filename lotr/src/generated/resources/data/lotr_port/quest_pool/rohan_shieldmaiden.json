@@ -6,6 +6,7 @@
       "min": 5,
       "max": 20,
       "reward": 1.0,
+      "speech": "lotr_port:miniquest/rohan_shieldmaiden/kill_enemies",
       "weight": 400
     },
     {
@@ -14,6 +15,7 @@
       "min": 5,
       "max": 20,
       "reward": 1.0,
+      "speech": "lotr_port:miniquest/rohan_shieldmaiden/kill_enemies",
       "weight": 400
     }
   ],

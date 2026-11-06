@@ -21,6 +21,18 @@
       "alignment": 150.0
     },
     {
+      "npc": "lotr_port:mordor_orc",
+      "cost": 40,
+      "alignment": 250.0,
+      "mount": "lotr_port:mordor_warg"
+    },
+    {
+      "npc": "lotr_port:mordor_orc_archer",
+      "cost": 60,
+      "alignment": 300.0,
+      "mount": "lotr_port:mordor_warg"
+    },
+    {
       "npc": "lotr_port:mordor_warg_bombardier",
       "cost": 50,
       "alignment": 400.0

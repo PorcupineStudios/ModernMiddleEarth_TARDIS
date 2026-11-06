@@ -11,6 +11,12 @@
       "alignment": 300.0
     },
     {
+      "npc": "lotr_port:half_troll_warrior",
+      "cost": 70,
+      "alignment": 400.0,
+      "mount": "lotr_port:rhino"
+    },
+    {
       "npc": "lotr_port:half_troll_banner_bearer",
       "cost": 70,
       "alignment": 350.0

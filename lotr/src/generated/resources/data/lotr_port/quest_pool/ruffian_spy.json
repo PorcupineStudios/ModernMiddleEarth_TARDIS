@@ -1,11 +1,30 @@
 {
   "quests": [
     {
+      "kind": "pickpocket",
+      "target": "lotr_port:bree",
+      "min": 2,
+      "max": 6,
+      "reward": 1.0,
+      "speech": "lotr_port:miniquest/ruffian_spy/pickpocket",
+      "weight": 300
+    },
+    {
+      "kind": "pickpocket",
+      "target": "lotr_port:bree",
+      "min": 2,
+      "max": 8,
+      "reward": 1.5,
+      "speech": "lotr_port:miniquest/ruffian_spy/pickpocket_for_boss",
+      "weight": 300
+    },
+    {
       "kind": "collect",
       "target": "lotr_port:pipe_weed",
       "min": 10,
       "max": 20,
       "reward": 0.5,
+      "speech": "lotr_port:miniquest/ruffian_spy/collect_pipeweed",
       "weight": 125
     },
     {
@@ -14,6 +33,7 @@
       "min": 3,
       "max": 6,
       "reward": 3.0,
+      "speech": "lotr_port:miniquest/ruffian_spy/collect_drink",
       "weight": 125
     },
     {
@@ -22,6 +42,7 @@
       "min": 3,
       "max": 6,
       "reward": 3.0,
+      "speech": "lotr_port:miniquest/ruffian_spy/collect_drink",
       "weight": 125
     },
     {
@@ -30,6 +51,7 @@
       "min": 3,
       "max": 6,
       "reward": 3.0,
+      "speech": "lotr_port:miniquest/ruffian_spy/collect_drink",
       "weight": 125
     },
     {
@@ -38,6 +60,7 @@
       "min": 3,
       "max": 6,
       "reward": 4.0,
+      "speech": "lotr_port:miniquest/ruffian_spy/collect_drink",
       "weight": 125
     },
     {
@@ -46,6 +69,7 @@
       "min": 10,
       "max": 15,
       "reward": 1.5,
+      "speech": "lotr_port:miniquest/ruffian_spy/collect_mathom",
       "weight": 125
     },
     {
@@ -54,6 +78,7 @@
       "min": 1,
       "max": 2,
       "reward": 15.0,
+      "speech": "lotr_port:miniquest/ruffian_spy/collect_mathom",
       "weight": 125
     },
     {
@@ -62,6 +87,7 @@
       "min": 10,
       "max": 20,
       "reward": 0.5,
+      "speech": "lotr_port:miniquest/ruffian_spy/collect_mathom",
       "weight": 125
     }
   ]

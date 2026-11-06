@@ -16,6 +16,24 @@
       "alignment": 200.0
     },
     {
+      "npc": "lotr_port:angmar_hillman",
+      "cost": 35,
+      "alignment": 200.0,
+      "mount": "lotr_port:angmar_warg"
+    },
+    {
+      "npc": "lotr_port:angmar_hillman_warrior",
+      "cost": 50,
+      "alignment": 250.0,
+      "mount": "lotr_port:angmar_warg"
+    },
+    {
+      "npc": "lotr_port:angmar_hillman_axe_thrower",
+      "cost": 70,
+      "alignment": 300.0,
+      "mount": "lotr_port:angmar_warg"
+    },
+    {
       "npc": "lotr_port:angmar_hillman_banner_bearer",
       "cost": 50,
       "alignment": 300.0

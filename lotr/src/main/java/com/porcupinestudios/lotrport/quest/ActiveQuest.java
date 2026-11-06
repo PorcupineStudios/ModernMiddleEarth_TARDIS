@@ -17,7 +17,7 @@ import net.minecraft.resources.ResourceLocation;
  * @param given game time it was given
  */
 public record ActiveQuest(UUID giver, String giverName, ResourceLocation faction, QuestPool.Kind kind,
-        ResourceLocation target, int count, int progress, int coins, float alignment, long given) {
+        ResourceLocation target, int count, int progress, int coins, float alignment, long given, String speech) {
     public static final Codec<ActiveQuest> CODEC = RecordCodecBuilder.create(i -> i.group(
             UUIDUtil.CODEC.fieldOf("giver").forGetter(ActiveQuest::giver),
             Codec.STRING.optionalFieldOf("giver_name", "").forGetter(ActiveQuest::giverName),
@@ -28,11 +28,12 @@ public record ActiveQuest(UUID giver, String giverName, ResourceLocation faction
             Codec.INT.optionalFieldOf("progress", 0).forGetter(ActiveQuest::progress),
             Codec.INT.optionalFieldOf("coins", 0).forGetter(ActiveQuest::coins),
             Codec.FLOAT.optionalFieldOf("alignment", 0f).forGetter(ActiveQuest::alignment),
-            Codec.LONG.optionalFieldOf("given", 0L).forGetter(ActiveQuest::given))
+            Codec.LONG.optionalFieldOf("given", 0L).forGetter(ActiveQuest::given),
+            Codec.STRING.optionalFieldOf("speech", "").forGetter(ActiveQuest::speech))
             .apply(i, ActiveQuest::new));
 
     public ActiveQuest withProgress(int value) {
-        return new ActiveQuest(giver, giverName, faction, kind, target, count, value, coins, alignment, given);
+        return new ActiveQuest(giver, giverName, faction, kind, target, count, value, coins, alignment, given, speech);
     }
 
     public boolean killsDone() {

@@ -11,6 +11,13 @@
       "alignment": 200.0
     },
     {
+      "npc": "lotr_port:southron_champion",
+      "cost": 60,
+      "alignment": 250.0,
+      "pledge": true,
+      "mount": "minecraft:horse"
+    },
+    {
       "npc": "lotr_port:near_harad_banner_bearer",
       "cost": 50,
       "alignment": 300.0

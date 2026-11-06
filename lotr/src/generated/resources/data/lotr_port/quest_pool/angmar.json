@@ -6,6 +6,7 @@
       "min": 1,
       "max": 5,
       "reward": 3.0,
+      "speech": "lotr_port:miniquest/angmar/collect_weapon",
       "weight": 50
     },
     {
@@ -14,6 +15,7 @@
       "min": 1,
       "max": 5,
       "reward": 3.0,
+      "speech": "lotr_port:miniquest/angmar/collect_weapon",
       "weight": 50
     },
     {
@@ -22,6 +24,7 @@
       "min": 1,
       "max": 5,
       "reward": 3.0,
+      "speech": "lotr_port:miniquest/angmar/collect_weapon",
       "weight": 50
     },
     {
@@ -30,6 +33,7 @@
       "min": 1,
       "max": 6,
       "reward": 2.0,
+      "speech": "lotr_port:miniquest/angmar/collect_weapon",
       "weight": 50
     },
     {
@@ -38,6 +42,7 @@
       "min": 1,
       "max": 5,
       "reward": 3.0,
+      "speech": "lotr_port:miniquest/angmar/collect_weapon",
       "weight": 50
     },
     {
@@ -46,6 +51,7 @@
       "min": 2,
       "max": 8,
       "reward": 2.0,
+      "speech": "lotr_port:miniquest/angmar/collect_food",
       "weight": 50
     },
     {
@@ -54,6 +60,7 @@
       "min": 2,
       "max": 8,
       "reward": 2.0,
+      "speech": "lotr_port:miniquest/angmar/collect_food",
       "weight": 50
     },
     {
@@ -62,6 +69,7 @@
       "min": 2,
       "max": 8,
       "reward": 2.0,
+      "speech": "lotr_port:miniquest/angmar/collect_food",
       "weight": 50
     },
     {
@@ -70,6 +78,7 @@
       "min": 2,
       "max": 8,
       "reward": 2.0,
+      "speech": "lotr_port:miniquest/angmar/collect_food",
       "weight": 50
     },
     {
@@ -78,6 +87,7 @@
       "min": 2,
       "max": 8,
       "reward": 2.0,
+      "speech": "lotr_port:miniquest/angmar/collect_food",
       "weight": 50
     },
     {
@@ -86,6 +96,7 @@
       "min": 2,
       "max": 5,
       "reward": 3.0,
+      "speech": "lotr_port:miniquest/angmar/collect_armour",
       "weight": 50
     },
     {
@@ -94,6 +105,7 @@
       "min": 2,
       "max": 5,
       "reward": 4.0,
+      "speech": "lotr_port:miniquest/angmar/collect_armour",
       "weight": 50
     },
     {
@@ -102,6 +114,7 @@
       "min": 2,
       "max": 5,
       "reward": 3.0,
+      "speech": "lotr_port:miniquest/angmar/collect_armour",
       "weight": 50
     },
     {
@@ -110,6 +123,7 @@
       "min": 2,
       "max": 5,
       "reward": 3.0,
+      "speech": "lotr_port:miniquest/angmar/collect_armour",
       "weight": 50
     },
     {
@@ -118,6 +132,7 @@
       "min": 3,
       "max": 10,
       "reward": 2.0,
+      "speech": "lotr_port:miniquest/angmar/collect_mineral",
       "weight": 50
     },
     {
@@ -126,6 +141,7 @@
       "min": 3,
       "max": 8,
       "reward": 4.0,
+      "speech": "lotr_port:miniquest/angmar/collect_mineral",
       "weight": 50
     },
     {
@@ -134,6 +150,7 @@
       "min": 3,
       "max": 8,
       "reward": 4.0,
+      "speech": "lotr_port:miniquest/angmar/collect_mineral",
       "weight": 50
     },
     {
@@ -142,6 +159,7 @@
       "min": 3,
       "max": 6,
       "reward": 4.0,
+      "speech": "lotr_port:miniquest/angmar/collect_mineral",
       "weight": 50
     },
     {
@@ -150,6 +168,7 @@
       "min": 1,
       "max": 3,
       "reward": 12.0,
+      "speech": "lotr_port:miniquest/angmar/collect_mineral",
       "weight": 50
     },
     {
@@ -158,6 +177,7 @@
       "min": 1,
       "max": 3,
       "reward": 12.0,
+      "speech": "lotr_port:miniquest/angmar/collect_mineral",
       "weight": 50
     },
     {
@@ -166,6 +186,7 @@
       "min": 10,
       "max": 40,
       "reward": 1.0,
+      "speech": "lotr_port:miniquest/angmar/kill_enemy",
       "weight": 160
     },
     {
@@ -174,6 +195,7 @@
       "min": 10,
       "max": 40,
       "reward": 1.0,
+      "speech": "lotr_port:miniquest/angmar/kill_enemy",
       "weight": 160
     },
     {
@@ -182,6 +204,7 @@
       "min": 10,
       "max": 30,
       "reward": 1.0,
+      "speech": "lotr_port:miniquest/angmar/kill_ranger",
       "weight": 160
     },
     {
@@ -190,6 +213,7 @@
       "min": 10,
       "max": 30,
       "reward": 1.0,
+      "speech": "lotr_port:miniquest/angmar/kill_elf",
       "weight": 160
     },
     {
@@ -198,6 +222,7 @@
       "min": 10,
       "max": 30,
       "reward": 1.0,
+      "speech": "lotr_port:miniquest/angmar/kill_elf",
       "weight": 160
     }
   ]

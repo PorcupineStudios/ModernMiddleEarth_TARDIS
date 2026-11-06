@@ -82,7 +82,43 @@ public final class Hiring {
         LotrNpc npc = spawned.get();
         npc.hireTo(player);
         People.get(player.server).hired(player.server, npc, player.getUUID());
+        unit.mount().ifPresent(m -> mount(npc, m, player));
         return Result.ok(npc);
+    }
+
+    /** Puts a hired rider on its mount: an NPC type (hired too) or a vanilla animal (a horse, tamed and saddled). */
+    public static void mount(LotrNpc rider, ResourceLocation mount, ServerPlayer owner) {
+        ServerLevel level = (ServerLevel) rider.level();
+        net.minecraft.world.entity.Entity m;
+        if (NpcData.type(mount).isPresent()) {
+            Optional<LotrNpc> n = LotrNpc.spawn(level, mount, rider.getX(), rider.getY(), rider.getZ());
+            if (n.isEmpty()) {
+                return;
+            }
+            if (owner != null) {
+                n.get().hireTo(owner);
+            }
+            m = n.get();
+        } else {
+            var type = net.minecraft.core.registries.BuiltInRegistries.ENTITY_TYPE.getOptional(mount);
+            if (type.isEmpty()) {
+                return;
+            }
+            m = type.get().create(level);
+            if (m == null) {
+                return;
+            }
+            m.moveTo(rider.getX(), rider.getY(), rider.getZ(), rider.getYRot(), 0);
+            if (m instanceof net.minecraft.world.entity.animal.horse.AbstractHorse h) {
+                h.setTamed(true);
+                h.equipSaddle(new net.minecraft.world.item.ItemStack(net.minecraft.world.item.Items.SADDLE), null);
+            }
+            if (m instanceof net.minecraft.world.entity.Mob mob) {
+                mob.setPersistenceRequired();
+            }
+            level.addFreshEntity(m);
+        }
+        rider.startRiding(m, true);
     }
 
     private static Component name(ResourceLocation npc) {
