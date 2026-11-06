@@ -23,5 +23,6 @@
     "feet": "lotr_port:pinnath_gelin_boots"
   },
   "names": "lotr_port:gondor_male",
-  "speech": "lotr_port:gondor/soldier"
+  "speech": "lotr_port:gondor/soldier",
+  "quests": "lotr_port:gondor"
 }

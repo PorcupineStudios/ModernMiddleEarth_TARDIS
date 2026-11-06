@@ -19,9 +19,9 @@
     "mainhand": [
       "lotr_port:black_uruk_battleaxe",
       "lotr_port:black_uruk_cleaver",
+      "lotr_port:black_uruk_dagger",
       "lotr_port:black_uruk_spear",
-      "lotr_port:black_uruk_warhammer",
-      "lotr_port:poisoned_black_uruk_dagger"
+      "lotr_port:black_uruk_warhammer"
     ],
     "head": "lotr_port:black_uruk_helmet",
     "chest": "lotr_port:black_uruk_chestplate",

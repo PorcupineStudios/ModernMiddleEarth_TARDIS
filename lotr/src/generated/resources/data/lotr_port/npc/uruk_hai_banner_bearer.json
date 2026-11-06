@@ -17,7 +17,7 @@
   "attack": 2.0,
   "gear": {
     "mainhand": [
-      "lotr_port:poisoned_uruk_dagger",
+      "lotr_port:uruk_battleaxe",
       "lotr_port:uruk_cleaver",
       "lotr_port:uruk_dagger",
       "lotr_port:uruk_pike",
@@ -30,6 +30,5 @@
     "feet": "lotr_port:uruk_boots"
   },
   "names": "lotr_port:orc",
-  "speech": "lotr_port:isengard/orc",
-  "quests": "lotr_port:isengard"
+  "speech": "lotr_port:isengard/orc"
 }

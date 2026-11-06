@@ -28,7 +28,6 @@
     ],
     "head": "lotr_port:leather_hat"
   },
-  "names": "lotr_port:hobbit_male",
   "speech": "lotr_port:hobbit/bounder",
   "quests": "lotr_port:hobbit"
 }

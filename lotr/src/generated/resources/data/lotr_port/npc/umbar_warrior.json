@@ -9,10 +9,10 @@
   "attack": 2.0,
   "gear": {
     "mainhand": [
+      "lotr_port:umbaric_dagger",
       "lotr_port:umbaric_mace",
       "lotr_port:umbaric_poleaxe",
-      "lotr_port:umbaric_scimitar",
-      "lotr_port:umbaric_spear"
+      "lotr_port:umbaric_scimitar"
     ],
     "head": "lotr_port:umbaric_helmet",
     "chest": "lotr_port:umbaric_chestplate",

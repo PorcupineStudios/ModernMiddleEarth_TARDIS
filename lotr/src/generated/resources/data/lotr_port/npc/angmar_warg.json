@@ -30,6 +30,6 @@
   },
   "health": 32.0,
   "speed": 0.22,
-  "attack": 3.0,
+  "attack": 5.0,
   "speech": "lotr_port:angmar/orc"
 }

@@ -19,6 +19,5 @@
     "feet": "lotr_port:coast_southron_boots"
   },
   "names": "lotr_port:near_haradrim_male",
-  "speech": "lotr_port:near_harad/merchant",
-  "quests": "lotr_port:near_harad"
+  "speech": "lotr_port:near_harad/merchant"
 }

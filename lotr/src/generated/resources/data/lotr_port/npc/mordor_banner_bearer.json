@@ -23,9 +23,9 @@
   "gear": {
     "mainhand": [
       "lotr_port:mordor_axe",
+      "lotr_port:mordor_battleaxe",
       "lotr_port:mordor_dagger",
       "lotr_port:mordor_scimitar",
-      "lotr_port:mordor_spear",
       "lotr_port:mordor_warscythe",
       "lotr_port:poisoned_mordor_dagger"
     ],
@@ -35,6 +35,5 @@
     "feet": "lotr_port:mordor_boots"
   },
   "names": "lotr_port:orc",
-  "speech": "lotr_port:mordor/orc",
-  "quests": "lotr_port:mordor"
+  "speech": "lotr_port:mordor/orc"
 }

@@ -18,7 +18,7 @@
     "legs": "lotr_port:coast_southron_leggings",
     "feet": "lotr_port:coast_southron_boots"
   },
-  "names": "lotr_port:near_haradrim_male",
+  "names": "lotr_port:umbar_male",
   "units": "lotr_port:near_haradrim_warlord",
   "speech": "lotr_port:near_harad/mercenary",
   "quests": "lotr_port:near_harad"

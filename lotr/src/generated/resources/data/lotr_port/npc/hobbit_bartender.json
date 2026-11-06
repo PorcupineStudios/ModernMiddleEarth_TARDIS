@@ -21,6 +21,7 @@
   "health": 16.0,
   "speed": 0.2,
   "attack": 2.0,
+  "names": "lotr_port:hobbit_male",
   "buy": "lotr_port:hobbit_bartender_buy",
   "sell": "lotr_port:hobbit_bartender_sell",
   "speech": "lotr_port:hobbit/bartender",

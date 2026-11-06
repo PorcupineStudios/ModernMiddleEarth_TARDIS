@@ -16,12 +16,10 @@
       "lotr_port:barrow_blade",
       "lotr_port:bronze_axe",
       "lotr_port:bronze_dagger",
-      "lotr_port:iron_dagger",
       "minecraft:iron_axe",
       "minecraft:stone_axe"
     ]
   },
-  "names": "lotr_port:gondor_male",
   "speech": "lotr_port:ranger_north/man",
   "quests": "lotr_port:ranger_north"
 }

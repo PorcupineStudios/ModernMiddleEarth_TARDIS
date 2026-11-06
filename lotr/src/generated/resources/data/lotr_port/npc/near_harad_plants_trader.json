@@ -15,7 +15,6 @@
     "mainhand": "lotr_port:umbaric_dagger",
     "head": "lotr_port:harad_turban"
   },
-  "names": "lotr_port:near_haradrim_male",
   "buy": "lotr_port:harad_florist_buy",
   "sell": "lotr_port:harad_florist_sell",
   "speech": "lotr_port:near_harad/merchant",

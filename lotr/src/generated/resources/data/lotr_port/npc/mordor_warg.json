@@ -28,7 +28,7 @@
     "death": "lotr_port:warg.death",
     "attack": "lotr_port:warg.attack"
   },
-  "health": 24.0,
+  "health": 21.0,
   "speed": 0.22,
   "attack": 4.0,
   "speech": "lotr_port:mordor/orc"

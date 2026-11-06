@@ -14,19 +14,15 @@
   "gear": {
     "mainhand": [
       "lotr_port:haradric_dagger",
+      "lotr_port:haradric_pike",
       "lotr_port:haradric_spear",
-      "lotr_port:haradric_sword",
-      "lotr_port:poisoned_haradric_dagger"
+      "lotr_port:haradric_sword"
     ],
-    "head": [
-      "lotr_port:harad_turban",
-      "lotr_port:nomad_cap"
-    ],
+    "head": "lotr_port:nomad_cap",
     "chest": "lotr_port:nomad_tunic",
     "legs": "lotr_port:nomad_leggings",
     "feet": "lotr_port:nomad_shoes"
   },
   "names": "lotr_port:nomad_male",
-  "speech": "lotr_port:near_harad/mercenary",
-  "quests": "lotr_port:nomad"
+  "speech": "lotr_port:near_harad/mercenary"
 }

@@ -17,6 +17,8 @@
   "attack": 2.0,
   "gear": {
     "mainhand": [
+      "lotr_port:galadhrim_battlestaff",
+      "lotr_port:galadhrim_longspear",
       "lotr_port:galadhrim_spear",
       "lotr_port:galadhrim_sword"
     ],

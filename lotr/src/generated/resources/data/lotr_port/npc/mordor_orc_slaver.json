@@ -22,12 +22,12 @@
   "attack": 2.0,
   "gear": {
     "mainhand": [
-      "lotr_port:mordor_battleaxe",
+      "lotr_port:mordor_axe",
+      "lotr_port:mordor_dagger",
       "lotr_port:mordor_pickaxe",
       "lotr_port:mordor_scimitar",
       "lotr_port:mordor_spear",
-      "lotr_port:mordor_warscythe",
-      "lotr_port:poisoned_mordor_dagger"
+      "lotr_port:mordor_warhammer"
     ],
     "chest": "lotr_port:mordor_chestplate",
     "legs": "lotr_port:mordor_leggings",
@@ -35,5 +35,6 @@
   },
   "names": "lotr_port:orc",
   "units": "lotr_port:mordor_orc_slaver",
-  "speech": "lotr_port:mordor/slaver"
+  "speech": "lotr_port:mordor/slaver",
+  "quests": "lotr_port:mordor"
 }

@@ -33,11 +33,11 @@
   "attack": 6.0,
   "gear": {
     "mainhand": [
+      "lotr_port:half_troll_battleaxe",
+      "lotr_port:half_troll_dagger",
       "lotr_port:half_troll_mace",
       "lotr_port:half_troll_pike",
-      "lotr_port:half_troll_scimitar",
-      "lotr_port:half_troll_warhammer",
-      "lotr_port:poisoned_half_troll_dagger"
+      "lotr_port:half_troll_scimitar"
     ],
     "head": "lotr_port:half_troll_helmet",
     "chest": "lotr_port:half_troll_chestplate",

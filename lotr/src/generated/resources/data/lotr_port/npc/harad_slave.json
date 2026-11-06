@@ -1,5 +1,5 @@
 {
-  "faction": "lotr_port:taurethrim",
+  "faction": "lotr_port:near_harad",
   "skins": [
     "lotr_port:textures/entity/near_harad/slave/gondor_male/0.png",
     "lotr_port:textures/entity/near_harad/slave/gondor_male/1.png",
@@ -15,6 +15,6 @@
   "gear": {
     "mainhand": "lotr_port:bronze_hoe"
   },
-  "names": "lotr_port:tauredain_male",
+  "names": "lotr_port:near_haradrim_male",
   "speech": "lotr_port:near_harad/slave"
 }

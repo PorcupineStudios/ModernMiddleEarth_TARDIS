@@ -14,7 +14,6 @@
   "gear": {
     "mainhand": "lotr_port:bronze_hoe"
   },
-  "names": "lotr_port:rhun_male",
   "speech": "lotr_port:rhun/man",
   "quests": "lotr_port:rhun"
 }

@@ -20,8 +20,7 @@
     "mainhand": [
       "lotr_port:bronze_axe",
       "lotr_port:bronze_dagger",
-      "lotr_port:gondorian_dagger",
-      "minecraft:iron_axe",
+      "lotr_port:iron_dagger",
       "minecraft:stone_axe"
     ]
   },

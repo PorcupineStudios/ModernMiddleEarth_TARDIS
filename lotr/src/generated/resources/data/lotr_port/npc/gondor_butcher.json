@@ -20,14 +20,11 @@
     "mainhand": [
       "lotr_port:bronze_axe",
       "lotr_port:bronze_dagger",
-      "lotr_port:iron_dagger",
-      "minecraft:iron_axe",
+      "lotr_port:gondorian_dagger",
       "minecraft:stone_axe"
     ]
   },
-  "names": "lotr_port:gondor_male",
   "buy": "lotr_port:gondor_butcher_buy",
   "sell": "lotr_port:gondor_butcher_sell",
-  "speech": "lotr_port:gondor/market_trader",
-  "quests": "lotr_port:gondor"
+  "speech": "lotr_port:gondor/market_trader"
 }

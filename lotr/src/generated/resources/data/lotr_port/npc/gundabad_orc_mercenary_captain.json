@@ -28,5 +28,6 @@
   },
   "names": "lotr_port:orc",
   "units": "lotr_port:gundabad_orc_mercenary_captain",
-  "speech": "lotr_port:gundabad/chieftain"
+  "speech": "lotr_port:gundabad/chieftain",
+  "quests": "lotr_port:gundabad"
 }
