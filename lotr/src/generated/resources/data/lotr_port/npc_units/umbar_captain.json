@@ -11,6 +11,12 @@
       "alignment": 200.0
     },
     {
+      "npc": "lotr_port:umbar_warrior",
+      "cost": 50,
+      "alignment": 250.0,
+      "mount": "minecraft:horse"
+    },
+    {
       "npc": "lotr_port:umbar_banner_bearer",
       "cost": 50,
       "alignment": 300.0

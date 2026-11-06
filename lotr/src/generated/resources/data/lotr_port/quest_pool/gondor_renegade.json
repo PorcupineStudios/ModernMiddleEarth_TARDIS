@@ -6,6 +6,7 @@
       "min": 3,
       "max": 8,
       "reward": 1.0,
+      "speech": "lotr_port:miniquest/gondor_renegade/kill_gondor_soldiers",
       "weight": 800
     }
   ],

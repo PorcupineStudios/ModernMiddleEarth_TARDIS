@@ -13,6 +13,7 @@ LOTR's waypoints and mini-quests (quests.json from the exporter) as data for the
 NPC types whose LOTR entity gives quests get "quests": "lotr_port:<group>". Bounty, retrieve and pickpocket quests
 need their own code (named targets, lost items) and are left out (report: quests_not_ported).
 """
+import json
 import os
 
 from classfile import ClassFile
@@ -34,7 +35,11 @@ MAP_TEXT = {f"lotr.gui.map.{k}": f"screen.{NS}.map.{v}" for k, v in {
 OFFER_OVERRIDES = {"gondor_renegade": (4000, 50.0), "rohan_shieldmaiden": (4000, 150.0)}
 
 # by quest factory class (the factories map is keyed by the quest class, which is the same for both kill kinds)
-KINDS = {"QFCollect": "collect", "QFKillFaction": "kill_faction", "QFKillEntity": "kill_npc"}
+KINDS = {"QFCollect": "collect", "QFKillFaction": "kill_faction", "QFKillEntity": "kill_npc",
+         "QFPickpocket": "pickpocket"}
+# LOTR animals the port leaves to vanilla's (extra.STAND_INS): kill quests count the vanilla animal
+VANILLA_TARGETS = {"lotr.Horse": "minecraft:horse", "lotr.WildBoar": "minecraft:pig", "lotr.Zebra": "minecraft:horse",
+                   "lotr.ShirePony": "minecraft:donkey"}
 
 
 class Quests:
@@ -180,7 +185,10 @@ class Quests:
             target = f"{NS}:{fac}" if fac in factions else None
         elif kind == "kill_npc":
             tid = type_id(q.get("entityType") or "")
-            target = f"{NS}:{tid}" if tid in types else None
+            target = f"{NS}:{tid}" if tid in types else VANILLA_TARGETS.get(q.get("entityType"))
+        elif kind == "pickpocket":
+            fac = faction_id(q["pickpocketFaction"]) if q.get("pickpocketFaction") else None
+            target = f"{NS}:{fac}" if fac in factions else None
         else:
             self.report["quests_not_ported"].append(f"{q.get('kind')} {q.get('questName')}")
             return None
@@ -188,10 +196,37 @@ class Quests:
             self.report["quest_targets_unmapped"].append(f"{q.get('kind')} {q.get('questName')}")
             return None
         lo = max(1, q.get("minTarget") or 1)
-        return {"kind": kind, "target": target, "min": lo, "max": max(lo, q.get("maxTarget") or lo),
-                "reward": round(q.get("rewardFactor") or 1.0, 3)}
+        out = {"kind": kind, "target": target, "min": lo, "max": max(lo, q.get("maxTarget") or lo),
+               "reward": round(q.get("rewardFactor") or 1.0, 3)}
+        speech = self.quest_speech(q)
+        if speech:
+            out["speech"] = speech
+        return out
+
+    def quest_speech(self, q):
+        """LOTR's lines for one quest: speech/miniquest/<factory baseName>/<questName>_start|progress|complete."""
+        base = self.base_names.get(q.get("questFactoryGroup"))
+        name = q.get("questName")
+        if not base or not name:
+            return None
+        bank = f"miniquest/{snake(base)}/{snake(name)}"
+        found = False
+        for mood in ("start", "progress", "complete"):
+            src = f"assets/lotr/speech/miniquest/{base}/{name}_{mood}.txt"
+            if self.jar.has(src):
+                lines = [ln.strip() for ln in self.jar.read(src).decode("utf-8", "replace").splitlines() if ln.strip()]
+                # LOTR's # is the player's name, $ the quest's object
+                write_json(os.path.join(self.data, "speech", bank, mood + ".json"), {"lines": lines})
+                found = True
+        return f"{NS}:{bank}" if found else None
 
     def pools(self):
+        import gzip
+        path = os.path.join(os.path.dirname(__file__), "export", "extra.json.gz")
+        self.base_names = {}
+        if os.path.exists(path):
+            fac = json.load(gzip.open(path, "rt", encoding="utf-8")).get("lotr.common.quest.LOTRMiniQuestFactory", {})
+            self.base_names = {k: v["baseName"] for k, v in fac.items() if isinstance(v, dict) and v.get("baseName")}
         factories = self.export.get("factories", {})
         class_weights = factories.get("_classWeights", {})
         factions = self.factions()

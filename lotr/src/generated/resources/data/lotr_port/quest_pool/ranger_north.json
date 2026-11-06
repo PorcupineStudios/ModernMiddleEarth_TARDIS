@@ -6,6 +6,7 @@
       "min": 30,
       "max": 60,
       "reward": 0.25,
+      "speech": "lotr_port:miniquest/ranger_north/collect_wood",
       "weight": 34
     },
     {
@@ -14,6 +15,7 @@
       "min": 30,
       "max": 60,
       "reward": 0.25,
+      "speech": "lotr_port:miniquest/ranger_north/collect_wood",
       "weight": 34
     },
     {
@@ -22,6 +24,7 @@
       "min": 30,
       "max": 60,
       "reward": 0.25,
+      "speech": "lotr_port:miniquest/ranger_north/collect_wood",
       "weight": 34
     },
     {
@@ -30,6 +33,7 @@
       "min": 30,
       "max": 60,
       "reward": 0.25,
+      "speech": "lotr_port:miniquest/ranger_north/collect_wood",
       "weight": 34
     },
     {
@@ -38,6 +42,7 @@
       "min": 30,
       "max": 60,
       "reward": 0.25,
+      "speech": "lotr_port:miniquest/ranger_north/collect_wood",
       "weight": 34
     },
     {
@@ -46,6 +51,7 @@
       "min": 40,
       "max": 100,
       "reward": 0.2,
+      "speech": "lotr_port:miniquest/ranger_north/collect_bricks",
       "weight": 34
     },
     {
@@ -54,6 +60,7 @@
       "min": 30,
       "max": 80,
       "reward": 0.25,
+      "speech": "lotr_port:miniquest/ranger_north/collect_bricks",
       "weight": 34
     },
     {
@@ -62,6 +69,7 @@
       "min": 10,
       "max": 30,
       "reward": 0.5,
+      "speech": "lotr_port:miniquest/ranger_north/collect_food",
       "weight": 34
     },
     {
@@ -70,6 +78,7 @@
       "min": 5,
       "max": 20,
       "reward": 0.75,
+      "speech": "lotr_port:miniquest/ranger_north/collect_food",
       "weight": 34
     },
     {
@@ -78,6 +87,7 @@
       "min": 5,
       "max": 20,
       "reward": 0.75,
+      "speech": "lotr_port:miniquest/ranger_north/collect_food",
       "weight": 34
     },
     {
@@ -86,6 +96,7 @@
       "min": 5,
       "max": 20,
       "reward": 0.75,
+      "speech": "lotr_port:miniquest/ranger_north/collect_food",
       "weight": 34
     },
     {
@@ -94,6 +105,7 @@
       "min": 5,
       "max": 20,
       "reward": 0.75,
+      "speech": "lotr_port:miniquest/ranger_north/collect_food",
       "weight": 34
     },
     {
@@ -102,6 +114,7 @@
       "min": 3,
       "max": 15,
       "reward": 1.0,
+      "speech": "lotr_port:miniquest/ranger_north/collect_food",
       "weight": 34
     },
     {
@@ -110,6 +123,7 @@
       "min": 5,
       "max": 15,
       "reward": 1.0,
+      "speech": "lotr_port:miniquest/ranger_north/collect_food",
       "weight": 34
     },
     {
@@ -118,6 +132,7 @@
       "min": 5,
       "max": 15,
       "reward": 1.0,
+      "speech": "lotr_port:miniquest/ranger_north/collect_food",
       "weight": 34
     },
     {
@@ -126,6 +141,7 @@
       "min": 2,
       "max": 6,
       "reward": 3.0,
+      "speech": "lotr_port:miniquest/ranger_north/collect_athelas",
       "weight": 34
     },
     {
@@ -134,6 +150,7 @@
       "min": 1,
       "max": 1,
       "reward": 10.0,
+      "speech": "lotr_port:miniquest/ranger_north/collect_gondor_item",
       "weight": 34
     },
     {
@@ -142,6 +159,7 @@
       "min": 1,
       "max": 1,
       "reward": 10.0,
+      "speech": "lotr_port:miniquest/ranger_north/collect_gondor_item",
       "weight": 34
     },
     {
@@ -150,6 +168,7 @@
       "min": 1,
       "max": 1,
       "reward": 15.0,
+      "speech": "lotr_port:miniquest/ranger_north/collect_gondor_item",
       "weight": 34
     },
     {
@@ -158,6 +177,7 @@
       "min": 2,
       "max": 5,
       "reward": 3.0,
+      "speech": "lotr_port:miniquest/ranger_north/craft_ranger_item",
       "weight": 34
     },
     {
@@ -166,6 +186,7 @@
       "min": 2,
       "max": 5,
       "reward": 4.0,
+      "speech": "lotr_port:miniquest/ranger_north/craft_ranger_item",
       "weight": 34
     },
     {
@@ -174,6 +195,7 @@
       "min": 2,
       "max": 4,
       "reward": 3.0,
+      "speech": "lotr_port:miniquest/ranger_north/collect_weapons",
       "weight": 34
     },
     {
@@ -182,6 +204,7 @@
       "min": 2,
       "max": 6,
       "reward": 2.0,
+      "speech": "lotr_port:miniquest/ranger_north/collect_weapons",
       "weight": 34
     },
     {
@@ -190,6 +213,7 @@
       "min": 3,
       "max": 7,
       "reward": 2.0,
+      "speech": "lotr_port:miniquest/ranger_north/collect_weapons",
       "weight": 34
     },
     {
@@ -198,6 +222,7 @@
       "min": 20,
       "max": 40,
       "reward": 0.25,
+      "speech": "lotr_port:miniquest/ranger_north/collect_weapons",
       "weight": 34
     },
     {
@@ -206,6 +231,7 @@
       "min": 6,
       "max": 15,
       "reward": 1.0,
+      "speech": "lotr_port:miniquest/ranger_north/collect_materials",
       "weight": 34
     },
     {
@@ -214,6 +240,7 @@
       "min": 10,
       "max": 20,
       "reward": 0.5,
+      "speech": "lotr_port:miniquest/ranger_north/collect_materials",
       "weight": 34
     },
     {
@@ -222,6 +249,7 @@
       "min": 10,
       "max": 40,
       "reward": 0.5,
+      "speech": "lotr_port:miniquest/ranger_north/collect_enemy_bones",
       "weight": 34
     },
     {
@@ -230,6 +258,7 @@
       "min": 10,
       "max": 30,
       "reward": 0.75,
+      "speech": "lotr_port:miniquest/ranger_north/collect_enemy_bones",
       "weight": 34
     },
     {
@@ -238,6 +267,7 @@
       "min": 10,
       "max": 40,
       "reward": 1.0,
+      "speech": "lotr_port:miniquest/ranger_north/kill_gundabad",
       "weight": 80
     },
     {
@@ -246,6 +276,7 @@
       "min": 10,
       "max": 30,
       "reward": 1.0,
+      "speech": "lotr_port:miniquest/ranger_north/kill_angmar",
       "weight": 80
     },
     {
@@ -254,6 +285,7 @@
       "min": 10,
       "max": 30,
       "reward": 1.0,
+      "speech": "lotr_port:miniquest/ranger_north/kill_troll",
       "weight": 80
     },
     {
@@ -262,6 +294,7 @@
       "min": 20,
       "max": 40,
       "reward": 1.0,
+      "speech": "lotr_port:miniquest/ranger_north/kill_mountain_troll",
       "weight": 80
     },
     {
@@ -270,6 +303,7 @@
       "min": 10,
       "max": 40,
       "reward": 1.0,
+      "speech": "lotr_port:miniquest/ranger_north/kill_warg",
       "weight": 80
     },
     {
@@ -278,6 +312,7 @@
       "min": 10,
       "max": 30,
       "reward": 1.0,
+      "speech": "lotr_port:miniquest/ranger_north/kill_warg",
       "weight": 80
     },
     {
@@ -286,6 +321,7 @@
       "min": 20,
       "max": 30,
       "reward": 1.0,
+      "speech": "lotr_port:miniquest/ranger_north/kill_dark_huorn",
       "weight": 80
     },
     {
@@ -294,6 +330,7 @@
       "min": 10,
       "max": 30,
       "reward": 1.0,
+      "speech": "lotr_port:miniquest/ranger_north/avenge_brother",
       "weight": 80
     },
     {
@@ -302,6 +339,7 @@
       "min": 10,
       "max": 30,
       "reward": 1.0,
+      "speech": "lotr_port:miniquest/ranger_north/avenge_brother",
       "weight": 80
     },
     {
@@ -310,6 +348,7 @@
       "min": 10,
       "max": 30,
       "reward": 1.0,
+      "speech": "lotr_port:miniquest/ranger_north/kill_hillmen",
       "weight": 80
     }
   ]

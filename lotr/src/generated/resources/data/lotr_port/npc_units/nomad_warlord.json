@@ -11,6 +11,18 @@
       "alignment": 200.0
     },
     {
+      "npc": "lotr_port:nomad_warrior",
+      "cost": 40,
+      "alignment": 250.0,
+      "mount": "lotr_port:camel"
+    },
+    {
+      "npc": "lotr_port:nomad_archer",
+      "cost": 60,
+      "alignment": 300.0,
+      "mount": "lotr_port:camel"
+    },
+    {
       "npc": "lotr_port:nomad_banner_bearer",
       "cost": 40,
       "alignment": 300.0

@@ -89,6 +89,42 @@ public final class ProgressTests {
         helper.succeed();
     }
 
+    @GameTest(template = "empty")
+    public static void mountedUnitsRide(GameTestHelper helper) {
+        @SuppressWarnings("removal")
+        ServerPlayer p = (ServerPlayer) helper.makeMockServerPlayerInLevel();
+        var pos = helper.absoluteVec(new net.minecraft.world.phys.Vec3(1.5, 2, 1.5));
+        var rider = com.porcupinestudios.lotrport.npc.LotrNpc.spawn(helper.getLevel(), LotrPort.id("gondor_soldier"),
+                pos.x, pos.y, pos.z).orElseThrow();
+        com.porcupinestudios.lotrport.npc.Hiring.mount(rider, net.minecraft.resources.ResourceLocation.parse(
+                "minecraft:horse"), p);
+        helper.assertTrue(rider.getVehicle() instanceof net.minecraft.world.entity.animal.horse.Horse,
+                "the soldier is not on a horse");
+        var orc = com.porcupinestudios.lotrport.npc.LotrNpc.spawn(helper.getLevel(), LotrPort.id("mordor_orc"),
+                pos.x, pos.y, pos.z).orElseThrow();
+        com.porcupinestudios.lotrport.npc.Hiring.mount(orc, LotrPort.id("mordor_warg"), p);
+        helper.assertTrue(orc.getVehicle() instanceof com.porcupinestudios.lotrport.npc.LotrNpc w
+                && LotrPort.id("mordor_warg").equals(w.typeId()), "the orc is not on a warg");
+        rider.getVehicle().discard();
+        orc.getVehicle().discard();
+        rider.discard();
+        orc.discard();
+        helper.succeed();
+    }
+
+    @GameTest(template = "empty")
+    public static void questsHaveLotrLines(GameTestHelper helper) {
+        var pool = com.porcupinestudios.lotrport.quest.QuestData.pool(LotrPort.id("hobbit")).orElseThrow();
+        var speech = pool.quests().stream().flatMap(e -> e.speech().stream()).findFirst();
+        helper.assertTrue(speech.isPresent(), "no hobbit quest has speech");
+        helper.assertTrue(!com.porcupinestudios.lotrport.npc.NpcData.speech(speech.get(), "start").isEmpty(),
+                "no start lines for " + speech.get());
+        var spy = com.porcupinestudios.lotrport.quest.QuestData.pool(LotrPort.id("ruffian_spy")).orElseThrow();
+        helper.assertTrue(spy.quests().stream().anyMatch(e -> e.kind()
+                == com.porcupinestudios.lotrport.quest.QuestPool.Kind.PICKPOCKET), "no pickpocket quest");
+        helper.succeed();
+    }
+
     @GameTest(template = "empty", timeoutTicks = 200)
     public static void invasionsLoaded(GameTestHelper helper) {
         helper.assertTrue(InvasionSpawner.invasions().size() >= 40, "only " + InvasionSpawner.invasions().size()

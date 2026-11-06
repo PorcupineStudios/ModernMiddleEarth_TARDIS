@@ -6,6 +6,7 @@
       "min": 20,
       "max": 60,
       "reward": 0.25,
+      "speech": "lotr_port:miniquest/gondor/defences",
       "weight": 53
     },
     {
@@ -14,6 +15,7 @@
       "min": 80,
       "max": 160,
       "reward": 0.125,
+      "speech": "lotr_port:miniquest/gondor/defences",
       "weight": 53
     },
     {
@@ -22,6 +24,7 @@
       "min": 30,
       "max": 80,
       "reward": 0.25,
+      "speech": "lotr_port:miniquest/gondor/defences",
       "weight": 53
     },
     {
@@ -30,6 +33,7 @@
       "min": 30,
       "max": 60,
       "reward": 0.5,
+      "speech": "lotr_port:miniquest/gondor/defences",
       "weight": 53
     },
     {
@@ -38,6 +42,7 @@
       "min": 30,
       "max": 60,
       "reward": 0.5,
+      "speech": "lotr_port:miniquest/gondor/defences",
       "weight": 53
     },
     {
@@ -46,6 +51,7 @@
       "min": 10,
       "max": 30,
       "reward": 1.0,
+      "speech": "lotr_port:miniquest/gondor/lebethron",
       "weight": 53
     },
     {
@@ -54,6 +60,7 @@
       "min": 10,
       "max": 20,
       "reward": 1.0,
+      "speech": "lotr_port:miniquest/gondor/collect_iron",
       "weight": 53
     },
     {
@@ -62,6 +69,7 @@
       "min": 6,
       "max": 15,
       "reward": 1.5,
+      "speech": "lotr_port:miniquest/gondor/collect_iron",
       "weight": 53
     },
     {
@@ -70,6 +78,7 @@
       "min": 25,
       "max": 35,
       "reward": 1.0,
+      "speech": "lotr_port:miniquest/gondor/black_marble",
       "weight": 53
     },
     {
@@ -78,6 +87,7 @@
       "min": 1,
       "max": 4,
       "reward": 5.0,
+      "speech": "lotr_port:miniquest/gondor/forge",
       "weight": 53
     },
     {
@@ -86,6 +96,7 @@
       "min": 1,
       "max": 4,
       "reward": 5.0,
+      "speech": "lotr_port:miniquest/gondor/forge",
       "weight": 53
     },
     {
@@ -94,6 +105,7 @@
       "min": 1,
       "max": 4,
       "reward": 5.0,
+      "speech": "lotr_port:miniquest/gondor/forge",
       "weight": 53
     },
     {
@@ -102,6 +114,7 @@
       "min": 1,
       "max": 4,
       "reward": 5.0,
+      "speech": "lotr_port:miniquest/gondor/forge",
       "weight": 53
     },
     {
@@ -110,6 +123,7 @@
       "min": 1,
       "max": 4,
       "reward": 5.0,
+      "speech": "lotr_port:miniquest/gondor/forge",
       "weight": 53
     },
     {
@@ -118,6 +132,7 @@
       "min": 1,
       "max": 4,
       "reward": 5.0,
+      "speech": "lotr_port:miniquest/gondor/forge",
       "weight": 53
     },
     {
@@ -126,6 +141,7 @@
       "min": 1,
       "max": 1,
       "reward": 15.0,
+      "speech": "lotr_port:miniquest/gondor/collect_rohan_item",
       "weight": 53
     },
     {
@@ -134,6 +150,7 @@
       "min": 1,
       "max": 1,
       "reward": 15.0,
+      "speech": "lotr_port:miniquest/gondor/collect_rohan_item",
       "weight": 53
     },
     {
@@ -142,6 +159,7 @@
       "min": 1,
       "max": 1,
       "reward": 20.0,
+      "speech": "lotr_port:miniquest/gondor/collect_rohan_item",
       "weight": 53
     },
     {
@@ -150,6 +168,7 @@
       "min": 2,
       "max": 4,
       "reward": 6.0,
+      "speech": "lotr_port:miniquest/gondor/collect_pipeweed",
       "weight": 53
     },
     {
@@ -158,6 +177,7 @@
       "min": 10,
       "max": 40,
       "reward": 1.0,
+      "speech": "lotr_port:miniquest/gondor/kill_mordor",
       "weight": 114
     },
     {
@@ -166,6 +186,7 @@
       "min": 30,
       "max": 40,
       "reward": 1.0,
+      "speech": "lotr_port:miniquest/gondor/kill_enemy",
       "weight": 114
     },
     {
@@ -174,6 +195,7 @@
       "min": 30,
       "max": 40,
       "reward": 1.0,
+      "speech": "lotr_port:miniquest/gondor/kill_enemy",
       "weight": 114
     },
     {
@@ -182,6 +204,7 @@
       "min": 30,
       "max": 40,
       "reward": 1.0,
+      "speech": "lotr_port:miniquest/gondor/kill_enemy",
       "weight": 114
     },
     {
@@ -190,6 +213,7 @@
       "min": 60,
       "max": 90,
       "reward": 1.0,
+      "speech": "lotr_port:miniquest/gondor/kill_mordor_many",
       "weight": 114
     },
     {
@@ -198,6 +222,7 @@
       "min": 10,
       "max": 40,
       "reward": 1.0,
+      "speech": "lotr_port:miniquest/gondor/kill_harad",
       "weight": 114
     },
     {
@@ -206,6 +231,7 @@
       "min": 20,
       "max": 30,
       "reward": 1.0,
+      "speech": "lotr_port:miniquest/gondor/kill_harnennor",
       "weight": 114
     }
   ]

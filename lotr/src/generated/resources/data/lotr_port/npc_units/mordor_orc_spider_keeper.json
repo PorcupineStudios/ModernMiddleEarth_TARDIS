@@ -16,6 +16,18 @@
       "alignment": 250.0
     },
     {
+      "npc": "lotr_port:mordor_orc",
+      "cost": 50,
+      "alignment": 300.0,
+      "mount": "lotr_port:mordor_spider"
+    },
+    {
+      "npc": "lotr_port:mordor_orc_archer",
+      "cost": 70,
+      "alignment": 350.0,
+      "mount": "lotr_port:mordor_spider"
+    },
+    {
       "npc": "lotr_port:nan_ungol_banner_bearer",
       "cost": 40,
       "alignment": 400.0

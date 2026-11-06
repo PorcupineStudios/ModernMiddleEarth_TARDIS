@@ -16,6 +16,12 @@
       "alignment": 300.0
     },
     {
+      "npc": "lotr_port:lamedon_soldier",
+      "cost": 50,
+      "alignment": 350.0,
+      "mount": "minecraft:horse"
+    },
+    {
       "npc": "lotr_port:lamedon_banner_bearer",
       "cost": 50,
       "alignment": 400.0

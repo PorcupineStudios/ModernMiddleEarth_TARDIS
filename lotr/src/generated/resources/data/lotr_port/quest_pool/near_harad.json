@@ -6,6 +6,7 @@
       "min": 3,
       "max": 5,
       "reward": 5.0,
+      "speech": "lotr_port:miniquest/near_harad/bring_water",
       "weight": 28
     },
     {
@@ -14,6 +15,7 @@
       "min": 30,
       "max": 50,
       "reward": 0.5,
+      "speech": "lotr_port:miniquest/near_harad/collect_black_rock",
       "weight": 28
     },
     {
@@ -22,6 +24,7 @@
       "min": 8,
       "max": 15,
       "reward": 2.0,
+      "speech": "lotr_port:miniquest/near_harad/collect_dates",
       "weight": 28
     },
     {
@@ -30,6 +33,7 @@
       "min": 4,
       "max": 12,
       "reward": 2.0,
+      "speech": "lotr_port:miniquest/near_harad/collect_fruit",
       "weight": 28
     },
     {
@@ -38,6 +42,7 @@
       "min": 4,
       "max": 12,
       "reward": 2.0,
+      "speech": "lotr_port:miniquest/near_harad/collect_fruit",
       "weight": 28
     },
     {
@@ -46,6 +51,7 @@
       "min": 4,
       "max": 12,
       "reward": 2.0,
+      "speech": "lotr_port:miniquest/near_harad/collect_fruit",
       "weight": 28
     },
     {
@@ -54,6 +60,7 @@
       "min": 4,
       "max": 12,
       "reward": 2.0,
+      "speech": "lotr_port:miniquest/near_harad/collect_fruit",
       "weight": 28
     },
     {
@@ -62,6 +69,7 @@
       "min": 2,
       "max": 6,
       "reward": 4.0,
+      "speech": "lotr_port:miniquest/near_harad/orange_juice",
       "weight": 28
     },
     {
@@ -70,6 +78,7 @@
       "min": 2,
       "max": 6,
       "reward": 4.0,
+      "speech": "lotr_port:miniquest/near_harad/lemon_liqueur",
       "weight": 28
     },
     {
@@ -78,6 +87,7 @@
       "min": 2,
       "max": 4,
       "reward": 5.0,
+      "speech": "lotr_port:miniquest/near_harad/collect_poison",
       "weight": 28
     },
     {
@@ -86,6 +96,7 @@
       "min": 1,
       "max": 1,
       "reward": 5.0,
+      "speech": "lotr_port:miniquest/near_harad/gulf_sword",
       "weight": 28
     },
     {
@@ -94,6 +105,7 @@
       "min": 2,
       "max": 5,
       "reward": 2.0,
+      "speech": "lotr_port:miniquest/near_harad/ring_tax",
       "weight": 28
     },
     {
@@ -102,6 +114,7 @@
       "min": 2,
       "max": 5,
       "reward": 2.0,
+      "speech": "lotr_port:miniquest/near_harad/ring_tax",
       "weight": 28
     },
     {
@@ -110,6 +123,7 @@
       "min": 1,
       "max": 1,
       "reward": 20.0,
+      "speech": "lotr_port:miniquest/near_harad/save_from_venom",
       "weight": 28
     },
     {
@@ -118,6 +132,7 @@
       "min": 10,
       "max": 20,
       "reward": 0.5,
+      "speech": "lotr_port:miniquest/near_harad/bring_reeds_roof",
       "weight": 28
     },
     {
@@ -126,6 +141,7 @@
       "min": 10,
       "max": 20,
       "reward": 0.5,
+      "speech": "lotr_port:miniquest/near_harad/bring_reeds_roof",
       "weight": 28
     },
     {
@@ -134,6 +150,7 @@
       "min": 20,
       "max": 40,
       "reward": 0.25,
+      "speech": "lotr_port:miniquest/near_harad/bring_reeds_roof",
       "weight": 28
     },
     {
@@ -142,6 +159,7 @@
       "min": 30,
       "max": 60,
       "reward": 0.25,
+      "speech": "lotr_port:miniquest/near_harad/cedar_wood",
       "weight": 28
     },
     {
@@ -150,6 +168,7 @@
       "min": 60,
       "max": 120,
       "reward": 0.125,
+      "speech": "lotr_port:miniquest/near_harad/cedar_wood",
       "weight": 28
     },
     {
@@ -158,6 +177,7 @@
       "min": 30,
       "max": 80,
       "reward": 0.25,
+      "speech": "lotr_port:miniquest/near_harad/repair_wall",
       "weight": 28
     },
     {
@@ -166,6 +186,7 @@
       "min": 30,
       "max": 60,
       "reward": 0.5,
+      "speech": "lotr_port:miniquest/near_harad/repair_wall",
       "weight": 28
     },
     {
@@ -174,6 +195,7 @@
       "min": 30,
       "max": 60,
       "reward": 0.75,
+      "speech": "lotr_port:miniquest/near_harad/repair_wall",
       "weight": 28
     },
     {
@@ -182,6 +204,7 @@
       "min": 5,
       "max": 10,
       "reward": 1.5,
+      "speech": "lotr_port:miniquest/near_harad/bring_meat",
       "weight": 28
     },
     {
@@ -190,6 +213,7 @@
       "min": 5,
       "max": 10,
       "reward": 1.5,
+      "speech": "lotr_port:miniquest/near_harad/bring_meat",
       "weight": 28
     },
     {
@@ -198,6 +222,7 @@
       "min": 4,
       "max": 8,
       "reward": 2.0,
+      "speech": "lotr_port:miniquest/near_harad/bring_meat",
       "weight": 28
     },
     {
@@ -206,6 +231,7 @@
       "min": 4,
       "max": 8,
       "reward": 2.0,
+      "speech": "lotr_port:miniquest/near_harad/bring_meat",
       "weight": 28
     },
     {
@@ -214,6 +240,7 @@
       "min": 4,
       "max": 8,
       "reward": 2.0,
+      "speech": "lotr_port:miniquest/near_harad/bring_meat",
       "weight": 28
     },
     {
@@ -222,6 +249,7 @@
       "min": 4,
       "max": 8,
       "reward": 2.0,
+      "speech": "lotr_port:miniquest/near_harad/bring_meat",
       "weight": 28
     },
     {
@@ -230,6 +258,7 @@
       "min": 2,
       "max": 4,
       "reward": 4.0,
+      "speech": "lotr_port:miniquest/near_harad/lion_steak",
       "weight": 28
     },
     {
@@ -238,6 +267,7 @@
       "min": 1,
       "max": 1,
       "reward": 15.0,
+      "speech": "lotr_port:miniquest/near_harad/umbar_armor",
       "weight": 28
     },
     {
@@ -246,6 +276,7 @@
       "min": 1,
       "max": 1,
       "reward": 15.0,
+      "speech": "lotr_port:miniquest/near_harad/umbar_armor",
       "weight": 28
     },
     {
@@ -254,6 +285,7 @@
       "min": 1,
       "max": 1,
       "reward": 15.0,
+      "speech": "lotr_port:miniquest/near_harad/umbar_armor",
       "weight": 28
     },
     {
@@ -262,6 +294,7 @@
       "min": 1,
       "max": 1,
       "reward": 15.0,
+      "speech": "lotr_port:miniquest/near_harad/umbar_armor",
       "weight": 28
     },
     {
@@ -270,6 +303,7 @@
       "min": 1,
       "max": 3,
       "reward": 5.0,
+      "speech": "lotr_port:miniquest/near_harad/defend_corsair",
       "weight": 28
     },
     {
@@ -278,6 +312,7 @@
       "min": 1,
       "max": 3,
       "reward": 5.0,
+      "speech": "lotr_port:miniquest/near_harad/defend_corsair",
       "weight": 28
     },
     {
@@ -286,6 +321,7 @@
       "min": 1,
       "max": 3,
       "reward": 5.0,
+      "speech": "lotr_port:miniquest/near_harad/defend_corsair",
       "weight": 28
     },
     {
@@ -294,6 +330,7 @@
       "min": 20,
       "max": 50,
       "reward": 1.0,
+      "speech": "lotr_port:miniquest/near_harad/kill_gondor",
       "weight": 133
     },
     {
@@ -302,6 +339,7 @@
       "min": 10,
       "max": 40,
       "reward": 1.0,
+      "speech": "lotr_port:miniquest/near_harad/kill_for_umbar",
       "weight": 133
     },
     {
@@ -310,6 +348,7 @@
       "min": 10,
       "max": 30,
       "reward": 1.0,
+      "speech": "lotr_port:miniquest/near_harad/kill_rohirrim",
       "weight": 133
     },
     {
@@ -318,6 +357,7 @@
       "min": 10,
       "max": 30,
       "reward": 1.0,
+      "speech": "lotr_port:miniquest/near_harad/kill_rangers",
       "weight": 133
     },
     {
@@ -326,6 +366,7 @@
       "min": 10,
       "max": 20,
       "reward": 1.0,
+      "speech": "lotr_port:miniquest/near_harad/green_demons",
       "weight": 133
     },
     {
@@ -334,6 +375,7 @@
       "min": 10,
       "max": 30,
       "reward": 1.0,
+      "speech": "lotr_port:miniquest/near_harad/kill_gondor_soldiers",
       "weight": 133
     }
   ]

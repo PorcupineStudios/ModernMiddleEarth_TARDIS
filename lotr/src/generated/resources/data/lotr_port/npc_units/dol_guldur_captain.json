@@ -16,6 +16,18 @@
       "alignment": 150.0
     },
     {
+      "npc": "lotr_port:dol_guldur_orc",
+      "cost": 40,
+      "alignment": 250.0,
+      "mount": "lotr_port:mirkwood_spider"
+    },
+    {
+      "npc": "lotr_port:dol_guldur_orc_archer",
+      "cost": 60,
+      "alignment": 300.0,
+      "mount": "lotr_port:mirkwood_spider"
+    },
+    {
       "npc": "lotr_port:mirk_troll",
       "cost": 100,
       "alignment": 500.0,

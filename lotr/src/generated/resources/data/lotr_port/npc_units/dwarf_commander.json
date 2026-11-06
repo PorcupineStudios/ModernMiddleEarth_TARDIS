@@ -18,6 +18,20 @@
       "pledge": true
     },
     {
+      "npc": "lotr_port:dwarf_warrior",
+      "cost": 50,
+      "alignment": 350.0,
+      "pledge": true,
+      "mount": "minecraft:pig"
+    },
+    {
+      "npc": "lotr_port:dwarf_axe_thrower",
+      "cost": 70,
+      "alignment": 400.0,
+      "pledge": true,
+      "mount": "minecraft:pig"
+    },
+    {
       "npc": "lotr_port:dwarf_banner_bearer",
       "cost": 50,
       "alignment": 400.0,
