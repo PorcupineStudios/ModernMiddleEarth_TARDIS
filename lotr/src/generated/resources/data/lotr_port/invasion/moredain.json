@@ -1,0 +1,9 @@
+{
+  "faction": "lotr_port:morwaith",
+  "mobs": [
+    "lotr_port:moredain_warrior",
+    "lotr_port:moredain_banner_bearer"
+  ],
+  "icon": "lotr_port:morwaith_spear",
+  "lang": "lotr.invasion.MOREDAIN"
+}

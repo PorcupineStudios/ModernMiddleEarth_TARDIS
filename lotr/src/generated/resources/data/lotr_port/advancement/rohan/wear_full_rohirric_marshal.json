@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:rohan/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:rohirric_marshal_chestplate"
+    },
+    "title": {
+      "translate": "lotr.achievement.wearFullRohirricMarshal.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.wearFullRohirricMarshal.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

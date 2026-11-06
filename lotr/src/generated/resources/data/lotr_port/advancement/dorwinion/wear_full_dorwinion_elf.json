@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:dorwinion/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:dorwinion_elven_chestplate"
+    },
+    "title": {
+      "translate": "lotr.achievement.wearFullDorwinionElf.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.wearFullDorwinionElf.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

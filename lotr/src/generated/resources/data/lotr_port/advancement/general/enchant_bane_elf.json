@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:general/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:mordor_scimitar"
+    },
+    "title": {
+      "translate": "lotr.achievement.enchantBaneElf.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.enchantBaneElf.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

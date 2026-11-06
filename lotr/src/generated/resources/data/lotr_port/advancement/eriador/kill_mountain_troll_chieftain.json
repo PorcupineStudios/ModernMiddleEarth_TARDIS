@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:eriador/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:hill_troll_chieftain_skull"
+    },
+    "title": {
+      "translate": "lotr.achievement.killMountainTrollChieftain.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.killMountainTrollChieftain.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

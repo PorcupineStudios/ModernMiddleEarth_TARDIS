@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:nindalf/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:ancient_sword"
+    },
+    "title": {
+      "translate": "lotr.achievement.craftAncientItem.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.craftAncientItem.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

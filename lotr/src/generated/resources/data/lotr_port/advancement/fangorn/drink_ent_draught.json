@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:fangorn/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:green_ent_draught"
+    },
+    "title": {
+      "translate": "lotr.achievement.drinkEntDraught.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.drinkEntDraught.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

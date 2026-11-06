@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:lothlorien/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:galadhrim_cloak_tunic"
+    },
+    "title": {
+      "translate": "lotr.achievement.wearFullHithlain.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.wearFullHithlain.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

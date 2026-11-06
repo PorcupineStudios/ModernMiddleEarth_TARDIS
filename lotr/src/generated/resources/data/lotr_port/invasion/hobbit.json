@@ -1,0 +1,8 @@
+{
+  "faction": "lotr_port:hobbit",
+  "mobs": [
+    "lotr_port:hobbit_shirriff"
+  ],
+  "icon": "lotr_port:smoking_pipe",
+  "lang": "lotr.invasion.HOBBIT"
+}

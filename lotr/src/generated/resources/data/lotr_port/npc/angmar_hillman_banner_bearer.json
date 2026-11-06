@@ -11,25 +11,22 @@
   "attack": 2.0,
   "gear": {
     "mainhand": [
+      "lotr_port:angmar_battleaxe",
       "lotr_port:angmar_dagger",
       "lotr_port:angmar_poleaxe",
-      "lotr_port:angmar_spear",
-      "lotr_port:angmar_sword",
-      "lotr_port:angmar_warhammer"
+      "lotr_port:angmar_spear"
     ],
     "head": [
       "lotr_port:bone_helmet",
       "lotr_port:fur_hat"
     ],
     "chest": [
-      "lotr_port:angmar_chestplate",
       "lotr_port:bone_chestplate",
       "lotr_port:fur_tunic"
     ],
     "legs": [
       "lotr_port:angmar_leggings",
-      "lotr_port:bone_leggings",
-      "lotr_port:fur_leggings"
+      "lotr_port:bone_leggings"
     ],
     "feet": [
       "lotr_port:angmar_boots",
@@ -38,5 +35,6 @@
     ]
   },
   "names": "lotr_port:rhudaur_male",
-  "speech": "lotr_port:angmar/hillman"
+  "speech": "lotr_port:angmar/hillman",
+  "quests": "lotr_port:angmar_hillman"
 }

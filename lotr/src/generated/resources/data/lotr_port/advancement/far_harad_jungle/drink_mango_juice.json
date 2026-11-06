@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:far_harad_jungle/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:mango_juice"
+    },
+    "title": {
+      "translate": "lotr.achievement.drinkMangoJuice.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.drinkMangoJuice.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

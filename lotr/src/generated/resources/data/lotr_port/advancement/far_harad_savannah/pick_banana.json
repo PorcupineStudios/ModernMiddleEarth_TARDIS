@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:far_harad_savannah/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:banana"
+    },
+    "title": {
+      "translate": "lotr.achievement.pickBanana.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.pickBanana.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

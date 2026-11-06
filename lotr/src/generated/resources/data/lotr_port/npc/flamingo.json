@@ -1,0 +1,24 @@
+{
+  "model": "lotr_port:flamingo",
+  "width": 0.6,
+  "height": 1.8,
+  "behaviours": [
+    "animal"
+  ],
+  "lotr_classes": [
+    "LOTREntityFlamingo",
+    "EntityAnimal",
+    "EntityAgeable",
+    "EntityCreature",
+    "EntityLiving",
+    "EntityLivingBase"
+  ],
+  "behaviour_data": {
+    "fights_back": 0,
+    "panic_speed": 1.25,
+    "state.renderer": 0
+  },
+  "health": 8.0,
+  "speed": 0.25,
+  "attack": 2.0
+}

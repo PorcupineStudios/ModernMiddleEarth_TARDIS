@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:shire/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:pipe_weed_leaf"
+    },
+    "title": {
+      "translate": "lotr.achievement.sellPipeweedLeaf.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.sellPipeweedLeaf.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

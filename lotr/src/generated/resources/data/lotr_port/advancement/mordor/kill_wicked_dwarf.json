@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:mordor/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:dwarven_pickaxe"
+    },
+    "title": {
+      "translate": "lotr.achievement.killWickedDwarf.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.killWickedDwarf.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

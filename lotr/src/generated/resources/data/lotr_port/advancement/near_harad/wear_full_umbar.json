@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:near_harad/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:umbaric_chestplate"
+    },
+    "title": {
+      "translate": "lotr.achievement.wearFullUmbar.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.wearFullUmbar.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

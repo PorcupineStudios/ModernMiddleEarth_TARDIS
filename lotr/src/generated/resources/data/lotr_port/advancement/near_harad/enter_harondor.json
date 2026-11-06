@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:near_harad/root",
+  "display": {
+    "icon": {
+      "id": "minecraft:dirt"
+    },
+    "title": {
+      "translate": "lotr.achievement.enterHarondor.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.enterHarondor.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

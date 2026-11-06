@@ -1,0 +1,13 @@
+{
+  "faction": "lotr_port:rhudel",
+  "mobs": [
+    "lotr_port:easterling_levyman",
+    "lotr_port:easterling_warrior",
+    "lotr_port:easterling_archer",
+    "lotr_port:easterling_gold_warrior",
+    "lotr_port:easterling_banner_bearer",
+    "lotr_port:easterling_fire_thrower"
+  ],
+  "icon": "lotr_port:rh_nic_sword",
+  "lang": "lotr.invasion.RHUN"
+}

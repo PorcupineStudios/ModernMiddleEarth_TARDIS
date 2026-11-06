@@ -1,0 +1,22 @@
+{
+  "description": {
+    "translate": "lotr.enchant.headhunting"
+  },
+  "supported_items": "#lotr_port:enchantable/melee_or_ranged",
+  "weight": 1,
+  "max_level": 1,
+  "min_cost": {
+    "base": 1,
+    "per_level_above_first": 0
+  },
+  "max_cost": {
+    "base": 41,
+    "per_level_above_first": 0
+  },
+  "anvil_cost": 6,
+  "slots": [
+    "mainhand"
+  ],
+  "effects": {},
+  "exclusive_set": "#lotr_port:exclusive_set/weapon_special"
+}

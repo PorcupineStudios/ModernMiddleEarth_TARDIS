@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:mirkwood/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:bow_of_mirkwood"
+    },
+    "title": {
+      "translate": "lotr.achievement.enterWoodlandRealm.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.enterWoodlandRealm.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

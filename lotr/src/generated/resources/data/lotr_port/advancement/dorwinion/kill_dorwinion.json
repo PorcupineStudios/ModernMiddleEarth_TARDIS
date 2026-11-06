@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:dorwinion/root",
+  "display": {
+    "icon": {
+      "id": "minecraft:bone"
+    },
+    "title": {
+      "translate": "lotr.achievement.killDorwinion.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.killDorwinion.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

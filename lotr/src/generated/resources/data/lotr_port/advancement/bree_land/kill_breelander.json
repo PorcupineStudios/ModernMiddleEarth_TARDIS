@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:bree_land/root",
+  "display": {
+    "icon": {
+      "id": "minecraft:bone"
+    },
+    "title": {
+      "translate": "lotr.achievement.killBreelander.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.killBreelander.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

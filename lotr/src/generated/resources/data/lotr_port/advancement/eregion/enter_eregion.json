@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:eregion/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:holly_sapling"
+    },
+    "title": {
+      "translate": "lotr.achievement.enterEregion.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.enterEregion.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

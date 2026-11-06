@@ -1,0 +1,24 @@
+{
+  "model": "lotr_port:gemsbok",
+  "width": 0.9,
+  "height": 1.4,
+  "behaviours": [
+    "animal"
+  ],
+  "lotr_classes": [
+    "LOTREntityGemsbok",
+    "EntityAnimal",
+    "EntityAgeable",
+    "EntityCreature",
+    "EntityLiving",
+    "EntityLivingBase"
+  ],
+  "behaviour_data": {
+    "fights_back": 0,
+    "panic_speed": 1.25,
+    "state.renderer": 1
+  },
+  "health": 22.0,
+  "speed": 0.25,
+  "attack": 2.0
+}

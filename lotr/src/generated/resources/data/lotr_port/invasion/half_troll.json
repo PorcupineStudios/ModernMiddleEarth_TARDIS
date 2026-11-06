@@ -1,0 +1,10 @@
+{
+  "faction": "lotr_port:half_troll",
+  "mobs": [
+    "lotr_port:half_troll",
+    "lotr_port:half_troll_warrior",
+    "lotr_port:half_troll_banner_bearer"
+  ],
+  "icon": "lotr_port:half_troll_scimitar",
+  "lang": "lotr.invasion.HALF_TROLL"
+}

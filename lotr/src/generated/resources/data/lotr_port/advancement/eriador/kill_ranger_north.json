@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:eriador/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:ranger_bow"
+    },
+    "title": {
+      "translate": "lotr.achievement.killRangerNorth.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.killRangerNorth.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

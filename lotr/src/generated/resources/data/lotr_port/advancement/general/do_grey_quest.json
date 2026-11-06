@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:general/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:staff_of_gandalf_the_grey"
+    },
+    "title": {
+      "translate": "lotr.achievement.doGreyQuest.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.doGreyQuest.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "faction": "lotr_port:fangorn",
+  "mobs": [
+    "lotr_port:ent",
+    "lotr_port:huorn"
+  ],
+  "icon": "minecraft:stick",
+  "lang": "lotr.invasion.FANGORN"
+}

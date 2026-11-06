@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:gondor/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:lamedon_chestplate"
+    },
+    "title": {
+      "translate": "lotr.achievement.wearFullLamedon.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.wearFullLamedon.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

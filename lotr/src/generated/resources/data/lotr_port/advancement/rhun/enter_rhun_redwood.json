@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:rhun/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:redwood_sapling"
+    },
+    "title": {
+      "translate": "lotr.achievement.enterRhunRedwood.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.enterRhunRedwood.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

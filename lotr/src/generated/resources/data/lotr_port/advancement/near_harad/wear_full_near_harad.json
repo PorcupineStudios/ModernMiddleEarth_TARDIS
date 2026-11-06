@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:near_harad/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:coast_southron_chestplate"
+    },
+    "title": {
+      "translate": "lotr.achievement.wearFullNearHarad.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.wearFullNearHarad.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

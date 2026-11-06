@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:rohan/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:uruk_helmet"
+    },
+    "title": {
+      "translate": "lotr.achievement.enterRohanUrukHighlands.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.enterRohanUrukHighlands.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

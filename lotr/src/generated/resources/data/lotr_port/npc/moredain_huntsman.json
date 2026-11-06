@@ -17,7 +17,7 @@
     "legs": "lotr_port:morwaith_leggings",
     "feet": "lotr_port:morwaith_boots"
   },
-  "names": "lotr_port:moredain_male",
+  "names": "lotr_port:gulf_male",
   "buy": "lotr_port:moredain_huntsman_buy",
   "sell": "lotr_port:moredain_huntsman_sell",
   "speech": "lotr_port:moredain/trader",

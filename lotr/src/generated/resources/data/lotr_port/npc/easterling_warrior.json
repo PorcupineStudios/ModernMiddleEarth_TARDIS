@@ -13,11 +13,10 @@
   "attack": 2.0,
   "gear": {
     "mainhand": [
-      "lotr_port:poisoned_rh_nic_dagger",
-      "lotr_port:rh_nic_bardiche",
+      "lotr_port:rh_nic_battleaxe",
       "lotr_port:rh_nic_dagger",
-      "lotr_port:rh_nic_spear",
-      "lotr_port:rh_nic_sword"
+      "lotr_port:rh_nic_pike",
+      "lotr_port:rh_nic_spear"
     ],
     "head": "lotr_port:rh_nic_helmet",
     "chest": "lotr_port:rh_nic_chestplate",

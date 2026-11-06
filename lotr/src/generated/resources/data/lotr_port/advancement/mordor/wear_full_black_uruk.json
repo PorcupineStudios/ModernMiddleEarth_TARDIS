@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:mordor/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:black_uruk_chestplate"
+    },
+    "title": {
+      "translate": "lotr.achievement.wearFullBlackUruk.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.wearFullBlackUruk.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

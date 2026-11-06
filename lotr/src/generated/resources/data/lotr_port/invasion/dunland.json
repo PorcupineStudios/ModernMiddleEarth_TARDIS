@@ -1,0 +1,13 @@
+{
+  "faction": "lotr_port:dunland",
+  "mobs": [
+    "lotr_port:dunlending",
+    "lotr_port:dunlending_warrior",
+    "lotr_port:dunlending_archer",
+    "lotr_port:dunlending_axe_thrower",
+    "lotr_port:dunlending_berserker",
+    "lotr_port:dunlending_banner_bearer"
+  ],
+  "icon": "lotr_port:dunlending_club",
+  "lang": "lotr.invasion.DUNLAND"
+}

@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:gondor/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:blackroot_vale_chestplate"
+    },
+    "title": {
+      "translate": "lotr.achievement.wearFullBlackroot.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.wearFullBlackroot.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

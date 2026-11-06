@@ -18,6 +18,7 @@
   "gear": {
     "mainhand": [
       "lotr_port:rivendell_battlestaff",
+      "lotr_port:rivendell_spear",
       "lotr_port:rivendell_sword"
     ],
     "head": "lotr_port:rivendell_helmet",
@@ -25,5 +26,7 @@
     "legs": "lotr_port:rivendell_leggings",
     "feet": "lotr_port:rivendell_boots"
   },
-  "speech": "lotr_port:rivendell/warrior"
+  "names": "lotr_port:sindarin_male",
+  "speech": "lotr_port:rivendell/warrior",
+  "quests": "lotr_port:rivendell"
 }

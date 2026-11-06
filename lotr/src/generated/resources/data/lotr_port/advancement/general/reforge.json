@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:general/root",
+  "display": {
+    "icon": {
+      "id": "minecraft:anvil"
+    },
+    "title": {
+      "translate": "lotr.achievement.reforge.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.reforge.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

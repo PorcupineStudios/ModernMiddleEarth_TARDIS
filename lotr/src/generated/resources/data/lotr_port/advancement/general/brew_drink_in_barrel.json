@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:general/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:barrel"
+    },
+    "title": {
+      "translate": "lotr.achievement.brewDrinkInBarrel.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.brewDrinkInBarrel.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

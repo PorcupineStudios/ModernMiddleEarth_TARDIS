@@ -1,0 +1,8 @@
+{
+  "faction": "lotr_port:near_harad",
+  "mobs": [
+    "lotr_port:corsair"
+  ],
+  "icon": "lotr_port:corsair_eket",
+  "lang": "lotr.invasion.NEAR_HARAD_CORSAIR"
+}

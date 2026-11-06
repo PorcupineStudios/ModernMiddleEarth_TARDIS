@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:bree_land/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:red_book"
+    },
+    "title": {
+      "translate": "lotr.achievement.doMiniquestBree.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.doMiniquestBree.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:rhovanion/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:reeds"
+    },
+    "title": {
+      "translate": "lotr.achievement.enterLongMarshes.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.enterLongMarshes.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

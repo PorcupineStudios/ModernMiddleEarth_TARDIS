@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:dale/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:dalish_crafting_table"
+    },
+    "title": {
+      "translate": "lotr.achievement.useDaleTable.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.useDaleTable.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

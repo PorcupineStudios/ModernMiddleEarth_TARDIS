@@ -1,0 +1,12 @@
+{
+  "faction": "lotr_port:dale",
+  "mobs": [
+    "lotr_port:dale_levyman",
+    "lotr_port:dale_soldier",
+    "lotr_port:dale_archer",
+    "lotr_port:dale_banner_bearer",
+    "lotr_port:esgaroth_banner_bearer"
+  ],
+  "icon": "lotr_port:dalish_sword",
+  "lang": "lotr.invasion.DALE"
+}

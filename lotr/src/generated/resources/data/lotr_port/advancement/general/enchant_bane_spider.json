@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:general/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:sting"
+    },
+    "title": {
+      "translate": "lotr.achievement.enchantBaneSpider.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.enchantBaneSpider.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

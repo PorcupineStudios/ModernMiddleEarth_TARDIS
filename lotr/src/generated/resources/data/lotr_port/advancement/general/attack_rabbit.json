@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:general/root",
+  "display": {
+    "icon": {
+      "id": "minecraft:wheat_seeds"
+    },
+    "title": {
+      "translate": "lotr.achievement.attackRabbit.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.attackRabbit.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

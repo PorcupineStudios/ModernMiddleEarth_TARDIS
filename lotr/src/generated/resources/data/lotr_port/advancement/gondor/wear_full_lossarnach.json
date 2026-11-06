@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:gondor/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:lossarnach_chestplate"
+    },
+    "title": {
+      "translate": "lotr.achievement.wearFullLossarnach.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.wearFullLossarnach.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

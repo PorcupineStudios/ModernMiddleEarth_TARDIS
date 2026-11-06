@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:eriador/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:high_elven_brick"
+    },
+    "title": {
+      "translate": "lotr.achievement.enterRivendell.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.enterRivendell.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

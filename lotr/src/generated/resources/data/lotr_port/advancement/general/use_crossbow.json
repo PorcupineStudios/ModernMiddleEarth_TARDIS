@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:general/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:iron_crossbow"
+    },
+    "title": {
+      "translate": "lotr.achievement.useCrossbow.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.useCrossbow.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

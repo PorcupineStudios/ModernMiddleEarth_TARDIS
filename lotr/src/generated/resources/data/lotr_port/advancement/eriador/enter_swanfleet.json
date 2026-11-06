@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:eriador/root",
+  "display": {
+    "icon": {
+      "id": "minecraft:waterlily"
+    },
+    "title": {
+      "translate": "lotr.achievement.enterSwanfleet.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.enterSwanfleet.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

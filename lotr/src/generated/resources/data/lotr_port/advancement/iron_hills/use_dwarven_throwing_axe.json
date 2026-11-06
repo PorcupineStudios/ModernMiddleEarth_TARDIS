@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:iron_hills/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:dwarven_throwing_axe"
+    },
+    "title": {
+      "translate": "lotr.achievement.useDwarvenThrowingAxe.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.useDwarvenThrowingAxe.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

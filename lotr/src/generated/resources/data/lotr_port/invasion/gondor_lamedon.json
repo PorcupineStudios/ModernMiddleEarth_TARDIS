@@ -1,0 +1,11 @@
+{
+  "faction": "lotr_port:gondor",
+  "mobs": [
+    "lotr_port:lamedon_hillman",
+    "lotr_port:lamedon_soldier",
+    "lotr_port:lamedon_archer",
+    "lotr_port:lamedon_banner_bearer"
+  ],
+  "icon": "lotr_port:gondorian_warhammer",
+  "lang": "lotr.invasion.GONDOR_LAMEDON"
+}

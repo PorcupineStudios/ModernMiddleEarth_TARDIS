@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:general/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:warg_bone"
+    },
+    "title": {
+      "translate": "lotr.achievement.killWarg.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.killWarg.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

@@ -22,6 +22,6 @@
     "legs": "lotr_port:galadhrim_cloak_leggings",
     "feet": "lotr_port:galadhrim_cloak_boots"
   },
-  "speech": "lotr_port:galadhrim/warrior",
-  "quests": "lotr_port:galadhrim"
+  "names": "lotr_port:gondor_male",
+  "speech": "lotr_port:galadhrim/warrior"
 }

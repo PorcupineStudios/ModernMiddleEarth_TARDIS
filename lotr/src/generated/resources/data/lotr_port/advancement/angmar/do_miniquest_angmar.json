@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:angmar/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:red_book"
+    },
+    "title": {
+      "translate": "lotr.achievement.doMiniquestAngmar.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.doMiniquestAngmar.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

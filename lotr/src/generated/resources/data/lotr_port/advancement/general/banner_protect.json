@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:general/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:banner_of_gondor"
+    },
+    "title": {
+      "translate": "lotr.achievement.bannerProtect.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.bannerProtect.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

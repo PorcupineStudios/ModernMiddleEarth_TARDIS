@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:blue_mountains/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:silver_coin"
+    },
+    "title": {
+      "translate": "lotr.achievement.tradeBlueDwarfMiner.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.tradeBlueDwarfMiner.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:general/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:butterfly_jar"
+    },
+    "title": {
+      "translate": "lotr.achievement.catchButterfly.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.catchButterfly.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

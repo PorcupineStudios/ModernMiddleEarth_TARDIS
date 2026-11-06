@@ -1,0 +1,10 @@
+{
+  "faction": "lotr_port:rohan",
+  "mobs": [
+    "lotr_port:rohirrim",
+    "lotr_port:rohirrim_archer",
+    "lotr_port:rohan_banner_bearer"
+  ],
+  "icon": "lotr_port:rohirric_sword",
+  "lang": "lotr.invasion.ROHAN"
+}

@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:utumno/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:utumno_sword"
+    },
+    "title": {
+      "translate": "lotr.achievement.leaveUtumno.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.leaveUtumno.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

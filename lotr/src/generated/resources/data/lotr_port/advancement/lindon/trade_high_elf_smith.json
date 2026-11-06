@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:lindon/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:silver_coin"
+    },
+    "title": {
+      "translate": "lotr.achievement.tradeHighElfSmith.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.tradeHighElfSmith.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

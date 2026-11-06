@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:lindon/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:lindon_crafting_table"
+    },
+    "title": {
+      "translate": "lotr.achievement.useHighElvenTable.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.useHighElvenTable.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

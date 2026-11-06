@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:gondor/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:silver_coin"
+    },
+    "title": {
+      "translate": "lotr.achievement.tradeGondorBlacksmith.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.tradeGondorBlacksmith.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

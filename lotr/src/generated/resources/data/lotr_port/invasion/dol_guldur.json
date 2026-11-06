@@ -1,0 +1,12 @@
+{
+  "faction": "lotr_port:dol_guldur",
+  "mobs": [
+    "lotr_port:mirkwood_spider",
+    "lotr_port:dol_guldur_orc",
+    "lotr_port:dol_guldur_orc_archer",
+    "lotr_port:dol_guldur_banner_bearer",
+    "lotr_port:mirk_troll"
+  ],
+  "icon": "lotr_port:dol_guldur_sword",
+  "lang": "lotr.invasion.DOL_GULDUR"
+}

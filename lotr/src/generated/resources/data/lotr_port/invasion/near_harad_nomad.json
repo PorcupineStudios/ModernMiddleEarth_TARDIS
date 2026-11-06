@@ -1,0 +1,10 @@
+{
+  "faction": "lotr_port:near_harad",
+  "mobs": [
+    "lotr_port:nomad_warrior",
+    "lotr_port:nomad_archer",
+    "lotr_port:nomad_banner_bearer"
+  ],
+  "icon": "lotr_port:haradric_sword",
+  "lang": "lotr.invasion.NEAR_HARAD_NOMAD"
+}

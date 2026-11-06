@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:near_harad/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:flame_of_harad"
+    },
+    "title": {
+      "translate": "lotr.achievement.enterGulfHarad.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.enterGulfHarad.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

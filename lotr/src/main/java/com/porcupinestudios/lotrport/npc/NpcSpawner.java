@@ -1,6 +1,7 @@
 package com.porcupinestudios.lotrport.npc;
 
 import java.util.Optional;
+import java.util.function.Function;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
@@ -38,17 +39,27 @@ public final class NpcSpawner {
             }
             Optional<ResourceLocation> biome = level.getBiome(player.blockPosition()).unwrapKey()
                     .map(k -> k.location());
-            Optional<NpcSpawns.Table> table = biome.flatMap(NpcSpawns::forBiome);
-            if (table.isEmpty() || table.get().entries().isEmpty()
-                    || (level.getGameTime() + player.getId()) % Math.max(1, table.get().interval()) != 0) {
-                continue;
-            }
-            trySpawn(level, player, table.get());
+            attempt(level, player, biome.flatMap(NpcSpawns::forBiome), NpcSpawns::forBiome);
+            attempt(level, player, biome.flatMap(NpcSpawns::animalsForBiome), NpcSpawns::animalsForBiome);
         }
     }
 
-    /** One spawn attempt near the player; returns how many NPCs appeared. */
+    private static void attempt(ServerLevel level, ServerPlayer player, Optional<NpcSpawns.Table> table,
+            Function<ResourceLocation, Optional<NpcSpawns.Table>> lookup) {
+        if (table.isEmpty() || table.get().entries().isEmpty()
+                || (level.getGameTime() + player.getId()) % Math.max(1, table.get().interval()) != 0) {
+            return;
+        }
+        trySpawn(level, player, table.get(), lookup);
+    }
+
     public static int trySpawn(ServerLevel level, ServerPlayer player, NpcSpawns.Table table) {
+        return trySpawn(level, player, table, NpcSpawns::forBiome);
+    }
+
+    /** One spawn attempt near the player; returns how many NPCs appeared. */
+    public static int trySpawn(ServerLevel level, ServerPlayer player, NpcSpawns.Table table,
+            Function<ResourceLocation, Optional<NpcSpawns.Table>> lookup) {
         RandomSource random = level.random;
         if (random.nextFloat() >= table.chance()) {
             return 0;
@@ -69,8 +80,7 @@ public final class NpcSpawner {
             return 0;
         }
         // the table of the spot itself, so groups don't spill across biome borders
-        Optional<NpcSpawns.Table> here = level.getBiome(ground).unwrapKey().flatMap(k -> NpcSpawns.forBiome(
-                k.location()));
+        Optional<NpcSpawns.Table> here = level.getBiome(ground).unwrapKey().flatMap(k -> lookup.apply(k.location()));
         if (here.isEmpty() || here.get().entries().isEmpty()) {
             return 0;
         }

@@ -27,7 +27,7 @@
     "legs": "lotr_port:rivendell_leggings",
     "feet": "lotr_port:rivendell_boots"
   },
-  "names": "lotr_port:quenya_male",
+  "names": "lotr_port:gondor_male",
   "speech": "lotr_port:rivendell/warrior",
   "quests": "lotr_port:rivendell"
 }

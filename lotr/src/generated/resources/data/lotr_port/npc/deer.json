@@ -1,0 +1,30 @@
+{
+  "skins": [
+    "lotr_port:textures/entity/deer/0.png",
+    "lotr_port:textures/entity/deer/1.png"
+  ],
+  "skin_height": 64,
+  "model": "lotr_port:deer",
+  "width": 0.8,
+  "height": 1.0,
+  "behaviours": [
+    "animal"
+  ],
+  "lotr_classes": [
+    "LOTREntityDeer",
+    "LOTREntityAnimalMF",
+    "EntityAnimal",
+    "EntityAgeable",
+    "EntityCreature",
+    "EntityLiving",
+    "EntityLivingBase"
+  ],
+  "behaviour_data": {
+    "fights_back": 0,
+    "panic_speed": 1.25,
+    "state.renderer": 0
+  },
+  "health": 10.0,
+  "speed": 0.25,
+  "attack": 2.0
+}

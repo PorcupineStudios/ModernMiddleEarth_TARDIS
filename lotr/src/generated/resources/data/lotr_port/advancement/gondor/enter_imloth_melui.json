@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:gondor/root",
+  "display": {
+    "icon": {
+      "id": "minecraft:double_plant"
+    },
+    "title": {
+      "translate": "lotr.achievement.enterImlothMelui.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.enterImlothMelui.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

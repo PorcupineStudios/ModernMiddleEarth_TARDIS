@@ -12,9 +12,42 @@
       "tick_delay": 6000,
       "block_search_extent": 8,
       "offset": 2.0
+    },
+    "music": {
+      "sound": "lotr_port:music.lindon",
+      "min_delay": 12000,
+      "max_delay": 24000,
+      "replace_current_music": false
     }
   },
-  "spawners": {},
+  "spawners": {
+    "creature": [
+      {
+        "type": "minecraft:sheep",
+        "weight": 12,
+        "minCount": 4,
+        "maxCount": 4
+      },
+      {
+        "type": "minecraft:pig",
+        "weight": 10,
+        "minCount": 4,
+        "maxCount": 4
+      },
+      {
+        "type": "minecraft:chicken",
+        "weight": 8,
+        "minCount": 4,
+        "maxCount": 4
+      },
+      {
+        "type": "minecraft:horse",
+        "weight": 5,
+        "minCount": 2,
+        "maxCount": 6
+      }
+    ]
+  },
   "spawn_costs": {},
   "carvers": {
     "air": [

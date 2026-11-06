@@ -29,7 +29,7 @@
     "death": "lotr_port:warg.death",
     "attack": "lotr_port:warg.attack"
   },
-  "health": 27.0,
+  "health": 20.0,
   "speed": 0.22,
   "attack": 3.0,
   "speech": "lotr_port:isengard/orc"

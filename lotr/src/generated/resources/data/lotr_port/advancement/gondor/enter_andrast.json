@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:gondor/root",
+  "display": {
+    "icon": {
+      "id": "minecraft:stone"
+    },
+    "title": {
+      "translate": "lotr.achievement.enterAndrast.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.enterAndrast.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

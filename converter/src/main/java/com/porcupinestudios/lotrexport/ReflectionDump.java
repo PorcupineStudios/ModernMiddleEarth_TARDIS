@@ -63,6 +63,7 @@ class ReflectionDump {
             }
         }
         out.add("mugs", mugs());
+        out.add("biomes", biomes());
         return out;
     }
 
@@ -81,6 +82,37 @@ class ReflectionDump {
             }
         } catch (Throwable t) {
             ex.report("dump mugs", t);
+        }
+        return a;
+    }
+
+    /** Every Middle-earth biome's own fields: music region, achievement, NPC/invasion lists, animal spawns. */
+    private JsonArray biomes() {
+        JsonArray a = new JsonArray();
+        try {
+            Class<?> dim = Class.forName("lotr.common.LOTRDimension");
+            Object me = dim.getField("MIDDLE_EARTH").get(null);
+            Field list = dim.getDeclaredField("biomeList");
+            list.setAccessible(true);
+            for (Object o : (Object[]) list.get(me)) {
+                net.minecraft.world.biome.BiomeGenBase b = (net.minecraft.world.biome.BiomeGenBase) o;
+                if (b != null && b.getClass().getName().startsWith("lotr.")) {
+                    seen.clear();
+                    JsonObject j = object(b, 5, true);
+                    for (String m : new String[] { "getBiomeMusic", "getBiomeAchievement", "getBiomeWaypoints" }) {
+                        try {
+                            java.lang.reflect.Method meth = b.getClass().getMethod(m);
+                            seen.clear();
+                            j.add(m, value(meth.invoke(b), 2));
+                        } catch (Throwable t) {
+                            j.addProperty(m, "!" + t.getClass().getSimpleName());
+                        }
+                    }
+                    a.add(j);
+                }
+            }
+        } catch (Throwable t) {
+            ex.report("dump biomes", t);
         }
         return a;
     }
@@ -116,6 +148,21 @@ class ReflectionDump {
             o.addProperty("duration", e.getDuration());
             o.addProperty("amplifier", e.getAmplifier());
             return o;
+        }
+        if (v instanceof net.minecraft.world.biome.BiomeGenBase.SpawnListEntry e) {
+            JsonObject o = new JsonObject();
+            o.addProperty("entity", e.entityClass.getName());
+            o.addProperty("weight", e.itemWeight);
+            o.addProperty("min", e.minGroupCount);
+            o.addProperty("max", e.maxGroupCount);
+            return o;
+        }
+        if (v instanceof net.minecraft.world.biome.BiomeGenBase bb && depth < 5) {
+            return new JsonPrimitive("biome:" + bb.biomeID);
+        }
+        if (v instanceof net.minecraft.world.biome.BiomeDecorator || v instanceof java.util.Random
+                || v instanceof net.minecraft.world.gen.NoiseGeneratorPerlin) {
+            return new JsonPrimitive("@" + v.getClass().getSimpleName());
         }
         if (depth <= 0) {
             return new JsonPrimitive(v.getClass().isEnum() ? ((Enum<?>) v).name() : v.toString());

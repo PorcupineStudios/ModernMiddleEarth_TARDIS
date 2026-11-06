@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:rhun/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:silver_coin"
+    },
+    "title": {
+      "translate": "lotr.achievement.tradeRhunBlacksmith.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.tradeRhunBlacksmith.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

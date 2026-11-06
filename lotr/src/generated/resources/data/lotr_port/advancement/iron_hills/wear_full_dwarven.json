@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:iron_hills/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:dwarven_chestplate"
+    },
+    "title": {
+      "translate": "lotr.achievement.wearFullDwarven.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.wearFullDwarven.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

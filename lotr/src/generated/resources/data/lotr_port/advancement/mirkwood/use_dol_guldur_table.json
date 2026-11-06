@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:mirkwood/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:dol_guldur_crafting_table"
+    },
+    "title": {
+      "translate": "lotr.achievement.useDolGuldurTable.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.useDolGuldurTable.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "model": "lotr_port:midge",
+  "width": 2.0,
+  "height": 2.0,
+  "behaviours": [],
+  "lotr_classes": [
+    "LOTREntityMidges",
+    "EntityLiving",
+    "EntityLivingBase"
+  ],
+  "behaviour_data": {
+    "state.renderer": 0
+  },
+  "health": 2.0,
+  "speed": 0.699999988079071,
+  "attack": 2.0
+}

@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:gondor/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:pelargir_trident"
+    },
+    "title": {
+      "translate": "lotr.achievement.enterPelargir.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.enterPelargir.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:eriador/root",
+  "display": {
+    "icon": {
+      "id": "minecraft:slime_ball"
+    },
+    "title": {
+      "translate": "lotr.achievement.makeTrollSneeze.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.makeTrollSneeze.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

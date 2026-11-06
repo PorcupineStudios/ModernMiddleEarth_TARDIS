@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:lothlorien/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:mallorn_wood"
+    },
+    "title": {
+      "translate": "lotr.achievement.takeMallornWood.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.takeMallornWood.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "faction": "lotr_port:near_harad",
+  "mobs": [
+    "lotr_port:harnedor_warrior",
+    "lotr_port:harnedor_archer",
+    "lotr_port:harnedor_banner_bearer"
+  ],
+  "icon": "lotr_port:haradric_sword",
+  "lang": "lotr.invasion.NEAR_HARAD_HARNEDOR"
+}

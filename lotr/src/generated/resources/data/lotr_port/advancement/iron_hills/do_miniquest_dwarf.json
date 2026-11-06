@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:iron_hills/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:red_book"
+    },
+    "title": {
+      "translate": "lotr.achievement.doMiniquestDwarf.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.doMiniquestDwarf.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

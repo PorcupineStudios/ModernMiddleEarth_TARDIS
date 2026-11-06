@@ -1,0 +1,42 @@
+{
+  "description": {
+    "translate": "lotr.enchant.baneSpider"
+  },
+  "supported_items": "#lotr_port:enchantable/melee",
+  "weight": 1,
+  "max_level": 1,
+  "min_cost": {
+    "base": 1,
+    "per_level_above_first": 0
+  },
+  "max_cost": {
+    "base": 41,
+    "per_level_above_first": 0
+  },
+  "anvil_cost": 3,
+  "slots": [
+    "mainhand"
+  ],
+  "effects": {
+    "minecraft:damage": [
+      {
+        "effect": {
+          "type": "minecraft:add",
+          "value": 4.0
+        },
+        "requirements": {
+          "condition": "minecraft:any_of",
+          "terms": [
+            {
+              "condition": "minecraft:entity_properties",
+              "entity": "this",
+              "predicate": {
+                "type": "#minecraft:arthropod"
+              }
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

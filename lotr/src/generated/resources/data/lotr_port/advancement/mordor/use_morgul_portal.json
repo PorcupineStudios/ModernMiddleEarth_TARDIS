@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:mordor/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:gulduril"
+    },
+    "title": {
+      "translate": "lotr.achievement.useMorgulPortal.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.useMorgulPortal.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:far_harad_jungle/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:taurethrim_chestplate"
+    },
+    "title": {
+      "translate": "lotr.achievement.wearFullTauredain.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.wearFullTauredain.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:mirkwood/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:silver_coin"
+    },
+    "title": {
+      "translate": "lotr.achievement.tradeWoodElfCaptain.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.tradeWoodElfCaptain.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

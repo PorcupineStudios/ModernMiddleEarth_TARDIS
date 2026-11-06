@@ -1,0 +1,11 @@
+{
+  "faction": "lotr_port:mordor",
+  "mobs": [
+    "lotr_port:mordor_orc",
+    "lotr_port:mordor_orc_archer",
+    "lotr_port:nan_ungol_banner_bearer",
+    "lotr_port:mordor_spider"
+  ],
+  "icon": "lotr_port:mordor_scimitar",
+  "lang": "lotr.invasion.MORDOR_NAN_UNGOL"
+}

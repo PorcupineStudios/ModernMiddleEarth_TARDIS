@@ -14,34 +14,7 @@
       "offset": 2.0
     }
   },
-  "spawners": {
-    "creature": [
-      {
-        "type": "minecraft:sheep",
-        "weight": 12,
-        "minCount": 2,
-        "maxCount": 4
-      },
-      {
-        "type": "minecraft:pig",
-        "weight": 10,
-        "minCount": 2,
-        "maxCount": 4
-      },
-      {
-        "type": "minecraft:chicken",
-        "weight": 10,
-        "minCount": 2,
-        "maxCount": 4
-      },
-      {
-        "type": "minecraft:cow",
-        "weight": 8,
-        "minCount": 2,
-        "maxCount": 4
-      }
-    ]
-  },
+  "spawners": {},
   "spawn_costs": {},
   "carvers": {
     "air": [

@@ -1,0 +1,10 @@
+{
+  "faction": "lotr_port:taurethrim",
+  "mobs": [
+    "lotr_port:tauredain_warrior",
+    "lotr_port:tauredain_blowgunner",
+    "lotr_port:tauredain_banner_bearer"
+  ],
+  "icon": "lotr_port:taurethrim_sword",
+  "lang": "lotr.invasion.TAUREDAIN"
+}

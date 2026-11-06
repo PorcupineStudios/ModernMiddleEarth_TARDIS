@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:rhun/root",
+  "display": {
+    "icon": {
+      "id": "minecraft:sand"
+    },
+    "title": {
+      "translate": "lotr.achievement.enterLastDesert.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.enterLastDesert.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

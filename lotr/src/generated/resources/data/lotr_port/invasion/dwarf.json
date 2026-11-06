@@ -1,0 +1,10 @@
+{
+  "faction": "lotr_port:durins_folk",
+  "mobs": [
+    "lotr_port:dwarf_warrior",
+    "lotr_port:dwarf_axe_thrower",
+    "lotr_port:dwarf_banner_bearer"
+  ],
+  "icon": "lotr_port:dwarven_warhammer",
+  "lang": "lotr.invasion.DWARF"
+}

@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:mirkwood/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:wood_elven_chestplate"
+    },
+    "title": {
+      "translate": "lotr.achievement.wearFullWoodElven.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.wearFullWoodElven.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

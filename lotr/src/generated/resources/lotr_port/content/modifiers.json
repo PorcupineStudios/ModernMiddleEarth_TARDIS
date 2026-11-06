@@ -1,0 +1,515 @@
+[
+  {
+    "id": "lotr_port:strong1",
+    "weight": 10,
+    "value_modifier": 1.3571,
+    "skilful": false,
+    "persists_reforge": false,
+    "bypass_anvil_limit": false,
+    "apply_to_projectile": false
+  },
+  {
+    "id": "lotr_port:strong2",
+    "weight": 5,
+    "value_modifier": 1.7143,
+    "skilful": false,
+    "persists_reforge": false,
+    "bypass_anvil_limit": false,
+    "apply_to_projectile": false
+  },
+  {
+    "id": "lotr_port:strong3",
+    "weight": 2,
+    "value_modifier": 2.4286,
+    "skilful": true,
+    "persists_reforge": false,
+    "bypass_anvil_limit": false,
+    "apply_to_projectile": false
+  },
+  {
+    "id": "lotr_port:strong4",
+    "weight": 1,
+    "value_modifier": 3.1429,
+    "skilful": true,
+    "persists_reforge": false,
+    "bypass_anvil_limit": false,
+    "apply_to_projectile": false
+  },
+  {
+    "id": "lotr_port:weak1",
+    "weight": 6,
+    "value_modifier": 0.9286,
+    "skilful": false,
+    "persists_reforge": false,
+    "bypass_anvil_limit": false,
+    "apply_to_projectile": false
+  },
+  {
+    "id": "lotr_port:weak2",
+    "weight": 4,
+    "value_modifier": 0.8571,
+    "skilful": false,
+    "persists_reforge": false,
+    "bypass_anvil_limit": false,
+    "apply_to_projectile": false
+  },
+  {
+    "id": "lotr_port:weak3",
+    "weight": 2,
+    "value_modifier": 0.7143,
+    "skilful": false,
+    "persists_reforge": false,
+    "bypass_anvil_limit": false,
+    "apply_to_projectile": false
+  },
+  {
+    "id": "lotr_port:bane_elf",
+    "weight": 0,
+    "value_modifier": 1.4,
+    "skilful": false,
+    "persists_reforge": true,
+    "bypass_anvil_limit": true,
+    "apply_to_projectile": false
+  },
+  {
+    "id": "lotr_port:bane_orc",
+    "weight": 0,
+    "value_modifier": 1.4,
+    "skilful": false,
+    "persists_reforge": true,
+    "bypass_anvil_limit": true,
+    "apply_to_projectile": false
+  },
+  {
+    "id": "lotr_port:bane_dwarf",
+    "weight": 0,
+    "value_modifier": 1.4,
+    "skilful": false,
+    "persists_reforge": true,
+    "bypass_anvil_limit": true,
+    "apply_to_projectile": false
+  },
+  {
+    "id": "lotr_port:bane_warg",
+    "weight": 0,
+    "value_modifier": 1.4,
+    "skilful": false,
+    "persists_reforge": true,
+    "bypass_anvil_limit": true,
+    "apply_to_projectile": false
+  },
+  {
+    "id": "lotr_port:bane_troll",
+    "weight": 0,
+    "value_modifier": 1.4,
+    "skilful": false,
+    "persists_reforge": true,
+    "bypass_anvil_limit": true,
+    "apply_to_projectile": false
+  },
+  {
+    "id": "lotr_port:bane_spider",
+    "weight": 0,
+    "value_modifier": 1.4,
+    "skilful": false,
+    "persists_reforge": true,
+    "bypass_anvil_limit": true,
+    "apply_to_projectile": false
+  },
+  {
+    "id": "lotr_port:bane_wight",
+    "weight": 0,
+    "value_modifier": 1.4,
+    "skilful": false,
+    "persists_reforge": true,
+    "bypass_anvil_limit": true,
+    "apply_to_projectile": false
+  },
+  {
+    "id": "lotr_port:bane_wraith",
+    "weight": 0,
+    "value_modifier": 1.0,
+    "skilful": false,
+    "persists_reforge": true,
+    "bypass_anvil_limit": true,
+    "apply_to_projectile": false
+  },
+  {
+    "id": "lotr_port:durable1",
+    "weight": 15,
+    "value_modifier": 1.25,
+    "skilful": false,
+    "persists_reforge": false,
+    "bypass_anvil_limit": false,
+    "apply_to_projectile": false
+  },
+  {
+    "id": "lotr_port:durable2",
+    "weight": 8,
+    "value_modifier": 1.5,
+    "skilful": false,
+    "persists_reforge": false,
+    "bypass_anvil_limit": false,
+    "apply_to_projectile": false
+  },
+  {
+    "id": "lotr_port:durable3",
+    "weight": 4,
+    "value_modifier": 2.0,
+    "skilful": true,
+    "persists_reforge": false,
+    "bypass_anvil_limit": false,
+    "apply_to_projectile": false
+  },
+  {
+    "id": "lotr_port:melee_speed1",
+    "weight": 6,
+    "value_modifier": 1.25,
+    "skilful": false,
+    "persists_reforge": false,
+    "bypass_anvil_limit": false,
+    "apply_to_projectile": false
+  },
+  {
+    "id": "lotr_port:melee_slow1",
+    "weight": 4,
+    "value_modifier": 0.75,
+    "skilful": false,
+    "persists_reforge": false,
+    "bypass_anvil_limit": false,
+    "apply_to_projectile": false
+  },
+  {
+    "id": "lotr_port:melee_reach1",
+    "weight": 6,
+    "value_modifier": 1.25,
+    "skilful": false,
+    "persists_reforge": false,
+    "bypass_anvil_limit": false,
+    "apply_to_projectile": false
+  },
+  {
+    "id": "lotr_port:melee_unreach1",
+    "weight": 4,
+    "value_modifier": 0.75,
+    "skilful": false,
+    "persists_reforge": false,
+    "bypass_anvil_limit": false,
+    "apply_to_projectile": false
+  },
+  {
+    "id": "lotr_port:knockback1",
+    "weight": 6,
+    "value_modifier": 1.5,
+    "skilful": false,
+    "persists_reforge": false,
+    "bypass_anvil_limit": false,
+    "apply_to_projectile": false
+  },
+  {
+    "id": "lotr_port:knockback2",
+    "weight": 2,
+    "value_modifier": 2.0,
+    "skilful": true,
+    "persists_reforge": false,
+    "bypass_anvil_limit": false,
+    "apply_to_projectile": false
+  },
+  {
+    "id": "lotr_port:tool_speed1",
+    "weight": 20,
+    "value_modifier": 1.5,
+    "skilful": false,
+    "persists_reforge": false,
+    "bypass_anvil_limit": false,
+    "apply_to_projectile": false
+  },
+  {
+    "id": "lotr_port:tool_speed2",
+    "weight": 10,
+    "value_modifier": 2.0,
+    "skilful": false,
+    "persists_reforge": false,
+    "bypass_anvil_limit": false,
+    "apply_to_projectile": false
+  },
+  {
+    "id": "lotr_port:tool_speed3",
+    "weight": 5,
+    "value_modifier": 3.0,
+    "skilful": true,
+    "persists_reforge": false,
+    "bypass_anvil_limit": false,
+    "apply_to_projectile": false
+  },
+  {
+    "id": "lotr_port:tool_speed4",
+    "weight": 2,
+    "value_modifier": 4.0,
+    "skilful": true,
+    "persists_reforge": false,
+    "bypass_anvil_limit": false,
+    "apply_to_projectile": false
+  },
+  {
+    "id": "lotr_port:tool_slow1",
+    "weight": 10,
+    "value_modifier": 0.75,
+    "skilful": false,
+    "persists_reforge": false,
+    "bypass_anvil_limit": false,
+    "apply_to_projectile": false
+  },
+  {
+    "id": "lotr_port:tool_silk",
+    "weight": 10,
+    "value_modifier": 3.0,
+    "skilful": true,
+    "persists_reforge": false,
+    "bypass_anvil_limit": false,
+    "apply_to_projectile": false
+  },
+  {
+    "id": "lotr_port:looting1",
+    "weight": 6,
+    "value_modifier": 2.0,
+    "skilful": false,
+    "persists_reforge": false,
+    "bypass_anvil_limit": false,
+    "apply_to_projectile": false
+  },
+  {
+    "id": "lotr_port:looting2",
+    "weight": 2,
+    "value_modifier": 3.0,
+    "skilful": true,
+    "persists_reforge": false,
+    "bypass_anvil_limit": false,
+    "apply_to_projectile": false
+  },
+  {
+    "id": "lotr_port:looting3",
+    "weight": 1,
+    "value_modifier": 4.0,
+    "skilful": true,
+    "persists_reforge": false,
+    "bypass_anvil_limit": false,
+    "apply_to_projectile": false
+  },
+  {
+    "id": "lotr_port:protect1",
+    "weight": 10,
+    "value_modifier": 1.5,
+    "skilful": false,
+    "persists_reforge": false,
+    "bypass_anvil_limit": false,
+    "apply_to_projectile": false
+  },
+  {
+    "id": "lotr_port:protect2",
+    "weight": 3,
+    "value_modifier": 2.0,
+    "skilful": true,
+    "persists_reforge": false,
+    "bypass_anvil_limit": false,
+    "apply_to_projectile": false
+  },
+  {
+    "id": "lotr_port:protect_weak1",
+    "weight": 5,
+    "value_modifier": 0.75,
+    "skilful": false,
+    "persists_reforge": false,
+    "bypass_anvil_limit": false,
+    "apply_to_projectile": false
+  },
+  {
+    "id": "lotr_port:protect_weak2",
+    "weight": 2,
+    "value_modifier": 0.5,
+    "skilful": false,
+    "persists_reforge": false,
+    "bypass_anvil_limit": false,
+    "apply_to_projectile": false
+  },
+  {
+    "id": "lotr_port:protect_fire1",
+    "weight": 5,
+    "value_modifier": 1.5,
+    "skilful": false,
+    "persists_reforge": false,
+    "bypass_anvil_limit": false,
+    "apply_to_projectile": false
+  },
+  {
+    "id": "lotr_port:protect_fire2",
+    "weight": 2,
+    "value_modifier": 2.0,
+    "skilful": true,
+    "persists_reforge": false,
+    "bypass_anvil_limit": false,
+    "apply_to_projectile": false
+  },
+  {
+    "id": "lotr_port:protect_fire3",
+    "weight": 1,
+    "value_modifier": 2.5,
+    "skilful": true,
+    "persists_reforge": false,
+    "bypass_anvil_limit": false,
+    "apply_to_projectile": false
+  },
+  {
+    "id": "lotr_port:protect_fall1",
+    "weight": 5,
+    "value_modifier": 1.5,
+    "skilful": false,
+    "persists_reforge": false,
+    "bypass_anvil_limit": false,
+    "apply_to_projectile": false
+  },
+  {
+    "id": "lotr_port:protect_fall2",
+    "weight": 2,
+    "value_modifier": 2.0,
+    "skilful": true,
+    "persists_reforge": false,
+    "bypass_anvil_limit": false,
+    "apply_to_projectile": false
+  },
+  {
+    "id": "lotr_port:protect_fall3",
+    "weight": 1,
+    "value_modifier": 2.5,
+    "skilful": true,
+    "persists_reforge": false,
+    "bypass_anvil_limit": false,
+    "apply_to_projectile": false
+  },
+  {
+    "id": "lotr_port:protect_ranged1",
+    "weight": 5,
+    "value_modifier": 1.5,
+    "skilful": false,
+    "persists_reforge": false,
+    "bypass_anvil_limit": false,
+    "apply_to_projectile": false
+  },
+  {
+    "id": "lotr_port:protect_ranged2",
+    "weight": 2,
+    "value_modifier": 2.0,
+    "skilful": true,
+    "persists_reforge": false,
+    "bypass_anvil_limit": false,
+    "apply_to_projectile": false
+  },
+  {
+    "id": "lotr_port:protect_ranged3",
+    "weight": 1,
+    "value_modifier": 2.5,
+    "skilful": true,
+    "persists_reforge": false,
+    "bypass_anvil_limit": false,
+    "apply_to_projectile": false
+  },
+  {
+    "id": "lotr_port:protect_mithril",
+    "weight": 0,
+    "value_modifier": 2.0,
+    "skilful": false,
+    "persists_reforge": false,
+    "bypass_anvil_limit": false,
+    "apply_to_projectile": false
+  },
+  {
+    "id": "lotr_port:ranged_strong1",
+    "weight": 10,
+    "value_modifier": 2.2,
+    "skilful": false,
+    "persists_reforge": false,
+    "bypass_anvil_limit": false,
+    "apply_to_projectile": false
+  },
+  {
+    "id": "lotr_port:ranged_strong2",
+    "weight": 3,
+    "value_modifier": 2.4,
+    "skilful": false,
+    "persists_reforge": false,
+    "bypass_anvil_limit": false,
+    "apply_to_projectile": false
+  },
+  {
+    "id": "lotr_port:ranged_strong3",
+    "weight": 1,
+    "value_modifier": 2.6,
+    "skilful": true,
+    "persists_reforge": false,
+    "bypass_anvil_limit": false,
+    "apply_to_projectile": false
+  },
+  {
+    "id": "lotr_port:ranged_weak1",
+    "weight": 8,
+    "value_modifier": 0.75,
+    "skilful": false,
+    "persists_reforge": false,
+    "bypass_anvil_limit": false,
+    "apply_to_projectile": false
+  },
+  {
+    "id": "lotr_port:ranged_weak2",
+    "weight": 3,
+    "value_modifier": 0.5,
+    "skilful": false,
+    "persists_reforge": false,
+    "bypass_anvil_limit": false,
+    "apply_to_projectile": false
+  },
+  {
+    "id": "lotr_port:ranged_knockback1",
+    "weight": 6,
+    "value_modifier": 1.5,
+    "skilful": false,
+    "persists_reforge": false,
+    "bypass_anvil_limit": false,
+    "apply_to_projectile": false
+  },
+  {
+    "id": "lotr_port:ranged_knockback2",
+    "weight": 2,
+    "value_modifier": 2.0,
+    "skilful": true,
+    "persists_reforge": false,
+    "bypass_anvil_limit": false,
+    "apply_to_projectile": false
+  },
+  {
+    "id": "lotr_port:fire",
+    "weight": 0,
+    "value_modifier": 3.0,
+    "skilful": false,
+    "persists_reforge": false,
+    "bypass_anvil_limit": true,
+    "apply_to_projectile": true
+  },
+  {
+    "id": "lotr_port:chill",
+    "weight": 0,
+    "value_modifier": 3.0,
+    "skilful": false,
+    "persists_reforge": false,
+    "bypass_anvil_limit": true,
+    "apply_to_projectile": true
+  },
+  {
+    "id": "lotr_port:headhunting",
+    "weight": 0,
+    "value_modifier": 3.0,
+    "skilful": false,
+    "persists_reforge": false,
+    "bypass_anvil_limit": true,
+    "apply_to_projectile": true
+  }
+]

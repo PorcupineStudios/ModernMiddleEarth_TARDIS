@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:general/root",
+  "display": {
+    "icon": {
+      "id": "minecraft:iron_sword"
+    },
+    "title": {
+      "translate": "lotr.achievement.killButterfly.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.killButterfly.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

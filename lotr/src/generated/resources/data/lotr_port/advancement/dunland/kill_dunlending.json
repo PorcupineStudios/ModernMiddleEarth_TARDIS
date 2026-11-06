@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:dunland/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:dunlending_club"
+    },
+    "title": {
+      "translate": "lotr.achievement.killDunlending.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.killDunlending.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

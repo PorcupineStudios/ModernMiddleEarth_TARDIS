@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:bree_land/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:iron_battleaxe"
+    },
+    "title": {
+      "translate": "lotr.achievement.killRuffianBrute.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.killRuffianBrute.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

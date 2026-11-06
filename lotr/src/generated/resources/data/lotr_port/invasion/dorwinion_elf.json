@@ -1,0 +1,10 @@
+{
+  "faction": "lotr_port:dorwinion",
+  "mobs": [
+    "lotr_port:dorwinion_elf_warrior",
+    "lotr_port:dorwinion_elf_archer",
+    "lotr_port:dorwinion_elf_banner_bearer"
+  ],
+  "icon": "lotr_port:spear_of_bladorthin",
+  "lang": "lotr.invasion.DORWINION_ELF"
+}

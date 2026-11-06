@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:shire/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:silver_coin"
+    },
+    "title": {
+      "translate": "lotr.achievement.tradeHobbitShirriff.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.tradeHobbitShirriff.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

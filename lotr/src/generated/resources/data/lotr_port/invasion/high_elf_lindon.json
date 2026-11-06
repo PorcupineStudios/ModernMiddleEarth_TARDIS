@@ -1,0 +1,9 @@
+{
+  "faction": "lotr_port:high_elf",
+  "mobs": [
+    "lotr_port:high_elf_warrior",
+    "lotr_port:high_elf_banner_bearer"
+  ],
+  "icon": "lotr_port:lindon_sword",
+  "lang": "lotr.invasion.HIGH_ELF_LINDON"
+}

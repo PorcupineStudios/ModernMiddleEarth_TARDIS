@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:blue_mountains/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:blue_dwarven_steel_ingot"
+    },
+    "title": {
+      "translate": "lotr.achievement.smeltBlueDwarfSteel.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.smeltBlueDwarfSteel.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

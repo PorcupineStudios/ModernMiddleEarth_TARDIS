@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:shire/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:hobbit_marriage_ring"
+    },
+    "title": {
+      "translate": "lotr.achievement.marryHobbit.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.marryHobbit.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

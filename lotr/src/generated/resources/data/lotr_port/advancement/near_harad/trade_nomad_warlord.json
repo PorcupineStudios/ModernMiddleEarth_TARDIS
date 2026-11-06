@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:near_harad/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:silver_coin"
+    },
+    "title": {
+      "translate": "lotr.achievement.tradeNomadWarlord.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.tradeNomadWarlord.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

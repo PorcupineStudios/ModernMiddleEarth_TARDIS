@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:general/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:small_pouch"
+    },
+    "title": {
+      "translate": "lotr.achievement.getPouch.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.getPouch.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:dale/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:dalish_pastry"
+    },
+    "title": {
+      "translate": "lotr.achievement.enterDale.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.enterDale.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

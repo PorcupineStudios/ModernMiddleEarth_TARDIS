@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:gondor/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:pipe_weed_plant"
+    },
+    "title": {
+      "translate": "lotr.achievement.buyPipeweedGondorFarmer.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.buyPipeweedGondorFarmer.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

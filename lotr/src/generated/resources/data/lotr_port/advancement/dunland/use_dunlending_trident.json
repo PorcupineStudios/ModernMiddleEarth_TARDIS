@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:dunland/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:dunlending_trident"
+    },
+    "title": {
+      "translate": "lotr.achievement.useDunlendingTrident.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.useDunlendingTrident.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

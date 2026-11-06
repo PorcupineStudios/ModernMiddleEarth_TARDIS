@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:gondor/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:gondorian_bow"
+    },
+    "title": {
+      "translate": "lotr.achievement.enterIthilien.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.enterIthilien.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

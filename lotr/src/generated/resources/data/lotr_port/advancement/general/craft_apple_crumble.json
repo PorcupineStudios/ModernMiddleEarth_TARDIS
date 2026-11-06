@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:general/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:apple_crumble"
+    },
+    "title": {
+      "translate": "lotr.achievement.craftAppleCrumble.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.craftAppleCrumble.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

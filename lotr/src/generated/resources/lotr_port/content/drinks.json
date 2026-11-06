@@ -1,0 +1,110 @@
+{
+  "strengths": [
+    {
+      "name": "weak",
+      "lang": "item.lotr.drink.weak",
+      "factor": 0.25,
+      "food_factor": 0.5
+    },
+    {
+      "name": "light",
+      "lang": "item.lotr.drink.light",
+      "factor": 0.5,
+      "food_factor": 0.75
+    },
+    {
+      "name": "moderate",
+      "lang": "item.lotr.drink.moderate",
+      "factor": 1.0,
+      "food_factor": 1.0
+    },
+    {
+      "name": "strong",
+      "lang": "item.lotr.drink.strong",
+      "factor": 2.0,
+      "food_factor": 1.25
+    },
+    {
+      "name": "potent",
+      "lang": "item.lotr.drink.potent",
+      "factor": 3.0,
+      "food_factor": 1.5
+    }
+  ],
+  "default_strength": 2,
+  "nausea_seconds_per_alcohol": 30,
+  "vessels": [
+    {
+      "id": "mug",
+      "item": "lotr_port:mug",
+      "can_place": true,
+      "extra_price": 0
+    },
+    {
+      "id": "mug_clay",
+      "item": "lotr_port:ceramic_mug",
+      "can_place": true,
+      "extra_price": 1
+    },
+    {
+      "id": "goblet_gold",
+      "item": "lotr_port:golden_goblet",
+      "can_place": true,
+      "extra_price": 10
+    },
+    {
+      "id": "goblet_silver",
+      "item": "lotr_port:silver_goblet",
+      "can_place": true,
+      "extra_price": 8
+    },
+    {
+      "id": "goblet_copper",
+      "item": "lotr_port:copper_goblet",
+      "can_place": true,
+      "extra_price": 5
+    },
+    {
+      "id": "goblet_wood",
+      "item": "lotr_port:wooden_cup",
+      "can_place": true,
+      "extra_price": 0
+    },
+    {
+      "id": "skull",
+      "item": "lotr_port:skull_cup",
+      "can_place": true,
+      "extra_price": 3
+    },
+    {
+      "id": "glass",
+      "item": "lotr_port:wine_glass",
+      "can_place": true,
+      "extra_price": 3
+    },
+    {
+      "id": "bottle",
+      "item": "minecraft:glass_bottle",
+      "can_place": true,
+      "extra_price": 2
+    },
+    {
+      "id": "skin",
+      "item": "lotr_port:waterskin",
+      "can_place": false,
+      "extra_price": 0
+    },
+    {
+      "id": "horn",
+      "item": "lotr_port:ale_horn",
+      "can_place": true,
+      "extra_price": 5
+    },
+    {
+      "id": "horn_gold",
+      "item": "lotr_port:golden_ale_horn",
+      "can_place": true,
+      "extra_price": 8
+    }
+  ]
+}

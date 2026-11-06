@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:dunland/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:red_book"
+    },
+    "title": {
+      "translate": "lotr.achievement.doMiniquestDunland.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.doMiniquestDunland.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

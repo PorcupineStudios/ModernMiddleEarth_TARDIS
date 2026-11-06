@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:general/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:orc_draught"
+    },
+    "title": {
+      "translate": "lotr.achievement.drinkOrcDraught.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.drinkOrcDraught.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

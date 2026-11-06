@@ -18,5 +18,6 @@
   "gear": {
     "mainhand": "lotr_port:rivendell_dagger"
   },
-  "speech": "lotr_port:rivendell/elf"
+  "speech": "lotr_port:rivendell/elf",
+  "quests": "lotr_port:rivendell"
 }

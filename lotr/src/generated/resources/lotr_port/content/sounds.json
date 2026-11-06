@@ -402,5 +402,145 @@
   {
     "id": "zebra.say",
     "category": "neutral"
+  },
+  {
+    "id": "music.angmar",
+    "category": "music"
+  },
+  {
+    "id": "music.barrow_downs",
+    "category": "music"
+  },
+  {
+    "id": "music.bree",
+    "category": "music"
+  },
+  {
+    "id": "music.brown_lands",
+    "category": "music"
+  },
+  {
+    "id": "music.dale",
+    "category": "music"
+  },
+  {
+    "id": "music.dead_marshes",
+    "category": "music"
+  },
+  {
+    "id": "music.dorwinion",
+    "category": "music"
+  },
+  {
+    "id": "music.dunland",
+    "category": "music"
+  },
+  {
+    "id": "music.dwarven",
+    "category": "music"
+  },
+  {
+    "id": "music.enedwaith",
+    "category": "music"
+  },
+  {
+    "id": "music.eregion",
+    "category": "music"
+  },
+  {
+    "id": "music.eriador",
+    "category": "music"
+  },
+  {
+    "id": "music.fangorn",
+    "category": "music"
+  },
+  {
+    "id": "music.far_harad",
+    "category": "music"
+  },
+  {
+    "id": "music.far_harad_jungle",
+    "category": "music"
+  },
+  {
+    "id": "music.forodwaith",
+    "category": "music"
+  },
+  {
+    "id": "music.gondor",
+    "category": "music"
+  },
+  {
+    "id": "music.grey_mountains",
+    "category": "music"
+  },
+  {
+    "id": "music.isengard",
+    "category": "music"
+  },
+  {
+    "id": "music.lindon",
+    "category": "music"
+  },
+  {
+    "id": "music.lothlorien",
+    "category": "music"
+  },
+  {
+    "id": "music.mirkwood",
+    "category": "music"
+  },
+  {
+    "id": "music.misty_mountains",
+    "category": "music"
+  },
+  {
+    "id": "music.mordor",
+    "category": "music"
+  },
+  {
+    "id": "music.near_harad",
+    "category": "music"
+  },
+  {
+    "id": "music.old_forest",
+    "category": "music"
+  },
+  {
+    "id": "music.perdorogwaith",
+    "category": "music"
+  },
+  {
+    "id": "music.pukel",
+    "category": "music"
+  },
+  {
+    "id": "music.rhovanion",
+    "category": "music"
+  },
+  {
+    "id": "music.rhun",
+    "category": "music"
+  },
+  {
+    "id": "music.rivendell",
+    "category": "music"
+  },
+  {
+    "id": "music.rohan",
+    "category": "music"
+  },
+  {
+    "id": "music.sea",
+    "category": "music"
+  },
+  {
+    "id": "music.shire",
+    "category": "music"
+  },
+  {
+    "id": "music.woodland_realm",
+    "category": "music"
   }
 ]

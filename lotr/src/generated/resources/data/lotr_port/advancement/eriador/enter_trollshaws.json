@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:eriador/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:cooked_mutton"
+    },
+    "title": {
+      "translate": "lotr.achievement.enterTrollshaws.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.enterTrollshaws.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

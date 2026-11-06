@@ -1,0 +1,1522 @@
+{
+  "texture": [
+    64,
+    32
+  ],
+  "render_scale": 1.0,
+  "parts": {
+    "head": {
+      "pivot": [
+        0.0,
+        5.0,
+        -2.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "cubes": [
+        {
+          "uv": [
+            8,
+            24
+          ],
+          "origin": [
+            -2.0,
+            -17.0,
+            -2.0
+          ],
+          "size": [
+            4,
+            4,
+            4
+          ],
+          "inflate": 0.0,
+          "mirror": false
+        },
+        {
+          "uv": [
+            24,
+            27
+          ],
+          "origin": [
+            -1.5,
+            -16.0,
+            -5.0
+          ],
+          "size": [
+            3,
+            2,
+            3
+          ],
+          "inflate": 0.0,
+          "mirror": false
+        },
+        {
+          "uv": [
+            36,
+            30
+          ],
+          "origin": [
+            -1.0,
+            -14.0,
+            -5.0
+          ],
+          "size": [
+            2,
+            1,
+            1
+          ],
+          "inflate": 0.0,
+          "mirror": false
+        },
+        {
+          "uv": [
+            0,
+            16
+          ],
+          "origin": [
+            -1.0,
+            -15.0,
+            -1.0
+          ],
+          "size": [
+            2,
+            14,
+            2
+          ],
+          "inflate": 0.0,
+          "mirror": false
+        }
+      ],
+      "children": []
+    },
+    "body": {
+      "pivot": [
+        0.0,
+        3.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "cubes": [
+        {
+          "uv": [
+            0,
+            0
+          ],
+          "origin": [
+            -3.0,
+            0.0,
+            -4.0
+          ],
+          "size": [
+            6,
+            7,
+            8
+          ],
+          "inflate": 0.0,
+          "mirror": false
+        }
+      ],
+      "children": []
+    },
+    "tail": {
+      "pivot": [
+        0.0,
+        4.0,
+        3.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "cubes": [
+        {
+          "uv": [
+            42,
+            23
+          ],
+          "origin": [
+            -2.5,
+            0.0,
+            0.0
+          ],
+          "size": [
+            5,
+            3,
+            6
+          ],
+          "inflate": 0.0,
+          "mirror": false
+        }
+      ],
+      "children": []
+    },
+    "wing_left": {
+      "pivot": [
+        -3.0,
+        3.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "cubes": [
+        {
+          "uv": [
+            36,
+            0
+          ],
+          "origin": [
+            -1.0,
+            0.0,
+            -3.0
+          ],
+          "size": [
+            1,
+            8,
+            6
+          ],
+          "inflate": 0.0,
+          "mirror": false
+        }
+      ],
+      "children": []
+    },
+    "wing_right": {
+      "pivot": [
+        3.0,
+        3.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "cubes": [
+        {
+          "uv": [
+            50,
+            0
+          ],
+          "origin": [
+            0.0,
+            0.0,
+            -3.0
+          ],
+          "size": [
+            1,
+            8,
+            6
+          ],
+          "inflate": 0.0,
+          "mirror": false
+        }
+      ],
+      "children": []
+    },
+    "leg_left": {
+      "pivot": [
+        -2.0,
+        8.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "cubes": [
+        {
+          "uv": [
+            30,
+            0
+          ],
+          "origin": [
+            -0.5,
+            0.0,
+            -0.5
+          ],
+          "size": [
+            1,
+            16,
+            1
+          ],
+          "inflate": 0.0,
+          "mirror": false
+        },
+        {
+          "uv": [
+            30,
+            17
+          ],
+          "origin": [
+            -1.5,
+            14.9,
+            -3.5
+          ],
+          "size": [
+            3,
+            1,
+            3
+          ],
+          "inflate": 0.0,
+          "mirror": false
+        }
+      ],
+      "children": []
+    },
+    "leg_right": {
+      "pivot": [
+        2.0,
+        8.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "cubes": [
+        {
+          "uv": [
+            30,
+            0
+          ],
+          "origin": [
+            -0.5,
+            0.0,
+            -0.5
+          ],
+          "size": [
+            1,
+            16,
+            1
+          ],
+          "inflate": 0.0,
+          "mirror": false
+        },
+        {
+          "uv": [
+            30,
+            17
+          ],
+          "origin": [
+            -1.5,
+            14.9,
+            -3.5
+          ],
+          "size": [
+            3,
+            1,
+            3
+          ],
+          "inflate": 0.0,
+          "mirror": false
+        }
+      ],
+      "children": []
+    },
+    "head_child": {
+      "pivot": [
+        0.0,
+        15.0,
+        -3.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "cubes": [
+        {
+          "uv": [
+            0,
+            24
+          ],
+          "origin": [
+            -2.0,
+            -4.0,
+            -4.0
+          ],
+          "size": [
+            4,
+            4,
+            4
+          ],
+          "inflate": 0.0,
+          "mirror": false
+        },
+        {
+          "uv": [
+            16,
+            28
+          ],
+          "origin": [
+            -1.0,
+            -2.0,
+            -6.0
+          ],
+          "size": [
+            2,
+            2,
+            2
+          ],
+          "inflate": 0.0,
+          "mirror": false
+        }
+      ],
+      "children": []
+    },
+    "body_child": {
+      "pivot": [
+        0.0,
+        14.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "cubes": [
+        {
+          "uv": [
+            0,
+            0
+          ],
+          "origin": [
+            -3.0,
+            0.0,
+            -4.0
+          ],
+          "size": [
+            6,
+            5,
+            7
+          ],
+          "inflate": 0.0,
+          "mirror": false
+        }
+      ],
+      "children": []
+    },
+    "tail_child": {
+      "pivot": [
+        0.0,
+        14.5,
+        3.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "cubes": [
+        {
+          "uv": [
+            0,
+            14
+          ],
+          "origin": [
+            -2.0,
+            0.0,
+            0.0
+          ],
+          "size": [
+            4,
+            2,
+            3
+          ],
+          "inflate": 0.0,
+          "mirror": false
+        }
+      ],
+      "children": []
+    },
+    "wing_left_child": {
+      "pivot": [
+        -3.0,
+        14.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "cubes": [
+        {
+          "uv": [
+            40,
+            0
+          ],
+          "origin": [
+            -1.0,
+            0.0,
+            -3.0
+          ],
+          "size": [
+            1,
+            4,
+            5
+          ],
+          "inflate": 0.0,
+          "mirror": false
+        }
+      ],
+      "children": []
+    },
+    "wing_right_child": {
+      "pivot": [
+        3.0,
+        14.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "cubes": [
+        {
+          "uv": [
+            52,
+            0
+          ],
+          "origin": [
+            0.0,
+            0.0,
+            -3.0
+          ],
+          "size": [
+            1,
+            4,
+            5
+          ],
+          "inflate": 0.0,
+          "mirror": false
+        }
+      ],
+      "children": []
+    },
+    "leg_left_child": {
+      "pivot": [
+        -2.0,
+        19.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "cubes": [
+        {
+          "uv": [
+            27,
+            0
+          ],
+          "origin": [
+            -0.5,
+            0.0,
+            -0.5
+          ],
+          "size": [
+            1,
+            5,
+            1
+          ],
+          "inflate": 0.0,
+          "mirror": false
+        },
+        {
+          "uv": [
+            27,
+            7
+          ],
+          "origin": [
+            -1.5,
+            3.9,
+            -3.5
+          ],
+          "size": [
+            3,
+            1,
+            3
+          ],
+          "inflate": 0.0,
+          "mirror": false
+        }
+      ],
+      "children": []
+    },
+    "leg_right_child": {
+      "pivot": [
+        2.0,
+        19.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "cubes": [
+        {
+          "uv": [
+            27,
+            0
+          ],
+          "origin": [
+            -0.5,
+            0.0,
+            -0.5
+          ],
+          "size": [
+            1,
+            5,
+            1
+          ],
+          "inflate": 0.0,
+          "mirror": false
+        },
+        {
+          "uv": [
+            27,
+            7
+          ],
+          "origin": [
+            -1.5,
+            3.9,
+            -3.5
+          ],
+          "size": [
+            3,
+            1,
+            3
+          ],
+          "inflate": 0.0,
+          "mirror": false
+        }
+      ],
+      "children": []
+    }
+  },
+  "hidden": [],
+  "renderers": [
+    {
+      "name": "LOTRRenderFlamingo"
+    }
+  ],
+  "anim": {
+    "biped": false,
+    "set": [
+      [
+        "head_child",
+        "xRot",
+        [
+          "ite",
+          [
+            "not",
+            [
+              "eq",
+              [
+                "in",
+                "child"
+              ],
+              0
+            ]
+          ],
+          [
+            "ref",
+            0
+          ],
+          [
+            "rest",
+            "head_child",
+            "xRot"
+          ]
+        ]
+      ],
+      [
+        "head_child",
+        "yRot",
+        [
+          "ite",
+          [
+            "not",
+            [
+              "eq",
+              [
+                "in",
+                "child"
+              ],
+              0
+            ]
+          ],
+          [
+            "ref",
+            1
+          ],
+          [
+            "rest",
+            "head_child",
+            "yRot"
+          ]
+        ]
+      ],
+      [
+        "leg_left_child",
+        "xRot",
+        [
+          "ite",
+          [
+            "not",
+            [
+              "eq",
+              [
+                "in",
+                "child"
+              ],
+              0
+            ]
+          ],
+          [
+            "ref",
+            3
+          ],
+          [
+            "rest",
+            "leg_left_child",
+            "xRot"
+          ]
+        ]
+      ],
+      [
+        "leg_right_child",
+        "xRot",
+        [
+          "ite",
+          [
+            "not",
+            [
+              "eq",
+              [
+                "in",
+                "child"
+              ],
+              0
+            ]
+          ],
+          [
+            "ref",
+            4
+          ],
+          [
+            "rest",
+            "leg_right_child",
+            "xRot"
+          ]
+        ]
+      ],
+      [
+        "wing_left_child",
+        "zRot",
+        [
+          "ite",
+          [
+            "not",
+            [
+              "eq",
+              [
+                "in",
+                "child"
+              ],
+              0
+            ]
+          ],
+          [
+            "ref",
+            5
+          ],
+          [
+            "rest",
+            "wing_left_child",
+            "zRot"
+          ]
+        ]
+      ],
+      [
+        "wing_right_child",
+        "zRot",
+        [
+          "ite",
+          [
+            "not",
+            [
+              "eq",
+              [
+                "in",
+                "child"
+              ],
+              0
+            ]
+          ],
+          [
+            "ref",
+            6
+          ],
+          [
+            "rest",
+            "wing_right_child",
+            "zRot"
+          ]
+        ]
+      ],
+      [
+        "tail_child",
+        "xRot",
+        [
+          "ite",
+          [
+            "not",
+            [
+              "eq",
+              [
+                "in",
+                "child"
+              ],
+              0
+            ]
+          ],
+          -0.25,
+          [
+            "rest",
+            "tail_child",
+            "xRot"
+          ]
+        ]
+      ],
+      [
+        "head",
+        "xRot",
+        [
+          "ite",
+          [
+            "not",
+            [
+              "eq",
+              [
+                "in",
+                "child"
+              ],
+              0
+            ]
+          ],
+          [
+            "rest",
+            "head",
+            "xRot"
+          ],
+          [
+            "ite",
+            [
+              "and",
+              [
+                "eq",
+                [
+                  "in",
+                  "child"
+                ],
+                0
+              ],
+              [
+                "not",
+                [
+                  "ref",
+                  7
+                ]
+              ]
+            ],
+            [
+              "div",
+              [
+                "mul",
+                3.1415927410125732,
+                [
+                  "sub",
+                  200.0,
+                  [
+                    "ref",
+                    8
+                  ]
+                ]
+              ],
+              20.0
+            ],
+            [
+              "ite",
+              [
+                "and",
+                [
+                  "eq",
+                  [
+                    "in",
+                    "child"
+                  ],
+                  0
+                ],
+                [
+                  "ref",
+                  7
+                ],
+                [
+                  "not",
+                  [
+                    "ref",
+                    9
+                  ]
+                ]
+              ],
+              3.1415927410125732,
+              [
+                "ite",
+                [
+                  "and",
+                  [
+                    "eq",
+                    [
+                      "in",
+                      "child"
+                    ],
+                    0
+                  ],
+                  [
+                    "ref",
+                    7
+                  ],
+                  [
+                    "ref",
+                    9
+                  ],
+                  [
+                    "le",
+                    [
+                      "in",
+                      "entity.getFishingTickCur"
+                    ],
+                    0
+                  ]
+                ],
+                [
+                  "ref",
+                  0
+                ],
+                [
+                  "div",
+                  [
+                    "mul",
+                    3.1415927410125732,
+                    [
+                      "ref",
+                      8
+                    ]
+                  ],
+                  20.0
+                ]
+              ]
+            ]
+          ]
+        ]
+      ],
+      [
+        "head",
+        "yRot",
+        [
+          "ite",
+          [
+            "not",
+            [
+              "eq",
+              [
+                "in",
+                "child"
+              ],
+              0
+            ]
+          ],
+          [
+            "rest",
+            "head",
+            "yRot"
+          ],
+          [
+            "ref",
+            1
+          ]
+        ]
+      ],
+      [
+        "leg_left",
+        "xRot",
+        [
+          "ite",
+          [
+            "not",
+            [
+              "eq",
+              [
+                "in",
+                "child"
+              ],
+              0
+            ]
+          ],
+          [
+            "rest",
+            "leg_left",
+            "xRot"
+          ],
+          [
+            "ref",
+            3
+          ]
+        ]
+      ],
+      [
+        "leg_right",
+        "xRot",
+        [
+          "ite",
+          [
+            "not",
+            [
+              "eq",
+              [
+                "in",
+                "child"
+              ],
+              0
+            ]
+          ],
+          [
+            "rest",
+            "leg_right",
+            "xRot"
+          ],
+          [
+            "ref",
+            4
+          ]
+        ]
+      ],
+      [
+        "wing_left",
+        "zRot",
+        [
+          "ite",
+          [
+            "not",
+            [
+              "eq",
+              [
+                "in",
+                "child"
+              ],
+              0
+            ]
+          ],
+          [
+            "rest",
+            "wing_left",
+            "zRot"
+          ],
+          [
+            "ref",
+            5
+          ]
+        ]
+      ],
+      [
+        "wing_right",
+        "zRot",
+        [
+          "ite",
+          [
+            "not",
+            [
+              "eq",
+              [
+                "in",
+                "child"
+              ],
+              0
+            ]
+          ],
+          [
+            "rest",
+            "wing_right",
+            "zRot"
+          ],
+          [
+            "ref",
+            6
+          ]
+        ]
+      ],
+      [
+        "tail",
+        "xRot",
+        [
+          "ite",
+          [
+            "not",
+            [
+              "eq",
+              [
+                "in",
+                "child"
+              ],
+              0
+            ]
+          ],
+          [
+            "rest",
+            "tail",
+            "xRot"
+          ],
+          -0.25
+        ]
+      ]
+    ],
+    "draws": [
+      {
+        "part": "head_child",
+        "ops": [],
+        "color": [
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "blend": false,
+        "cond": [
+          "not",
+          [
+            "eq",
+            [
+              "in",
+              "child"
+            ],
+            0
+          ]
+        ]
+      },
+      {
+        "part": "body_child",
+        "ops": [],
+        "color": [
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "blend": false,
+        "cond": [
+          "not",
+          [
+            "eq",
+            [
+              "in",
+              "child"
+            ],
+            0
+          ]
+        ]
+      },
+      {
+        "part": "tail_child",
+        "ops": [],
+        "color": [
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "blend": false,
+        "cond": [
+          "not",
+          [
+            "eq",
+            [
+              "in",
+              "child"
+            ],
+            0
+          ]
+        ]
+      },
+      {
+        "part": "wing_left_child",
+        "ops": [],
+        "color": [
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "blend": false,
+        "cond": [
+          "not",
+          [
+            "eq",
+            [
+              "in",
+              "child"
+            ],
+            0
+          ]
+        ]
+      },
+      {
+        "part": "wing_right_child",
+        "ops": [],
+        "color": [
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "blend": false,
+        "cond": [
+          "not",
+          [
+            "eq",
+            [
+              "in",
+              "child"
+            ],
+            0
+          ]
+        ]
+      },
+      {
+        "part": "leg_left_child",
+        "ops": [],
+        "color": [
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "blend": false,
+        "cond": [
+          "not",
+          [
+            "eq",
+            [
+              "in",
+              "child"
+            ],
+            0
+          ]
+        ]
+      },
+      {
+        "part": "leg_right_child",
+        "ops": [],
+        "color": [
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "blend": false,
+        "cond": [
+          "not",
+          [
+            "eq",
+            [
+              "in",
+              "child"
+            ],
+            0
+          ]
+        ]
+      },
+      {
+        "part": "head",
+        "ops": [],
+        "color": [
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "blend": false,
+        "cond": [
+          "eq",
+          [
+            "in",
+            "child"
+          ],
+          0
+        ]
+      },
+      {
+        "part": "body",
+        "ops": [],
+        "color": [
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "blend": false,
+        "cond": [
+          "eq",
+          [
+            "in",
+            "child"
+          ],
+          0
+        ]
+      },
+      {
+        "part": "tail",
+        "ops": [],
+        "color": [
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "blend": false,
+        "cond": [
+          "eq",
+          [
+            "in",
+            "child"
+          ],
+          0
+        ]
+      },
+      {
+        "part": "wing_left",
+        "ops": [],
+        "color": [
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "blend": false,
+        "cond": [
+          "eq",
+          [
+            "in",
+            "child"
+          ],
+          0
+        ]
+      },
+      {
+        "part": "wing_right",
+        "ops": [],
+        "color": [
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "blend": false,
+        "cond": [
+          "eq",
+          [
+            "in",
+            "child"
+          ],
+          0
+        ]
+      },
+      {
+        "part": "leg_left",
+        "ops": [],
+        "color": [
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "blend": false,
+        "cond": [
+          "eq",
+          [
+            "in",
+            "child"
+          ],
+          0
+        ]
+      },
+      {
+        "part": "leg_right",
+        "ops": [],
+        "color": [
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "blend": false,
+        "cond": [
+          "eq",
+          [
+            "in",
+            "child"
+          ],
+          0
+        ]
+      }
+    ]
+  },
+  "defs": [
+    [
+      "div",
+      [
+        "in",
+        "pitch"
+      ],
+      57.295780181884766
+    ],
+    [
+      "div",
+      [
+        "in",
+        "yaw"
+      ],
+      57.295780181884766
+    ],
+    [
+      "mul",
+      [
+        "in",
+        "limb"
+      ],
+      0.6661999821662903
+    ],
+    [
+      "mul",
+      [
+        "mul",
+        [
+          "cos",
+          [
+            "ref",
+            2
+          ]
+        ],
+        0.8999999761581421
+      ],
+      [
+        "in",
+        "amount"
+      ]
+    ],
+    [
+      "mul",
+      [
+        "mul",
+        [
+          "cos",
+          [
+            "add",
+            [
+              "ref",
+              2
+            ],
+            3.1415927410125732
+          ]
+        ],
+        0.8999999761581421
+      ],
+      [
+        "in",
+        "amount"
+      ]
+    ],
+    [
+      "mul",
+      [
+        "in",
+        "age"
+      ],
+      0.4000000059604645
+    ],
+    [
+      "mul",
+      [
+        "neg",
+        [
+          "in",
+          "age"
+        ]
+      ],
+      0.4000000059604645
+    ],
+    [
+      "le",
+      [
+        "in",
+        "entity.getFishingTickCur"
+      ],
+      180
+    ],
+    [
+      "add",
+      [
+        "in",
+        "entity.getFishingTickPre"
+      ],
+      [
+        "mul",
+        [
+          "sub",
+          [
+            "in",
+            "entity.getFishingTickCur"
+          ],
+          [
+            "in",
+            "entity.getFishingTickPre"
+          ]
+        ],
+        [
+          "in",
+          "static"
+        ]
+      ]
+    ],
+    [
+      "le",
+      [
+        "in",
+        "entity.getFishingTickCur"
+      ],
+      20
+    ]
+  ],
+  "inputs": [
+    "getFishingTickCur",
+    "getFishingTickPre"
+  ]
+}

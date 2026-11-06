@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:iron_hills/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:mithril_trimmed_dwarven_brick"
+    },
+    "title": {
+      "translate": "lotr.achievement.craftMithrilDwarvenBrick.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.craftMithrilDwarvenBrick.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

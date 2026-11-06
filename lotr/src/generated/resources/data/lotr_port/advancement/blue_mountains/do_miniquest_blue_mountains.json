@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:blue_mountains/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:red_book"
+    },
+    "title": {
+      "translate": "lotr.achievement.doMiniquestBlueMountains.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.doMiniquestBlueMountains.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

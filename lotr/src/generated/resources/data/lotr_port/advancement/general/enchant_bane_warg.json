@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:general/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:rohirric_sword"
+    },
+    "title": {
+      "translate": "lotr.achievement.enchantBaneWarg.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.enchantBaneWarg.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

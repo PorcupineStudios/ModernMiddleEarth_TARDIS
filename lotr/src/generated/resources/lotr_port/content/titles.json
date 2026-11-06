@@ -1,0 +1,3208 @@
+[
+  {
+    "id": "ANGMAR_angmar",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.ANGMAR_angmar",
+    "factions": [
+      "lotr_port:angmar"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "ANGMAR_angmarOrc",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.ANGMAR_angmarOrc",
+    "factions": [
+      "lotr_port:angmar"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "ANGMAR_carnDum",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.ANGMAR_carnDum",
+    "factions": [
+      "lotr_port:angmar"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "ANGMAR_coldfells",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.ANGMAR_coldfells",
+    "factions": [
+      "lotr_port:angmar"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "ANGMAR_ettenmoors",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.ANGMAR_ettenmoors",
+    "factions": [
+      "lotr_port:angmar"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "ANGMAR_hillman",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.ANGMAR_hillman",
+    "factions": [
+      "lotr_port:angmar"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "ANGMAR_troll",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.ANGMAR_troll",
+    "factions": [
+      "lotr_port:angmar"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "ANY_10000",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.ANY_10000",
+    "factions": [
+      "lotr_port:hobbit",
+      "lotr_port:bree",
+      "lotr_port:ranger_north",
+      "lotr_port:blue_mountains",
+      "lotr_port:high_elf",
+      "lotr_port:gundabad",
+      "lotr_port:angmar",
+      "lotr_port:wood_elf",
+      "lotr_port:dol_guldur",
+      "lotr_port:dale",
+      "lotr_port:durins_folk",
+      "lotr_port:lothlorien",
+      "lotr_port:dunland",
+      "lotr_port:isengard",
+      "lotr_port:fangorn",
+      "lotr_port:rohan",
+      "lotr_port:gondor",
+      "lotr_port:mordor",
+      "lotr_port:dorwinion",
+      "lotr_port:rhudel",
+      "lotr_port:near_harad",
+      "lotr_port:morwaith",
+      "lotr_port:taurethrim",
+      "lotr_port:half_troll"
+    ],
+    "alignment": 10000.0,
+    "any": true
+  },
+  {
+    "id": "BLUE_MOUNTAINS_belegost",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.BLUE_MOUNTAINS_belegost",
+    "factions": [
+      "lotr_port:blue_mountains"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "BLUE_MOUNTAINS_blueDwarf",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.BLUE_MOUNTAINS_blueDwarf",
+    "factions": [
+      "lotr_port:blue_mountains"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "BLUE_MOUNTAINS_blueMountains",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.BLUE_MOUNTAINS_blueMountains",
+    "factions": [
+      "lotr_port:blue_mountains"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "BLUE_MOUNTAINS_broadbeam",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.BLUE_MOUNTAINS_broadbeam",
+    "factions": [
+      "lotr_port:blue_mountains"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "BLUE_MOUNTAINS_firebeard",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.BLUE_MOUNTAINS_firebeard",
+    "factions": [
+      "lotr_port:blue_mountains"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "BLUE_MOUNTAINS_nogrod",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.BLUE_MOUNTAINS_nogrod",
+    "factions": [
+      "lotr_port:blue_mountains"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "BREE_archet",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.BREE_archet",
+    "factions": [
+      "lotr_port:bree"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "BREE_bree",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.BREE_bree",
+    "factions": [
+      "lotr_port:bree"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "BREE_breeland",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.BREE_breeland",
+    "factions": [
+      "lotr_port:bree"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "BREE_chetwood",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.BREE_chetwood",
+    "factions": [
+      "lotr_port:bree"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "BREE_combe",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.BREE_combe",
+    "factions": [
+      "lotr_port:bree"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "BREE_hobbit",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.BREE_hobbit",
+    "factions": [
+      "lotr_port:bree"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "BREE_staddle",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.BREE_staddle",
+    "factions": [
+      "lotr_port:bree"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "DALE_barding",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.DALE_barding",
+    "factions": [
+      "lotr_port:dale"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "DALE_dale",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.DALE_dale",
+    "factions": [
+      "lotr_port:dale"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "DALE_esgaroth",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.DALE_esgaroth",
+    "factions": [
+      "lotr_port:dale"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "DALE_northman",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.DALE_northman",
+    "factions": [
+      "lotr_port:dale"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "DOL_GULDUR_dolGuldur",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.DOL_GULDUR_dolGuldur",
+    "factions": [
+      "lotr_port:dol_guldur"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "DOL_GULDUR_dolGuldurOrc",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.DOL_GULDUR_dolGuldurOrc",
+    "factions": [
+      "lotr_port:dol_guldur"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "DOL_GULDUR_necromancer",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.DOL_GULDUR_necromancer",
+    "factions": [
+      "lotr_port:dol_guldur"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "DOL_GULDUR_sorcerer",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.DOL_GULDUR_sorcerer",
+    "factions": [
+      "lotr_port:dol_guldur"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "DOL_GULDUR_spiderRider",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.DOL_GULDUR_spiderRider",
+    "factions": [
+      "lotr_port:dol_guldur"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "DORWINION_bladorthin",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.DORWINION_bladorthin",
+    "factions": [
+      "lotr_port:dorwinion"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "DORWINION_dorwinion",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.DORWINION_dorwinion",
+    "factions": [
+      "lotr_port:dorwinion"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "DORWINION_dorwinionElf",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.DORWINION_dorwinionElf",
+    "factions": [
+      "lotr_port:dorwinion"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "DORWINION_dorwinrim",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.DORWINION_dorwinrim",
+    "factions": [
+      "lotr_port:dorwinion"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "DORWINION_vintner",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.DORWINION_vintner",
+    "factions": [
+      "lotr_port:dorwinion"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "DORWINION_wineTaster",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.DORWINION_wineTaster",
+    "factions": [
+      "lotr_port:dorwinion"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "DUNLAND_adorn",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.DUNLAND_adorn",
+    "factions": [
+      "lotr_port:dunland"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "DUNLAND_barbarian",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.DUNLAND_barbarian",
+    "factions": [
+      "lotr_port:dunland"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "DUNLAND_berserker",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.DUNLAND_berserker",
+    "factions": [
+      "lotr_port:dunland"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "DUNLAND_dunland",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.DUNLAND_dunland",
+    "factions": [
+      "lotr_port:dunland"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "DUNLAND_dunlending",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.DUNLAND_dunlending",
+    "factions": [
+      "lotr_port:dunland"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "DUNLAND_wildman",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.DUNLAND_wildman",
+    "factions": [
+      "lotr_port:dunland"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "DWARF_durin",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.DWARF_durin",
+    "factions": [
+      "lotr_port:durins_folk"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "DWARF_erebor",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.DWARF_erebor",
+    "factions": [
+      "lotr_port:durins_folk"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "DWARF_greyDwarf",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.DWARF_greyDwarf",
+    "factions": [
+      "lotr_port:durins_folk"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "DWARF_ironHills",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.DWARF_ironHills",
+    "factions": [
+      "lotr_port:durins_folk"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "DWARF_khazadDum",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.DWARF_khazadDum",
+    "factions": [
+      "lotr_port:durins_folk"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "FANGORN_ent",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.FANGORN_ent",
+    "factions": [
+      "lotr_port:fangorn"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "FANGORN_fangorn",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.FANGORN_fangorn",
+    "factions": [
+      "lotr_port:fangorn"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "GALADHRIM_carasGaladhon",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.GALADHRIM_carasGaladhon",
+    "factions": [
+      "lotr_port:lothlorien"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "GALADHRIM_galadhrim",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.GALADHRIM_galadhrim",
+    "factions": [
+      "lotr_port:lothlorien"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "GALADHRIM_lothlorien",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.GALADHRIM_lothlorien",
+    "factions": [
+      "lotr_port:lothlorien"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "GONDOR_anfalas",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.GONDOR_anfalas",
+    "factions": [
+      "lotr_port:gondor"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "GONDOR_anorien",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.GONDOR_anorien",
+    "factions": [
+      "lotr_port:gondor"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "GONDOR_belfalas",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.GONDOR_belfalas",
+    "factions": [
+      "lotr_port:gondor"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "GONDOR_blackrootVale",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.GONDOR_blackrootVale",
+    "factions": [
+      "lotr_port:gondor"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "GONDOR_calembel",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.GONDOR_calembel",
+    "factions": [
+      "lotr_port:gondor"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "GONDOR_dolAmroth",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.GONDOR_dolAmroth",
+    "factions": [
+      "lotr_port:gondor"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "GONDOR_edhellond",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.GONDOR_edhellond",
+    "factions": [
+      "lotr_port:gondor"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "GONDOR_erech",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.GONDOR_erech",
+    "factions": [
+      "lotr_port:gondor"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "GONDOR_ethirAnduin",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.GONDOR_ethirAnduin",
+    "factions": [
+      "lotr_port:gondor"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "GONDOR_ethring",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.GONDOR_ethring",
+    "factions": [
+      "lotr_port:gondor"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "GONDOR_gondor",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.GONDOR_gondor",
+    "factions": [
+      "lotr_port:gondor"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "GONDOR_gondorian",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.GONDOR_gondorian",
+    "factions": [
+      "lotr_port:gondor"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "GONDOR_imlothMelui",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.GONDOR_imlothMelui",
+    "factions": [
+      "lotr_port:gondor"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "GONDOR_ithilien",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.GONDOR_ithilien",
+    "factions": [
+      "lotr_port:gondor"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "GONDOR_ithilienRanger",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.GONDOR_ithilienRanger",
+    "factions": [
+      "lotr_port:gondor"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "GONDOR_lamedon",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.GONDOR_lamedon",
+    "factions": [
+      "lotr_port:gondor"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "GONDOR_lebennin",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.GONDOR_lebennin",
+    "factions": [
+      "lotr_port:gondor"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "GONDOR_linhir",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.GONDOR_linhir",
+    "factions": [
+      "lotr_port:gondor"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "GONDOR_lossarnach",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.GONDOR_lossarnach",
+    "factions": [
+      "lotr_port:gondor"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "GONDOR_minasTirith",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.GONDOR_minasTirith",
+    "factions": [
+      "lotr_port:gondor"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "GONDOR_mornan",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.GONDOR_mornan",
+    "factions": [
+      "lotr_port:gondor"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "GONDOR_osgiliath",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.GONDOR_osgiliath",
+    "factions": [
+      "lotr_port:gondor"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "GONDOR_pelargir",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.GONDOR_pelargir",
+    "factions": [
+      "lotr_port:gondor"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "GONDOR_pinnathGelin",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.GONDOR_pinnathGelin",
+    "factions": [
+      "lotr_port:gondor"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "GONDOR_southDunedain",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.GONDOR_southDunedain",
+    "factions": [
+      "lotr_port:gondor"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "GONDOR_swanKnight",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.GONDOR_swanKnight",
+    "factions": [
+      "lotr_port:gondor"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "GONDOR_tarnost",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.GONDOR_tarnost",
+    "factions": [
+      "lotr_port:gondor"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "GONDOR_towerGuard",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.GONDOR_towerGuard",
+    "factions": [
+      "lotr_port:gondor"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "GUNDABAD_goblinTown",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.GUNDABAD_goblinTown",
+    "factions": [
+      "lotr_port:gundabad"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "GUNDABAD_gundabad",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.GUNDABAD_gundabad",
+    "factions": [
+      "lotr_port:gundabad"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "GUNDABAD_gundabadOrc",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.GUNDABAD_gundabadOrc",
+    "factions": [
+      "lotr_port:gundabad"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "GUNDABAD_gundabadUruk",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.GUNDABAD_gundabadUruk",
+    "factions": [
+      "lotr_port:gundabad"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "GUNDABAD_moriaOrc",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.GUNDABAD_moriaOrc",
+    "factions": [
+      "lotr_port:gundabad"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "GUNDABAD_mountGram",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.GUNDABAD_mountGram",
+    "factions": [
+      "lotr_port:gundabad"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "GUNDABAD_mountGundabad",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.GUNDABAD_mountGundabad",
+    "factions": [
+      "lotr_port:gundabad"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "HALF_TROLL_halfTroll",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.HALF_TROLL_halfTroll",
+    "factions": [
+      "lotr_port:half_troll"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "HALF_TROLL_pertorogwaith",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.HALF_TROLL_pertorogwaith",
+    "factions": [
+      "lotr_port:half_troll"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "HIGH_ELF_eregion",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.HIGH_ELF_eregion",
+    "factions": [
+      "lotr_port:high_elf"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "HIGH_ELF_forlindon",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.HIGH_ELF_forlindon",
+    "factions": [
+      "lotr_port:high_elf"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "HIGH_ELF_harlindon",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.HIGH_ELF_harlindon",
+    "factions": [
+      "lotr_port:high_elf"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "HIGH_ELF_highElf",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.HIGH_ELF_highElf",
+    "factions": [
+      "lotr_port:high_elf"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "HIGH_ELF_imladris",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.HIGH_ELF_imladris",
+    "factions": [
+      "lotr_port:high_elf"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "HIGH_ELF_lindon",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.HIGH_ELF_lindon",
+    "factions": [
+      "lotr_port:high_elf"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "HIGH_ELF_mithlond",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.HIGH_ELF_mithlond",
+    "factions": [
+      "lotr_port:high_elf"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "HIGH_ELF_rivendell",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.HIGH_ELF_rivendell",
+    "factions": [
+      "lotr_port:high_elf"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "HOBBIT_buckland",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.HOBBIT_buckland",
+    "factions": [
+      "lotr_port:hobbit"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "HOBBIT_burrahobbit",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.HOBBIT_burrahobbit",
+    "factions": [
+      "lotr_port:hobbit"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "HOBBIT_bywater",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.HOBBIT_bywater",
+    "factions": [
+      "lotr_port:hobbit"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "HOBBIT_eastfarthing",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.HOBBIT_eastfarthing",
+    "factions": [
+      "lotr_port:hobbit"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "HOBBIT_halfling",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.HOBBIT_halfling",
+    "factions": [
+      "lotr_port:hobbit"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "HOBBIT_hobbit",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.HOBBIT_hobbit",
+    "factions": [
+      "lotr_port:hobbit"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "HOBBIT_hobbiton",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.HOBBIT_hobbiton",
+    "factions": [
+      "lotr_port:hobbit"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "HOBBIT_longbottom",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.HOBBIT_longbottom",
+    "factions": [
+      "lotr_port:hobbit"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "HOBBIT_mathomKeeper",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.HOBBIT_mathomKeeper",
+    "factions": [
+      "lotr_port:hobbit"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "HOBBIT_michelDelving",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.HOBBIT_michelDelving",
+    "factions": [
+      "lotr_port:hobbit"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "HOBBIT_northfarthing",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.HOBBIT_northfarthing",
+    "factions": [
+      "lotr_port:hobbit"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "HOBBIT_shire",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.HOBBIT_shire",
+    "factions": [
+      "lotr_port:hobbit"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "HOBBIT_southfarthing",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.HOBBIT_southfarthing",
+    "factions": [
+      "lotr_port:hobbit"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "HOBBIT_tookland",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.HOBBIT_tookland",
+    "factions": [
+      "lotr_port:hobbit"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "HOBBIT_westfarthing",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.HOBBIT_westfarthing",
+    "factions": [
+      "lotr_port:hobbit"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "MORDOR_baradDur",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.MORDOR_baradDur",
+    "factions": [
+      "lotr_port:mordor"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "MORDOR_blackNumenorean",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.MORDOR_blackNumenorean",
+    "factions": [
+      "lotr_port:mordor"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "MORDOR_blackUruk",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.MORDOR_blackUruk",
+    "factions": [
+      "lotr_port:mordor"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "MORDOR_cirithUngol",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.MORDOR_cirithUngol",
+    "factions": [
+      "lotr_port:mordor"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "MORDOR_minasMorgul",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.MORDOR_minasMorgul",
+    "factions": [
+      "lotr_port:mordor"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "MORDOR_morannon",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.MORDOR_morannon",
+    "factions": [
+      "lotr_port:mordor"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "MORDOR_mordor",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.MORDOR_mordor",
+    "factions": [
+      "lotr_port:mordor"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "MORDOR_mordorOrc",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.MORDOR_mordorOrc",
+    "factions": [
+      "lotr_port:mordor"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "MORDOR_nanUngol",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.MORDOR_nanUngol",
+    "factions": [
+      "lotr_port:mordor"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "MORDOR_nurn",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.MORDOR_nurn",
+    "factions": [
+      "lotr_port:mordor"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "MOREDAIN_lion",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.MOREDAIN_lion",
+    "factions": [
+      "lotr_port:morwaith"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "MOREDAIN_lioness",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.MOREDAIN_lioness",
+    "factions": [
+      "lotr_port:morwaith"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "MOREDAIN_moredain",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.MOREDAIN_moredain",
+    "factions": [
+      "lotr_port:morwaith"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "MULTI_avari",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.MULTI_avari",
+    "factions": [
+      "lotr_port:dorwinion"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "MULTI_dunedain",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.MULTI_dunedain",
+    "factions": [
+      "lotr_port:ranger_north",
+      "lotr_port:gondor"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "MULTI_dwarf",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.MULTI_dwarf",
+    "factions": [
+      "lotr_port:blue_mountains",
+      "lotr_port:durins_folk"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "MULTI_easterling",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.MULTI_easterling",
+    "factions": [
+      "lotr_port:dorwinion",
+      "lotr_port:rhudel"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "MULTI_elf",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.MULTI_elf",
+    "factions": [
+      "lotr_port:high_elf",
+      "lotr_port:wood_elf",
+      "lotr_port:lothlorien",
+      "lotr_port:dorwinion"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "MULTI_farHarad",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.MULTI_farHarad",
+    "factions": [
+      "lotr_port:morwaith",
+      "lotr_port:taurethrim",
+      "lotr_port:half_troll"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "MULTI_farHaradrim",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.MULTI_farHaradrim",
+    "factions": [
+      "lotr_port:morwaith",
+      "lotr_port:taurethrim",
+      "lotr_port:half_troll"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "MULTI_freePeoples",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.MULTI_freePeoples",
+    "factions": [
+      "lotr_port:hobbit",
+      "lotr_port:bree",
+      "lotr_port:ranger_north",
+      "lotr_port:blue_mountains",
+      "lotr_port:high_elf",
+      "lotr_port:wood_elf",
+      "lotr_port:dale",
+      "lotr_port:durins_folk",
+      "lotr_port:lothlorien",
+      "lotr_port:fangorn",
+      "lotr_port:rohan",
+      "lotr_port:gondor",
+      "lotr_port:dorwinion",
+      "lotr_port:taurethrim"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "MULTI_goblin",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.MULTI_goblin",
+    "factions": [
+      "lotr_port:gundabad",
+      "lotr_port:angmar",
+      "lotr_port:dol_guldur",
+      "lotr_port:isengard",
+      "lotr_port:mordor"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "MULTI_greyElf",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.MULTI_greyElf",
+    "factions": [
+      "lotr_port:high_elf",
+      "lotr_port:wood_elf",
+      "lotr_port:lothlorien"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "MULTI_harad",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.MULTI_harad",
+    "factions": [
+      "lotr_port:near_harad",
+      "lotr_port:morwaith",
+      "lotr_port:taurethrim",
+      "lotr_port:half_troll"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "MULTI_haradrim",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.MULTI_haradrim",
+    "factions": [
+      "lotr_port:near_harad",
+      "lotr_port:morwaith",
+      "lotr_port:taurethrim",
+      "lotr_port:half_troll"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "MULTI_moria",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.MULTI_moria",
+    "factions": [
+      "lotr_port:gundabad",
+      "lotr_port:durins_folk"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "MULTI_noldor",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.MULTI_noldor",
+    "factions": [
+      "lotr_port:high_elf"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "MULTI_orc",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.MULTI_orc",
+    "factions": [
+      "lotr_port:gundabad",
+      "lotr_port:angmar",
+      "lotr_port:dol_guldur",
+      "lotr_port:isengard",
+      "lotr_port:mordor"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "MULTI_rhudaur",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.MULTI_rhudaur",
+    "factions": [
+      "lotr_port:ranger_north",
+      "lotr_port:angmar"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "MULTI_rhun",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.MULTI_rhun",
+    "factions": [
+      "lotr_port:dorwinion",
+      "lotr_port:rhudel"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "MULTI_silvanElf",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.MULTI_silvanElf",
+    "factions": [
+      "lotr_port:wood_elf",
+      "lotr_port:lothlorien"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "MULTI_sindar",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.MULTI_sindar",
+    "factions": [
+      "lotr_port:high_elf",
+      "lotr_port:wood_elf",
+      "lotr_port:lothlorien"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "MULTI_snaga",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.MULTI_snaga",
+    "factions": [
+      "lotr_port:gundabad",
+      "lotr_port:angmar",
+      "lotr_port:dol_guldur",
+      "lotr_port:isengard",
+      "lotr_port:mordor"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "MULTI_southron",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.MULTI_southron",
+    "factions": [
+      "lotr_port:near_harad",
+      "lotr_port:morwaith",
+      "lotr_port:taurethrim",
+      "lotr_port:half_troll"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "MULTI_sunlands",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.MULTI_sunlands",
+    "factions": [
+      "lotr_port:near_harad",
+      "lotr_port:morwaith",
+      "lotr_port:taurethrim",
+      "lotr_port:half_troll"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "MULTI_sutherland",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.MULTI_sutherland",
+    "factions": [
+      "lotr_port:near_harad",
+      "lotr_port:morwaith",
+      "lotr_port:taurethrim",
+      "lotr_port:half_troll"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "MULTI_swerting",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.MULTI_swerting",
+    "factions": [
+      "lotr_port:near_harad",
+      "lotr_port:morwaith",
+      "lotr_port:taurethrim",
+      "lotr_port:half_troll"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "MULTI_wickedDwarf",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.MULTI_wickedDwarf",
+    "factions": [
+      "lotr_port:mordor",
+      "lotr_port:angmar",
+      "lotr_port:rhudel"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "NEAR_HARAD_ain",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.NEAR_HARAD_ain",
+    "factions": [
+      "lotr_port:near_harad"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "NEAR_HARAD_aj",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.NEAR_HARAD_aj",
+    "factions": [
+      "lotr_port:near_harad"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "NEAR_HARAD_azrazain",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.NEAR_HARAD_azrazain",
+    "factions": [
+      "lotr_port:near_harad"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "NEAR_HARAD_belkadar",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.NEAR_HARAD_belkadar",
+    "factions": [
+      "lotr_port:near_harad"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "NEAR_HARAD_coastling",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.NEAR_HARAD_coastling",
+    "factions": [
+      "lotr_port:near_harad"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "NEAR_HARAD_corsair",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.NEAR_HARAD_corsair",
+    "factions": [
+      "lotr_port:near_harad"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "NEAR_HARAD_gulf",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.NEAR_HARAD_gulf",
+    "factions": [
+      "lotr_port:near_harad"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "NEAR_HARAD_gulfing",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.NEAR_HARAD_gulfing",
+    "factions": [
+      "lotr_port:near_harad"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "NEAR_HARAD_harnedor",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.NEAR_HARAD_harnedor",
+    "factions": [
+      "lotr_port:near_harad"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "NEAR_HARAD_khopakadar",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.NEAR_HARAD_khopakadar",
+    "factions": [
+      "lotr_port:near_harad"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "NEAR_HARAD_khopazul",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.NEAR_HARAD_khopazul",
+    "factions": [
+      "lotr_port:near_harad"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "NEAR_HARAD_nearHarad",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.NEAR_HARAD_nearHarad",
+    "factions": [
+      "lotr_port:near_harad"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "NEAR_HARAD_nearHaradrim",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.NEAR_HARAD_nearHaradrim",
+    "factions": [
+      "lotr_port:near_harad"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "NEAR_HARAD_ninzayan",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.NEAR_HARAD_ninzayan",
+    "factions": [
+      "lotr_port:near_harad"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "NEAR_HARAD_nomad",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.NEAR_HARAD_nomad",
+    "factions": [
+      "lotr_port:near_harad"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "NEAR_HARAD_serpent",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.NEAR_HARAD_serpent",
+    "factions": [
+      "lotr_port:near_harad"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "NEAR_HARAD_southronCoasts",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.NEAR_HARAD_southronCoasts",
+    "factions": [
+      "lotr_port:near_harad"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "NEAR_HARAD_umbar",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.NEAR_HARAD_umbar",
+    "factions": [
+      "lotr_port:near_harad"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "NEAR_HARAD_yaphu",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.NEAR_HARAD_yaphu",
+    "factions": [
+      "lotr_port:near_harad"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "RANGER_annuminas",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.RANGER_annuminas",
+    "factions": [
+      "lotr_port:ranger_north"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "RANGER_arnor",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.RANGER_arnor",
+    "factions": [
+      "lotr_port:ranger_north"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "RANGER_arthedain",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.RANGER_arthedain",
+    "factions": [
+      "lotr_port:ranger_north"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "RANGER_cardolan",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.RANGER_cardolan",
+    "factions": [
+      "lotr_port:ranger_north"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "RANGER_fornost",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.RANGER_fornost",
+    "factions": [
+      "lotr_port:ranger_north"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "RANGER_northDunedain",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.RANGER_northDunedain",
+    "factions": [
+      "lotr_port:ranger_north"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "RANGER_ranger",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.RANGER_ranger",
+    "factions": [
+      "lotr_port:ranger_north"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "RHUN_rhudel",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.RHUN_rhudel",
+    "factions": [
+      "lotr_port:rhudel"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "RHUN_rhunaer",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.RHUN_rhunaer",
+    "factions": [
+      "lotr_port:rhudel"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "RHUN_rhunaerim",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.RHUN_rhunaerim",
+    "factions": [
+      "lotr_port:rhudel"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "ROHAN_aldburg",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.ROHAN_aldburg",
+    "factions": [
+      "lotr_port:rohan"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "ROHAN_eastemnet",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.ROHAN_eastemnet",
+    "factions": [
+      "lotr_port:rohan"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "ROHAN_eastfold",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.ROHAN_eastfold",
+    "factions": [
+      "lotr_port:rohan"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "ROHAN_edoras",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.ROHAN_edoras",
+    "factions": [
+      "lotr_port:rohan"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "ROHAN_eorlingas",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.ROHAN_eorlingas",
+    "factions": [
+      "lotr_port:rohan"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "ROHAN_grimslade",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.ROHAN_grimslade",
+    "factions": [
+      "lotr_port:rohan"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "ROHAN_helmsDeep",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.ROHAN_helmsDeep",
+    "factions": [
+      "lotr_port:rohan"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "ROHAN_horselord",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.ROHAN_horselord",
+    "factions": [
+      "lotr_port:rohan"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "ROHAN_rohan",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.ROHAN_rohan",
+    "factions": [
+      "lotr_port:rohan"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "ROHAN_rohirrim",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.ROHAN_rohirrim",
+    "factions": [
+      "lotr_port:rohan"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "ROHAN_shieldmaiden",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.ROHAN_shieldmaiden",
+    "factions": [
+      "lotr_port:rohan"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "ROHAN_strawhead",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.ROHAN_strawhead",
+    "factions": [
+      "lotr_port:rohan"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "ROHAN_westemnet",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.ROHAN_westemnet",
+    "factions": [
+      "lotr_port:rohan"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "ROHAN_westfold",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.ROHAN_westfold",
+    "factions": [
+      "lotr_port:rohan"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "ROHAN_wold",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.ROHAN_wold",
+    "factions": [
+      "lotr_port:rohan"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "TAUREDAIN_tauredain",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.TAUREDAIN_tauredain",
+    "factions": [
+      "lotr_port:taurethrim"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "URUK_isengard",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.URUK_isengard",
+    "factions": [
+      "lotr_port:isengard"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "URUK_uruk",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.URUK_uruk",
+    "factions": [
+      "lotr_port:isengard"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "URUK_urukHai",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.URUK_urukHai",
+    "factions": [
+      "lotr_port:isengard"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "URUK_whiteHand",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.URUK_whiteHand",
+    "factions": [
+      "lotr_port:isengard"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "WOOD_ELF_woodElf",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.WOOD_ELF_woodElf",
+    "factions": [
+      "lotr_port:wood_elf"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "WOOD_ELF_woodlandRealm",
+    "type": "alignment",
+    "hidden": false,
+    "lang": "lotr.title.WOOD_ELF_woodlandRealm",
+    "factions": [
+      "lotr_port:wood_elf"
+    ],
+    "alignment": 100.0,
+    "any": false
+  },
+  {
+    "id": "adventurer",
+    "type": "starter",
+    "hidden": false,
+    "lang": "lotr.title.adventurer"
+  },
+  {
+    "id": "alcoholic",
+    "type": "achievement",
+    "hidden": false,
+    "lang": "lotr.achievement.gainHighAlcoholTolerance.title",
+    "achievement": "gainHighAlcoholTolerance"
+  },
+  {
+    "id": "architect",
+    "type": "starter",
+    "hidden": false,
+    "lang": "lotr.title.architect"
+  },
+  {
+    "id": "artisan",
+    "type": "starter",
+    "hidden": false,
+    "lang": "lotr.title.artisan"
+  },
+  {
+    "id": "bannerProtect",
+    "type": "achievement",
+    "hidden": false,
+    "lang": "lotr.achievement.bannerProtect.title",
+    "achievement": "bannerProtect"
+  },
+  {
+    "id": "bard",
+    "type": "starter",
+    "hidden": false,
+    "lang": "lotr.title.bard"
+  },
+  {
+    "id": "bartender",
+    "type": "starter",
+    "hidden": false,
+    "lang": "lotr.title.bartender"
+  },
+  {
+    "id": "bat",
+    "type": "player_exclusive",
+    "hidden": true,
+    "lang": "lotr.title.bat"
+  },
+  {
+    "id": "boyd",
+    "type": "player_exclusive",
+    "hidden": true,
+    "lang": "lotr.title.boyd"
+  },
+  {
+    "id": "brewDrink",
+    "type": "achievement",
+    "hidden": false,
+    "lang": "lotr.achievement.brewDrinkInBarrel.title",
+    "achievement": "brewDrinkInBarrel"
+  },
+  {
+    "id": "builder",
+    "type": "player_exclusive",
+    "hidden": true,
+    "lang": "lotr.title.builder"
+  },
+  {
+    "id": "burglar",
+    "type": "starter",
+    "hidden": false,
+    "lang": "lotr.title.burglar"
+  },
+  {
+    "id": "collectCraftingTables",
+    "type": "achievement",
+    "hidden": false,
+    "lang": "lotr.achievement.collectCraftingTables.title",
+    "achievement": "collectCraftingTables"
+  },
+  {
+    "id": "cookKebab",
+    "type": "achievement",
+    "hidden": false,
+    "lang": "lotr.achievement.cookKebab.title",
+    "achievement": "cookKebab"
+  },
+  {
+    "id": "creator",
+    "type": "player_exclusive",
+    "hidden": true,
+    "lang": "lotr.title.creator"
+  },
+  {
+    "id": "creator2",
+    "type": "player_exclusive",
+    "hidden": true,
+    "lang": "lotr.title.creator2"
+  },
+  {
+    "id": "doMiniquestHunter",
+    "type": "achievement",
+    "hidden": false,
+    "lang": "lotr.achievement.doMiniquestHunter.title",
+    "achievement": "doMiniquestHunter"
+  },
+  {
+    "id": "doMiniquestHunter5",
+    "type": "achievement",
+    "hidden": false,
+    "lang": "lotr.achievement.doMiniquestHunter5.title",
+    "achievement": "doMiniquestHunter5"
+  },
+  {
+    "id": "drinkSkull",
+    "type": "achievement",
+    "hidden": false,
+    "lang": "lotr.achievement.drinkSkull.title",
+    "achievement": "drinkSkull"
+  },
+  {
+    "id": "earnManyCoins",
+    "type": "achievement",
+    "hidden": false,
+    "lang": "lotr.achievement.earnManyCoins.title",
+    "achievement": "earnManyCoins"
+  },
+  {
+    "id": "enchantBaneDwarf",
+    "type": "achievement",
+    "hidden": false,
+    "lang": "lotr.achievement.enchantBaneDwarf.title",
+    "achievement": "enchantBaneDwarf"
+  },
+  {
+    "id": "enchantBaneElf",
+    "type": "achievement",
+    "hidden": false,
+    "lang": "lotr.achievement.enchantBaneElf.title",
+    "achievement": "enchantBaneElf"
+  },
+  {
+    "id": "enchantBaneOrc",
+    "type": "achievement",
+    "hidden": false,
+    "lang": "lotr.achievement.enchantBaneOrc.title",
+    "achievement": "enchantBaneOrc"
+  },
+  {
+    "id": "enchantBaneSpider",
+    "type": "achievement",
+    "hidden": false,
+    "lang": "lotr.achievement.enchantBaneSpider.title",
+    "achievement": "enchantBaneSpider"
+  },
+  {
+    "id": "enchantBaneTroll",
+    "type": "achievement",
+    "hidden": false,
+    "lang": "lotr.achievement.enchantBaneTroll.title",
+    "achievement": "enchantBaneTroll"
+  },
+  {
+    "id": "enchantBaneWarg",
+    "type": "achievement",
+    "hidden": false,
+    "lang": "lotr.achievement.enchantBaneWarg.title",
+    "achievement": "enchantBaneWarg"
+  },
+  {
+    "id": "enchantBaneWight",
+    "type": "achievement",
+    "hidden": false,
+    "lang": "lotr.achievement.enchantBaneWight.title",
+    "achievement": "enchantBaneWight"
+  },
+  {
+    "id": "entSlayer",
+    "type": "achievement",
+    "hidden": false,
+    "lang": "lotr.achievement.killMallornEnt.title",
+    "achievement": "killMallornEnt"
+  },
+  {
+    "id": "enterMeneltarma",
+    "type": "achievement",
+    "hidden": false,
+    "lang": "lotr.achievement.enterMeneltarma.title",
+    "achievement": "enterMeneltarma"
+  },
+  {
+    "id": "enterUtumno",
+    "type": "achievement",
+    "hidden": false,
+    "lang": "lotr.achievement.enterUtumnoIce.title",
+    "achievement": "enterUtumnoIce"
+  },
+  {
+    "id": "enterUtumnoFire",
+    "type": "achievement",
+    "hidden": false,
+    "lang": "lotr.achievement.enterUtumnoFire.title",
+    "achievement": "enterUtumnoFire"
+  },
+  {
+    "id": "explore50Biomes",
+    "type": "achievement",
+    "hidden": false,
+    "lang": "lotr.achievement.travel50.title",
+    "achievement": "travel50"
+  },
+  {
+    "id": "explorer",
+    "type": "starter",
+    "hidden": false,
+    "lang": "lotr.title.explorer"
+  },
+  {
+    "id": "farmer",
+    "type": "starter",
+    "hidden": false,
+    "lang": "lotr.title.farmer"
+  },
+  {
+    "id": "fishRing",
+    "type": "achievement",
+    "hidden": false,
+    "lang": "lotr.achievement.fishRing.title",
+    "achievement": "fishRing"
+  },
+  {
+    "id": "fourLeafClover",
+    "type": "achievement",
+    "hidden": false,
+    "lang": "lotr.achievement.findFourLeafClover.title",
+    "achievement": "findFourLeafClover"
+  },
+  {
+    "id": "gaffer",
+    "type": "starter",
+    "hidden": false,
+    "lang": "lotr.title.gaffer"
+  },
+  {
+    "id": "getDrunk",
+    "type": "achievement",
+    "hidden": false,
+    "lang": "lotr.achievement.getDrunk.title",
+    "achievement": "getDrunk"
+  },
+  {
+    "id": "getTrollStatue",
+    "type": "achievement",
+    "hidden": false,
+    "lang": "lotr.achievement.getTrollStatue.title",
+    "achievement": "getTrollStatue"
+  },
+  {
+    "id": "gondorRenegade",
+    "type": "achievement",
+    "hidden": false,
+    "lang": "lotr.achievement.doMiniquestGondorRenegade.title",
+    "achievement": "doMiniquestGondorRenegade"
+  },
+  {
+    "id": "gruk",
+    "type": "player_exclusive",
+    "hidden": true,
+    "lang": "lotr.title.gruk"
+  },
+  {
+    "id": "hunter",
+    "type": "starter",
+    "hidden": false,
+    "lang": "lotr.title.hunter"
+  },
+  {
+    "id": "killAngmarHillman",
+    "type": "achievement",
+    "hidden": false,
+    "lang": "lotr.achievement.killAngmarHillman.title",
+    "achievement": "killAngmarHillman"
+  },
+  {
+    "id": "killAngmarOrc",
+    "type": "achievement",
+    "hidden": false,
+    "lang": "lotr.achievement.killAngmarOrc.title",
+    "achievement": "killAngmarOrc"
+  },
+  {
+    "id": "killBalrog",
+    "type": "achievement",
+    "hidden": false,
+    "lang": "lotr.achievement.killBalrog.title",
+    "achievement": "killBalrog"
+  },
+  {
+    "id": "killBarrowWight",
+    "type": "achievement",
+    "hidden": false,
+    "lang": "lotr.achievement.killBarrowWight.title",
+    "achievement": "killBarrowWight"
+  },
+  {
+    "id": "killBlackUruk",
+    "type": "achievement",
+    "hidden": false,
+    "lang": "lotr.achievement.killBlackUruk.title",
+    "achievement": "killBlackUruk"
+  },
+  {
+    "id": "killBlueDwarf",
+    "type": "achievement",
+    "hidden": false,
+    "lang": "lotr.achievement.killBlueDwarf.title",
+    "achievement": "killBlueDwarf"
+  },
+  {
+    "id": "killBreeHobbit",
+    "type": "achievement",
+    "hidden": false,
+    "lang": "lotr.achievement.killBreeHobbit.title",
+    "achievement": "killBreeHobbit"
+  },
+  {
+    "id": "killBreelander",
+    "type": "achievement",
+    "hidden": false,
+    "lang": "lotr.achievement.killBreelander.title",
+    "achievement": "killBreelander"
+  },
+  {
+    "id": "killButterfly",
+    "type": "achievement",
+    "hidden": false,
+    "lang": "lotr.achievement.killButterfly.title",
+    "achievement": "killButterfly"
+  },
+  {
+    "id": "killDalish",
+    "type": "achievement",
+    "hidden": false,
+    "lang": "lotr.achievement.killDalish.title",
+    "achievement": "killDalish"
+  },
+  {
+    "id": "killDolGuldurOrc",
+    "type": "achievement",
+    "hidden": false,
+    "lang": "lotr.achievement.killDolGuldurOrc.title",
+    "achievement": "killDolGuldurOrc"
+  },
+  {
+    "id": "killDorwinion",
+    "type": "achievement",
+    "hidden": false,
+    "lang": "lotr.achievement.killDorwinion.title",
+    "achievement": "killDorwinion"
+  },
+  {
+    "id": "killDorwinionElf",
+    "type": "achievement",
+    "hidden": false,
+    "lang": "lotr.achievement.killDorwinionElf.title",
+    "achievement": "killDorwinionElf"
+  },
+  {
+    "id": "killDunedain",
+    "type": "achievement",
+    "hidden": false,
+    "lang": "lotr.achievement.killDunedain.title",
+    "achievement": "killDunedain"
+  },
+  {
+    "id": "killDunlending",
+    "type": "achievement",
+    "hidden": false,
+    "lang": "lotr.achievement.killDunlending.title",
+    "achievement": "killDunlending"
+  },
+  {
+    "id": "killDwarf",
+    "type": "achievement",
+    "hidden": false,
+    "lang": "lotr.achievement.killDwarf.title",
+    "achievement": "killDwarf"
+  },
+  {
+    "id": "killEasterling",
+    "type": "achievement",
+    "hidden": false,
+    "lang": "lotr.achievement.killEasterling.title",
+    "achievement": "killEasterling"
+  },
+  {
+    "id": "killElf",
+    "type": "achievement",
+    "hidden": false,
+    "lang": "lotr.achievement.killElf.title",
+    "achievement": "killElf"
+  },
+  {
+    "id": "killEnt",
+    "type": "achievement",
+    "hidden": false,
+    "lang": "lotr.achievement.killEnt.title",
+    "achievement": "killEnt"
+  },
+  {
+    "id": "killGondorRenegade",
+    "type": "achievement",
+    "hidden": false,
+    "lang": "lotr.achievement.doMiniquestGondorKillRenegade.title",
+    "achievement": "doMiniquestGondorKillRenegade"
+  },
+  {
+    "id": "killGondorian",
+    "type": "achievement",
+    "hidden": false,
+    "lang": "lotr.achievement.killGondorian.title",
+    "achievement": "killGondorian"
+  },
+  {
+    "id": "killGundabadOrc",
+    "type": "achievement",
+    "hidden": false,
+    "lang": "lotr.achievement.killGundabadOrc.title",
+    "achievement": "killGundabadOrc"
+  },
+  {
+    "id": "killHalfTroll",
+    "type": "achievement",
+    "hidden": false,
+    "lang": "lotr.achievement.killHalfTroll.title",
+    "achievement": "killHalfTroll"
+  },
+  {
+    "id": "killHighElf",
+    "type": "achievement",
+    "hidden": false,
+    "lang": "lotr.achievement.killHighElf.title",
+    "achievement": "killHighElf"
+  },
+  {
+    "id": "killHobbit",
+    "type": "achievement",
+    "hidden": false,
+    "lang": "lotr.achievement.killHobbit.title",
+    "achievement": "killHobbit"
+  },
+  {
+    "id": "killHuntingPlayer",
+    "type": "achievement",
+    "hidden": false,
+    "lang": "lotr.achievement.killHuntingPlayer.title",
+    "achievement": "killHuntingPlayer"
+  },
+  {
+    "id": "killHuorn",
+    "type": "achievement",
+    "hidden": false,
+    "lang": "lotr.achievement.killHuorn.title",
+    "achievement": "killHuorn"
+  },
+  {
+    "id": "killIsengardSnaga",
+    "type": "achievement",
+    "hidden": false,
+    "lang": "lotr.achievement.killIsengardSnaga.title",
+    "achievement": "killIsengardSnaga"
+  },
+  {
+    "id": "killMarshWraith",
+    "type": "achievement",
+    "hidden": false,
+    "lang": "lotr.achievement.killMarshWraith.title",
+    "achievement": "killMarshWraith"
+  },
+  {
+    "id": "killMirkTroll",
+    "type": "achievement",
+    "hidden": false,
+    "lang": "lotr.achievement.killMirkTroll.title",
+    "achievement": "killMirkTroll"
+  },
+  {
+    "id": "killMirkwoodSpider",
+    "type": "achievement",
+    "hidden": false,
+    "lang": "lotr.achievement.killMirkwoodSpider.title",
+    "achievement": "killMirkwoodSpider"
+  },
+  {
+    "id": "killMordorOrc",
+    "type": "achievement",
+    "hidden": false,
+    "lang": "lotr.achievement.killMordorOrc.title",
+    "achievement": "killMordorOrc"
+  },
+  {
+    "id": "killMordorSpider",
+    "type": "achievement",
+    "hidden": false,
+    "lang": "lotr.achievement.killMordorSpider.title",
+    "achievement": "killMordorSpider"
+  },
+  {
+    "id": "killMoredain",
+    "type": "achievement",
+    "hidden": false,
+    "lang": "lotr.achievement.killMoredain.title",
+    "achievement": "killMoredain"
+  },
+  {
+    "id": "killMountainTroll",
+    "type": "achievement",
+    "hidden": false,
+    "lang": "lotr.achievement.killMountainTroll.title",
+    "achievement": "killMountainTroll"
+  },
+  {
+    "id": "killNearHaradrim",
+    "type": "achievement",
+    "hidden": false,
+    "lang": "lotr.achievement.killNearHaradrim.title",
+    "achievement": "killNearHaradrim"
+  },
+  {
+    "id": "killOlogHai",
+    "type": "achievement",
+    "hidden": false,
+    "lang": "lotr.achievement.killOlogHai.title",
+    "achievement": "killOlogHai"
+  },
+  {
+    "id": "killOrc",
+    "type": "achievement",
+    "hidden": false,
+    "lang": "lotr.achievement.killOrc.title",
+    "achievement": "killOrc"
+  },
+  {
+    "id": "killRangerIthilien",
+    "type": "achievement",
+    "hidden": false,
+    "lang": "lotr.achievement.killRangerIthilien.title",
+    "achievement": "killRangerIthilien"
+  },
+  {
+    "id": "killRangerNorth",
+    "type": "achievement",
+    "hidden": false,
+    "lang": "lotr.achievement.killRangerNorth.title",
+    "achievement": "killRangerNorth"
+  },
+  {
+    "id": "killRohirrim",
+    "type": "achievement",
+    "hidden": false,
+    "lang": "lotr.achievement.killRohirrim.title",
+    "achievement": "killRohirrim"
+  },
+  {
+    "id": "killRuffianSpy",
+    "type": "achievement",
+    "hidden": false,
+    "lang": "lotr.achievement.killRuffianSpy.title",
+    "achievement": "killRuffianSpy"
+  },
+  {
+    "id": "killSnowTroll",
+    "type": "achievement",
+    "hidden": false,
+    "lang": "lotr.achievement.killSnowTroll.title",
+    "achievement": "killSnowTroll"
+  },
+  {
+    "id": "killSwanKnight",
+    "type": "achievement",
+    "hidden": false,
+    "lang": "lotr.achievement.killSwanKnight.title",
+    "achievement": "killSwanKnight"
+  },
+  {
+    "id": "killTauredain",
+    "type": "achievement",
+    "hidden": false,
+    "lang": "lotr.achievement.killTauredain.title",
+    "achievement": "killTauredain"
+  },
+  {
+    "id": "killTroll",
+    "type": "achievement",
+    "hidden": false,
+    "lang": "lotr.achievement.killTroll.title",
+    "achievement": "killTroll"
+  },
+  {
+    "id": "killTrollFleeingSun",
+    "type": "achievement",
+    "hidden": false,
+    "lang": "lotr.achievement.killTrollFleeingSun.title",
+    "achievement": "killTrollFleeingSun"
+  },
+  {
+    "id": "killUrukHai",
+    "type": "achievement",
+    "hidden": false,
+    "lang": "lotr.achievement.killUrukHai.title",
+    "achievement": "killUrukHai"
+  },
+  {
+    "id": "killUsingOnlyPlates",
+    "type": "achievement",
+    "hidden": false,
+    "lang": "lotr.achievement.killUsingOnlyPlates.title",
+    "achievement": "killUsingOnlyPlates"
+  },
+  {
+    "id": "killWarg",
+    "type": "achievement",
+    "hidden": false,
+    "lang": "lotr.achievement.killWarg.title",
+    "achievement": "killWarg"
+  },
+  {
+    "id": "killWhileDrunk",
+    "type": "achievement",
+    "hidden": false,
+    "lang": "lotr.achievement.killWhileDrunk.title",
+    "achievement": "killWhileDrunk"
+  },
+  {
+    "id": "killWickedDwarf",
+    "type": "achievement",
+    "hidden": false,
+    "lang": "lotr.achievement.killWickedDwarf.title",
+    "achievement": "killWickedDwarf"
+  },
+  {
+    "id": "killWoodElf",
+    "type": "achievement",
+    "hidden": false,
+    "lang": "lotr.achievement.killWoodElf.title",
+    "achievement": "killWoodElf"
+  },
+  {
+    "id": "leaveUtumno",
+    "type": "achievement",
+    "hidden": false,
+    "lang": "lotr.achievement.leaveUtumno.title",
+    "achievement": "leaveUtumno"
+  },
+  {
+    "id": "loremaster",
+    "type": "player_exclusive",
+    "hidden": true,
+    "lang": "lotr.title.loremaster"
+  },
+  {
+    "id": "manFlesh",
+    "type": "achievement",
+    "hidden": false,
+    "lang": "lotr.achievement.eatManFlesh.title",
+    "achievement": "eatManFlesh"
+  },
+  {
+    "id": "marksman",
+    "type": "starter",
+    "hidden": false,
+    "lang": "lotr.title.marksman"
+  },
+  {
+    "id": "mercenary",
+    "type": "starter",
+    "hidden": false,
+    "lang": "lotr.title.mercenary"
+  },
+  {
+    "id": "merchant",
+    "type": "starter",
+    "hidden": false,
+    "lang": "lotr.title.merchant"
+  },
+  {
+    "id": "mineMithril",
+    "type": "achievement",
+    "hidden": false,
+    "lang": "lotr.achievement.mineMithril.title",
+    "achievement": "mineMithril"
+  },
+  {
+    "id": "miner",
+    "type": "starter",
+    "hidden": false,
+    "lang": "lotr.title.miner"
+  },
+  {
+    "id": "minstrel",
+    "type": "starter",
+    "hidden": false,
+    "lang": "lotr.title.minstrel"
+  },
+  {
+    "id": "moderator",
+    "type": "player_exclusive",
+    "hidden": true,
+    "lang": "lotr.title.moderator"
+  },
+  {
+    "id": "patron",
+    "type": "player_exclusive",
+    "hidden": true,
+    "lang": "lotr.title.patron"
+  },
+  {
+    "id": "peacekeeper",
+    "type": "starter",
+    "hidden": false,
+    "lang": "lotr.title.peacekeeper"
+  },
+  {
+    "id": "pickpocket",
+    "type": "achievement",
+    "hidden": false,
+    "lang": "lotr.achievement.pickpocket.title",
+    "achievement": "pickpocket"
+  },
+  {
+    "id": "raider",
+    "type": "starter",
+    "hidden": false,
+    "lang": "lotr.title.raider"
+  },
+  {
+    "id": "reforge",
+    "type": "achievement",
+    "hidden": false,
+    "lang": "lotr.achievement.reforge.title",
+    "achievement": "reforge"
+  },
+  {
+    "id": "renewedBuilder",
+    "type": "player_exclusive",
+    "hidden": true,
+    "lang": "lotr.title.renewedBuilder"
+  },
+  {
+    "id": "renewedBuildmaster",
+    "type": "player_exclusive",
+    "hidden": true,
+    "lang": "lotr.title.renewedBuildmaster"
+  },
+  {
+    "id": "rideBarrel",
+    "type": "achievement",
+    "hidden": false,
+    "lang": "lotr.achievement.rideBarrelMirkwood.title",
+    "achievement": "rideBarrelMirkwood"
+  },
+  {
+    "id": "rideWarg",
+    "type": "achievement",
+    "hidden": false,
+    "lang": "lotr.achievement.rideWarg.title",
+    "achievement": "rideWarg"
+  },
+  {
+    "id": "rider",
+    "type": "starter",
+    "hidden": false,
+    "lang": "lotr.title.rider"
+  },
+  {
+    "id": "rogue",
+    "type": "starter",
+    "hidden": false,
+    "lang": "lotr.title.rogue"
+  },
+  {
+    "id": "ruffian",
+    "type": "starter",
+    "hidden": false,
+    "lang": "lotr.title.ruffian"
+  },
+  {
+    "id": "saltedFlesh",
+    "type": "achievement",
+    "hidden": false,
+    "lang": "lotr.achievement.craftSaltedFlesh.title",
+    "achievement": "craftSaltedFlesh"
+  },
+  {
+    "id": "scholar",
+    "type": "starter",
+    "hidden": false,
+    "lang": "lotr.title.scholar"
+  },
+  {
+    "id": "scourge",
+    "type": "starter",
+    "hidden": false,
+    "lang": "lotr.title.scourge"
+  },
+  {
+    "id": "scout",
+    "type": "starter",
+    "hidden": false,
+    "lang": "lotr.title.scout"
+  },
+  {
+    "id": "shepherd",
+    "type": "starter",
+    "hidden": false,
+    "lang": "lotr.title.shepherd"
+  },
+  {
+    "id": "shipwright",
+    "type": "starter",
+    "hidden": false,
+    "lang": "lotr.title.shipwright"
+  },
+  {
+    "id": "spearman",
+    "type": "starter",
+    "hidden": false,
+    "lang": "lotr.title.spearman"
+  },
+  {
+    "id": "stealGrapes",
+    "type": "achievement",
+    "hidden": false,
+    "lang": "lotr.achievement.stealDorwinionGrapes.title",
+    "achievement": "stealDorwinionGrapes"
+  },
+  {
+    "id": "swordsman",
+    "type": "starter",
+    "hidden": false,
+    "lang": "lotr.title.swordsman"
+  },
+  {
+    "id": "translator",
+    "type": "player_exclusive",
+    "hidden": true,
+    "lang": "lotr.title.translator"
+  },
+  {
+    "id": "trollSlayer",
+    "type": "achievement",
+    "hidden": false,
+    "lang": "lotr.achievement.killMountainTrollChieftain.title",
+    "achievement": "killMountainTrollChieftain"
+  },
+  {
+    "id": "useMagicPipe",
+    "type": "achievement",
+    "hidden": false,
+    "lang": "lotr.achievement.useMagicPipe.title",
+    "achievement": "useMagicPipe"
+  },
+  {
+    "id": "visitOcean",
+    "type": "achievement",
+    "hidden": false,
+    "lang": "lotr.achievement.enterOcean.title",
+    "achievement": "enterOcean"
+  },
+  {
+    "id": "wanderer",
+    "type": "starter",
+    "hidden": false,
+    "lang": "lotr.title.wanderer"
+  },
+  {
+    "id": "warmongerer",
+    "type": "starter",
+    "hidden": false,
+    "lang": "lotr.title.warmongerer"
+  },
+  {
+    "id": "warrior",
+    "type": "starter",
+    "hidden": false,
+    "lang": "lotr.title.warrior"
+  },
+  {
+    "id": "watcher",
+    "type": "starter",
+    "hidden": false,
+    "lang": "lotr.title.watcher"
+  },
+  {
+    "id": "wearFullGondolin",
+    "type": "achievement",
+    "hidden": false,
+    "lang": "lotr.achievement.wearFullGondolin.title",
+    "achievement": "wearFullGondolin"
+  },
+  {
+    "id": "zookeeper",
+    "type": "achievement",
+    "hidden": false,
+    "lang": "lotr.achievement.rideGiraffeShire.title",
+    "achievement": "rideGiraffeShire"
+  }
+]

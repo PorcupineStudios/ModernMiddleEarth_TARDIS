@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:fangorn/root",
+  "display": {
+    "icon": {
+      "id": "minecraft:log"
+    },
+    "title": {
+      "translate": "lotr.achievement.talkEnt.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.talkEnt.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

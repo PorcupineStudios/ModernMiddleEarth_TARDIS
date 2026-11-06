@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:lothlorien/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:elvengrass"
+    },
+    "title": {
+      "translate": "lotr.achievement.useElvenPortal.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.useElvenPortal.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

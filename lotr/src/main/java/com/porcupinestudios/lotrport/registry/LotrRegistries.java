@@ -42,6 +42,18 @@ public final class LotrRegistries {
     public static final Supplier<AttachmentType<String>> ENTITY_FACTION = ATTACHMENTS.register("faction",
             () -> AttachmentType.builder(() -> "").serialize(Codec.STRING).build());
 
+    /** The player's chosen LOTR title id ("" for none); kept on death. */
+    public static final Supplier<AttachmentType<String>> TITLE = ATTACHMENTS.register("title",
+            () -> AttachmentType.builder(() -> "").serialize(Codec.STRING).copyOnDeath().build());
+
+    /** The player's chosen LOTR shield id ("" for none); kept on death. */
+    public static final Supplier<AttachmentType<String>> SHIELD = ATTACHMENTS.register("shield",
+            () -> AttachmentType.builder(() -> "").serialize(Codec.STRING).copyOnDeath().build());
+
+    /** The player's chosen LOTR cape id ("" for none); kept on death. */
+    public static final Supplier<AttachmentType<String>> CAPE = ATTACHMENTS.register("cape",
+            () -> AttachmentType.builder(() -> "").serialize(Codec.STRING).copyOnDeath().build());
+
     private LotrRegistries() {}
 
     public static void register(IEventBus modBus) {

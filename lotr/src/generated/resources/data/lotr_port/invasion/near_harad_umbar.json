@@ -1,0 +1,12 @@
+{
+  "faction": "lotr_port:near_harad",
+  "mobs": [
+    "lotr_port:umbar_warrior",
+    "lotr_port:umbar_archer",
+    "lotr_port:umbar_banner_bearer",
+    "lotr_port:moredain_mercenary",
+    "lotr_port:gondor_renegade"
+  ],
+  "icon": "lotr_port:umbaric_scimitar",
+  "lang": "lotr.invasion.NEAR_HARAD_UMBAR"
+}

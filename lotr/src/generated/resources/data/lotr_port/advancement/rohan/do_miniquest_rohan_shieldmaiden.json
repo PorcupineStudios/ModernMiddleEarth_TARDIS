@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:rohan/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:red_book"
+    },
+    "title": {
+      "translate": "lotr.achievement.doMiniquestRohanShieldmaiden.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.doMiniquestRohanShieldmaiden.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:far_harad_savannah/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:silver_coin"
+    },
+    "title": {
+      "translate": "lotr.achievement.tradeMoredainVillager.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.tradeMoredainVillager.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

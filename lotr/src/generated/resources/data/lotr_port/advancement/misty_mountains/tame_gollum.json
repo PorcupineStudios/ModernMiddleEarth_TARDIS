@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:misty_mountains/root",
+  "display": {
+    "icon": {
+      "id": "minecraft:fish"
+    },
+    "title": {
+      "translate": "lotr.achievement.tameGollum.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.tameGollum.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:mordor/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:red_book"
+    },
+    "title": {
+      "translate": "lotr.achievement.doMiniquestMordor.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.doMiniquestMordor.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

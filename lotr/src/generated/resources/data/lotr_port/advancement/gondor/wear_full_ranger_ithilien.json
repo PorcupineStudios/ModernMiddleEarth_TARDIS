@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:gondor/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:ithilien_ranger_tunic"
+    },
+    "title": {
+      "translate": "lotr.achievement.wearFullRangerIthilien.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.wearFullRangerIthilien.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

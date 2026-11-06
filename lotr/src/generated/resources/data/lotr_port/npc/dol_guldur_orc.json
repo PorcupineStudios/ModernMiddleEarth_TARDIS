@@ -23,9 +23,10 @@
   "gear": {
     "mainhand": [
       "lotr_port:dol_guldur_axe",
-      "lotr_port:dol_guldur_spear",
+      "lotr_port:dol_guldur_battleaxe",
+      "lotr_port:dol_guldur_pickaxe",
       "lotr_port:dol_guldur_spike",
-      "lotr_port:dol_guldur_warhammer"
+      "lotr_port:dol_guldur_sword"
     ],
     "head": "lotr_port:dol_guldur_helmet",
     "chest": "lotr_port:dol_guldur_chestplate",

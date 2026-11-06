@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:dunland/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:silver_coin"
+    },
+    "title": {
+      "translate": "lotr.achievement.tradeDunlendingWarlord.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.tradeDunlendingWarlord.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

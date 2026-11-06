@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:gondor/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:gondorian_chestplate"
+    },
+    "title": {
+      "translate": "lotr.achievement.wearFullGondorian.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.wearFullGondorian.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

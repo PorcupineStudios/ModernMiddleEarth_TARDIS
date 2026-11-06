@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:general/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:suspicious_meat"
+    },
+    "title": {
+      "translate": "lotr.achievement.craftSaltedFlesh.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.craftSaltedFlesh.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

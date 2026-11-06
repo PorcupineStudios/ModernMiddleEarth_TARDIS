@@ -1,0 +1,1345 @@
+{
+  "rohan": [
+    {
+      "chance_per_second": 9.907147014454054e-05,
+      "invasions": [
+        "lotr_port:dunland",
+        "lotr_port:uruk_hai"
+      ]
+    }
+  ],
+  "gondor": [
+    {
+      "chance_per_second": 9.907147014454054e-05,
+      "invasions": [
+        "lotr_port:mordor"
+      ]
+    },
+    {
+      "chance_per_second": 2.9266382095993748e-05,
+      "invasions": [
+        "lotr_port:mordor_black_uruk",
+        "lotr_port:mordor_nan_ungol",
+        "lotr_port:mordor_warg",
+        "lotr_port:near_harad_harnedor",
+        "lotr_port:near_harad_coast",
+        "lotr_port:near_harad_umbar",
+        "lotr_port:near_harad_corsair",
+        "lotr_port:rhun"
+      ]
+    }
+  ],
+  "white_mountains": [
+    {
+      "chance_per_second": 9.907147014454054e-05,
+      "invasions": [
+        "lotr_port:mordor_warg"
+      ]
+    },
+    {
+      "chance_per_second": 2.9266382095993748e-05,
+      "invasions": [
+        "lotr_port:mordor"
+      ]
+    }
+  ],
+  "celebrant": [
+    {
+      "chance_per_second": 9.907147014454054e-05,
+      "invasions": [
+        "lotr_port:galadhrim",
+        "lotr_port:rohan"
+      ]
+    },
+    {
+      "chance_per_second": 2.9266382095993748e-05,
+      "invasions": [
+        "lotr_port:gundabad",
+        "lotr_port:gundabad_warg",
+        "lotr_port:dol_guldur"
+      ]
+    }
+  ],
+  "iron_hills": [
+    {
+      "chance_per_second": 9.907147014454054e-05,
+      "invasions": [
+        "lotr_port:gundabad_warg"
+      ]
+    },
+    {
+      "chance_per_second": 2.9266382095993748e-05,
+      "invasions": [
+        "lotr_port:gundabad"
+      ]
+    }
+  ],
+  "dead_marshes": [
+    {
+      "chance_per_second": 2.9266382095993748e-05,
+      "invasions": [
+        "lotr_port:mordor"
+      ]
+    }
+  ],
+  "trollshaws": [
+    {
+      "chance_per_second": 9.907147014454054e-05,
+      "invasions": [
+        "lotr_port:ranger_north",
+        "lotr_port:gundabad",
+        "lotr_port:gundabad_warg",
+        "lotr_port:angmar_hillmen"
+      ]
+    },
+    {
+      "chance_per_second": 2.9266382095993748e-05,
+      "invasions": [
+        "lotr_port:angmar",
+        "lotr_port:angmar_warg"
+      ]
+    }
+  ],
+  "woodland_realm": [
+    {
+      "chance_per_second": 9.907147014454054e-05,
+      "invasions": [
+        "lotr_port:dol_guldur"
+      ]
+    }
+  ],
+  "mirkwood_corrupted": [
+    {
+      "chance_per_second": 9.907147014454054e-05,
+      "invasions": [
+        "lotr_port:wood_elf"
+      ]
+    }
+  ],
+  "rohan_uruk_highlands": [
+    {
+      "chance_per_second": 0.0006394023991561637,
+      "invasions": [
+        "lotr_port:rohan"
+      ]
+    }
+  ],
+  "emyn_muil": [
+    {
+      "chance_per_second": 2.9266382095993748e-05,
+      "invasions": [
+        "lotr_port:mordor",
+        "lotr_port:mordor_warg"
+      ]
+    }
+  ],
+  "ithilien": [
+    {
+      "chance_per_second": 9.907147014454054e-05,
+      "invasions": [
+        "lotr_port:gondor",
+        "lotr_port:mordor_warg",
+        "lotr_port:near_harad_harnedor",
+        "lotr_port:rhun"
+      ]
+    },
+    {
+      "chance_per_second": 2.9266382095993748e-05,
+      "invasions": [
+        "lotr_port:gondor_dol_amroth",
+        "lotr_port:mordor_black_uruk",
+        "lotr_port:mordor_nan_ungol",
+        "lotr_port:near_harad_coast",
+        "lotr_port:near_harad_corsair"
+      ]
+    },
+    {
+      "chance_per_second": 0.0006394023991561637,
+      "invasions": [
+        "lotr_port:gondor_ithilien",
+        "lotr_port:mordor"
+      ]
+    }
+  ],
+  "pelargir": [
+    {
+      "chance_per_second": 9.907147014454054e-05,
+      "invasions": [
+        "lotr_port:mordor"
+      ]
+    },
+    {
+      "chance_per_second": 2.9266382095993748e-05,
+      "invasions": [
+        "lotr_port:mordor_black_uruk",
+        "lotr_port:mordor_nan_ungol",
+        "lotr_port:mordor_warg",
+        "lotr_port:near_harad_harnedor",
+        "lotr_port:near_harad_coast",
+        "lotr_port:near_harad_umbar",
+        "lotr_port:near_harad_corsair",
+        "lotr_port:rhun"
+      ]
+    }
+  ],
+  "lone_lands": [
+    {
+      "chance_per_second": 9.907147014454054e-05,
+      "invasions": [
+        "lotr_port:angmar"
+      ]
+    },
+    {
+      "chance_per_second": 2.9266382095993748e-05,
+      "invasions": [
+        "lotr_port:high_elf_rivendell",
+        "lotr_port:angmar_warg"
+      ]
+    },
+    {
+      "chance_per_second": 0.0006394023991561637,
+      "invasions": [
+        "lotr_port:gundabad",
+        "lotr_port:gundabad_warg",
+        "lotr_port:ranger_north",
+        "lotr_port:angmar_hillmen"
+      ]
+    }
+  ],
+  "lone_lands_hills": [
+    {
+      "chance_per_second": 9.907147014454054e-05,
+      "invasions": [
+        "lotr_port:angmar"
+      ]
+    },
+    {
+      "chance_per_second": 2.9266382095993748e-05,
+      "invasions": [
+        "lotr_port:high_elf_rivendell",
+        "lotr_port:angmar_warg"
+      ]
+    },
+    {
+      "chance_per_second": 0.0006394023991561637,
+      "invasions": [
+        "lotr_port:gundabad",
+        "lotr_port:gundabad_warg",
+        "lotr_port:ranger_north",
+        "lotr_port:angmar_hillmen"
+      ]
+    }
+  ],
+  "dunland": [
+    {
+      "chance_per_second": 9.907147014454054e-05,
+      "invasions": [
+        "lotr_port:rohan"
+      ]
+    },
+    {
+      "chance_per_second": 2.9266382095993748e-05,
+      "invasions": [
+        "lotr_port:ranger_north",
+        "lotr_port:gundabad",
+        "lotr_port:gundabad_warg"
+      ]
+    }
+  ],
+  "angle": [
+    {
+      "chance_per_second": 2.9266382095993748e-05,
+      "invasions": [
+        "lotr_port:gundabad",
+        "lotr_port:gundabad_warg",
+        "lotr_port:angmar_hillmen"
+      ]
+    },
+    {
+      "chance_per_second": 0.0006394023991561637,
+      "invasions": [
+        "lotr_port:ranger_north"
+      ]
+    }
+  ],
+  "ettenmoors": [
+    {
+      "chance_per_second": 9.907147014454054e-05,
+      "invasions": [
+        "lotr_port:ranger_north"
+      ]
+    },
+    {
+      "chance_per_second": 0.0006394023991561637,
+      "invasions": [
+        "lotr_port:gundabad",
+        "lotr_port:gundabad_warg",
+        "lotr_port:angmar",
+        "lotr_port:angmar_hillmen",
+        "lotr_port:angmar_warg"
+      ]
+    }
+  ],
+  "harondor": [
+    {
+      "chance_per_second": 9.907147014454054e-05,
+      "invasions": [
+        "lotr_port:gondor",
+        "lotr_port:mordor",
+        "lotr_port:near_harad_coast",
+        "lotr_port:near_harad_corsair"
+      ]
+    },
+    {
+      "chance_per_second": 2.9266382095993748e-05,
+      "invasions": [
+        "lotr_port:gondor_dol_amroth",
+        "lotr_port:mordor_black_uruk",
+        "lotr_port:near_harad_umbar",
+        "lotr_port:near_harad_gulf"
+      ]
+    },
+    {
+      "chance_per_second": 0.0006394023991561637,
+      "invasions": [
+        "lotr_port:gondor_ithilien",
+        "lotr_port:near_harad_harnedor"
+      ]
+    }
+  ],
+  "eriador": [
+    {
+      "chance_per_second": 9.907147014454054e-05,
+      "invasions": [
+        "lotr_port:gundabad",
+        "lotr_port:gundabad_warg",
+        "lotr_port:ranger_north",
+        "lotr_port:angmar_hillmen"
+      ]
+    },
+    {
+      "chance_per_second": 2.9266382095993748e-05,
+      "invasions": [
+        "lotr_port:angmar",
+        "lotr_port:angmar_warg"
+      ]
+    }
+  ],
+  "eriador_downs": [
+    {
+      "chance_per_second": 9.907147014454054e-05,
+      "invasions": [
+        "lotr_port:gundabad",
+        "lotr_port:gundabad_warg",
+        "lotr_port:ranger_north",
+        "lotr_port:angmar_hillmen"
+      ]
+    },
+    {
+      "chance_per_second": 2.9266382095993748e-05,
+      "invasions": [
+        "lotr_port:angmar",
+        "lotr_port:angmar_warg"
+      ]
+    }
+  ],
+  "eryn_vorn": [
+    {
+      "chance_per_second": 9.907147014454054e-05,
+      "invasions": [
+        "lotr_port:gundabad",
+        "lotr_port:gundabad_warg",
+        "lotr_port:ranger_north",
+        "lotr_port:angmar_hillmen"
+      ]
+    },
+    {
+      "chance_per_second": 2.9266382095993748e-05,
+      "invasions": [
+        "lotr_port:angmar",
+        "lotr_port:angmar_warg"
+      ]
+    }
+  ],
+  "grey_mountains": [
+    {
+      "chance_per_second": 9.907147014454054e-05,
+      "invasions": [
+        "lotr_port:gundabad_warg"
+      ]
+    },
+    {
+      "chance_per_second": 2.9266382095993748e-05,
+      "invasions": [
+        "lotr_port:gundabad",
+        "lotr_port:dwarf"
+      ]
+    }
+  ],
+  "midgewater": [
+    {
+      "chance_per_second": 2.9266382095993748e-05,
+      "invasions": [
+        "lotr_port:gundabad",
+        "lotr_port:gundabad_warg",
+        "lotr_port:ranger_north"
+      ]
+    }
+  ],
+  "brown_lands": [
+    {
+      "chance_per_second": 9.907147014454054e-05,
+      "invasions": [
+        "lotr_port:mordor"
+      ]
+    },
+    {
+      "chance_per_second": 2.9266382095993748e-05,
+      "invasions": [
+        "lotr_port:mordor_black_uruk",
+        "lotr_port:mordor_warg"
+      ]
+    }
+  ],
+  "anduin_hills": [
+    {
+      "chance_per_second": 9.907147014454054e-05,
+      "invasions": [
+        "lotr_port:gundabad",
+        "lotr_port:gundabad_warg"
+      ]
+    },
+    {
+      "chance_per_second": 2.9266382095993748e-05,
+      "invasions": [
+        "lotr_port:dol_guldur"
+      ]
+    }
+  ],
+  "gladden_fields": [
+    {
+      "chance_per_second": 9.907147014454054e-05,
+      "invasions": [
+        "lotr_port:gundabad",
+        "lotr_port:gundabad_warg"
+      ]
+    }
+  ],
+  "lothlorien_edge": [
+    {
+      "chance_per_second": 2.9266382095993748e-05,
+      "invasions": [
+        "lotr_port:gundabad",
+        "lotr_port:gundabad_warg",
+        "lotr_port:dol_guldur"
+      ]
+    }
+  ],
+  "enedwaith": [
+    {
+      "chance_per_second": 9.907147014454054e-05,
+      "invasions": [
+        "lotr_port:gundabad_warg",
+        "lotr_port:dunland"
+      ]
+    },
+    {
+      "chance_per_second": 2.9266382095993748e-05,
+      "invasions": [
+        "lotr_port:ranger_north",
+        "lotr_port:gundabad"
+      ]
+    }
+  ],
+  "angmar": [
+    {
+      "chance_per_second": 2.9266382095993748e-05,
+      "invasions": [
+        "lotr_port:ranger_north",
+        "lotr_port:high_elf_lindon",
+        "lotr_port:high_elf_rivendell"
+      ]
+    }
+  ],
+  "eregion": [
+    {
+      "chance_per_second": 9.907147014454054e-05,
+      "invasions": [
+        "lotr_port:gundabad_warg"
+      ]
+    },
+    {
+      "chance_per_second": 2.9266382095993748e-05,
+      "invasions": [
+        "lotr_port:ranger_north",
+        "lotr_port:gundabad"
+      ]
+    }
+  ],
+  "lindon": [
+    {
+      "chance_per_second": 2.9266382095993748e-05,
+      "invasions": [
+        "lotr_port:gundabad"
+      ]
+    }
+  ],
+  "lindon_woodlands": [
+    {
+      "chance_per_second": 2.9266382095993748e-05,
+      "invasions": [
+        "lotr_port:gundabad"
+      ]
+    }
+  ],
+  "east_bight": [
+    {
+      "chance_per_second": 2.9266382095993748e-05,
+      "invasions": [
+        "lotr_port:dol_guldur"
+      ]
+    }
+  ],
+  "blue_mountains": [
+    {
+      "chance_per_second": 9.907147014454054e-05,
+      "invasions": [
+        "lotr_port:gundabad_warg"
+      ]
+    },
+    {
+      "chance_per_second": 2.9266382095993748e-05,
+      "invasions": [
+        "lotr_port:gundabad"
+      ]
+    }
+  ],
+  "mirkwood_mountains": [
+    {
+      "chance_per_second": 9.907147014454054e-05,
+      "invasions": [
+        "lotr_port:wood_elf"
+      ]
+    }
+  ],
+  "wilderland": [
+    {
+      "chance_per_second": 9.907147014454054e-05,
+      "invasions": [
+        "lotr_port:dol_guldur",
+        "lotr_port:mordor",
+        "lotr_port:rhun"
+      ]
+    },
+    {
+      "chance_per_second": 2.9266382095993748e-05,
+      "invasions": [
+        "lotr_port:mordor_warg",
+        "lotr_port:dale",
+        "lotr_port:dorwinion"
+      ]
+    }
+  ],
+  "dagorlad": [
+    {
+      "chance_per_second": 9.907147014454054e-05,
+      "invasions": [
+        "lotr_port:mordor_black_uruk",
+        "lotr_port:mordor_warg"
+      ]
+    },
+    {
+      "chance_per_second": 0.0006394023991561637,
+      "invasions": [
+        "lotr_port:mordor"
+      ]
+    }
+  ],
+  "adornland": [
+    {
+      "chance_per_second": 9.907147014454054e-05,
+      "invasions": [
+        "lotr_port:dunland",
+        "lotr_port:rohan"
+      ]
+    },
+    {
+      "chance_per_second": 2.9266382095993748e-05,
+      "invasions": [
+        "lotr_port:uruk_hai",
+        "lotr_port:gundabad",
+        "lotr_port:gundabad_warg"
+      ]
+    }
+  ],
+  "angmar_mountains": [
+    {
+      "chance_per_second": 2.9266382095993748e-05,
+      "invasions": [
+        "lotr_port:ranger_north",
+        "lotr_port:high_elf_lindon",
+        "lotr_port:high_elf_rivendell"
+      ]
+    }
+  ],
+  "anduin_mouth": [
+    {
+      "chance_per_second": 9.907147014454054e-05,
+      "invasions": [
+        "lotr_port:mordor"
+      ]
+    },
+    {
+      "chance_per_second": 2.9266382095993748e-05,
+      "invasions": [
+        "lotr_port:mordor_black_uruk",
+        "lotr_port:mordor_nan_ungol",
+        "lotr_port:mordor_warg",
+        "lotr_port:near_harad_harnedor",
+        "lotr_port:near_harad_coast",
+        "lotr_port:near_harad_umbar",
+        "lotr_port:near_harad_corsair",
+        "lotr_port:rhun"
+      ]
+    }
+  ],
+  "entwash_mouth": [
+    {
+      "chance_per_second": 9.907147014454054e-05,
+      "invasions": [
+        "lotr_port:mordor"
+      ]
+    },
+    {
+      "chance_per_second": 2.9266382095993748e-05,
+      "invasions": [
+        "lotr_port:mordor_black_uruk",
+        "lotr_port:mordor_nan_ungol",
+        "lotr_port:mordor_warg",
+        "lotr_port:near_harad_harnedor",
+        "lotr_port:near_harad_coast",
+        "lotr_port:near_harad_umbar",
+        "lotr_port:near_harad_corsair",
+        "lotr_port:rhun"
+      ]
+    }
+  ],
+  "dor_en_ernil": [
+    {
+      "chance_per_second": 9.907147014454054e-05,
+      "invasions": [
+        "lotr_port:near_harad_corsair"
+      ]
+    },
+    {
+      "chance_per_second": 2.9266382095993748e-05,
+      "invasions": [
+        "lotr_port:mordor",
+        "lotr_port:mordor_black_uruk",
+        "lotr_port:near_harad_harnedor",
+        "lotr_port:near_harad_coast",
+        "lotr_port:near_harad_umbar"
+      ]
+    }
+  ],
+  "dor_en_ernil_hills": [
+    {
+      "chance_per_second": 9.907147014454054e-05,
+      "invasions": [
+        "lotr_port:near_harad_corsair"
+      ]
+    },
+    {
+      "chance_per_second": 2.9266382095993748e-05,
+      "invasions": [
+        "lotr_port:mordor",
+        "lotr_port:mordor_black_uruk",
+        "lotr_port:near_harad_harnedor",
+        "lotr_port:near_harad_coast",
+        "lotr_port:near_harad_umbar"
+      ]
+    }
+  ],
+  "fangorn_wasteland": [
+    {
+      "chance_per_second": 9.907147014454054e-05,
+      "invasions": [
+        "lotr_port:uruk_hai",
+        "lotr_port:rohan",
+        "lotr_port:fangorn"
+      ]
+    }
+  ],
+  "rohan_woodlands": [
+    {
+      "chance_per_second": 9.907147014454054e-05,
+      "invasions": [
+        "lotr_port:dunland",
+        "lotr_port:uruk_hai"
+      ]
+    }
+  ],
+  "gondor_woodlands": [
+    {
+      "chance_per_second": 9.907147014454054e-05,
+      "invasions": [
+        "lotr_port:mordor"
+      ]
+    },
+    {
+      "chance_per_second": 2.9266382095993748e-05,
+      "invasions": [
+        "lotr_port:mordor_black_uruk",
+        "lotr_port:mordor_nan_ungol",
+        "lotr_port:mordor_warg",
+        "lotr_port:near_harad_harnedor",
+        "lotr_port:near_harad_coast",
+        "lotr_port:near_harad_umbar",
+        "lotr_port:near_harad_corsair",
+        "lotr_port:rhun"
+      ]
+    }
+  ],
+  "lindon_coast": [
+    {
+      "chance_per_second": 2.9266382095993748e-05,
+      "invasions": [
+        "lotr_port:gundabad"
+      ]
+    }
+  ],
+  "ithilien_hills": [
+    {
+      "chance_per_second": 9.907147014454054e-05,
+      "invasions": [
+        "lotr_port:gondor",
+        "lotr_port:mordor_warg",
+        "lotr_port:near_harad_harnedor",
+        "lotr_port:rhun"
+      ]
+    },
+    {
+      "chance_per_second": 2.9266382095993748e-05,
+      "invasions": [
+        "lotr_port:gondor_dol_amroth",
+        "lotr_port:mordor_black_uruk",
+        "lotr_port:mordor_nan_ungol",
+        "lotr_port:near_harad_coast",
+        "lotr_port:near_harad_corsair"
+      ]
+    },
+    {
+      "chance_per_second": 0.0006394023991561637,
+      "invasions": [
+        "lotr_port:gondor_ithilien",
+        "lotr_port:mordor"
+      ]
+    }
+  ],
+  "ithilien_wasteland": [
+    {
+      "chance_per_second": 9.907147014454054e-05,
+      "invasions": [
+        "lotr_port:gondor",
+        "lotr_port:mordor_warg",
+        "lotr_port:near_harad_harnedor",
+        "lotr_port:rhun"
+      ]
+    },
+    {
+      "chance_per_second": 2.9266382095993748e-05,
+      "invasions": [
+        "lotr_port:gondor_dol_amroth",
+        "lotr_port:mordor_black_uruk",
+        "lotr_port:mordor_nan_ungol",
+        "lotr_port:near_harad_coast",
+        "lotr_port:near_harad_corsair"
+      ]
+    },
+    {
+      "chance_per_second": 0.0006394023991561637,
+      "invasions": [
+        "lotr_port:gondor_ithilien",
+        "lotr_port:mordor"
+      ]
+    }
+  ],
+  "nindalf": [
+    {
+      "chance_per_second": 2.9266382095993748e-05,
+      "invasions": [
+        "lotr_port:mordor",
+        "lotr_port:mordor_black_uruk",
+        "lotr_port:mordor_warg"
+      ]
+    }
+  ],
+  "coldfells": [
+    {
+      "chance_per_second": 9.907147014454054e-05,
+      "invasions": [
+        "lotr_port:ranger_north",
+        "lotr_port:gundabad",
+        "lotr_port:gundabad_warg",
+        "lotr_port:angmar",
+        "lotr_port:angmar_hillmen",
+        "lotr_port:angmar_warg"
+      ]
+    }
+  ],
+  "nan_curunir": [
+    {
+      "chance_per_second": 2.9266382095993748e-05,
+      "invasions": [
+        "lotr_port:rohan"
+      ]
+    }
+  ],
+  "swanfleet": [
+    {
+      "chance_per_second": 2.9266382095993748e-05,
+      "invasions": [
+        "lotr_port:gundabad",
+        "lotr_port:gundabad_warg"
+      ]
+    }
+  ],
+  "minhiriath": [
+    {
+      "chance_per_second": 9.907147014454054e-05,
+      "invasions": [
+        "lotr_port:gundabad",
+        "lotr_port:gundabad_warg",
+        "lotr_port:ranger_north",
+        "lotr_port:angmar_hillmen"
+      ]
+    },
+    {
+      "chance_per_second": 2.9266382095993748e-05,
+      "invasions": [
+        "lotr_port:angmar",
+        "lotr_port:angmar_warg"
+      ]
+    }
+  ],
+  "erebor": [
+    {
+      "chance_per_second": 2.9266382095993748e-05,
+      "invasions": [
+        "lotr_port:gundabad",
+        "lotr_port:gundabad_warg",
+        "lotr_port:dol_guldur"
+      ]
+    }
+  ],
+  "mirkwood_north": [
+    {
+      "chance_per_second": 9.907147014454054e-05,
+      "invasions": [
+        "lotr_port:wood_elf",
+        "lotr_port:dol_guldur"
+      ]
+    }
+  ],
+  "woodland_realm_hills": [
+    {
+      "chance_per_second": 9.907147014454054e-05,
+      "invasions": [
+        "lotr_port:dol_guldur"
+      ]
+    }
+  ],
+  "pinnath_gelin": [
+    {
+      "chance_per_second": 9.907147014454054e-05,
+      "invasions": [
+        "lotr_port:mordor"
+      ]
+    },
+    {
+      "chance_per_second": 2.9266382095993748e-05,
+      "invasions": [
+        "lotr_port:mordor_black_uruk",
+        "lotr_port:mordor_nan_ungol",
+        "lotr_port:mordor_warg",
+        "lotr_port:near_harad_harnedor",
+        "lotr_port:near_harad_coast",
+        "lotr_port:near_harad_umbar",
+        "lotr_port:near_harad_corsair",
+        "lotr_port:rhun"
+      ]
+    }
+  ],
+  "grey_mountains_foothills": [
+    {
+      "chance_per_second": 9.907147014454054e-05,
+      "invasions": [
+        "lotr_port:gundabad_warg"
+      ]
+    },
+    {
+      "chance_per_second": 2.9266382095993748e-05,
+      "invasions": [
+        "lotr_port:gundabad",
+        "lotr_port:dwarf"
+      ]
+    }
+  ],
+  "blue_mountains_foothills": [
+    {
+      "chance_per_second": 9.907147014454054e-05,
+      "invasions": [
+        "lotr_port:gundabad_warg"
+      ]
+    },
+    {
+      "chance_per_second": 2.9266382095993748e-05,
+      "invasions": [
+        "lotr_port:gundabad"
+      ]
+    }
+  ],
+  "breeland": [
+    {
+      "chance_per_second": 2.9266382095993748e-05,
+      "invasions": [
+        "lotr_port:gundabad",
+        "lotr_port:gundabad_warg"
+      ]
+    }
+  ],
+  "chetwood": [
+    {
+      "chance_per_second": 2.9266382095993748e-05,
+      "invasions": [
+        "lotr_port:gundabad",
+        "lotr_port:gundabad_warg"
+      ]
+    }
+  ],
+  "white_mountains_foothills": [
+    {
+      "chance_per_second": 9.907147014454054e-05,
+      "invasions": [
+        "lotr_port:mordor_warg"
+      ]
+    },
+    {
+      "chance_per_second": 2.9266382095993748e-05,
+      "invasions": [
+        "lotr_port:mordor"
+      ]
+    }
+  ],
+  "far_harad": [
+    {
+      "chance_per_second": 9.907147014454054e-05,
+      "invasions": [
+        "lotr_port:moredain"
+      ]
+    },
+    {
+      "chance_per_second": 2.9266382095993748e-05,
+      "invasions": [
+        "lotr_port:tauredain"
+      ]
+    }
+  ],
+  "far_harad_jungle": [
+    {
+      "chance_per_second": 2.9266382095993748e-05,
+      "invasions": [
+        "lotr_port:moredain",
+        "lotr_port:tauredain"
+      ]
+    }
+  ],
+  "far_harad_jungle_lake": [
+    {
+      "chance_per_second": 2.9266382095993748e-05,
+      "invasions": [
+        "lotr_port:moredain",
+        "lotr_port:tauredain"
+      ]
+    }
+  ],
+  "far_harad_forest": [
+    {
+      "chance_per_second": 9.907147014454054e-05,
+      "invasions": [
+        "lotr_port:moredain"
+      ]
+    },
+    {
+      "chance_per_second": 2.9266382095993748e-05,
+      "invasions": [
+        "lotr_port:tauredain"
+      ]
+    }
+  ],
+  "far_harad_jungle_edge": [
+    {
+      "chance_per_second": 9.907147014454054e-05,
+      "invasions": [
+        "lotr_port:moredain",
+        "lotr_port:tauredain"
+      ]
+    }
+  ],
+  "dorwinion_hills": [
+    {
+      "chance_per_second": 2.9266382095993748e-05,
+      "invasions": [
+        "lotr_port:dol_guldur",
+        "lotr_port:mordor"
+      ]
+    }
+  ],
+  "lebennin": [
+    {
+      "chance_per_second": 9.907147014454054e-05,
+      "invasions": [
+        "lotr_port:mordor"
+      ]
+    },
+    {
+      "chance_per_second": 2.9266382095993748e-05,
+      "invasions": [
+        "lotr_port:mordor_black_uruk",
+        "lotr_port:mordor_nan_ungol",
+        "lotr_port:mordor_warg",
+        "lotr_port:near_harad_harnedor",
+        "lotr_port:near_harad_coast",
+        "lotr_port:near_harad_umbar",
+        "lotr_port:near_harad_corsair",
+        "lotr_port:rhun"
+      ]
+    }
+  ],
+  "rhun": [
+    {
+      "chance_per_second": 2.9266382095993748e-05,
+      "invasions": [
+        "lotr_port:rhun"
+      ]
+    }
+  ],
+  "rhun_forest": [
+    {
+      "chance_per_second": 2.9266382095993748e-05,
+      "invasions": [
+        "lotr_port:rhun"
+      ]
+    }
+  ],
+  "dol_guldur": [
+    {
+      "chance_per_second": 9.907147014454054e-05,
+      "invasions": [
+        "lotr_port:wood_elf"
+      ]
+    }
+  ],
+  "far_harad_arid": [
+    {
+      "chance_per_second": 9.907147014454054e-05,
+      "invasions": [
+        "lotr_port:moredain"
+      ]
+    },
+    {
+      "chance_per_second": 2.9266382095993748e-05,
+      "invasions": [
+        "lotr_port:tauredain"
+      ]
+    }
+  ],
+  "far_harad_arid_hills": [
+    {
+      "chance_per_second": 9.907147014454054e-05,
+      "invasions": [
+        "lotr_port:moredain"
+      ]
+    },
+    {
+      "chance_per_second": 2.9266382095993748e-05,
+      "invasions": [
+        "lotr_port:tauredain"
+      ]
+    }
+  ],
+  "anduin_vale": [
+    {
+      "chance_per_second": 9.907147014454054e-05,
+      "invasions": [
+        "lotr_port:gundabad",
+        "lotr_port:gundabad_warg"
+      ]
+    },
+    {
+      "chance_per_second": 2.9266382095993748e-05,
+      "invasions": [
+        "lotr_port:dol_guldur"
+      ]
+    }
+  ],
+  "wold": [
+    {
+      "chance_per_second": 9.907147014454054e-05,
+      "invasions": [
+        "lotr_port:dunland",
+        "lotr_port:uruk_hai"
+      ]
+    }
+  ],
+  "dale": [
+    {
+      "chance_per_second": 9.907147014454054e-05,
+      "invasions": [
+        "lotr_port:gundabad",
+        "lotr_port:gundabad_warg"
+      ]
+    },
+    {
+      "chance_per_second": 2.9266382095993748e-05,
+      "invasions": [
+        "lotr_port:dol_guldur",
+        "lotr_port:mordor",
+        "lotr_port:rhun"
+      ]
+    }
+  ],
+  "dorwinion": [
+    {
+      "chance_per_second": 2.9266382095993748e-05,
+      "invasions": [
+        "lotr_port:dol_guldur",
+        "lotr_port:mordor"
+      ]
+    }
+  ],
+  "tower_hills": [
+    {
+      "chance_per_second": 2.9266382095993748e-05,
+      "invasions": [
+        "lotr_port:gundabad"
+      ]
+    }
+  ],
+  "wilderland_north": [
+    {
+      "chance_per_second": 9.907147014454054e-05,
+      "invasions": [
+        "lotr_port:gundabad_warg"
+      ]
+    },
+    {
+      "chance_per_second": 2.9266382095993748e-05,
+      "invasions": [
+        "lotr_port:dol_guldur",
+        "lotr_port:dale"
+      ]
+    },
+    {
+      "chance_per_second": 0.0006394023991561637,
+      "invasions": [
+        "lotr_port:gundabad"
+      ]
+    }
+  ],
+  "far_harad_coast": [
+    {
+      "chance_per_second": 0.0006394023991561637,
+      "invasions": [
+        "lotr_port:near_harad_corsair"
+      ]
+    }
+  ],
+  "lossarnach": [
+    {
+      "chance_per_second": 9.907147014454054e-05,
+      "invasions": [
+        "lotr_port:mordor"
+      ]
+    },
+    {
+      "chance_per_second": 2.9266382095993748e-05,
+      "invasions": [
+        "lotr_port:mordor_black_uruk",
+        "lotr_port:mordor_nan_ungol",
+        "lotr_port:mordor_warg",
+        "lotr_port:near_harad_harnedor",
+        "lotr_port:near_harad_coast",
+        "lotr_port:near_harad_umbar",
+        "lotr_port:near_harad_corsair",
+        "lotr_port:rhun"
+      ]
+    }
+  ],
+  "imloth_melui": [
+    {
+      "chance_per_second": 9.907147014454054e-05,
+      "invasions": [
+        "lotr_port:mordor"
+      ]
+    },
+    {
+      "chance_per_second": 2.9266382095993748e-05,
+      "invasions": [
+        "lotr_port:mordor_black_uruk",
+        "lotr_port:mordor_nan_ungol",
+        "lotr_port:mordor_warg",
+        "lotr_port:near_harad_harnedor",
+        "lotr_port:near_harad_coast",
+        "lotr_port:near_harad_umbar",
+        "lotr_port:near_harad_corsair",
+        "lotr_port:rhun"
+      ]
+    }
+  ],
+  "harnedor": [
+    {
+      "chance_per_second": 9.907147014454054e-05,
+      "invasions": [
+        "lotr_port:gondor_ithilien",
+        "lotr_port:near_harad_harnedor"
+      ]
+    },
+    {
+      "chance_per_second": 2.9266382095993748e-05,
+      "invasions": [
+        "lotr_port:gondor",
+        "lotr_port:near_harad_coast",
+        "lotr_port:near_harad_corsair"
+      ]
+    }
+  ],
+  "lamedon": [
+    {
+      "chance_per_second": 9.907147014454054e-05,
+      "invasions": [
+        "lotr_port:mordor"
+      ]
+    },
+    {
+      "chance_per_second": 2.9266382095993748e-05,
+      "invasions": [
+        "lotr_port:mordor_black_uruk",
+        "lotr_port:mordor_nan_ungol",
+        "lotr_port:mordor_warg",
+        "lotr_port:near_harad_harnedor",
+        "lotr_port:near_harad_coast",
+        "lotr_port:near_harad_umbar",
+        "lotr_port:near_harad_corsair",
+        "lotr_port:rhun"
+      ]
+    }
+  ],
+  "lamedon_hills": [
+    {
+      "chance_per_second": 9.907147014454054e-05,
+      "invasions": [
+        "lotr_port:mordor"
+      ]
+    },
+    {
+      "chance_per_second": 2.9266382095993748e-05,
+      "invasions": [
+        "lotr_port:mordor_black_uruk",
+        "lotr_port:mordor_nan_ungol",
+        "lotr_port:mordor_warg",
+        "lotr_port:near_harad_harnedor",
+        "lotr_port:near_harad_coast",
+        "lotr_port:near_harad_umbar",
+        "lotr_port:near_harad_corsair",
+        "lotr_port:rhun"
+      ]
+    }
+  ],
+  "blackroot_vale": [
+    {
+      "chance_per_second": 9.907147014454054e-05,
+      "invasions": [
+        "lotr_port:mordor"
+      ]
+    },
+    {
+      "chance_per_second": 2.9266382095993748e-05,
+      "invasions": [
+        "lotr_port:mordor_black_uruk",
+        "lotr_port:mordor_nan_ungol",
+        "lotr_port:mordor_warg",
+        "lotr_port:near_harad_harnedor",
+        "lotr_port:near_harad_coast",
+        "lotr_port:near_harad_umbar",
+        "lotr_port:near_harad_corsair",
+        "lotr_port:rhun"
+      ]
+    }
+  ],
+  "rhun_land": [
+    {
+      "chance_per_second": 2.9266382095993748e-05,
+      "invasions": [
+        "lotr_port:dale"
+      ]
+    }
+  ],
+  "rhun_land_steppe": [
+    {
+      "chance_per_second": 2.9266382095993748e-05,
+      "invasions": [
+        "lotr_port:dale",
+        "lotr_port:rhun"
+      ]
+    }
+  ],
+  "rhun_land_hills": [
+    {
+      "chance_per_second": 2.9266382095993748e-05,
+      "invasions": [
+        "lotr_port:dale"
+      ]
+    }
+  ],
+  "rhun_red_forest": [
+    {
+      "chance_per_second": 2.9266382095993748e-05,
+      "invasions": [
+        "lotr_port:dale"
+      ]
+    }
+  ],
+  "rivendell_hills": [
+    {
+      "chance_per_second": 9.907147014454054e-05,
+      "invasions": [
+        "lotr_port:high_elf_rivendell"
+      ]
+    },
+    {
+      "chance_per_second": 2.9266382095993748e-05,
+      "invasions": [
+        "lotr_port:gundabad",
+        "lotr_port:gundabad_warg",
+        "lotr_port:angmar",
+        "lotr_port:angmar_hillmen",
+        "lotr_port:angmar_warg"
+      ]
+    }
+  ],
+  "half_troll_forest": [
+    {
+      "chance_per_second": 9.907147014454054e-05,
+      "invasions": [
+        "lotr_port:half_troll"
+      ]
+    },
+    {
+      "chance_per_second": 2.9266382095993748e-05,
+      "invasions": [
+        "lotr_port:tauredain"
+      ]
+    }
+  ]
+}

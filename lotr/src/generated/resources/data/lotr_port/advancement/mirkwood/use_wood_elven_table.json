@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:mirkwood/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:wood_elven_crafting_table"
+    },
+    "title": {
+      "translate": "lotr.achievement.useWoodElvenTable.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.useWoodElvenTable.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

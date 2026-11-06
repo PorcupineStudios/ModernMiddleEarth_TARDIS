@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:mirkwood/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:elf_bone"
+    },
+    "title": {
+      "translate": "lotr.achievement.killWoodElf.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.killWoodElf.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

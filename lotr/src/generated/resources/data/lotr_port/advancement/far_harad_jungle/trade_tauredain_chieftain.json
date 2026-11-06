@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:far_harad_jungle/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:silver_coin"
+    },
+    "title": {
+      "translate": "lotr.achievement.tradeTauredainChieftain.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.tradeTauredainChieftain.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

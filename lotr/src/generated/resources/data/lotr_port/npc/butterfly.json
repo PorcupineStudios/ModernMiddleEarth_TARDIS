@@ -1,0 +1,17 @@
+{
+  "model": "lotr_port:butterfly",
+  "width": 0.5,
+  "height": 0.5,
+  "behaviours": [],
+  "lotr_classes": [
+    "LOTREntityButterfly",
+    "EntityLiving",
+    "EntityLivingBase"
+  ],
+  "behaviour_data": {
+    "state.renderer": 0
+  },
+  "health": 2.0,
+  "speed": 0.09127296605169713,
+  "attack": 2.0
+}

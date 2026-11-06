@@ -27,7 +27,7 @@
     "heal_interval": 300,
     "heal_range": 24,
     "heal_ticks": 160,
-    "state.renderer": 0
+    "state.renderer": 1
   },
   "sounds": {
     "step": "lotr_port:ent.step"

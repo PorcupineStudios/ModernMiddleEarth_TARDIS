@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:fangorn/root",
+  "display": {
+    "icon": {
+      "id": "minecraft:log"
+    },
+    "title": {
+      "translate": "lotr.achievement.killHuorn.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.killHuorn.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

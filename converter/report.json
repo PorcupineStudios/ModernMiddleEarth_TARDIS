@@ -6,6 +6,16 @@
     "sound_events": 101,
     "sound_files": 190,
     "ambience_biomes": 12,
+    "enchantments": 57,
+    "advancements": 492,
+    "titles": 337,
+    "shields": 64,
+    "capes": 27,
+    "drinks": 46,
+    "music_biomes": 168,
+    "biome_achievements": 152,
+    "invasion_biomes": 95,
+    "animal_biomes": 128,
     "textures": 2217,
     "languages": 22,
     "tabs": 9,
@@ -16,14 +26,14 @@
     "ore_features": 52,
     "saplings": 38,
     "factions": 29,
-    "npcs": 389,
-    "npc_skins": 250,
+    "npcs": 416,
+    "npc_skins": 269,
     "structures": 82,
     "structures_with_npcs": 67,
     "npc_spawn_tables": 135,
     "waypoints": 274,
     "quest_pools": 37,
-    "quest_givers": 283,
+    "quest_givers": 279,
     "migration_tables": 28
   },
   "added_to_misc_tab": {
@@ -139,6 +149,22 @@
     "entries": [
       "marsh_lights",
       "utumno_return_light"
+    ]
+  },
+  "enchantments_without_effect": {
+    "count": 5,
+    "entries": [
+      "toolSilk",
+      "looting1",
+      "looting2",
+      "looting3",
+      "headhunting"
+    ]
+  },
+  "extra_missing": {
+    "count": 1,
+    "entries": [
+      "assets/lotr/cape/galadhrimSmith.png"
     ]
   },
   "guessed_vanilla_textures": {
@@ -449,30 +475,16 @@
     "count": 0,
     "entries": []
   },
-  "npc_models_not_ported": {
-    "count": 23,
+  "npc_models_failed": {
+    "count": 1,
     "entries": [
-      "lotr.client.model.LOTRModelAurochs",
-      "lotr.client.model.LOTRModelBear",
-      "lotr.client.model.LOTRModelBird",
+      "lotr.client.model.LOTRModelBoar: no class net/minecraft/client/model/ModelPig"
+    ]
+  },
+  "npc_models_not_ported": {
+    "count": 3,
+    "entries": [
       "lotr.client.model.LOTRModelBoar",
-      "lotr.client.model.LOTRModelButterfly",
-      "lotr.client.model.LOTRModelCamel",
-      "lotr.client.model.LOTRModelCrocodile",
-      "lotr.client.model.LOTRModelDeer",
-      "lotr.client.model.LOTRModelDikDik",
-      "lotr.client.model.LOTRModelElk",
-      "lotr.client.model.LOTRModelFish",
-      "lotr.client.model.LOTRModelFlamingo",
-      "lotr.client.model.LOTRModelGemsbok",
-      "lotr.client.model.LOTRModelGiraffe",
-      "lotr.client.model.LOTRModelLion",
-      "lotr.client.model.LOTRModelMidge",
-      "lotr.client.model.LOTRModelRabbit",
-      "lotr.client.model.LOTRModelRhino",
-      "lotr.client.model.LOTRModelScorpion",
-      "lotr.client.model.LOTRModelSwan",
-      "lotr.client.model.LOTRModelTermite",
       "net.minecraft.client.model.ModelHorse",
       "none"
     ]
@@ -527,6 +539,12 @@
       "NOMAD_WARLORD: NomadArcher_Camel",
       "GULF_WARLORD: GulfWarrior_Horse",
       "GULF_WARLORD: GulfArcher_Horse"
+    ]
+  },
+  "npc_skins_odd_size": {
+    "count": 1,
+    "entries": [
+      "assets/lotr/mob/whiteOryx/ ['(128, 64)']"
     ]
   },
   "npc_speech_from_faction": {
@@ -654,9 +672,62 @@
     ]
   },
   "npc_without_speech": {
-    "count": 1,
+    "count": 28,
     "entries": [
-      "dark_huorn"
+      "aurochs",
+      "bear",
+      "bird",
+      "butterfly",
+      "camel",
+      "crebain",
+      "crocodile",
+      "dark_huorn",
+      "deer",
+      "desert_scorpion",
+      "dik_dik",
+      "elk",
+      "fish",
+      "flamingo",
+      "gemsbok",
+      "giraffe",
+      "gorcrow",
+      "jungle_scorpion",
+      "kine_araw",
+      "lion",
+      "lioness",
+      "midges",
+      "rabbit",
+      "rhino",
+      "seagull",
+      "swan",
+      "termite",
+      "white_oryx"
+    ]
+  },
+  "npcs_without_skins": {
+    "count": 21,
+    "entries": [
+      "lotr.Bear",
+      "lotr.Bird",
+      "lotr.Butterfly",
+      "lotr.Camel",
+      "lotr.Crebain",
+      "lotr.Crocodile",
+      "lotr.DesertScorpion",
+      "lotr.Fish",
+      "lotr.Flamingo",
+      "lotr.Gemsbok",
+      "lotr.Giraffe",
+      "lotr.Gorcrow",
+      "lotr.JungleScorpion",
+      "lotr.Lion",
+      "lotr.Lioness",
+      "lotr.Midges",
+      "lotr.Rhino",
+      "lotr.Seagull",
+      "lotr.Swan",
+      "lotr.Termite",
+      "lotr.WhiteOryx"
     ]
   },
   "placed_blocks_dropping_nothing": {
@@ -738,19 +809,9 @@
     ]
   },
   "quest_targets_unmapped": {
-    "count": 11,
+    "count": 1,
     "entries": [
-      "LOTRMiniQuestKill killRabbits",
-      "LOTRMiniQuestKill killBirds",
-      "LOTRMiniQuestKill killHorse",
-      "LOTRMiniQuestKill killScorpions",
-      "LOTRMiniQuestKill killCrocodile",
-      "LOTRMiniQuestKill killLion",
-      "LOTRMiniQuestKill killLion",
-      "LOTRMiniQuestKill killScorpions",
-      "LOTRMiniQuestKill killManyScorpions",
-      "LOTRMiniQuestKill killThings",
-      "LOTRMiniQuestKill killThings"
+      "LOTRMiniQuestKill killHorse"
     ]
   },
   "quests_not_ported": {

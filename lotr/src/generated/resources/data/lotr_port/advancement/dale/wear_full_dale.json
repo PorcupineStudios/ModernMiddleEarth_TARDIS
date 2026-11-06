@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:dale/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:dalish_chestplate"
+    },
+    "title": {
+      "translate": "lotr.achievement.wearFullDale.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.wearFullDale.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

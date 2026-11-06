@@ -14,9 +14,9 @@
   "gear": {
     "mainhand": [
       "lotr_port:iron_battleaxe",
+      "lotr_port:iron_dagger",
       "minecraft:iron_sword"
-    ],
-    "head": "lotr_port:leather_hat"
+    ]
   },
   "names": "lotr_port:bree_male",
   "speech": "lotr_port:bree/ruffian",

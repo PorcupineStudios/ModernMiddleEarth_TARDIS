@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:dale/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:silver_coin"
+    },
+    "title": {
+      "translate": "lotr.achievement.tradeDaleMerchant.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.tradeDaleMerchant.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

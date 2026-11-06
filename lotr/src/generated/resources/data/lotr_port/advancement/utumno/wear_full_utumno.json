@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:utumno/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:utumno_chestplate"
+    },
+    "title": {
+      "translate": "lotr.achievement.wearFullUtumno.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.wearFullUtumno.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

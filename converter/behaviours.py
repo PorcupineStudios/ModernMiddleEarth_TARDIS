@@ -19,7 +19,10 @@ BEHAVIOURS = (
     ("LOTREntityGollum", "gollum"),
     ("LOTREntityWarg", "warg"),
     ("LOTREntityHalfTroll", "half_troll"),
+    ("EntityAnimal", "animal"),
 )
+# LOTR animals that turn on what hurts them (LOTREntityBear, lions, rhinos, aurochs); every other animal panics
+FIGHTS_BACK = ("LOTREntityBear", "LOTREntityLionBase", "LOTREntityRhino", "LOTREntityAurochs", "LOTREntityCrocodile")
 
 # Shared constants (LOTR class they come from)
 CONSTANTS = {
@@ -93,6 +96,9 @@ def behaviour_data(e, jar):
         data["sun_immune"] = 1 if any(_sets_true(jar, c, "trollImmuneToSun") for c in classes) else 0
         if "LOTREntityMountainTrollChieftain" in chain:
             data["two_heads"] = 1
+    if "EntityAnimal" in chain:
+        data["fights_back"] = 1 if any(c in chain for c in FIGHTS_BACK) else 0
+        data["panic_speed"] = 1.25  # EntityAnimal's EntityAIPanic speed in LOTR's animals
     if "LOTREntitySpiderBase" in chain:
         # LOTREntityMirkwoodSpider: size 0-2, venom half none half slowness/poison; Mordor: size 1-3, poison;
         # Utumno ice spiders: size 1-3, slowness

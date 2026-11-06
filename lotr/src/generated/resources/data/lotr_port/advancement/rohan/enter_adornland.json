@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:rohan/root",
+  "display": {
+    "icon": {
+      "id": "minecraft:skull"
+    },
+    "title": {
+      "translate": "lotr.achievement.enterAdornland.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.enterAdornland.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

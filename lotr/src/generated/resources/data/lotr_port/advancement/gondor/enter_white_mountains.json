@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:gondor/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:gondor_rock"
+    },
+    "title": {
+      "translate": "lotr.achievement.enterWhiteMountains.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.enterWhiteMountains.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

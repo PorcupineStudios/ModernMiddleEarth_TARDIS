@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:rhovanion/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:yellow_iris"
+    },
+    "title": {
+      "translate": "lotr.achievement.enterGladdenFields.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.enterGladdenFields.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:gondor/root",
+  "display": {
+    "icon": {
+      "id": "minecraft:iron_hoe"
+    },
+    "title": {
+      "translate": "lotr.achievement.hireGondorFarmer.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.hireGondorFarmer.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

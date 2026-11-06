@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:blue_mountains/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:dwarven_marriage_ring"
+    },
+    "title": {
+      "translate": "lotr.achievement.marryBlueDwarf.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.marryBlueDwarf.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

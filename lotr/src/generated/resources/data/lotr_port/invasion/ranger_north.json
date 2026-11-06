@@ -1,0 +1,9 @@
+{
+  "faction": "lotr_port:ranger_north",
+  "mobs": [
+    "lotr_port:ranger_north",
+    "lotr_port:ranger_north_banner_bearer"
+  ],
+  "icon": "lotr_port:ranger_bow",
+  "lang": "lotr.invasion.RANGER_NORTH"
+}

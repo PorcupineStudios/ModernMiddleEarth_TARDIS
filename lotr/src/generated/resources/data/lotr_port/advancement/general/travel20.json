@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:general/root",
+  "display": {
+    "icon": {
+      "id": "minecraft:compass"
+    },
+    "title": {
+      "translate": "lotr.achievement.travel20.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.travel20.desc"
+    },
+    "frame": "challenge"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

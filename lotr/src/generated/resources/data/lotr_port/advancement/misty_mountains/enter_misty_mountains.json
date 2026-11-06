@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:misty_mountains/root",
+  "display": {
+    "icon": {
+      "id": "minecraft:stone"
+    },
+    "title": {
+      "translate": "lotr.achievement.enterMistyMountains.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.enterMistyMountains.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

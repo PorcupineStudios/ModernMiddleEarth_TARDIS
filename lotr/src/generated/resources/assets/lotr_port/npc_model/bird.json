@@ -1,0 +1,680 @@
+{
+  "texture": [
+    64,
+    32
+  ],
+  "render_scale": 1.0,
+  "parts": {
+    "body": {
+      "pivot": [
+        0.0,
+        21.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "cubes": [
+        {
+          "uv": [
+            0,
+            7
+          ],
+          "origin": [
+            -1.5,
+            -2.0,
+            -2.0
+          ],
+          "size": [
+            3,
+            3,
+            5
+          ],
+          "inflate": 0.0,
+          "mirror": false
+        },
+        {
+          "uv": [
+            8,
+            0
+          ],
+          "origin": [
+            -1.0,
+            -1.5,
+            3.0
+          ],
+          "size": [
+            2,
+            1,
+            3
+          ],
+          "inflate": 0.0,
+          "mirror": false
+        },
+        {
+          "uv": [
+            8,
+            4
+          ],
+          "origin": [
+            -1.0,
+            -0.5,
+            3.0
+          ],
+          "size": [
+            2,
+            1,
+            2
+          ],
+          "inflate": 0.0,
+          "mirror": false
+        }
+      ],
+      "children": [
+        {
+          "pivot": [
+            0.0,
+            -2.0,
+            -2.0
+          ],
+          "rotation": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "cubes": [
+            {
+              "uv": [
+                0,
+                0
+              ],
+              "origin": [
+                -1.0,
+                -1.5,
+                -1.5
+              ],
+              "size": [
+                2,
+                2,
+                2
+              ],
+              "inflate": 0.0,
+              "mirror": false
+            },
+            {
+              "uv": [
+                0,
+                4
+              ],
+              "origin": [
+                -0.5,
+                -0.5,
+                -2.5
+              ],
+              "size": [
+                1,
+                1,
+                1
+              ],
+              "inflate": 0.0,
+              "mirror": false
+            },
+            {
+              "uv": [
+                15,
+                0
+              ],
+              "origin": [
+                -0.5,
+                -0.5,
+                -3.5
+              ],
+              "size": [
+                1,
+                1,
+                2
+              ],
+              "inflate": 0.0,
+              "mirror": false
+            }
+          ],
+          "children": [],
+          "name": "head"
+        },
+        {
+          "pivot": [
+            -1.5,
+            -1.5,
+            0.5
+          ],
+          "rotation": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "cubes": [
+            {
+              "uv": [
+                16,
+                7
+              ],
+              "origin": [
+                0.0,
+                0.0,
+                -2.0
+              ],
+              "size": [
+                0,
+                5,
+                4
+              ],
+              "inflate": 0.0,
+              "mirror": false
+            }
+          ],
+          "children": [],
+          "name": "wing_right"
+        },
+        {
+          "pivot": [
+            1.5,
+            -1.5,
+            0.5
+          ],
+          "rotation": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "cubes": [
+            {
+              "uv": [
+                16,
+                7
+              ],
+              "origin": [
+                0.0,
+                0.0,
+                -2.0
+              ],
+              "size": [
+                0,
+                5,
+                4
+              ],
+              "inflate": 0.0,
+              "mirror": true
+            }
+          ],
+          "children": [],
+          "name": "wing_left"
+        },
+        {
+          "pivot": [
+            -0.3,
+            1.0,
+            0.5
+          ],
+          "rotation": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "cubes": [
+            {
+              "uv": [
+                0,
+                16
+              ],
+              "origin": [
+                -1.0,
+                0.0,
+                -1.5
+              ],
+              "size": [
+                1,
+                2,
+                2
+              ],
+              "inflate": 0.0,
+              "mirror": false
+            }
+          ],
+          "children": [],
+          "name": "leg_right"
+        },
+        {
+          "pivot": [
+            0.3,
+            1.0,
+            0.5
+          ],
+          "rotation": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "cubes": [
+            {
+              "uv": [
+                0,
+                16
+              ],
+              "origin": [
+                0.0,
+                0.0,
+                -1.5
+              ],
+              "size": [
+                1,
+                2,
+                2
+              ],
+              "inflate": 0.0,
+              "mirror": true
+            }
+          ],
+          "children": [],
+          "name": "leg_left"
+        }
+      ]
+    }
+  },
+  "hidden": [],
+  "renderers": [
+    {
+      "name": "LOTRRenderBird",
+      "pre": {
+        "ops": [
+          [
+            "when",
+            [
+              "not",
+              [
+                "ref",
+                7
+              ]
+            ],
+            [
+              [
+                "ref",
+                8
+              ]
+            ]
+          ],
+          [
+            "when",
+            [
+              "and",
+              [
+                "ref",
+                7
+              ],
+              [
+                "not",
+                [
+                  "ref",
+                  9
+                ]
+              ]
+            ],
+            [
+              [
+                "ref",
+                8
+              ]
+            ]
+          ],
+          [
+            "when",
+            [
+              "and",
+              [
+                "ref",
+                7
+              ],
+              [
+                "ref",
+                9
+              ],
+              [
+                "not",
+                [
+                  "eq",
+                  [
+                    "in",
+                    "entity.is.LOTREntitySeagull"
+                  ],
+                  0
+                ]
+              ]
+            ],
+            [
+              [
+                "ref",
+                8
+              ]
+            ]
+          ]
+        ],
+        "color": [
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "blend": false
+      }
+    }
+  ],
+  "anim": {
+    "biped": false,
+    "set": [
+      [
+        "body",
+        "xRot",
+        [
+          "ite",
+          [
+            "ref",
+            2
+          ],
+          -0.17453292519943295,
+          0.0
+        ]
+      ],
+      [
+        "head",
+        "xRot",
+        [
+          "ite",
+          [
+            "ref",
+            2
+          ],
+          0.3490658503988659,
+          0.0
+        ]
+      ],
+      [
+        "wing_right",
+        "zRot",
+        [
+          "ite",
+          [
+            "ref",
+            2
+          ],
+          [
+            "ref",
+            4
+          ],
+          [
+            "ref",
+            3
+          ]
+        ]
+      ],
+      [
+        "wing_left",
+        "zRot",
+        [
+          "ite",
+          [
+            "ref",
+            2
+          ],
+          [
+            "neg",
+            [
+              "ref",
+              4
+            ]
+          ],
+          [
+            "neg",
+            [
+              "ref",
+              3
+            ]
+          ]
+        ]
+      ],
+      [
+        "leg_left",
+        "xRot",
+        [
+          "ite",
+          [
+            "ref",
+            2
+          ],
+          [
+            "add",
+            0.17453292519943295,
+            [
+              "mul",
+              [
+                "cos",
+                [
+                  "add",
+                  [
+                    "ref",
+                    5
+                  ],
+                  3.1415929794311523
+                ]
+              ],
+              [
+                "in",
+                "amount"
+              ]
+            ]
+          ],
+          0.0
+        ]
+      ],
+      [
+        "leg_right",
+        "xRot",
+        [
+          "ite",
+          [
+            "ref",
+            2
+          ],
+          [
+            "add",
+            0.17453292519943295,
+            [
+              "mul",
+              [
+                "cos",
+                [
+                  "ref",
+                  5
+                ]
+              ],
+              [
+                "in",
+                "amount"
+              ]
+            ]
+          ],
+          0.0
+        ]
+      ],
+      [
+        "leg_right",
+        "y",
+        [
+          "ref",
+          6
+        ]
+      ],
+      [
+        "leg_left",
+        "y",
+        [
+          "ref",
+          6
+        ]
+      ]
+    ],
+    "draws": [
+      {
+        "part": "body",
+        "ops": [],
+        "color": [
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "blend": false,
+        "cond": true
+      }
+    ]
+  },
+  "defs": [
+    [
+      "not",
+      [
+        "eq",
+        [
+          "in",
+          "entity.isBirdStill"
+        ],
+        0
+      ]
+    ],
+    [
+      "not",
+      [
+        "le",
+        [
+          "in",
+          "entity.flapTime"
+        ],
+        0
+      ]
+    ],
+    [
+      "and",
+      [
+        "ref",
+        0
+      ],
+      [
+        "or",
+        [
+          "ref",
+          1
+        ],
+        [
+          "le",
+          [
+            "in",
+            "entity.flapTime"
+          ],
+          0
+        ]
+      ]
+    ],
+    [
+      "add",
+      1.5707963267948966,
+      [
+        "mul",
+        [
+          "cos",
+          [
+            "mul",
+            [
+              "in",
+              "age"
+            ],
+            1.5
+          ]
+        ],
+        0.5235987755982988
+      ]
+    ],
+    [
+      "ite",
+      [
+        "and",
+        [
+          "ref",
+          0
+        ],
+        [
+          "ref",
+          1
+        ]
+      ],
+      [
+        "ref",
+        3
+      ],
+      0.5235987755982988
+    ],
+    [
+      "mul",
+      [
+        "in",
+        "limb"
+      ],
+      0.6661999821662903
+    ],
+    [
+      "ite",
+      [
+        "ref",
+        2
+      ],
+      1.0,
+      0.0
+    ],
+    [
+      "eq",
+      [
+        "in",
+        "entity.is.LOTREntityCrebain"
+      ],
+      0
+    ],
+    [
+      "scale",
+      [
+        "in",
+        "static"
+      ],
+      [
+        "in",
+        "static"
+      ],
+      [
+        "in",
+        "static"
+      ]
+    ],
+    [
+      "eq",
+      [
+        "in",
+        "entity.is.LOTREntityGorcrow"
+      ],
+      0
+    ]
+  ],
+  "inputs": [
+    "flapTime",
+    "is.LOTREntityCrebain",
+    "is.LOTREntityGorcrow",
+    "is.LOTREntitySeagull",
+    "isBirdStill"
+  ]
+}

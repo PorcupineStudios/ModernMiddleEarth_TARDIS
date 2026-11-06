@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:lindon/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:elven_steel_ingot"
+    },
+    "title": {
+      "translate": "lotr.achievement.smeltElfSteel.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.smeltElfSteel.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

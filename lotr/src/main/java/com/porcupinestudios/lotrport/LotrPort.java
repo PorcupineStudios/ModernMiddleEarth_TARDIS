@@ -54,6 +54,7 @@ public final class LotrPort {
         LotrRegistries.register(modBus);
         LotrSounds.register(modBus);
         LotrBlocks.register(modBus);
+        com.porcupinestudios.lotrport.content.LotrComponents.register(modBus);
         LotrItems.register(modBus);
         LotrTabs.register(modBus);
         LotrRecipes.register(modBus);
@@ -81,6 +82,9 @@ public final class LotrPort {
         AiData.register();
         AiRulers.register();
         Recruiting.register();
+        com.porcupinestudios.lotrport.npc.InvasionSpawner.register();
+        com.porcupinestudios.lotrport.progress.Achievements.register();
+        com.porcupinestudios.lotrport.progress.Titles.register();
         NeoForge.EVENT_BUS.addListener((RegisterCommandsEvent event) -> {
             LotrCommand.register(event.getDispatcher());
             FactionCommand.register(event.getDispatcher());
@@ -88,6 +92,9 @@ public final class LotrPort {
             TravelCommand.register(event.getDispatcher());
             ColonyCommand.register(event.getDispatcher());
             AiCommand.register(event.getDispatcher());
+            com.porcupinestudios.lotrport.progress.Titles.registerCommands(event.getDispatcher());
+            com.porcupinestudios.lotrport.progress.Cosmetics.registerCommands(event.getDispatcher());
+            com.porcupinestudios.lotrport.progress.Calendar.registerCommands(event.getDispatcher());
         });
     }
 

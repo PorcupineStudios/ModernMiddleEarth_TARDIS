@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:rhovanion/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:mordor_gravel"
+    },
+    "title": {
+      "translate": "lotr.achievement.enterDagorlad.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.enterDagorlad.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

@@ -7933,325 +7933,847 @@
   },
   {
     "id": "ale",
-    "kind": "item",
+    "kind": "drink",
     "stack": 1,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "drink": {
+      "heal": 3,
+      "saturation": 0.3,
+      "alcohol": 0.3,
+      "effects": [],
+      "damage": 0,
+      "cures": false,
+      "brewed": true,
+      "food_drink": false
+    }
   },
   {
     "id": "apple_juice",
-    "kind": "item",
+    "kind": "drink",
     "stack": 1,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "drink": {
+      "heal": 6,
+      "saturation": 0.6,
+      "alcohol": 0.0,
+      "effects": [],
+      "damage": 0,
+      "cures": false,
+      "brewed": false,
+      "food_drink": true
+    }
   },
   {
     "id": "arak",
-    "kind": "item",
+    "kind": "drink",
     "stack": 1,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "drink": {
+      "heal": 4,
+      "saturation": 0.4,
+      "alcohol": 1.4,
+      "effects": [],
+      "damage": 0,
+      "cures": false,
+      "brewed": true,
+      "food_drink": false
+    }
   },
   {
     "id": "athelas_brew",
-    "kind": "item",
+    "kind": "drink",
     "stack": 1,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "drink": {
+      "heal": 6,
+      "saturation": 0.6,
+      "alcohol": 0.0,
+      "effects": [
+        {
+          "id": "minecraft:strength",
+          "duration": 2400,
+          "amplifier": 0
+        },
+        {
+          "id": "minecraft:regeneration",
+          "duration": 1200,
+          "amplifier": 0
+        }
+      ],
+      "damage": 0,
+      "cures": false,
+      "brewed": true,
+      "food_drink": false
+    }
   },
   {
     "id": "banana_beer",
-    "kind": "item",
+    "kind": "drink",
     "stack": 1,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "drink": {
+      "heal": 4,
+      "saturation": 0.6,
+      "alcohol": 0.5,
+      "effects": [],
+      "damage": 0,
+      "cures": false,
+      "brewed": true,
+      "food_drink": false
+    }
   },
   {
     "id": "blackberry_juice",
-    "kind": "item",
+    "kind": "drink",
     "stack": 1,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "drink": {
+      "heal": 5,
+      "saturation": 0.5,
+      "alcohol": 0.0,
+      "effects": [],
+      "damage": 0,
+      "cures": false,
+      "brewed": false,
+      "food_drink": true
+    }
   },
   {
     "id": "blueberry_juice",
-    "kind": "item",
+    "kind": "drink",
     "stack": 1,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "drink": {
+      "heal": 5,
+      "saturation": 0.5,
+      "alcohol": 0.0,
+      "effects": [],
+      "damage": 0,
+      "cures": false,
+      "brewed": false,
+      "food_drink": true
+    }
   },
   {
     "id": "cactus_liqueur",
-    "kind": "item",
+    "kind": "drink",
     "stack": 1,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "drink": {
+      "heal": 2,
+      "saturation": 0.3,
+      "alcohol": 0.8,
+      "effects": [],
+      "damage": 0,
+      "cures": false,
+      "brewed": true,
+      "food_drink": false
+    }
   },
   {
     "id": "carrot_wine",
-    "kind": "item",
+    "kind": "drink",
     "stack": 1,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "drink": {
+      "heal": 3,
+      "saturation": 0.4,
+      "alcohol": 0.8,
+      "effects": [],
+      "damage": 0,
+      "cures": false,
+      "brewed": true,
+      "food_drink": false
+    }
   },
   {
     "id": "cherry_liqueur",
-    "kind": "item",
+    "kind": "drink",
     "stack": 1,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "drink": {
+      "heal": 3,
+      "saturation": 0.3,
+      "alcohol": 1.0,
+      "effects": [],
+      "damage": 0,
+      "cures": false,
+      "brewed": true,
+      "food_drink": false
+    }
   },
   {
     "id": "chocolate",
-    "kind": "item",
+    "kind": "drink",
     "stack": 1,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "drink": {
+      "heal": 6,
+      "saturation": 0.6,
+      "alcohol": 0.0,
+      "effects": [],
+      "damage": 0,
+      "cures": false,
+      "brewed": false,
+      "food_drink": true
+    }
   },
   {
     "id": "cider",
-    "kind": "item",
+    "kind": "drink",
     "stack": 1,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "drink": {
+      "heal": 4,
+      "saturation": 0.4,
+      "alcohol": 0.3,
+      "effects": [],
+      "damage": 0,
+      "cures": false,
+      "brewed": true,
+      "food_drink": false
+    }
   },
   {
     "id": "corn_liquor",
-    "kind": "item",
+    "kind": "drink",
     "stack": 1,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "drink": {
+      "heal": 3,
+      "saturation": 0.3,
+      "alcohol": 1.0,
+      "effects": [],
+      "damage": 0,
+      "cures": false,
+      "brewed": true,
+      "food_drink": false
+    }
   },
   {
     "id": "cranberry_juice",
-    "kind": "item",
+    "kind": "drink",
     "stack": 1,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "drink": {
+      "heal": 5,
+      "saturation": 0.5,
+      "alcohol": 0.0,
+      "effects": [],
+      "damage": 0,
+      "cures": false,
+      "brewed": false,
+      "food_drink": true
+    }
   },
   {
     "id": "dwarven_ale",
-    "kind": "item",
+    "kind": "drink",
     "stack": 1,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "drink": {
+      "heal": 3,
+      "saturation": 0.3,
+      "alcohol": 0.4,
+      "effects": [],
+      "damage": 0,
+      "cures": false,
+      "brewed": true,
+      "food_drink": false
+    }
   },
   {
     "id": "dwarven_tonic",
-    "kind": "item",
+    "kind": "drink",
     "stack": 1,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "drink": {
+      "heal": 4,
+      "saturation": 0.4,
+      "alcohol": 0.2,
+      "effects": [
+        {
+          "id": "minecraft:night_vision",
+          "duration": 4800,
+          "amplifier": 0
+        }
+      ],
+      "damage": 0,
+      "cures": false,
+      "brewed": true,
+      "food_drink": false
+    }
   },
   {
     "id": "elderberry_juice",
-    "kind": "item",
+    "kind": "drink",
     "stack": 1,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "drink": {
+      "heal": 5,
+      "saturation": 0.5,
+      "alcohol": 0.0,
+      "effects": [],
+      "damage": 0,
+      "cures": false,
+      "brewed": false,
+      "food_drink": true
+    }
   },
   {
     "id": "lemon_liqueur",
-    "kind": "item",
+    "kind": "drink",
     "stack": 1,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "drink": {
+      "heal": 3,
+      "saturation": 0.3,
+      "alcohol": 1.0,
+      "effects": [],
+      "damage": 0,
+      "cures": false,
+      "brewed": true,
+      "food_drink": false
+    }
   },
   {
     "id": "lemonade",
-    "kind": "item",
+    "kind": "drink",
     "stack": 1,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "drink": {
+      "heal": 5,
+      "saturation": 0.3,
+      "alcohol": 0.0,
+      "effects": [],
+      "damage": 0,
+      "cures": false,
+      "brewed": false,
+      "food_drink": true
+    }
   },
   {
     "id": "lime_liqueur",
-    "kind": "item",
+    "kind": "drink",
     "stack": 1,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "drink": {
+      "heal": 3,
+      "saturation": 0.3,
+      "alcohol": 1.0,
+      "effects": [],
+      "damage": 0,
+      "cures": false,
+      "brewed": true,
+      "food_drink": false
+    }
   },
   {
     "id": "mango_juice",
-    "kind": "item",
+    "kind": "drink",
     "stack": 1,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "drink": {
+      "heal": 6,
+      "saturation": 0.6,
+      "alcohol": 0.0,
+      "effects": [],
+      "damage": 0,
+      "cures": false,
+      "brewed": false,
+      "food_drink": true
+    }
   },
   {
     "id": "maple_beer",
-    "kind": "item",
+    "kind": "drink",
     "stack": 1,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "drink": {
+      "heal": 4,
+      "saturation": 0.6,
+      "alcohol": 0.4,
+      "effects": [],
+      "damage": 0,
+      "cures": false,
+      "brewed": true,
+      "food_drink": false
+    }
   },
   {
     "id": "mead",
-    "kind": "item",
+    "kind": "drink",
     "stack": 1,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "drink": {
+      "heal": 4,
+      "saturation": 0.4,
+      "alcohol": 0.6,
+      "effects": [],
+      "damage": 0,
+      "cures": false,
+      "brewed": true,
+      "food_drink": false
+    }
   },
   {
     "id": "melon_liqueur",
-    "kind": "item",
+    "kind": "drink",
     "stack": 1,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "drink": {
+      "heal": 3,
+      "saturation": 0.3,
+      "alcohol": 1.0,
+      "effects": [],
+      "damage": 0,
+      "cures": false,
+      "brewed": true,
+      "food_drink": false
+    }
   },
   {
     "id": "milk",
-    "kind": "item",
+    "kind": "drink",
     "stack": 1,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "drink": {
+      "heal": 0,
+      "saturation": 0.0,
+      "alcohol": 0.0,
+      "effects": [],
+      "damage": 0,
+      "cures": true,
+      "brewed": false,
+      "food_drink": false
+    }
   },
   {
     "id": "miruvor",
-    "kind": "item",
+    "kind": "drink",
     "stack": 1,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "drink": {
+      "heal": 8,
+      "saturation": 0.8,
+      "alcohol": 0.0,
+      "effects": [
+        {
+          "id": "minecraft:strength",
+          "duration": 800,
+          "amplifier": 0
+        },
+        {
+          "id": "minecraft:speed",
+          "duration": 800,
+          "amplifier": 0
+        }
+      ],
+      "damage": 0,
+      "cures": false,
+      "brewed": true,
+      "food_drink": false
+    }
   },
   {
     "id": "morgul_draught",
-    "kind": "item",
+    "kind": "drink",
     "stack": 1,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "drink": {
+      "heal": 4,
+      "saturation": 0.4,
+      "alcohol": 0.0,
+      "effects": [
+        {
+          "id": "minecraft:night_vision",
+          "duration": 6000,
+          "amplifier": 0
+        }
+      ],
+      "damage": 3,
+      "cures": false,
+      "brewed": true,
+      "food_drink": false
+    }
   },
   {
     "id": "orange_juice",
-    "kind": "item",
+    "kind": "drink",
     "stack": 1,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "drink": {
+      "heal": 6,
+      "saturation": 0.6,
+      "alcohol": 0.0,
+      "effects": [],
+      "damage": 0,
+      "cures": false,
+      "brewed": false,
+      "food_drink": true
+    }
   },
   {
     "id": "orc_draught",
-    "kind": "item",
+    "kind": "drink",
     "stack": 1,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "drink": {
+      "heal": 6,
+      "saturation": 0.6,
+      "alcohol": 0.0,
+      "effects": [
+        {
+          "id": "minecraft:strength",
+          "duration": 1200,
+          "amplifier": 0
+        },
+        {
+          "id": "minecraft:speed",
+          "duration": 1200,
+          "amplifier": 0
+        }
+      ],
+      "damage": 2,
+      "cures": false,
+      "brewed": true,
+      "food_drink": false
+    }
   },
   {
     "id": "perry",
-    "kind": "item",
+    "kind": "drink",
     "stack": 1,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "drink": {
+      "heal": 4,
+      "saturation": 0.4,
+      "alcohol": 0.3,
+      "effects": [],
+      "damage": 0,
+      "cures": false,
+      "brewed": true,
+      "food_drink": false
+    }
   },
   {
     "id": "plum_kvass",
-    "kind": "item",
+    "kind": "drink",
     "stack": 1,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "drink": {
+      "heal": 4,
+      "saturation": 0.4,
+      "alcohol": 0.2,
+      "effects": [],
+      "damage": 0,
+      "cures": false,
+      "brewed": true,
+      "food_drink": false
+    }
   },
   {
     "id": "pomegranate_juice",
-    "kind": "item",
+    "kind": "drink",
     "stack": 1,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "drink": {
+      "heal": 6,
+      "saturation": 0.6,
+      "alcohol": 0.0,
+      "effects": [],
+      "damage": 0,
+      "cures": false,
+      "brewed": false,
+      "food_drink": true
+    }
   },
   {
     "id": "pomegranate_wine",
-    "kind": "item",
+    "kind": "drink",
     "stack": 1,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "drink": {
+      "heal": 4,
+      "saturation": 0.4,
+      "alcohol": 0.9,
+      "effects": [],
+      "damage": 0,
+      "cures": false,
+      "brewed": true,
+      "food_drink": false
+    }
   },
   {
     "id": "raspberry_juice",
-    "kind": "item",
+    "kind": "drink",
     "stack": 1,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "drink": {
+      "heal": 5,
+      "saturation": 0.5,
+      "alcohol": 0.0,
+      "effects": [],
+      "damage": 0,
+      "cures": false,
+      "brewed": false,
+      "food_drink": true
+    }
   },
   {
     "id": "red_grape_juice",
-    "kind": "item",
+    "kind": "drink",
     "stack": 1,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "drink": {
+      "heal": 5,
+      "saturation": 0.5,
+      "alcohol": 0.0,
+      "effects": [],
+      "damage": 0,
+      "cures": false,
+      "brewed": false,
+      "food_drink": true
+    }
   },
   {
     "id": "red_wine",
-    "kind": "item",
+    "kind": "drink",
     "stack": 1,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "drink": {
+      "heal": 4,
+      "saturation": 0.4,
+      "alcohol": 1.0,
+      "effects": [],
+      "damage": 0,
+      "cures": false,
+      "brewed": true,
+      "food_drink": false
+    }
   },
   {
     "id": "rum",
-    "kind": "item",
+    "kind": "drink",
     "stack": 1,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "drink": {
+      "heal": 3,
+      "saturation": 0.3,
+      "alcohol": 1.5,
+      "effects": [],
+      "damage": 0,
+      "cures": false,
+      "brewed": true,
+      "food_drink": false
+    }
   },
   {
     "id": "soured_milk",
-    "kind": "item",
+    "kind": "drink",
     "stack": 1,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "drink": {
+      "heal": 5,
+      "saturation": 0.5,
+      "alcohol": 0.2,
+      "effects": [],
+      "damage": 0,
+      "cures": false,
+      "brewed": true,
+      "food_drink": false
+    }
   },
   {
     "id": "taurethrim_cocoa",
-    "kind": "item",
+    "kind": "drink",
     "stack": 1,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "drink": {
+      "heal": 6,
+      "saturation": 0.6,
+      "alcohol": 0.0,
+      "effects": [
+        {
+          "id": "minecraft:strength",
+          "duration": 800,
+          "amplifier": 0
+        },
+        {
+          "id": "minecraft:speed",
+          "duration": 800,
+          "amplifier": 0
+        }
+      ],
+      "damage": 0,
+      "cures": false,
+      "brewed": true,
+      "food_drink": false
+    }
   },
   {
     "id": "jungle_remedy",
-    "kind": "item",
+    "kind": "drink",
     "stack": 1,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "drink": {
+      "heal": 0,
+      "saturation": 0.0,
+      "alcohol": 0.0,
+      "effects": [],
+      "damage": 0,
+      "cures": false,
+      "brewed": false,
+      "food_drink": false
+    }
   },
   {
     "id": "termite_tequila",
-    "kind": "item",
+    "kind": "drink",
     "stack": 1,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "drink": {
+      "heal": 3,
+      "saturation": 0.3,
+      "alcohol": 1.5,
+      "effects": [],
+      "damage": 0,
+      "cures": false,
+      "brewed": true,
+      "food_drink": false
+    }
   },
   {
     "id": "torog_draught",
-    "kind": "item",
+    "kind": "drink",
     "stack": 1,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "drink": {
+      "heal": 6,
+      "saturation": 0.6,
+      "alcohol": 0.6,
+      "effects": [
+        {
+          "id": "minecraft:strength",
+          "duration": 1800,
+          "amplifier": 0
+        }
+      ],
+      "damage": 0,
+      "cures": false,
+      "brewed": true,
+      "food_drink": false
+    }
   },
   {
     "id": "vodka",
-    "kind": "item",
+    "kind": "drink",
     "stack": 1,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "drink": {
+      "heal": 3,
+      "saturation": 0.3,
+      "alcohol": 1.75,
+      "effects": [],
+      "damage": 0,
+      "cures": false,
+      "brewed": true,
+      "food_drink": false
+    }
   },
   {
     "id": "water",
-    "kind": "item",
+    "kind": "drink",
     "stack": 1,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "drink": {
+      "heal": 0,
+      "saturation": 0.0,
+      "alcohol": 0.0,
+      "effects": [],
+      "damage": 0,
+      "cures": false,
+      "brewed": false,
+      "food_drink": false
+    }
   },
   {
     "id": "green_grape_juice",
-    "kind": "item",
+    "kind": "drink",
     "stack": 1,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "drink": {
+      "heal": 5,
+      "saturation": 0.5,
+      "alcohol": 0.0,
+      "effects": [],
+      "damage": 0,
+      "cures": false,
+      "brewed": false,
+      "food_drink": true
+    }
   },
   {
     "id": "white_wine",
-    "kind": "item",
+    "kind": "drink",
     "stack": 1,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "drink": {
+      "heal": 4,
+      "saturation": 0.4,
+      "alcohol": 0.9,
+      "effects": [],
+      "damage": 0,
+      "cures": false,
+      "brewed": true,
+      "food_drink": false
+    }
   },
   {
     "id": "mushroom_pie",

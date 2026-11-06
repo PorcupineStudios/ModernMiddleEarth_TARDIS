@@ -1,0 +1,16 @@
+{
+  "faction": "lotr_port:isengard",
+  "mobs": [
+    "lotr_port:isengard_snaga",
+    "lotr_port:isengard_snaga_archer",
+    "lotr_port:uruk_hai",
+    "lotr_port:uruk_hai_crossbower",
+    "lotr_port:uruk_hai_berserker",
+    "lotr_port:uruk_hai_sapper",
+    "lotr_port:uruk_hai_banner_bearer",
+    "lotr_port:uruk_warg",
+    "lotr_port:uruk_warg_bombardier"
+  ],
+  "icon": "lotr_port:uruk_cleaver",
+  "lang": "lotr.invasion.URUK_HAI"
+}

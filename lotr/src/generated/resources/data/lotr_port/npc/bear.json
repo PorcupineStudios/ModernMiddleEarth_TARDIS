@@ -1,0 +1,24 @@
+{
+  "model": "lotr_port:bear",
+  "width": 1.6,
+  "height": 1.8,
+  "behaviours": [
+    "animal"
+  ],
+  "lotr_classes": [
+    "LOTREntityBear",
+    "EntityAnimal",
+    "EntityAgeable",
+    "EntityCreature",
+    "EntityLiving",
+    "EntityLivingBase"
+  ],
+  "behaviour_data": {
+    "fights_back": 1,
+    "panic_speed": 1.25,
+    "state.renderer": 0
+  },
+  "health": 40.0,
+  "speed": 0.2,
+  "attack": 2.0
+}

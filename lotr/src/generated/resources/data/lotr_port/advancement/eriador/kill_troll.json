@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:eriador/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:troll_bone"
+    },
+    "title": {
+      "translate": "lotr.achievement.killTroll.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.killTroll.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

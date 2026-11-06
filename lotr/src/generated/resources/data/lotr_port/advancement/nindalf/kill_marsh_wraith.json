@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:nindalf/root",
+  "display": {
+    "icon": {
+      "id": "minecraft:skull"
+    },
+    "title": {
+      "translate": "lotr.achievement.killMarshWraith.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.killMarshWraith.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

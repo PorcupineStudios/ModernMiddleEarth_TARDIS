@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:near_harad/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:bronze_hoe"
+    },
+    "title": {
+      "translate": "lotr.achievement.hireHarnedorFarmer.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.hireHarnedorFarmer.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

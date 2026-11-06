@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:lothlorien/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:elf_bone"
+    },
+    "title": {
+      "translate": "lotr.achievement.killElf.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.killElf.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

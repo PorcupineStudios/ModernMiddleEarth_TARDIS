@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:general/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:mordor_spear"
+    },
+    "title": {
+      "translate": "lotr.achievement.hitByOrcSpear.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.hitByOrcSpear.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

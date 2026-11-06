@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:fangorn/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:mallorn_ent_trunk"
+    },
+    "title": {
+      "translate": "lotr.achievement.killMallornEnt.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.killMallornEnt.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

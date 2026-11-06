@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:mordor/root",
+  "display": {
+    "icon": {
+      "id": "minecraft:skull"
+    },
+    "title": {
+      "translate": "lotr.achievement.enterMorgulVale.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.enterMorgulVale.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

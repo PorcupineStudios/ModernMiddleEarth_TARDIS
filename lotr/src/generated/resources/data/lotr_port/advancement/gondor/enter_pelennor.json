@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:gondor/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:gondor_brick"
+    },
+    "title": {
+      "translate": "lotr.achievement.enterPelennor.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.enterPelennor.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:mordor/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:morgul_chestplate"
+    },
+    "title": {
+      "translate": "lotr.achievement.wearFullMorgul.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.wearFullMorgul.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

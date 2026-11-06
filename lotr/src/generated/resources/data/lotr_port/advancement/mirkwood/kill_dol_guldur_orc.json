@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:mirkwood/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:orc_bone"
+    },
+    "title": {
+      "translate": "lotr.achievement.killDolGuldurOrc.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.killDolGuldurOrc.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

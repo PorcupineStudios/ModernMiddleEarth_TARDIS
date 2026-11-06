@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:shire/root",
+  "display": {
+    "icon": {
+      "id": "minecraft:apple"
+    },
+    "title": {
+      "translate": "lotr.achievement.buyOrcharderFood.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.buyOrcharderFood.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

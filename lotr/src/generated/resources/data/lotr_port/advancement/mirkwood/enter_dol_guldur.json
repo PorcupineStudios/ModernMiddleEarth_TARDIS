@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:mirkwood/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:dol_guldur_brick"
+    },
+    "title": {
+      "translate": "lotr.achievement.enterDolGuldur.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.enterDolGuldur.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

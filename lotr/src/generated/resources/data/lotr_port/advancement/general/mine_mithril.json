@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:general/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:mithril_ore"
+    },
+    "title": {
+      "translate": "lotr.achievement.mineMithril.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.mineMithril.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:perdorogwaith/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:red_book"
+    },
+    "title": {
+      "translate": "lotr.achievement.doMiniquestHalfTroll.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.doMiniquestHalfTroll.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

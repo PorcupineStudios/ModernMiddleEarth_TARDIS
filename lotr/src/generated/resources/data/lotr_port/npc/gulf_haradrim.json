@@ -14,7 +14,6 @@
   "gear": {
     "mainhand": "lotr_port:haradric_dagger"
   },
-  "names": "lotr_port:gulf_male",
   "speech": "lotr_port:near_harad/merchant",
   "quests": "lotr_port:gulf_harad"
 }

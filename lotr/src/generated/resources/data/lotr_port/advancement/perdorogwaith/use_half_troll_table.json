@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:perdorogwaith/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:half_troll_crafting_table"
+    },
+    "title": {
+      "translate": "lotr.achievement.useHalfTrollTable.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.useHalfTrollTable.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

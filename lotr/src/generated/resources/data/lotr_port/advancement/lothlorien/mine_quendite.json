@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:lothlorien/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:edhelvir_ore"
+    },
+    "title": {
+      "translate": "lotr.achievement.mineQuendite.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.mineQuendite.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

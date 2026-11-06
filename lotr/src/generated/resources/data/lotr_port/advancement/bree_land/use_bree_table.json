@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:bree_land/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:bree_land_crafting_table"
+    },
+    "title": {
+      "translate": "lotr.achievement.useBreeTable.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.useBreeTable.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

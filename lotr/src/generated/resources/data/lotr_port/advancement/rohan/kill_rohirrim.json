@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:rohan/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:rohirric_sword"
+    },
+    "title": {
+      "translate": "lotr.achievement.killRohirrim.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.killRohirrim.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

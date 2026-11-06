@@ -696,5 +696,110 @@
       "lotr_port:zebra/say"
     ],
     "subtitle": "subtitles.lotr_port.zebra.say"
+  },
+  "music.angmar": {
+    "sounds": []
+  },
+  "music.barrow_downs": {
+    "sounds": []
+  },
+  "music.bree": {
+    "sounds": []
+  },
+  "music.brown_lands": {
+    "sounds": []
+  },
+  "music.dale": {
+    "sounds": []
+  },
+  "music.dead_marshes": {
+    "sounds": []
+  },
+  "music.dorwinion": {
+    "sounds": []
+  },
+  "music.dunland": {
+    "sounds": []
+  },
+  "music.dwarven": {
+    "sounds": []
+  },
+  "music.enedwaith": {
+    "sounds": []
+  },
+  "music.eregion": {
+    "sounds": []
+  },
+  "music.eriador": {
+    "sounds": []
+  },
+  "music.fangorn": {
+    "sounds": []
+  },
+  "music.far_harad": {
+    "sounds": []
+  },
+  "music.far_harad_jungle": {
+    "sounds": []
+  },
+  "music.forodwaith": {
+    "sounds": []
+  },
+  "music.gondor": {
+    "sounds": []
+  },
+  "music.grey_mountains": {
+    "sounds": []
+  },
+  "music.isengard": {
+    "sounds": []
+  },
+  "music.lindon": {
+    "sounds": []
+  },
+  "music.lothlorien": {
+    "sounds": []
+  },
+  "music.mirkwood": {
+    "sounds": []
+  },
+  "music.misty_mountains": {
+    "sounds": []
+  },
+  "music.mordor": {
+    "sounds": []
+  },
+  "music.near_harad": {
+    "sounds": []
+  },
+  "music.old_forest": {
+    "sounds": []
+  },
+  "music.perdorogwaith": {
+    "sounds": []
+  },
+  "music.pukel": {
+    "sounds": []
+  },
+  "music.rhovanion": {
+    "sounds": []
+  },
+  "music.rhun": {
+    "sounds": []
+  },
+  "music.rivendell": {
+    "sounds": []
+  },
+  "music.rohan": {
+    "sounds": []
+  },
+  "music.sea": {
+    "sounds": []
+  },
+  "music.shire": {
+    "sounds": []
+  },
+  "music.woodland_realm": {
+    "sounds": []
   }
 }

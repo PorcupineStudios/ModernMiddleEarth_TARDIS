@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:angmar/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:angmar_crafting_table"
+    },
+    "title": {
+      "translate": "lotr.achievement.useAngmarTable.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.useAngmarTable.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

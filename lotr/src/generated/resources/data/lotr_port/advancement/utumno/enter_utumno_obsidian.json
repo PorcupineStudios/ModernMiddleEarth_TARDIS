@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:utumno/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:fiery_obsidian_utumno_brick"
+    },
+    "title": {
+      "translate": "lotr.achievement.enterUtumnoObsidian.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.enterUtumnoObsidian.desc"
+    },
+    "frame": "challenge"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

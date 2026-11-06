@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:shire/root",
+  "display": {
+    "icon": {
+      "id": "minecraft:saddle"
+    },
+    "title": {
+      "translate": "lotr.achievement.rideShirePony.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.rideShirePony.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

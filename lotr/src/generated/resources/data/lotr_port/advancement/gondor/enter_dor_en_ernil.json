@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:gondor/root",
+  "display": {
+    "icon": {
+      "id": "minecraft:feather"
+    },
+    "title": {
+      "translate": "lotr.achievement.enterDorEnErnil.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.enterDorEnErnil.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

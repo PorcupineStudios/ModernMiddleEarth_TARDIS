@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:bree_land/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:drystone"
+    },
+    "title": {
+      "translate": "lotr.achievement.enterBreeland.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.enterBreeland.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

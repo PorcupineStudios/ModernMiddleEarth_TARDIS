@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:near_harad/root",
+  "display": {
+    "icon": {
+      "id": "lotr_port:gulfen_crafting_table"
+    },
+    "title": {
+      "translate": "lotr.achievement.useGulfTable.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.useGulfTable.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

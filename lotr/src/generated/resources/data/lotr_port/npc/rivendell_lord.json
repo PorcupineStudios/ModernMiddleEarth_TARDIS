@@ -21,7 +21,7 @@
     "legs": "lotr_port:rivendell_leggings",
     "feet": "lotr_port:rivendell_boots"
   },
+  "names": "lotr_port:sindarin_male",
   "units": "lotr_port:rivendell_lord",
-  "speech": "lotr_port:rivendell/lord",
-  "quests": "lotr_port:rivendell"
+  "speech": "lotr_port:rivendell/lord"
 }

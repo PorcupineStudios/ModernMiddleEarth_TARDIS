@@ -10,6 +10,6 @@
   "health": 20.0,
   "speed": 0.2,
   "attack": 2.0,
-  "speech": "lotr_port:dorwinion/man",
-  "quests": "lotr_port:dorwinion"
+  "names": "lotr_port:dorwinion_male",
+  "speech": "lotr_port:dorwinion/man"
 }

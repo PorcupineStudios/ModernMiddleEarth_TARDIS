@@ -246,6 +246,7 @@ public final class NpcTests {
         LotrNpc troll = spawn(helper, "troll");
         troll.setPos(troll.getX(), helper.getLevel().getMaxBuildHeight() - 10, troll.getZ());
         troll.setNoGravity(true);
+        troll.setPersistenceRequired(); // no player near: it would despawn before its first tick
         troll.setState("burnTime", 2);
         helper.runAfterDelay(20, () -> {
             helper.assertTrue(troll.state("is.LOTREntityStoneTroll") > 0, "the troll did not turn to stone (burn "

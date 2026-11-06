@@ -1,0 +1,20 @@
+{
+  "parent": "lotr_port:shire/root",
+  "display": {
+    "icon": {
+      "id": "minecraft:saddle"
+    },
+    "title": {
+      "translate": "lotr.achievement.rideGiraffeShire.title"
+    },
+    "description": {
+      "translate": "lotr.achievement.rideGiraffeShire.desc"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "lotr": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}
