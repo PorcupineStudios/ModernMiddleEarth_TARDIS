@@ -1,0 +1,12 @@
+{
+  "type": "lotr_port:unsmelting",
+  "ingredients": [
+    {
+      "item": "lotr_port:taurethrim_helmet"
+    }
+  ],
+  "result": {
+    "id": "lotr_port:bronze_ingot",
+    "count": 5
+  }
+}

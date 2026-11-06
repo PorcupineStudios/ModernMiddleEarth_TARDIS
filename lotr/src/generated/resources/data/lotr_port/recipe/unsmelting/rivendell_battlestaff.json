@@ -1,0 +1,12 @@
+{
+  "type": "lotr_port:unsmelting",
+  "ingredients": [
+    {
+      "item": "lotr_port:rivendell_battlestaff"
+    }
+  ],
+  "result": {
+    "id": "lotr_port:elven_steel_ingot",
+    "count": 2
+  }
+}

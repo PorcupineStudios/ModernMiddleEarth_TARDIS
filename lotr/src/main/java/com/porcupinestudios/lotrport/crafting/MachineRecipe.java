@@ -34,7 +34,7 @@ public record MachineRecipe(Machine machine, Optional<ResourceLocation> station,
 
     public enum Machine {
         ALLOY_FORGE("alloy_forge"), MILLSTONE("millstone"), BREWING("brewing"), ENT_JAR("ent_jar"),
-        UNSMELTING("unsmelting");
+        UNSMELTING("unsmelting"), HOBBIT_OVEN("hobbit_oven"), KEBAB_STAND("kebab_stand");
 
         public final String id;
 

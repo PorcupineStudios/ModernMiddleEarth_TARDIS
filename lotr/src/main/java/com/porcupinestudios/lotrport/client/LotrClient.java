@@ -89,6 +89,13 @@ public final class LotrClient {
     }
 
     @SubscribeEvent
+    public static void itemColors(net.neoforged.neoforge.client.event.RegisterColorHandlersEvent.Item event) {
+        event.register((stack, layer) -> layer == 0
+                ? net.minecraft.world.item.component.DyedItemColor.getOrDefault(stack, -1) : -1,
+                com.porcupinestudios.lotrport.content.LotrItems.dyeable().toArray(new net.minecraft.world.item.Item[0]));
+    }
+
+    @SubscribeEvent
     public static void keys(RegisterKeyMappingsEvent event) {
         event.register(MAP_KEY);
         event.register(MAP_TELEPORT_KEY);

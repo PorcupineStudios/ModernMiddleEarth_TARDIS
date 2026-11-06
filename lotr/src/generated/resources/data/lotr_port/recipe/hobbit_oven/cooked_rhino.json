@@ -1,0 +1,11 @@
+{
+  "type": "lotr_port:hobbit_oven",
+  "ingredients": [
+    {
+      "item": "lotr_port:raw_rhino"
+    }
+  ],
+  "result": {
+    "id": "lotr_port:cooked_rhino"
+  }
+}

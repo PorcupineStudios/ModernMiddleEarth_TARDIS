@@ -1,0 +1,12 @@
+{
+  "type": "lotr_port:unsmelting",
+  "ingredients": [
+    {
+      "item": "lotr_port:nomad_tunic"
+    }
+  ],
+  "result": {
+    "id": "lotr_port:dried_reeds",
+    "count": 8
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "type": "lotr_port:unsmelting",
+  "ingredients": [
+    {
+      "item": "lotr_port:uruk_leggings"
+    }
+  ],
+  "result": {
+    "id": "lotr_port:uruk_steel_ingot",
+    "count": 7
+  }
+}

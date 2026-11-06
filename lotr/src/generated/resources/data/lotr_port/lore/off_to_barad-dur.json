@@ -1,0 +1,13 @@
+{
+  "id": "off_to_barad-dur",
+  "title": "Off to Barad-dûr",
+  "author": "{name:orc_prefix}{name:orc_suffix}",
+  "types": [
+    "mordor",
+    "angmar",
+    "dol_guldur",
+    "gundabad"
+  ],
+  "reward": true,
+  "text": "The night is long and the day is bright\nbut we, the Orcs, don't need a light.\nWe scatter enemies in fright\non our way to Barad-dûr.\n\nWork, work, work, lads!\nWe're off to Barad-dûr.\n\nOur enemies they run in fear\nwhen our tramping footsteps gather near\nand so we march and march and march and march.\nFor we're off to Barad-dûr.\n\nWork, work, work, lads!\nWe're off to Barad-dûr.\n\nOver the mountains tall and cold\nwe venture everywhere, so bold!\nAnd then we turn to that stronghold\nthe mighty Barad-dûr.\n\nWork, work, work, lads!\nWe're off to Barad-dûr."
+}

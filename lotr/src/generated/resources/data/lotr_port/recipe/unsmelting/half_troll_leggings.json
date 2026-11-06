@@ -1,0 +1,12 @@
+{
+  "type": "lotr_port:unsmelting",
+  "ingredients": [
+    {
+      "item": "lotr_port:half_troll_leggings"
+    }
+  ],
+  "result": {
+    "id": "lotr_port:gemsbok_hide",
+    "count": 5
+  }
+}

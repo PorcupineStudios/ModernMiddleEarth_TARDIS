@@ -1,0 +1,10 @@
+{
+  "id": "hobbit_invitation_1",
+  "title": "Invitation",
+  "author": "Bilbo Baggins",
+  "types": [
+    "shire"
+  ],
+  "reward": false,
+  "text": "Message to be delivered to Otho Sackville-Baggins,\nLongbottom.\n\nDear Mr. Sackville-Baggins,\nIt is my pleasure to invite you and your family to the celebration of my 111th birthday party, to be held at the Party Field, Hobbiton, on the 22nd September.\nHoping that you will attend,\nBilbo Baggins"
+}

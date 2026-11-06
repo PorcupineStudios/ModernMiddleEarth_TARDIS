@@ -1,0 +1,15 @@
+{
+  "replace": false,
+  "values": [
+    "lotr_port:dyed_feather",
+    "lotr_port:harad_robe",
+    "lotr_port:harad_robe_leggings",
+    "lotr_port:harad_robe_shoes",
+    "lotr_port:harad_turban",
+    "lotr_port:large_pouch",
+    "lotr_port:leather_hat",
+    "lotr_port:medium_pouch",
+    "lotr_port:party_hat",
+    "lotr_port:small_pouch"
+  ]
+}

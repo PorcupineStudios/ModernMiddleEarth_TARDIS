@@ -1,0 +1,13 @@
+{
+  "id": "orc_kill_list",
+  "title": "My Kill-list",
+  "author": "{name:orc_prefix}{name:orc_suffix}",
+  "types": [
+    "mordor",
+    "gundabad",
+    "dol_guldur",
+    "angmar"
+  ],
+  "reward": true,
+  "text": "These maggots deserve to die! They will feel the sting of my {choose:blade/axe/spear/arrow} in their guts!\n\n{name:orc_prefix}{name:orc_suffix} (no. {num:1,99999})\n{name:orc_prefix}{name:orc_suffix} (no. {num:1,99999})\n{name:orc_prefix}{name:orc_suffix} (no. {num:1,99999})\n{name:orc_prefix}{name:orc_suffix} (no. {num:1,99999})\n{name:orc_prefix}{name:orc_suffix} (no. {num:1,99999})\n\nI've managed to find another {num:4,10} lads who have offered to help me kill the scum. Once we're done, we'll loot their bodies, and say they fell from the cliffs. The Bosses won't know a thing about it."
+}

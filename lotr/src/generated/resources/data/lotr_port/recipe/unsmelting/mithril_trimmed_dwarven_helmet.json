@@ -1,0 +1,12 @@
+{
+  "type": "lotr_port:unsmelting",
+  "ingredients": [
+    {
+      "item": "lotr_port:mithril_trimmed_dwarven_helmet"
+    }
+  ],
+  "result": {
+    "id": "lotr_port:mithril_nugget",
+    "count": 8
+  }
+}

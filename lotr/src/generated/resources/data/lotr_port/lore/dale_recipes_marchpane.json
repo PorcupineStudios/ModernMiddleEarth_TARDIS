@@ -1,0 +1,10 @@
+{
+  "id": "dale_recipes_marchpane",
+  "title": "Dalish Recipes, p. 175",
+  "author": "{name:dale_female} of Dale",
+  "types": [
+    "dale"
+  ],
+  "reward": true,
+  "text": "Marchpane.\n\nIngredients:\n* Two bags of fresh almonds\n* One pinch of white sugar\n\nInstructions:\n* Grind almonds in mortar until fine paste\n* Add sugar to paste and mix\n* Arrange with almonds at corners and sugar above\n* Craft recipe\n\nServes 1."
+}

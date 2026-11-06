@@ -1,0 +1,10 @@
+{
+  "id": "hobbit_visitors",
+  "title": "Visitor's Log",
+  "author": "{name:hobbit_male} and {name:hobbit_female}",
+  "types": [
+    "shire"
+  ],
+  "reward": false,
+  "text": "{name:hobbit_male} {name:hobbit_surname}\n{name:hobbit_female} {name:hobbit_surname}\n{name:hobbit_male} {name:hobbit_surname}\n{name:hobbit_female} {name:hobbit_surname}\n{name:hobbit_male} {name:hobbit_surname}\n{name:hobbit_male} {name:hobbit_surname}\n{name:hobbit_female} {name:hobbit_surname}\n{name:hobbit_female} {name:hobbit_surname}\n{name:hobbit_male} {name:hobbit_surname}\n{name:hobbit_female} {name:hobbit_surname}"
+}

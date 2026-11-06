@@ -1,0 +1,12 @@
+{
+  "type": "lotr_port:unsmelting",
+  "ingredients": [
+    {
+      "item": "lotr_port:angmar_pickaxe"
+    }
+  ],
+  "result": {
+    "id": "lotr_port:orc_steel_ingot",
+    "count": 3
+  }
+}

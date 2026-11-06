@@ -1,0 +1,12 @@
+{
+  "type": "lotr_port:unsmelting",
+  "ingredients": [
+    {
+      "item": "lotr_port:morwaith_battleaxe"
+    }
+  ],
+  "result": {
+    "id": "lotr_port:rhino_horn",
+    "count": 5
+  }
+}

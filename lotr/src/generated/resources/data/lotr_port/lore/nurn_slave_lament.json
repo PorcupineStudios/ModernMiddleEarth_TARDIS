@@ -1,0 +1,10 @@
+{
+  "id": "nurn_slave_lament",
+  "title": "A Slave's Lament",
+  "author": "Slave of Núrn",
+  "types": [
+    "mordor"
+  ],
+  "reward": true,
+  "text": "The master's whip makes fearful slaves\nbut still we work among the wheat.\nFor what is left but fearful knaves\nafter we've been harshly beat?"
+}

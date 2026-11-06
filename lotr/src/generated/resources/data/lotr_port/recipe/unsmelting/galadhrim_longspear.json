@@ -1,0 +1,12 @@
+{
+  "type": "lotr_port:unsmelting",
+  "ingredients": [
+    {
+      "item": "lotr_port:galadhrim_longspear"
+    }
+  ],
+  "result": {
+    "id": "lotr_port:elven_steel_ingot",
+    "count": 2
+  }
+}

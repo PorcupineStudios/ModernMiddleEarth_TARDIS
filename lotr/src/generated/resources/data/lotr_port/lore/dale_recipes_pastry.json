@@ -1,0 +1,10 @@
+{
+  "id": "dale_recipes_pastry",
+  "title": "Dalish Recipes, p. 28",
+  "author": "{name:dale_female} of Dale",
+  "types": [
+    "dale"
+  ],
+  "reward": true,
+  "text": "Dalish Pastry.\n\nIngredients:\n* 1 egg\n* 2 bowls of maple syrup\n* 3 pounds of wheat grain\n* 1 pint of milk\n* 2 handfuls of cocoa\n\nInstructions:\n* Mix wheat, egg and milk in a bowl\n* Grind cocoa beans and add to mixture\n* Bake in oven for 2 hours\n* Sprinkle with cocoa\n* Pour maple syrup in a swirl upon the cake\n\nServes 1."
+}

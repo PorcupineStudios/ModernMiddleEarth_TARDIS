@@ -1,0 +1,12 @@
+{
+  "type": "lotr_port:unsmelting",
+  "ingredients": [
+    {
+      "item": "lotr_port:gulfen_boots"
+    }
+  ],
+  "result": {
+    "id": "lotr_port:dried_reeds",
+    "count": 2
+  }
+}

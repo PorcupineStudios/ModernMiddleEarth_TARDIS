@@ -1,0 +1,11 @@
+{
+  "type": "lotr_port:hobbit_oven",
+  "ingredients": [
+    {
+      "item": "minecraft:chicken"
+    }
+  ],
+  "result": {
+    "id": "minecraft:cooked_chicken"
+  }
+}

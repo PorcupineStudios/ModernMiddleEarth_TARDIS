@@ -1,0 +1,14 @@
+{
+  "id": "the_yellow_sun",
+  "title": "The Yellow Sun",
+  "author": "{name:nearHaradrim_male} the Minstrel",
+  "types": [
+    "harnennor",
+    "southron",
+    "umbar",
+    "nomad",
+    "gulf"
+  ],
+  "reward": true,
+  "text": "The yellow Sun is a burning glow,\nwho burns all folk the same;\nSouthron, Eastman, Northman foe\nall wither 'neath her flame.\n\nThe yellow Sun is a noontide dread;\nby dusk a golden flood.\nHer eye is bright; our Lord's is red,\nand dyed in Gondor's blood!"
+}

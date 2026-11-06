@@ -1,0 +1,14 @@
+{
+  "id": "trollgold",
+  "title": "Troll Gold",
+  "author": "",
+  "types": [
+    "bree",
+    "eriador",
+    "blue_mountains",
+    "durins_folk",
+    "shire"
+  ],
+  "reward": true,
+  "text": "Hill-trolls tall as pine trees, waiting in the deep night,\nmust fear the sun's great might lest they turn to dark stone.\nMany Dwarves are roaming the land in search of gold,\nbut those who are too bold will feed the Trolls their bone!\nThe few who do succeed, nor fall to lurking Orc,\nwill find the Troll's rich hoard of silver, gold, mithril:\nnow they can live like kings, until they sink to grave.\nSoon Orcs crawl from the cave, from the dead to steal."
+}

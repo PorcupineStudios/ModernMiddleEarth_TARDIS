@@ -1,0 +1,12 @@
+{
+  "type": "lotr_port:unsmelting",
+  "ingredients": [
+    {
+      "item": "lotr_port:dol_amroth_helmet"
+    }
+  ],
+  "result": {
+    "id": "minecraft:iron_ingot",
+    "count": 5
+  }
+}

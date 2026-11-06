@@ -1,0 +1,14 @@
+{
+  "id": "riddle_tongue",
+  "title": "A Riddle",
+  "author": "",
+  "types": [
+    "shire",
+    "bree",
+    "eriador",
+    "ruins",
+    "rivendell"
+  ],
+  "reward": true,
+  "text": "I have a tongue and a soul, and I\nam born in twins, but not alive.\n\nWhat am I?"
+}

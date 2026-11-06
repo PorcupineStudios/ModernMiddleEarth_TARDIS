@@ -1,0 +1,12 @@
+{
+  "type": "lotr_port:unsmelting",
+  "ingredients": [
+    {
+      "item": "lotr_port:umbaric_boots"
+    }
+  ],
+  "result": {
+    "id": "minecraft:iron_ingot",
+    "count": 4
+  }
+}

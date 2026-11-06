@@ -1,0 +1,11 @@
+{
+  "type": "lotr_port:kebab_stand",
+  "ingredients": [
+    {
+      "item": "minecraft:porkchop"
+    }
+  ],
+  "result": {
+    "id": "lotr_port:kebab"
+  }
+}

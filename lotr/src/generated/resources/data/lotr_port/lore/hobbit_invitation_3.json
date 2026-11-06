@@ -1,0 +1,10 @@
+{
+  "id": "hobbit_invitation_3",
+  "title": "Invitation",
+  "author": "Bilbo Baggins",
+  "types": [
+    "shire"
+  ],
+  "reward": false,
+  "text": "Message to be delivered to Adelard Took,\nTuckenborough.\n\nDear Mr. Took,\nI would be delighted if you were to attend the festivities of my 111th birthday party at the Party Field, Hobbiton, on the 22nd September. All your family are welcome and there will be many pleasant surprises.\nYour servant,\nBilbo Baggins"
+}

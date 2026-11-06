@@ -1,0 +1,12 @@
+{
+  "type": "lotr_port:unsmelting",
+  "ingredients": [
+    {
+      "item": "lotr_port:mithril_halberd"
+    }
+  ],
+  "result": {
+    "id": "lotr_port:mithril_ingot",
+    "count": 3
+  }
+}

@@ -95,6 +95,7 @@ class Extra:
         out["titles"] = self.titles()
         out["shields"], out["capes"] = self.cosmetics()
         out["drinks"] = self.drinks()
+        out["dyeable"] = self.dyeable()
         self.calendar()
         self.lang()
         return out
@@ -413,6 +414,24 @@ class Extra:
                            "damage": m.get("damageAmount", 0), "cures": m.get("curesEffects", False),
                            "brewed": m.get("isBrewable", False), "food_drink": m.get("isFoodDrink", False)}
             n += 1
+        return n
+
+    # ------------------------------------------------------------------ dyes
+
+    # LOTR's dye recipes (LOTRRecipePartyHatDye, Pouch, FeatherDye, LeatherHatDye, HaradRobesDye) as vanilla's
+    # armour-dye recipe: items in #minecraft:dyeable take the dyed_color component; armour layers tint
+    DYEABLE = ("party_hat", "small_pouch", "medium_pouch", "large_pouch", "dyed_feather", "leather_hat", "harad_robe",
+               "harad_robe_leggings", "harad_robe_shoes", "harad_turban")
+
+    def dyeable(self):
+        n = 0
+        for it in self.gen.items:
+            if it["id"] in self.DYEABLE:
+                it["dyeable"] = True
+                if it.get("armor"):
+                    it["armor"]["dyeable"] = True
+                self.gen.tags["minecraft:item/dyeable"].add(it["id"])
+                n += 1
         return n
 
     # ------------------------------------------------------------------ calendar, music
