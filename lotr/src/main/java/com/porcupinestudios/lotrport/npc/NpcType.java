@@ -71,9 +71,13 @@ public record NpcType(Optional<ResourceLocation> faction, List<ResourceLocation>
      * @param width creature hitbox width (0 = the person default, sized by {@code scale})
      * @param height creature hitbox height
      * @param renderScale how big a creature model is drawn (LOTR's renderer scale)
+     * @param behaviours LOTR creature behaviours this type has ({@code npc/behaviour/Behaviours})
+     * @param lotrClasses its LOTR entity class chain (simple names), which LOTR's animations test
+     * @param behaviourData the behaviours' numbers for this type (troll scale, sun immunity, spider venom...)
      */
     public record Persona(String model, Optional<ResourceLocation> speech, Map<String, ResourceLocation> sounds,
-            float width, float height, float renderScale) {
+            float width, float height, float renderScale, List<String> behaviours, List<String> lotrClasses,
+            Map<String, Float> behaviourData) {
         public static final MapCodec<Persona> MAP_CODEC = RecordCodecBuilder.mapCodec(i -> i.group(
                 Codec.STRING.optionalFieldOf("model", "human").forGetter(Persona::model),
                 ResourceLocation.CODEC.optionalFieldOf("speech").forGetter(Persona::speech),
@@ -81,7 +85,11 @@ public record NpcType(Optional<ResourceLocation> faction, List<ResourceLocation>
                         .forGetter(Persona::sounds),
                 Codec.FLOAT.optionalFieldOf("width", 0f).forGetter(Persona::width),
                 Codec.FLOAT.optionalFieldOf("height", 0f).forGetter(Persona::height),
-                Codec.FLOAT.optionalFieldOf("render_scale", 1f).forGetter(Persona::renderScale))
+                Codec.FLOAT.optionalFieldOf("render_scale", 1f).forGetter(Persona::renderScale),
+                Codec.STRING.listOf().optionalFieldOf("behaviours", List.of()).forGetter(Persona::behaviours),
+                Codec.STRING.listOf().optionalFieldOf("lotr_classes", List.of()).forGetter(Persona::lotrClasses),
+                Codec.unboundedMap(Codec.STRING, Codec.FLOAT).optionalFieldOf("behaviour_data", Map.of())
+                        .forGetter(Persona::behaviourData))
                 .apply(i, Persona::new));
     }
 

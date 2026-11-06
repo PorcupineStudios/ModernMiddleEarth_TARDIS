@@ -7,7 +7,31 @@
   "model": "lotr_port:troll",
   "width": 1.28,
   "height": 2.56,
-  "render_scale": 0.8,
+  "behaviours": [
+    "troll",
+    "snow_thrower"
+  ],
+  "lotr_classes": [
+    "LOTREntitySnowTroll",
+    "LOTREntityTroll",
+    "LOTREntityNPC",
+    "EntityCreature",
+    "EntityLiving",
+    "EntityLivingBase"
+  ],
+  "behaviour_data": {
+    "burn_ticks": 300,
+    "shade_range": 12,
+    "tickle_alignment": 100,
+    "melee_range": 12,
+    "ranged_range": 24,
+    "throw_min": 20,
+    "throw_max": 30,
+    "throw_damage": 3,
+    "scale": 0.8,
+    "sun_immune": 0,
+    "state.renderer": 1
+  },
   "sounds": {
     "ambient": "lotr_port:troll.say",
     "step": "lotr_port:troll.step"

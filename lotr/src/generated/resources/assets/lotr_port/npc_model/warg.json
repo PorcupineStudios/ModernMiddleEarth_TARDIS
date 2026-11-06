@@ -382,6 +382,52 @@
     }
   },
   "hidden": [],
+  "renderers": [
+    {
+      "name": "LOTRRenderWarg",
+      "pre": {
+        "ops": [
+          [
+            "when",
+            [
+              "not",
+              [
+                "eq",
+                [
+                  "in",
+                  "call.isAprilFools"
+                ],
+                0
+              ]
+            ],
+            [
+              [
+                "rotate",
+                45.0,
+                0.0,
+                0.0,
+                1.0
+              ],
+              [
+                "rotate",
+                -30.0,
+                1.0,
+                0.0,
+                0.0
+              ]
+            ]
+          ]
+        ],
+        "color": [
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "blend": false
+      }
+    }
+  ],
   "anim": {
     "biped": false,
     "set": [
@@ -450,55 +496,144 @@
         ]
       ]
     ],
-    "defs": [
+    "draws": [
+      {
+        "part": "body",
+        "ops": [],
+        "color": [
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "blend": false,
+        "cond": true
+      },
+      {
+        "part": "tail",
+        "ops": [],
+        "color": [
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "blend": false,
+        "cond": true
+      },
+      {
+        "part": "head",
+        "ops": [],
+        "color": [
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "blend": false,
+        "cond": true
+      },
+      {
+        "part": "leg1",
+        "ops": [],
+        "color": [
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "blend": false,
+        "cond": true
+      },
+      {
+        "part": "leg2",
+        "ops": [],
+        "color": [
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "blend": false,
+        "cond": true
+      },
+      {
+        "part": "leg3",
+        "ops": [],
+        "color": [
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "blend": false,
+        "cond": true
+      },
+      {
+        "part": "leg4",
+        "ops": [],
+        "color": [
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "blend": false,
+        "cond": true
+      }
+    ]
+  },
+  "defs": [
+    [
+      "mul",
+      [
+        "in",
+        "limb"
+      ],
+      0.6661999821662903
+    ],
+    [
+      "mul",
       [
         "mul",
         [
-          "in",
-          "limb"
+          "cos",
+          [
+            "ref",
+            0
+          ]
         ],
-        0.6661999821662903
+        0.8999999761581421
       ],
       [
+        "in",
+        "amount"
+      ]
+    ],
+    [
+      "mul",
+      [
         "mul",
         [
-          "mul",
+          "cos",
           [
-            "cos",
+            "add",
             [
               "ref",
               0
-            ]
-          ],
-          0.8999999761581421
+            ],
+            3.1415927410125732
+          ]
         ],
-        [
-          "in",
-          "amount"
-        ]
+        0.8999999761581421
       ],
       [
-        "mul",
-        [
-          "mul",
-          [
-            "cos",
-            [
-              "add",
-              [
-                "ref",
-                0
-              ],
-              3.1415927410125732
-            ]
-          ],
-          0.8999999761581421
-        ],
-        [
-          "in",
-          "amount"
-        ]
+        "in",
+        "amount"
       ]
     ]
-  }
+  ],
+  "inputs": [
+    "getTailRotation"
+  ]
 }

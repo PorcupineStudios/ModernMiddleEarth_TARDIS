@@ -97,8 +97,15 @@ and `[x]`) as they land, with the commit. Details and the 1.7.10 → 1.21.1 mism
 - [x] ~~14 non-person units in captains' pools~~ (now hired like the rest)
 - [x] ~~20 non-person structure spawners~~ (now place their creatures)
 - [ ] 47 mounted units (need mounts: wargs and horses to ride)
-- [ ] Creature behaviour LOTR had: trolls turning to stone in daylight, spiders climbing and webbing, ents and
-  huorns rooting, the Balrog's fire, wights' drain, Gollum, warg riders and bombardiers
+- [x] ~~Creature behaviour (npc/behaviour, numbers from LOTR's classes): trolls burn and turn to stone in daylight
+  (fleeing to shade), sneeze when tickled, throw rocks/snow; spiders' sizes, venoms and climbing; ents blink,
+  heal saplings, are weak to axes and fire; huorns sleep as trees; the Balrog's flames, regeneration and charge;
+  wights' curses; marsh-wraiths fade, hover and cast; Gollum flees, is tamed by 20 fish, sits and follows; warg
+  tails droop; half-trolls' horns and mohawks~~
+- [x] ~~Animations 1:1: LOTR's render() and renderers converted too (every draw with its transforms, the
+  renderer's size/lean/fade, troll outfits, armour, weapons and held rocks)~~
+- [ ] Warg riders and bombardiers, spider webs (mystery web), Gollum's fishing and inventory, the troll
+  chieftain's boss fight
 - [ ] Animals (23 models: deer, bears, horses, birds...) are not NPCs; they come with section 9
 
 ## 12. Quests

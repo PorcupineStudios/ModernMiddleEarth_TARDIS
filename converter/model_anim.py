@@ -39,7 +39,11 @@ MATH = {("net/minecraft/util/MathHelper", "func_76134_b"): "cos", ("net/minecraf
         ("net/minecraft/util/MathHelper", "func_76141_d"): "floor", ("net/minecraft/util/MathHelper", "func_76128_c"): "floor",
         ("net/minecraft/util/MathHelper", "func_76131_a"): "clamp", ("java/lang/Math", "signum"): "sign"}
 MAX_PATHS = 512
+MAX_UNROLL = 6
 SET_ANIM = ("func_78087_a", "(FFFFFFLnet/minecraft/entity/Entity;)V")
+RENDER = ("func_78088_a", "(Lnet/minecraft/entity/Entity;FFFFFF)V")
+PRE_RENDER = ("func_77041_b", "(Lnet/minecraft/entity/EntityLivingBase;F)V")
+GL = "org/lwjgl/opengl/GL11"
 
 
 class Part:
@@ -51,6 +55,19 @@ class Part:
 
 class Unknown(Exception):
     pass
+
+
+def pick_ops(op_lists, conds, ex):
+    """Merging GL matrix ops of several paths: identical lists stay, otherwise each path's ops are kept with
+    its condition (["when", cond, [ops...]])."""
+    first = op_lists[0]
+    if all(o == first for o in op_lists):
+        return first
+    out = []
+    for c, ops in zip(conds, op_lists):
+        if ops:
+            out.append(["when", c, ops])
+    return out
 
 
 def simplify(op, *args):
@@ -77,18 +94,28 @@ def simplify(op, *args):
 
 
 class State:
-    def __init__(self, locals_, writes, cond):
+    def __init__(self, locals_, writes, cond, gl=None, draws=None):
         self.locals = locals_
         self.writes = writes  # (part, field) -> expr
         self.cond = cond  # list of conditions on this path
+        self.gl = gl if gl is not None else [[]]  # GL matrix stack: list of op lists
+        self.color = [1.0, 1.0, 1.0, 1.0]
+        self.blend = False
+        self.draws = draws if draws is not None else []
 
     def fork(self):
-        return State(list(self.locals), dict(self.writes), list(self.cond))
+        s = State(list(self.locals), dict(self.writes), list(self.cond), [list(m) for m in self.gl],
+                  list(self.draws))
+        s.color = list(self.color)
+        s.blend = self.blend
+        s.loops = getattr(self, "loops", 0)
+        return s
 
 
 class AnimExporter:
-    def __init__(self, jar):
+    def __init__(self, jar, model_fields=None):
         self.jar = jar
+        self.model_fields = model_fields or {}
         self.classes = {}
         self.biped = False
 
@@ -102,14 +129,33 @@ class AnimExporter:
         return st.writes.get((part, field), ["rest", part, field])
 
     def run(self, model_cls):
-        """Merged animation of the model class: {"biped": bool, "set": [[part, field, expr], ...]}."""
+        """Merged animation and drawing of the model class. Runs the model's render method (which calls its
+        setRotationAngles and then draws each part under its own GL transforms), or setRotationAngles alone:
+        {"biped": bool, "set": [[part, field, expr], ...], "draws": [DRAW, ...] or absent}
+        DRAW = {"part", "ops": [[op, args...]...], "color": [r, g, b, a], "blend": bool, "cond": EXPR}"""
         self.biped = False
-        params = ["this", ["in", "limb"], ["in", "amount"], ["in", "age"], ["in", "yaw"], ["in", "pitch"],
-                  ["in", "scale"], "entity"]
+        self.model_cls = model_cls
+        if self.owns(model_cls, RENDER) and self.declares_render(model_cls):
+            params = ["this", "entity", ["in", "limb"], ["in", "amount"], ["in", "age"], ["in", "yaw"],
+                      ["in", "pitch"], ["in", "scale"]]
+            key = RENDER
+        else:
+            params = ["this", ["in", "limb"], ["in", "amount"], ["in", "age"], ["in", "yaw"], ["in", "pitch"],
+                      ["in", "scale"], "entity"]
+            key = SET_ANIM
         start = State(params + [None] * 40, {}, [])
-        ends = self.method(model_cls, SET_ANIM, start)
+        ends = self.method(model_cls, key, start)
         if not ends:
             return None
+        out_draws = None
+        if key == RENDER:
+            out_draws = []
+            seen = set()
+            for d in ends[0].draws:
+                k = str(d)
+                if k not in seen:
+                    seen.add(k)
+                    out_draws.append(d)
         keys = []
         for st in ends:
             for k in st.writes:
@@ -126,7 +172,44 @@ class AnimExporter:
                 cond = ["and", *st.cond] if len(st.cond) > 1 else (st.cond[0] if st.cond else None)
                 expr = val if cond is None or val == expr else ["ite", cond, val, expr]
             out.append([part, field, expr])
-        return {"biped": self.biped, "set": out}
+        res = {"biped": self.biped, "set": out}
+        if out_draws is not None:
+            res["draws"] = out_draws
+        return res
+
+    def declares_render(self, model_cls):
+        """Whether a LOTR class (not vanilla ModelBiped) defines the render method this model uses."""
+        o = model_cls
+        while o:
+            cf = self.cls(o)
+            if cf is None:
+                return False
+            if RENDER in cf.methods and cf.methods[RENDER]:
+                return True
+            o = cf.super_name
+        return False
+
+    def model_method(self, model_cls, method):
+        """Draws made by one of the model's own methods taking the scale (a troll's renderWoodenClub...)."""
+        self.model_cls = model_cls
+        cf = self.cls(model_cls)
+        key = next((k for k in cf.methods if k[0] == method and cf.methods[k]), None)
+        if key is None:
+            return None
+        start = State(["this", ["in", "scale"]] + [None] * 40, {}, [])
+        ends = self.method(model_cls, key, start)
+        return ends[0].draws if ends else None
+
+    def pre_render(self, render_cls):
+        """A LOTR renderer's preRenderCallback as GL ops (scale, rotate, translate) with entity inputs."""
+        start = State(["this", "entity", ["in", "partial"]] + [None] * 40, {}, [])
+        cf = self.cls(render_cls)
+        if cf is None or not self.owns(render_cls, PRE_RENDER):
+            return None
+        ends = self.method(render_cls, PRE_RENDER, start)
+        if not ends:
+            return None
+        return {"ops": ends[0].gl[-1], "color": ends[0].color, "blend": ends[0].blend}
 
     def method(self, owner, key, state):
         """Runs owner.key from `state`; returns the end states (one per path)."""
@@ -135,9 +218,19 @@ class AnimExporter:
         while o:
             cf = self.cls(o)
             if cf is None:
-                if key == SET_ANIM and o in ("net/minecraft/client/model/ModelBiped",
-                                             "net/minecraft/client/model/ModelZombie"):
-                    self.biped = True
+                if o in ("net/minecraft/client/model/ModelBiped", "net/minecraft/client/model/ModelZombie"):
+                    if key == SET_ANIM:
+                        self.biped = True
+                    elif key == RENDER:
+                        # vanilla ModelBiped.render: setRotationAngles (the model's own, virtual), then the parts
+                        args = [state.locals[i] for i in (2, 3, 4, 5, 6, 7)] + [state.locals[1]]
+                        sub = State(["this", *args] + [None] * 40, state.writes, state.cond, state.gl, state.draws)
+                        ends = self.method(self.model_cls, SET_ANIM, sub)
+                        st = ends[0] if ends else state
+                        for part in ("head", "body", "right_arm", "left_arm", "right_leg", "left_leg", "hat"):
+                            st.draws.append({"part": part, "ops": list(st.gl[-1]), "color": list(st.color),
+                                             "blend": st.blend, "cond": self.cond_of(st)})
+                        return [st]
                 return [state]
             if key in cf.methods and cf.methods[key]:
                 break
@@ -165,8 +258,6 @@ class AnimExporter:
                 pending.setdefault(at, []).append((st, stack))
             elif kind == "fork":
                 _, st, cond, target, fall, stack = result
-                if target <= pc:
-                    raise Unknown("loop")
                 if isinstance(cond, bool):
                     pending.setdefault(target if cond else fall, []).append((st, stack))
                     continue
@@ -218,6 +309,20 @@ class AnimExporter:
         rets = [getattr(st, "ret", None) for st, _ in items]
         if any(r is not None for r in rets):
             out.ret = pick(rets)
+        draws, seen = [], set()
+        for st, _ in items:
+            for d in st.draws:
+                k = str(d)
+                if k not in seen:
+                    seen.add(k)
+                    draws.append(d)
+        out.draws = draws
+        out.gl = base.gl
+        if any(len(st.gl) == len(base.gl) for st, _ in items):
+            out.gl = [[pick_ops([st.gl[i] if i < len(st.gl) else [] for st, _ in items], conds, self)
+                       for i in range(len(base.gl))][j] for j in range(len(base.gl))]
+        out.color = [pick([st.color[i] for st, _ in items]) for i in range(4)]
+        out.blend = any(st.blend for st, _ in items)
         common = [c for c in items[0][0].cond if all(c in st.cond for st, _ in items)]
         rest = [self.cond_of(State([], {}, [c for c in st.cond if c not in common])) for st, _ in items]
         out.cond = common + ([] if any(r is True for r in rest) else [["or", *rest]])
@@ -357,11 +462,20 @@ class AnimExporter:
                     b, a = stack.pop(), stack.pop()
                     rel = ["eq", "ne", "lt", "ge", "gt", "le", "eq", "ne"][op - 0x9F]
                 cond = self.compare(rel, a, b)
+                if isinstance(cond, bool):
+                    pc = pc + s2(pc + 1) if cond else pc + 3
+                    continue
                 return ("fork", st, cond, pc + s2(pc + 1), pc + 3, stack)
             elif op == 0xA7:
                 target = pc + s2(pc + 1)
                 if target <= pc:
-                    raise Unknown("loop")
+                    # a loop: unrolled on this path; a loop whose count is only known in game (an ent's extra
+                    # branches) is unrolled up to MAX_UNROLL times, each turn guarded by its condition
+                    st.loops = getattr(st, "loops", 0) + 1
+                    if st.loops > MAX_UNROLL:
+                        return ("end", st)
+                    pc = target
+                    continue
                 return ("join", st, target, stack)
             elif op in (0xAC, 0xAD, 0xAE, 0xAF, 0xB0, 0xB1):
                 st.ret = stack.pop() if op != 0xB1 and stack else None
@@ -441,7 +555,9 @@ class AnimExporter:
                 return Part(BIPED_RENDERERS[name])
             if desc.endswith("ModelRenderer;"):
                 return Part(name)
-            return st.writes.get(("this", name), ["in", "model." + name])
+            if ("this", name) in st.writes:
+                return st.writes[("this", name)]
+            return self.model_fields.get(name, ["in", "model." + name])
         if isinstance(obj, Part):
             if name in ROT:
                 return self.read_field(st, obj.name, ROT[name])
@@ -460,12 +576,46 @@ class AnimExporter:
             key = (name, desc)
             if key == SET_ANIM or self.owns(owner, key):
                 sub = State(["this", *args] + [None] * 40, st.writes, st.cond)
+                sub.gl = st.gl
+                sub.draws = st.draws
+                sub.color = st.color
+                sub.blend = st.blend
                 ends = self.method(owner if op == 0xB7 else owner, key, sub)
                 if len(ends) == 1:
                     st.writes = ends[0].writes
+                    st.draws = ends[0].draws
+                    st.gl = ends[0].gl
+                    st.color = ends[0].color
+                    st.blend = ends[0].blend
                     return getattr(ends[0], "ret", None)
                 return "__forked__"
             return ["in", "model." + name]
+        if owner == GL:
+            top = st.gl[-1]
+            if name == "glPushMatrix":
+                st.gl.append(list(top))
+            elif name == "glPopMatrix" and len(st.gl) > 1:
+                st.gl.pop()
+            elif name in ("glTranslatef", "glTranslated"):
+                top.append(["translate", *args])
+            elif name in ("glRotatef", "glRotated"):
+                top.append(["rotate", *args])
+            elif name in ("glScalef", "glScaled"):
+                top.append(["scale", *args])
+            elif name in ("glColor4f", "glColor3f"):
+                st.color = list(args) + ([1.0] if len(args) == 3 else [])
+            elif name == "glEnable" and args and args[0] == 3042:
+                st.blend = True
+            elif name == "glDisable" and args and args[0] == 3042:
+                st.blend = False
+            return None
+        if isinstance(target, Part) and name == "func_78794_c":  # postRender: move into the part's frame
+            st.gl[-1].append(["attach", target.name])
+            return None
+        if isinstance(target, Part) and name in ("func_78785_a", "func_78791_b"):
+            st.draws.append({"part": target.name, "ops": list(st.gl[-1]), "color": list(st.color),
+                             "blend": st.blend, "cond": self.cond_of(st)})
+            return None
         if isinstance(target, Part):
             if name == "func_78793_a":  # setRotationPoint
                 for f, v in zip(("x", "y", "z"), args):
@@ -479,7 +629,9 @@ class AnimExporter:
         while o:
             cf = self.cls(o)
             if cf is None:
-                return False
+                # vanilla's ModelBiped animates and draws (emulated in method())
+                return key in (SET_ANIM, RENDER) and o in ("net/minecraft/client/model/ModelBiped",
+                                                           "net/minecraft/client/model/ModelZombie")
             if key in cf.methods and cf.methods[key]:
                 return True
             o = cf.super_name

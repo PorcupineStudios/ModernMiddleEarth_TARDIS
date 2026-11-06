@@ -8,6 +8,24 @@
   "model": "lotr_port:spider",
   "width": 1.4,
   "height": 0.8,
+  "behaviours": [
+    "spider"
+  ],
+  "lotr_classes": [
+    "LOTREntityMirkwoodSpider",
+    "LOTREntitySpiderBase",
+    "LOTREntityNPCRideable",
+    "LOTREntityNPC",
+    "EntityCreature",
+    "EntityLiving",
+    "EntityLivingBase"
+  ],
+  "behaviour_data": {
+    "size_min": 0,
+    "size_max": 2,
+    "venom": -1,
+    "state.renderer": 1
+  },
   "sounds": {
     "ambient": "minecraft:entity.spider.ambient",
     "hurt": "minecraft:entity.spider.hurt",

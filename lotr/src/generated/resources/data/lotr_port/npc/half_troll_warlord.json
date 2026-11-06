@@ -9,6 +9,21 @@
   "model": "lotr_port:half_troll",
   "width": 1.0,
   "height": 2.4,
+  "behaviours": [
+    "half_troll"
+  ],
+  "lotr_classes": [
+    "LOTREntityHalfTrollWarlord",
+    "LOTREntityHalfTrollWarrior",
+    "LOTREntityHalfTroll",
+    "LOTREntityNPC",
+    "EntityCreature",
+    "EntityLiving",
+    "EntityLivingBase"
+  ],
+  "behaviour_data": {
+    "state.renderer": 0
+  },
   "sounds": {
     "ambient": "lotr_port:half_troll.say",
     "hurt": "lotr_port:half_troll.hurt",

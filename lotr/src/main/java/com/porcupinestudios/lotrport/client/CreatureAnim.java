@@ -10,7 +10,6 @@ import java.util.Map;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.util.Mth;
-import net.minecraft.world.entity.LivingEntity;
 
 /**
  * LOTR's own animation for a creature model: its setRotationAngles, turned into expressions by
@@ -33,28 +32,57 @@ final class CreatureAnim {
         float yaw;
         float pitch;
         float swing;
+        float partial;
         Map<String, ModelPart> parts;
         Map<ModelPart, PartPose> rest;
     }
 
     private record Set(ModelPart part, String field, Expr value) {}
 
+    /** Compiles expressions of one model file, whose shared subtrees sit in its "defs". */
+    static final class Compiler {
+        private final JsonArray defs;
+        private final Expr[] compiled;
+
+        Compiler(JsonArray defs) {
+            this.defs = defs == null ? new JsonArray() : defs;
+            this.compiled = new Expr[this.defs.size()];
+        }
+
+        Expr expr(JsonElement e) {
+            return compile(e, this);
+        }
+
+        Expr def(int i) {
+            if (compiled[i] == null) {
+                Expr[] holder = new Expr[1];
+                compiled[i] = c -> holder[0].eval(c); // placeholder while compiling (no cycles expected)
+                holder[0] = compile(defs.get(i), this);
+                compiled[i] = holder[0];
+            }
+            return compiled[i];
+        }
+
+        /** A raw shared tree (op lists can be shared too). */
+        JsonElement raw(JsonElement e) {
+            while (e.isJsonArray() && e.getAsJsonArray().size() == 2 && e.getAsJsonArray().get(0).isJsonPrimitive()
+                    && "ref".equals(e.getAsJsonArray().get(0).getAsString())) {
+                e = defs.get(e.getAsJsonArray().get(1).getAsInt());
+            }
+            return e;
+        }
+    }
+
     private final List<Set> sets = new ArrayList<>();
     final boolean biped;
 
-    CreatureAnim(JsonObject anim, Map<String, ModelPart> parts) {
+    CreatureAnim(JsonObject anim, Map<String, ModelPart> parts, Compiler compiler) {
         biped = anim.has("biped") && anim.get("biped").getAsBoolean();
-        List<Expr> defs = new ArrayList<>();
-        if (anim.has("defs")) {
-            for (JsonElement d : anim.getAsJsonArray("defs")) {
-                defs.add(compile(d, defs));
-            }
-        }
         for (JsonElement e : anim.getAsJsonArray("set")) {
             JsonArray s = e.getAsJsonArray();
             ModelPart part = parts.get(s.get(0).getAsString());
             if (part != null) {
-                sets.add(new Set(part, s.get(1).getAsString(), compile(s.get(2), defs)));
+                sets.add(new Set(part, s.get(1).getAsString(), compiler.expr(s.get(2))));
             }
         }
     }
@@ -81,7 +109,7 @@ final class CreatureAnim {
         }
     }
 
-    private static Expr compile(JsonElement e, List<Expr> defs) {
+    static Expr compile(JsonElement e, Compiler defs) {
         if (e.isJsonPrimitive()) {
             if (e.getAsJsonPrimitive().isBoolean()) {
                 float v = e.getAsBoolean() ? 1f : 0f;
@@ -105,8 +133,7 @@ final class CreatureAnim {
             }
             case "ref": {
                 int i = a.get(1).getAsInt();
-                Expr shared = defs.get(i);
-                return shared;
+                return c -> defs.def(i).eval(c);
             }
             default:
                 break;
@@ -197,6 +224,7 @@ final class CreatureAnim {
             case "pitch" -> c -> c.pitch;
             case "swing" -> c -> c.swing;
             case "scale" -> c -> 0.0625f;
+            case "partial" -> c -> c.partial;
             case "riding" -> c -> c.npc.isPassenger() ? 1f : 0f;
             case "child" -> c -> c.npc.isBaby() ? 1f : 0f;
             case "sneak" -> c -> c.npc.isCrouching() ? 1f : 0f;
@@ -207,26 +235,17 @@ final class CreatureAnim {
     }
 
     /**
-     * The entity values LOTR's animations read, answered from the port's NPC: its age, hurt time and the creature
-     * kind (by type id). LOTR-only behaviour state (throwing rocks, sniffing, sitting, fleeing, healing saplings...)
-     * reads 0 until those behaviours are ported.
+     * The entity values LOTR's code reads: vanilla's own fields (age, hurt time, death time) from the entity, and
+     * everything else by LOTR's name from the NPC's synced creature state, which its behaviours keep
+     * ({@code npc/behaviour}: "isThrowingRocks", "getSpiderScaleAmount", "is.LOTREntityTroll"...).
      */
     private static Expr entity(String name) {
         return switch (name) {
             case "field_70173_aa" -> c -> c.npc.tickCount;
             case "field_70737_aN" -> c -> c.npc.hurtTime;
-            case "is.EntityLivingBase", "is.LOTREntityNPC" -> c -> 1f;
-            case "is.LOTREntityTroll" -> c -> c.npc.model().equals("lotr_port:troll") ? 1f : 0f;
-            case "is.LOTREntityMountainTroll" -> c -> c.npc.typeId().getPath().contains("mountain_troll") ? 1f : 0f;
-            case "is.LOTREntitySnowTroll" -> c -> c.npc.typeId().getPath().contains("snow_troll") ? 1f : 0f;
-            case "is.LOTREntityElf" -> c -> c.npc.model().equals("elf") ? 1f : 0f;
-            case "getTailRotation" -> c -> {
-                // LOTR's wargs hold the tail like vanilla wolves: high when healthy, drooping when hurt
-                LivingEntity e = c.npc;
-                float hurt = e.getMaxHealth() <= 0 ? 0 : 1f - e.getHealth() / e.getMaxHealth();
-                return (0.55f - hurt * 0.4f) * Mth.PI;
-            };
-            default -> c -> 0f;
+            case "field_70725_aQ" -> c -> c.npc.deathTime;
+            case "is.EntityLivingBase", "is.LOTREntityNPC", "is.EntityLiving" -> c -> 1f;
+            default -> c -> c.npc.state(name);
         };
     }
 }

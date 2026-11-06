@@ -3,7 +3,7 @@
     64,
     64
   ],
-  "render_scale": 0.9375,
+  "render_scale": 1.0,
   "parts": {
     "head": {
       "pivot": [
@@ -205,6 +205,72 @@
     }
   },
   "hidden": [],
+  "renderers": [
+    {
+      "name": "LOTRRenderMarshWraith",
+      "pre": {
+        "ops": [
+          [
+            "scale",
+            0.9375,
+            0.9375,
+            0.9375
+          ]
+        ],
+        "color": [
+          1.0,
+          1.0,
+          1.0,
+          [
+            "ite",
+            [
+              "not",
+              [
+                "ref",
+                1
+              ]
+            ],
+            [
+              "div",
+              [
+                "in",
+                "entity.getSpawnFadeTime"
+              ],
+              30.0
+            ],
+            [
+              "ite",
+              [
+                "and",
+                [
+                  "ref",
+                  1
+                ],
+                [
+                  "le",
+                  [
+                    "in",
+                    "entity.getDeathFadeTime"
+                  ],
+                  0
+                ]
+              ],
+              1.0,
+              [
+                "div",
+                [
+                  "in",
+                  "entity.getDeathFadeTime"
+                ],
+                30.0
+              ]
+            ]
+          ]
+        ],
+        "blend": true
+      }
+    }
+  ],
   "anim": {
     "biped": false,
     "set": [
@@ -249,15 +315,101 @@
         ]
       ]
     ],
-    "defs": [
-      [
-        "div",
-        [
-          "in",
-          "pitch"
+    "draws": [
+      {
+        "part": "head",
+        "ops": [],
+        "color": [
+          1.0,
+          1.0,
+          1.0,
+          1.0
         ],
-        57.2957763671875
-      ]
+        "blend": false,
+        "cond": true
+      },
+      {
+        "part": "headwear",
+        "ops": [],
+        "color": [
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "blend": false,
+        "cond": true
+      },
+      {
+        "part": "body",
+        "ops": [],
+        "color": [
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "blend": false,
+        "cond": true
+      },
+      {
+        "part": "right_arm",
+        "ops": [],
+        "color": [
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "blend": false,
+        "cond": true
+      },
+      {
+        "part": "left_arm",
+        "ops": [],
+        "color": [
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "blend": false,
+        "cond": true
+      },
+      {
+        "part": "cape",
+        "ops": [],
+        "color": [
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "blend": false,
+        "cond": true
+      }
     ]
-  }
+  },
+  "defs": [
+    [
+      "div",
+      [
+        "in",
+        "pitch"
+      ],
+      57.2957763671875
+    ],
+    [
+      "ge",
+      [
+        "in",
+        "entity.getSpawnFadeTime"
+      ],
+      30
+    ]
+  ],
+  "inputs": [
+    "getDeathFadeTime",
+    "getSpawnFadeTime"
+  ]
 }

@@ -7,7 +7,31 @@
   "model": "lotr_port:troll",
   "width": 2.56,
   "height": 5.12,
-  "render_scale": 1.6,
+  "behaviours": [
+    "troll",
+    "rock_thrower"
+  ],
+  "lotr_classes": [
+    "LOTREntityMountainTroll",
+    "LOTREntityTroll",
+    "LOTREntityNPC",
+    "EntityCreature",
+    "EntityLiving",
+    "EntityLivingBase"
+  ],
+  "behaviour_data": {
+    "burn_ticks": 300,
+    "shade_range": 12,
+    "tickle_alignment": 100,
+    "melee_range": 12,
+    "ranged_range": 24,
+    "throw_min": 30,
+    "throw_max": 60,
+    "throw_damage": 5,
+    "scale": 1.6,
+    "sun_immune": 0,
+    "state.renderer": 2
+  },
   "sounds": {
     "ambient": "lotr_port:troll.say",
     "step": "lotr_port:troll.step"

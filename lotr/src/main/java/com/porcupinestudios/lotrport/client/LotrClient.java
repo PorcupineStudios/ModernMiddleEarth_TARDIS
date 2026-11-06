@@ -109,5 +109,8 @@ public final class LotrClient {
     @SubscribeEvent
     public static void renderers(EntityRenderersEvent.RegisterRenderers event) {
         event.registerEntityRenderer(LotrEntities.NPC.get(), NpcRenderer::new);
+        // rocks, snowballs and wraith bolts thrown by LOTR's creatures, drawn as their item
+        event.registerEntityRenderer(LotrEntities.PROJECTILE.get(),
+                net.minecraft.client.renderer.entity.ThrownItemRenderer::new);
     }
 }

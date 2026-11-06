@@ -7,6 +7,24 @@
   "model": "lotr_port:troll",
   "width": 1.6,
   "height": 3.2,
+  "behaviours": [
+    "troll"
+  ],
+  "lotr_classes": [
+    "LOTREntityTroll",
+    "LOTREntityNPC",
+    "EntityCreature",
+    "EntityLiving",
+    "EntityLivingBase"
+  ],
+  "behaviour_data": {
+    "burn_ticks": 300,
+    "shade_range": 12,
+    "tickle_alignment": 100,
+    "scale": 1.0,
+    "sun_immune": 0,
+    "state.renderer": 5
+  },
   "sounds": {
     "ambient": "lotr_port:troll.say",
     "step": "lotr_port:troll.step"

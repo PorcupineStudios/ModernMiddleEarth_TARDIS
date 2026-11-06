@@ -7,7 +7,25 @@
   "model": "lotr_port:marsh_wraith",
   "width": 0.6,
   "height": 1.8,
-  "render_scale": 0.9375,
+  "behaviours": [
+    "marsh_wraith"
+  ],
+  "lotr_classes": [
+    "LOTREntityMarshWraith",
+    "LOTREntityNPC",
+    "EntityCreature",
+    "EntityLiving",
+    "EntityLivingBase"
+  ],
+  "behaviour_data": {
+    "melee_range": 0,
+    "ranged_range": 12,
+    "throw_min": 40,
+    "throw_max": 40,
+    "throw_damage": 5,
+    "despawn_ticks": 100,
+    "state.renderer": 0
+  },
   "sounds": {
     "hurt": "lotr_port:wight.hurt",
     "death": "lotr_port:wight.death"
