@@ -22,7 +22,8 @@ BEHAVIOURS = (
     ("EntityAnimal", "animal"),
 )
 # LOTR animals that turn on what hurts them (LOTREntityBear, lions, rhinos, aurochs); every other animal panics
-FIGHTS_BACK = ("LOTREntityBear", "LOTREntityLionBase", "LOTREntityRhino", "LOTREntityAurochs", "LOTREntityCrocodile")
+FIGHTS_BACK = ("LOTREntityBear", "LOTREntityLionBase", "LOTREntityRhino", "LOTREntityAurochs", "LOTREntityCrocodile",
+               "LOTREntityScorpion")
 
 # Shared constants (LOTR class they come from)
 CONSTANTS = {
@@ -41,9 +42,18 @@ CONSTANTS = {
 }
 
 
+def is_animal(e):
+    """LOTR's animals: everything in lotr.common.entity.animal (deer and bears are EntityAnimals; birds, rabbits,
+    butterflies, crocodiles and scorpions are not, but live in the same package)."""
+    return ".entity.animal." in ((e.get("classes") or [""])[0])
+
+
 def behaviours_of(e):
     chain = [c.split(".")[-1] for c in e.get("classes") or []]
-    return [b for cls, b in BEHAVIOURS if cls in chain]
+    out = [b for cls, b in BEHAVIOURS if cls in chain]
+    if is_animal(e) and "animal" not in out:
+        out.append("animal")
+    return out
 
 
 def _float_return(jar, cls, method):
@@ -96,7 +106,7 @@ def behaviour_data(e, jar):
         data["sun_immune"] = 1 if any(_sets_true(jar, c, "trollImmuneToSun") for c in classes) else 0
         if "LOTREntityMountainTrollChieftain" in chain:
             data["two_heads"] = 1
-    if "EntityAnimal" in chain:
+    if "EntityAnimal" in chain or is_animal(e):
         data["fights_back"] = 1 if any(c in chain for c in FIGHTS_BACK) else 0
         data["panic_speed"] = 1.25  # EntityAnimal's EntityAIPanic speed in LOTR's animals
     if "LOTREntitySpiderBase" in chain:

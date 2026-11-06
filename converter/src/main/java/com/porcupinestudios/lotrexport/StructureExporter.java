@@ -42,6 +42,10 @@ public class StructureExporter {
     /** Layouts per structure (LOTR randomises size, rooms and decoration with the seed). */
     private static final int SEEDS = 3;
     private static final int RADIUS = 64;
+    /** The area read back: RADIUS for structures, a village's own radius for villages. */
+    private int radius = RADIUS;
+    /** When set, build() grows this village generator (LOTRVillageGen) instead of a structure generator. */
+    private Object villageGen;
     // flat world: bedrock 0, dirt 1-39, grass 40; deep enough for cellars and basements (3 cut them off, 2026-11-03)
     private static final int GROUND = 40;
 
@@ -85,7 +89,68 @@ public class StructureExporter {
                 System.out.println("[lotrexport] structures: " + next + " of " + total);
             }
         }
+        villages(world, System.currentTimeMillis() + Long.getLong("lotrexport.villageMinutes", 15) * 60_000L);
         write();
+    }
+
+    /**
+     * LOTR's villages (LOTRVillageGen, one per kind of village in the biomes' decorators): each grown whole a couple
+     * of times on the flat ground, read back like a structure as "village:<class>", with the generator's grid
+     * numbers (gridScale, gridRandomDisplace, spawnChance, villageChunkRadius) for placing them.
+     */
+    private void villages(WorldClient world, long deadline) {
+        Map<String, Object> gens = new java.util.TreeMap<>();
+        try {
+            Class<?> dim = Class.forName("lotr.common.LOTRDimension");
+            Object me = dim.getField("MIDDLE_EARTH").get(null);
+            Field list = dim.getDeclaredField("biomeList");
+            list.setAccessible(true);
+            for (Object b : (Object[]) list.get(me)) {
+                if (b == null) {
+                    continue;
+                }
+                Object dec = field(b, "decorator");
+                Object vs = dec == null ? null : field(dec, "villages");
+                if (vs instanceof List<?> l) {
+                    for (Object v : l) {
+                        gens.putIfAbsent(v.getClass().getName(), v);
+                    }
+                }
+            }
+        } catch (Throwable t) {
+            errors.add(new JsonPrimitive("villages: " + t));
+            return;
+        }
+        System.out.println("[lotrexport] " + gens.size() + " village generators");
+        for (Object v : gens.values()) {
+            Object r = field(v, "villageChunkRadius");
+            radius = Math.min(160, ((r instanceof Number n) ? n.intValue() : 5) * 16 + 16);
+            villageGen = v;
+            for (int seed = 0; seed < 2 && System.currentTimeMillis() < deadline; seed++) {
+                try {
+                    JsonObject layout = build(world, v.getClass(), seed);
+                    if (layout != null) {
+                        for (String f : new String[] { "gridScale", "gridRandomDisplace", "spawnChance",
+                                "villageChunkRadius" }) {
+                            Object x = field(v, f);
+                            if (x instanceof Number n) {
+                                layout.addProperty(f, n);
+                            }
+                        }
+                        String name = "village:" + v.getClass().getSimpleName();
+                        JsonArray layouts = structures.has(name) ? structures.getAsJsonArray(name) : new JsonArray();
+                        layouts.add(layout);
+                        structures.add(name, layouts);
+                    }
+                } catch (Throwable t) {
+                    Throwable c = t.getCause() != null ? t.getCause() : t;
+                    errors.add(new JsonPrimitive("village " + v.getClass().getSimpleName() + ": " + c));
+                }
+            }
+            System.out.println("[lotrexport] village " + v.getClass().getSimpleName());
+        }
+        villageGen = null;
+        radius = RADIUS;
     }
 
     /** Every concrete structure generator class in LOTR's jar. */
@@ -127,8 +192,8 @@ public class StructureExporter {
         int cx = 0;
         int cz = 0;
         ChunkProviderClient chunks = (ChunkProviderClient) world.getChunkProvider();
-        for (int x = (cx - RADIUS - 16) >> 4; x <= (cx + RADIUS + 16) >> 4; x++) {
-            for (int z = (cz - RADIUS - 16) >> 4; z <= (cz + RADIUS + 16) >> 4; z++) {
+        for (int x = (cx - radius - 16) >> 4; x <= (cx + radius + 16) >> 4; x++) {
+            for (int z = (cz - radius - 16) >> 4; z <= (cz + radius + 16) >> 4; z++) {
                 chunks.unloadChunk(x, z);
                 Chunk chunk = chunks.loadChunk(x, z);
                 for (int bx = 0; bx < 16; bx++) {
@@ -141,12 +206,32 @@ public class StructureExporter {
             }
         }
         world.loadedEntityList.clear();
-        Object gen = c.getConstructor(boolean.class).newInstance(false);
-        setField(gen, "restrictions", false);
-        setField(gen, "shouldFindSurface", false);
         Random random = new Random(seed * 7919L + c.getName().hashCode());
-        Object placed = c.getMethod("generateWithSetRotation", net.minecraft.world.World.class, Random.class,
-                int.class, int.class, int.class, int.class).invoke(gen, world, random, cx, GROUND + 1, cz, 0);
+        Object placed;
+        if (villageGen != null) {
+            Class<?> vg = Class.forName("lotr.common.world.village.LOTRVillageGen");
+            Class<?> info = Class.forName("lotr.common.world.village.LocationInfo");
+            Object here = info.getField("RANDOM_GEN_HERE").get(null);
+            java.lang.reflect.Method create = vg.getDeclaredMethod("createAndSetupVillageInstance",
+                    net.minecraft.world.World.class, int.class, int.class, Random.class, info);
+            create.setAccessible(true);
+            Object instance = create.invoke(villageGen, world, cx, cz, random, here);
+            java.lang.reflect.Method grow = null;
+            for (java.lang.reflect.Method m : vg.getDeclaredMethods()) {
+                if (m.getName().equals("generateCompleteVillageInstance")) {
+                    grow = m;
+                }
+            }
+            grow.setAccessible(true);
+            grow.invoke(villageGen, instance, world, cx, cz);
+            placed = instance;
+        } else {
+            Object gen = c.getConstructor(boolean.class).newInstance(false);
+            setField(gen, "restrictions", false);
+            setField(gen, "shouldFindSurface", false);
+            placed = c.getMethod("generateWithSetRotation", net.minecraft.world.World.class, Random.class,
+                    int.class, int.class, int.class, int.class).invoke(gen, world, random, cx, GROUND + 1, cz, 0);
+        }
 
         Map<String, Integer> palette = new LinkedHashMap<>();
         JsonArray blocks = new JsonArray();
@@ -154,8 +239,8 @@ public class StructureExporter {
         int minX = Integer.MAX_VALUE, minY = Integer.MAX_VALUE, minZ = Integer.MAX_VALUE;
         int maxX = Integer.MIN_VALUE, maxY = Integer.MIN_VALUE, maxZ = Integer.MIN_VALUE;
         List<int[]> changed = new ArrayList<>();
-        for (int x = cx - RADIUS; x <= cx + RADIUS; x++) {
-            for (int z = cz - RADIUS; z <= cz + RADIUS; z++) {
+        for (int x = cx - radius; x <= cx + radius; x++) {
+            for (int z = cz - radius; z <= cz + radius; z++) {
                 Chunk chunk = world.getChunkFromBlockCoords(x, z);
                 int top = Math.max(GROUND + 1, chunk.getTopFilledSegment() + 16);
                 for (int y = 0; y < top; y++) {
