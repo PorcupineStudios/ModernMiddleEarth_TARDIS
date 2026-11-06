@@ -247,3 +247,16 @@ https://claude.ai/artifact/KqhSSTCuKXGuwKHBoYJdcu. Rebuild features in modern co
 ## Build
 From the repo root: `./gradlew :lotr:build`, `:lotr:runClient`, `:lotr:runServer`, `:lotr:runGameTestServer`,
 `:lotr:runData`. Shared rules are in the root `CLAUDE.md`.
+
+## LOTR tables from the reflection dump (2026-11-06)
+- The exporter's `ReflectionDump` writes `export/extra.json.gz` (static fields of LOTR's tables, every drink item,
+  every biome's fields incl. music, achievement, invasions, animal lists, villages); `converter/extra.py` turns it
+  into: modifiers as data enchantments (+ enchantable tags for all LOTR gear), achievements as advancements
+  (`progress/Achievements.grant` by LOTR name), titles (`/lotr_title`), shields and capes (`/lotr_shield`,
+  `/lotr_cape`; not drawn yet), drinks (`content/LotrDrinkItem`, components `drink_strength` and `vessel`),
+  calendar (`/lotr_date`), music regions (biome music events a pack fills), invasions (`npc/InvasionSpawner`),
+  animals (creature NPCs + `npc_animals/`, `AnimalBehaviour`; vanilla stand-ins for horses and boars).
+- Recipes: unsmeltery computed from crafting recipes, hobbit oven and kebab stand from furnace foods. Lore books
+  (`converter/lore.py`) go into structure chests. Quests: pickpocket kind, LOTR's per-quest lines
+  (`speech/miniquest/...`). Mounted units ride (`Hiring.mount`).
+- What was skipped and why: `lotr/docs/import-checklist.md`.

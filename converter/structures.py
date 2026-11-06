@@ -82,6 +82,8 @@ MAX_NPCS_PER_SPAWNER = 3
 
 
 def structure_id(cls):
+    if cls.startswith("village:"):
+        return "village_" + snake(cls.removeprefix("village:").removeprefix("LOTRVillageGen"))
     return snake(cls.removeprefix("LOTRWorldGen"))
 
 
@@ -455,6 +457,21 @@ class Structures:
                 cls = (st.get("class") or "").split(".")[-1]
                 per = chance_in.setdefault(cls, {})
                 per[bid] = min(per.get(bid, 10 ** 9), max(1, st.get("chunkChance") or 1))
+        # LOTR's villages: one per grid cell of gridScale x gridScale chunks, there with spawnChance (LOTRVillageGen),
+        # i.e. about 1 in gridScale^2 / spawnChance chunks
+        grid = {}
+        for cls, layouts in export.get("structures", {}).items():
+            if cls.startswith("village:") and layouts:
+                l0 = layouts[0]
+                grid[cls] = max(1, round((l0.get("gridScale") or 14) ** 2 / max(0.01, l0.get("spawnChance") or 1)))
+        extra = os.path.join(self.export_dir, "extra.json.gz")
+        if grid and os.path.exists(extra):
+            with gzip.open(extra, "rt", encoding="utf-8") as f:
+                for b in json.load(f).get("biomes", []):
+                    for v in ((b.get("decorator") or {}).get("villages") or []):
+                        cls = "village:" + v["_class"].split(".")[-1] if isinstance(v, dict) else None
+                        if cls in grid and b.get("biomeName"):
+                            chance_in.setdefault(cls, {})[snake(b["biomeName"])] = grid[cls]
         biomes_of = {cls: set(per) for cls, per in chance_in.items()}
         count = 0
         with_npcs = 0
@@ -509,8 +526,9 @@ class Structures:
             "salt": zlib.crc32((cls + str(chunk_chance)).encode()) & 0x7FFFFFFF,
             # the template's layer that sits at the surface (the old flat world's grass layer)
             "ground": ground,
-            "max_slope": 6,
-            "road_distance": 16,
+            # villages lay their own roads and spread wide: LOTR flattened the ground under them instead
+            "max_slope": 24 if cls.startswith("village:") else 6,
+            "road_distance": 0 if cls.startswith("village:") else 16,
         })
         write_json(os.path.join(wg, "structure_set", wid + ".json"), {
             "structures": [{"structure": f"{NS}:{wid}", "weight": 1}],
