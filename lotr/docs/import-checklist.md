@@ -92,6 +92,8 @@ and `[x]`) as they land, with the commit. Details and the 1.7.10 → 1.21.1 mism
   spiders (3), ents, huorns, the Balrog, barrow-wight, skeleton wraiths, marsh-wraith, Gollum, tormented elf;
   creature bodies from LOTR's models (`converter/entity_models.py`, `client/CreatureModel`), LOTR's hitboxes,
   skins and voices~~
+- [x] ~~Their animations: LOTR's setRotationAngles for each model, converted (`converter/model_anim.py`,
+  `client/CreatureAnim`)~~
 - [x] ~~14 non-person units in captains' pools~~ (now hired like the rest)
 - [x] ~~20 non-person structure spawners~~ (now place their creatures)
 - [ ] 47 mounted units (need mounts: wargs and horses to ride)
