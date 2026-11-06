@@ -238,9 +238,15 @@
     }
   },
   "hidden": [],
+  "renderers": [
+    {
+      "name": "LOTRRenderSkeleton"
+    }
+  ],
   "anim": {
     "biped": true,
-    "set": [],
-    "defs": []
-  }
+    "set": []
+  },
+  "defs": [],
+  "inputs": []
 }

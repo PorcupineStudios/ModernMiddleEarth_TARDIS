@@ -10,6 +10,25 @@
   "model": "lotr_port:huorn",
   "width": 1.5,
   "height": 4.0,
+  "behaviours": [
+    "tree",
+    "huorn"
+  ],
+  "lotr_classes": [
+    "LOTREntityHuorn",
+    "LOTREntityHuornBase",
+    "LOTREntityTree",
+    "LOTREntityNPC",
+    "EntityCreature",
+    "EntityLiving",
+    "EntityLivingBase"
+  ],
+  "behaviour_data": {
+    "tree_weakness": 2,
+    "tree_resistance": 0.5,
+    "wake_range": 24,
+    "state.renderer": 0
+  },
   "health": 60.0,
   "speed": 0.3,
   "attack": 4.0,

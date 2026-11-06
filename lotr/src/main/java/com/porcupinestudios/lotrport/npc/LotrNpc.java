@@ -7,7 +7,11 @@ import com.porcupinestudios.lotrport.faction.Alignment;
 import com.porcupinestudios.lotrport.faction.FactionKills;
 import com.porcupinestudios.lotrport.faction.Factions;
 import com.porcupinestudios.lotrport.quest.Quests;
+import com.porcupinestudios.lotrport.npc.behaviour.Behaviours;
+import com.porcupinestudios.lotrport.npc.behaviour.CreatureBehaviour;
 import com.porcupinestudios.lotrport.sound.LotrSounds;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.entity.ai.goal.GoalSelector;
 import java.util.EnumSet;
 import java.util.List;
 import java.util.Optional;
@@ -82,6 +86,14 @@ public class LotrNpc extends PathfinderMob implements Merchant {
             SynchedEntityData.defineId(LotrNpc.class, EntityDataSerializers.FLOAT);
     private static final EntityDataAccessor<Float> RENDER_SCALE =
             SynchedEntityData.defineId(LotrNpc.class, EntityDataSerializers.FLOAT);
+    /**
+     * Creature state, synced and saved, keyed by LOTR's own names ("isThrowingRocks", "getSpiderScaleAmount",
+     * "is.LOTREntityTroll"...) because LOTR's converted animations read exactly these.
+     */
+    private static final EntityDataAccessor<CompoundTag> STATE =
+            SynchedEntityData.defineId(LotrNpc.class, EntityDataSerializers.COMPOUND_TAG);
+    /** The LOTR behaviours of this NPC's type (server side, rebuilt from the type). */
+    private List<CreatureBehaviour> behaviours = List.of();
     /** The line it is saying, drawn above its head; empty when quiet. */
     private static final EntityDataAccessor<Component> SPEECH =
             SynchedEntityData.defineId(LotrNpc.class, EntityDataSerializers.COMPONENT);
@@ -144,6 +156,7 @@ public class LotrNpc extends PathfinderMob implements Merchant {
         builder.define(WIDTH, 0f);
         builder.define(HEIGHT, 0f);
         builder.define(RENDER_SCALE, 1f);
+        builder.define(STATE, new CompoundTag());
         builder.define(SPEECH, Component.empty());
         builder.define(QUEST_OFFER, -1);
     }
@@ -271,6 +284,19 @@ public class LotrNpc extends PathfinderMob implements Merchant {
         entityData.set(TALL_SKIN, type.skinHeight() == 64);
         entityData.set(MODEL, type.model());
         setBody(type);
+        CompoundTag state = new CompoundTag();
+        for (String cls : type.persona().lotrClasses()) {
+            state.putFloat("is." + cls, 1f);
+        }
+        type.persona().behaviourData().forEach((k, v) -> {
+            if (k.startsWith("state.")) {
+                state.putFloat(k, v); // e.g. which of LOTR's renderers draws it
+            }
+        });
+        entityData.set(STATE, state);
+        behaviours = Behaviours.of(type);
+        behaviours.forEach(b -> b.init(this, type));
+        behaviours.forEach(b -> b.addGoals(this));
         type.gear().forEach((slot, items) -> {
             if (items.isEmpty()) {
                 return;
@@ -298,6 +324,46 @@ public class LotrNpc extends PathfinderMob implements Merchant {
         entityData.set(WIDTH, type.persona().width());
         entityData.set(HEIGHT, type.persona().height());
         entityData.set(RENDER_SCALE, type.persona().renderScale());
+    }
+
+    /** Sets the skin texture (a behaviour picks the one that shows its state, like a spider's venom). */
+    public void setSkin(String skin) {
+        entityData.set(SKIN, skin);
+    }
+
+    /** Changes the creature's hitbox (spiders come in sizes). */
+    public void setBodySize(float width, float height) {
+        entityData.set(WIDTH, width);
+        entityData.set(HEIGHT, height);
+        refreshDimensions();
+    }
+
+    /** A creature state value by LOTR's name (0 if unset). */
+    public float state(String key) {
+        return entityData.get(STATE).getFloat(key);
+    }
+
+    /** Sets a creature state value (server side; synced to clients when it changes). */
+    public void setState(String key, float value) {
+        CompoundTag tag = entityData.get(STATE);
+        if (tag.contains(key) && tag.getFloat(key) == value) {
+            return;
+        }
+        CompoundTag copy = tag.copy();
+        copy.putFloat(key, value);
+        entityData.set(STATE, copy);
+    }
+
+    public RandomSource random() {
+        return random;
+    }
+
+    public GoalSelector goals() {
+        return goalSelector;
+    }
+
+    public List<CreatureBehaviour> behaviours() {
+        return behaviours;
     }
 
     /** The scale a creature model is drawn at (LOTR's renderer scale); 1 for people. */
@@ -453,6 +519,11 @@ public class LotrNpc extends PathfinderMob implements Merchant {
         return owner == null ? null : level().getPlayerByUUID(owner);
     }
 
+    /** The owning player if online (hired units, tamed Gollum). */
+    public Optional<Player> getOwnerPlayer() {
+        return Optional.ofNullable(ownerPlayer());
+    }
+
     @Override
     public boolean requiresCustomPersistence() {
         NpcType type = npcType();
@@ -485,6 +556,30 @@ public class LotrNpc extends PathfinderMob implements Merchant {
         return owner != null && e instanceof Enemy;
     }
 
+    @Override
+    public boolean hurt(DamageSource source, float amount) {
+        float a = amount;
+        for (CreatureBehaviour b : behaviours) {
+            a = b.hurt(this, source, a);
+        }
+        return a > 0 && super.hurt(source, a);
+    }
+
+    @Override
+    public boolean onClimbable() {
+        for (CreatureBehaviour b : behaviours) {
+            if (b.climbs(this)) {
+                return horizontalCollision;
+            }
+        }
+        return super.onClimbable();
+    }
+
+    @Override
+    public boolean fireImmune() {
+        return state("fireImmune") > 0 || super.fireImmune();
+    }
+
     // ---------------------------------------------------------------- sounds (LOTR's voices from the type's data)
 
     @Nullable
@@ -515,6 +610,9 @@ public class LotrNpc extends PathfinderMob implements Merchant {
     @Override
     public boolean doHurtTarget(Entity target) {
         boolean hit = super.doHurtTarget(target);
+        if (hit && !level().isClientSide) {
+            behaviours.forEach(b -> b.hit(this, target));
+        }
         if (hit) {
             playTypeSound("attack");
             if (target instanceof LivingEntity living && living.isDeadOrDying()) {
@@ -551,6 +649,12 @@ public class LotrNpc extends PathfinderMob implements Merchant {
         }
         if (!(player instanceof ServerPlayer sp)) {
             return InteractionResult.PASS;
+        }
+        for (CreatureBehaviour b : behaviours) {
+            InteractionResult r = b.interact(this, sp, hand);
+            if (r != null) {
+                return r;
+            }
         }
         if (isOwnedBy(sp)) {
             if (sp.isShiftKeyDown()) {
@@ -607,6 +711,9 @@ public class LotrNpc extends PathfinderMob implements Merchant {
         super.aiStep();
         if (!level().isClientSide) {
             tickQuestOffer();
+            for (CreatureBehaviour b : behaviours) {
+                b.tick(this);
+            }
         }
         if (!level().isClientSide && speechTicks > 0 && --speechTicks == 0) {
             entityData.set(SPEECH, Component.empty());
@@ -694,6 +801,7 @@ public class LotrNpc extends PathfinderMob implements Merchant {
         tag.putFloat("Width", entityData.get(WIDTH));
         tag.putFloat("Height", entityData.get(HEIGHT));
         tag.putFloat("RenderScale", entityData.get(RENDER_SCALE));
+        tag.put("CreatureState", entityData.get(STATE).copy());
         tag.putString("PersonName", personName);
         if (owner != null) {
             tag.putUUID("Owner", owner);
@@ -722,6 +830,13 @@ public class LotrNpc extends PathfinderMob implements Merchant {
             model = type == null ? "human" : type.model();
         }
         entityData.set(MODEL, model);
+        entityData.set(STATE, tag.getCompound("CreatureState"));
+        ResourceLocation loadedType = ResourceLocation.tryParse(tag.getString("NpcType"));
+        NpcType loaded = loadedType == null ? null : NpcData.type(loadedType).orElse(null);
+        if (loaded != null) {
+            behaviours = Behaviours.of(loaded);
+            behaviours.forEach(b -> b.addGoals(this));
+        }
         if (tag.contains("Width")) {
             entityData.set(WIDTH, tag.getFloat("Width"));
             entityData.set(HEIGHT, tag.getFloat("Height"));

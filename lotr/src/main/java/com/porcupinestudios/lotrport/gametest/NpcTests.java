@@ -202,4 +202,55 @@ public final class NpcTests {
         }
         helper.succeed();
     }
+
+    /** LOTR's spiders come in sizes (scaling the hitbox) with a venom; Mordor's poison. */
+    @GameTest(template = EMPTY)
+    public static void spidersHaveSizeAndVenom(GameTestHelper helper) {
+        LotrNpc spider = spawn(helper, "mordor_spider");
+        float scale = spider.state("getSpiderScaleAmount");
+        helper.assertTrue(scale >= 1f && scale <= 2f, "Mordor spider scale " + scale);
+        helper.assertTrue(Math.abs(spider.getBbWidth() - 1.4f * scale) < 0.01f, "spider width " + spider.getBbWidth());
+        helper.assertTrue(spider.state("getSpiderType") == 2f, "Mordor spiders poison");
+        helper.succeed();
+    }
+
+    /** A barrow-wight's touch slows, saps and withers (on normal difficulty, 7 s each). */
+    @GameTest(template = EMPTY)
+    public static void wightsCurseWhatTheyHit(GameTestHelper helper) {
+        LotrNpc wight = spawn(helper, "barrow_wight");
+        net.minecraft.world.entity.player.Player player = helper.makeMockPlayer(net.minecraft.world.level.GameType.SURVIVAL);
+        player.setPos(wight.getX() + 1, wight.getY(), wight.getZ());
+        wight.behaviours().forEach(b -> b.hit(wight, player));
+        helper.assertTrue(player.hasEffect(net.minecraft.world.effect.MobEffects.WITHER), "no wither from the wight");
+        helper.assertTrue(player.hasEffect(net.minecraft.world.effect.MobEffects.MOVEMENT_SLOWDOWN), "no slowness");
+        helper.succeed();
+    }
+
+    /** Twenty raw fish tame Gollum, who then belongs to the one who fed him. */
+    @GameTest(template = EMPTY)
+    public static void gollumIsTamedByFish(GameTestHelper helper) {
+        LotrNpc gollum = spawn(helper, "gollum");
+        ServerPlayer player = helper.makeMockServerPlayerInLevel();
+        player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(net.minecraft.world.item.Items.COD, 64));
+        for (int i = 0; i < 20; i++) {
+            gollum.behaviours().forEach(b -> b.interact(gollum, player, InteractionHand.MAIN_HAND));
+        }
+        helper.assertTrue(gollum.isOwnedBy(player), "Gollum not tamed by 20 fish");
+        helper.succeed();
+    }
+
+    /** A troll left in the sun burns, then turns to stone and stands still. */
+    @GameTest(template = EMPTY, timeoutTicks = 400)
+    public static void trollsTurnToStoneInSunlight(GameTestHelper helper) {
+        helper.getLevel().setDayTime(6000);
+        LotrNpc troll = spawn(helper, "troll");
+        troll.setPos(troll.getX(), helper.getLevel().getMaxBuildHeight() - 10, troll.getZ());
+        troll.setNoGravity(true);
+        troll.setState("burnTime", 2);
+        helper.runAfterDelay(20, () -> {
+            helper.assertTrue(troll.state("is.LOTREntityStoneTroll") > 0, "the troll did not turn to stone");
+            helper.assertTrue(troll.isNoAi(), "a stone troll still thinks");
+            helper.succeed();
+        });
+    }
 }

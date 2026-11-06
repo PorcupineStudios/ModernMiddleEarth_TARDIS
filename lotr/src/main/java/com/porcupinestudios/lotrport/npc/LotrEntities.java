@@ -21,6 +21,14 @@ public final class LotrEntities {
                     .clientTrackingRange(10)
                     .build(LotrPort.MOD_ID + ":npc"));
 
+    /** Rocks, snowballs and wraith bolts LOTR's creatures throw. */
+    public static final DeferredHolder<EntityType<?>, EntityType<com.porcupinestudios.lotrport.npc.behaviour.LotrProjectile>>
+            PROJECTILE = TYPES.register("projectile", () -> EntityType.Builder
+                    .<com.porcupinestudios.lotrport.npc.behaviour.LotrProjectile>of(
+                            com.porcupinestudios.lotrport.npc.behaviour.LotrProjectile::new, MobCategory.MISC)
+                    .sized(0.5f, 0.5f).clientTrackingRange(4).updateInterval(10)
+                    .build(LotrPort.MOD_ID + ":projectile"));
+
     private LotrEntities() {}
 
     public static void register(IEventBus modBus) {

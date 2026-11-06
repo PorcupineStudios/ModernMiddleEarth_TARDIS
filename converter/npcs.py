@@ -15,7 +15,8 @@ import io
 import json
 import os
 
-from entity_models import EntityModels, troll_scale
+from entity_models import EntityModels
+from behaviours import behaviour_data, behaviours_of
 from sounds import npc_sounds
 import re
 
@@ -197,12 +198,12 @@ class Npcs:
             return None
         if cls.endswith("LOTRModelHuorn"):
             # huorns are trees of log and leaf blocks with a face (client/HuornRenderer), not a box model
-            return "huorn", {"texture": [64, 32], "render_scale": 1.0}
-        name = self.models.build(cls)
+            return "huorn", {"texture": [64, 32], "render_scale": 1.0}, 0
+        render = (e.get("render") or {}).get("class")
+        name = self.models.build(cls, render)
         if not name:
             return None
-        with open(os.path.join(self.assets, "npc_model", name + ".json"), encoding="utf-8") as f:
-            return name, json.load(f)
+        return name, self.models.models[name], self.models.renderer_index(name, render)
 
     def load_banks(self):
         raw = {}
@@ -287,9 +288,12 @@ class Npcs:
             out["model"] = f"{NS}:{creature[0]}"
             out["width"] = round(e.get("width", 0.6), 3)
             out["height"] = round(e.get("height", 1.8), 3)
-            rs = model_json.get("render_scale", 1.0) * (troll_scale(e.get("classes") or []) or 1.0)
-            if rs != 1.0:
-                out["render_scale"] = rs
+            # LOTR's renderer scales (troll size, Gollum, Balrog...) come with the model's renderer ("pre")
+            data = behaviour_data(e, self.jar)
+            data["state.renderer"] = creature[2]
+            out["behaviours"] = behaviours_of(e)
+            out["lotr_classes"] = [c.split(".")[-1] for c in e.get("classes") or []]
+            out["behaviour_data"] = data
         elif model:
             out["model"] = model
         voice = npc_sounds(e.get("classes") or [e.get("class", "")])
@@ -353,6 +357,7 @@ class Npcs:
                     self.report["npc_pools_missing"].append(f"{tid}: {v[key]}")
                     del v[key]
             write_json(os.path.join(self.data, "npc", tid + ".json"), v)
+        self.models.write_all()
         self.lang(types)
         skipped = sorted({(e.get("render") or {}).get("model") or "none" for e in self.export.get("entities", [])
                           if e not in people})

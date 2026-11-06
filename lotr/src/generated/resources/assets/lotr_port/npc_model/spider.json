@@ -514,6 +514,62 @@
     }
   },
   "hidden": [],
+  "renderers": [
+    {
+      "name": "LOTRRenderMordorSpider",
+      "pre": {
+        "ops": [
+          [
+            "ref",
+            10
+          ]
+        ],
+        "color": [
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "blend": false
+      }
+    },
+    {
+      "name": "LOTRRenderMirkwoodSpider",
+      "pre": {
+        "ops": [
+          [
+            "ref",
+            10
+          ]
+        ],
+        "color": [
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "blend": false
+      }
+    },
+    {
+      "name": "LOTRRenderUtumnoIceSpider",
+      "pre": {
+        "ops": [
+          [
+            "ref",
+            10
+          ]
+        ],
+        "color": [
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "blend": false
+      }
+    }
+  ],
   "anim": {
     "biped": false,
     "set": [
@@ -780,215 +836,367 @@
         ]
       ]
     ],
-    "defs": [
-      [
-        "mul",
-        [
-          "in",
-          "limb"
+    "draws": [
+      {
+        "part": "head",
+        "ops": [],
+        "color": [
+          1.0,
+          1.0,
+          1.0,
+          1.0
         ],
-        0.6661999821662903
+        "blend": false,
+        "cond": true
+      },
+      {
+        "part": "thorax",
+        "ops": [],
+        "color": [
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "blend": false,
+        "cond": true
+      },
+      {
+        "part": "abdomen",
+        "ops": [],
+        "color": [
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "blend": false,
+        "cond": true
+      },
+      {
+        "part": "leg1",
+        "ops": [],
+        "color": [
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "blend": false,
+        "cond": true
+      },
+      {
+        "part": "leg2",
+        "ops": [],
+        "color": [
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "blend": false,
+        "cond": true
+      },
+      {
+        "part": "leg3",
+        "ops": [],
+        "color": [
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "blend": false,
+        "cond": true
+      },
+      {
+        "part": "leg4",
+        "ops": [],
+        "color": [
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "blend": false,
+        "cond": true
+      },
+      {
+        "part": "leg5",
+        "ops": [],
+        "color": [
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "blend": false,
+        "cond": true
+      },
+      {
+        "part": "leg6",
+        "ops": [],
+        "color": [
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "blend": false,
+        "cond": true
+      },
+      {
+        "part": "leg7",
+        "ops": [],
+        "color": [
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "blend": false,
+        "cond": true
+      },
+      {
+        "part": "leg8",
+        "ops": [],
+        "color": [
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "blend": false,
+        "cond": true
+      }
+    ]
+  },
+  "defs": [
+    [
+      "mul",
+      [
+        "in",
+        "limb"
+      ],
+      0.6661999821662903
+    ],
+    [
+      "mul",
+      [
+        "abs",
+        [
+          "mul",
+          [
+            "sin",
+            [
+              "ref",
+              0
+            ]
+          ],
+          0.4000000059604645
+        ]
       ],
       [
-        "mul",
+        "in",
+        "amount"
+      ]
+    ],
+    [
+      "mul",
+      [
+        "abs",
         [
-          "abs",
+          "mul",
           [
-            "mul",
+            "sin",
             [
-              "sin",
+              "add",
               [
                 "ref",
                 0
-              ]
-            ],
-            0.4000000059604645
-          ]
-        ],
-        [
-          "in",
-          "amount"
+              ],
+              3.1415927410125732
+            ]
+          ],
+          0.4000000059604645
         ]
       ],
       [
-        "mul",
+        "in",
+        "amount"
+      ]
+    ],
+    [
+      "mul",
+      [
+        "abs",
         [
-          "abs",
+          "mul",
           [
-            "mul",
+            "sin",
             [
-              "sin",
+              "add",
               [
-                "add",
-                [
-                  "ref",
-                  0
-                ],
-                3.1415927410125732
-              ]
-            ],
-            0.4000000059604645
-          ]
-        ],
-        [
-          "in",
-          "amount"
+                "ref",
+                0
+              ],
+              1.5707963705062866
+            ]
+          ],
+          0.4000000059604645
         ]
       ],
       [
-        "mul",
+        "in",
+        "amount"
+      ]
+    ],
+    [
+      "mul",
+      [
+        "abs",
         [
-          "abs",
+          "mul",
           [
-            "mul",
+            "sin",
             [
-              "sin",
+              "add",
               [
-                "add",
-                [
-                  "ref",
-                  0
-                ],
-                1.5707963705062866
-              ]
-            ],
-            0.4000000059604645
-          ]
-        ],
-        [
-          "in",
-          "amount"
+                "ref",
+                0
+              ],
+              4.71238899230957
+            ]
+          ],
+          0.4000000059604645
         ]
       ],
       [
-        "mul",
+        "in",
+        "amount"
+      ]
+    ],
+    [
+      "mul",
+      [
+        "ref",
+        0
+      ],
+      2.0
+    ],
+    [
+      "mul",
+      [
+        "neg",
         [
-          "abs",
+          "mul",
           [
-            "mul",
+            "cos",
             [
-              "sin",
-              [
-                "add",
-                [
-                  "ref",
-                  0
-                ],
-                4.71238899230957
-              ]
-            ],
-            0.4000000059604645
-          ]
-        ],
-        [
-          "in",
-          "amount"
+              "ref",
+              5
+            ]
+          ],
+          0.4000000059604645
         ]
       ],
       [
-        "mul",
-        [
-          "ref",
-          0
-        ],
-        2.0
-      ],
+        "in",
+        "amount"
+      ]
+    ],
+    [
+      "mul",
       [
-        "mul",
+        "neg",
         [
-          "neg",
+          "mul",
           [
-            "mul",
+            "cos",
             [
-              "cos",
+              "add",
               [
                 "ref",
                 5
-              ]
-            ],
-            0.4000000059604645
-          ]
-        ],
-        [
-          "in",
-          "amount"
+              ],
+              3.1415927410125732
+            ]
+          ],
+          0.4000000059604645
         ]
       ],
       [
-        "mul",
+        "in",
+        "amount"
+      ]
+    ],
+    [
+      "mul",
+      [
+        "neg",
         [
-          "neg",
+          "mul",
           [
-            "mul",
+            "cos",
             [
-              "cos",
+              "add",
               [
-                "add",
-                [
-                  "ref",
-                  5
-                ],
-                3.1415927410125732
-              ]
-            ],
-            0.4000000059604645
-          ]
-        ],
-        [
-          "in",
-          "amount"
+                "ref",
+                5
+              ],
+              1.5707963705062866
+            ]
+          ],
+          0.4000000059604645
         ]
       ],
       [
-        "mul",
+        "in",
+        "amount"
+      ]
+    ],
+    [
+      "mul",
+      [
+        "neg",
         [
-          "neg",
+          "mul",
           [
-            "mul",
+            "cos",
             [
-              "cos",
+              "add",
               [
-                "add",
-                [
-                  "ref",
-                  5
-                ],
-                1.5707963705062866
-              ]
-            ],
-            0.4000000059604645
-          ]
-        ],
-        [
-          "in",
-          "amount"
+                "ref",
+                5
+              ],
+              4.71238899230957
+            ]
+          ],
+          0.4000000059604645
         ]
       ],
       [
-        "mul",
-        [
-          "neg",
-          [
-            "mul",
-            [
-              "cos",
-              [
-                "add",
-                [
-                  "ref",
-                  5
-                ],
-                4.71238899230957
-              ]
-            ],
-            0.4000000059604645
-          ]
-        ],
-        [
-          "in",
-          "amount"
-        ]
+        "in",
+        "amount"
+      ]
+    ],
+    [
+      "scale",
+      [
+        "in",
+        "entity.getSpiderScaleAmount"
+      ],
+      [
+        "in",
+        "entity.getSpiderScaleAmount"
+      ],
+      [
+        "in",
+        "entity.getSpiderScaleAmount"
       ]
     ]
-  }
+  ],
+  "inputs": [
+    "getSpiderScaleAmount"
+  ]
 }

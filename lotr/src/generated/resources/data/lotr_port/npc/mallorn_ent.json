@@ -7,6 +7,28 @@
   "model": "lotr_port:ent",
   "width": 1.4,
   "height": 4.6,
+  "behaviours": [
+    "tree",
+    "ent"
+  ],
+  "lotr_classes": [
+    "LOTREntityMallornEnt",
+    "LOTREntityEnt",
+    "LOTREntityTree",
+    "LOTREntityNPC",
+    "EntityCreature",
+    "EntityLiving",
+    "EntityLivingBase"
+  ],
+  "behaviour_data": {
+    "tree_weakness": 2,
+    "tree_resistance": 0.5,
+    "max_branches": 3,
+    "heal_interval": 300,
+    "heal_range": 24,
+    "heal_ticks": 160,
+    "state.renderer": 0
+  },
   "sounds": {
     "step": "lotr_port:ent.step"
   },

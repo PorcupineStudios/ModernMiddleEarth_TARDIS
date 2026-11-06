@@ -6,6 +6,18 @@
   "model": "lotr_port:skeleton",
   "width": 0.6,
   "height": 1.8,
+  "behaviours": [],
+  "lotr_classes": [
+    "LOTREntityGondorRuinsWraith",
+    "LOTREntitySkeletalWraith",
+    "LOTREntityNPC",
+    "EntityCreature",
+    "EntityLiving",
+    "EntityLivingBase"
+  ],
+  "behaviour_data": {
+    "state.renderer": 0
+  },
   "sounds": {
     "ambient": "minecraft:entity.skeleton.ambient",
     "hurt": "minecraft:entity.skeleton.hurt",

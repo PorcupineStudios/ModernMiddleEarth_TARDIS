@@ -7,6 +7,21 @@
   "model": "lotr_port:warg",
   "width": 1.5,
   "height": 1.7,
+  "behaviours": [
+    "warg"
+  ],
+  "lotr_classes": [
+    "LOTREntityMordorWarg",
+    "LOTREntityWarg",
+    "LOTREntityNPCRideable",
+    "LOTREntityNPC",
+    "EntityCreature",
+    "EntityLiving",
+    "EntityLivingBase"
+  ],
+  "behaviour_data": {
+    "state.renderer": 0
+  },
   "sounds": {
     "ambient": "lotr_port:warg.say",
     "hurt": "lotr_port:warg.hurt",

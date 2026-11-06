@@ -675,12 +675,484 @@
       "children": []
     }
   },
-  "hidden": [
-    "battleaxe",
-    "head_hurt",
-    "warhammer",
-    "wooden_club",
-    "wooden_club_spikes"
+  "hidden": [],
+  "renderers": [
+    {
+      "name": "LOTRRenderOlogHai",
+      "pre": {
+        "ops": [
+          [
+            "ref",
+            62
+          ]
+        ],
+        "color": [
+          [
+            "ref",
+            66
+          ],
+          [
+            "ref",
+            67
+          ],
+          [
+            "ref",
+            68
+          ],
+          1.0
+        ],
+        "blend": false
+      },
+      "layers": [
+        {
+          "model": "troll_shirt",
+          "textures": [
+            "lotr_port:textures/entity/troll/olog_hai_armor/0.png",
+            "lotr_port:textures/entity/troll/olog_hai_armor/1.png"
+          ],
+          "pick": "outfitSkin"
+        },
+        {
+          "model": "troll_trousers",
+          "textures": [
+            "lotr_port:textures/entity/troll/olog_hai_armor/0.png",
+            "lotr_port:textures/entity/troll/olog_hai_armor/1.png"
+          ],
+          "pick": "outfitSkin"
+        },
+        {
+          "draws": [
+            {
+              "part": "warhammer",
+              "ops": [],
+              "color": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "blend": false,
+              "cond": true
+            }
+          ],
+          "textures": [
+            "lotr_port:textures/entity/troll/weapons.png"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "LOTRRenderSnowTroll",
+      "pre": {
+        "ops": [
+          [
+            "ref",
+            62
+          ]
+        ],
+        "color": [
+          [
+            "ref",
+            66
+          ],
+          [
+            "ref",
+            67
+          ],
+          [
+            "ref",
+            68
+          ],
+          1.0
+        ],
+        "blend": false
+      },
+      "layers": [
+        {
+          "draws": [
+            {
+              "part": "wooden_club",
+              "ops": [],
+              "color": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "blend": false,
+              "cond": true
+            },
+            {
+              "part": "wooden_club_spikes",
+              "ops": [],
+              "color": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "blend": false,
+              "cond": true
+            }
+          ],
+          "textures": [
+            "lotr_port:textures/entity/troll/weapons.png"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "LOTRRenderMountainTroll",
+      "pre": {
+        "ops": [
+          [
+            "ref",
+            62
+          ]
+        ],
+        "color": [
+          [
+            "ref",
+            66
+          ],
+          [
+            "ref",
+            67
+          ],
+          [
+            "ref",
+            68
+          ],
+          1.0
+        ],
+        "blend": false
+      },
+      "layers": [
+        {
+          "rock_when": "isThrowingRocks",
+          "attach": "right_arm",
+          "translate": [
+            0.375,
+            1.5,
+            0.0
+          ],
+          "rotate": [
+            45.0,
+            0.0,
+            1.0,
+            0.0
+          ]
+        },
+        {
+          "draws": [
+            {
+              "part": "wooden_club",
+              "ops": [],
+              "color": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "blend": false,
+              "cond": true
+            },
+            {
+              "part": "wooden_club_spikes",
+              "ops": [],
+              "color": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "blend": false,
+              "cond": true
+            }
+          ],
+          "textures": [
+            "lotr_port:textures/entity/troll/weapons.png"
+          ],
+          "hide_when": "isThrowingRocks"
+        }
+      ]
+    },
+    {
+      "name": "LOTRRenderMirkTroll",
+      "pre": {
+        "ops": [
+          [
+            "ref",
+            62
+          ]
+        ],
+        "color": [
+          [
+            "ref",
+            66
+          ],
+          [
+            "ref",
+            67
+          ],
+          [
+            "ref",
+            68
+          ],
+          1.0
+        ],
+        "blend": false
+      },
+      "layers": [
+        {
+          "model": "troll_shirt",
+          "textures": [
+            "lotr_port:textures/entity/troll/mirk_troll_armor/0.png"
+          ],
+          "pick": "outfitSkin"
+        },
+        {
+          "model": "troll_trousers",
+          "textures": [
+            "lotr_port:textures/entity/troll/mirk_troll_armor/0.png"
+          ],
+          "pick": "outfitSkin"
+        },
+        {
+          "draws": [
+            {
+              "part": "battleaxe",
+              "ops": [],
+              "color": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "blend": false,
+              "cond": true
+            }
+          ],
+          "textures": [
+            "lotr_port:textures/entity/troll/weapons.png"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "LOTRRenderUtumnoTroll",
+      "pre": {
+        "ops": [
+          [
+            "ref",
+            62
+          ]
+        ],
+        "color": [
+          [
+            "ref",
+            66
+          ],
+          [
+            "ref",
+            67
+          ],
+          [
+            "ref",
+            68
+          ],
+          1.0
+        ],
+        "blend": false
+      },
+      "layers": [
+        {
+          "draws": [
+            {
+              "part": "wooden_club",
+              "ops": [],
+              "color": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "blend": false,
+              "cond": true
+            },
+            {
+              "part": "wooden_club_spikes",
+              "ops": [],
+              "color": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "blend": false,
+              "cond": true
+            }
+          ],
+          "textures": [
+            "lotr_port:textures/entity/troll/weapons.png"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "LOTRRenderTroll",
+      "pre": {
+        "ops": [
+          [
+            "ref",
+            62
+          ]
+        ],
+        "color": [
+          [
+            "ref",
+            66
+          ],
+          [
+            "ref",
+            67
+          ],
+          [
+            "ref",
+            68
+          ],
+          1.0
+        ],
+        "blend": false
+      },
+      "layers": [
+        {
+          "model": "troll_shirt",
+          "textures": [
+            "lotr_port:textures/entity/troll/outfit_0.png",
+            "lotr_port:textures/entity/troll/outfit_1.png",
+            "lotr_port:textures/entity/troll/outfit_2.png"
+          ],
+          "pick": "outfitSkin"
+        },
+        {
+          "model": "troll_trousers",
+          "textures": [
+            "lotr_port:textures/entity/troll/outfit_0.png",
+            "lotr_port:textures/entity/troll/outfit_1.png",
+            "lotr_port:textures/entity/troll/outfit_2.png"
+          ],
+          "pick": "outfitSkin"
+        },
+        {
+          "draws": [
+            {
+              "part": "wooden_club",
+              "ops": [],
+              "color": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "blend": false,
+              "cond": true
+            }
+          ],
+          "textures": [
+            "lotr_port:textures/entity/troll/weapons.png"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "LOTRRenderMountainTrollChieftain",
+      "pre": {
+        "ops": [
+          [
+            "ref",
+            62
+          ],
+          [
+            "translate",
+            0.0,
+            [
+              "neg",
+              [
+                "in",
+                "entity.getSpawningOffset"
+              ]
+            ],
+            0.0
+          ]
+        ],
+        "color": [
+          [
+            "ref",
+            66
+          ],
+          [
+            "ref",
+            67
+          ],
+          [
+            "ref",
+            68
+          ],
+          1.0
+        ],
+        "blend": false
+      },
+      "layers": [
+        {
+          "rock_when": "isThrowingRocks",
+          "attach": "right_arm",
+          "translate": [
+            0.375,
+            1.5,
+            0.0
+          ],
+          "rotate": [
+            45.0,
+            0.0,
+            1.0,
+            0.0
+          ]
+        },
+        {
+          "draws": [
+            {
+              "part": "wooden_club",
+              "ops": [],
+              "color": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "blend": false,
+              "cond": true
+            },
+            {
+              "part": "wooden_club_spikes",
+              "ops": [],
+              "color": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "blend": false,
+              "cond": true
+            }
+          ],
+          "textures": [
+            "lotr_port:textures/entity/troll/weapons.png"
+          ],
+          "hide_when": "isThrowingRocks"
+        }
+      ]
+    }
   ],
   "anim": {
     "biped": false,
@@ -1132,21 +1604,348 @@
         ]
       ]
     ],
-    "defs": [
+    "draws": [
+      {
+        "part": "head_hurt",
+        "ops": [
+          [
+            "rotate",
+            -15.0,
+            0.0,
+            0.0,
+            1.0
+          ],
+          [
+            "rotate",
+            10.0,
+            0.0,
+            1.0,
+            0.0
+          ]
+        ],
+        "color": [
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "blend": false,
+        "cond": [
+          "and",
+          [
+            "ref",
+            55
+          ],
+          [
+            "ref",
+            57
+          ],
+          [
+            "ref",
+            59
+          ]
+        ]
+      },
+      {
+        "part": "head",
+        "ops": [
+          [
+            "rotate",
+            -15.0,
+            0.0,
+            0.0,
+            1.0
+          ],
+          [
+            "rotate",
+            10.0,
+            0.0,
+            1.0,
+            0.0
+          ]
+        ],
+        "color": [
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "blend": false,
+        "cond": [
+          "and",
+          [
+            "ref",
+            55
+          ],
+          [
+            "ref",
+            57
+          ],
+          [
+            "ref",
+            58
+          ]
+        ]
+      },
+      {
+        "part": "head_hurt",
+        "ops": [
+          [
+            "rotate",
+            15.0,
+            0.0,
+            0.0,
+            1.0
+          ],
+          [
+            "rotate",
+            -10.0,
+            0.0,
+            1.0,
+            0.0
+          ]
+        ],
+        "color": [
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "blend": false,
+        "cond": [
+          "and",
+          [
+            "ref",
+            55
+          ],
+          [
+            "ref",
+            57
+          ],
+          [
+            "ref",
+            60
+          ],
+          [
+            "ref",
+            59
+          ]
+        ]
+      },
+      {
+        "part": "head",
+        "ops": [
+          [
+            "rotate",
+            15.0,
+            0.0,
+            0.0,
+            1.0
+          ],
+          [
+            "rotate",
+            -10.0,
+            0.0,
+            1.0,
+            0.0
+          ]
+        ],
+        "color": [
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "blend": false,
+        "cond": [
+          "and",
+          [
+            "ref",
+            55
+          ],
+          [
+            "ref",
+            57
+          ],
+          [
+            "ref",
+            60
+          ],
+          [
+            "ref",
+            58
+          ]
+        ]
+      },
+      {
+        "part": "head_hurt",
+        "ops": [],
+        "color": [
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "blend": false,
+        "cond": [
+          "and",
+          [
+            "ref",
+            55
+          ],
+          [
+            "ref",
+            56
+          ],
+          [
+            "ref",
+            59
+          ]
+        ]
+      },
+      {
+        "part": "head",
+        "ops": [],
+        "color": [
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "blend": false,
+        "cond": [
+          "and",
+          [
+            "ref",
+            55
+          ],
+          [
+            "ref",
+            56
+          ],
+          [
+            "ref",
+            58
+          ]
+        ]
+      },
+      {
+        "part": "body",
+        "ops": [],
+        "color": [
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "blend": false,
+        "cond": [
+          "ref",
+          61
+        ]
+      },
+      {
+        "part": "right_arm",
+        "ops": [],
+        "color": [
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "blend": false,
+        "cond": [
+          "ref",
+          61
+        ]
+      },
+      {
+        "part": "left_arm",
+        "ops": [],
+        "color": [
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "blend": false,
+        "cond": [
+          "ref",
+          61
+        ]
+      },
+      {
+        "part": "right_leg",
+        "ops": [],
+        "color": [
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "blend": false,
+        "cond": [
+          "ref",
+          61
+        ]
+      },
+      {
+        "part": "left_leg",
+        "ops": [],
+        "color": [
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "blend": false,
+        "cond": [
+          "ref",
+          61
+        ]
+      }
+    ]
+  },
+  "defs": [
+    [
+      "eq",
       [
-        "eq",
+        "in",
+        "entity.is.LOTREntityTroll"
+      ],
+      0
+    ],
+    [
+      "not",
+      [
+        "ref",
+        0
+      ]
+    ],
+    [
+      "and",
+      [
+        "ref",
+        1
+      ],
+      [
+        "le",
         [
           "in",
-          "entity.is.LOTREntityTroll"
+          "entity.sniffTime"
         ],
+        0
+      ]
+    ],
+    [
+      "or",
+      [
+        "ref",
         0
       ],
       [
-        "not",
-        [
-          "ref",
-          0
-        ]
+        "ref",
+        2
       ],
       [
         "and",
@@ -1155,56 +1954,41 @@
           1
         ],
         [
-          "le",
+          "not",
           [
-            "in",
-            "entity.sniffTime"
-          ],
-          0
-        ]
-      ],
-      [
-        "or",
-        [
-          "ref",
-          0
-        ],
-        [
-          "ref",
-          2
-        ],
-        [
-          "and",
-          [
-            "ref",
-            1
-          ],
-          [
-            "not",
+            "le",
             [
-              "le",
-              [
-                "in",
-                "entity.sniffTime"
-              ],
-              0
-            ]
+              "in",
+              "entity.sniffTime"
+            ],
+            0
           ]
         ]
+      ]
+    ],
+    [
+      "or",
+      [
+        "ref",
+        0
       ],
       [
-        "or",
+        "ref",
+        1
+      ]
+    ],
+    [
+      "or",
+      [
+        "le",
         [
-          "ref",
-          0
+          "in",
+          "swing"
         ],
-        [
-          "ref",
-          1
-        ]
+        -9990.0
       ],
       [
-        "or",
+        "not",
         [
           "le",
           [
@@ -1212,129 +1996,141 @@
             "swing"
           ],
           -9990.0
+        ]
+      ]
+    ],
+    [
+      "eq",
+      [
+        "in",
+        "entity.is.LOTREntityMountainTroll"
+      ],
+      0
+    ],
+    [
+      "not",
+      [
+        "ref",
+        6
+      ]
+    ],
+    [
+      "eq",
+      [
+        "in",
+        "entity.isThrowingRocks"
+      ],
+      0
+    ],
+    [
+      "or",
+      [
+        "ref",
+        6
+      ],
+      [
+        "and",
+        [
+          "ref",
+          7
+        ],
+        [
+          "ref",
+          8
+        ]
+      ],
+      [
+        "and",
+        [
+          "ref",
+          7
         ],
         [
           "not",
           [
-            "le",
-            [
-              "in",
-              "swing"
-            ],
-            -9990.0
-          ]
-        ]
-      ],
-      [
-        "eq",
-        [
-          "in",
-          "entity.is.LOTREntityMountainTroll"
-        ],
-        0
-      ],
-      [
-        "not",
-        [
-          "ref",
-          6
-        ]
-      ],
-      [
-        "eq",
-        [
-          "in",
-          "entity.isThrowingRocks"
-        ],
-        0
-      ],
-      [
-        "or",
-        [
-          "ref",
-          6
-        ],
-        [
-          "and",
-          [
-            "ref",
-            7
-          ],
-          [
             "ref",
             8
           ]
+        ]
+      ]
+    ],
+    [
+      "eq",
+      [
+        "in",
+        "entity.is.LOTREntitySnowTroll"
+      ],
+      0
+    ],
+    [
+      "not",
+      [
+        "ref",
+        10
+      ]
+    ],
+    [
+      "eq",
+      [
+        "in",
+        "entity.isThrowingSnow"
+      ],
+      0
+    ],
+    [
+      "or",
+      [
+        "ref",
+        10
+      ],
+      [
+        "and",
+        [
+          "ref",
+          11
         ],
         [
-          "and",
-          [
-            "ref",
-            7
-          ],
-          [
-            "not",
-            [
-              "ref",
-              8
-            ]
-          ]
+          "ref",
+          12
         ]
       ],
       [
-        "eq",
-        [
-          "in",
-          "entity.is.LOTREntitySnowTroll"
-        ],
-        0
-      ],
-      [
-        "not",
+        "and",
         [
           "ref",
-          10
-        ]
-      ],
-      [
-        "eq",
-        [
-          "in",
-          "entity.isThrowingSnow"
-        ],
-        0
-      ],
-      [
-        "or",
-        [
-          "ref",
-          10
+          11
         ],
         [
-          "and",
-          [
-            "ref",
-            11
-          ],
+          "not",
           [
             "ref",
             12
           ]
+        ]
+      ]
+    ],
+    [
+      "ite",
+      [
+        "and",
+        [
+          "ref",
+          3
         ],
         [
-          "and",
-          [
-            "ref",
-            11
-          ],
-          [
-            "not",
-            [
-              "ref",
-              12
-            ]
-          ]
+          "ref",
+          4
+        ],
+        [
+          "ref",
+          5
+        ],
+        [
+          "ref",
+          6
         ]
       ],
+      0,
       [
         "ite",
         [
@@ -1353,41 +2149,48 @@
           ],
           [
             "ref",
-            6
+            7
+          ],
+          [
+            "ref",
+            8
           ]
         ],
         0,
-        [
-          "ite",
-          [
-            "and",
-            [
-              "ref",
-              3
-            ],
-            [
-              "ref",
-              4
-            ],
-            [
-              "ref",
-              5
-            ],
-            [
-              "ref",
-              7
-            ],
-            [
-              "ref",
-              8
-            ]
-          ],
-          0,
-          1
-        ]
-      ],
+        1
+      ]
+    ],
+    [
+      "eq",
       [
-        "eq",
+        "ite",
+        [
+          "and",
+          [
+            "ref",
+            3
+          ],
+          [
+            "ref",
+            4
+          ],
+          [
+            "ref",
+            5
+          ],
+          [
+            "ref",
+            9
+          ],
+          [
+            "ref",
+            10
+          ]
+        ],
+        [
+          "ref",
+          14
+        ],
         [
           "ite",
           [
@@ -1410,203 +2213,69 @@
             ],
             [
               "ref",
-              10
+              11
+            ],
+            [
+              "ref",
+              12
             ]
           ],
           [
             "ref",
             14
           ],
-          [
-            "ite",
-            [
-              "and",
-              [
-                "ref",
-                3
-              ],
-              [
-                "ref",
-                4
-              ],
-              [
-                "ref",
-                5
-              ],
-              [
-                "ref",
-                9
-              ],
-              [
-                "ref",
-                11
-              ],
-              [
-                "ref",
-                12
-              ]
-            ],
-            [
-              "ref",
-              14
-            ],
-            1
-          ]
-        ],
-        0
+          1
+        ]
+      ],
+      0
+    ],
+    [
+      "and",
+      [
+        "ref",
+        3
       ],
       [
-        "and",
+        "ref",
+        4
+      ],
+      [
+        "ref",
+        5
+      ],
+      [
+        "ref",
+        9
+      ],
+      [
+        "ref",
+        13
+      ],
+      [
+        "or",
         [
           "ref",
-          3
+          15
         ],
         [
-          "ref",
-          4
-        ],
-        [
-          "ref",
-          5
-        ],
-        [
-          "ref",
-          9
-        ],
-        [
-          "ref",
-          13
-        ],
-        [
-          "or",
+          "not",
           [
             "ref",
             15
-          ],
-          [
-            "not",
-            [
-              "ref",
-              15
-            ]
           ]
-        ],
-        [
-          "eq",
-          [
-            "in",
-            "entity.is.EntityLivingBase"
-          ],
-          0
         ]
       ],
       [
-        "mul",
-        [
-          "mul",
-          [
-            "sin",
-            [
-              "mul",
-              [
-                "in",
-                "limb"
-              ],
-              0.20000000298023224
-            ]
-          ],
-          0.30000001192092896
-        ],
+        "eq",
         [
           "in",
-          "amount"
-        ]
-      ],
-      [
-        "sin",
-        [
-          "ref",
-          17
-        ]
-      ],
-      [
-        "ite",
-        [
-          "ref",
-          16
+          "entity.is.EntityLivingBase"
         ],
-        0.0,
-        [
-          "mul",
-          [
-            "ref",
-            18
-          ],
-          27.0
-        ]
-      ],
-      [
-        "cos",
-        [
-          "ref",
-          17
-        ]
-      ],
-      [
-        "ite",
-        [
-          "ref",
-          16
-        ],
-        -27.0,
-        [
-          "add",
-          -27.0,
-          [
-            "sub",
-            27.0,
-            [
-              "mul",
-              [
-                "ref",
-                20
-              ],
-              27.0
-            ]
-          ]
-        ]
-      ],
-      [
-        "ite",
-        [
-          "ref",
-          16
-        ],
-        0.0,
-        [
-          "ref",
-          17
-        ]
-      ],
-      [
-        "and",
-        [
-          "ref",
-          3
-        ],
-        [
-          "ref",
-          4
-        ],
-        [
-          "le",
-          [
-            "in",
-            "swing"
-          ],
-          -9990.0
-        ]
-      ],
+        0
+      ]
+    ],
+    [
+      "mul",
       [
         "mul",
         [
@@ -1614,239 +2283,358 @@
           [
             "mul",
             [
-              "mul",
-              [
-                "sqrt",
-                [
-                  "in",
-                  "swing"
-                ]
-              ],
-              3.1415927410125732
+              "in",
+              "limb"
             ],
-            2.0
+            0.20000000298023224
           ]
         ],
-        0.20000000298023224
+        0.30000001192092896
       ],
       [
-        "cos",
+        "in",
+        "amount"
+      ]
+    ],
+    [
+      "sin",
+      [
+        "ref",
+        17
+      ]
+    ],
+    [
+      "ite",
+      [
+        "ref",
+        16
+      ],
+      0.0,
+      [
+        "mul",
         [
           "ref",
-          24
+          18
+        ],
+        27.0
+      ]
+    ],
+    [
+      "cos",
+      [
+        "ref",
+        17
+      ]
+    ],
+    [
+      "ite",
+      [
+        "ref",
+        16
+      ],
+      -27.0,
+      [
+        "add",
+        -27.0,
+        [
+          "sub",
+          27.0,
+          [
+            "mul",
+            [
+              "ref",
+              20
+            ],
+            27.0
+          ]
+        ]
+      ]
+    ],
+    [
+      "ite",
+      [
+        "ref",
+        16
+      ],
+      0.0,
+      [
+        "ref",
+        17
+      ]
+    ],
+    [
+      "and",
+      [
+        "ref",
+        3
+      ],
+      [
+        "ref",
+        4
+      ],
+      [
+        "le",
+        [
+          "in",
+          "swing"
+        ],
+        -9990.0
+      ]
+    ],
+    [
+      "mul",
+      [
+        "sin",
+        [
+          "mul",
+          [
+            "mul",
+            [
+              "sqrt",
+              [
+                "in",
+                "swing"
+              ]
+            ],
+            3.1415927410125732
+          ],
+          2.0
         ]
       ],
+      0.20000000298023224
+    ],
+    [
+      "cos",
+      [
+        "ref",
+        24
+      ]
+    ],
+    [
+      "ite",
+      [
+        "ref",
+        23
+      ],
+      -12.0,
+      [
+        "mul",
+        [
+          "neg",
+          [
+            "ref",
+            25
+          ]
+        ],
+        12.0
+      ]
+    ],
+    [
+      "sub",
+      [
+        "add",
+        [
+          "mul",
+          [
+            "ref",
+            18
+          ],
+          23.0
+        ],
+        [
+          "mul",
+          [
+            "ref",
+            20
+          ],
+          12.0
+        ]
+      ],
+      12.0
+    ],
+    [
+      "add",
+      [
+        "add",
+        [
+          "mul",
+          [
+            "ref",
+            20
+          ],
+          -23.0
+        ],
+        [
+          "mul",
+          [
+            "ref",
+            18
+          ],
+          12.0
+        ]
+      ],
+      23.0
+    ],
+    [
+      "and",
+      [
+        "ref",
+        3
+      ],
+      [
+        "ref",
+        4
+      ],
+      [
+        "ref",
+        5
+      ],
+      [
+        "ref",
+        9
+      ],
+      [
+        "ref",
+        13
+      ],
+      [
+        "ref",
+        15
+      ]
+    ],
+    [
+      "sin",
+      [
+        "mul",
+        [
+          "in",
+          "swing"
+        ],
+        3.1415927410125732
+      ]
+    ],
+    [
+      "add",
+      [
+        "mul",
+        [
+          "cos",
+          [
+            "mul",
+            [
+              "in",
+              "age"
+            ],
+            0.09000000357627869
+          ]
+        ],
+        0.05000000074505806
+      ],
+      0.05000000074505806
+    ],
+    [
+      "add",
       [
         "ite",
         [
           "ref",
           23
         ],
-        -12.0,
+        0.0,
         [
           "mul",
           [
-            "neg",
-            [
-              "ref",
-              25
-            ]
+            "ref",
+            30
           ],
-          12.0
+          -0.4000000059604645
         ]
+      ],
+      [
+        "ref",
+        31
+      ]
+    ],
+    [
+      "sub",
+      [
+        "ref",
+        32
+      ],
+      0.4000000059604645
+    ],
+    [
+      "ite",
+      [
+        "ref",
+        29
+      ],
+      [
+        "ref",
+        32
+      ],
+      [
+        "ref",
+        33
+      ]
+    ],
+    [
+      "ite",
+      [
+        "ref",
+        23
+      ],
+      12.0,
+      [
+        "mul",
+        [
+          "ref",
+          25
+        ],
+        12.0
+      ]
+    ],
+    [
+      "ite",
+      [
+        "ref",
+        29
       ],
       [
         "sub",
-        [
-          "add",
-          [
-            "mul",
-            [
-              "ref",
-              18
-            ],
-            23.0
-          ],
-          [
-            "mul",
-            [
-              "ref",
-              20
-            ],
-            12.0
-          ]
-        ],
-        12.0
-      ],
-      [
-        "add",
-        [
-          "add",
-          [
-            "mul",
-            [
-              "ref",
-              20
-            ],
-            -23.0
-          ],
-          [
-            "mul",
-            [
-              "ref",
-              18
-            ],
-            12.0
-          ]
-        ],
-        23.0
-      ],
-      [
-        "and",
-        [
-          "ref",
-          3
-        ],
-        [
-          "ref",
-          4
-        ],
-        [
-          "ref",
-          5
-        ],
-        [
-          "ref",
-          9
-        ],
-        [
-          "ref",
-          13
-        ],
-        [
-          "ref",
-          15
-        ]
-      ],
-      [
-        "sin",
-        [
-          "mul",
-          [
-            "in",
-            "swing"
-          ],
-          3.1415927410125732
-        ]
-      ],
-      [
-        "add",
-        [
-          "mul",
-          [
-            "cos",
-            [
-              "mul",
-              [
-                "in",
-                "age"
-              ],
-              0.09000000357627869
-            ]
-          ],
-          0.05000000074505806
-        ],
-        0.05000000074505806
-      ],
-      [
-        "add",
-        [
-          "ite",
-          [
-            "ref",
-            23
-          ],
-          0.0,
-          [
-            "mul",
-            [
-              "ref",
-              30
-            ],
-            -0.4000000059604645
-          ]
-        ],
+        0.0,
         [
           "ref",
           31
         ]
       ],
       [
-        "sub",
-        [
-          "ref",
-          32
-        ],
-        0.4000000059604645
-      ],
-      [
-        "ite",
-        [
-          "ref",
-          29
-        ],
-        [
-          "ref",
-          32
-        ],
+        "neg",
         [
           "ref",
           33
         ]
+      ]
+    ],
+    [
+      "ite",
+      [
+        "ref",
+        0
+      ],
+      [
+        "div",
+        [
+          "in",
+          "yaw"
+        ],
+        57.2957763671875
       ],
       [
         "ite",
         [
           "ref",
-          23
-        ],
-        12.0,
-        [
-          "mul",
-          [
-            "ref",
-            25
-          ],
-          12.0
-        ]
-      ],
-      [
-        "ite",
-        [
-          "ref",
-          29
-        ],
-        [
-          "sub",
-          0.0,
-          [
-            "ref",
-            31
-          ]
-        ],
-        [
-          "neg",
-          [
-            "ref",
-            33
-          ]
-        ]
-      ],
-      [
-        "ite",
-        [
-          "ref",
-          0
+          2
         ],
         [
           "div",
@@ -1857,281 +2645,606 @@
           57.2957763671875
         ],
         [
-          "ite",
+          "mul",
           [
-            "ref",
-            2
-          ],
-          [
-            "div",
+            "sin",
             [
-              "in",
-              "yaw"
-            ],
-            57.2957763671875
-          ],
-          [
-            "mul",
-            [
-              "sin",
+              "mul",
               [
-                "mul",
+                "div",
                 [
-                  "div",
+                  "sub",
+                  [
+                    "in",
+                    "entity.sniffTime"
+                  ],
                   [
                     "sub",
                     [
                       "in",
-                      "entity.sniffTime"
+                      "age"
                     ],
                     [
-                      "sub",
-                      [
-                        "in",
-                        "age"
-                      ],
-                      [
-                        "in",
-                        "entity.field_70173_aa"
-                      ]
+                      "in",
+                      "entity.field_70173_aa"
                     ]
-                  ],
-                  8.0
+                  ]
                 ],
-                6.2831854820251465
-              ]
-            ],
-            0.5
-          ]
-        ]
-      ],
-      [
-        "div",
-        [
-          "in",
-          "pitch"
-        ],
-        57.2957763671875
-      ],
-      [
-        "mul",
-        [
-          "in",
-          "limb"
-        ],
-        0.6661999821662903
-      ],
-      [
-        "cos",
-        [
-          "add",
-          [
-            "ref",
-            39
+                8.0
+              ],
+              6.2831854820251465
+            ]
           ],
-          3.1415927410125732
+          0.5
         ]
+      ]
+    ],
+    [
+      "div",
+      [
+        "in",
+        "pitch"
       ],
+      57.2957763671875
+    ],
+    [
+      "mul",
+      [
+        "in",
+        "limb"
+      ],
+      0.6661999821662903
+    ],
+    [
+      "cos",
+      [
+        "add",
+        [
+          "ref",
+          39
+        ],
+        3.1415927410125732
+      ]
+    ],
+    [
+      "mul",
       [
         "mul",
         [
           "mul",
           [
-            "mul",
-            [
-              "ref",
-              40
-            ],
-            2.0
+            "ref",
+            40
           ],
-          [
-            "in",
-            "amount"
-          ]
+          2.0
         ],
-        0.5
-      ],
-      [
-        "ite",
         [
-          "and",
-          [
-            "ref",
-            3
-          ],
-          [
-            "ref",
-            0
-          ]
+          "in",
+          "amount"
+        ]
+      ],
+      0.5
+    ],
+    [
+      "ite",
+      [
+        "and",
+        [
+          "ref",
+          3
         ],
         [
           "ref",
-          41
-        ],
-        [
-          "sub",
-          [
-            "mul",
-            [
-              "ref",
-              41
-            ],
-            0.5
-          ],
-          0.3141592741012573
+          0
         ]
       ],
       [
-        "mul",
-        [
-          "sub",
-          1.0,
-          [
-            "in",
-            "swing"
-          ]
-        ],
-        [
-          "sub",
-          1.0,
-          [
-            "in",
-            "swing"
-          ]
-        ]
+        "ref",
+        41
       ],
       [
-        "mul",
+        "sub",
         [
-          "sin",
-          [
-            "mul",
-            [
-              "in",
-              "age"
-            ],
-            0.06700000166893005
-          ]
-        ],
-        0.05000000074505806
-      ],
-      [
-        "add",
-        [
-          "ite",
+          "mul",
           [
             "ref",
-            23
+            41
           ],
+          0.5
+        ],
+        0.3141592741012573
+      ]
+    ],
+    [
+      "mul",
+      [
+        "sub",
+        1.0,
+        [
+          "in",
+          "swing"
+        ]
+      ],
+      [
+        "sub",
+        1.0,
+        [
+          "in",
+          "swing"
+        ]
+      ]
+    ],
+    [
+      "mul",
+      [
+        "sin",
+        [
+          "mul",
+          [
+            "in",
+            "age"
+          ],
+          0.06700000166893005
+        ]
+      ],
+      0.05000000074505806
+    ],
+    [
+      "add",
+      [
+        "ite",
+        [
+          "ref",
+          23
+        ],
+        [
+          "ref",
+          42
+        ],
+        [
+          "sub",
           [
             "ref",
             42
           ],
           [
-            "sub",
+            "add",
             [
-              "ref",
-              42
-            ],
-            [
-              "add",
+              "mul",
               [
-                "mul",
-                [
-                  "sin",
-                  [
-                    "mul",
-                    [
-                      "sub",
-                      1.0,
-                      [
-                        "mul",
-                        [
-                          "ref",
-                          43
-                        ],
-                        [
-                          "ref",
-                          43
-                        ]
-                      ]
-                    ],
-                    3.1415927410125732
-                  ]
-                ],
-                1.2
-              ],
-              [
-                "mul",
+                "sin",
                 [
                   "mul",
                   [
-                    "ref",
-                    30
-                  ],
-                  [
-                    "neg",
+                    "sub",
+                    1.0,
                     [
-                      "sub",
+                      "mul",
                       [
                         "ref",
-                        38
+                        43
                       ],
-                      0.699999988079071
+                      [
+                        "ref",
+                        43
+                      ]
                     ]
-                  ]
+                  ],
+                  3.1415927410125732
+                ]
+              ],
+              1.2
+            ],
+            [
+              "mul",
+              [
+                "mul",
+                [
+                  "ref",
+                  30
                 ],
-                0.75
-              ]
+                [
+                  "neg",
+                  [
+                    "sub",
+                    [
+                      "ref",
+                      38
+                    ],
+                    0.699999988079071
+                  ]
+                ]
+              ],
+              0.75
             ]
           ]
-        ],
-        [
-          "ref",
-          44
         ]
       ],
       [
-        "sub",
-        [
-          "ref",
-          45
-        ],
-        0.5
-      ],
+        "ref",
+        44
+      ]
+    ],
+    [
+      "sub",
       [
-        "cos",
-        [
-          "ref",
-          39
-        ]
+        "ref",
+        45
       ],
+      0.5
+    ],
+    [
+      "cos",
+      [
+        "ref",
+        39
+      ]
+    ],
+    [
+      "mul",
       [
         "mul",
         [
           "mul",
           [
-            "mul",
-            [
-              "ref",
-              47
-            ],
-            2.0
+            "ref",
+            47
           ],
-          [
-            "in",
-            "amount"
-          ]
+          2.0
         ],
-        0.5
+        [
+          "in",
+          "amount"
+        ]
+      ],
+      0.5
+    ],
+    [
+      "sin",
+      [
+        "ref",
+        24
+      ]
+    ],
+    [
+      "eq",
+      [
+        "in",
+        "entity.shouldRenderHeadHurt"
+      ],
+      0
+    ],
+    [
+      "not",
+      [
+        "ref",
+        50
+      ]
+    ],
+    [
+      "and",
+      [
+        "ref",
+        1
       ],
       [
-        "sin",
+        "or",
         [
           "ref",
-          24
+          51
+        ],
+        [
+          "ref",
+          50
         ]
       ]
+    ],
+    [
+      "eq",
+      [
+        "in",
+        "entity.is.LOTREntityStoneTroll"
+      ],
+      0
+    ],
+    [
+      "and",
+      [
+        "ref",
+        0
+      ],
+      [
+        "ref",
+        53
+      ]
+    ],
+    [
+      "or",
+      [
+        "ref",
+        52
+      ],
+      [
+        "ref",
+        54
+      ],
+      [
+        "and",
+        [
+          "ref",
+          0
+        ],
+        [
+          "not",
+          [
+            "ref",
+            53
+          ]
+        ]
+      ]
+    ],
+    [
+      "eq",
+      [
+        "ite",
+        [
+          "ref",
+          52
+        ],
+        [
+          "in",
+          "entity.hasTwoHeads"
+        ],
+        [
+          "ite",
+          [
+            "ref",
+            54
+          ],
+          0,
+          [
+            "in",
+            "entity.hasTwoHeads"
+          ]
+        ]
+      ],
+      0
+    ],
+    [
+      "not",
+      [
+        "ref",
+        56
+      ]
+    ],
+    [
+      "eq",
+      [
+        "ite",
+        [
+          "ref",
+          52
+        ],
+        [
+          "ite",
+          [
+            "and",
+            [
+              "ref",
+              1
+            ],
+            [
+              "ref",
+              51
+            ]
+          ],
+          1,
+          0
+        ],
+        0
+      ],
+      0
+    ],
+    [
+      "not",
+      [
+        "ref",
+        58
+      ]
+    ],
+    [
+      "or",
+      [
+        "ref",
+        59
+      ],
+      [
+        "ref",
+        58
+      ]
+    ],
+    [
+      "and",
+      [
+        "ref",
+        55
+      ],
+      [
+        "or",
+        [
+          "and",
+          [
+            "ref",
+            57
+          ],
+          [
+            "ref",
+            60
+          ],
+          [
+            "ref",
+            60
+          ]
+        ],
+        [
+          "and",
+          [
+            "ref",
+            56
+          ],
+          [
+            "ref",
+            59
+          ]
+        ],
+        [
+          "and",
+          [
+            "ref",
+            56
+          ],
+          [
+            "ref",
+            58
+          ]
+        ]
+      ]
+    ],
+    [
+      "scale",
+      [
+        "in",
+        "entity.getTrollScale"
+      ],
+      [
+        "in",
+        "entity.getTrollScale"
+      ],
+      [
+        "in",
+        "entity.getTrollScale"
+      ]
+    ],
+    [
+      "not",
+      [
+        "ne",
+        [
+          "in",
+          "call.isAprilFools"
+        ],
+        0
+      ]
+    ],
+    [
+      "or",
+      [
+        "ne",
+        [
+          "in",
+          "call.isAprilFools"
+        ],
+        0
+      ],
+      [
+        "and",
+        [
+          "ref",
+          63
+        ],
+        [
+          "not",
+          [
+            "eq",
+            [
+              "in",
+              "call.equals"
+            ],
+            0
+          ]
+        ]
+      ]
+    ],
+    [
+      "and",
+      [
+        "ref",
+        63
+      ],
+      [
+        "eq",
+        [
+          "in",
+          "call.equals"
+        ],
+        0
+      ],
+      [
+        "eq",
+        [
+          "in",
+          "call.equals"
+        ],
+        0
+      ]
+    ],
+    [
+      "ite",
+      [
+        "ref",
+        64
+      ],
+      0.0,
+      [
+        "ite",
+        [
+          "ref",
+          65
+        ],
+        1.0,
+        0.20000000298023224
+      ]
+    ],
+    [
+      "ite",
+      [
+        "ref",
+        64
+      ],
+      1.0,
+      [
+        "ite",
+        [
+          "ref",
+          65
+        ],
+        1.0,
+        0.4000000059604645
+      ]
+    ],
+    [
+      "ite",
+      [
+        "ref",
+        64
+      ],
+      0.0,
+      1.0
     ]
-  }
+  ],
+  "inputs": [
+    "field_70173_aa",
+    "getSpawningOffset",
+    "getTrollScale",
+    "hasTwoHeads",
+    "is.EntityLivingBase",
+    "is.LOTREntityMountainTroll",
+    "is.LOTREntitySnowTroll",
+    "is.LOTREntityStoneTroll",
+    "is.LOTREntityTroll",
+    "isThrowingRocks",
+    "isThrowingSnow",
+    "shouldRenderHeadHurt",
+    "sniffTime"
+  ]
 }

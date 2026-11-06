@@ -6,7 +6,20 @@
   "model": "lotr_port:gollum",
   "width": 0.6,
   "height": 1.2,
-  "render_scale": 0.85,
+  "behaviours": [
+    "gollum"
+  ],
+  "lotr_classes": [
+    "LOTREntityGollum",
+    "LOTREntityNPC",
+    "EntityCreature",
+    "EntityLiving",
+    "EntityLivingBase"
+  ],
+  "behaviour_data": {
+    "fish_required": 20,
+    "state.renderer": 0
+  },
   "sounds": {
     "ambient": "lotr_port:gollum.say",
     "hurt": "lotr_port:gollum.hurt",

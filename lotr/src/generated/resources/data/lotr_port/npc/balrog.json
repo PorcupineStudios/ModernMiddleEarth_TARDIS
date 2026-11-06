@@ -7,7 +7,23 @@
   "model": "lotr_port:balrog",
   "width": 2.4,
   "height": 5.0,
-  "render_scale": 2.0,
+  "behaviours": [
+    "balrog"
+  ],
+  "lotr_classes": [
+    "LOTREntityBalrog",
+    "LOTREntityNPC",
+    "EntityCreature",
+    "EntityLiving",
+    "EntityLivingBase"
+  ],
+  "behaviour_data": {
+    "fire_chance": 80,
+    "charge_after": 200,
+    "charge_speed": 2.0,
+    "charge_damage": 2.0,
+    "state.renderer": 0
+  },
   "sounds": {
     "ambient": "lotr_port:troll.say",
     "step": "lotr_port:troll.step"
