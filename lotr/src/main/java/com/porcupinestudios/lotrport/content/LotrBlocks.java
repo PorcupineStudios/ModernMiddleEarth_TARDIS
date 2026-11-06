@@ -22,6 +22,12 @@ import net.minecraft.world.level.block.PressurePlateBlock;
 import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.SlabBlock;
 import net.minecraft.world.level.block.SoundType;
+import com.porcupinestudios.lotrport.sound.LotrSounds;
+import java.util.function.Supplier;
+import net.minecraft.core.Holder;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
+import net.neoforged.neoforge.common.util.DeferredSoundType;
 import net.minecraft.world.level.block.StairBlock;
 import net.minecraft.world.level.block.TorchBlock;
 import net.minecraft.world.level.block.TrapDoorBlock;
@@ -138,8 +144,23 @@ public final class LotrBlocks {
         return p;
     }
 
+    /** LOTR's treasure piles: their own break, place and step sounds (LOTRBlockTreasurePile). */
+    private static final SoundType TREASURE = new DeferredSoundType(1f, 1f, lotr("block.treasure.break"),
+            lotr("block.treasure.step"), lotr("block.treasure.place"), lotr("block.treasure.step"),
+            lotr("block.treasure.step"));
+    /** LOTR's plates: they shatter (LOTRBlockPlate), otherwise stone. */
+    private static final SoundType PLATE = new DeferredSoundType(1f, 1f, lotr("block.plate.break"),
+            () -> SoundEvents.STONE_STEP, () -> SoundEvents.STONE_PLACE, () -> SoundEvents.STONE_HIT,
+            () -> SoundEvents.STONE_FALL);
+
+    private static Supplier<SoundEvent> lotr(String id) {
+        return () -> LotrSounds.get(id).map(Holder::value).orElse(SoundEvents.STONE_BREAK);
+    }
+
     static SoundType sound(String old) {
         return switch (old) {
+            case "lotr:treasure" -> TREASURE;
+            case "lotr:plate" -> PLATE;
             case "wood" -> SoundType.WOOD;
             case "gravel" -> SoundType.GRAVEL;
             case "grass" -> SoundType.GRASS;

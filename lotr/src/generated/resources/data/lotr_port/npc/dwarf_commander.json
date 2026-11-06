@@ -7,6 +7,11 @@
   ],
   "skin_height": 64,
   "model": "dwarf",
+  "sounds": {
+    "hurt": "lotr_port:dwarf.hurt",
+    "attack": "lotr_port:dwarf.attack",
+    "kill": "lotr_port:dwarf.kill"
+  },
   "scale": 0.833,
   "health": 30.0,
   "speed": 0.2,

@@ -113,6 +113,8 @@ public final class LotrItems {
                 yield new ArmorItem(MATERIALS.get(key(a)), slot(a), p);
             }
             case "red_book" -> new RedBookItem(p);
+            case "horn", "pipe", "vessel" -> new LotrUseItem(kind.equals("vessel") ? p : p.stacksTo(1), kind,
+                    ContentData.str(e, "fills", null));
             default -> new Item(p);
         };
     }

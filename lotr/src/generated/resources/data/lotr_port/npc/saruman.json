@@ -1,5 +1,8 @@
 {
   "faction": "lotr_port:isengard",
+  "sounds": {
+    "ambient": "lotr_port:orc.say"
+  },
   "health": 20.0,
   "speed": 0.5,
   "attack": 2.0,

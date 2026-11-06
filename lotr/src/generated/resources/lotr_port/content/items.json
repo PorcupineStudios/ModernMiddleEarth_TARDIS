@@ -1,17 +1,19 @@
 [
   {
     "id": "ale_horn",
-    "kind": "item",
+    "kind": "vessel",
     "stack": 64,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "fills": "lotr_port:water"
   },
   {
     "id": "golden_ale_horn",
-    "kind": "item",
+    "kind": "vessel",
     "stack": 64,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "fills": "lotr_port:water"
   },
   {
     "id": "almond",
@@ -2899,10 +2901,11 @@
   },
   {
     "id": "ceramic_mug",
-    "kind": "item",
+    "kind": "vessel",
     "stack": 64,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "fills": "lotr_port:water"
   },
   {
     "id": "stoneware_plate",
@@ -3024,28 +3027,28 @@
   },
   {
     "id": "horn_of_command",
-    "kind": "item",
+    "kind": "horn",
     "stack": 1,
     "level": 2,
     "speed": 6.0
   },
   {
     "id": "horn_of_command_halt_units",
-    "kind": "item",
+    "kind": "horn",
     "stack": 1,
     "level": 2,
     "speed": 6.0
   },
   {
     "id": "horn_of_command_ready_units",
-    "kind": "item",
+    "kind": "horn",
     "stack": 1,
     "level": 2,
     "speed": 6.0
   },
   {
     "id": "horn_of_command_summon_units",
-    "kind": "item",
+    "kind": "horn",
     "stack": 1,
     "level": 2,
     "speed": 6.0
@@ -3070,7 +3073,7 @@
   },
   {
     "id": "warhorn",
-    "kind": "item",
+    "kind": "horn",
     "stack": 1,
     "level": 2,
     "speed": 6.0
@@ -4941,31 +4944,35 @@
   },
   {
     "id": "copper_goblet",
-    "kind": "item",
+    "kind": "vessel",
     "stack": 64,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "fills": "lotr_port:water"
   },
   {
     "id": "golden_goblet",
-    "kind": "item",
+    "kind": "vessel",
     "stack": 64,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "fills": "lotr_port:water"
   },
   {
     "id": "silver_goblet",
-    "kind": "item",
+    "kind": "vessel",
     "stack": 64,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "fills": "lotr_port:water"
   },
   {
     "id": "wooden_cup",
-    "kind": "item",
+    "kind": "vessel",
     "stack": 64,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "fills": "lotr_port:water"
   },
   {
     "id": "gold_ring",
@@ -6223,7 +6230,7 @@
   },
   {
     "id": "smoking_pipe",
-    "kind": "item",
+    "kind": "pipe",
     "durability": 300,
     "level": 2,
     "speed": 6.0
@@ -7918,10 +7925,11 @@
   },
   {
     "id": "mug",
-    "kind": "item",
+    "kind": "vessel",
     "stack": 64,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "fills": "lotr_port:water"
   },
   {
     "id": "ale",
@@ -9602,7 +9610,8 @@
   },
   {
     "id": "skull_cup",
-    "kind": "item",
+    "kind": "vessel",
+    "fills": "lotr_port:water",
     "stack": 64,
     "level": 2,
     "speed": 6.0
@@ -11062,7 +11071,8 @@
   },
   {
     "id": "waterskin",
-    "kind": "item",
+    "kind": "vessel",
+    "fills": "lotr_port:water",
     "stack": 64,
     "level": 2,
     "speed": 6.0
@@ -11080,7 +11090,8 @@
   },
   {
     "id": "wine_glass",
-    "kind": "item",
+    "kind": "vessel",
+    "fills": "lotr_port:water",
     "stack": 64,
     "level": 2,
     "speed": 6.0

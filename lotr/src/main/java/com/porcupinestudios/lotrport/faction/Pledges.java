@@ -1,5 +1,6 @@
 package com.porcupinestudios.lotrport.faction;
 
+import com.porcupinestudios.lotrport.sound.LotrSounds;
 import com.porcupinestudios.lotrport.registry.LotrRegistries;
 import java.util.Optional;
 import net.minecraft.resources.ResourceLocation;
@@ -36,6 +37,7 @@ public final class Pledges {
                 player.getData(LotrRegistries.PLAYER_DATA).withPledge(Optional.of(factionId)));
         Realms.get(server).ownedBy(player.getUUID())
                 .ifPresent(realm -> Diplomacy.get(server).setOverlord(server, realm.id(), factionId));
+        LotrSounds.playTo(player, "event.pledge");
         return Result.PLEDGED;
     }
 
@@ -44,6 +46,9 @@ public final class Pledges {
         Optional<ResourceLocation> old = pledge(player);
         player.setData(LotrRegistries.PLAYER_DATA,
                 player.getData(LotrRegistries.PLAYER_DATA).withPledge(Optional.empty()));
+        if (old.isPresent()) {
+            LotrSounds.playTo(player, "event.unpledge");
+        }
         Realms.get(server).ownedBy(player.getUUID()).ifPresent(realm -> {
             if (old.isPresent() && Diplomacy.get(server).overlord(realm.id()).equals(old)) {
                 Diplomacy.get(server).setOverlord(server, realm.id(), null);

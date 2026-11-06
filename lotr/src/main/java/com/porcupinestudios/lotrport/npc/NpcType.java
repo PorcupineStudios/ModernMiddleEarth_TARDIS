@@ -67,12 +67,24 @@ public record NpcType(Optional<ResourceLocation> faction, List<ResourceLocation>
      *
      * @param model the body the client draws: human, hobbit, dwarf, elf or orc (hair layer, ears, feet)
      * @param speech speech bank folder ({@code speech/<bank>/<mood>.json}) it talks from when right-clicked
+     * @param sounds LOTR's voice for each event, see {@link #sound}
      */
-    public record Persona(String model, Optional<ResourceLocation> speech) {
+    public record Persona(String model, Optional<ResourceLocation> speech, Map<String, ResourceLocation> sounds) {
         public static final MapCodec<Persona> MAP_CODEC = RecordCodecBuilder.mapCodec(i -> i.group(
                 Codec.STRING.optionalFieldOf("model", "human").forGetter(Persona::model),
-                ResourceLocation.CODEC.optionalFieldOf("speech").forGetter(Persona::speech))
+                ResourceLocation.CODEC.optionalFieldOf("speech").forGetter(Persona::speech),
+                Codec.unboundedMap(Codec.STRING, ResourceLocation.CODEC).optionalFieldOf("sounds", Map.of())
+                        .forGetter(Persona::sounds))
                 .apply(i, Persona::new));
+    }
+
+    /**
+     * The sound this type makes for an event: {@code ambient}, {@code hurt}, {@code death}, {@code attack} (each
+     * swing that hits) or {@code kill}. From LOTR's entity classes (orcs, dwarves, elves, half-trolls...); empty
+     * means the vanilla default.
+     */
+    public Optional<ResourceLocation> sound(String event) {
+        return Optional.ofNullable(persona.sounds().get(event));
     }
 
     public String model() {

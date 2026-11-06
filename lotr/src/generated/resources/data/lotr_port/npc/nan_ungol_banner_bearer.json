@@ -11,6 +11,11 @@
     "lotr_port:textures/entity/orc/orc/7.png"
   ],
   "model": "orc",
+  "sounds": {
+    "ambient": "lotr_port:orc.say",
+    "hurt": "lotr_port:orc.hurt",
+    "death": "lotr_port:orc.death"
+  },
   "scale": 0.861,
   "health": 20.0,
   "speed": 0.2,

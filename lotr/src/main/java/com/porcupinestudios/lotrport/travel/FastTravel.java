@@ -1,6 +1,7 @@
 package com.porcupinestudios.lotrport.travel;
 
 import com.porcupinestudios.lotrport.LotrPort;
+import com.porcupinestudios.lotrport.sound.LotrSounds;
 import com.porcupinestudios.lotrport.faction.Alignment;
 import com.porcupinestudios.lotrport.registry.LotrRegistries;
 import com.porcupinestudios.ringbearer.api.data.CodecJsonLoader;
@@ -140,6 +141,7 @@ public final class FastTravel {
         double distance = Math.sqrt(from.distToLowCornerSqr(wp.x(), from.getY(), wp.z()));
         player.stopRiding();
         player.teleportTo(level, wp.x() + 0.5, y, wp.z() + 0.5, Set.of(), player.getYRot(), player.getXRot());
+        LotrSounds.playTo(player, "event.fast_travel");
         long now = player.server.overworld().getGameTime();
         player.setData(LotrRegistries.TRAVEL, data(player).travelled(now + settings().cooldownTicks(distance)));
         player.displayClientMessage(Component.translatableWithFallback("waypoint.lotr_port.arrived",

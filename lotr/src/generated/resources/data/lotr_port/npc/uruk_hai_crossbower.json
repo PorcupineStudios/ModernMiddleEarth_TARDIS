@@ -6,6 +6,11 @@
     "lotr_port:textures/entity/orc/uruk_hai/2.png"
   ],
   "model": "orc",
+  "sounds": {
+    "ambient": "lotr_port:orc.say",
+    "hurt": "lotr_port:orc.hurt",
+    "death": "lotr_port:orc.death"
+  },
   "scale": 0.861,
   "health": 26.0,
   "speed": 0.22,
