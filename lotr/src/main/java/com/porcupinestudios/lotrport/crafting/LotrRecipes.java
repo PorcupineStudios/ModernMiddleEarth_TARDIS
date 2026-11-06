@@ -2,6 +2,8 @@ package com.porcupinestudios.lotrport.crafting;
 
 import com.mojang.serialization.MapCodec;
 import com.porcupinestudios.lotrport.LotrPort;
+import java.util.EnumMap;
+import java.util.Map;
 import java.util.function.Supplier;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.RegistryFriendlyByteBuf;
@@ -32,6 +34,31 @@ public final class LotrRecipes {
                     return FactionRecipe.STREAM_CODEC;
                 }
             });
+
+    /** One recipe type and serializer per LOTR machine ({@link MachineRecipe}). */
+    public static final Map<MachineRecipe.Machine, Supplier<RecipeType<MachineRecipe>>> MACHINE_TYPES =
+            new EnumMap<>(MachineRecipe.Machine.class);
+    public static final Map<MachineRecipe.Machine, Supplier<RecipeSerializer<MachineRecipe>>> MACHINE_SERIALIZERS =
+            new EnumMap<>(MachineRecipe.Machine.class);
+
+    static {
+        for (MachineRecipe.Machine m : MachineRecipe.Machine.values()) {
+            MACHINE_TYPES.put(m, TYPES.register(m.id, () -> RecipeType.simple(LotrPort.id(m.id))));
+            MapCodec<MachineRecipe> codec = m.codec();
+            StreamCodec<RegistryFriendlyByteBuf, MachineRecipe> stream = m.streamCodec();
+            MACHINE_SERIALIZERS.put(m, SERIALIZERS.register(m.id, () -> new RecipeSerializer<>() {
+                @Override
+                public MapCodec<MachineRecipe> codec() {
+                    return codec;
+                }
+
+                @Override
+                public StreamCodec<RegistryFriendlyByteBuf, MachineRecipe> streamCodec() {
+                    return stream;
+                }
+            }));
+        }
+    }
 
     private LotrRecipes() {}
 
