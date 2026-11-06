@@ -237,5 +237,10 @@
       "children": []
     }
   },
-  "hidden": []
+  "hidden": [],
+  "anim": {
+    "biped": true,
+    "set": [],
+    "defs": []
+  }
 }

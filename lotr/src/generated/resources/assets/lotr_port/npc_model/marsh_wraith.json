@@ -204,5 +204,60 @@
       "children": []
     }
   },
-  "hidden": []
+  "hidden": [],
+  "anim": {
+    "biped": false,
+    "set": [
+      [
+        "head",
+        "yRot",
+        [
+          "div",
+          [
+            "in",
+            "yaw"
+          ],
+          57.2957763671875
+        ]
+      ],
+      [
+        "head",
+        "xRot",
+        [
+          "ref",
+          0
+        ]
+      ],
+      [
+        "headwear",
+        "yRot",
+        [
+          "div",
+          [
+            "in",
+            "yaw"
+          ],
+          57.2957763671875
+        ]
+      ],
+      [
+        "headwear",
+        "xRot",
+        [
+          "ref",
+          0
+        ]
+      ]
+    ],
+    "defs": [
+      [
+        "div",
+        [
+          "in",
+          "pitch"
+        ],
+        57.2957763671875
+      ]
+    ]
+  }
 }
