@@ -26,7 +26,8 @@ AUDIO = (".ogg", ".mp3", ".flac", ".m4a", ".wav", ".aac", ".opus", ".wma")
 
 # file-name words -> playlists (music regions); edit with --write-map / --map
 DEFAULT_MAP = {
-    "shire": ["shire"], "hobbit": ["shire"], "bag end": ["shire"], "concerning": ["shire"], "bree": ["bree"],
+    "frodo": ["shire"], "ending": ["shire", "lindon"], "main theme": ["eriador", "rhovanion"],
+    "journey in the dark": ["misty_mountains"], "glorfindel": ["rivendell"], "shire": ["shire"], "hobbit": ["shire"], "bag end": ["shire"], "concerning": ["shire"], "bree": ["bree"],
     "prancing": ["bree"], "old forest": ["old_forest"], "bombadil": ["old_forest"], "barrow": ["barrow_downs"],
     "weathertop": ["eriador"], "amon sul": ["eriador"], "ford": ["rivendell"], "rivendell": ["rivendell"],
     "elrond": ["rivendell"], "council": ["rivendell"], "fellowship": ["eriador", "rhovanion"],
