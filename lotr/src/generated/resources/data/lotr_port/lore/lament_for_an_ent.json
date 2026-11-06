@@ -1,0 +1,12 @@
+{
+  "id": "lament_for_an_ent",
+  "title": "Lament for an Ent",
+  "author": "{name:sindarin_male}",
+  "types": [
+    "eregion",
+    "woodland_realm",
+    "lothlorien"
+  ],
+  "reward": true,
+  "text": "O fallen tree\nO broken bough\nYour spirit flees\nAway from now\n\nO fallen giant\nO mighty one\nNo longer pliant\n{choose:Your life is done/Your bark is dun}\n\nO drying leaves\nO empty soul\nThe forest grieves\nOn every knoll\n\nO barren roots\nO dying tree\nBear no more fruits\nYour soul is free"
+}

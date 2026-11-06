@@ -1,0 +1,12 @@
+{
+  "type": "lotr_port:unsmelting",
+  "ingredients": [
+    {
+      "item": "lotr_port:gundabad_uruk_bludgeon"
+    }
+  ],
+  "result": {
+    "id": "lotr_port:uruk_steel_ingot",
+    "count": 4
+  }
+}

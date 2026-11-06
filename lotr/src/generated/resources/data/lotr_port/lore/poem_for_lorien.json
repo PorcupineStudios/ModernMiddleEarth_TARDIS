@@ -1,0 +1,10 @@
+{
+  "id": "poem_for_lorien",
+  "title": "Poem for Lórien",
+  "author": "{name:sindarin_male}",
+  "types": [
+    "lothlorien"
+  ],
+  "reward": true,
+  "text": "From the West here she came;\nto this land she laid claim;\nas a bearer of light,\ncome to save us from plight.\n\nShe brought with her a gift,\nbade the mellyrn rise swift;\ntall our trees grew, and fair\nas the light in her hair.\n\nAges passed in the woods of light.\nMany a song the Edhil sang;\nour realm reached its height.\nBut ever West the Sea-bells rang.\n\nNow close draws the hour;\nfarewell, our Dreamflower."
+}

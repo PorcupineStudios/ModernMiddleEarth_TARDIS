@@ -172,7 +172,19 @@ public final class LotrItems {
         float knockbackResistance = ContentData.num(armor, "knockback_resistance", 0f);
         MATERIALS.put(key, ARMOR_MATERIALS.register(key, () -> new ArmorMaterial(defense, enchantValue,
                 SoundEvents.ARMOR_EQUIP_IRON, () -> Ingredient.EMPTY,
-                List.of(new ArmorMaterial.Layer(LotrPort.id(texture))), toughness, knockbackResistance)));
+                List.of(new ArmorMaterial.Layer(LotrPort.id(texture), "", ContentData.bool(armor, "dyeable", false))),
+                toughness, knockbackResistance)));
+    }
+
+    /** Items LOTR let you dye (party hats, pouches, feathers, leather hats, Harad robes): tinted by dyed_color. */
+    public static List<Item> dyeable() {
+        List<Item> out = new java.util.ArrayList<>();
+        for (JsonObject e : ContentData.read("items.json")) {
+            if (ContentData.bool(e, "dyeable", false)) {
+                out.add(BY_ID.get(e.get("id").getAsString()).get());
+            }
+        }
+        return out;
     }
 
     static Holder<ArmorMaterial> material(String name) {

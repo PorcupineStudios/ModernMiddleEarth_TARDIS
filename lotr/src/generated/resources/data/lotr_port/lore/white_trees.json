@@ -1,0 +1,15 @@
+{
+  "id": "white_trees",
+  "title": "The White Trees",
+  "author": "Hirgon",
+  "types": [
+    "lothlorien",
+    "lindon",
+    "rivendell",
+    "eriador",
+    "gondor",
+    "eregion"
+  ],
+  "reward": true,
+  "text": "Telperion: the Elder-tree\nthat shone upon the western-sea,\nAnd then was Galathilion\nthat gladly bloomed on Tirion.\nNext Celeborn, and Nimloth fair,\nthat burned in subtle Sauron's lair,\nand then the Trees of Gondor tall:\nof Minas Ithil ere her fall,\nof Minas Anor, walled and wide,\nand Minas Tirith in her pride."
+}

@@ -1,0 +1,12 @@
+{
+  "type": "lotr_port:unsmelting",
+  "ingredients": [
+    {
+      "item": "lotr_port:fur_tunic"
+    }
+  ],
+  "result": {
+    "id": "lotr_port:fur",
+    "count": 8
+  }
+}

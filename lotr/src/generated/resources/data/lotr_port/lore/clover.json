@@ -1,0 +1,11 @@
+{
+  "id": "clover",
+  "title": "Of Clover",
+  "author": "{name:hobbit_female} {name:hobbit_surname}",
+  "types": [
+    "shire",
+    "bree"
+  ],
+  "reward": true,
+  "text": "Ah, the green clovers! How they grow in the field! How they sway in the breeze!\n\nHow do you tell if you're in decent places? You just look around for clover, of course. Anywhere without clover isn't worth the trip.\n\nMy old Gaffer used to say that sometimes, if you're out a-wandering in the field, and you're very lucky, you might find a clover with four leaves. And if you take it home and put it in a frame, you'll have good luck for a year."
+}

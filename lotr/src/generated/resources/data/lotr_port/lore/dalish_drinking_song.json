@@ -1,0 +1,11 @@
+{
+  "id": "dalish_drinking_song",
+  "title": "Dalish Drinking Song",
+  "author": "",
+  "types": [
+    "dale",
+    "durins_folk"
+  ],
+  "reward": true,
+  "text": "Hey-ho to the keg!  Hey-ho to the beer!\nHey-ho to the leg of a lamb or deer!\nHey to the barley!  Ho to the ale!\nHurrah to the finest inn in Dale!\n\nWhy travel to lands both far and wide,\nto stoke your prowess or fuel your pride,\nwhen all you need is found right here -\nin this wonderful, frothing, dark brown beer?\n\nHey-ho to the keg!  Hey-ho to the beer!\nHey-ho to the leg of a lamb or deer!\nHey to the barley!  Ho to the ale!\nHurrah to the finest inn in Dale!\n{choose:\nIf you're lost among the pines,\nwandering o'er the hills at night;\ncome and have a glass of wine,\nsit with friends among the light.\n/\nWhen the weather's cold and damp,\nand you'd rather feel more merry;\ncome and sit beneath a lamp\nand drink a mug of perry!\n}\nHey-ho to the keg!  Hey-ho to the beer!\nHey-ho to the leg of a lamb or deer!\nHey to the barley!  Ho to the ale!\nHurrah to the finest inn in Dale!\n{choose:\nWho needs to wander, to rove and roam\nwhen he's got a cozy hearth and home?\n'Tis foolish to explore out there\nwhen you've got a homely mug and chair!\n/\nHere in halls of blue and red,\nwhat better way the time to pass\nthan telling tales of cloven heads,\nand sipping jars of plum kvass!\n}\nHey-ho to the keg!  Hey-ho to the beer!\nHey-ho to the leg of a lamb or deer!\nHey to the barley!  Ho to the ale!\nHurrah to the finest inn in Dale!\n{choose:\nThink not of spiders, nor their brood,\nbut sing instead of this wonderful food!\nSing of the pastries, sing of the cake!\nOur feasts are fine, make no mistake!\n/\nWhen the time is closing evening,\nand all the Orcs are overcome,\nstill the friendly lights are gleaming\nwhile we gather, drinking rum!\n}\nHey-ho to the keg!  Hey-ho to the beer!\nHey-ho to the leg of a lamb or deer!\nHey to the barley!  Ho to the ale!\nHurrah to the finest inn in Dale!"
+}

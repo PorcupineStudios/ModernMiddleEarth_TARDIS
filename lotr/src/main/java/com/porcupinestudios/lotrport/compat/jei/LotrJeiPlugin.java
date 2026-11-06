@@ -43,7 +43,9 @@ public final class LotrJeiPlugin implements IModPlugin {
             MachineRecipe.Machine.MILLSTONE, List.of("millstone"),
             MachineRecipe.Machine.BREWING, List.of("barrel"),
             MachineRecipe.Machine.ENT_JAR, List.of("ent_jar"),
-            MachineRecipe.Machine.UNSMELTING, List.of("unsmeltery"));
+            MachineRecipe.Machine.UNSMELTING, List.of("unsmeltery"),
+            MachineRecipe.Machine.HOBBIT_OVEN, List.of("hobbit_oven"),
+            MachineRecipe.Machine.KEBAB_STAND, List.of("kebab_stand", "sandstone_kebab_stand"));
 
     static {
         for (MachineRecipe.Machine m : MachineRecipe.Machine.values()) {

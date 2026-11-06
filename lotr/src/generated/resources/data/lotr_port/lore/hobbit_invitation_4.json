@@ -1,0 +1,10 @@
+{
+  "id": "hobbit_invitation_4",
+  "title": "Invitation",
+  "author": "Bilbo Baggins",
+  "types": [
+    "shire"
+  ],
+  "reward": false,
+  "text": "Message to be delivered to Folco Boffin,\nLittle Delving.\n\nDear Mr. Boffin,\nI invite you and your lovely wife to the celebration of my eleventy-first birthday party at the Party Field, Hobbiton, on the 22nd of September.\nHoping you will enjoy yourselves,\nBilbo Baggins"
+}

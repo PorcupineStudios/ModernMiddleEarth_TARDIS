@@ -1,0 +1,12 @@
+{
+  "type": "lotr_port:unsmelting",
+  "ingredients": [
+    {
+      "item": "lotr_port:rohirric_lance"
+    }
+  ],
+  "result": {
+    "id": "minecraft:iron_ingot",
+    "count": 2
+  }
+}

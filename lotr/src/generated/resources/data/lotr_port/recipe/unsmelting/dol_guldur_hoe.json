@@ -1,0 +1,12 @@
+{
+  "type": "lotr_port:unsmelting",
+  "ingredients": [
+    {
+      "item": "lotr_port:dol_guldur_hoe"
+    }
+  ],
+  "result": {
+    "id": "lotr_port:orc_steel_ingot",
+    "count": 2
+  }
+}

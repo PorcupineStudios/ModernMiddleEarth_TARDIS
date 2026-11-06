@@ -1,0 +1,12 @@
+{
+  "id": "flowers_in_the_dawn",
+  "title": "Flowers in the Dawn",
+  "author": "{name:sindarin_female}",
+  "types": [
+    "lindon",
+    "rivendell",
+    "lothlorien"
+  ],
+  "reward": true,
+  "text": "Flowers, flowers, in the dawn:\nhow you glisten on my lawn!\nRoses, daisies, poppies too:\nleaves and buds and stem and roots.\n\nFlowers, flowers, in the day\nform a living great bouquet.\nElanor, clover, marigold\ngrow forever, oh so bold.\n\nFlowers, flowers, in the night:\nfill the garden with your light!\nBluebell, iris, simbelmynë:\nslumber there until the noon."
+}

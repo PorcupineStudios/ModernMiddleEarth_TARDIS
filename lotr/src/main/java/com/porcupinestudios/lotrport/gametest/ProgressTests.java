@@ -68,6 +68,28 @@ public final class ProgressTests {
     }
 
     @GameTest(template = "empty")
+    public static void loreBooksSitInChests(GameTestHelper helper) {
+        var template = helper.getLevel().getStructureManager().get(LotrPort.id("angmar_camp/1"));
+        helper.assertTrue(template.isPresent(), "template angmar_camp/1 missing");
+        net.minecraft.core.BlockPos at = helper.absolutePos(new net.minecraft.core.BlockPos(0, 1, 0));
+        template.get().placeInWorld(helper.getLevel(), at, at,
+                new net.minecraft.world.level.levelgen.structure.templatesystem.StructurePlaceSettings(),
+                helper.getLevel().random, 2);
+        var size = template.get().getSize();
+        boolean found = false;
+        for (net.minecraft.core.BlockPos p : net.minecraft.core.BlockPos.betweenClosed(at, at.offset(size))) {
+            if (helper.getLevel().getBlockEntity(p) instanceof net.minecraft.world.level.block.entity.ChestBlockEntity c) {
+                for (int i = 0; i < c.getContainerSize(); i++) {
+                    var book = c.getItem(i).get(net.minecraft.core.component.DataComponents.WRITTEN_BOOK_CONTENT);
+                    found |= book != null && !book.pages().isEmpty();
+                }
+            }
+        }
+        helper.assertTrue(found, "no lore book with pages in the camp's chests");
+        helper.succeed();
+    }
+
+    @GameTest(template = "empty", timeoutTicks = 200)
     public static void invasionsLoaded(GameTestHelper helper) {
         helper.assertTrue(InvasionSpawner.invasions().size() >= 40, "only " + InvasionSpawner.invasions().size()
                 + " invasions");

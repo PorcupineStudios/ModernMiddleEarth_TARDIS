@@ -1,0 +1,12 @@
+{
+  "type": "lotr_port:unsmelting",
+  "ingredients": [
+    {
+      "item": "lotr_port:rh_nic_spear"
+    }
+  ],
+  "result": {
+    "id": "lotr_port:mallorn_stick",
+    "count": 2
+  }
+}

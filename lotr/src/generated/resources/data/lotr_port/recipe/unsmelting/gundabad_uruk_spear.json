@@ -1,0 +1,12 @@
+{
+  "type": "lotr_port:unsmelting",
+  "ingredients": [
+    {
+      "item": "lotr_port:gundabad_uruk_spear"
+    }
+  ],
+  "result": {
+    "id": "lotr_port:warg_bone",
+    "count": 2
+  }
+}

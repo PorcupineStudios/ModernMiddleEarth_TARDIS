@@ -1,0 +1,12 @@
+{
+  "type": "lotr_port:unsmelting",
+  "ingredients": [
+    {
+      "item": "lotr_port:morwaith_chieftain_leggings"
+    }
+  ],
+  "result": {
+    "id": "lotr_port:lion_fur",
+    "count": 7
+  }
+}

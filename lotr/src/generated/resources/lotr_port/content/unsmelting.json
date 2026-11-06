@@ -1,0 +1,8 @@
+[
+  {
+    "yield": 0.8,
+    "random_min": 0.7,
+    "random_max": 1.0,
+    "scale_by_durability": true
+  }
+]

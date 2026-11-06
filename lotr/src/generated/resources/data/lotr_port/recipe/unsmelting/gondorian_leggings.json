@@ -1,0 +1,12 @@
+{
+  "type": "lotr_port:unsmelting",
+  "ingredients": [
+    {
+      "item": "lotr_port:gondorian_leggings"
+    }
+  ],
+  "result": {
+    "id": "minecraft:iron_ingot",
+    "count": 7
+  }
+}

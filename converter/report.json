@@ -2,7 +2,7 @@
   "summary": {
     "blocks": 1441,
     "items": 897,
-    "recipes": 2798,
+    "recipes": 3251,
     "sound_events": 101,
     "sound_files": 190,
     "ambience_biomes": 12,
@@ -12,6 +12,7 @@
     "shields": 64,
     "capes": 27,
     "drinks": 46,
+    "dyeable": 10,
     "music_biomes": 168,
     "biome_achievements": 152,
     "invasion_biomes": 95,
@@ -31,6 +32,8 @@
     "structures": 82,
     "structures_with_npcs": 67,
     "npc_spawn_tables": 135,
+    "lore_books": 114,
+    "lore_books_in_chests": 64,
     "waypoints": 274,
     "quest_pools": 37,
     "quest_givers": 279,
@@ -1106,6 +1109,102 @@
     "count": 1,
     "entries": [
       "MALLORN_EXTREME_SAPLING"
+    ]
+  },
+  "unmapped_unsmelting_recipes": {
+    "count": 7,
+    "entries": [
+      {
+        "in": [
+          {
+            "item": "lotr:item.bodyGondorGambeson",
+            "meta": 0
+          }
+        ],
+        "out": {
+          "item": "minecraft:wool",
+          "meta": 32767,
+          "count": 8
+        }
+      },
+      {
+        "in": [
+          {
+            "item": "lotr:item.bodyLebenninGambeson",
+            "meta": 0
+          }
+        ],
+        "out": {
+          "item": "minecraft:wool",
+          "meta": 32767,
+          "count": 8
+        }
+      },
+      {
+        "in": [
+          {
+            "item": "lotr:item.dunlendingClub",
+            "meta": 0
+          }
+        ],
+        "out": {
+          "item": "lotr:tile.planks",
+          "meta": 32767,
+          "count": 3
+        }
+      },
+      {
+        "in": [
+          {
+            "item": "lotr:item.bodyDolAmrothGambeson",
+            "meta": 0
+          }
+        ],
+        "out": {
+          "item": "minecraft:wool",
+          "meta": 32767,
+          "count": 8
+        }
+      },
+      {
+        "in": [
+          {
+            "item": "lotr:item.legsDolAmrothGambeson",
+            "meta": 0
+          }
+        ],
+        "out": {
+          "item": "minecraft:wool",
+          "meta": 32767,
+          "count": 7
+        }
+      },
+      {
+        "in": [
+          {
+            "item": "lotr:item.clubMoredain",
+            "meta": 0
+          }
+        ],
+        "out": {
+          "item": "lotr:tile.planks",
+          "meta": 32767,
+          "count": 3
+        }
+      },
+      {
+        "in": [
+          {
+            "item": "lotr:item.bodyDaleGambeson",
+            "meta": 0
+          }
+        ],
+        "out": {
+          "item": "minecraft:wool",
+          "meta": 32767,
+          "count": 8
+        }
+      }
     ]
   }
 }

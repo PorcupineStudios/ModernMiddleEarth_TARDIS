@@ -1,0 +1,12 @@
+{
+  "id": "true-silver",
+  "title": "True-silver",
+  "author": "{name:dwarf_male} son of {name:dwarf_male}",
+  "types": [
+    "blue_mountains",
+    "durins_folk",
+    "ruins"
+  ],
+  "reward": true,
+  "text": "On and on, I mine and mine;\nmy pick grows dull, my hands grow sore.\nA-walking in this blackened cave,\nI hunt for treasures evermore.\n\nDown this hole, I carry on;\nmy pouches fill with ores and stone.\nNow light is strewn throughout my path\nand there - the true light sparkles lone!\n\nTrue-silver! Oh, it calls to me;\nits shine beholding guides my way.\nI raise my tool to swing once more -\nand silver fades to darkened grey."
+}

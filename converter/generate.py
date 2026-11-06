@@ -975,6 +975,8 @@ class Gen:
                 extra = {**(extra or {}), "servings": res.pop("count")}
             j = {"type": f"{NS}:{machine}", "ingredients": ings, "result": res, **(extra or {})}
             name = res["id"].split(":")[1]
+            if machine == "unsmelting" and "item" in ings[0]:
+                name = ings[0]["item"].split(":")[1]  # one per piece of gear, named after it
             seen[(machine, name)] += 1
             n = seen[(machine, name)]
             write_json(os.path.join(out_dir, machine, (name if n == 1 else f"{name}_{n}") + ".json"), j)
@@ -1002,6 +1004,82 @@ class Gen:
                 write("alloy_forge", [r["input"], r["alloy"]], r.get("output"), station)
         for r in sorted(machines.get("unsmeltery", []), key=key):
             write("unsmelting", [r["input"]], r.get("output"))
+        if not machines.get("unsmeltery"):
+            self.unsmelting(write)
+        self.oven_and_kebab(write)
+
+    def oven_and_kebab(self, write):
+        """LOTR's hobbit oven cooks any furnace recipe whose result is food (LOTRTileEntityHobbitOven
+        isCookResultAcceptable), nine at a time; the kebab stand takes raw meat that a furnace could cook
+        (LOTRTileEntityKebabStand.isMeat: wolves' meat with a smelting result) and turns it into kebab."""
+        rec = load("recipes.json")
+        food = {i["id"] for i in self.items if i.get("food")}
+        vanilla_food = ("cooked", "baked_potato", "bread")
+        meat = ("beef", "porkchop", "chicken", "mutton", "rabbit", "rotten_flesh", "deer", "rabbit", "camel",
+                "manflesh", "zebra", "rhino", "lion", "giraffe", "boar", "gemsbok", "mutton")
+        # vanilla's own furnace foods (1.7.10 FurnaceRecipes held them; the export lists only LOTR's additions)
+        vanilla = [({"item": f"minecraft:{a}"}, {"item": f"minecraft:{b}"}) for a, b in (
+            ("beef", "cooked_beef"), ("porkchop", "cooked_porkchop"), ("chicken", "cooked_chicken"),
+            ("potato", "baked_potato"), ("fish", "cooked_fished"))]
+        smelt = [{"input": a, "output": b} for a, b in vanilla] + sorted(
+            rec["smelting"], key=lambda x: json.dumps(x, sort_keys=True))
+        for sm in smelt:
+            out = self.result(sm["output"])
+            ing = self.ingredient(sm["input"])
+            if not out or not ing:
+                continue
+            path = out["id"].split(":")[1]
+            if out["id"].startswith(f"{NS}:") and path in food or out["id"].startswith("minecraft:") and any(
+                    v in path for v in vanilla_food):
+                write("hobbit_oven", [sm["input"]], sm["output"])
+                src = (ing.get("item") or "").split(":")[-1]
+                if any(m in src for m in meat):
+                    write("kebab_stand", [sm["input"]], {"item": "lotr:item.kebab", "meta": 0})
+
+    # ingredients an unsmeltery never gives back (handles, bindings), as LOTRTileEntityUnsmeltery's material is the
+    # gear's repair material
+    NOT_MATERIAL = ("minecraft:stick", "minecraft:string", "lotr:item.reedBar", "minecraft:leather",
+                    "lotr:item.gildedIron")
+
+    ORE_ITEMS = {"ingotIron": {"item": "minecraft:iron_ingot"}, "ingotGold": {"item": "minecraft:gold_ingot"},
+                 "gemDiamond": {"item": "minecraft:diamond"}, "stickWood": None, "plankWood": None,
+                 "leather": None, "string": None}
+
+    def unsmelting(self, write):
+        """The unsmeltery takes gear apart into its material (LOTRTileEntityUnsmeltery): as many as the recipe used
+        (determineResourcesUsed; JEI shows that), and at run time 0.8 x that x the durability left x 0.7-1.0
+        (getRandomUnsmeltingResult, numbers in content/unsmelting.json). The export had no list, so it is computed
+        here: every crafting recipe for gear with durability, its most used ingredient as the material."""
+        rec = load("recipes.json")
+        ores = load("oredict.json")
+        banned = {json.dumps(r["output"], sort_keys=True) for r in rec["stations"].get("uncraftableUnsmeltingRecipes",
+                                                                                         [])}
+        gear = {i["id"] for i in self.items if i.get("kind") in ("sword", "armor", "pickaxe", "axe", "shovel", "hoe",
+                                                                 "bow", "crossbow") and i.get("durability", 0) > 0}
+        done = set()
+        lists = [rec["crafting"]] + [v for k, v in rec["stations"].items() if k != "uncraftableUnsmeltingRecipes"]
+        for recipes in lists:
+            for r in recipes:
+                out = r.get("output")
+                if not out or r.get("type") == "special" or json.dumps(out, sort_keys=True) in banned:
+                    continue
+                new = self.idtable.get(f"{out['item']}#{out.get('meta', 0)}") or self.idtable.get(f"{out['item']}#0")
+                if not new or new.split(":")[1] in done or new.split(":")[1] not in gear:
+                    continue
+                counts = collections.Counter()
+                for i in r.get("input") or []:
+                    if isinstance(i, dict) and "ore" in i:
+                        i = self.ORE_ITEMS.get(i["ore"]) or (ores.get(i["ore"]) or [None])[0]
+                    if isinstance(i, dict) and i.get("item") and i.get("item") not in self.NOT_MATERIAL:
+                        counts[json.dumps({"item": i["item"], "meta": i.get("meta", 0)}, sort_keys=True)] += 1
+                if not counts:
+                    continue
+                mat, n = counts.most_common(1)[0]
+                mat = json.loads(mat)
+                done.add(new.split(":")[1])
+                write("unsmelting", [out], {**mat, "count": n})
+        write_json(os.path.join(OUT, NS, "content", "unsmelting.json"),
+                   [{"yield": 0.8, "random_min": 0.7, "random_max": 1.0, "scale_by_durability": True}])
 
     def recipe(self, r, group):
         if r["type"] == "special":

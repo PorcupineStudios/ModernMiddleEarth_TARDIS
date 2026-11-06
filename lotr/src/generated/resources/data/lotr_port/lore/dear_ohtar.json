@@ -1,0 +1,10 @@
+{
+  "id": "dear_ohtar",
+  "title": "Dear Ohtar",
+  "author": "Mithiel",
+  "types": [
+    "gondor"
+  ],
+  "reward": false,
+  "text": "My most beloved Ohtar, it is with a grieving heart that I must tell you our little {name:gondor_female} died last week of the pox. She called for you in her sleep. \n\nI curse this awful war. I curse Sauron, I curse the East Wind, I curse the Lord Denethor for taking you from us. We need you at home, Ohtar... please, come home."
+}

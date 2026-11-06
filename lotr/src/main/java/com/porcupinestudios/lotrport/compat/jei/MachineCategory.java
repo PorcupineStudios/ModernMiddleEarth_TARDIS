@@ -49,6 +49,8 @@ final class MachineCategory extends AbstractRecipeCategory<RecipeHolder<MachineR
             case BREWING -> "Barrel";
             case ENT_JAR -> "Ent Jar";
             case UNSMELTING -> "Unsmeltery";
+            case HOBBIT_OVEN -> "Hobbit Oven";
+            case KEBAB_STAND -> "Kebab Stand";
         };
     }
 

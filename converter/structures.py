@@ -95,6 +95,9 @@ class Structures:
         self.report = gen.report
         self.kinds = {b["id"]: b["kind"] for b in gen.blocks}
         self.facing = {b["id"] for b in gen.blocks if b.get("facing")}
+        from lore import Lore
+        self.lore = Lore(gen.jar, data_dir, gen.report)
+        self.lore_placed = 0
 
     # ------------------------------------------------------------------ block states
 
@@ -301,7 +304,17 @@ class Structures:
                 for slot, it in enumerate(chest["items"]):
                     new = self.item(it)
                     if new:
-                        items.append({"Slot": nbt.Byte(slot), "id": new, "count": nbt.Int(it.get("count", 1))})
+                        stack = {"Slot": nbt.Byte(slot), "id": new, "count": nbt.Int(it.get("count", 1))}
+                        if new == "minecraft:written_book":
+                            # LOTR's lore book (LOTRLore): the export shows it as an empty written book
+                            book = self.lore.book(sid, f"{sid}/{n}/{x},{y},{z}/{slot}")
+                            if not book:
+                                continue
+                            book["generation"] = nbt.Int(0)
+                            book["resolved"] = nbt.Byte(1)
+                            stack["components"] = {"minecraft:written_book_content": book}
+                            self.lore_placed += 1
+                        items.append(stack)
                 # only vanilla chests keep their contents (LOTR's chests have no storage yet)
                 if st["Name"] not in ("minecraft:chest", "minecraft:trapped_chest", "minecraft:barrel"):
                     facing = st.get("Properties", {}).get("facing")
@@ -476,7 +489,8 @@ class Structures:
             write_json(os.path.join(self.data, "tags", "worldgen", "structure", "faction", fac + ".json"),
                        {"values": sorted(ids)})
         spawn_tables = self.spawns()
-        return {"structures": count, "structures_with_npcs": with_npcs, "npc_spawn_tables": spawn_tables}
+        return {"structures": count, "structures_with_npcs": with_npcs, "npc_spawn_tables": spawn_tables,
+                **self.lore.run(), "lore_books_in_chests": self.lore_placed}
 
     def worldgen(self, wid, sid, layouts, ground, biomes, chunk_chance, cls):
         """One placement of a structure: lotr_port:lotr (LOTR's ground checks, foundations, no carving) in the biomes

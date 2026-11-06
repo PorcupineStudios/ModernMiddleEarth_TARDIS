@@ -1,0 +1,10 @@
+{
+  "id": "hobbit_todo_list",
+  "title": "A Hobbit's To-do List",
+  "author": "{name:hobbit_male} {name:hobbit_surname}",
+  "types": [
+    "shire"
+  ],
+  "reward": false,
+  "text": "{choose:Sterday/Sunday/Monday/Trewsday/Hevensday/Mersday/Highday} To-do List\n\n1. Clean pantry (throw away mouldy pastries)\n\n2. Wash table, clean table cloth\n\n3. Go to the market and restock the wine cellar and pantry: buy eggs, flour, sugar, cocoa, tea, pipe-weed and ale\n\n4. Tend to the garden/flower beds: pull weeds, water flowers, water vegetables and prune roses\n\n5. Yell at the troublesome tweens who are messing up my lawn!\n\n6. Put up a scarecrow in the garden\n\n7. Bake a cheesecake for the guests tomorrow \n\n8. Sweep the floor\n\n9. Polish, dust, and clean the furniture\n\n10. Go to {name:hobbitTavern_prefix} {name:hobbitTavern_suffix}, have a nice mug of ale, and smoke my pipe!"
+}

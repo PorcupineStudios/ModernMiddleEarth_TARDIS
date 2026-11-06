@@ -1,0 +1,10 @@
+{
+  "id": "dale_recipes_cram",
+  "title": "Dalish Recipes, p. 106",
+  "author": "{name:dale_female} of Dale",
+  "types": [
+    "dale"
+  ],
+  "reward": true,
+  "text": "Dalish Cram.\n\nIngredients:\n* 2 pounds of wheat grain\n* 1 bowl of...\n\n[Here the recipe cuts off. It seems the Dalish don't want you to learn the secret of their cram-baking.]"
+}

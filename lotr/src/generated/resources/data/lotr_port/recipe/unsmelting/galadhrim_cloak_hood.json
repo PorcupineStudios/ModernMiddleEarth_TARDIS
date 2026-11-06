@@ -1,0 +1,12 @@
+{
+  "type": "lotr_port:unsmelting",
+  "ingredients": [
+    {
+      "item": "lotr_port:galadhrim_cloak_hood"
+    }
+  ],
+  "result": {
+    "id": "lotr_port:hithlain",
+    "count": 5
+  }
+}

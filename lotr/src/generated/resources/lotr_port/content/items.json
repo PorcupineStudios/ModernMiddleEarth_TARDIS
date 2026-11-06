@@ -1569,8 +1569,10 @@
       "slot": "chest",
       "defense": 0,
       "material": "harad_robes",
-      "texture": "harad_robes"
-    }
+      "texture": "harad_robes",
+      "dyeable": true
+    },
+    "dyeable": true
   },
   {
     "id": "harnennor_chestplate",
@@ -2413,8 +2415,10 @@
       "slot": "feet",
       "defense": 0,
       "material": "harad_robes",
-      "texture": "harad_robes"
-    }
+      "texture": "harad_robes",
+      "dyeable": true
+    },
+    "dyeable": true
   },
   {
     "id": "harnennor_boots",
@@ -4816,7 +4820,8 @@
     "kind": "item",
     "stack": 1,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "dyeable": true
   },
   {
     "id": "flax",
@@ -5707,8 +5712,10 @@
       "slot": "head",
       "defense": 0,
       "material": "harad_robes",
-      "texture": "harad_robes"
-    }
+      "texture": "harad_robes",
+      "dyeable": true
+    },
+    "dyeable": true
   },
   {
     "id": "harnennor_helmet",
@@ -6570,8 +6577,10 @@
       "slot": "head",
       "defense": 0,
       "material": "cosmetic",
-      "texture": "leather_hat"
-    }
+      "texture": "leather_hat",
+      "dyeable": true
+    },
+    "dyeable": true
   },
   {
     "id": "leek",
@@ -7002,8 +7011,10 @@
       "slot": "legs",
       "defense": 0,
       "material": "harad_robes",
-      "texture": "harad_robes"
-    }
+      "texture": "harad_robes",
+      "dyeable": true
+    },
+    "dyeable": true
   },
   {
     "id": "harnennor_leggings",
@@ -8957,8 +8968,10 @@
       "slot": "head",
       "defense": 0,
       "material": "cosmetic",
-      "texture": "party_hat"
-    }
+      "texture": "party_hat",
+      "dyeable": true
+    },
+    "dyeable": true
   },
   {
     "id": "pear",
@@ -9565,21 +9578,24 @@
     "kind": "item",
     "stack": 1,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "dyeable": true
   },
   {
     "id": "medium_pouch",
     "kind": "item",
     "stack": 1,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "dyeable": true
   },
   {
     "id": "large_pouch",
     "kind": "item",
     "stack": 1,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "dyeable": true
   },
   {
     "id": "edhelvir",

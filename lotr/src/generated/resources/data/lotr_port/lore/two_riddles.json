@@ -1,0 +1,14 @@
+{
+  "id": "two_riddles",
+  "title": "A Riddle",
+  "author": "",
+  "types": [
+    "bree",
+    "eriador",
+    "ruins",
+    "shire",
+    "rivendell"
+  ],
+  "reward": true,
+  "text": "\"A flock of green butterflies,\nheld aloft with stiff string\" -\nor so the wind whispers,\nor so the wind sings.\n\n\"A self-raising tower\ngrips me with its claws\" -\nor so the earth rumbles,\nor so the earth roars.\n\nWhat do they speak of?"
+}

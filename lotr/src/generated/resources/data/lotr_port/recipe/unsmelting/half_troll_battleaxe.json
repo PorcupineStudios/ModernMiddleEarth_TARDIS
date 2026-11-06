@@ -1,0 +1,12 @@
+{
+  "type": "lotr_port:unsmelting",
+  "ingredients": [
+    {
+      "item": "lotr_port:half_troll_battleaxe"
+    }
+  ],
+  "result": {
+    "id": "minecraft:flint",
+    "count": 5
+  }
+}
