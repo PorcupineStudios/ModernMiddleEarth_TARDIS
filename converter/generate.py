@@ -34,6 +34,7 @@ from colonies import Colonies  # noqa: E402
 from saplings import Saplings  # noqa: E402
 from classfile import ClassFile  # noqa: E402
 from armor_models import ArmorModels  # noqa: E402
+from create_compat import CreateCompat  # noqa: E402
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 EXPORT = os.path.join(ROOT, "converter", "export")
@@ -1113,6 +1114,7 @@ class Gen:
         self.blocks_by_id = {b["id"]: b for b in self.blocks}
         self.do_recipes()
         self.ore_tags()
+        create = CreateCompat(self, DATA, EXPORT).run()
         tabs = self.do_tabs()
         self.other_langs()
         self.write_tags()
@@ -1134,7 +1136,8 @@ class Gen:
         write_json(os.path.join(content, "blocks.json"), self.blocks)
         write_json(os.path.join(content, "items.json"), self.items)
         write_json(os.path.join(content, "tabs.json"), tabs)
-        write_json(os.path.join(content, "summary.json"), [{"recipes": self.recipe_count, **factions, **npcs}])
+        write_json(os.path.join(content, "summary.json"), [{"recipes": self.recipe_count, **create, **factions,
+                                                            **npcs}])
         for code, entries in self.lang.items():
             write_json(os.path.join(ASSETS, "lang", code + ".json"), dict(sorted(entries.items())))
         write_json(os.path.join(ROOT, "converter", "idtable.json"), dict(sorted(self.idtable.items())))

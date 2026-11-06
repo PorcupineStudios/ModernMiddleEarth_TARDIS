@@ -1,0 +1,40 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "create"
+    }
+  ],
+  "type": "create:mixing",
+  "ingredients": [
+    {
+      "item": "lotr_port:banana"
+    },
+    {
+      "item": "lotr_port:banana"
+    },
+    {
+      "item": "lotr_port:banana"
+    },
+    {
+      "item": "lotr_port:banana"
+    },
+    {
+      "item": "lotr_port:banana"
+    },
+    {
+      "item": "lotr_port:banana"
+    },
+    {
+      "amount": 1000,
+      "fluid": "minecraft:water",
+      "type": "neoforge:single"
+    }
+  ],
+  "results": [
+    {
+      "id": "lotr_port:banana_beer",
+      "count": 16
+    }
+  ]
+}

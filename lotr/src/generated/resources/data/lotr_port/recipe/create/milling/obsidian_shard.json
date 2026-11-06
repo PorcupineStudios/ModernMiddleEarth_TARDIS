@@ -1,0 +1,20 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "create"
+    }
+  ],
+  "type": "create:milling",
+  "ingredients": [
+    {
+      "item": "lotr_port:obsidian_gravel"
+    }
+  ],
+  "processing_time": 250,
+  "results": [
+    {
+      "id": "lotr_port:obsidian_shard"
+    }
+  ]
+}

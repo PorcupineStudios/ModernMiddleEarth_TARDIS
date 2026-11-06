@@ -1,0 +1,769 @@
+{
+  "create_recipes_read": 1884,
+  "written": {
+    "minecraft:smelting": 2,
+    "minecraft:blasting": 2,
+    "create:splashing": 4,
+    "create:crushing": 20,
+    "create:milling": 58,
+    "create:mixing": 48
+  },
+  "matches": [
+    {
+      "tag": "c:nuggets/iron",
+      "values": [
+        "lotr_port:iron_nugget"
+      ],
+      "because": "LOTR's ore dictionary; Create's recipes for this tag now apply"
+    },
+    {
+      "tag": "c:nuggets/silver",
+      "values": [
+        "lotr_port:silver_nugget"
+      ],
+      "because": "LOTR's ore dictionary; Create's recipes for this tag now apply"
+    },
+    {
+      "tag": "c:ores/copper",
+      "values": [
+        "lotr_port:copper_ore"
+      ],
+      "because": "LOTR's ore dictionary; Create's recipes for this tag now apply"
+    },
+    {
+      "tag": "c:ores/salt",
+      "values": [
+        "lotr_port:rock_salt"
+      ],
+      "because": "LOTR's ore dictionary; Create's recipes for this tag now apply"
+    },
+    {
+      "tag": "c:ores/saltpeter",
+      "values": [
+        "lotr_port:niter_ore"
+      ],
+      "because": "LOTR's ore dictionary; Create's recipes for this tag now apply"
+    },
+    {
+      "tag": "c:ores/silver",
+      "values": [
+        "lotr_port:silver_ore"
+      ],
+      "because": "LOTR's ore dictionary; Create's recipes for this tag now apply"
+    },
+    {
+      "tag": "c:ores/sulfur",
+      "values": [
+        "lotr_port:sulfur_ore"
+      ],
+      "because": "LOTR's ore dictionary; Create's recipes for this tag now apply"
+    },
+    {
+      "tag": "c:ores/tin",
+      "values": [
+        "lotr_port:tin_ore"
+      ],
+      "because": "LOTR's ore dictionary; Create's recipes for this tag now apply"
+    },
+    {
+      "recipe": "lotr_port:create/smelting/tin_ingot_from_crushed_smelting",
+      "type": "minecraft:smelting",
+      "because": "Create crushes LOTR tin ore into create:crushed_raw_tin; it smelts into LOTR's tin ingot"
+    },
+    {
+      "recipe": "lotr_port:create/blasting/tin_ingot_from_crushed_blasting",
+      "type": "minecraft:blasting",
+      "because": "Create crushes LOTR tin ore into create:crushed_raw_tin; it smelts into LOTR's tin ingot"
+    },
+    {
+      "recipe": "lotr_port:create/smelting/silver_ingot_from_crushed_smelting",
+      "type": "minecraft:smelting",
+      "because": "Create crushes LOTR silver ore into create:crushed_raw_silver; it smelts into LOTR's silver ingot"
+    },
+    {
+      "recipe": "lotr_port:create/blasting/silver_ingot_from_crushed_blasting",
+      "type": "minecraft:blasting",
+      "because": "Create crushes LOTR silver ore into create:crushed_raw_silver; it smelts into LOTR's silver ingot"
+    },
+    {
+      "recipe": "lotr_port:create/splashing/crushed_raw_silver",
+      "type": "create:splashing",
+      "because": "like washing crushed iron: create:crushed_raw_silver -> LOTR silver nuggets"
+    },
+    {
+      "recipe": "lotr_port:create/crushing/topaz_vein",
+      "type": "create:crushing",
+      "because": "gem ore: crushed like diamond ore into lotr_port:topaz",
+      "ore": "lotr_port:topaz_vein"
+    },
+    {
+      "recipe": "lotr_port:create/crushing/amethyst_vein",
+      "type": "create:crushing",
+      "because": "gem ore: crushed like diamond ore into lotr_port:amethyst",
+      "ore": "lotr_port:amethyst_vein"
+    },
+    {
+      "recipe": "lotr_port:create/crushing/sapphire_vein",
+      "type": "create:crushing",
+      "because": "gem ore: crushed like diamond ore into lotr_port:sapphire",
+      "ore": "lotr_port:sapphire_vein"
+    },
+    {
+      "recipe": "lotr_port:create/crushing/ruby_vein",
+      "type": "create:crushing",
+      "because": "gem ore: crushed like diamond ore into lotr_port:ruby",
+      "ore": "lotr_port:ruby_vein"
+    },
+    {
+      "recipe": "lotr_port:create/crushing/amber_vein",
+      "type": "create:crushing",
+      "because": "gem ore: crushed like diamond ore into lotr_port:amber",
+      "ore": "lotr_port:amber_vein"
+    },
+    {
+      "recipe": "lotr_port:create/crushing/diamond_vein",
+      "type": "create:crushing",
+      "because": "gem ore: crushed like diamond ore into lotr_port:diamond",
+      "ore": "lotr_port:diamond_vein"
+    },
+    {
+      "recipe": "lotr_port:create/crushing/opal_vein",
+      "type": "create:crushing",
+      "because": "gem ore: crushed like diamond ore into lotr_port:opal",
+      "ore": "lotr_port:opal_vein"
+    },
+    {
+      "recipe": "lotr_port:create/crushing/emerald_vein",
+      "type": "create:crushing",
+      "because": "gem ore: crushed like diamond ore into lotr_port:emerald",
+      "ore": "lotr_port:emerald_vein"
+    },
+    {
+      "recipe": "lotr_port:create/crushing/glowstone_ore",
+      "type": "create:crushing",
+      "because": "gem ore: crushed like diamond ore into minecraft:glowstone_dust",
+      "ore": "lotr_port:glowstone_ore"
+    },
+    {
+      "recipe": "lotr_port:create/crushing/gulduril_ore",
+      "type": "create:crushing",
+      "because": "gem ore: crushed like diamond ore into lotr_port:gulduril",
+      "ore": "lotr_port:gulduril_ore"
+    },
+    {
+      "recipe": "lotr_port:create/crushing/gulduril_ore_block",
+      "type": "create:crushing",
+      "because": "gem ore: crushed like diamond ore into lotr_port:gulduril",
+      "ore": "lotr_port:gulduril_ore_block"
+    },
+    {
+      "recipe": "lotr_port:create/crushing/mithril_ore",
+      "type": "create:crushing",
+      "because": "metal ore Create has no crushed form for: crushed like iron ore, giving lotr_port:mithril_ingot",
+      "ore": "lotr_port:mithril_ore"
+    },
+    {
+      "recipe": "lotr_port:create/crushing/morgul_iron_ore",
+      "type": "create:crushing",
+      "because": "metal ore Create has no crushed form for: crushed like iron ore, giving lotr_port:orc_steel_ingot",
+      "ore": "lotr_port:morgul_iron_ore"
+    },
+    {
+      "recipe": "lotr_port:create/crushing/morgul_iron_ore_block",
+      "type": "create:crushing",
+      "because": "metal ore Create has no crushed form for: crushed like iron ore, giving lotr_port:orc_steel_ingot",
+      "ore": "lotr_port:morgul_iron_ore_block"
+    },
+    {
+      "recipe": "lotr_port:create/crushing/durnor_ore",
+      "type": "create:crushing",
+      "because": "gem ore: crushed like diamond ore into lotr_port:durnor",
+      "ore": "lotr_port:durnor_ore"
+    },
+    {
+      "recipe": "lotr_port:create/crushing/edhelvir_ore",
+      "type": "create:crushing",
+      "because": "gem ore: crushed like diamond ore into lotr_port:edhelvir",
+      "ore": "lotr_port:edhelvir_ore"
+    },
+    {
+      "recipe": "lotr_port:create/crushing/niter_ore",
+      "type": "create:crushing",
+      "because": "gem ore: crushed like diamond ore into lotr_port:niter",
+      "ore": "lotr_port:niter_ore"
+    },
+    {
+      "recipe": "lotr_port:create/crushing/sulfur_ore",
+      "type": "create:crushing",
+      "because": "gem ore: crushed like diamond ore into lotr_port:sulfur",
+      "ore": "lotr_port:sulfur_ore"
+    },
+    {
+      "recipe": "lotr_port:create/milling/cobblestone",
+      "type": "create:milling",
+      "because": "LOTR millstone recipe on Create's millstone"
+    },
+    {
+      "recipe": "lotr_port:create/milling/cracked_angmar_brick",
+      "type": "create:milling",
+      "because": "LOTR millstone recipe on Create's millstone"
+    },
+    {
+      "recipe": "lotr_port:create/milling/cracked_arnor_brick",
+      "type": "create:milling",
+      "because": "LOTR millstone recipe on Create's millstone"
+    },
+    {
+      "recipe": "lotr_port:create/milling/cracked_arnor_pillar",
+      "type": "create:milling",
+      "because": "LOTR millstone recipe on Create's millstone"
+    },
+    {
+      "recipe": "lotr_port:create/milling/cracked_bricks",
+      "type": "create:milling",
+      "because": "LOTR millstone recipe on Create's millstone"
+    },
+    {
+      "recipe": "lotr_port:create/milling/cracked_dalish_brick",
+      "type": "create:milling",
+      "because": "LOTR millstone recipe on Create's millstone"
+    },
+    {
+      "recipe": "lotr_port:create/milling/cracked_dol_guldur_brick",
+      "type": "create:milling",
+      "because": "LOTR millstone recipe on Create's millstone"
+    },
+    {
+      "recipe": "lotr_port:create/milling/cracked_dorwinion_brick",
+      "type": "create:milling",
+      "because": "LOTR millstone recipe on Create's millstone"
+    },
+    {
+      "recipe": "lotr_port:create/milling/cracked_dwarven_brick",
+      "type": "create:milling",
+      "because": "LOTR millstone recipe on Create's millstone"
+    },
+    {
+      "recipe": "lotr_port:create/milling/cracked_dwarven_pillar",
+      "type": "create:milling",
+      "because": "LOTR millstone recipe on Create's millstone"
+    },
+    {
+      "recipe": "lotr_port:create/milling/cracked_galadhrim_brick",
+      "type": "create:milling",
+      "because": "LOTR millstone recipe on Create's millstone"
+    },
+    {
+      "recipe": "lotr_port:create/milling/cracked_galadhrim_pillar",
+      "type": "create:milling",
+      "because": "LOTR millstone recipe on Create's millstone"
+    },
+    {
+      "recipe": "lotr_port:create/milling/cracked_gondor_brick",
+      "type": "create:milling",
+      "because": "LOTR millstone recipe on Create's millstone"
+    },
+    {
+      "recipe": "lotr_port:create/milling/cracked_gondor_cobblebrick",
+      "type": "create:milling",
+      "because": "LOTR millstone recipe on Create's millstone"
+    },
+    {
+      "recipe": "lotr_port:create/milling/cracked_haradric_brick",
+      "type": "create:milling",
+      "because": "LOTR millstone recipe on Create's millstone"
+    },
+    {
+      "recipe": "lotr_port:create/milling/cracked_high_elven_brick",
+      "type": "create:milling",
+      "because": "LOTR millstone recipe on Create's millstone"
+    },
+    {
+      "recipe": "lotr_port:create/milling/cracked_high_elven_pillar",
+      "type": "create:milling",
+      "because": "LOTR millstone recipe on Create's millstone"
+    },
+    {
+      "recipe": "lotr_port:create/milling/cracked_mordor_brick",
+      "type": "create:milling",
+      "because": "LOTR millstone recipe on Create's millstone"
+    },
+    {
+      "recipe": "lotr_port:create/milling/cracked_morwaith_brick",
+      "type": "create:milling",
+      "because": "LOTR millstone recipe on Create's millstone"
+    },
+    {
+      "recipe": "lotr_port:create/milling/cracked_red_haradric_brick",
+      "type": "create:milling",
+      "because": "LOTR millstone recipe on Create's millstone"
+    },
+    {
+      "recipe": "lotr_port:create/milling/cracked_rh_nic_brick",
+      "type": "create:milling",
+      "because": "LOTR millstone recipe on Create's millstone"
+    },
+    {
+      "recipe": "lotr_port:create/milling/cracked_stone_bricks",
+      "type": "create:milling",
+      "because": "LOTR millstone recipe on Create's millstone"
+    },
+    {
+      "recipe": "lotr_port:create/milling/cracked_taurethrim_brick",
+      "type": "create:milling",
+      "because": "LOTR millstone recipe on Create's millstone"
+    },
+    {
+      "recipe": "lotr_port:create/milling/cracked_umbar_brick",
+      "type": "create:milling",
+      "because": "LOTR millstone recipe on Create's millstone"
+    },
+    {
+      "recipe": "lotr_port:create/milling/cracked_wood_elven_brick",
+      "type": "create:milling",
+      "because": "LOTR millstone recipe on Create's millstone"
+    },
+    {
+      "recipe": "lotr_port:create/milling/cracked_wood_elven_pillar",
+      "type": "create:milling",
+      "because": "LOTR millstone recipe on Create's millstone"
+    },
+    {
+      "recipe": "lotr_port:create/milling/flint",
+      "type": "create:milling",
+      "because": "LOTR millstone recipe on Create's millstone"
+    },
+    {
+      "skipped": "lotr_port:millstone/flint_2",
+      "because": "Create already mills it"
+    },
+    {
+      "skipped": "lotr_port:millstone/gravel",
+      "because": "Create already mills it"
+    },
+    {
+      "recipe": "lotr_port:create/milling/mordor_gravel",
+      "type": "create:milling",
+      "because": "LOTR millstone recipe on Create's millstone"
+    },
+    {
+      "recipe": "lotr_port:create/milling/obsidian_shard",
+      "type": "create:milling",
+      "because": "LOTR millstone recipe on Create's millstone"
+    },
+    {
+      "recipe": "lotr_port:create/milling/red_sand",
+      "type": "create:milling",
+      "because": "LOTR millstone recipe on Create's millstone"
+    },
+    {
+      "recipe": "lotr_port:create/milling/salt",
+      "type": "create:milling",
+      "because": "LOTR millstone recipe on Create's millstone"
+    },
+    {
+      "skipped": "lotr_port:millstone/sand",
+      "because": "Create already mills it"
+    },
+    {
+      "recipe": "lotr_port:create/milling/white_sand",
+      "type": "create:milling",
+      "because": "LOTR millstone recipe on Create's millstone"
+    },
+    {
+      "recipe": "lotr_port:create/milling/brown_dye_3",
+      "type": "create:milling",
+      "because": "like Create milling a poppy: crafted dye x2 (lotr_port:brown_dye)"
+    },
+    {
+      "recipe": "lotr_port:create/milling/light_blue_dye",
+      "type": "create:milling",
+      "because": "like Create milling a poppy: crafted dye x2 (minecraft:light_blue_dye)"
+    },
+    {
+      "recipe": "lotr_port:create/milling/light_gray_dye",
+      "type": "create:milling",
+      "because": "like Create milling a poppy: crafted dye x2 (minecraft:light_gray_dye)"
+    },
+    {
+      "recipe": "lotr_port:create/milling/lime_dye",
+      "type": "create:milling",
+      "because": "like Create milling a poppy: crafted dye x2 (minecraft:lime_dye)"
+    },
+    {
+      "recipe": "lotr_port:create/milling/magenta_dye",
+      "type": "create:milling",
+      "because": "like Create milling a poppy: crafted dye x2 (minecraft:magenta_dye)"
+    },
+    {
+      "recipe": "lotr_port:create/milling/magenta_dye_2",
+      "type": "create:milling",
+      "because": "like Create milling a poppy: crafted dye x2 (minecraft:magenta_dye)"
+    },
+    {
+      "recipe": "lotr_port:create/milling/magenta_dye_3",
+      "type": "create:milling",
+      "because": "like Create milling a poppy: crafted dye x2 (minecraft:magenta_dye)"
+    },
+    {
+      "recipe": "lotr_port:create/milling/orange_dye",
+      "type": "create:milling",
+      "because": "like Create milling a poppy: crafted dye x2 (minecraft:orange_dye)"
+    },
+    {
+      "recipe": "lotr_port:create/milling/orange_dye_2",
+      "type": "create:milling",
+      "because": "like Create milling a poppy: crafted dye x2 (minecraft:orange_dye)"
+    },
+    {
+      "recipe": "lotr_port:create/milling/orange_dye_3",
+      "type": "create:milling",
+      "because": "like Create milling a poppy: crafted dye x2 (minecraft:orange_dye)"
+    },
+    {
+      "recipe": "lotr_port:create/milling/pink_dye",
+      "type": "create:milling",
+      "because": "like Create milling a poppy: crafted dye x2 (minecraft:pink_dye)"
+    },
+    {
+      "recipe": "lotr_port:create/milling/pink_dye_2",
+      "type": "create:milling",
+      "because": "like Create milling a poppy: crafted dye x2 (minecraft:pink_dye)"
+    },
+    {
+      "recipe": "lotr_port:create/milling/purple_dye",
+      "type": "create:milling",
+      "because": "like Create milling a poppy: crafted dye x2 (minecraft:purple_dye)"
+    },
+    {
+      "recipe": "lotr_port:create/milling/purple_dye_2",
+      "type": "create:milling",
+      "because": "like Create milling a poppy: crafted dye x2 (minecraft:purple_dye)"
+    },
+    {
+      "recipe": "lotr_port:create/milling/red_dye_2",
+      "type": "create:milling",
+      "because": "like Create milling a poppy: crafted dye x2 (minecraft:red_dye)"
+    },
+    {
+      "recipe": "lotr_port:create/milling/red_dye_3",
+      "type": "create:milling",
+      "because": "like Create milling a poppy: crafted dye x2 (minecraft:red_dye)"
+    },
+    {
+      "recipe": "lotr_port:create/milling/white_dye",
+      "type": "create:milling",
+      "because": "like Create milling a poppy: crafted dye x2 (lotr_port:white_dye)"
+    },
+    {
+      "recipe": "lotr_port:create/milling/white_dye_2",
+      "type": "create:milling",
+      "because": "like Create milling a poppy: crafted dye x2 (lotr_port:white_dye)"
+    },
+    {
+      "recipe": "lotr_port:create/milling/white_dye_3",
+      "type": "create:milling",
+      "because": "like Create milling a poppy: crafted dye x2 (lotr_port:white_dye)"
+    },
+    {
+      "recipe": "lotr_port:create/milling/white_dye_4",
+      "type": "create:milling",
+      "because": "like Create milling a poppy: crafted dye x2 (lotr_port:white_dye)"
+    },
+    {
+      "recipe": "lotr_port:create/milling/yellow_dye",
+      "type": "create:milling",
+      "because": "like Create milling a poppy: crafted dye x2 (lotr_port:yellow_dye)"
+    },
+    {
+      "recipe": "lotr_port:create/milling/yellow_dye_2",
+      "type": "create:milling",
+      "because": "like Create milling a poppy: crafted dye x2 (lotr_port:yellow_dye)"
+    },
+    {
+      "recipe": "lotr_port:create/milling/yellow_dye_3",
+      "type": "create:milling",
+      "because": "like Create milling a poppy: crafted dye x2 (lotr_port:yellow_dye)"
+    },
+    {
+      "recipe": "lotr_port:create/milling/yellow_dye_4",
+      "type": "create:milling",
+      "because": "like Create milling a poppy: crafted dye x2 (lotr_port:yellow_dye)"
+    },
+    {
+      "recipe": "lotr_port:create/milling/yellow_dye_5",
+      "type": "create:milling",
+      "because": "like Create milling a poppy: crafted dye x2 (lotr_port:yellow_dye)"
+    },
+    {
+      "recipe": "lotr_port:create/milling/yellow_dye_6",
+      "type": "create:milling",
+      "because": "like Create milling a poppy: crafted dye x2 (lotr_port:yellow_dye)"
+    },
+    {
+      "recipe": "lotr_port:create/mixing/blue_dwarven_steel_ingot",
+      "type": "create:mixing",
+      "because": "LOTR alloy forge alloy, heated mixing like Create's brass"
+    },
+    {
+      "recipe": "lotr_port:create/mixing/blue_dwarven_steel_ingot_2",
+      "type": "create:mixing",
+      "because": "LOTR alloy forge alloy, heated mixing like Create's brass"
+    },
+    {
+      "recipe": "lotr_port:create/mixing/bronze_ingot",
+      "type": "create:mixing",
+      "because": "LOTR alloy forge alloy, heated mixing like Create's brass"
+    },
+    {
+      "recipe": "lotr_port:create/mixing/bronze_ingot_2",
+      "type": "create:mixing",
+      "because": "LOTR alloy forge alloy, heated mixing like Create's brass"
+    },
+    {
+      "recipe": "lotr_port:create/mixing/dwarven_steel_ingot",
+      "type": "create:mixing",
+      "because": "LOTR alloy forge alloy, heated mixing like Create's brass"
+    },
+    {
+      "recipe": "lotr_port:create/mixing/dwarven_steel_ingot_2",
+      "type": "create:mixing",
+      "because": "LOTR alloy forge alloy, heated mixing like Create's brass"
+    },
+    {
+      "recipe": "lotr_port:create/mixing/dwarven_steel_ingot_3",
+      "type": "create:mixing",
+      "because": "LOTR alloy forge alloy, heated mixing like Create's brass"
+    },
+    {
+      "recipe": "lotr_port:create/mixing/dwarven_steel_ingot_4",
+      "type": "create:mixing",
+      "because": "LOTR alloy forge alloy, heated mixing like Create's brass"
+    },
+    {
+      "recipe": "lotr_port:create/mixing/elven_steel_ingot",
+      "type": "create:mixing",
+      "because": "LOTR alloy forge alloy, heated mixing like Create's brass"
+    },
+    {
+      "recipe": "lotr_port:create/mixing/elven_steel_ingot_2",
+      "type": "create:mixing",
+      "because": "LOTR alloy forge alloy, heated mixing like Create's brass"
+    },
+    {
+      "recipe": "lotr_port:create/mixing/elven_steel_ingot_3",
+      "type": "create:mixing",
+      "because": "LOTR alloy forge alloy, heated mixing like Create's brass"
+    },
+    {
+      "recipe": "lotr_port:create/mixing/elven_steel_ingot_4",
+      "type": "create:mixing",
+      "because": "LOTR alloy forge alloy, heated mixing like Create's brass"
+    },
+    {
+      "recipe": "lotr_port:create/mixing/gilded_iron_ingot",
+      "type": "create:mixing",
+      "because": "LOTR alloy forge alloy, heated mixing like Create's brass"
+    },
+    {
+      "recipe": "lotr_port:create/mixing/gilded_iron_ingot_2",
+      "type": "create:mixing",
+      "because": "LOTR alloy forge alloy, heated mixing like Create's brass"
+    },
+    {
+      "recipe": "lotr_port:create/mixing/ithildin",
+      "type": "create:mixing",
+      "because": "LOTR alloy forge alloy, heated mixing like Create's brass"
+    },
+    {
+      "recipe": "lotr_port:create/mixing/uruk_steel_ingot",
+      "type": "create:mixing",
+      "because": "LOTR alloy forge alloy, heated mixing like Create's brass"
+    },
+    {
+      "recipe": "lotr_port:create/mixing/uruk_steel_ingot_2",
+      "type": "create:mixing",
+      "because": "LOTR alloy forge alloy, heated mixing like Create's brass"
+    },
+    {
+      "recipe": "lotr_port:create/mixing/uruk_steel_ingot_3",
+      "type": "create:mixing",
+      "because": "LOTR alloy forge alloy, heated mixing like Create's brass"
+    },
+    {
+      "recipe": "lotr_port:create/mixing/uruk_steel_ingot_4",
+      "type": "create:mixing",
+      "because": "LOTR alloy forge alloy, heated mixing like Create's brass"
+    },
+    {
+      "recipe": "lotr_port:create/mixing/brewing_ale",
+      "type": "create:mixing",
+      "because": "LOTR barrel drink, mixed with water"
+    },
+    {
+      "recipe": "lotr_port:create/mixing/brewing_arak",
+      "type": "create:mixing",
+      "because": "LOTR barrel drink, mixed with water"
+    },
+    {
+      "recipe": "lotr_port:create/mixing/brewing_athelas_brew",
+      "type": "create:mixing",
+      "because": "LOTR barrel drink, mixed with water"
+    },
+    {
+      "recipe": "lotr_port:create/mixing/brewing_banana_beer",
+      "type": "create:mixing",
+      "because": "LOTR barrel drink, mixed with water"
+    },
+    {
+      "recipe": "lotr_port:create/mixing/brewing_cactus_liqueur",
+      "type": "create:mixing",
+      "because": "LOTR barrel drink, mixed with water"
+    },
+    {
+      "recipe": "lotr_port:create/mixing/brewing_carrot_wine",
+      "type": "create:mixing",
+      "because": "LOTR barrel drink, mixed with water"
+    },
+    {
+      "recipe": "lotr_port:create/mixing/brewing_cherry_liqueur",
+      "type": "create:mixing",
+      "because": "LOTR barrel drink, mixed with water"
+    },
+    {
+      "recipe": "lotr_port:create/mixing/brewing_cider",
+      "type": "create:mixing",
+      "because": "LOTR barrel drink, mixed with water"
+    },
+    {
+      "recipe": "lotr_port:create/mixing/brewing_corn_liquor",
+      "type": "create:mixing",
+      "because": "LOTR barrel drink, mixed with water"
+    },
+    {
+      "recipe": "lotr_port:create/mixing/brewing_dwarven_ale",
+      "type": "create:mixing",
+      "because": "LOTR barrel drink, mixed with water"
+    },
+    {
+      "recipe": "lotr_port:create/mixing/brewing_dwarven_tonic",
+      "type": "create:mixing",
+      "because": "LOTR barrel drink, mixed with water"
+    },
+    {
+      "recipe": "lotr_port:create/mixing/brewing_lemon_liqueur",
+      "type": "create:mixing",
+      "because": "LOTR barrel drink, mixed with water"
+    },
+    {
+      "recipe": "lotr_port:create/mixing/brewing_lime_liqueur",
+      "type": "create:mixing",
+      "because": "LOTR barrel drink, mixed with water"
+    },
+    {
+      "recipe": "lotr_port:create/mixing/brewing_maple_beer",
+      "type": "create:mixing",
+      "because": "LOTR barrel drink, mixed with water"
+    },
+    {
+      "recipe": "lotr_port:create/mixing/brewing_mead",
+      "type": "create:mixing",
+      "because": "LOTR barrel drink, mixed with water"
+    },
+    {
+      "recipe": "lotr_port:create/mixing/brewing_melon_liqueur",
+      "type": "create:mixing",
+      "because": "LOTR barrel drink, mixed with water"
+    },
+    {
+      "recipe": "lotr_port:create/mixing/brewing_miruvor",
+      "type": "create:mixing",
+      "because": "LOTR barrel drink, mixed with water"
+    },
+    {
+      "recipe": "lotr_port:create/mixing/brewing_morgul_draught",
+      "type": "create:mixing",
+      "because": "LOTR barrel drink, mixed with water"
+    },
+    {
+      "recipe": "lotr_port:create/mixing/brewing_orc_draught",
+      "type": "create:mixing",
+      "because": "LOTR barrel drink, mixed with water"
+    },
+    {
+      "recipe": "lotr_port:create/mixing/brewing_perry",
+      "type": "create:mixing",
+      "because": "LOTR barrel drink, mixed with water"
+    },
+    {
+      "recipe": "lotr_port:create/mixing/brewing_plum_kvass",
+      "type": "create:mixing",
+      "because": "LOTR barrel drink, mixed with water"
+    },
+    {
+      "recipe": "lotr_port:create/mixing/brewing_pomegranate_wine",
+      "type": "create:mixing",
+      "because": "LOTR barrel drink, mixed with water"
+    },
+    {
+      "recipe": "lotr_port:create/mixing/brewing_red_wine",
+      "type": "create:mixing",
+      "because": "LOTR barrel drink, mixed with water"
+    },
+    {
+      "recipe": "lotr_port:create/mixing/brewing_rum",
+      "type": "create:mixing",
+      "because": "LOTR barrel drink, mixed with water"
+    },
+    {
+      "recipe": "lotr_port:create/mixing/brewing_soured_milk",
+      "type": "create:mixing",
+      "because": "LOTR barrel drink, mixed with water"
+    },
+    {
+      "recipe": "lotr_port:create/mixing/brewing_termite_tequila",
+      "type": "create:mixing",
+      "because": "LOTR barrel drink, mixed with water"
+    },
+    {
+      "recipe": "lotr_port:create/mixing/brewing_torog_draught",
+      "type": "create:mixing",
+      "because": "LOTR barrel drink, mixed with water"
+    },
+    {
+      "recipe": "lotr_port:create/mixing/brewing_vodka",
+      "type": "create:mixing",
+      "because": "LOTR barrel drink, mixed with water"
+    },
+    {
+      "recipe": "lotr_port:create/mixing/brewing_white_wine",
+      "type": "create:mixing",
+      "because": "LOTR barrel drink, mixed with water"
+    },
+    {
+      "recipe": "lotr_port:create/splashing/mordor_gravel",
+      "type": "create:splashing",
+      "because": "looks like vanilla gravel: Create's splashing of gravel"
+    },
+    {
+      "recipe": "lotr_port:create/crushing/mordor_gravel",
+      "type": "create:crushing",
+      "because": "looks like vanilla gravel: Create's crushing of gravel"
+    },
+    {
+      "recipe": "lotr_port:create/splashing/obsidian_gravel",
+      "type": "create:splashing",
+      "because": "looks like vanilla gravel: Create's splashing of gravel"
+    },
+    {
+      "recipe": "lotr_port:create/crushing/obsidian_gravel",
+      "type": "create:crushing",
+      "because": "looks like vanilla gravel: Create's crushing of gravel"
+    },
+    {
+      "recipe": "lotr_port:create/splashing/white_sand",
+      "type": "create:splashing",
+      "because": "looks like vanilla sand: Create's splashing of sand"
+    }
+  ]
+}

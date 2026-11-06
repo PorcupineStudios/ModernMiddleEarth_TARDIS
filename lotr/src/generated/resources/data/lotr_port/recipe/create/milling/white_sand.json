@@ -1,0 +1,21 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "create"
+    }
+  ],
+  "type": "create:milling",
+  "ingredients": [
+    {
+      "item": "lotr_port:white_sandstone"
+    }
+  ],
+  "processing_time": 250,
+  "results": [
+    {
+      "id": "lotr_port:white_sand",
+      "count": 2
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "create"
+    }
+  ],
+  "type": "create:milling",
+  "ingredients": [
+    {
+      "item": "lotr_port:arnor_pillar"
+    }
+  ],
+  "processing_time": 250,
+  "results": [
+    {
+      "id": "lotr_port:cracked_arnor_pillar"
+    }
+  ]
+}

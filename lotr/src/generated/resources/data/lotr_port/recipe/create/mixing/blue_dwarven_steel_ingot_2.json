@@ -1,0 +1,23 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "create"
+    }
+  ],
+  "heat_requirement": "heated",
+  "ingredients": [
+    {
+      "item": "minecraft:iron_ore"
+    },
+    {
+      "item": "lotr_port:luigon"
+    }
+  ],
+  "results": [
+    {
+      "id": "lotr_port:blue_dwarven_steel_ingot"
+    }
+  ],
+  "type": "create:mixing"
+}
