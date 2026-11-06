@@ -18,6 +18,7 @@
       "lotr_port:rh_nic_dagger"
     ]
   },
+  "names": "lotr_port:rhun_male",
   "speech": "lotr_port:rhun/man",
   "quests": "lotr_port:rhun"
 }

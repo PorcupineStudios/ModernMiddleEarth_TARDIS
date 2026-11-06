@@ -13,9 +13,9 @@
     "mainhand": [
       "lotr_port:angmar_battleaxe",
       "lotr_port:angmar_dagger",
-      "lotr_port:angmar_poleaxe",
       "lotr_port:angmar_spear",
-      "lotr_port:angmar_sword"
+      "lotr_port:angmar_sword",
+      "lotr_port:angmar_warhammer"
     ],
     "head": [
       "lotr_port:bone_helmet",
@@ -28,6 +28,7 @@
     ],
     "legs": [
       "lotr_port:angmar_leggings",
+      "lotr_port:bone_leggings",
       "lotr_port:fur_leggings"
     ],
     "feet": [

@@ -12,9 +12,8 @@
   "gear": {
     "mainhand": [
       "lotr_port:angmar_battleaxe",
-      "lotr_port:angmar_dagger",
       "lotr_port:angmar_poleaxe",
-      "lotr_port:angmar_sword",
+      "lotr_port:angmar_spear",
       "lotr_port:angmar_warhammer"
     ],
     "head": [
@@ -32,8 +31,8 @@
       "lotr_port:fur_leggings"
     ],
     "feet": [
-      "lotr_port:bone_boots",
-      "lotr_port:fur_boots"
+      "lotr_port:angmar_boots",
+      "lotr_port:bone_boots"
     ]
   },
   "names": "lotr_port:rhudaur_male",

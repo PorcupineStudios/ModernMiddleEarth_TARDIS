@@ -15,11 +15,9 @@
       "lotr_port:dunlending_club",
       "lotr_port:dunlending_trident",
       "minecraft:stone_axe",
-      "minecraft:stone_hoe",
-      "minecraft:wooden_sword"
+      "minecraft:stone_hoe"
     ],
     "head": "lotr_port:fur_hat"
   },
-  "speech": "lotr_port:dunlending/dunlending",
-  "quests": "lotr_port:dunland"
+  "speech": "lotr_port:dunlending/dunlending"
 }

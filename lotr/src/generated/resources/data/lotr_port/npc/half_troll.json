@@ -31,5 +31,6 @@
   "speed": 0.2,
   "attack": 6.0,
   "names": "lotr_port:orc",
-  "speech": "lotr_port:half_troll/half_troll"
+  "speech": "lotr_port:half_troll/half_troll",
+  "quests": "lotr_port:half_troll"
 }

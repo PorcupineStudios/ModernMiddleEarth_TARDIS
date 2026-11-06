@@ -19,8 +19,8 @@
   "gear": {
     "mainhand": [
       "lotr_port:dwarven_battleaxe",
-      "lotr_port:dwarven_mattock",
       "lotr_port:dwarven_pike",
+      "lotr_port:dwarven_sword",
       "lotr_port:dwarven_warhammer"
     ],
     "head": "lotr_port:silver_trimmed_dwarven_helmet",
@@ -29,6 +29,5 @@
     "feet": "lotr_port:silver_trimmed_dwarven_boots"
   },
   "names": "lotr_port:dwarf_male",
-  "speech": "lotr_port:dwarf/dwarf",
-  "quests": "lotr_port:durin"
+  "speech": "lotr_port:dwarf/dwarf"
 }

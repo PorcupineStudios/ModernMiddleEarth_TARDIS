@@ -2,13 +2,17 @@
   "model": "lotr_port:midge",
   "width": 2.0,
   "height": 2.0,
-  "behaviours": [],
+  "behaviours": [
+    "animal"
+  ],
   "lotr_classes": [
     "LOTREntityMidges",
     "EntityLiving",
     "EntityLivingBase"
   ],
   "behaviour_data": {
+    "fights_back": 0,
+    "panic_speed": 1.25,
     "state.renderer": 0
   },
   "health": 2.0,

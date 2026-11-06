@@ -22,19 +22,17 @@
   "attack": 2.0,
   "gear": {
     "mainhand": [
-      "lotr_port:bronze_axe",
       "lotr_port:bronze_battleaxe",
       "lotr_port:bronze_dagger",
-      "lotr_port:bronze_pickaxe",
-      "lotr_port:bronze_spear",
-      "lotr_port:poisoned_uruk_dagger",
-      "lotr_port:uruk_battleaxe",
-      "lotr_port:uruk_pickaxe"
+      "lotr_port:iron_dagger",
+      "lotr_port:uruk_axe",
+      "lotr_port:uruk_pickaxe",
+      "lotr_port:uruk_warhammer",
+      "minecraft:iron_axe"
     ],
     "head": [
-      "lotr_port:bone_helmet",
-      "lotr_port:bronze_helmet",
-      "lotr_port:fur_hat"
+      "lotr_port:fur_hat",
+      "minecraft:leather_helmet"
     ],
     "chest": [
       "lotr_port:bone_chestplate",
@@ -44,12 +42,14 @@
       "minecraft:leather_chestplate"
     ],
     "legs": [
+      "lotr_port:bone_leggings",
       "lotr_port:bronze_leggings",
       "lotr_port:fur_leggings",
-      "lotr_port:uruk_leggings"
+      "minecraft:leather_leggings"
     ],
     "feet": [
       "lotr_port:bone_boots",
+      "lotr_port:bronze_boots",
       "lotr_port:fur_boots",
       "lotr_port:uruk_boots",
       "minecraft:leather_boots"

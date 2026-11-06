@@ -2,7 +2,9 @@
   "model": "lotr_port:swan",
   "width": 0.5,
   "height": 0.7,
-  "behaviours": [],
+  "behaviours": [
+    "animal"
+  ],
   "lotr_classes": [
     "LOTREntitySwan",
     "EntityCreature",
@@ -10,6 +12,8 @@
     "EntityLivingBase"
   ],
   "behaviour_data": {
+    "fights_back": 0,
+    "panic_speed": 1.25,
     "state.renderer": 0
   },
   "health": 8.0,

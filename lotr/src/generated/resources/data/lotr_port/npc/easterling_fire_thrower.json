@@ -19,5 +19,6 @@
     "feet": "lotr_port:rh_nic_boots"
   },
   "names": "lotr_port:rhun_male",
-  "speech": "lotr_port:rhun/warrior"
+  "speech": "lotr_port:rhun/warrior",
+  "quests": "lotr_port:rhun"
 }

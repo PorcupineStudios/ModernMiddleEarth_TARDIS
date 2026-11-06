@@ -47,6 +47,5 @@
     "feet": "lotr_port:half_troll_boots"
   },
   "names": "lotr_port:orc",
-  "speech": "lotr_port:half_troll/half_troll",
-  "quests": "lotr_port:half_troll"
+  "speech": "lotr_port:half_troll/half_troll"
 }

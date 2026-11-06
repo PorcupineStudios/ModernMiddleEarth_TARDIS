@@ -25,6 +25,5 @@
   "names": "lotr_port:orc",
   "buy": "lotr_port:uruk_hai_trader_buy",
   "sell": "lotr_port:uruk_hai_trader_sell",
-  "speech": "lotr_port:isengard/trader",
-  "quests": "lotr_port:isengard"
+  "speech": "lotr_port:isengard/trader"
 }

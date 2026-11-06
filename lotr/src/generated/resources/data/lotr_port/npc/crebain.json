@@ -2,7 +2,9 @@
   "model": "lotr_port:bird",
   "width": 0.9,
   "height": 0.9,
-  "behaviours": [],
+  "behaviours": [
+    "animal"
+  ],
   "lotr_classes": [
     "LOTREntityCrebain",
     "LOTREntityBird",
@@ -10,9 +12,11 @@
     "EntityLivingBase"
   ],
   "behaviour_data": {
+    "fights_back": 0,
+    "panic_speed": 1.25,
     "state.renderer": 0
   },
   "health": 10.0,
-  "speed": 0.08444786938440751,
+  "speed": 0.08655443537572777,
   "attack": 2.0
 }

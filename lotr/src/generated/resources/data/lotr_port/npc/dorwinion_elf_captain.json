@@ -20,7 +20,6 @@
     "legs": "lotr_port:dorwinion_elven_leggings",
     "feet": "lotr_port:dorwinion_elven_boots"
   },
-  "names": "lotr_port:sindarin_male",
   "units": "lotr_port:dorwinion_elf_captain",
   "speech": "lotr_port:dorwinion/elf_captain",
   "quests": "lotr_port:dorwinion_elf"

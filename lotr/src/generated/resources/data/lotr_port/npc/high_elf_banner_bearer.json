@@ -40,5 +40,6 @@
     "legs": "lotr_port:lindon_leggings",
     "feet": "lotr_port:lindon_boots"
   },
-  "speech": "lotr_port:high_elf/warrior"
+  "speech": "lotr_port:high_elf/warrior",
+  "quests": "lotr_port:high_elf"
 }

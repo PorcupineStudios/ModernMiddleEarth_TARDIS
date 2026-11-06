@@ -2,16 +2,20 @@
   "model": "lotr_port:bird",
   "width": 0.5,
   "height": 0.5,
-  "behaviours": [],
+  "behaviours": [
+    "animal"
+  ],
   "lotr_classes": [
     "LOTREntityBird",
     "EntityLiving",
     "EntityLivingBase"
   ],
   "behaviour_data": {
+    "fights_back": 0,
+    "panic_speed": 1.25,
     "state.renderer": 0
   },
   "health": 4.0,
-  "speed": 0.1259650935373271,
+  "speed": 0.12858261654181796,
   "attack": 2.0
 }

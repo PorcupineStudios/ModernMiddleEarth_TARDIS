@@ -506,11 +506,7 @@ class Extra:
             if os.path.exists(path):
                 biome = json.load(open(path))
                 biome["spawners"] = {"creature": vanilla} if vanilla else {}
-                if bid in music:
-                    # LOTR shipped no tracks: music packs add sound files to these events (see music.json)
-                    biome["effects"]["music"] = {"sound": f"{NS}:music.{music[bid]['region']}",
-                                                 "min_delay": 12000, "max_delay": 24000,
-                                                 "replace_current_music": False}
+                biome["effects"].pop("music", None)  # client/LotrMusic plays playlists instead
                 write_json(path, biome)
             if lotr:
                 write_json(os.path.join(self.data, NS, "npc_animals", NS, bid + ".json"),
@@ -537,6 +533,14 @@ class Extra:
         write_json(os.path.join(self.content, "sounds.json"), events)
         write_json(os.path.join(self.assets, "sounds.json"), sounds)
         write_json(os.path.join(self.content, "music.json"), music)
+        # client/LotrMusic: each biome plays its LOTR music region's playlist. LOTR shipped no tracks; a resource
+        # pack lists sound events (defined in its own sounds.json) under "playlists" and may override any biome.
+        write_json(os.path.join(self.assets, "music", "playlists.json"), {
+            "biomes": {b: m["region"] for b, m in sorted(music.items())},
+            "playlists": {r: [] for r in sorted({m["region"] for m in music.values()})},
+            "transition": {"settle_ticks": 100, "fade_out_ticks": 80, "fade_in_ticks": 40, "gap_min_ticks": 400,
+                           "gap_max_ticks": 1800, "change_gap_ticks": 60, "keep_shared_track": True,
+                           "volume": 1.0}})
         write_json(os.path.join(self.content, "biome_achievements.json"), achievements)
         return {"music_biomes": len(music), "biome_achievements": len(achievements),
                 "invasion_biomes": len(invasions), "animal_biomes": animals}

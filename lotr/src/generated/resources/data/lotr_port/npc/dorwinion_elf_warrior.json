@@ -15,12 +15,16 @@
   "speed": 0.2,
   "attack": 2.0,
   "gear": {
-    "mainhand": "lotr_port:spear_of_bladorthin",
+    "mainhand": [
+      "lotr_port:dorwinion_elven_sword",
+      "lotr_port:spear_of_bladorthin"
+    ],
     "head": "lotr_port:dorwinion_elven_helmet",
     "chest": "lotr_port:dorwinion_elven_chestplate",
     "legs": "lotr_port:dorwinion_elven_leggings",
     "feet": "lotr_port:dorwinion_elven_boots"
   },
+  "names": "lotr_port:sindarin_male",
   "speech": "lotr_port:dorwinion/elf_warrior",
   "quests": "lotr_port:dorwinion_elf"
 }

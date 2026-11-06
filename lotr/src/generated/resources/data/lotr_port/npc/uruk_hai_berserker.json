@@ -23,5 +23,6 @@
     "feet": "lotr_port:fur_boots"
   },
   "names": "lotr_port:orc",
-  "speech": "lotr_port:isengard/orc"
+  "speech": "lotr_port:isengard/orc",
+  "quests": "lotr_port:isengard"
 }

@@ -18,6 +18,7 @@
   "attack": 2.0,
   "gear": {
     "mainhand": [
+      "lotr_port:dwarven_battleaxe",
       "lotr_port:dwarven_mattock",
       "lotr_port:dwarven_pike",
       "lotr_port:dwarven_spear",

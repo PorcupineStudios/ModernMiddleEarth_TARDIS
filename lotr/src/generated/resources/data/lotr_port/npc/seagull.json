@@ -2,7 +2,9 @@
   "model": "lotr_port:bird",
   "width": 0.7,
   "height": 0.7,
-  "behaviours": [],
+  "behaviours": [
+    "animal"
+  ],
   "lotr_classes": [
     "LOTREntitySeagull",
     "LOTREntityBird",
@@ -10,9 +12,11 @@
     "EntityLivingBase"
   ],
   "behaviour_data": {
+    "fights_back": 0,
+    "panic_speed": 1.25,
     "state.renderer": 0
   },
   "health": 4.0,
-  "speed": 0.11086155066999225,
+  "speed": 0.1250572221537066,
   "attack": 2.0
 }

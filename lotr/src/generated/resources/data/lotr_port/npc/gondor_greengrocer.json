@@ -19,9 +19,8 @@
   "gear": {
     "mainhand": [
       "lotr_port:bronze_axe",
-      "lotr_port:gondorian_dagger",
-      "lotr_port:iron_dagger",
-      "minecraft:iron_axe"
+      "minecraft:iron_axe",
+      "minecraft:stone_axe"
     ]
   },
   "buy": "lotr_port:gondor_greengrocer_buy",

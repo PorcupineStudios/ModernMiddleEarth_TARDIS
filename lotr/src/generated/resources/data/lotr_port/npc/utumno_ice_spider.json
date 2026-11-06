@@ -30,8 +30,8 @@
     "death": "minecraft:entity.spider.death",
     "step": "minecraft:entity.spider.step"
   },
-  "health": 24.0,
-  "speed": 0.29,
-  "attack": 4.0,
+  "health": 12.0,
+  "speed": 0.35,
+  "attack": 2.0,
   "speech": "lotr_port:utumno/orc"
 }

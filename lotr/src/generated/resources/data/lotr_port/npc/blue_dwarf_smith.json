@@ -22,6 +22,5 @@
   "names": "lotr_port:dwarf_male",
   "buy": "lotr_port:blue_dwarf_smith_buy",
   "sell": "lotr_port:blue_dwarf_smith_sell",
-  "speech": "lotr_port:blue_dwarf/smith",
-  "quests": "lotr_port:blue_mountains"
+  "speech": "lotr_port:blue_dwarf/smith"
 }

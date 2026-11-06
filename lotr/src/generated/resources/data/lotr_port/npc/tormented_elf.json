@@ -16,11 +16,10 @@
   "attack": 2.0,
   "gear": {
     "mainhand": [
-      "lotr_port:poisoned_utumno_dagger",
       "lotr_port:utumno_dagger",
       "lotr_port:utumno_sword"
     ]
   },
-  "names": "lotr_port:quenya_male",
+  "names": "lotr_port:sindarin_male",
   "speech": "lotr_port:utumno/elf"
 }

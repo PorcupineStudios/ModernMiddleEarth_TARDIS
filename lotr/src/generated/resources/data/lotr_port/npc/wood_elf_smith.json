@@ -18,7 +18,7 @@
   "gear": {
     "mainhand": "lotr_port:bow_of_mirkwood"
   },
-  "names": "lotr_port:gondor_male",
+  "names": "lotr_port:sindarin_male",
   "buy": "lotr_port:wood_elf_smith_buy",
   "sell": "lotr_port:wood_elf_smith_sell",
   "speech": "lotr_port:wood_elf/smith",

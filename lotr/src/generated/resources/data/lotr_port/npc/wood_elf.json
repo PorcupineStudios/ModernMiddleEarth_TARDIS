@@ -18,5 +18,6 @@
   "gear": {
     "mainhand": "lotr_port:bow_of_mirkwood"
   },
-  "speech": "lotr_port:wood_elf/elf"
+  "speech": "lotr_port:wood_elf/elf",
+  "quests": "lotr_port:wood_elf"
 }

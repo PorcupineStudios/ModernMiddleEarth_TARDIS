@@ -45,5 +45,6 @@
       "minecraft:stone_axe"
     ]
   },
-  "speech": "lotr_port:bree/man"
+  "speech": "lotr_port:bree/man",
+  "quests": "lotr_port:bree"
 }
