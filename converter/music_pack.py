@@ -27,6 +27,7 @@ import zipfile
 from concurrent.futures import ThreadPoolExecutor
 
 QUALITY, STEREO, LOUDNESS, LOUDNESS_RANGE = 1, False, -20, 9
+REPO = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..")
 AUDIO = (".ogg", ".mp3", ".flac", ".m4a", ".wav", ".aac", ".opus", ".wma")
 
 # file-name words -> playlists (music regions); edit with --write-map / --map.
@@ -492,6 +493,8 @@ def main():
     ap.add_argument("--loudness", type=float, default=-20, help="target loudness, LUFS (default -20)")
     ap.add_argument("--range", type=float, default=9, help="widest loudness range kept, LU (default 9; 20 = off)")
     ap.add_argument("--jobs", type=int, default=max(1, (os.cpu_count() or 2) - 1), help="tracks converted at once")
+    ap.add_argument("--into-mod", action="store_true",
+                    help="write the pack into the mod's resources (shipped in the jar); --out then only holds the cache")
     ap.add_argument("--zip-pack", metavar="FOLDER",
                     help="just zip an already built pack folder (e.g. music-pack) into --out, and stop")
     a = ap.parse_args()
@@ -526,6 +529,10 @@ def main():
     pack = os.path.join(out, "Middle-earth Music")
     # measurements and converted tracks are kept here, so a re-run only works on what's new
     cache = os.path.join(out, ".middle-earth-music-cache")
+    if a.into_mod:  # the mod's built-in copy (LotrMusic registers it); the cache stays out of the repo
+        pack = os.path.join(REPO, "lotr", "src", "main", "resources", "resourcepacks", "middle_earth_music")
+        cache = os.path.join(a.out or os.path.join(os.path.expanduser("~"), "Downloads"), ".middle-earth-music-cache")
+        a.zip = False
     os.makedirs(cache, exist_ok=True)
     files = sorted(os.path.join(r, f) for r, _, fs in os.walk(a.tracks) for f in fs if f.lower().endswith(AUDIO))
 
@@ -578,7 +585,7 @@ def main():
     borrowed = fill(playlists, lands)
 
     with open(os.path.join(pack, "pack.mcmeta"), "w", encoding="utf-8") as f:
-        json.dump({"pack": {"pack_format": 34, "description": "Middle-earth music (private)"}}, f, indent=2)
+        json.dump({"pack": {"pack_format": 34, "description": "The films' scores for Middle-earth's lands, by mood"}}, f, indent=2)
     with open(os.path.join(pack, "assets", "lotr_port", "sounds.json"), "w", encoding="utf-8") as f:
         json.dump(sounds, f, indent=2)
     os.makedirs(os.path.join(pack, "assets", "lotr_port", "music"), exist_ok=True)

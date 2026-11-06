@@ -16,7 +16,12 @@ import java.util.Map;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.sounds.AbstractTickableSoundInstance;
 import net.minecraft.client.resources.sounds.SoundInstance;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.packs.PackType;
+import net.minecraft.server.packs.repository.Pack;
+import net.minecraft.server.packs.repository.PackSource;
+import net.neoforged.neoforge.event.AddPackFindersEvent;
 import net.minecraft.server.packs.resources.Resource;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.server.packs.resources.ResourceManagerReloadListener;
@@ -38,8 +43,8 @@ import net.neoforged.neoforge.client.event.sound.PlaySoundEvent;
  * <ul>
  * <li>{@code biomes}: biome path → playlist name (generated from LOTR's music regions; a pack may remap)</li>
  * <li>{@code playlists}: name → {@code {"calm": [...], "suspense": [...], "fight": [...]}} of sound event ids, or
- * one list for every mood. The events are the pack's own (its sounds.json), so the tracks live only in the pack,
- * never in the mod. One track may sit on several lists.</li>
+ * one list for every mood. The events are the pack's own (its sounds.json): the built-in "Middle-earth Music" pack
+ * registered below, or any resource pack over it. One track may sit on several lists.</li>
  * <li>{@code transition} and {@code mood}: timings and mood triggers, see {@code lotr/docs/music-pack.md}.</li>
  * </ul>
  * The mood: fight while a mob or NPC within {@code fight_range} is aggressive (has a target); suspense near
@@ -96,6 +101,17 @@ public final class LotrMusic {
         @SubscribeEvent
         static void register(RegisterClientReloadListenersEvent event) {
             event.registerReloadListener((ResourceManagerReloadListener) LotrMusic::load);
+        }
+
+        /**
+         * The soundtrack ships in the jar as its own built-in pack (resources/resourcepacks/middle_earth_music), always
+         * on: its sounds.json and playlists.json merge over the mod's. The Music slider sets its volume.
+         */
+        @SubscribeEvent
+        static void pack(AddPackFindersEvent event) {
+            event.addPackFinders(ResourceLocation.fromNamespaceAndPath("lotr_port", "resourcepacks/middle_earth_music"),
+                    PackType.CLIENT_RESOURCES, Component.literal("Middle-earth Music"), PackSource.BUILT_IN, true,
+                    Pack.Position.TOP);
         }
     }
 
