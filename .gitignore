@@ -17,7 +17,10 @@ run/
 runs/
 logs/
 
-# private music packs built by converter/music_pack.py: never commit
+# music packs built by converter/music_pack.py. The one committed copy lives in music-pack/ (private repo, by
+# the owner's choice); stray builds elsewhere stay out
 *.ogg.tmp
+*.part.ogg
+.middle-earth-music-cache/
 Middle-earth Music/
 Middle-earth Music.zip

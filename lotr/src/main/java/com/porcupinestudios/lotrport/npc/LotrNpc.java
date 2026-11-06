@@ -713,6 +713,10 @@ public class LotrNpc extends PathfinderMob implements Merchant {
     public void aiStep() {
         super.aiStep();
         if (!level().isClientSide) {
+            // the aggressive flag syncs to clients: the music turns to fight music near an NPC that's fighting.
+            // Vanilla's melee goal sets it, ranged and custom behaviours don't, so it follows the target here.
+            LivingEntity target = getTarget();
+            setAggressive(target != null && target.isAlive());
             tickQuestOffer();
             for (CreatureBehaviour b : behaviours) {
                 b.tick(this);
