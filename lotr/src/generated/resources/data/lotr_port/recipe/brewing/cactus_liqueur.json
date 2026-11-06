@@ -21,7 +21,7 @@
     }
   ],
   "result": {
-    "id": "lotr_port:cactus_liqueur",
-    "count": 16
-  }
+    "id": "lotr_port:cactus_liqueur"
+  },
+  "servings": 16
 }

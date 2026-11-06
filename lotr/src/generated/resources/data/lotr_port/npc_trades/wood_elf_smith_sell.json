@@ -58,6 +58,11 @@
       "cost": 8
     },
     {
+      "item": "minecraft:coal",
+      "count": 2,
+      "cost": 1
+    },
+    {
       "item": "minecraft:lava_bucket",
       "cost": 16
     },

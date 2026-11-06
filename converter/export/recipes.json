@@ -81339,14 +81339,47 @@
   "smelting": [
     {
       "input": {
-        "item": "lotr:item.corn",
+        "item": "lotr:tile.pillar",
+        "meta": 12
+      },
+      "output": {
+        "item": "lotr:tile.pillar",
+        "meta": 13
+      },
+      "xp": 0.1
+    },
+    {
+      "input": {
+        "item": "lotr:tile.fruitWood",
         "meta": 32767
       },
       "output": {
-        "item": "lotr:item.cornCooked",
-        "meta": 0
+        "item": "minecraft:coal",
+        "meta": 1
       },
-      "xp": 0.3
+      "xp": 0.15
+    },
+    {
+      "input": {
+        "item": "lotr:tile.brick3",
+        "meta": 13
+      },
+      "output": {
+        "item": "lotr:tile.brick3",
+        "meta": 14
+      },
+      "xp": 0.1
+    },
+    {
+      "input": {
+        "item": "lotr:tile.brick5",
+        "meta": 8
+      },
+      "output": {
+        "item": "lotr:tile.brick5",
+        "meta": 10
+      },
+      "xp": 0.1
     },
     {
       "input": {
@@ -81361,17 +81394,6 @@
     },
     {
       "input": {
-        "item": "lotr:tile.oreNaurite",
-        "meta": 32767
-      },
-      "output": {
-        "item": "lotr:item.naurite",
-        "meta": 0
-      },
-      "xp": 1.0
-    },
-    {
-      "input": {
         "item": "lotr:tile.brick4",
         "meta": 0
       },
@@ -81380,116 +81402,6 @@
         "meta": 2
       },
       "xp": 0.1
-    },
-    {
-      "input": {
-        "item": "lotr:tile.rottenLog",
-        "meta": 32767
-      },
-      "output": {
-        "item": "minecraft:coal",
-        "meta": 1
-      },
-      "xp": 0.15
-    },
-    {
-      "input": {
-        "item": "lotr:tile.brick",
-        "meta": 6
-      },
-      "output": {
-        "item": "lotr:tile.brick4",
-        "meta": 5
-      },
-      "xp": 0.1
-    },
-    {
-      "input": {
-        "item": "lotr:item.muttonRaw",
-        "meta": 32767
-      },
-      "output": {
-        "item": "lotr:item.muttonCooked",
-        "meta": 0
-      },
-      "xp": 0.35
-    },
-    {
-      "input": {
-        "item": "lotr:tile.brick5",
-        "meta": 2
-      },
-      "output": {
-        "item": "lotr:tile.brick5",
-        "meta": 5
-      },
-      "xp": 0.1
-    },
-    {
-      "input": {
-        "item": "lotr:tile.brick",
-        "meta": 1
-      },
-      "output": {
-        "item": "lotr:tile.brick",
-        "meta": 3
-      },
-      "xp": 0.1
-    },
-    {
-      "input": {
-        "item": "lotr:tile.pillar",
-        "meta": 12
-      },
-      "output": {
-        "item": "lotr:tile.pillar",
-        "meta": 13
-      },
-      "xp": 0.1
-    },
-    {
-      "input": {
-        "item": "lotr:item.chestnut",
-        "meta": 32767
-      },
-      "output": {
-        "item": "lotr:item.chestnutRoast",
-        "meta": 0
-      },
-      "xp": 0.3
-    },
-    {
-      "input": {
-        "item": "lotr:item.turnip",
-        "meta": 32767
-      },
-      "output": {
-        "item": "lotr:item.turnipCooked",
-        "meta": 0
-      },
-      "xp": 0.3
-    },
-    {
-      "input": {
-        "item": "lotr:tile.wood2",
-        "meta": 32767
-      },
-      "output": {
-        "item": "minecraft:coal",
-        "meta": 1
-      },
-      "xp": 0.15
-    },
-    {
-      "input": {
-        "item": "lotr:item.ceramicPlate",
-        "meta": 32767
-      },
-      "output": {
-        "item": "lotr:item.plate",
-        "meta": 0
-      },
-      "xp": 0.3
     },
     {
       "input": {
@@ -81504,33 +81416,33 @@
     },
     {
       "input": {
-        "item": "lotr:tile.pillar",
-        "meta": 10
-      },
-      "output": {
-        "item": "lotr:tile.pillar",
-        "meta": 11
-      },
-      "xp": 0.1
-    },
-    {
-      "input": {
-        "item": "lotr:tile.brick3",
-        "meta": 2
-      },
-      "output": {
-        "item": "lotr:tile.brick3",
-        "meta": 4
-      },
-      "xp": 0.1
-    },
-    {
-      "input": {
-        "item": "lotr:tile.oreSalt",
+        "item": "lotr:item.muttonRaw",
         "meta": 32767
       },
       "output": {
-        "item": "lotr:item.salt",
+        "item": "lotr:item.muttonCooked",
+        "meta": 0
+      },
+      "xp": 0.35
+    },
+    {
+      "input": {
+        "item": "lotr:item.grapeWhite",
+        "meta": 32767
+      },
+      "output": {
+        "item": "lotr:item.raisins",
+        "meta": 0
+      },
+      "xp": 0.3
+    },
+    {
+      "input": {
+        "item": "lotr:tile.oreQuendite",
+        "meta": 32767
+      },
+      "output": {
+        "item": "lotr:item.quenditeCrystal",
         "meta": 0
       },
       "xp": 1.0
@@ -81548,6 +81460,39 @@
     },
     {
       "input": {
+        "item": "lotr:tile.rock",
+        "meta": 32767
+      },
+      "output": {
+        "item": "lotr:tile.scorchedStone",
+        "meta": 0
+      },
+      "xp": 0.1
+    },
+    {
+      "input": {
+        "item": "lotr:tile.brick",
+        "meta": 6
+      },
+      "output": {
+        "item": "lotr:tile.brick4",
+        "meta": 5
+      },
+      "xp": 0.1
+    },
+    {
+      "input": {
+        "item": "lotr:item.camelRaw",
+        "meta": 32767
+      },
+      "output": {
+        "item": "lotr:item.camelCooked",
+        "meta": 0
+      },
+      "xp": 0.35
+    },
+    {
+      "input": {
         "item": "lotr:tile.redClay",
         "meta": 32767
       },
@@ -81556,61 +81501,6 @@
         "meta": 0
       },
       "xp": 0.35
-    },
-    {
-      "input": {
-        "item": "lotr:tile.brick3",
-        "meta": 13
-      },
-      "output": {
-        "item": "lotr:tile.brick3",
-        "meta": 14
-      },
-      "xp": 0.1
-    },
-    {
-      "input": {
-        "item": "lotr:tile.pillar2",
-        "meta": 13
-      },
-      "output": {
-        "item": "lotr:tile.pillar2",
-        "meta": 14
-      },
-      "xp": 0.1
-    },
-    {
-      "input": {
-        "item": "lotr:item.grapeRed",
-        "meta": 32767
-      },
-      "output": {
-        "item": "lotr:item.raisins",
-        "meta": 0
-      },
-      "xp": 0.3
-    },
-    {
-      "input": {
-        "item": "minecraft:brick_block",
-        "meta": 0
-      },
-      "output": {
-        "item": "lotr:tile.redBrick",
-        "meta": 1
-      },
-      "xp": 0.1
-    },
-    {
-      "input": {
-        "item": "lotr:tile.oreGulduril",
-        "meta": 32767
-      },
-      "output": {
-        "item": "lotr:item.guldurilCrystal",
-        "meta": 0
-      },
-      "xp": 1.0
     },
     {
       "input": {
@@ -81626,22 +81516,176 @@
     {
       "input": {
         "item": "lotr:tile.brick5",
-        "meta": 8
+        "meta": 2
       },
       "output": {
         "item": "lotr:tile.brick5",
-        "meta": 10
+        "meta": 5
       },
       "xp": 0.1
     },
     {
       "input": {
-        "item": "lotr:tile.pillar",
-        "meta": 1
+        "item": "lotr:item.pipeweedLeaf",
+        "meta": 32767
       },
       "output": {
-        "item": "lotr:tile.pillar",
+        "item": "lotr:item.pipeweed",
+        "meta": 0
+      },
+      "xp": 0.25
+    },
+    {
+      "input": {
+        "item": "lotr:tile.oreSalt",
+        "meta": 32767
+      },
+      "output": {
+        "item": "lotr:item.salt",
+        "meta": 0
+      },
+      "xp": 1.0
+    },
+    {
+      "input": {
+        "item": "lotr:tile.wood8",
+        "meta": 32767
+      },
+      "output": {
+        "item": "minecraft:coal",
+        "meta": 1
+      },
+      "xp": 0.15
+    },
+    {
+      "input": {
+        "item": "lotr:tile.wood5",
+        "meta": 32767
+      },
+      "output": {
+        "item": "minecraft:coal",
+        "meta": 1
+      },
+      "xp": 0.15
+    },
+    {
+      "input": {
+        "item": "lotr:tile.wood3",
+        "meta": 32767
+      },
+      "output": {
+        "item": "minecraft:coal",
+        "meta": 1
+      },
+      "xp": 0.15
+    },
+    {
+      "input": {
+        "item": "lotr:tile.brick3",
         "meta": 2
+      },
+      "output": {
+        "item": "lotr:tile.brick3",
+        "meta": 4
+      },
+      "xp": 0.1
+    },
+    {
+      "input": {
+        "item": "lotr:tile.whiteSand",
+        "meta": 32767
+      },
+      "output": {
+        "item": "minecraft:glass",
+        "meta": 0
+      },
+      "xp": 0.1
+    },
+    {
+      "input": {
+        "item": "lotr:tile.wood2",
+        "meta": 32767
+      },
+      "output": {
+        "item": "minecraft:coal",
+        "meta": 1
+      },
+      "xp": 0.15
+    },
+    {
+      "input": {
+        "item": "lotr:tile.oreSulfur",
+        "meta": 32767
+      },
+      "output": {
+        "item": "lotr:item.sulfur",
+        "meta": 0
+      },
+      "xp": 1.0
+    },
+    {
+      "input": {
+        "item": "lotr:tile.pillar",
+        "meta": 0
+      },
+      "output": {
+        "item": "lotr:tile.pillar2",
+        "meta": 0
+      },
+      "xp": 0.1
+    },
+    {
+      "input": {
+        "item": "minecraft:stone",
+        "meta": 32767
+      },
+      "output": {
+        "item": "lotr:tile.scorchedStone",
+        "meta": 0
+      },
+      "xp": 0.1
+    },
+    {
+      "input": {
+        "item": "lotr:item.redClayBall",
+        "meta": 32767
+      },
+      "output": {
+        "item": "minecraft:brick",
+        "meta": 0
+      },
+      "xp": 0.3
+    },
+    {
+      "input": {
+        "item": "lotr:item.chestnut",
+        "meta": 32767
+      },
+      "output": {
+        "item": "lotr:item.chestnutRoast",
+        "meta": 0
+      },
+      "xp": 0.3
+    },
+    {
+      "input": {
+        "item": "lotr:tile.oreSilver",
+        "meta": 32767
+      },
+      "output": {
+        "item": "lotr:item.silver",
+        "meta": 0
+      },
+      "xp": 0.8
+    },
+    {
+      "input": {
+        "item": "lotr:tile.brick3",
+        "meta": 5
+      },
+      "output": {
+        "item": "lotr:tile.brick3",
+        "meta": 7
       },
       "xp": 0.1
     },
@@ -81658,135 +81702,14 @@
     },
     {
       "input": {
-        "item": "lotr:tile.oreSilver",
+        "item": "lotr:item.zebraRaw",
         "meta": 32767
       },
       "output": {
-        "item": "lotr:item.silver",
-        "meta": 0
-      },
-      "xp": 0.8
-    },
-    {
-      "input": {
-        "item": "lotr:tile.brick3",
-        "meta": 10
-      },
-      "output": {
-        "item": "lotr:tile.brick6",
-        "meta": 13
-      },
-      "xp": 0.1
-    },
-    {
-      "input": {
-        "item": "lotr:tile.brick",
-        "meta": 11
-      },
-      "output": {
-        "item": "lotr:tile.brick",
-        "meta": 13
-      },
-      "xp": 0.1
-    },
-    {
-      "input": {
-        "item": "lotr:tile.pillar",
-        "meta": 0
-      },
-      "output": {
-        "item": "lotr:tile.pillar2",
-        "meta": 0
-      },
-      "xp": 0.1
-    },
-    {
-      "input": {
-        "item": "lotr:tile.oreTin",
-        "meta": 32767
-      },
-      "output": {
-        "item": "lotr:item.tin",
+        "item": "lotr:item.zebraCooked",
         "meta": 0
       },
       "xp": 0.35
-    },
-    {
-      "input": {
-        "item": "lotr:tile.brick",
-        "meta": 0
-      },
-      "output": {
-        "item": "lotr:tile.brick",
-        "meta": 7
-      },
-      "xp": 0.1
-    },
-    {
-      "input": {
-        "item": "lotr:tile.brick5",
-        "meta": 1
-      },
-      "output": {
-        "item": "lotr:tile.brick6",
-        "meta": 4
-      },
-      "xp": 0.1
-    },
-    {
-      "input": {
-        "item": "lotr:item.deerRaw",
-        "meta": 32767
-      },
-      "output": {
-        "item": "lotr:item.deerCooked",
-        "meta": 0
-      },
-      "xp": 0.35
-    },
-    {
-      "input": {
-        "item": "lotr:tile.oreGlowstone",
-        "meta": 32767
-      },
-      "output": {
-        "item": "minecraft:glowstone_dust",
-        "meta": 0
-      },
-      "xp": 1.0
-    },
-    {
-      "input": {
-        "item": "lotr:tile.brick2",
-        "meta": 0
-      },
-      "output": {
-        "item": "lotr:tile.brick2",
-        "meta": 1
-      },
-      "xp": 0.1
-    },
-    {
-      "input": {
-        "item": "lotr:tile.oreSaltpeter",
-        "meta": 32767
-      },
-      "output": {
-        "item": "lotr:item.saltpeter",
-        "meta": 0
-      },
-      "xp": 1.0
-    },
-    {
-      "input": {
-        "item": "lotr:tile.brick5",
-        "meta": 11
-      },
-      "output": {
-        "item": "lotr:tile.brick5",
-        "meta": 14
-      },
-      "xp": 0.1
     },
     {
       "input": {
@@ -81801,7 +81724,51 @@
     },
     {
       "input": {
-        "item": "lotr:tile.wood5",
+        "item": "lotr:item.grapeRed",
+        "meta": 32767
+      },
+      "output": {
+        "item": "lotr:item.raisins",
+        "meta": 0
+      },
+      "xp": 0.3
+    },
+    {
+      "input": {
+        "item": "lotr:tile.brick2",
+        "meta": 0
+      },
+      "output": {
+        "item": "lotr:tile.brick2",
+        "meta": 1
+      },
+      "xp": 0.1
+    },
+    {
+      "input": {
+        "item": "lotr:tile.oreNaurite",
+        "meta": 32767
+      },
+      "output": {
+        "item": "lotr:item.naurite",
+        "meta": 0
+      },
+      "xp": 1.0
+    },
+    {
+      "input": {
+        "item": "lotr:tile.brick2",
+        "meta": 8
+      },
+      "output": {
+        "item": "lotr:tile.brick2",
+        "meta": 9
+      },
+      "xp": 0.1
+    },
+    {
+      "input": {
+        "item": "lotr:tile.rottenLog",
         "meta": 32767
       },
       "output": {
@@ -81823,7 +81790,18 @@
     },
     {
       "input": {
-        "item": "lotr:tile.wood3",
+        "item": "lotr:item.ceramicPlate",
+        "meta": 32767
+      },
+      "output": {
+        "item": "lotr:item.plate",
+        "meta": 0
+      },
+      "xp": 0.3
+    },
+    {
+      "input": {
+        "item": "lotr:tile.wood7",
         "meta": 32767
       },
       "output": {
@@ -81834,22 +81812,77 @@
     },
     {
       "input": {
-        "item": "lotr:item.pipeweedLeaf",
+        "item": "lotr:item.clayPlate",
         "meta": 32767
       },
       "output": {
-        "item": "lotr:item.pipeweed",
+        "item": "lotr:item.ceramicPlate",
         "meta": 0
       },
-      "xp": 0.25
+      "xp": 0.3
     },
     {
       "input": {
-        "item": "lotr:tile.oreSulfur",
+        "item": "lotr:item.turnip",
         "meta": 32767
       },
       "output": {
-        "item": "lotr:item.sulfur",
+        "item": "lotr:item.turnipCooked",
+        "meta": 0
+      },
+      "xp": 0.3
+    },
+    {
+      "input": {
+        "item": "lotr:tile.oreGulduril",
+        "meta": 32767
+      },
+      "output": {
+        "item": "lotr:item.guldurilCrystal",
+        "meta": 0
+      },
+      "xp": 1.0
+    },
+    {
+      "input": {
+        "item": "lotr:item.rhinoRaw",
+        "meta": 32767
+      },
+      "output": {
+        "item": "lotr:item.rhinoCooked",
+        "meta": 0
+      },
+      "xp": 0.35
+    },
+    {
+      "input": {
+        "item": "lotr:item.corn",
+        "meta": 32767
+      },
+      "output": {
+        "item": "lotr:item.cornCooked",
+        "meta": 0
+      },
+      "xp": 0.3
+    },
+    {
+      "input": {
+        "item": "lotr:tile.oreGlowstone",
+        "meta": 32767
+      },
+      "output": {
+        "item": "minecraft:glowstone_dust",
+        "meta": 0
+      },
+      "xp": 1.0
+    },
+    {
+      "input": {
+        "item": "lotr:tile.oreSaltpeter",
+        "meta": 32767
+      },
+      "output": {
+        "item": "lotr:item.saltpeter",
         "meta": 0
       },
       "xp": 1.0
@@ -81867,14 +81900,91 @@
     },
     {
       "input": {
-        "item": "lotr:item.clayPlate",
+        "item": "minecraft:brick_block",
+        "meta": 0
+      },
+      "output": {
+        "item": "lotr:tile.redBrick",
+        "meta": 1
+      },
+      "xp": 0.1
+    },
+    {
+      "input": {
+        "item": "lotr:tile.brick",
+        "meta": 11
+      },
+      "output": {
+        "item": "lotr:tile.brick",
+        "meta": 13
+      },
+      "xp": 0.1
+    },
+    {
+      "input": {
+        "item": "lotr:item.deerRaw",
         "meta": 32767
       },
       "output": {
-        "item": "lotr:item.ceramicPlate",
+        "item": "lotr:item.deerCooked",
         "meta": 0
       },
-      "xp": 0.3
+      "xp": 0.35
+    },
+    {
+      "input": {
+        "item": "lotr:tile.pillar",
+        "meta": 1
+      },
+      "output": {
+        "item": "lotr:tile.pillar",
+        "meta": 2
+      },
+      "xp": 0.1
+    },
+    {
+      "input": {
+        "item": "lotr:tile.brick5",
+        "meta": 1
+      },
+      "output": {
+        "item": "lotr:tile.brick6",
+        "meta": 4
+      },
+      "xp": 0.1
+    },
+    {
+      "input": {
+        "item": "lotr:tile.brick3",
+        "meta": 10
+      },
+      "output": {
+        "item": "lotr:tile.brick6",
+        "meta": 13
+      },
+      "xp": 0.1
+    },
+    {
+      "input": {
+        "item": "lotr:tile.pillar",
+        "meta": 10
+      },
+      "output": {
+        "item": "lotr:tile.pillar",
+        "meta": 11
+      },
+      "xp": 0.1
+    },
+    {
+      "input": {
+        "item": "lotr:tile.brick",
+        "meta": 0
+      },
+      "output": {
+        "item": "lotr:tile.brick",
+        "meta": 7
+      },
+      "xp": 0.1
     },
     {
       "input": {
@@ -81889,36 +81999,25 @@
     },
     {
       "input": {
-        "item": "lotr:tile.wood6",
-        "meta": 32767
-      },
-      "output": {
-        "item": "minecraft:coal",
+        "item": "lotr:tile.brick",
         "meta": 1
       },
-      "xp": 0.15
-    },
-    {
-      "input": {
-        "item": "lotr:tile.whiteSand",
-        "meta": 32767
-      },
       "output": {
-        "item": "minecraft:glass",
-        "meta": 0
+        "item": "lotr:tile.brick",
+        "meta": 3
       },
       "xp": 0.1
     },
     {
       "input": {
-        "item": "lotr:item.grapeWhite",
+        "item": "lotr:tile.oreTin",
         "meta": 32767
       },
       "output": {
-        "item": "lotr:item.raisins",
+        "item": "lotr:item.tin",
         "meta": 0
       },
-      "xp": 0.3
+      "xp": 0.35
     },
     {
       "input": {
@@ -81933,72 +82032,6 @@
     },
     {
       "input": {
-        "item": "lotr:item.zebraRaw",
-        "meta": 32767
-      },
-      "output": {
-        "item": "lotr:item.zebraCooked",
-        "meta": 0
-      },
-      "xp": 0.35
-    },
-    {
-      "input": {
-        "item": "lotr:tile.brick3",
-        "meta": 5
-      },
-      "output": {
-        "item": "lotr:tile.brick3",
-        "meta": 7
-      },
-      "xp": 0.1
-    },
-    {
-      "input": {
-        "item": "lotr:item.rhinoRaw",
-        "meta": 32767
-      },
-      "output": {
-        "item": "lotr:item.rhinoCooked",
-        "meta": 0
-      },
-      "xp": 0.35
-    },
-    {
-      "input": {
-        "item": "lotr:tile.brick2",
-        "meta": 8
-      },
-      "output": {
-        "item": "lotr:tile.brick2",
-        "meta": 9
-      },
-      "xp": 0.1
-    },
-    {
-      "input": {
-        "item": "lotr:tile.oreQuendite",
-        "meta": 32767
-      },
-      "output": {
-        "item": "lotr:item.quenditeCrystal",
-        "meta": 0
-      },
-      "xp": 1.0
-    },
-    {
-      "input": {
-        "item": "lotr:item.redClayBall",
-        "meta": 32767
-      },
-      "output": {
-        "item": "minecraft:brick",
-        "meta": 0
-      },
-      "xp": 0.3
-    },
-    {
-      "input": {
         "item": "lotr:tile.wood",
         "meta": 32767
       },
@@ -82010,78 +82043,45 @@
     },
     {
       "input": {
-        "item": "lotr:tile.rock",
-        "meta": 32767
-      },
-      "output": {
-        "item": "lotr:tile.scorchedStone",
-        "meta": 0
-      },
-      "xp": 0.1
-    },
-    {
-      "input": {
-        "item": "lotr:tile.fruitWood",
-        "meta": 32767
-      },
-      "output": {
-        "item": "minecraft:coal",
-        "meta": 1
-      },
-      "xp": 0.15
-    },
-    {
-      "input": {
-        "item": "lotr:item.camelRaw",
-        "meta": 32767
-      },
-      "output": {
-        "item": "lotr:item.camelCooked",
-        "meta": 0
-      },
-      "xp": 0.35
-    },
-    {
-      "input": {
-        "item": "lotr:tile.wood7",
-        "meta": 32767
-      },
-      "output": {
-        "item": "minecraft:coal",
-        "meta": 1
-      },
-      "xp": 0.15
-    },
-    {
-      "input": {
-        "item": "lotr:tile.wood8",
-        "meta": 32767
-      },
-      "output": {
-        "item": "minecraft:coal",
-        "meta": 1
-      },
-      "xp": 0.15
-    },
-    {
-      "input": {
-        "item": "minecraft:stone",
-        "meta": 32767
-      },
-      "output": {
-        "item": "lotr:tile.scorchedStone",
-        "meta": 0
-      },
-      "xp": 0.1
-    },
-    {
-      "input": {
         "item": "lotr:tile.brick2",
         "meta": 3
       },
       "output": {
         "item": "lotr:tile.brick2",
         "meta": 5
+      },
+      "xp": 0.1
+    },
+    {
+      "input": {
+        "item": "lotr:tile.pillar2",
+        "meta": 13
+      },
+      "output": {
+        "item": "lotr:tile.pillar2",
+        "meta": 14
+      },
+      "xp": 0.1
+    },
+    {
+      "input": {
+        "item": "lotr:tile.wood6",
+        "meta": 32767
+      },
+      "output": {
+        "item": "minecraft:coal",
+        "meta": 1
+      },
+      "xp": 0.15
+    },
+    {
+      "input": {
+        "item": "lotr:tile.brick5",
+        "meta": 11
+      },
+      "output": {
+        "item": "lotr:tile.brick5",
+        "meta": 14
       },
       "xp": 0.1
     }
@@ -83098,187 +83098,11 @@
     "millstone": [
       {
         "input": {
-          "item": "lotr:tile.brick3",
-          "meta": 10
-        },
-        "output": {
-          "item": "lotr:tile.brick6",
-          "meta": 13
-        },
-        "chance": 1.0
-      },
-      {
-        "input": {
-          "item": "lotr:tile.brick",
-          "meta": 11
-        },
-        "output": {
-          "item": "lotr:tile.brick",
-          "meta": 13
-        },
-        "chance": 1.0
-      },
-      {
-        "input": {
-          "item": "minecraft:cobblestone",
-          "meta": 32767
-        },
-        "output": {
-          "item": "minecraft:gravel",
-          "meta": 0
-        },
-        "chance": 0.75
-      },
-      {
-        "input": {
-          "item": "lotr:tile.pillar",
-          "meta": 0
-        },
-        "output": {
-          "item": "lotr:tile.pillar2",
-          "meta": 0
-        },
-        "chance": 1.0
-      },
-      {
-        "input": {
-          "item": "lotr:tile.brick",
-          "meta": 0
-        },
-        "output": {
-          "item": "lotr:tile.brick",
-          "meta": 7
-        },
-        "chance": 1.0
-      },
-      {
-        "input": {
-          "item": "lotr:tile.brick4",
-          "meta": 0
-        },
-        "output": {
-          "item": "lotr:tile.brick4",
-          "meta": 2
-        },
-        "chance": 1.0
-      },
-      {
-        "input": {
-          "item": "lotr:tile.brick5",
-          "meta": 1
-        },
-        "output": {
-          "item": "lotr:tile.brick6",
-          "meta": 4
-        },
-        "chance": 1.0
-      },
-      {
-        "input": {
-          "item": "lotr:tile.brick",
-          "meta": 6
-        },
-        "output": {
-          "item": "lotr:tile.brick4",
-          "meta": 5
-        },
-        "chance": 1.0
-      },
-      {
-        "input": {
-          "item": "lotr:tile.brick5",
-          "meta": 2
-        },
-        "output": {
-          "item": "lotr:tile.brick5",
-          "meta": 5
-        },
-        "chance": 1.0
-      },
-      {
-        "input": {
-          "item": "lotr:tile.brick2",
-          "meta": 0
-        },
-        "output": {
-          "item": "lotr:tile.brick2",
-          "meta": 1
-        },
-        "chance": 1.0
-      },
-      {
-        "input": {
-          "item": "lotr:tile.brick",
-          "meta": 1
-        },
-        "output": {
-          "item": "lotr:tile.brick",
-          "meta": 3
-        },
-        "chance": 1.0
-      },
-      {
-        "input": {
-          "item": "lotr:tile.pillar",
-          "meta": 12
-        },
-        "output": {
-          "item": "lotr:tile.pillar",
-          "meta": 13
-        },
-        "chance": 1.0
-      },
-      {
-        "input": {
-          "item": "lotr:tile.rock",
-          "meta": 0
-        },
-        "output": {
-          "item": "lotr:tile.mordorGravel",
-          "meta": 0
-        },
-        "chance": 0.75
-      },
-      {
-        "input": {
-          "item": "lotr:tile.obsidianGravel",
-          "meta": 32767
-        },
-        "output": {
-          "item": "lotr:item.obsidianShard",
-          "meta": 0
-        },
-        "chance": 1.0
-      },
-      {
-        "input": {
-          "item": "lotr:tile.brick5",
-          "meta": 11
-        },
-        "output": {
-          "item": "lotr:tile.brick5",
-          "meta": 14
-        },
-        "chance": 1.0
-      },
-      {
-        "input": {
           "item": "lotr:tile.brick",
           "meta": 15
         },
         "output": {
           "item": "lotr:tile.brick3",
-          "meta": 11
-        },
-        "chance": 1.0
-      },
-      {
-        "input": {
-          "item": "lotr:tile.pillar",
-          "meta": 10
-        },
-        "output": {
-          "item": "lotr:tile.pillar",
           "meta": 11
         },
         "chance": 1.0
@@ -83297,78 +83121,45 @@
       },
       {
         "input": {
-          "item": "lotr:tile.brick3",
-          "meta": 2
-        },
-        "output": {
-          "item": "lotr:tile.brick3",
-          "meta": 4
-        },
-        "chance": 1.0
-      },
-      {
-        "input": {
-          "item": "minecraft:stone",
-          "meta": 32767
-        },
-        "output": {
-          "item": "minecraft:cobblestone",
-          "meta": 0
-        },
-        "chance": 1.0
-      },
-      {
-        "input": {
-          "item": "minecraft:gravel",
-          "meta": 32767
-        },
-        "output": {
-          "item": "minecraft:flint",
-          "meta": 0
-        },
-        "chance": 0.25
-      },
-      {
-        "input": {
-          "item": "lotr:tile.brick3",
-          "meta": 13
-        },
-        "output": {
-          "item": "lotr:tile.brick3",
-          "meta": 14
-        },
-        "chance": 1.0
-      },
-      {
-        "input": {
-          "item": "lotr:tile.brick3",
-          "meta": 5
-        },
-        "output": {
-          "item": "lotr:tile.brick3",
-          "meta": 7
-        },
-        "chance": 1.0
-      },
-      {
-        "input": {
-          "item": "lotr:tile.pillar2",
-          "meta": 13
-        },
-        "output": {
-          "item": "lotr:tile.pillar2",
-          "meta": 14
-        },
-        "chance": 1.0
-      },
-      {
-        "input": {
-          "item": "minecraft:brick_block",
+          "item": "lotr:tile.brick2",
           "meta": 0
         },
         "output": {
-          "item": "lotr:tile.redBrick",
+          "item": "lotr:tile.brick2",
           "meta": 1
+        },
+        "chance": 1.0
+      },
+      {
+        "input": {
+          "item": "lotr:tile.pillar",
+          "meta": 12
+        },
+        "output": {
+          "item": "lotr:tile.pillar",
+          "meta": 13
+        },
+        "chance": 1.0
+      },
+      {
+        "input": {
+          "item": "lotr:tile.brick3",
+          "meta": 13
+        },
+        "output": {
+          "item": "lotr:tile.brick3",
+          "meta": 14
+        },
+        "chance": 1.0
+      },
+      {
+        "input": {
+          "item": "lotr:tile.brick5",
+          "meta": 8
+        },
+        "output": {
+          "item": "lotr:tile.brick5",
+          "meta": 10
         },
         "chance": 1.0
       },
@@ -83385,15 +83176,25 @@
       },
       {
         "input": {
-          "item": "minecraft:sandstone",
+          "item": "lotr:tile.rock",
           "meta": 0
         },
         "output": {
-          "item": "minecraft:sand",
-          "meta": 0,
-          "count": 2
+          "item": "lotr:tile.mordorGravel",
+          "meta": 0
         },
-        "chance": 1.0
+        "chance": 0.75
+      },
+      {
+        "input": {
+          "item": "lotr:tile.mordorGravel",
+          "meta": 32767
+        },
+        "output": {
+          "item": "minecraft:flint",
+          "meta": 0
+        },
+        "chance": 0.25
       },
       {
         "input": {
@@ -83420,6 +83221,194 @@
       },
       {
         "input": {
+          "item": "lotr:tile.brick4",
+          "meta": 0
+        },
+        "output": {
+          "item": "lotr:tile.brick4",
+          "meta": 2
+        },
+        "chance": 1.0
+      },
+      {
+        "input": {
+          "item": "lotr:tile.brick",
+          "meta": 6
+        },
+        "output": {
+          "item": "lotr:tile.brick4",
+          "meta": 5
+        },
+        "chance": 1.0
+      },
+      {
+        "input": {
+          "item": "minecraft:gravel",
+          "meta": 32767
+        },
+        "output": {
+          "item": "minecraft:flint",
+          "meta": 0
+        },
+        "chance": 0.25
+      },
+      {
+        "input": {
+          "item": "minecraft:sandstone",
+          "meta": 0
+        },
+        "output": {
+          "item": "minecraft:sand",
+          "meta": 0,
+          "count": 2
+        },
+        "chance": 1.0
+      },
+      {
+        "input": {
+          "item": "lotr:tile.brick5",
+          "meta": 2
+        },
+        "output": {
+          "item": "lotr:tile.brick5",
+          "meta": 5
+        },
+        "chance": 1.0
+      },
+      {
+        "input": {
+          "item": "minecraft:brick_block",
+          "meta": 0
+        },
+        "output": {
+          "item": "lotr:tile.redBrick",
+          "meta": 1
+        },
+        "chance": 1.0
+      },
+      {
+        "input": {
+          "item": "minecraft:cobblestone",
+          "meta": 32767
+        },
+        "output": {
+          "item": "minecraft:gravel",
+          "meta": 0
+        },
+        "chance": 0.75
+      },
+      {
+        "input": {
+          "item": "lotr:tile.brick",
+          "meta": 11
+        },
+        "output": {
+          "item": "lotr:tile.brick",
+          "meta": 13
+        },
+        "chance": 1.0
+      },
+      {
+        "input": {
+          "item": "lotr:tile.pillar",
+          "meta": 1
+        },
+        "output": {
+          "item": "lotr:tile.pillar",
+          "meta": 2
+        },
+        "chance": 1.0
+      },
+      {
+        "input": {
+          "item": "lotr:tile.brick5",
+          "meta": 1
+        },
+        "output": {
+          "item": "lotr:tile.brick6",
+          "meta": 4
+        },
+        "chance": 1.0
+      },
+      {
+        "input": {
+          "item": "minecraft:stone",
+          "meta": 32767
+        },
+        "output": {
+          "item": "minecraft:cobblestone",
+          "meta": 0
+        },
+        "chance": 1.0
+      },
+      {
+        "input": {
+          "item": "lotr:tile.brick3",
+          "meta": 10
+        },
+        "output": {
+          "item": "lotr:tile.brick6",
+          "meta": 13
+        },
+        "chance": 1.0
+      },
+      {
+        "input": {
+          "item": "lotr:tile.pillar",
+          "meta": 10
+        },
+        "output": {
+          "item": "lotr:tile.pillar",
+          "meta": 11
+        },
+        "chance": 1.0
+      },
+      {
+        "input": {
+          "item": "lotr:tile.brick",
+          "meta": 0
+        },
+        "output": {
+          "item": "lotr:tile.brick",
+          "meta": 7
+        },
+        "chance": 1.0
+      },
+      {
+        "input": {
+          "item": "lotr:tile.brick3",
+          "meta": 2
+        },
+        "output": {
+          "item": "lotr:tile.brick3",
+          "meta": 4
+        },
+        "chance": 1.0
+      },
+      {
+        "input": {
+          "item": "lotr:tile.pillar",
+          "meta": 0
+        },
+        "output": {
+          "item": "lotr:tile.pillar2",
+          "meta": 0
+        },
+        "chance": 1.0
+      },
+      {
+        "input": {
+          "item": "lotr:tile.obsidianGravel",
+          "meta": 32767
+        },
+        "output": {
+          "item": "lotr:item.obsidianShard",
+          "meta": 0
+        },
+        "chance": 1.0
+      },
+      {
+        "input": {
           "item": "lotr:tile.oreSalt",
           "meta": 32767
         },
@@ -83431,25 +83420,14 @@
       },
       {
         "input": {
-          "item": "lotr:tile.brick5",
-          "meta": 8
+          "item": "lotr:tile.brick",
+          "meta": 1
         },
         "output": {
-          "item": "lotr:tile.brick5",
-          "meta": 10
+          "item": "lotr:tile.brick",
+          "meta": 3
         },
         "chance": 1.0
-      },
-      {
-        "input": {
-          "item": "lotr:tile.mordorGravel",
-          "meta": 32767
-        },
-        "output": {
-          "item": "minecraft:flint",
-          "meta": 0
-        },
-        "chance": 0.25
       },
       {
         "input": {
@@ -83464,12 +83442,23 @@
       },
       {
         "input": {
-          "item": "lotr:tile.pillar",
-          "meta": 1
+          "item": "lotr:tile.pillar2",
+          "meta": 13
         },
         "output": {
-          "item": "lotr:tile.pillar",
-          "meta": 2
+          "item": "lotr:tile.pillar2",
+          "meta": 14
+        },
+        "chance": 1.0
+      },
+      {
+        "input": {
+          "item": "lotr:tile.brick3",
+          "meta": 5
+        },
+        "output": {
+          "item": "lotr:tile.brick3",
+          "meta": 7
         },
         "chance": 1.0
       },
@@ -83483,17 +83472,58 @@
           "meta": 7
         },
         "chance": 1.0
+      },
+      {
+        "input": {
+          "item": "lotr:tile.brick5",
+          "meta": 11
+        },
+        "output": {
+          "item": "lotr:tile.brick5",
+          "meta": 14
+        },
+        "chance": 1.0
       }
     ],
     "ent_jar": [
       {
         "input": {
           "item": "lotr:tile.fangornPlant",
+          "meta": 3
+        },
+        "output": {
+          "item": "lotr:item.entDraught",
+          "meta": 3
+        }
+      },
+      {
+        "input": {
+          "item": "lotr:tile.fangornPlant",
+          "meta": 4
+        },
+        "output": {
+          "item": "lotr:item.entDraught",
+          "meta": 4
+        }
+      },
+      {
+        "input": {
+          "item": "lotr:tile.fangornPlant",
           "meta": 5
         },
         "output": {
           "item": "lotr:item.entDraught",
           "meta": 5
+        }
+      },
+      {
+        "input": {
+          "item": "lotr:tile.fangornPlant",
+          "meta": 0
+        },
+        "output": {
+          "item": "lotr:item.entDraught",
+          "meta": 0
         }
       },
       {
@@ -83514,26 +83544,6 @@
         "output": {
           "item": "lotr:item.entDraught",
           "meta": 2
-        }
-      },
-      {
-        "input": {
-          "item": "lotr:tile.fangornPlant",
-          "meta": 4
-        },
-        "output": {
-          "item": "lotr:item.entDraught",
-          "meta": 4
-        }
-      },
-      {
-        "input": {
-          "item": "lotr:tile.fangornPlant",
-          "meta": 0
-        },
-        "output": {
-          "item": "lotr:item.entDraught",
-          "meta": 0
         }
       },
       {
@@ -83544,16 +83554,6 @@
         "output": {
           "item": "lotr:item.entDraught",
           "meta": 6
-        }
-      },
-      {
-        "input": {
-          "item": "lotr:tile.fangornPlant",
-          "meta": 3
-        },
-        "output": {
-          "item": "lotr:item.entDraught",
-          "meta": 3
         }
       }
     ],

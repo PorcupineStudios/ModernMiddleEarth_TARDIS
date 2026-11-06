@@ -21,7 +21,7 @@
     }
   ],
   "result": {
-    "id": "lotr_port:red_wine",
-    "count": 16
-  }
+    "id": "lotr_port:red_wine"
+  },
+  "servings": 16
 }

@@ -21,7 +21,7 @@
     }
   ],
   "result": {
-    "id": "lotr_port:termite_tequila",
-    "count": 16
-  }
+    "id": "lotr_port:termite_tequila"
+  },
+  "servings": 16
 }

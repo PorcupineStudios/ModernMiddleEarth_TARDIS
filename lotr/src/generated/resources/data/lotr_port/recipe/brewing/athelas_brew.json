@@ -21,7 +21,7 @@
     }
   ],
   "result": {
-    "id": "lotr_port:athelas_brew",
-    "count": 16
-  }
+    "id": "lotr_port:athelas_brew"
+  },
+  "servings": 16
 }

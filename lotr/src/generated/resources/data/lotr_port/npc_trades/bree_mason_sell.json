@@ -26,6 +26,11 @@
       "cost": 6
     },
     {
+      "item": "minecraft:coal",
+      "count": 2,
+      "cost": 1
+    },
+    {
       "item": "minecraft:torch",
       "count": 16,
       "cost": 2

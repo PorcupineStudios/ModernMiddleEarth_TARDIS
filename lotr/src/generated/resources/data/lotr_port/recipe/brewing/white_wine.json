@@ -21,7 +21,7 @@
     }
   ],
   "result": {
-    "id": "lotr_port:white_wine",
-    "count": 16
-  }
+    "id": "lotr_port:white_wine"
+  },
+  "servings": 16
 }

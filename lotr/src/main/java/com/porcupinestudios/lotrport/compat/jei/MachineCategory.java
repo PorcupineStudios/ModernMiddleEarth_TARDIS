@@ -77,6 +77,10 @@ final class MachineCategory extends AbstractRecipeCategory<RecipeHolder<MachineR
             graphics.drawString(font, Math.round(recipe.chance() * 100) + "%", inputWidth + 39, y, 0xFF808080, false);
             y += 10;
         }
+        if (recipe.servings() > 1) {
+            graphics.drawString(font, "x" + recipe.servings(), inputWidth + 39, y, 0xFF808080, false);
+            y += 10;
+        }
         if (recipe.time() > 0) {
             graphics.drawString(font, recipe.time() / 20 + "s", inputWidth + 39, y, 0xFF808080, false);
         }

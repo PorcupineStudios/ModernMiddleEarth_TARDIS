@@ -3024,9 +3024,9 @@
   "factories": {
     "_classWeights": {
       "LOTRMiniQuestBounty": 4,
+      "LOTRMiniQuestPickpocket": 6,
       "LOTRMiniQuestCollect": 10,
-      "LOTRMiniQuestKill": 8,
-      "LOTRMiniQuestPickpocket": 6
+      "LOTRMiniQuestKill": 8
     },
     "HOBBIT": {
       "baseName": "hobbit",
@@ -4252,6 +4252,30 @@
       "noAlignRewardForEnemy": true,
       "quests": [
         {
+          "kind": "LOTRMiniQuestPickpocket",
+          "factory": "QFPickpocket",
+          "pickpocketFaction": "BREE",
+          "minTarget": 2,
+          "maxTarget": 6,
+          "questFactoryGroup": "RUFFIAN_SPY",
+          "questName": "pickpocket",
+          "rewardFactor": 1.0,
+          "willHire": false,
+          "hiringAlignment": 0.0
+        },
+        {
+          "kind": "LOTRMiniQuestPickpocket",
+          "factory": "QFPickpocket",
+          "pickpocketFaction": "BREE",
+          "minTarget": 2,
+          "maxTarget": 8,
+          "questFactoryGroup": "RUFFIAN_SPY",
+          "questName": "pickpocketForBoss",
+          "rewardFactor": 1.5,
+          "willHire": false,
+          "hiringAlignment": 0.0
+        },
+        {
           "kind": "LOTRMiniQuestCollect",
           "factory": "QFCollect",
           "collectItem": {
@@ -4368,30 +4392,6 @@
           "questFactoryGroup": "RUFFIAN_SPY",
           "questName": "collectMathom",
           "rewardFactor": 0.5,
-          "willHire": false,
-          "hiringAlignment": 0.0
-        },
-        {
-          "kind": "LOTRMiniQuestPickpocket",
-          "factory": "QFPickpocket",
-          "pickpocketFaction": "BREE",
-          "minTarget": 2,
-          "maxTarget": 6,
-          "questFactoryGroup": "RUFFIAN_SPY",
-          "questName": "pickpocket",
-          "rewardFactor": 1.0,
-          "willHire": false,
-          "hiringAlignment": 0.0
-        },
-        {
-          "kind": "LOTRMiniQuestPickpocket",
-          "factory": "QFPickpocket",
-          "pickpocketFaction": "BREE",
-          "minTarget": 2,
-          "maxTarget": 8,
-          "questFactoryGroup": "RUFFIAN_SPY",
-          "questName": "pickpocketForBoss",
-          "rewardFactor": 1.5,
           "willHire": false,
           "hiringAlignment": 0.0
         }

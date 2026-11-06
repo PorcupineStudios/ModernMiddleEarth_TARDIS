@@ -11,6 +11,11 @@
       "cost": 3
     },
     {
+      "item": "minecraft:coal",
+      "count": 2,
+      "cost": 1
+    },
+    {
       "item": "minecraft:gold_ingot",
       "cost": 15
     },

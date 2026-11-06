@@ -21,7 +21,7 @@
     }
   ],
   "result": {
-    "id": "lotr_port:corn_liquor",
-    "count": 16
-  }
+    "id": "lotr_port:corn_liquor"
+  },
+  "servings": 16
 }

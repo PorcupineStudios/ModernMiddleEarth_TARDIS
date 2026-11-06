@@ -21,7 +21,7 @@
     }
   ],
   "result": {
-    "id": "lotr_port:maple_beer",
-    "count": 16
-  }
+    "id": "lotr_port:maple_beer"
+  },
+  "servings": 16
 }
