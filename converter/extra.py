@@ -538,9 +538,14 @@ class Extra:
         write_json(os.path.join(self.assets, "music", "playlists.json"), {
             "biomes": {b: m["region"] for b, m in sorted(music.items())},
             "playlists": {r: [] for r in sorted({m["region"] for m in music.values()})},
-            "transition": {"settle_ticks": 100, "fade_out_ticks": 80, "fade_in_ticks": 40, "gap_min_ticks": 400,
-                           "gap_max_ticks": 1800, "change_gap_ticks": 60, "keep_shared_track": True,
-                           "volume": 1.0}})
+            "transition": {"settle_ticks": 100, "fade_out_ticks": 100, "fade_in_ticks": 80, "gap_min_ticks": 400,
+                           "gap_max_ticks": 1800, "crossfade_delay_ticks": 20, "keep_shared_track": True,
+                           "volume": 1.0},
+            "mood": {"fight_range": 16, "suspense_range": 32, "fight_hold_ticks": 400, "suspense_hold_ticks": 300,
+                     "fight_settle_ticks": 10, "mood_settle_ticks": 40, "fight_fade_in_ticks": 30,
+                     "fight_fade_out_ticks": 40, "fight_gap_ticks": 40, "hurt_starts_fight": 1,
+                     "night_is_suspense": 1, "storm_is_suspense": 1, "underground_is_suspense": 1,
+                     "underground_depth": 8, "low_health_percent": 35}})
         write_json(os.path.join(self.content, "biome_achievements.json"), achievements)
         return {"music_biomes": len(music), "biome_achievements": len(achievements),
                 "invasion_biomes": len(invasions), "animal_biomes": animals}
