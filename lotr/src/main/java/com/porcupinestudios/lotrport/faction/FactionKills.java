@@ -55,6 +55,11 @@ public final class FactionKills {
                 continue;
             }
             Relation relation = Factions.relation(server, killedFaction.get().id(), other.id());
+            // only factions whose influence reaches the player hear of it (control zones, or their people nearby)
+            if ((relation == Relation.ALLY || relation.isBad())
+                    && FactionInfluence.reach(player, other.id()) == FactionInfluence.Reach.NONE) {
+                continue;
+            }
             if (relation == Relation.ALLY) {
                 Alignment.add(player, other.id(), -value);
             } else if (relation.isBad()) {

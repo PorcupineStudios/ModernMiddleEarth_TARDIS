@@ -260,3 +260,8 @@ From the repo root: `./gradlew :lotr:build`, `:lotr:runClient`, `:lotr:runServer
   (`converter/lore.py`) go into structure chests. Quests: pickpocket kind, LOTR's per-quest lines
   (`speech/miniquest/...`). Mounted units ride (`Hiring.mount`).
 - What was skipped and why: `lotr/docs/import-checklist.md`.
+- Faction influence (2026-11-07, `faction/FactionInfluence`): a kill changes alignment only with factions whose
+  influence reaches the player: inside one of its control zones (LOTR's, map pixels, Middle-earth only) or within
+  `npc_radius` of one of its NPCs in any dimension (`data/lotr_port/alignment/settings.json`). The bar shows LOTR's
+  arrows either side (gold: zone, pale: near its people, none: kills don't count), and shows outside Middle-earth
+  while a faction NPC is near (auto-watching that NPC's faction there). Payload `HudNet.AlignmentBar.flags`.

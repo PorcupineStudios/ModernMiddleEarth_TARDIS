@@ -57,34 +57,43 @@ public final class FactionTests {
     public static void killingAnOrcRaisesAlignmentWithItsEnemies(GameTestHelper helper) {
         MinecraftServer server = helper.getLevel().getServer();
         ServerPlayer player = helper.makeMockServerPlayerInLevel();
-        Map<ResourceLocation, Float> before = new HashMap<>();
+        var here = helper.absoluteVec(new net.minecraft.world.phys.Vec3(1.5, 2, 1.5));
+        player.moveTo(here.x, here.y, here.z); // the mock player starts at the world's origin, not in the test
+        ResourceLocation highElf = LotrPort.id("high_elf");
+        ResourceLocation rohan = LotrPort.id("rohan");
+        // far from every faction's lands and people: nobody hears of the kill
+        Zombie first = helper.spawnWithNoFreeWill(EntityType.ZOMBIE, new BlockPos(1, 2, 1));
+        FactionKills.setFaction(first, MORDOR);
+        first.hurt(player.damageSources().playerAttack(player), 1000f);
+        helper.assertTrue(first.isDeadOrDying(), "the first orc did not die");
+        // (other tests run beside this one, so a faction counts as out of reach only if no NPC of it is near)
         for (Faction f : Factions.all(server)) {
-            before.put(f.id(), Alignment.get(player, f.id()));
+            if (com.porcupinestudios.lotrport.faction.FactionInfluence.reach(player, f.id())
+                    == com.porcupinestudios.lotrport.faction.FactionInfluence.Reach.NONE) {
+                helper.assertTrue(Alignment.get(player, f.id()) == 0, f.id() + " changed with no one near");
+            }
+        }
+        float gondorBefore = Alignment.get(player, GONDOR);
+        float elfBefore = Alignment.get(player, highElf);
+        float mordorBefore = Alignment.get(player, MORDOR);
+        boolean rohanAway = com.porcupinestudios.lotrport.faction.FactionInfluence.reach(player, rohan)
+                == com.porcupinestudios.lotrport.faction.FactionInfluence.Reach.NONE;
+        float rohanBefore = Alignment.get(player, rohan);
+        // with a Gondor soldier, a High Elf and a Mordor orc standing by, those three factions hear of it
+        for (String type : new String[] { "gondor_soldier", "high_elf", "mordor_orc" }) {
+            var at = helper.absoluteVec(new net.minecraft.world.phys.Vec3(2.5, 2, 2.5));
+            com.porcupinestudios.lotrport.npc.LotrNpc.spawn(helper.getLevel(), LotrPort.id(type), at.x, at.y, at.z)
+                    .orElseThrow().setNoAi(true);
         }
         Zombie orc = helper.spawnWithNoFreeWill(EntityType.ZOMBIE, new BlockPos(1, 2, 1));
         FactionKills.setFaction(orc, MORDOR);
         orc.hurt(player.damageSources().playerAttack(player), 1000f);
         helper.assertTrue(orc.isDeadOrDying(), "the orc did not die");
-
-        int raised = 0;
-        for (Faction f : Factions.all(server)) {
-            if (!f.playable() || f.fixedAlignment().isPresent()) {
-                continue;
-            }
-            float change = Alignment.get(player, f.id()) - before.get(f.id());
-            Relation relation = Factions.relation(server, MORDOR, f.id());
-            if (relation.isBad()) {
-                helper.assertTrue(change > 0, f.id() + " (" + relation.getSerializedName() + ") changed by " + change);
-                raised++;
-            } else if (relation == Relation.ALLY) {
-                helper.assertTrue(change < 0, f.id() + " (ally) changed by " + change);
-            } else {
-                helper.assertTrue(change == 0, f.id() + " (" + relation.getSerializedName() + ") changed by " + change);
-            }
-        }
-        helper.assertTrue(Alignment.get(player, GONDOR) > 0, "no alignment with Gondor for killing an orc");
-        helper.assertTrue(Alignment.get(player, MORDOR) < 0, "no penalty with Mordor for killing its orc");
-        LotrPort.LOG.info("[phase4] killing a Mordor orc raised alignment with {} factions", raised);
+        helper.assertTrue(Alignment.get(player, GONDOR) > gondorBefore, "no alignment with Gondor for killing an orc");
+        helper.assertTrue(Alignment.get(player, highElf) > elfBefore, "no alignment with the High Elves near one");
+        helper.assertTrue(Alignment.get(player, MORDOR) < mordorBefore, "no penalty with Mordor for killing its orc");
+        helper.assertTrue(!rohanAway || Alignment.get(player, rohan) == rohanBefore,
+                "Rohan heard of it with no Rohirrim near");
         helper.succeed();
     }
 

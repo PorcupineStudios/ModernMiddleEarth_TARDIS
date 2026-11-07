@@ -47,16 +47,38 @@ public final class HudNet {
      * @param faction the faction id, "" when there's nothing to show
      * @param ranks the faction's ranks, lowest first (empty for realms and rankless factions)
      */
-    public record AlignmentBar(String faction, Component name, int color, float alignment, boolean pledged,
+    public record AlignmentBar(String faction, Component name, int color, float alignment, int flags,
             List<Rank> ranks) implements CustomPacketPayload {
-        public static final AlignmentBar NONE = new AlignmentBar("", Component.empty(), 0, 0f, false, List.of());
+        public static final AlignmentBar NONE = new AlignmentBar("", Component.empty(), 0, 0f, 0, List.of());
+        public static final int PLEDGED = 1;
+        /** The faction's reach (FactionInfluence.Reach ordinal) sits in bits 1-2. */
+        public static final int REACH_SHIFT = 1;
+        /** Near a faction NPC: the bar shows even outside Middle-earth. */
+        public static final int NEAR_NPC = 8;
+
+        public static int flags(boolean pledged, int reach, boolean nearNpc) {
+            return (pledged ? PLEDGED : 0) | (reach & 3) << REACH_SHIFT | (nearNpc ? NEAR_NPC : 0);
+        }
+
+        public boolean pledged() {
+            return (flags & PLEDGED) != 0;
+        }
+
+        /** 0 none (kills don't count), 1 near its people, 2 in its control zone. */
+        public int reach() {
+            return flags >> REACH_SHIFT & 3;
+        }
+
+        public boolean nearNpc() {
+            return (flags & NEAR_NPC) != 0;
+        }
         public static final Type<AlignmentBar> TYPE = new Type<>(LotrPort.id("alignment_bar"));
         public static final StreamCodec<RegistryFriendlyByteBuf, AlignmentBar> CODEC = StreamCodec.composite(
                 ByteBufCodecs.STRING_UTF8, AlignmentBar::faction,
                 ComponentSerialization.TRUSTED_STREAM_CODEC, AlignmentBar::name,
                 ByteBufCodecs.INT, AlignmentBar::color,
                 ByteBufCodecs.FLOAT, AlignmentBar::alignment,
-                ByteBufCodecs.BOOL, AlignmentBar::pledged,
+                ByteBufCodecs.VAR_INT, AlignmentBar::flags,
                 Rank.CODEC.apply(ByteBufCodecs.list()), AlignmentBar::ranks,
                 AlignmentBar::new);
 

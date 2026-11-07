@@ -1,0 +1,6 @@
+{
+  "npc_radius": 32,
+  "zone_kills_count": true,
+  "npc_kills_count": true,
+  "show_bar_near_npcs": true
+}
