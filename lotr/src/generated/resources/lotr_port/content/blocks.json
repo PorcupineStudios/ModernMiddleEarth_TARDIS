@@ -3005,21 +3005,13 @@
   },
   {
     "id": "dwarven_bed_block",
-    "kind": "shaped",
+    "kind": "bed",
     "hardness": 0.2,
     "resistance": 0.333,
     "light": 0,
     "sound": "wood",
     "requiresTool": false,
     "solid": false,
-    "shape": [
-      0.0,
-      0.0,
-      0.0,
-      16.0,
-      9.0,
-      16.0
-    ],
     "item": "none"
   },
   {
@@ -3075,21 +3067,13 @@
   },
   {
     "id": "elven_bed",
-    "kind": "shaped",
+    "kind": "bed",
     "hardness": 0.2,
     "resistance": 0.333,
     "light": 0,
     "sound": "wood",
     "requiresTool": false,
     "solid": false,
-    "shape": [
-      0.0,
-      0.0,
-      0.0,
-      16.0,
-      9.0,
-      16.0
-    ],
     "item": "none"
   },
   {
@@ -5809,21 +5793,13 @@
   },
   {
     "id": "high_elven_bed_block",
-    "kind": "shaped",
+    "kind": "bed",
     "hardness": 0.2,
     "resistance": 0.333,
     "light": 0,
     "sound": "wood",
     "requiresTool": false,
     "solid": false,
-    "shape": [
-      0.0,
-      0.0,
-      0.0,
-      16.0,
-      9.0,
-      16.0
-    ],
     "item": "none"
   },
   {
@@ -6320,21 +6296,13 @@
   },
   {
     "id": "lion_bed",
-    "kind": "shaped",
+    "kind": "bed",
     "hardness": 0.2,
     "resistance": 0.333,
     "light": 0,
     "sound": "wood",
     "requiresTool": false,
     "solid": false,
-    "shape": [
-      0.0,
-      0.0,
-      0.0,
-      16.0,
-      9.0,
-      16.0
-    ],
     "item": "none"
   },
   {
@@ -6755,21 +6723,13 @@
   },
   {
     "id": "orc_bed_block",
-    "kind": "shaped",
+    "kind": "bed",
     "hardness": 0.2,
     "resistance": 0.333,
     "light": 0,
     "sound": "wood",
     "requiresTool": false,
     "solid": false,
-    "shape": [
-      0.0,
-      0.0,
-      0.0,
-      16.0,
-      9.0,
-      16.0
-    ],
     "item": "none"
   },
   {
@@ -8938,6 +8898,7 @@
       16.0,
       12.0
     ],
+    "facing": true,
     "item": "none"
   },
   {
@@ -8957,6 +8918,7 @@
       16.0,
       12.0
     ],
+    "facing": true,
     "item": "none"
   },
   {
@@ -10636,6 +10598,7 @@
       14.0,
       15.0
     ],
+    "facing": true,
     "item": "none"
   },
   {
@@ -10655,6 +10618,7 @@
       14.0,
       15.0
     ],
+    "facing": true,
     "item": "none"
   },
   {
@@ -10674,6 +10638,7 @@
       14.0,
       15.0
     ],
+    "facing": true,
     "item": "none"
   },
   {
@@ -12654,21 +12619,13 @@
   },
   {
     "id": "straw_bed_block",
-    "kind": "shaped",
+    "kind": "bed",
     "hardness": 0.2,
     "resistance": 0.333,
     "light": 0,
     "sound": "wood",
     "requiresTool": false,
     "solid": false,
-    "shape": [
-      0.0,
-      0.0,
-      0.0,
-      16.0,
-      9.0,
-      16.0
-    ],
     "item": "none"
   },
   {
@@ -12749,7 +12706,8 @@
     "light": 0,
     "sound": "stone",
     "requiresTool": true,
-    "solid": true
+    "solid": true,
+    "facing": true
   },
   {
     "id": "golden_taurethrim_dart_trap",
@@ -12759,7 +12717,8 @@
     "light": 0,
     "sound": "stone",
     "requiresTool": true,
-    "solid": true
+    "solid": true,
+    "facing": true
   },
   {
     "id": "obsidian_taurethrim_dart_trap",
@@ -12769,7 +12728,8 @@
     "light": 0,
     "sound": "stone",
     "requiresTool": true,
-    "solid": true
+    "solid": true,
+    "facing": true
   },
   {
     "id": "tauredain_double_torch",
@@ -14751,21 +14711,13 @@
   },
   {
     "id": "warg_fur_bed",
-    "kind": "shaped",
+    "kind": "bed",
     "hardness": 0.2,
     "resistance": 0.333,
     "light": 0,
     "sound": "wood",
     "requiresTool": false,
     "solid": false,
-    "shape": [
-      0.0,
-      0.0,
-      0.0,
-      16.0,
-      9.0,
-      16.0
-    ],
     "item": "none"
   },
   {
@@ -15697,21 +15649,13 @@
   },
   {
     "id": "wood_elven_bed_block",
-    "kind": "shaped",
+    "kind": "bed",
     "hardness": 0.2,
     "resistance": 0.333,
     "light": 0,
     "sound": "wood",
     "requiresTool": false,
     "solid": false,
-    "shape": [
-      0.0,
-      0.0,
-      0.0,
-      16.0,
-      9.0,
-      16.0
-    ],
     "item": "none"
   },
   {

@@ -12,6 +12,13 @@
       "conditions": [
         {
           "condition": "minecraft:survives_explosion"
+        },
+        {
+          "condition": "minecraft:block_state_property",
+          "block": "lotr_port:warg_fur_bed",
+          "properties": {
+            "part": "head"
+          }
         }
       ]
     }

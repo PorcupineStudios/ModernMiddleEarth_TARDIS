@@ -89,6 +89,39 @@ public final class ProgressTests {
         helper.succeed();
     }
 
+    @GameTest(template = "empty", timeoutTicks = 200)
+    public static void structureBedsAndChestsKeepTheirDirection(GameTestHelper helper) {
+        var level = helper.getLevel();
+        var template = level.getStructureManager().get(LotrPort.id("dale_fortress/0")).orElseThrow();
+        net.minecraft.core.BlockPos at = helper.absolutePos(new net.minecraft.core.BlockPos(0, 1, 0)).above(20);
+        template.placeInWorld(level, at, at,
+                new net.minecraft.world.level.levelgen.structure.templatesystem.StructurePlaceSettings(),
+                level.random, 2);
+        int beds = 0;
+        int pairs = 0;
+        for (net.minecraft.core.BlockPos p : net.minecraft.core.BlockPos.betweenClosed(at, at.offset(template.getSize()))) {
+            var st = level.getBlockState(p);
+            if (st.getBlock() instanceof com.porcupinestudios.lotrport.content.LotrBedBlock) {
+                var other = level.getBlockState(p.relative(net.minecraft.world.level.block.BedBlock
+                        .getConnectedDirection(st)));
+                helper.assertTrue(other.is(st.getBlock()) && other.getValue(
+                        net.minecraft.world.level.block.BedBlock.PART) != st.getValue(
+                        net.minecraft.world.level.block.BedBlock.PART), "a bed half at " + p + " has no other half");
+                beds++;
+            }
+            if (st.getBlock() instanceof net.minecraft.world.level.block.ChestBlock && st.getValue(
+                    net.minecraft.world.level.block.ChestBlock.TYPE)
+                    != net.minecraft.world.level.block.state.properties.ChestType.SINGLE) {
+                var other = level.getBlockState(p.relative(net.minecraft.world.level.block.ChestBlock
+                        .getConnectedDirection(st)));
+                helper.assertTrue(other.is(st.getBlock()), "a double chest at " + p + " has no partner");
+                pairs++;
+            }
+        }
+        helper.assertTrue(beds > 0 && pairs > 0, "no beds (" + beds + ") or double chests (" + pairs + ") placed");
+        helper.succeed();
+    }
+
     @GameTest(template = "empty")
     public static void mountedUnitsRide(GameTestHelper helper) {
         @SuppressWarnings("removal")
