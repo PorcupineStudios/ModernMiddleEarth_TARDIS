@@ -123,6 +123,19 @@ public final class ProgressTests {
     }
 
     @GameTest(template = "empty")
+    public static void feastModeEatsOnAFullStomach(GameTestHelper helper) {
+        @SuppressWarnings("removal")
+        ServerPlayer p = (ServerPlayer) helper.makeMockServerPlayerInLevel();
+        p.setGameMode(GameType.SURVIVAL);
+        p.getFoodData().setFoodLevel(20);
+        ItemStack bread = new ItemStack(net.minecraft.world.item.Items.BREAD);
+        p.setItemInHand(net.minecraft.world.InteractionHand.MAIN_HAND, bread);
+        p.gameMode.useItem(p, helper.getLevel(), bread, net.minecraft.world.InteractionHand.MAIN_HAND);
+        helper.assertTrue(p.isUsingItem(), "a full player couldn't start eating bread with feast mode on");
+        helper.succeed();
+    }
+
+    @GameTest(template = "empty")
     public static void mountedUnitsRide(GameTestHelper helper) {
         @SuppressWarnings("removal")
         ServerPlayer p = (ServerPlayer) helper.makeMockServerPlayerInLevel();

@@ -69,6 +69,7 @@ public final class LotrPort {
         WorldConditions.register(modBus);
         Factions.register();
         FactionKills.register();
+        com.porcupinestudios.lotrport.content.FeastMode.register();
         com.porcupinestudios.lotrport.faction.FactionInfluence.register();
         NpcData.register();
         NpcSpawns.register();
