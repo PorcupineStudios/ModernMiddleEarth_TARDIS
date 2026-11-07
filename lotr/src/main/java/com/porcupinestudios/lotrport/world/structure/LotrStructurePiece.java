@@ -80,10 +80,12 @@ public final class LotrStructurePiece extends TemplateStructurePiece {
         for (int x = Math.max(mine.minX(), box.minX()); x <= Math.min(mine.maxX(), box.maxX()); x++) {
             for (int z = Math.max(mine.minZ(), box.minZ()); z <= Math.min(mine.maxZ(), box.maxZ()); z++) {
                 BlockState top = level.getBlockState(at.set(x, y, z));
-                if (top.isAir() || !top.isCollisionShapeFullBlock(level, at)) {
+                // paths and farmland (porches, garden beds) aren't full blocks but stand on dirt all the same
+                boolean soil = top.is(Blocks.DIRT_PATH) || top.is(Blocks.FARMLAND);
+                if (top.isAir() || !soil && !top.isCollisionShapeFullBlock(level, at)) {
                     continue;
                 }
-                BlockState fill = top.is(BlockTags.DIRT) ? Blocks.DIRT.defaultBlockState() : top;
+                BlockState fill = soil || top.is(BlockTags.DIRT) ? Blocks.DIRT.defaultBlockState() : top;
                 for (int d = 1; d <= maxFoundation && y - d > level.getMinBuildHeight(); d++) {
                     BlockState below = level.getBlockState(at.set(x, y - d, z));
                     if (!open(below)) {
