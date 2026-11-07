@@ -25,6 +25,11 @@ public final class LotrConfig {
                     "client timed correctly. 0 is strict.")
             .defineInRange("combat.attackWaitGraceTicks", 1, 0, 5);
 
+    public static final ModConfigSpec.BooleanValue FEAST_MODE = BUILDER
+            .comment("LOTR's feast mode: food can be eaten even with a full hunger bar (its saturation still counts).",
+                    "Off: vanilla, where only always-edible food (golden apples...) can be eaten when full.")
+            .define("food.feastMode", true);
+
     public static final ModConfigSpec SPEC = BUILDER.build();
 
     private LotrConfig() {}
