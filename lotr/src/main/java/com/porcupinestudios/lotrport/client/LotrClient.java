@@ -47,6 +47,10 @@ public final class LotrClient {
     public static final KeyMapping FAST_TRAVEL_KEY = new KeyMapping("key.lotr_port.fast_travel",
             KeyConflictContext.GUI, InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_F, "key.categories.lotr_port");
 
+    /** Opens the jukebox: the music that can play here, to take tracks out of the shuffle or play one now. */
+    public static final KeyMapping JUKEBOX_KEY = new KeyMapping("key.lotr_port.jukebox", InputConstants.Type.KEYSYM,
+            GLFW.GLFW_KEY_J, "key.categories.lotr_port");
+
     private LotrClient() {}
 
     @SubscribeEvent
@@ -106,6 +110,7 @@ public final class LotrClient {
     @SubscribeEvent
     public static void keys(RegisterKeyMappingsEvent event) {
         event.register(MAP_KEY);
+        event.register(JUKEBOX_KEY);
         event.register(MAP_TELEPORT_KEY);
         event.register(FAST_TRAVEL_KEY);
     }

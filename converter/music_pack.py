@@ -296,6 +296,51 @@ MOOD_RULES = {
     "days of the ring": ["calm"], "bilbos song": ["calm"],
 }
 
+def _albums_from_rules():
+    """phrase -> album, from the film headings over MOOD_RULES' groups above (this file's own source)."""
+    out, album, inside = {}, None, False
+    for line in open(os.path.abspath(__file__), encoding="utf-8"):
+        if line.startswith("MOOD_RULES = {"):
+            inside = True
+            continue
+        if inside and line.startswith("}"):
+            break
+        if not inside:
+            continue
+        h = re.match(r"\s*#\s*((?:The|An) [A-Z][^(]*?)\s*(\(|$)", line)
+        if h:
+            album = h.group(1).strip()
+            continue
+        for phrase in re.findall(r'"([^"]+)":', line):
+            out.setdefault(phrase, album)
+    return out
+
+
+ALBUM_OF = _albums_from_rules()
+
+
+def album_for(title, fallback=""):
+    """The film score a track belongs to, from its title (MOOD_RULES' headings), else the fallback (its folder)."""
+    low = words(title)
+    for phrase, album in ALBUM_OF.items():
+        if album and matches(phrase, low):
+            return album
+    return fallback
+
+
+def tags(src):
+    """The file's own title and album tags (ffprobe), if it has them."""
+    if not shutil.which("ffprobe"):
+        return {}
+    r = subprocess.run(["ffprobe", "-v", "error", "-show_entries", "format_tags=title,album", "-of", "json", src],
+                       capture_output=True, text=True)
+    try:
+        t = json.loads(r.stdout).get("format", {}).get("tags", {})
+        return {k.lower(): v for k, v in t.items()}
+    except ValueError:
+        return {}
+
+
 FIGHT_WORDS = ("battle", "attack", "siege", "war", "fight", "charge", "ambush", "invaded", "breach", "assault",
                "flight", "chase", "escape", "death", "doom", "ride", "rides", "armies", "storm", "orcs", "wargs")
 SUSPENSE_WORDS = ("dark", "darkness", "shadow", "evil", "wraith", "wraiths", "nazgul", "dead", "lair", "spider",
@@ -573,7 +618,7 @@ def main():
         shutil.rmtree(pack)
     sounds_dir = os.path.join(pack, "assets", "lotr_port", "sounds", "music")
     os.makedirs(sounds_dir)
-    sounds, playlists, unsorted, used, titles = {}, {}, [], set(), {}
+    sounds, playlists, unsorted, used, titles, info = {}, {}, [], set(), {}, {}
     for src, m, cached in done:
         if cached is None:
             continue
@@ -585,6 +630,9 @@ def main():
         shutil.copyfile(cached, os.path.join(sounds_dir, name + ".ogg"))
         event = f"lotr_port:music.track.{name}"
         titles[event] = re.sub(r"^\d+[.\s]*", "", os.path.splitext(base)[0])
+        t = tags(src)
+        info[event] = {"title": t.get("title") or re.sub(r"[_]+", " ", titles[event]).strip(),
+                       "album": t.get("album") or album_for(titles[event], os.path.basename(os.path.dirname(src)))}
         sounds[event.split(":", 1)[1]] = {"sounds": [{"name": f"lotr_port:music/{name}", "stream": True}]}
         moods = moods_for(base, m)
         for p in all_playlists_for(base, rules, extra):
@@ -600,6 +648,9 @@ def main():
     with open(os.path.join(pack, "assets", "lotr_port", "sounds.json"), "w", encoding="utf-8") as f:
         json.dump(sounds, f, indent=2)
     os.makedirs(os.path.join(pack, "assets", "lotr_port", "music"), exist_ok=True)
+    # title and album per track, for the game's "now playing" line and jukebox screen (client/LotrMusic)
+    with open(os.path.join(pack, "assets", "lotr_port", "music", "tracks.json"), "w", encoding="utf-8") as f:
+        json.dump(dict(sorted(info.items())), f, indent=2, ensure_ascii=False)
     with open(os.path.join(pack, "assets", "lotr_port", "music", "playlists.json"), "w", encoding="utf-8") as f:
         json.dump({"playlists": playlists}, f, indent=2)
     # what went where, for reading (the game doesn't use it)

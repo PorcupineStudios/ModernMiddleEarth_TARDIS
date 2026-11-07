@@ -154,3 +154,15 @@ Lists tried, first with tracks wins: the land's own list for the place (`shire_r
 place's list for all of Middle-earth (`road`, `underground`), then the land's list. Each one uses the mood rules
 (calm, suspense, fight) as usual. The built-in pack ships `road` (travelling themes) and `underground` (Moria and
 Erebor themes); `music_pack.py` fills them from your files by title (its `EXTRA` lists).
+
+## Now playing and the jukebox
+
+- When a track starts, its title and album show above the hotbar, like a record in a jukebox. Titles and albums come
+  from `music/tracks.json` (`{"lotr_port:music.track.x": {"title": ..., "album": ...}}`); `music_pack.py` writes it
+  from each file's tags, else the title from the file name and the album from the film headings in its rules, else
+  the folder. `"announce": 0` in `transition` turns the line off.
+- **J** opens the jukebox: every list that can play where you stand (land, road or underground; calm, suspense,
+  fight), in the order they're tried, with the list and track playing now marked. Click a track's box to take it out
+  of every shuffle or put it back; ▶ plays it now; Skip moves on.
+- What you take out is saved in `config/lotr_port_jukebox.json`, with each track's title, album and the lists it's
+  on, so it reads as a list of tracks to change or drop from the pack.
