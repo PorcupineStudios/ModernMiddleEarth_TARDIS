@@ -332,6 +332,13 @@ class Structures:
         for (x, y, z), (st, _) in placed.items():
             if y > ground_y and st["Name"] != "minecraft:air":
                 tops[(x, z)] = max(tops.get((x, z), y), y)
+        # under anything built on the ground (porch fences, posts, steps) the export's flat world still had its
+        # grass, which the template left out as unchanged; put it back so the piece's foundation fills under it on
+        # a slope instead of leaving open air there
+        grass = {"Name": "minecraft:grass_block", "Properties": {"snowy": "false"}}
+        for (x, z) in tops:
+            if (x, ground_y, z) not in placed and (x, ground_y + 1, z) in placed:
+                placed[(x, ground_y, z)] = (grass, {"pos": [x - lo[0], ground_y - base_y, z - lo[2]]})
         for (x, z), top in tops.items():
             for y in range(ground_y + 1, top):
                 if (x, y, z) not in placed:

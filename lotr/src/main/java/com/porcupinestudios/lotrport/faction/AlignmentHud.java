@@ -61,7 +61,9 @@ public final class AlignmentHud {
         HudNet.AlignmentBar bar = bar(player);
         if (!bar.equals(SENT.get(player.getUUID()))) {
             SENT.put(player.getUUID(), bar);
-            PacketDistributor.sendToPlayer(player, bar);
+            if (player.connection != null && player.connection.hasChannel(bar)) { // test players have no channel
+                PacketDistributor.sendToPlayer(player, bar);
+            }
         }
     }
 
