@@ -139,3 +139,18 @@ A plain list (like `bree` above) is used for every mood.
 ## Playlists (LOTR's music regions)
 
 angmar, barrow_downs, bree, brown_lands, dale, dead_marshes, dorwinion, dunland, dwarven, enedwaith, eregion, eriador, fangorn, far_harad, far_harad_jungle, forodwaith, gondor, grey_mountains, isengard, lindon, lothlorien, mirkwood, misty_mountains, mordor, near_harad, old_forest, perdorogwaith, pukel, rhovanion, rhun, rivendell, rohan, sea, shire, woodland_realm
+
+## Places: roads and underground
+
+On top of the land's list, the music follows where you are:
+
+- **Road**: within `road_range` (16) blocks of the edge of one of the map's roads, at ground level (within
+  `road_height`, 12). You leave it past `road_leave_range` (40), so a road's edge doesn't flip the music.
+- **Underground**: no sky above, no daylight reaching you, and at least `underground_depth` (8) blocks under the
+  surface of that spot. Caves under mountains count; a cellar doesn't. Underground wins over road.
+- A new place has to hold for `place_settle_ticks` (100, 5 s).
+
+Lists tried, first with tracks wins: the land's own list for the place (`shire_road`, `dwarven_underground`), then the
+place's list for all of Middle-earth (`road`, `underground`), then the land's list. Each one uses the mood rules
+(calm, suspense, fight) as usual. The built-in pack ships `road` (travelling themes) and `underground` (Moria and
+Erebor themes); `music_pack.py` fills them from your files by title (its `EXTRA` lists).

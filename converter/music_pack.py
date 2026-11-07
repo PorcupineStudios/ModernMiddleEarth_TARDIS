@@ -166,6 +166,17 @@ def minecraft_dir():
 # like the rules). Not canon, just music that suits the land, so every list has a few tracks; a track on several
 # lists also plays on as you cross between them.
 EXTRA = {
+    # places, not lands (client/LotrMusic): on one of the map's roads, and underground (mines, caves, delvings)
+    "road": ["the world is ahead", "the adventure begins", "the ring goes south", "the three hunters",
+             "the plains of rohan", "over hill", "the return journey", "misty mountains", "the road to isengard",
+             "the journey to the grey havens", "exodus from edoras", "elven rope", "main theme", "on to weathertop",
+             "the hunters", "a troll hoard", "the quest for erebor", "warg scouts", "night camp", "roast mutton",
+             "the wolves of isengard", "concerning hobbits", "the road goes ever on", "far away"],
+    "underground": ["misty mountains", "song of the lonely mountain", "durins folk", "mithril", "a journey in the dark",
+                    "in the shadow of the mountain", "inside information", "on the doorstep", "an ancient enemy",
+                    "sons of durin", "ironfoot", "my armor is iron", "shelob the great", "khazad dum",
+                    "the bridge of khazad dum", "the great eye", "riddles in the dark", "the dwarrowdelf",
+                    "moria", "the mines"],
     "angmar": ["the nazgul attack", "wraiths on wings", "the hill of sorcery", "the defiler"],
     "barrow_downs": ["the paths of the dead", "dwimorberg", "wraiths on wings"],
     "bree": ["the green dragon", "thrice welcome", "night camp"],
