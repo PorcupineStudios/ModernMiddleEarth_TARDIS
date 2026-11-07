@@ -545,7 +545,9 @@ class Extra:
                      "fight_settle_ticks": 10, "mood_settle_ticks": 40, "fight_fade_in_ticks": 30,
                      "fight_fade_out_ticks": 40, "fight_gap_ticks": 40, "hurt_starts_fight": 1,
                      "night_is_suspense": 1, "storm_is_suspense": 1, "underground_is_suspense": 1,
-                     "underground_depth": 8, "low_health_percent": 35}})
+                     "underground_depth": 8, "low_health_percent": 35,
+                     # places (client/LotrMusic): playlists "road" and "underground", or "<land>_road" etc.
+                     "road_range": 16, "road_leave_range": 40, "road_height": 12, "place_settle_ticks": 100}})
         write_json(os.path.join(self.content, "biome_achievements.json"), achievements)
         return {"music_biomes": len(music), "biome_achievements": len(achievements),
                 "invasion_biomes": len(invasions), "animal_biomes": animals}

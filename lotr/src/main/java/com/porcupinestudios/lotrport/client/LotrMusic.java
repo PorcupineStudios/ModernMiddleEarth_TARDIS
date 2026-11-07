@@ -201,10 +201,15 @@ public final class LotrMusic {
         if (r == null) {
             return null;
         }
-        for (Mood m : mood.fallbacks) {
-            String key = r + "/" + m.id;
-            if (!PLAYLISTS.getOrDefault(key, List.of()).isEmpty()) {
-                return key;
+        // on a road or underground: the land's own list for that place ("shire_road"), then the place's list for
+        // all of Middle-earth ("road", "underground"), then the land's; each with its mood fallbacks
+        List<String> lists = place.isEmpty() ? List.of(r) : List.of(r + "_" + place, place, r);
+        for (String list : lists) {
+            for (Mood m : mood.fallbacks) {
+                String key = list + "/" + m.id;
+                if (!PLAYLISTS.getOrDefault(key, List.of()).isEmpty()) {
+                    return key;
+                }
             }
         }
         return null;
@@ -231,6 +236,9 @@ public final class LotrMusic {
     private static Mood mood = Mood.CALM;
     private static long lastFight = Long.MIN_VALUE / 2;
     private static long lastSuspense = Long.MIN_VALUE / 2;
+    /** Where the player is, besides the land: on a road, underground, or neither (""). */
+    private static String place = "";
+    private static long placeSince;
     private static long ticks;
 
     private static Mood updateMood(Minecraft mc) {
@@ -261,8 +269,8 @@ public final class LotrMusic {
             }
             long day = level.getDayTime() % 24000;
             boolean night = !level.dimensionType().hasFixedTime() && day > 13000 && day < 23000;
-            boolean underground = !level.canSeeSky(p.blockPosition())
-                    && p.getBlockY() < level.getSeaLevel() - num("underground_depth", 8);
+            boolean underground = underground(level, p.blockPosition());
+            updatePlace(level, p.blockPosition(), underground);
             boolean hurt = p.getHealth() / p.getMaxHealth() < num("low_health_percent", 35) / 100f;
             if (fight) {
                 lastFight = ticks;
@@ -281,6 +289,63 @@ public final class LotrMusic {
             return Mood.SUSPENSE;
         }
         return Mood.CALM;
+    }
+
+    /**
+     * Underground: no sky above, no daylight reaching the spot, and at least {@code underground_depth} blocks below
+     * the surface of that column (so caves under mountains count, a house's cellar doesn't).
+     */
+    private static boolean underground(net.minecraft.world.level.Level level, net.minecraft.core.BlockPos pos) {
+        if (level.canSeeSky(pos) || level.getBrightness(net.minecraft.world.level.LightLayer.SKY, pos) > 0) {
+            return false;
+        }
+        int surface = level.getHeight(net.minecraft.world.level.levelgen.Heightmap.Types.WORLD_SURFACE, pos.getX(),
+                pos.getZ());
+        return surface - pos.getY() >= num("underground_depth", 8);
+    }
+
+    /** Distance to the nearest of LOTR's roads (the map's), searched up to {@code range} blocks. */
+    private static double roadDistance(int x, int z, int range) {
+        var roads = com.porcupinestudios.lotrport.world.map.Roads.get();
+        double best = Double.POSITIVE_INFINITY;
+        int[][] probes = { { 0, 0 }, { range, 0 }, { -range, 0 }, { 0, range }, { 0, -range } };
+        for (int[] pr : probes) {
+            for (var seg : roads.near(x + pr[0], z + pr[1])) {
+                best = Math.min(best, Math.sqrt(seg.distanceSq(x + 0.5, z + 0.5)));
+            }
+        }
+        return best - roads.width();
+    }
+
+    /**
+     * The place, with hysteresis so a road's edge or a cave mouth doesn't flip it: a road is joined within
+     * {@code road_range} blocks of its edge and left past {@code road_leave_range}; you must be above ground and
+     * in Middle-earth's own world (the roads are the map's). A new place must hold {@code place_settle_ticks}.
+     */
+    private static void updatePlace(net.minecraft.world.level.Level level, net.minecraft.core.BlockPos pos,
+            boolean underground) {
+        String want;
+        if (underground) {
+            want = "underground";
+        } else {
+            double d = roadDistance(pos.getX(), pos.getZ(), num("road_leave_range", 40));
+            boolean onRoad = d <= num(place.equals("road") ? "road_leave_range" : "road_range",
+                    place.equals("road") ? 40 : 16);
+            // the road has to be near the ground you're on, not far below a cliff or bridge
+            int surface = level.getHeight(net.minecraft.world.level.levelgen.Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+                    pos.getX(), pos.getZ());
+            want = onRoad && Math.abs(pos.getY() - surface) <= num("road_height", 12) ? "road" : "";
+        }
+        if (!want.equals(place)) {
+            if (placeSince == 0) {
+                placeSince = ticks;
+            } else if (ticks - placeSince >= num("place_settle_ticks", 100)) {
+                place = want;
+                placeSince = 0;
+            }
+        } else {
+            placeSince = 0;
+        }
     }
 
     private static boolean shares(String list, Track t) {

@@ -231,6 +231,10 @@
     "storm_is_suspense": 1,
     "underground_is_suspense": 1,
     "underground_depth": 8,
-    "low_health_percent": 35
+    "low_health_percent": 35,
+    "road_range": 16,
+    "road_leave_range": 40,
+    "road_height": 12,
+    "place_settle_ticks": 100
   }
 }
