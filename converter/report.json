@@ -28,7 +28,7 @@
     "saplings": 38,
     "factions": 29,
     "npcs": 416,
-    "npc_skins": 269,
+    "npc_skins": 285,
     "structures": 93,
     "structures_with_npcs": 77,
     "npc_spawn_tables": 135,
@@ -492,12 +492,6 @@
       "none"
     ]
   },
-  "npc_skins_odd_size": {
-    "count": 1,
-    "entries": [
-      "assets/lotr/mob/whiteOryx/ ['(128, 64)']"
-    ]
-  },
   "npc_speech_from_faction": {
     "count": 119,
     "entries": [
@@ -656,29 +650,15 @@
     ]
   },
   "npcs_without_skins": {
-    "count": 21,
+    "count": 7,
     "entries": [
       "lotr.Bear",
       "lotr.Bird",
       "lotr.Butterfly",
-      "lotr.Camel",
       "lotr.Crebain",
-      "lotr.Crocodile",
-      "lotr.DesertScorpion",
       "lotr.Fish",
-      "lotr.Flamingo",
-      "lotr.Gemsbok",
-      "lotr.Giraffe",
       "lotr.Gorcrow",
-      "lotr.JungleScorpion",
-      "lotr.Lion",
-      "lotr.Lioness",
-      "lotr.Midges",
-      "lotr.Rhino",
-      "lotr.Seagull",
-      "lotr.Swan",
-      "lotr.Termite",
-      "lotr.WhiteOryx"
+      "lotr.Seagull"
     ]
   },
   "placed_blocks_dropping_nothing": {

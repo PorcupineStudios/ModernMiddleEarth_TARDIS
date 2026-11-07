@@ -1,4 +1,7 @@
 {
+  "skins": [
+    "lotr_port:textures/entity/flamingo/flamingo.png"
+  ],
   "model": "lotr_port:flamingo",
   "width": 0.6,
   "height": 1.8,

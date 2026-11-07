@@ -1,4 +1,7 @@
 {
+  "skins": [
+    "lotr_port:textures/entity/termite.png"
+  ],
   "model": "lotr_port:termite",
   "width": 0.4,
   "height": 0.4,

@@ -1,4 +1,10 @@
 {
+  "skins": [
+    "lotr_port:textures/entity/white_oryx/0.png",
+    "lotr_port:textures/entity/white_oryx/1.png",
+    "lotr_port:textures/entity/white_oryx/2.png"
+  ],
+  "skin_height": 64,
   "model": "lotr_port:gemsbok",
   "width": 0.9,
   "height": 1.4,

@@ -1,4 +1,8 @@
 {
+  "skins": [
+    "lotr_port:textures/entity/rhino/rhino.png"
+  ],
+  "skin_height": 128,
   "model": "lotr_port:rhino",
   "width": 1.4,
   "height": 1.6,

@@ -1,7 +1,7 @@
 {
   "texture": [
-    64,
-    32
+    128,
+    128
   ],
   "render_scale": 1.0,
   "parts": {
