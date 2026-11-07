@@ -1,7 +1,19 @@
 {
   "variants": {
-    "": {
+    "facing=south": {
       "model": "lotr_port:block/taurethrim_dart_trap"
+    },
+    "facing=west": {
+      "model": "lotr_port:block/taurethrim_dart_trap",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "lotr_port:block/taurethrim_dart_trap",
+      "y": 180
+    },
+    "facing=east": {
+      "model": "lotr_port:block/taurethrim_dart_trap",
+      "y": 270
     }
   }
 }

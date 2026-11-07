@@ -153,6 +153,14 @@ class Structures:
             return {"facing": LADDER_FACING.get(meta, "north")}
         if kind == "gate":
             return {"facing": GATE_DIRECTION[meta & 7], "open": str(bool(meta & 8)).lower()}
+        if kind == "bed":
+            # 1.7.10 beds: low 2 bits the direction foot -> head (player-facing order), bit 8 the head half
+            return {"facing": HOOK_FACING[meta & 3], "part": "head" if meta & 8 else "foot", "occupied": "false"}
+        if kind == "torch":
+            return {"facing": TORCH_FACING.get(meta, "up")}
+        if kind == "button":
+            face, facing = BUTTON.get(meta & 7, ("floor", "north"))
+            return {"face": face, "facing": facing, "powered": "false"}
         return {}
 
     def vanilla_state(self, old, meta):
@@ -226,6 +234,9 @@ class Structures:
             return mc("carved_pumpkin" if name == "pumpkin" else "jack_o_lantern", facing=HOOK_FACING[meta & 3])
         if name == "bed":
             return mc("red_bed", facing=HOOK_FACING[meta & 3], part="head" if meta & 8 else "foot")
+        if name == "cocoa":
+            # 1.7.10 cocoa: low 2 bits the side of the log it hangs on (player-facing order), then the age
+            return mc("cocoa", facing=HOOK_FACING[meta & 3], age=str(min(2, meta >> 2)))
         if name == "vine":
             return mc("vine", south=str(bool(meta & 1)).lower(), west=str(bool(meta & 2)).lower(),
                       north=str(bool(meta & 4)).lower(), east=str(bool(meta & 8)).lower())
@@ -345,6 +356,8 @@ class Structures:
                     placed[(x, y, z)] = ({"Name": "minecraft:air"}, {"pos": [x - lo[0], y - base_y, z - lo[2]]})
         # templates are placed without block updates, so panes, fences and walls need their sides set here (a lone
         # pane post showed as a small dark square by the windows)
+        self.pair_chests(placed)
+        self.stair_shapes(placed)
         for (x, y, z), (st, entry) in placed.items():
             st = self.connected(st, (x, y, z), placed)
             entry["state"] = nbt.Int(state_index(st))
@@ -367,6 +380,75 @@ class Structures:
         nbt.write(path, {"DataVersion": nbt.Int(DATA_VERSION), "size": [nbt.Int(v) for v in size],
                          "palette": palette, "blocks": blocks, "entities": entities})
         return len(entities)
+
+    CHESTS = ("minecraft:chest", "minecraft:trapped_chest")
+    # the side a chest's partner is on for type=left (from the front, the partner is to the chest's left)
+    LEFT_OF = {"north": (1, 0), "south": (-1, 0), "west": (0, -1), "east": (0, 1)}
+
+    def pair_chests(self, placed):
+        """Two chests side by side, facing the same way, are one double chest (1.7.10 joined them by placement;
+        templates are placed without updates, so the halves get type left/right here)."""
+        done = set()
+        for pos in sorted(placed):
+            st = placed[pos][0]
+            if st["Name"] not in self.CHESTS or pos in done:
+                continue
+            facing = (st.get("Properties") or {}).get("facing", "north")
+            dx, dz = self.LEFT_OF[facing]
+            for sign, mine, theirs in ((1, "left", "right"), (-1, "right", "left")):
+                other_pos = (pos[0] + sign * dx, pos[1], pos[2] + sign * dz)
+                other = placed.get(other_pos)
+                if other is None or other_pos in done or other[0]["Name"] != st["Name"] \
+                        or (other[0].get("Properties") or {}).get("facing", "north") != facing:
+                    continue
+                for p, t in ((pos, mine), (other_pos, theirs)):
+                    s0, entry = placed[p]
+                    placed[p] = ({"Name": s0["Name"], "Properties": {**(s0.get("Properties") or {}), "type": t}},
+                                 entry)
+                done.update((pos, other_pos))
+                break
+
+    @staticmethod
+    def _stairs(st):
+        p = st.get("Properties") or {}
+        return p if st["Name"].endswith("_stairs") and "facing" in p else None
+
+    def stair_shapes(self, placed):
+        """Stair corners (vanilla's StairBlock.getStairsShape): a stair whose back or front meets a stair turned a
+        quarter, on the same half, becomes an outer or inner corner."""
+        vec = {"north": (0, -1), "south": (0, 1), "west": (-1, 0), "east": (1, 0)}
+        ccw = {"north": "west", "west": "south", "south": "east", "east": "north"}
+        cw = {v: k for k, v in ccw.items()}
+        shapes = {}
+        for (x, y, z), (st, _) in placed.items():
+            me = self._stairs(st)
+            if not me:
+                continue
+            f, half = me["facing"], me.get("half", "bottom")
+
+            def at(d):
+                o = placed.get((x + vec[d][0], y, z + vec[d][1]))
+                p = o and self._stairs(o[0])
+                return p if p and p.get("half", "bottom") == half else None
+
+            def same(d, facing):
+                o = at(d)
+                return o is not None and o["facing"] == facing
+            shape = "straight"
+            front = at(f)
+            if front and front["facing"] in (ccw[f], cw[f]) and not same(
+                    {v: k for k, v in {"north": "south", "south": "north", "west": "east", "east": "west"}.items()}
+                    [front["facing"]], f):
+                shape = "outer_left" if front["facing"] == ccw[f] else "outer_right"
+            else:
+                back_dir = {"north": "south", "south": "north", "west": "east", "east": "west"}[f]
+                back = at(back_dir)
+                if back and back["facing"] in (ccw[f], cw[f]) and not same(back["facing"], f):
+                    shape = "inner_left" if back["facing"] == ccw[f] else "inner_right"
+            shapes[(x, y, z)] = shape
+        for pos, shape in shapes.items():
+            st, entry = placed[pos]
+            placed[pos] = ({"Name": st["Name"], "Properties": {**st["Properties"], "shape": shape}}, entry)
 
     def joins(self, name):
         """'pane', 'fence' or 'wall' for blocks that join their neighbours, else None."""

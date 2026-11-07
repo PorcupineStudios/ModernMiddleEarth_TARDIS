@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/template_torch_wall",
+  "textures": {
+    "torch": "lotr_port:block/wood_elven_torch"
+  },
+  "render_type": "minecraft:cutout"
+}

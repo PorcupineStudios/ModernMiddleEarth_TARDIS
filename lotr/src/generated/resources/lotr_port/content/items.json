@@ -4657,7 +4657,8 @@
     "kind": "item",
     "stack": 1,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "places": "dwarven_bed_block"
   },
   {
     "id": "dwarven_marriage_ring",
@@ -4745,7 +4746,8 @@
     "kind": "item",
     "stack": 1,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "places": "elven_bed"
   },
   {
     "id": "galadhrim_bow",
@@ -6185,7 +6187,8 @@
     "kind": "item",
     "stack": 1,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "places": "high_elven_bed_block"
   },
   {
     "id": "lindon_bow",
@@ -7492,7 +7495,8 @@
     "kind": "item",
     "stack": 1,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "places": "lion_bed"
   },
   {
     "id": "cooked_lion",
@@ -8904,7 +8908,8 @@
     "kind": "item",
     "stack": 1,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "places": "orc_bed_block"
   },
   {
     "id": "orc_bone",
@@ -10736,7 +10741,8 @@
     "kind": "item",
     "stack": 1,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "places": "straw_bed_block"
   },
   {
     "id": "sulfur",
@@ -11598,7 +11604,8 @@
     "kind": "item",
     "stack": 1,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "places": "warg_fur_bed"
   },
   {
     "id": "wargskin_rug",
@@ -11639,7 +11646,8 @@
     "kind": "item",
     "stack": 1,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "places": "wood_elven_bed_block"
   },
   {
     "id": "wooden_plate",

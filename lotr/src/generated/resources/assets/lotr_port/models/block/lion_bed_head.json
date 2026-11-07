@@ -1,0 +1,73 @@
+{
+  "parent": "minecraft:block/block",
+  "textures": {
+    "top": "lotr_port:block/lion_bed_head_top",
+    "end": "lotr_port:block/lion_bed_head_end",
+    "side": "lotr_port:block/lion_bed_head_side",
+    "bottom": "minecraft:block/oak_planks",
+    "particle": "lotr_port:block/lion_bed_head_side"
+  },
+  "render_type": "minecraft:cutout",
+  "elements": [
+    {
+      "from": [
+        0,
+        0,
+        0
+      ],
+      "to": [
+        16,
+        9,
+        16
+      ],
+      "faces": {
+        "down": {
+          "texture": "#bottom",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "up": {
+          "texture": "#top",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "rotation": 0
+        },
+        "east": {
+          "texture": "#side",
+          "uv": [
+            0,
+            7,
+            16,
+            16
+          ]
+        },
+        "west": {
+          "texture": "#side",
+          "uv": [
+            16,
+            7,
+            0,
+            16
+          ]
+        },
+        "north": {
+          "texture": "#end",
+          "uv": [
+            0,
+            7,
+            16,
+            16
+          ]
+        }
+      }
+    }
+  ]
+}

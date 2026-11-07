@@ -83,7 +83,8 @@ public final class LotrBlocks {
             case "leaves" -> LeavesBlock::new;
             case "plant" -> PlantBlock::new;
             case "sapling" -> LotrSaplingBlock::new;
-            case "torch" -> p -> new TorchBlock(ParticleTypes.FLAME, p);
+            case "torch" -> LotrTorchBlock::new;
+            case "bed" -> LotrBedBlock::new;
             case "carpet" -> CarpetBlock::new;
             case "shaped" -> p -> new ShapedBlock(p, box(e));
             case "faction_table" -> FactionTableBlock::new;
@@ -137,7 +138,7 @@ public final class LotrBlocks {
                     .pushReaction(PushReaction.DESTROY);
             case "plant", "sapling", "torch", "button", "pressure_plate" ->
                     p.noCollission().pushReaction(PushReaction.DESTROY);
-            case "door", "trapdoor" -> p.pushReaction(PushReaction.DESTROY);
+            case "door", "trapdoor", "bed" -> p.pushReaction(PushReaction.DESTROY);
             case "gate" -> p.noOcclusion().isViewBlocking((s, l, pos) -> false);
             default -> { }
         }

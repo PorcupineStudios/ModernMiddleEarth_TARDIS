@@ -58,7 +58,8 @@ def load(name):
 
 # LOTR blocks whose metadata 2-5 says which way the front faces, like a furnace.
 FACING_CLASSES = {"LOTRBlockForgeBase", "LOTRBlockHobbitOven", "LOTRBlockBarrel", "LOTRBlockKebabStand",
-                  "LOTRBlockChest", "LOTRBlockMillstone"}
+                  "LOTRBlockChest", "LOTRBlockMillstone", "LOTRBlockDartTrap", "LOTRBlockSignCarved",
+                  "LOTRBlockSpawnerChest", "LOTRBlockUnsmeltery"}
 
 
 # LOTR's melee weapon families, most specific first (a pike is a long polearm is a polearm is a sword).
@@ -414,6 +415,8 @@ class Gen:
             return "gate"
         if "LOTRBlockSaplingBase" in c.split():
             return "sapling"
+        if "BlockBed" in c.split():
+            return "bed"
         for cls, k in (("BlockStairs", "stairs"), ("BlockSlab", "slab"), ("BlockWall", "wall"),
                        ("LOTRBlockFenceGate", "fence_gate"), ("BlockFence", "fence"), ("BlockPane", "pane"),
                        ("BlockDoor", "door"), ("BlockTrapDoor", "trapdoor"), ("BlockLadder", "ladder"),
@@ -485,6 +488,13 @@ class Gen:
                 e["collision"] = False
         if kind == "door":
             e["item"] = "double_high"
+        if kind == "bed":
+            # LOTR's bed item (lotr:item.strawBed) places this block; it becomes the port item's block
+            drop = next((d for d in b.get("drops") or [] if d.get("item")), None)
+            item = drop and self.idtable.get(f"{drop['item']}#0")
+            for it in self.items:
+                if item and it["id"] == item.split(":", 1)[1]:
+                    it["places"] = new
         if kind in ("cube", "shaped") and FACING_CLASSES & {x.split(".")[-1] for x in b["classes"]}:
             e["facing"] = True  # furnace-like: metadata 2-5 is the way the front faces
         if kind == "faction_table":
@@ -493,6 +503,8 @@ class Gen:
             e["item"] = "none"  # never obtainable as a block in 1.7.10 either
             self.hidden.add(new)
         self.blocks.append(e)
+        self.kind_of_block = getattr(self, "kind_of_block", {})
+        self.kind_of_block[new] = kind
         self.unloc[new] = (unloc or "") + ".name"
         self.lang["en_us"][f"block.{NS}.{new}"] = name
 
@@ -656,9 +668,19 @@ class Gen:
             self.bs(new, {"variants": {"": {"model": m}}})
             self.item_model(new, layer=item_icon)
         elif kind == "torch":
+            # LOTR's torches stand or hang on walls (metadata 1-4, as vanilla's 1.7.10 torch): one block with a
+            # facing, up for standing (content/LotrTorchBlock)
             m = self.bm(new, "minecraft:block/template_torch", {"torch": side}, {"render_type": CUTOUT})
-            self.bs(new, {"variants": {"": {"model": m}}})
+            w = self.bm(new + "_wall", "minecraft:block/template_torch_wall", {"torch": side}, {"render_type": CUTOUT})
+            var = {"facing=up": {"model": m}}
+            for f, y in (("east", 0), ("south", 90), ("west", 180), ("north", 270)):
+                var[f"facing={f}"] = {"model": w, "y": y} if y else {"model": w}
+            self.bs(new, {"variants": var})
             self.item_model(new, layer=item_icon)
+        elif kind == "bed":
+            heads = [self.tex.block(i.replace("_feet_", "_head_")) if i and "_feet_" in i else None
+                     for i in v.get("icons") or []]
+            self.bed(new, icons, [h or f for h, f in zip(heads, icons)] if len(heads) == 6 else icons)
         elif kind == "button":
             t = {"texture": side}
             m = self.bm(new, "minecraft:block/button", t)
@@ -736,6 +758,33 @@ class Gen:
                        {"down": down, "up": up, "north": north, "south": south, "west": west, "east": east,
                         "particle": north},
                        {"render_type": CUTOUT, "elements": [{"from": bb[:3], "to": bb[3:], "faces": faces}]})
+
+    def bed(self, new, icons, head_icons):
+        """LOTR's beds as 1.7.10 drew them: a 9/16 high block per half, top, end and sides from its icons (the
+        export lists the foot's; the head's are the same names with _head_). Facing points from foot to head."""
+        down, top, end, _, side, _ = icons
+        _, h_top, h_end, _, h_side, _ = head_icons
+        models = {}
+        for part, (t, e, sd) in (("foot", (top, end, side)), ("head", (h_top, h_end, h_side))):
+            # drawn for facing=north: the head is north, so the foot's end shows south and the head's north
+            end_face = "south" if part == "foot" else "north"
+            faces = {"down": {"texture": "#bottom", "uv": [0, 0, 16, 16]},
+                     "up": {"texture": "#top", "uv": [0, 0, 16, 16], "rotation": 180 if part == "foot" else 0},
+                     "east": {"texture": "#side", "uv": [0, 7, 16, 16]},
+                     "west": {"texture": "#side", "uv": [16, 7, 0, 16]},
+                     end_face: {"texture": "#end", "uv": [0, 7, 16, 16]}}
+            models[part] = self.bm(f"{new}_{part}", "minecraft:block/block",
+                                   {"top": t, "end": e, "side": sd, "bottom": down, "particle": sd},
+                                   {"render_type": CUTOUT, "elements": [{"from": [0, 0, 0], "to": [16, 9, 16],
+                                                                         "faces": faces}]})
+        var = {}
+        for f, y in (("north", 0), ("east", 90), ("south", 180), ("west", 270)):
+            for part in ("foot", "head"):
+                for occ in ("false", "true"):
+                    var[f"facing={f},occupied={occ},part={part}"] = {"model": models[part], "y": y} if y \
+                        else {"model": models[part]}
+        self.bs(new, {"variants": var})
+        self.item_model(new, models["foot"])
 
     def stairs(self, new, t):
         s = self.bm(new, "minecraft:block/stairs", t)
@@ -853,7 +902,10 @@ class Gen:
                                    "count": lo if lo == hi else {"type": "minecraft:uniform", "min": lo, "max": hi}}]
         write_json(os.path.join(DATA, NS, "loot_table", "blocks", new + ".json"),
                    {"type": "minecraft:block", "pools": [{"rolls": 1, "entries": [entry],
-                    "conditions": [{"condition": "minecraft:survives_explosion"}]}]})
+                    "conditions": [{"condition": "minecraft:survives_explosion"}] + (
+                        # a bed drops once, from its head half (as vanilla's beds)
+                        [{"condition": "minecraft:block_state_property", "block": f"{NS}:{new}",
+                          "properties": {"part": "head"}}] if self.kind_of_block.get(new) == "bed" else [])}]})
         self.report["placed_blocks_with_loot"].append(f"{new} -> {ing['item']}")
 
     SELF_DROPS = {"mug_block": f"{NS}:mug", "ceramic_mug_block": f"{NS}:ceramic_mug",

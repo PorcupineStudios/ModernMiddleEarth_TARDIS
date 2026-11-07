@@ -114,9 +114,12 @@ public final class LotrItems {
             }
             case "red_book" -> new RedBookItem(p);
             case "drink" -> new LotrDrinkItem(p, e.getAsJsonObject("drink"));
+            default -> e.has("places")
+                    // LOTR's bed items place their bed block (both halves, as vanilla's BedItem)
+                    ? new net.minecraft.world.item.BedItem(LotrBlocks.BY_ID.get(e.get("places").getAsString()).get(), p)
+                    : new Item(p);
             case "horn", "pipe", "vessel" -> new LotrUseItem(kind.equals("vessel") ? p : p.stacksTo(1), kind,
                     ContentData.str(e, "fills", null));
-            default -> new Item(p);
         };
     }
 
