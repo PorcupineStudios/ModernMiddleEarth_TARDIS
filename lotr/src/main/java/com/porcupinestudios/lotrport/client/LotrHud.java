@@ -185,7 +185,8 @@ public final class LotrHud {
 
     private static void renderAlignment(GuiGraphics g, DeltaTracker delta) {
         Minecraft mc = Minecraft.getInstance();
-        if (mc.options.hideGui || mc.player == null || !inMiddleEarth(mc)) {
+        // outside Middle-earth (the TARDIS, the overworld) the bar shows while a faction NPC is near
+        if (mc.options.hideGui || mc.player == null || !inMiddleEarth(mc) && !bar.nearNpc()) {
             return;
         }
         // one vanilla boss bar ends at 31; LOTR moved the bar down 20 for it
@@ -213,6 +214,7 @@ public final class LotrHud {
         float markerX = x - 8 + (progress - 0.5f) * 2f * MARKER_RANGE / 2f;
         blitAt(g, ALIGNMENT, markerX, y + BAR_HEIGHT / 2f - 8, 16 * (flashTick / 3), bar.pledged() ? 212 : 36,
                 16, 16);
+        renderReach(g, x, y);
 
         if (!full) {
             return;
@@ -244,6 +246,21 @@ public final class LotrHud {
             alpha = 1f;
         }
         borderedText(g, font, value, textX - font.width(value) / 2, textY + font.lineHeight + 3, alpha);
+    }
+
+    /**
+     * LOTR's control-zone arrows either side of the bar: gold inside one of the faction's control zones, pale near one
+     * of its people outside them (kills count in both), none when out of its reach (kills don't change alignment).
+     */
+    private static void renderReach(GuiGraphics g, float x, float y) {
+        int reach = bar.reach();
+        if (reach == 0) {
+            return;
+        }
+        int v = reach == 2 ? 60 : 76;
+        float ay = y + BAR_HEIGHT / 2f - 6;
+        blitAt(g, ALIGNMENT, x - BAR_WIDTH / 2f - 14, ay, 0, v, 14, 12);
+        blitAt(g, ALIGNMENT, x + BAR_WIDTH / 2f, ay, 14, v, 14, 12);
     }
 
     /** The span the bar shows (LOTR's renderAlignmentBar): between this rank and the next, or tenfold bands. */

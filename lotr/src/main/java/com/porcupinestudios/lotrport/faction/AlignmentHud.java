@@ -77,8 +77,11 @@ public final class AlignmentHud {
         float alignment = f.fixedAlignment().orElse(data.alignment(f.id()));
         List<HudNet.Rank> ranks = f.ranks().stream()
                 .map(r -> new HudNet.Rank(r.alignment(), f.rankName(r))).toList();
+        boolean nearNpc = FactionInfluence.settings().showBarNearNpcs()
+                && FactionInfluence.nearestFaction(player).isPresent();
         return new HudNet.AlignmentBar(f.id().toString(), f.name(), f.color(), alignment,
-                data.pledge().filter(f.id()::equals).isPresent(), ranks);
+                HudNet.AlignmentBar.flags(data.pledge().filter(f.id()::equals).isPresent(),
+                        FactionInfluence.reach(player, f.id()).ordinal(), nearNpc), ranks);
     }
 
     /** The faction the player watches: their choice, else the pledge, else the strongest standing, else Hobbits. */
@@ -89,6 +92,15 @@ public final class AlignmentHud {
             Optional<Faction> f = Factions.get(server, chosen);
             if (f.isPresent()) {
                 return f;
+            }
+        }
+        // away from Middle-earth, the people you're standing with are the ones you see
+        var me = com.porcupinestudios.lotrport.world.LotrDimensions.middleEarth(server);
+        if (player.level() != me) {
+            Optional<Faction> near = FactionInfluence.nearestFaction(player).flatMap(id -> Factions.get(server, id))
+                    .filter(Faction::playable);
+            if (near.isPresent()) {
+                return near;
             }
         }
         PlayerLotrData data = player.getData(LotrRegistries.PLAYER_DATA);
