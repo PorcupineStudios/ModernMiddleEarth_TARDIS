@@ -17,6 +17,11 @@ public final class LotrClientGame {
     @SubscribeEvent
     public static void tick(ClientTickEvent.Post event) {
         Minecraft mc = Minecraft.getInstance();
+        while (LotrClient.JUKEBOX_KEY.consumeClick()) {
+            if (mc.player != null && mc.screen == null) {
+                mc.setScreen(new JukeboxScreen());
+            }
+        }
         while (LotrClient.MAP_KEY.consumeClick()) {
             if (mc.player != null && mc.screen == null) {
                 PacketDistributor.sendToServer(new MapNet.OpenMap());

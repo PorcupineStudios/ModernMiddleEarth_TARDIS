@@ -69,6 +69,13 @@ public final class LotrMusic {
             "music/playlists.json");
     private static final Map<String, String> BIOMES = new HashMap<>();
     private static final Map<String, List<ResourceLocation>> PLAYLISTS = new HashMap<>();
+    private static final ResourceLocation TRACKS_FILE = ResourceLocation.fromNamespaceAndPath("lotr_port",
+            "music/tracks.json");
+    /** Title and album per track event (assets/<ns>/music/tracks.json, written by music_pack.py). */
+    private static final Map<ResourceLocation, String[]> TRACKS = new HashMap<>();
+    /** Tracks the player took out of the shuffle on the jukebox screen; saved in config/lotr_port_jukebox.json. */
+    private static final java.util.Set<ResourceLocation> DISABLED = new java.util.TreeSet<>();
+    private static boolean disabledLoaded;
     private static JsonObject transition = new JsonObject();
     private static final RandomSource RANDOM = RandomSource.create();
 
@@ -116,6 +123,22 @@ public final class LotrMusic {
     }
 
     private static void load(ResourceManager rm) {
+        TRACKS.clear();
+        for (Resource r : rm.getResourceStack(TRACKS_FILE)) {
+            try (Reader in = r.openAsReader()) {
+                for (var e : JsonParser.parseReader(in).getAsJsonObject().entrySet()) {
+                    ResourceLocation id = ResourceLocation.tryParse(e.getKey());
+                    JsonObject t = e.getValue().getAsJsonObject();
+                    if (id != null) {
+                        TRACKS.put(id, new String[] { t.has("title") ? t.get("title").getAsString() : "",
+                                t.has("album") ? t.get("album").getAsString() : "" });
+                    }
+                }
+            } catch (Exception e) {
+                LogUtils.getLogger().warn("Bad music track file in pack {}", r.sourcePackId(), e);
+            }
+        }
+        loadDisabled();
         BIOMES.clear();
         PLAYLISTS.clear();
         transition = new JsonObject();
@@ -449,6 +472,7 @@ public final class LotrMusic {
      */
     private static void refill(ResourceLocation exclude, ResourceLocation notFirst) {
         List<ResourceLocation> list = new ArrayList<>(PLAYLISTS.get(playlist));
+        list.removeAll(DISABLED);
         Collections.shuffle(list, new java.util.Random(RANDOM.nextLong()));
         if (exclude != null && list.size() > 1) {
             list.remove(exclude);
@@ -493,6 +517,172 @@ public final class LotrMusic {
         playing = new Track(id, transition.has("volume") ? transition.get("volume").getAsFloat() : 1f);
         playing.fadeTo(1f, fadeIn());
         mc.getSoundManager().play(playing);
+        announce(mc, id);
+    }
+
+    // ------------------------------------------------------------------ jukebox
+
+    /** The jukebox line above the hotbar, as a record in a jukebox shows: title and album. */
+    private static void announce(Minecraft mc, ResourceLocation id) {
+        if (num("announce", 1) == 0) {
+            return;
+        }
+        mc.gui.setNowPlaying(net.minecraft.network.chat.Component.literal(describe(id)));
+    }
+
+    /** "Title — Album" (or the event id when the pack gives no title). */
+    public static String describe(ResourceLocation id) {
+        String[] t = TRACKS.get(id);
+        if (t == null || t[0].isEmpty()) {
+            return id.getPath().replace("music.track.", "").replace('_', ' ');
+        }
+        return t[1].isEmpty() ? t[0] : t[0] + " \u2014 " + t[1];
+    }
+
+    public static String title(ResourceLocation id) {
+        String[] t = TRACKS.get(id);
+        return t == null || t[0].isEmpty() ? id.getPath().replace("music.track.", "").replace('_', ' ') : t[0];
+    }
+
+    public static String album(ResourceLocation id) {
+        String[] t = TRACKS.get(id);
+        return t == null ? "" : t[1];
+    }
+
+    public static ResourceLocation nowPlaying() {
+        return playing == null ? null : playing.event;
+    }
+
+    /** The list playing now ("shire/calm", "road/fight"...), or null. */
+    public static String currentList() {
+        return playlist;
+    }
+
+    /**
+     * Every list that can play where the player stands, in the order they're tried: for the current place (if any)
+     * the land's own, then Middle-earth's, then the land's lists; each in calm, suspense, fight.
+     */
+    public static java.util.LinkedHashMap<String, List<ResourceLocation>> eligible(Minecraft mc) {
+        var out = new java.util.LinkedHashMap<String, List<ResourceLocation>>();
+        String r = region(mc);
+        if (r == null) {
+            return out;
+        }
+        List<String> lists = place.isEmpty() ? List.of(r) : List.of(r + "_" + place, place, r);
+        for (String list : lists) {
+            for (Mood m : Mood.values()) {
+                List<ResourceLocation> ids = PLAYLISTS.get(list + "/" + m.id);
+                if (ids != null && !ids.isEmpty()) {
+                    out.put(list + "/" + m.id, ids);
+                }
+            }
+        }
+        return out;
+    }
+
+    public static String region() {
+        return region(Minecraft.getInstance());
+    }
+
+    public static String place() {
+        return place;
+    }
+
+    public static String mood() {
+        return mood.id;
+    }
+
+    public static boolean enabled(ResourceLocation id) {
+        return !DISABLED.contains(id);
+    }
+
+    /** Puts a track in or out of every shuffle and saves the choice. Taking out the playing track skips it. */
+    public static void setEnabled(ResourceLocation id, boolean on) {
+        if (on ? DISABLED.remove(id) : DISABLED.add(id)) {
+            queue.remove(id);
+            saveDisabled();
+            if (!on && playing != null && playing.event.equals(id)) {
+                skip();
+            }
+        }
+    }
+
+    /** Fades the current track out; the next one in the shuffle follows after a short pause. */
+    public static void skip() {
+        if (playing != null) {
+            playing.fadeTo(0f, num("skip_fade_ticks", 30));
+            outgoing.add(playing);
+            playing = null;
+            silence = num("skip_gap_ticks", 20);
+        }
+    }
+
+    /** Plays this track now (fading out the current one), whatever the shuffle had next. */
+    public static void playNow(ResourceLocation id) {
+        Minecraft mc = Minecraft.getInstance();
+        skip();
+        queue.remove(id);
+        queue.addFirst(id);
+        silence = num("skip_gap_ticks", 20);
+        if (playlist == null) {
+            String here = here(mc);
+            if (here != null) {
+                playlist = here;
+            }
+        }
+    }
+
+    private static java.nio.file.Path disabledFile() {
+        return net.neoforged.fml.loading.FMLPaths.CONFIGDIR.get().resolve("lotr_port_jukebox.json");
+    }
+
+    private static void loadDisabled() {
+        if (disabledLoaded) {
+            return;
+        }
+        disabledLoaded = true;
+        try {
+            var f = disabledFile();
+            if (java.nio.file.Files.exists(f)) {
+                JsonObject o = JsonParser.parseString(java.nio.file.Files.readString(f)).getAsJsonObject();
+                for (JsonElement e : o.getAsJsonArray("disabled")) {
+                    ResourceLocation id = ResourceLocation.tryParse(e.isJsonObject()
+                            ? e.getAsJsonObject().get("id").getAsString() : e.getAsString());
+                    if (id != null) {
+                        DISABLED.add(id);
+                    }
+                }
+            }
+        } catch (Exception e) {
+            LogUtils.getLogger().warn("Could not read the jukebox's saved choices", e);
+        }
+    }
+
+    /** Saved readable: each removed track with its title and album, so the file doubles as a to-change list. */
+    private static void saveDisabled() {
+        JsonObject o = new JsonObject();
+        com.google.gson.JsonArray a = new com.google.gson.JsonArray();
+        for (ResourceLocation id : DISABLED) {
+            JsonObject t = new JsonObject();
+            t.addProperty("id", id.toString());
+            t.addProperty("title", title(id));
+            t.addProperty("album", album(id));
+            com.google.gson.JsonArray in = new com.google.gson.JsonArray();
+            PLAYLISTS.forEach((list, ids) -> {
+                if (ids.contains(id)) {
+                    in.add(list);
+                }
+            });
+            t.add("lists", in);
+            a.add(t);
+        }
+        o.add("disabled", a);
+        try {
+            java.nio.file.Files.writeString(disabledFile(),
+                    new com.google.gson.GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create().toJson(o));
+        } catch (java.io.IOException e) {
+            LogUtils.getLogger().warn("Could not save the jukebox's choices", e);
+        }
     }
 
     /** Vanilla's music stays quiet in Middle-earth while a playlist has tracks. */
