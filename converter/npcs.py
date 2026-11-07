@@ -86,6 +86,10 @@ class Npcs:
         textures = render.get("textures") or {}
         words = [w.lower() for w in re.findall(r"[A-Z][a-z]+", e["name"].removeprefix("lotr."))]
         best, best_score = None, -1
+        if not any(isinstance(t, dict) for t in textures.values()):
+            # only single texture files (lotr:mob/crocodile.png): the renderer's main one
+            textures = {f: {"path": t[:-4]} for f, t in textures.items() if isinstance(t, str)
+                        and t.startswith("lotr:") and t.endswith(".png") and "saddle" not in f.lower()}
         for field, tex in textures.items():
             if not isinstance(tex, dict) or any(n in field.lower() for n in NOT_SKINS):
                 continue
@@ -98,6 +102,8 @@ class Npcs:
         folder = "assets/lotr/" + best["path"].split(":", 1)[1] + "/"
         files = sorted(n for n in self.jar.names if n.startswith(folder) and n.endswith(".png")
                        and "/" not in n[len(folder):])
+        if not files and self.jar.has(folder[:-1] + ".png"):
+            files = [folder[:-1] + ".png"]  # one texture, not a folder of them (mob/crocodile.png)
         sizes = {f: image_size(self.jar.read(f)) for f in files}
         usable = [f for f in files if (sizes[f] == tuple(want) if want else sizes[f] in ((64, 32), (64, 64)))
                   and not any(n in f.rsplit("/", 1)[1].lower() for n in NOT_SKINS)]

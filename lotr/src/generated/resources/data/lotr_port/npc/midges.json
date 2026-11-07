@@ -1,4 +1,7 @@
 {
+  "skins": [
+    "lotr_port:textures/entity/midge.png"
+  ],
   "model": "lotr_port:midge",
   "width": 2.0,
   "height": 2.0,

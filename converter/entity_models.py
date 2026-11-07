@@ -14,6 +14,7 @@ The model's animation and drawing are LOTR's own (model_anim.py: setRotationAngl
 transforms), and "pre" holds its renderer's preRenderCallback transforms (troll and spider size, the Balrog's 2x
 and charge lean, wraith fading). "inputs" lists the entity values they read, which LotrNpc's behaviours provide.
 """
+import collections
 import os
 
 from armor_models import BIPED_PARTS, Machine, Renderer, r as rnd
@@ -93,7 +94,25 @@ class EntityModels:
             self.done[name] = None
             return None
         hidden = sorted(n for n in roots if any(w in n for w in HIDDEN_WORDS))
-        out = {"texture": [this.fields.get("field_78090_t", 64), this.fields.get("field_78089_u", 32)],
+        tex = [this.fields.get("field_78090_t", 64), this.fields.get("field_78089_u", 32)]
+        if tex == [64, 32]:
+            # LOTR's models often set the size on each part (ModelRenderer.setTextureSize, e.g. the warg's 128x64)
+            # rather than on the model; ModelBase's own default is 64x32
+            sizes = collections.Counter()
+
+            def count(r):
+                if isinstance(getattr(r, "tex", None), list):
+                    sizes[tuple(r.tex)] += 1
+                for c in getattr(r, "children", []):
+                    count(c)
+            for v in this.fields.values():
+                if isinstance(v, Renderer):
+                    count(v)
+            # parts that never set a size keep the model's default, so a size someone set wins
+            set_sizes = [(k, n) for k, n in sizes.most_common() if k != (64, 32)]
+            part = set_sizes[0][0] if set_sizes else (64, 32)
+            tex = list(part)
+        out = {"texture": tex,
                "render_scale": 1.0, "parts": roots, "hidden": hidden, "renderers": []}
         exporter = AnimExporter(self.jar, constants(this.fields))
         self.names_by_model[name] = names

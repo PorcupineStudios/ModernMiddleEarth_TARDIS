@@ -1,4 +1,8 @@
 {
+  "skins": [
+    "lotr_port:textures/entity/lion/lion.png"
+  ],
+  "skin_height": 64,
   "model": "lotr_port:lion",
   "width": 1.4,
   "height": 1.6,

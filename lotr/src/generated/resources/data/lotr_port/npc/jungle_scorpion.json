@@ -1,4 +1,7 @@
 {
+  "skins": [
+    "lotr_port:textures/entity/scorpion/jungle.png"
+  ],
   "model": "lotr_port:scorpion",
   "width": 1.2,
   "height": 0.9,

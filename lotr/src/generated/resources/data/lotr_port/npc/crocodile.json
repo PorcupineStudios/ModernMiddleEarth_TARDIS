@@ -1,4 +1,8 @@
 {
+  "skins": [
+    "lotr_port:textures/entity/crocodile.png"
+  ],
+  "skin_height": 128,
   "model": "lotr_port:crocodile",
   "width": 2.1,
   "height": 0.7,
