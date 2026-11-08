@@ -13,6 +13,7 @@ import com.porcupinestudios.tardisrb.progression.Destination;
 import com.porcupinestudios.tardisrb.progression.TardisContent;
 import com.porcupinestudios.tardisrb.progression.Tuning;
 import com.porcupinestudios.tardisrb.progression.Unlocks;
+import com.porcupinestudios.tardisrb.repair.Repairs;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -20,8 +21,11 @@ import java.util.Optional;
 import java.util.TreeMap;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.GlobalPos;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
@@ -46,6 +50,9 @@ import net.minecraft.world.phys.Vec3;
  * <li>{@code time0}..: one digit (0-9) of the target time each; {@code time_unit}: what the digits count (minutes,
  * hours...: tuning {@code console.time}); {@code time_from}: off = that long ago, on = that long after the beginning
  * of time. Stored and shown only until time travel is built.</li>
+ * <li>{@code fast_return}: arms (or disarms) going back: the next take-off returns to where the TARDIS last took off
+ * from. {@code schema_prev} / {@code schema_next}: page through the rooms that can be added; {@code add_room} builds
+ * the picked one (paid like the repair screen); {@code schema_info} says whether it can be added now.</li>
  * <li>{@code jump}: takes off for the set coordinates: a hop in this dimension or a jump to the picked one.</li>
  * <li>{@code screen} says where the TARDIS is; {@code door} opens or shuts the doors; {@code none} only moves.</li>
  * <li>Older ones still load: {@code x}/{@code y}/{@code z}, {@code x_up}..{@code z_down}, {@code step},
@@ -59,8 +66,9 @@ import net.minecraft.world.phys.Vec3;
 public final class ConsoleControls {
     /** Actions with no slot number. */
     public static final List<String> ACTIONS = List.of("screen", "relative", "land", "save", "memory", "facing",
-            "destination", "random", "jump", "handbrake", "door", "none", "time_from", "time_unit", "x", "y", "z",
-            "x_up", "x_down", "y_up", "y_down", "z_up", "z_down", "step", "reset", "hop");
+            "destination", "random", "jump", "handbrake", "door", "none", "time_from", "time_unit", "fast_return",
+            "schema_prev", "schema_next", "add_room", "schema_info", "x", "y", "z", "x_up", "x_down", "y_up", "y_down",
+            "z_up", "z_down", "step", "reset", "hop");
     /** What gauges can show ({@link #values}). */
     public static final List<String> VALUES = List.of("charge", "rooms");
 
@@ -300,6 +308,42 @@ public final class ConsoleControls {
                 return Component.translatableWithFallback("tardis_rb.console.random", "Coordinates set at random: %s %s",
                         signed(axisValue(console, 'x')), signed(axisValue(console, 'z')));
             }
+            case "fast_return" -> {
+                if (lastSpot(tardis).isEmpty()) {
+                    console.setState("fast_return", 0);
+                    return Component.translatableWithFallback("tardis_rb.console.no_return",
+                            "The TARDIS hasn't flown anywhere to go back from yet");
+                }
+                console.setState("fast_return", console.state("fast_return") == 0 ? 1 : 0);
+                return console.state("fast_return") != 0
+                        ? Component.translatableWithFallback("tardis_rb.console.return_on",
+                                "Fast return set: the next take-off goes back to %s", spotText(lastSpot(tardis).get()))
+                        : Component.translatableWithFallback("tardis_rb.console.return_off", "Fast return off");
+            }
+            case "schema_prev", "schema_next" -> {
+                List<ResourceLocation> rooms = schemas();
+                if (rooms.isEmpty()) {
+                    return Component.translatableWithFallback("tardis_rb.console.no_schemas", "No room plans");
+                }
+                int by = (action.equals("schema_next") ? 1 : -1) * dir;
+                console.setState("schema", Math.floorMod(console.state("schema") + by, rooms.size()));
+                return Component.translatableWithFallback("tardis_rb.console.schema", "Room plan: %s",
+                        roomName(rooms.get(console.state("schema"))));
+            }
+            case "schema_info", "add_room" -> {
+                Optional<ResourceLocation> room = schema(console);
+                if (room.isEmpty()) {
+                    return Component.translatableWithFallback("tardis_rb.console.no_schemas", "No room plans");
+                }
+                if (action.equals("schema_info")) {
+                    return Rooms.blocked(server, tardis, room.get(), player).orElse(Component
+                            .translatableWithFallback("tardis_rb.console.schema_ok", "%s can be added",
+                                    roomName(room.get())));
+                }
+                Repairs.Outcome added = Rooms.add(server, tardis, room.get(), player);
+                return added.problem().orElse(Component.translatableWithFallback("tardis_rb.console.room_added",
+                        "%s added", roomName(room.get())));
+            }
             case "time_unit" -> {
                 int units = Math.max(1, TardisContent.tuning().console().time().units().size());
                 console.setState("time_unit", Math.floorMod(console.state("time_unit") + dir, units));
@@ -400,7 +444,16 @@ public final class ConsoleControls {
         if (tardis.location().isEmpty()) {
             return Flight.Outcome.fail("tardis_rb.hop.nowhere", "The TARDIS isn't standing anywhere");
         }
-        BlockPos here = tardis.location().get().pos();
+        GlobalPos from = tardis.location().get();
+        if (console.state("fast_return") != 0 && lastSpot(tardis).isPresent()) {
+            Flight.Outcome back = goBack(server, tardis, lastSpot(tardis).get(), console, player);
+            if (back.done()) {
+                console.setState("fast_return", 0);
+                remember(tardis, from);
+            }
+            return back;
+        }
+        BlockPos here = from.pos();
         BlockPos target = target(console, here);
         Optional<Direction> facing = console.hasState("facing")
                 ? Optional.of(Direction.from2DDataValue(console.state("facing"))) : Optional.empty();
@@ -414,8 +467,77 @@ public final class ConsoleControls {
             target = new BlockPos(target.getX(), level.getHeight(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
                     target.getX(), target.getZ()), target.getZ());
         }
-        return sameWorld ? Flight.hop(server, tardis, target, facing, player)
+        Flight.Outcome out = sameWorld ? Flight.hop(server, tardis, target, facing, player)
                 : Flight.jump(server, tardis, to.get(), Optional.of(target), facing, player);
+        if (out.done()) {
+            remember(tardis, from);
+        }
+        return out;
+    }
+
+    /** Flies back to {@code spot}: a hop in the same dimension, else a jump through an open destination there. */
+    private static Flight.Outcome goBack(MinecraftServer server, TardisRecord tardis, GlobalPos spot,
+            ConsoleBlockEntity console, Optional<ServerPlayer> player) {
+        Optional<Direction> facing = console.hasState("facing")
+                ? Optional.of(Direction.from2DDataValue(console.state("facing"))) : Optional.empty();
+        if (spot.dimension().equals(tardis.location().get().dimension())) {
+            return Flight.hop(server, tardis, spot.pos(), facing, player);
+        }
+        for (ResourceLocation id : Destinations.open(server, tardis, player)) {
+            if (TardisContent.destination(id).map(d -> d.dimension().equals(spot.dimension())).orElse(false)) {
+                return Flight.jump(server, tardis, id, Optional.of(spot.pos()), facing, player);
+            }
+        }
+        return Flight.Outcome.fail("tardis_rb.console.return_closed", "The way back to %s isn't open",
+                spot.dimension().location().toString());
+    }
+
+    /** Where the TARDIS last took off from by the console (for fast return), if anywhere. */
+    public static Optional<GlobalPos> lastSpot(TardisRecord tardis) {
+        CompoundTag tag = tardis.moduleData("console");
+        if (!tag.contains("last_dimension")) {
+            return Optional.empty();
+        }
+        ResourceLocation dim = ResourceLocation.tryParse(tag.getString("last_dimension"));
+        return dim == null ? Optional.empty()
+                : Optional.of(GlobalPos.of(ResourceKey.create(Registries.DIMENSION,
+                        dim), BlockPos.of(tag.getLong("last_pos"))));
+    }
+
+    private static void remember(TardisRecord tardis, GlobalPos from) {
+        CompoundTag tag = tardis.moduleData("console");
+        tag.putString("last_dimension", from.dimension().location().toString());
+        tag.putLong("last_pos", from.pos().asLong());
+        tardis.setModuleData("console", tag);
+    }
+
+    private static String spotText(GlobalPos spot) {
+        return spot.pos().getX() + " " + spot.pos().getY() + " " + spot.pos().getZ() + " in "
+                + spot.dimension().location().getPath();
+    }
+
+    /** The rooms the schema chooser pages through, in id order. */
+    public static List<ResourceLocation> schemas() {
+        return List.copyOf(new TreeMap<>(TardisContent.get().rooms()).keySet());
+    }
+
+    /** The room the schema chooser shows now. */
+    public static Optional<ResourceLocation> schema(ConsoleBlockEntity console) {
+        List<ResourceLocation> rooms = schemas();
+        return rooms.isEmpty() ? Optional.empty()
+                : Optional.of(rooms.get(Math.floorMod(console.state("schema"), rooms.size())));
+    }
+
+    /** The schema chooser's room in words, with whether it can be added now. */
+    public static String schemaText(MinecraftServer server, TardisRecord tardis, ConsoleBlockEntity console) {
+        return schema(console).map(r -> "Plan: " + roomName(r).getString()
+                + (Rooms.blocked(server, tardis, r, Optional.empty()).isEmpty() ? " (can add)" : ""))
+                .orElse("No room plans");
+    }
+
+    private static Component roomName(ResourceLocation id) {
+        return Component.translatableWithFallback("tardis_rb.room_name." + id.getNamespace() + "." + id.getPath(),
+                id.getPath());
     }
 
     /** Turns one coordinate slot up ({@code dir} 1) or down (-1) within its range, or round if it cycles. */
@@ -485,6 +607,9 @@ public final class ConsoleControls {
                 out.add(pick.map(d -> "Target " + name(d).getString() + "[" + TardisContent.destination(d)
                         .map(x -> x.dimension().location()).orElse(d) + "]").orElse("No other dimensions"));
                 out.add("Target time: " + timeText(console));
+                if (console.state("fast_return") != 0) {
+                    out.add(lastSpot(tardis).map(g -> "Fast return to " + spotText(g)).orElse("Fast return: nowhere"));
+                }
                 out.add("Now in " + tardis.location().map(g -> g.dimension().location().toString()).orElse("-"));
             }
             case 3 -> {
@@ -507,6 +632,7 @@ public final class ConsoleControls {
             default -> {
                 out.add("ROOMS");
                 out.add("Rooms " + tardis.roomCount() + "/" + Rooms.cap(tardis));
+                out.add(schemaText(server, tardis, console));
                 out.add("Crew " + (tardis.crew().size() + (tardis.owner().isPresent() ? 1 : 0)));
                 out.add("Doors " + (Doors.isOpen(tardis) ? "open" : "shut"));
                 out.add("Stage " + tardis.stage().map(ResourceLocation::getPath).orElse("-"));
