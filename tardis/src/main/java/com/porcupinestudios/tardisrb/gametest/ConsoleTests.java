@@ -49,7 +49,7 @@ public final class ConsoleTests {
                 "navigation repair");
         List<ConsoleBlockEntity.Shown> shown = ConsoleControls.shown(server, t);
         for (String id : List.of("x_lever_1", "x_wheel_1", "z_lever_5", "y_lever_4", "demat_lever", "handbrake",
-                "memory_bank")) {
+                "memory_bank", "time_drums", "time_lever", "time_unit_dial")) {
             helper.assertTrue(find(shown, id).isPresent(), id + " did not appear after the navigation repair");
         }
         helper.assertTrue(find(shown, "dimension_dial").isEmpty(),
@@ -78,7 +78,25 @@ public final class ConsoleTests {
         // each side has its own readout: turned to the door side (+z), the monitor shows the X coordinates
         console.setMonitorAngle(90);
         List<String> xSide = ConsoleControls.readout(server, t, console);
-        helper.assertTrue(xSide.contains("Set X +10"), "the monitor over side 0 shows " + xSide);
+        helper.assertTrue(xSide.contains("Target X " + (from.getX() + 10)), "the monitor over side 0 shows " + xSide);
+
+        // target time: the drums read 012 (minutes), ago; the time lever counts from the beginning instead
+        ConsoleBlockEntity.Shown drums = find(shown, "time_drums").get();
+        ConsoleControls.use(server, t, console, drums, "drum_2", Optional.empty());
+        ConsoleControls.use(server, t, console, drums, "drum_3", Optional.empty());
+        ConsoleControls.use(server, t, console, drums, "drum_3", Optional.empty());
+        console.setMonitorAngle(-30);
+        List<String> timeSide = ConsoleControls.readout(server, t, console);
+        helper.assertTrue(timeSide.contains("Target time: 12 minutes ago"),
+                "the monitor over side 2 shows " + timeSide);
+        helper.assertTrue(ConsoleControls.targetTick(console, 100_000) == 100_000 - 12 * 1200,
+                "12 minutes ago aims at tick " + ConsoleControls.targetTick(console, 100_000));
+        ConsoleControls.use(server, t, console, find(shown, "time_lever").get(), "lever", Optional.empty());
+        timeSide = ConsoleControls.readout(server, t, console);
+        helper.assertTrue(timeSide.contains("Target time: 12 minutes from the beginning of time"),
+                "the time lever didn't switch to from the beginning: " + timeSide);
+        helper.assertTrue(ConsoleControls.targetTick(console, 100_000) == 12 * 1200,
+                "12 minutes from the beginning aims at tick " + ConsoleControls.targetTick(console, 100_000));
         console.setMonitorAngle(Float.NaN);
 
         // memory: save, change, load

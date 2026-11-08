@@ -567,7 +567,7 @@
     "group": "coords",
     "name": "Time Drums",
     "real": "The old time-period selector: rolling drums like a car's odometer.",
-    "does": "Planned: each drum rolls one digit of the year to travel to (time travel isn't built in this port yet).",
+    "does": "Each drum rolls one digit (0-9) of the target time, counted in the unit dial's unit (sneak: back).",
     "actions": [
       {
         "click": "drum_1",
@@ -601,11 +601,24 @@
     "group": "coords",
     "name": "Time Vortex Lever",
     "real": "The time-direction lever on several of the show's consoles (forwards / backwards through time).",
-    "does": "Planned: back = travel to the past, forward = the future (time travel isn't built in this port yet).",
+    "does": "Back: the target time counts back from now (12 minutes ago); forward: from the beginning of time.",
     "actions": [
       {
         "click": "lever",
         "type": "toggle"
+      }
+    ]
+  },
+  {
+    "id": "time_unit_dial",
+    "group": "coords",
+    "name": "Time Unit Dial",
+    "real": "New for this port: picks the unit the time drums count in.",
+    "does": "Turns the pointer to the next unit the time drums count in: minutes, hours, days, years (sneak: back).",
+    "actions": [
+      {
+        "click": "pointer",
+        "type": "steps"
       }
     ]
   }

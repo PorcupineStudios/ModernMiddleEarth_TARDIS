@@ -57,7 +57,7 @@ OUTER = 1.31
 EDGE_Y = 0.812
 SLOPE = 21.6
 # How the monitor stands once raised off its panel: tilted toward upright, lifted and moved in toward the rotor.
-MONITOR = {"tilt": 50, "lift": 0.5, "inward": 0.22}
+MONITOR = {"tilt": 68.4, "lift": 0.65, "inward": 0.22}
 
 
 def write_json(path, data, indent=2):

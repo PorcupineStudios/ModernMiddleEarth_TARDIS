@@ -125,14 +125,37 @@ public record Tuning(CrashSite crashSite, Hop hop, Winder winder, Interior inter
     }
 
     /** The console: {@code steps} are the sizes the step dial picks from for the coordinate buttons. */
-    public record ConsoleTuning(List<Integer> steps, Coordinates coordinates) {
-        static final ConsoleTuning DEFAULT = new ConsoleTuning(List.of(1, 10, 100), Coordinates.DEFAULT);
+    public record ConsoleTuning(List<Integer> steps, Coordinates coordinates, TimeTuning time) {
+        static final ConsoleTuning DEFAULT = new ConsoleTuning(List.of(1, 10, 100), Coordinates.DEFAULT,
+                TimeTuning.DEFAULT);
         static final Codec<ConsoleTuning> CODEC = RecordCodecBuilder.create(i -> i.group(
                 Codec.intRange(1, 1 << 20).listOf().optionalFieldOf("steps", DEFAULT.steps)
                         .forGetter(ConsoleTuning::steps),
                 Coordinates.CODEC.optionalFieldOf("coordinates", Coordinates.DEFAULT)
-                        .forGetter(ConsoleTuning::coordinates))
+                        .forGetter(ConsoleTuning::coordinates),
+                TimeTuning.CODEC.optionalFieldOf("time", TimeTuning.DEFAULT).forGetter(ConsoleTuning::time))
                 .apply(i, ConsoleTuning::new));
+    }
+
+    /** One unit the time controls count in: its name on the monitor and how many game ticks it is. */
+    public record TimeUnit(String name, long ticks) {
+        static final Codec<TimeUnit> CODEC = RecordCodecBuilder.create(i -> i.group(
+                Codec.STRING.fieldOf("name").forGetter(TimeUnit::name),
+                Codec.LONG.fieldOf("ticks").forGetter(TimeUnit::ticks))
+                .apply(i, TimeUnit::new));
+    }
+
+    /**
+     * The target-time controls (Aaron, 2026-11-08: "12 minutes from the beginning of time, or 12 minutes ago"):
+     * {@code digits} number drums (0-9 each, the first is the highest), counted in one of {@code units} (the unit dial).
+     */
+    public record TimeTuning(int digits, List<TimeUnit> units) {
+        static final TimeTuning DEFAULT = new TimeTuning(3, List.of(new TimeUnit("minutes", 1200),
+                new TimeUnit("hours", 72_000), new TimeUnit("days", 24_000), new TimeUnit("years", 8_760_000)));
+        static final Codec<TimeTuning> CODEC = RecordCodecBuilder.create(i -> i.group(
+                Codec.intRange(1, 9).optionalFieldOf("digits", DEFAULT.digits).forGetter(TimeTuning::digits),
+                TimeUnit.CODEC.listOf().optionalFieldOf("units", DEFAULT.units).forGetter(TimeTuning::units))
+                .apply(i, TimeTuning::new));
     }
 
     /**

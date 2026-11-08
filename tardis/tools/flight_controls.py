@@ -603,10 +603,10 @@ def coords(cid, name, real, does):
        box((-1.0, 2.2, -1.0), (1.0, 3.2, 1.0), "steel_dark"))
  .action("knob", "steps", 6, {"knob": {"axis": "y", "step": -45}}, count=8))
 
-# 36. Time drums: three rolling number drums (century, decade, year) in a window
+# 36. Time drums: three rolling number drums in a window (the target time's digits)
 (coords("time_drums", "Time Drums",
         "The old time-period selector: rolling drums like a car's odometer.",
-        "Planned: each drum rolls one digit of the year to travel to (time travel isn't built in this port yet).")
+        "Each drum rolls one digit (0-9) of the target time, counted in the unit dial's unit (sneak: back).")
  .part("base", (0, 0, 0),
        box((-3.4, 0, -2), (3.4, 1, 2), "wood"), box((-3.4, 1, -1.8), (-2.8, 3.6, 1.8), "brass"),
        box((2.8, 1, -1.8), (3.4, 3.6, 1.8), "brass"), box((-2.8, 3.2, -1.8), (2.8, 3.6, 1.8), "brass"))
@@ -632,16 +632,28 @@ def coords(cid, name, real, does):
  .part("lamp", (0, 0, 0), lamp(0, 1.2, "glow_amber", y=0.8, s=0.6))
  .action("bat", "toggle", 3, {"bat": {"axis": "x", "off": 30, "on": -30}}, lit={"lamp": "on"}))
 
-# 38. Time vortex lever: a tall chrome lever with a glass ball (planned: forward or back in time)
+# 38. Time vortex lever: a tall chrome lever with a glass ball (target time: ago or from the beginning)
 (coords("time_lever", "Time Vortex Lever",
         "The time-direction lever on several of the show's consoles (forwards / backwards through time).",
-        "Planned: back = travel to the past, forward = the future (time travel isn't built in this port yet).")
+        "Back: the target time counts back from now (12 minutes ago); forward: from the beginning of time.")
  .part("base", (0, 0, 0),
        box((-1.6, 0, -3), (1.6, 1, 3), "steel_dark"), box((-0.5, 1, -2.6), (0.5, 1.4, 2.6), "black"),
        box((-1.6, 1, -3), (1.6, 1.6, -2.4), "glow_blue"), box((-1.6, 1, 2.4), (1.6, 1.6, 3), "glow_amber"))
  .part("lever", (0, 1.2, 0),
        box((-0.3, 1.2, -0.3), (0.3, 6.5, 0.3), "steel"), box((-1, 6.2, -1), (1, 8, 1), "glass"))
  .action("lever", "toggle", 8, {"lever": {"axis": "x", "off": 35, "on": -35}}))
+
+# 39. Time unit dial: a pointer over four lit marks (minutes, hours, days, years: what the time drums count)
+(coords("time_unit_dial", "Time Unit Dial",
+        "New for this port: picks the unit the time drums count in.",
+        "Turns the pointer to the next unit the time drums count in: minutes, hours, days, years (sneak: back).")
+ .part("base", (0, 0, 0),
+       box((-2.6, 0, -2.6), (2.6, 1, 2.6), "steel_dark"), box((-2.2, 1, -2.2), (2.2, 1.2, 2.2), "black"),
+       box((-0.3, 1, 1.9), (0.3, 1.5, 2.5), "glow_green"), box((-2.5, 1, -0.3), (-1.9, 1.5, 0.3), "glow_blue"),
+       box((-0.3, 1, -2.5), (0.3, 1.5, -1.9), "glow_amber"), box((1.9, 1, -0.3), (2.5, 1.5, 0.3), "glow_red"))
+ .part("pointer", (0, 1.2, 0),
+       box((-1.0, 1.2, -1.0), (1.0, 2.2, 1.0), "brass"), box((-0.25, 1.4, -0.25), (0.25, 2.0, 1.8), "white"))
+ .action("pointer", "steps", 5, {"pointer": {"axis": "y", "step": -90}}, count=4))
 
 # ---------------------------------------------------------------- geometry
 

@@ -64,7 +64,12 @@ ACTIONS = {
     "handbrake": "Handbrake on/off (on: the TARDIS can't take off)",
     "door": "Opens or closes the doors",
     "none": "Moves only (planned)",
+    "time_from": "Target time counts back from now (12 minutes ago) or, flipped, from the beginning of time",
+    "time_unit": "Picks what the time drums count: " + ", ".join(u["name"] for u in TUNING["time"]["units"])
+                 + " (sneak: back)",
 }
+for _k in range(TUNING["time"]["digits"]):
+    ACTIONS[f"time{_k}"] = f"Time digit {_k + 1} of {TUNING['time']['digits']}: 0 to 9 (sneak: down)"
 for _k, _slot in enumerate(TUNING["coordinates"]["xz"]):
     ACTIONS[f"x{_k}"] = slot_text("X", _k, _slot) + " (sneak: down)"
     ACTIONS[f"z{_k}"] = slot_text("Z", _k, _slot) + " (sneak: down)"
@@ -86,15 +91,18 @@ def axis_side(a, theme, monitor, extra):
 # from the operator's edge up toward the rotor: (v, [(id, model, {click part: action}, requirements)]), spaced
 # evenly along the row.
 SIDES = [
-    axis_side("x", "X coordinates", "the X the controls give, where the TARDIS stands, relative on/off",
+    axis_side("x", "X coordinates", "e.g. \"Target X 1210\", \"(here +10)\", \"Now X 1200\"",
               [("relative_switch", "toggle_switch", {"bat": "relative"}, NAV1)]),
-    axis_side("z", "Z coordinates", "the Z the controls give and where the TARDIS stands",
+    axis_side("z", "Z coordinates", "e.g. \"Target Z -340\", \"(absolute)\", \"Now Z -52\"",
               [("randomiser", "randomiser", {"die": "random"}, NAV1)]),
-    {"theme": "Dimension & time", "monitor": "the picked dimension and every open one",
+    {"theme": "Dimension & time", "monitor":
+     "e.g. \"Target Middle-earth[lotr_port:middle_earth]\", \"Target time: 12 minutes ago\"",
      "rows": [(0.22, [("dimension_dial", "dimension_dial", {"knob": "destination"}, CORE),
-                      ("time_lever", "time_lever", {}, NAV1), ("fast_return", "fast_return", {}, NAV1),
-                      ("telepathic_circuits", "telepathic_circuits", {}, NAV1)]),
-              (0.6, [("time_drums", "time_drums", {}, NAV1)])]},
+                      ("time_lever", "time_lever", {"lever": "time_from"}, NAV1),
+                      ("time_unit_dial", "time_unit_dial", {"pointer": "time_unit"}, NAV1),
+                      ("fast_return", "fast_return", {}, NAV1)]),
+              (0.6, [("time_drums", "time_drums", {f"drum_{n + 1}": f"time{n}" for n in range(3)}, NAV1),
+                     ("telepathic_circuits", "telepathic_circuits", {}, NAV1)])]},
     {"theme": "Exterior", "monitor": "landed or not, facing, handbrake, charge, doors",
      "rows": [(0.2, [("facing_compass", "facing_compass", {"arrow": "facing"}, NAV1),
                      ("demat_lever", "demat_lever", {"arm": "jump"}, NAV1),
@@ -102,7 +110,8 @@ SIDES = [
               (0.53, [("phase_key", "phase_key", {}, NAV1), ("phase_lever", "phase_lever", {}, NAV1),
                       ("thrusters", "thrusters", {}, NAV1)]),
               (0.75, [("flight_yoke", "flight_yoke", {}, NAV1)])]},
-    {"theme": "Y & memory", "monitor": "the Y the controls give, land on ground, save mode, saved slots",
+    {"theme": "Y & memory", "monitor":
+     "e.g. \"Target Y 70\" (or \"Target Y: the ground\"), land on ground, save mode, saved slots",
      "rows": [(0.2, [(f"y_lever_{n + 1}", "y_lever", {"lever": f"y{n}"}, NAV1) for n in range(4)]
                + [("land_switch", "toggle_switch", {"bat": "land"}, NAV1)]),
               (0.58, [("memory_bank", "memory_bank", {f"slot_{n}": "memory" for n in range(20)}, NAV1),
@@ -426,8 +435,8 @@ def side_picture(console, models, placed, k, info):
     big, body, bold, small = fonts()
     a = math.radians(90 - 60 * k)
     px, pz = console["pivot"][0], console["pivot"][2]
-    eye = [px + math.cos(a) * 2.9, 2.15, pz + math.sin(a) * 2.9]
-    target = [px + math.cos(a) * 0.75, 1.05, pz + math.sin(a) * 0.75]
+    eye = [px + math.cos(a) * 3.0, 2.3, pz + math.sin(a) * 2.9]
+    target = [px + math.cos(a) * 0.7, 1.2, pz + math.sin(a) * 0.75]
     pic, proj = render(scene(console, models, placed, k), eye, target, 760, 600)
     sheet = Image.new("RGB", (1360, 600), (16, 17, 22))
     sheet.paste(pic, (0, 0))
@@ -439,8 +448,11 @@ def side_picture(console, models, placed, k, info):
         d.ellipse((x - 11, y - 11, x + 11, y + 11), fill=(240, 200, 80), outline=(0, 0, 0))
         d.text((x, y), str(i + 1), fill=(0, 0, 0), font=bold, anchor="mm")
     d.text((780, 14), f"Side {k}: {SIDES[k]['theme']}", fill=(250, 235, 190), font=big)
-    d.text((780, 42), "Monitor here shows: " + SIDES[k]["monitor"], fill=(150, 210, 240), font=small)
-    y = 70
+    y = 42
+    for line in wrap(d, "Monitor here shows: " + SIDES[k]["monitor"], small, 560):
+        d.text((780, y), line, fill=(150, 210, 240), font=small)
+        y += 16
+    y += 12
     for i, (_, cid, model, acts, req, u, v, sc) in enumerate(mine):
         m = models[model]
         clicks = [x["click"] for x in m["actions"] if x["click"]]
