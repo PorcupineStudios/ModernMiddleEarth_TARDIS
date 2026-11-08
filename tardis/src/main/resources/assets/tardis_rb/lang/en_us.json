@@ -149,6 +149,10 @@
   "tardis_rb.action.schema_next": "Next room plan (sneak: previous)",
   "tardis_rb.action.add_room": "Builds the room plan shown on the monitor (paid like the repair screen)",
   "tardis_rb.action.schema_info": "Says whether the room plan shown can be added now, and why not",
+  "tardis_rb.action.phase_key": "Phase key on/off: frees the Phase Lever",
+  "tardis_rb.action.phase": "With the key turned: the box becomes a loose entity, or sets down as a block again",
+  "tardis_rb.action.thrusters": "Thrusters on/off: on, anti-grav holds the loose box in the air; off, it falls",
+  "tardis_rb.action.pilot": "Takes you into third-person piloting (not connected yet)",
   "tardis_rb.action.time_from": "Target time counts back from now (12 minutes ago) or, flipped, from the beginning of time",
   "tardis_rb.action.time_unit": "Picks what the time drums count: minutes, hours, days, years (sneak: back)",
   "tardis_rb.action.time0": "Time digit 1 of 3: 0 to 9 (sneak: down)",
@@ -177,5 +181,6 @@
   "tardis_rb.side.2": "Dimension & time",
   "tardis_rb.side.3": "Exterior",
   "tardis_rb.side.4": "Y & memory",
-  "tardis_rb.side.5": "Rooms"
+  "tardis_rb.side.5": "Rooms",
+  "entity.tardis_rb.tardis_body": "TARDIS"
 }

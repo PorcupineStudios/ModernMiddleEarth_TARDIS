@@ -5,7 +5,7 @@
   "v": 0.7353,
   "scale": 0.52,
   "actions": {
-    "stick": "none"
+    "stick": "pilot"
   },
   "requirements": {
     "type": "tardis_rb:subsystem_level",

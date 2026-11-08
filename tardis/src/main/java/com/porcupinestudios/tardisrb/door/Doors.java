@@ -4,6 +4,7 @@ import com.porcupinestudios.tardisrb.TardisRB;
 import com.porcupinestudios.tardisrb.block.Exteriors;
 import com.porcupinestudios.tardisrb.core.TardisManager;
 import com.porcupinestudios.tardisrb.core.TardisRecord;
+import com.porcupinestudios.tardisrb.flight.FreeFlight;
 import com.porcupinestudios.tardisrb.interior.Interiors;
 import com.porcupinestudios.tardisrb.progression.TardisContent;
 import com.porcupinestudios.tardisrb.progression.Tuning;
@@ -131,7 +132,8 @@ public final class Doors {
             return true;
         }
         Optional<GlobalPos> where = tardis.location();
-        if (where.isEmpty() || !Interiors.ensure(server, tardis)) {
+        // a loose box keeps its doors shut until it is a block again (docs/free-flight-plan.md)
+        if (where.isEmpty() || FreeFlight.isLoose(tardis) || !Interiors.ensure(server, tardis)) {
             return false;
         }
         ServerLevel world = server.getLevel(where.get().dimension());
