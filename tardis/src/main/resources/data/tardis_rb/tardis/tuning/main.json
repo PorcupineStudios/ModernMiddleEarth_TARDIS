@@ -160,6 +160,28 @@
       ],
       "y_offset": -64,
       "memory_slots": 20
+    },
+    "time": {
+      "_comment": "The target-time controls: 'digits' number drums (0-9, first is highest) counted in a unit picked on the unit dial (ticks per unit; 1200 = a real minute, 24000 = a Minecraft day). The time lever picks 'ago' or 'from the beginning of time'. The unit dial model has 4 notches.",
+      "digits": 3,
+      "units": [
+        {
+          "name": "minutes",
+          "ticks": 1200
+        },
+        {
+          "name": "hours",
+          "ticks": 72000
+        },
+        {
+          "name": "days",
+          "ticks": 24000
+        },
+        {
+          "name": "years",
+          "ticks": 8760000
+        }
+      ]
     }
   },
   "door": {

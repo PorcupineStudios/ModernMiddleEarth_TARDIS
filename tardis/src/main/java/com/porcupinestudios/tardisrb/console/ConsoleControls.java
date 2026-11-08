@@ -43,6 +43,9 @@ import net.minecraft.world.phys.Vec3;
  * <li>{@code memory}: loads (or in save mode saves) the coordinate settings in that memory slot (the part's number).</li>
  * <li>{@code facing}: the way the doors face on landing; {@code destination}: the dimension to go to (sneak: back);
  * {@code random}: sets the small coordinate levers at random.</li>
+ * <li>{@code time0}..: one digit (0-9) of the target time each; {@code time_unit}: what the digits count (minutes,
+ * hours...: tuning {@code console.time}); {@code time_from}: off = that long ago, on = that long after the beginning
+ * of time. Stored and shown only until time travel is built.</li>
  * <li>{@code jump}: takes off for the set coordinates: a hop in this dimension or a jump to the picked one.</li>
  * <li>{@code screen} says where the TARDIS is; {@code door} opens or shuts the doors; {@code none} only moves.</li>
  * <li>Older ones still load: {@code x}/{@code y}/{@code z}, {@code x_up}..{@code z_down}, {@code step},
@@ -56,14 +59,65 @@ import net.minecraft.world.phys.Vec3;
 public final class ConsoleControls {
     /** Actions with no slot number. */
     public static final List<String> ACTIONS = List.of("screen", "relative", "land", "save", "memory", "facing",
-            "destination", "random", "jump", "handbrake", "door", "none", "x", "y", "z", "x_up", "x_down", "y_up",
-            "y_down", "z_up", "z_down", "step", "reset", "hop");
+            "destination", "random", "jump", "handbrake", "door", "none", "time_from", "time_unit", "x", "y", "z",
+            "x_up", "x_down", "y_up", "y_down", "z_up", "z_down", "step", "reset", "hop");
     /** What gauges can show ({@link #values}). */
     public static final List<String> VALUES = List.of("charge", "rooms");
 
     /** An action name data may use: one of {@link #ACTIONS} or a coordinate slot ({@code x0}, {@code z3}, {@code y1}). */
     public static boolean isAction(String action) {
-        return ACTIONS.contains(action) || slot(action) >= 0;
+        return ACTIONS.contains(action) || slot(action) >= 0 || timeDigit(action) >= 0;
+    }
+
+    /** The digit a target-time action sets ({@code time0} is the first, highest digit), or -1. */
+    static int timeDigit(String action) {
+        if (!action.startsWith("time") || action.length() != 5 || !Character.isDigit(action.charAt(4))) {
+            return -1;
+        }
+        return action.charAt(4) - '0';
+    }
+
+    /** The number the time drums show (the first drum is the highest digit). */
+    public static long timeAmount(ConsoleBlockEntity console) {
+        int digits = TardisContent.tuning().console().time().digits();
+        long n = 0;
+        for (int i = 0; i < digits; i++) {
+            n = n * 10 + Math.floorMod(console.state("time" + i), 10);
+        }
+        return n;
+    }
+
+    /** The unit the time drums count in (the unit dial). */
+    public static Tuning.TimeUnit timeUnit(ConsoleBlockEntity console) {
+        List<Tuning.TimeUnit> units = TardisContent.tuning().console().time().units();
+        return units.isEmpty() ? new Tuning.TimeUnit("ticks", 1)
+                : units.get(Math.floorMod(console.state("time_unit"), units.size()));
+    }
+
+    /** True when the target time counts from the beginning of time, false when it counts back from now. */
+    public static boolean fromBeginning(ConsoleBlockEntity console) {
+        return console.state("time_from") != 0;
+    }
+
+    /** The target time in words: "12 minutes ago", "12 minutes from the beginning of time", or "now". */
+    public static String timeText(ConsoleBlockEntity console) {
+        long n = timeAmount(console);
+        String unit = timeUnit(console).name();
+        if (fromBeginning(console)) {
+            return n == 0 ? "the beginning of time" : n + " " + unit + " from the beginning of time";
+        }
+        return n == 0 ? "now" : n + " " + unit + " ago";
+    }
+
+    private static Component timeSet(ConsoleBlockEntity console) {
+        return Component.translatableWithFallback("tardis_rb.console.time", "Target time: %s", timeText(console));
+    }
+
+    /** The game tick the time controls aim at, given the tick it is {@code now}; never before 0 or after now. */
+    public static long targetTick(ConsoleBlockEntity console, long now) {
+        long span = timeAmount(console) * timeUnit(console).ticks();
+        long t = fromBeginning(console) ? span : now - span;
+        return Math.max(0, Math.min(now, t));
     }
 
     /** The slot number of a coordinate action ({@code x0} -> 0), or -1. */
@@ -189,6 +243,10 @@ public final class ConsoleControls {
         if (slot >= 0) {
             return turnSlot(console, action.charAt(0), slot, dir);
         }
+        if (timeDigit(action) >= 0) {
+            console.setState(action, Math.floorMod(console.state(action) + dir, 10));
+            return timeSet(console);
+        }
         switch (action) {
             case "screen" -> {
                 return tardis.location().isEmpty()
@@ -242,6 +300,15 @@ public final class ConsoleControls {
                 return Component.translatableWithFallback("tardis_rb.console.random", "Coordinates set at random: %s %s",
                         signed(axisValue(console, 'x')), signed(axisValue(console, 'z')));
             }
+            case "time_unit" -> {
+                int units = Math.max(1, TardisContent.tuning().console().time().units().size());
+                console.setState("time_unit", Math.floorMod(console.state("time_unit") + dir, units));
+                return timeSet(console);
+            }
+            case "time_from" -> {
+                console.setState("time_from", console.state("time_from") == 0 ? 1 : 0);
+                return timeSet(console);
+            }
             case "relative", "land", "save" -> {
                 console.setState(action, console.state(action) == 0 ? 1 : 0);
                 return Component.translatableWithFallback("tardis_rb.console." + action + "_"
@@ -260,8 +327,8 @@ public final class ConsoleControls {
                     CompoundTag saved = new CompoundTag();
                     CompoundTag now = console.stateTag();
                     for (String k : now.getAllKeys()) {
-                        if (slot(k) >= 0 || k.equals("destination") || k.equals("facing") || k.equals("relative")
-                                || k.equals("land")) {
+                        if (slot(k) >= 0 || timeDigit(k) >= 0 || k.startsWith("time_") || k.equals("destination")
+                                || k.equals("facing") || k.equals("relative") || k.equals("land")) {
                             saved.putInt(k, now.getInt(k));
                         }
                     }
@@ -399,8 +466,8 @@ public final class ConsoleControls {
         int side = ConsoleLayout.side(console.monitorAngle());
         List<String> out = new ArrayList<>();
         List<ResourceLocation> open = Destinations.open(server, tardis, Optional.empty());
-        String picked = open.isEmpty() ? "No other dimensions"
-                : "To " + name(open.get(Math.floorMod(console.destination(), open.size()))).getString();
+        Optional<ResourceLocation> pick = open.isEmpty() ? Optional.empty()
+                : Optional.of(open.get(Math.floorMod(console.destination(), open.size())));
         Optional<BlockPos> at = tardis.location().map(g -> g.pos());
         BlockPos aim = target(console, at.orElse(BlockPos.ZERO));
         boolean relative = console.state("relative") != 0;
@@ -409,19 +476,16 @@ public final class ConsoleControls {
                 char axis = side == 0 ? 'x' : 'z';
                 String a = side == 0 ? "X" : "Z";
                 out.add(a + " COORDINATES");
-                out.add("Set " + a + " " + signed(axisValue(console, axis)));
-                out.add("Aim " + a + " " + (side == 0 ? aim.getX() : aim.getZ()));
+                out.add("Target " + a + " " + (side == 0 ? aim.getX() : aim.getZ()));
+                out.add(relative ? "(here " + signed(axisValue(console, axis)) + ")" : "(absolute)");
                 out.add(at.map(p -> "Now " + a + " " + (side == 0 ? p.getX() : p.getZ())).orElse("In flight"));
-                out.add(relative ? "Relative to here" : "Absolute");
             }
             case 2 -> {
                 out.add("DIMENSION & TIME");
-                out.add(picked);
-                out.add("Now in " + tardis.location().map(g -> g.dimension().location().getPath()).orElse("-"));
-                for (int i = 0; i < Math.min(3, open.size()); i++) {
-                    out.add("- " + name(open.get(i)).getString());
-                }
-                out.add("Time: present");
+                out.add(pick.map(d -> "Target " + name(d).getString() + "[" + TardisContent.destination(d)
+                        .map(x -> x.dimension().location()).orElse(d) + "]").orElse("No other dimensions"));
+                out.add("Target time: " + timeText(console));
+                out.add("Now in " + tardis.location().map(g -> g.dimension().location().toString()).orElse("-"));
             }
             case 3 -> {
                 out.add("EXTERIOR - " + tardis.name());
@@ -434,7 +498,7 @@ public final class ConsoleControls {
             }
             case 4 -> {
                 out.add("Y & MEMORY");
-                out.add(console.state("land") != 0 ? "Y: on the ground" : "Y " + yValue(console));
+                out.add(console.state("land") != 0 ? "Target Y: the ground" : "Target Y " + yValue(console));
                 out.add("Land on ground " + (console.state("land") != 0 ? "on" : "off"));
                 out.add("Save mode " + (console.state("save") != 0 ? "ON" : "off"));
                 out.add("Saved " + console.memoryUsed() + "/"

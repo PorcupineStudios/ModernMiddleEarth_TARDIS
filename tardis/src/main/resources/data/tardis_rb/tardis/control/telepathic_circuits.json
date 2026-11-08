@@ -1,9 +1,9 @@
 {
   "model": "telepathic_circuits",
   "panel": 2,
-  "u": 0.3618,
-  "v": 0.1788,
-  "scale": 0.68,
+  "u": 0.173,
+  "v": 0.52,
+  "scale": 0.72,
   "actions": {
     "plate": "none"
   },

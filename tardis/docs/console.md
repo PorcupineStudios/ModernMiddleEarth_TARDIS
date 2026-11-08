@@ -11,7 +11,7 @@ Read when: the console block/renderer, console controls (data `tardis/control/`)
     body `textures/entity/capaldi/console_plain.png` (one colour). It also writes each panel's frame (`panels`:
     origin = middle of the outer edge on the top, right, normal, down-slope; the top rises 21.6 degrees from the
     outer edge at 1.31 blocks from the rotor axis) and the monitor's stand (`monitor`: tilt, lift, inward).
-  - `tools/console_layout.py` places the small models (`docs/flight-controls.md`, 38 now) on the sides and writes
+  - `tools/console_layout.py` places the small models (`docs/flight-controls.md`, 39 now) on the sides and writes
     the control data files (old ones deleted), lang (`tardis_rb.control.<id>`, `action/click/side.*`) and the review
     pictures `tools/console_layout/side_<k>.png` + `overview.png`. Rows stack up from the operator's edge; a side
     that doesn't fit shrinks (not below 0.6). Sides: 0 X (door side; exception: relative switch), 1 Z (exception:
@@ -37,10 +37,18 @@ Read when: the console block/renderer, console controls (data `tardis/control/`)
     from its own tuning copy (the defaults on a dedicated server), only for Jade's totals.
   - **Monitor per side**: `ConsoleControls.readout` picks the side from the monitor angle (`ConsoleLayout.side`,
     home = side 1) and shows that theme's lines. The monitor always stands raised.
+  - Aaron 2026-11-08 20:10: the monitor stays level as it turns, high enough to clear the controls: upright glass
+    (`MONITOR` tilt 68.4 in capaldi.py) lifted 0.65, so it spans y 1.41-1.91 over the console block on every side
+    (tallest control top 1.31, exterior side). Readouts lead with the target: "Target X n", "Target Z n",
+    "Target Y n" / "Target Y: the ground", "Target <name>[<dimension id>]" and "Target time: ...".
+  - **Target time** (side 2, tuning `console.time`): time drums `time0..time2` (digits 0-9, first highest), time
+    unit dial `time_unit` (minutes 1200 ticks, hours, days 24000, years; the model has 4 notches), time lever
+    `time_from` (off: "12 minutes ago", on: "12 minutes from the beginning of time"). `ConsoleControls.targetTick`
+    gives the tick (clamped 0..now). Stored, shown and saved in memory slots only: time travel isn't built yet.
   - **Jade** (`compat/jade`, compile only `maven.modrinth:jade`, CI puts its jar in the test-build release): a ray
     trace callback hands Jade the console block when `ConsoleAim` finds a control nearer than any block; the tooltip
     names the control (and part), its setting (with the axis total), what a click does and its side.
-  - Test: `ConsoleTests` (X levers = +10, monitor over side 0 shows it, memory save/load, handbrake, the
+  - Test: `ConsoleTests` (X levers = +10, monitor over side 0 shows the target X, target time ago/from the beginning, memory save/load, handbrake, the
     dematerialisation lever flies there). Rendering, clicking and Jade are untried in a client, and none of this has
     compiled yet (CI blocked by GitHub billing, 2026-11-08).
 - Older notes below describe the hand-built controls (`part`, `ctl_*` click boxes): replaced by the above.

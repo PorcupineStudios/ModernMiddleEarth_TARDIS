@@ -1,4 +1,4 @@
-# TARDIS: console controls (38 small models)
+# TARDIS: console controls (39 small models)
 Read when: the new console controls' models, their animations, or wiring them into the console renderer and clicks.
 
 - Aaron 2026-11-08: about 16 small controls based on real TARDIS controls, each with an off/on state or a full
@@ -25,7 +25,8 @@ Read when: the new console controls' models, their animations, or wiring them in
   `lit` entry are always lit.
 - 2026-11-08: 6 more (group `coords`, 33-38, Aaron: "Feel free to make new models"): Y digit lever, facing compass,
   dimension dial, time drums, toggle switch, time vortex lever; `coordinate_lever` became a 13-notch steps lever
-  (-6..6 over 140 degrees, like the 1.7.10 X/Z levers). Preview `tools/flight_controls/preview_coords.png`.
+  (-6..6 over 140 degrees, like the 1.7.10 X/Z levers); 39 time unit dial (4 notches, the target time's unit).
+  Preview `tools/flight_controls/preview_coords.png`.
 - In game since 2026-11-08: placed on the console's six themed sides by `tools/console_layout.py`, drawn, animated
   and clicked per part (`docs/console.md`, "blank slate + themed sides").
 

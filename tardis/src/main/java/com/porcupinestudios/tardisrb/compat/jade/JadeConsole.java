@@ -118,6 +118,10 @@ public final class JadeConsole implements IBlockComponentProvider {
         if (List.of("handbrake", "relative", "land", "save").contains(role)) {
             return Optional.of(onOff(be.state(role) != 0));
         }
+        if (role.startsWith("time")) {
+            return Optional.of(Component.translatableWithFallback("tardis_rb.jade.time", "Target time: %s",
+                    ConsoleControls.timeText(be)));
+        }
         if (role.equals("facing")) {
             return Optional.of(Component.literal(be.hasState("facing")
                     ? Direction.from2DDataValue(be.state("facing")).getName() : "as before"));

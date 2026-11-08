@@ -1,9 +1,9 @@
 {
   "model": "dimension_dial",
   "panel": 2,
-  "u": -0.3405,
-  "v": 0.1788,
-  "scale": 0.68,
+  "u": -0.339,
+  "v": 0.1875,
+  "scale": 0.72,
   "actions": {
     "knob": "destination"
   },

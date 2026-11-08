@@ -1,9 +1,9 @@
 {
   "model": "fast_return",
   "panel": 2,
-  "u": 0.1093,
-  "v": 0.1788,
-  "scale": 0.68,
+  "u": 0.4065,
+  "v": 0.1875,
+  "scale": 0.72,
   "actions": {
     "button": "none"
   },
