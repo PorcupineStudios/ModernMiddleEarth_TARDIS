@@ -48,7 +48,13 @@ Read when: the console block/renderer, console controls (data `tardis/control/`)
   - **Jade** (`compat/jade`, compile only `maven.modrinth:jade`, CI puts its jar in the test-build release): a ray
     trace callback hands Jade the console block when `ConsoleAim` finds a control nearer than any block; the tooltip
     names the control (and part), its setting (with the axis total), what a click does and its side.
-  - Test: `ConsoleTests` (X levers = +10, monitor over side 0 shows the target X, target time ago/from the beginning, memory save/load, handbrake, the
+  - **Fast return** (side 2, `fast_return`): arms going back; `takeOff` then flies to where the console last took
+    off from (`ConsoleControls.lastSpot`, saved in the record's module data `console`: `last_dimension`, `last_pos`),
+    a hop or a jump through an open destination in that dimension, and disarms. **Schema chooser** (side 5):
+    `schema_prev`/`schema_next` page the room plans (id order, role `schema`), `add_room` builds it (`Rooms.add`,
+    paid like the repair screen), `schema_info` says why it can't be added. Still planned: room deleter, sonic holder,
+    telepathic circuits, and the exterior side's phase key/lever, thrusters, flight yoke (box as entity/physics).
+  - Test: `ConsoleTests` (X levers = +10, monitor over side 0 shows the target X, target time ago/from the beginning, fast return, schema paging, memory save/load, handbrake, the
     dematerialisation lever flies there). Rendering, clicking and Jade are untried in a client, and none of this has
     compiled yet (CI blocked by GitHub billing, 2026-11-08).
 - Older notes below describe the hand-built controls (`part`, `ctl_*` click boxes): replaced by the above.

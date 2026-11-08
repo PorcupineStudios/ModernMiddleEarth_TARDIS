@@ -12,6 +12,7 @@ import java.util.Optional;
 import net.minecraft.core.BlockPos;
 import net.minecraft.gametest.framework.GameTest;
 import net.minecraft.gametest.framework.GameTestHelper;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.neoforged.neoforge.gametest.GameTestHolder;
@@ -120,6 +121,27 @@ public final class ConsoleTests {
         String said = ConsoleControls.use(server, t, console, demat, "arm", Optional.empty()).getString();
         helper.assertTrue(t.location().get().pos().equals(target),
                 "the dematerialisation lever didn't fly to " + target + ": " + said);
+
+        // fast return: armed, the next pull of the lever goes back to where it took off from
+        t.addCharge(100);
+        ConsoleControls.use(server, t, console, find(shown, "fast_return").get(), "button", Optional.empty());
+        helper.assertTrue(console.state("fast_return") == 1, "the fast return button didn't arm");
+        said = ConsoleControls.use(server, t, console, demat, "arm", Optional.empty()).getString();
+        helper.assertTrue(t.location().get().pos().equals(from), "fast return didn't go back to " + from + ": " + said);
+        helper.assertTrue(console.state("fast_return") == 0, "fast return stayed armed after going back");
+
+        // the schema chooser pages through the room plans and the monitor over the rooms side names the picked one
+        ConsoleBlockEntity.Shown chooser = find(shown, "schema_chooser").get();
+        List<ResourceLocation> plans = ConsoleControls.schemas();
+        helper.assertTrue(plans.size() >= 2, "fewer than two room plans: " + plans);
+        ConsoleControls.use(server, t, console, chooser, "btn_2", Optional.empty());
+        helper.assertTrue(ConsoleControls.schema(console).equals(Optional.of(plans.get(1))),
+                "the next-plan button didn't move to " + plans.get(1));
+        console.setMonitorAngle(-210);
+        List<String> rooms = ConsoleControls.readout(server, t, console);
+        helper.assertTrue(rooms.stream().anyMatch(l -> l.startsWith("Plan: " + plans.get(1).getPath())),
+                "the monitor over the rooms side shows " + rooms);
+        console.setMonitorAngle(Float.NaN);
         helper.succeed();
     }
 }
