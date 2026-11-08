@@ -18,7 +18,7 @@
  "elements": [
   {
    "name": "base_0",
-   "uuid": "837f72d6-d724-45a9-859d-e7a43acb5a77",
+   "uuid": "f446a0f4-a2bb-412b-83ca-48485cb15bc2",
    "type": "cube",
    "from": [
     -2.5,
@@ -95,7 +95,7 @@
   },
   {
    "name": "base_1",
-   "uuid": "084c5709-a575-4f33-acea-959552bd35a9",
+   "uuid": "b7586aee-ff02-4a5b-b0fb-ec9d488405fc",
    "type": "cube",
    "from": [
     -2.2,
@@ -172,7 +172,7 @@
   },
   {
    "name": "base_2",
-   "uuid": "4ec7f9b3-7987-4c92-a146-a57c940faab5",
+   "uuid": "623322dd-4ce9-425d-b8b4-b49711a80123",
    "type": "cube",
    "from": [
     -0.3,
@@ -249,7 +249,7 @@
   },
   {
    "name": "base_3",
-   "uuid": "087538e3-2cb3-4a74-b1c7-87e33b417b51",
+   "uuid": "8f439b3c-fb44-4712-ad86-b7e293ff94b6",
    "type": "cube",
    "from": [
     -0.25,
@@ -326,7 +326,7 @@
   },
   {
    "name": "needle_0",
-   "uuid": "c0c401b6-13c5-4d7f-8cdf-30c2e1d5dbf2",
+   "uuid": "c20c2fc5-edcf-44d8-9f04-199ba70dea55",
    "type": "cube",
    "from": [
     -0.6,
@@ -403,7 +403,7 @@
   },
   {
    "name": "needle_1",
-   "uuid": "b65d5a33-c936-4b9e-9e75-6812522ef0a7",
+   "uuid": "d33dcccf-0df9-48c6-846f-49ca40e6aebb",
    "type": "cube",
    "from": [
     -0.3,
@@ -480,7 +480,7 @@
   },
   {
    "name": "needle_2",
-   "uuid": "4ecea60f-8902-4b81-86b9-1a100e36d839",
+   "uuid": "5d8858a5-535f-4525-89df-80cb2f6388ed",
    "type": "cube",
    "from": [
     -0.3,
@@ -559,7 +559,7 @@
  "outliner": [
   {
    "name": "base",
-   "uuid": "c942d37e-62be-4153-a803-f6b2073a510b",
+   "uuid": "e21ff9d2-afc4-4288-bdd0-981b1e14f89e",
    "origin": [
     0,
     0,
@@ -571,17 +571,17 @@
     0
    ],
    "children": [
-    "837f72d6-d724-45a9-859d-e7a43acb5a77",
-    "084c5709-a575-4f33-acea-959552bd35a9",
-    "4ec7f9b3-7987-4c92-a146-a57c940faab5",
-    "087538e3-2cb3-4a74-b1c7-87e33b417b51"
+    "f446a0f4-a2bb-412b-83ca-48485cb15bc2",
+    "b7586aee-ff02-4a5b-b0fb-ec9d488405fc",
+    "623322dd-4ce9-425d-b8b4-b49711a80123",
+    "8f439b3c-fb44-4712-ad86-b7e293ff94b6"
    ],
    "export": true,
    "visibility": true
   },
   {
    "name": "needle",
-   "uuid": "1cc571fa-dd59-4cfd-987c-2728d66cd8c4",
+   "uuid": "f25902d9-dc82-49a3-8107-d6c3f8a76c08",
    "origin": [
     0,
     1.5,
@@ -593,9 +593,9 @@
     0
    ],
    "children": [
-    "c0c401b6-13c5-4d7f-8cdf-30c2e1d5dbf2",
-    "b65d5a33-c936-4b9e-9e75-6812522ef0a7",
-    "4ecea60f-8902-4b81-86b9-1a100e36d839"
+    "c20c2fc5-edcf-44d8-9f04-199ba70dea55",
+    "d33dcccf-0df9-48c6-846f-49ca40e6aebb",
+    "5d8858a5-535f-4525-89df-80cb2f6388ed"
    ],
    "export": true,
    "visibility": true
@@ -613,20 +613,20 @@
    "visible": true,
    "mode": "bitmap",
    "saved": true,
-   "uuid": "8ccebfb6-67b3-467b-a432-4adf4d56a10e",
+   "uuid": "c45c101f-ba37-478e-a656-a914636059e9",
    "relative_path": "../../src/main/resources/assets/tardis_rb/textures/entity/controls/controls.png",
    "source": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAABW0lEQVR4nO3QMWtUQRTF8fOWtbFNJ4G0VgGtg6QLSZEmWKYwn8fCzj5+gRQSCMRAkk4LLQKW9japbO49c47FLuzcoEISsJo/PIaZgfld3nT9fttJg01IGp+//UST0QQ0GZsHb0EmSIIkzs8vIDVIgiTcfP0C27ABwHi29hSyl2fGu0bQRhpIG1ufjhFBRCYyE7MeZ1PBm1xwkgWXVHDbBZddcNoFjyBmPZ6s+GKAFd7Igkut4L6DWxVPu+Dx9z+w/JoLzsaCS/on7iXKfu3wTGJ+fXkLyWheoLsb66CWQ8nYP3yNiEBEIDNx9PIUSSHSyBR+vPiOjABzcX/y/AP6ds4+lv2bXzurzRNg3uNNLjilgkcEpg4PquCMwH2b93i7g7O54BGBqcdTBWc+ZIAOl1zwlAoeEZh1+GJd4fmAASbvvXI5OL2a7v3KI5r9T2wMMBqNRqPRaDQa/anfcENNcGO7wq8AAAAASUVORK5CYII="
   }
  ],
  "animations": [
   {
-   "uuid": "5916901e-a8ac-43db-a383-a127b4ddf573",
+   "uuid": "0dc883c8-e931-4e10-b137-edad35544ece",
    "name": "steps",
    "loop": "once",
    "length": 0.2,
    "snapping": 20,
    "animators": {
-    "1cc571fa-dd59-4cfd-987c-2728d66cd8c4": {
+    "f25902d9-dc82-49a3-8107-d6c3f8a76c08": {
      "name": "needle",
      "type": "bone",
      "keyframes": [
@@ -639,7 +639,7 @@
          "z": 0
         }
        ],
-       "uuid": "ff755480-9c43-4230-8650-c0126fc7cdd1",
+       "uuid": "10b33165-b053-4415-a003-f930c7e75ba1",
        "time": 0,
        "interpolation": "linear"
       },
@@ -652,7 +652,7 @@
          "z": 0
         }
        ],
-       "uuid": "eb0895be-c9a8-46fb-bc69-1eb72b701844",
+       "uuid": "67e3b79b-b432-4038-882f-6c36a88c4e13",
        "time": 0.2,
        "interpolation": "linear"
       }

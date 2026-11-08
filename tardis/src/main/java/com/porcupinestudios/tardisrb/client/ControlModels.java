@@ -160,7 +160,11 @@ public final class ControlModels {
             float p = a.click() == null ? 1F
                     : Math.min(1F, Math.max(0F, (time - be.usedAt(key)) / Math.max(1, a.ticks())));
             float e = ease(p);
-            boolean on = uses % 2 == 1;
+            // a part bound to a setting (a coordinate lever, the handbrake...) is drawn at the console's value
+            String role = a.click() == null ? "" : c.action(a.click());
+            boolean held = !role.isEmpty() && be.hasState(role);
+            boolean on = held ? be.state(role) != 0 : uses % 2 == 1;
+            boolean wasOn = held ? be.stateBefore(role) != 0 : !on;
             for (Map.Entry<String, Move> mv : a.moves().entrySet()) {
                 Move m = mv.getValue();
                 Vector3f pivot = model.parts().containsKey(mv.getKey()) ? model.parts().get(mv.getKey()).pivot()
@@ -168,20 +172,19 @@ public final class ControlModels {
                 Matrix4f t = new Matrix4f();
                 switch (a.type()) {
                     case "toggle" -> {
+                        float k0 = wasOn ? 1 : 0;
+                        float k = k0 + ((on ? 1 : 0) - k0) * e;
                         if (m.axis() != null) {
-                            float from = on ? m.off() : m.on();
-                            float to = on ? m.on() : m.off();
-                            t = rot(m.axis(), from + (to - from) * e, pivot);
+                            t = rot(m.axis(), m.off() + (m.on() - m.off()) * k, pivot);
                         }
                         if (m.moveOn() != null) {
-                            float k = on ? e : 1 - e;
                             t = new Matrix4f().translation(new Vector3f(m.moveOn()).mul(k)).mul(t);
                         }
                     }
                     case "steps" -> {
                         int count = Math.max(1, a.count());
-                        int now = Math.floorMod(uses, count);
-                        int before = uses == 0 ? 0 : Math.floorMod(uses - 1, count);
+                        int now = held ? be.state(role) : Math.floorMod(uses, count);
+                        int before = held ? be.stateBefore(role) : uses == 0 ? 0 : Math.floorMod(uses - 1, count);
                         float k = before + (now - before) * e;
                         if (m.axis() != null) {
                             t = rot(m.axis(), m.step() * k, pivot);
@@ -214,7 +217,7 @@ public final class ControlModels {
             }
             for (Map.Entry<String, String> l : a.lit().entrySet()) {
                 boolean shine = l.getValue().equals("active") ? p > 0.05 && p < 1 : on;
-                if (shine || (a.type().equals("steps") && Math.floorMod(uses, Math.max(1, a.count())) != 0)) {
+                if (shine) {
                     lit.add(l.getKey());
                 }
             }

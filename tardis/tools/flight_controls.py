@@ -362,14 +362,14 @@ def classic(cid, name, real, does):
 (classic("coordinate_lever", "Coordinate Lever",
          "1.7.10: the X/Y/Z levers (ids 10-13, 20-23, 30-33): staple levers swinging 140 degrees; the later levers "
          "make bigger changes.",
-         "Moves the course along one axis by its own amount (small to huge, set per lever in data).")
+         "One digit of an X or Z coordinate, -6 to +6 (sneak-click to go down); 13 positions over 140 degrees.")
  .part("base", (0, 0, 0),
        box((-2, 0, -1.5), (2, 1, 1.5), "steel_dark"), box((-1.6, 1, -1), (-1, 2, 1), "brass_dark"),
        box((1, 1, -1), (1.6, 2, 1), "brass_dark"))
  .part("lever", (0, 1.5, 0),
        box((-1.6, 1.2, -0.3), (-1, 6, 0.3), "steel"), box((1, 1.2, -0.3), (1.6, 6, 0.3), "steel"),
        box((-1.6, 5.6, -0.3), (1.6, 6.2, 0.3), "steel"), box((-0.9, 5.4, -0.6), (0.9, 6.6, 0.6), "red"))
- .action("lever", "toggle", 8, {"lever": {"axis": "x", "off": 70, "on": -70}}))
+ .action("lever", "steps", 6, {"lever": {"axis": "x", "step": -140 / 12}}, count=13))
 
 # 18. Valve wheel: the old console's square valve wheel with spokes
 (classic("valve_wheel", "Valve Wheel",
@@ -553,6 +553,95 @@ for _r in range(4):
  .action("lever_1", "toggle", 4, {"lever_1": {"axis": "x", "off": 30, "on": -30}})
  .action("lever_2", "toggle", 4, {"lever_2": {"axis": "x", "off": 30, "on": -30}}, lit={"lever_2": "on"})
  .action("lever_3", "toggle", 4, {"lever_3": {"axis": "x", "off": 30, "on": -30}}, lit={"lever_3": "on"}))
+
+# ---------------------------------------------------------------- 33-40: the coordinate set (Aaron 2026-11-08: "Feel
+# free to make new models, with any type of animation"), for the themed sides: Y digits, facing, dimension, time,
+# small toggles.
+
+
+def coords(cid, name, real, does):
+    return control(cid, name, real, does, group="coords")
+
+
+# 33. Y digit lever: a short lever in a slotted quadrant with four marked notches (one base-4 digit of Y)
+(coords("y_lever", "Y Digit Lever",
+        "1.7.10: the Y levers (ids 30-33), each one digit 0-3 of the height.",
+        "One base-4 digit of the Y coordinate, 0 to 3 (sneak-click to go down).")
+ .part("base", (0, 0, 0),
+       box((-1.4, 0, -2.6), (1.4, 1, 2.6), "steel_dark"), box((-0.4, 1, -2.2), (0.4, 1.3, 2.2), "black"),
+       box((0.8, 1, 1.9), (1.4, 1.4, 2.3), "glow_green"), box((0.8, 1, 0.5), (1.4, 1.4, 0.9), "white"),
+       box((0.8, 1, -0.9), (1.4, 1.4, -0.5), "white"), box((0.8, 1, -2.3), (1.4, 1.4, -1.9), "white"))
+ .part("lever", (0, 1.2, 2.1),
+       box((-0.3, 1.2, 1.8), (0.3, 5.2, 2.4), "steel"), box((-0.9, 4.8, 1.5), (0.9, 6, 2.7), "copper"))
+ .action("lever", "steps", 5, {"lever": {"axis": "x", "step": -32}}, count=4))
+
+# 34. Facing compass: a brass compass rose; its arrow turns a quarter per click (the side the doors face on landing)
+(coords("facing_compass", "Facing Compass",
+        "1.7.10: the facing wheel (id 3), shown here as a compass rose.",
+        "Turns the arrow a quarter (sneak: back): the TARDIS lands with its doors facing that way.")
+ .part("base", (0, 0, 0),
+       box((-3, 0, -3), (3, 1, 3), "wood"), box((-2.6, 1, -2.6), (2.6, 1.3, 2.6), "cream"),
+       box((-0.3, 1.3, -2.6), (0.3, 1.5, -2.0), "red"), box((-0.3, 1.3, 2.0), (0.3, 1.5, 2.6), "black"),
+       box((2.0, 1.3, -0.3), (2.6, 1.5, 0.3), "black"), box((-2.6, 1.3, -0.3), (-2.0, 1.5, 0.3), "black"))
+ .part("arrow", (0, 1.5, 0),
+       box((-0.35, 1.5, -2.0), (0.35, 2.1, 0.6), "brass"), box((-0.8, 1.5, -2.0), (0.8, 2.1, -1.2), "red"),
+       box((-0.6, 1.5, -0.6), (0.6, 2.4, 0.6), "gold"))
+ .action("arrow", "steps", 6, {"arrow": {"axis": "y", "step": -90}}, count=4))
+
+# 35. Dimension dial: a big rotary selector, a ring of coloured gems round it, one per open destination
+(coords("dimension_dial", "Dimension Dial",
+        "1.7.10: the dimension control (id 60), with the dimension shown beside it.",
+        "Picks the dimension to travel to (sneak: back), one notch per open destination.")
+ .part("base", (0, 0, 0),
+       box((-3.5, 0, -3.5), (3.5, 1, 3.5), "brass_dark"),
+       box((-0.4, 1, -3.2), (0.4, 1.5, -2.6), "glow_green"), box((2.6, 1, -0.4), (3.2, 1.5, 0.4), "glow_red"),
+       box((-0.4, 1, 2.6), (0.4, 1.5, 3.2), "glow_blue"), box((-3.2, 1, -0.4), (-2.6, 1.5, 0.4), "glow_amber"),
+       box((1.7, 1, -2.3), (2.3, 1.5, -1.7), "white"), box((1.7, 1, 1.7), (2.3, 1.5, 2.3), "white"),
+       box((-2.3, 1, 1.7), (-1.7, 1.5, 2.3), "white"), box((-2.3, 1, -2.3), (-1.7, 1.5, -1.7), "white"))
+ .part("knob", (0, 1, 0),
+       box((-1.8, 1, -1.8), (1.8, 2.2, 1.8), "black"), box((-0.4, 2.2, -2.4), (0.4, 2.8, 0.4), "steel"),
+       box((-1.0, 2.2, -1.0), (1.0, 3.2, 1.0), "steel_dark"))
+ .action("knob", "steps", 6, {"knob": {"axis": "y", "step": -45}}, count=8))
+
+# 36. Time drums: three rolling number drums (century, decade, year) in a window
+(coords("time_drums", "Time Drums",
+        "The old time-period selector: rolling drums like a car's odometer.",
+        "Planned: each drum rolls one digit of the year to travel to (time travel isn't built in this port yet).")
+ .part("base", (0, 0, 0),
+       box((-3.4, 0, -2), (3.4, 1, 2), "wood"), box((-3.4, 1, -1.8), (-2.8, 3.6, 1.8), "brass"),
+       box((2.8, 1, -1.8), (3.4, 3.6, 1.8), "brass"), box((-2.8, 3.2, -1.8), (2.8, 3.6, 1.8), "brass"))
+ .part("drum_1", (-1.8, 2.2, 0), box((-2.6, 1.2, -1.0), (-1.0, 3.2, 1.0), "cream"),
+       box((-2.6, 2.0, 1.0), (-1.0, 2.4, 1.1), "black"))
+ .part("drum_2", (0, 2.2, 0), box((-0.8, 1.2, -1.0), (0.8, 3.2, 1.0), "cream"),
+       box((-0.8, 2.0, 1.0), (0.8, 2.4, 1.1), "black"))
+ .part("drum_3", (1.8, 2.2, 0), box((1.0, 1.2, -1.0), (2.6, 3.2, 1.0), "cream"),
+       box((1.0, 2.0, 1.0), (2.6, 2.4, 1.1), "black"))
+ .action("drum_1", "steps", 5, {"drum_1": {"axis": "x", "step": 36}}, count=10)
+ .action("drum_2", "steps", 5, {"drum_2": {"axis": "x", "step": 36}}, count=10)
+ .action("drum_3", "steps", 5, {"drum_3": {"axis": "x", "step": 36}}, count=10))
+
+# 37. Toggle switch: a guarded aircraft toggle with a lamp (small on/off settings)
+(coords("toggle_switch", "Toggle Switch",
+        "An aircraft-style guarded toggle, common on the show's newer consoles.",
+        "On/off for one setting (relative coordinates, land on the ground, save mode...), set in data.")
+ .part("base", (0, 0, 0),
+       box((-1.6, 0, -1.6), (1.6, 0.8, 1.6), "steel_dark"), box((-1.6, 0.8, -1.6), (-1.2, 2.2, 1.6), "red"),
+       box((1.2, 0.8, -1.6), (1.6, 2.2, 1.6), "red"))
+ .part("bat", (0, 0.8, 0), box((-0.3, 0.8, -0.3), (0.3, 3.2, 0.3), "steel"),
+       box((-0.45, 3.0, -0.45), (0.45, 3.5, 0.45), "white"))
+ .part("lamp", (0, 0, 0), lamp(0, 1.2, "glow_amber", y=0.8, s=0.6))
+ .action("bat", "toggle", 3, {"bat": {"axis": "x", "off": 30, "on": -30}}, lit={"lamp": "on"}))
+
+# 38. Time vortex lever: a tall chrome lever with a glass ball (planned: forward or back in time)
+(coords("time_lever", "Time Vortex Lever",
+        "The time-direction lever on several of the show's consoles (forwards / backwards through time).",
+        "Planned: back = travel to the past, forward = the future (time travel isn't built in this port yet).")
+ .part("base", (0, 0, 0),
+       box((-1.6, 0, -3), (1.6, 1, 3), "steel_dark"), box((-0.5, 1, -2.6), (0.5, 1.4, 2.6), "black"),
+       box((-1.6, 1, -3), (1.6, 1.6, -2.4), "glow_blue"), box((-1.6, 1, 2.4), (1.6, 1.6, 3), "glow_amber"))
+ .part("lever", (0, 1.2, 0),
+       box((-0.3, 1.2, -0.3), (0.3, 6.5, 0.3), "steel"), box((-1, 6.2, -1), (1, 8, 1), "glass"))
+ .action("lever", "toggle", 8, {"lever": {"axis": "x", "off": 35, "on": -35}}))
 
 # ---------------------------------------------------------------- geometry
 
@@ -924,6 +1013,7 @@ def main():
         json.dump(index, f, indent=2)
     preview([c for c in CONTROLS if c.group == "flight"]).save(os.path.join(OUT, "preview.png"))
     preview([c for c in CONTROLS if c.group == "classic"], first=17).save(os.path.join(OUT, "preview_classic.png"))
+    preview([c for c in CONTROLS if c.group == "coords"], first=33).save(os.path.join(OUT, "preview_coords.png"))
     animated(CONTROLS, 1, os.path.join(OUT, "animations.gif"))
     print(f"{len(CONTROLS)} controls written")
 

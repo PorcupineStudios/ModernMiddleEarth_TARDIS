@@ -224,11 +224,11 @@
     "group": "classic",
     "name": "Coordinate Lever",
     "real": "1.7.10: the X/Y/Z levers (ids 10-13, 20-23, 30-33): staple levers swinging 140 degrees; the later levers make bigger changes.",
-    "does": "Moves the course along one axis by its own amount (small to huge, set per lever in data).",
+    "does": "One digit of an X or Z coordinate, -6 to +6 (sneak-click to go down); 13 positions over 140 degrees.",
     "actions": [
       {
         "click": "lever",
-        "type": "toggle"
+        "type": "steps"
       }
     ]
   },
@@ -519,6 +519,92 @@
       },
       {
         "click": "lever_3",
+        "type": "toggle"
+      }
+    ]
+  },
+  {
+    "id": "y_lever",
+    "group": "coords",
+    "name": "Y Digit Lever",
+    "real": "1.7.10: the Y levers (ids 30-33), each one digit 0-3 of the height.",
+    "does": "One base-4 digit of the Y coordinate, 0 to 3 (sneak-click to go down).",
+    "actions": [
+      {
+        "click": "lever",
+        "type": "steps"
+      }
+    ]
+  },
+  {
+    "id": "facing_compass",
+    "group": "coords",
+    "name": "Facing Compass",
+    "real": "1.7.10: the facing wheel (id 3), shown here as a compass rose.",
+    "does": "Turns the arrow a quarter (sneak: back): the TARDIS lands with its doors facing that way.",
+    "actions": [
+      {
+        "click": "arrow",
+        "type": "steps"
+      }
+    ]
+  },
+  {
+    "id": "dimension_dial",
+    "group": "coords",
+    "name": "Dimension Dial",
+    "real": "1.7.10: the dimension control (id 60), with the dimension shown beside it.",
+    "does": "Picks the dimension to travel to (sneak: back), one notch per open destination.",
+    "actions": [
+      {
+        "click": "knob",
+        "type": "steps"
+      }
+    ]
+  },
+  {
+    "id": "time_drums",
+    "group": "coords",
+    "name": "Time Drums",
+    "real": "The old time-period selector: rolling drums like a car's odometer.",
+    "does": "Planned: each drum rolls one digit of the year to travel to (time travel isn't built in this port yet).",
+    "actions": [
+      {
+        "click": "drum_1",
+        "type": "steps"
+      },
+      {
+        "click": "drum_2",
+        "type": "steps"
+      },
+      {
+        "click": "drum_3",
+        "type": "steps"
+      }
+    ]
+  },
+  {
+    "id": "toggle_switch",
+    "group": "coords",
+    "name": "Toggle Switch",
+    "real": "An aircraft-style guarded toggle, common on the show's newer consoles.",
+    "does": "On/off for one setting (relative coordinates, land on the ground, save mode...), set in data.",
+    "actions": [
+      {
+        "click": "bat",
+        "type": "toggle"
+      }
+    ]
+  },
+  {
+    "id": "time_lever",
+    "group": "coords",
+    "name": "Time Vortex Lever",
+    "real": "The time-direction lever on several of the show's consoles (forwards / backwards through time).",
+    "does": "Planned: back = travel to the past, forward = the future (time travel isn't built in this port yet).",
+    "actions": [
+      {
+        "click": "lever",
         "type": "toggle"
       }
     ]

@@ -18,7 +18,7 @@
  "elements": [
   {
    "name": "base_0",
-   "uuid": "f7e77627-25f3-4ab1-98f4-59c312342a82",
+   "uuid": "3a4cc1bd-060c-41dd-a83a-3797e867e31a",
    "type": "cube",
    "from": [
     -3,
@@ -95,7 +95,7 @@
   },
   {
    "name": "base_1",
-   "uuid": "6305f50a-9211-402d-ae53-9b6026716bbb",
+   "uuid": "d65db5fd-2494-460e-93ea-27baa800b885",
    "type": "cube",
    "from": [
     -3,
@@ -172,7 +172,7 @@
   },
   {
    "name": "base_2",
-   "uuid": "90868a32-febf-486a-90f2-2780650c4fd4",
+   "uuid": "c9e9e662-f4bd-4327-aa12-5d5691836e6d",
    "type": "cube",
    "from": [
     -3,
@@ -249,7 +249,7 @@
   },
   {
    "name": "base_3",
-   "uuid": "ce6461d0-d67b-466a-8c58-4640ed9e2b76",
+   "uuid": "b956b7d0-8ac7-4e40-b56b-ec5471bc1e90",
    "type": "cube",
    "from": [
     -3,
@@ -326,7 +326,7 @@
   },
   {
    "name": "base_4",
-   "uuid": "730732d0-8a1a-4362-92dd-7cd0b3b57bc2",
+   "uuid": "ad7b4fcd-ddbe-46d0-9283-4c9dd596e8d2",
    "type": "cube",
    "from": [
     2.5,
@@ -403,7 +403,7 @@
   },
   {
    "name": "screen_0",
-   "uuid": "c9c824e9-5769-4fde-b4ad-3aaa0535ff41",
+   "uuid": "94c56156-feb7-4860-a2b8-96b15c806229",
    "type": "cube",
    "from": [
     -2.5,
@@ -482,7 +482,7 @@
  "outliner": [
   {
    "name": "base",
-   "uuid": "5293ce1b-5125-4a3f-9177-702c53c52ac5",
+   "uuid": "01cd67cb-565d-499d-902e-fbe86ffce555",
    "origin": [
     0,
     0,
@@ -494,18 +494,18 @@
     0
    ],
    "children": [
-    "f7e77627-25f3-4ab1-98f4-59c312342a82",
-    "6305f50a-9211-402d-ae53-9b6026716bbb",
-    "90868a32-febf-486a-90f2-2780650c4fd4",
-    "ce6461d0-d67b-466a-8c58-4640ed9e2b76",
-    "730732d0-8a1a-4362-92dd-7cd0b3b57bc2"
+    "3a4cc1bd-060c-41dd-a83a-3797e867e31a",
+    "d65db5fd-2494-460e-93ea-27baa800b885",
+    "c9e9e662-f4bd-4327-aa12-5d5691836e6d",
+    "b956b7d0-8ac7-4e40-b56b-ec5471bc1e90",
+    "ad7b4fcd-ddbe-46d0-9283-4c9dd596e8d2"
    ],
    "export": true,
    "visibility": true
   },
   {
    "name": "screen",
-   "uuid": "e507df41-1fbe-423a-994c-9007316cfab4",
+   "uuid": "3f28e1c8-e492-45cb-8bb4-592ba6808cef",
    "origin": [
     0,
     0,
@@ -517,7 +517,7 @@
     0
    ],
    "children": [
-    "c9c824e9-5769-4fde-b4ad-3aaa0535ff41"
+    "94c56156-feb7-4860-a2b8-96b15c806229"
    ],
    "export": true,
    "visibility": true
@@ -535,7 +535,7 @@
    "visible": true,
    "mode": "bitmap",
    "saved": true,
-   "uuid": "c8c7c847-5a29-4a9f-8175-a00718514dcf",
+   "uuid": "d42e928c-d28e-4ccc-b475-f73c54939f6d",
    "relative_path": "../../src/main/resources/assets/tardis_rb/textures/entity/controls/controls.png",
    "source": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAABW0lEQVR4nO3QMWtUQRTF8fOWtbFNJ4G0VgGtg6QLSZEmWKYwn8fCzj5+gRQSCMRAkk4LLQKW9japbO49c47FLuzcoEISsJo/PIaZgfld3nT9fttJg01IGp+//UST0QQ0GZsHb0EmSIIkzs8vIDVIgiTcfP0C27ABwHi29hSyl2fGu0bQRhpIG1ufjhFBRCYyE7MeZ1PBm1xwkgWXVHDbBZddcNoFjyBmPZ6s+GKAFd7Igkut4L6DWxVPu+Dx9z+w/JoLzsaCS/on7iXKfu3wTGJ+fXkLyWheoLsb66CWQ8nYP3yNiEBEIDNx9PIUSSHSyBR+vPiOjABzcX/y/AP6ds4+lv2bXzurzRNg3uNNLjilgkcEpg4PquCMwH2b93i7g7O54BGBqcdTBWc+ZIAOl1zwlAoeEZh1+GJd4fmAASbvvXI5OL2a7v3KI5r9T2wMMBqNRqPRaDQa/anfcENNcGO7wq8AAAAASUVORK5CYII="
   }

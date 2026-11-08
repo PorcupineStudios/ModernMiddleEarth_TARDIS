@@ -6,8 +6,10 @@ import com.porcupinestudios.tardisrb.block.ConsoleBlockEntity;
 import com.porcupinestudios.tardisrb.block.TardisBlocks;
 import com.porcupinestudios.tardisrb.client.ConsoleAim;
 import com.porcupinestudios.tardisrb.client.ControlModels;
+import com.porcupinestudios.tardisrb.console.ConsoleControls;
 import com.porcupinestudios.tardisrb.console.ConsoleLayout;
 import com.porcupinestudios.tardisrb.progression.Control;
+import java.util.List;
 import java.util.Optional;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
@@ -84,8 +86,10 @@ public final class JadeConsole implements IBlockComponentProvider {
                     .withStyle(ChatFormatting.GRAY));
             return;
         }
-        tooltip.replace(JadeIds.CORE_OBJECT_NAME, Component.translatable("tardis_rb.control." + c.model()));
-        if (c.actions().size() > 1) {
+        String path = ResourceLocation.parse(c.id()).getPath();
+        tooltip.replace(JadeIds.CORE_OBJECT_NAME, Component.translatableWithFallback("tardis_rb.control." + path,
+                Component.translatable("tardis_rb.control." + c.model()).getString()));
+        if (c.actions().size() > 1 && c.actions().values().stream().distinct().count() > 1) {
             tooltip.add(Component.translatable("tardis_rb.click." + aim.click()).withStyle(ChatFormatting.YELLOW));
         }
         state(be, c, aim.click()).ifPresent(s -> tooltip.add(s));
@@ -99,10 +103,24 @@ public final class JadeConsole implements IBlockComponentProvider {
                 Component.translatable("tardis_rb.side." + side)).withStyle(ChatFormatting.DARK_AQUA));
     }
 
-    /** How the clicked part is set now: on/off, its notch, or a gauge's value. */
+    /** How the clicked part is set now: on/off, its setting, its notch, or a gauge's value. */
     private static Optional<Component> state(ConsoleBlockEntity be, ConsoleBlockEntity.Shown c, String click) {
-        if (c.action(click).equals("handbrake")) {
-            return Optional.of(onOff(be.handbrake()));
+        String role = c.action(click);
+        if (role.length() > 1 && "xz".indexOf(role.charAt(0)) >= 0 && Character.isDigit(role.charAt(1))) {
+            return Optional.of(Component.translatableWithFallback("tardis_rb.jade.slot", "Set to %s (%s total %s)",
+                    be.state(role), String.valueOf(role.charAt(0)).toUpperCase(),
+                    ConsoleControls.axisValue(be, role.charAt(0))));
+        }
+        if (role.length() > 1 && role.charAt(0) == 'y' && Character.isDigit(role.charAt(1))) {
+            return Optional.of(Component.translatableWithFallback("tardis_rb.jade.y", "Set to %s (Y %s)",
+                    be.state(role), ConsoleControls.yValue(be)));
+        }
+        if (List.of("handbrake", "relative", "land", "save").contains(role)) {
+            return Optional.of(onOff(be.state(role) != 0));
+        }
+        if (role.equals("facing")) {
+            return Optional.of(Component.literal(be.hasState("facing")
+                    ? Direction.from2DDataValue(be.state("facing")).getName() : "as before"));
         }
         Optional<ControlModels.Model> model = ControlModels.get(c.model());
         if (model.isEmpty()) {

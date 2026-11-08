@@ -1,13 +1,11 @@
 {
-  "model": "coordinate_wheels",
-  "panel": 1,
-  "u": -0.29,
-  "v": 0.2,
+  "model": "toggle_switch",
+  "panel": 4,
+  "u": 0.36,
+  "v": 0.1625,
   "scale": 0.8,
   "actions": {
-    "wheel_x": "x",
-    "wheel_y": "y",
-    "wheel_z": "z"
+    "bat": "land"
   },
   "requirements": {
     "type": "tardis_rb:subsystem_level",

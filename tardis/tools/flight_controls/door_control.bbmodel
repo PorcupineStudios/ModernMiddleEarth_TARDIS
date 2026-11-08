@@ -18,7 +18,7 @@
  "elements": [
   {
    "name": "base_0",
-   "uuid": "3f7f49b9-f154-43bc-abb4-ee07e924fa6a",
+   "uuid": "8e6f5ed9-cc6c-48b3-8544-f2a5f700f0a2",
    "type": "cube",
    "from": [
     -2,
@@ -95,7 +95,7 @@
   },
   {
    "name": "base_1",
-   "uuid": "8f766dcd-c215-4aa5-acdd-c45a274d3167",
+   "uuid": "426d5aea-7021-4eb9-9b8d-f47e9f1b81d0",
    "type": "cube",
    "from": [
     -0.5,
@@ -172,7 +172,7 @@
   },
   {
    "name": "wheel_0",
-   "uuid": "81afae7c-7472-4ab1-a424-c439873ab271",
+   "uuid": "840fb477-5521-4f33-a609-95a0598d84e1",
    "type": "cube",
    "from": [
     -2.2,
@@ -249,7 +249,7 @@
   },
   {
    "name": "wheel_1",
-   "uuid": "8595225e-2f9f-42e6-9330-8cd5a59a7553",
+   "uuid": "94a4d803-518d-4670-b9f0-1b795c87d900",
    "type": "cube",
    "from": [
     -2.2,
@@ -326,7 +326,7 @@
   },
   {
    "name": "wheel_2",
-   "uuid": "8fdfd30b-2265-4b4e-9a32-92aed282a868",
+   "uuid": "3c6be040-c349-4892-93ce-7147c38f9314",
    "type": "cube",
    "from": [
     -2.2,
@@ -403,7 +403,7 @@
   },
   {
    "name": "wheel_3",
-   "uuid": "df322849-f58e-48ee-bc82-8c3339826249",
+   "uuid": "6b96033d-2f63-45c0-aa54-2982381fa261",
    "type": "cube",
    "from": [
     1.7,
@@ -480,7 +480,7 @@
   },
   {
    "name": "wheel_4",
-   "uuid": "ee28ce3c-26a6-4b08-82e8-dea89e78442a",
+   "uuid": "4a90d33f-c419-4168-80cf-acdc27f7c153",
    "type": "cube",
    "from": [
     -1.7,
@@ -557,7 +557,7 @@
   },
   {
    "name": "wheel_5",
-   "uuid": "1b824d23-b93d-4168-bdcc-4c181ed35b15",
+   "uuid": "f4f45421-8160-4a78-9f9f-def9197bdac8",
    "type": "cube",
    "from": [
     -0.25,
@@ -634,7 +634,7 @@
   },
   {
    "name": "wheel_6",
-   "uuid": "f5607a89-73ec-4e6b-9cb4-0df65e90eec1",
+   "uuid": "248fd843-848c-4126-9af6-016d7051a5ad",
    "type": "cube",
    "from": [
     -0.6,
@@ -711,7 +711,7 @@
   },
   {
    "name": "wheel_7",
-   "uuid": "6486aa91-ed76-4b0e-9266-ede9fb2bcd1a",
+   "uuid": "9d353cc2-45fa-457b-a801-a93430eb6ea1",
    "type": "cube",
    "from": [
     1.55,
@@ -788,7 +788,7 @@
   },
   {
    "name": "lamp_0",
-   "uuid": "0c849ada-7160-4127-90bf-a31f55e5cd13",
+   "uuid": "536cfdf3-7f83-4b3c-8131-056c6d979923",
    "type": "cube",
    "from": [
     -1.75,
@@ -867,7 +867,7 @@
  "outliner": [
   {
    "name": "base",
-   "uuid": "1c3539ac-6269-4d68-a136-c09e6c2140af",
+   "uuid": "604c9be7-c010-4971-a0a4-9d33b39eee7e",
    "origin": [
     0,
     0,
@@ -879,15 +879,15 @@
     0
    ],
    "children": [
-    "3f7f49b9-f154-43bc-abb4-ee07e924fa6a",
-    "8f766dcd-c215-4aa5-acdd-c45a274d3167"
+    "8e6f5ed9-cc6c-48b3-8544-f2a5f700f0a2",
+    "426d5aea-7021-4eb9-9b8d-f47e9f1b81d0"
    ],
    "export": true,
    "visibility": true
   },
   {
    "name": "wheel",
-   "uuid": "4da0ef86-376b-4c2f-9350-d24a8219496a",
+   "uuid": "75afc680-70fe-4509-8989-42f5ffebdd5e",
    "origin": [
     0,
     2.4,
@@ -899,21 +899,21 @@
     0
    ],
    "children": [
-    "81afae7c-7472-4ab1-a424-c439873ab271",
-    "8595225e-2f9f-42e6-9330-8cd5a59a7553",
-    "8fdfd30b-2265-4b4e-9a32-92aed282a868",
-    "df322849-f58e-48ee-bc82-8c3339826249",
-    "ee28ce3c-26a6-4b08-82e8-dea89e78442a",
-    "1b824d23-b93d-4168-bdcc-4c181ed35b15",
-    "f5607a89-73ec-4e6b-9cb4-0df65e90eec1",
-    "6486aa91-ed76-4b0e-9266-ede9fb2bcd1a"
+    "840fb477-5521-4f33-a609-95a0598d84e1",
+    "94a4d803-518d-4670-b9f0-1b795c87d900",
+    "3c6be040-c349-4892-93ce-7147c38f9314",
+    "6b96033d-2f63-45c0-aa54-2982381fa261",
+    "4a90d33f-c419-4168-80cf-acdc27f7c153",
+    "f4f45421-8160-4a78-9f9f-def9197bdac8",
+    "248fd843-848c-4126-9af6-016d7051a5ad",
+    "9d353cc2-45fa-457b-a801-a93430eb6ea1"
    ],
    "export": true,
    "visibility": true
   },
   {
    "name": "lamp",
-   "uuid": "18731028-5d50-4562-a148-f8d6d9ec795a",
+   "uuid": "3e204956-be5f-4aa2-b838-5db1ea9821b9",
    "origin": [
     0,
     0,
@@ -925,7 +925,7 @@
     0
    ],
    "children": [
-    "0c849ada-7160-4127-90bf-a31f55e5cd13"
+    "536cfdf3-7f83-4b3c-8131-056c6d979923"
    ],
    "export": true,
    "visibility": true
@@ -943,20 +943,20 @@
    "visible": true,
    "mode": "bitmap",
    "saved": true,
-   "uuid": "1b0a9078-55d9-4cd8-b8ae-c65c483b6aa3",
+   "uuid": "95657174-40ef-4751-a690-3c571a490605",
    "relative_path": "../../src/main/resources/assets/tardis_rb/textures/entity/controls/controls.png",
    "source": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAABW0lEQVR4nO3QMWtUQRTF8fOWtbFNJ4G0VgGtg6QLSZEmWKYwn8fCzj5+gRQSCMRAkk4LLQKW9japbO49c47FLuzcoEISsJo/PIaZgfld3nT9fttJg01IGp+//UST0QQ0GZsHb0EmSIIkzs8vIDVIgiTcfP0C27ABwHi29hSyl2fGu0bQRhpIG1ufjhFBRCYyE7MeZ1PBm1xwkgWXVHDbBZddcNoFjyBmPZ6s+GKAFd7Igkut4L6DWxVPu+Dx9z+w/JoLzsaCS/on7iXKfu3wTGJ+fXkLyWheoLsb66CWQ8nYP3yNiEBEIDNx9PIUSSHSyBR+vPiOjABzcX/y/AP6ds4+lv2bXzurzRNg3uNNLjilgkcEpg4PquCMwH2b93i7g7O54BGBqcdTBWc+ZIAOl1zwlAoeEZh1+GJd4fmAASbvvXI5OL2a7v3KI5r9T2wMMBqNRqPRaDQa/anfcENNcGO7wq8AAAAASUVORK5CYII="
   }
  ],
  "animations": [
   {
-   "uuid": "d2849f32-4e9d-4ece-9a32-d6fc4165d5b5",
+   "uuid": "728c07ab-97f3-434d-9e87-483ae7584ad7",
    "name": "on",
    "loop": "hold",
    "length": 0.6,
    "snapping": 20,
    "animators": {
-    "4da0ef86-376b-4c2f-9350-d24a8219496a": {
+    "75afc680-70fe-4509-8989-42f5ffebdd5e": {
      "name": "wheel",
      "type": "bone",
      "keyframes": [
@@ -969,7 +969,7 @@
          "z": 0
         }
        ],
-       "uuid": "b74f5d91-dc4b-46b1-bbad-3aef9658f5b3",
+       "uuid": "f0edb05b-d8a6-4f8b-afde-5cec38a3f9eb",
        "time": 0,
        "interpolation": "linear"
       },
@@ -982,7 +982,7 @@
          "z": 0
         }
        ],
-       "uuid": "c2ecccd5-a1b6-485e-bf6d-cb073fd8f176",
+       "uuid": "e4200091-4f0c-47d8-95ab-4fc82e28d89e",
        "time": 0.6,
        "interpolation": "linear"
       }
@@ -991,13 +991,13 @@
    }
   },
   {
-   "uuid": "e1762136-b3c0-463b-a0d5-c5bfb77c17ef",
+   "uuid": "22142696-afe5-4877-8ef8-c4b70a752c97",
    "name": "off",
    "loop": "hold",
    "length": 0.6,
    "snapping": 20,
    "animators": {
-    "4da0ef86-376b-4c2f-9350-d24a8219496a": {
+    "75afc680-70fe-4509-8989-42f5ffebdd5e": {
      "name": "wheel",
      "type": "bone",
      "keyframes": [
@@ -1010,7 +1010,7 @@
          "z": 0
         }
        ],
-       "uuid": "2a35c423-18df-4cb9-895c-562ad71ab1fe",
+       "uuid": "d8c11e54-42f4-409e-8b93-62345003621b",
        "time": 0,
        "interpolation": "linear"
       },
@@ -1023,7 +1023,7 @@
          "z": 0
         }
        ],
-       "uuid": "6b8d1443-eee3-4f1d-801e-396a1e962ec5",
+       "uuid": "15504899-f64b-4db0-a66e-c43fafb00e7a",
        "time": 0.6,
        "interpolation": "linear"
       }

@@ -1,11 +1,11 @@
 {
-  "model": "coordinate_lever",
-  "panel": 1,
-  "u": 0.34,
-  "v": 0.2,
-  "scale": 0.8,
+  "model": "toggle_switch",
+  "panel": 0,
+  "u": 0.31,
+  "v": 0.3738,
+  "scale": 0.72,
   "actions": {
-    "lever": "reset"
+    "bat": "relative"
   },
   "requirements": {
     "type": "tardis_rb:subsystem_level",

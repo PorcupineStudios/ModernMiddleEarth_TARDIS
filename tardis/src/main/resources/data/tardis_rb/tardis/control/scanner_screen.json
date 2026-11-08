@@ -1,9 +1,9 @@
 {
   "model": "scanner_screen",
   "panel": 5,
-  "u": 0.325,
-  "v": 0.22,
-  "scale": 0.8,
+  "u": 0.3108,
+  "v": 0.1725,
+  "scale": 0.76,
   "actions": {
     "screen": "screen"
   },

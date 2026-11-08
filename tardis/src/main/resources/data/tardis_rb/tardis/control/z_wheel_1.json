@@ -1,11 +1,11 @@
 {
-  "model": "drift_lever",
-  "panel": 4,
-  "u": 0.2275,
-  "v": 0.48,
-  "scale": 0.8,
+  "model": "valve_wheel",
+  "panel": 1,
+  "u": -0.265,
+  "v": 0.3738,
+  "scale": 0.72,
   "actions": {
-    "slide": "none"
+    "wheel": "z4"
   },
   "requirements": {
     "type": "tardis_rb:subsystem_level",

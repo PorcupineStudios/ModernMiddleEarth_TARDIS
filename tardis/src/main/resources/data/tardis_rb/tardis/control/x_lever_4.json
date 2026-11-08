@@ -1,11 +1,11 @@
 {
-  "model": "valve_wheel",
-  "panel": 1,
-  "u": 0.05,
-  "v": 0.2,
-  "scale": 0.8,
+  "model": "coordinate_lever",
+  "panel": 0,
+  "u": 0.1975,
+  "v": 0.1144,
+  "scale": 0.72,
   "actions": {
-    "wheel": "step"
+    "lever": "x3"
   },
   "requirements": {
     "type": "tardis_rb:subsystem_level",

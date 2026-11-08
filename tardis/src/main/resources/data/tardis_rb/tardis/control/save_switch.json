@@ -1,13 +1,11 @@
 {
-  "model": "sub_levers",
+  "model": "push_switch",
   "panel": 4,
-  "u": 0.0,
-  "v": 0.74,
+  "u": 0.19,
+  "v": 0.475,
   "scale": 0.8,
   "actions": {
-    "lever_1": "none",
-    "lever_2": "none",
-    "lever_3": "none"
+    "rod": "save"
   },
   "requirements": {
     "type": "tardis_rb:subsystem_level",

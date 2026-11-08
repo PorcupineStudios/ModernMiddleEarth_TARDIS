@@ -81,12 +81,19 @@ public final class ConsoleBlockEntity extends BlockEntity {
     private int dy;
     private int dz;
     private int step;
-    private int destination;
     private final Map<String, Long> usedAt = new HashMap<>();
     private final Map<String, Integer> uses = new HashMap<>();
     private List<String> readout = new ArrayList<>();
-    /** Handbrake on: no hop or jump starts (the Handbrake control). */
-    private boolean handbrake;
+    /**
+     * The settings the controls hold, by role (the action they are bound to): the coordinate slots {@code x0}..,
+     * {@code z0}.., {@code y0}.., and {@code relative}, {@code land}, {@code save}, {@code handbrake}, {@code facing}
+     * (0-3 = south, west, north, east), {@code destination}. A control bound to a role is drawn at its value.
+     */
+    private final Map<String, Integer> state = new HashMap<>();
+    /** Each role's value before its last change, for the animation between the two. */
+    private final Map<String, Integer> before = new HashMap<>();
+    /** Memory slots: saved coordinate settings (roles to values), by slot. */
+    private final Map<Integer, CompoundTag> memory = new HashMap<>();
     /** Values gauges show, 0..1 of full ({@code charge}, {@code rooms}), refreshed every second on the server. */
     private Map<String, Float> values = new HashMap<>();
     /** Which way the monitor faces from the rotor axis, degrees ({@code atan2(z, x)}); NaN = where the model has it. */
@@ -96,6 +103,13 @@ public final class ConsoleBlockEntity extends BlockEntity {
 
     public ConsoleBlockEntity(BlockPos pos, BlockState state) {
         super(TardisBlocks.CONSOLE_BE.get(), pos, state);
+        defaults();
+    }
+
+    /** Relative coordinates and land-on-ground start on (as the 1.7.10 console mostly had them). */
+    private void defaults() {
+        state.put("relative", 1);
+        state.put("land", 1);
     }
 
     /** Consoles loaded on this client, for the click test. */
@@ -177,12 +191,11 @@ public final class ConsoleBlockEntity extends BlockEntity {
     }
 
     public int destination() {
-        return destination;
+        return state("destination");
     }
 
     public void setDestination(int index) {
-        destination = index;
-        changed();
+        setState("destination", index);
     }
 
     /**
@@ -196,12 +209,52 @@ public final class ConsoleBlockEntity extends BlockEntity {
     }
 
     public boolean handbrake() {
-        return handbrake;
+        return state("handbrake") != 0;
     }
 
     public void setHandbrake(boolean on) {
-        handbrake = on;
+        setState("handbrake", on ? 1 : 0);
+    }
+
+    /** A role's value (0 if never set). */
+    public int state(String role) {
+        return state.getOrDefault(role, 0);
+    }
+
+    public boolean hasState(String role) {
+        return state.containsKey(role);
+    }
+
+    /** A role's value before its last change. */
+    public int stateBefore(String role) {
+        return before.getOrDefault(role, state(role));
+    }
+
+    public void setState(String role, int value) {
+        before.put(role, state(role));
+        state.put(role, value);
         changed();
+    }
+
+    /** The settings saved in a memory slot, if any (roles to values). */
+    public Optional<CompoundTag> memory(int slot) {
+        return Optional.ofNullable(memory.get(slot)).map(CompoundTag::copy);
+    }
+
+    public void setMemory(int slot, CompoundTag saved) {
+        memory.put(slot, saved.copy());
+        changed();
+    }
+
+    public int memoryUsed() {
+        return memory.size();
+    }
+
+    /** The roles and values held now, as a tag (for a memory slot). */
+    public CompoundTag stateTag() {
+        CompoundTag t = new CompoundTag();
+        state.forEach(t::putInt);
+        return t;
     }
 
     /** A gauge's value, 0..1 of full. */
@@ -246,13 +299,18 @@ public final class ConsoleBlockEntity extends BlockEntity {
             list.add(s.save());
         }
         tag.put("shown", list);
-        tag.putBoolean("handbrake", handbrake);
         CompoundTag vals = new CompoundTag();
         values.forEach(vals::putFloat);
         tag.put("values", vals);
         tag.putIntArray("offset", new int[] {dx, dy, dz});
         tag.putInt("step", step);
-        tag.putInt("destination", destination);
+        tag.put("state", stateTag());
+        CompoundTag was = new CompoundTag();
+        before.forEach(was::putInt);
+        tag.put("state_before", was);
+        CompoundTag mem = new CompoundTag();
+        memory.forEach((k, v) -> mem.put(String.valueOf(k), v));
+        tag.put("memory", mem);
         CompoundTag used = new CompoundTag();
         usedAt.forEach(used::putLong);
         tag.put("used_at", used);
@@ -277,7 +335,6 @@ public final class ConsoleBlockEntity extends BlockEntity {
                 shown.add(Shown.load((CompoundTag) t));
             }
         }
-        handbrake = tag.getBoolean("handbrake");
         values = new HashMap<>();
         CompoundTag vals = tag.getCompound("values");
         vals.getAllKeys().forEach(k -> values.put(k, vals.getFloat(k)));
@@ -286,7 +343,22 @@ public final class ConsoleBlockEntity extends BlockEntity {
         dy = off.length == 3 ? off[1] : 0;
         dz = off.length == 3 ? off[2] : 0;
         step = tag.getInt("step");
-        destination = tag.getInt("destination");
+        state.clear();
+        before.clear();
+        defaults();
+        CompoundTag st = tag.getCompound("state");
+        st.getAllKeys().forEach(k -> state.put(k, st.getInt(k)));
+        CompoundTag was = tag.getCompound("state_before");
+        was.getAllKeys().forEach(k -> before.put(k, was.getInt(k)));
+        memory.clear();
+        CompoundTag mem = tag.getCompound("memory");
+        for (String k : mem.getAllKeys()) {
+            try {
+                memory.put(Integer.parseInt(k), mem.getCompound(k));
+            } catch (NumberFormatException ignored) {
+                // not a slot
+            }
+        }
         usedAt.clear();
         CompoundTag used = tag.getCompound("used_at");
         used.getAllKeys().forEach(k -> usedAt.put(k, used.getLong(k)));

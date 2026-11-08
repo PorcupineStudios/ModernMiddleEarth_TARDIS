@@ -1,11 +1,11 @@
 {
-  "model": "speed_lever",
-  "panel": 0,
-  "u": -0.0825,
-  "v": 0.66,
-  "scale": 0.8,
+  "model": "coordinate_lever",
+  "panel": 1,
+  "u": -0.4625,
+  "v": 0.1144,
+  "scale": 0.72,
   "actions": {
-    "lever": "none"
+    "lever": "z0"
   },
   "requirements": {
     "type": "tardis_rb:subsystem_level",

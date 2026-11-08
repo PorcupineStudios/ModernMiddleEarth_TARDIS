@@ -1,17 +1,12 @@
 {
   "model": "twin_gauge",
-  "panel": 4,
-  "u": 0.025,
-  "v": 0.16,
-  "scale": 0.8,
+  "panel": 5,
+  "u": 0.2063,
+  "v": 0.45,
+  "scale": 0.76,
   "actions": {},
   "shows": [
     "charge",
     "rooms"
-  ],
-  "requirements": {
-    "type": "tardis_rb:subsystem_level",
-    "subsystem": "tardis_rb:navigation",
-    "min": 1
-  }
+  ]
 }

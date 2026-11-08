@@ -18,7 +18,7 @@
  "elements": [
   {
    "name": "base_0",
-   "uuid": "da756de5-93ba-4e04-9b1f-4b5689870575",
+   "uuid": "f46affad-6d50-45e3-91a5-08cbb5906fb2",
    "type": "cube",
    "from": [
     -3,
@@ -95,7 +95,7 @@
   },
   {
    "name": "plate_0",
-   "uuid": "97c5ceb0-9fee-4dd8-b8c1-d75fa9294845",
+   "uuid": "7ce878a6-c2f2-4a34-806e-6ab5835a3efe",
    "type": "cube",
    "from": [
     -2.2,
@@ -172,7 +172,7 @@
   },
   {
    "name": "plate_1",
-   "uuid": "0af70486-1f44-4c41-b3d5-cd269b68a3d7",
+   "uuid": "e413214d-0c1c-4b2d-969b-46385e676f9d",
    "type": "cube",
    "from": [
     -1.4,
@@ -249,7 +249,7 @@
   },
   {
    "name": "plate_2",
-   "uuid": "c621fd6a-cbdc-46a2-b48a-bd8487399516",
+   "uuid": "978e06d6-c5b1-4232-9ce9-a202234b25da",
    "type": "cube",
    "from": [
     -0.6,
@@ -326,7 +326,7 @@
   },
   {
    "name": "plate_3",
-   "uuid": "889d1fd8-a090-4b47-810a-0e35b90770ed",
+   "uuid": "63e297a9-0033-4095-a444-655ea98dcf65",
    "type": "cube",
    "from": [
     0.2,
@@ -403,7 +403,7 @@
   },
   {
    "name": "plate_4",
-   "uuid": "98e1ae70-b30b-415e-b2ce-16a70e2b44fa",
+   "uuid": "385c2750-59aa-4502-a5a8-4d3119b4cb80",
    "type": "cube",
    "from": [
     1,
@@ -480,7 +480,7 @@
   },
   {
    "name": "ring_0",
-   "uuid": "e178573b-5d5b-4abc-82a6-4c53c64b427c",
+   "uuid": "13e630fb-4e38-44dd-8931-f46d716d2b4d",
    "type": "cube",
    "from": [
     -2.7,
@@ -557,7 +557,7 @@
   },
   {
    "name": "ring_1",
-   "uuid": "f48cd938-f382-4b39-9369-ef75f9a7eb0e",
+   "uuid": "f23f6f3b-d0b2-446e-95eb-825a4b00359d",
    "type": "cube",
    "from": [
     -2.7,
@@ -634,7 +634,7 @@
   },
   {
    "name": "ring_2",
-   "uuid": "8826036c-dfe9-4f61-9c1a-297bb1c38ff3",
+   "uuid": "ef97eb46-d75a-4013-b552-bc316e7f2147",
    "type": "cube",
    "from": [
     -2.7,
@@ -711,7 +711,7 @@
   },
   {
    "name": "ring_3",
-   "uuid": "429380f5-2914-407a-bbe3-da99863df213",
+   "uuid": "200b2e5c-3a93-4cf8-8730-fe9342083dbb",
    "type": "cube",
    "from": [
     2.3,
@@ -790,7 +790,7 @@
  "outliner": [
   {
    "name": "base",
-   "uuid": "e3b6ef49-da55-42cb-92c6-c961a9d9825c",
+   "uuid": "2eae35c8-126e-4bcd-80c1-1b4d47cafea7",
    "origin": [
     0,
     0,
@@ -802,14 +802,14 @@
     0
    ],
    "children": [
-    "da756de5-93ba-4e04-9b1f-4b5689870575"
+    "f46affad-6d50-45e3-91a5-08cbb5906fb2"
    ],
    "export": true,
    "visibility": true
   },
   {
    "name": "plate",
-   "uuid": "cd65410d-7f6d-4e46-a504-a6d0e909a984",
+   "uuid": "26d1f95a-25ea-45ea-be63-7b14dad8ec3a",
    "origin": [
     0,
     1.5,
@@ -821,18 +821,18 @@
     0
    ],
    "children": [
-    "97c5ceb0-9fee-4dd8-b8c1-d75fa9294845",
-    "0af70486-1f44-4c41-b3d5-cd269b68a3d7",
-    "c621fd6a-cbdc-46a2-b48a-bd8487399516",
-    "889d1fd8-a090-4b47-810a-0e35b90770ed",
-    "98e1ae70-b30b-415e-b2ce-16a70e2b44fa"
+    "7ce878a6-c2f2-4a34-806e-6ab5835a3efe",
+    "e413214d-0c1c-4b2d-969b-46385e676f9d",
+    "978e06d6-c5b1-4232-9ce9-a202234b25da",
+    "63e297a9-0033-4095-a444-655ea98dcf65",
+    "385c2750-59aa-4502-a5a8-4d3119b4cb80"
    ],
    "export": true,
    "visibility": true
   },
   {
    "name": "ring",
-   "uuid": "a583b335-8569-4068-aed8-1294392392c5",
+   "uuid": "4c724017-17b6-42a8-ad39-4309542c53b4",
    "origin": [
     0,
     0,
@@ -844,10 +844,10 @@
     0
    ],
    "children": [
-    "e178573b-5d5b-4abc-82a6-4c53c64b427c",
-    "f48cd938-f382-4b39-9369-ef75f9a7eb0e",
-    "8826036c-dfe9-4f61-9c1a-297bb1c38ff3",
-    "429380f5-2914-407a-bbe3-da99863df213"
+    "13e630fb-4e38-44dd-8931-f46d716d2b4d",
+    "f23f6f3b-d0b2-446e-95eb-825a4b00359d",
+    "ef97eb46-d75a-4013-b552-bc316e7f2147",
+    "200b2e5c-3a93-4cf8-8730-fe9342083dbb"
    ],
    "export": true,
    "visibility": true
@@ -865,20 +865,20 @@
    "visible": true,
    "mode": "bitmap",
    "saved": true,
-   "uuid": "dbcbe047-cc9f-44fa-9b88-eb93f46e81a7",
+   "uuid": "98ef978f-a672-4301-8aaa-7aad82d2c02d",
    "relative_path": "../../src/main/resources/assets/tardis_rb/textures/entity/controls/controls.png",
    "source": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAABW0lEQVR4nO3QMWtUQRTF8fOWtbFNJ4G0VgGtg6QLSZEmWKYwn8fCzj5+gRQSCMRAkk4LLQKW9japbO49c47FLuzcoEISsJo/PIaZgfld3nT9fttJg01IGp+//UST0QQ0GZsHb0EmSIIkzs8vIDVIgiTcfP0C27ABwHi29hSyl2fGu0bQRhpIG1ufjhFBRCYyE7MeZ1PBm1xwkgWXVHDbBZddcNoFjyBmPZ6s+GKAFd7Igkut4L6DWxVPu+Dx9z+w/JoLzsaCS/on7iXKfu3wTGJ+fXkLyWheoLsb66CWQ8nYP3yNiEBEIDNx9PIUSSHSyBR+vPiOjABzcX/y/AP6ds4+lv2bXzurzRNg3uNNLjilgkcEpg4PquCMwH2b93i7g7O54BGBqcdTBWc+ZIAOl1zwlAoeEZh1+GJd4fmAASbvvXI5OL2a7v3KI5r9T2wMMBqNRqPRaDQa/anfcENNcGO7wq8AAAAASUVORK5CYII="
   }
  ],
  "animations": [
   {
-   "uuid": "dfc91ffe-43be-4f10-a3b3-f20177e51e34",
+   "uuid": "bae25fbc-f62e-4202-8e9b-e6deafc4a5b3",
    "name": "on",
    "loop": "hold",
    "length": 0.25,
    "snapping": 20,
    "animators": {
-    "cd65410d-7f6d-4e46-a504-a6d0e909a984": {
+    "26d1f95a-25ea-45ea-be63-7b14dad8ec3a": {
      "name": "plate",
      "type": "bone",
      "keyframes": [
@@ -891,7 +891,7 @@
          "z": 0
         }
        ],
-       "uuid": "97267196-efb6-4ba8-9b5b-24af5dd60203",
+       "uuid": "6bbef501-3ad5-4347-86fc-f37e8b0f383b",
        "time": 0,
        "interpolation": "linear"
       },
@@ -904,7 +904,7 @@
          "z": 0
         }
        ],
-       "uuid": "862b483b-33f9-4ce7-9f06-1b33541e7b63",
+       "uuid": "a339c3e1-f83a-4d3a-b23c-63537c6ef21a",
        "time": 0.25,
        "interpolation": "linear"
       }
@@ -913,13 +913,13 @@
    }
   },
   {
-   "uuid": "60406c76-3566-4041-85a3-1c06ef0a17bf",
+   "uuid": "37ec0eaa-bc98-4a77-863e-91caf364b791",
    "name": "off",
    "loop": "hold",
    "length": 0.25,
    "snapping": 20,
    "animators": {
-    "cd65410d-7f6d-4e46-a504-a6d0e909a984": {
+    "26d1f95a-25ea-45ea-be63-7b14dad8ec3a": {
      "name": "plate",
      "type": "bone",
      "keyframes": [
@@ -932,7 +932,7 @@
          "z": 0
         }
        ],
-       "uuid": "ede88f4a-7b37-462a-8f71-c55a52d57dbf",
+       "uuid": "b047cf78-89e6-41ca-86f3-640e6eea0bba",
        "time": 0,
        "interpolation": "linear"
       },
@@ -945,7 +945,7 @@
          "z": 0
         }
        ],
-       "uuid": "fc590093-7f53-4337-b99f-b42b79dc601f",
+       "uuid": "fb0f2f83-21fc-40d7-bb48-e20c819783c4",
        "time": 0.25,
        "interpolation": "linear"
       }

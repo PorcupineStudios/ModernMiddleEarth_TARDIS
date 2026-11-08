@@ -1,0 +1,17 @@
+{
+  "model": "time_drums",
+  "panel": 2,
+  "u": 0.0,
+  "v": 0.4525,
+  "scale": 0.68,
+  "actions": {
+    "drum_1": "none",
+    "drum_2": "none",
+    "drum_3": "none"
+  },
+  "requirements": {
+    "type": "tardis_rb:subsystem_level",
+    "subsystem": "tardis_rb:navigation",
+    "min": 1
+  }
+}

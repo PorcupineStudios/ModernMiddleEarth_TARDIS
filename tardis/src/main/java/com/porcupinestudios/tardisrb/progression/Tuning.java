@@ -125,12 +125,54 @@ public record Tuning(CrashSite crashSite, Hop hop, Winder winder, Interior inter
     }
 
     /** The console: {@code steps} are the sizes the step dial picks from for the coordinate buttons. */
-    public record ConsoleTuning(List<Integer> steps) {
-        static final ConsoleTuning DEFAULT = new ConsoleTuning(List.of(1, 10, 100));
+    public record ConsoleTuning(List<Integer> steps, Coordinates coordinates) {
+        static final ConsoleTuning DEFAULT = new ConsoleTuning(List.of(1, 10, 100), Coordinates.DEFAULT);
         static final Codec<ConsoleTuning> CODEC = RecordCodecBuilder.create(i -> i.group(
                 Codec.intRange(1, 1 << 20).listOf().optionalFieldOf("steps", DEFAULT.steps)
-                        .forGetter(ConsoleTuning::steps))
+                        .forGetter(ConsoleTuning::steps),
+                Coordinates.CODEC.optionalFieldOf("coordinates", Coordinates.DEFAULT)
+                        .forGetter(ConsoleTuning::coordinates))
                 .apply(i, ConsoleTuning::new));
+    }
+
+    /**
+     * One coordinate control (after the 1.7.10 console): its range ({@code cycle}: goes round instead of stopping);
+     * it adds value x {@code times}, or value x {@code times} x {@code base}^(slot {@code power}'s value + 1) when it
+     * has a power slot (-1 = none).
+     */
+    public record Slot(int min, int max, boolean cycle, int times, int base, int power) {
+        static final Codec<Slot> CODEC = RecordCodecBuilder.create(i -> i.group(
+                Codec.INT.fieldOf("min").forGetter(Slot::min),
+                Codec.INT.fieldOf("max").forGetter(Slot::max),
+                Codec.BOOL.optionalFieldOf("cycle", false).forGetter(Slot::cycle),
+                Codec.INT.optionalFieldOf("times", 1).forGetter(Slot::times),
+                Codec.INT.optionalFieldOf("base", 1).forGetter(Slot::base),
+                Codec.INT.optionalFieldOf("power", -1).forGetter(Slot::power))
+                .apply(i, Slot::new));
+
+        static Slot lever(int times, int base, int power) {
+            return new Slot(-6, 6, false, times, base, power);
+        }
+    }
+
+    /**
+     * The console's coordinate controls: the X and Z slots ({@code xz}, the same for both), the Y digits ({@code y},
+     * plus {@code y_offset}), and how many memory slots there are.
+     */
+    public record Coordinates(List<Slot> xz, List<Slot> y, int yOffset, int memorySlots) {
+        static final Coordinates DEFAULT = new Coordinates(
+                List.of(Slot.lever(1, 4, 4), Slot.lever(1, 2, 5), Slot.lever(6, 1, -1), Slot.lever(1, 1, -1),
+                        new Slot(0, 7, true, 0, 1, -1), new Slot(0, 7, true, 0, 1, -1), Slot.lever(71, 1, -1)),
+                List.of(new Slot(0, 3, false, 64, 1, -1), new Slot(0, 3, false, 16, 1, -1),
+                        new Slot(0, 3, false, 4, 1, -1), new Slot(0, 3, false, 1, 1, -1)),
+                -64, 20);
+        static final Codec<Coordinates> CODEC = RecordCodecBuilder.create(i -> i.group(
+                Slot.CODEC.listOf().optionalFieldOf("xz", DEFAULT.xz).forGetter(Coordinates::xz),
+                Slot.CODEC.listOf().optionalFieldOf("y", DEFAULT.y).forGetter(Coordinates::y),
+                Codec.INT.optionalFieldOf("y_offset", DEFAULT.yOffset).forGetter(Coordinates::yOffset),
+                Codec.intRange(0, 64).optionalFieldOf("memory_slots", DEFAULT.memorySlots)
+                        .forGetter(Coordinates::memorySlots))
+                .apply(i, Coordinates::new));
     }
 
     /**

@@ -18,7 +18,7 @@
  "elements": [
   {
    "name": "base_0",
-   "uuid": "246d94f2-75b0-420e-82d8-b1a7e9407083",
+   "uuid": "01b9ebdc-5f35-49fa-adf9-c31e00b205cd",
    "type": "cube",
    "from": [
     -1.5,
@@ -95,7 +95,7 @@
   },
   {
    "name": "base_1",
-   "uuid": "db8b01e0-2cf2-4541-aaa7-56c13683c3ac",
+   "uuid": "34eb2cd7-124d-41b6-b8d0-8cc7870630b1",
    "type": "cube",
    "from": [
     -0.5,
@@ -172,7 +172,7 @@
   },
   {
    "name": "base_2",
-   "uuid": "aa5dd936-8fb6-4e95-aa93-9d7dc275f7ba",
+   "uuid": "afa4b8e5-a2fb-484d-adc0-66b6c9dd6baa",
    "type": "cube",
    "from": [
     1,
@@ -249,7 +249,7 @@
   },
   {
    "name": "base_3",
-   "uuid": "12aaf5df-52fa-47ca-b3c9-d880f3970761",
+   "uuid": "a900ef97-fe73-4cbf-8ee6-42753a650d5e",
    "type": "cube",
    "from": [
     1,
@@ -326,7 +326,7 @@
   },
   {
    "name": "base_4",
-   "uuid": "6c7ce39d-336b-4fa7-811d-aaa1d9985a70",
+   "uuid": "20419c7a-01d9-475d-8116-596297f31670",
    "type": "cube",
    "from": [
     1,
@@ -403,7 +403,7 @@
   },
   {
    "name": "base_5",
-   "uuid": "b345dc00-32ef-4d0a-804d-c3cf73e79a00",
+   "uuid": "558cb3fc-59b6-4a2a-bdd0-c00b7d981e78",
    "type": "cube",
    "from": [
     1,
@@ -480,7 +480,7 @@
   },
   {
    "name": "base_6",
-   "uuid": "56b2b978-7a54-495f-b97e-129d37f49820",
+   "uuid": "0ab34968-004e-42c8-aeb8-0f2e9ccb1a6e",
    "type": "cube",
    "from": [
     1,
@@ -557,7 +557,7 @@
   },
   {
    "name": "lever_0",
-   "uuid": "dc653f7b-6426-41f0-8c02-5bcd43370915",
+   "uuid": "534e2c06-1e79-4c9d-8662-4524194a9162",
    "type": "cube",
    "from": [
     -0.3,
@@ -634,7 +634,7 @@
   },
   {
    "name": "lever_1",
-   "uuid": "c2e097d0-3772-4500-80d5-d73cf6c3a2ed",
+   "uuid": "fcc5509b-fbfa-40db-8afb-df825a231e60",
    "type": "cube",
    "from": [
     -0.8,
@@ -713,7 +713,7 @@
  "outliner": [
   {
    "name": "base",
-   "uuid": "96641659-6fbc-46a1-88ce-a49156ca0885",
+   "uuid": "6404e141-c352-4178-8709-e79477bdd23c",
    "origin": [
     0,
     0,
@@ -725,20 +725,20 @@
     0
    ],
    "children": [
-    "246d94f2-75b0-420e-82d8-b1a7e9407083",
-    "db8b01e0-2cf2-4541-aaa7-56c13683c3ac",
-    "aa5dd936-8fb6-4e95-aa93-9d7dc275f7ba",
-    "12aaf5df-52fa-47ca-b3c9-d880f3970761",
-    "6c7ce39d-336b-4fa7-811d-aaa1d9985a70",
-    "b345dc00-32ef-4d0a-804d-c3cf73e79a00",
-    "56b2b978-7a54-495f-b97e-129d37f49820"
+    "01b9ebdc-5f35-49fa-adf9-c31e00b205cd",
+    "34eb2cd7-124d-41b6-b8d0-8cc7870630b1",
+    "afa4b8e5-a2fb-484d-adc0-66b6c9dd6baa",
+    "a900ef97-fe73-4cbf-8ee6-42753a650d5e",
+    "20419c7a-01d9-475d-8116-596297f31670",
+    "558cb3fc-59b6-4a2a-bdd0-c00b7d981e78",
+    "0ab34968-004e-42c8-aeb8-0f2e9ccb1a6e"
    ],
    "export": true,
    "visibility": true
   },
   {
    "name": "lever",
-   "uuid": "8e44549d-6aee-4bab-909d-0c155098cbd5",
+   "uuid": "cc65f653-09ff-478c-ba77-b88305232f4c",
    "origin": [
     0,
     1.2,
@@ -750,8 +750,8 @@
     0
    ],
    "children": [
-    "dc653f7b-6426-41f0-8c02-5bcd43370915",
-    "c2e097d0-3772-4500-80d5-d73cf6c3a2ed"
+    "534e2c06-1e79-4c9d-8662-4524194a9162",
+    "fcc5509b-fbfa-40db-8afb-df825a231e60"
    ],
    "export": true,
    "visibility": true
@@ -769,20 +769,20 @@
    "visible": true,
    "mode": "bitmap",
    "saved": true,
-   "uuid": "c30f3436-505e-473f-b128-b9b2c7225ced",
+   "uuid": "ee31d517-ce68-4f6e-b2bd-eb7abe3dcaa9",
    "relative_path": "../../src/main/resources/assets/tardis_rb/textures/entity/controls/controls.png",
    "source": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAABW0lEQVR4nO3QMWtUQRTF8fOWtbFNJ4G0VgGtg6QLSZEmWKYwn8fCzj5+gRQSCMRAkk4LLQKW9japbO49c47FLuzcoEISsJo/PIaZgfld3nT9fttJg01IGp+//UST0QQ0GZsHb0EmSIIkzs8vIDVIgiTcfP0C27ABwHi29hSyl2fGu0bQRhpIG1ufjhFBRCYyE7MeZ1PBm1xwkgWXVHDbBZddcNoFjyBmPZ6s+GKAFd7Igkut4L6DWxVPu+Dx9z+w/JoLzsaCS/on7iXKfu3wTGJ+fXkLyWheoLsb66CWQ8nYP3yNiEBEIDNx9PIUSSHSyBR+vPiOjABzcX/y/AP6ds4+lv2bXzurzRNg3uNNLjilgkcEpg4PquCMwH2b93i7g7O54BGBqcdTBWc+ZIAOl1zwlAoeEZh1+GJd4fmAASbvvXI5OL2a7v3KI5r9T2wMMBqNRqPRaDQa/anfcENNcGO7wq8AAAAASUVORK5CYII="
   }
  ],
  "animations": [
   {
-   "uuid": "2e570a5b-dd2f-4774-88ee-f12a3e1f1d78",
+   "uuid": "af97cf38-3a19-49f8-8c0b-1e1b3b9f018a",
    "name": "steps",
    "loop": "once",
    "length": 0.25,
    "snapping": 20,
    "animators": {
-    "8e44549d-6aee-4bab-909d-0c155098cbd5": {
+    "cc65f653-09ff-478c-ba77-b88305232f4c": {
      "name": "lever",
      "type": "bone",
      "keyframes": [
@@ -795,7 +795,7 @@
          "z": 0
         }
        ],
-       "uuid": "af1fd9ad-65d4-4bf9-a31f-54067dfda730",
+       "uuid": "3301880f-92e6-4f93-914b-1eace3d237d2",
        "time": 0,
        "interpolation": "linear"
       },
@@ -808,7 +808,7 @@
          "z": 0
         }
        ],
-       "uuid": "bb9ec569-3bb4-4b40-b25c-808f03cb1271",
+       "uuid": "f41f3e5c-06fe-43f7-8e2e-9a2d478c56f9",
        "time": 0.25,
        "interpolation": "linear"
       }
