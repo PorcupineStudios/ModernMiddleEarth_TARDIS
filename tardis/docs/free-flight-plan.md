@@ -1,6 +1,21 @@
 # Plan: flying the TARDIS materialized (free flight)
 Read when: building free flight (the TARDIS flying as a real object without dematerialising), its controls, camera,
-or how it crosses into space. Status: **plan only**; the control models are built (`docs/flight-controls.md`).
+or how it crosses into space. Status: slices 0-3 built 2026-11-08 (untried in a client, not compiled yet: CI blocked by
+GitHub billing); piloting (slice 4) next.
+
+## Built (slices 2-3, 2026-11-08)
+- `entity/TardisBody` (`tardis_rb:tardis_body`, 1 x 2, drawn by `client/TardisBodyRenderer` with the block's model and
+  looks): moves on the server only; thrusters off = gravity, drag, ground friction; on = motion damped to a hover.
+  Can't be hurt. Every second it calls `FreeFlight.track` (record location follows it; a stale body discards itself).
+- `flight/FreeFlight`: `phase` (block -> body: doors close, `Exteriors.lift`, spawn; body -> block: `Landing.find`
+  within tuning `flight.landing_radius/height`, place, `setLocation`), `setThrusters`, `dock` (Flight.land takes a
+  loose body away and lands as a block), `height`. Record module data `free_flight`: `body` (UUID), `thrusters`.
+- Features `exterior_phase`, `thrusters` (navigation 1 for now; raise in data). Tuning `flight` in main.json.
+- Console (Exterior side): `phase_key` (toggle), `phase` (needs the key), `thrusters`, `pilot` (placeholder).
+  `Doors.open` refuses while loose. Monitor: landed / loose / hovering N up, key and thrusters.
+- Not yet: chunk tickets (the body unloads with its chunk; the record keeps its last spot), damage from hard hits,
+  charge drain, a body lost while unloaded is set down at the record's spot by `phase`.
+- Test: `FreeFlightTests` (loose, doors stay shut, hovers 3 up, falls with thrusters off, sets down as the block).
 
 ## What Aaron asked for
 - 2026-11-03: besides jumps (dematerialise here, appear there), the TARDIS takes off and flies as a real object through

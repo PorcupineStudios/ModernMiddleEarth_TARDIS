@@ -6,6 +6,7 @@ import com.porcupinestudios.tardisrb.core.TardisRecord;
 import com.porcupinestudios.tardisrb.door.Doors;
 import com.porcupinestudios.tardisrb.flight.Destinations;
 import com.porcupinestudios.tardisrb.flight.Flight;
+import com.porcupinestudios.tardisrb.flight.FreeFlight;
 import com.porcupinestudios.tardisrb.interior.Interiors;
 import com.porcupinestudios.tardisrb.interior.Rooms;
 import com.porcupinestudios.tardisrb.progression.Control;
@@ -53,6 +54,9 @@ import net.minecraft.world.phys.Vec3;
  * <li>{@code fast_return}: arms (or disarms) going back: the next take-off returns to where the TARDIS last took off
  * from. {@code schema_prev} / {@code schema_next}: page through the rooms that can be added; {@code add_room} builds
  * the picked one (paid like the repair screen); {@code schema_info} says whether it can be added now.</li>
+ * <li>Exterior (docs/free-flight-plan.md): {@code phase_key} on/off; {@code phase} (only with the key on) turns the
+ * box into a loose entity and back ({@link FreeFlight#phase}); {@code thrusters} on (hovers) or off (a physics
+ * object that falls); {@code pilot} is for the flight yoke (piloting comes in the next slice).</li>
  * <li>{@code jump}: takes off for the set coordinates: a hop in this dimension or a jump to the picked one.</li>
  * <li>{@code screen} says where the TARDIS is; {@code door} opens or shuts the doors; {@code none} only moves.</li>
  * <li>Older ones still load: {@code x}/{@code y}/{@code z}, {@code x_up}..{@code z_down}, {@code step},
@@ -67,7 +71,7 @@ public final class ConsoleControls {
     /** Actions with no slot number. */
     public static final List<String> ACTIONS = List.of("screen", "relative", "land", "save", "memory", "facing",
             "destination", "random", "jump", "handbrake", "door", "none", "time_from", "time_unit", "fast_return",
-            "schema_prev", "schema_next", "add_room", "schema_info", "x", "y", "z", "x_up", "x_down", "y_up", "y_down",
+            "schema_prev", "schema_next", "add_room", "schema_info", "phase_key", "phase", "thrusters", "pilot", "x", "y", "z", "x_up", "x_down", "y_up", "y_down",
             "z_up", "z_down", "step", "reset", "hop");
     /** What gauges can show ({@link #values}). */
     public static final List<String> VALUES = List.of("charge", "rooms");
@@ -344,6 +348,32 @@ public final class ConsoleControls {
                 return added.problem().orElse(Component.translatableWithFallback("tardis_rb.console.room_added",
                         "%s added", roomName(room.get())));
             }
+            case "phase_key" -> {
+                console.setState("phase_key", console.state("phase_key") == 0 ? 1 : 0);
+                return console.state("phase_key") != 0
+                        ? Component.translatableWithFallback("tardis_rb.console.phase_key_on",
+                                "Phase key turned: the phase lever is free")
+                        : Component.translatableWithFallback("tardis_rb.console.phase_key_off", "Phase key off");
+            }
+            case "phase" -> {
+                if (console.state("phase_key") == 0) {
+                    console.setState("phase", FreeFlight.isLoose(tardis) ? 1 : 0);
+                    return Component.translatableWithFallback("tardis_rb.console.phase_locked",
+                            "Turn the phase key first");
+                }
+                Component said = FreeFlight.phase(server, tardis, player);
+                console.setState("phase", FreeFlight.isLoose(tardis) ? 1 : 0);
+                return said;
+            }
+            case "thrusters" -> {
+                Component said = FreeFlight.setThrusters(server, tardis, !FreeFlight.thrusters(tardis), player);
+                console.setState("thrusters", FreeFlight.thrusters(tardis) ? 1 : 0);
+                return said;
+            }
+            case "pilot" -> {
+                return Component.translatableWithFallback("tardis_rb.console.pilot_soon",
+                        "The flight yoke isn't connected yet");
+            }
             case "time_unit" -> {
                 int units = Math.max(1, TardisContent.tuning().console().time().units().size());
                 console.setState("time_unit", Math.floorMod(console.state("time_unit") + dir, units));
@@ -614,7 +644,11 @@ public final class ConsoleControls {
             }
             case 3 -> {
                 out.add("EXTERIOR - " + tardis.name());
-                out.add(at.isPresent() ? "Landed (a block)" : "In flight");
+                out.add(at.isEmpty() ? "In flight" : !FreeFlight.isLoose(tardis) ? "Landed (a block)"
+                        : FreeFlight.thrusters(tardis) ? "Hovering, " + FreeFlight.height(server, tardis) + " up"
+                        : "Loose: a physics object");
+                out.add("Phase key " + (console.state("phase_key") != 0 ? "ON" : "off") + ", thrusters "
+                        + (FreeFlight.thrusters(tardis) ? "ON" : "off"));
                 out.add("Facing " + (console.hasState("facing")
                         ? Direction.from2DDataValue(console.state("facing")).getName() : "as before"));
                 out.add(console.handbrake() ? "Handbrake ON" : "Handbrake off");

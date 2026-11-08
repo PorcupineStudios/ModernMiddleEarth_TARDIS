@@ -145,12 +145,17 @@ public final class Flight {
             ServerLevel toLevel, BlockPos target, long charge, ResourceLocation history, Optional<Direction> turn) {
         Tuning.Hop t = TardisContent.tuning().hop();
         Doors.close(server, tardis); // the doors shut before it moves
-        Direction facing = Exteriors.lift(level, from.pos()); // so the old spot doesn't block the search
+        boolean loose = FreeFlight.isLoose(tardis);
+        // so the old spot doesn't block the search (a loose box has no block to lift)
+        Direction facing = loose ? FreeFlight.facing(server, tardis) : Exteriors.lift(level, from.pos());
         Optional<BlockPos> spot = Landing.find(toLevel, target, t.landingRadius(), t.landingHeight());
         if (spot.isEmpty()) {
-            Exteriors.place(level, from.pos(), facing, tardis.id());
+            if (!loose) {
+                Exteriors.place(level, from.pos(), facing, tardis.id());
+            }
             return Outcome.fail("tardis_rb.hop.no_space", "There is nowhere to land near there");
         }
+        FreeFlight.dock(server, tardis); // a loose box dematerialises and lands as a block
         JumpEvent.Land land = NeoForge.EVENT_BUS.post(new JumpEvent.Land(tardis, from,
                 GlobalPos.of(toLevel.dimension(), spot.get())));
         GlobalPos landed = land.spot();

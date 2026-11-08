@@ -13,7 +13,27 @@ import net.minecraft.resources.ResourceLocation;
  * {@code data/tardis_rb/tardis/tuning/main.json}; every field has a default, so a pack can override just one.
  */
 public record Tuning(CrashSite crashSite, Hop hop, Winder winder, Interior interior, Damage damage,
-        ResearchSpeed research, ConsoleTuning console, DoorTuning door, SpaceTuning space) {
+        ResearchSpeed research, ConsoleTuning console, DoorTuning door, SpaceTuning space, FreeFlight flight) {
+    /**
+     * The exterior as a loose box ({@code entity/TardisBody}, docs/free-flight-plan.md): {@code gravity} per tick
+     * with the thrusters off, {@code drag} in the air and {@code ground_friction} per tick, {@code hover_damping} (how
+     * much motion is kept per tick while the thrusters hold it), and where turning it back into a block may land:
+     * within {@code landing_radius} blocks across and {@code landing_height} up or down of the box.
+     */
+    public record FreeFlight(double gravity, double drag, double groundFriction, double hoverDamping, int landingRadius,
+            int landingHeight) {
+        static final FreeFlight DEFAULT = new FreeFlight(0.08, 0.98, 0.6, 0.8, 2, 4);
+        static final Codec<FreeFlight> CODEC = RecordCodecBuilder.create(i -> i.group(
+                Codec.DOUBLE.optionalFieldOf("gravity", DEFAULT.gravity).forGetter(FreeFlight::gravity),
+                Codec.DOUBLE.optionalFieldOf("drag", DEFAULT.drag).forGetter(FreeFlight::drag),
+                Codec.DOUBLE.optionalFieldOf("ground_friction", DEFAULT.groundFriction)
+                        .forGetter(FreeFlight::groundFriction),
+                Codec.DOUBLE.optionalFieldOf("hover_damping", DEFAULT.hoverDamping).forGetter(FreeFlight::hoverDamping),
+                Codec.INT.optionalFieldOf("landing_radius", DEFAULT.landingRadius).forGetter(FreeFlight::landingRadius),
+                Codec.INT.optionalFieldOf("landing_height", DEFAULT.landingHeight).forGetter(FreeFlight::landingHeight))
+                .apply(i, FreeFlight::new));
+    }
+
     /** The wreck made once at the start dimension's spawn. {@code offset}: blocks east of the spawn point. */
     public record CrashSite(boolean enabled, int offset, String name, long startCharge) {
         static final CrashSite DEFAULT = new CrashSite(true, 8, "The Wreck", 0);
@@ -281,7 +301,8 @@ public record Tuning(CrashSite crashSite, Hop hop, Winder winder, Interior inter
     }
 
     public static final Tuning DEFAULT = new Tuning(CrashSite.DEFAULT, Hop.DEFAULT, Winder.DEFAULT, Interior.DEFAULT,
-            Damage.DEFAULT, ResearchSpeed.DEFAULT, ConsoleTuning.DEFAULT, DoorTuning.DEFAULT, SpaceTuning.DEFAULT);
+            Damage.DEFAULT, ResearchSpeed.DEFAULT, ConsoleTuning.DEFAULT, DoorTuning.DEFAULT, SpaceTuning.DEFAULT,
+            FreeFlight.DEFAULT);
 
     public static final Codec<Tuning> CODEC = RecordCodecBuilder.create(i -> i.group(
             CrashSite.CODEC.optionalFieldOf("crash_site", CrashSite.DEFAULT).forGetter(Tuning::crashSite),
@@ -292,6 +313,7 @@ public record Tuning(CrashSite crashSite, Hop hop, Winder winder, Interior inter
             ResearchSpeed.CODEC.optionalFieldOf("research", ResearchSpeed.DEFAULT).forGetter(Tuning::research),
             ConsoleTuning.CODEC.optionalFieldOf("console", ConsoleTuning.DEFAULT).forGetter(Tuning::console),
             DoorTuning.CODEC.optionalFieldOf("door", DoorTuning.DEFAULT).forGetter(Tuning::door),
-            SpaceTuning.CODEC.optionalFieldOf("space", SpaceTuning.DEFAULT).forGetter(Tuning::space))
+            SpaceTuning.CODEC.optionalFieldOf("space", SpaceTuning.DEFAULT).forGetter(Tuning::space),
+            FreeFlight.CODEC.optionalFieldOf("flight", FreeFlight.DEFAULT).forGetter(Tuning::flight))
             .apply(i, Tuning::new));
 }

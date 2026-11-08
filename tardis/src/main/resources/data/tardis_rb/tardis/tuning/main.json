@@ -201,5 +201,14 @@
     "gravity": 0.15,
     "check_ticks": 5,
     "landing_slow_fall": 30
+  },
+  "flight": {
+    "_comment": "The loose box (free flight): gravity per tick with the thrusters off, drag in the air, ground friction, how much motion the thrusters keep per tick while hovering, and how far round the box turning it back into a block may set down.",
+    "gravity": 0.08,
+    "drag": 0.98,
+    "ground_friction": 0.6,
+    "hover_damping": 0.8,
+    "landing_radius": 2,
+    "landing_height": 4
   }
 }

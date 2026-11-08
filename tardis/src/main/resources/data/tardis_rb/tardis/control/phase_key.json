@@ -5,7 +5,7 @@
   "v": 0.494,
   "scale": 0.64,
   "actions": {
-    "key": "none"
+    "key": "phase_key"
   },
   "requirements": {
     "type": "tardis_rb:subsystem_level",

@@ -2,6 +2,7 @@ package com.porcupinestudios.tardisrb.client;
 
 import com.porcupinestudios.tardisrb.TardisRB;
 import com.porcupinestudios.tardisrb.block.TardisBlocks;
+import com.porcupinestudios.tardisrb.entity.TardisEntities;
 import com.porcupinestudios.tardisrb.net.SkyNet;
 import com.porcupinestudios.tardisrb.net.WorkshopNet;
 import com.simibubi.create.content.kinetics.base.ShaftRenderer;
@@ -23,6 +24,7 @@ public final class TardisClient {
         event.registerBlockEntityRenderer(TardisBlocks.WINDER_BE.get(), ShaftRenderer::new);
         event.registerBlockEntityRenderer(TardisBlocks.CONSOLE_BE.get(), ConsoleRenderer::new);
         event.registerBlockEntityRenderer(TardisBlocks.EXTERIOR_BE.get(), ExteriorRenderer::new);
+        event.registerEntityRenderer(TardisEntities.BODY.get(), TardisBodyRenderer::new);
     }
 
     @SubscribeEvent
