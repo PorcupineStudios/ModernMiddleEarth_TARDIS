@@ -5,7 +5,10 @@ import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;
 import com.porcupinestudios.tardisrb.TardisRB;
 import com.porcupinestudios.tardisrb.block.ConsoleBlockEntity;
+import com.porcupinestudios.tardisrb.progression.Control;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -22,15 +25,16 @@ import org.joml.Matrix4f;
 /**
  * Draws the Capaldi console room's models (Aaron, 2026-11-04): the console with its pedestal down to the lower deck,
  * the time rotor (glass and column bob, the ceiling rings turn opposite ways) and the arches. The room's walls and
- * floors are real blocks. Each control is drawn only once it is on the console (repaired); a used control sinks
- * into its panel for a moment and levers and switches stay over while flipped. The glowing bits get a second,
- * full-bright pass. The monitor shows what the console knows (its readout) and glides round the rotor to face
- * whoever last clicked the column, rising over the other panels' controls, like the 1.7.10 mod's monitor.
+ * floors are real blocks. The console's body is one plain colour (Aaron, 2026-11-08: a blank slate) with the small
+ * control models standing on its six panels ({@link ControlModels}): each is drawn only once it is on the console
+ * (repaired), posed from the console's state (levers over while on, dials at their notch, buttons pressing, gauges at
+ * their value) with its lamps in a second, full-bright pass. The monitor stands over the side it was last turned to
+ * and shows that side's readout, like the 1.7.10 mod's monitor.
  */
 public final class ConsoleRenderer implements BlockEntityRenderer<ConsoleBlockEntity> {
     private static final ResourceLocation TEXTURE = TardisRB.id("textures/entity/capaldi/console.png");
     private static final ResourceLocation GLOW = TardisRB.id("textures/entity/capaldi/console_glow.png");
-    private static final List<String> STATIC = List.of("body", "arches");
+    private static final ResourceLocation PLAIN = TardisRB.id("textures/entity/capaldi/console_plain.png");
 
     private static final int TEXT_COLOUR = 0xFF9FE8FF;
     private final Font font;
@@ -50,27 +54,20 @@ public final class ConsoleRenderer implements BlockEntityRenderer<ConsoleBlockEn
             be.drawnAngle = target;
         }
         be.drawnAngle += ConsoleModel.wrap(target - be.drawnAngle) * 0.12F;
-        float turn = be.drawnAngle;
-        // two passes: the textured model lit by the world, then its glowing bits at full brightness
+        Matrix4f monitor = model.monitorMatrix(be.drawnAngle);
+        boolean hasMonitor = be.shown().stream().anyMatch(c -> c.model().equals(Control.MONITOR));
+
+        // the plain body, then the arches and rotor with the room's texture and their glowing bits
+        draw(model.part("body"), pose, buffers.getBuffer(RenderType.entityCutoutNoCull(PLAIN)), light);
         for (int pass = 0; pass < 2; pass++) {
             boolean glow = pass == 1;
             int l = glow ? LightTexture.FULL_BRIGHT : light;
             VertexConsumer solid = buffers.getBuffer(RenderType.entityCutoutNoCull(glow ? GLOW : TEXTURE));
-            for (String part : STATIC) {
-                draw(model.part(part), pose, solid, l);
-            }
-            for (ConsoleBlockEntity.Shown c : be.shown()) {
-                ConsoleModel.ControlPart ctl = model.controls.get(c.part());
-                if (ctl == null) {
-                    continue;
-                }
+            draw(model.part("arches"), pose, solid, l);
+            if (hasMonitor) {
                 pose.pushPose();
-                boolean monitor = c.part().equals(ConsoleModel.MONITOR);
-                if (monitor) {
-                    turnMonitor(model, turn, pose);
-                }
-                animate(be, c, ctl, model, time, pose);
-                draw(model.part("ctl_" + c.part()), pose, solid, l);
+                mul(pose, monitor);
+                draw(model.part("ctl_" + ConsoleModel.MONITOR), pose, solid, l);
                 pose.popPose();
             }
             // the rotor: the ceiling rings turn opposite ways, the column rises and falls inside the glass
@@ -84,13 +81,48 @@ public final class ConsoleRenderer implements BlockEntityRenderer<ConsoleBlockEn
                     : RenderType.entityTranslucent(TEXTURE));
             draw(model.part("rotor_glass"), pose, glass, l);
         }
-        // text last: asking for the font's buffer ends the batches above
-        if (be.shown().stream().anyMatch(c -> c.part().equals(ConsoleModel.MONITOR))) {
+        // the small controls on the panels
+        for (ConsoleBlockEntity.Shown c : be.shown()) {
+            Optional<ControlModels.Model> m = ControlModels.get(c.model());
+            Matrix4f place = c.model().equals(Control.MONITOR) ? null : model.placement(c);
+            if (m.isEmpty() || place == null) {
+                continue;
+            }
+            ControlModels.Pose posed = ControlModels.pose(m.get(), be, c, time);
             pose.pushPose();
-            turnMonitor(model, turn, pose);
+            mul(pose, place);
+            VertexConsumer vc = buffers.getBuffer(RenderType.entityCutoutNoCull(ControlModels.TEXTURE));
+            for (Map.Entry<String, ControlModels.Part> p : m.get().parts().entrySet()) {
+                pose.pushPose();
+                mul(pose, posed.of(p.getKey()));
+                draw(p.getValue().quads(), pose, vc, light);
+                pose.popPose();
+            }
+            VertexConsumer lamps = buffers.getBuffer(RenderType.entityCutoutNoCull(ControlModels.GLOW));
+            for (Map.Entry<String, ControlModels.Part> p : m.get().parts().entrySet()) {
+                if (!posed.lit().contains(p.getKey())) {
+                    continue;
+                }
+                pose.pushPose();
+                mul(pose, posed.of(p.getKey()));
+                draw(p.getValue().quads(), pose, lamps, LightTexture.FULL_BRIGHT);
+                pose.popPose();
+            }
+            pose.popPose();
+        }
+        // text last: asking for the font's buffer ends the batches above
+        if (hasMonitor) {
+            pose.pushPose();
+            mul(pose, monitor);
             readout(be, model, pose, buffers);
             pose.popPose();
         }
+    }
+
+    /** Multiplies the pose (and its normals) by a rigid transform with an even scale. */
+    private static void mul(PoseStack pose, Matrix4f m) {
+        pose.last().pose().mul(m);
+        pose.last().normal().mul(new Matrix3f(m).normal());
     }
 
     private static void spin(ConsoleModel model, String part, float degrees, PoseStack pose, VertexConsumer vc,
@@ -103,14 +135,7 @@ public final class ConsoleRenderer implements BlockEntityRenderer<ConsoleBlockEn
         pose.popPose();
     }
 
-    /** Turns the monitor round the rotor axis and lifts it clear of the other panels' controls. */
-    private static void turnMonitor(ConsoleModel model, float turn, PoseStack pose) {
-        pose.translate(model.pivotX, ConsoleModel.monitorLift(turn), model.pivotZ);
-        pose.mulPose(Axis.YP.rotationDegrees(turn));
-        pose.translate(-model.pivotX, 0, -model.pivotZ);
-    }
-
-    /** What the console knows, written on the monitor's glass, sized to fit. */
+    /** What the console knows (for the side the monitor stands over), written on the monitor's glass, sized to fit. */
     private void readout(ConsoleBlockEntity be, ConsoleModel model, PoseStack pose, MultiBufferSource buffers) {
         List<String> lines = be.readout();
         if (model.glass.isEmpty() || lines.isEmpty()) {
@@ -140,28 +165,6 @@ public final class ConsoleRenderer implements BlockEntityRenderer<ConsoleBlockEn
                     Font.DisplayMode.POLYGON_OFFSET, 0, LightTexture.FULL_BRIGHT);
         }
         pose.popPose();
-    }
-
-    /** A used control sinks a little into its panel; levers and switches lean over while flipped. */
-    private static void animate(ConsoleBlockEntity be, ConsoleBlockEntity.Shown c, ConsoleModel.ControlPart ctl,
-            ConsoleModel model, float time, PoseStack pose) {
-        Vec3 centre = ctl.box().getCenter();
-        // the way out of the panel: away from the rotor axis and up
-        Vec3 out = new Vec3(centre.x - model.pivotX, 0, centre.z - model.pivotZ).normalize().add(0, 1.4, 0)
-                .normalize();
-        float since = time - be.usedAt(c.id());
-        if (since >= 0 && since < 6) {
-            Vec3 in = out.scale(-0.03 * (1 - since / 6));
-            pose.translate(in.x, in.y, in.z);
-        }
-        boolean flips = c.kind().equals("lever") || c.kind().equals("switch");
-        if (flips && be.uses(c.id()) % 2 == 1) {
-            // lean over about the control's base, round the panel's horizontal axis
-            Vec3 axis = new Vec3(-(centre.z - model.pivotZ), 0, centre.x - model.pivotX).normalize();
-            pose.translate(centre.x, ctl.box().minY, centre.z);
-            pose.mulPose(Axis.of(axis.toVector3f()).rotationDegrees(-35));
-            pose.translate(-centre.x, -ctl.box().minY, -centre.z);
-        }
     }
 
     private static void draw(List<ConsoleModel.Quad> quads, PoseStack pose, VertexConsumer vc, int light) {

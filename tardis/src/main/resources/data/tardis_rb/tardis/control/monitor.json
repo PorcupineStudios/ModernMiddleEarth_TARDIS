@@ -1,6 +1,6 @@
 {
-  "kind": "monitor",
-  "action": "screen",
-  "panel": 1,
-  "part": "screen_1"
+  "model": "monitor",
+  "actions": {
+    "screen": "screen"
+  }
 }

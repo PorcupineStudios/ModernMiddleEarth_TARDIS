@@ -1,0 +1,15 @@
+{
+  "model": "phase_key",
+  "panel": 2,
+  "u": -0.265,
+  "v": 0.22,
+  "scale": 0.8,
+  "actions": {
+    "key": "none"
+  },
+  "requirements": {
+    "type": "tardis_rb:subsystem_level",
+    "subsystem": "tardis_rb:navigation",
+    "min": 1
+  }
+}

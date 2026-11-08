@@ -1,0 +1,15 @@
+{
+  "model": "room_deleter",
+  "panel": 5,
+  "u": -0.095,
+  "v": 0.6,
+  "scale": 0.8,
+  "actions": {
+    "button": "none"
+  },
+  "requirements": {
+    "type": "tardis_rb:subsystem_level",
+    "subsystem": "tardis_rb:navigation",
+    "min": 1
+  }
+}

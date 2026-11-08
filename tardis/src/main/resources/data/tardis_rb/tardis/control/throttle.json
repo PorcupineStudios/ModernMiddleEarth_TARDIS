@@ -1,0 +1,15 @@
+{
+  "model": "throttle",
+  "panel": 0,
+  "u": 0.36,
+  "v": 0.22,
+  "scale": 0.8,
+  "actions": {
+    "handle": "none"
+  },
+  "requirements": {
+    "type": "tardis_rb:subsystem_level",
+    "subsystem": "tardis_rb:navigation",
+    "min": 1
+  }
+}

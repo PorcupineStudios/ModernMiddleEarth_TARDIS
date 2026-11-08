@@ -1,0 +1,14 @@
+{
+  "model": "demat_lever",
+  "panel": 0,
+  "u": -0.07,
+  "v": 0.22,
+  "scale": 0.8,
+  "actions": {
+    "arm": "jump"
+  },
+  "requirements": {
+    "type": "tardis_rb:milestone",
+    "milestone": "tardis_rb:restored_core"
+  }
+}

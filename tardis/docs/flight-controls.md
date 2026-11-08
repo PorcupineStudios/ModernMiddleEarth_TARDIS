@@ -23,8 +23,8 @@ Read when: the new console controls' models, their animations, or wiring them in
   which may be a vector), `gauge` (not clicked, `click` null: the needle at `from` + value x (`to` - `from`)).
   A toggle with no `moves` only lights its lamps (screens, lamps). Several clickable parts = several actions. Rotations are right-handed about the axis through the part's pivot. Glow parts with no
   `lit` entry are always lit.
-- Not in game yet (slice 1 of the flight plan): place them on the console panels, draw from these files, click boxes
-  per clickable part, state per control in `ConsoleBlockEntity`.
+- In game since 2026-11-08: placed on the console's six themed sides by `tools/console_layout.py`, drawn, animated
+  and clicked per part (`docs/console.md`, "blank slate + themed sides").
 
 ## Flight set (designed from named TARDIS controls)
 | # | id | Name | Animation | Does (planned) |

@@ -1,0 +1,15 @@
+{
+  "model": "vector_tracker",
+  "panel": 1,
+  "u": 0.145,
+  "v": 0.56,
+  "scale": 0.8,
+  "actions": {
+    "ball": "none"
+  },
+  "requirements": {
+    "type": "tardis_rb:subsystem_level",
+    "subsystem": "tardis_rb:navigation",
+    "min": 1
+  }
+}
