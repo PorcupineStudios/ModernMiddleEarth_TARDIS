@@ -1,11 +1,11 @@
 {
-  "model": "throttle",
-  "panel": 0,
-  "u": 0.36,
-  "v": 0.22,
-  "scale": 0.8,
+  "model": "coordinate_lever",
+  "panel": 1,
+  "u": -0.2425,
+  "v": 0.1144,
+  "scale": 0.72,
   "actions": {
-    "handle": "none"
+    "lever": "z1"
   },
   "requirements": {
     "type": "tardis_rb:subsystem_level",

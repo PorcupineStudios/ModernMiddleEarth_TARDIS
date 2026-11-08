@@ -18,7 +18,7 @@
  "elements": [
   {
    "name": "base_0",
-   "uuid": "644dbe5c-43d1-4323-84de-5b13ffdb5574",
+   "uuid": "c56d587c-b1b7-4989-84f1-0f3283101b50",
    "type": "cube",
    "from": [
     -2,
@@ -95,7 +95,7 @@
   },
   {
    "name": "base_1",
-   "uuid": "e12042d7-a0e6-408b-b79b-2610974d60b8",
+   "uuid": "d7e8b7af-18df-459f-be3e-cca120699806",
    "type": "cube",
    "from": [
     -1.6,
@@ -172,7 +172,7 @@
   },
   {
    "name": "base_2",
-   "uuid": "f0eb09df-d630-4512-8ef0-9906ff5249c9",
+   "uuid": "1ede837e-279b-4804-84f4-d4a31872f798",
    "type": "cube",
    "from": [
     1,
@@ -249,7 +249,7 @@
   },
   {
    "name": "lever_0",
-   "uuid": "d5361f53-e885-49b7-b295-eceabe5f337c",
+   "uuid": "04350b00-96b9-41f3-b8cb-c0f59efd0dd5",
    "type": "cube",
    "from": [
     -1.6,
@@ -326,7 +326,7 @@
   },
   {
    "name": "lever_1",
-   "uuid": "b7eb9d25-0ae2-48fd-a40a-642e519f46cb",
+   "uuid": "2ab05cde-9118-45b0-a202-21d028eb82d1",
    "type": "cube",
    "from": [
     1,
@@ -403,7 +403,7 @@
   },
   {
    "name": "lever_2",
-   "uuid": "f46b0fb1-d625-422c-aae1-2bdecd002e71",
+   "uuid": "bf519f49-6ed1-4cac-9f22-4117ecfecd06",
    "type": "cube",
    "from": [
     -1.6,
@@ -480,7 +480,7 @@
   },
   {
    "name": "lever_3",
-   "uuid": "b50ab584-5e40-4fef-87c4-0ca630375cd0",
+   "uuid": "497c2e9d-19f9-4399-8386-ff8e3326e653",
    "type": "cube",
    "from": [
     -0.9,
@@ -559,7 +559,7 @@
  "outliner": [
   {
    "name": "base",
-   "uuid": "95c08e25-11ba-4861-88cf-85860a8558e6",
+   "uuid": "be7bbcec-a0f1-478e-b497-f6eee0d9bc3b",
    "origin": [
     0,
     0,
@@ -571,16 +571,16 @@
     0
    ],
    "children": [
-    "644dbe5c-43d1-4323-84de-5b13ffdb5574",
-    "e12042d7-a0e6-408b-b79b-2610974d60b8",
-    "f0eb09df-d630-4512-8ef0-9906ff5249c9"
+    "c56d587c-b1b7-4989-84f1-0f3283101b50",
+    "d7e8b7af-18df-459f-be3e-cca120699806",
+    "1ede837e-279b-4804-84f4-d4a31872f798"
    ],
    "export": true,
    "visibility": true
   },
   {
    "name": "lever",
-   "uuid": "4d36636e-18ca-4966-b833-541ba24baf73",
+   "uuid": "22c417ea-e5ae-4962-9c44-52e4aaa1767b",
    "origin": [
     0,
     1.5,
@@ -592,10 +592,10 @@
     0
    ],
    "children": [
-    "d5361f53-e885-49b7-b295-eceabe5f337c",
-    "b7eb9d25-0ae2-48fd-a40a-642e519f46cb",
-    "f46b0fb1-d625-422c-aae1-2bdecd002e71",
-    "b50ab584-5e40-4fef-87c4-0ca630375cd0"
+    "04350b00-96b9-41f3-b8cb-c0f59efd0dd5",
+    "2ab05cde-9118-45b0-a202-21d028eb82d1",
+    "bf519f49-6ed1-4cac-9f22-4117ecfecd06",
+    "497c2e9d-19f9-4399-8386-ff8e3326e653"
    ],
    "export": true,
    "visibility": true
@@ -613,20 +613,20 @@
    "visible": true,
    "mode": "bitmap",
    "saved": true,
-   "uuid": "0ab4c595-9b12-40b1-86eb-10ccfbdfaacc",
+   "uuid": "8766acb1-fffd-4334-ad70-442cd1b6aae9",
    "relative_path": "../../src/main/resources/assets/tardis_rb/textures/entity/controls/controls.png",
    "source": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAABW0lEQVR4nO3QMWtUQRTF8fOWtbFNJ4G0VgGtg6QLSZEmWKYwn8fCzj5+gRQSCMRAkk4LLQKW9japbO49c47FLuzcoEISsJo/PIaZgfld3nT9fttJg01IGp+//UST0QQ0GZsHb0EmSIIkzs8vIDVIgiTcfP0C27ABwHi29hSyl2fGu0bQRhpIG1ufjhFBRCYyE7MeZ1PBm1xwkgWXVHDbBZddcNoFjyBmPZ6s+GKAFd7Igkut4L6DWxVPu+Dx9z+w/JoLzsaCS/on7iXKfu3wTGJ+fXkLyWheoLsb66CWQ8nYP3yNiEBEIDNx9PIUSSHSyBR+vPiOjABzcX/y/AP6ds4+lv2bXzurzRNg3uNNLjilgkcEpg4PquCMwH2b93i7g7O54BGBqcdTBWc+ZIAOl1zwlAoeEZh1+GJd4fmAASbvvXI5OL2a7v3KI5r9T2wMMBqNRqPRaDQa/anfcENNcGO7wq8AAAAASUVORK5CYII="
   }
  ],
  "animations": [
   {
-   "uuid": "8412c6dd-fe33-4ea0-8c9a-286a0af2c259",
-   "name": "on",
-   "loop": "hold",
-   "length": 0.4,
+   "uuid": "027b6bb6-3914-4f6c-9fc3-48db568d5f5b",
+   "name": "steps",
+   "loop": "once",
+   "length": 0.3,
    "snapping": 20,
    "animators": {
-    "4d36636e-18ca-4966-b833-541ba24baf73": {
+    "22c417ea-e5ae-4962-9c44-52e4aaa1767b": {
      "name": "lever",
      "type": "bone",
      "keyframes": [
@@ -634,12 +634,12 @@
        "channel": "rotation",
        "data_points": [
         {
-         "x": 70,
+         "x": 0,
          "y": 0,
          "z": 0
         }
        ],
-       "uuid": "526bd70e-e81a-4f3c-906d-443840635414",
+       "uuid": "e37ccf73-0e74-4aa1-a1b9-2bb2b88f29c7",
        "time": 0,
        "interpolation": "linear"
       },
@@ -647,54 +647,13 @@
        "channel": "rotation",
        "data_points": [
         {
-         "x": -70,
+         "x": -11.666666666666666,
          "y": 0,
          "z": 0
         }
        ],
-       "uuid": "b17489e1-2cf4-4658-8d47-b645c3c79509",
-       "time": 0.4,
-       "interpolation": "linear"
-      }
-     ]
-    }
-   }
-  },
-  {
-   "uuid": "7849fa52-db9d-4c17-8852-708eca928619",
-   "name": "off",
-   "loop": "hold",
-   "length": 0.4,
-   "snapping": 20,
-   "animators": {
-    "4d36636e-18ca-4966-b833-541ba24baf73": {
-     "name": "lever",
-     "type": "bone",
-     "keyframes": [
-      {
-       "channel": "rotation",
-       "data_points": [
-        {
-         "x": -70,
-         "y": 0,
-         "z": 0
-        }
-       ],
-       "uuid": "61415309-808c-4d13-b8f8-974af4cdd603",
-       "time": 0,
-       "interpolation": "linear"
-      },
-      {
-       "channel": "rotation",
-       "data_points": [
-        {
-         "x": 70,
-         "y": 0,
-         "z": 0
-        }
-       ],
-       "uuid": "98b70a9f-0782-475c-94e6-3ec63d8bb247",
-       "time": 0.4,
+       "uuid": "e4caaf6e-fd9f-4096-8a39-97faf2c65e5a",
+       "time": 0.3,
        "interpolation": "linear"
       }
      ]

@@ -18,7 +18,7 @@
  "elements": [
   {
    "name": "base_0",
-   "uuid": "38934b57-3bc5-41b8-823d-a347063a58b8",
+   "uuid": "fb13b4c3-8709-4f82-ab03-6107a0337ae1",
    "type": "cube",
    "from": [
     -1,
@@ -95,7 +95,7 @@
   },
   {
    "name": "base_1",
-   "uuid": "8e973a35-5bb6-4375-9b0d-b08150c4e190",
+   "uuid": "d4eae703-9754-4da1-9545-6aa6a5afd89f",
    "type": "cube",
    "from": [
     -0.4,
@@ -172,7 +172,7 @@
   },
   {
    "name": "wheel_0",
-   "uuid": "31d16a34-1150-4e96-9820-729526a6abce",
+   "uuid": "4f916be3-5031-45d4-ac2b-28d58bdec044",
    "type": "cube",
    "from": [
     -3,
@@ -249,7 +249,7 @@
   },
   {
    "name": "wheel_1",
-   "uuid": "79df8341-9060-46c5-8e50-4d465533ce42",
+   "uuid": "05da457a-24cb-47b2-9649-10bc84a3afb6",
    "type": "cube",
    "from": [
     -3,
@@ -326,7 +326,7 @@
   },
   {
    "name": "wheel_2",
-   "uuid": "157622e3-6dc4-471d-8da0-ca63d8513a3a",
+   "uuid": "c08f4fa4-fb71-4608-a4d8-665d3ae5fc3f",
    "type": "cube",
    "from": [
     -3,
@@ -403,7 +403,7 @@
   },
   {
    "name": "wheel_3",
-   "uuid": "5b0da839-fe53-4a28-baea-2fc076fdca68",
+   "uuid": "b1e784dc-7091-464f-aea5-ed7491b5ae48",
    "type": "cube",
    "from": [
     2.5,
@@ -480,7 +480,7 @@
   },
   {
    "name": "wheel_4",
-   "uuid": "674c8962-7547-4151-99d5-03fe14d47ffd",
+   "uuid": "70410443-c118-42cb-bb28-2422dd023005",
    "type": "cube",
    "from": [
     -2.5,
@@ -557,7 +557,7 @@
   },
   {
    "name": "wheel_5",
-   "uuid": "9b1a7305-a3a0-4230-9ee5-4894b82313b2",
+   "uuid": "fbbd7590-f103-476a-8256-8c83c3558d34",
    "type": "cube",
    "from": [
     -0.25,
@@ -634,7 +634,7 @@
   },
   {
    "name": "wheel_6",
-   "uuid": "a8d2eddd-5dde-4aae-90c2-1a555686299e",
+   "uuid": "b78a53a9-8e16-4a25-b12c-d421d5f91ee7",
    "type": "cube",
    "from": [
     -0.7,
@@ -713,7 +713,7 @@
  "outliner": [
   {
    "name": "base",
-   "uuid": "6d85224e-6c7b-4d82-b66d-54082852fcf9",
+   "uuid": "0f76dd8f-ec16-4bf0-b9db-07ff457d6f15",
    "origin": [
     0,
     0,
@@ -725,15 +725,15 @@
     0
    ],
    "children": [
-    "38934b57-3bc5-41b8-823d-a347063a58b8",
-    "8e973a35-5bb6-4375-9b0d-b08150c4e190"
+    "fb13b4c3-8709-4f82-ab03-6107a0337ae1",
+    "d4eae703-9754-4da1-9545-6aa6a5afd89f"
    ],
    "export": true,
    "visibility": true
   },
   {
    "name": "wheel",
-   "uuid": "e9dcfd26-6857-45d4-bcb6-f6ac46b6db00",
+   "uuid": "d7da0ad6-3c90-4d61-8e23-5994744ee627",
    "origin": [
     0,
     2.4,
@@ -745,13 +745,13 @@
     0
    ],
    "children": [
-    "31d16a34-1150-4e96-9820-729526a6abce",
-    "79df8341-9060-46c5-8e50-4d465533ce42",
-    "157622e3-6dc4-471d-8da0-ca63d8513a3a",
-    "5b0da839-fe53-4a28-baea-2fc076fdca68",
-    "674c8962-7547-4151-99d5-03fe14d47ffd",
-    "9b1a7305-a3a0-4230-9ee5-4894b82313b2",
-    "a8d2eddd-5dde-4aae-90c2-1a555686299e"
+    "4f916be3-5031-45d4-ac2b-28d58bdec044",
+    "05da457a-24cb-47b2-9649-10bc84a3afb6",
+    "c08f4fa4-fb71-4608-a4d8-665d3ae5fc3f",
+    "b1e784dc-7091-464f-aea5-ed7491b5ae48",
+    "70410443-c118-42cb-bb28-2422dd023005",
+    "fbbd7590-f103-476a-8256-8c83c3558d34",
+    "b78a53a9-8e16-4a25-b12c-d421d5f91ee7"
    ],
    "export": true,
    "visibility": true
@@ -769,20 +769,20 @@
    "visible": true,
    "mode": "bitmap",
    "saved": true,
-   "uuid": "6676b076-2118-4d61-b908-553de0f791d9",
+   "uuid": "ab4953b7-286e-47fc-b330-78480372dc0d",
    "relative_path": "../../src/main/resources/assets/tardis_rb/textures/entity/controls/controls.png",
    "source": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAABW0lEQVR4nO3QMWtUQRTF8fOWtbFNJ4G0VgGtg6QLSZEmWKYwn8fCzj5+gRQSCMRAkk4LLQKW9japbO49c47FLuzcoEISsJo/PIaZgfld3nT9fttJg01IGp+//UST0QQ0GZsHb0EmSIIkzs8vIDVIgiTcfP0C27ABwHi29hSyl2fGu0bQRhpIG1ufjhFBRCYyE7MeZ1PBm1xwkgWXVHDbBZddcNoFjyBmPZ6s+GKAFd7Igkut4L6DWxVPu+Dx9z+w/JoLzsaCS/on7iXKfu3wTGJ+fXkLyWheoLsb66CWQ8nYP3yNiEBEIDNx9PIUSSHSyBR+vPiOjABzcX/y/AP6ds4+lv2bXzurzRNg3uNNLjilgkcEpg4PquCMwH2b93i7g7O54BGBqcdTBWc+ZIAOl1zwlAoeEZh1+GJd4fmAASbvvXI5OL2a7v3KI5r9T2wMMBqNRqPRaDQa/anfcENNcGO7wq8AAAAASUVORK5CYII="
   }
  ],
  "animations": [
   {
-   "uuid": "9c76f3a1-ef22-418f-b223-6aa618261765",
+   "uuid": "fd9d1a70-1b85-4401-8e55-c5b4efe0d131",
    "name": "steps",
    "loop": "once",
    "length": 0.4,
    "snapping": 20,
    "animators": {
-    "e9dcfd26-6857-45d4-bcb6-f6ac46b6db00": {
+    "d7da0ad6-3c90-4d61-8e23-5994744ee627": {
      "name": "wheel",
      "type": "bone",
      "keyframes": [
@@ -795,7 +795,7 @@
          "z": 0
         }
        ],
-       "uuid": "88d808b8-1854-40c7-bed3-802be2c90f95",
+       "uuid": "1ef74ea6-1df3-434a-8feb-16fa2a77beab",
        "time": 0,
        "interpolation": "linear"
       },
@@ -808,7 +808,7 @@
          "z": 0
         }
        ],
-       "uuid": "bdaec5a3-61e2-46cb-ad68-47c21a3be4f6",
+       "uuid": "a6d41715-cf20-4cf0-a353-23180bc30752",
        "time": 0.4,
        "interpolation": "linear"
       }

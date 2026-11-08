@@ -39,7 +39,7 @@ public final class Flight {
             return problem.isEmpty();
         }
 
-        static Outcome fail(String key, String fallback, Object... args) {
+        public static Outcome fail(String key, String fallback, Object... args) {
             return new Outcome(Optional.of(Component.translatableWithFallback(key, fallback, args)), Optional.empty());
         }
     }
@@ -53,6 +53,12 @@ public final class Flight {
     }
 
     public static Outcome hop(MinecraftServer server, TardisRecord tardis, BlockPos target,
+            Optional<ServerPlayer> by) {
+        return hop(server, tardis, target, Optional.empty(), by);
+    }
+
+    /** A short hop that lands with the doors facing {@code facing} (empty: as before). */
+    public static Outcome hop(MinecraftServer server, TardisRecord tardis, BlockPos target, Optional<Direction> facing,
             Optional<ServerPlayer> by) {
         if (tardis.location().isEmpty()) {
             return Outcome.fail("tardis_rb.hop.nowhere", "The TARDIS isn't standing anywhere");
@@ -86,7 +92,7 @@ public final class Flight {
             return Outcome.fail("tardis_rb.hop.charge", "Needs %s charge (the TARDIS has %s)", cost.charge(),
                     tardis.charge());
         }
-        return land(server, tardis, from, level, level, to.pos(), cost.charge(), HOP_HISTORY);
+        return land(server, tardis, from, level, level, to.pos(), cost.charge(), HOP_HISTORY, facing);
     }
 
     /**
@@ -95,6 +101,12 @@ public final class Flight {
      */
     public static Outcome jump(MinecraftServer server, TardisRecord tardis, ResourceLocation destinationId,
             Optional<BlockPos> target, Optional<ServerPlayer> by) {
+        return jump(server, tardis, destinationId, target, Optional.empty(), by);
+    }
+
+    /** A jump that lands with the doors facing {@code facing} (empty: as before). */
+    public static Outcome jump(MinecraftServer server, TardisRecord tardis, ResourceLocation destinationId,
+            Optional<BlockPos> target, Optional<Direction> facing, Optional<ServerPlayer> by) {
         if (tardis.location().isEmpty()) {
             return Outcome.fail("tardis_rb.hop.nowhere", "The TARDIS isn't standing anywhere");
         }
@@ -125,12 +137,12 @@ public final class Flight {
             return Outcome.fail("tardis_rb.hop.charge", "Needs %s charge (the TARDIS has %s)", cost.charge(),
                     tardis.charge());
         }
-        return land(server, tardis, from, fromLevel, planned, to.pos(), cost.charge(), JUMP_HISTORY);
+        return land(server, tardis, from, fromLevel, planned, to.pos(), cost.charge(), JUMP_HISTORY, facing);
     }
 
     /** Lifts the box, finds a spot near {@code target} in {@code toLevel}, pays and lands; puts it back on failure. */
     private static Outcome land(MinecraftServer server, TardisRecord tardis, GlobalPos from, ServerLevel level,
-            ServerLevel toLevel, BlockPos target, long charge, ResourceLocation history) {
+            ServerLevel toLevel, BlockPos target, long charge, ResourceLocation history, Optional<Direction> turn) {
         Tuning.Hop t = TardisContent.tuning().hop();
         Doors.close(server, tardis); // the doors shut before it moves
         Direction facing = Exteriors.lift(level, from.pos()); // so the old spot doesn't block the search
@@ -148,7 +160,7 @@ public final class Flight {
             landed = GlobalPos.of(toLevel.dimension(), spot.get());
         }
         tardis.useCharge(charge);
-        Exteriors.place(landLevel, landed.pos(), facing, tardis.id());
+        Exteriors.place(landLevel, landed.pos(), turn.orElse(facing), tardis.id());
         tardis.setLocation(Optional.of(landed));
         NeoForge.EVENT_BUS.post(new JumpEvent.Arrived(tardis, from, landed));
         CompoundTag tag = new CompoundTag();

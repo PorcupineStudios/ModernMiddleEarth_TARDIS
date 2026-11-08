@@ -18,7 +18,7 @@
  "elements": [
   {
    "name": "base_0",
-   "uuid": "b3d24f76-67e8-4cba-b1d0-9449b93efdcf",
+   "uuid": "07ac5adc-74ef-46e7-9e08-84e94196ca54",
    "type": "cube",
    "from": [
     -1.5,
@@ -95,7 +95,7 @@
   },
   {
    "name": "base_1",
-   "uuid": "410a8030-2893-4847-9ace-32513ac6ef92",
+   "uuid": "e888f332-b6a4-4ca2-91fc-b50d22e59de1",
    "type": "cube",
    "from": [
     -1,
@@ -172,7 +172,7 @@
   },
   {
    "name": "lever_0",
-   "uuid": "1e30e2af-e7d0-490a-9244-6f10d06a2052",
+   "uuid": "c5b0ae86-e8af-4bae-88e4-680666ae7bcf",
    "type": "cube",
    "from": [
     -0.3,
@@ -249,7 +249,7 @@
   },
   {
    "name": "lever_1",
-   "uuid": "f79cae98-e0de-43b8-b00e-422a53e161db",
+   "uuid": "a84749c3-7c22-4964-b9b4-b5dd1ec59d83",
    "type": "cube",
    "from": [
     -0.3,
@@ -326,7 +326,7 @@
   },
   {
    "name": "lever_2",
-   "uuid": "1f4b6dcd-fe09-4848-aad6-84b59982c4fc",
+   "uuid": "a54437b3-1e80-4d08-9dd2-93990b7588d8",
    "type": "cube",
    "from": [
     -0.7,
@@ -405,7 +405,7 @@
  "outliner": [
   {
    "name": "base",
-   "uuid": "a1cf4ea5-11a4-47fa-a7a7-959a49bf9ea4",
+   "uuid": "bef678b1-d75a-4804-bb79-087352ffdcc7",
    "origin": [
     0,
     0,
@@ -417,15 +417,15 @@
     0
    ],
    "children": [
-    "b3d24f76-67e8-4cba-b1d0-9449b93efdcf",
-    "410a8030-2893-4847-9ace-32513ac6ef92"
+    "07ac5adc-74ef-46e7-9e08-84e94196ca54",
+    "e888f332-b6a4-4ca2-91fc-b50d22e59de1"
    ],
    "export": true,
    "visibility": true
   },
   {
    "name": "lever",
-   "uuid": "34a926b3-8900-45ac-ac38-af0dbb919338",
+   "uuid": "8a53c368-d2c3-4f96-8ad1-9f46fce594be",
    "origin": [
     0,
     1.6,
@@ -437,9 +437,9 @@
     0
    ],
    "children": [
-    "1e30e2af-e7d0-490a-9244-6f10d06a2052",
-    "f79cae98-e0de-43b8-b00e-422a53e161db",
-    "1f4b6dcd-fe09-4848-aad6-84b59982c4fc"
+    "c5b0ae86-e8af-4bae-88e4-680666ae7bcf",
+    "a84749c3-7c22-4964-b9b4-b5dd1ec59d83",
+    "a54437b3-1e80-4d08-9dd2-93990b7588d8"
    ],
    "export": true,
    "visibility": true
@@ -457,20 +457,20 @@
    "visible": true,
    "mode": "bitmap",
    "saved": true,
-   "uuid": "47480007-20ca-4a02-8d5e-ada58db87044",
+   "uuid": "aba627ed-2404-4a41-bb37-a1feff7ff4d4",
    "relative_path": "../../src/main/resources/assets/tardis_rb/textures/entity/controls/controls.png",
    "source": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAABW0lEQVR4nO3QMWtUQRTF8fOWtbFNJ4G0VgGtg6QLSZEmWKYwn8fCzj5+gRQSCMRAkk4LLQKW9japbO49c47FLuzcoEISsJo/PIaZgfld3nT9fttJg01IGp+//UST0QQ0GZsHb0EmSIIkzs8vIDVIgiTcfP0C27ABwHi29hSyl2fGu0bQRhpIG1ufjhFBRCYyE7MeZ1PBm1xwkgWXVHDbBZddcNoFjyBmPZ6s+GKAFd7Igkut4L6DWxVPu+Dx9z+w/JoLzsaCS/on7iXKfu3wTGJ+fXkLyWheoLsb66CWQ8nYP3yNiEBEIDNx9PIUSSHSyBR+vPiOjABzcX/y/AP6ds4+lv2bXzurzRNg3uNNLjilgkcEpg4PquCMwH2b93i7g7O54BGBqcdTBWc+ZIAOl1zwlAoeEZh1+GJd4fmAASbvvXI5OL2a7v3KI5r9T2wMMBqNRqPRaDQa/anfcENNcGO7wq8AAAAASUVORK5CYII="
   }
  ],
  "animations": [
   {
-   "uuid": "2f34950e-e954-4e30-a3bc-4ff129240538",
+   "uuid": "65610ef1-360c-4b9d-aee0-21effe5172d6",
    "name": "on",
    "loop": "hold",
    "length": 0.5,
    "snapping": 20,
    "animators": {
-    "34a926b3-8900-45ac-ac38-af0dbb919338": {
+    "8a53c368-d2c3-4f96-8ad1-9f46fce594be": {
      "name": "lever",
      "type": "bone",
      "keyframes": [
@@ -483,7 +483,7 @@
          "z": 70
         }
        ],
-       "uuid": "21a03cb3-c964-41eb-938a-a76d8015ad1b",
+       "uuid": "fba12608-66cf-4b16-84f3-6f10946f7cc8",
        "time": 0,
        "interpolation": "linear"
       },
@@ -496,7 +496,7 @@
          "z": -70
         }
        ],
-       "uuid": "6fdd46d4-0126-410a-8b39-217098a844f5",
+       "uuid": "5fe0f9aa-e8bc-4b32-b4f3-7d314635b0f4",
        "time": 0.5,
        "interpolation": "linear"
       }
@@ -505,13 +505,13 @@
    }
   },
   {
-   "uuid": "5219c936-9d39-49ef-885f-ccc2811f8eec",
+   "uuid": "8091933a-a53d-4719-8768-82a811c03704",
    "name": "off",
    "loop": "hold",
    "length": 0.5,
    "snapping": 20,
    "animators": {
-    "34a926b3-8900-45ac-ac38-af0dbb919338": {
+    "8a53c368-d2c3-4f96-8ad1-9f46fce594be": {
      "name": "lever",
      "type": "bone",
      "keyframes": [
@@ -524,7 +524,7 @@
          "z": -70
         }
        ],
-       "uuid": "80c7cf42-8eda-481f-a227-26a9d90a7d10",
+       "uuid": "09d3b437-802c-4233-8a85-a2496d7084cd",
        "time": 0,
        "interpolation": "linear"
       },
@@ -537,7 +537,7 @@
          "z": 70
         }
        ],
-       "uuid": "9b0bbf81-25e4-428c-8491-71ef1422f922",
+       "uuid": "be2945b2-ad13-4693-8855-379c5ca4a42a",
        "time": 0.5,
        "interpolation": "linear"
       }

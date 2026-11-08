@@ -1,9 +1,9 @@
 {
   "model": "thrusters",
-  "panel": 2,
-  "u": 0.24,
-  "v": 0.22,
-  "scale": 0.8,
+  "panel": 3,
+  "u": 0.2,
+  "v": 0.494,
+  "scale": 0.64,
   "actions": {
     "rocker": "none"
   },

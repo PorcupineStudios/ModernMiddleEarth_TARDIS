@@ -1,14 +1,15 @@
 {
   "model": "telepathic_circuits",
-  "panel": 3,
-  "u": -0.19,
-  "v": 0.22,
-  "scale": 0.8,
+  "panel": 2,
+  "u": 0.3618,
+  "v": 0.1788,
+  "scale": 0.68,
   "actions": {
-    "plate": "destination"
+    "plate": "none"
   },
   "requirements": {
-    "type": "tardis_rb:milestone",
-    "milestone": "tardis_rb:restored_core"
+    "type": "tardis_rb:subsystem_level",
+    "subsystem": "tardis_rb:navigation",
+    "min": 1
   }
 }

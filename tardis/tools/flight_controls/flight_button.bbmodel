@@ -18,7 +18,7 @@
  "elements": [
   {
    "name": "base_0",
-   "uuid": "714d66ff-1da6-43f0-ab79-d7cf10626bbc",
+   "uuid": "417d2445-877c-4bac-96f6-2b975cf3427b",
    "type": "cube",
    "from": [
     -1.25,
@@ -95,7 +95,7 @@
   },
   {
    "name": "button_0",
-   "uuid": "b0ac29b0-2c1e-44cd-8b95-1b76fbe17efe",
+   "uuid": "82a156bd-3cca-4672-80a9-cd716847d373",
    "type": "cube",
    "from": [
     -0.9,
@@ -172,7 +172,7 @@
   },
   {
    "name": "glow_0",
-   "uuid": "2456ba53-5555-43e3-b258-9bc0645b5121",
+   "uuid": "dc3c2628-f3b7-45a6-be16-3d1e50776a69",
    "type": "cube",
    "from": [
     -0.92,
@@ -251,7 +251,7 @@
  "outliner": [
   {
    "name": "base",
-   "uuid": "71582078-6ffb-450a-9ab4-abb684337ff9",
+   "uuid": "ddc07ffa-5419-4529-b580-b24010ba8d5f",
    "origin": [
     0,
     0,
@@ -263,14 +263,14 @@
     0
    ],
    "children": [
-    "714d66ff-1da6-43f0-ab79-d7cf10626bbc"
+    "417d2445-877c-4bac-96f6-2b975cf3427b"
    ],
    "export": true,
    "visibility": true
   },
   {
    "name": "button",
-   "uuid": "f2de9202-ed15-4228-8237-054d90e62d05",
+   "uuid": "e68355c6-9291-4bdf-b29e-33d8552ec628",
    "origin": [
     0,
     1,
@@ -282,14 +282,14 @@
     0
    ],
    "children": [
-    "b0ac29b0-2c1e-44cd-8b95-1b76fbe17efe"
+    "82a156bd-3cca-4672-80a9-cd716847d373"
    ],
    "export": true,
    "visibility": true
   },
   {
    "name": "glow",
-   "uuid": "108f259a-f760-4dcf-8ed7-4d890c8afb60",
+   "uuid": "7ff53873-2152-40f5-927b-5770e62aed09",
    "origin": [
     0,
     1,
@@ -301,7 +301,7 @@
     0
    ],
    "children": [
-    "2456ba53-5555-43e3-b258-9bc0645b5121"
+    "dc3c2628-f3b7-45a6-be16-3d1e50776a69"
    ],
    "export": true,
    "visibility": true
@@ -319,20 +319,20 @@
    "visible": true,
    "mode": "bitmap",
    "saved": true,
-   "uuid": "eba8f4b2-683c-4bc1-8e34-713591104b13",
+   "uuid": "32c52ea0-c861-4ce6-8fb8-0b5d4f04d13d",
    "relative_path": "../../src/main/resources/assets/tardis_rb/textures/entity/controls/controls.png",
    "source": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAABW0lEQVR4nO3QMWtUQRTF8fOWtbFNJ4G0VgGtg6QLSZEmWKYwn8fCzj5+gRQSCMRAkk4LLQKW9japbO49c47FLuzcoEISsJo/PIaZgfld3nT9fttJg01IGp+//UST0QQ0GZsHb0EmSIIkzs8vIDVIgiTcfP0C27ABwHi29hSyl2fGu0bQRhpIG1ufjhFBRCYyE7MeZ1PBm1xwkgWXVHDbBZddcNoFjyBmPZ6s+GKAFd7Igkut4L6DWxVPu+Dx9z+w/JoLzsaCS/on7iXKfu3wTGJ+fXkLyWheoLsb66CWQ8nYP3yNiEBEIDNx9PIUSSHSyBR+vPiOjABzcX/y/AP6ds4+lv2bXzurzRNg3uNNLjilgkcEpg4PquCMwH2b93i7g7O54BGBqcdTBWc+ZIAOl1zwlAoeEZh1+GJd4fmAASbvvXI5OL2a7v3KI5r9T2wMMBqNRqPRaDQa/anfcENNcGO7wq8AAAAASUVORK5CYII="
   }
  ],
  "animations": [
   {
-   "uuid": "8847b958-f6a3-4c63-a0ec-05f153a1328e",
+   "uuid": "527aacb5-26dd-4a56-8eb4-0ea29ac61a8b",
    "name": "on",
    "loop": "hold",
    "length": 0.2,
    "snapping": 20,
    "animators": {
-    "f2de9202-ed15-4228-8237-054d90e62d05": {
+    "e68355c6-9291-4bdf-b29e-33d8552ec628": {
      "name": "button",
      "type": "bone",
      "keyframes": [
@@ -345,7 +345,7 @@
          "z": 0
         }
        ],
-       "uuid": "5fe5136e-e83d-49de-ba28-19175fa341c0",
+       "uuid": "0da27597-4422-405e-86ca-16034ea165bc",
        "time": 0,
        "interpolation": "linear"
       },
@@ -358,13 +358,13 @@
          "z": 0
         }
        ],
-       "uuid": "c4494b74-2374-4bc7-a0e8-17d316f18066",
+       "uuid": "cff9c856-25dd-4a0a-bace-9cb55a31174e",
        "time": 0.2,
        "interpolation": "linear"
       }
      ]
     },
-    "108f259a-f760-4dcf-8ed7-4d890c8afb60": {
+    "7ff53873-2152-40f5-927b-5770e62aed09": {
      "name": "glow",
      "type": "bone",
      "keyframes": [
@@ -377,7 +377,7 @@
          "z": 0
         }
        ],
-       "uuid": "b8d99d3c-5c44-4c66-9dd7-6f7dfd86ae72",
+       "uuid": "5e61ade9-10c9-4c7e-8687-8e5cc61320c3",
        "time": 0,
        "interpolation": "linear"
       },
@@ -390,7 +390,7 @@
          "z": 0
         }
        ],
-       "uuid": "5b66b3a3-fd1a-41ef-8737-80eea5f2c4aa",
+       "uuid": "c46c26cb-7d61-4096-902a-eda3e791a558",
        "time": 0.2,
        "interpolation": "linear"
       }
@@ -399,13 +399,13 @@
    }
   },
   {
-   "uuid": "9aba79b1-72c5-4408-8e37-c786d4ac249f",
+   "uuid": "425c82d7-b8b6-431b-80d7-d5c1e8df0882",
    "name": "off",
    "loop": "hold",
    "length": 0.2,
    "snapping": 20,
    "animators": {
-    "f2de9202-ed15-4228-8237-054d90e62d05": {
+    "e68355c6-9291-4bdf-b29e-33d8552ec628": {
      "name": "button",
      "type": "bone",
      "keyframes": [
@@ -418,7 +418,7 @@
          "z": 0
         }
        ],
-       "uuid": "f3aee6ee-f5af-444c-a4cb-fdde720639b6",
+       "uuid": "e60e8078-bb55-4431-b92e-de5beb711da7",
        "time": 0,
        "interpolation": "linear"
       },
@@ -431,13 +431,13 @@
          "z": 0
         }
        ],
-       "uuid": "b1da5445-0b13-4a4a-9f87-a2ffa30d9682",
+       "uuid": "8d00d568-9a6e-47bd-80c0-0401a8925f3e",
        "time": 0.2,
        "interpolation": "linear"
       }
      ]
     },
-    "108f259a-f760-4dcf-8ed7-4d890c8afb60": {
+    "7ff53873-2152-40f5-927b-5770e62aed09": {
      "name": "glow",
      "type": "bone",
      "keyframes": [
@@ -450,7 +450,7 @@
          "z": 0
         }
        ],
-       "uuid": "7d30bb44-4c29-4dac-856f-865bcae6fec5",
+       "uuid": "817f082e-af43-4049-9d3b-3018707eee3a",
        "time": 0,
        "interpolation": "linear"
       },
@@ -463,7 +463,7 @@
          "z": 0
         }
        ],
-       "uuid": "4b70c3cb-0908-43a6-b329-7565b8e0b85b",
+       "uuid": "a8a3326f-1559-424f-8f8b-68bcba61f7ff",
        "time": 0.2,
        "interpolation": "linear"
       }

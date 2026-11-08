@@ -1,11 +1,11 @@
 {
-  "model": "directional_pointer",
-  "panel": 1,
-  "u": -0.145,
-  "v": 0.56,
-  "scale": 0.8,
+  "model": "valve_wheel",
+  "panel": 0,
+  "u": -0.247,
+  "v": 0.3738,
+  "scale": 0.72,
   "actions": {
-    "needle": "none"
+    "wheel": "x4"
   },
   "requirements": {
     "type": "tardis_rb:subsystem_level",

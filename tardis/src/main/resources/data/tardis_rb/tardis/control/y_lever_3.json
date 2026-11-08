@@ -1,11 +1,11 @@
 {
-  "model": "helmic_regulator",
+  "model": "y_lever",
   "panel": 4,
-  "u": -0.1775,
-  "v": 0.48,
+  "u": -0.01,
+  "v": 0.1625,
   "scale": 0.8,
   "actions": {
-    "knob": "none"
+    "lever": "y2"
   },
   "requirements": {
     "type": "tardis_rb:subsystem_level",

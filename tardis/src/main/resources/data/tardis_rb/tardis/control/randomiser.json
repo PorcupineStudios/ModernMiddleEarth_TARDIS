@@ -1,14 +1,15 @@
 {
   "model": "randomiser",
-  "panel": 3,
-  "u": -0.12,
-  "v": 0.6,
-  "scale": 0.8,
+  "panel": 1,
+  "u": 0.31,
+  "v": 0.3738,
+  "scale": 0.72,
   "actions": {
     "die": "random"
   },
   "requirements": {
-    "type": "tardis_rb:milestone",
-    "milestone": "tardis_rb:restored_core"
+    "type": "tardis_rb:subsystem_level",
+    "subsystem": "tardis_rb:navigation",
+    "min": 1
   }
 }

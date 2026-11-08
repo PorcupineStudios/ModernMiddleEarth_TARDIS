@@ -18,7 +18,7 @@
  "elements": [
   {
    "name": "base_0",
-   "uuid": "99b598e0-4978-49f3-9a9d-c6d59df8dcf1",
+   "uuid": "0037f58d-6f01-44de-96f2-ed36d8da3e5e",
    "type": "cube",
    "from": [
     -2.5,
@@ -95,7 +95,7 @@
   },
   {
    "name": "base_1",
-   "uuid": "18b8dd00-2728-4367-8fb8-eff0069dd2af",
+   "uuid": "5ecbe79b-d8e1-4339-9e0e-d848ddd15866",
    "type": "cube",
    "from": [
     -2,
@@ -172,7 +172,7 @@
   },
   {
    "name": "base_2",
-   "uuid": "0f2900a7-ed74-4ed1-a1bc-3c6774bcc85a",
+   "uuid": "e9e8ec64-282a-4b48-8207-6dbfeded954e",
    "type": "cube",
    "from": [
     -0.2,
@@ -249,7 +249,7 @@
   },
   {
    "name": "base_3",
-   "uuid": "0edfd1d5-1464-48cb-8956-0979aa063b5b",
+   "uuid": "0f878b6b-7072-43fb-93c0-34a0db0ca62e",
    "type": "cube",
    "from": [
     1.4,
@@ -326,7 +326,7 @@
   },
   {
    "name": "base_4",
-   "uuid": "464d3253-47d3-481c-bc5c-57102e284d13",
+   "uuid": "60fa35a9-8812-4a60-b752-409558bc5241",
    "type": "cube",
    "from": [
     -0.2,
@@ -403,7 +403,7 @@
   },
   {
    "name": "base_5",
-   "uuid": "be3d76f5-13aa-4722-90cf-397edbd3d746",
+   "uuid": "b790531a-8e21-4ec4-8f55-fe9097992ecb",
    "type": "cube",
    "from": [
     -2,
@@ -480,7 +480,7 @@
   },
   {
    "name": "knob_0",
-   "uuid": "3ffed730-8184-45af-82d8-06689a56fde4",
+   "uuid": "558d3840-71d9-4f8a-bff9-47fc20c2d3d2",
    "type": "cube",
    "from": [
     -1,
@@ -557,7 +557,7 @@
   },
   {
    "name": "knob_1",
-   "uuid": "e4d10acf-05de-4144-8bf3-f95a5746ffc9",
+   "uuid": "1d0e2b1b-263e-47a8-b645-7aa6dc328335",
    "type": "cube",
    "from": [
     -1,
@@ -639,7 +639,7 @@
   },
   {
    "name": "knob_2",
-   "uuid": "005ebc49-6062-48eb-821b-671b495ec12f",
+   "uuid": "e54afa3d-112d-49ff-bc8d-939d3146707f",
    "type": "cube",
    "from": [
     -0.25,
@@ -716,7 +716,7 @@
   },
   {
    "name": "knob_3",
-   "uuid": "41fa2682-d36f-4849-b957-c0c56bd355cc",
+   "uuid": "d0c17dac-7f4c-49b1-9a92-0cb9ffaefeff",
    "type": "cube",
    "from": [
     -0.2,
@@ -795,7 +795,7 @@
  "outliner": [
   {
    "name": "base",
-   "uuid": "a2a91fd2-8f91-42e1-bcae-1cfe302dd4cb",
+   "uuid": "674e2b91-5ed9-4766-9d44-d7153efe3adf",
    "origin": [
     0,
     0,
@@ -807,19 +807,19 @@
     0
    ],
    "children": [
-    "99b598e0-4978-49f3-9a9d-c6d59df8dcf1",
-    "18b8dd00-2728-4367-8fb8-eff0069dd2af",
-    "0f2900a7-ed74-4ed1-a1bc-3c6774bcc85a",
-    "0edfd1d5-1464-48cb-8956-0979aa063b5b",
-    "464d3253-47d3-481c-bc5c-57102e284d13",
-    "be3d76f5-13aa-4722-90cf-397edbd3d746"
+    "0037f58d-6f01-44de-96f2-ed36d8da3e5e",
+    "5ecbe79b-d8e1-4339-9e0e-d848ddd15866",
+    "e9e8ec64-282a-4b48-8207-6dbfeded954e",
+    "0f878b6b-7072-43fb-93c0-34a0db0ca62e",
+    "60fa35a9-8812-4a60-b752-409558bc5241",
+    "b790531a-8e21-4ec4-8f55-fe9097992ecb"
    ],
    "export": true,
    "visibility": true
   },
   {
    "name": "knob",
-   "uuid": "ad56847f-c672-4928-b006-661794529db1",
+   "uuid": "a5007da3-eaef-44be-90d6-c53caf908079",
    "origin": [
     0,
     1.3,
@@ -831,10 +831,10 @@
     0
    ],
    "children": [
-    "3ffed730-8184-45af-82d8-06689a56fde4",
-    "e4d10acf-05de-4144-8bf3-f95a5746ffc9",
-    "005ebc49-6062-48eb-821b-671b495ec12f",
-    "41fa2682-d36f-4849-b957-c0c56bd355cc"
+    "558d3840-71d9-4f8a-bff9-47fc20c2d3d2",
+    "1d0e2b1b-263e-47a8-b645-7aa6dc328335",
+    "e54afa3d-112d-49ff-bc8d-939d3146707f",
+    "d0c17dac-7f4c-49b1-9a92-0cb9ffaefeff"
    ],
    "export": true,
    "visibility": true
@@ -852,20 +852,20 @@
    "visible": true,
    "mode": "bitmap",
    "saved": true,
-   "uuid": "ca18d67d-096e-4fb1-9ef1-9949d919c4ce",
+   "uuid": "08a627ca-5500-4bb4-8df7-33708786095e",
    "relative_path": "../../src/main/resources/assets/tardis_rb/textures/entity/controls/controls.png",
    "source": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAABW0lEQVR4nO3QMWtUQRTF8fOWtbFNJ4G0VgGtg6QLSZEmWKYwn8fCzj5+gRQSCMRAkk4LLQKW9japbO49c47FLuzcoEISsJo/PIaZgfld3nT9fttJg01IGp+//UST0QQ0GZsHb0EmSIIkzs8vIDVIgiTcfP0C27ABwHi29hSyl2fGu0bQRhpIG1ufjhFBRCYyE7MeZ1PBm1xwkgWXVHDbBZddcNoFjyBmPZ6s+GKAFd7Igkut4L6DWxVPu+Dx9z+w/JoLzsaCS/on7iXKfu3wTGJ+fXkLyWheoLsb66CWQ8nYP3yNiEBEIDNx9PIUSSHSyBR+vPiOjABzcX/y/AP6ds4+lv2bXzurzRNg3uNNLjilgkcEpg4PquCMwH2b93i7g7O54BGBqcdTBWc+ZIAOl1zwlAoeEZh1+GJd4fmAASbvvXI5OL2a7v3KI5r9T2wMMBqNRqPRaDQa/anfcENNcGO7wq8AAAAASUVORK5CYII="
   }
  ],
  "animations": [
   {
-   "uuid": "bf48a21b-d491-437a-9a1f-7ab28081c5df",
+   "uuid": "ada52258-0c2e-4823-86b0-bc6027f2109a",
    "name": "steps",
    "loop": "once",
    "length": 0.2,
    "snapping": 20,
    "animators": {
-    "ad56847f-c672-4928-b006-661794529db1": {
+    "a5007da3-eaef-44be-90d6-c53caf908079": {
      "name": "knob",
      "type": "bone",
      "keyframes": [
@@ -878,7 +878,7 @@
          "z": 0
         }
        ],
-       "uuid": "30f0d11b-4c06-4d62-986d-b09baf8d0828",
+       "uuid": "6a4120f4-513d-431d-b2dd-d1cb5bdacd23",
        "time": 0,
        "interpolation": "linear"
       },
@@ -891,7 +891,7 @@
          "z": 0
         }
        ],
-       "uuid": "499df827-8a94-4513-aa53-2aaedefe883e",
+       "uuid": "473c2bf8-efea-400e-a174-955e8c7deac9",
        "time": 0.2,
        "interpolation": "linear"
       }

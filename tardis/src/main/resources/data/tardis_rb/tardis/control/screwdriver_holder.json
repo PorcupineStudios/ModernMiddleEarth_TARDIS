@@ -1,9 +1,9 @@
 {
   "model": "screwdriver_holder",
   "panel": 5,
-  "u": 0.12,
-  "v": 0.6,
-  "scale": 0.8,
+  "u": -0.0712,
+  "v": 0.45,
+  "scale": 0.76,
   "actions": {
     "sonic": "none"
   },

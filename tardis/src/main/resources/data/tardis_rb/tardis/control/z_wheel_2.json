@@ -1,11 +1,11 @@
 {
-  "model": "takeoff_lever",
-  "panel": 0,
-  "u": 0.17,
-  "v": 0.22,
-  "scale": 0.8,
+  "model": "valve_wheel",
+  "panel": 1,
+  "u": 0.045,
+  "v": 0.3738,
+  "scale": 0.72,
   "actions": {
-    "lever": "hop"
+    "wheel": "z5"
   },
   "requirements": {
     "type": "tardis_rb:subsystem_level",

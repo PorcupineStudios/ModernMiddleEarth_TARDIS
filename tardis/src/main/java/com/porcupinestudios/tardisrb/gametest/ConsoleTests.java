@@ -13,13 +13,14 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.gametest.framework.GameTest;
 import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.world.level.levelgen.Heightmap;
 import net.neoforged.neoforge.gametest.GameTestHolder;
 import net.neoforged.neoforge.gametest.PrefixGameTestTemplate;
 
 /**
  * The console (Aaron, 2026-11-03; controls on themed sides 2026-11-08): controls appear as the TARDIS is repaired,
- * the wheels set a course, the handbrake holds the TARDIS, the take-off lever flies the hop, and the monitor's readout
- * changes with the side it stands over.
+ * the X levers set a coordinate (1.7.10 style), memory slots save and load it, the handbrake holds the TARDIS, the
+ * dematerialisation lever flies there, and the monitor's readout changes with the side it stands over.
  */
 @GameTestHolder(TardisRB.MOD_ID)
 @PrefixGameTestTemplate(false)
@@ -41,55 +42,66 @@ public final class ConsoleTests {
 
         List<ConsoleBlockEntity.Shown> wreck = ConsoleControls.shown(server, t);
         helper.assertTrue(find(wreck, "monitor").isPresent(), "the wreck's console has no monitor");
-        helper.assertTrue(find(wreck, "takeoff_lever").isEmpty(),
-                "the take-off lever is there before navigation is repaired");
+        helper.assertTrue(find(wreck, "demat_lever").isEmpty(),
+                "the dematerialisation lever is there before navigation is repaired");
 
         helper.assertTrue(Repairs.attempt(server, t, TardisRB.id("navigation_1"), Optional.empty()).done(),
                 "navigation repair");
         List<ConsoleBlockEntity.Shown> shown = ConsoleControls.shown(server, t);
-        for (String id : List.of("coordinate_wheels", "valve_wheel", "takeoff_lever", "coordinate_lever",
-                "handbrake")) {
+        for (String id : List.of("x_lever_1", "x_wheel_1", "z_lever_5", "y_lever_4", "demat_lever", "handbrake",
+                "memory_bank")) {
             helper.assertTrue(find(shown, id).isPresent(), id + " did not appear after the navigation repair");
         }
-        helper.assertTrue(find(shown, "demat_lever").isEmpty(),
-                "the dematerialisation lever is there before the core milestone");
+        helper.assertTrue(find(shown, "dimension_dial").isEmpty(),
+                "the dimension dial is there before the core milestone");
         for (ConsoleBlockEntity.Shown c : shown) {
             helper.assertTrue(!c.model().isEmpty(), c.id() + " names no control model");
         }
 
-        // no screen: the monitor's readout (over the navigation side until turned) says where the TARDIS is
-        List<String> readout = ConsoleControls.readout(server, t, console);
-        BlockPos at = t.location().get().pos();
-        helper.assertTrue(readout.contains(at.getX() + " " + at.getY() + " " + at.getZ()),
-                "the monitor doesn't show where the TARDIS is: " + readout);
+        // no screen: the monitor's readout (over the Z side until turned) says where the TARDIS is
+        BlockPos from = t.location().get().pos();
+        helper.assertTrue(ConsoleControls.readout(server, t, console).contains("Now Z " + from.getZ()),
+                "the monitor doesn't show where the TARDIS is: " + ConsoleControls.readout(server, t, console));
 
-        ConsoleBlockEntity.Shown wheels = find(shown, "coordinate_wheels").get();
-        ConsoleControls.use(server, t, console, find(shown, "valve_wheel").get(), "wheel", Optional.empty());
-        ConsoleControls.use(server, t, console, wheels, "wheel_x", Optional.empty());
-        helper.assertTrue(console.dx() == 10 && console.dy() == 0 && console.dz() == 0,
-                "course " + console.dx() + " " + console.dy() + " " + console.dz());
-        helper.assertTrue(console.uses(ConsoleLayout.key(wheels.id(), "wheel_x")) == 1,
-                "the wheel's turn wasn't counted");
-        helper.assertTrue(ConsoleControls.readout(server, t, console).contains("Course +10 +0 +0 x10"),
-                "the monitor doesn't show the course: " + ConsoleControls.readout(server, t, console));
+        // X: the x6 lever once and the x1 lever four times = +10, relative to where the TARDIS stands
+        ConsoleBlockEntity.Shown six = find(shown, "x_lever_3").get();
+        ConsoleBlockEntity.Shown one = find(shown, "x_lever_4").get();
+        ConsoleControls.use(server, t, console, six, "lever", Optional.empty());
+        for (int i = 0; i < 4; i++) {
+            ConsoleControls.use(server, t, console, one, "lever", Optional.empty());
+        }
+        helper.assertTrue(ConsoleControls.axisValue(console, 'x') == 10,
+                "the X levers give " + ConsoleControls.axisValue(console, 'x'));
+        helper.assertTrue(console.state("x3") == 4 && console.uses(ConsoleLayout.key(one.id(), "lever")) == 4,
+                "the lever's setting or clicks weren't counted");
 
-        // each side has its own readout: turned to the door side (+z), the monitor shows flight
+        // each side has its own readout: turned to the door side (+z), the monitor shows the X coordinates
         console.setMonitorAngle(90);
-        List<String> flight = ConsoleControls.readout(server, t, console);
-        helper.assertTrue(flight.get(0).startsWith("FLIGHT"), "the monitor over side 0 shows " + flight);
+        List<String> xSide = ConsoleControls.readout(server, t, console);
+        helper.assertTrue(xSide.contains("Set X +10"), "the monitor over side 0 shows " + xSide);
         console.setMonitorAngle(Float.NaN);
 
+        // memory: save, change, load
+        ConsoleBlockEntity.Shown save = find(shown, "save_switch").get();
+        ConsoleBlockEntity.Shown bank = find(shown, "memory_bank").get();
+        ConsoleControls.use(server, t, console, save, "rod", Optional.empty());
+        ConsoleControls.use(server, t, console, bank, "slot_3", Optional.empty());
+        ConsoleControls.use(server, t, console, save, "rod", Optional.empty());
+        ConsoleControls.use(server, t, console, one, "lever", Optional.empty());
+        ConsoleControls.use(server, t, console, bank, "slot_3", Optional.empty());
+        helper.assertTrue(ConsoleControls.axisValue(console, 'x') == 10, "memory slot 4 didn't load X +10");
+
         t.addCharge(100);
-        BlockPos from = t.location().get().pos();
-        BlockPos target = from.offset(10, 0, 0);
-        ConsoleBlockEntity.Shown takeoff = find(shown, "takeoff_lever").get();
+        BlockPos target = new BlockPos(from.getX() + 10, helper.getLevel().getHeight(
+                Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, from.getX() + 10, from.getZ()), from.getZ());
+        ConsoleBlockEntity.Shown demat = find(shown, "demat_lever").get();
         ConsoleControls.use(server, t, console, find(shown, "handbrake").get(), "arm", Optional.empty());
-        ConsoleControls.use(server, t, console, takeoff, "lever", Optional.empty());
-        helper.assertTrue(t.location().get().pos().equals(from), "the TARDIS hopped with the handbrake on");
+        ConsoleControls.use(server, t, console, demat, "arm", Optional.empty());
+        helper.assertTrue(t.location().get().pos().equals(from), "the TARDIS took off with the handbrake on");
         ConsoleControls.use(server, t, console, find(shown, "handbrake").get(), "arm", Optional.empty());
-        String said = ConsoleControls.use(server, t, console, takeoff, "lever", Optional.empty()).getString();
-        helper.assertTrue(t.location().get().pos().equals(target), "the take-off lever didn't fly the course: " + said);
-        helper.assertTrue(console.dx() == 0, "the course wasn't cleared after the hop");
+        String said = ConsoleControls.use(server, t, console, demat, "arm", Optional.empty()).getString();
+        helper.assertTrue(t.location().get().pos().equals(target),
+                "the dematerialisation lever didn't fly to " + target + ": " + said);
         helper.succeed();
     }
 }

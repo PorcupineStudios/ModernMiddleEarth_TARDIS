@@ -9,7 +9,9 @@ import com.porcupinestudios.tardisrb.flight.Flight;
 import com.porcupinestudios.tardisrb.interior.Interiors;
 import com.porcupinestudios.tardisrb.interior.Rooms;
 import com.porcupinestudios.tardisrb.progression.Control;
+import com.porcupinestudios.tardisrb.progression.Destination;
 import com.porcupinestudios.tardisrb.progression.TardisContent;
+import com.porcupinestudios.tardisrb.progression.Tuning;
 import com.porcupinestudios.tardisrb.progression.Unlocks;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,31 +19,101 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.TreeMap;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.phys.Vec3;
 
 /**
  * What the console's controls do (Aaron, 2026-11-03: a console like the original mod's, with buttons, levers and dials
- * on the model instead of a flat screen; 2026-11-08: small control models on six themed sides). A control is on the
- * console once its requirements hold; each clickable part of it has an action:
- * {@code screen} says where the TARDIS is; {@code x}, {@code y}, {@code z} move the course by the step size (sneaking:
- * back; {@code x_up}..{@code z_down} one way only); {@code step} changes the step size; {@code reset} clears the
- * course; {@code hop} flies a short hop to where the TARDIS stands plus the course; {@code destination} picks the next
- * open destination, {@code random} a random one; {@code jump} jumps there; {@code handbrake} puts the handbrake on or
- * off (on: no hop or jump starts); {@code door} opens or shuts the doors; {@code none} only moves (decoration).
- * There is no console screen (Aaron, 2026-11-04: 100% physical controls like the 1.7.10 mod): the monitor shows
- * {@link #readout}, which depends on the side it stands over, and clicking the time rotor's column ({@link #COLUMN})
+ * on the model instead of a flat screen; 2026-11-08: small control models on six themed sides laid out like the 1.7.10
+ * console: X, Z, dimension and time, exterior, Y and memory, rooms). A control is on the console once its requirements
+ * hold; each clickable part of it has an action:
+ * <ul>
+ * <li>{@code x0}..{@code x6}, {@code z0}.., {@code y0}..: one coordinate slot each (tuning {@code console.coordinates},
+ * after the 1.7.10 console's X/Z levers and power wheels and its Y digits): up one, sneaking down one.</li>
+ * <li>{@code relative} (X and Z count from where the TARDIS stands), {@code land} (land on the ground, Y ignored),
+ * {@code save} (memory buttons save instead of load), {@code handbrake} (on: no take-off): on/off.</li>
+ * <li>{@code memory}: loads (or in save mode saves) the coordinate settings in that memory slot (the part's number).</li>
+ * <li>{@code facing}: the way the doors face on landing; {@code destination}: the dimension to go to (sneak: back);
+ * {@code random}: sets the small coordinate levers at random.</li>
+ * <li>{@code jump}: takes off for the set coordinates: a hop in this dimension or a jump to the picked one.</li>
+ * <li>{@code screen} says where the TARDIS is; {@code door} opens or shuts the doors; {@code none} only moves.</li>
+ * <li>Older ones still load: {@code x}/{@code y}/{@code z}, {@code x_up}..{@code z_down}, {@code step},
+ * {@code reset}, {@code hop} (the course offset).</li>
+ * </ul>
+ * Every setting is held by the console by role ({@link ConsoleBlockEntity#state}), and a control bound to it is drawn
+ * at its value. There is no console screen (Aaron, 2026-11-04: 100% physical controls like the 1.7.10 mod): the
+ * monitor shows {@link #readout} for the side it stands over, and clicking the time rotor's column ({@link #COLUMN})
  * turns the monitor to face the player.
  */
 public final class ConsoleControls {
-    public static final List<String> ACTIONS = List.of("screen", "x", "y", "z", "x_up", "x_down", "y_up", "y_down",
-            "z_up", "z_down", "step", "reset", "hop", "destination", "random", "jump", "handbrake", "door", "none");
+    /** Actions with no slot number. */
+    public static final List<String> ACTIONS = List.of("screen", "relative", "land", "save", "memory", "facing",
+            "destination", "random", "jump", "handbrake", "door", "none", "x", "y", "z", "x_up", "x_down", "y_up",
+            "y_down", "z_up", "z_down", "step", "reset", "hop");
     /** What gauges can show ({@link #values}). */
     public static final List<String> VALUES = List.of("charge", "rooms");
+
+    /** An action name data may use: one of {@link #ACTIONS} or a coordinate slot ({@code x0}, {@code z3}, {@code y1}). */
+    public static boolean isAction(String action) {
+        return ACTIONS.contains(action) || slot(action) >= 0;
+    }
+
+    /** The slot number of a coordinate action ({@code x0} -> 0), or -1. */
+    static int slot(String action) {
+        if (action.length() < 2 || "xyz".indexOf(action.charAt(0)) < 0) {
+            return -1;
+        }
+        try {
+            int n = Integer.parseInt(action.substring(1));
+            List<Tuning.Slot> slots = slots(action.charAt(0));
+            return n >= 0 && n < Math.max(slots.size(), 10) ? n : -1;
+        } catch (NumberFormatException e) {
+            return -1;
+        }
+    }
+
+    private static List<Tuning.Slot> slots(char axis) {
+        Tuning.Coordinates c = TardisContent.tuning().console().coordinates();
+        return axis == 'y' ? c.y() : c.xz();
+    }
+
+    /** What the X or Z ({@code axis}) slots add up to now. */
+    public static long axisValue(ConsoleBlockEntity console, char axis) {
+        List<Tuning.Slot> slots = slots(axis);
+        long sum = 0;
+        for (int i = 0; i < slots.size(); i++) {
+            Tuning.Slot s = slots.get(i);
+            long v = (long) console.state(axis + "" + i) * s.times();
+            if (s.power() >= 0) {
+                v *= (long) Math.pow(s.base(), console.state(axis + "" + s.power()) + 1);
+            }
+            sum += v;
+        }
+        return sum;
+    }
+
+    /** The Y the controls give (the digits plus {@code y_offset}). */
+    public static int yValue(ConsoleBlockEntity console) {
+        return (int) axisValue(console, 'y') + TardisContent.tuning().console().coordinates().yOffset();
+    }
+
+    /** Where the coordinate controls aim from where the TARDIS stands ({@code here}); Y is the controls' Y. */
+    public static BlockPos target(ConsoleBlockEntity console, BlockPos here) {
+        boolean relative = console.state("relative") != 0;
+        long x = axisValue(console, 'x') + (relative ? here.getX() : 0);
+        long z = axisValue(console, 'z') + (relative ? here.getZ() : 0);
+        int max = 29_999_000;
+        return new BlockPos((int) Math.max(-max, Math.min(max, x)), yValue(console),
+                (int) Math.max(-max, Math.min(max, z)));
+    }
 
     /** The pseudo-control a click on the time rotor's column sends: turns the monitor toward the player. */
     public static final String COLUMN = "column";
@@ -112,7 +184,12 @@ public final class ConsoleControls {
         List<Integer> steps = TardisContent.tuning().console().steps();
         int step = steps.isEmpty() ? 1 : steps.get(Math.floorMod(console.step(), steps.size()));
         int dir = player.map(p -> p.isShiftKeyDown() ? -1 : 1).orElse(1);
-        switch (control.action(click)) {
+        String action = control.action(click);
+        int slot = slot(action);
+        if (slot >= 0) {
+            return turnSlot(console, action.charAt(0), slot, dir);
+        }
+        switch (action) {
             case "screen" -> {
                 return tardis.location().isEmpty()
                         ? Component.translatableWithFallback("tardis_rb.console.nowhere",
@@ -143,19 +220,63 @@ public final class ConsoleControls {
                     return Component.translatableWithFallback("tardis_rb.console.no_destinations",
                             "No destinations open");
                 }
-                console.setDestination(Math.floorMod(console.destination() + 1, open.size()));
+                console.setDestination(Math.floorMod(console.destination() + dir, open.size()));
                 return Component.translatableWithFallback("tardis_rb.console.destination", "To: %s",
                         name(open.get(console.destination())));
             }
             case "random" -> {
-                List<ResourceLocation> open = Destinations.open(server, tardis, player);
-                if (open.isEmpty()) {
-                    return Component.translatableWithFallback("tardis_rb.console.no_destinations",
-                            "No destinations open");
+                // like the 1.7.10 randomiser: sets the small coordinate levers (no power, small steps) at random
+                RandomSource random = server.overworld().getRandom();
+                List<Tuning.Slot> xz = slots('x');
+                for (int i = 0; i < xz.size(); i++) {
+                    Tuning.Slot s = xz.get(i);
+                    boolean small = s.power() < 0 && s.times() > 0 && (long) s.times() * s.max() <= 60;
+                    for (char axis : new char[] {'x', 'z'}) {
+                        if (s.cycle() || s.times() == 0) {
+                            continue;
+                        }
+                        console.setState(axis + "" + i, small ? s.min() + random.nextInt(s.max() - s.min() + 1)
+                                : Math.max(s.min(), Math.min(s.max(), 0)));
+                    }
                 }
-                console.setDestination(server.overworld().getRandom().nextInt(open.size()));
-                return Component.translatableWithFallback("tardis_rb.console.destination", "To: %s",
-                        name(open.get(console.destination())));
+                return Component.translatableWithFallback("tardis_rb.console.random", "Coordinates set at random: %s %s",
+                        signed(axisValue(console, 'x')), signed(axisValue(console, 'z')));
+            }
+            case "relative", "land", "save" -> {
+                console.setState(action, console.state(action) == 0 ? 1 : 0);
+                return Component.translatableWithFallback("tardis_rb.console." + action + "_"
+                        + (console.state(action) != 0 ? "on" : "off"), action + (console.state(action) != 0
+                                ? " on" : " off"));
+            }
+            case "facing" -> {
+                int now = console.hasState("facing") ? console.state("facing") : 2;
+                console.setState("facing", Math.floorMod(now + dir, 4));
+                return Component.translatableWithFallback("tardis_rb.console.facing", "Lands facing %s",
+                        Direction.from2DDataValue(console.state("facing")).getName());
+            }
+            case "memory" -> {
+                int n = number(click);
+                if (console.state("save") != 0) {
+                    CompoundTag saved = new CompoundTag();
+                    CompoundTag now = console.stateTag();
+                    for (String k : now.getAllKeys()) {
+                        if (slot(k) >= 0 || k.equals("destination") || k.equals("facing") || k.equals("relative")
+                                || k.equals("land")) {
+                            saved.putInt(k, now.getInt(k));
+                        }
+                    }
+                    console.setMemory(n, saved);
+                    return Component.translatableWithFallback("tardis_rb.console.saved", "Saved to slot %s", n + 1);
+                }
+                Optional<CompoundTag> saved = console.memory(n);
+                if (saved.isEmpty()) {
+                    return Component.translatableWithFallback("tardis_rb.console.empty_slot", "Slot %s is empty",
+                            n + 1);
+                }
+                for (String k : saved.get().getAllKeys()) {
+                    console.setState(k, saved.get().getInt(k));
+                }
+                return Component.translatableWithFallback("tardis_rb.console.loaded", "Loaded slot %s", n + 1);
             }
             case "handbrake" -> {
                 console.setHandbrake(!console.handbrake());
@@ -193,13 +314,7 @@ public final class ConsoleControls {
                 if (console.handbrake()) {
                     return HANDBRAKE;
                 }
-                List<ResourceLocation> open = Destinations.open(server, tardis, player);
-                if (open.isEmpty()) {
-                    return Component.translatableWithFallback("tardis_rb.console.no_destinations",
-                            "No destinations open");
-                }
-                ResourceLocation to = open.get(Math.floorMod(console.destination(), open.size()));
-                return result(Flight.jump(server, tardis, to, Optional.empty(), player));
+                return result(takeOff(server, tardis, console, player));
             }
             default -> {
                 return Component.empty();
@@ -207,6 +322,61 @@ public final class ConsoleControls {
         }
         return Component.translatableWithFallback("tardis_rb.console.course", "Course: %s %s %s (step %s)",
                 signed(console.dx()), signed(console.dy()), signed(console.dz()), step);
+    }
+
+    /**
+     * Takes off for where the controls aim: a hop when the picked dimension is the one the TARDIS stands in (or none
+     * is open), else a jump there. Land-on-ground puts the target on the surface; the facing control turns the doors.
+     */
+    public static Flight.Outcome takeOff(MinecraftServer server, TardisRecord tardis, ConsoleBlockEntity console,
+            Optional<ServerPlayer> player) {
+        if (tardis.location().isEmpty()) {
+            return Flight.Outcome.fail("tardis_rb.hop.nowhere", "The TARDIS isn't standing anywhere");
+        }
+        BlockPos here = tardis.location().get().pos();
+        BlockPos target = target(console, here);
+        Optional<Direction> facing = console.hasState("facing")
+                ? Optional.of(Direction.from2DDataValue(console.state("facing"))) : Optional.empty();
+        List<ResourceLocation> open = Destinations.open(server, tardis, player);
+        Optional<ResourceLocation> to = open.isEmpty() ? Optional.empty()
+                : Optional.of(open.get(Math.floorMod(console.destination(), open.size())));
+        Optional<Destination> dest = to.flatMap(TardisContent::destination);
+        boolean sameWorld = dest.isEmpty() || dest.get().dimension().equals(tardis.location().get().dimension());
+        ServerLevel level = server.getLevel(sameWorld ? tardis.location().get().dimension() : dest.get().dimension());
+        if (console.state("land") != 0 && level != null) {
+            target = new BlockPos(target.getX(), level.getHeight(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+                    target.getX(), target.getZ()), target.getZ());
+        }
+        return sameWorld ? Flight.hop(server, tardis, target, facing, player)
+                : Flight.jump(server, tardis, to.get(), Optional.of(target), facing, player);
+    }
+
+    /** Turns one coordinate slot up ({@code dir} 1) or down (-1) within its range, or round if it cycles. */
+    private static Component turnSlot(ConsoleBlockEntity console, char axis, int slot, int dir) {
+        List<Tuning.Slot> slots = slots(axis);
+        if (slot >= slots.size()) {
+            return Component.empty();
+        }
+        Tuning.Slot s = slots.get(slot);
+        String role = axis + "" + slot;
+        int v = console.state(role) + dir;
+        v = s.cycle() ? s.min() + Math.floorMod(v - s.min(), s.max() - s.min() + 1)
+                : Math.max(s.min(), Math.min(s.max(), v));
+        console.setState(role, v);
+        return axis == 'y'
+                ? Component.translatableWithFallback("tardis_rb.console.y", "Y %s", yValue(console))
+                : Component.translatableWithFallback("tardis_rb.console.axis", "%s %s",
+                        String.valueOf(axis).toUpperCase(), signed(axisValue(console, axis)));
+    }
+
+    /** The number at the end of a part's name ({@code slot_4} -> 4), or 0. */
+    private static int number(String click) {
+        int i = click.lastIndexOf('_');
+        try {
+            return i < 0 ? 0 : Integer.parseInt(click.substring(i + 1));
+        } catch (NumberFormatException e) {
+            return 0;
+        }
     }
 
     /**
@@ -221,70 +391,61 @@ public final class ConsoleControls {
 
     /**
      * What the monitor shows, refreshed every second on the server. It depends on the side it stands over (Aaron,
-     * 2026-11-08: each side has a theme and the monitor says different things on each): Flight, Navigation, Exterior,
-     * Destinations, Systems, Interior and crew. The first line names the side. Plain text, worked out on the server.
+     * 2026-11-08: each side has a theme and the monitor says different things on each): X coordinates, Z coordinates,
+     * dimension and time, exterior, Y and memory, rooms. The first line names the side. Plain text, worked out on the
+     * server.
      */
     public static List<String> readout(MinecraftServer server, TardisRecord tardis, ConsoleBlockEntity console) {
         int side = ConsoleLayout.side(console.monitorAngle());
         List<String> out = new ArrayList<>();
         List<ResourceLocation> open = Destinations.open(server, tardis, Optional.empty());
-        String picked = open.isEmpty() ? "No destinations"
+        String picked = open.isEmpty() ? "No other dimensions"
                 : "To " + name(open.get(Math.floorMod(console.destination(), open.size()))).getString();
-        String charge = "Charge " + tardis.charge() + "/" + Unlocks.chargeCap(tardis);
         Optional<BlockPos> at = tardis.location().map(g -> g.pos());
+        BlockPos aim = target(console, at.orElse(BlockPos.ZERO));
+        boolean relative = console.state("relative") != 0;
         switch (side) {
-            case 0 -> {
-                out.add("FLIGHT - " + tardis.name());
-                out.add(at.isPresent() ? "Landed" : "In flight");
-                out.add(console.handbrake() ? "Handbrake ON" : "Handbrake off");
-                out.add(charge);
-                out.add(picked);
+            case 0, 1 -> {
+                char axis = side == 0 ? 'x' : 'z';
+                String a = side == 0 ? "X" : "Z";
+                out.add(a + " COORDINATES");
+                out.add("Set " + a + " " + signed(axisValue(console, axis)));
+                out.add("Aim " + a + " " + (side == 0 ? aim.getX() : aim.getZ()));
+                out.add(at.map(p -> "Now " + a + " " + (side == 0 ? p.getX() : p.getZ())).orElse("In flight"));
+                out.add(relative ? "Relative to here" : "Absolute");
             }
             case 2 -> {
-                out.add("EXTERIOR");
-                out.add(at.isPresent() ? "Landed (a block)" : "Not standing anywhere");
-                out.add(tardis.location().map(g -> g.dimension().location().getPath()).orElse("-"));
-                out.add(at.map(p -> "Height " + p.getY()).orElse("-"));
-                out.add("Doors " + (Doors.isOpen(tardis) ? "open" : "shut"));
-            }
-            case 3 -> {
-                out.add("DESTINATIONS");
+                out.add("DIMENSION & TIME");
                 out.add(picked);
-                out.add(open.size() + " open");
+                out.add("Now in " + tardis.location().map(g -> g.dimension().location().getPath()).orElse("-"));
                 for (int i = 0; i < Math.min(3, open.size()); i++) {
                     out.add("- " + name(open.get(i)).getString());
                 }
+                out.add("Time: present");
             }
-            case 4 -> {
-                out.add("SYSTEMS");
-                out.add(charge);
-                for (ResourceLocation id : new TreeMap<>(TardisContent.get().subsystems()).keySet()) {
-                    out.add(id.getPath() + " " + tardis.repairedLevel(id) + "/" + Unlocks.cap(tardis, id));
-                }
-                out.add("Stage " + tardis.stage().map(ResourceLocation::getPath).orElse("-"));
-            }
-            case 5 -> {
-                out.add("INTERIOR & CREW");
-                out.add("Crew " + (tardis.crew().size() + (tardis.owner().isPresent() ? 1 : 0)));
-                out.add("Rooms " + tardis.roomCount() + "/" + Rooms.cap(tardis));
+            case 3 -> {
+                out.add("EXTERIOR - " + tardis.name());
+                out.add(at.isPresent() ? "Landed (a block)" : "In flight");
+                out.add("Facing " + (console.hasState("facing")
+                        ? Direction.from2DDataValue(console.state("facing")).getName() : "as before"));
+                out.add(console.handbrake() ? "Handbrake ON" : "Handbrake off");
+                out.add("Charge " + tardis.charge() + "/" + Unlocks.chargeCap(tardis));
                 out.add("Doors " + (Doors.isOpen(tardis) ? "open" : "shut"));
             }
+            case 4 -> {
+                out.add("Y & MEMORY");
+                out.add(console.state("land") != 0 ? "Y: on the ground" : "Y " + yValue(console));
+                out.add("Land on ground " + (console.state("land") != 0 ? "on" : "off"));
+                out.add("Save mode " + (console.state("save") != 0 ? "ON" : "off"));
+                out.add("Saved " + console.memoryUsed() + "/"
+                        + TardisContent.tuning().console().coordinates().memorySlots());
+            }
             default -> {
-                // side 1, navigation: where the TARDIS is and the course being set
-                out.add(tardis.name());
-                if (at.isPresent()) {
-                    out.add(at.get().getX() + " " + at.get().getY() + " " + at.get().getZ());
-                    out.add(tardis.location().get().dimension().location().getPath());
-                } else {
-                    out.add("-");
-                    out.add("in flight");
-                }
-                List<Integer> steps = TardisContent.tuning().console().steps();
-                int step = steps.isEmpty() ? 1 : steps.get(Math.floorMod(console.step(), steps.size()));
-                out.add("Course " + signed(console.dx()) + " " + signed(console.dy()) + " " + signed(console.dz())
-                        + " x" + step);
-                out.add(picked);
-                out.add(charge);
+                out.add("ROOMS");
+                out.add("Rooms " + tardis.roomCount() + "/" + Rooms.cap(tardis));
+                out.add("Crew " + (tardis.crew().size() + (tardis.owner().isPresent() ? 1 : 0)));
+                out.add("Doors " + (Doors.isOpen(tardis) ? "open" : "shut"));
+                out.add("Stage " + tardis.stage().map(ResourceLocation::getPath).orElse("-"));
             }
         }
         return out;
@@ -311,7 +472,7 @@ public final class ConsoleControls {
                 id.getPath());
     }
 
-    private static String signed(int n) {
+    private static String signed(long n) {
         return n >= 0 ? "+" + n : String.valueOf(n);
     }
 }

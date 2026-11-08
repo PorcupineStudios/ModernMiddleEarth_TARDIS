@@ -18,7 +18,7 @@
  "elements": [
   {
    "name": "base_0",
-   "uuid": "fca8929b-7c40-4ead-917c-74198fc89bfb",
+   "uuid": "95d6f0a9-a6bb-4eca-9900-406fa2339e95",
    "type": "cube",
    "from": [
     -2.5,
@@ -95,7 +95,7 @@
   },
   {
    "name": "base_1",
-   "uuid": "e164e0bb-fb60-4b6a-a7e5-fecaf4ebaeaa",
+   "uuid": "affb2001-994e-430b-9e9d-12ac0ca54c13",
    "type": "cube",
    "from": [
     -2,
@@ -172,7 +172,7 @@
   },
   {
    "name": "ball_0",
-   "uuid": "05794f67-785e-4a18-91d7-19a5c7a40b96",
+   "uuid": "2b874b38-1b76-4472-a9cb-f296f8c5e5c9",
    "type": "cube",
    "from": [
     -1.5,
@@ -249,7 +249,7 @@
   },
   {
    "name": "ball_1",
-   "uuid": "b53e98a0-7de6-4cd8-af75-6751e9882a59",
+   "uuid": "57a25bce-3cc2-46a7-a53b-0370402299ba",
    "type": "cube",
    "from": [
     -1,
@@ -326,7 +326,7 @@
   },
   {
    "name": "ball_2",
-   "uuid": "2e276b08-20c0-4bc0-bdb1-83afcf4fb37f",
+   "uuid": "de806cb5-0dde-4711-a212-4e6dec06ef2a",
    "type": "cube",
    "from": [
     -1,
@@ -403,7 +403,7 @@
   },
   {
    "name": "ball_3",
-   "uuid": "fc6d5807-e9ab-4f43-91bb-766283ad2610",
+   "uuid": "7398caba-1018-47f6-9cc5-711d04bb9bc4",
    "type": "cube",
    "from": [
     -0.6,
@@ -480,7 +480,7 @@
   },
   {
    "name": "ball_4",
-   "uuid": "4affd7cd-8f15-4b66-acb9-a3deb613bd9b",
+   "uuid": "e9432f35-0ca4-4714-b89a-a216562dc5a8",
    "type": "cube",
    "from": [
     -1.55,
@@ -559,7 +559,7 @@
  "outliner": [
   {
    "name": "base",
-   "uuid": "6277aae0-9aba-4306-a5a2-27878ce3f7e1",
+   "uuid": "27c23d8b-9f95-43a8-9481-7136950b257b",
    "origin": [
     0,
     0,
@@ -571,15 +571,15 @@
     0
    ],
    "children": [
-    "fca8929b-7c40-4ead-917c-74198fc89bfb",
-    "e164e0bb-fb60-4b6a-a7e5-fecaf4ebaeaa"
+    "95d6f0a9-a6bb-4eca-9900-406fa2339e95",
+    "affb2001-994e-430b-9e9d-12ac0ca54c13"
    ],
    "export": true,
    "visibility": true
   },
   {
    "name": "ball",
-   "uuid": "8ab32b0e-87cc-44c5-87a3-fe33350bb414",
+   "uuid": "52d46a04-c085-4ab6-bdd3-ae533fa70144",
    "origin": [
     0,
     2.6,
@@ -591,11 +591,11 @@
     0
    ],
    "children": [
-    "05794f67-785e-4a18-91d7-19a5c7a40b96",
-    "b53e98a0-7de6-4cd8-af75-6751e9882a59",
-    "2e276b08-20c0-4bc0-bdb1-83afcf4fb37f",
-    "fc6d5807-e9ab-4f43-91bb-766283ad2610",
-    "4affd7cd-8f15-4b66-acb9-a3deb613bd9b"
+    "2b874b38-1b76-4472-a9cb-f296f8c5e5c9",
+    "57a25bce-3cc2-46a7-a53b-0370402299ba",
+    "de806cb5-0dde-4711-a212-4e6dec06ef2a",
+    "7398caba-1018-47f6-9cc5-711d04bb9bc4",
+    "e9432f35-0ca4-4714-b89a-a216562dc5a8"
    ],
    "export": true,
    "visibility": true
@@ -613,20 +613,20 @@
    "visible": true,
    "mode": "bitmap",
    "saved": true,
-   "uuid": "3c4d49f8-9d2b-4a65-9165-e102fca09737",
+   "uuid": "73b541a5-a6f0-4fa7-8e72-906eba7dea0e",
    "relative_path": "../../src/main/resources/assets/tardis_rb/textures/entity/controls/controls.png",
    "source": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAABW0lEQVR4nO3QMWtUQRTF8fOWtbFNJ4G0VgGtg6QLSZEmWKYwn8fCzj5+gRQSCMRAkk4LLQKW9japbO49c47FLuzcoEISsJo/PIaZgfld3nT9fttJg01IGp+//UST0QQ0GZsHb0EmSIIkzs8vIDVIgiTcfP0C27ABwHi29hSyl2fGu0bQRhpIG1ufjhFBRCYyE7MeZ1PBm1xwkgWXVHDbBZddcNoFjyBmPZ6s+GKAFd7Igkut4L6DWxVPu+Dx9z+w/JoLzsaCS/on7iXKfu3wTGJ+fXkLyWheoLsb66CWQ8nYP3yNiEBEIDNx9PIUSSHSyBR+vPiOjABzcX/y/AP6ds4+lv2bXzurzRNg3uNNLjilgkcEpg4PquCMwH2b93i7g7O54BGBqcdTBWc+ZIAOl1zwlAoeEZh1+GJd4fmAASbvvXI5OL2a7v3KI5r9T2wMMBqNRqPRaDQa/anfcENNcGO7wq8AAAAASUVORK5CYII="
   }
  ],
  "animations": [
   {
-   "uuid": "e9b8cef5-18ba-4121-ad71-bfe4f3da1ccd",
+   "uuid": "e53a98f0-b6f3-461c-a797-beb547d73190",
    "name": "spin",
    "loop": "once",
    "length": 0.8,
    "snapping": 20,
    "animators": {
-    "8ab32b0e-87cc-44c5-87a3-fe33350bb414": {
+    "52d46a04-c085-4ab6-bdd3-ae533fa70144": {
      "name": "ball",
      "type": "bone",
      "keyframes": [
@@ -639,7 +639,7 @@
          "z": 0
         }
        ],
-       "uuid": "2f01e2a1-7413-4ed6-98d7-d0d31d04099d",
+       "uuid": "3882a8dd-8378-4b2c-8f4c-fec9c7436cd4",
        "time": 0,
        "interpolation": "linear"
       },
@@ -652,7 +652,7 @@
          "z": 254.5584412271571
         }
        ],
-       "uuid": "183aeedd-3d28-47e0-bc29-f6ad7e1ae82c",
+       "uuid": "c503d150-8f5a-436b-afe5-06390e4e5606",
        "time": 0.8,
        "interpolation": "linear"
       }

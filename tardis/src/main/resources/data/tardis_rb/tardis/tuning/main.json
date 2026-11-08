@@ -92,7 +92,75 @@
       1,
       10,
       100
-    ]
+    ],
+    "coordinates": {
+      "_comment": "The X/Z and Y controls (after the 1.7.10 console): each slot's range; a slot's value counts times x base^(the power slot's value + 1) when it has a power slot, else times. Y adds y_offset.",
+      "xz": [
+        {
+          "min": -6,
+          "max": 6,
+          "base": 4,
+          "power": 4
+        },
+        {
+          "min": -6,
+          "max": 6,
+          "base": 2,
+          "power": 5
+        },
+        {
+          "min": -6,
+          "max": 6,
+          "times": 6
+        },
+        {
+          "min": -6,
+          "max": 6,
+          "times": 1
+        },
+        {
+          "min": 0,
+          "max": 7,
+          "cycle": true,
+          "times": 0
+        },
+        {
+          "min": 0,
+          "max": 7,
+          "cycle": true,
+          "times": 0
+        },
+        {
+          "min": -6,
+          "max": 6,
+          "times": 71
+        }
+      ],
+      "y": [
+        {
+          "min": 0,
+          "max": 3,
+          "times": 64
+        },
+        {
+          "min": 0,
+          "max": 3,
+          "times": 16
+        },
+        {
+          "min": 0,
+          "max": 3,
+          "times": 4
+        },
+        {
+          "min": 0,
+          "max": 3,
+          "times": 1
+        }
+      ],
+      "y_offset": -64,
+      "memory_slots": 20
+    }
   },
   "door": {
     "interior_door": [

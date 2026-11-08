@@ -1,11 +1,11 @@
 {
-  "model": "push_switch",
-  "panel": 4,
-  "u": 0.05,
-  "v": 0.48,
-  "scale": 0.8,
+  "model": "facing_compass",
+  "panel": 3,
+  "u": -0.22,
+  "v": 0.182,
+  "scale": 0.64,
   "actions": {
-    "rod": "none"
+    "arrow": "facing"
   },
   "requirements": {
     "type": "tardis_rb:subsystem_level",

@@ -1,9 +1,9 @@
 {
   "model": "door_control",
   "panel": 5,
-  "u": -0.365,
-  "v": 0.22,
-  "scale": 0.8,
+  "u": -0.3488,
+  "v": 0.1725,
+  "scale": 0.76,
   "actions": {
     "wheel": "door"
   },

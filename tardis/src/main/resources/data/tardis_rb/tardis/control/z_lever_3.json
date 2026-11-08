@@ -1,11 +1,11 @@
 {
-  "model": "flight_button",
-  "panel": 0,
-  "u": 0.095,
-  "v": 0.66,
-  "scale": 0.8,
+  "model": "coordinate_lever",
+  "panel": 1,
+  "u": -0.0225,
+  "v": 0.1144,
+  "scale": 0.72,
   "actions": {
-    "button": "none"
+    "lever": "z2"
   },
   "requirements": {
     "type": "tardis_rb:subsystem_level",

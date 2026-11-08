@@ -18,7 +18,7 @@
  "elements": [
   {
    "name": "base_0",
-   "uuid": "d0bb634f-6d47-46a6-a3ed-44346dd2ca5d",
+   "uuid": "13626610-ba30-4572-a9bb-1cce79891db0",
    "type": "cube",
    "from": [
     -2,
@@ -95,7 +95,7 @@
   },
   {
    "name": "light_0",
-   "uuid": "a491ea0c-ca90-4012-a952-37d2b56af40c",
+   "uuid": "d5e208dc-d2a2-43ee-bb6d-1f262ee33a1e",
    "type": "cube",
    "from": [
     -1.6,
@@ -174,7 +174,7 @@
  "outliner": [
   {
    "name": "base",
-   "uuid": "6d379c1d-5ae3-4e50-b7ea-fd43f68d9ee1",
+   "uuid": "811ddf9e-51bd-4287-bff4-898c62b38a39",
    "origin": [
     0,
     0,
@@ -186,14 +186,14 @@
     0
    ],
    "children": [
-    "d0bb634f-6d47-46a6-a3ed-44346dd2ca5d"
+    "13626610-ba30-4572-a9bb-1cce79891db0"
    ],
    "export": true,
    "visibility": true
   },
   {
    "name": "light",
-   "uuid": "24ae99ec-1970-4fb7-a0d5-c300d0694e14",
+   "uuid": "c9c11ae1-7bbf-4aa1-bd7c-354522c294d0",
    "origin": [
     0,
     0,
@@ -205,7 +205,7 @@
     0
    ],
    "children": [
-    "a491ea0c-ca90-4012-a952-37d2b56af40c"
+    "d5e208dc-d2a2-43ee-bb6d-1f262ee33a1e"
    ],
    "export": true,
    "visibility": true
@@ -223,7 +223,7 @@
    "visible": true,
    "mode": "bitmap",
    "saved": true,
-   "uuid": "4c1b1b13-2e9a-4621-b912-bd2e5e18f0ef",
+   "uuid": "70347055-ef38-4b4a-b74b-2e6c0e1c1d02",
    "relative_path": "../../src/main/resources/assets/tardis_rb/textures/entity/controls/controls.png",
    "source": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAABW0lEQVR4nO3QMWtUQRTF8fOWtbFNJ4G0VgGtg6QLSZEmWKYwn8fCzj5+gRQSCMRAkk4LLQKW9japbO49c47FLuzcoEISsJo/PIaZgfld3nT9fttJg01IGp+//UST0QQ0GZsHb0EmSIIkzs8vIDVIgiTcfP0C27ABwHi29hSyl2fGu0bQRhpIG1ufjhFBRCYyE7MeZ1PBm1xwkgWXVHDbBZddcNoFjyBmPZ6s+GKAFd7Igkut4L6DWxVPu+Dx9z+w/JoLzsaCS/on7iXKfu3wTGJ+fXkLyWheoLsb66CWQ8nYP3yNiEBEIDNx9PIUSSHSyBR+vPiOjABzcX/y/AP6ds4+lv2bXzurzRNg3uNNLjilgkcEpg4PquCMwH2b93i7g7O54BGBqcdTBWc+ZIAOl1zwlAoeEZh1+GJd4fmAASbvvXI5OL2a7v3KI5r9T2wMMBqNRqPRaDQa/anfcENNcGO7wq8AAAAASUVORK5CYII="
   }

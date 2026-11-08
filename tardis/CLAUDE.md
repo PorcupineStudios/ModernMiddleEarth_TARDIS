@@ -21,7 +21,7 @@ Read both with the Claude Docs tools, not a web fetch. Add notes in `docs/<area>
 | Space: full-size planets, orbit layers, going up/down, wrapping + seam portals, the globe (`space/`, `SkyLink`, `client/Globe*`) | `docs/space.md` |
 | Solar system zone: planets as balls, every body pulls, the sun, layer <-> system, free tilt while floating (`gravity/Tilt`) (`space/StarSystem`, `Systems`, `client/SystemRenderer`) | `docs/solar-system.md` |
 | Gravity and orbits in space, no drag, thrust, the `/gravity` command, gravity direction (Gravity Changer port, `gravity/gc`) (`space/Orbits`, `gravity/`) | `docs/gravity.md` |
-| The 32 small console controls (flight set + 1.7.10-style classic set): models, animations, generator (`tools/flight_controls.py`) | `docs/flight-controls.md` |
+| The 38 small console controls (flight, 1.7.10-style classic and coordinate sets): models, animations, generator (`tools/flight_controls.py`) | `docs/flight-controls.md` |
 | **Plan**: flying the TARDIS materialized (free flight: body entity, pilot camera, controls, space) | `docs/free-flight-plan.md` |
 | Running the game client headless in the cloud sandbox (Xvfb, screenshots, quick play into a save) | `docs/headless-client.md` |
 | The Capaldi console room (blocks, structure, models), the console, its themed sides and controls (data `tardis/control/`, `tools/console_layout.py`), clicking them, the monitor per side, Jade | `docs/console.md` |
