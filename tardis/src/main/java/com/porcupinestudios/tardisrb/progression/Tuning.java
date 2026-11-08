@@ -18,11 +18,13 @@ public record Tuning(CrashSite crashSite, Hop hop, Winder winder, Interior inter
      * The exterior as a loose box ({@code entity/TardisBody}, docs/free-flight-plan.md): {@code gravity} per tick
      * with the thrusters off, {@code drag} in the air and {@code ground_friction} per tick, {@code hover_damping} (how
      * much motion is kept per tick while the thrusters hold it), and where turning it back into a block may land:
-     * within {@code landing_radius} blocks across and {@code landing_height} up or down of the box.
+     * within {@code landing_radius} blocks across and {@code landing_height} up or down of the box. Piloting:
+     * {@code acceleration} and {@code max_speed} across (blocks per tick), {@code vertical_speed} for up/down,
+     * {@code boost} (sprint multiplies the top speed), {@code spin} (degrees per tick the model turns while flown).
      */
     public record FreeFlight(double gravity, double drag, double groundFriction, double hoverDamping, int landingRadius,
-            int landingHeight) {
-        static final FreeFlight DEFAULT = new FreeFlight(0.08, 0.98, 0.6, 0.8, 2, 4);
+            int landingHeight, Piloting piloting) {
+        static final FreeFlight DEFAULT = new FreeFlight(0.08, 0.98, 0.6, 0.8, 2, 4, Piloting.DEFAULT);
         static final Codec<FreeFlight> CODEC = RecordCodecBuilder.create(i -> i.group(
                 Codec.DOUBLE.optionalFieldOf("gravity", DEFAULT.gravity).forGetter(FreeFlight::gravity),
                 Codec.DOUBLE.optionalFieldOf("drag", DEFAULT.drag).forGetter(FreeFlight::drag),
@@ -30,8 +32,20 @@ public record Tuning(CrashSite crashSite, Hop hop, Winder winder, Interior inter
                         .forGetter(FreeFlight::groundFriction),
                 Codec.DOUBLE.optionalFieldOf("hover_damping", DEFAULT.hoverDamping).forGetter(FreeFlight::hoverDamping),
                 Codec.INT.optionalFieldOf("landing_radius", DEFAULT.landingRadius).forGetter(FreeFlight::landingRadius),
-                Codec.INT.optionalFieldOf("landing_height", DEFAULT.landingHeight).forGetter(FreeFlight::landingHeight))
+                Codec.INT.optionalFieldOf("landing_height", DEFAULT.landingHeight).forGetter(FreeFlight::landingHeight),
+                Piloting.CODEC.optionalFieldOf("piloting", Piloting.DEFAULT).forGetter(FreeFlight::piloting))
                 .apply(i, FreeFlight::new));
+    }
+
+    public record Piloting(double acceleration, double maxSpeed, double verticalSpeed, double boost, double spin) {
+        static final Piloting DEFAULT = new Piloting(0.06, 0.8, 0.35, 2.0, 4.0);
+        static final Codec<Piloting> CODEC = RecordCodecBuilder.create(i -> i.group(
+                Codec.DOUBLE.optionalFieldOf("acceleration", DEFAULT.acceleration).forGetter(Piloting::acceleration),
+                Codec.DOUBLE.optionalFieldOf("max_speed", DEFAULT.maxSpeed).forGetter(Piloting::maxSpeed),
+                Codec.DOUBLE.optionalFieldOf("vertical_speed", DEFAULT.verticalSpeed).forGetter(Piloting::verticalSpeed),
+                Codec.DOUBLE.optionalFieldOf("boost", DEFAULT.boost).forGetter(Piloting::boost),
+                Codec.DOUBLE.optionalFieldOf("spin", DEFAULT.spin).forGetter(Piloting::spin))
+                .apply(i, Piloting::new));
     }
 
     /** The wreck made once at the start dimension's spawn. {@code offset}: blocks east of the spawn point. */

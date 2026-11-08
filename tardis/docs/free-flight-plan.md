@@ -1,7 +1,7 @@
 # Plan: flying the TARDIS materialized (free flight)
 Read when: building free flight (the TARDIS flying as a real object without dematerialising), its controls, camera,
-or how it crosses into space. Status: slices 0-3 built 2026-11-08 (untried in a client, not compiled yet: CI blocked by
-GitHub billing); piloting (slice 4) next.
+or how it crosses into space. Status: slices 0-4 built 2026-11-08 (untried in a client, not compiled yet: CI blocked by
+GitHub billing); costs (slice 5) and space (slice 6) next.
 
 ## Built (slices 2-3, 2026-11-08)
 - `entity/TardisBody` (`tardis_rb:tardis_body`, 1 x 2, drawn by `client/TardisBodyRenderer` with the block's model and
@@ -16,6 +16,21 @@ GitHub billing); piloting (slice 4) next.
 - Not yet: chunk tickets (the body unloads with its chunk; the record keeps its last spot), damage from hard hits,
   charge drain, a body lost while unloaded is set down at the record's spot by `phase`.
 - Test: `FreeFlightTests` (loose, doors stay shut, hovers 3 up, falls with thrusters off, sets down as the block).
+
+## Built (slice 4, piloting, 2026-11-08)
+- Console `pilot` (flight yoke) -> `flight/Piloting.start`: needs feature `piloting`, a loose box, thrusters on. Saves
+  where the player stood (player persistent data `tardis_rb_pilot`), makes them invisible and unhurt, moves them to
+  the box (`PortalAPI.teleportEntity` across dimensions, `teleportTo` within one) and seats them (retried for 40 ticks).
+- Getting off (vanilla Shift, thrusters off, phase back to a block, a jump: `ejectPassengers`) -> `EntityMountEvent`
+  -> put back at the console next tick. Login while flagged and not riding -> put back.
+- `TardisBody` steers like a boat: `isControlledByLocalInstance` runs `physics()` on the pilot's client from
+  `flight/PilotInput` (written by `client/PilotClient`: W A S D along the pilot's view, Q / E key mappings
+  `key.tardis_rb.fly_up/down`, sprint boost, jump brake); vanilla sends the vehicle moves. Other clients lerp.
+  PilotClient takes drop/inventory clicks while flying and switches to third person (restored after).
+- The model spins `flight.piloting.spin` degrees per tick while flown. Tuning `flight.piloting`: acceleration,
+  max_speed, vertical_speed, boost, spin.
+- Not yet: the stand-in at the console, camera distance, charge drain, carrying the pilot through the space ceiling.
+- Test: `FreeFlightTests.theFlightYokeSeatsThePilotAndShiftPutsThemBack` (refusals, seated and invisible, put back).
 
 ## What Aaron asked for
 - 2026-11-03: besides jumps (dematerialise here, appear there), the TARDIS takes off and flies as a real object through

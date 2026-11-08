@@ -7,6 +7,7 @@ import com.porcupinestudios.tardisrb.compat.create.CreateCompat;
 import com.porcupinestudios.tardisrb.door.Doors;
 import com.porcupinestudios.tardisrb.entity.TardisEntities;
 import com.porcupinestudios.tardisrb.flight.CrashSite;
+import com.porcupinestudios.tardisrb.flight.Piloting;
 import com.porcupinestudios.tardisrb.gametest.WorldCheck;
 import com.porcupinestudios.tardisrb.net.ConsoleNet;
 import com.porcupinestudios.tardisrb.net.DoorNet;
@@ -36,6 +37,7 @@ public final class TardisRB {
         TardisCommand.register();
         TardisBlocks.register(modBus);
         TardisEntities.register(modBus);
+        Piloting.register();
         ConsoleNet.register(modBus);
         DoorNet.register(modBus);
         CrashSite.register();

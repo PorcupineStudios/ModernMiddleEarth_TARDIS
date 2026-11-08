@@ -209,6 +209,14 @@
     "ground_friction": 0.6,
     "hover_damping": 0.8,
     "landing_radius": 2,
-    "landing_height": 4
+    "landing_height": 4,
+    "piloting": {
+      "_comment": "Flying the box with the flight yoke: acceleration and top speed across (blocks per tick), up/down speed (Q/E), sprint boost (times the top speed), and how fast the model spins while flown (degrees per tick, for show).",
+      "acceleration": 0.06,
+      "max_speed": 0.8,
+      "vertical_speed": 0.35,
+      "boost": 2.0,
+      "spin": 4.0
+    }
   }
 }
