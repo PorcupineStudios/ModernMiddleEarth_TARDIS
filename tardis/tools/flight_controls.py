@@ -77,7 +77,8 @@ def box(a, b, colour, rot=None):
 
 
 class Control:
-    def __init__(self, cid, name, real, does):
+    def __init__(self, cid, name, real, does, group="flight"):
+        self.group = group
         self.id = cid
         self.name = name
         self.real = real   # what it is on the show's consoles
@@ -109,8 +110,8 @@ def lamp(x, z, colour, y=1.0, s=0.8):
 CONTROLS = []
 
 
-def control(cid, name, real, does):
-    c = Control(cid, name, real, does)
+def control(cid, name, real, does, group="flight"):
+    c = Control(cid, name, real, does, group)
     CONTROLS.append(c)
     return c
 
@@ -344,6 +345,215 @@ def control(cid, name, real, does):
  .part("lamp", (0, 0, 0), lamp(-1.5, 1.5, "glow_green", s=0.5))
  .action("wheel", "toggle", 12, {"wheel": {"axis": "y", "off": 0, "on": 180}}, lit={"lamp": "on"}))
 
+
+# ---------------------------------------------------------------- 16 more after the 1.7.10 TARDIS Mod's console
+# (Aaron, 2026-11-08: "use the tardis mod 1.7.10 as reference"). The old console's control kinds and how they moved:
+# the staple lever (swings 140 degrees), the valve wheel (a full turn), the take-off "special" lever, push switches
+# (pushed in), flight buttons (rise and glow when they must be pressed in flight), gauges with sweeping needles,
+# framed screens, the schematic chooser, the sonic screwdriver holder, lamps and the save/load button bank. Shapes and
+# motions are redrawn in our own boxes; no code or textures are copied.
+
+
+def classic(cid, name, real, does):
+    return control(cid, name, real, does, group="classic")
+
+
+# 17. Coordinate lever: the old console's staple lever (two posts and a handle bar)
+(classic("coordinate_lever", "Coordinate Lever",
+         "1.7.10: the X/Y/Z levers (ids 10-13, 20-23, 30-33): staple levers swinging 140 degrees; the later levers "
+         "make bigger changes.",
+         "Moves the course along one axis by its own amount (small to huge, set per lever in data).")
+ .part("base", (0, 0, 0),
+       box((-2, 0, -1.5), (2, 1, 1.5), "steel_dark"), box((-1.6, 1, -1), (-1, 2, 1), "brass_dark"),
+       box((1, 1, -1), (1.6, 2, 1), "brass_dark"))
+ .part("lever", (0, 1.5, 0),
+       box((-1.6, 1.2, -0.3), (-1, 6, 0.3), "steel"), box((1, 1.2, -0.3), (1.6, 6, 0.3), "steel"),
+       box((-1.6, 5.6, -0.3), (1.6, 6.2, 0.3), "steel"), box((-0.9, 5.4, -0.6), (0.9, 6.6, 0.6), "red"))
+ .action("lever", "toggle", 8, {"lever": {"axis": "x", "off": 70, "on": -70}}))
+
+# 18. Valve wheel: the old console's square valve wheel with spokes
+(classic("valve_wheel", "Valve Wheel",
+         "1.7.10: the X/Z coordinate wheels and the facing wheel (ids 3, 14, 15, 24, 25): a square valve wheel "
+         "that turns a full circle.",
+         "Each click turns it an eighth; eight make one full turn of the setting it drives.")
+ .part("base", (0, 0, 0), box((-1, 0, -1), (1, 1, 1), "steel_dark"), box((-0.4, 1, -0.4), (0.4, 2.2, 0.4), "steel"))
+ .part("wheel", (0, 2.4, 0),
+       box((-3, 2.2, -3), (3, 2.7, -2.5), "copper"), box((-3, 2.2, 2.5), (3, 2.7, 3), "copper"),
+       box((-3, 2.2, -2.5), (-2.5, 2.7, 2.5), "copper"), box((2.5, 2.2, -2.5), (3, 2.7, 2.5), "copper"),
+       box((-2.5, 2.3, -0.25), (2.5, 2.6, 0.25), "steel"), box((-0.25, 2.3, -2.5), (0.25, 2.6, 2.5), "steel"),
+       box((-0.7, 2.1, -0.7), (0.7, 2.9, 0.7), "brass"))
+ .action("wheel", "steps", 8, {"wheel": {"axis": "y", "step": 45}}, count=8))
+
+# 19. Take-off lever: the old "special lever" on its own base
+(classic("takeoff_lever", "Flight Take-off Lever",
+         "1.7.10: the flight take-off lever (id 42), the 'special lever' that swings sideways 140 degrees.",
+         "The classic way to start a coordinated flight (kept beside the dematerialisation lever).")
+ .part("base", (0, 0, 0),
+       box((-1.5, 0, -2), (1.5, 1, 2), "steel_dark"), box((-1, 1, -1.5), (1, 2, 1.5), "brass_dark"))
+ .part("lever", (0, 1.6, 0),
+       box((-0.3, 1.4, -0.3), (0.3, 6, 0.3), "steel"), box((-0.3, 5.6, -0.3), (0.3, 6.2, 2), "steel"),
+       box((-0.7, 5.2, 1.4), (0.7, 6.6, 3.2), "black"))
+ .action("lever", "toggle", 10, {"lever": {"axis": "z", "off": 70, "on": -70}}))
+
+# 20. Push switch: a rod with a cap that is pushed in
+(classic("push_switch", "Push Switch",
+         "1.7.10: push switches (stabilise 56, landing pad 55, save/load 900, ...): a rod pushed in, it stays in.",
+         "On/off for whatever it is set to in data (stabilisers, landing pad, save/load mode).")
+ .part("base", (0, 0, 0), box((-1.25, 0, -1.25), (1.25, 1, 1.25), "steel_dark"),
+       box((-0.8, 1, -0.8), (0.8, 1.4, 0.8), "black"))
+ .part("rod", (0, 1, 0),
+       box((-0.35, 1.8, -0.35), (0.35, 4.2, 0.35), "steel"), box((-0.9, 4.2, -0.9), (0.9, 4.9, 0.9), "copper"))
+ .part("lamp", (0, 0, 0), lamp(0.9, 0.9, "glow_green", s=0.5))
+ .action("rod", "toggle", 4, {"rod": {"move_on": [0, -1.6, 0]}}, lit={"lamp": "on"}))
+
+# 21. Flight button: rises and glows when it has to be pressed in flight
+(classic("flight_button", "Flight Control Button",
+         "1.7.10: flight controls (id 40 and the button bank): 'press these when they glow during flight'; the "
+         "button rises while it waits.",
+         "During a jump it lights and rises; press it in time or the flight drifts (stabilisers skip this).")
+ .part("base", (0, 0, 0), box((-1.25, 0, -1.25), (1.25, 1, 1.25), "black"))
+ .part("button", (0, 1, 0), box((-0.9, 0.6, -0.9), (0.9, 1.4, 0.9), "cream"))
+ .part("glow", (0, 1, 0), box((-0.92, 1.38, -0.92), (0.92, 1.45, 0.92), "glow_amber"))
+ .action("button", "toggle", 4, {"button": {"move_on": [0, 0.9, 0]}, "glow": {"move_on": [0, 0.9, 0]}},
+         lit={"glow": "on"}))
+
+# 22. Gauge: a display with a sweeping needle
+(classic("gauge", "Gauge",
+         "1.7.10: the energy, rooms, speed, XP and shields gauges (ids 0, 1, 2, 8, 9): a display with a needle "
+         "sweeping 180 degrees.",
+         "Shows one value from 0 to full (charge, rooms used, speed, shields), set in data; not clicked.")
+ .part("base", (0, 0, 0),
+       box((-2.5, 0, -0.75), (2.5, 4, 0.25), "brass_dark"), box((-2.1, 0.4, 0.25), (2.1, 3.6, 0.35), "cream"),
+       box((-2.1, 0.4, 0.3), (-1.5, 0.9, 0.4), "glow_red"), box((1.5, 0.4, 0.3), (2.1, 0.9, 0.4), "glow_green"))
+ .part("needle", (0, 0.8, 0.45),
+       box((-0.15, 0.8, 0.38), (0.15, 3.3, 0.5), "black"), box((-0.35, 0.6, 0.35), (0.35, 1.0, 0.55), "brass"))
+ .action(None, "gauge", 10, {"needle": {"axis": "z", "from": 65, "to": -65}}))
+
+# 23. Twin gauge: two needles in one case (the old XP and shields pair)
+(classic("twin_gauge", "Twin Gauge",
+         "1.7.10: the XP and shields gauges sat as a pair below the other three.",
+         "Two values side by side (e.g. shields and hull), each needle 0 to full.")
+ .part("base", (0, 0, 0),
+       box((-3.5, 0, -0.75), (3.5, 3, 0.25), "brass_dark"), box((-3.1, 0.4, 0.25), (-0.2, 2.6, 0.35), "cream"),
+       box((0.2, 0.4, 0.25), (3.1, 2.6, 0.35), "cream"))
+ .part("needle_left", (-1.65, 0.7, 0.45), box((-1.8, 0.7, 0.38), (-1.5, 2.4, 0.5), "red"))
+ .part("needle_right", (1.65, 0.7, 0.45), box((1.5, 0.7, 0.38), (1.8, 2.4, 0.5), "black"))
+ .action(None, "gauge", 10, {"needle_left": {"axis": "z", "from": 70, "to": -70},
+                             "needle_right": {"axis": "z", "from": 70, "to": -70}}))
+
+# 24. Scanner screen: a small framed screen that lights up
+(classic("scanner_screen", "Scanner Screen",
+         "1.7.10: the coordinate guesser (id 100) and scanner (id 54) screens: a framed screen set into the panel.",
+         "Click to switch it on/off; shows the coordinate guess or the scanner view (text drawn by the renderer).")
+ .part("base", (0, 0, 0),
+       box((-3, 0, -3), (3, 0.8, 3), "black"),
+       box((-3, 0.8, -3), (3, 1.4, -2.5), "copper"), box((-3, 0.8, 2.5), (3, 1.4, 3), "copper"),
+       box((-3, 0.8, -2.5), (-2.5, 1.4, 2.5), "copper"), box((2.5, 0.8, -2.5), (3, 1.4, 2.5), "copper"))
+ .part("screen", (0, 0, 0), box((-2.5, 0.8, -2.5), (2.5, 0.9, 2.5), "glow_green"))
+ .action("screen", "toggle", 3, {}, lit={"screen": "on"}))
+
+# 25. Schematic chooser: a long text display with four buttons
+(classic("schema_chooser", "Schematic Chooser",
+         "1.7.10: the schema chooser (ids 50, 51, 57, 58 and display 52): a long display with buttons to page "
+         "categories and rooms.",
+         "Pages through the rooms that can be added (category and room), as the old console did.")
+ .part("base", (0, 0, 0),
+       box((-3.5, 0, -2.5), (3.5, 0.8, 2.5), "steel_dark"),
+       box((-3.3, 0.8, -2.2), (3.3, 1.2, -0.4), "copper"))
+ .part("display", (0, 0, 0), box((-3, 1.2, -2), (3, 1.25, -0.6), "glow_blue"))
+ .part("btn_1", (0, 0.8, 0), box((-3, 0.6, 0.6), (-1.8, 1.3, 1.8), "cream"))
+ .part("btn_2", (0, 0.8, 0), box((-1.4, 0.6, 0.6), (-0.2, 1.3, 1.8), "cream"))
+ .part("btn_3", (0, 0.8, 0), box((0.2, 0.6, 0.6), (1.4, 1.3, 1.8), "cream"))
+ .part("btn_4", (0, 0.8, 0), box((1.8, 0.6, 0.6), (3, 1.3, 1.8), "cream"))
+ .action("btn_1", "press", 4, {"btn_1": {"move": [0, -0.4, 0]}})
+ .action("btn_2", "press", 4, {"btn_2": {"move": [0, -0.4, 0]}})
+ .action("btn_3", "press", 4, {"btn_3": {"move": [0, -0.4, 0]}})
+ .action("btn_4", "press", 4, {"btn_4": {"move": [0, -0.4, 0]}}))
+
+# 26. Sonic screwdriver holder: a socket the screwdriver rises out of
+(classic("screwdriver_holder", "Sonic Screwdriver Holder",
+         "1.7.10: the screwdriver holder (id 6) and generator button (id 5): a socket holding the sonic.",
+         "Click to take or put back the sonic screwdriver; it rises out of the socket when ready.")
+ .part("base", (0, 0, 0),
+       box((-1.5, 0, -1.5), (1.5, 2, -1), "steel_dark"), box((-1.5, 0, 1), (1.5, 2, 1.5), "steel_dark"),
+       box((-1.5, 0, -1), (-1, 2, 1), "steel_dark"), box((1, 0, -1), (1.5, 2, 1), "steel_dark"),
+       box((-1, 0, -1), (1, 0.4, 1), "black"))
+ .part("sonic", (0, 0.4, 0),
+       box((-0.45, 0.4, -0.45), (0.45, 4.2, 0.45), "steel"), box((-0.6, 2.2, -0.6), (0.6, 2.8, 0.6), "black"),
+       box((-0.55, 4.2, -0.55), (0.55, 5, 0.55), "brass"), box((-0.35, 5, -0.35), (0.35, 5.3, 0.35), "glow_green"))
+ .action("sonic", "toggle", 6, {"sonic": {"move_on": [0, 2, 0]}}))
+
+# 27. Console lamp: a flat light that brightens with its state
+(classic("console_lamp", "Console Lamp",
+         "1.7.10: the console lights (LightModel / TardisLightModel): flat lamps that glow with a state.",
+         "Lights for whatever it is tied to in data (in flight, low charge, door open...).")
+ .part("base", (0, 0, 0), box((-2, 0, -2), (2, 0.6, 2), "brass_dark"))
+ .part("light", (0, 0, 0), box((-1.6, 0.6, -1.6), (1.6, 1.0, 1.6), "glow_amber"))
+ .action("light", "toggle", 2, {}, lit={"light": "on"}))
+
+# 28. Memory bank: the 4 x 5 button grid of saved locations
+_bank = (classic("memory_bank", "Memory Bank",
+                 "1.7.10: the 20 save/load buttons on the left panel (ids 1000-1019) with the save/load switch.",
+                 "Each button is a saved location: press to load it, or save to it in save mode.")
+         .part("base", (0, 0, 0), box((-3.4, 0, -2.8), (3.4, 0.8, 2.8), "steel_dark")))
+for _r in range(4):
+    for _c in range(5):
+        _x, _z = -2.6 + _c * 1.3, -2.0 + _r * 1.3
+        _bank.part(f"slot_{_r * 5 + _c}", (_x, 0.8, _z), box((_x - 0.45, 0.6, _z - 0.45), (_x + 0.45, 1.3, _z + 0.45),
+                                                            "cream" if _r % 2 == 0 else "copper"))
+        _bank.action(f"slot_{_r * 5 + _c}", "press", 4, {f"slot_{_r * 5 + _c}": {"move": [0, -0.4, 0]}})
+
+# 29. Drift lever: the coordinated / uncoordinated flight lever (in / out)
+(classic("drift_lever", "Coordinated Flight Lever",
+         "1.7.10: the uncoordinated flight lever: out = drifting mode, in = coordinated flight mode.",
+         "Out: the TARDIS drifts (free roaming flight). In: coordinated flight to the set destination.")
+ .part("base", (0, 0, 0),
+       box((-1.5, 0, -3), (1.5, 1, 3), "steel_dark"), box((-0.5, 1, -2.6), (0.5, 1.6, 2.6), "black"),
+       box((-1.5, 1, -0.5), (-1, 1.3, 0.5), "glow_amber"), box((1, 1, -2.6), (1.5, 1.3, -1.6), "glow_green"))
+ .part("slide", (0, 1, 0),
+       box((-0.4, 1.2, 0.4), (0.4, 2.2, 3.2), "steel"), box((-1, 1.4, 3), (1, 2.6, 4), "red"))
+ .action("slide", "toggle", 6, {"slide": {"move_on": [0, 0, -2.4]}}))
+
+# 30. Room deleter: a red button under a hazard frame
+(classic("room_deleter", "Room Deleter",
+         "1.7.10: the room deleter (id 901): right click then sneak right click deletes all rooms.",
+         "Two-step press (arm, then sneak-press) removes every added room; the frame lights while armed.")
+ .part("base", (0, 0, 0),
+       box((-2, 0, -2), (2, 0.8, 2), "black"),
+       box((-2, 0.8, -2), (2, 1.4, -1.5), "gold"), box((-2, 0.8, 1.5), (2, 1.4, 2), "black"),
+       box((-2, 0.8, -1.5), (-1.5, 1.4, 1.5), "black"), box((1.5, 0.8, -1.5), (2, 1.4, 1.5), "gold"))
+ .part("armed", (0, 0, 0), box((-1.5, 0.8, -1.5), (1.5, 0.95, 1.5), "glow_red"))
+ .part("button", (0, 1, 0), box((-1, 0.9, -1), (1, 2.1, 1), "red"))
+ .action("button", "press", 8, {"button": {"move": [0, -0.8, 0]}}, lit={"armed": "active"}))
+
+# 31. Speed lever: a notched lever with five speeds
+(classic("speed_lever", "Speed Lever",
+         "1.7.10: the speed lever (id 4) with the speed gauge beside it.",
+         "Five notches of flight speed; faster flights cost more charge.")
+ .part("base", (0, 0, 0),
+       box((-1.5, 0, -3), (1.5, 1, 3), "brass_dark"), box((-0.5, 1, -2.6), (0.5, 1.5, 2.6), "black"),
+       box((1, 1, -2.4), (1.5, 1.2, -2), "white"), box((1, 1, -1.2), (1.5, 1.2, -0.8), "white"),
+       box((1, 1, -0.2), (1.5, 1.2, 0.2), "white"), box((1, 1, 0.8), (1.5, 1.2, 1.2), "white"),
+       box((1, 1, 2), (1.5, 1.2, 2.4), "white"))
+ .part("lever", (0, 1.2, 0),
+       box((-0.3, 1.2, -0.3), (0.3, 5, 0.3), "steel"), box((-0.8, 5, -0.8), (0.8, 6, 0.8), "black"))
+ .action("lever", "steps", 5, {"lever": {"axis": "x", "step": -20}}, count=5))
+
+# 32. Sub-lever bank: three tiny levers side by side
+(classic("sub_levers", "Sub-Lever Bank",
+         "1.7.10: the small levers round the panels (ids 1020-1029) for lesser functions.",
+         "Three small on/off switches for lesser functions (lights, alarms, shields), set in data.")
+ .part("base", (0, 0, 0), box((-2.5, 0, -1.2), (2.5, 0.8, 1.2), "steel_dark"))
+ .part("lever_1", (-1.6, 0.8, 0), box((-1.85, 0.8, -0.2), (-1.35, 3, 0.2), "steel"),
+       box((-2, 2.8, -0.35), (-1.2, 3.4, 0.35), "red"))
+ .part("lever_2", (0, 0.8, 0), box((-0.25, 0.8, -0.2), (0.25, 3, 0.2), "steel"),
+       box((-0.4, 2.8, -0.35), (0.4, 3.4, 0.35), "glow_amber"))
+ .part("lever_3", (1.6, 0.8, 0), box((1.35, 0.8, -0.2), (1.85, 3, 0.2), "steel"),
+       box((1.2, 2.8, -0.35), (2, 3.4, 0.35), "glow_blue"))
+ .action("lever_1", "toggle", 4, {"lever_1": {"axis": "x", "off": 30, "on": -30}})
+ .action("lever_2", "toggle", 4, {"lever_2": {"axis": "x", "off": 30, "on": -30}}, lit={"lever_2": "on"})
+ .action("lever_3", "toggle", 4, {"lever_3": {"axis": "x", "off": 30, "on": -30}}, lit={"lever_3": "on"}))
+
 # ---------------------------------------------------------------- geometry
 
 FACES = {  # face -> (normal, corner indices on the box, for CCW quads seen from outside)
@@ -447,6 +657,8 @@ def pose(c, state):
                 t.append(("move", m["move"]))
             elif a["type"] == "spin" and state == "on":
                 t.append(("rot", m["axis"], m["turn"] / 8))
+            elif a["type"] == "gauge":
+                t.append(("rot", m["axis"], m["from"] + (0.7 if state == "on" else 0) * (m["to"] - m["from"])))
             out.setdefault(part, []).extend(t)
         for l, when in a.get("lit", {}).items():
             if state == "on":
@@ -512,7 +724,7 @@ def bbmodel(c, tex_png):
 
     for a in c.actions:
         secs = a["ticks"] / 20
-        tag = a["click"] if len(c.actions) > 1 else ""
+        tag = a["click"] if len(c.actions) > 1 and a["click"] else ""
         keys_on, keys_off, keys_use = {}, {}, {}
         for part, m in a["moves"].items():
             if a["type"] == "toggle":
@@ -532,12 +744,14 @@ def bbmodel(c, tex_png):
                                   (secs, "position", [0, 0, 0])]
             elif a["type"] == "spin":
                 keys_use[part] = [(0, "rotation", [0, 0, 0]), (secs, "rotation", vec(m["axis"], m["turn"]))]
+            elif a["type"] == "gauge":
+                keys_use[part] = [(0, "rotation", vec(m["axis"], m["from"])), (secs, "rotation", vec(m["axis"], m["to"]))]
         sep = "_" if tag else ""
         if keys_on:
             anim(f"{tag}{sep}on", secs, "hold", keys_on)
             anim(f"{tag}{sep}off", secs, "hold", keys_off)
         if keys_use:
-            anim(f"{tag}{sep}{a['type']}", secs, "once", keys_use)
+            anim(f"{tag}{sep}{'value' if a['type'] == 'gauge' else a['type']}", secs, "once", keys_use)
     buf = io.BytesIO()
     tex_png.save(buf, "PNG")
     return {
@@ -556,47 +770,59 @@ def bbmodel(c, tex_png):
 
 # ---------------------------------------------------------------- preview
 
-def render(c, state, scale=22, w=300, h=260):
-    """A small painter's-algorithm drawing from the operator's side, slightly above."""
-    img = Image.new("RGB", (w, h), (24, 26, 32))
-    d = ImageDraw.Draw(img)
-    transforms, lit = pose(c, state)
+def render(c, state, scale=22, w=300, h=260, ss=2, posed=None):
+    """A small z-buffered drawing from the operator's side, slightly above (supersampled ss times)."""
+    import numpy as np
+    W, H, sc = w * ss, h * ss, scale * ss
+    rgb_buf = np.zeros((H, W, 3), dtype=np.float32)
+    rgb_buf[:] = (24, 26, 32)
+    zbuf = np.full((H, W), -1e9, dtype=np.float32)
+    transforms, lit = posed if posed else pose(c, state)
     yaw, pitch = math.radians(-35), math.radians(30)
     light = (0.4, 0.8, 0.45)
-    faces = []
+    ys, xs = np.mgrid[0:H, 0:W].astype(np.float32) + 0.5
     for name, p in c.parts.items():
         t = transforms.get(name, [])
         for b in p["boxes"]:
             for pts, n, colour in quads_of(b):
                 pts = [apply(pt, t, p["pivot"]) for pt in pts]
                 n = apply(n, [x for x in t if x[0] == "rot"], (0, 0, 0))
-                faces.append((pts, n, colour, name in lit))
-    drawn = []
-    for pts, n, colour, on in faces:
-        proj = []
-        for x, y, z in pts:
-            x1 = x * math.cos(yaw) + z * math.sin(yaw)
-            z1 = -x * math.sin(yaw) + z * math.cos(yaw)
-            y2 = y * math.cos(pitch) - z1 * math.sin(pitch)
-            z2 = y * math.sin(pitch) + z1 * math.cos(pitch)
-            proj.append((w / 2 + x1 * scale, h * 0.78 - y2 * scale, z2))
-        nz1 = -n[0] * math.sin(yaw) + n[2] * math.cos(yaw)
-        nz = n[1] * math.sin(pitch) + nz1 * math.cos(pitch)
-        if nz <= 0.01:
-            continue  # facing away
-        depth = sum(p[2] for p in proj) / 4
-        rgb = COLOURS[colour]
-        if colour in GLOWS:
-            k = 1.0 if on else 0.35
-        else:
-            k = 0.45 + 0.55 * max(0, n[0] * light[0] + n[1] * light[1] + n[2] * light[2])
-        drawn.append((depth, [(p[0], p[1]) for p in proj], tuple(int(ch * k) for ch in rgb)))
-    for _, poly, rgb in sorted(drawn, key=lambda f: f[0]):
-        d.polygon(poly, fill=rgb, outline=tuple(max(0, ch - 40) for ch in rgb))
-    return img
+                proj = []
+                for x, y, z in pts:
+                    x1 = x * math.cos(yaw) + z * math.sin(yaw)
+                    z1 = -x * math.sin(yaw) + z * math.cos(yaw)
+                    proj.append((W / 2 + x1 * sc, H * 0.78 - (y * math.cos(pitch) - z1 * math.sin(pitch)) * sc,
+                                 y * math.sin(pitch) + z1 * math.cos(pitch)))
+                rgb = COLOURS[colour]
+                if colour in GLOWS:
+                    k = 1.0 if name in lit else 0.35
+                else:
+                    k = 0.45 + 0.55 * max(0, n[0] * light[0] + n[1] * light[1] + n[2] * light[2])
+                col = np.array([ch * k for ch in rgb], dtype=np.float32)
+                for tri in ((proj[0], proj[1], proj[2]), (proj[0], proj[2], proj[3])):
+                    (x0, y0, z0), (x1, y1, z1), (x2, y2, z2) = tri
+                    area = (x1 - x0) * (y2 - y0) - (x2 - x0) * (y1 - y0)
+                    if abs(area) < 1e-6:
+                        continue
+                    bx0, bx1 = max(0, int(min(x0, x1, x2))), min(W, int(max(x0, x1, x2)) + 1)
+                    by0, by1 = max(0, int(min(y0, y1, y2))), min(H, int(max(y0, y1, y2)) + 1)
+                    if bx0 >= bx1 or by0 >= by1:
+                        continue
+                    px, py = xs[by0:by1, bx0:bx1], ys[by0:by1, bx0:bx1]
+                    w0 = ((x1 - px) * (y2 - py) - (x2 - px) * (y1 - py)) / area
+                    w1 = ((x2 - px) * (y0 - py) - (x0 - px) * (y2 - py)) / area
+                    w2 = 1 - w0 - w1
+                    inside = (w0 >= -1e-4) & (w1 >= -1e-4) & (w2 >= -1e-4)
+                    depth = w0 * z0 + w1 * z1 + w2 * z2
+                    zb = zbuf[by0:by1, bx0:bx1]
+                    m = inside & (depth > zb + 1e-4)
+                    zb[m] = depth[m]
+                    rgb_buf[by0:by1, bx0:bx1][m] = col
+    img = Image.fromarray(np.clip(rgb_buf, 0, 255).astype(np.uint8), "RGB")
+    return img.resize((w, h), Image.LANCZOS)
 
 
-def preview(controls):
+def preview(controls, first=1):
     cell_w, cell_h, cols = 600, 300, 2
     rows = math.ceil(len(controls) / cols)
     sheet = Image.new("RGB", (cell_w * cols, cell_h * rows), (16, 17, 22))
@@ -611,10 +837,70 @@ def preview(controls):
         sheet.paste(render(c, "off"), (x, y + 30))
         sheet.paste(render(c, "on"), (x + 300, y + 30))
         kinds = ", ".join(sorted({a["type"] for a in c.actions}))
-        d.text((x + 10, y + 6), f"{i + 1}. {c.name}  ({kinds})", fill=(240, 230, 200), font=font)
+        d.text((x + 10, y + 6), f"{i + first}. {c.name}  ({kinds})", fill=(240, 230, 200), font=font)
         d.text((x + 10, y + cell_h - 22), "off / rest", fill=(150, 150, 160), font=small)
         d.text((x + 310, y + cell_h - 22), "on / mid-animation", fill=(150, 150, 160), font=small)
     return sheet
+
+
+def pose_at(c, t):
+    """The pose t (0..1) through each control's animation: toggles swing off -> on, steps turn one notch, presses go
+    in and out, spins turn once, gauges sweep; lamps light for the second half (presses while pressed)."""
+    out, lit = {}, set()
+    for name, p in c.parts.items():
+        if any(b["colour"] in GLOWS for b in p["boxes"]) and not any(name in a.get("lit", {}) for a in c.actions):
+            lit.add(name)
+    e = 0.5 - 0.5 * math.cos(math.pi * t)  # ease in and out
+    for a in c.actions:
+        for part, m in a["moves"].items():
+            tr = []
+            if a["type"] == "toggle":
+                if "axis" in m:
+                    tr.append(("rot", m["axis"], m["off"] + e * (m["on"] - m["off"])))
+                if "move_on" in m:
+                    tr.append(("move", [x * e for x in m["move_on"]]))
+            elif a["type"] == "steps":
+                if "step" in m:
+                    tr.append(("rot", m["axis"], m["step"] * e))
+                if "move_step" in m:
+                    tr.append(("move", [x * e for x in m["move_step"]]))
+            elif a["type"] == "press":
+                tr.append(("move", [x * math.sin(math.pi * t) for x in m["move"]]))
+            elif a["type"] == "spin":
+                tr.append(("rot", m["axis"], m["turn"] * e))
+            elif a["type"] == "gauge":
+                tr.append(("rot", m["axis"], m["from"] + e * (m["to"] - m["from"])))
+            out.setdefault(part, []).extend(tr)
+        for l, when in a.get("lit", {}).items():
+            if (when == "on" and t >= 0.5) or (when == "active" and 0.15 < t < 0.85):
+                lit.add(l)
+    return out, lit
+
+
+def animated(controls, first, path, frames=12):
+    """An animated GIF: every control playing its animation forward, holding, then back."""
+    cw, ch, cols = 240, 200, 4
+    rows = math.ceil(len(controls) / cols)
+    try:
+        font = ImageFont.truetype("DejaVuSans.ttf", 12)
+    except OSError:
+        font = ImageFont.load_default()
+    ts = [i / (frames - 1) for i in range(frames)]
+    seq = [0.0] * 3 + ts + [1.0] * 4 + ts[::-1] + [0.0] * 2
+    cache = {}
+    images = []
+    for t in seq:
+        sheet = Image.new("RGB", (cw * cols, ch * rows), (16, 17, 22))
+        d = ImageDraw.Draw(sheet)
+        for i, c in enumerate(controls):
+            key = (c.id, round(t, 4))
+            if key not in cache:
+                cache[key] = render(c, None, scale=17, w=cw, h=ch - 18, ss=1, posed=pose_at(c, t))
+            x, y = (i % cols) * cw, (i // cols) * ch
+            sheet.paste(cache[key], (x, y + 18))
+            d.text((x + 6, y + 3), f"{i + first}. {c.name}", fill=(240, 230, 200), font=font)
+        images.append(sheet.convert("P", palette=Image.ADAPTIVE, colors=128))
+    images[0].save(path, save_all=True, append_images=images[1:], duration=70, loop=0, optimize=True)
 
 
 # ---------------------------------------------------------------- main
@@ -632,11 +918,13 @@ def main():
             json.dump(game_json(c), f, separators=(",", ":"))
         with open(os.path.join(OUT, c.id + ".bbmodel"), "w") as f:
             json.dump(bbmodel(c, tex), f, indent=1)
-        index.append({"id": c.id, "name": c.name, "real": c.real, "does": c.does,
+        index.append({"id": c.id, "group": c.group, "name": c.name, "real": c.real, "does": c.does,
                       "actions": [{"click": a["click"], "type": a["type"]} for a in c.actions]})
     with open(os.path.join(OUT, "controls.json"), "w") as f:
         json.dump(index, f, indent=2)
-    preview(CONTROLS).save(os.path.join(OUT, "preview.png"))
+    preview([c for c in CONTROLS if c.group == "flight"]).save(os.path.join(OUT, "preview.png"))
+    preview([c for c in CONTROLS if c.group == "classic"], first=17).save(os.path.join(OUT, "preview_classic.png"))
+    animated(CONTROLS, 1, os.path.join(OUT, "animations.gif"))
     print(f"{len(CONTROLS)} controls written")
 
 

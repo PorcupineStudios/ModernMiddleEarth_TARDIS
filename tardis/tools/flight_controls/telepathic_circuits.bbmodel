@@ -18,7 +18,7 @@
  "elements": [
   {
    "name": "base_0",
-   "uuid": "f0362ef9-3e39-46ab-92e4-964d6c2e4627",
+   "uuid": "da756de5-93ba-4e04-9b1f-4b5689870575",
    "type": "cube",
    "from": [
     -3,
@@ -95,7 +95,7 @@
   },
   {
    "name": "plate_0",
-   "uuid": "36abb14b-26db-4957-817f-9dfed1ed30c3",
+   "uuid": "97c5ceb0-9fee-4dd8-b8c1-d75fa9294845",
    "type": "cube",
    "from": [
     -2.2,
@@ -172,7 +172,7 @@
   },
   {
    "name": "plate_1",
-   "uuid": "638d4a37-6b0a-4983-8fe0-df8002b5baff",
+   "uuid": "0af70486-1f44-4c41-b3d5-cd269b68a3d7",
    "type": "cube",
    "from": [
     -1.4,
@@ -249,7 +249,7 @@
   },
   {
    "name": "plate_2",
-   "uuid": "05c021ae-33c3-4923-9a67-407d1525817c",
+   "uuid": "c621fd6a-cbdc-46a2-b48a-bd8487399516",
    "type": "cube",
    "from": [
     -0.6,
@@ -326,7 +326,7 @@
   },
   {
    "name": "plate_3",
-   "uuid": "bd27597f-0469-4557-9917-aaeed5af0a21",
+   "uuid": "889d1fd8-a090-4b47-810a-0e35b90770ed",
    "type": "cube",
    "from": [
     0.2,
@@ -403,7 +403,7 @@
   },
   {
    "name": "plate_4",
-   "uuid": "7f2015b9-5239-46b0-b1dd-25f502c623ca",
+   "uuid": "98e1ae70-b30b-415e-b2ce-16a70e2b44fa",
    "type": "cube",
    "from": [
     1,
@@ -480,7 +480,7 @@
   },
   {
    "name": "ring_0",
-   "uuid": "ffb83a49-d445-42b5-a2cc-a42a31af14ea",
+   "uuid": "e178573b-5d5b-4abc-82a6-4c53c64b427c",
    "type": "cube",
    "from": [
     -2.7,
@@ -557,7 +557,7 @@
   },
   {
    "name": "ring_1",
-   "uuid": "80560504-be11-4394-a908-5db111a2e6a7",
+   "uuid": "f48cd938-f382-4b39-9369-ef75f9a7eb0e",
    "type": "cube",
    "from": [
     -2.7,
@@ -634,7 +634,7 @@
   },
   {
    "name": "ring_2",
-   "uuid": "ac1daf19-1d9d-4c86-9949-38d4b008426b",
+   "uuid": "8826036c-dfe9-4f61-9c1a-297bb1c38ff3",
    "type": "cube",
    "from": [
     -2.7,
@@ -711,7 +711,7 @@
   },
   {
    "name": "ring_3",
-   "uuid": "eed2f637-053f-4338-a28d-707a16e59c1a",
+   "uuid": "429380f5-2914-407a-bbe3-da99863df213",
    "type": "cube",
    "from": [
     2.3,
@@ -790,7 +790,7 @@
  "outliner": [
   {
    "name": "base",
-   "uuid": "e1985524-b513-4dde-a09c-4b472e79c78d",
+   "uuid": "e3b6ef49-da55-42cb-92c6-c961a9d9825c",
    "origin": [
     0,
     0,
@@ -802,14 +802,14 @@
     0
    ],
    "children": [
-    "f0362ef9-3e39-46ab-92e4-964d6c2e4627"
+    "da756de5-93ba-4e04-9b1f-4b5689870575"
    ],
    "export": true,
    "visibility": true
   },
   {
    "name": "plate",
-   "uuid": "11bf0051-968e-4226-9469-4f969b74cb88",
+   "uuid": "cd65410d-7f6d-4e46-a504-a6d0e909a984",
    "origin": [
     0,
     1.5,
@@ -821,18 +821,18 @@
     0
    ],
    "children": [
-    "36abb14b-26db-4957-817f-9dfed1ed30c3",
-    "638d4a37-6b0a-4983-8fe0-df8002b5baff",
-    "05c021ae-33c3-4923-9a67-407d1525817c",
-    "bd27597f-0469-4557-9917-aaeed5af0a21",
-    "7f2015b9-5239-46b0-b1dd-25f502c623ca"
+    "97c5ceb0-9fee-4dd8-b8c1-d75fa9294845",
+    "0af70486-1f44-4c41-b3d5-cd269b68a3d7",
+    "c621fd6a-cbdc-46a2-b48a-bd8487399516",
+    "889d1fd8-a090-4b47-810a-0e35b90770ed",
+    "98e1ae70-b30b-415e-b2ce-16a70e2b44fa"
    ],
    "export": true,
    "visibility": true
   },
   {
    "name": "ring",
-   "uuid": "26b2c5b0-0b88-47e5-8b5d-5c040efc6bb5",
+   "uuid": "a583b335-8569-4068-aed8-1294392392c5",
    "origin": [
     0,
     0,
@@ -844,10 +844,10 @@
     0
    ],
    "children": [
-    "ffb83a49-d445-42b5-a2cc-a42a31af14ea",
-    "80560504-be11-4394-a908-5db111a2e6a7",
-    "ac1daf19-1d9d-4c86-9949-38d4b008426b",
-    "eed2f637-053f-4338-a28d-707a16e59c1a"
+    "e178573b-5d5b-4abc-82a6-4c53c64b427c",
+    "f48cd938-f382-4b39-9369-ef75f9a7eb0e",
+    "8826036c-dfe9-4f61-9c1a-297bb1c38ff3",
+    "429380f5-2914-407a-bbe3-da99863df213"
    ],
    "export": true,
    "visibility": true
@@ -865,20 +865,20 @@
    "visible": true,
    "mode": "bitmap",
    "saved": true,
-   "uuid": "0c23016a-b214-45a1-ba79-d91a7ac4e911",
+   "uuid": "dbcbe047-cc9f-44fa-9b88-eb93f46e81a7",
    "relative_path": "../../src/main/resources/assets/tardis_rb/textures/entity/controls/controls.png",
    "source": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAABW0lEQVR4nO3QMWtUQRTF8fOWtbFNJ4G0VgGtg6QLSZEmWKYwn8fCzj5+gRQSCMRAkk4LLQKW9japbO49c47FLuzcoEISsJo/PIaZgfld3nT9fttJg01IGp+//UST0QQ0GZsHb0EmSIIkzs8vIDVIgiTcfP0C27ABwHi29hSyl2fGu0bQRhpIG1ufjhFBRCYyE7MeZ1PBm1xwkgWXVHDbBZddcNoFjyBmPZ6s+GKAFd7Igkut4L6DWxVPu+Dx9z+w/JoLzsaCS/on7iXKfu3wTGJ+fXkLyWheoLsb66CWQ8nYP3yNiEBEIDNx9PIUSSHSyBR+vPiOjABzcX/y/AP6ds4+lv2bXzurzRNg3uNNLjilgkcEpg4PquCMwH2b93i7g7O54BGBqcdTBWc+ZIAOl1zwlAoeEZh1+GJd4fmAASbvvXI5OL2a7v3KI5r9T2wMMBqNRqPRaDQa/anfcENNcGO7wq8AAAAASUVORK5CYII="
   }
  ],
  "animations": [
   {
-   "uuid": "a2232ffc-75dd-4d8f-a93c-23d1a9333f7c",
+   "uuid": "dfc91ffe-43be-4f10-a3b3-f20177e51e34",
    "name": "on",
    "loop": "hold",
    "length": 0.25,
    "snapping": 20,
    "animators": {
-    "11bf0051-968e-4226-9469-4f969b74cb88": {
+    "cd65410d-7f6d-4e46-a504-a6d0e909a984": {
      "name": "plate",
      "type": "bone",
      "keyframes": [
@@ -891,7 +891,7 @@
          "z": 0
         }
        ],
-       "uuid": "d9bb0bbd-3676-4fa2-8fe8-59224297147e",
+       "uuid": "97267196-efb6-4ba8-9b5b-24af5dd60203",
        "time": 0,
        "interpolation": "linear"
       },
@@ -904,7 +904,7 @@
          "z": 0
         }
        ],
-       "uuid": "3154d0a8-e744-43db-a488-3c189ae6c677",
+       "uuid": "862b483b-33f9-4ce7-9f06-1b33541e7b63",
        "time": 0.25,
        "interpolation": "linear"
       }
@@ -913,13 +913,13 @@
    }
   },
   {
-   "uuid": "d5fae077-9005-4c92-aaca-71990ae2b98c",
+   "uuid": "60406c76-3566-4041-85a3-1c06ef0a17bf",
    "name": "off",
    "loop": "hold",
    "length": 0.25,
    "snapping": 20,
    "animators": {
-    "11bf0051-968e-4226-9469-4f969b74cb88": {
+    "cd65410d-7f6d-4e46-a504-a6d0e909a984": {
      "name": "plate",
      "type": "bone",
      "keyframes": [
@@ -932,7 +932,7 @@
          "z": 0
         }
        ],
-       "uuid": "5abcf463-be8b-468e-8f79-18f63596205f",
+       "uuid": "ede88f4a-7b37-462a-8f71-c55a52d57dbf",
        "time": 0,
        "interpolation": "linear"
       },
@@ -945,7 +945,7 @@
          "z": 0
         }
        ],
-       "uuid": "efb3b31a-232e-4c08-8453-f805b7a6d86d",
+       "uuid": "fc590093-7f53-4337-b99f-b42b79dc601f",
        "time": 0.25,
        "interpolation": "linear"
       }
