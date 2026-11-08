@@ -72,7 +72,7 @@ ACTIONS = {
     "phase_key": "Phase key on/off: frees the Phase Lever",
     "phase": "With the key turned: the box becomes a loose entity, or sets down as a block again",
     "thrusters": "Thrusters on/off: on, anti-grav holds the loose box in the air; off, it falls",
-    "pilot": "Takes you into third-person piloting (not connected yet)",
+    "pilot": "Takes you out to fly the loose box in third person (W A S D, Q / E up and down, Shift to stop)",
     "time_from": "Target time counts back from now (12 minutes ago) or, flipped, from the beginning of time",
     "time_unit": "Picks what the time drums count: " + ", ".join(u["name"] for u in TUNING["time"]["units"])
                  + " (sneak: back)",

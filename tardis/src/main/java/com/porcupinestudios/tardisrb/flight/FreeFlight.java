@@ -137,7 +137,12 @@ public final class FreeFlight {
         CompoundTag tag = tardis.moduleData(MODULE);
         tag.putBoolean("thrusters", on);
         tardis.setModuleData(MODULE, tag);
-        body(server, tardis).ifPresent(b -> b.setThrusters(on));
+        body(server, tardis).ifPresent(b -> {
+            b.setThrusters(on);
+            if (!on) {
+                b.ejectPassengers(); // no anti-grav: it falls, and the pilot goes back inside
+            }
+        });
         return on ? Component.translatableWithFallback("tardis_rb.free_flight.thrusters_on", "Thrusters on")
                 : Component.translatableWithFallback("tardis_rb.free_flight.thrusters_off", "Thrusters off");
     }
@@ -147,7 +152,10 @@ public final class FreeFlight {
         if (!isLoose(tardis)) {
             return;
         }
-        body(server, tardis).ifPresent(Entity::discard);
+        body(server, tardis).ifPresent(b -> {
+            b.ejectPassengers();
+            b.discard();
+        });
         CompoundTag tag = tardis.moduleData(MODULE);
         tag.remove("body");
         tardis.setModuleData(MODULE, tag);

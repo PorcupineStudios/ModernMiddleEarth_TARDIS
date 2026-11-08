@@ -6,6 +6,7 @@ import com.porcupinestudios.tardisrb.core.TardisRecord;
 import com.porcupinestudios.tardisrb.door.Doors;
 import com.porcupinestudios.tardisrb.entity.TardisBody;
 import com.porcupinestudios.tardisrb.flight.FreeFlight;
+import com.porcupinestudios.tardisrb.flight.Piloting;
 import com.porcupinestudios.tardisrb.repair.Repairs;
 import java.util.Optional;
 import net.minecraft.core.BlockPos;
@@ -13,6 +14,8 @@ import net.minecraft.core.GlobalPos;
 import net.minecraft.gametest.framework.GameTest;
 import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.gametest.GameTestHolder;
 import net.neoforged.neoforge.gametest.PrefixGameTestTemplate;
 
@@ -58,6 +61,41 @@ public final class FreeFlightTests {
                 helper.assertTrue(helper.getLevel().getBlockState(base).getBlock() instanceof ExteriorBlock,
                         "the block isn't back at " + base);
                 helper.assertTrue(t.location().get().pos().equals(base), "the record says " + t.location());
+                helper.succeed();
+            });
+        });
+    }
+
+    @GameTest(template = "platform", timeoutTicks = 200)
+    public static void theFlightYokeSeatsThePilotAndShiftPutsThemBack(GameTestHelper helper) {
+        MinecraftServer server = helper.getLevel().getServer();
+        TardisRecord t = WreckTests.onPlatform(helper, Optional.empty());
+        helper.assertTrue(Repairs.attempt(server, t, TardisRB.id("navigation_1"), Optional.empty()).done(),
+                "navigation repair");
+        ServerPlayer pilot = helper.makeMockServerPlayerInLevel();
+        BlockPos stand = helper.absolutePos(new BlockPos(5, 2, 4));
+        pilot.teleportTo(stand.getX() + 0.5, stand.getY(), stand.getZ() + 0.5);
+        Vec3 start = pilot.position();
+
+        helper.assertTrue(Piloting.start(server, t, pilot).getString().contains("loose"),
+                "the yoke worked on a landed box");
+        FreeFlight.phase(server, t, Optional.empty());
+        helper.assertTrue(Piloting.start(server, t, pilot).getString().contains("thrusters"),
+                "the yoke worked with the thrusters off");
+        FreeFlight.setThrusters(server, t, true, Optional.empty());
+        TardisBody body = FreeFlight.body(server, t).orElseThrow();
+        String said = Piloting.start(server, t, pilot).getString();
+        helper.assertTrue(Piloting.isPilot(pilot), "not flying: " + said);
+        helper.runAfterDelay(5, () -> {
+            helper.assertTrue(pilot.getVehicle() == body, "the pilot isn't in the box");
+            helper.assertTrue(pilot.isInvisible(), "the pilot can be seen");
+            pilot.stopRiding(); // Shift
+            helper.runAfterDelay(3, () -> {
+                helper.assertTrue(!Piloting.isPilot(pilot) && !pilot.isPassenger() && !pilot.isInvisible(),
+                        "getting off didn't end piloting");
+                helper.assertTrue(pilot.position().distanceTo(start) < 0.5,
+                        "the pilot wasn't put back at the console: " + pilot.position());
+                helper.assertTrue(FreeFlight.isLoose(t) && body.thrusters(), "the box should go on hovering");
                 helper.succeed();
             });
         });

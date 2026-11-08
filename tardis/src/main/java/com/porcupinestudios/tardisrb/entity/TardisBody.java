@@ -1,6 +1,7 @@
 package com.porcupinestudios.tardisrb.entity;
 
 import com.porcupinestudios.tardisrb.flight.FreeFlight;
+import com.porcupinestudios.tardisrb.flight.PilotInput;
 import com.porcupinestudios.tardisrb.progression.TardisContent;
 import com.porcupinestudios.tardisrb.progression.Tuning;
 import java.util.Optional;
@@ -12,7 +13,9 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MoverType;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 
@@ -69,18 +72,93 @@ public class TardisBody extends Entity {
     @Override
     public void tick() {
         super.tick();
-        if (level().isClientSide) {
-            return;
+        tickLerp();
+        if (isControlledByLocalInstance()) {
+            physics();
         }
+        if (!level().isClientSide && tickCount % 20 == 0) {
+            FreeFlight.track(this);
+        }
+    }
+
+    /**
+     * Moves it one tick, where it is controlled: on the server, or on the pilot's client while someone flies it (their
+     * client sends the box's moves, as with a boat). Flown: thrust along the pilot's view from {@link PilotInput}.
+     */
+    private void physics() {
         Tuning.FreeFlight t = TardisContent.tuning().flight();
         Vec3 v = getDeltaMovement();
-        v = thrusters() ? v.scale(t.hoverDamping()) : v.add(0, -t.gravity(), 0);
+        boolean flown = getControllingPassenger() != null && thrusters();
+        if (flown) {
+            Tuning.Piloting p = t.piloting();
+            double yaw = Math.toRadians(getControllingPassenger().getYRot());
+            Vec3 forward = new Vec3(-Math.sin(yaw), 0, Math.cos(yaw));
+            Vec3 left = new Vec3(Math.cos(yaw), 0, Math.sin(yaw));
+            Vec3 push = forward.scale(PilotInput.forward).add(left.scale(PilotInput.left));
+            Vec3 across = new Vec3(v.x, 0, v.z);
+            if (push.lengthSqr() > 1.0E-4) {
+                across = across.add(push.normalize().scale(p.acceleration()));
+            } else {
+                across = across.scale(t.hoverDamping());
+            }
+            double top = p.maxSpeed() * (PilotInput.boost ? p.boost() : 1);
+            if (across.length() > top) {
+                across = across.normalize().scale(top);
+            }
+            double vy = v.y + (PilotInput.up * p.verticalSpeed() - v.y) * 0.5;
+            v = new Vec3(across.x, vy, across.z);
+            if (PilotInput.brake) {
+                v = v.scale(0.5);
+            }
+        } else {
+            v = thrusters() ? v.scale(t.hoverDamping()) : v.add(0, -t.gravity(), 0);
+        }
         setDeltaMovement(v);
         move(MoverType.SELF, getDeltaMovement());
-        double across = onGround() ? t.groundFriction() : t.drag();
-        setDeltaMovement(getDeltaMovement().multiply(across, thrusters() ? 1 : t.drag(), across));
-        if (tickCount % 20 == 0) {
-            FreeFlight.track(this);
+        if (!flown) {
+            double across = onGround() ? t.groundFriction() : t.drag();
+            setDeltaMovement(getDeltaMovement().multiply(across, thrusters() ? 1 : t.drag(), across));
+        }
+    }
+
+    /** The pilot (the first passenger, if a player). */
+    @Override
+    public LivingEntity getControllingPassenger() {
+        return getFirstPassenger() instanceof Player p ? p : null;
+    }
+
+    // smooth movement on clients that don't steer it (as boats do)
+    private int lerpSteps;
+    private double lerpX;
+    private double lerpY;
+    private double lerpZ;
+    private double lerpYRot;
+
+    @Override
+    public void lerpTo(double x, double y, double z, float yRot, float xRot, int steps) {
+        lerpX = x;
+        lerpY = y;
+        lerpZ = z;
+        lerpYRot = yRot;
+        lerpSteps = steps + 2;
+    }
+
+    private void tickLerp() {
+        if (isControlledByLocalInstance()) {
+            lerpSteps = 0;
+            syncPacketPositionCodec(getX(), getY(), getZ());
+        }
+        if (lerpSteps > 0) {
+            lerpPositionAndRotationStep(lerpSteps, lerpX, lerpY, lerpZ, lerpYRot, getXRot());
+            lerpSteps--;
+        }
+    }
+
+    @Override
+    protected void removePassenger(Entity passenger) {
+        super.removePassenger(passenger);
+        if (!level().isClientSide && getPassengers().isEmpty()) {
+            setDeltaMovement(getDeltaMovement().scale(0.5));
         }
     }
 

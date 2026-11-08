@@ -3,6 +3,7 @@ package com.porcupinestudios.tardisrb.client;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import com.porcupinestudios.tardisrb.entity.TardisBody;
+import com.porcupinestudios.tardisrb.progression.TardisContent;
 import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
@@ -27,7 +28,12 @@ public final class TardisBodyRenderer extends EntityRenderer<TardisBody> {
         PoliceBoxModel model = PoliceBoxModel.get();
         int look = Math.max(0, Math.min(ExteriorRenderer.LOOKS.length - 1, body.look()));
         pose.pushPose();
-        pose.mulPose(Axis.YP.rotationDegrees(180 - Mth.rotLerp(partialTick, body.yRotO, body.getYRot())));
+        float turn = Mth.rotLerp(partialTick, body.yRotO, body.getYRot());
+        if (body.isVehicle()) {
+            // flown: the box spins as it flies, for show (its collision box doesn't turn)
+            turn += (float) ((body.tickCount + partialTick) * TardisContent.tuning().flight().piloting().spin());
+        }
+        pose.mulPose(Axis.YP.rotationDegrees(180 - turn));
         ExteriorRenderer.drawAll(model, 0, pose, buffers.getBuffer(RenderType.entityCutoutNoCull(getTextureLocation(
                 body))), light);
         if (look >= model.glowFromLook) {

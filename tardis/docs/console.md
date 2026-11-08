@@ -53,7 +53,7 @@ Read when: the console block/renderer, console controls (data `tardis/control/`)
     a hop or a jump through an open destination in that dimension, and disarms. **Schema chooser** (side 5):
     `schema_prev`/`schema_next` page the room plans (id order, role `schema`), `add_room` builds it (`Rooms.add`,
     paid like the repair screen), `schema_info` says why it can't be added. Still planned: room deleter, sonic holder,
-    telepathic circuits, the flight yoke. Phase key/lever and thrusters work: docs/free-flight-plan.md.
+    telepathic circuits, Phase key/lever, thrusters and the flight yoke work: docs/free-flight-plan.md.
   - Test: `ConsoleTests` (X levers = +10, monitor over side 0 shows the target X, target time ago/from the beginning, fast return, schema paging, memory save/load, handbrake, the
     dematerialisation lever flies there). Rendering, clicking and Jade are untried in a client, and none of this has
     compiled yet (CI blocked by GitHub billing, 2026-11-08).

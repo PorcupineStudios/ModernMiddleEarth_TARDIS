@@ -7,6 +7,7 @@ import com.porcupinestudios.tardisrb.door.Doors;
 import com.porcupinestudios.tardisrb.flight.Destinations;
 import com.porcupinestudios.tardisrb.flight.Flight;
 import com.porcupinestudios.tardisrb.flight.FreeFlight;
+import com.porcupinestudios.tardisrb.flight.Piloting;
 import com.porcupinestudios.tardisrb.interior.Interiors;
 import com.porcupinestudios.tardisrb.interior.Rooms;
 import com.porcupinestudios.tardisrb.progression.Control;
@@ -56,7 +57,7 @@ import net.minecraft.world.phys.Vec3;
  * the picked one (paid like the repair screen); {@code schema_info} says whether it can be added now.</li>
  * <li>Exterior (docs/free-flight-plan.md): {@code phase_key} on/off; {@code phase} (only with the key on) turns the
  * box into a loose entity and back ({@link FreeFlight#phase}); {@code thrusters} on (hovers) or off (a physics
- * object that falls); {@code pilot} is for the flight yoke (piloting comes in the next slice).</li>
+ * object that falls); {@code pilot}: the flight yoke, takes the crew member out to fly the box ({@link Piloting}).</li>
  * <li>{@code jump}: takes off for the set coordinates: a hop in this dimension or a jump to the picked one.</li>
  * <li>{@code screen} says where the TARDIS is; {@code door} opens or shuts the doors; {@code none} only moves.</li>
  * <li>Older ones still load: {@code x}/{@code y}/{@code z}, {@code x_up}..{@code z_down}, {@code step},
@@ -371,8 +372,8 @@ public final class ConsoleControls {
                 return said;
             }
             case "pilot" -> {
-                return Component.translatableWithFallback("tardis_rb.console.pilot_soon",
-                        "The flight yoke isn't connected yet");
+                return player.map(p -> Piloting.start(server, tardis, p)).orElse(Component
+                        .translatableWithFallback("tardis_rb.pilot.nobody", "Only a crew member can fly it"));
             }
             case "time_unit" -> {
                 int units = Math.max(1, TardisContent.tuning().console().time().units().size());
@@ -645,6 +646,8 @@ public final class ConsoleControls {
             case 3 -> {
                 out.add("EXTERIOR - " + tardis.name());
                 out.add(at.isEmpty() ? "In flight" : !FreeFlight.isLoose(tardis) ? "Landed (a block)"
+                        : FreeFlight.body(server, tardis).map(b -> b.isVehicle()).orElse(false)
+                                ? "Flown, " + FreeFlight.height(server, tardis) + " up"
                         : FreeFlight.thrusters(tardis) ? "Hovering, " + FreeFlight.height(server, tardis) + " up"
                         : "Loose: a physics object");
                 out.add("Phase key " + (console.state("phase_key") != 0 ? "ON" : "off") + ", thrusters "
