@@ -1,0 +1,15 @@
+{
+  "model": "speed_lever",
+  "panel": 0,
+  "u": -0.0825,
+  "v": 0.66,
+  "scale": 0.8,
+  "actions": {
+    "lever": "none"
+  },
+  "requirements": {
+    "type": "tardis_rb:subsystem_level",
+    "subsystem": "tardis_rb:navigation",
+    "min": 1
+  }
+}

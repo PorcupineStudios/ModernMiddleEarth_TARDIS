@@ -10,12 +10,16 @@ renderer. Writes:
   hand-built layout: the console at 0,0,0, invisible console_hull blocks round it (its collision), the interior door
   at 0,0,8 facing north (the 2-wide opening's other column is frame).
 - the room's blocks: blockstates, block and item models, textures (glowing ones get a full-bright overlay layer).
-- assets/tardis_rb/console/capaldi.json: the models as quads in blocks from the console block's corner, one part per
-  control (ctl_<name>, with its click box) plus body, rotor_glass, rotor_column, rotor_spinners, rotor_spinner_mid,
-  arches; textures/entity/capaldi/console.png + console_glow.png.
-- data/tardis_rb/tardis/control/*.json: each control file names the model part it is (`part`).
+- assets/tardis_rb/console/capaldi.json: the models as quads in blocks from the console block's corner: body, the
+  monitor (ctl_screen_1, with its click box), rotor_glass, rotor_column, rotor_spinners, rotor_spinner_mid, arches;
+  textures/entity/capaldi/console.png + console_glow.png, and console_plain.png for the body.
+  Also each panel's frame (`panels`, where the small controls stand) and how the monitor stands (`monitor`).
+- Aaron 2026-11-08: the console is a blank slate. The hand-built model's own controls are left out (all but the
+  monitor) and the body gets one plain colour; the controls on it are the small models of tools/flight_controls.py,
+  placed by tools/console_layout.py (which also writes the control data files).
 """
 import json
+import math
 import os
 import sys
 
@@ -42,15 +46,18 @@ HULL_CELLS = [(-1, -1), (0, -1), (1, -1), (-1, 0), (1, 0), (-1, 1), (0, 1), (1, 
 DOOR = (0, 0, 8)
 DOOR_FILL = [(1, 0, 8), (1, 1, 8), (1, 2, 8), (0, 2, 8)]
 
-# Our control files and the model part each one is. Model controls with no file of ours become plain decoration
-# (action "none"), shown from the first navigation repair.
-CONTROL_PARTS = {
-    "monitor": "screen_1", "hop_lever": "main_lever_left", "jump_lever": "main_lever_right",
-    "step_dial": "dial_1", "destination_dial": "globe", "reset": "buttons_front",
-    "x_up": "toggle_1", "x_down": "toggle_2", "z_up": "toggle_3", "z_down": "toggle_4",
-    "y_up": "switch_1", "y_down": "switch_2",
-}
-DECOR_REQUIREMENTS = {"type": "tardis_rb:subsystem_level", "subsystem": "tardis_rb:navigation", "min": 1}
+# The hand-built model's controls we keep: only the monitor. The rest are left out (Aaron 2026-11-08: a blank slate).
+KEEP_CONTROLS = {"screen_1"}
+# The body's one plain colour (Aaron paints it later).
+PLAIN = (154, 149, 140, 255)
+# The six panels: panel k faces atan2(z, x) = 90 - 60k degrees from the rotor axis (panel 0 faces the door, +z).
+# Their top is one plane sloping up toward the rotor: it passes through the outer edge (OUTER blocks out from the
+# axis, at height EDGE_Y) and rises SLOPE degrees (measured from the model's planks).
+OUTER = 1.31
+EDGE_Y = 0.812
+SLOPE = 21.6
+# How the monitor stands once raised off its panel: tilted toward upright, lifted and moved in toward the rotor.
+MONITOR = {"tilt": 50, "lift": 0.5, "inward": 0.22}
 
 
 def write_json(path, data, indent=2):
@@ -246,45 +253,52 @@ def models():
             n = sum(1 for f in e["faces"].values() if f.get("texture") is not None)
             ctl = group.get(e["uuid"]) if name == "console" else None
             part = ctl if ctl else ("body" if name == "console" else name)
-            parts.setdefault(part, []).extend(quad(verts, uvs, f) for f in faces[i:i + n])
+            if ctl is None or ctl[4:] in KEEP_CONTROLS:
+                quads = [quad(verts, uvs, f) for f in faces[i:i + n]]
+                if part == "body":
+                    for q in quads:  # the plain texture: each face takes the whole (one-colour) image
+                        for k, (u, v) in enumerate(((0, 0), (0, 1), (1, 1), (1, 0))):
+                            q["v"][k][3], q["v"][k][4] = u, v
+                parts.setdefault(part, []).extend(quads)
             i += n
         if i != len(faces):
             raise SystemExit(f"{name}: {len(faces)} faces in the OBJ, {i} in the bbmodel")
     info = json.load(open(os.path.join(SRC, "parts.json")))
     controls = {}
     for c in info["controls"]:
+        if c["name"] not in KEEP_CONTROLS:
+            continue
         if "ctl_" + c["name"] not in parts:
             raise SystemExit("no model part for control " + c["name"])
         controls[c["name"]] = {"kind": c["kind"], "panel": c["panel"],
                                "box": [round(v, 4) for v in c["hitbox_min"] + c["hitbox_max"]]}
     write_json(os.path.join(ASSETS, "console", "capaldi.json"),
-               {"pivot": info["origin"], "parts": parts, "controls": controls}, indent=None)
+               {"pivot": info["origin"], "parts": parts, "controls": controls, "panels": panels(info["origin"]),
+                "monitor": MONITOR}, indent=None)
     tdir = os.path.join(ASSETS, "textures", "entity", "capaldi")
     os.makedirs(tdir, exist_ok=True)
     Image.open(os.path.join(SRC, "textures", "console.png")).convert("RGBA").save(os.path.join(tdir, "console.png"))
     Image.open(os.path.join(SRC, "textures", "console_emissive.png")).convert("RGBA").save(
         os.path.join(tdir, "console_glow.png"))
+    Image.new("RGBA", (16, 16), PLAIN).save(os.path.join(tdir, "console_plain.png"))
     return controls
 
 
-def control_files(controls):
-    cdir = os.path.join(DATA, "tardis", "control")
-    used = set()
-    for cid, part in CONTROL_PARTS.items():
-        path = os.path.join(cdir, cid + ".json")
-        data = json.load(open(path))
-        data["part"] = part
-        data["panel"] = controls[part]["panel"]
-        data.pop("u", None)
-        data.pop("v", None)
-        write_json(path, data)
-        used.add(part)
-    for part, c in controls.items():
-        if part in used:
-            continue
-        write_json(os.path.join(cdir, "decor_" + part + ".json"),
-                   {"kind": c["kind"], "action": "none", "part": part, "panel": c["panel"],
-                    "requirements": DECOR_REQUIREMENTS})
+def panels(origin):
+    """Each panel's frame: `origin` (middle of its outer edge, on the top), `right` (x of a control standing on it),
+    `normal` (its y) and `down` (its z: down the slope, toward the operator), in blocks from the block's corner."""
+    out = []
+    s, c = math.sin(math.radians(SLOPE)), math.cos(math.radians(SLOPE))
+    for k in range(6):
+        a = math.radians(90 - 60 * k)
+        o = (math.cos(a), 0.0, math.sin(a))
+        out.append({
+            "origin": [round(origin[0] + o[0] * OUTER, 5), EDGE_Y, round(origin[2] + o[2] * OUTER, 5)],
+            "right": [round(math.sin(a), 5), 0.0, round(-math.cos(a), 5)],
+            "normal": [round(o[0] * s, 5), round(c, 5), round(o[2] * s, 5)],
+            "down": [round(o[0] * c, 5), round(-s, 5), round(o[2] * c, 5)],
+        })
+    return out
 
 
 def lang():
@@ -305,7 +319,6 @@ def lang():
 if __name__ == "__main__":
     block_assets()
     ends = room_structure()
-    controls = models()
-    control_files(controls)
+    models()
     lang()
     print("hallway ends:", json.dumps(ends))

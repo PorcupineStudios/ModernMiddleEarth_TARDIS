@@ -1,0 +1,17 @@
+{
+  "model": "coordinate_wheels",
+  "panel": 1,
+  "u": -0.29,
+  "v": 0.2,
+  "scale": 0.8,
+  "actions": {
+    "wheel_x": "x",
+    "wheel_y": "y",
+    "wheel_z": "z"
+  },
+  "requirements": {
+    "type": "tardis_rb:subsystem_level",
+    "subsystem": "tardis_rb:navigation",
+    "min": 1
+  }
+}

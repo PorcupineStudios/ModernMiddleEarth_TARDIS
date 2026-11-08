@@ -1,0 +1,17 @@
+{
+  "model": "sub_levers",
+  "panel": 4,
+  "u": 0.0,
+  "v": 0.74,
+  "scale": 0.8,
+  "actions": {
+    "lever_1": "none",
+    "lever_2": "none",
+    "lever_3": "none"
+  },
+  "requirements": {
+    "type": "tardis_rb:subsystem_level",
+    "subsystem": "tardis_rb:navigation",
+    "min": 1
+  }
+}

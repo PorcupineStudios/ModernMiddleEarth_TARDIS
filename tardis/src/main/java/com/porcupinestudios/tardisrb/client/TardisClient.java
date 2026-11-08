@@ -30,6 +30,7 @@ public final class TardisClient {
         event.registerReloadListener((ResourceManagerReloadListener) manager -> {
             PoliceBoxModel.reset();
             ConsoleModel.reset();
+            ControlModels.reset();
         });
     }
 

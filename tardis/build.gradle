@@ -36,6 +36,12 @@ dependencies {
     runtimeOnly "maven.modrinth:cloth-config:${cloth_config_version}"
 }
 
+// Jade (optional): our plugin in compat/jade names the console control you look at. Compile only; the test-build
+// release carries its jar for the test instance.
+dependencies {
+    compileOnly "maven.modrinth:jade:${jade_version}"
+}
+
 dependencies {
     implementation project(':api')
     implementation "maven.modrinth:create:${create_version}"

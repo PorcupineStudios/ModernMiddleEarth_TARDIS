@@ -33,8 +33,46 @@ import net.minecraft.world.level.block.state.BlockState;
  * monitor shows and which way it faces round the time rotor.
  */
 public final class ConsoleBlockEntity extends BlockEntity {
-    /** A control as the client sees it. */
-    public record Shown(String id, String kind, String action, String part) {}
+    /**
+     * A control as the client sees it: its model, where it stands on which panel, what each clickable part does and
+     * the values its gauges show (see {@code progression/Control}).
+     */
+    public record Shown(String id, String model, int panel, float u, float v, float turn, float scale,
+            Map<String, String> actions, List<String> shows) {
+        /** What clicking this part does ({@code none} if nothing). */
+        public String action(String click) {
+            return actions.getOrDefault(click, "none");
+        }
+
+        CompoundTag save() {
+            CompoundTag c = new CompoundTag();
+            c.putString("id", id);
+            c.putString("model", model);
+            c.putInt("panel", panel);
+            c.putFloat("u", u);
+            c.putFloat("v", v);
+            c.putFloat("turn", turn);
+            c.putFloat("scale", scale);
+            CompoundTag a = new CompoundTag();
+            actions.forEach(a::putString);
+            c.put("actions", a);
+            ListTag l = new ListTag();
+            shows.forEach(x -> l.add(StringTag.valueOf(x)));
+            c.put("shows", l);
+            return c;
+        }
+
+        static Shown load(CompoundTag c) {
+            Map<String, String> a = new HashMap<>();
+            CompoundTag at = c.getCompound("actions");
+            at.getAllKeys().forEach(k -> a.put(k, at.getString(k)));
+            List<String> sh = new ArrayList<>();
+            c.getList("shows", Tag.TAG_STRING).forEach(t -> sh.add(t.getAsString()));
+            return new Shown(c.getString("id"), c.getString("model"), c.getInt("panel"), c.getFloat("u"),
+                    c.getFloat("v"), c.getFloat("turn"), c.contains("scale") ? c.getFloat("scale") : 1F, Map.copyOf(a),
+                    List.copyOf(sh));
+        }
+    }
 
     private static final Set<ConsoleBlockEntity> CLIENT = Collections.newSetFromMap(new WeakHashMap<>());
 
@@ -47,6 +85,10 @@ public final class ConsoleBlockEntity extends BlockEntity {
     private final Map<String, Long> usedAt = new HashMap<>();
     private final Map<String, Integer> uses = new HashMap<>();
     private List<String> readout = new ArrayList<>();
+    /** Handbrake on: no hop or jump starts (the Handbrake control). */
+    private boolean handbrake;
+    /** Values gauges show, 0..1 of full ({@code charge}, {@code rooms}), refreshed every second on the server. */
+    private Map<String, Float> values = new HashMap<>();
     /** Which way the monitor faces from the rotor axis, degrees ({@code atan2(z, x)}); NaN = where the model has it. */
     private float monitorAngle = Float.NaN;
     /** Client only: the angle the monitor is drawn at, easing toward {@link #monitorAngle}. */
@@ -69,9 +111,11 @@ public final class ConsoleBlockEntity extends BlockEntity {
             Optional<TardisRecord> tardis = Interiors.at(sl, pos);
             List<String> lines = tardis.isEmpty() ? List.of()
                     : ConsoleControls.readout(sl.getServer(), tardis.get(), be);
-            if (!now.equals(be.shown) || !lines.equals(be.readout)) {
+            Map<String, Float> vals = tardis.isEmpty() ? Map.of() : ConsoleControls.values(tardis.get());
+            if (!now.equals(be.shown) || !lines.equals(be.readout) || !vals.equals(be.values)) {
                 be.shown = now;
                 be.readout = new ArrayList<>(lines);
+                be.values = new HashMap<>(vals);
                 be.changed();
             }
         }
@@ -141,11 +185,28 @@ public final class ConsoleBlockEntity extends BlockEntity {
         changed();
     }
 
-    /** Marks a control as just used (animations) and counts its uses (lever position, dial turns). */
+    /**
+     * Marks a control's clickable part ({@link com.porcupinestudios.tardisrb.console.ConsoleLayout#key}) as just used
+     * (animations) and counts its uses (lever position, dial notch).
+     */
     public void used(String control) {
         usedAt.put(control, level == null ? 0 : level.getGameTime());
         uses.merge(control, 1, Integer::sum);
         changed();
+    }
+
+    public boolean handbrake() {
+        return handbrake;
+    }
+
+    public void setHandbrake(boolean on) {
+        handbrake = on;
+        changed();
+    }
+
+    /** A gauge's value, 0..1 of full. */
+    public float value(String name) {
+        return values.getOrDefault(name, 0F);
     }
 
     public List<String> readout() {
@@ -179,17 +240,16 @@ public final class ConsoleBlockEntity extends BlockEntity {
     @Override
     protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
         super.saveAdditional(tag, registries);
-        tag.putInt("dataVersion", 1);
+        tag.putInt("dataVersion", 2);
         ListTag list = new ListTag();
         for (Shown s : shown) {
-            CompoundTag c = new CompoundTag();
-            c.putString("id", s.id());
-            c.putString("kind", s.kind());
-            c.putString("action", s.action());
-            c.putString("part", s.part());
-            list.add(c);
+            list.add(s.save());
         }
         tag.put("shown", list);
+        tag.putBoolean("handbrake", handbrake);
+        CompoundTag vals = new CompoundTag();
+        values.forEach(vals::putFloat);
+        tag.put("values", vals);
         tag.putIntArray("offset", new int[] {dx, dy, dz});
         tag.putInt("step", step);
         tag.putInt("destination", destination);
@@ -210,12 +270,17 @@ public final class ConsoleBlockEntity extends BlockEntity {
     @Override
     protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
         super.loadAdditional(tag, registries);
+        // version 1 listed the old console's parts: dropped, the server lists the controls again within a second
         shown = new ArrayList<>();
-        for (Tag t : tag.getList("shown", Tag.TAG_COMPOUND)) {
-            CompoundTag c = (CompoundTag) t;
-            shown.add(new Shown(c.getString("id"), c.getString("kind"), c.getString("action"),
-                    c.getString("part")));
+        if (tag.getInt("dataVersion") >= 2) {
+            for (Tag t : tag.getList("shown", Tag.TAG_COMPOUND)) {
+                shown.add(Shown.load((CompoundTag) t));
+            }
         }
+        handbrake = tag.getBoolean("handbrake");
+        values = new HashMap<>();
+        CompoundTag vals = tag.getCompound("values");
+        vals.getAllKeys().forEach(k -> values.put(k, vals.getFloat(k)));
         int[] off = tag.getIntArray("offset");
         dx = off.length == 3 ? off[0] : 0;
         dy = off.length == 3 ? off[1] : 0;

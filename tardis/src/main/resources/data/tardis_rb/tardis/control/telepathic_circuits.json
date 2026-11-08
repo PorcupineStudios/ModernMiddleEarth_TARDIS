@@ -1,0 +1,14 @@
+{
+  "model": "telepathic_circuits",
+  "panel": 3,
+  "u": -0.19,
+  "v": 0.22,
+  "scale": 0.8,
+  "actions": {
+    "plate": "destination"
+  },
+  "requirements": {
+    "type": "tardis_rb:milestone",
+    "milestone": "tardis_rb:restored_core"
+  }
+}

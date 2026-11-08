@@ -199,9 +199,10 @@ public final class TardisContent extends SimplePreparableReloadListener<Map<Stri
         });
         controls.entrySet().removeIf(e -> {
             Control c = e.getValue();
-            String bad = !Control.KINDS.contains(c.kind()) ? "unknown kind " + c.kind()
-                    : !ConsoleControls.ACTIONS.contains(c.action())
-                            ? "unknown action " + c.action() : null;
+            String bad = c.actions().values().stream().filter(a -> !ConsoleControls.ACTIONS.contains(a))
+                    .findFirst().map(a -> "unknown action " + a)
+                    .orElse(c.shows().stream().filter(s -> !ConsoleControls.VALUES.contains(s)).findFirst()
+                            .map(s -> "unknown value " + s).orElse(null));
             if (bad != null) {
                 problems.add("control " + e.getKey() + ": " + bad);
             }

@@ -1,0 +1,34 @@
+{
+  "model": "memory_bank",
+  "panel": 3,
+  "u": 0.17,
+  "v": 0.22,
+  "scale": 0.8,
+  "actions": {
+    "slot_0": "none",
+    "slot_1": "none",
+    "slot_2": "none",
+    "slot_3": "none",
+    "slot_4": "none",
+    "slot_5": "none",
+    "slot_6": "none",
+    "slot_7": "none",
+    "slot_8": "none",
+    "slot_9": "none",
+    "slot_10": "none",
+    "slot_11": "none",
+    "slot_12": "none",
+    "slot_13": "none",
+    "slot_14": "none",
+    "slot_15": "none",
+    "slot_16": "none",
+    "slot_17": "none",
+    "slot_18": "none",
+    "slot_19": "none"
+  },
+  "requirements": {
+    "type": "tardis_rb:subsystem_level",
+    "subsystem": "tardis_rb:navigation",
+    "min": 1
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "model": "thrusters",
+  "panel": 2,
+  "u": 0.24,
+  "v": 0.22,
+  "scale": 0.8,
+  "actions": {
+    "rocker": "none"
+  },
+  "requirements": {
+    "type": "tardis_rb:subsystem_level",
+    "subsystem": "tardis_rb:navigation",
+    "min": 1
+  }
+}
