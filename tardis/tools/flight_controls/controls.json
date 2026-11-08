@@ -1,0 +1,206 @@
+[
+  {
+    "id": "demat_lever",
+    "name": "Dematerialisation Lever",
+    "real": "The main take-off lever (dematerialisation circuit); thrown to send the TARDIS into the vortex.",
+    "does": "Starts a jump: dematerialise here, land at the destination (with the handbrake off).",
+    "actions": [
+      {
+        "click": "arm",
+        "type": "toggle"
+      }
+    ]
+  },
+  {
+    "id": "handbrake",
+    "name": "Handbrake",
+    "real": "The handbrake (parking brake), famously left on by the Doctor so the TARDIS groans on landing.",
+    "does": "On: no jump or flight can start. Off: the dematerialisation lever and thrusters work.",
+    "actions": [
+      {
+        "click": "arm",
+        "type": "toggle"
+      }
+    ]
+  },
+  {
+    "id": "phase_key",
+    "name": "Exterior Phase Key",
+    "real": "The TARDIS key in its console lock (the key that starts or locks the ship in several eras).",
+    "does": "Turned on, it frees the exterior: pull the Phase Lever to make the box an entity, or back to a block.",
+    "actions": [
+      {
+        "click": "key",
+        "type": "toggle"
+      }
+    ]
+  },
+  {
+    "id": "phase_lever",
+    "name": "Phase Lever",
+    "real": "A guarded secondary lever, after the materialisation and stabiliser levers on the classic consoles.",
+    "does": "With the key turned: block -> entity (stays a materialised box) or entity -> block where it rests.",
+    "actions": [
+      {
+        "click": "arm",
+        "type": "toggle"
+      }
+    ]
+  },
+  {
+    "id": "thrusters",
+    "name": "Thrusters",
+    "real": "The anti-grav / stabiliser engines; a guarded rocker like a cockpit master switch.",
+    "does": "On: anti-grav holds the box still in the air (hovering). Off: it is a physics object and falls.",
+    "actions": [
+      {
+        "click": "rocker",
+        "type": "toggle"
+      }
+    ]
+  },
+  {
+    "id": "flight_yoke",
+    "name": "Flight Yoke",
+    "real": "The flight / navigation stick (the 'space-time throttle' joystick of later consoles).",
+    "does": "Takes the pressing crew member into third-person piloting; again (or Shift) stops piloting.",
+    "actions": [
+      {
+        "click": "stick",
+        "type": "toggle"
+      }
+    ]
+  },
+  {
+    "id": "helmic_regulator",
+    "name": "Helmic Regulator",
+    "real": "Sets the TARDIS's 'helmic' balance in flight; a big rotary regulator on many consoles.",
+    "does": "Four settings, one per click: flight speed (slow, cruise, fast, boost).",
+    "actions": [
+      {
+        "click": "knob",
+        "type": "steps"
+      }
+    ]
+  },
+  {
+    "id": "fast_return",
+    "name": "Fast Return Switch",
+    "real": "The fast return switch: sends the TARDIS back to where it last came from.",
+    "does": "Pressed: the next jump goes back to the last landing spot.",
+    "actions": [
+      {
+        "click": "button",
+        "type": "press"
+      }
+    ]
+  },
+  {
+    "id": "vector_tracker",
+    "name": "Vector Tracker",
+    "real": "Tracks the flight vector through the vortex; drawn here as a glowing trackball.",
+    "does": "Spins when used: fine-tunes the landing spot by one block in the facing direction.",
+    "actions": [
+      {
+        "click": "ball",
+        "type": "spin"
+      }
+    ]
+  },
+  {
+    "id": "coordinate_wheels",
+    "name": "Coordinate Wheels",
+    "real": "The spatial co-ordinate controls; three thumbwheels as on the old navigation panels.",
+    "does": "Each wheel moves the course by the step size along X, Y or Z (8 detents per turn).",
+    "actions": [
+      {
+        "click": "wheel_x",
+        "type": "steps"
+      },
+      {
+        "click": "wheel_y",
+        "type": "steps"
+      },
+      {
+        "click": "wheel_z",
+        "type": "steps"
+      }
+    ]
+  },
+  {
+    "id": "directional_pointer",
+    "name": "Directional Pointer",
+    "real": "Sets which way the TARDIS faces when it lands (the directional unit).",
+    "does": "Each click turns the needle 45 degrees; the box lands facing that way (8 directions).",
+    "actions": [
+      {
+        "click": "needle",
+        "type": "steps"
+      }
+    ]
+  },
+  {
+    "id": "stabilisers",
+    "name": "Stabilisers",
+    "real": "The blue stabilisers the Doctor leaves off for a bumpier, 'more fun' flight.",
+    "does": "Left: steadies flight (less shake, slower turns). Right: steadies landings (no drift on touchdown).",
+    "actions": [
+      {
+        "click": "left",
+        "type": "toggle"
+      },
+      {
+        "click": "right",
+        "type": "toggle"
+      }
+    ]
+  },
+  {
+    "id": "throttle",
+    "name": "Space-Time Throttle",
+    "real": "The space-time throttle: how hard the TARDIS pushes through the vortex.",
+    "does": "Four notches: how much charge a jump spends to land closer to the aimed spot.",
+    "actions": [
+      {
+        "click": "handle",
+        "type": "steps"
+      }
+    ]
+  },
+  {
+    "id": "telepathic_circuits",
+    "name": "Telepathic Circuits",
+    "real": "The telepathic interface: put a hand on it and think of where to go.",
+    "does": "Hand on it (click): picks the destination you last looked at on the map; lights while set.",
+    "actions": [
+      {
+        "click": "plate",
+        "type": "toggle"
+      }
+    ]
+  },
+  {
+    "id": "randomiser",
+    "name": "Randomiser",
+    "real": "The randomiser, fitted to hide the TARDIS from the Black Guardian: it picks the next landing by chance.",
+    "does": "Spins the die: the next jump goes to a random open destination.",
+    "actions": [
+      {
+        "click": "die",
+        "type": "spin"
+      }
+    ]
+  },
+  {
+    "id": "door_control",
+    "name": "Door Control",
+    "real": "The door control (a crank or lever opening the doors from the console).",
+    "does": "Half a turn opens the doors, half a turn closes them (also locks them while flying).",
+    "actions": [
+      {
+        "click": "wheel",
+        "type": "toggle"
+      }
+    ]
+  }
+]
