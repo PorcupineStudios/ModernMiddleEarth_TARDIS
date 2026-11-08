@@ -1,6 +1,7 @@
 [
   {
     "id": "demat_lever",
+    "group": "flight",
     "name": "Dematerialisation Lever",
     "real": "The main take-off lever (dematerialisation circuit); thrown to send the TARDIS into the vortex.",
     "does": "Starts a jump: dematerialise here, land at the destination (with the handbrake off).",
@@ -13,6 +14,7 @@
   },
   {
     "id": "handbrake",
+    "group": "flight",
     "name": "Handbrake",
     "real": "The handbrake (parking brake), famously left on by the Doctor so the TARDIS groans on landing.",
     "does": "On: no jump or flight can start. Off: the dematerialisation lever and thrusters work.",
@@ -25,6 +27,7 @@
   },
   {
     "id": "phase_key",
+    "group": "flight",
     "name": "Exterior Phase Key",
     "real": "The TARDIS key in its console lock (the key that starts or locks the ship in several eras).",
     "does": "Turned on, it frees the exterior: pull the Phase Lever to make the box an entity, or back to a block.",
@@ -37,6 +40,7 @@
   },
   {
     "id": "phase_lever",
+    "group": "flight",
     "name": "Phase Lever",
     "real": "A guarded secondary lever, after the materialisation and stabiliser levers on the classic consoles.",
     "does": "With the key turned: block -> entity (stays a materialised box) or entity -> block where it rests.",
@@ -49,6 +53,7 @@
   },
   {
     "id": "thrusters",
+    "group": "flight",
     "name": "Thrusters",
     "real": "The anti-grav / stabiliser engines; a guarded rocker like a cockpit master switch.",
     "does": "On: anti-grav holds the box still in the air (hovering). Off: it is a physics object and falls.",
@@ -61,6 +66,7 @@
   },
   {
     "id": "flight_yoke",
+    "group": "flight",
     "name": "Flight Yoke",
     "real": "The flight / navigation stick (the 'space-time throttle' joystick of later consoles).",
     "does": "Takes the pressing crew member into third-person piloting; again (or Shift) stops piloting.",
@@ -73,6 +79,7 @@
   },
   {
     "id": "helmic_regulator",
+    "group": "flight",
     "name": "Helmic Regulator",
     "real": "Sets the TARDIS's 'helmic' balance in flight; a big rotary regulator on many consoles.",
     "does": "Four settings, one per click: flight speed (slow, cruise, fast, boost).",
@@ -85,6 +92,7 @@
   },
   {
     "id": "fast_return",
+    "group": "flight",
     "name": "Fast Return Switch",
     "real": "The fast return switch: sends the TARDIS back to where it last came from.",
     "does": "Pressed: the next jump goes back to the last landing spot.",
@@ -97,6 +105,7 @@
   },
   {
     "id": "vector_tracker",
+    "group": "flight",
     "name": "Vector Tracker",
     "real": "Tracks the flight vector through the vortex; drawn here as a glowing trackball.",
     "does": "Spins when used: fine-tunes the landing spot by one block in the facing direction.",
@@ -109,6 +118,7 @@
   },
   {
     "id": "coordinate_wheels",
+    "group": "flight",
     "name": "Coordinate Wheels",
     "real": "The spatial co-ordinate controls; three thumbwheels as on the old navigation panels.",
     "does": "Each wheel moves the course by the step size along X, Y or Z (8 detents per turn).",
@@ -129,6 +139,7 @@
   },
   {
     "id": "directional_pointer",
+    "group": "flight",
     "name": "Directional Pointer",
     "real": "Sets which way the TARDIS faces when it lands (the directional unit).",
     "does": "Each click turns the needle 45 degrees; the box lands facing that way (8 directions).",
@@ -141,6 +152,7 @@
   },
   {
     "id": "stabilisers",
+    "group": "flight",
     "name": "Stabilisers",
     "real": "The blue stabilisers the Doctor leaves off for a bumpier, 'more fun' flight.",
     "does": "Left: steadies flight (less shake, slower turns). Right: steadies landings (no drift on touchdown).",
@@ -157,6 +169,7 @@
   },
   {
     "id": "throttle",
+    "group": "flight",
     "name": "Space-Time Throttle",
     "real": "The space-time throttle: how hard the TARDIS pushes through the vortex.",
     "does": "Four notches: how much charge a jump spends to land closer to the aimed spot.",
@@ -169,6 +182,7 @@
   },
   {
     "id": "telepathic_circuits",
+    "group": "flight",
     "name": "Telepathic Circuits",
     "real": "The telepathic interface: put a hand on it and think of where to go.",
     "does": "Hand on it (click): picks the destination you last looked at on the map; lights while set.",
@@ -181,6 +195,7 @@
   },
   {
     "id": "randomiser",
+    "group": "flight",
     "name": "Randomiser",
     "real": "The randomiser, fitted to hide the TARDIS from the Black Guardian: it picks the next landing by chance.",
     "does": "Spins the die: the next jump goes to a random open destination.",
@@ -193,12 +208,317 @@
   },
   {
     "id": "door_control",
+    "group": "flight",
     "name": "Door Control",
     "real": "The door control (a crank or lever opening the doors from the console).",
     "does": "Half a turn opens the doors, half a turn closes them (also locks them while flying).",
     "actions": [
       {
         "click": "wheel",
+        "type": "toggle"
+      }
+    ]
+  },
+  {
+    "id": "coordinate_lever",
+    "group": "classic",
+    "name": "Coordinate Lever",
+    "real": "1.7.10: the X/Y/Z levers (ids 10-13, 20-23, 30-33): staple levers swinging 140 degrees; the later levers make bigger changes.",
+    "does": "Moves the course along one axis by its own amount (small to huge, set per lever in data).",
+    "actions": [
+      {
+        "click": "lever",
+        "type": "toggle"
+      }
+    ]
+  },
+  {
+    "id": "valve_wheel",
+    "group": "classic",
+    "name": "Valve Wheel",
+    "real": "1.7.10: the X/Z coordinate wheels and the facing wheel (ids 3, 14, 15, 24, 25): a square valve wheel that turns a full circle.",
+    "does": "Each click turns it an eighth; eight make one full turn of the setting it drives.",
+    "actions": [
+      {
+        "click": "wheel",
+        "type": "steps"
+      }
+    ]
+  },
+  {
+    "id": "takeoff_lever",
+    "group": "classic",
+    "name": "Flight Take-off Lever",
+    "real": "1.7.10: the flight take-off lever (id 42), the 'special lever' that swings sideways 140 degrees.",
+    "does": "The classic way to start a coordinated flight (kept beside the dematerialisation lever).",
+    "actions": [
+      {
+        "click": "lever",
+        "type": "toggle"
+      }
+    ]
+  },
+  {
+    "id": "push_switch",
+    "group": "classic",
+    "name": "Push Switch",
+    "real": "1.7.10: push switches (stabilise 56, landing pad 55, save/load 900, ...): a rod pushed in, it stays in.",
+    "does": "On/off for whatever it is set to in data (stabilisers, landing pad, save/load mode).",
+    "actions": [
+      {
+        "click": "rod",
+        "type": "toggle"
+      }
+    ]
+  },
+  {
+    "id": "flight_button",
+    "group": "classic",
+    "name": "Flight Control Button",
+    "real": "1.7.10: flight controls (id 40 and the button bank): 'press these when they glow during flight'; the button rises while it waits.",
+    "does": "During a jump it lights and rises; press it in time or the flight drifts (stabilisers skip this).",
+    "actions": [
+      {
+        "click": "button",
+        "type": "toggle"
+      }
+    ]
+  },
+  {
+    "id": "gauge",
+    "group": "classic",
+    "name": "Gauge",
+    "real": "1.7.10: the energy, rooms, speed, XP and shields gauges (ids 0, 1, 2, 8, 9): a display with a needle sweeping 180 degrees.",
+    "does": "Shows one value from 0 to full (charge, rooms used, speed, shields), set in data; not clicked.",
+    "actions": [
+      {
+        "click": null,
+        "type": "gauge"
+      }
+    ]
+  },
+  {
+    "id": "twin_gauge",
+    "group": "classic",
+    "name": "Twin Gauge",
+    "real": "1.7.10: the XP and shields gauges sat as a pair below the other three.",
+    "does": "Two values side by side (e.g. shields and hull), each needle 0 to full.",
+    "actions": [
+      {
+        "click": null,
+        "type": "gauge"
+      }
+    ]
+  },
+  {
+    "id": "scanner_screen",
+    "group": "classic",
+    "name": "Scanner Screen",
+    "real": "1.7.10: the coordinate guesser (id 100) and scanner (id 54) screens: a framed screen set into the panel.",
+    "does": "Click to switch it on/off; shows the coordinate guess or the scanner view (text drawn by the renderer).",
+    "actions": [
+      {
+        "click": "screen",
+        "type": "toggle"
+      }
+    ]
+  },
+  {
+    "id": "schema_chooser",
+    "group": "classic",
+    "name": "Schematic Chooser",
+    "real": "1.7.10: the schema chooser (ids 50, 51, 57, 58 and display 52): a long display with buttons to page categories and rooms.",
+    "does": "Pages through the rooms that can be added (category and room), as the old console did.",
+    "actions": [
+      {
+        "click": "btn_1",
+        "type": "press"
+      },
+      {
+        "click": "btn_2",
+        "type": "press"
+      },
+      {
+        "click": "btn_3",
+        "type": "press"
+      },
+      {
+        "click": "btn_4",
+        "type": "press"
+      }
+    ]
+  },
+  {
+    "id": "screwdriver_holder",
+    "group": "classic",
+    "name": "Sonic Screwdriver Holder",
+    "real": "1.7.10: the screwdriver holder (id 6) and generator button (id 5): a socket holding the sonic.",
+    "does": "Click to take or put back the sonic screwdriver; it rises out of the socket when ready.",
+    "actions": [
+      {
+        "click": "sonic",
+        "type": "toggle"
+      }
+    ]
+  },
+  {
+    "id": "console_lamp",
+    "group": "classic",
+    "name": "Console Lamp",
+    "real": "1.7.10: the console lights (LightModel / TardisLightModel): flat lamps that glow with a state.",
+    "does": "Lights for whatever it is tied to in data (in flight, low charge, door open...).",
+    "actions": [
+      {
+        "click": "light",
+        "type": "toggle"
+      }
+    ]
+  },
+  {
+    "id": "memory_bank",
+    "group": "classic",
+    "name": "Memory Bank",
+    "real": "1.7.10: the 20 save/load buttons on the left panel (ids 1000-1019) with the save/load switch.",
+    "does": "Each button is a saved location: press to load it, or save to it in save mode.",
+    "actions": [
+      {
+        "click": "slot_0",
+        "type": "press"
+      },
+      {
+        "click": "slot_1",
+        "type": "press"
+      },
+      {
+        "click": "slot_2",
+        "type": "press"
+      },
+      {
+        "click": "slot_3",
+        "type": "press"
+      },
+      {
+        "click": "slot_4",
+        "type": "press"
+      },
+      {
+        "click": "slot_5",
+        "type": "press"
+      },
+      {
+        "click": "slot_6",
+        "type": "press"
+      },
+      {
+        "click": "slot_7",
+        "type": "press"
+      },
+      {
+        "click": "slot_8",
+        "type": "press"
+      },
+      {
+        "click": "slot_9",
+        "type": "press"
+      },
+      {
+        "click": "slot_10",
+        "type": "press"
+      },
+      {
+        "click": "slot_11",
+        "type": "press"
+      },
+      {
+        "click": "slot_12",
+        "type": "press"
+      },
+      {
+        "click": "slot_13",
+        "type": "press"
+      },
+      {
+        "click": "slot_14",
+        "type": "press"
+      },
+      {
+        "click": "slot_15",
+        "type": "press"
+      },
+      {
+        "click": "slot_16",
+        "type": "press"
+      },
+      {
+        "click": "slot_17",
+        "type": "press"
+      },
+      {
+        "click": "slot_18",
+        "type": "press"
+      },
+      {
+        "click": "slot_19",
+        "type": "press"
+      }
+    ]
+  },
+  {
+    "id": "drift_lever",
+    "group": "classic",
+    "name": "Coordinated Flight Lever",
+    "real": "1.7.10: the uncoordinated flight lever: out = drifting mode, in = coordinated flight mode.",
+    "does": "Out: the TARDIS drifts (free roaming flight). In: coordinated flight to the set destination.",
+    "actions": [
+      {
+        "click": "slide",
+        "type": "toggle"
+      }
+    ]
+  },
+  {
+    "id": "room_deleter",
+    "group": "classic",
+    "name": "Room Deleter",
+    "real": "1.7.10: the room deleter (id 901): right click then sneak right click deletes all rooms.",
+    "does": "Two-step press (arm, then sneak-press) removes every added room; the frame lights while armed.",
+    "actions": [
+      {
+        "click": "button",
+        "type": "press"
+      }
+    ]
+  },
+  {
+    "id": "speed_lever",
+    "group": "classic",
+    "name": "Speed Lever",
+    "real": "1.7.10: the speed lever (id 4) with the speed gauge beside it.",
+    "does": "Five notches of flight speed; faster flights cost more charge.",
+    "actions": [
+      {
+        "click": "lever",
+        "type": "steps"
+      }
+    ]
+  },
+  {
+    "id": "sub_levers",
+    "group": "classic",
+    "name": "Sub-Lever Bank",
+    "real": "1.7.10: the small levers round the panels (ids 1020-1029) for lesser functions.",
+    "does": "Three small on/off switches for lesser functions (lights, alarms, shields), set in data.",
+    "actions": [
+      {
+        "click": "lever_1",
+        "type": "toggle"
+      },
+      {
+        "click": "lever_2",
+        "type": "toggle"
+      },
+      {
+        "click": "lever_3",
         "type": "toggle"
       }
     ]
