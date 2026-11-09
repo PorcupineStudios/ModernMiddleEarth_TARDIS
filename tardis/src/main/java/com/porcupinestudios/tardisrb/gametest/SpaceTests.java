@@ -8,6 +8,7 @@ import com.porcupinestudios.tardisrb.progression.SkyLink;
 import com.porcupinestudios.tardisrb.progression.Tuning;
 import com.porcupinestudios.tardisrb.space.Planet;
 import com.porcupinestudios.tardisrb.space.SeamPortals;
+import com.porcupinestudios.tardisrb.space.SpaceChunks;
 import java.util.List;
 import java.util.Optional;
 import net.minecraft.core.registries.Registries;
@@ -212,6 +213,39 @@ public final class SpaceTests {
         });
     }
 
+    /**
+     * Aaron (2026-11-04): extreme speeds in space were laggy. Fast players in space skip chunk loading, with a margin
+     * so it doesn't flicker; never outside space, never with the setting at 0. (The GameTest server has no space
+     * levels, so the mixins are checked only by loading.)
+     */
+    @GameTest(template = "platform")
+    public static void fastSpaceFlightSkipsChunkLoading(GameTestHelper helper) {
+        double at = Tuning.Motion.DEFAULT.chunkSkipSpeed();
+        helper.assertTrue(at > 0, "chunk_skip_speed is off by default");
+        helper.assertTrue(!SpaceChunks.decide(false, true, at, at), "skips at exactly the speed");
+        helper.assertTrue(SpaceChunks.decide(false, true, at * 1.5, at), "doesn't skip when fast");
+        helper.assertTrue(SpaceChunks.decide(true, true, at * 0.6, at), "stops skipping above half the speed");
+        helper.assertTrue(!SpaceChunks.decide(true, true, at * 0.4, at), "keeps skipping when slow");
+        helper.assertTrue(!SpaceChunks.decide(false, false, 40, at), "skips outside space");
+        helper.assertTrue(!SpaceChunks.decide(false, true, 40, 0), "skips with the setting at 0");
+        // both loaders are hooked: vanilla's, and Immersive Portals' (loaded here; no player has made it load yet)
+        helper.assertTrue(hooked(net.minecraft.server.level.ChunkMap.class, "skipFastInSpace"),
+                "vanilla chunk loading isn't hooked");
+        helper.assertTrue(hooked(qouteall.imm_ptl.core.chunk_loading.ChunkVisibility.class,
+                "noLoadersWhenFastInSpace"), "Immersive Portals' chunk loading isn't hooked");
+        helper.succeed();
+    }
+
+    /** Whether a mixin handler (its name, which Mixin keeps inside the merged method's name) is in a class. */
+    private static boolean hooked(Class<?> target, String handler) {
+        for (var m : target.getDeclaredMethods()) {
+            if (m.getName().contains(handler)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     private static com.porcupinestudios.tardisrb.space.StarSystem testSystem(Planet p, double sunRadius) {
         var file = new com.porcupinestudios.tardisrb.progression.SystemFile(Level.OVERWORLD,
                 new com.porcupinestudios.tardisrb.progression.SystemFile.Sun(0, 0, 0, sunRadius, 1, 0xFFFFFF, 4),
@@ -332,7 +366,7 @@ public final class SpaceTests {
         var m = t.motion();
         var off = new Tuning.SpaceTuning(t.gravity(), t.checkTicks(), t.landingSlowFall(), t.seamView(),
                 t.seamSegment(), t.seamLinger(), t.mapBudgetMs(), new Tuning.Motion(m.orbitSpeed(), m.thrust(),
-                        m.maxSpeed(), m.dragFree(), false, m.tiltSpeed(), m.boost()));
+                        m.maxSpeed(), m.dragFree(), false, m.tiltSpeed(), m.boost(), m.chunkSkipSpeed()));
         Tilt.tick(player, system, off);
         helper.assertTrue(Tilt.of(player) == null, "leans with free_tilt off");
         Tilt.tick(player, system, t);
