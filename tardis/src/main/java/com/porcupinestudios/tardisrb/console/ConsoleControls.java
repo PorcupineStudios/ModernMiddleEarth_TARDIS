@@ -657,8 +657,9 @@ public final class ConsoleControls {
             case 3 -> {
                 out.add("EXTERIOR - " + tardis.name());
                 out.add(at.isEmpty() ? "In flight" : Vortex.inVortex(tardis)
-                        ? "In the vortex: " + Math.round(Vortex.progress(tardis) * 100) + "%, " + Vortex.hits(tardis)
-                                + " hits"
+                        ? Vortex.crashing(tardis) ? "CRASHING!" : "In the vortex: " + Math.round(Vortex.progress(tardis) * 100)
+                                + "%, health " + (int) Math.ceil(Vortex.health(tardis)) + ", off course "
+                                + (int) Math.round(Vortex.inaccuracy(tardis))
                         : !FreeFlight.isLoose(tardis) ? "Landed (a block)"
                         : FreeFlight.body(server, tardis).map(b -> b.isVehicle()).orElse(false)
                                 ? "Flown, " + FreeFlight.height(server, tardis) + " up"

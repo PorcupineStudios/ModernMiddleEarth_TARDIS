@@ -39,6 +39,15 @@ public final class TardisBodyRenderer extends EntityRenderer<TardisBody> {
         }
         float shock = ShockRenderer.age(body, partialTick);
         ShockRenderer.wobble(body, shock, model.max[1] - model.min[1], pose);
+        if (body.crashing()) {
+            // crash landing: thrusters dead, it tumbles
+            float t = body.tickCount + partialTick;
+            float half = (model.max[1] - model.min[1]) / 2;
+            pose.translate(0, half, 0);
+            pose.mulPose(Axis.XP.rotationDegrees(32 * Mth.sin(t * 0.21F)));
+            pose.mulPose(Axis.ZP.rotationDegrees(24 * Mth.sin(t * 0.16F + 1)));
+            pose.translate(0, -half, 0);
+        }
         Quaternionf facing = Axis.YP.rotationDegrees(180 - turn);
         pose.mulPose(facing);
         float open = doorProgress(body, partialTick, model.swingTicks);

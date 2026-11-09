@@ -21,14 +21,15 @@ public record Tuning(CrashSite crashSite, Hop hop, Winder winder, Interior inter
      * {@code speed}: blocks per tick the box drifts along the tunnel; {@code radius}: how far from the tunnel's axis it
      * can go; {@code min_length} + {@code length_per_block} x the trip's distance (hops) or {@code jump_length}
      * (jumps to another dimension), capped at {@code max_length}: how long the tunnel is. Obstacles every
-     * {@code obstacle_gap} blocks (each a clump up to {@code obstacle_size} across); a hit costs {@code hit_charge} and
-     * moves the landing up to {@code hit_drift} blocks off target. {@code bend}: how much the tunnel winds (1 the usual
+     * {@code obstacle_gap} blocks (each a clump up to {@code obstacle_size} across); a hit costs {@code hit_charge}; the
+     * box's health in the tunnel and the crash are {@link VortexDamage} ({@code damage}). {@code bend}: how much the tunnel winds (1 the usual
      * bends, 0 straight; see {@code Vortex.bend}).
      */
     public record VortexTuning(boolean enabled, double speed, double radius, int minLength, double lengthPerBlock,
-            int jumpLength, int maxLength, int obstacleGap, int obstacleSize, long hitCharge, int hitDrift,
-            double bend) {
-        static final VortexTuning DEFAULT = new VortexTuning(true, 0.7, 11, 160, 0.05, 480, 1200, 18, 3, 10, 6, 1);
+            int jumpLength, int maxLength, int obstacleGap, int obstacleSize, long hitCharge,
+            VortexDamage damage, double bend) {
+        static final VortexTuning DEFAULT = new VortexTuning(true, 0.7, 11, 160, 0.05, 480, 1200, 18, 3, 10,
+                VortexDamage.DEFAULT, 1);
         static final Codec<VortexTuning> CODEC = RecordCodecBuilder.create(i -> i.group(
                 Codec.BOOL.optionalFieldOf("enabled", DEFAULT.enabled).forGetter(VortexTuning::enabled),
                 Codec.DOUBLE.optionalFieldOf("speed", DEFAULT.speed).forGetter(VortexTuning::speed),
@@ -41,9 +42,33 @@ public record Tuning(CrashSite crashSite, Hop hop, Winder winder, Interior inter
                 Codec.INT.optionalFieldOf("obstacle_gap", DEFAULT.obstacleGap).forGetter(VortexTuning::obstacleGap),
                 Codec.INT.optionalFieldOf("obstacle_size", DEFAULT.obstacleSize).forGetter(VortexTuning::obstacleSize),
                 Codec.LONG.optionalFieldOf("hit_charge", DEFAULT.hitCharge).forGetter(VortexTuning::hitCharge),
-                Codec.INT.optionalFieldOf("hit_drift", DEFAULT.hitDrift).forGetter(VortexTuning::hitDrift),
+                VortexDamage.CODEC.optionalFieldOf("damage", DEFAULT.damage).forGetter(VortexTuning::damage),
                 Codec.DOUBLE.optionalFieldOf("bend", DEFAULT.bend).forGetter(VortexTuning::bend))
                 .apply(i, VortexTuning::new));
+    }
+
+    /**
+     * The box's health in the vortex and crash landing (Aaron 2026-11-09). A trip starts at {@code health}; hitting
+     * debris costs {@code debris}, bumping the tunnel wall {@code wall}. Each point lost adds
+     * {@code drift_per_damage} blocks of inaccuracy: how far off its course line the box lands. At 0 it crash lands:
+     * it falls through the clouds and appears {@code crash_height} blocks over the spot that far along the line,
+     * thrusters off, flying down at an angle at {@code crash_speed} (blocks per tick across), and hits the ground
+     * with an explosion of power {@code crater} (0: no crater).
+     */
+    public record VortexDamage(double health, double debris, double wall, double driftPerDamage, int crashHeight,
+            double crashSpeed, double crater) {
+        static final VortexDamage DEFAULT = new VortexDamage(100, 20, 5, 0.3, 40, 0.5, 3);
+        static final Codec<VortexDamage> CODEC = RecordCodecBuilder.create(i -> i.group(
+                Codec.DOUBLE.optionalFieldOf("health", DEFAULT.health).forGetter(VortexDamage::health),
+                Codec.DOUBLE.optionalFieldOf("debris", DEFAULT.debris).forGetter(VortexDamage::debris),
+                Codec.DOUBLE.optionalFieldOf("wall", DEFAULT.wall).forGetter(VortexDamage::wall),
+                Codec.DOUBLE.optionalFieldOf("drift_per_damage", DEFAULT.driftPerDamage)
+                        .forGetter(VortexDamage::driftPerDamage),
+                Codec.intRange(0, 256).optionalFieldOf("crash_height", DEFAULT.crashHeight)
+                        .forGetter(VortexDamage::crashHeight),
+                Codec.DOUBLE.optionalFieldOf("crash_speed", DEFAULT.crashSpeed).forGetter(VortexDamage::crashSpeed),
+                Codec.DOUBLE.optionalFieldOf("crater", DEFAULT.crater).forGetter(VortexDamage::crater))
+                .apply(i, VortexDamage::new));
     }
 
     /**

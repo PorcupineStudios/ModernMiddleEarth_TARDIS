@@ -227,7 +227,7 @@
     }
   },
   "vortex": {
-    "_comment": "Flying through the time vortex when a crew member pulls the dematerialisation lever: drift speed along the tunnel (blocks/tick), how far from the axis the box can go, tunnel length = min_length + length_per_block x hop distance (or jump_length for another dimension), capped at max_length; an obstacle clump every obstacle_gap blocks, up to obstacle_size across; a hit costs hit_charge and moves the landing up to hit_drift blocks. enabled false = trips land at once. bend: how much the tunnel winds and turns (1 = the usual bends, 0 = straight, 1.5 = wilder).",
+    "_comment": "Flying through the time vortex when a crew member pulls the dematerialisation lever: drift speed along the tunnel (blocks/tick), how far from the axis the box can go, tunnel length = min_length + length_per_block x hop distance (or jump_length for another dimension), capped at max_length; an obstacle clump every obstacle_gap blocks, up to obstacle_size across; a hit costs hit_charge. damage: the box's health per trip; debris and wall hits cost health, and each point lost adds drift_per_damage blocks of inaccuracy (how far off the course line it lands). At 0 health it crash lands at that point of the course: crash_height blocks up, thrusters off, flying down at crash_speed, with an explosion of power crater when it hits (0 = no crater). enabled false = trips land at once. bend: how much the tunnel winds and turns (1 = the usual bends, 0 = straight, 1.5 = wilder).",
     "enabled": true,
     "speed": 0.7,
     "radius": 11,
@@ -238,7 +238,15 @@
     "obstacle_gap": 18,
     "obstacle_size": 3,
     "hit_charge": 10,
-    "hit_drift": 6,
+    "damage": {
+      "health": 100,
+      "debris": 20,
+      "wall": 5,
+      "drift_per_damage": 0.3,
+      "crash_height": 40,
+      "crash_speed": 0.5,
+      "crater": 3
+    },
     "bend": 1
   }
 }
