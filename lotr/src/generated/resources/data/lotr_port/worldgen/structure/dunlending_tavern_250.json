@@ -9,7 +9,16 @@
     "lotr_port:dunlending_tavern/1",
     "lotr_port:dunlending_tavern/2"
   ],
-  "chance": 250,
+  "rolls": {
+    "lotr_port:adornland": [
+      4000,
+      150,
+      250
+    ]
+  },
+  "lotr_success": {
+    "lotr_port:adornland": 0.655
+  },
   "salt": 334200466,
   "ground": 2,
   "max_slope": 6,

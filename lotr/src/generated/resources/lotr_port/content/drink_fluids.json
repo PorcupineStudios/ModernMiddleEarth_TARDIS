@@ -1,0 +1,232 @@
+[
+  {
+    "item": "lotr_port:ale",
+    "fluid": "lotr_port:ale",
+    "color": 16176033
+  },
+  {
+    "item": "lotr_port:apple_juice",
+    "fluid": "lotr_port:apple_juice",
+    "color": 12359718
+  },
+  {
+    "item": "lotr_port:arak",
+    "fluid": "lotr_port:arak",
+    "color": 7876137
+  },
+  {
+    "item": "lotr_port:athelas_brew",
+    "fluid": "lotr_port:athelas_brew",
+    "color": 8842375
+  },
+  {
+    "item": "lotr_port:banana_beer",
+    "fluid": "lotr_port:banana_beer",
+    "color": 14334085
+  },
+  {
+    "item": "lotr_port:blackberry_juice",
+    "fluid": "lotr_port:blackberry_juice",
+    "color": 1710618
+  },
+  {
+    "item": "lotr_port:blueberry_juice",
+    "fluid": "lotr_port:blueberry_juice",
+    "color": 1589091
+  },
+  {
+    "item": "lotr_port:cactus_liqueur",
+    "fluid": "lotr_port:cactus_liqueur",
+    "color": 2639385
+  },
+  {
+    "item": "lotr_port:carrot_wine",
+    "fluid": "lotr_port:carrot_wine",
+    "color": 12475945
+  },
+  {
+    "item": "lotr_port:cherry_liqueur",
+    "fluid": "lotr_port:cherry_liqueur",
+    "color": 12847885
+  },
+  {
+    "item": "lotr_port:chocolate",
+    "fluid": "lotr_port:chocolate",
+    "color": 7289880
+  },
+  {
+    "item": "lotr_port:cider",
+    "fluid": "lotr_port:cider",
+    "color": 15647029
+  },
+  {
+    "item": "lotr_port:corn_liquor",
+    "fluid": "lotr_port:corn_liquor",
+    "color": 12564102
+  },
+  {
+    "item": "lotr_port:cranberry_juice",
+    "fluid": "lotr_port:cranberry_juice",
+    "color": 7736325
+  },
+  {
+    "item": "lotr_port:dwarven_ale",
+    "fluid": "lotr_port:dwarven_ale",
+    "color": 13283467
+  },
+  {
+    "item": "lotr_port:dwarven_tonic",
+    "fluid": "lotr_port:dwarven_tonic",
+    "color": 9626346
+  },
+  {
+    "item": "lotr_port:elderberry_juice",
+    "fluid": "lotr_port:elderberry_juice",
+    "color": 2100769
+  },
+  {
+    "item": "lotr_port:lemon_liqueur",
+    "fluid": "lotr_port:lemon_liqueur",
+    "color": 15525162
+  },
+  {
+    "item": "lotr_port:lemonade",
+    "fluid": "lotr_port:lemonade",
+    "color": 15920842
+  },
+  {
+    "item": "lotr_port:lime_liqueur",
+    "fluid": "lotr_port:lime_liqueur",
+    "color": 10408014
+  },
+  {
+    "item": "lotr_port:mango_juice",
+    "fluid": "lotr_port:mango_juice",
+    "color": 14720033
+  },
+  {
+    "item": "lotr_port:maple_beer",
+    "fluid": "lotr_port:maple_beer",
+    "color": 12023630
+  },
+  {
+    "item": "lotr_port:mead",
+    "fluid": "lotr_port:mead",
+    "color": 15178830
+  },
+  {
+    "item": "lotr_port:melon_liqueur",
+    "fluid": "lotr_port:melon_liqueur",
+    "color": 13516871
+  },
+  {
+    "item": "lotr_port:milk",
+    "fluid": "minecraft:milk",
+    "color": 15921906
+  },
+  {
+    "item": "lotr_port:miruvor",
+    "fluid": "lotr_port:miruvor",
+    "color": 16440404
+  },
+  {
+    "item": "lotr_port:morgul_draught",
+    "fluid": "lotr_port:morgul_draught",
+    "color": 3116884
+  },
+  {
+    "item": "lotr_port:orange_juice",
+    "fluid": "lotr_port:orange_juice",
+    "color": 13992201
+  },
+  {
+    "item": "lotr_port:orc_draught",
+    "fluid": "lotr_port:orc_draught",
+    "color": 10755329
+  },
+  {
+    "item": "lotr_port:perry",
+    "fluid": "lotr_port:perry",
+    "color": 13948233
+  },
+  {
+    "item": "lotr_port:plum_kvass",
+    "fluid": "lotr_port:plum_kvass",
+    "color": 3545653
+  },
+  {
+    "item": "lotr_port:pomegranate_juice",
+    "fluid": "lotr_port:pomegranate_juice",
+    "color": 9309465
+  },
+  {
+    "item": "lotr_port:pomegranate_wine",
+    "fluid": "lotr_port:pomegranate_wine",
+    "color": 7143424
+  },
+  {
+    "item": "lotr_port:raspberry_juice",
+    "fluid": "lotr_port:raspberry_juice",
+    "color": 8070456
+  },
+  {
+    "item": "lotr_port:red_grape_juice",
+    "fluid": "lotr_port:red_grape_juice",
+    "color": 8720944
+  },
+  {
+    "item": "lotr_port:red_wine",
+    "fluid": "lotr_port:red_wine",
+    "color": 8391175
+  },
+  {
+    "item": "lotr_port:rum",
+    "fluid": "lotr_port:rum",
+    "color": 5584148
+  },
+  {
+    "item": "lotr_port:soured_milk",
+    "fluid": "lotr_port:soured_milk",
+    "color": 15197141
+  },
+  {
+    "item": "lotr_port:taurethrim_cocoa",
+    "fluid": "lotr_port:taurethrim_cocoa",
+    "color": 7285528
+  },
+  {
+    "item": "lotr_port:jungle_remedy",
+    "fluid": "lotr_port:jungle_remedy",
+    "color": 5154134
+  },
+  {
+    "item": "lotr_port:termite_tequila",
+    "fluid": "lotr_port:termite_tequila",
+    "color": 5521666
+  },
+  {
+    "item": "lotr_port:torog_draught",
+    "fluid": "lotr_port:torog_draught",
+    "color": 3088663
+  },
+  {
+    "item": "lotr_port:vodka",
+    "fluid": "lotr_port:vodka",
+    "color": 13288383
+  },
+  {
+    "item": "lotr_port:water",
+    "fluid": "minecraft:water",
+    "color": 5863369
+  },
+  {
+    "item": "lotr_port:green_grape_juice",
+    "fluid": "lotr_port:green_grape_juice",
+    "color": 13091449
+  },
+  {
+    "item": "lotr_port:white_wine",
+    "fluid": "lotr_port:white_wine",
+    "color": 15788472
+  }
+]

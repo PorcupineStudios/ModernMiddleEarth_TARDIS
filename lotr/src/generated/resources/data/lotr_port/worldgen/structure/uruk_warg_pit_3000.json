@@ -9,7 +9,22 @@
     "lotr_port:uruk_warg_pit/1",
     "lotr_port:uruk_warg_pit/2"
   ],
-  "chance": 3000,
+  "rolls": {
+    "lotr_port:adornland": [
+      4000,
+      150,
+      250,
+      200,
+      700,
+      600,
+      300,
+      2000,
+      3000
+    ]
+  },
+  "lotr_success": {
+    "lotr_port:adornland": 0.534
+  },
   "salt": 1297511909,
   "ground": 6,
   "max_slope": 6,

@@ -4,13 +4,15 @@
       "npc": "lotr_port:dol_guldur_orc",
       "weight": 1,
       "min": 4,
-      "max": 6
+      "max": 6,
+      "dark": true
     },
     {
       "npc": "lotr_port:dol_guldur_orc_archer",
       "weight": 1,
       "min": 4,
-      "max": 6
+      "max": 6,
+      "dark": true
     },
     {
       "npc": "lotr_port:dorwinion_crossbower",
@@ -100,13 +102,22 @@
       "npc": "lotr_port:mordor_orc",
       "weight": 1,
       "min": 4,
-      "max": 6
+      "max": 6,
+      "dark": true
     },
     {
       "npc": "lotr_port:mordor_orc_archer",
       "weight": 1,
       "min": 4,
-      "max": 6
+      "max": 6,
+      "dark": true
+    },
+    {
+      "npc": "lotr_port:mordor_warg",
+      "weight": 1,
+      "min": 4,
+      "max": 4,
+      "dark": true
     }
   ]
 }

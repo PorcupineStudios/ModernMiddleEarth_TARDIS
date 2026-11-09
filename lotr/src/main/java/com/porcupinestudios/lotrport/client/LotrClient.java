@@ -8,6 +8,15 @@ import com.porcupinestudios.lotrport.npc.LotrEntities;
 import com.porcupinestudios.lotrport.content.LotrBowItem;
 import com.porcupinestudios.lotrport.content.LotrCrossbowItem;
 import com.porcupinestudios.lotrport.content.LotrItems;
+import com.porcupinestudios.lotrport.drink.DrinkItem;
+import com.porcupinestudios.lotrport.drink.Drinks;
+import java.util.Map;
+import java.util.function.Supplier;
+import net.minecraft.client.renderer.item.ItemPropertyFunction;
+import net.neoforged.neoforge.client.event.ModelEvent;
+import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
+import net.neoforged.neoforge.client.extensions.common.IClientFluidTypeExtensions;
+import net.neoforged.neoforge.fluids.FluidType;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.resources.ResourceLocation;
@@ -59,6 +68,39 @@ public final class LotrClient {
     @SubscribeEvent
     public static void clientExtensions(RegisterClientExtensionsEvent event) {
         ArmorModels.register(event);
+        // the drinks' fluids (in Create's pipes, tanks and basins): water's textures in the drink's colour
+        ResourceLocation still = ResourceLocation.withDefaultNamespace("block/water_still");
+        ResourceLocation flow = ResourceLocation.withDefaultNamespace("block/water_flow");
+        for (Map.Entry<ResourceLocation, Supplier<FluidType>> e : Drinks.FLUID_TYPE_BY_ITEM.entrySet()) {
+            int tint = 0xFF000000 | Drinks.BY_ITEM.get(e.getKey()).color();
+            event.registerFluidType(new IClientFluidTypeExtensions() {
+                @Override
+                public ResourceLocation getStillTexture() {
+                    return still;
+                }
+
+                @Override
+                public ResourceLocation getFlowingTexture() {
+                    return flow;
+                }
+
+                @Override
+                public int getTintColor() {
+                    return tint;
+                }
+            }, e.getValue().get());
+        }
+    }
+
+    /** LOTR's connected textures: gates and connected bricks ({@link ConnectedModel}). */
+    @SubscribeEvent
+    public static void geometry(ModelEvent.RegisterGeometryLoaders event) {
+        event.register(LotrPort.id("connected"), ConnectedModel.LOADER);
+    }
+
+    @SubscribeEvent
+    public static void screens(RegisterMenuScreensEvent event) {
+        event.register(Drinks.KEG_MENU.get(), KegScreen::new);
     }
 
     /**
@@ -69,9 +111,12 @@ public final class LotrClient {
         ResourceLocation pulling = ResourceLocation.withDefaultNamespace("pulling");
         ResourceLocation pull = ResourceLocation.withDefaultNamespace("pull");
         ResourceLocation charged = ResourceLocation.withDefaultNamespace("charged");
+        ItemPropertyFunction vessel = (stack, level, e, seed) -> Drinks.vesselId(stack); // the drink's picture
         for (var holder : LotrItems.BY_ID.values()) {
             Item item = holder.get();
-            if (item instanceof LotrBowItem bow) {
+            if (item instanceof DrinkItem) {
+                ItemProperties.register(item, LotrPort.id("vessel"), vessel);
+            } else if (item instanceof LotrBowItem bow) {
                 ItemProperties.register(item, pulling,
                         (stack, level, e, seed) -> e != null && e.isUsingItem() && e.getUseItem() == stack ? 1f : 0f);
                 ItemProperties.register(item, pull, (stack, level, e, seed) -> e == null || e.getUseItem() != stack ? 0f
@@ -109,5 +154,6 @@ public final class LotrClient {
     @SubscribeEvent
     public static void renderers(EntityRenderersEvent.RegisterRenderers event) {
         event.registerEntityRenderer(LotrEntities.NPC.get(), NpcRenderer::new);
+        AnimalRenderer.register(event);
     }
 }

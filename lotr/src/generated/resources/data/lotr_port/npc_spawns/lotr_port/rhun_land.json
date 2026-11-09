@@ -112,13 +112,22 @@
       "npc": "lotr_port:mordor_orc",
       "weight": 2,
       "min": 4,
-      "max": 6
+      "max": 6,
+      "dark": true
     },
     {
       "npc": "lotr_port:mordor_orc_archer",
       "weight": 1,
       "min": 4,
-      "max": 6
+      "max": 6,
+      "dark": true
+    },
+    {
+      "npc": "lotr_port:mordor_warg",
+      "weight": 1,
+      "min": 4,
+      "max": 4,
+      "dark": true
     },
     {
       "npc": "lotr_port:wicked_dwarf",

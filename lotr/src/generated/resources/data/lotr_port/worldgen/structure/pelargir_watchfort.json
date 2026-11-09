@@ -9,7 +9,14 @@
     "lotr_port:pelargir_watchfort/1",
     "lotr_port:pelargir_watchfort/2"
   ],
-  "chance": 600,
+  "rolls": {
+    "lotr_port:pelargir": [
+      600
+    ]
+  },
+  "lotr_success": {
+    "lotr_port:pelargir": 0.734
+  },
   "salt": 930401036,
   "ground": 0,
   "max_slope": 6,

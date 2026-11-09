@@ -9,7 +9,22 @@
     "lotr_port:rotten_house/1",
     "lotr_port:rotten_house/2"
   ],
-  "chance": 500,
+  "rolls": {
+    "lotr_port:anduin_mouth": [
+      500
+    ],
+    "lotr_port:entwash_mouth": [
+      500
+    ],
+    "lotr_port:nindalf": [
+      500
+    ]
+  },
+  "lotr_success": {
+    "lotr_port:anduin_mouth": 0.331,
+    "lotr_port:entwash_mouth": 0.267,
+    "lotr_port:nindalf": 0.095
+  },
   "salt": 1584862872,
   "ground": 0,
   "max_slope": 6,

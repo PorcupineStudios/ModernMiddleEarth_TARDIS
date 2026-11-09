@@ -9,7 +9,17 @@
     "lotr_port:hobbit_tavern/1",
     "lotr_port:hobbit_tavern/2"
   ],
-  "chance": 300,
+  "rolls": {
+    "lotr_port:white_downs": [
+      300,
+      150,
+      150,
+      300
+    ]
+  },
+  "lotr_success": {
+    "lotr_port:white_downs": 0.016
+  },
   "salt": 327075521,
   "ground": 4,
   "max_slope": 6,

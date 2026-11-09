@@ -9,7 +9,36 @@
     "lotr_port:angmar_hillman_village/1",
     "lotr_port:angmar_hillman_village/2"
   ],
-  "chance": 4000,
+  "rolls": {
+    "lotr_port:lone_lands": [
+      1500,
+      800,
+      1500,
+      1500,
+      2000,
+      2000,
+      400,
+      400,
+      2000,
+      4000
+    ],
+    "lotr_port:lone_lands_hills": [
+      1500,
+      800,
+      1500,
+      1500,
+      2000,
+      2000,
+      400,
+      400,
+      2000,
+      4000
+    ]
+  },
+  "lotr_success": {
+    "lotr_port:lone_lands": 1.0,
+    "lotr_port:lone_lands_hills": 1.0
+  },
   "salt": 320557466,
   "ground": 6,
   "max_slope": 6,

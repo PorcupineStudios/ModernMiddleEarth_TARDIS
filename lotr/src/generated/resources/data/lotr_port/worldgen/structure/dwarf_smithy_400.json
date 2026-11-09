@@ -9,7 +9,15 @@
     "lotr_port:dwarf_smithy/1",
     "lotr_port:dwarf_smithy/2"
   ],
-  "chance": 400,
+  "rolls": {
+    "lotr_port:erebor": [
+      400,
+      400
+    ]
+  },
+  "lotr_success": {
+    "lotr_port:erebor": 0.292
+  },
   "salt": 1935898354,
   "ground": 0,
   "max_slope": 6,

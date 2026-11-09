@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "lotr_port:item/drink/cranberry_juice/goblet_gold"
+  }
+}

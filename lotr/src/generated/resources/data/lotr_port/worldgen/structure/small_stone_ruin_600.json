@@ -9,7 +9,62 @@
     "lotr_port:small_stone_ruin/1",
     "lotr_port:small_stone_ruin/2"
   ],
-  "chance": 600,
+  "rolls": {
+    "lotr_port:dor_en_ernil": [
+      800,
+      1000,
+      1000,
+      600
+    ],
+    "lotr_port:dor_en_ernil_hills": [
+      800,
+      1000,
+      1000,
+      600
+    ],
+    "lotr_port:harnedor": [
+      3000,
+      600
+    ],
+    "lotr_port:harondor": [
+      3000,
+      600
+    ],
+    "lotr_port:long_marshes": [
+      2000,
+      2000,
+      3000,
+      3000,
+      800,
+      600
+    ],
+    "lotr_port:rhun_land": [
+      1000,
+      600
+    ],
+    "lotr_port:rhun_land_hills": [
+      1000,
+      600
+    ],
+    "lotr_port:wilderland_north": [
+      2000,
+      2000,
+      3000,
+      3000,
+      800,
+      600
+    ]
+  },
+  "lotr_success": {
+    "lotr_port:dor_en_ernil": 0.784,
+    "lotr_port:dor_en_ernil_hills": 0.854,
+    "lotr_port:harnedor": 0.733,
+    "lotr_port:harondor": 0.877,
+    "lotr_port:long_marshes": 0.255,
+    "lotr_port:rhun_land": 0.774,
+    "lotr_port:rhun_land_hills": 0.757,
+    "lotr_port:wilderland_north": 0.824
+  },
   "salt": 1655068493,
   "ground": 1,
   "max_slope": 6,

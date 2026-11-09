@@ -1,0 +1,29 @@
+{
+  "type": "lotr_port:brewing",
+  "ingredients": [
+    {
+      "item": "lotr_port:banana"
+    },
+    {
+      "item": "lotr_port:banana"
+    },
+    {
+      "item": "lotr_port:banana"
+    },
+    {
+      "item": "lotr_port:banana"
+    },
+    {
+      "item": "lotr_port:banana"
+    },
+    {
+      "item": "lotr_port:banana"
+    }
+  ],
+  "result": {
+    "id": "lotr_port:banana_beer",
+    "count": 16
+  },
+  "water": 3000,
+  "brew_time": 12000
+}

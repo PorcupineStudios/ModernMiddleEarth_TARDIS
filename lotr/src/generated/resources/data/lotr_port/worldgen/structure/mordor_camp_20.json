@@ -9,7 +9,18 @@
     "lotr_port:mordor_camp/1",
     "lotr_port:mordor_camp/2"
   ],
-  "chance": 20,
+  "rolls": {
+    "lotr_port:udun": [
+      100,
+      300,
+      500,
+      2000,
+      20
+    ]
+  },
+  "lotr_success": {
+    "lotr_port:udun": 0.681
+  },
   "salt": 1219047605,
   "ground": 0,
   "max_slope": 6,

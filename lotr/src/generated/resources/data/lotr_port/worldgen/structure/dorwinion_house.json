@@ -9,7 +9,17 @@
     "lotr_port:dorwinion_house/1",
     "lotr_port:dorwinion_house/2"
   ],
-  "chance": 200,
+  "rolls": {
+    "lotr_port:dorwinion": [
+      1000,
+      300,
+      400,
+      200
+    ]
+  },
+  "lotr_success": {
+    "lotr_port:dorwinion": 0.266
+  },
   "salt": 218397553,
   "ground": 0,
   "max_slope": 6,

@@ -58,13 +58,15 @@
       "npc": "lotr_port:mordor_orc",
       "weight": 1,
       "min": 4,
-      "max": 6
+      "max": 6,
+      "dark": true
     },
     {
       "npc": "lotr_port:mordor_orc_archer",
       "weight": 1,
       "min": 4,
-      "max": 6
+      "max": 6,
+      "dark": true
     },
     {
       "npc": "lotr_port:near_haradrim_archer",
@@ -88,25 +90,29 @@
       "npc": "lotr_port:uruk_hai",
       "weight": 1,
       "min": 4,
-      "max": 6
+      "max": 6,
+      "dark": true
     },
     {
       "npc": "lotr_port:uruk_hai_berserker",
       "weight": 1,
       "min": 4,
-      "max": 6
+      "max": 6,
+      "dark": true
     },
     {
       "npc": "lotr_port:uruk_hai_crossbower",
       "weight": 1,
       "min": 4,
-      "max": 6
+      "max": 6,
+      "dark": true
     },
     {
       "npc": "lotr_port:uruk_hai_sapper",
       "weight": 1,
       "min": 1,
-      "max": 2
+      "max": 2,
+      "dark": true
     }
   ]
 }

@@ -8,6 +8,7 @@ import com.porcupinestudios.lotrport.content.LotrBlocks;
 import com.porcupinestudios.lotrport.content.LotrItems;
 import com.porcupinestudios.lotrport.content.LotrTabs;
 import com.porcupinestudios.lotrport.crafting.LotrRecipes;
+import com.porcupinestudios.lotrport.drink.Drinks;
 import com.porcupinestudios.lotrport.faction.FactionConditions;
 import com.porcupinestudios.lotrport.faction.FactionKills;
 import com.porcupinestudios.lotrport.faction.Factions;
@@ -55,8 +56,10 @@ public final class LotrPort {
         LotrItems.register(modBus);
         LotrTabs.register(modBus);
         LotrRecipes.register(modBus);
+        Drinks.register(modBus);
         LotrWorldgen.register(modBus);
         LotrEntities.register(modBus);
+        com.porcupinestudios.lotrport.animal.LotrAnimals.register(modBus);
         SharedApiHooks.register(modBus);
         FactionConditions.register(modBus);
         WorldConditions.register(modBus);
@@ -68,6 +71,7 @@ public final class LotrPort {
         QuestData.register();
         com.porcupinestudios.lotrport.content.SaplingRules.register();
         com.porcupinestudios.lotrport.tree.TreeRecords.register();
+        com.porcupinestudios.lotrport.tree.TreeOverflow.register();
         Quests.register();
         FastTravel.register();
         MapNet.register(modBus);

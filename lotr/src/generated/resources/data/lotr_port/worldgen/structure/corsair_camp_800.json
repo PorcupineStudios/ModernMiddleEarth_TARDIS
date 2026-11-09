@@ -9,7 +9,25 @@
     "lotr_port:corsair_camp/1",
     "lotr_port:corsair_camp/2"
   ],
-  "chance": 800,
+  "rolls": {
+    "lotr_port:umbar": [
+      1500,
+      800
+    ],
+    "lotr_port:umbar_forest": [
+      1500,
+      800
+    ],
+    "lotr_port:umbar_hills": [
+      1500,
+      800
+    ]
+  },
+  "lotr_success": {
+    "lotr_port:umbar": 0.797,
+    "lotr_port:umbar_forest": 0.947,
+    "lotr_port:umbar_hills": 0.937
+  },
   "salt": 987690911,
   "ground": 0,
   "max_slope": 6,

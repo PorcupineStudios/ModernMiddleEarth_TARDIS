@@ -1,0 +1,13 @@
+{
+  "alcohol": 1.5,
+  "nutrition": 3,
+  "saturation": 0.3,
+  "damage": 0,
+  "cures": false,
+  "cures_harmful": false,
+  "effects": [],
+  "explode": {
+    "chance": 6,
+    "power": 3.0
+  }
+}

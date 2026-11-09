@@ -9,7 +9,30 @@
     "lotr_port:moredain_camp/1",
     "lotr_port:moredain_camp/2"
   ],
-  "chance": 500,
+  "rolls": {
+    "lotr_port:far_harad": [
+      200,
+      500
+    ],
+    "lotr_port:far_harad_arid": [
+      200,
+      500
+    ],
+    "lotr_port:far_harad_arid_hills": [
+      200,
+      500
+    ],
+    "lotr_port:far_harad_forest": [
+      200,
+      500
+    ]
+  },
+  "lotr_success": {
+    "lotr_port:far_harad": 0.5,
+    "lotr_port:far_harad_arid": 0.527,
+    "lotr_port:far_harad_arid_hills": 0.451,
+    "lotr_port:far_harad_forest": 0.346
+  },
   "salt": 1528467763,
   "ground": 0,
   "max_slope": 6,

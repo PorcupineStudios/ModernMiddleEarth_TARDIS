@@ -2,6 +2,9 @@ package com.porcupinestudios.lotrport.content;
 
 import com.google.gson.JsonObject;
 import com.porcupinestudios.lotrport.LotrPort;
+import com.porcupinestudios.lotrport.animal.MountArmorItem;
+import com.porcupinestudios.lotrport.drink.DrinkItem;
+import com.porcupinestudios.lotrport.drink.VesselItem;
 import com.porcupinestudios.lotrport.quest.RedBookItem;
 import java.util.EnumMap;
 import java.util.LinkedHashMap;
@@ -62,6 +65,10 @@ public final class LotrItems {
             if (e.has("armor")) {
                 material(e.getAsJsonObject("armor"), items);
             }
+            if (e.has("mount_armor")) {
+                mountMaterial(e.get("id").getAsString(), ContentData.integer(e.getAsJsonObject("mount_armor"),
+                        "protection", 0));
+            }
         }
         for (JsonObject e : items) {
             String id = e.get("id").getAsString();
@@ -112,7 +119,18 @@ public final class LotrItems {
                 JsonObject a = e.getAsJsonObject("armor");
                 yield new ArmorItem(MATERIALS.get(key(a)), slot(a), p);
             }
+            case "mount_armor" -> {
+                JsonObject m = e.getAsJsonObject("mount_armor");
+                String tex = ContentData.str(m, "texture", "");
+                yield new MountArmorItem(MATERIALS.get(e.get("id").getAsString()), ContentData.str(m, "mount", "horse"),
+                        tex.isEmpty() ? null : net.minecraft.resources.ResourceLocation.parse(tex), p.stacksTo(1));
+            }
             case "red_book" -> new RedBookItem(p);
+            case "drink" -> {
+                JsonObject d = e.getAsJsonObject("drink");
+                yield new DrinkItem(p, ContentData.bool(d, "brewable", false), ContentData.bool(d, "food", false));
+            }
+            case "vessel" -> new VesselItem(p);
             default -> new Item(p);
         };
     }
@@ -170,6 +188,19 @@ public final class LotrItems {
         MATERIALS.put(key, ARMOR_MATERIALS.register(key, () -> new ArmorMaterial(defense, enchantValue,
                 SoundEvents.ARMOR_EQUIP_IRON, () -> Ingredient.EMPTY,
                 List.of(new ArmorMaterial.Layer(LotrPort.id(texture))), toughness, knockbackResistance)));
+    }
+
+    /**
+     * A mount armor's material, named after the item: LOTR's protection as body defense, and (horse armor) vanilla's
+     * horse armor texture path {@code textures/entity/horse/armor/horse_armor_<item>.png}, where the converter puts it.
+     */
+    private static void mountMaterial(String id, int protection) {
+        Map<ArmorItem.Type, Integer> defense = new EnumMap<>(ArmorItem.Type.class);
+        for (ArmorItem.Type t : ArmorItem.Type.values()) {
+            defense.put(t, t == ArmorItem.Type.BODY ? protection : 0);
+        }
+        MATERIALS.put(id, ARMOR_MATERIALS.register(id, () -> new ArmorMaterial(defense, 0, SoundEvents.ARMOR_EQUIP_GENERIC,
+                () -> Ingredient.EMPTY, List.of(new ArmorMaterial.Layer(LotrPort.id(id))), 0f, 0f)));
     }
 
     static Holder<ArmorMaterial> material(String name) {

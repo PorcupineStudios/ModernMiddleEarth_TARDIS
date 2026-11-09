@@ -9,7 +9,19 @@
     "lotr_port:angmar_hillman_house/1",
     "lotr_port:angmar_hillman_house/2"
   ],
-  "chance": 800,
+  "rolls": {
+    "lotr_port:coldfells": [
+      500,
+      100,
+      100,
+      100,
+      2000,
+      800
+    ]
+  },
+  "lotr_success": {
+    "lotr_port:coldfells": 0.057
+  },
   "salt": 622895560,
   "ground": 0,
   "max_slope": 6,

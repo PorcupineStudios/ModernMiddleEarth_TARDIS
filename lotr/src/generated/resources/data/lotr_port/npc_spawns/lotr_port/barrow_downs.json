@@ -22,13 +22,22 @@
       "npc": "lotr_port:angmar_orc",
       "weight": 30,
       "min": 4,
-      "max": 6
+      "max": 6,
+      "dark": true
     },
     {
       "npc": "lotr_port:angmar_orc_archer",
       "weight": 15,
       "min": 4,
-      "max": 6
+      "max": 6,
+      "dark": true
+    },
+    {
+      "npc": "lotr_port:angmar_warg",
+      "weight": 9,
+      "min": 4,
+      "max": 4,
+      "dark": true
     },
     {
       "npc": "lotr_port:dunedain",
@@ -40,13 +49,22 @@
       "npc": "lotr_port:gundabad_orc",
       "weight": 56,
       "min": 4,
-      "max": 6
+      "max": 6,
+      "dark": true
     },
     {
       "npc": "lotr_port:gundabad_orc_archer",
       "weight": 28,
       "min": 4,
-      "max": 6
+      "max": 6,
+      "dark": true
+    },
+    {
+      "npc": "lotr_port:gundabad_warg",
+      "weight": 17,
+      "min": 4,
+      "max": 4,
+      "dark": true
     },
     {
       "npc": "lotr_port:hobbit",

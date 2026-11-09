@@ -9,7 +9,28 @@
     "lotr_port:ranger_camp/1",
     "lotr_port:ranger_camp/2"
   ],
-  "chance": 2000,
+  "rolls": {
+    "lotr_port:lone_lands": [
+      1500,
+      800,
+      1500,
+      1500,
+      2000,
+      2000
+    ],
+    "lotr_port:lone_lands_hills": [
+      1500,
+      800,
+      1500,
+      1500,
+      2000,
+      2000
+    ]
+  },
+  "lotr_success": {
+    "lotr_port:lone_lands": 0.978,
+    "lotr_port:lone_lands_hills": 0.955
+  },
   "salt": 1245668551,
   "ground": 0,
   "max_slope": 6,

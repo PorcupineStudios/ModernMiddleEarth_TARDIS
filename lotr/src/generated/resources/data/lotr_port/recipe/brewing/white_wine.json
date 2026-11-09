@@ -1,0 +1,29 @@
+{
+  "type": "lotr_port:brewing",
+  "ingredients": [
+    {
+      "item": "lotr_port:green_grapes"
+    },
+    {
+      "item": "lotr_port:green_grapes"
+    },
+    {
+      "item": "lotr_port:green_grapes"
+    },
+    {
+      "item": "lotr_port:green_grapes"
+    },
+    {
+      "item": "lotr_port:green_grapes"
+    },
+    {
+      "item": "lotr_port:green_grapes"
+    }
+  ],
+  "result": {
+    "id": "lotr_port:white_wine",
+    "count": 16
+  },
+  "water": 3000,
+  "brew_time": 12000
+}

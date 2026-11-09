@@ -1,0 +1,18 @@
+{
+  "alcohol": 0.0,
+  "nutrition": 6,
+  "saturation": 0.6,
+  "damage": 0,
+  "cures": false,
+  "cures_harmful": true,
+  "effects": [
+    {
+      "id": "minecraft:strength",
+      "duration": 2400
+    },
+    {
+      "id": "minecraft:regeneration",
+      "duration": 1200
+    }
+  ]
+}

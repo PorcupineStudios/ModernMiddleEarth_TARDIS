@@ -8,7 +8,7 @@
     },
     {
       "npc": "lotr_port:gondor_levyman",
-      "weight": 3,
+      "weight": 1,
       "min": 2,
       "max": 4
     },
@@ -20,27 +20,38 @@
     },
     {
       "npc": "lotr_port:mordor_orc",
-      "weight": 100,
+      "weight": 20,
       "min": 4,
-      "max": 6
+      "max": 6,
+      "dark": true
     },
     {
       "npc": "lotr_port:mordor_orc_archer",
-      "weight": 50,
+      "weight": 10,
       "min": 4,
-      "max": 6
+      "max": 6,
+      "dark": true
     },
     {
       "npc": "lotr_port:mordor_orc_bombardier",
-      "weight": 10,
+      "weight": 2,
       "min": 1,
-      "max": 2
+      "max": 2,
+      "dark": true
+    },
+    {
+      "npc": "lotr_port:mordor_spider",
+      "weight": 100,
+      "min": 4,
+      "max": 4,
+      "dark": true
     },
     {
       "npc": "lotr_port:ranger_ithilien",
-      "weight": 2,
+      "weight": 1,
       "min": 1,
       "max": 4
     }
-  ]
+  ],
+  "hostiles_in_day": true
 }

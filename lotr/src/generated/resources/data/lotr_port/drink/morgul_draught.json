@@ -1,0 +1,23 @@
+{
+  "alcohol": 0.0,
+  "nutrition": 4,
+  "saturation": 0.4,
+  "damage": 3,
+  "cures": false,
+  "cures_harmful": false,
+  "effects": [
+    {
+      "id": "minecraft:night_vision",
+      "duration": 6000
+    }
+  ],
+  "faction": {
+    "id": "lotr_port:mordor",
+    "otherwise": [
+      {
+        "id": "minecraft:poison",
+        "duration": 100
+      }
+    ]
+  }
+}

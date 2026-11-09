@@ -9,7 +9,32 @@
     "lotr_port:rhudaur_castle/1",
     "lotr_port:rhudaur_castle/2"
   ],
-  "chance": 3000,
+  "rolls": {
+    "lotr_port:coldfells": [
+      500,
+      100,
+      100,
+      100,
+      2000,
+      800,
+      400,
+      3000
+    ],
+    "lotr_port:ettenmoors": [
+      500,
+      100,
+      100,
+      100,
+      1000,
+      500,
+      400,
+      3000
+    ]
+  },
+  "lotr_success": {
+    "lotr_port:coldfells": 1.0,
+    "lotr_port:ettenmoors": 1.0
+  },
   "salt": 2049539133,
   "ground": 0,
   "max_slope": 6,

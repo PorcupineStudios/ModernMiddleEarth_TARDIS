@@ -1,0 +1,29 @@
+{
+  "type": "lotr_port:brewing",
+  "ingredients": [
+    {
+      "tag": "lotr_port:apples"
+    },
+    {
+      "tag": "lotr_port:apples"
+    },
+    {
+      "tag": "lotr_port:apples"
+    },
+    {
+      "tag": "lotr_port:apples"
+    },
+    {
+      "tag": "lotr_port:apples"
+    },
+    {
+      "tag": "lotr_port:apples"
+    }
+  ],
+  "result": {
+    "id": "lotr_port:cider",
+    "count": 16
+  },
+  "water": 3000,
+  "brew_time": 12000
+}

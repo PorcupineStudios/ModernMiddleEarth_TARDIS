@@ -46,25 +46,37 @@
       "npc": "lotr_port:uruk_hai",
       "weight": 100,
       "min": 4,
-      "max": 6
+      "max": 6,
+      "dark": true
     },
     {
       "npc": "lotr_port:uruk_hai_berserker",
       "weight": 25,
       "min": 4,
-      "max": 6
+      "max": 6,
+      "dark": true
     },
     {
       "npc": "lotr_port:uruk_hai_crossbower",
       "weight": 50,
       "min": 4,
-      "max": 6
+      "max": 6,
+      "dark": true
     },
     {
       "npc": "lotr_port:uruk_hai_sapper",
       "weight": 15,
       "min": 1,
-      "max": 2
+      "max": 2,
+      "dark": true
+    },
+    {
+      "npc": "lotr_port:uruk_warg",
+      "weight": 76,
+      "min": 4,
+      "max": 4,
+      "dark": true
     }
-  ]
+  ],
+  "hostiles_in_day": true
 }

@@ -9,7 +9,263 @@
     "lotr_port:small_stone_ruin/1",
     "lotr_port:small_stone_ruin/2"
   ],
-  "chance": 400,
+  "rolls": {
+    "lotr_port:andrast": [
+      400
+    ],
+    "lotr_port:anduin_hills": [
+      1500,
+      2000,
+      3000,
+      3000,
+      400,
+      1500,
+      400
+    ],
+    "lotr_port:anduin_vale": [
+      1500,
+      2000,
+      3000,
+      3000,
+      400,
+      1500,
+      400
+    ],
+    "lotr_port:angle": [
+      500,
+      1500,
+      800,
+      2000,
+      2000,
+      4000,
+      400,
+      400,
+      400
+    ],
+    "lotr_port:beach": [
+      500,
+      400
+    ],
+    "lotr_port:beach_gravel": [
+      500,
+      400
+    ],
+    "lotr_port:beach_white": [
+      500,
+      400
+    ],
+    "lotr_port:coldfells": [
+      500,
+      100,
+      100,
+      100,
+      2000,
+      800,
+      400
+    ],
+    "lotr_port:dol_guldur": [
+      5,
+      160,
+      80,
+      50,
+      50,
+      400
+    ],
+    "lotr_port:east_bight": [
+      500,
+      1000,
+      1000,
+      400
+    ],
+    "lotr_port:enedwaith": [
+      1500,
+      3000,
+      3000,
+      2000,
+      2000,
+      500,
+      400
+    ],
+    "lotr_port:eriador": [
+      2000,
+      1000,
+      2000,
+      3000,
+      3000,
+      1500,
+      800,
+      800,
+      2000,
+      400
+    ],
+    "lotr_port:eriador_downs": [
+      2000,
+      1000,
+      2000,
+      3000,
+      3000,
+      1500,
+      800,
+      800,
+      2000,
+      400
+    ],
+    "lotr_port:eryn_vorn": [
+      2000,
+      1000,
+      2000,
+      3000,
+      3000,
+      1500,
+      800,
+      800,
+      2000,
+      400
+    ],
+    "lotr_port:ettenmoors": [
+      500,
+      100,
+      100,
+      100,
+      1000,
+      500,
+      400
+    ],
+    "lotr_port:gladden_fields": [
+      1500,
+      2000,
+      3000,
+      3000,
+      400,
+      1500,
+      400
+    ],
+    "lotr_port:island": [
+      500,
+      400
+    ],
+    "lotr_port:ithilien": [
+      200,
+      500,
+      500,
+      800,
+      50,
+      400
+    ],
+    "lotr_port:ithilien_hills": [
+      200,
+      500,
+      500,
+      800,
+      50,
+      400
+    ],
+    "lotr_port:ithilien_wasteland": [
+      200,
+      500,
+      500,
+      800,
+      50,
+      400
+    ],
+    "lotr_port:minhiriath": [
+      2000,
+      1000,
+      2000,
+      3000,
+      3000,
+      1500,
+      800,
+      800,
+      2000,
+      400
+    ],
+    "lotr_port:misty_mountains": [
+      500,
+      1500,
+      1000,
+      400
+    ],
+    "lotr_port:misty_mountains_foothills": [
+      500,
+      1500,
+      1000,
+      400
+    ],
+    "lotr_port:nurn": [
+      40,
+      200,
+      400
+    ],
+    "lotr_port:nurnen": [
+      40,
+      200,
+      400
+    ],
+    "lotr_port:ocean": [
+      500,
+      400
+    ],
+    "lotr_port:pukel": [
+      2000,
+      2000,
+      2000,
+      500,
+      400
+    ],
+    "lotr_port:swanfleet": [
+      2000,
+      1000,
+      2000,
+      3000,
+      3000,
+      1500,
+      800,
+      800,
+      2000,
+      400
+    ],
+    "lotr_port:wilderland": [
+      2000,
+      3000,
+      2000,
+      3000,
+      3000,
+      500,
+      400
+    ]
+  },
+  "lotr_success": {
+    "lotr_port:andrast": 0.779,
+    "lotr_port:anduin_hills": 0.863,
+    "lotr_port:anduin_vale": 0.963,
+    "lotr_port:angle": 0.852,
+    "lotr_port:beach": 0.727,
+    "lotr_port:beach_gravel": 0.727,
+    "lotr_port:beach_white": 0.727,
+    "lotr_port:coldfells": 0.792,
+    "lotr_port:dol_guldur": 0.756,
+    "lotr_port:east_bight": 0.803,
+    "lotr_port:enedwaith": 0.892,
+    "lotr_port:eriador": 0.8,
+    "lotr_port:eriador_downs": 0.831,
+    "lotr_port:eryn_vorn": 0.769,
+    "lotr_port:ettenmoors": 0.638,
+    "lotr_port:gladden_fields": 0.163,
+    "lotr_port:island": 0.728,
+    "lotr_port:ithilien": 0.597,
+    "lotr_port:ithilien_hills": 0.917,
+    "lotr_port:ithilien_wasteland": 0.792,
+    "lotr_port:minhiriath": 0.954,
+    "lotr_port:misty_mountains": 0.213,
+    "lotr_port:misty_mountains_foothills": 0.798,
+    "lotr_port:nurn": 0.806,
+    "lotr_port:nurnen": 0.0,
+    "lotr_port:ocean": 0.0,
+    "lotr_port:pukel": 0.757,
+    "lotr_port:swanfleet": 0.124,
+    "lotr_port:wilderland": 0.836
+  },
   "salt": 1629651747,
   "ground": 1,
   "max_slope": 6,

@@ -3,7 +3,7 @@
   "temperature": 0.9,
   "downfall": 1.0,
   "effects": {
-    "fog_color": 12638463,
+    "fog_color": 16770660,
     "sky_color": 7842047,
     "water_color": 7186907,
     "water_fog_color": 329011,
@@ -12,32 +12,57 @@
       "tick_delay": 6000,
       "block_search_extent": 8,
       "offset": 2.0
-    }
+    },
+    "grass_color": 11527451
   },
   "spawners": {
     "creature": [
       {
         "type": "minecraft:sheep",
         "weight": 12,
-        "minCount": 2,
+        "minCount": 4,
         "maxCount": 4
       },
       {
-        "type": "minecraft:pig",
+        "type": "lotr_port:wild_boar",
         "weight": 10,
-        "minCount": 2,
+        "minCount": 4,
         "maxCount": 4
       },
       {
         "type": "minecraft:chicken",
-        "weight": 10,
-        "minCount": 2,
+        "weight": 8,
+        "minCount": 4,
         "maxCount": 4
       },
       {
-        "type": "minecraft:cow",
-        "weight": 8,
-        "minCount": 2,
+        "type": "lotr_port:deer",
+        "weight": 10,
+        "minCount": 4,
+        "maxCount": 4
+      },
+      {
+        "type": "lotr_port:aurochs",
+        "weight": 6,
+        "minCount": 4,
+        "maxCount": 4
+      },
+      {
+        "type": "minecraft:horse",
+        "weight": 20,
+        "minCount": 4,
+        "maxCount": 6
+      },
+      {
+        "type": "lotr_port:deer",
+        "weight": 30,
+        "minCount": 4,
+        "maxCount": 6
+      },
+      {
+        "type": "minecraft:rabbit",
+        "weight": 6,
+        "minCount": 4,
         "maxCount": 4
       }
     ]
@@ -52,7 +77,9 @@
   },
   "features": [
     [],
-    [],
+    [
+      "lotr_port:crater_lava"
+    ],
     [
       "lotr_port:roads"
     ],
@@ -79,15 +106,27 @@
       "lotr_port:ore/dirt_42",
       "lotr_port:ore/gold_ore_45",
       "lotr_port:ore/gravel_46",
-      "lotr_port:ore/iron_ore_49"
+      "lotr_port:ore/iron_ore_49",
+      "minecraft:ore_granite_upper",
+      "minecraft:ore_granite_lower",
+      "minecraft:ore_diorite_upper",
+      "minecraft:ore_diorite_lower",
+      "minecraft:ore_andesite_upper",
+      "minecraft:ore_andesite_lower",
+      "minecraft:ore_tuff"
     ],
-    [],
+    [
+      "lotr_port:dripstone"
+    ],
     [],
     [
       "lotr_port:trees/lothlorien",
+      "lotr_port:forest_floor/3_0",
+      "lotr_port:plant/reeds_0_9",
+      "lotr_port:plant/dried_reeds_0_1",
       "minecraft:flower_default",
       "minecraft:patch_grass_forest",
-      "minecraft:patch_sugar_cane"
+      "minecraft:patch_tall_grass"
     ],
     [
       "minecraft:freeze_top_layer"

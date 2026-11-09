@@ -9,7 +9,24 @@
     "lotr_port:mumak_skeleton/1",
     "lotr_port:mumak_skeleton/2"
   ],
-  "chance": 2000,
+  "rolls": {
+    "lotr_port:near_harad_riverbank": [
+      3000,
+      500,
+      2000
+    ],
+    "lotr_port:near_harad_semi_desert": [
+      2000,
+      4000,
+      1000,
+      2000,
+      2000
+    ]
+  },
+  "lotr_success": {
+    "lotr_port:near_harad_riverbank": 0.762,
+    "lotr_port:near_harad_semi_desert": 0.841
+  },
   "salt": 320339249,
   "ground": 6,
   "max_slope": 6,

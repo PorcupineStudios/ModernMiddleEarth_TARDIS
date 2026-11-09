@@ -9,7 +9,18 @@
     "lotr_port:dunland_hill_fort/1",
     "lotr_port:dunland_hill_fort/2"
   ],
-  "chance": 700,
+  "rolls": {
+    "lotr_port:adornland": [
+      4000,
+      150,
+      250,
+      200,
+      700
+    ]
+  },
+  "lotr_success": {
+    "lotr_port:adornland": 0.638
+  },
   "salt": 415917395,
   "ground": 2,
   "max_slope": 6,

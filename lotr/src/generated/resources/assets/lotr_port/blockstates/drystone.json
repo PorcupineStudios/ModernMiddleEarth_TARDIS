@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "lotr_port:block/drystone"
+      "model": "lotr_port:block/drystone_connected"
     }
   }
 }

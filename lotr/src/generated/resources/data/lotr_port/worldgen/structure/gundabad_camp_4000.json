@@ -9,7 +9,14 @@
     "lotr_port:gundabad_camp/1",
     "lotr_port:gundabad_camp/2"
   ],
-  "chance": 4000,
+  "rolls": {
+    "lotr_port:celebrant": [
+      4000
+    ]
+  },
+  "lotr_success": {
+    "lotr_port:celebrant": 0.94
+  },
   "salt": 844837897,
   "ground": 0,
   "max_slope": 6,

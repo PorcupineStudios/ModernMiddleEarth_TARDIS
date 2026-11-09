@@ -9,7 +9,167 @@
     "lotr_port:small_stone_ruin/1",
     "lotr_port:small_stone_ruin/2"
   ],
-  "chance": 500,
+  "rolls": {
+    "lotr_port:blackroot_vale": [
+      1000,
+      600,
+      1000,
+      1000,
+      1000,
+      500
+    ],
+    "lotr_port:breeland": [
+      500
+    ],
+    "lotr_port:chetwood": [
+      500
+    ],
+    "lotr_port:dale": [
+      4000,
+      4000,
+      4000,
+      1000,
+      500,
+      800,
+      400,
+      500
+    ],
+    "lotr_port:gondor": [
+      800,
+      1000,
+      600,
+      1000,
+      1000,
+      1000,
+      500
+    ],
+    "lotr_port:gondor_woodlands": [
+      800,
+      1000,
+      600,
+      1000,
+      1000,
+      1000,
+      500
+    ],
+    "lotr_port:grey_mountains": [
+      500,
+      1000,
+      1000,
+      500
+    ],
+    "lotr_port:grey_mountains_foothills": [
+      500,
+      1000,
+      1000,
+      500
+    ],
+    "lotr_port:imloth_melui": [
+      800,
+      600,
+      1000,
+      1000,
+      1000,
+      500
+    ],
+    "lotr_port:lamedon": [
+      700,
+      600,
+      1000,
+      1000,
+      1000,
+      500
+    ],
+    "lotr_port:lamedon_hills": [
+      700,
+      600,
+      1000,
+      1000,
+      1000,
+      500
+    ],
+    "lotr_port:lebennin": [
+      800,
+      600,
+      1000,
+      1000,
+      1000,
+      500
+    ],
+    "lotr_port:lossarnach": [
+      800,
+      600,
+      1000,
+      1000,
+      1000,
+      500
+    ],
+    "lotr_port:pelargir": [
+      600,
+      600,
+      1000,
+      1000,
+      1000,
+      500
+    ],
+    "lotr_port:pinnath_gelin": [
+      1000,
+      600,
+      1000,
+      1000,
+      1000,
+      500
+    ],
+    "lotr_port:rohan": [
+      600,
+      600,
+      500
+    ],
+    "lotr_port:rohan_woodlands": [
+      600,
+      600,
+      500
+    ],
+    "lotr_port:taiga": [
+      1500,
+      500
+    ],
+    "lotr_port:tundra": [
+      1500,
+      500
+    ],
+    "lotr_port:white_mountains": [
+      100,
+      500
+    ],
+    "lotr_port:white_mountains_foothills": [
+      100,
+      500
+    ]
+  },
+  "lotr_success": {
+    "lotr_port:blackroot_vale": 0.75,
+    "lotr_port:breeland": 0.794,
+    "lotr_port:chetwood": 0.732,
+    "lotr_port:dale": 0.691,
+    "lotr_port:gondor": 0.702,
+    "lotr_port:gondor_woodlands": 0.842,
+    "lotr_port:grey_mountains": 0.58,
+    "lotr_port:grey_mountains_foothills": 0.746,
+    "lotr_port:imloth_melui": 0.761,
+    "lotr_port:lamedon": 0.938,
+    "lotr_port:lamedon_hills": 0.828,
+    "lotr_port:lebennin": 0.709,
+    "lotr_port:lossarnach": 0.505,
+    "lotr_port:pelargir": 0.937,
+    "lotr_port:pinnath_gelin": 0.911,
+    "lotr_port:rohan": 0.924,
+    "lotr_port:rohan_woodlands": 0.771,
+    "lotr_port:taiga": 0.6,
+    "lotr_port:tundra": 0.914,
+    "lotr_port:white_mountains": 0.238,
+    "lotr_port:white_mountains_foothills": 0.806
+  },
   "salt": 1625352468,
   "ground": 1,
   "max_slope": 6,

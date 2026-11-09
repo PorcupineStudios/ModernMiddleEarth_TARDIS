@@ -9,7 +9,18 @@
     "lotr_port:lamedon_watchfort/1",
     "lotr_port:lamedon_watchfort/2"
   ],
-  "chance": 700,
+  "rolls": {
+    "lotr_port:lamedon": [
+      700
+    ],
+    "lotr_port:lamedon_hills": [
+      700
+    ]
+  },
+  "lotr_success": {
+    "lotr_port:lamedon": 0.638,
+    "lotr_port:lamedon_hills": 0.204
+  },
   "salt": 1513112081,
   "ground": 0,
   "max_slope": 6,

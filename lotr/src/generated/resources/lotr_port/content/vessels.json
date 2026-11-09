@@ -1,0 +1,62 @@
+[
+  {
+    "id": 0,
+    "name": "mug",
+    "item": "lotr_port:mug"
+  },
+  {
+    "id": 1,
+    "name": "clay",
+    "item": "lotr_port:ceramic_mug"
+  },
+  {
+    "id": 2,
+    "name": "gobletGold",
+    "item": "lotr_port:golden_goblet"
+  },
+  {
+    "id": 3,
+    "name": "gobletSilver",
+    "item": "lotr_port:silver_goblet"
+  },
+  {
+    "id": 4,
+    "name": "gobletCopper",
+    "item": "lotr_port:copper_goblet"
+  },
+  {
+    "id": 5,
+    "name": "gobletWood",
+    "item": "lotr_port:wooden_cup"
+  },
+  {
+    "id": 6,
+    "name": "skull",
+    "item": "lotr_port:skull_cup"
+  },
+  {
+    "id": 7,
+    "name": "glass",
+    "item": "lotr_port:wine_glass"
+  },
+  {
+    "id": 8,
+    "name": "bottle",
+    "item": "minecraft:glass_bottle"
+  },
+  {
+    "id": 9,
+    "name": "skin",
+    "item": "lotr_port:waterskin"
+  },
+  {
+    "id": 10,
+    "name": "horn",
+    "item": "lotr_port:ale_horn"
+  },
+  {
+    "id": 11,
+    "name": "hornGold",
+    "item": "lotr_port:golden_ale_horn"
+  }
+]

@@ -9,7 +9,20 @@
     "lotr_port:rohan_watchtower/1",
     "lotr_port:rohan_watchtower/2"
   ],
-  "chance": 600,
+  "rolls": {
+    "lotr_port:rohan": [
+      600,
+      600
+    ],
+    "lotr_port:rohan_woodlands": [
+      600,
+      600
+    ]
+  },
+  "lotr_success": {
+    "lotr_port:rohan": 0.882,
+    "lotr_port:rohan_woodlands": 0.821
+  },
   "salt": 2013613155,
   "ground": 0,
   "max_slope": 6,

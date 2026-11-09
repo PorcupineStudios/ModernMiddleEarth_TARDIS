@@ -1,0 +1,29 @@
+{
+  "type": "lotr_port:brewing",
+  "ingredients": [
+    {
+      "item": "lotr_port:lime"
+    },
+    {
+      "item": "lotr_port:lime"
+    },
+    {
+      "item": "lotr_port:lime"
+    },
+    {
+      "item": "lotr_port:lime"
+    },
+    {
+      "item": "lotr_port:lime"
+    },
+    {
+      "item": "lotr_port:lime"
+    }
+  ],
+  "result": {
+    "id": "lotr_port:lime_liqueur",
+    "count": 16
+  },
+  "water": 3000,
+  "brew_time": 12000
+}

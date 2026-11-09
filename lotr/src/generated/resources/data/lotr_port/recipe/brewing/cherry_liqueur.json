@@ -1,0 +1,29 @@
+{
+  "type": "lotr_port:brewing",
+  "ingredients": [
+    {
+      "item": "lotr_port:cherries"
+    },
+    {
+      "item": "lotr_port:cherries"
+    },
+    {
+      "item": "lotr_port:cherries"
+    },
+    {
+      "item": "lotr_port:cherries"
+    },
+    {
+      "item": "lotr_port:cherries"
+    },
+    {
+      "item": "lotr_port:cherries"
+    }
+  ],
+  "result": {
+    "id": "lotr_port:cherry_liqueur",
+    "count": 16
+  },
+  "water": 3000,
+  "brew_time": 12000
+}

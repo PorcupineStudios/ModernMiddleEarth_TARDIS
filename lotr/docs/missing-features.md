@@ -146,14 +146,14 @@ branch, and **Decision** means it needs Aaron to choose.
 
 Each is "read the LOTR registry/list from the running game, dump JSON". Pattern: copy `QuestExporter`.
 
-15. **EXP — station recipes.** `recipes.json` has crafting tables and smelting only. Add: `LOTRBrewingRecipes`
-    (barrel, ingredients → drink, brew time), `LOTRMillstoneRecipes`, alloy-forge recipes (each forge TE class has
+15. **EXP — station recipes.** `recipes.json` has crafting tables and smelting only. `LOTRBrewingRecipes`: **done**
+    (2026-11-04, `drinks.json`, `lotr_port:brewing`). Still to add: `LOTRMillstoneRecipes`, alloy-forge recipes (each forge TE class has
     them as methods: call `getSmeltingResult`/`getAlloySmeltingResult` over every item in the registry and record
     hits), `LOTREntJarRecipes`, unsmeltery (`uncraftableUnsmeltingRecipes` is listed as a station already; export the
     full reverse table), kebab stand, hobbit oven (food only). Generate 1.21 recipe types for each.
-16. **EXP — drink stats.** For every `LOTRItemMug`: heal/food amount, alcoholicity, potion effects per strength,
-    allowed vessels (`LOTRItemMug.Vessel` enum: mug, wood cup, goblets, skull, glass, bottle, horns...). Replaces the
-    138 `merged_item_metas` mug variants with one item + `strength`/`vessel` components.
+16. **EXP — drink stats. Done** (2026-11-04): `Exporter` writes `drinks.json` (stats, strengths, vessels, brewing);
+    `converter/drinks.py`; drinks carry `lotr_port:drink_strength` / `lotr_port:vessel` components (see
+    `lotr/CLAUDE.md`, "Drinks and kegs").
 17. **EXP — weapon stats. Done:** `Exporter.weaponStats` records `LOTRWeaponStats`' getters per item plus bows'
     draw time and damage factor. The generator falls back to the class tables until CI's "Convert LOTR" run commits
     a new export. **Still to do:** rerun the export, and use `rangedDamage` for spears and throwing axes once they
@@ -196,10 +196,11 @@ Each task picks up one `kind` from Tier 1 and makes it work; stats come from Tie
     dispenser behaviours. NPC archers use them.
 29. **Melee reach/speed. Done** (`LotrWeaponItem`, see the table above). Left: the `LOTRRecipePoisonWeapon` special
     recipe (dagger + poison bottle).
-30. **Drinks and drunkenness.** `drink` kind with strength/vessel components (task 16), placeable mugs (`mug` block
-    kind, holds the item), nausea at high alcohol, `LOTRDrunkenSpeech` scrambling chat (word table from constants).
-31. **Station blocks.** `furnace` kind (faction forges: alloy recipes; hobbit oven: 9-slot food oven), `barrel`
-    (brewing, task 15), `millstone`, `unsmeltery`, `kebab_stand`, `chest` (LOTR chests with LOTR textures), `plate`
+30. **Drinks and drunkenness.** Done: `drink`/`vessel` kinds, drinking with LOTR's food, nausea, effects, cures and
+    specials. Left: placeable mugs (`mug` block kind, holds the item), alcohol tolerance (LOTR lowered nausea 1% per
+    point), `LOTRDrunkenSpeech` scrambling chat (word table from constants), NPCs drinking.
+31. **Station blocks.** `furnace` kind (faction forges: alloy recipes; hobbit oven: 9-slot food oven), `keg`
+    (LOTR's barrel: **done**, `drink/KegBlock`), `millstone`, `unsmeltery`, `kebab_stand`, `chest` (LOTR chests with LOTR textures), `plate`
     (holds food), `bookshelf_storage`, `armor_stand`, `weapon_rack`. Menus can copy vanilla furnace/brewing layouts
     with LOTR's GUI textures from `assets/lotr/gui`.
 32. **Crops and farming.** `crop` kind growth stages from the block's `variants`; seeds plant; grapevines on
@@ -215,7 +216,7 @@ Each task picks up one `kind` from Tier 1 and makes it work; stats come from Tie
     Edhelvir; glowing Quendite/Gulduril (light + particles from `LOTRTileEntityGulduril`).
 38. **Quagmire, dead marshes, webs.** Quagmire slows and sinks, marsh lights (`blocks_without_texture`: give them a
     particle-only renderer), marsh faces (`LOTREntityDeadMarshFace`), Ungoliant webs.
-39. **Road bridges** (known gap in `Roads`/`RoadFeature`): LOTR places bridges where roads cross rivers.
+39. **Road bridges**: done 2026-11-04 with LOTR's arch, edge, brace and pillar rules.
 40. **Structure quirks.** No structures within 32 blocks of the x/z axes; biome variants that disable structures;
     respawner blocks (`LOTREntityNPCRespawner`, `LOTRTileEntityMobSpawner`): spawners re-place NPCs over time.
 41. **Faction data sync to clients.** Needed for quest-mark hiding, alignment HUD, factions screen.

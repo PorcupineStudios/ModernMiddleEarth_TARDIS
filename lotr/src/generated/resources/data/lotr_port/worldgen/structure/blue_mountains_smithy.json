@@ -9,7 +9,20 @@
     "lotr_port:blue_mountains_smithy/1",
     "lotr_port:blue_mountains_smithy/2"
   ],
-  "chance": 150,
+  "rolls": {
+    "lotr_port:blue_mountains": [
+      400,
+      150
+    ],
+    "lotr_port:blue_mountains_foothills": [
+      400,
+      150
+    ]
+  },
+  "lotr_success": {
+    "lotr_port:blue_mountains": 0.055,
+    "lotr_port:blue_mountains_foothills": 0.105
+  },
   "salt": 511235435,
   "ground": 0,
   "max_slope": 6,

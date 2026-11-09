@@ -1,0 +1,19 @@
+{
+  "alcohol_strength": [
+    0.25,
+    0.5,
+    1.0,
+    2.0,
+    3.0
+  ],
+  "food_strength": [
+    0.5,
+    0.75,
+    1.0,
+    1.25,
+    1.5
+  ],
+  "serving_mb": 250,
+  "keg_servings": 16,
+  "keg_water_mb": 3000
+}

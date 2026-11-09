@@ -2,57 +2,68 @@
   "entries": [
     {
       "npc": "lotr_port:angmar_hillman",
-      "weight": 50,
+      "weight": 33,
       "min": 4,
       "max": 6
     },
     {
       "npc": "lotr_port:angmar_hillman_axe_thrower",
-      "weight": 25,
+      "weight": 17,
       "min": 4,
       "max": 6
     },
     {
       "npc": "lotr_port:angmar_hillman_warrior",
-      "weight": 25,
+      "weight": 17,
       "min": 4,
       "max": 6
     },
     {
       "npc": "lotr_port:angmar_orc",
-      "weight": 100,
+      "weight": 67,
       "min": 4,
-      "max": 6
+      "max": 6,
+      "dark": true
     },
     {
       "npc": "lotr_port:angmar_orc_archer",
-      "weight": 50,
+      "weight": 33,
       "min": 4,
-      "max": 6
+      "max": 6,
+      "dark": true
     },
     {
       "npc": "lotr_port:angmar_orc_bombardier",
-      "weight": 25,
+      "weight": 17,
       "min": 1,
-      "max": 2
+      "max": 2,
+      "dark": true
+    },
+    {
+      "npc": "lotr_port:angmar_warg",
+      "weight": 100,
+      "min": 4,
+      "max": 4,
+      "dark": true
     },
     {
       "npc": "lotr_port:ranger_north",
-      "weight": 7,
+      "weight": 5,
       "min": 1,
       "max": 4
     },
     {
       "npc": "lotr_port:rivendell_warrior",
-      "weight": 7,
+      "weight": 5,
       "min": 4,
       "max": 4
     },
     {
       "npc": "lotr_port:wicked_dwarf",
-      "weight": 14,
+      "weight": 9,
       "min": 1,
       "max": 3
     }
-  ]
+  ],
+  "hostiles_in_day": true
 }

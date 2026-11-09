@@ -15,12 +15,17 @@ import net.neoforged.neoforge.event.AddReloadListenerEvent;
  */
 public final class NpcSpawns {
     /** One kind of group: the NPC type, how likely, and how many at once. */
-    public record Entry(ResourceLocation npc, int weight, int min, int max) {
+    /**
+     * One kind of group: the NPC type (or a mob's entity type: wargs, spiders), how likely, how many at once, and
+     * whether LOTR spawns it only in the dark (its spawnsInDarkness: orcs, wargs, spiders).
+     */
+    public record Entry(ResourceLocation npc, int weight, int min, int max, boolean dark) {
         public static final Codec<Entry> CODEC = RecordCodecBuilder.create(i -> i.group(
                 ResourceLocation.CODEC.fieldOf("npc").forGetter(Entry::npc),
                 Codec.INT.optionalFieldOf("weight", 1).forGetter(Entry::weight),
                 Codec.INT.optionalFieldOf("min", 1).forGetter(Entry::min),
-                Codec.INT.optionalFieldOf("max", 1).forGetter(Entry::max))
+                Codec.INT.optionalFieldOf("max", 1).forGetter(Entry::max),
+                Codec.BOOL.optionalFieldOf("dark", false).forGetter(Entry::dark))
                 .apply(i, Entry::new));
     }
 
@@ -28,13 +33,15 @@ public final class NpcSpawns {
      * @param cap how many NPCs may be near a player before no more spawn there
      * @param chance chance per spawn attempt (every {@code interval} ticks per player) that a group spawns
      * @param interval ticks between spawn attempts
+     * @param hostilesInDay LOTR's canSpawnHostilesInDay (Mordor...): dark entries spawn in daylight too
      */
-    public record Table(List<Entry> entries, int cap, float chance, int interval) {
+    public record Table(List<Entry> entries, int cap, float chance, int interval, boolean hostilesInDay) {
         public static final Codec<Table> CODEC = RecordCodecBuilder.create(i -> i.group(
                 Entry.CODEC.listOf().fieldOf("entries").forGetter(Table::entries),
                 Codec.INT.optionalFieldOf("cap", 8).forGetter(Table::cap),
                 Codec.FLOAT.optionalFieldOf("chance", 0.25f).forGetter(Table::chance),
-                Codec.INT.optionalFieldOf("interval", 100).forGetter(Table::interval))
+                Codec.INT.optionalFieldOf("interval", 100).forGetter(Table::interval),
+                Codec.BOOL.optionalFieldOf("hostiles_in_day", false).forGetter(Table::hostilesInDay))
                 .apply(i, Table::new));
     }
 

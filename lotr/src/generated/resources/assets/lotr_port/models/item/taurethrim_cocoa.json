@@ -1,7 +1,74 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "lotr_port:item/mug",
-    "layer1": "lotr_port:item/mug_tauredain_cocoa_liquid"
-  }
+    "layer0": "lotr_port:item/drink/taurethrim_cocoa/mug"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "lotr_port:vessel": 1
+      },
+      "model": "lotr_port:item/taurethrim_cocoa_clay"
+    },
+    {
+      "predicate": {
+        "lotr_port:vessel": 2
+      },
+      "model": "lotr_port:item/taurethrim_cocoa_goblet_gold"
+    },
+    {
+      "predicate": {
+        "lotr_port:vessel": 3
+      },
+      "model": "lotr_port:item/taurethrim_cocoa_goblet_silver"
+    },
+    {
+      "predicate": {
+        "lotr_port:vessel": 4
+      },
+      "model": "lotr_port:item/taurethrim_cocoa_goblet_copper"
+    },
+    {
+      "predicate": {
+        "lotr_port:vessel": 5
+      },
+      "model": "lotr_port:item/taurethrim_cocoa_goblet_wood"
+    },
+    {
+      "predicate": {
+        "lotr_port:vessel": 6
+      },
+      "model": "lotr_port:item/taurethrim_cocoa_skull"
+    },
+    {
+      "predicate": {
+        "lotr_port:vessel": 7
+      },
+      "model": "lotr_port:item/taurethrim_cocoa_glass"
+    },
+    {
+      "predicate": {
+        "lotr_port:vessel": 8
+      },
+      "model": "lotr_port:item/taurethrim_cocoa_bottle"
+    },
+    {
+      "predicate": {
+        "lotr_port:vessel": 9
+      },
+      "model": "lotr_port:item/taurethrim_cocoa_skin"
+    },
+    {
+      "predicate": {
+        "lotr_port:vessel": 10
+      },
+      "model": "lotr_port:item/taurethrim_cocoa_horn"
+    },
+    {
+      "predicate": {
+        "lotr_port:vessel": 11
+      },
+      "model": "lotr_port:item/taurethrim_cocoa_horn_gold"
+    }
+  ]
 }

@@ -3,8 +3,8 @@
   "temperature": 0.7,
   "downfall": 0.1,
   "effects": {
-    "fog_color": 12638463,
-    "sky_color": 7972607,
+    "fog_color": 7500401,
+    "sky_color": 8551538,
     "water_color": 9080439,
     "water_fog_color": 329011,
     "mood_sound": {
@@ -17,28 +17,38 @@
   "spawners": {
     "creature": [
       {
-        "type": "minecraft:sheep",
-        "weight": 12,
-        "minCount": 2,
-        "maxCount": 4
-      },
-      {
-        "type": "minecraft:pig",
-        "weight": 10,
-        "minCount": 2,
-        "maxCount": 4
-      },
-      {
-        "type": "minecraft:chicken",
-        "weight": 10,
-        "minCount": 2,
-        "maxCount": 4
-      },
-      {
-        "type": "minecraft:cow",
+        "type": "lotr_port:rhino",
         "weight": 8,
-        "minCount": 2,
+        "minCount": 4,
         "maxCount": 4
+      },
+      {
+        "type": "lotr_port:gemsbok",
+        "weight": 4,
+        "minCount": 4,
+        "maxCount": 4
+      }
+    ],
+    "water_ambient": [
+      {
+        "type": "minecraft:cod",
+        "weight": 10,
+        "minCount": 4,
+        "maxCount": 4
+      },
+      {
+        "type": "minecraft:salmon",
+        "weight": 5,
+        "minCount": 1,
+        "maxCount": 4
+      }
+    ],
+    "ambient": [
+      {
+        "type": "minecraft:bat",
+        "weight": 10,
+        "minCount": 8,
+        "maxCount": 8
       }
     ]
   },
@@ -52,7 +62,9 @@
   },
   "features": [
     [],
-    [],
+    [
+      "lotr_port:crater_lava"
+    ],
     [
       "lotr_port:roads"
     ],
@@ -78,14 +90,26 @@
       "lotr_port:ore/dirt_42",
       "lotr_port:ore/gold_ore_45",
       "lotr_port:ore/gravel_46",
-      "lotr_port:ore/iron_ore_49"
+      "lotr_port:ore/iron_ore_49",
+      "minecraft:ore_granite_upper",
+      "minecraft:ore_granite_lower",
+      "minecraft:ore_diorite_upper",
+      "minecraft:ore_diorite_lower",
+      "minecraft:ore_andesite_upper",
+      "minecraft:ore_andesite_lower",
+      "minecraft:ore_tuff"
     ],
-    [],
+    [
+      "lotr_port:dripstone"
+    ],
     [],
     [
       "lotr_port:trees/pertorogwaith",
+      "lotr_port:plant/reeds_0_9",
+      "lotr_port:plant/dried_reeds_0_1",
       "minecraft:patch_grass_plain",
-      "minecraft:patch_sugar_cane"
+      "minecraft:patch_sugar_cane",
+      "minecraft:patch_tall_grass"
     ],
     [
       "minecraft:freeze_top_layer"

@@ -1,0 +1,8 @@
+{
+  "type": "lotr_port:forest_floor",
+  "config": {
+    "fallen": 20.0,
+    "bushes": 13.333,
+    "logs": 0
+  }
+}

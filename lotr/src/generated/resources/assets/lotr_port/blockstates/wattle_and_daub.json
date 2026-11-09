@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "lotr_port:block/wattle_and_daub"
+      "model": "lotr_port:block/wattle_and_daub_connected"
     }
   }
 }

@@ -22,25 +22,36 @@
       "npc": "lotr_port:angmar_orc",
       "weight": 1,
       "min": 4,
-      "max": 6
+      "max": 6,
+      "dark": true
     },
     {
       "npc": "lotr_port:angmar_orc_archer",
       "weight": 1,
       "min": 4,
-      "max": 6
+      "max": 6,
+      "dark": true
+    },
+    {
+      "npc": "lotr_port:angmar_warg",
+      "weight": 1,
+      "min": 4,
+      "max": 4,
+      "dark": true
     },
     {
       "npc": "lotr_port:dol_guldur_orc",
       "weight": 1,
       "min": 4,
-      "max": 6
+      "max": 6,
+      "dark": true
     },
     {
       "npc": "lotr_port:dol_guldur_orc_archer",
       "weight": 1,
       "min": 4,
-      "max": 6
+      "max": 6,
+      "dark": true
     },
     {
       "npc": "lotr_port:galadhrim_warden",
@@ -58,13 +69,29 @@
       "npc": "lotr_port:gundabad_orc",
       "weight": 100,
       "min": 4,
-      "max": 6
+      "max": 6,
+      "dark": true
     },
     {
       "npc": "lotr_port:gundabad_orc_archer",
       "weight": 50,
       "min": 4,
-      "max": 6
+      "max": 6,
+      "dark": true
+    },
+    {
+      "npc": "lotr_port:gundabad_warg",
+      "weight": 45,
+      "min": 4,
+      "max": 4,
+      "dark": true
+    },
+    {
+      "npc": "lotr_port:mirkwood_spider",
+      "weight": 1,
+      "min": 4,
+      "max": 6,
+      "dark": true
     },
     {
       "npc": "lotr_port:wood_elf_scout",

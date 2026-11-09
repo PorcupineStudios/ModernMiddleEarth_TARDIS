@@ -9,7 +9,15 @@
     "lotr_port:dol_guldur_altar/1",
     "lotr_port:dol_guldur_altar/2"
   ],
-  "chance": 160,
+  "rolls": {
+    "lotr_port:dol_guldur": [
+      5,
+      160
+    ]
+  },
+  "lotr_success": {
+    "lotr_port:dol_guldur": 0.513
+  },
   "salt": 446739466,
   "ground": -1,
   "max_slope": 6,
