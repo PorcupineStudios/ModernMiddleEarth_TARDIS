@@ -18,6 +18,7 @@ import com.porcupinestudios.tardisrb.progression.Destination;
 import com.porcupinestudios.tardisrb.progression.TardisContent;
 import com.porcupinestudios.tardisrb.progression.Tuning;
 import com.porcupinestudios.tardisrb.progression.Unlocks;
+import java.util.Comparator;
 import java.util.Optional;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -33,13 +34,16 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.server.level.TicketType;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.tick.ServerTickEvent;
 
@@ -177,7 +181,12 @@ public final class Vortex {
         flight.putUUID("body", body.getUUID());
         tardis.setModuleData(FreeFlight.MODULE, flight);
         tardis.setLocation(Optional.of(GlobalPos.of(DIMENSION, body.blockPosition())));
-        pilot.ifPresent(p -> Piloting.seat(server, tardis, p));
+        // the lane has no player yet: keep the box's chunk loaded and seat the pilot once the box can be found
+        keepLoaded(vortex, body.position());
+        pilot.ifPresent(p -> {
+            trip.putUUID("pilot", p.getUUID());
+            tardis.setModuleData(MODULE, trip);
+        });
         return new Flight.Outcome(Optional.empty(), Optional.empty());
     }
 
@@ -194,11 +203,29 @@ public final class Vortex {
         }
     }
 
+    private static final TicketType<ChunkPos> TICKET = TicketType.create("tardis_rb_vortex",
+            Comparator.comparingLong(ChunkPos::toLong), 40);
+
+    /** Keeps the chunks round {@code at} entity-ticking for a couple of seconds (re-added each tick of a trip). */
+    private static void keepLoaded(ServerLevel vortex, Vec3 at) {
+        ChunkPos c = new ChunkPos(BlockPos.containing(at));
+        vortex.getChunkSource().addRegionTicket(TICKET, c, 2, c);
+    }
+
     /** One tick of a trip: progress, obstacles ahead, hits, arrival. */
     static void step(MinecraftServer server, ServerLevel vortex, TardisRecord tardis) {
         Tuning.VortexTuning t = TardisContent.tuning().vortex();
         CompoundTag trip = tardis.moduleData(MODULE);
         Optional<TardisBody> body = FreeFlight.body(server, tardis);
+        keepLoaded(vortex, body.map(TardisBody::position)
+                .orElse(new Vec3(trip.getDouble("lane_x"), LANE_Y, trip.getDouble("progress"))));
+        if (body.isPresent() && trip.hasUUID("pilot")) {
+            ServerPlayer pilot = server.getPlayerList().getPlayer(trip.getUUID("pilot"));
+            trip.remove("pilot");
+            if (pilot != null) {
+                pilot.sendSystemMessage(Piloting.seat(server, tardis, pilot));
+            }
+        }
         double progress;
         if (body.isPresent() && body.get().getControllingPassenger() != null) {
             progress = Math.max(trip.getDouble("progress"), body.get().getZ());
