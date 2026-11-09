@@ -1,0 +1,23 @@
+{
+  "items": [
+    {
+      "ingredient": {
+        "tag": "c:gems/amethyst"
+      },
+      "count": 6
+    },
+    {
+      "ingredient": {
+        "tag": "c:glass_blocks"
+      },
+      "count": 8
+    },
+    {
+      "ingredient": {
+        "item": "minecraft:redstone"
+      },
+      "count": 8
+    }
+  ],
+  "charge": 50
+}

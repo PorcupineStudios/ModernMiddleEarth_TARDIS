@@ -1,0 +1,7 @@
+{
+  "dimension": "minecraft:overworld",
+  "weight": 10,
+  "from": {
+    "minecraft:the_end": 6
+  }
+}

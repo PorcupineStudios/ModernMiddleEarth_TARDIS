@@ -27,6 +27,7 @@ public final class TardisClient {
         event.registerBlockEntityRenderer(TardisBlocks.CONSOLE_BE.get(), ConsoleRenderer::new);
         event.registerBlockEntityRenderer(TardisBlocks.EXTERIOR_BE.get(), ExteriorRenderer::new);
         event.registerEntityRenderer(TardisEntities.BODY.get(), TardisBodyRenderer::new);
+        event.registerEntityRenderer(TardisEntities.WORMHOLE.get(), WormholeRenderer::new);
     }
 
     /** The time vortex's sky settings (its tunnel is drawn by {@link VortexRenderer}). */

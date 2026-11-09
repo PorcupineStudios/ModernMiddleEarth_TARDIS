@@ -1,0 +1,23 @@
+{
+  "items": [
+    {
+      "ingredient": {
+        "tag": "c:ingots/copper"
+      },
+      "count": 16
+    },
+    {
+      "ingredient": {
+        "tag": "c:ingots/iron"
+      },
+      "count": 8
+    },
+    {
+      "ingredient": {
+        "item": "minecraft:redstone"
+      },
+      "count": 12
+    }
+  ],
+  "charge": 50
+}

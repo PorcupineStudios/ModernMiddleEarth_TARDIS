@@ -45,6 +45,41 @@ dimension, dodging obstacles, "to" the destination.
   how far through and off course it is, and the exterior side always shows Health H/M. At 0 health
   in the vortex for any reason (a hit, the command) it goes down at once. Tests: `outOfHealthItCrashLandsPartWay`, `theCourseCrossesDimensions`, `hullRepairsAndTheHealthCommand`;
   `departHitDebrisAndArrive` checks the damage lasts into the next trip.
+- **Wormholes** (Aaron 2026-11-09: openings in the vortex, "opaque portals by default but if you upgrade the scanner
+  system they become immersive portals", with "a vacuum effect that pulls the TARDIS" weakened by upgrading the
+  stabilizers; exits picked by weight per dimension). `vortex/Wormholes`, entity `entity/Wormhole`, drawn by
+  `client/WormholeRenderer`; numbers in tuning `vortex.wormholes`.
+  - **Placed** like debris, up to 96 blocks ahead: from `first` (80) every `gap` (150) blocks with `chance` (0.7),
+    anywhere across the tunnel. The trip keeps a list `wormholes` (entity id, centre, z, exit dimension, exit aim,
+    portal id); ones 12 blocks behind the box go, and `clearTrip` removes the rest. `next_wormhole` is the next z.
+  - **Exits** are data: `tardis/wormhole/*.json` = `{dimension, weight, from: {dimension: weight}}`. The weight on a
+    trip is `from[the dimension it left]`, else `from[the dimension it aims at]`, else `weight`. Defaults: overworld
+    10 (6 from the End), Nether 3 (8 from the Nether), End 1 (2 from the Nether, 6 from the End). Only dimensions in
+    this world count. With `respect_locks` (on) a dimension whose destination files are all still locked or
+    switched off for that TARDIS is left out; one with no destination file is fine. The exit spot is where the
+    course line has reached at that z, in that dimension's coordinates, pushed a random way up to `spread` (400).
+  - **Pull**: within `range` (28) the box is pulled across the tunnel toward the middle at up to `pull` (0.1
+    blocks/tick², fading to 0 at the range), times 1 - the `pull_resist` stat: stabilizers levels 0/1/2/3 =
+    0/0.35/0.6/0.8 (`subsystem/stabilizers.json`; repairs `stabilizers_1..3`, cost `stabilizer_coil`; start cap 1,
+    the restored-core milestone raises it to 3). Applied in `TardisBody.vortexPhysics`, so it works on the pilot's
+    own client; only that TARDIS's box feels its wormholes. Full steering (0.12) beats the strongest pull, so a
+    level-0 box has to steer away early; at level 3 it hardly notices. The autopilot doesn't dodge.
+  - **Sucked in**: the box's middle crossing the disc within `radius` (4) of its centre. The pilot is put back at
+    the console, the thrusters die, it crackles and spins into the disc for `suck_ticks` (30), then the trip ends:
+    a rift opens over the exit spot and the box is thrown out of it tumbling, thrusters off, from up to
+    `crash_height` up (`Vortex.dropInto`, shared with the crash landing). It loses `exit_damage` (5) health (never
+    below 1) and lands with a crater of `exit_crater` (0 = none). No charge is paid.
+  - **Scanner** (`subsystem/scanner.json`, stat `wormhole_sight` 0/1/2; repairs `scanner_1..2`, cost `scanner_lens`):
+    at `name_level` (1) the exterior monitor side shows "Wormhole in N: dimension" for the next one ahead; at
+    `see_through_level` (2) each new wormhole gets a round Immersive Portals portal (not teleporting, tag
+    `tardis_rb:wormhole`) showing its exit from 6 blocks over the ground, and only the disc's rim is drawn. One
+    portal per wormhole, removed with it.
+  - Ground under a roof (the Nether) is now the first floor below the aim's height, else below the roof; a spot
+    with nothing under it (the End's void) moves to the middle of the world.
+  - Tests: `wormholeExitsArePickedByWeight`, `stabilizersWeakenTheWormholePull`, `aWormholeSucksTheBoxIntoItsDimension`
+    (exits in the End: Nether chunks don't generate in time on the fast-ticking test server),
+    `theScannerMakesWormholesSeeThrough`. Other vortex tests switch wormholes off (`noWormholes`).
+  - Not done: stabilizers don't soften the debris/wall knock; the autopilot doesn't steer round wormholes.
 - **Refused while in the vortex**: `Flight.hop`/`jump`, the lever again, phase, thrusters off. The exterior side of
   the monitor shows "In the vortex: N%, off course D" (or CRASHING!) and Health H/M.
 - **Solid tube** (Aaron 2026-11-09: "make the tube have collision"): the box can reach `radius` (11) from the axis and
@@ -82,7 +117,7 @@ dimension, dodging obstacles, "to" the destination.
   from the cloud sandbox, so nothing was downloaded. Any seamless 1024 x 1024 image can replace them (wrapping both
   ways: u round the tube, v along it).
 - **Loading**: nobody may be in the lane (the pilot pressed Shift, or no pilot), so each tick of a trip adds a
-  short `tardis_rb_vortex` region ticket (entity-ticking) round the box, or round where it should be. The pilot's seat
+  short `tardis_rb_vortex` region ticket (radius 3: the box's chunk and the ring round it entity-ticking, so the next chunk is ready before it gets there) round the box, or round where it should be. The pilot's seat
   waits (trip `pilot`) until the box can be found, then `Piloting.seat` runs. Vanilla still stops ticking entities in
   a dimension 300 ticks after its last player leaves (`emptyTime`); the autopilot moves the box with `setPos` anyway.
 - Test: `gametest/VortexTests` (depart without a pilot or forced chunk, the box's chunk is still entity-ticking 100

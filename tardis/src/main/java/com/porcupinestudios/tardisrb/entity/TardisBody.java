@@ -68,6 +68,8 @@ public class TardisBody extends Entity {
     public Vec3 shockDir = new Vec3(0, 1, 0);
     /** Server: the ground block a crash landing hit (the middle of its crater), null until it crashes. */
     public BlockPos impactAt;
+    /** Server: the power of the crater it makes when a fall ends; NaN = tuning {@code vortex.damage.crater}. */
+    public double crater = Double.NaN;
 
     public TardisBody(EntityType<? extends TardisBody> type, Level level) {
         super(type, level);
@@ -279,6 +281,14 @@ public class TardisBody extends Entity {
             vx = vx * 0.8 + (entityData.get(LANE_X) + ahead.x - getX()) * 0.06;
             vy = vy * 0.8 + (entityData.get(LANE_Y) + ahead.y - getY()) * 0.06;
         }
+        // wormholes pull it toward their middle (Aaron 2026-11-09); the stabilizers weaken it (already in pull())
+        Vec3 middle = position().add(0, getBbHeight() / 2, 0);
+        for (Wormhole w : level().getEntitiesOfClass(Wormhole.class, getBoundingBox().inflate(40),
+                w -> w.owner().equals(tardis()))) {
+            Vec3 pull = w.pullOn(middle);
+            vx += pull.x;
+            vy += pull.y;
+        }
         double x = getX() + vx;
         double y = getY() + vy;
         Vec3 bend = Vortex.bend(getZ() + vz); // the tunnel winds: its axis where the box is going
@@ -311,7 +321,7 @@ public class TardisBody extends Entity {
     private void impact() {
         setCrashing(false);
         impactAt = blockPosition().below();
-        double crater = TardisContent.tuning().vortex().damage().crater();
+        double crater = Double.isNaN(this.crater) ? TardisContent.tuning().vortex().damage().crater() : this.crater;
         if (crater > 0) {
             level().explode(this, getX(), getY() + 0.5, getZ(), (float) crater, Level.ExplosionInteraction.TNT);
         }
@@ -401,6 +411,7 @@ public class TardisBody extends Entity {
         setThrusters(tag.getBoolean("thrusters"));
         setLook(tag.getInt("look"));
         setCrashing(tag.getBoolean("crashing"));
+        crater = tag.contains("crater") ? tag.getDouble("crater") : Double.NaN;
         setDoors(tag.getBoolean("doors_open"), false);
         if (tag.contains("lane_x")) {
             setLane(tag.getFloat("lane_x"), tag.getFloat("lane_y"));
@@ -413,6 +424,9 @@ public class TardisBody extends Entity {
         tag.putBoolean("thrusters", thrusters());
         tag.putInt("look", look());
         tag.putBoolean("crashing", crashing());
+        if (!Double.isNaN(crater)) {
+            tag.putDouble("crater", crater);
+        }
         tag.putBoolean("doors_open", doorsOpen());
         if (!Float.isNaN(entityData.get(LANE_X))) {
             tag.putFloat("lane_x", entityData.get(LANE_X));

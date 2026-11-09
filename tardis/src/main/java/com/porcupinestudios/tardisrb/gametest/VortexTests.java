@@ -12,6 +12,17 @@ import com.porcupinestudios.tardisrb.progression.Health;
 import com.porcupinestudios.tardisrb.progression.TardisContent;
 import com.porcupinestudios.tardisrb.repair.Repairs;
 import com.porcupinestudios.tardisrb.vortex.Vortex;
+import com.porcupinestudios.tardisrb.vortex.Wormholes;
+import com.porcupinestudios.tardisrb.progression.WormholeExit;
+import com.porcupinestudios.tardisrb.entity.TardisEntities;
+import com.porcupinestudios.tardisrb.entity.Wormhole;
+import java.util.List;
+import java.util.Map;
+import net.minecraft.nbt.Tag;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.Vec3;
 import java.util.Optional;
 import java.util.UUID;
 import com.mojang.authlib.GameProfile;
@@ -53,13 +64,14 @@ public final class VortexTests {
 
         // nobody is in the vortex to load the lane: the trip has to keep the box's own chunks loaded
         Flight.Outcome left = Vortex.depart(server, t, Optional.empty(), target, Optional.empty(), Optional.empty());
+        noWormholes(t);
         helper.assertTrue(left.done(), "it didn't set off: " + left.problem().map(c -> c.getString()).orElse(""));
         helper.assertTrue(Vortex.inVortex(t), "no trip recorded");
         helper.assertTrue(!(helper.getLevel().getBlockState(base).getBlock() instanceof ExteriorBlock),
                 "the exterior block is still there");
         helper.startSequence().thenIdle(100).thenExecute(() -> helper.assertTrue(FreeFlight.body(server, t)
                 .filter(b -> vortex.isPositionEntityTicking(b.blockPosition())).isPresent(),
-                "the box in the vortex isn't kept loaded"))
+                "the box in the vortex isn't kept loaded: " + FreeFlight.body(server, t).map(b -> b.position() + " " + b.level().dimension()) + " at " + t.location() + " trip " + t.moduleData(Vortex.MODULE) + " plot " + t.plot()))
                 .thenExecute(() -> {
             TardisBody body = FreeFlight.body(server, t).orElse(null);
             helper.assertTrue(body != null && body.level() == vortex && body.inLane(), "the box isn't in its vortex lane");
@@ -98,6 +110,7 @@ public final class VortexTests {
                 helper.assertTrue(Health.get(t) == health, "landing healed it: " + Health.get(t) + ", was " + health);
                 helper.assertTrue(Vortex.depart(server, t, Optional.empty(), base, Optional.empty(), Optional.empty())
                         .done() && Health.get(t) == health, "the next trip didn't start from the same health");
+                noWormholes(t);
                 Vortex.arrive(server, t);
                 helper.succeed();
             });
@@ -120,6 +133,7 @@ public final class VortexTests {
         BlockPos target = new BlockPos(base.getX() + 4, base.getY(), base.getZ());
         helper.assertTrue(Vortex.depart(server, t, Optional.empty(), target, Optional.empty(), Optional.empty()).done(),
                 "it didn't set off");
+        noWormholes(t);
         double[] crashAt = new double[1];
         helper.startSequence().thenIdle(60).thenExecute(() -> {
             Health.set(t, 0); // worn out mid-trip (as by /tardis health set 0): it goes down at once
@@ -243,5 +257,149 @@ public final class VortexTests {
         helper.assertTrue(most > 6, "the tunnel hardly bends: " + most);
         helper.assertTrue(steepest < 0.5, "a bend is too sharp to fly: " + steepest + " sideways per block");
         helper.succeed();
+    }
+
+    /** Stops wormholes turning up on a trip (for tests about something else). */
+    static void noWormholes(TardisRecord t) {
+        var trip = t.moduleData(Vortex.MODULE);
+        trip.putInt("next_wormhole", Integer.MAX_VALUE);
+        t.setModuleData(Vortex.MODULE, trip);
+    }
+
+    /** Raises a subsystem to {@code level} through its repairs, past the start cap (as the restored-core milestone). */
+    private static void upgrade(TardisRecord t, String subsystem, int level) {
+        t.passMilestone(TardisRB.id("restored_core"));
+        for (int i = 1; i <= level; i++) {
+            var id = TardisRB.id(subsystem + "_" + i);
+            t.applyRepair(id, TardisContent.repair(id).orElseThrow());
+        }
+    }
+
+    /** Wormhole exits are picked by weight from data, with the "from" weights for adjacent dimensions. */
+    @GameTest(template = "platform")
+    public static void wormholeExitsArePickedByWeight(GameTestHelper helper) {
+        helper.assertTrue(TardisContent.get().wormholes().size() >= 3, "the wormhole files didn't load: "
+                + TardisContent.get().wormholes().keySet());
+        var ow = Level.OVERWORLD;
+        var nether = Level.NETHER;
+        var end = Level.END;
+        var exits = List.of(new WormholeExit(ow, 10, Map.of()), new WormholeExit(nether, 3, Map.of(nether.location(), 8.0)),
+                new WormholeExit(end, 1, Map.of()));
+        var random = RandomSource.create(42);
+        int n = 20000;
+        int[] fromOverworld = new int[3];
+        int[] fromNether = new int[3];
+        for (int i = 0; i < n; i++) {
+            var a = Wormholes.pick(exits, ow.location(), ow.location(), d -> true, random).orElseThrow();
+            fromOverworld[a == ow ? 0 : a == nether ? 1 : 2]++;
+            var b = Wormholes.pick(exits, nether.location(), ow.location(), d -> true, random).orElseThrow();
+            fromNether[b == ow ? 0 : b == nether ? 1 : 2]++;
+            helper.assertTrue(Wormholes.pick(exits, ow.location(), ow.location(), d -> d != end, random)
+                    .filter(d -> d == end).isEmpty(), "picked a dimension that isn't allowed");
+        }
+        near(helper, fromOverworld[0] / (double) n, 10 / 14.0, "overworld from the overworld");
+        near(helper, fromOverworld[1] / (double) n, 3 / 14.0, "nether from the overworld");
+        near(helper, fromOverworld[2] / (double) n, 1 / 14.0, "end from the overworld");
+        near(helper, fromNether[1] / (double) n, 8 / 19.0, "nether from the nether (its from weight)");
+        helper.assertTrue(Wormholes.pick(exits, ow.location(), ow.location(), d -> false, random).isEmpty(),
+                "picked something with nothing allowed");
+        helper.succeed();
+    }
+
+    private static void near(GameTestHelper helper, double got, double want, String what) {
+        helper.assertTrue(Math.abs(got - want) < 0.02, what + ": " + got + ", expected about " + want);
+    }
+
+    /** The stabilizers weaken the wormholes' pull: level 3 leaves a fifth of it. */
+    @GameTest(template = "platform")
+    public static void stabilizersWeakenTheWormholePull(GameTestHelper helper) {
+        TardisRecord t = WreckTests.onPlatform(helper, Optional.empty());
+        double base = Wormholes.pull(t);
+        helper.assertTrue(base == TardisContent.tuning().vortex().wormholes().pull(), "level 0 pull " + base);
+        upgrade(t, "stabilizers", 1);
+        double one = Wormholes.pull(t);
+        upgrade(t, "stabilizers", 3);
+        double three = Wormholes.pull(t);
+        helper.assertTrue(one < base && three < one && Math.abs(three - base * 0.2) < 1.0E-9,
+                "the pull didn't drop with the stabilizers: " + base + ", " + one + ", " + three);
+        // and a wormhole uses it: pulling toward its middle, stronger nearer, nothing out of range
+        Wormhole hole = new Wormhole(TardisEntities.WORMHOLE.get(), helper.getLevel());
+        hole.setPos(0, 0, 0);
+        hole.setup(4, base, 28);
+        Vec3 near = hole.pullOn(new Vec3(3, 0, -4));
+        Vec3 far = hole.pullOn(new Vec3(3, 0, -20));
+        helper.assertTrue(near.x < 0 && far.x < 0 && near.x < far.x
+                && hole.pullOn(new Vec3(3, 0, -40)).equals(Vec3.ZERO),
+                "the pull isn't toward the middle and stronger nearer: " + near + " " + far);
+        helper.succeed();
+    }
+
+    /** Flying into a wormhole sucks the box in and throws it out in the wormhole's dimension, ending the trip. */
+    @GameTest(template = "platform", timeoutTicks = 600)
+    public static void aWormholeSucksTheBoxIntoItsDimension(GameTestHelper helper) {
+        MinecraftServer server = helper.getLevel().getServer();
+        ServerLevel vortex = server.getLevel(Vortex.DIMENSION);
+        var dim = server.getLevel(Level.END) != null ? Level.END : Level.OVERWORLD;
+        TardisRecord t = WreckTests.onPlatform(helper, Optional.empty());
+        BlockPos base = t.location().get().pos();
+        helper.assertTrue(Repairs.attempt(server, t, TardisRB.id("navigation_1"), Optional.empty()).done(),
+                "navigation repair");
+        t.addCharge(1000);
+        helper.assertTrue(Vortex.depart(server, t, Optional.empty(), base.east(20), Optional.empty(), Optional.empty())
+                .done(), "it didn't set off");
+        noWormholes(t);
+        double laneX = t.moduleData(Vortex.MODULE).getDouble("lane_x");
+        helper.startSequence().thenWaitUntil(() -> helper.assertTrue(FreeFlight.body(server, t).isPresent(),
+                "no box in the vortex")).thenExecute(() -> {
+            TardisBody body = FreeFlight.body(server, t).orElseThrow();
+            var trip = t.moduleData(Vortex.MODULE);
+            Wormhole hole = Wormholes.place(server, vortex, t, trip, body.getZ() + 20, 0, 0, dim);
+            t.setModuleData(Vortex.MODULE, trip);
+            helper.assertTrue(hole != null && !hole.open(), "the wormhole wasn't placed, or is see-through at scanner 0");
+        }).thenWaitUntil(() -> helper.assertTrue(!Vortex.inVortex(t), "still in the vortex")).thenExecute(() -> {
+            helper.assertTrue(t.location().get().dimension().equals(dim), "it came out in "
+                    + t.location().get().dimension().location() + ", not " + dim.location());
+        }).thenWaitUntil(() -> {
+            // the spot it was thrown out over loads a tick later
+            TardisBody out = FreeFlight.body(server, t).orElse(null);
+            helper.assertTrue(out != null && out.level().dimension().equals(dim) && !out.thrusters(),
+                    "no loose box thrown out in " + dim.location() + " at " + t.location() + " plot " + t.plot() + " flight " + t.moduleData(FreeFlight.MODULE));
+            helper.assertTrue(vortex.getEntitiesOfClass(Wormhole.class, new AABB(laneX - 64, 0, -10, laneX + 64, 256, 600))
+                    .isEmpty(), "a wormhole was left behind in the vortex");
+            helper.succeed();
+        });
+    }
+
+    /** With the scanner at level 2 a wormhole is see-through: an Immersive Portals portal fills it, gone after. */
+    @GameTest(template = "platform", timeoutTicks = 200)
+    public static void theScannerMakesWormholesSeeThrough(GameTestHelper helper) {
+        MinecraftServer server = helper.getLevel().getServer();
+        ServerLevel vortex = server.getLevel(Vortex.DIMENSION);
+        TardisRecord t = WreckTests.onPlatform(helper, Optional.empty());
+        BlockPos base = t.location().get().pos();
+        helper.assertTrue(Repairs.attempt(server, t, TardisRB.id("navigation_1"), Optional.empty()).done(),
+                "navigation repair");
+        t.addCharge(1000);
+        upgrade(t, "scanner", 2);
+        helper.assertTrue(Vortex.depart(server, t, Optional.empty(), base.east(20), Optional.empty(), Optional.empty())
+                .done(), "it didn't set off");
+        noWormholes(t);
+        helper.startSequence().thenWaitUntil(() -> helper.assertTrue(FreeFlight.body(server, t).isPresent(),
+                "no box in the vortex")).thenExecute(() -> {
+            TardisBody body = FreeFlight.body(server, t).orElseThrow();
+            var trip = t.moduleData(Vortex.MODULE);
+            // off to the side, so the autopilot flies past it
+            Wormhole hole = Wormholes.place(server, vortex, t, trip, body.getZ() + 10, 8, 0, Level.OVERWORLD);
+            t.setModuleData(Vortex.MODULE, trip);
+            var h = trip.getList("wormholes", Tag.TAG_COMPOUND).getCompound(0);
+            helper.assertTrue(hole != null && hole.open() && h.hasUUID("portal")
+                    && vortex.getEntity(h.getUUID("portal")) instanceof Portal p && !p.isTeleportable()
+                    && Wormholes.PORTAL_TAG.equals(p.portalTag), "no see-through portal in the wormhole");
+            helper.assertTrue(Wormholes.next(t).isPresent(), "the scanner doesn't see the wormhole ahead");
+            Entity portal = vortex.getEntity(h.getUUID("portal"));
+            Vortex.arrive(server, t);
+            helper.assertTrue(portal.isRemoved() && hole.isRemoved(), "the wormhole or its portal outlived the trip");
+            helper.succeed();
+        });
     }
 }

@@ -1,0 +1,14 @@
+{
+  "start_cap": 1,
+  "levels": [
+    {
+      "wormhole_sight": 0
+    },
+    {
+      "wormhole_sight": 1
+    },
+    {
+      "wormhole_sight": 2
+    }
+  ]
+}
