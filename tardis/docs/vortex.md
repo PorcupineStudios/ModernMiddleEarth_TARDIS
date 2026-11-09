@@ -37,6 +37,12 @@ dimension, dodging obstacles, "to" the destination.
   rush past, slowly turning) and paints it with the vortex texture as before. Puff tops are bright and the folds
   dark. `bolts` strikes jagged forked lightning over it (up to 4 at once, a new chance 3 times a second each,
   crackling and fading); the cloud near a strike lights up blue-white. The glow streaks are a fainter tube inside.
+- **Twisting tunnel** (Aaron 2026-11-09: "make the time vortex twist and turn"): the axis winds. `Vortex.bend(z)`
+  gives the sideways and up/down offset at distance z along the lane (two sine waves each way, up to about 11 off
+  the straight line, never steeper than 0.5 blocks per block; straight for the first 40 so departure is clean),
+  scaled by tuning `vortex.bend` (0 = straight). Everything follows it: the renderer bends each ring, the glow and
+  bolts; `keepInside` and the wall bounce measure from the bent axis; debris is placed on it; the autopilot steers
+  toward the axis 3 blocks ahead. `VortexTests.theTunnelBendsGently` checks the limits.
 - **Look**: dimension type `effects` "tardis_rb:time_vortex" -> `VortexRenderer.Effects` (no sky, no clouds, dark
   blue fog). `VortexRenderer` draws at AFTER_SKY, depth off, a tube of radius 16 round the lane axis, ±160 blocks:
   `textures/environment/time_vortex.png` (rings) scrolling along and twisting, plus `time_vortex_glow.png` added on

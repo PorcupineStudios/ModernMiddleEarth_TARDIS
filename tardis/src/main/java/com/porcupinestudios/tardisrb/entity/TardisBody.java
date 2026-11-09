@@ -174,7 +174,8 @@ public class TardisBody extends Entity {
     /**
      * In the vortex: no gravity, nothing to bump into but debris (it passes through it; {@code Vortex} works out the
      * hit). Flown, it drifts forward along the tunnel by itself (W faster, S slower, sprint boosts) while A / D and
-     * Q / E steer across it; it can't leave the tunnel's radius. Unflown, the server's autopilot carries it.
+     * Q / E steer across it; it can't leave the tunnel's radius round its winding axis ({@code Vortex.bend}), so the
+     * pilot has to follow the bends. Unflown, the server's autopilot carries it on and steers it round them.
      */
     private void vortexPhysics() {
         Tuning.Piloting p = TardisContent.tuning().flight().piloting();
@@ -196,13 +197,16 @@ public class TardisBody extends Entity {
             vz = vt.speed() * (1 + 0.5 * PilotInput.forward) * (PilotInput.boost ? p.boost() : 1)
                     * (PilotInput.brake ? 0.5 : 1);
         } else {
-            vx *= 0.8;
-            vy *= 0.8;
+            // the autopilot follows the tunnel's bends, steering for its middle a little ahead
+            Vec3 ahead = Vortex.bend(getZ() + 3);
+            vx = vx * 0.8 + (entityData.get(LANE_X) + ahead.x - getX()) * 0.06;
+            vy = vy * 0.8 + (entityData.get(LANE_Y) + ahead.y - getY()) * 0.06;
         }
         double x = getX() + vx;
         double y = getY() + vy;
-        double cx = entityData.get(LANE_X);
-        double cy = entityData.get(LANE_Y);
+        Vec3 bend = Vortex.bend(getZ() + vz); // the tunnel winds: its axis where the box is going
+        double cx = entityData.get(LANE_X) + bend.x;
+        double cy = entityData.get(LANE_Y) + bend.y;
         double ox = x - cx;
         double oy = y - cy;
         double r = Math.sqrt(ox * ox + oy * oy);

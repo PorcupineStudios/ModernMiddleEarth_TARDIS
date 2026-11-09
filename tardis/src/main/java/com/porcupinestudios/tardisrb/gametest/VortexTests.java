@@ -91,13 +91,33 @@ public final class VortexTests {
     /** The tube is solid: a point past the wall goes back onto it along the same line from the axis; inside stays. */
     @GameTest(template = "platform")
     public static void theTubeWallPushesBack(GameTestHelper helper) {
-        double ax = Vortex.laneX(3 * Vortex.LANE_SPACING + 40);
-        helper.assertTrue(ax == 3 * Vortex.LANE_SPACING + 0.5, "wrong lane axis " + ax);
-        helper.assertTrue(Vortex.keepInside(ax + 3, Vortex.LANE_Y - 4, 7, 10) == null, "a point inside was moved");
-        var back = Vortex.keepInside(ax + 12, Vortex.LANE_Y - 16, 7, 10);
-        helper.assertTrue(back != null && Math.abs(back.x - (ax + 6)) < 1.0E-9
-                && Math.abs(back.y - (Vortex.LANE_Y - 8)) < 1.0E-9 && back.z == 7,
-                "pushed back to " + back + ", not onto the wall");
+        double lane = Vortex.laneX(3 * Vortex.LANE_SPACING + 40);
+        helper.assertTrue(lane == 3 * Vortex.LANE_SPACING + 0.5, "wrong lane axis " + lane);
+        // the axis winds: measure from where it is at z 70
+        var bend = Vortex.bend(70);
+        double ax = lane + bend.x;
+        double ay = Vortex.LANE_Y + bend.y;
+        helper.assertTrue(Vortex.keepInside(ax + 3, ay - 4, 70, 10) == null, "a point inside was moved");
+        var back = Vortex.keepInside(ax + 12, ay - 16, 70, 10);
+        helper.assertTrue(back != null && Math.abs(back.x - (ax + 6)) < 1.0E-9 && Math.abs(back.y - (ay - 8)) < 1.0E-9
+                && back.z == 70, "pushed back to " + back + ", not onto the wall");
+        helper.succeed();
+    }
+
+    /** The tunnel twists and turns, but gently enough to fly: straight at the start, bends everywhere else. */
+    @GameTest(template = "platform")
+    public static void theTunnelBendsGently(GameTestHelper helper) {
+        helper.assertTrue(Vortex.bend(0).equals(net.minecraft.world.phys.Vec3.ZERO), "the start isn't straight");
+        double most = 0;
+        double steepest = 0;
+        for (int z = 0; z < 1200; z++) {
+            var a = Vortex.bend(z);
+            var b = Vortex.bend(z + 1);
+            most = Math.max(most, Math.hypot(a.x, a.y));
+            steepest = Math.max(steepest, Math.hypot(b.x - a.x, b.y - a.y));
+        }
+        helper.assertTrue(most > 6, "the tunnel hardly bends: " + most);
+        helper.assertTrue(steepest < 0.5, "a bend is too sharp to fly: " + steepest + " sideways per block");
         helper.succeed();
     }
 }

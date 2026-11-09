@@ -22,11 +22,13 @@ public record Tuning(CrashSite crashSite, Hop hop, Winder winder, Interior inter
      * can go; {@code min_length} + {@code length_per_block} x the trip's distance (hops) or {@code jump_length}
      * (jumps to another dimension), capped at {@code max_length}: how long the tunnel is. Obstacles every
      * {@code obstacle_gap} blocks (each a clump up to {@code obstacle_size} across); a hit costs {@code hit_charge} and
-     * moves the landing up to {@code hit_drift} blocks off target.
+     * moves the landing up to {@code hit_drift} blocks off target. {@code bend}: how much the tunnel winds (1 the usual
+     * bends, 0 straight; see {@code Vortex.bend}).
      */
     public record VortexTuning(boolean enabled, double speed, double radius, int minLength, double lengthPerBlock,
-            int jumpLength, int maxLength, int obstacleGap, int obstacleSize, long hitCharge, int hitDrift) {
-        static final VortexTuning DEFAULT = new VortexTuning(true, 0.7, 11, 160, 0.05, 480, 1200, 18, 3, 10, 6);
+            int jumpLength, int maxLength, int obstacleGap, int obstacleSize, long hitCharge, int hitDrift,
+            double bend) {
+        static final VortexTuning DEFAULT = new VortexTuning(true, 0.7, 11, 160, 0.05, 480, 1200, 18, 3, 10, 6, 1);
         static final Codec<VortexTuning> CODEC = RecordCodecBuilder.create(i -> i.group(
                 Codec.BOOL.optionalFieldOf("enabled", DEFAULT.enabled).forGetter(VortexTuning::enabled),
                 Codec.DOUBLE.optionalFieldOf("speed", DEFAULT.speed).forGetter(VortexTuning::speed),
@@ -39,7 +41,8 @@ public record Tuning(CrashSite crashSite, Hop hop, Winder winder, Interior inter
                 Codec.INT.optionalFieldOf("obstacle_gap", DEFAULT.obstacleGap).forGetter(VortexTuning::obstacleGap),
                 Codec.INT.optionalFieldOf("obstacle_size", DEFAULT.obstacleSize).forGetter(VortexTuning::obstacleSize),
                 Codec.LONG.optionalFieldOf("hit_charge", DEFAULT.hitCharge).forGetter(VortexTuning::hitCharge),
-                Codec.INT.optionalFieldOf("hit_drift", DEFAULT.hitDrift).forGetter(VortexTuning::hitDrift))
+                Codec.INT.optionalFieldOf("hit_drift", DEFAULT.hitDrift).forGetter(VortexTuning::hitDrift),
+                Codec.DOUBLE.optionalFieldOf("bend", DEFAULT.bend).forGetter(VortexTuning::bend))
                 .apply(i, VortexTuning::new));
     }
 
