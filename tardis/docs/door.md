@@ -47,3 +47,9 @@ Read when: the doors, Immersive Portals, portals for space.
   walls match (2 px sides, 2 px sill, lintel at 28 px). Portals opened before keep their old size until reopened.
 - The glow layer is a full-bright `entityCutoutNoCull`, not `RenderType.eyes`: the eyes pass doesn't seem to get IP's
   clipping, and the glowing lantern showed as a white box through the doorway (a guess from the screenshot).
+- **A loose box's doorway** (2026-11-09): `Doors.follow` moves the outside portal (and the inside one's destination)
+  every tick on the server. Door portals have Immersive Portals' default animation off (`disableDefaultAnimation`):
+  it eased each move over several ticks, so on clients the doorway trailed ~5 blocks behind a box flying the vortex.
+  The server's update still reaches a client a tick or more after the box (flown from that client, or lerped), so
+  `client/TardisBodyRenderer.keepDoorway` also puts the box's door portal (tag `tardis_rb:door`, within 3 blocks) on
+  the box as drawn, each frame.

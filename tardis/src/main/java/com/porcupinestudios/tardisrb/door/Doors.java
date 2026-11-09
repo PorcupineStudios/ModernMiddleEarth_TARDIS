@@ -228,9 +228,12 @@ public final class Doors {
         PortalAPI.setPortalTransformation(portal, bLevel.dimension(), b.center(), rotation(a.facing(), b.facing()),
                 1.0);
         portal.portalTag = TAG;
+        // a loose box's doorway moves every tick: the default animation would trail each move by several ticks
+        portal.disableDefaultAnimation();
         PortalAPI.spawnServerEntity(portal);
         Portal back = PortalAPI.createReversePortal(portal);
         back.portalTag = TAG;
+        back.disableDefaultAnimation();
         PortalAPI.spawnServerEntity(back);
         return Optional.of(new Portal[] {portal, back});
     }

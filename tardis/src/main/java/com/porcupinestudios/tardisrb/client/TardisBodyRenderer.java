@@ -2,6 +2,7 @@ package com.porcupinestudios.tardisrb.client;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
+import com.porcupinestudios.tardisrb.door.Doors;
 import com.porcupinestudios.tardisrb.entity.TardisBody;
 import com.porcupinestudios.tardisrb.progression.TardisContent;
 import net.minecraft.client.renderer.LightTexture;
@@ -11,6 +12,8 @@ import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
+import net.minecraft.world.phys.Vec3;
+import qouteall.imm_ptl.core.portal.Portal;
 
 /**
  * Draws the loose police box ({@link TardisBody}) with the same model and looks as the block
@@ -43,7 +46,23 @@ public final class TardisBodyRenderer extends EntityRenderer<TardisBody> {
                     ExteriorRenderer.GLOW)), LightTexture.FULL_BRIGHT);
         }
         pose.popPose();
+        if (body.doorsOpen()) {
+            keepDoorway(body, partialTick);
+        }
         super.render(body, yaw, partialTick, pose, buffers, light);
+    }
+
+    /**
+     * Keeps the open doorway's portal on the box as drawn this frame: the server moves it too, but its update reaches
+     * this client a tick or more after the box (flown from here, or lerped) has moved on.
+     */
+    private static void keepDoorway(TardisBody body, float partialTick) {
+        Vec3 at = Doors.outside(body).center().add(body.getPosition(partialTick).subtract(body.position()));
+        for (Portal p : body.level().getEntitiesOfClass(Portal.class, body.getBoundingBox().inflate(3),
+                p -> Doors.TAG.equals(p.portalTag))) {
+            p.setOriginPos(at);
+            p.updateCache();
+        }
     }
 
     /** How far open the doors are drawn (0 shut, 1 open), moving toward the body's door state over the swing time. */

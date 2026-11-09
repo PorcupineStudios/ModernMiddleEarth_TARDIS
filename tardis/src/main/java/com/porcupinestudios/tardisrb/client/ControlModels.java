@@ -7,6 +7,7 @@ import com.google.gson.JsonParser;
 import com.porcupinestudios.tardisrb.TardisRB;
 import com.porcupinestudios.tardisrb.block.ConsoleBlockEntity;
 import com.porcupinestudios.tardisrb.console.ConsoleLayout;
+import com.porcupinestudios.tardisrb.progression.Control;
 import java.io.Reader;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -65,6 +66,9 @@ public final class ControlModels {
     }
 
     public static Optional<Model> get(String model) {
+        if (model.equals(Control.MONITOR)) {
+            return Optional.empty(); // the console's own monitor, drawn by ConsoleRenderer: no control model file
+        }
         return LOADED.computeIfAbsent(model, ControlModels::load);
     }
 
