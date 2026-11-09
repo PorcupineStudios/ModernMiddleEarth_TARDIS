@@ -31,5 +31,10 @@ dimension, dodging obstacles, "to" the destination.
 - **Textures** come from `tools/vortex_texture.py` (seamless periodic noise, fixed seed); the image sites were blocked
   from the cloud sandbox, so nothing was downloaded. Any seamless 1024 x 1024 image can replace them (wrapping both
   ways: u round the tube, v along it).
-- Test: `gametest/VortexTests` (depart without a pilot, debris hit, arrive near the target). Not run: CI is blocked.
+- **Loading**: nobody may be in the lane (the pilot pressed Shift, or no pilot), so each tick of a trip adds a
+  short `tardis_rb_vortex` region ticket (entity-ticking) round the box, or round where it should be. The pilot's seat
+  waits (trip `pilot`) until the box can be found, then `Piloting.seat` runs. Vanilla still stops ticking entities in
+  a dimension 300 ticks after its last player leaves (`emptyTime`); the autopilot moves the box with `setPos` anyway.
+- Test: `gametest/VortexTests` (depart without a pilot or forced chunk, the box's chunk is still entity-ticking 100
+  ticks in, debris hit, arrive near the target). Run locally 2026-11-09: passes; fails with the ticket switched off.
 - Not done yet: the pilot's own view of progress (a HUD bar), sounds, other obstacle kinds, moving debris.
