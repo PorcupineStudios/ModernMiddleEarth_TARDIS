@@ -4,6 +4,7 @@ import com.porcupinestudios.tardisrb.TardisRB;
 import com.porcupinestudios.tardisrb.block.ExteriorBlock;
 import com.porcupinestudios.tardisrb.block.TardisBlocks;
 import com.porcupinestudios.tardisrb.core.TardisRecord;
+import com.porcupinestudios.tardisrb.door.Doors;
 import com.porcupinestudios.tardisrb.entity.TardisBody;
 import com.porcupinestudios.tardisrb.flight.Flight;
 import com.porcupinestudios.tardisrb.flight.FreeFlight;
@@ -15,10 +16,12 @@ import net.minecraft.gametest.framework.GameTest;
 import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.neoforged.neoforge.gametest.GameTestHolder;
 import net.neoforged.neoforge.gametest.PrefixGameTestTemplate;
+import qouteall.imm_ptl.core.portal.Portal;
 
 /**
  * Flying through the time vortex (Aaron 2026-11-09): setting off lifts the box into its lane in the vortex dimension;
@@ -55,6 +58,10 @@ public final class VortexTests {
             TardisBody body = FreeFlight.body(server, t).orElse(null);
             helper.assertTrue(body != null && body.level() == vortex && body.inLane(), "the box isn't in its vortex lane");
 
+            // the doors open in flight; landing has to take the doorway out of the vortex with the box
+            helper.assertTrue(Doors.open(server, t), "the doors didn't open in the vortex");
+            Entity doorway = vortex.getEntity(t.moduleData(Doors.MODULE).getUUID("outside"));
+            helper.assertTrue(doorway instanceof Portal, "no doorway portal in the vortex");
             long charge = t.charge();
             BlockPos ahead = body.blockPosition().south();
             vortex.setBlock(ahead, TardisBlocks.VORTEX_DEBRIS.get().defaultBlockState(), Block.UPDATE_CLIENTS);
@@ -69,6 +76,7 @@ public final class VortexTests {
                 helper.assertTrue(landed.done(), "it didn't land: " + landed.problem().map(c -> c.getString()).orElse(""));
                 helper.assertTrue(!Vortex.inVortex(t) && !FreeFlight.isLoose(t) && body.isRemoved(),
                         "the trip didn't end");
+                helper.assertTrue(doorway.isRemoved(), "the doorway portal was left in the vortex");
                 BlockPos at = t.location().get().pos();
                 helper.assertTrue(t.location().get().dimension().equals(helper.getLevel().dimension())
                         && Math.abs(at.getX() - target.getX()) <= 16 && Math.abs(at.getZ() - target.getZ()) <= 16,

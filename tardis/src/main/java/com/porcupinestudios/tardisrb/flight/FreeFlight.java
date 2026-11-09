@@ -184,6 +184,7 @@ public final class FreeFlight {
         if (!isLoose(tardis)) {
             return;
         }
+        Doors.close(server, tardis); // while the body is there: its doorway portal is found through it
         body(server, tardis).ifPresent(b -> {
             b.ejectPassengers();
             b.discard();
