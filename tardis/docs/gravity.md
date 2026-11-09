@@ -36,3 +36,14 @@ Read when: touching `space/Orbits`, `space/SpacePhysics`, `client/ClientSpacePhy
 - Next: slice 2, the solar system zone (3D, every body pulls, a sun; leaving a layer's top); slice 3, tilting.
 - Tests: `SpaceTests.gravityFadesAndOrbitsHold`, `gravityCommandsScaleGravity`, `gravityDirectionTurns` (falls onto
   a ceiling and a wall, saved).
+- Fast flight loads no chunks (Aaron 2026-11-04: extreme speeds were laggy; `space/SpaceChunks`). Space is void,
+  yet at 40 blocks a tick Minecraft still made, lit, saved and sent dozens of empty chunks a tick, and the client
+  froze whenever it outran them. A player faster than `chunk_skip_speed` (4 blocks a tick) is left out of chunk
+  loading until slower than half that: vanilla (`SpaceChunkMapMixin` on `ChunkMap.skipPlayer`, as a spectator who may
+  not generate chunks) and Immersive Portals (`compat/immportals` `ChunkVisibilityMixin`: no base loaders, so none
+  through portals either). The client makes the void itself (`client/SpaceVoidChunks`): empty chunks where it is and
+  where it will be in the next two ticks, loaded through the normal chunk packet handler; a chunk the server sends
+  replaces one, and still-empty ones further than render distance + 2 are dropped (Immersive Portals' client chunk
+  map has no range of its own). Known: while skipping, blocks someone built in space are not loaded (you fly through
+  them) and far players and entities are not seen. Test: `SpaceTests.fastSpaceFlightSkipsChunkLoading` (the rule, and
+  both hooks merged).

@@ -58,6 +58,7 @@ public final class SpaceTravel {
         NeoForge.EVENT_BUS.addListener(SpaceTravel::onChangeDimension);
         SeamPortals.register();
         SpacePhysics.register();
+        SpaceChunks.register();
         com.porcupinestudios.tardisrb.gravity.GravityScale.register();
         com.porcupinestudios.tardisrb.gravity.GravityDirection.register();
         com.porcupinestudios.tardisrb.gravity.Tilt.register();
