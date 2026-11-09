@@ -8,17 +8,24 @@ import com.porcupinestudios.tardisrb.entity.TardisBody;
 import com.porcupinestudios.tardisrb.flight.FreeFlight;
 import com.porcupinestudios.tardisrb.flight.Piloting;
 import com.porcupinestudios.tardisrb.repair.Repairs;
+import com.mojang.authlib.GameProfile;
+import io.netty.channel.embedded.EmbeddedChannel;
 import java.util.Optional;
+import java.util.UUID;
+import net.minecraft.network.Connection;
+import net.minecraft.network.protocol.PacketFlow;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.GlobalPos;
 import net.minecraft.gametest.framework.GameTest;
 import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.network.CommonListenerCookie;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.gametest.GameTestHolder;
 import net.neoforged.neoforge.gametest.PrefixGameTestTemplate;
+import net.neoforged.neoforge.network.registration.NetworkRegistry;
 import qouteall.imm_ptl.core.portal.Portal;
 
 /**
@@ -56,7 +63,8 @@ public final class FreeFlightTests {
             Entity out = helper.getLevel().getEntity(t.moduleData(Doors.MODULE).getUUID("outside"));
             helper.assertTrue(out instanceof Portal p
                     && p.getOriginPos().distanceTo(Doors.outside(body).center()) < 0.01,
-                    "the doorway didn't follow the box");
+                    "the doorway didn't follow the box: " + (out instanceof Portal p ? p.getOriginPos() : out)
+                    + " vs " + Doors.outside(body).center());
             Doors.close(server, t);
             helper.assertTrue(!body.doorsOpen() && out.isRemoved(), "the doors didn't close");
             FreeFlight.setThrusters(server, t, false, Optional.empty());
@@ -81,7 +89,7 @@ public final class FreeFlightTests {
         TardisRecord t = WreckTests.onPlatform(helper, Optional.empty());
         helper.assertTrue(Repairs.attempt(server, t, TardisRB.id("navigation_1"), Optional.empty()).done(),
                 "navigation repair");
-        ServerPlayer pilot = helper.makeMockServerPlayerInLevel();
+        ServerPlayer pilot = mockPlayer(helper);
         BlockPos stand = helper.absolutePos(new BlockPos(5, 2, 4));
         pilot.teleportTo(stand.getX() + 0.5, stand.getY(), stand.getZ() + 0.5);
         Vec3 start = pilot.position();
@@ -108,5 +116,28 @@ public final class FreeFlightTests {
                 helper.succeed();
             });
         });
+    }
+
+    /** {@link GameTestHelper#makeMockServerPlayerInLevel}, but its connection takes mod payloads (Immersive Portals sends
+     * one on join, which a plain mock connection refuses). */
+    private static ServerPlayer mockPlayer(GameTestHelper helper) {
+        CommonListenerCookie cookie = CommonListenerCookie.createInitial(new GameProfile(UUID.randomUUID(), "test-mock-player"), false);
+        ServerPlayer player = new ServerPlayer(helper.getLevel().getServer(), helper.getLevel(), cookie.gameProfile(),
+                cookie.clientInformation()) {
+            @Override
+            public boolean isSpectator() {
+                return false;
+            }
+
+            @Override
+            public boolean isCreative() {
+                return true;
+            }
+        };
+        Connection connection = new Connection(PacketFlow.SERVERBOUND);
+        new EmbeddedChannel(connection);
+        NetworkRegistry.configureMockConnection(connection);
+        helper.getLevel().getServer().getPlayerList().placeNewPlayer(connection, player, cookie);
+        return player;
     }
 }
