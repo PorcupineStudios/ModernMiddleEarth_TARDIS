@@ -9,7 +9,14 @@
     "lotr_port:hobbit_hole/1",
     "lotr_port:hobbit_hole/2"
   ],
-  "chance": 300,
+  "rolls": {
+    "lotr_port:white_downs": [
+      300
+    ]
+  },
+  "lotr_success": {
+    "lotr_port:white_downs": 0.095
+  },
   "salt": 667064096,
   "ground": 0,
   "max_slope": 6,

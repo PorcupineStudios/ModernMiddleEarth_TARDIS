@@ -9,7 +9,24 @@
     "lotr_port:high_elven_tower/1",
     "lotr_port:high_elven_tower/2"
   ],
-  "chance": 900,
+  "rolls": {
+    "lotr_port:lindon": [
+      300,
+      600,
+      1000,
+      900
+    ],
+    "lotr_port:lindon_woodlands": [
+      300,
+      600,
+      1000,
+      900
+    ]
+  },
+  "lotr_success": {
+    "lotr_port:lindon": 0.481,
+    "lotr_port:lindon_woodlands": 0.612
+  },
   "salt": 729446469,
   "ground": 0,
   "max_slope": 6,

@@ -1,0 +1,4183 @@
+{
+  "seed": 1,
+  "patches": 1148,
+  "chunks": 13599,
+  "biomes": {
+    "rohan": {
+      "chunks": 144,
+      "structures": [
+        {
+          "class": "lotr.common.world.structure.LOTRWorldGenRohanBarrow",
+          "chance": 600,
+          "calls": 144,
+          "placed": 62
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenRohanWatchtower",
+          "chance": 600,
+          "calls": 144,
+          "placed": 127
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenSmallStoneRuin",
+          "chance": 500,
+          "calls": 144,
+          "placed": 133
+        }
+      ]
+    },
+    "mistyMountains": {
+      "chunks": 122,
+      "structures": [
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenStoneRuin$STONE",
+          "chance": 500,
+          "calls": 122,
+          "placed": 122
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenStoneRuin$DWARVEN",
+          "chance": 1500,
+          "calls": 122,
+          "placed": 122
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenRuinedDwarvenTower",
+          "chance": 1000,
+          "calls": 122,
+          "placed": 5
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenSmallStoneRuin",
+          "chance": 400,
+          "calls": 122,
+          "placed": 26
+        }
+      ]
+    },
+    "shire": {
+      "chunks": 41,
+      "structures": [
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenHobbitHole",
+          "chance": 90,
+          "calls": 40,
+          "placed": 9
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenHobbitBurrow",
+          "chance": 45,
+          "calls": 40,
+          "placed": 25
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenHobbitHouse",
+          "chance": 45,
+          "calls": 40,
+          "placed": 25
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenHobbitTavern",
+          "chance": 70,
+          "calls": 40,
+          "placed": 7
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenHobbitWindmill",
+          "chance": 600,
+          "calls": 40,
+          "placed": 36
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenHobbitFarm",
+          "chance": 500,
+          "calls": 40,
+          "placed": 19
+        },
+        {
+          "class": "lotr.common.world.structure.LOTRWorldGenHobbitPicnicBench",
+          "chance": 40,
+          "calls": 40,
+          "placed": 3
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenStoneRuin$STONE",
+          "chance": 1500,
+          "calls": 40,
+          "placed": 40
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenStoneRuin$ARNOR",
+          "chance": 1500,
+          "calls": 40,
+          "placed": 40
+        }
+      ]
+    },
+    "shireWoodlands": {
+      "chunks": 143,
+      "structures": [
+        {
+          "class": "lotr.common.world.structure.LOTRWorldGenHobbitPicnicBench",
+          "chance": 40,
+          "calls": 143,
+          "placed": 0
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenStoneRuin$STONE",
+          "chance": 1500,
+          "calls": 143,
+          "placed": 143
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenStoneRuin$ARNOR",
+          "chance": 1500,
+          "calls": 143,
+          "placed": 143
+        }
+      ]
+    },
+    "mordor": {
+      "chunks": 57,
+      "structures": [
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenMordorCamp",
+          "chance": 100,
+          "calls": 56,
+          "placed": 56
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenMordorWargPit",
+          "chance": 300,
+          "calls": 56,
+          "placed": 33
+        },
+        {
+          "class": "lotr.common.world.structure.LOTRWorldGenMordorTower",
+          "chance": 500,
+          "calls": 56,
+          "placed": 42
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenBlackUrukFort",
+          "chance": 2000,
+          "calls": 56,
+          "placed": 27
+        }
+      ]
+    },
+    "mordorMountains": {
+      "chunks": 144,
+      "structures": [
+        {
+          "class": "lotr.common.world.structure.LOTRWorldGenMordorTower",
+          "chance": 400,
+          "calls": 139,
+          "placed": 100
+        }
+      ]
+    },
+    "gondor": {
+      "chunks": 104,
+      "structures": [
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenGondorWatchfort",
+          "chance": 800,
+          "calls": 92,
+          "placed": 38
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenGondorTurret",
+          "chance": 1000,
+          "calls": 92,
+          "placed": 66
+        },
+        {
+          "class": "lotr.common.world.structure.LOTRWorldGenGondorRuins",
+          "chance": 600,
+          "calls": 92,
+          "placed": 77
+        },
+        {
+          "class": "lotr.common.world.structure.LOTRWorldGenRuinedGondorTower",
+          "chance": 1000,
+          "calls": 92,
+          "placed": 71
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenGondorObelisk",
+          "chance": 1000,
+          "calls": 92,
+          "placed": 74
+        },
+        {
+          "class": "lotr.common.world.structure.LOTRWorldGenGondorRuin",
+          "chance": 1000,
+          "calls": 92,
+          "placed": 81
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenSmallStoneRuin",
+          "chance": 500,
+          "calls": 92,
+          "placed": 73
+        }
+      ]
+    },
+    "whiteMountains": {
+      "chunks": 143,
+      "structures": [
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenBeaconTower",
+          "chance": 100,
+          "calls": 143,
+          "placed": 35
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenSmallStoneRuin",
+          "chance": 500,
+          "calls": 143,
+          "placed": 34
+        }
+      ]
+    },
+    "lothlorien": {
+      "chunks": 133,
+      "structures": [
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenGaladhrimForge",
+          "chance": 120,
+          "calls": 133,
+          "placed": 17
+        }
+      ]
+    },
+    "celebrant": {
+      "chunks": 83,
+      "structures": [
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenGundabadCamp",
+          "chance": 4000,
+          "calls": 83,
+          "placed": 78
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenRuinedHouse",
+          "chance": 2000,
+          "calls": 83,
+          "placed": 65
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenBurntHouse",
+          "chance": 4000,
+          "calls": 83,
+          "placed": 61
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenRottenHouse",
+          "chance": 3000,
+          "calls": 83,
+          "placed": 70
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenStoneRuin$STONE",
+          "chance": 1000,
+          "calls": 83,
+          "placed": 83
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenStoneRuin$GALADHRIM",
+          "chance": 1000,
+          "calls": 83,
+          "placed": 83
+        }
+      ]
+    },
+    "ironHills": {
+      "chunks": 137,
+      "structures": [
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenDwarvenTower",
+          "chance": 300,
+          "calls": 137,
+          "placed": 12
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenDwarfSmithy",
+          "chance": 150,
+          "calls": 137,
+          "placed": 11
+        }
+      ]
+    },
+    "trollshaws": {
+      "chunks": 105,
+      "structures": [
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenSmallStoneRuin",
+          "chance": 300,
+          "calls": 105,
+          "placed": 58
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenRhudaurCastle",
+          "chance": 1000,
+          "calls": 105,
+          "placed": 105
+        }
+      ]
+    },
+    "woodlandRealm": {
+      "chunks": 121,
+      "structures": [
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenWoodElfHouse",
+          "chance": 16,
+          "calls": 121,
+          "placed": 9
+        },
+        {
+          "class": "lotr.common.world.structure.LOTRWorldGenWoodElfTower",
+          "chance": 100,
+          "calls": 121,
+          "placed": 63
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenWoodElvenForge",
+          "chance": 80,
+          "calls": 121,
+          "placed": 8
+        }
+      ]
+    },
+    "mirkwoodCorrupted": {
+      "chunks": 141,
+      "structures": [
+        {
+          "class": "lotr.common.world.structure.LOTRWorldGenRuinedWoodElfTower",
+          "chance": 500,
+          "calls": 141,
+          "placed": 58
+        }
+      ]
+    },
+    "rohanUrukHighlands": {
+      "chunks": 85,
+      "structures": [
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenUrukCamp",
+          "chance": 120,
+          "calls": 84,
+          "placed": 83
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenUrukWargPit",
+          "chance": 300,
+          "calls": 84,
+          "placed": 27
+        },
+        {
+          "class": "lotr.common.world.structure.LOTRWorldGenRuinedRohanWatchtower",
+          "chance": 300,
+          "calls": 84,
+          "placed": 65
+        },
+        {
+          "class": "lotr.common.world.feature.LOTRWorldGenBlastedLand",
+          "chance": 40,
+          "calls": 84,
+          "placed": 83
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenSmallStoneRuin",
+          "chance": 300,
+          "calls": 84,
+          "placed": 79
+        }
+      ]
+    },
+    "ithilien": {
+      "chunks": 144,
+      "structures": [
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenRuinedBeaconTower",
+          "chance": 200,
+          "calls": 143,
+          "placed": 143
+        },
+        {
+          "class": "lotr.common.world.structure.LOTRWorldGenGondorRuins",
+          "chance": 500,
+          "calls": 143,
+          "placed": 107
+        },
+        {
+          "class": "lotr.common.world.structure.LOTRWorldGenRuinedGondorTower",
+          "chance": 500,
+          "calls": 143,
+          "placed": 68
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenGondorObelisk",
+          "chance": 800,
+          "calls": 143,
+          "placed": 94
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenIthilienHideout",
+          "chance": 50,
+          "calls": 143,
+          "placed": 44
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenSmallStoneRuin",
+          "chance": 400,
+          "calls": 143,
+          "placed": 86
+        }
+      ]
+    },
+    "pelargir": {
+      "chunks": 79,
+      "structures": [
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenPelargirWatchfort",
+          "chance": 600,
+          "calls": 78,
+          "placed": 58
+        },
+        {
+          "class": "lotr.common.world.structure.LOTRWorldGenGondorRuins",
+          "chance": 600,
+          "calls": 78,
+          "placed": 68
+        },
+        {
+          "class": "lotr.common.world.structure.LOTRWorldGenRuinedGondorTower",
+          "chance": 1000,
+          "calls": 78,
+          "placed": 58
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenGondorObelisk",
+          "chance": 1000,
+          "calls": 78,
+          "placed": 74
+        },
+        {
+          "class": "lotr.common.world.structure.LOTRWorldGenGondorRuin",
+          "chance": 1000,
+          "calls": 78,
+          "placed": 70
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenSmallStoneRuin",
+          "chance": 500,
+          "calls": 78,
+          "placed": 74
+        }
+      ]
+    },
+    "loneLands": {
+      "chunks": 46,
+      "structures": [
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenGundabadCamp",
+          "chance": 1500,
+          "calls": 46,
+          "placed": 46
+        },
+        {
+          "class": "lotr.common.world.structure.LOTRWorldGenRuinedDunedainTower",
+          "chance": 800,
+          "calls": 46,
+          "placed": 37
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenRuinedHouse",
+          "chance": 1500,
+          "calls": 46,
+          "placed": 15
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenBurntHouse",
+          "chance": 1500,
+          "calls": 46,
+          "placed": 16
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenRottenHouse",
+          "chance": 2000,
+          "calls": 46,
+          "placed": 14
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenRangerCamp",
+          "chance": 2000,
+          "calls": 46,
+          "placed": 45
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenStoneRuin$STONE",
+          "chance": 400,
+          "calls": 46,
+          "placed": 46
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenStoneRuin$ARNOR",
+          "chance": 400,
+          "calls": 46,
+          "placed": 46
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenRangerWatchtower",
+          "chance": 2000,
+          "calls": 46,
+          "placed": 23
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenAngmarHillmanVillage",
+          "chance": 4000,
+          "calls": 46,
+          "placed": 46
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenAngmarHillmanHouse",
+          "chance": 1000,
+          "calls": 46,
+          "placed": 11
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenSmallStoneRuin",
+          "chance": 200,
+          "calls": 46,
+          "placed": 39
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenRhudaurCastle",
+          "chance": 1000,
+          "calls": 46,
+          "placed": 46
+        }
+      ]
+    },
+    "loneLandsHills": {
+      "chunks": 44,
+      "structures": [
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenGundabadCamp",
+          "chance": 1500,
+          "calls": 44,
+          "placed": 43
+        },
+        {
+          "class": "lotr.common.world.structure.LOTRWorldGenRuinedDunedainTower",
+          "chance": 800,
+          "calls": 44,
+          "placed": 40
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenRuinedHouse",
+          "chance": 1500,
+          "calls": 44,
+          "placed": 24
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenBurntHouse",
+          "chance": 1500,
+          "calls": 44,
+          "placed": 24
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenRottenHouse",
+          "chance": 2000,
+          "calls": 44,
+          "placed": 24
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenRangerCamp",
+          "chance": 2000,
+          "calls": 44,
+          "placed": 42
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenStoneRuin$STONE",
+          "chance": 400,
+          "calls": 44,
+          "placed": 44
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenStoneRuin$ARNOR",
+          "chance": 400,
+          "calls": 44,
+          "placed": 44
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenRangerWatchtower",
+          "chance": 2000,
+          "calls": 44,
+          "placed": 10
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenAngmarHillmanVillage",
+          "chance": 4000,
+          "calls": 44,
+          "placed": 44
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenAngmarHillmanHouse",
+          "chance": 1000,
+          "calls": 44,
+          "placed": 5
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenSmallStoneRuin",
+          "chance": 200,
+          "calls": 44,
+          "placed": 38
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenRhudaurCastle",
+          "chance": 1000,
+          "calls": 44,
+          "placed": 44
+        }
+      ]
+    },
+    "dunland": {
+      "chunks": 94,
+      "structures": [
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenDunlendingHouse",
+          "chance": 25,
+          "calls": 94,
+          "placed": 41
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenDunlendingTavern",
+          "chance": 100,
+          "calls": 94,
+          "placed": 25
+        },
+        {
+          "class": "lotr.common.world.structure.LOTRWorldGenDunlendingCampfire",
+          "chance": 40,
+          "calls": 94,
+          "placed": 0
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenDunlandHillFort",
+          "chance": 150,
+          "calls": 94,
+          "placed": 10
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenStoneRuin$STONE",
+          "chance": 500,
+          "calls": 94,
+          "placed": 94
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenSmallStoneRuin",
+          "chance": 300,
+          "calls": 94,
+          "placed": 69
+        }
+      ]
+    },
+    "angle": {
+      "chunks": 81,
+      "structures": [
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenRangerCamp",
+          "chance": 500,
+          "calls": 81,
+          "placed": 81
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenRangerWatchtower",
+          "chance": 1500,
+          "calls": 81,
+          "placed": 49
+        },
+        {
+          "class": "lotr.common.world.structure.LOTRWorldGenRuinedDunedainTower",
+          "chance": 800,
+          "calls": 81,
+          "placed": 76
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenRuinedHouse",
+          "chance": 2000,
+          "calls": 81,
+          "placed": 50
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenBurntHouse",
+          "chance": 2000,
+          "calls": 81,
+          "placed": 63
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenRottenHouse",
+          "chance": 4000,
+          "calls": 81,
+          "placed": 56
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenStoneRuin$STONE",
+          "chance": 400,
+          "calls": 81,
+          "placed": 81
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenStoneRuin$ARNOR",
+          "chance": 400,
+          "calls": 81,
+          "placed": 81
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenSmallStoneRuin",
+          "chance": 400,
+          "calls": 81,
+          "placed": 69
+        }
+      ]
+    },
+    "ettenmoors": {
+      "chunks": 58,
+      "structures": [
+        {
+          "class": "lotr.common.world.structure.LOTRWorldGenRuinedDunedainTower",
+          "chance": 500,
+          "calls": 58,
+          "placed": 43
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenStoneRuin$STONE",
+          "chance": 100,
+          "calls": 58,
+          "placed": 58
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenStoneRuin$ARNOR",
+          "chance": 100,
+          "calls": 58,
+          "placed": 58
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenStoneRuin$ANGMAR",
+          "chance": 100,
+          "calls": 58,
+          "placed": 58
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenAngmarHillmanVillage",
+          "chance": 1000,
+          "calls": 58,
+          "placed": 58
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenAngmarHillmanHouse",
+          "chance": 500,
+          "calls": 58,
+          "placed": 4
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenSmallStoneRuin",
+          "chance": 400,
+          "calls": 58,
+          "placed": 37
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenRhudaurCastle",
+          "chance": 3000,
+          "calls": 58,
+          "placed": 58
+        }
+      ]
+    },
+    "harondor": {
+      "chunks": 114,
+      "structures": [
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenNearHaradDesertCamp",
+          "chance": 3000,
+          "calls": 114,
+          "placed": 101
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenSmallStoneRuin",
+          "chance": 600,
+          "calls": 114,
+          "placed": 100
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenGondorObelisk",
+          "chance": 1000,
+          "calls": 114,
+          "placed": 102
+        },
+        {
+          "class": "lotr.common.world.structure.LOTRWorldGenRuinedGondorTower",
+          "chance": 1000,
+          "calls": 114,
+          "placed": 8
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenHarnedorTower",
+          "chance": 2000,
+          "calls": 114,
+          "placed": 97
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenMumakSkeleton",
+          "chance": 6000,
+          "calls": 114,
+          "placed": 87
+        }
+      ]
+    },
+    "eriador": {
+      "chunks": 75,
+      "structures": [
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenGundabadCamp",
+          "chance": 2000,
+          "calls": 75,
+          "placed": 66
+        },
+        {
+          "class": "lotr.common.world.structure.LOTRWorldGenRuinedDunedainTower",
+          "chance": 1000,
+          "calls": 75,
+          "placed": 62
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenRuinedHouse",
+          "chance": 2000,
+          "calls": 75,
+          "placed": 39
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenBurntHouse",
+          "chance": 3000,
+          "calls": 75,
+          "placed": 43
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenRottenHouse",
+          "chance": 3000,
+          "calls": 75,
+          "placed": 40
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenRangerCamp",
+          "chance": 1500,
+          "calls": 75,
+          "placed": 67
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenStoneRuin$STONE",
+          "chance": 800,
+          "calls": 75,
+          "placed": 75
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenStoneRuin$ARNOR",
+          "chance": 800,
+          "calls": 75,
+          "placed": 75
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenRangerWatchtower",
+          "chance": 2000,
+          "calls": 75,
+          "placed": 36
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenSmallStoneRuin",
+          "chance": 400,
+          "calls": 75,
+          "placed": 60
+        }
+      ]
+    },
+    "eriadorDowns": {
+      "chunks": 65,
+      "structures": [
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenGundabadCamp",
+          "chance": 2000,
+          "calls": 65,
+          "placed": 59
+        },
+        {
+          "class": "lotr.common.world.structure.LOTRWorldGenRuinedDunedainTower",
+          "chance": 1000,
+          "calls": 65,
+          "placed": 53
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenRuinedHouse",
+          "chance": 2000,
+          "calls": 65,
+          "placed": 38
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenBurntHouse",
+          "chance": 3000,
+          "calls": 65,
+          "placed": 34
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenRottenHouse",
+          "chance": 3000,
+          "calls": 65,
+          "placed": 35
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenRangerCamp",
+          "chance": 1500,
+          "calls": 65,
+          "placed": 60
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenStoneRuin$STONE",
+          "chance": 800,
+          "calls": 65,
+          "placed": 65
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenStoneRuin$ARNOR",
+          "chance": 800,
+          "calls": 65,
+          "placed": 65
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenRangerWatchtower",
+          "chance": 2000,
+          "calls": 65,
+          "placed": 23
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenSmallStoneRuin",
+          "chance": 400,
+          "calls": 65,
+          "placed": 54
+        }
+      ]
+    },
+    "erynVorn": {
+      "chunks": 78,
+      "structures": [
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenGundabadCamp",
+          "chance": 2000,
+          "calls": 78,
+          "placed": 72
+        },
+        {
+          "class": "lotr.common.world.structure.LOTRWorldGenRuinedDunedainTower",
+          "chance": 1000,
+          "calls": 78,
+          "placed": 55
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenRuinedHouse",
+          "chance": 2000,
+          "calls": 78,
+          "placed": 28
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenBurntHouse",
+          "chance": 3000,
+          "calls": 78,
+          "placed": 28
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenRottenHouse",
+          "chance": 3000,
+          "calls": 78,
+          "placed": 24
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenRangerCamp",
+          "chance": 1500,
+          "calls": 78,
+          "placed": 72
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenStoneRuin$STONE",
+          "chance": 800,
+          "calls": 78,
+          "placed": 78
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenStoneRuin$ARNOR",
+          "chance": 800,
+          "calls": 78,
+          "placed": 78
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenRangerWatchtower",
+          "chance": 2000,
+          "calls": 78,
+          "placed": 5
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenSmallStoneRuin",
+          "chance": 400,
+          "calls": 78,
+          "placed": 60
+        }
+      ]
+    },
+    "greyMountains": {
+      "chunks": 119,
+      "structures": [
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenStoneRuin$STONE",
+          "chance": 500,
+          "calls": 119,
+          "placed": 119
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenStoneRuin$DWARVEN",
+          "chance": 1000,
+          "calls": 119,
+          "placed": 119
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenRuinedDwarvenTower",
+          "chance": 1000,
+          "calls": 119,
+          "placed": 1
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenSmallStoneRuin",
+          "chance": 500,
+          "calls": 119,
+          "placed": 69
+        }
+      ]
+    },
+    "midgewater": {
+      "chunks": 140,
+      "structures": [
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenRottenHouse",
+          "chance": 100,
+          "calls": 140,
+          "placed": 42
+        }
+      ]
+    },
+    "brownLands": {
+      "chunks": 141,
+      "structures": [
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenStoneRuin$STONE",
+          "chance": 2000,
+          "calls": 141,
+          "placed": 141
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenSmallStoneRuin",
+          "chance": 1000,
+          "calls": 141,
+          "placed": 134
+        }
+      ]
+    },
+    "ocean": {
+      "chunks": 142,
+      "structures": [
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenNumenorRuin",
+          "chance": 500,
+          "calls": 142,
+          "placed": 142
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenSmallStoneRuin",
+          "chance": 400,
+          "calls": 142,
+          "placed": 0
+        }
+      ]
+    },
+    "anduinHills": {
+      "chunks": 95,
+      "structures": [
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenGundabadCamp",
+          "chance": 1500,
+          "calls": 95,
+          "placed": 88
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenRuinedHouse",
+          "chance": 2000,
+          "calls": 95,
+          "placed": 51
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenBurntHouse",
+          "chance": 3000,
+          "calls": 95,
+          "placed": 48
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenRottenHouse",
+          "chance": 3000,
+          "calls": 95,
+          "placed": 49
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenStoneRuin$STONE",
+          "chance": 400,
+          "calls": 95,
+          "placed": 95
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenStoneRuin$GALADHRIM",
+          "chance": 1500,
+          "calls": 95,
+          "placed": 95
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenSmallStoneRuin",
+          "chance": 400,
+          "calls": 95,
+          "placed": 82
+        }
+      ]
+    },
+    "gladdenFields": {
+      "chunks": 98,
+      "structures": [
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenGundabadCamp",
+          "chance": 1500,
+          "calls": 98,
+          "placed": 41
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenRuinedHouse",
+          "chance": 2000,
+          "calls": 98,
+          "placed": 20
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenBurntHouse",
+          "chance": 3000,
+          "calls": 98,
+          "placed": 27
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenRottenHouse",
+          "chance": 3000,
+          "calls": 98,
+          "placed": 23
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenStoneRuin$STONE",
+          "chance": 400,
+          "calls": 98,
+          "placed": 98
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenStoneRuin$GALADHRIM",
+          "chance": 1500,
+          "calls": 98,
+          "placed": 98
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenSmallStoneRuin",
+          "chance": 400,
+          "calls": 98,
+          "placed": 16
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenRottenHouse",
+          "chance": 400,
+          "calls": 98,
+          "placed": 30
+        }
+      ]
+    },
+    "lothlorienEdge": {
+      "chunks": 127,
+      "structures": [
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenGaladhrimForge",
+          "chance": 120,
+          "calls": 127,
+          "placed": 61
+        }
+      ]
+    },
+    "forodwaith": {
+      "chunks": 126,
+      "structures": [
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenRuinedHouse",
+          "chance": 4000,
+          "calls": 126,
+          "placed": 0
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenStoneRuin$STONE",
+          "chance": 4000,
+          "calls": 126,
+          "placed": 126
+        }
+      ]
+    },
+    "enedwaith": {
+      "chunks": 93,
+      "structures": [
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenRuinedHouse",
+          "chance": 1500,
+          "calls": 93,
+          "placed": 46
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenBurntHouse",
+          "chance": 3000,
+          "calls": 93,
+          "placed": 48
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenRottenHouse",
+          "chance": 3000,
+          "calls": 93,
+          "placed": 44
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenGondorObelisk",
+          "chance": 2000,
+          "calls": 93,
+          "placed": 90
+        },
+        {
+          "class": "lotr.common.world.structure.LOTRWorldGenGondorRuin",
+          "chance": 2000,
+          "calls": 93,
+          "placed": 77
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenStoneRuin$STONE",
+          "chance": 500,
+          "calls": 93,
+          "placed": 93
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenSmallStoneRuin",
+          "chance": 400,
+          "calls": 93,
+          "placed": 83
+        }
+      ]
+    },
+    "angmar": {
+      "chunks": 54,
+      "structures": [
+        {
+          "class": "lotr.common.world.structure.LOTRWorldGenAngmarTower",
+          "chance": 300,
+          "calls": 54,
+          "placed": 14
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenStoneRuin$ANGMAR",
+          "chance": 40,
+          "calls": 54,
+          "placed": 54
+        },
+        {
+          "class": "lotr.common.world.feature.LOTRWorldGenBlastedLand",
+          "chance": 40,
+          "calls": 54,
+          "placed": 51
+        },
+        {
+          "class": "lotr.common.world.structure.LOTRWorldGenAngmarShrine",
+          "chance": 200,
+          "calls": 54,
+          "placed": 19
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenAngmarWargPit",
+          "chance": 200,
+          "calls": 54,
+          "placed": 9
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenAngmarCamp",
+          "chance": 50,
+          "calls": 54,
+          "placed": 49
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenAngmarHillmanVillage",
+          "chance": 400,
+          "calls": 54,
+          "placed": 54
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenSmallStoneRuin",
+          "chance": 300,
+          "calls": 54,
+          "placed": 40
+        }
+      ]
+    },
+    "eregion": {
+      "chunks": 115,
+      "structures": [
+        {
+          "class": "lotr.common.world.structure.LOTRWorldGenRuinedHighElvenTurret",
+          "chance": 500,
+          "calls": 115,
+          "placed": 109
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenStoneRuin$HIGH_ELVEN",
+          "chance": 50,
+          "calls": 115,
+          "placed": 115
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenRuinedEregionForge",
+          "chance": 100,
+          "calls": 115,
+          "placed": 1
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenSmallStoneRuin",
+          "chance": 300,
+          "calls": 115,
+          "placed": 89
+        }
+      ]
+    },
+    "lindon": {
+      "chunks": 104,
+      "structures": [
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenHighElfHouse",
+          "chance": 300,
+          "calls": 104,
+          "placed": 61
+        },
+        {
+          "class": "lotr.common.world.structure.LOTRWorldGenHighElvenHall",
+          "chance": 600,
+          "calls": 104,
+          "placed": 24
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenHighElvenForge",
+          "chance": 1000,
+          "calls": 104,
+          "placed": 21
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenHighElvenTower",
+          "chance": 900,
+          "calls": 104,
+          "placed": 50
+        }
+      ]
+    },
+    "lindonWoodlands": {
+      "chunks": 103,
+      "structures": [
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenHighElfHouse",
+          "chance": 300,
+          "calls": 103,
+          "placed": 65
+        },
+        {
+          "class": "lotr.common.world.structure.LOTRWorldGenHighElvenHall",
+          "chance": 600,
+          "calls": 103,
+          "placed": 6
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenHighElvenForge",
+          "chance": 1000,
+          "calls": 103,
+          "placed": 0
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenHighElvenTower",
+          "chance": 900,
+          "calls": 103,
+          "placed": 63
+        }
+      ]
+    },
+    "eastBight": {
+      "chunks": 127,
+      "structures": [
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenRuinedHouse",
+          "chance": 500,
+          "calls": 127,
+          "placed": 79
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenBurntHouse",
+          "chance": 1000,
+          "calls": 127,
+          "placed": 82
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenStoneRuin$STONE",
+          "chance": 1000,
+          "calls": 127,
+          "placed": 127
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenSmallStoneRuin",
+          "chance": 400,
+          "calls": 127,
+          "placed": 102
+        }
+      ]
+    },
+    "blueMountains": {
+      "chunks": 127,
+      "structures": [
+        {
+          "class": "lotr.common.world.structure.LOTRWorldGenBlueMountainsStronghold",
+          "chance": 400,
+          "calls": 121,
+          "placed": 33
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenBlueMountainsSmithy",
+          "chance": 150,
+          "calls": 121,
+          "placed": 7
+        }
+      ]
+    },
+    "mirkwoodMountains": {
+      "chunks": 144,
+      "structures": [
+        {
+          "class": "lotr.common.world.structure.LOTRWorldGenRuinedWoodElfTower",
+          "chance": 500,
+          "calls": 144,
+          "placed": 0
+        }
+      ]
+    },
+    "wilderland": {
+      "chunks": 73,
+      "structures": [
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenDolGuldurCamp",
+          "chance": 2000,
+          "calls": 73,
+          "placed": 68
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenMordorCamp",
+          "chance": 3000,
+          "calls": 73,
+          "placed": 68
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenRuinedHouse",
+          "chance": 2000,
+          "calls": 73,
+          "placed": 35
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenBurntHouse",
+          "chance": 3000,
+          "calls": 73,
+          "placed": 33
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenRottenHouse",
+          "chance": 3000,
+          "calls": 73,
+          "placed": 36
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenStoneRuin$STONE",
+          "chance": 500,
+          "calls": 73,
+          "placed": 73
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenSmallStoneRuin",
+          "chance": 400,
+          "calls": 73,
+          "placed": 61
+        }
+      ]
+    },
+    "nurn": {
+      "chunks": 144,
+      "structures": [
+        {
+          "class": "lotr.common.world.structure.LOTRWorldGenNurnWheatFarm",
+          "chance": 40,
+          "calls": 138,
+          "placed": 21
+        },
+        {
+          "class": "lotr.common.world.structure.LOTRWorldGenOrcSlaverTower",
+          "chance": 200,
+          "calls": 138,
+          "placed": 82
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenSmallStoneRuin",
+          "chance": 400,
+          "calls": 138,
+          "placed": 116
+        }
+      ]
+    },
+    "nurnen": {
+      "chunks": 144,
+      "structures": [
+        {
+          "class": "lotr.common.world.structure.LOTRWorldGenNurnWheatFarm",
+          "chance": 40,
+          "calls": 140,
+          "placed": 0
+        },
+        {
+          "class": "lotr.common.world.structure.LOTRWorldGenOrcSlaverTower",
+          "chance": 200,
+          "calls": 140,
+          "placed": 0
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenSmallStoneRuin",
+          "chance": 400,
+          "calls": 140,
+          "placed": 0
+        }
+      ]
+    },
+    "adornland": {
+      "chunks": 58,
+      "structures": [
+        {
+          "class": "lotr.common.world.structure.LOTRWorldGenRohanBarrow",
+          "chance": 4000,
+          "calls": 54,
+          "placed": 0
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenDunlendingHouse",
+          "chance": 150,
+          "calls": 54,
+          "placed": 44
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenDunlendingTavern",
+          "chance": 250,
+          "calls": 54,
+          "placed": 38
+        },
+        {
+          "class": "lotr.common.world.structure.LOTRWorldGenDunlendingCampfire",
+          "chance": 200,
+          "calls": 54,
+          "placed": 23
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenDunlandHillFort",
+          "chance": 700,
+          "calls": 54,
+          "placed": 37
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenStoneRuin$STONE",
+          "chance": 600,
+          "calls": 54,
+          "placed": 54
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenSmallStoneRuin",
+          "chance": 300,
+          "calls": 54,
+          "placed": 47
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenUrukCamp",
+          "chance": 2000,
+          "calls": 54,
+          "placed": 50
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenUrukWargPit",
+          "chance": 3000,
+          "calls": 54,
+          "placed": 31
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenRuinedHouse",
+          "chance": 500,
+          "calls": 54,
+          "placed": 38
+        },
+        {
+          "class": "lotr.common.world.structure.LOTRWorldGenRuinedRohanWatchtower",
+          "chance": 500,
+          "calls": 54,
+          "placed": 0
+        },
+        {
+          "class": "lotr.common.world.feature.LOTRWorldGenBlastedLand",
+          "chance": 400,
+          "calls": 54,
+          "placed": 54
+        }
+      ]
+    },
+    "angmarMountains": {
+      "chunks": 55,
+      "structures": [
+        {
+          "class": "lotr.common.world.structure.LOTRWorldGenAngmarTower",
+          "chance": 300,
+          "calls": 55,
+          "placed": 0
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenStoneRuin$ANGMAR",
+          "chance": 40,
+          "calls": 55,
+          "placed": 55
+        },
+        {
+          "class": "lotr.common.world.feature.LOTRWorldGenBlastedLand",
+          "chance": 40,
+          "calls": 55,
+          "placed": 32
+        },
+        {
+          "class": "lotr.common.world.structure.LOTRWorldGenAngmarShrine",
+          "chance": 200,
+          "calls": 55,
+          "placed": 0
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenAngmarWargPit",
+          "chance": 200,
+          "calls": 55,
+          "placed": 1
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenAngmarCamp",
+          "chance": 50,
+          "calls": 55,
+          "placed": 37
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenAngmarHillmanVillage",
+          "chance": 400,
+          "calls": 55,
+          "placed": 55
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenSmallStoneRuin",
+          "chance": 300,
+          "calls": 55,
+          "placed": 20
+        }
+      ]
+    },
+    "anduinMouth": {
+      "chunks": 136,
+      "structures": [
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenRottenHouse",
+          "chance": 500,
+          "calls": 136,
+          "placed": 45
+        }
+      ]
+    },
+    "entwashMouth": {
+      "chunks": 135,
+      "structures": [
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenRottenHouse",
+          "chance": 500,
+          "calls": 134,
+          "placed": 36
+        }
+      ]
+    },
+    "dorEnErnil": {
+      "chunks": 102,
+      "structures": [
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenDolAmrothWatchfort",
+          "chance": 800,
+          "calls": 101,
+          "placed": 39
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenGondorObelisk",
+          "chance": 1000,
+          "calls": 101,
+          "placed": 78
+        },
+        {
+          "class": "lotr.common.world.structure.LOTRWorldGenGondorRuin",
+          "chance": 1000,
+          "calls": 101,
+          "placed": 91
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenSmallStoneRuin",
+          "chance": 600,
+          "calls": 101,
+          "placed": 80
+        },
+        {
+          "class": "lotr.common.world.structure.LOTRWorldGenGondorRuins",
+          "chance": 600,
+          "calls": 101,
+          "placed": 89
+        }
+      ]
+    },
+    "dorEnErnilHills": {
+      "chunks": 89,
+      "structures": [
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenDolAmrothWatchfort",
+          "chance": 800,
+          "calls": 88,
+          "placed": 25
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenGondorObelisk",
+          "chance": 1000,
+          "calls": 88,
+          "placed": 80
+        },
+        {
+          "class": "lotr.common.world.structure.LOTRWorldGenGondorRuin",
+          "chance": 1000,
+          "calls": 88,
+          "placed": 79
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenSmallStoneRuin",
+          "chance": 600,
+          "calls": 88,
+          "placed": 76
+        },
+        {
+          "class": "lotr.common.world.structure.LOTRWorldGenGondorRuins",
+          "chance": 600,
+          "calls": 88,
+          "placed": 79
+        }
+      ]
+    },
+    "rohanWoodlands": {
+      "chunks": 140,
+      "structures": [
+        {
+          "class": "lotr.common.world.structure.LOTRWorldGenRohanBarrow",
+          "chance": 600,
+          "calls": 140,
+          "placed": 0
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenRohanWatchtower",
+          "chance": 600,
+          "calls": 140,
+          "placed": 115
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenSmallStoneRuin",
+          "chance": 500,
+          "calls": 140,
+          "placed": 108
+        }
+      ]
+    },
+    "gondorWoodlands": {
+      "chunks": 101,
+      "structures": [
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenGondorWatchfort",
+          "chance": 800,
+          "calls": 100,
+          "placed": 17
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenGondorTurret",
+          "chance": 1000,
+          "calls": 100,
+          "placed": 20
+        },
+        {
+          "class": "lotr.common.world.structure.LOTRWorldGenGondorRuins",
+          "chance": 600,
+          "calls": 100,
+          "placed": 76
+        },
+        {
+          "class": "lotr.common.world.structure.LOTRWorldGenRuinedGondorTower",
+          "chance": 1000,
+          "calls": 100,
+          "placed": 25
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenGondorObelisk",
+          "chance": 1000,
+          "calls": 100,
+          "placed": 92
+        },
+        {
+          "class": "lotr.common.world.structure.LOTRWorldGenGondorRuin",
+          "chance": 1000,
+          "calls": 100,
+          "placed": 72
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenSmallStoneRuin",
+          "chance": 500,
+          "calls": 100,
+          "placed": 85
+        }
+      ]
+    },
+    "barrowDowns": {
+      "chunks": 75,
+      "structures": [
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenBDBarrow",
+          "chance": 10,
+          "calls": 75,
+          "placed": 12
+        },
+        {
+          "class": "lotr.common.world.structure.LOTRWorldGenRuinedDunedainTower",
+          "chance": 500,
+          "calls": 75,
+          "placed": 73
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenStoneRuin$STONE",
+          "chance": 30,
+          "calls": 75,
+          "placed": 75
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenStoneRuin$ARNOR",
+          "chance": 30,
+          "calls": 75,
+          "placed": 75
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenSmallStoneRuin",
+          "chance": 200,
+          "calls": 75,
+          "placed": 70
+        }
+      ]
+    },
+    "longMarshes": {
+      "chunks": 102,
+      "structures": [
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenGundabadCamp",
+          "chance": 2000,
+          "calls": 102,
+          "placed": 45
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenRuinedHouse",
+          "chance": 2000,
+          "calls": 102,
+          "placed": 24
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenBurntHouse",
+          "chance": 3000,
+          "calls": 102,
+          "placed": 23
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenRottenHouse",
+          "chance": 3000,
+          "calls": 102,
+          "placed": 31
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenStoneRuin$STONE",
+          "chance": 800,
+          "calls": 102,
+          "placed": 102
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenSmallStoneRuin",
+          "chance": 600,
+          "calls": 102,
+          "placed": 26
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenRottenHouse",
+          "chance": 400,
+          "calls": 102,
+          "placed": 27
+        }
+      ]
+    },
+    "ithilienHills": {
+      "chunks": 144,
+      "structures": [
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenRuinedBeaconTower",
+          "chance": 200,
+          "calls": 144,
+          "placed": 144
+        },
+        {
+          "class": "lotr.common.world.structure.LOTRWorldGenGondorRuins",
+          "chance": 500,
+          "calls": 144,
+          "placed": 137
+        },
+        {
+          "class": "lotr.common.world.structure.LOTRWorldGenRuinedGondorTower",
+          "chance": 500,
+          "calls": 144,
+          "placed": 120
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenGondorObelisk",
+          "chance": 800,
+          "calls": 144,
+          "placed": 136
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenIthilienHideout",
+          "chance": 50,
+          "calls": 144,
+          "placed": 70
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenSmallStoneRuin",
+          "chance": 400,
+          "calls": 144,
+          "placed": 132
+        }
+      ]
+    },
+    "ithilienWasteland": {
+      "chunks": 144,
+      "structures": [
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenRuinedBeaconTower",
+          "chance": 200,
+          "calls": 144,
+          "placed": 144
+        },
+        {
+          "class": "lotr.common.world.structure.LOTRWorldGenGondorRuins",
+          "chance": 500,
+          "calls": 144,
+          "placed": 132
+        },
+        {
+          "class": "lotr.common.world.structure.LOTRWorldGenRuinedGondorTower",
+          "chance": 500,
+          "calls": 144,
+          "placed": 105
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenGondorObelisk",
+          "chance": 800,
+          "calls": 144,
+          "placed": 128
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenIthilienHideout",
+          "chance": 50,
+          "calls": 144,
+          "placed": 88
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenSmallStoneRuin",
+          "chance": 400,
+          "calls": 144,
+          "placed": 114
+        }
+      ]
+    },
+    "nindalf": {
+      "chunks": 137,
+      "structures": [
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenRottenHouse",
+          "chance": 500,
+          "calls": 137,
+          "placed": 13
+        }
+      ]
+    },
+    "coldfells": {
+      "chunks": 53,
+      "structures": [
+        {
+          "class": "lotr.common.world.structure.LOTRWorldGenRuinedDunedainTower",
+          "chance": 500,
+          "calls": 53,
+          "placed": 43
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenStoneRuin$STONE",
+          "chance": 100,
+          "calls": 53,
+          "placed": 53
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenStoneRuin$ARNOR",
+          "chance": 100,
+          "calls": 53,
+          "placed": 53
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenStoneRuin$ANGMAR",
+          "chance": 100,
+          "calls": 53,
+          "placed": 53
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenAngmarHillmanVillage",
+          "chance": 2000,
+          "calls": 53,
+          "placed": 53
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenAngmarHillmanHouse",
+          "chance": 800,
+          "calls": 53,
+          "placed": 3
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenSmallStoneRuin",
+          "chance": 400,
+          "calls": 53,
+          "placed": 42
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenRhudaurCastle",
+          "chance": 3000,
+          "calls": 53,
+          "placed": 53
+        }
+      ]
+    },
+    "nanCurunir": {
+      "chunks": 68,
+      "structures": [
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenRuinedHouse",
+          "chance": 800,
+          "calls": 68,
+          "placed": 55
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenBurntHouse",
+          "chance": 800,
+          "calls": 68,
+          "placed": 53
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenStoneRuin$STONE",
+          "chance": 400,
+          "calls": 68,
+          "placed": 68
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenUrukCamp",
+          "chance": 120,
+          "calls": 68,
+          "placed": 68
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenUrukWargPit",
+          "chance": 100,
+          "calls": 68,
+          "placed": 19
+        },
+        {
+          "class": "lotr.common.world.feature.LOTRWorldGenBlastedLand",
+          "chance": 100,
+          "calls": 68,
+          "placed": 68
+        }
+      ]
+    },
+    "whiteDowns": {
+      "chunks": 63,
+      "structures": [
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenHobbitHole",
+          "chance": 300,
+          "calls": 63,
+          "placed": 6
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenHobbitBurrow",
+          "chance": 150,
+          "calls": 63,
+          "placed": 38
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenHobbitHouse",
+          "chance": 150,
+          "calls": 63,
+          "placed": 21
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenHobbitTavern",
+          "chance": 300,
+          "calls": 63,
+          "placed": 1
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenHobbitWindmill",
+          "chance": 600,
+          "calls": 63,
+          "placed": 55
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenHobbitFarm",
+          "chance": 2000,
+          "calls": 63,
+          "placed": 19
+        },
+        {
+          "class": "lotr.common.world.structure.LOTRWorldGenHobbitPicnicBench",
+          "chance": 200,
+          "calls": 63,
+          "placed": 4
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenStoneRuin$STONE",
+          "chance": 1500,
+          "calls": 63,
+          "placed": 63
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenStoneRuin$ARNOR",
+          "chance": 1500,
+          "calls": 63,
+          "placed": 63
+        }
+      ]
+    },
+    "swanfleet": {
+      "chunks": 97,
+      "structures": [
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenGundabadCamp",
+          "chance": 2000,
+          "calls": 97,
+          "placed": 34
+        },
+        {
+          "class": "lotr.common.world.structure.LOTRWorldGenRuinedDunedainTower",
+          "chance": 1000,
+          "calls": 97,
+          "placed": 32
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenRuinedHouse",
+          "chance": 2000,
+          "calls": 97,
+          "placed": 17
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenBurntHouse",
+          "chance": 3000,
+          "calls": 97,
+          "placed": 20
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenRottenHouse",
+          "chance": 3000,
+          "calls": 97,
+          "placed": 32
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenRangerCamp",
+          "chance": 1500,
+          "calls": 97,
+          "placed": 27
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenStoneRuin$STONE",
+          "chance": 800,
+          "calls": 97,
+          "placed": 97
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenStoneRuin$ARNOR",
+          "chance": 800,
+          "calls": 97,
+          "placed": 97
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenRangerWatchtower",
+          "chance": 2000,
+          "calls": 97,
+          "placed": 5
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenSmallStoneRuin",
+          "chance": 400,
+          "calls": 97,
+          "placed": 12
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenRottenHouse",
+          "chance": 400,
+          "calls": 97,
+          "placed": 23
+        }
+      ]
+    },
+    "pelennor": {
+      "chunks": 142,
+      "structures": [
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenGondorTurret",
+          "chance": 500,
+          "calls": 141,
+          "placed": 140
+        }
+      ]
+    },
+    "minhiriath": {
+      "chunks": 65,
+      "structures": [
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenGundabadCamp",
+          "chance": 2000,
+          "calls": 65,
+          "placed": 65
+        },
+        {
+          "class": "lotr.common.world.structure.LOTRWorldGenRuinedDunedainTower",
+          "chance": 1000,
+          "calls": 65,
+          "placed": 63
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenRuinedHouse",
+          "chance": 2000,
+          "calls": 65,
+          "placed": 54
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenBurntHouse",
+          "chance": 3000,
+          "calls": 65,
+          "placed": 57
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenRottenHouse",
+          "chance": 3000,
+          "calls": 65,
+          "placed": 56
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenRangerCamp",
+          "chance": 1500,
+          "calls": 65,
+          "placed": 65
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenStoneRuin$STONE",
+          "chance": 800,
+          "calls": 65,
+          "placed": 65
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenStoneRuin$ARNOR",
+          "chance": 800,
+          "calls": 65,
+          "placed": 65
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenRangerWatchtower",
+          "chance": 2000,
+          "calls": 65,
+          "placed": 42
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenSmallStoneRuin",
+          "chance": 400,
+          "calls": 65,
+          "placed": 62
+        }
+      ]
+    },
+    "erebor": {
+      "chunks": 137,
+      "structures": [
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenDwarvenTower",
+          "chance": 400,
+          "calls": 137,
+          "placed": 25
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenDwarfSmithy",
+          "chance": 400,
+          "calls": 137,
+          "placed": 40
+        }
+      ]
+    },
+    "mirkwoodNorth": {
+      "chunks": 144,
+      "structures": [
+        {
+          "class": "lotr.common.world.structure.LOTRWorldGenRuinedWoodElfTower",
+          "chance": 500,
+          "calls": 144,
+          "placed": 0
+        }
+      ]
+    },
+    "woodlandRealmHills": {
+      "chunks": 134,
+      "structures": [
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenWoodElfHouse",
+          "chance": 16,
+          "calls": 134,
+          "placed": 0
+        },
+        {
+          "class": "lotr.common.world.structure.LOTRWorldGenWoodElfTower",
+          "chance": 100,
+          "calls": 134,
+          "placed": 20
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenWoodElvenForge",
+          "chance": 80,
+          "calls": 134,
+          "placed": 0
+        }
+      ]
+    },
+    "nanUngol": {
+      "chunks": 111,
+      "structures": [
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenMordorSpiderPit",
+          "chance": 40,
+          "calls": 105,
+          "placed": 20
+        }
+      ]
+    },
+    "pinnathGelin": {
+      "chunks": 79,
+      "structures": [
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenPinnathGelinWatchfort",
+          "chance": 1000,
+          "calls": 79,
+          "placed": 43
+        },
+        {
+          "class": "lotr.common.world.structure.LOTRWorldGenGondorRuins",
+          "chance": 600,
+          "calls": 79,
+          "placed": 74
+        },
+        {
+          "class": "lotr.common.world.structure.LOTRWorldGenRuinedGondorTower",
+          "chance": 1000,
+          "calls": 79,
+          "placed": 63
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenGondorObelisk",
+          "chance": 1000,
+          "calls": 79,
+          "placed": 74
+        },
+        {
+          "class": "lotr.common.world.structure.LOTRWorldGenGondorRuin",
+          "chance": 1000,
+          "calls": 79,
+          "placed": 72
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenSmallStoneRuin",
+          "chance": 500,
+          "calls": 79,
+          "placed": 72
+        }
+      ]
+    },
+    "island": {
+      "chunks": 136,
+      "structures": [
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenNumenorRuin",
+          "chance": 500,
+          "calls": 136,
+          "placed": 136
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenSmallStoneRuin",
+          "chance": 400,
+          "calls": 136,
+          "placed": 99
+        }
+      ]
+    },
+    "forodwaithMountains": {
+      "chunks": 124,
+      "structures": [
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenRuinedHouse",
+          "chance": 4000,
+          "calls": 124,
+          "placed": 0
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenStoneRuin$STONE",
+          "chance": 4000,
+          "calls": 124,
+          "placed": 124
+        }
+      ]
+    },
+    "mistyMountainsFoothills": {
+      "chunks": 114,
+      "structures": [
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenStoneRuin$STONE",
+          "chance": 500,
+          "calls": 114,
+          "placed": 114
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenStoneRuin$DWARVEN",
+          "chance": 1500,
+          "calls": 114,
+          "placed": 114
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenRuinedDwarvenTower",
+          "chance": 1000,
+          "calls": 114,
+          "placed": 56
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenSmallStoneRuin",
+          "chance": 400,
+          "calls": 114,
+          "placed": 91
+        }
+      ]
+    },
+    "greyMountainsFoothills": {
+      "chunks": 126,
+      "structures": [
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenStoneRuin$STONE",
+          "chance": 500,
+          "calls": 126,
+          "placed": 126
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenStoneRuin$DWARVEN",
+          "chance": 1000,
+          "calls": 126,
+          "placed": 126
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenRuinedDwarvenTower",
+          "chance": 1000,
+          "calls": 126,
+          "placed": 28
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenSmallStoneRuin",
+          "chance": 500,
+          "calls": 126,
+          "placed": 94
+        }
+      ]
+    },
+    "blueMountainsFoothills": {
+      "chunks": 133,
+      "structures": [
+        {
+          "class": "lotr.common.world.structure.LOTRWorldGenBlueMountainsStronghold",
+          "chance": 400,
+          "calls": 131,
+          "placed": 33
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenBlueMountainsSmithy",
+          "chance": 150,
+          "calls": 131,
+          "placed": 14
+        }
+      ]
+    },
+    "tundra": {
+      "chunks": 139,
+      "structures": [
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenRuinedHouse",
+          "chance": 1500,
+          "calls": 139,
+          "placed": 104
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenSmallStoneRuin",
+          "chance": 500,
+          "calls": 139,
+          "placed": 127
+        }
+      ]
+    },
+    "taiga": {
+      "chunks": 140,
+      "structures": [
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenRuinedHouse",
+          "chance": 1500,
+          "calls": 140,
+          "placed": 33
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenSmallStoneRuin",
+          "chance": 500,
+          "calls": 140,
+          "placed": 84
+        }
+      ]
+    },
+    "breeland": {
+      "chunks": 131,
+      "structures": [
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenSmallStoneRuin",
+          "chance": 500,
+          "calls": 127,
+          "placed": 104
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenStoneRuin$STONE",
+          "chance": 1000,
+          "calls": 127,
+          "placed": 127
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenStoneRuin$ARNOR",
+          "chance": 1000,
+          "calls": 127,
+          "placed": 127
+        }
+      ]
+    },
+    "chetwood": {
+      "chunks": 138,
+      "structures": [
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenSmallStoneRuin",
+          "chance": 500,
+          "calls": 138,
+          "placed": 101
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenStoneRuin$STONE",
+          "chance": 1000,
+          "calls": 138,
+          "placed": 138
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenStoneRuin$ARNOR",
+          "chance": 1000,
+          "calls": 138,
+          "placed": 138
+        }
+      ]
+    },
+    "forodwaithGlacier": {
+      "chunks": 0,
+      "structures": [
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenRuinedHouse",
+          "chance": 4000,
+          "calls": 0,
+          "placed": 0
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenStoneRuin$STONE",
+          "chance": 4000,
+          "calls": 0,
+          "placed": 0
+        }
+      ]
+    },
+    "whiteMountainsFoothills": {
+      "chunks": 144,
+      "structures": [
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenBeaconTower",
+          "chance": 100,
+          "calls": 144,
+          "placed": 133
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenSmallStoneRuin",
+          "chance": 500,
+          "calls": 144,
+          "placed": 116
+        }
+      ]
+    },
+    "beach": {
+      "chunks": 14,
+      "structures": [
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenNumenorRuin",
+          "chance": 500,
+          "calls": 14,
+          "placed": 14
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenSmallStoneRuin",
+          "chance": 400,
+          "calls": 14,
+          "placed": 14
+        }
+      ]
+    },
+    "beachGravel": {
+      "chunks": 0,
+      "structures": [
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenNumenorRuin",
+          "chance": 500,
+          "calls": 0,
+          "placed": 0
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenSmallStoneRuin",
+          "chance": 400,
+          "calls": 0,
+          "placed": 0
+        }
+      ]
+    },
+    "nearHarad": {
+      "chunks": 59,
+      "structures": [
+        {
+          "class": "lotr.common.world.structure.LOTRWorldGenHaradObelisk",
+          "chance": 3000,
+          "calls": 59,
+          "placed": 34
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenHaradPyramid",
+          "chance": 3000,
+          "calls": 59,
+          "placed": 17
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenStoneRuin$NEAR_HARAD",
+          "chance": 2000,
+          "calls": 59,
+          "placed": 59
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenMumakSkeleton",
+          "chance": 1500,
+          "calls": 59,
+          "placed": 51
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenHaradRuinedFort",
+          "chance": 3000,
+          "calls": 59,
+          "placed": 57
+        }
+      ]
+    },
+    "farHarad": {
+      "chunks": 76,
+      "structures": [
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenMoredainVillage",
+          "chance": 200,
+          "calls": 76,
+          "placed": 33
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenMoredainCamp",
+          "chance": 500,
+          "calls": 76,
+          "placed": 38
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenStoneRuin$TAUREDAIN",
+          "chance": 5000,
+          "calls": 76,
+          "placed": 76
+        }
+      ]
+    },
+    "umbar": {
+      "chunks": 79,
+      "structures": [
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenMoredainMercCamp",
+          "chance": 1500,
+          "calls": 66,
+          "placed": 63
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenCorsairCamp",
+          "chance": 800,
+          "calls": 66,
+          "placed": 63
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenStoneRuin$UMBAR",
+          "chance": 800,
+          "calls": 66,
+          "placed": 66
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenStoneRuin$NEAR_HARAD",
+          "chance": 800,
+          "calls": 66,
+          "placed": 66
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenStoneRuin$NUMENOR",
+          "chance": 2000,
+          "calls": 66,
+          "placed": 66
+        }
+      ]
+    },
+    "farHaradJungle": {
+      "chunks": 124,
+      "structures": [
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenStoneRuin$TAUREDAIN",
+          "chance": 100,
+          "calls": 124,
+          "placed": 124
+        }
+      ]
+    },
+    "umbarHills": {
+      "chunks": 79,
+      "structures": [
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenMoredainMercCamp",
+          "chance": 1500,
+          "calls": 79,
+          "placed": 73
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenCorsairCamp",
+          "chance": 800,
+          "calls": 79,
+          "placed": 74
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenStoneRuin$UMBAR",
+          "chance": 800,
+          "calls": 79,
+          "placed": 79
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenStoneRuin$NEAR_HARAD",
+          "chance": 800,
+          "calls": 79,
+          "placed": 79
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenStoneRuin$NUMENOR",
+          "chance": 2000,
+          "calls": 79,
+          "placed": 79
+        }
+      ]
+    },
+    "nearHaradHills": {
+      "chunks": 61,
+      "structures": [
+        {
+          "class": "lotr.common.world.structure.LOTRWorldGenHaradObelisk",
+          "chance": 3000,
+          "calls": 61,
+          "placed": 0
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenHaradPyramid",
+          "chance": 3000,
+          "calls": 61,
+          "placed": 4
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenStoneRuin$NEAR_HARAD",
+          "chance": 2000,
+          "calls": 61,
+          "placed": 61
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenMumakSkeleton",
+          "chance": 1500,
+          "calls": 61,
+          "placed": 31
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenHaradRuinedFort",
+          "chance": 3000,
+          "calls": 61,
+          "placed": 45
+        }
+      ]
+    },
+    "farHaradJungleLake": {
+      "chunks": 131,
+      "structures": [
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenStoneRuin$TAUREDAIN",
+          "chance": 100,
+          "calls": 131,
+          "placed": 131
+        }
+      ]
+    },
+    "farHaradForest": {
+      "chunks": 159,
+      "structures": [
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenMoredainVillage",
+          "chance": 200,
+          "calls": 159,
+          "placed": 10
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenMoredainCamp",
+          "chance": 500,
+          "calls": 159,
+          "placed": 55
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenStoneRuin$TAUREDAIN",
+          "chance": 5000,
+          "calls": 159,
+          "placed": 159
+        }
+      ]
+    },
+    "nearHaradFertile": {
+      "chunks": 97,
+      "structures": [
+        {
+          "class": "lotr.common.world.structure.LOTRWorldGenHaradObelisk",
+          "chance": 3000,
+          "calls": 88,
+          "placed": 47
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenMoredainMercCamp",
+          "chance": 1000,
+          "calls": 88,
+          "placed": 81
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenStoneRuin$NEAR_HARAD",
+          "chance": 300,
+          "calls": 88,
+          "placed": 88
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenStoneRuin$NUMENOR",
+          "chance": 4000,
+          "calls": 88,
+          "placed": 88
+        }
+      ]
+    },
+    "pertorogwaith": {
+      "chunks": 121,
+      "structures": [
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenHalfTrollHouse",
+          "chance": 40,
+          "calls": 121,
+          "placed": 18
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenHalfTrollWarlordHouse",
+          "chance": 200,
+          "calls": 121,
+          "placed": 13
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenStoneRuin$MORDOR",
+          "chance": 100,
+          "calls": 121,
+          "placed": 121
+        }
+      ]
+    },
+    "umbarForest": {
+      "chunks": 76,
+      "structures": [
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenMoredainMercCamp",
+          "chance": 1500,
+          "calls": 76,
+          "placed": 71
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenCorsairCamp",
+          "chance": 800,
+          "calls": 76,
+          "placed": 72
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenStoneRuin$UMBAR",
+          "chance": 800,
+          "calls": 76,
+          "placed": 76
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenStoneRuin$NEAR_HARAD",
+          "chance": 800,
+          "calls": 76,
+          "placed": 76
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenStoneRuin$NUMENOR",
+          "chance": 2000,
+          "calls": 76,
+          "placed": 76
+        }
+      ]
+    },
+    "farHaradJungleEdge": {
+      "chunks": 135,
+      "structures": [
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenStoneRuin$TAUREDAIN",
+          "chance": 100,
+          "calls": 135,
+          "placed": 135
+        }
+      ]
+    },
+    "tauredainClearing": {
+      "chunks": 7,
+      "structures": [
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenStoneRuin$TAUREDAIN",
+          "chance": 100,
+          "calls": 7,
+          "placed": 7
+        }
+      ]
+    },
+    "gulfHarad": {
+      "chunks": 81,
+      "structures": [
+        {
+          "class": "lotr.common.world.structure.LOTRWorldGenHaradObelisk",
+          "chance": 3000,
+          "calls": 81,
+          "placed": 60
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenStoneRuin$NEAR_HARAD",
+          "chance": 500,
+          "calls": 81,
+          "placed": 81
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenMoredainMercCamp",
+          "chance": 1000,
+          "calls": 81,
+          "placed": 78
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenMumakSkeleton",
+          "chance": 3000,
+          "calls": 81,
+          "placed": 68
+        }
+      ]
+    },
+    "dorwinionHills": {
+      "chunks": 133,
+      "structures": [
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenStoneRuin$DORWINION",
+          "chance": 800,
+          "calls": 133,
+          "placed": 133
+        }
+      ]
+    },
+    "tolfalas": {
+      "chunks": 87,
+      "structures": [
+        {
+          "class": "lotr.common.world.structure.LOTRWorldGenGondorRuins",
+          "chance": 1000,
+          "calls": 87,
+          "placed": 46
+        },
+        {
+          "class": "lotr.common.world.structure.LOTRWorldGenRuinedGondorTower",
+          "chance": 1500,
+          "calls": 87,
+          "placed": 33
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenGondorObelisk",
+          "chance": 1500,
+          "calls": 87,
+          "placed": 64
+        },
+        {
+          "class": "lotr.common.world.structure.LOTRWorldGenGondorRuin",
+          "chance": 1500,
+          "calls": 87,
+          "placed": 43
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenCorsairCamp",
+          "chance": 100,
+          "calls": 87,
+          "placed": 72
+        }
+      ]
+    },
+    "lebennin": {
+      "chunks": 86,
+      "structures": [
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenLebenninWatchfort",
+          "chance": 800,
+          "calls": 74,
+          "placed": 17
+        },
+        {
+          "class": "lotr.common.world.structure.LOTRWorldGenGondorRuins",
+          "chance": 600,
+          "calls": 74,
+          "placed": 66
+        },
+        {
+          "class": "lotr.common.world.structure.LOTRWorldGenRuinedGondorTower",
+          "chance": 1000,
+          "calls": 74,
+          "placed": 47
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenGondorObelisk",
+          "chance": 1000,
+          "calls": 74,
+          "placed": 59
+        },
+        {
+          "class": "lotr.common.world.structure.LOTRWorldGenGondorRuin",
+          "chance": 1000,
+          "calls": 74,
+          "placed": 67
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenSmallStoneRuin",
+          "chance": 500,
+          "calls": 74,
+          "placed": 61
+        }
+      ]
+    },
+    "rhun": {
+      "chunks": 144,
+      "structures": [
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenSmallStoneRuin",
+          "chance": 1000,
+          "calls": 144,
+          "placed": 133
+        }
+      ]
+    },
+    "rhunForest": {
+      "chunks": 144,
+      "structures": [
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenSmallStoneRuin",
+          "chance": 1000,
+          "calls": 144,
+          "placed": 111
+        }
+      ]
+    },
+    "dolGuldur": {
+      "chunks": 78,
+      "structures": [
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenStoneRuin$DOL_GULDUR",
+          "chance": 5,
+          "calls": 78,
+          "placed": 78
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenDolGuldurAltar",
+          "chance": 160,
+          "calls": 78,
+          "placed": 40
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenDolGuldurTower",
+          "chance": 80,
+          "calls": 78,
+          "placed": 36
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenDolGuldurCamp",
+          "chance": 50,
+          "calls": 78,
+          "placed": 75
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenDolGuldurSpiderPit",
+          "chance": 50,
+          "calls": 78,
+          "placed": 3
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenSmallStoneRuin",
+          "chance": 400,
+          "calls": 78,
+          "placed": 59
+        }
+      ]
+    },
+    "nearHaradSemiDesert": {
+      "chunks": 44,
+      "structures": [
+        {
+          "class": "lotr.common.world.structure.LOTRWorldGenHaradObelisk",
+          "chance": 2000,
+          "calls": 44,
+          "placed": 37
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenHaradPyramid",
+          "chance": 4000,
+          "calls": 44,
+          "placed": 12
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenStoneRuin$NEAR_HARAD",
+          "chance": 1000,
+          "calls": 44,
+          "placed": 44
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenMoredainMercCamp",
+          "chance": 2000,
+          "calls": 44,
+          "placed": 44
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenMumakSkeleton",
+          "chance": 2000,
+          "calls": 44,
+          "placed": 37
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenHaradRuinedFort",
+          "chance": 3000,
+          "calls": 44,
+          "placed": 39
+        }
+      ]
+    },
+    "farHaradArid": {
+      "chunks": 131,
+      "structures": [
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenMoredainVillage",
+          "chance": 200,
+          "calls": 131,
+          "placed": 2
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenMoredainCamp",
+          "chance": 500,
+          "calls": 131,
+          "placed": 69
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenStoneRuin$TAUREDAIN",
+          "chance": 5000,
+          "calls": 131,
+          "placed": 131
+        }
+      ]
+    },
+    "farHaradAridHills": {
+      "chunks": 122,
+      "structures": [
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenMoredainVillage",
+          "chance": 200,
+          "calls": 122,
+          "placed": 8
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenMoredainCamp",
+          "chance": 500,
+          "calls": 122,
+          "placed": 55
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenStoneRuin$TAUREDAIN",
+          "chance": 5000,
+          "calls": 122,
+          "placed": 122
+        }
+      ]
+    },
+    "anduinVale": {
+      "chunks": 81,
+      "structures": [
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenGundabadCamp",
+          "chance": 1500,
+          "calls": 81,
+          "placed": 81
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenRuinedHouse",
+          "chance": 2000,
+          "calls": 81,
+          "placed": 60
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenBurntHouse",
+          "chance": 3000,
+          "calls": 81,
+          "placed": 61
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenRottenHouse",
+          "chance": 3000,
+          "calls": 81,
+          "placed": 63
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenStoneRuin$STONE",
+          "chance": 400,
+          "calls": 81,
+          "placed": 81
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenStoneRuin$GALADHRIM",
+          "chance": 1500,
+          "calls": 81,
+          "placed": 81
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenSmallStoneRuin",
+          "chance": 400,
+          "calls": 81,
+          "placed": 78
+        }
+      ]
+    },
+    "wold": {
+      "chunks": 144,
+      "structures": [
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenRohanWatchtower",
+          "chance": 1000,
+          "calls": 144,
+          "placed": 132
+        }
+      ]
+    },
+    "shireMoors": {
+      "chunks": 90,
+      "structures": [
+        {
+          "class": "lotr.common.world.structure.LOTRWorldGenHobbitPicnicBench",
+          "chance": 40,
+          "calls": 90,
+          "placed": 2
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenStoneRuin$STONE",
+          "chance": 1500,
+          "calls": 90,
+          "placed": 90
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenStoneRuin$ARNOR",
+          "chance": 1500,
+          "calls": 90,
+          "placed": 90
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenHobbitWindmill",
+          "chance": 500,
+          "calls": 90,
+          "placed": 74
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenHobbitFarm",
+          "chance": 1000,
+          "calls": 90,
+          "placed": 30
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenHobbitTavern",
+          "chance": 200,
+          "calls": 90,
+          "placed": 10
+        }
+      ]
+    },
+    "shireMarshes": {
+      "chunks": 113,
+      "structures": [
+        {
+          "class": "lotr.common.world.structure.LOTRWorldGenHobbitPicnicBench",
+          "chance": 40,
+          "calls": 113,
+          "placed": 1
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenStoneRuin$STONE",
+          "chance": 1500,
+          "calls": 113,
+          "placed": 113
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenStoneRuin$ARNOR",
+          "chance": 1500,
+          "calls": 113,
+          "placed": 113
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenRottenHouse",
+          "chance": 400,
+          "calls": 113,
+          "placed": 27
+        }
+      ]
+    },
+    "udun": {
+      "chunks": 69,
+      "structures": [
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenMordorCamp",
+          "chance": 100,
+          "calls": 60,
+          "placed": 45
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenMordorWargPit",
+          "chance": 300,
+          "calls": 60,
+          "placed": 15
+        },
+        {
+          "class": "lotr.common.world.structure.LOTRWorldGenMordorTower",
+          "chance": 500,
+          "calls": 60,
+          "placed": 43
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenBlackUrukFort",
+          "chance": 2000,
+          "calls": 60,
+          "placed": 16
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenMordorCamp",
+          "chance": 20,
+          "calls": 60,
+          "placed": 47
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenMordorWargPit",
+          "chance": 100,
+          "calls": 60,
+          "placed": 20
+        }
+      ]
+    },
+    "gorgoroth": {
+      "chunks": 57,
+      "structures": [
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenMordorCamp",
+          "chance": 100,
+          "calls": 50,
+          "placed": 45
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenMordorWargPit",
+          "chance": 300,
+          "calls": 50,
+          "placed": 44
+        },
+        {
+          "class": "lotr.common.world.structure.LOTRWorldGenMordorTower",
+          "chance": 500,
+          "calls": 50,
+          "placed": 41
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenBlackUrukFort",
+          "chance": 2000,
+          "calls": 50,
+          "placed": 37
+        }
+      ]
+    },
+    "morgulVale": {
+      "chunks": 88,
+      "structures": [
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenMordorCamp",
+          "chance": 100,
+          "calls": 81,
+          "placed": 77
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenMordorWargPit",
+          "chance": 300,
+          "calls": 81,
+          "placed": 0
+        },
+        {
+          "class": "lotr.common.world.structure.LOTRWorldGenMordorTower",
+          "chance": 500,
+          "calls": 81,
+          "placed": 64
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenBlackUrukFort",
+          "chance": 2000,
+          "calls": 81,
+          "placed": 0
+        }
+      ]
+    },
+    "easternDesolation": {
+      "chunks": 71,
+      "structures": [
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenMordorCamp",
+          "chance": 100,
+          "calls": 56,
+          "placed": 50
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenMordorWargPit",
+          "chance": 300,
+          "calls": 56,
+          "placed": 27
+        },
+        {
+          "class": "lotr.common.world.structure.LOTRWorldGenMordorTower",
+          "chance": 500,
+          "calls": 56,
+          "placed": 46
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenBlackUrukFort",
+          "chance": 2000,
+          "calls": 56,
+          "placed": 9
+        }
+      ]
+    },
+    "dale": {
+      "chunks": 81,
+      "structures": [
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenRuinedHouse",
+          "chance": 4000,
+          "calls": 69,
+          "placed": 40
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenBurntHouse",
+          "chance": 4000,
+          "calls": 69,
+          "placed": 38
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenRottenHouse",
+          "chance": 4000,
+          "calls": 69,
+          "placed": 42
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenStoneRuin$STONE",
+          "chance": 1000,
+          "calls": 69,
+          "placed": 69
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenDaleWatchtower",
+          "chance": 500,
+          "calls": 69,
+          "placed": 38
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenDaleFortress",
+          "chance": 800,
+          "calls": 69,
+          "placed": 14
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenDaleVillage",
+          "chance": 400,
+          "calls": 69,
+          "placed": 41
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenSmallStoneRuin",
+          "chance": 500,
+          "calls": 69,
+          "placed": 56
+        }
+      ]
+    },
+    "dorwinion": {
+      "chunks": 79,
+      "structures": [
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenStoneRuin$DORWINION",
+          "chance": 1000,
+          "calls": 76,
+          "placed": 76
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenDorwinionGarden",
+          "chance": 300,
+          "calls": 76,
+          "placed": 14
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenDorwinionCamp",
+          "chance": 400,
+          "calls": 76,
+          "placed": 10
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenDorwinionHouse",
+          "chance": 200,
+          "calls": 76,
+          "placed": 21
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenDorwinionBrewery",
+          "chance": 500,
+          "calls": 76,
+          "placed": 16
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenDorwinionElfHouse",
+          "chance": 400,
+          "calls": 76,
+          "placed": 19
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenDorwinionBath",
+          "chance": 600,
+          "calls": 76,
+          "placed": 19
+        }
+      ]
+    },
+    "towerHills": {
+      "chunks": 84,
+      "structures": [
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenTowerHillsTower",
+          "chance": 600,
+          "calls": 84,
+          "placed": 59
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenRangerCamp",
+          "chance": 800,
+          "calls": 84,
+          "placed": 83
+        }
+      ]
+    },
+    "wilderlandNorth": {
+      "chunks": 91,
+      "structures": [
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenGundabadCamp",
+          "chance": 2000,
+          "calls": 91,
+          "placed": 86
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenRuinedHouse",
+          "chance": 2000,
+          "calls": 91,
+          "placed": 53
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenBurntHouse",
+          "chance": 3000,
+          "calls": 91,
+          "placed": 53
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenRottenHouse",
+          "chance": 3000,
+          "calls": 91,
+          "placed": 59
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenStoneRuin$STONE",
+          "chance": 800,
+          "calls": 91,
+          "placed": 91
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenSmallStoneRuin",
+          "chance": 600,
+          "calls": 91,
+          "placed": 75
+        }
+      ]
+    },
+    "farHaradCoast": {
+      "chunks": 103,
+      "structures": [
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenCorsairCove",
+          "chance": 10,
+          "calls": 103,
+          "placed": 2
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenCorsairCamp",
+          "chance": 100,
+          "calls": 103,
+          "placed": 56
+        }
+      ]
+    },
+    "nearHaradRiverbank": {
+      "chunks": 13,
+      "structures": [
+        {
+          "class": "lotr.common.world.structure.LOTRWorldGenHaradObelisk",
+          "chance": 3000,
+          "calls": 13,
+          "placed": 6
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenStoneRuin$NEAR_HARAD",
+          "chance": 500,
+          "calls": 13,
+          "placed": 13
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenMumakSkeleton",
+          "chance": 2000,
+          "calls": 13,
+          "placed": 13
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenHaradRuinedFort",
+          "chance": 3000,
+          "calls": 13,
+          "placed": 13
+        }
+      ]
+    },
+    "lossarnach": {
+      "chunks": 105,
+      "structures": [
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenLossarnachWatchfort",
+          "chance": 800,
+          "calls": 71,
+          "placed": 22
+        },
+        {
+          "class": "lotr.common.world.structure.LOTRWorldGenGondorRuins",
+          "chance": 600,
+          "calls": 71,
+          "placed": 61
+        },
+        {
+          "class": "lotr.common.world.structure.LOTRWorldGenRuinedGondorTower",
+          "chance": 1000,
+          "calls": 71,
+          "placed": 57
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenGondorObelisk",
+          "chance": 1000,
+          "calls": 71,
+          "placed": 58
+        },
+        {
+          "class": "lotr.common.world.structure.LOTRWorldGenGondorRuin",
+          "chance": 1000,
+          "calls": 71,
+          "placed": 60
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenSmallStoneRuin",
+          "chance": 500,
+          "calls": 71,
+          "placed": 53
+        }
+      ]
+    },
+    "imlothMelui": {
+      "chunks": 46,
+      "structures": [
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenLossarnachWatchfort",
+          "chance": 800,
+          "calls": 46,
+          "placed": 13
+        },
+        {
+          "class": "lotr.common.world.structure.LOTRWorldGenGondorRuins",
+          "chance": 600,
+          "calls": 46,
+          "placed": 38
+        },
+        {
+          "class": "lotr.common.world.structure.LOTRWorldGenRuinedGondorTower",
+          "chance": 1000,
+          "calls": 46,
+          "placed": 36
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenGondorObelisk",
+          "chance": 1000,
+          "calls": 46,
+          "placed": 35
+        },
+        {
+          "class": "lotr.common.world.structure.LOTRWorldGenGondorRuin",
+          "chance": 1000,
+          "calls": 46,
+          "placed": 37
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenSmallStoneRuin",
+          "chance": 500,
+          "calls": 46,
+          "placed": 35
+        }
+      ]
+    },
+    "beachWhite": {
+      "chunks": 0,
+      "structures": [
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenNumenorRuin",
+          "chance": 500,
+          "calls": 0,
+          "placed": 0
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenSmallStoneRuin",
+          "chance": 400,
+          "calls": 0,
+          "placed": 0
+        }
+      ]
+    },
+    "harnedor": {
+      "chunks": 86,
+      "structures": [
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenNearHaradDesertCamp",
+          "chance": 3000,
+          "calls": 86,
+          "placed": 69
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenSmallStoneRuin",
+          "chance": 600,
+          "calls": 86,
+          "placed": 63
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenHarnedorTower",
+          "chance": 800,
+          "calls": 86,
+          "placed": 64
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenMoredainMercCamp",
+          "chance": 2000,
+          "calls": 86,
+          "placed": 74
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenMumakSkeleton",
+          "chance": 6000,
+          "calls": 86,
+          "placed": 62
+        }
+      ]
+    },
+    "lamedon": {
+      "chunks": 80,
+      "structures": [
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenLamedonWatchfort",
+          "chance": 700,
+          "calls": 79,
+          "placed": 51
+        },
+        {
+          "class": "lotr.common.world.structure.LOTRWorldGenGondorRuins",
+          "chance": 600,
+          "calls": 79,
+          "placed": 69
+        },
+        {
+          "class": "lotr.common.world.structure.LOTRWorldGenRuinedGondorTower",
+          "chance": 1000,
+          "calls": 79,
+          "placed": 31
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenGondorObelisk",
+          "chance": 1000,
+          "calls": 79,
+          "placed": 77
+        },
+        {
+          "class": "lotr.common.world.structure.LOTRWorldGenGondorRuin",
+          "chance": 1000,
+          "calls": 79,
+          "placed": 64
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenSmallStoneRuin",
+          "chance": 500,
+          "calls": 79,
+          "placed": 75
+        }
+      ]
+    },
+    "lamedonHills": {
+      "chunks": 93,
+      "structures": [
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenLamedonWatchfort",
+          "chance": 700,
+          "calls": 92,
+          "placed": 19
+        },
+        {
+          "class": "lotr.common.world.structure.LOTRWorldGenGondorRuins",
+          "chance": 600,
+          "calls": 92,
+          "placed": 75
+        },
+        {
+          "class": "lotr.common.world.structure.LOTRWorldGenRuinedGondorTower",
+          "chance": 1000,
+          "calls": 92,
+          "placed": 27
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenGondorObelisk",
+          "chance": 1000,
+          "calls": 92,
+          "placed": 85
+        },
+        {
+          "class": "lotr.common.world.structure.LOTRWorldGenGondorRuin",
+          "chance": 1000,
+          "calls": 92,
+          "placed": 68
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenSmallStoneRuin",
+          "chance": 500,
+          "calls": 92,
+          "placed": 77
+        }
+      ]
+    },
+    "blackrootVale": {
+      "chunks": 100,
+      "structures": [
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenBlackrootWatchfort",
+          "chance": 1000,
+          "calls": 84,
+          "placed": 46
+        },
+        {
+          "class": "lotr.common.world.structure.LOTRWorldGenGondorRuins",
+          "chance": 600,
+          "calls": 84,
+          "placed": 77
+        },
+        {
+          "class": "lotr.common.world.structure.LOTRWorldGenRuinedGondorTower",
+          "chance": 1000,
+          "calls": 84,
+          "placed": 64
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenGondorObelisk",
+          "chance": 1000,
+          "calls": 84,
+          "placed": 71
+        },
+        {
+          "class": "lotr.common.world.structure.LOTRWorldGenGondorRuin",
+          "chance": 1000,
+          "calls": 84,
+          "placed": 74
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenSmallStoneRuin",
+          "chance": 500,
+          "calls": 84,
+          "placed": 75
+        }
+      ]
+    },
+    "andrast": {
+      "chunks": 122,
+      "structures": [
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenSmallStoneRuin",
+          "chance": 400,
+          "calls": 121,
+          "placed": 95
+        },
+        {
+          "class": "lotr.common.world.structure.LOTRWorldGenGondorRuins",
+          "chance": 2000,
+          "calls": 121,
+          "placed": 81
+        },
+        {
+          "class": "lotr.common.world.structure.LOTRWorldGenRuinedGondorTower",
+          "chance": 2000,
+          "calls": 121,
+          "placed": 18
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenGondorObelisk",
+          "chance": 2000,
+          "calls": 121,
+          "placed": 98
+        },
+        {
+          "class": "lotr.common.world.structure.LOTRWorldGenGondorRuin",
+          "chance": 1500,
+          "calls": 121,
+          "placed": 80
+        }
+      ]
+    },
+    "pukel": {
+      "chunks": 107,
+      "structures": [
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenRuinedHouse",
+          "chance": 2000,
+          "calls": 107,
+          "placed": 49
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenBurntHouse",
+          "chance": 2000,
+          "calls": 107,
+          "placed": 51
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenRottenHouse",
+          "chance": 2000,
+          "calls": 107,
+          "placed": 41
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenStoneRuin$STONE",
+          "chance": 500,
+          "calls": 107,
+          "placed": 107
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenSmallStoneRuin",
+          "chance": 400,
+          "calls": 107,
+          "placed": 81
+        }
+      ]
+    },
+    "rhunLand": {
+      "chunks": 133,
+      "structures": [
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenStoneRuin$RHUN",
+          "chance": 1000,
+          "calls": 121,
+          "placed": 121
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenSmallStoneRuin",
+          "chance": 600,
+          "calls": 121,
+          "placed": 103
+        }
+      ]
+    },
+    "rhunLandSteppe": {
+      "chunks": 128,
+      "structures": [
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenStoneRuin$RHUN",
+          "chance": 3000,
+          "calls": 128,
+          "placed": 128
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenStoneRuin$STONE",
+          "chance": 1000,
+          "calls": 128,
+          "placed": 128
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenSmallStoneRuin",
+          "chance": 1000,
+          "calls": 128,
+          "placed": 116
+        }
+      ]
+    },
+    "rhunLandHills": {
+      "chunks": 140,
+      "structures": [
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenStoneRuin$RHUN",
+          "chance": 1000,
+          "calls": 140,
+          "placed": 140
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenSmallStoneRuin",
+          "chance": 600,
+          "calls": 140,
+          "placed": 106
+        }
+      ]
+    },
+    "rivendell": {
+      "chunks": 112,
+      "structures": [
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenRivendellHouse",
+          "chance": 100,
+          "calls": 112,
+          "placed": 94
+        },
+        {
+          "class": "lotr.common.world.structure.LOTRWorldGenRivendellHall",
+          "chance": 200,
+          "calls": 112,
+          "placed": 0
+        },
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenRivendellForge",
+          "chance": 200,
+          "calls": 112,
+          "placed": 44
+        }
+      ]
+    },
+    "farHaradJungleMountains": {
+      "chunks": 138,
+      "structures": [
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenStoneRuin$TAUREDAIN",
+          "chance": 100,
+          "calls": 138,
+          "placed": 138
+        }
+      ]
+    },
+    "halfTrollForest": {
+      "chunks": 144,
+      "structures": [
+        {
+          "class": "lotr.common.world.structure2.LOTRWorldGenStoneRuin$TAUREDAIN",
+          "chance": 500,
+          "calls": 144,
+          "placed": 144
+        }
+      ]
+    }
+  },
+  "errors": [
+    "biome forodwaithGlacier not on the map",
+    "biome beach not on the map",
+    "biome beachGravel not on the map",
+    "biome tauredainClearing not on the map",
+    "biome nearHaradRiverbank not on the map",
+    "biome beachWhite not on the map"
+  ]
+}

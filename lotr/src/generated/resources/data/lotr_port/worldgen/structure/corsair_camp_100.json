@@ -9,7 +9,23 @@
     "lotr_port:corsair_camp/1",
     "lotr_port:corsair_camp/2"
   ],
-  "chance": 100,
+  "rolls": {
+    "lotr_port:far_harad_coast": [
+      10,
+      100
+    ],
+    "lotr_port:tolfalas": [
+      1000,
+      1500,
+      1500,
+      1500,
+      100
+    ]
+  },
+  "lotr_success": {
+    "lotr_port:far_harad_coast": 0.544,
+    "lotr_port:tolfalas": 0.828
+  },
   "salt": 890227728,
   "ground": 0,
   "max_slope": 6,

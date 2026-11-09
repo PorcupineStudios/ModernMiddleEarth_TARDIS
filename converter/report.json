@@ -1,8 +1,8 @@
 {
   "summary": {
     "blocks": 1441,
-    "items": 897,
-    "recipes": 3251,
+    "items": 892,
+    "recipes": 3250,
     "sound_events": 101,
     "sound_files": 190,
     "ambience_biomes": 12,
@@ -17,7 +17,7 @@
     "biome_achievements": 152,
     "invasion_biomes": 95,
     "animal_biomes": 128,
-    "textures": 2241,
+    "textures": 2774,
     "languages": 22,
     "tabs": 9,
     "biomes": 169,
@@ -37,7 +37,9 @@
     "waypoints": 274,
     "quest_pools": 37,
     "quest_givers": 287,
-    "migration_tables": 28
+    "migration_tables": 28,
+    "drink_fluids": 46,
+    "vessels": 12
   },
   "added_to_misc_tab": {
     "count": 1,
@@ -170,13 +172,17 @@
       "assets/lotr/cape/galadhrimSmith.png"
     ]
   },
+  "gates_without_frame": {
+    "count": 2,
+    "entries": [
+      "dwarven_door",
+      "ithildin_dwarven_door"
+    ]
+  },
   "guessed_vanilla_textures": {
-    "count": 11,
+    "count": 8,
     "entries": [
       "feather",
-      "diamond_horse_armor",
-      "gold_horse_armor",
-      "iron_horse_armor",
       "hardened_clay_stained_white",
       "portal",
       "flower_pot",
@@ -816,6 +822,35 @@
     "entries": [
       "generator lotr.common.world.structure2.LOTRWorldGenEasterlingTownWall: java.lang.NoSuchMethodException: lotr.common.world.structure2.LOTRWorldGenEasterlingTownWall.<init>(boolean)",
       "generator lotr.common.world.structure2.LOTRWorldGenGondorTownWall: java.lang.NoSuchMethodException: lotr.common.world.structure2.LOTRWorldGenGondorTownWall.<init>(boolean)"
+    ]
+  },
+  "structure_rate_errors": {
+    "count": 6,
+    "entries": [
+      "biome forodwaithGlacier not on the map",
+      "biome beach not on the map",
+      "biome beachGravel not on the map",
+      "biome tauredainClearing not on the map",
+      "biome nearHaradRiverbank not on the map",
+      "biome beachWhite not on the map"
+    ]
+  },
+  "structure_rates_pooled": {
+    "count": 13,
+    "entries": [
+      "beach: LOTRWorldGenSmallStoneRuin 1 in 400",
+      "beach_gravel: LOTRWorldGenSmallStoneRuin 1 in 400",
+      "beach_white: LOTRWorldGenSmallStoneRuin 1 in 400",
+      "beach: LOTRWorldGenNumenorRuin 1 in 500",
+      "beach_gravel: LOTRWorldGenNumenorRuin 1 in 500",
+      "beach_white: LOTRWorldGenNumenorRuin 1 in 500",
+      "forodwaith_glacier: LOTRWorldGenRuinedHouse 1 in 4000",
+      "forodwaith_glacier: LOTRWorldGenStoneRuin$STONE 1 in 4000",
+      "near_harad_riverbank: LOTRWorldGenHaradObelisk 1 in 3000",
+      "near_harad_riverbank: LOTRWorldGenHaradRuinedFort 1 in 3000",
+      "tauredain_clearing: LOTRWorldGenStoneRuin$TAUREDAIN 1 in 100",
+      "near_harad_riverbank: LOTRWorldGenStoneRuin$NEAR_HARAD 1 in 500",
+      "near_harad_riverbank: LOTRWorldGenMumakSkeleton 1 in 2000"
     ]
   },
   "structures_in_no_biome": {

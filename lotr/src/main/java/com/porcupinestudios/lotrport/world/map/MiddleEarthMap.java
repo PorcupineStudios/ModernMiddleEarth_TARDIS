@@ -106,6 +106,19 @@ public final class MiddleEarthMap {
     /** One biome of the map: its id, ground height (y of the surface) and hilliness (blocks up or down). */
     public record Entry(String id, float height, float variation) {}
 
+    /**
+     * LOTRMountains: the ground rises in a cone to {@code peak} (a y level) at x, z over {@code range} blocks; hills
+     * flatten by 1 + LOTR's height {@code boost} there. A volcano (Mount Doom) has a flat crater floor at {@code floor}
+     * within {@code crater} blocks, filled with lava up to {@code lava} within crater + 6 (LOTR's getLavaHeight).
+     */
+    public record Mountain(int x, int z, int range, int peak, double boost, int crater, int floor, int lava) {
+        double distance(int blockX, int blockZ) {
+            return Math.sqrt((double) (blockX - x) * (blockX - x) + (double) (blockZ - z) * (blockZ - z));
+        }
+    }
+
+    private final List<Mountain> mountains = new ArrayList<>();
+
     MiddleEarthMap(JsonObject settings, byte[] pixels) {
         this.width = settings.get("width").getAsInt();
         this.height = settings.get("height").getAsInt();
@@ -142,6 +155,15 @@ public final class MiddleEarthMap {
         this.oceanIndex = oceanAt;
         biomeHeights[255] = biomeHeights[oceanAt];
         biomeVariations[255] = biomeVariations[oceanAt];
+        if (settings.has("mountains")) {
+            for (JsonElement e : settings.getAsJsonArray("mountains")) {
+                JsonObject o = e.getAsJsonObject();
+                mountains.add(new Mountain(o.get("x").getAsInt(), o.get("z").getAsInt(), o.get("range").getAsInt(),
+                        o.get("peak").getAsInt(), o.has("boost") ? o.get("boost").getAsDouble() : 0,
+                        o.has("crater") ? o.get("crater").getAsInt() : 0, o.has("floor") ? o.get("floor").getAsInt() : 0,
+                        o.has("lava") ? o.get("lava").getAsInt() : 0));
+            }
+        }
         this.rivers = Rivers.read(settings.has("rivers") ? settings.getAsJsonObject("rivers") : null, list);
     }
 
@@ -278,6 +300,14 @@ public final class MiddleEarthMap {
         double wx = wobbledX(blockX, blockZ);
         double wz = wobbledZ(blockX, blockZ);
         double ground = smoothed(wx, wz, biomeHeights);
+        for (Mountain m : mountains) {
+            double d = m.distance(blockX, blockZ);
+            if (d < m.crater) {
+                ground = Math.max(ground, m.floor);
+            } else if (d < m.range && m.peak > ground) {
+                ground += (m.peak - ground) * (1 - d / m.range);
+            }
+        }
         double cut = riverCut(wx, wz, ground);
         return cut == 0 ? ground : ground - (ground - rivers.bed()) * cut;
     }
@@ -288,7 +318,26 @@ public final class MiddleEarthMap {
         double wz = wobbledZ(blockX, blockZ);
         double variation = smoothed(wx, wz, biomeVariations);
         double cut = riverCut(wx, wz, smoothed(wx, wz, biomeHeights));
-        return variation * (1 - cut);
+        // LOTR flattens the land within 32 blocks of a road (LOTRChunkProvider roadNear)
+        double road = Math.min(1, Roads.get().distance(blockX, blockZ) / 32.0);
+        double boost = 0; // LOTR: a mountain's hills flatten by 1 + its height boost (LOTRChunkProvider)
+        for (Mountain m : mountains) {
+            double d = m.distance(blockX, blockZ);
+            if (d < m.range) {
+                boost += m.boost * (1 - d / m.range);
+            }
+        }
+        return variation * (1 - cut) * (0.25 + 0.75 * road) / (1 + boost);
+    }
+
+    /** The lava level of a volcano's crater at a block column (LOTR's getLavaHeight), or 0. */
+    public int lavaAt(int blockX, int blockZ) {
+        for (Mountain m : mountains) {
+            if (m.lava > 0 && m.distance(blockX, blockZ) < m.crater + 6) {
+                return m.lava;
+            }
+        }
+        return 0;
     }
 
     private double riverCut(double wx, double wz, double ground) {

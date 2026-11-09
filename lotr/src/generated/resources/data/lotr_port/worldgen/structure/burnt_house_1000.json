@@ -9,7 +9,15 @@
     "lotr_port:burnt_house/1",
     "lotr_port:burnt_house/2"
   ],
-  "chance": 1000,
+  "rolls": {
+    "lotr_port:east_bight": [
+      500,
+      1000
+    ]
+  },
+  "lotr_success": {
+    "lotr_port:east_bight": 0.646
+  },
   "salt": 1732161974,
   "ground": 0,
   "max_slope": 6,

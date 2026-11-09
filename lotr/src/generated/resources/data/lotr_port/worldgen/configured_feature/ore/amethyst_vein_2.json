@@ -10,6 +10,15 @@
         "state": {
           "Name": "lotr_port:amethyst_vein"
         }
+      },
+      {
+        "target": {
+          "predicate_type": "minecraft:tag_match",
+          "tag": "minecraft:deepslate_ore_replaceables"
+        },
+        "state": {
+          "Name": "lotr_port:amethyst_vein"
+        }
       }
     ],
     "size": 6,

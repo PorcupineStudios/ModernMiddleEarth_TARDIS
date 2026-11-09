@@ -1,0 +1,9 @@
+{
+  "loader": "lotr_port:connected",
+  "shape": "gate",
+  "render_type": "minecraft:cutout",
+  "textures": {
+    "sheet": "lotr_port:block/connected/gate_dol_amroth",
+    "particle": "lotr_port:block/gate_dol_amroth"
+  }
+}

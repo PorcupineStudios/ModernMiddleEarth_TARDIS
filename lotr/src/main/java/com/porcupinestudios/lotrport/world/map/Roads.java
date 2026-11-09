@@ -16,7 +16,8 @@ import java.util.Map;
 
 /**
  * LOTR's roads as line segments in block coordinates, from {@code /lotr_port/map/roads.json} (written by the
- * converter), indexed in a 256-block grid so a chunk finds the few segments near it at once.
+ * converter), indexed in a 256-block grid so a chunk finds the few segments near it at once, and each biome's road
+ * {@link Style} (LOTR's LOTRRoadType and bridge type, {@code converter/roads.py}).
  */
 public final class Roads {
     private static final int CELL = 256;
@@ -36,6 +37,17 @@ public final class Roads {
         }
     }
 
+    /** A block id and its chance among a road's blocks. */
+    public record Pick(String block, double weight) {}
+
+    /**
+     * How a biome's roads look: weighted top blocks, the slabs laid where the road steps up, the share of road blocks
+     * laid (LOTR's repair: old roads have gaps), and the bridge's deck, deck slab, edge beam and fence.
+     */
+    public record Style(List<Pick> top, List<Pick> slab, double repair, String deck, String deckSlab, String edge,
+                        String fence) {}
+
+    private final Map<String, Style> styles = new HashMap<>();
     private final Map<Long, List<Segment>> cells = new HashMap<>();
     private final List<Segment> all = new ArrayList<>();
     private final int count;
@@ -55,6 +67,30 @@ public final class Roads {
             }
         }
         this.count = n;
+        JsonObject types = json.getAsJsonObject("types");
+        JsonObject bridges = json.getAsJsonObject("bridges");
+        for (Map.Entry<String, JsonElement> e : json.getAsJsonObject("biomes").entrySet()) {
+            JsonObject b = e.getValue().getAsJsonObject();
+            JsonObject type = types.getAsJsonObject(b.get("road").getAsString());
+            JsonObject bridge = bridges.getAsJsonObject(b.get("bridge").getAsString());
+            styles.put(e.getKey(), new Style(picks(type.getAsJsonArray("top")), picks(type.getAsJsonArray("slab")),
+                    b.get("repair").getAsDouble(), bridge.get("deck").getAsString(),
+                    bridge.get("slab").getAsString(), bridge.get("edge").getAsString(), bridge.get("fence").getAsString()));
+        }
+    }
+
+    private static List<Pick> picks(JsonArray array) {
+        List<Pick> out = new ArrayList<>();
+        for (JsonElement p : array) {
+            out.add(new Pick(p.getAsJsonObject().get("block").getAsString(),
+                    p.getAsJsonObject().get("weight").getAsDouble()));
+        }
+        return out;
+    }
+
+    /** The road style of a biome ({@code lotr_port:shire}), or null for a biome LOTR has none for. */
+    public Style style(String biome) {
+        return styles.get(biome);
     }
 
     public static Roads get() {

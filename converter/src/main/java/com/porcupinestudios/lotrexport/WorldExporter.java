@@ -340,6 +340,20 @@ final class WorldExporter {
                 o.add("villages", villages);
             }
             o.add("spawns", spawns(field(b, "npcSpawnList")));
+            // NPCs that spawn in darkness (orcs, wargs, spiders) spawn by day too where this is true (Mordor)
+            Object day = NpcExporter.call(b, "canSpawnHostilesInDay");
+            if (day instanceof Boolean d) {
+                o.addProperty("hostilesInDay", d);
+            }
+            if (b instanceof net.minecraft.world.biome.BiomeGenBase bg) { // animals: LOTR's lists, as getSpawnableList gives
+                JsonObject animals = new JsonObject();
+                animals.add("creature", entries(bg.getSpawnableList(net.minecraft.entity.EnumCreatureType.creature)));
+                animals.add("water", entries(bg.getSpawnableList(net.minecraft.entity.EnumCreatureType.waterCreature)));
+                animals.add("cave", entries(bg.getSpawnableList(net.minecraft.entity.EnumCreatureType.ambient)));
+                animals.add("monster", entries(bg.getSpawnableList(net.minecraft.entity.EnumCreatureType.monster)));
+                animals.add("lotr_ambient", entries(field(b, "spawnableLOTRAmbientList")));
+                o.add("animals", animals);
+            }
         } catch (Throwable t) {
             errors.add(new JsonPrimitive("biome " + b + ": " + t));
         }
@@ -390,6 +404,24 @@ final class WorldExporter {
         return null;
     }
 
+    /** Vanilla spawn entries: entity name (EntityList), weight, group size. */
+    private static JsonArray entries(Object list) {
+        JsonArray out = new JsonArray();
+        if (list instanceof Iterable<?> it) {
+            for (Object x : it) {
+                if (x instanceof net.minecraft.world.biome.BiomeGenBase.SpawnListEntry e) {
+                    JsonObject j = new JsonObject();
+                    j.addProperty("class", e.entityClass.getName());
+                    j.addProperty("name", (String) net.minecraft.entity.EntityList.classToStringMapping.get(e.entityClass));
+                    j.addProperty("weight", e.itemWeight);
+                    j.addProperty("min", e.minGroupCount);
+                    j.addProperty("max", e.maxGroupCount);
+                    out.add(j);
+                }
+            }
+        }
+        return out;
+    }
     private static Object field(Object obj, String name) {
         for (Class<?> c = obj.getClass(); c != null; c = c.getSuperclass()) {
             try {

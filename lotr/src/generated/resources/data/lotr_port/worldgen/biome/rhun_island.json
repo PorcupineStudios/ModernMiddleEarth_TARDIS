@@ -12,7 +12,8 @@
       "tick_delay": 6000,
       "block_search_extent": 8,
       "offset": 2.0
-    }
+    },
+    "grass_color": 14538041
   },
   "spawners": {
     "creature": [
@@ -52,7 +53,9 @@
   },
   "features": [
     [],
-    [],
+    [
+      "lotr_port:crater_lava"
+    ],
     [
       "lotr_port:roads"
     ],
@@ -78,15 +81,26 @@
       "lotr_port:ore/dirt_42",
       "lotr_port:ore/gold_ore_45",
       "lotr_port:ore/gravel_46",
-      "lotr_port:ore/iron_ore_49"
+      "lotr_port:ore/iron_ore_49",
+      "minecraft:ore_granite_upper",
+      "minecraft:ore_granite_lower",
+      "minecraft:ore_diorite_upper",
+      "minecraft:ore_diorite_lower",
+      "minecraft:ore_andesite_upper",
+      "minecraft:ore_andesite_lower",
+      "minecraft:ore_tuff"
     ],
-    [],
+    [
+      "lotr_port:dripstone"
+    ],
     [],
     [
       "lotr_port:trees/rhun_island",
+      "lotr_port:plant/reeds_0_9",
+      "lotr_port:plant/dried_reeds_0_1",
       "minecraft:flower_default",
       "minecraft:patch_grass_plain",
-      "minecraft:patch_sugar_cane"
+      "minecraft:patch_tall_grass"
     ],
     [
       "minecraft:freeze_top_layer"

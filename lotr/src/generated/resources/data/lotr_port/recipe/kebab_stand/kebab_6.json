@@ -2,7 +2,7 @@
   "type": "lotr_port:kebab_stand",
   "ingredients": [
     {
-      "item": "lotr_port:raw_mutton"
+      "item": "minecraft:mutton"
     }
   ],
   "result": {

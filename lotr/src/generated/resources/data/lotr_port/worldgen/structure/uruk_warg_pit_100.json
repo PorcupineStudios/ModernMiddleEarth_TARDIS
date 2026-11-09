@@ -9,7 +9,18 @@
     "lotr_port:uruk_warg_pit/1",
     "lotr_port:uruk_warg_pit/2"
   ],
-  "chance": 100,
+  "rolls": {
+    "lotr_port:nan_curunir": [
+      800,
+      800,
+      400,
+      120,
+      100
+    ]
+  },
+  "lotr_success": {
+    "lotr_port:nan_curunir": 0.279
+  },
   "salt": 1761220888,
   "ground": 6,
   "max_slope": 6,

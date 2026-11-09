@@ -9,7 +9,21 @@
     "lotr_port:burnt_house/1",
     "lotr_port:burnt_house/2"
   ],
-  "chance": 4000,
+  "rolls": {
+    "lotr_port:celebrant": [
+      4000,
+      2000,
+      4000
+    ],
+    "lotr_port:dale": [
+      4000,
+      4000
+    ]
+  },
+  "lotr_success": {
+    "lotr_port:celebrant": 0.735,
+    "lotr_port:dale": 0.469
+  },
   "salt": 1356874116,
   "ground": 0,
   "max_slope": 6,

@@ -9,7 +9,15 @@
     "lotr_port:half_troll_warlord_house/1",
     "lotr_port:half_troll_warlord_house/2"
   ],
-  "chance": 200,
+  "rolls": {
+    "lotr_port:pertorogwaith": [
+      40,
+      200
+    ]
+  },
+  "lotr_success": {
+    "lotr_port:pertorogwaith": 0.107
+  },
   "salt": 1744544586,
   "ground": 4,
   "max_slope": 6,

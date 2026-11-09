@@ -9,7 +9,31 @@
     "lotr_port:gondor_obelisk/1",
     "lotr_port:gondor_obelisk/2"
   ],
-  "chance": 800,
+  "rolls": {
+    "lotr_port:ithilien": [
+      200,
+      500,
+      500,
+      800
+    ],
+    "lotr_port:ithilien_hills": [
+      200,
+      500,
+      500,
+      800
+    ],
+    "lotr_port:ithilien_wasteland": [
+      200,
+      500,
+      500,
+      800
+    ]
+  },
+  "lotr_success": {
+    "lotr_port:ithilien": 0.653,
+    "lotr_port:ithilien_hills": 0.944,
+    "lotr_port:ithilien_wasteland": 0.889
+  },
   "salt": 1811806199,
   "ground": 0,
   "max_slope": 6,

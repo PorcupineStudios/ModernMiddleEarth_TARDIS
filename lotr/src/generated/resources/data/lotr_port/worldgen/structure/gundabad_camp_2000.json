@@ -9,7 +9,38 @@
     "lotr_port:gundabad_camp/1",
     "lotr_port:gundabad_camp/2"
   ],
-  "chance": 2000,
+  "rolls": {
+    "lotr_port:eriador": [
+      2000
+    ],
+    "lotr_port:eriador_downs": [
+      2000
+    ],
+    "lotr_port:eryn_vorn": [
+      2000
+    ],
+    "lotr_port:long_marshes": [
+      2000
+    ],
+    "lotr_port:minhiriath": [
+      2000
+    ],
+    "lotr_port:swanfleet": [
+      2000
+    ],
+    "lotr_port:wilderland_north": [
+      2000
+    ]
+  },
+  "lotr_success": {
+    "lotr_port:eriador": 0.88,
+    "lotr_port:eriador_downs": 0.908,
+    "lotr_port:eryn_vorn": 0.923,
+    "lotr_port:long_marshes": 0.441,
+    "lotr_port:minhiriath": 1.0,
+    "lotr_port:swanfleet": 0.351,
+    "lotr_port:wilderland_north": 0.945
+  },
   "salt": 389049301,
   "ground": 0,
   "max_slope": 6,

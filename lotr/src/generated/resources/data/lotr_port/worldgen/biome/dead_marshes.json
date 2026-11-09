@@ -3,8 +3,8 @@
   "temperature": 0.4,
   "downfall": 1.0,
   "effects": {
-    "fog_color": 12638463,
-    "sky_color": 8168703,
+    "fog_color": 4210724,
+    "sky_color": 5657394,
     "water_color": 1316367,
     "water_fog_color": 329011,
     "mood_sound": {
@@ -12,7 +12,8 @@
       "tick_delay": 6000,
       "block_search_extent": 8,
       "offset": 2.0
-    }
+    },
+    "grass_color": 8348751
   },
   "spawners": {},
   "spawn_costs": {},
@@ -25,8 +26,12 @@
   },
   "features": [
     [],
-    [],
     [
+      "lotr_port:crater_lava"
+    ],
+    [
+      "lotr_port:quagmire_1",
+      "lotr_port:mud_patch",
       "lotr_port:roads"
     ],
     [],
@@ -52,14 +57,28 @@
       "lotr_port:ore/dirt_42",
       "lotr_port:ore/gold_ore_45",
       "lotr_port:ore/gravel_46",
-      "lotr_port:ore/iron_ore_49"
+      "lotr_port:ore/iron_ore_49",
+      "minecraft:ore_granite_upper",
+      "minecraft:ore_granite_lower",
+      "minecraft:ore_diorite_upper",
+      "minecraft:ore_diorite_lower",
+      "minecraft:ore_andesite_upper",
+      "minecraft:ore_andesite_lower",
+      "minecraft:ore_tuff"
     ],
-    [],
+    [
+      "lotr_port:dripstone"
+    ],
     [],
     [
       "lotr_port:trees/dead_marshes",
+      "lotr_port:forest_floor/0_2",
+      "lotr_port:plant/dried_reeds_2_0",
+      "lotr_port:plant/dead_marsh_plant",
       "minecraft:patch_grass_plain",
-      "minecraft:patch_sugar_cane"
+      "minecraft:patch_sugar_cane",
+      "minecraft:patch_tall_grass",
+      "minecraft:patch_large_fern"
     ],
     [
       "minecraft:freeze_top_layer"

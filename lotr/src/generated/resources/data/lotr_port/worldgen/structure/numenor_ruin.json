@@ -9,7 +9,30 @@
     "lotr_port:numenor_ruin/1",
     "lotr_port:numenor_ruin/2"
   ],
-  "chance": 500,
+  "rolls": {
+    "lotr_port:beach": [
+      500
+    ],
+    "lotr_port:beach_gravel": [
+      500
+    ],
+    "lotr_port:beach_white": [
+      500
+    ],
+    "lotr_port:island": [
+      500
+    ],
+    "lotr_port:ocean": [
+      500
+    ]
+  },
+  "lotr_success": {
+    "lotr_port:beach": 1.0,
+    "lotr_port:beach_gravel": 1.0,
+    "lotr_port:beach_white": 1.0,
+    "lotr_port:island": 1.0,
+    "lotr_port:ocean": 1.0
+  },
   "salt": 768793586,
   "ground": 0,
   "max_slope": 6,

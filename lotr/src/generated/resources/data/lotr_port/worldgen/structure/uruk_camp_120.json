@@ -9,7 +9,21 @@
     "lotr_port:uruk_camp/1",
     "lotr_port:uruk_camp/2"
   ],
-  "chance": 120,
+  "rolls": {
+    "lotr_port:nan_curunir": [
+      800,
+      800,
+      400,
+      120
+    ],
+    "lotr_port:rohan_uruk_highlands": [
+      120
+    ]
+  },
+  "lotr_success": {
+    "lotr_port:nan_curunir": 1.0,
+    "lotr_port:rohan_uruk_highlands": 0.976
+  },
   "salt": 1489177770,
   "ground": 0,
   "max_slope": 6,

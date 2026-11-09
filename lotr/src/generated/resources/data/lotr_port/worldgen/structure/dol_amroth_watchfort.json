@@ -9,7 +9,18 @@
     "lotr_port:dol_amroth_watchfort/1",
     "lotr_port:dol_amroth_watchfort/2"
   ],
-  "chance": 800,
+  "rolls": {
+    "lotr_port:dor_en_ernil": [
+      800
+    ],
+    "lotr_port:dor_en_ernil_hills": [
+      800
+    ]
+  },
+  "lotr_success": {
+    "lotr_port:dor_en_ernil": 0.382,
+    "lotr_port:dor_en_ernil_hills": 0.281
+  },
   "salt": 1963887309,
   "ground": 0,
   "max_slope": 6,

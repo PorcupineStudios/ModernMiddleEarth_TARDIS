@@ -3,7 +3,7 @@
   "temperature": 1.5,
   "downfall": 0.1,
   "effects": {
-    "fog_color": 12638463,
+    "fog_color": 16180681,
     "sky_color": 7515647,
     "water_color": 7186907,
     "water_fog_color": 329011,
@@ -25,7 +25,9 @@
   },
   "features": [
     [],
-    [],
+    [
+      "lotr_port:crater_lava"
+    ],
     [
       "lotr_port:roads"
     ],
@@ -52,15 +54,25 @@
       "lotr_port:ore/gold_ore_45",
       "lotr_port:ore/gravel_46",
       "lotr_port:ore/iron_ore_49",
-      "lotr_port:ore/lapis_ore_50"
+      "lotr_port:ore/lapis_ore_50",
+      "minecraft:ore_granite_upper",
+      "minecraft:ore_granite_lower",
+      "minecraft:ore_diorite_upper",
+      "minecraft:ore_diorite_lower",
+      "minecraft:ore_andesite_upper",
+      "minecraft:ore_andesite_lower",
+      "minecraft:ore_tuff"
     ],
-    [],
+    [
+      "lotr_port:dripstone"
+    ],
     [],
     [
       "lotr_port:trees/near_harad",
+      "lotr_port:plant/reeds_0_9",
+      "lotr_port:plant/dried_reeds_0_1",
       "minecraft:patch_dead_bush",
-      "minecraft:patch_cactus_desert",
-      "minecraft:patch_sugar_cane"
+      "minecraft:patch_cactus_desert"
     ],
     [
       "minecraft:freeze_top_layer"

@@ -9,7 +9,14 @@
     "lotr_port:rivendell_house/1",
     "lotr_port:rivendell_house/2"
   ],
-  "chance": 100,
+  "rolls": {
+    "lotr_port:rivendell": [
+      100
+    ]
+  },
+  "lotr_success": {
+    "lotr_port:rivendell": 0.839
+  },
   "salt": 965341280,
   "ground": 0,
   "max_slope": 6,

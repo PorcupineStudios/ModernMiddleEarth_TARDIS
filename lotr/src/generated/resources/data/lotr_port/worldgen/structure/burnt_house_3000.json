@@ -9,7 +9,87 @@
     "lotr_port:burnt_house/1",
     "lotr_port:burnt_house/2"
   ],
-  "chance": 3000,
+  "rolls": {
+    "lotr_port:anduin_hills": [
+      1500,
+      2000,
+      3000
+    ],
+    "lotr_port:anduin_vale": [
+      1500,
+      2000,
+      3000
+    ],
+    "lotr_port:enedwaith": [
+      1500,
+      3000
+    ],
+    "lotr_port:eriador": [
+      2000,
+      1000,
+      2000,
+      3000
+    ],
+    "lotr_port:eriador_downs": [
+      2000,
+      1000,
+      2000,
+      3000
+    ],
+    "lotr_port:eryn_vorn": [
+      2000,
+      1000,
+      2000,
+      3000
+    ],
+    "lotr_port:gladden_fields": [
+      1500,
+      2000,
+      3000
+    ],
+    "lotr_port:long_marshes": [
+      2000,
+      2000,
+      3000
+    ],
+    "lotr_port:minhiriath": [
+      2000,
+      1000,
+      2000,
+      3000
+    ],
+    "lotr_port:swanfleet": [
+      2000,
+      1000,
+      2000,
+      3000
+    ],
+    "lotr_port:wilderland": [
+      2000,
+      3000,
+      2000,
+      3000
+    ],
+    "lotr_port:wilderland_north": [
+      2000,
+      2000,
+      3000
+    ]
+  },
+  "lotr_success": {
+    "lotr_port:anduin_hills": 0.505,
+    "lotr_port:anduin_vale": 0.753,
+    "lotr_port:enedwaith": 0.516,
+    "lotr_port:eriador": 0.573,
+    "lotr_port:eriador_downs": 0.523,
+    "lotr_port:eryn_vorn": 0.359,
+    "lotr_port:gladden_fields": 0.276,
+    "lotr_port:long_marshes": 0.225,
+    "lotr_port:minhiriath": 0.877,
+    "lotr_port:swanfleet": 0.206,
+    "lotr_port:wilderland": 0.452,
+    "lotr_port:wilderland_north": 0.582
+  },
   "salt": 1295481149,
   "ground": 0,
   "max_slope": 6,

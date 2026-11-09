@@ -26,6 +26,8 @@ public final class LotrWorldgen {
 
     static {
         FEATURES.register("roads", RoadFeature::new);
+        FEATURES.register("forest_floor", com.porcupinestudios.lotrport.world.feature.ForestFloorFeature::new);
+        FEATURES.register("crater_lava", com.porcupinestudios.lotrport.world.feature.CraterLavaFeature::new);
         FEATURES.register("template_tree", com.porcupinestudios.lotrport.world.feature.TemplateTreeFeature::new);
         BIOME_SOURCES.register("middle_earth", () -> MapBiomeSource.CODEC);
         DENSITY_FUNCTIONS.register("map_terrain", () -> MapTerrain.MAP_CODEC);

@@ -9,7 +9,32 @@
     "lotr_port:rotten_house/1",
     "lotr_port:rotten_house/2"
   ],
-  "chance": 2000,
+  "rolls": {
+    "lotr_port:lone_lands": [
+      1500,
+      800,
+      1500,
+      1500,
+      2000
+    ],
+    "lotr_port:lone_lands_hills": [
+      1500,
+      800,
+      1500,
+      1500,
+      2000
+    ],
+    "lotr_port:pukel": [
+      2000,
+      2000,
+      2000
+    ]
+  },
+  "lotr_success": {
+    "lotr_port:lone_lands": 0.304,
+    "lotr_port:lone_lands_hills": 0.545,
+    "lotr_port:pukel": 0.383
+  },
   "salt": 386305016,
   "ground": 0,
   "max_slope": 6,

@@ -9,7 +9,87 @@
     "lotr_port:ruined_house/1",
     "lotr_port:ruined_house/2"
   ],
-  "chance": 2000,
+  "rolls": {
+    "lotr_port:anduin_hills": [
+      1500,
+      2000
+    ],
+    "lotr_port:anduin_vale": [
+      1500,
+      2000
+    ],
+    "lotr_port:angle": [
+      500,
+      1500,
+      800,
+      2000
+    ],
+    "lotr_port:celebrant": [
+      4000,
+      2000
+    ],
+    "lotr_port:eriador": [
+      2000,
+      1000,
+      2000
+    ],
+    "lotr_port:eriador_downs": [
+      2000,
+      1000,
+      2000
+    ],
+    "lotr_port:eryn_vorn": [
+      2000,
+      1000,
+      2000
+    ],
+    "lotr_port:gladden_fields": [
+      1500,
+      2000
+    ],
+    "lotr_port:long_marshes": [
+      2000,
+      2000
+    ],
+    "lotr_port:minhiriath": [
+      2000,
+      1000,
+      2000
+    ],
+    "lotr_port:pukel": [
+      2000
+    ],
+    "lotr_port:swanfleet": [
+      2000,
+      1000,
+      2000
+    ],
+    "lotr_port:wilderland": [
+      2000,
+      3000,
+      2000
+    ],
+    "lotr_port:wilderland_north": [
+      2000,
+      2000
+    ]
+  },
+  "lotr_success": {
+    "lotr_port:anduin_hills": 0.537,
+    "lotr_port:anduin_vale": 0.741,
+    "lotr_port:angle": 0.617,
+    "lotr_port:celebrant": 0.783,
+    "lotr_port:eriador": 0.52,
+    "lotr_port:eriador_downs": 0.585,
+    "lotr_port:eryn_vorn": 0.359,
+    "lotr_port:gladden_fields": 0.204,
+    "lotr_port:long_marshes": 0.235,
+    "lotr_port:minhiriath": 0.831,
+    "lotr_port:pukel": 0.458,
+    "lotr_port:swanfleet": 0.175,
+    "lotr_port:wilderland": 0.479,
+    "lotr_port:wilderland_north": 0.582
+  },
   "salt": 564477695,
   "ground": 0,
   "max_slope": 6,

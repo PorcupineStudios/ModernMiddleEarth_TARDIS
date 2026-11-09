@@ -9,7 +9,22 @@
     "lotr_port:wood_elven_forge/1",
     "lotr_port:wood_elven_forge/2"
   ],
-  "chance": 80,
+  "rolls": {
+    "lotr_port:woodland_realm": [
+      16,
+      100,
+      80
+    ],
+    "lotr_port:woodland_realm_hills": [
+      16,
+      100,
+      80
+    ]
+  },
+  "lotr_success": {
+    "lotr_port:woodland_realm": 0.066,
+    "lotr_port:woodland_realm_hills": 0.0
+  },
   "salt": 1428228106,
   "ground": -1,
   "max_slope": 6,

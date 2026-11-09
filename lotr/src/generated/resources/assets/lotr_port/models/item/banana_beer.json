@@ -1,7 +1,74 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "lotr_port:item/mug",
-    "layer1": "lotr_port:item/mug_banana_beer_liquid"
-  }
+    "layer0": "lotr_port:item/drink/banana_beer/mug"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "lotr_port:vessel": 1
+      },
+      "model": "lotr_port:item/banana_beer_clay"
+    },
+    {
+      "predicate": {
+        "lotr_port:vessel": 2
+      },
+      "model": "lotr_port:item/banana_beer_goblet_gold"
+    },
+    {
+      "predicate": {
+        "lotr_port:vessel": 3
+      },
+      "model": "lotr_port:item/banana_beer_goblet_silver"
+    },
+    {
+      "predicate": {
+        "lotr_port:vessel": 4
+      },
+      "model": "lotr_port:item/banana_beer_goblet_copper"
+    },
+    {
+      "predicate": {
+        "lotr_port:vessel": 5
+      },
+      "model": "lotr_port:item/banana_beer_goblet_wood"
+    },
+    {
+      "predicate": {
+        "lotr_port:vessel": 6
+      },
+      "model": "lotr_port:item/banana_beer_skull"
+    },
+    {
+      "predicate": {
+        "lotr_port:vessel": 7
+      },
+      "model": "lotr_port:item/banana_beer_glass"
+    },
+    {
+      "predicate": {
+        "lotr_port:vessel": 8
+      },
+      "model": "lotr_port:item/banana_beer_bottle"
+    },
+    {
+      "predicate": {
+        "lotr_port:vessel": 9
+      },
+      "model": "lotr_port:item/banana_beer_skin"
+    },
+    {
+      "predicate": {
+        "lotr_port:vessel": 10
+      },
+      "model": "lotr_port:item/banana_beer_horn"
+    },
+    {
+      "predicate": {
+        "lotr_port:vessel": 11
+      },
+      "model": "lotr_port:item/banana_beer_horn_gold"
+    }
+  ]
 }

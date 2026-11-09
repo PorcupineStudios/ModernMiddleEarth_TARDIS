@@ -9,7 +9,15 @@
     "lotr_port:hobbit_burrow/1",
     "lotr_port:hobbit_burrow/2"
   ],
-  "chance": 150,
+  "rolls": {
+    "lotr_port:white_downs": [
+      300,
+      150
+    ]
+  },
+  "lotr_success": {
+    "lotr_port:white_downs": 0.603
+  },
   "salt": 358334422,
   "ground": 0,
   "max_slope": 6,

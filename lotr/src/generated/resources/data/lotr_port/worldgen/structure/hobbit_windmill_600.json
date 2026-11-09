@@ -9,7 +9,26 @@
     "lotr_port:hobbit_windmill/1",
     "lotr_port:hobbit_windmill/2"
   ],
-  "chance": 600,
+  "rolls": {
+    "lotr_port:shire": [
+      90,
+      45,
+      45,
+      70,
+      600
+    ],
+    "lotr_port:white_downs": [
+      300,
+      150,
+      150,
+      300,
+      600
+    ]
+  },
+  "lotr_success": {
+    "lotr_port:shire": 0.878,
+    "lotr_port:white_downs": 0.873
+  },
   "salt": 2057406587,
   "ground": 0,
   "max_slope": 6,

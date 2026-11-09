@@ -47,3 +47,7 @@ side = "BOTH"
 # Six-direction gravity: Gravity Changer's mixins, ported (gravity/gc, see its NOTICE).
 [[mixins]]
 config = "tardis_rb.mixins.json"
+
+# Fast space flight loads no chunks through Immersive Portals either (compat/immportals).
+[[mixins]]
+config = "tardis_rb.immportals.mixins.json"

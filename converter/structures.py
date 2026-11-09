@@ -25,6 +25,7 @@ from assets import NS, snake, write_json
 from vanilla import BY_META, RENAMED
 
 DATA_VERSION = 3955  # 1.21.1
+RATE_MIN = 20  # fewer probes than this in a biome: use the structure's share over every biome
 STAIRS_FACING = ["east", "west", "south", "north"]
 GATE_FACING = ["south", "west", "north", "east"]
 DOOR_FACING = ["east", "south", "west", "north"]
@@ -258,6 +259,17 @@ class Structures:
             return "minecraft:" + RENAMED.get(old, old.split(":", 1)[1])
         return None
 
+    @staticmethod
+    def keg(items):
+        """
+        A LOTR barrel's contents as a full keg (KegBlockEntity): LOTR's structures filled slot 9, the barrel's drink,
+        and set it full; the export lists only filled slots, so that drink is the first item.
+        """
+        drink = next(iter(items), None)
+        if drink is None:
+            return {"id": f"{NS}:keg", "Mode": nbt.Byte(0)}
+        return {"id": f"{NS}:keg", "Mode": nbt.Byte(2), "Items": [{**drink, "Slot": nbt.Byte(9)}]}
+
     # ------------------------------------------------------------------ templates
 
     def template(self, sid, n, layout, base_y):
@@ -327,12 +339,18 @@ class Structures:
                             book["resolved"] = nbt.Byte(1)
                             stack["components"] = {"minecraft:written_book_content": book}
                             self.lore_placed += 1
+                        components = self.gen.drinks.components(it["item"], it.get("meta", 0))
+                        if components:
+                            stack["components"] = components  # a drink's strength and vessel (its old meta)
                         items.append(stack)
-                # only vanilla chests keep their contents (LOTR's chests have no storage yet)
-                if st["Name"] not in ("minecraft:chest", "minecraft:trapped_chest", "minecraft:barrel"):
-                    facing = st.get("Properties", {}).get("facing")
-                    st = {"Name": "minecraft:chest", **({"Properties": {"facing": facing}} if facing else {})}
-                entry["nbt"] = {"id": "minecraft:chest", "Items": items}
+                if st["Name"] == f"{NS}:keg":
+                    entry["nbt"] = self.keg(items)
+                else:
+                    # only vanilla chests keep their contents (LOTR's chests have no storage yet)
+                    if st["Name"] not in ("minecraft:chest", "minecraft:trapped_chest", "minecraft:barrel"):
+                        facing = st.get("Properties", {}).get("facing")
+                        st = {"Name": "minecraft:chest", **({"Properties": {"facing": facing}} if facing else {})}
+                    entry["nbt"] = {"id": "minecraft:chest", "Items": items}
             placed[(x, y, z)] = (st, entry)
         # Real air only where LOTR cleared space; every other spot is left out (structure void), so the natural ground
         # stays there. Below the ground layer the export already holds the air LOTR dug (cellars). Above it, a column's
@@ -536,18 +554,26 @@ class Structures:
         for err in export.get("errors", [])[:200]:
             self.report["structure_export_errors"].append(err)
         # LOTR gives each biome its own chance per chunk for a structure (a Mordor camp is 1 in 20 chunks in one biome
-        # and 1 in 3000 in another), so each chance gets its own structure and biome tag
-        chance_in = {}
+        # and 1 in 3000 in another), so each chance gets its own structure and biome tag. LOTR rolls a biome's list in
+        # order from one random per chunk, so each entry keeps the chances up to and including its own ("rolls"); an
+        # entry LOTR lists twice in one biome (Udun's camps) rolls twice.
+        entries = {}  # cls -> chance -> biome -> chances of that biome's list up to this entry
         for b in self.world["biomes"]:
             if "biomeName" not in b.get("fields", {}):
                 continue
             bid = snake(b["fields"]["biomeName"])
-            for st in b.get("structures", []):
+            listed = b.get("structures", [])
+            chances = [max(1, st.get("chunkChance") or 1) for st in listed]
+            for n, st in enumerate(listed):
                 cls = (st.get("class") or "").split(".")[-1]
-                per = chance_in.setdefault(cls, {})
-                per[bid] = min(per.get(bid, 10 ** 9), max(1, st.get("chunkChance") or 1))
+                per = entries.setdefault(cls, {}).setdefault(chances[n], {})
+                if bid in per:
+                    self.report["structure_rolls_repeated"].append(f"{bid}: {cls} 1 in {chances[n]}")
+                    continue
+                per[bid] = chances[:n + 1]
         # LOTR's villages: one per grid cell of gridScale x gridScale chunks, there with spawnChance (LOTRVillageGen),
         # i.e. about 1 in gridScale^2 / spawnChance chunks
+        village_in = {}  # village class -> biome -> 1 in this many chunks
         grid = {}
         for cls, layouts in export.get("structures", {}).items():
             if cls.startswith("village:") and layouts:
@@ -560,8 +586,15 @@ class Structures:
                     for v in ((b.get("decorator") or {}).get("villages") or []):
                         cls = "village:" + v["_class"].split(".")[-1] if isinstance(v, dict) else None
                         if cls in grid and b.get("biomeName"):
-                            chance_in.setdefault(cls, {})[snake(b["biomeName"])] = grid[cls]
-        biomes_of = {cls: set(per) for cls, per in chance_in.items()}
+                            village_in.setdefault(cls, {})[snake(b["biomeName"])] = grid[cls]
+        success = self.success_shares()
+        # a village isn't in the decorator's list: its roll always hits (rolls [1]) and is kept 1 in its grid chance
+        # by the structure's own salted hash, so it doesn't ride on the first listed structure's roll
+        for cls, per in village_in.items():
+            for bid, chance in per.items():
+                entries.setdefault(cls, {}).setdefault(chance, {})[bid] = [1]
+                success.setdefault((cls, chance), {})[bid] = 1 / chance
+        biomes_of = {cls: {b for per in by.values() for b in per} for cls, by in entries.items()}
         count = 0
         with_npcs = 0
         faction_tags = {}
@@ -575,13 +608,12 @@ class Structures:
             npcs = 0
             for n, layout in enumerate(layouts):
                 npcs += self.template(sid, n, layout, base_y)
-            by_chance = {}
-            for bid, chance in chance_in[cls].items():
-                by_chance.setdefault(chance, set()).add(bid)
+            by_chance = entries[cls]
             ids = []
-            for chance, biomes in sorted(by_chance.items()):
+            for chance, rolls in sorted(by_chance.items()):
                 wid = sid if len(by_chance) == 1 else f"{sid}_{chance}"
-                self.worldgen(wid, sid, len(layouts), ground - base_y, biomes, chance, cls)
+                self.worldgen(wid, sid, len(layouts), ground - base_y, rolls, chance, cls,
+                              success.get((cls, chance), {}))
                 ids.append(wid)
             count += 1
             if npcs:
@@ -598,10 +630,48 @@ class Structures:
         return {"structures": count, "structures_with_npcs": with_npcs, "npc_spawn_tables": spawn_tables,
                 **self.lore.run(), "lore_books_in_chests": self.lore_placed}
 
-    def worldgen(self, wid, sid, layouts, ground, biomes, chunk_chance, cls):
+    def success_shares(self):
+        """(class, chance) -> biome -> the share of LOTR's rolls in that biome's chunks that really stood, from
+        structure_rates.json (the exporter built every structure at every chunk of LOTR's own Middle-earth and counted
+        what its ground checks kept): stood per probe, times the share of the biome's chunks that probe at all (the
+        rest are orchards and vineyards, whose variant turns structures off). A structure probed fewer than RATE_MIN
+        times in a biome takes its share per probe over every biome."""
+        path = os.path.join(self.export_dir, "structure_rates.json")
+        if not os.path.exists(path):
+            self.report["structure_rates_not_exported"].append(path)
+            return {}
+        with open(path, encoding="utf-8") as f:
+            rates = json.load(f)
+        for err in rates.get("errors", [])[:50]:
+            self.report["structure_rate_errors"].append(err)
+        measured, pooled = {}, {}
+        for name, b in rates.get("biomes", {}).items():
+            listed = b.get("structures", [])
+            probed = max((st["calls"] for st in listed), default=0)
+            rolls = probed / b["chunks"] if b["chunks"] >= RATE_MIN else 1.0
+            for st in listed:
+                key = (st["class"].split(".")[-1], max(1, st["chance"]))
+                # an entry listed twice in a biome keeps the first, as run() does
+                measured.setdefault(key, {}).setdefault(snake(name), (st["placed"], st["calls"], rolls))
+                total = pooled.setdefault(key[0], [0, 0])
+                total[0] += st["placed"]
+                total[1] += st["calls"]
+        shares = {}
+        for key, per in measured.items():
+            for bid, (placed, calls, rolls) in per.items():
+                if calls < RATE_MIN:
+                    placed, calls = pooled[key[0]]
+                    self.report["structure_rates_pooled"].append(f"{bid}: {key[0]} 1 in {key[1]}")
+                if calls >= RATE_MIN:
+                    shares.setdefault(key, {})[bid] = round(placed / calls * rolls, 3)
+        return shares
+
+    def worldgen(self, wid, sid, layouts, ground, rolls, chunk_chance, cls, success):
         """One placement of a structure: lotr_port:lotr (LOTR's ground checks, foundations, no carving) in the biomes
-        that share one LOTR chance per chunk. Every chunk rolls once with that chance, as LOTR's decorator did; then
-        the structure itself turns down water, slopes and roads like LOTR's generators."""
+        that share one LOTR chance per chunk. Every chunk rolls as LOTR's decorator did (its random from the chunk
+        alone, the biome's list in order) and keeps the roll with the share that stood in LOTR (success); then the
+        structure tries a few spots in the chunk for ground that fits and isn't another LOTR structure's."""
+        biomes = set(rolls)
         wg = os.path.join(self.data, "worldgen")
         write_json(os.path.join(wg, "structure", wid + ".json"), {
             "type": f"{NS}:lotr",
@@ -610,8 +680,12 @@ class Structures:
             "spawn_overrides": {},
             "terrain_adaptation": "none",
             "templates": [f"{NS}:{sid}/{n}" for n in range(layouts)],
-            # LOTR's chance per chunk (1 in chance), rolled by the structure itself with a well-mixed hash
-            "chance": chunk_chance,
+            # per biome, LOTR's chances per chunk of that biome's structures up to and including this one: the chunk's
+            # random rolls each in turn and this structure comes when its own roll (the last) hits 1 in its chance
+            "rolls": {f"{NS}:{b}": rolls[b] for b in sorted(rolls)},
+            # per biome, the share of those rolls whose structure LOTR's own ground checks let stand (measured)
+            **({"lotr_success": {f"{NS}:{b}": success[b] for b in sorted(rolls) if b in success}}
+               if any(b in success for b in rolls) else {}),
             "salt": zlib.crc32((cls + str(chunk_chance)).encode()) & 0x7FFFFFFF,
             # the template's layer that sits at the surface (the old flat world's grass layer)
             "ground": ground,
@@ -631,12 +705,16 @@ class Structures:
 
     def spawns(self):
         lists = self.world.get("spawnLists", {})
+        with open(os.path.join(self.export_dir, "npcs.json"), encoding="utf-8") as fh:
+            in_dark = {e["name"] for e in json.load(fh).get("entities", [])
+                       if (e.get("fields") or {}).get("spawnsInDarkness")}
         written = 0
         for b in self.world["biomes"]:
             if "biomeName" not in b.get("fields", {}):
                 continue
             bid = snake(b["fields"]["biomeName"])
             weights = {}
+            dark = set()  # LOTR's spawnsInDarkness NPCs (orcs, wargs, spiders): only in the dark, unless hostilesInDay
             groups = [g for g in b.get("spawns", []) if g.get("lists")]
             for g in groups:
                 gw = max(1, g.get("weight") or 1)
@@ -649,14 +727,20 @@ class Structures:
                         tid = snake(re.sub(r"^(lotr\.)+", "", e["entity"]))
                         if tid not in self.npc_types:
                             continue
+                        if e["entity"] in in_dark:
+                            dark.add(tid)
                         share = gw * max(1, l.get("weight") or 1) / lw_total * max(1, e.get("weight") or 1) / ew_total
                         prev = weights.get(tid, (0, e.get("min") or 1, e.get("max") or 1))
                         weights[tid] = (prev[0] + share, prev[1], prev[2])
             if not weights:
                 continue
             top = max(w for w, _, _ in weights.values())
-            entries = [{"npc": f"{NS}:{t}", "weight": max(1, round(100 * w / top)), "min": mn, "max": max(mn, mx)}
+            entries = [{"npc": f"{NS}:{t}", "weight": max(1, round(100 * w / top)), "min": mn, "max": max(mn, mx),
+                        **({"dark": True} if t in dark else {})}
                        for t, (w, mn, mx) in sorted(weights.items())]
-            write_json(os.path.join(self.data, "npc_spawns", NS, bid + ".json"), {"entries": entries})
+            table = {"entries": entries}
+            if b.get("hostilesInDay"):
+                table["hostiles_in_day"] = True
+            write_json(os.path.join(self.data, "npc_spawns", NS, bid + ".json"), table)
             written += 1
         return written

@@ -9,7 +9,25 @@
     "lotr_port:rotten_house/1",
     "lotr_port:rotten_house/2"
   ],
-  "chance": 4000,
+  "rolls": {
+    "lotr_port:angle": [
+      500,
+      1500,
+      800,
+      2000,
+      2000,
+      4000
+    ],
+    "lotr_port:dale": [
+      4000,
+      4000,
+      4000
+    ]
+  },
+  "lotr_success": {
+    "lotr_port:angle": 0.691,
+    "lotr_port:dale": 0.519
+  },
   "salt": 846058532,
   "ground": 0,
   "max_slope": 6,

@@ -9,7 +9,19 @@
     "lotr_port:dale_fortress/1",
     "lotr_port:dale_fortress/2"
   ],
-  "chance": 800,
+  "rolls": {
+    "lotr_port:dale": [
+      4000,
+      4000,
+      4000,
+      1000,
+      500,
+      800
+    ]
+  },
+  "lotr_success": {
+    "lotr_port:dale": 0.173
+  },
   "salt": 2080208882,
   "ground": 0,
   "max_slope": 6,

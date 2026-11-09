@@ -1,9 +1,14 @@
 name: Convert LOTR
 
 # Runs the 1.7.10 exporter (converter/) in a real LOTR 36.15 client under a virtual screen and commits what it reads
-# to converter/export/. Runs when the exporter changes, or by hand from the Actions tab.
+# to converter/export/. Runs when the exporter changes, or by hand from the Actions tab ("rates" measures how often
+# LOTR's structures stand in its real Middle-earth instead: structure_rates.json).
 on:
   workflow_dispatch:
+    inputs:
+      rates:
+        type: boolean
+        default: false
   push:
     paths:
       - 'converter/src/**'
@@ -32,7 +37,7 @@ jobs:
       - name: Run the exporter
         working-directory: converter
         env:
-          JAVA_TOOL_OPTIONS: -Dlotrexport.run=true -Dlotrexport.out=${{ github.workspace }}/converter/export
+          JAVA_TOOL_OPTIONS: -Dlotrexport.run=true -Dlotrexport.out=${{ github.workspace }}/converter/export -Dlotrexport.rates=${{ inputs.rates == true }}
         run: xvfb-run -a -s "-screen 0 1280x800x24 +extension RANDR +extension GLX" sh ./gradlew runClient --stacktrace
       - name: Check the export
         run: |

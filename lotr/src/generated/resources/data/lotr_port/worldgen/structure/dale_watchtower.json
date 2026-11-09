@@ -9,7 +9,18 @@
     "lotr_port:dale_watchtower/1",
     "lotr_port:dale_watchtower/2"
   ],
-  "chance": 500,
+  "rolls": {
+    "lotr_port:dale": [
+      4000,
+      4000,
+      4000,
+      1000,
+      500
+    ]
+  },
+  "lotr_success": {
+    "lotr_port:dale": 0.469
+  },
   "salt": 948920511,
   "ground": 0,
   "max_slope": 6,

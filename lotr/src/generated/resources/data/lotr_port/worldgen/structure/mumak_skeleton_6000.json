@@ -9,7 +9,27 @@
     "lotr_port:mumak_skeleton/1",
     "lotr_port:mumak_skeleton/2"
   ],
-  "chance": 6000,
+  "rolls": {
+    "lotr_port:harnedor": [
+      3000,
+      600,
+      800,
+      2000,
+      6000
+    ],
+    "lotr_port:harondor": [
+      3000,
+      600,
+      1000,
+      1000,
+      2000,
+      6000
+    ]
+  },
+  "lotr_success": {
+    "lotr_port:harnedor": 0.721,
+    "lotr_port:harondor": 0.763
+  },
   "salt": 477456998,
   "ground": 6,
   "max_slope": 6,

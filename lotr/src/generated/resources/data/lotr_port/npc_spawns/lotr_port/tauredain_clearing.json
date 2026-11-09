@@ -16,31 +16,36 @@
       "npc": "lotr_port:half_troll",
       "weight": 1,
       "min": 2,
-      "max": 4
+      "max": 4,
+      "dark": true
     },
     {
       "npc": "lotr_port:half_troll_scavenger",
       "weight": 1,
       "min": 1,
-      "max": 1
+      "max": 1,
+      "dark": true
     },
     {
       "npc": "lotr_port:half_troll_warrior",
       "weight": 1,
       "min": 2,
-      "max": 4
+      "max": 4,
+      "dark": true
     },
     {
       "npc": "lotr_port:mordor_orc",
       "weight": 1,
       "min": 4,
-      "max": 6
+      "max": 6,
+      "dark": true
     },
     {
       "npc": "lotr_port:mordor_orc_archer",
       "weight": 1,
       "min": 4,
-      "max": 6
+      "max": 6,
+      "dark": true
     },
     {
       "npc": "lotr_port:moredain",

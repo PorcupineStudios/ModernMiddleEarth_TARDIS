@@ -3,8 +3,8 @@
   "temperature": 0.4,
   "downfall": 1.0,
   "effects": {
-    "fog_color": 12638463,
-    "sky_color": 8168703,
+    "fog_color": 6579288,
+    "sky_color": 9013080,
     "water_color": 3159334,
     "water_fog_color": 329011,
     "mood_sound": {
@@ -12,7 +12,9 @@
       "tick_delay": 6000,
       "block_search_extent": 8,
       "offset": 2.0
-    }
+    },
+    "grass_color": 7106635,
+    "foliage_color": 7041093
   },
   "spawners": {
     "creature": [
@@ -46,8 +48,12 @@
   },
   "features": [
     [],
-    [],
     [
+      "lotr_port:crater_lava"
+    ],
+    [
+      "lotr_port:quagmire_2",
+      "lotr_port:mud_patch",
       "lotr_port:roads"
     ],
     [],
@@ -72,14 +78,28 @@
       "lotr_port:ore/dirt_42",
       "lotr_port:ore/gold_ore_45",
       "lotr_port:ore/gravel_46",
-      "lotr_port:ore/iron_ore_49"
+      "lotr_port:ore/iron_ore_49",
+      "minecraft:ore_granite_upper",
+      "minecraft:ore_granite_lower",
+      "minecraft:ore_diorite_upper",
+      "minecraft:ore_diorite_lower",
+      "minecraft:ore_andesite_upper",
+      "minecraft:ore_andesite_lower",
+      "minecraft:ore_tuff"
     ],
-    [],
+    [
+      "lotr_port:dripstone"
+    ],
     [],
     [
       "lotr_port:trees/nindalf",
+      "lotr_port:forest_floor/0_2",
+      "lotr_port:plant/reeds_1_8",
+      "lotr_port:plant/dried_reeds_0_2",
       "minecraft:patch_grass_plain",
-      "minecraft:patch_sugar_cane"
+      "minecraft:patch_sugar_cane",
+      "minecraft:patch_tall_grass",
+      "minecraft:patch_large_fern"
     ],
     [
       "minecraft:freeze_top_layer"

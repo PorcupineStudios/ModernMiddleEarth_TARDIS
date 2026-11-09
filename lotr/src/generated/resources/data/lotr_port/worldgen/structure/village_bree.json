@@ -8,7 +8,14 @@
     "lotr_port:village_bree/0",
     "lotr_port:village_bree/1"
   ],
-  "chance": 144,
+  "rolls": {
+    "lotr_port:breeland": [
+      1
+    ]
+  },
+  "lotr_success": {
+    "lotr_port:breeland": 0.006944444444444444
+  },
   "salt": 2109679304,
   "ground": 4,
   "max_slope": 24,

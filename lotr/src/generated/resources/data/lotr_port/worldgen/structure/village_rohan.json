@@ -8,7 +8,18 @@
     "lotr_port:village_rohan/0",
     "lotr_port:village_rohan/1"
   ],
-  "chance": 327,
+  "rolls": {
+    "lotr_port:rohan": [
+      1
+    ],
+    "lotr_port:wold": [
+      1
+    ]
+  },
+  "lotr_success": {
+    "lotr_port:rohan": 0.0030581039755351682,
+    "lotr_port:wold": 0.0030581039755351682
+  },
   "salt": 212494570,
   "ground": 7,
   "max_slope": 24,

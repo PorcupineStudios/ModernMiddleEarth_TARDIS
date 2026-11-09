@@ -9,7 +9,47 @@
     "lotr_port:rhudaur_castle/1",
     "lotr_port:rhudaur_castle/2"
   ],
-  "chance": 1000,
+  "rolls": {
+    "lotr_port:lone_lands": [
+      1500,
+      800,
+      1500,
+      1500,
+      2000,
+      2000,
+      400,
+      400,
+      2000,
+      4000,
+      1000,
+      200,
+      1000
+    ],
+    "lotr_port:lone_lands_hills": [
+      1500,
+      800,
+      1500,
+      1500,
+      2000,
+      2000,
+      400,
+      400,
+      2000,
+      4000,
+      1000,
+      200,
+      1000
+    ],
+    "lotr_port:trollshaws": [
+      300,
+      1000
+    ]
+  },
+  "lotr_success": {
+    "lotr_port:lone_lands": 1.0,
+    "lotr_port:lone_lands_hills": 1.0,
+    "lotr_port:trollshaws": 1.0
+  },
   "salt": 1344320694,
   "ground": 0,
   "max_slope": 6,

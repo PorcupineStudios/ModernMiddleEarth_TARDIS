@@ -4,19 +4,23 @@
       "npc": "lotr_port:half_troll",
       "weight": 100,
       "min": 2,
-      "max": 4
+      "max": 4,
+      "dark": true
     },
     {
       "npc": "lotr_port:half_troll_scavenger",
       "weight": 8,
       "min": 1,
-      "max": 1
+      "max": 1,
+      "dark": true
     },
     {
       "npc": "lotr_port:half_troll_warrior",
       "weight": 58,
       "min": 2,
-      "max": 4
+      "max": 4,
+      "dark": true
     }
-  ]
+  ],
+  "hostiles_in_day": true
 }

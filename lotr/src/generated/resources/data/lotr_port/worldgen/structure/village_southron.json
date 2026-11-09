@@ -8,7 +8,14 @@
     "lotr_port:village_southron/0",
     "lotr_port:village_southron/1"
   ],
-  "chance": 327,
+  "rolls": {
+    "lotr_port:near_harad_fertile": [
+      1
+    ]
+  },
+  "lotr_success": {
+    "lotr_port:near_harad_fertile": 0.0030581039755351682
+  },
   "salt": 1257992078,
   "ground": 5,
   "max_slope": 24,

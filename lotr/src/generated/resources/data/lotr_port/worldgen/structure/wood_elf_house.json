@@ -9,7 +9,18 @@
     "lotr_port:wood_elf_house/1",
     "lotr_port:wood_elf_house/2"
   ],
-  "chance": 16,
+  "rolls": {
+    "lotr_port:woodland_realm": [
+      16
+    ],
+    "lotr_port:woodland_realm_hills": [
+      16
+    ]
+  },
+  "lotr_success": {
+    "lotr_port:woodland_realm": 0.074,
+    "lotr_port:woodland_realm_hills": 0.0
+  },
   "salt": 1247727414,
   "ground": 5,
   "max_slope": 6,

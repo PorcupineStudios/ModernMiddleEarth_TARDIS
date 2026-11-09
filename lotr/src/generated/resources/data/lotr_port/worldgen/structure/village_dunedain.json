@@ -8,7 +8,14 @@
     "lotr_port:village_dunedain/0",
     "lotr_port:village_dunedain/1"
   ],
-  "chance": 206,
+  "rolls": {
+    "lotr_port:angle": [
+      1
+    ]
+  },
+  "lotr_success": {
+    "lotr_port:angle": 0.0048543689320388345
+  },
   "salt": 1785697596,
   "ground": 7,
   "max_slope": 24,

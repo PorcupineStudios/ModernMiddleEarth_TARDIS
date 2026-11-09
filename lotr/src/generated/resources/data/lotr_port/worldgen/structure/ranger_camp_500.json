@@ -9,7 +9,14 @@
     "lotr_port:ranger_camp/1",
     "lotr_port:ranger_camp/2"
   ],
-  "chance": 500,
+  "rolls": {
+    "lotr_port:angle": [
+      500
+    ]
+  },
+  "lotr_success": {
+    "lotr_port:angle": 1.0
+  },
   "salt": 1793384695,
   "ground": 0,
   "max_slope": 6,

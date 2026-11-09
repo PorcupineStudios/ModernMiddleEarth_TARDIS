@@ -2,7 +2,7 @@
   "parent": "lotr_port:eriador/root",
   "display": {
     "icon": {
-      "id": "lotr_port:cooked_mutton"
+      "id": "minecraft:cooked_mutton"
     },
     "title": {
       "translate": "lotr.achievement.enterTrollshaws.title"

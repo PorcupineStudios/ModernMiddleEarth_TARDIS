@@ -1,42 +1,42 @@
 {
   "variants": {
     "facing=north,open=false": {
-      "model": "lotr_port:block/dwarven_door"
+      "model": "lotr_port:block/dwarven_door_full"
     },
     "facing=north,open=true": {
-      "model": "minecraft:block/air"
-    },
-    "facing=south,open=false": {
       "model": "lotr_port:block/dwarven_door"
     },
+    "facing=south,open=false": {
+      "model": "lotr_port:block/dwarven_door_full"
+    },
     "facing=south,open=true": {
-      "model": "minecraft:block/air"
+      "model": "lotr_port:block/dwarven_door"
     },
     "facing=east,open=false": {
-      "model": "lotr_port:block/dwarven_door",
-      "y": 90
+      "model": "lotr_port:block/dwarven_door_full"
     },
     "facing=east,open=true": {
-      "model": "minecraft:block/air"
-    },
-    "facing=west,open=false": {
       "model": "lotr_port:block/dwarven_door",
       "y": 90
     },
+    "facing=west,open=false": {
+      "model": "lotr_port:block/dwarven_door_full"
+    },
     "facing=west,open=true": {
-      "model": "minecraft:block/air"
+      "model": "lotr_port:block/dwarven_door",
+      "y": 90
     },
     "facing=up,open=false": {
-      "model": "lotr_port:block/dwarven_door_flat"
+      "model": "lotr_port:block/dwarven_door_full"
     },
     "facing=up,open=true": {
-      "model": "minecraft:block/air"
-    },
-    "facing=down,open=false": {
       "model": "lotr_port:block/dwarven_door_flat"
     },
+    "facing=down,open=false": {
+      "model": "lotr_port:block/dwarven_door_full"
+    },
     "facing=down,open=true": {
-      "model": "minecraft:block/air"
+      "model": "lotr_port:block/dwarven_door_flat"
     }
   }
 }

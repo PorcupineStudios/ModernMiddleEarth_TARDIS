@@ -9,7 +9,24 @@
     "lotr_port:moredain_merc_camp/1",
     "lotr_port:moredain_merc_camp/2"
   ],
-  "chance": 2000,
+  "rolls": {
+    "lotr_port:harnedor": [
+      3000,
+      600,
+      800,
+      2000
+    ],
+    "lotr_port:near_harad_semi_desert": [
+      2000,
+      4000,
+      1000,
+      2000
+    ]
+  },
+  "lotr_success": {
+    "lotr_port:harnedor": 0.86,
+    "lotr_port:near_harad_semi_desert": 1.0
+  },
   "salt": 1445480425,
   "ground": 0,
   "max_slope": 6,

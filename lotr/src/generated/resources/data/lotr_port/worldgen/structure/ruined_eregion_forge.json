@@ -9,7 +9,16 @@
     "lotr_port:ruined_eregion_forge/1",
     "lotr_port:ruined_eregion_forge/2"
   ],
-  "chance": 100,
+  "rolls": {
+    "lotr_port:eregion": [
+      500,
+      50,
+      100
+    ]
+  },
+  "lotr_success": {
+    "lotr_port:eregion": 0.009
+  },
   "salt": 1619397318,
   "ground": -1,
   "max_slope": 6,

@@ -22,55 +22,64 @@
       "npc": "lotr_port:angmar_orc",
       "weight": 25,
       "min": 4,
-      "max": 6
+      "max": 6,
+      "dark": true
     },
     {
       "npc": "lotr_port:angmar_orc_archer",
       "weight": 12,
       "min": 4,
-      "max": 6
+      "max": 6,
+      "dark": true
     },
     {
       "npc": "lotr_port:angmar_warg",
       "weight": 12,
       "min": 4,
-      "max": 4
+      "max": 4,
+      "dark": true
     },
     {
       "npc": "lotr_port:gundabad_orc",
       "weight": 53,
       "min": 4,
-      "max": 6
+      "max": 6,
+      "dark": true
     },
     {
       "npc": "lotr_port:gundabad_orc_archer",
       "weight": 27,
       "min": 4,
-      "max": 6
+      "max": 6,
+      "dark": true
     },
     {
       "npc": "lotr_port:gundabad_uruk",
       "weight": 12,
       "min": 2,
-      "max": 4
+      "max": 4,
+      "dark": true
     },
     {
       "npc": "lotr_port:gundabad_uruk_archer",
       "weight": 6,
       "min": 2,
-      "max": 4
+      "max": 4,
+      "dark": true
     },
     {
       "npc": "lotr_port:gundabad_warg",
       "weight": 27,
       "min": 4,
-      "max": 4
+      "max": 4,
+      "dark": true
     },
     {
       "npc": "lotr_port:mountain_troll",
       "weight": 50,
       "min": 1,
-      "max": 3
+      "max": 3,
+      "dark": true
     },
     {
       "npc": "lotr_port:ranger_north",
@@ -88,7 +97,8 @@
       "npc": "lotr_port:troll",
       "weight": 100,
       "min": 1,
-      "max": 3
+      "max": 3,
+      "dark": true
     }
   ]
 }
