@@ -1,0 +1,29 @@
+{
+  "type": "lotr_port:brewing",
+  "ingredients": [
+    {
+      "item": "lotr_port:mallorn_nut"
+    },
+    {
+      "item": "lotr_port:mallorn_nut"
+    },
+    {
+      "item": "lotr_port:mallorn_nut"
+    },
+    {
+      "item": "lotr_port:elanor"
+    },
+    {
+      "item": "lotr_port:niphredil"
+    },
+    {
+      "item": "minecraft:sugar"
+    }
+  ],
+  "result": {
+    "id": "lotr_port:miruvor",
+    "count": 16
+  },
+  "water": 3000,
+  "brew_time": 12000
+}

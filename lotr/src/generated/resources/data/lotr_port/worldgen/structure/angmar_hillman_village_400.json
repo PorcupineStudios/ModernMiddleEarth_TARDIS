@@ -9,7 +9,30 @@
     "lotr_port:angmar_hillman_village/1",
     "lotr_port:angmar_hillman_village/2"
   ],
-  "chance": 400,
+  "rolls": {
+    "lotr_port:angmar": [
+      300,
+      40,
+      40,
+      200,
+      200,
+      50,
+      400
+    ],
+    "lotr_port:angmar_mountains": [
+      300,
+      40,
+      40,
+      200,
+      200,
+      50,
+      400
+    ]
+  },
+  "lotr_success": {
+    "lotr_port:angmar": 1.0,
+    "lotr_port:angmar_mountains": 1.0
+  },
   "salt": 2023996430,
   "ground": 6,
   "max_slope": 6,

@@ -9,7 +9,14 @@
     "lotr_port:hobbit_hole/1",
     "lotr_port:hobbit_hole/2"
   ],
-  "chance": 90,
+  "rolls": {
+    "lotr_port:shire": [
+      90
+    ]
+  },
+  "lotr_success": {
+    "lotr_port:shire": 0.22
+  },
   "salt": 894636781,
   "ground": 0,
   "max_slope": 6,

@@ -1,6 +1,12 @@
 package com.porcupinestudios.lotrport.npc;
 
+import com.porcupinestudios.lotrport.animal.FactionMount;
 import java.util.Optional;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
@@ -54,7 +60,8 @@ public final class NpcSpawner {
             return 0;
         }
         AABB near = player.getBoundingBox().inflate(COUNT_RADIUS);
-        if (level.getEntitiesOfClass(LotrNpc.class, near).size() >= table.cap()) {
+        if (level.getEntitiesOfClass(Mob.class, near, m -> m instanceof LotrNpc || m instanceof FactionMount).size()
+                >= table.cap()) {
             return 0;
         }
         double angle = random.nextDouble() * Math.PI * 2;
@@ -75,16 +82,26 @@ public final class NpcSpawner {
             return 0;
         }
         NpcSpawns.Entry entry = pick(here.get(), random);
+        if (entry.dark() && !here.get().hostilesInDay() && !Monster.isDarkEnoughToSpawn(level, ground, random)) {
+            return 0; // LOTR: orcs, wargs and spiders only in the dark, unless the biome allows hostiles by day
+        }
         int count = entry.min() + (entry.max() > entry.min() ? random.nextInt(entry.max() - entry.min() + 1) : 0);
         int spawned = 0;
         for (int i = 0; i < count; i++) {
             BlockPos p = level.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
                     ground.offset(random.nextInt(5) - 2, 0, random.nextInt(5) - 2));
-            if (LotrNpc.spawn(level, entry.npc(), p.getX() + 0.5, p.getY(), p.getZ() + 0.5).isPresent()) {
+            if (LotrNpc.spawn(level, entry.npc(), p.getX() + 0.5, p.getY(), p.getZ() + 0.5).isPresent()
+                    || spawnMob(level, entry.npc(), p)) {
                 spawned++;
             }
         }
         return spawned;
+    }
+
+    /** A spawn entry that names an entity type instead of an NPC type (LOTR's wargs and spiders). */
+    private static boolean spawnMob(ServerLevel level, ResourceLocation id, BlockPos pos) {
+        return BuiltInRegistries.ENTITY_TYPE.getOptional(id)
+                .map(t -> t.spawn(level, pos, MobSpawnType.NATURAL) != null).orElse(false);
     }
 
     private static NpcSpawns.Entry pick(NpcSpawns.Table table, RandomSource random) {

@@ -1,0 +1,186 @@
+{
+  "aurochs.hurt": {
+    "sounds": [
+      "lotr_port:aurochs_hurt1"
+    ],
+    "subtitle": "subtitles.lotr_port.aurochs.hurt"
+  },
+  "aurochs.say": {
+    "sounds": [
+      "lotr_port:aurochs_say1",
+      "lotr_port:aurochs_say2",
+      "lotr_port:aurochs_say3"
+    ],
+    "subtitle": "subtitles.lotr_port.aurochs.say"
+  },
+  "bear.death": {
+    "sounds": [
+      "lotr_port:bear_death"
+    ],
+    "subtitle": "subtitles.lotr_port.bear.death"
+  },
+  "bear.hurt": {
+    "sounds": [
+      "lotr_port:bear_hurt1",
+      "lotr_port:bear_hurt2"
+    ],
+    "subtitle": "subtitles.lotr_port.bear.hurt"
+  },
+  "bear.say": {
+    "sounds": [
+      "lotr_port:bear_say1",
+      "lotr_port:bear_say2"
+    ],
+    "subtitle": "subtitles.lotr_port.bear.say"
+  },
+  "deer.death": {
+    "sounds": [
+      "lotr_port:deer_death"
+    ],
+    "subtitle": "subtitles.lotr_port.deer.death"
+  },
+  "deer.hurt": {
+    "sounds": [
+      "lotr_port:deer_hurt"
+    ],
+    "subtitle": "subtitles.lotr_port.deer.hurt"
+  },
+  "deer.say": {
+    "sounds": [
+      "lotr_port:deer_say1",
+      "lotr_port:deer_say2"
+    ],
+    "subtitle": "subtitles.lotr_port.deer.say"
+  },
+  "elk.death": {
+    "sounds": [
+      "lotr_port:elk_death"
+    ],
+    "subtitle": "subtitles.lotr_port.elk.death"
+  },
+  "elk.hurt": {
+    "sounds": [
+      "lotr_port:elk_hurt"
+    ],
+    "subtitle": "subtitles.lotr_port.elk.hurt"
+  },
+  "elk.say": {
+    "sounds": [
+      "lotr_port:elk_say1",
+      "lotr_port:elk_say2"
+    ],
+    "subtitle": "subtitles.lotr_port.elk.say"
+  },
+  "flamingo.death": {
+    "sounds": [
+      "lotr_port:flamingo_death"
+    ],
+    "subtitle": "subtitles.lotr_port.flamingo.death"
+  },
+  "flamingo.hurt": {
+    "sounds": [
+      "lotr_port:flamingo_hurt1",
+      "lotr_port:flamingo_hurt2"
+    ],
+    "subtitle": "subtitles.lotr_port.flamingo.hurt"
+  },
+  "flamingo.say": {
+    "sounds": [
+      "lotr_port:flamingo_say1",
+      "lotr_port:flamingo_say2"
+    ],
+    "subtitle": "subtitles.lotr_port.flamingo.say"
+  },
+  "lion.death": {
+    "sounds": [
+      "lotr_port:lion_death"
+    ],
+    "subtitle": "subtitles.lotr_port.lion.death"
+  },
+  "lion.hurt": {
+    "sounds": [
+      "lotr_port:lion_hurt"
+    ],
+    "subtitle": "subtitles.lotr_port.lion.hurt"
+  },
+  "lion.say": {
+    "sounds": [
+      "lotr_port:lion_say"
+    ],
+    "subtitle": "subtitles.lotr_port.lion.say"
+  },
+  "rhino.death": {
+    "sounds": [
+      "lotr_port:rhino_death"
+    ],
+    "subtitle": "subtitles.lotr_port.rhino.death"
+  },
+  "rhino.hurt": {
+    "sounds": [
+      "lotr_port:rhino_hurt"
+    ],
+    "subtitle": "subtitles.lotr_port.rhino.hurt"
+  },
+  "rhino.say": {
+    "sounds": [
+      "lotr_port:rhino_say"
+    ],
+    "subtitle": "subtitles.lotr_port.rhino.say"
+  },
+  "warg.attack": {
+    "sounds": [
+      "lotr_port:warg_attack1",
+      "lotr_port:warg_attack2",
+      "lotr_port:warg_attack3"
+    ],
+    "subtitle": "subtitles.lotr_port.warg.attack"
+  },
+  "warg.death": {
+    "sounds": [
+      "lotr_port:warg_death1",
+      "lotr_port:warg_death2",
+      "lotr_port:warg_death3",
+      "lotr_port:warg_death4"
+    ],
+    "subtitle": "subtitles.lotr_port.warg.death"
+  },
+  "warg.hurt": {
+    "sounds": [
+      "lotr_port:warg_hurt1",
+      "lotr_port:warg_hurt2",
+      "lotr_port:warg_hurt3",
+      "lotr_port:warg_hurt4"
+    ],
+    "subtitle": "subtitles.lotr_port.warg.hurt"
+  },
+  "warg.say": {
+    "sounds": [
+      "lotr_port:warg_say1",
+      "lotr_port:warg_say2",
+      "lotr_port:warg_say3",
+      "lotr_port:warg_say4",
+      "lotr_port:warg_say5",
+      "lotr_port:warg_say6",
+      "lotr_port:warg_say7"
+    ],
+    "subtitle": "subtitles.lotr_port.warg.say"
+  },
+  "zebra.death": {
+    "sounds": [
+      "lotr_port:zebra_death"
+    ],
+    "subtitle": "subtitles.lotr_port.zebra.death"
+  },
+  "zebra.hurt": {
+    "sounds": [
+      "lotr_port:zebra_hurt"
+    ],
+    "subtitle": "subtitles.lotr_port.zebra.hurt"
+  },
+  "zebra.say": {
+    "sounds": [
+      "lotr_port:zebra_say"
+    ],
+    "subtitle": "subtitles.lotr_port.zebra.say"
+  }
+}

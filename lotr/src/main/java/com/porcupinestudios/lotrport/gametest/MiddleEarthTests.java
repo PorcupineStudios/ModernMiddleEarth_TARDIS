@@ -42,7 +42,7 @@ public final class MiddleEarthTests {
     private MiddleEarthTests() {}
 
     /** Middle-earth's generator with what it needs to sample terrain without a level. */
-    private record Terrain(ChunkGenerator generator, RandomState random, LevelHeightAccessor heights) {
+    record Terrain(ChunkGenerator generator, RandomState random, LevelHeightAccessor heights) {
         MapBiomeSource source() {
             return (MapBiomeSource) generator.getBiomeSource();
         }
@@ -56,7 +56,7 @@ public final class MiddleEarthTests {
      * The Middle-earth level's generator when the level exists; the GameTest server skips datapack dimensions, so
      * otherwise the same generator is built from the loaded biomes and noise settings.
      */
-    private static Terrain middleEarth(GameTestHelper helper) {
+    static Terrain middleEarth(GameTestHelper helper) {
         MinecraftServer server = helper.getLevel().getServer();
         ServerLevel level = LotrDimensions.middleEarth(server);
         if (level != null) {
@@ -129,6 +129,47 @@ public final class MiddleEarthTests {
         helper.assertTrue(worstMap <= MAX_MAP_STEP, "the map's ground jumps " + worstMap + " blocks");
         helper.assertTrue(worstTerrain <= MAX_TERRAIN_STEP,
                 "the terrain jumps " + worstTerrain + " blocks: " + worstAt);
+        helper.succeed();
+    }
+
+    /** Spots to compare with LOTR's terrain (the exporter's {@code rough} step samples the same squares). */
+    static final int[][] ROUGH_SPOTS = { { 704, -297 }, { 45632, 9792 }, { 45632, 15184 }, { 41792, 59456 },
+            { 105792, 66624 }, { 83520, -15936 }, { 76480, 47168 } };
+    static final int ROUGH_RADIUS = 192;
+
+    /**
+     * Logs ground statistics over a square round each spot, on a 4-block grid: mean, spread, the mean height step
+     * between neighbours 4 apart, and the share of steps of 4+ blocks (slopes of 45 degrees or more). Measures only.
+     */
+    @GameTest(template = EMPTY, timeoutTicks = 2000)
+    public static void terrainRoughness(GameTestHelper helper) {
+        Terrain terrain = middleEarth(helper);
+        for (int[] spot : ROUGH_SPOTS) {
+            int n = ROUGH_RADIUS * 2 / 4;
+            int[][] h = new int[n][n];
+            double sum = 0, sq = 0, step = 0;
+            int steps = 0, steep = 0;
+            for (int i = 0; i < n; i++) {
+                for (int k = 0; k < n; k++) {
+                    h[i][k] = terrain.ground(spot[0] - ROUGH_RADIUS + i * 4, spot[1] - ROUGH_RADIUS + k * 4);
+                    sum += h[i][k];
+                    sq += (double) h[i][k] * h[i][k];
+                    for (int[] d : new int[][] { { i - 1, k }, { i, k - 1 } }) {
+                        if (d[0] >= 0 && d[1] >= 0) {
+                            int dh = Math.abs(h[i][k] - h[d[0]][d[1]]);
+                            step += dh;
+                            steps++;
+                            steep += dh >= 4 ? 1 : 0;
+                        }
+                    }
+                }
+            }
+            double mean = sum / (n * n);
+            LotrPort.LOG.info("[rough] {} {} {} mean {} std {} step {} steep {}", spot[0], spot[1],
+                    key(terrain.source().biomeAtBlock(spot[0], spot[1])), String.format("%.1f", mean),
+                    String.format("%.1f", Math.sqrt(Math.max(0, sq / (n * n) - mean * mean))),
+                    String.format("%.2f", step / steps), String.format("%.3f", (double) steep / steps));
+        }
         helper.succeed();
     }
 

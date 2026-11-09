@@ -9,7 +9,19 @@
     "lotr_port:hobbit_farm/1",
     "lotr_port:hobbit_farm/2"
   ],
-  "chance": 2000,
+  "rolls": {
+    "lotr_port:white_downs": [
+      300,
+      150,
+      150,
+      300,
+      600,
+      2000
+    ]
+  },
+  "lotr_success": {
+    "lotr_port:white_downs": 0.302
+  },
   "salt": 993467230,
   "ground": 0,
   "max_slope": 6,

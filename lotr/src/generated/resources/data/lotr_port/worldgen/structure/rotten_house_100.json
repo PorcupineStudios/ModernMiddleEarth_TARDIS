@@ -9,7 +9,14 @@
     "lotr_port:rotten_house/1",
     "lotr_port:rotten_house/2"
   ],
-  "chance": 100,
+  "rolls": {
+    "lotr_port:midgewater": [
+      100
+    ]
+  },
+  "lotr_success": {
+    "lotr_port:midgewater": 0.3
+  },
   "salt": 1501478468,
   "ground": 0,
   "max_slope": 6,

@@ -1,0 +1,29 @@
+{
+  "type": "lotr_port:brewing",
+  "ingredients": [
+    {
+      "item": "lotr_port:pear"
+    },
+    {
+      "item": "lotr_port:pear"
+    },
+    {
+      "item": "lotr_port:pear"
+    },
+    {
+      "item": "lotr_port:pear"
+    },
+    {
+      "item": "lotr_port:pear"
+    },
+    {
+      "item": "lotr_port:pear"
+    }
+  ],
+  "result": {
+    "id": "lotr_port:perry",
+    "count": 16
+  },
+  "water": 3000,
+  "brew_time": 12000
+}

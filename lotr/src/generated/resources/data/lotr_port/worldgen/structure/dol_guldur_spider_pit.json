@@ -9,7 +9,18 @@
     "lotr_port:dol_guldur_spider_pit/1",
     "lotr_port:dol_guldur_spider_pit/2"
   ],
-  "chance": 50,
+  "rolls": {
+    "lotr_port:dol_guldur": [
+      5,
+      160,
+      80,
+      50,
+      50
+    ]
+  },
+  "lotr_success": {
+    "lotr_port:dol_guldur": 0.038
+  },
   "salt": 639371765,
   "ground": 6,
   "max_slope": 6,

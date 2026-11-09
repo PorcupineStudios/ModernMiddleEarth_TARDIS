@@ -9,7 +9,26 @@
     "lotr_port:angmar_warg_pit/1",
     "lotr_port:angmar_warg_pit/2"
   ],
-  "chance": 200,
+  "rolls": {
+    "lotr_port:angmar": [
+      300,
+      40,
+      40,
+      200,
+      200
+    ],
+    "lotr_port:angmar_mountains": [
+      300,
+      40,
+      40,
+      200,
+      200
+    ]
+  },
+  "lotr_success": {
+    "lotr_port:angmar": 0.167,
+    "lotr_port:angmar_mountains": 0.018
+  },
   "salt": 874572037,
   "ground": 6,
   "max_slope": 6,

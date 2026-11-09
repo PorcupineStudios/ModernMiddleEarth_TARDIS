@@ -154,7 +154,8 @@ public class LotrSaplingBlock extends BushBlock implements BonemealableBlock {
             int pick = random.nextInt(Math.max(1, config.templates().size()));
             int width = pick < config.trunkWidth().size() ? Math.max(1, config.trunkWidth().get(pick)) : 1;
             int in = Math.max(0, (size - width) / 2);
-            grown = TemplateTreeFeature.grow(level, random, corner.offset(in, 0, in), config, pick, true);
+            grown = TemplateTreeFeature.grow(level, random, corner.offset(in, 0, in), config, pick, true,
+                    size > 1 && size % 2 == 1 ? corner.offset(size / 2, 0, size / 2) : null);
         } else {
             int in = (size - 1) / 2;
             grown = f.place(level, level.getChunkSource().getGenerator(), random, corner.offset(in, 0, in));

@@ -12,9 +12,58 @@
       "tick_delay": 6000,
       "block_search_extent": 8,
       "offset": 2.0
-    }
+    },
+    "grass_color": 10466679,
+    "foliage_color": 6715206
   },
-  "spawners": {},
+  "spawners": {
+    "creature": [
+      {
+        "type": "lotr_port:lion",
+        "weight": 4,
+        "minCount": 2,
+        "maxCount": 4
+      },
+      {
+        "type": "lotr_port:lioness",
+        "weight": 4,
+        "minCount": 2,
+        "maxCount": 4
+      },
+      {
+        "type": "lotr_port:giraffe",
+        "weight": 4,
+        "minCount": 4,
+        "maxCount": 6
+      },
+      {
+        "type": "lotr_port:zebra",
+        "weight": 8,
+        "minCount": 4,
+        "maxCount": 8
+      },
+      {
+        "type": "lotr_port:rhino",
+        "weight": 8,
+        "minCount": 4,
+        "maxCount": 4
+      },
+      {
+        "type": "lotr_port:gemsbok",
+        "weight": 8,
+        "minCount": 4,
+        "maxCount": 8
+      }
+    ],
+    "ambient": [
+      {
+        "type": "minecraft:bat",
+        "weight": 10,
+        "minCount": 8,
+        "maxCount": 8
+      }
+    ]
+  },
   "spawn_costs": {},
   "carvers": {
     "air": [
@@ -25,8 +74,12 @@
   },
   "features": [
     [],
-    [],
     [
+      "lotr_port:crater_lava"
+    ],
+    [
+      "lotr_port:quagmire_1",
+      "lotr_port:mud_patch",
       "lotr_port:roads"
     ],
     [],
@@ -52,14 +105,25 @@
       "lotr_port:ore/dirt_42",
       "lotr_port:ore/gold_ore_45",
       "lotr_port:ore/gravel_46",
-      "lotr_port:ore/iron_ore_49"
+      "lotr_port:ore/iron_ore_49",
+      "minecraft:ore_granite_upper",
+      "minecraft:ore_granite_lower",
+      "minecraft:ore_diorite_upper",
+      "minecraft:ore_diorite_lower",
+      "minecraft:ore_andesite_upper",
+      "minecraft:ore_andesite_lower",
+      "minecraft:ore_tuff"
     ],
-    [],
+    [
+      "lotr_port:dripstone"
+    ],
     [],
     [
       "lotr_port:trees/far_harad_mangrove",
-      "minecraft:patch_dead_bush",
-      "minecraft:patch_sugar_cane"
+      "lotr_port:forest_floor/5_0",
+      "lotr_port:plant/reeds_0_9",
+      "lotr_port:plant/dried_reeds_0_1",
+      "minecraft:patch_dead_bush"
     ],
     [
       "minecraft:freeze_top_layer"

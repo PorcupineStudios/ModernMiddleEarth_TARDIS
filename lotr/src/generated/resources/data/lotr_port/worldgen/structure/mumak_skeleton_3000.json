@@ -9,7 +9,17 @@
     "lotr_port:mumak_skeleton/1",
     "lotr_port:mumak_skeleton/2"
   ],
-  "chance": 3000,
+  "rolls": {
+    "lotr_port:gulf_harad": [
+      3000,
+      500,
+      1000,
+      3000
+    ]
+  },
+  "lotr_success": {
+    "lotr_port:gulf_harad": 0.84
+  },
   "salt": 732666452,
   "ground": 6,
   "max_slope": 6,

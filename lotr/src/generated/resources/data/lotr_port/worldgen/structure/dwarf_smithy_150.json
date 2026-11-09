@@ -9,7 +9,15 @@
     "lotr_port:dwarf_smithy/1",
     "lotr_port:dwarf_smithy/2"
   ],
-  "chance": 150,
+  "rolls": {
+    "lotr_port:iron_hills": [
+      300,
+      150
+    ]
+  },
+  "lotr_success": {
+    "lotr_port:iron_hills": 0.08
+  },
   "salt": 148848732,
   "ground": 0,
   "max_slope": 6,

@@ -9,7 +9,18 @@
     "lotr_port:harnedor_tower/1",
     "lotr_port:harnedor_tower/2"
   ],
-  "chance": 2000,
+  "rolls": {
+    "lotr_port:harondor": [
+      3000,
+      600,
+      1000,
+      1000,
+      2000
+    ]
+  },
+  "lotr_success": {
+    "lotr_port:harondor": 0.851
+  },
   "salt": 1298631890,
   "ground": -1,
   "max_slope": 6,

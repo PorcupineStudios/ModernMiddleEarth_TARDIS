@@ -9,7 +9,34 @@
     "lotr_port:ruined_house/1",
     "lotr_port:ruined_house/2"
   ],
-  "chance": 1500,
+  "rolls": {
+    "lotr_port:enedwaith": [
+      1500
+    ],
+    "lotr_port:lone_lands": [
+      1500,
+      800,
+      1500
+    ],
+    "lotr_port:lone_lands_hills": [
+      1500,
+      800,
+      1500
+    ],
+    "lotr_port:taiga": [
+      1500
+    ],
+    "lotr_port:tundra": [
+      1500
+    ]
+  },
+  "lotr_success": {
+    "lotr_port:enedwaith": 0.495,
+    "lotr_port:lone_lands": 0.326,
+    "lotr_port:lone_lands_hills": 0.545,
+    "lotr_port:taiga": 0.236,
+    "lotr_port:tundra": 0.748
+  },
   "salt": 903566330,
   "ground": 0,
   "max_slope": 6,

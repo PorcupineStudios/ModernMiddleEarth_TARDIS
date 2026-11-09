@@ -9,7 +9,98 @@
     "lotr_port:gondor_obelisk/1",
     "lotr_port:gondor_obelisk/2"
   ],
-  "chance": 1000,
+  "rolls": {
+    "lotr_port:blackroot_vale": [
+      1000,
+      600,
+      1000,
+      1000
+    ],
+    "lotr_port:dor_en_ernil": [
+      800,
+      1000
+    ],
+    "lotr_port:dor_en_ernil_hills": [
+      800,
+      1000
+    ],
+    "lotr_port:gondor": [
+      800,
+      1000,
+      600,
+      1000,
+      1000
+    ],
+    "lotr_port:gondor_woodlands": [
+      800,
+      1000,
+      600,
+      1000,
+      1000
+    ],
+    "lotr_port:harondor": [
+      3000,
+      600,
+      1000
+    ],
+    "lotr_port:imloth_melui": [
+      800,
+      600,
+      1000,
+      1000
+    ],
+    "lotr_port:lamedon": [
+      700,
+      600,
+      1000,
+      1000
+    ],
+    "lotr_port:lamedon_hills": [
+      700,
+      600,
+      1000,
+      1000
+    ],
+    "lotr_port:lebennin": [
+      800,
+      600,
+      1000,
+      1000
+    ],
+    "lotr_port:lossarnach": [
+      800,
+      600,
+      1000,
+      1000
+    ],
+    "lotr_port:pelargir": [
+      600,
+      600,
+      1000,
+      1000
+    ],
+    "lotr_port:pinnath_gelin": [
+      1000,
+      600,
+      1000,
+      1000
+    ]
+  },
+  "lotr_success": {
+    "lotr_port:blackroot_vale": 0.71,
+    "lotr_port:dor_en_ernil": 0.765,
+    "lotr_port:dor_en_ernil_hills": 0.899,
+    "lotr_port:gondor": 0.712,
+    "lotr_port:gondor_woodlands": 0.911,
+    "lotr_port:harondor": 0.895,
+    "lotr_port:imloth_melui": 0.761,
+    "lotr_port:lamedon": 0.963,
+    "lotr_port:lamedon_hills": 0.914,
+    "lotr_port:lebennin": 0.686,
+    "lotr_port:lossarnach": 0.552,
+    "lotr_port:pelargir": 0.937,
+    "lotr_port:pinnath_gelin": 0.937
+  },
   "salt": 711002851,
   "ground": 0,
   "max_slope": 6,

@@ -9,7 +9,29 @@
     "lotr_port:small_stone_ruin/1",
     "lotr_port:small_stone_ruin/2"
   ],
-  "chance": 1000,
+  "rolls": {
+    "lotr_port:brown_lands": [
+      2000,
+      1000
+    ],
+    "lotr_port:rhun": [
+      1000
+    ],
+    "lotr_port:rhun_forest": [
+      1000
+    ],
+    "lotr_port:rhun_land_steppe": [
+      3000,
+      1000,
+      1000
+    ]
+  },
+  "lotr_success": {
+    "lotr_port:brown_lands": 0.95,
+    "lotr_port:rhun": 0.924,
+    "lotr_port:rhun_forest": 0.771,
+    "lotr_port:rhun_land_steppe": 0.906
+  },
   "salt": 1636007138,
   "ground": 1,
   "max_slope": 6,

@@ -3,8 +3,8 @@
   "temperature": 0.25,
   "downfall": 0.1,
   "effects": {
-    "fog_color": 12638463,
-    "sky_color": 8233983,
+    "fog_color": 1644825,
+    "sky_color": 5324595,
     "water_color": 7186907,
     "water_fog_color": 329011,
     "mood_sound": {
@@ -12,33 +12,16 @@
       "tick_delay": 6000,
       "block_search_extent": 8,
       "offset": 2.0
-    }
+    },
+    "grass_color": 7896151
   },
   "spawners": {
-    "creature": [
+    "ambient": [
       {
-        "type": "minecraft:sheep",
-        "weight": 12,
-        "minCount": 2,
-        "maxCount": 4
-      },
-      {
-        "type": "minecraft:pig",
+        "type": "minecraft:bat",
         "weight": 10,
-        "minCount": 2,
-        "maxCount": 4
-      },
-      {
-        "type": "minecraft:chicken",
-        "weight": 10,
-        "minCount": 2,
-        "maxCount": 4
-      },
-      {
-        "type": "minecraft:cow",
-        "weight": 8,
-        "minCount": 2,
-        "maxCount": 4
+        "minCount": 8,
+        "maxCount": 8
       }
     ]
   },
@@ -52,7 +35,9 @@
   },
   "features": [
     [],
-    [],
+    [
+      "lotr_port:crater_lava"
+    ],
     [
       "lotr_port:roads"
     ],
@@ -80,14 +65,25 @@
       "lotr_port:ore/dirt_42",
       "lotr_port:ore/gold_ore_45",
       "lotr_port:ore/gravel_46",
-      "lotr_port:ore/iron_ore_49"
+      "lotr_port:ore/iron_ore_49",
+      "minecraft:ore_granite_upper",
+      "minecraft:ore_granite_lower",
+      "minecraft:ore_diorite_upper",
+      "minecraft:ore_diorite_lower",
+      "minecraft:ore_andesite_upper",
+      "minecraft:ore_andesite_lower",
+      "minecraft:ore_tuff"
     ],
-    [],
+    [
+      "lotr_port:dripstone"
+    ],
     [],
     [
       "lotr_port:trees/angmar_mountains",
+      "lotr_port:plant/reeds_0_9",
+      "lotr_port:plant/dried_reeds_0_1",
       "minecraft:patch_grass_plain",
-      "minecraft:patch_sugar_cane"
+      "minecraft:patch_tall_grass"
     ],
     [
       "minecraft:freeze_top_layer"

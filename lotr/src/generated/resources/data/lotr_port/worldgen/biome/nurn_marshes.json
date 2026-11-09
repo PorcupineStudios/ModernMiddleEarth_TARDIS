@@ -4,7 +4,7 @@
   "downfall": 0.4,
   "effects": {
     "fog_color": 12638463,
-    "sky_color": 7842047,
+    "sky_color": 10526098,
     "water_color": 8877157,
     "water_fog_color": 329011,
     "mood_sound": {
@@ -12,33 +12,17 @@
       "tick_delay": 6000,
       "block_search_extent": 8,
       "offset": 2.0
-    }
+    },
+    "grass_color": 10066237,
+    "foliage_color": 7042874
   },
   "spawners": {
-    "creature": [
+    "ambient": [
       {
-        "type": "minecraft:sheep",
-        "weight": 12,
-        "minCount": 2,
-        "maxCount": 4
-      },
-      {
-        "type": "minecraft:pig",
+        "type": "minecraft:bat",
         "weight": 10,
-        "minCount": 2,
-        "maxCount": 4
-      },
-      {
-        "type": "minecraft:chicken",
-        "weight": 10,
-        "minCount": 2,
-        "maxCount": 4
-      },
-      {
-        "type": "minecraft:cow",
-        "weight": 8,
-        "minCount": 2,
-        "maxCount": 4
+        "minCount": 8,
+        "maxCount": 8
       }
     ]
   },
@@ -52,8 +36,12 @@
   },
   "features": [
     [],
-    [],
     [
+      "lotr_port:crater_lava"
+    ],
+    [
+      "lotr_port:quagmire_1",
+      "lotr_port:mud_patch",
       "lotr_port:roads"
     ],
     [],
@@ -64,14 +52,28 @@
       "lotr_port:ore/gulduril_ore_block_13",
       "lotr_port:ore/mordor_dirt_18",
       "lotr_port:ore/mordor_gravel_20",
-      "lotr_port:ore/morgul_iron_ore_block_22"
+      "lotr_port:ore/morgul_iron_ore_block_22",
+      "minecraft:ore_granite_upper",
+      "minecraft:ore_granite_lower",
+      "minecraft:ore_diorite_upper",
+      "minecraft:ore_diorite_lower",
+      "minecraft:ore_andesite_upper",
+      "minecraft:ore_andesite_lower",
+      "minecraft:ore_tuff"
     ],
-    [],
+    [
+      "lotr_port:dripstone"
+    ],
     [],
     [
       "lotr_port:trees/nurn_marshes",
+      "lotr_port:forest_floor/0_2",
+      "lotr_port:plant/reeds_1_6",
+      "lotr_port:plant/dried_reeds_2_4",
       "minecraft:patch_grass_plain",
-      "minecraft:patch_sugar_cane"
+      "minecraft:patch_sugar_cane",
+      "minecraft:patch_tall_grass",
+      "minecraft:patch_large_fern"
     ],
     [
       "minecraft:freeze_top_layer"

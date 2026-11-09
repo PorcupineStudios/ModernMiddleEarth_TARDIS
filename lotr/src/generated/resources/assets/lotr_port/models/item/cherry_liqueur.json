@@ -1,7 +1,74 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "lotr_port:item/mug",
-    "layer1": "lotr_port:item/mug_cherry_liqueur_liquid"
-  }
+    "layer0": "lotr_port:item/drink/cherry_liqueur/mug"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "lotr_port:vessel": 1
+      },
+      "model": "lotr_port:item/cherry_liqueur_clay"
+    },
+    {
+      "predicate": {
+        "lotr_port:vessel": 2
+      },
+      "model": "lotr_port:item/cherry_liqueur_goblet_gold"
+    },
+    {
+      "predicate": {
+        "lotr_port:vessel": 3
+      },
+      "model": "lotr_port:item/cherry_liqueur_goblet_silver"
+    },
+    {
+      "predicate": {
+        "lotr_port:vessel": 4
+      },
+      "model": "lotr_port:item/cherry_liqueur_goblet_copper"
+    },
+    {
+      "predicate": {
+        "lotr_port:vessel": 5
+      },
+      "model": "lotr_port:item/cherry_liqueur_goblet_wood"
+    },
+    {
+      "predicate": {
+        "lotr_port:vessel": 6
+      },
+      "model": "lotr_port:item/cherry_liqueur_skull"
+    },
+    {
+      "predicate": {
+        "lotr_port:vessel": 7
+      },
+      "model": "lotr_port:item/cherry_liqueur_glass"
+    },
+    {
+      "predicate": {
+        "lotr_port:vessel": 8
+      },
+      "model": "lotr_port:item/cherry_liqueur_bottle"
+    },
+    {
+      "predicate": {
+        "lotr_port:vessel": 9
+      },
+      "model": "lotr_port:item/cherry_liqueur_skin"
+    },
+    {
+      "predicate": {
+        "lotr_port:vessel": 10
+      },
+      "model": "lotr_port:item/cherry_liqueur_horn"
+    },
+    {
+      "predicate": {
+        "lotr_port:vessel": 11
+      },
+      "model": "lotr_port:item/cherry_liqueur_horn_gold"
+    }
+  ]
 }

@@ -9,7 +9,14 @@
     "lotr_port:ruined_house/1",
     "lotr_port:ruined_house/2"
   ],
-  "chance": 800,
+  "rolls": {
+    "lotr_port:nan_curunir": [
+      800
+    ]
+  },
+  "lotr_success": {
+    "lotr_port:nan_curunir": 0.809
+  },
   "salt": 322420724,
   "ground": 0,
   "max_slope": 6,

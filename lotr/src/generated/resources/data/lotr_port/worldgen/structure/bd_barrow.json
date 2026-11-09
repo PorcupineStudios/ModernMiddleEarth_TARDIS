@@ -9,7 +9,14 @@
     "lotr_port:bd_barrow/1",
     "lotr_port:bd_barrow/2"
   ],
-  "chance": 10,
+  "rolls": {
+    "lotr_port:barrow_downs": [
+      10
+    ]
+  },
+  "lotr_success": {
+    "lotr_port:barrow_downs": 0.16
+  },
   "salt": 1042639792,
   "ground": 2,
   "max_slope": 6,

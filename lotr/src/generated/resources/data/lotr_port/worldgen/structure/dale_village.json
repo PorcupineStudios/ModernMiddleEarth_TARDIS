@@ -9,7 +9,20 @@
     "lotr_port:dale_village/1",
     "lotr_port:dale_village/2"
   ],
-  "chance": 400,
+  "rolls": {
+    "lotr_port:dale": [
+      4000,
+      4000,
+      4000,
+      1000,
+      500,
+      800,
+      400
+    ]
+  },
+  "lotr_success": {
+    "lotr_port:dale": 0.506
+  },
   "salt": 2014958784,
   "ground": 0,
   "max_slope": 6,

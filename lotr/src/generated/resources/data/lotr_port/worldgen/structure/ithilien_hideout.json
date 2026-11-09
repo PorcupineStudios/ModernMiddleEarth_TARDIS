@@ -9,7 +9,34 @@
     "lotr_port:ithilien_hideout/1",
     "lotr_port:ithilien_hideout/2"
   ],
-  "chance": 50,
+  "rolls": {
+    "lotr_port:ithilien": [
+      200,
+      500,
+      500,
+      800,
+      50
+    ],
+    "lotr_port:ithilien_hills": [
+      200,
+      500,
+      500,
+      800,
+      50
+    ],
+    "lotr_port:ithilien_wasteland": [
+      200,
+      500,
+      500,
+      800,
+      50
+    ]
+  },
+  "lotr_success": {
+    "lotr_port:ithilien": 0.306,
+    "lotr_port:ithilien_hills": 0.486,
+    "lotr_port:ithilien_wasteland": 0.611
+  },
   "salt": 417464891,
   "ground": 9,
   "max_slope": 6,

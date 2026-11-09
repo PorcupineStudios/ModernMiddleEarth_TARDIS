@@ -9,7 +9,18 @@
     "lotr_port:angmar_hillman_village/1",
     "lotr_port:angmar_hillman_village/2"
   ],
-  "chance": 1000,
+  "rolls": {
+    "lotr_port:ettenmoors": [
+      500,
+      100,
+      100,
+      100,
+      1000
+    ]
+  },
+  "lotr_success": {
+    "lotr_port:ettenmoors": 1.0
+  },
   "salt": 616931752,
   "ground": 6,
   "max_slope": 6,

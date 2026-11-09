@@ -1,0 +1,9 @@
+{
+  "loader": "lotr_port:connected",
+  "shape": "cube",
+  "render_type": "minecraft:cutout",
+  "textures": {
+    "sheet": "lotr_port:block/connected/cobblebrick_cob",
+    "particle": "lotr_port:block/cobblebrick_cob"
+  }
+}

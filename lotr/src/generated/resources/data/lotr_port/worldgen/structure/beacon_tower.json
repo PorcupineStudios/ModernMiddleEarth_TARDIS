@@ -9,7 +9,18 @@
     "lotr_port:beacon_tower/1",
     "lotr_port:beacon_tower/2"
   ],
-  "chance": 100,
+  "rolls": {
+    "lotr_port:white_mountains": [
+      100
+    ],
+    "lotr_port:white_mountains_foothills": [
+      100
+    ]
+  },
+  "lotr_success": {
+    "lotr_port:white_mountains": 0.245,
+    "lotr_port:white_mountains_foothills": 0.924
+  },
   "salt": 1165342472,
   "ground": 0,
   "max_slope": 6,

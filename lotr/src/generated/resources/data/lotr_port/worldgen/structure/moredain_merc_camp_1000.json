@@ -9,7 +9,21 @@
     "lotr_port:moredain_merc_camp/1",
     "lotr_port:moredain_merc_camp/2"
   ],
-  "chance": 1000,
+  "rolls": {
+    "lotr_port:gulf_harad": [
+      3000,
+      500,
+      1000
+    ],
+    "lotr_port:near_harad_fertile": [
+      3000,
+      1000
+    ]
+  },
+  "lotr_success": {
+    "lotr_port:gulf_harad": 0.963,
+    "lotr_port:near_harad_fertile": 0.835
+  },
   "salt": 1151199239,
   "ground": 0,
   "max_slope": 6,

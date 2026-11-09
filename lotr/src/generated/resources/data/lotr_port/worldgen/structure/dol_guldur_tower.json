@@ -9,7 +9,16 @@
     "lotr_port:dol_guldur_tower/1",
     "lotr_port:dol_guldur_tower/2"
   ],
-  "chance": 80,
+  "rolls": {
+    "lotr_port:dol_guldur": [
+      5,
+      160,
+      80
+    ]
+  },
+  "lotr_success": {
+    "lotr_port:dol_guldur": 0.462
+  },
   "salt": 1400700587,
   "ground": 0,
   "max_slope": 6,

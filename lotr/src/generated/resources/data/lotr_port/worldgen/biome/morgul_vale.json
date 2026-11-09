@@ -3,8 +3,8 @@
   "temperature": 1.0,
   "downfall": 0.0,
   "effects": {
-    "fog_color": 12638463,
-    "sky_color": 7842047,
+    "fog_color": 6318950,
+    "sky_color": 7835270,
     "water_color": 3563598,
     "water_fog_color": 329011,
     "mood_sound": {
@@ -12,33 +12,17 @@
       "tick_delay": 6000,
       "block_search_extent": 8,
       "offset": 2.0
-    }
+    },
+    "grass_color": 6054733,
+    "foliage_color": 4475954
   },
   "spawners": {
-    "creature": [
+    "ambient": [
       {
-        "type": "minecraft:sheep",
-        "weight": 12,
-        "minCount": 2,
-        "maxCount": 4
-      },
-      {
-        "type": "minecraft:pig",
+        "type": "minecraft:bat",
         "weight": 10,
-        "minCount": 2,
-        "maxCount": 4
-      },
-      {
-        "type": "minecraft:chicken",
-        "weight": 10,
-        "minCount": 2,
-        "maxCount": 4
-      },
-      {
-        "type": "minecraft:cow",
-        "weight": 8,
-        "minCount": 2,
-        "maxCount": 4
+        "minCount": 8,
+        "maxCount": 8
       }
     ]
   },
@@ -52,7 +36,9 @@
   },
   "features": [
     [],
-    [],
+    [
+      "lotr_port:crater_lava"
+    ],
     [
       "lotr_port:roads"
     ],
@@ -65,15 +51,24 @@
       "lotr_port:ore/gulduril_ore_block_13",
       "lotr_port:ore/mordor_dirt_18",
       "lotr_port:ore/mordor_gravel_20",
-      "lotr_port:ore/morgul_iron_ore_block_22"
+      "lotr_port:ore/morgul_iron_ore_block_22",
+      "minecraft:ore_granite_upper",
+      "minecraft:ore_granite_lower",
+      "minecraft:ore_diorite_upper",
+      "minecraft:ore_diorite_lower",
+      "minecraft:ore_andesite_upper",
+      "minecraft:ore_andesite_lower",
+      "minecraft:ore_tuff"
     ],
-    [],
+    [
+      "lotr_port:dripstone"
+    ],
     [],
     [
       "lotr_port:trees/morgul_vale",
+      "lotr_port:plant/dried_reeds_1_0",
       "minecraft:flower_default",
-      "minecraft:patch_grass_plain",
-      "minecraft:patch_sugar_cane"
+      "minecraft:patch_grass_plain"
     ],
     [
       "minecraft:freeze_top_layer"

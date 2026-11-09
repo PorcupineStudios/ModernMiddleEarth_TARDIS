@@ -169,8 +169,8 @@
     "item": "none"
   },
   {
-    "id": "barrel",
-    "kind": "shaped",
+    "id": "keg",
+    "kind": "keg",
     "hardness": 3.0,
     "resistance": 5.0,
     "light": 0,
@@ -3040,7 +3040,8 @@
     "light": 0,
     "sound": "stone",
     "requiresTool": true,
-    "solid": false
+    "solid": false,
+    "full": true
   },
   {
     "id": "ithildin_dwarven_door",
@@ -3050,7 +3051,8 @@
     "light": 0,
     "sound": "stone",
     "requiresTool": true,
-    "solid": false
+    "solid": false,
+    "full": true
   },
   {
     "id": "dwarven_forge",

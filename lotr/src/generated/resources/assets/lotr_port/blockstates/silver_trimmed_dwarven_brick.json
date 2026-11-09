@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "lotr_port:block/silver_trimmed_dwarven_brick"
+      "model": "lotr_port:block/silver_trimmed_dwarven_brick_connected"
     }
   }
 }

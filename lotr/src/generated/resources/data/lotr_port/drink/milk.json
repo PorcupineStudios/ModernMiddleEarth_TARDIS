@@ -1,0 +1,9 @@
+{
+  "alcohol": 0.0,
+  "nutrition": 0,
+  "saturation": 0.0,
+  "damage": 0,
+  "cures": true,
+  "cures_harmful": false,
+  "effects": []
+}

@@ -1,7 +1,74 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "lotr_port:item/mug",
-    "layer1": "lotr_port:item/mug_plum_kvass_liquid"
-  }
+    "layer0": "lotr_port:item/drink/plum_kvass/mug"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "lotr_port:vessel": 1
+      },
+      "model": "lotr_port:item/plum_kvass_clay"
+    },
+    {
+      "predicate": {
+        "lotr_port:vessel": 2
+      },
+      "model": "lotr_port:item/plum_kvass_goblet_gold"
+    },
+    {
+      "predicate": {
+        "lotr_port:vessel": 3
+      },
+      "model": "lotr_port:item/plum_kvass_goblet_silver"
+    },
+    {
+      "predicate": {
+        "lotr_port:vessel": 4
+      },
+      "model": "lotr_port:item/plum_kvass_goblet_copper"
+    },
+    {
+      "predicate": {
+        "lotr_port:vessel": 5
+      },
+      "model": "lotr_port:item/plum_kvass_goblet_wood"
+    },
+    {
+      "predicate": {
+        "lotr_port:vessel": 6
+      },
+      "model": "lotr_port:item/plum_kvass_skull"
+    },
+    {
+      "predicate": {
+        "lotr_port:vessel": 7
+      },
+      "model": "lotr_port:item/plum_kvass_glass"
+    },
+    {
+      "predicate": {
+        "lotr_port:vessel": 8
+      },
+      "model": "lotr_port:item/plum_kvass_bottle"
+    },
+    {
+      "predicate": {
+        "lotr_port:vessel": 9
+      },
+      "model": "lotr_port:item/plum_kvass_skin"
+    },
+    {
+      "predicate": {
+        "lotr_port:vessel": 10
+      },
+      "model": "lotr_port:item/plum_kvass_horn"
+    },
+    {
+      "predicate": {
+        "lotr_port:vessel": 11
+      },
+      "model": "lotr_port:item/plum_kvass_horn_gold"
+    }
+  ]
 }

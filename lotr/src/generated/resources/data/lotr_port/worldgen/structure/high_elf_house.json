@@ -9,7 +9,18 @@
     "lotr_port:high_elf_house/1",
     "lotr_port:high_elf_house/2"
   ],
-  "chance": 300,
+  "rolls": {
+    "lotr_port:lindon": [
+      300
+    ],
+    "lotr_port:lindon_woodlands": [
+      300
+    ]
+  },
+  "lotr_success": {
+    "lotr_port:lindon": 0.587,
+    "lotr_port:lindon_woodlands": 0.631
+  },
   "salt": 1498738199,
   "ground": 0,
   "max_slope": 6,

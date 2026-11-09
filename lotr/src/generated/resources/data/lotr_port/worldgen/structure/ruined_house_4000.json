@@ -9,7 +9,26 @@
     "lotr_port:ruined_house/1",
     "lotr_port:ruined_house/2"
   ],
-  "chance": 4000,
+  "rolls": {
+    "lotr_port:dale": [
+      4000
+    ],
+    "lotr_port:forodwaith": [
+      4000
+    ],
+    "lotr_port:forodwaith_glacier": [
+      4000
+    ],
+    "lotr_port:forodwaith_mountains": [
+      4000
+    ]
+  },
+  "lotr_success": {
+    "lotr_port:dale": 0.494,
+    "lotr_port:forodwaith": 0.0,
+    "lotr_port:forodwaith_glacier": 0.458,
+    "lotr_port:forodwaith_mountains": 0.0
+  },
   "salt": 80634147,
   "ground": 0,
   "max_slope": 6,

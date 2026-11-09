@@ -9,7 +9,16 @@
     "lotr_port:hobbit_house/1",
     "lotr_port:hobbit_house/2"
   ],
-  "chance": 150,
+  "rolls": {
+    "lotr_port:white_downs": [
+      300,
+      150,
+      150
+    ]
+  },
+  "lotr_success": {
+    "lotr_port:white_downs": 0.333
+  },
   "salt": 372818435,
   "ground": 0,
   "max_slope": 6,

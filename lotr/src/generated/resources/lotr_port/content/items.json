@@ -1,14 +1,14 @@
 [
   {
     "id": "ale_horn",
-    "kind": "item",
+    "kind": "vessel",
     "stack": 64,
     "level": 2,
     "speed": 6.0
   },
   {
     "id": "golden_ale_horn",
-    "kind": "item",
+    "kind": "vessel",
     "stack": 64,
     "level": 2,
     "speed": 6.0
@@ -1120,17 +1120,27 @@
   },
   {
     "id": "blue_dwarven_boar_armor",
-    "kind": "item",
+    "kind": "mount_armor",
     "stack": 1,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "mount_armor": {
+      "mount": "boar",
+      "protection": 13,
+      "texture": "lotr_port:textures/entity/mount_armor/boar_blue_dwarven.png"
+    }
   },
   {
     "id": "dwarven_boar_armor",
-    "kind": "item",
+    "kind": "mount_armor",
     "stack": 1,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "mount_armor": {
+      "mount": "boar",
+      "protection": 13,
+      "texture": "lotr_port:textures/entity/mount_armor/boar_dwarven.png"
+    }
   },
   {
     "id": "angmar_chestplate",
@@ -2899,7 +2909,7 @@
   },
   {
     "id": "ceramic_mug",
-    "kind": "item",
+    "kind": "vessel",
     "stack": 64,
     "level": 2,
     "speed": 6.0
@@ -4728,10 +4738,15 @@
   },
   {
     "id": "wood_elven_elk_armor",
-    "kind": "item",
+    "kind": "mount_armor",
     "stack": 1,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "mount_armor": {
+      "mount": "elk",
+      "protection": 11,
+      "texture": "lotr_port:textures/entity/mount_armor/elk_wood_elven.png"
+    }
   },
   {
     "id": "galadhrim_bed",
@@ -4941,28 +4956,28 @@
   },
   {
     "id": "copper_goblet",
-    "kind": "item",
+    "kind": "vessel",
     "stack": 64,
     "level": 2,
     "speed": 6.0
   },
   {
     "id": "golden_goblet",
-    "kind": "item",
+    "kind": "vessel",
     "stack": 64,
     "level": 2,
     "speed": 6.0
   },
   {
     "id": "silver_goblet",
-    "kind": "item",
+    "kind": "vessel",
     "stack": 64,
     "level": 2,
     "speed": 6.0
   },
   {
     "id": "wooden_cup",
-    "kind": "item",
+    "kind": "vessel",
     "stack": 64,
     "level": 2,
     "speed": 6.0
@@ -6342,115 +6357,159 @@
   },
   {
     "id": "dalish_horse_armor",
-    "kind": "item",
+    "kind": "mount_armor",
     "stack": 1,
     "level": 2,
-    "speed": 6.0
-  },
-  {
-    "id": "diamond_horse_armor",
-    "kind": "item",
-    "stack": 1,
-    "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "mount_armor": {
+      "mount": "horse",
+      "protection": 11,
+      "texture": "lotr_port:textures/entity/horse/armor/horse_armor_dalish_horse_armor.png"
+    }
   },
   {
     "id": "dol_amroth_horse_armor",
-    "kind": "item",
+    "kind": "mount_armor",
     "stack": 1,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "mount_armor": {
+      "mount": "horse",
+      "protection": 11,
+      "texture": "lotr_port:textures/entity/horse/armor/horse_armor_dol_amroth_horse_armor.png"
+    }
   },
   {
     "id": "galadhrim_horse_armor",
-    "kind": "item",
+    "kind": "mount_armor",
     "stack": 1,
     "level": 2,
-    "speed": 6.0
-  },
-  {
-    "id": "gold_horse_armor",
-    "kind": "item",
-    "stack": 1,
-    "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "mount_armor": {
+      "mount": "horse",
+      "protection": 11,
+      "texture": "lotr_port:textures/entity/horse/armor/horse_armor_galadhrim_horse_armor.png"
+    }
   },
   {
     "id": "gondorian_horse_armor",
-    "kind": "item",
+    "kind": "mount_armor",
     "stack": 1,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "mount_armor": {
+      "mount": "horse",
+      "protection": 11,
+      "texture": "lotr_port:textures/entity/horse/armor/horse_armor_gondorian_horse_armor.png"
+    }
   },
   {
     "id": "lindon_horse_armor",
-    "kind": "item",
+    "kind": "mount_armor",
     "stack": 1,
     "level": 2,
-    "speed": 6.0
-  },
-  {
-    "id": "iron_horse_armor",
-    "kind": "item",
-    "stack": 1,
-    "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "mount_armor": {
+      "mount": "horse",
+      "protection": 11,
+      "texture": "lotr_port:textures/entity/horse/armor/horse_armor_lindon_horse_armor.png"
+    }
   },
   {
     "id": "lamedon_horse_armor",
-    "kind": "item",
+    "kind": "mount_armor",
     "stack": 1,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "mount_armor": {
+      "mount": "horse",
+      "protection": 9,
+      "texture": "lotr_port:textures/entity/horse/armor/horse_armor_lamedon_horse_armor.png"
+    }
   },
   {
     "id": "mithril_horse_armor",
-    "kind": "item",
+    "kind": "mount_armor",
     "stack": 1,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "mount_armor": {
+      "mount": "horse",
+      "protection": 14,
+      "texture": "lotr_port:textures/entity/horse/armor/horse_armor_mithril_horse_armor.png"
+    }
   },
   {
     "id": "morgul_horse_armor",
-    "kind": "item",
+    "kind": "mount_armor",
     "stack": 1,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "mount_armor": {
+      "mount": "horse",
+      "protection": 11,
+      "texture": "lotr_port:textures/entity/horse/armor/horse_armor_morgul_horse_armor.png"
+    }
   },
   {
     "id": "coast_southron_horse_armor",
-    "kind": "item",
+    "kind": "mount_armor",
     "stack": 1,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "mount_armor": {
+      "mount": "horse",
+      "protection": 9,
+      "texture": "lotr_port:textures/entity/horse/armor/horse_armor_coast_southron_horse_armor.png"
+    }
   },
   {
     "id": "rh_nic_horse_armor",
-    "kind": "item",
+    "kind": "mount_armor",
     "stack": 1,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "mount_armor": {
+      "mount": "horse",
+      "protection": 11,
+      "texture": "lotr_port:textures/entity/horse/armor/horse_armor_rh_nic_horse_armor.png"
+    }
   },
   {
     "id": "rivendell_horse_armor",
-    "kind": "item",
+    "kind": "mount_armor",
     "stack": 1,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "mount_armor": {
+      "mount": "horse",
+      "protection": 11,
+      "texture": "lotr_port:textures/entity/horse/armor/horse_armor_rivendell_horse_armor.png"
+    }
   },
   {
     "id": "rohirric_horse_armor",
-    "kind": "item",
+    "kind": "mount_armor",
     "stack": 1,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "mount_armor": {
+      "mount": "horse",
+      "protection": 9,
+      "texture": "lotr_port:textures/entity/horse/armor/horse_armor_rohirric_horse_armor.png"
+    }
   },
   {
     "id": "umbaric_horse_armor",
-    "kind": "item",
+    "kind": "mount_armor",
     "stack": 1,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "mount_armor": {
+      "mount": "horse",
+      "protection": 11,
+      "texture": "lotr_port:textures/entity/horse/armor/horse_armor_umbaric_horse_armor.png"
+    }
   },
   {
     "id": "iron_crossbow",
@@ -7918,329 +7977,513 @@
   },
   {
     "id": "mug",
-    "kind": "item",
+    "kind": "vessel",
     "stack": 64,
     "level": 2,
     "speed": 6.0
   },
   {
     "id": "ale",
-    "kind": "item",
+    "kind": "drink",
+    "drink": {
+      "brewable": true,
+      "food": false
+    },
     "stack": 1,
     "level": 2,
     "speed": 6.0
   },
   {
     "id": "apple_juice",
-    "kind": "item",
+    "kind": "drink",
+    "drink": {
+      "brewable": false,
+      "food": true
+    },
     "stack": 1,
     "level": 2,
     "speed": 6.0
   },
   {
     "id": "arak",
-    "kind": "item",
+    "kind": "drink",
+    "drink": {
+      "brewable": true,
+      "food": false
+    },
     "stack": 1,
     "level": 2,
     "speed": 6.0
   },
   {
     "id": "athelas_brew",
-    "kind": "item",
+    "kind": "drink",
+    "drink": {
+      "brewable": true,
+      "food": false
+    },
     "stack": 1,
     "level": 2,
     "speed": 6.0
   },
   {
     "id": "banana_beer",
-    "kind": "item",
+    "kind": "drink",
+    "drink": {
+      "brewable": true,
+      "food": false
+    },
     "stack": 1,
     "level": 2,
     "speed": 6.0
   },
   {
     "id": "blackberry_juice",
-    "kind": "item",
+    "kind": "drink",
+    "drink": {
+      "brewable": false,
+      "food": true
+    },
     "stack": 1,
     "level": 2,
     "speed": 6.0
   },
   {
     "id": "blueberry_juice",
-    "kind": "item",
+    "kind": "drink",
+    "drink": {
+      "brewable": false,
+      "food": true
+    },
     "stack": 1,
     "level": 2,
     "speed": 6.0
   },
   {
     "id": "cactus_liqueur",
-    "kind": "item",
+    "kind": "drink",
+    "drink": {
+      "brewable": true,
+      "food": false
+    },
     "stack": 1,
     "level": 2,
     "speed": 6.0
   },
   {
     "id": "carrot_wine",
-    "kind": "item",
+    "kind": "drink",
+    "drink": {
+      "brewable": true,
+      "food": false
+    },
     "stack": 1,
     "level": 2,
     "speed": 6.0
   },
   {
     "id": "cherry_liqueur",
-    "kind": "item",
+    "kind": "drink",
+    "drink": {
+      "brewable": true,
+      "food": false
+    },
     "stack": 1,
     "level": 2,
     "speed": 6.0
   },
   {
     "id": "chocolate",
-    "kind": "item",
+    "kind": "drink",
+    "drink": {
+      "brewable": false,
+      "food": true
+    },
     "stack": 1,
     "level": 2,
     "speed": 6.0
   },
   {
     "id": "cider",
-    "kind": "item",
+    "kind": "drink",
+    "drink": {
+      "brewable": true,
+      "food": false
+    },
     "stack": 1,
     "level": 2,
     "speed": 6.0
   },
   {
     "id": "corn_liquor",
-    "kind": "item",
+    "kind": "drink",
+    "drink": {
+      "brewable": true,
+      "food": false
+    },
     "stack": 1,
     "level": 2,
     "speed": 6.0
   },
   {
     "id": "cranberry_juice",
-    "kind": "item",
+    "kind": "drink",
+    "drink": {
+      "brewable": false,
+      "food": true
+    },
     "stack": 1,
     "level": 2,
     "speed": 6.0
   },
   {
     "id": "dwarven_ale",
-    "kind": "item",
+    "kind": "drink",
+    "drink": {
+      "brewable": true,
+      "food": false
+    },
     "stack": 1,
     "level": 2,
     "speed": 6.0
   },
   {
     "id": "dwarven_tonic",
-    "kind": "item",
+    "kind": "drink",
+    "drink": {
+      "brewable": true,
+      "food": false
+    },
     "stack": 1,
     "level": 2,
     "speed": 6.0
   },
   {
     "id": "elderberry_juice",
-    "kind": "item",
+    "kind": "drink",
+    "drink": {
+      "brewable": false,
+      "food": true
+    },
     "stack": 1,
     "level": 2,
     "speed": 6.0
   },
   {
     "id": "lemon_liqueur",
-    "kind": "item",
+    "kind": "drink",
+    "drink": {
+      "brewable": true,
+      "food": false
+    },
     "stack": 1,
     "level": 2,
     "speed": 6.0
   },
   {
     "id": "lemonade",
-    "kind": "item",
+    "kind": "drink",
+    "drink": {
+      "brewable": false,
+      "food": true
+    },
     "stack": 1,
     "level": 2,
     "speed": 6.0
   },
   {
     "id": "lime_liqueur",
-    "kind": "item",
+    "kind": "drink",
+    "drink": {
+      "brewable": true,
+      "food": false
+    },
     "stack": 1,
     "level": 2,
     "speed": 6.0
   },
   {
     "id": "mango_juice",
-    "kind": "item",
+    "kind": "drink",
+    "drink": {
+      "brewable": false,
+      "food": true
+    },
     "stack": 1,
     "level": 2,
     "speed": 6.0
   },
   {
     "id": "maple_beer",
-    "kind": "item",
+    "kind": "drink",
+    "drink": {
+      "brewable": true,
+      "food": false
+    },
     "stack": 1,
     "level": 2,
     "speed": 6.0
   },
   {
     "id": "mead",
-    "kind": "item",
+    "kind": "drink",
+    "drink": {
+      "brewable": true,
+      "food": false
+    },
     "stack": 1,
     "level": 2,
     "speed": 6.0
   },
   {
     "id": "melon_liqueur",
-    "kind": "item",
+    "kind": "drink",
+    "drink": {
+      "brewable": true,
+      "food": false
+    },
     "stack": 1,
     "level": 2,
     "speed": 6.0
   },
   {
     "id": "milk",
-    "kind": "item",
+    "kind": "drink",
+    "drink": {
+      "brewable": false,
+      "food": false
+    },
     "stack": 1,
     "level": 2,
     "speed": 6.0
   },
   {
     "id": "miruvor",
-    "kind": "item",
+    "kind": "drink",
+    "drink": {
+      "brewable": true,
+      "food": false
+    },
     "stack": 1,
     "level": 2,
     "speed": 6.0
   },
   {
     "id": "morgul_draught",
-    "kind": "item",
+    "kind": "drink",
+    "drink": {
+      "brewable": true,
+      "food": false
+    },
     "stack": 1,
     "level": 2,
     "speed": 6.0
   },
   {
     "id": "orange_juice",
-    "kind": "item",
+    "kind": "drink",
+    "drink": {
+      "brewable": false,
+      "food": true
+    },
     "stack": 1,
     "level": 2,
     "speed": 6.0
   },
   {
     "id": "orc_draught",
-    "kind": "item",
+    "kind": "drink",
+    "drink": {
+      "brewable": true,
+      "food": false
+    },
     "stack": 1,
     "level": 2,
     "speed": 6.0
   },
   {
     "id": "perry",
-    "kind": "item",
+    "kind": "drink",
+    "drink": {
+      "brewable": true,
+      "food": false
+    },
     "stack": 1,
     "level": 2,
     "speed": 6.0
   },
   {
     "id": "plum_kvass",
-    "kind": "item",
+    "kind": "drink",
+    "drink": {
+      "brewable": true,
+      "food": false
+    },
     "stack": 1,
     "level": 2,
     "speed": 6.0
   },
   {
     "id": "pomegranate_juice",
-    "kind": "item",
+    "kind": "drink",
+    "drink": {
+      "brewable": false,
+      "food": true
+    },
     "stack": 1,
     "level": 2,
     "speed": 6.0
   },
   {
     "id": "pomegranate_wine",
-    "kind": "item",
+    "kind": "drink",
+    "drink": {
+      "brewable": true,
+      "food": false
+    },
     "stack": 1,
     "level": 2,
     "speed": 6.0
   },
   {
     "id": "raspberry_juice",
-    "kind": "item",
+    "kind": "drink",
+    "drink": {
+      "brewable": false,
+      "food": true
+    },
     "stack": 1,
     "level": 2,
     "speed": 6.0
   },
   {
     "id": "red_grape_juice",
-    "kind": "item",
+    "kind": "drink",
+    "drink": {
+      "brewable": false,
+      "food": true
+    },
     "stack": 1,
     "level": 2,
     "speed": 6.0
   },
   {
     "id": "red_wine",
-    "kind": "item",
+    "kind": "drink",
+    "drink": {
+      "brewable": true,
+      "food": false
+    },
     "stack": 1,
     "level": 2,
     "speed": 6.0
   },
   {
     "id": "rum",
-    "kind": "item",
+    "kind": "drink",
+    "drink": {
+      "brewable": true,
+      "food": false
+    },
     "stack": 1,
     "level": 2,
     "speed": 6.0
   },
   {
     "id": "soured_milk",
-    "kind": "item",
+    "kind": "drink",
+    "drink": {
+      "brewable": true,
+      "food": false
+    },
     "stack": 1,
     "level": 2,
     "speed": 6.0
   },
   {
     "id": "taurethrim_cocoa",
-    "kind": "item",
+    "kind": "drink",
+    "drink": {
+      "brewable": true,
+      "food": false
+    },
     "stack": 1,
     "level": 2,
     "speed": 6.0
   },
   {
     "id": "jungle_remedy",
-    "kind": "item",
+    "kind": "drink",
+    "drink": {
+      "brewable": false,
+      "food": false
+    },
     "stack": 1,
     "level": 2,
     "speed": 6.0
   },
   {
     "id": "termite_tequila",
-    "kind": "item",
+    "kind": "drink",
+    "drink": {
+      "brewable": true,
+      "food": false
+    },
     "stack": 1,
     "level": 2,
     "speed": 6.0
   },
   {
     "id": "torog_draught",
-    "kind": "item",
+    "kind": "drink",
+    "drink": {
+      "brewable": true,
+      "food": false
+    },
     "stack": 1,
     "level": 2,
     "speed": 6.0
   },
   {
     "id": "vodka",
-    "kind": "item",
+    "kind": "drink",
+    "drink": {
+      "brewable": true,
+      "food": false
+    },
     "stack": 1,
     "level": 2,
     "speed": 6.0
   },
   {
     "id": "water",
-    "kind": "item",
+    "kind": "drink",
+    "drink": {
+      "brewable": false,
+      "food": false
+    },
     "stack": 1,
     "level": 2,
     "speed": 6.0
   },
   {
     "id": "green_grape_juice",
-    "kind": "item",
+    "kind": "drink",
+    "drink": {
+      "brewable": false,
+      "food": true
+    },
     "stack": 1,
     "level": 2,
     "speed": 6.0
   },
   {
     "id": "white_wine",
-    "kind": "item",
+    "kind": "drink",
+    "drink": {
+      "brewable": true,
+      "food": false
+    },
     "stack": 1,
     "level": 2,
     "speed": 6.0
@@ -8253,28 +8496,6 @@
     "speed": 6.0,
     "food": {
       "nutrition": 8,
-      "saturation": 0.3
-    }
-  },
-  {
-    "id": "cooked_mutton",
-    "kind": "item",
-    "stack": 64,
-    "level": 2,
-    "speed": 6.0,
-    "food": {
-      "nutrition": 8,
-      "saturation": 0.8
-    }
-  },
-  {
-    "id": "raw_mutton",
-    "kind": "item",
-    "stack": 64,
-    "level": 2,
-    "speed": 6.0,
-    "food": {
-      "nutrition": 3,
       "saturation": 0.3
     }
   },
@@ -9141,10 +9362,15 @@
   },
   {
     "id": "half_troll_rhino_armor",
-    "kind": "item",
+    "kind": "mount_armor",
     "stack": 1,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "mount_armor": {
+      "mount": "rhino",
+      "protection": 9,
+      "texture": "lotr_port:textures/entity/mount_armor/rhino_half_troll.png"
+    }
   },
   {
     "id": "cooked_rhino",
@@ -9602,7 +9828,7 @@
   },
   {
     "id": "skull_cup",
-    "kind": "item",
+    "kind": "vessel",
     "stack": 64,
     "level": 2,
     "speed": 6.0
@@ -11013,24 +11239,39 @@
   },
   {
     "id": "angmar_warg_armor",
-    "kind": "item",
+    "kind": "mount_armor",
     "stack": 1,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "mount_armor": {
+      "mount": "warg",
+      "protection": 11,
+      "texture": "lotr_port:textures/entity/mount_armor/warg_angmar.png"
+    }
   },
   {
     "id": "mordor_warg_armor",
-    "kind": "item",
+    "kind": "mount_armor",
     "stack": 1,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "mount_armor": {
+      "mount": "warg",
+      "protection": 11,
+      "texture": "lotr_port:textures/entity/mount_armor/warg_mordor.png"
+    }
   },
   {
     "id": "isengard_warg_armor",
-    "kind": "item",
+    "kind": "mount_armor",
     "stack": 1,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "mount_armor": {
+      "mount": "warg",
+      "protection": 13,
+      "texture": "lotr_port:textures/entity/mount_armor/warg_uruk.png"
+    }
   },
   {
     "id": "warg_bone",
@@ -11062,7 +11303,7 @@
   },
   {
     "id": "waterskin",
-    "kind": "item",
+    "kind": "vessel",
     "stack": 64,
     "level": 2,
     "speed": 6.0
@@ -11080,7 +11321,7 @@
   },
   {
     "id": "wine_glass",
-    "kind": "item",
+    "kind": "vessel",
     "stack": 64,
     "level": 2,
     "speed": 6.0

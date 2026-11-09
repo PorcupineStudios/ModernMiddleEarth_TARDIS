@@ -1,0 +1,29 @@
+{
+  "type": "lotr_port:brewing",
+  "ingredients": [
+    {
+      "item": "lotr_port:lemon"
+    },
+    {
+      "item": "lotr_port:lemon"
+    },
+    {
+      "item": "lotr_port:lemon"
+    },
+    {
+      "item": "lotr_port:lemon"
+    },
+    {
+      "item": "lotr_port:lemon"
+    },
+    {
+      "item": "lotr_port:lemon"
+    }
+  ],
+  "result": {
+    "id": "lotr_port:lemon_liqueur",
+    "count": 16
+  },
+  "water": 3000,
+  "brew_time": 12000
+}

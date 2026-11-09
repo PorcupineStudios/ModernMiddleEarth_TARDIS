@@ -4,13 +4,22 @@
       "npc": "lotr_port:angmar_orc",
       "weight": 20,
       "min": 4,
-      "max": 6
+      "max": 6,
+      "dark": true
     },
     {
       "npc": "lotr_port:angmar_orc_archer",
       "weight": 10,
       "min": 4,
-      "max": 6
+      "max": 6,
+      "dark": true
+    },
+    {
+      "npc": "lotr_port:angmar_warg",
+      "weight": 20,
+      "min": 4,
+      "max": 4,
+      "dark": true
     },
     {
       "npc": "lotr_port:blue_dwarf",
@@ -64,61 +73,85 @@
       "npc": "lotr_port:gundabad_orc",
       "weight": 100,
       "min": 4,
-      "max": 6
+      "max": 6,
+      "dark": true
     },
     {
       "npc": "lotr_port:gundabad_orc_archer",
       "weight": 50,
       "min": 4,
-      "max": 6
+      "max": 6,
+      "dark": true
     },
     {
       "npc": "lotr_port:gundabad_uruk",
       "weight": 23,
       "min": 2,
-      "max": 4
+      "max": 4,
+      "dark": true
     },
     {
       "npc": "lotr_port:gundabad_uruk_archer",
       "weight": 12,
       "min": 2,
-      "max": 4
+      "max": 4,
+      "dark": true
+    },
+    {
+      "npc": "lotr_port:gundabad_warg",
+      "weight": 100,
+      "min": 4,
+      "max": 4,
+      "dark": true
     },
     {
       "npc": "lotr_port:isengard_snaga",
       "weight": 1,
       "min": 4,
-      "max": 6
+      "max": 6,
+      "dark": true
     },
     {
       "npc": "lotr_port:isengard_snaga_archer",
       "weight": 1,
       "min": 4,
-      "max": 6
+      "max": 6,
+      "dark": true
     },
     {
       "npc": "lotr_port:uruk_hai",
       "weight": 1,
       "min": 4,
-      "max": 6
+      "max": 6,
+      "dark": true
     },
     {
       "npc": "lotr_port:uruk_hai_berserker",
       "weight": 1,
       "min": 4,
-      "max": 6
+      "max": 6,
+      "dark": true
     },
     {
       "npc": "lotr_port:uruk_hai_crossbower",
       "weight": 1,
       "min": 4,
-      "max": 6
+      "max": 6,
+      "dark": true
     },
     {
       "npc": "lotr_port:uruk_hai_sapper",
       "weight": 1,
       "min": 1,
-      "max": 2
+      "max": 2,
+      "dark": true
+    },
+    {
+      "npc": "lotr_port:uruk_warg",
+      "weight": 1,
+      "min": 4,
+      "max": 4,
+      "dark": true
     }
   ]
 }

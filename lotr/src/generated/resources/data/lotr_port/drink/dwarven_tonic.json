@@ -1,0 +1,14 @@
+{
+  "alcohol": 0.2,
+  "nutrition": 4,
+  "saturation": 0.4,
+  "damage": 0,
+  "cures": false,
+  "cures_harmful": false,
+  "effects": [
+    {
+      "id": "minecraft:night_vision",
+      "duration": 4800
+    }
+  ]
+}

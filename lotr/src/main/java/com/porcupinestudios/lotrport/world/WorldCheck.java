@@ -56,6 +56,9 @@ final class WorldCheck {
                 problem = roadsAreLaid(overworld);
             }
             if (problem == null) {
+                problem = TreeCheck.start(overworld);
+            }
+            if (problem == null) {
                 problem = StructureCheck.start(server);
                 if (problem == null) {
                     return; // finishes on a later tick, once structure NPCs are in the world
@@ -152,7 +155,12 @@ final class WorldCheck {
                 for (int dz = -2; dz <= 2; dz++) {
                     BlockPos top = LotrDimensions.surface(level, x + dx, z + dz).below();
                     BlockState state = level.getBlockState(top);
-                    if (state.is(Blocks.DIRT_PATH) || state.is(Blocks.GRAVEL) || state.is(Blocks.SMOOTH_SANDSTONE)) {
+                    Roads.Style style = roads.style(level.getBiome(top).unwrapKey()
+                            .map(k -> k.location().toString()).orElse(""));
+                    String id = net.minecraft.core.registries.BuiltInRegistries.BLOCK.getKey(state.getBlock()).toString();
+                    if (style != null && (style.top().stream().anyMatch(p -> p.block().equals(id))
+                            || style.slab().stream().anyMatch(p -> p.block().equals(id))
+                            || id.equals(style.deck()) || id.equals(style.edge()))) {
                         LotrPort.LOG.info("[worldcheck] road found at {}", top.toShortString());
                         return null;
                     }

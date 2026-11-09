@@ -2,15 +2,17 @@
   "entries": [
     {
       "npc": "lotr_port:black_uruk",
-      "weight": 23,
+      "weight": 16,
       "min": 4,
-      "max": 6
+      "max": 6,
+      "dark": true
     },
     {
       "npc": "lotr_port:black_uruk_archer",
-      "weight": 12,
+      "weight": 8,
       "min": 4,
-      "max": 6
+      "max": 6,
+      "dark": true
     },
     {
       "npc": "lotr_port:gondor_archer",
@@ -20,7 +22,7 @@
     },
     {
       "npc": "lotr_port:gondor_levyman",
-      "weight": 2,
+      "weight": 1,
       "min": 2,
       "max": 4
     },
@@ -32,21 +34,31 @@
     },
     {
       "npc": "lotr_port:mordor_orc",
-      "weight": 100,
+      "weight": 67,
       "min": 4,
-      "max": 6
+      "max": 6,
+      "dark": true
     },
     {
       "npc": "lotr_port:mordor_orc_archer",
-      "weight": 50,
+      "weight": 33,
       "min": 4,
-      "max": 6
+      "max": 6,
+      "dark": true
     },
     {
       "npc": "lotr_port:mordor_orc_bombardier",
-      "weight": 25,
+      "weight": 17,
       "min": 1,
-      "max": 2
+      "max": 2,
+      "dark": true
+    },
+    {
+      "npc": "lotr_port:mordor_warg",
+      "weight": 100,
+      "min": 4,
+      "max": 4,
+      "dark": true
     },
     {
       "npc": "lotr_port:ranger_ithilien",
@@ -56,7 +68,7 @@
     },
     {
       "npc": "lotr_port:rohirrim",
-      "weight": 3,
+      "weight": 2,
       "min": 3,
       "max": 8
     },
@@ -68,9 +80,10 @@
     },
     {
       "npc": "lotr_port:wicked_dwarf",
-      "weight": 4,
+      "weight": 3,
       "min": 1,
       "max": 3
     }
-  ]
+  ],
+  "hostiles_in_day": true
 }

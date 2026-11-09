@@ -9,7 +9,15 @@
     "lotr_port:dunlending_house/1",
     "lotr_port:dunlending_house/2"
   ],
-  "chance": 150,
+  "rolls": {
+    "lotr_port:adornland": [
+      4000,
+      150
+    ]
+  },
+  "lotr_success": {
+    "lotr_port:adornland": 0.759
+  },
   "salt": 261529432,
   "ground": 5,
   "max_slope": 6,

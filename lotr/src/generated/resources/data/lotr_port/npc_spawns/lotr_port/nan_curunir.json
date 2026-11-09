@@ -52,13 +52,15 @@
       "npc": "lotr_port:isengard_snaga",
       "weight": 100,
       "min": 4,
-      "max": 6
+      "max": 6,
+      "dark": true
     },
     {
       "npc": "lotr_port:isengard_snaga_archer",
       "weight": 25,
       "min": 4,
-      "max": 6
+      "max": 6,
+      "dark": true
     },
     {
       "npc": "lotr_port:rohirrim",
@@ -88,25 +90,37 @@
       "npc": "lotr_port:uruk_hai",
       "weight": 79,
       "min": 4,
-      "max": 6
+      "max": 6,
+      "dark": true
     },
     {
       "npc": "lotr_port:uruk_hai_berserker",
       "weight": 20,
       "min": 4,
-      "max": 6
+      "max": 6,
+      "dark": true
     },
     {
       "npc": "lotr_port:uruk_hai_crossbower",
       "weight": 39,
       "min": 4,
-      "max": 6
+      "max": 6,
+      "dark": true
     },
     {
       "npc": "lotr_port:uruk_hai_sapper",
       "weight": 12,
       "min": 1,
-      "max": 2
+      "max": 2,
+      "dark": true
+    },
+    {
+      "npc": "lotr_port:uruk_warg",
+      "weight": 75,
+      "min": 4,
+      "max": 4,
+      "dark": true
     }
-  ]
+  ],
+  "hostiles_in_day": true
 }

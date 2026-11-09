@@ -9,7 +9,14 @@
     "lotr_port:dwarven_tower/1",
     "lotr_port:dwarven_tower/2"
   ],
-  "chance": 300,
+  "rolls": {
+    "lotr_port:iron_hills": [
+      300
+    ]
+  },
+  "lotr_success": {
+    "lotr_port:iron_hills": 0.088
+  },
   "salt": 1169545467,
   "ground": 0,
   "max_slope": 6,

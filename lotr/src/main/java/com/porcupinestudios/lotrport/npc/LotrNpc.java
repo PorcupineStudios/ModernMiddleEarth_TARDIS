@@ -39,6 +39,8 @@ import net.minecraft.world.entity.ai.goal.FloatGoal;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
 import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
+import net.minecraft.world.entity.ai.goal.OpenDoorGoal;
+import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
 import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
 import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
@@ -94,6 +96,9 @@ public class LotrNpc extends PathfinderMob implements Merchant {
 
     public LotrNpc(EntityType<? extends LotrNpc> type, Level level) {
         super(type, level);
+        if (getNavigation() instanceof GroundPathNavigation nav) {
+            nav.setCanOpenDoors(true); // doors and gates: OpenDoorGoal and OpenGateGoal open them
+        }
     }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -194,6 +199,8 @@ public class LotrNpc extends PathfinderMob implements Merchant {
         goalSelector.addGoal(0, new FloatGoal(this));
         goalSelector.addGoal(1, new WeaponMeleeGoal());
         goalSelector.addGoal(2, new FollowOwnerGoal());
+        goalSelector.addGoal(4, new OpenDoorGoal(this, true));
+        goalSelector.addGoal(4, new OpenGateGoal(this));
         goalSelector.addGoal(3, new GuardGoal());
         goalSelector.addGoal(5, new WaterAvoidingRandomStrollGoal(this, 0.8) {
             @Override

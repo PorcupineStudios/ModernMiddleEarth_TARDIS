@@ -2,6 +2,7 @@ package com.porcupinestudios.lotrport.crafting;
 
 import com.mojang.serialization.MapCodec;
 import com.porcupinestudios.lotrport.LotrPort;
+import com.porcupinestudios.lotrport.drink.BrewingRecipe;
 import java.util.function.Supplier;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.RegistryFriendlyByteBuf;
@@ -30,6 +31,22 @@ public final class LotrRecipes {
                 @Override
                 public StreamCodec<RegistryFriendlyByteBuf, FactionRecipe> streamCodec() {
                     return FactionRecipe.STREAM_CODEC;
+                }
+            });
+
+    /** The keg's recipes (LOTR's barrel brewing). */
+    public static final Supplier<RecipeType<BrewingRecipe>> BREWING =
+            TYPES.register("brewing", () -> RecipeType.simple(LotrPort.id("brewing")));
+    public static final Supplier<RecipeSerializer<BrewingRecipe>> BREWING_SERIALIZER =
+            SERIALIZERS.register("brewing", () -> new RecipeSerializer<>() {
+                @Override
+                public MapCodec<BrewingRecipe> codec() {
+                    return BrewingRecipe.CODEC;
+                }
+
+                @Override
+                public StreamCodec<RegistryFriendlyByteBuf, BrewingRecipe> streamCodec() {
+                    return BrewingRecipe.STREAM_CODEC;
                 }
             });
 

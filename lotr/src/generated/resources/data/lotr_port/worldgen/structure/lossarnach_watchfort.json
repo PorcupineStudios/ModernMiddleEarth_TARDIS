@@ -9,7 +9,18 @@
     "lotr_port:lossarnach_watchfort/1",
     "lotr_port:lossarnach_watchfort/2"
   ],
-  "chance": 800,
+  "rolls": {
+    "lotr_port:imloth_melui": [
+      800
+    ],
+    "lotr_port:lossarnach": [
+      800
+    ]
+  },
+  "lotr_success": {
+    "lotr_port:imloth_melui": 0.283,
+    "lotr_port:lossarnach": 0.21
+  },
   "salt": 1401940477,
   "ground": 0,
   "max_slope": 6,
