@@ -5,6 +5,7 @@ import com.porcupinestudios.tardisrb.block.ExteriorBlock;
 import com.porcupinestudios.tardisrb.block.Exteriors;
 import com.porcupinestudios.tardisrb.core.TardisManager;
 import com.porcupinestudios.tardisrb.core.TardisRecord;
+import com.porcupinestudios.tardisrb.door.DoorLock;
 import com.porcupinestudios.tardisrb.door.Doors;
 import com.porcupinestudios.tardisrb.entity.TardisBody;
 import com.porcupinestudios.tardisrb.entity.TardisEntities;
@@ -23,6 +24,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.levelgen.Heightmap;
 
@@ -31,8 +33,8 @@ import net.minecraft.world.level.levelgen.Heightmap;
  * the exterior into an entity, one switches the thrusters on): {@link #phase} turns the block into a loose
  * {@link TardisBody} and back; {@link #setThrusters} makes it hover or fall. The record keeps where it is
  * ({@link TardisRecord#location}, updated every second while loose) and, in module data {@value #MODULE}, the body's
- * id and the thrusters' setting. While loose the doors stay shut. A jump or hop while loose takes the body away and
- * lands as a block ({@link #dock}).
+ * id and the thrusters' setting. The doors open while loose too (Aaron 2026-11-09): the doorway portal follows the
+ * body ({@code Doors}). A jump or hop while loose takes the body away and lands as a block ({@link #dock}).
  */
 public final class FreeFlight {
     public static final String MODULE = "free_flight";
@@ -102,6 +104,28 @@ public final class FreeFlight {
                         "The box comes loose: it is a physics object now");
     }
 
+    /** A player used the loose box from outside: the doors, as on the block (claim, lock, sneak cycles the lock). */
+    public static InteractionResult use(TardisBody body, ServerPlayer player) {
+        Optional<TardisRecord> found = body.tardis().flatMap(id -> TardisManager.get(player.server).get(id));
+        if (found.isEmpty()) {
+            return InteractionResult.PASS;
+        }
+        TardisRecord tardis = found.get();
+        if (player.isShiftKeyDown()) {
+            DoorLock.cycle(tardis, player, false);
+            return InteractionResult.CONSUME;
+        }
+        if (!DoorLock.mayUse(tardis, player, false)) {
+            player.displayClientMessage(Component.translatableWithFallback("tardis_rb.exterior.locked",
+                    "The door is locked"), true);
+            return InteractionResult.CONSUME;
+        }
+        boolean closing = Doors.isOpen(tardis) && !Doors.isClosing(tardis);
+        player.displayClientMessage(Doors.toggle(player.server, tardis) ? Doors.message(closing)
+                : Component.translatableWithFallback("tardis_rb.door.wont_open", "The doors won't open"), true);
+        return InteractionResult.CONSUME;
+    }
+
     private static Component toBlock(MinecraftServer server, TardisRecord tardis) {
         Optional<TardisBody> body = body(server, tardis);
         GlobalPos last = tardis.location().orElse(null);
@@ -119,6 +143,7 @@ public final class FreeFlight {
                     "Nowhere to set down here: bring the box nearer the ground");
         }
         Direction facing = body.map(b -> Direction.fromYRot(b.getYRot())).orElse(Direction.NORTH);
+        Doors.close(server, tardis);
         dock(server, tardis);
         Exteriors.place(level, spot.get(), facing, tardis.id());
         tardis.setLocation(Optional.of(GlobalPos.of(level.dimension(), spot.get())));
