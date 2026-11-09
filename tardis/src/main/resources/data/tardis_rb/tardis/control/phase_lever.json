@@ -1,0 +1,15 @@
+{
+  "model": "phase_lever",
+  "panel": 3,
+  "u": -0.02,
+  "v": 0.494,
+  "scale": 0.64,
+  "actions": {
+    "arm": "phase"
+  },
+  "requirements": {
+    "type": "tardis_rb:subsystem_level",
+    "subsystem": "tardis_rb:navigation",
+    "min": 1
+  }
+}

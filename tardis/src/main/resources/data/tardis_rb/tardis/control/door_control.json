@@ -1,0 +1,15 @@
+{
+  "model": "door_control",
+  "panel": 5,
+  "u": -0.3488,
+  "v": 0.1725,
+  "scale": 0.76,
+  "actions": {
+    "wheel": "door"
+  },
+  "requirements": {
+    "type": "tardis_rb:subsystem_level",
+    "subsystem": "tardis_rb:navigation",
+    "min": 1
+  }
+}

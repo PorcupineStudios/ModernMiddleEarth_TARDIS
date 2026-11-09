@@ -1,0 +1,34 @@
+{
+  "model": "memory_bank",
+  "panel": 4,
+  "u": -0.0825,
+  "v": 0.475,
+  "scale": 0.8,
+  "actions": {
+    "slot_0": "memory",
+    "slot_1": "memory",
+    "slot_2": "memory",
+    "slot_3": "memory",
+    "slot_4": "memory",
+    "slot_5": "memory",
+    "slot_6": "memory",
+    "slot_7": "memory",
+    "slot_8": "memory",
+    "slot_9": "memory",
+    "slot_10": "memory",
+    "slot_11": "memory",
+    "slot_12": "memory",
+    "slot_13": "memory",
+    "slot_14": "memory",
+    "slot_15": "memory",
+    "slot_16": "memory",
+    "slot_17": "memory",
+    "slot_18": "memory",
+    "slot_19": "memory"
+  },
+  "requirements": {
+    "type": "tardis_rb:subsystem_level",
+    "subsystem": "tardis_rb:navigation",
+    "min": 1
+  }
+}

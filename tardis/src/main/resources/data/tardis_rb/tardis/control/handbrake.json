@@ -1,0 +1,15 @@
+{
+  "model": "handbrake",
+  "panel": 3,
+  "u": 0.26,
+  "v": 0.182,
+  "scale": 0.64,
+  "actions": {
+    "arm": "handbrake"
+  },
+  "requirements": {
+    "type": "tardis_rb:subsystem_level",
+    "subsystem": "tardis_rb:navigation",
+    "min": 1
+  }
+}

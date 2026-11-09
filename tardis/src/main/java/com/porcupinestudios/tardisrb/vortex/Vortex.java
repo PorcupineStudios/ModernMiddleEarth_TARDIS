@@ -1,0 +1,326 @@
+package com.porcupinestudios.tardisrb.vortex;
+
+import com.porcupinestudios.tardisrb.TardisRB;
+import com.porcupinestudios.tardisrb.block.ExteriorBlock;
+import com.porcupinestudios.tardisrb.block.Exteriors;
+import com.porcupinestudios.tardisrb.block.TardisBlocks;
+import com.porcupinestudios.tardisrb.core.TardisManager;
+import com.porcupinestudios.tardisrb.core.TardisRecord;
+import com.porcupinestudios.tardisrb.door.Doors;
+import com.porcupinestudios.tardisrb.entity.TardisBody;
+import com.porcupinestudios.tardisrb.entity.TardisEntities;
+import com.porcupinestudios.tardisrb.flight.Destinations;
+import com.porcupinestudios.tardisrb.flight.Flight;
+import com.porcupinestudios.tardisrb.flight.FreeFlight;
+import com.porcupinestudios.tardisrb.flight.Piloting;
+import com.porcupinestudios.tardisrb.look.Looks;
+import com.porcupinestudios.tardisrb.progression.Destination;
+import com.porcupinestudios.tardisrb.progression.TardisContent;
+import com.porcupinestudios.tardisrb.progression.Tuning;
+import com.porcupinestudios.tardisrb.progression.Unlocks;
+import java.util.Optional;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.core.GlobalPos;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
+import net.minecraft.nbt.LongTag;
+import net.minecraft.nbt.Tag;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.phys.AABB;
+import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.neoforge.event.tick.ServerTickEvent;
+
+/**
+ * Flying through the time vortex (Aaron 2026-11-09: instead of the 1.7.10 button-pressing minigame, dematerialising
+ * flies the box through a time vortex dimension, dodging obstacles, "to" the destination). When a crew member pulls the
+ * dematerialisation lever ({@code ConsoleControls.takeOff}) the box leaves its spot and appears as a loose body
+ * ({@link TardisBody}) at the start of its own lane in {@code tardis_rb:time_vortex}: a tunnel along +z round
+ * ({@code lane x}, {@link #LANE_Y}), drawn by {@code client/VortexRenderer}. The puller is seated to fly it
+ * ({@link Piloting#seat}); it drifts forward by itself, and the pilot steers round clumps of {@code vortex_debris}
+ * placed ahead of it. Each hit costs charge and pushes the landing off target. At the tunnel's end ({@code length}
+ * blocks) it materialises at the destination through the usual hop or jump ({@link Flight}), which pays for the
+ * trip; if that fails it lands back where it left. With nobody flying, the box keeps drifting (autopilot), and if
+ * its chunk isn't loaded the trip advances on its own.
+ *
+ * <p>The trip is kept in the record's module data {@value #MODULE}: where it left ({@code from_*}), what it aims at
+ * ({@code destination} for a jump, empty for a hop; {@code target}; {@code facing}), the lane, length, progress,
+ * hits, where the next obstacle goes and the obstacles placed (to clear them).
+ */
+public final class Vortex {
+    public static final ResourceKey<Level> DIMENSION = ResourceKey.create(Registries.DIMENSION,
+            TardisRB.id("time_vortex"));
+    public static final String MODULE = "tardis_rb:vortex";
+    /** The tunnel's axis height. */
+    public static final double LANE_Y = 128;
+    /** Lanes are this far apart (one per interior plot), so trips never meet. */
+    public static final int LANE_SPACING = 4096;
+
+    private Vortex() {}
+
+    public static void register() {
+        NeoForge.EVENT_BUS.addListener(Vortex::onTick);
+    }
+
+    public static boolean inVortex(TardisRecord tardis) {
+        return tardis.moduleData(MODULE).contains("length");
+    }
+
+    /** How far through the tunnel it is, 0..1. */
+    public static double progress(TardisRecord tardis) {
+        CompoundTag t = tardis.moduleData(MODULE);
+        return t.contains("length") ? Math.min(1, t.getDouble("progress") / Math.max(1, t.getInt("length"))) : 0;
+    }
+
+    public static int hits(TardisRecord tardis) {
+        return tardis.moduleData(MODULE).getInt("hits");
+    }
+
+    /**
+     * Sets off through the vortex for {@code target} (a hop in this dimension when {@code destination} is empty, else
+     * a jump there), landing with the doors facing {@code facing}. Checks first what the landing will check (unlocks,
+     * range, charge), so a doomed trip doesn't start. Says what happened; {@code done} in the result means it left.
+     */
+    public static Flight.Outcome depart(MinecraftServer server, TardisRecord tardis, Optional<ResourceLocation> destination,
+            BlockPos target, Optional<Direction> facing, Optional<ServerPlayer> pilot) {
+        Tuning.VortexTuning t = TardisContent.tuning().vortex();
+        ServerLevel vortex = server.getLevel(DIMENSION);
+        if (tardis.location().isEmpty()) {
+            return Flight.Outcome.fail("tardis_rb.hop.nowhere", "The TARDIS isn't standing anywhere");
+        }
+        if (vortex == null) {
+            return Flight.Outcome.fail("tardis_rb.vortex.missing", "The time vortex isn't in this world");
+        }
+        if (inVortex(tardis)) {
+            return Flight.Outcome.fail("tardis_rb.vortex.already", "The TARDIS is already in the vortex");
+        }
+        GlobalPos from = tardis.location().get();
+        double distance;
+        if (destination.isEmpty()) {
+            Unlocks.Result hop = Unlocks.check(server, tardis, Flight.SHORT_HOP, pilot);
+            if (!hop.allowed()) {
+                return new Flight.Outcome(Optional.of(hop.reason()), Optional.empty());
+            }
+            distance = Math.sqrt(from.pos().distSqr(target));
+            double range = Unlocks.stat(tardis, "range");
+            if (distance > range) {
+                return Flight.Outcome.fail("tardis_rb.hop.range", "Too far: %s blocks, the TARDIS can hop %s",
+                        (long) Math.ceil(distance), (long) range);
+            }
+            long cost = Flight.baseCost(distance);
+            if (tardis.charge() < cost) {
+                return Flight.Outcome.fail("tardis_rb.hop.charge", "Needs %s charge (the TARDIS has %s)", cost,
+                        tardis.charge());
+            }
+        } else {
+            Optional<Component> closed = Destinations.closed(server, tardis, destination.get(), pilot);
+            if (closed.isPresent()) {
+                return new Flight.Outcome(closed, Optional.empty());
+            }
+            Destination d = TardisContent.destination(destination.get()).orElseThrow();
+            if (tardis.charge() < d.charge()) {
+                return Flight.Outcome.fail("tardis_rb.hop.charge", "Needs %s charge (the TARDIS has %s)", d.charge(),
+                        tardis.charge());
+            }
+            distance = -1;
+        }
+        int length = (int) Math.min(t.maxLength(), distance < 0 ? t.jumpLength()
+                : t.minLength() + distance * t.lengthPerBlock());
+        // leave: doors shut, the block (or the loose body) goes
+        Doors.close(server, tardis);
+        ServerLevel fromLevel = server.getLevel(from.dimension());
+        Direction was = FreeFlight.isLoose(tardis) ? FreeFlight.facing(server, tardis)
+                : fromLevel == null ? Direction.NORTH : Exteriors.lift(fromLevel, from.pos());
+        FreeFlight.dock(server, tardis);
+        double laneX = (tardis.plot() + 1) * (double) LANE_SPACING + 0.5;
+        TardisBody body = TardisEntities.BODY.get().create(vortex);
+        if (body == null) {
+            if (fromLevel != null) {
+                Exteriors.place(fromLevel, from.pos(), was, tardis.id());
+            }
+            return Flight.Outcome.fail("tardis_rb.vortex.failed", "The TARDIS shudders and stays put");
+        }
+        vortex.getChunk(BlockPos.containing(laneX, LANE_Y, 0)); // load the start of the lane
+        body.moveTo(laneX, LANE_Y, 0.5, Direction.SOUTH.toYRot(), 0);
+        body.setTardis(tardis.id());
+        body.setThrusters(true);
+        body.setLook(Looks.exterior(server, tardis));
+        body.setLane((float) laneX, (float) LANE_Y);
+        vortex.addFreshEntity(body);
+        CompoundTag trip = new CompoundTag();
+        trip.putString("from_dimension", from.dimension().location().toString());
+        trip.putLong("from", from.pos().asLong());
+        trip.putInt("from_facing", was.get2DDataValue());
+        destination.ifPresent(d -> trip.putString("destination", d.toString()));
+        trip.putLong("target", target.asLong());
+        trip.putInt("facing", facing.map(Direction::get2DDataValue).orElse(-1));
+        trip.putDouble("lane_x", laneX);
+        trip.putInt("length", length);
+        trip.putDouble("progress", 0);
+        trip.putInt("hits", 0);
+        trip.putInt("next_obstacle", 24);
+        trip.put("obstacles", new ListTag());
+        tardis.setModuleData(MODULE, trip);
+        CompoundTag flight = tardis.moduleData(FreeFlight.MODULE);
+        flight.putUUID("body", body.getUUID());
+        tardis.setModuleData(FreeFlight.MODULE, flight);
+        tardis.setLocation(Optional.of(GlobalPos.of(DIMENSION, body.blockPosition())));
+        pilot.ifPresent(p -> Piloting.seat(server, tardis, p));
+        return new Flight.Outcome(Optional.empty(), Optional.empty());
+    }
+
+    private static void onTick(ServerTickEvent.Post event) {
+        MinecraftServer server = event.getServer();
+        ServerLevel vortex = server.getLevel(DIMENSION);
+        if (vortex == null) {
+            return;
+        }
+        for (TardisRecord tardis : TardisManager.get(server).all()) {
+            if (inVortex(tardis)) {
+                step(server, vortex, tardis);
+            }
+        }
+    }
+
+    /** One tick of a trip: progress, obstacles ahead, hits, arrival. */
+    static void step(MinecraftServer server, ServerLevel vortex, TardisRecord tardis) {
+        Tuning.VortexTuning t = TardisContent.tuning().vortex();
+        CompoundTag trip = tardis.moduleData(MODULE);
+        Optional<TardisBody> body = FreeFlight.body(server, tardis);
+        double progress;
+        if (body.isPresent() && body.get().getControllingPassenger() != null) {
+            progress = Math.max(trip.getDouble("progress"), body.get().getZ());
+        } else {
+            // nobody flying (or not loaded): autopilot carries it on down the middle of the tunnel
+            progress = trip.getDouble("progress") + t.speed();
+            body.ifPresent(b -> b.setPos(b.getX(), b.getY(), Math.max(b.getZ(), progress)));
+        }
+        trip.putDouble("progress", progress);
+        int length = trip.getInt("length");
+        if (body.isPresent()) {
+            placeAhead(vortex, trip, t, progress, length, tardis);
+            if (hitDebris(vortex, body.get(), trip, t)) {
+                tardis.useCharge(Math.min(tardis.charge(), t.hitCharge()));
+                trip.putInt("hits", trip.getInt("hits") + 1);
+                vortex.playSound(null, body.get().blockPosition(), SoundEvents.GENERIC_EXPLODE.value(),
+                        SoundSource.NEUTRAL, 0.6F, 1.4F);
+                if (body.get().getControllingPassenger() instanceof ServerPlayer p) {
+                    p.displayClientMessage(Component.translatableWithFallback("tardis_rb.vortex.hit",
+                            "The TARDIS slams into vortex debris! (%s hits)", trip.getInt("hits")), true);
+                }
+            }
+        }
+        tardis.setModuleData(MODULE, trip);
+        if (progress >= length) {
+            arrive(server, tardis);
+        }
+    }
+
+    /** Places obstacle clumps up to 96 blocks ahead of the box, along the lane. */
+    private static void placeAhead(ServerLevel vortex, CompoundTag trip, Tuning.VortexTuning t, double progress,
+            int length, TardisRecord tardis) {
+        int next = trip.getInt("next_obstacle");
+        ListTag placed = trip.getList("obstacles", Tag.TAG_LONG);
+        RandomSource random = RandomSource.create(tardis.id().getLeastSignificantBits() ^ next);
+        double laneX = trip.getDouble("lane_x");
+        while (next < progress + 96 && next < length - 16) {
+            double a = random.nextDouble() * Math.PI * 2;
+            double r = Math.sqrt(random.nextDouble()) * (t.radius() - 1);
+            BlockPos c = BlockPos.containing(laneX + Math.cos(a) * r, LANE_Y + Math.sin(a) * r, next);
+            int size = 1 + random.nextInt(Math.max(1, t.obstacleSize()));
+            for (int dx = 0; dx < size; dx++) {
+                for (int dy = 0; dy < size; dy++) {
+                    for (int dz = 0; dz < size; dz++) {
+                        if (random.nextInt(4) != 0) {
+                            vortex.setBlock(c.offset(dx, dy, dz), TardisBlocks.VORTEX_DEBRIS.get().defaultBlockState(),
+                                    Block.UPDATE_CLIENTS);
+                        }
+                    }
+                }
+            }
+            placed.add(LongTag.valueOf(c.asLong()));
+            next += Math.max(4, t.obstacleGap() / 2 + random.nextInt(Math.max(1, t.obstacleGap())));
+        }
+        trip.putInt("next_obstacle", next);
+        trip.put("obstacles", placed);
+    }
+
+    /** True if the box touches debris; the clump it hit shatters. */
+    private static boolean hitDebris(ServerLevel vortex, TardisBody body, CompoundTag trip, Tuning.VortexTuning t) {
+        AABB box = body.getBoundingBox().inflate(0.3);
+        for (BlockPos p : BlockPos.betweenClosed(BlockPos.containing(box.minX, box.minY, box.minZ),
+                BlockPos.containing(box.maxX, box.maxY, box.maxZ))) {
+            if (vortex.getBlockState(p).is(TardisBlocks.VORTEX_DEBRIS.get())) {
+                BlockPos hit = p.immutable();
+                for (BlockPos q : BlockPos.betweenClosed(hit.offset(-t.obstacleSize(), -t.obstacleSize(),
+                        -t.obstacleSize()), hit.offset(t.obstacleSize(), t.obstacleSize(), t.obstacleSize()))) {
+                    if (vortex.getBlockState(q).is(TardisBlocks.VORTEX_DEBRIS.get())) {
+                        vortex.destroyBlock(q, false);
+                    }
+                }
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * The end of the tunnel: the pilot goes back inside, the body and the obstacles go, and the TARDIS materialises at
+     * the destination (off target by the hits), or back where it left if it can't land there.
+     */
+    public static Flight.Outcome arrive(MinecraftServer server, TardisRecord tardis) {
+        Tuning.VortexTuning t = TardisContent.tuning().vortex();
+        CompoundTag trip = tardis.moduleData(MODULE);
+        if (!trip.contains("length")) {
+            return Flight.Outcome.fail("tardis_rb.vortex.not_in", "The TARDIS isn't in the vortex");
+        }
+        FreeFlight.dock(server, tardis); // the pilot gets off and goes back to the console
+        ServerLevel vortex = server.getLevel(DIMENSION);
+        if (vortex != null) {
+            for (Tag tag : trip.getList("obstacles", Tag.TAG_LONG)) {
+                BlockPos c = BlockPos.of(((LongTag) tag).getAsLong());
+                for (BlockPos q : BlockPos.betweenClosed(c, c.offset(t.obstacleSize(), t.obstacleSize(),
+                        t.obstacleSize()))) {
+                    if (vortex.getBlockState(q).is(TardisBlocks.VORTEX_DEBRIS.get())) {
+                        vortex.setBlock(q, Blocks.AIR.defaultBlockState(), Block.UPDATE_CLIENTS);
+                    }
+                }
+            }
+        }
+        tardis.setModuleData(MODULE, new CompoundTag());
+        ResourceLocation dim = ResourceLocation.tryParse(trip.getString("from_dimension"));
+        GlobalPos from = GlobalPos.of(ResourceKey.create(Registries.DIMENSION,
+                dim == null ? Level.OVERWORLD.location() : dim), BlockPos.of(trip.getLong("from")));
+        tardis.setLocation(Optional.of(from));
+        int hits = trip.getInt("hits");
+        RandomSource random = RandomSource.create();
+        int drift = hits * t.hitDrift();
+        BlockPos target = BlockPos.of(trip.getLong("target")).offset(drift == 0 ? 0 : random.nextInt(2 * drift + 1)
+                - drift, 0, drift == 0 ? 0 : random.nextInt(2 * drift + 1) - drift);
+        Direction facing = Direction.from2DDataValue(trip.getInt("facing") < 0 ? trip.getInt("from_facing")
+                : trip.getInt("facing"));
+        Flight.Outcome out = trip.contains("destination")
+                ? Flight.jump(server, tardis, ResourceLocation.parse(trip.getString("destination")),
+                        Optional.of(target), Optional.of(facing), Optional.empty())
+                : Flight.hop(server, tardis, target, Optional.of(facing), Optional.empty());
+        if (!out.done()) {
+            ServerLevel back = server.getLevel(from.dimension());
+            if (back != null && !(back.getBlockState(from.pos()).getBlock() instanceof ExteriorBlock)) {
+                Exteriors.place(back, from.pos(), Direction.from2DDataValue(trip.getInt("from_facing")), tardis.id());
+            }
+        }
+        return out;
+    }
+}

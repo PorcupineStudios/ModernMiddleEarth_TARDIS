@@ -1,0 +1,18 @@
+{
+  "model": "schema_chooser",
+  "panel": 5,
+  "u": -0.038,
+  "v": 0.1725,
+  "scale": 0.76,
+  "actions": {
+    "btn_1": "schema_prev",
+    "btn_2": "schema_next",
+    "btn_3": "add_room",
+    "btn_4": "schema_info"
+  },
+  "requirements": {
+    "type": "tardis_rb:subsystem_level",
+    "subsystem": "tardis_rb:navigation",
+    "min": 1
+  }
+}

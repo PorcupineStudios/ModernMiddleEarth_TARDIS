@@ -5,6 +5,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.porcupinestudios.tardisrb.TardisRB;
+import com.porcupinestudios.tardisrb.block.ConsoleBlockEntity;
 import java.io.Reader;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -15,13 +16,17 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
+import org.joml.Matrix4f;
+import org.joml.Vector3f;
 
 /**
  * The Capaldi console room's models from {@code assets/tardis_rb/console/capaldi.json} (made by
  * {@code tools/capaldi.py}): quads in blocks from the console block's lower corner. Parts: {@code body} (the console
- * and its pedestal down to the lower deck), one {@code ctl_<name>} per control, {@code rotor_glass},
- * {@code rotor_column}, {@code rotor_spinners}, {@code rotor_spinner_mid} and {@code arches}. Each control has a click
- * box. Loaded on first use and again after a resource reload, so a resource pack can replace it.
+ * and its pedestal down to the lower deck, one plain colour: Aaron 2026-11-08, a blank slate for the controls),
+ * {@code ctl_screen_1} (the monitor, with its click box), {@code rotor_glass}, {@code rotor_column},
+ * {@code rotor_spinners}, {@code rotor_spinner_mid} and {@code arches}. Also each panel's frame, where the small
+ * control models stand ({@link #placement}), and how the monitor stands over the side it is turned to
+ * ({@link #monitorMatrix}). Loaded on first use and again after a resource reload, so a resource pack can replace it.
  */
 public final class ConsoleModel {
     private static final ResourceLocation FILE = TardisRB.id("console/capaldi.json");
@@ -47,6 +52,14 @@ public final class ConsoleModel {
     /** The time rotor's axis (x, z) from the block's corner. */
     public final float pivotX;
     public final float pivotZ;
+    /** A panel's frame: the middle of its outer edge on its top, and its right, normal (up) and down-slope axes. */
+    public record Panel(Vec3 origin, Vec3 right, Vec3 normal, Vec3 down) {}
+
+    public final List<Panel> panels = new ArrayList<>();
+    /** How the monitor stands once raised: tilted toward upright (degrees), lifted and moved in toward the rotor. */
+    private final float monitorTilt;
+    private final float monitorLift;
+    private final float monitorInward;
     /** The monitor's glass, if the model has a monitor. */
     public final Optional<Glass> glass;
     /** Which way the monitor faces in the model, degrees ({@code atan2(z, x)} from the rotor axis). */
@@ -57,12 +70,7 @@ public final class ConsoleModel {
         for (Map.Entry<String, JsonElement> e : ps.entrySet()) {
             List<Quad> quads = new ArrayList<>();
             for (JsonElement q : e.getValue().getAsJsonArray()) {
-                JsonArray verts = q.getAsJsonObject().getAsJsonArray("v");
-                float[][] v = new float[4][];
-                for (int i = 0; i < 4; i++) {
-                    v[i] = floats(verts.get(i).getAsJsonArray());
-                }
-                quads.add(new Quad(v, floats(q.getAsJsonObject().getAsJsonArray("n"))));
+                quads.add(quad(q.getAsJsonObject()));
             }
             parts.put(e.getKey(), quads);
         }
@@ -76,6 +84,16 @@ public final class ConsoleModel {
         float[] pivot = root.has("pivot") ? floats(root.getAsJsonArray("pivot")) : new float[] {0.5F, 0, 0.5F};
         pivotX = pivot[0];
         pivotZ = pivot[2];
+        if (root.has("panels")) {
+            for (JsonElement el : root.getAsJsonArray("panels")) {
+                JsonObject p = el.getAsJsonObject();
+                panels.add(new Panel(vec(p, "origin"), vec(p, "right"), vec(p, "normal"), vec(p, "down")));
+            }
+        }
+        JsonObject mon = root.has("monitor") ? root.getAsJsonObject("monitor") : new JsonObject();
+        monitorTilt = mon.has("tilt") ? mon.get("tilt").getAsFloat() : 0;
+        monitorLift = mon.has("lift") ? mon.get("lift").getAsFloat() : 0;
+        monitorInward = mon.has("inward") ? mon.get("inward").getAsFloat() : 0;
         glass = findGlass(part("ctl_" + MONITOR));
         ControlPart monitor = controls.get(MONITOR);
         monitorHome = monitor == null ? 0 : (float) Math.toDegrees(Math.atan2(monitor.box().getCenter().z - pivotZ,
@@ -128,40 +146,73 @@ public final class ConsoleModel {
         return a.cross(b).length();
     }
 
-    /** How high the monitor rises once turned off its own panel, so it clears the controls on the others. */
-    public static final double MONITOR_LIFT = 0.5;
-
     /**
-     * How far to turn the monitor from where the model has it, as a {@code PoseStack} Y rotation in degrees round
-     * the rotor axis, for it to face {@code angle} ({@code atan2(z, x)}; NaN = home).
+     * How far to turn the monitor from where the model has it, as a Y rotation in degrees round the rotor axis, for it
+     * to face {@code angle} ({@code atan2(z, x)}; NaN = home).
      */
     public float monitorTurn(float angle) {
         return Float.isNaN(angle) ? 0 : wrap(monitorHome - angle);
     }
 
-    /** How high the monitor is lifted when turned this far: on its panel at home, risen once off it. */
-    public static double monitorLift(float turn) {
-        return MONITOR_LIFT * Math.min(1, Math.abs(turn) / 15);
+    /**
+     * Where the monitor is drawn when turned {@code turn} degrees ({@link #monitorTurn}): it stands up off its panel
+     * (tilted toward upright about its middle, lifted and moved in toward the rotor, so the controls under it stay
+     * visible) and turns round the rotor axis. Maps the model's monitor quads (block corner space) to where they are.
+     */
+    public Matrix4f monitorMatrix(float turn) {
+        Matrix4f m = new Matrix4f().translate(pivotX, 0, pivotZ).rotateY((float) Math.toRadians(turn))
+                .translate(-pivotX, 0, -pivotZ);
+        ControlPart monitor = controls.get(MONITOR);
+        if (monitor == null) {
+            return m;
+        }
+        Vec3 c = monitor.box().getCenter();
+        Vec3 out = new Vec3(c.x - pivotX, 0, c.z - pivotZ).normalize();
+        // up x out: tilting about it turns the glass's normal toward the outside
+        Vector3f axis = new Vector3f((float) out.z, 0, (float) -out.x);
+        return m.translate((float) (-out.x * monitorInward), monitorLift, (float) (-out.z * monitorInward))
+                .translate((float) c.x, (float) c.y, (float) c.z).rotate((float) Math.toRadians(monitorTilt), axis)
+                .translate((float) -c.x, (float) -c.y, (float) -c.z);
     }
 
-    /** The monitor's click box after turning it {@code turn} degrees and lifting it. */
-    public AABB monitorBox(AABB box, float turn) {
-        Vec3 c = box.getCenter();
-        double a = Math.toRadians(turn);
-        double x = c.x - pivotX;
-        double z = c.z - pivotZ;
-        // the same turn as Axis.YP: x' = x cos a + z sin a, z' = -x sin a + z cos a
-        double nx = pivotX + x * Math.cos(a) + z * Math.sin(a);
-        double nz = pivotZ - x * Math.sin(a) + z * Math.cos(a);
-        double half = Math.max(box.getXsize(), box.getZsize()) / 2;
-        double lift = monitorLift(turn);
-        return new AABB(nx - half, box.minY + lift, nz - half, nx + half, box.maxY + lift, nz + half);
+    /**
+     * Where a small control is drawn: on its panel's top at {@code u} (right of the middle) and {@code v} (up the slope
+     * from the outer edge), standing along the panel's normal with the operator's side down the slope, turned
+     * {@code turn} degrees and scaled. Maps the control model's space to block corner space. Null if no such panel.
+     */
+    public Matrix4f placement(ConsoleBlockEntity.Shown c) {
+        if (c.panel() < 0 || c.panel() >= panels.size()) {
+            return null;
+        }
+        Panel p = panels.get(c.panel());
+        Vec3 at = p.origin().add(p.right().scale(c.u())).subtract(p.down().scale(c.v()));
+        Vec3 r = p.right();
+        Vec3 n = p.normal();
+        Vec3 d = p.down();
+        return new Matrix4f((float) r.x, (float) r.y, (float) r.z, 0, (float) n.x, (float) n.y, (float) n.z, 0,
+                (float) d.x, (float) d.y, (float) d.z, 0, (float) at.x, (float) at.y, (float) at.z, 1)
+                .rotateY((float) Math.toRadians(c.turn())).scale(c.scale());
     }
 
     /** An angle in degrees brought into -180..180. */
     public static float wrap(float degrees) {
         float d = degrees % 360;
         return d > 180 ? d - 360 : d < -180 ? d + 360 : d;
+    }
+
+    /** One quad from the model files' format: {@code v} = four vertices of x y z u v, {@code n} its normal. */
+    static Quad quad(JsonObject q) {
+        JsonArray verts = q.getAsJsonArray("v");
+        float[][] v = new float[4][];
+        for (int i = 0; i < 4; i++) {
+            v[i] = floats(verts.get(i).getAsJsonArray());
+        }
+        return new Quad(v, floats(q.getAsJsonArray("n")));
+    }
+
+    private static Vec3 vec(JsonObject o, String key) {
+        float[] f = floats(o.getAsJsonArray(key));
+        return new Vec3(f[0], f[1], f[2]);
     }
 
     public List<Quad> part(String name) {

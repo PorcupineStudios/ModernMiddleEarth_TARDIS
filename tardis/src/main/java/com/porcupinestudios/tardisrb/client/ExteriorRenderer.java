@@ -23,8 +23,8 @@ import net.minecraft.world.phys.AABB;
  * {@code glow_from_look} on, and the two doors swinging open and shut on their hinges when the doors open or close.
  */
 public final class ExteriorRenderer implements BlockEntityRenderer<ExteriorBlockEntity> {
-    private static final ResourceLocation[] LOOKS = new ResourceLocation[4];
-    private static final ResourceLocation GLOW = TardisRB.id("textures/entity/police_box/glow.png");
+    static final ResourceLocation[] LOOKS = new ResourceLocation[4];
+    static final ResourceLocation GLOW = TardisRB.id("textures/entity/police_box/glow.png");
 
     static {
         for (int i = 0; i < LOOKS.length; i++) {
@@ -61,7 +61,7 @@ public final class ExteriorRenderer implements BlockEntityRenderer<ExteriorBlock
         pose.popPose();
     }
 
-    private static void drawAll(PoliceBoxModel model, float angle, PoseStack pose, VertexConsumer vc, int light) {
+    static void drawAll(PoliceBoxModel model, float angle, PoseStack pose, VertexConsumer vc, int light) {
         draw(model.body, pose, vc, light);
         for (PoliceBoxModel.Part door : model.doors.values()) {
             pose.pushPose();

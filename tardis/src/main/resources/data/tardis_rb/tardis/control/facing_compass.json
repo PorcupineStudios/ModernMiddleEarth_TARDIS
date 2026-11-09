@@ -1,0 +1,15 @@
+{
+  "model": "facing_compass",
+  "panel": 3,
+  "u": -0.22,
+  "v": 0.182,
+  "scale": 0.64,
+  "actions": {
+    "arrow": "facing"
+  },
+  "requirements": {
+    "type": "tardis_rb:subsystem_level",
+    "subsystem": "tardis_rb:navigation",
+    "min": 1
+  }
+}

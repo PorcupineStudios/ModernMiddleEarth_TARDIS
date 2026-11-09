@@ -92,7 +92,97 @@
       1,
       10,
       100
-    ]
+    ],
+    "coordinates": {
+      "_comment": "The X/Z and Y controls (after the 1.7.10 console): each slot's range; a slot's value counts times x base^(the power slot's value + 1) when it has a power slot, else times. Y adds y_offset.",
+      "xz": [
+        {
+          "min": -6,
+          "max": 6,
+          "base": 4,
+          "power": 4
+        },
+        {
+          "min": -6,
+          "max": 6,
+          "base": 2,
+          "power": 5
+        },
+        {
+          "min": -6,
+          "max": 6,
+          "times": 6
+        },
+        {
+          "min": -6,
+          "max": 6,
+          "times": 1
+        },
+        {
+          "min": 0,
+          "max": 7,
+          "cycle": true,
+          "times": 0
+        },
+        {
+          "min": 0,
+          "max": 7,
+          "cycle": true,
+          "times": 0
+        },
+        {
+          "min": -6,
+          "max": 6,
+          "times": 71
+        }
+      ],
+      "y": [
+        {
+          "min": 0,
+          "max": 3,
+          "times": 64
+        },
+        {
+          "min": 0,
+          "max": 3,
+          "times": 16
+        },
+        {
+          "min": 0,
+          "max": 3,
+          "times": 4
+        },
+        {
+          "min": 0,
+          "max": 3,
+          "times": 1
+        }
+      ],
+      "y_offset": -64,
+      "memory_slots": 20
+    },
+    "time": {
+      "_comment": "The target-time controls: 'digits' number drums (0-9, first is highest) counted in a unit picked on the unit dial (ticks per unit; 1200 = a real minute, 24000 = a Minecraft day). The time lever picks 'ago' or 'from the beginning of time'. The unit dial model has 4 notches.",
+      "digits": 3,
+      "units": [
+        {
+          "name": "minutes",
+          "ticks": 1200
+        },
+        {
+          "name": "hours",
+          "ticks": 72000
+        },
+        {
+          "name": "days",
+          "ticks": 24000
+        },
+        {
+          "name": "years",
+          "ticks": 8760000
+        }
+      ]
+    }
   },
   "door": {
     "interior_door": [
@@ -111,5 +201,36 @@
     "gravity": 0.15,
     "check_ticks": 5,
     "landing_slow_fall": 30
+  },
+  "flight": {
+    "_comment": "The loose box (free flight): gravity per tick with the thrusters off, drag in the air, ground friction, how much motion the thrusters keep per tick while hovering, and how far round the box turning it back into a block may set down.",
+    "gravity": 0.08,
+    "drag": 0.98,
+    "ground_friction": 0.6,
+    "hover_damping": 0.8,
+    "landing_radius": 2,
+    "landing_height": 4,
+    "piloting": {
+      "_comment": "Flying the box with the flight yoke: acceleration and top speed across (blocks per tick), up/down speed (Q/E), sprint boost (times the top speed), and how fast the model spins while flown (degrees per tick, for show).",
+      "acceleration": 0.06,
+      "max_speed": 0.8,
+      "vertical_speed": 0.35,
+      "boost": 2.0,
+      "spin": 4.0
+    }
+  },
+  "vortex": {
+    "_comment": "Flying through the time vortex when a crew member pulls the dematerialisation lever: drift speed along the tunnel (blocks/tick), how far from the axis the box can go, tunnel length = min_length + length_per_block x hop distance (or jump_length for another dimension), capped at max_length; an obstacle clump every obstacle_gap blocks, up to obstacle_size across; a hit costs hit_charge and moves the landing up to hit_drift blocks. enabled false = trips land at once.",
+    "enabled": true,
+    "speed": 0.7,
+    "radius": 9,
+    "min_length": 160,
+    "length_per_block": 0.05,
+    "jump_length": 480,
+    "max_length": 1200,
+    "obstacle_gap": 18,
+    "obstacle_size": 3,
+    "hit_charge": 10,
+    "hit_drift": 6
   }
 }

@@ -1,0 +1,15 @@
+{
+  "model": "flight_yoke",
+  "panel": 3,
+  "u": 0.0,
+  "v": 0.7353,
+  "scale": 0.52,
+  "actions": {
+    "stick": "pilot"
+  },
+  "requirements": {
+    "type": "tardis_rb:subsystem_level",
+    "subsystem": "tardis_rb:navigation",
+    "min": 1
+  }
+}

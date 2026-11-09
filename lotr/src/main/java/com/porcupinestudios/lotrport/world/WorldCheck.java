@@ -32,6 +32,7 @@ final class WorldCheck {
             ServerLevel overworld = server.overworld();
             BlockPos spawn = overworld.getSharedSpawnPos();
             String biome = overworld.getBiome(spawn).unwrapKey().map(k -> k.location().toString()).orElse("?");
+            LotrPort.LOG.info("[worldcheck] seed {}", overworld.getSeed());
             LotrPort.LOG.info("[worldcheck] overworld is Middle-earth: {}, startsInMiddleEarth: {}, spawn {} in {}",
                     LotrDimensions.overworldIsMiddleEarth(server), LotrWorldData.get(server).startsInMiddleEarth(),
                     spawn.toShortString(), biome);
