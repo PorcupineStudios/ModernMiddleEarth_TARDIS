@@ -33,6 +33,9 @@ public final class PoliceBoxModel {
     public final int glowFromLook;
     public final float swingDegrees;
     public final float swingTicks;
+    /** The body mesh's bounds (x y z), for effects drawn over it. */
+    public final float[] min = {0, 0, 0};
+    public final float[] max = {0, 0, 0};
 
     private PoliceBoxModel(JsonObject root) {
         JsonObject parts = root.getAsJsonObject("parts");
@@ -59,6 +62,16 @@ public final class PoliceBoxModel {
             }
         }
         body = b == null ? new Part(List.of(), new float[3], 1) : b;
+        boolean first = true;
+        for (Tri t : body.tris()) {
+            for (float[] v : t.v()) {
+                for (int i = 0; i < 3; i++) {
+                    min[i] = first ? v[i] : Math.min(min[i], v[i]);
+                    max[i] = first ? v[i] : Math.max(max[i], v[i]);
+                }
+                first = false;
+            }
+        }
         glowFromLook = root.has("glow_from_look") ? root.get("glow_from_look").getAsInt() : 0;
         JsonObject swing = root.getAsJsonObject("door_swing");
         swingDegrees = swing == null ? 90 : swing.get("degrees").getAsFloat();

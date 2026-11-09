@@ -13,6 +13,7 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.phys.Vec3;
+import org.joml.Quaternionf;
 import qouteall.imm_ptl.core.portal.Portal;
 
 /**
@@ -36,7 +37,10 @@ public final class TardisBodyRenderer extends EntityRenderer<TardisBody> {
             // flown: the box spins as it flies, for show (its collision box doesn't turn)
             turn += (float) ((body.tickCount + partialTick) * TardisContent.tuning().flight().piloting().spin());
         }
-        pose.mulPose(Axis.YP.rotationDegrees(180 - turn));
+        float shock = ShockRenderer.age(body, partialTick);
+        ShockRenderer.wobble(body, shock, model.max[1] - model.min[1], pose);
+        Quaternionf facing = Axis.YP.rotationDegrees(180 - turn);
+        pose.mulPose(facing);
         float open = doorProgress(body, partialTick, model.swingTicks);
         float angle = model.swingDegrees * open * open * (3 - 2 * open);
         ExteriorRenderer.drawAll(model, angle, pose, buffers.getBuffer(RenderType.entityCutoutNoCull(getTextureLocation(
@@ -45,6 +49,7 @@ public final class TardisBodyRenderer extends EntityRenderer<TardisBody> {
             ExteriorRenderer.drawAll(model, angle, pose, buffers.getBuffer(RenderType.entityCutoutNoCull(
                     ExteriorRenderer.GLOW)), LightTexture.FULL_BRIGHT);
         }
+        ShockRenderer.draw(body, shock, model, facing, pose, buffers);
         pose.popPose();
         if (body.doorsOpen()) {
             keepDoorway(body, partialTick);

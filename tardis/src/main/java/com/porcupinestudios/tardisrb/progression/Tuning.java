@@ -55,8 +55,8 @@ public record Tuning(CrashSite crashSite, Hop hop, Winder winder, Interior inter
      * {@code boost} (sprint multiplies the top speed), {@code spin} (degrees per tick the model turns while flown).
      */
     public record FreeFlight(double gravity, double drag, double groundFriction, double hoverDamping, int landingRadius,
-            int landingHeight, Piloting piloting) {
-        static final FreeFlight DEFAULT = new FreeFlight(0.08, 0.98, 0.6, 0.8, 2, 4, Piloting.DEFAULT);
+            int landingHeight, Piloting piloting, Shock shock) {
+        static final FreeFlight DEFAULT = new FreeFlight(0.08, 0.98, 0.6, 0.8, 2, 4, Piloting.DEFAULT, Shock.DEFAULT);
         static final Codec<FreeFlight> CODEC = RecordCodecBuilder.create(i -> i.group(
                 Codec.DOUBLE.optionalFieldOf("gravity", DEFAULT.gravity).forGetter(FreeFlight::gravity),
                 Codec.DOUBLE.optionalFieldOf("drag", DEFAULT.drag).forGetter(FreeFlight::drag),
@@ -65,8 +65,24 @@ public record Tuning(CrashSite crashSite, Hop hop, Winder winder, Interior inter
                 Codec.DOUBLE.optionalFieldOf("hover_damping", DEFAULT.hoverDamping).forGetter(FreeFlight::hoverDamping),
                 Codec.INT.optionalFieldOf("landing_radius", DEFAULT.landingRadius).forGetter(FreeFlight::landingRadius),
                 Codec.INT.optionalFieldOf("landing_height", DEFAULT.landingHeight).forGetter(FreeFlight::landingHeight),
-                Piloting.CODEC.optionalFieldOf("piloting", Piloting.DEFAULT).forGetter(FreeFlight::piloting))
+                Piloting.CODEC.optionalFieldOf("piloting", Piloting.DEFAULT).forGetter(FreeFlight::piloting),
+                Shock.CODEC.optionalFieldOf("shock", Shock.DEFAULT).forGetter(FreeFlight::shock))
                 .apply(i, FreeFlight::new));
+    }
+
+    /**
+     * The electric shock when the loose box is hit (debris, the vortex wall, an attack; Aaron 2026-11-09):
+     * {@code ticks} how long the lightning crawls over it, {@code bounce} how hard it is knocked away (blocks per
+     * tick), {@code wobble} how far it rocks (degrees, dying away), {@code arcs} how many arcs hug it at once.
+     */
+    public record Shock(int ticks, double bounce, double wobble, int arcs) {
+        static final Shock DEFAULT = new Shock(24, 0.45, 20, 7);
+        static final Codec<Shock> CODEC = RecordCodecBuilder.create(i -> i.group(
+                Codec.intRange(1, 200).optionalFieldOf("ticks", DEFAULT.ticks).forGetter(Shock::ticks),
+                Codec.DOUBLE.optionalFieldOf("bounce", DEFAULT.bounce).forGetter(Shock::bounce),
+                Codec.DOUBLE.optionalFieldOf("wobble", DEFAULT.wobble).forGetter(Shock::wobble),
+                Codec.intRange(0, 32).optionalFieldOf("arcs", DEFAULT.arcs).forGetter(Shock::arcs))
+                .apply(i, Shock::new));
     }
 
     public record Piloting(double acceleration, double maxSpeed, double verticalSpeed, double boost, double spin) {
