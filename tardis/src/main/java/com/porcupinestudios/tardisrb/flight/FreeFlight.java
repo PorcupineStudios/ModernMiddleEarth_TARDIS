@@ -13,6 +13,7 @@ import com.porcupinestudios.tardisrb.look.Looks;
 import com.porcupinestudios.tardisrb.progression.TardisContent;
 import com.porcupinestudios.tardisrb.progression.Tuning;
 import com.porcupinestudios.tardisrb.progression.Unlocks;
+import com.porcupinestudios.tardisrb.vortex.Vortex;
 import java.util.Optional;
 import java.util.UUID;
 import net.minecraft.core.BlockPos;
@@ -67,6 +68,9 @@ public final class FreeFlight {
 
     /** Block to loose body, or loose body back to a block on the ground under it. Says what happened. */
     public static Component phase(MinecraftServer server, TardisRecord tardis, Optional<ServerPlayer> by) {
+        if (Vortex.inVortex(tardis)) {
+            return Component.translatableWithFallback("tardis_rb.vortex.busy", "The TARDIS is in the time vortex");
+        }
         return isLoose(tardis) ? toBlock(server, tardis) : toBody(server, tardis, by);
     }
 
@@ -153,6 +157,9 @@ public final class FreeFlight {
     /** Thrusters on (it hovers) or off (it falls). Kept while landed, for the next time it comes loose. */
     public static Component setThrusters(MinecraftServer server, TardisRecord tardis, boolean on,
             Optional<ServerPlayer> by) {
+        if (!on && Vortex.inVortex(tardis)) {
+            return Component.translatableWithFallback("tardis_rb.vortex.busy", "The TARDIS is in the time vortex");
+        }
         if (on) {
             Unlocks.Result unlocked = Unlocks.check(server, tardis, THRUSTERS, by);
             if (!unlocked.allowed()) {

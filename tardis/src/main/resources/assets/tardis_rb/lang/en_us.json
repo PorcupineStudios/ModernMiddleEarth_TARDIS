@@ -185,5 +185,13 @@
   "tardis_rb.side.2": "Dimension & time",
   "tardis_rb.side.3": "Exterior",
   "tardis_rb.side.4": "Y & memory",
-  "tardis_rb.side.5": "Rooms"
+  "tardis_rb.side.5": "Rooms",
+  "block.tardis_rb.vortex_debris": "Vortex Debris",
+  "tardis_rb.vortex.departed": "The TARDIS dematerialises into the time vortex: fly it through!",
+  "tardis_rb.vortex.hit": "The TARDIS slams into vortex debris! (%s hits)",
+  "tardis_rb.vortex.busy": "The TARDIS is in the time vortex",
+  "tardis_rb.vortex.already": "The TARDIS is already in the vortex",
+  "tardis_rb.vortex.missing": "The time vortex isn't in this world",
+  "tardis_rb.vortex.failed": "The TARDIS shudders and stays put",
+  "tardis_rb.vortex.not_in": "The TARDIS isn't in the vortex"
 }

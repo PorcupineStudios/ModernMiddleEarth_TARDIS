@@ -11,6 +11,7 @@ import com.porcupinestudios.tardisrb.progression.Destination;
 import com.porcupinestudios.tardisrb.progression.TardisContent;
 import com.porcupinestudios.tardisrb.progression.Tuning;
 import com.porcupinestudios.tardisrb.progression.Unlocks;
+import com.porcupinestudios.tardisrb.vortex.Vortex;
 import java.util.Optional;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -63,6 +64,9 @@ public final class Flight {
         if (tardis.location().isEmpty()) {
             return Outcome.fail("tardis_rb.hop.nowhere", "The TARDIS isn't standing anywhere");
         }
+        if (Vortex.inVortex(tardis)) {
+            return Outcome.fail("tardis_rb.vortex.busy", "The TARDIS is in the time vortex");
+        }
         Unlocks.Result unlocked = Unlocks.check(server, tardis, SHORT_HOP, by);
         if (!unlocked.allowed()) {
             return new Outcome(Optional.of(unlocked.reason()), Optional.empty());
@@ -109,6 +113,9 @@ public final class Flight {
             Optional<BlockPos> target, Optional<Direction> facing, Optional<ServerPlayer> by) {
         if (tardis.location().isEmpty()) {
             return Outcome.fail("tardis_rb.hop.nowhere", "The TARDIS isn't standing anywhere");
+        }
+        if (Vortex.inVortex(tardis)) {
+            return Outcome.fail("tardis_rb.vortex.busy", "The TARDIS is in the time vortex");
         }
         Optional<Component> closed = Destinations.closed(server, tardis, destinationId, by);
         if (closed.isPresent()) {

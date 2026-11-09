@@ -23,6 +23,7 @@ Read both with the Claude Docs tools, not a web fetch. Add notes in `docs/<area>
 | Gravity and orbits in space, no drag, thrust, the `/gravity` command, gravity direction (Gravity Changer port, `gravity/gc`) (`space/Orbits`, `gravity/`) | `docs/gravity.md` |
 | The 39 small console controls (flight, 1.7.10-style classic and coordinate sets): models, animations, generator (`tools/flight_controls.py`) | `docs/flight-controls.md` |
 | **Built (slices 2-4) + plan**: free flight: loose box entity, thrusters, phase, piloting (`flight/FreeFlight`, `Piloting`, `entity/TardisBody`, `client/PilotClient`), space | `docs/free-flight-plan.md` |
+| The time vortex: dematerialising flies the box through a tunnel, dodging debris, to the destination (`vortex/Vortex`, `client/VortexRenderer`, `tools/vortex_texture.py`) | `docs/vortex.md` |
 | Running the game client headless in the cloud sandbox (Xvfb, screenshots, quick play into a save) | `docs/headless-client.md` |
 | The Capaldi console room (blocks, structure, models), the console, its themed sides and controls (data `tardis/control/`, `tools/console_layout.py`), clicking them, the monitor per side, Jade | `docs/console.md` |
 
