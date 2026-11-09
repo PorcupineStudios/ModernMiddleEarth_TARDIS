@@ -43,6 +43,7 @@ import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.common.NeoForge;
@@ -158,6 +159,21 @@ public final class Vortex {
         return tardis.moduleData(MODULE).getInt("hits");
     }
 
+    /** The box's health left on this trip ({@code damage.health} at the start; 0 crashes it). */
+    public static double health(TardisRecord tardis) {
+        return tardis.moduleData(MODULE).getDouble("health");
+    }
+
+    /** How far off its course line the box will land, in blocks: grows with every bit of damage on the trip. */
+    public static double inaccuracy(TardisRecord tardis) {
+        return tardis.moduleData(MODULE).getDouble("inaccuracy");
+    }
+
+    /** True while it is crash landing: falling out of the tunnel, before it reaches the world. */
+    public static boolean crashing(TardisRecord tardis) {
+        return tardis.moduleData(MODULE).contains("crash");
+    }
+
     /**
      * Sets off through the vortex for {@code target} (a hop in this dimension when {@code destination} is empty, else
      * a jump there), landing with the doors facing {@code facing}. Checks first what the landing will check (unlocks,
@@ -240,6 +256,8 @@ public final class Vortex {
         trip.putInt("length", length);
         trip.putDouble("progress", 0);
         trip.putInt("hits", 0);
+        trip.putDouble("health", t.damage().health());
+        trip.putDouble("inaccuracy", 0);
         trip.putInt("next_obstacle", 24);
         trip.put("obstacles", new ListTag());
         tardis.setModuleData(MODULE, trip);
@@ -271,6 +289,8 @@ public final class Vortex {
 
     private static final TicketType<ChunkPos> TICKET = TicketType.create("tardis_rb_vortex",
             Comparator.comparingLong(ChunkPos::toLong), 40);
+    private static final TicketType<ChunkPos> CRASH_TICKET = TicketType.create("tardis_rb_crash",
+            Comparator.comparingLong(ChunkPos::toLong), 400);
 
     /** Keeps the chunks round {@code at} entity-ticking for a couple of seconds (re-added each tick of a trip). */
     private static void keepLoaded(ServerLevel vortex, Vec3 at) {
@@ -292,6 +312,10 @@ public final class Vortex {
                 pilot.sendSystemMessage(Piloting.seat(server, tardis, pilot));
             }
         }
+        if (trip.contains("crash")) {
+            crashFall(server, tardis, trip, body);
+            return;
+        }
         double progress;
         if (body.isPresent() && body.get().getControllingPassenger() != null) {
             progress = Math.max(trip.getDouble("progress"), body.get().getZ());
@@ -311,14 +335,191 @@ public final class Vortex {
                         SoundSource.NEUTRAL, 0.6F, 1.4F);
                 if (body.get().getControllingPassenger() instanceof ServerPlayer p) {
                     p.displayClientMessage(Component.translatableWithFallback("tardis_rb.vortex.hit",
-                            "The TARDIS slams into vortex debris! (%s hits)", trip.getInt("hits")), true);
+                            "The TARDIS slams into vortex debris! (health %s)",
+                            (int) Math.max(0, trip.getDouble("health") - t.damage().debris())), true);
                 }
+                damage(server, tardis, trip, body.get(), t.damage().debris());
+            }
+            // the charged wall: a bump (coming onto it, not resting on it) shocks the box and hurts it
+            Vec3 axis = bend(body.get().getZ());
+            double r = Math.hypot(body.get().getX() - trip.getDouble("lane_x") - axis.x, body.get().getY() - LANE_Y - axis.y);
+            boolean atWall = r >= t.radius() - 0.15;
+            if (atWall && !trip.getBoolean("at_wall") && !trip.contains("crash")) {
+                body.get().shock(new Vec3(trip.getDouble("lane_x") + axis.x - body.get().getX(),
+                        LANE_Y + axis.y - body.get().getY(), 0), 1);
+                damage(server, tardis, trip, body.get(), t.damage().wall());
+            }
+            trip.putBoolean("at_wall", atWall);
+            if (trip.contains("crash")) {
+                tardis.setModuleData(MODULE, trip);
+                return;
             }
         }
         tardis.setModuleData(MODULE, trip);
         if (progress >= length) {
             arrive(server, tardis);
         }
+    }
+
+    /** Takes {@code amount} off the trip's health and adds to its inaccuracy; at 0 health it starts to crash. */
+    private static void damage(MinecraftServer server, TardisRecord tardis, CompoundTag trip, TardisBody body,
+            double amount) {
+        double health = trip.getDouble("health") - amount;
+        trip.putDouble("health", health);
+        trip.putDouble("inaccuracy", trip.getDouble("inaccuracy")
+                + amount * TardisContent.tuning().vortex().damage().driftPerDamage());
+        if (health > 0 || trip.contains("crash")) {
+            return;
+        }
+        // where along its course it was when it broke down: that is where it comes down
+        trip.putDouble("crash", Math.min(1, trip.getDouble("progress") / Math.max(1, trip.getInt("length"))));
+        trip.putInt("crash_ticks", 0);
+        if (body.getControllingPassenger() instanceof ServerPlayer p) {
+            Piloting.stop(p);
+            p.sendSystemMessage(Component.translatableWithFallback("tardis_rb.vortex.crash",
+                    "The TARDIS is breaking up! It falls out of the vortex..."));
+        }
+        body.setThrusters(false);
+        body.setCrashing(true);
+        body.setDeltaMovement(0, -0.1, 0);
+    }
+
+    /** Falling out of the tunnel through the clouds; once well under the tube (or after 3 s) it drops into the world. */
+    private static void crashFall(MinecraftServer server, TardisRecord tardis, CompoundTag trip,
+            Optional<TardisBody> body) {
+        int ticks = trip.getInt("crash_ticks") + 1;
+        trip.putInt("crash_ticks", ticks);
+        tardis.setModuleData(MODULE, trip);
+        if (ticks > 60 || body.map(b -> b.getY() < LANE_Y + bend(b.getZ()).y - 22).orElse(true)) {
+            crashOut(server, tardis);
+        }
+    }
+
+    /**
+     * The crash (Aaron 2026-11-09): the box leaves the vortex and appears falling, thrusters dead, over the point its
+     * course line had reached, pushed off the line by the trip's inaccuracy; under halfway through a jump it falls
+     * back into the dimension it left. It hits the ground with a crater ({@code TardisBody.impact}) and lies there as a
+     * loose box. Says what happened.
+     */
+    public static Flight.Outcome crashOut(MinecraftServer server, TardisRecord tardis) {
+        Tuning.VortexDamage d = TardisContent.tuning().vortex().damage();
+        CompoundTag trip = tardis.moduleData(MODULE);
+        if (!trip.contains("length")) {
+            return Flight.Outcome.fail("tardis_rb.vortex.not_in", "The TARDIS isn't in the vortex");
+        }
+        double f = trip.contains("crash") ? trip.getDouble("crash") : progress(tardis);
+        GlobalPos from = from(trip);
+        ServerLevel fromLevel = Optional.ofNullable(server.getLevel(from.dimension())).orElse(server.overworld());
+        ServerLevel toLevel = trip.contains("destination")
+                ? TardisContent.destination(ResourceLocation.parse(trip.getString("destination")))
+                        .map(dest -> server.getLevel(dest.dimension())).orElse(fromLevel)
+                : fromLevel;
+        if (toLevel == null) {
+            toLevel = fromLevel;
+        }
+        Course c = course(Vec3.atBottomCenterOf(from.pos()), fromLevel.dimensionType().coordinateScale(),
+                Vec3.atBottomCenterOf(BlockPos.of(trip.getLong("target"))), toLevel.dimensionType().coordinateScale(), f);
+        ServerLevel level = c.inTarget() ? toLevel : fromLevel;
+        RandomSource random = RandomSource.create();
+        BlockPos aim = offCourse(BlockPos.containing(c.pos()), trip.getDouble("inaccuracy"), random);
+        Direction facing = FreeFlight.facing(server, tardis);
+        clearTrip(server, tardis, trip);
+
+        BlockPos ground = ground(level, aim);
+        BlockPos start = ground.above();
+        for (int i = 0; i < d.crashHeight() && start.getY() < level.getMaxBuildHeight() - 4
+                && level.getBlockState(start.above(3)).isAir(); i++) {
+            start = start.above();
+        }
+        // nobody may be near: keep the spot loaded while it falls
+        level.getChunkSource().addRegionTicket(CRASH_TICKET, new ChunkPos(start), 3, new ChunkPos(start));
+        TardisBody body = TardisEntities.BODY.get().create(level);
+        if (body == null) {
+            Exteriors.place(level, ground.above(), facing, tardis.id());
+            tardis.setLocation(Optional.of(GlobalPos.of(level.dimension(), ground.above())));
+            return new Flight.Outcome(Optional.empty(), Optional.empty());
+        }
+        body.moveTo(start.getX() + 0.5, start.getY(), start.getZ() + 0.5, facing.toYRot(), 0);
+        body.setTardis(tardis.id());
+        body.setThrusters(false);
+        body.setLook(Looks.exterior(server, tardis));
+        body.setCrashing(true);
+        Vec3 across = new Vec3(c.dir().x, 0, c.dir().z);
+        across = across.lengthSqr() < 1.0E-6 ? new Vec3(random.nextDouble() - 0.5, 0, random.nextDouble() - 0.5)
+                : across;
+        across = across.normalize().scale(d.crashSpeed());
+        body.setDeltaMovement(across.x, -0.3, across.z);
+        level.addFreshEntity(body);
+        CompoundTag flight = tardis.moduleData(FreeFlight.MODULE);
+        flight.putUUID("body", body.getUUID());
+        tardis.setModuleData(FreeFlight.MODULE, flight);
+        tardis.setLocation(Optional.of(GlobalPos.of(level.dimension(), body.blockPosition())));
+        level.playSound(null, body.blockPosition(), SoundEvents.LIGHTNING_BOLT_THUNDER, SoundSource.NEUTRAL, 4, 0.8F);
+        return new Flight.Outcome(Optional.empty(), Optional.empty());
+    }
+
+    /** The point {@code f} (0..1) along a course, which dimension it is in, and the way the course runs. */
+    public record Course(boolean inTarget, Vec3 pos, Vec3 dir) {}
+
+    /**
+     * The course line from {@code from} (in a dimension of coordinate scale {@code fromScale}: 8 for the Nether) to
+     * {@code to} (scale {@code toScale}), at {@code f}: worked out in the target dimension's coordinates; before
+     * halfway the point is given back in the starting dimension's own coordinates ({@code inTarget} false).
+     */
+    public static Course course(Vec3 from, double fromScale, Vec3 to, double toScale, double f) {
+        double k = fromScale / toScale;
+        Vec3 start = new Vec3(from.x * k, from.y, from.z * k);
+        Vec3 at = start.lerp(to, Math.max(0, Math.min(1, f)));
+        Vec3 dir = to.subtract(start);
+        return f >= 0.5 ? new Course(true, at, dir) : new Course(false, new Vec3(at.x / k, at.y, at.z / k), dir);
+    }
+
+    /** {@code p} pushed a random way up to {@code inaccuracy} blocks across. */
+    static BlockPos offCourse(BlockPos p, double inaccuracy, RandomSource random) {
+        if (inaccuracy <= 0) {
+            return p;
+        }
+        double a = random.nextDouble() * Math.PI * 2;
+        double r = inaccuracy * Math.sqrt(random.nextDouble());
+        return p.offset((int) Math.round(Math.cos(a) * r), 0, (int) Math.round(Math.sin(a) * r));
+    }
+
+    /** The ground at {@code aim}: the top block, or under a roof (the Nether) the first floor below the aim. */
+    private static BlockPos ground(ServerLevel level, BlockPos aim) {
+        if (!level.dimensionType().hasCeiling()) {
+            return new BlockPos(aim.getX(), level.getHeight(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, aim.getX(),
+                    aim.getZ()) - 1, aim.getZ());
+        }
+        BlockPos.MutableBlockPos p = aim.mutable().setY(Math.min(aim.getY(), level.getLogicalHeight() - 2));
+        while (p.getY() > level.getMinBuildHeight() && level.getBlockState(p).isAir()) {
+            p.move(Direction.DOWN);
+        }
+        return p.immutable();
+    }
+
+    private static GlobalPos from(CompoundTag trip) {
+        ResourceLocation dim = ResourceLocation.tryParse(trip.getString("from_dimension"));
+        return GlobalPos.of(ResourceKey.create(Registries.DIMENSION, dim == null ? Level.OVERWORLD.location() : dim),
+                BlockPos.of(trip.getLong("from")));
+    }
+
+    /** Ends the trip: the pilot gets off and goes back to the console, the body and the obstacles go. */
+    private static void clearTrip(MinecraftServer server, TardisRecord tardis, CompoundTag trip) {
+        Tuning.VortexTuning t = TardisContent.tuning().vortex();
+        FreeFlight.dock(server, tardis);
+        ServerLevel vortex = server.getLevel(DIMENSION);
+        if (vortex != null) {
+            for (Tag tag : trip.getList("obstacles", Tag.TAG_LONG)) {
+                BlockPos c = BlockPos.of(((LongTag) tag).getAsLong());
+                for (BlockPos q : BlockPos.betweenClosed(c, c.offset(t.obstacleSize(), t.obstacleSize(),
+                        t.obstacleSize()))) {
+                    if (vortex.getBlockState(q).is(TardisBlocks.VORTEX_DEBRIS.get())) {
+                        vortex.setBlock(q, Blocks.AIR.defaultBlockState(), Block.UPDATE_CLIENTS);
+                    }
+                }
+            }
+        }
+        tardis.setModuleData(MODULE, new CompoundTag());
     }
 
     /** Places obstacle clumps up to 96 blocks ahead of the box, along the lane. */
@@ -373,37 +574,18 @@ public final class Vortex {
 
     /**
      * The end of the tunnel: the pilot goes back inside, the body and the obstacles go, and the TARDIS materialises at
-     * the destination (off target by the hits), or back where it left if it can't land there.
+     * the end of its course (pushed off it by the trip's inaccuracy), or back where it left if it can't land there.
      */
     public static Flight.Outcome arrive(MinecraftServer server, TardisRecord tardis) {
-        Tuning.VortexTuning t = TardisContent.tuning().vortex();
         CompoundTag trip = tardis.moduleData(MODULE);
         if (!trip.contains("length")) {
             return Flight.Outcome.fail("tardis_rb.vortex.not_in", "The TARDIS isn't in the vortex");
         }
-        FreeFlight.dock(server, tardis); // the pilot gets off and goes back to the console
-        ServerLevel vortex = server.getLevel(DIMENSION);
-        if (vortex != null) {
-            for (Tag tag : trip.getList("obstacles", Tag.TAG_LONG)) {
-                BlockPos c = BlockPos.of(((LongTag) tag).getAsLong());
-                for (BlockPos q : BlockPos.betweenClosed(c, c.offset(t.obstacleSize(), t.obstacleSize(),
-                        t.obstacleSize()))) {
-                    if (vortex.getBlockState(q).is(TardisBlocks.VORTEX_DEBRIS.get())) {
-                        vortex.setBlock(q, Blocks.AIR.defaultBlockState(), Block.UPDATE_CLIENTS);
-                    }
-                }
-            }
-        }
-        tardis.setModuleData(MODULE, new CompoundTag());
-        ResourceLocation dim = ResourceLocation.tryParse(trip.getString("from_dimension"));
-        GlobalPos from = GlobalPos.of(ResourceKey.create(Registries.DIMENSION,
-                dim == null ? Level.OVERWORLD.location() : dim), BlockPos.of(trip.getLong("from")));
+        clearTrip(server, tardis, trip);
+        GlobalPos from = from(trip);
         tardis.setLocation(Optional.of(from));
-        int hits = trip.getInt("hits");
-        RandomSource random = RandomSource.create();
-        int drift = hits * t.hitDrift();
-        BlockPos target = BlockPos.of(trip.getLong("target")).offset(drift == 0 ? 0 : random.nextInt(2 * drift + 1)
-                - drift, 0, drift == 0 ? 0 : random.nextInt(2 * drift + 1) - drift);
+        BlockPos target = offCourse(BlockPos.of(trip.getLong("target")), trip.getDouble("inaccuracy"),
+                RandomSource.create());
         Direction facing = Direction.from2DDataValue(trip.getInt("facing") < 0 ? trip.getInt("from_facing")
                 : trip.getInt("facing"));
         Flight.Outcome out = trip.contains("destination")

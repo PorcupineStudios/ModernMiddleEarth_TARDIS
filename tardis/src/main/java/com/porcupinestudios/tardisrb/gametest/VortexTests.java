@@ -8,6 +8,7 @@ import com.porcupinestudios.tardisrb.door.Doors;
 import com.porcupinestudios.tardisrb.entity.TardisBody;
 import com.porcupinestudios.tardisrb.flight.Flight;
 import com.porcupinestudios.tardisrb.flight.FreeFlight;
+import com.porcupinestudios.tardisrb.progression.TardisContent;
 import com.porcupinestudios.tardisrb.repair.Repairs;
 import com.porcupinestudios.tardisrb.vortex.Vortex;
 import java.util.Optional;
@@ -70,8 +71,13 @@ public final class VortexTests {
                 helper.assertTrue(!vortex.getBlockState(ahead).is(TardisBlocks.VORTEX_DEBRIS.get()),
                         "the debris it hit didn't shatter");
                 helper.assertTrue(t.charge() < charge, "the hit cost no charge");
+                helper.assertTrue(Vortex.health(t) < TardisContent.tuning().vortex().damage().health()
+                        && Vortex.inaccuracy(t) > 0, "the hit didn't hurt it or put it off course: health "
+                        + Vortex.health(t) + ", inaccuracy " + Vortex.inaccuracy(t));
                 helper.assertTrue(Vortex.progress(t) > 0, "the autopilot didn't carry it along");
 
+                double off = Vortex.inaccuracy(t) + 8 + 2; // its inaccuracy, then the landing search's radius
+                double health = Vortex.health(t);
                 Flight.Outcome landed = Vortex.arrive(server, t);
                 helper.assertTrue(landed.done(), "it didn't land: " + landed.problem().map(c -> c.getString()).orElse(""));
                 helper.assertTrue(!Vortex.inVortex(t) && !FreeFlight.isLoose(t) && body.isRemoved(),
@@ -79,13 +85,87 @@ public final class VortexTests {
                 helper.assertTrue(doorway.isRemoved(), "the doorway portal was left in the vortex");
                 BlockPos at = t.location().get().pos();
                 helper.assertTrue(t.location().get().dimension().equals(helper.getLevel().dimension())
-                        && Math.abs(at.getX() - target.getX()) <= 16 && Math.abs(at.getZ() - target.getZ()) <= 16,
-                        "it landed at " + t.location().get() + ", not near " + target);
+                        && Math.abs(at.getX() - target.getX()) <= off && Math.abs(at.getZ() - target.getZ()) <= off,
+                        "it landed at " + t.location().get() + ", not within " + off + " of " + target + " (health " + health + ")");
                 helper.assertTrue(helper.getLevel().getBlockState(at).getBlock() instanceof ExteriorBlock,
                         "no exterior block where it landed");
                 helper.succeed();
             });
         });
+    }
+
+    /**
+     * Out of health it crash lands (Aaron 2026-11-09): it falls out of the tunnel and comes down, thrusters off, near
+     * the point of its course it had reached (not the target), leaving a crater, and lies there as a loose box.
+     */
+    @GameTest(template = "platform", timeoutTicks = 600, skyAccess = true) // no barrier roof for it to land on
+    public static void outOfHealthItCrashLandsPartWay(GameTestHelper helper) {
+        MinecraftServer server = helper.getLevel().getServer();
+        ServerLevel vortex = server.getLevel(Vortex.DIMENSION);
+        TardisRecord t = WreckTests.onPlatform(helper, Optional.empty());
+        BlockPos base = t.location().get().pos();
+        helper.assertTrue(Repairs.attempt(server, t, TardisRB.id("navigation_1"), Optional.empty()).done(),
+                "navigation repair");
+        t.addCharge(1000);
+        BlockPos target = new BlockPos(base.getX() + 4, base.getY(), base.getZ());
+        helper.assertTrue(Vortex.depart(server, t, Optional.empty(), target, Optional.empty(), Optional.empty()).done(),
+                "it didn't set off");
+        double[] crashAt = new double[1];
+        helper.startSequence().thenIdle(60).thenExecute(() -> {
+            TardisBody body = FreeFlight.body(server, t).orElseThrow();
+            var trip = t.moduleData(Vortex.MODULE);
+            trip.putDouble("health", 1); // one more hit finishes it
+            t.setModuleData(Vortex.MODULE, trip);
+            vortex.setBlock(body.blockPosition().south(), TardisBlocks.VORTEX_DEBRIS.get().defaultBlockState(),
+                    Block.UPDATE_CLIENTS);
+        }).thenWaitUntil(() -> {
+            helper.assertTrue(Vortex.crashing(t), "it didn't start to crash: " + t.moduleData(Vortex.MODULE) + " body " + FreeFlight.body(server, t).map(b -> b.position()));
+            crashAt[0] = t.moduleData(Vortex.MODULE).getDouble("crash");
+            // the landing is random within the inaccuracy: take it away so the box comes down on this test's platform
+            var trip = t.moduleData(Vortex.MODULE);
+            trip.putDouble("inaccuracy", 0);
+            t.setModuleData(Vortex.MODULE, trip);
+        }).thenWaitUntil(() -> helper.assertTrue(!Vortex.inVortex(t), "still falling out of the vortex"))
+                .thenExecute(() -> FreeFlight.body(server, t).ifPresent(b -> {
+                    helper.assertTrue(b.crashing() && !b.thrusters() && b.getY() > base.getY() + 10,
+                            "it didn't appear falling high over the spot, thrusters off: " + b.position());
+                    b.setDeltaMovement(0, b.getDeltaMovement().y, 0); // straight down, onto the platform
+                }))
+                .thenWaitUntil(() -> helper.assertTrue(FreeFlight.body(server, t).filter(b -> b.impactAt != null)
+                        .isPresent(), "it hasn't hit the ground yet"))
+                .thenExecute(() -> {
+            TardisBody body = FreeFlight.body(server, t).orElseThrow();
+            helper.assertTrue(body.level() == helper.getLevel() && !body.thrusters() && !body.crashing(),
+                    "it isn't lying in the world it left as a loose box");
+            double along = base.getX() + 0.5 + 4 * crashAt[0];
+            helper.assertTrue(crashAt[0] > 0.05 && crashAt[0] < 0.95, "it didn't crash part way: " + crashAt[0]);
+            helper.assertTrue(Math.abs(body.getX() - along) < 1.5 && Math.abs(body.getZ() - base.getZ() - 0.5) < 1.5,
+                    "it came down at " + body.position() + ", not on its course at x " + along);
+            helper.assertTrue(helper.getLevel().getBlockState(body.impactAt).isAir(),
+                    "no crater where it hit: " + helper.getLevel().getBlockState(body.impactAt));
+            helper.succeed();
+        });
+    }
+
+    /**
+     * The course line runs from where it left to the target, across dimensions in the target's coordinates (the
+     * Nether is 8 to 1); before halfway a point on it is in the dimension it left, after it in the target's.
+     */
+    @GameTest(template = "platform")
+    public static void theCourseCrossesDimensions(GameTestHelper helper) {
+        var hop = Vortex.course(new net.minecraft.world.phys.Vec3(0, 64, 0), 1,
+                new net.minecraft.world.phys.Vec3(100, 80, 0), 1, 0.4);
+        helper.assertTrue(Math.abs(hop.pos().x - 40) < 1.0E-9 && Math.abs(hop.pos().y - 70.4) < 1.0E-9,
+                "40% of a hop is at " + hop.pos());
+        var early = Vortex.course(new net.minecraft.world.phys.Vec3(800, 64, 0), 1,
+                new net.minecraft.world.phys.Vec3(200, 64, 0), 8, 0.25);
+        helper.assertTrue(!early.inTarget() && Math.abs(early.pos().x - 1000) < 1.0E-9,
+                "a quarter of the way to the Nether should be back home at x 1000: " + early);
+        var late = Vortex.course(new net.minecraft.world.phys.Vec3(800, 64, 0), 1,
+                new net.minecraft.world.phys.Vec3(200, 64, 0), 8, 0.75);
+        helper.assertTrue(late.inTarget() && Math.abs(late.pos().x - 175) < 1.0E-9,
+                "three quarters of the way should be in the Nether at x 175: " + late);
+        helper.succeed();
     }
 
     /** The tube is solid: a point past the wall goes back onto it along the same line from the axis; inside stays. */

@@ -12,16 +12,33 @@ dimension, dodging obstacles, "to" the destination.
   (plot + 1) x 4096 + 0.5, y 128, z 0.5, facing south (+z). `setLane` marks it; the puller is seated with
   `Piloting.seat` (no piloting unlock needed). The record's location is the vortex while it flies.
 - **Trip** is module `tardis_rb:vortex` on the record: from (dimension, pos, facing), destination (jumps only), target,
-  facing (-1 = as it left), lane x, length, progress, hits, next obstacle z, obstacles placed.
+  facing (-1 = as it left), lane x, length, progress, hits, health, inaccuracy, crash (the fraction it broke down at) and crash ticks while
+  crashing, at_wall, next obstacle z, obstacles placed.
 - **Flying** (`TardisBody.vortexPhysics`): no gravity, drifts +z at `speed` (W x1.5, S x0.5, sprint x boost, jump
   brakes); A/D and Q/E steer across; it can't leave `radius` of the axis. It moves with `setPos`, so debris (which has
   no collision) never stops it. Unflown (the pilot pressed Shift, or not loaded), the server autopilot moves it on.
 - **Debris**: `vortex_debris` clumps (up to `obstacle_size`, a quarter of cells left out) placed up to 96 blocks ahead
   every `obstacle_gap` / 2 .. 1.5 x gap, seeded per TARDIS and z. Touching one (box inflated 0.3) shatters the clump,
-  costs `hit_charge` and adds a hit; each hit moves the landing up to `hit_drift` blocks.
+  costs `hit_charge`, adds a hit and costs `damage.debris` health.
 - **Arrive** at `length` (`min_length + length_per_block x distance` for hops, `jump_length` for jumps, capped by
   `max_length`): the body docks (the pilot goes back to the console), placed debris is cleared, then the normal
   `Flight.hop`/`jump` lands it and pays. If that fails, the block goes back where it left.
+- **Health, inaccuracy, crash landing** (Aaron 2026-11-09, instead of 1.7.10's "land part way along the plotted line
+  when it breaks down"): a trip starts at `damage.health` (tuning `vortex.damage`). Debris costs `debris`, a bump onto
+  the tunnel wall `wall` (spotted by the server, `at_wall` edge, and it shocks the box for everyone). Each point lost
+  adds `drift_per_damage` blocks of inaccuracy: arriving at the end lands within that many blocks of the target
+  (`offCourse`, a random point in the disc), then the usual landing search. At 0 health it crashes
+  (`Vortex.damage`): the pilot is put back at the console, the box's thrusters die (`TardisBody.crashing`, it tumbles
+  and crackles) and it sinks out of the tunnel through the clouds; 22 blocks under the axis (or after 3 s)
+  `Vortex.crashOut` takes it into the world over the point its course had reached: `Vortex.course` runs a line from
+  where it left to the target (for a jump in the target's coordinates, using each dimension's coordinate scale); under
+  halfway it comes down in the dimension it left, else the target's. That point is pushed off course by the
+  inaccuracy, and the box appears up to `crash_height` blocks over the ground there (under a roof, the first floor
+  below the course), thrusters off, flying down the course at `crash_speed`. A crash ticket keeps the spot loaded.
+  Hitting the ground (`TardisBody.impact`) sets off an explosion of power `crater` (0 = none; it goes through
+  ExplosionEvent, so claims and explosion settings apply, and `WorldDamage` knocks the hull down as for any explosion
+  next to the box), a last shock, and it lies there as a loose box. No charge is paid for a crash. The monitor shows
+  health and how far off course it is. Tests: `outOfHealthItCrashLandsPartWay`, `theCourseCrossesDimensions`.
 - **Refused while in the vortex**: `Flight.hop`/`jump`, the lever again, phase, thrusters off. The exterior side of
   the monitor shows "In the vortex: N%, H hits".
 - **Solid tube** (Aaron 2026-11-09: "make the tube have collision"): the box can reach `radius` (11) from the axis and
@@ -38,14 +55,13 @@ dimension, dodging obstacles, "to" the destination.
   dark. `bolts` strikes jagged forked lightning over it (up to 4 at once, a new chance 3 times a second each,
   crackling and fading); the cloud near a strike lights up blue-white. The glow streaks are a fainter tube inside.
 - **Shock** (Aaron 2026-11-09: "an electricity damage animation" with "a repelling bounce", playing at any rotation
-  or wobble): `TardisBody.shock(away, strength)` on a debris hit (`Vortex.hitDebris`), a bump into the wall
-  (`vortexPhysics`) and any attack with a source position (`hurt`; it still takes no damage). The server bumps a synced
+  or wobble): `TardisBody.shock(away, strength)` on a debris hit (`Vortex.hitDebris`), a bump onto the wall
+  (spotted by the server in `Vortex.step`) and any attack with a source position (`hurt`; it still takes no damage). The server bumps a synced
   counter and direction, so every client plays it; the side that moves the box adds the knock (tuning
   `flight.shock.bounce`). `client/ShockRenderer` draws in the box's own pose, after its turn: arcs that cling to its
   sides and wrap round its edges (points put back onto the box's bounds, a little out; reshaped every 2 ticks),
   a blue glow, bolts jumping off the struck side and falling sparks; the box rocks across the knock, dying away
   (`wobble`). `ticks`, `bounce`, `wobble` and `arcs` are tunable. `FreeFlightTests.aHitShocksTheBoxAndKnocksItAway`.
-  A pilot's own wall bump shows only on their client.
 - **Twisting tunnel** (Aaron 2026-11-09: "make the time vortex twist and turn"): the axis winds. `Vortex.bend(z)`
   gives the sideways and up/down offset at distance z along the lane (two sine waves each way, up to about 11 off
   the straight line, never steeper than 0.5 blocks per block; straight for the first 40 so departure is clean),

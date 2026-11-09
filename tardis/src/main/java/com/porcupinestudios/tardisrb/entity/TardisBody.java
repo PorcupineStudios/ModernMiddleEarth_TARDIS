@@ -8,6 +8,7 @@ import com.porcupinestudios.tardisrb.vortex.Vortex;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -54,6 +55,9 @@ public class TardisBody extends Entity {
             EntityDataSerializers.VECTOR3);
     private static final EntityDataAccessor<Integer> SHOCK = SynchedEntityData.defineId(TardisBody.class,
             EntityDataSerializers.INT);
+    /** Crash landing (Aaron 2026-11-09): thrusters dead, it tumbles down until it hits the ground. */
+    private static final EntityDataAccessor<Boolean> CRASHING = SynchedEntityData.defineId(TardisBody.class,
+            EntityDataSerializers.BOOLEAN);
 
     /** Client only: how far open the doors are drawn (0..1) and when that was worked out. */
     public float doorAnim;
@@ -62,6 +66,8 @@ public class TardisBody extends Entity {
     public int shockStart = -1000;
     public int shockSeed;
     public Vec3 shockDir = new Vec3(0, 1, 0);
+    /** Server: the ground block a crash landing hit (the middle of its crater), null until it crashes. */
+    public BlockPos impactAt;
 
     public TardisBody(EntityType<? extends TardisBody> type, Level level) {
         super(type, level);
@@ -77,6 +83,7 @@ public class TardisBody extends Entity {
         builder.define(LANE_Y, Float.NaN);
         builder.define(SHOCK_DIR, new Vector3f(0, 1, 0));
         builder.define(SHOCK, 0);
+        builder.define(CRASHING, false);
     }
 
     public Optional<UUID> tardis() {
@@ -117,6 +124,14 @@ public class TardisBody extends Entity {
         entityData.set(DOORS, (byte) (!open ? 0 : closing ? 2 : 1));
     }
 
+    public boolean crashing() {
+        return entityData.get(CRASHING);
+    }
+
+    public void setCrashing(boolean on) {
+        entityData.set(CRASHING, on);
+    }
+
     /** Puts it in a vortex tunnel round the axis ({@code x}, {@code y}) along +z ({@code vortex/Vortex}). */
     public void setLane(float x, float y) {
         entityData.set(LANE_X, x);
@@ -131,7 +146,7 @@ public class TardisBody extends Entity {
     /**
      * Hit (debris, the vortex wall, an attack; Aaron 2026-11-09): lightning crawls over the box, it rocks, and it is
      * knocked away along {@code away} at {@code strength} (0..1) of the tuned bounce. Called on the server it plays on
-     * every client; on the pilot's client (its own bump into the wall) only there.
+     * every client.
      */
     public void shock(Vec3 away, double strength) {
         if (tickCount - shockStart < 6) {
@@ -174,6 +189,9 @@ public class TardisBody extends Entity {
         if (!level().isClientSide && tickCount % 20 == 0) {
             FreeFlight.track(this);
         }
+        if (!level().isClientSide && crashing() && tickCount % 10 == 0) {
+            shock(new Vec3(random.nextGaussian(), random.nextGaussian(), random.nextGaussian()), 0.05); // crackling
+        }
     }
 
     /**
@@ -214,6 +232,9 @@ public class TardisBody extends Entity {
         }
         setDeltaMovement(v);
         move(MoverType.SELF, getDeltaMovement());
+        if (crashing() && !level().isClientSide && (onGround() || horizontalCollision)) {
+            impact();
+        }
         if (!flown) {
             double across = onGround() ? t.groundFriction() : t.drag();
             setDeltaMovement(getDeltaMovement().multiply(across, thrusters() ? 1 : t.drag(), across));
@@ -227,6 +248,13 @@ public class TardisBody extends Entity {
      * pilot has to follow the bends. Unflown, the server's autopilot carries it on and steers it round them.
      */
     private void vortexPhysics() {
+        if (crashing()) {
+            // the thrusters are dead: it sinks out of the tunnel into the clouds, still carried along
+            Vec3 v = getDeltaMovement();
+            setDeltaMovement(v.x * 0.95, v.y - 0.04, TardisContent.tuning().vortex().speed() * 0.6);
+            setPos(position().add(getDeltaMovement()));
+            return;
+        }
         Tuning.Piloting p = TardisContent.tuning().flight().piloting();
         Tuning.VortexTuning vt = TardisContent.tuning().vortex();
         Vec3 v = getDeltaMovement();
@@ -259,28 +287,36 @@ public class TardisBody extends Entity {
         double ox = x - cx;
         double oy = y - cy;
         double r = Math.sqrt(ox * ox + oy * oy);
-        double bump = 0;
-        double nx = 0;
-        double ny = 0;
         if (r > vt.radius()) {
             // the tube is solid (Aaron 2026-11-09): it bounces off the charged cloud wall with a crackle
-            nx = ox / r;
-            ny = oy / r;
+            double nx = ox / r;
+            double ny = oy / r;
             x = cx + nx * vt.radius();
             y = cy + ny * vt.radius();
             double out = vx * nx + vy * ny;
             if (out > 0) {
                 vx -= 1.6 * out * nx;
                 vy -= 1.6 * out * ny;
-                bump = out > 0.05 ? out : 0;
             }
         }
         setDeltaMovement(vx, vy, vz);
         setYRot(Direction.SOUTH.toYRot());
-        if (bump > 0) {
-            shock(new Vec3(-nx, -ny, 0), bump * 2); // the charged wall throws it back
-        }
         setPos(x, y, getZ() + vz);
+    }
+
+    /**
+     * A crash landing hits the ground: a crater (an explosion of the tuned power, so claims and explosion settings
+     * apply), a last shock, and it lies there as a loose box with its thrusters off.
+     */
+    private void impact() {
+        setCrashing(false);
+        impactAt = blockPosition().below();
+        double crater = TardisContent.tuning().vortex().damage().crater();
+        if (crater > 0) {
+            level().explode(this, getX(), getY() + 0.5, getZ(), (float) crater, Level.ExplosionInteraction.TNT);
+        }
+        shockStart = -1000;
+        shock(new Vec3(0, 1, 0), 0.5);
     }
 
     /** The pilot (the first passenger, if a player). */
@@ -364,6 +400,7 @@ public class TardisBody extends Entity {
         }
         setThrusters(tag.getBoolean("thrusters"));
         setLook(tag.getInt("look"));
+        setCrashing(tag.getBoolean("crashing"));
         setDoors(tag.getBoolean("doors_open"), false);
         if (tag.contains("lane_x")) {
             setLane(tag.getFloat("lane_x"), tag.getFloat("lane_y"));
@@ -375,6 +412,7 @@ public class TardisBody extends Entity {
         tardis().ifPresent(id -> tag.putUUID("tardis", id));
         tag.putBoolean("thrusters", thrusters());
         tag.putInt("look", look());
+        tag.putBoolean("crashing", crashing());
         tag.putBoolean("doors_open", doorsOpen());
         if (!Float.isNaN(entityData.get(LANE_X))) {
             tag.putFloat("lane_x", entityData.get(LANE_X));
