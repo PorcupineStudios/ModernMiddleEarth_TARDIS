@@ -1,0 +1,8 @@
+{
+  "dimension": "minecraft:the_end",
+  "weight": 1,
+  "from": {
+    "minecraft:the_nether": 2,
+    "minecraft:the_end": 6
+  }
+}

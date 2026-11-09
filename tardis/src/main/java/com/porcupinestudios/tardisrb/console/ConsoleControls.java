@@ -18,6 +18,7 @@ import com.porcupinestudios.tardisrb.progression.Tuning;
 import com.porcupinestudios.tardisrb.progression.Unlocks;
 import com.porcupinestudios.tardisrb.repair.Repairs;
 import com.porcupinestudios.tardisrb.vortex.Vortex;
+import com.porcupinestudios.tardisrb.vortex.Wormholes;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -671,6 +672,12 @@ public final class ConsoleControls {
                 out.add("Facing " + (console.hasState("facing")
                         ? Direction.from2DDataValue(console.state("facing")).getName() : "as before"));
                 out.add(console.handbrake() ? "Handbrake ON" : "Handbrake off");
+                if (Vortex.inVortex(tardis)
+                        && Unlocks.stat(tardis, "wormhole_sight") >= TardisContent.tuning().vortex().wormholes().nameLevel()) {
+                    // the scanner picks out the next wormhole and where it goes (Aaron 2026-11-09)
+                    Wormholes.next(tardis).ifPresent(h -> out.add("Wormhole in " + (int) (h.getDouble("z")
+                            - tardis.moduleData(Vortex.MODULE).getDouble("progress")) + ": " + h.getString("dimension")));
+                }
                 out.add("Health " + (int) Math.ceil(Health.get(tardis)) + "/" + (int) Math.ceil(Health.max(tardis)));
                 out.add("Charge " + tardis.charge() + "/" + Unlocks.chargeCap(tardis));
                 out.add("Doors " + (Doors.isOpen(tardis) ? "open" : "shut"));

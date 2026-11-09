@@ -9,6 +9,8 @@
     "tardis_rb:power": 3,
     "tardis_rb:console": 3,
     "tardis_rb:hull": 3,
-    "tardis_rb:rooms": 2
+    "tardis_rb:rooms": 2,
+    "tardis_rb:scanner": 2,
+    "tardis_rb:stabilizers": 3
   }
 }

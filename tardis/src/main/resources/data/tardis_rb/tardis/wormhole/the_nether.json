@@ -1,0 +1,7 @@
+{
+  "dimension": "minecraft:the_nether",
+  "weight": 3,
+  "from": {
+    "minecraft:the_nether": 8
+  }
+}

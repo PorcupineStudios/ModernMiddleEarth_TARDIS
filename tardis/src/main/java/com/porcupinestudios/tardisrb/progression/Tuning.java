@@ -27,9 +27,9 @@ public record Tuning(CrashSite crashSite, Hop hop, Winder winder, Interior inter
      */
     public record VortexTuning(boolean enabled, double speed, double radius, int minLength, double lengthPerBlock,
             int jumpLength, int maxLength, int obstacleGap, int obstacleSize, long hitCharge,
-            VortexDamage damage, double bend) {
+            VortexDamage damage, double bend, WormholeTuning wormholes) {
         static final VortexTuning DEFAULT = new VortexTuning(true, 0.7, 11, 160, 0.05, 480, 1200, 18, 3, 10,
-                VortexDamage.DEFAULT, 1);
+                VortexDamage.DEFAULT, 1, WormholeTuning.DEFAULT);
         static final Codec<VortexTuning> CODEC = RecordCodecBuilder.create(i -> i.group(
                 Codec.BOOL.optionalFieldOf("enabled", DEFAULT.enabled).forGetter(VortexTuning::enabled),
                 Codec.DOUBLE.optionalFieldOf("speed", DEFAULT.speed).forGetter(VortexTuning::speed),
@@ -43,8 +43,43 @@ public record Tuning(CrashSite crashSite, Hop hop, Winder winder, Interior inter
                 Codec.INT.optionalFieldOf("obstacle_size", DEFAULT.obstacleSize).forGetter(VortexTuning::obstacleSize),
                 Codec.LONG.optionalFieldOf("hit_charge", DEFAULT.hitCharge).forGetter(VortexTuning::hitCharge),
                 VortexDamage.CODEC.optionalFieldOf("damage", DEFAULT.damage).forGetter(VortexTuning::damage),
-                Codec.DOUBLE.optionalFieldOf("bend", DEFAULT.bend).forGetter(VortexTuning::bend))
+                Codec.DOUBLE.optionalFieldOf("bend", DEFAULT.bend).forGetter(VortexTuning::bend),
+                WormholeTuning.CODEC.optionalFieldOf("wormholes", DEFAULT.wormholes).forGetter(VortexTuning::wormholes))
                 .apply(i, VortexTuning::new));
+    }
+
+    /**
+     * Wormholes in the time vortex (Aaron 2026-11-09; {@code vortex/Wormholes}). After {@code first} blocks, every
+     * {@code gap} blocks along the tunnel there is a {@code chance} of one: a disc {@code radius} across that pulls
+     * the box toward its middle within {@code range} blocks, at up to {@code pull} blocks/tick² (less the
+     * {@code pull_resist} stat, the stabilizers). Crossing its disc sucks the box in: it spins for {@code suck_ticks}
+     * and is thrown out tumbling, thrusters off, over a random spot up to {@code spread} blocks from where its course
+     * had reached, in the wormhole's dimension (picked by the {@code tardis/wormhole} weights), losing
+     * {@code exit_damage} health; it hits the ground with a crater of power {@code exit_crater} (0 = none). With the
+     * {@code wormhole_sight} stat (the scanner) at {@code name_level} the monitor names where the next one goes; at
+     * {@code see_through_level} they are see-through portals. {@code respect_locks}: no wormhole leads to a
+     * dimension whose destination file is still locked (or switched off) for that TARDIS.
+     */
+    public record WormholeTuning(int first, int gap, double chance, double radius, double pull, double range,
+            int spread, int suckTicks, double exitDamage, double exitCrater, double nameLevel, double seeThroughLevel,
+            boolean respectLocks) {
+        static final WormholeTuning DEFAULT = new WormholeTuning(80, 150, 0.7, 4, 0.1, 28, 400, 30, 5, 0, 1, 2, true);
+        static final Codec<WormholeTuning> CODEC = RecordCodecBuilder.create(i -> i.group(
+                Codec.INT.optionalFieldOf("first", DEFAULT.first).forGetter(WormholeTuning::first),
+                Codec.INT.optionalFieldOf("gap", DEFAULT.gap).forGetter(WormholeTuning::gap),
+                Codec.DOUBLE.optionalFieldOf("chance", DEFAULT.chance).forGetter(WormholeTuning::chance),
+                Codec.DOUBLE.optionalFieldOf("radius", DEFAULT.radius).forGetter(WormholeTuning::radius),
+                Codec.DOUBLE.optionalFieldOf("pull", DEFAULT.pull).forGetter(WormholeTuning::pull),
+                Codec.DOUBLE.optionalFieldOf("range", DEFAULT.range).forGetter(WormholeTuning::range),
+                Codec.INT.optionalFieldOf("spread", DEFAULT.spread).forGetter(WormholeTuning::spread),
+                Codec.INT.optionalFieldOf("suck_ticks", DEFAULT.suckTicks).forGetter(WormholeTuning::suckTicks),
+                Codec.DOUBLE.optionalFieldOf("exit_damage", DEFAULT.exitDamage).forGetter(WormholeTuning::exitDamage),
+                Codec.DOUBLE.optionalFieldOf("exit_crater", DEFAULT.exitCrater).forGetter(WormholeTuning::exitCrater),
+                Codec.DOUBLE.optionalFieldOf("name_level", DEFAULT.nameLevel).forGetter(WormholeTuning::nameLevel),
+                Codec.DOUBLE.optionalFieldOf("see_through_level", DEFAULT.seeThroughLevel)
+                        .forGetter(WormholeTuning::seeThroughLevel),
+                Codec.BOOL.optionalFieldOf("respect_locks", DEFAULT.respectLocks).forGetter(WormholeTuning::respectLocks))
+                .apply(i, WormholeTuning::new));
     }
 
     /**

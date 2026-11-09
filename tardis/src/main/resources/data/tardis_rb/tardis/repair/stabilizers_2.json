@@ -1,0 +1,5 @@
+{
+  "subsystem": "tardis_rb:stabilizers",
+  "level": 2,
+  "cost": "tardis_rb:stabilizer_coil"
+}

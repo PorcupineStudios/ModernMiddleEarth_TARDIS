@@ -1,0 +1,17 @@
+{
+  "start_cap": 1,
+  "levels": [
+    {
+      "pull_resist": 0
+    },
+    {
+      "pull_resist": 0.35
+    },
+    {
+      "pull_resist": 0.6
+    },
+    {
+      "pull_resist": 0.8
+    }
+  ]
+}

@@ -290,7 +290,7 @@ public final class Vortex {
     /** Keeps the chunks round {@code at} entity-ticking for a couple of seconds (re-added each tick of a trip). */
     private static void keepLoaded(ServerLevel vortex, Vec3 at) {
         ChunkPos c = new ChunkPos(BlockPos.containing(at));
-        vortex.getChunkSource().addRegionTicket(TICKET, c, 2, c);
+        vortex.getChunkSource().addRegionTicket(TICKET, c, 3, c); // 3: the chunks round it too, so the next one is ready before it gets there
     }
 
     /** One tick of a trip: progress, obstacles ahead, hits, arrival. */
@@ -306,6 +306,10 @@ public final class Vortex {
             if (pilot != null) {
                 pilot.sendSystemMessage(Piloting.seat(server, tardis, pilot));
             }
+        }
+        if (Wormholes.sucking(trip)) {
+            Wormholes.suck(server, tardis, trip, body);
+            return;
         }
         if (trip.contains("crash")) {
             crashFall(server, tardis, trip, body);
@@ -323,6 +327,7 @@ public final class Vortex {
         int length = trip.getInt("length");
         if (body.isPresent()) {
             placeAhead(vortex, trip, t, progress, length, tardis);
+            Wormholes.placeAhead(server, vortex, tardis, trip, progress, length);
             if (hitDebris(vortex, body.get(), trip, t)) {
                 tardis.useCharge(Math.min(tardis.charge(), t.hitCharge()));
                 trip.putInt("hits", trip.getInt("hits") + 1);
@@ -347,6 +352,10 @@ public final class Vortex {
             trip.putBoolean("at_wall", atWall);
             if (Health.get(tardis) <= 0) {
                 damage(server, tardis, trip, body.get(), 0); // set to 0 some other way (/tardis health): it goes down now
+            }
+            if (!trip.contains("crash") && Wormholes.check(server, vortex, tardis, trip, body.get())) {
+                tardis.setModuleData(MODULE, trip);
+                return;
             }
             if (trip.contains("crash")) {
                 tardis.setModuleData(MODULE, trip);
@@ -417,12 +426,23 @@ public final class Vortex {
         Course c = course(Vec3.atBottomCenterOf(from.pos()), fromLevel.dimensionType().coordinateScale(),
                 Vec3.atBottomCenterOf(BlockPos.of(trip.getLong("target"))), toLevel.dimensionType().coordinateScale(), f);
         ServerLevel level = c.inTarget() ? toLevel : fromLevel;
-        RandomSource random = RandomSource.create();
-        BlockPos aim = offCourse(BlockPos.containing(c.pos()), trip.getDouble("inaccuracy"), random);
+        BlockPos aim = offCourse(BlockPos.containing(c.pos()), trip.getDouble("inaccuracy"), RandomSource.create());
         Direction facing = FreeFlight.facing(server, tardis);
         clearTrip(server, tardis, trip);
         Health.set(tardis, d.afterCrash()); // it limps on: enough to fly, not to take a hit
+        dropInto(server, tardis, level, aim, c.dir(), d.crater(), facing);
+        return new Flight.Outcome(Optional.empty(), Optional.empty());
+    }
 
+    /**
+     * Throws the box into {@code level} over {@code aim}: up to {@code crash_height} blocks over the ground there,
+     * thrusters off and tumbling, flying along {@code dir} at {@code crash_speed}; it hits the ground with a crater of
+     * power {@code crater} ({@code TardisBody.impact}). Gives the body, or null if it had to be set down as a block.
+     */
+    static TardisBody dropInto(MinecraftServer server, TardisRecord tardis, ServerLevel level, BlockPos aim, Vec3 dir,
+            double crater, Direction facing) {
+        Tuning.VortexDamage d = TardisContent.tuning().vortex().damage();
+        RandomSource random = RandomSource.create();
         BlockPos ground = ground(level, aim);
         BlockPos start = ground.above();
         for (int i = 0; i < d.crashHeight() && start.getY() < level.getMaxBuildHeight() - 4
@@ -435,14 +455,15 @@ public final class Vortex {
         if (body == null) {
             Exteriors.place(level, ground.above(), facing, tardis.id());
             tardis.setLocation(Optional.of(GlobalPos.of(level.dimension(), ground.above())));
-            return new Flight.Outcome(Optional.empty(), Optional.empty());
+            return null;
         }
         body.moveTo(start.getX() + 0.5, start.getY(), start.getZ() + 0.5, facing.toYRot(), 0);
         body.setTardis(tardis.id());
         body.setThrusters(false);
         body.setLook(Looks.exterior(server, tardis));
         body.setCrashing(true);
-        Vec3 across = new Vec3(c.dir().x, 0, c.dir().z);
+        body.crater = crater;
+        Vec3 across = new Vec3(dir.x, 0, dir.z);
         across = across.lengthSqr() < 1.0E-6 ? new Vec3(random.nextDouble() - 0.5, 0, random.nextDouble() - 0.5)
                 : across;
         across = across.normalize().scale(d.crashSpeed());
@@ -453,7 +474,7 @@ public final class Vortex {
         tardis.setModuleData(FreeFlight.MODULE, flight);
         tardis.setLocation(Optional.of(GlobalPos.of(level.dimension(), body.blockPosition())));
         level.playSound(null, body.blockPosition(), SoundEvents.LIGHTNING_BOLT_THUNDER, SoundSource.NEUTRAL, 4, 0.8F);
-        return new Flight.Outcome(Optional.empty(), Optional.empty());
+        return body;
     }
 
     /** The point {@code f} (0..1) along a course, which dimension it is in, and the way the course runs. */
@@ -483,30 +504,46 @@ public final class Vortex {
     }
 
     /** The ground at {@code aim}: the top block, or under a roof (the Nether) the first floor below the aim. */
-    private static BlockPos ground(ServerLevel level, BlockPos aim) {
+    static BlockPos ground(ServerLevel level, BlockPos aim) {
+        BlockPos g = column(level, aim);
+        if (g.getY() <= level.getMinBuildHeight()) {
+            g = column(level, BlockPos.ZERO.atY(aim.getY())); // nothing under it (the End's void): the middle of the world
+        }
+        return g;
+    }
+
+    private static BlockPos column(ServerLevel level, BlockPos aim) {
         if (!level.dimensionType().hasCeiling()) {
             return new BlockPos(aim.getX(), level.getHeight(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, aim.getX(),
                     aim.getZ()) - 1, aim.getZ());
         }
-        BlockPos.MutableBlockPos p = aim.mutable().setY(Math.min(aim.getY(), level.getLogicalHeight() - 2));
-        while (p.getY() > level.getMinBuildHeight() && level.getBlockState(p).isAir()) {
-            p.move(Direction.DOWN);
+        // under a roof: the first floor (air over a block) below the aim's height, else below the roof
+        int min = level.getMinBuildHeight();
+        int top = level.getLogicalHeight() - 2;
+        BlockPos.MutableBlockPos p = aim.mutable();
+        for (int from : new int[] {Math.max(min + 1, Math.min(aim.getY(), top)), top}) {
+            for (int y = from; y > min; y--) {
+                if (level.getBlockState(p.setY(y)).isAir() && !level.getBlockState(p.setY(y - 1)).isAir()) {
+                    return p.immutable();
+                }
+            }
         }
-        return p.immutable();
+        return p.setY(min).immutable();
     }
 
-    private static GlobalPos from(CompoundTag trip) {
+    static GlobalPos from(CompoundTag trip) {
         ResourceLocation dim = ResourceLocation.tryParse(trip.getString("from_dimension"));
         return GlobalPos.of(ResourceKey.create(Registries.DIMENSION, dim == null ? Level.OVERWORLD.location() : dim),
                 BlockPos.of(trip.getLong("from")));
     }
 
     /** Ends the trip: the pilot gets off and goes back to the console, the body and the obstacles go. */
-    private static void clearTrip(MinecraftServer server, TardisRecord tardis, CompoundTag trip) {
+    static void clearTrip(MinecraftServer server, TardisRecord tardis, CompoundTag trip) {
         Tuning.VortexTuning t = TardisContent.tuning().vortex();
         FreeFlight.dock(server, tardis);
         ServerLevel vortex = server.getLevel(DIMENSION);
         if (vortex != null) {
+            Wormholes.removeAll(vortex, trip);
             for (Tag tag : trip.getList("obstacles", Tag.TAG_LONG)) {
                 BlockPos c = BlockPos.of(((LongTag) tag).getAsLong());
                 for (BlockPos q : BlockPos.betweenClosed(c, c.offset(t.obstacleSize(), t.obstacleSize(),

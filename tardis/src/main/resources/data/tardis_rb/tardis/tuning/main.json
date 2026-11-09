@@ -248,6 +248,21 @@
       "crater": 3,
       "after_crash": 10
     },
-    "bend": 1
+    "bend": 1,
+    "wormholes": {
+      "first": 80,
+      "gap": 150,
+      "chance": 0.7,
+      "radius": 4,
+      "pull": 0.1,
+      "range": 28,
+      "spread": 400,
+      "suck_ticks": 30,
+      "exit_damage": 5,
+      "exit_crater": 0,
+      "name_level": 1,
+      "see_through_level": 2,
+      "respect_locks": true
+    }
   }
 }
