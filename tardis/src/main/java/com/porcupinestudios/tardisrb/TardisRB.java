@@ -16,6 +16,7 @@ import com.porcupinestudios.tardisrb.net.WorkshopNet;
 import com.porcupinestudios.tardisrb.repair.WorldDamage;
 import com.porcupinestudios.tardisrb.research.Researching;
 import com.porcupinestudios.tardisrb.space.SpaceTravel;
+import com.porcupinestudios.tardisrb.progression.Health;
 import com.porcupinestudios.tardisrb.progression.TardisConditions;
 import com.porcupinestudios.tardisrb.progression.TardisContent;
 import com.porcupinestudios.tardisrb.vortex.Vortex;
@@ -47,6 +48,7 @@ public final class TardisRB {
         WorldCheck.register();
         Researching.register();
         WorldDamage.register();
+        Health.register();
         Doors.register();
         WorkshopNet.register(modBus);
         SkyNet.register(modBus);

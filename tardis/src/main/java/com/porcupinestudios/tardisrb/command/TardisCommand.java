@@ -1,6 +1,7 @@
 package com.porcupinestudios.tardisrb.command;
 
 import com.mojang.brigadier.CommandDispatcher;
+import com.mojang.brigadier.arguments.DoubleArgumentType;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
 import com.mojang.brigadier.arguments.LongArgumentType;
 import com.mojang.brigadier.arguments.StringArgumentType;
@@ -15,6 +16,7 @@ import com.porcupinestudios.tardisrb.flight.Flight;
 import com.porcupinestudios.tardisrb.flight.Landing;
 import com.porcupinestudios.tardisrb.interior.Interiors;
 import com.porcupinestudios.tardisrb.interior.Rooms;
+import com.porcupinestudios.tardisrb.progression.Health;
 import com.porcupinestudios.tardisrb.progression.Progression;
 import com.porcupinestudios.tardisrb.progression.Subsystem;
 import com.porcupinestudios.tardisrb.progression.TardisContent;
@@ -125,6 +127,28 @@ public final class TardisCommand {
                             ctx.getSource().sendSuccess(() -> Component.literal("Lost " + lost + " levels."), true);
                             return lost;
                         }))))
+                .then(Commands.literal("health").executes(ctx -> health(ctx, mine(ctx)))
+                        .then(Commands.literal("set").then(Commands.argument("amount", DoubleArgumentType.doubleArg(0))
+                                .executes(ctx -> {
+                                    TardisRecord t = mine(ctx);
+                                    Health.set(t, DoubleArgumentType.getDouble(ctx, "amount"));
+                                    return health(ctx, t);
+                                })))
+                        .then(Commands.literal("repair").executes(ctx -> {
+                            TardisRecord t = mine(ctx);
+                            Health.set(t, Health.max(t));
+                            return health(ctx, t);
+                        }).then(Commands.argument("amount", DoubleArgumentType.doubleArg(0)).executes(ctx -> {
+                            TardisRecord t = mine(ctx);
+                            Health.add(t, DoubleArgumentType.getDouble(ctx, "amount"));
+                            return health(ctx, t);
+                        })))
+                        .then(Commands.literal("damage").then(Commands.argument("amount", DoubleArgumentType.doubleArg(0))
+                                .executes(ctx -> {
+                                    TardisRecord t = mine(ctx);
+                                    Health.add(t, -DoubleArgumentType.getDouble(ctx, "amount"));
+                                    return health(ctx, t);
+                                }))))
                 .then(Commands.literal("charge").then(Commands.argument("amount", LongArgumentType.longArg(1))
                         .executes(ctx -> {
                             long added = mine(ctx).addCharge(LongArgumentType.getLong(ctx, "amount"));
@@ -196,6 +220,14 @@ public final class TardisCommand {
         ctx.getSource().sendSuccess(() -> Component.literal("Landed in "
                 + out.landed().get().dimension().location() + " at " + out.landed().get().pos().toShortString()), true);
         return 1;
+    }
+
+    /** Says the TARDIS's health (see {@link Health}); gives it, rounded up. */
+    private static int health(CommandContext<CommandSourceStack> ctx, TardisRecord t) {
+        int now = (int) Math.ceil(Health.get(t));
+        ctx.getSource().sendSuccess(() -> Component.literal(t.name() + " health: " + now + "/"
+                + (int) Math.ceil(Health.max(t))), true);
+        return now;
     }
 
     private static TardisRecord mine(CommandContext<CommandSourceStack> ctx) throws CommandSyntaxException {

@@ -48,16 +48,17 @@ public record Tuning(CrashSite crashSite, Hop hop, Winder winder, Interior inter
     }
 
     /**
-     * The box's health in the vortex and crash landing (Aaron 2026-11-09). A trip starts at {@code health}; hitting
+     * The box's health and crash landing (Aaron 2026-11-09). The most health it can have is {@code health} plus the
+     * {@code health} stat (hull levels; {@code progression/Health}), and it lasts between trips. Hitting
      * debris costs {@code debris}, bumping the tunnel wall {@code wall}. Each point lost adds
      * {@code drift_per_damage} blocks of inaccuracy: how far off its course line the box lands. At 0 it crash lands:
      * it falls through the clouds and appears {@code crash_height} blocks over the spot that far along the line,
      * thrusters off, flying down at an angle at {@code crash_speed} (blocks per tick across), and hits the ground
-     * with an explosion of power {@code crater} (0: no crater).
+     * with an explosion of power {@code crater} (0: no crater). It is left with {@code after_crash} health.
      */
     public record VortexDamage(double health, double debris, double wall, double driftPerDamage, int crashHeight,
-            double crashSpeed, double crater) {
-        static final VortexDamage DEFAULT = new VortexDamage(100, 20, 5, 0.3, 40, 0.5, 3);
+            double crashSpeed, double crater, double afterCrash) {
+        static final VortexDamage DEFAULT = new VortexDamage(50, 20, 5, 0.3, 40, 0.5, 3, 10);
         static final Codec<VortexDamage> CODEC = RecordCodecBuilder.create(i -> i.group(
                 Codec.DOUBLE.optionalFieldOf("health", DEFAULT.health).forGetter(VortexDamage::health),
                 Codec.DOUBLE.optionalFieldOf("debris", DEFAULT.debris).forGetter(VortexDamage::debris),
@@ -67,7 +68,8 @@ public record Tuning(CrashSite crashSite, Hop hop, Winder winder, Interior inter
                 Codec.intRange(0, 256).optionalFieldOf("crash_height", DEFAULT.crashHeight)
                         .forGetter(VortexDamage::crashHeight),
                 Codec.DOUBLE.optionalFieldOf("crash_speed", DEFAULT.crashSpeed).forGetter(VortexDamage::crashSpeed),
-                Codec.DOUBLE.optionalFieldOf("crater", DEFAULT.crater).forGetter(VortexDamage::crater))
+                Codec.DOUBLE.optionalFieldOf("crater", DEFAULT.crater).forGetter(VortexDamage::crater),
+                Codec.DOUBLE.optionalFieldOf("after_crash", DEFAULT.afterCrash).forGetter(VortexDamage::afterCrash))
                 .apply(i, VortexDamage::new));
     }
 

@@ -12,6 +12,7 @@ import com.porcupinestudios.tardisrb.interior.Interiors;
 import com.porcupinestudios.tardisrb.interior.Rooms;
 import com.porcupinestudios.tardisrb.progression.Control;
 import com.porcupinestudios.tardisrb.progression.Destination;
+import com.porcupinestudios.tardisrb.progression.Health;
 import com.porcupinestudios.tardisrb.progression.TardisContent;
 import com.porcupinestudios.tardisrb.progression.Tuning;
 import com.porcupinestudios.tardisrb.progression.Unlocks;
@@ -658,7 +659,7 @@ public final class ConsoleControls {
                 out.add("EXTERIOR - " + tardis.name());
                 out.add(at.isEmpty() ? "In flight" : Vortex.inVortex(tardis)
                         ? Vortex.crashing(tardis) ? "CRASHING!" : "In the vortex: " + Math.round(Vortex.progress(tardis) * 100)
-                                + "%, health " + (int) Math.ceil(Vortex.health(tardis)) + ", off course "
+                                + "%, off course "
                                 + (int) Math.round(Vortex.inaccuracy(tardis))
                         : !FreeFlight.isLoose(tardis) ? "Landed (a block)"
                         : FreeFlight.body(server, tardis).map(b -> b.isVehicle()).orElse(false)
@@ -670,6 +671,7 @@ public final class ConsoleControls {
                 out.add("Facing " + (console.hasState("facing")
                         ? Direction.from2DDataValue(console.state("facing")).getName() : "as before"));
                 out.add(console.handbrake() ? "Handbrake ON" : "Handbrake off");
+                out.add("Health " + (int) Math.ceil(Health.get(tardis)) + "/" + (int) Math.ceil(Health.max(tardis)));
                 out.add("Charge " + tardis.charge() + "/" + Unlocks.chargeCap(tardis));
                 out.add("Doors " + (Doors.isOpen(tardis) ? "open" : "shut"));
             }

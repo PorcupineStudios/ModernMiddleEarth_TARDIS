@@ -15,6 +15,7 @@ import com.porcupinestudios.tardisrb.flight.FreeFlight;
 import com.porcupinestudios.tardisrb.flight.Piloting;
 import com.porcupinestudios.tardisrb.look.Looks;
 import com.porcupinestudios.tardisrb.progression.Destination;
+import com.porcupinestudios.tardisrb.progression.Health;
 import com.porcupinestudios.tardisrb.progression.TardisContent;
 import com.porcupinestudios.tardisrb.progression.Tuning;
 import com.porcupinestudios.tardisrb.progression.Unlocks;
@@ -159,11 +160,6 @@ public final class Vortex {
         return tardis.moduleData(MODULE).getInt("hits");
     }
 
-    /** The box's health left on this trip ({@code damage.health} at the start; 0 crashes it). */
-    public static double health(TardisRecord tardis) {
-        return tardis.moduleData(MODULE).getDouble("health");
-    }
-
     /** How far off its course line the box will land, in blocks: grows with every bit of damage on the trip. */
     public static double inaccuracy(TardisRecord tardis) {
         return tardis.moduleData(MODULE).getDouble("inaccuracy");
@@ -256,7 +252,6 @@ public final class Vortex {
         trip.putInt("length", length);
         trip.putDouble("progress", 0);
         trip.putInt("hits", 0);
-        trip.putDouble("health", t.damage().health());
         trip.putDouble("inaccuracy", 0);
         trip.putInt("next_obstacle", 24);
         trip.put("obstacles", new ListTag());
@@ -336,7 +331,7 @@ public final class Vortex {
                 if (body.get().getControllingPassenger() instanceof ServerPlayer p) {
                     p.displayClientMessage(Component.translatableWithFallback("tardis_rb.vortex.hit",
                             "The TARDIS slams into vortex debris! (health %s)",
-                            (int) Math.max(0, trip.getDouble("health") - t.damage().debris())), true);
+                            (int) Math.ceil(Math.max(0, Health.get(tardis) - t.damage().debris()))), true);
                 }
                 damage(server, tardis, trip, body.get(), t.damage().debris());
             }
@@ -350,6 +345,9 @@ public final class Vortex {
                 damage(server, tardis, trip, body.get(), t.damage().wall());
             }
             trip.putBoolean("at_wall", atWall);
+            if (Health.get(tardis) <= 0) {
+                damage(server, tardis, trip, body.get(), 0); // set to 0 some other way (/tardis health): it goes down now
+            }
             if (trip.contains("crash")) {
                 tardis.setModuleData(MODULE, trip);
                 return;
@@ -364,8 +362,7 @@ public final class Vortex {
     /** Takes {@code amount} off the trip's health and adds to its inaccuracy; at 0 health it starts to crash. */
     private static void damage(MinecraftServer server, TardisRecord tardis, CompoundTag trip, TardisBody body,
             double amount) {
-        double health = trip.getDouble("health") - amount;
-        trip.putDouble("health", health);
+        double health = Health.add(tardis, -amount);
         trip.putDouble("inaccuracy", trip.getDouble("inaccuracy")
                 + amount * TardisContent.tuning().vortex().damage().driftPerDamage());
         if (health > 0 || trip.contains("crash")) {
@@ -424,6 +421,7 @@ public final class Vortex {
         BlockPos aim = offCourse(BlockPos.containing(c.pos()), trip.getDouble("inaccuracy"), random);
         Direction facing = FreeFlight.facing(server, tardis);
         clearTrip(server, tardis, trip);
+        Health.set(tardis, d.afterCrash()); // it limps on: enough to fly, not to take a hit
 
         BlockPos ground = ground(level, aim);
         BlockPos start = ground.above();
