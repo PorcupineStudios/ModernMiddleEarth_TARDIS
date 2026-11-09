@@ -30,11 +30,13 @@ dimension, dodging obstacles, "to" the destination.
   of the doors, items, mobs) is kept within `radius` + 1 by `Vortex.onEntityTick` on both sides (`keepInside`):
   pushed back off the wall, its speed into the wall dropped, and on the tube's bottom it can stand. Checked in the
   dev client: dropped 20 blocks below the axis, a player stood on the bottom at 11.1.
-- **Storm edges** (Aaron 2026-11-09: "puffy like clouds and charged with lightning"): `VortexRenderer.clouds` draws
-  rings of soft cloud puffs (a lumpy blob texture made in code) every 2 blocks along the tunnel at 14-16 from the
-  axis, 34 per ring, fixed in place so they rush past, slowly turning; only where a spiral band is high, so they
-  form banks with the vortex showing between them. `bolts` strikes jagged forked lightning across their inner face
-  (up to 4 at once, a new chance 3 times a second each, crackling and fading); puffs near a strike light up.
+- **Cloud wall** (Aaron 2026-11-09: edges "puffy like clouds and charged with lightning", then "have the clouds
+  cover the skybox completely" with "the same texture/pattern"): the whole wall is cloud. `VortexRenderer.cloudWall`
+  draws the tube (96 x 320 quads, radius 16 at the folds) pushed in up to `BILLOW` (4) at round puffs (`puffs`:
+  big ones about 4 blocks across with small ones heaped on, one per jittered cell, fixed along the tunnel so they
+  rush past, slowly turning) and paints it with the vortex texture as before. Puff tops are bright and the folds
+  dark. `bolts` strikes jagged forked lightning over it (up to 4 at once, a new chance 3 times a second each,
+  crackling and fading); the cloud near a strike lights up blue-white. The glow streaks are a fainter tube inside.
 - **Look**: dimension type `effects` "tardis_rb:time_vortex" -> `VortexRenderer.Effects` (no sky, no clouds, dark
   blue fog). `VortexRenderer` draws at AFTER_SKY, depth off, a tube of radius 16 round the lane axis, ±160 blocks:
   `textures/environment/time_vortex.png` (rings) scrolling along and twisting, plus `time_vortex_glow.png` added on

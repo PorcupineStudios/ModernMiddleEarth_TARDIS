@@ -1,7 +1,6 @@
 package com.porcupinestudios.tardisrb.client;
 
 import com.mojang.blaze3d.platform.GlStateManager;
-import com.mojang.blaze3d.platform.NativeImage;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.BufferBuilder;
 import com.mojang.blaze3d.vertex.BufferUploader;
@@ -14,7 +13,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.DimensionSpecialEffects;
 import net.minecraft.client.renderer.GameRenderer;
-import net.minecraft.client.renderer.texture.DynamicTexture;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.api.distmarker.Dist;
@@ -28,7 +26,8 @@ import org.joml.Vector3f;
  * The time vortex round you (Aaron 2026-11-09): a tunnel along +z round the lane's axis, its wall painted with
  * {@code textures/environment/time_vortex.png} (rings that rush past and twist) and a second, additive layer of glowing
  * streaks ({@code time_vortex_glow.png}) turning the other way. Drawn right after the (empty) sky without depth, so the
- * box, the debris and the pilot are drawn over it. Rebuilt every frame (2 x 48 x 40 quads). Both textures are made by
+ * box, the debris and the pilot are drawn over it. The wall billows in as cloud ({@link #cloudWall}, 96 x 160 quads) and
+ * lightning crackles over it ({@link #bolts}); all rebuilt every frame. Both textures are made by
  * {@code tools/vortex_texture.py} and can be swapped for any seamless 1024 x 1024 image.
  */
 @EventBusSubscriber(modid = TardisRB.MOD_ID, value = Dist.CLIENT)
@@ -37,7 +36,7 @@ public final class VortexRenderer {
     private static final ResourceLocation GLOW = TardisRB.id("textures/environment/time_vortex_glow.png");
     private static final int AROUND = 48;
     private static final int ALONG = 40;
-    /** How far the wall stands from the axis: past the box's reach (radius 9), so dodging shows it moving. */
+    /** How far the wall stands from the axis at the folds between its cloud puffs (they billow in to 12). */
     private static final float WALL_RADIUS = 16;
     /** Blocks of tunnel per texture repeat, along and around. */
     private static final float REPEAT = 48;
@@ -88,21 +87,16 @@ public final class VortexRenderer {
         RenderSystem.getModelViewStack().identity();
         RenderSystem.applyModelViewMatrix();
 
+        long slot = (long) Math.floor(time * BOLT_RATE);
         RenderSystem.disableBlend();
         RenderSystem.setShaderTexture(0, WALL);
-        draw(view, ox, oy, (float) cam.z, half, WALL_RADIUS, time * 0.9f, time * 0.02f, 0.15f, 1f);
+        cloudWall(view, ox, oy, cam.z, half, time, time * 0.9f, time * 0.02f, 0.15f, boltsNow(time, slot));
 
         RenderSystem.enableBlend();
         RenderSystem.blendFunc(GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ONE);
         RenderSystem.setShaderTexture(0, GLOW);
-        draw(view, ox, oy, (float) cam.z, half, WALL_RADIUS * 0.85f, time * 1.6f, -time * 0.05f, -0.25f, 0.8f);
-
-        Vector3f left = event.getCamera().getLeftVector();
-        Vector3f up = event.getCamera().getUpVector();
-        long slot = (long) Math.floor(time * BOLT_RATE);
-        RenderSystem.defaultBlendFunc();
-        RenderSystem.setShaderTexture(0, puff());
-        clouds(view, ox, oy, cam.z, half, time, left, up, slot);
+        draw(view, ox, oy, (float) cam.z, half, WALL_RADIUS - BILLOW * 1.1f, time * 1.6f, -time * 0.05f, -0.25f,
+                0.45f);
 
         RenderSystem.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE);
         RenderSystem.setShader(GameRenderer::getPositionColorShader);
@@ -138,46 +132,108 @@ public final class VortexRenderer {
         BufferUploader.drawWithShader(buf.buildOrThrow());
     }
 
-    // --- the tube's edge: puffy storm clouds charged with lightning (Aaron 2026-11-09) ---
+    // --- the wall is storm cloud, charged with lightning (Aaron 2026-11-09) ---
 
-    private static final ResourceLocation PUFF = TardisRB.id("vortex_puff");
-    /** Blocks between rings of cloud along the tunnel, and puffs per ring. */
-    private static final float CLOUD_GAP = 2;
-    private static final int PUFFS = 34;
     /** Lightning: new bolts per second per channel, and channels (bolts that can be lit at once). */
     private static final float BOLT_RATE = 3;
     private static final int BOLT_CHANNELS = 4;
     private static final int BOLT_STEPS = 10;
-    private static DynamicTexture puffTexture;
+    /** How far the cloud wall billows in from {@link #WALL_RADIUS} at the top of a puff. */
+    private static final float BILLOW = 4;
+    /** The cloud wall's mesh: quads round and along (about 1 x 1 block each near you). */
+    private static final int CLOUD_AROUND = 96;
+    private static final int CLOUD_ALONG = 320;
 
-    /** A soft, lumpy cloud puff (white, alpha only), made once in code. */
-    private static ResourceLocation puff() {
-        if (puffTexture == null) {
-            int n = 128;
-            NativeImage img = new NativeImage(n, n, true);
-            double[][] lumps = {{0, 0, 0.42}, {-0.28, 0.1, 0.3}, {0.3, 0.12, 0.28}, {0.05, -0.3, 0.3},
-                    {-0.12, 0.32, 0.26}, {0.26, -0.22, 0.24}};
-            for (int py = 0; py < n; py++) {
-                for (int px = 0; px < n; px++) {
-                    double x = (px + 0.5) / n * 2 - 1;
-                    double y = (py + 0.5) / n * 2 - 1;
-                    double d = 0;
-                    for (double[] l : lumps) {
-                        double dx = (x - l[0]) / l[2];
-                        double dy = (y - l[1]) / l[2];
-                        d += Math.exp(-(dx * dx + dy * dy) * 1.6);
+    /**
+     * The whole wall is cloud (Aaron 2026-11-09: "have the clouds cover the skybox completely" with "the same
+     * texture/pattern"): the tube billows in at round puffs, big ones with small ones heaped on, fixed along the tunnel (so they rush past)
+     * and slowly turning, painted with the vortex texture as it flows through them. Puff tops are bright, the folds
+     * between them dark, and puffs near a lightning strike light up blue-white. Same UVs as {@link #draw}.
+     */
+    private static void cloudWall(Matrix4f view, float ox, float oy, double camZ, float half, float time, float scroll,
+            float spin, float twist, Bolt[] bolts) {
+        int cols = CLOUD_AROUND + 1;
+        float[] px = new float[cols * (CLOUD_ALONG + 1)];
+        float[] py = new float[px.length];
+        float[] pz = new float[px.length];
+        float[] pu = new float[px.length];
+        float[] pv = new float[px.length];
+        int[] shade = new int[px.length * 3];
+        float around = (float) Math.max(1, Math.round(2 * Math.PI * WALL_RADIUS / REPEAT));
+        float drift = time * 0.004f;
+        for (int j = 0; j <= CLOUD_ALONG; j++) {
+            float t = j / (float) CLOUD_ALONG;
+            float z = -half + t * 2 * half;
+            double world = camZ + z;
+            float edge = Math.min(1, (1 - Math.abs(2 * t - 1)) * 4);
+            for (int i = 0; i <= CLOUD_AROUND; i++) {
+                float f = i / (float) CLOUD_AROUND;
+                // big round puffs with smaller ones heaped on them (cauliflower cumulus)
+                float big = puffs(f + drift, world, 16, 6, 4.2f, 1);
+                float small = puffs(f - drift, world, 36, 3, 1.9f, 2);
+                float p = Math.min(1, Math.max(big, small * 0.6f) + 0.2f * small);
+                float r = WALL_RADIUS - BILLOW * p;
+                double a = f * 2 * Math.PI;
+                int k = j * cols + i;
+                px[k] = ox + (float) Math.cos(a) * r;
+                py[k] = oy + (float) Math.sin(a) * r;
+                pz[k] = z;
+                pv[k] = (float) (world / REPEAT) - scroll;
+                pu[k] = f * around + pv[k] * twist + spin;
+                float flash = 0;
+                for (Bolt b : bolts) {
+                    if (b != null && z > b.z0() - 5 && z < b.z1() + 5) {
+                        float da = Math.abs((float) Math.IEEEremainder(a - (b.a0() + b.a1()) / 2, 2 * Math.PI));
+                        flash = Math.max(flash, b.strength() * Math.max(0, 1 - da / 0.8f));
                     }
-                    double a = Math.min(1, Math.max(0, (d - 0.12) / 1.3));
-                    a = a * a * (3 - 2 * a);
-                    int shade = (int) Math.round(255 * (0.78 + 0.22 * (1 - (y + 1) / 2))); // lit from above
-                    img.setPixelRGBA(px, py, ((int) Math.round(a * 255) << 24) | (shade << 16) | (shade << 8)
-                            | shade);
+                }
+                float bright = 0.4f + 0.75f * p;
+                shade[k * 3] = Math.round(255 * edge * Math.min(1, bright + flash * 0.5f));
+                shade[k * 3 + 1] = Math.round(255 * edge * Math.min(1, bright + flash * 0.6f));
+                shade[k * 3 + 2] = Math.round(255 * edge * Math.min(1, bright + flash * 0.9f));
+            }
+        }
+        BufferBuilder buf = Tesselator.getInstance().begin(VertexFormat.Mode.QUADS,
+                DefaultVertexFormat.POSITION_TEX_COLOR);
+        for (int j = 0; j < CLOUD_ALONG; j++) {
+            for (int i = 0; i < CLOUD_AROUND; i++) {
+                int k = j * cols + i;
+                for (int c : new int[] {k, k + 1, k + 1 + cols, k + cols}) {
+                    buf.addVertex(view, px[c], py[c], pz[c]).setUv(pu[c], pv[c])
+                            .setColor(shade[c * 3], shade[c * 3 + 1], shade[c * 3 + 2], 255);
                 }
             }
-            puffTexture = new DynamicTexture(img);
-            Minecraft.getInstance().getTextureManager().register(PUFF, puffTexture);
         }
-        return PUFF;
+        BufferUploader.drawWithShader(buf.buildOrThrow());
+    }
+
+    /**
+     * Round cloud puffs on the tube: one per cell ({@code cells} round it, {@code len} blocks along), jittered in its
+     * cell, about {@code size} blocks in radius. The height (0..1, a dome) of the highest puff over the point at
+     * {@code f} round (0..1, wrapping) and {@code z} along.
+     */
+    private static float puffs(float f, double z, int cells, double len, float size, long seed) {
+        double u = (f - Math.floor(f)) * cells;
+        double w = z / len;
+        long iu = (long) Math.floor(u);
+        long iw = (long) Math.floor(w);
+        double blocksPerCell = 2 * Math.PI * WALL_RADIUS / cells;
+        float best = 0;
+        for (long cu = iu - 1; cu <= iu + 1; cu++) {
+            for (long cw = iw - 1; cw <= iw + 1; cw++) {
+                long hu = Math.floorMod(cu, cells);
+                double dx = (u - cu - 0.15 - 0.7 * hash(hu, cw, seed)) * blocksPerCell;
+                double dz = (w - cw - 0.15 - 0.7 * hash(hu, cw, seed + 11)) * len;
+                double rad = size * (0.7 + 0.6 * hash(hu, cw, seed + 23));
+                double d2 = (dx * dx + dz * dz) / (rad * rad);
+                if (d2 < 1) {
+                    double h = 1 - d2;
+                    h = h * (2 - h); // round top, soft rim
+                    best = Math.max(best, (float) (h * (0.75 + 0.25 * hash(hu, cw, seed + 37))));
+                }
+            }
+        }
+        return best;
     }
 
     /** A steady pseudo-random 0..1 from a few integers. */
@@ -211,70 +267,6 @@ public final class VortexRenderer {
         return out;
     }
 
-    /**
-     * Rings of cloud puffs banked against the wall all along the tunnel, fixed in place (so they rush past as you fly)
-     * and slowly turning round it; puffs near a lightning strike light up. Drawn far to near so the soft edges blend.
-     */
-    private static void clouds(Matrix4f view, float ox, float oy, double camZ, float half, float time, Vector3f left,
-            Vector3f up, long slot) {
-        Bolt[] bolts = boltsNow(time, slot);
-        BufferBuilder buf = Tesselator.getInstance().begin(VertexFormat.Mode.QUADS,
-                DefaultVertexFormat.POSITION_TEX_COLOR);
-        long first = (long) Math.ceil((camZ - half) / CLOUD_GAP);
-        long last = (long) Math.floor((camZ + half) / CLOUD_GAP);
-        // far to near: alternate from both ends toward the camera
-        long lo = first;
-        long hi = last;
-        while (lo <= hi) {
-            long k;
-            if (Math.abs(lo * CLOUD_GAP - camZ) >= Math.abs(hi * CLOUD_GAP - camZ)) {
-                k = lo++;
-            } else {
-                k = hi--;
-            }
-            float z = (float) (k * CLOUD_GAP - camZ);
-            float t = (z + half) / (2 * half);
-            float edge = Math.min(1, (1 - Math.abs(2 * t - 1)) * 4);
-            float spin = time * (k % 2 == 0 ? 0.06f : -0.04f);
-            for (int i = 0; i < PUFFS; i++) {
-                float a = (i + hash(k, i, 7)) / PUFFS * (float) (2 * Math.PI) + spin;
-                // banks spiralling along the wall with gaps between, so the vortex shows through
-                float bank = (float) Math.sin(a * 3 + k * CLOUD_GAP * 0.045f + time * 0.25f) * 0.5f + 0.5f
-                        + (hash(k, i, 12) - 0.5f) * 0.4f;
-                if (bank < 0.5f) {
-                    continue;
-                }
-                float r = 14.2f + hash(k, i, 8) * 1.8f;
-                float size = 2.8f + hash(k, i, 9) * 2.4f;
-                float x = ox + (float) Math.cos(a) * r;
-                float y = oy + (float) Math.sin(a) * r;
-                float pz = z + (hash(k, i, 10) - 0.5f) * CLOUD_GAP;
-                float flash = 0;
-                for (Bolt b : bolts) {
-                    if (b != null && pz > b.z0() - 6 && pz < b.z1() + 6) {
-                        float da = Math.abs((float) Math.IEEEremainder(a - (b.a0() + b.a1()) / 2, 2 * Math.PI));
-                        flash = Math.max(flash, b.strength() * Math.max(0, 1 - da / 0.9f));
-                    }
-                }
-                float shade = 0.55f + hash(k, i, 11) * 0.45f;
-                int red = Math.round(255 * edge * Math.min(1, shade * 0.62f + flash * 0.7f));
-                int green = Math.round(255 * edge * Math.min(1, shade * 0.55f + flash * 0.8f));
-                int blue = Math.round(255 * edge * Math.min(1, shade * 0.95f + flash));
-                int alpha = Math.round(255 * 0.6f * edge * Math.min(1, (bank - 0.5f) * 3)); // thinning at the bank edges
-                float lx = left.x() * size;
-                float ly = left.y() * size;
-                float lz = left.z() * size;
-                float ux = up.x() * size;
-                float uy = up.y() * size;
-                float uz = up.z() * size;
-                buf.addVertex(view, x - lx - ux, y - ly - uy, pz - lz - uz).setUv(0, 1).setColor(red, green, blue, alpha);
-                buf.addVertex(view, x + lx - ux, y + ly - uy, pz + lz - uz).setUv(1, 1).setColor(red, green, blue, alpha);
-                buf.addVertex(view, x + lx + ux, y + ly + uy, pz + lz + uz).setUv(1, 0).setColor(red, green, blue, alpha);
-                buf.addVertex(view, x - lx + ux, y - ly + uy, pz - lz + uz).setUv(0, 0).setColor(red, green, blue, alpha);
-            }
-        }
-        BufferUploader.drawWithShader(buf.buildOrThrow());
-    }
 
     /** Jagged lightning crawling over the clouds' inner face: a wide faint glow and a thin bright core, plus a fork. */
     private static void bolts(Matrix4f view, float ox, float oy, float time, long slot) {
