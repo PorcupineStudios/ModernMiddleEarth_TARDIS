@@ -160,7 +160,8 @@ public final class ColonyTests {
         helper.assertTrue(colony.citizens().stream().anyMatch(c -> c.rare() && c.entity().equals(ranger.getUUID())),
                 "the Ranger is not a rare citizen");
         helper.assertTrue(Colonies.colonyOf(ranger).equals(Optional.of(colony.id())), "the Ranger is not marked");
-        helper.assertTrue(ranger.blockPosition().closerThan(hall, 8), "the Ranger did not come to the Hall");
+        // horizontal: the Ranger lands on top of whatever stands at the Hall (Recruiting uses the heightmap)
+        helper.assertTrue(ranger.blockPosition().atY(hall.getY()).closerThan(hall, 8), "the Ranger did not come to the Hall: " + ranger.blockPosition() + " hall " + hall);
         // Stage 4: colonists research TARDIS tech; the rare Ranger is a researcher for the founder
         int researchers = Providers.researchers(level.getServer(), Set.of(player.getUUID()));
         helper.assertTrue(researchers == 1, "researchers after the Ranger joined: " + researchers);

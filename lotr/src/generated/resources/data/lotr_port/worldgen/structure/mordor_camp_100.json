@@ -9,7 +9,30 @@
     "lotr_port:mordor_camp/1",
     "lotr_port:mordor_camp/2"
   ],
-  "chance": 100,
+  "rolls": {
+    "lotr_port:eastern_desolation": [
+      100
+    ],
+    "lotr_port:gorgoroth": [
+      100
+    ],
+    "lotr_port:mordor": [
+      100
+    ],
+    "lotr_port:morgul_vale": [
+      100
+    ],
+    "lotr_port:udun": [
+      100
+    ]
+  },
+  "lotr_success": {
+    "lotr_port:eastern_desolation": 0.704,
+    "lotr_port:gorgoroth": 0.789,
+    "lotr_port:mordor": 0.982,
+    "lotr_port:morgul_vale": 0.875,
+    "lotr_port:udun": 0.652
+  },
   "salt": 1298042699,
   "ground": 0,
   "max_slope": 6,

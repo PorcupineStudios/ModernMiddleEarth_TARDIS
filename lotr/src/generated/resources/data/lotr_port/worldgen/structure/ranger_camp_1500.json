@@ -9,7 +9,55 @@
     "lotr_port:ranger_camp/1",
     "lotr_port:ranger_camp/2"
   ],
-  "chance": 1500,
+  "rolls": {
+    "lotr_port:eriador": [
+      2000,
+      1000,
+      2000,
+      3000,
+      3000,
+      1500
+    ],
+    "lotr_port:eriador_downs": [
+      2000,
+      1000,
+      2000,
+      3000,
+      3000,
+      1500
+    ],
+    "lotr_port:eryn_vorn": [
+      2000,
+      1000,
+      2000,
+      3000,
+      3000,
+      1500
+    ],
+    "lotr_port:minhiriath": [
+      2000,
+      1000,
+      2000,
+      3000,
+      3000,
+      1500
+    ],
+    "lotr_port:swanfleet": [
+      2000,
+      1000,
+      2000,
+      3000,
+      3000,
+      1500
+    ]
+  },
+  "lotr_success": {
+    "lotr_port:eriador": 0.893,
+    "lotr_port:eriador_downs": 0.923,
+    "lotr_port:eryn_vorn": 0.923,
+    "lotr_port:minhiriath": 1.0,
+    "lotr_port:swanfleet": 0.278
+  },
   "salt": 1581320642,
   "ground": 0,
   "max_slope": 6,

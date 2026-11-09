@@ -9,7 +9,45 @@
     "lotr_port:black_uruk_fort/1",
     "lotr_port:black_uruk_fort/2"
   ],
-  "chance": 2000,
+  "rolls": {
+    "lotr_port:eastern_desolation": [
+      100,
+      300,
+      500,
+      2000
+    ],
+    "lotr_port:gorgoroth": [
+      100,
+      300,
+      500,
+      2000
+    ],
+    "lotr_port:mordor": [
+      100,
+      300,
+      500,
+      2000
+    ],
+    "lotr_port:morgul_vale": [
+      100,
+      300,
+      500,
+      2000
+    ],
+    "lotr_port:udun": [
+      100,
+      300,
+      500,
+      2000
+    ]
+  },
+  "lotr_success": {
+    "lotr_port:eastern_desolation": 0.127,
+    "lotr_port:gorgoroth": 0.649,
+    "lotr_port:mordor": 0.474,
+    "lotr_port:morgul_vale": 0.0,
+    "lotr_port:udun": 0.232
+  },
   "salt": 874713989,
   "ground": 1,
   "max_slope": 6,

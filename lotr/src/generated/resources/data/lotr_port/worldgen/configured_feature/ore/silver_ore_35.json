@@ -10,6 +10,15 @@
         "state": {
           "Name": "lotr_port:silver_ore"
         }
+      },
+      {
+        "target": {
+          "predicate_type": "minecraft:tag_match",
+          "tag": "minecraft:deepslate_ore_replaceables"
+        },
+        "state": {
+          "Name": "lotr_port:silver_ore"
+        }
       }
     ],
     "size": 8,

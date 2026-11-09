@@ -9,7 +9,34 @@
     "lotr_port:ruined_dwarven_tower/1",
     "lotr_port:ruined_dwarven_tower/2"
   ],
-  "chance": 1000,
+  "rolls": {
+    "lotr_port:grey_mountains": [
+      500,
+      1000,
+      1000
+    ],
+    "lotr_port:grey_mountains_foothills": [
+      500,
+      1000,
+      1000
+    ],
+    "lotr_port:misty_mountains": [
+      500,
+      1500,
+      1000
+    ],
+    "lotr_port:misty_mountains_foothills": [
+      500,
+      1500,
+      1000
+    ]
+  },
+  "lotr_success": {
+    "lotr_port:grey_mountains": 0.008,
+    "lotr_port:grey_mountains_foothills": 0.222,
+    "lotr_port:misty_mountains": 0.041,
+    "lotr_port:misty_mountains_foothills": 0.491
+  },
   "salt": 2029129382,
   "ground": 0,
   "max_slope": 6,

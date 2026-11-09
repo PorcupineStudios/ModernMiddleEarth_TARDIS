@@ -9,7 +9,24 @@
     "lotr_port:gondor_obelisk/1",
     "lotr_port:gondor_obelisk/2"
   ],
-  "chance": 2000,
+  "rolls": {
+    "lotr_port:andrast": [
+      400,
+      2000,
+      2000,
+      2000
+    ],
+    "lotr_port:enedwaith": [
+      1500,
+      3000,
+      3000,
+      2000
+    ]
+  },
+  "lotr_success": {
+    "lotr_port:andrast": 0.803,
+    "lotr_port:enedwaith": 0.968
+  },
   "salt": 953459981,
   "ground": 0,
   "max_slope": 6,

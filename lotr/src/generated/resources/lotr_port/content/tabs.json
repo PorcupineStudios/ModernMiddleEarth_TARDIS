@@ -1437,7 +1437,7 @@
   {
     "id": "food",
     "items": [
-      "barrel",
+      "keg",
       "morgul_shroom",
       "marchpane_block",
       "block_of_kebab",
@@ -1526,8 +1526,6 @@
       "lemonade",
       "lime",
       "lime_liqueur",
-      "raw_mutton",
-      "cooked_mutton",
       "taurethrim_cocoa",
       "jungle_remedy",
       "corn",
@@ -1585,7 +1583,7 @@
       "wooden_plate",
       "stoneware_plate"
     ],
-    "icon": "barrel"
+    "icon": "keg"
   },
   {
     "id": "materials",
@@ -1984,9 +1982,6 @@
       "blue_dwarven_boots",
       "dwarven_spear",
       "blue_dwarven_spear",
-      "iron_horse_armor",
-      "gold_horse_armor",
-      "diamond_horse_armor",
       "gondorian_horse_armor",
       "rohirric_horse_armor",
       "isengard_warg_armor",

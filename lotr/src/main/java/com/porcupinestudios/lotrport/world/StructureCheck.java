@@ -93,6 +93,7 @@ final class StructureCheck {
                 empty.add(faction + " at " + at.toShortString());
             }
         });
-        WorldCheck.finish(empty.isEmpty() ? null : "structures without their NPCs: " + empty);
+        String trees = TreeCheck.result(level);
+        WorldCheck.finish(!empty.isEmpty() ? "structures without their NPCs: " + empty : trees);
     }
 }

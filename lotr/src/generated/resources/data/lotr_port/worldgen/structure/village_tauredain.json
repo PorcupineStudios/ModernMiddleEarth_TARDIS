@@ -8,7 +8,14 @@
     "lotr_port:village_tauredain/0",
     "lotr_port:village_tauredain/1"
   ],
-  "chance": 167,
+  "rolls": {
+    "lotr_port:tauredain_clearing": [
+      1
+    ]
+  },
+  "lotr_success": {
+    "lotr_port:tauredain_clearing": 0.005988023952095809
+  },
   "salt": 10157547,
   "ground": 4,
   "max_slope": 24,

@@ -8,7 +8,18 @@
     "lotr_port:village_harnedor/0",
     "lotr_port:village_harnedor/1"
   ],
-  "chance": 1440,
+  "rolls": {
+    "lotr_port:harnedor": [
+      1
+    ],
+    "lotr_port:harondor": [
+      1
+    ]
+  },
+  "lotr_success": {
+    "lotr_port:harnedor": 0.0006944444444444445,
+    "lotr_port:harondor": 0.0006944444444444445
+  },
   "salt": 896342615,
   "ground": 1,
   "max_slope": 24,

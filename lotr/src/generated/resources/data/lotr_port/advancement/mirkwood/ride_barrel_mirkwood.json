@@ -2,7 +2,7 @@
   "parent": "lotr_port:mirkwood/root",
   "display": {
     "icon": {
-      "id": "lotr_port:barrel"
+      "id": "lotr_port:keg"
     },
     "title": {
       "translate": "lotr.achievement.rideBarrelMirkwood.title"

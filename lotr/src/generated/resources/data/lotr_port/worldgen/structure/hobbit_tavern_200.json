@@ -9,7 +9,19 @@
     "lotr_port:hobbit_tavern/1",
     "lotr_port:hobbit_tavern/2"
   ],
-  "chance": 200,
+  "rolls": {
+    "lotr_port:shire_moors": [
+      40,
+      1500,
+      1500,
+      500,
+      1000,
+      200
+    ]
+  },
+  "lotr_success": {
+    "lotr_port:shire_moors": 0.111
+  },
   "salt": 314354934,
   "ground": 4,
   "max_slope": 6,

@@ -9,7 +9,23 @@
     "lotr_port:burnt_house/1",
     "lotr_port:burnt_house/2"
   ],
-  "chance": 2000,
+  "rolls": {
+    "lotr_port:angle": [
+      500,
+      1500,
+      800,
+      2000,
+      2000
+    ],
+    "lotr_port:pukel": [
+      2000,
+      2000
+    ]
+  },
+  "lotr_success": {
+    "lotr_port:angle": 0.778,
+    "lotr_port:pukel": 0.477
+  },
   "salt": 1972051544,
   "ground": 0,
   "max_slope": 6,

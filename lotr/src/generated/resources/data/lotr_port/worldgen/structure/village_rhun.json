@@ -8,7 +8,18 @@
     "lotr_port:village_rhun/0",
     "lotr_port:village_rhun/1"
   ],
-  "chance": 261,
+  "rolls": {
+    "lotr_port:rhun_land": [
+      1
+    ],
+    "lotr_port:rhun_land_steppe": [
+      1
+    ]
+  },
+  "lotr_success": {
+    "lotr_port:rhun_land": 0.0038314176245210726,
+    "lotr_port:rhun_land_steppe": 0.0038314176245210726
+  },
   "salt": 1339532076,
   "ground": 5,
   "max_slope": 24,

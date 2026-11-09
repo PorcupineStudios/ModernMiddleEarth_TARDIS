@@ -9,7 +9,42 @@
     "lotr_port:harad_ruined_fort/1",
     "lotr_port:harad_ruined_fort/2"
   ],
-  "chance": 3000,
+  "rolls": {
+    "lotr_port:near_harad": [
+      3000,
+      3000,
+      2000,
+      1500,
+      3000
+    ],
+    "lotr_port:near_harad_hills": [
+      3000,
+      3000,
+      2000,
+      1500,
+      3000
+    ],
+    "lotr_port:near_harad_riverbank": [
+      3000,
+      500,
+      2000,
+      3000
+    ],
+    "lotr_port:near_harad_semi_desert": [
+      2000,
+      4000,
+      1000,
+      2000,
+      2000,
+      3000
+    ]
+  },
+  "lotr_success": {
+    "lotr_port:near_harad": 0.966,
+    "lotr_port:near_harad_hills": 0.738,
+    "lotr_port:near_harad_riverbank": 0.87,
+    "lotr_port:near_harad_semi_desert": 0.886
+  },
   "salt": 1901442522,
   "ground": 8,
   "max_slope": 6,

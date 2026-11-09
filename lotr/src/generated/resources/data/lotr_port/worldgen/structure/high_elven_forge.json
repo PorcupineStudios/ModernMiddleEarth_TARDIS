@@ -9,7 +9,22 @@
     "lotr_port:high_elven_forge/1",
     "lotr_port:high_elven_forge/2"
   ],
-  "chance": 1000,
+  "rolls": {
+    "lotr_port:lindon": [
+      300,
+      600,
+      1000
+    ],
+    "lotr_port:lindon_woodlands": [
+      300,
+      600,
+      1000
+    ]
+  },
+  "lotr_success": {
+    "lotr_port:lindon": 0.202,
+    "lotr_port:lindon_woodlands": 0.0
+  },
   "salt": 2020906848,
   "ground": -1,
   "max_slope": 6,

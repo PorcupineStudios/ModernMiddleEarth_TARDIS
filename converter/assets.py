@@ -63,6 +63,7 @@ class Textures:
         self.out = out_assets
         self.report = report
         self.copied = {}
+        self.connected = {}  # texture id -> its connected sheet (see sheet())
 
     def _copy(self, src, dst_rel):
         dst = os.path.join(self.out, "textures", dst_rel + ".png")
@@ -84,6 +85,103 @@ class Textures:
         return self._resolve(icon, "items", "item")
 
     PIECES = ("top", "bottom", "left", "right", "topLeft", "topRight", "bottomLeft", "bottomRight")
+    SIDES = ("left", "right", "top", "bottom")
+    CORNERS = ("topLeft", "topRight", "bottomLeft", "bottomRight")
+    # The five looks a quarter of a face can have, by which of its two edges touch a connected block: tile 0 none
+    # (both edges and the corner), 1 only the side one (top and bottom edges drawn), 2 only the top or bottom one
+    # (left and right edges), 3 both but not the diagonal (inner corners), 4 all three (the base alone). LOTR's
+    # getConnectedIcon draws a side where that neighbour isn't connected, a corner where both sides aren't, and an
+    # inner corner where both are but the diagonal isn't, in that order over the base; every piece lies in its own
+    # half or quarter, so a quarter's look needs only its own two neighbours and diagonal.
+    SHEET_TILES = (SIDES + CORNERS, ("top", "bottom"), ("left", "right"), tuple(c + "Inv" for c in CORNERS), ())
+
+    def sheet(self, dst_rel, base, pieces, open_pieces=None):
+        """
+        Writes block/connected/<name>.png for a connected texture: the five quarter looks (SHEET_TILES) side by side,
+        the pieces on the base in row 0 (a shut gate, a brick) and open_pieces (default: the same) on nothing in row 1
+        (an open gate: LOTR draws it without its base, so only the frame shows). Pieces map a name to an image of the
+        base's size. Returns the sheet's id.
+        """
+        from PIL import Image
+        w, h = base.size
+        img = Image.new("RGBA", (w * 5, h * 2))
+        for row, (under, layers) in enumerate(((base, pieces), (None, pieces if open_pieces is None else open_pieces))):
+            for t, names in enumerate(self.SHEET_TILES):
+                tile = under.copy() if under is not None else Image.new("RGBA", (w, h))
+                for n in names:
+                    if n in layers:
+                        tile.alpha_composite(layers[n])
+                img.paste(tile, (t * w, row * h))
+        rel = "block/connected/" + dst_rel.split("/", 1)[1]
+        dst = os.path.join(self.out, "textures", rel + ".png")
+        os.makedirs(os.path.dirname(dst), exist_ok=True)
+        img.save(dst)
+        self.copied[rel] = self.copied.get(dst_rel, dst_rel)
+        self.connected[f"{NS}:{dst_rel}"] = f"{NS}:{rel}"
+        return f"{NS}:{rel}"
+
+    def gate_sheet(self, tex):
+        """
+        The connected sheet for a gate's texture. LOTR's own connected gates have one (from their pieces); for the
+        rest (portcullises, the cross-braced wooden gate) LOTR cut the frame from the texture's outer 3/16
+        (registerNonConnectedGateIcons), which for bars is a row of bar tips (dots). Here the frame is the texture's
+        own solid bars instead: its thickest full-width line (a crossbar, a plank) along the top and bottom, its
+        thickest full-height one (a bar, a post) down the sides; the outer 3/16 only if it has none. Shut, the
+        texture as it is; open, the frame alone, joined like a connected texture's sides and corners.
+        """
+        if tex in self.connected:
+            return self.connected[tex]
+        if not tex.startswith(NS + ":") or tex.split(":", 1)[1] not in self.copied:
+            return None
+        import io
+        from PIL import Image
+        dst_rel = tex.split(":", 1)[1]
+        img = Image.open(io.BytesIO(self.jar.read(self.copied[dst_rel]))).convert("RGBA")
+        w, h = img.size
+        px = img.load()
+        rows = self._thickest_run([sum(px[x, y][3] > 0 for x in range(w)) >= 0.9 * w for y in range(h)], h)
+        cols = self._thickest_run([sum(px[x, y][3] > 0 for y in range(h)) >= 0.9 * h for x in range(w)], w)
+        if rows and cols:
+            eh, ev = rows[1] - rows[0], cols[1] - cols[0]
+            horiz, vert = Image.new("RGBA", (w, h)), Image.new("RGBA", (w, h))
+            bar = img.crop((0, rows[0], w, rows[1]))
+            horiz.alpha_composite(bar, (0, 0))
+            horiz.alpha_composite(bar, (0, h - eh))
+            bar = img.crop((cols[0], 0, cols[1], h))
+            vert.alpha_composite(bar, (0, 0))
+            vert.alpha_composite(bar, (w - ev, 0))
+            frame = horiz.copy()
+            frame.alpha_composite(vert)
+            # sides from their own bar alone, so a side running on past a joint has no cross piece on it
+            src = {"top": horiz, "bottom": horiz, "left": vert, "right": vert}
+        else:
+            eh = ev = max(1, round(w / 16 * 3))
+            frame, src = img, {}
+        boxes = {"left": (0, 0, ev, h), "right": (w - ev, 0, w, h), "top": (0, 0, w, eh), "bottom": (0, h - eh, w, h),
+                 "topLeft": (0, 0, ev, eh), "topRight": (w - ev, 0, w, eh), "bottomLeft": (0, h - eh, ev, h),
+                 "bottomRight": (w - ev, h - eh, w, h)}
+        pieces = {}
+        for n, b in boxes.items():
+            layer = Image.new("RGBA", (w, h))
+            layer.paste(src.get(n, frame).crop(b), b[:2])
+            pieces[n] = layer
+            if n in self.CORNERS:
+                pieces[n + "Inv"] = layer
+        return self.sheet(dst_rel, img, {}, pieces)  # shut: the plain texture whatever its neighbours
+
+    @staticmethod
+    def _thickest_run(solid, size):
+        """(start, end) of the longest run of True in solid, or None if there is none or it's over 3/8 of size (a
+        solid texture, not a bar: its frame would cover a quarter's other half)."""
+        best, i = None, 0
+        while i < len(solid):
+            j = i
+            while j < len(solid) and solid[j]:
+                j += 1
+            if j > i and (best is None or j - i > best[1] - best[0]):
+                best = (i, j)
+            i = max(j, i + 1)
+        return best if best and best[1] - best[0] <= size * 3 // 8 else None
 
     def _connected(self, path):
         """LOTR connected textures ('gateDwarven_511') are built at runtime from a base and edge pieces. Bake the
@@ -103,16 +201,21 @@ class Textures:
         import io
         from PIL import Image
         img = Image.open(io.BytesIO(self.jar.read(base))).convert("RGBA")
-        for piece in self.PIECES:
+        base_img = img.copy()
+        pieces = {}
+        for piece in self.PIECES + tuple(c + "Inv" for c in self.CORNERS):
             src = f"assets/lotr/textures/blocks/{stem}_{piece}.png"
             if self.jar.has(src):
                 layer = Image.open(io.BytesIO(self.jar.read(src))).convert("RGBA")
                 if layer.size == img.size:
-                    img.alpha_composite(layer)
+                    pieces[piece] = layer
+                    if piece in self.PIECES:
+                        img.alpha_composite(layer)
         dst = os.path.join(self.out, "textures", dst_rel + ".png")
         os.makedirs(os.path.dirname(dst), exist_ok=True)
         img.save(dst)
         self.copied[dst_rel] = base
+        self.sheet(dst_rel, base_img, pieces, None)
         return f"{NS}:{dst_rel}"
 
     def _resolve(self, icon, old_dir, new_dir):

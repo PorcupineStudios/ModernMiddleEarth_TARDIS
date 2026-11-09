@@ -1,0 +1,13 @@
+{
+  "alcohol_strength": [
+    0.25,
+    0.5,
+    1.0,
+    2.0,
+    3.0
+  ],
+  "serving_mb": 250,
+  "keg_servings": 16,
+  "keg_water_mb": 3000,
+  "brew_ticks": 12000
+}

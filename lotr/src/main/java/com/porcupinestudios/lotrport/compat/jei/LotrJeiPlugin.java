@@ -41,7 +41,7 @@ public final class LotrJeiPlugin implements IModPlugin {
     private static final Map<MachineRecipe.Machine, List<String>> MACHINE_BLOCKS = Map.of(
             MachineRecipe.Machine.ALLOY_FORGE, List.of("alloy_forge", "dwarven_forge", "elven_forge", "orc_forge"),
             MachineRecipe.Machine.MILLSTONE, List.of("millstone"),
-            MachineRecipe.Machine.BREWING, List.of("barrel"),
+            MachineRecipe.Machine.BREWING, List.of("keg"),
             MachineRecipe.Machine.ENT_JAR, List.of("ent_jar"),
             MachineRecipe.Machine.UNSMELTING, List.of("unsmeltery"),
             MachineRecipe.Machine.HOBBIT_OVEN, List.of("hobbit_oven"),

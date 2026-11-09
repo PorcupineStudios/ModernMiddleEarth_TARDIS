@@ -9,7 +9,19 @@
     "lotr_port:hobbit_farm/1",
     "lotr_port:hobbit_farm/2"
   ],
-  "chance": 500,
+  "rolls": {
+    "lotr_port:shire": [
+      90,
+      45,
+      45,
+      70,
+      600,
+      500
+    ]
+  },
+  "lotr_success": {
+    "lotr_port:shire": 0.463
+  },
   "salt": 1394536627,
   "ground": 0,
   "max_slope": 6,

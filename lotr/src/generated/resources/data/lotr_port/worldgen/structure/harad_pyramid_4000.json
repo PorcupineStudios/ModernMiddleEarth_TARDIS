@@ -9,7 +9,15 @@
     "lotr_port:harad_pyramid/1",
     "lotr_port:harad_pyramid/2"
   ],
-  "chance": 4000,
+  "rolls": {
+    "lotr_port:near_harad_semi_desert": [
+      2000,
+      4000
+    ]
+  },
+  "lotr_success": {
+    "lotr_port:near_harad_semi_desert": 0.273
+  },
   "salt": 1388557420,
   "ground": 7,
   "max_slope": 6,

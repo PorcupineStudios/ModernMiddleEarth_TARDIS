@@ -335,7 +335,7 @@
     },
     {
       "kind": "collect",
-      "target": "lotr_port:cooked_mutton",
+      "target": "minecraft:cooked_mutton",
       "min": 4,
       "max": 8,
       "reward": 2.0,

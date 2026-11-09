@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "lotr_port:item/drink/torog_draught/goblet_gold"
+  }
+}

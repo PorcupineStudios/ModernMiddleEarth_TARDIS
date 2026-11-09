@@ -62,6 +62,7 @@ public final class LotrPort {
         LotrItems.register(modBus);
         LotrTabs.register(modBus);
         LotrRecipes.register(modBus);
+        com.porcupinestudios.lotrport.drink.Drinks.register(modBus);
         LotrWorldgen.register(modBus);
         LotrEntities.register(modBus);
         SharedApiHooks.register(modBus);
@@ -77,6 +78,7 @@ public final class LotrPort {
         QuestData.register();
         com.porcupinestudios.lotrport.content.SaplingRules.register();
         com.porcupinestudios.lotrport.tree.TreeRecords.register();
+        com.porcupinestudios.lotrport.tree.TreeOverflow.register();
         Quests.register();
         FastTravel.register();
         MapNet.register(modBus);

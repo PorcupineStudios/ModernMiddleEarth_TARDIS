@@ -8,7 +8,18 @@
     "lotr_port:village_umbar/0",
     "lotr_port:village_umbar/1"
   ],
-  "chance": 218,
+  "rolls": {
+    "lotr_port:umbar": [
+      1
+    ],
+    "lotr_port:umbar_hills": [
+      1
+    ]
+  },
+  "lotr_success": {
+    "lotr_port:umbar": 0.0045871559633027525,
+    "lotr_port:umbar_hills": 0.0045871559633027525
+  },
   "salt": 284467198,
   "ground": 5,
   "max_slope": 24,

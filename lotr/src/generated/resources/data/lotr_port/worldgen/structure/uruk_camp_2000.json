@@ -9,7 +9,21 @@
     "lotr_port:uruk_camp/1",
     "lotr_port:uruk_camp/2"
   ],
-  "chance": 2000,
+  "rolls": {
+    "lotr_port:adornland": [
+      4000,
+      150,
+      250,
+      200,
+      700,
+      600,
+      300,
+      2000
+    ]
+  },
+  "lotr_success": {
+    "lotr_port:adornland": 0.862
+  },
   "salt": 1404120411,
   "ground": 0,
   "max_slope": 6,

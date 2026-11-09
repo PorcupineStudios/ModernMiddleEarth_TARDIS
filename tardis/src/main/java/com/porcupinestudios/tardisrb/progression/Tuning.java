@@ -197,11 +197,12 @@ public record Tuning(CrashSite crashSite, Hop hop, Winder winder, Interior inter
      * much (Aaron 2026-11-04: navigate space faster); nothing goes faster than {@code max_speed} blocks a tick (the
      * server's "moved too quickly" check is off for players in space, whose levels are empty). Floating in
      * a solar system, a player's view and body lean to the true pull ({@code free_tilt}), turning {@code tilt_speed}
-     * of the way each tick; standing on blocks they stay six-way.
+     * of the way each tick; standing on blocks they stay six-way. A player faster than {@code chunk_skip_speed}
+     * blocks a tick loads no chunks until slower than half that ({@code space/SpaceChunks}; 0 = always load).
      */
     public record Motion(double orbitSpeed, double thrust, double maxSpeed, boolean dragFree, boolean freeTilt,
-            double tiltSpeed, double boost) {
-        public static final Motion DEFAULT = new Motion(2.5, 0.02, 40.0, true, true, 0.12, 0.25);
+            double tiltSpeed, double boost, double chunkSkipSpeed) {
+        public static final Motion DEFAULT = new Motion(2.5, 0.02, 40.0, true, true, 0.12, 0.25, 4.0);
         public static final Codec<Motion> CODEC = RecordCodecBuilder.create(i -> i.group(
                 Codec.doubleRange(0, 64).optionalFieldOf("orbit_speed", DEFAULT.orbitSpeed)
                         .forGetter(Motion::orbitSpeed),
@@ -211,7 +212,9 @@ public record Tuning(CrashSite crashSite, Hop hop, Winder winder, Interior inter
                 Codec.BOOL.optionalFieldOf("free_tilt", DEFAULT.freeTilt).forGetter(Motion::freeTilt),
                 Codec.doubleRange(0.01, 1).optionalFieldOf("tilt_speed", DEFAULT.tiltSpeed)
                         .forGetter(Motion::tiltSpeed),
-                Codec.doubleRange(0, 10).optionalFieldOf("boost", DEFAULT.boost).forGetter(Motion::boost))
+                Codec.doubleRange(0, 10).optionalFieldOf("boost", DEFAULT.boost).forGetter(Motion::boost),
+                Codec.doubleRange(0, 200).optionalFieldOf("chunk_skip_speed", DEFAULT.chunkSkipSpeed)
+                        .forGetter(Motion::chunkSkipSpeed))
                 .apply(i, Motion::new));
     }
 

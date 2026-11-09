@@ -1,7 +1,74 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "lotr_port:item/mug",
-    "layer1": "lotr_port:item/mug_orc_draught_liquid"
-  }
+    "layer0": "lotr_port:item/drink/orc_draught/mug"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "lotr_port:vessel": 1
+      },
+      "model": "lotr_port:item/orc_draught_clay"
+    },
+    {
+      "predicate": {
+        "lotr_port:vessel": 2
+      },
+      "model": "lotr_port:item/orc_draught_goblet_gold"
+    },
+    {
+      "predicate": {
+        "lotr_port:vessel": 3
+      },
+      "model": "lotr_port:item/orc_draught_goblet_silver"
+    },
+    {
+      "predicate": {
+        "lotr_port:vessel": 4
+      },
+      "model": "lotr_port:item/orc_draught_goblet_copper"
+    },
+    {
+      "predicate": {
+        "lotr_port:vessel": 5
+      },
+      "model": "lotr_port:item/orc_draught_goblet_wood"
+    },
+    {
+      "predicate": {
+        "lotr_port:vessel": 6
+      },
+      "model": "lotr_port:item/orc_draught_skull"
+    },
+    {
+      "predicate": {
+        "lotr_port:vessel": 7
+      },
+      "model": "lotr_port:item/orc_draught_glass"
+    },
+    {
+      "predicate": {
+        "lotr_port:vessel": 8
+      },
+      "model": "lotr_port:item/orc_draught_bottle"
+    },
+    {
+      "predicate": {
+        "lotr_port:vessel": 9
+      },
+      "model": "lotr_port:item/orc_draught_skin"
+    },
+    {
+      "predicate": {
+        "lotr_port:vessel": 10
+      },
+      "model": "lotr_port:item/orc_draught_horn"
+    },
+    {
+      "predicate": {
+        "lotr_port:vessel": 11
+      },
+      "model": "lotr_port:item/orc_draught_horn_gold"
+    }
+  ]
 }

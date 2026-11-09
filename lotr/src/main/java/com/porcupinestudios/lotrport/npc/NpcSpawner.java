@@ -2,6 +2,7 @@ package com.porcupinestudios.lotrport.npc;
 
 import java.util.Optional;
 import java.util.function.Function;
+import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
@@ -85,6 +86,9 @@ public final class NpcSpawner {
             return 0;
         }
         NpcSpawns.Entry entry = pick(here.get(), random);
+        if (entry.dark() && !here.get().hostilesInDay() && !Monster.isDarkEnoughToSpawn(level, ground, random)) {
+            return 0; // LOTR: orcs, wargs and spiders only in the dark, unless the biome allows hostiles by day
+        }
         int count = entry.min() + (entry.max() > entry.min() ? random.nextInt(entry.max() - entry.min() + 1) : 0);
         int spawned = 0;
         for (int i = 0; i < count; i++) {

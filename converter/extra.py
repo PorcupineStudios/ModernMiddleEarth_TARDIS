@@ -74,6 +74,19 @@ def _named(table):
     return {k: v for k, v in table.items() if isinstance(v, dict)}
 
 
+
+# What a few drinks do beyond LOTRItemMug's fields (their onEaten overrides), read by LotrDrinkItem.
+DRINK_SPECIAL = {
+    # LOTRItemMug itself: the Athelas brew takes away every harmful effect, as LOTRItemMugTauredainCure does
+    "lotr:item.mugAthelasBrew": {"cures_harmful": True},
+    "lotr:item.mugTauredainCure": {"cures_harmful": True},
+    # LOTRItemMugMorgulDraught: its effects only above 0 Mordor alignment; others get Poison for 5 s
+    "lotr:item.mugMorgulDraught": {"faction": {"id": "lotr_port:mordor",
+                                               "otherwise": [{"id": "minecraft:poison", "duration": 100}]}},
+    # LOTRItemMugTermite: 1 in 6 drinks explode with power 3 at the drinker
+    "lotr:item.mugTermiteTequila": {"explode": {"chance": 6, "power": 3.0}},
+}
+
 class Extra:
     def __init__(self, gen, export_dir, data_dir, assets_dir, content_dir, jar):
         self.gen = gen
@@ -412,7 +425,8 @@ class Extra:
             it["drink"] = {"heal": m.get("foodHealAmount", 0), "saturation": m.get("foodSaturationAmount", 0),
                            "alcohol": m.get("alcoholicity", 0), "effects": effects,
                            "damage": m.get("damageAmount", 0), "cures": m.get("curesEffects", False),
-                           "brewed": m.get("isBrewable", False), "food_drink": m.get("isFoodDrink", False)}
+                           "brewed": m.get("isBrewable", False), "food_drink": m.get("isFoodDrink", False),
+                           **DRINK_SPECIAL.get(m["id"], {})}
             n += 1
         return n
 

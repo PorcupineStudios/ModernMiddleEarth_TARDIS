@@ -9,7 +9,18 @@
     "lotr_port:near_harad_desert_camp/1",
     "lotr_port:near_harad_desert_camp/2"
   ],
-  "chance": 3000,
+  "rolls": {
+    "lotr_port:harnedor": [
+      3000
+    ],
+    "lotr_port:harondor": [
+      3000
+    ]
+  },
+  "lotr_success": {
+    "lotr_port:harnedor": 0.802,
+    "lotr_port:harondor": 0.886
+  },
   "salt": 515070712,
   "ground": -1,
   "max_slope": 6,

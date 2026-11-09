@@ -13,6 +13,9 @@ import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffectCategory;
+import java.util.ArrayList;
+import com.porcupinestudios.lotrport.faction.Alignment;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -36,6 +39,11 @@ public class LotrDrinkItem extends Item {
     public LotrDrinkItem(Properties properties, JsonObject drink) {
         super(properties);
         this.drink = drink;
+    }
+
+    /** Brewed in a keg (LOTR's barrel), so it has a strength. */
+    public boolean brewed() {
+        return ContentData.bool(drink, "brewed", false);
     }
 
     static JsonObject strength(ItemStack stack) {
@@ -94,7 +102,24 @@ public class LotrDrinkItem extends Item {
             if (ContentData.bool(drink, "cures", false)) {
                 entity.removeAllEffects();
             }
-            if (drink.has("effects")) {
+            if (ContentData.bool(drink, "cures_harmful", false)) {
+                for (MobEffectInstance e : new ArrayList<>(entity.getActiveEffects())) {
+                    if (e.getEffect().value().getCategory() == MobEffectCategory.HARMFUL) {
+                        entity.removeEffect(e.getEffect());
+                    }
+                }
+            }
+            JsonObject gate = drink.has("faction") ? drink.getAsJsonObject("faction") : null;
+            boolean refused = gate != null && !(entity instanceof Player p
+                    && Alignment.get(p, ResourceLocation.parse(gate.get("id").getAsString())) > 0);
+            if (refused) {
+                for (JsonElement e : gate.getAsJsonArray("otherwise")) {
+                    JsonObject o = e.getAsJsonObject();
+                    BuiltInRegistries.MOB_EFFECT.getHolder(ResourceLocation.parse(o.get("id").getAsString()))
+                            .ifPresent(h -> entity.addEffect(new MobEffectInstance(h,
+                                    ContentData.integer(o, "duration", 100), ContentData.integer(o, "amplifier", 0))));
+                }
+            } else if (drink.has("effects")) {
                 for (JsonElement e : drink.getAsJsonArray("effects")) {
                     JsonObject o = e.getAsJsonObject();
                     BuiltInRegistries.MOB_EFFECT.getHolder(ResourceLocation.parse(o.get("id").getAsString()))
@@ -112,6 +137,13 @@ public class LotrDrinkItem extends Item {
             float damage = ContentData.num(drink, "damage", 0) * factor;
             if (damage > 0) {
                 entity.hurt(level.damageSources().magic(), damage);
+            }
+            if (drink.has("explode")) {
+                JsonObject x = drink.getAsJsonObject("explode");
+                if (level.random.nextInt(Math.max(1, ContentData.integer(x, "chance", 6))) == 0) {
+                    level.explode(null, entity.getX(), entity.getY(), entity.getZ(),
+                            ContentData.num(x, "power", 3f), Level.ExplosionInteraction.TNT);
+                }
             }
             if (entity instanceof ServerPlayer sp) {
                 sp.awardStat(Stats.ITEM_USED.get(this));

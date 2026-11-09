@@ -9,7 +9,15 @@
     "lotr_port:mordor_camp/1",
     "lotr_port:mordor_camp/2"
   ],
-  "chance": 3000,
+  "rolls": {
+    "lotr_port:wilderland": [
+      2000,
+      3000
+    ]
+  },
+  "lotr_success": {
+    "lotr_port:wilderland": 0.932
+  },
   "salt": 1066520893,
   "ground": 0,
   "max_slope": 6,

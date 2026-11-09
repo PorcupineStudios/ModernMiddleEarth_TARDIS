@@ -9,7 +9,17 @@
     "lotr_port:dol_guldur_camp/1",
     "lotr_port:dol_guldur_camp/2"
   ],
-  "chance": 50,
+  "rolls": {
+    "lotr_port:dol_guldur": [
+      5,
+      160,
+      80,
+      50
+    ]
+  },
+  "lotr_success": {
+    "lotr_port:dol_guldur": 0.962
+  },
   "salt": 1968103478,
   "ground": 0,
   "max_slope": 6,

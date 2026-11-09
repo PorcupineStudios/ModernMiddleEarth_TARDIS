@@ -9,7 +9,18 @@
     "lotr_port:gondor_watchfort/1",
     "lotr_port:gondor_watchfort/2"
   ],
-  "chance": 800,
+  "rolls": {
+    "lotr_port:gondor": [
+      800
+    ],
+    "lotr_port:gondor_woodlands": [
+      800
+    ]
+  },
+  "lotr_success": {
+    "lotr_port:gondor": 0.365,
+    "lotr_port:gondor_woodlands": 0.168
+  },
   "salt": 783980615,
   "ground": 0,
   "max_slope": 6,

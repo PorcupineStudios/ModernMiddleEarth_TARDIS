@@ -8,7 +8,14 @@
     "lotr_port:village_gulf_harad/0",
     "lotr_port:village_gulf_harad/1"
   ],
-  "chance": 261,
+  "rolls": {
+    "lotr_port:gulf_harad": [
+      1
+    ]
+  },
+  "lotr_success": {
+    "lotr_port:gulf_harad": 0.0038314176245210726
+  },
   "salt": 1313166381,
   "ground": 1,
   "max_slope": 24,

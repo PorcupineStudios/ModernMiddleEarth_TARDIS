@@ -32,11 +32,61 @@ https://claude.ai/artifact/KqhSSTCuKXGuwKHBoYJdcu. Rebuild features in modern co
 - `world/map/MiddleEarthMap` reads the generated map; `MapBiomeSource` (`lotr_port:middle_earth`) gives one biome
   per map pixel with wobbled borders; density function `lotr_port:map_terrain` gives ground height or hilliness,
   and the noise settings JSON shapes terrain from them. Tune heights in `converter/world.py` (or the JSON), not Java.
+- Terrain shape (2026-11-04, from LOTR's LOTRChunkProvider): density = map height - y (4x steeper below it, LOTR's
+  offset) + hilliness x (2 x 1.7's blended 3D noise, `old_blended_noise` xz factor 400; hilliness capped at 8 for
+  the 3D part so mountains don't float islands) + hilliness x a 2D hill noise. Hilliness fades to 1/4 within 32
+  blocks of a road (LOTR's roadNear). Stronger 3D noise broke `terrainIsSmoothAcrossBiomeBorders` (overhangs at rivers).
+- Heights measured from LOTR (2026-11-05): the exporter's shot runner (`converter/.../ShotRunner.java`,
+  `-Dlotrexport.shots=<script>`: `goto`, `wait`, `shot`, `survey`) generates LOTR's real terrain every 48 chunks over
+  the whole map (~20 min) into `converter/export/terrain_survey.json`: per biome mean/std ground, and each LOTRMountains
+  peak's ground. `world.py` uses the mean as the biome height (minus `SURVEY_OFFSET`) and std as hilliness, except in
+  biomes holding a peak (their mean includes the mountain); peaks are cones up to the measured peak over LOTR's range
+  (`map.json` `mountains`, `MiddleEarthMap.heightAt`). Mount Doom's crater and LOTR's generateMountainTerrain aren't ported.
+- Ground rules (2026-11-05, `world.py` surface rule + `converter/grounds.py`): LOTR's podzol patches (35% podzol, 15%
+  coarse "barren" dirt; moss in wet forests), rock and gravel breaking through above y 90, sandstone under sand, each
+  biome's own patches (the 31 generateBiomeTerrain overrides as a table: Brown Lands coarse dirt, Harad dirt/sand,
+  Gorgoroth soils...), marsh pools at sea level in the swamp-variant biomes, quagmire + mud disks where LOTR had
+  quagmires. LOTR's thresholds are scaled by `NOISE_SCALE` for 1.18 noise. Biome grass/foliage/sky/fog colours are LOTR's.
+  Underground: deepslate under y 0 (ores get deepslate targets), granite/diorite/andesite/tuff blobs, pointed
+  dripstone hung from cave roofs in place of LOTR's stalactites.
+- Mountains (2026-11-05): LOTR's generateMountainTerrain per biome (`grounds.MOUNTAINS`: snow block tops above snow
+  height - rockDepth, the biome's stone above stone height; foothills none; Mordor's stone all Mordor rock), rock
+  breaking through keeps rising above y 150 (LOTR's threshold keeps falling), 3D noise up to `MAX_3D` 20 and crags
+  (vanilla's jagged noise) for hilliness over `JAGGED_FROM` 12. Peaks flatten hills by 1 + LOTR's height boost; Mount
+  Doom has a flat crater floor and lava to y 198 (`CraterLavaFeature`, `MiddleEarthMap.lavaAt`). Peak biomes with
+  1000+ surveyed columns (Misty Mountains) keep the survey.
+- Roughness measured against LOTR (2026-11-05): GameTest `terrainRoughness` and the exporter's `rough X Z R` step log
+  mean, spread, mean 4-block step and share of 45-degree steps over the same squares. Tuned: `HILL_2D` 2.5 (Shire
+  spread 4.0 vs LOTR 4.8), `HILL_BIAS` 0.4 (the 4x-steeper ground below lifted means), crags `JAGGED` 2 and ridges
+  `RIDGES` 1.2 over hilliness 10. Mountains now match LOTR's slopes (step ~3.8, 30% steep vs 3.1-3.7, 28-38%) and
+  means, but their spread over 384 blocks is ~23 vs LOTR's 32-40 (wider ridges only shifted whole areas).
+- Plants: LOTR's reed patches (`reedPerChunk`, dried with `dryReedChance`) and the Dead Marshes' dead plants
+  (`world.py marsh_plants`). Marsh lights left out: the block draws as a white cube, not LOTR's particles.
+- Big trees (Fangorn oaks reach 25+ blocks from the trunk) overflow what a feature may write: `tree/TreeOverflow`
+  keeps those blocks per chunk and places them when that chunk is loaded.
+- Tree placement follows LOTR's rules (2026-11-05, `TemplateTreeFeature.fits`): logs go into air, plants, leaves
+  and soil; leaves only into air and plants; a tree whose logs would hit another tree's logs, or whose trunk would go
+  through another crown, isn't grown (~5% of forest trees). Before this, later trees' leaves cut holes in earlier
+  trunks and branches (300+ logs in the check's patches). Odd sapling squares grow round their middle (a trunk log
+  on it). The world check's `TreeCheck` generates 7 forests (252 chunks) and fails on any missing tree block, two
+  trees sharing a log, or decaying leaves. Run it locally like the CI "Middle-earth world" step (back up
+  `lotr/run/server.properties` first: the GameTest server uses it too). Screenshot script: `lotr/run/trees.txt`.
+- Forest floor (`ForestFloorFeature`, LOTRBiomeDecorator): fallen leaves (trees / 2 a chunk), leaf bushes (trees / 3),
+  rotten logs (`logsPerChunk`); ferns and tall grass where LOTR had them. Foggy biomes (tag `lotr_port:foggy`, LOTR's
+  biomeColors foggy) get a client fog (`LotrClientGame.fog`). Screenshot scripts: `lotr/run/mt.txt`,
+  `converter/run/client/shots3.txt` (the shot runner gives night vision; `goto ... floor` = ground under trees).
 - World type "Middle-earth" (`lotr_port:middle_earth` preset): the overworld is generated from the map, so spawn and
   respawn are vanilla. Any other world gets the `lotr_port:middle_earth` dimension; `/lotr travel` goes there and
   back. `LotrDimensions.middleEarth(server)` returns whichever level is Middle-earth.
 - Rivers: `MiddleEarthMap.Rivers` (noise, cut into ground under `max_height`); roads: `map/Roads` +
-  `world/feature/RoadFeature` (no bridges yet). Trees and ores per biome are generated data (`converter/trees.py`,
+  `world/feature/RoadFeature`. Road blocks are LOTR's per biome (2026-11-04, `converter/roads.py`, a table read from the
+  decompiled LOTRRoadType and biome getRoadBlock/getBridgeBlock; 22 road types, weights = LOTR's random branches,
+  repair = share of blocks laid on old roads), written into `roads.json` (`types`, `bridges`, `biomes`). Slabs where a
+  road column is a block below the next (LOTR's exact slab rule not copied). Bridges are LOTR's LOTRRoadGenerator rules:
+  the deck rises half a block per block of water depth under it (cap 5 above the water, slabs on half steps), so it
+  arches over the deep middle; edge columns (a non-road block among 8 neighbours) are beam + fence with a beam below
+  and a hanging fence brace; every 8th diagonal edge column is a pillar from the bed to 4 above the deck. Planks/slab/
+  beam/fence per biome (oak, Mirkwood dark oak, Mordor charred). Trees and ores per biome are generated data (`converter/trees.py`,
   `world.py`); tree shapes are vanilla stand-ins for LOTR's hand-made ones.
 - Trees (2026-11-04): the exporter grows each of LOTR's 111 tree types with its own generator, up to six shapes each
   (`TreeExporter`, `trees.json.gz`, run in CI). `converter/trees.py` saves shapes as `structure/tree/<type>/<n>.nbt`
@@ -98,18 +148,57 @@ https://claude.ai/artifact/KqhSSTCuKXGuwKHBoYJdcu. Rebuild features in modern co
 - Not yet: animals, creature behaviour (troll stone, spider webs, ent rooting...), mounts for mounted units,
   female NPCs, LOTR's trader outfits. `/lotr npc spawn|types|people` for testing.
 
+## Animals
+- Animals are creature NPCs (above) with vanilla stand-ins; `converter/world.py GRAZERS` adds vanilla spawners on
+  grass biomes. The PC branch's own animal port (`animal/`, `animals.py`, `creatures.py`, mount armor) was dropped in
+  the 2026-11-09 merge in favour of this. NPCs with `spawnsInDarkness` spawn only in the dark unless the biome has
+  `hostiles_in_day` (`npc_spawns`, `NpcSpawner`). LOTR mutton and horse armor items are vanilla (`VANILLA_ITEMS`).
+
 ## Structures and spawning (phase 7)
 - 82 LOTR structures (`converter/structures.py`): `structure/<id>/<0-2>.nbt` (3 seeded layouts), placed by our own
   structure type `lotr_port:lotr` (`world/structure/LotrStructure` + `LotrStructurePiece`, 2026-11-04 rework):
-  - Rarity is LOTR's: LOTR gives each biome its own chance per chunk, so there is one structure + set per (structure,
-    chance): `worldgen/structure/<id>[_<chance>]`, biome tag `has_structure/<id>[_<chance>]`, set `random_spread`
-    spacing 1 (every chunk is a candidate) and the structure's own `chance` + `salt` roll 1 in chance per chunk with a
-    mixed hash. Not vanilla's `frequency`: it seeds its random linearly from the chunk, and with every chunk rolling
-    that put structures in long rows of overlapping neighbours. Before all this, one spacing ~sqrt(lowest chance)
-    applied to every biome, so structures were far too common.
-  - Then the structure turns down ground the way LOTR's generators did: water at the surface, more than `max_slope`
-    (6) blocks between highest and lowest ground under the footprint, a road within `road_distance` (16). Random
-    layout and rotation; template layer `ground` sits at the surface.
+  - Rolls are LOTR's, bit for bit (2026-11-04, read from `LOTRBiomeDecorator`): LOTR seeds one `java.util.Random`
+    per chunk from the chunk's block corner alone (no world seed: `x*1879267 ^ z*67209689L`, squared and mixed), takes
+    the biome at the chunk's +16, +16, and rolls that biome's list in order, 1 in each entry's chance. One structure +
+    set per (structure, chance): `worldgen/structure/<id>[_<chance>]`, biome tag `has_structure/<id>[_<chance>]`, set
+    `random_spread` spacing 1 (every chunk asks). The structure's `rolls` holds per biome the list's chances up to
+    and including its own, so it replays the rolls before it (`LotrStructure.lotrRoll`); an entry LOTR lists twice in
+    a biome (Udun's camps and warg pits) rolls twice. It overrides `findValidGenerationPoint` because LOTR picks by the
+    chunk's biome, not the building's. LOTR's chunk rules too: nothing with a block corner within `axis_margin` (32)
+    of the x or z axis, nothing in a chunk with a road within `chunk_road_distance` (16) of its +8, +8 spot.
+  - Rates match LOTR by measuring LOTR (2026-11-04): LOTR's generators turned many rolls down with their own ground
+    tests (117 classes, ~20 shapes) on LOTR's terrain. The exporter's rates mode (`StructureRateExporter`,
+    `-Dlotrexport.rates=true`, or the "Convert LOTR" workflow's `rates` input) opens a throwaway world, puts a probe in
+    place of every biome decorator's random structure with chance 1, and populates 4x4-chunk patches (9 per biome)
+    of LOTR's real Middle-earth: at every chunk the decorator offers every structure at its own spot, the probe builds
+    it with Forge's block snapshots captured, counts whether it stood and puts every block back (and removes its
+    NPCs), so each sample is on untouched land. `converter/export/structure_rates.json` holds per biome the chunks
+    LOTR rolls in (off the axes, no road) and per structure the probes and how many stood; orchard and vineyard
+    chunks count but get no probe (their variant turns structures off). `structures.py` writes stood per probe times
+    the share of the biome's chunks that probe at all as `lotr_success` per biome (under 20 probes: the structure's
+    share per probe over all biomes), and the structure keeps LOTR's roll with that chance (a hash of seed, chunk and
+    salt). Run 2026-11-04 on this PC: all 1148 patches in 9 minutes, 13599 chunks, 51052 probes, 65% stood; a first
+    run (before two fixes) agreed on stood per probe within sampling noise (mean difference 0.004). The fixes: the
+    world's scheduled block ticks are dropped each tick (1.7.10 keeps those of unloaded chunks; they slowed the first
+    run 3x), and the decorator's chunk is put back after each probe (LOTR's decorator isn't re-entrant: a neighbour
+    populated inside a probe took the rest of the list). Only biomes LOTR doesn't paint on its map (beaches, glacier,
+    Near Harad riverbank, Tauredain clearing) take the all-biome share. Locally: `cd converter`, JDK 25 as JAVA_HOME,
+    `JAVA_TOOL_OPTIONS="-Dlotrexport.run=true -Dlotrexport.out=../../export -Dlotrexport.rates=true" ./gradlew
+    runClient` (no spaces in the out path: Java 8 can't quote them); opens a game window and quits by itself.
+  - Then, so this port's terrain doesn't turn the roll down a second time, the structure tries up to 8 spots in the
+    chunk (`TRIES`) for ground that fits: no water at the surface, at most `max_slope` (6) blocks between highest and
+    lowest ground under the footprint, no road within `road_distance` (16); none fits, nothing is built. LOTR's spot
+    (+8..+23 into the chunk), layout and turn come from a random of the structure's own (`salt`): sharing vanilla's
+    per-chunk random put two structures of one chunk on the same spot.
+  - No overlaps (Aaron 2026-11-04: buildings colliding): LOTR's generators refused anything but natural ground (its
+    `isSurfaceStatic`: the biome's top/filler, grass, dirt, gravel, paths, mud, sand), so a later one never stood in an
+    earlier one. Here every plan is a pure function of seed and chunk, so each structure replans the LOTR structures
+    of nearby chunks and gives way to one that comes first (a fixed hash order of chunks, then LOTR's list order) and
+    whose own roll, share and ground pass, within `gap` (2) blocks. A structure's spot is its first that fits and never
+    moves for another, which keeps this exact. GameTest `StructureTests` plans 1024 Shire chunks, fails on any
+    overlap and logs per structure how many stood against LOTR's expected count (`LotrStructure.expected`: 1 in
+    chance times `lotr_success`, summed over the chunks); the port falls short only where no spot fits or another
+    structure is in the way (2026-11-04: 27 placed against LOTR's 29.7).
   - Air: templates hold real air only where LOTR cleared space (dug cellars from the export; above ground, a
     column's open space under its highest block, i.e. rooms and under roofs). Everywhere else is structure void, so
     natural terrain stays. `terrain_adaptation` is `none` (beard_box carved the air ditches round every building);
@@ -118,7 +207,7 @@ https://claude.ai/artifact/KqhSSTCuKXGuwKHBoYJdcu. Rebuild features in modern co
   - Doors: the lower half takes the upper half's hinge (1.7.10 kept it only on top; split doors). Gates
     (`content/GateBlock`, LOTR's multi-block gates) rotate and mirror with the structure and open as one gate: the
     touching blocks of the same kind in the same plane.
-  - Not yet: LOTR's quirk of no structures within 32 blocks of the x/z axes, biome variants that disable structures.
+  - Biome variants that disable structures (LOTR's vineyards and orchards) are folded into `lotr_success`, not placed.
 - Template NPCs are `{id:lotr_port:npc, NpcType, Fresh:1b, PersistenceRequired:1b}`; `LotrNpc` rolls skin, gear and
   name on load when `Fresh` is set. LOTR's spawner blocks become up to 3 placed NPCs (no respawning yet).
 - Natural spawning: `npc_spawns/<biome ns>/<biome path>.json` (entries npc/weight/min/max, cap, chance, interval),
@@ -205,6 +294,47 @@ https://claude.ai/artifact/KqhSSTCuKXGuwKHBoYJdcu. Rebuild features in modern co
 - History: `colony_founded` (with `ai`), `ai_relation`, `ai_siege`, `colony_transferred`; `AiReplay` rebuilds owners
   and wars from the log alone. Admin: `/lotr ai list|day [n]`. Not yet: attacking player colonies (needs RingRealms'
   offline protections), real soldiers on the march, trade and treaties beyond war/peace, refugees.
+
+## Gates and connected textures (2026-11-04)
+- LOTR drew many blocks with connected textures (gates, portcullises, dwarven bricks): a base plus side, corner and
+  inside-corner pieces by neighbour. `converter/assets.py sheet` bakes each into `textures/block/connected/<tex>.png`:
+  5 tiles x 2 rows (tile per quarter: 0 nothing connected, 1 beside only, 2 above/below only, 3 both but not the
+  diagonal, 4 all; row 0 shut, row 1 open = no base, only the frame). Gates without LOTR pieces (iron/bronze
+  portcullis, cross-braced wooden gate) get a frame from their own solid bars (thickest full-width line top and
+  bottom, thickest full-height line down the sides); LOTR cut their outer 3/16, which for bars is a row of dots.
+  Blocks use model loader `lotr_port:connected` (`client/ConnectedModel`, shapes `cube`,
+  `gate`, `full_gate`): it reads the neighbours in `getModelData` (NeoForge calls it per block in chunk builds) and
+  draws each face a quarter at a time. The rule is LOTR's (`GateBlock.connects`): same block; a gate only in its
+  plane, same axis and open state; an open upright gate also to the whole row under it (diagonals too, or the bottom
+  joints get inner corners).
+- Checked in game 2026-11-04 with `client/DevScript` (dev only): `JAVA_TOOL_OPTIONS=-Dlotr_port.devscript=<file in
+  run/>` plus `./gradlew :lotr:runClient -PquickPlay=<save>` runs a script of commands, waits, right-clicks and
+  screenshots (`run/screenshots/`), then quits; steps in its javadoc. The save needs `allowCommands` and
+  `confirmedExperimentalSettings`, and `run/options.txt` `onboardAccessibility:false`, or a screen blocks quick play.
+- Gates (`content/GateBlock`): use or redstone opens/shuts the whole gate (same block, same axis, in its plane, max 64);
+  with a block item or a bow in hand the click places/shoots instead (LOTR). Open gates have no collision and draw
+  their frame (they used to render as air: "right-clicking deletes it"). Dwarven doors (`full`) are whole blocks while
+  shut; they have no LOTR texture of their own to frame, so they keep a plain panel (`gates_without_frame`). LOTR's
+  gate sounds aren't ported: vanilla wooden/iron door sounds.
+- NPCs open gates (Aaron 2026-11-04, unlike LOTR, for colonists): a shut upright gate is `DOOR_WOOD_CLOSED` to the
+  pathfinder, `LotrNpc` navigation opens doors, `npc/OpenGateGoal` opens a gate on its path and shuts it once through
+  (not while someone stands in it); vanilla `OpenDoorGoal` for doors. GameTest `KegGateTests.gatesOpenAsOne`.
+
+## Drinks and kegs (2026-11-04, merged onto the cloud drinks 2026-11-09, `drink/`)
+- Drinks are the cloud's `LotrDrinkItem` (stats in `content/drinks.json`, components `LotrComponents.DRINK_STRENGTH`
+  and `VESSEL`, a vessel id like `goblet_gold`, none = mug). Brewing recipes are `MachineRecipe` BREWING
+  (`recipe/brewing/*.json`). `converter/drinks.py` adds `drinking/settings.json` (`DrinkData`: strength factors,
+  serving 250 mB, keg 16 servings, 3000 mB water, `brew_ticks` 12000), `content/vessels.json`,
+  `content/drink_fluids.json`, each drink's picture per vessel (`item/drink/<item>/<vessel>`, model predicate
+  `lotr_port:vessel`) and the keg screen textures (`gui/keg*.png`).
+- LOTR's barrel is the Keg (`keg`): `KegBlock`/`KegBlockEntity`/`KegMenu`, client `KegScreen`. 6 ingredients + 3
+  water buckets (or piped water), Start Brewing, one strength per recipe `time` (else `brew_ticks`) to potent, Stop
+  Brewing after the first step. Right-click with an empty vessel pours a serving. Structures' barrels load as full
+  kegs, and their chests' drinks keep strength and vessel.
+- Create: no dependency. The keg exposes `Capabilities.FluidHandler.BLOCK` (tank 0 the drink, tank 1 water) and
+  `ItemHandler.BLOCK`; drinks and vessels expose `FluidHandler.ITEM` (one serving). Each drink is a fluid
+  (`Drinks.DrinkFluid`, tinted water) carrying its strength. GameTests `KegGateTests`.
+- Not yet: alcohol tolerance, drunken speech, placeable mugs, NPCs drinking.
 
 ## Combat and armor models (2026-11-04)
 - 1.7.10 had no attack cooldown. LOTR's melee timing (`LOTRWeaponStats`: 15 ticks for a player's sword ÷ the

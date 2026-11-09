@@ -22,31 +22,36 @@
       "npc": "lotr_port:angmar_orc",
       "weight": 67,
       "min": 4,
-      "max": 6
+      "max": 6,
+      "dark": true
     },
     {
       "npc": "lotr_port:angmar_orc_archer",
       "weight": 33,
       "min": 4,
-      "max": 6
+      "max": 6,
+      "dark": true
     },
     {
       "npc": "lotr_port:angmar_orc_bombardier",
       "weight": 17,
       "min": 1,
-      "max": 2
+      "max": 2,
+      "dark": true
     },
     {
       "npc": "lotr_port:angmar_warg",
       "weight": 100,
       "min": 4,
-      "max": 4
+      "max": 4,
+      "dark": true
     },
     {
       "npc": "lotr_port:mountain_troll",
       "weight": 67,
       "min": 1,
-      "max": 3
+      "max": 3,
+      "dark": true
     },
     {
       "npc": "lotr_port:ranger_north",
@@ -64,13 +69,15 @@
       "npc": "lotr_port:snow_troll",
       "weight": 17,
       "min": 1,
-      "max": 3
+      "max": 3,
+      "dark": true
     },
     {
       "npc": "lotr_port:troll",
       "weight": 100,
       "min": 1,
-      "max": 3
+      "max": 3,
+      "dark": true
     },
     {
       "npc": "lotr_port:wicked_dwarf",
@@ -78,5 +85,6 @@
       "min": 1,
       "max": 3
     }
-  ]
+  ],
+  "hostiles_in_day": true
 }

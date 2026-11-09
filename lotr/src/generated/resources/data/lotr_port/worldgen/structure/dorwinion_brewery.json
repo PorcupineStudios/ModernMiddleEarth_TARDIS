@@ -9,7 +9,18 @@
     "lotr_port:dorwinion_brewery/1",
     "lotr_port:dorwinion_brewery/2"
   ],
-  "chance": 500,
+  "rolls": {
+    "lotr_port:dorwinion": [
+      1000,
+      300,
+      400,
+      200,
+      500
+    ]
+  },
+  "lotr_success": {
+    "lotr_port:dorwinion": 0.203
+  },
   "salt": 868799589,
   "ground": 0,
   "max_slope": 6,

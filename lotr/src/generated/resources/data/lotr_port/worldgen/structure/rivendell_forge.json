@@ -9,7 +9,16 @@
     "lotr_port:rivendell_forge/1",
     "lotr_port:rivendell_forge/2"
   ],
-  "chance": 200,
+  "rolls": {
+    "lotr_port:rivendell": [
+      100,
+      200,
+      200
+    ]
+  },
+  "lotr_success": {
+    "lotr_port:rivendell": 0.393
+  },
   "salt": 639655409,
   "ground": -1,
   "max_slope": 6,

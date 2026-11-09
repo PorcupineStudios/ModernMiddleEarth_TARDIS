@@ -8,7 +8,26 @@
     "lotr_port:village_harad_nomad/0",
     "lotr_port:village_harad_nomad/1"
   ],
-  "chance": 2880,
+  "rolls": {
+    "lotr_port:near_harad": [
+      1
+    ],
+    "lotr_port:near_harad_hills": [
+      1
+    ],
+    "lotr_port:near_harad_riverbank": [
+      1
+    ],
+    "lotr_port:near_harad_semi_desert": [
+      1
+    ]
+  },
+  "lotr_success": {
+    "lotr_port:near_harad": 0.00034722222222222224,
+    "lotr_port:near_harad_hills": 0.00034722222222222224,
+    "lotr_port:near_harad_riverbank": 0.00034722222222222224,
+    "lotr_port:near_harad_semi_desert": 0.00034722222222222224
+  },
   "salt": 496085910,
   "ground": 0,
   "max_slope": 24,

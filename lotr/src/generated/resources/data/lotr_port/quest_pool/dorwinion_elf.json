@@ -56,7 +56,7 @@
     },
     {
       "kind": "collect",
-      "target": "lotr_port:barrel",
+      "target": "lotr_port:keg",
       "min": 3,
       "max": 6,
       "reward": 4.0,
@@ -83,7 +83,7 @@
     },
     {
       "kind": "collect",
-      "target": "lotr_port:barrel",
+      "target": "lotr_port:keg",
       "min": 3,
       "max": 6,
       "reward": 4.0,
@@ -146,7 +146,7 @@
     },
     {
       "kind": "collect",
-      "target": "lotr_port:barrel",
+      "target": "lotr_port:keg",
       "min": 3,
       "max": 6,
       "reward": 4.0,

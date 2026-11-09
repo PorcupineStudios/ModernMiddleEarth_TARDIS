@@ -4,13 +4,15 @@
       "npc": "lotr_port:dol_guldur_orc",
       "weight": 100,
       "min": 4,
-      "max": 6
+      "max": 6,
+      "dark": true
     },
     {
       "npc": "lotr_port:dol_guldur_orc_archer",
       "weight": 50,
       "min": 4,
-      "max": 6
+      "max": 6,
+      "dark": true
     },
     {
       "npc": "lotr_port:galadhrim_warden",
@@ -28,13 +30,15 @@
       "npc": "lotr_port:mirk_troll",
       "weight": 25,
       "min": 1,
-      "max": 3
+      "max": 3,
+      "dark": true
     },
     {
       "npc": "lotr_port:mirkwood_spider",
       "weight": 100,
       "min": 4,
-      "max": 6
+      "max": 6,
+      "dark": true
     },
     {
       "npc": "lotr_port:wood_elf_scout",
@@ -48,5 +52,6 @@
       "min": 4,
       "max": 4
     }
-  ]
+  ],
+  "hostiles_in_day": true
 }

@@ -4,6 +4,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.porcupinestudios.lotrport.LotrPort;
 import com.porcupinestudios.lotrport.crafting.FactionTableBlock;
+import com.porcupinestudios.lotrport.drink.KegBlock;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.function.Function;
@@ -64,12 +65,15 @@ public final class LotrBlocks {
     }
 
     private static Function<BlockBehaviour.Properties, Block> factory(String kind, JsonObject e) {
+        if (kind.equals("keg")) {
+            return p -> new KegBlock(p, box(e)); // LOTR's barrel; a facing block too
+        }
         if (ContentData.bool(e, "facing", false)) {
             float[] box = "shaped".equals(kind) ? box(e) : null;
             return p -> new FacingBlock(p, box);
         }
         return switch (kind) {
-            case "gate" -> GateBlock::new;
+            case "gate" -> p -> new GateBlock(p, ContentData.bool(e, "full", false));
             case "pillar" -> RotatedPillarBlock::new;
             case "slab" -> SlabBlock::new;
             case "stairs" -> p -> new StairBlock(Blocks.STONE.defaultBlockState(), p);

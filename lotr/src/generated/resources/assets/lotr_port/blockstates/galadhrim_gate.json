@@ -1,42 +1,7 @@
 {
   "variants": {
-    "facing=north,open=false": {
-      "model": "lotr_port:block/galadhrim_gate"
-    },
-    "facing=north,open=true": {
-      "model": "minecraft:block/air"
-    },
-    "facing=south,open=false": {
-      "model": "lotr_port:block/galadhrim_gate"
-    },
-    "facing=south,open=true": {
-      "model": "minecraft:block/air"
-    },
-    "facing=east,open=false": {
-      "model": "lotr_port:block/galadhrim_gate",
-      "y": 90
-    },
-    "facing=east,open=true": {
-      "model": "minecraft:block/air"
-    },
-    "facing=west,open=false": {
-      "model": "lotr_port:block/galadhrim_gate",
-      "y": 90
-    },
-    "facing=west,open=true": {
-      "model": "minecraft:block/air"
-    },
-    "facing=up,open=false": {
-      "model": "lotr_port:block/galadhrim_gate_flat"
-    },
-    "facing=up,open=true": {
-      "model": "minecraft:block/air"
-    },
-    "facing=down,open=false": {
-      "model": "lotr_port:block/galadhrim_gate_flat"
-    },
-    "facing=down,open=true": {
-      "model": "minecraft:block/air"
+    "": {
+      "model": "lotr_port:block/galadhrim_gate_connected"
     }
   }
 }
