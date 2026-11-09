@@ -291,7 +291,7 @@ class Machine:
             elif op in (0xAC, 0xAE, 0xB0, 0xB1):
                 return stack.pop() if op != 0xB1 else None
             elif op == 0xB2:  # getstatic
-                stack.append(None)
+                stack.append(self.static(*cf.ref_full(u2(pc + 1))))
                 pc += 3
             elif op == 0xB3:
                 stack.pop()
@@ -353,9 +353,16 @@ class Machine:
                 pc += 1
             elif op == 0xC0:  # checkcast
                 pc += 3
+            elif op == 0xC1:  # instanceof: models ask "ridden by a player?" and such; no
+                stack.pop()
+                stack.append(0)
+                pc += 3
             else:
                 raise Unsupported(f"opcode {op:#x} in {cf.this_name}")
         return None
+
+    def static(self, owner, name, desc):
+        return None  # static fields (LOTRMod items, render state) mean nothing to a model's shape
 
     def invoke(self, op, owner, name, desc, target, args):
         if op == 0xB7 and name == "<init>" and isinstance(target, Holder):
