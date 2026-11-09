@@ -4,6 +4,7 @@ import com.porcupinestudios.tardisrb.TardisRB;
 import com.porcupinestudios.tardisrb.block.Exteriors;
 import com.porcupinestudios.tardisrb.core.TardisManager;
 import com.porcupinestudios.tardisrb.core.TardisRecord;
+import com.porcupinestudios.tardisrb.entity.TardisBody;
 import com.porcupinestudios.tardisrb.flight.FreeFlight;
 import com.porcupinestudios.tardisrb.interior.Interiors;
 import com.porcupinestudios.tardisrb.progression.TardisContent;
@@ -36,6 +37,10 @@ import qouteall.q_misc_util.my_util.DQuaternion;
  * of portals, one in the police box's doorway looking into the console room and its reverse in the interior doorway
  * looking out. The door blocks turn into open shells ({@code open=true}) so the portals sit in line with the doorway. You see the other side live and walk through with no loading screen. Closing the door,
  * or the TARDIS flying off, removes them. The open state and portal ids are kept in the record's module data.
+ *
+ * <p>When the box is loose ({@code flight/FreeFlight}, Aaron 2026-11-09: allow opening the door in entity state) the
+ * outside portal stands in front of the body's doors and follows it every tick it moves ({@link #follow}); the body
+ * draws its doors open and lets you walk in.
  */
 public final class Doors {
     public static final String MODULE = "tardis_rb:door";
@@ -56,6 +61,8 @@ public final class Doors {
             CompoundTag tag = tardis.moduleData(MODULE);
             if (tag.contains("closing_at") && now >= tag.getLong("closing_at")) {
                 close(server, tardis);
+            } else if (tag.getBoolean("open") && FreeFlight.isLoose(tardis)) {
+                follow(server, tardis);
             }
         }
     }
@@ -102,6 +109,44 @@ public final class Doors {
         return new Side(c, facing);
     }
 
+    /** The outside opening of a loose box: in front of its doors, wherever it is now. */
+    public static Side outside(TardisBody body) {
+        Tuning.DoorTuning t = TardisContent.tuning().door();
+        Direction facing = Direction.fromYRot(body.getYRot());
+        Vec3 c = body.position().add(0, t.bottom() + t.height() / 2, 0)
+                .add(Vec3.atLowerCornerOf(facing.getNormal()).scale(0.5 + t.offset()));
+        return new Side(c, facing);
+    }
+
+    /**
+     * Keeps an open loose box's doorway on it: the outside portal moves to the body's doors and the inside one's view
+     * points there, only when it has moved. A body gone to another dimension (or lost) closes the doors.
+     */
+    static void follow(MinecraftServer server, TardisRecord tardis) {
+        CompoundTag tag = tardis.moduleData(MODULE);
+        Optional<TardisBody> body = FreeFlight.body(server, tardis);
+        if (body.isEmpty() || !tag.hasUUID("outside")) {
+            return;
+        }
+        ServerLevel level = (ServerLevel) body.get().level();
+        if (!(level.getEntity(tag.getUUID("outside")) instanceof Portal out)) {
+            close(server, tardis);
+            return;
+        }
+        Side side = outside(body.get());
+        if (out.getOriginPos().distanceToSqr(side.center()) < 1.0E-4) {
+            return;
+        }
+        out.setOriginPos(side.center());
+        out.reloadAndSyncToClient();
+        Interiors.level(server).ifPresent(l -> {
+            if (tag.hasUUID("inside") && l.getEntity(tag.getUUID("inside")) instanceof Portal in) {
+                in.setDestination(side.center());
+                in.reloadAndSyncToClient();
+            }
+        });
+    }
+
     /** The inside opening, in front of the interior door, facing into the console room. */
     public static Side inside(TardisRecord tardis) {
         Tuning.DoorTuning t = TardisContent.tuning().door();
@@ -132,16 +177,21 @@ public final class Doors {
             return true;
         }
         Optional<GlobalPos> where = tardis.location();
-        // a loose box keeps its doors shut until it is a block again (docs/free-flight-plan.md)
-        if (where.isEmpty() || FreeFlight.isLoose(tardis) || !Interiors.ensure(server, tardis)) {
+        if (where.isEmpty() || !Interiors.ensure(server, tardis)) {
             return false;
         }
-        ServerLevel world = server.getLevel(where.get().dimension());
+        Optional<TardisBody> body = FreeFlight.body(server, tardis);
+        if (FreeFlight.isLoose(tardis) && body.isEmpty()) {
+            return false;
+        }
+        ServerLevel world = body.map(b -> (ServerLevel) b.level()).orElseGet(() -> server.getLevel(
+                where.get().dimension()));
         Optional<ServerLevel> interior = Interiors.level(server);
         if (world == null || interior.isEmpty()) {
             return false;
         }
-        Side out = outside(where.get().pos(), Exteriors.facing(world, where.get().pos()));
+        Side out = body.map(Doors::outside).orElseGet(() -> outside(where.get().pos(),
+                Exteriors.facing(world, where.get().pos())));
         Optional<Portal[]> pair = link(world, out, interior.get(), inside(tardis));
         if (pair.isEmpty()) {
             return false;
@@ -153,7 +203,11 @@ public final class Doors {
         tag.putUUID("outside", portal.getUUID());
         tag.putUUID("inside", back.getUUID());
         tardis.setModuleData(MODULE, tag);
-        setOpen(world, where.get().pos(), true);
+        if (body.isPresent()) {
+            body.get().setDoors(true, false);
+        } else {
+            setOpen(world, where.get().pos(), true);
+        }
         setOpen(interior.get(), interiorDoor(tardis), true);
         TardisRB.LOG.debug("[door] {} opened at {}", tardis.name(), out.center());
         return true;
@@ -198,7 +252,11 @@ public final class Doors {
         }
         tag.putLong("closing_at", server.overworld().getGameTime() + ticks);
         tardis.setModuleData(MODULE, tag);
-        exterior(server, tardis).ifPresent(l -> setClosing(l, tardis.location().get().pos(), true));
+        if (FreeFlight.isLoose(tardis)) {
+            FreeFlight.body(server, tardis).ifPresent(b -> b.setDoors(true, true));
+        } else {
+            exterior(server, tardis).ifPresent(l -> setClosing(l, tardis.location().get().pos(), true));
+        }
     }
 
     /** Stops the doors shutting: they swing open again and the portals stay. */
@@ -206,7 +264,11 @@ public final class Doors {
         CompoundTag tag = tardis.moduleData(MODULE);
         tag.remove("closing_at");
         tardis.setModuleData(MODULE, tag);
-        exterior(server, tardis).ifPresent(l -> setClosing(l, tardis.location().get().pos(), false));
+        if (FreeFlight.isLoose(tardis)) {
+            FreeFlight.body(server, tardis).ifPresent(b -> b.setDoors(true, false));
+        } else {
+            exterior(server, tardis).ifPresent(l -> setClosing(l, tardis.location().get().pos(), false));
+        }
     }
 
     private static Optional<ServerLevel> exterior(MinecraftServer server, TardisRecord tardis) {
@@ -222,14 +284,22 @@ public final class Doors {
         if (!tag.getBoolean("open")) {
             return;
         }
-        tardis.location().ifPresent(g -> {
-            ServerLevel l = server.getLevel(g.dimension());
-            if (l != null) {
-                remove(l, tag, "outside");
-                clearDoorway(l, g.pos(), Exteriors.facing(l, g.pos()));
-                setOpen(l, g.pos(), false);
-            }
-        });
+        Optional<TardisBody> body = FreeFlight.body(server, tardis);
+        if (body.isPresent()) {
+            remove((ServerLevel) body.get().level(), tag, "outside");
+            body.get().setDoors(false, false);
+        } else {
+            tardis.location().ifPresent(g -> {
+                ServerLevel l = server.getLevel(g.dimension());
+                if (l != null) {
+                    remove(l, tag, "outside");
+                    if (!FreeFlight.isLoose(tardis)) {
+                        clearDoorway(l, g.pos(), Exteriors.facing(l, g.pos()));
+                        setOpen(l, g.pos(), false);
+                    }
+                }
+            });
+        }
         Interiors.level(server).ifPresent(l -> {
             remove(l, tag, "inside");
             clearDoorway(l, interiorDoor(tardis), TardisContent.tuning().door().interiorFacing());

@@ -12,7 +12,14 @@ GitHub billing); costs (slice 5) and space (slice 6) next.
   loose body away and lands as a block), `height`. Record module data `free_flight`: `body` (UUID), `thrusters`.
 - Features `exterior_phase`, `thrusters` (navigation 1 for now; raise in data). Tuning `flight` in main.json.
 - Console (Exterior side): `phase_key` (toggle), `phase` (needs the key), `thrusters`, `pilot` (placeholder).
-  `Doors.open` refuses while loose. Monitor: landed / loose / hovering N up, key and thrusters.
+  Monitor: landed / loose / hovering N up, key and thrusters.
+- Doors while loose (Aaron 2026-11-09 "Allow opening the door in entity state"): `Doors.open` puts the outside portal
+  in front of the body's doors (`Doors.outside(TardisBody)`); `Doors.follow` (server tick) moves it and the inside
+  portal's destination when the body moves (`setOriginPos`/`setDestination` + `reloadAndSyncToClient`). The body
+  syncs a door state (shut/open/closing), draws the doors swinging, isn't solid or pushable while open (so you walk
+  into the doorway), and right-clicking it works the doors like the block (lock, sneak cycles it). The spin is off
+  while open. Setting down as a block closes them first; a jump closes them as before. Cost of a moving portal pair
+  per tick not measured yet.
 - Not yet: chunk tickets (the body unloads with its chunk; the record keeps its last spot), damage from hard hits,
   charge drain, a body lost while unloaded is set down at the record's spot by `phase`.
 - Test: `FreeFlightTests` (loose, doors stay shut, hovers 3 up, falls with thrusters off, sets down as the block).

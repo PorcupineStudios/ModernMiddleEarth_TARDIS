@@ -10,6 +10,9 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -32,6 +35,13 @@ public class TardisBody extends Entity {
             EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Integer> LOOK = SynchedEntityData.defineId(TardisBody.class,
             EntityDataSerializers.INT);
+    /** The doors: 0 shut, 1 open, 2 swinging shut (Aaron 2026-11-09: the doors open while it is an entity too). */
+    private static final EntityDataAccessor<Byte> DOORS = SynchedEntityData.defineId(TardisBody.class,
+            EntityDataSerializers.BYTE);
+
+    /** Client only: how far open the doors are drawn (0..1) and when that was worked out. */
+    public float doorAnim;
+    public float doorAnimTime = -1;
 
     public TardisBody(EntityType<? extends TardisBody> type, Level level) {
         super(type, level);
@@ -42,6 +52,7 @@ public class TardisBody extends Entity {
         builder.define(TARDIS, Optional.empty());
         builder.define(THRUSTERS, false);
         builder.define(LOOK, 0);
+        builder.define(DOORS, (byte) 0);
     }
 
     public Optional<UUID> tardis() {
@@ -67,6 +78,19 @@ public class TardisBody extends Entity {
 
     public void setLook(int look) {
         entityData.set(LOOK, look);
+    }
+
+    public boolean doorsOpen() {
+        return entityData.get(DOORS) != 0;
+    }
+
+    /** Open and not swinging shut: the doors are drawn open. */
+    public boolean doorsDrawnOpen() {
+        return entityData.get(DOORS) == 1;
+    }
+
+    public void setDoors(boolean open, boolean closing) {
+        entityData.set(DOORS, (byte) (!open ? 0 : closing ? 2 : 1));
     }
 
     @Override
@@ -167,14 +191,24 @@ public class TardisBody extends Entity {
         return !isRemoved();
     }
 
+    /** Solid while the doors are shut; with them open you can walk in to the doorway (and through it). */
     @Override
     public boolean canBeCollidedWith() {
-        return true;
+        return !doorsOpen();
     }
 
     @Override
     public boolean isPushable() {
-        return true;
+        return !doorsOpen();
+    }
+
+    /** Using the box from outside works its doors, as the block does ({@link FreeFlight#use}). */
+    @Override
+    public InteractionResult interact(Player player, InteractionHand hand) {
+        if (level().isClientSide) {
+            return InteractionResult.SUCCESS;
+        }
+        return player instanceof ServerPlayer sp ? FreeFlight.use(this, sp) : InteractionResult.PASS;
     }
 
     @Override
@@ -189,6 +223,7 @@ public class TardisBody extends Entity {
         }
         setThrusters(tag.getBoolean("thrusters"));
         setLook(tag.getInt("look"));
+        setDoors(tag.getBoolean("doors_open"), false);
     }
 
     @Override
@@ -196,5 +231,6 @@ public class TardisBody extends Entity {
         tardis().ifPresent(id -> tag.putUUID("tardis", id));
         tag.putBoolean("thrusters", thrusters());
         tag.putInt("look", look());
+        tag.putBoolean("doors_open", doorsOpen());
     }
 }
