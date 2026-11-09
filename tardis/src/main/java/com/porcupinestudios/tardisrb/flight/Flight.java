@@ -11,6 +11,7 @@ import com.porcupinestudios.tardisrb.progression.Destination;
 import com.porcupinestudios.tardisrb.progression.TardisContent;
 import com.porcupinestudios.tardisrb.progression.Tuning;
 import com.porcupinestudios.tardisrb.progression.Unlocks;
+import com.porcupinestudios.tardisrb.vortex.Vortex;
 import java.util.Optional;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -39,7 +40,7 @@ public final class Flight {
             return problem.isEmpty();
         }
 
-        static Outcome fail(String key, String fallback, Object... args) {
+        public static Outcome fail(String key, String fallback, Object... args) {
             return new Outcome(Optional.of(Component.translatableWithFallback(key, fallback, args)), Optional.empty());
         }
     }
@@ -54,8 +55,17 @@ public final class Flight {
 
     public static Outcome hop(MinecraftServer server, TardisRecord tardis, BlockPos target,
             Optional<ServerPlayer> by) {
+        return hop(server, tardis, target, Optional.empty(), by);
+    }
+
+    /** A short hop that lands with the doors facing {@code facing} (empty: as before). */
+    public static Outcome hop(MinecraftServer server, TardisRecord tardis, BlockPos target, Optional<Direction> facing,
+            Optional<ServerPlayer> by) {
         if (tardis.location().isEmpty()) {
             return Outcome.fail("tardis_rb.hop.nowhere", "The TARDIS isn't standing anywhere");
+        }
+        if (Vortex.inVortex(tardis)) {
+            return Outcome.fail("tardis_rb.vortex.busy", "The TARDIS is in the time vortex");
         }
         Unlocks.Result unlocked = Unlocks.check(server, tardis, SHORT_HOP, by);
         if (!unlocked.allowed()) {
@@ -86,7 +96,7 @@ public final class Flight {
             return Outcome.fail("tardis_rb.hop.charge", "Needs %s charge (the TARDIS has %s)", cost.charge(),
                     tardis.charge());
         }
-        return land(server, tardis, from, level, level, to.pos(), cost.charge(), HOP_HISTORY);
+        return land(server, tardis, from, level, level, to.pos(), cost.charge(), HOP_HISTORY, facing);
     }
 
     /**
@@ -95,8 +105,17 @@ public final class Flight {
      */
     public static Outcome jump(MinecraftServer server, TardisRecord tardis, ResourceLocation destinationId,
             Optional<BlockPos> target, Optional<ServerPlayer> by) {
+        return jump(server, tardis, destinationId, target, Optional.empty(), by);
+    }
+
+    /** A jump that lands with the doors facing {@code facing} (empty: as before). */
+    public static Outcome jump(MinecraftServer server, TardisRecord tardis, ResourceLocation destinationId,
+            Optional<BlockPos> target, Optional<Direction> facing, Optional<ServerPlayer> by) {
         if (tardis.location().isEmpty()) {
             return Outcome.fail("tardis_rb.hop.nowhere", "The TARDIS isn't standing anywhere");
+        }
+        if (Vortex.inVortex(tardis)) {
+            return Outcome.fail("tardis_rb.vortex.busy", "The TARDIS is in the time vortex");
         }
         Optional<Component> closed = Destinations.closed(server, tardis, destinationId, by);
         if (closed.isPresent()) {
@@ -125,20 +144,25 @@ public final class Flight {
             return Outcome.fail("tardis_rb.hop.charge", "Needs %s charge (the TARDIS has %s)", cost.charge(),
                     tardis.charge());
         }
-        return land(server, tardis, from, fromLevel, planned, to.pos(), cost.charge(), JUMP_HISTORY);
+        return land(server, tardis, from, fromLevel, planned, to.pos(), cost.charge(), JUMP_HISTORY, facing);
     }
 
     /** Lifts the box, finds a spot near {@code target} in {@code toLevel}, pays and lands; puts it back on failure. */
     private static Outcome land(MinecraftServer server, TardisRecord tardis, GlobalPos from, ServerLevel level,
-            ServerLevel toLevel, BlockPos target, long charge, ResourceLocation history) {
+            ServerLevel toLevel, BlockPos target, long charge, ResourceLocation history, Optional<Direction> turn) {
         Tuning.Hop t = TardisContent.tuning().hop();
         Doors.close(server, tardis); // the doors shut before it moves
-        Direction facing = Exteriors.lift(level, from.pos()); // so the old spot doesn't block the search
+        boolean loose = FreeFlight.isLoose(tardis);
+        // so the old spot doesn't block the search (a loose box has no block to lift)
+        Direction facing = loose ? FreeFlight.facing(server, tardis) : Exteriors.lift(level, from.pos());
         Optional<BlockPos> spot = Landing.find(toLevel, target, t.landingRadius(), t.landingHeight());
         if (spot.isEmpty()) {
-            Exteriors.place(level, from.pos(), facing, tardis.id());
+            if (!loose) {
+                Exteriors.place(level, from.pos(), facing, tardis.id());
+            }
             return Outcome.fail("tardis_rb.hop.no_space", "There is nowhere to land near there");
         }
+        FreeFlight.dock(server, tardis); // a loose box dematerialises and lands as a block
         JumpEvent.Land land = NeoForge.EVENT_BUS.post(new JumpEvent.Land(tardis, from,
                 GlobalPos.of(toLevel.dimension(), spot.get())));
         GlobalPos landed = land.spot();
@@ -148,7 +172,7 @@ public final class Flight {
             landed = GlobalPos.of(toLevel.dimension(), spot.get());
         }
         tardis.useCharge(charge);
-        Exteriors.place(landLevel, landed.pos(), facing, tardis.id());
+        Exteriors.place(landLevel, landed.pos(), turn.orElse(facing), tardis.id());
         tardis.setLocation(Optional.of(landed));
         NeoForge.EVENT_BUS.post(new JumpEvent.Arrived(tardis, from, landed));
         CompoundTag tag = new CompoundTag();

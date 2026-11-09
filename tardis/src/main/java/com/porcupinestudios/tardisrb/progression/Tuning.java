@@ -13,7 +13,70 @@ import net.minecraft.resources.ResourceLocation;
  * {@code data/tardis_rb/tardis/tuning/main.json}; every field has a default, so a pack can override just one.
  */
 public record Tuning(CrashSite crashSite, Hop hop, Winder winder, Interior interior, Damage damage,
-        ResearchSpeed research, ConsoleTuning console, DoorTuning door, SpaceTuning space) {
+        ResearchSpeed research, ConsoleTuning console, DoorTuning door, SpaceTuning space, FreeFlight flight,
+        VortexTuning vortex) {
+    /**
+     * Flying through the time vortex (Aaron 2026-11-09: dematerialising flies the box through the vortex dimension,
+     * dodging obstacles, instead of the 1.7.10 button minigame). {@code enabled}: off = trips land at once.
+     * {@code speed}: blocks per tick the box drifts along the tunnel; {@code radius}: how far from the tunnel's axis it
+     * can go; {@code min_length} + {@code length_per_block} x the trip's distance (hops) or {@code jump_length}
+     * (jumps to another dimension), capped at {@code max_length}: how long the tunnel is. Obstacles every
+     * {@code obstacle_gap} blocks (each a clump up to {@code obstacle_size} across); a hit costs {@code hit_charge} and
+     * moves the landing up to {@code hit_drift} blocks off target.
+     */
+    public record VortexTuning(boolean enabled, double speed, double radius, int minLength, double lengthPerBlock,
+            int jumpLength, int maxLength, int obstacleGap, int obstacleSize, long hitCharge, int hitDrift) {
+        static final VortexTuning DEFAULT = new VortexTuning(true, 0.7, 9, 160, 0.05, 480, 1200, 18, 3, 10, 6);
+        static final Codec<VortexTuning> CODEC = RecordCodecBuilder.create(i -> i.group(
+                Codec.BOOL.optionalFieldOf("enabled", DEFAULT.enabled).forGetter(VortexTuning::enabled),
+                Codec.DOUBLE.optionalFieldOf("speed", DEFAULT.speed).forGetter(VortexTuning::speed),
+                Codec.DOUBLE.optionalFieldOf("radius", DEFAULT.radius).forGetter(VortexTuning::radius),
+                Codec.INT.optionalFieldOf("min_length", DEFAULT.minLength).forGetter(VortexTuning::minLength),
+                Codec.DOUBLE.optionalFieldOf("length_per_block", DEFAULT.lengthPerBlock)
+                        .forGetter(VortexTuning::lengthPerBlock),
+                Codec.INT.optionalFieldOf("jump_length", DEFAULT.jumpLength).forGetter(VortexTuning::jumpLength),
+                Codec.INT.optionalFieldOf("max_length", DEFAULT.maxLength).forGetter(VortexTuning::maxLength),
+                Codec.INT.optionalFieldOf("obstacle_gap", DEFAULT.obstacleGap).forGetter(VortexTuning::obstacleGap),
+                Codec.INT.optionalFieldOf("obstacle_size", DEFAULT.obstacleSize).forGetter(VortexTuning::obstacleSize),
+                Codec.LONG.optionalFieldOf("hit_charge", DEFAULT.hitCharge).forGetter(VortexTuning::hitCharge),
+                Codec.INT.optionalFieldOf("hit_drift", DEFAULT.hitDrift).forGetter(VortexTuning::hitDrift))
+                .apply(i, VortexTuning::new));
+    }
+
+    /**
+     * The exterior as a loose box ({@code entity/TardisBody}, docs/free-flight-plan.md): {@code gravity} per tick
+     * with the thrusters off, {@code drag} in the air and {@code ground_friction} per tick, {@code hover_damping} (how
+     * much motion is kept per tick while the thrusters hold it), and where turning it back into a block may land:
+     * within {@code landing_radius} blocks across and {@code landing_height} up or down of the box. Piloting:
+     * {@code acceleration} and {@code max_speed} across (blocks per tick), {@code vertical_speed} for up/down,
+     * {@code boost} (sprint multiplies the top speed), {@code spin} (degrees per tick the model turns while flown).
+     */
+    public record FreeFlight(double gravity, double drag, double groundFriction, double hoverDamping, int landingRadius,
+            int landingHeight, Piloting piloting) {
+        static final FreeFlight DEFAULT = new FreeFlight(0.08, 0.98, 0.6, 0.8, 2, 4, Piloting.DEFAULT);
+        static final Codec<FreeFlight> CODEC = RecordCodecBuilder.create(i -> i.group(
+                Codec.DOUBLE.optionalFieldOf("gravity", DEFAULT.gravity).forGetter(FreeFlight::gravity),
+                Codec.DOUBLE.optionalFieldOf("drag", DEFAULT.drag).forGetter(FreeFlight::drag),
+                Codec.DOUBLE.optionalFieldOf("ground_friction", DEFAULT.groundFriction)
+                        .forGetter(FreeFlight::groundFriction),
+                Codec.DOUBLE.optionalFieldOf("hover_damping", DEFAULT.hoverDamping).forGetter(FreeFlight::hoverDamping),
+                Codec.INT.optionalFieldOf("landing_radius", DEFAULT.landingRadius).forGetter(FreeFlight::landingRadius),
+                Codec.INT.optionalFieldOf("landing_height", DEFAULT.landingHeight).forGetter(FreeFlight::landingHeight),
+                Piloting.CODEC.optionalFieldOf("piloting", Piloting.DEFAULT).forGetter(FreeFlight::piloting))
+                .apply(i, FreeFlight::new));
+    }
+
+    public record Piloting(double acceleration, double maxSpeed, double verticalSpeed, double boost, double spin) {
+        static final Piloting DEFAULT = new Piloting(0.06, 0.8, 0.35, 2.0, 4.0);
+        static final Codec<Piloting> CODEC = RecordCodecBuilder.create(i -> i.group(
+                Codec.DOUBLE.optionalFieldOf("acceleration", DEFAULT.acceleration).forGetter(Piloting::acceleration),
+                Codec.DOUBLE.optionalFieldOf("max_speed", DEFAULT.maxSpeed).forGetter(Piloting::maxSpeed),
+                Codec.DOUBLE.optionalFieldOf("vertical_speed", DEFAULT.verticalSpeed).forGetter(Piloting::verticalSpeed),
+                Codec.DOUBLE.optionalFieldOf("boost", DEFAULT.boost).forGetter(Piloting::boost),
+                Codec.DOUBLE.optionalFieldOf("spin", DEFAULT.spin).forGetter(Piloting::spin))
+                .apply(i, Piloting::new));
+    }
+
     /** The wreck made once at the start dimension's spawn. {@code offset}: blocks east of the spawn point. */
     public record CrashSite(boolean enabled, int offset, String name, long startCharge) {
         static final CrashSite DEFAULT = new CrashSite(true, 8, "The Wreck", 0);
@@ -125,12 +188,77 @@ public record Tuning(CrashSite crashSite, Hop hop, Winder winder, Interior inter
     }
 
     /** The console: {@code steps} are the sizes the step dial picks from for the coordinate buttons. */
-    public record ConsoleTuning(List<Integer> steps) {
-        static final ConsoleTuning DEFAULT = new ConsoleTuning(List.of(1, 10, 100));
+    public record ConsoleTuning(List<Integer> steps, Coordinates coordinates, TimeTuning time) {
+        static final ConsoleTuning DEFAULT = new ConsoleTuning(List.of(1, 10, 100), Coordinates.DEFAULT,
+                TimeTuning.DEFAULT);
         static final Codec<ConsoleTuning> CODEC = RecordCodecBuilder.create(i -> i.group(
                 Codec.intRange(1, 1 << 20).listOf().optionalFieldOf("steps", DEFAULT.steps)
-                        .forGetter(ConsoleTuning::steps))
+                        .forGetter(ConsoleTuning::steps),
+                Coordinates.CODEC.optionalFieldOf("coordinates", Coordinates.DEFAULT)
+                        .forGetter(ConsoleTuning::coordinates),
+                TimeTuning.CODEC.optionalFieldOf("time", TimeTuning.DEFAULT).forGetter(ConsoleTuning::time))
                 .apply(i, ConsoleTuning::new));
+    }
+
+    /** One unit the time controls count in: its name on the monitor and how many game ticks it is. */
+    public record TimeUnit(String name, long ticks) {
+        static final Codec<TimeUnit> CODEC = RecordCodecBuilder.create(i -> i.group(
+                Codec.STRING.fieldOf("name").forGetter(TimeUnit::name),
+                Codec.LONG.fieldOf("ticks").forGetter(TimeUnit::ticks))
+                .apply(i, TimeUnit::new));
+    }
+
+    /**
+     * The target-time controls (Aaron, 2026-11-08: "12 minutes from the beginning of time, or 12 minutes ago"):
+     * {@code digits} number drums (0-9 each, the first is the highest), counted in one of {@code units} (the unit dial).
+     */
+    public record TimeTuning(int digits, List<TimeUnit> units) {
+        static final TimeTuning DEFAULT = new TimeTuning(3, List.of(new TimeUnit("minutes", 1200),
+                new TimeUnit("hours", 72_000), new TimeUnit("days", 24_000), new TimeUnit("years", 8_760_000)));
+        static final Codec<TimeTuning> CODEC = RecordCodecBuilder.create(i -> i.group(
+                Codec.intRange(1, 9).optionalFieldOf("digits", DEFAULT.digits).forGetter(TimeTuning::digits),
+                TimeUnit.CODEC.listOf().optionalFieldOf("units", DEFAULT.units).forGetter(TimeTuning::units))
+                .apply(i, TimeTuning::new));
+    }
+
+    /**
+     * One coordinate control (after the 1.7.10 console): its range ({@code cycle}: goes round instead of stopping);
+     * it adds value x {@code times}, or value x {@code times} x {@code base}^(slot {@code power}'s value + 1) when it
+     * has a power slot (-1 = none).
+     */
+    public record Slot(int min, int max, boolean cycle, int times, int base, int power) {
+        static final Codec<Slot> CODEC = RecordCodecBuilder.create(i -> i.group(
+                Codec.INT.fieldOf("min").forGetter(Slot::min),
+                Codec.INT.fieldOf("max").forGetter(Slot::max),
+                Codec.BOOL.optionalFieldOf("cycle", false).forGetter(Slot::cycle),
+                Codec.INT.optionalFieldOf("times", 1).forGetter(Slot::times),
+                Codec.INT.optionalFieldOf("base", 1).forGetter(Slot::base),
+                Codec.INT.optionalFieldOf("power", -1).forGetter(Slot::power))
+                .apply(i, Slot::new));
+
+        static Slot lever(int times, int base, int power) {
+            return new Slot(-6, 6, false, times, base, power);
+        }
+    }
+
+    /**
+     * The console's coordinate controls: the X and Z slots ({@code xz}, the same for both), the Y digits ({@code y},
+     * plus {@code y_offset}), and how many memory slots there are.
+     */
+    public record Coordinates(List<Slot> xz, List<Slot> y, int yOffset, int memorySlots) {
+        static final Coordinates DEFAULT = new Coordinates(
+                List.of(Slot.lever(1, 4, 4), Slot.lever(1, 2, 5), Slot.lever(6, 1, -1), Slot.lever(1, 1, -1),
+                        new Slot(0, 7, true, 0, 1, -1), new Slot(0, 7, true, 0, 1, -1), Slot.lever(71, 1, -1)),
+                List.of(new Slot(0, 3, false, 64, 1, -1), new Slot(0, 3, false, 16, 1, -1),
+                        new Slot(0, 3, false, 4, 1, -1), new Slot(0, 3, false, 1, 1, -1)),
+                -64, 20);
+        static final Codec<Coordinates> CODEC = RecordCodecBuilder.create(i -> i.group(
+                Slot.CODEC.listOf().optionalFieldOf("xz", DEFAULT.xz).forGetter(Coordinates::xz),
+                Slot.CODEC.listOf().optionalFieldOf("y", DEFAULT.y).forGetter(Coordinates::y),
+                Codec.INT.optionalFieldOf("y_offset", DEFAULT.yOffset).forGetter(Coordinates::yOffset),
+                Codec.intRange(0, 64).optionalFieldOf("memory_slots", DEFAULT.memorySlots)
+                        .forGetter(Coordinates::memorySlots))
+                .apply(i, Coordinates::new));
     }
 
     /**
@@ -219,7 +347,8 @@ public record Tuning(CrashSite crashSite, Hop hop, Winder winder, Interior inter
     }
 
     public static final Tuning DEFAULT = new Tuning(CrashSite.DEFAULT, Hop.DEFAULT, Winder.DEFAULT, Interior.DEFAULT,
-            Damage.DEFAULT, ResearchSpeed.DEFAULT, ConsoleTuning.DEFAULT, DoorTuning.DEFAULT, SpaceTuning.DEFAULT);
+            Damage.DEFAULT, ResearchSpeed.DEFAULT, ConsoleTuning.DEFAULT, DoorTuning.DEFAULT, SpaceTuning.DEFAULT,
+            FreeFlight.DEFAULT, VortexTuning.DEFAULT);
 
     public static final Codec<Tuning> CODEC = RecordCodecBuilder.create(i -> i.group(
             CrashSite.CODEC.optionalFieldOf("crash_site", CrashSite.DEFAULT).forGetter(Tuning::crashSite),
@@ -230,6 +359,8 @@ public record Tuning(CrashSite crashSite, Hop hop, Winder winder, Interior inter
             ResearchSpeed.CODEC.optionalFieldOf("research", ResearchSpeed.DEFAULT).forGetter(Tuning::research),
             ConsoleTuning.CODEC.optionalFieldOf("console", ConsoleTuning.DEFAULT).forGetter(Tuning::console),
             DoorTuning.CODEC.optionalFieldOf("door", DoorTuning.DEFAULT).forGetter(Tuning::door),
-            SpaceTuning.CODEC.optionalFieldOf("space", SpaceTuning.DEFAULT).forGetter(Tuning::space))
+            SpaceTuning.CODEC.optionalFieldOf("space", SpaceTuning.DEFAULT).forGetter(Tuning::space),
+            FreeFlight.CODEC.optionalFieldOf("flight", FreeFlight.DEFAULT).forGetter(Tuning::flight),
+            VortexTuning.CODEC.optionalFieldOf("vortex", VortexTuning.DEFAULT).forGetter(Tuning::vortex))
             .apply(i, Tuning::new));
 }

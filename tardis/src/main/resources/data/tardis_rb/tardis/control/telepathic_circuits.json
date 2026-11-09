@@ -1,0 +1,15 @@
+{
+  "model": "telepathic_circuits",
+  "panel": 2,
+  "u": 0.173,
+  "v": 0.52,
+  "scale": 0.72,
+  "actions": {
+    "plate": "none"
+  },
+  "requirements": {
+    "type": "tardis_rb:subsystem_level",
+    "subsystem": "tardis_rb:navigation",
+    "min": 1
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "model": "dimension_dial",
+  "panel": 2,
+  "u": -0.339,
+  "v": 0.1875,
+  "scale": 0.72,
+  "actions": {
+    "knob": "destination"
+  },
+  "requirements": {
+    "type": "tardis_rb:milestone",
+    "milestone": "tardis_rb:restored_core"
+  }
+}

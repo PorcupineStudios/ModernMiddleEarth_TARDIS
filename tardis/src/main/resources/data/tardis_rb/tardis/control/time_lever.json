@@ -1,0 +1,15 @@
+{
+  "model": "time_lever",
+  "panel": 2,
+  "u": -0.0695,
+  "v": 0.1875,
+  "scale": 0.72,
+  "actions": {
+    "lever": "time_from"
+  },
+  "requirements": {
+    "type": "tardis_rb:subsystem_level",
+    "subsystem": "tardis_rb:navigation",
+    "min": 1
+  }
+}

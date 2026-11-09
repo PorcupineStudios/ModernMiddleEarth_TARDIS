@@ -1,0 +1,12 @@
+{
+  "model": "twin_gauge",
+  "panel": 5,
+  "u": 0.2063,
+  "v": 0.45,
+  "scale": 0.76,
+  "actions": {},
+  "shows": [
+    "charge",
+    "rooms"
+  ]
+}

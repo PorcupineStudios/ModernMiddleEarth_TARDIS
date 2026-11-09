@@ -1,0 +1,15 @@
+{
+  "model": "coordinate_lever",
+  "panel": 1,
+  "u": -0.0225,
+  "v": 0.1144,
+  "scale": 0.72,
+  "actions": {
+    "lever": "z2"
+  },
+  "requirements": {
+    "type": "tardis_rb:subsystem_level",
+    "subsystem": "tardis_rb:navigation",
+    "min": 1
+  }
+}

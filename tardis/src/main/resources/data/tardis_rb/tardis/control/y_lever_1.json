@@ -1,0 +1,15 @@
+{
+  "model": "y_lever",
+  "panel": 4,
+  "u": -0.37,
+  "v": 0.1625,
+  "scale": 0.8,
+  "actions": {
+    "lever": "y0"
+  },
+  "requirements": {
+    "type": "tardis_rb:subsystem_level",
+    "subsystem": "tardis_rb:navigation",
+    "min": 1
+  }
+}

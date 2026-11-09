@@ -1,0 +1,15 @@
+{
+  "model": "demat_lever",
+  "panel": 3,
+  "u": 0.04,
+  "v": 0.182,
+  "scale": 0.64,
+  "actions": {
+    "arm": "jump"
+  },
+  "requirements": {
+    "type": "tardis_rb:subsystem_level",
+    "subsystem": "tardis_rb:navigation",
+    "min": 1
+  }
+}

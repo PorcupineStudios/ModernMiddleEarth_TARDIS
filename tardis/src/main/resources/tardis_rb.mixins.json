@@ -25,6 +25,7 @@
     "ExplosionMixin",
     "FireworkRocketMixin",
     "FoxMixin",
+    "GameTestServerMixin",
     "IllusionerMixin",
     "ItemMixin",
     "LivingEntityMixin",

@@ -1,0 +1,15 @@
+{
+  "model": "valve_wheel",
+  "panel": 1,
+  "u": 0.045,
+  "v": 0.3738,
+  "scale": 0.72,
+  "actions": {
+    "wheel": "z5"
+  },
+  "requirements": {
+    "type": "tardis_rb:subsystem_level",
+    "subsystem": "tardis_rb:navigation",
+    "min": 1
+  }
+}

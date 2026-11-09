@@ -1,0 +1,15 @@
+{
+  "model": "time_unit_dial",
+  "panel": 2,
+  "u": 0.1595,
+  "v": 0.1875,
+  "scale": 0.72,
+  "actions": {
+    "pointer": "time_unit"
+  },
+  "requirements": {
+    "type": "tardis_rb:subsystem_level",
+    "subsystem": "tardis_rb:navigation",
+    "min": 1
+  }
+}
