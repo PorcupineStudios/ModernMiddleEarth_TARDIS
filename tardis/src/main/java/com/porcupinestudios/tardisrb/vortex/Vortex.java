@@ -88,15 +88,31 @@ public final class Vortex {
     }
 
     /**
-     * The tube is solid (Aaron 2026-11-09): where a point at ({@code x}, {@code y}) more than {@code limit} from its
-     * lane's axis is pushed back to, or null if it is inside.
+     * The tunnel twists and turns (Aaron 2026-11-09): how far its axis is from the straight lane line (lane x,
+     * {@link #LANE_Y}) at {@code z}, as (x, y, 0). Two slow waves each way, gentle enough (about 0.35 blocks sideways
+     * per block forward at {@code bend} 1) for a pilot to follow; straight before z 0, easing in over the first 40.
+     */
+    public static Vec3 bend(double z) {
+        double s = TardisContent.tuning().vortex().bend() * Math.max(0, Math.min(1, z / 40));
+        if (s == 0) {
+            return Vec3.ZERO;
+        }
+        return new Vec3(s * (8 * Math.sin(z / 45) + 3 * Math.sin(z / 19 + 1.3)),
+                s * (6 * Math.sin(z / 37 + 0.7) + 2.5 * Math.sin(z / 16 + 2.1)), 0);
+    }
+
+    /**
+     * The tube is solid (Aaron 2026-11-09): where a point at ({@code x}, {@code y}, {@code z}) more than {@code limit}
+     * from its lane's (bent) axis is pushed back to, or null if it is inside.
      */
     public static Vec3 keepInside(double x, double y, double z, double limit) {
-        double ax = laneX(x);
+        Vec3 b = bend(z);
+        double ax = laneX(x) + b.x;
+        double ay = LANE_Y + b.y;
         double ox = x - ax;
-        double oy = y - LANE_Y;
+        double oy = y - ay;
         double r = Math.sqrt(ox * ox + oy * oy);
-        return r <= limit ? null : new Vec3(ax + ox / r * limit, LANE_Y + oy / r * limit, z);
+        return r <= limit ? null : new Vec3(ax + ox / r * limit, ay + oy / r * limit, z);
     }
 
     /**
@@ -315,7 +331,8 @@ public final class Vortex {
         while (next < progress + 96 && next < length - 16) {
             double a = random.nextDouble() * Math.PI * 2;
             double r = Math.sqrt(random.nextDouble()) * (t.radius() - 1);
-            BlockPos c = BlockPos.containing(laneX + Math.cos(a) * r, LANE_Y + Math.sin(a) * r, next);
+            Vec3 b = bend(next);
+            BlockPos c = BlockPos.containing(laneX + b.x + Math.cos(a) * r, LANE_Y + b.y + Math.sin(a) * r, next);
             int size = 1 + random.nextInt(Math.max(1, t.obstacleSize()));
             for (int dx = 0; dx < size; dx++) {
                 for (int dy = 0; dy < size; dy++) {

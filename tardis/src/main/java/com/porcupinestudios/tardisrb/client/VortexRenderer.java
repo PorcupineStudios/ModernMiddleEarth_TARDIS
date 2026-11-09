@@ -100,7 +100,7 @@ public final class VortexRenderer {
 
         RenderSystem.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE);
         RenderSystem.setShader(GameRenderer::getPositionColorShader);
-        bolts(view, ox, oy, time, slot);
+        bolts(view, ox, oy, cam.z, time, slot);
 
         RenderSystem.getModelViewStack().popMatrix();
         RenderSystem.applyModelViewMatrix();
@@ -165,6 +165,9 @@ public final class VortexRenderer {
             float t = j / (float) CLOUD_ALONG;
             float z = -half + t * 2 * half;
             double world = camZ + z;
+            Vec3 bend = Vortex.bend(world); // the tunnel winds: each ring sits on its bent axis
+            float bx = ox + (float) bend.x;
+            float by = oy + (float) bend.y;
             float edge = Math.min(1, (1 - Math.abs(2 * t - 1)) * 4);
             for (int i = 0; i <= CLOUD_AROUND; i++) {
                 float f = i / (float) CLOUD_AROUND;
@@ -175,8 +178,8 @@ public final class VortexRenderer {
                 float r = WALL_RADIUS - BILLOW * p;
                 double a = f * 2 * Math.PI;
                 int k = j * cols + i;
-                px[k] = ox + (float) Math.cos(a) * r;
-                py[k] = oy + (float) Math.sin(a) * r;
+                px[k] = bx + (float) Math.cos(a) * r;
+                py[k] = by + (float) Math.sin(a) * r;
                 pz[k] = z;
                 pv[k] = (float) (world / REPEAT) - scroll;
                 pu[k] = f * around + pv[k] * twist + spin;
@@ -269,7 +272,7 @@ public final class VortexRenderer {
 
 
     /** Jagged lightning crawling over the clouds' inner face: a wide faint glow and a thin bright core, plus a fork. */
-    private static void bolts(Matrix4f view, float ox, float oy, float time, long slot) {
+    private static void bolts(Matrix4f view, float ox, float oy, double camZ, float time, long slot) {
         BufferBuilder buf = Tesselator.getInstance().begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_COLOR);
         boolean any = false;
         long jitter = (long) (time * 20); // the bolt's shape crackles a few times while lit
@@ -285,7 +288,8 @@ public final class VortexRenderer {
                 float a = b.a0() + (b.a1() - b.a0()) * f + wob * (hash(b.seed(), s, jitter) - 0.5f) * 0.25f;
                 float r = 12.4f + wob * (hash(b.seed(), s, jitter + 7) - 0.5f) * 1.6f;
                 float z = b.z0() + (b.z1() - b.z0()) * f + wob * (hash(b.seed(), s, jitter + 13) - 0.5f) * 1.5f;
-                pts[s] = new Vector3f(ox + (float) Math.cos(a) * r, oy + (float) Math.sin(a) * r, z);
+                Vec3 bend = Vortex.bend(camZ + z);
+                pts[s] = new Vector3f(ox + (float) (bend.x + Math.cos(a) * r), oy + (float) (bend.y + Math.sin(a) * r), z);
             }
             ribbon(buf, view, pts, 0, BOLT_STEPS, 2.6f, Math.round(150 * b.strength()), 120, 160, 255);
             ribbon(buf, view, pts, 0, BOLT_STEPS, 0.35f, Math.round(255 * b.strength()), 200, 225, 255);
@@ -334,8 +338,9 @@ public final class VortexRenderer {
         double a = i / (double) AROUND * 2 * Math.PI;
         float t = j / (float) ALONG;
         float z = -half + t * 2 * half;
-        float x = ox + (float) Math.cos(a) * radius;
-        float y = oy + (float) Math.sin(a) * radius;
+        Vec3 bend = Vortex.bend(camZ + z); // the tunnel winds
+        float x = (ox + (float) bend.x) + (float) Math.cos(a) * radius;
+        float y = (oy + (float) bend.y) + (float) Math.sin(a) * radius;
         float v = (camZ + z) / REPEAT - scroll;
         float u = i / (float) AROUND * around + v * twist + spin;
         float edge = Math.min(1, (1 - Math.abs(2 * t - 1)) * 4);

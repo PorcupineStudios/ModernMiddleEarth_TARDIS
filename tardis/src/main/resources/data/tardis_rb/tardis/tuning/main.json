@@ -220,7 +220,7 @@
     }
   },
   "vortex": {
-    "_comment": "Flying through the time vortex when a crew member pulls the dematerialisation lever: drift speed along the tunnel (blocks/tick), how far from the axis the box can go, tunnel length = min_length + length_per_block x hop distance (or jump_length for another dimension), capped at max_length; an obstacle clump every obstacle_gap blocks, up to obstacle_size across; a hit costs hit_charge and moves the landing up to hit_drift blocks. enabled false = trips land at once.",
+    "_comment": "Flying through the time vortex when a crew member pulls the dematerialisation lever: drift speed along the tunnel (blocks/tick), how far from the axis the box can go, tunnel length = min_length + length_per_block x hop distance (or jump_length for another dimension), capped at max_length; an obstacle clump every obstacle_gap blocks, up to obstacle_size across; a hit costs hit_charge and moves the landing up to hit_drift blocks. enabled false = trips land at once. bend: how much the tunnel winds and turns (1 = the usual bends, 0 = straight, 1.5 = wilder).",
     "enabled": true,
     "speed": 0.7,
     "radius": 11,
@@ -231,6 +231,7 @@
     "obstacle_gap": 18,
     "obstacle_size": 3,
     "hit_charge": 10,
-    "hit_drift": 6
+    "hit_drift": 6,
+    "bend": 1
   }
 }
