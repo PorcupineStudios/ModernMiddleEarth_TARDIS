@@ -24,7 +24,11 @@ dimension, dodging obstacles, "to" the destination.
   `max_length`): the body docks (the pilot goes back to the console), placed debris is cleared, then the normal
   `Flight.hop`/`jump` lands it and pays. If that fails, the block goes back where it left.
 - **Health, inaccuracy, crash landing** (Aaron 2026-11-09, instead of 1.7.10's "land part way along the plotted line
-  when it breaks down"): a trip starts at `damage.health` (tuning `vortex.damage`). Debris costs `debris`, a bump onto
+  when it breaks down"): the TARDIS's health lasts between trips (`progression/Health`, module `tardis_rb:health`;
+  none saved = full). The most it can have is `vortex.damage.health` (50) plus the `health` stat: the hull's levels in
+  `subsystem/hull.json` (0, 25, 50, 100) and any research bonus. Repairing the hull fills it up (RepairEvent.Post);
+  `/tardis health` shows it, `set <n>`, `repair [amount]` (no amount = full) and `damage <amount>` change it (op, on
+  your own TARDIS, like the other /tardis commands). Debris costs `debris`, a bump onto
   the tunnel wall `wall` (spotted by the server, `at_wall` edge, and it shocks the box for everyone). Each point lost
   adds `drift_per_damage` blocks of inaccuracy: arriving at the end lands within that many blocks of the target
   (`offCourse`, a random point in the disc), then the usual landing search. At 0 health it crashes
@@ -33,14 +37,16 @@ dimension, dodging obstacles, "to" the destination.
   `Vortex.crashOut` takes it into the world over the point its course had reached: `Vortex.course` runs a line from
   where it left to the target (for a jump in the target's coordinates, using each dimension's coordinate scale); under
   halfway it comes down in the dimension it left, else the target's. That point is pushed off course by the
-  inaccuracy, and the box appears up to `crash_height` blocks over the ground there (under a roof, the first floor
+  inaccuracy; the TARDIS is left with `after_crash` health (10: enough to fly, not to take a debris hit), and the box appears up to `crash_height` blocks over the ground there (under a roof, the first floor
   below the course), thrusters off, flying down the course at `crash_speed`. A crash ticket keeps the spot loaded.
   Hitting the ground (`TardisBody.impact`) sets off an explosion of power `crater` (0 = none; it goes through
   ExplosionEvent, so claims and explosion settings apply, and `WorldDamage` knocks the hull down as for any explosion
   next to the box), a last shock, and it lies there as a loose box. No charge is paid for a crash. The monitor shows
-  health and how far off course it is. Tests: `outOfHealthItCrashLandsPartWay`, `theCourseCrossesDimensions`.
+  how far through and off course it is, and the exterior side always shows Health H/M. At 0 health
+  in the vortex for any reason (a hit, the command) it goes down at once. Tests: `outOfHealthItCrashLandsPartWay`, `theCourseCrossesDimensions`, `hullRepairsAndTheHealthCommand`;
+  `departHitDebrisAndArrive` checks the damage lasts into the next trip.
 - **Refused while in the vortex**: `Flight.hop`/`jump`, the lever again, phase, thrusters off. The exterior side of
-  the monitor shows "In the vortex: N%, H hits".
+  the monitor shows "In the vortex: N%, off course D" (or CRASHING!) and Health H/M.
 - **Solid tube** (Aaron 2026-11-09: "make the tube have collision"): the box can reach `radius` (11) from the axis and
   bounces off the wall there with a crackle (`TardisBody.vortexPhysics`: the speed into the wall is turned back at
   0.6, a lightning-impact sound on the pilot's client). Anything else loose in the vortex (a crew member stepping out

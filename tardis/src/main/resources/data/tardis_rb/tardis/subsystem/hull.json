@@ -1,9 +1,17 @@
 {
   "start_cap": 2,
   "levels": [
-    {},
-    {},
-    {},
-    {}
+    {
+      "health": 0
+    },
+    {
+      "health": 25
+    },
+    {
+      "health": 50
+    },
+    {
+      "health": 100
+    }
   ]
 }
