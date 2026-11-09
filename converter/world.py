@@ -11,6 +11,7 @@ Every number here that changes how the world looks is a starting value; the gene
 import colorsys
 import gzip
 import json
+import math
 import io
 import os
 
@@ -22,10 +23,28 @@ from trees import Trees
 # Old biome numbers -> blocks. LOTR's heightBaseParameter is roughly vanilla's depth (0 = sea level, 1 = high hills,
 # 2 = mountains) and heightVariation its scale.
 SEA_LEVEL = 62
+# Modern stone LOTR had no blocks for, generated the way LOTR spread dirt and gravel underground (blobs in stone)
+STONE_BLOBS = ["minecraft:ore_granite_upper", "minecraft:ore_granite_lower", "minecraft:ore_diorite_upper",
+               "minecraft:ore_diorite_lower", "minecraft:ore_andesite_upper", "minecraft:ore_andesite_lower",
+               "minecraft:ore_tuff"]
+# 1.17+ deepslate versions of ores, so LOTR's ores still show in the deepslate under y 0
+DEEPSLATE_ORE = {f"minecraft:{o}_ore": f"minecraft:deepslate_{o}_ore"
+                 for o in ("coal", "iron", "gold", "copper", "diamond", "emerald", "lapis", "redstone")}
 GROUND_AT_ZERO = 64  # surface y for heightBaseParameter 0
 BLOCKS_PER_BASE = 34  # surface y rise per 1.0 of heightBaseParameter
 BLOCKS_PER_VARIATION = 48  # hilliness in blocks per 1.0 of heightVariation
 MIN_HEIGHT, MAX_HEIGHT = -40, 300
+PEAK_BIOME_MIN = 1000  # columns a biome holding a peak needs before its survey isn't mostly the mountain
+SURVEY_MIN = 32  # biomes with fewer surveyed columns keep the formula from LOTR's height parameters
+STD_PER_VARIATION = 1.0
+JAGGED_FROM, JAGGED = 10.0, 2.0  # crags for hilliness over 10 blocks (mountains), up to 2 x the excess
+RIDGES = 1.2  # and broad ridges and valleys (the hill noise at half the frequency) of 1.2 x the excess
+HILL_BIAS = 0.4  # the 4x-steeper ground below lifts the mean ~0.4 x hilliness (measured); lowered by that
+MAX_3D = 20.0  # hilliness given LOTR's 3D noise; mountains need it for their crags (8 left them smooth domes)
+HILL_2D = 2.5  # 2D hills per block of hilliness: measured against LOTR (terrainRoughness / the exporter's rough), 1.0 gave a third of its spread
+SURVEY_OFFSET = 1.0  # the survey's ground is the first air block; the port's map height lands about a block higher
+# LOTR's ground patches compare one-octave Perlin sums to thresholds; 1.18's normal noise spreads about half as wide
+NOISE_SCALE = 0.45
 BORDER_WOBBLE = 40  # blocks a biome border or slope can shift
 BLUR = 0  # pixels of box blur on heights (0 keeps one-pixel rivers)
 OCEAN = "ocean"
@@ -59,10 +78,9 @@ ORES = ["minecraft:ore_dirt", "minecraft:ore_gravel", "minecraft:ore_granite_upp
 VEGETATION = ["minecraft:trees_taiga", "minecraft:trees_jungle", "minecraft:trees_birch_and_oak",
               "minecraft:trees_plains", "minecraft:trees_savanna", "minecraft:flower_default",
               "minecraft:patch_grass_forest", "minecraft:patch_grass_plain", "minecraft:patch_dead_bush",
-              "minecraft:patch_cactus_desert", "minecraft:patch_sugar_cane"]
+              "minecraft:patch_cactus_desert", "minecraft:patch_sugar_cane", "minecraft:patch_tall_grass",
+              "minecraft:patch_large_fern"]
 CARVERS = ["minecraft:cave", "minecraft:cave_extra_underground", "minecraft:canyon"]
-GRAZERS = [("minecraft:sheep", 12, 2, 4), ("minecraft:pig", 10, 2, 4), ("minecraft:chicken", 10, 2, 4),
-           ("minecraft:cow", 8, 2, 4)]
 
 
 class World:
@@ -73,6 +91,13 @@ class World:
         self.data = os.path.join(out, "data")
         self.jar = jar
         self.report = gen.report
+        # LOTR's real ground per biome and its mountain peaks, measured by the exporter's survey (ShotRunner)
+        survey = os.path.join(os.path.dirname(os.path.abspath(__file__)), "export", "terrain_survey.json")
+        self.ground_noises = {}
+        self.peak_biomes = set()
+        self.peak_biome_of = {}
+        self.spawn_grounds = set()  # top blocks of biomes with animals
+        self.survey = json.load(open(survey, encoding="utf-8")) if os.path.exists(survey) else {"biomes": {}}
 
     # ------------------------------------------------------------------ biomes
 
@@ -106,6 +131,11 @@ class World:
             "mood_sound": {"sound": "minecraft:ambient.cave", "tick_delay": 6000, "block_search_extent": 8,
                            "offset": 2.0},
         }
+        colors = b.get("biomeColors", {})  # LOTR's own biome colours (LOTRBiome.biomeColors)
+        for old, new in (("grass", "grass_color"), ("foliage", "foliage_color"), ("sky", "sky_color"),
+                         ("fog", "fog_color")):
+            if isinstance(colors.get(old), int):
+                effects[new] = colors[old] & 0xFFFFFF
         trees = dec.get("treesPerChunk", 0)
         lotr_trees = self.trees.biome(self.biome_id(b), b)
         veg = set()
@@ -124,40 +154,144 @@ class World:
             if dec.get("flowersPerChunk", 0) > 0:
                 veg.add("minecraft:flower_default")
             veg.add("minecraft:patch_grass_forest" if trees >= 3 else "minecraft:patch_grass_plain")
+            if dec.get("doubleGrassPerChunk", 0) > 0:
+                veg.add("minecraft:patch_tall_grass")
+            if dec.get("enableFern"):
+                veg.add("minecraft:patch_large_fern")
         if top in ("minecraft:sand", "minecraft:red_sand"):
             veg.add("minecraft:patch_dead_bush")
             if dec.get("cactiPerChunk", 0) > 0 or temp >= 1.5:
                 veg.add("minecraft:patch_cactus_desert")
-        if dec.get("canePerChunk", 0) > 0 or dec.get("reedPerChunk", 0) > 0:
+        if dec.get("canePerChunk", 0) > 0:
             veg.add("minecraft:patch_sugar_cane")
         features = [[] for _ in range(11)]
+        features[1] = [f"{NS}:crater_lava"]  # Mount Doom's lava (only near a volcano)
         features[2] = [f"{NS}:roads"]
-        features[6] = self.biome_ores.get(self.biome_id(b)) or list(ORES)
-        features[9] = ([lotr_trees] if lotr_trees else []) + [v for v in VEGETATION if v in veg]
+        ores = self.biome_ores.get(self.biome_id(b)) or list(ORES)
+        features[6] = ores + [x for x in STONE_BLOBS if x not in ores]
+        features[7] = [f"{NS}:dripstone"]  # LOTR's 3 stalactites a chunk under y 60, as dripstone
+        if dec.get("quagmirePerChunk", 0) > 0:  # LOTR's quagmire patches; mud round them (1.19's swamp ground)
+            features[2] = [f"{NS}:quagmire_{dec['quagmirePerChunk']}", f"{NS}:mud_patch"] + features[2]
+        features[9] = ([lotr_trees] if lotr_trees else []) + self.forest_floor(dec) + self.marsh_plants(b) + [
+            v for v in VEGETATION if v in veg]
         features[10] = ["minecraft:freeze_top_layer"]
-        creatures = []
-        if top == "minecraft:grass_block" and temp < 1.5:
-            creatures = [{"type": t, "weight": w, "minCount": a, "maxCount": c} for t, w, a, c in GRAZERS]
+        spawners = self.gen.animals.spawners(b)  # LOTR's own animal lists (converter/animals.py)
+        if spawners.get("creature"):
+            self.spawn_grounds.add(top)
         return {
             "has_precipitation": bool(f.get("enableRain", True) or f.get("enableSnow", False)),
             "temperature": temp,
             "downfall": rain,
             "effects": effects,
-            "spawners": {"creature": creatures} if creatures else {},
+            "spawners": spawners,
             "spawn_costs": {},
             "carvers": {"air": CARVERS},
             "features": features,
         }
 
+    def plant_patch(self, name, block, per_chunk, tall=(1, 1), on="ground", tries=16, spread=7):
+        """A LOTR plant patch (random tries round a spot) as a placed feature; per_chunk under 1 is a 1-in-n chance.
+        on: "ground" (solid or water below, as LOTR's reeds) or "water"."""
+        below = {"type": "minecraft:matching_fluids", "offset": [0, -1, 0], "fluids": ["minecraft:water"]}
+        if on == "ground":
+            below = {"type": "minecraft:any_of", "predicates": [
+                below, {"type": "minecraft:solid", "offset": [0, -1, 0]}]}
+        column = {"type": "minecraft:block_column", "config": {
+            "direction": "up", "allowed_placement": {"type": "minecraft:matching_blocks", "blocks": "minecraft:air"},
+            "prioritize_tip": False, "layers": [{"height": {"type": "minecraft:uniform", "min_inclusive": tall[0],
+                                                             "max_inclusive": tall[1]},
+                                                  "provider": {"type": "minecraft:simple_state_provider",
+                                                               "state": {"Name": block}}}]}}
+        gen = os.path.join(self.data, NS, "worldgen")
+        write_json(os.path.join(gen, "configured_feature", "plant", name + ".json"), {
+            "type": "minecraft:random_patch", "config": {"tries": tries, "xz_spread": spread, "y_spread": 3, "feature": {
+                "feature": column, "placement": [{"type": "minecraft:block_predicate_filter", "predicate": {
+                    "type": "minecraft:all_of", "predicates": [
+                        {"type": "minecraft:matching_blocks", "blocks": "minecraft:air"}, below]}}]}}})
+        count = ([{"type": "minecraft:count", "count": round(per_chunk)}] if per_chunk >= 1
+                 else [{"type": "minecraft:rarity_filter", "chance": max(1, round(1 / per_chunk))}])
+        write_json(os.path.join(gen, "placed_feature", "plant", name + ".json"), {
+            "feature": f"{NS}:plant/{name}", "placement": count + [
+                {"type": "minecraft:in_square"}, {"type": "minecraft:heightmap", "heightmap": "WORLD_SURFACE_WG"},
+                {"type": "minecraft:biome"}]})
+        return f"{NS}:plant/{name}"
+
+    def marsh_plants(self, b):
+        """LOTR's reeds (reedPerChunk patches, dried with dryReedChance) and, in the Dead Marshes, its dead plants
+        (LOTRBiomeGenDeadMarshes.decorate)."""
+        dec = b.get("decorator", {})
+        n, dry = dec.get("reedPerChunk", 0), dec.get("dryReedChance", 0.1)
+        out = []
+        for block, k in ((f"{NS}:reeds", n * (1 - dry)), (f"{NS}:dried_reeds", n * dry)):
+            if k > 0.01:
+                name = f"{block.split(':')[1]}_{round(k, 2)}".replace(".", "_")
+                out.append(self.plant_patch(name, block, k, tall=(1, 3)))
+        if b["class"].endswith("LOTRBiomeGenDeadMarshes"):
+            out.append(self.plant_patch("dead_marsh_plant", f"{NS}:dead_marsh_plant", 6, tries=64))
+            # LOTR's marsh lights (4 a chunk over the water) wait: the block draws as a white cube, not particles
+        return out
+
+    def forest_floor(self, dec):
+        """LOTR's litter after the trees: fallen leaves (trees / 2 a chunk), leaf bushes (trees / 3) and rotten logs."""
+        trees, logs = dec.get("treesPerChunk", 0), dec.get("logsPerChunk", 0)
+        if trees <= 0 and logs <= 0:
+            return []
+        name = f"forest_floor/{max(trees, 0)}_{logs}"
+        gen = os.path.join(self.data, NS, "worldgen")
+        write_json(os.path.join(gen, "configured_feature", name + ".json"), {"type": f"{NS}:forest_floor", "config": {
+            "fallen": round(max(trees, 0) / 2, 3), "bushes": round(max(trees, 0) / 3, 3), "logs": logs}})
+        write_json(os.path.join(gen, "placed_feature", name + ".json"), {"feature": f"{NS}:{name}", "placement": []})
+        return [f"{NS}:{name}"]
+
+    def measured(self, b):
+        """LOTR's surveyed ground for the biome; not for biomes holding a LOTRMountains peak, whose average
+        includes the mountain (the port adds the peak itself)."""
+        got = self.survey["biomes"].get(b["fields"]["biomeName"])
+        if b["fields"]["biomeName"] in self.peak_biomes and (not got or got["n"] < PEAK_BIOME_MIN):
+            return None
+        return got if got and got["n"] >= SURVEY_MIN else None
+
     def height(self, b):
         f = b["fields"]
+        if self.measured(b):
+            return round(max(MIN_HEIGHT, min(MAX_HEIGHT, self.measured(b)["mean"] - SURVEY_OFFSET)), 2)
         h = GROUND_AT_ZERO + float(f.get("heightBaseParameter", 0.1)) * BLOCKS_PER_BASE
         return round(max(MIN_HEIGHT, min(MAX_HEIGHT, h)), 2)
 
     def variation(self, b):
+        if self.measured(b):  # LOTR's spread of ground heights; the noise gives about STD_PER_VARIATION of it
+            return round(self.measured(b)["std"] / STD_PER_VARIATION, 2)
         return round(max(0.0, float(b["fields"].get("heightVariation", 0.1))) * BLOCKS_PER_VARIATION, 2)
 
     # ------------------------------------------------------------------ map
+
+    def find_peak_biomes(self, biomes, world):
+        """Names of the biomes the LOTRMountains peaks stand in (the map pixel under each peak)."""
+        settings = world["map"]
+        scale, ox, oz = settings.get("scale", 128), settings.get("originX", 0), settings.get("originZ", 0)
+        index_of_old = {b["fields"]["biomeID"]: b["fields"]["biomeName"] for b in biomes}
+        name_of = {int(c, 16): index_of_old.get(old) for c, old in world["colors"].items()}
+        img = Image.open(io.BytesIO(self.jar.read("assets/lotr/map/map.png"))).convert("RGB")
+        found = set()
+        for m in self.survey.get("mountains", []):
+            r, g, bl = img.getpixel((m["xCoord"] // scale + ox, m["zCoord"] // scale + oz))
+            if name_of.get((r << 16) | (g << 8) | bl):
+                found.add(name_of[(r << 16) | (g << 8) | bl])
+                self.peak_biome_of[m["name"]] = name_of[(r << 16) | (g << 8) | bl]
+        return found
+
+    def mountain(self, m):
+        """A LOTRMountains peak for map.json: a cone to its surveyed ground; hills flatten by LOTR's height boost. A
+        volcano (lavaRange) has its crater floor at the surveyed ground and the cone's rim LOTR's 2.5x higher boost
+        above the land (crater height = 0.4 x (1 - lava/range) x height); lava to LOTR's getLavaHeight."""
+        out = {"x": m["xCoord"], "z": m["zCoord"], "range": m["range"], "peak": m["ground"], "boost": m["height"]}
+        if m["lavaRange"] > 0:
+            land = self.survey["biomes"][self.peak_biome_of[m["name"]]]["mean"]
+            rim = land + (m["ground"] - land) / 0.4
+            out.update(peak=round(land + (rim - land) * m["range"] / (m["range"] - m["lavaRange"])),
+                       crater=m["lavaRange"], floor=m["ground"] - 1,
+                       lava=round((1 - m["lavaRange"] / m["range"]) * m["height"] * 0.4 * 110))
+        return out
 
     def write_map(self, biomes, world):
         ids = [self.biome_id(b) for b in biomes]
@@ -192,6 +326,8 @@ class World:
             "blur": BLUR, "border_wobble": BORDER_WOBBLE,
             "ocean": f"{NS}:{OCEAN}",
             "rivers": RIVERS,
+            # LOTRMountains: a cone from the land up to the peak's surveyed ground over `range` blocks
+            "mountains": [self.mountain(m) for m in self.survey.get("mountains", [])],
             "biomes": [{"id": f"{NS}:{i}", "height": self.height(b), "variation": self.variation(b)}
                        for i, b in zip(ids, biomes)],
         })
@@ -205,7 +341,7 @@ class World:
             f = b["fields"]
             top = self.surface_block(f["topBlock"], f.get("topBlockMeta", 0))
             filler = self.surface_block(f["fillerBlock"], f.get("fillerBlockMeta", 0))
-            groups.setdefault((top, filler), []).append(f"{NS}:{self.biome_id(b)}")
+            groups.setdefault((top, filler) + self.ground_style(b, top), []).append(f"{NS}:{self.biome_id(b)}")
         on_floor = {"type": "minecraft:stone_depth", "offset": 0, "add_surface_depth": False,
                     "secondary_depth_range": 0, "surface_type": "floor"}
         under_floor = {"type": "minecraft:stone_depth", "offset": 0, "add_surface_depth": True,
@@ -219,25 +355,46 @@ class World:
             "then_run": block_rule("minecraft:bedrock"),
         }]
         per_biome = []
-        for (top, filler), ids in sorted(groups.items()):
+        for (top, filler, podzol, rocky, wet, mud, patches, marsh, mtn), ids in sorted(groups.items(), key=str):
+            # LOTR's order: its biome's patches pick the top, then rock breaks through high up, marsh pools, podzol
+            patch_top = [{"type": "minecraft:condition", "if_true": noise_at(key, thr),
+                          "then_run": block_rule(ptop)} for key, thr, ptop, _ in patches]
+            patch_fill = [{"type": "minecraft:condition", "if_true": noise_at(key, thr),
+                           "then_run": block_rule(pfill or filler)} for key, thr, _, pfill in patches]
+            # LOTR's generateMountainTerrain: snow tops and bare stone high on the mountain biomes
+            mtn_top, mtn_fill = mountain_rules(mtn) if mtn and mtn != "all" else ([], [])
+            on_top = ([MARSH_RULE] if marsh else []) + ([ROCKY_RULE] if rocky else []) + mtn_top + patch_top
+            on_top += [MUD_RULE] if mud else []
+            if podzol is not None:
+                on_top.append(podzol_rule(podzol, wet))
+            on_top.append(block_rule(top))
+            under = ([ROCKY_RULE] if rocky else []) + mtn_fill + patch_fill
+            sandstone = [{"type": "minecraft:condition", "if_true": SANDSTONE_DEPTH,  # LOTR: sandstone under sand
+                          "then_run": block_rule(SANDSTONE[top])}] if top in SANDSTONE else []
             per_biome.append({
                 "type": "minecraft:condition",
                 "if_true": {"type": "minecraft:biome", "biome_is": sorted(ids)},
                 "then_run": {"type": "minecraft:sequence", "sequence": [
                     {"type": "minecraft:condition", "if_true": on_floor, "then_run": {
                         "type": "minecraft:sequence", "sequence": [
-                            {"type": "minecraft:condition", "if_true": above_water, "then_run": block_rule(top)},
+                            {"type": "minecraft:condition", "if_true": above_water,
+                             "then_run": {"type": "minecraft:sequence", "sequence": on_top}},
                             block_rule(filler),  # under water: no grass or snow
                         ]}},
-                    {"type": "minecraft:condition", "if_true": under_floor, "then_run": block_rule(filler)},
-                ]},
+                    {"type": "minecraft:condition", "if_true": under_floor,
+                     "then_run": {"type": "minecraft:sequence", "sequence": under + [block_rule(filler)]}},
+                ] + sandstone},
             })
         rules.append({"type": "minecraft:condition", "if_true": {"type": "minecraft:above_preliminary_surface"},
                       "then_run": {"type": "minecraft:sequence", "sequence": per_biome}})
         # Lands of rock (Mordor, Gorgoroth...) are that rock all the way down, as in LOTR, so their ores find it.
-        rock_fillers = sorted({filler for (top, filler) in groups if filler.endswith("_rock")})
-        for filler in rock_fillers:
-            ids = sorted(i for (t, f), group in groups.items() if f == filler for i in group)
+        rock_of = {}
+        for key, group in groups.items():
+            rock = key[1] if key[1].endswith("_rock") else MORDOR_ROCK if key[-1] == "all" else None
+            if rock:
+                rock_of.setdefault(rock, []).extend(group)
+        for filler, ids in sorted(rock_of.items()):
+            ids = sorted(ids)
             rules.append({"type": "minecraft:condition", "if_true": {"type": "minecraft:biome", "biome_is": ids},
                           "then_run": {"type": "minecraft:condition", "if_true": {
                               "type": "minecraft:not", "invert": {"type": "minecraft:vertical_gradient",
@@ -245,21 +402,80 @@ class World:
                                                                  "true_at_and_below": {"absolute": -48},
                                                                  "false_at_and_above": {"absolute": -40}}},
                               "then_run": block_rule(filler)}})
+        rules.append({"type": "minecraft:condition", "if_true": {  # 1.18's deepslate under y 0
+            "type": "minecraft:vertical_gradient", "random_name": "minecraft:deepslate",
+            "true_at_and_below": {"absolute": 0}, "false_at_and_above": {"absolute": 8}},
+            "then_run": {"type": "minecraft:block", "result_state": {"Name": "minecraft:deepslate",
+                                                                      "Properties": {"axis": "y"}}}})
         return {"type": "minecraft:sequence", "sequence": rules}
+
+    def ground_style(self, b, top):
+        """LOTR's shared ground rules for a biome (LOTRBiome.generateBiomeTerrain): the podzol threshold (grass
+        biomes with trees and enablePodzol), rocky high ground (enableRocky), wet (moss in the podzol patches, a modern
+        block LOTR would have used there) and mud (biomes with quagmires)."""
+        f, dec = b["fields"], b.get("decorator", {})
+        trees = dec.get("treesPerChunk", 0)
+        podzol = None
+        if f.get("enablePodzol", True) and trees >= 1 and top == "minecraft:grass_block":
+            podzol = round(max(0.0, 0.8 - trees * 0.15), 2)  # LOTR clamps at 0
+        wet = podzol is not None and float(f.get("rainfall", 0.5)) >= 0.9
+        import grounds
+        patches, marsh = grounds.for_biome(b, self.jar)
+        old = lambda o: o and self.surface_block(o.split("#")[0], int(o.split("#")[1]))
+        resolved = []
+        for noise, scales, thr, ptop, pfiller in patches:
+            key = f"ground/{b['class'].replace('/', '.').rsplit('.', 1)[-1].lower()}_{noise}"
+            octaves = {round(math.log2(sc)): w for sc, w in scales.items()}
+            lo = min(octaves)
+            self.ground_noises[key] = {"firstOctave": lo,
+                                       "amplitudes": [float(octaves.get(o, 0.0)) for o in range(lo, max(octaves) + 1)]}
+            resolved.append((key, thr, old(ptop), old(pfiller)))
+        mtn = grounds.mountain(b, self.jar)
+        if mtn and mtn != "all":
+            snow, stone_y, stone, sand = mtn
+            mtn = (snow, stone_y, old(stone), old(sand))
+        return (podzol, bool(f.get("enableRocky", True)), wet, dec.get("quagmirePerChunk", 0) > 0, tuple(resolved),
+                marsh, mtn)
 
     def noise_settings(self, biomes):
         height = {"type": "minecraft:flat_cache", "argument": {"type": f"{NS}:map_terrain", "value": "height"}}
         variation = {"type": "minecraft:flat_cache", "argument": {"type": f"{NS}:map_terrain", "value": "variation"}}
         minus_y = {"type": "minecraft:y_clamped_gradient", "from_y": -64, "to_y": 320, "from_value": 64,
                    "to_value": -320}
-        # density = (ground height - y + hilliness * 3D noise) / 24: solid below the ground, air above
-        base = {"type": "minecraft:add", "argument1": height, "argument2": minus_y}
-        hills = {"type": "minecraft:mul", "argument1": variation,
-                 "argument2": {"type": "minecraft:noise", "noise": f"{NS}:terrain", "xz_scale": 1.0,
-                               "y_scale": 0.5}}
+        # LOTR's shape (LOTRChunkProvider): 1.7's blended 3D noise (old_blended_noise, xz factor 400 as LOTR) scaled by
+        # hilliness, a 2D hill noise, and ground 4x steeper below the map height so hills don't float or terrace
+        level = {"type": "minecraft:add", "argument1": height,
+                 "argument2": {"type": "minecraft:mul", "argument1": -HILL_BIAS, "argument2": variation}}
+        base = {"type": "minecraft:add", "argument1": level, "argument2": minus_y}
+        shaped = {"type": "minecraft:add", "argument1": {"type": "minecraft:min", "argument1": base, "argument2": 0.0},
+                  "argument2": {"type": "minecraft:mul", "argument1": 4.0,
+                                "argument2": {"type": "minecraft:max", "argument1": base, "argument2": 0.0}}}
+        blended = {"type": "minecraft:old_blended_noise", "xz_scale": 1.0, "y_scale": 1.0, "xz_factor": 400.0,
+                   "y_factor": 160.0, "smear_scale_multiplier": 8.0}
+        hill2d = {"type": "minecraft:noise", "noise": f"{NS}:terrain", "xz_scale": 1.0, "y_scale": 0.0}
+        # the 3D part is capped at MAX_3D blocks of hilliness (more floats islands off mountains); the rest is 2D
+        capped = {"type": "minecraft:min", "argument1": variation, "argument2": MAX_3D}
+        hills = {"type": "minecraft:add",
+                 "argument1": {"type": "minecraft:mul", "argument1": capped,
+                               "argument2": {"type": "minecraft:mul", "argument1": 2.0, "argument2": blended}},
+                 "argument2": {"type": "minecraft:mul", "argument1": variation,
+                               "argument2": {"type": "minecraft:mul", "argument1": HILL_2D, "argument2": hill2d}}}
+        # crags: LOTR's very hilly biomes (mountains) break into peaks and cliffs; 1.18's jagged noise (as vanilla's
+        # jagged peaks) gives hilliness over JAGGED_FROM that, so plains and hills are untouched
+        jagged = {"type": "minecraft:mul", "argument1": {"type": "minecraft:max", "argument1": {
+            "type": "minecraft:add", "argument1": variation, "argument2": -JAGGED_FROM}, "argument2": 0.0},
+            "argument2": {"type": "minecraft:mul", "argument1": JAGGED, "argument2": {
+                "type": "minecraft:half_negative", "argument": {"type": "minecraft:noise", "noise": "minecraft:jagged",
+                                                                "xz_scale": 1500.0, "y_scale": 0.0}}}}
+        ridges = {"type": "minecraft:mul", "argument1": {"type": "minecraft:max", "argument1": {
+            "type": "minecraft:add", "argument1": variation, "argument2": -JAGGED_FROM}, "argument2": 0.0},
+            "argument2": {"type": "minecraft:mul", "argument1": RIDGES, "argument2": {
+                "type": "minecraft:noise", "noise": f"{NS}:terrain", "xz_scale": 0.5, "y_scale": 0.0}}}
+        hills = {"type": "minecraft:add", "argument1": hills, "argument2": {
+            "type": "minecraft:add", "argument1": jagged, "argument2": ridges}}
         final = {"type": "minecraft:interpolated", "argument": {
             "type": "minecraft:mul", "argument1": 1 / 24,
-            "argument2": {"type": "minecraft:add", "argument1": base, "argument2": hills}}}
+            "argument2": {"type": "minecraft:add", "argument1": shaped, "argument2": hills}}}
         prelim = {"type": "minecraft:mul", "argument1": 1 / 24, "argument2": base}
         zero = 0.0
         return {
@@ -308,6 +524,12 @@ class World:
         }})
         write_json(os.path.join(self.data, "minecraft", "tags", "worldgen", "world_preset", "normal.json"),
                    {"replace": False, "values": [f"{NS}:middle_earth"]})
+        for key, noise in self.ground_noises.items():
+            write_json(os.path.join(d, "worldgen", "noise", key + ".json"), noise)
+        for name, octave, amps in (("podzol", -4, [1.0, 1.0]), ("rocky", -5, [1.0, 0.0, 0.0, 1.0]),
+                                   ("ground_pick", 0, [1.0]), ("marsh", -3, [1.0]), ("mountain", -4, [1.0])):
+            write_json(os.path.join(d, "worldgen", "noise", name + ".json"),
+                       {"firstOctave": octave, "amplitudes": amps})
         write_json(os.path.join(d, "worldgen", "noise", "terrain.json"),
                    {"firstOctave": -7, "amplitudes": [1.0, 1.0, 0.5, 0.25]})
 
@@ -354,8 +576,13 @@ class World:
                 rule = {"predicate_type": "minecraft:tag_match", "tag": "minecraft:stone_ore_replaceables"}
             else:
                 rule = {"predicate_type": "minecraft:block_match", "block": self.surface_block(target, 0)}
+            targets = [{"target": rule, "state": {"Name": state}}]
+            if target == "minecraft:stone":  # under y 0 the stone is deepslate
+                targets.append({"target": {"predicate_type": "minecraft:tag_match",
+                                           "tag": "minecraft:deepslate_ore_replaceables"},
+                                "state": {"Name": DEEPSLATE_ORE.get(state, state)}})
             write_json(os.path.join(gen, "configured_feature", name + ".json"), {"type": "minecraft:ore", "config": {
-                "targets": [{"target": rule, "state": {"Name": state}}], "size": size,
+                "targets": targets, "size": size,
                 "discard_chance_on_air_exposure": 0.0}})
             if chance >= 1:
                 count = [{"type": "minecraft:count", "count": int(round(chance))}]
@@ -371,6 +598,52 @@ class World:
         rank = {k: i for i, k in enumerate(order)}
         self.biome_ores = {bid: [names[k] for k in sorted(set(keys), key=rank.get)] for bid, keys in per_biome.items()}
         return len(order)
+
+    def ground_features(self, biomes):
+        gen = os.path.join(self.data, NS, "worldgen")
+        # LOTR's foggy biomes (Fangorn, the Old Forest...): the client draws them in thick fog
+        write_json(os.path.join(self.data, NS, "tags", "worldgen", "biome", "foggy.json"), {"values": sorted(
+            f"{NS}:{self.biome_id(b)}" for b in biomes if (b.get("biomeColors") or {}).get("foggy"))})
+        # LOTR: 3 stalactites a chunk at y 0-60 (LOTRBiomeDecorator); here clusters of pointed dripstone to y -60
+        write_json(os.path.join(gen, "placed_feature", "dripstone.json"), {
+            "feature": "minecraft:pointed_dripstone", "placement": [
+                {"type": "minecraft:count", "count": 32}, {"type": "minecraft:in_square"},  # most tries land in rock
+                {"type": "minecraft:height_range", "height": {"type": "minecraft:uniform",
+                                                              "min_inclusive": {"absolute": -60},
+                                                              "max_inclusive": {"absolute": 60}}},
+                {"type": "minecraft:count", "count": {"type": "minecraft:uniform", "min_inclusive": 1,
+                                                     "max_inclusive": 4}},
+                {"type": "minecraft:random_offset",
+                 "xz_spread": {"type": "minecraft:clamped_normal", "mean": 0.0, "deviation": 3.0,
+                               "min_inclusive": -10, "max_inclusive": 10},
+                 "y_spread": {"type": "minecraft:clamped_normal", "mean": 0.0, "deviation": 0.6,
+                              "min_inclusive": -2, "max_inclusive": 2}},
+                # LOTR hung them from a cave roof: from a cave's air, up to its ceiling
+                {"type": "minecraft:environment_scan", "direction_of_search": "up", "max_steps": 12,
+                 "target_condition": {"type": "minecraft:solid"},
+                 "allowed_search_condition": {"type": "minecraft:matching_blocks", "blocks": "minecraft:air"}},
+                {"type": "minecraft:random_offset", "xz_spread": 0, "y_spread": -1},
+                {"type": "minecraft:biome"}]})
+
+        def disk(block, radius):
+            return {"type": "minecraft:disk", "config": {
+                "state_provider": {"fallback": {"type": "minecraft:simple_state_provider",
+                                                "state": {"Name": block}}, "rules": []},
+                "target": {"type": "minecraft:matching_blocks",
+                           "blocks": ["minecraft:grass_block", "minecraft:dirt", "minecraft:coarse_dirt",
+                                      "minecraft:mud"]},
+                "radius": radius, "half_height": 1}}
+        surface = [{"type": "minecraft:in_square"}, {"type": "minecraft:heightmap", "heightmap": "WORLD_SURFACE_WG"},
+                   {"type": "minecraft:biome"}]
+        write_json(os.path.join(gen, "configured_feature", "quagmire.json"),
+                   disk(f"{NS}:quagmire", {"type": "minecraft:uniform", "min_inclusive": 2, "max_inclusive": 4}))
+        write_json(os.path.join(gen, "configured_feature", "mud_patch.json"),
+                   disk("minecraft:mud", {"type": "minecraft:uniform", "min_inclusive": 2, "max_inclusive": 5}))
+        write_json(os.path.join(gen, "placed_feature", "mud_patch.json"),
+                   {"feature": f"{NS}:mud_patch", "placement": [{"type": "minecraft:count", "count": 2}] + surface})
+        for n in sorted({b.get("decorator", {}).get("quagmirePerChunk", 0) for b in biomes} - {0}):
+            write_json(os.path.join(gen, "placed_feature", f"quagmire_{n}.json"),
+                       {"feature": f"{NS}:quagmire", "placement": [{"type": "minecraft:count", "count": n}] + surface})
 
     def roads(self, world):
         """LOTR's roads in block coordinates (map pixel -> block, the same way as the biome map), and the feature."""
@@ -390,11 +663,28 @@ class World:
         path = os.path.join(self.out, NS, "map", "roads.json")
         os.makedirs(os.path.dirname(path), exist_ok=True)
         with open(path, "w", encoding="utf-8") as f:  # compact: ~150k points
-            json.dump({"width": ROAD_HALF_WIDTH, "roads": roads}, f, separators=(",", ":"))
+            json.dump({"width": ROAD_HALF_WIDTH, "roads": roads, **self.road_blocks()}, f, separators=(",", ":"))
         gen = os.path.join(self.data, NS, "worldgen")
         write_json(os.path.join(gen, "configured_feature", "roads.json"), {"type": f"{NS}:roads", "config": {}})
         write_json(os.path.join(gen, "placed_feature", "roads.json"), {"feature": f"{NS}:roads", "placement": []})
+        write_json(os.path.join(gen, "configured_feature", "crater_lava.json"), {"type": f"{NS}:crater_lava",
+                                                                                "config": {}})
+        write_json(os.path.join(gen, "placed_feature", "crater_lava.json"), {"feature": f"{NS}:crater_lava",
+                                                                           "placement": []})
         return len(roads)
+
+    def road_blocks(self):
+        """Each biome's LOTR road and bridge blocks (converter/roads.py)."""
+        import roads
+
+        extra = {"minecraft:planks#0": "minecraft:oak_planks", "minecraft:fence#0": "minecraft:oak_fence",
+                 "minecraft:wooden_slab#0": "minecraft:oak_slab"}
+
+        def resolve(old):
+            if old in extra or old in VANILLA_SURFACE:
+                return extra.get(old) or VANILLA_SURFACE[old]
+            return self.gen.idtable.get(old)
+        return roads.build(self.export["biomes"], self.jar, resolve, self.biome_id)
 
     def run(self):
         world = self.export
@@ -414,7 +704,13 @@ class World:
             write_json(os.path.join(self.data, NS, "worldgen", "biome", bid + ".json"), self.biome(b))
         if OCEAN not in seen:
             raise SystemExit("no ocean biome in the export")
+        self.peak_biomes = self.find_peak_biomes(biomes, world)
         w, h = self.write_map(biomes, world)
+        self.ground_features(biomes)
+        # animals spawn on grass, as in LOTR (1.7.10's EntityAnimal); the port's own grass tops count too
+        write_json(os.path.join(self.data, "minecraft", "tags", "block", "animals_spawnable_on.json"),
+                   {"replace": False, "values": sorted(g for g in self.spawn_grounds
+                                                       if g.endswith("grass") and g.startswith(NS + ":"))})
         write_json(os.path.join(self.data, NS, "worldgen", "noise_settings", "middle_earth.json"),
                    self.noise_settings(biomes))
         self.dimension_files()
@@ -423,8 +719,81 @@ class World:
                 "ore_features": ore_count}
 
 
+def noise_at(noise, lo, hi=99.0):
+    """A LOTR noise threshold (lo..hi in LOTR's units) on one of our noises."""
+    return {"type": "minecraft:noise_threshold", "noise": f"{NS}:{noise}", "min_threshold": lo * NOISE_SCALE,
+            "max_threshold": hi * NOISE_SCALE}
+
+
+def podzol_rule(threshold, wet):
+    """LOTR: where the patch noise passes 0.8 - 0.15 x trees a chunk: 35% podzol, 15% barren (coarse) dirt, rest
+    grass; in wet forests moss takes part of the grass."""
+    picks = [{"type": "minecraft:condition", "if_true": noise_at("ground_pick", 0.13 / NOISE_SCALE),
+              "then_run": block_rule("minecraft:podzol")},
+             {"type": "minecraft:condition", "if_true": noise_at("ground_pick", 0.0),
+              "then_run": block_rule("minecraft:coarse_dirt")}]
+    if wet:
+        picks.append({"type": "minecraft:condition", "if_true": noise_at("ground_pick", -99.0, -0.3 / NOISE_SCALE),
+                      "then_run": block_rule("minecraft:moss_block")})
+    return {"type": "minecraft:condition", "if_true": noise_at("podzol", threshold),
+            "then_run": {"type": "minecraft:sequence", "sequence": picks}}
+
+
+def _rocky():
+    """LOTR: above y 90 rock breaks through, more the higher (threshold 1.2 - (y - 90) / 50); 1 in 5 gravel."""
+    bands = []
+    for y, thr in ((210, -1.2), (190, -0.8), (170, -0.4), (150, 0.0), (130, 0.4), (110, 0.8), (90, 1.2)):
+        # LOTR's 1.2 - (y - 90) / 50, which keeps falling above 150: high peaks are almost all rock
+        bands.append({"type": "minecraft:condition", "if_true": {"type": "minecraft:y_above", "anchor": {
+            "absolute": y}, "surface_depth_multiplier": 0, "add_stone_depth": False},
+            "then_run": {"type": "minecraft:condition", "if_true": noise_at("rocky", thr), "then_run": {
+                "type": "minecraft:sequence", "sequence": [
+                    {"type": "minecraft:condition", "if_true": noise_at("ground_pick", 0.3 / NOISE_SCALE),
+                     "then_run": block_rule("minecraft:gravel")},
+                    block_rule("minecraft:stone")]}}})
+    return {"type": "minecraft:sequence", "sequence": bands}
+
+
 def block_rule(name):
     return {"type": "minecraft:block", "result_state": {"Name": name}}
+
+
+ROCKY_RULE = _rocky()
+MORDOR_ROCK = "lotr_port:mordor_rock"
+
+
+def _above_less_rock_depth(y, then):
+    """Rules for LOTR's j >= y - rockDepth, rockDepth 2..8 from its stone noise (here bands of the mountain noise)."""
+    out = []
+    for depth, lo in ((8, 0.5), (6, 0.0), (4, -0.5), (2, -99.0)):
+        out.append({"type": "minecraft:condition", "if_true": {"type": "minecraft:y_above", "anchor": {
+            "absolute": y - depth}, "surface_depth_multiplier": 0, "add_stone_depth": False}, "then_run": {
+            "type": "minecraft:condition", "if_true": noise_at("mountain", lo / NOISE_SCALE), "then_run": then}})
+    return out
+
+
+def mountain_rules(mtn):
+    """(top rules, filler rules) for a generateMountainTerrain entry (grounds.MOUNTAINS): snow, stone, then sand."""
+    snow, stone_y, stone, sand = mtn
+    stone_rules = _above_less_rock_depth(stone_y, block_rule(stone))
+    sand_rules = _above_less_rock_depth(stone_y - 6, block_rule(sand)) if sand else []
+    top = (_above_less_rock_depth(snow, block_rule("minecraft:snow_block")) if snow else []) + stone_rules + sand_rules
+    return top, stone_rules + sand_rules
+# around quagmires, near the water line: mud (1.19)
+MUD_RULE = {"type": "minecraft:condition", "if_true": {"type": "minecraft:not", "invert": {
+    "type": "minecraft:y_above", "anchor": {"absolute": SEA_LEVEL + 3}, "surface_depth_multiplier": 0,
+    "add_stone_depth": False}}, "then_run": {"type": "minecraft:condition", "if_true": noise_at("podzol", 0.5),
+                                              "then_run": block_rule("minecraft:mud")}}
+# LOTR's marsh pools: the surface at sea level - 1 becomes water where marshNoise(0.1) > -0.1
+MARSH_RULE = {"type": "minecraft:condition", "if_true": {"type": "minecraft:y_above", "anchor": {
+    "absolute": SEA_LEVEL - 1}, "surface_depth_multiplier": 0, "add_stone_depth": False}, "then_run": {
+    "type": "minecraft:condition", "if_true": {"type": "minecraft:not", "invert": {
+        "type": "minecraft:y_above", "anchor": {"absolute": SEA_LEVEL + 2}, "surface_depth_multiplier": 0,
+        "add_stone_depth": False}}, "then_run": {"type": "minecraft:condition", "if_true": noise_at("marsh", -0.1),
+                                                  "then_run": block_rule("minecraft:water")}}}
+SANDSTONE = {"minecraft:sand": "minecraft:sandstone", "minecraft:red_sand": "minecraft:red_sandstone"}
+SANDSTONE_DEPTH = {"type": "minecraft:stone_depth", "offset": 0, "add_surface_depth": True,
+                   "secondary_depth_range": 10, "surface_type": "floor"}
 
 
 def sky_color(temp):

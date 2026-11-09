@@ -1,0 +1,1193 @@
+{
+  "step_chunks": 48,
+  "biomes": {
+    "adornland": {
+      "n": 1691,
+      "mean": 73.8,
+      "std": 9.6
+    },
+    "andrast": {
+      "n": 737,
+      "mean": 73.2,
+      "std": 6.1
+    },
+    "anduinHills": {
+      "n": 4182,
+      "mean": 84.4,
+      "std": 9.7
+    },
+    "anduinMouth": {
+      "n": 1104,
+      "mean": 60.9,
+      "std": 5.7
+    },
+    "anduinVale": {
+      "n": 11311,
+      "mean": 68.3,
+      "std": 6.9
+    },
+    "angle": {
+      "n": 1396,
+      "mean": 73.0,
+      "std": 9.7
+    },
+    "angmar": {
+      "n": 3601,
+      "mean": 78.2,
+      "std": 13.4
+    },
+    "angmarMountains": {
+      "n": 2001,
+      "mean": 129.5,
+      "std": 26.7
+    },
+    "barrowDowns": {
+      "n": 288,
+      "mean": 72.6,
+      "std": 8.9
+    },
+    "beach": {
+      "n": 32909,
+      "mean": 65.9,
+      "std": 4.1
+    },
+    "beachGravel": {
+      "n": 1786,
+      "mean": 65.8,
+      "std": 4.0
+    },
+    "beachWhite": {
+      "n": 192,
+      "mean": 65.1,
+      "std": 4.4
+    },
+    "blackrootVale": {
+      "n": 572,
+      "mean": 72.6,
+      "std": 9.2
+    },
+    "blueMountains": {
+      "n": 6543,
+      "mean": 118.5,
+      "std": 43.6
+    },
+    "blueMountainsFoothills": {
+      "n": 4555,
+      "mean": 86.8,
+      "std": 16.0
+    },
+    "breeland": {
+      "n": 783,
+      "mean": 70.9,
+      "std": 6.3
+    },
+    "brownLands": {
+      "n": 15297,
+      "mean": 71.5,
+      "std": 4.7
+    },
+    "celebrant": {
+      "n": 1227,
+      "mean": 69.9,
+      "std": 5.9
+    },
+    "chetwood": {
+      "n": 162,
+      "mean": 77.4,
+      "std": 11.1
+    },
+    "coldfells": {
+      "n": 880,
+      "mean": 77.5,
+      "std": 14.7
+    },
+    "dagorlad": {
+      "n": 3308,
+      "mean": 68.2,
+      "std": 2.9
+    },
+    "dale": {
+      "n": 9187,
+      "mean": 70.6,
+      "std": 7.7
+    },
+    "deadMarshes": {
+      "n": 1378,
+      "mean": 62.3,
+      "std": 0.9
+    },
+    "dolGuldur": {
+      "n": 411,
+      "mean": 84.1,
+      "std": 14.2
+    },
+    "dorEnErnil": {
+      "n": 2383,
+      "mean": 69.6,
+      "std": 7.4
+    },
+    "dorEnErnilHills": {
+      "n": 839,
+      "mean": 82.9,
+      "std": 6.9
+    },
+    "dorwinion": {
+      "n": 4716,
+      "mean": 70.5,
+      "std": 8.1
+    },
+    "dorwinionHills": {
+      "n": 2194,
+      "mean": 93.6,
+      "std": 14.5
+    },
+    "dunland": {
+      "n": 4818,
+      "mean": 76.8,
+      "std": 8.9
+    },
+    "eastBight": {
+      "n": 919,
+      "mean": 70.4,
+      "std": 1.6
+    },
+    "easternDesolation": {
+      "n": 3343,
+      "mean": 71.5,
+      "std": 5.9
+    },
+    "emynMuil": {
+      "n": 1552,
+      "mean": 73.3,
+      "std": 11.6
+    },
+    "enedwaith": {
+      "n": 20673,
+      "mean": 75.9,
+      "std": 12.1
+    },
+    "entwashMouth": {
+      "n": 1008,
+      "mean": 62.0,
+      "std": 3.5
+    },
+    "erebor": {
+      "n": 69,
+      "mean": 84.0,
+      "std": 16.1
+    },
+    "eregion": {
+      "n": 1536,
+      "mean": 74.1,
+      "std": 9.1
+    },
+    "eriador": {
+      "n": 30532,
+      "mean": 73.9,
+      "std": 13.1
+    },
+    "eriadorDowns": {
+      "n": 3696,
+      "mean": 81.0,
+      "std": 8.8
+    },
+    "erynVorn": {
+      "n": 720,
+      "mean": 78.1,
+      "std": 11.2
+    },
+    "ettenmoors": {
+      "n": 2864,
+      "mean": 83.1,
+      "std": 10.8
+    },
+    "fangorn": {
+      "n": 2971,
+      "mean": 77.0,
+      "std": 11.2
+    },
+    "fangornWasteland": {
+      "n": 109,
+      "mean": 74.9,
+      "std": 7.1
+    },
+    "farHarad": {
+      "n": 140336,
+      "mean": 69.7,
+      "std": 6.0
+    },
+    "farHaradArid": {
+      "n": 98764,
+      "mean": 73.1,
+      "std": 6.5
+    },
+    "farHaradAridHills": {
+      "n": 12002,
+      "mean": 101.2,
+      "std": 15.6
+    },
+    "farHaradBushland": {
+      "n": 49773,
+      "mean": 73.7,
+      "std": 6.8
+    },
+    "farHaradBushlandHills": {
+      "n": 3821,
+      "mean": 96.0,
+      "std": 13.9
+    },
+    "farHaradCloudForest": {
+      "n": 20553,
+      "mean": 95.7,
+      "std": 14.3
+    },
+    "farHaradCoast": {
+      "n": 4271,
+      "mean": 67.5,
+      "std": 7.8
+    },
+    "farHaradForest": {
+      "n": 51011,
+      "mean": 81.9,
+      "std": 12.4
+    },
+    "farHaradJungle": {
+      "n": 196964,
+      "mean": 77.9,
+      "std": 16.2
+    },
+    "farHaradJungleEdge": {
+      "n": 19400,
+      "mean": 78.4,
+      "std": 10.1
+    },
+    "farHaradJungleLake": {
+      "n": 112,
+      "mean": 48.1,
+      "std": 2.4
+    },
+    "farHaradJungleMountains": {
+      "n": 7189,
+      "mean": 131.9,
+      "std": 25.3
+    },
+    "farHaradKanuka": {
+      "n": 2767,
+      "mean": 83.8,
+      "std": 13.9
+    },
+    "farHaradMangrove": {
+      "n": 23025,
+      "mean": 62.1,
+      "std": 3.3
+    },
+    "farHaradSwamp": {
+      "n": 3716,
+      "mean": 63.3,
+      "std": 3.3
+    },
+    "farHaradVolcano": {
+      "n": 6889,
+      "mean": 92.0,
+      "std": 20.1
+    },
+    "forodwaith": {
+      "n": 277366,
+      "mean": 68.4,
+      "std": 3.2
+    },
+    "forodwaithCoast": {
+      "n": 2565,
+      "mean": 66.4,
+      "std": 8.4
+    },
+    "forodwaithGlacier": {
+      "n": 1885,
+      "mean": 97.9,
+      "std": 4.5
+    },
+    "forodwaithMountains": {
+      "n": 35478,
+      "mean": 143.5,
+      "std": 34.0
+    },
+    "gladdenFields": {
+      "n": 1456,
+      "mean": 63.3,
+      "std": 3.7
+    },
+    "gondor": {
+      "n": 14457,
+      "mean": 70.7,
+      "std": 7.3
+    },
+    "gondorWoodlands": {
+      "n": 243,
+      "mean": 75.4,
+      "std": 8.6
+    },
+    "gorgoroth": {
+      "n": 5318,
+      "mean": 84.2,
+      "std": 6.4
+    },
+    "greyMountains": {
+      "n": 2584,
+      "mean": 133.5,
+      "std": 28.8
+    },
+    "greyMountainsFoothills": {
+      "n": 1760,
+      "mean": 87.0,
+      "std": 13.5
+    },
+    "gulfHarad": {
+      "n": 9140,
+      "mean": 72.3,
+      "std": 7.1
+    },
+    "gulfHaradForest": {
+      "n": 608,
+      "mean": 79.0,
+      "std": 11.0
+    },
+    "halfTrollForest": {
+      "n": 2111,
+      "mean": 81.6,
+      "std": 11.4
+    },
+    "haradMountains": {
+      "n": 20628,
+      "mean": 137.7,
+      "std": 33.1
+    },
+    "harnedor": {
+      "n": 8678,
+      "mean": 70.3,
+      "std": 7.4
+    },
+    "harondor": {
+      "n": 17545,
+      "mean": 75.9,
+      "std": 10.1
+    },
+    "imlothMelui": {
+      "n": 32,
+      "mean": 69.2,
+      "std": 1.5
+    },
+    "ironHills": {
+      "n": 2114,
+      "mean": 82.6,
+      "std": 23.6
+    },
+    "island": {
+      "n": 33501,
+      "mean": 66.3,
+      "std": 5.1
+    },
+    "ithilien": {
+      "n": 3474,
+      "mean": 72.1,
+      "std": 11.5
+    },
+    "ithilienHills": {
+      "n": 433,
+      "mean": 91.1,
+      "std": 9.1
+    },
+    "ithilienWasteland": {
+      "n": 723,
+      "mean": 69.3,
+      "std": 4.4
+    },
+    "lake": {
+      "n": 5884,
+      "mean": 49.5,
+      "std": 3.9
+    },
+    "lamedon": {
+      "n": 1240,
+      "mean": 72.7,
+      "std": 6.6
+    },
+    "lamedonHills": {
+      "n": 666,
+      "mean": 88.0,
+      "std": 14.2
+    },
+    "lastDesert": {
+      "n": 9944,
+      "mean": 76.9,
+      "std": 7.2
+    },
+    "lebennin": {
+      "n": 4852,
+      "mean": 72.4,
+      "std": 10.2
+    },
+    "lindon": {
+      "n": 15082,
+      "mean": 73.7,
+      "std": 8.2
+    },
+    "lindonCoast": {
+      "n": 107,
+      "mean": 67.8,
+      "std": 9.4
+    },
+    "lindonWoodlands": {
+      "n": 3461,
+      "mean": 80.4,
+      "std": 14.2
+    },
+    "loneLands": {
+      "n": 18012,
+      "mean": 75.1,
+      "std": 13.3
+    },
+    "loneLandsHills": {
+      "n": 664,
+      "mean": 89.1,
+      "std": 14.9
+    },
+    "longMarshes": {
+      "n": 208,
+      "mean": 63.1,
+      "std": 2.6
+    },
+    "lossarnach": {
+      "n": 387,
+      "mean": 69.8,
+      "std": 6.9
+    },
+    "lostladen": {
+      "n": 8024,
+      "mean": 73.7,
+      "std": 6.2
+    },
+    "lothlorien": {
+      "n": 857,
+      "mean": 75.2,
+      "std": 10.5
+    },
+    "lothlorienEdge": {
+      "n": 295,
+      "mean": 75.6,
+      "std": 13.0
+    },
+    "meneltarma": {
+      "n": 75,
+      "mean": 68.8,
+      "std": 4.3
+    },
+    "midgewater": {
+      "n": 275,
+      "mean": 64.5,
+      "std": 3.6
+    },
+    "minhiriath": {
+      "n": 14264,
+      "mean": 69.8,
+      "std": 6.2
+    },
+    "mirkwoodCorrupted": {
+      "n": 15321,
+      "mean": 77.8,
+      "std": 12.3
+    },
+    "mirkwoodMountains": {
+      "n": 769,
+      "mean": 118.4,
+      "std": 28.4
+    },
+    "mirkwoodNorth": {
+      "n": 3111,
+      "mean": 80.5,
+      "std": 12.7
+    },
+    "mistyMountains": {
+      "n": 10624,
+      "mean": 145.9,
+      "std": 34.0
+    },
+    "mistyMountainsFoothills": {
+      "n": 3271,
+      "mean": 92.7,
+      "std": 15.9
+    },
+    "mordor": {
+      "n": 15220,
+      "mean": 76.2,
+      "std": 9.6
+    },
+    "mordorMountains": {
+      "n": 10350,
+      "mean": 149.5,
+      "std": 45.7
+    },
+    "morgulVale": {
+      "n": 80,
+      "mean": 73.6,
+      "std": 2.7
+    },
+    "nanCurunir": {
+      "n": 154,
+      "mean": 71.8,
+      "std": 2.7
+    },
+    "nanUngol": {
+      "n": 752,
+      "mean": 68.8,
+      "std": 7.8
+    },
+    "nearHarad": {
+      "n": 142010,
+      "mean": 76.0,
+      "std": 6.7
+    },
+    "nearHaradFertile": {
+      "n": 19824,
+      "mean": 73.7,
+      "std": 7.3
+    },
+    "nearHaradFertileForest": {
+      "n": 1114,
+      "mean": 76.0,
+      "std": 10.5
+    },
+    "nearHaradHills": {
+      "n": 4183,
+      "mean": 84.7,
+      "std": 11.7
+    },
+    "nearHaradOasis": {
+      "n": 146,
+      "mean": 70.2,
+      "std": 4.4
+    },
+    "nearHaradRedDesert": {
+      "n": 15927,
+      "mean": 76.3,
+      "std": 6.9
+    },
+    "nearHaradRiverbank": {
+      "n": 3228,
+      "mean": 66.9,
+      "std": 6.0
+    },
+    "nearHaradSemiDesert": {
+      "n": 68067,
+      "mean": 74.9,
+      "std": 6.5
+    },
+    "nindalf": {
+      "n": 1152,
+      "mean": 63.3,
+      "std": 2.9
+    },
+    "nurn": {
+      "n": 14788,
+      "mean": 72.1,
+      "std": 8.6
+    },
+    "nurnMarshes": {
+      "n": 255,
+      "mean": 62.9,
+      "std": 1.5
+    },
+    "nurnen": {
+      "n": 1793,
+      "mean": 33.4,
+      "std": 5.8
+    },
+    "ocean": {
+      "n": 3236215,
+      "mean": 33.4,
+      "std": 5.2
+    },
+    "oldForest": {
+      "n": 336,
+      "mean": 81.3,
+      "std": 12.7
+    },
+    "pelargir": {
+      "n": 259,
+      "mean": 71.2,
+      "std": 8.3
+    },
+    "pelennor": {
+      "n": 80,
+      "mean": 71.7,
+      "std": 9.2
+    },
+    "pertorogwaith": {
+      "n": 11533,
+      "mean": 76.6,
+      "std": 11.9
+    },
+    "pinnathGelin": {
+      "n": 1029,
+      "mean": 80.8,
+      "std": 9.6
+    },
+    "pukel": {
+      "n": 2972,
+      "mean": 77.5,
+      "std": 11.4
+    },
+    "redMountains": {
+      "n": 13243,
+      "mean": 127.5,
+      "std": 34.2
+    },
+    "redMountainsFoothills": {
+      "n": 6281,
+      "mean": 87.3,
+      "std": 15.8
+    },
+    "rhun": {
+      "n": 470572,
+      "mean": 76.4,
+      "std": 7.5
+    },
+    "rhunForest": {
+      "n": 54544,
+      "mean": 84.2,
+      "std": 14.0
+    },
+    "rhunIsland": {
+      "n": 80,
+      "mean": 75.3,
+      "std": 12.5
+    },
+    "rhunIslandForest": {
+      "n": 112,
+      "mean": 75.3,
+      "std": 14.0
+    },
+    "rhunLand": {
+      "n": 9209,
+      "mean": 70.2,
+      "std": 8.0
+    },
+    "rhunLandHills": {
+      "n": 2201,
+      "mean": 87.3,
+      "std": 12.8
+    },
+    "rhunLandSteppe": {
+      "n": 13267,
+      "mean": 72.8,
+      "std": 6.2
+    },
+    "rhunRedForest": {
+      "n": 2054,
+      "mean": 78.0,
+      "std": 11.0
+    },
+    "rivendell": {
+      "n": 128,
+      "mean": 71.5,
+      "std": 2.1
+    },
+    "rivendellHills": {
+      "n": 108,
+      "mean": 136.3,
+      "std": 8.7
+    },
+    "rohan": {
+      "n": 12274,
+      "mean": 73.2,
+      "std": 7.0
+    },
+    "rohanUrukHighlands": {
+      "n": 307,
+      "mean": 93.9,
+      "std": 7.7
+    },
+    "rohanWoodlands": {
+      "n": 16,
+      "mean": 90.2,
+      "std": 0.9
+    },
+    "shire": {
+      "n": 3227,
+      "mean": 72.3,
+      "std": 8.4
+    },
+    "shireMarshes": {
+      "n": 96,
+      "mean": 60.2,
+      "std": 3.5
+    },
+    "shireMoors": {
+      "n": 1395,
+      "mean": 78.7,
+      "std": 10.8
+    },
+    "shireWoodlands": {
+      "n": 549,
+      "mean": 83.3,
+      "std": 14.2
+    },
+    "swanfleet": {
+      "n": 796,
+      "mean": 62.2,
+      "std": 3.3
+    },
+    "taiga": {
+      "n": 28861,
+      "mean": 73.3,
+      "std": 11.6
+    },
+    "tauredainClearing": {
+      "n": 32640,
+      "mean": 71.7,
+      "std": 4.9
+    },
+    "tolfalas": {
+      "n": 329,
+      "mean": 74.3,
+      "std": 13.9
+    },
+    "towerHills": {
+      "n": 448,
+      "mean": 85.9,
+      "std": 10.0
+    },
+    "trollshaws": {
+      "n": 621,
+      "mean": 78.3,
+      "std": 20.3
+    },
+    "tundra": {
+      "n": 24983,
+      "mean": 69.3,
+      "std": 5.7
+    },
+    "udun": {
+      "n": 412,
+      "mean": 72.1,
+      "std": 10.3
+    },
+    "umbar": {
+      "n": 3770,
+      "mean": 70.7,
+      "std": 7.8
+    },
+    "umbarForest": {
+      "n": 1244,
+      "mean": 79.1,
+      "std": 12.9
+    },
+    "umbarHills": {
+      "n": 1690,
+      "mean": 108.6,
+      "std": 19.6
+    },
+    "whiteDowns": {
+      "n": 224,
+      "mean": 85.9,
+      "std": 10.6
+    },
+    "whiteMountains": {
+      "n": 8524,
+      "mean": 128.8,
+      "std": 33.6
+    },
+    "whiteMountainsFoothills": {
+      "n": 3874,
+      "mean": 85.9,
+      "std": 14.7
+    },
+    "wilderland": {
+      "n": 37547,
+      "mean": 75.7,
+      "std": 10.7
+    },
+    "wilderlandNorth": {
+      "n": 2498,
+      "mean": 76.4,
+      "std": 13.0
+    },
+    "windMountains": {
+      "n": 9524,
+      "mean": 145.0,
+      "std": 34.0
+    },
+    "windMountainsFoothills": {
+      "n": 6054,
+      "mean": 85.7,
+      "std": 10.0
+    },
+    "wold": {
+      "n": 2272,
+      "mean": 78.4,
+      "std": 7.2
+    },
+    "woodlandRealm": {
+      "n": 815,
+      "mean": 71.8,
+      "std": 5.3
+    },
+    "woodlandRealmHills": {
+      "n": 64,
+      "mean": 84.4,
+      "std": 25.4
+    }
+  },
+  "mountains": [
+    {
+      "name": "bag_hill",
+      "xCoord": 704,
+      "zCoord": -832,
+      "range": 70,
+      "lavaRange": 0,
+      "height": 1.0,
+      "ground": 100
+    },
+    {
+      "name": "amon_ereb",
+      "xCoord": -39616,
+      "zCoord": -2752,
+      "range": 120,
+      "lavaRange": 0,
+      "height": 2.0,
+      "ground": 151
+    },
+    {
+      "name": "belegost",
+      "xCoord": -24256,
+      "zCoord": -16832,
+      "range": 300,
+      "lavaRange": 0,
+      "height": 5.0,
+      "ground": 250
+    },
+    {
+      "name": "nogrod",
+      "xCoord": -23488,
+      "zCoord": -11712,
+      "range": 300,
+      "lavaRange": 0,
+      "height": 5.0,
+      "ground": 252
+    },
+    {
+      "name": "mount_rerir",
+      "xCoord": -27840,
+      "zCoord": -26176,
+      "range": 200,
+      "lavaRange": 0,
+      "height": 3.0,
+      "ground": 194
+    },
+    {
+      "name": "mount_dolmed",
+      "xCoord": -26944,
+      "zCoord": -13120,
+      "range": 300,
+      "lavaRange": 0,
+      "height": 4.0,
+      "ground": 243
+    },
+    {
+      "name": "bree",
+      "xCoord": 14144,
+      "zCoord": 576,
+      "range": 500,
+      "lavaRange": 0,
+      "height": 2.0,
+      "ground": 129
+    },
+    {
+      "name": "weathertop",
+      "xCoord": 24128,
+      "zCoord": -960,
+      "range": 65,
+      "lavaRange": 0,
+      "height": 2.5,
+      "ground": 168
+    },
+    {
+      "name": "carn_dum",
+      "xCoord": 25664,
+      "zCoord": -29120,
+      "range": 150,
+      "lavaRange": 0,
+      "height": 2.5,
+      "ground": 196
+    },
+    {
+      "name": "mount_gram",
+      "xCoord": 37952,
+      "zCoord": -17984,
+      "range": 250,
+      "lavaRange": 0,
+      "height": 2.5,
+      "ground": 249
+    },
+    {
+      "name": "mount_gundabad",
+      "xCoord": 49344,
+      "zCoord": -17600,
+      "range": 250,
+      "lavaRange": 0,
+      "height": 2.5,
+      "ground": 212
+    },
+    {
+      "name": "mount_celebdil",
+      "xCoord": 44608,
+      "zCoord": 17216,
+      "range": 250,
+      "lavaRange": 0,
+      "height": 2.5,
+      "ground": 209
+    },
+    {
+      "name": "mount_caradhras",
+      "xCoord": 45632,
+      "zCoord": 14784,
+      "range": 250,
+      "lavaRange": 0,
+      "height": 3.0,
+      "ground": 235
+    },
+    {
+      "name": "mount_fanuidhol",
+      "xCoord": 48832,
+      "zCoord": 15936,
+      "range": 250,
+      "lavaRange": 0,
+      "height": 2.5,
+      "ground": 207
+    },
+    {
+      "name": "mount_methedras",
+      "xCoord": 38592,
+      "zCoord": 38592,
+      "range": 250,
+      "lavaRange": 0,
+      "height": 2.5,
+      "ground": 219
+    },
+    {
+      "name": "eagles_eyrie",
+      "xCoord": 55872,
+      "zCoord": -5696,
+      "range": 100,
+      "lavaRange": 0,
+      "height": 3.5,
+      "ground": 217
+    },
+    {
+      "name": "erebor",
+      "xCoord": 83520,
+      "zCoord": -15936,
+      "range": 300,
+      "lavaRange": 0,
+      "height": 5.0,
+      "ground": 250
+    },
+    {
+      "name": "west_peak",
+      "xCoord": 99520,
+      "zCoord": -15680,
+      "range": 250,
+      "lavaRange": 0,
+      "height": 4.0,
+      "ground": 218
+    },
+    {
+      "name": "east_peak",
+      "xCoord": 117824,
+      "zCoord": -15424,
+      "range": 250,
+      "lavaRange": 0,
+      "height": 4.0,
+      "ground": 207
+    },
+    {
+      "name": "cerin_amroth",
+      "xCoord": 53824,
+      "zCoord": 21440,
+      "range": 80,
+      "lavaRange": 0,
+      "height": 1.0,
+      "ground": 99
+    },
+    {
+      "name": "caras_galadhon",
+      "xCoord": 55360,
+      "zCoord": 22080,
+      "range": 150,
+      "lavaRange": 0,
+      "height": 1.5,
+      "ground": 115
+    },
+    {
+      "name": "dol_guldur",
+      "xCoord": 67776,
+      "zCoord": 21056,
+      "range": 100,
+      "lavaRange": 0,
+      "height": 1.5,
+      "ground": 117
+    },
+    {
+      "name": "treebeard_hill",
+      "xCoord": 49984,
+      "zCoord": 38464,
+      "range": 80,
+      "lavaRange": 0,
+      "height": 1.0,
+      "ground": 116
+    },
+    {
+      "name": "amon_hen",
+      "xCoord": 67264,
+      "zCoord": 51392,
+      "range": 100,
+      "lavaRange": 0,
+      "height": 1.5,
+      "ground": 117
+    },
+    {
+      "name": "amon_lhaw",
+      "xCoord": 72000,
+      "zCoord": 49984,
+      "range": 100,
+      "lavaRange": 0,
+      "height": 1.5,
+      "ground": 148
+    },
+    {
+      "name": "edoras",
+      "xCoord": 48832,
+      "zCoord": 53440,
+      "range": 140,
+      "lavaRange": 0,
+      "height": 1.5,
+      "ground": 118
+    },
+    {
+      "name": "aldburg",
+      "xCoord": 53056,
+      "zCoord": 57280,
+      "range": 120,
+      "lavaRange": 0,
+      "height": 1.5,
+      "ground": 119
+    },
+    {
+      "name": "halifirien",
+      "xCoord": 63936,
+      "zCoord": 60992,
+      "range": 170,
+      "lavaRange": 0,
+      "height": 2.5,
+      "ground": 152
+    },
+    {
+      "name": "calenhad",
+      "xCoord": 66624,
+      "zCoord": 61888,
+      "range": 100,
+      "lavaRange": 0,
+      "height": 2.0,
+      "ground": 168
+    },
+    {
+      "name": "minrimmon",
+      "xCoord": 69184,
+      "zCoord": 62784,
+      "range": 120,
+      "lavaRange": 0,
+      "height": 2.0,
+      "ground": 180
+    },
+    {
+      "name": "erelas",
+      "xCoord": 71360,
+      "zCoord": 63168,
+      "range": 100,
+      "lavaRange": 0,
+      "height": 1.5,
+      "ground": 146
+    },
+    {
+      "name": "nardol",
+      "xCoord": 73536,
+      "zCoord": 63936,
+      "range": 150,
+      "lavaRange": 0,
+      "height": 1.5,
+      "ground": 126
+    },
+    {
+      "name": "eilenach",
+      "xCoord": 75840,
+      "zCoord": 63936,
+      "range": 130,
+      "lavaRange": 0,
+      "height": 2.0,
+      "ground": 128
+    },
+    {
+      "name": "amon_din",
+      "xCoord": 77760,
+      "zCoord": 64192,
+      "range": 120,
+      "lavaRange": 0,
+      "height": 2.0,
+      "ground": 129
+    },
+    {
+      "name": "mindolluin",
+      "xCoord": 77504,
+      "zCoord": 66240,
+      "range": 200,
+      "lavaRange": 0,
+      "height": 1.0,
+      "ground": 145
+    },
+    {
+      "name": "tirith_hill",
+      "xCoord": 77696,
+      "zCoord": 66240,
+      "range": 170,
+      "lavaRange": 0,
+      "height": 3.5,
+      "ground": 188
+    },
+    {
+      "name": "dol_amroth",
+      "xCoord": 44352,
+      "zCoord": 77248,
+      "range": 250,
+      "lavaRange": 0,
+      "height": 2.2,
+      "ground": 138
+    },
+    {
+      "name": "erech",
+      "xCoord": 48192,
+      "zCoord": 60864,
+      "range": 150,
+      "lavaRange": 0,
+      "height": 2.5,
+      "ground": 156
+    },
+    {
+      "name": "mount_doom",
+      "xCoord": 92736,
+      "zCoord": 60992,
+      "range": 250,
+      "lavaRange": 25,
+      "height": 5.0,
+      "ground": 144
+    }
+  ]
+}

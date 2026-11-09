@@ -1,9 +1,9 @@
 {
   "summary": {
     "blocks": 1441,
-    "items": 897,
-    "recipes": 2591,
-    "textures": 2217,
+    "items": 892,
+    "recipes": 2619,
+    "textures": 2750,
     "languages": 22,
     "tabs": 9,
     "biomes": 169,
@@ -11,6 +11,9 @@
     "roads": 225,
     "tree_types": 95,
     "ore_features": 52,
+    "animal_types": 27,
+    "mount_armor": 20,
+    "creature_sounds": 27,
     "saplings": 38,
     "factions": 29,
     "npcs": 350,
@@ -21,12 +24,30 @@
     "waypoints": 274,
     "quest_pools": 37,
     "quest_givers": 287,
-    "migration_tables": 23
+    "migration_tables": 23,
+    "drinks": 46,
+    "brewing_recipes": 29,
+    "vessels": 12
   },
   "added_to_misc_tab": {
     "count": 1,
     "entries": [
       "dyed_feather"
+    ]
+  },
+  "animal_spawns_not_ported": {
+    "count": 10,
+    "entries": [
+      "lotr.Butterfly",
+      "lotr.Bird",
+      "lotr.Swan",
+      "lotr.Gorcrow",
+      "lotr.Crebain",
+      "lotr.Midges",
+      "lotr.Seagull",
+      "lotr.DesertScorpion",
+      "lotr.Crocodile",
+      "lotr.JungleScorpion"
     ]
   },
   "armor_models": {
@@ -138,13 +159,17 @@
       "utumno_return_light"
     ]
   },
+  "gates_without_frame": {
+    "count": 2,
+    "entries": [
+      "dwarven_door",
+      "ithildin_dwarven_door"
+    ]
+  },
   "guessed_vanilla_textures": {
-    "count": 11,
+    "count": 8,
     "entries": [
       "feather",
-      "diamond_horse_armor",
-      "gold_horse_armor",
-      "iron_horse_armor",
       "hardened_clay_stained_white",
       "portal",
       "flower_pot",
@@ -932,6 +957,35 @@
     "entries": [
       "generator lotr.common.world.structure2.LOTRWorldGenEasterlingTownWall: java.lang.NoSuchMethodException: lotr.common.world.structure2.LOTRWorldGenEasterlingTownWall.<init>(boolean)",
       "generator lotr.common.world.structure2.LOTRWorldGenGondorTownWall: java.lang.NoSuchMethodException: lotr.common.world.structure2.LOTRWorldGenGondorTownWall.<init>(boolean)"
+    ]
+  },
+  "structure_rate_errors": {
+    "count": 6,
+    "entries": [
+      "biome forodwaithGlacier not on the map",
+      "biome beach not on the map",
+      "biome beachGravel not on the map",
+      "biome tauredainClearing not on the map",
+      "biome nearHaradRiverbank not on the map",
+      "biome beachWhite not on the map"
+    ]
+  },
+  "structure_rates_pooled": {
+    "count": 13,
+    "entries": [
+      "beach: LOTRWorldGenSmallStoneRuin 1 in 400",
+      "beach_gravel: LOTRWorldGenSmallStoneRuin 1 in 400",
+      "beach_white: LOTRWorldGenSmallStoneRuin 1 in 400",
+      "beach: LOTRWorldGenNumenorRuin 1 in 500",
+      "beach_gravel: LOTRWorldGenNumenorRuin 1 in 500",
+      "beach_white: LOTRWorldGenNumenorRuin 1 in 500",
+      "forodwaith_glacier: LOTRWorldGenRuinedHouse 1 in 4000",
+      "forodwaith_glacier: LOTRWorldGenStoneRuin$STONE 1 in 4000",
+      "near_harad_riverbank: LOTRWorldGenHaradObelisk 1 in 3000",
+      "near_harad_riverbank: LOTRWorldGenHaradRuinedFort 1 in 3000",
+      "tauredain_clearing: LOTRWorldGenStoneRuin$TAUREDAIN 1 in 100",
+      "near_harad_riverbank: LOTRWorldGenStoneRuin$NEAR_HARAD 1 in 500",
+      "near_harad_riverbank: LOTRWorldGenMumakSkeleton 1 in 2000"
     ]
   },
   "structure_spawners_not_people": {

@@ -40,13 +40,16 @@ import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.ShapedRecipes;
 import net.minecraft.item.crafting.ShapelessRecipes;
+import net.minecraft.potion.Potion;
+import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.IIcon;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
 
 /**
- * Writes blocks.json, items.json, recipes.json, tabs.json, oredict.json, world.json, factions.json, npcs.json and quests.json.
+ * Writes blocks.json, items.json, recipes.json, drinks.json, tabs.json, oredict.json, world.json, factions.json, npcs.json
+ * and quests.json.
  * Only reads public game state through reflection and the normal Block/Item methods; no LOTR code is copied.
  */
 public class Exporter {
@@ -68,12 +71,14 @@ public class Exporter {
         write("blocks.json", blocks());
         write("items.json", items());
         write("recipes.json", recipes());
+        write("drinks.json", drinks());
         write("tabs.json", tabs());
         write("oredict.json", oredict());
         WorldExporter world = new WorldExporter(errors);
         write("world.json", world.world());
         write("factions.json", world.factions());
         write("npcs.json", new NpcExporter(errors).npcs());
+        write("creatures.json", new CreatureExporter(errors).creatures());
         write("quests.json", new QuestExporter(errors).quests());
         write("errors.json", errors);
     }
@@ -526,6 +531,94 @@ public class Exporter {
             o.addProperty("nbt", s.getTagCompound().toString());
         }
         return o;
+    }
+
+    // ---------------------------------------------------------------- drinks and brewing
+
+    /**
+     * LOTR's drinks: each mug item's public and protected stats (full or empty, food drink, brewable, alcoholicity,
+     * food, potion effects, damage, cures), the strength tables a drink's meta indexes, the vessels it can be poured
+     * into, and the barrel's brewing recipes with the barrel's capacity.
+     */
+    private JsonObject drinks() {
+        JsonObject o = new JsonObject();
+        try {
+            Class<?> mug = Class.forName("lotr.common.item.LOTRItemMug");
+            for (String f : new String[] { "strengthNames", "strengths", "foodStrengths" }) {
+                Field field = mug.getDeclaredField(f);
+                field.setAccessible(true);
+                o.add(f, gson.toJsonTree(field.get(null)));
+            }
+            o.addProperty("vesselMeta", mug.getField("vesselMeta").getInt(null));
+            JsonArray vessels = new JsonArray();
+            for (Object v : Class.forName("lotr.common.item.LOTRItemMug$Vessel").getEnumConstants()) {
+                Class<?> vc = v.getClass();
+                JsonObject j = new JsonObject();
+                j.addProperty("enum", ((Enum<?>) v).name());
+                j.addProperty("name", (String) vc.getField("name").get(v));
+                j.addProperty("id", vc.getField("id").getInt(v));
+                j.addProperty("canPlace", vc.getField("canPlace").getBoolean(v));
+                j.addProperty("extraPrice", vc.getField("extraPrice").getInt(v));
+                j.addProperty("emptyItem", Item.itemRegistry.getNameForObject(vc.getMethod("getEmptyVesselItem").invoke(v)));
+                Object b = vc.getMethod("getBlock").invoke(v);
+                j.addProperty("block", b == null ? null : Block.blockRegistry.getNameForObject(b));
+                vessels.add(j);
+            }
+            o.add("vessels", vessels);
+            JsonArray items = new JsonArray();
+            for (String key : sortedKeys(Item.itemRegistry.getKeys())) {
+                Object item = Item.itemRegistry.getObject(key);
+                if (key.startsWith(NS + ":") && mug.isInstance(item)) {
+                    items.add(drink(key, mug, item));
+                }
+            }
+            o.add("items", items);
+            Class<?> brewing = Class.forName("lotr.common.recipe.LOTRBrewingRecipes");
+            o.addProperty("barrelCapacity", brewing.getField("BARREL_CAPACITY").getInt(null));
+            Field list = brewing.getDeclaredField("recipes");
+            list.setAccessible(true);
+            JsonArray recipes = new JsonArray();
+            for (Object r : (List<?>) list.get(null)) {
+                JsonObject j = recipe((IRecipe) r);
+                if (j != null) {
+                    recipes.add(j);
+                }
+            }
+            o.add("brewing", recipes);
+        } catch (Throwable t) {
+            error("drinks", t);
+        }
+        return o;
+    }
+
+    private JsonObject drink(String key, Class<?> mug, Object item) throws Exception {
+        JsonObject j = new JsonObject();
+        j.addProperty("id", key);
+        j.addProperty("class", item.getClass().getName());
+        for (String f : new String[] { "isFullMug", "isFoodDrink", "isBrewable" }) {
+            j.addProperty(f, mug.getField(f).getBoolean(item));
+        }
+        j.addProperty("alcoholicity", mug.getField("alcoholicity").getFloat(item));
+        for (String f : new String[] { "foodHealAmount", "foodSaturationAmount", "damageAmount", "curesEffects" }) {
+            Field field = mug.getDeclaredField(f);
+            field.setAccessible(true);
+            j.add(f, gson.toJsonTree(field.get(item)));
+        }
+        Field effects = mug.getDeclaredField("potionEffects");
+        effects.setAccessible(true);
+        JsonArray a = new JsonArray();
+        for (Object e : (List<?>) effects.get(item)) {
+            PotionEffect pe = (PotionEffect) e;
+            JsonObject x = new JsonObject();
+            x.addProperty("id", pe.getPotionID());
+            Potion potion = Potion.potionTypes[pe.getPotionID()];
+            x.addProperty("name", potion == null ? null : potion.getName());
+            x.addProperty("duration", pe.getDuration());
+            x.addProperty("amplifier", pe.getAmplifier());
+            a.add(x);
+        }
+        j.add("potionEffects", a);
+        return j;
     }
 
     // ---------------------------------------------------------------- tabs and ore dictionary

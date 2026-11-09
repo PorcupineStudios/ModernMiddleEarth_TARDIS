@@ -13,7 +13,8 @@ import net.minecraft.world.WorldType;
 
 /**
  * Waits for the main menu (all textures stitched), runs the export, then (unless {@code -Dlotrexport.structures=false})
- * the {@link StructureExporter} and {@link TreeExporter} in throwaway client worlds, and stops the game.
+ * the {@link StructureExporter} and {@link TreeExporter} in throwaway client worlds, and stops the game. With
+ * {@code -Dlotrexport.rates=true} it runs only the {@link StructureRateExporter} instead.
  */
 public class ExportRunner {
     private boolean done;
@@ -29,6 +30,19 @@ public class ExportRunner {
         }
         done = true;
         File out = new File(System.getProperty("lotrexport.out", "export"));
+        if (System.getProperty("lotrexport.shots") != null) {
+            try {
+                new ShotRunner(new File(System.getProperty("lotrexport.shots"))).start(mc); // quits when done
+            } catch (Throwable t) {
+                t.printStackTrace();
+                mc.shutdown();
+            }
+            return;
+        }
+        if (Boolean.getBoolean("lotrexport.rates")) {
+            new StructureRateExporter(out).start(mc); // on its own: it quits the game when done
+            return;
+        }
         try {
             new Exporter(out).run();
         } catch (Throwable t) {

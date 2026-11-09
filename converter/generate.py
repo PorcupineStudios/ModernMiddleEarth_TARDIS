@@ -33,7 +33,9 @@ from quests import Quests  # noqa: E402
 from colonies import Colonies  # noqa: E402
 from saplings import Saplings  # noqa: E402
 from classfile import ClassFile  # noqa: E402
+from animals import Animals  # noqa: E402
 from armor_models import ArmorModels  # noqa: E402
+from drinks import Drinks  # noqa: E402
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 EXPORT = os.path.join(ROOT, "converter", "export")
@@ -42,6 +44,12 @@ ASSETS = os.path.join(OUT, "assets", NS)
 DATA = os.path.join(OUT, "data")
 
 SKIP_ITEMS = {"lotr:item.spawnEgg", "lotr:item.structureSpawner"}  # NPC and structure phases
+# LOTR items that modern Minecraft has itself (1.7.10 had no mutton): use the vanilla item everywhere.
+VANILLA_ITEMS = {"lotr:item.muttonRaw": "minecraft:mutton", "lotr:item.muttonCooked": "minecraft:cooked_mutton",
+                # LOTR made these from vanilla horse armor (templateItem)
+                "lotr:item.horseArmorIron": "minecraft:iron_horse_armor",
+                "lotr:item.horseArmorGold": "minecraft:golden_horse_armor",
+                "lotr:item.horseArmorDiamond": "minecraft:diamond_horse_armor"}
 TAB_MAP = {"buildingBlocks": "blocks", "redstone": "util"}  # LOTR things LOTR put in vanilla tabs
 SKIP_TABS = {"spawning"}
 REQUIRES_TOOL = {"rock", "iron", "anvil"}
@@ -118,6 +126,7 @@ class Gen:
         self.tags = collections.defaultdict(set)  # "minecraft:block/mineable/pickaxe" -> ids
         self.recipe_count = 0
         self.melee = self.weapon_tables()
+        self.drinks = Drinks(self, EXPORT, ASSETS, DATA, os.path.join(OUT, NS, "content"))
 
     def weapon_tables(self):
         """LOTR's per-class melee speed, reach and knockback tables, read from LOTRWeaponStats' static initialiser
@@ -161,9 +170,15 @@ class Gen:
     # ------------------------------------------------------------------ items
 
     def do_items(self):
+        self.items_by_old = {}
         for it in load("items.json"):
+            self.items_by_old[it["id"]] = it
             if it["id"] in SKIP_ITEMS:
                 self.report["skipped_items"].append(it["id"])
+                continue
+            if it["id"] in VANILLA_ITEMS:
+                self.idtable[f"{it['id']}#0"] = VANILLA_ITEMS[it["id"]]
+                self.old_to_new[it["id"]].append(VANILLA_ITEMS[it["id"]])
                 continue
             variants = it["variants"]
             names = {self.english(v.get("unlocalized"), v.get("name")) for v in variants}
@@ -199,7 +214,10 @@ class Gen:
                 kind = "bolt"
             elif "LOTRItemArrowPoisoned" in chain:
                 kind = "arrow"
+            kind = self.drinks.kind(it["id"]) or kind  # LOTR's mugs: full ones are drinks, empty ones vessels
         e["kind"] = kind
+        if kind == "drink":
+            e["drink"] = self.drinks.entry(it["id"])
         if it.get("maxDamage", 0) > 0 and not it.get("hasSubtypes"):
             e["durability"] = it["maxDamage"]
         else:
@@ -236,6 +254,8 @@ class Gen:
         self.unloc[new] = (v.get("unlocalized") or "") + ".name"
         self.lang["en_us"][f"item.{NS}.{new}"] = name
 
+        if kind == "drink" and self.drinks.models(new, next((i for i in v.get("icons", []) if i), None)):
+            return  # the drink in each vessel (drinks.py)
         icons = []
         for i in v.get("icons", []):
             if not i:
@@ -392,6 +412,8 @@ class Gen:
         rt = b["renderType"]
         if "LOTRBlockGate" in c.split():
             return "gate"
+        if "LOTRBlockBarrel" in c.split():
+            return "keg"  # LOTR's barrel; a keg so it isn't taken for vanilla's barrel
         if "LOTRBlockSaplingBase" in c.split():
             return "sapling"
         for cls, k in (("BlockStairs", "stairs"), ("BlockSlab", "slab"), ("BlockWall", "wall"),
@@ -441,6 +463,8 @@ class Gen:
             # Placed forms of items (filled mugs, pies, beds...) have no name of their own.
             name = snake(old_base).replace("_", " ").title()
             self.report["blocks_named_from_id"].append(b["id"])
+        if kind == "keg":
+            name = "Keg"
         new = self.claim(name, old_base if v["meta"] == 0 else f"{old_base}_{v['meta']}", suffix="block")
         self.map_id(b["id"], v["meta"], new)
         icons = [self.tex.block(i) for i in v["icons"]]
@@ -458,14 +482,16 @@ class Gen:
              "solid": bool(b["opaque"]) and kind in ("cube", "pillar")}
         if b.get("slipperiness") and abs(b["slipperiness"] - 0.6) > 1e-6:
             e["friction"] = b["slipperiness"]
-        if kind == "shaped":
+        if kind == "gate" and (b.get("bounds") or [])[:6] == [0, 0, 0, 1, 1, 1]:
+            e["full"] = True  # LOTR's setFullBlock gates (dwarven doors): a whole block while shut
+        if kind in ("shaped", "keg"):
             bb = b.get("bounds") or [0, 0, 0, 1, 1, 1]
             e["shape"] = [round(x * 16, 3) for x in bb]
             if b["material"] in ("plants", "vine", "circuits", "carpet", "portal", "web"):
                 e["collision"] = False
         if kind == "door":
             e["item"] = "double_high"
-        if kind in ("cube", "shaped") and FACING_CLASSES & {x.split(".")[-1] for x in b["classes"]}:
+        if kind in ("cube", "shaped", "keg") and FACING_CLASSES & {x.split(".")[-1] for x in b["classes"]}:
             e["facing"] = True  # furnace-like: metadata 2-5 is the way the front faces
         if kind == "faction_table":
             self.tables[old_base] = new
@@ -531,17 +557,18 @@ class Gen:
         side = north
         rt = {"render_type": "minecraft:translucent"} if b.get("renderPass") == 1 else None
         item_icon = self.tex.item(v.get("itemIcon")) or side
-        if kind in ("cube", "shaped") and FACING_CLASSES & {x.split(".")[-1] for x in b["classes"]}:
+        if kind in ("cube", "shaped", "keg") and FACING_CLASSES & {x.split(".")[-1] for x in b["classes"]}:
             # the exported front (LOTR's side 3) is south; turn it to face the block's facing
             m = self.cube(new, icons, rt) if kind == "cube" else self.shaped(new, icons, b)
             self.bs(new, {"variants": {f"facing={f}": ({"model": m, "y": y} if y else {"model": m})
                                        for f, y in (("south", 0), ("west", 90), ("north", 180), ("east", 270))}})
             self.item_model(new, m)
         elif kind == "gate":
-            self.gate(new, side)
+            self.gate(new, side, (b.get("bounds") or [])[:6] == [0, 0, 0, 1, 1, 1])
         elif kind in ("cube", "faction_table"):
             m = self.cube(new, icons, rt)
-            self.bs(new, {"variants": {"": {"model": m}}})
+            sheet = self.tex.connected.get(up) if kind == "cube" and len(set(icons)) == 1 else None
+            self.bs(new, {"variants": {"": {"model": self.connected_model(new, sheet, up, "cube") if sheet else m}}})
             self.item_model(new, m)
         elif kind == "pillar":
             m = self.bm(new, "minecraft:block/cube_column", {"end": up, "side": side})
@@ -681,20 +708,44 @@ class Gen:
         return self.bm(new, "minecraft:block/cube", {"down": down, "up": up, "north": north, "south": south,
                                                       "west": west, "east": east, "particle": north}, extra)
 
-    def gate(self, new, tex):
-        """LOTR's gates (round hobbit doors, portcullises): a 4 px panel facing its direction; open gates vanish."""
+    def connected_model(self, new, sheet, particle, shape):
+        """
+        A block model on the port's connected loader (lotr_port:connected, client/ConnectedModel): each face drawn
+        from the sheet a quarter at a time by its neighbours, as LOTR's connected textures. shape: cube, or a gate's
+        panel (full_gate: a whole block while shut).
+        """
+        write_json(os.path.join(ASSETS, "models", "block", new + "_connected.json"),
+                   {"loader": f"{NS}:connected", "shape": shape, "render_type": CUTOUT,
+                    "textures": {"sheet": sheet, "particle": particle}})
+        return f"{NS}:block/{new}_connected"
+
+    def gate(self, new, tex, full):
+        """
+        LOTR's gates (round hobbit doors, portcullises, dwarven doors): a 4 px panel facing its direction (dwarven
+        doors a whole block while shut) on the connected model, which frames the whole gate and, open, draws only the
+        frame (LOTR drew open gates without their base). The plain panel is the item, and the block for a gate with
+        no texture of its own to frame.
+        """
         faces = {f: {"texture": "#all"} for f in ("down", "up", "north", "south", "west", "east")}
         wall = self.bm(new, "minecraft:block/block", {"all": tex, "particle": tex},
                        {"render_type": CUTOUT, "elements": [{"from": [0, 0, 6], "to": [16, 16, 10], "faces": faces}]})
-        floor = self.bm(new + "_flat", "minecraft:block/block", {"all": tex, "particle": tex},
-                        {"render_type": CUTOUT, "elements": [{"from": [0, 6, 0], "to": [16, 10, 16], "faces": faces}]})
-        var = {}
-        for f in ("north", "south", "east", "west", "up", "down"):
-            closed = {"model": floor} if f in ("up", "down") else (
-                {"model": wall, "y": 90} if f in ("east", "west") else {"model": wall})
-            var[f"facing={f},open=false"] = closed
-            var[f"facing={f},open=true"] = {"model": "minecraft:block/air"}
-        self.bs(new, {"variants": var})
+        sheet = self.tex.gate_sheet(tex)
+        if sheet:
+            shape = "full_gate" if full else "gate"
+            self.bs(new, {"variants": {"": {"model": self.connected_model(new, sheet, tex, shape)}}})
+        else:
+            floor = self.bm(new + "_flat", "minecraft:block/block", {"all": tex, "particle": tex},
+                            {"render_type": CUTOUT,
+                             "elements": [{"from": [0, 6, 0], "to": [16, 10, 16], "faces": faces}]})
+            cube = self.bm(new + "_full", "minecraft:block/cube_all", {"all": tex}) if full else None
+            var = {}
+            for f in ("north", "south", "east", "west", "up", "down"):
+                panel = {"model": floor} if f in ("up", "down") else (
+                    {"model": wall, "y": 90} if f in ("east", "west") else {"model": wall})
+                var[f"facing={f},open=false"] = {"model": cube} if cube else panel
+                var[f"facing={f},open=true"] = panel  # nothing to frame: open, the panel stays (and lets you by)
+            self.report["gates_without_frame"].append(new)
+            self.bs(new, {"variants": var})
         self.item_model(new, wall)
 
     def shaped(self, new, icons, b):
@@ -905,6 +956,8 @@ class Gen:
             if not ing or not res:
                 self.report["unmapped_smelting"].append(s)
                 continue
+            if res["id"].startswith("minecraft:") and isinstance(ing, dict) and ing.get("item", "").startswith("minecraft:"):
+                continue  # vanilla already smelts it (mutton)
             name = res["id"].split(":")[1]
             seen[("smelting", name)] += 1
             n = seen[("smelting", name)]
@@ -987,7 +1040,7 @@ class Gen:
                 if not s or not s["item"].startswith("lotr:"):
                     continue
                 new = self.idtable.get(f"{s['item']}#{s.get('meta', 0)}")
-                if not new:
+                if not new or not new.startswith(NS + ":"):
                     continue
                 new = new.split("[")[0].split(":")[1]
                 if new not in placed and new not in self.hidden:
@@ -1046,12 +1099,17 @@ class Gen:
         self.do_blocks()
         self.blocks_by_id = {b["id"]: b for b in self.blocks}
         self.do_recipes()
+        drinks = self.drinks.run()
+        self.recipe_count += drinks.get("brewing_recipes", 0)  # the keg's, converted too
         self.ore_tags()
         tabs = self.do_tabs()
         self.other_langs()
         self.write_tags()
+        self.animals = Animals(self, DATA, ASSETS, os.path.join(OUT, NS, "content"), self.jar)
+        animal_count = self.animals.run(load("npcs.json"))  # first: biomes list the animal types
         world_gen = World(self, load("world.json"), OUT, self.jar)
         world = world_gen.run()
+        world.update(animal_count)
         world.update(Saplings(self, DATA, self.jar, world_gen.trees).run())
         factions = FactionData(self, load("factions.json"), DATA, self.jar).run()
         npc_gen = Npcs(self, load("npcs.json"), DATA, ASSETS, self.jar)
@@ -1073,7 +1131,8 @@ class Gen:
             write_json(os.path.join(ASSETS, "lang", code + ".json"), dict(sorted(entries.items())))
         write_json(os.path.join(ROOT, "converter", "idtable.json"), dict(sorted(self.idtable.items())))
         summary = {"blocks": len(self.blocks), "items": len(self.items), "recipes": self.recipe_count,
-                   "textures": len(self.tex.copied), "languages": len(self.lang), "tabs": len(tabs), **world, **factions, **npcs}
+                   "textures": len(self.tex.copied), "languages": len(self.lang), "tabs": len(tabs), **world, **factions, **npcs,
+                   **drinks}
         self.report["missing_textures"] = [m for m in self.report["missing_textures"] if not m.endswith("_mug")]
         rep = {"summary": summary}
         for k, v in sorted(self.report.items()):

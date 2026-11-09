@@ -1,0 +1,1955 @@
+{
+  "strengthNames": [
+    "weak",
+    "light",
+    "moderate",
+    "strong",
+    "potent"
+  ],
+  "strengths": [
+    0.25,
+    0.5,
+    1.0,
+    2.0,
+    3.0
+  ],
+  "foodStrengths": [
+    0.5,
+    0.75,
+    1.0,
+    1.25,
+    1.5
+  ],
+  "vesselMeta": 100,
+  "vessels": [
+    {
+      "enum": "MUG",
+      "name": "mug",
+      "id": 0,
+      "canPlace": true,
+      "extraPrice": 0,
+      "emptyItem": "lotr:item.mug",
+      "block": "lotr:tile.mug"
+    },
+    {
+      "enum": "MUG_CLAY",
+      "name": "clay",
+      "id": 1,
+      "canPlace": true,
+      "extraPrice": 1,
+      "emptyItem": "lotr:item.ceramicMug",
+      "block": "lotr:tile.ceramicMug"
+    },
+    {
+      "enum": "GOBLET_GOLD",
+      "name": "gobletGold",
+      "id": 2,
+      "canPlace": true,
+      "extraPrice": 10,
+      "emptyItem": "lotr:item.gobletGold",
+      "block": "lotr:tile.gobletGold"
+    },
+    {
+      "enum": "GOBLET_SILVER",
+      "name": "gobletSilver",
+      "id": 3,
+      "canPlace": true,
+      "extraPrice": 8,
+      "emptyItem": "lotr:item.gobletSilver",
+      "block": "lotr:tile.gobletSilver"
+    },
+    {
+      "enum": "GOBLET_COPPER",
+      "name": "gobletCopper",
+      "id": 4,
+      "canPlace": true,
+      "extraPrice": 5,
+      "emptyItem": "lotr:item.gobletCopper",
+      "block": "lotr:tile.gobletCopper"
+    },
+    {
+      "enum": "GOBLET_WOOD",
+      "name": "gobletWood",
+      "id": 5,
+      "canPlace": true,
+      "extraPrice": 0,
+      "emptyItem": "lotr:item.gobletWood",
+      "block": "lotr:tile.gobletWood"
+    },
+    {
+      "enum": "SKULL",
+      "name": "skull",
+      "id": 6,
+      "canPlace": true,
+      "extraPrice": 3,
+      "emptyItem": "lotr:item.skullCup",
+      "block": "lotr:tile.skullCup"
+    },
+    {
+      "enum": "GLASS",
+      "name": "glass",
+      "id": 7,
+      "canPlace": true,
+      "extraPrice": 3,
+      "emptyItem": "lotr:item.wineGlass",
+      "block": "lotr:tile.wineGlass"
+    },
+    {
+      "enum": "BOTTLE",
+      "name": "bottle",
+      "id": 8,
+      "canPlace": true,
+      "extraPrice": 2,
+      "emptyItem": "minecraft:glass_bottle",
+      "block": "lotr:tile.glassBottle"
+    },
+    {
+      "enum": "SKIN",
+      "name": "skin",
+      "id": 9,
+      "canPlace": false,
+      "extraPrice": 0,
+      "emptyItem": "lotr:item.waterskin"
+    },
+    {
+      "enum": "HORN",
+      "name": "horn",
+      "id": 10,
+      "canPlace": true,
+      "extraPrice": 5,
+      "emptyItem": "lotr:item.aleHorn",
+      "block": "lotr:tile.aleHorn"
+    },
+    {
+      "enum": "HORN_GOLD",
+      "name": "hornGold",
+      "id": 11,
+      "canPlace": true,
+      "extraPrice": 8,
+      "emptyItem": "lotr:item.aleHornGold",
+      "block": "lotr:tile.aleHornGold"
+    }
+  ],
+  "items": [
+    {
+      "id": "lotr:item.aleHorn",
+      "class": "lotr.common.item.LOTRItemVessel",
+      "isFullMug": false,
+      "isFoodDrink": false,
+      "isBrewable": false,
+      "alcoholicity": 0.0,
+      "foodHealAmount": 0,
+      "foodSaturationAmount": 0.0,
+      "damageAmount": 0,
+      "curesEffects": false,
+      "potionEffects": []
+    },
+    {
+      "id": "lotr:item.aleHornGold",
+      "class": "lotr.common.item.LOTRItemVessel",
+      "isFullMug": false,
+      "isFoodDrink": false,
+      "isBrewable": false,
+      "alcoholicity": 0.0,
+      "foodHealAmount": 0,
+      "foodSaturationAmount": 0.0,
+      "damageAmount": 0,
+      "curesEffects": false,
+      "potionEffects": []
+    },
+    {
+      "id": "lotr:item.ceramicMug",
+      "class": "lotr.common.item.LOTRItemVessel",
+      "isFullMug": false,
+      "isFoodDrink": false,
+      "isBrewable": false,
+      "alcoholicity": 0.0,
+      "foodHealAmount": 0,
+      "foodSaturationAmount": 0.0,
+      "damageAmount": 0,
+      "curesEffects": false,
+      "potionEffects": []
+    },
+    {
+      "id": "lotr:item.gobletCopper",
+      "class": "lotr.common.item.LOTRItemVessel",
+      "isFullMug": false,
+      "isFoodDrink": false,
+      "isBrewable": false,
+      "alcoholicity": 0.0,
+      "foodHealAmount": 0,
+      "foodSaturationAmount": 0.0,
+      "damageAmount": 0,
+      "curesEffects": false,
+      "potionEffects": []
+    },
+    {
+      "id": "lotr:item.gobletGold",
+      "class": "lotr.common.item.LOTRItemVessel",
+      "isFullMug": false,
+      "isFoodDrink": false,
+      "isBrewable": false,
+      "alcoholicity": 0.0,
+      "foodHealAmount": 0,
+      "foodSaturationAmount": 0.0,
+      "damageAmount": 0,
+      "curesEffects": false,
+      "potionEffects": []
+    },
+    {
+      "id": "lotr:item.gobletSilver",
+      "class": "lotr.common.item.LOTRItemVessel",
+      "isFullMug": false,
+      "isFoodDrink": false,
+      "isBrewable": false,
+      "alcoholicity": 0.0,
+      "foodHealAmount": 0,
+      "foodSaturationAmount": 0.0,
+      "damageAmount": 0,
+      "curesEffects": false,
+      "potionEffects": []
+    },
+    {
+      "id": "lotr:item.gobletWood",
+      "class": "lotr.common.item.LOTRItemVessel",
+      "isFullMug": false,
+      "isFoodDrink": false,
+      "isBrewable": false,
+      "alcoholicity": 0.0,
+      "foodHealAmount": 0,
+      "foodSaturationAmount": 0.0,
+      "damageAmount": 0,
+      "curesEffects": false,
+      "potionEffects": []
+    },
+    {
+      "id": "lotr:item.mug",
+      "class": "lotr.common.item.LOTRItemVessel",
+      "isFullMug": false,
+      "isFoodDrink": false,
+      "isBrewable": false,
+      "alcoholicity": 0.0,
+      "foodHealAmount": 0,
+      "foodSaturationAmount": 0.0,
+      "damageAmount": 0,
+      "curesEffects": false,
+      "potionEffects": []
+    },
+    {
+      "id": "lotr:item.mugAle",
+      "class": "lotr.common.item.LOTRItemMug",
+      "isFullMug": true,
+      "isFoodDrink": false,
+      "isBrewable": true,
+      "alcoholicity": 0.3,
+      "foodHealAmount": 3,
+      "foodSaturationAmount": 0.3,
+      "damageAmount": 0,
+      "curesEffects": false,
+      "potionEffects": []
+    },
+    {
+      "id": "lotr:item.mugAppleJuice",
+      "class": "lotr.common.item.LOTRItemMug",
+      "isFullMug": true,
+      "isFoodDrink": true,
+      "isBrewable": false,
+      "alcoholicity": 0.0,
+      "foodHealAmount": 6,
+      "foodSaturationAmount": 0.6,
+      "damageAmount": 0,
+      "curesEffects": false,
+      "potionEffects": []
+    },
+    {
+      "id": "lotr:item.mugAraq",
+      "class": "lotr.common.item.LOTRItemMug",
+      "isFullMug": true,
+      "isFoodDrink": false,
+      "isBrewable": true,
+      "alcoholicity": 1.4,
+      "foodHealAmount": 4,
+      "foodSaturationAmount": 0.4,
+      "damageAmount": 0,
+      "curesEffects": false,
+      "potionEffects": []
+    },
+    {
+      "id": "lotr:item.mugAthelasBrew",
+      "class": "lotr.common.item.LOTRItemMug",
+      "isFullMug": true,
+      "isFoodDrink": false,
+      "isBrewable": true,
+      "alcoholicity": 0.0,
+      "foodHealAmount": 6,
+      "foodSaturationAmount": 0.6,
+      "damageAmount": 0,
+      "curesEffects": false,
+      "potionEffects": [
+        {
+          "id": 5,
+          "name": "potion.damageBoost",
+          "duration": 2400,
+          "amplifier": 0
+        },
+        {
+          "id": 10,
+          "name": "potion.regeneration",
+          "duration": 1200,
+          "amplifier": 0
+        }
+      ]
+    },
+    {
+      "id": "lotr:item.mugBananaBeer",
+      "class": "lotr.common.item.LOTRItemMug",
+      "isFullMug": true,
+      "isFoodDrink": false,
+      "isBrewable": true,
+      "alcoholicity": 0.5,
+      "foodHealAmount": 4,
+      "foodSaturationAmount": 0.6,
+      "damageAmount": 0,
+      "curesEffects": false,
+      "potionEffects": []
+    },
+    {
+      "id": "lotr:item.mugBlackberryJuice",
+      "class": "lotr.common.item.LOTRItemMug",
+      "isFullMug": true,
+      "isFoodDrink": true,
+      "isBrewable": false,
+      "alcoholicity": 0.0,
+      "foodHealAmount": 5,
+      "foodSaturationAmount": 0.5,
+      "damageAmount": 0,
+      "curesEffects": false,
+      "potionEffects": []
+    },
+    {
+      "id": "lotr:item.mugBlueberryJuice",
+      "class": "lotr.common.item.LOTRItemMug",
+      "isFullMug": true,
+      "isFoodDrink": true,
+      "isBrewable": false,
+      "alcoholicity": 0.0,
+      "foodHealAmount": 5,
+      "foodSaturationAmount": 0.5,
+      "damageAmount": 0,
+      "curesEffects": false,
+      "potionEffects": []
+    },
+    {
+      "id": "lotr:item.mugCactusLiqueur",
+      "class": "lotr.common.item.LOTRItemMug",
+      "isFullMug": true,
+      "isFoodDrink": false,
+      "isBrewable": true,
+      "alcoholicity": 0.8,
+      "foodHealAmount": 2,
+      "foodSaturationAmount": 0.3,
+      "damageAmount": 0,
+      "curesEffects": false,
+      "potionEffects": []
+    },
+    {
+      "id": "lotr:item.mugCarrotWine",
+      "class": "lotr.common.item.LOTRItemMug",
+      "isFullMug": true,
+      "isFoodDrink": false,
+      "isBrewable": true,
+      "alcoholicity": 0.8,
+      "foodHealAmount": 3,
+      "foodSaturationAmount": 0.4,
+      "damageAmount": 0,
+      "curesEffects": false,
+      "potionEffects": []
+    },
+    {
+      "id": "lotr:item.mugCherryLiqueur",
+      "class": "lotr.common.item.LOTRItemMug",
+      "isFullMug": true,
+      "isFoodDrink": false,
+      "isBrewable": true,
+      "alcoholicity": 1.0,
+      "foodHealAmount": 3,
+      "foodSaturationAmount": 0.3,
+      "damageAmount": 0,
+      "curesEffects": false,
+      "potionEffects": []
+    },
+    {
+      "id": "lotr:item.mugChocolate",
+      "class": "lotr.common.item.LOTRItemMug",
+      "isFullMug": true,
+      "isFoodDrink": true,
+      "isBrewable": false,
+      "alcoholicity": 0.0,
+      "foodHealAmount": 6,
+      "foodSaturationAmount": 0.6,
+      "damageAmount": 0,
+      "curesEffects": false,
+      "potionEffects": []
+    },
+    {
+      "id": "lotr:item.mugCider",
+      "class": "lotr.common.item.LOTRItemMug",
+      "isFullMug": true,
+      "isFoodDrink": false,
+      "isBrewable": true,
+      "alcoholicity": 0.3,
+      "foodHealAmount": 4,
+      "foodSaturationAmount": 0.4,
+      "damageAmount": 0,
+      "curesEffects": false,
+      "potionEffects": []
+    },
+    {
+      "id": "lotr:item.mugCornLiquor",
+      "class": "lotr.common.item.LOTRItemMug",
+      "isFullMug": true,
+      "isFoodDrink": false,
+      "isBrewable": true,
+      "alcoholicity": 1.0,
+      "foodHealAmount": 3,
+      "foodSaturationAmount": 0.3,
+      "damageAmount": 0,
+      "curesEffects": false,
+      "potionEffects": []
+    },
+    {
+      "id": "lotr:item.mugCranberryJuice",
+      "class": "lotr.common.item.LOTRItemMug",
+      "isFullMug": true,
+      "isFoodDrink": true,
+      "isBrewable": false,
+      "alcoholicity": 0.0,
+      "foodHealAmount": 5,
+      "foodSaturationAmount": 0.5,
+      "damageAmount": 0,
+      "curesEffects": false,
+      "potionEffects": []
+    },
+    {
+      "id": "lotr:item.mugDwarvenAle",
+      "class": "lotr.common.item.LOTRItemMug",
+      "isFullMug": true,
+      "isFoodDrink": false,
+      "isBrewable": true,
+      "alcoholicity": 0.4,
+      "foodHealAmount": 3,
+      "foodSaturationAmount": 0.3,
+      "damageAmount": 0,
+      "curesEffects": false,
+      "potionEffects": []
+    },
+    {
+      "id": "lotr:item.mugDwarvenTonic",
+      "class": "lotr.common.item.LOTRItemMug",
+      "isFullMug": true,
+      "isFoodDrink": false,
+      "isBrewable": true,
+      "alcoholicity": 0.2,
+      "foodHealAmount": 4,
+      "foodSaturationAmount": 0.4,
+      "damageAmount": 0,
+      "curesEffects": false,
+      "potionEffects": [
+        {
+          "id": 16,
+          "name": "potion.nightVision",
+          "duration": 4800,
+          "amplifier": 0
+        }
+      ]
+    },
+    {
+      "id": "lotr:item.mugElderberryJuice",
+      "class": "lotr.common.item.LOTRItemMug",
+      "isFullMug": true,
+      "isFoodDrink": true,
+      "isBrewable": false,
+      "alcoholicity": 0.0,
+      "foodHealAmount": 5,
+      "foodSaturationAmount": 0.5,
+      "damageAmount": 0,
+      "curesEffects": false,
+      "potionEffects": []
+    },
+    {
+      "id": "lotr:item.mugLemonLiqueur",
+      "class": "lotr.common.item.LOTRItemMug",
+      "isFullMug": true,
+      "isFoodDrink": false,
+      "isBrewable": true,
+      "alcoholicity": 1.0,
+      "foodHealAmount": 3,
+      "foodSaturationAmount": 0.3,
+      "damageAmount": 0,
+      "curesEffects": false,
+      "potionEffects": []
+    },
+    {
+      "id": "lotr:item.mugLemonade",
+      "class": "lotr.common.item.LOTRItemMug",
+      "isFullMug": true,
+      "isFoodDrink": true,
+      "isBrewable": false,
+      "alcoholicity": 0.0,
+      "foodHealAmount": 5,
+      "foodSaturationAmount": 0.3,
+      "damageAmount": 0,
+      "curesEffects": false,
+      "potionEffects": []
+    },
+    {
+      "id": "lotr:item.mugLimeLiqueur",
+      "class": "lotr.common.item.LOTRItemMug",
+      "isFullMug": true,
+      "isFoodDrink": false,
+      "isBrewable": true,
+      "alcoholicity": 1.0,
+      "foodHealAmount": 3,
+      "foodSaturationAmount": 0.3,
+      "damageAmount": 0,
+      "curesEffects": false,
+      "potionEffects": []
+    },
+    {
+      "id": "lotr:item.mugMangoJuice",
+      "class": "lotr.common.item.LOTRItemMug",
+      "isFullMug": true,
+      "isFoodDrink": true,
+      "isBrewable": false,
+      "alcoholicity": 0.0,
+      "foodHealAmount": 6,
+      "foodSaturationAmount": 0.6,
+      "damageAmount": 0,
+      "curesEffects": false,
+      "potionEffects": []
+    },
+    {
+      "id": "lotr:item.mugMapleBeer",
+      "class": "lotr.common.item.LOTRItemMug",
+      "isFullMug": true,
+      "isFoodDrink": false,
+      "isBrewable": true,
+      "alcoholicity": 0.4,
+      "foodHealAmount": 4,
+      "foodSaturationAmount": 0.6,
+      "damageAmount": 0,
+      "curesEffects": false,
+      "potionEffects": []
+    },
+    {
+      "id": "lotr:item.mugMead",
+      "class": "lotr.common.item.LOTRItemMug",
+      "isFullMug": true,
+      "isFoodDrink": false,
+      "isBrewable": true,
+      "alcoholicity": 0.6,
+      "foodHealAmount": 4,
+      "foodSaturationAmount": 0.4,
+      "damageAmount": 0,
+      "curesEffects": false,
+      "potionEffects": []
+    },
+    {
+      "id": "lotr:item.mugMelonLiqueur",
+      "class": "lotr.common.item.LOTRItemMug",
+      "isFullMug": true,
+      "isFoodDrink": false,
+      "isBrewable": true,
+      "alcoholicity": 1.0,
+      "foodHealAmount": 3,
+      "foodSaturationAmount": 0.3,
+      "damageAmount": 0,
+      "curesEffects": false,
+      "potionEffects": []
+    },
+    {
+      "id": "lotr:item.mugMilk",
+      "class": "lotr.common.item.LOTRItemMug",
+      "isFullMug": true,
+      "isFoodDrink": false,
+      "isBrewable": false,
+      "alcoholicity": 0.0,
+      "foodHealAmount": 0,
+      "foodSaturationAmount": 0.0,
+      "damageAmount": 0,
+      "curesEffects": true,
+      "potionEffects": []
+    },
+    {
+      "id": "lotr:item.mugMiruvor",
+      "class": "lotr.common.item.LOTRItemMug",
+      "isFullMug": true,
+      "isFoodDrink": false,
+      "isBrewable": true,
+      "alcoholicity": 0.0,
+      "foodHealAmount": 8,
+      "foodSaturationAmount": 0.8,
+      "damageAmount": 0,
+      "curesEffects": false,
+      "potionEffects": [
+        {
+          "id": 5,
+          "name": "potion.damageBoost",
+          "duration": 800,
+          "amplifier": 0
+        },
+        {
+          "id": 1,
+          "name": "potion.moveSpeed",
+          "duration": 800,
+          "amplifier": 0
+        }
+      ]
+    },
+    {
+      "id": "lotr:item.mugMorgulDraught",
+      "class": "lotr.common.item.LOTRItemMugMorgulDraught",
+      "isFullMug": true,
+      "isFoodDrink": false,
+      "isBrewable": true,
+      "alcoholicity": 0.0,
+      "foodHealAmount": 4,
+      "foodSaturationAmount": 0.4,
+      "damageAmount": 3,
+      "curesEffects": false,
+      "potionEffects": [
+        {
+          "id": 16,
+          "name": "potion.nightVision",
+          "duration": 6000,
+          "amplifier": 0
+        }
+      ]
+    },
+    {
+      "id": "lotr:item.mugOrangeJuice",
+      "class": "lotr.common.item.LOTRItemMug",
+      "isFullMug": true,
+      "isFoodDrink": true,
+      "isBrewable": false,
+      "alcoholicity": 0.0,
+      "foodHealAmount": 6,
+      "foodSaturationAmount": 0.6,
+      "damageAmount": 0,
+      "curesEffects": false,
+      "potionEffects": []
+    },
+    {
+      "id": "lotr:item.mugOrcDraught",
+      "class": "lotr.common.item.LOTRItemMug",
+      "isFullMug": true,
+      "isFoodDrink": false,
+      "isBrewable": true,
+      "alcoholicity": 0.0,
+      "foodHealAmount": 6,
+      "foodSaturationAmount": 0.6,
+      "damageAmount": 2,
+      "curesEffects": false,
+      "potionEffects": [
+        {
+          "id": 5,
+          "name": "potion.damageBoost",
+          "duration": 1200,
+          "amplifier": 0
+        },
+        {
+          "id": 1,
+          "name": "potion.moveSpeed",
+          "duration": 1200,
+          "amplifier": 0
+        }
+      ]
+    },
+    {
+      "id": "lotr:item.mugPerry",
+      "class": "lotr.common.item.LOTRItemMug",
+      "isFullMug": true,
+      "isFoodDrink": false,
+      "isBrewable": true,
+      "alcoholicity": 0.3,
+      "foodHealAmount": 4,
+      "foodSaturationAmount": 0.4,
+      "damageAmount": 0,
+      "curesEffects": false,
+      "potionEffects": []
+    },
+    {
+      "id": "lotr:item.mugPlumKvass",
+      "class": "lotr.common.item.LOTRItemMug",
+      "isFullMug": true,
+      "isFoodDrink": false,
+      "isBrewable": true,
+      "alcoholicity": 0.2,
+      "foodHealAmount": 4,
+      "foodSaturationAmount": 0.4,
+      "damageAmount": 0,
+      "curesEffects": false,
+      "potionEffects": []
+    },
+    {
+      "id": "lotr:item.mugPomegranateJuice",
+      "class": "lotr.common.item.LOTRItemMug",
+      "isFullMug": true,
+      "isFoodDrink": true,
+      "isBrewable": false,
+      "alcoholicity": 0.0,
+      "foodHealAmount": 6,
+      "foodSaturationAmount": 0.6,
+      "damageAmount": 0,
+      "curesEffects": false,
+      "potionEffects": []
+    },
+    {
+      "id": "lotr:item.mugPomegranateWine",
+      "class": "lotr.common.item.LOTRItemMug",
+      "isFullMug": true,
+      "isFoodDrink": false,
+      "isBrewable": true,
+      "alcoholicity": 0.9,
+      "foodHealAmount": 4,
+      "foodSaturationAmount": 0.4,
+      "damageAmount": 0,
+      "curesEffects": false,
+      "potionEffects": []
+    },
+    {
+      "id": "lotr:item.mugRaspberryJuice",
+      "class": "lotr.common.item.LOTRItemMug",
+      "isFullMug": true,
+      "isFoodDrink": true,
+      "isBrewable": false,
+      "alcoholicity": 0.0,
+      "foodHealAmount": 5,
+      "foodSaturationAmount": 0.5,
+      "damageAmount": 0,
+      "curesEffects": false,
+      "potionEffects": []
+    },
+    {
+      "id": "lotr:item.mugRedGrapeJuice",
+      "class": "lotr.common.item.LOTRItemMug",
+      "isFullMug": true,
+      "isFoodDrink": true,
+      "isBrewable": false,
+      "alcoholicity": 0.0,
+      "foodHealAmount": 5,
+      "foodSaturationAmount": 0.5,
+      "damageAmount": 0,
+      "curesEffects": false,
+      "potionEffects": []
+    },
+    {
+      "id": "lotr:item.mugRedWine",
+      "class": "lotr.common.item.LOTRItemMug",
+      "isFullMug": true,
+      "isFoodDrink": false,
+      "isBrewable": true,
+      "alcoholicity": 1.0,
+      "foodHealAmount": 4,
+      "foodSaturationAmount": 0.4,
+      "damageAmount": 0,
+      "curesEffects": false,
+      "potionEffects": []
+    },
+    {
+      "id": "lotr:item.mugRum",
+      "class": "lotr.common.item.LOTRItemMug",
+      "isFullMug": true,
+      "isFoodDrink": false,
+      "isBrewable": true,
+      "alcoholicity": 1.5,
+      "foodHealAmount": 3,
+      "foodSaturationAmount": 0.3,
+      "damageAmount": 0,
+      "curesEffects": false,
+      "potionEffects": []
+    },
+    {
+      "id": "lotr:item.mugSourMilk",
+      "class": "lotr.common.item.LOTRItemMug",
+      "isFullMug": true,
+      "isFoodDrink": false,
+      "isBrewable": true,
+      "alcoholicity": 0.2,
+      "foodHealAmount": 5,
+      "foodSaturationAmount": 0.5,
+      "damageAmount": 0,
+      "curesEffects": false,
+      "potionEffects": []
+    },
+    {
+      "id": "lotr:item.mugTauredainCocoa",
+      "class": "lotr.common.item.LOTRItemMug",
+      "isFullMug": true,
+      "isFoodDrink": false,
+      "isBrewable": true,
+      "alcoholicity": 0.0,
+      "foodHealAmount": 6,
+      "foodSaturationAmount": 0.6,
+      "damageAmount": 0,
+      "curesEffects": false,
+      "potionEffects": [
+        {
+          "id": 5,
+          "name": "potion.damageBoost",
+          "duration": 800,
+          "amplifier": 0
+        },
+        {
+          "id": 1,
+          "name": "potion.moveSpeed",
+          "duration": 800,
+          "amplifier": 0
+        }
+      ]
+    },
+    {
+      "id": "lotr:item.mugTauredainCure",
+      "class": "lotr.common.item.LOTRItemMugTauredainCure",
+      "isFullMug": true,
+      "isFoodDrink": false,
+      "isBrewable": false,
+      "alcoholicity": 0.0,
+      "foodHealAmount": 0,
+      "foodSaturationAmount": 0.0,
+      "damageAmount": 0,
+      "curesEffects": false,
+      "potionEffects": []
+    },
+    {
+      "id": "lotr:item.mugTermiteTequila",
+      "class": "lotr.common.item.LOTRItemMugTermite",
+      "isFullMug": true,
+      "isFoodDrink": false,
+      "isBrewable": true,
+      "alcoholicity": 1.5,
+      "foodHealAmount": 3,
+      "foodSaturationAmount": 0.3,
+      "damageAmount": 0,
+      "curesEffects": false,
+      "potionEffects": []
+    },
+    {
+      "id": "lotr:item.mugTorogDraught",
+      "class": "lotr.common.item.LOTRItemMug",
+      "isFullMug": true,
+      "isFoodDrink": false,
+      "isBrewable": true,
+      "alcoholicity": 0.6,
+      "foodHealAmount": 6,
+      "foodSaturationAmount": 0.6,
+      "damageAmount": 0,
+      "curesEffects": false,
+      "potionEffects": [
+        {
+          "id": 5,
+          "name": "potion.damageBoost",
+          "duration": 1800,
+          "amplifier": 0
+        }
+      ]
+    },
+    {
+      "id": "lotr:item.mugVodka",
+      "class": "lotr.common.item.LOTRItemMug",
+      "isFullMug": true,
+      "isFoodDrink": false,
+      "isBrewable": true,
+      "alcoholicity": 1.75,
+      "foodHealAmount": 3,
+      "foodSaturationAmount": 0.3,
+      "damageAmount": 0,
+      "curesEffects": false,
+      "potionEffects": []
+    },
+    {
+      "id": "lotr:item.mugWater",
+      "class": "lotr.common.item.LOTRItemMug",
+      "isFullMug": true,
+      "isFoodDrink": false,
+      "isBrewable": false,
+      "alcoholicity": 0.0,
+      "foodHealAmount": 0,
+      "foodSaturationAmount": 0.0,
+      "damageAmount": 0,
+      "curesEffects": false,
+      "potionEffects": []
+    },
+    {
+      "id": "lotr:item.mugWhiteGrapeJuice",
+      "class": "lotr.common.item.LOTRItemMug",
+      "isFullMug": true,
+      "isFoodDrink": true,
+      "isBrewable": false,
+      "alcoholicity": 0.0,
+      "foodHealAmount": 5,
+      "foodSaturationAmount": 0.5,
+      "damageAmount": 0,
+      "curesEffects": false,
+      "potionEffects": []
+    },
+    {
+      "id": "lotr:item.mugWhiteWine",
+      "class": "lotr.common.item.LOTRItemMug",
+      "isFullMug": true,
+      "isFoodDrink": false,
+      "isBrewable": true,
+      "alcoholicity": 0.9,
+      "foodHealAmount": 4,
+      "foodSaturationAmount": 0.4,
+      "damageAmount": 0,
+      "curesEffects": false,
+      "potionEffects": []
+    },
+    {
+      "id": "lotr:item.skullCup",
+      "class": "lotr.common.item.LOTRItemVessel",
+      "isFullMug": false,
+      "isFoodDrink": false,
+      "isBrewable": false,
+      "alcoholicity": 0.0,
+      "foodHealAmount": 0,
+      "foodSaturationAmount": 0.0,
+      "damageAmount": 0,
+      "curesEffects": false,
+      "potionEffects": []
+    },
+    {
+      "id": "lotr:item.waterskin",
+      "class": "lotr.common.item.LOTRItemVessel",
+      "isFullMug": false,
+      "isFoodDrink": false,
+      "isBrewable": false,
+      "alcoholicity": 0.0,
+      "foodHealAmount": 0,
+      "foodSaturationAmount": 0.0,
+      "damageAmount": 0,
+      "curesEffects": false,
+      "potionEffects": []
+    },
+    {
+      "id": "lotr:item.wineGlass",
+      "class": "lotr.common.item.LOTRItemVessel",
+      "isFullMug": false,
+      "isFoodDrink": false,
+      "isBrewable": false,
+      "alcoholicity": 0.0,
+      "foodHealAmount": 0,
+      "foodSaturationAmount": 0.0,
+      "damageAmount": 0,
+      "curesEffects": false,
+      "potionEffects": []
+    }
+  ],
+  "barrelCapacity": 16,
+  "brewing": [
+    {
+      "class": "net.minecraftforge.oredict.ShapelessOreRecipe",
+      "output": {
+        "item": "lotr:item.mugAle",
+        "meta": 0,
+        "count": 16
+      },
+      "type": "shapeless",
+      "input": [
+        {
+          "item": "minecraft:wheat",
+          "meta": 0
+        },
+        {
+          "item": "minecraft:wheat",
+          "meta": 0
+        },
+        {
+          "item": "minecraft:wheat",
+          "meta": 0
+        },
+        {
+          "item": "minecraft:wheat",
+          "meta": 0
+        },
+        {
+          "item": "minecraft:wheat",
+          "meta": 0
+        },
+        {
+          "item": "minecraft:wheat",
+          "meta": 0
+        }
+      ]
+    },
+    {
+      "class": "net.minecraftforge.oredict.ShapelessOreRecipe",
+      "output": {
+        "item": "lotr:item.mugMiruvor",
+        "meta": 0,
+        "count": 16
+      },
+      "type": "shapeless",
+      "input": [
+        {
+          "item": "lotr:item.mallornNut",
+          "meta": 0
+        },
+        {
+          "item": "lotr:item.mallornNut",
+          "meta": 0
+        },
+        {
+          "item": "lotr:item.mallornNut",
+          "meta": 0
+        },
+        {
+          "item": "lotr:tile.elanor",
+          "meta": 0
+        },
+        {
+          "item": "lotr:tile.niphredil",
+          "meta": 0
+        },
+        {
+          "item": "minecraft:sugar",
+          "meta": 0
+        }
+      ]
+    },
+    {
+      "class": "net.minecraftforge.oredict.ShapelessOreRecipe",
+      "output": {
+        "item": "lotr:item.mugOrcDraught",
+        "meta": 0,
+        "count": 16
+      },
+      "type": "shapeless",
+      "input": [
+        {
+          "item": "lotr:tile.morgulShroom",
+          "meta": 0
+        },
+        {
+          "item": "lotr:tile.morgulShroom",
+          "meta": 0
+        },
+        {
+          "item": "lotr:tile.morgulShroom",
+          "meta": 0
+        },
+        {
+          "ore": "bone"
+        },
+        {
+          "ore": "bone"
+        },
+        {
+          "ore": "bone"
+        }
+      ]
+    },
+    {
+      "class": "net.minecraftforge.oredict.ShapelessOreRecipe",
+      "output": {
+        "item": "lotr:item.mugMead",
+        "meta": 0,
+        "count": 16
+      },
+      "type": "shapeless",
+      "input": [
+        {
+          "item": "minecraft:sugar",
+          "meta": 0
+        },
+        {
+          "item": "minecraft:sugar",
+          "meta": 0
+        },
+        {
+          "item": "minecraft:sugar",
+          "meta": 0
+        },
+        {
+          "item": "minecraft:sugar",
+          "meta": 0
+        },
+        {
+          "item": "minecraft:sugar",
+          "meta": 0
+        },
+        {
+          "item": "minecraft:sugar",
+          "meta": 0
+        }
+      ]
+    },
+    {
+      "class": "net.minecraftforge.oredict.ShapelessOreRecipe",
+      "output": {
+        "item": "lotr:item.mugCider",
+        "meta": 0,
+        "count": 16
+      },
+      "type": "shapeless",
+      "input": [
+        {
+          "ore": "apple"
+        },
+        {
+          "ore": "apple"
+        },
+        {
+          "ore": "apple"
+        },
+        {
+          "ore": "apple"
+        },
+        {
+          "ore": "apple"
+        },
+        {
+          "ore": "apple"
+        }
+      ]
+    },
+    {
+      "class": "net.minecraftforge.oredict.ShapelessOreRecipe",
+      "output": {
+        "item": "lotr:item.mugPerry",
+        "meta": 0,
+        "count": 16
+      },
+      "type": "shapeless",
+      "input": [
+        {
+          "item": "lotr:item.pear",
+          "meta": 0
+        },
+        {
+          "item": "lotr:item.pear",
+          "meta": 0
+        },
+        {
+          "item": "lotr:item.pear",
+          "meta": 0
+        },
+        {
+          "item": "lotr:item.pear",
+          "meta": 0
+        },
+        {
+          "item": "lotr:item.pear",
+          "meta": 0
+        },
+        {
+          "item": "lotr:item.pear",
+          "meta": 0
+        }
+      ]
+    },
+    {
+      "class": "net.minecraftforge.oredict.ShapelessOreRecipe",
+      "output": {
+        "item": "lotr:item.mugCherryLiqueur",
+        "meta": 0,
+        "count": 16
+      },
+      "type": "shapeless",
+      "input": [
+        {
+          "item": "lotr:item.cherry",
+          "meta": 0
+        },
+        {
+          "item": "lotr:item.cherry",
+          "meta": 0
+        },
+        {
+          "item": "lotr:item.cherry",
+          "meta": 0
+        },
+        {
+          "item": "lotr:item.cherry",
+          "meta": 0
+        },
+        {
+          "item": "lotr:item.cherry",
+          "meta": 0
+        },
+        {
+          "item": "lotr:item.cherry",
+          "meta": 0
+        }
+      ]
+    },
+    {
+      "class": "net.minecraftforge.oredict.ShapelessOreRecipe",
+      "output": {
+        "item": "lotr:item.mugRum",
+        "meta": 0,
+        "count": 16
+      },
+      "type": "shapeless",
+      "input": [
+        {
+          "item": "minecraft:reeds",
+          "meta": 0
+        },
+        {
+          "item": "minecraft:reeds",
+          "meta": 0
+        },
+        {
+          "item": "minecraft:reeds",
+          "meta": 0
+        },
+        {
+          "item": "minecraft:reeds",
+          "meta": 0
+        },
+        {
+          "item": "minecraft:reeds",
+          "meta": 0
+        },
+        {
+          "item": "minecraft:reeds",
+          "meta": 0
+        }
+      ]
+    },
+    {
+      "class": "net.minecraftforge.oredict.ShapelessOreRecipe",
+      "output": {
+        "item": "lotr:item.mugAthelasBrew",
+        "meta": 0,
+        "count": 16
+      },
+      "type": "shapeless",
+      "input": [
+        {
+          "item": "lotr:tile.athelas",
+          "meta": 0
+        },
+        {
+          "item": "lotr:tile.athelas",
+          "meta": 0
+        },
+        {
+          "item": "lotr:tile.athelas",
+          "meta": 0
+        },
+        {
+          "item": "lotr:tile.athelas",
+          "meta": 0
+        },
+        {
+          "item": "lotr:tile.athelas",
+          "meta": 0
+        },
+        {
+          "item": "lotr:tile.athelas",
+          "meta": 0
+        }
+      ]
+    },
+    {
+      "class": "net.minecraftforge.oredict.ShapelessOreRecipe",
+      "output": {
+        "item": "lotr:item.mugDwarvenTonic",
+        "meta": 0,
+        "count": 16
+      },
+      "type": "shapeless",
+      "input": [
+        {
+          "item": "minecraft:wheat",
+          "meta": 0
+        },
+        {
+          "item": "minecraft:wheat",
+          "meta": 0
+        },
+        {
+          "item": "minecraft:wheat",
+          "meta": 0
+        },
+        {
+          "item": "lotr:tile.dwarfHerb",
+          "meta": 0
+        },
+        {
+          "item": "lotr:tile.dwarfHerb",
+          "meta": 0
+        },
+        {
+          "item": "lotr:item.mithrilNugget",
+          "meta": 0
+        }
+      ]
+    },
+    {
+      "class": "net.minecraftforge.oredict.ShapelessOreRecipe",
+      "output": {
+        "item": "lotr:item.mugDwarvenAle",
+        "meta": 0,
+        "count": 16
+      },
+      "type": "shapeless",
+      "input": [
+        {
+          "item": "minecraft:wheat",
+          "meta": 0
+        },
+        {
+          "item": "minecraft:wheat",
+          "meta": 0
+        },
+        {
+          "item": "minecraft:wheat",
+          "meta": 0
+        },
+        {
+          "item": "minecraft:wheat",
+          "meta": 0
+        },
+        {
+          "item": "lotr:tile.dwarfHerb",
+          "meta": 0
+        },
+        {
+          "item": "lotr:tile.dwarfHerb",
+          "meta": 0
+        }
+      ]
+    },
+    {
+      "class": "net.minecraftforge.oredict.ShapelessOreRecipe",
+      "output": {
+        "item": "lotr:item.mugVodka",
+        "meta": 0,
+        "count": 16
+      },
+      "type": "shapeless",
+      "input": [
+        {
+          "item": "minecraft:potato",
+          "meta": 0
+        },
+        {
+          "item": "minecraft:potato",
+          "meta": 0
+        },
+        {
+          "item": "minecraft:potato",
+          "meta": 0
+        },
+        {
+          "item": "minecraft:potato",
+          "meta": 0
+        },
+        {
+          "item": "minecraft:potato",
+          "meta": 0
+        },
+        {
+          "item": "minecraft:potato",
+          "meta": 0
+        }
+      ]
+    },
+    {
+      "class": "net.minecraftforge.oredict.ShapelessOreRecipe",
+      "output": {
+        "item": "lotr:item.mugMapleBeer",
+        "meta": 0,
+        "count": 16
+      },
+      "type": "shapeless",
+      "input": [
+        {
+          "item": "minecraft:wheat",
+          "meta": 0
+        },
+        {
+          "item": "minecraft:wheat",
+          "meta": 0
+        },
+        {
+          "item": "minecraft:wheat",
+          "meta": 0
+        },
+        {
+          "item": "minecraft:wheat",
+          "meta": 0
+        },
+        {
+          "item": "lotr:item.mapleSyrup",
+          "meta": 0
+        },
+        {
+          "item": "lotr:item.mapleSyrup",
+          "meta": 0
+        }
+      ]
+    },
+    {
+      "class": "net.minecraftforge.oredict.ShapelessOreRecipe",
+      "output": {
+        "item": "lotr:item.mugAraq",
+        "meta": 0,
+        "count": 16
+      },
+      "type": "shapeless",
+      "input": [
+        {
+          "item": "lotr:item.date",
+          "meta": 0
+        },
+        {
+          "item": "lotr:item.date",
+          "meta": 0
+        },
+        {
+          "item": "lotr:item.date",
+          "meta": 0
+        },
+        {
+          "item": "lotr:item.date",
+          "meta": 0
+        },
+        {
+          "item": "lotr:item.date",
+          "meta": 0
+        },
+        {
+          "item": "lotr:item.date",
+          "meta": 0
+        }
+      ]
+    },
+    {
+      "class": "net.minecraftforge.oredict.ShapelessOreRecipe",
+      "output": {
+        "item": "lotr:item.mugCarrotWine",
+        "meta": 0,
+        "count": 16
+      },
+      "type": "shapeless",
+      "input": [
+        {
+          "item": "minecraft:carrot",
+          "meta": 0
+        },
+        {
+          "item": "minecraft:carrot",
+          "meta": 0
+        },
+        {
+          "item": "minecraft:carrot",
+          "meta": 0
+        },
+        {
+          "item": "minecraft:carrot",
+          "meta": 0
+        },
+        {
+          "item": "minecraft:carrot",
+          "meta": 0
+        },
+        {
+          "item": "minecraft:carrot",
+          "meta": 0
+        }
+      ]
+    },
+    {
+      "class": "net.minecraftforge.oredict.ShapelessOreRecipe",
+      "output": {
+        "item": "lotr:item.mugBananaBeer",
+        "meta": 0,
+        "count": 16
+      },
+      "type": "shapeless",
+      "input": [
+        {
+          "item": "lotr:item.banana",
+          "meta": 0
+        },
+        {
+          "item": "lotr:item.banana",
+          "meta": 0
+        },
+        {
+          "item": "lotr:item.banana",
+          "meta": 0
+        },
+        {
+          "item": "lotr:item.banana",
+          "meta": 0
+        },
+        {
+          "item": "lotr:item.banana",
+          "meta": 0
+        },
+        {
+          "item": "lotr:item.banana",
+          "meta": 0
+        }
+      ]
+    },
+    {
+      "class": "net.minecraftforge.oredict.ShapelessOreRecipe",
+      "output": {
+        "item": "lotr:item.mugMelonLiqueur",
+        "meta": 0,
+        "count": 16
+      },
+      "type": "shapeless",
+      "input": [
+        {
+          "item": "minecraft:melon",
+          "meta": 0
+        },
+        {
+          "item": "minecraft:melon",
+          "meta": 0
+        },
+        {
+          "item": "minecraft:melon",
+          "meta": 0
+        },
+        {
+          "item": "minecraft:melon",
+          "meta": 0
+        },
+        {
+          "item": "minecraft:melon",
+          "meta": 0
+        },
+        {
+          "item": "minecraft:melon",
+          "meta": 0
+        }
+      ]
+    },
+    {
+      "class": "net.minecraftforge.oredict.ShapelessOreRecipe",
+      "output": {
+        "item": "lotr:item.mugCactusLiqueur",
+        "meta": 0,
+        "count": 16
+      },
+      "type": "shapeless",
+      "input": [
+        {
+          "item": "minecraft:cactus",
+          "meta": 0
+        },
+        {
+          "item": "minecraft:cactus",
+          "meta": 0
+        },
+        {
+          "item": "minecraft:cactus",
+          "meta": 0
+        },
+        {
+          "item": "minecraft:cactus",
+          "meta": 0
+        },
+        {
+          "item": "minecraft:cactus",
+          "meta": 0
+        },
+        {
+          "item": "minecraft:cactus",
+          "meta": 0
+        }
+      ]
+    },
+    {
+      "class": "net.minecraftforge.oredict.ShapelessOreRecipe",
+      "output": {
+        "item": "lotr:item.mugTorogDraught",
+        "meta": 0,
+        "count": 16
+      },
+      "type": "shapeless",
+      "input": [
+        {
+          "item": "minecraft:reeds",
+          "meta": 0
+        },
+        {
+          "item": "minecraft:reeds",
+          "meta": 0
+        },
+        {
+          "item": "minecraft:rotten_flesh",
+          "meta": 0
+        },
+        {
+          "item": "minecraft:rotten_flesh",
+          "meta": 0
+        },
+        {
+          "item": "minecraft:dirt",
+          "meta": 0
+        },
+        {
+          "item": "lotr:item.rhinoHorn",
+          "meta": 0
+        }
+      ]
+    },
+    {
+      "class": "net.minecraftforge.oredict.ShapelessOreRecipe",
+      "output": {
+        "item": "lotr:item.mugLemonLiqueur",
+        "meta": 0,
+        "count": 16
+      },
+      "type": "shapeless",
+      "input": [
+        {
+          "item": "lotr:item.lemon",
+          "meta": 0
+        },
+        {
+          "item": "lotr:item.lemon",
+          "meta": 0
+        },
+        {
+          "item": "lotr:item.lemon",
+          "meta": 0
+        },
+        {
+          "item": "lotr:item.lemon",
+          "meta": 0
+        },
+        {
+          "item": "lotr:item.lemon",
+          "meta": 0
+        },
+        {
+          "item": "lotr:item.lemon",
+          "meta": 0
+        }
+      ]
+    },
+    {
+      "class": "net.minecraftforge.oredict.ShapelessOreRecipe",
+      "output": {
+        "item": "lotr:item.mugLimeLiqueur",
+        "meta": 0,
+        "count": 16
+      },
+      "type": "shapeless",
+      "input": [
+        {
+          "item": "lotr:item.lime",
+          "meta": 0
+        },
+        {
+          "item": "lotr:item.lime",
+          "meta": 0
+        },
+        {
+          "item": "lotr:item.lime",
+          "meta": 0
+        },
+        {
+          "item": "lotr:item.lime",
+          "meta": 0
+        },
+        {
+          "item": "lotr:item.lime",
+          "meta": 0
+        },
+        {
+          "item": "lotr:item.lime",
+          "meta": 0
+        }
+      ]
+    },
+    {
+      "class": "net.minecraftforge.oredict.ShapelessOreRecipe",
+      "output": {
+        "item": "lotr:item.mugCornLiquor",
+        "meta": 0,
+        "count": 16
+      },
+      "type": "shapeless",
+      "input": [
+        {
+          "item": "lotr:item.corn",
+          "meta": 0
+        },
+        {
+          "item": "lotr:item.corn",
+          "meta": 0
+        },
+        {
+          "item": "lotr:item.corn",
+          "meta": 0
+        },
+        {
+          "item": "lotr:item.corn",
+          "meta": 0
+        },
+        {
+          "item": "lotr:item.corn",
+          "meta": 0
+        },
+        {
+          "item": "lotr:item.corn",
+          "meta": 0
+        }
+      ]
+    },
+    {
+      "class": "net.minecraftforge.oredict.ShapelessOreRecipe",
+      "output": {
+        "item": "lotr:item.mugRedWine",
+        "meta": 0,
+        "count": 16
+      },
+      "type": "shapeless",
+      "input": [
+        {
+          "item": "lotr:item.grapeRed",
+          "meta": 0
+        },
+        {
+          "item": "lotr:item.grapeRed",
+          "meta": 0
+        },
+        {
+          "item": "lotr:item.grapeRed",
+          "meta": 0
+        },
+        {
+          "item": "lotr:item.grapeRed",
+          "meta": 0
+        },
+        {
+          "item": "lotr:item.grapeRed",
+          "meta": 0
+        },
+        {
+          "item": "lotr:item.grapeRed",
+          "meta": 0
+        }
+      ]
+    },
+    {
+      "class": "net.minecraftforge.oredict.ShapelessOreRecipe",
+      "output": {
+        "item": "lotr:item.mugWhiteWine",
+        "meta": 0,
+        "count": 16
+      },
+      "type": "shapeless",
+      "input": [
+        {
+          "item": "lotr:item.grapeWhite",
+          "meta": 0
+        },
+        {
+          "item": "lotr:item.grapeWhite",
+          "meta": 0
+        },
+        {
+          "item": "lotr:item.grapeWhite",
+          "meta": 0
+        },
+        {
+          "item": "lotr:item.grapeWhite",
+          "meta": 0
+        },
+        {
+          "item": "lotr:item.grapeWhite",
+          "meta": 0
+        },
+        {
+          "item": "lotr:item.grapeWhite",
+          "meta": 0
+        }
+      ]
+    },
+    {
+      "class": "net.minecraftforge.oredict.ShapelessOreRecipe",
+      "output": {
+        "item": "lotr:item.mugMorgulDraught",
+        "meta": 0,
+        "count": 16
+      },
+      "type": "shapeless",
+      "input": [
+        {
+          "item": "lotr:tile.morgulFlower",
+          "meta": 0
+        },
+        {
+          "item": "lotr:tile.morgulFlower",
+          "meta": 0
+        },
+        {
+          "item": "lotr:tile.morgulFlower",
+          "meta": 0
+        },
+        {
+          "ore": "bone"
+        },
+        {
+          "ore": "bone"
+        },
+        {
+          "ore": "bone"
+        }
+      ]
+    },
+    {
+      "class": "net.minecraftforge.oredict.ShapelessOreRecipe",
+      "output": {
+        "item": "lotr:item.mugPlumKvass",
+        "meta": 0,
+        "count": 16
+      },
+      "type": "shapeless",
+      "input": [
+        {
+          "item": "minecraft:wheat",
+          "meta": 0
+        },
+        {
+          "item": "minecraft:wheat",
+          "meta": 0
+        },
+        {
+          "item": "minecraft:wheat",
+          "meta": 0
+        },
+        {
+          "item": "lotr:item.plum",
+          "meta": 0
+        },
+        {
+          "item": "lotr:item.plum",
+          "meta": 0
+        },
+        {
+          "item": "lotr:item.plum",
+          "meta": 0
+        }
+      ]
+    },
+    {
+      "class": "net.minecraftforge.oredict.ShapelessOreRecipe",
+      "output": {
+        "item": "lotr:item.mugTermiteTequila",
+        "meta": 0,
+        "count": 16
+      },
+      "type": "shapeless",
+      "input": [
+        {
+          "item": "minecraft:cactus",
+          "meta": 0
+        },
+        {
+          "item": "minecraft:cactus",
+          "meta": 0
+        },
+        {
+          "item": "minecraft:cactus",
+          "meta": 0
+        },
+        {
+          "item": "minecraft:cactus",
+          "meta": 0
+        },
+        {
+          "item": "minecraft:cactus",
+          "meta": 0
+        },
+        {
+          "item": "lotr:item.termite",
+          "meta": 0
+        }
+      ]
+    },
+    {
+      "class": "net.minecraftforge.oredict.ShapelessOreRecipe",
+      "output": {
+        "item": "lotr:item.mugSourMilk",
+        "meta": 0,
+        "count": 16
+      },
+      "type": "shapeless",
+      "input": [
+        {
+          "item": "minecraft:milk_bucket",
+          "meta": 0
+        },
+        {
+          "item": "minecraft:milk_bucket",
+          "meta": 0
+        },
+        {
+          "item": "minecraft:milk_bucket",
+          "meta": 0
+        },
+        {
+          "item": "minecraft:milk_bucket",
+          "meta": 0
+        },
+        {
+          "item": "minecraft:milk_bucket",
+          "meta": 0
+        },
+        {
+          "item": "minecraft:milk_bucket",
+          "meta": 0
+        }
+      ]
+    },
+    {
+      "class": "net.minecraftforge.oredict.ShapelessOreRecipe",
+      "output": {
+        "item": "lotr:item.mugPomegranateWine",
+        "meta": 0,
+        "count": 16
+      },
+      "type": "shapeless",
+      "input": [
+        {
+          "item": "lotr:item.pomegranate",
+          "meta": 0
+        },
+        {
+          "item": "lotr:item.pomegranate",
+          "meta": 0
+        },
+        {
+          "item": "lotr:item.pomegranate",
+          "meta": 0
+        },
+        {
+          "item": "lotr:item.pomegranate",
+          "meta": 0
+        },
+        {
+          "item": "lotr:item.pomegranate",
+          "meta": 0
+        },
+        {
+          "item": "lotr:item.pomegranate",
+          "meta": 0
+        }
+      ]
+    }
+  ]
+}
