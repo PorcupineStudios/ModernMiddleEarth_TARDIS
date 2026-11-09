@@ -24,6 +24,17 @@ dimension, dodging obstacles, "to" the destination.
   `Flight.hop`/`jump` lands it and pays. If that fails, the block goes back where it left.
 - **Refused while in the vortex**: `Flight.hop`/`jump`, the lever again, phase, thrusters off. The exterior side of
   the monitor shows "In the vortex: N%, H hits".
+- **Solid tube** (Aaron 2026-11-09: "make the tube have collision"): the box can reach `radius` (11) from the axis and
+  bounces off the wall there with a crackle (`TardisBody.vortexPhysics`: the speed into the wall is turned back at
+  0.6, a lightning-impact sound on the pilot's client). Anything else loose in the vortex (a crew member stepping out
+  of the doors, items, mobs) is kept within `radius` + 1 by `Vortex.onEntityTick` on both sides (`keepInside`):
+  pushed back off the wall, its speed into the wall dropped, and on the tube's bottom it can stand. Checked in the
+  dev client: dropped 20 blocks below the axis, a player stood on the bottom at 11.1.
+- **Storm edges** (Aaron 2026-11-09: "puffy like clouds and charged with lightning"): `VortexRenderer.clouds` draws
+  rings of soft cloud puffs (a lumpy blob texture made in code) every 2 blocks along the tunnel at 14-16 from the
+  axis, 34 per ring, fixed in place so they rush past, slowly turning; only where a spiral band is high, so they
+  form banks with the vortex showing between them. `bolts` strikes jagged forked lightning across their inner face
+  (up to 4 at once, a new chance 3 times a second each, crackling and fading); puffs near a strike light up.
 - **Look**: dimension type `effects` "tardis_rb:time_vortex" -> `VortexRenderer.Effects` (no sky, no clouds, dark
   blue fog). `VortexRenderer` draws at AFTER_SKY, depth off, a tube of radius 16 round the lane axis, ±160 blocks:
   `textures/environment/time_vortex.png` (rings) scrolling along and twisting, plus `time_vortex_glow.png` added on

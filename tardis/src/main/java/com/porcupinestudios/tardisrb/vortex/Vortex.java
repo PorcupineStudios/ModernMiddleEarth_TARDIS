@@ -38,6 +38,7 @@ import net.minecraft.server.level.TicketType;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -45,7 +46,9 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.neoforge.event.tick.EntityTickEvent;
 import net.neoforged.neoforge.event.tick.ServerTickEvent;
+import qouteall.imm_ptl.core.portal.Portal;
 
 /**
  * Flying through the time vortex (Aaron 2026-11-09: instead of the 1.7.10 button-pressing minigame, dematerialising
@@ -76,6 +79,53 @@ public final class Vortex {
 
     public static void register() {
         NeoForge.EVENT_BUS.addListener(Vortex::onTick);
+        NeoForge.EVENT_BUS.addListener(Vortex::onEntityTick);
+    }
+
+    /** The axis x of the lane nearest {@code x} (lanes are {@link #LANE_SPACING} apart, at n x spacing + 0.5). */
+    public static double laneX(double x) {
+        return Math.round((x - 0.5) / LANE_SPACING) * (double) LANE_SPACING + 0.5;
+    }
+
+    /**
+     * The tube is solid (Aaron 2026-11-09): where a point at ({@code x}, {@code y}) more than {@code limit} from its
+     * lane's axis is pushed back to, or null if it is inside.
+     */
+    public static Vec3 keepInside(double x, double y, double z, double limit) {
+        double ax = laneX(x);
+        double ox = x - ax;
+        double oy = y - LANE_Y;
+        double r = Math.sqrt(ox * ox + oy * oy);
+        return r <= limit ? null : new Vec3(ax + ox / r * limit, LANE_Y + oy / r * limit, z);
+    }
+
+    /**
+     * Anything loose in the vortex (a crew member stepping out of the doors, dropped items, mobs) stays inside the
+     * tube: it is pushed back off the wall, loses its speed into the wall, and can stand on the tube's bottom. Runs on
+     * both sides, so a player's own client keeps them in too. The box itself bounces ({@code TardisBody}).
+     */
+    private static void onEntityTick(EntityTickEvent.Post event) {
+        Entity e = event.getEntity();
+        if (e instanceof TardisBody || e instanceof Portal || e.isPassenger() || e.level().dimension() != DIMENSION) {
+            return;
+        }
+        double half = e.getBbHeight() / 2;
+        Vec3 back = keepInside(e.getX(), e.getY() + half, e.getZ(),
+                TardisContent.tuning().vortex().radius() + 1 - Math.max(half, e.getBbWidth() / 2));
+        if (back == null) {
+            return;
+        }
+        Vec3 out = new Vec3(e.getX() - back.x, e.getY() + half - back.y, 0).normalize();
+        e.setPos(back.x, back.y - half, back.z);
+        Vec3 v = e.getDeltaMovement();
+        double into = v.dot(out);
+        if (into > 0) {
+            e.setDeltaMovement(v.subtract(out.scale(into)));
+        }
+        if (out.y < -0.5) { // on the tube's bottom
+            e.setOnGround(true);
+            e.resetFallDistance();
+        }
     }
 
     public static boolean inVortex(TardisRecord tardis) {
