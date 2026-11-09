@@ -87,4 +87,17 @@ public final class VortexTests {
             });
         });
     }
+
+    /** The tube is solid: a point past the wall goes back onto it along the same line from the axis; inside stays. */
+    @GameTest(template = "platform")
+    public static void theTubeWallPushesBack(GameTestHelper helper) {
+        double ax = Vortex.laneX(3 * Vortex.LANE_SPACING + 40);
+        helper.assertTrue(ax == 3 * Vortex.LANE_SPACING + 0.5, "wrong lane axis " + ax);
+        helper.assertTrue(Vortex.keepInside(ax + 3, Vortex.LANE_Y - 4, 7, 10) == null, "a point inside was moved");
+        var back = Vortex.keepInside(ax + 12, Vortex.LANE_Y - 16, 7, 10);
+        helper.assertTrue(back != null && Math.abs(back.x - (ax + 6)) < 1.0E-9
+                && Math.abs(back.y - (Vortex.LANE_Y - 8)) < 1.0E-9 && back.z == 7,
+                "pushed back to " + back + ", not onto the wall");
+        helper.succeed();
+    }
 }

@@ -13,6 +13,8 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
@@ -205,10 +207,20 @@ public class TardisBody extends Entity {
         double oy = y - cy;
         double r = Math.sqrt(ox * ox + oy * oy);
         if (r > vt.radius()) {
-            x = cx + ox / r * vt.radius();
-            y = cy + oy / r * vt.radius();
-            vx *= 0.3;
-            vy *= 0.3;
+            // the tube is solid (Aaron 2026-11-09): it bounces off the charged cloud wall with a crackle
+            double nx = ox / r;
+            double ny = oy / r;
+            x = cx + nx * vt.radius();
+            y = cy + ny * vt.radius();
+            double out = vx * nx + vy * ny;
+            if (out > 0) {
+                vx -= 1.6 * out * nx;
+                vy -= 1.6 * out * ny;
+                if (out > 0.05) {
+                    level().playLocalSound(x, y, getZ(), SoundEvents.LIGHTNING_BOLT_IMPACT, SoundSource.NEUTRAL,
+                            (float) Math.min(1, out * 2), 1.5F, false);
+                }
+            }
         }
         setDeltaMovement(vx, vy, vz);
         setYRot(Direction.SOUTH.toYRot());

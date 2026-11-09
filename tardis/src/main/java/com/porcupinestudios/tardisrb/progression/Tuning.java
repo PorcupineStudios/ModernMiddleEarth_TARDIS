@@ -26,7 +26,7 @@ public record Tuning(CrashSite crashSite, Hop hop, Winder winder, Interior inter
      */
     public record VortexTuning(boolean enabled, double speed, double radius, int minLength, double lengthPerBlock,
             int jumpLength, int maxLength, int obstacleGap, int obstacleSize, long hitCharge, int hitDrift) {
-        static final VortexTuning DEFAULT = new VortexTuning(true, 0.7, 9, 160, 0.05, 480, 1200, 18, 3, 10, 6);
+        static final VortexTuning DEFAULT = new VortexTuning(true, 0.7, 11, 160, 0.05, 480, 1200, 18, 3, 10, 6);
         static final Codec<VortexTuning> CODEC = RecordCodecBuilder.create(i -> i.group(
                 Codec.BOOL.optionalFieldOf("enabled", DEFAULT.enabled).forGetter(VortexTuning::enabled),
                 Codec.DOUBLE.optionalFieldOf("speed", DEFAULT.speed).forGetter(VortexTuning::speed),
