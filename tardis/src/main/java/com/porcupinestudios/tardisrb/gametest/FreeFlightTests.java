@@ -22,6 +22,7 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.CommonListenerCookie;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.gametest.GameTestHolder;
 import net.neoforged.neoforge.gametest.PrefixGameTestTemplate;
@@ -37,6 +38,28 @@ import qouteall.imm_ptl.core.portal.Portal;
 @PrefixGameTestTemplate(false)
 public final class FreeFlightTests {
     private FreeFlightTests() {}
+
+    /** A hit shocks the loose box (Aaron 2026-11-09): it is knocked away from what hit it, and every client is told. */
+    @GameTest(template = "platform", timeoutTicks = 100)
+    public static void aHitShocksTheBoxAndKnocksItAway(GameTestHelper helper) {
+        MinecraftServer server = helper.getLevel().getServer();
+        TardisRecord t = WreckTests.onPlatform(helper, Optional.empty());
+        helper.assertTrue(Repairs.attempt(server, t, TardisRB.id("navigation_1"), Optional.empty()).done(),
+                "navigation repair");
+        FreeFlight.phase(server, t, Optional.empty());
+        TardisBody body = FreeFlight.body(server, t).orElseThrow();
+        FreeFlight.setThrusters(server, t, true, Optional.empty());
+        body.setPos(body.getX(), body.getY() + 3, body.getZ());
+        double y = body.getY();
+        body.hurt(new DamageSource(helper.getLevel().damageSources().generic().typeHolder(),
+                body.position().add(0, -2, 0)), 1); // from below: the platform has nothing above it
+        helper.assertTrue(body.shockStart == body.tickCount, "the hit didn't shock it");
+        helper.runAfterDelay(10, () -> {
+            helper.assertTrue(body.getY() > y + 1, "it wasn't knocked away from the hit: moved " + (body.getY() - y));
+            helper.assertTrue(!body.isRemoved(), "the hit broke it");
+            helper.succeed();
+        });
+    }
 
     @GameTest(template = "platform", timeoutTicks = 200)
     public static void phaseTurnsTheBoxLooseHoversFallsAndSetsDown(GameTestHelper helper) {

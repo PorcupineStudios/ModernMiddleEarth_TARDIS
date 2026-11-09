@@ -358,6 +358,7 @@ public final class Vortex {
                 BlockPos.containing(box.maxX, box.maxY, box.maxZ))) {
             if (vortex.getBlockState(p).is(TardisBlocks.VORTEX_DEBRIS.get())) {
                 BlockPos hit = p.immutable();
+                body.shock(body.getBoundingBox().getCenter().subtract(Vec3.atCenterOf(hit)), 1);
                 for (BlockPos q : BlockPos.betweenClosed(hit.offset(-t.obstacleSize(), -t.obstacleSize(),
                         -t.obstacleSize()), hit.offset(t.obstacleSize(), t.obstacleSize(), t.obstacleSize()))) {
                     if (vortex.getBlockState(q).is(TardisBlocks.VORTEX_DEBRIS.get())) {

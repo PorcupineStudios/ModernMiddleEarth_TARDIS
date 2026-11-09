@@ -5,6 +5,7 @@ import com.porcupinestudios.tardisrb.flight.PilotInput;
 import com.porcupinestudios.tardisrb.progression.TardisContent;
 import com.porcupinestudios.tardisrb.progression.Tuning;
 import com.porcupinestudios.tardisrb.vortex.Vortex;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 import net.minecraft.core.Direction;
@@ -25,6 +26,7 @@ import net.minecraft.world.entity.MoverType;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
+import org.joml.Vector3f;
 
 /**
  * The police box when it isn't a block (docs/free-flight-plan.md, Aaron 2026-11-08): with the thrusters off it is a
@@ -47,10 +49,19 @@ public class TardisBody extends Entity {
             EntityDataSerializers.FLOAT);
     private static final EntityDataAccessor<Float> LANE_Y = SynchedEntityData.defineId(TardisBody.class,
             EntityDataSerializers.FLOAT);
+    /** The last shock (see {@link #shock}): which way it was knocked, and a count that goes up with each one. */
+    private static final EntityDataAccessor<Vector3f> SHOCK_DIR = SynchedEntityData.defineId(TardisBody.class,
+            EntityDataSerializers.VECTOR3);
+    private static final EntityDataAccessor<Integer> SHOCK = SynchedEntityData.defineId(TardisBody.class,
+            EntityDataSerializers.INT);
 
     /** Client only: how far open the doors are drawn (0..1) and when that was worked out. */
     public float doorAnim;
     public float doorAnimTime = -1;
+    /** When the last shock started ({@code tickCount}), its seed for the lightning, and which way it was knocked. */
+    public int shockStart = -1000;
+    public int shockSeed;
+    public Vec3 shockDir = new Vec3(0, 1, 0);
 
     public TardisBody(EntityType<? extends TardisBody> type, Level level) {
         super(type, level);
@@ -64,6 +75,8 @@ public class TardisBody extends Entity {
         builder.define(DOORS, (byte) 0);
         builder.define(LANE_X, Float.NaN);
         builder.define(LANE_Y, Float.NaN);
+        builder.define(SHOCK_DIR, new Vector3f(0, 1, 0));
+        builder.define(SHOCK, 0);
     }
 
     public Optional<UUID> tardis() {
@@ -113,6 +126,42 @@ public class TardisBody extends Entity {
     /** True while it flies a time vortex tunnel. */
     public boolean inLane() {
         return !Float.isNaN(entityData.get(LANE_X)) && level().dimension() == Vortex.DIMENSION;
+    }
+
+    /**
+     * Hit (debris, the vortex wall, an attack; Aaron 2026-11-09): lightning crawls over the box, it rocks, and it is
+     * knocked away along {@code away} at {@code strength} (0..1) of the tuned bounce. Called on the server it plays on
+     * every client; on the pilot's client (its own bump into the wall) only there.
+     */
+    public void shock(Vec3 away, double strength) {
+        if (tickCount - shockStart < 6) {
+            return; // already crackling
+        }
+        Vec3 dir = away.lengthSqr() < 1.0E-6 ? new Vec3(0, 1, 0) : away.normalize().scale(Math.min(1, strength));
+        if (!level().isClientSide) {
+            entityData.set(SHOCK_DIR, dir.toVector3f());
+            entityData.set(SHOCK, entityData.get(SHOCK) + 1);
+        }
+        startShock(dir, level().isClientSide ? random.nextInt() : entityData.get(SHOCK));
+    }
+
+    private void startShock(Vec3 dir, int seed) {
+        shockStart = tickCount;
+        shockSeed = seed;
+        shockDir = dir;
+        if (isControlledByLocalInstance()) {
+            setDeltaMovement(getDeltaMovement().add(dir.scale(TardisContent.tuning().flight().shock().bounce())));
+        }
+        level().playLocalSound(getX(), getY() + 1, getZ(), SoundEvents.LIGHTNING_BOLT_IMPACT, SoundSource.NEUTRAL,
+                0.8F, 1.4F + random.nextFloat() * 0.3F, false);
+    }
+
+    @Override
+    public void onSyncedDataUpdated(List<SynchedEntityData.DataValue<?>> values) {
+        super.onSyncedDataUpdated(values);
+        if (level().isClientSide && tickCount > 0 && values.stream().anyMatch(d -> d.id() == SHOCK.id())) {
+            startShock(new Vec3(entityData.get(SHOCK_DIR)), entityData.get(SHOCK));
+        }
     }
 
     @Override
@@ -210,24 +259,27 @@ public class TardisBody extends Entity {
         double ox = x - cx;
         double oy = y - cy;
         double r = Math.sqrt(ox * ox + oy * oy);
+        double bump = 0;
+        double nx = 0;
+        double ny = 0;
         if (r > vt.radius()) {
             // the tube is solid (Aaron 2026-11-09): it bounces off the charged cloud wall with a crackle
-            double nx = ox / r;
-            double ny = oy / r;
+            nx = ox / r;
+            ny = oy / r;
             x = cx + nx * vt.radius();
             y = cy + ny * vt.radius();
             double out = vx * nx + vy * ny;
             if (out > 0) {
                 vx -= 1.6 * out * nx;
                 vy -= 1.6 * out * ny;
-                if (out > 0.05) {
-                    level().playLocalSound(x, y, getZ(), SoundEvents.LIGHTNING_BOLT_IMPACT, SoundSource.NEUTRAL,
-                            (float) Math.min(1, out * 2), 1.5F, false);
-                }
+                bump = out > 0.05 ? out : 0;
             }
         }
         setDeltaMovement(vx, vy, vz);
         setYRot(Direction.SOUTH.toYRot());
+        if (bump > 0) {
+            shock(new Vec3(-nx, -ny, 0), bump * 2); // the charged wall throws it back
+        }
         setPos(x, y, getZ() + vz);
     }
 
@@ -299,6 +351,9 @@ public class TardisBody extends Entity {
 
     @Override
     public boolean hurt(DamageSource source, float amount) {
+        if (!level().isClientSide && source.getSourcePosition() != null) {
+            shock(getBoundingBox().getCenter().subtract(source.getSourcePosition()), 1);
+        }
         return false;
     }
 

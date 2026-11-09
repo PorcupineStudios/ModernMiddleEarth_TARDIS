@@ -217,6 +217,13 @@
       "vertical_speed": 0.35,
       "boost": 2.0,
       "spin": 4.0
+    },
+    "shock": {
+      "_comment": "The electric shock when the loose box is hit (debris, the vortex wall, an attack): how many ticks the lightning crawls over it, how hard it is knocked away (blocks per tick), how far it rocks (degrees, dying away), and how many arcs hug it at once.",
+      "ticks": 24,
+      "bounce": 0.45,
+      "wobble": 20,
+      "arcs": 7
     }
   },
   "vortex": {

@@ -37,6 +37,15 @@ dimension, dodging obstacles, "to" the destination.
   rush past, slowly turning) and paints it with the vortex texture as before. Puff tops are bright and the folds
   dark. `bolts` strikes jagged forked lightning over it (up to 4 at once, a new chance 3 times a second each,
   crackling and fading); the cloud near a strike lights up blue-white. The glow streaks are a fainter tube inside.
+- **Shock** (Aaron 2026-11-09: "an electricity damage animation" with "a repelling bounce", playing at any rotation
+  or wobble): `TardisBody.shock(away, strength)` on a debris hit (`Vortex.hitDebris`), a bump into the wall
+  (`vortexPhysics`) and any attack with a source position (`hurt`; it still takes no damage). The server bumps a synced
+  counter and direction, so every client plays it; the side that moves the box adds the knock (tuning
+  `flight.shock.bounce`). `client/ShockRenderer` draws in the box's own pose, after its turn: arcs that cling to its
+  sides and wrap round its edges (points put back onto the box's bounds, a little out; reshaped every 2 ticks),
+  a blue glow, bolts jumping off the struck side and falling sparks; the box rocks across the knock, dying away
+  (`wobble`). `ticks`, `bounce`, `wobble` and `arcs` are tunable. `FreeFlightTests.aHitShocksTheBoxAndKnocksItAway`.
+  A pilot's own wall bump shows only on their client.
 - **Twisting tunnel** (Aaron 2026-11-09: "make the time vortex twist and turn"): the axis winds. `Vortex.bend(z)`
   gives the sideways and up/down offset at distance z along the lane (two sine waves each way, up to about 11 off
   the straight line, never steeper than 0.5 blocks per block; straight for the first 40 so departure is clean),
