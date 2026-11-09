@@ -4,6 +4,7 @@ import com.porcupinestudios.tardisrb.TardisRB;
 import com.porcupinestudios.tardisrb.core.TardisRecord;
 import com.porcupinestudios.tardisrb.entity.TardisBody;
 import com.porcupinestudios.tardisrb.progression.Unlocks;
+import com.porcupinestudios.tardisrb.vortex.Vortex;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -66,11 +67,19 @@ public final class Piloting {
         if (!unlocked.allowed()) {
             return unlocked.reason();
         }
+        return seat(server, tardis, player);
+    }
+
+    /**
+     * {@link #start} without the feature check: the time vortex seats whoever pulled the dematerialisation lever
+     * ({@code vortex/Vortex}), piloting unlocked or not.
+     */
+    public static Component seat(MinecraftServer server, TardisRecord tardis, ServerPlayer player) {
         if (!FreeFlight.isLoose(tardis)) {
             return Component.translatableWithFallback("tardis_rb.pilot.not_loose",
                     "The box has to come loose first (phase key, then the phase lever)");
         }
-        if (!FreeFlight.thrusters(tardis)) {
+        if (!FreeFlight.thrusters(tardis) && !Vortex.inVortex(tardis)) {
             return Component.translatableWithFallback("tardis_rb.pilot.no_thrusters", "Switch the thrusters on first");
         }
         Optional<TardisBody> body = FreeFlight.body(server, tardis);

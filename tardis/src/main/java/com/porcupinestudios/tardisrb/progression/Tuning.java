@@ -13,7 +13,36 @@ import net.minecraft.resources.ResourceLocation;
  * {@code data/tardis_rb/tardis/tuning/main.json}; every field has a default, so a pack can override just one.
  */
 public record Tuning(CrashSite crashSite, Hop hop, Winder winder, Interior interior, Damage damage,
-        ResearchSpeed research, ConsoleTuning console, DoorTuning door, SpaceTuning space, FreeFlight flight) {
+        ResearchSpeed research, ConsoleTuning console, DoorTuning door, SpaceTuning space, FreeFlight flight,
+        VortexTuning vortex) {
+    /**
+     * Flying through the time vortex (Aaron 2026-11-09: dematerialising flies the box through the vortex dimension,
+     * dodging obstacles, instead of the 1.7.10 button minigame). {@code enabled}: off = trips land at once.
+     * {@code speed}: blocks per tick the box drifts along the tunnel; {@code radius}: how far from the tunnel's axis it
+     * can go; {@code min_length} + {@code length_per_block} x the trip's distance (hops) or {@code jump_length}
+     * (jumps to another dimension), capped at {@code max_length}: how long the tunnel is. Obstacles every
+     * {@code obstacle_gap} blocks (each a clump up to {@code obstacle_size} across); a hit costs {@code hit_charge} and
+     * moves the landing up to {@code hit_drift} blocks off target.
+     */
+    public record VortexTuning(boolean enabled, double speed, double radius, int minLength, double lengthPerBlock,
+            int jumpLength, int maxLength, int obstacleGap, int obstacleSize, long hitCharge, int hitDrift) {
+        static final VortexTuning DEFAULT = new VortexTuning(true, 0.7, 9, 160, 0.05, 480, 1200, 18, 3, 10, 6);
+        static final Codec<VortexTuning> CODEC = RecordCodecBuilder.create(i -> i.group(
+                Codec.BOOL.optionalFieldOf("enabled", DEFAULT.enabled).forGetter(VortexTuning::enabled),
+                Codec.DOUBLE.optionalFieldOf("speed", DEFAULT.speed).forGetter(VortexTuning::speed),
+                Codec.DOUBLE.optionalFieldOf("radius", DEFAULT.radius).forGetter(VortexTuning::radius),
+                Codec.INT.optionalFieldOf("min_length", DEFAULT.minLength).forGetter(VortexTuning::minLength),
+                Codec.DOUBLE.optionalFieldOf("length_per_block", DEFAULT.lengthPerBlock)
+                        .forGetter(VortexTuning::lengthPerBlock),
+                Codec.INT.optionalFieldOf("jump_length", DEFAULT.jumpLength).forGetter(VortexTuning::jumpLength),
+                Codec.INT.optionalFieldOf("max_length", DEFAULT.maxLength).forGetter(VortexTuning::maxLength),
+                Codec.INT.optionalFieldOf("obstacle_gap", DEFAULT.obstacleGap).forGetter(VortexTuning::obstacleGap),
+                Codec.INT.optionalFieldOf("obstacle_size", DEFAULT.obstacleSize).forGetter(VortexTuning::obstacleSize),
+                Codec.LONG.optionalFieldOf("hit_charge", DEFAULT.hitCharge).forGetter(VortexTuning::hitCharge),
+                Codec.INT.optionalFieldOf("hit_drift", DEFAULT.hitDrift).forGetter(VortexTuning::hitDrift))
+                .apply(i, VortexTuning::new));
+    }
+
     /**
      * The exterior as a loose box ({@code entity/TardisBody}, docs/free-flight-plan.md): {@code gravity} per tick
      * with the thrusters off, {@code drag} in the air and {@code ground_friction} per tick, {@code hover_damping} (how
@@ -316,7 +345,7 @@ public record Tuning(CrashSite crashSite, Hop hop, Winder winder, Interior inter
 
     public static final Tuning DEFAULT = new Tuning(CrashSite.DEFAULT, Hop.DEFAULT, Winder.DEFAULT, Interior.DEFAULT,
             Damage.DEFAULT, ResearchSpeed.DEFAULT, ConsoleTuning.DEFAULT, DoorTuning.DEFAULT, SpaceTuning.DEFAULT,
-            FreeFlight.DEFAULT);
+            FreeFlight.DEFAULT, VortexTuning.DEFAULT);
 
     public static final Codec<Tuning> CODEC = RecordCodecBuilder.create(i -> i.group(
             CrashSite.CODEC.optionalFieldOf("crash_site", CrashSite.DEFAULT).forGetter(Tuning::crashSite),
@@ -328,6 +357,7 @@ public record Tuning(CrashSite crashSite, Hop hop, Winder winder, Interior inter
             ConsoleTuning.CODEC.optionalFieldOf("console", ConsoleTuning.DEFAULT).forGetter(Tuning::console),
             DoorTuning.CODEC.optionalFieldOf("door", DoorTuning.DEFAULT).forGetter(Tuning::door),
             SpaceTuning.CODEC.optionalFieldOf("space", SpaceTuning.DEFAULT).forGetter(Tuning::space),
-            FreeFlight.CODEC.optionalFieldOf("flight", FreeFlight.DEFAULT).forGetter(Tuning::flight))
+            FreeFlight.CODEC.optionalFieldOf("flight", FreeFlight.DEFAULT).forGetter(Tuning::flight),
+            VortexTuning.CODEC.optionalFieldOf("vortex", VortexTuning.DEFAULT).forGetter(Tuning::vortex))
             .apply(i, Tuning::new));
 }

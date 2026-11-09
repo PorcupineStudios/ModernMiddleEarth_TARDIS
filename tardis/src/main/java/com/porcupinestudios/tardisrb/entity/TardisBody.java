@@ -4,8 +4,10 @@ import com.porcupinestudios.tardisrb.flight.FreeFlight;
 import com.porcupinestudios.tardisrb.flight.PilotInput;
 import com.porcupinestudios.tardisrb.progression.TardisContent;
 import com.porcupinestudios.tardisrb.progression.Tuning;
+import com.porcupinestudios.tardisrb.vortex.Vortex;
 import java.util.Optional;
 import java.util.UUID;
+import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -38,6 +40,11 @@ public class TardisBody extends Entity {
     /** The doors: 0 shut, 1 open, 2 swinging shut (Aaron 2026-11-09: the doors open while it is an entity too). */
     private static final EntityDataAccessor<Byte> DOORS = SynchedEntityData.defineId(TardisBody.class,
             EntityDataSerializers.BYTE);
+    /** In the time vortex: the axis of its tunnel (x, y); NaN when it isn't flying one. */
+    private static final EntityDataAccessor<Float> LANE_X = SynchedEntityData.defineId(TardisBody.class,
+            EntityDataSerializers.FLOAT);
+    private static final EntityDataAccessor<Float> LANE_Y = SynchedEntityData.defineId(TardisBody.class,
+            EntityDataSerializers.FLOAT);
 
     /** Client only: how far open the doors are drawn (0..1) and when that was worked out. */
     public float doorAnim;
@@ -53,6 +60,8 @@ public class TardisBody extends Entity {
         builder.define(THRUSTERS, false);
         builder.define(LOOK, 0);
         builder.define(DOORS, (byte) 0);
+        builder.define(LANE_X, Float.NaN);
+        builder.define(LANE_Y, Float.NaN);
     }
 
     public Optional<UUID> tardis() {
@@ -93,6 +102,17 @@ public class TardisBody extends Entity {
         entityData.set(DOORS, (byte) (!open ? 0 : closing ? 2 : 1));
     }
 
+    /** Puts it in a vortex tunnel round the axis ({@code x}, {@code y}) along +z ({@code vortex/Vortex}). */
+    public void setLane(float x, float y) {
+        entityData.set(LANE_X, x);
+        entityData.set(LANE_Y, y);
+    }
+
+    /** True while it flies a time vortex tunnel. */
+    public boolean inLane() {
+        return !Float.isNaN(entityData.get(LANE_X)) && level().dimension() == Vortex.DIMENSION;
+    }
+
     @Override
     public void tick() {
         super.tick();
@@ -110,6 +130,10 @@ public class TardisBody extends Entity {
      * client sends the box's moves, as with a boat). Flown: thrust along the pilot's view from {@link PilotInput}.
      */
     private void physics() {
+        if (inLane()) {
+            vortexPhysics();
+            return;
+        }
         Tuning.FreeFlight t = TardisContent.tuning().flight();
         Vec3 v = getDeltaMovement();
         boolean flown = getControllingPassenger() != null && thrusters();
@@ -143,6 +167,52 @@ public class TardisBody extends Entity {
             double across = onGround() ? t.groundFriction() : t.drag();
             setDeltaMovement(getDeltaMovement().multiply(across, thrusters() ? 1 : t.drag(), across));
         }
+    }
+
+    /**
+     * In the vortex: no gravity, nothing to bump into but debris (it passes through it; {@code Vortex} works out the
+     * hit). Flown, it drifts forward along the tunnel by itself (W faster, S slower, sprint boosts) while A / D and
+     * Q / E steer across it; it can't leave the tunnel's radius. Unflown, the server's autopilot carries it.
+     */
+    private void vortexPhysics() {
+        Tuning.Piloting p = TardisContent.tuning().flight().piloting();
+        Tuning.VortexTuning vt = TardisContent.tuning().vortex();
+        Vec3 v = getDeltaMovement();
+        double vx = v.x;
+        double vy = v.y;
+        double vz = 0;
+        if (getControllingPassenger() != null) {
+            double steer = p.acceleration() * 2;
+            vx = (vx + PilotInput.left * steer) * (PilotInput.left == 0 ? 0.8 : 1);
+            vy = (vy + PilotInput.up * steer) * (PilotInput.up == 0 ? 0.8 : 1);
+            double across = Math.sqrt(vx * vx + vy * vy);
+            double top = p.maxSpeed() * 0.75;
+            if (across > top) {
+                vx *= top / across;
+                vy *= top / across;
+            }
+            vz = vt.speed() * (1 + 0.5 * PilotInput.forward) * (PilotInput.boost ? p.boost() : 1)
+                    * (PilotInput.brake ? 0.5 : 1);
+        } else {
+            vx *= 0.8;
+            vy *= 0.8;
+        }
+        double x = getX() + vx;
+        double y = getY() + vy;
+        double cx = entityData.get(LANE_X);
+        double cy = entityData.get(LANE_Y);
+        double ox = x - cx;
+        double oy = y - cy;
+        double r = Math.sqrt(ox * ox + oy * oy);
+        if (r > vt.radius()) {
+            x = cx + ox / r * vt.radius();
+            y = cy + oy / r * vt.radius();
+            vx *= 0.3;
+            vy *= 0.3;
+        }
+        setDeltaMovement(vx, vy, vz);
+        setYRot(Direction.SOUTH.toYRot());
+        setPos(x, y, getZ() + vz);
     }
 
     /** The pilot (the first passenger, if a player). */
@@ -224,6 +294,9 @@ public class TardisBody extends Entity {
         setThrusters(tag.getBoolean("thrusters"));
         setLook(tag.getInt("look"));
         setDoors(tag.getBoolean("doors_open"), false);
+        if (tag.contains("lane_x")) {
+            setLane(tag.getFloat("lane_x"), tag.getFloat("lane_y"));
+        }
     }
 
     @Override
@@ -232,5 +305,9 @@ public class TardisBody extends Entity {
         tag.putBoolean("thrusters", thrusters());
         tag.putInt("look", look());
         tag.putBoolean("doors_open", doorsOpen());
+        if (!Float.isNaN(entityData.get(LANE_X))) {
+            tag.putFloat("lane_x", entityData.get(LANE_X));
+            tag.putFloat("lane_y", entityData.get(LANE_Y));
+        }
     }
 }

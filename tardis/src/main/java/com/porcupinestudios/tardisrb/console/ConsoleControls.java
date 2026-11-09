@@ -16,6 +16,7 @@ import com.porcupinestudios.tardisrb.progression.TardisContent;
 import com.porcupinestudios.tardisrb.progression.Tuning;
 import com.porcupinestudios.tardisrb.progression.Unlocks;
 import com.porcupinestudios.tardisrb.repair.Repairs;
+import com.porcupinestudios.tardisrb.vortex.Vortex;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -475,6 +476,9 @@ public final class ConsoleControls {
         if (tardis.location().isEmpty()) {
             return Flight.Outcome.fail("tardis_rb.hop.nowhere", "The TARDIS isn't standing anywhere");
         }
+        if (Vortex.inVortex(tardis)) {
+            return Flight.Outcome.fail("tardis_rb.vortex.busy", "The TARDIS is in the time vortex");
+        }
         GlobalPos from = tardis.location().get();
         if (console.state("fast_return") != 0 && lastSpot(tardis).isPresent()) {
             Flight.Outcome back = goBack(server, tardis, lastSpot(tardis).get(), console, player);
@@ -498,8 +502,15 @@ public final class ConsoleControls {
             target = new BlockPos(target.getX(), level.getHeight(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
                     target.getX(), target.getZ()), target.getZ());
         }
-        Flight.Outcome out = sameWorld ? Flight.hop(server, tardis, target, facing, player)
-                : Flight.jump(server, tardis, to.get(), Optional.of(target), facing, player);
+        Flight.Outcome out;
+        if (player.isPresent() && TardisContent.tuning().vortex().enabled()
+                && server.getLevel(Vortex.DIMENSION) != null) {
+            // a crew member at the lever flies it through the time vortex to get there (Aaron 2026-11-09)
+            out = Vortex.depart(server, tardis, sameWorld ? Optional.empty() : to, target, facing, player);
+        } else {
+            out = sameWorld ? Flight.hop(server, tardis, target, facing, player)
+                    : Flight.jump(server, tardis, to.get(), Optional.of(target), facing, player);
+        }
         if (out.done()) {
             remember(tardis, from);
         }
@@ -645,7 +656,10 @@ public final class ConsoleControls {
             }
             case 3 -> {
                 out.add("EXTERIOR - " + tardis.name());
-                out.add(at.isEmpty() ? "In flight" : !FreeFlight.isLoose(tardis) ? "Landed (a block)"
+                out.add(at.isEmpty() ? "In flight" : Vortex.inVortex(tardis)
+                        ? "In the vortex: " + Math.round(Vortex.progress(tardis) * 100) + "%, " + Vortex.hits(tardis)
+                                + " hits"
+                        : !FreeFlight.isLoose(tardis) ? "Landed (a block)"
                         : FreeFlight.body(server, tardis).map(b -> b.isVehicle()).orElse(false)
                                 ? "Flown, " + FreeFlight.height(server, tardis) + " up"
                         : FreeFlight.thrusters(tardis) ? "Hovering, " + FreeFlight.height(server, tardis) + " up"
@@ -687,6 +701,10 @@ public final class ConsoleControls {
     }
 
     private static Component result(Flight.Outcome out) {
+        if (out.done() && out.landed().isEmpty()) {
+            return Component.translatableWithFallback("tardis_rb.vortex.departed",
+                    "The TARDIS dematerialises into the time vortex: fly it through!");
+        }
         return out.done()
                 ? Component.translatableWithFallback("tardis_rb.hop.done", "The TARDIS lands at %s %s %s",
                         out.landed().get().pos().getX(), out.landed().get().pos().getY(),

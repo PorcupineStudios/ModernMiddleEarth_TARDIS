@@ -80,6 +80,10 @@ public final class TardisBlocks {
             () -> new StairBlock(FLOOR_PLATE.get().defaultBlockState(), room(0)));
     public static final DeferredBlock<SlabBlock> FRAME_SLAB = BLOCKS.register("frame_slab",
             () -> new SlabBlock(room(0)));
+    /** Time vortex debris: the obstacles a flight through the vortex has to dodge (placed and cleared by code). */
+    public static final DeferredBlock<Block> VORTEX_DEBRIS = BLOCKS.register("vortex_debris",
+            () -> new Block(fixed().mapColor(MapColor.COLOR_PURPLE).lightLevel(s -> 12).noCollission()
+                    .noLootTable()));
     public static final DeferredBlock<CollisionOnlyBlock> COLLISION_POST = BLOCKS.register("collision_post",
             () -> new CollisionOnlyBlock(fixed().noOcclusion().noLootTable(), Block.box(6, 0, 6, 10, 16, 10)));
     public static final DeferredBlock<CollisionOnlyBlock> COLLISION_PILLAR = BLOCKS.register("collision_pillar",

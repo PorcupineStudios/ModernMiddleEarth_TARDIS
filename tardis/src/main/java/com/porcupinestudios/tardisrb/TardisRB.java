@@ -18,6 +18,7 @@ import com.porcupinestudios.tardisrb.research.Researching;
 import com.porcupinestudios.tardisrb.space.SpaceTravel;
 import com.porcupinestudios.tardisrb.progression.TardisConditions;
 import com.porcupinestudios.tardisrb.progression.TardisContent;
+import com.porcupinestudios.tardisrb.vortex.Vortex;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
@@ -38,6 +39,7 @@ public final class TardisRB {
         TardisBlocks.register(modBus);
         TardisEntities.register(modBus);
         Piloting.register();
+        Vortex.register();
         ConsoleNet.register(modBus);
         DoorNet.register(modBus);
         CrashSite.register();
