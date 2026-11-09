@@ -147,6 +147,14 @@ public final class ConsoleModel {
     }
 
     /**
+     * How far to turn the monitor from where the model has it, as a Y rotation in degrees round the rotor axis, for it
+     * to face {@code angle} ({@code atan2(z, x)}; NaN = home).
+     */
+    public float monitorTurn(float angle) {
+        return Float.isNaN(angle) ? 0 : wrap(monitorHome - angle);
+    }
+
+    /**
      * Where the monitor is drawn when turned {@code turn} degrees ({@link #monitorTurn}): it stands up off its panel
      * (tilted toward upright about its middle, lifted and moved in toward the rotor, so the controls under it stay
      * visible) and turns round the rotor axis. Maps the model's monitor quads (block corner space) to where they are.
