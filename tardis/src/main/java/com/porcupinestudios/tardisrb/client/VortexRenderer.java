@@ -26,7 +26,7 @@ import org.joml.Vector3f;
  * The time vortex round you (Aaron 2026-11-09): a tunnel along +z round the lane's axis, its wall painted with
  * {@code textures/environment/time_vortex.png} (rings that rush past and twist) and a second, additive layer of glowing
  * streaks ({@code time_vortex_glow.png}) turning the other way. Drawn right after the (empty) sky without depth, so the
- * box, the debris and the pilot are drawn over it. The wall billows in as cloud ({@link #cloudWall}, 96 x 160 quads) and
+ * box, the lightning arcs and the pilot are drawn over it. The wall billows in as cloud ({@link #cloudWall}, 96 x 160 quads) and
  * lightning crackles over it ({@link #bolts}); all rebuilt every frame. Both textures are made by
  * {@code tools/vortex_texture.py} and can be swapped for any seamless 1024 x 1024 image.
  */

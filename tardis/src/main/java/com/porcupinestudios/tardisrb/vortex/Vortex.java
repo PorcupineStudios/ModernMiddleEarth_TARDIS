@@ -3,12 +3,13 @@ package com.porcupinestudios.tardisrb.vortex;
 import com.porcupinestudios.tardisrb.TardisRB;
 import com.porcupinestudios.tardisrb.block.ExteriorBlock;
 import com.porcupinestudios.tardisrb.block.Exteriors;
-import com.porcupinestudios.tardisrb.block.TardisBlocks;
 import com.porcupinestudios.tardisrb.core.TardisManager;
 import com.porcupinestudios.tardisrb.core.TardisRecord;
 import com.porcupinestudios.tardisrb.door.Doors;
 import com.porcupinestudios.tardisrb.entity.TardisBody;
 import com.porcupinestudios.tardisrb.entity.TardisEntities;
+import com.porcupinestudios.tardisrb.entity.VortexArc;
+import com.porcupinestudios.tardisrb.entity.Wormhole;
 import com.porcupinestudios.tardisrb.flight.Destinations;
 import com.porcupinestudios.tardisrb.flight.Flight;
 import com.porcupinestudios.tardisrb.flight.FreeFlight;
@@ -27,7 +28,6 @@ import net.minecraft.core.GlobalPos;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
-import net.minecraft.nbt.LongTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
@@ -42,11 +42,10 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
+import org.joml.Vector3f;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.tick.EntityTickEvent;
 import net.neoforged.neoforge.event.tick.ServerTickEvent;
@@ -58,8 +57,8 @@ import qouteall.imm_ptl.core.portal.Portal;
  * dematerialisation lever ({@code ConsoleControls.takeOff}) the box leaves its spot and appears as a loose body
  * ({@link TardisBody}) at the start of its own lane in {@code tardis_rb:time_vortex}: a tunnel along +z round
  * ({@code lane x}, {@link #LANE_Y}), drawn by {@code client/VortexRenderer}. The puller is seated to fly it
- * ({@link Piloting#seat}); it drifts forward by itself, and the pilot steers round clumps of {@code vortex_debris}
- * placed ahead of it. Each hit costs charge and pushes the landing off target. At the tunnel's end ({@code length}
+ * ({@link Piloting#seat}); it drifts forward by itself, and the pilot steers round lightning arcs
+ * ({@link VortexArc}) placed across the tunnel ahead of it. Each hit costs charge and pushes the landing off target. At the tunnel's end ({@code length}
  * blocks) it materialises at the destination through the usual hop or jump ({@link Flight}), which pays for the
  * trip; if that fails it lands back where it left. With nobody flying, the box keeps drifting (autopilot), and if
  * its chunk isn't loaded the trip advances on its own.
@@ -328,17 +327,17 @@ public final class Vortex {
         if (body.isPresent()) {
             placeAhead(vortex, trip, t, progress, length, tardis);
             Wormholes.placeAhead(server, vortex, tardis, trip, progress, length);
-            if (hitDebris(vortex, body.get(), trip, t)) {
+            if (hitArc(vortex, body.get(), trip, t)) {
                 tardis.useCharge(Math.min(tardis.charge(), t.hitCharge()));
                 trip.putInt("hits", trip.getInt("hits") + 1);
-                vortex.playSound(null, body.get().blockPosition(), SoundEvents.GENERIC_EXPLODE.value(),
-                        SoundSource.NEUTRAL, 0.6F, 1.4F);
+                vortex.playSound(null, body.get().blockPosition(), SoundEvents.LIGHTNING_BOLT_IMPACT,
+                        SoundSource.NEUTRAL, 1.2F, 1.1F);
                 if (body.get().getControllingPassenger() instanceof ServerPlayer p) {
                     p.displayClientMessage(Component.translatableWithFallback("tardis_rb.vortex.hit",
-                            "The TARDIS slams into vortex debris! (health %s)",
-                            (int) Math.ceil(Math.max(0, Health.get(tardis) - t.damage().debris()))), true);
+                            "The TARDIS flies into a lightning arc! (health %s)",
+                            (int) Math.ceil(Math.max(0, Health.get(tardis) - t.damage().arc()))), true);
                 }
-                damage(server, tardis, trip, body.get(), t.damage().debris());
+                damage(server, tardis, trip, body.get(), t.damage().arc());
             }
             // the charged wall: a bump (coming onto it, not resting on it) shocks the box and hurts it
             Vec3 axis = bend(body.get().getZ());
@@ -380,8 +379,8 @@ public final class Vortex {
         // where along its course it was when it broke down: that is where it comes down
         trip.putDouble("crash", Math.min(1, trip.getDouble("progress") / Math.max(1, trip.getInt("length"))));
         trip.putInt("crash_ticks", 0);
-        if (body.getControllingPassenger() instanceof ServerPlayer p) {
-            Piloting.stop(p);
+        if (body.getFirstPassenger() instanceof ServerPlayer p) {
+            // the pilot rides it down, the controls dead (TardisBody.getControllingPassenger)
             p.sendSystemMessage(Component.translatableWithFallback("tardis_rb.vortex.crash",
                     "The TARDIS is breaking up! It falls out of the vortex..."));
         }
@@ -402,8 +401,8 @@ public final class Vortex {
     }
 
     /**
-     * The crash (Aaron 2026-11-09): the box leaves the vortex and appears falling, thrusters dead, over the point its
-     * course line had reached, pushed off the line by the trip's inaccuracy; under halfway through a jump it falls
+     * The crash (Aaron 2026-11-09): the box leaves the vortex and falls out of a rift, thrusters dead, over the point
+     * its course line had reached, pushed off the line by the trip's inaccuracy; under halfway through a jump it falls
      * back into the dimension it left. It hits the ground with a crater ({@code TardisBody.impact}) and lies there as a
      * loose box. Says what happened.
      */
@@ -428,33 +427,47 @@ public final class Vortex {
         ServerLevel level = c.inTarget() ? toLevel : fromLevel;
         BlockPos aim = offCourse(BlockPos.containing(c.pos()), trip.getDouble("inaccuracy"), RandomSource.create());
         Direction facing = FreeFlight.facing(server, tardis);
+        Optional<TardisBody> was = FreeFlight.body(server, tardis);
+        Optional<ServerPlayer> pilot = was.map(b -> b.getFirstPassenger() instanceof ServerPlayer p ? p : null);
+        double fall = was.map(b -> Math.min(-0.1, b.getDeltaMovement().y)).orElse(-0.3);
+        Vec3 across = new Vec3(c.dir().x, 0, c.dir().z);
+        across = across.lengthSqr() < 1.0E-6 ? new Vec3(0, 0, 1) : across.normalize();
         clearTrip(server, tardis, trip);
         Health.set(tardis, d.afterCrash()); // it limps on: enough to fly, not to take a hit
-        dropInto(server, tardis, level, aim, c.dir(), d.crater(), facing);
+        dropInto(server, tardis, level, aim, across.scale(d.crashSpeed()).add(0, fall, 0), d.crater(), facing, pilot);
         return new Flight.Outcome(Optional.empty(), Optional.empty());
     }
 
     /**
-     * Throws the box into {@code level} over {@code aim}: up to {@code crash_height} blocks over the ground there,
-     * thrusters off and tumbling, flying along {@code dir} at {@code crash_speed}; it hits the ground with a crater of
-     * power {@code crater} ({@code TardisBody.impact}). Gives the body, or null if it had to be set down as a block.
+     * The box carries on out of a rift in {@code level} over {@code aim} (Aaron 2026-11-10: it has to be seen to fall,
+     * not just appear): the rift opens as high over the ground as there is room for, up to {@code crash_height} (of a
+     * few spots round the aim, the one with the most room), and the box comes out of it with {@code velocity}
+     * (forward momentum carried through), thrusters off and tumbling, under gravity, the controls dead. Its
+     * {@code pilot} goes with it, riding; when it hits the ground ({@code TardisBody.impact}, with a crater of power
+     * {@code crater}) they go back to the console. Gives the body, or null if it had to be set down as a block.
      */
-    static TardisBody dropInto(MinecraftServer server, TardisRecord tardis, ServerLevel level, BlockPos aim, Vec3 dir,
-            double crater, Direction facing) {
+    static TardisBody dropInto(MinecraftServer server, TardisRecord tardis, ServerLevel level, BlockPos aim,
+            Vec3 velocity, double crater, Direction facing, Optional<ServerPlayer> pilot) {
         Tuning.VortexDamage d = TardisContent.tuning().vortex().damage();
         RandomSource random = RandomSource.create();
         BlockPos ground = ground(level, aim);
-        BlockPos start = ground.above();
-        for (int i = 0; i < d.crashHeight() && start.getY() < level.getMaxBuildHeight() - 4
-                && level.getBlockState(start.above(3)).isAir(); i++) {
-            start = start.above();
+        int room = room(level, ground, d.crashHeight());
+        for (int k = 0; k < 8 && room < d.crashHeight(); k++) {
+            BlockPos g = ground(level, aim.offset(random.nextInt(49) - 24, 0, random.nextInt(49) - 24));
+            int r = room(level, g, d.crashHeight());
+            if (r > room) {
+                ground = g;
+                room = r;
+            }
         }
+        BlockPos start = ground.above(1 + room);
         // nobody may be near: keep the spot loaded while it falls
         level.getChunkSource().addRegionTicket(CRASH_TICKET, new ChunkPos(start), 3, new ChunkPos(start));
         TardisBody body = TardisEntities.BODY.get().create(level);
         if (body == null) {
             Exteriors.place(level, ground.above(), facing, tardis.id());
             tardis.setLocation(Optional.of(GlobalPos.of(level.dimension(), ground.above())));
+            pilot.ifPresent(Piloting::stop);
             return null;
         }
         body.moveTo(start.getX() + 0.5, start.getY(), start.getZ() + 0.5, facing.toYRot(), 0);
@@ -463,18 +476,35 @@ public final class Vortex {
         body.setLook(Looks.exterior(server, tardis));
         body.setCrashing(true);
         body.crater = crater;
-        Vec3 across = new Vec3(dir.x, 0, dir.z);
-        across = across.lengthSqr() < 1.0E-6 ? new Vec3(random.nextDouble() - 0.5, 0, random.nextDouble() - 0.5)
-                : across;
-        across = across.normalize().scale(d.crashSpeed());
-        body.setDeltaMovement(across.x, -0.3, across.z);
+        body.setDeltaMovement(velocity);
         level.addFreshEntity(body);
+        // the rift it comes out of, facing the way it is going
+        Wormhole rift = TardisEntities.WORMHOLE.get().create(level);
+        if (rift != null) {
+            float yaw = (float) Math.toDegrees(Math.atan2(-velocity.x, velocity.z));
+            rift.moveTo(body.getX(), body.getY() + body.getBbHeight() / 2, body.getZ(), yaw, 0);
+            rift.setup(1.8, 0, 0);
+            rift.setLife(60);
+            level.addFreshEntity(rift);
+        }
         CompoundTag flight = tardis.moduleData(FreeFlight.MODULE);
         flight.putUUID("body", body.getUUID());
         tardis.setModuleData(FreeFlight.MODULE, flight);
         tardis.setLocation(Optional.of(GlobalPos.of(level.dimension(), body.blockPosition())));
+        pilot.ifPresent(p -> Piloting.carry(p, body));
         level.playSound(null, body.blockPosition(), SoundEvents.LIGHTNING_BOLT_THUNDER, SoundSource.NEUTRAL, 4, 0.8F);
         return body;
+    }
+
+    /** How many blocks over {@code ground} the box (and the rift round it) has room to start, up to {@code most}. */
+    private static int room(ServerLevel level, BlockPos ground, int most) {
+        BlockPos p = ground.above();
+        int n = 0;
+        while (n < most && p.getY() < level.getMaxBuildHeight() - 4 && level.getBlockState(p.above(3)).isAir()) {
+            p = p.above();
+            n++;
+        }
+        return n;
     }
 
     /** The point {@code f} (0..1) along a course, which dimension it is in, and the way the course runs. */
@@ -539,72 +569,109 @@ public final class Vortex {
 
     /** Ends the trip: the pilot gets off and goes back to the console, the body and the obstacles go. */
     static void clearTrip(MinecraftServer server, TardisRecord tardis, CompoundTag trip) {
-        Tuning.VortexTuning t = TardisContent.tuning().vortex();
         FreeFlight.dock(server, tardis);
         ServerLevel vortex = server.getLevel(DIMENSION);
         if (vortex != null) {
             Wormholes.removeAll(vortex, trip);
-            for (Tag tag : trip.getList("obstacles", Tag.TAG_LONG)) {
-                BlockPos c = BlockPos.of(((LongTag) tag).getAsLong());
-                for (BlockPos q : BlockPos.betweenClosed(c, c.offset(t.obstacleSize(), t.obstacleSize(),
-                        t.obstacleSize()))) {
-                    if (vortex.getBlockState(q).is(TardisBlocks.VORTEX_DEBRIS.get())) {
-                        vortex.setBlock(q, Blocks.AIR.defaultBlockState(), Block.UPDATE_CLIENTS);
-                    }
-                }
+            for (Tag tag : trip.getList("obstacles", Tag.TAG_COMPOUND)) {
+                removeArc(vortex, (CompoundTag) tag);
             }
         }
         tardis.setModuleData(MODULE, new CompoundTag());
     }
 
-    /** Places obstacle clumps up to 96 blocks ahead of the box, along the lane. */
+    /**
+     * Places lightning arcs up to 96 blocks ahead of the box (Aaron 2026-11-10: "unmoving lightning bolts" across the
+     * tunnel to dodge): every {@code obstacle_gap} / 2 .. 1.5 x gap blocks, 1 to {@code arcs_per_section} lines
+     * across that cross-section, each at a random angle and a random way off the middle (up to 3/4 of the radius).
+     */
     private static void placeAhead(ServerLevel vortex, CompoundTag trip, Tuning.VortexTuning t, double progress,
             int length, TardisRecord tardis) {
         int next = trip.getInt("next_obstacle");
-        ListTag placed = trip.getList("obstacles", Tag.TAG_LONG);
         RandomSource random = RandomSource.create(tardis.id().getLeastSignificantBits() ^ next);
-        double laneX = trip.getDouble("lane_x");
         while (next < progress + 96 && next < length - 16) {
-            double a = random.nextDouble() * Math.PI * 2;
-            double r = Math.sqrt(random.nextDouble()) * (t.radius() - 1);
-            Vec3 b = bend(next);
-            BlockPos c = BlockPos.containing(laneX + b.x + Math.cos(a) * r, LANE_Y + b.y + Math.sin(a) * r, next);
-            int size = 1 + random.nextInt(Math.max(1, t.obstacleSize()));
-            for (int dx = 0; dx < size; dx++) {
-                for (int dy = 0; dy < size; dy++) {
-                    for (int dz = 0; dz < size; dz++) {
-                        if (random.nextInt(4) != 0) {
-                            vortex.setBlock(c.offset(dx, dy, dz), TardisBlocks.VORTEX_DEBRIS.get().defaultBlockState(),
-                                    Block.UPDATE_CLIENTS);
-                        }
-                    }
-                }
+            int n = 1 + random.nextInt(Math.max(1, t.arcsPerSection()));
+            for (int i = 0; i < n; i++) {
+                placeArc(vortex, trip, next, random.nextDouble() * Math.PI,
+                        (random.nextDouble() * 2 - 1) * t.radius() * 0.75);
             }
-            placed.add(LongTag.valueOf(c.asLong()));
-            next += Math.max(4, t.obstacleGap() / 2 + random.nextInt(Math.max(1, t.obstacleGap())));
+            next += Math.max(6, t.obstacleGap() / 2 + random.nextInt(Math.max(1, t.obstacleGap())));
         }
         trip.putInt("next_obstacle", next);
-        trip.put("obstacles", placed);
     }
 
-    /** True if the box touches debris; the clump it hit shatters. */
-    private static boolean hitDebris(ServerLevel vortex, TardisBody body, CompoundTag trip, Tuning.VortexTuning t) {
-        AABB box = body.getBoundingBox().inflate(0.3);
-        for (BlockPos p : BlockPos.betweenClosed(BlockPos.containing(box.minX, box.minY, box.minZ),
-                BlockPos.containing(box.maxX, box.maxY, box.maxZ))) {
-            if (vortex.getBlockState(p).is(TardisBlocks.VORTEX_DEBRIS.get())) {
-                BlockPos hit = p.immutable();
-                body.shock(body.getBoundingBox().getCenter().subtract(Vec3.atCenterOf(hit)), 1);
-                for (BlockPos q : BlockPos.betweenClosed(hit.offset(-t.obstacleSize(), -t.obstacleSize(),
-                        -t.obstacleSize()), hit.offset(t.obstacleSize(), t.obstacleSize(), t.obstacleSize()))) {
-                    if (vortex.getBlockState(q).is(TardisBlocks.VORTEX_DEBRIS.get())) {
-                        vortex.destroyBlock(q, false);
-                    }
+    /**
+     * Puts a lightning arc straight across the tunnel at {@code z}: a line at {@code angle} (radians from the x axis,
+     * in the tunnel's cross-section) passing {@code offset} blocks from its (bent) axis, running into the cloud wall at
+     * both ends so it can't be slipped round. Adds it to the trip's {@code obstacles}; gives the entity drawing it.
+     */
+    public static VortexArc placeArc(ServerLevel vortex, CompoundTag trip, double z, double angle, double offset) {
+        Tuning.VortexTuning t = TardisContent.tuning().vortex();
+        double r = t.radius() + 1.5;
+        double h = Math.sqrt(Math.max(1, r * r - offset * offset));
+        Vec3 b = bend(z);
+        Vec3 dir = new Vec3(Math.cos(angle), Math.sin(angle), 0);
+        Vec3 mid = new Vec3(trip.getDouble("lane_x") + b.x - dir.y * offset, LANE_Y + b.y + dir.x * offset, z);
+        VortexArc arc = TardisEntities.ARC.get().create(vortex);
+        CompoundTag tag = new CompoundTag();
+        if (arc != null) {
+            arc.moveTo(mid.x, mid.y, mid.z, 0, 0);
+            arc.setup(new Vector3f((float) (dir.x * h), (float) (dir.y * h), 0), (float) t.arcThickness());
+            vortex.addFreshEntity(arc);
+            tag.putUUID("id", arc.getUUID());
+        }
+        tag.putDouble("z", z);
+        tag.putDouble("ax", mid.x - dir.x * h);
+        tag.putDouble("ay", mid.y - dir.y * h);
+        tag.putDouble("bx", mid.x + dir.x * h);
+        tag.putDouble("by", mid.y + dir.y * h);
+        ListTag list = trip.getList("obstacles", Tag.TAG_COMPOUND);
+        list.add(tag);
+        trip.put("obstacles", list);
+        return arc;
+    }
+
+    private static void removeArc(ServerLevel vortex, CompoundTag arc) {
+        if (arc.hasUUID("id") && vortex.getEntity(arc.getUUID("id")) instanceof VortexArc e) {
+            e.discard();
+        }
+    }
+
+    /**
+     * True if the box touches a lightning arc it hasn't been hit by yet: within {@code arc_thickness} of its line. The
+     * arc stays (it never moves); each one can hurt the box once. Arcs well behind the box go.
+     */
+    private static boolean hitArc(ServerLevel vortex, TardisBody body, CompoundTag trip, Tuning.VortexTuning t) {
+        AABB box = body.getBoundingBox().inflate(t.arcThickness());
+        Vec3 c = box.getCenter();
+        ListTag list = trip.getList("obstacles", Tag.TAG_COMPOUND);
+        boolean hit = false;
+        for (int i = list.size() - 1; i >= 0; i--) {
+            CompoundTag arc = list.getCompound(i);
+            double z = arc.getDouble("z");
+            if (z < c.z - 12) {
+                removeArc(vortex, arc);
+                list.remove(i);
+                continue;
+            }
+            if (hit || arc.getBoolean("hit") || z < box.minZ || z > box.maxZ) {
+                continue;
+            }
+            Vec3 a = new Vec3(arc.getDouble("ax"), arc.getDouble("ay"), z);
+            Vec3 b = new Vec3(arc.getDouble("bx"), arc.getDouble("by"), z);
+            int n = (int) Math.ceil(a.distanceTo(b) / 0.25);
+            for (int k = 0; k <= n; k++) {
+                Vec3 p = a.lerp(b, k / (double) n);
+                if (box.contains(p)) {
+                    arc.putBoolean("hit", true);
+                    body.shock(c.subtract(p), 1);
+                    hit = true;
+                    break;
                 }
-                return true;
             }
         }
-        return false;
+        trip.put("obstacles", list);
+        return hit;
     }
 
     /**

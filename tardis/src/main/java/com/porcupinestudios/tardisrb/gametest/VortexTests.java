@@ -2,7 +2,6 @@ package com.porcupinestudios.tardisrb.gametest;
 
 import com.porcupinestudios.tardisrb.TardisRB;
 import com.porcupinestudios.tardisrb.block.ExteriorBlock;
-import com.porcupinestudios.tardisrb.block.TardisBlocks;
 import com.porcupinestudios.tardisrb.core.TardisRecord;
 import com.porcupinestudios.tardisrb.door.Doors;
 import com.porcupinestudios.tardisrb.entity.TardisBody;
@@ -34,7 +33,6 @@ import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.neoforged.neoforge.gametest.GameTestHolder;
 import net.neoforged.neoforge.gametest.PrefixGameTestTemplate;
@@ -42,7 +40,7 @@ import qouteall.imm_ptl.core.portal.Portal;
 
 /**
  * Flying through the time vortex (Aaron 2026-11-09): setting off lifts the box into its lane in the vortex dimension;
- * debris it touches shatters and counts as a hit (costing charge); the end of the tunnel lands it near the target.
+ * a lightning arc across the tunnel it touches is a hit (costing charge and health), and stays; the end of the tunnel lands it near the target.
  */
 @GameTestHolder(TardisRB.MOD_ID)
 @PrefixGameTestTemplate(false)
@@ -81,12 +79,19 @@ public final class VortexTests {
             Entity doorway = vortex.getEntity(t.moduleData(Doors.MODULE).getUUID("outside"));
             helper.assertTrue(doorway instanceof Portal, "no doorway portal in the vortex");
             long charge = t.charge();
-            BlockPos ahead = body.blockPosition().south();
-            vortex.setBlock(ahead, TardisBlocks.VORTEX_DEBRIS.get().defaultBlockState(), Block.UPDATE_CLIENTS);
-            helper.runAfterDelay(5, () -> {
-                helper.assertTrue(Vortex.hits(t) >= 1, "flying into debris wasn't a hit");
-                helper.assertTrue(!vortex.getBlockState(ahead).is(TardisBlocks.VORTEX_DEBRIS.get()),
-                        "the debris it hit didn't shatter");
+            // a lightning arc straight across its path, level with its middle
+            var trip = t.moduleData(Vortex.MODULE);
+            double z = body.getZ() + 3;
+            double offset = body.getY() + 1 - Vortex.LANE_Y - Vortex.bend(z).y;
+            var arc = Vortex.placeArc(vortex, trip, z, 0, offset);
+            t.setModuleData(Vortex.MODULE, trip);
+            double axisX = trip.getDouble("lane_x") + Vortex.bend(z).x;
+            helper.assertTrue(arc != null && Math.abs(arc.getX() + arc.half().x - axisX) >= TardisContent.tuning().vortex().radius()
+                    && Math.abs(arc.getX() - arc.half().x - axisX) >= TardisContent.tuning().vortex().radius(),
+                    "the arc doesn't reach the tunnel wall at both ends");
+            helper.runAfterDelay(8, () -> {
+                helper.assertTrue(Vortex.hits(t) >= 1, "flying into the lightning arc wasn't a hit");
+                helper.assertTrue(!arc.isRemoved(), "the arc went when it was hit: it should stay put");
                 helper.assertTrue(t.charge() < charge, "the hit cost no charge");
                 helper.assertTrue(Health.get(t) < Health.max(t)
                         && Vortex.inaccuracy(t) > 0, "the hit didn't hurt it or put it off course: health "
@@ -364,8 +369,13 @@ public final class VortexTests {
             TardisBody out = FreeFlight.body(server, t).orElse(null);
             helper.assertTrue(out != null && out.level().dimension().equals(dim) && !out.thrusters(),
                     "no loose box thrown out in " + dim.location() + " at " + t.location() + " plot " + t.plot() + " flight " + t.moduleData(FreeFlight.MODULE));
+            // it comes out falling and still going forward, then hits the ground
+            helper.assertTrue(out.crashing() && out.getDeltaMovement().z > 0.05, "it didn't come out moving: "
+                    + out.getDeltaMovement());
             helper.assertTrue(vortex.getEntitiesOfClass(Wormhole.class, new AABB(laneX - 64, 0, -10, laneX + 64, 256, 600))
                     .isEmpty(), "a wormhole was left behind in the vortex");
+        }).thenWaitUntil(() -> helper.assertTrue(FreeFlight.body(server, t).filter(b -> b.impactAt != null).isPresent(),
+                "it hasn't fallen to the ground")).thenExecute(() -> {
             helper.succeed();
         });
     }

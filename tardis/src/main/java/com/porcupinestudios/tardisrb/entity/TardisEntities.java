@@ -21,6 +21,10 @@ public final class TardisEntities {
             () -> EntityType.Builder.<Wormhole>of(Wormhole::new, MobCategory.MISC).sized(0.5F, 0.5F)
                     .clientTrackingRange(10).updateInterval(10).fireImmune().build("wormhole"));
 
+    public static final DeferredHolder<EntityType<?>, EntityType<VortexArc>> ARC = ENTITIES.register("vortex_arc",
+            () -> EntityType.Builder.<VortexArc>of(VortexArc::new, MobCategory.MISC).sized(0.5F, 0.5F)
+                    .clientTrackingRange(10).updateInterval(20).fireImmune().build("vortex_arc"));
+
     private TardisEntities() {}
 
     public static void register(IEventBus modBus) {

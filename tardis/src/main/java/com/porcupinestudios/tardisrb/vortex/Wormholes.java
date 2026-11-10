@@ -7,7 +7,6 @@ import com.porcupinestudios.tardisrb.entity.Wormhole;
 import com.porcupinestudios.tardisrb.flight.Destinations;
 import com.porcupinestudios.tardisrb.flight.Flight;
 import com.porcupinestudios.tardisrb.flight.FreeFlight;
-import com.porcupinestudios.tardisrb.flight.Piloting;
 import com.porcupinestudios.tardisrb.progression.Destination;
 import com.porcupinestudios.tardisrb.progression.Health;
 import com.porcupinestudios.tardisrb.progression.TardisContent;
@@ -47,7 +46,7 @@ import qouteall.q_misc_util.my_util.Mesh2D;
  * Wormholes in the time vortex (Aaron 2026-11-09: "openings in the time vortex ... wormholes that are opaque portals by
  * default but if you upgrade the scanner system they become immersive portals", with "a vacuum effect that pulls the
  * TARDIS" weakened by upgrading the stabilizers, leading to random places in dimensions picked by weight). Placed
- * along the lane ahead of the box like debris ({@link #placeAhead}); each is a {@link Wormhole} entity, and the trip
+ * along the lane ahead of the box like the lightning arcs ({@link #placeAhead}); each is a {@link Wormhole} entity, and the trip
  * keeps a list {@code wormholes} of them: entity id, z, exit dimension and aim, and the see-through portal's id.
  * Crossing one's disc ({@link #check}) sucks the box in; it spins ({@link #suck}) and is thrown out tumbling over the
  * aim in that dimension ({@link #exit}), ending the trip. Numbers: tuning {@code vortex.wormholes}.
@@ -243,7 +242,8 @@ public final class Wormholes {
     }
 
     /**
-     * The box against the trip's wormholes, each tick: crossing one's disc sucks it in (true); ones well behind it go.
+     * The box against the trip's wormholes, each tick: coming up to one's disc (within 1.5 x its radius in front of it,
+     * and within its radius of its middle) catches it (true); ones well behind it go.
      */
     static boolean check(MinecraftServer server, ServerLevel vortex, TardisRecord tardis, CompoundTag trip,
             TardisBody body) {
@@ -252,11 +252,14 @@ public final class Wormholes {
         for (int i = list.size() - 1; i >= 0; i--) {
             CompoundTag h = list.getCompound(i);
             double z = h.getDouble("z");
-            if (c.z >= z && !h.getBoolean("passed")) {
-                h.putBoolean("passed", true);
-                if (Math.hypot(c.x - h.getDouble("x"), c.y - h.getDouble("y")) <= tuning().radius()) {
+            if (!h.getBoolean("passed")) {
+                if (c.z > z) {
+                    h.putBoolean("passed", true);
+                } else if (z - c.z <= tuning().radius() * 1.5
+                        && Math.hypot(c.x - h.getDouble("x"), c.y - h.getDouble("y")) <= tuning().radius()) {
+                    h.putBoolean("passed", true);
                     trip.put("wormholes", list);
-                    capture(tardis, trip, body, h);
+                    capture(trip, body, h);
                     return true;
                 }
             }
@@ -269,16 +272,16 @@ public final class Wormholes {
         return false;
     }
 
-    private static void capture(TardisRecord tardis, CompoundTag trip, TardisBody body, CompoundTag h) {
+    private static void capture(CompoundTag trip, TardisBody body, CompoundTag h) {
         trip.put("suck", h.copy());
         trip.putInt("suck_ticks", 0);
-        if (body.getControllingPassenger() instanceof ServerPlayer p) {
-            Piloting.stop(p);
+        if (body.getFirstPassenger() instanceof ServerPlayer p) {
+            // the pilot rides it through, the controls dead (TardisBody.getControllingPassenger)
             p.sendSystemMessage(Component.translatableWithFallback("tardis_rb.vortex.wormhole",
                     "The TARDIS is dragged into a wormhole!"));
         }
         body.setThrusters(false);
-        body.setCrashing(true); // tumbles and crackles
+        body.setCrashing(true); // controls dead: it falls and keeps going, tumbling and crackling
         body.shock(body.position().subtract(h.getDouble("x"), h.getDouble("y"), h.getDouble("z")), 1);
         body.level().playSound(null, body.blockPosition(), SoundEvents.PORTAL_TRIGGER, SoundSource.NEUTRAL, 2, 0.6F);
     }
@@ -287,31 +290,34 @@ public final class Wormholes {
         return trip.contains("suck");
     }
 
-    /** Being sucked in: the box is drawn into the disc's middle and through it, spinning; then it comes out. */
+    /**
+     * Being sucked in (Aaron 2026-11-10: it has to fall through, controls off, gravity on, still going forward): the box
+     * falls and carries on along the tunnel ({@code TardisBody.vortexPhysics} while crashing) and the wormhole drags it
+     * toward its middle; once it is all the way into the disc (or after {@code suck_ticks}) it comes out the far side.
+     */
     static void suck(MinecraftServer server, TardisRecord tardis, CompoundTag trip, Optional<TardisBody> body) {
         CompoundTag h = trip.getCompound("suck");
         int ticks = trip.getInt("suck_ticks") + 1;
         trip.putInt("suck_ticks", ticks);
         tardis.setModuleData(Vortex.MODULE, trip);
-        body.ifPresent(b -> {
-            Vec3 to = new Vec3(h.getDouble("x"), h.getDouble("y") - b.getBbHeight() / 2, h.getDouble("z") + 2);
-            Vec3 at = b.position().lerp(to, 0.15);
-            b.setDeltaMovement(Vec3.ZERO);
-            b.setPos(at.x, at.y, at.z);
-            b.setYRot(b.getYRot() + 12 + ticks);
-            if (ticks % 8 == 0) {
-                b.shock(new Vec3(b.getRandom().nextGaussian(), b.getRandom().nextGaussian(), 0), 0.3);
-            }
-        });
-        if (ticks >= tuning().suckTicks() || body.isEmpty()) {
+        boolean through = body.map(b -> {
+            Vec3 c = b.position().add(0, b.getBbHeight() / 2, 0);
+            Vec3 v = b.getDeltaMovement();
+            b.setDeltaMovement(v.x * 0.85 + (h.getDouble("x") - c.x) * 0.08,
+                    v.y * 0.85 + (h.getDouble("y") - c.y) * 0.08, v.z);
+            b.setYRot(b.getYRot() + 6);
+            return c.z - 0.5 >= h.getDouble("z"); // its back is past the disc
+        }).orElse(true);
+        if (through || ticks >= tuning().suckTicks()) {
             exit(server, tardis);
         }
     }
 
     /**
-     * Out the far side: the trip ends and the box is thrown out of a rift over the wormhole's aim in its dimension,
-     * tumbling with its thrusters off; it loses {@code exit_damage} health (never below 1) and lands with a crater of
-     * {@code exit_crater}. Says what happened.
+     * Out the far side: the trip ends and the box comes out of a rift over the wormhole's aim in its dimension, still
+     * falling and going forward as it went in, thrusters off, its pilot still riding ({@code Vortex.dropInto}); it
+     * loses {@code exit_damage} health (never below 1) and lands with a crater of {@code exit_crater}. Says what
+     * happened.
      */
     public static Flight.Outcome exit(MinecraftServer server, TardisRecord tardis) {
         CompoundTag trip = tardis.moduleData(Vortex.MODULE);
@@ -325,19 +331,14 @@ public final class Wormholes {
             level = Optional.ofNullable(server.getLevel(Vortex.from(trip).dimension())).orElse(server.overworld());
         }
         Direction facing = FreeFlight.facing(server, tardis);
+        Optional<TardisBody> was = FreeFlight.body(server, tardis);
+        Optional<ServerPlayer> pilot = was.map(b -> b.getFirstPassenger() instanceof ServerPlayer p ? p : null);
+        Vec3 v = was.map(TardisBody::getDeltaMovement).orElse(new Vec3(0, -0.1, 0.4));
         Vortex.clearTrip(server, tardis, trip);
         Health.set(tardis, Math.max(Math.min(1, Health.get(tardis)), Health.get(tardis) - tuning().exitDamage()));
-        TardisBody body = Vortex.dropInto(server, tardis, level, BlockPos.of(h.getLong("aim")), new Vec3(0, 0, 1),
-                tuning().exitCrater(), facing);
-        if (body != null) {
-            Wormhole rift = TardisEntities.WORMHOLE.get().create(level);
-            if (rift != null) {
-                rift.moveTo(body.getX(), body.getY() + 1, body.getZ() - 1.5, 0, 0);
-                rift.setup(1.8, 0, 0);
-                rift.setLife(50);
-                level.addFreshEntity(rift);
-            }
-        }
+        // along the tunnel (+z) in, so out of the rift the same way, as fast and falling as fast
+        Vortex.dropInto(server, tardis, level, BlockPos.of(h.getLong("aim")),
+                new Vec3(0, Math.min(-0.05, v.y), Math.max(0.3, v.z)), tuning().exitCrater(), facing, pilot);
         return new Flight.Outcome(Optional.empty(), Optional.empty());
     }
 
