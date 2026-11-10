@@ -2748,6 +2748,7 @@
   "item.lotr_port.pomegranate": "Гранат",
   "item.lotr_port.pomegranate_juice": "Гранатовый сок",
   "item.lotr_port.pomegranate_wine": "Гранатовое вино",
+  "item.lotr_port.pouch.slots": "%s из %s используется",
   "item.lotr_port.rabbit_stew": "Тушёная крольчатина",
   "item.lotr_port.raisins": "Изюм",
   "item.lotr_port.ranger_boots": "Ботинки следопытов",

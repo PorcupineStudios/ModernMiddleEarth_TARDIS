@@ -1,7 +1,28 @@
 {
   "variants": {
-    "": {
-      "model": "lotr_port:block/grapevine_red"
+    "age=0": {
+      "model": "lotr_port:block/grapevine_red_growing"
+    },
+    "age=1": {
+      "model": "lotr_port:block/grapevine_red_growing"
+    },
+    "age=2": {
+      "model": "lotr_port:block/grapevine_red_growing"
+    },
+    "age=3": {
+      "model": "lotr_port:block/grapevine_red_growing"
+    },
+    "age=4": {
+      "model": "lotr_port:block/grapevine_red_growing"
+    },
+    "age=5": {
+      "model": "lotr_port:block/grapevine_red_growing"
+    },
+    "age=6": {
+      "model": "lotr_port:block/grapevine_red_growing"
+    },
+    "age=7": {
+      "model": "lotr_port:block/grapevine_red_ripe"
     }
   }
 }

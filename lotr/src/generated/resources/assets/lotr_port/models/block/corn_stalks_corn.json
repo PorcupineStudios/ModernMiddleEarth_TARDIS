@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cross",
+  "textures": {
+    "cross": "lotr_port:block/corn_stalk_corn"
+  },
+  "render_type": "minecraft:cutout"
+}

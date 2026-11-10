@@ -2748,6 +2748,7 @@
   "item.lotr_port.pomegranate": "Grenade",
   "item.lotr_port.pomegranate_juice": "Jus de grenade",
   "item.lotr_port.pomegranate_wine": "Vin de grenade",
+  "item.lotr_port.pouch.slots": "%s sur %s emplacements utilisés",
   "item.lotr_port.rabbit_stew": "Ragoût de lapin",
   "item.lotr_port.raisins": "Raisins secs",
   "item.lotr_port.ranger_boots": "Bottes de rôdeur",

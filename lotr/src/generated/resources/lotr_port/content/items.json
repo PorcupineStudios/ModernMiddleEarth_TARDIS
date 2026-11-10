@@ -9559,26 +9559,29 @@
   },
   {
     "id": "small_pouch",
-    "kind": "item",
+    "kind": "pouch",
     "stack": 1,
     "level": 2,
     "speed": 6.0,
+    "slots": 9,
     "dyeable": true
   },
   {
     "id": "medium_pouch",
-    "kind": "item",
+    "kind": "pouch",
     "stack": 1,
     "level": 2,
     "speed": 6.0,
+    "slots": 18,
     "dyeable": true
   },
   {
     "id": "large_pouch",
-    "kind": "item",
+    "kind": "pouch",
     "stack": 1,
     "level": 2,
     "speed": 6.0,
+    "slots": 27,
     "dyeable": true
   },
   {
@@ -9960,17 +9963,19 @@
   },
   {
     "id": "red_grape_seeds",
-    "kind": "item",
+    "kind": "grape_seeds",
     "stack": 64,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "places": "grapevine_red"
   },
   {
     "id": "green_grape_seeds",
-    "kind": "item",
+    "kind": "grape_seeds",
     "stack": 64,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "places": "grapevine_white"
   },
   {
     "id": "shish_kebab",

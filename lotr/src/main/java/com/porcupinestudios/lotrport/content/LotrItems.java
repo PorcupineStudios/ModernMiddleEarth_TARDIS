@@ -113,6 +113,10 @@ public final class LotrItems {
                 yield new ArmorItem(MATERIALS.get(key(a)), slot(a), p);
             }
             case "red_book" -> new RedBookItem(p);
+            case "pouch" -> new com.porcupinestudios.lotrport.content.pouch.PouchItem(p,
+                    ContentData.integer(e, "slots", 9));
+            case "grape_seeds" -> new com.porcupinestudios.lotrport.content.farm.GrapeSeedItem(
+                    LotrBlocks.BY_ID.get(e.get("places").getAsString()).get(), p);
             case "drink" -> new LotrDrinkItem(p, e.getAsJsonObject("drink"));
             default -> e.has("places") ? placing(LotrBlocks.BY_ID.get(e.get("places").getAsString()).get(), p)
                     : new Item(p);

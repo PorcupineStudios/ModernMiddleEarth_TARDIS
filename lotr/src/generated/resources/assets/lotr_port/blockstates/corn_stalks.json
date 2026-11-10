@@ -1,7 +1,52 @@
 {
   "variants": {
-    "": {
+    "age=0,corn=false": {
       "model": "lotr_port:block/corn_stalks"
+    },
+    "age=0,corn=true": {
+      "model": "lotr_port:block/corn_stalks_corn"
+    },
+    "age=1,corn=false": {
+      "model": "lotr_port:block/corn_stalks"
+    },
+    "age=1,corn=true": {
+      "model": "lotr_port:block/corn_stalks_corn"
+    },
+    "age=2,corn=false": {
+      "model": "lotr_port:block/corn_stalks"
+    },
+    "age=2,corn=true": {
+      "model": "lotr_port:block/corn_stalks_corn"
+    },
+    "age=3,corn=false": {
+      "model": "lotr_port:block/corn_stalks"
+    },
+    "age=3,corn=true": {
+      "model": "lotr_port:block/corn_stalks_corn"
+    },
+    "age=4,corn=false": {
+      "model": "lotr_port:block/corn_stalks"
+    },
+    "age=4,corn=true": {
+      "model": "lotr_port:block/corn_stalks_corn"
+    },
+    "age=5,corn=false": {
+      "model": "lotr_port:block/corn_stalks"
+    },
+    "age=5,corn=true": {
+      "model": "lotr_port:block/corn_stalks_corn"
+    },
+    "age=6,corn=false": {
+      "model": "lotr_port:block/corn_stalks"
+    },
+    "age=6,corn=true": {
+      "model": "lotr_port:block/corn_stalks_corn"
+    },
+    "age=7,corn=false": {
+      "model": "lotr_port:block/corn_stalks"
+    },
+    "age=7,corn=true": {
+      "model": "lotr_port:block/corn_stalks_corn"
     }
   }
 }

@@ -2748,6 +2748,7 @@
   "item.lotr_port.pomegranate": "Melograno",
   "item.lotr_port.pomegranate_juice": "Succo di melograno",
   "item.lotr_port.pomegranate_wine": "Vino di melograno",
+  "item.lotr_port.pouch.slots": "%s di %s slot in uso",
   "item.lotr_port.rabbit_stew": "Stufato di coniglio",
   "item.lotr_port.raisins": "Uva passa",
   "item.lotr_port.ranger_boots": "Stivali da Ramingo",

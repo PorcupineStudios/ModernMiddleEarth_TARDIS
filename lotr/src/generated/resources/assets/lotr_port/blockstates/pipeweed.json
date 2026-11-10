@@ -1,7 +1,28 @@
 {
   "variants": {
-    "": {
-      "model": "lotr_port:block/pipeweed"
+    "age=0": {
+      "model": "lotr_port:block/pipeweed_stage0"
+    },
+    "age=1": {
+      "model": "lotr_port:block/pipeweed_stage0"
+    },
+    "age=2": {
+      "model": "lotr_port:block/pipeweed_stage1"
+    },
+    "age=3": {
+      "model": "lotr_port:block/pipeweed_stage1"
+    },
+    "age=4": {
+      "model": "lotr_port:block/pipeweed_stage2"
+    },
+    "age=5": {
+      "model": "lotr_port:block/pipeweed_stage2"
+    },
+    "age=6": {
+      "model": "lotr_port:block/pipeweed_stage2"
+    },
+    "age=7": {
+      "model": "lotr_port:block/pipeweed_stage3"
     }
   }
 }

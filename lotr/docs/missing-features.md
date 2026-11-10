@@ -212,17 +212,21 @@ Each task picks up one `kind` from Tier 1 and makes it work; stats come from Tie
     (LOTR's barrel: **done**, `drink/KegBlock`), `millstone`, `unsmeltery`, `kebab_stand`, `chest` (LOTR chests with LOTR textures), `plate`
     (holds food), `bookshelf_storage`, `armor_stand`, `weapon_rack`. Menus can copy vanilla furnace/brewing layouts
     with LOTR's GUI textures from `assets/lotr/gui`.
-32. **Crops and farming.** `crop` kind growth stages from the block's `variants`; seeds plant; grapevines on
+32. **Done (2026-11-10, `content/farm/`):** leek, lettuce, turnip, yam, flax, pipe-weed crops; berry bushes; corn;
+    grapevines on posts. Left: fruit leaves dropping fruit, mud farmland. Original task: **Crops and farming.** `crop` kind growth stages from the block's `variants`; seeds plant; grapevines on
     trellises; fruit leaves drop fruit; mud farmland. Hired farmers later.
-33. **Pouches.** `pouch` kind (small/medium/large = 9/18/27 slots), dye recipe (`LOTRRecipesPouch`), auto-pick-up and
+33. **Done (2026-11-10, `content/pouch/`):** 9/18/27-slot pouches with LOTR's screen and renaming, pick-ups go in
+    when the inventory is full. Left: restock from a chest. Original task: **Pouches.** `pouch` kind (small/medium/large = 9/18/27 slots), dye recipe (`LOTRRecipesPouch`), auto-pick-up and
     restock from a chest (`LOTRContainerChestWithPouch`).
 34. **Done (2026-11-10):** every trader's last offers split and merge coins (`NpcTrading.exchange`). Original
     task: **Coin exchange.** `LOTRContainerCoinExchange`: split/merge silver coin denominations (`coin` kind; `Coins`
     already exists).
-35. **Pipes.** `smoking_pipe` + pipeweed: smoke ring projectile, colour by dye (`LOTRRecipeHobbitPipe`).
+35. **Done (2026-11-10):** pipe blows a smoke ring of particles (`LotrUseItem.smokeRing`). Left: ring colour by
+    dye. Original task: **Pipes.** `smoking_pipe` + pipeweed: smoke ring projectile, colour by dye (`LOTRRecipeHobbitPipe`).
 36. **Dye/special recipes.** The 44 `special_recipes`: armor dyes, feather dye, leather hat dye/feather, party hat,
     Harad robe/turban, banner patterns, treasure-pile, poison drinks. Each is a small `CustomRecipe`.
-37. **Ores and gems.** `ore` kind: xp, silk touch, fortune; Mithril, Naurite, Quendite, Gulduril, Morgul iron,
+37. **Done (2026-11-10, `converter/ores.py`):** item-dropping ores with LOTR's xp, silk touch, fortune. Left:
+    Quendite/Gulduril particles. Original task: **Ores and gems.** `ore` kind: xp, silk touch, fortune; Mithril, Naurite, Quendite, Gulduril, Morgul iron,
     Edhelvir; glowing Quendite/Gulduril (light + particles from `LOTRTileEntityGulduril`).
 38. **Quagmire, dead marshes, webs.** Quagmire slows and sinks, marsh lights (`blocks_without_texture`: give them a
     particle-only renderer), marsh faces (`LOTREntityDeadMarshFace`), Ungoliant webs.

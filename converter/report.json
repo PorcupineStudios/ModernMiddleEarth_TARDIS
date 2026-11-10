@@ -17,7 +17,7 @@
     "biome_achievements": 152,
     "invasion_biomes": 95,
     "animal_biomes": 128,
-    "textures": 2781,
+    "textures": 2803,
     "languages": 22,
     "tabs": 9,
     "biomes": 169,
@@ -43,7 +43,11 @@
     "machine_blocks": 20,
     "machine_textures": 13,
     "forge_recipes_taking_raw_ore": 8,
-    "items_placing_blocks": 10
+    "items_placing_blocks": 10,
+    "farm_crops": 6,
+    "farm_berry_bushes": 6,
+    "item_ores": 15,
+    "pouches": 3
   },
   "added_to_misc_tab": {
     "count": 1,
