@@ -11901,5 +11901,65 @@
       "nutrition": 2,
       "saturation": 0.1
     }
+  },
+  {
+    "id": "iron_giraffe_armor",
+    "kind": "mount_armor",
+    "stack": 1,
+    "mount_armor": {
+      "mount": "giraffe",
+      "protection": 5,
+      "texture": "lotr_port:textures/entity/mount_armor/giraffe_iron.png"
+    }
+  },
+  {
+    "id": "golden_giraffe_armor",
+    "kind": "mount_armor",
+    "stack": 1,
+    "mount_armor": {
+      "mount": "giraffe",
+      "protection": 7,
+      "texture": "lotr_port:textures/entity/mount_armor/giraffe_golden.png"
+    }
+  },
+  {
+    "id": "diamond_giraffe_armor",
+    "kind": "mount_armor",
+    "stack": 1,
+    "mount_armor": {
+      "mount": "giraffe",
+      "protection": 11,
+      "texture": "lotr_port:textures/entity/mount_armor/giraffe_diamond.png"
+    }
+  },
+  {
+    "id": "iron_camel_armor",
+    "kind": "mount_armor",
+    "stack": 1,
+    "mount_armor": {
+      "mount": "camel",
+      "protection": 5,
+      "texture": "lotr_port:textures/entity/mount_armor/camel_iron.png"
+    }
+  },
+  {
+    "id": "golden_camel_armor",
+    "kind": "mount_armor",
+    "stack": 1,
+    "mount_armor": {
+      "mount": "camel",
+      "protection": 7,
+      "texture": "lotr_port:textures/entity/mount_armor/camel_golden.png"
+    }
+  },
+  {
+    "id": "diamond_camel_armor",
+    "kind": "mount_armor",
+    "stack": 1,
+    "mount_armor": {
+      "mount": "camel",
+      "protection": 11,
+      "texture": "lotr_port:textures/entity/mount_armor/camel_diamond.png"
+    }
   }
 ]

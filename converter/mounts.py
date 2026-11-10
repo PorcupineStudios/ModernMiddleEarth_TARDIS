@@ -72,7 +72,7 @@ BREEDS = {
         "clamp_health": [10, 28], "clamp_jump": [0.2, 1.0], "clamp_speed": [0.08, 0.3]},
     "LOTREntityZebra": {
         "id": "zebra", "name": "Zebra", "lotr": "lotr.Zebra", "width": 1.4, "height": 1.6, "model": "old_horse",
-        "textures": ["zebra"], "food": ["minecraft:apple", "#minecraft:horse_food"], "milk": True,
+        "textures": ["zebra"], "food": ["minecraft:apple", "#minecraft:horse_food"], "milk": True, "armour": "horse",
         "sounds": {"ambient": "zebra.say", "hurt": "zebra.hurt", "death": "zebra.death", "angry": "zebra.hurt"}},
     "LOTREntityWildBoar": {
         "id": "wild_boar", "name": "Wild Boar", "lotr": "lotr.Boar", "width": 0.9, "height": 0.8, "model": "boar",
@@ -86,7 +86,7 @@ BREEDS = {
         "id": "camel", "name": "Camel", "lotr": "lotr.Camel", "width": 1.6, "height": 1.8, "model": "camel",
         "model_class": "LOTRModelCamel", "render_class": "LOTRRenderCamel", "textures": ["camel/camel"],
         "saddle": "camel/saddle", "carpet": ["camel/carpet_base", "camel/carpet_overlay"],
-        "food": ["minecraft:wheat"], "chest": True, "spawn": {"jump": {"mul": 0.5}},
+        "food": ["minecraft:wheat"], "chest": True, "armour": "camel", "spawn": {"jump": {"mul": 0.5}},
         "clamp_health": [12, 36], "clamp_jump": [0.1, 0.6], "clamp_speed": [0.1, 0.35]},
     "LOTREntityElk": {
         "id": "elk", "name": "Elk", "lotr": "lotr.Elk", "width": 1.6, "height": 1.8, "model": "elk",
@@ -248,6 +248,8 @@ class Mounts:
             write_json(os.path.join(self.data, NS, "tags", "worldgen", "biome", tag + ".json"),
                        {"values": [f"{NS}:{b}" for b in biomes]})
         counts["mount_armour"] = self.armour()
+        if mc:
+            counts["new_mount_armour"] = self.new_armour(mc)
         # looks and sizes are read once at startup (entity types); the numbers reload with /reload
         looks = ("id", "width", "height", "model", "saddle_model", "textures", "markings", "saddle", "carpet", "scale",
                  "seat")
@@ -328,3 +330,100 @@ class _NotchMachine(Machine):
             armor_models.unwrap(args[0]).rotation = [float(a) for a in args[1:]]
             return None
         return super().invoke(op, owner, name, desc, target, args)
+
+
+# ---------------------------------------------------------------------- armour LOTR never made
+
+# LOTRItemMountArmor.Mount has GIRAFFE and CAMEL, but LOTR shipped no armour for them (Aaron 2026-11-10: add some).
+# These are the port's own: vanilla's three horse armour tiers (1.21 protection), painted by paint_armour below.
+NEW_ARMOUR_TIERS = {
+    "iron": {"name": "Iron", "protection": 5, "vanilla": "iron_horse_armor", "icon": "iron_horse_armor",
+             "colour": (198, 198, 198), "trim": (120, 120, 126)},
+    "golden": {"name": "Golden", "protection": 7, "vanilla": "golden_horse_armor", "icon": "gold_horse_armor",
+               "colour": (234, 208, 76), "trim": (168, 124, 30)},
+    "diamond": {"name": "Diamond", "protection": 11, "vanilla": "diamond_horse_armor", "icon": "diamond_horse_armor",
+                "colour": (104, 222, 214), "trim": (36, 136, 140)},
+}
+# Which boxes of the mount's model the armour covers: part -> [(cube index, top share of its sides covered)], and
+# the badge stamped on the item icon so it isn't mistaken for horse armour.
+NEW_ARMOUR_MOUNTS = {
+    "giraffe": {"name": "Giraffe", "model": "giraffe_saddle", "badge": ((222, 178, 70), (120, 76, 30)),
+                "plates": {"body": [(0, 0.7)], "neck": [(0, 1.0), (1, 0.45)], "head": [(0, 0.5)]}},
+    "camel": {"name": "Camel", "model": "camel_saddle", "badge": ((206, 170, 110), (150, 112, 66)),
+              "plates": {"body": [(0, 0.7)], "humps": [(0, 1.0)], "head": [(0, 0.5), (3, 0.5)]}},
+}
+NEW_ARMOUR_RECIPE_EXTRA = "minecraft:leather"
+
+
+def _faces(uv, size, share):
+    """A box's texture rectangles (x, y, w, h) in 1.7.10's box layout: top, then the four sides' top `share`."""
+    (u, v), (w, h, d) = uv, size
+    rows = max(1, round(h * share))
+    return [(u + d, v, w, d), (u, v + d, d, rows), (u + d, v + d, w, rows), (u + d + w, v + d, d, rows),
+            (u + d + w + d, v + d, w, rows)]
+
+
+def paint_armour(model, tier, plates):
+    """Plate armour for a creature model's texture layout: each covered face is a metal sheet with a dark rim, a
+    highlight under its top edge, a little grain and a rivet in each lower corner."""
+    from PIL import Image
+    w, h = model["texture"]
+    img = Image.new("RGBA", (w, h), (0, 0, 0, 0))
+    px = img.load()
+    for part, cubes in plates.items():
+        boxes = model["parts"][part]["cubes"]
+        for index, share in cubes:
+            if index >= len(boxes):
+                continue
+            for x0, y0, fw, fh in _faces(boxes[index]["uv"], boxes[index]["size"], share):
+                for y in range(y0, min(h, y0 + fh)):
+                    for x in range(x0, min(w, x0 + fw)):
+                        edge = x in (x0, x0 + fw - 1) or y in (y0, y0 + fh - 1)
+                        rivet = fw >= 5 and fh >= 4 and y == y0 + fh - 2 and x in (x0 + 1, x0 + fw - 2)
+                        grain = ((x * 7 + y * 13) % 5 - 2) * 4
+                        base = tier["trim"] if edge or rivet else tier["colour"]
+                        lift = 18 if (not edge and y == y0 + 1) else 0
+                        px[x, y] = tuple(max(0, min(255, c + grain + lift)) for c in base) + (255,)
+    return img
+
+
+def _new_armour(self, mc):
+    """Writes the giraffe and camel armours: items, lang, entity textures, icons, models and recipes."""
+    import io
+    from PIL import Image
+    n = 0
+    for mount, m in NEW_ARMOUR_MOUNTS.items():
+        with open(os.path.join(self.assets, "npc_model", m["model"] + ".json"), encoding="utf-8") as f:
+            model = json.load(f)
+        for tier_id, tier in NEW_ARMOUR_TIERS.items():
+            new = f"{tier_id}_{mount}_armor"
+            tex = os.path.join(self.assets, "textures", "entity", "mount_armor", f"{mount}_{tier_id}.png")
+            os.makedirs(os.path.dirname(tex), exist_ok=True)
+            paint_armour(model, tier, m["plates"]).save(tex)
+            icon = Image.open(io.BytesIO(mc.read(f"assets/minecraft/textures/items/{tier['icon']}.png"))).convert("RGBA")
+            light, dark = m["badge"]
+            for y in range(11, 16):
+                for x in range(11, 16):
+                    rim = x in (11, 15) or y in (11, 15)
+                    icon.putpixel((x, y), (dark if rim or (x + y) % 3 == 0 else light) + (255,))
+            out = os.path.join(self.assets, "textures", "item", new + ".png")
+            os.makedirs(os.path.dirname(out), exist_ok=True)
+            icon.save(out)
+            write_json(os.path.join(self.assets, "models", "item", new + ".json"),
+                       {"parent": "minecraft:item/generated", "textures": {"layer0": f"{NS}:item/{new}"}})
+            self.gen.items.append({"id": new, "kind": "mount_armor", "stack": 1, "mount_armor": {
+                "mount": mount, "protection": tier["protection"],
+                "texture": f"{NS}:textures/entity/mount_armor/{mount}_{tier_id}.png"}})
+            self.gen.lang["en_us"][f"item.{NS}.{new}"] = f"{tier['name']} {m['name']} Armor"
+            self.gen.tab_after[new] = "gondorian_horse_armor"
+            write_json(os.path.join(self.data, NS, "recipe", "mount_armor", new + ".json"), {
+                "type": "minecraft:crafting_shapeless", "category": "equipment",
+                "ingredients": [{"item": f"minecraft:{tier['vanilla']}"}, {"item": NEW_ARMOUR_RECIPE_EXTRA},
+                                {"item": NEW_ARMOUR_RECIPE_EXTRA}],
+                "result": {"id": f"{NS}:{new}", "count": 1}})
+            self.gen.recipe_count += 1
+            n += 1
+    return n
+
+
+Mounts.new_armour = _new_armour

@@ -160,7 +160,10 @@ https://claude.ai/artifact/KqhSSTCuKXGuwKHBoYJdcu. Rebuild features in modern co
   `boosts` (biome tag: Rohan and Dor-en-Ernil horses), `clamp_*` (foals: mean of parents and a fresh roll, clamped),
   `chest`, `milk`, `sounds`. `/summon` skips the rolls (vanilla does too).
 - `MountArmorItem` (kind `mount_armor`: mount, protection, texture) goes in the body slot; vanilla horse armour fits
-  breeds with `armour: horse`, wool carpets fit camels. Warg armour items exist but wargs don't wear them yet.
+  breeds with `armour: horse` (horses, ponies, zebras, as in LOTR), wool carpets fit camels. Warg armour items exist
+  but wargs don't wear them yet. Giraffe and camel armour (iron, golden, diamond) is the port's own (Aaron
+  2026-11-10; LOTR's Mount enum had both but no items): `mounts.py NEW_ARMOUR_*` paints plates onto the model's
+  texture layout (`paint_armour`), stamps vanilla's icon, and writes a recipe (vanilla horse armour + 2 leather).
 - Drawing (`client/MountModel`, `MountRenderer`): horses, ponies and zebras use Minecraft 1.7.10's horse model,
   because LOTR's zebra and horse armour textures are painted for its 128x128 layout. The converter reads it from
   Mojang's 1.7.10 client jar (downloaded to `converter/cache/`, gitignored) into `npc_model/old_horse.json`; its

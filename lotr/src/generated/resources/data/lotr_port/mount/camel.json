@@ -3,6 +3,7 @@
     "minecraft:wheat"
   ],
   "chest": true,
+  "armour": "camel",
   "spawn": {
     "jump": {
       "mul": 0.5

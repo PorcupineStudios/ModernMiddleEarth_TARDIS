@@ -4,6 +4,7 @@
     "#minecraft:horse_food"
   ],
   "milk": true,
+  "armour": "horse",
   "sounds": {
     "ambient": "zebra.say",
     "hurt": "zebra.hurt",

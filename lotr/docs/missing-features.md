@@ -196,7 +196,7 @@ Each task picks up one `kind` from Tier 1 and makes it work; stats come from Tie
     script that reads cube/rotation constants from the model classes' constructors (`classfile.py` can read the
     `addBox` call constants) and writes Java or entity-model JSON. Start with warg, spider, troll, horse.
 27. **Mounts. Done 2026-11-10** (`mount/`, `converter/mounts.py`): horses, Shire ponies, zebras, wild boars, camels,
-    elk, rhinos and giraffes with LOTR's stats per breed, food, breeding ranges, mount armour (20 items), camel chests
+    elk, rhinos and giraffes with LOTR's stats per breed, food, breeding ranges, mount armour (20 items, plus the port's own 6 for giraffes and camels), camel chests
     and carpets, zebra milk, boars/elk/rhinos fighting back, and NPCs that spawn riding (67 types, 47 with LOTR's horse
     armour). Left: players riding wargs and spiders, warg armour worn by wargs, 1.7.10's baby horse proportions (foals
     are the adult at half size), structure NPCs never come riding, a rider's mounted weapon (lances).

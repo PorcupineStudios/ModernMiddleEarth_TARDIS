@@ -1,8 +1,8 @@
 {
   "summary": {
     "blocks": 1441,
-    "items": 892,
-    "recipes": 3250,
+    "items": 898,
+    "recipes": 3256,
     "sound_events": 101,
     "sound_files": 190,
     "ambience_biomes": 12,
@@ -52,7 +52,8 @@
     "orc_bombs": 6,
     "mount_breeds": 8,
     "mount_armour": 20,
-    "old_horse_parts": 39
+    "old_horse_parts": 39,
+    "new_mount_armour": 6
   },
   "added_to_misc_tab": {
     "count": 1,

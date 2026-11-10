@@ -133,6 +133,7 @@ class Gen:
         self.unloc = {}  # new id -> old unlocalized key (for other languages)
         self.tags = collections.defaultdict(set)  # "minecraft:block/mineable/pickaxe" -> ids
         self.recipe_count = 0
+        self.tab_after = {}
         self.pending_vessels = []  # vessels met before the water mug got its id
         self.melee = self.weapon_tables()
         self.drinks = Drinks(self, EXPORT, ASSETS, DATA, os.path.join(OUT, NS, "content"))
@@ -1281,6 +1282,11 @@ class Gen:
                 if new not in placed and new not in self.hidden:
                     placed.add(new)
                     tab["items"].append(new)
+        for new, anchor in self.tab_after.items():  # the port's own items go beside a LOTR item
+            for tab in tabs.values():
+                if anchor in tab["items"] and new not in placed:
+                    tab["items"].insert(tab["items"].index(anchor) + 1, new)
+                    placed.add(new)
         everything = [e["id"] for e in self.blocks if e["id"] not in self.hidden] + [e["id"] for e in self.items]
         missing = [i for i in everything if i not in placed]
         if missing:
