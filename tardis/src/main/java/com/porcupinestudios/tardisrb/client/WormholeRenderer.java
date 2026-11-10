@@ -30,6 +30,8 @@ final class WormholeRenderer extends EntityRenderer<Wormhole> {
     public void render(Wormhole w, float yaw, float partialTick, PoseStack pose, MultiBufferSource buffers, int light) {
         float t = (w.tickCount + partialTick) / 20F;
         float r = w.radius();
+        pose.pushPose();
+        pose.mulPose(com.mojang.math.Axis.YP.rotationDegrees(-w.getYRot())); // a rift faces the way the box comes out
         PoseStack.Pose p = pose.last();
         VertexConsumer disc = buffers.getBuffer(RenderType.entityCutoutNoCull(TEXTURE));
         float inner = w.open() ? 0.86F : 0; // the portal fills the middle 0.9
@@ -59,6 +61,7 @@ final class WormholeRenderer extends EntityRenderer<Wormhole> {
             glowVertex(glow, p, r * 1.35F, a1, 0);
             glowVertex(glow, p, r * 0.95F, a1, 0.55F * flick);
         }
+        pose.popPose();
         super.render(w, yaw, partialTick, pose, buffers, light);
     }
 

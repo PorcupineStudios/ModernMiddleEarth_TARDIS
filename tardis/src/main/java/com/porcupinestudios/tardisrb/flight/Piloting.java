@@ -129,6 +129,20 @@ public final class Piloting {
         player.setXRot(back.getFloat("pitch"));
     }
 
+    /**
+     * The box went on as a new body somewhere else (out of the vortex through a rift): its pilot goes with it and gets
+     * back on, still piloting (and still going back to the console when they stop).
+     */
+    public static void carry(ServerPlayer player, TardisBody body) {
+        if (!isPilot(player)) {
+            return;
+        }
+        RETURNING.remove(player.getUUID()); // getting off the old body doesn't end it
+        move(player, (ServerLevel) body.level(), body.position().add(0, 2.2, 0));
+        PENDING.put(player.getUUID(), body.getUUID());
+        WAIT.put(player.getUUID(), MOUNT_WAIT);
+    }
+
     private static void move(ServerPlayer player, ServerLevel to, Vec3 pos) {
         if (player.level() == to) {
             player.teleportTo(pos.x, pos.y, pos.z);

@@ -219,7 +219,7 @@
       "spin": 4.0
     },
     "shock": {
-      "_comment": "The electric shock when the loose box is hit (debris, the vortex wall, an attack): how many ticks the lightning crawls over it, how hard it is knocked away (blocks per tick), how far it rocks (degrees, dying away), and how many arcs hug it at once.",
+      "_comment": "The electric shock when the loose box is hit (a lightning arc, the vortex wall, an attack): how many ticks the lightning crawls over it, how hard it is knocked away (blocks per tick), how far it rocks (degrees, dying away), and how many arcs hug it at once.",
       "ticks": 24,
       "bounce": 0.45,
       "wobble": 20,
@@ -227,7 +227,7 @@
     }
   },
   "vortex": {
-    "_comment": "Flying through the time vortex when a crew member pulls the dematerialisation lever: drift speed along the tunnel (blocks/tick), how far from the axis the box can go, tunnel length = min_length + length_per_block x hop distance (or jump_length for another dimension), capped at max_length; an obstacle clump every obstacle_gap blocks, up to obstacle_size across; a hit costs hit_charge. damage: the TARDIS's health, kept between trips: the most it can have is health plus the hull's health stat (subsystem/hull.json levels); debris and wall hits cost health, and each point lost adds drift_per_damage blocks of inaccuracy (how far off the course line it lands). At 0 health it crash lands at that point of the course: crash_height blocks up, thrusters off, flying down at crash_speed, with an explosion of power crater when it hits (0 = no crater), and is left with after_crash health. Repairing the hull fills it up; /tardis health sets it. enabled false = trips land at once. bend: how much the tunnel winds and turns (1 = the usual bends, 0 = straight, 1.5 = wilder).",
+    "_comment": "Flying through the time vortex when a crew member pulls the dematerialisation lever: drift speed along the tunnel (blocks/tick), how far from the axis the box can go, tunnel length = min_length + length_per_block x hop distance (or jump_length for another dimension), capped at max_length; a lightning arc straight across the tunnel (1 to arcs_per_section of them) every obstacle_gap blocks, hurting within arc_thickness of its line; a hit costs hit_charge. damage: the TARDIS's health, kept between trips: the most it can have is health plus the hull's health stat (subsystem/hull.json levels); arc and wall hits cost health (arc, wall), and each point lost adds drift_per_damage blocks of inaccuracy (how far off the course line it lands). At 0 health it crash lands at that point of the course: crash_height blocks up, thrusters off, flying down at crash_speed, with an explosion of power crater when it hits (0 = no crater), and is left with after_crash health. Repairing the hull fills it up; /tardis health sets it. enabled false = trips land at once. bend: how much the tunnel winds and turns (1 = the usual bends, 0 = straight, 1.5 = wilder).",
     "enabled": true,
     "speed": 0.7,
     "radius": 11,
@@ -235,12 +235,13 @@
     "length_per_block": 0.05,
     "jump_length": 480,
     "max_length": 1200,
-    "obstacle_gap": 18,
-    "obstacle_size": 3,
+    "obstacle_gap": 24,
+    "arc_thickness": 0.35,
+    "arcs_per_section": 2,
     "hit_charge": 10,
     "damage": {
       "health": 50,
-      "debris": 20,
+      "arc": 20,
       "wall": 5,
       "drift_per_damage": 0.3,
       "crash_height": 40,
@@ -257,7 +258,7 @@
       "pull": 0.1,
       "range": 28,
       "spread": 400,
-      "suck_ticks": 30,
+      "suck_ticks": 40,
       "exit_damage": 5,
       "exit_crater": 0,
       "name_level": 1,

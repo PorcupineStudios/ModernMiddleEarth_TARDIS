@@ -1,5 +1,5 @@
 # TARDIS: the time vortex
-Read when: dematerialising, the vortex dimension, its tunnel sky, debris, `vortex/Vortex`, `client/VortexRenderer`.
+Read when: dematerialising, the vortex dimension, its tunnel sky, lightning arcs, `vortex/Vortex`, `client/VortexRenderer`.
 
 Aaron 2026-11-09: instead of the 1.7.10 button-pressing minigame, dematerialising flies the box through a time vortex
 dimension, dodging obstacles, "to" the destination.
@@ -15,33 +15,40 @@ dimension, dodging obstacles, "to" the destination.
   facing (-1 = as it left), lane x, length, progress, hits, health, inaccuracy, crash (the fraction it broke down at) and crash ticks while
   crashing, at_wall, next obstacle z, obstacles placed.
 - **Flying** (`TardisBody.vortexPhysics`): no gravity, drifts +z at `speed` (W x1.5, S x0.5, sprint x boost, jump
-  brakes); A/D and Q/E steer across; it can't leave `radius` of the axis. It moves with `setPos`, so debris (which has
-  no collision) never stops it. Unflown (the pilot pressed Shift, or not loaded), the server autopilot moves it on.
-- **Debris**: `vortex_debris` clumps (up to `obstacle_size`, a quarter of cells left out) placed up to 96 blocks ahead
-  every `obstacle_gap` / 2 .. 1.5 x gap, seeded per TARDIS and z. Touching one (box inflated 0.3) shatters the clump,
-  costs `hit_charge`, adds a hit and costs `damage.debris` health.
+  brakes); A/D and Q/E steer across; it can't leave `radius` of the axis. It moves with `setPos`, so arcs (which have
+  no collision) never stop it. Unflown (the pilot pressed Shift, or not loaded), the server autopilot moves it on.
+- **Lightning arcs** (Aaron 2026-11-10, replacing the debris blocks: "unmoving lightning bolts" you have to dodge):
+  `entity/VortexArc`, a straight line across the tunnel's cross-section at one z, wall to wall (`Vortex.placeArc`:
+  a random angle, the line up to 0.75 x radius off the axis). Placed up to 96 blocks ahead every `obstacle_gap` (24)
+  / 2 .. 1.5 x gap, 1..`arcs_per_section` (2) per section; each is in the trip's `obstacles` list. The line never
+  moves; `client/ArcRenderer` draws a steady glow along it and three crackling strands reshaped every 2 ticks.
+  `Vortex.hitArc`: the box inflated by `arc_thickness` (0.35) touching any point of the line costs `hit_charge`,
+  adds a hit, costs `damage.arc` (20) health and shocks the box away from the line. Each arc hits once; arcs 12
+  blocks behind the box go.
 - **Arrive** at `length` (`min_length + length_per_block x distance` for hops, `jump_length` for jumps, capped by
-  `max_length`): the body docks (the pilot goes back to the console), placed debris is cleared, then the normal
+  `max_length`): the body docks (the pilot goes back to the console), placed arcs and wormholes are cleared, then the normal
   `Flight.hop`/`jump` lands it and pays. If that fails, the block goes back where it left.
 - **Health, inaccuracy, crash landing** (Aaron 2026-11-09, instead of 1.7.10's "land part way along the plotted line
   when it breaks down"): the TARDIS's health lasts between trips (`progression/Health`, module `tardis_rb:health`;
   none saved = full). The most it can have is `vortex.damage.health` (50) plus the `health` stat: the hull's levels in
   `subsystem/hull.json` (0, 25, 50, 100) and any research bonus. Repairing the hull fills it up (RepairEvent.Post);
   `/tardis health` shows it, `set <n>`, `repair [amount]` (no amount = full) and `damage <amount>` change it (op, on
-  your own TARDIS, like the other /tardis commands). Debris costs `debris`, a bump onto
+  your own TARDIS, like the other /tardis commands). An arc costs `arc`, a bump onto
   the tunnel wall `wall` (spotted by the server, `at_wall` edge, and it shocks the box for everyone). Each point lost
   adds `drift_per_damage` blocks of inaccuracy: arriving at the end lands within that many blocks of the target
   (`offCourse`, a random point in the disc), then the usual landing search. At 0 health it crashes
-  (`Vortex.damage`): the pilot is put back at the console, the box's thrusters die (`TardisBody.crashing`, it tumbles
+  (`Vortex.damage`): the pilot stays riding with the controls dead (`TardisBody.getControllingPassenger` is null
+  while crashing), the box's thrusters die (`TardisBody.crashing`, it tumbles
   and crackles) and it sinks out of the tunnel through the clouds; 22 blocks under the axis (or after 3 s)
   `Vortex.crashOut` takes it into the world over the point its course had reached: `Vortex.course` runs a line from
   where it left to the target (for a jump in the target's coordinates, using each dimension's coordinate scale); under
   halfway it comes down in the dimension it left, else the target's. That point is pushed off course by the
-  inaccuracy; the TARDIS is left with `after_crash` health (10: enough to fly, not to take a debris hit), and the box appears up to `crash_height` blocks over the ground there (under a roof, the first floor
-  below the course), thrusters off, flying down the course at `crash_speed`. A crash ticket keeps the spot loaded.
+  inaccuracy; the TARDIS is left with `after_crash` health (10: enough to fly, not to take an arc hit), and the box comes out of a rift (`Vortex.dropInto`) as high over the ground as there is
+  room for, up to `crash_height` (of 8 spots within 24, the one with the most room), still falling as fast as it was
+  and flying down the course at `crash_speed`, the pilot carried along riding (`Piloting.carry`). A crash ticket keeps the spot loaded.
   Hitting the ground (`TardisBody.impact`) sets off an explosion of power `crater` (0 = none; it goes through
   ExplosionEvent, so claims and explosion settings apply, and `WorldDamage` knocks the hull down as for any explosion
-  next to the box), a last shock, and it lies there as a loose box. No charge is paid for a crash. The monitor shows
+  next to the box), a last shock, the pilot goes back to the console, and it lies there as a loose box. No charge is paid for a crash. The monitor shows
   how far through and off course it is, and the exterior side always shows Health H/M. At 0 health
   in the vortex for any reason (a hit, the command) it goes down at once. Tests: `outOfHealthItCrashLandsPartWay`, `theCourseCrossesDimensions`, `hullRepairsAndTheHealthCommand`;
   `departHitDebrisAndArrive` checks the damage lasts into the next trip.
@@ -49,7 +56,7 @@ dimension, dodging obstacles, "to" the destination.
   system they become immersive portals", with "a vacuum effect that pulls the TARDIS" weakened by upgrading the
   stabilizers; exits picked by weight per dimension). `vortex/Wormholes`, entity `entity/Wormhole`, drawn by
   `client/WormholeRenderer`; numbers in tuning `vortex.wormholes`.
-  - **Placed** like debris, up to 96 blocks ahead: from `first` (80) every `gap` (150) blocks with `chance` (0.7),
+  - **Placed** like the arcs, up to 96 blocks ahead: from `first` (80) every `gap` (150) blocks with `chance` (0.7),
     anywhere across the tunnel. The trip keeps a list `wormholes` (entity id, centre, z, exit dimension, exit aim,
     portal id); ones 12 blocks behind the box go, and `clearTrip` removes the rest. `next_wormhole` is the next z.
   - **Exits** are data: `tardis/wormhole/*.json` = `{dimension, weight, from: {dimension: weight}}`. The weight on a
@@ -64,10 +71,12 @@ dimension, dodging obstacles, "to" the destination.
     the restored-core milestone raises it to 3). Applied in `TardisBody.vortexPhysics`, so it works on the pilot's
     own client; only that TARDIS's box feels its wormholes. Full steering (0.12) beats the strongest pull, so a
     level-0 box has to steer away early; at level 3 it hardly notices. The autopilot doesn't dodge.
-  - **Sucked in**: the box's middle crossing the disc within `radius` (4) of its centre. The pilot is put back at
-    the console, the thrusters die, it crackles and spins into the disc for `suck_ticks` (30), then the trip ends:
-    a rift opens over the exit spot and the box is thrown out of it tumbling, thrusters off, from up to
-    `crash_height` up (`Vortex.dropInto`, shared with the crash landing). It loses `exit_damage` (5) health (never
+  - **Sucked in** (Aaron 2026-11-10: it has to be seen to fall through, controls dead, gravity on, still going
+    forward): coming within 1.5 x `radius` (4) in front of the disc and `radius` of its centre catches it. The
+    thrusters die and the controls go dead (crashing); it falls and keeps its forward speed while the wormhole drags
+    it toward its middle and spins it. Once its back is past the disc (or after `suck_ticks`, 40) the trip ends and
+    it comes out of a rift over the exit spot with the same forward speed, still falling (`Vortex.dropInto`, shared
+    with the crash landing). The pilot rides it all the way (third person) and goes back to the console on landing. It loses `exit_damage` (5) health (never
     below 1) and lands with a crater of `exit_crater` (0 = none). No charge is paid.
   - **Scanner** (`subsystem/scanner.json`, stat `wormhole_sight` 0/1/2; repairs `scanner_1..2`, cost `scanner_lens`):
     at `name_level` (1) the exterior monitor side shows "Wormhole in N: dimension" for the next one ahead; at
@@ -79,7 +88,7 @@ dimension, dodging obstacles, "to" the destination.
   - Tests: `wormholeExitsArePickedByWeight`, `stabilizersWeakenTheWormholePull`, `aWormholeSucksTheBoxIntoItsDimension`
     (exits in the End: Nether chunks don't generate in time on the fast-ticking test server),
     `theScannerMakesWormholesSeeThrough`. Other vortex tests switch wormholes off (`noWormholes`).
-  - Not done: stabilizers don't soften the debris/wall knock; the autopilot doesn't steer round wormholes.
+  - Not done: stabilizers don't soften the arc/wall knock; the autopilot doesn't steer round wormholes.
 - **Refused while in the vortex**: `Flight.hop`/`jump`, the lever again, phase, thrusters off. The exterior side of
   the monitor shows "In the vortex: N%, off course D" (or CRASHING!) and Health H/M.
 - **Solid tube** (Aaron 2026-11-09: "make the tube have collision"): the box can reach `radius` (11) from the axis and
@@ -96,7 +105,7 @@ dimension, dodging obstacles, "to" the destination.
   dark. `bolts` strikes jagged forked lightning over it (up to 4 at once, a new chance 3 times a second each,
   crackling and fading); the cloud near a strike lights up blue-white. The glow streaks are a fainter tube inside.
 - **Shock** (Aaron 2026-11-09: "an electricity damage animation" with "a repelling bounce", playing at any rotation
-  or wobble): `TardisBody.shock(away, strength)` on a debris hit (`Vortex.hitDebris`), a bump onto the wall
+  or wobble): `TardisBody.shock(away, strength)` on an arc hit (`Vortex.hitArc`), a bump onto the wall
   (spotted by the server in `Vortex.step`) and any attack with a source position (`hurt`; it still takes no damage). The server bumps a synced
   counter and direction, so every client plays it; the side that moves the box adds the knock (tuning
   `flight.shock.bounce`). `client/ShockRenderer` draws in the box's own pose, after its turn: arcs that cling to its
@@ -107,7 +116,7 @@ dimension, dodging obstacles, "to" the destination.
   gives the sideways and up/down offset at distance z along the lane (two sine waves each way, up to about 11 off
   the straight line, never steeper than 0.5 blocks per block; straight for the first 40 so departure is clean),
   scaled by tuning `vortex.bend` (0 = straight). Everything follows it: the renderer bends each ring, the glow and
-  bolts; `keepInside` and the wall bounce measure from the bent axis; debris is placed on it; the autopilot steers
+  bolts; `keepInside` and the wall bounce measure from the bent axis; arcs are placed across it; the autopilot steers
   toward the axis 3 blocks ahead. `VortexTests.theTunnelBendsGently` checks the limits.
 - **Look**: dimension type `effects` "tardis_rb:time_vortex" -> `VortexRenderer.Effects` (no sky, no clouds, dark
   blue fog). `VortexRenderer` draws at AFTER_SKY, depth off, a tube of radius 16 round the lane axis, ±160 blocks:
@@ -121,5 +130,5 @@ dimension, dodging obstacles, "to" the destination.
   waits (trip `pilot`) until the box can be found, then `Piloting.seat` runs. Vanilla still stops ticking entities in
   a dimension 300 ticks after its last player leaves (`emptyTime`); the autopilot moves the box with `setPos` anyway.
 - Test: `gametest/VortexTests` (depart without a pilot or forced chunk, the box's chunk is still entity-ticking 100
-  ticks in, debris hit, arrive near the target). Run locally 2026-11-09: passes; fails with the ticket switched off.
-- Not done yet: the pilot's own view of progress (a HUD bar), sounds, other obstacle kinds, moving debris.
+  ticks in, an arc hit that leaves the arc in place, arrive near the target). Run locally 2026-11-09: passes; fails with the ticket switched off.
+- Not done yet: the pilot's own view of progress (a HUD bar), sounds, other obstacle kinds; the autopilot doesn't dodge arcs.

@@ -20,15 +20,15 @@ public record Tuning(CrashSite crashSite, Hop hop, Winder winder, Interior inter
      * dodging obstacles, instead of the 1.7.10 button minigame). {@code enabled}: off = trips land at once.
      * {@code speed}: blocks per tick the box drifts along the tunnel; {@code radius}: how far from the tunnel's axis it
      * can go; {@code min_length} + {@code length_per_block} x the trip's distance (hops) or {@code jump_length}
-     * (jumps to another dimension), capped at {@code max_length}: how long the tunnel is. Obstacles every
-     * {@code obstacle_gap} blocks (each a clump up to {@code obstacle_size} across); a hit costs {@code hit_charge}; the
+     * (jumps to another dimension), capped at {@code max_length}: how long the tunnel is. Obstacles (lightning arcs straight across the tunnel, 1 to {@code arcs_per_section} at a
+     * time, {@code arc_thickness} from their line hurts) every {@code obstacle_gap} blocks; a hit costs {@code hit_charge}; the
      * box's health in the tunnel and the crash are {@link VortexDamage} ({@code damage}). {@code bend}: how much the tunnel winds (1 the usual
      * bends, 0 straight; see {@code Vortex.bend}).
      */
     public record VortexTuning(boolean enabled, double speed, double radius, int minLength, double lengthPerBlock,
-            int jumpLength, int maxLength, int obstacleGap, int obstacleSize, long hitCharge,
+            int jumpLength, int maxLength, int obstacleGap, double arcThickness, int arcsPerSection, long hitCharge,
             VortexDamage damage, double bend, WormholeTuning wormholes) {
-        static final VortexTuning DEFAULT = new VortexTuning(true, 0.7, 11, 160, 0.05, 480, 1200, 18, 3, 10,
+        static final VortexTuning DEFAULT = new VortexTuning(true, 0.7, 11, 160, 0.05, 480, 1200, 24, 0.35, 2, 10,
                 VortexDamage.DEFAULT, 1, WormholeTuning.DEFAULT);
         static final Codec<VortexTuning> CODEC = RecordCodecBuilder.create(i -> i.group(
                 Codec.BOOL.optionalFieldOf("enabled", DEFAULT.enabled).forGetter(VortexTuning::enabled),
@@ -40,7 +40,9 @@ public record Tuning(CrashSite crashSite, Hop hop, Winder winder, Interior inter
                 Codec.INT.optionalFieldOf("jump_length", DEFAULT.jumpLength).forGetter(VortexTuning::jumpLength),
                 Codec.INT.optionalFieldOf("max_length", DEFAULT.maxLength).forGetter(VortexTuning::maxLength),
                 Codec.INT.optionalFieldOf("obstacle_gap", DEFAULT.obstacleGap).forGetter(VortexTuning::obstacleGap),
-                Codec.INT.optionalFieldOf("obstacle_size", DEFAULT.obstacleSize).forGetter(VortexTuning::obstacleSize),
+                Codec.DOUBLE.optionalFieldOf("arc_thickness", DEFAULT.arcThickness).forGetter(VortexTuning::arcThickness),
+                Codec.INT.optionalFieldOf("arcs_per_section", DEFAULT.arcsPerSection)
+                        .forGetter(VortexTuning::arcsPerSection),
                 Codec.LONG.optionalFieldOf("hit_charge", DEFAULT.hitCharge).forGetter(VortexTuning::hitCharge),
                 VortexDamage.CODEC.optionalFieldOf("damage", DEFAULT.damage).forGetter(VortexTuning::damage),
                 Codec.DOUBLE.optionalFieldOf("bend", DEFAULT.bend).forGetter(VortexTuning::bend),
@@ -52,8 +54,8 @@ public record Tuning(CrashSite crashSite, Hop hop, Winder winder, Interior inter
      * Wormholes in the time vortex (Aaron 2026-11-09; {@code vortex/Wormholes}). After {@code first} blocks, every
      * {@code gap} blocks along the tunnel there is a {@code chance} of one: a disc {@code radius} across that pulls
      * the box toward its middle within {@code range} blocks, at up to {@code pull} blocks/tick² (less the
-     * {@code pull_resist} stat, the stabilizers). Crossing its disc sucks the box in: it spins for {@code suck_ticks}
-     * and is thrown out tumbling, thrusters off, over a random spot up to {@code spread} blocks from where its course
+     * {@code pull_resist} stat, the stabilizers). Coming up to its disc catches the box: controls dead, it falls and keeps
+     * going while it is dragged in (at most {@code suck_ticks}), and comes out of a rift, still falling and moving, over a random spot up to {@code spread} blocks from where its course
      * had reached, in the wormhole's dimension (picked by the {@code tardis/wormhole} weights), losing
      * {@code exit_damage} health; it hits the ground with a crater of power {@code exit_crater} (0 = none). With the
      * {@code wormhole_sight} stat (the scanner) at {@code name_level} the monitor names where the next one goes; at
@@ -63,7 +65,7 @@ public record Tuning(CrashSite crashSite, Hop hop, Winder winder, Interior inter
     public record WormholeTuning(int first, int gap, double chance, double radius, double pull, double range,
             int spread, int suckTicks, double exitDamage, double exitCrater, double nameLevel, double seeThroughLevel,
             boolean respectLocks) {
-        static final WormholeTuning DEFAULT = new WormholeTuning(80, 150, 0.7, 4, 0.1, 28, 400, 30, 5, 0, 1, 2, true);
+        static final WormholeTuning DEFAULT = new WormholeTuning(80, 150, 0.7, 4, 0.1, 28, 400, 40, 5, 0, 1, 2, true);
         static final Codec<WormholeTuning> CODEC = RecordCodecBuilder.create(i -> i.group(
                 Codec.INT.optionalFieldOf("first", DEFAULT.first).forGetter(WormholeTuning::first),
                 Codec.INT.optionalFieldOf("gap", DEFAULT.gap).forGetter(WormholeTuning::gap),
@@ -85,18 +87,18 @@ public record Tuning(CrashSite crashSite, Hop hop, Winder winder, Interior inter
     /**
      * The box's health and crash landing (Aaron 2026-11-09). The most health it can have is {@code health} plus the
      * {@code health} stat (hull levels; {@code progression/Health}), and it lasts between trips. Hitting
-     * debris costs {@code debris}, bumping the tunnel wall {@code wall}. Each point lost adds
+     * a lightning arc costs {@code arc}, bumping the tunnel wall {@code wall}. Each point lost adds
      * {@code drift_per_damage} blocks of inaccuracy: how far off its course line the box lands. At 0 it crash lands:
      * it falls through the clouds and appears {@code crash_height} blocks over the spot that far along the line,
      * thrusters off, flying down at an angle at {@code crash_speed} (blocks per tick across), and hits the ground
      * with an explosion of power {@code crater} (0: no crater). It is left with {@code after_crash} health.
      */
-    public record VortexDamage(double health, double debris, double wall, double driftPerDamage, int crashHeight,
+    public record VortexDamage(double health, double arc, double wall, double driftPerDamage, int crashHeight,
             double crashSpeed, double crater, double afterCrash) {
         static final VortexDamage DEFAULT = new VortexDamage(50, 20, 5, 0.3, 40, 0.5, 3, 10);
         static final Codec<VortexDamage> CODEC = RecordCodecBuilder.create(i -> i.group(
                 Codec.DOUBLE.optionalFieldOf("health", DEFAULT.health).forGetter(VortexDamage::health),
-                Codec.DOUBLE.optionalFieldOf("debris", DEFAULT.debris).forGetter(VortexDamage::debris),
+                Codec.DOUBLE.optionalFieldOf("arc", DEFAULT.arc).forGetter(VortexDamage::arc),
                 Codec.DOUBLE.optionalFieldOf("wall", DEFAULT.wall).forGetter(VortexDamage::wall),
                 Codec.DOUBLE.optionalFieldOf("drift_per_damage", DEFAULT.driftPerDamage)
                         .forGetter(VortexDamage::driftPerDamage),
@@ -133,7 +135,7 @@ public record Tuning(CrashSite crashSite, Hop hop, Winder winder, Interior inter
     }
 
     /**
-     * The electric shock when the loose box is hit (debris, the vortex wall, an attack; Aaron 2026-11-09):
+     * The electric shock when the loose box is hit (a lightning arc, the vortex wall, an attack; Aaron 2026-11-09):
      * {@code ticks} how long the lightning crawls over it, {@code bounce} how hard it is knocked away (blocks per
      * tick), {@code wobble} how far it rocks (degrees, dying away), {@code arcs} how many arcs hug it at once.
      */

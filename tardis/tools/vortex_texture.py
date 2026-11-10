@@ -5,7 +5,7 @@ texture wraps round the tunnel (u) and repeats along it (v). The noise is stretc
 rushing past, and warped sideways so the streaks swirl. Two images:
   textures/environment/time_vortex.png       the wall (1024 x 1024, opaque)
   textures/environment/time_vortex_glow.png  bright wisps drawn over it, added on top (black = nothing)
-plus the obstacle block's texture (textures/block/vortex_debris.png, 16 x 16).
+(the vortex obstacles are lightning arcs drawn in code: client/ArcRenderer).
 Run from the repo root: python3 tardis/tools/vortex_texture.py
 """
 import os
@@ -99,22 +99,11 @@ def glow():
     return np.clip(rgb, 0, 255).astype(np.uint8)
 
 
-def debris():
-    s = 16
-    n = periodic_noise(s, 1.2)
-    t = 0.5 + 0.25 * n
-    rgb = ramp(t, [(0.0, (30, 16, 50)), (0.5, (90, 50, 140)), (0.8, (200, 120, 255)), (1.0, (255, 230, 255))])
-    return np.clip(rgb, 0, 255).astype(np.uint8)
-
-
 def main():
     env = os.path.join(OUT, "environment")
-    blk = os.path.join(OUT, "block")
     os.makedirs(env, exist_ok=True)
-    os.makedirs(blk, exist_ok=True)
     Image.fromarray(wall(), "RGB").save(os.path.join(env, "time_vortex.png"), optimize=True)
     Image.fromarray(glow(), "RGB").save(os.path.join(env, "time_vortex_glow.png"), optimize=True)
-    Image.fromarray(debris(), "RGB").save(os.path.join(blk, "vortex_debris.png"))
     print("vortex textures written")
 
 

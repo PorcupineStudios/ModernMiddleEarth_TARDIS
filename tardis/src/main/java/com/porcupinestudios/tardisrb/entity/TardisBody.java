@@ -2,6 +2,7 @@ package com.porcupinestudios.tardisrb.entity;
 
 import com.porcupinestudios.tardisrb.flight.FreeFlight;
 import com.porcupinestudios.tardisrb.flight.PilotInput;
+import com.porcupinestudios.tardisrb.flight.Piloting;
 import com.porcupinestudios.tardisrb.progression.TardisContent;
 import com.porcupinestudios.tardisrb.progression.Tuning;
 import com.porcupinestudios.tardisrb.vortex.Vortex;
@@ -146,7 +147,7 @@ public class TardisBody extends Entity {
     }
 
     /**
-     * Hit (debris, the vortex wall, an attack; Aaron 2026-11-09): lightning crawls over the box, it rocks, and it is
+     * Hit (a lightning arc, the vortex wall, an attack; Aaron 2026-11-09): lightning crawls over the box, it rocks, and it is
      * knocked away along {@code away} at {@code strength} (0..1) of the tuned bounce. Called on the server it plays on
      * every client.
      */
@@ -244,7 +245,7 @@ public class TardisBody extends Entity {
     }
 
     /**
-     * In the vortex: no gravity, nothing to bump into but debris (it passes through it; {@code Vortex} works out the
+     * In the vortex: no gravity, nothing to bump into but lightning arcs (it passes through them; {@code Vortex} works out the
      * hit). Flown, it drifts forward along the tunnel by itself (W faster, S slower, sprint boosts) while A / D and
      * Q / E steer across it; it can't leave the tunnel's radius round its winding axis ({@code Vortex.bend}), so the
      * pilot has to follow the bends. Unflown, the server's autopilot carries it on and steers it round them.
@@ -327,12 +328,15 @@ public class TardisBody extends Entity {
         }
         shockStart = -1000;
         shock(new Vec3(0, 1, 0), 0.5);
+        if (getFirstPassenger() instanceof ServerPlayer p) {
+            Piloting.stop(p); // down: the pilot rode it in and goes back to the console
+        }
     }
 
-    /** The pilot (the first passenger, if a player). */
+    /** The pilot (the first passenger, if a player); nobody while it crashes or falls out of a wormhole: the controls are dead. */
     @Override
     public LivingEntity getControllingPassenger() {
-        return getFirstPassenger() instanceof Player p ? p : null;
+        return !crashing() && getFirstPassenger() instanceof Player p ? p : null;
     }
 
     // smooth movement on clients that don't steer it (as boats do)
