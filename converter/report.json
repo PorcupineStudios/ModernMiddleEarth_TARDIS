@@ -47,7 +47,9 @@
     "farm_crops": 6,
     "farm_berry_bushes": 6,
     "item_ores": 15,
-    "pouches": 3
+    "pouches": 3,
+    "thrown_items": 45,
+    "orc_bombs": 6
   },
   "added_to_misc_tab": {
     "count": 1,

@@ -275,6 +275,22 @@ public class LotrNpc extends PathfinderMob implements Merchant {
         }
     }
 
+    /**
+     * LOTR's NPC melee reach (LOTREntityAIAttackOnCollide): the reach squared is (2 x width)^2 + target width,
+     * times the weapon's reach factor squared, so pikes and spears strike from further off. Here the attack box
+     * grows by the extra distance a longer weapon gives (shorter weapons keep vanilla's box).
+     */
+    @Override
+    protected net.minecraft.world.phys.AABB getAttackBoundingBox() {
+        net.minecraft.world.phys.AABB box = super.getAttackBoundingBox();
+        if (getMainHandItem().getItem() instanceof LotrWeaponItem w && w.reachFactor() > 1f) {
+            double base = Math.sqrt(4.0 + getBbWidth() * getBbWidth());
+            double extra = base * (w.reachFactor() - 1f);
+            return box.inflate(extra, 0, extra);
+        }
+        return box;
+    }
+
     // ---------------------------------------------------------------- type
 
     /** Sets who this NPC is: faction, stats, skin, gear and name. */

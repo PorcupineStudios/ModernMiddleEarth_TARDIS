@@ -9,6 +9,16 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.UseAnim;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.core.Direction;
+import net.minecraft.core.Position;
+import com.porcupinestudios.lotrport.content.thrown.Thrown;
+import com.porcupinestudios.lotrport.content.thrown.ThrownWeapon;
+import com.porcupinestudios.lotrport.content.thrown.Throws;
 import net.minecraft.world.item.SwordItem;
 import net.minecraft.world.item.Tier;
 import net.minecraft.world.item.component.ItemAttributeModifiers;
@@ -24,16 +34,80 @@ import net.neoforged.neoforge.common.ItemAbility;
  * weapon.knockback} (attack_knockback, hammers and lances +1). Damage is LOTR's own (fractions kept; 1.7.10's +1 base
  * hand damage is the same in 1.21). Swords sweep; battleaxes sweep harder ({@code weapon.sweep_ratio}). NPCs swing at LOTR's mob rate ({@link #mobAttackTicks}).
  */
-public class LotrWeaponItem extends SwordItem {
+public class LotrWeaponItem extends SwordItem implements Thrown.ThrowingItem {
     private final boolean sweep;
     private final int mobTicks;
+    private final float reach;
     private final JsonObject poison;
+    /** A spear's thrown damage multiplier (LOTRItemSpear.getRangedDamageMultiplier), 0 if it isn't thrown. */
+    private final float throwMultiplier;
 
-    public LotrWeaponItem(Tier tier, Properties properties, float damage, JsonObject weapon, JsonObject poison) {
+    public LotrWeaponItem(Tier tier, Properties properties, float damage, JsonObject weapon, JsonObject poison,
+            JsonObject throwing) {
         super(tier, properties.attributes(attributes(damage, weapon)));
         this.sweep = ContentData.bool(weapon, "sweep", true);
         this.mobTicks = ContentData.integer(weapon, "mob_ticks", 20);
+        this.reach = ContentData.num(weapon, "reach", 0f);
         this.poison = poison;
+        this.throwMultiplier = throwing == null ? 0f : ContentData.num(throwing, "damage", 0f);
+    }
+
+    public boolean thrown() {
+        return throwMultiplier > 0f;
+    }
+
+    public float throwMultiplier() {
+        return throwMultiplier;
+    }
+
+    // ---------------------------------------------------------------- spears (LOTRItemSpear)
+
+    @Override
+    public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
+        if (!thrown()) {
+            return super.use(level, player, hand);
+        }
+        player.startUsingItem(hand);
+        return InteractionResultHolder.consume(player.getItemInHand(hand));
+    }
+
+    @Override
+    public int getUseDuration(ItemStack stack, LivingEntity entity) {
+        return thrown() ? 72000 : super.getUseDuration(stack, entity);
+    }
+
+    @Override
+    public UseAnim getUseAnimation(ItemStack stack) {
+        return thrown() ? UseAnim.SPEAR : super.getUseAnimation(stack);
+    }
+
+    /** Drawn up to {@code spear_draw} ticks; LOTR's power curve; nothing under {@code spear_min_power}. */
+    @Override
+    public void releaseUsing(ItemStack stack, Level level, LivingEntity entity, int timeLeft) {
+        if (!thrown() || !(entity instanceof Player player)) {
+            return;
+        }
+        int held = getUseDuration(stack, entity) - timeLeft;
+        if (held / Thrown.num("spear_draw", 20) < Thrown.num("spear_min_power", 0.1f)) {
+            return;
+        }
+        float power = Throws.power(held, Thrown.num("spear_draw", 20));
+        if (!level.isClientSide) {
+            Throws.weapon(level, player, stack, ThrownWeapon.Kind.SPEAR, throwMultiplier,
+                    power * Thrown.num("spear_speed", 2f), power >= 1f);
+            Throws.sound(level, player, power);
+        }
+        stack.consume(1, player);
+    }
+
+    @Override
+    public boolean dispense(Level level, Position at, Direction facing, ItemStack one) {
+        if (!thrown()) {
+            return false;
+        }
+        Throws.fromDispenser(Throws.weaponAt(level, at, one, ThrownWeapon.Kind.SPEAR, throwMultiplier), facing,
+                1.1f * 1.5f);
+        return true;
     }
 
     static ItemAttributeModifiers attributes(float damage, JsonObject weapon) {
@@ -60,6 +134,11 @@ public class LotrWeaponItem extends SwordItem {
                     AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND);
         }
         return b.build();
+    }
+
+    /** LOTR's melee reach factor: the weapon's reach over the 3-block base (a pike 1.5, a dagger 0.75). */
+    public float reachFactor() {
+        return (3f + reach) / 3f;
     }
 
     /** Ticks between an NPC's swings with this weapon (LOTR: 20 / the class's speed factor). */

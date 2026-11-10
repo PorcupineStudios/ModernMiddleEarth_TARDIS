@@ -185,5 +185,6 @@ public final class LotrClient {
         event.registerEntityRenderer(LotrEntities.PROJECTILE.get(),
                 net.minecraft.client.renderer.entity.ThrownItemRenderer::new);
         MachineRenderers.register(event);
+        ThrownRenderers.register(event);
     }
 }

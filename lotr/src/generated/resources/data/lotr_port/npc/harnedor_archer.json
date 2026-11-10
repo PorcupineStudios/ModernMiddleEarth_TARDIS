@@ -11,14 +11,19 @@
   "health": 20.0,
   "speed": 0.2,
   "attack": 2.0,
+  "behaviours": [
+    "archer"
+  ],
+  "behaviour_data": {
+    "ranged_speed": 1.25,
+    "ranged_min": 30,
+    "ranged_max": 50,
+    "ranged_range": 16.0,
+    "ranged_accuracy": 0.75,
+    "ranged_swap": 0
+  },
   "gear": {
-    "mainhand": [
-      "lotr_port:haradric_dagger",
-      "lotr_port:haradric_pike",
-      "lotr_port:haradric_spear",
-      "lotr_port:haradric_sword",
-      "lotr_port:poisoned_haradric_dagger"
-    ],
+    "mainhand": "lotr_port:bow_of_harad",
     "head": [
       "lotr_port:harad_turban",
       "lotr_port:harnennor_helmet"

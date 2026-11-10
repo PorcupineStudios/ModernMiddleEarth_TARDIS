@@ -20,16 +20,19 @@
   "health": 18.0,
   "speed": 0.2,
   "attack": 2.0,
+  "behaviours": [
+    "archer"
+  ],
+  "behaviour_data": {
+    "ranged_speed": 1.25,
+    "ranged_min": 30,
+    "ranged_max": 60,
+    "ranged_range": 16.0,
+    "ranged_accuracy": 1.0,
+    "ranged_swap": 0
+  },
   "gear": {
-    "mainhand": [
-      "lotr_port:bronze_battleaxe",
-      "lotr_port:bronze_sword",
-      "lotr_port:iron_spear",
-      "lotr_port:stone_spear",
-      "lotr_port:uruk_battleaxe",
-      "minecraft:iron_axe",
-      "minecraft:iron_pickaxe"
-    ],
+    "mainhand": "minecraft:bow",
     "head": [
       "lotr_port:bronze_helmet",
       "lotr_port:fur_hat"

@@ -12,12 +12,19 @@
   "health": 20.0,
   "speed": 0.2,
   "attack": 2.0,
+  "behaviours": [
+    "archer"
+  ],
+  "behaviour_data": {
+    "ranged_speed": 1.25,
+    "ranged_min": 30,
+    "ranged_max": 50,
+    "ranged_range": 16.0,
+    "ranged_accuracy": 0.75,
+    "ranged_swap": 0
+  },
   "gear": {
-    "mainhand": [
-      "lotr_port:rohirric_battleaxe",
-      "lotr_port:rohirric_spear",
-      "lotr_port:rohirric_sword"
-    ],
+    "mainhand": "lotr_port:rohirric_bow",
     "head": "lotr_port:rohirric_coif",
     "chest": "lotr_port:rohirric_hauberk",
     "legs": "lotr_port:rohirric_leggings",

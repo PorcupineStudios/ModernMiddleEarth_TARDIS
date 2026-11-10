@@ -16,8 +16,19 @@
   "health": 25.0,
   "speed": 0.2,
   "attack": 2.0,
+  "behaviours": [
+    "archer"
+  ],
+  "behaviour_data": {
+    "ranged_speed": 1.45,
+    "ranged_min": 30,
+    "ranged_max": 40,
+    "ranged_range": 24.0,
+    "ranged_accuracy": 0.5,
+    "ranged_swap": 0
+  },
   "gear": {
-    "mainhand": "lotr_port:gondorian_sword",
+    "mainhand": "lotr_port:blackroot_bow",
     "chest": "lotr_port:blackroot_vale_chestplate",
     "legs": "lotr_port:blackroot_vale_leggings",
     "feet": "lotr_port:blackroot_vale_boots"

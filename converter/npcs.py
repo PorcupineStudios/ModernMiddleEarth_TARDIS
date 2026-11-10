@@ -16,7 +16,7 @@ import json
 import os
 
 from entity_models import EntityModels
-from behaviours import behaviour_data, behaviours_of
+from behaviours import archer, behaviour_data, behaviours_of
 from sounds import npc_sounds
 import re
 
@@ -332,6 +332,17 @@ class Npcs:
                 if items:
                     gear[slot] = items[0] if len(items) == 1 else items  # several: one is picked at spawn
                     break
+        shots = archer(e, self.jar)
+        if shots:
+            # LOTR archers and throwers: their ranged weapon (pure archers hold it; elves and the like swap it with
+            # their melee weapon by distance, LOTREntityNPC.onAttackModeChange)
+            stacks = sampled.get("rangedWeapon") if isinstance(sampled, dict) else None
+            ranged = sorted({i for i in (self.item(st) for st in stacks or []) if i})
+            if ranged:
+                gear["ranged" if shots["ranged_swap"] else "mainhand"] = ranged[0] if len(ranged) == 1 else ranged
+            if ranged:
+                out["behaviours"] = out.get("behaviours", []) + ["archer"]
+                out["behaviour_data"] = {**out.get("behaviour_data", {}), **shots}
         if gear:
             out["gear"] = gear
         bank = self.bank_for(e.get("sampleName"))

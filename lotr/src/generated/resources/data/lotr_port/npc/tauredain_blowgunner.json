@@ -10,8 +10,19 @@
   "health": 20.0,
   "speed": 0.2,
   "attack": 2.0,
+  "behaviours": [
+    "archer"
+  ],
+  "behaviour_data": {
+    "ranged_speed": 1.5,
+    "ranged_min": 10,
+    "ranged_max": 30,
+    "ranged_range": 16.0,
+    "ranged_accuracy": 1.0,
+    "ranged_swap": 0
+  },
   "gear": {
-    "mainhand": "lotr_port:taurethrim_dagger",
+    "mainhand": "lotr_port:taurethrim_blowgun",
     "chest": "lotr_port:taurethrim_chestplate",
     "legs": "lotr_port:taurethrim_leggings",
     "feet": "lotr_port:taurethrim_boots"

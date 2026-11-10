@@ -11,6 +11,17 @@
   "health": 20.0,
   "speed": 0.2,
   "attack": 2.0,
+  "behaviours": [
+    "archer"
+  ],
+  "behaviour_data": {
+    "ranged_speed": 1.5,
+    "ranged_min": 30,
+    "ranged_max": 40,
+    "ranged_range": 16.0,
+    "ranged_accuracy": 0.5,
+    "ranged_swap": 1
+  },
   "gear": {
     "mainhand": [
       "lotr_port:corsair_battleaxe",
@@ -20,7 +31,8 @@
     ],
     "chest": "lotr_port:corsair_chestplate",
     "legs": "lotr_port:corsair_leggings",
-    "feet": "lotr_port:corsair_boots"
+    "feet": "lotr_port:corsair_boots",
+    "ranged": "lotr_port:bow_of_harad"
   },
   "names": "lotr_port:umbar_male",
   "units": "lotr_port:corsair_slaver",

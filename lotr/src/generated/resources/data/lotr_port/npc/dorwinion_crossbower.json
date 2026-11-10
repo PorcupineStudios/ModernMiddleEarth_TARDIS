@@ -10,13 +10,19 @@
   "health": 20.0,
   "speed": 0.2,
   "attack": 2.0,
+  "behaviours": [
+    "archer"
+  ],
+  "behaviour_data": {
+    "ranged_speed": 1.25,
+    "ranged_min": 30,
+    "ranged_max": 50,
+    "ranged_range": 16.0,
+    "ranged_accuracy": 1.0,
+    "ranged_swap": 0
+  },
   "gear": {
-    "mainhand": [
-      "lotr_port:iron_battleaxe",
-      "lotr_port:iron_pike",
-      "lotr_port:iron_spear",
-      "minecraft:iron_sword"
-    ],
+    "mainhand": "lotr_port:iron_crossbow",
     "head": "lotr_port:dorwinion_helmet",
     "chest": "lotr_port:dorwinion_chestplate",
     "legs": "lotr_port:dorwinion_leggings",

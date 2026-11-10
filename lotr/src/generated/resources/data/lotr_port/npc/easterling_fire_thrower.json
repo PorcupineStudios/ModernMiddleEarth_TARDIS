@@ -11,8 +11,19 @@
   "health": 20.0,
   "speed": 0.2,
   "attack": 2.0,
+  "behaviours": [
+    "archer"
+  ],
+  "behaviour_data": {
+    "ranged_speed": 1.3,
+    "ranged_min": 20,
+    "ranged_max": 30,
+    "ranged_range": 16.0,
+    "ranged_accuracy": 0.75,
+    "ranged_swap": 0
+  },
   "gear": {
-    "mainhand": "lotr_port:rh_nic_dagger",
+    "mainhand": "lotr_port:rh_nic_fire_pot",
     "head": "lotr_port:rh_nic_helmet",
     "chest": "lotr_port:rh_nic_chestplate",
     "legs": "lotr_port:rh_nic_leggings",

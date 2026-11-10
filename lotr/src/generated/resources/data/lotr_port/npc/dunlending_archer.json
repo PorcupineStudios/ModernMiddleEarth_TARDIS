@@ -10,15 +10,19 @@
   "health": 20.0,
   "speed": 0.2,
   "attack": 2.0,
+  "behaviours": [
+    "archer"
+  ],
+  "behaviour_data": {
+    "ranged_speed": 1.4,
+    "ranged_min": 30,
+    "ranged_max": 50,
+    "ranged_range": 16.0,
+    "ranged_accuracy": 1.0,
+    "ranged_swap": 0
+  },
   "gear": {
-    "mainhand": [
-      "lotr_port:bronze_battleaxe",
-      "lotr_port:bronze_dagger",
-      "lotr_port:bronze_spear",
-      "lotr_port:iron_battleaxe",
-      "lotr_port:iron_dagger",
-      "minecraft:iron_sword"
-    ],
+    "mainhand": "minecraft:bow",
     "head": [
       "lotr_port:dunlending_helmet",
       "lotr_port:fur_hat"

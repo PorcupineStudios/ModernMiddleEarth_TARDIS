@@ -20,14 +20,19 @@
   "health": 24.0,
   "speed": 0.2,
   "attack": 2.0,
+  "behaviours": [
+    "archer"
+  ],
+  "behaviour_data": {
+    "ranged_speed": 1.4,
+    "ranged_min": 30,
+    "ranged_max": 50,
+    "ranged_range": 16.0,
+    "ranged_accuracy": 1.0,
+    "ranged_swap": 0
+  },
   "gear": {
-    "mainhand": [
-      "lotr_port:poisoned_utumno_dagger",
-      "lotr_port:utumno_battleaxe",
-      "lotr_port:utumno_dagger",
-      "lotr_port:utumno_sword",
-      "lotr_port:utumno_warhammer"
-    ],
+    "mainhand": "lotr_port:utumno_bow",
     "head": "lotr_port:utumno_helmet",
     "chest": "lotr_port:utumno_chestplate",
     "legs": "lotr_port:utumno_leggings",

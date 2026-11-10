@@ -6758,7 +6758,7 @@
   },
   {
     "id": "orc_bomb",
-    "kind": "shaped",
+    "kind": "orc_bomb",
     "hardness": 3.0,
     "resistance": 0.0,
     "light": 0,
@@ -6772,11 +6772,15 @@
       16.0,
       16.0,
       16.0
-    ]
+    ],
+    "bomb": {
+      "strength": 0,
+      "fire": false
+    }
   },
   {
     "id": "orc_bomb_block",
-    "kind": "shaped",
+    "kind": "orc_bomb",
     "hardness": 3.0,
     "resistance": 0.0,
     "light": 0,
@@ -6790,11 +6794,15 @@
       16.0,
       16.0,
       16.0
-    ]
+    ],
+    "bomb": {
+      "strength": 1,
+      "fire": false
+    }
   },
   {
     "id": "orc_bomb_2",
-    "kind": "shaped",
+    "kind": "orc_bomb",
     "hardness": 3.0,
     "resistance": 0.0,
     "light": 0,
@@ -6808,11 +6816,15 @@
       16.0,
       16.0,
       16.0
-    ]
+    ],
+    "bomb": {
+      "strength": 2,
+      "fire": false
+    }
   },
   {
     "id": "orc_bomb_3",
-    "kind": "shaped",
+    "kind": "orc_bomb",
     "hardness": 3.0,
     "resistance": 0.0,
     "light": 0,
@@ -6826,11 +6838,15 @@
       16.0,
       16.0,
       16.0
-    ]
+    ],
+    "bomb": {
+      "strength": 0,
+      "fire": true
+    }
   },
   {
     "id": "orc_bomb_4",
-    "kind": "shaped",
+    "kind": "orc_bomb",
     "hardness": 3.0,
     "resistance": 0.0,
     "light": 0,
@@ -6844,11 +6860,15 @@
       16.0,
       16.0,
       16.0
-    ]
+    ],
+    "bomb": {
+      "strength": 1,
+      "fire": true
+    }
   },
   {
     "id": "orc_bomb_5",
-    "kind": "shaped",
+    "kind": "orc_bomb",
     "hardness": 3.0,
     "resistance": 0.0,
     "light": 0,
@@ -6862,7 +6882,11 @@
       16.0,
       16.0,
       16.0
-    ]
+    ],
+    "bomb": {
+      "strength": 2,
+      "fire": true
+    }
   },
   {
     "id": "orc_chain",

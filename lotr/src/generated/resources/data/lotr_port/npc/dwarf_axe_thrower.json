@@ -16,12 +16,19 @@
   "health": 26.0,
   "speed": 0.2,
   "attack": 2.0,
+  "behaviours": [
+    "archer"
+  ],
+  "behaviour_data": {
+    "ranged_speed": 1.25,
+    "ranged_min": 40,
+    "ranged_max": 40,
+    "ranged_range": 12.0,
+    "ranged_accuracy": 0.75,
+    "ranged_swap": 0
+  },
   "gear": {
-    "mainhand": [
-      "lotr_port:dwarven_battleaxe",
-      "lotr_port:dwarven_spear",
-      "lotr_port:dwarven_warhammer"
-    ],
+    "mainhand": "lotr_port:dwarven_throwing_axe",
     "head": "lotr_port:dwarven_helmet",
     "chest": "lotr_port:dwarven_chestplate",
     "legs": "lotr_port:dwarven_leggings",

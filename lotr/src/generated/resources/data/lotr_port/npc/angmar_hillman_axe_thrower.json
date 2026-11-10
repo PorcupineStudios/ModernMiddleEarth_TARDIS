@@ -9,13 +9,21 @@
   "health": 20.0,
   "speed": 0.2,
   "attack": 2.0,
+  "behaviours": [
+    "archer"
+  ],
+  "behaviour_data": {
+    "ranged_speed": 1.4,
+    "ranged_min": 40,
+    "ranged_max": 60,
+    "ranged_range": 12.0,
+    "ranged_accuracy": 1.0,
+    "ranged_swap": 0
+  },
   "gear": {
     "mainhand": [
-      "lotr_port:angmar_battleaxe",
-      "lotr_port:angmar_dagger",
-      "lotr_port:angmar_spear",
-      "lotr_port:angmar_sword",
-      "lotr_port:angmar_warhammer"
+      "lotr_port:bronze_throwing_axe",
+      "lotr_port:iron_throwing_axe"
     ],
     "head": [
       "lotr_port:bone_helmet",

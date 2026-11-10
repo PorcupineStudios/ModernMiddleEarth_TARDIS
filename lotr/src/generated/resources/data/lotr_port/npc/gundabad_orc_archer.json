@@ -20,15 +20,23 @@
   "health": 18.0,
   "speed": 0.2,
   "attack": 2.0,
+  "behaviours": [
+    "archer"
+  ],
+  "behaviour_data": {
+    "ranged_speed": 1.25,
+    "ranged_min": 30,
+    "ranged_max": 60,
+    "ranged_range": 16.0,
+    "ranged_accuracy": 1.0,
+    "ranged_swap": 0
+  },
   "gear": {
     "mainhand": [
-      "lotr_port:angmar_sword",
-      "lotr_port:dol_guldur_battleaxe",
-      "lotr_port:iron_spear",
-      "lotr_port:mordor_axe",
-      "lotr_port:mordor_dagger",
-      "minecraft:iron_axe",
-      "minecraft:iron_pickaxe"
+      "lotr_port:bronze_crossbow",
+      "lotr_port:iron_crossbow",
+      "lotr_port:orc_bow",
+      "minecraft:bow"
     ],
     "head": [
       "lotr_port:bone_helmet",

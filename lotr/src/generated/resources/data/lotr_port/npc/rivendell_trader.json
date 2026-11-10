@@ -15,8 +15,20 @@
   "health": 30.0,
   "speed": 0.2,
   "attack": 2.0,
+  "behaviours": [
+    "archer"
+  ],
+  "behaviour_data": {
+    "ranged_speed": 1.25,
+    "ranged_min": 40,
+    "ranged_max": 60,
+    "ranged_range": 16.0,
+    "ranged_accuracy": 0.5,
+    "ranged_swap": 1
+  },
   "gear": {
-    "mainhand": "lotr_port:rivendell_dagger"
+    "mainhand": "lotr_port:rivendell_dagger",
+    "ranged": "lotr_port:rivendell_bow"
   },
   "names": "lotr_port:quenya_male",
   "buy": "lotr_port:rivendell_trader_buy",

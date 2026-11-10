@@ -120,3 +120,75 @@ def behaviour_data(e, jar):
         else:  # LOTREntityUtumnoIceSpider: size nextInt(4), slowness
             data.update({"size_min": 0, "size_max": 3, "venom": 1})
     return data
+
+
+RANGED_AI = "lotr/common/entity/ai/LOTREntityAIRangedAttack"
+# creatures with their own ranged behaviour (rocks, snow, wraith balls, the mallorn ent's leaf bombs)
+OWN_RANGED = ("LOTREntityMountainTroll", "LOTREntitySnowTroll", "LOTREntityMarshWraith", "LOTREntityMallornEnt")
+
+
+def _calls(jar, cls, method, called):
+    """Whether the class defines the method (any descriptor) and it invokes a method of this name: None when the class
+    doesn't define it."""
+    path = cls.replace(".", "/") + ".class"
+    if not jar.has(path):
+        return None
+    cf = ClassFile(jar.read(path))
+    codes = [code for (n, _), code in cf.methods.items() if n == method and code]
+    if not codes:
+        return None
+    for code in codes:
+        for i in range(len(code) - 2):
+            if code[i] in (0xB6, 0xB7, 0xB9):
+                try:
+                    _, name = cf.ref_name(int.from_bytes(code[i + 1:i + 3], "big"))
+                except (KeyError, TypeError, IndexError):
+                    continue
+                if name == called:
+                    return True
+    return False
+
+
+def archer(e, jar):
+    """LOTR's NPC archers and throwers: the LOTREntityAIRangedAttack(speed, min, [max], range) the most specific class
+    builds, the NPC's npcRangedAccuracy, and whether it swaps to its melee weapon up close (onAttackModeChange
+    reads getMeleeWeapon, as elves do) or only shoots and backs off (archers)."""
+    classes = e.get("classes") or []
+    chain = [c.split(".")[-1] for c in classes]
+    if any(c in chain for c in OWN_RANGED):
+        return None
+    for c in classes:
+        path = c.replace(".", "/") + ".class"
+        if not jar.has(path):
+            continue
+        made = ClassFile(jar.read(path)).constructions(RANGED_AI)
+        if not made:
+            continue
+        args = made[0]
+        if len(args) == 3:
+            speed, t, rng = args
+            lo = hi = t
+        elif len(args) == 4:
+            speed, lo, hi, rng = args
+        else:
+            return None
+        own = (_calls(jar, k, "onAttackModeChange", "getMeleeWeapon") for k in classes)
+        swap = next((x for x in own if x is not None), False)
+        for k in classes:  # LOTREntityEasterlingFireThrower: melee range Double.MAX_VALUE, so it never closes in
+            kp = k.replace(".", "/") + ".class"
+            code = jar.has(kp) and ClassFile(jar.read(kp)).methods.get(("getMeleeRange", "()D"))
+            if code:
+                cf = ClassFile(jar.read(kp))
+                for i in range(len(code) - 2):
+                    if code[i] == 0x14:
+                        try:
+                            v = cf.constant(int.from_bytes(code[i + 1:i + 3], "big"))
+                        except IndexError:
+                            continue
+                        if isinstance(v, float) and v > 1e300:
+                            swap = False
+                break
+        acc = (e.get("attributes") or {}).get("lotr.npcRangedAccuracy", 1.0)
+        return {"ranged_speed": speed, "ranged_min": lo, "ranged_max": hi, "ranged_range": rng,
+                "ranged_accuracy": acc, "ranged_swap": 1 if swap else 0}
+    return None
