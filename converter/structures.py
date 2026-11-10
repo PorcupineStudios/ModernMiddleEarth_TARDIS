@@ -98,6 +98,7 @@ class Structures:
         self.report = gen.report
         self.kinds = {b["id"]: b["kind"] for b in gen.blocks}
         self.facing = {b["id"] for b in gen.blocks if b.get("facing")}
+        self.machine = {b["id"]: b["machine"] for b in gen.blocks if b.get("machine")}
         from lore import Lore
         self.lore = Lore(gen.jar, data_dir, gen.report)
         self.lore_placed = 0
@@ -127,7 +128,12 @@ class Structures:
             props.update(dict(kv.split("=") for kv in p.split(",")))
         short = new.split(":", 1)[1]
         kind = self.kinds.get(short)
-        if short in self.facing:
+        if self.machine.get(short) in ("weapon_rack", "armor_stand"):
+            # LOTR's racks and stands: meta & 3 turns them 0/270/180/90 degrees, & 4 hangs a rack on a wall
+            props["facing"] = ("north", "east", "south", "west")[meta & 3]
+            if self.machine[short] == "weapon_rack":
+                props["wall"] = str(bool(meta & 4)).lower()
+        elif short in self.facing:
             props["facing"] = LADDER_FACING.get(meta & 7, "north")
         props.update(self.props(kind, meta, props))
         return {"Name": new, **({"Properties": props} if props else {})}
