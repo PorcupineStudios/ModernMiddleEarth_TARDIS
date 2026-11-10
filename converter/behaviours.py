@@ -192,3 +192,85 @@ def archer(e, jar):
         return {"ranged_speed": speed, "ranged_min": lo, "ranged_max": hi, "ranged_range": rng,
                 "ranged_accuracy": acc, "ranged_swap": 1 if swap else 0}
     return None
+
+
+def _riding_chance(cf, code):
+    """LOTR's `spawnRidingHorse = rand.nextInt(n) == 0` in a constructor: n (1 = always), 0 when it's set false, None
+    when this code doesn't set it."""
+    for i in range(len(code) - 2):
+        if code[i] != 0xB5:
+            continue
+        try:
+            _, name = cf.ref_name(int.from_bytes(code[i + 1:i + 3], "big"))
+        except (KeyError, TypeError, IndexError):
+            continue
+        if name != "spawnRidingHorse":
+            continue
+        for j in range(i - 3, max(0, i - 16), -1):
+            if code[j] == 0xB6:
+                try:
+                    _, called = cf.ref_name(int.from_bytes(code[j + 1:j + 3], "big"))
+                except (KeyError, TypeError, IndexError):
+                    continue
+                if called == "nextInt":
+                    if code[j - 2] == 0x10:  # bipush
+                        return code[j - 1]
+                    if 0x03 <= code[j - 1] <= 0x08:  # iconst
+                        return code[j - 1] - 0x03
+        return 1 if code[i - 1] == 0x04 else 0
+    return None
+
+
+def rider(e, jar, mount_of):
+    """LOTR's NPCs that spawn riding (LOTREntityNPC.spawnRidingHorse, set nextInt(n) == 0 in the most specific
+    constructor that sets it) and what they ride (createMountToRide's `new` in the most specific class defining it,
+    a LOTREntityHorse by default). mount_of maps a LOTR class to the port's id. None when it never rides."""
+    classes = e.get("classes") or []
+    chance = None
+    for c in classes:
+        path = c.replace(".", "/") + ".class"
+        if not jar.has(path):
+            continue
+        cf = ClassFile(jar.read(path))
+        for (n, _), code in cf.methods.items():
+            if n == "<init>" and code:
+                chance = _riding_chance(cf, code)
+                if chance is not None:
+                    break
+        if chance is not None:
+            break
+    if not chance:
+        return None
+    armour_done = False
+    mount = None
+    armour = []
+    for c in classes:
+        path = c.replace(".", "/") + ".class"
+        if not jar.has(path):
+            continue
+        cf = ClassFile(jar.read(path))
+        code = next((code for (n, _), code in cf.methods.items() if n == "createMountToRide" and code), None)
+        if not code:
+            continue
+        for i in range(len(code) - 2):
+            try:
+                if code[i] == 0xBB:  # new: the mount's class (an ItemStack is its armour)
+                    k = cf.constant(int.from_bytes(code[i + 1:i + 3], "big"))
+                    if isinstance(k, tuple) and mount_of(k[1].replace("/", ".")):
+                        mount = mount_of(k[1].replace("/", "."))
+                elif code[i] == 0xB2 and not armour_done:  # getstatic: LOTRMod.horseArmorGondor
+                    owner, name = cf.ref_name(int.from_bytes(code[i + 1:i + 3], "big"))
+                    if "Armor" in name or name in VANILLA_HORSE_ARMOUR:
+                        armour.append(VANILLA_HORSE_ARMOUR.get(name, name))
+            except (KeyError, TypeError, IndexError):
+                continue
+        armour_done = armour_done or bool(armour)
+        if mount:
+            break
+    mount = mount or mount_of("lotr.common.entity.animal.LOTREntityHorse")
+    return {"chance": chance, "mount": mount, "armour": armour} if mount else None
+
+
+# 1.7.10's Items fields for vanilla horse armour (iron, gold, diamond)
+VANILLA_HORSE_ARMOUR = {"field_151138_bX": "minecraft:iron_horse_armor", "field_151136_bY": "minecraft:golden_horse_armor",
+                        "field_151125_bZ": "minecraft:diamond_horse_armor"}

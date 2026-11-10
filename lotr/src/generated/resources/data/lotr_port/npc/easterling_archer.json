@@ -20,14 +20,16 @@
     "ranged_max": 50,
     "ranged_range": 16.0,
     "ranged_accuracy": 0.75,
-    "ranged_swap": 0
+    "ranged_swap": 0,
+    "ride_chance": 6
   },
   "gear": {
     "mainhand": "lotr_port:rh_nic_bow",
     "head": "lotr_port:rh_nic_helmet",
     "chest": "lotr_port:rh_nic_chestplate",
     "legs": "lotr_port:rh_nic_leggings",
-    "feet": "lotr_port:rh_nic_boots"
+    "feet": "lotr_port:rh_nic_boots",
+    "mount": "lotr_port:horse"
   },
   "names": "lotr_port:rhun_male",
   "speech": "lotr_port:rhun/warrior",

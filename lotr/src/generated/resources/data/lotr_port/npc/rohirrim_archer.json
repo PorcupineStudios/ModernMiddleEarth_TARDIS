@@ -21,14 +21,17 @@
     "ranged_max": 50,
     "ranged_range": 16.0,
     "ranged_accuracy": 0.75,
-    "ranged_swap": 0
+    "ranged_swap": 0,
+    "ride_chance": 3
   },
   "gear": {
     "mainhand": "lotr_port:rohirric_bow",
     "head": "lotr_port:rohirric_coif",
     "chest": "lotr_port:rohirric_hauberk",
     "legs": "lotr_port:rohirric_leggings",
-    "feet": "lotr_port:rohirric_boots"
+    "feet": "lotr_port:rohirric_boots",
+    "mount": "lotr_port:horse",
+    "mount_armor": "lotr_port:rohirric_horse_armor"
   },
   "names": "lotr_port:rohan_male",
   "speech": "lotr_port:rohan/warrior",

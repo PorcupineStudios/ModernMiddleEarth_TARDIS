@@ -67,6 +67,7 @@ public final class LotrPort {
         com.porcupinestudios.lotrport.content.farm.Farming.register();
         com.porcupinestudios.lotrport.content.pouch.Pouches.register(modBus);
         com.porcupinestudios.lotrport.content.thrown.Thrown.register(modBus);
+        com.porcupinestudios.lotrport.mount.Mounts.register(modBus);
         LotrWorldgen.register(modBus);
         LotrEntities.register(modBus);
         SharedApiHooks.register(modBus);

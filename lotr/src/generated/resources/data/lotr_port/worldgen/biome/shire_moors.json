@@ -41,7 +41,7 @@
         "maxCount": 4
       },
       {
-        "type": "minecraft:donkey",
+        "type": "lotr_port:shire_pony",
         "weight": 12,
         "minCount": 2,
         "maxCount": 6

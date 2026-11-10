@@ -11,6 +11,9 @@
   "health": 20.0,
   "speed": 0.2,
   "attack": 2.0,
+  "behaviour_data": {
+    "ride_chance": 10
+  },
   "gear": {
     "mainhand": [
       "lotr_port:haradric_dagger",
@@ -23,7 +26,8 @@
     "head": "lotr_port:morwaith_helmet",
     "chest": "lotr_port:morwaith_chestplate",
     "legs": "lotr_port:morwaith_leggings",
-    "feet": "lotr_port:morwaith_boots"
+    "feet": "lotr_port:morwaith_boots",
+    "mount": "lotr_port:zebra"
   },
   "names": "lotr_port:moredain_male",
   "speech": "lotr_port:moredain/moredain",

@@ -30,7 +30,8 @@
     "ranged_max": 40,
     "ranged_range": 12.0,
     "ranged_accuracy": 1.0,
-    "ranged_swap": 1
+    "ranged_swap": 1,
+    "ride_chance": 3
   },
   "gear": {
     "mainhand": [
@@ -38,7 +39,8 @@
       "lotr_port:iron_dagger"
     ],
     "head": "lotr_port:leather_hat",
-    "ranged": "lotr_port:sling"
+    "ranged": "lotr_port:sling",
+    "mount": "lotr_port:shire_pony"
   },
   "names": "lotr_port:hobbit_male",
   "units": "lotr_port:hobbit_shirriff",

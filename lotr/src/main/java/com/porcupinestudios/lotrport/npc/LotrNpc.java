@@ -338,6 +338,25 @@ public class LotrNpc extends PathfinderMob implements Merchant {
         }
     }
 
+    /**
+     * LOTR's spawnRidingHorse: one spawn in the type's {@code ride_chance} comes riding its {@code mount} gear, in
+     * its {@code mount_armor}. For NPCs that spawn in the wild; a structure's people stay on foot.
+     */
+    public void maybeRide() {
+        NpcType type = npcType();
+        if (type == null || isPassenger()) {
+            return;
+        }
+        float chance = type.persona().behaviourData().getOrDefault("ride_chance", 0f);
+        List<ResourceLocation> mounts = type.gear().getOrDefault("mount", List.of());
+        if (chance < 1 || mounts.isEmpty() || random.nextInt((int) chance) != 0) {
+            return;
+        }
+        List<ResourceLocation> armour = type.gear().getOrDefault("mount_armor", List.of());
+        Hiring.mount(this, mounts.get(random.nextInt(mounts.size())), null,
+                armour.isEmpty() ? null : armour.get(random.nextInt(armour.size())));
+    }
+
     public ResourceLocation typeId() {
         ResourceLocation id = ResourceLocation.tryParse(entityData.get(TYPE));
         return id == null ? LotrEntities.NPC.getId() : id;

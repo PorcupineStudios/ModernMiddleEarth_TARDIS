@@ -43,7 +43,7 @@ public final class ThrownTests {
      * tick entities: the 1-block template only keeps its own chunk loaded, and a projectile that crosses into an
      * unloaded neighbour stops in mid-air.
      */
-    private static void inLoadedArea(GameTestHelper helper, int dx, int dz, Runnable body) {
+    static void inLoadedArea(GameTestHelper helper, int dx, int dz, Runnable body) {
         BlockPos a = helper.absolutePos(new BlockPos(-2, 0, -2));
         BlockPos b = helper.absolutePos(new BlockPos(dx + 2, 0, dz + 2));
         for (int cx = Math.min(a.getX(), b.getX()) >> 4; cx <= Math.max(a.getX(), b.getX()) >> 4; cx++) {

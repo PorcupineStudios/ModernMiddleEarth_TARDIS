@@ -20,7 +20,8 @@
     "ranged_max": 50,
     "ranged_range": 16.0,
     "ranged_accuracy": 0.75,
-    "ranged_swap": 0
+    "ranged_swap": 0,
+    "ride_chance": 8
   },
   "gear": {
     "mainhand": "lotr_port:bow_of_harad",
@@ -30,7 +31,8 @@
     ],
     "chest": "lotr_port:harnennor_chestplate",
     "legs": "lotr_port:harnennor_leggings",
-    "feet": "lotr_port:harnennor_boots"
+    "feet": "lotr_port:harnennor_boots",
+    "mount": "lotr_port:horse"
   },
   "names": "lotr_port:near_haradrim_male",
   "speech": "lotr_port:near_harad/mercenary",

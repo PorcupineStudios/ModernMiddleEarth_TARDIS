@@ -20,7 +20,8 @@
     "ranged_max": 50,
     "ranged_range": 16.0,
     "ranged_accuracy": 0.75,
-    "ranged_swap": 0
+    "ranged_swap": 0,
+    "ride_chance": 8
   },
   "gear": {
     "mainhand": "lotr_port:bow_of_harad",
@@ -30,7 +31,8 @@
     ],
     "chest": "lotr_port:nomad_tunic",
     "legs": "lotr_port:nomad_leggings",
-    "feet": "lotr_port:nomad_shoes"
+    "feet": "lotr_port:nomad_shoes",
+    "mount": "lotr_port:camel"
   },
   "names": "lotr_port:nomad_male",
   "speech": "lotr_port:near_harad/mercenary",

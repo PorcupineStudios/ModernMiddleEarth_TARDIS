@@ -115,8 +115,9 @@ and `[x]`) as they land, with the commit. Details and the 1.7.10 → 1.21.1 mism
   fight back~~
 - [x] ~~Invasions: 45 invasions (`invasion/<id>.json`, faction and mobs) and 95 biomes' chances per second
   (`invasion_spawns/biomes.json`), run by `npc/InvasionSpawner`~~
-- **Skipped:** boars, horses, zebras and Shire ponies are vanilla pigs, horses and donkeys (LOTR drew them on
-  vanilla's models, which the converter can't replay). Invasion size (6–12) is the port's, in each invasion file
+- [x] ~~Boars, horses, zebras, Shire ponies, camels, elk, rhinos and giraffes are LOTR's mounts (`mount/LotrHorse`,
+  2026-11-10): horses on 1.7.10's horse model read from Mojang's 1.7.10 jar, boars on 1.7.10's pig plus tusks~~
+- **Skipped:** Invasion size (6–12) is the port's, in each invasion file
   (LOTR's invasion banner and waves aren't ported). Conquest spawns (they need LOTR's conquest system).
 
 ## ~~10. Structures: villages and big builds~~ (done)
@@ -139,8 +140,8 @@ and `[x]`) as they land, with the commit. Details and the 1.7.10 → 1.21.1 mism
   `client/CreatureAnim`)~~
 - [x] ~~14 non-person units in captains' pools~~ (now hired like the rest)
 - [x] ~~20 non-person structure spawners~~ (now place their creatures)
-- [x] ~~47 mounted units: riders come on their mount (`Hiring.mount`): wargs are hired with them; horses (tamed and
-  saddled), boars (pigs) and camels are vanilla stand-ins~~
+- [x] ~~47 mounted units: riders come on their mount (`Hiring.mount`): wargs are hired with them; horses, boars,
+  camels and the rest are LOTR's mounts, tamed to the hirer, saddled and in the unit's horse armour~~
 - [x] ~~Creature behaviour (npc/behaviour, numbers from LOTR's classes): trolls burn and turn to stone in daylight
   (fleeing to shade), sneeze when tickled, throw rocks/snow; spiders' sizes, venoms and climbing; ents blink,
   heal saplings, are weak to axes and fire; huorns sleep as trees; the Balrog's flames, regeneration and charge;
@@ -149,8 +150,9 @@ and `[x]`) as they land, with the commit. Details and the 1.7.10 → 1.21.1 mism
 - [x] ~~Animations 1:1: LOTR's render() and renderers converted too (every draw with its transforms, the
   renderer's size/lean/fade, troll outfits, armour, weapons and held rocks)~~
 - [x] ~~Animals~~ (section 9)
-- **Skipped:** NPC riders don't steer vanilla horses (vanilla horses only take orders from players; wargs follow
-  their rider); warg bombardiers' bombs, spider webs (mystery web), Gollum's fishing and inventory, the troll
+- [x] ~~NPCs that spawn riding (LOTR's spawnRidingHorse, 67 types): 1 in `ride_chance` wild or invasion spawns comes
+  on its mount, which its rider steers~~
+- **Skipped:** warg bombardiers' bombs, spider webs (mystery web), Gollum's fishing and inventory, the troll
   chieftain's boss fight: each needs its own item or boss bar.
 
 ## ~~12. Quests~~ (done)

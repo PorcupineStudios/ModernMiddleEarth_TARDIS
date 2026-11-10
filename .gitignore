@@ -24,3 +24,6 @@ logs/
 .middle-earth-music-cache/
 Middle-earth Music/
 Middle-earth Music.zip
+
+# converter downloads (Minecraft 1.7.10 client jar for the old horse model)
+converter/cache/

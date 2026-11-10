@@ -16,7 +16,7 @@
     "music_biomes": 168,
     "biome_achievements": 152,
     "invasion_biomes": 95,
-    "animal_biomes": 128,
+    "animal_biomes": 123,
     "textures": 2803,
     "languages": 22,
     "tabs": 9,
@@ -27,8 +27,8 @@
     "ore_features": 52,
     "saplings": 38,
     "factions": 29,
-    "npcs": 416,
-    "npc_skins": 285,
+    "npcs": 412,
+    "npc_skins": 279,
     "structures": 93,
     "structures_with_npcs": 77,
     "npc_spawn_tables": 135,
@@ -49,7 +49,10 @@
     "item_ores": 15,
     "pouches": 3,
     "thrown_items": 45,
-    "orc_bombs": 6
+    "orc_bombs": 6,
+    "mount_breeds": 8,
+    "mount_armour": 20,
+    "old_horse_parts": 39
   },
   "added_to_misc_tab": {
     "count": 1,
@@ -494,16 +497,14 @@
     "count": 0,
     "entries": []
   },
-  "npc_models_failed": {
-    "count": 1,
-    "entries": [
-      "lotr.client.model.LOTRModelBoar: no class net/minecraft/client/model/ModelPig"
-    ]
-  },
   "npc_models_not_ported": {
-    "count": 3,
+    "count": 7,
     "entries": [
       "lotr.client.model.LOTRModelBoar",
+      "lotr.client.model.LOTRModelCamel",
+      "lotr.client.model.LOTRModelElk",
+      "lotr.client.model.LOTRModelGiraffe",
+      "lotr.client.model.LOTRModelRhino",
       "net.minecraft.client.model.ModelHorse",
       "none"
     ]
@@ -633,24 +634,21 @@
     ]
   },
   "npc_without_speech": {
-    "count": 28,
+    "count": 24,
     "entries": [
       "aurochs",
       "bear",
       "bird",
       "butterfly",
-      "camel",
       "crebain",
       "crocodile",
       "dark_huorn",
       "deer",
       "desert_scorpion",
       "dik_dik",
-      "elk",
       "fish",
       "flamingo",
       "gemsbok",
-      "giraffe",
       "gorcrow",
       "jungle_scorpion",
       "kine_araw",
@@ -658,7 +656,6 @@
       "lioness",
       "midges",
       "rabbit",
-      "rhino",
       "seagull",
       "swan",
       "termite",

@@ -9,11 +9,16 @@
   "health": 25.0,
   "speed": 0.2,
   "attack": 2.0,
+  "behaviour_data": {
+    "ride_chance": 8
+  },
   "gear": {
     "mainhand": "lotr_port:dalish_sword",
     "chest": "lotr_port:dalish_chestplate",
     "legs": "lotr_port:dalish_leggings",
-    "feet": "lotr_port:dalish_boots"
+    "feet": "lotr_port:dalish_boots",
+    "mount": "lotr_port:horse",
+    "mount_armor": "lotr_port:dalish_horse_armor"
   },
   "names": "lotr_port:dale_male",
   "units": "lotr_port:dale_captain",
