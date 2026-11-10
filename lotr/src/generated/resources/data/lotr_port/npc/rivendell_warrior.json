@@ -15,6 +15,17 @@
   "health": 30.0,
   "speed": 0.2,
   "attack": 2.0,
+  "behaviours": [
+    "archer"
+  ],
+  "behaviour_data": {
+    "ranged_speed": 1.25,
+    "ranged_min": 25,
+    "ranged_max": 40,
+    "ranged_range": 24.0,
+    "ranged_accuracy": 0.5,
+    "ranged_swap": 1
+  },
   "gear": {
     "mainhand": [
       "lotr_port:rivendell_longspear",
@@ -24,7 +35,8 @@
     "head": "lotr_port:rivendell_helmet",
     "chest": "lotr_port:rivendell_chestplate",
     "legs": "lotr_port:rivendell_leggings",
-    "feet": "lotr_port:rivendell_boots"
+    "feet": "lotr_port:rivendell_boots",
+    "ranged": "lotr_port:rivendell_bow"
   },
   "names": "lotr_port:quenya_male",
   "speech": "lotr_port:rivendell/warrior",

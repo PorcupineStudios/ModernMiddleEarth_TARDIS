@@ -15,11 +15,23 @@
   "health": 30.0,
   "speed": 0.2,
   "attack": 2.0,
+  "behaviours": [
+    "archer"
+  ],
+  "behaviour_data": {
+    "ranged_speed": 1.25,
+    "ranged_min": 30,
+    "ranged_max": 40,
+    "ranged_range": 24.0,
+    "ranged_accuracy": 0.5,
+    "ranged_swap": 1
+  },
   "gear": {
     "mainhand": "lotr_port:galadhrim_sword",
     "chest": "lotr_port:galadhrim_chestplate",
     "legs": "lotr_port:galadhrim_leggings",
-    "feet": "lotr_port:galadhrim_boots"
+    "feet": "lotr_port:galadhrim_boots",
+    "ranged": "lotr_port:galadhrim_bow"
   },
   "units": "lotr_port:elf_lord",
   "speech": "lotr_port:galadhrim/lord",

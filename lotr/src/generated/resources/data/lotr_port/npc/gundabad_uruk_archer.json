@@ -15,14 +15,19 @@
   "health": 25.0,
   "speed": 0.2,
   "attack": 2.0,
+  "behaviours": [
+    "archer"
+  ],
+  "behaviour_data": {
+    "ranged_speed": 1.4,
+    "ranged_min": 30,
+    "ranged_max": 50,
+    "ranged_range": 20.0,
+    "ranged_accuracy": 0.75,
+    "ranged_swap": 0
+  },
   "gear": {
-    "mainhand": [
-      "lotr_port:gundabad_uruk_bludgeon",
-      "lotr_port:gundabad_uruk_cleaver",
-      "lotr_port:gundabad_uruk_spear",
-      "lotr_port:gundabad_uruk_waraxe",
-      "lotr_port:poisoned_gundabad_uruk_dagger"
-    ],
+    "mainhand": "lotr_port:gundabad_uruk_bow",
     "head": "lotr_port:gundabad_uruk_helmet",
     "chest": "lotr_port:gundabad_uruk_chestplate",
     "legs": "lotr_port:gundabad_uruk_leggings",

@@ -92,6 +92,11 @@ public final class LotrBlocks {
                 String cob = e.getAsJsonObject("corn").get("item").getAsString();
                 return p -> new CornBlock(p, cob);
             }
+            case "orc_bomb" -> {
+                JsonObject b = e.getAsJsonObject("bomb");
+                return p -> new com.porcupinestudios.lotrport.content.thrown.OrcBombBlock(p,
+                        b.get("strength").getAsInt(), b.get("fire").getAsBoolean());
+            }
             case "ore" -> {
                 // LOTR's item-dropping ores: experience as LOTRBlockOre.dropBlockAsItemWithChance
                 JsonArray xp = e.getAsJsonArray("xp");

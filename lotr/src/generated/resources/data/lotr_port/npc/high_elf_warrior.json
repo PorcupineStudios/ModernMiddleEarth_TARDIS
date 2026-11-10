@@ -29,6 +29,17 @@
   "health": 30.0,
   "speed": 0.2,
   "attack": 2.0,
+  "behaviours": [
+    "archer"
+  ],
+  "behaviour_data": {
+    "ranged_speed": 1.25,
+    "ranged_min": 25,
+    "ranged_max": 40,
+    "ranged_range": 24.0,
+    "ranged_accuracy": 0.5,
+    "ranged_swap": 1
+  },
   "gear": {
     "mainhand": [
       "lotr_port:lindon_spear",
@@ -37,7 +48,8 @@
     "head": "lotr_port:lindon_helmet",
     "chest": "lotr_port:lindon_chestplate",
     "legs": "lotr_port:lindon_leggings",
-    "feet": "lotr_port:lindon_boots"
+    "feet": "lotr_port:lindon_boots",
+    "ranged": "lotr_port:lindon_bow"
   },
   "names": "lotr_port:quenya_male",
   "speech": "lotr_port:high_elf/warrior",

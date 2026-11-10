@@ -45,7 +45,7 @@ branch, and **Decision** means it needs Aaron to choose.
 | Extra knockback (hammer, lance +1) | `attack_knockback` attribute | +1 modifier | Done |
 | No sweep attack | Swords sweep (1.9) | Swords sweep. Battleaxes sweep harder (+0.5 `sweeping_damage_ratio`, Aaron 2026-11-04). Daggers, spears, polearms and hammers hit one target | Done |
 | NPCs swing every 20 ticks ÷ speed factor | `MeleeAttackGoal` always waits 20 ticks | `LotrNpc.WeaponMeleeGoal` uses the held weapon's `mob_ticks` | Done |
-| NPC reach scaled with the weapon | Mob melee range comes from the hitbox (`isWithinMeleeAttackRange`), not an attribute | Pike NPCs still reach like sword NPCs | Todo |
+| NPC reach scaled with the weapon | Mob melee range comes from the hitbox (`isWithinMeleeAttackRange`), not an attribute | `LotrNpc.getAttackBoundingBox` grows by LOTR's NPC reach (sqrt(4 + width²)) × (weapon reach factor − 1): pike NPCs strike from further off, shorter weapons keep vanilla's box (2026-11-10) | Done |
 | Crits whenever falling | Crits need a full-charge hit (1.9) | Nothing to port. Fast daggers crit easily, slow pikes rarely | Note |
 | No off-hand, no shield | Off-hand and vanilla shields (1.9) block LOTR NPCs' melee and arrows | Kept: vanilla shields block LOTR NPCs (Aaron 2026-11-04). LOTR's "shields" are cosmetic back-banners | Done |
 | Armor: flat 4% per point, capped at 80% | Reduction falls as hits get bigger, offset by toughness (1.9) | LOTR armor keeps its defense points with toughness 0, so trolls and 9–11 damage hammers pierce more than in 1.7.10. `armor.toughness` / `knockback_resistance` are data fields. Mithril gets toughness 3 (like netherite), dwarven and blue dwarven 2 (like diamond) (Aaron 2026-11-04, `ARMOR_TOUGHNESS` in `generate.py`) | Done |
@@ -53,7 +53,7 @@ branch, and **Decision** means it needs Aaron to choose.
 | Crossbow = a bow subclass that fires bolts | Vanilla crossbow (load, then fire, 1.14) | `LotrCrossbowItem` extends `CrossbowItem`, takes only `#lotr_port:crossbow_bolts`, and scales bolt damage. Load time stays 1.25 s because `getChargeDuration` is static in 1.21.1. Bolts fly as vanilla arrows. Multishot and Piercing would now apply | Done (bolt entity look: Todo) |
 | Poisoned daggers, bolts and darts: Poison I for n…2n−1 s, n = 1 + 2 × difficulty | Tipped arrows carry a fixed potion | Daggers apply LOTR's formula on hit (`LotrWeaponItem.applyPoison`). Poisoned arrows and bolts carry a fixed 7 s Poison (the normal-difficulty middle) | Done |
 | LOTR trident = melee polearm | Vanilla trident is thrown (1.13) | Kept as melee polearm | Note |
-| Spears: melee and thrown | No vanilla spear in 1.21.1 (it arrives in 1.21.11) | Melee done. Throwing needs a projectile entity (task 28) | Todo |
+| Spears: melee and thrown | No vanilla spear in 1.21.1 (it arrives in 1.21.11) | Melee done. Thrown like LOTR (draw up to 20 ticks, `content/thrown/ThrownWeapon`), task 28 (2026-11-10) | Done |
 | LOTR enchantments ("modifiers") replace vanilla's | Enchantments are data (1.21) | Task 18 | Todo |
 
 ### Rendering and items
@@ -197,10 +197,12 @@ Each task picks up one `kind` from Tier 1 and makes it work; stats come from Tie
     `addBox` call constants) and writes Java or entity-model JSON. Start with warg, spider, troll, horse.
 27. **Mounts.** Horses (LOTR stats per breed), ponies, wargs, elk, boars, camels, rhinos, zebras, giraffes; NPCs
     riding them (task 11 data), horse armour items (`horse_armor` kind).
-28. **Ranged weapons.** Bows, crossbows and bolts are done (`LotrBowItem`, `LotrCrossbowItem`). Left:
-    `throwing_axe`, `spear` (thrown), `projectile` kinds with entities
-    (`LOTREntitySpear`, `ThrowingAxe`, `CrossbowBolt`, `Dart`, `Plate`, `Pebble`, `FirePot`, `MysteryWeb`) and the 14
-    dispenser behaviours. NPC archers use them.
+28. **Ranged weapons. Done 2026-11-10** (`content/thrown/`, numbers in `thrown/settings.json` from
+    `converter/thrown.py`): thrown spears, throwing axes, the blowgun and darts (poisoned too), the sling and pebbles,
+    conkers, fire pots, plates (throwing breaks glass), mystery webs (a Mirkwood spider 1 in 4), orc bombs (block lit
+    by redstone or a blast, entity, renderer), dispensers for all of them, NPC archers and throwers
+    (`npc/behaviour/ArcherBehaviour`, LOTR's AI numbers per type). Left: mystery web chest loot (LOTR's chest
+    contents aren't converted), the Rhun fire jar's blast, NPCs throwing spears, orc bombardiers placing bombs.
 29. **Melee reach/speed. Done** (`LotrWeaponItem`, see the table above). Left: the `LOTRRecipePoisonWeapon` special
     recipe (dagger + poison bottle).
 30. **Drinks and drunkenness.** Done: `drink`/`vessel` kinds, drinking with LOTR's food, nausea, effects, cures and

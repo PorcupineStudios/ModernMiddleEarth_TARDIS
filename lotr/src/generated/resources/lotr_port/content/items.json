@@ -2918,7 +2918,8 @@
     "stack": 64,
     "level": 2,
     "speed": 6.0,
-    "places": "ceramic_plate"
+    "places": "ceramic_plate",
+    "throwable": "plate"
   },
   {
     "id": "cherries",
@@ -2940,10 +2941,11 @@
   },
   {
     "id": "conker",
-    "kind": "item",
+    "kind": "throwable",
     "stack": 16,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "throwable": "conker"
   },
   {
     "id": "roast_chestnut",
@@ -8802,10 +8804,11 @@
   },
   {
     "id": "mystery_web",
-    "kind": "item",
+    "kind": "throwable",
     "stack": 64,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "throwable": "mystery_web"
   },
   {
     "id": "durnor",
@@ -8975,10 +8978,11 @@
   },
   {
     "id": "pebble",
-    "kind": "item",
+    "kind": "throwable",
     "stack": 64,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "throwable": "pebble"
   },
   {
     "id": "angmar_pickaxe",
@@ -9381,7 +9385,8 @@
     "stack": 64,
     "level": 2,
     "speed": 6.0,
-    "places": "plate"
+    "places": "plate",
+    "throwable": "plate"
   },
   {
     "id": "plum",
@@ -9722,10 +9727,11 @@
   },
   {
     "id": "rh_nic_fire_pot",
-    "kind": "item",
+    "kind": "throwable",
     "stack": 4,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "throwable": "fire_pot"
   },
   {
     "id": "ringil",
@@ -10145,7 +10151,7 @@
   },
   {
     "id": "sling",
-    "kind": "item",
+    "kind": "sling",
     "durability": 250,
     "level": 2,
     "speed": 6.0
@@ -10167,6 +10173,9 @@
       "knockback": 0,
       "sweep": false,
       "sweep_ratio": 0.0
+    },
+    "throw": {
+      "damage": 3.85
     }
   },
   {
@@ -10186,6 +10195,9 @@
       "knockback": 0,
       "sweep": false,
       "sweep_ratio": 0.0
+    },
+    "throw": {
+      "damage": 3.85
     }
   },
   {
@@ -10205,6 +10217,9 @@
       "knockback": 0,
       "sweep": false,
       "sweep_ratio": 0.0
+    },
+    "throw": {
+      "damage": 3.85
     }
   },
   {
@@ -10224,6 +10239,9 @@
       "knockback": 0,
       "sweep": false,
       "sweep_ratio": 0.0
+    },
+    "throw": {
+      "damage": 4.2
     }
   },
   {
@@ -10243,6 +10261,9 @@
       "knockback": 0,
       "sweep": false,
       "sweep_ratio": 0.0
+    },
+    "throw": {
+      "damage": 4.2
     }
   },
   {
@@ -10262,6 +10283,9 @@
       "knockback": 0,
       "sweep": false,
       "sweep_ratio": 0.0
+    },
+    "throw": {
+      "damage": 4.2
     }
   },
   {
@@ -10281,6 +10305,9 @@
       "knockback": 0,
       "sweep": false,
       "sweep_ratio": 0.0
+    },
+    "throw": {
+      "damage": 3.15
     }
   },
   {
@@ -10300,6 +10327,9 @@
       "knockback": 0,
       "sweep": false,
       "sweep_ratio": 0.0
+    },
+    "throw": {
+      "damage": 3.85
     }
   },
   {
@@ -10319,6 +10349,9 @@
       "knockback": 0,
       "sweep": false,
       "sweep_ratio": 0.0
+    },
+    "throw": {
+      "damage": 3.85
     }
   },
   {
@@ -10338,6 +10371,9 @@
       "knockback": 0,
       "sweep": false,
       "sweep_ratio": 0.0
+    },
+    "throw": {
+      "damage": 3.85
     }
   },
   {
@@ -10357,6 +10393,9 @@
       "knockback": 0,
       "sweep": false,
       "sweep_ratio": 0.0
+    },
+    "throw": {
+      "damage": 4.2
     }
   },
   {
@@ -10376,6 +10415,9 @@
       "knockback": 0,
       "sweep": false,
       "sweep_ratio": 0.0
+    },
+    "throw": {
+      "damage": 4.2
     }
   },
   {
@@ -10395,6 +10437,9 @@
       "knockback": 0,
       "sweep": false,
       "sweep_ratio": 0.0
+    },
+    "throw": {
+      "damage": 3.85
     }
   },
   {
@@ -10414,6 +10459,9 @@
       "knockback": 0,
       "sweep": false,
       "sweep_ratio": 0.0
+    },
+    "throw": {
+      "damage": 4.2
     }
   },
   {
@@ -10433,6 +10481,9 @@
       "knockback": 0,
       "sweep": false,
       "sweep_ratio": 0.0
+    },
+    "throw": {
+      "damage": 3.85
     }
   },
   {
@@ -10452,6 +10503,9 @@
       "knockback": 0,
       "sweep": false,
       "sweep_ratio": 0.0
+    },
+    "throw": {
+      "damage": 4.2
     }
   },
   {
@@ -10471,6 +10525,9 @@
       "knockback": 0,
       "sweep": false,
       "sweep_ratio": 0.0
+    },
+    "throw": {
+      "damage": 3.5
     }
   },
   {
@@ -10490,6 +10547,9 @@
       "knockback": 0,
       "sweep": false,
       "sweep_ratio": 0.0
+    },
+    "throw": {
+      "damage": 5.6
     }
   },
   {
@@ -10509,6 +10569,9 @@
       "knockback": 0,
       "sweep": false,
       "sweep_ratio": 0.0
+    },
+    "throw": {
+      "damage": 4.2
     }
   },
   {
@@ -10528,6 +10591,9 @@
       "knockback": 0,
       "sweep": false,
       "sweep_ratio": 0.0
+    },
+    "throw": {
+      "damage": 3.85
     }
   },
   {
@@ -10547,6 +10613,9 @@
       "knockback": 0,
       "sweep": false,
       "sweep_ratio": 0.0
+    },
+    "throw": {
+      "damage": 3.85
     }
   },
   {
@@ -10566,6 +10635,9 @@
       "knockback": 0,
       "sweep": false,
       "sweep_ratio": 0.0
+    },
+    "throw": {
+      "damage": 3.85
     }
   },
   {
@@ -10585,6 +10657,9 @@
       "knockback": 0,
       "sweep": false,
       "sweep_ratio": 0.0
+    },
+    "throw": {
+      "damage": 4.2
     }
   },
   {
@@ -10604,6 +10679,9 @@
       "knockback": 0,
       "sweep": false,
       "sweep_ratio": 0.0
+    },
+    "throw": {
+      "damage": 3.85
     }
   },
   {
@@ -10623,6 +10701,9 @@
       "knockback": 0,
       "sweep": false,
       "sweep_ratio": 0.0
+    },
+    "throw": {
+      "damage": 2.8
     }
   },
   {
@@ -10642,6 +10723,9 @@
       "knockback": 0,
       "sweep": false,
       "sweep_ratio": 0.0
+    },
+    "throw": {
+      "damage": 3.85
     }
   },
   {
@@ -10661,6 +10745,9 @@
       "knockback": 0,
       "sweep": false,
       "sweep_ratio": 0.0
+    },
+    "throw": {
+      "damage": 4.2
     }
   },
   {
@@ -10680,6 +10767,9 @@
       "knockback": 0,
       "sweep": false,
       "sweep_ratio": 0.0
+    },
+    "throw": {
+      "damage": 4.55
     }
   },
   {
@@ -10699,6 +10789,9 @@
       "knockback": 0,
       "sweep": false,
       "sweep_ratio": 0.0
+    },
+    "throw": {
+      "damage": 4.2
     }
   },
   {
@@ -11290,24 +11383,30 @@
   },
   {
     "id": "taurethrim_blowgun",
-    "kind": "item",
+    "kind": "blowgun",
     "durability": 300,
     "level": 2,
     "speed": 6.0
   },
   {
     "id": "taurethrim_dart",
-    "kind": "item",
+    "kind": "dart",
     "stack": 64,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "dart": {
+      "poisoned": false
+    }
   },
   {
     "id": "poisoned_taurethrim_dart",
-    "kind": "item",
+    "kind": "dart",
     "stack": 64,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "dart": {
+      "poisoned": true
+    }
   },
   {
     "id": "taurethrim_torch",
@@ -11325,38 +11424,53 @@
   },
   {
     "id": "blue_dwarven_throwing_axe",
-    "kind": "item",
+    "kind": "throwing_axe",
     "durability": 650,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "throw": {
+      "damage": 3.5
+    }
   },
   {
     "id": "bronze_throwing_axe",
-    "kind": "item",
+    "kind": "throwing_axe",
     "durability": 230,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "throw": {
+      "damage": 2.75
+    }
   },
   {
     "id": "dwarven_throwing_axe",
-    "kind": "item",
+    "kind": "throwing_axe",
     "durability": 700,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "throw": {
+      "damage": 3.5
+    }
   },
   {
     "id": "iron_throwing_axe",
-    "kind": "item",
+    "kind": "throwing_axe",
     "durability": 250,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "throw": {
+      "damage": 3.0
+    }
   },
   {
     "id": "lossarnach_throwing_axe",
-    "kind": "item",
+    "kind": "throwing_axe",
     "durability": 300,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "throw": {
+      "damage": 3.25
+    }
   },
   {
     "id": "tin_ingot",
@@ -11640,7 +11754,8 @@
     "stack": 64,
     "level": 2,
     "speed": 6.0,
-    "places": "wood_plate"
+    "places": "wood_plate",
+    "throwable": "plate"
   },
   {
     "id": "yam",

@@ -21,12 +21,24 @@
   "health": 20.0,
   "speed": 0.2,
   "attack": 2.0,
+  "behaviours": [
+    "archer"
+  ],
+  "behaviour_data": {
+    "ranged_speed": 1.5,
+    "ranged_min": 20,
+    "ranged_max": 40,
+    "ranged_range": 12.0,
+    "ranged_accuracy": 1.0,
+    "ranged_swap": 1
+  },
   "gear": {
     "mainhand": [
       "lotr_port:bronze_dagger",
       "lotr_port:iron_dagger"
     ],
-    "head": "lotr_port:leather_hat"
+    "head": "lotr_port:leather_hat",
+    "ranged": "lotr_port:sling"
   },
   "names": "lotr_port:hobbit_male",
   "units": "lotr_port:hobbit_shirriff",
