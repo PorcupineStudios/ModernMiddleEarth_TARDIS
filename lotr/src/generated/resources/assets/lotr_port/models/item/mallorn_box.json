@@ -1,3 +1,6 @@
 {
-  "parent": "lotr_port:block/mallorn_box"
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "lotr_port:block/planks_mallorn"
+  }
 }

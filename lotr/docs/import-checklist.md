@@ -32,7 +32,8 @@ and `[x]`) as they land, with the commit. Details and the 1.7.10 → 1.21.1 mism
   `converter/sounds.py` CREATURE_SOUNDS)
 - [ ] Ability sounds: Sauron's mace, Balrog whip, Gandalf's fireball, darts, orc bombs, structure spawner,
   wood-elf teleport, mallorn-ent; they play once those items and NPC abilities are ported
-- [ ] Barrel and Ent jar filling; wraith rising from spawner chests; the elves' jazz easter egg (needs the
+- [x] ~~Ent jar filling (bowls, buckets, rain; Fangorn brewing), 2026-11-10~~
+- [ ] Barrel filling sound; wraith rising from spawner chests; the elves' jazz easter egg (needs the
   machines, spawner chests and elf behaviour)
 
 ## ~~2. Small data fixes~~ (done)

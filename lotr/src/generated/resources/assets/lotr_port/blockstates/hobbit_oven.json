@@ -1,18 +1,33 @@
 {
   "variants": {
-    "facing=south": {
+    "facing=south,lit=false": {
       "model": "lotr_port:block/hobbit_oven"
     },
-    "facing=west": {
+    "facing=south,lit=true": {
+      "model": "lotr_port:block/hobbit_oven_lit"
+    },
+    "facing=west,lit=false": {
       "model": "lotr_port:block/hobbit_oven",
       "y": 90
     },
-    "facing=north": {
+    "facing=west,lit=true": {
+      "model": "lotr_port:block/hobbit_oven_lit",
+      "y": 90
+    },
+    "facing=north,lit=false": {
       "model": "lotr_port:block/hobbit_oven",
       "y": 180
     },
-    "facing=east": {
+    "facing=north,lit=true": {
+      "model": "lotr_port:block/hobbit_oven_lit",
+      "y": 180
+    },
+    "facing=east,lit=false": {
       "model": "lotr_port:block/hobbit_oven",
+      "y": 270
+    },
+    "facing=east,lit=true": {
+      "model": "lotr_port:block/hobbit_oven_lit",
       "y": 270
     }
   }

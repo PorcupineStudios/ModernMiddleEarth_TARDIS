@@ -1,0 +1,167 @@
+{
+  "texture": [
+    32,
+    32
+  ],
+  "render_scale": 1.0,
+  "parts": {
+    "stand": {
+      "pivot": [
+        0.0,
+        24.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "cubes": [
+        {
+          "uv": [
+            0,
+            0
+          ],
+          "origin": [
+            -7.0,
+            -1.0,
+            -7.0
+          ],
+          "size": [
+            14,
+            1,
+            14
+          ],
+          "inflate": 0.0,
+          "mirror": false
+        },
+        {
+          "uv": [
+            0,
+            15
+          ],
+          "origin": [
+            -4.0,
+            -16.0,
+            6.0
+          ],
+          "size": [
+            8,
+            15,
+            1
+          ],
+          "inflate": 0.0,
+          "mirror": false
+        },
+        {
+          "uv": [
+            0,
+            31
+          ],
+          "origin": [
+            -4.0,
+            -16.0,
+            -2.0
+          ],
+          "size": [
+            8,
+            1,
+            8
+          ],
+          "inflate": 0.0,
+          "mirror": false
+        },
+        {
+          "uv": [
+            0,
+            40
+          ],
+          "origin": [
+            -0.5,
+            -15.0,
+            -0.5
+          ],
+          "size": [
+            1,
+            14,
+            1
+          ],
+          "inflate": 0.0,
+          "mirror": false
+        }
+      ],
+      "children": [
+        {
+          "pivot": [
+            -4.0,
+            0.0,
+            6.0
+          ],
+          "rotation": [
+            0.0,
+            -0.7854,
+            0.0
+          ],
+          "cubes": [
+            {
+              "uv": [
+                18,
+                15
+              ],
+              "origin": [
+                -4.0,
+                -16.0,
+                0.0
+              ],
+              "size": [
+                4,
+                15,
+                1
+              ],
+              "inflate": 0.0,
+              "mirror": false
+            }
+          ],
+          "children": []
+        },
+        {
+          "pivot": [
+            4.0,
+            0.0,
+            6.0
+          ],
+          "rotation": [
+            0.0,
+            0.7854,
+            0.0
+          ],
+          "cubes": [
+            {
+              "uv": [
+                18,
+                15
+              ],
+              "origin": [
+                0.0,
+                -16.0,
+                0.0
+              ],
+              "size": [
+                4,
+                15,
+                1
+              ],
+              "inflate": 0.0,
+              "mirror": false
+            }
+          ],
+          "children": []
+        }
+      ]
+    }
+  },
+  "hidden": [],
+  "renderers": [],
+  "defs": [],
+  "inputs": []
+}

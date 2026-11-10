@@ -63,6 +63,7 @@ public final class LotrPort {
         LotrTabs.register(modBus);
         LotrRecipes.register(modBus);
         com.porcupinestudios.lotrport.drink.Drinks.register(modBus);
+        com.porcupinestudios.lotrport.machine.Machines.register(modBus);
         LotrWorldgen.register(modBus);
         LotrEntities.register(modBus);
         SharedApiHooks.register(modBus);

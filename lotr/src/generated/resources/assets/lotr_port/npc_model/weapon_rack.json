@@ -1,0 +1,276 @@
+{
+  "texture": [
+    64,
+    32
+  ],
+  "render_scale": 1.0,
+  "parts": {
+    "base": {
+      "pivot": [
+        0.0,
+        24.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "cubes": [
+        {
+          "uv": [
+            0,
+            0
+          ],
+          "origin": [
+            -7.0,
+            -2.0,
+            -3.0
+          ],
+          "size": [
+            14,
+            2,
+            6
+          ],
+          "inflate": 0.0,
+          "mirror": false
+        }
+      ],
+      "children": [
+        {
+          "pivot": [
+            0.0,
+            -2.0,
+            0.0
+          ],
+          "rotation": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "cubes": [
+            {
+              "uv": [
+                34,
+                0
+              ],
+              "origin": [
+                -4.0,
+                -4.0,
+                -0.5
+              ],
+              "size": [
+                8,
+                1,
+                1
+              ],
+              "inflate": 0.0,
+              "mirror": false
+            },
+            {
+              "uv": [
+                52,
+                0
+              ],
+              "origin": [
+                -6.0,
+                -6.0,
+                -1.0
+              ],
+              "size": [
+                2,
+                6,
+                2
+              ],
+              "inflate": 0.0,
+              "mirror": false
+            },
+            {
+              "uv": [
+                52,
+                0
+              ],
+              "origin": [
+                4.0,
+                -6.0,
+                -1.0
+              ],
+              "size": [
+                2,
+                6,
+                2
+              ],
+              "inflate": 0.0,
+              "mirror": true
+            }
+          ],
+          "children": [],
+          "name": "stand"
+        },
+        {
+          "pivot": [
+            0.0,
+            -8.0,
+            0.0
+          ],
+          "rotation": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "cubes": [
+            {
+              "uv": [
+                0,
+                8
+              ],
+              "origin": [
+                -7.0,
+                -1.0,
+                -2.0
+              ],
+              "size": [
+                14,
+                1,
+                4
+              ],
+              "inflate": 0.0,
+              "mirror": false
+            },
+            {
+              "uv": [
+                6,
+                13
+              ],
+              "origin": [
+                -6.0,
+                -2.0,
+                -1.5
+              ],
+              "size": [
+                2,
+                1,
+                3
+              ],
+              "inflate": 0.0,
+              "mirror": false
+            },
+            {
+              "uv": [
+                6,
+                13
+              ],
+              "origin": [
+                4.0,
+                -2.0,
+                -1.5
+              ],
+              "size": [
+                2,
+                1,
+                3
+              ],
+              "inflate": 0.0,
+              "mirror": true
+            },
+            {
+              "uv": [
+                0,
+                13
+              ],
+              "origin": [
+                -6.0,
+                -3.0,
+                0.5
+              ],
+              "size": [
+                2,
+                1,
+                1
+              ],
+              "inflate": 0.0,
+              "mirror": false
+            },
+            {
+              "uv": [
+                0,
+                13
+              ],
+              "origin": [
+                4.0,
+                -3.0,
+                0.5
+              ],
+              "size": [
+                2,
+                1,
+                1
+              ],
+              "inflate": 0.0,
+              "mirror": true
+            }
+          ],
+          "children": [
+            {
+              "pivot": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "rotation": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "cubes": [
+                {
+                  "uv": [
+                    0,
+                    13
+                  ],
+                  "origin": [
+                    -6.0,
+                    -3.0,
+                    -1.5
+                  ],
+                  "size": [
+                    2,
+                    1,
+                    1
+                  ],
+                  "inflate": 0.0,
+                  "mirror": false
+                },
+                {
+                  "uv": [
+                    0,
+                    13
+                  ],
+                  "origin": [
+                    4.0,
+                    -3.0,
+                    -1.5
+                  ],
+                  "size": [
+                    2,
+                    1,
+                    1
+                  ],
+                  "inflate": 0.0,
+                  "mirror": true
+                }
+              ],
+              "children": [],
+              "name": "holder_upper_parts"
+            }
+          ],
+          "name": "holder"
+        }
+      ]
+    }
+  },
+  "hidden": [],
+  "renderers": [],
+  "defs": [],
+  "inputs": []
+}

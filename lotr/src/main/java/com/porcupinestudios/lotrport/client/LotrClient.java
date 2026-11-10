@@ -11,6 +11,7 @@ import com.porcupinestudios.lotrport.content.LotrCrossbowItem;
 import com.porcupinestudios.lotrport.content.LotrItems;
 import com.porcupinestudios.lotrport.content.LotrDrinkItem;
 import com.porcupinestudios.lotrport.drink.Drinks;
+import com.porcupinestudios.lotrport.machine.Machines;
 import java.util.Map;
 import java.util.function.Supplier;
 import net.minecraft.client.renderer.item.ItemPropertyFunction;
@@ -107,6 +108,11 @@ public final class LotrClient {
     @SubscribeEvent
     public static void screens(RegisterMenuScreensEvent event) {
         event.register(Drinks.KEG_MENU.get(), KegScreen::new);
+        event.register(Machines.FORGE_MENU.get(), MachineScreen::new);
+        event.register(Machines.OVEN_MENU.get(), MachineScreen::new);
+        event.register(Machines.MILLSTONE_MENU.get(), MachineScreen::new);
+        event.register(Machines.UNSMELTERY_MENU.get(), MachineScreen::new);
+        event.register(Machines.ARMOR_STAND_MENU.get(), MachineScreen::new);
     }
 
     /**
@@ -177,5 +183,6 @@ public final class LotrClient {
         // rocks, snowballs and wraith bolts thrown by LOTR's creatures, drawn as their item
         event.registerEntityRenderer(LotrEntities.PROJECTILE.get(),
                 net.minecraft.client.renderer.entity.ThrownItemRenderer::new);
+        MachineRenderers.register(event);
     }
 }

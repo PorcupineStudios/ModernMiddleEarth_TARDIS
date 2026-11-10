@@ -1,6 +1,15 @@
 {
   "variants": {
-    "": {
+    "facing=south": {
+      "model": "lotr_port:block/wood_plate"
+    },
+    "facing=west": {
+      "model": "lotr_port:block/wood_plate"
+    },
+    "facing=north": {
+      "model": "lotr_port:block/wood_plate"
+    },
+    "facing=east": {
       "model": "lotr_port:block/wood_plate"
     }
   }

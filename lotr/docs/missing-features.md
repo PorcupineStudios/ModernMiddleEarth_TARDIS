@@ -206,7 +206,9 @@ Each task picks up one `kind` from Tier 1 and makes it work; stats come from Tie
 30. **Drinks and drunkenness.** Done: `drink`/`vessel` kinds, drinking with LOTR's food, nausea, effects, cures and
     specials. Left: placeable mugs (`mug` block kind, holds the item), alcohol tolerance (LOTR lowered nausea 1% per
     point), `LOTRDrunkenSpeech` scrambling chat (word table from constants), NPCs drinking.
-31. **Station blocks.** `furnace` kind (faction forges: alloy recipes; hobbit oven: 9-slot food oven), `keg`
+31. **Done (2026-11-10, `machine/`):** faction forges, hobbit oven, millstone, unsmeltery (screens on LOTR's
+    textures), kebab stand, plates, armour stand, weapon rack, Ent jar, LOTR chests. Left: `bookshelf_storage`, the
+    unsmeltery's rocking. Original task: **Station blocks.** `furnace` kind (faction forges: alloy recipes; hobbit oven: 9-slot food oven), `keg`
     (LOTR's barrel: **done**, `drink/KegBlock`), `millstone`, `unsmeltery`, `kebab_stand`, `chest` (LOTR chests with LOTR textures), `plate`
     (holds food), `bookshelf_storage`, `armor_stand`, `weapon_rack`. Menus can copy vanilla furnace/brewing layouts
     with LOTR's GUI textures from `assets/lotr/gui`.
@@ -214,7 +216,8 @@ Each task picks up one `kind` from Tier 1 and makes it work; stats come from Tie
     trellises; fruit leaves drop fruit; mud farmland. Hired farmers later.
 33. **Pouches.** `pouch` kind (small/medium/large = 9/18/27 slots), dye recipe (`LOTRRecipesPouch`), auto-pick-up and
     restock from a chest (`LOTRContainerChestWithPouch`).
-34. **Coin exchange.** `LOTRContainerCoinExchange`: split/merge silver coin denominations (`coin` kind; `Coins`
+34. **Done (2026-11-10):** every trader's last offers split and merge coins (`NpcTrading.exchange`). Original
+    task: **Coin exchange.** `LOTRContainerCoinExchange`: split/merge silver coin denominations (`coin` kind; `Coins`
     already exists).
 35. **Pipes.** `smoking_pipe` + pipeweed: smoke ring projectile, colour by dye (`LOTRRecipeHobbitPipe`).
 36. **Dye/special recipes.** The 44 `special_recipes`: armor dyes, feather dye, leather hat dye/feather, party hat,

@@ -1,9 +1,14 @@
 {
   "type": "lotr_port:alloy_forge",
   "ingredients": [
-    {
-      "item": "minecraft:iron_ore"
-    },
+    [
+      {
+        "tag": "c:ores/iron"
+      },
+      {
+        "item": "minecraft:raw_iron"
+      }
+    ],
     {
       "item": "minecraft:gold_nugget"
     }
