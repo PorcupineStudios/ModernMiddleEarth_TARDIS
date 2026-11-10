@@ -1,6 +1,8 @@
 package com.porcupinestudios.tardisrb.gametest;
 
 import com.porcupinestudios.tardisrb.TardisRB;
+import com.porcupinestudios.tardisrb.block.RepairCoreBlockEntity;
+import com.porcupinestudios.tardisrb.block.TardisBlocks;
 import com.porcupinestudios.tardisrb.core.TardisManager;
 import com.porcupinestudios.tardisrb.core.TardisRecord;
 import com.porcupinestudios.tardisrb.interior.Interiors;
@@ -78,6 +80,49 @@ public final class RoomTests {
         helper.assertTrue(t.roomCount() == 2, "room count after the blocked room " + t.roomCount());
 
         WreckTests.clearInterior(level, origin);
+        helper.succeed();
+    }
+
+    /**
+     * The basement (Aaron 2026-11-10): a see-through grating only in the 5 x 5 round the console, 2 blocks of solid
+     * floor to the platform's edges, and the 3 x 3 x 2 repair core under the console in place of the pedestal post.
+     */
+    @GameTest(template = "platform")
+    public static void theBasementHasTheRepairCoreUnderAGrating(GameTestHelper helper) {
+        MinecraftServer server = helper.getLevel().getServer();
+        ServerLevel level = helper.getLevel();
+        BlockPos origin = helper.absolutePos(new BlockPos(0, 80, 0));
+        Interiors.build(level, origin, server.getStructureManager().get(TardisContent.tuning().interior().room())
+                .orElseThrow());
+        int gratings = 0;
+        for (BlockPos p : BlockPos.betweenClosed(origin.offset(-15, -4, -15), origin.offset(15, 7, 10))) {
+            if (level.getBlockState(p).is(TardisBlocks.GRILLE_PLATE.get())) {
+                gratings++;
+                BlockPos rel = p.subtract(origin);
+                helper.assertTrue(rel.getY() == -1 && Math.abs(rel.getX()) <= 2 && Math.abs(rel.getZ()) <= 2,
+                        "a grating outside the field round the console at " + rel);
+            }
+        }
+        helper.assertTrue(gratings == 25, "gratings: " + gratings);
+        helper.assertFalse(level.getBlockState(origin.offset(1, -1, 1)).canOcclude(), "the grating isn't see-through");
+        for (BlockPos edge : new BlockPos[] {new BlockPos(-3, -1, 0), new BlockPos(3, -1, 0), new BlockPos(0, -1, -3),
+                new BlockPos(0, -1, 3)}) {
+            helper.assertTrue(level.getBlockState(origin.offset(edge)).is(TardisBlocks.FLOOR_PLATE.get()),
+                    "no solid floor at " + edge);
+        }
+        helper.assertTrue(level.getBlockState(origin.offset(0, -3, 0)).is(TardisBlocks.REPAIR_CORE.get())
+                && level.getBlockEntity(origin.offset(0, -3, 0)) instanceof RepairCoreBlockEntity,
+                "no repair core under the console");
+        for (int x = -1; x <= 1; x++) {
+            for (int y = -3; y <= -2; y++) {
+                for (int z = -1; z <= 1; z++) {
+                    if (x != 0 || y != -3 || z != 0) {
+                        helper.assertTrue(level.getBlockState(origin.offset(x, y, z)).is(TardisBlocks.CORE_CASING.get()),
+                                "no core casing at " + x + "," + y + "," + z);
+                    }
+                }
+            }
+        }
         helper.succeed();
     }
 }

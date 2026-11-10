@@ -26,6 +26,7 @@ public final class TardisClient {
         event.registerBlockEntityRenderer(TardisBlocks.WINDER_BE.get(), ShaftRenderer::new);
         event.registerBlockEntityRenderer(TardisBlocks.CONSOLE_BE.get(), ConsoleRenderer::new);
         event.registerBlockEntityRenderer(TardisBlocks.EXTERIOR_BE.get(), ExteriorRenderer::new);
+        event.registerBlockEntityRenderer(TardisBlocks.REPAIR_CORE_BE.get(), RepairCoreRenderer::new);
         event.registerEntityRenderer(TardisEntities.BODY.get(), TardisBodyRenderer::new);
         event.registerEntityRenderer(TardisEntities.WORMHOLE.get(), WormholeRenderer::new);
         event.registerEntityRenderer(TardisEntities.ARC.get(), ArcRenderer::new);
@@ -49,6 +50,7 @@ public final class TardisClient {
             PoliceBoxModel.reset();
             ConsoleModel.reset();
             ControlModels.reset();
+            RepairCoreRenderer.reset();
         });
     }
 
