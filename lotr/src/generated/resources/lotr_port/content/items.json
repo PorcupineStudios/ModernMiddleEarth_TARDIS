@@ -152,7 +152,8 @@
     "kind": "item",
     "stack": 1,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "places": "armor_stand_block"
   },
   {
     "id": "poisoned_arrow",
@@ -2916,7 +2917,8 @@
     "kind": "item",
     "stack": 64,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "places": "ceramic_plate"
   },
   {
     "id": "cherries",
@@ -4837,7 +4839,8 @@
     "kind": "item",
     "stack": 64,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "places": "flax_block"
   },
   {
     "id": "galvorn_ingot",
@@ -6573,7 +6576,8 @@
     "food": {
       "nutrition": 2,
       "saturation": 0.3
-    }
+    },
+    "places": "leek_block"
   },
   {
     "id": "leek_soup",
@@ -7456,7 +7460,8 @@
     "food": {
       "nutrition": 3,
       "saturation": 0.4
-    }
+    },
+    "places": "lettuce_block"
   },
   {
     "id": "lime",
@@ -9367,14 +9372,16 @@
     "kind": "item",
     "stack": 64,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "places": "pipeweed"
   },
   {
     "id": "fine_plate",
     "kind": "item",
     "stack": 64,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "places": "plate"
   },
   {
     "id": "plum",
@@ -11427,7 +11434,8 @@
     "food": {
       "nutrition": 2,
       "saturation": 0.3
-    }
+    },
+    "places": "turnip_block"
   },
   {
     "id": "roast_turnip",
@@ -11626,7 +11634,8 @@
     "kind": "item",
     "stack": 64,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "places": "wood_plate"
   },
   {
     "id": "yam",
@@ -11637,7 +11646,8 @@
     "food": {
       "nutrition": 1,
       "saturation": 0.4
-    }
+    },
+    "places": "yam_block"
   },
   {
     "id": "roast_yam",

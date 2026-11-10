@@ -114,13 +114,21 @@ public final class LotrItems {
             }
             case "red_book" -> new RedBookItem(p);
             case "drink" -> new LotrDrinkItem(p, e.getAsJsonObject("drink"));
-            default -> e.has("places")
-                    // LOTR's bed items place their bed block (both halves, as vanilla's BedItem)
-                    ? new net.minecraft.world.item.BedItem(LotrBlocks.BY_ID.get(e.get("places").getAsString()).get(), p)
+            default -> e.has("places") ? placing(LotrBlocks.BY_ID.get(e.get("places").getAsString()).get(), p)
                     : new Item(p);
             case "horn", "pipe", "vessel" -> new LotrUseItem(kind.equals("vessel") ? p : p.stacksTo(1), kind,
                     ContentData.str(e, "fills", null));
         };
+    }
+
+    /**
+     * An item that places a block of another name (LOTR's plates, armour stand, seeds and crops): beds put down both
+     * halves as vanilla's BedItem; anything else is a plain block item keeping its own name and food.
+     */
+    private static Item placing(net.minecraft.world.level.block.Block block, Item.Properties p) {
+        return block instanceof net.minecraft.world.level.block.BedBlock
+                ? new net.minecraft.world.item.BedItem(block, p)
+                : new net.minecraft.world.item.ItemNameBlockItem(block, p);
     }
 
     private static JsonObject ranged(JsonObject e) {

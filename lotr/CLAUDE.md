@@ -353,10 +353,26 @@ https://claude.ai/artifact/KqhSSTCuKXGuwKHBoYJdcu. Rebuild features in modern co
 ## Recipes and JEI (2026-11-06)
 - Machine recipes are `crafting/MachineRecipe`: one recipe type and serializer per machine (`alloy_forge`,
   `millstone`, `brewing`, `ent_jar`, `unsmelting`). Inputs match in any order, plus optional `station`, `chance`
-  and `time`. They load and show in JEI; the machine blocks don't run them yet.
+  and `time`. They load and show in JEI and the machine blocks run them (see Machines).
 - JEI is optional (`compileOnly` API, `jei_version` in `lotr/gradle.properties`, optional dependency in
   mods.toml). `compat/jei/LotrJeiPlugin` adds one category for faction tables, which shows the table each recipe
   needs, and one category per machine, with the machine blocks as catalysts.
+
+## Machines and display blocks (2026-11-10, `machine/`)
+- Which block is which machine is `machine` in `blocks.json` (`converter/machines.py`, by LOTR class); `LotrBlocks`
+  picks the block class from it. LOTR's numbers are `machine/settings.json` (`Machines.Settings`).
+- `MachineBlock` + `MachineBlockEntity`: faction forges (4 columns of alloy + input; alloy recipes for this
+  `station`, else single-ingredient ones, else a furnace result for `#lotr_port:forge_smeltable`), hobbit oven (9
+  food slots), millstone (runs while redstone-powered, recipe `chance`), unsmeltery (yield from
+  `content/unsmelting.json` × durability left). `lit` shows LOTR's active texture. One `client/MachineScreen` draws
+  every `MachineMenu.Layout` (slot spots read from LOTR's containers). Hoppers through `SidedInvWrapper`.
+- `DisplayBlock` (plate: food stack, eat with empty hand; weapon rack; armour stand: 4-slot screen), `KebabStandBlock`
+  (fuel from the container below, LOTR's takeFuelFromBelow), `EntJarBlock` (biome tag `ent_jar_brewing`),
+  `LotrChestBlock` (27 slots, 1.7.10 chest model in LOTR's texture). Renderers in `client/MachineRenderers` on
+  LOTR's models (`npc_model/`, static); the armour stand's armour is drawn on an invisible vanilla armour stand.
+  The renderers' facing turn and the rack's weapon pose are from LOTR's renderer constants but not yet checked in game.
+- Items that place another block (`places`): beds stay `BedItem`, the rest are `ItemNameBlockItem`.
+- GameTests `MachineTests` (own batch: the 1-block `empty` template lets other tests land on long-running ones).
 
 ## Create compat (2026-11-06)
 - `converter/create_compat.py` writes 134 cross-mod recipes under `recipe/create/` (conditional on

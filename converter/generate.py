@@ -38,6 +38,7 @@ from create_compat import CreateCompat  # noqa: E402
 from sounds import Sounds  # noqa: E402
 from extra import Extra  # noqa: E402
 from drinks import Drinks  # noqa: E402
+from machines import Machines  # noqa: E402
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 EXPORT = os.path.join(ROOT, "converter", "export")
@@ -1332,6 +1333,7 @@ class Gen:
         drinks = self.drinks.run()
         self.ore_tags()
         create = CreateCompat(self, DATA, EXPORT).run()
+        machines = Machines(self, EXPORT, ASSETS, DATA, self.jar).run()
         tabs = self.do_tabs()
         self.other_langs()
         extra = Extra(self, EXPORT, DATA, ASSETS, os.path.join(OUT, NS, "content"), self.jar).run()
@@ -1363,7 +1365,7 @@ class Gen:
         write_json(os.path.join(ROOT, "converter", "idtable.json"), dict(sorted(self.idtable.items())))
         summary = {"blocks": len(self.blocks), "items": len(self.items), "recipes": self.recipe_count, **sounds, **extra,
                    "textures": len(self.tex.copied), "languages": len(self.lang), "tabs": len(tabs), **world, **factions, **npcs,
-                   **drinks}
+                   **drinks, **machines}
         self.report["missing_textures"] = [m for m in self.report["missing_textures"] if not m.endswith("_mug")]
         rep = {"summary": summary}
         for k, v in sorted(self.report.items()):
