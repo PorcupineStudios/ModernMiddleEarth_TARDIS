@@ -263,7 +263,15 @@
       "exit_crater": 0,
       "name_level": 1,
       "see_through_level": 2,
-      "respect_locks": true
+      "respect_locks": true,
+      "shape": {
+        "_comment": "Each wormhole's radius is random from min_radius to max_radius (raised if needed so the box always fits); its pull and range are the ones above times (radius / radius above) ^ pull_exponent. Its face turns from facing the oncoming box up to max_yaw degrees left/right and max_pitch up/down (90 = fully sideways), never toward the nearer tunnel wall.",
+        "min_radius": 2,
+        "max_radius": 7,
+        "pull_exponent": 1,
+        "max_yaw": 90,
+        "max_pitch": 90
+      }
     }
   }
 }

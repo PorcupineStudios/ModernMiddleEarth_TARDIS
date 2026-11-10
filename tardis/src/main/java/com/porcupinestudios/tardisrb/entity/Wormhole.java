@@ -86,13 +86,36 @@ public class Wormhole extends Entity {
         life = ticks;
     }
 
-    /** How much it pulls something at {@code at} this tick, as a push toward its middle across the tunnel (x, y). */
+    /**
+     * Which way its face points (Aaron 2026-11-10): with no turn, back down the tunnel (-z) at the oncoming box;
+     * {@code yaw} turns it toward +x (90 = fully sideways), {@code pitch} toward +y (90 = straight up).
+     */
+    public static Vec3 facing(double yaw, double pitch) {
+        return turn(new Vec3(0, 0, -1), yaw, pitch);
+    }
+
+    /** {@code v} turned the way a wormhole's disc is: the renderer and the see-through portal turn it the same way. */
+    public static Vec3 turn(Vec3 v, double yaw, double pitch) {
+        return v.xRot((float) Math.toRadians(-pitch)).yRot((float) Math.toRadians(-yaw));
+    }
+
+    /** Its face's direction, from its rotation (yaw = {@link #getYRot}, pitch = {@link #getXRot}). */
+    public Vec3 facing() {
+        return facing(getYRot(), getXRot());
+    }
+
+    /**
+     * How much it pulls something at {@code at} this tick, as a push across the tunnel (x, y): toward the line straight
+     * out of the middle of its face, so the box is drawn in front of it whichever way it is turned.
+     */
     public Vec3 pullOn(Vec3 at) {
-        Vec3 off = position().subtract(at);
-        double d = off.length();
+        Vec3 n = facing();
+        Vec3 rel = at.subtract(position());
+        double d = rel.length();
         if (pull() <= 0 || d >= range()) {
             return Vec3.ZERO;
         }
+        Vec3 off = n.scale(Math.max(0, rel.dot(n))).subtract(rel); // to the nearest point on that line
         Vec3 across = new Vec3(off.x, off.y, 0);
         double a = across.length();
         return a < 1.0E-3 ? Vec3.ZERO : across.scale(pull() * (1 - d / range()) * Math.min(1, a) / a);

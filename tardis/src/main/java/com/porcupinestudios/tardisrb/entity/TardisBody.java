@@ -284,7 +284,7 @@ public class TardisBody extends Entity {
         }
         // wormholes pull it toward their middle (Aaron 2026-11-09); the stabilizers weaken it (already in pull())
         Vec3 middle = position().add(0, getBbHeight() / 2, 0);
-        for (Wormhole w : level().getEntitiesOfClass(Wormhole.class, getBoundingBox().inflate(40),
+        for (Wormhole w : level().getEntitiesOfClass(Wormhole.class, getBoundingBox().inflate(64), // the biggest wormholes reach furthest
                 w -> w.owner().equals(tardis()))) {
             Vec3 pull = w.pullOn(middle);
             vx += pull.x;

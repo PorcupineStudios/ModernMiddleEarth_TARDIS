@@ -52,7 +52,7 @@ public record Tuning(CrashSite crashSite, Hop hop, Winder winder, Interior inter
 
     /**
      * Wormholes in the time vortex (Aaron 2026-11-09; {@code vortex/Wormholes}). After {@code first} blocks, every
-     * {@code gap} blocks along the tunnel there is a {@code chance} of one: a disc {@code radius} across that pulls
+     * {@code gap} blocks along the tunnel there is a {@code chance} of one: a disc (of radius {@code radius} before {@code shape} varies it) that pulls
      * the box toward its middle within {@code range} blocks, at up to {@code pull} blocks/tick² (less the
      * {@code pull_resist} stat, the stabilizers). Coming up to its disc catches the box: controls dead, it falls and keeps
      * going while it is dragged in (at most {@code suck_ticks}), and comes out of a rift, still falling and moving, over a random spot up to {@code spread} blocks from where its course
@@ -64,8 +64,9 @@ public record Tuning(CrashSite crashSite, Hop hop, Winder winder, Interior inter
      */
     public record WormholeTuning(int first, int gap, double chance, double radius, double pull, double range,
             int spread, int suckTicks, double exitDamage, double exitCrater, double nameLevel, double seeThroughLevel,
-            boolean respectLocks) {
-        static final WormholeTuning DEFAULT = new WormholeTuning(80, 150, 0.7, 4, 0.1, 28, 400, 40, 5, 0, 1, 2, true);
+            boolean respectLocks, WormholeShape shape) {
+        static final WormholeTuning DEFAULT = new WormholeTuning(80, 150, 0.7, 4, 0.1, 28, 400, 40, 5, 0, 1, 2, true,
+                WormholeShape.DEFAULT);
         static final Codec<WormholeTuning> CODEC = RecordCodecBuilder.create(i -> i.group(
                 Codec.INT.optionalFieldOf("first", DEFAULT.first).forGetter(WormholeTuning::first),
                 Codec.INT.optionalFieldOf("gap", DEFAULT.gap).forGetter(WormholeTuning::gap),
@@ -80,8 +81,30 @@ public record Tuning(CrashSite crashSite, Hop hop, Winder winder, Interior inter
                 Codec.DOUBLE.optionalFieldOf("name_level", DEFAULT.nameLevel).forGetter(WormholeTuning::nameLevel),
                 Codec.DOUBLE.optionalFieldOf("see_through_level", DEFAULT.seeThroughLevel)
                         .forGetter(WormholeTuning::seeThroughLevel),
-                Codec.BOOL.optionalFieldOf("respect_locks", DEFAULT.respectLocks).forGetter(WormholeTuning::respectLocks))
+                Codec.BOOL.optionalFieldOf("respect_locks", DEFAULT.respectLocks).forGetter(WormholeTuning::respectLocks),
+                WormholeShape.CODEC.optionalFieldOf("shape", DEFAULT.shape).forGetter(WormholeTuning::shape))
                 .apply(i, WormholeTuning::new));
+    }
+
+    /**
+     * How wormholes vary (Aaron 2026-11-10): each gets a random radius from {@code min_radius} to {@code max_radius}
+     * (never so small the box can't fit through), and its pull and pull range are the tuned ones times
+     * (radius / {@code radius}) ^ {@code pull_exponent}, so bigger ones pull harder from further. Its face turns from
+     * facing the oncoming box by up to {@code max_yaw} degrees left/right and {@code max_pitch} up/down (90 = fully
+     * sideways, never away from the box), and never toward the nearer tunnel wall.
+     */
+    public record WormholeShape(double minRadius, double maxRadius, double pullExponent, double maxYaw,
+            double maxPitch) {
+        static final WormholeShape DEFAULT = new WormholeShape(2, 7, 1, 90, 90);
+        static final Codec<WormholeShape> CODEC = RecordCodecBuilder.create(i -> i.group(
+                Codec.DOUBLE.optionalFieldOf("min_radius", DEFAULT.minRadius).forGetter(WormholeShape::minRadius),
+                Codec.DOUBLE.optionalFieldOf("max_radius", DEFAULT.maxRadius).forGetter(WormholeShape::maxRadius),
+                Codec.DOUBLE.optionalFieldOf("pull_exponent", DEFAULT.pullExponent)
+                        .forGetter(WormholeShape::pullExponent),
+                Codec.doubleRange(0, 90).optionalFieldOf("max_yaw", DEFAULT.maxYaw).forGetter(WormholeShape::maxYaw),
+                Codec.doubleRange(0, 90).optionalFieldOf("max_pitch", DEFAULT.maxPitch)
+                        .forGetter(WormholeShape::maxPitch))
+                .apply(i, WormholeShape::new));
     }
 
     /**
