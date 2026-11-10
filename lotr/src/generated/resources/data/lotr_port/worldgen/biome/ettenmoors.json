@@ -21,6 +21,12 @@
         "weight": 10,
         "minCount": 4,
         "maxCount": 8
+      },
+      {
+        "type": "lotr_port:elk",
+        "weight": 6,
+        "minCount": 4,
+        "maxCount": 6
       }
     ]
   },

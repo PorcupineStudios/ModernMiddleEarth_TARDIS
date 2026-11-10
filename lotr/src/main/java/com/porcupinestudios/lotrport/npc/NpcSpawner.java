@@ -94,7 +94,9 @@ public final class NpcSpawner {
         for (int i = 0; i < count; i++) {
             BlockPos p = level.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
                     ground.offset(random.nextInt(5) - 2, 0, random.nextInt(5) - 2));
-            if (LotrNpc.spawn(level, entry.npc(), p.getX() + 0.5, p.getY(), p.getZ() + 0.5).isPresent()) {
+            Optional<LotrNpc> npc = LotrNpc.spawn(level, entry.npc(), p.getX() + 0.5, p.getY(), p.getZ() + 0.5);
+            if (npc.isPresent()) {
+                npc.get().maybeRide();
                 spawned++;
             }
         }

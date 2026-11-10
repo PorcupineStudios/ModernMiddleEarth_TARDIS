@@ -1,0 +1,31 @@
+{
+  "food": [
+    "minecraft:carrot"
+  ],
+  "armour": "boar",
+  "attack": 3.0,
+  "fights_back": 1.2,
+  "spawn": {
+    "health": {
+      "max": 25
+    }
+  },
+  "clamp_health": [
+    10,
+    30
+  ],
+  "clamp_jump": [
+    0.3,
+    1.0
+  ],
+  "clamp_speed": [
+    0.08,
+    0.29
+  ],
+  "sounds": {
+    "ambient": "minecraft:entity.pig.ambient",
+    "hurt": "minecraft:entity.pig.ambient",
+    "death": "minecraft:entity.pig.death",
+    "angry": "minecraft:entity.pig.ambient"
+  }
+}

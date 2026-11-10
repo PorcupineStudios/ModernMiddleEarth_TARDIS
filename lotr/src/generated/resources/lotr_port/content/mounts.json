@@ -1,0 +1,130 @@
+{
+  "breeds": [
+    {
+      "id": "horse",
+      "width": 1.4,
+      "height": 1.6,
+      "model": "lotr_port:old_horse",
+      "textures": [
+        "lotr_port:textures/entity/mount/horse/horse_white.png",
+        "lotr_port:textures/entity/mount/horse/horse_creamy.png",
+        "lotr_port:textures/entity/mount/horse/horse_chestnut.png",
+        "lotr_port:textures/entity/mount/horse/horse_brown.png",
+        "lotr_port:textures/entity/mount/horse/horse_black.png",
+        "lotr_port:textures/entity/mount/horse/horse_gray.png",
+        "lotr_port:textures/entity/mount/horse/horse_darkbrown.png"
+      ],
+      "markings": [
+        "lotr_port:textures/entity/mount/horse/horse_markings_white.png",
+        "lotr_port:textures/entity/mount/horse/horse_markings_whitefield.png",
+        "lotr_port:textures/entity/mount/horse/horse_markings_whitedots.png",
+        "lotr_port:textures/entity/mount/horse/horse_markings_blackdots.png"
+      ],
+      "seat": 1.4
+    },
+    {
+      "id": "shire_pony",
+      "width": 1.12,
+      "height": 1.28,
+      "model": "lotr_port:old_horse",
+      "textures": [
+        "lotr_port:textures/entity/mount/horse/horse_white.png",
+        "lotr_port:textures/entity/mount/horse/horse_creamy.png",
+        "lotr_port:textures/entity/mount/horse/horse_chestnut.png",
+        "lotr_port:textures/entity/mount/horse/horse_brown.png",
+        "lotr_port:textures/entity/mount/horse/horse_black.png",
+        "lotr_port:textures/entity/mount/horse/horse_gray.png",
+        "lotr_port:textures/entity/mount/horse/horse_darkbrown.png"
+      ],
+      "scale": 0.8,
+      "markings": [
+        "lotr_port:textures/entity/mount/horse/horse_markings_white.png",
+        "lotr_port:textures/entity/mount/horse/horse_markings_whitefield.png",
+        "lotr_port:textures/entity/mount/horse/horse_markings_whitedots.png",
+        "lotr_port:textures/entity/mount/horse/horse_markings_blackdots.png"
+      ],
+      "seat": 1.24
+    },
+    {
+      "id": "zebra",
+      "width": 1.4,
+      "height": 1.6,
+      "model": "lotr_port:old_horse",
+      "textures": [
+        "lotr_port:textures/entity/zebra.png"
+      ],
+      "seat": 1.4
+    },
+    {
+      "id": "wild_boar",
+      "width": 0.9,
+      "height": 0.8,
+      "model": "lotr_port:boar",
+      "textures": [
+        "lotr_port:textures/entity/boar/boar.png"
+      ],
+      "saddle": "lotr_port:textures/entity/boar/saddle.png",
+      "saddle_model": "lotr_port:boar_saddle",
+      "seat": 1.0
+    },
+    {
+      "id": "camel",
+      "width": 1.6,
+      "height": 1.8,
+      "model": "lotr_port:camel",
+      "textures": [
+        "lotr_port:textures/entity/camel/camel.png"
+      ],
+      "saddle": "lotr_port:textures/entity/camel/saddle.png",
+      "carpet": [
+        "lotr_port:textures/entity/camel/carpet_base.png",
+        "lotr_port:textures/entity/camel/carpet_overlay.png"
+      ],
+      "saddle_model": "lotr_port:camel_saddle",
+      "seat": 1.5
+    },
+    {
+      "id": "elk",
+      "width": 1.6,
+      "height": 1.8,
+      "model": "lotr_port:elk",
+      "textures": [
+        "lotr_port:textures/entity/elk/elk/0.png",
+        "lotr_port:textures/entity/elk/elk/1.png",
+        "lotr_port:textures/entity/elk/elk/2.png"
+      ],
+      "saddle": "lotr_port:textures/entity/elk/saddle.png",
+      "saddle_model": "lotr_port:elk_saddle",
+      "seat": 1.5
+    },
+    {
+      "id": "rhino",
+      "width": 1.7,
+      "height": 1.9,
+      "model": "lotr_port:rhino",
+      "textures": [
+        "lotr_port:textures/entity/rhino/rhino.png"
+      ],
+      "saddle": "lotr_port:textures/entity/rhino/saddle.png",
+      "saddle_model": "lotr_port:rhino_saddle",
+      "seat": 1.55
+    },
+    {
+      "id": "giraffe",
+      "width": 1.7,
+      "height": 4.0,
+      "model": "lotr_port:giraffe",
+      "textures": [
+        "lotr_port:textures/entity/giraffe/giraffe.png"
+      ],
+      "saddle": "lotr_port:textures/entity/giraffe/saddle.png",
+      "saddle_model": "lotr_port:giraffe_saddle",
+      "seat": 2.6
+    }
+  ],
+  "vanilla_armour": {
+    "minecraft:iron_horse_armor": "lotr_port:textures/entity/mount_armor/horse_armor_iron.png",
+    "minecraft:golden_horse_armor": "lotr_port:textures/entity/mount_armor/horse_armor_gold.png",
+    "minecraft:diamond_horse_armor": "lotr_port:textures/entity/mount_armor/horse_armor_diamond.png"
+  }
+}

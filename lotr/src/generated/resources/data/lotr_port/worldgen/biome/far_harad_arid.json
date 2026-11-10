@@ -18,10 +18,22 @@
   "spawners": {
     "creature": [
       {
-        "type": "minecraft:horse",
+        "type": "lotr_port:giraffe",
+        "weight": 4,
+        "minCount": 4,
+        "maxCount": 6
+      },
+      {
+        "type": "lotr_port:zebra",
         "weight": 8,
         "minCount": 4,
         "maxCount": 8
+      },
+      {
+        "type": "lotr_port:rhino",
+        "weight": 8,
+        "minCount": 4,
+        "maxCount": 4
       }
     ]
   },

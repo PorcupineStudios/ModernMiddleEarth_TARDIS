@@ -126,6 +126,12 @@ public final class LotrItems {
             case "grape_seeds" -> new com.porcupinestudios.lotrport.content.farm.GrapeSeedItem(
                     LotrBlocks.BY_ID.get(e.get("places").getAsString()).get(), p);
             case "drink" -> new LotrDrinkItem(p, e.getAsJsonObject("drink"));
+            case "mount_armor" -> {
+                JsonObject m = e.getAsJsonObject("mount_armor");
+                yield new com.porcupinestudios.lotrport.mount.MountArmorItem(p, ContentData.str(m, "mount", "horse"),
+                        ContentData.integer(m, "protection", 0),
+                        net.minecraft.resources.ResourceLocation.parse(m.get("texture").getAsString()));
+            }
             case "throwing_axe" -> new ThrowingAxeItem(p, ContentData.num(e.getAsJsonObject("throw"), "damage", 3f));
             case "blowgun" -> new BlowgunItem(p);
             case "dart" -> new DartItem(p, e.has("dart") && ContentData.bool(e.getAsJsonObject("dart"), "poisoned", false));

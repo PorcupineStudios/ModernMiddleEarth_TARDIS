@@ -1,12 +1,6 @@
 {
   "entries": [
     {
-      "npc": "lotr_port:rhino",
-      "weight": 8,
-      "min": 4,
-      "max": 4
-    },
-    {
       "npc": "lotr_port:gemsbok",
       "weight": 4,
       "min": 4,

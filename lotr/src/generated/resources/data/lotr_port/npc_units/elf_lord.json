@@ -22,7 +22,7 @@
       "cost": 70,
       "alignment": 500.0,
       "pledge": true,
-      "mount": "minecraft:horse"
+      "mount": "lotr_port:horse"
     },
     {
       "npc": "lotr_port:galadhrim_banner_bearer",

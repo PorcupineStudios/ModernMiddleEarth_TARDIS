@@ -18,7 +18,8 @@
     "ranged_max": 40,
     "ranged_range": 20.0,
     "ranged_accuracy": 0.5,
-    "ranged_swap": 1
+    "ranged_swap": 1,
+    "ride_chance": 20
   },
   "gear": {
     "mainhand": [
@@ -32,7 +33,9 @@
     "ranged": [
       "lotr_port:ranger_bow",
       "minecraft:bow"
-    ]
+    ],
+    "mount": "lotr_port:horse",
+    "mount_armor": "minecraft:iron_horse_armor"
   },
   "names": "lotr_port:gondor_male",
   "speech": "lotr_port:ranger_north/ranger",

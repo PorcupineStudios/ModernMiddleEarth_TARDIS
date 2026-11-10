@@ -11,18 +11,6 @@
       "weight": 6,
       "min": 4,
       "max": 4
-    },
-    {
-      "npc": "lotr_port:camel",
-      "weight": 6,
-      "min": 4,
-      "max": 4
-    },
-    {
-      "npc": "lotr_port:camel",
-      "weight": 20,
-      "min": 4,
-      "max": 4
     }
   ],
   "cap": 4,

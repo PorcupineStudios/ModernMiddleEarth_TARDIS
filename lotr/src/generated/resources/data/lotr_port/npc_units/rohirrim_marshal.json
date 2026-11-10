@@ -14,13 +14,13 @@
       "npc": "lotr_port:rohirrim",
       "cost": 50,
       "alignment": 250.0,
-      "mount": "minecraft:horse"
+      "mount": "lotr_port:horse"
     },
     {
       "npc": "lotr_port:rohirrim_archer",
       "cost": 70,
       "alignment": 300.0,
-      "mount": "minecraft:horse"
+      "mount": "lotr_port:horse"
     },
     {
       "npc": "lotr_port:rohan_banner_bearer",

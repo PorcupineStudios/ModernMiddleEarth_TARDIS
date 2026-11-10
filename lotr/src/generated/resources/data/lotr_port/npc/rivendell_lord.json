@@ -24,14 +24,17 @@
     "ranged_max": 40,
     "ranged_range": 24.0,
     "ranged_accuracy": 0.5,
-    "ranged_swap": 1
+    "ranged_swap": 1,
+    "ride_chance": 4
   },
   "gear": {
     "mainhand": "lotr_port:rivendell_sword",
     "chest": "lotr_port:rivendell_chestplate",
     "legs": "lotr_port:rivendell_leggings",
     "feet": "lotr_port:rivendell_boots",
-    "ranged": "lotr_port:rivendell_bow"
+    "ranged": "lotr_port:rivendell_bow",
+    "mount": "lotr_port:horse",
+    "mount_armor": "lotr_port:rivendell_horse_armor"
   },
   "units": "lotr_port:rivendell_lord",
   "speech": "lotr_port:rivendell/lord",

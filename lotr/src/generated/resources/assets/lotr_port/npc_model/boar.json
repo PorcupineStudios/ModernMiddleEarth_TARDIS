@@ -1,0 +1,508 @@
+{
+  "texture": [
+    64,
+    32
+  ],
+  "render_scale": 1.0,
+  "parts": {
+    "head": {
+      "pivot": [
+        0.0,
+        12.0,
+        -6.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "cubes": [
+        {
+          "uv": [
+            0,
+            0
+          ],
+          "origin": [
+            -4.0,
+            -4.0,
+            -8.0
+          ],
+          "size": [
+            8,
+            8,
+            8
+          ],
+          "inflate": 0.0,
+          "mirror": false
+        },
+        {
+          "uv": [
+            16,
+            16
+          ],
+          "origin": [
+            -2.0,
+            0.0,
+            -9.0
+          ],
+          "size": [
+            4,
+            3,
+            1
+          ],
+          "inflate": 0.0,
+          "mirror": false
+        },
+        {
+          "uv": [
+            24,
+            0
+          ],
+          "origin": [
+            -3.0,
+            0.0,
+            -10.0
+          ],
+          "size": [
+            6,
+            4,
+            2
+          ],
+          "inflate": 0.0,
+          "mirror": false
+        },
+        {
+          "uv": [
+            40,
+            0
+          ],
+          "origin": [
+            -5.0,
+            -5.0,
+            -6.0
+          ],
+          "size": [
+            1,
+            2,
+            2
+          ],
+          "inflate": 0.0,
+          "mirror": false
+        },
+        {
+          "uv": [
+            40,
+            0
+          ],
+          "origin": [
+            4.0,
+            -5.0,
+            -6.0
+          ],
+          "size": [
+            1,
+            2,
+            2
+          ],
+          "inflate": 0.0,
+          "mirror": true
+        }
+      ],
+      "children": [
+        {
+          "pivot": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rotation": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "cubes": [
+            {
+              "uv": [
+                0,
+                0
+              ],
+              "origin": [
+                -4.0,
+                2.0,
+                -11.0
+              ],
+              "size": [
+                1,
+                1,
+                2
+              ],
+              "inflate": 0.0,
+              "mirror": false
+            },
+            {
+              "uv": [
+                1,
+                1
+              ],
+              "origin": [
+                -4.0,
+                1.0,
+                -11.5
+              ],
+              "size": [
+                1,
+                1,
+                1
+              ],
+              "inflate": 0.0,
+              "mirror": false
+            },
+            {
+              "uv": [
+                0,
+                0
+              ],
+              "origin": [
+                3.0,
+                2.0,
+                -11.0
+              ],
+              "size": [
+                1,
+                1,
+                2
+              ],
+              "inflate": 0.0,
+              "mirror": true
+            },
+            {
+              "uv": [
+                1,
+                1
+              ],
+              "origin": [
+                3.0,
+                1.0,
+                -11.5
+              ],
+              "size": [
+                1,
+                1,
+                1
+              ],
+              "inflate": 0.0,
+              "mirror": true
+            }
+          ],
+          "children": []
+        }
+      ]
+    },
+    "body": {
+      "pivot": [
+        0.0,
+        11.0,
+        2.0
+      ],
+      "rotation": [
+        1.5708,
+        0.0,
+        0.0
+      ],
+      "cubes": [
+        {
+          "uv": [
+            28,
+            8
+          ],
+          "origin": [
+            -5.0,
+            -10.0,
+            -7.0
+          ],
+          "size": [
+            10,
+            16,
+            8
+          ],
+          "inflate": 0.0,
+          "mirror": false
+        }
+      ],
+      "children": []
+    },
+    "leg1": {
+      "pivot": [
+        -3.0,
+        18.0,
+        7.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "cubes": [
+        {
+          "uv": [
+            0,
+            16
+          ],
+          "origin": [
+            -2.0,
+            0.0,
+            -2.0
+          ],
+          "size": [
+            4,
+            6,
+            4
+          ],
+          "inflate": 0.0,
+          "mirror": false
+        }
+      ],
+      "children": []
+    },
+    "leg2": {
+      "pivot": [
+        3.0,
+        18.0,
+        7.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "cubes": [
+        {
+          "uv": [
+            0,
+            16
+          ],
+          "origin": [
+            -2.0,
+            0.0,
+            -2.0
+          ],
+          "size": [
+            4,
+            6,
+            4
+          ],
+          "inflate": 0.0,
+          "mirror": false
+        }
+      ],
+      "children": []
+    },
+    "leg3": {
+      "pivot": [
+        -3.0,
+        18.0,
+        -5.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "cubes": [
+        {
+          "uv": [
+            0,
+            16
+          ],
+          "origin": [
+            -2.0,
+            0.0,
+            -2.0
+          ],
+          "size": [
+            4,
+            6,
+            4
+          ],
+          "inflate": 0.0,
+          "mirror": false
+        }
+      ],
+      "children": []
+    },
+    "leg4": {
+      "pivot": [
+        3.0,
+        18.0,
+        -5.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "cubes": [
+        {
+          "uv": [
+            0,
+            16
+          ],
+          "origin": [
+            -2.0,
+            0.0,
+            -2.0
+          ],
+          "size": [
+            4,
+            6,
+            4
+          ],
+          "inflate": 0.0,
+          "mirror": false
+        }
+      ],
+      "children": []
+    }
+  },
+  "hidden": [],
+  "renderers": [],
+  "anim": {
+    "biped": false,
+    "set": [
+      [
+        "head",
+        "xRot",
+        [
+          "rad",
+          [
+            "in",
+            "pitch"
+          ]
+        ]
+      ],
+      [
+        "head",
+        "yRot",
+        [
+          "rad",
+          [
+            "in",
+            "yaw"
+          ]
+        ]
+      ],
+      [
+        "leg1",
+        "xRot",
+        [
+          "mul",
+          [
+            "mul",
+            [
+              "cos",
+              [
+                "mul",
+                [
+                  "in",
+                  "limb"
+                ],
+                0.6662
+              ]
+            ],
+            1.4
+          ],
+          [
+            "in",
+            "amount"
+          ]
+        ]
+      ],
+      [
+        "leg2",
+        "xRot",
+        [
+          "neg",
+          [
+            "mul",
+            [
+              "mul",
+              [
+                "cos",
+                [
+                  "mul",
+                  [
+                    "in",
+                    "limb"
+                  ],
+                  0.6662
+                ]
+              ],
+              1.4
+            ],
+            [
+              "in",
+              "amount"
+            ]
+          ]
+        ]
+      ],
+      [
+        "leg3",
+        "xRot",
+        [
+          "neg",
+          [
+            "mul",
+            [
+              "mul",
+              [
+                "cos",
+                [
+                  "mul",
+                  [
+                    "in",
+                    "limb"
+                  ],
+                  0.6662
+                ]
+              ],
+              1.4
+            ],
+            [
+              "in",
+              "amount"
+            ]
+          ]
+        ]
+      ],
+      [
+        "leg4",
+        "xRot",
+        [
+          "mul",
+          [
+            "mul",
+            [
+              "cos",
+              [
+                "mul",
+                [
+                  "in",
+                  "limb"
+                ],
+                0.6662
+              ]
+            ],
+            1.4
+          ],
+          [
+            "in",
+            "amount"
+          ]
+        ]
+      ]
+    ]
+  },
+  "defs": [],
+  "inputs": []
+}

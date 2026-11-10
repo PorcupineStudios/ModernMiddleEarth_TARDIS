@@ -9,7 +9,7 @@
       "npc": "lotr_port:ranger_north",
       "cost": 70,
       "alignment": 400.0,
-      "mount": "minecraft:horse"
+      "mount": "lotr_port:horse"
     },
     {
       "npc": "lotr_port:ranger_north_banner_bearer",

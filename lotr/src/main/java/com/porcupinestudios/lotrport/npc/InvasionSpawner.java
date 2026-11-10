@@ -101,6 +101,7 @@ public final class InvasionSpawner {
             Optional<LotrNpc> npc = LotrNpc.spawn(level, inv.mobs().get(r.nextInt(inv.mobs().size())),
                     p.getX() + 0.5, p.getY(), p.getZ() + 0.5);
             if (npc.isPresent()) {
+                npc.get().maybeRide();
                 if (npc.get().isEnemy(player)) {
                     npc.get().setTarget(player);
                 }

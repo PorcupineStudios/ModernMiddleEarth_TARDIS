@@ -1,0 +1,23 @@
+{
+  "food": [
+    "minecraft:wheat"
+  ],
+  "chest": true,
+  "spawn": {
+    "jump": {
+      "mul": 0.5
+    }
+  },
+  "clamp_health": [
+    12,
+    36
+  ],
+  "clamp_jump": [
+    0.1,
+    0.6
+  ],
+  "clamp_speed": [
+    0.1,
+    0.35
+  ]
+}

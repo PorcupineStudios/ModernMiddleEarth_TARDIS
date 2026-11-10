@@ -1,0 +1,13 @@
+{
+  "food": [
+    "minecraft:apple",
+    "#minecraft:horse_food"
+  ],
+  "milk": true,
+  "sounds": {
+    "ambient": "zebra.say",
+    "hurt": "zebra.hurt",
+    "death": "zebra.death",
+    "angry": "zebra.hurt"
+  }
+}

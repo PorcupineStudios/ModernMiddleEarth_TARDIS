@@ -82,12 +82,21 @@ public final class Hiring {
         LotrNpc npc = spawned.get();
         npc.hireTo(player);
         People.get(player.server).hired(player.server, npc, player.getUUID());
-        unit.mount().ifPresent(m -> mount(npc, m, player));
+        unit.mount().ifPresent(m -> {
+            var armour = npc.npcType() == null ? java.util.List.<ResourceLocation>of()
+                    : npc.npcType().gear().getOrDefault("mount_armor", java.util.List.of());
+            mount(npc, m, player, armour.isEmpty() ? null : armour.get(npc.getRandom().nextInt(armour.size())));
+        });
         return Result.ok(npc);
     }
 
-    /** Puts a hired rider on its mount: an NPC type (hired too) or a vanilla animal (a horse, tamed and saddled). */
+    /** Puts a hired rider on its mount: an NPC type (hired too) or a mount (tamed and saddled; the owner's, if any). */
     public static void mount(LotrNpc rider, ResourceLocation mount, ServerPlayer owner) {
+        mount(rider, mount, owner, null);
+    }
+
+    /** As {@link #mount(LotrNpc, ResourceLocation, ServerPlayer)}, with armour for the mount if it fits. */
+    public static void mount(LotrNpc rider, ResourceLocation mount, ServerPlayer owner, ResourceLocation armour) {
         ServerLevel level = (ServerLevel) rider.level();
         net.minecraft.world.entity.Entity m;
         if (NpcData.type(mount).isPresent()) {
@@ -109,12 +118,26 @@ public final class Hiring {
                 return;
             }
             m.moveTo(rider.getX(), rider.getY(), rider.getZ(), rider.getYRot(), 0);
-            if (m instanceof net.minecraft.world.entity.animal.horse.AbstractHorse h) {
+            if (m instanceof com.porcupinestudios.lotrport.mount.LotrHorse h) {
+                h.finalizeSpawn(level, level.getCurrentDifficultyAt(h.blockPosition()),
+                        net.minecraft.world.entity.MobSpawnType.MOB_SUMMONED, null);
+                h.setNpcOwned();
+                if (owner != null) {
+                    h.setOwnerUUID(owner.getUUID());
+                }
+            } else if (m instanceof net.minecraft.world.entity.animal.horse.AbstractHorse h) {
                 h.setTamed(true);
                 h.equipSaddle(new net.minecraft.world.item.ItemStack(net.minecraft.world.item.Items.SADDLE), null);
             }
-            if (m instanceof net.minecraft.world.entity.Mob mob) {
+            if (owner != null && m instanceof net.minecraft.world.entity.Mob mob) {
                 mob.setPersistenceRequired();
+            }
+            if (armour != null && m instanceof net.minecraft.world.entity.Mob mob) {
+                var stack = new net.minecraft.world.item.ItemStack(
+                        net.minecraft.core.registries.BuiltInRegistries.ITEM.get(armour));
+                if (mob.isBodyArmorItem(stack)) {
+                    mob.setBodyArmorItem(stack);
+                }
             }
             level.addFreshEntity(m);
         }

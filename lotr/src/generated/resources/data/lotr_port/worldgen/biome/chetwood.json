@@ -41,7 +41,7 @@
         "maxCount": 4
       },
       {
-        "type": "minecraft:horse",
+        "type": "lotr_port:horse",
         "weight": 8,
         "minCount": 2,
         "maxCount": 6

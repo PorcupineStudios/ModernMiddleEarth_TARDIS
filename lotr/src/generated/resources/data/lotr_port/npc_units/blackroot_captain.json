@@ -19,7 +19,7 @@
       "npc": "lotr_port:blackroot_soldier",
       "cost": 50,
       "alignment": 300.0,
-      "mount": "minecraft:horse"
+      "mount": "lotr_port:horse"
     },
     {
       "npc": "lotr_port:blackroot_banner_bearer",

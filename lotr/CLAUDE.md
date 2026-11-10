@@ -145,14 +145,35 @@ https://claude.ai/artifact/KqhSSTCuKXGuwKHBoYJdcu. Rebuild features in modern co
   yet (rock throwing, sniffing, Gollum sitting...) reads 0. Its hitbox is `width` x `height` (synced; `LotrNpc.getDefaultDimensions`). Huorns are trees of
   real blocks with a face (`client/HuornRenderer`). Skins LOTR picked in code (warg colours per kind, ents,
   spiders, char/) come from `npcs.py CODE_SKINS` and `warg_type`.
-- Not yet: animals, creature behaviour (troll stone, spider webs, ent rooting...), mounts for mounted units,
-  female NPCs, LOTR's trader outfits. `/lotr npc spawn|types|people` for testing.
+- Not yet: female NPCs, LOTR's trader outfits. `/lotr npc spawn|types|people` for testing.
 
-## Animals
-- Animals are creature NPCs (above) with vanilla stand-ins; `converter/world.py GRAZERS` adds vanilla spawners on
-  grass biomes. The PC branch's own animal port (`animal/`, `animals.py`, `creatures.py`, mount armor) was dropped in
-  the 2026-11-09 merge in favour of this. NPCs with `spawnsInDarkness` spawn only in the dark unless the biome has
-  `hostiles_in_day` (`npc_spawns`, `NpcSpawner`). LOTR mutton and horse armor items are vanilla (`VANILLA_ITEMS`).
+## Animals and mounts
+- Animals are creature NPCs (above); `converter/world.py GRAZERS` adds vanilla spawners on grass biomes. NPCs with
+  `spawnsInDarkness` spawn only in the dark unless the biome has `hostiles_in_day` (`npc_spawns`, `NpcSpawner`).
+  LOTR mutton and the three vanilla horse armours are vanilla items (`VANILLA_ITEMS`).
+- Mounts (2026-11-10, `mount/`, `converter/mounts.py`): LOTR's horse family is one entity class, `LotrHorse` (a
+  vanilla `AbstractChestedHorse`, so taming, saddle, inventory screen, jumping and breeding are vanilla's), with one
+  entity type per breed: `horse`, `shire_pony`, `zebra`, `wild_boar`, `camel`, `elk`, `rhino`, `giraffe`. Looks and
+  sizes are `content/mounts.json` (startup: model, textures, markings, saddle, carpet, scale, `seat`); numbers are
+  `data/<ns>/mount/<breed>.json` and reload: `food` (items or `#tags`), `armour` (which mount armour fits), `attack`,
+  `fights_back` (speed; boars, elk, rhinos), `spawn` (ops on the vanilla roll: `mul`, `mul_rand`, `min`, `max`),
+  `boosts` (biome tag: Rohan and Dor-en-Ernil horses), `clamp_*` (foals: mean of parents and a fresh roll, clamped),
+  `chest`, `milk`, `sounds`. `/summon` skips the rolls (vanilla does too).
+- `MountArmorItem` (kind `mount_armor`: mount, protection, texture) goes in the body slot; vanilla horse armour fits
+  breeds with `armour: horse`, wool carpets fit camels. Warg armour items exist but wargs don't wear them yet.
+- Drawing (`client/MountModel`, `MountRenderer`): horses, ponies and zebras use Minecraft 1.7.10's horse model,
+  because LOTR's zebra and horse armour textures are painted for its 128x128 layout. The converter reads it from
+  Mojang's 1.7.10 client jar (downloaded to `converter/cache/`, gitignored) into `npc_model/old_horse.json`; its
+  animation is written in `MountModel` from 1.7.10's numbers. The others use LOTR's models through `CreatureModel`
+  (`CreatureAnim.Ctx.state` answers what they ask of a horse), with `<id>_saddle` (inflated) for saddle, armour and
+  carpet passes. Foals of the 1.7.10 models are the adult at half size.
+- NPC riders: `npcs.py` reads LOTR's `spawnRidingHorse` chance and `createMountToRide` (mount and its armour) into
+  gear `mount` / `mount_armor` and `ride_chance`; `LotrNpc.maybeRide` (wild and invasion spawns) and hired units go
+  through `Hiring.mount`. An NPC's mount is tame, saddled and `NpcOwned` (despawns like its rider; players can't use
+  it while the NPC rides). The NPC entity has a riding offset so riders sit in the saddle. The rider's feet are at
+  half the mount's height (LOTR), which is `seat`.
+- GameTests `MountTests`. Earlier batches leave blocks outside the 1-block `empty` template: clear the space first.
+  Screenshot script: `lotr/run/mount_shots.txt`.
 
 ## Structures and spawning (phase 7)
 - 82 LOTR structures (`converter/structures.py`): `structure/<id>/<0-2>.nbt` (3 seeded layouts), placed by our own
@@ -425,7 +446,7 @@ From the repo root: `./gradlew :lotr:build`, `:lotr:runClient`, `:lotr:runServer
   (`progress/Achievements.grant` by LOTR name), titles (`/lotr_title`), shields and capes (`/lotr_shield`,
   `/lotr_cape`; not drawn yet), drinks (`content/LotrDrinkItem`, components `drink_strength` and `vessel`),
   calendar (`/lotr_date`), music regions (biome music events a pack fills), invasions (`npc/InvasionSpawner`),
-  animals (creature NPCs + `npc_animals/`, `AnimalBehaviour`; vanilla stand-ins for horses and boars).
+  animals (creature NPCs + `npc_animals/`, `AnimalBehaviour`).
 - Recipes: unsmeltery computed from crafting recipes, hobbit oven and kebab stand from furnace foods. Lore books
   (`converter/lore.py`) go into structure chests. Quests: pickpocket kind, LOTR's per-quest lines
   (`speech/miniquest/...`). Mounted units ride (`Hiring.mount`).

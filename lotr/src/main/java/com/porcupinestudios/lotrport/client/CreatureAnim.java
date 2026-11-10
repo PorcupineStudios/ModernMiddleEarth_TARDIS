@@ -3,6 +3,7 @@ package com.porcupinestudios.lotrport.client;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.porcupinestudios.lotrport.mount.LotrHorse;
 import com.porcupinestudios.lotrport.npc.LotrNpc;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,6 +11,7 @@ import java.util.Map;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.util.Mth;
+import net.minecraft.world.entity.LivingEntity;
 
 /**
  * LOTR's own animation for a creature model: its setRotationAngles, turned into expressions by
@@ -25,7 +27,23 @@ final class CreatureAnim {
 
     /** The inputs of one frame. */
     static final class Ctx {
-        LotrNpc npc;
+        LivingEntity npc;
+
+        /** The entity's creature state by LOTR's name: an NPC's synced state, or what a mount's model asks. */
+        float state(String name) {
+            if (npc instanceof LotrNpc n) {
+                return n.state(name);
+            }
+            if (npc instanceof LotrHorse h) {
+                return switch (name) {
+                    case "func_110261_ca" -> h.hasChest() ? 1f : 0f; // isChested
+                    case "func_110254_bY" -> h.isBaby() ? 0.5f : 1f; // getHorseSize
+                    case "func_110223_p" -> h.getStandAnim(partial); // getRearingAmount
+                    default -> 0f;
+                };
+            }
+            return 0f;
+        }
         float limb;
         float amount;
         float age;
@@ -245,7 +263,7 @@ final class CreatureAnim {
             case "field_70737_aN" -> c -> c.npc.hurtTime;
             case "field_70725_aQ" -> c -> c.npc.deathTime;
             case "is.EntityLivingBase", "is.LOTREntityNPC", "is.EntityLiving" -> c -> 1f;
-            default -> c -> c.npc.state(name);
+            default -> c -> c.state(name);
         };
     }
 }

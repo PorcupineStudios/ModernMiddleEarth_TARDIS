@@ -15,7 +15,16 @@
     },
     "grass_color": 16767886
   },
-  "spawners": {},
+  "spawners": {
+    "creature": [
+      {
+        "type": "lotr_port:camel",
+        "weight": 10,
+        "minCount": 2,
+        "maxCount": 6
+      }
+    ]
+  },
   "spawn_costs": {},
   "carvers": {
     "air": [

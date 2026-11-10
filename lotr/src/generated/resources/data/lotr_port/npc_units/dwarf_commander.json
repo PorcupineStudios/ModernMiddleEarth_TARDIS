@@ -22,14 +22,14 @@
       "cost": 50,
       "alignment": 350.0,
       "pledge": true,
-      "mount": "minecraft:pig"
+      "mount": "lotr_port:wild_boar"
     },
     {
       "npc": "lotr_port:dwarf_axe_thrower",
       "cost": 70,
       "alignment": 400.0,
       "pledge": true,
-      "mount": "minecraft:pig"
+      "mount": "lotr_port:wild_boar"
     },
     {
       "npc": "lotr_port:dwarf_banner_bearer",

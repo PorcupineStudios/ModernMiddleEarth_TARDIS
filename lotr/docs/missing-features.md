@@ -65,7 +65,7 @@ branch, and **Decision** means it needs Aaron to choose.
 | Animated armor parts (swan wings, robes following the legs) and items drawn on armor (leather hat feather) | `setupModelAnimations` hook | Resting pose only, so the swan chestplate's wings stay spread | Todo |
 | Dyed hats via `getColorFromItemStack` | `dyed_color` component | Hats tinted their undyed LOTR colour. Dyeing is task 36 | Todo |
 | Item damage values (metadata) for variants | Flattening (1.13), data components (1.20.5) | Separate ids. 138 drink metas merged (task 16) | Partly |
-| Horse armor in metadata, many mount types | Body slot / `AnimalArmorItem` | Task 27 | Todo |
+| Horse armor in metadata, many mount types | Body slot / `AnimalArmorItem` | `MountArmorItem` in the body slot (armour attribute = LOTR's chestplate + leggings), one entity type per breed (`mount/`) | Done |
 | `IItemRenderer` for bows (`LOTRRenderBow`), crossbows, elven blades glowing near orcs, skull staff, horns | Item model overrides and properties | Bows and crossbows done (pull, charged). Glowing blades: Todo | Partly |
 
 ### World and data (already handled by earlier phases, listed so nobody redoes them)
@@ -129,7 +129,7 @@ branch, and **Decision** means it needs Aaron to choose.
    hook is the only JAVA part.
 10. **GEN — NPC name banks are done; titles are not.** `LOTRTitle` values are lang keys + alignment/achievement
     requirements: read with `classfile.py` or a 20-line **EXP** section → `data/lotr_port/title/*.json`.
-11. **GEN — mounted units.** `npc_mounted_units_skipped` (46 entries, e.g. `ROHIRRIM_MARSHAL: Rohirrim_Horse`) is
+11. **GEN — mounted units. Done 2026-11-10** (unit `mount` is the breed's entity or a warg/spider NPC type). `npc_mounted_units_skipped` (46 entries, e.g. `ROHIRRIM_MARSHAL: Rohirrim_Horse`) is
     already in the export; write the unit pool entry with a `mount` field now so it's ready when mounts land (task 27).
 12. **GEN — unmapped trades/quest targets/structure blocks.** Fix the mapping tables behind `npc_trades_unmapped` (43,
     all `minecraft:coal` meta 32767 → `#minecraft:coals`), `structure_blocks_unmapped` (`stone_slab#8/#11` = double
@@ -195,8 +195,11 @@ Each task picks up one `kind` from Tier 1 and makes it work; stats come from Tie
 26. **Creature models.** Port the 34 `LOTRModel*` boxes as `LayerDefinition`s. Mechanical but long: do it with a
     script that reads cube/rotation constants from the model classes' constructors (`classfile.py` can read the
     `addBox` call constants) and writes Java or entity-model JSON. Start with warg, spider, troll, horse.
-27. **Mounts.** Horses (LOTR stats per breed), ponies, wargs, elk, boars, camels, rhinos, zebras, giraffes; NPCs
-    riding them (task 11 data), horse armour items (`horse_armor` kind).
+27. **Mounts. Done 2026-11-10** (`mount/`, `converter/mounts.py`): horses, Shire ponies, zebras, wild boars, camels,
+    elk, rhinos and giraffes with LOTR's stats per breed, food, breeding ranges, mount armour (20 items), camel chests
+    and carpets, zebra milk, boars/elk/rhinos fighting back, and NPCs that spawn riding (67 types, 47 with LOTR's horse
+    armour). Left: players riding wargs and spiders, warg armour worn by wargs, 1.7.10's baby horse proportions (foals
+    are the adult at half size), structure NPCs never come riding, a rider's mounted weapon (lances).
 28. **Ranged weapons. Done 2026-11-10** (`content/thrown/`, numbers in `thrown/settings.json` from
     `converter/thrown.py`): thrown spears, throwing axes, the blowgun and darts (poisoned too), the sling and pebbles,
     conkers, fire pots, plates (throwing breaks glass), mystery webs (a Mirkwood spider 1 in 4), orc bombs (block lit

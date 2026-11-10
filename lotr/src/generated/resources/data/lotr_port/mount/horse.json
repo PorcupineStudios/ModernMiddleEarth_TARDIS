@@ -1,0 +1,21 @@
+{
+  "food": [
+    "minecraft:apple",
+    "#minecraft:horse_food"
+  ],
+  "armour": "horse",
+  "boosts": [
+    {
+      "biomes": "#lotr_port:rohan_horses",
+      "health": 0.5,
+      "speed": 0.3,
+      "jump": 0.2
+    },
+    {
+      "biomes": "#lotr_port:dor_en_ernil_horses",
+      "health": 0.3,
+      "speed": 0.2,
+      "jump": 0.1
+    }
+  ]
+}

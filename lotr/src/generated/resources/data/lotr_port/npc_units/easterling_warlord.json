@@ -25,20 +25,20 @@
       "npc": "lotr_port:easterling_warrior",
       "cost": 50,
       "alignment": 300.0,
-      "mount": "minecraft:horse"
+      "mount": "lotr_port:horse"
     },
     {
       "npc": "lotr_port:easterling_archer",
       "cost": 70,
       "alignment": 350.0,
-      "mount": "minecraft:horse"
+      "mount": "lotr_port:horse"
     },
     {
       "npc": "lotr_port:easterling_gold_warrior",
       "cost": 70,
       "alignment": 450.0,
       "pledge": true,
-      "mount": "minecraft:horse"
+      "mount": "lotr_port:horse"
     },
     {
       "npc": "lotr_port:easterling_fire_thrower",

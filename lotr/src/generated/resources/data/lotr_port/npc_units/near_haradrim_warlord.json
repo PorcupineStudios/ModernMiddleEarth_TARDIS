@@ -15,7 +15,7 @@
       "cost": 60,
       "alignment": 250.0,
       "pledge": true,
-      "mount": "minecraft:horse"
+      "mount": "lotr_port:horse"
     },
     {
       "npc": "lotr_port:near_harad_banner_bearer",

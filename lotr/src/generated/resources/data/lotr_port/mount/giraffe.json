@@ -1,0 +1,23 @@
+{
+  "food": [
+    "#minecraft:leaves"
+  ],
+  "armour": "giraffe",
+  "spawn": {
+    "jump": {
+      "mul": 0.8
+    }
+  },
+  "clamp_health": [
+    12,
+    34
+  ],
+  "clamp_jump": [
+    0.2,
+    1.0
+  ],
+  "clamp_speed": [
+    0.08,
+    0.35
+  ]
+}

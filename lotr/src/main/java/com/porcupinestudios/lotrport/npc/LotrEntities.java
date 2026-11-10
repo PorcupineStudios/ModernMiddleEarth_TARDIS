@@ -18,6 +18,7 @@ public final class LotrEntities {
             () -> EntityType.Builder.<LotrNpc>of(LotrNpc::new, MobCategory.CREATURE)
                     .sized(0.6f, 1.8f)
                     .eyeHeight(1.62f)
+                    .ridingOffset(-0.6f) // sits in the saddle like a player, not standing on it
                     .clientTrackingRange(10)
                     .build(LotrPort.MOD_ID + ":npc"));
 

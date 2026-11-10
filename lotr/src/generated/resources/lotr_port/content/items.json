@@ -1123,17 +1123,27 @@
   },
   {
     "id": "blue_dwarven_boar_armor",
-    "kind": "item",
+    "kind": "mount_armor",
     "stack": 1,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "mount_armor": {
+      "mount": "boar",
+      "protection": 13,
+      "texture": "lotr_port:textures/entity/mount_armor/boar_blue_dwarven.png"
+    }
   },
   {
     "id": "dwarven_boar_armor",
-    "kind": "item",
+    "kind": "mount_armor",
     "stack": 1,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "mount_armor": {
+      "mount": "boar",
+      "protection": 13,
+      "texture": "lotr_port:textures/entity/mount_armor/boar_dwarven.png"
+    }
   },
   {
     "id": "angmar_chestplate",
@@ -4740,10 +4750,15 @@
   },
   {
     "id": "wood_elven_elk_armor",
-    "kind": "item",
+    "kind": "mount_armor",
     "stack": 1,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "mount_armor": {
+      "mount": "elk",
+      "protection": 11,
+      "texture": "lotr_port:textures/entity/mount_armor/elk_wood_elven.png"
+    }
   },
   {
     "id": "galadhrim_bed",
@@ -6364,94 +6379,159 @@
   },
   {
     "id": "dalish_horse_armor",
-    "kind": "item",
+    "kind": "mount_armor",
     "stack": 1,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "mount_armor": {
+      "mount": "horse",
+      "protection": 11,
+      "texture": "lotr_port:textures/entity/mount_armor/horse_dale.png"
+    }
   },
   {
     "id": "dol_amroth_horse_armor",
-    "kind": "item",
+    "kind": "mount_armor",
     "stack": 1,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "mount_armor": {
+      "mount": "horse",
+      "protection": 11,
+      "texture": "lotr_port:textures/entity/mount_armor/horse_dol_amroth.png"
+    }
   },
   {
     "id": "galadhrim_horse_armor",
-    "kind": "item",
+    "kind": "mount_armor",
     "stack": 1,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "mount_armor": {
+      "mount": "horse",
+      "protection": 11,
+      "texture": "lotr_port:textures/entity/mount_armor/horse_galadhrim.png"
+    }
   },
   {
     "id": "gondorian_horse_armor",
-    "kind": "item",
+    "kind": "mount_armor",
     "stack": 1,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "mount_armor": {
+      "mount": "horse",
+      "protection": 11,
+      "texture": "lotr_port:textures/entity/mount_armor/horse_gondor.png"
+    }
   },
   {
     "id": "lindon_horse_armor",
-    "kind": "item",
+    "kind": "mount_armor",
     "stack": 1,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "mount_armor": {
+      "mount": "horse",
+      "protection": 11,
+      "texture": "lotr_port:textures/entity/mount_armor/horse_high_elven.png"
+    }
   },
   {
     "id": "lamedon_horse_armor",
-    "kind": "item",
+    "kind": "mount_armor",
     "stack": 1,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "mount_armor": {
+      "mount": "horse",
+      "protection": 9,
+      "texture": "lotr_port:textures/entity/mount_armor/horse_lamedon.png"
+    }
   },
   {
     "id": "mithril_horse_armor",
-    "kind": "item",
+    "kind": "mount_armor",
     "stack": 1,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "mount_armor": {
+      "mount": "horse",
+      "protection": 14,
+      "texture": "lotr_port:textures/entity/mount_armor/horse_mithril.png"
+    }
   },
   {
     "id": "morgul_horse_armor",
-    "kind": "item",
+    "kind": "mount_armor",
     "stack": 1,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "mount_armor": {
+      "mount": "horse",
+      "protection": 11,
+      "texture": "lotr_port:textures/entity/mount_armor/horse_morgul.png"
+    }
   },
   {
     "id": "coast_southron_horse_armor",
-    "kind": "item",
+    "kind": "mount_armor",
     "stack": 1,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "mount_armor": {
+      "mount": "horse",
+      "protection": 9,
+      "texture": "lotr_port:textures/entity/mount_armor/horse_near_harad.png"
+    }
   },
   {
     "id": "rh_nic_horse_armor",
-    "kind": "item",
+    "kind": "mount_armor",
     "stack": 1,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "mount_armor": {
+      "mount": "horse",
+      "protection": 11,
+      "texture": "lotr_port:textures/entity/mount_armor/horse_rhun_gold.png"
+    }
   },
   {
     "id": "rivendell_horse_armor",
-    "kind": "item",
+    "kind": "mount_armor",
     "stack": 1,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "mount_armor": {
+      "mount": "horse",
+      "protection": 11,
+      "texture": "lotr_port:textures/entity/mount_armor/horse_rivendell.png"
+    }
   },
   {
     "id": "rohirric_horse_armor",
-    "kind": "item",
+    "kind": "mount_armor",
     "stack": 1,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "mount_armor": {
+      "mount": "horse",
+      "protection": 9,
+      "texture": "lotr_port:textures/entity/mount_armor/horse_rohan.png"
+    }
   },
   {
     "id": "umbaric_horse_armor",
-    "kind": "item",
+    "kind": "mount_armor",
     "stack": 1,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "mount_armor": {
+      "mount": "horse",
+      "protection": 11,
+      "texture": "lotr_port:textures/entity/mount_armor/horse_umbar.png"
+    }
   },
   {
     "id": "iron_crossbow",
@@ -9679,10 +9759,15 @@
   },
   {
     "id": "half_troll_rhino_armor",
-    "kind": "item",
+    "kind": "mount_armor",
     "stack": 1,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "mount_armor": {
+      "mount": "rhino",
+      "protection": 9,
+      "texture": "lotr_port:textures/entity/mount_armor/rhino_half_troll.png"
+    }
   },
   {
     "id": "cooked_rhino",
@@ -11665,24 +11750,39 @@
   },
   {
     "id": "angmar_warg_armor",
-    "kind": "item",
+    "kind": "mount_armor",
     "stack": 1,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "mount_armor": {
+      "mount": "warg",
+      "protection": 11,
+      "texture": "lotr_port:textures/entity/mount_armor/warg_angmar.png"
+    }
   },
   {
     "id": "mordor_warg_armor",
-    "kind": "item",
+    "kind": "mount_armor",
     "stack": 1,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "mount_armor": {
+      "mount": "warg",
+      "protection": 11,
+      "texture": "lotr_port:textures/entity/mount_armor/warg_mordor.png"
+    }
   },
   {
     "id": "isengard_warg_armor",
-    "kind": "item",
+    "kind": "mount_armor",
     "stack": 1,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "mount_armor": {
+      "mount": "warg",
+      "protection": 13,
+      "texture": "lotr_port:textures/entity/mount_armor/warg_uruk.png"
+    }
   },
   {
     "id": "warg_bone",

@@ -9,6 +9,9 @@
   "health": 20.0,
   "speed": 0.2,
   "attack": 2.0,
+  "behaviour_data": {
+    "ride_chance": 6
+  },
   "gear": {
     "mainhand": [
       "lotr_port:dol_amroth_sword",
@@ -22,7 +25,9 @@
     ],
     "chest": "lotr_port:dol_amroth_gambeson",
     "legs": "lotr_port:dol_amroth_chaps",
-    "feet": "minecraft:leather_boots"
+    "feet": "minecraft:leather_boots",
+    "mount": "lotr_port:horse",
+    "mount_armor": "lotr_port:dol_amroth_horse_armor"
   },
   "names": "lotr_port:gondor_male",
   "speech": "lotr_port:gondor/swan_knight"

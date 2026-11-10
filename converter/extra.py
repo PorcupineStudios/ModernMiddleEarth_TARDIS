@@ -63,9 +63,8 @@ VANILLA_ANIMALS = {"EntitySheep": "minecraft:sheep", "EntityPig": "minecraft:pig
                    "EntityChicken": "minecraft:chicken", "EntityHorse": "minecraft:horse", "EntityWolf": "minecraft:wolf",
                    "EntityOcelot": "minecraft:ocelot", "EntityMooshroom": "minecraft:mooshroom",
                    "EntityBat": "minecraft:bat", "EntitySquid": "minecraft:squid"}
-# LOTR animals drawn on vanilla's pig and horse models: the vanilla animal stands in (rideable horses included)
-STAND_INS = {"LOTREntityWildBoar": "minecraft:pig", "LOTREntityHorse": "minecraft:horse",
-             "LOTREntityZebra": "minecraft:horse", "LOTREntityShirePony": "minecraft:donkey"}
+# LOTR's horse family (horses, boars, camels, elk...): the port's mount entities (mounts.py)
+STAND_INS = dict(__import__("mounts").BY_CLASS)
 LANG_PREFIXES = ("lotr.invasion.", "lotr.enchant.", "lotr.achievement.", "lotr.title.", "lotr.titles.", "lotr.shields.",
                  "lotr.date.", "item.lotr.drink.", "lotr.capes.")
 

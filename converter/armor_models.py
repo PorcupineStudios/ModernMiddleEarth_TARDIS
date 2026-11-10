@@ -90,6 +90,27 @@ def biped(this, f, y_off=0.0, w=64, h=32):
     this.fields.update(parts)
 
 
+def pig(this, f):
+    """1.7.10's ModelPig (ModelQuadruped(6, f) and the snout), for LOTR's boar that extends it."""
+    this.fields["field_78090_t"], this.fields["field_78089_u"] = 64, 32
+
+    def part(name, u, v, box, pivot, rot=(0.0, 0.0, 0.0)):
+        p = Renderer(64, 32, u, v)
+        p.box(*box, f)
+        p.pivot = [float(x) for x in pivot]
+        p.rotation = [float(x) for x in rot]
+        this.fields[name] = p
+        return p
+    head = part("field_78150_a", 0, 0, (-4.0, -4.0, -8.0, 8, 8, 8), (0, 12, -6))
+    part("field_78148_b", 28, 8, (-5.0, -10.0, -7.0, 10, 16, 8), (0, 11, 2), (math.pi / 2, 0, 0))
+    part("field_78149_c", 0, 16, (-2.0, 0.0, -2.0, 4, 6, 4), (-3, 18, 7))
+    part("field_78146_d", 0, 16, (-2.0, 0.0, -2.0, 4, 6, 4), (3, 18, 7))
+    part("field_78147_e", 0, 16, (-2.0, 0.0, -2.0, 4, 6, 4), (-3, 18, -5))
+    part("field_78144_f", 0, 16, (-2.0, 0.0, -2.0, 4, 6, 4), (3, 18, -5))
+    head.uv = [16, 16]
+    head.box(-2.0, 0.0, -9.0, 4, 3, 1, f)
+
+
 class Holder:
     """A `new` object before its constructor ran (`new X; dup; args; invokespecial X.<init>`); the constructor call
     fills it in, so every dup'd copy sees the built object."""
@@ -139,6 +160,9 @@ class Machine:
                 biped(this, args[0])
             else:
                 biped(this, args[0], args[1], args[2], args[3])
+            return this
+        if cls_name == "net/minecraft/client/model/ModelPig":
+            pig(this, args[0] if args else 0.0)
             return this
         if cls_name in (BASE, "java/lang/Object"):
             this.fields.setdefault("field_78090_t", 64)

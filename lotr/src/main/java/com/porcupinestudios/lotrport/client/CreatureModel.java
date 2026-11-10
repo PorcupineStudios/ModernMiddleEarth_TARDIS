@@ -22,6 +22,7 @@ import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.model.geom.builders.PartDefinition;
 import net.minecraft.util.FastColor;
 import net.minecraft.util.Mth;
+import net.minecraft.world.entity.LivingEntity;
 import org.joml.Quaternionf;
 
 /**
@@ -50,6 +51,7 @@ public class CreatureModel extends EntityModel<LotrNpc> {
     /** The renderer's colour for this frame (the wraith's fade), multiplied into every draw. */
     private final float[] preColor = { 1, 1, 1, 1 };
     private boolean translucent;
+    private boolean sizesYoung;
 
     /** One draw call of LOTR's render(): a part under transforms, in a colour, when its condition holds. */
     record Draw(ModelPart part, List<Op> ops, CreatureAnim.Expr[] color, boolean blend, CreatureAnim.Expr cond) {}
@@ -98,6 +100,9 @@ public class CreatureModel extends EntityModel<LotrNpc> {
                 }
             }
         }
+        sizesYoung = def.has("anim") && def.getAsJsonObject("anim").has("draws")
+                && (def.getAsJsonObject("anim").get("draws").toString().contains("\"child\"")
+                        || def.getAsJsonObject("anim").get("draws").toString().contains("func_110254_bY"));
         if (def.has("renderers")) {
             for (JsonElement r : def.getAsJsonArray("renderers")) {
                 renderers.add(renderer(r.getAsJsonObject()));
@@ -268,7 +273,7 @@ public class CreatureModel extends EntityModel<LotrNpc> {
     }
 
     /** Sets this frame's inputs (also used by the renderer before {@link #applyPre}). */
-    void prepare(LotrNpc npc, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw,
+    void prepare(LivingEntity npc, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw,
             float headPitch, float partial) {
         ctx.npc = npc;
         ctx.limb = limbSwing;
@@ -282,6 +287,26 @@ public class CreatureModel extends EntityModel<LotrNpc> {
 
     @Override
     public void setupAnim(LotrNpc npc, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw,
+            float headPitch) {
+        setupAnimFor(npc, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
+    }
+
+    /** Puts every part back in its resting pose. */
+    void resetPose() {
+        rest.forEach(ModelPart::loadPose);
+    }
+
+    /** Whether LOTR's render() drew this model's young at their own size (its draws ask "child"). */
+    boolean sizesItsYoung() {
+        return sizesYoung;
+    }
+
+    Set<String> partNames() {
+        return named.keySet();
+    }
+
+    /** The animation for any living entity (NPCs and mounts). */
+    void setupAnimFor(LivingEntity npc, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw,
             float headPitch) {
         rest.forEach(ModelPart::loadPose);
         ctx.npc = npc;

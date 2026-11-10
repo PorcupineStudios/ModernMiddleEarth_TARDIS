@@ -21,7 +21,8 @@
     "EntityLivingBase"
   ],
   "behaviour_data": {
-    "state.renderer": 0
+    "state.renderer": 0,
+    "ride_chance": 12
   },
   "sounds": {
     "ambient": "lotr_port:half_troll.say",
@@ -42,7 +43,9 @@
     "head": "lotr_port:half_troll_helmet",
     "chest": "lotr_port:half_troll_chestplate",
     "legs": "lotr_port:half_troll_leggings",
-    "feet": "lotr_port:half_troll_boots"
+    "feet": "lotr_port:half_troll_boots",
+    "mount": "lotr_port:rhino",
+    "mount_armor": "lotr_port:half_troll_rhino_armor"
   },
   "names": "lotr_port:orc",
   "speech": "lotr_port:half_troll/half_troll",

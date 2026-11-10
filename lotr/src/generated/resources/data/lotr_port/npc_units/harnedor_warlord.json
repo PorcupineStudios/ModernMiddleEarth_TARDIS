@@ -14,13 +14,13 @@
       "npc": "lotr_port:harnedor_warrior",
       "cost": 40,
       "alignment": 250.0,
-      "mount": "minecraft:horse"
+      "mount": "lotr_port:horse"
     },
     {
       "npc": "lotr_port:harnedor_archer",
       "cost": 60,
       "alignment": 300.0,
-      "mount": "minecraft:horse"
+      "mount": "lotr_port:horse"
     },
     {
       "npc": "lotr_port:harnedor_banner_bearer",

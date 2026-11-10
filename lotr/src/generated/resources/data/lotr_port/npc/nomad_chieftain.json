@@ -11,11 +11,15 @@
   "health": 25.0,
   "speed": 0.2,
   "attack": 2.0,
+  "behaviour_data": {
+    "ride_chance": 8
+  },
   "gear": {
     "mainhand": "lotr_port:haradric_pike",
     "chest": "lotr_port:nomad_tunic",
     "legs": "lotr_port:nomad_leggings",
-    "feet": "lotr_port:nomad_shoes"
+    "feet": "lotr_port:nomad_shoes",
+    "mount": "lotr_port:camel"
   },
   "names": "lotr_port:nomad_male",
   "units": "lotr_port:nomad_warlord",

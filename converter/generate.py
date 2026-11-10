@@ -42,6 +42,7 @@ from machines import Machines
 from farming import Farming  # noqa: E402
 from ores import Ores  # noqa: E402
 from thrown import Thrown  # noqa: E402
+from mounts import Mounts  # noqa: E402
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 EXPORT = os.path.join(ROOT, "converter", "export")
@@ -1340,6 +1341,8 @@ class Gen:
         machines.update(Farming(self, EXPORT, ASSETS, DATA).run())
         machines.update(Ores(self, EXPORT, DATA).run())
         machines.update(Thrown(self, EXPORT, DATA).run())
+        machines.update(Mounts(self, EXPORT, DATA, ASSETS, os.path.join(OUT, NS, "content"),
+                               os.path.join(ROOT, "converter", "cache")).run())
         tabs = self.do_tabs()
         self.other_langs()
         extra = Extra(self, EXPORT, DATA, ASSETS, os.path.join(OUT, NS, "content"), self.jar).run()
