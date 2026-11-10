@@ -374,6 +374,16 @@ https://claude.ai/artifact/KqhSSTCuKXGuwKHBoYJdcu. Rebuild features in modern co
 - Items that place another block (`places`): beds stay `BedItem`, the rest are `ItemNameBlockItem`.
 - GameTests `MachineTests` (own batch: the 1-block `empty` template lets other tests land on long-running ones).
 
+## Farming, ores and pouches (2026-11-10, `content/farm/`, `content/pouch/`)
+- `converter/farming.py`: crops (`crop`, vanilla CropBlock, 8 ages on LOTR's 4 icons, age>>1), berry bushes (ripe and
+  bare are two blocks that swap), corn (`corn`: stalks up to `corn_height`, cobs on non-bottom stalks, a guess),
+  grapevines (`grapevine` on a post; seeds plant on a post with farmland within 3 blocks below; picking leaves the
+  post). Numbers in `farming/settings.json` (`Farming.Settings`).
+- `converter/ores.py`: 15 item-dropping ores (`ore` = DropExperienceBlock, LOTR's xp), loot with silk touch, fortune.
+- `PouchItem` keeps items in `DataComponents.CONTAINER`; `PouchMenu`/`client/PouchScreen` on LOTR's layout with the
+  name field (`Pouches.Rename` payload). Pick-ups go into pouches when the inventory is full.
+- GameTests `FarmTests`. `GameTestHelper.destroyBlock` drops nothing: use `level.destroyBlock(pos, true)` to test loot.
+
 ## Create compat (2026-11-06)
 - `converter/create_compat.py` writes 134 cross-mod recipes under `recipe/create/` (conditional on
   `neoforge:mod_loaded` create) and `c:ores/*` / `c:nuggets/*` tags; every match and why is in

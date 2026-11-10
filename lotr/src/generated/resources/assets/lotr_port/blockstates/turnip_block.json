@@ -1,7 +1,28 @@
 {
   "variants": {
-    "": {
-      "model": "lotr_port:block/turnip_block"
+    "age=0": {
+      "model": "lotr_port:block/turnip_block_stage0"
+    },
+    "age=1": {
+      "model": "lotr_port:block/turnip_block_stage0"
+    },
+    "age=2": {
+      "model": "lotr_port:block/turnip_block_stage1"
+    },
+    "age=3": {
+      "model": "lotr_port:block/turnip_block_stage1"
+    },
+    "age=4": {
+      "model": "lotr_port:block/turnip_block_stage2"
+    },
+    "age=5": {
+      "model": "lotr_port:block/turnip_block_stage2"
+    },
+    "age=6": {
+      "model": "lotr_port:block/turnip_block_stage2"
+    },
+    "age=7": {
+      "model": "lotr_port:block/turnip_block_stage3"
     }
   }
 }

@@ -38,7 +38,9 @@ from create_compat import CreateCompat  # noqa: E402
 from sounds import Sounds  # noqa: E402
 from extra import Extra  # noqa: E402
 from drinks import Drinks  # noqa: E402
-from machines import Machines  # noqa: E402
+from machines import Machines
+from farming import Farming  # noqa: E402
+from ores import Ores  # noqa: E402
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 EXPORT = os.path.join(ROOT, "converter", "export")
@@ -1334,6 +1336,8 @@ class Gen:
         self.ore_tags()
         create = CreateCompat(self, DATA, EXPORT).run()
         machines = Machines(self, EXPORT, ASSETS, DATA, self.jar).run()
+        machines.update(Farming(self, EXPORT, ASSETS, DATA).run())
+        machines.update(Ores(self, EXPORT, DATA).run())
         tabs = self.do_tabs()
         self.other_langs()
         extra = Extra(self, EXPORT, DATA, ASSETS, os.path.join(OUT, NS, "content"), self.jar).run()

@@ -113,6 +113,7 @@ public final class LotrClient {
         event.register(Machines.MILLSTONE_MENU.get(), MachineScreen::new);
         event.register(Machines.UNSMELTERY_MENU.get(), MachineScreen::new);
         event.register(Machines.ARMOR_STAND_MENU.get(), MachineScreen::new);
+        event.register(com.porcupinestudios.lotrport.content.pouch.Pouches.MENU.get(), PouchScreen::new);
     }
 
     /**

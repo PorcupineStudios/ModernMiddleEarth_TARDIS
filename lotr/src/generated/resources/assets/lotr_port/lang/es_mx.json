@@ -2534,6 +2534,7 @@
   "item.lotr_port.pomegranate": "Granada",
   "item.lotr_port.pomegranate_juice": "Jugo de Granada",
   "item.lotr_port.pomegranate_wine": "Vino de Granada",
+  "item.lotr_port.pouch.slots": "%s de %s espacios en uso",
   "item.lotr_port.rabbit_stew": "Estofado de Conejo",
   "item.lotr_port.raisins": "Pasas",
   "item.lotr_port.ranger_boots": "Botas de Montaráz",

@@ -4,6 +4,10 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.porcupinestudios.lotrport.LotrPort;
 import com.porcupinestudios.lotrport.crafting.FactionTableBlock;
+import com.porcupinestudios.lotrport.content.farm.BerryBushBlock;
+import com.porcupinestudios.lotrport.content.farm.CornBlock;
+import com.porcupinestudios.lotrport.content.farm.GrapevineBlock;
+import com.porcupinestudios.lotrport.content.farm.LotrCropBlock;
 import com.porcupinestudios.lotrport.drink.KegBlock;
 import com.porcupinestudios.lotrport.machine.DisplayBlock;
 import com.porcupinestudios.lotrport.machine.EntJarBlock;
@@ -72,6 +76,32 @@ public final class LotrBlocks {
     private static Function<BlockBehaviour.Properties, Block> factory(String kind, JsonObject e) {
         if (kind.equals("keg")) {
             return p -> new KegBlock(p, box(e)); // LOTR's barrel; a facing block too
+        }
+        switch (kind) {
+            case "crop" -> {
+                String seed = e.getAsJsonObject("crop").get("seed").getAsString();
+                return p -> new LotrCropBlock(p, seed);
+            }
+            case "berry_bush" -> {
+                JsonObject b = e.getAsJsonObject("berry");
+                return p -> new BerryBushBlock(p, b.get("ripe").getAsString(), b.get("bare").getAsString(),
+                        b.get("item").getAsString(), b.get("has_berries").getAsBoolean());
+            }
+            case "corn" -> {
+                String cob = e.getAsJsonObject("corn").get("item").getAsString();
+                return p -> new CornBlock(p, cob);
+            }
+            case "ore" -> {
+                // LOTR's item-dropping ores: experience as LOTRBlockOre.dropBlockAsItemWithChance
+                JsonArray xp = e.getAsJsonArray("xp");
+                var range = net.minecraft.util.valueproviders.UniformInt.of(xp.get(0).getAsInt(), xp.get(1).getAsInt());
+                return p -> new net.minecraft.world.level.block.DropExperienceBlock(range, p);
+            }
+            case "grapevine" -> {
+                JsonObject g = e.getAsJsonObject("grapevine");
+                return p -> new GrapevineBlock(p, g.get("grapes").getAsString(), g.get("post").getAsString());
+            }
+            default -> { }
         }
         String machine = ContentData.str(e, "machine", "");
         if (!machine.isEmpty()) {
@@ -171,14 +201,14 @@ public final class LotrBlocks {
             case "plant", "sapling", "torch", "button", "pressure_plate" ->
                     p.noCollission().pushReaction(PushReaction.DESTROY);
             case "door", "trapdoor", "bed" -> p.pushReaction(PushReaction.DESTROY);
+            case "crop", "corn" -> p.noCollission().randomTicks().noOcclusion().pushReaction(PushReaction.DESTROY);
+            case "grapevine" -> p.randomTicks().noOcclusion().pushReaction(PushReaction.DESTROY);
+            case "berry_bush" -> p.randomTicks().noOcclusion();
             case "gate" -> p.noOcclusion().isViewBlocking((s, l, pos) -> false);
             default -> { }
         }
         if (e.has("render")) {
             p.noOcclusion(); // drawn by a block entity renderer
-        }
-        switch (kind) {
-            default -> { }
         }
         return p;
     }

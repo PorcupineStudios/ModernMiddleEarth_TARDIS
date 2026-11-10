@@ -2748,6 +2748,7 @@
   "item.lotr_port.pomegranate": "Granatapfel",
   "item.lotr_port.pomegranate_juice": "Granatapfelsaft",
   "item.lotr_port.pomegranate_wine": "Granatapfelwein",
+  "item.lotr_port.pouch.slots": "%s von %s Plätzen in Gebrauch",
   "item.lotr_port.rabbit_stew": "Kanincheneintopf",
   "item.lotr_port.raisins": "Rosinen",
   "item.lotr_port.ranger_boots": "Waldläuferstiefel",

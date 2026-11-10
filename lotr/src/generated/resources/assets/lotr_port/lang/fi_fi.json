@@ -1828,6 +1828,7 @@
   "item.lotr_port.poisoned_uruk_dagger": "Myrkytetty urukien tikari",
   "item.lotr_port.poisoned_utumno_dagger": "Myrkytetty Utumnon tikari",
   "item.lotr_port.poisoned_wood_elven_dagger": "Myrkytetty salohaltioiden tikari",
+  "item.lotr_port.pouch.slots": "Tilaa käytetty: %s, Tilaa yhteensä: %s",
   "item.lotr_port.rabbit_stew": "Jänispata",
   "item.lotr_port.ranger_boots": "Samoojien saappaat",
   "item.lotr_port.ranger_bow": "Samoojien jousi",
