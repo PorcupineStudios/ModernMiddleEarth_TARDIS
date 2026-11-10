@@ -88,6 +88,14 @@ public final class MountTests {
                 && !elk.isBodyArmorItem(new ItemStack(Items.IRON_HORSE_ARMOR)), "vanilla horse armour fits wrongly");
         helper.assertTrue(camel.isBodyArmorItem(new ItemStack(Items.RED_CARPET))
                 && !horse.isBodyArmorItem(new ItemStack(Items.RED_CARPET)), "carpets are for camels");
+        // LOTR's zebras take horse armour; giraffe and camel armour are the port's own (LOTR had none)
+        LotrHorse giraffe = mount(helper, "giraffe");
+        helper.assertTrue(mount(helper, "zebra").isBodyArmorItem(gondor), "a zebra can't wear horse armour");
+        helper.assertTrue(giraffe.isBodyArmorItem(item("iron_giraffe_armor"))
+                && !giraffe.isBodyArmorItem(item("iron_camel_armor")) && !giraffe.isBodyArmorItem(gondor),
+                "a giraffe wears the wrong armour");
+        helper.assertTrue(camel.isBodyArmorItem(item("diamond_camel_armor"))
+                && !camel.isBodyArmorItem(item("diamond_giraffe_armor")), "a camel wears the wrong armour");
         horse.setBodyArmorItem(gondor);
         // entities only tick in loaded chunks, and the 1-block template may sit on a chunk's edge
         ThrownTests.inLoadedArea(helper, 2, 2, () -> {
