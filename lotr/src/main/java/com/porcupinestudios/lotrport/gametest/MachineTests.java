@@ -8,7 +8,9 @@ import com.porcupinestudios.lotrport.machine.ForgeBlockEntity;
 import com.porcupinestudios.lotrport.machine.KebabStandBlockEntity;
 import com.porcupinestudios.lotrport.machine.LotrChestBlockEntity;
 import com.porcupinestudios.lotrport.machine.MillstoneBlockEntity;
+import com.porcupinestudios.lotrport.machine.WeaponRackBlock;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.gametest.framework.GameTest;
 import net.minecraft.gametest.framework.GameTestHelper;
@@ -129,6 +131,19 @@ public final class MachineTests {
         chestBe.setItem(26, new ItemStack(Items.DIAMOND));
         helper.destroyBlock(chest);
         helper.assertItemEntityPresent(Items.DIAMOND, chest, 2);
+        helper.succeed();
+    }
+
+    @GameTest(template = "empty", batch = "machines")
+    public static void rackHangsOnWalls(GameTestHelper helper) {
+        BlockPos wall = new BlockPos(1, 2, 1);
+        BlockPos rack = wall.west();
+        helper.setBlock(wall, Blocks.STONE_BRICKS);
+        helper.setBlock(rack, block("weapon_rack").defaultBlockState().setValue(WeaponRackBlock.WALL, true)
+                .setValue(WeaponRackBlock.FACING, Direction.EAST));
+        helper.assertBlockPresent(block("weapon_rack"), rack);
+        helper.setBlock(wall, Blocks.AIR);
+        helper.assertBlockNotPresent(block("weapon_rack"), rack);
         helper.succeed();
     }
 }

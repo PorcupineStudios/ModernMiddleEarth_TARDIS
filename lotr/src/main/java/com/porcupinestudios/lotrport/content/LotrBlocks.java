@@ -14,6 +14,7 @@ import com.porcupinestudios.lotrport.machine.EntJarBlock;
 import com.porcupinestudios.lotrport.machine.KebabStandBlock;
 import com.porcupinestudios.lotrport.machine.LotrChestBlock;
 import com.porcupinestudios.lotrport.machine.MachineBlock;
+import com.porcupinestudios.lotrport.machine.WeaponRackBlock;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.function.Function;
@@ -108,7 +109,8 @@ public final class LotrBlocks {
             float[] box = box(e);
             return switch (machine) {
                 case "forge", "oven", "millstone", "unsmeltery" -> p -> new MachineBlock(p, box, machine);
-                case "plate", "weapon_rack", "armor_stand" -> p -> new DisplayBlock(p, box, machine);
+                case "weapon_rack" -> WeaponRackBlock::new;
+                case "plate", "armor_stand" -> p -> new DisplayBlock(p, box, machine);
                 case "kebab_stand" -> p -> new KebabStandBlock(p, box);
                 case "ent_jar" -> p -> new EntJarBlock(p, box);
                 default -> p -> new LotrChestBlock(p, box);

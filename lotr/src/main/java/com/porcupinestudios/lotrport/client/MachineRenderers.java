@@ -13,6 +13,7 @@ import com.porcupinestudios.lotrport.machine.LotrChestBlockEntity;
 import com.porcupinestudios.lotrport.machine.MachineBlock;
 import com.porcupinestudios.lotrport.machine.Machines;
 import com.porcupinestudios.lotrport.machine.UnsmelteryBlockEntity;
+import com.porcupinestudios.lotrport.machine.WeaponRackBlock;
 import java.io.Reader;
 import java.util.HashMap;
 import java.util.Map;
@@ -138,19 +139,52 @@ public final class MachineRenderers {
         }
 
         private void rack(DisplayBlockEntity be, PoseStack pose, MultiBufferSource buffers, int light) {
+            boolean wall = WeaponRackBlock.onWall(be.getBlockState());
             pose.pushPose();
-            frame(pose, be.getBlockState());
+            pose.translate(0.5, 1.5, 0.5);
+            pose.mulPose(Axis.YP.rotationDegrees(turn(be.getBlockState())));
+            if (wall) {
+                pose.translate(0, 0.375, -0.5); // LOTR: hung on the block behind
+            }
+            pose.scale(-1, -1, 1);
+            rackPose(wall);
             draw("weapon_rack", WEAPON_RACK, pose, buffers, light);
             ItemStack weapon = be.held();
             if (!weapon.isEmpty()) {
-                // hung upright across the rack, as LOTR's (0.625 size, just over half a block up)
-                pose.translate(0, 0.52, 0);
+                // LOTR's numbers: 0.625 size, mirrored, 0.52 down the model, turned 45 degrees so the icon's diagonal
+                // hangs upright; then 1.7.10's flat icon spans 0..1 with its front at z 0
                 pose.scale(-0.625f, 0.625f, 0.625f);
-                pose.mulPose(Axis.ZP.rotationDegrees(180 + 45));
-                Minecraft.getInstance().getItemRenderer().renderStatic(weapon, ItemDisplayContext.FIXED, light,
+                pose.translate(0, 0.52, 0);
+                if (wall) {
+                    pose.translate(0, 1.1, 0.51);
+                }
+                pose.mulPose(Axis.ZP.rotationDegrees(45));
+                pose.translate(0.5, 0.5, -1 / 32f);
+                pose.scale(-1, 1, 1); // 1.7.10 drew the icon mirrored
+                Minecraft.getInstance().getItemRenderer().renderStatic(weapon, ItemDisplayContext.NONE, light,
                         OverlayTexture.NO_OVERLAY, pose, buffers, be.getLevel(), 0);
             }
             pose.popPose();
+        }
+
+        /** LOTRModelWeaponRack.onWall: the base turns up against the wall, without its stand or upper hooks. */
+        private static void rackPose(boolean wall) {
+            CreatureModel m = model("weapon_rack");
+            if (m == null) {
+                return;
+            }
+            ModelPart base = m.part("base");
+            ModelPart stand = m.part("stand");
+            ModelPart holder = m.part("holder");
+            ModelPart upper = m.part("holder_upper_parts");
+            if (base == null || stand == null || holder == null || upper == null) {
+                return;
+            }
+            base.xRot = wall ? (float) Math.toRadians(-90) : 0;
+            stand.visible = !wall;
+            holder.xRot = 0;
+            holder.y = wall ? -2 : -8;
+            upper.visible = !wall;
         }
 
         private void stand(DisplayBlockEntity be, float partial, PoseStack pose, MultiBufferSource buffers,

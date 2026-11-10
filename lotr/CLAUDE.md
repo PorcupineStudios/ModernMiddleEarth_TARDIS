@@ -370,7 +370,9 @@ https://claude.ai/artifact/KqhSSTCuKXGuwKHBoYJdcu. Rebuild features in modern co
   (fuel from the container below, LOTR's takeFuelFromBelow), `EntJarBlock` (biome tag `ent_jar_brewing`),
   `LotrChestBlock` (27 slots, 1.7.10 chest model in LOTR's texture). Renderers in `client/MachineRenderers` on
   LOTR's models (`npc_model/`, static); the armour stand's armour is drawn on an invisible vanilla armour stand.
-  The renderers' facing turn and the rack's weapon pose are from LOTR's renderer constants but not yet checked in game.
+  `WeaponRackBlock`: floor (faces the placer's look) or `wall` (faces the block it hangs on, breaks without it);
+  the model takes LOTR's onWall pose. Racks and stands in structures: meta & 3 = north/east/south/west, & 4 = wall.
+  The rack's weapon is drawn with `ItemDisplayContext.NONE` moved to 1.7.10's flat-icon frame (checked in game).
 - Items that place another block (`places`): beds stay `BedItem`, the rest are `ItemNameBlockItem`.
 - GameTests `MachineTests` (own batch: the 1-block `empty` template lets other tests land on long-running ones).
 
