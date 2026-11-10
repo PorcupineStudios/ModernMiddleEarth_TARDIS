@@ -58,7 +58,17 @@ dimension, dodging obstacles, "to" the destination.
   `client/WormholeRenderer`; numbers in tuning `vortex.wormholes`.
   - **Placed** like the arcs, up to 96 blocks ahead: from `first` (80) every `gap` (150) blocks with `chance` (0.7),
     anywhere across the tunnel. The trip keeps a list `wormholes` (entity id, centre, z, exit dimension, exit aim,
-    portal id); ones 12 blocks behind the box go, and `clearTrip` removes the rest. `next_wormhole` is the next z.
+    portal id, radius `r`, facing `nx ny nz`); ones 12 blocks behind them go, and `clearTrip` removes the rest.
+    `next_wormhole` is the next z.
+  - **Sizes and turns** (Aaron 2026-11-10; tuning `vortex.wormholes.shape`): each gets a random radius from
+    `min_radius` (2) to `max_radius` (7), never under `Wormholes.smallest()` (half the box's 1 x 2 diagonal + 0.5,
+    1.62), so the box always fits. Its pull and pull range are the tuned `pull` / `range` times
+    (radius / `radius`) ^ `pull_exponent` (1): bigger pulls harder from further (`Wormholes.strength`). Its face starts
+    facing the oncoming box (-z) and turns by a random yaw up to `max_yaw` (90) and pitch up to `max_pitch` (90), so at
+    most it faces fully sideways / up / down, never away (`Wormhole.facing`, entity yaw/pitch). `Wormholes.turn`: one
+    on the +x side only turns its face toward -x (the tunnel's middle), never toward its nearer wall; the same for y;
+    within 1 block of the axis either way. The disc (`WormholeRenderer`, yaw then pitch), the see-through portal's
+    axes, the pull and the capture all use the same size and facing. Placement keeps the disc inside the tunnel.
   - **Exits** are data: `tardis/wormhole/*.json` = `{dimension, weight, from: {dimension: weight}}`. The weight on a
     trip is `from[the dimension it left]`, else `from[the dimension it aims at]`, else `weight`. Defaults: overworld
     10 (6 from the End), Nether 3 (8 from the Nether), End 1 (2 from the Nether, 6 from the End). Only dimensions in
@@ -72,9 +82,11 @@ dimension, dodging obstacles, "to" the destination.
     own client; only that TARDIS's box feels its wormholes. Full steering (0.12) beats the strongest pull, so a
     level-0 box has to steer away early; at level 3 it hardly notices. The autopilot doesn't dodge.
   - **Sucked in** (Aaron 2026-11-10: it has to be seen to fall through, controls dead, gravity on, still going
-    forward): coming within 1.5 x `radius` (4) in front of the disc and `radius` of its centre catches it. The
+    forward): only through the face: within 1.5 x its radius in front of the face and within its radius of the line
+    straight out of its middle catches it. From behind, or flying past the rim of an edge-on one, it isn't caught.
+    The pull (`Wormhole.pullOn`) draws the box across toward that line, so a turned one pulls it in front of its face. The
     thrusters die and the controls go dead (crashing); it falls and keeps its forward speed while the wormhole drags
-    it toward its middle and spins it. Once its back is past the disc (or after `suck_ticks`, 40) the trip ends and
+    it across toward a point 1.5 blocks behind its face's middle and spins it. Once it is 0.5 through the face (or after `suck_ticks`, 40) the trip ends and
     it comes out of a rift over the exit spot with the same forward speed, still falling (`Vortex.dropInto`, shared
     with the crash landing). The pilot rides it all the way (third person) and goes back to the console on landing. It loses `exit_damage` (5) health (never
     below 1) and lands with a crater of `exit_crater` (0 = none). No charge is paid.
@@ -85,8 +97,9 @@ dimension, dodging obstacles, "to" the destination.
     portal per wormhole, removed with it.
   - Ground under a roof (the Nether) is now the first floor below the aim's height, else below the roof; a spot
     with nothing under it (the End's void) moves to the middle of the world.
-  - Tests: `wormholeExitsArePickedByWeight`, `stabilizersWeakenTheWormholePull`, `aWormholeSucksTheBoxIntoItsDimension`
-    (exits in the End: Nether chunks don't generate in time on the fast-ticking test server),
+  - Tests: `wormholesVaryInSizeAndTurnInward` (2000 sizes and turns: in range, above the box, at most 90, never
+    facing away or toward the nearer wall; bigger pulls harder), `wormholeExitsArePickedByWeight`, `stabilizersWeakenTheWormholePull`, `aWormholeSucksTheBoxIntoItsDimension`
+    (a radius-5 one 4 off the axis turned 60 degrees inward catches the box; exits in the End: Nether chunks don't generate in time on the fast-ticking test server),
     `theScannerMakesWormholesSeeThrough`. Other vortex tests switch wormholes off (`noWormholes`).
   - Not done: stabilizers don't soften the arc/wall knock; the autopilot doesn't steer round wormholes.
 - **Refused while in the vortex**: `Flight.hop`/`jump`, the lever again, phase, thrusters off. The exterior side of

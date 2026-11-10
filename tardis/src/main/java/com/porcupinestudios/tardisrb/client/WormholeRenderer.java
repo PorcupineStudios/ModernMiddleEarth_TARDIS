@@ -13,7 +13,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 
 /**
- * A wormhole (Aaron 2026-11-09): an opaque disc facing along the tunnel, painted with the vortex texture wound into a
+ * A wormhole (Aaron 2026-11-09): an opaque disc, turned as {@link Wormhole#facing}, painted with the vortex texture wound into a
  * spiral that turns inward, dark in the middle, with a glowing rim. When it is see-through ({@link Wormhole#open}) an
  * Immersive Portals portal fills the middle, so only the rim is drawn.
  */
@@ -31,7 +31,9 @@ final class WormholeRenderer extends EntityRenderer<Wormhole> {
         float t = (w.tickCount + partialTick) / 20F;
         float r = w.radius();
         pose.pushPose();
-        pose.mulPose(com.mojang.math.Axis.YP.rotationDegrees(-w.getYRot())); // a rift faces the way the box comes out
+        // turned as Wormhole.facing: yaw about y, then pitch about x
+        pose.mulPose(com.mojang.math.Axis.YP.rotationDegrees(-w.getYRot()));
+        pose.mulPose(com.mojang.math.Axis.XP.rotationDegrees(w.getXRot()));
         PoseStack.Pose p = pose.last();
         VertexConsumer disc = buffers.getBuffer(RenderType.entityCutoutNoCull(TEXTURE));
         float inner = w.open() ? 0.86F : 0; // the portal fills the middle 0.9

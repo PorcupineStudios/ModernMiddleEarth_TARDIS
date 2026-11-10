@@ -280,6 +280,42 @@ public final class VortexTests {
         }
     }
 
+    /**
+     * Wormholes vary (Aaron 2026-11-10): sizes stay within the tuned range and never get too small for the box, bigger
+     * ones pull harder, and a face turns at most 90 degrees, never away from the oncoming box nor toward the nearer
+     * tunnel wall.
+     */
+    @GameTest(template = "platform")
+    public static void wormholesVaryInSizeAndTurnInward(GameTestHelper helper) {
+        var shape = TardisContent.tuning().vortex().wormholes().shape();
+        double min = Math.max(Wormholes.smallest(), shape.minRadius());
+        helper.assertTrue(Wormholes.smallest() > Math.hypot(1, 2) / 2, "the smallest wormhole doesn't fit the box");
+        RandomSource random = RandomSource.create(42);
+        double least = Double.MAX_VALUE;
+        double most = 0;
+        for (int i = 0; i < 2000; i++) {
+            double size = Wormholes.size(random);
+            helper.assertTrue(size >= min - 1.0E-9 && size <= Math.max(min, shape.maxRadius()) + 1.0E-9,
+                    "size " + size + " outside " + min + ".." + shape.maxRadius());
+            least = Math.min(least, size);
+            most = Math.max(most, size);
+            for (double off : new double[] {-9, -3, -1, -0.5, 0, 0.5, 1, 3, 9}) {
+                double yaw = Wormholes.turn(off, shape.maxYaw(), random);
+                double pitch = Wormholes.turn(off, shape.maxPitch(), random);
+                helper.assertTrue(Math.abs(yaw) <= shape.maxYaw() && Math.abs(pitch) <= shape.maxPitch(),
+                        "turned too far: " + yaw + ", " + pitch);
+                Vec3 n = Wormhole.facing(yaw, pitch);
+                helper.assertTrue(n.z <= 1.0E-9, "it faces away from the box: " + n);
+                // off to + x (or y) it never faces + x (or y): toward its nearer wall
+                helper.assertTrue(Math.abs(off) < 1 || (off * n.x <= 1.0E-9 && off * Math.sin(Math.toRadians(pitch))
+                        <= 1.0E-9), "at " + off + " it faces its wall: " + n);
+            }
+        }
+        helper.assertTrue(most - least > (shape.maxRadius() - min) * 0.8, "sizes don't vary: " + least + ".." + most);
+        helper.assertTrue(Wormholes.strength(least) < Wormholes.strength(most), "bigger ones don't pull harder");
+        helper.succeed();
+    }
+
     /** Wormhole exits are picked by weight from data, with the "from" weights for adjacent dimensions. */
     @GameTest(template = "platform")
     public static void wormholeExitsArePickedByWeight(GameTestHelper helper) {
@@ -358,7 +394,8 @@ public final class VortexTests {
                 "no box in the vortex")).thenExecute(() -> {
             TardisBody body = FreeFlight.body(server, t).orElseThrow();
             var trip = t.moduleData(Vortex.MODULE);
-            Wormhole hole = Wormholes.place(server, vortex, t, trip, body.getZ() + 20, 0, 0, dim);
+            // off to the side and turned 60 degrees toward the middle: the box flies into its face
+            Wormhole hole = Wormholes.place(server, vortex, t, trip, body.getZ() + 20, 4, 0, dim, 5, -60, 0);
             t.setModuleData(Vortex.MODULE, trip);
             helper.assertTrue(hole != null && !hole.open(), "the wormhole wasn't placed, or is see-through at scanner 0");
         }).thenWaitUntil(() -> helper.assertTrue(!Vortex.inVortex(t), "still in the vortex")).thenExecute(() -> {

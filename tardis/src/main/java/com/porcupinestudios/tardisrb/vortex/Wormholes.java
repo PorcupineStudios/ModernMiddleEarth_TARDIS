@@ -133,26 +133,66 @@ public final class Wormholes {
         while (next < progress + 96 && next < length - 24) {
             final int at = next;
             if (random.nextDouble() < w.chance()) {
+                double size = size(random);
                 double a = random.nextDouble() * Math.PI * 2;
                 double r = Math.sqrt(random.nextDouble())
-                        * Math.max(0, TardisContent.tuning().vortex().radius() - w.radius() * 0.5);
+                        * Math.max(0, TardisContent.tuning().vortex().radius() - size * 0.5);
+                double ox = Math.cos(a) * r;
+                double oy = Math.sin(a) * r;
                 pick(TardisContent.get().wormholes().values(), Vortex.from(trip).dimension().location(),
                         aimDimension(trip).location(), allowed(server, tardis), random)
-                        .ifPresent(dim -> place(server, vortex, tardis, trip, at, Math.cos(a) * r,
-                                Math.sin(a) * r, dim));
+                        .ifPresent(dim -> place(server, vortex, tardis, trip, at, ox, oy, dim, size,
+                                turn(ox, w.shape().maxYaw(), random), turn(oy, w.shape().maxPitch(), random)));
             }
             next += Math.max(16, w.gap());
         }
         trip.putInt("next_wormhole", next);
     }
 
+    /** The smallest radius a wormhole may have: the box (its widest cross-section) fits through with a margin. */
+    public static double smallest() {
+        var box = TardisEntities.BODY.get().getDimensions();
+        return Math.hypot(box.width(), box.height()) / 2 + 0.5;
+    }
+
+    /** A random radius between the tuned {@code min_radius} and {@code max_radius}, never under {@link #smallest}. */
+    public static double size(RandomSource random) {
+        Tuning.WormholeShape s = tuning().shape();
+        double min = Math.max(smallest(), s.minRadius());
+        return min + random.nextDouble() * Math.max(0, s.maxRadius() - min);
+    }
+
+    /** How much a wormhole of radius {@code size} pulls (and how far), against one of the tuned {@code radius}. */
+    public static double strength(double size) {
+        return Math.pow(size / tuning().radius(), tuning().shape().pullExponent());
+    }
+
+    /**
+     * A random turn of up to {@code most} degrees for a wormhole {@code off} the tunnel's axis (across x for yaw, y
+     * for pitch): positive turns its face toward +x / +y, so one on the + side only turns the other way, toward the
+     * middle (never toward its nearer wall). Within 1 block of the axis it may turn either way.
+     */
+    public static double turn(double off, double most, RandomSource random) {
+        double side = Math.abs(off) < 1 ? (random.nextBoolean() ? 1 : -1) : -Math.signum(off);
+        return side * random.nextDouble() * most;
+    }
+
+    /** {@link #place} with a random size and turn, as {@link #placeAhead} would. */
+    public static Wormhole place(MinecraftServer server, ServerLevel vortex, TardisRecord tardis, CompoundTag trip,
+            double z, double ox, double oy, ResourceKey<Level> dim) {
+        RandomSource random = RandomSource.create();
+        return place(server, vortex, tardis, trip, z, ox, oy, dim, size(random),
+                turn(ox, tuning().shape().maxYaw(), random), turn(oy, tuning().shape().maxPitch(), random));
+    }
+
     /**
      * Puts a wormhole into {@code dim} at {@code z} along the trip's lane, ({@code ox}, {@code oy}) off the tunnel's
-     * axis, and adds it to the trip. Its exit is a random spot up to {@code spread} blocks from where the course has
+     * axis, {@code size} in radius, its face turned {@code yaw} / {@code pitch} ({@link Wormhole#facing}), and adds it
+     * to the trip. Its exit is a random spot up to {@code spread} blocks from where the course has
      * reached at {@code z}; with the scanner at {@code see_through_level} a portal shows that spot.
      */
     public static Wormhole place(MinecraftServer server, ServerLevel vortex, TardisRecord tardis, CompoundTag trip,
-            double z, double ox, double oy, ResourceKey<Level> dim) {
+            double z, double ox, double oy, ResourceKey<Level> dim, double size, double yaw, double pitch) {
         Tuning.WormholeTuning w = tuning();
         Vec3 b = Vortex.bend(z);
         Vec3 centre = new Vec3(trip.getDouble("lane_x") + b.x + ox, Vortex.LANE_Y + b.y + oy, z);
@@ -160,8 +200,9 @@ public final class Wormholes {
         if (hole == null) {
             return null;
         }
-        hole.moveTo(centre.x, centre.y, centre.z, 0, 0);
-        hole.setup(w.radius(), pull(tardis), w.range());
+        hole.moveTo(centre.x, centre.y, centre.z, (float) yaw, (float) pitch);
+        double k = strength(size);
+        hole.setup(size, pull(tardis) * k, w.range() * k);
         hole.setOwner(tardis.id());
         ServerLevel exitLevel = server.getLevel(dim);
         BlockPos aim = aim(server, trip, z, exitLevel, RandomSource.create());
@@ -170,6 +211,11 @@ public final class Wormholes {
         h.putDouble("x", centre.x);
         h.putDouble("y", centre.y);
         h.putDouble("z", z);
+        h.putDouble("r", size);
+        Vec3 n = Wormhole.facing(yaw, pitch);
+        h.putDouble("nx", n.x);
+        h.putDouble("ny", n.y);
+        h.putDouble("nz", n.z);
         h.putString("dimension", dim.location().toString());
         h.putLong("aim", aim.asLong());
         if (Unlocks.stat(tardis, "wormhole_sight") >= w.seeThroughLevel()) {
@@ -177,8 +223,9 @@ public final class Wormholes {
             if (portal != null) {
                 BlockPos ground = Vortex.ground(exitLevel, aim);
                 portal.setOriginPos(centre);
-                // width x up = (0, 0, -1): its seen side faces back down the tunnel, at the box coming along it
-                portal.setOrientationAndSize(new Vec3(-1, 0, 0), new Vec3(0, 1, 0), w.radius() * 1.8, w.radius() * 1.8);
+                // width x up = its facing: unturned (0, 0, -1), back down the tunnel at the box coming along it
+                portal.setOrientationAndSize(Wormhole.turn(new Vec3(-1, 0, 0), yaw, pitch),
+                        Wormhole.turn(new Vec3(0, 1, 0), yaw, pitch), size * 1.8, size * 1.8);
                 portal.setPortalShape(new SpecialFlatPortalShape(circle(32)));
                 PortalAPI.setPortalTransformation(portal, dim, Vec3.atBottomCenterOf(ground).add(0, 6, 0),
                         DQuaternion.identity, 1.0);
@@ -242,8 +289,9 @@ public final class Wormholes {
     }
 
     /**
-     * The box against the trip's wormholes, each tick: coming up to one's disc (within 1.5 x its radius in front of it,
-     * and within its radius of its middle) catches it (true); ones well behind it go.
+     * The box against the trip's wormholes, each tick: coming up to one's face (within 1.5 x its radius in front of
+     * it, and within its radius of the line out of its middle) catches it (true). Only through the face: from behind
+     * or beside an edge-on one it isn't caught (it flies past the rim). Ones well behind the box go.
      */
     static boolean check(MinecraftServer server, ServerLevel vortex, TardisRecord tardis, CompoundTag trip,
             TardisBody body) {
@@ -252,18 +300,21 @@ public final class Wormholes {
         for (int i = list.size() - 1; i >= 0; i--) {
             CompoundTag h = list.getCompound(i);
             double z = h.getDouble("z");
+            double r = radius(h);
             if (!h.getBoolean("passed")) {
-                if (c.z > z) {
+                Vec3 rel = c.subtract(h.getDouble("x"), h.getDouble("y"), z);
+                Vec3 n = facing(h);
+                double ahead = rel.dot(n);
+                if (c.z > z + r) {
                     h.putBoolean("passed", true);
-                } else if (z - c.z <= tuning().radius() * 1.5
-                        && Math.hypot(c.x - h.getDouble("x"), c.y - h.getDouble("y")) <= tuning().radius()) {
+                } else if (ahead >= 0 && ahead <= r * 1.5 && rel.subtract(n.scale(ahead)).length() <= r) {
                     h.putBoolean("passed", true);
                     trip.put("wormholes", list);
                     capture(trip, body, h);
                     return true;
                 }
             }
-            if (c.z > z + 12) {
+            if (c.z > z + r + 12) {
                 remove(vortex, h);
                 list.remove(i);
             }
@@ -286,6 +337,16 @@ public final class Wormholes {
         body.level().playSound(null, body.blockPosition(), SoundEvents.PORTAL_TRIGGER, SoundSource.NEUTRAL, 2, 0.6F);
     }
 
+    /** A trip wormhole's radius and facing (ones saved before they varied: the tuned radius, facing -z). */
+    private static double radius(CompoundTag h) {
+        return h.contains("r") ? h.getDouble("r") : tuning().radius();
+    }
+
+    private static Vec3 facing(CompoundTag h) {
+        return h.contains("nz") ? new Vec3(h.getDouble("nx"), h.getDouble("ny"), h.getDouble("nz"))
+                : new Vec3(0, 0, -1);
+    }
+
     static boolean sucking(CompoundTag trip) {
         return trip.contains("suck");
     }
@@ -293,7 +354,8 @@ public final class Wormholes {
     /**
      * Being sucked in (Aaron 2026-11-10: it has to fall through, controls off, gravity on, still going forward): the box
      * falls and carries on along the tunnel ({@code TardisBody.vortexPhysics} while crashing) and the wormhole drags it
-     * toward its middle; once it is all the way into the disc (or after {@code suck_ticks}) it comes out the far side.
+     * across toward a point just behind its face's middle; once it is all the way through the face (or after
+     * {@code suck_ticks}) it comes out the far side.
      */
     static void suck(MinecraftServer server, TardisRecord tardis, CompoundTag trip, Optional<TardisBody> body) {
         CompoundTag h = trip.getCompound("suck");
@@ -303,10 +365,12 @@ public final class Wormholes {
         boolean through = body.map(b -> {
             Vec3 c = b.position().add(0, b.getBbHeight() / 2, 0);
             Vec3 v = b.getDeltaMovement();
-            b.setDeltaMovement(v.x * 0.85 + (h.getDouble("x") - c.x) * 0.08,
-                    v.y * 0.85 + (h.getDouble("y") - c.y) * 0.08, v.z);
+            Vec3 n = facing(h);
+            Vec3 middle = new Vec3(h.getDouble("x"), h.getDouble("y"), h.getDouble("z"));
+            Vec3 into = middle.subtract(n.scale(1.5)); // just behind the face, so a turned one draws it through
+            b.setDeltaMovement(v.x * 0.85 + (into.x - c.x) * 0.08, v.y * 0.85 + (into.y - c.y) * 0.08, v.z);
             b.setYRot(b.getYRot() + 6);
-            return c.z - 0.5 >= h.getDouble("z"); // its back is past the disc
+            return c.subtract(middle).dot(n) <= -0.5; // its back is through the face
         }).orElse(true);
         if (through || ticks >= tuning().suckTicks()) {
             exit(server, tardis);
