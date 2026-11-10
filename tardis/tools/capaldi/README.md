@@ -8,7 +8,7 @@ main door frame face at z=8 with the door centred on x=0.5. Rotor and console ax
 - `capaldi_console_room.nbt`: vanilla structure file (DataVersion 3955 = 1.21.1), size 31x12x26. Place its min corner
   at (-15, -4, -15) relative to the room origin. Air fills the rest of the box, so placing it clears the room.
 - Block ids use the mod's namespace `tardis_rb:` (regenerate with `write_nbt.py <json> <out> <namespace>`).
-  Blocks: `roundel_wall`, `roundel_wall_lit` (emissive ring), `floor_plate`, `grille_plate` (emissive dots),
+  Blocks: `roundel_wall`, `roundel_wall_lit` (emissive ring), `floor_plate`, `grille_plate` (since 2026-11-10 a see-through grating, written by capaldi.py, only round the console; the repair core stands under it on the lower deck, see docs/repair-loop.md),
   `frame`, `wall_panel`, `light_strip` (emissive), plus `floor_plate_stairs`, `frame_stairs` (incl. half=top) and
   `frame_slab`; bookshelves are `minecraft:bookshelf`. Invisible collision-only blocks: `collision_post` (a 4 px post
   inside each arch pillar) and `collision_pillar` (10 px, the console pedestal on the lower deck). Full list in `capaldi_console_room.palette.json`.

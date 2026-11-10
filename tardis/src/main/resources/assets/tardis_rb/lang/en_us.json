@@ -29,7 +29,7 @@
   "block.tardis_rb.light_strip": "Console Room Light Strip",
   "block.tardis_rb.roundel_wall": "Roundel Wall",
   "block.tardis_rb.roundel_wall_lit": "Lit Roundel Wall",
-  "block.tardis_rb.grille_plate": "Glowing Floor Grille",
+  "block.tardis_rb.grille_plate": "Floor Grating",
   "block.tardis_rb.frame_stairs": "Console Room Frame Stairs",
   "block.tardis_rb.floor_plate_stairs": "Console Room Floor Stairs",
   "block.tardis_rb.frame_slab": "Console Room Frame Slab",
@@ -192,5 +192,7 @@
   "tardis_rb.vortex.already": "The TARDIS is already in the vortex",
   "tardis_rb.vortex.missing": "The time vortex isn't in this world",
   "tardis_rb.vortex.failed": "The TARDIS shudders and stays put",
-  "tardis_rb.vortex.not_in": "The TARDIS isn't in the vortex"
+  "tardis_rb.vortex.not_in": "The TARDIS isn't in the vortex",
+  "block.tardis_rb.repair_core": "Repair Core",
+  "block.tardis_rb.core_casing": "Repair Core Casing"
 }

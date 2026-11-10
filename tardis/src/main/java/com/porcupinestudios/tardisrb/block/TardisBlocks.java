@@ -13,6 +13,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SlabBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.StairBlock;
+import net.minecraft.world.level.block.TransparentBlock;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.MapColor;
@@ -72,8 +73,10 @@ public final class TardisBlocks {
     public static final DeferredBlock<Block> ROUNDEL_WALL_LIT = BLOCKS.register("roundel_wall_lit",
             () -> new Block(room(12)));
     public static final DeferredBlock<Block> LIGHT_STRIP = BLOCKS.register("light_strip", () -> new Block(room(15)));
+    /** The see-through floor grating over the basement (Aaron 2026-11-10); a thin cutout plate, full collision. */
     public static final DeferredBlock<Block> GRILLE_PLATE = BLOCKS.register("grille_plate",
-            () -> new Block(room(8)));
+            () -> new TransparentBlock(room(0).noOcclusion().isViewBlocking((s, l, p) -> false)
+                    .isSuffocating((s, l, p) -> false).isRedstoneConductor((s, l, p) -> false)));
     public static final DeferredBlock<StairBlock> FRAME_STAIRS = BLOCKS.register("frame_stairs",
             () -> new StairBlock(FRAME.get().defaultBlockState(), room(0)));
     public static final DeferredBlock<StairBlock> FLOOR_PLATE_STAIRS = BLOCKS.register("floor_plate_stairs",
@@ -86,6 +89,12 @@ public final class TardisBlocks {
             () -> new CollisionOnlyBlock(fixed().noOcclusion().noLootTable(), Block.box(3, 0, 3, 13, 16, 13)));
     public static final DeferredBlock<ConsoleHullBlock> CONSOLE_HULL = BLOCKS.register("console_hull",
             () -> new ConsoleHullBlock(fixed().noOcclusion().noLootTable()));
+
+    /** The repair core under the console (Aaron 2026-11-10; {@link RepairCoreBlock}), 3 x 3 x 2 on the lower deck. */
+    public static final DeferredBlock<RepairCoreBlock> REPAIR_CORE = BLOCKS.register("repair_core",
+            () -> new RepairCoreBlock(room(10).noOcclusion()));
+    public static final DeferredBlock<RepairCoreBlock.Casing> CORE_CASING = BLOCKS.register("core_casing",
+            () -> new RepairCoreBlock.Casing(room(0).noOcclusion()));
 
     static {
         for (DeferredBlock<?> b : List.of(FLOOR_PLATE, WALL_PANEL, FRAME, ROUNDEL_WALL, ROUNDEL_WALL_LIT, LIGHT_STRIP,
@@ -102,6 +111,10 @@ public final class TardisBlocks {
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<ConsoleBlockEntity>> CONSOLE_BE =
             BLOCK_ENTITIES.register("console",
                     () -> BlockEntityType.Builder.of(ConsoleBlockEntity::new, CONSOLE.get()).build(null));
+
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<RepairCoreBlockEntity>> REPAIR_CORE_BE =
+            BLOCK_ENTITIES.register("repair_core",
+                    () -> BlockEntityType.Builder.of(RepairCoreBlockEntity::new, REPAIR_CORE.get()).build(null));
 
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<ExteriorBlockEntity>> EXTERIOR_BE =
             BLOCK_ENTITIES.register("exterior",

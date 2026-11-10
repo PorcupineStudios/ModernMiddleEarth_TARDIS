@@ -17,6 +17,12 @@ renderer. Writes:
 - Aaron 2026-11-08: the console is a blank slate. The hand-built model's own controls are left out (all but the
   monitor) and the body gets one plain colour; the controls on it are the small models of tools/flight_controls.py,
   placed by tools/console_layout.py (which also writes the control data files).
+- Aaron 2026-11-10, the basement under the console: the platform's floor grille is a see-through grating (a thin
+  plate, open squares, drawn cutout) over a 5 x 5 field round the console (GRATING), leaving 2 blocks of solid floor
+  to the platform's edges; the old dotted grilles elsewhere become floor plate. Under the console, filling the
+  lower deck's 2-block headroom, stands the repair core (`repair_core` in the middle of the bottom layer, drawn by
+  client/RepairCoreRenderer, and invisible `core_casing` round it: 3 x 3 x 2, CORE_CELLS) in place of the pedestal
+  post.
 """
 import json
 import math
@@ -36,11 +42,16 @@ import nbt  # noqa: E402
 DATA_VERSION = 3955
 ROOM_MIN = (-15, -4, -15)
 ROOM_SIZE = (31, 12, 26)
-FULL = ["floor_plate", "wall_panel", "frame", "light_strip", "roundel_wall", "roundel_wall_lit", "grille_plate"]
-GLOWING = {"light_strip", "roundel_wall_lit", "grille_plate"}
+FULL = ["floor_plate", "wall_panel", "frame", "light_strip", "roundel_wall", "roundel_wall_lit"]
+GLOWING = {"light_strip", "roundel_wall_lit"}
+# the see-through floor grating over the basement: x/z cells (y -1, the platform) round the console at 0,0
+GRATING = [(x, z) for x in range(-2, 3) for z in range(-2, 3)]
+# the repair core under the console, on the lower deck (floor top y -3, ceiling the platform at y -1)
+CORE = (0, -3, 0)
+CORE_CELLS = [(x, y, z) for x in range(-1, 2) for y in (-3, -2) for z in range(-1, 2)]
 STAIRS = {"frame_stairs": "frame", "floor_plate_stairs": "floor_plate"}
 SLABS = {"frame_slab": "frame"}
-INVISIBLE = ["collision_post", "collision_pillar", "console_hull"]
+INVISIBLE = ["collision_post", "collision_pillar", "console_hull", "core_casing", "repair_core"]
 # console_hull[part=i] stands at these cells round the console (0,0,0); its shape is in block/ConsoleHullBlock
 HULL_CELLS = [(-1, -1), (0, -1), (1, -1), (-1, 0), (1, 0), (-1, 1), (0, 1), (1, 1)]
 DOOR = (0, 0, 8)
@@ -117,10 +128,38 @@ def block_assets():
             "type=bottom": {"model": m}, "type=top": {"model": m + "_top"},
             "type=double": {"model": "tardis_rb:block/capaldi/" + base}}})
         write_json(os.path.join(ASSETS, "models", "item", name + ".json"), {"parent": m})
+    grating(tdir, models)
     write_json(os.path.join(models, "invisible.json"), {"textures": {"particle": tex("frame")}, "elements": []})
     for name in INVISIBLE:
         write_json(os.path.join(ASSETS, "blockstates", name + ".json"),
                    {"variants": {"": {"model": "tardis_rb:block/capaldi/invisible"}}})
+
+
+def grating(tdir, models):
+    """
+    The floor grating (Aaron 2026-11-10: more see-through): a 3 px plate at the top of the block, 1 px bars on a 5 px
+    grid with 4 x 4 open squares (a bit over half of it open), drawn cutout so the basement shows through.
+    """
+    img = Image.new("RGBA", (16, 16), (0, 0, 0, 0))
+    for x in range(16):
+        for y in range(16):
+            edge = x in (0, 15) or y in (0, 15)
+            if edge or x % 5 == 0 or y % 5 == 0:
+                shade = 0 if edge else (12 if (x % 5 == 0 and y % 5 == 0) else 26)
+                img.putpixel((x, y), (96 + shade, 102 + shade, 112 + shade, 255))
+    img.save(os.path.join(tdir, "grille_plate.png"))
+    side = {"texture": "#all", "uv": [0, 0, 16, 3]}
+    faces = {d: dict(side, cullface=d) for d in ("north", "south", "east", "west")}
+    faces["up"] = {"texture": "#all", "cullface": "up"}
+    faces["down"] = {"texture": "#all"}
+    model = {"parent": "minecraft:block/block", "render_type": "minecraft:cutout",
+             "textures": {"particle": tex("grille_plate"), "all": tex("grille_plate")},
+             "elements": [{"from": [0, 13, 0], "to": [16, 16, 16], "faces": faces}]}
+    write_json(os.path.join(models, "grille_plate.json"), model)
+    write_json(os.path.join(ASSETS, "blockstates", "grille_plate.json"),
+               {"variants": {"": {"model": "tardis_rb:block/capaldi/grille_plate"}}})
+    write_json(os.path.join(ASSETS, "models", "item", "grille_plate.json"),
+               {"parent": "tardis_rb:block/capaldi/grille_plate"})
 
 
 def stairs_states(m):
@@ -166,6 +205,19 @@ def room_structure():
         else:
             raise SystemExit("unknown shape " + shape)
         cells[(x, y, z)] = state
+    # the basement (Aaron 2026-11-10): grating only round the console, solid floor plate elsewhere; the core
+    # replaces the pedestal post
+    for p, state in list(cells.items()):
+        if state == "tardis_rb:grille_plate":
+            cells[p] = "tardis_rb:floor_plate"
+    for x, z in GRATING:
+        if cells.get((x, -1, z)) != "tardis_rb:floor_plate":
+            raise SystemExit(f"the grating at {x},-1,{z} isn't over the platform floor: {cells.get((x, -1, z))}")
+        cells[(x, -1, z)] = "tardis_rb:grille_plate"
+    for p in CORE_CELLS:
+        if cells.get(p) == "tardis_rb:collision_pillar":
+            del cells[p]
+
     def put(p, state):
         if p in cells and not cells[p].startswith("minecraft:air"):
             raise SystemExit(f"{p} is already {cells[p]}, can't put {state}")
@@ -173,6 +225,8 @@ def room_structure():
     put((0, 0, 0), "tardis_rb:console")
     for i, (dx, dz) in enumerate(HULL_CELLS):
         put((dx, 0, dz), f"tardis_rb:console_hull[part={i}]")
+    for p in CORE_CELLS:
+        put(p, "tardis_rb:repair_core" if p == CORE else "tardis_rb:core_casing")
     put(DOOR, "tardis_rb:interior_door[half=lower,open=false]")
     put((DOOR[0], DOOR[1] + 1, DOOR[2]), "tardis_rb:interior_door[half=upper,open=false]")
     for p in DOOR_FILL:
@@ -307,10 +361,11 @@ def lang():
     names = {"floor_plate": "Console Room Floor Plate", "wall_panel": "Console Room Wall Panel",
              "frame": "Console Room Frame", "light_strip": "Console Room Light Strip",
              "roundel_wall": "Roundel Wall", "roundel_wall_lit": "Lit Roundel Wall",
-             "grille_plate": "Glowing Floor Grille", "frame_stairs": "Console Room Frame Stairs",
+             "grille_plate": "Floor Grating", "frame_stairs": "Console Room Frame Stairs",
              "floor_plate_stairs": "Console Room Floor Stairs", "frame_slab": "Console Room Frame Slab",
              "collision_post": "Arch Post (invisible)", "collision_pillar": "Pedestal Post (invisible)",
-             "console_hull": "Console Hull (invisible)"}
+             "console_hull": "Console Hull (invisible)", "repair_core": "Repair Core",
+             "core_casing": "Repair Core Casing"}
     for k, v in names.items():
         data["block.tardis_rb." + k] = v
     write_json(path, data)

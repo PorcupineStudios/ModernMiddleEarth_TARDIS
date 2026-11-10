@@ -1,0 +1,66 @@
+{
+  "_comment": "The repair core's blank panel slots (Aaron 2026-11-10: a blank slate for showing installed upgrades, hull integrity, oxygen and so on). The core is a hexagonal column; face 0 looks at the main door (+z) and the faces count anticlockwise seen from above, like the console's sides. Each slot is a rectangle on its face: x 0..1 left to right and y 0..1 bottom to top, as seen standing in front of it. kind picks how it is drawn (bar, lamp, screen; all blank for now). Change this file and press F3+T to see it. docs/repair-loop.md says how to make a slot show something.",
+  "faces": [
+    {
+      "face": 0,
+      "name": "status",
+      "slots": [
+        {"id": "hull", "kind": "bar", "x": [0.14, 0.3], "y": [0.12, 0.88]},
+        {"id": "oxygen", "kind": "bar", "x": [0.42, 0.58], "y": [0.12, 0.88]},
+        {"id": "charge", "kind": "bar", "x": [0.7, 0.86], "y": [0.12, 0.88]}
+      ]
+    },
+    {
+      "face": 1,
+      "name": "upgrades",
+      "slots": [
+        {"id": "upgrade_1", "kind": "lamp", "x": [0.14, 0.44], "y": [0.66, 0.88]},
+        {"id": "upgrade_2", "kind": "lamp", "x": [0.56, 0.86], "y": [0.66, 0.88]},
+        {"id": "upgrade_3", "kind": "lamp", "x": [0.14, 0.44], "y": [0.39, 0.61]},
+        {"id": "upgrade_4", "kind": "lamp", "x": [0.56, 0.86], "y": [0.39, 0.61]},
+        {"id": "upgrade_5", "kind": "lamp", "x": [0.14, 0.44], "y": [0.12, 0.34]},
+        {"id": "upgrade_6", "kind": "lamp", "x": [0.56, 0.86], "y": [0.12, 0.34]}
+      ]
+    },
+    {
+      "face": 2,
+      "name": "research",
+      "slots": [
+        {"id": "research_screen", "kind": "screen", "x": [0.12, 0.88], "y": [0.42, 0.88]},
+        {"id": "research_progress", "kind": "bar", "x": [0.12, 0.88], "y": [0.14, 0.3]}
+      ]
+    },
+    {
+      "face": 3,
+      "name": "subsystems",
+      "slots": [
+        {"id": "subsystem_1", "kind": "lamp", "x": [0.14, 0.34], "y": [0.7, 0.88]},
+        {"id": "subsystem_2", "kind": "lamp", "x": [0.4, 0.6], "y": [0.7, 0.88]},
+        {"id": "subsystem_3", "kind": "lamp", "x": [0.66, 0.86], "y": [0.7, 0.88]},
+        {"id": "subsystem_4", "kind": "lamp", "x": [0.14, 0.34], "y": [0.41, 0.59]},
+        {"id": "subsystem_5", "kind": "lamp", "x": [0.4, 0.6], "y": [0.41, 0.59]},
+        {"id": "subsystem_6", "kind": "lamp", "x": [0.66, 0.86], "y": [0.41, 0.59]},
+        {"id": "subsystem_7", "kind": "lamp", "x": [0.14, 0.34], "y": [0.12, 0.3]},
+        {"id": "subsystem_8", "kind": "lamp", "x": [0.4, 0.6], "y": [0.12, 0.3]},
+        {"id": "subsystem_9", "kind": "lamp", "x": [0.66, 0.86], "y": [0.12, 0.3]}
+      ]
+    },
+    {
+      "face": 4,
+      "name": "power",
+      "slots": [
+        {"id": "power_screen", "kind": "screen", "x": [0.12, 0.88], "y": [0.56, 0.88]},
+        {"id": "power_1", "kind": "bar", "x": [0.14, 0.44], "y": [0.12, 0.44]},
+        {"id": "power_2", "kind": "bar", "x": [0.56, 0.86], "y": [0.12, 0.44]}
+      ]
+    },
+    {
+      "face": 5,
+      "name": "access",
+      "slots": [
+        {"id": "access_screen", "kind": "screen", "x": [0.12, 0.88], "y": [0.3, 0.88]},
+        {"id": "access_lamp", "kind": "lamp", "x": [0.4, 0.6], "y": [0.1, 0.22]}
+      ]
+    }
+  ]
+}

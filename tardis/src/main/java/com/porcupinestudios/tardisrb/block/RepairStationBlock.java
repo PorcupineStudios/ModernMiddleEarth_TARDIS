@@ -25,6 +25,11 @@ public final class RepairStationBlock extends Block {
     @Override
     protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player,
             BlockHitResult hit) {
+        return open(level, pos, player);
+    }
+
+    /** Opens the repair and upgrade tree for a crew member (the station, and the repair core under the console). */
+    public static InteractionResult open(Level level, BlockPos pos, Player player) {
         if (level.isClientSide) {
             return InteractionResult.SUCCESS;
         }
