@@ -82,9 +82,13 @@ public class HallScreen extends Screen {
                         }
                     }).bounds(left() + 114, height - 53, 100, 20).build());
         }
-        addRenderableWidget(Button.builder(Component.translatableWithFallback("screen.lotr_port.hall.ledger",
-                "Ledger"), b -> PacketDistributor.sendToServer(new com.porcupinestudios.lotrport.colony.work.LedgerNet
-                        .Request(hall.colony()))).bounds(width / 2 - 104, height - 26, 100, 20).build());
+        // Manage opens the colony on the UI core (overview, buildings, people, stock, members): it replaces the Ledger
+        addRenderableWidget(Button.builder(Component.translatableWithFallback("screen.lotr_port.hall.manage",
+                "Manage"), b -> com.porcupinestudios.lotrport.client.ui.UiScreen.request(
+                        new com.porcupinestudios.lotrport.ui.View.Target(
+                                com.porcupinestudios.lotrport.colony.ui.ColonyViews.COLONY,
+                                hall.colony().toString(), "people")))
+                .bounds(width / 2 - 104, height - 26, 100, 20).build());
         addRenderableWidget(Button.builder(Component.translatableWithFallback("gui.done", "Done"), b -> onClose())
                 .bounds(width / 2 + 4, height - 26, 100, 20).build());
     }

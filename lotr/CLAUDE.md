@@ -308,6 +308,14 @@ https://claude.ai/artifact/KqhSSTCuKXGuwKHBoYJdcu. Rebuild features in modern co
   `colony/`, `unit/`, `land/`, `social/`, `war/` or `ai/`.
 - Not yet: realms on the colony, envoy spawning (rare NPCs come from normal spawning or commands for now).
 
+## UI core (2026-11-11, `ui/`, `client/ui/`, `colony/ui/`, UNBUILT)
+- Management screens are views the server builds (tabs + a table or stats page + actions) and one client screen
+  (`client/ui/UiScreen`) draws with the Kenney sprites; a new screen is a `ViewProvider` registered in `ui/Views`, no
+  client code. Four payloads (`ui/UiNet`). Search, filters and sort run on the client (`ui/TableQuery`, JUnit
+  `TableQueryTest`). Colony views (`colony/ui/ColonyViews`): one colony (Overview, Buildings, People, Stock, Members)
+  and all your colonies; the Town Hall's Manage button, `/lotr_colony manage`, `/lotr_colony colonies`.
+- **Read `lotr/docs/ui-core.md`** before adding or changing a management screen. Never drawn in game yet.
+
 ## AI rulers (phase 10: `ai/`)
 - Rulers from data (`ai_ruler/<id>.json`: name, faction, home waypoint, aggression, expansion, max_colonies, colony
   names); numbers in `ai/settings.json`. Each gets an AI realm (`Realms`). One `AiRulers.step` per colony day, rulers in
