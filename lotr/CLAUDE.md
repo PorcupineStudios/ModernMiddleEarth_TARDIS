@@ -308,6 +308,7 @@ https://claude.ai/artifact/KqhSSTCuKXGuwKHBoYJdcu. Rebuild features in modern co
   other screens, realms on the colony, envoy spawning (rare NPCs come from normal spawning or commands for now).
 
 ## Groups: the shared core for colonies and hired units (2026-11-10, `group/`, UNBUILT)
+Full code walkthrough for anyone working on `group/`, `colonist/`, `colony/` or people: `lotr/docs/colony-architecture.md`.
 Plan: https://claude.ai/artifact/LZs7i9p8w6MaN7pdLV2K5N (colony core, hired units, multiplayer; Aaron's answers are in
 it). Step 1 of its build order is written; nothing was compiled against NeoForge (CI is offline, the sandbox has no
 Maven). The store's logic was run against stand-in classes only, so treat every line as unbuilt until a PC build.
