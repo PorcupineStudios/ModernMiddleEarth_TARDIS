@@ -20,7 +20,7 @@ import net.minecraft.world.entity.LivingEntity;
 final class ProfilePane {
     static final int PORTRAIT = 58;
     /** How much of the body the portrait shows, from the top (head and shoulders). */
-    private static final float PORTRAIT_PART = 0.42f;
+    private static final float PORTRAIT_PART = 0.62f;
     private static final int GAP = 14;
 
     private final UiScreen screen;
@@ -75,18 +75,22 @@ final class ProfilePane {
         bodyTop = py + PORTRAIT + 6;
         bodyBottom = y + h - buttonsH - 4;
         int colW = (w - 16 - GAP) / 2;
+        // the right column starts higher, under the subtitle beside the portrait
+        int rightTop = nb[1] + 36;
+        int lift = bodyTop - rightTop;
         int leftH = columnHeight(profile.left());
-        int rightH = columnHeight(profile.right());
-        // the left column starts beside the portrait's foot; the right one may start higher, beside the name
+        int rightH = columnHeight(profile.right()) - lift;
         bodyHeight = Math.max(leftH, rightH);
         int room = bodyBottom - bodyTop;
         scroll = Math.max(0, Math.min(scroll, Math.max(0, bodyHeight - room)));
-        ui.clip(x, bodyTop - 2, w, room + 2);
         int ly = bodyTop - scroll;
+        ui.clip(x, bodyTop - 2, colW + 12, room + 2);
         for (Page.Section s : profile.left()) {
             ly = Sections.draw(ui, screen, s, x + 8, ly, colW) + 8;
         }
-        int ry = bodyTop - scroll;
+        ui.unclip();
+        ui.clip(x + 8 + colW, rightTop - 2, w - colW - 8, bodyBottom - rightTop + 2);
+        int ry = rightTop - scroll;
         for (Page.Section s : profile.right()) {
             ry = Sections.draw(ui, screen, s, x + 8 + colW + GAP, ry, colW) + 8;
         }
@@ -152,7 +156,7 @@ final class ProfilePane {
 
     /** Scrolls the sections; true if the mouse was over them. */
     boolean scroll(double mouseY, double amount) {
-        if (mouseY < bodyTop || mouseY > bodyBottom) {
+        if (mouseY < bodyTop - PORTRAIT / 2 || mouseY > bodyBottom) {
             return false;
         }
         scroll -= (int) Math.signum(amount) * 12;

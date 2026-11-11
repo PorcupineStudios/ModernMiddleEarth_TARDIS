@@ -254,8 +254,8 @@ public final class CitizenViews {
 
         List<Page.Section> left = List.of(new Page.Section(tr("citizen.needs", "Needs"), needs),
                 new Page.Section(tr("citizen.about", "About"), about));
-        List<Page.Section> right = List.of(new Page.Section(moodTitle, mood),
-                new Page.Section(tr("citizen.orders", "Orders"), orders));
+        List<Page.Section> right = List.of(new Page.Section(tr("citizen.orders", "Orders"), orders),
+                new Page.Section(moodTitle, mood));
         return new Page.Profile(Optional.of(p.id()), Component.literal(personName(p)),
                 canOrder ? Optional.of(RENAME) : Optional.empty(), subtitle, left, right, List.of());
     }
