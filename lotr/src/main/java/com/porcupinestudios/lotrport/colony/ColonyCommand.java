@@ -1,5 +1,8 @@
 package com.porcupinestudios.lotrport.colony;
 
+import com.porcupinestudios.lotrport.society.CoreComponents;
+import com.porcupinestudios.lotrport.society.Person;
+import com.porcupinestudios.lotrport.society.Society;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
 import java.util.Optional;
@@ -39,16 +42,17 @@ public final class ColonyCommand {
             int beds = Colonies.beds(player.serverLevel(), c);
             ctx.getSource().sendSuccess(() -> Component.translatableWithFallback("colony.lotr_port.info",
                     "%s (%s): %s citizens, %s beds, Hall at %s", c.name(), Component.translatable("faction."
-                            + f.getNamespace() + "." + f.getPath()), c.citizens().size(), beds,
+                            + f.getNamespace() + "." + f.getPath()), Society.citizenCount(player.server, c), beds,
                     c.hall().toShortString()), false);
-            for (Colony.Citizen ci : c.citizens()) {
+            for (Person ci : Society.citizens(player.server, c)) {
+                boolean rare = ci.get(CoreComponents.CITIZEN).map(CoreComponents.Citizen::rare).orElse(false);
                 ctx.getSource().sendSuccess(() -> Component.literal(" - " + ci.name() + " (").append(Component
                         .translatable("npc." + ci.type().getNamespace() + "." + ci.type().getPath()))
-                        .append(ci.rare() ? ", rare)" : ")"), false);
+                        .append(rare ? ", rare)" : ")"), false);
             }
-            c.applicants().forEach(a -> Migrants.tell(player, c, a));
+            Society.applicants(player.server, c).forEach(a -> Migrants.tell(player, c, a));
             c.recruits().keySet().forEach(id -> Recruiting.describe(player, c, id));
-            return c.citizens().size();
+            return Society.citizenCount(player.server, c);
         }));
         dispatcher.register(Commands.literal("lotr")
                 .requires(source -> source.hasPermission(2))
@@ -56,7 +60,7 @@ public final class ColonyCommand {
                         .then(Commands.literal("list").executes(ctx -> {
                             Colonies all = Colonies.get(ctx.getSource().getServer());
                             all.all().forEach(c -> ctx.getSource().sendSuccess(() -> Component.literal(c.name()
-                                    + ": " + c.citizens().size() + " citizens at " + c.hall().toShortString()),
+                                    + ": " + Society.population(ctx.getSource().getServer(), c) + " people at " + c.hall().toShortString()),
                                     false));
                             ctx.getSource().sendSuccess(() -> Component.literal("colony data problems: "
                                     + ColonyData.loadProblems()), false);

@@ -7,7 +7,7 @@ import com.mojang.brigadier.suggestion.SuggestionProvider;
 import com.porcupinestudios.lotrport.npc.Hiring;
 import com.porcupinestudios.lotrport.npc.LotrNpc;
 import com.porcupinestudios.lotrport.npc.NpcData;
-import com.porcupinestudios.lotrport.npc.People;
+import com.porcupinestudios.lotrport.society.Persons;
 import java.util.UUID;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
@@ -76,11 +76,10 @@ public final class NpcCommand {
                             return n;
                         }))
                         .then(Commands.literal("people").executes(ctx -> {
-                            People people = People.get(ctx.getSource().getServer());
+                            Persons people = Persons.get(ctx.getSource().getServer());
                             people.all().forEach(p -> ctx.getSource().sendSuccess(() -> Component.literal(
-                                    p.name() + " (" + p.type() + ")" + (p.alive() ? "" : ", dead") + ", owner "
-                                            + p.owner().map(UUID::toString).orElse("none")), false));
-                            return people.all().size();
+                                    p.toString()), false));
+                            return people.size();
                         }))));
         dispatcher.register(Commands.literal("lotr_hire")
                 .then(Commands.argument("captain", StringArgumentType.word())

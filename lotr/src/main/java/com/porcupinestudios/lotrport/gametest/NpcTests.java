@@ -8,7 +8,10 @@ import com.porcupinestudios.lotrport.npc.Hiring;
 import com.porcupinestudios.lotrport.npc.LotrEntities;
 import com.porcupinestudios.lotrport.npc.LotrNpc;
 import com.porcupinestudios.lotrport.npc.NpcData;
-import com.porcupinestudios.lotrport.npc.People;
+import com.porcupinestudios.lotrport.society.Owner;
+import com.porcupinestudios.lotrport.society.Person;
+import com.porcupinestudios.lotrport.society.Persons;
+import com.porcupinestudios.lotrport.society.Society;
 import java.util.Optional;
 import net.minecraft.gametest.framework.GameTest;
 import net.minecraft.gametest.framework.GameTestHelper;
@@ -102,8 +105,9 @@ public final class NpcTests {
         helper.assertTrue(unit.faction().equals(Optional.of(faction)), "the unit fights for " + unit.faction());
         helper.assertTrue(unit.command() == LotrNpc.Command.FOLLOW, "a new unit does not follow");
         helper.assertTrue(Coins.count(player) == 1000 - cost, "paid " + (1000 - Coins.count(player)) + " not " + cost);
-        helper.assertTrue(People.get(server).get(unit.getUUID()).flatMap(People.Person::owner)
-                .equals(Optional.of(player.getUUID())), "no person record for the hired unit");
+        helper.assertTrue(Persons.get(server).get(unit.getUUID()).map(Person::owner)
+                .equals(Optional.of(Owner.player(player.getUUID())))
+                && Society.unitsOf(server, player.getUUID()).stream().anyMatch(p -> p.id().equals(unit.getUUID())), "no person record for the hired unit");
 
         // commanding: sneak + right-click switches between guarding the spot and following
         player.setShiftKeyDown(true);
@@ -161,8 +165,8 @@ public final class NpcTests {
         unit.setCommand(LotrNpc.Command.GUARD);
 
         // a restart: the world's records and the entity are saved and read back
-        CompoundTag saved = People.get(server).save(new CompoundTag(), server.registryAccess());
-        People reloaded = People.load(saved, server.registryAccess());
+        CompoundTag saved = Persons.get(server).save(new CompoundTag(), server.registryAccess());
+        Persons reloaded = Persons.load(saved, server.registryAccess());
         helper.assertTrue(reloaded.get(unit.getUUID()).isPresent(), "the record did not survive saving");
         helper.assertTrue(reloaded.get(unit.getUUID()).get().type().equals(unit.typeId()), "the record lost its type");
 
@@ -176,7 +180,7 @@ public final class NpcTests {
         helper.assertTrue(copy.faction().equals(unit.faction()), "the unit forgot its faction");
 
         LotrNpc orc = spawn(helper, "mordor_orc");
-        helper.assertTrue(People.get(server).get(orc.getUUID()).isEmpty(), "a random orc got a person record");
+        helper.assertTrue(Persons.get(server).get(orc.getUUID()).isEmpty(), "a random orc got a person record");
         helper.assertTrue(orc.owner().isEmpty() && orc.command() == LotrNpc.Command.NONE, "a random orc is hired");
         helper.assertFalse(orc.getMainHandItem().isEmpty(), "the orc spawned without a weapon");
         helper.succeed();

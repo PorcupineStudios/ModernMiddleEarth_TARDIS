@@ -31,7 +31,7 @@ public final class SharedApiHooks {
                 LotrDimensions.isMiddleEarth(level) ? Optional.of(middleEarthPlanet()) : Optional.empty()));
         // Colonists research TARDIS tech for their founder's crew.
         modBus.addListener((RegisterProvidersEvent event) -> event.researchers((server, player) ->
-                Colonies.get(server).researchers(player)));
+                Colonies.get(server).researchers(server, player)));
     }
 
     /** Middle-earth's planet surface: exactly the map. */

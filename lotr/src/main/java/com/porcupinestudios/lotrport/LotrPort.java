@@ -1,6 +1,7 @@
 package com.porcupinestudios.lotrport;
 
 import com.mojang.logging.LogUtils;
+import com.porcupinestudios.lotrport.society.CoreComponents;
 import com.porcupinestudios.lotrport.command.FactionCommand;
 import com.porcupinestudios.lotrport.command.LotrCommand;
 import com.porcupinestudios.lotrport.command.NpcCommand;
@@ -93,6 +94,7 @@ public final class LotrPort {
         AttackTiming.register();
         ColonyItems.register(modBus);
         ColonyData.register();
+        CoreComponents.init();
         Colonies.register();
         Migrants.register();
         AiData.register();
