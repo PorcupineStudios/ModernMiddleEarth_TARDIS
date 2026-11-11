@@ -1,0 +1,35 @@
+{
+  "armies": {
+    "warning_ticks": 24000,
+    "march_base": 2400,
+    "march_per_500": 1200,
+    "march_max": 36000,
+    "muster_cost": 2,
+    "raid_cap": 6,
+    "raid_cooldown": 24000,
+    "loot_share": 0.1,
+    "raid_loot_cap": 200,
+    "raid_item_cap": 64,
+    "raid_losses": 0.5,
+    "siege_hold": 2400,
+    "siege_zone": 8,
+    "siege_landing": 24,
+    "attacker_grace": 600,
+    "defender_grace": 6000
+  },
+  "peace": {
+    "siege_score": 50,
+    "raid_score": 10,
+    "soldier_score": 1,
+    "exhaustion_per_day": 5,
+    "exhaustion_per_soldier": 2,
+    "exhaustion_max": 100,
+    "coins_per_score": 5,
+    "tribute_goal": 50,
+    "vassal_tribute": 5,
+    "defense_per_citizen": 0.1,
+    "report_ticks": 24000,
+    "ai_raids_players": false,
+    "ai_raid_range": 3000
+  }
+}
