@@ -101,6 +101,25 @@ public final class Colonists {
         }
     }
 
+    /** Most citizens from older saves given traits per colony per day (spreads the work: see {@link #settleSome}). */
+    public static final int SETTLE_PER_DAY = 20;
+
+    /**
+     * Gives traits, mood and kin to up to {@link #SETTLE_PER_DAY} of these citizens who have none yet (citizens from
+     * before colonists had traits). New citizens are settled the moment they join, so this only catches up old saves.
+     */
+    public static void settleSome(MinecraftServer server, List<Person> citizens) {
+        int n = 0;
+        for (Person p : citizens) {
+            if (!p.has(ColonistData.TRAITS)) {
+                settle(server, p);
+                if (++n >= SETTLE_PER_DAY) {
+                    return;
+                }
+            }
+        }
+    }
+
     /** Remembers something that happened to this person (a death in the family, a wedding). */
     public static void remember(Persons persons, Person p, ResourceLocation thought, long now) {
         Mood mood = p.get(ColonistData.MOOD).orElse(Mood.EMPTY);
@@ -126,8 +145,15 @@ public final class Colonists {
         Map<ResourceLocation, RaceDef> races = ColonistData.races();
         Map<UUID, UUID> out = new HashMap<>();
         for (Person p : citizens) {
-            out.put(p.id(), KinRules.household(p.id(), id -> Optional.ofNullable(kin.get(id)),
-                    r -> Optional.ofNullable(races.get(r)), now, dayTicks()));
+            Kin k = kin.get(p.id());
+            // no parents and no spouse: their own household (what KinRules would say, without the walk). Every
+            // settler starts like this, so until families form this is the whole colony
+            if (k == null || k.parents().isEmpty() && k.spouse().isEmpty()) {
+                out.put(p.id(), p.id());
+            } else {
+                out.put(p.id(), KinRules.household(p.id(), id -> Optional.ofNullable(kin.get(id)),
+                        r -> Optional.ofNullable(races.get(r)), now, dayTicks()));
+            }
         }
         return out;
     }
@@ -172,14 +198,37 @@ public final class Colonists {
     public static double moodToday(Persons persons, Person p, Optional<ResourceLocation> homeThought, long now) {
         Map<ResourceLocation, ThoughtDef> defs = ColonistData.thoughts();
         Mood mood = p.get(ColonistData.MOOD).orElse(Mood.EMPTY);
-        Mood kept = MoodRules.forget(mood, defs, now);
-        if (kept != mood) {
-            persons.setQuiet(p, ColonistData.MOOD, kept);
+        int sum = 0;
+        if (!mood.memories().isEmpty()) {
+            Mood kept = MoodRules.forget(mood, defs, now);
+            if (kept != mood) {
+                persons.setQuiet(p, ColonistData.MOOD, kept);
+            }
+            sum += MoodRules.sum(defs, kept, List.of(), now);
         }
-        List<ResourceLocation> standing = new ArrayList<>(TraitRules.thoughts(ColonistData.traits(),
-                p.get(ColonistData.TRAITS).orElse(List.of())));
-        homeThought.ifPresent(standing::add);
-        return MoodRules.sum(defs, kept, standing, now);
+        // standing thoughts count once each (MoodRules.sum's rule), summed here without building a set: traits have
+        // one or two thoughts at most
+        List<ResourceLocation> traits = p.get(ColonistData.TRAITS).orElse(List.of());
+        Map<ResourceLocation, TraitDef> traitDefs = ColonistData.traits();
+        List<ResourceLocation> counted = traits.isEmpty() ? List.of() : new ArrayList<>(4);
+        for (ResourceLocation t : traits) {
+            TraitDef def = traitDefs.get(t);
+            if (def == null) {
+                continue;
+            }
+            for (ResourceLocation thought : def.thoughts()) {
+                ThoughtDef td = defs.get(thought);
+                if (td != null && !counted.contains(thought)) {
+                    counted.add(thought);
+                    sum += td.mood();
+                }
+            }
+        }
+        if (homeThought.isPresent() && !counted.contains(homeThought.get())) {
+            ThoughtDef td = defs.get(homeThought.get());
+            sum += td == null ? 0 : td.mood();
+        }
+        return sum;
     }
 
     /** How fast this person's food runs down: race times traits (1 = normal). */

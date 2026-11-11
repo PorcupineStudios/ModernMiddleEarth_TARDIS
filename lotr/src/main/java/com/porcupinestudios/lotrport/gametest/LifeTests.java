@@ -148,6 +148,11 @@ public final class LifeTests {
     private static Person citizen(Persons persons, Colony colony, ResourceLocation type) {
         Person p = persons.migrated(UUID.randomUUID(), type, type.getPath(), 0, colony.asOwner());
         persons.setQuiet(p, CoreComponents.CITIZEN, new CoreComponents.Citizen(0, false));
+        // the base rules: no traits and a man's appetite, so the counts below are exact (colonist/ is tested apart)
+        persons.setQuiet(p, com.porcupinestudios.lotrport.colonist.ColonistData.TRAITS, java.util.List.of());
+        persons.setQuiet(p, com.porcupinestudios.lotrport.colonist.ColonistData.KIN,
+                new com.porcupinestudios.lotrport.colonist.Kin(com.porcupinestudios.lotrport.LotrPort.id("man"), 0,
+                        java.util.List.of(), Optional.empty(), java.util.List.of()));
         return p;
     }
 

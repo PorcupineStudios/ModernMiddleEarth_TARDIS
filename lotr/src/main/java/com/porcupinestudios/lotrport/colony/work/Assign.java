@@ -46,8 +46,8 @@ public final class Assign {
         Buildings buildings = Buildings.of(colony);
         List<Person> citizens = new ArrayList<>(Society.citizens(server, colony));
         citizens.sort(Comparator.comparing(Person::id));
-        // citizens from before traits existed get theirs now (no-op for everyone else)
-        citizens.forEach(p -> Colonists.settle(server, p));
+        // citizens from before traits existed get theirs, a few a day
+        Colonists.settleSome(server, citizens);
         homes(persons, buildings, citizens, Colonists.residents(citizens, now));
         jobs(server, persons, colony, buildings, citizens, now);
     }
