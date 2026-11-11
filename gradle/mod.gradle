@@ -61,6 +61,8 @@ neoForge {
 }
 
 sourceSets.main.resources { srcDir 'src/generated/resources' }
+// unit tests use plain game classes (ResourceLocation, Component) in rules that never touch a running game
+neoForge.addModdingDependenciesTo(sourceSets.test)
 
 dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter:5.10.2'
