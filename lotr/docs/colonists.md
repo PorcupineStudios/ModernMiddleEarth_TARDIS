@@ -4,10 +4,21 @@ Read when: you touch `colonist/`, home assignment (`colony/work/Assign`), happin
 `colonist_*` data. Written 2026-11-11 (moved from the abandoned `claude/colony-core` branch onto the society core).
 Design: the "Colonists" section of https://claude.ai/artifact/LZs7i9p8w6MaN7pdLV2K5N.
 
-## Status: unbuilt
+## Status
 
-Not compiled against NeoForge. The plain rules ran here against stand-in classes: `ColonistRulesTest` (8) and
-`HouseRulesTest` (5). The glue (`Colonists`, `ColonistData`) and the edits to `Assign` and `Life` were only parsed.
+Green in CI (2026-11-11): `ColonistRulesTest` (8) and `HouseRulesTest` (5) pass, and so do all 84 LOTR GameTests,
+including `LifeTests` (its citizens have no traits and a man's appetite, so its exact counts test the base rules) and
+the 50-colony budget test.
+
+## Performance
+
+`SocietyTests.fiftyColoniesRunTenDaysWithinTheBudget` allows 2 ms of colony work a tick and at most 3 slow ticks; the
+base code already peaked at 1.66 ms, so colonist work has almost no room. What got it back to 0 slow ticks (1.8 ms
+worst): traits are rolled from ids sorted once per reload (`TraitRules.ordered`); citizens from older saves get traits
+once at server start (`Colonists.onStarted`), never inside a colony pass; anyone with no parents and no spouse is
+their own household without walking the tree; households are worked out once per colony per tick and shared by the
+homes and needs passes; home thoughts count households per house, not a set per person; `HouseRules` stops at once
+when nobody is homeless; mood is summed without building lists or sets. Keep new per-citizen daily work that cheap.
 
 ## How it sits on the society core
 
@@ -22,8 +33,7 @@ Not compiled against NeoForge. The plain rules ran here against stand-in classes
   dropped: nothing filled them, and two hunger systems would fight.
 - **Work speed**: `Life.worker` multiplies output by `Colonists.workSpeed` (traits' `work_speed`).
 - **Settling**: a person gets traits, an empty mood and kin when the `citizen` component is set
-  (`SocietyEvent.ComponentChanged`), seeded by their id. `Assign.run` also calls `settle` for every citizen each
-  day, which back-fills citizens from older saves (a no-op for anyone with traits).
+  (`SocietyEvent.ComponentChanged`), seeded by their id. Citizens from older saves get theirs when the server starts.
 - **Grief**: on `SocietyEvent.Died`, the dead person's living parents, spouse and children remember `kin_died`.
 - **Races**: which NPC type is which race stays `colony_race/` (`Races.of`). `colonist_race/<race>.json` adds how
   that race lives (days per year, adult age, extended households, food rate, settler ages). Files: man, hobbit,
