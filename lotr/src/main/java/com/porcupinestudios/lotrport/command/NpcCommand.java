@@ -110,6 +110,16 @@ public final class NpcCommand {
                                     p.toString()), false));
                             return people.size();
                         }))));
+        dispatcher.register(Commands.literal("lotr_map").executes(ctx -> {
+            net.minecraft.server.level.ServerPlayer sp = ctx.getSource().getPlayerOrException();
+            net.neoforged.neoforge.network.PacketDistributor.sendToPlayer(sp,
+                    com.porcupinestudios.lotrport.net.MapNet.data(sp));
+            return 1;
+        }));
+        dispatcher.register(Commands.literal("lotr_visibility").executes(ctx -> {
+            com.porcupinestudios.lotrport.social.SocialNet.sendView(ctx.getSource().getPlayerOrException(), true);
+            return 1;
+        }));
         dispatcher.register(Commands.literal("lotr_units").executes(ctx -> {
             com.porcupinestudios.lotrport.unit.Units.openScreen(ctx.getSource().getPlayerOrException(),
                     Optional.empty());

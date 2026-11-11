@@ -54,7 +54,7 @@ public class HallScreen extends Screen {
     @Override
     protected void init() {
         int x = left() + LIST_W + 12;
-        int y = top();
+        int y = top() + 14 + hall.roles().size() * 10;
         if (hall.canEdit()) {
             Optional<HallNet.Member> cur = current();
             if (cur.isPresent() && !cur.get().role().equals("lotr_port:ruler")) {
@@ -123,24 +123,27 @@ public class HallScreen extends Screen {
             g.drawString(font, rn, x + LIST_W - 2 - font.width(rn), ry + 2, 0xFFD37F);
         }
         int dx = x + LIST_W + 12;
+        // the roles and what each may do, one line each (hover a line for all of it)
+        g.drawString(font, Component.translatableWithFallback("screen.lotr_port.hall.roles", "Roles"), dx, y - 11,
+                0xFFFFFF);
+        int ry = y;
+        for (HallNet.Role r : hall.roles()) {
+            String text = r.name() + ": " + (r.permissions().equals("*") ? "everything" : r.permissions());
+            int w = width - dx - 8;
+            g.drawString(font, font.plainSubstrByWidth(text, w), dx, ry, 0xAAAAAA);
+            if (mouseX >= dx && mouseX < dx + w && mouseY >= ry && mouseY < ry + 10 && font.width(text) > w) {
+                g.renderTooltip(font, font.split(Component.literal(text), 200), mouseX, mouseY);
+            }
+            ry += 10;
+        }
         Optional<HallNet.Member> cur = current();
+        int by = y + 4 + hall.roles().size() * 10;
         if (hall.canEdit() && cur.isPresent()) {
             g.drawString(font, Component.translatableWithFallback("screen.lotr_port.hall.give", "Role for %s:",
-                    cur.get().name()), dx, y + 4, 0xFFFFFF);
+                    cur.get().name()), dx, by, 0xFFFFFF);
         } else if (hall.canEdit()) {
             g.drawString(font, Component.translatableWithFallback("screen.lotr_port.hall.pick",
-                    "Pick a member to change their role"), dx, y + 4, 0xAAAAAA);
-        }
-        int ry = y + 110;
-        g.drawString(font, Component.translatableWithFallback("screen.lotr_port.hall.roles", "Roles"), dx, ry,
-                0xFFFFFF);
-        for (HallNet.Role r : hall.roles()) {
-            ry += 11;
-            String text = r.name() + ": " + (r.permissions().equals("*") ? "everything" : r.permissions());
-            for (var line : font.split(Component.literal(text), width - dx - 8)) {
-                g.drawString(font, line, dx, ry, 0xAAAAAA);
-                ry += 10;
-            }
+                    "Pick a member to change their role"), dx, by, 0xAAAAAA);
         }
     }
 
