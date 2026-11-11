@@ -1,6 +1,8 @@
 package com.porcupinestudios.lotrport.colony.work;
 
 import com.porcupinestudios.lotrport.LotrPort;
+import com.porcupinestudios.lotrport.colonist.Colonists;
+import com.porcupinestudios.lotrport.colonist.HouseRules;
 import com.porcupinestudios.lotrport.colony.Colony;
 import com.porcupinestudios.lotrport.colony.building.Building;
 import com.porcupinestudios.lotrport.colony.building.BuildingType;
@@ -17,6 +19,7 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
 import net.minecraft.nbt.CompoundTag;
@@ -25,7 +28,8 @@ import net.minecraft.server.MinecraftServer;
 
 /**
  * Homes and jobs (RingRealms' {@code ColonyLogic} homes and {@code Work.assign}). Citizens keep the home and job they
- * have while the building stands and still fits; the homeless get a free bed (best home first) and the jobless a free
+ * have while the building stands and still fits; households sleep under one roof and the homeless are housed by
+ * household, families first ({@code colonist.HouseRules}); the jobless get a free
  * slot: one worker per workplace first in job priority order, then the remaining slots, the best race for the job
  * first. Soldiers never take a job. History {@code citizen_job}.
  */
@@ -42,33 +46,22 @@ public final class Assign {
         Buildings buildings = Buildings.of(colony);
         List<Person> citizens = new ArrayList<>(Society.citizens(server, colony));
         citizens.sort(Comparator.comparing(Person::id));
-        homes(persons, buildings, citizens);
+        // citizens from before traits existed get theirs now (no-op for everyone else)
+        citizens.forEach(p -> Colonists.settle(server, p));
+        homes(persons, buildings, citizens, Colonists.residents(citizens, now));
         jobs(server, persons, colony, buildings, citizens, now);
     }
 
-    static void homes(Persons persons, Buildings buildings, List<Person> citizens) {
-        Map<UUID, Integer> free = new HashMap<>();
-        for (Building b : buildings.homes()) {
-            free.put(b.id(), b.count("beds"));
-        }
-        List<Person> homeless = new ArrayList<>();
+    static void homes(Persons persons, Buildings buildings, List<Person> citizens,
+            List<HouseRules.Resident> residents) {
+        List<HouseRules.Home> homes = buildings.homes().stream()
+                .map(b -> new HouseRules.Home(b.id(), b.quality(), b.count("beds"))).toList();
+        Map<UUID, UUID> placed = HouseRules.assign(homes, residents);
         for (Person p : citizens) {
-            Optional<WorkComponents.Home> home = p.get(WorkComponents.HOME);
-            if (home.isPresent() && free.getOrDefault(home.get().building(), 0) > 0) {
-                free.merge(home.get().building(), -1, Integer::sum);
-            } else {
-                homeless.add(p);
-            }
-        }
-        List<Building> best = buildings.homes().stream()
-                .sorted(Comparator.comparingInt(Building::quality).reversed().thenComparing(Building::id)).toList();
-        for (Person p : homeless) {
-            Optional<Building> b = best.stream().filter(x -> free.getOrDefault(x.id(), 0) > 0).findFirst();
-            if (b.isPresent()) {
-                free.merge(b.get().id(), -1, Integer::sum);
-                persons.setQuiet(p, WorkComponents.HOME, new WorkComponents.Home(b.get().id()));
-            } else if (p.has(WorkComponents.HOME)) {
-                persons.setQuiet(p, WorkComponents.HOME, null);
+            UUID before = p.get(WorkComponents.HOME).map(WorkComponents.Home::building).orElse(null);
+            UUID after = placed.get(p.id());
+            if (!Objects.equals(before, after)) {
+                persons.setQuiet(p, WorkComponents.HOME, after == null ? null : new WorkComponents.Home(after));
             }
         }
     }

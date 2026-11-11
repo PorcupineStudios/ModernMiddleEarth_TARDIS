@@ -1,0 +1,6 @@
+{
+  "days_per_year": 1.0,
+  "adult_age": 50,
+  "settler_age_min": 50,
+  "settler_age_max": 500
+}

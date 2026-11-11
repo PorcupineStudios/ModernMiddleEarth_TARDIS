@@ -2,6 +2,7 @@ package com.porcupinestudios.lotrport.colony.ui;
 
 import com.mojang.authlib.GameProfile;
 import com.porcupinestudios.lotrport.LotrPort;
+import com.porcupinestudios.lotrport.colonist.ColonistData;
 import com.porcupinestudios.lotrport.colony.Colonies;
 import com.porcupinestudios.lotrport.colony.Colony;
 import com.porcupinestudios.lotrport.colony.building.Building;
@@ -310,7 +311,7 @@ public final class ColonyViews {
         if (t.get().home()) {
             return new int[] {residents.getOrDefault(b.id(), 0), b.count("beds")};
         }
-        return t.get().job().map(j -> new int[] {workers.getOrDefault(b.id(), 0),
+        return t.get().job().<int[]>map(j -> new int[] {workers.getOrDefault(b.id(), 0),
                 JobDef.get(j).map(d -> d.slots(b.quality())).orElse(0)}).orElse(new int[] {0, 0});
     }
 
@@ -334,17 +335,26 @@ public final class ColonyViews {
                 new FilterGroup.Filter(UNHAPPY, tr("filter.unhappy", "Unhappy")),
                 new FilterGroup.Filter(HUNGRY, tr("filter.hungry", "Hungry")),
                 new FilterGroup.Filter(SOLDIER, tr("filter.soldiers", "Soldiers"))));
+        // traits present in the colony, for a filter group (a person has several, so not filterBy)
+        java.util.TreeSet<ResourceLocation> present = new java.util.TreeSet<>();
+        all.forEach(p -> present.addAll(p.get(ColonistData.TRAITS).orElse(List.of())));
+        List<FilterGroup.Filter> traitFilters = new ArrayList<>();
+        present.forEach(t -> traitFilters.add(new FilterGroup.Filter("trait:" + t, traitName(t))));
         return TableBuilder.of(all, p -> p.id().toString())
                 .column(Column.text("name", tr("col.name", "Name"), 3), p -> Cell.text(personName(p)))
                 .column(Column.text("race", tr("col.race", "Race"), 2), p -> Cell.text(title(Races.of(p.type()))))
                 .column(Column.text("job", tr("col.job", "Job"), 3), p -> job(p))
                 .column(Column.text("home", tr("col.home", "Home"), 3), p -> home(p, buildings))
+                .column(Column.text("traits", tr("col.traits", "Traits"), 3), p -> Cell.text(String.join(", ",
+                        p.get(ColonistData.TRAITS).orElse(List.of()).stream().map(t -> traitName(t).getString())
+                                .toList()), Tone.MUTED))
                 .column(Column.number("happiness", tr("col.happiness", "Happiness"), 2), p -> {
                     double h = p.get(WorkComponents.NEEDS).orElse(WorkComponents.Needs.NEW).happiness();
                     return Cell.number(h, Long.toString(Math.round(h)), happinessTone(h, life));
                 })
                 .tags(p -> tags(p, life))
-                .filters(status)
+                .tags(p -> p.get(ColonistData.TRAITS).orElse(List.of()).stream().map(t -> "trait:" + t).toList())
+                .filters(status, new FilterGroup("trait", tr("filter.trait", "Trait"), traitFilters))
                 .filterBy("race", tr("filter.race", "Race"), "race:", p -> Races.of(p.type()),
                         r -> Component.literal(title(r)))
                 .sortBy("happiness", false)
@@ -352,6 +362,11 @@ public final class ColonyViews {
                 .rowAction(Action.of("citizen", tr("open_citizen", "Citizen page")))
                 .empty(tr("no_people", "Nobody lives here yet"))
                 .build();
+    }
+
+    static Component traitName(ResourceLocation t) {
+        return Component.translatableWithFallback("trait." + t.getNamespace() + "." + t.getPath(),
+                title(t.getPath()));
     }
 
     static Cell job(Person p) {
