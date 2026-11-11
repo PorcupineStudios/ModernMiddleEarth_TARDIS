@@ -53,6 +53,9 @@ public final class HouseRules {
         }
         // 2. gather each household in its main home
         for (List<Resident> members : households.values()) {
+            if (members.size() < 2) {
+                continue;
+            }
             Optional<UUID> anchor = anchor(members, out, byId);
             if (anchor.isEmpty()) {
                 continue;
