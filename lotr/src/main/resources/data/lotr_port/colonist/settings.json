@@ -1,0 +1,15 @@
+{
+  "max_traits": 3,
+  "extra_trait_chance": 0.35,
+  "base_mood": 50,
+  "major_break": 15,
+  "minor_break": 30,
+  "unhappy": 45,
+  "inspired": 80,
+  "default_race": "lotr_port:man",
+  "own_home": "lotr_port:own_home",
+  "shared_home": "lotr_port:shared_home",
+  "barracks": "lotr_port:barracks",
+  "homeless": "lotr_port:homeless",
+  "barracks_households": 3
+}

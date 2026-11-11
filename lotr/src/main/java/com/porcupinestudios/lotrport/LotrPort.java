@@ -93,6 +93,7 @@ public final class LotrPort {
         AttackTiming.register();
         ColonyItems.register(modBus);
         ColonyData.register();
+        com.porcupinestudios.lotrport.colonist.ColonistData.register();
         Colonies.register();
         Migrants.register();
         AiData.register();

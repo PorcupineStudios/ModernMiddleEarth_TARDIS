@@ -44,7 +44,9 @@ public final class ColonyCommand {
             for (Colony.Citizen ci : c.citizens()) {
                 ctx.getSource().sendSuccess(() -> Component.literal(" - " + ci.name() + " (").append(Component
                         .translatable("npc." + ci.type().getNamespace() + "." + ci.type().getPath()))
-                        .append(ci.rare() ? ", rare)" : ")"), false);
+                        .append(ci.rare() ? ", rare)" : ")")
+                        .append(com.porcupinestudios.lotrport.colonist.Colonists.summary(player.server,
+                                ci.entity())), false);
             }
             c.applicants().forEach(a -> Migrants.tell(player, c, a));
             c.recruits().keySet().forEach(id -> Recruiting.describe(player, c, id));

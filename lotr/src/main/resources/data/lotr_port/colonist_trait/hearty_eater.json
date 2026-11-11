@@ -1,0 +1,8 @@
+{
+  "kind": "negative",
+  "weight": 6,
+  "heritable": 0.25,
+  "need_rates": {
+    "lotr_port:food": 1.4
+  }
+}

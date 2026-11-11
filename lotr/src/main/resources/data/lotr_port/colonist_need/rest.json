@@ -1,0 +1,14 @@
+{
+  "fall_per_day": 60,
+  "start": 80,
+  "levels": [
+    {
+      "below": 35,
+      "thought": "lotr_port:tired"
+    },
+    {
+      "below": 10,
+      "thought": "lotr_port:exhausted"
+    }
+  ]
+}

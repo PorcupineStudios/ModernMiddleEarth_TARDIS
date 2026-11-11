@@ -159,13 +159,12 @@ public final class Groups extends SavedData {
 
     /** Sets a group's part of this type, replacing the one it had. */
     public <T> void setPart(Group group, PartType<T> type, T value) {
-        group.parts.put(type.id(), value);
-        group.unread.remove(type.id().toString());
+        group.parts.set(type, value);
         setDirty();
     }
 
     public <T> void removePart(Group group, PartType<T> type) {
-        if (group.parts.remove(type.id()) != null) {
+        if (group.parts.remove(type)) {
             setDirty();
         }
     }

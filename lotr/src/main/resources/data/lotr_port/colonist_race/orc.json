@@ -1,0 +1,14 @@
+{
+  "match": [
+    "orc",
+    "uruk",
+    "goblin"
+  ],
+  "days_per_year": 0.5,
+  "adult_age": 12,
+  "need_rates": {
+    "lotr_port:company": 0.6
+  },
+  "settler_age_min": 12,
+  "settler_age_max": 40
+}

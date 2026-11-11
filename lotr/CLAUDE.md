@@ -316,7 +316,7 @@ Maven). The store's logic was run against stand-in classes only, so treat every 
   so nothing scans all groups (target: 50 colonies of 100+). A person is in one group at a time; `join` moves them.
 - Parts (`PartType`, `Parts.register`): each has its own Codec, data version and migration. A part whose type is not
   registered, fails to parse or comes from a newer build stays as saved and is written back untouched. No part types
-  are registered yet; land, access, orders and the rest arrive with their steps in the plan.
+  are registered on groups yet; land, access, orders and the rest arrive with their steps in the plan.
 - Colonies: each colony has a group with the colony's id (kind `colony`). `Colonies` mirrors owner and citizens into
   it (found, foundAi, transfer, join) and `Colonies.get` back-fills groups for older saves. `Colony` still keeps its
   own citizen list and `founder`; moving those fully into the group is the next step. `ownedBy` reads the owner map.
@@ -326,6 +326,30 @@ Maven). The store's logic was run against stand-in classes only, so treat every 
 - Tests (unrun): `GroupTests`; group checks added to `ColonyTests` and `NpcTests`. `ColonyTests` now expects a second
   colony to be allowed.
 - Not yet: commands as the one entry point, the layer check, access and land, simulation levels, the scheduler.
+
+## Colonists: traits, needs, mood, kin (2026-11-10, `colonist/`, UNBUILT)
+Plan: the "Colonists" section of https://claude.ai/artifact/LZs7i9p8w6MaN7pdLV2K5N. Not compiled against NeoForge. The
+rules are plain Java (no game classes but `ResourceLocation`) and their JUnit test `ColonistRulesTest` (`:lotr:test`)
+passed here against stand-in classes; the Codecs, loaders and `Colonists` have never been compiled.
+- Data, reloaded live: `colonist_trait/` (19: kind, scale, weight, heritable, work_speed, need_rates, thoughts,
+  on_break, conflicts), `colonist_need/` (5 bars: fall_per_day, start, levels → thought), `colonist_thought/` (24:
+  mood, duration_ticks, stack_limit; duration 0 = lasts while its cause does), `colonist_race/` (man, hobbit, dwarf,
+  elf, orc: match words in the NPC type path, days_per_year, adult_age, extended_household, need_rates, settler ages),
+  `colonist/settings.json`. `ColonistData.loadProblems()` lists dangling ids.
+- Person parts (`People.part` / `setPart`, saved in the person's tag under `parts`, via `group/PartBag`, which groups
+  use too): `traits`, `needs`, `mood`, `kin`.
+- Rules: `TraitRules` (roll: one positive, one negative, more by chance, never two on a scale or in conflict;
+  inherit; work speed, need rates, break behaviour), `NeedRules` (a bar is a value at a tick; its value now is worked
+  out on read, so nothing ticks per colonist), `MoodRules` (score = base + live memories + standing thoughts;
+  states by threshold), `KinRules` (age: Men 1 colony day = 1 year, adult at 18, Aaron 2026-11-10; household id;
+  `homeThought`: own household never counts as sharing), `RaceRules`.
+- Households: a couple and their children under age; a race with `extended_household` (hobbits) keeps grown
+  children, a spouse who married in and grandparents together. Only the living who are in the lookup count.
+- Wired so far: `Colonies.join` → `Colonists.settle` gives a citizen their four parts, seeded by the NPC's id (same
+  settler, same traits). `/lotr_colony` lists each citizen's traits. The race numbers other than Men's are first guesses.
+- Not yet: anything that fills needs or applies mood (work speed, breaks, leaving), houses per household (the port
+  only counts beds), marriage, births, children's bodies, coming of age, the family tree and needs screens, job
+  interests (no jobs in the port yet).
 
 ## AI rulers (phase 10: `ai/`)
 - Rulers from data (`ai_ruler/<id>.json`: name, faction, home waypoint, aggression, expansion, max_colonies, colony

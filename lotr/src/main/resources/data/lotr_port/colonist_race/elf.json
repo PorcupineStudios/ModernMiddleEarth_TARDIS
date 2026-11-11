@@ -1,0 +1,12 @@
+{
+  "match": [
+    "elf"
+  ],
+  "days_per_year": 1.0,
+  "adult_age": 50,
+  "need_rates": {
+    "lotr_port:rest": 0.5
+  },
+  "settler_age_min": 50,
+  "settler_age_max": 500
+}

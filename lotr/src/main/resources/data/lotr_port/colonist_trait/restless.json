@@ -1,0 +1,9 @@
+{
+  "kind": "negative",
+  "weight": 5,
+  "heritable": 0.15,
+  "need_rates": {
+    "lotr_port:leisure": 1.2
+  },
+  "on_break": "wander"
+}

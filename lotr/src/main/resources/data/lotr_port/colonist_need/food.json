@@ -1,0 +1,14 @@
+{
+  "fall_per_day": 50,
+  "start": 80,
+  "levels": [
+    {
+      "below": 40,
+      "thought": "lotr_port:hungry"
+    },
+    {
+      "below": 15,
+      "thought": "lotr_port:starving"
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "fall_per_day": 0,
+  "start": 80,
+  "levels": [
+    {
+      "below": 40,
+      "thought": "lotr_port:uneasy"
+    },
+    {
+      "below": 15,
+      "thought": "lotr_port:afraid"
+    }
+  ]
+}

@@ -2,6 +2,7 @@ package com.porcupinestudios.lotrport.colony;
 
 import com.mojang.serialization.Codec;
 import com.porcupinestudios.lotrport.LotrPort;
+import com.porcupinestudios.lotrport.colonist.Colonists;
 import com.porcupinestudios.lotrport.group.Group;
 import com.porcupinestudios.lotrport.group.GroupId;
 import com.porcupinestudios.lotrport.group.GroupKinds;
@@ -393,6 +394,7 @@ public final class Colonies extends SavedData {
                     flags(rare));
         }
         People.get(server).settled(server, npc);
+        Colonists.settle(server, npc);
         CompoundTag tag = new CompoundTag();
         tag.putUUID("colony", colony.id);
         tag.put("citizen", Colony.Citizen.CODEC.encodeStart(NbtOps.INSTANCE, citizen).getOrThrow());

@@ -1,0 +1,10 @@
+{
+  "fall_per_day": 15,
+  "start": 70,
+  "levels": [
+    {
+      "below": 25,
+      "thought": "lotr_port:lonely"
+    }
+  ]
+}

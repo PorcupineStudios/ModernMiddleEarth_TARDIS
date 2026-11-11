@@ -1,0 +1,10 @@
+{
+  "fall_per_day": 20,
+  "start": 70,
+  "levels": [
+    {
+      "below": 30,
+      "thought": "lotr_port:bored"
+    }
+  ]
+}

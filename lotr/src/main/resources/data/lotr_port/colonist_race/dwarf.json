@@ -1,0 +1,9 @@
+{
+  "match": [
+    "dwarf"
+  ],
+  "days_per_year": 0.75,
+  "adult_age": 40,
+  "settler_age_min": 40,
+  "settler_age_max": 150
+}

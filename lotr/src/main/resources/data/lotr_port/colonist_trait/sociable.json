@@ -1,0 +1,9 @@
+{
+  "kind": "neutral",
+  "scale": "company",
+  "weight": 5,
+  "heritable": 0.15,
+  "need_rates": {
+    "lotr_port:company": 1.4
+  }
+}

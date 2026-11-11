@@ -1,9 +1,12 @@
 package com.porcupinestudios.lotrport.npc;
 
 import com.porcupinestudios.lotrport.LotrPort;
+import com.porcupinestudios.lotrport.group.PartBag;
+import com.porcupinestudios.lotrport.group.PartType;
 import com.porcupinestudios.ringbearer.api.history.HistoryEntry;
 import com.porcupinestudios.ringbearer.api.history.HistoryLog;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -67,6 +70,8 @@ public final class People extends SavedData {
     }
 
     private final Map<UUID, Person> people = new LinkedHashMap<>();
+    /** What a person carries beyond their record (traits, needs, mood, kin...), by person. */
+    private final Map<UUID, PartBag> parts = new HashMap<>();
 
     public static People get(MinecraftServer server) {
         return server.overworld().getDataStorage().computeIfAbsent(FACTORY, FILE);
@@ -78,6 +83,20 @@ public final class People extends SavedData {
 
     public Collection<Person> all() {
         return people.values();
+    }
+
+    /** A person's part of this type, if they have a record and the part. */
+    public <T> Optional<T> part(UUID person, PartType<T> type) {
+        PartBag bag = parts.get(person);
+        return bag == null ? Optional.empty() : bag.get(type);
+    }
+
+    /** Sets a person's part, replacing the one they had. Does nothing for someone with no record. */
+    public <T> void setPart(UUID person, PartType<T> type, T value) {
+        if (people.containsKey(person)) {
+            parts.computeIfAbsent(person, k -> new PartBag()).set(type, value);
+            setDirty();
+        }
     }
 
     /** Records a newly hired NPC and writes it to the history log. */
@@ -125,7 +144,14 @@ public final class People extends SavedData {
     public CompoundTag save(CompoundTag tag, HolderLookup.Provider registries) {
         tag.putInt("dataVersion", DATA_VERSION);
         ListTag list = new ListTag();
-        people.values().forEach(p -> list.add(p.save()));
+        people.values().forEach(p -> {
+            CompoundTag t = p.save();
+            PartBag bag = parts.get(p.entity());
+            if (bag != null && !bag.isEmpty()) {
+                t.put("parts", bag.save());
+            }
+            list.add(t);
+        });
         tag.put("people", list);
         return tag;
     }
@@ -133,7 +159,13 @@ public final class People extends SavedData {
     public static People load(CompoundTag tag, HolderLookup.Provider registries) {
         People people = new People();
         for (Tag e : tag.getList("people", Tag.TAG_COMPOUND)) {
-            Person.load((CompoundTag) e).ifPresent(p -> people.people.put(p.entity(), p));
+            CompoundTag t = (CompoundTag) e;
+            Person.load(t).ifPresent(p -> {
+                people.people.put(p.entity(), p);
+                if (t.contains("parts")) {
+                    people.parts.put(p.entity(), PartBag.load(t.getCompound("parts")));
+                }
+            });
         }
         return people;
     }
