@@ -53,25 +53,26 @@ jobs:
         with:
           name: jars
           path: "*/build/libs/*.jar"
-      - name: Mods the TARDIS needs (for a test instance)
+      # Other mods' jars are never uploaded or released from this public repo: the release notes list the versions the
+      # build used, to download from Modrinth.
+      - name: Mods the TARDIS needs (versions only)
         run: |
-          mkdir -p needed-mods
+          : > needed-mods.txt
           for m in create immersive-portals-neoforge cloth-config jade; do
-            find ~/.gradle/caches/modules-2/files-2.1/maven.modrinth/$m -name "*.jar" ! -name "*-sources.jar" -exec cp {} needed-mods/ \;
+            find ~/.gradle/caches/modules-2/files-2.1/maven.modrinth/$m -name "*.jar" ! -name "*-sources.jar" \
+              -printf "- %f (https://modrinth.com/mod/$m)\n" >> needed-mods.txt
           done
-          ls -la needed-mods
-      - uses: actions/upload-artifact@v4
-        with:
-          name: needed-mods
-          path: needed-mods/*.jar
-      - name: Rolling test build (a pre-release with our jars and the mods they need)
+          cat needed-mods.txt
+      - name: Rolling test build (a pre-release with our jars; other mods are listed, not attached)
         if: github.event_name == 'push'
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           mkdir -p test-build
-          cp api/build/libs/*.jar tardis/build/libs/*.jar lotr/build/libs/*.jar needed-mods/*.jar test-build/
+          cp api/build/libs/*.jar tardis/build/libs/*.jar lotr/build/libs/*.jar test-build/
           rm -f test-build/*-sources.jar
           gh release delete test-build -y --cleanup-tag || true
           gh release create test-build test-build/*.jar --prerelease --target "${{ github.sha }}" \
-            --title "Test build (${GITHUB_REF_NAME})" --notes "Latest green build of ${GITHUB_REF_NAME} at ${GITHUB_SHA}, with Create, Immersive Portals, and Cloth Config. No Sodium: Create needs Sodium 0.6.9 or newer, Immersive Portals 6.0.7 works only with 0.6.0."
+            --title "Test build (${GITHUB_REF_NAME})" --notes "Latest green build of ${GITHUB_REF_NAME} at ${GITHUB_SHA}. Also install these mods from Modrinth (the versions this build used):
+          $(cat needed-mods.txt)
+          No Sodium: Create needs Sodium 0.6.9 or newer, Immersive Portals 6.0.7 works only with 0.6.0."
