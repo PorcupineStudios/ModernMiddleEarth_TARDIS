@@ -269,10 +269,11 @@ public final class SocietyTests {
                 helper.assertTrue(people2.size() == 150 && working == 26 && housed == 150,
                         c.name() + ": " + people2.size() + " citizens, " + working + " working, " + housed + " housed");
             }
-            // the GameTest server shares its thread with other tests and the garbage collector: allow a few
-            // slow ticks out of 240000, but the work itself must stay far under the budget
+            // the GameTest server shares its thread with other tests and the garbage collector, and CI runners are
+            // shared machines that pause now and then: allow stray slow ticks (50 of 240000 is 0.02%), but the
+            // work itself must stay far under the budget, which the mean checks
             long over = scheduler.perf().overBudget();
-            helper.assertTrue(over <= 3 && meanMs < SimSettings.get().budgetMs() / 20,
+            helper.assertTrue(over <= 50 && meanMs < SimSettings.get().budgetMs() / 20,
                     over + " ticks over budget (longest " + maxMs + " ms), mean " + meanMs + " ms");
 
             // a colony unloaded for 40 days catches up at most max_catch_up_days at once, and pays what it can
