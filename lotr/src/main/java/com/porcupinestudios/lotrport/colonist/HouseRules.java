@@ -14,6 +14,7 @@ import java.util.UUID;
  * they come of age, and families like a house of their own). Plain rules: data in, data out.
  *
  * <ol>
+ *   <li>Someone told to live in a home (the citizen page's orders) goes there first, while it has a bed.</li>
  *   <li>Everyone keeps a home that still stands and still has their bed, in the order given.</li>
  *   <li>Each household gathers in the home where most of it already sleeps, as far as its beds allow.</li>
  *   <li>The homeless are placed by household, biggest first, so families pick before single settlers: into their
@@ -28,8 +29,12 @@ public final class HouseRules {
     /** A home: its beds and quality. */
     public record Home(UUID id, int quality, int beds) {}
 
-    /** A citizen: their household and the home they have now. */
-    public record Resident(UUID person, UUID household, Optional<UUID> home) {}
+    /** A citizen: their household, the home they have now and the home they were told to live in, if any. */
+    public record Resident(UUID person, UUID household, Optional<UUID> home, Optional<UUID> ordered) {
+        public Resident(UUID person, UUID household, Optional<UUID> home) {
+            this(person, household, home, Optional.empty());
+        }
+    }
 
     /** The home of each resident afterwards (absent = homeless). */
     public static Map<UUID, UUID> assign(List<Home> homes, List<Resident> residents) {
@@ -40,8 +45,20 @@ public final class HouseRules {
             free.put(h.id(), Math.max(0, h.beds()));
         }
         Map<UUID, UUID> out = new LinkedHashMap<>();
+        java.util.Set<UUID> told = new java.util.HashSet<>();
+        // 0. orders
+        for (Resident r : residents) {
+            r.ordered().filter(h -> free.getOrDefault(h, 0) > 0).ifPresent(h -> {
+                out.put(r.person(), h);
+                free.merge(h, -1, Integer::sum);
+                told.add(r.person());
+            });
+        }
         // 1. keep
         for (Resident r : residents) {
+            if (told.contains(r.person())) {
+                continue;
+            }
             r.home().filter(h -> free.getOrDefault(h, 0) > 0).ifPresent(h -> {
                 out.put(r.person(), h);
                 free.merge(h, -1, Integer::sum);
@@ -62,7 +79,7 @@ public final class HouseRules {
             }
             for (Resident r : members) {
                 UUID now = out.get(r.person());
-                if (now != null && !now.equals(anchor.get()) && free.getOrDefault(anchor.get(), 0) > 0) {
+                if (now != null && !told.contains(r.person()) && !now.equals(anchor.get()) && free.getOrDefault(anchor.get(), 0) > 0) {
                     free.merge(now, 1, Integer::sum);
                     free.merge(anchor.get(), -1, Integer::sum);
                     out.put(r.person(), anchor.get());

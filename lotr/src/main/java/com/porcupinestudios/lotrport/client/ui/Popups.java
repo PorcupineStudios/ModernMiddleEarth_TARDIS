@@ -3,6 +3,7 @@ package com.porcupinestudios.lotrport.client.ui;
 import com.porcupinestudios.lotrport.ui.Action;
 import com.porcupinestudios.lotrport.ui.Column;
 import com.porcupinestudios.lotrport.ui.FilterGroup;
+import com.porcupinestudios.lotrport.ui.Stat;
 import java.util.List;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -65,6 +66,60 @@ final class Popups {
                     screen.popup(null);
                 });
             }
+        }
+    }
+
+    /** The choices of a drop-down on a stats line; the one in force is ticked, a disabled one says why. */
+    static final class ChoiceMenu extends Popup {
+        private static final int LINE = 12;
+        private static final int MAX_LINES = 14;
+        private final Stat.Picker picker;
+        private int scroll;
+
+        ChoiceMenu(Stat.Picker picker, int x, int y, int w) {
+            this.picker = picker;
+            this.x = x;
+            this.y = y;
+            this.w = Math.max(w, 90);
+            this.h = Math.min(picker.choices().size(), MAX_LINES) * LINE + 8;
+        }
+
+        @Override
+        void draw(Imm ui, UiScreen screen) {
+            ui.sprite(UiTheme.POPUP, x, y, w, h);
+            List<Stat.Choice> choices = picker.choices();
+            int shown = Math.min(choices.size(), MAX_LINES);
+            scroll = Math.max(0, Math.min(scroll, choices.size() - shown));
+            for (int i = 0; i < shown; i++) {
+                Stat.Choice c = choices.get(i + scroll);
+                int ly = y + 4 + i * LINE;
+                boolean hover = ui.over(x + 3, ly, w - 6, LINE);
+                if (hover && c.enabled()) {
+                    ui.g.fill(x + 3, ly, x + w - 3, ly + LINE, 0x30000000);
+                }
+                if (hover && !c.enabled()) {
+                    c.why().ifPresent(ui::tooltip);
+                }
+                String mark = c.id().equals(picker.current()) ? "✔ " : "   ";
+                ui.text(mark + c.label().getString(), x + 5, ly, w - 10, LINE, -1,
+                        c.enabled() ? UiTheme.DARK_TEXT : UiTheme.DISABLED_TEXT);
+                if (c.enabled()) {
+                    ui.hit(x + 3, ly, w - 6, LINE, () -> {
+                        screen.popup(null);
+                        if (!c.id().equals(picker.current())) {
+                            screen.send(picker.action(), c.id(), 0);
+                        }
+                    });
+                }
+            }
+        }
+
+        /** Scrolls a long list; true if it moved. */
+        boolean scroll(double amount) {
+            int before = scroll;
+            scroll = Math.max(0, Math.min(scroll - (int) Math.signum(amount),
+                    picker.choices().size() - Math.min(picker.choices().size(), MAX_LINES)));
+            return scroll != before;
         }
     }
 

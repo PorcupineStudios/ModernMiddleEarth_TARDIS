@@ -55,6 +55,20 @@ public abstract class SocietyEvent extends Event {
         }
     }
 
+    /** A Person was given a new name ({@link Persons#rename}). */
+    public static final class Renamed extends OfPerson {
+        private final String oldName;
+
+        public Renamed(MinecraftServer server, Person person, String oldName) {
+            super(server, person);
+            this.oldName = oldName;
+        }
+
+        public String oldName() {
+            return oldName;
+        }
+    }
+
     /** A component was set or removed on a Person. */
     public static final class ComponentChanged extends OfPerson {
         private final ComponentType<?> type;

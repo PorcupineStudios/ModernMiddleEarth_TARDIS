@@ -150,11 +150,23 @@ public final class UiCodecs {
             b.writeInt(st.max());
             b.writeVarInt(st.step());
         });
+        opt(buf, s.picker(), (b, pk) -> {
+            str(b, pk.action());
+            str(b, pk.current());
+            list(b, pk.choices(), (bb, c) -> {
+                str(bb, c.id());
+                text(bb, c.label());
+                bb.writeBoolean(c.enabled());
+                opt(bb, c.why(), UiCodecs::text);
+            });
+        });
     }
 
     static Stat readStat(RegistryFriendlyByteBuf buf) {
         return new Stat(text(buf), str(buf), enumOf(buf, Tone.values()), buf.readDouble(),
-                opt(buf, b -> new Stat.Stepper(str(b), b.readInt(), b.readInt(), b.readInt(), b.readVarInt())));
+                opt(buf, b -> new Stat.Stepper(str(b), b.readInt(), b.readInt(), b.readInt(), b.readVarInt())),
+                opt(buf, b -> new Stat.Picker(str(b), str(b), list(b, bb -> new Stat.Choice(str(bb), text(bb),
+                        bb.readBoolean(), opt(bb, UiCodecs::text))))));
     }
 
     static void writePage(RegistryFriendlyByteBuf buf, Page page) {
@@ -174,13 +186,29 @@ public final class UiCodecs {
             }
             case Page.Stats s -> {
                 buf.writeByte(1);
-                list(buf, s.sections(), (b, sec) -> {
-                    text(b, sec.title());
-                    list(b, sec.stats(), UiCodecs::writeStat);
-                });
+                list(buf, s.sections(), UiCodecs::writeSection);
                 list(buf, s.buttons(), UiCodecs::writeAction);
             }
+            case Page.Profile p -> {
+                buf.writeByte(2);
+                opt(buf, p.portrait(), (b, id) -> net.minecraft.core.UUIDUtil.STREAM_CODEC.encode(b, id));
+                text(buf, p.name());
+                opt(buf, p.rename(), UiCodecs::str);
+                text(buf, p.subtitle());
+                list(buf, p.left(), UiCodecs::writeSection);
+                list(buf, p.right(), UiCodecs::writeSection);
+                list(buf, p.buttons(), UiCodecs::writeAction);
+            }
         }
+    }
+
+    static void writeSection(RegistryFriendlyByteBuf buf, Page.Section sec) {
+        text(buf, sec.title());
+        list(buf, sec.stats(), UiCodecs::writeStat);
+    }
+
+    static Page.Section readSection(RegistryFriendlyByteBuf buf) {
+        return new Page.Section(text(buf), list(buf, UiCodecs::readStat));
     }
 
     static Page readPage(RegistryFriendlyByteBuf buf) {
@@ -190,8 +218,12 @@ public final class UiCodecs {
                     list(buf, UiCodecs::readRow), buf.readVarInt() - 1, buf.readBoolean(), opt(buf, UiCodecs::str),
                     list(buf, UiCodecs::readAction), list(buf, UiCodecs::readAction), buf.readVarInt(), text(buf));
         }
-        return new Page.Stats(list(buf, b -> new Page.Section(text(b), list(b, UiCodecs::readStat))),
-                list(buf, UiCodecs::readAction));
+        if (kind == 2) {
+            return new Page.Profile(opt(buf, b -> net.minecraft.core.UUIDUtil.STREAM_CODEC.decode(b)), text(buf),
+                    opt(buf, UiCodecs::str), text(buf), list(buf, UiCodecs::readSection),
+                    list(buf, UiCodecs::readSection), list(buf, UiCodecs::readAction));
+        }
+        return new Page.Stats(list(buf, UiCodecs::readSection), list(buf, UiCodecs::readAction));
     }
 
     static void writeTarget(RegistryFriendlyByteBuf buf, View.Target t) {

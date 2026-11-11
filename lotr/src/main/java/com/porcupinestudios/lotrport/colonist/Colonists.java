@@ -41,6 +41,31 @@ public final class Colonists {
         NeoForge.EVENT_BUS.addListener(Colonists::onComponent);
         NeoForge.EVENT_BUS.addListener(Colonists::onDied);
         NeoForge.EVENT_BUS.addListener(Colonists::onStarted);
+        NeoForge.EVENT_BUS.addListener(Colonists::onRenamed);
+    }
+
+    /** A renamed person's body, if it is loaded, takes the new name at once. */
+    private static void onRenamed(SocietyEvent.Renamed e) {
+        for (net.minecraft.server.level.ServerLevel level : e.server().getAllLevels()) {
+            if (level.getEntity(e.person().id()) instanceof com.porcupinestudios.lotrport.npc.LotrNpc npc) {
+                npc.takeName(e.person().name());
+                return;
+            }
+        }
+    }
+
+    /**
+     * A name for someone whose NPC type has no name bank (LOTR's men): from their people's bank ({@code gondor_man}
+     * takes {@code npc_names/gondor_male}), else Bree's; steady for the same person. Empty if no bank is loaded.
+     */
+    public static String nameFor(Person p) {
+        String type = p.type().getPath();
+        String people = type.contains("_") ? type.substring(0, type.lastIndexOf('_')) : type;
+        List<String> bank = com.porcupinestudios.lotrport.npc.NpcData.names(LotrPort.id(people + "_male"));
+        if (bank.isEmpty()) {
+            bank = com.porcupinestudios.lotrport.npc.NpcData.names(LotrPort.id("bree_male"));
+        }
+        return bank.isEmpty() ? "" : bank.get(Math.floorMod(p.id().hashCode(), bank.size()));
     }
 
     /**
@@ -51,7 +76,7 @@ public final class Colonists {
         MinecraftServer server = e.getServer();
         int n = 0;
         for (Person p : List.copyOf(Persons.get(server).all())) {
-            if (p.alive() && p.has(CoreComponents.CITIZEN) && !p.has(ColonistData.TRAITS)) {
+            if (p.alive() && p.has(CoreComponents.CITIZEN) && (!p.has(ColonistData.TRAITS) || p.name().isEmpty())) {
                 settle(server, p);
                 n++;
             }
@@ -94,14 +119,17 @@ public final class Colonists {
     }
 
     /**
-     * Gives a new citizen traits, an empty mood and kin, once (someone who already has traits keeps them, so a
-     * citizen who leaves and comes back is the same person).
+     * Gives a new citizen a name if they have none ({@link #nameFor}), then traits, an empty mood and kin, once
+     * (someone who already has traits keeps them, so a citizen who leaves and comes back is the same person).
      */
     public static void settle(MinecraftServer server, Person p) {
+        Persons persons = Persons.get(server);
+        if (p.name().isEmpty()) {
+            persons.rename(server, p, nameFor(p));
+        }
         if (p.has(ColonistData.TRAITS)) {
             return;
         }
-        Persons persons = Persons.get(server);
         long now = server.overworld().getGameTime();
         Random random = new Random(p.id().getMostSignificantBits() ^ p.id().getLeastSignificantBits());
         persons.setQuiet(p, ColonistData.TRAITS, TraitRules.roll(ColonistData.traits(), random,
@@ -216,7 +244,8 @@ public final class Colonists {
         List<HouseRules.Resident> out = new ArrayList<>();
         for (Person p : citizens) {
             out.add(new HouseRules.Resident(p.id(), households.get(p.id()),
-                    p.get(WorkComponents.HOME).map(WorkComponents.Home::building)));
+                    p.get(WorkComponents.HOME).map(WorkComponents.Home::building),
+                    p.get(ColonistData.ORDERS).flatMap(Orders::home)));
         }
         return out;
     }
@@ -259,14 +288,71 @@ public final class Colonists {
         if (homeThought.isPresent() && !counted.contains(homeThought.get())) {
             ThoughtDef td = defs.get(homeThought.get());
             sum += td == null ? 0 : td.mood();
+            counted.add(homeThought.get());
+        }
+        Optional<ResourceLocation> ration = rationThought(p);
+        if (ration.isPresent() && !counted.contains(ration.get())) {
+            ThoughtDef td = defs.get(ration.get());
+            sum += td == null ? 0 : td.mood();
         }
         return sum;
     }
 
-    /** How fast this person's food runs down: race times traits (1 = normal). */
+    public static Orders orders(Person p) {
+        return p.get(ColonistData.ORDERS).orElse(Orders.DEFAULT);
+    }
+
+    /** The standing thought of this person's ration, if it has one. */
+    static Optional<ResourceLocation> rationThought(Person p) {
+        Optional<Orders> o = p.get(ColonistData.ORDERS);
+        return o.isEmpty() ? Optional.empty() : Rations.get(o.get().ration()).thought();
+    }
+
+    /** One line of what is on a colonist's mind, for the citizen page. */
+    public record Thought(ResourceLocation id, int mood, int stacks, long ticksLeft) {}
+
+    /**
+     * Everything on this colonist's mind that moves their mood, as {@link #moodToday} counts it: standing thoughts
+     * (traits, home, ration; {@code ticksLeft} -1) and live memories, the strongest first.
+     */
+    public static List<Thought> thoughts(Person p, Optional<ResourceLocation> homeThought, long now) {
+        Map<ResourceLocation, ThoughtDef> defs = ColonistData.thoughts();
+        List<Thought> out = new ArrayList<>();
+        java.util.Set<ResourceLocation> standing = new java.util.LinkedHashSet<>();
+        for (ResourceLocation t : p.get(ColonistData.TRAITS).orElse(List.of())) {
+            TraitDef def = ColonistData.traits().get(t);
+            if (def != null) {
+                standing.addAll(def.thoughts());
+            }
+        }
+        homeThought.ifPresent(standing::add);
+        rationThought(p).ifPresent(standing::add);
+        for (ResourceLocation id : standing) {
+            ThoughtDef def = defs.get(id);
+            if (def != null) {
+                out.add(new Thought(id, def.mood(), 1, -1));
+            }
+        }
+        for (Mood.Memory m : p.get(ColonistData.MOOD).orElse(Mood.EMPTY).memories()) {
+            ThoughtDef def = defs.get(m.thought());
+            long left = def == null ? 0 : def.durationTicks() - (now - m.since());
+            if (def != null && left > 0) {
+                out.add(new Thought(m.thought(), def.mood() * m.stacks(), m.stacks(), left));
+            }
+        }
+        out.sort(java.util.Comparator.comparingInt((Thought t) -> -Math.abs(t.mood())).thenComparing(
+                t -> t.id().toString()));
+        return out;
+    }
+
+    /** How fast this person's food runs down: race times traits times ration (1 = normal). */
     public static double foodRate(Person p) {
         double rate = TraitRules.needRate(ColonistData.traits(), p.get(ColonistData.TRAITS).orElse(List.of()),
                 ColonistData.FOOD);
+        Optional<Orders> orders = p.get(ColonistData.ORDERS);
+        if (orders.isPresent()) {
+            rate *= Rations.get(orders.get().ration()).foodRate();
+        }
         RaceDef race = ColonistData.races().get(raceOf(p));
         return race == null ? rate : rate * race.needRates().getOrDefault(ColonistData.FOOD, 1.0);
     }
