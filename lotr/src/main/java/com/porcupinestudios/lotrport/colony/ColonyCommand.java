@@ -57,6 +57,19 @@ public final class ColonyCommand {
                                     return r.building().isPresent() ? 1 : 0;
                                 }))))
                 .then(Commands.literal("buildings").executes(ctx -> buildings(ctx.getSource())))
+                // a citizen's page (as sneak + right-click on them)
+                .then(Commands.literal("citizen").then(Commands.argument("npc",
+                        net.minecraft.commands.arguments.EntityArgument.entity()).executes(ctx -> {
+                            ServerPlayer player = ctx.getSource().getPlayerOrException();
+                            var e = net.minecraft.commands.arguments.EntityArgument.getEntity(ctx, "npc");
+                            Optional<Person> p = Persons.get(player.server).get(e.getUUID());
+                            if (p.isEmpty() || !com.porcupinestudios.lotrport.colony.work.LedgerNet.sendCitizen(player,
+                                    p.get())) {
+                                ctx.getSource().sendFailure(Component.literal("Not a citizen of your colony"));
+                                return 0;
+                            }
+                            return 1;
+                        })))
                 // the Ledger of the colony you belong to (the nearest)
                 .then(Commands.literal("ledger").executes(ctx -> {
                     ServerPlayer player = ctx.getSource().getPlayerOrException();
@@ -129,6 +142,63 @@ public final class ColonyCommand {
                                             }
                                             return 1;
                                         })))
+                        // /lotr colony found_ai <name>: an AI-held colony at your feet (a target for testing wars)
+                        .then(Commands.literal("found_ai")
+                                .then(Commands.argument("name", com.mojang.brigadier.arguments.StringArgumentType
+                                        .string()).executes(ctx -> {
+                                            ServerPlayer player = ctx.getSource().getPlayerOrException();
+                                            String name = com.mojang.brigadier.arguments.StringArgumentType
+                                                    .getString(ctx, "name");
+                                            return Colonies.get(player.server).foundAi(player.server,
+                                                    java.util.UUID.randomUUID(), java.util.UUID.nameUUIDFromBytes(
+                                                            "lotr_port:test_ruler".getBytes(
+                                                                    java.nio.charset.StandardCharsets.UTF_8)),
+                                                    name, player.level().dimension(), player.blockPosition(),
+                                                    com.porcupinestudios.lotrport.LotrPort.id("mordor"), 20)
+                                                    .isPresent() ? 1 : 0;
+                                        })))
+                        // /lotr colony coins <n>: adds coins to the treasury of the nearest colony you belong to
+                        .then(Commands.literal("coins").then(Commands.argument("n", IntegerArgumentType.integer())
+                                .executes(ctx -> {
+                                    ServerPlayer player = ctx.getSource().getPlayerOrException();
+                                    Optional<Colony> c = nearestOf(player);
+                                    if (c.isEmpty()) {
+                                        ctx.getSource().sendFailure(Component.literal("You belong to no colony"));
+                                        return 0;
+                                    }
+                                    long now = c.get().get(CoreComponents.TREASURY)
+                                            .orElse(CoreComponents.Treasury.EMPTY).coins();
+                                    Colonies.get(player.server).set(c.get(), CoreComponents.TREASURY,
+                                            new CoreComponents.Treasury(Math.max(0, now
+                                                    + IntegerArgumentType.getInteger(ctx, "n"))));
+                                    return 1;
+                                })))
+                        // /lotr colony settle <npcs>: the NPCs join the nearest colony you belong to as citizens
+                        .then(Commands.literal("settle")
+                                .then(Commands.argument("npcs", net.minecraft.commands.arguments.EntityArgument
+                                        .entities()).executes(ctx -> {
+                                            ServerPlayer player = ctx.getSource().getPlayerOrException();
+                                            Optional<Colony> c = nearestOf(player);
+                                            if (c.isEmpty()) {
+                                                ctx.getSource().sendFailure(Component.literal(
+                                                        "You belong to no colony"));
+                                                return 0;
+                                            }
+                                            int n = 0;
+                                            for (var e : net.minecraft.commands.arguments.EntityArgument
+                                                    .getEntities(ctx, "npcs")) {
+                                                if (e instanceof com.porcupinestudios.lotrport.npc.LotrNpc npc
+                                                        && npc.owner().isEmpty()) {
+                                                    Colonies.get(player.server).join(player.server, c.get(), npc,
+                                                            false);
+                                                    n++;
+                                                }
+                                            }
+                                            int settled = n;
+                                            ctx.getSource().sendSuccess(() -> Component.literal(settled
+                                                    + " settled in " + c.get().name()), false);
+                                            return n;
+                                        })))
                         .then(Commands.literal("perf")
                                 .executes(ctx -> perf(ctx.getSource(), false))
                                 .then(Commands.literal("reset").executes(ctx -> perf(ctx.getSource(), true))))
@@ -137,6 +207,13 @@ public final class ColonyCommand {
                                 .then(Commands.argument("n", IntegerArgumentType.integer(1, 100))
                                         .executes(ctx -> days(ctx.getSource(),
                                                 IntegerArgumentType.getInteger(ctx, "n")))))));
+    }
+
+    /** The colony the player belongs to nearest them. */
+    static Optional<Colony> nearestOf(ServerPlayer player) {
+        return Colonies.get(player.server).all().stream()
+                .filter(x -> com.porcupinestudios.lotrport.colony.members.Permissions.isMember(player.getUUID(), x))
+                .min(java.util.Comparator.comparingDouble(x -> x.hall().distSqr(player.blockPosition())));
     }
 
     /** Scheduler timing: per server tick (mean and longest) against the budget, then per system. */

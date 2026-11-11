@@ -20,7 +20,8 @@ import net.neoforged.neoforge.client.event.ClientTickEvent;
  * sandbox). Off unless the JVM has {@code -Dlotr_port.devscript=<file in the run folder>}; with
  * {@code -PquickPlay=<save>} the client opens the save and runs it once the player is in. One step per line:
  * {@code wait <ticks>}, {@code /<command>} (sent as the player), {@code use <x> <y> <z>} (right-click that block with
- * the main hand), {@code mouse <x> <y>} (move the pointer, window pixels), {@code close} (the open screen), {@code hud on|off}, {@code shot <name>}
+ * the main hand), {@code mouse <x> <y>} (move the pointer, window pixels), {@code click <x> <y>} (left-click the open screen at
+ * GUI-scaled x, y), {@code close} (the open screen), {@code hud on|off}, {@code shot <name>}
  * ({@code screenshots/<name>.png}), {@code quit}; {@code #} starts a comment.
  */
 @EventBusSubscriber(modid = LotrPort.MOD_ID, value = Dist.CLIENT)
@@ -73,6 +74,14 @@ public final class DevScript {
                             new BlockHitResult(Vec3.atCenterOf(p), Direction.UP, p, false));
                 }
                 case "mouse" -> mouse(mc, Double.parseDouble(w[1]), Double.parseDouble(w[2]));
+                case "click" -> {
+                    if (mc.screen != null) {
+                        double x = Double.parseDouble(w[1]);
+                        double y = Double.parseDouble(w[2]);
+                        mc.screen.mouseClicked(x, y, 0);
+                        mc.screen.mouseReleased(x, y, 0);
+                    }
+                }
                 case "close" -> mc.player.closeContainer();
                 case "hud" -> mc.options.hideGui = w[1].equals("off");
                 case "quit" -> {
