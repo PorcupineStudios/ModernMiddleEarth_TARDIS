@@ -2,6 +2,13 @@ package com.porcupinestudios.lotrport.colony;
 
 import com.mojang.serialization.Codec;
 import com.porcupinestudios.lotrport.LotrPort;
+import com.porcupinestudios.lotrport.society.ComponentMap;
+import com.porcupinestudios.lotrport.society.CoreComponents;
+import com.porcupinestudios.lotrport.society.Owner;
+import com.porcupinestudios.lotrport.society.Person;
+import com.porcupinestudios.lotrport.society.Persons;
+import com.porcupinestudios.lotrport.society.Society;
+import com.porcupinestudios.lotrport.society.SocietyEvent;
 import com.porcupinestudios.lotrport.npc.LotrNpc;
 import com.porcupinestudios.lotrport.registry.LotrRegistries;
 import com.porcupinestudios.ringbearer.api.history.HistoryEntry;
@@ -15,9 +22,12 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.GlobalPos;
+import net.minecraft.core.UUIDUtil;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;
+import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
@@ -46,7 +56,7 @@ import net.neoforged.neoforge.event.tick.ServerTickEvent;
  */
 public final class Colonies extends SavedData {
     public static final String FILE = "lotr_port_colonies";
-    public static final int DATA_VERSION = 1;
+    public static final int DATA_VERSION = 2;
     public static final ResourceLocation FOUNDED_HISTORY = LotrPort.id("colony_founded");
     public static final ResourceLocation ARRIVE_HISTORY = LotrPort.id("citizen_arrive");
     public static final ResourceLocation DIED_HISTORY = LotrPort.id("citizen_die");
@@ -57,14 +67,20 @@ public final class Colonies extends SavedData {
             null);
 
     private final Map<UUID, Colony> colonies = new LinkedHashMap<>();
+    /** Citizens and applicants read from a version 1 save, moved into {@link Persons} on first use. */
+    private final List<CompoundTag> legacyPeople = new ArrayList<>();
 
     public static Colonies get(MinecraftServer server) {
-        return server.overworld().getDataStorage().computeIfAbsent(FACTORY, FILE);
+        Colonies c = server.overworld().getDataStorage().computeIfAbsent(FACTORY, FILE);
+        if (!c.legacyPeople.isEmpty()) {
+            c.migratePeople(server);
+        }
+        return c;
     }
 
     public static void register() {
         NeoForge.EVENT_BUS.addListener(Colonies::onTick);
-        NeoForge.EVENT_BUS.addListener(Colonies::onDeath);
+        NeoForge.EVENT_BUS.addListener(Colonies::onDied);
     }
 
     public Collection<Colony> all() {
@@ -81,11 +97,11 @@ public final class Colonies extends SavedData {
 
     /** The colony an entity lives in, if it is a citizen. */
     /** Researchers in the player's colony: every rare citizen, plus one per {@code citizens_per_researcher} others. */
-    public int researchers(UUID player) {
+    public int researchers(MinecraftServer server, UUID player) {
         return ofFounder(player).map(c -> {
-            int rare = (int) c.citizens().stream().filter(Colony.Citizen::rare).count();
+            int rare = (int) Society.rareCitizens(server, c);
             int per = ColonyData.settings().citizensPerResearcher();
-            int common = c.citizens().size() - rare;
+            int common = Society.citizenCount(server, c) - rare;
             return rare + (per > 0 ? common / per : 0);
         }).orElse(0);
     }
@@ -117,7 +133,7 @@ public final class Colonies extends SavedData {
         }
         long now = player.server.overworld().getGameTime();
         Colony colony = new Colony(UUID.randomUUID(), name, player.getUUID(), faction, player.level().dimension(),
-                hall.immutable(), now, now / ColonyData.settings().dayTicks(), List.of(), Map.of(), false, 0, List.of());
+                hall.immutable(), now, now / ColonyData.settings().dayTicks(), Map.of(), false, 0, new ComponentMap());
         colonies.put(colony.id, colony);
         setDirty();
         CompoundTag tag = new CompoundTag();
@@ -158,8 +174,8 @@ public final class Colonies extends SavedData {
         }
         long now = server.overworld().getGameTime();
         Colony colony = new Colony(id, name, ruler, faction, dimension, hall.immutable(), now,
-                now / ColonyData.settings().dayTicks(), List.of(), Map.of(), true, Math.max(0, population),
-                List.of());
+                now / ColonyData.settings().dayTicks(), Map.of(), true, Math.max(0, population),
+                new ComponentMap());
         colonies.put(id, colony);
         setDirty();
         CompoundTag tag = new CompoundTag();
@@ -236,8 +252,9 @@ public final class Colonies extends SavedData {
             Migrants.age(this, level, colony);
         }
         int homes = homes(level, colony);
-        int waiting = s.selectiveMigration() ? colony.applicants.size() : 0;
-        int room = homes - colony.citizens.size() - waiting;
+        MinecraftServer server = level.getServer();
+        int waiting = s.selectiveMigration() ? Society.applicants(server, colony).size() : 0;
+        int room = homes - Society.citizenCount(server, colony) - waiting;
         if (s.selectiveMigration()) {
             room = Math.min(room, s.maxApplicants() - waiting);
         }
@@ -297,17 +314,28 @@ public final class Colonies extends SavedData {
         return LotrNpc.spawn(level, type, at.getX() + 0.5, at.getY(), at.getZ() + 0.5);
     }
 
-    /** Makes an NPC a citizen: it stays (never despawns), is marked with the colony and recorded. */
+    /**
+     * Makes an NPC a citizen: it stays (never despawns), is marked with the colony, and its Person is owned by the
+     * colony with a {@link CoreComponents#CITIZEN} (an applicant's record carries over).
+     */
     public void join(MinecraftServer server, Colony colony, LotrNpc npc, boolean rare) {
         npc.setPersistenceRequired();
         npc.setData(LotrRegistries.COLONY, colony.id.toString());
-        Colony.Citizen citizen = new Colony.Citizen(npc.getUUID(), npc.typeId(), npc.personName(),
-                server.overworld().getGameTime(), rare);
-        colony.citizens.add(citizen);
-        setDirty();
+        Persons persons = Persons.get(server);
+        Person person = Society.recordOf(server, npc);
+        long now = server.overworld().getGameTime();
+        persons.setQuiet(person, CoreComponents.APPLICANT, null);
+        persons.set(server, person, CoreComponents.CITIZEN, new CoreComponents.Citizen(now, rare));
+        persons.setOwner(server, person, colony.asOwner(), "joined");
         CompoundTag tag = new CompoundTag();
         tag.putUUID("colony", colony.id);
-        tag.put("citizen", Colony.Citizen.CODEC.encodeStart(NbtOps.INSTANCE, citizen).getOrThrow());
+        CompoundTag citizen = new CompoundTag();
+        citizen.putUUID("entity", npc.getUUID());
+        citizen.putString("type", npc.typeId().toString());
+        citizen.putString("name", npc.personName());
+        citizen.putLong("joined", now);
+        citizen.putBoolean("rare", rare);
+        tag.put("citizen", citizen);
         log(server, ARRIVE_HISTORY, colony, npc.blockPosition(), tag);
     }
 
@@ -333,23 +361,17 @@ public final class Colonies extends SavedData {
         }
     }
 
-    private static void onDeath(LivingDeathEvent event) {
-        LivingEntity dead = event.getEntity();
-        if (dead.level().isClientSide) {
+    /** A citizen's Person died: history {@code citizen_die} (the Person stays in the registry, marked dead). */
+    public static void onDied(SocietyEvent.Died event) {
+        Person p = event.person();
+        if (!p.has(CoreComponents.CITIZEN)) {
             return;
         }
-        colonyOf(dead).ifPresent(id -> {
-            MinecraftServer server = dead.getServer();
-            Colonies all = get(server);
-            all.get(id).ifPresent(c -> {
-                if (c.citizens.removeIf(ci -> ci.entity().equals(dead.getUUID()))) {
-                    all.setDirty();
-                    CompoundTag tag = new CompoundTag();
-                    tag.putUUID("colony", c.id);
-                    tag.putUUID("entity", dead.getUUID());
-                    log(server, DIED_HISTORY, c, dead.blockPosition(), tag);
-                }
-            });
+        p.owner().colonyId().flatMap(id -> get(event.server()).get(id)).ifPresent(c -> {
+            CompoundTag tag = new CompoundTag();
+            tag.putUUID("colony", c.id);
+            tag.putUUID("entity", p.id());
+            log(event.server(), DIED_HISTORY, c, event.where().map(GlobalPos::pos).orElse(c.hall), tag);
         });
     }
 
@@ -357,6 +379,45 @@ public final class Colonies extends SavedData {
             CompoundTag tag) {
         HistoryLog.get(server).append(new HistoryEntry(server.overworld().getGameTime(), type, colony.dimension,
                 Optional.of(pos), tag));
+    }
+
+    /** Moves version 1 citizens and applicants into {@link Persons}, owned by their colony (also run by {@link #get}). */
+    public void migratePeople(MinecraftServer server) {
+        Persons persons = Persons.get(server);
+        int moved = 0;
+        for (CompoundTag legacy : legacyPeople) {
+            Optional<UUID> colony = UUIDUtil.CODEC.parse(NbtOps.INSTANCE, legacy.get("colony")).result();
+            if (colony.isEmpty() || !colonies.containsKey(colony.get())) {
+                continue;
+            }
+            Owner owner = Owner.colony(colony.get());
+            for (Tag e : legacy.getList("citizens", Tag.TAG_COMPOUND)) {
+                moved += legacyPerson(persons, owner, (CompoundTag) e, true);
+            }
+            for (Tag e : legacy.getList("applicants", Tag.TAG_COMPOUND)) {
+                moved += legacyPerson(persons, owner, (CompoundTag) e, false);
+            }
+        }
+        legacyPeople.clear();
+        setDirty();
+        LotrPort.LOG.info("[colonies] moved {} citizens and applicants into the person registry", moved);
+    }
+
+    private static int legacyPerson(Persons persons, Owner owner, CompoundTag t, boolean citizen) {
+        Optional<UUID> id = t.hasUUID("entity") ? Optional.of(t.getUUID("entity"))
+                : UUIDUtil.CODEC.parse(NbtOps.INSTANCE, t.get("entity")).result();
+        ResourceLocation type = ResourceLocation.tryParse(t.getString("type"));
+        if (id.isEmpty() || type == null) {
+            return 0;
+        }
+        long joined = t.getLong("joined");
+        Person p = persons.migrated(id.get(), type, t.getString("name"), joined, owner);
+        if (citizen) {
+            persons.setQuiet(p, CoreComponents.CITIZEN, new CoreComponents.Citizen(joined, t.getBoolean("rare")));
+        } else {
+            persons.setQuiet(p, CoreComponents.APPLICANT, new CoreComponents.Applicant(t.getInt("days")));
+        }
+        return 1;
     }
 
     @Override
@@ -371,6 +432,17 @@ public final class Colonies extends SavedData {
         Colonies out = new Colonies();
         if (!tag.contains("colonies")) {
             return out;
+        }
+        if (tag.getInt("dataVersion") < 2) {
+            // Version 1 kept citizens and applicants in each colony; they become Persons (see migratePeople).
+            for (Tag e : tag.getList("colonies", Tag.TAG_COMPOUND)) {
+                CompoundTag c = (CompoundTag) e;
+                CompoundTag legacy = new CompoundTag();
+                legacy.put("colony", c.get("id") == null ? new CompoundTag() : c.get("id").copy());
+                legacy.put("citizens", c.getList("citizens", Tag.TAG_COMPOUND).copy());
+                legacy.put("applicants", c.getList("applicants", Tag.TAG_COMPOUND).copy());
+                out.legacyPeople.add(legacy);
+            }
         }
         Codec.list(Colony.CODEC).parse(NbtOps.INSTANCE, tag.get("colonies"))
                 .resultOrPartial(e -> LotrPort.LOG.error("[colonies] {}", e))

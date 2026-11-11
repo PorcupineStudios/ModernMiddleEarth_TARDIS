@@ -1,5 +1,6 @@
 package com.porcupinestudios.lotrport.ai;
 
+import com.porcupinestudios.lotrport.society.Society;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.porcupinestudios.lotrport.LotrPort;
@@ -137,7 +138,7 @@ public final class AiRulers extends SavedData {
             List<Colony> mine = colonies.ownedBy(uuid(id));
 
             for (Colony c : mine) {
-                if (c.population() < settings.maxPopulation()) {
+                if (Society.population(server, c) < settings.maxPopulation()) {
                     colonies.growAi(c, 1);
                 }
             }
@@ -228,7 +229,7 @@ public final class AiRulers extends SavedData {
         }
         State enemy = states.get(defender);
         int enemyColonies = Math.max(1, colonies.ownedBy(uuid(defender)).size());
-        double defense = target.population() * settings.defensePerPopulation()
+        double defense = Society.population(server, target) * settings.defensePerPopulation()
                 + (enemy == null ? 0 : enemy.strength * settings.garrisonShare() / enemyColonies);
         double attack = st.strength * (0.5 + rnd.nextDouble());
         if (st.strength < defense * settings.marchRatio()) {
@@ -246,7 +247,7 @@ public final class AiRulers extends SavedData {
                 Optional.of(target.hall()), tag));
         if (won) {
             colonies.transfer(server, target, uuid(id), def.faction(), true, CONQUEST);
-            colonies.growAi(target, -target.population() / 2);
+            colonies.growAi(target, -target.virtualPopulation() / 2);
             if (enemy != null) {
                 enemy.strength = (int) (enemy.strength * (1 - settings.siegeLosses()));
             }

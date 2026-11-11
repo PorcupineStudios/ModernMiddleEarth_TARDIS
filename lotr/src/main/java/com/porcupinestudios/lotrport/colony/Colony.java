@@ -1,11 +1,15 @@
 package com.porcupinestudios.lotrport.colony;
 
 import com.mojang.serialization.Codec;
+import com.porcupinestudios.lotrport.society.ComponentMap;
+import com.porcupinestudios.lotrport.society.ComponentType;
+import com.porcupinestudios.lotrport.society.Owner;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.UUID;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.UUIDUtil;
@@ -19,30 +23,6 @@ import net.minecraft.world.level.Level;
  * only through {@link Colonies}, which saves it and writes history.
  */
 public final class Colony {
-    /** One person living in the colony. {@code rare} = joined by a recruitment quest rather than migration. */
-    public record Citizen(UUID entity, ResourceLocation type, String name, long joined, boolean rare) {
-        public static final Codec<Citizen> CODEC = RecordCodecBuilder.create(i -> i.group(
-                UUIDUtil.CODEC.fieldOf("entity").forGetter(Citizen::entity),
-                ResourceLocation.CODEC.fieldOf("type").forGetter(Citizen::type),
-                Codec.STRING.optionalFieldOf("name", "").forGetter(Citizen::name),
-                Codec.LONG.optionalFieldOf("joined", 0L).forGetter(Citizen::joined),
-                Codec.BOOL.optionalFieldOf("rare", false).forGetter(Citizen::rare))
-                .apply(i, Citizen::new));
-    }
-
-    /**
-     * A migrant waiting at the Hall for the owner to accept or turn them away (selective migration). {@code days} =
-     * colony days waited so far; they leave after {@code applicant_days}.
-     */
-    public record Applicant(UUID entity, ResourceLocation type, String name, int days) {
-        public static final Codec<Applicant> CODEC = RecordCodecBuilder.create(i -> i.group(
-                UUIDUtil.CODEC.fieldOf("entity").forGetter(Applicant::entity),
-                ResourceLocation.CODEC.fieldOf("type").forGetter(Applicant::type),
-                Codec.STRING.optionalFieldOf("name", "").forGetter(Applicant::name),
-                Codec.INT.optionalFieldOf("days", 0).forGetter(Applicant::days))
-                .apply(i, Applicant::new));
-    }
-
     public static final Codec<Colony> CODEC = RecordCodecBuilder.create(i -> i.group(
             UUIDUtil.CODEC.fieldOf("id").forGetter(c -> c.id),
             Codec.STRING.fieldOf("name").forGetter(c -> c.name),
@@ -52,12 +32,11 @@ public final class Colony {
             BlockPos.CODEC.fieldOf("hall").forGetter(c -> c.hall),
             Codec.LONG.optionalFieldOf("founded", 0L).forGetter(c -> c.founded),
             Codec.LONG.optionalFieldOf("last_day", 0L).forGetter(c -> c.lastDay),
-            Citizen.CODEC.listOf().optionalFieldOf("citizens", List.of()).forGetter(c -> c.citizens),
             Codec.unboundedMap(ResourceLocation.CODEC, Recruitment.CODEC).optionalFieldOf("recruits", Map.of())
                     .forGetter(c -> c.recruits),
             Codec.BOOL.optionalFieldOf("ai", false).forGetter(c -> c.ai),
             Codec.INT.optionalFieldOf("virtual_population", 0).forGetter(c -> c.virtualPopulation),
-            Applicant.CODEC.listOf().optionalFieldOf("applicants", List.of()).forGetter(c -> c.applicants))
+            ComponentMap.CODEC.optionalFieldOf("components", new ComponentMap()).forGetter(c -> c.components))
             .apply(i, Colony::new));
 
     final UUID id;
@@ -69,18 +48,20 @@ public final class Colony {
     final BlockPos hall;
     final long founded;
     long lastDay;
-    final List<Citizen> citizens;
     /** Open recruitment quests by recruit definition id. */
     final Map<ResourceLocation, Recruitment> recruits;
     /** Run by an AI ruler: its people are counted, not spawned ({@link #virtualPopulation}). */
     boolean ai;
     int virtualPopulation;
-    /** Migrants waiting at the Hall for an answer. */
-    final List<Applicant> applicants;
+    /**
+     * Everything else a colony has (members and roles, land, treasury...): one component per feature, so a feature
+     * never adds a field here. Its people are Persons owned by the colony ({@code Society.citizens}).
+     */
+    final ComponentMap components;
 
     Colony(UUID id, String name, UUID founder, ResourceLocation faction, ResourceKey<Level> dimension, BlockPos hall,
-            long founded, long lastDay, List<Citizen> citizens, Map<ResourceLocation, Recruitment> recruits,
-            boolean ai, int virtualPopulation, List<Applicant> applicants) {
+            long founded, long lastDay, Map<ResourceLocation, Recruitment> recruits, boolean ai,
+            int virtualPopulation, ComponentMap components) {
         this.id = id;
         this.name = name;
         this.founder = founder;
@@ -89,11 +70,10 @@ public final class Colony {
         this.hall = hall;
         this.founded = founded;
         this.lastDay = lastDay;
-        this.citizens = new ArrayList<>(citizens);
         this.recruits = new LinkedHashMap<>(recruits);
         this.ai = ai;
         this.virtualPopulation = virtualPopulation;
-        this.applicants = new ArrayList<>(applicants);
+        this.components = components;
     }
 
     public UUID id() {
@@ -124,28 +104,30 @@ public final class Colony {
         return founded;
     }
 
-    public List<Citizen> citizens() {
-        return List.copyOf(citizens);
-    }
-
     public Map<ResourceLocation, Recruitment> recruits() {
         return Map.copyOf(recruits);
     }
 
-    public List<Applicant> applicants() {
-        return List.copyOf(applicants);
+    public <T> Optional<T> get(ComponentType<T> type) {
+        return components.get(type);
+    }
+
+    /** Read-only view of the colony's components. */
+    public ComponentMap components() {
+        return components;
+    }
+
+    /** The owner as an {@link Owner} key: this colony (its Persons are owned by it). */
+    public Owner asOwner() {
+        return Owner.colony(id);
     }
 
     public boolean ai() {
         return ai;
     }
 
-    /** Citizens with bodies plus counted ones (AI colonies). */
-    public int population() {
-        return citizens.size() + virtualPopulation;
-    }
-
-    public boolean hasCitizen(UUID entity) {
-        return citizens.stream().anyMatch(c -> c.entity().equals(entity));
+    /** Counted people of an AI colony (no bodies). Living citizens are {@code Society.population}. */
+    public int virtualPopulation() {
+        return virtualPopulation;
     }
 }

@@ -7,6 +7,8 @@ import com.porcupinestudios.lotrport.faction.Alignment;
 import com.porcupinestudios.lotrport.faction.FactionKills;
 import com.porcupinestudios.lotrport.faction.Factions;
 import com.porcupinestudios.lotrport.quest.Quests;
+import com.porcupinestudios.lotrport.society.Persons;
+import com.porcupinestudios.lotrport.society.Society;
 import com.porcupinestudios.lotrport.npc.behaviour.Behaviours;
 import com.porcupinestudios.lotrport.npc.behaviour.CreatureBehaviour;
 import com.porcupinestudios.lotrport.sound.LotrSounds;
@@ -70,7 +72,7 @@ import net.minecraft.world.level.Level;
  * Every LOTR person: one entity whose {@link NpcType} (from data) says who it is. Clients only get what they draw
  * (type id for the name, skin texture); size comes through the scale attribute. Traders use the vanilla trading screen;
  * captains hire out units through {@link Hiring}; hired units follow or guard for their owner and get a
- * {@link People} record.
+ * {@link com.porcupinestudios.lotrport.society.Person} record.
  */
 public class LotrNpc extends PathfinderMob implements Merchant {
     private static final EntityDataAccessor<String> TYPE =
@@ -675,7 +677,7 @@ public class LotrNpc extends PathfinderMob implements Merchant {
     public void die(DamageSource source) {
         super.die(source);
         if (level() instanceof ServerLevel level) {
-            People.get(level.getServer()).died(level.getServer(), this);
+            Persons.get(level.getServer()).died(level.getServer(), getUUID(), Optional.of(Society.where(this)));
         }
     }
 

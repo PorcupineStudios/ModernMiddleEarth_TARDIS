@@ -2,6 +2,11 @@ package com.porcupinestudios.lotrport.colony;
 
 import com.porcupinestudios.lotrport.npc.LotrNpc;
 import com.porcupinestudios.lotrport.registry.LotrRegistries;
+import com.porcupinestudios.lotrport.society.CoreComponents;
+import com.porcupinestudios.lotrport.society.Person;
+import com.porcupinestudios.lotrport.society.Persons;
+import com.porcupinestudios.lotrport.society.Society;
+import com.porcupinestudios.lotrport.society.SocietyEvent;
 import java.util.ArrayList;
 import java.util.Optional;
 import java.util.UUID;
@@ -18,7 +23,6 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
-import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
 
 /**
  * Selective migration (Aaron, 2026-11-03): migrants come to the Hall and offer to settle; the owner accepts or turns
@@ -33,7 +37,7 @@ public final class Migrants {
 
     public static void register() {
         NeoForge.EVENT_BUS.addListener(Migrants::onJoin);
-        NeoForge.EVENT_BUS.addListener(Migrants::onDeath);
+        NeoForge.EVENT_BUS.addListener(Migrants::onDied);
     }
 
     /** The colony this entity is waiting to join, if it is an applicant. */
@@ -55,9 +59,12 @@ public final class Migrants {
         spawned.ifPresent(npc -> {
             npc.setPersistenceRequired();
             npc.setData(LotrRegistries.COLONY, MARK + colony.id);
-            Colony.Applicant a = new Colony.Applicant(npc.getUUID(), npc.typeId(), npc.personName(), 0);
-            colony.applicants.add(a);
-            colonies.changed();
+            MinecraftServer server = level.getServer();
+            Person a = Society.recordFor(npc);
+            Persons persons = Persons.get(server);
+            persons.add(server, a, Optional.empty(), Optional.of(Society.where(npc)));
+            persons.set(server, a, CoreComponents.APPLICANT, new CoreComponents.Applicant(0));
+            persons.setOwner(server, a, colony.asOwner(), "applied");
             Colonies.log(level.getServer(), Colonies.APPLICANT_HISTORY, colony, npc.blockPosition(), tag(colony, a));
             ServerPlayer owner = level.getServer().getPlayerList().getPlayer(colony.founder);
             if (owner != null) {
@@ -70,14 +77,15 @@ public final class Migrants {
     /** Ages every applicant by a colony day; those who waited longer than {@code applicant_days} leave. */
     static void age(Colonies colonies, ServerLevel level, Colony colony) {
         int max = ColonyData.settings().applicantDays();
-        for (Colony.Applicant a : new ArrayList<>(colony.applicants)) {
-            Colony.Applicant older = new Colony.Applicant(a.entity(), a.type(), a.name(), a.days() + 1);
-            colony.applicants.set(colony.applicants.indexOf(a), older);
+        MinecraftServer server = level.getServer();
+        Persons persons = Persons.get(server);
+        for (Person a : Society.applicants(server, colony)) {
+            CoreComponents.Applicant older = a.get(CoreComponents.APPLICANT).orElseThrow().older();
+            persons.setQuiet(a, CoreComponents.APPLICANT, older);
             if (older.days() > max) {
-                leave(colonies, level.getServer(), colony, older, "waited");
+                leave(server, colony, a, "waited");
             }
         }
-        colonies.changed();
     }
 
     /** The result of an answer: done, or why not. */
@@ -96,10 +104,9 @@ public final class Migrants {
         if (!(body instanceof LotrNpc npc) || !npc.isAlive()) {
             return fail("colony.lotr_port.migrant.away", "Go to your Hall to take them in");
         }
-        if (colony.citizens.size() >= Colonies.homes(level, colony)) {
+        if (Society.citizenCount(player.server, colony) >= Colonies.homes(level, colony)) {
             return fail("colony.lotr_port.migrant.no_home", "There is no free bed for them");
         }
-        colony.applicants.removeIf(a -> a.entity().equals(migrant));
         npc.setData(LotrRegistries.COLONY, colony.id.toString());
         colonies.join(player.server, colony, npc, false);
         return new Answer(true, Component.translatableWithFallback("colony.lotr_port.migrant.accepted",
@@ -114,9 +121,8 @@ public final class Migrants {
             return fail("colony.lotr_port.migrant.none", "Nobody by that name is waiting at your Hall");
         }
         Colony colony = found.get();
-        Colony.Applicant a = colony.applicants.stream().filter(x -> x.entity().equals(migrant)).findFirst()
-                .orElseThrow();
-        leave(colonies, player.server, colony, a, "denied");
+        Person a = Persons.get(player.server).get(migrant).orElseThrow();
+        leave(player.server, colony, a, "denied");
         return new Answer(true, Component.translatableWithFallback("colony.lotr_port.migrant.denied",
                 "%s leaves %s", a.name(), colony.name));
     }
@@ -128,8 +134,8 @@ public final class Migrants {
             return false;
         }
         Optional<Colony> colony = Colonies.get(player.server).get(id.get());
-        Optional<Colony.Applicant> a = colony.flatMap(c -> c.applicants.stream()
-                .filter(x -> x.entity().equals(npc.getUUID())).findFirst());
+        Optional<Person> a = Persons.get(player.server).get(npc.getUUID())
+                .filter(p -> p.alive() && p.has(CoreComponents.APPLICANT));
         if (colony.isEmpty() || a.isEmpty()) {
             return false;
         }
@@ -143,17 +149,17 @@ public final class Migrants {
     }
 
     /** Sends the owner the offer with [Accept] and [Deny] links. */
-    public static void tell(ServerPlayer owner, Colony colony, Colony.Applicant a) {
+    public static void tell(ServerPlayer owner, Colony colony, Person a) {
         MutableComponent who = Component.literal(a.name().isEmpty() ? "A migrant" : a.name()).append(" (")
                 .append(Component.translatable("npc." + a.type().getNamespace() + "." + a.type().getPath()))
                 .append(")");
         owner.sendSystemMessage(Component.translatableWithFallback("colony.lotr_port.migrant.offer",
                 "%s offers to settle in %s ", who, colony.name).withStyle(ChatFormatting.GOLD)
                 .append(link("colony.lotr_port.migrant.accept", "[Accept]", ChatFormatting.GREEN,
-                        "/lotr_colony accept " + a.entity()))
+                        "/lotr_colony accept " + a.id()))
                 .append(" ")
                 .append(link("colony.lotr_port.migrant.deny", "[Deny]", ChatFormatting.RED,
-                        "/lotr_colony deny " + a.entity())));
+                        "/lotr_colony deny " + a.id())));
     }
 
     private static MutableComponent link(String key, String fallback, ChatFormatting color, String command) {
@@ -163,17 +169,16 @@ public final class Migrants {
     }
 
     private static Optional<Colony> waitingAt(Colonies colonies, ServerPlayer player, UUID migrant) {
-        return colonies.ownedBy(player.getUUID()).stream()
-                .filter(c -> c.applicants.stream().anyMatch(a -> a.entity().equals(migrant)))
-                .findFirst();
+        return Persons.get(player.server).get(migrant)
+                .filter(p -> p.alive() && p.has(CoreComponents.APPLICANT))
+                .flatMap(p -> Society.colonyOf(player.server, p))
+                .filter(c -> c.founder().equals(player.getUUID()));
     }
 
-    private static void leave(Colonies colonies, MinecraftServer server, Colony colony, Colony.Applicant a,
-            String why) {
-        colony.applicants.removeIf(x -> x.entity().equals(a.entity()));
-        colonies.changed();
+    private static void leave(MinecraftServer server, Colony colony, Person a, String why) {
+        Persons.get(server).remove(server, a.id());
         ServerLevel level = server.getLevel(colony.dimension);
-        Entity body = level == null ? null : level.getEntity(a.entity());
+        Entity body = level == null ? null : level.getEntity(a.id());
         if (body != null) {
             body.discard();
         }
@@ -182,10 +187,10 @@ public final class Migrants {
         Colonies.log(server, Colonies.DENIED_HISTORY, colony, body != null ? body.blockPosition() : colony.hall, tag);
     }
 
-    private static CompoundTag tag(Colony colony, Colony.Applicant a) {
+    private static CompoundTag tag(Colony colony, Person a) {
         CompoundTag tag = new CompoundTag();
         tag.putUUID("colony", colony.id);
-        tag.putUUID("entity", a.entity());
+        tag.putUUID("entity", a.id());
         tag.putString("type", a.type().toString());
         return tag;
     }
@@ -204,25 +209,18 @@ public final class Migrants {
         if (id.isEmpty() || !(event.getLevel() instanceof ServerLevel level)) {
             return;
         }
-        boolean waiting = Colonies.get(level.getServer()).get(id.get())
-                .map(c -> c.applicants.stream().anyMatch(a -> a.entity().equals(e.getUUID()))).orElse(false);
+        boolean waiting = Persons.get(level.getServer()).get(e.getUUID())
+                .filter(p -> p.alive() && p.has(CoreComponents.APPLICANT))
+                .flatMap(p -> p.owner().colonyId()).map(id.get()::equals).orElse(false);
         if (!waiting) {
             event.setCanceled(true);
         }
     }
 
-    private static void onDeath(LivingDeathEvent event) {
-        Entity dead = event.getEntity();
-        if (dead.level().isClientSide) {
-            return;
+    /** An applicant who dies is forgotten (it never joined). */
+    public static void onDied(SocietyEvent.Died event) {
+        if (event.person().has(CoreComponents.APPLICANT) && !event.person().has(CoreComponents.CITIZEN)) {
+            Persons.get(event.server()).remove(event.server(), event.person().id());
         }
-        applicantOf(dead).ifPresent(id -> {
-            Colonies colonies = Colonies.get(dead.getServer());
-            colonies.get(id).ifPresent(c -> {
-                if (c.applicants.removeIf(a -> a.entity().equals(dead.getUUID()))) {
-                    colonies.changed();
-                }
-            });
-        });
     }
 }

@@ -1,6 +1,7 @@
 package com.porcupinestudios.lotrport.npc;
 
 import com.porcupinestudios.lotrport.faction.Alignment;
+import com.porcupinestudios.lotrport.society.Society;
 import com.porcupinestudios.lotrport.faction.Pledges;
 import java.util.List;
 import java.util.Optional;
@@ -81,7 +82,7 @@ public final class Hiring {
         Coins.pay(player, unit.cost());
         LotrNpc npc = spawned.get();
         npc.hireTo(player);
-        People.get(player.server).hired(player.server, npc, player.getUUID());
+        Society.hired(player.server, npc, player.getUUID());
         unit.mount().ifPresent(m -> {
             var armour = npc.npcType() == null ? java.util.List.<ResourceLocation>of()
                     : npc.npcType().gear().getOrDefault("mount_armor", java.util.List.of());

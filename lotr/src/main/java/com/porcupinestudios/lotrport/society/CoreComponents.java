@@ -1,0 +1,91 @@
+package com.porcupinestudios.lotrport.society;
+
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
+import com.porcupinestudios.lotrport.LotrPort;
+import java.util.Locale;
+import java.util.Optional;
+import net.minecraft.core.GlobalPos;
+import net.minecraft.util.StringRepresentable;
+
+/**
+ * The component types the core itself uses. Features add their own the same way (a static {@code ComponentType}
+ * in their package), registered before any world loads: {@link #init()} runs from the mod constructor.
+ */
+public final class CoreComponents {
+    private CoreComponents() {}
+
+    /** A member of the colony that owns the Person. {@code rare} = joined by a recruitment quest. */
+    public record Citizen(long joined, boolean rare) {
+        public static final Codec<Citizen> CODEC = RecordCodecBuilder.create(i -> i.group(
+                Codec.LONG.optionalFieldOf("joined", 0L).forGetter(Citizen::joined),
+                Codec.BOOL.optionalFieldOf("rare", false).forGetter(Citizen::rare))
+                .apply(i, Citizen::new));
+    }
+
+    /** Waiting at the Hall of the colony that owns the Person; {@code days} waited so far. */
+    public record Applicant(int days) {
+        public static final Codec<Applicant> CODEC = RecordCodecBuilder.create(i -> i.group(
+                Codec.INT.optionalFieldOf("days", 0).forGetter(Applicant::days))
+                .apply(i, Applicant::new));
+
+        public Applicant older() {
+            return new Applicant(days + 1);
+        }
+    }
+
+    /** What a unit was told to do. */
+    public enum Order implements StringRepresentable {
+        /** Stands where it is and defends itself. */
+        NONE,
+        /** Follows its commander (a player owner) and fights for them. */
+        FOLLOW,
+        /** Holds its post and fights anything hostile near it. */
+        GUARD;
+
+        public static final Codec<Order> CODEC = StringRepresentable.fromEnum(Order::values);
+
+        @Override
+        public String getSerializedName() {
+            return name().toLowerCase(Locale.ROOT);
+        }
+    }
+
+    /**
+     * A fighter: a hired unit (owned by a player) or a colony soldier (owned by a colony). The same component on both,
+     * so orders, squads and the unit screen work for either.
+     *
+     * @param post where it guards (orders GUARD)
+     * @param hired game time it was hired or enlisted
+     * @param wage coins per colony day paid by a colony owner (0 for units a player paid once)
+     */
+    public record Unit(Order order, Optional<GlobalPos> post, long hired, int wage) {
+        public static final Codec<Unit> CODEC = RecordCodecBuilder.create(i -> i.group(
+                Order.CODEC.optionalFieldOf("order", Order.FOLLOW).forGetter(Unit::order),
+                GlobalPos.CODEC.optionalFieldOf("post").forGetter(Unit::post),
+                Codec.LONG.optionalFieldOf("hired", 0L).forGetter(Unit::hired),
+                Codec.INT.optionalFieldOf("wage", 0).forGetter(Unit::wage))
+                .apply(i, Unit::new));
+
+        public static Unit hired(long time) {
+            return new Unit(Order.FOLLOW, Optional.empty(), time, 0);
+        }
+
+        public Unit withOrder(Order next, Optional<GlobalPos> at) {
+            return new Unit(next, next == Order.GUARD ? at : Optional.empty(), hired, wage);
+        }
+
+        public Unit withWage(int coins) {
+            return new Unit(order, post, hired, coins);
+        }
+    }
+
+    public static final ComponentType<Citizen> CITIZEN = ComponentType.register(LotrPort.id("citizen"),
+            Citizen.CODEC);
+    public static final ComponentType<Applicant> APPLICANT = ComponentType.register(LotrPort.id("applicant"),
+            Applicant.CODEC);
+    public static final ComponentType<Unit> UNIT = ComponentType.register(LotrPort.id("unit"), Unit.CODEC);
+
+    /** Loads this class (and so registers the types) from the mod constructor. */
+    public static void init() {}
+}
