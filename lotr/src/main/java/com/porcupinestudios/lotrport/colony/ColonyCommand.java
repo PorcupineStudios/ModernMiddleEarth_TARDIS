@@ -42,6 +42,25 @@ public final class ColonyCommand {
                     com.porcupinestudios.lotrport.colony.members.HallNet.send(player, c.get(), true);
                     return 1;
                 }))
+                // the colony management screen (UI core) of the nearest colony you belong to
+                .then(Commands.literal("manage").executes(ctx -> {
+                    ServerPlayer player = ctx.getSource().getPlayerOrException();
+                    Optional<Colony> c = Colonies.get(player.server).all().stream()
+                            .filter(x -> com.porcupinestudios.lotrport.colony.members.Permissions
+                                    .isMember(player.getUUID(), x))
+                            .min(java.util.Comparator.comparingDouble(x -> x.hall().distSqr(player.blockPosition())));
+                    if (c.isEmpty()) {
+                        ctx.getSource().sendFailure(Component.literal("You belong to no colony"));
+                        return 0;
+                    }
+                    com.porcupinestudios.lotrport.colony.ui.ColonyViews.open(player, c.get());
+                    return 1;
+                }))
+                // every colony you belong to, to pick one to manage
+                .then(Commands.literal("colonies").executes(ctx -> {
+                    com.porcupinestudios.lotrport.colony.ui.ColonyViews.openAll(ctx.getSource().getPlayerOrException());
+                    return 1;
+                }))
                 // the [type] links after a writ: change a building's type to another that fits
                 .then(Commands.literal("building").then(Commands.argument("door",
                         net.minecraft.commands.arguments.coordinates.BlockPosArgument.blockPos())

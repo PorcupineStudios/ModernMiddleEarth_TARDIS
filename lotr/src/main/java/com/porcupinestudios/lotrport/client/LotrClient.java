@@ -79,6 +79,8 @@ public final class LotrClient {
         com.porcupinestudios.lotrport.colony.work.LedgerNet.citizenHandler = CitizenScreen::show;
         com.porcupinestudios.lotrport.social.SocialNet.iconsHandler = MapScreen::icons;
         com.porcupinestudios.lotrport.social.SocialNet.viewHandler = VisibilityScreen::show;
+        com.porcupinestudios.lotrport.ui.UiNet.showHandler = com.porcupinestudios.lotrport.client.ui.UiScreen::show;
+        com.porcupinestudios.lotrport.ui.UiNet.closeHandler = com.porcupinestudios.lotrport.client.ui.UiScreen::close;
         event.enqueueWork(LotrClient::rangedProperties);
     }
 
