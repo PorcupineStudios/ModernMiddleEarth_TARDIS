@@ -18,7 +18,7 @@ runs/
 logs/
 
 # Never in this (public) repo, see lotr/CLAUDE.md:
-# the Middle-earth music pack (the films' scores; private repo PorcupineStudios/middle-earth-music, lotr/docs/music.md)
+# the Middle-earth music pack (the films' scores; private repo PorcupineStudios/LOTR_music, lotr/docs/music.md)
 lotr/src/main/resources/resourcepacks/middle_earth_music/
 music-pack/
 # the LOTR mod's jar (private copy in PorcupineStudios/RingRealms libs/; the converter reads it from converter/libs/)
