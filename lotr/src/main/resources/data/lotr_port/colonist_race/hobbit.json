@@ -1,0 +1,10 @@
+{
+  "days_per_year": 0.75,
+  "adult_age": 33,
+  "extended_household": true,
+  "need_rates": {
+    "lotr_port:food": 1.4
+  },
+  "settler_age_min": 33,
+  "settler_age_max": 80
+}

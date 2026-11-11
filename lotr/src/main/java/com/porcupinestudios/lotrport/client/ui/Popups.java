@@ -68,44 +68,78 @@ final class Popups {
         }
     }
 
-    /** "Show only": a tick box per filter under its group's heading, and Clear all. */
+    /**
+     * "Show only": a tick box per filter under its group's heading, and Clear all. Groups flow into more columns when
+     * one column would be taller than the screen.
+     */
     static final class FilterMenu extends Popup {
         private static final int LINE = 14;
+        private static final int COLUMN = 140;
+        private static final int GROUP_GAP = 5;
         private final TablePane pane;
         private final TableState state;
+        /** The first group of each column. */
+        private final java.util.List<Integer> columnStarts = new java.util.ArrayList<>();
 
-        FilterMenu(TablePane pane, TableState state, int right, int y) {
+        FilterMenu(TablePane pane, TableState state, int right, int y, int screenHeight) {
             this.pane = pane;
             this.state = state;
-            this.w = 150;
-            this.x = right - w;
             this.y = y;
-            int lines = 0;
-            for (FilterGroup g : pane.table().filters()) {
-                lines += 1 + g.filters().size();
+            int top = 6 + LINE;
+            int bottom = UiTheme.BUTTON_HEIGHT + 12;
+            int limit = Math.max(LINE * 4, screenHeight - 8 - top - bottom);
+            int used = 0;
+            int tallest = 0;
+            List<FilterGroup> groups = pane.table().filters();
+            for (int i = 0; i < groups.size(); i++) {
+                int gh = groupHeight(groups.get(i));
+                if (i == 0 || used + gh > limit) {
+                    columnStarts.add(i);
+                    used = 0;
+                }
+                used += gh;
+                tallest = Math.max(tallest, used);
             }
-            this.h = 8 + LINE + lines * LINE + pane.table().filters().size() * 3 + UiTheme.BUTTON_HEIGHT + 6;
+            this.w = 10 + columnStarts.size() * COLUMN;
+            this.x = right - w;
+            this.h = top + Math.min(tallest, limit) + bottom;
+        }
+
+        private static int groupHeight(FilterGroup g) {
+            return LINE - 2 + g.filters().size() * LINE + GROUP_GAP;
         }
 
         @Override
         void draw(Imm ui, UiScreen screen) {
             ui.sprite(UiTheme.POPUP, x, y, w, h);
-            int ly = y + 6;
             ui.text(Component.translatableWithFallback("ui.lotr_port.show_only", "Show only")
-                    .withStyle(ChatFormatting.BOLD), x + 8, ly, UiTheme.DARK_TEXT);
-            ly += LINE;
-            for (FilterGroup g : pane.table().filters()) {
-                ui.text(g.label().copy().withStyle(ChatFormatting.BOLD), x + 8, ly + 1, UiTheme.ON_LIGHT[1]);
-                ly += LINE - 2;
-                for (FilterGroup.Filter f : g.filters()) {
-                    ui.checkbox(x + 10, ly + 1, w - 18, state.isTicked(g.id(), f.tag()), f.label().getString(), () -> {
-                        state.toggle(g.id(), f.tag());
-                        pane.refilter();
-                    });
-                    ly += LINE;
+                    .withStyle(ChatFormatting.BOLD), x + 8, y + 6, UiTheme.DARK_TEXT);
+            List<FilterGroup> groups = pane.table().filters();
+            int top = y + 6 + LINE;
+            int bottomEdge = y + h - UiTheme.BUTTON_HEIGHT - 10;
+            ui.clip(x, top, w, bottomEdge - top);
+            for (int c = 0; c < columnStarts.size(); c++) {
+                int end = c + 1 < columnStarts.size() ? columnStarts.get(c + 1) : groups.size();
+                int cx = x + 8 + c * COLUMN;
+                int ly = top;
+                for (int i = columnStarts.get(c); i < end; i++) {
+                    FilterGroup g = groups.get(i);
+                    ui.text(g.label().copy().withStyle(ChatFormatting.BOLD), cx, ly + 1, UiTheme.ON_LIGHT[1]);
+                    ly += LINE - 2;
+                    for (FilterGroup.Filter f : g.filters()) {
+                        if (ly + UiTheme.CHECK_SIZE <= bottomEdge) {
+                            ui.checkbox(cx + 2, ly + 1, COLUMN - 12, state.isTicked(g.id(), f.tag()),
+                                    f.label().getString(), () -> {
+                                        state.toggle(g.id(), f.tag());
+                                        pane.refilter();
+                                    });
+                        }
+                        ly += LINE;
+                    }
+                    ly += GROUP_GAP;
                 }
-                ly += 5;
             }
+            ui.unclip();
             int bw = 64;
             ui.button(x + w - bw - 8, y + h - UiTheme.BUTTON_HEIGHT - 6, bw, UiTheme.BUTTON_HEIGHT,
                     Component.translatableWithFallback("ui.lotr_port.clear_all", "Clear all"), () -> {

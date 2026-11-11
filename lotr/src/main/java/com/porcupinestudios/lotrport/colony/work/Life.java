@@ -106,7 +106,8 @@ public final class Life {
         if (needs.unpaid() > 0 || needs.food() <= 0 || place.isEmpty()) {
             return;
         }
-        double factor = def.proficiency(Races.of(p.type())) * (0.5 + job.skill() / 100.0) * ctx.days();
+        double factor = def.proficiency(Races.of(p.type())) * (0.5 + job.skill() / 100.0) * ctx.days()
+                * com.porcupinestudios.lotrport.colonist.Colonists.workSpeed(p);
         Map<ResourceLocation, Double> carry = new HashMap<>(job.carry());
         int made = 0;
         if (def.carries() > 0) {
@@ -217,14 +218,19 @@ public final class Life {
         Buildings buildings = Buildings.of(ctx.colony());
         Stores stores = new Stores(ctx.server(), ctx.level(), ctx.colony());
         WorkComponents.Economy eco = ctx.colony().get(WorkComponents.ECONOMY).orElse(WorkComponents.Economy.DEFAULT);
-        for (Person p : Society.citizens(ctx.server(), ctx.colony())) {
+        List<Person> citizens = Society.citizens(ctx.server(), ctx.colony());
+        // who shares a roof with whom: one pass for the colony (families mind sharing; colonist.KinRules)
+        Map<java.util.UUID, ResourceLocation> homeThoughts =
+                com.porcupinestudios.lotrport.colonist.Colonists.homeThoughts(citizens, ctx.now());
+        for (Person p : citizens) {
             if (p.has(CoreComponents.UNIT)) {
                 continue;
             }
             WorkComponents.Needs n = p.get(WorkComponents.NEEDS).orElse(WorkComponents.Needs.NEW);
+            double foodRate = com.porcupinestudios.lotrport.colonist.Colonists.foodRate(p);
             double food = n.food();
             for (int d = 0; d < ctx.days(); d++) {
-                food = Math.max(0, food - s.foodPerDay());
+                food = Math.max(0, food - s.foodPerDay() * foodRate);
                 while (food < s.eatBelow()) {
                     int nutrition = stores.eatOne();
                     if (nutrition <= 0) {
@@ -240,7 +246,10 @@ public final class Life {
                     + (food >= s.eatBelow() ? s.fedHappiness() : food > 0 ? s.fedHappiness() / 2 : 0)
                     + (TAVERN.contains(p.id()) ? s.tavernHappiness() : 0)
                     - (n.unpaid() > 0 ? s.unpaidHappiness() : 0)
-                    - Math.max(0, eco.headTax() - 1) * s.taxHappiness();
+                    - Math.max(0, eco.headTax() - 1) * s.taxHappiness()
+                    // traits, the home thought and remembered events (colonist/)
+                    + com.porcupinestudios.lotrport.colonist.Colonists.moodToday(persons, p,
+                            Optional.ofNullable(homeThoughts.get(p.id())), ctx.now());
             target = Math.max(0, Math.min(100, target));
             double step = s.happinessPerDay() * ctx.days();
             double h = n.happiness() < target ? Math.min(target, n.happiness() + step)

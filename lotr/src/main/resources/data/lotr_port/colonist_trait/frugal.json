@@ -1,0 +1,9 @@
+{
+  "kind": "positive",
+  "scale": "appetite",
+  "weight": 8,
+  "heritable": 0.25,
+  "need_rates": {
+    "lotr_port:food": 0.8
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "kind": "negative",
+  "scale": "industry",
+  "weight": 10,
+  "heritable": 0.2,
+  "work_speed": 0.85
+}

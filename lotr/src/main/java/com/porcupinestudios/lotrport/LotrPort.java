@@ -100,6 +100,7 @@ public final class LotrPort {
         com.porcupinestudios.lotrport.colony.work.LedgerNet.register(modBus);
         com.porcupinestudios.lotrport.social.SocialNet.register(modBus);
         com.porcupinestudios.lotrport.ui.UiNet.register(modBus);
+        com.porcupinestudios.lotrport.colonist.Colonists.register();
         com.porcupinestudios.lotrport.colony.ui.ColonyViews.register();
         AlignmentHud.register();
         AttackTiming.register();

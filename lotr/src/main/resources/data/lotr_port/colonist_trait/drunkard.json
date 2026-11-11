@@ -1,0 +1,6 @@
+{
+  "kind": "negative",
+  "weight": 6,
+  "heritable": 0.15,
+  "on_break": "binge"
+}

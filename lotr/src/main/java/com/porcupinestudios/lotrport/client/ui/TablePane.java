@@ -114,7 +114,7 @@ final class TablePane {
                     : Component.translatableWithFallback("ui.lotr_port.filters_n", "Filters (%s)", n).getString();
             int fxr = x + w - FILTER_WIDTH;
             ui.dropdown(fxr, y - 1, FILTER_WIDTH, bar + 2, label,
-                    () -> screen.popup(new Popups.FilterMenu(this, state, x + w, y + bar + 4)));
+                    () -> screen.popup(new Popups.FilterMenu(this, state, x + w, y + bar + 4, screen.height)));
         }
 
         int boxY = y + bar + 6;

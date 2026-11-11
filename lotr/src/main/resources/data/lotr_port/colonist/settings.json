@@ -1,0 +1,11 @@
+{
+  "max_traits": 3,
+  "extra_trait_chance": 0.35,
+  "own_home": "lotr_port:own_home",
+  "family_home": "lotr_port:family_home",
+  "shared_home": "lotr_port:shared_home",
+  "family_shared": "lotr_port:family_shared",
+  "barracks": "lotr_port:barracks",
+  "family_barracks": "lotr_port:family_barracks",
+  "barracks_households": 3
+}

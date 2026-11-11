@@ -316,6 +316,12 @@ https://claude.ai/artifact/KqhSSTCuKXGuwKHBoYJdcu. Rebuild features in modern co
   and all your colonies; the Town Hall's Manage button, `/lotr_colony manage`, `/lotr_colony colonies`.
 - **Read `lotr/docs/ui-core.md`** before adding or changing a management screen. Never drawn in game yet.
 
+## Colonists: traits, mood, kin (2026-11-11, `colonist/`, UNBUILT)
+- Person components `traits`, `mood`, `kin` on the society core; mood adds to `Life`'s happiness target, traits scale
+  work and food, `Assign` houses households together (`HouseRules`), families mind sharing (`KinRules.homeThought`).
+  Data `colonist_trait/`, `colonist_thought/`, `colonist_race/`, `colonist/settings.json`. **Read
+  `lotr/docs/colonists.md`.** Marriage, births and family arrivals are not built yet.
+
 ## AI rulers (phase 10: `ai/`)
 - Rulers from data (`ai_ruler/<id>.json`: name, faction, home waypoint, aggression, expansion, max_colonies, colony
   names); numbers in `ai/settings.json`. Each gets an AI realm (`Realms`). One `AiRulers.step` per colony day, rulers in
