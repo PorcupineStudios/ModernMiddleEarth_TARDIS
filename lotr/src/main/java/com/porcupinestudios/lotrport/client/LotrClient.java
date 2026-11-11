@@ -61,6 +61,10 @@ public final class LotrClient {
     public static final KeyMapping JUKEBOX_KEY = new KeyMapping("key.lotr_port.jukebox", InputConstants.Type.KEYSYM,
             GLFW.GLFW_KEY_J, "key.categories.lotr_port");
 
+    /** Opens the unit screen: your hired units and your colonies' soldiers. */
+    public static final KeyMapping UNITS_KEY = new KeyMapping("key.lotr_port.units", InputConstants.Type.KEYSYM,
+            GLFW.GLFW_KEY_U, "key.categories.lotr_port");
+
     private LotrClient() {}
 
     @SubscribeEvent
@@ -69,6 +73,7 @@ public final class LotrClient {
         QuestNet.offerHandler = QuestOfferScreen::open;
         QuestNet.bookHandler = RedBookScreen::show;
         HudNet.barHandler = LotrHud::receive;
+        com.porcupinestudios.lotrport.unit.UnitNet.listHandler = UnitScreen::show;
         event.enqueueWork(LotrClient::rangedProperties);
     }
 
@@ -163,6 +168,7 @@ public final class LotrClient {
     public static void keys(RegisterKeyMappingsEvent event) {
         event.register(MAP_KEY);
         event.register(JUKEBOX_KEY);
+        event.register(UNITS_KEY);
         event.register(MAP_TELEPORT_KEY);
         event.register(FAST_TRAVEL_KEY);
     }

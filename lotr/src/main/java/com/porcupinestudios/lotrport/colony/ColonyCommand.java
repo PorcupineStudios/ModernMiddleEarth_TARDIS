@@ -71,6 +71,21 @@ public final class ColonyCommand {
                                     + ColonyData.loadProblems()), false);
                             return all.all().size();
                         }))
+                        // /lotr colony found <name> [faction]: founds a colony at your feet without a charter
+                        .then(Commands.literal("found")
+                                .then(Commands.argument("name", com.mojang.brigadier.arguments.StringArgumentType
+                                        .string()).executes(ctx -> {
+                                            ServerPlayer player = ctx.getSource().getPlayerOrException();
+                                            Colonies.Founding f = Colonies.get(player.server).found(player,
+                                                    com.mojang.brigadier.arguments.StringArgumentType.getString(ctx,
+                                                            "name"), player.blockPosition(),
+                                                    com.porcupinestudios.lotrport.LotrPort.id("gondor"));
+                                            if (f.colony().isEmpty()) {
+                                                ctx.getSource().sendFailure(f.problem());
+                                                return 0;
+                                            }
+                                            return 1;
+                                        })))
                         .then(Commands.literal("perf")
                                 .executes(ctx -> perf(ctx.getSource(), false))
                                 .then(Commands.literal("reset").executes(ctx -> perf(ctx.getSource(), true))))

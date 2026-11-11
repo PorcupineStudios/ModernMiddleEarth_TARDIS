@@ -93,6 +93,7 @@ public final class LotrPort {
         MapNet.register(modBus);
         QuestNet.register(modBus);
         HudNet.register(modBus);
+        com.porcupinestudios.lotrport.unit.UnitNet.register(modBus);
         AlignmentHud.register();
         AttackTiming.register();
         ColonyItems.register(modBus);
@@ -100,6 +101,7 @@ public final class LotrPort {
         CoreComponents.init();
         SimSettings.register();
         ColonySystemsCore.register();
+        com.porcupinestudios.lotrport.unit.Units.register();
         ColonyScheduler.register();
         Colonies.register();
         Migrants.register();

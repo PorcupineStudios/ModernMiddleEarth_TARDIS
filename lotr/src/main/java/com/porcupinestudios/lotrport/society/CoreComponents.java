@@ -58,31 +58,40 @@ public final class CoreComponents {
      * @param post where it guards (orders GUARD)
      * @param hired game time it was hired or enlisted
      * @param wage coins per colony day paid by a colony owner (0 for units a player paid once)
+     * @param unpaid colony days its owner could not pay
+     * @param squad the squad it belongs to, a name unique per owner
      */
-    public record Unit(Order order, Optional<GlobalPos> post, long hired, int wage, int unpaid) {
+    public record Unit(Order order, Optional<GlobalPos> post, long hired, int wage, int unpaid,
+            Optional<String> squad) {
         public static final Codec<Unit> CODEC = RecordCodecBuilder.create(i -> i.group(
                 Order.CODEC.optionalFieldOf("order", Order.FOLLOW).forGetter(Unit::order),
                 GlobalPos.CODEC.optionalFieldOf("post").forGetter(Unit::post),
                 Codec.LONG.optionalFieldOf("hired", 0L).forGetter(Unit::hired),
                 Codec.INT.optionalFieldOf("wage", 0).forGetter(Unit::wage),
-                Codec.INT.optionalFieldOf("unpaid", 0).forGetter(Unit::unpaid))
+                Codec.INT.optionalFieldOf("unpaid", 0).forGetter(Unit::unpaid),
+                Codec.STRING.optionalFieldOf("squad").forGetter(Unit::squad))
                 .apply(i, Unit::new));
 
         public static Unit hired(long time) {
-            return new Unit(Order.FOLLOW, Optional.empty(), time, 0, 0);
+            return new Unit(Order.FOLLOW, Optional.empty(), time, 0, 0, Optional.empty());
         }
 
         public Unit withOrder(Order next, Optional<GlobalPos> at) {
-            return new Unit(next, next == Order.GUARD ? at : Optional.empty(), hired, wage, unpaid);
+            return new Unit(next, next == Order.GUARD ? at : Optional.empty(), hired, wage, unpaid, squad);
         }
 
         public Unit withWage(int coins) {
-            return new Unit(order, post, hired, coins, unpaid);
+            return new Unit(order, post, hired, coins, unpaid, squad);
         }
 
         /** {@code days} colony days without pay (0 = paid up). */
         public Unit withUnpaid(int days) {
-            return new Unit(order, post, hired, wage, days);
+            return new Unit(order, post, hired, wage, days, squad);
+        }
+
+        /** A named group of units that take orders together (empty = none). */
+        public Unit withSquad(Optional<String> name) {
+            return new Unit(order, post, hired, wage, unpaid, name.filter(n -> !n.isEmpty()));
         }
     }
 
