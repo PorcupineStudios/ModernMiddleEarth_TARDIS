@@ -24,7 +24,8 @@ Turns LOTR 36.15 (1.7.10) content into the 1.21.1 port's generated resources. Tw
    Maven Central answers 429 (rate limit), point Gradle at a mirror with an init script in `~/.gradle/init.d`.
 
 2. **Generate** (`python3 converter/generate.py`, needs Pillow). Reads the export and the LOTR jar
-   (`converter/libs/`) and writes `lotr/src/generated/resources/`: the block/item/tab lists the mod registers from,
+   (`converter/libs/LOTRMod v36.15.jar`: not in this public repo; copy it from the private PorcupineStudios/RingRealms
+   `libs/`) and writes `lotr/src/generated/resources/`: the block/item/tab lists the mod registers from,
    blockstates, models, textures, 22 languages, recipes, loot tables and tags. Also writes `converter/idtable.json`
    (old id + metadata -> new id, for structures later) and `converter/report.json` (what was skipped or guessed).
 

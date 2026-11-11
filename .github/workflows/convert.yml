@@ -32,6 +32,20 @@ jobs:
             8
             25
       - uses: gradle/actions/setup-gradle@v4
+      # The LOTR mod's jar is not in this public repo: take it from the private RingRealms repo. Needs the secret
+      # RINGREALMS_TOKEN (a fine-grained token with read access to PorcupineStudios/RingRealms contents).
+      - name: LOTR jar from RingRealms
+        uses: actions/checkout@v4
+        with:
+          repository: PorcupineStudios/RingRealms
+          token: ${{ secrets.RINGREALMS_TOKEN }}
+          path: ringrealms
+          sparse-checkout: libs
+      - name: Put the LOTR jar where the converter reads it
+        run: |
+          mkdir -p converter/libs
+          cp "ringrealms/libs/LOTRMod v36.15.jar" converter/libs/
+          rm -rf ringrealms
       - name: Virtual screen
         run: sudo apt-get update -q && sudo apt-get install -y -q xvfb x11-xserver-utils libgl1-mesa-dri libglu1-mesa
       - name: Run the exporter
