@@ -69,17 +69,19 @@ final class Popups {
     }
 
     /**
-     * "Show only": a tick box per filter under its group's heading, and Clear all. Groups flow into more columns when
-     * one column would be taller than the screen.
+     * "Show only": a tick box per filter under its group's heading, and Clear all. Groups (even one long group) flow
+     * into more columns when one column would be taller than the screen.
      */
     static final class FilterMenu extends Popup {
         private static final int LINE = 14;
-        private static final int COLUMN = 140;
+        private static final int COLUMN = 110;
         private static final int GROUP_GAP = 5;
         private final TablePane pane;
         private final TableState state;
-        /** The first group of each column. */
-        private final java.util.List<Integer> columnStarts = new java.util.ArrayList<>();
+        /** Where each header and checkbox goes, worked out once: long groups carry on in the next column. */
+        private final java.util.List<Slot> slots = new java.util.ArrayList<>();
+
+        private record Slot(FilterGroup group, FilterGroup.Filter filter, int column, int dy) {}
 
         FilterMenu(TablePane pane, TableState state, int right, int y, int screenHeight) {
             this.pane = pane;
@@ -88,25 +90,31 @@ final class Popups {
             int top = 6 + LINE;
             int bottom = UiTheme.BUTTON_HEIGHT + 12;
             int limit = Math.max(LINE * 4, screenHeight - 8 - top - bottom);
+            int column = 0;
             int used = 0;
             int tallest = 0;
-            List<FilterGroup> groups = pane.table().filters();
-            for (int i = 0; i < groups.size(); i++) {
-                int gh = groupHeight(groups.get(i));
-                if (i == 0 || used + gh > limit) {
-                    columnStarts.add(i);
+            for (FilterGroup g : pane.table().filters()) {
+                // a header never sits alone at the foot of a column
+                if (used > 0 && used + (LINE - 2) + LINE > limit) {
+                    column++;
                     used = 0;
                 }
-                used += gh;
-                tallest = Math.max(tallest, used);
+                slots.add(new Slot(g, null, column, used));
+                used += LINE - 2;
+                for (FilterGroup.Filter f : g.filters()) {
+                    if (used + LINE > limit) {
+                        column++;
+                        used = 0;
+                    }
+                    slots.add(new Slot(g, f, column, used));
+                    used += LINE;
+                    tallest = Math.max(tallest, used);
+                }
+                used += GROUP_GAP;
             }
-            this.w = 10 + columnStarts.size() * COLUMN;
-            this.x = right - w;
-            this.h = top + Math.min(tallest, limit) + bottom;
-        }
-
-        private static int groupHeight(FilterGroup g) {
-            return LINE - 2 + g.filters().size() * LINE + GROUP_GAP;
+            this.w = 10 + (column + 1) * COLUMN;
+            this.x = Math.max(4, right - w);
+            this.h = top + tallest + bottom;
         }
 
         @Override
@@ -114,29 +122,22 @@ final class Popups {
             ui.sprite(UiTheme.POPUP, x, y, w, h);
             ui.text(Component.translatableWithFallback("ui.lotr_port.show_only", "Show only")
                     .withStyle(ChatFormatting.BOLD), x + 8, y + 6, UiTheme.DARK_TEXT);
-            List<FilterGroup> groups = pane.table().filters();
             int top = y + 6 + LINE;
             int bottomEdge = y + h - UiTheme.BUTTON_HEIGHT - 10;
             ui.clip(x, top, w, bottomEdge - top);
-            for (int c = 0; c < columnStarts.size(); c++) {
-                int end = c + 1 < columnStarts.size() ? columnStarts.get(c + 1) : groups.size();
-                int cx = x + 8 + c * COLUMN;
-                int ly = top;
-                for (int i = columnStarts.get(c); i < end; i++) {
-                    FilterGroup g = groups.get(i);
+            for (Slot s : slots) {
+                int cx = x + 8 + s.column() * COLUMN;
+                int ly = top + s.dy();
+                FilterGroup g = s.group();
+                FilterGroup.Filter f = s.filter();
+                if (f == null) {
                     ui.text(g.label().copy().withStyle(ChatFormatting.BOLD), cx, ly + 1, UiTheme.ON_LIGHT[1]);
-                    ly += LINE - 2;
-                    for (FilterGroup.Filter f : g.filters()) {
-                        if (ly + UiTheme.CHECK_SIZE <= bottomEdge) {
-                            ui.checkbox(cx + 2, ly + 1, COLUMN - 12, state.isTicked(g.id(), f.tag()),
-                                    f.label().getString(), () -> {
-                                        state.toggle(g.id(), f.tag());
-                                        pane.refilter();
-                                    });
-                        }
-                        ly += LINE;
-                    }
-                    ly += GROUP_GAP;
+                } else {
+                    ui.checkbox(cx + 2, ly + 1, COLUMN - 12, state.isTicked(g.id(), f.tag()), f.label().getString(),
+                            () -> {
+                                state.toggle(g.id(), f.tag());
+                                pane.refilter();
+                            });
                 }
             }
             ui.unclip();
