@@ -100,7 +100,22 @@ public final class ColonyViews {
     }
 
     static String personName(Person p) {
-        return p.name().isEmpty() ? p.type().getPath().replace('_', ' ') : p.name();
+        if (!p.name().isEmpty()) {
+            return p.name();
+        }
+        // some NPC types (LOTR's men) have no name bank: show a steady name from their people's bank instead of the
+        // type ("gondor_man" -> gondor_male), or bree_male for men of no bank
+        String type = p.type().getPath();
+        String people = type.contains("_") ? type.substring(0, type.lastIndexOf('_')) : type;
+        java.util.List<String> bank = com.porcupinestudios.lotrport.npc.NpcData.names(
+                LotrPort.id(people + "_male"));
+        if (bank.isEmpty()) {
+            bank = com.porcupinestudios.lotrport.npc.NpcData.names(LotrPort.id("bree_male"));
+        }
+        if (bank.isEmpty()) {
+            return type.replace('_', ' ');
+        }
+        return bank.get(Math.floorMod(p.id().hashCode(), bank.size()));
     }
 
     static String playerName(MinecraftServer server, UUID id) {
@@ -343,12 +358,12 @@ public final class ColonyViews {
         return TableBuilder.of(all, p -> p.id().toString())
                 .column(Column.text("name", tr("col.name", "Name"), 3), p -> Cell.text(personName(p)))
                 .column(Column.text("race", tr("col.race", "Race"), 2), p -> Cell.text(title(Races.of(p.type()))))
-                .column(Column.text("job", tr("col.job", "Job"), 3), p -> job(p))
+                .column(Column.text("job", tr("col.job", "Job"), 2), p -> job(p))
                 .column(Column.text("home", tr("col.home", "Home"), 3), p -> home(p, buildings))
-                .column(Column.text("traits", tr("col.traits", "Traits"), 3), p -> Cell.text(String.join(", ",
+                .column(Column.text("traits", tr("col.traits", "Traits"), 4), p -> Cell.text(String.join(", ",
                         p.get(ColonistData.TRAITS).orElse(List.of()).stream().map(t -> traitName(t).getString())
                                 .toList()), Tone.MUTED))
-                .column(Column.number("happiness", tr("col.happiness", "Happiness"), 2), p -> {
+                .column(Column.number("happiness", tr("col.mood", "Mood"), 2), p -> {
                     double h = p.get(WorkComponents.NEEDS).orElse(WorkComponents.Needs.NEW).happiness();
                     return Cell.number(h, Long.toString(Math.round(h)), happinessTone(h, life));
                 })
