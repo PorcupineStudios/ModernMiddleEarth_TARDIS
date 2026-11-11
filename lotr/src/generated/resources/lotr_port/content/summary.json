@@ -13,6 +13,7 @@
     "waypoints": 274,
     "quest_pools": 37,
     "quest_givers": 287,
-    "migration_tables": 28
+    "migration_tables": 28,
+    "claim_banners": 42
   }
 ]

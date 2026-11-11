@@ -1,5 +1,7 @@
 package com.porcupinestudios.lotrport.colony;
 
+import com.porcupinestudios.lotrport.colony.members.Perm;
+import com.porcupinestudios.lotrport.colony.members.Permissions;
 import java.util.List;
 import java.util.UUID;
 import net.minecraft.server.MinecraftServer;
@@ -11,9 +13,14 @@ import net.minecraft.server.MinecraftServer;
 public final class ColonyAccess {
     private ColonyAccess() {}
 
-    /** Whether the player may give orders in the colony (command its soldiers, station units there). */
+    /** Whether the player may command the colony's soldiers. */
     public static boolean canManage(MinecraftServer server, UUID player, Colony colony) {
-        return colony.founder().equals(player);
+        return Permissions.can(player, colony, Perm.COMMAND);
+    }
+
+    /** Whether the player may station their own units in the colony. */
+    public static boolean canStation(MinecraftServer server, UUID player, Colony colony) {
+        return Permissions.can(player, colony, Perm.STATION);
     }
 
     /** Colonies the player may manage. */

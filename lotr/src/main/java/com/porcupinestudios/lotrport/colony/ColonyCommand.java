@@ -28,6 +28,20 @@ public final class ColonyCommand {
 
     public static void register(CommandDispatcher<CommandSourceStack> dispatcher) {
         dispatcher.register(Commands.literal("lotr_colony")
+                // the Town Hall screen of the colony you belong to (the nearest, if several)
+                .then(Commands.literal("hall").executes(ctx -> {
+                    ServerPlayer player = ctx.getSource().getPlayerOrException();
+                    Optional<Colony> c = Colonies.get(player.server).all().stream()
+                            .filter(x -> com.porcupinestudios.lotrport.colony.members.Permissions
+                                    .isMember(player.getUUID(), x))
+                            .min(java.util.Comparator.comparingDouble(x -> x.hall().distSqr(player.blockPosition())));
+                    if (c.isEmpty()) {
+                        ctx.getSource().sendFailure(Component.literal("You belong to no colony"));
+                        return 0;
+                    }
+                    com.porcupinestudios.lotrport.colony.members.HallNet.send(player, c.get(), true);
+                    return 1;
+                }))
                 .then(Commands.literal("accept").then(Commands.argument("migrant", UuidArgument.uuid())
                         .executes(ctx -> answer(ctx.getSource(), Migrants.accept(ctx.getSource()
                                 .getPlayerOrException(), UuidArgument.getUuid(ctx, "migrant"))))))
@@ -111,8 +125,8 @@ public final class ColonyCommand {
         int colonies = Colonies.get(source.getServer()).all().size();
         int persons = Persons.get(source.getServer()).size();
         source.sendSuccess(() -> Component.literal(String.format(java.util.Locale.ROOT,
-                "%d colonies, %d people: %.3f ms mean, %.3f ms longest per tick over %d ticks (budget %.1f ms)",
-                colonies, persons, meanMs, maxMs, t.runs, budget))
+                "%d colonies, %d people: %.3f ms mean, %.3f ms longest per tick over %d ticks, %d over the %.1f ms budget",
+                colonies, persons, meanMs, maxMs, t.runs, perf.overBudget(), budget))
                 .withStyle(maxMs > budget ? ChatFormatting.RED : ChatFormatting.GREEN), false);
         perf.systems().forEach((id, st) -> source.sendSuccess(() -> Component.literal(String.format(
                 java.util.Locale.ROOT, " %s: %d runs, %.1f us mean, %.1f us longest", id, st.runs, st.meanMicros(),

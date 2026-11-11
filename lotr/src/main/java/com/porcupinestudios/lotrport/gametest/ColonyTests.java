@@ -75,7 +75,8 @@ public final class ColonyTests {
         helper.succeed();
     }
 
-    @GameTest(template = EMPTY, timeoutTicks = 400)
+    // own batch: the colony claims land around the test area, which would stop other tests building there
+    @GameTest(template = EMPTY, timeoutTicks = 400, batch = "colonies")
     public static void aColonyGrowsAndARareRaceJoinsByQuest(GameTestHelper helper) {
         ServerLevel level = helper.getLevel();
         ServerPlayer player = helper.makeMockServerPlayerInLevel();
@@ -171,6 +172,7 @@ public final class ColonyTests {
         // Stage 4: colonists research TARDIS tech; the rare Ranger is a researcher for the founder
         int researchers = Providers.researchers(level.getServer(), Set.of(player.getUUID()));
         helper.assertTrue(researchers == 1, "researchers after the Ranger joined: " + researchers);
+        colonies.disband(level.getServer(), colony, "test");
         helper.succeed();
     }
 

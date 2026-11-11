@@ -117,6 +117,7 @@ public final class Colonies extends SavedData {
         tag.putUUID("colony", colony.id);
         tag.putString("reason", reason);
         log(server, DISBANDED_HISTORY, colony, colony.hall, tag);
+        NeoForge.EVENT_BUS.post(new SocietyEvent.ColonyDisbanded(server, colony));
     }
 
     public Collection<Colony> all() {
@@ -179,6 +180,7 @@ public final class Colonies extends SavedData {
         tag.putUUID("founder", player.getUUID());
         tag.putString("faction", faction.toString());
         log(player.server, FOUNDED_HISTORY, colony, hall, tag);
+        NeoForge.EVENT_BUS.post(new SocietyEvent.ColonyFounded(player.server, colony));
         player.sendSystemMessage(Component.translatableWithFallback("colony.lotr_port.founded",
                 "You founded %s for %s", name, Component.translatable("faction." + faction.getNamespace() + "."
                         + faction.getPath())));
@@ -223,6 +225,7 @@ public final class Colonies extends SavedData {
         tag.putString("faction", faction.toString());
         tag.putBoolean("ai", true);
         log(server, FOUNDED_HISTORY, colony, hall, tag);
+        NeoForge.EVENT_BUS.post(new SocietyEvent.ColonyFounded(server, colony));
         return Optional.of(colony);
     }
 

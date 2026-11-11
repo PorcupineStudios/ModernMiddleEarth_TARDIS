@@ -25,13 +25,22 @@ public final class Perf {
 
     private final Map<ResourceLocation, Stat> systems = new LinkedHashMap<>();
     private final Stat ticks = new Stat();
+    private long overBudget;
 
     void system(ResourceLocation id, long nanos) {
         systems.computeIfAbsent(id, k -> new Stat()).add(nanos);
     }
 
-    void tick(long nanos) {
+    void tick(long nanos, long budgetNanos) {
         ticks.add(nanos);
+        if (nanos > budgetNanos) {
+            overBudget++;
+        }
+    }
+
+    /** Ticks that took longer than the budget (a garbage collection pause counts too). */
+    public long overBudget() {
+        return overBudget;
     }
 
     public Map<ResourceLocation, Stat> systems() {
@@ -48,5 +57,6 @@ public final class Perf {
         ticks.runs = 0;
         ticks.totalNanos = 0;
         ticks.maxNanos = 0;
+        overBudget = 0;
     }
 }

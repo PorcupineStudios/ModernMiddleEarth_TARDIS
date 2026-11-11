@@ -89,4 +89,32 @@ public abstract class SocietyEvent extends Event {
             super(server, person);
         }
     }
+
+    /** Something about one colony. */
+    public abstract static class OfColony extends SocietyEvent {
+        private final com.porcupinestudios.lotrport.colony.Colony colony;
+
+        protected OfColony(MinecraftServer server, com.porcupinestudios.lotrport.colony.Colony colony) {
+            super(server);
+            this.colony = colony;
+        }
+
+        public com.porcupinestudios.lotrport.colony.Colony colony() {
+            return colony;
+        }
+    }
+
+    /** A colony was founded (by a player or an AI ruler). */
+    public static final class ColonyFounded extends OfColony {
+        public ColonyFounded(MinecraftServer server, com.porcupinestudios.lotrport.colony.Colony colony) {
+            super(server, colony);
+        }
+    }
+
+    /** A colony was removed. */
+    public static final class ColonyDisbanded extends OfColony {
+        public ColonyDisbanded(MinecraftServer server, com.porcupinestudios.lotrport.colony.Colony colony) {
+            super(server, colony);
+        }
+    }
 }

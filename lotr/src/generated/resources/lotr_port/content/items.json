@@ -349,294 +349,294 @@
   },
   {
     "id": "banner_of_gondor",
-    "kind": "item",
+    "kind": "banner",
     "stack": 16,
     "level": 2,
     "speed": 6.0
   },
   {
     "id": "banner_of_rohan",
-    "kind": "item",
+    "kind": "banner",
     "stack": 16,
     "level": 2,
     "speed": 6.0
   },
   {
     "id": "banner_of_mordor",
-    "kind": "item",
+    "kind": "banner",
     "stack": 16,
     "level": 2,
     "speed": 6.0
   },
   {
     "id": "banner_of_lothl_rien",
-    "kind": "item",
+    "kind": "banner",
     "stack": 16,
     "level": 2,
     "speed": 6.0
   },
   {
     "id": "banner_of_the_woodland_realm",
-    "kind": "item",
+    "kind": "banner",
     "stack": 16,
     "level": 2,
     "speed": 6.0
   },
   {
     "id": "banner_of_dunland",
-    "kind": "item",
+    "kind": "banner",
     "stack": 16,
     "level": 2,
     "speed": 6.0
   },
   {
     "id": "banner_of_isengard",
-    "kind": "item",
+    "kind": "banner",
     "stack": 16,
     "level": 2,
     "speed": 6.0
   },
   {
     "id": "banner_of_durins_folk",
-    "kind": "item",
+    "kind": "banner",
     "stack": 16,
     "level": 2,
     "speed": 6.0
   },
   {
     "id": "banner_of_angmar",
-    "kind": "item",
+    "kind": "banner",
     "stack": 16,
     "level": 2,
     "speed": 6.0
   },
   {
     "id": "banner_of_near_harad",
-    "kind": "item",
+    "kind": "banner",
     "stack": 16,
     "level": 2,
     "speed": 6.0
   },
   {
     "id": "banner_of_lindon",
-    "kind": "item",
+    "kind": "banner",
     "stack": 16,
     "level": 2,
     "speed": 6.0
   },
   {
     "id": "banner_of_the_blue_mountains",
-    "kind": "item",
+    "kind": "banner",
     "stack": 16,
     "level": 2,
     "speed": 6.0
   },
   {
     "id": "banner_of_the_d_nedain_of_the_north",
-    "kind": "item",
+    "kind": "banner",
     "stack": 16,
     "level": 2,
     "speed": 6.0
   },
   {
     "id": "banner_of_dol_guldur",
-    "kind": "item",
+    "kind": "banner",
     "stack": 16,
     "level": 2,
     "speed": 6.0
   },
   {
     "id": "banner_of_gundabad",
-    "kind": "item",
+    "kind": "banner",
     "stack": 16,
     "level": 2,
     "speed": 6.0
   },
   {
     "id": "banner_of_the_half_trolls",
-    "kind": "item",
+    "kind": "banner",
     "stack": 16,
     "level": 2,
     "speed": 6.0
   },
   {
     "id": "banner_of_dol_amroth",
-    "kind": "item",
+    "kind": "banner",
     "stack": 16,
     "level": 2,
     "speed": 6.0
   },
   {
     "id": "banner_of_the_morwaith",
-    "kind": "item",
+    "kind": "banner",
     "stack": 16,
     "level": 2,
     "speed": 6.0
   },
   {
     "id": "banner_of_the_taurethrim",
-    "kind": "item",
+    "kind": "banner",
     "stack": 16,
     "level": 2,
     "speed": 6.0
   },
   {
     "id": "banner_of_dale",
-    "kind": "item",
+    "kind": "banner",
     "stack": 16,
     "level": 2,
     "speed": 6.0
   },
   {
     "id": "banner_of_dorwinion",
-    "kind": "item",
+    "kind": "banner",
     "stack": 16,
     "level": 2,
     "speed": 6.0
   },
   {
     "id": "banner_of_the_hobbits",
-    "kind": "item",
+    "kind": "banner",
     "stack": 16,
     "level": 2,
     "speed": 6.0
   },
   {
     "id": "banner_of_an_rien",
-    "kind": "item",
+    "kind": "banner",
     "stack": 16,
     "level": 2,
     "speed": 6.0
   },
   {
     "id": "banner_of_ithilien",
-    "kind": "item",
+    "kind": "banner",
     "stack": 16,
     "level": 2,
     "speed": 6.0
   },
   {
     "id": "banner_of_lossarnach",
-    "kind": "item",
+    "kind": "banner",
     "stack": 16,
     "level": 2,
     "speed": 6.0
   },
   {
     "id": "banner_of_lebennin",
-    "kind": "item",
+    "kind": "banner",
     "stack": 16,
     "level": 2,
     "speed": 6.0
   },
   {
     "id": "banner_of_pelargir",
-    "kind": "item",
+    "kind": "banner",
     "stack": 16,
     "level": 2,
     "speed": 6.0
   },
   {
     "id": "banner_of_blackroot_vale",
-    "kind": "item",
+    "kind": "banner",
     "stack": 16,
     "level": 2,
     "speed": 6.0
   },
   {
     "id": "banner_of_pinnath_gelin",
-    "kind": "item",
+    "kind": "banner",
     "stack": 16,
     "level": 2,
     "speed": 6.0
   },
   {
     "id": "banner_of_minas_morgul",
-    "kind": "item",
+    "kind": "banner",
     "stack": 16,
     "level": 2,
     "speed": 6.0
   },
   {
     "id": "banner_of_the_black_uruks",
-    "kind": "item",
+    "kind": "banner",
     "stack": 16,
     "level": 2,
     "speed": 6.0
   },
   {
     "id": "banner_of_the_stewards_of_gondor",
-    "kind": "item",
+    "kind": "banner",
     "stack": 16,
     "level": 2,
     "speed": 6.0
   },
   {
     "id": "banner_of_nan_ungol",
-    "kind": "item",
+    "kind": "banner",
     "stack": 16,
     "level": 2,
     "speed": 6.0
   },
   {
     "id": "banner_of_the_rhudaur_hillmen",
-    "kind": "item",
+    "kind": "banner",
     "stack": 16,
     "level": 2,
     "speed": 6.0
   },
   {
     "id": "banner_of_lamedon",
-    "kind": "item",
+    "kind": "banner",
     "stack": 16,
     "level": 2,
     "speed": 6.0
   },
   {
     "id": "banner_of_rh_del",
-    "kind": "item",
+    "kind": "banner",
     "stack": 16,
     "level": 2,
     "speed": 6.0
   },
   {
     "id": "banner_of_rivendell",
-    "kind": "item",
+    "kind": "banner",
     "stack": 16,
     "level": 2,
     "speed": 6.0
   },
   {
     "id": "banner_of_esgaroth",
-    "kind": "item",
+    "kind": "banner",
     "stack": 16,
     "level": 2,
     "speed": 6.0
   },
   {
     "id": "banner_of_umbar",
-    "kind": "item",
+    "kind": "banner",
     "stack": 16,
     "level": 2,
     "speed": 6.0
   },
   {
     "id": "banner_of_the_southron_nomads",
-    "kind": "item",
+    "kind": "banner",
     "stack": 16,
     "level": 2,
     "speed": 6.0
   },
   {
     "id": "banner_of_the_gulf_of_harad",
-    "kind": "item",
+    "kind": "banner",
     "stack": 16,
     "level": 2,
     "speed": 6.0
   },
   {
     "id": "banner_of_bree_land",
-    "kind": "item",
+    "kind": "banner",
     "stack": 16,
     "level": 2,
     "speed": 6.0

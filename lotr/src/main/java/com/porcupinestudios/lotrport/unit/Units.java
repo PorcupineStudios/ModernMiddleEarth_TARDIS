@@ -166,7 +166,7 @@ public final class Units {
         if (!p.alive() || !p.owner().equals(Owner.player(player)) || !p.has(CoreComponents.UNIT)) {
             return Result.fail("unit.lotr_port.not_yours", "That unit is not yours to station");
         }
-        if (!ColonyAccess.canManage(server, player, colony)) {
+        if (!ColonyAccess.canStation(server, player, colony)) {
             return Result.fail("unit.lotr_port.not_manager", "You can't station units in %s", colony.name());
         }
         Persons persons = Persons.get(server);

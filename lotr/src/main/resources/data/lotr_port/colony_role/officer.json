@@ -1,0 +1,1 @@
+{ "name": "Officer", "rank": 60, "permissions": ["build", "containers", "doors", "command", "station"] }
