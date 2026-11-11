@@ -55,7 +55,13 @@ class Colonies:
             tables.setdefault(fac, []).append({"npc": f"{NS}:{tid}", "weight": 1 if FIGHTERS.search(tid) else 3})
         for fac, entries in tables.items():
             write_json(os.path.join(self.data, "colony_migration", fac + ".json"), {"entries": entries})
+        # LOTR's faction banners claim land (LOTR placed them as protecting banner entities): kind "banner"
+        banners = 0
+        for it in self.gen.items:
+            if it["id"].startswith("banner_of_") and it.get("kind") == "item":
+                it["kind"] = "banner"
+                banners += 1
         en = self.gen.lang["en_us"]
         for k, v in UI_EN.items():
             en.setdefault(k, v)
-        return {"migration_tables": len(tables)}
+        return {"migration_tables": len(tables), "claim_banners": banners}

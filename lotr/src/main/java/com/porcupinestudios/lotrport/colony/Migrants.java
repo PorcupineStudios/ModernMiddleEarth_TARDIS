@@ -139,7 +139,8 @@ public final class Migrants {
         if (colony.isEmpty() || a.isEmpty()) {
             return false;
         }
-        if (colony.get().founder.equals(player.getUUID())) {
+        if (com.porcupinestudios.lotrport.colony.members.Permissions.can(player.getUUID(), colony.get(),
+                com.porcupinestudios.lotrport.colony.members.Perm.MIGRANTS)) {
             tell(player, colony.get(), a.get());
         } else {
             player.displayClientMessage(Component.translatableWithFallback("colony.lotr_port.migrant.waiting",
@@ -172,7 +173,8 @@ public final class Migrants {
         return Persons.get(player.server).get(migrant)
                 .filter(p -> p.alive() && p.has(CoreComponents.APPLICANT))
                 .flatMap(p -> Society.colonyOf(player.server, p))
-                .filter(c -> c.founder().equals(player.getUUID()));
+                .filter(c -> com.porcupinestudios.lotrport.colony.members.Permissions.can(player.getUUID(), c,
+                        com.porcupinestudios.lotrport.colony.members.Perm.MIGRANTS));
     }
 
     private static void leave(MinecraftServer server, Colony colony, Person a, String why) {

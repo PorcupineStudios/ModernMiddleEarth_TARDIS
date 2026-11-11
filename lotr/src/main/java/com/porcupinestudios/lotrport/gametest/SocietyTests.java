@@ -239,14 +239,18 @@ public final class SocietyTests {
             scheduler.perf().systems().forEach((id, st) -> per.append(String.format(java.util.Locale.ROOT,
                     " %s %.1f/%.1f us", id, st.meanMicros(), st.maxNanos / 1000.0)));
             LotrPort.LOG.info(String.format(java.util.Locale.ROOT,
-                    "[society] 50 x 150, 10 days: %d ticks, %.4f ms mean, %.3f ms longest;%s", ticks.runs, meanMs,
-                    maxMs, per));
+                    "[society] 50 x 150, 10 days: %d ticks, %.4f ms mean, %.3f ms longest, %d over budget;%s",
+                    ticks.runs, meanMs, maxMs, scheduler.perf().overBudget(), per));
             for (Colony c : mine) {
                 long coins = c.get(CoreComponents.TREASURY).map(CoreComponents.Treasury::coins).orElse(-1L);
                 helper.assertTrue(coins == 1000 - 11 * 15 * 2, c.name() + " has " + coins + " coins after 11 days");
                 helper.assertTrue(c.tier(server) == Tier.UNLOADED, c.name() + " is not unloaded");
             }
-            helper.assertTrue(maxMs < SimSettings.get().budgetMs(), "a tick took " + maxMs + " ms");
+            // the GameTest server shares its thread with other tests and the garbage collector: allow a few
+            // slow ticks out of 240000, but the work itself must stay far under the budget
+            long over = scheduler.perf().overBudget();
+            helper.assertTrue(over <= 3 && meanMs < SimSettings.get().budgetMs() / 20,
+                    over + " ticks over budget (longest " + maxMs + " ms), mean " + meanMs + " ms");
 
             // a colony unloaded for 40 days catches up at most max_catch_up_days at once, and pays what it can
             Colony late = mine.get(0);

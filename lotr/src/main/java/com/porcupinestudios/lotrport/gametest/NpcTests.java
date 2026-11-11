@@ -253,13 +253,13 @@ public final class NpcTests {
         troll.setNoGravity(true);
         troll.setPersistenceRequired(); // no player near: it would despawn before its first tick
         troll.setState("burnTime", 2);
-        helper.runAfterDelay(20, () -> {
+        // entities tick only in entity-ticking chunks; the 1-block template may sit on a chunk's edge
+        ThrownTests.inLoadedArea(helper, 1, 1, () -> helper.succeedWhen(() -> {
             helper.assertTrue(troll.state("is.LOTREntityStoneTroll") > 0, "the troll did not turn to stone (burn "
                     + troll.state("burnTime") + ", day " + troll.level().isDay() + ", sky "
                     + troll.level().canSeeSky(troll.blockPosition()) + ", rain " + troll.level().isRaining()
                     + ", behaviours " + troll.behaviours().size() + ")");
             helper.assertTrue(troll.isNoAi(), "a stone troll still thinks");
-            helper.succeed();
-        });
+        }));
     }
 }

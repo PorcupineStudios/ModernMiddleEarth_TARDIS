@@ -72,7 +72,7 @@ public final class ColonyScheduler {
                 pass(server, colonies, c, now, s);
             }
         }
-        perf.tick(System.nanoTime() - start);
+        perf.tick(System.nanoTime() - start, (long) (s.budgetMs() * 1_000_000));
     }
 
     @SuppressWarnings("unchecked")

@@ -74,6 +74,7 @@ public final class LotrClient {
         QuestNet.bookHandler = RedBookScreen::show;
         HudNet.barHandler = LotrHud::receive;
         com.porcupinestudios.lotrport.unit.UnitNet.listHandler = UnitScreen::show;
+        com.porcupinestudios.lotrport.colony.members.HallNet.hallHandler = HallScreen::show;
         event.enqueueWork(LotrClient::rangedProperties);
     }
 
@@ -187,6 +188,8 @@ public final class LotrClient {
     @SubscribeEvent
     public static void renderers(EntityRenderersEvent.RegisterRenderers event) {
         event.registerEntityRenderer(LotrEntities.NPC.get(), NpcRenderer::new);
+        event.registerEntityRenderer(com.porcupinestudios.lotrport.land.LandEntities.BANNER.get(),
+                ClaimBannerRenderer::new);
         com.porcupinestudios.lotrport.mount.Mounts.TYPE_BY_BREED.values()
                 .forEach(t -> event.registerEntityRenderer(t.get(), MountRenderer::new));
         // rocks, snowballs and wraith bolts thrown by LOTR's creatures, drawn as their item

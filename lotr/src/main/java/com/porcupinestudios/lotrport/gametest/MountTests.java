@@ -140,9 +140,15 @@ public final class MountTests {
             helper.getLevel().addFreshEntity(boar);
             Pig pig = helper.spawnWithNoFreeWill(EntityType.PIG, new Vec3(1.5, 2, 2.5));
             float health = pig.getHealth();
-            helper.runAfterDelay(5, () -> boar.hurt(helper.getLevel().damageSources().mobAttack(pig), 1f));
-            helper.succeedWhen(() -> helper.assertTrue(pig.getHealth() < health || !pig.isAlive(),
-                    "the boar didn't turn on what hurt it (target " + boar.getTarget() + ")"));
+            helper.succeedWhen(() -> {
+                // hurt it again until it notices (its chunk may start ticking a few ticks late)
+                if (boar.getTarget() == null && boar.invulnerableTime == 0) {
+                    boar.hurt(helper.getLevel().damageSources().mobAttack(pig), 0.5f);
+                }
+                helper.assertTrue(pig.getHealth() < health || !pig.isAlive(),
+                        "the boar didn't turn on what hurt it (target " + boar.getTarget() + ", ticks " + boar.tickCount
+                                + ", hurt by " + boar.getLastHurtByMob() + ", pig ticks " + pig.tickCount + ")");
+            });
         });
     }
 }

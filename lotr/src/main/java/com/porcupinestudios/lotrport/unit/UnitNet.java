@@ -118,8 +118,10 @@ public final class UnitNet {
                     Units.colonyName(player.server, p), u.wage(), u.unpaid(), hp, max, where));
         }
         List<Target> targets = new ArrayList<>();
-        for (Colony c : ColonyAccess.managedBy(player.server, player.getUUID())) {
-            targets.add(new Target(c.id(), c.name()));
+        for (Colony c : Units.colonies(player.server).all()) {
+            if (ColonyAccess.canStation(player.server, player.getUUID(), c)) {
+                targets.add(new Target(c.id(), c.name()));
+            }
         }
         PacketDistributor.sendToPlayer(player, new UnitList(entries, targets, focus, open));
     }

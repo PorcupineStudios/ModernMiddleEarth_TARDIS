@@ -1,0 +1,10 @@
+{
+  "hall_radius": 2,
+  "banner_radius": 1,
+  "banner_reach": 8,
+  "banners_base": 2,
+  "citizens_per_banner": 10,
+  "personal_banners": 1,
+  "personal_radius": 0,
+  "protect_explosions": true
+}

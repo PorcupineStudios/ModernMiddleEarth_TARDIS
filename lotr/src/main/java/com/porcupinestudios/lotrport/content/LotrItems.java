@@ -121,6 +121,7 @@ public final class LotrItems {
                 yield new ArmorItem(MATERIALS.get(key(a)), slot(a), p);
             }
             case "red_book" -> new RedBookItem(p);
+            case "banner" -> new com.porcupinestudios.lotrport.land.ClaimBannerItem(p);
             case "pouch" -> new com.porcupinestudios.lotrport.content.pouch.PouchItem(p,
                     ContentData.integer(e, "slots", 9));
             case "grape_seeds" -> new com.porcupinestudios.lotrport.content.farm.GrapeSeedItem(
