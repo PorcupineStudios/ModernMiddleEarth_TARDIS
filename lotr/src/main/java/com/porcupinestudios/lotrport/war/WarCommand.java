@@ -16,7 +16,6 @@ import java.util.UUID;
 import net.minecraft.ChatFormatting;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
-import net.minecraft.commands.arguments.UuidArgument;
 import net.minecraft.network.chat.ClickEvent;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.HoverEvent;
@@ -28,7 +27,7 @@ import net.minecraft.server.level.ServerPlayer;
  * {@code /lotr_war}: your colonies' wars with score, exhaustion and armies, and links to act.
  * <ul>
  * <li>{@code targets}: colonies you could declare on, with [Declare] links</li>
- * <li>{@code declare <colony> <goal> <reason>}: goal tribute, take_colony, vassal or free_vassal</li>
+ * <li>{@code declare <colony name> <goal> <reason>}: goal tribute, take_colony, vassal or free_vassal</li>
  * <li>{@code muster <war> siege|raid <soldiers>}</li>
  * <li>{@code peace <war> [tribute]} offers peace; {@code accept <war>} takes the other side's offer</li>
  * </ul>
@@ -40,7 +39,13 @@ public final class WarCommand {
         dispatcher.register(Commands.literal("lotr_war")
                 .executes(ctx -> list(ctx.getSource()))
                 .then(Commands.literal("targets").executes(ctx -> targets(ctx.getSource())))
-                .then(Commands.literal("declare").then(Commands.argument("colony", UuidArgument.uuid())
+                .then(Commands.literal("declare").then(Commands.argument("colony", StringArgumentType.string())
+                        .suggests((c, b) -> {
+                            for (Colony col : Colonies.get(c.getSource().getServer()).all()) {
+                                b.suggest(StringArgumentType.escapeIfRequired(col.name()));
+                            }
+                            return b.buildFuture();
+                        })
                         .then(Commands.argument("goal", StringArgumentType.word())
                                 .suggests((c, b) -> {
                                     for (War.Goal g : War.Goal.values()) {
@@ -102,7 +107,9 @@ public final class WarCommand {
             com.mojang.brigadier.exceptions.CommandSyntaxException {
         ServerPlayer player = ctx.getSource().getPlayerOrException();
         MinecraftServer server = player.server;
-        Optional<Colony> target = Colonies.get(server).get(UuidArgument.getUuid(ctx, "colony"));
+        String wanted = StringArgumentType.getString(ctx, "colony");
+        Optional<Colony> target = Colonies.get(server).all().stream().filter(c -> c.name().equalsIgnoreCase(wanted)
+                || c.id().toString().equals(wanted)).findFirst();
         List<Colony> mine = mine(player);
         String goalName = StringArgumentType.getString(ctx, "goal").toUpperCase(Locale.ROOT);
         War.Goal goal;
@@ -168,7 +175,8 @@ public final class WarCommand {
                     + Wars.minutes(WarSettings.get().armies().march(dist)).getString() + ") ");
             for (War.Goal g : War.Goal.values()) {
                 if (g != War.Goal.FREE_VASSAL) {
-                    line.append(link(g.getSerializedName().replace('_', ' '), "/lotr_war declare " + c.id() + " "
+                    line.append(link(g.getSerializedName().replace('_', ' '), "/lotr_war declare "
+                            + StringArgumentType.escapeIfRequired(c.name()) + " "
                             + g.getSerializedName() + " ", false)).append(" ");
                 }
             }
