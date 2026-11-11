@@ -95,13 +95,20 @@ public final class KinRules {
         }
         Set<UUID> others = new HashSet<>(housemates);
         others.remove(myHousehold);
-        boolean family = householdSize >= 2;
-        if (others.isEmpty()) {
-            return Optional.of(family ? settings.familyHome() : settings.ownHome());
+        return Optional.of(homeThought(settings, householdSize >= 2, others.size()));
+    }
+
+    /**
+     * The same for someone with a home, from counts: whether their household is a family (two or more) and how many
+     * other households sleep in the same house.
+     */
+    public static ResourceLocation homeThought(ColonistSettings settings, boolean family, int otherHouseholds) {
+        if (otherHouseholds <= 0) {
+            return family ? settings.familyHome() : settings.ownHome();
         }
-        if (others.size() >= settings.barracksHouseholds()) {
-            return Optional.of(family ? settings.familyBarracks() : settings.barracks());
+        if (otherHouseholds >= settings.barracksHouseholds()) {
+            return family ? settings.familyBarracks() : settings.barracks();
         }
-        return Optional.of(family ? settings.familyShared() : settings.sharedHome());
+        return family ? settings.familyShared() : settings.sharedHome();
     }
 }

@@ -58,15 +58,27 @@ public final class TraitRules {
         return List.copyOf(chosen);
     }
 
+    /** The ids of the last definitions map seen, in id order (rolls run per citizen; the data changes on reload). */
+    private static Map<ResourceLocation, TraitDef> sortedFor;
+    private static List<ResourceLocation> sorted = List.of();
+
+    /** The trait ids in id order, so the same seed gives the same colonist whatever order the files loaded in. */
+    static synchronized List<ResourceLocation> ordered(Map<ResourceLocation, TraitDef> defs) {
+        if (defs != sortedFor) {
+            Map<String, ResourceLocation> byName = new TreeMap<>();
+            defs.keySet().forEach(id -> byName.put(id.toString(), id));
+            sorted = List.copyOf(byName.values());
+            sortedFor = defs;
+        }
+        return sorted;
+    }
+
     /** A weighted pick among the traits of {@code kind} (any kind if null) that fit with those already chosen. */
     private static Optional<ResourceLocation> pick(Map<ResourceLocation, TraitDef> defs, List<ResourceLocation> chosen,
             Random random, TraitDef.Kind kind) {
-        // in id order, so the same seed gives the same colonist whatever order the files loaded in
-        Map<String, ResourceLocation> ordered = new TreeMap<>();
-        defs.keySet().forEach(id -> ordered.put(id.toString(), id));
         List<ResourceLocation> candidates = new ArrayList<>();
         int total = 0;
-        for (ResourceLocation id : ordered.values()) {
+        for (ResourceLocation id : ordered(defs)) {
             TraitDef def = defs.get(id);
             if (def.weight() > 0 && (kind == null || def.kind() == kind) && fits(defs, id, chosen)) {
                 candidates.add(id);

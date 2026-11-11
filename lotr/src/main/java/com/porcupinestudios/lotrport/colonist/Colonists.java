@@ -70,7 +70,8 @@ public final class Colonists {
 
     /** The race id a person's kin and race data use: their NPC type's race ({@code colony_race/}). */
     public static ResourceLocation raceOf(Person p) {
-        return p.get(ColonistData.KIN).map(Kin::race).orElse(LotrPort.id(Races.of(p.type())));
+        Optional<Kin> kin = p.get(ColonistData.KIN);
+        return kin.isPresent() ? kin.get().race() : LotrPort.id(Races.of(p.type()));
     }
 
     /**
@@ -102,7 +103,7 @@ public final class Colonists {
     }
 
     /** Most citizens from older saves given traits per colony per day (spreads the work: see {@link #settleSome}). */
-    public static final int SETTLE_PER_DAY = 20;
+    public static final int SETTLE_PER_DAY = 5;
 
     /**
      * Gives traits, mood and kin to up to {@link #SETTLE_PER_DAY} of these citizens who have none yet (citizens from
@@ -168,12 +169,19 @@ public final class Colonists {
             p.get(WorkComponents.HOME).ifPresent(h -> sleepers.computeIfAbsent(h.building(), k -> new ArrayList<>())
                     .add(households.get(p.id())));
         }
+        // households per house, counted once per house (not a set per person)
+        Map<UUID, Integer> householdsIn = new HashMap<>();
+        sleepers.forEach((home, list) -> householdsIn.put(home, new java.util.HashSet<>(list).size()));
         ColonistSettings s = ColonistData.settings();
         Map<UUID, ResourceLocation> out = new HashMap<>();
         for (Person p : citizens) {
+            Optional<WorkComponents.Home> home = p.get(WorkComponents.HOME);
+            if (home.isEmpty()) {
+                continue;
+            }
             UUID mine = households.get(p.id());
-            List<UUID> mates = p.get(WorkComponents.HOME).map(h -> sleepers.get(h.building())).orElse(List.of());
-            KinRules.homeThought(s, mine, size.getOrDefault(mine, 1), mates).ifPresent(t -> out.put(p.id(), t));
+            int others = householdsIn.getOrDefault(home.get().building(), 1) - 1;
+            out.put(p.id(), KinRules.homeThought(s, size.getOrDefault(mine, 1) >= 2, others));
         }
         return out;
     }
