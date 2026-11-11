@@ -322,7 +322,9 @@ https://claude.ai/artifact/KqhSSTCuKXGuwKHBoYJdcu. Rebuild features in modern co
 ## Colonists: traits, mood, kin (2026-11-11, `colonist/`)
 - Person components `traits`, `mood`, `kin` on the society core; mood adds to `Life`'s happiness target, traits scale
   work and food, `Assign` houses households together (`HouseRules`), families mind sharing (`KinRules.homeThought`).
-  Data `colonist_trait/`, `colonist_thought/`, `colonist_race/`, `colonist/settings.json`. **Read
+  Data `colonist_trait/`, `colonist_thought/`, `colonist_race/`, `colonist_ration/`, `colonist/settings.json`.
+  Citizen page (`colony/ui/CitizenViews`, 2026-11-11): rename, portrait, mood parts, needs, orders (`orders` part:
+  workplace, rest, home, ration; permission `citizens`). **Read
   `lotr/docs/colonists.md`.** Marriage, births and family arrivals are not built yet. Green in CI (2026-11-11,
   unit tests and all GameTests); the daily passes are tuned for `SocietyTests` 50 x 150 tick budget (0 over, 1.8 ms
   worst): keep new per-citizen work out of collections and streams, and see the doc's Performance section.

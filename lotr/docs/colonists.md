@@ -26,7 +26,8 @@ when nobody is homeless; mood is summed without building lists or sets. Keep new
   thoughts), `lotr_port:kin` (race, birth tick, parents, spouse, children). Registered at mod setup by
   `Colonists.register()` (before `ComponentType` freezes).
 - **Happiness stays the one mood number.** `Life.needs` adds `Colonists.moodToday(...)` to its happiness target: trait
-  thoughts + the home thought + live memories. Their numbers are on the same scale as `colony/life` settings (a
+  thoughts + the home thought + the ration's thought + live memories. `Colonists.thoughts` lists the same for the
+  citizen page. Their numbers are on the same scale as `colony/life` settings (a
   normal target is ~70; colonists leave under 25).
 - **Food** is still `WorkComponents.Needs.food`; traits and races scale how fast it runs down (`need_rates` with
   `lotr_port:food`, the only need id allowed so far). My separate need bars (rest, leisure, company, safety) were
@@ -34,6 +35,15 @@ when nobody is homeless; mood is summed without building lists or sets. Keep new
 - **Work speed**: `Life.worker` multiplies output by `Colonists.workSpeed` (traits' `work_speed`).
 - **Settling**: a person gets traits, an empty mood and kin when the `citizen` component is set
   (`SocietyEvent.ComponentChanged`), seeded by their id. Citizens from older saves get theirs when the server starts.
+- **Names**: settling also names a citizen whose NPC type has no name bank (LOTR's men) from their people's bank
+  (`gondor_man` → `npc_names/gondor_male`, else `bree_male`; `Colonists.nameFor`, steady per person). Anyone can be
+  renamed (`Persons.rename`, history `person_renamed`, `SocietyEvent.Renamed`: a loaded body takes the name over its
+  head).
+- **Orders** (person part `orders`, `colonist.Orders`, set on the citizen page): a workplace, rest (no job), a home,
+  a ration. Absent = the colony decides. `Assign.jobs` places ordered workers first while their workplace has a slot;
+  `HouseRules` step 0 puts ordered residents in their home first while it has a bed (this does move someone else
+  out, the one exception to "nobody is moved out"). A ration multiplies the food rate and may add a standing thought
+  (`moodToday`, `thoughts`).
 - **Grief**: on `SocietyEvent.Died`, the dead person's living parents, spouse and children remember `kin_died`.
 - **Races**: which NPC type is which race stays `colony_race/` (`Races.of`). `colonist_race/<race>.json` adds how
   that race lives (days per year, adult age, extended households, food rate, settler ages). Files: man, hobbit,
@@ -58,7 +68,8 @@ when nobody is homeless; mood is summed without building lists or sets. Keep new
 | Folder | Fields |
 |---|---|
 | `colonist_trait/` (17) | `kind` (positive, negative, neutral), `scale`, `weight`, `heritable`, `work_speed`, `need_rates`, `thoughts`, `on_break`, `conflicts` |
-| `colonist_thought/` (17) | `mood`, `duration_ticks` (0 = lasts while its cause does), `stack_limit` |
+| `colonist_thought/` (19) | `name` (the page's English; lang `thought.<ns>.<id>` wins), `mood`, `duration_ticks` (0 = lasts while its cause does), `stack_limit` |
+| `colonist_ration/` (3) | `food_rate`, `thought`, `order`: small (70%, -6), normal, large (140%, +4) |
 | `colonist_race/` (5) | `days_per_year`, `adult_age`, `extended_household`, `need_rates`, `settler_age_min`, `settler_age_max` |
 | `colonist/settings.json` | `max_traits`, `extra_trait_chance`, the six home thoughts, `barracks_households` |
 
@@ -67,11 +78,14 @@ when nobody is homeless; mood is summed without building lists or sets. Keep new
 ## UI
 
 The People tab (`colony/ui/ColonyViews`) has a Traits column and a Trait filter (traits present in the colony). The
-filter box flows into extra columns when it would be taller than the screen.
+filter box flows into extra columns when it would be taller than the screen. The citizen page (`colony/ui/
+CitizenViews`, see `lotr/docs/ui-core.md`) shows needs, every mood part with days left, traits, family and the
+orders, and renames.
 
 ## Not yet
 
 Marriage and births (the `wedding`, `child_born`, `came_of_age` thoughts exist as data only), so every household is a
 single settler until those land; migrants arriving as households; children's bodies and size; break behaviours
-(`on_break` is read by `TraitRules.onBreak` but nothing acts on it); a family tree screen; `saw_death`, `raid` and
+(`on_break` is read by `TraitRules.onBreak` but nothing acts on it); a family tree screen; more needs (rest, leisure: the page shows only what the colony tracks); per-colonist rules beyond
+work, home and ration (drinking, curfew, which food); `saw_death`, `raid` and
 `festival` memories (no events post them yet).
