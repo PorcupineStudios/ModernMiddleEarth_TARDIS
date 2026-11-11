@@ -75,4 +75,4 @@ https://claude.ai/artifact/VLwZ5N7pkVMJW4PCYXh41G).
   `converter/ui_kenney.py <pack png folder>` as 2x nine-slice sprites (edges from clean rows, so Kenney's notches
   don't repeat) with tabs, scroll bar and hover/pressed/disabled buttons drawn in its style. Draw with
   `GuiGraphics.blitSprite(LotrPort.id("ui/panel_beige"), x, y, w, h)`; draw the selected tab after the panel.
-  Not used by any screen yet (the shared list table will).
+  Also list rows (`row`, `row_hover`: a box per clickable row), `checkbox[_checked]` and `arrow_down` for the filter drop-down. Not used by any screen yet (the shared list table will).
