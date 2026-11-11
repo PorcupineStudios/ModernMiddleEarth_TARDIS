@@ -17,8 +17,16 @@ run/
 runs/
 logs/
 
-# music packs built by converter/music_pack.py. The one committed copy lives in music-pack/ (private repo, by
-# the owner's choice); stray builds elsewhere stay out
+# Never in this (public) repo, see lotr/CLAUDE.md:
+# the Middle-earth music pack (the films' scores; private repo PorcupineStudios/middle-earth-music, lotr/docs/music.md)
+lotr/src/main/resources/resourcepacks/middle_earth_music/
+music-pack/
+# the LOTR mod's jar (private copy in PorcupineStudios/RingRealms libs/; the converter reads it from converter/libs/)
+converter/libs/
+libs/LOTRMod*
+# other mods' jars (builds download them)
+project-files/**/*.jar
+# stray builds of converter/music_pack.py
 *.ogg.tmp
 *.part.ogg
 .middle-earth-music-cache/
