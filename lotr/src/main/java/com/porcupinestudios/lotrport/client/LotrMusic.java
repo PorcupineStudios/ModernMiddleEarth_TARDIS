@@ -111,11 +111,16 @@ public final class LotrMusic {
         }
 
         /**
-         * The soundtrack ships in the jar as its own built-in pack (resources/resourcepacks/middle_earth_music), always
-         * on: its sounds.json and playlists.json merge over the mod's. The Music slider sets its volume.
+         * The soundtrack can ship in the jar as its own built-in pack (resources/resourcepacks/middle_earth_music),
+         * always on: its sounds.json and playlists.json merge over the mod's. The Music slider sets its volume. The pack
+         * is not in this repo: it lives in the private repo PorcupineStudios/middle-earth-music and is copied into that
+         * folder for a private build (lotr/docs/music.md). Without it the mod builds and runs with no soundtrack.
          */
         @SubscribeEvent
         static void pack(AddPackFindersEvent event) {
+            if (LotrMusic.class.getResource("/resourcepacks/middle_earth_music/pack.mcmeta") == null) {
+                return;
+            }
             event.addPackFinders(ResourceLocation.fromNamespaceAndPath("lotr_port", "resourcepacks/middle_earth_music"),
                     PackType.CLIENT_RESOURCES, Component.literal("Middle-earth Music"), PackSource.BUILT_IN, true,
                     Pack.Position.TOP);

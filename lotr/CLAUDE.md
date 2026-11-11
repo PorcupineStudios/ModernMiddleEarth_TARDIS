@@ -4,8 +4,10 @@ Future-port of The Lord of the Rings Mod (1.7.10, Update 36.15) to Minecraft 1.2
 modpack project. Mod id `lotr_port`, main class `LotrPort`, package
 `com.porcupinestudios.lotrport`.
 
-**Keep this repo private** (it holds both mods). LOTR's code belongs to Mevans and has no public source or license to
-redistribute. The reference is the compiled jar `libs/LOTRMod v36.15.jar` in PorcupineStudios/RingRealms; its class map:
+**This repo is public** (2026-11-11): the LOTR mod's creator gave Aaron permission to use LOTR's assets. Three things
+must never be committed (all in `.gitignore`): the film music (private repo `PorcupineStudios/middle-earth-music`,
+`lotr/docs/music.md`), the LOTR mod's jar itself (private copy `libs/LOTRMod v36.15.jar` in PorcupineStudios/RingRealms;
+copy it to `converter/libs/` to run the converter), and other mods' jars. Its class map:
 https://claude.ai/artifact/KqhSSTCuKXGuwKHBoYJdcu. Rebuild features in modern code; never paste decompiled code.
 
 ## Approach (agreed in the project thread)
@@ -23,7 +25,7 @@ https://claude.ai/artifact/KqhSSTCuKXGuwKHBoYJdcu. Rebuild features in modern co
   and register `lotr_port:alignment`-style condition types there. Never depend on `tardis/`.
 
 ## Decisions (Aaron, 2026-11-03)
-- Reuse LOTR's textures, sounds and map image (private play).
+- Reuse LOTR's textures, sounds and map image (with the creator's permission, 2026-11-11).
 - Middle-earth is a world type, as in the original; in a normal world it is a dimension players travel to.
 - Many LOTR systems get redesigned around RingRealms, Create and the TARDIS rather than copied.
 - Prefer writing scripts that do the repetitive work (export, generate, rename) over porting class by class by hand.
