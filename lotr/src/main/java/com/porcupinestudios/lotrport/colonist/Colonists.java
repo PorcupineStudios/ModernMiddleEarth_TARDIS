@@ -40,6 +40,25 @@ public final class Colonists {
         ColonistData.register();
         NeoForge.EVENT_BUS.addListener(Colonists::onComponent);
         NeoForge.EVENT_BUS.addListener(Colonists::onDied);
+        NeoForge.EVENT_BUS.addListener(Colonists::onStarted);
+    }
+
+    /**
+     * Citizens from saves made before colonists had traits get theirs once, when the server starts: a one-off cost
+     * at load (tens of microseconds each) instead of inside the colony passes' tick budget.
+     */
+    private static void onStarted(net.neoforged.neoforge.event.server.ServerStartedEvent e) {
+        MinecraftServer server = e.getServer();
+        int n = 0;
+        for (Person p : List.copyOf(Persons.get(server).all())) {
+            if (p.alive() && p.has(CoreComponents.CITIZEN) && !p.has(ColonistData.TRAITS)) {
+                settle(server, p);
+                n++;
+            }
+        }
+        if (n > 0) {
+            LotrPort.LOG.info("[colonists] gave traits to {} citizens from before traits existed", n);
+        }
     }
 
     private static void onComponent(SocietyEvent.ComponentChanged e) {
@@ -102,25 +121,6 @@ public final class Colonists {
         }
     }
 
-    /** Most citizens from older saves given traits per colony per day (spreads the work: see {@link #settleSome}). */
-    public static final int SETTLE_PER_DAY = 5;
-
-    /**
-     * Gives traits, mood and kin to up to {@link #SETTLE_PER_DAY} of these citizens who have none yet (citizens from
-     * before colonists had traits). New citizens are settled the moment they join, so this only catches up old saves.
-     */
-    public static void settleSome(MinecraftServer server, List<Person> citizens) {
-        int n = 0;
-        for (Person p : citizens) {
-            if (!p.has(ColonistData.TRAITS)) {
-                settle(server, p);
-                if (++n >= SETTLE_PER_DAY) {
-                    return;
-                }
-            }
-        }
-    }
-
     /** Remembers something that happened to this person (a death in the family, a wedding). */
     public static void remember(Persons persons, Person p, ResourceLocation thought, long now) {
         Mood mood = p.get(ColonistData.MOOD).orElse(Mood.EMPTY);
@@ -135,8 +135,32 @@ public final class Colonists {
 
     // ---------------------------------------------------------------- households and homes
 
-    /** Each citizen's household id (see {@link KinRules#household}); the dead and those elsewhere don't count. */
+    /** The last households worked out: Assign and Life ask for the same colony on the same tick. */
+    private static java.util.Set<UUID> cachedFor = java.util.Set.of();
+    private static long cachedAt = Long.MIN_VALUE;
+    private static Map<UUID, UUID> cached = Map.of();
+
+    /**
+     * Each citizen's household id (see {@link KinRules#household}); the dead and those elsewhere don't count. Kept
+     * for the next call with the same citizens on the same tick (the colony's homes and needs passes), so it's worked
+     * out once per colony per day. Server thread only.
+     */
     public static Map<UUID, UUID> households(List<Person> citizens, long now) {
+        java.util.Set<UUID> ids = new java.util.HashSet<>(citizens.size() * 2);
+        for (Person p : citizens) {
+            ids.add(p.id());
+        }
+        if (now == cachedAt && ids.equals(cachedFor)) {
+            return cached;
+        }
+        Map<UUID, UUID> out = householdsNow(citizens, now);
+        cachedFor = ids;
+        cachedAt = now;
+        cached = out;
+        return out;
+    }
+
+    private static Map<UUID, UUID> householdsNow(List<Person> citizens, long now) {
         Map<UUID, Kin> kin = new HashMap<>();
         for (Person p : citizens) {
             if (p.alive()) {
