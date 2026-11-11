@@ -1,0 +1,19 @@
+{
+  "name": "colony_building.lotr_port.market",
+  "priority": 12,
+  "job": "lotr_port:merchant",
+  "description": "9+ floor and a chest; a merchant sells food",
+  "requires": [
+    {
+      "count": "floor",
+      "min": 9,
+      "message": "a market needs 9 floor"
+    },
+    {
+      "count": "chests",
+      "min": 1,
+      "message": "a market needs a chest"
+    }
+  ],
+  "workers": 1
+}

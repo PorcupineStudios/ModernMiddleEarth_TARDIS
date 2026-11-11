@@ -1,0 +1,14 @@
+{
+  "replace": false,
+  "values": [
+    "#minecraft:beds",
+    "lotr_port:dwarven_bed_block",
+    "lotr_port:elven_bed",
+    "lotr_port:high_elven_bed_block",
+    "lotr_port:lion_bed",
+    "lotr_port:orc_bed_block",
+    "lotr_port:straw_bed_block",
+    "lotr_port:warg_fur_bed",
+    "lotr_port:wood_elven_bed_block"
+  ]
+}

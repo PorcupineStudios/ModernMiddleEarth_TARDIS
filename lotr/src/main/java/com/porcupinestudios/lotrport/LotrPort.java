@@ -105,6 +105,7 @@ public final class LotrPort {
         CoreComponents.init();
         SimSettings.register();
         ColonySystemsCore.register();
+        com.porcupinestudios.lotrport.colony.building.BuildingSystems.register();
         com.porcupinestudios.lotrport.unit.Units.register();
         ColonyScheduler.register();
         Colonies.register();

@@ -1,0 +1,14 @@
+{
+  "name": "colony_building.lotr_port.farmstead",
+  "priority": 5,
+  "job": "lotr_port:farmer",
+  "workers": 2,
+  "description": "A room with a chest; farmers tend crops within 12",
+  "requires": [
+    {
+      "count": "chests",
+      "min": 1,
+      "message": "a farmstead needs a chest"
+    }
+  ]
+}

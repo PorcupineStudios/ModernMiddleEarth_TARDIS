@@ -1,0 +1,29 @@
+{
+  "name": "colony_building.lotr_port.masonry",
+  "priority": 35,
+  "job": "lotr_port:mason",
+  "description": "9+ floor, a crafting table, a furnace or forge and a chest",
+  "requires": [
+    {
+      "count": "floor",
+      "min": 9,
+      "message": "a masonry needs 9 floor"
+    },
+    {
+      "count": "tables",
+      "min": 1,
+      "message": "a masonry needs a crafting table"
+    },
+    {
+      "count": "smelters",
+      "min": 1,
+      "message": "a masonry needs a furnace or forge"
+    },
+    {
+      "count": "chests",
+      "min": 1,
+      "message": "a masonry needs a chest"
+    }
+  ],
+  "workers": 1
+}

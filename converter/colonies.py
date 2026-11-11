@@ -3,6 +3,8 @@ RingRealms colonies: who migrates into each faction's colonies, and the English 
 and map screens (the mod's own strings, so they sit in the generated lang files beside LOTR's).
 
   data/lotr_port/colony_migration/<faction>.json   NPC types (not traders, captains, leaders or rare races), weighted
+  data/lotr_port/tags/block/colony/<counter>.json  blocks a building's room counts (beds, chests, tables...), read by
+                                                   colony_building requirements
 
 Rare races (data/lotr_port/recruit/*.json, hand-written in lotr/src/main/resources) never migrate.
 """
@@ -27,7 +29,20 @@ UI_EN = {
     "screen.lotr_port.map": "Middle-earth",
     "item.lotr_port.colony_charter": "Colony Charter",
     "itemGroup.lotr_port.colonies": "Colonies",
+    "item.lotr_port.building_writ": "Building Writ",
 }
+
+BUILDINGS_EN = {
+    "house": "House", "storehouse": "Storehouse", "lumber_camp": "Lumber Camp", "farmstead": "Farmstead",
+    "kitchen": "Kitchen", "market": "Market", "tavern": "Tavern", "smeltery": "Smeltery", "workshop": "Workshop",
+    "smithy": "Smithy", "masonry": "Masonry", "brewery": "Brewery", "mill": "Mill", "library": "Library",
+    "barracks": "Barracks",
+}
+
+
+def opt(tag):
+    """A tag entry that may be missing (another mod's tag)."""
+    return {"id": tag, "required": False}
 
 
 class Colonies:
@@ -61,7 +76,34 @@ class Colonies:
             if it["id"].startswith("banner_of_") and it.get("kind") == "item":
                 it["kind"] = "banner"
                 banners += 1
+        counters = self.counter_tags()
         en = self.gen.lang["en_us"]
+        for k, v in BUILDINGS_EN.items():
+            en.setdefault(f"colony_building.{NS}.{k}", v)
         for k, v in UI_EN.items():
             en.setdefault(k, v)
-        return {"migration_tables": len(tables), "claim_banners": banners}
+        return {"migration_tables": len(tables), "claim_banners": banners, "room_counters": counters}
+
+    def counter_tags(self):
+        """What a colony room counts (RingRealms' Validator counts), from the block kinds and machines."""
+        blocks = self.gen.blocks
+        ids = lambda f: sorted(f"{NS}:{b['id']}" for b in blocks if f(b))
+        machine = lambda *m: ids(lambda b: b.get("machine") in m)
+        tags = {
+            "beds": ["#minecraft:beds"] + ids(lambda b: b["kind"] == "bed"),
+            "chests": [opt("#c:chests"), "minecraft:barrel"] + machine("chest"),
+            "faction_tables": ids(lambda b: b["kind"] == "faction_table"),
+            "tables": ["minecraft:crafting_table", f"#{NS}:colony/faction_tables"],
+            "furnaces": ["minecraft:furnace", "minecraft:smoker", "minecraft:blast_furnace"] + machine("oven"),
+            "smelters": ["minecraft:furnace", "minecraft:blast_furnace"] + machine("forge"),
+            "kegs": ids(lambda b: b["kind"] == "keg"),
+            "millstones": machine("millstone"),
+            "bookshelves": ["minecraft:bookshelf", "minecraft:chiseled_bookshelf"]
+                           + ids(lambda b: b["id"] == "bookshelf_storage"),
+            "bars": ["minecraft:iron_bars"] + ids(lambda b: b["id"].endswith("_bars")),
+            "racks": machine("weapon_rack", "armor_stand"),
+        }
+        for name, values in tags.items():
+            write_json(os.path.join(self.data, "tags", "block", "colony", name + ".json"),
+                       {"replace": False, "values": values})
+        return len(tags)

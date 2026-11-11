@@ -1,0 +1,24 @@
+{
+  "name": "colony_building.lotr_port.barracks",
+  "priority": 45,
+  "home": true,
+  "description": "12+ floor, 2+ beds and a weapon rack or armour stand: soldiers live here",
+  "requires": [
+    {
+      "count": "floor",
+      "min": 12,
+      "message": "barracks need 12 floor"
+    },
+    {
+      "count": "beds",
+      "min": 2,
+      "message": "barracks need 2 beds"
+    },
+    {
+      "count": "racks",
+      "min": 1,
+      "message": "barracks need a weapon rack or armour stand"
+    }
+  ],
+  "workers": 1
+}

@@ -1,0 +1,24 @@
+{
+  "name": "colony_building.lotr_port.mill",
+  "priority": 40,
+  "job": "lotr_port:miller",
+  "description": "6+ floor, a millstone and a chest; a miller grinds",
+  "requires": [
+    {
+      "count": "floor",
+      "min": 6,
+      "message": "a mill needs 6 floor"
+    },
+    {
+      "count": "millstones",
+      "min": 1,
+      "message": "a mill needs a millstone"
+    },
+    {
+      "count": "chests",
+      "min": 1,
+      "message": "a mill needs a chest"
+    }
+  ],
+  "workers": 1
+}

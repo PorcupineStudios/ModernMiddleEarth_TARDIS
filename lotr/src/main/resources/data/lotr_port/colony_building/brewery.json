@@ -1,0 +1,24 @@
+{
+  "name": "colony_building.lotr_port.brewery",
+  "priority": 40,
+  "job": "lotr_port:brewer",
+  "description": "6+ floor, a keg and a chest; a brewer brews",
+  "requires": [
+    {
+      "count": "floor",
+      "min": 6,
+      "message": "a brewery needs 6 floor"
+    },
+    {
+      "count": "kegs",
+      "min": 1,
+      "message": "a brewery needs a keg"
+    },
+    {
+      "count": "chests",
+      "min": 1,
+      "message": "a brewery needs a chest"
+    }
+  ],
+  "workers": 1
+}

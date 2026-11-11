@@ -1,0 +1,14 @@
+{
+  "name": "colony_building.lotr_port.storehouse",
+  "priority": 15,
+  "job": "lotr_port:courier",
+  "description": "A roofed room with chests; couriers work here",
+  "requires": [
+    {
+      "count": "chests",
+      "min": 1,
+      "message": "a storehouse needs a chest"
+    }
+  ],
+  "workers": 1
+}

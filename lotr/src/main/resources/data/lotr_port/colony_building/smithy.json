@@ -1,0 +1,19 @@
+{
+  "name": "colony_building.lotr_port.smithy",
+  "priority": 40,
+  "job": "lotr_port:smith",
+  "description": "A faction crafting table and a chest; a smith makes its weapons",
+  "requires": [
+    {
+      "count": "faction_tables",
+      "min": 1,
+      "message": "a smithy needs a faction crafting table"
+    },
+    {
+      "count": "chests",
+      "min": 1,
+      "message": "a smithy needs a chest"
+    }
+  ],
+  "workers": 1
+}

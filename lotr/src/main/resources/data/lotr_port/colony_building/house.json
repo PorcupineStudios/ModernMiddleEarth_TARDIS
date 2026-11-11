@@ -1,0 +1,20 @@
+{
+  "name": "colony_building.lotr_port.house",
+  "priority": 50,
+  "home": true,
+  "description": "A roofed room with beds (3 floor per bed)",
+  "requires": [
+    {
+      "count": "beds",
+      "min": 1,
+      "message": "a house needs a bed"
+    },
+    {
+      "count": "floor",
+      "per": "beds",
+      "each": 3,
+      "message": "a house needs 3 floor blocks per bed"
+    }
+  ],
+  "workers": 1
+}

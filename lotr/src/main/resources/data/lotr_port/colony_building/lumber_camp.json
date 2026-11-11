@@ -1,0 +1,14 @@
+{
+  "name": "colony_building.lotr_port.lumber_camp",
+  "priority": 5,
+  "job": "lotr_port:forester",
+  "description": "A room with a chest; foresters fell trees within 16",
+  "requires": [
+    {
+      "count": "chests",
+      "min": 1,
+      "message": "a lumber camp needs a chest"
+    }
+  ],
+  "workers": 1
+}
