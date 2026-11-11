@@ -5,7 +5,7 @@ modpack project. Mod id `lotr_port`, main class `LotrPort`, package
 `com.porcupinestudios.lotrport`.
 
 **This repo is public** (2026-11-11): the LOTR mod's creator gave Aaron permission to use LOTR's assets. Three things
-must never be committed (all in `.gitignore`): the film music (private repo `PorcupineStudios/middle-earth-music`,
+must never be committed (all in `.gitignore`): the film music (private repo `PorcupineStudios/LOTR_music`,
 `lotr/docs/music.md`), the LOTR mod's jar itself (private copy `libs/LOTRMod v36.15.jar` in PorcupineStudios/RingRealms;
 copy it to `converter/libs/` to run the converter), and other mods' jars. Its class map:
 https://claude.ai/artifact/KqhSSTCuKXGuwKHBoYJdcu. Rebuild features in modern code; never paste decompiled code.

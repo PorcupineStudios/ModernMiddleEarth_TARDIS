@@ -113,7 +113,7 @@ public final class LotrMusic {
         /**
          * The soundtrack can ship in the jar as its own built-in pack (resources/resourcepacks/middle_earth_music),
          * always on: its sounds.json and playlists.json merge over the mod's. The Music slider sets its volume. The pack
-         * is not in this repo: it lives in the private repo PorcupineStudios/middle-earth-music and is copied into that
+         * is not in this repo: it lives in the private repo PorcupineStudios/LOTR_music and is copied into that
          * folder for a private build (lotr/docs/music.md). Without it the mod builds and runs with no soundtrack.
          */
         @SubscribeEvent
