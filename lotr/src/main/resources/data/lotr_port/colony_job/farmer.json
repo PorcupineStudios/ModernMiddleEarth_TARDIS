@@ -1,0 +1,15 @@
+{
+  "name": "colony_job.lotr_port.farmer",
+  "priority": 10,
+  "wage": 2,
+  "produces": {
+    "minecraft:wheat": 8,
+    "minecraft:wheat_seeds": 2
+  },
+  "races": {
+    "hobbit": 1.5,
+    "dwarf": 0.6,
+    "elf": 1.5,
+    "goblin": 0.6
+  }
+}

@@ -25,18 +25,16 @@ import net.neoforged.neoforge.event.AddReloadListenerEvent;
  * @param priority the writ picks the highest-priority type that fits when the player didn't choose one
  * @param home people live here: its beds are homes
  * @param job the job its workers do (none: nobody works here)
- * @param workers most workers it takes
  * @param requires all must hold
  */
 public record BuildingType(String name, String description, int priority, boolean home, Optional<ResourceLocation> job,
-        int workers, List<Requirement> requires) {
+        List<Requirement> requires) {
     public static final Codec<BuildingType> CODEC = RecordCodecBuilder.create(i -> i.group(
             Codec.STRING.optionalFieldOf("name", "").forGetter(BuildingType::name),
             Codec.STRING.optionalFieldOf("description", "").forGetter(BuildingType::description),
             Codec.INT.optionalFieldOf("priority", 0).forGetter(BuildingType::priority),
             Codec.BOOL.optionalFieldOf("home", false).forGetter(BuildingType::home),
             ResourceLocation.CODEC.optionalFieldOf("job").forGetter(BuildingType::job),
-            Codec.INT.optionalFieldOf("workers", 1).forGetter(BuildingType::workers),
             Requirement.CODEC.listOf().optionalFieldOf("requires", List.of()).forGetter(BuildingType::requires))
             .apply(i, BuildingType::new));
 

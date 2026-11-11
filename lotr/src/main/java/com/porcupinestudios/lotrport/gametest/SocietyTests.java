@@ -207,7 +207,23 @@ public final class SocietyTests {
         for (int c = 0; c < 50; c++) {
             Colony colony = colonies.foundAi(server, UUID.randomUUID(), UUID.randomUUID(), "Bench " + c,
                     Level.OVERWORLD, new BlockPos(3_000_000 + c * 400, 70, 3_000_000), GONDOR, 0).orElseThrow();
+            // a player's colony, so every life system runs: 10 houses of 15 beds, 5 farmsteads, 3 kitchens, a
+            // storehouse (records only: these colonies are unloaded), and bread in the stock
+            colonies.transfer(server, colony, UUID.randomUUID(), GONDOR, false, "benchmark");
             colonies.set(colony, CoreComponents.TREASURY, new CoreComponents.Treasury(1000));
+            com.porcupinestudios.lotrport.colony.building.Buildings b =
+                    com.porcupinestudios.lotrport.colony.building.Buildings.NONE;
+            for (int k = 0; k < 19; k++) {
+                String type = k < 10 ? "house" : k < 15 ? "farmstead" : k < 18 ? "kitchen" : "storehouse";
+                b = b.with(new com.porcupinestudios.lotrport.colony.building.Building(UUID.randomUUID(),
+                        LotrPort.id(type), colony.hall().offset(k * 8, 0, 20), Optional.empty(),
+                        colony.hall().offset(k * 8, 0, 21), new int[] {0},
+                        java.util.Map.of("beds", type.equals("house") ? 15 : 0, "chests", 1), 50, 0, 0));
+            }
+            colonies.set(colony, com.porcupinestudios.lotrport.colony.building.Buildings.TYPE, b);
+            colonies.set(colony, com.porcupinestudios.lotrport.colony.work.WorkComponents.STOCK,
+                    new com.porcupinestudios.lotrport.colony.work.WorkComponents.Stock(java.util.Map.of(
+                            ResourceLocation.withDefaultNamespace("bread"), 5000)));
             mine.add(colony);
             for (int i = 0; i < 150; i++) {
                 Person p = persons.migrated(UUID.randomUUID(), SOLDIER, "B" + c + "_" + i, 0, colony.asOwner());
@@ -242,9 +258,16 @@ public final class SocietyTests {
                     "[society] 50 x 150, 10 days: %d ticks, %.4f ms mean, %.3f ms longest, %d over budget;%s",
                     ticks.runs, meanMs, maxMs, scheduler.perf().overBudget(), per));
             for (Colony c : mine) {
-                long coins = c.get(CoreComponents.TREASURY).map(CoreComponents.Treasury::coins).orElse(-1L);
-                helper.assertTrue(coins == 1000 - 11 * 15 * 2, c.name() + " has " + coins + " coins after 11 days");
                 helper.assertTrue(c.tier(server) == Tier.UNLOADED, c.name() + " is not unloaded");
+                List<Person> people2 = Society.citizens(server, c);
+                long working = people2.stream().filter(p -> p.has(
+                        com.porcupinestudios.lotrport.colony.work.WorkComponents.JOB)).count();
+                long housed = people2.stream().filter(p -> p.has(
+                        com.porcupinestudios.lotrport.colony.work.WorkComponents.HOME)).count();
+                // 5 farmsteads and 3 kitchens of quality 50 take 3 each, the storehouse 2 couriers; soldiers never
+                // work; 150 beds house everyone
+                helper.assertTrue(people2.size() == 150 && working == 26 && housed == 150,
+                        c.name() + ": " + people2.size() + " citizens, " + working + " working, " + housed + " housed");
             }
             // the GameTest server shares its thread with other tests and the garbage collector: allow a few
             // slow ticks out of 240000, but the work itself must stay far under the budget
@@ -255,6 +278,11 @@ public final class SocietyTests {
             // a colony unloaded for 40 days catches up at most max_catch_up_days at once, and pays what it can
             Colony late = mine.get(0);
             colonies.set(late, CoreComponents.TREASURY, new CoreComponents.Treasury(100));
+            // only the soldiers draw on its treasury here: no workplaces, no head tax
+            colonies.set(late, com.porcupinestudios.lotrport.colony.building.Buildings.TYPE,
+                    com.porcupinestudios.lotrport.colony.building.Buildings.NONE);
+            colonies.set(late, com.porcupinestudios.lotrport.colony.work.WorkComponents.ECONOMY,
+                    new com.porcupinestudios.lotrport.colony.work.WorkComponents.Economy(0, 0));
             long later = start + 51 * dayTicks;
             scheduler.pass(server, colonies, late, later, SimSettings.get());
             int catchUp = SimSettings.get().maxCatchUpDays();

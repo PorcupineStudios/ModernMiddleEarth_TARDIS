@@ -1,0 +1,15 @@
+{
+  "name": "colony_job.lotr_port.miller",
+  "priority": 160,
+  "wage": 2,
+  "consumes": {
+    "minecraft:gravel": 1
+  },
+  "produces": {
+    "minecraft:flint": 1
+  },
+  "batches": 8,
+  "races": {
+    "hobbit": 1.5
+  }
+}

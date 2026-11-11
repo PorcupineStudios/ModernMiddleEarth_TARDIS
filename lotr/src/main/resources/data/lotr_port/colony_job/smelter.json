@@ -1,0 +1,16 @@
+{
+  "name": "colony_job.lotr_port.smelter",
+  "priority": 100,
+  "wage": 2,
+  "consumes": {
+    "minecraft:raw_iron": 1
+  },
+  "produces": {
+    "minecraft:iron_ingot": 1
+  },
+  "batches": 8,
+  "races": {
+    "dwarf": 1.5,
+    "orc": 1.5
+  }
+}

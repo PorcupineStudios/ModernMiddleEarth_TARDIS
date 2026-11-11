@@ -1,0 +1,16 @@
+{
+  "name": "colony_job.lotr_port.mason",
+  "priority": 130,
+  "wage": 2,
+  "consumes": {
+    "minecraft:cobblestone": 1
+  },
+  "produces": {
+    "minecraft:stone": 1
+  },
+  "batches": 12,
+  "races": {
+    "dwarf": 1.5,
+    "hobbit": 0.8
+  }
+}

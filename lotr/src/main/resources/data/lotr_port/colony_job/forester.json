@@ -1,0 +1,14 @@
+{
+  "name": "colony_job.lotr_port.forester",
+  "priority": 60,
+  "wage": 2,
+  "produces": {
+    "minecraft:oak_log": 12,
+    "minecraft:oak_sapling": 1.5
+  },
+  "races": {
+    "elf": 0.6,
+    "orc": 1.5,
+    "goblin": 1.2
+  }
+}

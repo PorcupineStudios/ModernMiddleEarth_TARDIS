@@ -1,0 +1,20 @@
+{
+  "types": [
+    "lotr_port:blue_dwarf",
+    "lotr_port:blue_dwarf_axe_thrower",
+    "lotr_port:blue_dwarf_banner_bearer",
+    "lotr_port:blue_dwarf_commander",
+    "lotr_port:blue_dwarf_merchant",
+    "lotr_port:blue_dwarf_miner",
+    "lotr_port:blue_dwarf_smith",
+    "lotr_port:blue_dwarf_warrior",
+    "lotr_port:dwarf",
+    "lotr_port:dwarf_axe_thrower",
+    "lotr_port:dwarf_banner_bearer",
+    "lotr_port:dwarf_commander",
+    "lotr_port:dwarf_miner",
+    "lotr_port:dwarf_smith",
+    "lotr_port:dwarf_warrior",
+    "lotr_port:wicked_dwarf"
+  ]
+}
