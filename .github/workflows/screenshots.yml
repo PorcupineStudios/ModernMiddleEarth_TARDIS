@@ -55,7 +55,7 @@ jobs:
           f.save()
           print('level.dat: cheats on, creative, experimental settings confirmed')
           PY
-          printf 'onboardAccessibility:false\npauseOnLostFocus:false\n' > lotr/run/options.txt
+          printf 'onboardAccessibility:false\npauseOnLostFocus:false\ntutorialStep:none\njoinedFirstServer:true\n' > lotr/run/options.txt
           echo '{"initialScreenShown": true}' > lotr/run/config/immersive_portals.json
           cp lotr/devscripts/*.txt lotr/run/
       - name: Run the client and the script
