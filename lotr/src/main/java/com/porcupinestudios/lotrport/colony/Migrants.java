@@ -74,13 +74,13 @@ public final class Migrants {
         return spawned;
     }
 
-    /** Ages every applicant by a colony day; those who waited longer than {@code applicant_days} leave. */
-    static void age(Colonies colonies, ServerLevel level, Colony colony) {
+    /** Ages every applicant by {@code days} colony days; those who waited longer than {@code applicant_days} leave. */
+    static void age(MinecraftServer server, Colony colony, int days) {
         int max = ColonyData.settings().applicantDays();
-        MinecraftServer server = level.getServer();
         Persons persons = Persons.get(server);
         for (Person a : Society.applicants(server, colony)) {
-            CoreComponents.Applicant older = a.get(CoreComponents.APPLICANT).orElseThrow().older();
+            CoreComponents.Applicant was = a.get(CoreComponents.APPLICANT).orElseThrow();
+            CoreComponents.Applicant older = new CoreComponents.Applicant(was.days() + days);
             persons.setQuiet(a, CoreComponents.APPLICANT, older);
             if (older.days() > max) {
                 leave(server, colony, a, "waited");

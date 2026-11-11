@@ -1,5 +1,10 @@
 package com.porcupinestudios.lotrport.colony;
 
+import com.porcupinestudios.lotrport.society.Persons;
+import com.porcupinestudios.lotrport.society.sim.ColonyScheduler;
+import com.porcupinestudios.lotrport.society.sim.Perf;
+import com.porcupinestudios.lotrport.society.sim.SimSettings;
+import net.minecraft.ChatFormatting;
 import com.porcupinestudios.lotrport.society.CoreComponents;
 import com.porcupinestudios.lotrport.society.Person;
 import com.porcupinestudios.lotrport.society.Society;
@@ -66,11 +71,38 @@ public final class ColonyCommand {
                                     + ColonyData.loadProblems()), false);
                             return all.all().size();
                         }))
+                        .then(Commands.literal("perf")
+                                .executes(ctx -> perf(ctx.getSource(), false))
+                                .then(Commands.literal("reset").executes(ctx -> perf(ctx.getSource(), true))))
                         .then(Commands.literal("day")
                                 .executes(ctx -> days(ctx.getSource(), 1))
                                 .then(Commands.argument("n", IntegerArgumentType.integer(1, 100))
                                         .executes(ctx -> days(ctx.getSource(),
                                                 IntegerArgumentType.getInteger(ctx, "n")))))));
+    }
+
+    /** Scheduler timing: per server tick (mean and longest) against the budget, then per system. */
+    private static int perf(CommandSourceStack source, boolean reset) {
+        Perf perf = ColonyScheduler.get(source.getServer()).perf();
+        if (reset) {
+            perf.reset();
+            source.sendSuccess(() -> Component.literal("Colony timing reset"), false);
+            return 1;
+        }
+        double budget = SimSettings.get().budgetMs();
+        Perf.Stat t = perf.ticks();
+        double meanMs = t.meanMicros() / 1000.0;
+        double maxMs = t.maxNanos / 1_000_000.0;
+        int colonies = Colonies.get(source.getServer()).all().size();
+        int persons = Persons.get(source.getServer()).size();
+        source.sendSuccess(() -> Component.literal(String.format(java.util.Locale.ROOT,
+                "%d colonies, %d people: %.3f ms mean, %.3f ms longest per tick over %d ticks (budget %.1f ms)",
+                colonies, persons, meanMs, maxMs, t.runs, budget))
+                .withStyle(maxMs > budget ? ChatFormatting.RED : ChatFormatting.GREEN), false);
+        perf.systems().forEach((id, st) -> source.sendSuccess(() -> Component.literal(String.format(
+                java.util.Locale.ROOT, " %s: %d runs, %.1f us mean, %.1f us longest", id, st.runs, st.meanMicros(),
+                st.maxNanos / 1000.0)), false));
+        return (int) Math.ceil(maxMs);
     }
 
     private static int answer(CommandSourceStack source, Migrants.Answer answer) {

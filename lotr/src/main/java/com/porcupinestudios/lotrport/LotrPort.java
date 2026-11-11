@@ -2,6 +2,9 @@ package com.porcupinestudios.lotrport;
 
 import com.mojang.logging.LogUtils;
 import com.porcupinestudios.lotrport.society.CoreComponents;
+import com.porcupinestudios.lotrport.society.sim.ColonyScheduler;
+import com.porcupinestudios.lotrport.society.sim.SimSettings;
+import com.porcupinestudios.lotrport.colony.ColonySystemsCore;
 import com.porcupinestudios.lotrport.command.FactionCommand;
 import com.porcupinestudios.lotrport.command.LotrCommand;
 import com.porcupinestudios.lotrport.command.NpcCommand;
@@ -95,6 +98,9 @@ public final class LotrPort {
         ColonyItems.register(modBus);
         ColonyData.register();
         CoreComponents.init();
+        SimSettings.register();
+        ColonySystemsCore.register();
+        ColonyScheduler.register();
         Colonies.register();
         Migrants.register();
         AiData.register();
