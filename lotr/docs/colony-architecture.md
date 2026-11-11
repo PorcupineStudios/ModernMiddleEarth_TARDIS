@@ -1,3 +1,7 @@
+> **Superseded 2026-11-11 (Aaron): do not build on this branch.** The colony core is the society core on
+> `claude/project-thread-3r3clf`. Traits, mood and kin were moved onto it on `claude/ui-core` (`lotr/docs/colonists.md`
+> there); the `group/` package here was dropped.
+
 # Colony code architecture (groups, people, colonists)
 
 Read when: you touch `group/`, `colonist/`, `colony/`, `npc/People` or `npc/Hiring`. Written 2026-11-10 for branch
