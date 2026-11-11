@@ -66,3 +66,6 @@ https://claude.ai/artifact/VLwZ5N7pkVMJW4PCYXh41G).
 - The GameTest world (`lotr/run/world`) persists between runs; tests found colonies at random far positions and
   clean up. `MountTests.boarsFightBack` can fail on a reused world and pass on a fresh one: move `run/world` aside.
 - The GameTest server runs ticks as fast as it can, so `timeoutTicks` is game time, not seconds.
+- Admin test commands: `/lotr colony found_ai <name>` (an AI-held colony at your feet), `settle <npcs>` (they join
+  your nearest colony), `coins <n>`; `/lotr_colony citizen <npc>` opens a citizen page. Screenshot script:
+  `lotr/run/colony_shots2.txt` (house, kitchen, storehouse, writ, Ledger pages via `click`, citizen page, a war).
