@@ -20,7 +20,7 @@ import net.neoforged.neoforge.client.event.ClientTickEvent;
  * sandbox). Off unless the JVM has {@code -Dlotr_port.devscript=<file in the run folder>}; with
  * {@code -PquickPlay=<save>} the client opens the save and runs it once the player is in. One step per line:
  * {@code wait <ticks>}, {@code /<command>} (sent as the player), {@code use <x> <y> <z>} (right-click that block with
- * the main hand), {@code close} (the open screen), {@code hud on|off}, {@code shot <name>}
+ * the main hand), {@code mouse <x> <y>} (move the pointer, window pixels), {@code close} (the open screen), {@code hud on|off}, {@code shot <name>}
  * ({@code screenshots/<name>.png}), {@code quit}; {@code #} starts a comment.
  */
 @EventBusSubscriber(modid = LotrPort.MOD_ID, value = Dist.CLIENT)
@@ -72,6 +72,7 @@ public final class DevScript {
                     mc.gameMode.useItemOn(mc.player, InteractionHand.MAIN_HAND,
                             new BlockHitResult(Vec3.atCenterOf(p), Direction.UP, p, false));
                 }
+                case "mouse" -> mouse(mc, Double.parseDouble(w[1]), Double.parseDouble(w[2]));
                 case "close" -> mc.player.closeContainer();
                 case "hud" -> mc.options.hideGui = w[1].equals("off");
                 case "quit" -> {
@@ -86,6 +87,20 @@ public final class DevScript {
                     }
                 }
             }
+        }
+    }
+
+    /** Moves the pointer. GLFW drops the event of its own cursor warp on X11, so set the handler's fields too. */
+    private static void mouse(Minecraft mc, double x, double y) {
+        org.lwjgl.glfw.GLFW.glfwSetCursorPos(mc.getWindow().getWindow(), x, y);
+        try {
+            for (String f : new String[] {"xpos", "ypos"}) {
+                var field = net.minecraft.client.MouseHandler.class.getDeclaredField(f);
+                field.setAccessible(true);
+                field.setDouble(mc.mouseHandler, f.equals("xpos") ? x : y);
+            }
+        } catch (ReflectiveOperationException e) {
+            LotrPort.LOG.warn("[devscript] can't move the mouse", e);
         }
     }
 }

@@ -75,6 +75,8 @@ public final class LotrClient {
         HudNet.barHandler = LotrHud::receive;
         com.porcupinestudios.lotrport.unit.UnitNet.listHandler = UnitScreen::show;
         com.porcupinestudios.lotrport.colony.members.HallNet.hallHandler = HallScreen::show;
+        com.porcupinestudios.lotrport.social.SocialNet.iconsHandler = MapScreen::icons;
+        com.porcupinestudios.lotrport.social.SocialNet.viewHandler = VisibilityScreen::show;
         event.enqueueWork(LotrClient::rangedProperties);
     }
 
