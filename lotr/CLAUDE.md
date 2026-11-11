@@ -302,8 +302,11 @@ https://claude.ai/artifact/KqhSSTCuKXGuwKHBoYJdcu. Rebuild features in modern co
 - TARDIS researchers (shared API `ResearcherProvider`, in `shared/SharedApiHooks`): a founder's colony counts every rare
   citizen plus one per `citizens_per_researcher` others; the TARDIS runs its research faster for each.
 - `/lotr_colony` (info, citizens, open recruitments); admin `/lotr colony list|day [n]`.
-- Not yet (RingRealms has them on 1.7.10): buildings and the validator, jobs, needs and happiness, the Ledger and
-  other screens, realms on the colony, envoy spawning (rare NPCs come from normal spawning or commands for now).
+- The rest (2026-11-11 rework): society core (Persons + components, `Society` facade), colony systems scheduler,
+  hired units, Town Hall roles and land protection, map visibility, buildings and the Building Writ, homes, jobs,
+  work, wages, needs, the Ledger, and colony wars: **read `lotr/docs/colonies.md`** before touching `society/`,
+  `colony/`, `unit/`, `land/`, `social/`, `war/` or `ai/`.
+- Not yet: realms on the colony, envoy spawning (rare NPCs come from normal spawning or commands for now).
 
 ## AI rulers (phase 10: `ai/`)
 - Rulers from data (`ai_ruler/<id>.json`: name, faction, home waypoint, aggression, expansion, max_colonies, colony
@@ -316,8 +319,9 @@ https://claude.ai/artifact/KqhSSTCuKXGuwKHBoYJdcu. Rebuild features in modern co
   relation is bad), march on the nearest enemy AI colony only when strength >= march_ratio x its defense, peace after
   min_war_days. A won siege is `Colonies.transfer` (history `colony_transferred`, also for handing colonies to players).
 - History: `colony_founded` (with `ai`), `ai_relation`, `ai_siege`, `colony_transferred`; `AiReplay` rebuilds owners
-  and wars from the log alone. Admin: `/lotr ai list|day [n]`. Not yet: attacking player colonies (needs RingRealms'
-  offline protections), real soldiers on the march, trade and treaties beyond war/peace, refugees.
+  and wars from the log alone. Admin: `/lotr ai list|day [n]`. Their wars and sieges are also `war/` records on
+  realm parties; raiding player colonies is behind `ai_raids_players` (off). Not yet: real soldiers on AI marches,
+  trade and treaties beyond war/peace, refugees.
 
 ## Gates and connected textures (2026-11-04)
 - LOTR drew many blocks with connected textures (gates, portcullises, dwarven bricks): a base plus side, corner and
