@@ -1,0 +1,19 @@
+{
+  "name": "colony_building.lotr_port.kitchen",
+  "priority": 30,
+  "job": "lotr_port:cook",
+  "description": "A room with a furnace or oven and a chest; cooks work here",
+  "requires": [
+    {
+      "count": "furnaces",
+      "min": 1,
+      "message": "a kitchen needs a furnace or oven"
+    },
+    {
+      "count": "chests",
+      "min": 1,
+      "message": "a kitchen needs a chest"
+    }
+  ],
+  "workers": 1
+}

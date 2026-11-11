@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:furnace",
+    "minecraft:blast_furnace",
+    "lotr_port:alloy_forge",
+    "lotr_port:dwarven_forge",
+    "lotr_port:elven_forge",
+    "lotr_port:orc_forge"
+  ]
+}

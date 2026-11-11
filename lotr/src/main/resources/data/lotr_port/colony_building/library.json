@@ -1,0 +1,24 @@
+{
+  "name": "colony_building.lotr_port.library",
+  "priority": 45,
+  "job": "lotr_port:researcher",
+  "workers": 2,
+  "description": "4+ bookshelves, a crafting table and a chest; researchers study here",
+  "requires": [
+    {
+      "count": "bookshelves",
+      "min": 4,
+      "message": "a library needs 4 bookshelves"
+    },
+    {
+      "count": "tables",
+      "min": 1,
+      "message": "a library needs a crafting table"
+    },
+    {
+      "count": "chests",
+      "min": 1,
+      "message": "a library needs a chest"
+    }
+  ]
+}

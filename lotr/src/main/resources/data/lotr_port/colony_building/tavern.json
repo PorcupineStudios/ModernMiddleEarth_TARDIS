@@ -1,0 +1,24 @@
+{
+  "name": "colony_building.lotr_port.tavern",
+  "priority": 35,
+  "job": "lotr_port:innkeeper",
+  "description": "9+ floor, a keg and a chest; an innkeeper serves",
+  "requires": [
+    {
+      "count": "floor",
+      "min": 9,
+      "message": "a tavern needs 9 floor"
+    },
+    {
+      "count": "kegs",
+      "min": 1,
+      "message": "a tavern needs a keg"
+    },
+    {
+      "count": "chests",
+      "min": 1,
+      "message": "a tavern needs a chest"
+    }
+  ],
+  "workers": 1
+}

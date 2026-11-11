@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:bookshelf",
+    "minecraft:chiseled_bookshelf",
+    "lotr_port:bookshelf_storage"
+  ]
+}

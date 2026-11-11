@@ -1,0 +1,21 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:iron_bars",
+    "lotr_port:blue_dwarven_steel_bars",
+    "lotr_port:bronze_bars",
+    "lotr_port:dwarven_steel_bars",
+    "lotr_port:galadhrim_steel_bars",
+    "lotr_port:galadhrim_wood_bars",
+    "lotr_port:gold_bars",
+    "lotr_port:high_elven_steel_bars",
+    "lotr_port:high_elven_wood_bars",
+    "lotr_port:mithril_bars",
+    "lotr_port:orc_steel_bars",
+    "lotr_port:reed_bars",
+    "lotr_port:silver_bars",
+    "lotr_port:uruk_steel_bars",
+    "lotr_port:wood_elven_steel_bars",
+    "lotr_port:wood_elven_wood_bars"
+  ]
+}

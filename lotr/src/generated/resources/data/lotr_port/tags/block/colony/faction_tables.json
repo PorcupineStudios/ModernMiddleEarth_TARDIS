@@ -1,0 +1,32 @@
+{
+  "replace": false,
+  "values": [
+    "lotr_port:angmar_crafting_table",
+    "lotr_port:blue_mountains_crafting_table",
+    "lotr_port:bree_land_crafting_table",
+    "lotr_port:dalish_crafting_table",
+    "lotr_port:dol_amroth_crafting_table",
+    "lotr_port:dol_guldur_crafting_table",
+    "lotr_port:dorwinion_crafting_table",
+    "lotr_port:dunlending_crafting_table",
+    "lotr_port:dwarven_crafting_table",
+    "lotr_port:galadhrim_crafting_table",
+    "lotr_port:gondorian_crafting_table",
+    "lotr_port:gulfen_crafting_table",
+    "lotr_port:gundabad_crafting_table",
+    "lotr_port:half_troll_crafting_table",
+    "lotr_port:haradric_crafting_table",
+    "lotr_port:hobbit_crafting_table",
+    "lotr_port:lindon_crafting_table",
+    "lotr_port:morgul_crafting_table",
+    "lotr_port:morwaith_crafting_table",
+    "lotr_port:ranger_crafting_table",
+    "lotr_port:rh_nic_crafting_table",
+    "lotr_port:rivendell_crafting_table",
+    "lotr_port:rohirric_crafting_table",
+    "lotr_port:taurethrim_crafting_table",
+    "lotr_port:umbaric_crafting_table",
+    "lotr_port:uruk_crafting_table",
+    "lotr_port:wood_elven_crafting_table"
+  ]
+}

@@ -28,11 +28,21 @@ public final class ColonyItems {
     public static final DeferredItem<Item> CHARTER = ITEMS.register("colony_charter",
             () -> new Charter(new Item.Properties().stacksTo(1)));
 
+    /**
+     * Use on a door or gate to make the room behind it a colony building. Its {@code lotr_port:building_type}
+     * component picks the type; without one the best type that fits. Rename it to name the building.
+     */
+    public static final DeferredItem<Item> WRIT = ITEMS.register("building_writ",
+            () -> new com.porcupinestudios.lotrport.colony.building.WritItem(new Item.Properties().stacksTo(16)));
+
     static {
         TABS.register("colonies", () -> CreativeModeTab.builder()
                 .title(Component.translatable("itemGroup." + LotrPort.MOD_ID + ".colonies"))
                 .icon(() -> new ItemStack(CHARTER.get()))
-                .displayItems((params, output) -> output.accept(CHARTER.get()))
+                .displayItems((params, output) -> {
+                    output.accept(CHARTER.get());
+                    output.accept(WRIT.get());
+                })
                 .build());
     }
 

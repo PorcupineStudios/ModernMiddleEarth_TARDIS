@@ -1,0 +1,19 @@
+{
+  "name": "colony_building.lotr_port.smeltery",
+  "priority": 30,
+  "job": "lotr_port:smelter",
+  "description": "A furnace or forge and a chest; a smelter smelts ore",
+  "requires": [
+    {
+      "count": "smelters",
+      "min": 1,
+      "message": "a smeltery needs a furnace or forge"
+    },
+    {
+      "count": "chests",
+      "min": 1,
+      "message": "a smeltery needs a chest"
+    }
+  ],
+  "workers": 1
+}

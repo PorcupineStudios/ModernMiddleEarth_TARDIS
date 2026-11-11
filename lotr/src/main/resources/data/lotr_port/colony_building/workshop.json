@@ -1,0 +1,19 @@
+{
+  "name": "colony_building.lotr_port.workshop",
+  "priority": 25,
+  "job": "lotr_port:carpenter",
+  "description": "A crafting table and a chest; a carpenter makes planks and sticks",
+  "requires": [
+    {
+      "count": "tables",
+      "min": 1,
+      "message": "a workshop needs a crafting table"
+    },
+    {
+      "count": "chests",
+      "min": 1,
+      "message": "a workshop needs a chest"
+    }
+  ],
+  "workers": 1
+}

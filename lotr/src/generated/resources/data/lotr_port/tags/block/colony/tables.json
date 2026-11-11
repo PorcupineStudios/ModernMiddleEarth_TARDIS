@@ -1,0 +1,7 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:crafting_table",
+    "#lotr_port:colony/faction_tables"
+  ]
+}

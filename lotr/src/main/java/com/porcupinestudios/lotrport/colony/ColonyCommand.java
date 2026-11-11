@@ -42,6 +42,21 @@ public final class ColonyCommand {
                     com.porcupinestudios.lotrport.colony.members.HallNet.send(player, c.get(), true);
                     return 1;
                 }))
+                // the [type] links after a writ: change a building's type to another that fits
+                .then(Commands.literal("building").then(Commands.argument("door",
+                        net.minecraft.commands.arguments.coordinates.BlockPosArgument.blockPos())
+                        .then(Commands.argument("type", net.minecraft.commands.arguments.ResourceLocationArgument.id())
+                                .executes(ctx -> {
+                                    var r = com.porcupinestudios.lotrport.colony.building.ColonyBuildings.retype(
+                                            ctx.getSource().getPlayerOrException(),
+                                            net.minecraft.commands.arguments.coordinates.BlockPosArgument
+                                                    .getBlockPos(ctx, "door"),
+                                            net.minecraft.commands.arguments.ResourceLocationArgument.getId(ctx,
+                                                    "type"));
+                                    ctx.getSource().sendSystemMessage(r.message());
+                                    return r.building().isPresent() ? 1 : 0;
+                                }))))
+                .then(Commands.literal("buildings").executes(ctx -> buildings(ctx.getSource())))
                 .then(Commands.literal("accept").then(Commands.argument("migrant", UuidArgument.uuid())
                         .executes(ctx -> answer(ctx.getSource(), Migrants.accept(ctx.getSource()
                                 .getPlayerOrException(), UuidArgument.getUuid(ctx, "migrant"))))))
@@ -159,5 +174,27 @@ public final class ColonyCommand {
         int total = came;
         source.sendSuccess(() -> Component.literal(total + " newcomers"), true);
         return came;
+    }
+
+    /** Lists the buildings of the colony you belong to (the nearest). */
+    static int buildings(CommandSourceStack source) throws com.mojang.brigadier.exceptions.CommandSyntaxException {
+        ServerPlayer player = source.getPlayerOrException();
+        Optional<Colony> c = Colonies.get(player.server).all().stream()
+                .filter(x -> com.porcupinestudios.lotrport.colony.members.Permissions.isMember(player.getUUID(), x))
+                .min(java.util.Comparator.comparingDouble(x -> x.hall().distSqr(player.blockPosition())));
+        if (c.isEmpty()) {
+            source.sendFailure(Component.literal("You belong to no colony"));
+            return 0;
+        }
+        var list = com.porcupinestudios.lotrport.colony.building.Buildings.of(c.get()).list();
+        source.sendSystemMessage(Component.translatableWithFallback("colony.lotr_port.buildings.header",
+                "%s: %s buildings", c.get().name(), list.size()));
+        for (var b : list) {
+            source.sendSystemMessage(Component.literal(" - ").append(b.label()).append(Component.literal(
+                    " at " + b.door().toShortString() + ", quality " + b.quality() + " ("
+                            + com.porcupinestudios.lotrport.colony.building.ColonyBuildings.describe(b.counts())
+                            + ")")));
+        }
+        return list.size();
     }
 }

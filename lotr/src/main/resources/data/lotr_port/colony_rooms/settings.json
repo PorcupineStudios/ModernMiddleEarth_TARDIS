@@ -1,0 +1,14 @@
+{
+  "max_roof": 30,
+  "max_floor": 500,
+  "volume_per_floor": 12,
+  "storey_floor": 4,
+  "reach": 160,
+  "recheck_ticks": 6000,
+  "recheck_per_pulse": 2,
+  "quality_base": 20,
+  "quality_per_floor": 0.5,
+  "quality_per_light": 5,
+  "quality_per_furnishing": 4,
+  "quality_cap": 20
+}
