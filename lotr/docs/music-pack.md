@@ -1,16 +1,18 @@
 # Middle-earth music pack
 
 The mod plays a shuffled playlist per biome (`client/LotrMusic`). The tracks (the six films' scores, 184 levelled
-tracks, ~310 MB) ship **inside the jar** as a built-in resource pack, `lotr/src/main/resources/resourcepacks/
-middle_earth_music`, which `LotrMusic` registers always-on ("Middle-earth Music" in the pack list). Its
-`sounds.json` and `music/playlists.json` merge over the mod's own. `tracklist.txt` there lists every land's calm,
-suspense and fight tracks.
+tracks, ~310 MB) are **not in this repo**: they live in the private repo `PorcupineStudios/LOTR_music` (moved
+2026-11-11, when this repo went public; where it fits and how to build with it: `lotr/docs/music.md`). A private build
+copies them into `lotr/src/main/resources/resourcepacks/middle_earth_music` (ignored by git), and `LotrMusic` then
+registers that folder as an always-on built-in pack ("Middle-earth Music" in the pack list). Its `sounds.json` and
+`music/playlists.json` merge over the mod's own. `tracklist.txt` there lists every land's calm, suspense and fight
+tracks.
 
-The recordings are copyrighted. This is a private, single-user repo and shipping them in the jar is the owner's
-choice: **the jar itself now carries them**, so don't upload it (CurseForge, Modrinth, a public modpack) or share
-it, don't make the repo public or add collaborators, and remember git history keeps them even after deletion.
+The recordings are copyrighted: never commit them here, and never upload or share a jar built with them (CurseForge,
+Modrinth, a public modpack). Changes to the pack are committed to `LOTR_music`.
 
-To rebuild the built-in copy (new tracks, changed rules), from the repo root:
+To rebuild the built-in copy (new tracks, changed rules), from the repo root (it writes the ignored folder; then copy
+it into your `LOTR_music` clone and commit there):
 
 ```bash
 python3 converter/music_pack.py "/path/to/your/soundtracks" --into-mod
