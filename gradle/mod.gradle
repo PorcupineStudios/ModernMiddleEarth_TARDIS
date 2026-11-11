@@ -27,6 +27,11 @@ neoForge {
         client {
             client()
             // ./gradlew :tardis:runClient -PquickPlay=<save name> opens that save straight away (headless checks).
+            // -PwindowSize=1280x720 sets the window (screenshots at a known GUI scale)
+            if (project.hasProperty('windowSize')) {
+                def wh = project.property('windowSize').toString().split('x')
+                programArguments.addAll('--width', wh[0], '--height', wh[1])
+            }
             if (project.hasProperty('quickPlay')) {
                 programArguments.addAll('--quickPlaySingleplayer', project.property('quickPlay').toString())
             }

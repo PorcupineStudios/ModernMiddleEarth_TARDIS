@@ -1,0 +1,89 @@
+name: UI screenshots
+
+# Runs the real game client on a virtual screen and takes screenshots with a dev script (client/DevScript): a
+# Middle-earth world from the world check, then lotr/devscripts/ui_shots.txt. The pictures go to the workflow's
+# artifacts and to the orphan branch ci-screenshots (one commit per run), so anyone can look without signing in.
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'lotr/devscripts/**'
+      - '.github/workflows/screenshots.yml'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: screenshots-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  shots:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+      - uses: gradle/actions/setup-gradle@v4
+      - name: Virtual screen
+        run: |
+          sudo apt-get update -q && sudo apt-get install -y -q xvfb x11-xserver-utils libgl1-mesa-dri libglu1-mesa
+          pip install -q nbtlib
+      - name: A Middle-earth world
+        # the CI world check's server: it makes the world, checks it and stops
+        timeout-minutes: 15
+        run: |
+          mkdir -p lotr/run
+          echo "eula=true" > lotr/run/eula.txt
+          printf 'level-type=lotr_port\\:middle_earth\nonline-mode=false\nlevel-name=middle-earth-check\nmax-tick-time=-1\n' > lotr/run/server.properties
+          JAVA_TOOL_OPTIONS="-Dlotr_port.worldcheck=true -Xmx6g" ./gradlew :lotr:runServer --stacktrace 2>&1 | tail -5
+      - name: Make it a save the client opens with cheats
+        run: |
+          mkdir -p lotr/run/saves lotr/run/config
+          cp -r lotr/run/middle-earth-check lotr/run/saves/ui
+          rm -f lotr/run/saves/ui/session.lock
+          python3 - <<'PY'
+          import nbtlib
+          f = nbtlib.load('lotr/run/saves/ui/level.dat')
+          d = f['Data']
+          d['allowCommands'] = nbtlib.Byte(1)
+          d['confirmedExperimentalSettings'] = nbtlib.Byte(1)
+          d['GameType'] = nbtlib.Int(1)
+          f.save()
+          print('level.dat: cheats on, creative, experimental settings confirmed')
+          PY
+          printf 'onboardAccessibility:false\npauseOnLostFocus:false\n' > lotr/run/options.txt
+          echo '{"initialScreenShown": true}' > lotr/run/config/immersive_portals.json
+          cp lotr/devscripts/*.txt lotr/run/
+      - name: Run the client and the script
+        timeout-minutes: 20
+        env:
+          LIBGL_ALWAYS_SOFTWARE: '1'
+          JAVA_TOOL_OPTIONS: -Dlotr_port.devscript=ui_shots.txt
+        run: |
+          xvfb-run -a -s "-screen 0 1280x720x24 +extension GLX +extension RANDR" \
+            ./gradlew :lotr:runClient -PquickPlay=ui -PwindowSize=1280x720 --stacktrace > client.log 2>&1 || true
+          grep -i -E 'devscript|screenshot|exception|error' client.log | grep -v -i 'Invalid path in pack' | tail -60
+          ls -la lotr/run/screenshots || true
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: ui-screenshots
+          path: |
+            lotr/run/screenshots/
+            client.log
+      - name: Publish to the ci-screenshots branch
+        if: always()
+        run: |
+          [ -d lotr/run/screenshots ] || exit 0
+          mkdir /tmp/shots && cp lotr/run/screenshots/*.png /tmp/shots/ && cp client.log /tmp/shots/ || true
+          cd /tmp/shots
+          git init -q -b ci-screenshots
+          git config user.name "github-actions"
+          git config user.email "github-actions@users.noreply.github.com"
+          printf '# UI screenshots\n\nFrom %s at %s (workflow run %s).\n' "$GITHUB_REF_NAME" "$GITHUB_SHA" "$GITHUB_RUN_ID" > README.md
+          git add -A && git commit -q -m "Screenshots of $GITHUB_REF_NAME at $GITHUB_SHA"
+          git push -f "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}" ci-screenshots
