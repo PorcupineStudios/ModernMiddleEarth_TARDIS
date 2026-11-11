@@ -9,6 +9,8 @@ import com.porcupinestudios.lotrport.society.Person;
 import com.porcupinestudios.lotrport.society.Persons;
 import com.porcupinestudios.lotrport.society.Society;
 import com.porcupinestudios.lotrport.society.SocietyEvent;
+import com.porcupinestudios.lotrport.society.ComponentType;
+import com.porcupinestudios.lotrport.society.sim.ColonyScheduler;
 import com.porcupinestudios.lotrport.npc.LotrNpc;
 import com.porcupinestudios.lotrport.registry.LotrRegistries;
 import com.porcupinestudios.ringbearer.api.history.HistoryEntry;
@@ -45,7 +47,6 @@ import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.saveddata.SavedData;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
-import net.neoforged.neoforge.event.tick.ServerTickEvent;
 
 /**
  * Every colony (RingRealms, built in): founding, growth and citizens. Saved in the overworld's data storage. Once a
@@ -63,10 +64,12 @@ public final class Colonies extends SavedData {
     public static final ResourceLocation TRANSFER_HISTORY = LotrPort.id("colony_transferred");
     public static final ResourceLocation APPLICANT_HISTORY = LotrPort.id("migrant_offer");
     public static final ResourceLocation DENIED_HISTORY = LotrPort.id("migrant_leave");
+    public static final ResourceLocation DISBANDED_HISTORY = LotrPort.id("colony_disbanded");
     private static final SavedData.Factory<Colonies> FACTORY = new SavedData.Factory<>(Colonies::new, Colonies::load,
             null);
 
     private final Map<UUID, Colony> colonies = new LinkedHashMap<>();
+    private int version;
     /** Citizens and applicants read from a version 1 save, moved into {@link Persons} on first use. */
     private final List<CompoundTag> legacyPeople = new ArrayList<>();
 
@@ -79,8 +82,41 @@ public final class Colonies extends SavedData {
     }
 
     public static void register() {
-        NeoForge.EVENT_BUS.addListener(Colonies::onTick);
         NeoForge.EVENT_BUS.addListener(Colonies::onDied);
+    }
+
+    /** Changes whenever a colony is added or removed (the scheduler rebuilds its turn table). */
+    public int version() {
+        return version;
+    }
+
+    public long lastDay(Colony colony) {
+        return colony.lastDay;
+    }
+
+    /** The scheduler ran the colony's day systems up to {@code day}. */
+    public void markDay(Colony colony, long day) {
+        colony.lastDay = day;
+        setDirty();
+    }
+
+    /** Sets (or with null removes) a colony component, saved. */
+    public <T> void set(Colony colony, ComponentType<T> type, T value) {
+        colony.components.set(type, value);
+        setDirty();
+    }
+
+    /** Removes a colony (abandoned, or a test's); its Persons keep their records. History {@code colony_disbanded}. */
+    public void disband(MinecraftServer server, Colony colony, String reason) {
+        if (colonies.remove(colony.id) == null) {
+            return;
+        }
+        version++;
+        setDirty();
+        CompoundTag tag = new CompoundTag();
+        tag.putUUID("colony", colony.id);
+        tag.putString("reason", reason);
+        log(server, DISBANDED_HISTORY, colony, colony.hall, tag);
     }
 
     public Collection<Colony> all() {
@@ -135,6 +171,7 @@ public final class Colonies extends SavedData {
         Colony colony = new Colony(UUID.randomUUID(), name, player.getUUID(), faction, player.level().dimension(),
                 hall.immutable(), now, now / ColonyData.settings().dayTicks(), Map.of(), false, 0, new ComponentMap());
         colonies.put(colony.id, colony);
+        version++;
         setDirty();
         CompoundTag tag = new CompoundTag();
         tag.putUUID("colony", colony.id);
@@ -177,6 +214,7 @@ public final class Colonies extends SavedData {
                 now / ColonyData.settings().dayTicks(), Map.of(), true, Math.max(0, population),
                 new ComponentMap());
         colonies.put(id, colony);
+        version++;
         setDirty();
         CompoundTag tag = new CompoundTag();
         tag.putUUID("colony", id);
@@ -243,14 +281,20 @@ public final class Colonies extends SavedData {
     }
 
     /**
-     * One colony day: migrants come while there are free beds (and the first settlers before any). With selective
-     * migration they wait at the Hall as applicants, and those who waited too long leave. Returns how many came.
+     * Runs one colony day for this colony now, through the colony systems (applicants age, migrants come, recruits
+     * join, soldiers are paid). Returns how many migrants came.
      */
     public int day(ServerLevel level, Colony colony) {
+        return ColonyScheduler.get(level.getServer()).runDay(level.getServer(), colony, 1)
+                .counted(ColonySystemsCore.ARRIVALS);
+    }
+
+    /**
+     * Migrants come while there are free beds (and the first settlers before any). With selective migration they
+     * wait at the Hall as applicants. Returns how many came.
+     */
+    public int arrivals(ServerLevel level, Colony colony) {
         ColonyData.Settings s = ColonyData.settings();
-        if (s.selectiveMigration()) {
-            Migrants.age(this, level, colony);
-        }
         int homes = homes(level, colony);
         MinecraftServer server = level.getServer();
         int waiting = s.selectiveMigration() ? Society.applicants(server, colony).size() : 0;
@@ -272,7 +316,6 @@ public final class Colonies extends SavedData {
             }
             came++;
         }
-        Recruiting.tryJoinAll(level.getServer(), colony);
         return came;
     }
 
@@ -341,24 +384,6 @@ public final class Colonies extends SavedData {
 
     void changed() {
         setDirty();
-    }
-
-    private static void onTick(ServerTickEvent.Post event) {
-        MinecraftServer server = event.getServer();
-        if (server.getTickCount() % 100 != 0) {
-            return;
-        }
-        Colonies all = get(server);
-        long day = server.overworld().getGameTime() / Math.max(1, ColonyData.settings().dayTicks());
-        for (Colony c : new ArrayList<>(all.colonies.values())) {
-            ServerLevel level = server.getLevel(c.dimension);
-            if (c.ai || level == null || c.lastDay >= day || !level.hasChunkAt(c.hall)) {
-                continue;
-            }
-            c.lastDay = day;
-            all.setDirty();
-            all.day(level, c);
-        }
     }
 
     /** A citizen's Person died: history {@code citizen_die} (the Person stays in the registry, marked dead). */

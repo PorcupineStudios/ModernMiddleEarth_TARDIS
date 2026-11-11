@@ -4,6 +4,10 @@ import com.mojang.serialization.Codec;
 import com.porcupinestudios.lotrport.society.ComponentMap;
 import com.porcupinestudios.lotrport.society.ComponentType;
 import com.porcupinestudios.lotrport.society.Owner;
+import com.porcupinestudios.lotrport.society.sim.ColonyScheduler;
+import com.porcupinestudios.lotrport.society.sim.SimSettings;
+import com.porcupinestudios.lotrport.society.sim.Tier;
+import net.minecraft.server.MinecraftServer;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -129,5 +133,10 @@ public final class Colony {
     /** Counted people of an AI colony (no bodies). Living citizens are {@code Society.population}. */
     public int virtualPopulation() {
         return virtualPopulation;
+    }
+
+    /** How closely the scheduler simulates this colony right now. */
+    public Tier tier(MinecraftServer server) {
+        return ColonyScheduler.tier(server.getLevel(dimension), this, SimSettings.get());
     }
 }

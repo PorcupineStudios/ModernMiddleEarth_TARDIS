@@ -9,6 +9,13 @@ import com.porcupinestudios.lotrport.society.Owner;
 import com.porcupinestudios.lotrport.society.Person;
 import com.porcupinestudios.lotrport.society.Persons;
 import com.porcupinestudios.lotrport.society.Society;
+import com.porcupinestudios.lotrport.colony.ColonyData;
+import com.porcupinestudios.lotrport.colony.ColonySystemsCore;
+import com.porcupinestudios.lotrport.society.sim.ColonyScheduler;
+import com.porcupinestudios.lotrport.society.sim.ColonySystem;
+import com.porcupinestudios.lotrport.society.sim.Perf;
+import com.porcupinestudios.lotrport.society.sim.SimSettings;
+import com.porcupinestudios.lotrport.society.sim.Tier;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -183,6 +190,91 @@ public final class SocietyTests {
         helper.assertTrue(citizens == 7500 && soldiers == 750, "citizens " + citizens + ", soldiers " + soldiers);
         helper.assertTrue((t3 - t2) < 20_000_000L, "colony queries took " + (t3 - t2) / 1000 + " us");
         helper.assertTrue((t2 - t0) < 2_000_000_000L, "saving and loading took " + (t2 - t0) / 1_000_000 + " ms");
+        helper.succeed();
+    }
+
+    /**
+     * Done-when of the scheduler step: 50 unloaded colonies of 150 people (15 paid soldiers each) run 10 colony days
+     * through the real scheduler, staying under the per-tick budget, and pay exactly what they owe.
+     */
+    @GameTest(template = "empty", timeoutTicks = 1200)
+    public static void fiftyColoniesRunTenDaysWithinTheBudget(GameTestHelper helper) {
+        MinecraftServer server = helper.getLevel().getServer();
+        Colonies colonies = Colonies.get(server);
+        Persons persons = Persons.get(server);
+        List<Colony> mine = new ArrayList<>();
+        List<UUID> people = new ArrayList<>();
+        for (int c = 0; c < 50; c++) {
+            Colony colony = colonies.foundAi(server, UUID.randomUUID(), UUID.randomUUID(), "Bench " + c,
+                    Level.OVERWORLD, new BlockPos(3_000_000 + c * 400, 70, 3_000_000), GONDOR, 0).orElseThrow();
+            colonies.set(colony, CoreComponents.TREASURY, new CoreComponents.Treasury(1000));
+            mine.add(colony);
+            for (int i = 0; i < 150; i++) {
+                Person p = persons.migrated(UUID.randomUUID(), SOLDIER, "B" + c + "_" + i, 0, colony.asOwner());
+                persons.setQuiet(p, CoreComponents.CITIZEN, new CoreComponents.Citizen(0, false));
+                if (i % 10 == 0) {
+                    persons.setQuiet(p, CoreComponents.UNIT, CoreComponents.Unit.hired(0).withWage(2));
+                }
+                people.add(p.id());
+            }
+        }
+        java.util.Set<UUID> ids = new java.util.HashSet<>();
+        mine.forEach(c -> ids.add(c.id()));
+        ColonyScheduler scheduler = new ColonyScheduler();
+        long dayTicks = ColonyData.settings().dayTicks();
+        long start = (colonies.lastDay(mine.get(0)) + 1) * dayTicks;
+        try {
+            // a warm-up day (the JIT compiles the hot paths), then the measured ten
+            for (long t = start; t < start + dayTicks; t++) {
+                scheduler.tick(server, t, c -> ids.contains(c.id()));
+            }
+            scheduler.perf().reset();
+            for (long t = start + dayTicks; t < start + 11 * dayTicks; t++) {
+                scheduler.tick(server, t, c -> ids.contains(c.id()));
+            }
+            Perf.Stat ticks = scheduler.perf().ticks();
+            double meanMs = ticks.meanMicros() / 1000.0;
+            double maxMs = ticks.maxNanos / 1_000_000.0;
+            StringBuilder per = new StringBuilder();
+            scheduler.perf().systems().forEach((id, st) -> per.append(String.format(java.util.Locale.ROOT,
+                    " %s %.1f/%.1f us", id, st.meanMicros(), st.maxNanos / 1000.0)));
+            LotrPort.LOG.info(String.format(java.util.Locale.ROOT,
+                    "[society] 50 x 150, 10 days: %d ticks, %.4f ms mean, %.3f ms longest;%s", ticks.runs, meanMs,
+                    maxMs, per));
+            for (Colony c : mine) {
+                long coins = c.get(CoreComponents.TREASURY).map(CoreComponents.Treasury::coins).orElse(-1L);
+                helper.assertTrue(coins == 1000 - 11 * 15 * 2, c.name() + " has " + coins + " coins after 11 days");
+                helper.assertTrue(c.tier(server) == Tier.UNLOADED, c.name() + " is not unloaded");
+            }
+            helper.assertTrue(maxMs < SimSettings.get().budgetMs(), "a tick took " + maxMs + " ms");
+
+            // a colony unloaded for 40 days catches up at most max_catch_up_days at once, and pays what it can
+            Colony late = mine.get(0);
+            colonies.set(late, CoreComponents.TREASURY, new CoreComponents.Treasury(100));
+            long later = start + 51 * dayTicks;
+            scheduler.pass(server, colonies, late, later, SimSettings.get());
+            int catchUp = SimSettings.get().maxCatchUpDays();
+            long left = late.get(CoreComponents.TREASURY).map(CoreComponents.Treasury::coins).orElse(-1L);
+            int unpaid = Society.soldiers(server, late).stream()
+                    .mapToInt(p -> p.get(CoreComponents.UNIT).orElseThrow().unpaid()).max().orElse(0);
+            helper.assertTrue(left < 2 && unpaid == catchUp,
+                    "catch-up: " + left + " coins left, " + unpaid + " days unpaid");
+        } finally {
+            people.forEach(id -> persons.remove(server, id));
+            mine.forEach(c -> colonies.disband(server, c, "test"));
+        }
+        helper.succeed();
+    }
+
+    @GameTest(template = "empty")
+    public static void daySystemsRunInOrder(GameTestHelper helper) {
+        List<ResourceLocation> order = ColonyScheduler.plan(ColonySystem.Cadence.DAY, Tier.ACTIVE);
+        helper.assertTrue(order.indexOf(ColonySystemsCore.APPLICANTS) < order.indexOf(ColonySystemsCore.MIGRATION)
+                && order.indexOf(ColonySystemsCore.MIGRATION) < order.indexOf(ColonySystemsCore.RECRUITS),
+                "day systems out of order: " + order);
+        helper.assertTrue(!ColonyScheduler.plan(ColonySystem.Cadence.DAY, Tier.UNLOADED)
+                .contains(ColonySystemsCore.MIGRATION), "migration runs in unloaded colonies");
+        helper.assertTrue(SimSettings.loadProblems().isEmpty(), "settings: " + SimSettings.loadProblems());
         helper.succeed();
     }
 }

@@ -100,10 +100,10 @@ public final class MountTests {
         // entities only tick in loaded chunks, and the 1-block template may sit on a chunk's edge
         ThrownTests.inLoadedArea(helper, 2, 2, () -> {
             helper.getLevel().addFreshEntity(horse);
-            helper.runAfterDelay(3, () -> {
+            // armour counts from the horse's next tick; a forced chunk can take a few ticks to start ticking
+            helper.succeedWhen(() -> {
                 helper.assertTrue(horse.getArmorValue() >= 9, "Gondorian horse armour gives " + horse.getArmorValue());
                 horse.discard();
-                helper.succeed();
             });
         });
     }

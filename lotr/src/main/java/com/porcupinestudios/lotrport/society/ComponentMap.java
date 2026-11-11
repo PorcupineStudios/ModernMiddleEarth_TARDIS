@@ -37,8 +37,11 @@ public final class ComponentMap {
         return values.containsKey(type);
     }
 
-    /** Sets (or with null removes) a component. Callers go through their owner so it is saved. */
-    <T> void set(ComponentType<T> type, T value) {
+    /**
+     * Sets (or with null removes) a component. Only the holder's store calls this ({@code Persons.set},
+     * {@code Colonies.set}), so the change is saved and announced.
+     */
+    public <T> void set(ComponentType<T> type, T value) {
         if (value == null) {
             values.remove(type);
         } else {

@@ -59,24 +59,42 @@ public final class CoreComponents {
      * @param hired game time it was hired or enlisted
      * @param wage coins per colony day paid by a colony owner (0 for units a player paid once)
      */
-    public record Unit(Order order, Optional<GlobalPos> post, long hired, int wage) {
+    public record Unit(Order order, Optional<GlobalPos> post, long hired, int wage, int unpaid) {
         public static final Codec<Unit> CODEC = RecordCodecBuilder.create(i -> i.group(
                 Order.CODEC.optionalFieldOf("order", Order.FOLLOW).forGetter(Unit::order),
                 GlobalPos.CODEC.optionalFieldOf("post").forGetter(Unit::post),
                 Codec.LONG.optionalFieldOf("hired", 0L).forGetter(Unit::hired),
-                Codec.INT.optionalFieldOf("wage", 0).forGetter(Unit::wage))
+                Codec.INT.optionalFieldOf("wage", 0).forGetter(Unit::wage),
+                Codec.INT.optionalFieldOf("unpaid", 0).forGetter(Unit::unpaid))
                 .apply(i, Unit::new));
 
         public static Unit hired(long time) {
-            return new Unit(Order.FOLLOW, Optional.empty(), time, 0);
+            return new Unit(Order.FOLLOW, Optional.empty(), time, 0, 0);
         }
 
         public Unit withOrder(Order next, Optional<GlobalPos> at) {
-            return new Unit(next, next == Order.GUARD ? at : Optional.empty(), hired, wage);
+            return new Unit(next, next == Order.GUARD ? at : Optional.empty(), hired, wage, unpaid);
         }
 
         public Unit withWage(int coins) {
-            return new Unit(order, post, hired, coins);
+            return new Unit(order, post, hired, coins, unpaid);
+        }
+
+        /** {@code days} colony days without pay (0 = paid up). */
+        public Unit withUnpaid(int days) {
+            return new Unit(order, post, hired, wage, days);
+        }
+    }
+
+    /** A colony's coins (silver coins), paid in and spent by systems: soldiers' wages, building, trade. */
+    public record Treasury(long coins) {
+        public static final Codec<Treasury> CODEC = RecordCodecBuilder.create(i -> i.group(
+                Codec.LONG.optionalFieldOf("coins", 0L).forGetter(Treasury::coins))
+                .apply(i, Treasury::new));
+        public static final Treasury EMPTY = new Treasury(0);
+
+        public Treasury plus(long n) {
+            return new Treasury(Math.max(0, coins + n));
         }
     }
 
@@ -85,6 +103,9 @@ public final class CoreComponents {
     public static final ComponentType<Applicant> APPLICANT = ComponentType.register(LotrPort.id("applicant"),
             Applicant.CODEC);
     public static final ComponentType<Unit> UNIT = ComponentType.register(LotrPort.id("unit"), Unit.CODEC);
+    /** On a colony. */
+    public static final ComponentType<Treasury> TREASURY = ComponentType.register(LotrPort.id("treasury"),
+            Treasury.CODEC);
 
     /** Loads this class (and so registers the types) from the mod constructor. */
     public static void init() {}

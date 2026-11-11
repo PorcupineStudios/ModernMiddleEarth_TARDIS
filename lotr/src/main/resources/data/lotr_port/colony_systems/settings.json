@@ -1,0 +1,7 @@
+{
+  "pulse_ticks": 100,
+  "active_radius": 96,
+  "max_catch_up_days": 30,
+  "budget_ms": 2.0,
+  "disabled": []
+}
