@@ -2,7 +2,6 @@
   "name": "colony_building.lotr_port.library",
   "priority": 45,
   "job": "lotr_port:researcher",
-  "workers": 2,
   "description": "4+ bookshelves, a crafting table and a chest; researchers study here",
   "requires": [
     {

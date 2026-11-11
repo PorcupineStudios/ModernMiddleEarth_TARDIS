@@ -7,14 +7,6 @@
     {
       "npc": "lotr_port:dol_guldur_orc_archer",
       "weight": 1
-    },
-    {
-      "npc": "lotr_port:mirk_troll",
-      "weight": 3
-    },
-    {
-      "npc": "lotr_port:mirkwood_spider",
-      "weight": 3
     }
   ]
 }

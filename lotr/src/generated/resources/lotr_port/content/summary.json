@@ -13,8 +13,14 @@
     "waypoints": 274,
     "quest_pools": 37,
     "quest_givers": 287,
-    "migration_tables": 28,
+    "migration_tables": 23,
     "claim_banners": 42,
-    "room_counters": 11
+    "room_counters": 11,
+    "colony_races": {
+      "orc": 37,
+      "dwarf": 16,
+      "hobbit": 13,
+      "elf": 31
+    }
   }
 ]

@@ -24,6 +24,5 @@
       "min": 1,
       "message": "a masonry needs a chest"
     }
-  ],
-  "workers": 1
+  ]
 }

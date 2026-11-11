@@ -259,8 +259,15 @@ public final class Colonies extends SavedData {
         log(server, TRANSFER_HISTORY, colony, colony.hall, tag);
     }
 
-    /** Beds (head halves) near the Hall: each is a home. Counts loaded chunks only. */
+    /**
+     * Beds: those of the colony's home buildings (houses, barracks) once it has any; before that, bed heads near the
+     * Hall (loaded chunks only), so a new colony can start before its first house.
+     */
     public static int beds(ServerLevel level, Colony colony) {
+        var homeBuildings = com.porcupinestudios.lotrport.colony.building.Buildings.of(colony).homes();
+        if (!homeBuildings.isEmpty()) {
+            return homeBuildings.stream().mapToInt(b -> b.count("beds")).sum();
+        }
         ColonyData.Settings s = ColonyData.settings();
         int r = s.bedRadius();
         int h = s.bedHeight();
@@ -305,7 +312,9 @@ public final class Colonies extends SavedData {
         if (s.selectiveMigration()) {
             room = Math.min(room, s.maxApplicants() - waiting);
         }
-        int arrivals = Math.max(0, Math.min(room, s.arrivalsPerDay()));
+        int perDay = s.arrivalsPerDay() + (com.porcupinestudios.lotrport.colony.work.Life.happiness(server, colony)
+                > com.porcupinestudios.lotrport.colony.work.LifeSettings.get().happyArrivals() ? 1 : 0);
+        int arrivals = Math.max(0, Math.min(room, perDay));
         int came = 0;
         for (int i = 0; i < arrivals; i++) {
             Optional<ResourceLocation> type = pickMigrant(colony, level.random);

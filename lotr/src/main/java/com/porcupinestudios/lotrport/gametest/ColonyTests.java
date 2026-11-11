@@ -90,6 +90,10 @@ public final class ColonyTests {
                 "a player founded two colonies");
 
         // selective migration: the first migrant comes with no beds and waits at the Hall for an answer
+        // food in the colony's stock, so nobody leaves hungry while this test counts beds
+        colonies.set(colony, com.porcupinestudios.lotrport.colony.work.WorkComponents.STOCK,
+                new com.porcupinestudios.lotrport.colony.work.WorkComponents.Stock(java.util.Map.of(
+                        net.minecraft.resources.ResourceLocation.withDefaultNamespace("bread"), 500)));
         helper.assertTrue(colonies.day(level, colony) == 1, "no first migrant");
         helper.assertTrue(Society.citizens(server, colony).isEmpty() && Society.applicants(server, colony).size() == 1,
                 "the first migrant moved straight in");

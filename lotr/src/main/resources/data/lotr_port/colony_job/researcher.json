@@ -1,0 +1,6 @@
+{
+  "name": "colony_job.lotr_port.researcher",
+  "priority": 170,
+  "wage": 3,
+  "max": 2
+}

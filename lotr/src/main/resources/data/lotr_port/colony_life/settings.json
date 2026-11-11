@@ -1,0 +1,17 @@
+{
+  "food_per_day": 20,
+  "eat_below": 14,
+  "nutrition_factor": 2,
+  "skill_per_day": 5,
+  "happiness_per_day": 20,
+  "leave_below": 25,
+  "leave_after_days": 2,
+  "happiness_base": 20,
+  "home_happiness": 20,
+  "home_quality_factor": 0.2,
+  "fed_happiness": 20,
+  "tavern_happiness": 10,
+  "unpaid_happiness": 15,
+  "tax_happiness": 5,
+  "happy_arrivals": 70
+}

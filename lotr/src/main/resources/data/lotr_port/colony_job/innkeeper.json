@@ -1,0 +1,7 @@
+{
+  "name": "colony_job.lotr_port.innkeeper",
+  "priority": 90,
+  "wage": 3,
+  "max": 1,
+  "tavern": true
+}

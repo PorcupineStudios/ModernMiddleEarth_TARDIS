@@ -1,0 +1,17 @@
+{
+  "types": [
+    "lotr_port:bree_hobbit",
+    "lotr_port:bree_hobbit_baker",
+    "lotr_port:bree_hobbit_brewer",
+    "lotr_port:bree_hobbit_butcher",
+    "lotr_port:bree_hobbit_florist",
+    "lotr_port:bree_hobbit_innkeeper",
+    "lotr_port:hobbit",
+    "lotr_port:hobbit_bartender",
+    "lotr_port:hobbit_farmer",
+    "lotr_port:hobbit_farmhand",
+    "lotr_port:hobbit_orcharder",
+    "lotr_port:hobbit_shirriff",
+    "lotr_port:hobbit_shirriff_chief"
+  ]
+}
