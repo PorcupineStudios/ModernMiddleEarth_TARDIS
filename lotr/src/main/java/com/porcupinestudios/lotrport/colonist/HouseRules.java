@@ -69,11 +69,22 @@ public final class HouseRules {
                 }
             }
         }
-        // 3. the homeless, biggest households first
+        // 3. the homeless, biggest households first (most days there are none)
+        if (out.size() == residents.size()) {
+            return out;
+        }
         List<List<Resident>> waiting = new ArrayList<>();
         for (List<Resident> members : households.values()) {
-            List<Resident> homeless = members.stream().filter(r -> !out.containsKey(r.person())).toList();
-            if (!homeless.isEmpty()) {
+            List<Resident> homeless = null;
+            for (Resident r : members) {
+                if (!out.containsKey(r.person())) {
+                    if (homeless == null) {
+                        homeless = new ArrayList<>(members.size());
+                    }
+                    homeless.add(r);
+                }
+            }
+            if (homeless != null) {
                 waiting.add(homeless);
             }
         }
