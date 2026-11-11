@@ -116,6 +116,19 @@ def main():
     # scroll bar: a beige inset track and a small beige button as the handle
     save(out, 'scroll_track', clean9(load('panelInset_beige'), 8, 8, 8, 30, 40, 16, 32), (8, 8, 8, 8))
     save(out, 'scroll_handle', clean9(load('buttonSquare_beige'), 6, 8, 6, 22, 22, 16, 24), (6, 6, 6, 8))
+    # list rows: a brown button box, so each row reads as something to click; lighter when hovered or picked
+    row = clean9(load('buttonSquare_brown'), 10, 14, 10, 22, 22, 40, 40)
+    save(out, 'row', row, (10, 10, 10, 14))
+    save(out, 'row_hover', brighter(row, 1.15), (10, 10, 10, 14))
+    # checkboxes for the filter drop-down: a dark brown inset box, with Kenney's beige check when ticked
+    box = clean9(load('panelInset_brown'), 6, 6, 6, 30, 40, 24, 24)
+    box.save(os.path.join(out, 'checkbox.png'))
+    ticked = box.copy()
+    check = load('iconCheck_beige').convert('RGBA')
+    ticked.alpha_composite(check, ((24 - check.width) // 2, (24 - check.height) // 2))
+    ticked.save(os.path.join(out, 'checkbox_checked.png'))
+    # the drop-down's arrow: Kenney's right arrow turned to point down
+    load('arrowBrown_right').convert('RGBA').rotate(-90, expand=True).save(os.path.join(out, 'arrow_down.png'))
     # small icons kept as they are (not nine-slice)
     for n in ['iconCheck_beige', 'iconCross_beige', 'iconCircle_beige', 'arrowBeige_left', 'arrowBeige_right',
               'arrowBrown_left', 'arrowBrown_right']:
