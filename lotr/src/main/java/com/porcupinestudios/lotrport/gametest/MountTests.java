@@ -127,7 +127,8 @@ public final class MountTests {
         helper.succeed();
     }
 
-    @GameTest(template = "empty", batch = "mounts", timeoutTicks = 200)
+    // the boar's chunk can start ticking well after the pig's (33 vs 198 ticks in a failed CI run): give it time
+    @GameTest(template = "empty", batch = "mounts", timeoutTicks = 600)
     public static void boarsFightBack(GameTestHelper helper) {
         ThrownTests.inLoadedArea(helper, 3, 3, () -> {
             for (BlockPos p : BlockPos.betweenClosed(new BlockPos(0, 1, 0), new BlockPos(2, 1, 2))) {
