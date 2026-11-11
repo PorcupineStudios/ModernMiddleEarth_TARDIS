@@ -45,7 +45,8 @@ public final class ColonistData {
     public static final Codec<ThoughtDef> THOUGHT_CODEC = RecordCodecBuilder.create(i -> i.group(
             Codec.INT.fieldOf("mood").forGetter(ThoughtDef::mood),
             Codec.LONG.optionalFieldOf("duration_ticks", 0L).forGetter(ThoughtDef::durationTicks),
-            Codec.INT.optionalFieldOf("stack_limit", 1).forGetter(ThoughtDef::stackLimit))
+            Codec.INT.optionalFieldOf("stack_limit", 1).forGetter(ThoughtDef::stackLimit),
+            Codec.STRING.optionalFieldOf("name").forGetter(ThoughtDef::name))
             .apply(i, ThoughtDef::new));
 
     public static final Codec<RaceDef> RACE_CODEC = RecordCodecBuilder.create(i -> i.group(
@@ -56,6 +57,12 @@ public final class ColonistData {
             Codec.INT.optionalFieldOf("settler_age_min", 18).forGetter(RaceDef::settlerAgeMin),
             Codec.INT.optionalFieldOf("settler_age_max", 50).forGetter(RaceDef::settlerAgeMax))
             .apply(i, RaceDef::new));
+
+    public static final Codec<RationDef> RATION_CODEC = RecordCodecBuilder.create(i -> i.group(
+            Codec.DOUBLE.optionalFieldOf("food_rate", 1.0).forGetter(RationDef::foodRate),
+            ResourceLocation.CODEC.optionalFieldOf("thought").forGetter(RationDef::thought),
+            Codec.INT.optionalFieldOf("order", 0).forGetter(RationDef::order))
+            .apply(i, RationDef::new));
 
     public static final ColonistSettings DEFAULT_SETTINGS = new ColonistSettings(3, 0.35, LotrPort.id("own_home"),
             LotrPort.id("family_home"), LotrPort.id("shared_home"), LotrPort.id("family_shared"),
@@ -98,6 +105,13 @@ public final class ColonistData {
             UUIDUtil.CODEC.listOf().optionalFieldOf("children", List.of()).forGetter(Kin::children))
             .apply(i, Kin::new));
 
+    private static final Codec<Orders> ORDERS_CODEC = RecordCodecBuilder.create(i -> i.group(
+            UUIDUtil.CODEC.optionalFieldOf("job").forGetter(Orders::job),
+            UUIDUtil.CODEC.optionalFieldOf("home").forGetter(Orders::home),
+            Codec.BOOL.optionalFieldOf("works", true).forGetter(Orders::works),
+            ResourceLocation.CODEC.optionalFieldOf("ration", Rations.NORMAL).forGetter(Orders::ration))
+            .apply(i, Orders::new));
+
     /** A person's traits, for life. */
     public static final ComponentType<List<ResourceLocation>> TRAITS =
             ComponentType.register(LotrPort.id("traits"), IDS);
@@ -105,6 +119,8 @@ public final class ColonistData {
     public static final ComponentType<Mood> MOOD = ComponentType.register(LotrPort.id("mood"), MOOD_CODEC);
     /** Race, birth and family links. */
     public static final ComponentType<Kin> KIN = ComponentType.register(LotrPort.id("kin"), KIN_CODEC);
+    /** What the colony's managers told them (workplace, home, work or rest, ration); absent: all left to the colony. */
+    public static final ComponentType<Orders> ORDERS = ComponentType.register(LotrPort.id("orders"), ORDERS_CODEC);
 
     // ---------------------------------------------------------------- loading
 
@@ -115,6 +131,8 @@ public final class ColonistData {
     private static final CodecJsonLoader<ThoughtDef> THOUGHTS_LOADER =
             new CodecJsonLoader<>("colonist_thought", THOUGHT_CODEC);
     private static final CodecJsonLoader<RaceDef> RACES_LOADER = new CodecJsonLoader<>("colonist_race", RACE_CODEC);
+    private static final CodecJsonLoader<RationDef> RATIONS_LOADER =
+            new CodecJsonLoader<>("colonist_ration", RATION_CODEC);
 
     private ColonistData() {}
 
@@ -125,6 +143,7 @@ public final class ColonistData {
             event.addListener(TRAITS_LOADER);
             event.addListener(THOUGHTS_LOADER);
             event.addListener(RACES_LOADER);
+            event.addListener(RATIONS_LOADER);
         });
     }
 
@@ -144,12 +163,22 @@ public final class ColonistData {
         return RACES_LOADER.entries();
     }
 
+    public static Map<ResourceLocation, RationDef> rations() {
+        return RATIONS_LOADER.entries();
+    }
+
     /** Load errors, and every id in the data that points at a thought, trait, need or race that does not exist. */
     public static List<String> loadProblems() {
         List<String> all = new ArrayList<>(SETTINGS_LOADER.lastErrors());
         all.addAll(TRAITS_LOADER.lastErrors());
         all.addAll(THOUGHTS_LOADER.lastErrors());
         all.addAll(RACES_LOADER.lastErrors());
+        all.addAll(RATIONS_LOADER.lastErrors());
+        if (!rations().containsKey(Rations.NORMAL)) {
+            all.add("colonist_ration: no normal.json (everyone's ration until told otherwise)");
+        }
+        rations().forEach((id, def) -> def.thought().filter(t -> !thoughts().containsKey(t))
+                .ifPresent(t -> all.add("colonist_ration/" + id + ": unknown thought " + t)));
         ColonistSettings s = settings();
         for (ResourceLocation t : List.of(s.ownHome(), s.familyHome(), s.sharedHome(), s.familyShared(), s.barracks(),
                 s.familyBarracks())) {

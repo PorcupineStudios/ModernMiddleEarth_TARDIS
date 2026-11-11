@@ -1,6 +1,6 @@
 # The colony management screen (UI core), for the "UI screenshots" workflow: a colony with dwarves, hobbits and men,
-# then the People tab, its filter box, Overview, Buildings and Members. Click spots are GUI units for a 1280x720
-# window at GUI scale 3 (427 x 240): see UiScreen's layout.
+# then the People tab, its filter box, Overview, Buildings and Members, and one citizen's page. Click spots are GUI
+# units for a 1280x720 window at GUI scale 3 (427 x 240): see UiScreen's layout.
 wait 200
 /time set 6000
 /weather clear
@@ -43,6 +43,12 @@ shot ui_buildings
 click 345 26
 wait 40
 shot ui_members
+close
+wait 5
+# the citizen page of the nearest colonist (as sneak + right-click on them)
+/lotr_colony citizen @e[type=lotr_port:npc,sort=nearest,limit=1]
+wait 60
+shot ui_citizen
 close
 wait 5
 quit

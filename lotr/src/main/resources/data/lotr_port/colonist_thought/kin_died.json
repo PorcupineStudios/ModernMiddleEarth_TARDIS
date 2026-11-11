@@ -1,4 +1,5 @@
 {
+  "name": "A relative died",
   "mood": -15,
   "duration_ticks": 144000,
   "stack_limit": 2

@@ -30,7 +30,7 @@ public final class Person {
 
     private final UUID id;
     private final ResourceLocation type;
-    private final String name;
+    String name;
     private final Optional<ResourceLocation> faction;
     private final long born;
     Owner owner;

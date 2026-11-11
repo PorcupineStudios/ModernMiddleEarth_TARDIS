@@ -241,13 +241,8 @@ public final class Life {
                 }
             }
             Optional<Building> home = p.get(WorkComponents.HOME).flatMap(h -> buildings.get(h.building()));
-            double target = s.happinessBase()
-                    + home.map(h -> s.homeHappiness() + h.quality() * s.homeQualityFactor()).orElse(0.0)
-                    + (food >= s.eatBelow() ? s.fedHappiness() : food > 0 ? s.fedHappiness() / 2 : 0)
-                    + (TAVERN.contains(p.id()) ? s.tavernHappiness() : 0)
-                    - (n.unpaid() > 0 ? s.unpaidHappiness() : 0)
-                    - Math.max(0, eco.headTax() - 1) * s.taxHappiness()
-                    // traits, the home thought and remembered events (colonist/)
+            double target = happinessParts(s, home, food, TAVERN.contains(p.id()), n.unpaid(), eco, null)
+                    // traits, the home thought, the ration and remembered events (colonist/)
                     + com.porcupinestudios.lotrport.colonist.Colonists.moodToday(persons, p,
                             Optional.ofNullable(homeThoughts.get(p.id())), ctx.now());
             target = Math.max(0, Math.min(100, target));
@@ -264,6 +259,41 @@ public final class Life {
         }
         TAVERN.clear();
         stores.save();
+    }
+
+    /**
+     * The colony's part of a citizen's happiness target (the rest is their thoughts, {@code Colonists.moodToday}):
+     * the base, their home, being fed, the tavern, wages owed and the head tax. With a {@code parts} sink, each
+     * non-zero part is also given to it by name ({@code base}, {@code home}, {@code fed}, {@code hungry},
+     * {@code tavern}, {@code unpaid}, {@code tax}), for the citizen page.
+     */
+    public static double happinessParts(LifeSettings s, Optional<Building> home, double food, boolean tavern,
+            int unpaid, WorkComponents.Economy eco, java.util.function.ObjDoubleConsumer<String> parts) {
+        double base = s.happinessBase();
+        double homePart = home.map(h -> s.homeHappiness() + h.quality() * s.homeQualityFactor()).orElse(0.0);
+        double fed = food >= s.eatBelow() ? s.fedHappiness() : food > 0 ? s.fedHappiness() / 2 : 0;
+        double tav = tavern ? s.tavernHappiness() : 0;
+        double owed = unpaid > 0 ? -s.unpaidHappiness() : 0;
+        double tax = -Math.max(0, eco.headTax() - 1) * s.taxHappiness();
+        if (parts != null) {
+            parts.accept("base", base);
+            if (homePart != 0) {
+                parts.accept("home", homePart);
+            }
+            if (fed != 0) {
+                parts.accept(food >= s.eatBelow() ? "fed" : "hungry", fed);
+            }
+            if (tav != 0) {
+                parts.accept("tavern", tav);
+            }
+            if (owed != 0) {
+                parts.accept("unpaid", owed);
+            }
+            if (tax != 0) {
+                parts.accept("tax", tax);
+            }
+        }
+        return base + homePart + fed + tav + owed + tax;
     }
 
     /** Average happiness of a colony's citizens (60 when it has none). */

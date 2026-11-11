@@ -14,10 +14,10 @@ import net.minecraft.network.chat.Component;
 import net.neoforged.neoforge.network.PacketDistributor;
 
 /**
- * The one screen every UI-core view opens in: title, tabs, the framed page (a table or stats) and Back/Done. It draws
- * whatever {@link View} the server last sent; a tab click or an action asks the server, and the answer replaces the
- * view in place, keeping the player's search, ticks, sort, scroll and selection ({@link TableState}). An open screen
- * asks for a fresh copy every {@link #REFRESH_TICKS}, so numbers stay live.
+ * The one screen every UI-core view opens in: title, tabs, the framed page (a table, stats or a profile) and
+ * Back/Done. It draws whatever {@link View} the server last sent; a tab click or an action asks the server, and the
+ * answer replaces the view in place, keeping the player's search, ticks, sort, scroll and selection
+ * ({@link TableState}). An open screen asks for a fresh copy every {@link #REFRESH_TICKS}, so numbers stay live.
  */
 public class UiScreen extends Screen {
     /** Ticks between refreshes while open. */
@@ -29,7 +29,10 @@ public class UiScreen extends Screen {
     private final Imm ui;
     private TablePane table;
     private StatsPane stats;
+    private ProfilePane profile;
     private EditBox search;
+    /** The name field while renaming on a profile page. */
+    private EditBox renameBox;
     private Popups.Popup popup;
     private TablePane dragging;
     private String pendingTab;
@@ -85,6 +88,8 @@ public class UiScreen extends Screen {
                 table.set(t);
             } else if (v.page() instanceof Page.Stats s && stats != null) {
                 stats.set(s);
+            } else if (v.page() instanceof Page.Profile p && profile != null) {
+                profile.set(p);
             }
         } else {
             popup = null;
@@ -126,7 +131,9 @@ public class UiScreen extends Screen {
         fy = tabsY + (view.tabs().isEmpty() ? 0 : UiTheme.TAB_HEIGHT - 2);
         table = null;
         stats = null;
+        profile = null;
         search = null;
+        renameBox = null;
         String key = view.id() + "|" + view.context() + "|" + view.tab();
         if (view.page() instanceof Page.Table t) {
             TableState state = TableState.of(key);
@@ -148,6 +155,35 @@ public class UiScreen extends Screen {
             addRenderableWidget(search);
         } else if (view.page() instanceof Page.Stats s) {
             stats = new StatsPane(this, s);
+        } else if (view.page() instanceof Page.Profile p) {
+            profile = new ProfilePane(this, p);
+        }
+    }
+
+    /** Puts a name field over the profile's name; Enter sends it, Escape or a click elsewhere drops it. */
+    void startRename() {
+        if (profile == null || profile.profile().rename().isEmpty()) {
+            return;
+        }
+        int[] nb = ProfilePane.nameBox(contentX(), contentY(), contentW());
+        renameBox = new EditBox(font, nb[0], nb[1] - 3, nb[2], 16,
+                Component.translatableWithFallback("ui.lotr_port.name", "Name"));
+        renameBox.setMaxLength(32);
+        renameBox.setValue(profile.profile().name().getString());
+        addRenderableWidget(renameBox);
+        setFocused(renameBox);
+        renameBox.setFocused(true);
+    }
+
+    private void endRename(boolean send) {
+        if (renameBox == null) {
+            return;
+        }
+        String name = renameBox.getValue().strip();
+        removeWidget(renameBox);
+        renameBox = null;
+        if (send && profile != null && !name.isEmpty()) {
+            profile.profile().rename().ifPresent(action -> send(action, name, 0));
         }
     }
 
@@ -207,6 +243,8 @@ public class UiScreen extends Screen {
             table.draw(ui, contentX(), contentY(), contentW(), contentH());
         } else if (stats != null) {
             stats.draw(ui, contentX(), contentY(), contentW(), contentH());
+        } else if (profile != null) {
+            profile.draw(ui, contentX(), contentY(), contentW(), contentH(), renameBox != null);
         }
         int bw = 100;
         int by = fy + fh - UiTheme.BUTTON_HEIGHT / 2 - 2;
@@ -294,6 +332,7 @@ public class UiScreen extends Screen {
         if (super.mouseClicked(mouseX, mouseY, button)) {
             return true;
         }
+        endRename(false);
         if (search != null) {
             search.setFocused(false);
         }
@@ -317,7 +356,13 @@ public class UiScreen extends Screen {
 
     @Override
     public boolean mouseScrolled(double mouseX, double mouseY, double scrollX, double scrollY) {
+        if (popup instanceof Popups.ChoiceMenu menu && menu.contains(mouseX, mouseY) && menu.scroll(scrollY)) {
+            return true;
+        }
         if (popup == null && table != null && table.scroll(mouseX, mouseY, scrollY)) {
+            return true;
+        }
+        if (popup == null && profile != null && profile.scroll(mouseY, scrollY)) {
             return true;
         }
         return super.mouseScrolled(mouseX, mouseY, scrollX, scrollY);
@@ -328,6 +373,19 @@ public class UiScreen extends Screen {
         if (key == org.lwjgl.glfw.GLFW.GLFW_KEY_ESCAPE && popup != null) {
             popup = null;
             return true;
+        }
+        if (renameBox != null) {
+            if (key == org.lwjgl.glfw.GLFW.GLFW_KEY_ENTER || key == org.lwjgl.glfw.GLFW.GLFW_KEY_KP_ENTER) {
+                endRename(true);
+                return true;
+            }
+            if (key == org.lwjgl.glfw.GLFW.GLFW_KEY_ESCAPE) {
+                endRename(false);
+                return true;
+            }
+            // typing goes to the field, not to the inventory key that would close the screen
+            return renameBox.keyPressed(key, scan, modifiers) || renameBox.canConsumeInput() || super.keyPressed(key,
+                    scan, modifiers);
         }
         return super.keyPressed(key, scan, modifiers);
     }

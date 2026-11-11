@@ -82,4 +82,26 @@ class HouseRulesTest {
         assertNull(out.get(p(2)), "someone whose home is gone and finds no bed is homeless");
         assertFalse(out.containsKey(p(2)));
     }
+
+    @Test
+    void someoneToldWhereToLiveGoesThereFirstAndStaysThere() {
+        // 1 lives in BIG but is told to live in the HOVEL; their household (with 2) would gather them in BIG
+        List<HouseRules.Home> homes = List.of(new HouseRules.Home(BIG, 50, 4), new HouseRules.Home(HOVEL, 5, 1));
+        Map<UUID, UUID> out = HouseRules.assign(homes, List.of(
+                new HouseRules.Resident(p(1), p(1), Optional.of(BIG), Optional.of(HOVEL)), r(2, 1, BIG),
+                r(3, 3, null)));
+        assertEquals(HOVEL, out.get(p(1)), "the order wins over keeping and gathering");
+        assertEquals(BIG, out.get(p(2)));
+        assertEquals(BIG, out.get(p(3)), "the freed bed in BIG goes to the homeless");
+    }
+
+    @Test
+    void anOrderTakesTheBedAndWhoeverHadItMoves() {
+        List<HouseRules.Home> homes = List.of(new HouseRules.Home(HOVEL, 5, 1), new HouseRules.Home(BIG, 50, 4));
+        Map<UUID, UUID> out = HouseRules.assign(homes, List.of(r(1, 1, HOVEL),
+                new HouseRules.Resident(p(2), p(2), Optional.of(BIG), Optional.of(HOVEL))));
+        // the hovel's one bed: 1 sleeps there, 2 is told to live there; orders come first, 1 finds another bed
+        assertEquals(HOVEL, out.get(p(2)));
+        assertEquals(BIG, out.get(p(1)), "1 lost the hovel's bed to the order and found one in BIG");
+    }
 }

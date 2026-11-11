@@ -3,6 +3,7 @@ package com.porcupinestudios.lotrport.colony.work;
 import com.porcupinestudios.lotrport.LotrPort;
 import com.porcupinestudios.lotrport.colonist.Colonists;
 import com.porcupinestudios.lotrport.colonist.HouseRules;
+import com.porcupinestudios.lotrport.colonist.Orders;
 import com.porcupinestudios.lotrport.colony.Colony;
 import com.porcupinestudios.lotrport.colony.building.Building;
 import com.porcupinestudios.lotrport.colony.building.BuildingType;
@@ -79,7 +80,37 @@ public final class Assign {
         }
         places.sort(Comparator.comparingInt((Place p) -> p.def().priority()).thenComparing(p -> p.building().id()));
         List<Person> jobless = new ArrayList<>();
+        // orders from the citizen page first: those told to rest have no job, those told where to work go there
+        // while it has a free slot (ahead of anyone the colony put there)
+        java.util.Set<java.util.UUID> done = new java.util.HashSet<>();
         for (Person p : citizens) {
+            if (p.has(CoreComponents.UNIT)) {
+                continue;
+            }
+            Orders orders = Colonists.orders(p);
+            if (!orders.works()) {
+                if (p.has(WorkComponents.JOB)) {
+                    setJob(server, persons, colony, p, null, now);
+                }
+                done.add(p.id());
+                continue;
+            }
+            Place told = orders.job().map(byBuilding::get).orElse(null);
+            if (told != null && told.workers().size() < told.slots()) {
+                told.workers().add(p);
+                done.add(p.id());
+                boolean there = p.get(WorkComponents.JOB).map(j -> j.building().equals(told.building().id())
+                        && j.job().equals(told.job())).orElse(false);
+                if (!there) {
+                    setJob(server, persons, colony, p, new WorkComponents.Job(told.job(), told.building().id(), 0, now,
+                            Map.of()), now);
+                }
+            }
+        }
+        for (Person p : citizens) {
+            if (done.contains(p.id())) {
+                continue;
+            }
             if (p.has(CoreComponents.UNIT)) {
                 if (p.has(WorkComponents.JOB)) {
                     setJob(server, persons, colony, p, null, now);

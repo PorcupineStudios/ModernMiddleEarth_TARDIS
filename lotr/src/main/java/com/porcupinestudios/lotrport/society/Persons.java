@@ -144,6 +144,34 @@ public final class Persons extends SavedData {
         NeoForge.EVENT_BUS.post(new SocietyEvent.OwnerChanged(server, person, from));
     }
 
+    /** Longest name a person may be given (a rename from the citizen page). */
+    public static final int MAX_NAME = 32;
+    public static final ResourceLocation RENAMED_HISTORY = LotrPort.id("person_renamed");
+
+    /**
+     * Gives a person a new name (trimmed, at most {@link #MAX_NAME}): history gets {@code person_renamed} with the old
+     * name, and {@link SocietyEvent.Renamed} lets the body follow. A blank or unchanged name does nothing.
+     *
+     * @return whether the name changed
+     */
+    public boolean rename(MinecraftServer server, Person person, String name) {
+        String clean = name.strip();
+        if (clean.length() > MAX_NAME) {
+            clean = clean.substring(0, MAX_NAME).strip();
+        }
+        if (clean.isEmpty() || clean.equals(person.name)) {
+            return false;
+        }
+        String old = person.name;
+        person.name = clean;
+        setDirty();
+        CompoundTag extra = new CompoundTag();
+        extra.putString("old_name", old);
+        log(server, RENAMED_HISTORY, person, person.lastSeen, extra);
+        NeoForge.EVENT_BUS.post(new SocietyEvent.Renamed(server, person, old));
+        return true;
+    }
+
     /** Sets (or with null removes) a component and posts {@link SocietyEvent.ComponentChanged}. */
     public <T> void set(MinecraftServer server, Person person, ComponentType<T> type, T value) {
         person.components.set(type, value);

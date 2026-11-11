@@ -533,6 +533,17 @@ public class LotrNpc extends PathfinderMob implements Merchant {
         return true;
     }
 
+    /**
+     * Its Person was renamed: the body takes the name, and shows it over its head like a trader's (a citizen with a
+     * name is someone).
+     */
+    public void takeName(String name) {
+        personName = name;
+        NpcType type = npcType();
+        setCustomName(type != null && (type.trader() || type.captain())
+                ? Component.literal(name + ", ").append(typeName()) : Component.literal(name));
+    }
+
     public String personName() {
         return personName;
     }

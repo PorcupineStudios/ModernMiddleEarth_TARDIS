@@ -76,6 +76,7 @@ public final class ColonyViews {
     public static void register() {
         Views.register(COLONY, new ColonyProvider());
         Views.register(COLONIES, new ColoniesProvider());
+        CitizenViews.register();
     }
 
     /** Opens a colony's view for a player (the Hall's Manage button, the command). */
@@ -100,22 +101,7 @@ public final class ColonyViews {
     }
 
     static String personName(Person p) {
-        if (!p.name().isEmpty()) {
-            return p.name();
-        }
-        // some NPC types (LOTR's men) have no name bank: show a steady name from their people's bank instead of the
-        // type ("gondor_man" -> gondor_male), or bree_male for men of no bank
-        String type = p.type().getPath();
-        String people = type.contains("_") ? type.substring(0, type.lastIndexOf('_')) : type;
-        java.util.List<String> bank = com.porcupinestudios.lotrport.npc.NpcData.names(
-                LotrPort.id(people + "_male"));
-        if (bank.isEmpty()) {
-            bank = com.porcupinestudios.lotrport.npc.NpcData.names(LotrPort.id("bree_male"));
-        }
-        if (bank.isEmpty()) {
-            return type.replace('_', ' ');
-        }
-        return bank.get(Math.floorMod(p.id().hashCode(), bank.size()));
+        return p.name().isEmpty() ? p.type().getPath().replace('_', ' ') : p.name();
     }
 
     static String playerName(MinecraftServer server, UUID id) {
@@ -179,13 +165,12 @@ public final class ColonyViews {
             }
             if (action.equals("citizen")) {
                 try {
-                    Society.person(player.server, UUID.fromString(row)).filter(p -> Society.colonyOf(player.server, p)
-                            .map(x -> x.id().equals(c.id())).orElse(false))
-                            .ifPresent(p -> LedgerNet.sendCitizen(player, p));
+                    return Society.person(player.server, UUID.fromString(row)).filter(p -> Society.colonyOf(
+                            player.server, p).map(x -> x.id().equals(c.id())).orElse(false))
+                            .map(p -> Result.go(CitizenViews.target(c, p))).orElse(Result.NONE);
                 } catch (IllegalArgumentException e) {
-                    // not a person id
+                    return Result.NONE;
                 }
-                return Result.NONE;
             }
             if (action.equals("head_tax") || action.equals("wage_bonus")) {
                 if (!Permissions.can(player.getUUID(), c, Perm.TREASURY)) {

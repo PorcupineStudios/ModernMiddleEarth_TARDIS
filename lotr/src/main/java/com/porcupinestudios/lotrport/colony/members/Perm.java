@@ -29,9 +29,11 @@ public final class Perm {
     public static final String WAR = "war";
     /** Choose who sees the colony on the map. */
     public static final String MAP = "map";
+    /** Rename citizens and give them orders: where to work and live, work or rest, their ration. */
+    public static final String CITIZENS = "citizens";
 
     public static final List<String> ALL = List.of(BUILD, CONTAINERS, DOORS, COMMAND, STATION, MIGRANTS, MEMBERS,
-            BANNERS, TREASURY, WAR, MAP);
+            BANNERS, TREASURY, WAR, MAP, CITIZENS);
 
     private Perm() {}
 }

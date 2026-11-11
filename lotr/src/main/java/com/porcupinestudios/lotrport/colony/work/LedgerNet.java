@@ -139,24 +139,17 @@ public final class LedgerNet {
                 Permissions.can(sp.getUUID(), colony, Perm.TREASURY), rows, citizens, stock, open));
     }
 
-    /** A citizen's page, for a member of its colony. */
+    /**
+     * A citizen's page, for a member of its colony: the UI core's citizen view
+     * ({@code colony.ui.CitizenViews}; sneak + right-click on a citizen, {@code /lotr_colony citizen}).
+     */
     public static boolean sendCitizen(ServerPlayer sp, Person p) {
         Optional<Colony> c = Society.colonyOf(sp.server, p);
         if (c.isEmpty() || !Permissions.isMember(sp.getUUID(), c.get())) {
             return false;
         }
-        Buildings buildings = Buildings.of(c.get());
-        Optional<WorkComponents.Job> job = p.get(WorkComponents.JOB);
-        WorkComponents.Needs n = p.get(WorkComponents.NEEDS).orElse(WorkComponents.Needs.NEW);
-        String work = p.has(CoreComponents.UNIT) ? "Soldier" : job.map(j -> JobDef.titleOf(j.job()).getString()
-                + buildings.get(j.building()).map(b -> " at " + b.label().getString()).orElse("")).orElse("No work");
-        String home = p.get(WorkComponents.HOME).flatMap(h -> buildings.get(h.building()))
-                .map(b -> b.label().getString() + " (quality " + b.quality() + ")").orElse("Homeless");
-        PacketDistributor.sendToPlayer(sp, new CitizenView(p.id(), name(p), c.get().name(), Races.of(p.type()),
-                work, home, (int) Math.round(n.food()), (int) Math.round(n.happiness()),
-                (int) job.map(WorkComponents.Job::skill).orElse(0.0).doubleValue(),
-                (int) Math.min(Integer.MAX_VALUE, p.get(WorkComponents.PURSE).orElse(WorkComponents.Purse.EMPTY).coins()),
-                n.unpaid()));
+        com.porcupinestudios.lotrport.ui.Views.open(sp,
+                com.porcupinestudios.lotrport.colony.ui.CitizenViews.target(c.get(), p), true);
         return true;
     }
 
