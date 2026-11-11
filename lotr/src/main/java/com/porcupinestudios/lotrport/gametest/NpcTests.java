@@ -3,6 +3,10 @@ package com.porcupinestudios.lotrport.gametest;
 import com.porcupinestudios.lotrport.LotrPort;
 import com.porcupinestudios.lotrport.content.ContentData;
 import com.porcupinestudios.lotrport.faction.Alignment;
+import com.porcupinestudios.lotrport.group.Group;
+import com.porcupinestudios.lotrport.group.GroupKinds;
+import com.porcupinestudios.lotrport.group.Groups;
+import com.porcupinestudios.lotrport.group.PersonId;
 import com.porcupinestudios.lotrport.npc.Coins;
 import com.porcupinestudios.lotrport.npc.Hiring;
 import com.porcupinestudios.lotrport.npc.LotrEntities;
@@ -175,7 +179,14 @@ public final class NpcTests {
         helper.assertTrue(copy.typeId().equals(unit.typeId()), "the unit forgot its type");
         helper.assertTrue(copy.faction().equals(unit.faction()), "the unit forgot its faction");
 
+        // a hired unit is a member of its owner's company; a second hire joins the same one
+        Groups groups = Groups.get(server);
+        Group company = groups.groupOf(PersonId.of(unit.getUUID())).orElse(null);
+        helper.assertTrue(company != null && company.kind().equals(GroupKinds.COMPANY)
+                && unit.owner().equals(Optional.of(company.owner().id())), "the hired unit is in no company");
+
         LotrNpc orc = spawn(helper, "mordor_orc");
+        helper.assertTrue(groups.groupOf(PersonId.of(orc.getUUID())).isEmpty(), "a random orc is in a group");
         helper.assertTrue(People.get(server).get(orc.getUUID()).isEmpty(), "a random orc got a person record");
         helper.assertTrue(orc.owner().isEmpty() && orc.command() == LotrNpc.Command.NONE, "a random orc is hired");
         helper.assertFalse(orc.getMainHandItem().isEmpty(), "the orc spawned without a weapon");

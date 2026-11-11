@@ -2,7 +2,14 @@ package com.porcupinestudios.lotrport.colony;
 
 import com.mojang.serialization.Codec;
 import com.porcupinestudios.lotrport.LotrPort;
+import com.porcupinestudios.lotrport.group.Group;
+import com.porcupinestudios.lotrport.group.GroupId;
+import com.porcupinestudios.lotrport.group.GroupKinds;
+import com.porcupinestudios.lotrport.group.Groups;
+import com.porcupinestudios.lotrport.group.Owner;
+import com.porcupinestudios.lotrport.group.PersonId;
 import com.porcupinestudios.lotrport.npc.LotrNpc;
+import com.porcupinestudios.lotrport.npc.People;
 import com.porcupinestudios.lotrport.registry.LotrRegistries;
 import com.porcupinestudios.ringbearer.api.history.HistoryEntry;
 import com.porcupinestudios.ringbearer.api.history.HistoryLog;
@@ -13,6 +20,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 import java.util.UUID;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
@@ -43,6 +51,10 @@ import net.neoforged.neoforge.event.tick.ServerTickEvent;
  * who comes is drawn from its faction's migration table. With selective migration (the default) they wait at the Hall
  * as applicants until the owner accepts or turns them away ({@link Migrants}). Rare races join only by
  * {@link Recruiting}. Every change is written to the history log.
+ *
+ * <p>Each colony is also a {@link Group} with the colony's id (kind {@link GroupKinds#COLONY}): its owner and its
+ * citizens are mirrored there by this class, the only writer of both, so colonies and hired units share one
+ * structure and "whose colonies are these" is a map lookup. A player may own several colonies.
  */
 public final class Colonies extends SavedData {
     public static final String FILE = "lotr_port_colonies";
@@ -57,9 +69,42 @@ public final class Colonies extends SavedData {
             null);
 
     private final Map<UUID, Colony> colonies = new LinkedHashMap<>();
+    /** The group store, set on first use through {@link #get(MinecraftServer)}; null on a bare loaded copy. */
+    private Groups groups;
 
     public static Colonies get(MinecraftServer server) {
-        return server.overworld().getDataStorage().computeIfAbsent(FACTORY, FILE);
+        Colonies all = server.overworld().getDataStorage().computeIfAbsent(FACTORY, FILE);
+        if (all.groups == null) {
+            all.groups = Groups.get(server);
+            all.syncGroups();
+        }
+        return all;
+    }
+
+    /** Gives every colony its group and every citizen their membership (worlds saved before groups existed). */
+    private void syncGroups() {
+        for (Colony c : colonies.values()) {
+            Group g = group(c);
+            for (Colony.Citizen ci : c.citizens) {
+                PersonId person = PersonId.of(ci.entity());
+                if (g.member(person).isEmpty()) {
+                    groups.join(g, person, GroupKinds.ROLE_CITIZEN, ci.joined(), flags(ci.rare()));
+                }
+            }
+        }
+    }
+
+    /** The colony's group, made if it has none yet. Only call when {@link #groups} is set. */
+    private Group group(Colony c) {
+        return groups.ensure(GroupId.of(c.id), GroupKinds.COLONY, owner(c.founder, c.ai), c.name, c.founded);
+    }
+
+    private static Owner owner(UUID id, boolean ai) {
+        return ai ? Owner.aiRuler(id) : Owner.player(id);
+    }
+
+    private static Set<String> flags(boolean rare) {
+        return rare ? Set.of(GroupKinds.FLAG_RARE) : Set.of();
     }
 
     public static void register() {
@@ -75,19 +120,34 @@ public final class Colonies extends SavedData {
         return Optional.ofNullable(colonies.get(id));
     }
 
+    /** The owner's oldest colony. A player may own several: see {@link #ownedBy} and {@link #nearest}. */
     public Optional<Colony> ofFounder(UUID player) {
-        return colonies.values().stream().filter(c -> c.founder.equals(player)).findFirst();
+        return ownedBy(player).stream().findFirst();
+    }
+
+    /** The colony a player's action is about: the nearest one they own in their dimension, else their oldest. */
+    public Optional<Colony> nearest(ServerPlayer player) {
+        List<Colony> mine = ownedBy(player.getUUID());
+        BlockPos at = player.blockPosition();
+        return mine.stream().filter(c -> c.dimension.equals(player.level().dimension()))
+                .min(Comparator.comparingDouble((Colony c) -> c.hall.distSqr(at)))
+                .or(() -> mine.stream().findFirst());
     }
 
     /** The colony an entity lives in, if it is a citizen. */
-    /** Researchers in the player's colony: every rare citizen, plus one per {@code citizens_per_researcher} others. */
+    /**
+     * Researchers in the player's colonies: every rare citizen, plus one per {@code citizens_per_researcher} others
+     * in each colony.
+     */
     public int researchers(UUID player) {
-        return ofFounder(player).map(c -> {
-            int rare = (int) c.citizens().stream().filter(Colony.Citizen::rare).count();
-            int per = ColonyData.settings().citizensPerResearcher();
-            int common = c.citizens().size() - rare;
-            return rare + (per > 0 ? common / per : 0);
-        }).orElse(0);
+        int per = ColonyData.settings().citizensPerResearcher();
+        int total = 0;
+        for (Colony c : ownedBy(player)) {
+            int rare = (int) c.citizens.stream().filter(Colony.Citizen::rare).count();
+            int common = c.citizens.size() - rare;
+            total += rare + (per > 0 ? common / per : 0);
+        }
+        return total;
     }
 
     public static Optional<UUID> colonyOf(Entity entity) {
@@ -102,11 +162,15 @@ public final class Colonies extends SavedData {
     /** The result of founding: the colony, or why not. */
     public record Founding(Optional<Colony> colony, Component problem) {}
 
-    /** Founds a colony with its Hall at {@code hall} for {@code faction}. One colony per player. */
+    /**
+     * Founds a colony with its Hall at {@code hall} for {@code faction}. A player may found several (Aaron,
+     * 2026-11-10), up to the settings' {@code max_colonies} (0 = no limit).
+     */
     public Founding found(ServerPlayer player, String name, BlockPos hall, ResourceLocation faction) {
-        if (ofFounder(player.getUUID()).isPresent()) {
-            return new Founding(Optional.empty(), Component.translatableWithFallback("colony.lotr_port.one_only",
-                    "You have already founded a colony"));
+        int max = ColonyData.settings().maxColonies();
+        if (max > 0 && ownedBy(player.getUUID()).size() >= max) {
+            return new Founding(Optional.empty(), Component.translatableWithFallback("colony.lotr_port.max_colonies",
+                    "You cannot found more than %s colonies", max));
         }
         int gap = ColonyData.settings().hallGap();
         for (Colony c : colonies.values()) {
@@ -120,6 +184,9 @@ public final class Colonies extends SavedData {
                 hall.immutable(), now, now / ColonyData.settings().dayTicks(), List.of(), Map.of(), false, 0, List.of());
         colonies.put(colony.id, colony);
         setDirty();
+        if (groups != null) {
+            group(colony);
+        }
         CompoundTag tag = new CompoundTag();
         tag.putUUID("colony", colony.id);
         tag.putString("name", name);
@@ -134,6 +201,16 @@ public final class Colonies extends SavedData {
 
     /** Every colony owned by this player or AI ruler, oldest first. */
     public List<Colony> ownedBy(UUID owner) {
+        if (groups != null) {
+            List<Colony> out = new ArrayList<>();
+            for (Group g : groups.ownedBy(owner, GroupKinds.COLONY)) {
+                Colony c = colonies.get(g.id().value());
+                if (c != null) {
+                    out.add(c);
+                }
+            }
+            return out;
+        }
         return colonies.values().stream().filter(c -> c.founder.equals(owner))
                 .sorted(Comparator.comparingLong((Colony c) -> c.founded).thenComparing(c -> c.id))
                 .toList();
@@ -162,6 +239,9 @@ public final class Colonies extends SavedData {
                 List.of());
         colonies.put(id, colony);
         setDirty();
+        if (groups != null) {
+            group(colony);
+        }
         CompoundTag tag = new CompoundTag();
         tag.putUUID("colony", id);
         tag.putString("name", name);
@@ -192,6 +272,9 @@ public final class Colonies extends SavedData {
         colony.faction = faction;
         colony.ai = ai;
         setDirty();
+        if (groups != null) {
+            groups.setOwner(group(colony), owner(owner, ai));
+        }
         CompoundTag tag = new CompoundTag();
         tag.putUUID("colony", colony.id);
         tag.putUUID("from", from);
@@ -305,6 +388,11 @@ public final class Colonies extends SavedData {
                 server.overworld().getGameTime(), rare);
         colony.citizens.add(citizen);
         setDirty();
+        if (groups != null) {
+            groups.join(group(colony), PersonId.of(npc.getUUID()), GroupKinds.ROLE_CITIZEN, citizen.joined(),
+                    flags(rare));
+        }
+        People.get(server).settled(server, npc);
         CompoundTag tag = new CompoundTag();
         tag.putUUID("colony", colony.id);
         tag.put("citizen", Colony.Citizen.CODEC.encodeStart(NbtOps.INSTANCE, citizen).getOrThrow());

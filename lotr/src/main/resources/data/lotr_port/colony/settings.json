@@ -8,5 +8,6 @@
   "citizens_per_researcher": 5,
   "selective_migration": true,
   "max_applicants": 3,
-  "applicant_days": 3
+  "applicant_days": 3,
+  "max_colonies": 0
 }

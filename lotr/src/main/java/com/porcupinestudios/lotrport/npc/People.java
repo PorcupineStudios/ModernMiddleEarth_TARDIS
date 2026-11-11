@@ -19,8 +19,9 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.saveddata.SavedData;
 
 /**
- * Saved records of the NPCs that matter: hired units now (named, recruited and colonists later). Most NPCs never get
- * one, so a random orc costs nothing. A record outlives its NPC: a death is noted, not erased, for history.
+ * Saved records of the NPCs that matter: hired units and colonists now (named and recruited later). Most NPCs never
+ * get one, so a random orc costs nothing. A record outlives its NPC: a death is noted, not erased, for history. Which
+ * group a person belongs to (a colony, a player's company) is in {@code group.Groups}, not here.
  */
 public final class People extends SavedData {
     public static final String FILE = "lotr_port_people";
@@ -86,6 +87,21 @@ public final class People extends SavedData {
         people.put(p.entity(), p);
         setDirty();
         log(server, HIRED_HISTORY, npc.level().dimension(), npc.blockPosition(), p.save());
+        return p;
+    }
+
+    /**
+     * Records an NPC that settled in a colony, if it has no record yet. No owner: the colony's group says whose it
+     * is, and the colony writes the history ({@code citizen_arrive}).
+     */
+    public Person settled(MinecraftServer server, LotrNpc npc) {
+        Person p = people.get(npc.getUUID());
+        if (p == null) {
+            p = new Person(npc.getUUID(), npc.typeId(), npc.personName(), npc.faction(), Optional.empty(),
+                    server.overworld().getGameTime(), true);
+            people.put(p.entity(), p);
+            setDirty();
+        }
         return p;
     }
 

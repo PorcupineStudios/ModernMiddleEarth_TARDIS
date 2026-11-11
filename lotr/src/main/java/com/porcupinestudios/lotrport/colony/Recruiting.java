@@ -59,7 +59,7 @@ public final class Recruiting {
             return false;
         }
         Colonies all = Colonies.get(player.server);
-        Optional<Colony> colony = all.ofFounder(player.getUUID());
+        Optional<Colony> colony = all.nearest(player);
         if (colony.isEmpty()) {
             player.sendSystemMessage(Component.translatableWithFallback("recruit.lotr_port.no_colony",
                     "%s would only join a colony you have founded", npc.getDisplayName()));
@@ -277,10 +277,16 @@ public final class Recruiting {
         }
     }
 
-    /** Counts a kill toward the player's colony's recruitment kill objectives. */
+    /** Counts a kill toward the recruitment kill objectives of every colony the player owns. */
     public static void killed(ServerPlayer player, LivingEntity victim) {
-        Optional<Colony> colony = Colonies.get(player.server).ofFounder(player.getUUID());
-        if (colony.isEmpty() || colony.get().recruits.isEmpty()) {
+        for (Colony owned : Colonies.get(player.server).ownedBy(player.getUUID())) {
+            killed(player, victim, owned);
+        }
+    }
+
+    private static void killed(ServerPlayer player, LivingEntity victim, Colony owned) {
+        Optional<Colony> colony = Optional.of(owned);
+        if (owned.recruits.isEmpty()) {
             return;
         }
         Optional<ResourceLocation> faction = FactionKills.factionOf(victim);
@@ -314,10 +320,16 @@ public final class Recruiting {
         }
     }
 
-    /** Marks visit objectives the player is standing at. */
+    /** Marks visit objectives the player is standing at, for every colony they own. */
     public static void visited(ServerPlayer player) {
-        Optional<Colony> colony = Colonies.get(player.server).ofFounder(player.getUUID());
-        if (colony.isEmpty() || colony.get().recruits.isEmpty()) {
+        for (Colony owned : Colonies.get(player.server).ownedBy(player.getUUID())) {
+            visited(player, owned);
+        }
+    }
+
+    private static void visited(ServerPlayer player, Colony owned) {
+        Optional<Colony> colony = Optional.of(owned);
+        if (owned.recruits.isEmpty()) {
             return;
         }
         for (ResourceLocation id : new ArrayList<>(colony.get().recruits.keySet())) {

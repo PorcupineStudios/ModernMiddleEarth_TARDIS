@@ -676,6 +676,8 @@ public class LotrNpc extends PathfinderMob implements Merchant {
         super.die(source);
         if (level() instanceof ServerLevel level) {
             People.get(level.getServer()).died(level.getServer(), this);
+            com.porcupinestudios.lotrport.group.Groups.get(level.getServer())
+                    .leave(com.porcupinestudios.lotrport.group.PersonId.of(getUUID()));
         }
     }
 

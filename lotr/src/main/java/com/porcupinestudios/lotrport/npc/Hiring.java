@@ -2,6 +2,9 @@ package com.porcupinestudios.lotrport.npc;
 
 import com.porcupinestudios.lotrport.faction.Alignment;
 import com.porcupinestudios.lotrport.faction.Pledges;
+import com.porcupinestudios.lotrport.group.GroupKinds;
+import com.porcupinestudios.lotrport.group.Groups;
+import com.porcupinestudios.lotrport.group.PersonId;
 import java.util.List;
 import java.util.Optional;
 import net.minecraft.ChatFormatting;
@@ -82,6 +85,11 @@ public final class Hiring {
         LotrNpc npc = spawned.get();
         npc.hireTo(player);
         People.get(player.server).hired(player.server, npc, player.getUUID());
+        // a hired unit is a member of the player's company, the same structure a colony's citizens use
+        Groups groups = Groups.get(player.server);
+        long now = player.server.overworld().getGameTime();
+        groups.join(groups.company(player.getUUID(), now), PersonId.of(npc.getUUID()), GroupKinds.ROLE_FOLLOWER, now,
+                java.util.Set.of());
         unit.mount().ifPresent(m -> {
             var armour = npc.npcType() == null ? java.util.List.<ResourceLocation>of()
                     : npc.npcType().gear().getOrDefault("mount_armor", java.util.List.of());

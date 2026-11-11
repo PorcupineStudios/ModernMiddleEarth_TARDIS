@@ -8,8 +8,15 @@ import com.porcupinestudios.lotrport.colony.Migrants;
 import com.porcupinestudios.lotrport.colony.Recruiting;
 import com.porcupinestudios.lotrport.faction.Alignment;
 import com.porcupinestudios.lotrport.faction.FactionKills;
+import com.porcupinestudios.lotrport.group.Group;
+import com.porcupinestudios.lotrport.group.GroupId;
+import com.porcupinestudios.lotrport.group.GroupKinds;
+import com.porcupinestudios.lotrport.group.Groups;
+import com.porcupinestudios.lotrport.group.Owner;
+import com.porcupinestudios.lotrport.group.PersonId;
 import com.porcupinestudios.lotrport.npc.LotrNpc;
 import com.porcupinestudios.lotrport.npc.NpcData;
+import com.porcupinestudios.lotrport.npc.People;
 import com.porcupinestudios.lotrport.travel.FastTravel;
 import com.porcupinestudios.lotrport.travel.Waypoint;
 import com.porcupinestudios.ringbearer.api.provider.Providers;
@@ -80,8 +87,6 @@ public final class ColonyTests {
         Colonies.Founding founding = colonies.found(player, "Test Hold", hall, GONDOR);
         helper.assertTrue(founding.colony().isPresent(), "not founded: " + founding.problem().getString());
         Colony colony = founding.colony().get();
-        helper.assertTrue(colonies.found(player, "Second", hall.offset(200, 0, 0), GONDOR).colony().isEmpty(),
-                "a player founded two colonies");
 
         // selective migration: the first migrant comes with no beds and waits at the Hall for an answer
         helper.assertTrue(colonies.day(level, colony) == 1, "no first migrant");
@@ -165,6 +170,23 @@ public final class ColonyTests {
         // Stage 4: colonists research TARDIS tech; the rare Ranger is a researcher for the founder
         int researchers = Providers.researchers(level.getServer(), Set.of(player.getUUID()));
         helper.assertTrue(researchers == 1, "researchers after the Ranger joined: " + researchers);
+
+        // the colony is a group: its citizens are the group's members, the Ranger flagged rare
+        Groups groups = Groups.get(level.getServer());
+        Group group = groups.get(GroupId.of(colony.id())).orElseThrow();
+        helper.assertTrue(group.size() == 3 && group.owner().equals(Owner.player(player.getUUID())),
+                "the colony's group has " + group.size() + " members");
+        helper.assertTrue(group.member(PersonId.of(ranger.getUUID())).map(m -> m.has(GroupKinds.FLAG_RARE))
+                .orElse(false), "the Ranger is not a rare member of the colony's group");
+        helper.assertTrue(People.get(level.getServer()).get(ranger.getUUID()).isPresent(),
+                "a citizen has no person record");
+
+        // a player may own several colonies (Aaron, 2026-11-10), oldest first
+        helper.assertTrue(colonies.found(player, "Second", hall.offset(200, 0, 0), GONDOR).colony().isPresent(),
+                "a player could not found a second colony");
+        helper.assertTrue(colonies.ownedBy(player.getUUID()).size() == 2, "the player does not own two colonies");
+        helper.assertTrue(colonies.ownedBy(player.getUUID()).get(0).id().equals(colony.id()),
+                "the oldest colony is not listed first");
         helper.succeed();
     }
 

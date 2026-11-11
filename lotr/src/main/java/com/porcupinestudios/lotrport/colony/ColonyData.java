@@ -32,11 +32,12 @@ public final class ColonyData {
      *     move straight in)
      * @param maxApplicants most migrants waiting at a Hall at once
      * @param applicantDays colony days a migrant waits for an answer before leaving
+     * @param maxColonies most colonies one player may found (0 = no limit)
      */
     public record Settings(int dayTicks, int bedRadius, int bedHeight, int hallGap, int arrivalsPerDay,
             int firstSettlers, int citizensPerResearcher, boolean selectiveMigration, int maxApplicants,
-            int applicantDays) {
-        public static final Settings DEFAULT = new Settings(24000, 32, 16, 96, 1, 1, 5, true, 3, 3);
+            int applicantDays, int maxColonies) {
+        public static final Settings DEFAULT = new Settings(24000, 32, 16, 96, 1, 1, 5, true, 3, 3, 0);
         public static final Codec<Settings> CODEC = RecordCodecBuilder.create(i -> i.group(
                 Codec.INT.optionalFieldOf("day_ticks", DEFAULT.dayTicks()).forGetter(Settings::dayTicks),
                 Codec.INT.optionalFieldOf("bed_radius", DEFAULT.bedRadius()).forGetter(Settings::bedRadius),
@@ -50,7 +51,8 @@ public final class ColonyData {
                 Codec.BOOL.optionalFieldOf("selective_migration", DEFAULT.selectiveMigration())
                         .forGetter(Settings::selectiveMigration),
                 Codec.INT.optionalFieldOf("max_applicants", DEFAULT.maxApplicants()).forGetter(Settings::maxApplicants),
-                Codec.INT.optionalFieldOf("applicant_days", DEFAULT.applicantDays()).forGetter(Settings::applicantDays))
+                Codec.INT.optionalFieldOf("applicant_days", DEFAULT.applicantDays()).forGetter(Settings::applicantDays),
+                Codec.INT.optionalFieldOf("max_colonies", DEFAULT.maxColonies()).forGetter(Settings::maxColonies))
                 .apply(i, Settings::new));
     }
 

@@ -28,7 +28,7 @@ public final class ColonyCommand {
                                 .getPlayerOrException(), UuidArgument.getUuid(ctx, "migrant"))))))
                 .executes(ctx -> {
             ServerPlayer player = ctx.getSource().getPlayerOrException();
-            Optional<Colony> colony = Colonies.get(player.server).ofFounder(player.getUUID());
+            Optional<Colony> colony = Colonies.get(player.server).nearest(player);
             if (colony.isEmpty()) {
                 ctx.getSource().sendFailure(Component.translatableWithFallback("colony.lotr_port.none",
                         "You have not founded a colony (use a Colony Charter)"));
@@ -82,7 +82,7 @@ public final class ColonyCommand {
             .CommandSyntaxException {
         ServerPlayer player = source.getPlayerOrException();
         Colonies all = Colonies.get(player.server);
-        Optional<Colony> colony = all.ofFounder(player.getUUID());
+        Optional<Colony> colony = all.nearest(player);
         if (colony.isEmpty()) {
             source.sendFailure(Component.literal("You have no colony"));
             return 0;

@@ -284,7 +284,9 @@ https://claude.ai/artifact/KqhSSTCuKXGuwKHBoYJdcu. Rebuild features in modern co
 
 ## Colonies (phase 9, RingRealms built in: `colony/`)
 - Founding: a Colony Charter (`colony_charter`, tab "Colonies") used on a block makes the Hall there, for the
-  founder's pledged faction; renamed on an anvil = colony name. One colony per player; Halls `hall_gap` apart.
+  founder's pledged faction; renamed on an anvil = colony name. A player may found several (Aaron 2026-11-10;
+  `max_colonies` in `colony/settings.json`, 0 = no limit); Halls `hall_gap` apart. Player actions go to
+  `Colonies.nearest(player)` (nearest owned colony in their dimension, else the oldest).
   Saved in `Colonies` (SavedData `lotr_port_colonies`, codecs); history `colony_founded`, `citizen_arrive`,
   `citizen_die`, `recruit_started`. Citizens carry the `lotr_port:colony` attachment and never despawn.
 - Growth (`colony/settings.json`): once a colony day, `arrivals_per_day` migrants come to a loaded Hall while there are
@@ -304,6 +306,26 @@ https://claude.ai/artifact/KqhSSTCuKXGuwKHBoYJdcu. Rebuild features in modern co
 - `/lotr_colony` (info, citizens, open recruitments); admin `/lotr colony list|day [n]`.
 - Not yet (RingRealms has them on 1.7.10): buildings and the validator, jobs, needs and happiness, the Ledger and
   other screens, realms on the colony, envoy spawning (rare NPCs come from normal spawning or commands for now).
+
+## Groups: the shared core for colonies and hired units (2026-11-10, `group/`, UNBUILT)
+Plan: https://claude.ai/artifact/LZs7i9p8w6MaN7pdLV2K5N (colony core, hired units, multiplayer; Aaron's answers are in
+it). Step 1 of its build order is written; nothing was compiled against NeoForge (CI is offline, the sandbox has no
+Maven). The store's logic was run against stand-in classes only, so treat every line as unbuilt until a PC build.
+- `Group` = id, kind, owner (`Owner`: player / AI ruler / realm), members (`Member`: person, role, joined, flags) and
+  parts. `Groups` (SavedData `lotr_port_groups`) is the only writer and keeps owner → groups and person → group maps,
+  so nothing scans all groups (target: 50 colonies of 100+). A person is in one group at a time; `join` moves them.
+- Parts (`PartType`, `Parts.register`): each has its own Codec, data version and migration. A part whose type is not
+  registered, fails to parse or comes from a newer build stays as saved and is written back untouched. No part types
+  are registered yet; land, access, orders and the rest arrive with their steps in the plan.
+- Colonies: each colony has a group with the colony's id (kind `colony`). `Colonies` mirrors owner and citizens into
+  it (found, foundAi, transfer, join) and `Colonies.get` back-fills groups for older saves. `Colony` still keeps its
+  own citizen list and `founder`; moving those fully into the group is the next step. `ownedBy` reads the owner map.
+- Hired units: `Hiring.hire` puts the unit in the player's company (kind `company`, `Groups.company`: one per player
+  for now; several is undecided and that method is the only place that decides). `LotrNpc.die` leaves the group.
+- People: citizens get a `People` record too (`People.settled`, no owner). Membership is in `Groups`, not `People`.
+- Tests (unrun): `GroupTests`; group checks added to `ColonyTests` and `NpcTests`. `ColonyTests` now expects a second
+  colony to be allowed.
+- Not yet: commands as the one entry point, the layer check, access and land, simulation levels, the scheduler.
 
 ## AI rulers (phase 10: `ai/`)
 - Rulers from data (`ai_ruler/<id>.json`: name, faction, home waypoint, aggression, expansion, max_colonies, colony
