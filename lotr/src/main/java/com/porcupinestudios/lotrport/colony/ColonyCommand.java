@@ -57,6 +57,20 @@ public final class ColonyCommand {
                                     return r.building().isPresent() ? 1 : 0;
                                 }))))
                 .then(Commands.literal("buildings").executes(ctx -> buildings(ctx.getSource())))
+                // the Ledger of the colony you belong to (the nearest)
+                .then(Commands.literal("ledger").executes(ctx -> {
+                    ServerPlayer player = ctx.getSource().getPlayerOrException();
+                    Optional<Colony> c = Colonies.get(player.server).all().stream()
+                            .filter(x -> com.porcupinestudios.lotrport.colony.members.Permissions
+                                    .isMember(player.getUUID(), x))
+                            .min(java.util.Comparator.comparingDouble(x -> x.hall().distSqr(player.blockPosition())));
+                    if (c.isEmpty()) {
+                        ctx.getSource().sendFailure(Component.literal("You belong to no colony"));
+                        return 0;
+                    }
+                    com.porcupinestudios.lotrport.colony.work.LedgerNet.send(player, c.get(), true);
+                    return 1;
+                }))
                 .then(Commands.literal("accept").then(Commands.argument("migrant", UuidArgument.uuid())
                         .executes(ctx -> answer(ctx.getSource(), Migrants.accept(ctx.getSource()
                                 .getPlayerOrException(), UuidArgument.getUuid(ctx, "migrant"))))))

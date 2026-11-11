@@ -28,13 +28,14 @@ import net.neoforged.neoforge.event.AddReloadListenerEvent;
  * @param unpaidHappiness taken while a worker's wages are owed (they strike)
  * @param taxHappiness taken per coin of head tax above 1
  * @param happyArrivals average happiness above which one more migrant comes a day
+ * @param bodiesMax most citizens walking about in a colony a player is near; the rest are inside buildings
  */
 public record LifeSettings(double foodPerDay, double eatBelow, double nutritionFactor, double skillPerDay,
         double happinessPerDay, double leaveBelow, int leaveAfterDays, double happinessBase, double homeHappiness,
         double homeQualityFactor, double fedHappiness, double tavernHappiness, double unpaidHappiness,
-        double taxHappiness, double happyArrivals) {
+        double taxHappiness, double happyArrivals, int bodiesMax) {
     public static final LifeSettings DEFAULT = new LifeSettings(20, 14, 2, 5, 20, 25, 2, 20, 20, 0.2, 20, 10, 15, 5,
-            70);
+            70, 40);
     public static final Codec<LifeSettings> CODEC = RecordCodecBuilder.create(i -> i.group(
             Codec.DOUBLE.optionalFieldOf("food_per_day", DEFAULT.foodPerDay()).forGetter(LifeSettings::foodPerDay),
             Codec.DOUBLE.optionalFieldOf("eat_below", DEFAULT.eatBelow()).forGetter(LifeSettings::eatBelow),
@@ -59,7 +60,8 @@ public record LifeSettings(double foodPerDay, double eatBelow, double nutritionF
                     .forGetter(LifeSettings::unpaidHappiness),
             Codec.DOUBLE.optionalFieldOf("tax_happiness", DEFAULT.taxHappiness()).forGetter(LifeSettings::taxHappiness),
             Codec.DOUBLE.optionalFieldOf("happy_arrivals", DEFAULT.happyArrivals())
-                    .forGetter(LifeSettings::happyArrivals))
+                    .forGetter(LifeSettings::happyArrivals),
+            Codec.INT.optionalFieldOf("bodies_max", DEFAULT.bodiesMax()).forGetter(LifeSettings::bodiesMax))
             .apply(i, LifeSettings::new));
 
     private static final ResourceLocation FILE = LotrPort.id("settings");

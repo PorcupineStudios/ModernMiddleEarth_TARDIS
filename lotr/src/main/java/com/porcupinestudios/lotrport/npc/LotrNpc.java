@@ -139,6 +139,24 @@ public class LotrNpc extends PathfinderMob implements Merchant {
                 .add(Attributes.FOLLOW_RANGE, 24);
     }
 
+    /**
+     * Makes the body of a Person that has none loaded: its id, type and name (skin and gear are rolled again). Not
+     * added to the world yet: the caller places it, sets what it needs and adds it.
+     */
+    public static Optional<LotrNpc> bodyFor(ServerLevel level, com.porcupinestudios.lotrport.society.Person person) {
+        Optional<NpcType> type = NpcData.type(person.type());
+        LotrNpc npc = type.isEmpty() ? null : LotrEntities.NPC.get().create(level);
+        if (npc == null) {
+            return Optional.empty();
+        }
+        npc.setUUID(person.id());
+        npc.setNpcType(person.type(), type.get());
+        if (!person.name().isEmpty()) {
+            npc.personName = person.name();
+        }
+        return Optional.of(npc);
+    }
+
     /** Makes an NPC of the given type and adds it to the world; empty if the type is unknown. */
     public static Optional<LotrNpc> spawn(ServerLevel level, ResourceLocation typeId, double x, double y, double z) {
         Optional<NpcType> type = NpcData.type(typeId);
@@ -753,6 +771,13 @@ public class LotrNpc extends PathfinderMob implements Merchant {
             return InteractionResult.SUCCESS;
         }
         if (owner == null && Migrants.interact(sp, this)) {
+            return InteractionResult.SUCCESS;
+        }
+        // sneak + right-click a citizen of your colony: its page (RingRealms' colonist screen)
+        if (sp.isShiftKeyDown() && owner == null
+                && com.porcupinestudios.lotrport.colony.Colonies.colonyOf(this).isPresent()
+                && com.porcupinestudios.lotrport.colony.work.LedgerNet.sendCitizen(sp,
+                        com.porcupinestudios.lotrport.society.Society.recordOf(sp.server, this))) {
             return InteractionResult.SUCCESS;
         }
         if (sp.isShiftKeyDown() && owner == null && Recruiting.interact(sp, this)) {

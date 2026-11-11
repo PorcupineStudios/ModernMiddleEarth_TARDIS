@@ -65,6 +65,8 @@ public final class Life {
                 Life::work));
         ColonySystems.register(ColonySystem.of(PAY, ColonySystem.Cadence.DAY, Tier.ALL, Set.of(WORK), Life::pay));
         ColonySystems.register(ColonySystem.of(NEEDS, ColonySystem.Cadence.DAY, Tier.ALL, Set.of(PAY), Life::needs));
+        ColonySystems.register(ColonySystem.of(Bodies.SYSTEM, ColonySystem.Cadence.PULSE, Set.of(Tier.ACTIVE),
+                Set.of(), Bodies::run));
     }
 
     /** Workers who aren't striking or starving make their job's goods. */
