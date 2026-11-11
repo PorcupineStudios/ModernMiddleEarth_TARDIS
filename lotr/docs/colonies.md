@@ -69,3 +69,10 @@ https://claude.ai/artifact/VLwZ5N7pkVMJW4PCYXh41G).
 - Admin test commands: `/lotr colony found_ai <name>` (an AI-held colony at your feet), `settle <npcs>` (they join
   your nearest colony), `coins <n>`; `/lotr_colony citizen <npc>` opens a citizen page. Screenshot script:
   `lotr/run/colony_shots2.txt` (house, kitchen, storehouse, writ, Ledger pages via `click`, citizen page, a war).
+
+## Screen textures
+- `textures/gui/sprites/ui/` (Aaron 2026-11-11: smooth style): Kenney's UI Pack RPG Expansion (CC0), rebuilt by
+  `converter/ui_kenney.py <pack png folder>` as 2x nine-slice sprites (edges from clean rows, so Kenney's notches
+  don't repeat) with tabs, scroll bar and hover/pressed/disabled buttons drawn in its style. Draw with
+  `GuiGraphics.blitSprite(LotrPort.id("ui/panel_beige"), x, y, w, h)`; draw the selected tab after the panel.
+  Not used by any screen yet (the shared list table will).
