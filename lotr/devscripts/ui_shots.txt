@@ -1,0 +1,48 @@
+# The colony management screen (UI core), for the "UI screenshots" workflow: a colony with dwarves, hobbits and men,
+# then the People tab, its filter box, Overview, Buildings and Members. Click spots are GUI units for a 1280x720
+# window at GUI scale 3 (427 x 240): see UiScreen's layout.
+wait 200
+/time set 6000
+/weather clear
+/gamerule doMobSpawning false
+/lotr colony found "Minas Test"
+/lotr npc spawn lotr_port:blue_dwarf
+/lotr npc spawn lotr_port:blue_dwarf
+/lotr npc spawn lotr_port:blue_dwarf
+/lotr npc spawn lotr_port:blue_dwarf
+/lotr npc spawn lotr_port:blue_dwarf
+/lotr npc spawn lotr_port:hobbit
+/lotr npc spawn lotr_port:hobbit
+/lotr npc spawn lotr_port:hobbit_farmer
+/lotr npc spawn lotr_port:hobbit
+/lotr npc spawn lotr_port:gondor_man
+/lotr npc spawn lotr_port:gondor_man
+/lotr npc spawn lotr_port:bree_man
+wait 20
+/lotr colony settle @e[type=lotr_port:npc,distance=..40]
+/lotr colony coins 250
+wait 40
+shot world
+/lotr_colony manage
+wait 60
+shot ui_people
+# Filters (n) drop-down at the table's top right
+click 368 51
+wait 10
+shot ui_filters
+# a click outside the box closes it
+click 30 200
+wait 5
+# the tabs: Overview, Buildings, ..., Members
+click 83 26
+wait 40
+shot ui_overview
+click 152 26
+wait 40
+shot ui_buildings
+click 345 26
+wait 40
+shot ui_members
+close
+wait 5
+quit
