@@ -255,10 +255,10 @@ public final class SocietyTests {
             scheduler.pass(server, colonies, late, later, SimSettings.get());
             int catchUp = SimSettings.get().maxCatchUpDays();
             long left = late.get(CoreComponents.TREASURY).map(CoreComponents.Treasury::coins).orElse(-1L);
-            int unpaid = Society.soldiers(server, late).stream()
-                    .mapToInt(p -> p.get(CoreComponents.UNIT).orElseThrow().unpaid()).max().orElse(0);
-            helper.assertTrue(left < 2 && unpaid == catchUp,
-                    "catch-up: " + left + " coins left, " + unpaid + " days unpaid");
+            // 100 coins pay one soldier all 30 days (60) and a second 20; the other 14 go unpaid and desert
+            int stayed = Society.soldiers(server, late).size();
+            helper.assertTrue(catchUp == 30 && left == 0 && stayed == 1,
+                    "catch-up: " + left + " coins left, " + stayed + " soldiers stayed");
         } finally {
             people.forEach(id -> persons.remove(server, id));
             mine.forEach(c -> colonies.disband(server, c, "test"));

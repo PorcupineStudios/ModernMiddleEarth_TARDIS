@@ -1,5 +1,6 @@
 package com.porcupinestudios.lotrport.npc.behaviour;
 
+import com.porcupinestudios.lotrport.society.CoreComponents;
 import com.porcupinestudios.lotrport.npc.LotrNpc;
 import com.porcupinestudios.lotrport.npc.NpcType;
 import java.util.EnumSet;
@@ -89,7 +90,7 @@ public class GollumBehaviour implements CreatureBehaviour {
             }
             boolean sit = npc.state("isGollumSitting") <= 0;
             npc.setState("isGollumSitting", sit ? 1f : 0f);
-            npc.setCommand(sit ? LotrNpc.Command.GUARD : LotrNpc.Command.FOLLOW);
+            npc.setCommand(sit ? CoreComponents.Order.GUARD : CoreComponents.Order.FOLLOW);
             player.sendSystemMessage(Component.literal("<").append(npc.getName()).append("> ")
                     .append(Component.translatableWithFallback(sit ? "lotr_port.gollum.stay" : "lotr_port.gollum.follow",
                             sit ? "We waits here, precious." : "Yes, master, we comes, gollum!")));

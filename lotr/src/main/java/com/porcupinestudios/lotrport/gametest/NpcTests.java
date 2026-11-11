@@ -1,5 +1,6 @@
 package com.porcupinestudios.lotrport.gametest;
 
+import com.porcupinestudios.lotrport.society.CoreComponents;
 import com.porcupinestudios.lotrport.LotrPort;
 import com.porcupinestudios.lotrport.content.ContentData;
 import com.porcupinestudios.lotrport.faction.Alignment;
@@ -103,7 +104,7 @@ public final class NpcTests {
         LotrNpc unit = result.unit().get();
         helper.assertTrue(unit.isOwnedBy(player), "the unit is not the player's");
         helper.assertTrue(unit.faction().equals(Optional.of(faction)), "the unit fights for " + unit.faction());
-        helper.assertTrue(unit.command() == LotrNpc.Command.FOLLOW, "a new unit does not follow");
+        helper.assertTrue(unit.command() == CoreComponents.Order.FOLLOW, "a new unit does not follow");
         helper.assertTrue(Coins.count(player) == 1000 - cost, "paid " + (1000 - Coins.count(player)) + " not " + cost);
         helper.assertTrue(Persons.get(server).get(unit.getUUID()).map(Person::owner)
                 .equals(Optional.of(Owner.player(player.getUUID())))
@@ -112,9 +113,9 @@ public final class NpcTests {
         // commanding: sneak + right-click switches between guarding the spot and following
         player.setShiftKeyDown(true);
         player.interactOn(unit, InteractionHand.MAIN_HAND);
-        helper.assertTrue(unit.command() == LotrNpc.Command.GUARD, "the unit did not start guarding");
+        helper.assertTrue(unit.command() == CoreComponents.Order.GUARD, "the unit did not start guarding");
         player.interactOn(unit, InteractionHand.MAIN_HAND);
-        helper.assertTrue(unit.command() == LotrNpc.Command.FOLLOW, "the unit did not follow again");
+        helper.assertTrue(unit.command() == CoreComponents.Order.FOLLOW, "the unit did not follow again");
         player.setShiftKeyDown(false);
         helper.assertFalse(unit.isEnemy(player), "the unit would attack its owner");
         return unit;
@@ -162,7 +163,7 @@ public final class NpcTests {
     public static void aHiredUnitKeepsItsRecordAndARandomOrcLeavesNone(GameTestHelper helper) {
         MinecraftServer server = helper.getLevel().getServer();
         LotrNpc unit = hire(helper, "gondorian_captain", GONDOR);
-        unit.setCommand(LotrNpc.Command.GUARD);
+        unit.setCommand(CoreComponents.Order.GUARD);
 
         // a restart: the world's records and the entity are saved and read back
         CompoundTag saved = Persons.get(server).save(new CompoundTag(), server.registryAccess());
@@ -175,13 +176,13 @@ public final class NpcTests {
         helper.assertTrue(copy != null, "could not make an NPC");
         copy.load(entity);
         helper.assertTrue(copy.owner().equals(unit.owner()), "the unit forgot its owner");
-        helper.assertTrue(copy.command() == LotrNpc.Command.GUARD, "the unit forgot its orders");
+        helper.assertTrue(copy.command() == CoreComponents.Order.GUARD, "the unit forgot its orders");
         helper.assertTrue(copy.typeId().equals(unit.typeId()), "the unit forgot its type");
         helper.assertTrue(copy.faction().equals(unit.faction()), "the unit forgot its faction");
 
         LotrNpc orc = spawn(helper, "mordor_orc");
         helper.assertTrue(Persons.get(server).get(orc.getUUID()).isEmpty(), "a random orc got a person record");
-        helper.assertTrue(orc.owner().isEmpty() && orc.command() == LotrNpc.Command.NONE, "a random orc is hired");
+        helper.assertTrue(orc.owner().isEmpty() && orc.command() == CoreComponents.Order.NONE, "a random orc is hired");
         helper.assertFalse(orc.getMainHandItem().isEmpty(), "the orc spawned without a weapon");
         helper.succeed();
     }

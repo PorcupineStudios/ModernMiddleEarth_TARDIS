@@ -7,6 +7,7 @@ import com.porcupinestudios.lotrport.faction.Alignment;
 import com.porcupinestudios.lotrport.faction.FactionKills;
 import com.porcupinestudios.lotrport.faction.Factions;
 import com.porcupinestudios.lotrport.quest.Quests;
+import com.porcupinestudios.lotrport.society.CoreComponents.Order;
 import com.porcupinestudios.lotrport.society.Persons;
 import com.porcupinestudios.lotrport.society.Society;
 import com.porcupinestudios.lotrport.npc.behaviour.Behaviours;
@@ -107,14 +108,15 @@ public class LotrNpc extends PathfinderMob implements Merchant {
     /** How far a trading or hiring player may stand. */
     public static final double DEAL_DISTANCE = 8;
 
-    /** What a hired unit does. */
-    public enum Command { NONE, FOLLOW, GUARD }
 
     private String personName = "";
     private int speechTicks;
     @Nullable
     private UUID owner;
-    private Command command = Command.NONE;
+    private Order command = Order.NONE;
+    /** The colony this body is a soldier of (its Person is owned by that colony), else null. */
+    @Nullable
+    private UUID garrison;
     @Nullable
     private BlockPos guardPos;
     @Nullable
@@ -237,7 +239,7 @@ public class LotrNpc extends PathfinderMob implements Merchant {
         goalSelector.addGoal(5, new WaterAvoidingRandomStrollGoal(this, 0.8) {
             @Override
             public boolean canUse() {
-                return command == Command.NONE && tradingPlayer == null && super.canUse();
+                return command == Order.NONE && tradingPlayer == null && super.canUse();
             }
         });
         goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 8f));
@@ -541,20 +543,54 @@ public class LotrNpc extends PathfinderMob implements Merchant {
         return owner != null && owner.equals(player.getUUID());
     }
 
-    public Command command() {
+    public Order command() {
         return command;
+    }
+
+    /** The colony this NPC is a soldier of. */
+    public Optional<UUID> garrison() {
+        return Optional.ofNullable(garrison);
+    }
+
+    /**
+     * Takes the commander, colony and orders its Person holds ({@code unit.Units} calls this when the record changes
+     * and when the body loads): a player's unit follows or guards for them, a colony soldier guards its post.
+     */
+    public void applyUnit(@Nullable UUID commander, @Nullable UUID colony, Order order, @Nullable BlockPos post) {
+        owner = commander;
+        garrison = colony;
+        if (commander != null || colony != null) {
+            setPersistenceRequired();
+        }
+        command = order;
+        guardPos = order == Order.GUARD ? (post != null ? post : blockPosition()) : null;
+        getNavigation().stop();
+    }
+
+    /** Whether {@code e} fights on this NPC's side: same commander, same colony, or a citizen of its colony. */
+    public boolean sameSide(Entity e) {
+        if (e instanceof LotrNpc n) {
+            if (owner != null && owner.equals(n.owner)) {
+                return true;
+            }
+            if (garrison != null && garrison.equals(n.garrison)) {
+                return true;
+            }
+        }
+        return garrison != null && com.porcupinestudios.lotrport.colony.Colonies.colonyOf(e)
+                .map(garrison::equals).orElse(false);
     }
 
     /** Makes this NPC a hired unit of {@code player}, following them. */
     public void hireTo(ServerPlayer player) {
         owner = player.getUUID();
         setPersistenceRequired();
-        setCommand(Command.FOLLOW);
+        setCommand(Order.FOLLOW);
     }
 
-    public void setCommand(Command command) {
+    public void setCommand(Order command) {
         this.command = command;
-        guardPos = command == Command.GUARD ? blockPosition() : null;
+        guardPos = command == Order.GUARD ? blockPosition() : null;
         getNavigation().stop();
     }
 
@@ -571,7 +607,7 @@ public class LotrNpc extends PathfinderMob implements Merchant {
     @Override
     public boolean requiresCustomPersistence() {
         NpcType type = npcType();
-        return owner != null || (type != null && (type.trader() || type.captain())) || super.requiresCustomPersistence();
+        return owner != null || garrison != null || (type != null && (type.trader() || type.captain())) || super.requiresCustomPersistence();
     }
 
     // ---------------------------------------------------------------- fighting
@@ -587,17 +623,17 @@ public class LotrNpc extends PathfinderMob implements Merchant {
                 return false;
             }
             NpcType type = npcType();
-            return type != null && type.hostile() && mine.isPresent() && owner == null
+            return type != null && type.hostile() && mine.isPresent() && owner == null && garrison == null
                     && Alignment.get(player, mine.get()) < 0;
         }
-        if (e instanceof LotrNpc other && owner != null && owner.equals(other.owner)) {
+        if (sameSide(e)) {
             return false;
         }
         Optional<ResourceLocation> theirs = FactionKills.factionOf(e);
         if (mine.isPresent() && theirs.isPresent()) {
             return Factions.relation(level.getServer(), mine.get(), theirs.get()).isBad();
         }
-        return owner != null && e instanceof Enemy;
+        return (owner != null || garrison != null) && e instanceof Enemy;
     }
 
     @Override
@@ -700,14 +736,15 @@ public class LotrNpc extends PathfinderMob implements Merchant {
                 return r;
             }
         }
-        if (isOwnedBy(sp)) {
-            if (sp.isShiftKeyDown()) {
-                setCommand(command == Command.FOLLOW ? Command.GUARD : Command.FOLLOW);
+        if (isOwnedBy(sp) || (garrison != null && com.porcupinestudios.lotrport.unit.Units.canCommand(sp, this))) {
+            if (sp.isShiftKeyDown() && isOwnedBy(sp)) {
+                com.porcupinestudios.lotrport.unit.Units.toggle(sp, this);
             } else {
                 speak(sp);
+                com.porcupinestudios.lotrport.unit.Units.openScreen(sp, Optional.of(getUUID()));
             }
             sp.displayClientMessage(Component.translatableWithFallback("npc.lotr_port.command." + command.name()
-                    .toLowerCase(), command == Command.FOLLOW ? "%s is following you" : "%s is guarding here",
+                    .toLowerCase(), command == Order.FOLLOW ? "%s is following you" : "%s is guarding here",
                     getDisplayName()), true);
             return InteractionResult.SUCCESS;
         }
@@ -857,7 +894,10 @@ public class LotrNpc extends PathfinderMob implements Merchant {
         if (owner != null) {
             tag.putUUID("Owner", owner);
         }
-        tag.putString("Command", command.name());
+        if (garrison != null) {
+            tag.putUUID("Garrison", garrison);
+        }
+        tag.putString("Order", command.name());
         if (questOfferTicks > 0) {
             tag.putInt("QuestOfferTicks", questOfferTicks);
             tag.putInt("QuestOfferColor", entityData.get(QUEST_OFFER));
@@ -898,10 +938,11 @@ public class LotrNpc extends PathfinderMob implements Merchant {
         }
         personName = tag.getString("PersonName");
         owner = tag.hasUUID("Owner") ? tag.getUUID("Owner") : null;
+        garrison = tag.hasUUID("Garrison") ? tag.getUUID("Garrison") : null;
         try {
-            command = Command.valueOf(tag.getString("Command"));
+            command = Order.valueOf(tag.getString("Order"));
         } catch (IllegalArgumentException e) {
-            command = Command.NONE;
+            command = Order.NONE;
         }
         guardPos = NbtUtils.readBlockPos(tag, "GuardPos").orElse(null);
         questOfferTicks = tag.getInt("QuestOfferTicks");
@@ -927,13 +968,13 @@ public class LotrNpc extends PathfinderMob implements Merchant {
         @Override
         public boolean canUse() {
             Player o = ownerPlayer();
-            return command == Command.FOLLOW && o != null && !o.isSpectator() && distanceTo(o) > 5;
+            return command == Order.FOLLOW && o != null && !o.isSpectator() && distanceTo(o) > 5;
         }
 
         @Override
         public boolean canContinueToUse() {
             Player o = ownerPlayer();
-            return command == Command.FOLLOW && o != null && distanceTo(o) > 2.5 && !getNavigation().isDone();
+            return command == Order.FOLLOW && o != null && distanceTo(o) > 2.5 && !getNavigation().isDone();
         }
 
         @Override
@@ -972,7 +1013,7 @@ public class LotrNpc extends PathfinderMob implements Merchant {
 
         @Override
         public boolean canUse() {
-            return command == Command.GUARD && guardPos != null && getTarget() == null
+            return command == Order.GUARD && guardPos != null && getTarget() == null
                     && guardPos.distToCenterSqr(position()) > 9;
         }
 
@@ -983,7 +1024,7 @@ public class LotrNpc extends PathfinderMob implements Merchant {
 
         @Override
         public boolean canContinueToUse() {
-            return command == Command.GUARD && !getNavigation().isDone();
+            return command == Order.GUARD && !getNavigation().isDone();
         }
     }
 
@@ -1002,7 +1043,7 @@ public class LotrNpc extends PathfinderMob implements Merchant {
         @Override
         public boolean canUse() {
             Player o = ownerPlayer();
-            if (o == null || command == Command.NONE) {
+            if (o == null || command == Order.NONE) {
                 return false;
             }
             LivingEntity attacker = o.getLastHurtByMob();
@@ -1019,7 +1060,7 @@ public class LotrNpc extends PathfinderMob implements Merchant {
         }
 
         private boolean fair(LivingEntity e) {
-            return e != LotrNpc.this && !(e instanceof LotrNpc n && owner.equals(n.owner))
+            return e != LotrNpc.this && !sameSide(e)
                     && canAttack(e, TargetingConditions.DEFAULT);
         }
 

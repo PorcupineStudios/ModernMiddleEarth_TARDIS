@@ -22,6 +22,7 @@ UI_EN = {
     "key.lotr_port.jukebox": "Jukebox (music here)",
     "key.lotr_port.map_teleport": "Map Teleport",
     "key.lotr_port.fast_travel": "Fast Travel",
+    "key.lotr_port.units": "Units (hired and colony soldiers)",
     "key.categories.lotr_port": "The Lord of the Rings",
     "screen.lotr_port.map": "Middle-earth",
     "item.lotr_port.colony_charter": "Colony Charter",

@@ -8,6 +8,7 @@ import com.porcupinestudios.lotrport.npc.Hiring;
 import com.porcupinestudios.lotrport.npc.LotrNpc;
 import com.porcupinestudios.lotrport.npc.NpcData;
 import com.porcupinestudios.lotrport.society.Persons;
+import java.util.Optional;
 import java.util.UUID;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
@@ -43,6 +44,25 @@ public final class NpcCommand {
         return count;
     }
 
+    private static int hireFree(CommandSourceStack source, ResourceLocation type, String squad)
+            throws com.mojang.brigadier.exceptions.CommandSyntaxException {
+        net.minecraft.server.level.ServerPlayer player = source.getPlayerOrException();
+        Vec3 pos = source.getPosition();
+        Optional<LotrNpc> npc = LotrNpc.spawn(source.getLevel(), type, pos.x, pos.y, pos.z);
+        if (npc.isEmpty()) {
+            source.sendFailure(Component.literal("Unknown NPC type " + type));
+            return 0;
+        }
+        npc.get().hireTo(player);
+        com.porcupinestudios.lotrport.society.Person p = com.porcupinestudios.lotrport.society.Society
+                .hired(player.server, npc.get(), player.getUUID());
+        if (!squad.isEmpty()) {
+            com.porcupinestudios.lotrport.unit.Units.setSquad(player.server, p, squad);
+        }
+        source.sendSuccess(() -> Component.literal("Hired ").append(npc.get().getDisplayName()), true);
+        return 1;
+    }
+
     public static void register(CommandDispatcher<CommandSourceStack> dispatcher) {
         dispatcher.register(Commands.literal("lotr")
                 .requires(source -> source.hasPermission(2))
@@ -64,6 +84,15 @@ public final class NpcCommand {
                                                         return 0;
                                                     });
                                         })))
+                        // /lotr npc hire <type> [squad]: a unit of that type hired to you, free (testing)
+                        .then(Commands.literal("hire")
+                                .then(Commands.argument("type", ResourceLocationArgument.id()).suggests(TYPES)
+                                        .executes(ctx -> hireFree(ctx.getSource(),
+                                                ResourceLocationArgument.getId(ctx, "type"), ""))
+                                        .then(Commands.argument("squad", StringArgumentType.greedyString())
+                                                .executes(ctx -> hireFree(ctx.getSource(),
+                                                        ResourceLocationArgument.getId(ctx, "type"),
+                                                        StringArgumentType.getString(ctx, "squad"))))))
                         // /lotr npc offer [radius]: quest givers nearby start offering a quest now (testing)
                         .then(Commands.literal("offer").executes(ctx -> offer(ctx.getSource(), 16))
                                 .then(Commands.argument("radius", IntegerArgumentType.integer(1, 128))
@@ -81,6 +110,11 @@ public final class NpcCommand {
                                     p.toString()), false));
                             return people.size();
                         }))));
+        dispatcher.register(Commands.literal("lotr_units").executes(ctx -> {
+            com.porcupinestudios.lotrport.unit.Units.openScreen(ctx.getSource().getPlayerOrException(),
+                    Optional.empty());
+            return 1;
+        }));
         dispatcher.register(Commands.literal("lotr_hire")
                 .then(Commands.argument("captain", StringArgumentType.word())
                         .then(Commands.argument("unit", IntegerArgumentType.integer(0))
