@@ -1,6 +1,7 @@
 # Ring Bearer (Minecraft 1.21.1 NeoForge)
 
-One private repo for the TARDIS: Ring Bearer modpack's own mods. Three Gradle subprojects, each its own NeoForge mod:
+One public repo for the TARDIS: Ring Bearer modpack's own mods (public since 2026-11-11; what must never be committed:
+`lotr/CLAUDE.md`, top). Three Gradle subprojects, each its own NeoForge mod:
 
 | Folder | Mod id | Package | Read first |
 |---|---|---|---|
