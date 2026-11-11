@@ -288,10 +288,10 @@ public final class Colonists {
         if (homeThought.isPresent() && !counted.contains(homeThought.get())) {
             ThoughtDef td = defs.get(homeThought.get());
             sum += td == null ? 0 : td.mood();
-            counted.add(homeThought.get());
         }
+        // (counted may be the empty immutable list: check the home thought by hand rather than adding to it)
         Optional<ResourceLocation> ration = rationThought(p);
-        if (ration.isPresent() && !counted.contains(ration.get())) {
+        if (ration.isPresent() && !counted.contains(ration.get()) && !ration.equals(homeThought)) {
             ThoughtDef td = defs.get(ration.get());
             sum += td == null ? 0 : td.mood();
         }
