@@ -82,8 +82,11 @@ public class HallScreen extends Screen {
                         }
                     }).bounds(left() + 114, height - 53, 100, 20).build());
         }
+        addRenderableWidget(Button.builder(Component.translatableWithFallback("screen.lotr_port.hall.ledger",
+                "Ledger"), b -> PacketDistributor.sendToServer(new com.porcupinestudios.lotrport.colony.work.LedgerNet
+                        .Request(hall.colony()))).bounds(width / 2 - 104, height - 26, 100, 20).build());
         addRenderableWidget(Button.builder(Component.translatableWithFallback("gui.done", "Done"), b -> onClose())
-                .bounds(width / 2 - 50, height - 26, 100, 20).build());
+                .bounds(width / 2 + 4, height - 26, 100, 20).build());
     }
 
     private void set(String player, String role) {

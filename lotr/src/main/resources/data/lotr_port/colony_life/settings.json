@@ -13,5 +13,6 @@
   "tavern_happiness": 10,
   "unpaid_happiness": 15,
   "tax_happiness": 5,
-  "happy_arrivals": 70
+  "happy_arrivals": 70,
+  "bodies_max": 40
 }
