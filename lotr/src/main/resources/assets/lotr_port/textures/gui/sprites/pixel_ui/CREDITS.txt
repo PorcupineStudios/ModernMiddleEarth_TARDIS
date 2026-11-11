@@ -1,0 +1,4 @@
+Pixel UI Fantasy Free by heyheythere - https://heyheythere.itch.io/pixel-ui-fantasy-free - CC BY 4.0
+https://creativecommons.org/licenses/by/4.0/
+Source: https://github.com/Spyridon-Pikoulas/godot-pixel-ui-fantasy-free (parchment theme and icons, unchanged).
+The .mcmeta files (nine-slice borders) are ours, taken from the pack's slices.json.
