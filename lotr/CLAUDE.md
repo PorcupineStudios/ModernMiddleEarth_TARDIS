@@ -310,19 +310,22 @@ https://claude.ai/artifact/KqhSSTCuKXGuwKHBoYJdcu. Rebuild features in modern co
   `colony/`, `unit/`, `land/`, `social/`, `war/` or `ai/`.
 - Not yet: realms on the colony, envoy spawning (rare NPCs come from normal spawning or commands for now).
 
-## UI core (2026-11-11, `ui/`, `client/ui/`, `colony/ui/`, UNBUILT)
+## UI core (2026-11-11, `ui/`, `client/ui/`, `colony/ui/`)
 - Management screens are views the server builds (tabs + a table or stats page + actions) and one client screen
   (`client/ui/UiScreen`) draws with the Kenney sprites; a new screen is a `ViewProvider` registered in `ui/Views`, no
   client code. Four payloads (`ui/UiNet`). Search, filters and sort run on the client (`ui/TableQuery`, JUnit
   `TableQueryTest`). Colony views (`colony/ui/ColonyViews`): one colony (Overview, Buildings, People, Stock, Members)
   and all your colonies; the Town Hall's Manage button, `/lotr_colony manage`, `/lotr_colony colonies`.
-- **Read `lotr/docs/ui-core.md`** before adding or changing a management screen. Never drawn in game yet.
+- **Read `lotr/docs/ui-core.md`** before adding or changing a management screen. Builds and its unit test passes in CI
+  (2026-11-11); the screen has not been looked at in game yet.
 
-## Colonists: traits, mood, kin (2026-11-11, `colonist/`, UNBUILT)
+## Colonists: traits, mood, kin (2026-11-11, `colonist/`)
 - Person components `traits`, `mood`, `kin` on the society core; mood adds to `Life`'s happiness target, traits scale
   work and food, `Assign` houses households together (`HouseRules`), families mind sharing (`KinRules.homeThought`).
   Data `colonist_trait/`, `colonist_thought/`, `colonist_race/`, `colonist/settings.json`. **Read
-  `lotr/docs/colonists.md`.** Marriage, births and family arrivals are not built yet.
+  `lotr/docs/colonists.md`.** Marriage, births and family arrivals are not built yet. Green in CI (2026-11-11,
+  unit tests and all GameTests); the daily passes are tuned for `SocietyTests` 50 x 150 tick budget (0 over, 1.8 ms
+  worst): keep new per-citizen work out of collections and streams, and see the doc's Performance section.
 
 ## AI rulers (phase 10: `ai/`)
 - Rulers from data (`ai_ruler/<id>.json`: name, faction, home waypoint, aggression, expansion, max_colonies, colony

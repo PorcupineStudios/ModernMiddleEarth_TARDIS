@@ -4,12 +4,11 @@ Read when: you add or change a management screen (a colony, all colonies, permis
 stewards, wars...), or touch `ui/`, `client/ui/` or `colony/ui/`. Written 2026-11-11, branch `claude/ui-core` (on
 `claude/project-thread-3r3clf`). Look: the mockup in Aaron's message of 2026-11-11 (Minas Test, People tab).
 
-## Status: unbuilt
+## Status
 
-Not compiled against NeoForge; no CI. What was checked: `TableQuery` and its JUnit test `TableQueryTest` ran against
-stand-in classes (4 cases, including the mockup's filters); every new file was parsed by `javac`. **The screen has
-never been drawn**: expect sizes, offsets and colours to need a pass in game. Things most likely to need fixing are
-listed at the end.
+Builds in CI (2026-11-11, `ModernMiddleEarth_TARDIS`), and `TableQueryTest` (4 cases, including the mockup's filters)
+passes there. **The screen has never been looked at in game**: expect sizes, offsets and colours to need a pass. The
+"Where the first build may fail" list at the end is what to check when it's first drawn; it compiled cleanly.
 
 ## The idea
 
