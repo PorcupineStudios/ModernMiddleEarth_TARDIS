@@ -67,10 +67,13 @@ Search, filters, sorting and scrolling happen on the client (`TableQuery`), so t
   button). `left` and `right` are sections in two columns, scrolled together (wheel or the scroll bar).
 - `Profile.tree` (optional) is a `Page.Tree(focus, nodes, links, open)` drawn in place of the right column:
   `TreeNode(id, name, detail, alive, openable, mark)` (`mark`: `dead` draws a cross badge, `left` an arrow badge and
-  a blue-grey box), `TreeLink(from, to, spouse)`. The client (`TreePane`) lays out generations round the focus:
-  each person under the middle of their parents, spouses beside their partner, overlaps pushed apart, parentless top
-  rows centred over their children. It stays fitted and centred until the player zooms (wheel, round the mouse) or
-  drags; a click on an openable person sends `open` with their id.
+  a blue-grey box), `TreeLink(from, to, kind)` with kind `parent`, `spouse` or `former`. The client (`TreePane`) lays
+  it out like a printed family tree: one row per generation, every row centred on the same middle (small generations
+  over and under big ones); partners side by side (married: red line, were married: dashed), someone with an old and
+  a new spouse between the two; families kept together and spaced wider than couples. Each couple's children hang
+  from the middle of the line between them (one parent: from under their box) down to a bar that splits to each
+  child; bars of different families in one row are staggered a little. It stays fitted and centred until the player
+  zooms (wheel, round the mouse) or drags; a click on an openable person sends `open` with their id.
 - `Page.Timetable(kinds, lines, paint, rowActions, buttons, notes)`: ONI's schedule grid. `Kind(letter, label,
   swatch, paintable)`: what a cell can be; `swatch` 0-7 picks a theme colour (`UiTheme.SWATCHES`), so colours stay on
   the client. `Line(id, label, detail, cells, editable)`: 24 letters; non-editable lines are drawn faded (a race's
