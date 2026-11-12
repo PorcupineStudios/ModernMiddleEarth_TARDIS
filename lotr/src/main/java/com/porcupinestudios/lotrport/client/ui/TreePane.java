@@ -138,16 +138,67 @@ final class TreePane {
             }
             List<String> sorted = new ArrayList<>(ids);
             sorted.sort((a, b) -> Double.compare(key.get(a), key.get(b)));
-            int width = sorted.size() * (NODE_W + GAP_X) - GAP_X;
-            int x = -width / 2;
-            // keep the focus's row centred on the focus
-            if (sorted.contains(tree.focus())) {
-                x = -sorted.indexOf(tree.focus()) * (NODE_W + GAP_X);
-            }
+            int step = NODE_W + GAP_X;
+            // each wants to sit under the middle of their parents (or beside their spouse); left to right in order,
+            // pushed right where they would overlap, then the whole row slid back so it sits under what it wants
+            double[] want = new double[sorted.size()];
             for (int i = 0; i < sorted.size(); i++) {
                 String id = sorted.get(i);
-                at.put(id, new int[] {x + i * (NODE_W + GAP_X), row.getKey() * (NODE_H + GAP_Y)});
-                order.put(id, (double) i);
+                List<String> placedParents = parents.getOrDefault(id, List.of()).stream().filter(at::containsKey)
+                        .toList();
+                if (!placedParents.isEmpty()) {
+                    want[i] = placedParents.stream().mapToDouble(q -> at.get(q)[0]).average().orElse(0);
+                } else if (i > 0 && spouses.getOrDefault(id, List.of()).contains(sorted.get(i - 1))) {
+                    want[i] = want[i - 1] + step;
+                } else {
+                    want[i] = Double.NaN;
+                }
+            }
+            // people with nowhere to be go after the one before them (or the row's start)
+            double[] x = new double[sorted.size()];
+            double shift = 0;
+            int anchored = 0;
+            for (int i = 0; i < sorted.size(); i++) {
+                double w = Double.isNaN(want[i]) ? (i == 0 ? -(sorted.size() - 1) * step / 2.0 : x[i - 1] + step)
+                        : want[i];
+                x[i] = i == 0 ? w : Math.max(w, x[i - 1] + step);
+                if (!Double.isNaN(want[i])) {
+                    shift += want[i] - x[i];
+                    anchored++;
+                }
+            }
+            // slide the row by the mean miss, so siblings spread evenly round their parents' middle
+            double slide = anchored == 0 ? 0 : shift / anchored;
+            for (int i = 0; i < sorted.size(); i++) {
+                at.put(sorted.get(i), new int[] {(int) Math.round(x[i] + slide), row.getKey() * (NODE_H + GAP_Y)});
+                order.put(sorted.get(i), (double) i);
+            }
+        }
+        // spouses who came in from outside may have parents placed later (a row below them): nothing to do; the
+        // top rows were placed with no one above, so centre each parentless row over its children instead
+        for (Map.Entry<Integer, List<String>> row : rows.entrySet()) {
+            boolean anyParents = row.getValue().stream().anyMatch(id -> parents.getOrDefault(id, List.of()).stream()
+                    .anyMatch(at::containsKey));
+            if (anyParents) {
+                continue;
+            }
+            double kids = 0;
+            int n = 0;
+            double self = 0;
+            for (String id : row.getValue()) {
+                self += at.get(id)[0];
+                for (String c : children.getOrDefault(id, List.of())) {
+                    if (at.containsKey(c)) {
+                        kids += at.get(c)[0];
+                        n++;
+                    }
+                }
+            }
+            if (n > 0) {
+                int move = (int) Math.round(kids / n - self / row.getValue().size());
+                for (String id : row.getValue()) {
+                    at.get(id)[0] += move;
+                }
             }
         }
     }
