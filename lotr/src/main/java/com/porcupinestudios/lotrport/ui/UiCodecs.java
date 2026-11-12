@@ -198,6 +198,22 @@ public final class UiCodecs {
                 list(buf, p.left(), UiCodecs::writeSection);
                 list(buf, p.right(), UiCodecs::writeSection);
                 list(buf, p.buttons(), UiCodecs::writeAction);
+                opt(buf, p.tree(), (b, t) -> {
+                    str(b, t.focus());
+                    list(b, t.nodes(), (bb, n) -> {
+                        str(bb, n.id());
+                        text(bb, n.name());
+                        text(bb, n.detail());
+                        bb.writeBoolean(n.alive());
+                        bb.writeBoolean(n.openable());
+                    });
+                    list(b, t.links(), (bb, l) -> {
+                        str(bb, l.from());
+                        str(bb, l.to());
+                        bb.writeBoolean(l.spouse());
+                    });
+                    opt(b, t.open(), UiCodecs::str);
+                });
             }
             case Page.Timetable t -> {
                 buf.writeByte(3);
@@ -247,7 +263,10 @@ public final class UiCodecs {
         if (kind == 2) {
             return new Page.Profile(opt(buf, b -> net.minecraft.core.UUIDUtil.STREAM_CODEC.decode(b)), text(buf),
                     opt(buf, UiCodecs::str), text(buf), list(buf, UiCodecs::readSection),
-                    list(buf, UiCodecs::readSection), list(buf, UiCodecs::readAction));
+                    list(buf, UiCodecs::readSection), list(buf, UiCodecs::readAction),
+                    opt(buf, b -> new Page.Tree(str(b), list(b, bb -> new Page.TreeNode(str(bb), text(bb), text(bb),
+                            bb.readBoolean(), bb.readBoolean())), list(b, bb -> new Page.TreeLink(str(bb), str(bb),
+                            bb.readBoolean())), opt(b, UiCodecs::str))));
         }
         return new Page.Stats(list(buf, UiCodecs::readSection), list(buf, UiCodecs::readAction));
     }

@@ -232,6 +232,23 @@ public final class ColonyCommand {
                                             + l.toLowerCase(java.util.Locale.ROOT)), true);
                                     return 1;
                                 })))
+                        // family links by hand until marriage and births exist: parent <child> <parent>,
+                        // spouse <a> <b>
+                        .then(Commands.literal("kin")
+                                .then(Commands.literal("parent").then(Commands.argument("child",
+                                        net.minecraft.commands.arguments.EntityArgument.entity()).then(Commands
+                                        .argument("parent", net.minecraft.commands.arguments.EntityArgument.entity())
+                                        .executes(ctx -> kin(ctx.getSource(),
+                                                net.minecraft.commands.arguments.EntityArgument.getEntity(ctx, "child"),
+                                                net.minecraft.commands.arguments.EntityArgument.getEntity(ctx,
+                                                        "parent"), false)))))
+                                .then(Commands.literal("spouse").then(Commands.argument("a",
+                                        net.minecraft.commands.arguments.EntityArgument.entity()).then(Commands
+                                        .argument("b", net.minecraft.commands.arguments.EntityArgument.entity())
+                                        .executes(ctx -> kin(ctx.getSource(),
+                                                net.minecraft.commands.arguments.EntityArgument.getEntity(ctx, "a"),
+                                                net.minecraft.commands.arguments.EntityArgument.getEntity(ctx, "b"),
+                                                true))))))
                         .then(Commands.literal("day")
                                 .executes(ctx -> days(ctx.getSource(), 1))
                                 .then(Commands.argument("n", IntegerArgumentType.integer(1, 100))
@@ -358,6 +375,47 @@ public final class ColonyCommand {
                 com.porcupinestudios.lotrport.colony.ui.CitizenViews.target(c.get(), p.get());
         com.porcupinestudios.lotrport.ui.Views.open(player, new com.porcupinestudios.lotrport.ui.View.Target(
                 target.view(), target.context(), tab), true);
+        return 1;
+    }
+
+    /** Links two people's kin records both ways (a parent and child, or spouses). */
+    private static int kin(CommandSourceStack source, net.minecraft.world.entity.Entity a,
+            net.minecraft.world.entity.Entity b, boolean spouse) {
+        Persons persons = Persons.get(source.getServer());
+        Optional<Person> pa = persons.get(a.getUUID());
+        Optional<Person> pb = persons.get(b.getUUID());
+        if (pa.isEmpty() || pb.isEmpty() || !pa.get().has(com.porcupinestudios.lotrport.colonist.ColonistData.KIN)
+                || !pb.get().has(com.porcupinestudios.lotrport.colonist.ColonistData.KIN)) {
+            source.sendFailure(Component.literal("Both must be colonists"));
+            return 0;
+        }
+        var ka = pa.get().get(com.porcupinestudios.lotrport.colonist.ColonistData.KIN).orElseThrow();
+        var kb = pb.get().get(com.porcupinestudios.lotrport.colonist.ColonistData.KIN).orElseThrow();
+        java.util.UUID ia = pa.get().id();
+        java.util.UUID ib = pb.get().id();
+        if (spouse) {
+            ka = new com.porcupinestudios.lotrport.colonist.Kin(ka.race(), ka.born(), ka.parents(), Optional.of(ib),
+                    ka.children());
+            kb = new com.porcupinestudios.lotrport.colonist.Kin(kb.race(), kb.born(), kb.parents(), Optional.of(ia),
+                    kb.children());
+        } else {
+            // a is the child, b the parent
+            java.util.List<java.util.UUID> parents = new java.util.ArrayList<>(ka.parents());
+            if (!parents.contains(ib)) {
+                parents.add(ib);
+            }
+            java.util.List<java.util.UUID> children = new java.util.ArrayList<>(kb.children());
+            if (!children.contains(ia)) {
+                children.add(ia);
+            }
+            ka = new com.porcupinestudios.lotrport.colonist.Kin(ka.race(), ka.born(), parents, ka.spouse(),
+                    ka.children());
+            kb = new com.porcupinestudios.lotrport.colonist.Kin(kb.race(), kb.born(), kb.parents(), kb.spouse(),
+                    children);
+        }
+        persons.set(source.getServer(), pa.get(), com.porcupinestudios.lotrport.colonist.ColonistData.KIN, ka);
+        persons.set(source.getServer(), pb.get(), com.porcupinestudios.lotrport.colonist.ColonistData.KIN, kb);
+        source.sendSuccess(() -> Component.literal(spouse ? "Married" : "Linked parent and child"), true);
         return 1;
     }
 }

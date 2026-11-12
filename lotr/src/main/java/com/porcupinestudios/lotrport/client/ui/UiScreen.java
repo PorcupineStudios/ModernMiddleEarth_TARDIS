@@ -352,6 +352,10 @@ public class UiScreen extends Screen {
         if (search != null) {
             search.setFocused(false);
         }
+        if (profile != null && profile.tree() != null && profile.tree().contains(mouseX, mouseY)) {
+            profile.tree().press(mouseX, mouseY);
+            return true;
+        }
         return ui.click(mouseX, mouseY);
     }
 
@@ -365,6 +369,10 @@ public class UiScreen extends Screen {
             timetable.paintAt(mouseX, mouseY);
             return true;
         }
+        if (profile != null && profile.tree() != null && profile.tree().pressed()) {
+            profile.tree().drag(dx, dy);
+            return true;
+        }
         return super.mouseDragged(mouseX, mouseY, button, dx, dy);
     }
 
@@ -373,6 +381,9 @@ public class UiScreen extends Screen {
         dragging = null;
         if (timetable != null) {
             timetable.stopPainting();
+        }
+        if (profile != null && profile.tree() != null) {
+            profile.tree().release(mouseX, mouseY);
         }
         return super.mouseReleased(mouseX, mouseY, button);
     }
@@ -385,7 +396,7 @@ public class UiScreen extends Screen {
         if (popup == null && table != null && table.scroll(mouseX, mouseY, scrollY)) {
             return true;
         }
-        if (popup == null && profile != null && profile.scroll(mouseY, scrollY)) {
+        if (popup == null && profile != null && profile.scroll(mouseX, mouseY, scrollY)) {
             return true;
         }
         if (popup == null && stats != null && stats.scroll(mouseY, scrollY)) {

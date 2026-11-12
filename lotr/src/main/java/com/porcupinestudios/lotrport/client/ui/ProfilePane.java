@@ -26,6 +26,7 @@ final class ProfilePane {
     private final UiScreen screen;
     private Page.Profile profile;
     private final ScrollBar bar;
+    private TreePane tree;
     private int bodyTop;
     private int bodyBottom;
     private int bodyHeight;
@@ -34,10 +35,23 @@ final class ProfilePane {
         this.screen = screen;
         this.profile = profile;
         this.bar = new ScrollBar(screen);
+        profile.tree().ifPresent(t -> tree = new TreePane(screen, t));
     }
 
     void set(Page.Profile p) {
         profile = p;
+        if (p.tree().isEmpty()) {
+            tree = null;
+        } else if (tree == null) {
+            tree = new TreePane(screen, p.tree().get());
+        } else {
+            tree.set(p.tree().get());
+        }
+    }
+
+    /** The family tree box, if this page has one. */
+    TreePane tree() {
+        return tree;
     }
 
     Page.Profile profile() {
@@ -80,7 +94,7 @@ final class ProfilePane {
         int rightTop = nb[1] + 36;
         int lift = bodyTop - rightTop;
         int leftH = columnHeight(profile.left());
-        int rightH = columnHeight(profile.right()) - lift;
+        int rightH = tree != null ? 0 : columnHeight(profile.right()) - lift;
         bodyHeight = Math.max(leftH, rightH);
         int room = bodyBottom - bodyTop;
         bar.measure(bodyHeight, room);
@@ -91,12 +105,17 @@ final class ProfilePane {
             ly = Sections.draw(ui, screen, s, x + 8, ly, colW) + 8;
         }
         ui.unclip();
-        ui.clip(x + 8 + colW, rightTop - 2, w - colW - 8, bodyBottom - rightTop + 2);
-        int ry = rightTop - scroll;
-        for (Page.Section s : profile.right()) {
-            ry = Sections.draw(ui, screen, s, x + 8 + colW + GAP, ry, colW) + 8;
+        if (tree != null) {
+            // the tree takes the right column whole, and moves on its own (wheel and drag), not with the page
+            tree.draw(ui, x + 8 + colW + GAP, rightTop, w - 8 - colW - GAP - 4, bodyBottom - rightTop);
+        } else {
+            ui.clip(x + 8 + colW, rightTop - 2, w - colW - 8, bodyBottom - rightTop + 2);
+            int ry = rightTop - scroll;
+            for (Page.Section s : profile.right()) {
+                ry = Sections.draw(ui, screen, s, x + 8 + colW + GAP, ry, colW) + 8;
+            }
+            ui.unclip();
         }
-        ui.unclip();
         bar.draw(ui, x + w - ScrollBar.WIDTH - 2, rightTop, bodyBottom - rightTop);
 
         int bx = x + w;
@@ -150,7 +169,10 @@ final class ProfilePane {
     }
 
     /** Scrolls the sections; true if the mouse was over them. */
-    boolean scroll(double mouseY, double amount) {
+    boolean scroll(double mouseX, double mouseY, double amount) {
+        if (tree != null && tree.zoom(mouseX, mouseY, amount)) {
+            return true;
+        }
         if (mouseY < bodyTop - PORTRAIT / 2 || mouseY > bodyBottom) {
             return false;
         }

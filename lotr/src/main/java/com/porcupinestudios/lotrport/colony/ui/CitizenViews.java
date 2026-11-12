@@ -72,6 +72,9 @@ public final class CitizenViews {
     static final String RATION = "ration";
     static final String SCHEDULE_ORDER = "schedule";
     static final String EDIT_SCHEDULES = "edit_schedules";
+    static final String OPEN_PERSON = "open_person";
+    /** Most people one family tree shows. */
+    static final int TREE_MAX = 300;
 
     // tabs
     static final String OVERVIEW = "overview";
@@ -150,6 +153,12 @@ public final class CitizenViews {
             Person p = f.get().person();
             if (action.equals(EDIT_SCHEDULES)) {
                 return Result.go(new View.Target(ColonyViews.COLONY, c.id().toString(), ColonyViews.SCHEDULES));
+            }
+            if (action.equals(OPEN_PERSON)) {
+                return parse(row).flatMap(id -> Society.person(player.server, id)).filter(Person::alive)
+                        .filter(o -> Society.colonyOf(player.server, o).map(x -> x.id().equals(c.id())).orElse(false))
+                        .map(o -> Result.go(new View.Target(CITIZEN, c.id() + "/" + o.id(), ABOUT)))
+                        .orElse(Result.NONE);
             }
             if (!Permissions.can(player.getUUID(), c, Perm.CITIZENS)) {
                 return Result.say(tr("citizen.no_orders", "You may not give %s's citizens orders", c.name()));
@@ -296,6 +305,7 @@ public final class CitizenViews {
         List<Page.Section> left;
         List<Page.Section> right;
         List<com.porcupinestudios.lotrport.ui.Action> buttons = List.of();
+        Optional<Page.Tree> tree = Optional.empty();
         switch (tab) {
             case MOOD -> {
                 left = List.of(new Page.Section(moodTitle, List.of(Stat.of(tr("citizen.mood", "Mood"),
@@ -348,8 +358,10 @@ public final class CitizenViews {
                 right = List.of(new Page.Section(tr("citizen.queue", "Task queue"), q));
             }
             case ABOUT -> {
-                left = List.of(new Page.Section(tr("citizen.about", "About"), about));
-                right = List.of(new Page.Section(tr("citizen.family", "Family"), kin));
+                left = List.of(new Page.Section(tr("citizen.about", "About"), about),
+                        new Page.Section(tr("citizen.family", "Family"), kin));
+                right = List.of();
+                tree = Optional.of(familyTree(server, c, p, now));
             }
             default -> {
                 left = List.of(new Page.Section(tr("citizen.needs", "Needs"), needs));
@@ -357,7 +369,61 @@ public final class CitizenViews {
             }
         }
         return new Page.Profile(Optional.of(p.id()), Component.literal(personName(p)),
-                canOrder ? Optional.of(RENAME) : Optional.empty(), subtitle, left, right, buttons);
+                canOrder ? Optional.of(RENAME) : Optional.empty(), subtitle, left, right, buttons, tree);
+    }
+
+    /**
+     * Everyone this person is related to, as far as the links go (parents, spouses, children, and theirs), up to
+     * {@link #TREE_MAX}; the dead stay, marked with a cross. Living citizens of this colony can be opened.
+     */
+    static Page.Tree familyTree(MinecraftServer server, Colony c, Person p, long now) {
+        List<Page.TreeNode> nodes = new ArrayList<>();
+        List<Page.TreeLink> links = new ArrayList<>();
+        java.util.Set<UUID> seen = new java.util.HashSet<>();
+        java.util.Set<String> linked = new java.util.HashSet<>();
+        java.util.ArrayDeque<Person> queue = new java.util.ArrayDeque<>();
+        queue.add(p);
+        seen.add(p.id());
+        while (!queue.isEmpty() && nodes.size() < TREE_MAX) {
+            Person x = queue.poll();
+            String detail = x.alive() ? title(Races.of(x.type())) + Colonists.age(x, now)
+                    .map(a -> ", " + (int) Math.floor(a)).orElse("") : title(Races.of(x.type())) + " †";
+            boolean ours = x.alive() && Society.colonyOf(server, x).map(o -> o.id().equals(c.id())).orElse(false);
+            nodes.add(new Page.TreeNode(x.id().toString(), Component.literal(personName(x)),
+                    Component.literal(detail), x.alive(), ours));
+            Optional<Kin> kin = x.get(ColonistData.KIN);
+            if (kin.isEmpty()) {
+                continue;
+            }
+            List<UUID> next = new ArrayList<>(kin.get().parents());
+            kin.get().spouse().ifPresent(next::add);
+            next.addAll(kin.get().children());
+            for (UUID id : kin.get().parents()) {
+                link(links, linked, id, x.id(), false);
+            }
+            for (UUID id : kin.get().children()) {
+                link(links, linked, x.id(), id, false);
+            }
+            kin.get().spouse().ifPresent(id -> link(links, linked, x.id(), id, true));
+            for (UUID id : next) {
+                if (seen.add(id)) {
+                    Society.person(server, id).ifPresent(queue::add);
+                }
+            }
+        }
+        // links to people the tree left out (over the cap, or forgotten) are dropped
+        java.util.Set<String> shown = new java.util.HashSet<>();
+        nodes.forEach(n -> shown.add(n.id()));
+        links.removeIf(l -> !shown.contains(l.from()) || !shown.contains(l.to()));
+        return new Page.Tree(p.id().toString(), nodes, links, Optional.of(OPEN_PERSON));
+    }
+
+    private static void link(List<Page.TreeLink> links, java.util.Set<String> linked, UUID from, UUID to,
+            boolean spouse) {
+        String key = spouse ? (from.compareTo(to) < 0 ? from + "=" + to : to + "=" + from) : from + ">" + to;
+        if (linked.add(key)) {
+            links.add(new Page.TreeLink(from.toString(), to.toString(), spouse));
+        }
     }
 
     static Component taskName(ResourceLocation id) {
