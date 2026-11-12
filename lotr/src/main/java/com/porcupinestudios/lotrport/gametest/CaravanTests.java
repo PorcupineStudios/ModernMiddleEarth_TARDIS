@@ -149,15 +149,16 @@ public final class CaravanTests {
      * Aaron (2026-11-12): "when the outpost's bread is below 10, send the excess over 30". The route goes by itself
      * while the outpost is short, takes only what is above 30 at home, and doesn't go again once the outpost is full.
      */
-    @GameTest(template = "empty", timeoutTicks = 8000)
+    // its own batch: it uses the same dry spots as the test above (Halls must be 96 apart)
+    @GameTest(template = "empty", timeoutTicks = 8000, batch = "caravan_trigger")
     public static void aTriggeredRouteSendsTheExcess(GameTestHelper helper) {
         MinecraftServer server = helper.getLevel().getServer();
         Waypoint w1 = FastTravel.waypoint(LotrPort.id("hobbiton")).orElseThrow();
         UUID me = UUID.randomUUID();
-        int off = 60 + (int) (Math.abs(me.getLeastSignificantBits()) % 40);
-        Colony home = colony(server, helper, me, "Excess Home", new BlockPos(w1.x() - off, 70, w1.z() + 150),
+        int off = (int) (Math.abs(me.getLeastSignificantBits()) % 40);
+        Colony home = colony(server, helper, me, "Excess Home", new BlockPos(w1.x() + off, 70, w1.z()),
                 Map.of(BREAD, 100), 1);
-        Colony outpost = colony(server, helper, me, "Excess Outpost", new BlockPos(w1.x() + off, 70, w1.z() + 150),
+        Colony outpost = colony(server, helper, me, "Excess Outpost", new BlockPos(w1.x() + 300 + off, 70, w1.z()),
                 Map.of(), 0);
         CaravanBook.Route r = new CaravanBook.Route(1, outpost.id(), List.of(new CaravanRules.Amount(BREAD.toString(),
                 0, 30)), List.of(), 0, 1, false, -1, java.util.Optional.of(new CaravanRules.Trigger(outpost.id(),
@@ -180,6 +181,7 @@ public final class CaravanTests {
                 .thenWaitUntil(() -> helper.assertTrue(all.from(home.id()).stream().allMatch(j -> j.stage
                         == Journey.Stage.DONE), "not back yet"))
                 .thenExecute(() -> {
+                    helper.assertTrue(all.from(home.id()).get(0).route.found(), "no way to the outpost");
                     helper.assertTrue(stock(server, outpost.id(), BREAD) == 70 && stock(server, home.id(), BREAD)
                             == 30, "outpost " + stock(server, outpost.id(), BREAD) + ", home "
                                     + stock(server, home.id(), BREAD));
