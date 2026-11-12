@@ -59,7 +59,9 @@ public final class CaravanCommand {
                                 .then(Commands.argument("json", StringArgumentType.greedyString())
                                         .executes(CaravanCommand::rules))))
                         .then(Commands.literal("edit").then(Commands.argument("n", IntegerArgumentType.integer(1))
-                                .executes(c -> open(c, "route", IntegerArgumentType.getInteger(c, "n")))))
+                                .executes(c -> open(c, "route", IntegerArgumentType.getInteger(c, "n")))
+                                .then(Commands.literal("rules").executes(c -> open(c, "rules",
+                                        IntegerArgumentType.getInteger(c, "n"))))))
                         // route when <n> "<colony>" <item> below|above <x>: the route goes by itself while that holds
                         .then(Commands.literal("when").then(Commands.argument("n", IntegerArgumentType.integer(1))
                                 .then(Commands.argument("watch", StringArgumentType.string())
@@ -191,8 +193,9 @@ public final class CaravanCommand {
         if (home.isEmpty() || p == null) {
             return 0;
         }
-        com.porcupinestudios.lotrport.ui.Views.open(p, what.equals("route")
-                ? com.porcupinestudios.lotrport.colony.ui.CaravanViews.routeTarget(home.get(), n)
+        com.porcupinestudios.lotrport.ui.Views.open(p, what.equals("route") || what.equals("rules")
+                ? new com.porcupinestudios.lotrport.ui.View.Target(com.porcupinestudios.lotrport.colony.ui.CaravanViews
+                        .ROUTE, home.get().id() + "/" + n, what.equals("rules") ? "rules" : "")
                 : new com.porcupinestudios.lotrport.ui.View.Target(com.porcupinestudios.lotrport.colony.ui.CaravanViews
                         .TRADE, home.get().id().toString(), "offers"), true);
         return 1;

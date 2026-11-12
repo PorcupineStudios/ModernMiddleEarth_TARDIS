@@ -293,9 +293,7 @@ public final class CaravanViews {
             List<Colony> bringFrom = own ? List.of(dest.get()) : List.of();
             List<Page.Section> sections = new ArrayList<>();
             sections.add(new Page.Section(tr("caravan.where", "Where and when"), where));
-            if (r.rule().isPresent()) {
-                sections.add(new Page.Section(tr("caravan.rules", "Rules"), RuleViews.lines(server, home, r)));
-            }
+
             sections.add(lines("Take from " + home.name(), "t", r.send(), server, takeFrom, home));
             if (own || !r.bring().isEmpty()) {
                 sections.add(lines("Bring back from " + colonyName(server, r.to()), "b", r.bring(), server,
@@ -320,11 +318,30 @@ public final class CaravanViews {
                     : Action.disabled("delete", tr("caravan.delete", "Delete"), why));
             String sub = when(server, r) + " to " + colonyName(server, r.to()) + out(server, home, r.id())
                     .map(j -> " - " + status(server, j)).orElse("");
-            Page page = new Page.Profile(Optional.empty(), Component.literal(r.title()), may ? Optional.of("rename")
-                    : Optional.empty(), Component.literal(sub), sections.subList(0, r.rule().isPresent() ? 2 : 1),
-                    sections.subList(r.rule().isPresent() ? 2 : 1, sections.size()), buttons);
-            return Optional.of(new View(ROUTE, context, Component.literal(home.name() + ": caravans"), List.of(), "",
-                    page, Optional.of(new View.Target(ColonyViews.COLONY, home.id().toString(), TAB))));
+            List<View.Tab> tabs = List.of(new View.Tab("route", tr("caravan.tab.route", "Route")),
+                    new View.Tab("rules", tr("caravan.tab.rules", "Rules")));
+            Page page;
+            if (tab.equals("rules")) {
+                // the rule tree: blocks in a column, the "Where and when" picker beside it
+                List<Page.Section> rs = new ArrayList<>();
+                rs.add(new Page.Section(tr("caravan.rules", "Rules"), r.rule().isPresent()
+                        ? RuleViews.lines(server, home, r) : List.of(Stat.of(Component.literal(
+                                "Goes only by hand: set Goes to 'By itself'"), "", Tone.MUTED))));
+                rs.add(new Page.Section(tr("caravan.where", "Where and when"), where));
+                rs.add(new Page.Section(tr("caravan.rules_how", "How rules work"), List.of(
+                        Stat.of(Component.literal("Checked every 10 seconds;"), "", Tone.MUTED),
+                        Stat.of(Component.literal("it goes when the top block is yes"), "", Tone.MUTED),
+                        Stat.of(Component.literal("and none of it is on the road."), "", Tone.MUTED),
+                        Stat.of(Component.literal("[yes]/[no]: each block right now."), "", Tone.MUTED))));
+                page = new Page.Stats(rs, List.of());
+            } else {
+                page = new Page.Profile(Optional.empty(), Component.literal(r.title()), may ? Optional.of("rename")
+                        : Optional.empty(), Component.literal(sub), List.of(sections.get(0)), sections.subList(1,
+                                sections.size()), buttons);
+            }
+            return Optional.of(new View(ROUTE, context, Component.literal(home.name() + ": " + r.title()), tabs,
+                    tab.equals("rules") ? "rules" : "route", page, Optional.of(new View.Target(ColonyViews.COLONY,
+                            home.id().toString(), TAB))));
         }
 
         /** A list of goods: per line, its item, fixed or excess, and the number(s). */
