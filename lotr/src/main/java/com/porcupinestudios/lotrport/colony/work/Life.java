@@ -312,12 +312,9 @@ public final class Life {
     }
 
     static void leave(SystemContext ctx, Person p, String why) {
-        Persons.get(ctx.server()).remove(ctx.server(), p.id());
-        ServerLevel level = ctx.level();
-        Entity body = level == null ? null : level.getEntity(p.id());
-        if (body != null) {
-            body.discard();
-        }
+        // kept for their family's tree if they have one (colonist.Left), else forgotten
+        com.porcupinestudios.lotrport.colonist.Colonists.depart(ctx.server(), ctx.colony(), p,
+                com.porcupinestudios.lotrport.colonist.Left.ABANDONED, ctx.now());
         CompoundTag tag = new CompoundTag();
         tag.putUUID("colony", ctx.colony().id());
         tag.putUUID("person", p.id());

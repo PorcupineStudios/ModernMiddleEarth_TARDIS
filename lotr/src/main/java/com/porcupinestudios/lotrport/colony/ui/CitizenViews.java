@@ -9,6 +9,7 @@ import com.porcupinestudios.lotrport.LotrPort;
 import com.porcupinestudios.lotrport.colonist.ColonistData;
 import com.porcupinestudios.lotrport.colonist.Colonists;
 import com.porcupinestudios.lotrport.colonist.Kin;
+import com.porcupinestudios.lotrport.colonist.Left;
 import com.porcupinestudios.lotrport.colonist.Orders;
 import com.porcupinestudios.lotrport.colonist.RationDef;
 import com.porcupinestudios.lotrport.colonist.Rations;
@@ -73,6 +74,7 @@ public final class CitizenViews {
     static final String SCHEDULE_ORDER = "schedule";
     static final String EDIT_SCHEDULES = "edit_schedules";
     static final String OPEN_PERSON = "open_person";
+    static final String BANISH = "banish";
     /** Most people one family tree shows. */
     static final int TREE_MAX = 300;
 
@@ -171,6 +173,21 @@ public final class CitizenViews {
                     return Result.say(tr("citizen.renamed", "%s is now called %s", old, p.name()));
                 }
                 return Result.NONE;
+            }
+            if (action.equals(BANISH)) {
+                String name = personName(p);
+                long now = player.server.overworld().getGameTime();
+                Colonists.depart(player.server, c, p, Left.BANISHED, now);
+                net.minecraft.nbt.CompoundTag tag = new net.minecraft.nbt.CompoundTag();
+                tag.putUUID("colony", c.id());
+                tag.putUUID("person", p.id());
+                tag.putString("why", Left.BANISHED);
+                tag.putUUID("by", player.getUUID());
+                com.porcupinestudios.ringbearer.api.history.HistoryLog.get(player.server).append(
+                        new com.porcupinestudios.ringbearer.api.history.HistoryEntry(now, Life.LEAVE_HISTORY,
+                                c.dimension(), Optional.of(c.hall()), tag));
+                return new Result(Optional.of(tr("citizen.banished", "%s was banished from %s", name, c.name())),
+                        Optional.of(new View.Target(ColonyViews.COLONY, c.id().toString(), ColonyViews.PEOPLE)));
             }
             Orders before = Colonists.orders(p);
             Orders after = switch (action) {
@@ -366,6 +383,11 @@ public final class CitizenViews {
             default -> {
                 left = List.of(new Page.Section(tr("citizen.needs", "Needs"), needs));
                 right = List.of(new Page.Section(tr("citizen.orders", "Orders"), orders));
+                buttons = List.of(canOrder
+                        ? com.porcupinestudios.lotrport.ui.Action.of(BANISH, tr("citizen.banish", "Banish"))
+                                .confirmed()
+                        : com.porcupinestudios.lotrport.ui.Action.disabled(BANISH, tr("citizen.banish", "Banish"),
+                                tr("citizen.no_banish", "Only those who may give citizens orders may banish")));
             }
         }
         return new Page.Profile(Optional.of(p.id()), Component.literal(personName(p)),
@@ -386,11 +408,16 @@ public final class CitizenViews {
         seen.add(p.id());
         while (!queue.isEmpty() && nodes.size() < TREE_MAX) {
             Person x = queue.poll();
-            String detail = x.alive() ? title(Races.of(x.type())) + Colonists.age(x, now)
-                    .map(a -> ", " + (int) Math.floor(a)).orElse("") : title(Races.of(x.type())) + " †";
+            Optional<Left> left = x.get(ColonistData.LEFT);
+            String detail = !x.alive() ? title(Races.of(x.type())) + ", " + tr("tree.dead", "dead").getString()
+                    : left.isPresent() ? title(Races.of(x.type())) + ", " + (Left.BANISHED.equals(left.get().why())
+                            ? tr("tree.banished", "banished") : tr("tree.abandoned", "left")).getString()
+                    : title(Races.of(x.type())) + Colonists.age(x, now).map(a -> ", " + (int) Math.floor(a))
+                            .orElse("");
             boolean ours = x.alive() && Society.colonyOf(server, x).map(o -> o.id().equals(c.id())).orElse(false);
+            String mark = !x.alive() ? Page.TreeNode.DEAD : left.isPresent() ? Page.TreeNode.LEFT : "";
             nodes.add(new Page.TreeNode(x.id().toString(), Component.literal(personName(x)),
-                    Component.literal(detail), x.alive(), ours));
+                    Component.literal(detail), x.alive(), ours, mark));
             Optional<Kin> kin = x.get(ColonistData.KIN);
             if (kin.isEmpty()) {
                 continue;
@@ -566,7 +593,8 @@ public final class CitizenViews {
     }
 
     private static String nameOf(MinecraftServer server, UUID id) {
-        return Society.person(server, id).map(x -> personName(x) + (x.alive() ? "" : " †")).orElse("?");
+        return Society.person(server, id).map(x -> personName(x) + (!x.alive() ? " \u2020"
+                : x.has(ColonistData.LEFT) ? " \u2192" : "")).orElse("?");
     }
 
     // ---------------------------------------------------------------- orders

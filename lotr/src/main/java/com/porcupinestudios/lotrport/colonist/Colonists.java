@@ -406,6 +406,41 @@ public final class Colonists {
         return TaskRules.queue(ColonistData.tasks(), taskState(p, all, foodPlace, dayTime));
     }
 
+    // ---------------------------------------------------------------- leaving
+
+    /** Whether anyone is linked to them: parents, a spouse or children. */
+    public static boolean hasFamily(Person p) {
+        Optional<Kin> k = p.get(ColonistData.KIN);
+        return k.isPresent() && (!k.get().parents().isEmpty() || k.get().spouse().isPresent()
+                || !k.get().children().isEmpty());
+    }
+
+    /**
+     * A citizen leaves their colony ({@link Left#ABANDONED} or {@link Left#BANISHED}). Someone with family is kept,
+     * owned by nobody and marked {@link Left}, so their family tree still shows them; anyone else is forgotten, as
+     * before. Their body, if loaded, goes.
+     */
+    public static void depart(MinecraftServer server, com.porcupinestudios.lotrport.colony.Colony colony, Person p,
+            String why, long now) {
+        for (net.minecraft.server.level.ServerLevel level : server.getAllLevels()) {
+            net.minecraft.world.entity.Entity body = level.getEntity(p.id());
+            if (body != null) {
+                body.discard();
+            }
+        }
+        Persons persons = Persons.get(server);
+        if (!hasFamily(p)) {
+            persons.remove(server, p.id());
+            return;
+        }
+        persons.setQuiet(p, WorkComponents.JOB, null);
+        persons.setQuiet(p, WorkComponents.HOME, null);
+        persons.setQuiet(p, ColonistData.ORDERS, null);
+        persons.setQuiet(p, CoreComponents.CITIZEN, null);
+        persons.setQuiet(p, ColonistData.LEFT, new Left(colony.id(), why, now));
+        persons.setOwner(server, p, com.porcupinestudios.lotrport.society.Owner.NONE, why);
+    }
+
     public static Orders orders(Person p) {
         return p.get(ColonistData.ORDERS).orElse(Orders.DEFAULT);
     }

@@ -25,6 +25,8 @@ final class TreePane {
     private static final float MAX_ZOOM = 2.5f;
     /** A press that moves less than this is a click, not a drag. */
     private static final double CLICK_SLOP = 3;
+    /** The hint line at the box's foot. */
+    private static final int HINT_H = 12;
 
     private final UiScreen screen;
     private Page.Tree tree;
@@ -40,8 +42,11 @@ final class TreePane {
     private int bw;
     private int bh;
     private boolean pressed;
-    /** Whether the view was fitted to the box yet (done on the first frame, when the box size is known). */
-    private boolean fitted;
+    /**
+     * Whether the player has moved the view. Until then it is fitted and centred every frame, so it stays centred
+     * whatever size the box turns out (window resizes, the first frames).
+     */
+    private boolean touched;
     private double pressX;
     private double pressY;
     private double moved;
@@ -57,7 +62,7 @@ final class TreePane {
         tree = t;
         if (!same) {
             layout();
-            fitted = false;
+            touched = false;
         }
     }
 
@@ -154,7 +159,7 @@ final class TreePane {
         by = y;
         bw = w;
         bh = h;
-        if (!fitted) {
+        if (!touched) {
             fit();
         }
         ui.sprite(UiTheme.INSET, x, y, w, h);
@@ -199,7 +204,8 @@ final class TreePane {
             if (over) {
                 hover = n;
             }
-            int fill = focus ? 0xFFE6CF7E : n.alive() ? 0xFFF3E7CF : 0xFFC9BFAF;
+            boolean left = Page.TreeNode.LEFT.equals(n.mark());
+            int fill = focus ? 0xFFE6CF7E : !n.alive() ? 0xFFC9BFAF : left ? 0xFFC8D3DA : 0xFFF3E7CF;
             g.fill(p[0], p[1], p[0] + NODE_W, p[1] + NODE_H, over && n.openable() ? 0xFF4A2E17 : 0xFF8A6F52);
             g.fill(p[0] + 1, p[1] + 1, p[0] + NODE_W - 1, p[1] + NODE_H - 1, fill);
             String name = ui.fit(n.name().getString(), NODE_W - 6);
@@ -208,6 +214,13 @@ final class TreePane {
                     false);
             g.drawString(ui.font, detail, p[0] + (NODE_W - ui.font.width(detail)) / 2, p[1] + 12,
                     UiTheme.ON_LIGHT[1], false);
+            // the badge: a cross for the dead, an arrow out for those who left the colony
+            String badge = Page.TreeNode.DEAD.equals(n.mark()) ? "\u2020" : left ? "\u2192" : "";
+            if (!badge.isEmpty()) {
+                int bwd = ui.font.width(badge) + 3;
+                g.fill(p[0] + NODE_W - bwd - 1, p[1] + 1, p[0] + NODE_W - 1, p[1] + 10, left ? 0xFF5B7A8C : 0xFF6B5B4B);
+                g.drawString(ui.font, badge, p[0] + NODE_W - bwd + 1, p[1] + 2, 0xFFFFFFFF, false);
+            }
         }
         g.pose().popPose();
         ui.unclip();
@@ -221,7 +234,6 @@ final class TreePane {
 
     /** Zooms out (never in past 1) so the whole family fits, centred. */
     private void fit() {
-        fitted = true;
         int minX = Integer.MAX_VALUE;
         int minY = Integer.MAX_VALUE;
         int maxX = Integer.MIN_VALUE;
@@ -237,8 +249,9 @@ final class TreePane {
         }
         float fit = Math.min((bw - 16f) / (maxX - minX), (bh - 24f) / (maxY - minY));
         zoom = Math.max(MIN_ZOOM, Math.min(1, fit));
+        // the middle of the family on the middle of the box, above the hint line at its foot
         panX = -(minX + maxX) / 2.0;
-        panY = -(minY + maxY) / 2.0 - 4 / zoom;
+        panY = -(minY + maxY) / 2.0 - HINT_H / 2.0 / zoom;
     }
 
     /** Screen point to tree units. */
@@ -265,6 +278,7 @@ final class TreePane {
             return;
         }
         moved += Math.abs(dx) + Math.abs(dy);
+        touched = true;
         panX += dx / zoom;
         panY += dy / zoom;
     }
@@ -298,6 +312,7 @@ final class TreePane {
         if (!contains(mx, my)) {
             return false;
         }
+        touched = true;
         double[] before = toTree(mx, my);
         zoom = Math.max(MIN_ZOOM, Math.min(MAX_ZOOM, zoom * (float) Math.pow(1.15, Math.signum(amount))));
         double[] after = toTree(mx, my);
