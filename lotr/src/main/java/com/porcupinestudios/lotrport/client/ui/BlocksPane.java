@@ -23,8 +23,8 @@ final class BlocksPane {
     static final int WHITE = 0xFFFFFFFF;
     static final int INPUT_TEXT = 0xFF575E75;
 
-    static final int CATS_W = 58;
-    static final int LIST_W = 170;
+    static final int CATS_W = 44;
+    static final int LIST_W = 128;
 
     private final UiScreen screen;
     private Page.Blocks page;
