@@ -57,8 +57,8 @@ public final class CaravanRules {
             }
             int floor = Math.max(keep.applyAsInt(a.item()), a.excess() ? a.over() : 0);
             int spare = Math.max(0, have.applyAsInt(a.item()) - out.getOrDefault(a.item(), 0) - floor);
-            int want = a.excess() ? (a.count() > 0 ? a.count() : Integer.MAX_VALUE) : a.count();
-            int n = Math.min(Math.min(want, spare), room);
+            int cap = a.excess() ? (a.count() > 0 ? a.count() : Integer.MAX_VALUE) : a.count();
+            int n = Math.min(Math.min(cap, spare), room);
             if (n > 0) {
                 out.merge(a.item(), n, Integer::sum);
                 room -= n;
