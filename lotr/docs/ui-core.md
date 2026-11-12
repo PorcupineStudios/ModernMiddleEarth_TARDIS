@@ -43,7 +43,7 @@ Search, filters, sorting and scrolling happen on the client (`TableQuery`), so t
 - `View(id, context, title, tabs, tab, page, back)`. `id` is the provider; `context` says what it is about (a
   colony's UUID as text; empty for views about the player). `back` adds a Back button to another view.
   `View.Target(view, context, tab)` names a place to go.
-- `Page` is sealed: `Page.Table`, `Page.Stats` or `Page.Profile`. Add a page kind by adding a record to the `permits` list, a case in
+- `Page` is sealed: `Page.Table`, `Page.Stats`, `Page.Profile` or `Page.Timetable`. Add a page kind by adding a record to the `permits` list, a case in
   `UiCodecs.writePage`/`readPage` (bump `UiNet.VERSION`), and a pane in `client/ui/` drawn from `UiScreen.init`.
 - `Page.Table(columns, filters, rows, sortColumn, descending, open, rowActions, buttons, total, empty)`:
   - `Column(id, label, weight, align, numeric, searchable)`: width is `weight` against the other columns. Numeric
@@ -64,7 +64,12 @@ Search, filters, sorting and scrolling happen on the client (`TableQuery`), so t
 - `Page.Profile(portrait, name, rename, subtitle, left, right, buttons)`: one person up close. `portrait` is an entity
   UUID: the client draws that body's head and shoulders (following the mouse) when it is loaded there, else "Far
   away". `rename` is the action a new name goes back with, as the row (the screen's one text input; empty: no Rename
-  button). `left` and `right` are sections in two columns, scrolled together with the wheel.
+  button). `left` and `right` are sections in two columns, scrolled together (wheel or the scroll bar).
+- `Page.Timetable(kinds, lines, paint, rowActions, buttons, notes)`: ONI's schedule grid. `Kind(letter, label,
+  swatch, paintable)`: what a cell can be; `swatch` 0-7 picks a theme colour (`UiTheme.SWATCHES`), so colours stay on
+  the client. `Line(id, label, detail, cells, editable)`: 24 letters; non-editable lines are drawn faded (a race's
+  hours). Painting a cell sends `paint` with the line id as the row and `hour * 16 + kind index`; the client shows it
+  at once. Row actions act on the line whose name was clicked.
 - `Action(id, label, enabled, why, confirm)`: disabled actions are drawn greyed with `why` as a tooltip, so players
   see what exists and why they can't. `confirm` asks "Are you sure?" first.
 - `Tone`: NORMAL, MUTED, GOOD, WARN, BAD. The server says how text reads; the client picks colours for brown or beige
@@ -127,6 +132,10 @@ Rules for providers:
   selects a row, a double click sends `open`.
 - `StatsPane`: sections in one column, or two when the page is 300+ wide (each section goes to the shorter column).
   `Sections` draws the lines for it and for `ProfilePane` (labels cut with a tooltip, short values right-aligned).
+- `ScrollBar`: track + handle sprites, drag (through `UiScreen.Draggable`) and wheel; used by stats, profile,
+  timetable and long choice lists, so nothing overflows its box. Tables keep their own (`TablePane`).
+- `TimetablePane`: palette (or a legend for those who may not paint), hour ruler with the current hour marked, rows,
+  notes; click or drag to paint (`UiScreen.mouseDragged`), refreshes wait until the drag ends.
 - `ProfilePane`: portrait (`InventoryScreen.renderEntityInInventoryFollowsMouse`, scale and offset so the top 42% of
   the body fills the box), name at 1.5x with Rename (`UiScreen.startRename` puts an `EditBox` over it: Enter sends,
   Escape or a click elsewhere drops it), the subtitle, then the two columns with a thin scroll bar when they overflow.
@@ -161,7 +170,16 @@ panels and insets, the beige arrows and icons.
 first); filter by ruled / served; Manage (or double-click) opens it, with Back to the list. The colony view only has
 Back when you belong to more than one colony.
 
-`lotr_port:citizen`, context = `<colony id>/<person id>` (`CitizenViews`), for members; Back returns to People:
+`lotr_port:colony` also has a **Schedules** tab (`ScheduleViews`): a row per colony schedule (with how many keep it),
+the four blocks to paint, New schedule (max 12) and Remove (the first can't be removed), each race's preferred hours
+as faded rows and a note per race. Changes need `citizens`.
+
+`lotr_port:citizen`, context = `<colony id>/<person id>` (`CitizenViews`), for members; Back returns to People. Tabs:
+Overview (needs incl. energy, orders), Tasks (right now: hour and block, energy and food now; the queue with
+priorities or why each task waits), Mood (mood bar, the colony's part, every thought), Schedule (the race's hours,
+the last day: slept, worked and output, leisure, odd hours, lowest energy; which schedule they keep and its spans;
+Edit schedules), About (traits, purse, family). `/lotr_colony manage [tab]` and `/lotr_colony citizen <npc> [tab]`
+open a tab directly. The table below is what the tabs hold:
 
 | Part | Shows | Changes (permission `citizens`: stewards, rulers) |
 |---|---|---|
