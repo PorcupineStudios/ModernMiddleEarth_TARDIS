@@ -138,18 +138,17 @@ public final class CaravanViews {
                 .column(Column.text("take", tr("caravan.col.take", "Takes"), 4), r -> Cell.text(goods(r.send())))
                 .column(Column.text("bring", tr("caravan.col.bring", "Brings"), 4), r -> Cell.text(goods(r
                         .bring())))
-                .column(Column.text("status", tr("caravan.col.status", "On the road"), 3), r -> out(server, c,
+                .column(Column.text("status", tr("caravan.col.status", "Status"), 3), r -> out(server, c,
                         r.id()).map(j -> Cell.text(status(server, j), Tone.GOOD)).orElse(Cell.text("-", Tone.MUTED)))
                 .open("edit")
-                .rowAction(Action.of("edit", tr("caravan.edit", "Edit")))
                 .rowAction(may ? Action.of("send", tr("caravan.send", "Send now"))
                         : Action.disabled("send", tr("caravan.send", "Send now"), why))
                 .rowAction(may ? Action.of("delete", tr("caravan.delete", "Delete")).confirmed()
                         : Action.disabled("delete", tr("caravan.delete", "Delete"), why))
                 .button(may ? Action.of("new_route", tr("caravan.new", "New caravan"))
                         : Action.disabled("new_route", tr("caravan.new", "New caravan"), why))
-                .button(Action.of("trade", tr("caravan.trades", "Trades & floors")))
-                .empty(tr("caravan.none", "No caravans yet: New caravan sets one up"))
+                .button(Action.of("trade", tr("caravan.trades", "Trades")))
+                .empty(tr("caravan.none", "No caravans yet: New caravan sets one up. Double-click one to edit it"))
                 .build();
     }
 

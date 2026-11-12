@@ -31,7 +31,8 @@ import net.minecraft.server.level.ServerPlayer;
  * <li>{@code /lotr_colony caravan list}: caravans out now.</li>
  * </ul>
  * Goods are written {@code item*count,item*count} ({@code -} for none), e.g. {@code bread*64,lotr_port:mithril*2};
- * {@code bread>200} is everything over 200, {@code bread>200*64} at most 64 of it.
+ * {@code bread>200} is everything over 200, {@code bread>200*64} at most 64 of it. Put goods with {@code *} or
+ * {@code >} in quotes: {@code "bread*64"}.
  */
 public final class CaravanCommand {
     private CaravanCommand() {}
