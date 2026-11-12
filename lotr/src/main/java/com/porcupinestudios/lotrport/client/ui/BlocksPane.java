@@ -68,6 +68,8 @@ final class BlocksPane {
     private int dragH;
     /** The block being moved: left out of the script while it is carried (its space closes up, as in Scratch). */
     private String carried;
+    /** Non-zero while drawing the landing shadow: every shape in this grey, no words or inputs. */
+    private int ghost;
 
     BlocksPane(UiScreen screen, Page.Blocks page) {
         this.screen = screen;
@@ -258,8 +260,8 @@ final class BlocksPane {
         if (b.shape().equals("bool")) {
             return bool(ui, b, x, y, maxW, draw);
         }
-        int color = b.color();
-        int dark = darker(color);
+        int color = ghost != 0 ? ghost : b.color();
+        int dark = ghost != 0 ? ghost : darker(color);
         if (b.shape().equals("stack")) {
             int[] row = row(ui, b.head(), x + PAD, y, maxW - 2 * PAD, false, b);
             int bw = Math.max(row[0] + 2 * PAD, 60);
@@ -322,7 +324,9 @@ final class BlocksPane {
             Page.Arm a = b.arms().get(i);
             if (i > 0) {
                 body(ui, x, cy, bw, armSizes[i][0], color, dark, false);
-                ui.text(a.label(), x + PAD, cy + (armSizes[i][0] - 8) / 2, WHITE);
+                if (ghost == 0) {
+                    ui.text(a.label(), x + PAD, cy + (armSizes[i][0] - 8) / 2, WHITE);
+                }
                 menu(ui, b, x, cy, bw, armSizes[i][0]);
                 cy += armSizes[i][0];
             }
@@ -342,7 +346,7 @@ final class BlocksPane {
                 drops.add(new Drop(x + ARM, by, bw - ARM, 0, a.id() + ":" + slot, "stack"));
             }
             by += space(a.id() + ":" + slot);
-            if (a.add().isPresent()) {
+            if (a.add().isPresent() && ghost == 0) {
                 Stat.Picker pk = a.add().get();
                 int aw = ui.font.width("+ add") + 16;
                 int ax = x + ARM + 2;
@@ -366,7 +370,7 @@ final class BlocksPane {
         int point = Math.min(10, bh / 2);
         int bw = row[0] + 2 * point + 4;
         if (draw) {
-            hex(ui, x, y, bw, bh, b.color(), darker(b.color()));
+            hex(ui, x, y, bw, bh, ghost != 0 ? ghost : b.color(), ghost != 0 ? ghost : darker(b.color()));
             grab(b, x, y, bw, bh);
             menu(ui, b, x, y, bw, bh);
             row(ui, b.head(), x + point + 2, y + (bh - row[1]) / 2, maxW - 20, true, b);
@@ -426,6 +430,10 @@ final class BlocksPane {
     }
 
     private int[] part(Imm ui, Page.Part p, int x, int y, int maxW, boolean draw, Page.Block owner) {
+        if (draw && ghost != 0 && p.kind() != 3) {
+            // the shadow: measure only
+            return part(ui, p, x, y, maxW, false, owner);
+        }
         switch (p.kind()) {
             case 1 -> {
                 Stat.Picker pk = p.picker().orElseThrow();
@@ -641,11 +649,17 @@ final class BlocksPane {
             } else {
                 // a grey shadow of the block in the gap the others moved aside for
                 int gh = space(aim.target());
-                if (gh > 2) {
-                    int[] gs = block(ui, g.block(), 0, 0, 400, false);
+                if (gh > dragH / 2) {
                     int top = aim.target().startsWith("script:") ? aim.y() + 5 : aim.y();
-                    ui.g.fill(aim.x(), top, aim.x() + Math.min(gs[0], aim.w()), top + Math.min(gh - 4, gs[1]),
-                            0x55000000);
+                    int gb = grabs.size();
+                    int db = drops.size();
+                    ghost = 0xFFB4B4B4;
+                    ui.layer = 0;
+                    block(ui, g.block(), aim.x(), top, aim.w(), true);
+                    ui.layer = 1;
+                    ghost = 0;
+                    grabs.subList(gb, grabs.size()).clear();
+                    drops.subList(db, drops.size()).clear();
                 }
             }
         }
