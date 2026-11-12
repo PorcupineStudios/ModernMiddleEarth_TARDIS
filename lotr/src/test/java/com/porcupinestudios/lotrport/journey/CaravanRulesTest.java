@@ -24,6 +24,22 @@ class CaravanRulesTest {
     }
 
     @Test
+    void theExcessOverANumber() {
+        Map<String, Integer> l = CaravanRules.load(List.of(new CaravanRules.Amount("bread", 0, 30)), i -> 100,
+                i -> 0, 1000);
+        assertEquals(70, l.get("bread"), "all above 30");
+        l = CaravanRules.load(List.of(new CaravanRules.Amount("bread", 50, 30)), i -> 100, i -> 0, 1000);
+        assertEquals(50, l.get("bread"), "capped at 50");
+        l = CaravanRules.load(List.of(new CaravanRules.Amount("bread", 0, 30)), i -> 100, i -> 80, 1000);
+        assertEquals(20, l.get("bread"), "a higher floor wins");
+        assertEquals(Map.of(), CaravanRules.load(List.of(new CaravanRules.Amount("bread", 0, 30)), i -> 25,
+                i -> 0, 1000), "nothing over");
+        CaravanRules.Trigger t = new CaravanRules.Trigger(null, "bread", false, 10);
+        assertEquals(true, t.met(9));
+        assertEquals(false, t.met(10));
+    }
+
+    @Test
     void tradesByOfferStockLimitAndRoom() {
         CaravanRules.Offer wool = new CaravanRules.Offer(a("wool", 2), a("bread", 1), 0, 0);
         CaravanRules.Trade t = CaravanRules.trade(Map.of("bread", 10), List.of(wool), i -> i.equals("wool") ? 10 : 0,

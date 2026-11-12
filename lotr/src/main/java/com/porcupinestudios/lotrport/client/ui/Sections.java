@@ -42,11 +42,11 @@ final class Sections {
                 boolean up = st.value() < st.max();
                 boolean down = st.value() > st.min();
                 drawArrow(ui, right - a, y + 1, a, UiTheme.ARROW_RIGHT, up,
-                        () -> screen.send(st.action(), "", Math.min(st.max(), st.value() + st.step())));
+                        () -> screen.send(st.action(), "", Math.min(st.max(), st.value() + st.step() * fast())));
                 int vw = Math.max(24, ui.font.width(s.value()) + 6);
                 ui.text(s.value(), right - a - 2 - vw, y, vw, 11, 0, valueColor);
                 drawArrow(ui, right - a - 4 - vw - a, y + 1, a, UiTheme.ARROW_LEFT, down,
-                        () -> screen.send(st.action(), "", Math.max(st.min(), st.value() - st.step())));
+                        () -> screen.send(st.action(), "", Math.max(st.min(), st.value() - st.step() * fast())));
             } else {
                 // a short value leaves the label more room (thoughts are long, their numbers short)
                 int vw = Math.min(w / 2, ui.font.width(s.value()) + 4);
@@ -65,6 +65,12 @@ final class Sections {
             }
         }
         return y;
+    }
+
+    /** Steppers move 10 steps with Shift and 64 with Ctrl, so big numbers (goods) are quick to reach. */
+    static int fast() {
+        return net.minecraft.client.gui.screens.Screen.hasControlDown() ? 64
+                : net.minecraft.client.gui.screens.Screen.hasShiftDown() ? 10 : 1;
     }
 
     /** How tall {@link #draw} makes a section. */

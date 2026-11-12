@@ -136,7 +136,7 @@ public final class Caravans {
     }
 
     /** Standing routes that are due set out. */
-    static void runRoutes(MinecraftServer server) {
+    public static void runRoutes(MinecraftServer server) {
         long day = server.overworld().getDayTime() / 24000L;
         for (Colony c : List.copyOf(Colonies.get(server).all())) {
             if (c.ai()) {
@@ -144,8 +144,7 @@ public final class Caravans {
             }
             CaravanBook b = book(c);
             for (CaravanBook.Route r : b.routes()) {
-                if (r.every() <= 0 || (r.lastDay() >= 0 && day - r.lastDay() < r.every())
-                        || onTheRoad(server, c, r.id())) {
+                if (!due(server, c, r, day) || onTheRoad(server, c, r.id())) {
                     continue;
                 }
                 Sent sent = send(server, c, r);
@@ -156,6 +155,21 @@ public final class Caravans {
                 tell(server, c, sent.why());
             }
         }
+    }
+
+    /** Whether a standing route should set out now: its days are up, or its trigger holds. */
+    static boolean due(MinecraftServer server, Colony home, CaravanBook.Route r, long day) {
+        if (r.when().isPresent()) {
+            CaravanRules.Trigger t = r.when().get();
+            Optional<Colony> watched = Colonies.get(server).get(t.colony());
+            if (watched.isEmpty() || !watched.get().founder().equals(home.founder())
+                    && !watched.get().id().equals(r.to())) {
+                return false; // only your own colonies, or where the route goes
+            }
+            Stores st = new Stores(server, server.getLevel(watched.get().dimension()), watched.get());
+            return t.met(st.count(id(t.item()), null));
+        }
+        return r.every() > 0 && (r.lastDay() < 0 || day - r.lastDay() >= r.every());
     }
 
     /** A caravan of this route is still out. */

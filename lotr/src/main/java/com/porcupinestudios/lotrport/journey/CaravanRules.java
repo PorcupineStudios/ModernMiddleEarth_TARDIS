@@ -12,8 +12,26 @@ import java.util.function.ToIntFunction;
 public final class CaravanRules {
     private CaravanRules() {}
 
-    /** An item and how many. */
-    public record Amount(String item, int count) {}
+    /**
+     * An item and how many: a fixed {@code count}, or with {@code over} 0 or more, everything above {@code over}
+     * (capped at {@code count} when that is above 0): "send the excess over 200".
+     */
+    public record Amount(String item, int count, int over) {
+        public Amount(String item, int count) {
+            this(item, count, -1);
+        }
+
+        public boolean excess() {
+            return over >= 0;
+        }
+    }
+
+    /** "When {@code colony}'s {@code item} is below (or above) {@code threshold}": a route that goes on its own. */
+    public record Trigger(java.util.UUID colony, String item, boolean above, int threshold) {
+        public boolean met(int have) {
+            return above ? have > threshold : have < threshold;
+        }
+    }
 
     /**
      * A standing trade a colony offers caravans from friendly colonies: for every {@code want} delivered it gives
@@ -37,9 +55,10 @@ public final class CaravanRules {
             if (room <= 0) {
                 break;
             }
-            int spare = Math.max(0, have.applyAsInt(a.item()) - out.getOrDefault(a.item(), 0)
-                    - keep.applyAsInt(a.item()));
-            int n = Math.min(Math.min(a.count(), spare), room);
+            int floor = Math.max(keep.applyAsInt(a.item()), a.excess() ? a.over() : 0);
+            int spare = Math.max(0, have.applyAsInt(a.item()) - out.getOrDefault(a.item(), 0) - floor);
+            int want = a.excess() ? (a.count() > 0 ? a.count() : Integer.MAX_VALUE) : a.count();
+            int n = Math.min(Math.min(want, spare), room);
             if (n > 0) {
                 out.merge(a.item(), n, Integer::sum);
                 room -= n;
