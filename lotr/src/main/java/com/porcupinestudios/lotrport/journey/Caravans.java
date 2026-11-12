@@ -139,10 +139,10 @@ public final class Caravans {
     public static void runRoutes(MinecraftServer server) {
         long day = server.overworld().getDayTime() / 24000L;
         for (Colony c : List.copyOf(Colonies.get(server).all())) {
-            if (c.ai()) {
+            CaravanBook b = book(c);
+            if (b.routes().isEmpty()) {
                 continue;
             }
-            CaravanBook b = book(c);
             for (CaravanBook.Route r : b.routes()) {
                 if (!due(server, c, r, day) || onTheRoad(server, c, r.id())) {
                     continue;
