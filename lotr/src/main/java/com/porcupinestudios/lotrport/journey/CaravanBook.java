@@ -25,17 +25,31 @@ public record CaravanBook(List<Route> routes, List<CaravanRules.Offer> offers, M
      * @param send what it loads at home and takes there
      * @param bring what it loads there and brings home: from your own colony as it is, from another's only through
      *     that colony's trade offers (see {@code sell})
-     * @param every send one every this many days (0: only when sent by hand)
+     * @param every send one every this many days (0: only by hand, or by {@code when})
      * @param people how many colonists go
      * @param sell at another's colony: bring home what didn't trade (true) or leave it there as supplies (false)
      * @param lastDay the day the last one set out
+     * @param when sets out by itself while this holds (and none of this route is on the road)
      */
     public record Route(int id, UUID to, List<CaravanRules.Amount> send, List<CaravanRules.Amount> bring, int every,
-            int people, boolean sell, long lastDay) {
+            int people, boolean sell, long lastDay, Optional<CaravanRules.Trigger> when) {
+        public Route(int id, UUID to, List<CaravanRules.Amount> send, List<CaravanRules.Amount> bring, int every,
+                int people, boolean sell, long lastDay) {
+            this(id, to, send, bring, every, people, sell, lastDay, Optional.empty());
+        }
+
         public static final Codec<CaravanRules.Amount> AMOUNT = RecordCodecBuilder.create(i -> i.group(
                 Codec.STRING.fieldOf("item").forGetter(CaravanRules.Amount::item),
-                Codec.INT.fieldOf("count").forGetter(CaravanRules.Amount::count))
+                Codec.INT.optionalFieldOf("count", 0).forGetter(CaravanRules.Amount::count),
+                Codec.INT.optionalFieldOf("over", -1).forGetter(CaravanRules.Amount::over))
                 .apply(i, CaravanRules.Amount::new));
+
+        public static final Codec<CaravanRules.Trigger> TRIGGER = RecordCodecBuilder.create(i -> i.group(
+                UUIDUtil.CODEC.fieldOf("colony").forGetter(CaravanRules.Trigger::colony),
+                Codec.STRING.fieldOf("item").forGetter(CaravanRules.Trigger::item),
+                Codec.BOOL.optionalFieldOf("above", false).forGetter(CaravanRules.Trigger::above),
+                Codec.INT.optionalFieldOf("threshold", 0).forGetter(CaravanRules.Trigger::threshold))
+                .apply(i, CaravanRules.Trigger::new));
 
         public static final Codec<Route> CODEC = RecordCodecBuilder.create(i -> i.group(
                 Codec.INT.fieldOf("id").forGetter(Route::id),
@@ -45,11 +59,17 @@ public record CaravanBook(List<Route> routes, List<CaravanRules.Offer> offers, M
                 Codec.INT.optionalFieldOf("every", 0).forGetter(Route::every),
                 Codec.INT.optionalFieldOf("people", 1).forGetter(Route::people),
                 Codec.BOOL.optionalFieldOf("sell", false).forGetter(Route::sell),
-                Codec.LONG.optionalFieldOf("last_day", -1L).forGetter(Route::lastDay))
+                Codec.LONG.optionalFieldOf("last_day", -1L).forGetter(Route::lastDay),
+                TRIGGER.optionalFieldOf("when").forGetter(Route::when))
                 .apply(i, Route::new));
 
         public Route sentOn(long day) {
-            return new Route(id, to, send, bring, every, people, sell, day);
+            return new Route(id, to, send, bring, every, people, sell, day, when);
+        }
+
+        /** Manual (only by hand), every N days, or when its trigger is met. */
+        public String mode() {
+            return when.isPresent() ? "when" : every > 0 ? "every" : "manual";
         }
     }
 

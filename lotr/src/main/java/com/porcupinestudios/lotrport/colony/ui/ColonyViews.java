@@ -78,6 +78,7 @@ public final class ColonyViews {
         Views.register(COLONY, new ColonyProvider());
         Views.register(COLONIES, new ColoniesProvider());
         CitizenViews.register();
+        CaravanViews.register();
     }
 
     /** Opens a colony's view for a player (the Hall's Manage button, the command). */
@@ -139,6 +140,7 @@ public final class ColonyViews {
                     new View.Tab(PEOPLE, tr("tab.people", "People")),
                     new View.Tab(SCHEDULES, tr("tab.schedules", "Schedules")),
                     new View.Tab(STOCK, tr("tab.stock", "Stock")),
+                    new View.Tab(CaravanViews.TAB, tr("tab.caravans", "Caravans")),
                     new View.Tab(MEMBERS, tr("tab.members", "Members")));
             String open = tabs.stream().anyMatch(t -> t.id().equals(tab)) ? tab : OVERVIEW;
             Page page = switch (open) {
@@ -146,6 +148,7 @@ public final class ColonyViews {
                 case PEOPLE -> people(player.server, c);
                 case STOCK -> stock(c);
                 case SCHEDULES -> ScheduleViews.page(player, c);
+                case CaravanViews.TAB -> CaravanViews.tab(player, c);
                 case MEMBERS -> members(player, c);
                 default -> overview(player, c);
             };
@@ -165,6 +168,12 @@ public final class ColonyViews {
             Colony c = colony(player.server, context).orElse(null);
             if (c == null) {
                 return Result.NONE;
+            }
+            if (tab.equals(CaravanViews.TAB)) {
+                Optional<Result> caravan = CaravanViews.tabAct(player, c, action, row);
+                if (caravan.isPresent()) {
+                    return caravan.get();
+                }
             }
             Optional<Result> schedule = ScheduleViews.act(player, c, action, row, value);
             if (schedule.isPresent()) {

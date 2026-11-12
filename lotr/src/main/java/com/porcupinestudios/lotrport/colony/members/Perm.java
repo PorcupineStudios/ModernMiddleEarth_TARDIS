@@ -32,8 +32,11 @@ public final class Perm {
     /** Rename citizens and give them orders: where to work and live, work or rest, their ration. */
     public static final String CITIZENS = "citizens";
 
+    /** Send caravans, set up routes, trade offers and floors. */
+    public static final String CARAVANS = "caravans";
+
     public static final List<String> ALL = List.of(BUILD, CONTAINERS, DOORS, COMMAND, STATION, MIGRANTS, MEMBERS,
-            BANNERS, TREASURY, WAR, MAP, CITIZENS);
+            BANNERS, TREASURY, WAR, MAP, CITIZENS, CARAVANS);
 
     private Perm() {}
 }

@@ -100,6 +100,21 @@ public final class Stores {
         return n;
     }
 
+    /** Every plain item in the stores and the stock, with how many (the workplace's chests too, if given). */
+    public Map<ResourceLocation, Integer> items(Building workplace) {
+        Map<ResourceLocation, Integer> out = new LinkedHashMap<>(stock);
+        for (IItemHandler h : places(workplace)) {
+            for (int i = 0; i < h.getSlots(); i++) {
+                ItemStack s = h.getStackInSlot(i);
+                if (!s.isEmpty() && s.getComponentsPatch().isEmpty()) {
+                    out.merge(BuiltInRegistries.ITEM.getKey(s.getItem()), s.getCount(), Integer::sum);
+                }
+            }
+        }
+        out.values().removeIf(n -> n <= 0);
+        return out;
+    }
+
     /** Takes up to n plain items; returns how many. */
     public int take(ResourceLocation item, int n, Building workplace) {
         Item it = BuiltInRegistries.ITEM.get(item);
