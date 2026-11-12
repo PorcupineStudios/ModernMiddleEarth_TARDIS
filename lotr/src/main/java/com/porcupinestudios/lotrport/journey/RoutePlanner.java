@@ -23,6 +23,9 @@ public final class RoutePlanner {
      */
     public record Settings(int cell, int sample, double roadSpeed, int margin, int maxNodes) {}
 
+    /** Cells the last search opened, and whether it ran out of {@code maxNodes} (for logs and tests). */
+    public static volatile String lastSearch = "";
+
     private RoutePlanner() {}
 
     private static final int[][] STEPS = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}, {1, 1}, {1, -1}, {-1, 1}, {-1, -1}};
@@ -89,6 +92,8 @@ public final class RoutePlanner {
                 }
             }
         }
+        lastSearch = "opened " + opened + " of " + s.maxNodes() + ", box " + (maxI - minI + 1) + "x" + (maxJ - minJ + 1)
+                + (reached ? ", reached" : open.isEmpty() ? ", no way" : ", ran out");
         if (!best.containsKey(goal)) {
             return Route.NONE;
         }

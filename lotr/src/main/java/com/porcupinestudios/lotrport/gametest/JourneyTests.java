@@ -87,7 +87,8 @@ public final class JourneyTests {
         });
         helper.succeedWhen(() -> {
             helper.assertTrue(j.stage != Journey.Stage.PLANNING, "still planning");
-            helper.assertTrue(j.route.found(), "no route from " + fa + " to " + fb);
+            helper.assertTrue(j.route.found(), "no route from " + fa + " to " + fb + " ("
+                    + com.porcupinestudios.lotrport.journey.RoutePlanner.lastSearch + ")");
             helper.assertTrue(ARRIVED.get() > before, "not there yet: " + (int) j.done + " / "
                     + (int) j.route.total());
         });
