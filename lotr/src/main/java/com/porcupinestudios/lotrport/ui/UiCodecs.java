@@ -222,6 +222,12 @@ public final class UiCodecs {
                 opt(buf, bl.add(), UiCodecs::writePicker);
                 list(buf, bl.buttons(), UiCodecs::writeAction);
                 list(buf, bl.notes(), UiCodecs::text);
+                list(buf, bl.palette(), (b, c) -> {
+                    text(b, c.name());
+                    b.writeInt(c.color());
+                    list(b, c.blocks(), UiCodecs::writeBlock);
+                });
+                opt(buf, bl.drop(), UiCodecs::str);
             }
             case Page.Timetable t -> {
                 buf.writeByte(3);
@@ -286,28 +292,32 @@ public final class UiCodecs {
                 x.writeVarInt(st.step());
             });
             opt(bb, p.block(), UiCodecs::writeBlock);
+            str(bb, p.drop());
         });
         list(b, bl.arms(), (bb, a) -> {
             text(bb, a.label());
             list(bb, a.body(), UiCodecs::writeBlock);
             opt(bb, a.add(), UiCodecs::writePicker);
+            str(bb, a.id());
         });
         opt(b, bl.menu(), UiCodecs::writePicker);
+        str(b, bl.id());
     }
 
     static Page.Block readBlock(RegistryFriendlyByteBuf b) {
         return new Page.Block(str(b), b.readInt(), list(b, bb -> new Page.Part(bb.readByte(), text(bb),
                 opt(bb, UiCodecs::readPicker), opt(bb, x -> new Stat.Stepper(str(x), x.readInt(), x.readInt(),
-                        x.readInt(), x.readVarInt())), opt(bb, UiCodecs::readBlock))),
-                list(b, bb -> new Page.Arm(text(bb), list(bb, UiCodecs::readBlock), opt(bb, UiCodecs::readPicker))),
-                opt(b, UiCodecs::readPicker));
+                        x.readInt(), x.readVarInt())), opt(bb, UiCodecs::readBlock), str(bb))),
+                list(b, bb -> new Page.Arm(text(bb), list(bb, UiCodecs::readBlock), opt(bb, UiCodecs::readPicker),
+                        str(bb))), opt(b, UiCodecs::readPicker), str(b));
     }
 
     static Page readPage(RegistryFriendlyByteBuf buf) {
         byte kind = buf.readByte();
         if (kind == 4) {
             return new Page.Blocks(list(buf, UiCodecs::readBlock), opt(buf, UiCodecs::readPicker),
-                    list(buf, UiCodecs::readAction), list(buf, UiCodecs::text));
+                    list(buf, UiCodecs::readAction), list(buf, UiCodecs::text), list(buf, b -> new Page.Category(
+                            text(b), b.readInt(), list(b, UiCodecs::readBlock))), opt(buf, UiCodecs::str));
         }
         if (kind == 0) {
             return new Page.Table(list(buf, UiCodecs::readColumn), list(buf, UiCodecs::readGroup),

@@ -140,10 +140,18 @@ wait 5
 /lotr_colony caravan route edit 1 rules
 wait 60
 shot ui_caravan_rules
-mouse 320 200
-scroll 320 200 -12
+# the block menu: pick Goods, drag "take" into the rule
+press 55 180
+release
 wait 10
-shot ui_caravan_rules2
+shot ui_caravan_palette
+press 130 96
+move 330 260
+wait 10
+shot ui_caravan_drag
+release
+wait 30
+shot ui_caravan_dropped
 close
 wait 5
 /lotr_colony caravan route edit 3

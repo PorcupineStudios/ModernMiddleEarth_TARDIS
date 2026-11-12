@@ -438,6 +438,13 @@ public final class CaravanViews {
                 }
                 case "people" -> people = Math.max(1, Math.min(16, value));
                 case "sell" -> sell = row.equals("yes");
+                case "drop" -> {
+                    List<CaravanBook.Rule> next = RuleViews.drop(server, home, r, row);
+                    if (next == null) {
+                        return null;
+                    }
+                    rules = next;
+                }
                 case "rule_add", "rule_op", "c_set", "c_type", "c_field", "c_add", "o_add", "o_type", "o_field" -> {
                     List<CaravanBook.Rule> next = RuleViews.edit(server, home, r, field, colon > 0
                             ? action.substring(colon + 1) : "", row, value);

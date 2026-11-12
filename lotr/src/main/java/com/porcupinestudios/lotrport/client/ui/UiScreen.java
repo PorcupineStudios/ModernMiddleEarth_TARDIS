@@ -364,6 +364,9 @@ public class UiScreen extends Screen {
             profile.tree().press(mouseX, mouseY);
             return true;
         }
+        if (blocks != null && blocks.press(mouseX, mouseY)) {
+            return true;
+        }
         return ui.click(mouseX, mouseY);
     }
 
@@ -377,6 +380,9 @@ public class UiScreen extends Screen {
             timetable.paintAt(mouseX, mouseY);
             return true;
         }
+        if (blocks != null && blocks.drag(mouseX, mouseY)) {
+            return true;
+        }
         if (profile != null && profile.tree() != null && profile.tree().pressed()) {
             profile.tree().drag(dx, dy);
             return true;
@@ -387,6 +393,9 @@ public class UiScreen extends Screen {
     @Override
     public boolean mouseReleased(double mouseX, double mouseY, int button) {
         dragging = null;
+        if (blocks != null && blocks.release(ui, mouseX, mouseY)) {
+            return true;
+        }
         if (timetable != null) {
             timetable.stopPainting();
         }
@@ -410,7 +419,7 @@ public class UiScreen extends Screen {
         if (popup == null && stats != null && stats.scroll(mouseY, scrollY)) {
             return true;
         }
-        if (popup == null && blocks != null && blocks.scroll(mouseY, scrollY)) {
+        if (popup == null && blocks != null && blocks.scroll(mouseX, mouseY, scrollY)) {
             return true;
         }
         if (popup == null && timetable != null && timetable.scroll(mouseY, scrollY)) {
