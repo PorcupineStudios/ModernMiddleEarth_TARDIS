@@ -143,12 +143,14 @@ final class RuleViews {
                         : "it would wait") + ". Rules run top to bottom every 10 s; one caravan at a time."));
             }
             notes.add(Component.literal("Click a block's words to change, move or remove it; + slots add blocks."));
+            notes.add(Component.literal("Drag blocks from the menu on the left; drag a block back there to delete it."));
             return new Page.Blocks(script, Optional.of(new Stat.Picker("rule_add", "", List.of(
                     Stat.Choice.of("if", Component.literal("If ... then ... else ...")),
                     Stat.Choice.of("every", Component.literal("Every few days: send")),
                     Stat.Choice.of("low", Component.literal("When the destination runs low: top it up")),
                     Stat.Choice.of("excess", Component.literal("When home piles up: send the excess")),
-                    Stat.Choice.of("always", Component.literal("Every check: do ..."))))), List.of(), notes);
+                    Stat.Choice.of("always", Component.literal("Every check: do ..."))))), List.of(), notes,
+                    palette(), Optional.of("drop"));
         } finally {
             CURRENT_ITEMS.remove();
         }
@@ -169,20 +171,21 @@ final class RuleViews {
         List<Page.Part> head = new ArrayList<>();
         head.add(Page.Part.text(rule.edge() ? "when it changes, if" : "if"));
         if (rule.when().isPresent()) {
-            head.add(Page.Part.block(condBlock(server, home, r, RuleEditors.toJson(rule.when().get()), i + "/")));
+            head.add(Page.Part.block(condBlock(server, home, r, RuleEditors.toJson(rule.when().get()), i + "/"))
+                    .dropping("set:" + i + "/"));
         } else {
-            head.add(Page.Part.slot(new Stat.Picker("c_set:" + i, "", types(false))));
+            head.add(Page.Part.slot(new Stat.Picker("c_set:" + i, "", types(false))).dropping("set:" + i + "/"));
         }
         head.add(Page.Part.text("then"));
         List<Page.Arm> arms = new ArrayList<>();
         arms.add(new Page.Arm(Component.empty(), outcomeBlocks(rule.then(), i, "t"), Optional.of(new Stat.Picker(
-                "o_add:" + i + "/t", "", outcomeTypes(false)))));
+                "o_add:" + i + "/t", "", outcomeTypes(false))), "arm:" + i + "/t"));
         if (rule.when().isPresent() || !rule.otherwise().isEmpty()) {
             arms.add(new Page.Arm(Component.literal("else"), outcomeBlocks(rule.otherwise(), i, "e"), Optional.of(
-                    new Stat.Picker("o_add:" + i + "/e", "", outcomeTypes(false)))));
+                    new Stat.Picker("o_add:" + i + "/e", "", outcomeTypes(false))), "arm:" + i + "/e"));
         }
         return new Page.Block("c", RuleEditors.CONTROL, head, arms, Optional.of(new Stat.Picker("rule_op:" + i, "",
-                ops)));
+                ops)), "rule:" + i);
     }
 
     private static List<Page.Block> outcomeBlocks(List<Outcome> list, int rule, String which) {
@@ -197,7 +200,7 @@ final class RuleViews {
                     null, j, "o_field:" + at + ":" + f.name(), f, ""));
             int color = RuleEditors.lookOf(type).map(RuleEditors.Look::color).orElse(RuleEditors.MOTION);
             out.add(new Page.Block("stack", color, parts, List.of(), Optional.of(new Stat.Picker("o_type:" + at, type,
-                    outcomeTypes(true)))));
+                    outcomeTypes(true))), "out:" + at));
         }
         return out;
     }
@@ -222,26 +225,26 @@ final class RuleViews {
                 if (i > 0 && !not) {
                     parts.add(Page.Part.text(word));
                 }
-                parts.add(Page.Part.block(condBlock(server, home, r, kids.get(i), base + (path.isEmpty()
-                        ? Integer.toString(i) : path + "." + i))));
+                String kid = base + (path.isEmpty() ? Integer.toString(i) : path + "." + i);
+                parts.add(Page.Part.block(condBlock(server, home, r, kids.get(i), kid)).dropping("set:" + kid));
             }
             if (!not) {
                 if (kids.size() > 0) {
                     parts.add(Page.Part.text(word));
                 }
-                parts.add(Page.Part.slot(new Stat.Picker("c_add:" + at, "", types(false))));
+                parts.add(Page.Part.slot(new Stat.Picker("c_add:" + at, "", types(false))).dropping("add:" + at));
             }
             // nested groups alternate shades so each AND/OR shows where it starts and ends
             int depth = path.isEmpty() ? 0 : path.split("\\.").length;
             return new Page.Block("bool", depth % 2 == 0 ? RuleEditors.OPERATORS : 0xFF3F9E3F, parts, List.of(),
-                    Optional.of(menu));
+                    Optional.of(menu), "cond:" + at);
         }
         List<RuleEditors.Field> fields = spec == null ? List.of() : spec.fields();
         parts.addAll(sentence(type, spec == null ? type : spec.label(), fields, f -> field(server, home, r, j,
                 "c_field:" + at + ":" + f.name(), f, "")));
         // yes or no right now
         parts.add(Page.Part.text(holds(server, home, r, j) ? "\u2714" : "\u2718"));
-        return new Page.Block("bool", color, parts, List.of(), Optional.of(menu));
+        return new Page.Block("bool", color, parts, List.of(), Optional.of(menu), "cond:" + at);
     }
 
     /** A block's words and inputs from its look ("{colony} has {item} ..."), or its label then its inputs. */
@@ -280,6 +283,336 @@ final class RuleViews {
             return Page.Part.number(s.stepper().get());
         }
         return Page.Part.text(s.value());
+    }
+
+    // ---------------------------------------------------------------- the block menu
+
+    /** Category of a block colour (the menu groups blocks by their look's colour). */
+    static String categoryOf(int color) {
+        if (color == RuleEditors.CONTROL) {
+            return "Control";
+        }
+        if (color == RuleEditors.OPERATORS) {
+            return "Logic";
+        }
+        if (color == RuleEditors.SENSING) {
+            return "Sensing";
+        }
+        if (color == RuleEditors.VARIABLES) {
+            return "Goods";
+        }
+        if (color == RuleEditors.MOTION) {
+            return "Caravan";
+        }
+        if (color == RuleEditors.LOOKS_PURPLE) {
+            return "Say";
+        }
+        return "More";
+    }
+
+    static List<Page.Category> palette() {
+        Map<String, List<Page.Block>> by = new java.util.LinkedHashMap<>();
+        Map<String, Integer> colors = new java.util.LinkedHashMap<>();
+        for (String c : List.of("Control", "Logic", "Sensing", "Goods", "Caravan", "Say", "More")) {
+            by.put(c, new ArrayList<>());
+        }
+        colors.put("Control", RuleEditors.CONTROL);
+        colors.put("Logic", RuleEditors.OPERATORS);
+        colors.put("Sensing", RuleEditors.SENSING);
+        colors.put("Goods", RuleEditors.VARIABLES);
+        colors.put("Caravan", RuleEditors.MOTION);
+        colors.put("Say", RuleEditors.LOOKS_PURPLE);
+        colors.put("More", RuleEditors.MY_BLOCKS);
+        // rules (C blocks)
+        by.get("Control").add(new Page.Block("c", RuleEditors.CONTROL, List.of(Page.Part.text("if"),
+                Page.Part.slot(new Stat.Picker("", "", List.of())), Page.Part.text("then")), List.of(new Page.Arm(
+                        Component.empty(), List.of(), Optional.empty()), new Page.Arm(Component.literal("else"),
+                                List.of(), Optional.empty())), Optional.empty(), "new:rule:ifelse"));
+        by.get("Control").add(new Page.Block("c", RuleEditors.CONTROL, List.of(Page.Part.text("if"),
+                Page.Part.slot(new Stat.Picker("", "", List.of())), Page.Part.text("then")), List.of(new Page.Arm(
+                        Component.empty(), List.of(), Optional.empty())), Optional.empty(), "new:rule:ifonly"));
+        by.get("Control").add(new Page.Block("c", RuleEditors.CONTROL, List.of(Page.Part.text("every check")),
+                List.of(new Page.Arm(Component.empty(), List.of(), Optional.empty())), Optional.empty(),
+                "new:rule:always"));
+        for (Map.Entry<String, RuleEditors.Spec> e : RuleEditors.specs().entrySet()) {
+            String type = e.getKey();
+            int color = RuleEditors.lookOf(type).map(RuleEditors.Look::color).orElse(RuleEditors.OPERATORS);
+            List<Page.Part> parts;
+            if (!e.getValue().group().isEmpty()) {
+                boolean not = e.getValue().group().equals("condition");
+                parts = not ? List.of(Page.Part.text("not"), Page.Part.slot(new Stat.Picker("", "", List.of())))
+                        : List.of(Page.Part.slot(new Stat.Picker("", "", List.of())), Page.Part.text(
+                                type.endsWith(":any") ? "or" : "and"), Page.Part.slot(new Stat.Picker("", "",
+                                        List.of())));
+                color = RuleEditors.OPERATORS;
+            } else {
+                JsonObject d = e.getValue().defaults();
+                parts = sentence(type, e.getValue().label(), e.getValue().fields(), f -> Stat.of(
+                        Component.literal(""), shown(f, d)));
+                parts = parts.stream().map(p -> p.kind() == 0 ? p : Page.Part.fixed(p.text().getString())).toList();
+            }
+            String cat = categoryOf(color);
+            by.get(cat).add(new Page.Block("bool", color, parts, List.of(), Optional.empty(), "new:cond:" + type));
+        }
+        for (Map.Entry<String, RuleEditors.OutcomeSpec> e : RuleEditors.outcomes().entrySet()) {
+            String type = e.getKey();
+            int color = RuleEditors.lookOf(type).map(RuleEditors.Look::color).orElse(RuleEditors.MOTION);
+            JsonObject d = e.getValue().defaults();
+            List<Page.Part> parts = sentence(type, e.getValue().label(), e.getValue().fields(), f -> Stat.of(
+                    Component.literal(""), shown(f, d))).stream().map(p -> p.kind() == 0 ? p
+                            : Page.Part.fixed(p.text().getString())).toList();
+            by.get(categoryOf(color)).add(new Page.Block("stack", color, parts, List.of(), Optional.empty(),
+                    "new:out:" + type));
+        }
+        List<Page.Category> out = new ArrayList<>();
+        for (Map.Entry<String, List<Page.Block>> e : by.entrySet()) {
+            if (!e.getValue().isEmpty()) {
+                out.add(new Page.Category(Component.literal(e.getKey()), colors.get(e.getKey()), e.getValue()));
+            }
+        }
+        return out;
+    }
+
+    /** How a field's default reads on a menu block. */
+    private static String shown(RuleEditors.Field f, JsonObject d) {
+        String v = RuleEditors.str(d, f.name(), "");
+        return switch (f.kind()) {
+            case ITEM -> CaravanViews.itemName(v);
+            case COLONY -> v.equals("home") ? "home" : "destination";
+            case CHOICE, BOOL -> {
+                for (int k = 0; k + 1 < f.options().size(); k += 2) {
+                    if (f.options().get(k).equals(v)) {
+                        yield f.options().get(k + 1);
+                    }
+                }
+                yield v;
+            }
+            default -> v;
+        };
+    }
+
+    // ---------------------------------------------------------------- drag and drop
+
+    private static final String MOVING = "lotr_port:__moving";
+
+    /**
+     * A drop: {@code row} is "{@code <block>|<target>}" (see {@link Page.Blocks#drop}). Rules move between rules,
+     * outcomes into arms, conditions into slots; anything dropped on the menu is deleted. Null when refused.
+     */
+    static List<CaravanBook.Rule> drop(MinecraftServer server, Colony home, CaravanBook.Route r, String row) {
+        int bar = row.indexOf('|');
+        if (bar < 0) {
+            return null;
+        }
+        String src = row.substring(0, bar);
+        String dst = row.substring(bar + 1);
+        List<CaravanBook.Rule> rules = new ArrayList<>(r.program());
+        // rules (C blocks)
+        if (src.startsWith("new:rule:") || src.startsWith("rule:")) {
+            if (src.startsWith("rule:")) {
+                int i = CaravanViews.parse(src.substring(5));
+                if (i < 0 || i >= rules.size()) {
+                    return null;
+                }
+                CaravanBook.Rule moving = rules.remove(i);
+                if (dst.equals("trash")) {
+                    return rules;
+                }
+                if (!dst.startsWith("script:")) {
+                    return null;
+                }
+                int at = CaravanViews.parse(dst.substring(7));
+                if (at > i) {
+                    at--;
+                }
+                rules.add(Math.max(0, Math.min(rules.size(), at)), moving);
+                return rules;
+            }
+            if (!dst.startsWith("script:")) {
+                return null;
+            }
+            String kind = src.substring(9);
+            Optional<CaravanBook.Rule> made = switch (kind) {
+                case "ifelse", "ifonly" -> Optional.of(new CaravanBook.Rule(Optional.empty(), List.of(), List.of(),
+                        false));
+                case "always" -> Optional.of(new CaravanBook.Rule(Optional.empty(), List.of(), List.of(), false));
+                default -> Optional.empty();
+            };
+            if (made.isEmpty()) {
+                return null;
+            }
+            int at = CaravanViews.parse(dst.substring(7));
+            rules.add(Math.max(0, Math.min(rules.size(), at)), made.get());
+            return rules;
+        }
+        // outcomes (stack blocks)
+        if (src.startsWith("new:out:") || src.startsWith("out:")) {
+            Outcome moving;
+            if (src.startsWith("new:out:")) {
+                RuleEditors.OutcomeSpec spec = RuleEditors.outcomes().get(src.substring(8));
+                Optional<Outcome> o = spec == null ? Optional.empty()
+                        : RuleEditors.outcomeFromJson(spec.defaults().deepCopy());
+                if (o.isEmpty()) {
+                    return null;
+                }
+                moving = o.get();
+            } else {
+                String[] p = src.substring(4).split("/");
+                if (p.length != 3) {
+                    return null;
+                }
+                int i = CaravanViews.parse(p[0]);
+                int k = CaravanViews.parse(p[2]);
+                if (i < 0 || i >= rules.size()) {
+                    return null;
+                }
+                List<Outcome> list = new ArrayList<>(p[1].equals("t") ? rules.get(i).then() : rules.get(i).otherwise());
+                if (k < 0 || k >= list.size()) {
+                    return null;
+                }
+                moving = list.remove(k);
+                rules.set(i, with(rules.get(i), p[1], list));
+                if (dst.startsWith("arm:" + p[0] + "/" + p[1] + ":")) {
+                    // same arm: the gap after the removed block moved up by one
+                    int at = CaravanViews.parse(dst.substring(dst.lastIndexOf(':') + 1));
+                    if (at > k) {
+                        dst = dst.substring(0, dst.lastIndexOf(':') + 1) + (at - 1);
+                    }
+                }
+            }
+            if (dst.equals("trash")) {
+                return src.startsWith("new:") ? null : rules;
+            }
+            if (!dst.startsWith("arm:")) {
+                return null;
+            }
+            String[] p = dst.substring(4).split("[/:]");
+            if (p.length != 3) {
+                return null;
+            }
+            int i = CaravanViews.parse(p[0]);
+            if (i < 0 || i >= rules.size()) {
+                return null;
+            }
+            List<Outcome> list = new ArrayList<>(p[1].equals("t") ? rules.get(i).then() : rules.get(i).otherwise());
+            int at = Math.max(0, Math.min(list.size(), CaravanViews.parse(p[2])));
+            list.add(at, moving);
+            rules.set(i, with(rules.get(i), p[1], list));
+            return rules;
+        }
+        // conditions (hexagons)
+        if (src.startsWith("new:cond:") || src.startsWith("cond:")) {
+            List<JsonObject> roots = new ArrayList<>();
+            for (CaravanBook.Rule rule : rules) {
+                roots.add(rule.when().map(RuleEditors::toJson).orElse(null));
+            }
+            JsonObject moving;
+            if (src.startsWith("new:cond:")) {
+                if (!RuleEditors.specs().containsKey(src.substring(9))) {
+                    return null;
+                }
+                moving = RuleEditors.fresh(src.substring(9), null);
+            } else {
+                String at = src.substring(5);
+                int i = CaravanViews.parse(at.substring(0, Math.max(0, at.indexOf('/'))));
+                if (i < 0 || i >= roots.size() || roots.get(i) == null) {
+                    return null;
+                }
+                String path = at.substring(at.indexOf('/') + 1);
+                // not into itself
+                String into = dst.contains(":") ? dst.substring(dst.indexOf(':') + 1) : "";
+                if (into.startsWith(i + "/") && (path.isEmpty() || into.substring(into.indexOf('/') + 1)
+                        .startsWith(path)) && !dst.equals("trash")) {
+                    return null;
+                }
+                JsonObject node = RuleEditors.at(roots.get(i), path);
+                if (node == null) {
+                    return null;
+                }
+                moving = node.deepCopy();
+                JsonObject mark = RuleEditors.obj(MOVING);
+                if (path.isEmpty()) {
+                    roots.set(i, mark);
+                } else {
+                    RuleEditors.replace(roots.get(i), path, mark);
+                }
+            }
+            if (!dst.equals("trash")) {
+                boolean add = dst.startsWith("add:");
+                if (!add && !dst.startsWith("set:")) {
+                    return null;
+                }
+                String at = dst.substring(4);
+                int i = CaravanViews.parse(at.substring(0, Math.max(0, at.indexOf('/'))));
+                if (i < 0 || i >= roots.size()) {
+                    return null;
+                }
+                String path = at.substring(at.indexOf('/') + 1);
+                if (add) {
+                    if (roots.get(i) == null || !RuleEditors.add(roots.get(i), path, moving)) {
+                        return null;
+                    }
+                } else if (path.isEmpty()) {
+                    // dropped on a rule's condition: wraps what was there in an AND with it, or takes the slot
+                    JsonObject old = roots.get(i);
+                    if (old == null || MOVING.equals(RuleEditors.str(old, "type", ""))) {
+                        roots.set(i, moving);
+                    } else {
+                        com.google.gson.JsonArray both = new com.google.gson.JsonArray();
+                        both.add(old);
+                        both.add(moving);
+                        roots.set(i, RuleEditors.obj("ringbearer_api:all", "conditions", both));
+                    }
+                } else if (roots.get(i) == null || !RuleEditors.replace(roots.get(i), path, moving)) {
+                    return null;
+                }
+            }
+            for (int i = 0; i < roots.size(); i++) {
+                JsonObject root = roots.get(i);
+                if (root != null && MOVING.equals(RuleEditors.str(root, "type", ""))) {
+                    root = null;
+                } else if (root != null) {
+                    unmark(root);
+                }
+                Optional<Condition> c = root == null ? Optional.empty() : RuleEditors.fromJson(root);
+                if (root != null && c.isEmpty()) {
+                    return null;
+                }
+                CaravanBook.Rule old = rules.get(i);
+                rules.set(i, new CaravanBook.Rule(c, old.then(), old.otherwise(), old.edge()));
+            }
+            return rules;
+        }
+        return null;
+    }
+
+    private static CaravanBook.Rule with(CaravanBook.Rule rule, String which, List<Outcome> list) {
+        return which.equals("t") ? new CaravanBook.Rule(rule.when(), list, rule.otherwise(), rule.edge())
+                : new CaravanBook.Rule(rule.when(), rule.then(), list, rule.edge());
+    }
+
+    /** Takes the "moving" mark out of a tree (from a group's list, or a NOT's child becomes "always"). */
+    private static void unmark(JsonObject node) {
+        if (node.has("conditions") && node.get("conditions").isJsonArray()) {
+            com.google.gson.JsonArray a = node.getAsJsonArray("conditions");
+            for (int k = a.size() - 1; k >= 0; k--) {
+                if (a.get(k).isJsonObject()) {
+                    JsonObject c = a.get(k).getAsJsonObject();
+                    if (MOVING.equals(RuleEditors.str(c, "type", ""))) {
+                        a.remove(k);
+                    } else {
+                        unmark(c);
+                    }
+                }
+            }
+        } else if (node.has("condition") && node.get("condition").isJsonObject()) {
+            JsonObject c = node.getAsJsonObject("condition");
+            if (MOVING.equals(RuleEditors.str(c, "type", ""))) {
+                node.add("condition", RuleEditors.obj("ringbearer_api:always"));
+            } else {
+                unmark(c);
+            }
+        }
     }
 
     // ---------------------------------------------------------------- editing

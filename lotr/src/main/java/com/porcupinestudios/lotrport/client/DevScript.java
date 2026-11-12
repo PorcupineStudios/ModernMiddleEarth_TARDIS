@@ -26,6 +26,8 @@ import net.neoforged.neoforge.client.event.ClientTickEvent;
  */
 @EventBusSubscriber(modid = LotrPort.MOD_ID, value = Dist.CLIENT)
 public final class DevScript {
+    private static double lastX;
+    private static double lastY;
     private static final String FILE = System.getProperty("lotr_port.devscript");
     private static List<String> steps;
     private static int next;
@@ -86,6 +88,36 @@ public final class DevScript {
                     if (mc.screen != null) {
                         mc.screen.mouseScrolled(Double.parseDouble(w[1]), Double.parseDouble(w[2]), 0,
                                 Double.parseDouble(w[3]));
+                    }
+                }
+                case "press" -> {
+                    if (mc.screen != null) {
+                        lastX = Double.parseDouble(w[1]);
+                        lastY = Double.parseDouble(w[2]);
+                        double k = mc.getWindow().getGuiScale();
+                        mouse(mc, lastX * k, lastY * k);
+                        mc.screen.mouseClicked(lastX, lastY, 0);
+                    }
+                }
+                case "move" -> {
+                    if (mc.screen != null) {
+                        double x = Double.parseDouble(w[1]);
+                        double y = Double.parseDouble(w[2]);
+                        // in steps, like a hand
+                        for (int i = 1; i <= 8; i++) {
+                            double mx = lastX + (x - lastX) * i / 8;
+                            double my = lastY + (y - lastY) * i / 8;
+                            double k = mc.getWindow().getGuiScale();
+                            mouse(mc, mx * k, my * k);
+                            mc.screen.mouseDragged(mx, my, 0, (x - lastX) / 8, (y - lastY) / 8);
+                        }
+                        lastX = x;
+                        lastY = y;
+                    }
+                }
+                case "release" -> {
+                    if (mc.screen != null) {
+                        mc.screen.mouseReleased(lastX, lastY, 0);
                     }
                 }
                 case "close" -> mc.player.closeContainer();

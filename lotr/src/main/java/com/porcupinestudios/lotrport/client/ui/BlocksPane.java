@@ -23,30 +23,136 @@ final class BlocksPane {
     static final int WHITE = 0xFFFFFFFF;
     static final int INPUT_TEXT = 0xFF575E75;
 
+    static final int CATS_W = 58;
+    static final int LIST_W = 170;
+
     private final UiScreen screen;
     private Page.Blocks page;
     private final ScrollBar bar;
+    private final ScrollBar paletteBar;
     private int top;
     private int bottom;
     /** The number under the mouse last frame, for the wheel. */
     private Stat.Stepper hoverNumber;
+    private int category;
+
+    /** A block that can be picked up: where it was drawn this frame. */
+    private record Grab(int x, int y, int w, int h, Page.Block block, boolean fresh) {}
+
+    /** Where a dragged block can go: a gap between stack blocks or rules (point x, y), or a slot (box). */
+    private record Drop(int x, int y, int w, int h, String target, String accepts) {}
+
+    private final java.util.List<Grab> grabs = new java.util.ArrayList<>();
+    private final java.util.List<Drop> drops = new java.util.ArrayList<>();
+    private int paletteX;
+    private int paletteY;
+    private int paletteW;
+    private int paletteH;
+    private int scriptX;
+    private int scriptY;
+    private int scriptW;
+    private int scriptH;
+    // the drag: pressed on a block, then moved past a few pixels
+    private Grab pressed;
+    private double pressX;
+    private double pressY;
+    private boolean dragging;
+    private double mouseX;
+    private double mouseY;
+    /** The drop the block would land on now, if any. */
+    private Drop aim;
+    private boolean aimTrash;
 
     BlocksPane(UiScreen screen, Page.Blocks page) {
         this.screen = screen;
         this.page = page;
         this.bar = new ScrollBar(screen);
+        this.paletteBar = new ScrollBar(screen);
+    }
+
+    // ---------------------------------------------------------------- dragging
+
+    /** Mouse down: on a block, hold it (a click if it isn't moved, a drag if it is). True when taken. */
+    boolean press(double mx, double my) {
+        for (int i = grabs.size() - 1; i >= 0; i--) {
+            Grab g = grabs.get(i);
+            if (mx >= g.x() && mx < g.x() + g.w() && my >= g.y() && my < g.y() + g.h()) {
+                // an input inside the block takes the click itself
+                if (!g.fresh() && inputAt(mx, my)) {
+                    return false;
+                }
+                pressed = g;
+                pressX = mx;
+                pressY = my;
+                dragging = false;
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private final java.util.List<int[]> inputs = new java.util.ArrayList<>();
+
+    private boolean inputAt(double mx, double my) {
+        for (int[] r : inputs) {
+            if (mx >= r[0] && mx < r[0] + r[2] && my >= r[1] && my < r[1] + r[3]) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    boolean drag(double mx, double my) {
+        if (pressed == null) {
+            return false;
+        }
+        mouseX = mx;
+        mouseY = my;
+        if (!dragging && Math.hypot(mx - pressX, my - pressY) > 4) {
+            dragging = true;
+        }
+        return true;
+    }
+
+    /** Mouse up: a click if it never moved, else drops the block where it aims. */
+    boolean release(Imm ui, double mx, double my) {
+        if (pressed == null) {
+            return false;
+        }
+        Grab g = pressed;
+        pressed = null;
+        if (!dragging) {
+            ui.click(mx, my);
+            return true;
+        }
+        dragging = false;
+        String target = aimTrash ? "trash" : aim == null ? null : aim.target();
+        aim = null;
+        aimTrash = false;
+        if (target != null && page.drop().isPresent() && !(g.fresh() && target.equals("trash"))) {
+            screen.send(page.drop().get(), g.block().id() + "|" + target, 0);
+        }
+        return true;
+    }
+
+    boolean holding() {
+        return pressed != null && dragging;
     }
 
     void set(Page.Blocks p) {
         page = p;
     }
 
-    boolean scroll(double mouseY, double amount) {
+    boolean scroll(double mx, double mouseY, double amount) {
+        this.mouseX = mx;
         if (hoverNumber != null) {
             Stat.Stepper st = hoverNumber;
             int v = st.value() + (amount > 0 ? 1 : -1) * st.step() * Sections.fast();
             screen.send(st.action(), "", Math.max(st.min(), Math.min(st.max(), v)));
             return true;
+        }
+        if (!page.palette().isEmpty() && mouseX >= paletteX && mouseX < paletteX + paletteW) {
+            return paletteBar.wheel(amount, ROW * 2);
         }
         return mouseY >= top && mouseY <= bottom && bar.wheel(amount, ROW * 2);
     }
@@ -55,17 +161,37 @@ final class BlocksPane {
         int buttonsH = page.buttons().isEmpty() ? 0 : UiTheme.BUTTON_HEIGHT + 6;
         ui.sprite(UiTheme.INSET_LIGHT, x, y, w, h - buttonsH);
         hoverNumber = null;
-        int innerW = w - 20 - ScrollBar.WIDTH;
-        // measure, then draw
-        int contentH = script(ui, x + 8, 0, innerW, false);
+        if (dragging) {
+            mouseX = ui.mouseX;
+            mouseY = ui.mouseY;
+        }
+        grabs.clear();
+        drops.clear();
+        inputs.clear();
         int viewH = h - buttonsH - 8;
-        bar.measure(contentH, viewH);
-        ui.clip(x, y + 2, w, h - buttonsH - 4);
-        script(ui, x + 8, y + 6 - bar.offset, innerW, true);
+        boolean hasPalette = !page.palette().isEmpty();
+        int left = hasPalette ? CATS_W + LIST_W + 6 : 0;
+        if (hasPalette) {
+            palette(ui, x + 2, y + 2, left - 2, h - buttonsH - 4);
+        }
+        int sx = x + left + 8;
+        int innerW = w - left - 20 - ScrollBar.WIDTH;
+        // measure, then draw
+        int contentH = script(ui, sx, 0, innerW, false);
+        bar.measure(contentH + 40, viewH);
+        scriptX = x + left;
+        scriptY = y + 2;
+        scriptW = w - left;
+        scriptH = h - buttonsH - 4;
+        ui.clip(scriptX, scriptY, scriptW, scriptH);
+        script(ui, sx, y + 6 - bar.offset, innerW, true);
         ui.unclip();
         top = y;
         bottom = y + h - buttonsH;
         bar.draw(ui, x + w - ScrollBar.WIDTH - 3, y + 3, h - buttonsH - 6);
+        if (dragging && pressed != null) {
+            drawDrag(ui);
+        }
         int bx = x + w;
         List<Action> buttons = page.buttons();
         for (int i = buttons.size() - 1; i >= 0; i--) {
@@ -81,8 +207,16 @@ final class BlocksPane {
     /** The whole script, blocks with a gap between top-level scripts; returns its height. */
     private int script(Imm ui, int x, int y, int w, boolean draw) {
         int cy = y;
+        int k = 0;
         for (Page.Block b : page.script()) {
+            if (draw) {
+                drops.add(new Drop(x, cy - 5, w, 0, "script:" + k, "c"));
+            }
             cy += block(ui, b, x, cy, w, draw)[1] + 10;
+            k++;
+        }
+        if (draw) {
+            drops.add(new Drop(x, cy - 5, w, 0, "script:" + k, "c"));
         }
         if (page.add().isPresent()) {
             Stat.Picker pk = page.add().get();
@@ -118,6 +252,7 @@ final class BlocksPane {
             int bh = Math.max(ROW, row[1] + 8);
             if (draw) {
                 body(ui, x, y, bw, bh, color, dark, true);
+                grab(b, x, y, bw, bh);
                 menu(ui, b, x, y, bw, bh);
                 row(ui, b.head(), x + PAD, y + (bh - row[1]) / 2, maxW - 2 * PAD, true, b);
             }
@@ -158,6 +293,7 @@ final class BlocksPane {
         }
         // the C: head, a left bar the whole height, arm label rows and the cap
         body(ui, x, y, bw, headH, color, dark, true);
+        grab(b, x, y, bw, headH);
         ui.g.fill(x, y + headH, x + ARM, y + total - CAP, color);
         ui.g.fill(x, y + headH, x + 1, y + total - CAP, dark);
         menu(ui, b, x, y, bw, headH);
@@ -171,8 +307,16 @@ final class BlocksPane {
                 cy += armSizes[i][0];
             }
             int by = cy;
+            int slot = 0;
             for (Page.Block c : a.body()) {
+                if (!a.id().isEmpty()) {
+                    drops.add(new Drop(x + ARM, by, bw - ARM, 0, a.id() + ":" + slot, "stack"));
+                }
                 by += block(ui, c, x + ARM, by, maxW - ARM, true)[1];
+                slot++;
+            }
+            if (!a.id().isEmpty()) {
+                drops.add(new Drop(x + ARM, by, bw - ARM, 0, a.id() + ":" + slot, "stack"));
             }
             if (a.add().isPresent()) {
                 Stat.Picker pk = a.add().get();
@@ -199,6 +343,7 @@ final class BlocksPane {
         int bw = row[0] + 2 * point + 4;
         if (draw) {
             hex(ui, x, y, bw, bh, b.color(), darker(b.color()));
+            grab(b, x, y, bw, bh);
             menu(ui, b, x, y, bw, bh);
             row(ui, b.head(), x + point + 2, y + (bh - row[1]) / 2, maxW - 20, true, b);
         }
@@ -264,6 +409,7 @@ final class BlocksPane {
                 int w = ui.font.width(s) + 16;
                 if (draw) {
                     boolean hover = ui.over(x, y, w, INPUT);
+                    inputs.add(new int[] {x, y, w, INPUT});
                     pill(ui, x, y, w, INPUT, hover ? 0xFFF0F0F0 : WHITE);
                     ui.text(s, x + 5, y + 3, INPUT_TEXT);
                     ui.text("\u25be", x + w - 9, y + 3, INPUT_TEXT);
@@ -277,6 +423,7 @@ final class BlocksPane {
                 String s = Integer.toString(st.value());
                 int w = ui.font.width(s) + 22;
                 if (draw) {
+                    inputs.add(new int[] {x, y, w, INPUT});
                     pill(ui, x, y, w, INPUT, WHITE);
                     ui.text(s, x + 11, y + 3, INPUT_TEXT);
                     boolean hover = ui.over(x, y, w, INPUT);
@@ -295,13 +442,29 @@ final class BlocksPane {
                 return new int[] {w, INPUT};
             }
             case 3 -> {
-                return block(ui, p.block().orElseThrow(), x, y, maxW, draw);
+                int[] sz = block(ui, p.block().orElseThrow(), x, y, maxW, draw);
+                if (draw && !p.drop().isEmpty()) {
+                    drops.add(new Drop(x, y, sz[0], sz[1], p.drop(), "bool"));
+                }
+                return sz;
+            }
+            case 5 -> {
+                String s = ui.fit(p.text().getString(), 80);
+                int w = ui.font.width(s) + 10;
+                if (draw) {
+                    pill(ui, x, y, w, INPUT, WHITE);
+                    ui.text(s, x + 5, y + 3, INPUT_TEXT);
+                }
+                return new int[] {w, INPUT};
             }
             case 4 -> {
                 Stat.Picker pk = p.picker().orElseThrow();
                 int w = 30;
                 int h = INPUT + 2;
                 if (draw) {
+                    if (!p.drop().isEmpty()) {
+                        drops.add(new Drop(x, y, w, h, p.drop(), "bool"));
+                    }
                     hex(ui, x, y, w, h, darker(owner.color()), darker(darker(owner.color())));
                     ui.text("+", x + w / 2 - 2, y + 4, WHITE);
                     ui.hit(x, y, w, h, () -> screen.popup(new Popups.ChoiceMenu(screen, pk, x, y + h, 160)));
@@ -316,6 +479,139 @@ final class BlocksPane {
                 }
                 return new int[] {w, INPUT};
             }
+        }
+    }
+
+    private void grab(Page.Block b, int x, int y, int w, int h) {
+        if (!b.id().isEmpty()) {
+            grabs.add(new Grab(x, y, w, h, b, b.id().startsWith("new:")));
+        }
+    }
+
+    /** The block menu: category buttons down the left, the chosen category's blocks beside them. */
+    private void palette(Imm ui, int x, int y, int w, int h) {
+        paletteX = x;
+        paletteY = y;
+        paletteW = w;
+        paletteH = h;
+        ui.g.fill(x, y, x + CATS_W, y + h, 0xFFF9F9F9);
+        ui.g.fill(x + CATS_W, y, x + w, y + h, 0xFFE9EEF2);
+        ui.g.fill(x + CATS_W - 1, y, x + CATS_W, y + h, 0xFFD0D4D8);
+        List<Page.Category> cats = page.palette();
+        category = Math.max(0, Math.min(category, cats.size() - 1));
+        int cy = y + 6;
+        for (int i = 0; i < cats.size(); i++) {
+            Page.Category c = cats.get(i);
+            int ci = i;
+            boolean sel = i == category;
+            if (sel) {
+                ui.g.fill(x, cy - 2, x + CATS_W - 1, cy + 28, 0xFFE3EAF5);
+            }
+            int cx = x + CATS_W / 2;
+            circle(ui, cx, cy + 8, 7, c.color(), darker(c.color()));
+            String name = ui.fit(c.name().getString(), CATS_W - 4);
+            ui.text(name, cx - ui.font.width(name) / 2, cy + 18, sel ? 0xFF4C97FF : 0xFF575E75);
+            ui.hit(x, cy - 2, CATS_W - 1, 30, () -> {
+                category = ci;
+                paletteBar.offset = 0;
+            });
+            cy += 32;
+        }
+        if (cats.isEmpty()) {
+            return;
+        }
+        Page.Category c = cats.get(category);
+        int lx = x + CATS_W + 8;
+        int lw = w - CATS_W - 12;
+        int contentH = 16;
+        for (Page.Block b : c.blocks()) {
+            contentH += block(ui, b, 0, 0, lw, false)[1] + 10;
+        }
+        paletteBar.measure(contentH, h);
+        ui.clip(x + CATS_W, y, w - CATS_W, h);
+        int by = y + 6 - paletteBar.offset;
+        ui.text(c.name(), lx, by, 0xFF575E75);
+        by += 14;
+        for (Page.Block b : c.blocks()) {
+            by += block(ui, b, lx, by, lw, true)[1] + 10;
+        }
+        ui.unclip();
+    }
+
+    /** The block under the mouse, where it would land shown first. */
+    private void drawDrag(Imm ui) {
+        Grab g = pressed;
+        int dx = (int) (mouseX - (pressX - g.x()));
+        int dy = (int) (mouseY - (pressY - g.y()));
+        aim = null;
+        aimTrash = !g.fresh() && mouseX >= paletteX && mouseX < paletteX + paletteW && mouseY >= paletteY
+                && mouseY < paletteY + paletteH;
+        String shape = g.block().shape();
+        if (!aimTrash) {
+            if (shape.equals("bool")) {
+                for (int i = drops.size() - 1; i >= 0 && aim == null; i--) {
+                    Drop d = drops.get(i);
+                    if (d.accepts().equals("bool") && mouseX >= d.x() - 4 && mouseX < d.x() + d.w() + 4
+                            && mouseY >= d.y() - 4 && mouseY < d.y() + d.h() + 4) {
+                        aim = d;
+                    }
+                }
+            } else if (mouseX >= scriptX && mouseX < scriptX + scriptW && mouseY >= scriptY
+                    && mouseY < scriptY + scriptH) {
+                // snap to the nearest gap (by the dragged block's top-left, as in Scratch)
+                double best = shape.equals("c") ? Double.MAX_VALUE : 40;
+                for (Drop d : drops) {
+                    if (!d.accepts().equals(shape)) {
+                        continue;
+                    }
+                    double dist = Math.hypot(dx - d.x(), (dy - d.y()) * 1.5);
+                    if (shape.equals("c")) {
+                        dist = Math.abs(dy - d.y());
+                    }
+                    if (dist < best) {
+                        best = dist;
+                        aim = d;
+                    }
+                }
+            }
+        }
+        ui.layer = 1;
+        if (aim != null) {
+            if (aim.accepts().equals("bool")) {
+                outline(ui, aim.x() - 2, aim.y() - 2, aim.w() + 4, aim.h() + 4, WHITE);
+            } else {
+                // a grey ghost where it would go
+                ui.g.fill(aim.x(), aim.y() - 2, aim.x() + Math.min(aim.w(), 160), aim.y() + 2, 0x99575E75);
+            }
+        }
+        if (aimTrash) {
+            ui.g.fill(paletteX, paletteY, paletteX + paletteW, paletteY + paletteH, 0x55FF4040);
+            String t = "Drop here to delete";
+            ui.text(t, paletteX + (paletteW - ui.font.width(t)) / 2, paletteY + paletteH / 2, 0xFF7A1010);
+        }
+        ui.g.pose().pushPose();
+        ui.g.pose().translate(0, 0, 200);
+        // drawn as a picture: its inputs mustn't take clicks
+        int before = grabs.size();
+        int dropsBefore = drops.size();
+        block(ui, g.block(), dx, dy, 400, true);
+        grabs.subList(before, grabs.size()).clear();
+        drops.subList(dropsBefore, drops.size()).clear();
+        ui.g.pose().popPose();
+        ui.layer = 0;
+    }
+
+    private static void outline(Imm ui, int x, int y, int w, int h, int color) {
+        ui.g.fill(x, y, x + w, y + 2, color);
+        ui.g.fill(x, y + h - 2, x + w, y + h, color);
+        ui.g.fill(x, y, x + 2, y + h, color);
+        ui.g.fill(x + w - 2, y, x + w, y + h, color);
+    }
+
+    private static void circle(Imm ui, int cx, int cy, int r, int color, int edge) {
+        for (int dy = -r; dy <= r; dy++) {
+            int half = (int) Math.round(Math.sqrt(r * r - dy * dy));
+            ui.g.fill(cx - half, cy + dy, cx + half, cy + dy + 1, Math.abs(dy) == r ? edge : color);
         }
     }
 

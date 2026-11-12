@@ -142,13 +142,29 @@ public sealed interface Page permits Page.Table, Page.Stats, Page.Profile, Page.
      * pickers and steppers, so they send the same actions as anywhere else.
      *
      * @param add the "add a block" menu under the script, if any
+     * @param palette the block menu beside the script, by category: blocks dragged from it are new
+     * @param drop the action a drag and drop sends, with row {@code "<block id>|<target>"}: block ids are the
+     *     blocks' {@code id}s (palette ones start {@code new:}); targets are {@code script:<index>} (between top-level
+     *     blocks), an arm's {@code <arm id>:<index>}, a slot's {@code drop}, or {@code trash} (dropped on the menu)
      */
-    record Blocks(List<Block> script, Optional<Stat.Picker> add, List<Action> buttons, List<Component> notes)
-            implements Page {
+    record Blocks(List<Block> script, Optional<Stat.Picker> add, List<Action> buttons, List<Component> notes,
+            List<Category> palette, Optional<String> drop) implements Page {
         public Blocks {
             script = List.copyOf(script);
             buttons = List.copyOf(buttons);
             notes = List.copyOf(notes);
+            palette = List.copyOf(palette);
+        }
+
+        public Blocks(List<Block> script, Optional<Stat.Picker> add, List<Action> buttons, List<Component> notes) {
+            this(script, add, buttons, notes, List.of(), Optional.empty());
+        }
+    }
+
+    /** A category of the block menu: its name, colour and blocks. */
+    record Category(Component name, int color, List<Block> blocks) {
+        public Category {
+            blocks = List.copyOf(blocks);
         }
     }
 
@@ -156,26 +172,48 @@ public sealed interface Page permits Page.Table, Page.Stats, Page.Profile, Page.
      * One block. {@code shape} "c" (head row, then arms), "stack" (one row) or "bool" (a hexagon, inside another
      * block's slot). {@code menu}, if any, opens when its plain parts are clicked (change, remove, move...).
      */
-    record Block(String shape, int color, List<Part> head, List<Arm> arms, Optional<Stat.Picker> menu) {
+    record Block(String shape, int color, List<Part> head, List<Arm> arms, Optional<Stat.Picker> menu, String id) {
         public Block {
             head = List.copyOf(head);
             arms = List.copyOf(arms);
         }
+
+        public Block(String shape, int color, List<Part> head, List<Arm> arms, Optional<Stat.Picker> menu) {
+            this(shape, color, head, arms, menu, "");
+        }
     }
 
     /** An arm of a C block: its label row (empty for the first), its blocks, and an "add" menu at its end. */
-    record Arm(Component label, List<Block> body, Optional<Stat.Picker> add) {
+    record Arm(Component label, List<Block> body, Optional<Stat.Picker> add, String id) {
         public Arm {
             body = List.copyOf(body);
+        }
+
+        public Arm(Component label, List<Block> body, Optional<Stat.Picker> add) {
+            this(label, body, add, "");
         }
     }
 
     /**
      * A part of a block's row. {@code kind}: 0 text, 1 a picker (shows {@code text}), 2 a number (stepper), 3 a
-     * nested block, 4 an empty slot that adds a block (picker).
+     * nested block, 4 an empty slot that adds a block (picker), 5 a fixed input (shown, not changed: palette
+     * blocks). {@code drop}: for 3 and 4, the target a dragged condition dropped here goes to ("" none).
      */
     record Part(int kind, Component text, Optional<Stat.Picker> picker, Optional<Stat.Stepper> stepper,
-            Optional<Block> block) {
+            Optional<Block> block, String drop) {
+        public Part(int kind, Component text, Optional<Stat.Picker> picker, Optional<Stat.Stepper> stepper,
+                Optional<Block> block) {
+            this(kind, text, picker, stepper, block, "");
+        }
+
+        public Part dropping(String target) {
+            return new Part(kind, text, picker, stepper, block, target);
+        }
+
+        public static Part fixed(String shown) {
+            return new Part(5, Component.literal(shown), Optional.empty(), Optional.empty(), Optional.empty());
+        }
+
         public static Part text(String s) {
             return new Part(0, Component.literal(s), Optional.empty(), Optional.empty(), Optional.empty());
         }
