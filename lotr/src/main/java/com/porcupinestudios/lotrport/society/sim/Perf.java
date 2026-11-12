@@ -26,6 +26,8 @@ public final class Perf {
     private final Map<ResourceLocation, Stat> systems = new LinkedHashMap<>();
     private final Stat ticks = new Stat();
     private long overBudget;
+    private long deferred;
+    private long caughtUp;
 
     void system(ResourceLocation id, long nanos) {
         systems.computeIfAbsent(id, k -> new Stat()).add(nanos);
@@ -36,6 +38,24 @@ public final class Perf {
         if (nanos > budgetNanos) {
             overBudget++;
         }
+    }
+
+    void deferred() {
+        deferred++;
+    }
+
+    void caughtUp() {
+        caughtUp++;
+    }
+
+    /** Colony days that waited in the backlog (a busy server, or the tick's budget spent). */
+    public long deferredDays() {
+        return deferred;
+    }
+
+    /** Waiting colony days run later from the backlog. */
+    public long caughtUpDays() {
+        return caughtUp;
     }
 
     /** Ticks that took longer than the budget (a garbage collection pause counts too). */
@@ -58,5 +78,7 @@ public final class Perf {
         ticks.totalNanos = 0;
         ticks.maxNanos = 0;
         overBudget = 0;
+        deferred = 0;
+        caughtUp = 0;
     }
 }
