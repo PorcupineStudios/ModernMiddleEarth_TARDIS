@@ -130,13 +130,13 @@ public final class CaravanViews {
         CaravanBook b = Caravans.book(c);
         Component why = noPerm(c);
         return TableBuilder.of(b.routes(), r -> Integer.toString(r.id()))
-                .column(Column.number("id", tr("caravan.col.id", "#"), 1), r -> Cell.number(r.id()))
+                .column(Column.text("name", tr("caravan.col.name", "Name"), 4), r -> Cell.text(r.title()))
                 .column(Column.text("to", tr("caravan.col.to", "To"), 3), r -> Cell.text(colonyName(server,
                         r.to())))
                 .column(Column.text("when", tr("caravan.col.when", "Goes"), 4), r -> Cell.text(when(server, r),
                         r.mode().equals("manual") ? Tone.MUTED : Tone.NORMAL))
-                .column(Column.text("take", tr("caravan.col.take", "Takes"), 4), r -> Cell.text(goods(r.send())))
-                .column(Column.text("bring", tr("caravan.col.bring", "Brings"), 4), r -> Cell.text(goods(r
+                .column(Column.text("take", tr("caravan.col.take", "Takes"), 3), r -> Cell.text(goods(r.send())))
+                .column(Column.text("bring", tr("caravan.col.bring", "Brings"), 3), r -> Cell.text(goods(r
                         .bring())))
                 .column(Column.text("status", tr("caravan.col.status", "Status"), 3), r -> out(server, c,
                         r.id()).map(j -> Cell.text(status(server, j), Tone.GOOD)).orElse(Cell.text("-", Tone.MUTED)))
@@ -180,7 +180,7 @@ public final class CaravanViews {
                             "There is no friendly colony to send caravans to")));
                 }
                 CaravanBook.Route r = new CaravanBook.Route(b.next(), to.get().id(), List.of(), List.of(), 0, 1,
-                        false, -1);
+                        false, -1).named(to.get().name() + " run");
                 Caravans.setBook(player.server, c, b.withRoute(r));
                 return Optional.of(ViewProvider.Result.go(new View.Target(ROUTE, c.id() + "/" + r.id(), "")));
             }
@@ -344,9 +344,13 @@ public final class CaravanViews {
                             ? tr("caravan.on_road", "One of this route's caravans is on the road") : why));
             buttons.add(may ? Action.of("delete", tr("caravan.delete", "Delete")).confirmed()
                     : Action.disabled("delete", tr("caravan.delete", "Delete"), why));
-            return Optional.of(new View(ROUTE, context, Component.literal(home.name() + ": caravan " + r.id()),
-                    List.of(), "", new Page.Stats(sections, buttons), Optional.of(new View.Target(ColonyViews.COLONY,
-                            home.id().toString(), TAB))));
+            String sub = when(server, r) + " to " + colonyName(server, r.to()) + out(server, home, r.id())
+                    .map(j -> " - " + status(server, j)).orElse("");
+            Page page = new Page.Profile(Optional.empty(), Component.literal(r.title()), may ? Optional.of("rename")
+                    : Optional.empty(), Component.literal(sub), List.of(sections.get(0)), sections.subList(1,
+                            sections.size()), buttons);
+            return Optional.of(new View(ROUTE, context, Component.literal(home.name() + ": caravans"), List.of(), "",
+                    page, Optional.of(new View.Target(ColonyViews.COLONY, home.id().toString(), TAB))));
         }
 
         /** A list of goods: per line, its item, fixed or excess, and the number(s). */
@@ -400,6 +404,13 @@ public final class CaravanViews {
             switch (action) {
                 case "send" -> {
                     return Result.say(Caravans.send(server, home, r).why());
+                }
+                case "rename" -> {
+                    if (row.isBlank()) {
+                        return Result.NONE;
+                    }
+                    Caravans.setBook(server, home, book.withRoute(r.named(row)));
+                    return Result.say(tr("caravan.renamed", "Route renamed to %s", r.named(row).title()));
                 }
                 case "delete" -> {
                     Caravans.setBook(server, home, book.withoutRoute(r.id()));
@@ -519,7 +530,7 @@ public final class CaravanViews {
                     return null;
                 }
             }
-            return new CaravanBook.Route(r.id(), to, send, bring, every, people, sell, r.lastDay(), when);
+            return new CaravanBook.Route(r.id(), to, send, bring, every, people, sell, r.lastDay(), when, r.name());
         }
 
         /** Changes line {@code idx}: its item (or removes it), kind, count or over. */

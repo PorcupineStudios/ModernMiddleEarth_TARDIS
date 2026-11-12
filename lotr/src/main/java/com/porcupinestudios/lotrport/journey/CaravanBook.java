@@ -30,12 +30,34 @@ public record CaravanBook(List<Route> routes, List<CaravanRules.Offer> offers, M
      * @param sell at another's colony: bring home what didn't trade (true) or leave it there as supplies (false)
      * @param lastDay the day the last one set out
      * @param when sets out by itself while this holds (and none of this route is on the road)
+     * @param name what the player calls it ("" for "Route n")
      */
     public record Route(int id, UUID to, List<CaravanRules.Amount> send, List<CaravanRules.Amount> bring, int every,
-            int people, boolean sell, long lastDay, Optional<CaravanRules.Trigger> when) {
+            int people, boolean sell, long lastDay, Optional<CaravanRules.Trigger> when, String name) {
+        /** Longest name a route may have. */
+        public static final int MAX_NAME = 32;
+
         public Route(int id, UUID to, List<CaravanRules.Amount> send, List<CaravanRules.Amount> bring, int every,
                 int people, boolean sell, long lastDay) {
-            this(id, to, send, bring, every, people, sell, lastDay, Optional.empty());
+            this(id, to, send, bring, every, people, sell, lastDay, Optional.empty(), "");
+        }
+
+        public Route(int id, UUID to, List<CaravanRules.Amount> send, List<CaravanRules.Amount> bring, int every,
+                int people, boolean sell, long lastDay, Optional<CaravanRules.Trigger> when) {
+            this(id, to, send, bring, every, people, sell, lastDay, when, "");
+        }
+
+        /** Its name, or "Route n" when it has none. */
+        public String title() {
+            return name.isBlank() ? "Route " + id : name;
+        }
+
+        public Route named(String n) {
+            String t = n == null ? "" : n.strip();
+            if (t.length() > MAX_NAME) {
+                t = t.substring(0, MAX_NAME);
+            }
+            return new Route(id, to, send, bring, every, people, sell, lastDay, when, t);
         }
 
         public static final Codec<CaravanRules.Amount> AMOUNT = RecordCodecBuilder.create(i -> i.group(
@@ -60,11 +82,12 @@ public record CaravanBook(List<Route> routes, List<CaravanRules.Offer> offers, M
                 Codec.INT.optionalFieldOf("people", 1).forGetter(Route::people),
                 Codec.BOOL.optionalFieldOf("sell", false).forGetter(Route::sell),
                 Codec.LONG.optionalFieldOf("last_day", -1L).forGetter(Route::lastDay),
-                TRIGGER.optionalFieldOf("when").forGetter(Route::when))
+                TRIGGER.optionalFieldOf("when").forGetter(Route::when),
+                Codec.STRING.optionalFieldOf("name", "").forGetter(Route::name))
                 .apply(i, Route::new));
 
         public Route sentOn(long day) {
-            return new Route(id, to, send, bring, every, people, sell, day, when);
+            return new Route(id, to, send, bring, every, people, sell, day, when, name);
         }
 
         /** Manual (only by hand), every N days, or when its trigger is met. */
