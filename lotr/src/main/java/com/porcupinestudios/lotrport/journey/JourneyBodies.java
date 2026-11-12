@@ -105,6 +105,9 @@ public final class JourneyBodies {
     }
 
     private static void embody(MinecraftServer server, ServerLevel level, Journey j) {
+        if (j.people.isEmpty()) {
+            return; // nobody to walk it (a test party, or one whose people all left)
+        }
         double[] p = j.position();
         List<UUID> ids = new ArrayList<>();
         BODIES.put(j.id, ids);
@@ -195,8 +198,9 @@ public final class JourneyBodies {
             boolean anyPerson = ids.stream().anyMatch(id -> level.getEntity(id) instanceof LotrNpc);
             if (!anyPerson) {
                 dissolve(level, j);
+                int before = j.people.size();
                 j.people.removeIf(pid -> Persons.get(server).get(pid).isEmpty());
-                if (j.people.isEmpty()) {
+                if (before > 0 && j.people.isEmpty()) {
                     all.lose(server, j);
                 }
             }
