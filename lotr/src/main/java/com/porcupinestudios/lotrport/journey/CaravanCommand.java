@@ -30,7 +30,8 @@ import net.minecraft.server.level.ServerPlayer;
  * <li>{@code /lotr_colony caravan keep <item> <count>}: a floor caravans never take it below;</li>
  * <li>{@code /lotr_colony caravan list}: caravans out now.</li>
  * </ul>
- * Goods are written {@code item*count,item*count} ({@code -} for none), e.g. {@code bread*64,lotr_port:mithril*2}.
+ * Goods are written {@code item*count,item*count} ({@code -} for none), e.g. {@code bread*64,lotr_port:mithril*2};
+ * {@code bread>200} is everything over 200, {@code bread>200*64} at most 64 of it.
  */
 public final class CaravanCommand {
     private CaravanCommand() {}
@@ -42,8 +43,18 @@ public final class CaravanCommand {
                                 .executes(c -> sendNow(c, "-"))
                                 .then(Commands.argument("bring", StringArgumentType.string())
                                         .executes(c -> sendNow(c, StringArgumentType.getString(c, "bring")))))))
+                .then(Commands.literal("trades").executes(c -> open(c, "trades", 0)))
                 .then(Commands.literal("route")
                         .then(Commands.literal("list").executes(CaravanCommand::listRoutes))
+                        .then(Commands.literal("edit").then(Commands.argument("n", IntegerArgumentType.integer(1))
+                                .executes(c -> open(c, "route", IntegerArgumentType.getInteger(c, "n")))))
+                        // route when <n> "<colony>" <item> below|above <x>: the route goes by itself while that holds
+                        .then(Commands.literal("when").then(Commands.argument("n", IntegerArgumentType.integer(1))
+                                .then(Commands.argument("watch", StringArgumentType.string())
+                                        .then(Commands.argument("item", StringArgumentType.string())
+                                                .then(Commands.argument("is", StringArgumentType.word())
+                                                        .then(Commands.argument("x", IntegerArgumentType.integer(0))
+                                                                .executes(CaravanCommand::when)))))))
                         .then(Commands.literal("remove").then(Commands.argument("n", IntegerArgumentType.integer(1))
                                 .executes(c -> edit(c, b -> b.withoutRoute(IntegerArgumentType.getInteger(c, "n")),
                                         "Route removed"))))
@@ -124,6 +135,18 @@ public final class CaravanCommand {
             return out;
         }
         for (String part : s.split(",")) {
+            // item>over: everything above over (item>over*cap: at most cap of it)
+            if (part.contains(">")) {
+                String[] io = part.trim().split(">");
+                String[] oc = io.length > 1 ? io[1].split("\\*") : new String[] {"0"};
+                try {
+                    out.add(new CaravanRules.Amount(Caravans.id(io[0].trim()).toString(), oc.length > 1
+                            ? Integer.parseInt(oc[1].trim()) : 0, Integer.parseInt(oc[0].trim())));
+                } catch (NumberFormatException e) {
+                    // skipped
+                }
+                continue;
+            }
             String[] kv = part.trim().split("\\*");
             int n = 64;
             if (kv.length > 1) {
@@ -148,6 +171,33 @@ public final class CaravanCommand {
                 goods(StringArgumentType.getString(c, "send")), goods(bring), 0, 1, false, -1));
         c.getSource().sendSystemMessage(s.why());
         return s.journey().isPresent() ? 1 : 0;
+    }
+
+    private static int open(CommandContext<CommandSourceStack> c, String what, int n) {
+        Optional<Colony> home = mine(c.getSource());
+        ServerPlayer p = c.getSource().getPlayer();
+        if (home.isEmpty() || p == null) {
+            return 0;
+        }
+        com.porcupinestudios.lotrport.ui.Views.open(p, what.equals("route")
+                ? com.porcupinestudios.lotrport.colony.ui.CaravanViews.routeTarget(home.get(), n)
+                : new com.porcupinestudios.lotrport.ui.View.Target(com.porcupinestudios.lotrport.colony.ui.CaravanViews
+                        .TRADE, home.get().id().toString(), "offers"), true);
+        return 1;
+    }
+
+    private static int when(CommandContext<CommandSourceStack> c) {
+        Optional<Colony> watch = named(c.getSource(), StringArgumentType.getString(c, "watch"));
+        if (watch.isEmpty()) {
+            return 0;
+        }
+        String item = Caravans.id(StringArgumentType.getString(c, "item")).toString();
+        boolean above = StringArgumentType.getString(c, "is").equals("above");
+        int x = IntegerArgumentType.getInteger(c, "x");
+        int n = IntegerArgumentType.getInteger(c, "n");
+        return edit(c, b -> b.route(n).map(r -> b.withRoute(new CaravanBook.Route(r.id(), r.to(), r.send(),
+                r.bring(), 0, r.people(), r.sell(), r.lastDay(), Optional.of(new CaravanRules.Trigger(watch.get().id(),
+                        item, above, x))))).orElse(b), "Route " + n + " now goes by itself when that holds");
     }
 
     private static int sendRoute(CommandContext<CommandSourceStack> c) {
