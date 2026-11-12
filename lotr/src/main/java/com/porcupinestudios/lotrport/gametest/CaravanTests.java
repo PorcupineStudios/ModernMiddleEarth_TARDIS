@@ -198,4 +198,70 @@ public final class CaravanTests {
                 })
                 .thenSucceed();
     }
+
+    /**
+     * Aaron (2026-11-12): rules mix conditions and outcomes. Rule 1: if the outpost has under 10 bread, take the bread
+     * over 30 and send only that; else message. Rule 2 (after a stop in rule 1's then) never runs while rule 1 sends.
+     */
+    @GameTest(template = "empty", timeoutTicks = 8000, batch = "caravan_program")
+    public static void ifThenElseRulesSendTheirOwnGoods(GameTestHelper helper) {
+        MinecraftServer server = helper.getLevel().getServer();
+        Waypoint w1 = FastTravel.waypoint(LotrPort.id("hobbiton")).orElseThrow();
+        UUID me = UUID.randomUUID();
+        int off = (int) (Math.abs(me.getLeastSignificantBits()) % 40);
+        Colony home = colony(server, helper, me, "Program Home", new BlockPos(w1.x() + off, 70, w1.z()),
+                Map.of(BREAD, 100, IRON, 50), 1);
+        Colony outpost = colony(server, helper, me, "Program Outpost", new BlockPos(w1.x() + 300 + off, 70, w1.z()),
+                Map.of(), 0);
+        var rule1 = new CaravanBook.Rule(java.util.Optional.of(new com.porcupinestudios.lotrport.journey
+                .CaravanConditions.Stock("destination", BREAD.toString(), "<", 10)), List.of(
+                        new com.porcupinestudios.lotrport.journey.Outcomes.Goods(true, BREAD.toString(), "excess", 30,
+                                0),
+                        new com.porcupinestudios.lotrport.journey.Outcomes.Send(true),
+                        new com.porcupinestudios.lotrport.journey.Outcomes.Stop()),
+                List.of(new com.porcupinestudios.lotrport.journey.Outcomes.Message("Nothing to send")), false);
+        var rule2 = new CaravanBook.Rule(java.util.Optional.empty(), List.of(
+                new com.porcupinestudios.lotrport.journey.Outcomes.Goods(true, IRON.toString(), "fixed", 50, 0),
+                new com.porcupinestudios.lotrport.journey.Outcomes.Send(true)), List.of(), false);
+        // the route's own goods (iron) must not go: rule 1 sends only its extras
+        CaravanBook.Route r = new CaravanBook.Route(1, outpost.id(), List.of(new CaravanRules.Amount(IRON.toString(),
+                5)), List.of(), 0, 1, false, -1).withRules(List.of(rule1, rule2));
+        Caravans.setBook(server, home, Caravans.book(home).withRoute(r));
+        com.porcupinestudios.lotrport.journey.Outcome.Run preview = Caravans.runRules(server, home, r, false);
+        helper.assertTrue(preview.send && preview.stop && preview.take.size() == 1 && preview.messages.isEmpty(),
+                "rule 1 should fire then stop: send " + preview.send + ", take " + preview.take + ", messages "
+                        + preview.messages);
+        Journeys all = Journeys.get(server);
+        Journey[] sent = {null};
+        helper.onEachTick(() -> {
+            if (sent[0] != null && sent[0].moving()) {
+                all.tick(server, 120);
+            }
+        });
+        helper.startSequence()
+                .thenExecute(() -> {
+                    Caravans.runRoutes(server);
+                    List<Journey> out = all.from(home.id());
+                    helper.assertTrue(out.size() == 1, "the rules sent " + out.size() + " caravans");
+                    sent[0] = out.get(0);
+                    helper.assertTrue(sent[0].cargo.equals(Map.of(BREAD, 70)), "it took " + sent[0].cargo
+                            + ", wanted only the 70 bread over 30");
+                })
+                .thenWaitUntil(() -> helper.assertTrue(sent[0].stage == Journey.Stage.DONE, "not back yet"))
+                .thenExecute(() -> {
+                    helper.assertTrue(stock(server, outpost.id(), BREAD) == 70, "outpost bread "
+                            + stock(server, outpost.id(), BREAD));
+                    // now the outpost has bread: rule 1 goes to its else (a message) and rule 2 runs
+                    var after = Caravans.runRules(server, Colonies.get(server).get(home.id()).orElseThrow(),
+                            Caravans.book(home).route(1).orElseThrow(), false);
+                    helper.assertTrue(after.messages.size() == 1 && after.send && after.take.size() == 1
+                            && after.take.get(0).item().equals(IRON.toString()), "else and rule 2: messages "
+                                    + after.messages + ", take " + after.take);
+                    Colonies cs = Colonies.get(server);
+                    for (UUID id : List.of(home.id(), outpost.id())) {
+                        cs.get(id).ifPresent(c -> cs.disband(server, c, "test"));
+                    }
+                })
+                .thenSucceed();
+    }
 }
