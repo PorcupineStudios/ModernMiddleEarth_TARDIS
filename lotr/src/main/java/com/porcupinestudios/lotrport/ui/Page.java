@@ -5,7 +5,7 @@ import java.util.Optional;
 import net.minecraft.network.chat.Component;
 
 /** What one tab shows. Only the open tab is built and sent, so a view with many tabs costs one tab's work. */
-public sealed interface Page permits Page.Table, Page.Stats, Page.Profile, Page.Timetable {
+public sealed interface Page permits Page.Table, Page.Stats, Page.Profile, Page.Timetable, Page.Blocks {
     /** Buttons under the page. */
     List<Action> buttons();
 
@@ -133,6 +133,67 @@ public sealed interface Page permits Page.Table, Page.Stats, Page.Profile, Page.
     record Section(Component title, List<Stat> stats) {
         public Section {
             stats = List.copyOf(stats);
+        }
+    }
+
+    /**
+     * A block program like Scratch's: a script of blocks drawn with their shapes (C blocks with arms for if/else,
+     * stack blocks for commands, hexagons for yes/no conditions), each with inline inputs. Inputs are ordinary
+     * pickers and steppers, so they send the same actions as anywhere else.
+     *
+     * @param add the "add a block" menu under the script, if any
+     */
+    record Blocks(List<Block> script, Optional<Stat.Picker> add, List<Action> buttons, List<Component> notes)
+            implements Page {
+        public Blocks {
+            script = List.copyOf(script);
+            buttons = List.copyOf(buttons);
+            notes = List.copyOf(notes);
+        }
+    }
+
+    /**
+     * One block. {@code shape} "c" (head row, then arms), "stack" (one row) or "bool" (a hexagon, inside another
+     * block's slot). {@code menu}, if any, opens when its plain parts are clicked (change, remove, move...).
+     */
+    record Block(String shape, int color, List<Part> head, List<Arm> arms, Optional<Stat.Picker> menu) {
+        public Block {
+            head = List.copyOf(head);
+            arms = List.copyOf(arms);
+        }
+    }
+
+    /** An arm of a C block: its label row (empty for the first), its blocks, and an "add" menu at its end. */
+    record Arm(Component label, List<Block> body, Optional<Stat.Picker> add) {
+        public Arm {
+            body = List.copyOf(body);
+        }
+    }
+
+    /**
+     * A part of a block's row. {@code kind}: 0 text, 1 a picker (shows {@code text}), 2 a number (stepper), 3 a
+     * nested block, 4 an empty slot that adds a block (picker).
+     */
+    record Part(int kind, Component text, Optional<Stat.Picker> picker, Optional<Stat.Stepper> stepper,
+            Optional<Block> block) {
+        public static Part text(String s) {
+            return new Part(0, Component.literal(s), Optional.empty(), Optional.empty(), Optional.empty());
+        }
+
+        public static Part pick(String shown, Stat.Picker p) {
+            return new Part(1, Component.literal(shown), Optional.of(p), Optional.empty(), Optional.empty());
+        }
+
+        public static Part number(Stat.Stepper st) {
+            return new Part(2, Component.empty(), Optional.empty(), Optional.of(st), Optional.empty());
+        }
+
+        public static Part block(Block b) {
+            return new Part(3, Component.empty(), Optional.empty(), Optional.empty(), Optional.of(b));
+        }
+
+        public static Part slot(Stat.Picker p) {
+            return new Part(4, Component.empty(), Optional.of(p), Optional.empty(), Optional.empty());
         }
     }
 }

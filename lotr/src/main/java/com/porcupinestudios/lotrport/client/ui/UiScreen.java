@@ -31,6 +31,7 @@ public class UiScreen extends Screen {
     private StatsPane stats;
     private ProfilePane profile;
     private TimetablePane timetable;
+    private BlocksPane blocks;
     private EditBox search;
     /** The name field while renaming on a profile page. */
     private EditBox renameBox;
@@ -91,6 +92,8 @@ public class UiScreen extends Screen {
                 stats.set(s);
             } else if (v.page() instanceof Page.Profile p && profile != null) {
                 profile.set(p);
+            } else if (v.page() instanceof Page.Blocks b && blocks != null) {
+                blocks.set(b);
             } else if (v.page() instanceof Page.Timetable t && timetable != null) {
                 // keep the cells being painted until the drag ends
                 if (!timetable.painting()) {
@@ -139,6 +142,7 @@ public class UiScreen extends Screen {
         stats = null;
         profile = null;
         timetable = null;
+        blocks = null;
         search = null;
         renameBox = null;
         String key = view.id() + "|" + view.context() + "|" + view.tab();
@@ -166,6 +170,8 @@ public class UiScreen extends Screen {
             profile = new ProfilePane(this, p);
         } else if (view.page() instanceof Page.Timetable t) {
             timetable = new TimetablePane(this, t);
+        } else if (view.page() instanceof Page.Blocks b) {
+            blocks = new BlocksPane(this, b);
         }
     }
 
@@ -256,6 +262,8 @@ public class UiScreen extends Screen {
             profile.draw(ui, contentX(), contentY(), contentW(), contentH(), renameBox != null);
         } else if (timetable != null) {
             timetable.draw(ui, contentX(), contentY(), contentW(), contentH());
+        } else if (blocks != null) {
+            blocks.draw(ui, contentX(), contentY(), contentW(), contentH());
         }
         int bw = 100;
         int by = fy + fh - UiTheme.BUTTON_HEIGHT / 2 - 2;
@@ -400,6 +408,9 @@ public class UiScreen extends Screen {
             return true;
         }
         if (popup == null && stats != null && stats.scroll(mouseY, scrollY)) {
+            return true;
+        }
+        if (popup == null && blocks != null && blocks.scroll(mouseY, scrollY)) {
             return true;
         }
         if (popup == null && timetable != null && timetable.scroll(mouseY, scrollY)) {
