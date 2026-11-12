@@ -18,32 +18,15 @@ import net.minecraft.resources.ResourceLocation;
  * ({@code colony_systems/settings.json} {@code disabled}) rather than editing the others.
  */
 public final class ColonySystemsCore {
-    public static final ResourceLocation APPLICANTS = LotrPort.id("applicants");
-    public static final ResourceLocation MIGRATION = LotrPort.id("migration");
     public static final ResourceLocation RECRUITS = LotrPort.id("recruits");
     public static final ResourceLocation SOLDIER_PAY = LotrPort.id("soldier_pay");
-    /** Count: migrants who came this pass. */
-    public static final ResourceLocation ARRIVALS = LotrPort.id("arrivals");
     /** Count: coins paid to soldiers this pass. */
     public static final ResourceLocation WAGES_PAID = LotrPort.id("wages_paid");
 
     private ColonySystemsCore() {}
 
     public static void register() {
-        // Applicants age in every tier, so one who waits out an unloaded colony is gone when it loads.
-        ColonySystems.register(ColonySystem.of(APPLICANTS, Cadence.DAY, Tier.ALL, Set.of(), ctx -> {
-            if (ColonyData.settings().selectiveMigration()) {
-                Migrants.age(ctx.server(), ctx.colony(), ctx.days());
-            }
-        }));
-        // Migrants need a loaded Hall (beds are counted from blocks); an AI colony grows by numbers instead.
-        ColonySystems.register(ColonySystem.of(MIGRATION, Cadence.DAY, Tier.IN_WORLD,
-                Set.of(APPLICANTS, LotrPort.id("needs")), ctx -> {
-            if (!ctx.colony().ai() && ctx.level() != null && !Immigration.enabled()) {
-                ctx.count(ARRIVALS, Colonies.get(ctx.server()).arrivals(ctx.level(), ctx.colony()));
-            }
-        }));
-        ColonySystems.register(ColonySystem.of(RECRUITS, Cadence.DAY, Tier.IN_WORLD, Set.of(MIGRATION),
+        ColonySystems.register(ColonySystem.of(RECRUITS, Cadence.DAY, Tier.IN_WORLD, Set.of(),
                 ctx -> Recruiting.tryJoinAll(ctx.server(), ctx.colony())));
         ColonySystems.register(ColonySystem.of(SOLDIER_PAY, Cadence.DAY, Tier.ALL, Set.of(), ColonySystemsCore::pay));
     }

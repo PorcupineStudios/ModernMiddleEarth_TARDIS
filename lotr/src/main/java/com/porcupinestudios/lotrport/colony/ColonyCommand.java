@@ -13,14 +13,12 @@ import com.mojang.brigadier.arguments.IntegerArgumentType;
 import java.util.Optional;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
-import net.minecraft.commands.arguments.UuidArgument;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 
 /**
- * {@code /lotr_colony} (your colony: name, faction, citizens, beds, waiting migrants, open recruitments),
- * {@code /lotr_colony accept|deny <migrant>} (the offer links) and, for admins,
+ * {@code /lotr_colony} (your colony: name, faction, citizens, beds, open recruitments) and, for admins,
  * {@code /lotr colony day [n]} (runs n colony days now) and {@code /lotr colony list}.
  */
 public final class ColonyCommand {
@@ -92,12 +90,6 @@ public final class ColonyCommand {
                     com.porcupinestudios.lotrport.colony.work.LedgerNet.send(player, c.get(), true);
                     return 1;
                 }))
-                .then(Commands.literal("accept").then(Commands.argument("migrant", UuidArgument.uuid())
-                        .executes(ctx -> answer(ctx.getSource(), Migrants.accept(ctx.getSource()
-                                .getPlayerOrException(), UuidArgument.getUuid(ctx, "migrant"))))))
-                .then(Commands.literal("deny").then(Commands.argument("migrant", UuidArgument.uuid())
-                        .executes(ctx -> answer(ctx.getSource(), Migrants.deny(ctx.getSource()
-                                .getPlayerOrException(), UuidArgument.getUuid(ctx, "migrant"))))))
                 .executes(ctx -> {
             ServerPlayer player = ctx.getSource().getPlayerOrException();
             Optional<Colony> colony = Colonies.get(player.server).ofFounder(player.getUUID());
@@ -119,7 +111,6 @@ public final class ColonyCommand {
                         .translatable("npc." + ci.type().getNamespace() + "." + ci.type().getPath()))
                         .append(rare ? ", rare)" : ")"), false);
             }
-            Society.applicants(player.server, c).forEach(a -> Migrants.tell(player, c, a));
             c.recruits().keySet().forEach(id -> Recruiting.describe(player, c, id));
             return Society.citizenCount(player.server, c);
         }));
@@ -370,15 +361,6 @@ public final class ColonyCommand {
         return (int) Math.ceil(maxMs);
     }
 
-    private static int answer(CommandSourceStack source, Migrants.Answer answer) {
-        if (answer.ok()) {
-            source.sendSuccess(answer::message, false);
-            return 1;
-        }
-        source.sendFailure(answer.message());
-        return 0;
-    }
-
     private static int days(CommandSourceStack source, int n) throws com.mojang.brigadier.exceptions
             .CommandSyntaxException {
         ServerPlayer player = source.getPlayerOrException();
@@ -388,13 +370,11 @@ public final class ColonyCommand {
             source.sendFailure(Component.literal("You have no colony"));
             return 0;
         }
-        int came = 0;
         for (int i = 0; i < n; i++) {
-            came += all.day(player.serverLevel(), colony.get());
+            all.day(player.serverLevel(), colony.get());
         }
-        int total = came;
-        source.sendSuccess(() -> Component.literal(total + " newcomers"), true);
-        return came;
+        source.sendSuccess(() -> Component.literal(n + " colony days run"), true);
+        return n;
     }
 
     /** Lists the buildings of the colony you belong to (the nearest). */

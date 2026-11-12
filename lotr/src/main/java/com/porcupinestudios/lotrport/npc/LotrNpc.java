@@ -1,6 +1,5 @@
 package com.porcupinestudios.lotrport.npc;
 
-import com.porcupinestudios.lotrport.colony.Migrants;
 import com.porcupinestudios.lotrport.colony.Recruiting;
 import com.porcupinestudios.lotrport.content.LotrWeaponItem;
 import com.porcupinestudios.lotrport.faction.Alignment;
@@ -782,9 +781,6 @@ public class LotrNpc extends PathfinderMob implements Merchant {
         }
         NpcType type = npcType();
         if (owner == null && com.porcupinestudios.lotrport.quest.Quests.pickpocket(sp, this)) {
-            return InteractionResult.SUCCESS;
-        }
-        if (owner == null && Migrants.interact(sp, this)) {
             return InteractionResult.SUCCESS;
         }
         // sneak + right-click a citizen of your colony: its page (RingRealms' colonist screen)

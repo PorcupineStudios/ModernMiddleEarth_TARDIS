@@ -50,9 +50,9 @@ import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
 
 /**
  * Every colony (RingRealms, built in): founding, growth and citizens. Saved in the overworld's data storage. Once a
- * colony day ({@link ColonyData.Settings#dayTicks}), migrants come to a loaded Hall while it has free beds near it;
- * who comes is drawn from its faction's migration table. With selective migration (the default) they wait at the Hall
- * as applicants until the owner accepts or turns them away ({@link Migrants}). Rare races join only by
+ * colony day ({@link ColonyData.Settings#dayTicks}) its systems run. Newcomers come only through the immigration
+ * board, welcomed in the colony screen ({@link Immigration}; who is drawn from the faction's migration table, as
+ * {@link #pickMigrant}). Rare races join only by
  * {@link Recruiting}. Every change is written to the history log.
  */
 public final class Colonies extends SavedData {
@@ -290,45 +290,9 @@ public final class Colonies extends SavedData {
         return beds;
     }
 
-    /**
-     * Runs one colony day for this colony now, through the colony systems (applicants age, migrants come, recruits
-     * join, soldiers are paid). Returns how many migrants came.
-     */
-    public int day(ServerLevel level, Colony colony) {
-        return ColonyScheduler.get(level.getServer()).runDay(level.getServer(), colony, 1)
-                .counted(ColonySystemsCore.ARRIVALS);
-    }
-
-    /**
-     * Migrants come while there are free beds (and the first settlers before any). With selective migration they
-     * wait at the Hall as applicants. Returns how many came.
-     */
-    public int arrivals(ServerLevel level, Colony colony) {
-        ColonyData.Settings s = ColonyData.settings();
-        int homes = homes(level, colony);
-        MinecraftServer server = level.getServer();
-        int waiting = s.selectiveMigration() ? Society.applicants(server, colony).size() : 0;
-        int room = homes - Society.citizenCount(server, colony) - waiting;
-        if (s.selectiveMigration()) {
-            room = Math.min(room, s.maxApplicants() - waiting);
-        }
-        int perDay = s.arrivalsPerDay() + (com.porcupinestudios.lotrport.colony.work.Life.happiness(server, colony)
-                > com.porcupinestudios.lotrport.colony.work.LifeSettings.get().happyArrivals() ? 1 : 0);
-        int arrivals = Math.max(0, Math.min(room, perDay));
-        int came = 0;
-        for (int i = 0; i < arrivals; i++) {
-            Optional<ResourceLocation> type = pickMigrant(colony, level.random);
-            if (type.isEmpty()) {
-                break;
-            }
-            Optional<LotrNpc> npc = s.selectiveMigration() ? Migrants.offer(this, level, colony, type.get())
-                    : arrive(level, colony, type.get());
-            if (npc.isEmpty()) {
-                break;
-            }
-            came++;
-        }
-        return came;
+    /** Runs one colony day for this colony now, through the colony systems (recruits join, soldiers are paid...). */
+    public void day(ServerLevel level, Colony colony) {
+        ColonyScheduler.get(level.getServer()).runDay(level.getServer(), colony, 1);
     }
 
     /** Homes a colony has: its beds, or the first settlers' places before there are enough beds. */

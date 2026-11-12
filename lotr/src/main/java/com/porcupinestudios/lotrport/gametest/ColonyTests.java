@@ -93,7 +93,8 @@ public final class ColonyTests {
         colonies.set(colony, com.porcupinestudios.lotrport.colony.work.WorkComponents.STOCK,
                 new com.porcupinestudios.lotrport.colony.work.WorkComponents.Stock(java.util.Map.of(
                         net.minecraft.resources.ResourceLocation.withDefaultNamespace("bread"), 500)));
-        helper.assertTrue(colonies.day(level, colony) == 0, "the old migration still brings people");
+        colonies.day(level, colony);
+        helper.assertTrue(Society.citizenCount(server, colony) == 0, "people came without being welcomed");
         com.porcupinestudios.lotrport.colony.Immigration.Board board = com.porcupinestudios.lotrport.colony
                 .Immigration.draw(server, colony, com.porcupinestudios.lotrport.colony.Immigration.Board.EMPTY,
                         level.getGameTime());
