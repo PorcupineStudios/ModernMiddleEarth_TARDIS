@@ -140,13 +140,13 @@ wait 5
 /lotr_colony caravan route edit 1 rules
 wait 60
 shot ui_caravan_rules
-# the block menu: pick Goods, drag "take" into the rule
-press 55 180
+# the block menu (GUI coordinates; CI runs at GUI scale 3): Control, then drag "if then else" to the top
+press 34 58
 release
 wait 10
 shot ui_caravan_palette
-press 130 96
-move 330 260
+press 90 80
+move 300 60
 wait 10
 shot ui_caravan_drag
 release
