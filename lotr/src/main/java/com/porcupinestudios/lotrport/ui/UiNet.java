@@ -18,7 +18,7 @@ import net.neoforged.neoforge.network.registration.PayloadRegistrar;
  */
 public final class UiNet {
     /** Protocol version of these payloads and {@link UiCodecs}. */
-    public static final String VERSION = "6";
+    public static final String VERSION = "7";
 
     /** Set by the client at setup (common code never names the screen). */
     public static Consumer<Show> showHandler = s -> { };

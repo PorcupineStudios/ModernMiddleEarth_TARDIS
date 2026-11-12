@@ -79,6 +79,7 @@ public final class ColonyViews {
         Views.register(COLONIES, new ColoniesProvider());
         CitizenViews.register();
         CaravanViews.register();
+        CandidateViews.register();
     }
 
     /** Opens a colony's view for a player (the Hall's Manage button, the command). */

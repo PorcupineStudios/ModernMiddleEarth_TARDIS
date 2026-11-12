@@ -79,4 +79,43 @@ public final class ColonistLifeTests {
         colonies.disband(server, c, "test");
         helper.succeed();
     }
+
+    /** An immigrant family keeps its ties: married parents, their children, and a tree that shows it before and after. */
+    @GameTest(template = "empty")
+    public static void anImmigrantFamilyArrivesAsAFamily(GameTestHelper helper) {
+        MinecraftServer server = helper.getLevel().getServer();
+        Colonies colonies = Colonies.get(server);
+        Colony c = colonies.foundAi(server, UUID.randomUUID(), UUID.randomUUID(), "Family Test",
+                helper.getLevel().dimension(), helper.absolutePos(new BlockPos(1, 1, 1)), LotrPort.id("gondor"), 0)
+                .orElseThrow(() -> new AssertionError("no colony at the test spot"));
+        Immigration.Offer o = Immigration.addFamily(server, c, 4).orElseThrow();
+        helper.assertTrue(o.bond().equals("family") && o.members().size() == 4, "offer: " + o);
+        helper.assertTrue(o.members().get(0).spouse() == 1 && o.members().get(1).spouse() == 0
+                && o.members().get(2).parents().equals(List.of(0, 1)) && o.members().get(3).parents().equals(List.of(0,
+                        1)), "ties in the offer: " + o.members());
+        var tree = com.porcupinestudios.lotrport.colony.ui.CandidateViews.treeOf(o, 0);
+        helper.assertTrue(tree.nodes().size() == 4 && tree.links().stream().filter(l -> l.kind().equals("spouse"))
+                .count() == 1 && tree.links().stream().filter(l -> l.kind().equals("parent")).count() == 4,
+                "the candidate tree: " + tree.links());
+        List<Person> came = Immigration.welcome(server, helper.getLevel(), c, o);
+        helper.assertTrue(came.size() == 4, "came: " + came.size());
+        Kin mum = came.get(0).get(ColonistData.KIN).orElseThrow();
+        Kin kid = came.get(2).get(ColonistData.KIN).orElseThrow();
+        helper.assertTrue(mum.spouse().equals(java.util.Optional.of(came.get(1).id())) && mum.children().containsAll(
+                List.of(came.get(2).id(), came.get(3).id())), "the parents' kin: " + mum);
+        helper.assertTrue(kid.parents().containsAll(List.of(came.get(0).id(), came.get(1).id())), "a child's kin: "
+                + kid);
+        helper.assertTrue(!Colonists.adult(came.get(2), server.overworld().getGameTime()), "the children are grown");
+        Persons persons = Persons.get(server);
+        for (Person p : came) {
+            helper.getLevel().getEntity(p.id());
+            var e = helper.getLevel().getEntity(p.id());
+            if (e != null) {
+                e.discard();
+            }
+            persons.remove(server, p.id());
+        }
+        colonies.disband(server, c, "test");
+        helper.succeed();
+    }
 }

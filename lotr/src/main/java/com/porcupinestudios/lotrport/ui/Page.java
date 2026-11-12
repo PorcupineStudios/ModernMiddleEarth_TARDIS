@@ -49,7 +49,17 @@ public sealed interface Page permits Page.Table, Page.Stats, Page.Profile, Page.
      * @param tree a family tree drawn in place of the right column (zoom with the wheel, drag to pan), if any
      */
     record Profile(Optional<java.util.UUID> portrait, Component name, Optional<String> rename, Component subtitle,
-            List<Section> left, List<Section> right, List<Action> buttons, Optional<Tree> tree) implements Page {
+            List<Section> left, List<Section> right, List<Action> buttons, Optional<Tree> tree, Optional<String> skin)
+            implements Page {
+        /**
+         * With a skin ({@code "<texture>"}, or {@code "<texture>|64"} for 64x64 skins) the portrait is drawn from it
+         * when there is no body to draw (someone not here yet: an immigrant).
+         */
+        public Profile(Optional<java.util.UUID> portrait, Component name, Optional<String> rename, Component subtitle,
+                List<Section> left, List<Section> right, List<Action> buttons, Optional<Tree> tree) {
+            this(portrait, name, rename, subtitle, left, right, buttons, tree, Optional.empty());
+        }
+
         public Profile {
             left = List.copyOf(left);
             right = List.copyOf(right);

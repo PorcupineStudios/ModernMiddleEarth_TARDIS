@@ -215,6 +215,7 @@ public final class UiCodecs {
                     });
                     opt(b, t.open(), UiCodecs::str);
                 });
+                opt(buf, p.skin(), UiCodecs::str);
             }
             case Page.Blocks bl -> {
                 buf.writeByte(4);
@@ -336,7 +337,7 @@ public final class UiCodecs {
                     list(buf, UiCodecs::readSection), list(buf, UiCodecs::readAction),
                     opt(buf, b -> new Page.Tree(str(b), list(b, bb -> new Page.TreeNode(str(bb), text(bb), text(bb),
                             bb.readBoolean(), bb.readBoolean(), str(bb))), list(b, bb -> new Page.TreeLink(str(bb), str(bb),
-                            str(bb))), opt(b, UiCodecs::str))));
+                            str(bb))), opt(b, UiCodecs::str))), opt(buf, UiCodecs::str));
         }
         return new Page.Stats(list(buf, UiCodecs::readSection), list(buf, UiCodecs::readAction));
     }

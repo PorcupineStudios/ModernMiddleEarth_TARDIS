@@ -195,8 +195,21 @@ public final class ColonyCommand {
                                     }
                                     return ok ? 1 : 0;
                                 })))
+                        // /lotr colony immigrants family: a family of four on the board, its eldest's page opened
+                        .then(Commands.literal("immigrants").then(Commands.literal("family").executes(ctx -> {
+                            ServerPlayer player = ctx.getSource().getPlayerOrException();
+                            Optional<Colony> c = nearestOf(player);
+                            Optional<Immigration.Offer> o = c.flatMap(x -> Immigration.addFamily(player.server, x, 4));
+                            if (o.isEmpty()) {
+                                ctx.getSource().sendFailure(Component.literal("No family could be drawn"));
+                                return 0;
+                            }
+                            com.porcupinestudios.lotrport.ui.Views.open(player, com.porcupinestudios.lotrport.colony.ui
+                                    .CandidateViews.target(c.get(), o.get().id(), 0, "about"), true);
+                            return 1;
+                        }))
                         // /lotr colony immigrants: draws the nearest colony's immigration board afresh now
-                        .then(Commands.literal("immigrants").executes(ctx -> {
+                        .executes(ctx -> {
                             ServerPlayer player = ctx.getSource().getPlayerOrException();
                             Optional<Colony> c = nearestOf(player);
                             if (c.isEmpty()) {

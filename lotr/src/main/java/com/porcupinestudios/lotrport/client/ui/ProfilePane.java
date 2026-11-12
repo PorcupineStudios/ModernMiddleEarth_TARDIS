@@ -145,6 +145,10 @@ final class ProfilePane {
 
     /** Head and shoulders of the body, looking at the mouse; "Far away" when its body isn't loaded here. */
     private void drawPortrait(Imm ui, int x, int y, int w, int h) {
+        if (profile.portrait().isEmpty() && profile.skin().isPresent()) {
+            skinPortrait(ui, profile.skin().get(), x, y, w, h);
+            return;
+        }
         if (profile.portrait().isEmpty()) {
             // not a person (a caravan route...): a chest, drawn large
             ui.g.pose().pushPose();
@@ -192,5 +196,30 @@ final class ProfilePane {
             return false;
         }
         return bar.wheel(amount, 12);
+    }
+
+    /** Head and shoulders from a skin texture: the face, then the front of the body and arms below it. */
+    private static void skinPortrait(Imm ui, String skin, int x, int y, int w, int h) {
+        String[] parts = skin.split("\\|");
+        net.minecraft.resources.ResourceLocation tex = net.minecraft.resources.ResourceLocation.tryParse(parts[0]);
+        if (tex == null) {
+            return;
+        }
+        int texH = parts.length > 1 ? 64 : 32;
+        int px = Math.max(1, Math.min(w, h) / 12);
+        int headW = 8 * px;
+        int hx = x + (w - headW) / 2;
+        int hy = y + Math.max(2, (h - 14 * px) / 2);
+        ui.g.enableScissor(x, y, x + w, y + h);
+        // body front (20, 20, 8x12), arms (44, 20 and mirrored), drawn below the head, cut off by the frame
+        ui.g.blit(tex, hx, hy + headW, headW, 12 * px, 20, 20, 8, 12, 64, texH);
+        ui.g.blit(tex, hx - 4 * px, hy + headW, 4 * px, 12 * px, 44, 20, 4, 12, 64, texH);
+        ui.g.blit(tex, hx + headW, hy + headW, 4 * px, 12 * px, 44, 20, 4, 12, 64, texH);
+        // the face (8, 8, 8x8) and the hat layer over it (40, 8)
+        ui.g.blit(tex, hx, hy, headW, headW, 8, 8, 8, 8, 64, texH);
+        com.mojang.blaze3d.systems.RenderSystem.enableBlend();
+        ui.g.blit(tex, hx, hy, headW, headW, 40, 8, 8, 8, 64, texH);
+        com.mojang.blaze3d.systems.RenderSystem.disableBlend();
+        ui.g.disableScissor();
     }
 }

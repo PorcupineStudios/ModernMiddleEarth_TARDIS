@@ -88,6 +88,23 @@ wait 60
 shot ui_immigration
 close
 wait 5
+# a family on the board for the candidate page and its tree (an admin command draws one)
+/lotr colony immigrants family
+wait 60
+shot ui_candidate_tree
+close
+wait 5
+/lotr_colony manage immigration
+wait 40
+press 60 95
+release
+wait 5
+press 60 95
+release
+wait 40
+shot ui_candidate
+close
+wait 5
 # a family over three generations for the About tab's tree: f is a's parent; a and b married with children c and d,
 # then divorced, and a married g (child h); c married e
 /tag @e[type=lotr_port:npc,limit=1,sort=nearest,tag=!fam] add a

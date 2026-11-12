@@ -50,7 +50,7 @@ public final class Immigration {
     /** One person in an offer. {@code spouse} and {@code parents} point at others in the same offer by index. */
     public record Prospect(ResourceLocation type, String name, List<ResourceLocation> traits,
             Map<ResourceLocation, com.porcupinestudios.lotrport.colonist.Skills.Skill> skills, int age, int spouse,
-            List<Integer> parents) {
+            List<Integer> parents, String skin) {
         public static final Codec<Prospect> CODEC = RecordCodecBuilder.create(i -> i.group(
                 ResourceLocation.CODEC.fieldOf("type").forGetter(Prospect::type),
                 Codec.STRING.optionalFieldOf("name", "").forGetter(Prospect::name),
@@ -58,7 +58,8 @@ public final class Immigration {
                 Skills.MAP_CODEC.optionalFieldOf("skills", Map.of()).forGetter(Prospect::skills),
                 Codec.INT.optionalFieldOf("age", 25).forGetter(Prospect::age),
                 Codec.INT.optionalFieldOf("spouse", -1).forGetter(Prospect::spouse),
-                Codec.INT.listOf().optionalFieldOf("parents", List.of()).forGetter(Prospect::parents))
+                Codec.INT.listOf().optionalFieldOf("parents", List.of()).forGetter(Prospect::parents),
+                Codec.STRING.optionalFieldOf("skin", "").forGetter(Prospect::skin))
                 .apply(i, Prospect::new));
     }
 
@@ -214,8 +215,25 @@ public final class Immigration {
         return b;
     }
 
+    /** Puts a family of {@code size} on the board now (admin and tests); returns its offer. */
+    public static Optional<Offer> addFamily(MinecraftServer server, Colony c, int size) {
+        Board b = c.get(BOARD).orElse(Board.EMPTY);
+        Optional<Offer> o = offer(c, b.count() + 1, perks(server, c), new Random(), size);
+        o.ifPresent(x -> {
+            List<Offer> offers = new ArrayList<>(b.offers());
+            offers.add(0, x);
+            Colonies.get(server).set(c, BOARD, new Board(offers, b.next(), b.count() + 1));
+        });
+        return o;
+    }
+
     /** One offer: a lone settler most of the time, a family or friends when groups are allowed and the roll says. */
     static Optional<Offer> offer(Colony c, int id, Perks perks, Random random) {
+        return offer(c, id, perks, random, 0);
+    }
+
+    /** With {@code family} above 1: a family of that many (tests and the admin command). */
+    static Optional<Offer> offer(Colony c, int id, Perks perks, Random random, int forced) {
         Settings s = settings();
         RandomSource rs = RandomSource.create(random.nextLong());
         Optional<ResourceLocation> first = Colonies.pickMigrant(c, rs);
@@ -227,6 +245,10 @@ public final class Immigration {
             size = 2 + random.nextInt(perks.maxGroup() - 1);
         }
         boolean family = size > 1 && random.nextDouble() < s.familyShare();
+        if (forced > 1) {
+            size = forced;
+            family = true;
+        }
         List<Prospect> members = new ArrayList<>();
         for (int i = 0; i < size; i++) {
             ResourceLocation type = i == 0 || family ? first.get() : Colonies.pickMigrant(c, rs).orElse(first.get());
@@ -244,7 +266,7 @@ public final class Immigration {
     }
 
     private static Prospect withLinks(Prospect p, int spouse, List<Integer> parents) {
-        return new Prospect(p.type(), p.name(), p.traits(), p.skills(), p.age(), spouse, parents);
+        return new Prospect(p.type(), p.name(), p.traits(), p.skills(), p.age(), spouse, parents, p.skin());
     }
 
     private static Prospect prospect(ResourceLocation type, Perks perks, Random random, boolean child, int n) {
@@ -260,7 +282,11 @@ public final class Immigration {
         List<ResourceLocation> traits = TraitRules.roll(ColonistData.traits(), random, ColonistData.settings());
         int points = child ? 0 : Skills.settings().settlerPoints() + perks.quality() * s.pointsPerQuality();
         int cap = s.capBase() + perks.quality() * s.capPerQuality();
-        return new Prospect(type, name, traits, Skills.roll(race, points, cap, random), age, -1, List.of());
+        // the face they will have: one of the type's skins ("|64" for 64x64 skins)
+        String skin = com.porcupinestudios.lotrport.npc.NpcData.type(type).filter(t -> !t.skins().isEmpty())
+                .map(t -> t.skins().get(random.nextInt(t.skins().size())) + (t.skinHeight() == 64 ? "|64" : ""))
+                .orElse("");
+        return new Prospect(type, name, traits, Skills.roll(race, points, cap, random), age, -1, List.of(), skin);
     }
 
     /** What happened when an offer was answered. */
@@ -317,6 +343,9 @@ public final class Immigration {
             if (npc.isEmpty()) {
                 came.add(null);
                 continue;
+            }
+            if (!p.skin().isEmpty()) {
+                npc.get().setSkin(p.skin().split("\\|")[0]);
             }
             Person person = Society.recordOf(server, npc.get());
             Colonists.settle(server, person);
