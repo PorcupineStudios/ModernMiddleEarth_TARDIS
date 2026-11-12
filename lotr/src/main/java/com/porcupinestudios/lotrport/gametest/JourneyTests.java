@@ -163,6 +163,8 @@ public final class JourneyTests {
         helper.onEachTick(() -> {
             if (j.stage != Journey.Stage.PLANNING && took[0] < 0) {
                 took[0] = (System.nanoTime() - t0) / 1e9;
+                LotrPort.LOG.info("[journeys] Hobbiton plan done after {} s: found {}, {}", took[0], j.route.found(),
+                        com.porcupinestudios.lotrport.journey.RoutePlanner.lastSearch);
                 if (j.route.found()) {
                     LotrPort.LOG.info("[journeys] Hobbiton to the Last Bridge: {} points, cost {}, road {}%, {} s at"
                             + " walking pace, planned in {} s ({})", j.route.points(), (int) j.route.total(),

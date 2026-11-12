@@ -170,7 +170,7 @@ public final class Journeys extends SavedData {
             return;
         }
         planning.remove(j.id);
-        Route r = f.getNow(Route.NONE);
+        Route r = f.isCompletedExceptionally() ? Route.NONE : f.getNow(Route.NONE);
         if (!r.found()) {
             JourneyKind.of(j.kind).ifPresent(k -> k.unreachable(server, j));
             finish(server, j);
@@ -199,7 +199,8 @@ public final class Journeys extends SavedData {
         return CompletableFuture.supplyAsync(() -> {
             try {
                 return RoutePlanner.plan(land, ps, x1, z1, x2, z2);
-            } catch (RuntimeException ex) {
+            } catch (Throwable ex) {
+                RoutePlanner.lastSearch = "failed: " + ex;
                 LotrPort.LOG.error("[journeys] planning failed", ex);
                 return Route.NONE;
             }
