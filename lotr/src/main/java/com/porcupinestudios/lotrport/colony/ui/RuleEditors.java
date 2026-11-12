@@ -104,17 +104,17 @@ public final class RuleEditors {
 
     static {
         JsonArray none = new JsonArray();
-        register("ringbearer_api:all", new Spec("All of these (AND)", obj("ringbearer_api:all", "conditions", none),
+        register("ringbearer_api:all", new Spec("AND: all of", obj("ringbearer_api:all", "conditions", none),
                 List.of(), "conditions", (s, h, r, j) -> join(s, h, r, j, " and ")));
-        register("ringbearer_api:any", new Spec("Any of these (OR)", obj("ringbearer_api:any", "conditions",
+        register("ringbearer_api:any", new Spec("OR: any of", obj("ringbearer_api:any", "conditions",
                 new JsonArray()), List.of(), "conditions", (s, h, r, j) -> join(s, h, r, j, " or ")));
-        register("ringbearer_api:not", new Spec("Not (NOT)", obj("ringbearer_api:not", "condition",
+        register("ringbearer_api:not", new Spec("NOT", obj("ringbearer_api:not", "condition",
                 obj("ringbearer_api:always")), List.of(), "condition", (s, h, r, j) -> "not ("
                         + describe(s, h, r, j.has("condition") ? j.getAsJsonObject("condition") : new JsonObject())
                         + ")"));
         register("ringbearer_api:always", new Spec("Always", obj("ringbearer_api:always"), List.of(), "",
                 (s, h, r, j) -> "always"));
-        register("lotr_port:colony_stock", new Spec("A colony's stock of an item", obj("lotr_port:colony_stock",
+        register("lotr_port:colony_stock", new Spec("Stock", obj("lotr_port:colony_stock",
                 "colony", "destination", "item", "minecraft:bread", "compare", "<", "value", 64), List.of(
                         new Field("colony", "Colony", Kind.COLONY, 0, 0),
                         new Field("item", "Item", Kind.ITEM, 0, 0),
@@ -123,21 +123,21 @@ public final class RuleEditors {
                 (s, h, r, j) -> colonyName(s, h, r, str(j, "colony", "destination")) + "'s "
                         + CaravanViews.itemName(str(j, "item", "?")) + " " + str(j, "compare", "<") + " "
                         + num(j, "value", 0)));
-        register("lotr_port:colony_population", new Spec("A colony's population", obj(
+        register("lotr_port:colony_population", new Spec("Population", obj(
                 "lotr_port:colony_population", "colony", "destination", "compare", "<", "value", 10), List.of(
                         new Field("colony", "Colony", Kind.COLONY, 0, 0),
                         new Field("compare", "Is", Kind.COMPARE, 0, 0),
                         new Field("value", "Than", Kind.NUMBER, 0, 1000)), "",
                 (s, h, r, j) -> colonyName(s, h, r, str(j, "colony", "destination")) + "'s people "
                         + str(j, "compare", "<") + " " + num(j, "value", 0)));
-        register("lotr_port:days_since_sent", new Spec("Days since this route last went", obj(
+        register("lotr_port:days_since_sent", new Spec("Days since sent", obj(
                 "lotr_port:days_since_sent", "days", 3), List.of(new Field("days", "At least (days)", Kind.NUMBER, 1,
                         365)), "", (s, h, r, j) -> "every " + num(j, "days", 1) + " days"));
         register("lotr_port:time_of_day", new Spec("Time of day", obj("lotr_port:time_of_day", "from", 6, "to",
                 18), List.of(new Field("from", "From (hour)", Kind.HOUR, 0, 23),
                         new Field("to", "Until (hour)", Kind.HOUR, 0, 23)), "",
                 (s, h, r, j) -> "between " + num(j, "from", 6) + ":00 and " + num(j, "to", 18) + ":00"));
-        register("lotr_port:caravans_out", new Spec("This colony's caravans on the road", obj(
+        register("lotr_port:caravans_out", new Spec("Caravans out", obj(
                 "lotr_port:caravans_out", "compare", "<", "value", 2), List.of(
                         new Field("compare", "Is", Kind.COMPARE, 0, 0),
                         new Field("value", "Than", Kind.NUMBER, 0, 100)), "",
