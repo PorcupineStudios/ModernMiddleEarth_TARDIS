@@ -65,6 +65,11 @@ Search, filters, sorting and scrolling happen on the client (`TableQuery`), so t
   UUID: the client draws that body's head and shoulders (following the mouse) when it is loaded there, else "Far
   away". `rename` is the action a new name goes back with, as the row (the screen's one text input; empty: no Rename
   button). `left` and `right` are sections in two columns, scrolled together (wheel or the scroll bar).
+- `Profile.tree` (optional) is a `Page.Tree(focus, nodes, links, open)` drawn in place of the right column:
+  `TreeNode(id, name, detail, alive, openable)`, `TreeLink(from, to, spouse)`. The client (`TreePane`) lays out
+  generations round the focus (parents above, children below, spouses side by side, children under their parents),
+  starts zoomed to fit, zooms round the mouse with the wheel and pans by dragging, so it needs no scroll bars; a click
+  on an openable person sends `open` with their id.
 - `Page.Timetable(kinds, lines, paint, rowActions, buttons, notes)`: ONI's schedule grid. `Kind(letter, label,
   swatch, paintable)`: what a cell can be; `swatch` 0-7 picks a theme colour (`UiTheme.SWATCHES`), so colours stay on
   the client. `Line(id, label, detail, cells, editable)`: 24 letters; non-editable lines are drawn faded (a race's
@@ -178,7 +183,7 @@ as faded rows and a note per race. Changes need `citizens`.
 Overview (needs incl. energy, orders), Tasks (right now: hour and block, energy and food now; the queue with
 priorities or why each task waits), Mood (mood bar, the colony's part, every thought), Schedule (the race's hours,
 the last day: slept, worked and output, leisure, odd hours, lowest energy; which schedule they keep and its spans;
-Edit schedules), About (traits, purse, family). `/lotr_colony manage [tab]` and `/lotr_colony citizen <npc> [tab]`
+Edit schedules), About (traits, purse, family list; the family tree on the right). `/lotr_colony manage [tab]` and `/lotr_colony citizen <npc> [tab]`
 open a tab directly. The table below is what the tabs hold:
 
 | Part | Shows | Changes (permission `citizens`: stewards, rulers) |

@@ -40,6 +40,8 @@ final class TreePane {
     private int bw;
     private int bh;
     private boolean pressed;
+    /** Whether the view was fitted to the box yet (done on the first frame, when the box size is known). */
+    private boolean fitted;
     private double pressX;
     private double pressY;
     private double moved;
@@ -55,9 +57,7 @@ final class TreePane {
         tree = t;
         if (!same) {
             layout();
-            panX = -NODE_W / 2.0;
-            panY = -NODE_H / 2.0;
-            zoom = 1;
+            fitted = false;
         }
     }
 
@@ -152,6 +152,9 @@ final class TreePane {
         by = y;
         bw = w;
         bh = h;
+        if (!fitted) {
+            fit();
+        }
         ui.sprite(UiTheme.INSET, x, y, w, h);
         ui.clip(x + 2, y + 2, w - 4, h - 4);
         GuiGraphics g = ui.g;
@@ -212,6 +215,28 @@ final class TreePane {
         if (hover != null) {
             ui.tooltip(Component.literal(hover.name().getString() + " - " + hover.detail().getString()));
         }
+    }
+
+    /** Zooms out (never in past 1) so the whole family fits, centred. */
+    private void fit() {
+        fitted = true;
+        int minX = Integer.MAX_VALUE;
+        int minY = Integer.MAX_VALUE;
+        int maxX = Integer.MIN_VALUE;
+        int maxY = Integer.MIN_VALUE;
+        for (int[] p : at.values()) {
+            minX = Math.min(minX, p[0]);
+            minY = Math.min(minY, p[1]);
+            maxX = Math.max(maxX, p[0] + NODE_W);
+            maxY = Math.max(maxY, p[1] + NODE_H);
+        }
+        if (minX > maxX) {
+            return;
+        }
+        float fit = Math.min((bw - 16f) / (maxX - minX), (bh - 24f) / (maxY - minY));
+        zoom = Math.max(MIN_ZOOM, Math.min(1, fit));
+        panX = -(minX + maxX) / 2.0;
+        panY = -(minY + maxY) / 2.0 - 4 / zoom;
     }
 
     /** Screen point to tree units. */

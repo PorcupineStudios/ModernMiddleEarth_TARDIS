@@ -18,8 +18,20 @@ https://claude.ai/artifact/VLwZ5N7pkVMJW4PCYXh41G).
 - `ColonySystem.of(id, Cadence.DAY|PULSE, tiers, after, body)` registered with `ColonySystems.register`; the
   scheduler orders systems by `after`, spreads colonies over ticks and runs missed days as arithmetic when a colony
   was unloaded (`SystemContext.days`). Tiers: ACTIVE (player near), LOADED, UNLOADED. Numbers in
-  `colony_systems/settings.json`; `/lotr colony perf` and the `SocietyTests` benchmark (50 x 150 for 10 days:
-  mean 0.001 ms a tick, longest 1.2 ms).
+  `colony_systems/settings.json`; `/lotr colony perf`.
+- **A busy server comes first** (2026-11-12, `ColonyScheduler.Load`, settings `load`): the server's own tick time
+  (Pre to Post, smoothed by `smoothing`) gives the load. Under `light_ms` (25): light, the backlog is caught up with up
+  to `light_budget_factor` (2) x `budget_ms`. Over `heavy_ms` (40): heavy, colony days that fall due wait in the
+  backlog and only ACTIVE colonies (a player there) get pulses, i.e. their bodies. Over `overloaded_ms` (48): only
+  those pulses. In any load, a day that would start after the tick's budget is spent waits too. A day is marked done
+  only when it runs, and then runs every day that went by (capped by `max_catch_up_days`), so waiting loses nothing.
+  `/lotr colony perf` shows the load, days waited and caught up; `/lotr colony load <light|normal|heavy|overloaded|
+  auto>` pins it to try. GameTest `colonyDaysWaitOutABusyServer`.
+- **The benchmark is measured against the machine** (`SocietyTests.fiftyColoniesRunTenDaysWithinTheBudget`, 50 x 150
+  for 10 days): a colony day's cost is divided by a reference job (UUID map, list sort; `calibrationNanos`, best of 9)
+  timed in the same run, and may be at most `MAX_DAY_UNITS` 1.5 (0.48 on CI, 2026-11-12). Slow ticks and
+  milliseconds are only logged: they say more about the machine than the code. Every colony must also have run all
+  its days by the end (none stuck in the backlog).
 - Hired units (`unit/Units`): one `Unit` component (order, post, wage, unpaid, squad) for a player's unit or a
   colony soldier; stationing is one owner change; unpaid soldiers desert (`units/settings.json`).
 
