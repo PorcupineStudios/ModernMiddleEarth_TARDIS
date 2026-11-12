@@ -235,6 +235,11 @@ public final class MiddleEarthMap {
         return blocksPerPixel;
     }
 
+    /** The biome index of rivers (the river layer and painted rivers), or -1 without one. */
+    public int riverBiome() {
+        return rivers == null ? -1 : rivers.biome();
+    }
+
     /** The biome index at a block position: the map pixel under it, with borders wobbled. */
     public int biomeIndexAt(int blockX, int blockZ) {
         double wx = wobbledX(blockX, blockZ);
