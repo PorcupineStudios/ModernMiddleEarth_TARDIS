@@ -297,7 +297,7 @@ public final class SocietyTests {
                         + " of " + lastDay);
             }
             helper.assertTrue(scheduler.backlog() == 0, scheduler.backlog() + " colony days still waiting");
-            // a colony day of 150 people may cost at most MAX_DAY_UNITS reference jobs (measured 2026-11-12: see
+            // a colony day of 150 people may cost at most MAX_DAY_UNITS reference jobs (measured 0.48 on CI, 2026-11-12: see
             // the log line; raise it only for work that is worth it)
             helper.assertTrue(units <= MAX_DAY_UNITS, String.format(java.util.Locale.ROOT,
                     "a colony day costs %.2f reference jobs (limit %.1f): %.1f us against %.1f us", units,
@@ -327,7 +327,7 @@ public final class SocietyTests {
     }
 
     /** Most a colony day of 150 people may cost, in reference jobs ({@link #calibrationNanos}). */
-    static final double MAX_DAY_UNITS = 4.0;
+    static final double MAX_DAY_UNITS = 1.5;
 
     /**
      * The reference job: what a colony day does most (maps keyed by id, lists, sorting, small objects), at a fixed
