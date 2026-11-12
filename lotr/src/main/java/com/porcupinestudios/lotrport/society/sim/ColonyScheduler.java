@@ -23,14 +23,39 @@ import net.neoforged.neoforge.event.tick.ServerTickEvent;
  * over those ticks, so 50 colonies with 100-tick pulses cost one colony every other tick. A pass decides the
  * colony's {@link Tier}, runs the pulse systems of that tier, and if a colony day (or several, for a colony that was
  * unloaded) went by, the day systems with the number of days. Timing goes to {@link Perf}.
+ *
+ * <p>It gives way to a busy server ({@link SimSettings.Load}). The server's own tick time (without colony work) is
+ * smoothed into a {@link Load}: when it is heavy (portals, chunk generation, other mods), colony days that fall due
+ * are not run but put in a backlog, and only colonies a player is in get their pulses (their bodies); when the server
+ * is falling behind, only those pulses run. A day that would start after the tick's budget is spent waits in the
+ * backlog too. Nothing is lost by waiting: a colony day is marked done only when it runs, and then it runs for every
+ * day that went by (up to {@code max_catch_up_days}). In light ticks the backlog is worked off with up to
+ * {@code light_budget_factor} times the budget; in normal ticks with what is left of the budget.
  */
 public final class ColonyScheduler {
     private static final Map<MinecraftServer, ColonyScheduler> BY_SERVER = new WeakHashMap<>();
+
+    /** How busy the server is. */
+    public enum Load {
+        /** Time to spare: catch up the backlog. */
+        LIGHT,
+        NORMAL,
+        /** Colony days wait; only colonies a player is in get pulses. */
+        HEAVY,
+        /** Only colonies a player is in get pulses. */
+        OVERLOADED
+    }
 
     private final Perf perf = new Perf();
     private List<UUID>[] buckets;
     private int bucketsFor = -1;
     private int bucketsPulse = -1;
+    /** Colonies whose day fell due but waited, oldest first. */
+    private final java.util.LinkedHashSet<UUID> backlog = new java.util.LinkedHashSet<>();
+    /** The server's tick time without colony work, smoothed (ms); -1 until measured. */
+    private double serverTickMs = -1;
+    private long tickStartNanos;
+    private Load forced;
 
     /** A scheduler of its own (benchmarks); the server's is {@link #get}. */
     public ColonyScheduler() {}
@@ -40,6 +65,7 @@ public final class ColonyScheduler {
     }
 
     public static void register() {
+        NeoForge.EVENT_BUS.addListener(ColonyScheduler::onTickStart);
         NeoForge.EVENT_BUS.addListener(ColonyScheduler::onTick);
     }
 
@@ -47,9 +73,50 @@ public final class ColonyScheduler {
         return perf;
     }
 
+    private static void onTickStart(ServerTickEvent.Pre event) {
+        get(event.getServer()).tickStartNanos = System.nanoTime();
+    }
+
     private static void onTick(ServerTickEvent.Post event) {
         MinecraftServer server = event.getServer();
-        get(server).tick(server, server.overworld().getGameTime());
+        ColonyScheduler s = get(server);
+        if (s.tickStartNanos != 0) {
+            s.observe((System.nanoTime() - s.tickStartNanos) / 1_000_000.0, SimSettings.get().load());
+        }
+        s.tick(server, server.overworld().getGameTime());
+    }
+
+    /** Feeds one server tick's time (ms, without colony work) into the smoothed tick time. */
+    public void observe(double tickMs, SimSettings.Load l) {
+        double a = Math.max(0, Math.min(1, l.smoothing()));
+        serverTickMs = serverTickMs < 0 ? tickMs : serverTickMs * (1 - a) + tickMs * a;
+    }
+
+    /** Pins the load (tests, {@code /lotr colony load}); null goes back to measuring. */
+    public void forceLoad(Load load) {
+        forced = load;
+    }
+
+    /** The load colony work answers to now. */
+    public Load load(SimSettings s) {
+        if (forced != null) {
+            return forced;
+        }
+        SimSettings.Load l = s.load();
+        if (serverTickMs < 0 || serverTickMs < l.lightMs()) {
+            return Load.LIGHT;
+        }
+        return serverTickMs >= l.overloadedMs() ? Load.OVERLOADED : serverTickMs >= l.heavyMs() ? Load.HEAVY
+                : Load.NORMAL;
+    }
+
+    public double serverTickMs() {
+        return serverTickMs;
+    }
+
+    /** Colonies waiting for their day to run. */
+    public int backlog() {
+        return backlog.size();
     }
 
     /** One server tick at game time {@code now}: passes for the colonies whose turn it is. */
@@ -66,13 +133,34 @@ public final class ColonyScheduler {
         if (bucketsFor != colonies.version() || bucketsPulse != pulse) {
             rebuild(colonies, pulse);
         }
+        Load load = load(s);
+        long budget = (long) (s.budgetMs() * 1_000_000);
         for (UUID id : buckets[(int) Math.floorMod(now, (long) pulse)]) {
             Colony c = colonies.get(id).orElse(null);
             if (c != null && (only == null || only.test(c))) {
-                pass(server, colonies, c, now, s);
+                pass(server, colonies, c, now, s, load, start, budget);
             }
         }
-        perf.tick(System.nanoTime() - start, (long) (s.budgetMs() * 1_000_000));
+        // the backlog, with what the tick has left (more when the server has time to spare)
+        if ((load == Load.LIGHT || load == Load.NORMAL) && !backlog.isEmpty()) {
+            long limit = load == Load.LIGHT ? (long) (budget * Math.max(1, s.load().lightBudgetFactor())) : budget;
+            java.util.Iterator<UUID> it = backlog.iterator();
+            while (it.hasNext() && System.nanoTime() - start < limit) {
+                Colony c = colonies.get(it.next()).orElse(null);
+                if (c == null) {
+                    it.remove();
+                    continue;
+                }
+                if (only != null && !only.test(c)) {
+                    continue;
+                }
+                it.remove();
+                ServerLevel level = server.getLevel(c.dimension());
+                runDays(server, colonies, c, level, tier(level, c, s), now, s);
+                perf.caughtUp();
+            }
+        }
+        perf.tick(System.nanoTime() - start, budget);
     }
 
     @SuppressWarnings("unchecked")
@@ -91,12 +179,44 @@ public final class ColonyScheduler {
         bucketsPulse = pulse;
     }
 
-    /** One pass over a colony: pulse systems, then day systems if days went by. */
+    /** One pass over a colony, whatever the load: pulse systems, then day systems if days went by (tests). */
     public void pass(MinecraftServer server, Colonies colonies, Colony colony, long now, SimSettings s) {
+        pass(server, colonies, colony, now, s, Load.NORMAL, System.nanoTime(), Long.MAX_VALUE);
+    }
+
+    private void pass(MinecraftServer server, Colonies colonies, Colony colony, long now, SimSettings s, Load load,
+            long tickStart, long budget) {
         ServerLevel level = server.getLevel(colony.dimension());
         Tier tier = tier(level, colony, s);
-        SystemContext pulse = new SystemContext(server, colony, level, tier, now, 0);
-        run(ColonySystem.Cadence.PULSE, pulse, s);
+        boolean due = now / Math.max(1, ColonyData.settings().dayTicks()) > colonies.lastDay(colony);
+        if (load == Load.HEAVY || load == Load.OVERLOADED) {
+            // a busy server: only the bodies of colonies a player is in; their days wait
+            if (tier == Tier.ACTIVE) {
+                run(ColonySystem.Cadence.PULSE, new SystemContext(server, colony, level, tier, now, 0), s);
+            }
+            if (due && backlog.add(colony.id())) {
+                perf.deferred();
+            }
+            return;
+        }
+        run(ColonySystem.Cadence.PULSE, new SystemContext(server, colony, level, tier, now, 0), s);
+        if (!due) {
+            return;
+        }
+        if (System.nanoTime() - tickStart > budget) {
+            // the tick's budget is spent: this day waits for a later tick
+            if (backlog.add(colony.id())) {
+                perf.deferred();
+            }
+            return;
+        }
+        backlog.remove(colony.id());
+        runDays(server, colonies, colony, level, tier, now, s);
+    }
+
+    /** The day systems for every day that went by since the colony's last (up to the catch-up cap). */
+    private void runDays(MinecraftServer server, Colonies colonies, Colony colony, ServerLevel level, Tier tier,
+            long now, SimSettings s) {
         long day = now / Math.max(1, ColonyData.settings().dayTicks());
         long last = colonies.lastDay(colony);
         if (day > last) {

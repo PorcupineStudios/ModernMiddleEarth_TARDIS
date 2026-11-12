@@ -210,6 +210,28 @@ public final class ColonyCommand {
                         .then(Commands.literal("perf")
                                 .executes(ctx -> perf(ctx.getSource(), false))
                                 .then(Commands.literal("reset").executes(ctx -> perf(ctx.getSource(), true))))
+                        // pin the scheduler's load to see colonies give way (light, normal, heavy, overloaded),
+                        // or "auto" to measure again
+                        .then(Commands.literal("load").then(Commands.argument("level",
+                                com.mojang.brigadier.arguments.StringArgumentType.word()).executes(ctx -> {
+                                    String l = com.mojang.brigadier.arguments.StringArgumentType.getString(ctx,
+                                            "level").toUpperCase(java.util.Locale.ROOT);
+                                    ColonyScheduler.Load load = null;
+                                    for (ColonyScheduler.Load x : ColonyScheduler.Load.values()) {
+                                        if (x.name().equals(l)) {
+                                            load = x;
+                                        }
+                                    }
+                                    if (load == null && !l.equals("AUTO")) {
+                                        ctx.getSource().sendFailure(Component.literal(
+                                                "light, normal, heavy, overloaded or auto"));
+                                        return 0;
+                                    }
+                                    ColonyScheduler.get(ctx.getSource().getServer()).forceLoad(load);
+                                    ctx.getSource().sendSuccess(() -> Component.literal("Colony load: "
+                                            + l.toLowerCase(java.util.Locale.ROOT)), true);
+                                    return 1;
+                                })))
                         .then(Commands.literal("day")
                                 .executes(ctx -> days(ctx.getSource(), 1))
                                 .then(Commands.argument("n", IntegerArgumentType.integer(1, 100))
@@ -242,6 +264,11 @@ public final class ColonyCommand {
                 "%d colonies, %d people: %.3f ms mean, %.3f ms longest per tick over %d ticks, %d over the %.1f ms budget",
                 colonies, persons, meanMs, maxMs, t.runs, perf.overBudget(), budget))
                 .withStyle(maxMs > budget ? ChatFormatting.RED : ChatFormatting.GREEN), false);
+        ColonyScheduler sch = ColonyScheduler.get(source.getServer());
+        source.sendSuccess(() -> Component.literal(String.format(java.util.Locale.ROOT,
+                " server %.1f ms a tick without colonies (%s); %d colony days waited, %d caught up, %d waiting now",
+                sch.serverTickMs(), sch.load(SimSettings.get()).name().toLowerCase(java.util.Locale.ROOT),
+                perf.deferredDays(), perf.caughtUpDays(), sch.backlog())), false);
         perf.systems().forEach((id, st) -> source.sendSuccess(() -> Component.literal(String.format(
                 java.util.Locale.ROOT, " %s: %d runs, %.1f us mean, %.1f us longest", id, st.runs, st.meanMicros(),
                 st.maxNanos / 1000.0)), false));

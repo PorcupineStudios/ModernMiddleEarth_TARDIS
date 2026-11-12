@@ -3,5 +3,12 @@
   "active_radius": 96,
   "max_catch_up_days": 30,
   "budget_ms": 2.0,
+  "load": {
+    "light_ms": 25,
+    "heavy_ms": 40,
+    "overloaded_ms": 48,
+    "light_budget_factor": 2.0,
+    "smoothing": 0.1
+  },
   "disabled": []
 }

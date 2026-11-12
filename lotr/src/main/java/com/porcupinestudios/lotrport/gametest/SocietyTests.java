@@ -237,6 +237,8 @@ public final class SocietyTests {
         java.util.Set<UUID> ids = new java.util.HashSet<>();
         mine.forEach(c -> ids.add(c.id()));
         ColonyScheduler scheduler = new ColonyScheduler();
+        // measured as a light server would be: a day that misses its tick's budget waits for the next
+        scheduler.forceLoad(ColonyScheduler.Load.NORMAL);
         long dayTicks = ColonyData.settings().dayTicks();
         long start = (colonies.lastDay(mine.get(0)) + 1) * dayTicks;
         try {
@@ -248,15 +250,34 @@ public final class SocietyTests {
             for (long t = start + dayTicks; t < start + 11 * dayTicks; t++) {
                 scheduler.tick(server, t, c -> ids.contains(c.id()));
             }
+            // a little longer, for days that waited in the backlog to run
+            long end = start + 11 * dayTicks + SimSettings.get().pulseTicks() * 3L;
+            for (long t = start + 11 * dayTicks; t < end; t++) {
+                scheduler.tick(server, t, c -> ids.contains(c.id()));
+            }
             Perf.Stat ticks = scheduler.perf().ticks();
             double meanMs = ticks.meanMicros() / 1000.0;
             double maxMs = ticks.maxNanos / 1_000_000.0;
             StringBuilder per = new StringBuilder();
-            scheduler.perf().systems().forEach((id, st) -> per.append(String.format(java.util.Locale.ROOT,
-                    " %s %.1f/%.1f us", id, st.meanMicros(), st.maxNanos / 1000.0)));
+            long dayNanos = 0;
+            for (var e : scheduler.perf().systems().entrySet()) {
+                per.append(String.format(java.util.Locale.ROOT, " %s %.1f/%.1f us", e.getKey(),
+                        e.getValue().meanMicros(), e.getValue().maxNanos / 1000.0));
+                if (ColonyScheduler.plan(ColonySystem.Cadence.DAY, Tier.UNLOADED).contains(e.getKey())) {
+                    dayNanos += e.getValue().totalNanos;
+                }
+            }
+            // the cost of a colony day in units of a fixed reference job timed now on this machine, so the check
+            // holds on a slow CI runner and a fast PC alike (ticks over budget and milliseconds don't)
+            double calib = calibrationNanos();
+            long colonyDays = 50L * 10;
+            double perDay = dayNanos / (double) colonyDays;
+            double units = perDay / calib;
             LotrPort.LOG.info(String.format(java.util.Locale.ROOT,
-                    "[society] 50 x 150, 10 days: %d ticks, %.4f ms mean, %.3f ms longest, %d over budget;%s",
-                    ticks.runs, meanMs, maxMs, scheduler.perf().overBudget(), per));
+                    "[society] 50 x 150, 10 days: %d ticks, %.4f ms mean, %.3f ms longest, %d over budget, %d days "
+                            + "waited, %d caught up; a colony day %.1f us = %.2f reference jobs (%.1f us each);%s",
+                    ticks.runs, meanMs, maxMs, scheduler.perf().overBudget(), scheduler.perf().deferredDays(),
+                    scheduler.perf().caughtUpDays(), perDay / 1000, units, calib / 1000, per));
             for (Colony c : mine) {
                 helper.assertTrue(c.tier(server) == Tier.UNLOADED, c.name() + " is not unloaded");
                 List<Person> people2 = Society.citizens(server, c);
@@ -269,12 +290,18 @@ public final class SocietyTests {
                 helper.assertTrue(people2.size() == 150 && working == 26 && housed == 150,
                         c.name() + ": " + people2.size() + " citizens, " + working + " working, " + housed + " housed");
             }
-            // the GameTest server shares its thread with other tests and the garbage collector, and CI runners are
-            // shared machines that pause now and then: allow stray slow ticks (50 of 240000 is 0.02%), but the
-            // work itself must stay far under the budget, which the mean checks
-            long over = scheduler.perf().overBudget();
-            helper.assertTrue(over <= 50 && meanMs < SimSettings.get().budgetMs() / 20,
-                    over + " ticks over budget (longest " + maxMs + " ms), mean " + meanMs + " ms");
+            // every colony ran all ten days, waiting or not
+            long lastDay = (end - 1) / dayTicks;
+            for (Colony c : mine) {
+                helper.assertTrue(colonies.lastDay(c) == lastDay, c.name() + " is behind: day " + colonies.lastDay(c)
+                        + " of " + lastDay);
+            }
+            helper.assertTrue(scheduler.backlog() == 0, scheduler.backlog() + " colony days still waiting");
+            // a colony day of 150 people may cost at most MAX_DAY_UNITS reference jobs (measured 2026-11-12: see
+            // the log line; raise it only for work that is worth it)
+            helper.assertTrue(units <= MAX_DAY_UNITS, String.format(java.util.Locale.ROOT,
+                    "a colony day costs %.2f reference jobs (limit %.1f): %.1f us against %.1f us", units,
+                    MAX_DAY_UNITS, perDay / 1000, calib / 1000));
 
             // a colony unloaded for 40 days catches up at most max_catch_up_days at once, and pays what it can
             Colony late = mine.get(0);
@@ -294,6 +321,86 @@ public final class SocietyTests {
                     "catch-up: " + left + " coins left, " + stayed + " soldiers stayed");
         } finally {
             people.forEach(id -> persons.remove(server, id));
+            mine.forEach(c -> colonies.disband(server, c, "test"));
+        }
+        helper.succeed();
+    }
+
+    /** Most a colony day of 150 people may cost, in reference jobs ({@link #calibrationNanos}). */
+    static final double MAX_DAY_UNITS = 4.0;
+
+    /**
+     * The reference job: what a colony day does most (maps keyed by id, lists, sorting, small objects), at a fixed
+     * size, timed best of 9 after a warm-up. Its time moves with the machine as colony work does.
+     */
+    static double calibrationNanos() {
+        long best = Long.MAX_VALUE;
+        long sink = 0;
+        for (int run = 0; run < 12; run++) {
+            long t = System.nanoTime();
+            java.util.Random r = new java.util.Random(42);
+            java.util.Map<UUID, double[]> map = new java.util.HashMap<>();
+            List<UUID> ids = new ArrayList<>(3000);
+            for (int i = 0; i < 3000; i++) {
+                UUID id = new UUID(r.nextLong(), r.nextLong());
+                ids.add(id);
+                map.put(id, new double[] {r.nextDouble(), r.nextDouble()});
+            }
+            ids.sort(java.util.Comparator.naturalOrder());
+            for (UUID id : ids) {
+                double[] v = map.get(id);
+                sink += (long) (v[0] * 1000 + v[1]);
+            }
+            long took = System.nanoTime() - t;
+            if (run >= 3) {
+                best = Math.min(best, took);
+            }
+        }
+        if (sink == 42) {
+            LotrPort.LOG.debug("calibration sink {}", sink);
+        }
+        return best;
+    }
+
+    /**
+     * A busy server holds colony days back and a quiet one catches them up, none lost: under a heavy load no day
+     * runs; when the load lifts every colony runs all the days that went by, in one pass each.
+     */
+    @GameTest(template = "empty", timeoutTicks = 200)
+    public static void colonyDaysWaitOutABusyServer(GameTestHelper helper) {
+        MinecraftServer server = helper.getLevel().getServer();
+        Colonies colonies = Colonies.get(server);
+        List<Colony> mine = new ArrayList<>();
+        for (int c = 0; c < 3; c++) {
+            mine.add(colonies.foundAi(server, UUID.randomUUID(), UUID.randomUUID(), "Busy " + c, Level.OVERWORLD,
+                    new BlockPos(4_000_000 + c * 400, 70, 4_000_000), GONDOR, 0).orElseThrow());
+        }
+        java.util.Set<UUID> ids = new java.util.HashSet<>();
+        mine.forEach(c -> ids.add(c.id()));
+        ColonyScheduler scheduler = new ColonyScheduler();
+        long dayTicks = ColonyData.settings().dayTicks();
+        try {
+            long start = (colonies.lastDay(mine.get(0)) + 1) * dayTicks;
+            scheduler.forceLoad(ColonyScheduler.Load.HEAVY);
+            for (long t = start; t < start + 2 * dayTicks; t++) {
+                scheduler.tick(server, t, c -> ids.contains(c.id()));
+            }
+            long before = start / dayTicks - 1;
+            for (Colony c : mine) {
+                helper.assertTrue(colonies.lastDay(c) == before, c.name() + " ran a day under heavy load");
+            }
+            helper.assertTrue(scheduler.backlog() == 3, "waiting: " + scheduler.backlog());
+            scheduler.forceLoad(ColonyScheduler.Load.LIGHT);
+            long now = start + 2 * dayTicks;
+            for (long t = now; t < now + SimSettings.get().pulseTicks(); t++) {
+                scheduler.tick(server, t, c -> ids.contains(c.id()));
+            }
+            for (Colony c : mine) {
+                helper.assertTrue(colonies.lastDay(c) == now / dayTicks, c.name() + " didn't catch up: day "
+                        + colonies.lastDay(c) + " of " + now / dayTicks);
+            }
+            helper.assertTrue(scheduler.backlog() == 0, "still waiting: " + scheduler.backlog());
+        } finally {
             mine.forEach(c -> colonies.disband(server, c, "test"));
         }
         helper.succeed();
