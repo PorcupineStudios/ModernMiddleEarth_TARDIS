@@ -317,11 +317,6 @@ public class LotrNpc extends PathfinderMob implements Merchant {
 
     // ---------------------------------------------------------------- type
 
-    /** Sets the skin (a texture), e.g. the one an immigrant was shown with. */
-    public void setSkin(String texture) {
-        entityData.set(SKIN, texture);
-    }
-
     /** Sets who this NPC is: faction, stats, skin, gear and name. */
     public void setNpcType(ResourceLocation id, NpcType type) {
         entityData.set(TYPE, id.toString());
