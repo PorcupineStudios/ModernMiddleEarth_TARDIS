@@ -156,15 +156,17 @@ public final class RoutePlanner {
         for (int t = 0; t <= n; t++) {
             int x = (int) Math.round(ax + (bx - ax) * (t / (double) n));
             int z = (int) Math.round(az + (bz - az) * (t / (double) n));
-            boolean road = land.road(x, z);
-            if (land.river(x, z) && !road && !land.bridge(x, z)) {
+            // steps run between cell middles, so a road or bridge within half a cell counts as taken
+            int reach = Math.max(4, s.cell()) / 2;
+            boolean road = near(land, x, z, reach, s.sample(), false);
+            if (land.river(x, z) && !road && !near(land, x, z, reach, s.sample(), true)) {
                 return null;
             }
             double v = land.speed(x, z);
             if (road) {
                 v = Math.max(v, s.roadSpeed());
                 roads++;
-            } else if (land.bridge(x, z)) {
+            } else if (land.river(x, z)) {
                 v = Math.max(v, 1);
             }
             if (v <= 0) {
@@ -173,6 +175,25 @@ public final class RoutePlanner {
             slow += 1 / v;
         }
         return new double[] {len * slow / (n + 1), roads / (double) (n + 1)};
+    }
+
+    /** A road (or a marked bridge) at the point or within {@code reach} along x or z. */
+    private static boolean near(TerrainView land, int x, int z, int reach, int sample, boolean bridge) {
+        int st = Math.max(1, sample);
+        for (int d = 0; d <= reach; d += st) {
+            for (int sign = -1; sign <= 1; sign += 2) {
+                if (d == 0 && sign > 0) {
+                    continue;
+                }
+                int o = d * sign;
+                boolean hit = bridge ? land.bridge(x + o, z) || land.bridge(x, z + o)
+                        : land.road(x + o, z) || land.road(x, z + o);
+                if (hit) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     private static double heuristic(int i, int j, int ti, int tj, int cell, double fastest) {
