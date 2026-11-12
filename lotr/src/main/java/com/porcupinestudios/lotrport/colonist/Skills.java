@@ -45,11 +45,11 @@ public final class Skills {
      * @param maxLevel highest level
      * @param xpBase XP from level n to n+1 is {@code xpBase * (n + 1)}
      * @param xpPerDay XP a full day of work gives (times the day's work share)
-     * @param bonusPerLevel work speed per level (0.06: level 10 works 60% faster)
+     * @param bonusPerLevel work speed per level (0.1: level 10 works twice as fast as level 0)
      * @param settlerPoints levels a plain settler gets spread over skills (quality adds more)
      */
     public record Settings(int maxLevel, double xpBase, double xpPerDay, double bonusPerLevel, int settlerPoints) {
-        public static final Settings DEFAULT = new Settings(20, 10, 4, 0.06, 3);
+        public static final Settings DEFAULT = new Settings(20, 10, 4, 0.1, 3);
         public static final Codec<Settings> CODEC = RecordCodecBuilder.create(i -> i.group(
                 Codec.INT.optionalFieldOf("max_level", DEFAULT.maxLevel()).forGetter(Settings::maxLevel),
                 Codec.DOUBLE.optionalFieldOf("xp_base", DEFAULT.xpBase()).forGetter(Settings::xpBase),
