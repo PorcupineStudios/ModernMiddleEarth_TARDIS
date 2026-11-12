@@ -59,11 +59,11 @@ final class ImmigrationViews {
                         : Action.disabled("welcome", tr("immigration.welcome", "Welcome"), why))
                 .rowAction(may ? Action.of("turn_away", tr("immigration.turn_away", "Turn away"))
                         : Action.disabled("turn_away", tr("immigration.turn_away", "Turn away"), why))
-                .button(Action.disabled("info", Component.literal(level + ": " + perks.slots() + " slot"
-                        + (perks.slots() == 1 ? "" : "s") + ", groups to " + perks.maxGroup() + ", quality "
-                        + perks.quality()), tr("immigration.levels", "Grows with population and upgrades")))
-                .button(Action.disabled("next", Component.literal("New faces in " + minutes + " min"),
-                        tr("immigration.next", "The board is drawn afresh every 30 minutes")))
+                // one short line (the row actions share the footer): hover for the level and what it gives
+                .button(Action.disabled("info", Component.literal("New in " + minutes + " min"),
+                        Component.literal(level + ": " + perks.slots() + " slot" + (perks.slots() == 1 ? "" : "s")
+                                + ", groups up to " + perks.maxGroup() + ", quality " + perks.quality()
+                                + ". Grows with population and upgrades.")))
                 .empty(tr("immigration.none", "Nobody is waiting. New faces come every 30 minutes."))
                 .build();
     }
