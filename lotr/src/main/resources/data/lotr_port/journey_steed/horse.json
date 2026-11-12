@@ -1,0 +1,10 @@
+{
+  "entities": [
+    "lotr_port:horse",
+    "minecraft:horse"
+  ],
+  "speed": 2.2,
+  "carry": 4,
+  "draws_wagon": true,
+  "needs_tame": true
+}

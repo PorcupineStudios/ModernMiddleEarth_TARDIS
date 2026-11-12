@@ -1,0 +1,9 @@
+{
+  "entities": [
+    "lotr_port:elk"
+  ],
+  "speed": 1.9,
+  "carry": 4,
+  "draws_wagon": false,
+  "needs_tame": true
+}

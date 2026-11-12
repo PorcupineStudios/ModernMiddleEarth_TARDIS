@@ -1,0 +1,9 @@
+{
+  "entities": [
+    "lotr_port:zebra"
+  ],
+  "speed": 2.0,
+  "carry": 3,
+  "draws_wagon": false,
+  "needs_tame": true
+}

@@ -1,0 +1,10 @@
+{
+  "entities": [
+    "minecraft:donkey",
+    "minecraft:mule"
+  ],
+  "speed": 1.4,
+  "carry": 9,
+  "draws_wagon": true,
+  "needs_tame": true
+}
