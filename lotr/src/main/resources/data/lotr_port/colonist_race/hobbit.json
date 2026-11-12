@@ -6,5 +6,11 @@
     "lotr_port:food": 1.4
   },
   "settler_age_min": 33,
-  "settler_age_max": 80
+  "settler_age_max": 80,
+  "rhythm": {
+    "awake_from": 8,
+    "awake_to": 23,
+    "sleep_hours": 9,
+    "leisure_hours": 5
+  }
 }

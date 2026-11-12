@@ -295,7 +295,56 @@ public final class Colonists {
             ThoughtDef td = defs.get(ration.get());
             sum += td == null ? 0 : td.mood();
         }
+        // sleep and schedule thoughts are their own (tired, odd hours, leisure): no repeats to check
+        Optional<Rest> rest = p.get(ColonistData.REST);
+        if (rest.isPresent()) {
+            sum += ScheduleRules.mood(rest.get(), rhythm(p), ColonistData.sleep(), defs);
+        }
         return sum;
+    }
+
+    // ---------------------------------------------------------------- sleep and schedules
+
+    /** The race's hours and wants. */
+    public static Rhythm rhythm(Person p) {
+        RaceDef race = ColonistData.races().get(raceOf(p));
+        return race == null ? Rhythm.DEFAULT : race.rhythm();
+    }
+
+    /** The colony's schedules (the standard one alone if it has none saved). */
+    public static Schedules schedules(com.porcupinestudios.lotrport.colony.Colony c) {
+        return c.get(Schedules.TYPE).orElseGet(Schedules::standard);
+    }
+
+    /** The schedule this colonist keeps. */
+    public static Schedule scheduleOf(Schedules all, Person p) {
+        Optional<Orders> o = p.get(ColonistData.ORDERS);
+        return o.isEmpty() ? all.first() : all.orFirst(o.get().schedule());
+    }
+
+    /** Runs the colonist's day(s) by their schedule and keeps the result ({@link Rest}); the colony's needs pass. */
+    public static Rest restDays(Persons persons, Person p, Schedules all, boolean home, int days) {
+        Rest start = p.get(ColonistData.REST).orElse(Rest.FRESH);
+        Rest r = ScheduleRules.days(scheduleOf(all, p), rhythm(p), start, home, ColonistData.sleep(), days);
+        persons.setQuiet(p, ColonistData.REST, r);
+        return r;
+    }
+
+    /** How much of a standard day's work their schedule and energy give (1 = normal; work output multiplies it). */
+    public static double workHours(Person p) {
+        Optional<Rest> r = p.get(ColonistData.REST);
+        return r.isEmpty() ? 1 : ScheduleRules.workFactor(r.get(), ColonistData.sleep());
+    }
+
+    /** What the colonist is doing at this clock hour, by their schedule (Any by their last day's energy). */
+    public static Schedule.Block activity(Schedules all, Person p, int hour) {
+        Rest r = p.get(ColonistData.REST).orElse(Rest.FRESH);
+        return ScheduleRules.resolve(scheduleOf(all, p).at(hour), r.energy(), 0, rhythm(p), ColonistData.sleep());
+    }
+
+    private static List<ResourceLocation> restThoughts(Person p) {
+        Optional<Rest> r = p.get(ColonistData.REST);
+        return r.isEmpty() ? List.of() : ScheduleRules.thoughts(r.get(), rhythm(p), ColonistData.sleep());
     }
 
     public static Orders orders(Person p) {
@@ -327,6 +376,7 @@ public final class Colonists {
         }
         homeThought.ifPresent(standing::add);
         rationThought(p).ifPresent(standing::add);
+        standing.addAll(restThoughts(p));
         for (ResourceLocation id : standing) {
             ThoughtDef def = defs.get(id);
             if (def != null) {

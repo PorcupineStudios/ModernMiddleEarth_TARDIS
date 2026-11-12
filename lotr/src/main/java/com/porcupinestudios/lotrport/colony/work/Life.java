@@ -107,7 +107,9 @@ public final class Life {
             return;
         }
         double factor = def.proficiency(Races.of(p.type())) * (0.5 + job.skill() / 100.0) * ctx.days()
-                * com.porcupinestudios.lotrport.colonist.Colonists.workSpeed(p);
+                * com.porcupinestudios.lotrport.colonist.Colonists.workSpeed(p)
+                // the hours their schedule gives work, less when exhausted (colonist.ScheduleRules)
+                * com.porcupinestudios.lotrport.colonist.Colonists.workHours(p);
         Map<ResourceLocation, Double> carry = new HashMap<>(job.carry());
         int made = 0;
         if (def.carries() > 0) {
@@ -222,6 +224,8 @@ public final class Life {
         // who shares a roof with whom: one pass for the colony (families mind sharing; colonist.KinRules)
         Map<java.util.UUID, ResourceLocation> homeThoughts =
                 com.porcupinestudios.lotrport.colonist.Colonists.homeThoughts(citizens, ctx.now());
+        com.porcupinestudios.lotrport.colonist.Schedules schedules =
+                com.porcupinestudios.lotrport.colonist.Colonists.schedules(ctx.colony());
         for (Person p : citizens) {
             if (p.has(CoreComponents.UNIT)) {
                 continue;
@@ -241,6 +245,9 @@ public final class Life {
                 }
             }
             Optional<Building> home = p.get(WorkComponents.HOME).flatMap(h -> buildings.get(h.building()));
+            // their day(s) by their schedule: energy, and the hours of work and leisure (sleep and schedules)
+            com.porcupinestudios.lotrport.colonist.Colonists.restDays(persons, p, schedules, home.isPresent(),
+                    ctx.days());
             double target = happinessParts(s, home, food, TAVERN.contains(p.id()), n.unpaid(), eco, null)
                     // traits, the home thought, the ration and remembered events (colonist/)
                     + com.porcupinestudios.lotrport.colonist.Colonists.moodToday(persons, p,
