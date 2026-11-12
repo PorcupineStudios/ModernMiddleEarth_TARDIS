@@ -120,6 +120,7 @@ public final class LotrPort {
         com.porcupinestudios.lotrport.war.Wars.register();
         com.porcupinestudios.lotrport.journey.JourneyData.register();
         com.porcupinestudios.lotrport.journey.Journeys.register();
+        com.porcupinestudios.lotrport.journey.Caravans.register();
         Recruiting.register();
         com.porcupinestudios.lotrport.npc.InvasionSpawner.register();
         com.porcupinestudios.lotrport.progress.Achievements.register();
@@ -130,6 +131,7 @@ public final class LotrPort {
             NpcCommand.register(event.getDispatcher());
             TravelCommand.register(event.getDispatcher());
             ColonyCommand.register(event.getDispatcher());
+            com.porcupinestudios.lotrport.journey.CaravanCommand.register(event.getDispatcher());
             AiCommand.register(event.getDispatcher());
             com.porcupinestudios.lotrport.war.WarCommand.register(event.getDispatcher());
             com.porcupinestudios.lotrport.progress.Titles.registerCommands(event.getDispatcher());
