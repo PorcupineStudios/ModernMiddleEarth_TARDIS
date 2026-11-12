@@ -270,15 +270,9 @@ public final class CaravanViews {
                 to.add(Stat.Choice.of(x.id().toString(), Component.literal(x.name() + (mine ? "" : " (friend)"))));
             }
             where.add(picker("To", colonyName(server, r.to()), "to", r.to().toString(), to));
-            boolean ruled = r.rule().isPresent();
-            where.add(picker("Goes", ruled ? "By its rules" : "By hand", "mode", ruled ? "rules" : "manual", List.of(
-                    Stat.Choice.of("manual", Component.literal("By hand (Send now)")),
-                    Stat.Choice.of("rules", Component.literal("By itself, when its rules hold")))));
-            if (ruled) {
-                boolean now = Caravans.dueNow(server, home, r);
-                where.add(Stat.of(Component.literal("Rules now"), now ? "would send" : "waiting",
-                        now ? Tone.GOOD : Tone.MUTED));
-            }
+            int nRules = r.program().size();
+            where.add(Stat.of(Component.literal("Goes"), nRules == 0 ? "By hand (see Rules)" : nRules + (nRules == 1
+                    ? " rule (see Rules)" : " rules (see Rules)"), nRules == 0 ? Tone.MUTED : Tone.NORMAL));
             where.add(stepper("Colonists going", "people", r.people(), 1, 16));
             if (!own) {
                 where.add(picker("Goods that don't trade", r.sell() ? "Bring them home" : "Leave as supplies",
@@ -322,17 +316,7 @@ public final class CaravanViews {
                     new View.Tab("rules", tr("caravan.tab.rules", "Rules")));
             Page page;
             if (tab.equals("rules")) {
-                // the rule tree: blocks in a column, the "Where and when" picker beside it
-                List<Page.Section> rs = new ArrayList<>();
-                rs.add(new Page.Section(tr("caravan.rules", "Rules"), r.rule().isPresent()
-                        ? RuleViews.lines(server, home, r) : List.of(Stat.of(Component.literal(
-                                "Goes only by hand: set Goes to 'By itself'"), "", Tone.MUTED))));
-                rs.add(new Page.Section(tr("caravan.where", "Where and when"), where));
-                rs.add(new Page.Section(tr("caravan.rules_how", "How rules work"), List.of(
-                        Stat.of(Component.literal("Checked every 10 seconds;"), "", Tone.MUTED),
-                        Stat.of(Component.literal("it goes when the top block is yes"), "", Tone.MUTED),
-                        Stat.of(Component.literal("and none of it is on the road."), "", Tone.MUTED),
-                        Stat.of(Component.literal("[yes]/[no]: each block right now."), "", Tone.MUTED))));
+                List<Page.Section> rs = RuleViews.page(server, home, r);
                 page = new Page.Stats(rs, List.of());
             } else {
                 page = new Page.Profile(Optional.empty(), Component.literal(r.title()), may ? Optional.of("rename")
@@ -435,7 +419,7 @@ public final class CaravanViews {
             UUID to = r.to();
             int people = r.people();
             boolean sell = r.sell();
-            Optional<com.porcupinestudios.ringbearer.api.condition.Condition> rule = r.rule();
+            List<CaravanBook.Rule> rules = r.program();
             int v = Math.max(0, Math.min(MAX_COUNT, value));
             switch (field) {
                 case "to" -> {
@@ -453,17 +437,15 @@ public final class CaravanViews {
                         return null;
                     }
                 }
-                case "mode" -> rule = row.equals("rules")
-                        ? (rule.isPresent() ? rule : RuleEditors.fromJson(RuleEditors.starter())) : Optional.empty();
                 case "people" -> people = Math.max(1, Math.min(16, value));
                 case "sell" -> sell = row.equals("yes");
-                case "r_type", "r_field", "r_add" -> {
-                    Optional<com.porcupinestudios.ringbearer.api.condition.Condition> next = RuleViews.edit(server,
-                            home, r, field, action.substring(action.indexOf(':') + 1), row, value);
+                case "rule_add", "rule_op", "c_set", "c_type", "c_field", "c_add", "o_add", "o_type", "o_field" -> {
+                    List<CaravanBook.Rule> next = RuleViews.edit(server, home, r, field, colon > 0
+                            ? action.substring(colon + 1) : "", row, value);
                     if (next == null) {
                         return null;
                     }
-                    rule = next;
+                    rules = next;
                 }
                 case "add_t" -> send.add(new CaravanRules.Amount(firstItem(server, home), 64));
                 case "add_b" -> {
@@ -488,7 +470,7 @@ public final class CaravanViews {
                 }
             }
             return new CaravanBook.Route(r.id(), to, send, bring, 0, people, sell, r.lastDay(), Optional.empty(),
-                    r.name(), rule);
+                    r.name(), Optional.empty(), rules);
         }
 
         /** Changes line {@code idx}: its item (or removes it), kind, count or over. */

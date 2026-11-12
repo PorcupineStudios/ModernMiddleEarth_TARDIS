@@ -123,7 +123,7 @@ wait 40
 /lotr_colony caravan route name 1 Grain to Osgiliath
 /lotr_colony caravan route name 3 Bread top-up
 /lotr_colony caravan route when 3 "Osgiliath Test" bread below 50
-/lotr_colony caravan route rules 1 {"type":"ringbearer_api:all","conditions":[{"type":"lotr_port:days_since_sent","days":3},{"type":"ringbearer_api:any","conditions":[{"type":"lotr_port:colony_stock","colony":"destination","item":"minecraft:bread","compare":"<","value":100},{"type":"lotr_port:colony_population","colony":"destination","compare":">","value":20}]},{"type":"ringbearer_api:not","condition":{"type":"lotr_port:time_of_day","from":20,"to":5}}]}
+/lotr_colony caravan route rules 1 [{"if":{"type":"ringbearer_api:all","conditions":[{"type":"lotr_port:days_since_sent","days":3},{"type":"ringbearer_api:any","conditions":[{"type":"lotr_port:colony_stock","colony":"destination","item":"minecraft:bread","compare":"<","value":100},{"type":"lotr_port:colony_population","colony":"destination","compare":">","value":20}]}]},"then":[{"type":"lotr_port:take","item":"minecraft:bread","mode":"topup","amount":200},{"type":"lotr_port:send_caravan"}],"else":[{"type":"lotr_port:message","text":"Nothing to send"}],"edge":true},{"if":{"type":"lotr_port:colony_stock","colony":"home","item":"minecraft:cobblestone","compare":">","value":1000},"then":[{"type":"lotr_port:take","item":"minecraft:cobblestone","mode":"excess","amount":1000},{"type":"lotr_port:send_caravan","only_extras":true}]}]
 /lotr_colony caravan offer add "white_wool*2" "bread*1" 16 10
 /lotr_colony caravan route send 2
 wait 40
@@ -141,7 +141,7 @@ wait 5
 wait 60
 shot ui_caravan_rules
 mouse 150 200
-scroll 150 200 -6
+scroll 150 200 -10
 wait 10
 shot ui_caravan_rules2
 close

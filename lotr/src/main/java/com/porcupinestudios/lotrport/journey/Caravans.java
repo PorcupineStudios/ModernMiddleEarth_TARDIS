@@ -50,6 +50,7 @@ public final class Caravans {
 
     public static void register() {
         CaravanBook.TYPE.id(); // registered before worlds load
+        Outcomes.init();
         JourneyKind.register(KIND, new Kind());
         NeoForge.EVENT_BUS.addListener((ServerTickEvent.Post e) -> {
             if (e.getServer().getTickCount() % 200 == 100) {
@@ -137,7 +138,10 @@ public final class Caravans {
                 + CaravanRules.size(load) + " goods"));
     }
 
-    /** Standing routes that are due set out. */
+    /** Each rule's answer at the last check (colony/route/rule), for rules that fire on a change. */
+    private static final Map<String, Boolean> LAST = new java.util.HashMap<>();
+
+    /** Runs every route's rules: the server does this every 10 seconds. */
     public static void runRoutes(MinecraftServer server) {
         long day = server.overworld().getDayTime() / 24000L;
         for (Colony c : List.copyOf(Colonies.get(server).all())) {
@@ -146,10 +150,15 @@ public final class Caravans {
                 continue;
             }
             for (CaravanBook.Route r : b.routes()) {
-                if (!due(server, c, r, day) || onTheRoad(server, c, r.id())) {
+                Outcome.Run run = runRules(server, c, r);
+                run.messages.forEach(m -> tell(server, c, m));
+                if (!run.send) {
                     continue;
                 }
-                Sent sent = send(server, c, r);
+                if (onTheRoad(server, c, r.id())) {
+                    continue;
+                }
+                Sent sent = send(server, c, forRun(r, run));
                 if (sent.journey().isPresent()) {
                     b = b.withRoute(r.sentOn(day));
                     setBook(server, c, b);
@@ -159,10 +168,61 @@ public final class Caravans {
         }
     }
 
-    /** Whether a standing route should set out now: its days are up, or its trigger holds. */
+    /** The route as this firing sends it: its goods (unless only extras) plus the extra lines. */
+    public static CaravanBook.Route forRun(CaravanBook.Route r, Outcome.Run run) {
+        List<CaravanRules.Amount> take = new ArrayList<>(run.extrasOnly ? List.of() : r.send());
+        take.addAll(run.take);
+        List<CaravanRules.Amount> bring = new ArrayList<>(run.extrasOnly ? List.of() : r.bring());
+        bring.addAll(run.bring);
+        return new CaravanBook.Route(r.id(), r.to(), take, bring, 0, run.people.orElse(r.people()), r.sell(),
+                r.lastDay(), Optional.empty(), r.name(), Optional.empty(), List.of());
+    }
+
+    /** Asks a route's rules in order and runs the outcomes of those that fire. */
+    public static Outcome.Run runRules(MinecraftServer server, Colony home, CaravanBook.Route r) {
+        return runRules(server, home, r, true);
+    }
+
+    /** With {@code commit} false, a preview: nothing remembered, rules that fire on a change act as if it changed. */
+    public static Outcome.Run runRules(MinecraftServer server, Colony home, CaravanBook.Route r, boolean commit) {
+        Outcome.Run run = new Outcome.Run(server, home, r);
+        List<CaravanBook.Rule> rules = r.program();
+        for (int i = 0; i < rules.size() && !run.stop; i++) {
+            CaravanBook.Rule rule = rules.get(i);
+            boolean yes = holds(server, home, r, rule);
+            String key = home.id() + "/" + r.id() + "/" + i;
+            Boolean before = commit ? LAST.put(key, yes) : null;
+            if (rule.edge() && before != null && before == yes) {
+                continue;
+            }
+            for (Outcome o : yes ? rule.then() : rule.otherwise()) {
+                try {
+                    o.run(run);
+                } catch (RuntimeException e) {
+                    LotrPort.LOG.warn("[caravans] {} rule {} outcome failed: {}", r.title(), i + 1, e.toString());
+                }
+                if (run.stop) {
+                    break;
+                }
+            }
+        }
+        return run;
+    }
+
+    /** Whether a rule's condition holds now. */
+    public static boolean holds(MinecraftServer server, Colony home, CaravanBook.Route r, CaravanBook.Rule rule) {
+        return rule.when().map(c -> {
+            try {
+                return c.test(CaravanConditions.context(server, home, r));
+            } catch (RuntimeException e) {
+                return false;
+            }
+        }).orElse(true);
+    }
+
     /** Whether a route's rules hold right now (for screens). */
     public static boolean dueNow(MinecraftServer server, Colony home, CaravanBook.Route r) {
-        return due(server, home, r, server.overworld().getDayTime() / 24000L);
+        return runRules(server, home, r, false).send;
     }
 
     static boolean due(MinecraftServer server, Colony home, CaravanBook.Route r, long day) {

@@ -26,10 +26,29 @@ import net.minecraft.server.MinecraftServer;
  */
 public final class RuleEditors {
     /** What a field holds, which decides how it is edited. */
-    public enum Kind { COLONY, ITEM, COMPARE, NUMBER, HOUR }
+    public enum Kind { COLONY, ITEM, COMPARE, NUMBER, HOUR, CHOICE, BOOL }
 
-    /** A field of a rule block. */
-    public record Field(String name, String label, Kind kind, int min, int max) {}
+    /** A field of a block; {@code options} for CHOICE: value, label, value, label... */
+    public record Field(String name, String label, Kind kind, int min, int max, List<String> options) {
+        public Field(String name, String label, Kind kind, int min, int max) {
+            this(name, label, kind, min, max, List.of());
+        }
+    }
+
+    /** An outcome block: its menu name, JSON when added, fields, and its one-line summary. */
+    public record OutcomeSpec(String label, JsonObject defaults, List<Field> fields,
+            java.util.function.Function<JsonObject, String> summary) {}
+
+    private static final Map<String, OutcomeSpec> OUTCOMES = new LinkedHashMap<>();
+
+    /** Adds an outcome block to every rule editor (its type registered with {@code Outcome.register}). */
+    public static void registerOutcome(String type, OutcomeSpec spec) {
+        OUTCOMES.put(type, spec);
+    }
+
+    public static Map<String, OutcomeSpec> outcomes() {
+        return OUTCOMES;
+    }
 
     /**
      * A rule block.
@@ -144,6 +163,46 @@ public final class RuleEditors {
                 (s, h, r, j) -> "caravans out " + str(j, "compare", "<") + " " + num(j, "value", 0)));
     }
 
+    static {
+        List<String> modes = List.of("fixed", "A fixed amount", "excess", "The excess over", "topup",
+                "Top the other end up to");
+        for (String t : List.of("take", "bring")) {
+            boolean take = t.equals("take");
+            registerOutcome("lotr_port:" + t, new OutcomeSpec(take ? "Also take goods" : "Also bring back goods",
+                    obj("lotr_port:" + t, "item", "minecraft:bread", "mode", "fixed", "amount", 64, "cap", 0),
+                    List.of(new Field("item", "Item", Kind.ITEM, 0, 0),
+                            new Field("mode", "How much", Kind.CHOICE, 0, 0, modes),
+                            new Field("amount", "Number", Kind.NUMBER, 0, 100000),
+                            new Field("cap", "At most (0: any)", Kind.NUMBER, 0, 100000)),
+                    j -> (take ? "take " : "bring ") + switch (str(j, "mode", "fixed")) {
+                        case "excess" -> CaravanViews.itemName(str(j, "item", "?")) + " over " + num(j, "amount", 0);
+                        case "topup" -> CaravanViews.itemName(str(j, "item", "?")) + " up to " + num(j, "amount", 0);
+                        default -> num(j, "amount", 0) + " " + CaravanViews.itemName(str(j, "item", "?"));
+                    }));
+        }
+        registerOutcome("lotr_port:send_caravan", new OutcomeSpec("Send the caravan", obj("lotr_port:send_caravan",
+                "only_extras", false), List.of(new Field("only_extras", "Goods", Kind.BOOL, 0, 0, List.of("false",
+                        "The route's and these", "true", "Only these rules' goods"))),
+                j -> "send the caravan"));
+        registerOutcome("lotr_port:message", new OutcomeSpec("Message me", obj("lotr_port:message", "text",
+                "A caravan rule fired"), List.of(new Field("text", "Say", Kind.CHOICE, 0, 0, List.of(
+                        "A caravan rule fired", "A caravan rule fired",
+                        "Stock is running low", "Stock is running low",
+                        "Stock is piling up", "Stock is piling up",
+                        "Supplies are on their way", "Supplies are on their way",
+                        "Nothing to send", "Nothing to send"))), j -> "message \"" + str(j, "text", "") + "\""));
+        registerOutcome("lotr_port:people", new OutcomeSpec("Send more colonists", obj("lotr_port:people", "count",
+                2), List.of(new Field("count", "Colonists", Kind.NUMBER, 1, 16)), j -> num(j, "count", 1)
+                        + " colonists go"));
+        registerOutcome("lotr_port:stop", new OutcomeSpec("Stop (skip later rules)", obj("lotr_port:stop"),
+                List.of(), j -> "stop"));
+    }
+
+    public static String describeOutcome(JsonObject j) {
+        OutcomeSpec spec = OUTCOMES.get(str(j, "type", ""));
+        return spec == null ? str(j, "type", "?") : spec.summary().apply(j);
+    }
+
     private static String join(MinecraftServer s, Colony h, CaravanBook.Route r, JsonObject j, String word) {
         List<String> parts = new ArrayList<>();
         for (JsonObject c : children(j)) {
@@ -169,7 +228,27 @@ public final class RuleEditors {
     }
 
     public static String describe(MinecraftServer s, Colony h, CaravanBook.Route r) {
-        return r.rule().map(c -> describe(s, h, r, toJson(c))).orElse("By hand");
+        List<CaravanBook.Rule> rules = r.program();
+        if (rules.isEmpty()) {
+            return "By hand";
+        }
+        List<String> parts = new ArrayList<>();
+        for (CaravanBook.Rule rule : rules) {
+            String cond = rule.when().map(c -> describe(s, h, r, toJson(c))).orElse("always");
+            List<String> then = new ArrayList<>();
+            rule.then().forEach(o -> then.add(describeOutcome(outcomeJson(o))));
+            parts.add("if " + cond + ": " + (then.isEmpty() ? "nothing" : String.join(", ", then)));
+        }
+        return String.join("; ", parts);
+    }
+
+    public static JsonObject outcomeJson(com.porcupinestudios.lotrport.journey.Outcome o) {
+        return com.porcupinestudios.lotrport.journey.Outcome.CODEC.encodeStart(JsonOps.INSTANCE, o).result()
+                .filter(JsonElement::isJsonObject).map(JsonElement::getAsJsonObject).orElseGet(JsonObject::new);
+    }
+
+    public static Optional<com.porcupinestudios.lotrport.journey.Outcome> outcomeFromJson(JsonObject j) {
+        return com.porcupinestudios.lotrport.journey.Outcome.CODEC.parse(JsonOps.INSTANCE, j).result();
     }
 
     public static JsonObject toJson(Condition c) {
