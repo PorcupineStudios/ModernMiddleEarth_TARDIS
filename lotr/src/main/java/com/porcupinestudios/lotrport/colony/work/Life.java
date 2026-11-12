@@ -110,7 +110,7 @@ public final class Life {
         double hours = com.porcupinestudios.lotrport.colonist.Colonists.workHours(p);
         com.porcupinestudios.lotrport.colonist.Skills.worked(persons, p, job.job(), hours * ctx.days());
         double factor = def.proficiency(Races.of(p.type())) * com.porcupinestudios.lotrport.colonist.Skills
-                .workFactor(p, job.job()) * 0.75 * ctx.days()
+                .workFactor(p, job.job()) * 0.5 * ctx.days()
                 * com.porcupinestudios.lotrport.colonist.Colonists.workSpeed(p)
                 // the hours their schedule gives work, less when exhausted (colonist.ScheduleRules)
                 * com.porcupinestudios.lotrport.colonist.Colonists.workHours(p);
