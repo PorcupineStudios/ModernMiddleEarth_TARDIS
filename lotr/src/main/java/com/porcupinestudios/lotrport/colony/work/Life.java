@@ -226,6 +226,7 @@ public final class Life {
                 com.porcupinestudios.lotrport.colonist.Colonists.homeThoughts(citizens, ctx.now());
         com.porcupinestudios.lotrport.colonist.Schedules schedules =
                 com.porcupinestudios.lotrport.colonist.Colonists.schedules(ctx.colony());
+        Map<Object, com.porcupinestudios.lotrport.colonist.Rest> restMemo = new HashMap<>();
         for (Person p : citizens) {
             if (p.has(CoreComponents.UNIT)) {
                 continue;
@@ -247,7 +248,7 @@ public final class Life {
             Optional<Building> home = p.get(WorkComponents.HOME).flatMap(h -> buildings.get(h.building()));
             // their day(s) by their schedule: energy, and the hours of work and leisure (sleep and schedules)
             com.porcupinestudios.lotrport.colonist.Colonists.restDays(persons, p, schedules, home.isPresent(),
-                    ctx.days());
+                    ctx.days(), restMemo);
             double target = happinessParts(s, home, food, TAVERN.contains(p.id()), n.unpaid(), eco, null)
                     // traits, the home thought, the ration and remembered events (colonist/)
                     + com.porcupinestudios.lotrport.colonist.Colonists.moodToday(persons, p,
