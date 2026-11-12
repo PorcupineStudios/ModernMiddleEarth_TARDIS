@@ -51,6 +51,20 @@ public final class RoutePlanner {
         long goal = key(ti, tj);
         best.put(start, 0.0);
         open.add(new double[] {heuristic(si, sj, ti, tj, cell, fastest), si, sj});
+        // where each cell's node stands: on a road in it if there is one (so a route on a road stays on it), at a
+        // marked bridge's end for the cells holding them, else the middle
+        Map<Long, int[]> spot = new HashMap<>();
+        Map<Long, List<long[]>> extra = new HashMap<>();
+        for (int[] b : land.bridgeEnds()) {
+            long ka = key(Math.floorDiv(b[0], cell), Math.floorDiv(b[1], cell));
+            long kb = key(Math.floorDiv(b[2], cell), Math.floorDiv(b[3], cell));
+            spot.put(ka, new int[] {b[0], b[1]});
+            spot.put(kb, new int[] {b[2], b[3]});
+            extra.computeIfAbsent(ka, x -> new ArrayList<>()).add(new long[] {kb});
+            extra.computeIfAbsent(kb, x -> new ArrayList<>()).add(new long[] {ka});
+        }
+        spot.put(start, new int[] {x1, z1});
+        spot.put(goal, new int[] {x2, z2});
         int opened = 0;
         boolean reached = start == goal;
         while (!open.isEmpty() && !reached && opened < s.maxNodes()) {
@@ -63,19 +77,21 @@ public final class RoutePlanner {
                 continue;
             }
             opened++;
+            List<Long> next = new ArrayList<>(10);
             for (int[] st : STEPS) {
                 int ni = i + st[0];
                 int nj = j + st[1];
-                if (ni < minI || ni > maxI || nj < minJ || nj > maxJ) {
-                    continue;
+                if (ni >= minI && ni <= maxI && nj >= minJ && nj <= maxJ) {
+                    next.add(key(ni, nj));
                 }
-                // the first and last steps run from and to the real points, not the cells' middles
-                int ax = k == start ? x1 : centre(i, cell);
-                int az = k == start ? z1 : centre(j, cell);
-                long nk = key(ni, nj);
-                int bx = nk == goal ? x2 : centre(ni, cell);
-                int bz = nk == goal ? z2 : centre(nj, cell);
-                double[] leg = leg(land, s, ax, az, bx, bz);
+            }
+            for (long[] e : extra.getOrDefault(k, List.of())) {
+                next.add(e[0]);
+            }
+            int[] a = spotOf(land, s, spot, k, cell);
+            for (long nk : next) {
+                int[] b = spotOf(land, s, spot, nk, cell);
+                double[] leg = leg(land, s, a[0], a[1], b[0], b[1]);
                 if (leg == null) {
                     continue;
                 }
@@ -88,12 +104,10 @@ public final class RoutePlanner {
                     if (nk == goal) {
                         reached = true;
                     }
-                    open.add(new double[] {ng + heuristic(ni, nj, ti, tj, cell, fastest), ni, nj});
+                    open.add(new double[] {ng + heuristic(ix(nk), jz(nk), ti, tj, cell, fastest), ix(nk), jz(nk)});
                 }
             }
         }
-        lastSearch = "opened " + opened + " of " + s.maxNodes() + ", box " + (maxI - minI + 1) + "x" + (maxJ - minJ + 1)
-                + (reached ? ", reached" : open.isEmpty() ? ", no way" : ", ran out");
         if (!best.containsKey(goal)) {
             return Route.NONE;
         }
@@ -121,11 +135,13 @@ public final class RoutePlanner {
             long k = cells.get(n)[0];
             int di = Long.signum(ix(k) - ix(prev));
             int dj = Long.signum(jz(k) - jz(prev));
-            int[] p = k == goal ? new int[] {x2, z2} : new int[] {centre(ix(k), cell), centre(jz(k), cell)};
+            int[] p = spot.get(k);
             double[] leg = legs.get(n);
             road += leg[0] * leg[1];
             all += leg[0];
-            if (di == lastDi && dj == lastDj && n < cells.size() - 1 && costs.size() > 0 && pts.size() > 1) {
+            boolean straight = di == lastDi && dj == lastDj && Math.abs(ix(k) - ix(prev)) <= 1
+                    && Math.abs(jz(k) - jz(prev)) <= 1 && legs.get(n)[1] == 0 && (n == 0 || legs.get(n - 1)[1] == 0);
+            if (straight && n < cells.size() - 1 && costs.size() > 0 && pts.size() > 1) {
                 pts.set(pts.size() - 1, p);
                 costs.set(costs.size() - 1, costs.get(costs.size() - 1) + leg[0]);
             } else {
@@ -136,6 +152,45 @@ public final class RoutePlanner {
             lastDj = dj;
             prev = k;
         }
+        // a leg between two road spots is a chord across the road's bends: put points on the road along it, so a
+        // route that follows a road stays on it all the way (bodies walk these points)
+        List<int[]> fine = new ArrayList<>();
+        List<Double> fineCosts = new ArrayList<>();
+        fine.add(pts.get(0));
+        for (int n = 1; n < pts.size(); n++) {
+            int[] p0 = pts.get(n - 1);
+            int[] p1 = pts.get(n);
+            double cost = costs.get(n - 1);
+            List<int[]> mid = new ArrayList<>();
+            if (land.road(p0[0], p0[1]) && land.road(p1[0], p1[1])) {
+                double len = Math.hypot(p1[0] - p0[0], p1[1] - p0[1]);
+                int steps = (int) (len / Math.max(2, s.sample()));
+                for (int t = 1; t < steps; t++) {
+                    int x = (int) Math.round(p0[0] + (p1[0] - p0[0]) * t / (double) steps);
+                    int z = (int) Math.round(p0[1] + (p1[1] - p0[1]) * t / (double) steps);
+                    int[] r = nearestRoad(land, x, z, Math.max(4, s.cell()) / 2);
+                    if (r != null) {
+                        mid.add(r);
+                    }
+                }
+            }
+            mid.add(p1);
+            double total = 0;
+            int[] q = p0;
+            for (int[] m : mid) {
+                total += Math.hypot(m[0] - q[0], m[1] - q[1]);
+                q = m;
+            }
+            q = p0;
+            for (int[] m : mid) {
+                double part = Math.hypot(m[0] - q[0], m[1] - q[1]);
+                fine.add(m);
+                fineCosts.add(total <= 0 ? cost / mid.size() : cost * part / total);
+                q = m;
+            }
+        }
+        pts = fine;
+        costs = fineCosts;
         int[] xs = new int[pts.size()];
         int[] zs = new int[pts.size()];
         for (int n = 0; n < pts.size(); n++) {
@@ -164,7 +219,7 @@ public final class RoutePlanner {
             // steps run between cell middles, so a road or bridge within half a cell counts as taken
             int reach = Math.max(4, s.cell()) / 2;
             boolean road = near(land, x, z, reach, s.sample(), false);
-            if (land.river(x, z) && !road && !crossing(land, x, z, reach, s.sample())) {
+            if (land.river(x, z) && !road && !crossing(land, x, z, Math.max(4, s.cell()), s.sample())) {
                 return null;
             }
             double v = land.speed(x, z);
@@ -180,6 +235,50 @@ public final class RoutePlanner {
             slow += 1 / v;
         }
         return new double[] {len * slow / (n + 1), roads / (double) (n + 1)};
+    }
+
+    /** The road block nearest (x, z) within {@code reach}, or null. */
+    private static int[] nearestRoad(TerrainView land, int x, int z, int reach) {
+        if (land.road(x, z)) {
+            return new int[] {x, z};
+        }
+        for (int r = 1; r <= reach; r++) {
+            for (int d = -r; d <= r; d++) {
+                int[][] ring = {{x + d, z - r}, {x + d, z + r}, {x - r, z + d}, {x + r, z + d}};
+                for (int[] c : ring) {
+                    if (land.road(c[0], c[1])) {
+                        return c;
+                    }
+                }
+            }
+        }
+        return null;
+    }
+
+    /** A cell's node: fixed spots first, else the road point nearest its middle, else its middle. */
+    private static int[] spotOf(TerrainView land, Settings s, Map<Long, int[]> spot, long k, int cell) {
+        int[] p = spot.get(k);
+        if (p != null) {
+            return p;
+        }
+        int cx = centre(ix(k), cell);
+        int cz = centre(jz(k), cell);
+        int half = cell / 2;
+        int st = Math.max(1, s.sample() / 2);
+        int[] bestP = null;
+        long bestD = Long.MAX_VALUE;
+        for (int dx = -half; dx < half; dx += st) {
+            for (int dz = -half; dz < half; dz += st) {
+                long d = (long) dx * dx + (long) dz * dz;
+                if (d < bestD && land.road(cx + dx, cz + dz)) {
+                    bestD = d;
+                    bestP = new int[] {cx + dx, cz + dz};
+                }
+            }
+        }
+        p = bestP != null ? bestP : new int[] {cx, cz};
+        spot.put(k, p);
+        return p;
     }
 
     /** A road or marked bridge anywhere in the square {@code reach} round a river point (rivers are rare: worth it). */

@@ -70,6 +70,77 @@ class JourneyRulesTest {
         assertTrue(mid[1] < 60, "halfway it is down on the road, not in the mountains: z " + mid[1]);
     }
 
+    /** Aaron (2026-11-11): a party that follows a road stays on it the whole way, bends and its bridge included. */
+    @Test
+    void aRouteOnAWindingRoadNeverLeavesIt() {
+        RoutePlanner.Settings s = new RoutePlanner.Settings(32, 8, 1.6, 400, 60000);
+        TerrainView land = new TerrainView() {
+            @Override
+            public double speed(int x, int z) {
+                return 0.5;
+            }
+
+            @Override
+            public boolean road(int x, int z) {
+                return Math.abs(z - 40 * Math.sin(x / 60.0)) <= 2;
+            }
+
+            @Override
+            public boolean river(int x, int z) {
+                return x >= 500 && x <= 520;
+            }
+
+            @Override
+            public boolean bridge(int x, int z) {
+                return false;
+            }
+        };
+        Route r = RoutePlanner.plan(land, s, 0, 0, 1000, (int) Math.round(40 * Math.sin(1000 / 60.0)));
+        assertTrue(r.found(), "no route along the road");
+        for (double d = 0; d <= r.total(); d += 1) {
+            double[] p = r.at(d);
+            assertTrue(Math.abs(p[1] - 40 * Math.sin(p[0] / 60.0)) <= 3, "off the road at " + p[0] + ", " + p[1]);
+        }
+    }
+
+    /** Aaron (2026-11-11): a marked bridge always gives a way across, however it lies against the planner's grid. */
+    @Test
+    void aMarkedBridgeAlwaysCrosses() {
+        RoutePlanner.Settings s = new RoutePlanner.Settings(32, 8, 1.6, 400, 60000);
+        for (int shift = 0; shift < 32; shift += 5) {
+            final int o = shift;
+            TerrainView land = new TerrainView() {
+                @Override
+                public double speed(int x, int z) {
+                    return 1;
+                }
+
+                @Override
+                public boolean road(int x, int z) {
+                    return false;
+                }
+
+                @Override
+                public boolean river(int x, int z) {
+                    return x >= 500 + o && x <= 540 + o;
+                }
+
+                @Override
+                public boolean bridge(int x, int z) {
+                    double t = (x - 495 - o) / 50.0;
+                    return t >= 0 && t <= 1 && Math.abs(z - (301 + o + 32 * t)) <= 3;
+                }
+
+                @Override
+                public List<int[]> bridgeEnds() {
+                    return List.of(new int[] {495 + o, 301 + o, 545 + o, 333 + o});
+                }
+            };
+            assertTrue(RoutePlanner.plan(land, s, 100, 100, 900, 100).found(), "no way over the bridge at shift "
+                    + o);
+        }
+    }
+
     @Test
     void noWayIsNoRoute() {
         TerrainView sea = new TerrainView() {
