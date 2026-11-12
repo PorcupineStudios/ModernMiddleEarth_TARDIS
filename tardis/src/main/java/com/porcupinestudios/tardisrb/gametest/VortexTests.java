@@ -442,10 +442,22 @@ public final class VortexTests {
             // off to the side, so the autopilot flies past it
             Wormhole hole = Wormholes.place(server, vortex, t, trip, body.getZ() + 10, 8, 0, Level.OVERWORLD);
             t.setModuleData(Vortex.MODULE, trip);
-            var h = trip.getList("wormholes", Tag.TAG_COMPOUND).getCompound(0);
-            helper.assertTrue(hole != null && hole.open() && h.hasUUID("portal")
-                    && vortex.getEntity(h.getUUID("portal")) instanceof Portal p && !p.isTeleportable()
-                    && Wormholes.PORTAL_TAG.equals(p.portalTag), "no see-through portal in the wormhole");
+            // ours by id (not just the first in the list)
+            var h = new net.minecraft.nbt.CompoundTag();
+            for (Tag x : trip.getList("wormholes", Tag.TAG_COMPOUND)) {
+                if (hole != null && ((net.minecraft.nbt.CompoundTag) x).hasUUID("id")
+                        && ((net.minecraft.nbt.CompoundTag) x).getUUID("id").equals(hole.getUUID())) {
+                    h = (net.minecraft.nbt.CompoundTag) x;
+                }
+            }
+            Entity found = h.hasUUID("portal") ? vortex.getEntity(h.getUUID("portal")) : null;
+            helper.assertTrue(hole != null && hole.open() && found instanceof Portal p && !p.isTeleportable()
+                    && Wormholes.PORTAL_TAG.equals(p.portalTag), "no see-through portal in the wormhole (hole "
+                    + (hole == null ? "null" : "open " + hole.open() + " at " + hole.position()) + ", portal id "
+                    + h.hasUUID("portal") + ", entity " + found + ", sight " + com.porcupinestudios.tardisrb.progression
+                    .Unlocks.stat(t, "wormhole_sight") + ", body at " + body.position() + ", progress "
+                    + trip.getDouble("progress") + ", holes " + trip.getList("wormholes", Tag.TAG_COMPOUND).size()
+                    + ")");
             helper.assertTrue(Wormholes.next(t).isPresent(), "the scanner doesn't see the wormhole ahead");
             Entity portal = vortex.getEntity(h.getUUID("portal"));
             Vortex.arrive(server, t);
