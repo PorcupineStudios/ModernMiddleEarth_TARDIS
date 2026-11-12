@@ -41,6 +41,31 @@ public final class RuleEditors {
 
     private static final Map<String, OutcomeSpec> OUTCOMES = new LinkedHashMap<>();
 
+    /**
+     * How a block reads in the Scratch-like editor: words with {@code {field}} where its inputs go, and its colour.
+     * A block without a look reads as its label followed by its inputs.
+     */
+    public record Look(String sentence, int color) {}
+
+    private static final Map<String, Look> LOOKS = new LinkedHashMap<>();
+
+    public static void look(String type, String sentence, int color) {
+        LOOKS.put(type, new Look(sentence, color));
+    }
+
+    public static Optional<Look> lookOf(String type) {
+        return Optional.ofNullable(LOOKS.get(type));
+    }
+
+    // Scratch's colours: operators green, sensing blue, motion blue, looks purple, variables orange, control amber
+    public static final int OPERATORS = 0xFF59C059;
+    public static final int SENSING = 0xFF5CB1D6;
+    public static final int MOTION = 0xFF4C97FF;
+    public static final int LOOKS_PURPLE = 0xFF9966FF;
+    public static final int VARIABLES = 0xFFFF8C1A;
+    public static final int CONTROL = 0xFFFFAB19;
+    public static final int MY_BLOCKS = 0xFFFF6680;
+
     /** Adds an outcome block to every rule editor (its type registered with {@code Outcome.register}). */
     public static void registerOutcome(String type, OutcomeSpec spec) {
         OUTCOMES.put(type, spec);
@@ -196,6 +221,21 @@ public final class RuleEditors {
                         + " colonists go"));
         registerOutcome("lotr_port:stop", new OutcomeSpec("Stop (skip later rules)", obj("lotr_port:stop"),
                 List.of(), j -> "stop"));
+    }
+
+    static {
+        look("ringbearer_api:always", "always", OPERATORS);
+        look("lotr_port:colony_stock", "{colony} has {item} {compare} {value}", SENSING);
+        look("lotr_port:colony_population", "{colony} people {compare} {value}", SENSING);
+        look("lotr_port:days_since_sent", "{days} days since it went", SENSING);
+        look("lotr_port:time_of_day", "hour is {from} to {to}", SENSING);
+        look("lotr_port:caravans_out", "caravans out {compare} {value}", SENSING);
+        look("lotr_port:take", "take {mode} {amount} {item} max {cap}", VARIABLES);
+        look("lotr_port:bring", "bring back {mode} {amount} {item} max {cap}", VARIABLES);
+        look("lotr_port:send_caravan", "send the caravan with {only_extras}", MOTION);
+        look("lotr_port:message", "say {text}", LOOKS_PURPLE);
+        look("lotr_port:people", "send {count} colonists", MY_BLOCKS);
+        look("lotr_port:stop", "stop the rules after this", CONTROL);
     }
 
     public static String describeOutcome(JsonObject j) {

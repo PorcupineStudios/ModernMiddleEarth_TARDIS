@@ -316,8 +316,7 @@ public final class CaravanViews {
                     new View.Tab("rules", tr("caravan.tab.rules", "Rules")));
             Page page;
             if (tab.equals("rules")) {
-                List<Page.Section> rs = RuleViews.page(server, home, r);
-                page = new Page.Stats(rs, List.of());
+                page = RuleViews.page(server, home, r);
             } else {
                 page = new Page.Profile(Optional.empty(), Component.literal(r.title()), may ? Optional.of("rename")
                         : Optional.empty(), Component.literal(sub), List.of(sections.get(0)), sections.subList(1,

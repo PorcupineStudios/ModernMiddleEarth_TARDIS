@@ -21,8 +21,8 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.server.MinecraftServer;
 
 /**
- * The route editor's Rules tab: a list of rules, each "If (conditions) Then (outcomes) Else (outcomes)", built from
- * blocks. "Add rule..." offers kinds of rule (a plain If, every N days, top up when low, ...); conditions are the
+ * The route editor's Rules tab, as Scratch-like blocks ({@link Page.Blocks}): each rule an amber "if ... then ...
+ * else" C block, conditions green/blue hexagons in its slot, outcomes stack blocks in its arms. "Add rule..." offers kinds of rule (a plain If, every N days, top up when low, ...); conditions are the
  * {@link RuleEditors} blocks (AND, OR, NOT and the rest) and outcomes the {@link RuleEditors#outcomes} blocks, each
  * added from a menu where it goes. Actions name where they act: {@code <rule>} then, for conditions, the node path
  * ({@code c_type:2/0.1}), for outcomes the list and index ({@code o_type:2/t/0}).
@@ -33,80 +33,7 @@ final class RuleViews {
 
     private RuleViews() {}
 
-    // ---------------------------------------------------------------- the page
-
-    static List<Page.Section> sections(MinecraftServer server, Colony home, CaravanBook.Route r) {
-        List<Page.Section> out = new ArrayList<>();
-        List<CaravanBook.Rule> rules = r.program();
-        for (int i = 0; i < rules.size(); i++) {
-            out.add(new Page.Section(Component.literal("Rule " + (i + 1)), rule(server, home, r, rules.get(i), i,
-                    rules.size())));
-        }
-        List<Stat> add = new ArrayList<>();
-        if (rules.isEmpty()) {
-            add.add(Stat.of(Component.literal("No rules: it goes only by hand"), "", Tone.MUTED));
-        } else {
-            boolean now = Caravans.dueNow(server, home, r);
-            add.add(Stat.of(Component.literal("Right now"), now ? "would send" : "would wait", now ? Tone.GOOD
-                    : Tone.MUTED));
-        }
-        add.add(CaravanViews.picker("Add rule", "Choose a kind...", "rule_add", "", List.of(
-                Stat.Choice.of("if", Component.literal("If ... then ... (else ...)")),
-                Stat.Choice.of("every", Component.literal("Every few days: send")),
-                Stat.Choice.of("low", Component.literal("When the destination runs low: top it up")),
-                Stat.Choice.of("excess", Component.literal("When home piles up: send the excess")),
-                Stat.Choice.of("always", Component.literal("Every check: do ...")))));
-        add.add(Stat.of(Component.literal("Rules run in order every 10 s;"), "", Tone.MUTED));
-        add.add(Stat.of(Component.literal("one caravan of a route at a time."), "", Tone.MUTED));
-        out.add(new Page.Section(Component.literal("Rules"), add));
-        return out;
-    }
-
-    private static List<Stat> rule(MinecraftServer server, Colony home, CaravanBook.Route r, CaravanBook.Rule rule,
-            int i, int count) {
-        List<Stat> out = new ArrayList<>();
-        boolean yes = Caravans.holds(server, home, r, rule);
-        List<Stat.Choice> ops = new ArrayList<>();
-        ops.add(Stat.Choice.of("delete", Component.literal("Delete this rule")));
-        if (i > 0) {
-            ops.add(Stat.Choice.of("up", Component.literal("Move up")));
-        }
-        if (i < count - 1) {
-            ops.add(Stat.Choice.of("down", Component.literal("Move down")));
-        }
-        ops.add(Stat.Choice.of("edge", Component.literal(rule.edge() ? "Fire at every check" : "Fire only when it changes")));
-        out.add(CaravanViews.picker(rule.edge() ? "Fires when it changes" : "Fires at every check", "Rule...",
-                "rule_op:" + i, "", ops));
-        if (rule.when().isPresent()) {
-            node(out, server, home, r, RuleEditors.toJson(rule.when().get()), i + "/", 0, "If", true);
-        } else {
-            out.add(CaravanViews.picker("If (always)", "Add a condition...", "c_set:" + i, "", types(false)));
-        }
-        outcomes(out, rule.then(), i, "t", yes ? "Then (now)" : "Then");
-        if (!rule.otherwise().isEmpty() || rule.when().isPresent()) {
-            outcomes(out, rule.otherwise(), i, "e", !yes ? "Else (now)" : "Else");
-        }
-        return out;
-    }
-
-    private static void outcomes(List<Stat> out, List<Outcome> list, int rule, String which, String title) {
-        out.add(Stat.of(Component.literal(title), "", Tone.NORMAL));
-        for (int k = 0; k < list.size(); k++) {
-            JsonObject j = RuleEditors.outcomeJson(list.get(k));
-            String type = RuleEditors.str(j, "type", "?");
-            RuleEditors.OutcomeSpec spec = RuleEditors.outcomes().get(type);
-            String at = rule + "/" + which + "/" + k;
-            out.add(CaravanViews.picker(INDENT + "Do", spec == null ? type : spec.label(), "o_type:" + at, type,
-                    outcomeTypes(true)));
-            if (spec != null) {
-                for (RuleEditors.Field f : spec.fields()) {
-                    out.add(field(null, null, null, j, "o_field:" + at + ":" + f.name(), f, INDENT + INDENT));
-                }
-            }
-        }
-        out.add(CaravanViews.picker(INDENT + "+", "Add outcome...", "o_add:" + rule + "/" + which, "",
-                outcomeTypes(false)));
-    }
+    // ---------------------------------------------------------------- blocks
 
     static List<Stat.Choice> types(boolean removable) {
         List<Stat.Choice> out = new ArrayList<>();
@@ -138,38 +65,6 @@ final class RuleViews {
                 return false;
             }
         }).orElse(false);
-    }
-
-    /** A condition block and its children; {@code prefix} is "rule/" and the path follows. */
-    private static void node(List<Stat> out, MinecraftServer server, Colony home, CaravanBook.Route r, JsonObject j,
-            String at, int depth, String joint, boolean root) {
-        String pad = INDENT.repeat(depth);
-        String type = RuleEditors.str(j, "type", "?");
-        RuleEditors.Spec spec = RuleEditors.specs().get(type);
-        boolean ok = holds(server, home, r, j);
-        String label = pad + (joint.isEmpty() ? "" : joint + " ") + (ok ? "[yes]" : "[no]");
-        out.add(CaravanViews.picker(label, spec == null ? type : spec.label(), "c_type:" + at, type, types(true)));
-        if (spec == null) {
-            out.add(Stat.of(Component.literal(pad + INDENT + "(set in data; no editor)"), "", Tone.MUTED));
-            return;
-        }
-        for (RuleEditors.Field f : spec.fields()) {
-            out.add(field(server, home, r, j, "c_field:" + at + ":" + f.name(), f, pad + INDENT));
-        }
-        if (!spec.group().isEmpty()) {
-            List<JsonObject> kids = RuleEditors.children(j);
-            String word = type.endsWith(":any") ? "OR" : type.endsWith(":all") ? "AND" : "";
-            String base = at.substring(0, at.indexOf('/') + 1);
-            String path = at.substring(at.indexOf('/') + 1);
-            for (int i = 0; i < kids.size(); i++) {
-                node(out, server, home, r, kids.get(i), base + (path.isEmpty() ? Integer.toString(i) : path + "." + i),
-                        depth + 1, i == 0 || word.isEmpty() ? "" : word, false);
-            }
-            if (spec.group().equals("conditions")) {
-                out.add(CaravanViews.picker(pad + INDENT + "+", "Add a condition...", "c_add:" + at, "",
-                        types(false)));
-            }
-        }
     }
 
     /** A field's control (server, home and route only needed for colony and item fields of conditions). */
@@ -228,16 +123,160 @@ final class RuleViews {
 
     static final ThreadLocal<Items> CURRENT_ITEMS = new ThreadLocal<>();
 
-    static List<Page.Section> page(MinecraftServer server, Colony home, CaravanBook.Route r) {
+    /** The Rules tab as Scratch-like blocks. */
+    static Page.Blocks page(MinecraftServer server, Colony home, CaravanBook.Route r) {
         List<Colony> from = new ArrayList<>();
         from.add(home);
         Colonies.get(server).get(r.to()).ifPresent(from::add);
         CURRENT_ITEMS.set(new Items(server, from));
         try {
-            return sections(server, home, r);
+            List<Page.Block> script = new ArrayList<>();
+            List<CaravanBook.Rule> rules = r.program();
+            for (int i = 0; i < rules.size(); i++) {
+                script.add(ruleBlock(server, home, r, rules.get(i), i, rules.size()));
+            }
+            List<Component> notes = new ArrayList<>();
+            if (rules.isEmpty()) {
+                notes.add(Component.literal("No rules: this route goes only by hand. + Add rule to automate it."));
+            } else {
+                notes.add(Component.literal("Right now: " + (Caravans.dueNow(server, home, r) ? "it would send"
+                        : "it would wait") + ". Rules run top to bottom every 10 s; one caravan at a time."));
+            }
+            notes.add(Component.literal("Click a block's words to change, move or remove it; + slots add blocks."));
+            return new Page.Blocks(script, Optional.of(new Stat.Picker("rule_add", "", List.of(
+                    Stat.Choice.of("if", Component.literal("If ... then ... else ...")),
+                    Stat.Choice.of("every", Component.literal("Every few days: send")),
+                    Stat.Choice.of("low", Component.literal("When the destination runs low: top it up")),
+                    Stat.Choice.of("excess", Component.literal("When home piles up: send the excess")),
+                    Stat.Choice.of("always", Component.literal("Every check: do ..."))))), List.of(), notes);
         } finally {
             CURRENT_ITEMS.remove();
         }
+    }
+
+    private static Page.Block ruleBlock(MinecraftServer server, Colony home, CaravanBook.Route r,
+            CaravanBook.Rule rule, int i, int count) {
+        List<Stat.Choice> ops = new ArrayList<>();
+        if (i > 0) {
+            ops.add(Stat.Choice.of("up", Component.literal("Move up")));
+        }
+        if (i < count - 1) {
+            ops.add(Stat.Choice.of("down", Component.literal("Move down")));
+        }
+        ops.add(Stat.Choice.of("edge", Component.literal(rule.edge() ? "Run at every check"
+                : "Run only when the answer changes")));
+        ops.add(Stat.Choice.of("delete", Component.literal("Delete this rule")));
+        List<Page.Part> head = new ArrayList<>();
+        head.add(Page.Part.text(rule.edge() ? "when it changes, if" : "if"));
+        if (rule.when().isPresent()) {
+            head.add(Page.Part.block(condBlock(server, home, r, RuleEditors.toJson(rule.when().get()), i + "/")));
+        } else {
+            head.add(Page.Part.slot(new Stat.Picker("c_set:" + i, "", types(false))));
+        }
+        head.add(Page.Part.text("then"));
+        List<Page.Arm> arms = new ArrayList<>();
+        arms.add(new Page.Arm(Component.empty(), outcomeBlocks(rule.then(), i, "t"), Optional.of(new Stat.Picker(
+                "o_add:" + i + "/t", "", outcomeTypes(false)))));
+        if (rule.when().isPresent() || !rule.otherwise().isEmpty()) {
+            arms.add(new Page.Arm(Component.literal("else"), outcomeBlocks(rule.otherwise(), i, "e"), Optional.of(
+                    new Stat.Picker("o_add:" + i + "/e", "", outcomeTypes(false)))));
+        }
+        return new Page.Block("c", RuleEditors.CONTROL, head, arms, Optional.of(new Stat.Picker("rule_op:" + i, "",
+                ops)));
+    }
+
+    private static List<Page.Block> outcomeBlocks(List<Outcome> list, int rule, String which) {
+        List<Page.Block> out = new ArrayList<>();
+        for (int k = 0; k < list.size(); k++) {
+            JsonObject j = RuleEditors.outcomeJson(list.get(k));
+            String type = RuleEditors.str(j, "type", "?");
+            RuleEditors.OutcomeSpec spec = RuleEditors.outcomes().get(type);
+            String at = rule + "/" + which + "/" + k;
+            List<RuleEditors.Field> fields = spec == null ? List.of() : spec.fields();
+            List<Page.Part> parts = sentence(type, spec == null ? type : spec.label(), fields, f -> field(null, null,
+                    null, j, "o_field:" + at + ":" + f.name(), f, ""));
+            int color = RuleEditors.lookOf(type).map(RuleEditors.Look::color).orElse(RuleEditors.MOTION);
+            out.add(new Page.Block("stack", color, parts, List.of(), Optional.of(new Stat.Picker("o_type:" + at, type,
+                    outcomeTypes(true)))));
+        }
+        return out;
+    }
+
+    private static Page.Block condBlock(MinecraftServer server, Colony home, CaravanBook.Route r, JsonObject j,
+            String at) {
+        String type = RuleEditors.str(j, "type", "?");
+        RuleEditors.Spec spec = RuleEditors.specs().get(type);
+        Stat.Picker menu = new Stat.Picker("c_type:" + at, type, types(true));
+        List<Page.Part> parts = new ArrayList<>();
+        int color = RuleEditors.lookOf(type).map(RuleEditors.Look::color).orElse(RuleEditors.OPERATORS);
+        if (spec != null && !spec.group().isEmpty()) {
+            List<JsonObject> kids = RuleEditors.children(j);
+            String base = at.substring(0, at.indexOf('/') + 1);
+            String path = at.substring(at.indexOf('/') + 1);
+            boolean not = spec.group().equals("condition");
+            String word = type.endsWith(":any") ? "or" : "and";
+            if (not) {
+                parts.add(Page.Part.text("not"));
+            }
+            for (int i = 0; i < kids.size(); i++) {
+                if (i > 0 && !not) {
+                    parts.add(Page.Part.text(word));
+                }
+                parts.add(Page.Part.block(condBlock(server, home, r, kids.get(i), base + (path.isEmpty()
+                        ? Integer.toString(i) : path + "." + i))));
+            }
+            if (!not) {
+                if (kids.size() > 0) {
+                    parts.add(Page.Part.text(word));
+                }
+                parts.add(Page.Part.slot(new Stat.Picker("c_add:" + at, "", types(false))));
+            }
+            return new Page.Block("bool", RuleEditors.OPERATORS, parts, List.of(), Optional.of(menu));
+        }
+        List<RuleEditors.Field> fields = spec == null ? List.of() : spec.fields();
+        parts.addAll(sentence(type, spec == null ? type : spec.label(), fields, f -> field(server, home, r, j,
+                "c_field:" + at + ":" + f.name(), f, "")));
+        // yes or no right now
+        parts.add(Page.Part.text(holds(server, home, r, j) ? "\u2714" : "\u2718"));
+        return new Page.Block("bool", color, parts, List.of(), Optional.of(menu));
+    }
+
+    /** A block's words and inputs from its look ("{colony} has {item} ..."), or its label then its inputs. */
+    private static List<Page.Part> sentence(String type, String label, List<RuleEditors.Field> fields,
+            java.util.function.Function<RuleEditors.Field, Stat> input) {
+        List<Page.Part> out = new ArrayList<>();
+        Optional<RuleEditors.Look> look = RuleEditors.lookOf(type);
+        if (look.isEmpty()) {
+            out.add(Page.Part.text(label));
+            for (RuleEditors.Field f : fields) {
+                out.add(Page.Part.text(f.label()));
+                out.add(toPart(input.apply(f)));
+            }
+            return out;
+        }
+        for (String word : look.get().sentence().split(" ")) {
+            if (word.startsWith("{") && word.endsWith("}")) {
+                String name = word.substring(1, word.length() - 1);
+                fields.stream().filter(f -> f.name().equals(name)).findFirst()
+                        .ifPresent(f -> out.add(toPart(input.apply(f))));
+            } else if (!out.isEmpty() && out.get(out.size() - 1).kind() == 0) {
+                Page.Part last = out.remove(out.size() - 1);
+                out.add(Page.Part.text(last.text().getString() + " " + word));
+            } else {
+                out.add(Page.Part.text(word));
+            }
+        }
+        return out;
+    }
+
+    private static Page.Part toPart(Stat s) {
+        if (s.picker().isPresent()) {
+            return Page.Part.pick(s.value(), s.picker().get());
+        }
+        if (s.stepper().isPresent()) {
+            return Page.Part.number(s.stepper().get());
+        }
+        return Page.Part.text(s.value());
     }
 
     // ---------------------------------------------------------------- editing

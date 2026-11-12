@@ -216,6 +216,13 @@ public final class UiCodecs {
                     opt(b, t.open(), UiCodecs::str);
                 });
             }
+            case Page.Blocks bl -> {
+                buf.writeByte(4);
+                list(buf, bl.script(), UiCodecs::writeBlock);
+                opt(buf, bl.add(), UiCodecs::writePicker);
+                list(buf, bl.buttons(), UiCodecs::writeAction);
+                list(buf, bl.notes(), UiCodecs::text);
+            }
             case Page.Timetable t -> {
                 buf.writeByte(3);
                 list(buf, t.kinds(), (b, k) -> {
@@ -248,8 +255,60 @@ public final class UiCodecs {
         return new Page.Section(text(buf), list(buf, UiCodecs::readStat));
     }
 
+    static void writePicker(RegistryFriendlyByteBuf b, Stat.Picker pk) {
+        str(b, pk.action());
+        str(b, pk.current());
+        list(b, pk.choices(), (bb, c) -> {
+            str(bb, c.id());
+            text(bb, c.label());
+            bb.writeBoolean(c.enabled());
+            opt(bb, c.why(), UiCodecs::text);
+        });
+    }
+
+    static Stat.Picker readPicker(RegistryFriendlyByteBuf b) {
+        return new Stat.Picker(str(b), str(b), list(b, bb -> new Stat.Choice(str(bb), text(bb), bb.readBoolean(),
+                opt(bb, UiCodecs::text))));
+    }
+
+    static void writeBlock(RegistryFriendlyByteBuf b, Page.Block bl) {
+        str(b, bl.shape());
+        b.writeInt(bl.color());
+        list(b, bl.head(), (bb, p) -> {
+            bb.writeByte(p.kind());
+            text(bb, p.text());
+            opt(bb, p.picker(), UiCodecs::writePicker);
+            opt(bb, p.stepper(), (x, st) -> {
+                str(x, st.action());
+                x.writeInt(st.value());
+                x.writeInt(st.min());
+                x.writeInt(st.max());
+                x.writeVarInt(st.step());
+            });
+            opt(bb, p.block(), UiCodecs::writeBlock);
+        });
+        list(b, bl.arms(), (bb, a) -> {
+            text(bb, a.label());
+            list(bb, a.body(), UiCodecs::writeBlock);
+            opt(bb, a.add(), UiCodecs::writePicker);
+        });
+        opt(b, bl.menu(), UiCodecs::writePicker);
+    }
+
+    static Page.Block readBlock(RegistryFriendlyByteBuf b) {
+        return new Page.Block(str(b), b.readInt(), list(b, bb -> new Page.Part(bb.readByte(), text(bb),
+                opt(bb, UiCodecs::readPicker), opt(bb, x -> new Stat.Stepper(str(x), x.readInt(), x.readInt(),
+                        x.readInt(), x.readVarInt())), opt(bb, UiCodecs::readBlock))),
+                list(b, bb -> new Page.Arm(text(bb), list(bb, UiCodecs::readBlock), opt(bb, UiCodecs::readPicker))),
+                opt(b, UiCodecs::readPicker));
+    }
+
     static Page readPage(RegistryFriendlyByteBuf buf) {
         byte kind = buf.readByte();
+        if (kind == 4) {
+            return new Page.Blocks(list(buf, UiCodecs::readBlock), opt(buf, UiCodecs::readPicker),
+                    list(buf, UiCodecs::readAction), list(buf, UiCodecs::text));
+        }
         if (kind == 0) {
             return new Page.Table(list(buf, UiCodecs::readColumn), list(buf, UiCodecs::readGroup),
                     list(buf, UiCodecs::readRow), buf.readVarInt() - 1, buf.readBoolean(), opt(buf, UiCodecs::str),
