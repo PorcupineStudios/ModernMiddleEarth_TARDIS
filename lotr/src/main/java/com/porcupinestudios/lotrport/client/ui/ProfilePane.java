@@ -116,7 +116,12 @@ final class ProfilePane {
             }
             ui.unclip();
         }
-        bar.draw(ui, x + w - ScrollBar.WIDTH - 2, rightTop, bodyBottom - rightTop);
+        // with a tree on the right, the bar belongs to the left column (the tree has no bar: it pans)
+        if (tree != null) {
+            bar.draw(ui, x + 8 + colW + 2, bodyTop, bodyBottom - bodyTop);
+        } else {
+            bar.draw(ui, x + w - ScrollBar.WIDTH - 2, rightTop, bodyBottom - rightTop);
+        }
 
         int bx = x + w;
         List<Action> buttons = profile.buttons();
@@ -170,8 +175,8 @@ final class ProfilePane {
 
     /** Scrolls the sections; true if the mouse was over them. */
     boolean scroll(double mouseX, double mouseY, double amount) {
-        if (tree != null && tree.zoom(mouseX, mouseY, amount)) {
-            return true;
+        if (tree != null && tree.contains(mouseX, mouseY)) {
+            return tree.zoom(mouseX, mouseY, amount);
         }
         if (mouseY < bodyTop - PORTRAIT / 2 || mouseY > bodyBottom) {
             return false;

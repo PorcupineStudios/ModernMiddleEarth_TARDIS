@@ -12,8 +12,8 @@ the 50-colony budget test.
 
 ## Performance
 
-`SocietyTests.fiftyColoniesRunTenDaysWithinTheBudget` allows 2 ms of colony work a tick and at most 3 slow ticks; the
-base code already peaked at 1.66 ms, so colonist work has almost no room. What got it back to 0 slow ticks (1.8 ms
+`SocietyTests.fiftyColoniesRunTenDaysWithinTheBudget` now checks a colony day's cost against a reference job timed on
+the same machine (`lotr/docs/colonies.md`, Scheduler); the history below is from when it counted slow ticks. What got it back to 0 slow ticks (1.8 ms
 worst): traits are rolled from ids sorted once per reload (`TraitRules.ordered`); citizens from older saves get traits
 once at server start (`Colonists.onStarted`), never inside a colony pass; anyone with no parents and no spouse is
 their own household without walking the tree; households are worked out once per colony per tick and shared by the
