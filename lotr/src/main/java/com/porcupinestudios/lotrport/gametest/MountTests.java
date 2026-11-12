@@ -127,22 +127,16 @@ public final class MountTests {
         helper.succeed();
     }
 
-    // the boar's chunk can start ticking well after the pig's (33 vs 198 ticks in a failed CI run): give it time
-    @GameTest(template = "empty", batch = "mounts", timeoutTicks = 400)
+    // its own 5 x 5 stone pen (structure boar_pen): on the 1-block "empty" template the 3 x 3 floor it laid stuck out
+    // into its neighbours' space, and holes opened under the boar (CI 2026-11-12: boar 2 blocks below the pig, unable
+    // to reach or see it)
+    @GameTest(template = "boar_pen", batch = "mounts", timeoutTicks = 400)
     public static void boarsFightBack(GameTestHelper helper) {
-        ThrownTests.inLoadedArea(helper, 3, 3, () -> {
-            for (BlockPos p : BlockPos.betweenClosed(new BlockPos(0, 1, 0), new BlockPos(2, 1, 2))) {
-                helper.setBlock(p, net.minecraft.world.level.block.Blocks.STONE);
-                // earlier batches' tests stood here too and left blocks outside the 1-block template
-                helper.setBlock(p.above(), net.minecraft.world.level.block.Blocks.AIR);
-                helper.setBlock(p.above(2), net.minecraft.world.level.block.Blocks.AIR);
-            }
+        ThrownTests.inLoadedArea(helper, 5, 5, () -> {
             LotrHorse boar = mount(helper, "wild_boar");
+            boar.moveTo(helper.absoluteVec(new Vec3(2.5, 1, 1.5)));
             helper.getLevel().addFreshEntity(boar);
-            // a pig with its own legs: a neighbouring test in the batch can clear this floor, and the boar then
-            // drops into the hole while a pig without AI hangs in the air above it, out of reach (CI, 2026-11-12:
-            // boar at y 0 under the pig at y 2, "in reach false, sees false"). Both fall to the same ground now.
-            Pig pig = helper.spawn(EntityType.PIG, new Vec3(1.5, 2, 2.5));
+            Pig pig = helper.spawn(EntityType.PIG, new Vec3(2.5, 1, 3.5));
             float health = pig.getHealth();
             helper.succeedWhen(() -> {
                 // hurt it again until it notices (its chunk may start ticking a few ticks late)
