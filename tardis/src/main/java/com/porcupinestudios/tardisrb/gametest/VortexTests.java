@@ -434,35 +434,41 @@ public final class VortexTests {
         // wait for the box to catch up with the trip: the autopilot moves progress on while the box is being made,
         // and until the next step pulls the box forward a wormhole 10 ahead of the box can be behind progress (not
         // "ahead") and 10 ahead of progress outside the chunks loaded round the box (no portal). CI failed both ways.
+        Wormhole[] hole = {null};
+        net.minecraft.nbt.CompoundTag[] h = {new net.minecraft.nbt.CompoundTag()};
+        TardisBody[] body = {null};
         helper.startSequence().thenWaitUntil(() -> helper.assertTrue(FreeFlight.body(server, t)
                 .filter(b -> b.getZ() >= t.moduleData(Vortex.MODULE).getDouble("progress")).isPresent(),
                 "no box in the vortex level with its trip")).thenExecute(() -> {
-            TardisBody body = FreeFlight.body(server, t).orElseThrow();
+            body[0] = FreeFlight.body(server, t).orElseThrow();
             var trip = t.moduleData(Vortex.MODULE);
             // off to the side, so the autopilot flies past it
-            Wormhole hole = Wormholes.place(server, vortex, t, trip, body.getZ() + 10, 8, 0, Level.OVERWORLD);
+            hole[0] = Wormholes.place(server, vortex, t, trip, body[0].getZ() + 10, 8, 0, Level.OVERWORLD);
             t.setModuleData(Vortex.MODULE, trip);
             // ours by id (not just the first in the list)
-            var h = new net.minecraft.nbt.CompoundTag();
             for (Tag x : trip.getList("wormholes", Tag.TAG_COMPOUND)) {
-                if (hole != null && ((net.minecraft.nbt.CompoundTag) x).hasUUID("id")
-                        && ((net.minecraft.nbt.CompoundTag) x).getUUID("id").equals(hole.getUUID())) {
-                    h = (net.minecraft.nbt.CompoundTag) x;
+                if (hole[0] != null && ((net.minecraft.nbt.CompoundTag) x).hasUUID("id")
+                        && ((net.minecraft.nbt.CompoundTag) x).getUUID("id").equals(hole[0].getUUID())) {
+                    h[0] = (net.minecraft.nbt.CompoundTag) x;
                 }
             }
-            Entity found = h.hasUUID("portal") ? vortex.getEntity(h.getUUID("portal")) : null;
-            helper.assertTrue(hole != null && hole.open() && found instanceof Portal p && !p.isTeleportable()
+        // the portal entity joins the level a tick or more after it is made (CI found it null straight away)
+        }).thenWaitUntil(() -> {
+            Entity found = h[0].hasUUID("portal") ? vortex.getEntity(h[0].getUUID("portal")) : null;
+            var trip = t.moduleData(Vortex.MODULE);
+            helper.assertTrue(hole[0] != null && hole[0].open() && found instanceof Portal p && !p.isTeleportable()
                     && Wormholes.PORTAL_TAG.equals(p.portalTag), "no see-through portal in the wormhole (hole "
-                    + (hole == null ? "null" : "open " + hole.open() + " at " + hole.position()) + ", portal id "
-                    + h.hasUUID("portal") + ", entity " + found + ", sight " + com.porcupinestudios.tardisrb.progression
-                    .Unlocks.stat(t, "wormhole_sight") + ", body at " + body.position() + ", progress "
-                    + trip.getDouble("progress") + ", holes " + trip.getList("wormholes", Tag.TAG_COMPOUND).size()
-                    + ")");
+                    + (hole[0] == null ? "null" : "open " + hole[0].open() + " at " + hole[0].position())
+                    + ", portal id " + h[0].hasUUID("portal") + ", entity " + found + ", sight "
+                    + com.porcupinestudios.tardisrb.progression.Unlocks.stat(t, "wormhole_sight") + ", body at "
+                    + body[0].position() + ", progress " + trip.getDouble("progress") + ", holes "
+                    + trip.getList("wormholes", Tag.TAG_COMPOUND).size() + ")");
+        }).thenExecute(() -> {
             helper.assertTrue(Wormholes.next(t).isPresent(), "the scanner doesn't see the wormhole ahead");
-            Entity portal = vortex.getEntity(h.getUUID("portal"));
+            Entity portal = vortex.getEntity(h[0].getUUID("portal"));
             Vortex.arrive(server, t);
-            helper.assertTrue(portal.isRemoved() && hole.isRemoved(), "the wormhole or its portal outlived the trip");
-            helper.succeed();
-        });
+            helper.assertTrue(portal.isRemoved() && hole[0].isRemoved(),
+                    "the wormhole or its portal outlived the trip");
+        }).thenSucceed();
     }
 }

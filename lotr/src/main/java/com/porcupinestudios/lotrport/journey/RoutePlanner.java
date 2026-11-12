@@ -164,7 +164,7 @@ public final class RoutePlanner {
             // steps run between cell middles, so a road or bridge within half a cell counts as taken
             int reach = Math.max(4, s.cell()) / 2;
             boolean road = near(land, x, z, reach, s.sample(), false);
-            if (land.river(x, z) && !road && !near(land, x, z, reach, s.sample(), true)) {
+            if (land.river(x, z) && !road && !crossing(land, x, z, reach, s.sample())) {
                 return null;
             }
             double v = land.speed(x, z);
@@ -180,6 +180,19 @@ public final class RoutePlanner {
             slow += 1 / v;
         }
         return new double[] {len * slow / (n + 1), roads / (double) (n + 1)};
+    }
+
+    /** A road or marked bridge anywhere in the square {@code reach} round a river point (rivers are rare: worth it). */
+    private static boolean crossing(TerrainView land, int x, int z, int reach, int sample) {
+        int st = Math.max(1, sample);
+        for (int dx = -reach; dx <= reach; dx += st) {
+            for (int dz = -reach; dz <= reach; dz += st) {
+                if (land.road(x + dx, z + dz) || land.bridge(x + dx, z + dz)) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     /** A road (or a marked bridge) at the point or within {@code reach} along x or z. */
