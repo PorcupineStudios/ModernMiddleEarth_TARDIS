@@ -210,6 +210,7 @@ final class TreePane {
                 end = x + NODE_W;
             }
         }
+        slideMarriedIn(rows, gen, children);
         // the oldest generations have no one above them: centre each such row over its children, top-down after
         // the rows under them are placed would undo their own anchoring, so only rows with nobody's parents in them
         List<Integer> keys = new ArrayList<>(rows.keySet());
@@ -237,6 +238,58 @@ final class TreePane {
                 int move = (int) Math.round(kids / n - self / ids.size());
                 for (String id : ids) {
                     at.get(id)[0] += move;
+                }
+            }
+        }
+    }
+
+    /**
+     * Someone who married into a row (no parents of their own here) slides along it until the middle of the line
+     * between them and their partner sits over their own children, so a person's lines to an old and a new spouse
+     * each come down over their own family. They stay on their side of their partner and never onto anyone else.
+     */
+    private void slideMarriedIn(Map<Integer, List<String>> rows, Map<String, Integer> gen,
+            Map<String, List<String>> children) {
+        for (Map.Entry<Integer, List<String>> row : rows.entrySet()) {
+            int g = row.getKey();
+            for (String m : row.getValue()) {
+                boolean own = parentsOf.getOrDefault(m, List.of()).stream().anyMatch(q -> gen.getOrDefault(q, 0) < g);
+                if (own) {
+                    continue;
+                }
+                for (String partner : partners.getOrDefault(m, List.of())) {
+                    int[] pm = at.get(m);
+                    int[] pp = at.get(partner);
+                    if (pp == null || pp[1] != pm[1]) {
+                        continue;
+                    }
+                    double sum = 0;
+                    int n = 0;
+                    for (String c : children.getOrDefault(m, List.of())) {
+                        if (parentsOf.getOrDefault(c, List.of()).contains(partner) && at.containsKey(c)) {
+                            sum += at.get(c)[0] + NODE_W / 2.0;
+                            n++;
+                        }
+                    }
+                    if (n == 0) {
+                        continue;
+                    }
+                    int want = (int) Math.round(2 * (sum / n) - (pp[0] + NODE_W / 2.0) - NODE_W / 2.0);
+                    boolean right = pm[0] > pp[0];
+                    // keep to their side of the partner, a couple's gap at least
+                    want = right ? Math.max(want, pp[0] + NODE_W + GAP_X) : Math.min(want, pp[0] - NODE_W - GAP_X);
+                    int lo = Math.min(pm[0], want);
+                    int hi = Math.max(pm[0], want) + NODE_W;
+                    boolean clear = true;
+                    for (String o : row.getValue()) {
+                        if (!o.equals(m) && !o.equals(partner) && at.get(o)[0] + NODE_W > lo - GAP_X
+                                && at.get(o)[0] < hi + GAP_X) {
+                            clear = false;
+                        }
+                    }
+                    if (clear) {
+                        pm[0] = want;
+                    }
                 }
             }
         }
