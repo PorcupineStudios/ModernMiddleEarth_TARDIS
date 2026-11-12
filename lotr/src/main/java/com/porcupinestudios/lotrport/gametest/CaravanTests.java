@@ -80,7 +80,7 @@ public final class CaravanTests {
         Colony mine = colony(server, helper, me, "Caravan Outpost", new BlockPos(w2.x() + off, 70, w2.z()),
                 Map.of(IRON, 30), 0);
         Colony friend = colony(server, helper, UUID.randomUUID(), "Caravan Friend",
-                new BlockPos(w2.x() + off, 70, w2.z() + 200), Map.of(WOOL, 10), 0);
+                new BlockPos(w1.x() + 300 + off, 70, w1.z()), Map.of(WOOL, 10), 0);
         Caravans.setBook(server, home, Caravans.book(home).withKeep(Map.of(BREAD.toString(), 20)));
         Caravans.setBook(server, Colonies.get(server).get(mine.id()).orElseThrow(),
                 Caravans.book(mine).withKeep(Map.of(IRON.toString(), 25)));
@@ -127,6 +127,7 @@ public final class CaravanTests {
                 })
                 .thenWaitUntil(() -> helper.assertTrue(cur[0].stage == Journey.Stage.DONE, "3 not back"))
                 .thenExecute(() -> {
+                    helper.assertTrue(cur[0].route.found(), "no way to the friend's colony");
                     helper.assertTrue(stock(server, home.id(), WOOL) == 10 && stock(server, friend.id(), WOOL) == 0,
                             "wool home " + stock(server, home.id(), WOOL) + " friend "
                                     + stock(server, friend.id(), WOOL) + " (friend offers "
