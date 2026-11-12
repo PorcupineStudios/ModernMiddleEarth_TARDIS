@@ -172,16 +172,16 @@ public final class CaravanTests {
         }));
         Journey[] sent = {null};
         helper.startSequence()
-                .thenExecute(() -> Caravans.runRoutes(server))
                 .thenExecute(() -> {
+                    Caravans.runRoutes(server);
                     List<Journey> out = all.from(home.id());
                     helper.assertTrue(out.size() == 1, "the trigger sent " + out.size() + " caravans");
                     sent[0] = out.get(0);
                     helper.assertTrue(out.get(0).cargo.getOrDefault(BREAD, 0) == 70, "it took "
                             + out.get(0).cargo + ", wanted the 70 over 30");
                 })
-                .thenWaitUntil(() -> helper.assertTrue(sent[0].stage == Journey.Stage.DONE, "not back yet: "
-                        + sent[0].stage))
+                .thenWaitUntil(() -> helper.assertTrue(sent[0] != null && sent[0].stage
+                        == Journey.Stage.DONE, "not back yet: " + (sent[0] == null ? "none sent" : sent[0].stage)))
                 .thenExecute(() -> {
                     helper.assertTrue(sent[0].route.found(), "no way to the outpost ("
                             + com.porcupinestudios.lotrport.journey.RoutePlanner.lastSearch + ")");
