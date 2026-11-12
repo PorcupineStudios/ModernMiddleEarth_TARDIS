@@ -435,8 +435,11 @@ public final class VortexTests {
                 "no box in the vortex")).thenExecute(() -> {
             TardisBody body = FreeFlight.body(server, t).orElseThrow();
             var trip = t.moduleData(Vortex.MODULE);
-            // off to the side, so the autopilot flies past it
-            Wormhole hole = Wormholes.place(server, vortex, t, trip, body.getZ() + 10, 8, 0, Level.OVERWORLD);
+            // off to the side, so the autopilot flies past it; 10 ahead of the trip's progress as well as the box:
+            // the autopilot moves progress on while the box is being made, so for a tick the box can be behind it,
+            // and a wormhole behind progress isn't "ahead" (CI failed that way now and then)
+            double ahead = Math.max(body.getZ(), trip.getDouble("progress")) + 10;
+            Wormhole hole = Wormholes.place(server, vortex, t, trip, ahead, 8, 0, Level.OVERWORLD);
             t.setModuleData(Vortex.MODULE, trip);
             var h = trip.getList("wormholes", Tag.TAG_COMPOUND).getCompound(0);
             helper.assertTrue(hole != null && hole.open() && h.hasUUID("portal")
