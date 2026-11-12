@@ -27,7 +27,7 @@ import net.neoforged.neoforge.event.tick.ServerTickEvent;
 /**
  * A journey seen in person. When a player comes within {@code bodies.showRadius} of a party whose place is loaded,
  * its people (their own bodies), steeds (as they were saved) and wagons come into the world there and walk the
- * route; their leader's place sets {@code done}. With no player within {@code hideRadius} they go back to data,
+ * route; they follow the party's place, which the data keeps moving at the same pace as when unseen. With no player within {@code hideRadius} they go back to data,
  * steeds saved as they are now.
  *
  * <p>Stuck rules, by how long the leader has made no headway along the route: after {@code repathSeconds} it paths
@@ -37,10 +37,12 @@ import net.neoforged.neoforge.event.tick.ServerTickEvent;
  * last time) is removed as it loads.
  */
 public final class JourneyBodies {
-    /** How far ahead along the route the leader walks to, in route cost. */
-    static final double LEAD = 24;
-    /** Within this of the end the party has arrived. */
-    static final double END = 4;
+    /** How far ahead of the party's place the leader walks to, in route cost. */
+    static final double AHEAD = 6;
+    /** A leader this close to the party's place is keeping up. */
+    static final double FOLLOW = 8;
+    /** Bodies this far behind (or ahead) are put back on the party's place at once. */
+    static final double CATCH_UP = 32;
 
     /** The entities of each embodied journey. */
     private static final Map<UUID, List<UUID>> BODIES = new HashMap<>();
@@ -174,7 +176,7 @@ public final class JourneyBodies {
         }
     }
 
-    private static void walk(MinecraftServer server, Journeys all, ServerLevel level, Journey j,
+    static void walk(MinecraftServer server, Journeys all, ServerLevel level, Journey j,
             JourneySettings.Bodies s, long now) {
         List<UUID> ids = BODIES.getOrDefault(j.id, List.of());
         Mob leader = null;
@@ -200,23 +202,14 @@ public final class JourneyBodies {
             }
             return;
         }
-        double d = j.route.doneAt(leader.getX(), leader.getZ(), j.leg);
-        if (d > j.done) {
-            j.done = d;
-            all.setDirty();
-        }
-        if (j.done >= j.route.total() - END) {
-            j.done = j.route.total();
-            dissolve(level, j);
-            all.arrive(server, j);
-            return;
-        }
-        if (j.done > j.bestDone + 1) {
-            j.bestDone = j.done;
+        // the data sets the pace; bodies only follow the party's place, so watching never speeds it up or slows it
+        double[] here = j.route.at(j.done);
+        double lag = Math.hypot(leader.getX() - here[0], leader.getZ() - here[1]);
+        if (lag <= FOLLOW) {
             j.bestAt = now;
         }
         long still = (now - j.bestAt) / 20;
-        double[] goal = j.route.at(Math.min(j.route.total(), j.done + LEAD));
+        double[] goal = j.route.at(Math.min(j.route.total(), j.done + AHEAD));
         if (still >= s.giveUpSeconds()) {
             LotrPort.LOG.info("[journeys] {} stuck near {}, {}: back to data", j.id, (int) leader.getX(),
                     (int) leader.getZ());
@@ -224,22 +217,22 @@ public final class JourneyBodies {
             j.noBodiesUntil = now + 20 * 60;
             return;
         }
-        if (still >= s.hopSeconds() && (now - j.bestAt) % (20L * s.hopSeconds()) < 10) {
-            double ahead = Math.min(j.route.total(), j.done + LEAD);
-            double[] h = j.route.at(ahead);
+        if (still >= s.hopSeconds() || lag > CATCH_UP) {
             int n = 0;
             for (Mob m : withLeader(leader, rest)) {
-                place(level, m, h[0] + offset(n), h[1] + offset(n + 1));
+                place(level, m, here[0] + offset(n), here[1] + offset(n + 1));
                 m.getNavigation().stop();
                 n++;
             }
-            j.done = ahead;
+            if (lag > CATCH_UP) {
+                j.bestAt = now;
+            }
             return;
         }
-        boolean repath = still >= s.repathSeconds() || leader.getNavigation().isDone();
+        boolean repath = still >= s.repathSeconds() || leader.getNavigation().isDone() || now % 40 < 10;
         if (repath) {
             BlockPos g = top(level, goal[0], goal[1]);
-            leader.getNavigation().moveTo(g.getX() + 0.5, g.getY(), g.getZ() + 0.5, 1.0);
+            leader.getNavigation().moveTo(g.getX() + 0.5, g.getY(), g.getZ() + 0.5, lag > FOLLOW ? 1.4 : 1.0);
         }
         for (Mob m : rest) {
             if (m.distanceToSqr(leader) > 36 || m.getNavigation().isDone()) {

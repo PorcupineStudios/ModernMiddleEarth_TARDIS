@@ -17,6 +17,7 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.saveddata.SavedData;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.server.ServerStoppedEvent;
@@ -26,7 +27,8 @@ import net.neoforged.neoforge.event.tick.ServerTickEvent;
  * Every party on the road (SavedData {@code lotr_port_journeys}). Once a second each moving journey goes on by its
  * speed; routes are planned off the server thread on one worker against a snapshot of the map, roads and marked
  * bridges. Whether a party is data or bodies in the world is up to {@link JourneyBodies}; while it is bodies, they
- * set {@code done} and this leaves it alone.
+ * only follow: {@code done} always comes from here, so a party seen in person goes exactly as fast as one that
+ * isn't (GameTest {@code JourneyTests.watchingDoesNotChangeSpeed}).
  */
 public final class Journeys extends SavedData {
     public static final String FILE = "lotr_port_journeys";
@@ -113,9 +115,6 @@ public final class Journeys extends SavedData {
             switch (j.stage) {
                 case PLANNING -> plan(server, j);
                 case OUTBOUND, RETURNING -> {
-                    if (j.embodied) {
-                        break;
-                    }
                     j.done = Math.min(j.route.total(), j.done + j.speed * s.walkSpeed() * seconds);
                     setDirty();
                     if (j.done >= j.route.total()) {
@@ -136,6 +135,12 @@ public final class Journeys extends SavedData {
 
     /** At the end of its route: its kind says what next. Bodies call this too. */
     public void arrive(MinecraftServer server, Journey j) {
+        if (j.embodied) {
+            ServerLevel level = server.getLevel(j.dimension);
+            if (level != null) {
+                JourneyBodies.dissolve(level, j);
+            }
+        }
         Optional<JourneyKind> kind = JourneyKind.of(j.kind);
         if (kind.isEmpty()) {
             LotrPort.LOG.warn("[journeys] {} has unknown kind {}; ending it", j.id, j.kind);
