@@ -149,6 +149,9 @@ press 90 80
 move 300 60
 wait 10
 shot ui_caravan_drag
+move 300 200
+wait 10
+shot ui_caravan_drag2
 release
 wait 30
 shot ui_caravan_dropped

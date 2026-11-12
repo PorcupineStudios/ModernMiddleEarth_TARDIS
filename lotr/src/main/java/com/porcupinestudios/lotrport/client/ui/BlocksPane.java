@@ -62,6 +62,12 @@ final class BlocksPane {
     /** The drop the block would land on now, if any. */
     private Drop aim;
     private boolean aimTrash;
+    /** How open each gap is (pixels), easing toward the dragged block's height at the aimed gap, 0 elsewhere. */
+    private final java.util.Map<String, Float> open = new java.util.HashMap<>();
+    private String aimKey;
+    private int dragH;
+    /** The block being moved: left out of the script while it is carried (its space closes up, as in Scratch). */
+    private String carried;
 
     BlocksPane(UiScreen screen, Page.Blocks page) {
         this.screen = screen;
@@ -126,6 +132,9 @@ final class BlocksPane {
             return true;
         }
         dragging = false;
+        aimKey = null;
+        // the block lands where the gap was: the next view has it in place
+        open.clear();
         String target = aimTrash ? "trash" : aim == null ? null : aim.target();
         aim = null;
         aimTrash = false;
@@ -168,6 +177,7 @@ final class BlocksPane {
         grabs.clear();
         drops.clear();
         inputs.clear();
+        ease(ui);
         int viewH = h - buttonsH - 8;
         boolean hasPalette = !page.palette().isEmpty();
         int left = hasPalette ? CATS_W + LIST_W + 6 : 0;
@@ -212,12 +222,16 @@ final class BlocksPane {
             if (draw) {
                 drops.add(new Drop(x, cy - 5, w, 0, "script:" + k, "c"));
             }
-            cy += block(ui, b, x, cy, w, draw)[1] + 10;
+            cy += space("script:" + k);
+            if (!hidden(b)) {
+                cy += block(ui, b, x, cy, w, draw)[1] + 10;
+            }
             k++;
         }
         if (draw) {
             drops.add(new Drop(x, cy - 5, w, 0, "script:" + k, "c"));
         }
+        cy += space("script:" + k);
         if (page.add().isPresent()) {
             Stat.Picker pk = page.add().get();
             int aw = ui.font.width(pk.choices().isEmpty() ? "" : "+ Add rule") + 24;
@@ -270,11 +284,17 @@ final class BlocksPane {
             int ah = i == 0 ? 0 : ROW - 4;
             int inner = 0;
             int innerW = 0;
+            int gap = 0;
             for (Page.Block c : a.body()) {
+                inner += space(a.id() + ":" + gap++);
+                if (hidden(c)) {
+                    continue;
+                }
                 int[] s = block(ui, c, 0, 0, maxW - ARM, false);
                 inner += s[1];
                 innerW = Math.max(innerW, s[0]);
             }
+            inner += space(a.id() + ":" + gap);
             if (a.add().isPresent()) {
                 inner += ROW - 4;
                 innerW = Math.max(innerW, ui.font.width("+ add") + 16);
@@ -312,12 +332,16 @@ final class BlocksPane {
                 if (!a.id().isEmpty()) {
                     drops.add(new Drop(x + ARM, by, bw - ARM, 0, a.id() + ":" + slot, "stack"));
                 }
-                by += block(ui, c, x + ARM, by, maxW - ARM, true)[1];
+                by += space(a.id() + ":" + slot);
+                if (!hidden(c)) {
+                    by += block(ui, c, x + ARM, by, maxW - ARM, true)[1];
+                }
                 slot++;
             }
             if (!a.id().isEmpty()) {
                 drops.add(new Drop(x + ARM, by, bw - ARM, 0, a.id() + ":" + slot, "stack"));
             }
+            by += space(a.id() + ":" + slot);
             if (a.add().isPresent()) {
                 Stat.Picker pk = a.add().get();
                 int aw = ui.font.width("+ add") + 16;
@@ -482,6 +506,35 @@ final class BlocksPane {
         }
     }
 
+    /** Moves each gap's opening a step toward its goal: smooth, frame by frame. */
+    private void ease(Imm ui) {
+        boolean live = dragging && pressed != null;
+        carried = live && !pressed.fresh() && !pressed.block().shape().equals("bool") ? pressed.block().id() : null;
+        if (live && aimKey != null) {
+            open.putIfAbsent(aimKey, 0f);
+        }
+        java.util.Iterator<java.util.Map.Entry<String, Float>> it = open.entrySet().iterator();
+        while (it.hasNext()) {
+            var e = it.next();
+            float goal = live && e.getKey().equals(aimKey) ? dragH + 4 : 0;
+            float v = e.getValue() + (goal - e.getValue()) * 0.35f;
+            if (goal == 0 && v < 0.5f) {
+                it.remove();
+            } else {
+                e.setValue(v);
+            }
+        }
+    }
+
+    private int space(String gap) {
+        Float v = open.get(gap);
+        return v == null ? 0 : Math.round(v);
+    }
+
+    private boolean hidden(Page.Block b) {
+        return carried != null && carried.equals(b.id());
+    }
+
     private void grab(Page.Block b, int x, int y, int w, int h) {
         if (!b.id().isEmpty()) {
             grabs.add(new Grab(x, y, w, h, b, b.id().startsWith("new:")));
@@ -568,6 +621,10 @@ final class BlocksPane {
                     if (shape.equals("c")) {
                         dist = Math.abs(dy - d.y());
                     }
+                    // stay with the gap already open unless clearly nearer another (the opening moves the rest)
+                    if (d.target().equals(aimKey)) {
+                        dist -= 16;
+                    }
                     if (dist < best) {
                         best = dist;
                         aim = d;
@@ -575,13 +632,21 @@ final class BlocksPane {
                 }
             }
         }
+        dragH = block(ui, g.block(), 0, 0, 400, false)[1];
+        aimKey = aim != null && !aim.accepts().equals("bool") ? aim.target() : null;
         ui.layer = 1;
         if (aim != null) {
             if (aim.accepts().equals("bool")) {
                 outline(ui, aim.x() - 2, aim.y() - 2, aim.w() + 4, aim.h() + 4, WHITE);
             } else {
-                // a grey ghost where it would go
-                ui.g.fill(aim.x(), aim.y() - 2, aim.x() + Math.min(aim.w(), 160), aim.y() + 2, 0x99575E75);
+                // a grey shadow of the block in the gap the others moved aside for
+                int gh = space(aim.target());
+                if (gh > 2) {
+                    int[] gs = block(ui, g.block(), 0, 0, 400, false);
+                    int top = aim.target().startsWith("script:") ? aim.y() + 5 : aim.y();
+                    ui.g.fill(aim.x(), top, aim.x() + Math.min(gs[0], aim.w()), top + Math.min(gh - 4, gs[1]),
+                            0x55000000);
+                }
             }
         }
         if (aimTrash) {
