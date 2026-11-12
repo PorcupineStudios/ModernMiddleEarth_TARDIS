@@ -424,14 +424,18 @@ public final class CitizenViews {
             }
             List<UUID> next = new ArrayList<>(kin.get().parents());
             kin.get().spouse().ifPresent(next::add);
+            next.addAll(kin.get().former());
             next.addAll(kin.get().children());
             for (UUID id : kin.get().parents()) {
-                link(links, linked, id, x.id(), false);
+                link(links, linked, id, x.id(), Page.TreeLink.PARENT);
             }
             for (UUID id : kin.get().children()) {
-                link(links, linked, x.id(), id, false);
+                link(links, linked, x.id(), id, Page.TreeLink.PARENT);
             }
-            kin.get().spouse().ifPresent(id -> link(links, linked, x.id(), id, true));
+            kin.get().spouse().ifPresent(id -> link(links, linked, x.id(), id, Page.TreeLink.SPOUSE));
+            for (UUID id : kin.get().former()) {
+                link(links, linked, x.id(), id, Page.TreeLink.FORMER);
+            }
             for (UUID id : next) {
                 if (seen.add(id)) {
                     Society.person(server, id).ifPresent(queue::add);
@@ -446,10 +450,16 @@ public final class CitizenViews {
     }
 
     private static void link(List<Page.TreeLink> links, java.util.Set<String> linked, UUID from, UUID to,
-            boolean spouse) {
-        String key = spouse ? (from.compareTo(to) < 0 ? from + "=" + to : to + "=" + from) : from + ">" + to;
+            String kind) {
+        boolean pair = !Page.TreeLink.PARENT.equals(kind);
+        // a couple is one link, whichever side it was found from; married now wins over were married
+        String key = pair ? (from.compareTo(to) < 0 ? from + "=" + to : to + "=" + from) : from + ">" + to;
         if (linked.add(key)) {
-            links.add(new Page.TreeLink(from.toString(), to.toString(), spouse));
+            links.add(new Page.TreeLink(from.toString(), to.toString(), kind));
+        } else if (Page.TreeLink.SPOUSE.equals(kind)) {
+            links.replaceAll(l -> l.partners() && (l.from().equals(from.toString()) && l.to().equals(to.toString())
+                    || l.from().equals(to.toString()) && l.to().equals(from.toString()))
+                    ? new Page.TreeLink(from.toString(), to.toString(), kind) : l);
         }
     }
 
@@ -584,6 +594,10 @@ public final class CitizenViews {
         if (!kin.get().parents().isEmpty()) {
             out.add(Stat.of(tr("citizen.parents", "Parents"), String.join(", ",
                     kin.get().parents().stream().map(id -> nameOf(server, id)).toList())));
+        }
+        if (!kin.get().former().isEmpty()) {
+            out.add(Stat.of(tr("citizen.former", "Former spouses"), String.join(", ",
+                    kin.get().former().stream().map(id -> nameOf(server, id)).toList())));
         }
         if (!kin.get().children().isEmpty()) {
             out.add(Stat.of(tr("citizen.children", "Children"), String.join(", ",

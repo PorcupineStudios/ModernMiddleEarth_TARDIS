@@ -211,7 +211,7 @@ public final class UiCodecs {
                     list(b, t.links(), (bb, l) -> {
                         str(bb, l.from());
                         str(bb, l.to());
-                        bb.writeBoolean(l.spouse());
+                        str(bb, l.kind());
                     });
                     opt(b, t.open(), UiCodecs::str);
                 });
@@ -267,7 +267,7 @@ public final class UiCodecs {
                     list(buf, UiCodecs::readSection), list(buf, UiCodecs::readAction),
                     opt(buf, b -> new Page.Tree(str(b), list(b, bb -> new Page.TreeNode(str(bb), text(bb), text(bb),
                             bb.readBoolean(), bb.readBoolean(), str(bb))), list(b, bb -> new Page.TreeLink(str(bb), str(bb),
-                            bb.readBoolean())), opt(b, UiCodecs::str))));
+                            str(bb))), opt(b, UiCodecs::str))));
         }
         return new Page.Stats(list(buf, UiCodecs::readSection), list(buf, UiCodecs::readAction));
     }

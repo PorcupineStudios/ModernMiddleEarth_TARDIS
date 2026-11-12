@@ -68,8 +68,8 @@ wait 60
 shot ui_citizen_schedule
 close
 wait 5
-# a family over three generations for the About tab's tree: f is a's parent; a and b married with children c and d;
-# c married e
+# a family over three generations for the About tab's tree: f is a's parent; a and b married with children c and d,
+# then divorced, and a married g (child h); c married e
 /tag @e[type=lotr_port:npc,limit=1,sort=nearest,tag=!fam] add a
 /tag @e[tag=a] add fam
 /tag @e[type=lotr_port:npc,limit=1,sort=nearest,tag=!fam] add b
@@ -81,6 +81,10 @@ wait 5
 /tag @e[type=lotr_port:npc,limit=1,sort=nearest,tag=!fam] add e
 /tag @e[tag=e] add fam
 /tag @e[type=lotr_port:npc,limit=1,sort=nearest,tag=!fam] add f
+/tag @e[tag=f] add fam
+/tag @e[type=lotr_port:npc,limit=1,sort=nearest,tag=!fam] add g
+/tag @e[tag=g] add fam
+/tag @e[type=lotr_port:npc,limit=1,sort=nearest,tag=!fam] add h
 /lotr colony kin spouse @e[tag=a,limit=1] @e[tag=b,limit=1]
 /lotr colony kin parent @e[tag=a,limit=1] @e[tag=f,limit=1]
 /lotr colony kin parent @e[tag=c,limit=1] @e[tag=a,limit=1]
@@ -88,6 +92,10 @@ wait 5
 /lotr colony kin parent @e[tag=d,limit=1] @e[tag=a,limit=1]
 /lotr colony kin parent @e[tag=d,limit=1] @e[tag=b,limit=1]
 /lotr colony kin spouse @e[tag=c,limit=1] @e[tag=e,limit=1]
+# a and b divorce and a remarries g; their child h
+/lotr colony kin spouse @e[tag=a,limit=1] @e[tag=g,limit=1]
+/lotr colony kin parent @e[tag=h,limit=1] @e[tag=a,limit=1]
+/lotr colony kin parent @e[tag=h,limit=1] @e[tag=g,limit=1]
 # d is banished (an arrow badge), f dies (a cross)
 /lotr colony banish @e[tag=d,limit=1]
 /kill @e[tag=f]

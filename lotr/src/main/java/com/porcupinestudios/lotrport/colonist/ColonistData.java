@@ -171,7 +171,8 @@ public final class ColonistData {
             Codec.LONG.fieldOf("born").forGetter(Kin::born),
             UUIDUtil.CODEC.listOf().optionalFieldOf("parents", List.of()).forGetter(Kin::parents),
             UUIDUtil.CODEC.optionalFieldOf("spouse").forGetter(Kin::spouse),
-            UUIDUtil.CODEC.listOf().optionalFieldOf("children", List.of()).forGetter(Kin::children))
+            UUIDUtil.CODEC.listOf().optionalFieldOf("children", List.of()).forGetter(Kin::children),
+            UUIDUtil.CODEC.listOf().optionalFieldOf("former", List.of()).forGetter(Kin::former))
             .apply(i, Kin::new));
 
     private static final Codec<Orders> ORDERS_CODEC = RecordCodecBuilder.create(i -> i.group(

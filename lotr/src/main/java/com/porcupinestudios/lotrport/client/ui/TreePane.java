@@ -12,15 +12,18 @@ import net.minecraft.network.chat.Component;
 
 /**
  * A family tree in a box you navigate like a map: the wheel zooms round the mouse, dragging pans, so any number of
- * generations and branches fit without scroll bars. Generations are rows (parents above, children below, spouses side
- * by side), laid out once per tree from the person in focus; children sit under their parents as far as the row
- * allows. Clicking someone who can be opened sends the tree's {@code open} action with their id.
+ * generations and branches fit without scroll bars. Generations are rows, each centred on the same middle (parents
+ * above, children below), laid out once per tree from the person in focus. Partners sit side by side (married: a red
+ * line; were married: dashed), someone with an old and a new spouse between the two; a couple's children hang from
+ * the middle of the line between them, down to a bar that splits to each child. Clicking someone who can be opened sends the tree's {@code open} action with their id.
  */
 final class TreePane {
     private static final int NODE_W = 78;
     private static final int NODE_H = 22;
     private static final int GAP_X = 12;
     private static final int GAP_Y = 30;
+    /** Between people who aren't a couple (siblings, cousins): wider than between partners. */
+    private static final int FAMILY_GAP = 22;
     private static final float MIN_ZOOM = 0.3f;
     private static final float MAX_ZOOM = 2.5f;
     /** A press that moves less than this is a click, not a drag. */
@@ -32,6 +35,9 @@ final class TreePane {
     private Page.Tree tree;
     /** Node positions in tree units (top-left corners), focus at 0, 0. */
     private final Map<String, int[]> at = new LinkedHashMap<>();
+    /** Each person's parents and partners (spouse and former), from the links. */
+    private final Map<String, List<String>> parentsOf = new HashMap<>();
+    private final Map<String, List<String>> partners = new HashMap<>();
     private float zoom = 1;
     /** Where the tree's 0, 0 is drawn, relative to the box's centre. */
     private double panX;
@@ -70,19 +76,19 @@ final class TreePane {
 
     private void layout() {
         at.clear();
-        Map<String, List<String>> parents = new HashMap<>();
+        parentsOf.clear();
         Map<String, List<String>> children = new HashMap<>();
-        Map<String, List<String>> spouses = new HashMap<>();
+        partners.clear();
         for (Page.TreeLink l : tree.links()) {
-            if (l.spouse()) {
-                spouses.computeIfAbsent(l.from(), k -> new ArrayList<>()).add(l.to());
-                spouses.computeIfAbsent(l.to(), k -> new ArrayList<>()).add(l.from());
+            if (l.partners()) {
+                partners.computeIfAbsent(l.from(), k -> new ArrayList<>()).add(l.to());
+                partners.computeIfAbsent(l.to(), k -> new ArrayList<>()).add(l.from());
             } else {
                 children.computeIfAbsent(l.from(), k -> new ArrayList<>()).add(l.to());
-                parents.computeIfAbsent(l.to(), k -> new ArrayList<>()).add(l.from());
+                parentsOf.computeIfAbsent(l.to(), k -> new ArrayList<>()).add(l.from());
             }
         }
-        // generations by walking out from the focus: parents a row up, children a row down, spouses the same row
+        // generations by walking out from the focus: parents a row up, children a row down, partners the same row
         Map<String, Integer> gen = new LinkedHashMap<>();
         ArrayDeque<String> queue = new ArrayDeque<>();
         gen.put(tree.focus(), 0);
@@ -90,7 +96,7 @@ final class TreePane {
         while (!queue.isEmpty()) {
             String id = queue.poll();
             int g = gen.get(id);
-            for (String p : parents.getOrDefault(id, List.of())) {
+            for (String p : parentsOf.getOrDefault(id, List.of())) {
                 if (gen.putIfAbsent(p, g - 1) == null) {
                     queue.add(p);
                 }
@@ -100,105 +106,59 @@ final class TreePane {
                     queue.add(c);
                 }
             }
-            for (String s : spouses.getOrDefault(id, List.of())) {
+            for (String s : partners.getOrDefault(id, List.of())) {
                 if (gen.putIfAbsent(s, g) == null) {
                     queue.add(s);
                 }
             }
         }
-        // anyone not linked to the focus goes on a row of their own below
         int lowest = gen.values().stream().mapToInt(Integer::intValue).max().orElse(0);
         for (Page.TreeNode n : tree.nodes()) {
             gen.putIfAbsent(n.id(), lowest + 2);
         }
-        // rows, top first; within a row, people follow their parents' order, spouses side by side
         Map<Integer, List<String>> rows = new java.util.TreeMap<>();
         gen.forEach((id, g) -> rows.computeIfAbsent(g, k -> new ArrayList<>()).add(id));
         Map<String, Double> order = new HashMap<>();
         for (Map.Entry<Integer, List<String>> row : rows.entrySet()) {
             List<String> ids = row.getValue();
+            // order: by the place of their parents in the row above (a family's children together, in their parents'
+            // order), else as found
             Map<String, Double> key = new HashMap<>();
             for (int i = 0; i < ids.size(); i++) {
                 String id = ids.get(i);
-                // siblings share their parents' place: keep them apart by their order of discovery
-                double k = parents.getOrDefault(id, List.of()).stream().filter(order::containsKey)
-                        .mapToDouble(order::get).average().orElse(1000 + i) + i * 1e-4;
-                key.put(id, k);
+                key.put(id, parentsOf.getOrDefault(id, List.of()).stream().filter(order::containsKey)
+                        .mapToDouble(order::get).average().orElse(1000 + i) + i * 1e-4);
             }
-            // a spouse with no parents here takes their partner's place, just after them
+            // someone who married in (no parents here) sits beside their partner: the first partner's right, a
+            // second partner's left, so a person between an old and a new spouse has a family on each side
             for (String id : ids) {
-                if (parents.getOrDefault(id, List.of()).stream().noneMatch(order::containsKey)) {
-                    for (String s : spouses.getOrDefault(id, List.of())) {
-                        if (key.containsKey(s) && key.get(s) < 1000) {
-                            // right after the partner, before the partner's next sibling
-                            key.put(id, key.get(s) + 1e-5);
-                        }
+                if (parentsOf.getOrDefault(id, List.of()).stream().anyMatch(order::containsKey)) {
+                    continue;
+                }
+                for (String partner : partners.getOrDefault(id, List.of())) {
+                    if (!key.containsKey(partner) || key.get(partner) >= 1000
+                            || partner.equals(id)) {
+                        continue;
                     }
+                    List<String> theirs = partners.getOrDefault(partner, List.of());
+                    int k = theirs.indexOf(id);
+                    key.put(id, key.get(partner) + (k % 2 == 0 ? 1e-5 : -1e-5) * (1 + k / 2));
+                    break;
                 }
             }
             List<String> sorted = new ArrayList<>(ids);
-            sorted.sort((a, b) -> Double.compare(key.get(a), key.get(b)));
-            int step = NODE_W + GAP_X;
-            // each wants to sit under the middle of their parents (or beside their spouse); left to right in order,
-            // pushed right where they would overlap, then the whole row slid back so it sits under what it wants
-            double[] want = new double[sorted.size()];
-            for (int i = 0; i < sorted.size(); i++) {
-                String id = sorted.get(i);
-                List<String> placedParents = parents.getOrDefault(id, List.of()).stream().filter(at::containsKey)
-                        .toList();
-                if (!placedParents.isEmpty()) {
-                    want[i] = placedParents.stream().mapToDouble(q -> at.get(q)[0]).average().orElse(0);
-                } else if (i > 0 && spouses.getOrDefault(id, List.of()).contains(sorted.get(i - 1))) {
-                    want[i] = want[i - 1] + step;
-                } else {
-                    want[i] = Double.NaN;
-                }
+            sorted.sort((x, y) -> Double.compare(key.get(x), key.get(y)));
+            // partners close together, families further apart
+            int[] xs = new int[sorted.size()];
+            for (int i = 1; i < sorted.size(); i++) {
+                boolean couple = partners.getOrDefault(sorted.get(i - 1), List.of()).contains(sorted.get(i));
+                xs[i] = xs[i - 1] + NODE_W + (couple ? GAP_X : FAMILY_GAP);
             }
-            // people with nowhere to be go after the one before them (or the row's start)
-            double[] x = new double[sorted.size()];
-            double shift = 0;
-            int anchored = 0;
+            // every generation centred on the same middle: the small ones over and under the big ones
+            int shift = -(xs[sorted.size() - 1] + NODE_W) / 2;
             for (int i = 0; i < sorted.size(); i++) {
-                double w = Double.isNaN(want[i]) ? (i == 0 ? -(sorted.size() - 1) * step / 2.0 : x[i - 1] + step)
-                        : want[i];
-                x[i] = i == 0 ? w : Math.max(w, x[i - 1] + step);
-                if (!Double.isNaN(want[i])) {
-                    shift += want[i] - x[i];
-                    anchored++;
-                }
-            }
-            // slide the row by the mean miss, so siblings spread evenly round their parents' middle
-            double slide = anchored == 0 ? 0 : shift / anchored;
-            for (int i = 0; i < sorted.size(); i++) {
-                at.put(sorted.get(i), new int[] {(int) Math.round(x[i] + slide), row.getKey() * (NODE_H + GAP_Y)});
+                at.put(sorted.get(i), new int[] {xs[i] + shift, row.getKey() * (NODE_H + GAP_Y)});
                 order.put(sorted.get(i), (double) i);
-            }
-        }
-        // spouses who came in from outside may have parents placed later (a row below them): nothing to do; the
-        // top rows were placed with no one above, so centre each parentless row over its children instead
-        for (Map.Entry<Integer, List<String>> row : rows.entrySet()) {
-            boolean anyParents = row.getValue().stream().anyMatch(id -> parents.getOrDefault(id, List.of()).stream()
-                    .anyMatch(at::containsKey));
-            if (anyParents) {
-                continue;
-            }
-            double kids = 0;
-            int n = 0;
-            double self = 0;
-            for (String id : row.getValue()) {
-                self += at.get(id)[0];
-                for (String c : children.getOrDefault(id, List.of())) {
-                    if (at.containsKey(c)) {
-                        kids += at.get(c)[0];
-                        n++;
-                    }
-                }
-            }
-            if (n > 0) {
-                int move = (int) Math.round(kids / n - self / row.getValue().size());
-                for (String id : row.getValue()) {
-                    at.get(id)[0] += move;
-                }
             }
         }
     }
@@ -219,28 +179,56 @@ final class TreePane {
         g.pose().pushPose();
         g.pose().translate(x + w / 2.0 + panX * zoom, y + h / 2.0 + panY * zoom, 0);
         g.pose().scale(zoom, zoom, 1);
-        // links under the boxes
+        // couples: a line between the two boxes, solid red when married, dashed grey when they were
         for (Page.TreeLink l : tree.links()) {
             int[] a = at.get(l.from());
             int[] b = at.get(l.to());
-            if (a == null || b == null) {
+            if (a == null || b == null || !l.partners()) {
                 continue;
             }
-            if (l.spouse()) {
-                int ly = a[1] + NODE_H / 2;
-                int x1 = Math.min(a[0], b[0]) + NODE_W;
-                int x2 = Math.max(a[0], b[0]);
+            int ly = a[1] + NODE_H / 2;
+            int x1 = Math.min(a[0], b[0]) + NODE_W;
+            int x2 = Math.max(a[0], b[0]);
+            if (Page.TreeLink.SPOUSE.equals(l.kind())) {
                 g.fill(x1, ly - 1, x2, ly + 1, 0xFFB0452A);
             } else {
-                int ax = a[0] + NODE_W / 2;
-                int ay = a[1] + NODE_H;
-                int cx = b[0] + NODE_W / 2;
-                int cy = b[1];
-                int mid = ay + (cy - ay) / 2;
-                g.fill(ax, ay, ax + 1, mid + 1, UiTheme.DARK_TEXT);
-                g.fill(Math.min(ax, cx), mid, Math.max(ax, cx) + 1, mid + 1, UiTheme.DARK_TEXT);
-                g.fill(cx, mid, cx + 1, cy, UiTheme.DARK_TEXT);
+                for (int x = x1; x < x2; x += 4) {
+                    g.fill(x, ly, Math.min(x + 2, x2), ly + 1, 0xFF8A6F52);
+                }
             }
+        }
+        // families: the parents' line meets in the middle, drops to a bar over the children and splits to each
+        Map<String, List<String>> families = new LinkedHashMap<>();
+        for (Page.TreeNode n : tree.nodes()) {
+            List<String> ps = parentsOf.getOrDefault(n.id(), List.of()).stream().filter(at::containsKey).sorted()
+                    .toList();
+            if (!ps.isEmpty() && at.containsKey(n.id())) {
+                families.computeIfAbsent(String.join("+", ps), k -> new ArrayList<>()).add(n.id());
+            }
+        }
+        Map<Integer, Integer> barsInRow = new HashMap<>();
+        for (Map.Entry<String, List<String>> fam : families.entrySet()) {
+            List<int[]> ps = new ArrayList<>();
+            for (String p : fam.getKey().split("\\+")) {
+                ps.add(at.get(p));
+            }
+            int ax = (int) Math.round(ps.stream().mapToDouble(p -> p[0] + NODE_W / 2.0).average().orElse(0));
+            // two parents: from the middle of the line between them; one: from under their box
+            int ay = ps.size() > 1 ? ps.get(0)[1] + NODE_H / 2 + 1 : ps.get(0)[1] + NODE_H;
+            int childTop = at.get(fam.getValue().get(0))[1];
+            // families with children in one row get their bars a little apart, so the lines don't merge
+            int k = barsInRow.merge(childTop, 1, Integer::sum) - 1;
+            int bar = childTop - GAP_Y / 2 + (k % 3) * 3 - 3;
+            int minX = ax;
+            int maxX = ax;
+            for (String c : fam.getValue()) {
+                int cx = at.get(c)[0] + NODE_W / 2;
+                minX = Math.min(minX, cx);
+                maxX = Math.max(maxX, cx);
+                g.fill(cx, bar, cx + 1, at.get(c)[1], UiTheme.DARK_TEXT);
+            }
+            g.fill(ax, ay, ax + 1, bar + 1, UiTheme.DARK_TEXT);
+            g.fill(minX, bar, maxX + 1, bar + 1, UiTheme.DARK_TEXT);
         }
         Page.TreeNode hover = null;
         double[] m = toTree(ui.mouseX, ui.mouseY);

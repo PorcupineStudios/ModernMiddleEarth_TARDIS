@@ -233,7 +233,7 @@ public final class ColonyCommand {
                                     return 1;
                                 })))
                         // family links by hand until marriage and births exist: parent <child> <parent>,
-                        // spouse <a> <b>
+                        // spouse <a> <b>, divorce <a> <b>
                         // banish a citizen as the citizen page's Banish button does (tests, screenshots)
                         .then(Commands.literal("banish").then(Commands.argument("npc",
                                 net.minecraft.commands.arguments.EntityArgument.entity()).executes(ctx -> {
@@ -259,14 +259,21 @@ public final class ColonyCommand {
                                         .executes(ctx -> kin(ctx.getSource(),
                                                 net.minecraft.commands.arguments.EntityArgument.getEntity(ctx, "child"),
                                                 net.minecraft.commands.arguments.EntityArgument.getEntity(ctx,
-                                                        "parent"), false)))))
+                                                        "parent"), "parent")))))
                                 .then(Commands.literal("spouse").then(Commands.argument("a",
                                         net.minecraft.commands.arguments.EntityArgument.entity()).then(Commands
                                         .argument("b", net.minecraft.commands.arguments.EntityArgument.entity())
                                         .executes(ctx -> kin(ctx.getSource(),
                                                 net.minecraft.commands.arguments.EntityArgument.getEntity(ctx, "a"),
                                                 net.minecraft.commands.arguments.EntityArgument.getEntity(ctx, "b"),
-                                                true))))))
+                                                "spouse")))))
+                                .then(Commands.literal("divorce").then(Commands.argument("a",
+                                        net.minecraft.commands.arguments.EntityArgument.entity()).then(Commands
+                                        .argument("b", net.minecraft.commands.arguments.EntityArgument.entity())
+                                        .executes(ctx -> kin(ctx.getSource(),
+                                                net.minecraft.commands.arguments.EntityArgument.getEntity(ctx, "a"),
+                                                net.minecraft.commands.arguments.EntityArgument.getEntity(ctx, "b"),
+                                                "divorce"))))))
                         .then(Commands.literal("day")
                                 .executes(ctx -> days(ctx.getSource(), 1))
                                 .then(Commands.argument("n", IntegerArgumentType.integer(1, 100))
@@ -396,44 +403,57 @@ public final class ColonyCommand {
         return 1;
     }
 
-    /** Links two people's kin records both ways (a parent and child, or spouses). */
+    /**
+     * Links two people's kin records both ways: {@code parent} (a is the child of b), {@code spouse} (a marries b;
+     * anyone either was married to becomes a former spouse, on both sides) or {@code divorce}.
+     */
     private static int kin(CommandSourceStack source, net.minecraft.world.entity.Entity a,
-            net.minecraft.world.entity.Entity b, boolean spouse) {
+            net.minecraft.world.entity.Entity b, String how) {
+        var kinType = com.porcupinestudios.lotrport.colonist.ColonistData.KIN;
         Persons persons = Persons.get(source.getServer());
         Optional<Person> pa = persons.get(a.getUUID());
         Optional<Person> pb = persons.get(b.getUUID());
-        if (pa.isEmpty() || pb.isEmpty() || !pa.get().has(com.porcupinestudios.lotrport.colonist.ColonistData.KIN)
-                || !pb.get().has(com.porcupinestudios.lotrport.colonist.ColonistData.KIN)) {
-            source.sendFailure(Component.literal("Both must be colonists"));
+        if (pa.isEmpty() || pb.isEmpty() || !pa.get().has(kinType) || !pb.get().has(kinType) || pa.equals(pb)) {
+            source.sendFailure(Component.literal("Both must be colonists, and two of them"));
             return 0;
         }
-        var ka = pa.get().get(com.porcupinestudios.lotrport.colonist.ColonistData.KIN).orElseThrow();
-        var kb = pb.get().get(com.porcupinestudios.lotrport.colonist.ColonistData.KIN).orElseThrow();
+        var ka = pa.get().get(kinType).orElseThrow();
+        var kb = pb.get().get(kinType).orElseThrow();
         java.util.UUID ia = pa.get().id();
         java.util.UUID ib = pb.get().id();
-        if (spouse) {
-            ka = new com.porcupinestudios.lotrport.colonist.Kin(ka.race(), ka.born(), ka.parents(), Optional.of(ib),
-                    ka.children());
-            kb = new com.porcupinestudios.lotrport.colonist.Kin(kb.race(), kb.born(), kb.parents(), Optional.of(ia),
-                    kb.children());
-        } else {
-            // a is the child, b the parent
-            java.util.List<java.util.UUID> parents = new java.util.ArrayList<>(ka.parents());
-            if (!parents.contains(ib)) {
-                parents.add(ib);
+        switch (how) {
+            case "spouse" -> {
+                // whoever they were married to is now married to nobody
+                java.util.List<java.util.Map.Entry<java.util.UUID, Optional<java.util.UUID>>> was = java.util.List.of(
+                        java.util.Map.entry(ia, ka.spouse()), java.util.Map.entry(ib, kb.spouse()));
+                for (var side : was) {
+                    side.getValue().filter(o -> !o.equals(ia) && !o.equals(ib)).flatMap(persons::get)
+                            .ifPresent(o -> o.get(kinType).ifPresent(ko -> persons.set(source.getServer(), o,
+                                    kinType, ko.divorce(side.getKey()))));
+                }
+                ka = ka.marry(ib);
+                kb = kb.marry(ia);
             }
-            java.util.List<java.util.UUID> children = new java.util.ArrayList<>(kb.children());
-            if (!children.contains(ia)) {
-                children.add(ia);
+            case "divorce" -> {
+                ka = ka.divorce(ib);
+                kb = kb.divorce(ia);
             }
-            ka = new com.porcupinestudios.lotrport.colonist.Kin(ka.race(), ka.born(), parents, ka.spouse(),
-                    ka.children());
-            kb = new com.porcupinestudios.lotrport.colonist.Kin(kb.race(), kb.born(), kb.parents(), kb.spouse(),
-                    children);
+            default -> {
+                java.util.List<java.util.UUID> parents = new java.util.ArrayList<>(ka.parents());
+                if (!parents.contains(ib)) {
+                    parents.add(ib);
+                }
+                ka = ka.withParents(parents);
+                kb = kb.withChild(ia);
+            }
         }
-        persons.set(source.getServer(), pa.get(), com.porcupinestudios.lotrport.colonist.ColonistData.KIN, ka);
-        persons.set(source.getServer(), pb.get(), com.porcupinestudios.lotrport.colonist.ColonistData.KIN, kb);
-        source.sendSuccess(() -> Component.literal(spouse ? "Married" : "Linked parent and child"), true);
+        persons.set(source.getServer(), pa.get(), kinType, ka);
+        persons.set(source.getServer(), pb.get(), kinType, kb);
+        source.sendSuccess(() -> Component.literal(switch (how) {
+            case "spouse" -> "Married";
+            case "divorce" -> "Divorced";
+            default -> "Linked parent and child";
+        }), true);
         return 1;
     }
 }
