@@ -88,6 +88,9 @@ wait 5
 /lotr colony kin parent @e[tag=d,limit=1] @e[tag=a,limit=1]
 /lotr colony kin parent @e[tag=d,limit=1] @e[tag=b,limit=1]
 /lotr colony kin spouse @e[tag=c,limit=1] @e[tag=e,limit=1]
+# d is banished (an arrow badge), f dies (a cross)
+/lotr colony banish @e[tag=d,limit=1]
+/kill @e[tag=f]
 wait 10
 /lotr_colony citizen @e[tag=c,limit=1] about
 wait 60

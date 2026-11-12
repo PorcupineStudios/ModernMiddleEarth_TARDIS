@@ -234,6 +234,24 @@ public final class ColonyCommand {
                                 })))
                         // family links by hand until marriage and births exist: parent <child> <parent>,
                         // spouse <a> <b>
+                        // banish a citizen as the citizen page's Banish button does (tests, screenshots)
+                        .then(Commands.literal("banish").then(Commands.argument("npc",
+                                net.minecraft.commands.arguments.EntityArgument.entity()).executes(ctx -> {
+                                    var e = net.minecraft.commands.arguments.EntityArgument.getEntity(ctx, "npc");
+                                    Optional<Person> p = Persons.get(ctx.getSource().getServer()).get(e.getUUID());
+                                    Optional<Colony> c = p.flatMap(x -> Society.colonyOf(ctx.getSource().getServer(),
+                                            x));
+                                    if (c.isEmpty()) {
+                                        ctx.getSource().sendFailure(Component.literal("Not a citizen"));
+                                        return 0;
+                                    }
+                                    com.porcupinestudios.lotrport.colonist.Colonists.depart(
+                                            ctx.getSource().getServer(), c.get(), p.get(),
+                                            com.porcupinestudios.lotrport.colonist.Left.BANISHED,
+                                            ctx.getSource().getServer().overworld().getGameTime());
+                                    ctx.getSource().sendSuccess(() -> Component.literal("Banished"), true);
+                                    return 1;
+                                })))
                         .then(Commands.literal("kin")
                                 .then(Commands.literal("parent").then(Commands.argument("child",
                                         net.minecraft.commands.arguments.EntityArgument.entity()).then(Commands
