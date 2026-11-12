@@ -110,6 +110,15 @@ public final class LotrPort {
         CoreComponents.init();
         SimSettings.register();
         ColonySystemsCore.register();
+        // colonist skills, opinions, colony events and immigration (component types load before worlds)
+        java.util.Objects.requireNonNull(com.porcupinestudios.lotrport.colonist.Skills.TYPE);
+        java.util.Objects.requireNonNull(com.porcupinestudios.lotrport.colonist.Opinions.TYPE);
+        java.util.Objects.requireNonNull(com.porcupinestudios.lotrport.colony.Immigration.BOARD);
+        java.util.Objects.requireNonNull(com.porcupinestudios.lotrport.journey.CaravanConditions.UPGRADES);
+        com.porcupinestudios.lotrport.colonist.Skills.register();
+        com.porcupinestudios.lotrport.colonist.Opinions.register();
+        com.porcupinestudios.lotrport.colony.events.ColonyEvents.register();
+        com.porcupinestudios.lotrport.colony.Immigration.register();
         com.porcupinestudios.lotrport.colony.building.BuildingSystems.register();
         com.porcupinestudios.lotrport.colony.work.Life.register();
         com.porcupinestudios.lotrport.unit.Units.register();

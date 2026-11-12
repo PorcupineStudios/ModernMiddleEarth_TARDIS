@@ -88,7 +88,7 @@ public final class Assign {
                 continue;
             }
             Orders orders = Colonists.orders(p);
-            if (!orders.works()) {
+            if (!orders.works() || !Colonists.adult(p, now)) {
                 if (p.has(WorkComponents.JOB)) {
                     setJob(server, persons, colony, p, null, now);
                 }

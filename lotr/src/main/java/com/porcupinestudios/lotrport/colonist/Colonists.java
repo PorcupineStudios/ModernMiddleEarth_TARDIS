@@ -155,6 +155,14 @@ public final class Colonists {
         persons.setQuiet(p, ColonistData.MOOD, MoodRules.remember(mood, ColonistData.thoughts(), thought, now));
     }
 
+    /** Grown (old enough to work and marry); someone without kin data counts as grown. */
+    public static boolean adult(Person p, long now) {
+        return p.get(ColonistData.KIN).map(k -> {
+            RaceDef race = ColonistData.races().get(k.race());
+            return race == null || KinRules.adult(k, race, now, dayTicks());
+        }).orElse(true);
+    }
+
     /** Age in years, if the person has kin data. */
     public static Optional<Double> age(Person p, long now) {
         return p.get(ColonistData.KIN).flatMap(k -> Optional.ofNullable(ColonistData.races().get(k.race()))

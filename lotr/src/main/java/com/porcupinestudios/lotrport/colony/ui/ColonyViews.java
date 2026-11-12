@@ -140,6 +140,7 @@ public final class ColonyViews {
                     new View.Tab(PEOPLE, tr("tab.people", "People")),
                     new View.Tab(SCHEDULES, tr("tab.schedules", "Schedules")),
                     new View.Tab(STOCK, tr("tab.stock", "Stock")),
+                    new View.Tab(ImmigrationViews.TAB, tr("tab.immigration", "Immigration")),
                     new View.Tab(CaravanViews.TAB, tr("tab.caravans", "Caravans")),
                     new View.Tab(MEMBERS, tr("tab.members", "Members")));
             String open = tabs.stream().anyMatch(t -> t.id().equals(tab)) ? tab : OVERVIEW;
@@ -149,6 +150,7 @@ public final class ColonyViews {
                 case STOCK -> stock(c);
                 case SCHEDULES -> ScheduleViews.page(player, c);
                 case CaravanViews.TAB -> CaravanViews.tab(player, c);
+                case ImmigrationViews.TAB -> ImmigrationViews.tab(player, c);
                 case MEMBERS -> members(player, c);
                 default -> overview(player, c);
             };
@@ -168,6 +170,12 @@ public final class ColonyViews {
             Colony c = colony(player.server, context).orElse(null);
             if (c == null) {
                 return Result.NONE;
+            }
+            if (tab.equals(ImmigrationViews.TAB)) {
+                Optional<Result> imm = ImmigrationViews.act(player, c, action, row);
+                if (imm.isPresent()) {
+                    return imm.get();
+                }
             }
             if (tab.equals(CaravanViews.TAB)) {
                 Optional<Result> caravan = CaravanViews.tabAct(player, c, action, row);

@@ -165,6 +165,59 @@ public final class ColonyCommand {
                                                     com.porcupinestudios.lotrport.LotrPort.id("mordor"), 20)
                                                     .isPresent() ? 1 : 0;
                                         })))
+                        // /lotr colony upgrade <id>: gives the nearest colony an upgrade (what research will give)
+                        .then(Commands.literal("upgrade").then(Commands.argument("id",
+                                com.mojang.brigadier.arguments.StringArgumentType.word()).executes(ctx -> {
+                                    ServerPlayer player = ctx.getSource().getPlayerOrException();
+                                    Optional<Colony> c = nearestOf(player);
+                                    if (c.isEmpty()) {
+                                        ctx.getSource().sendFailure(Component.literal("You belong to no colony"));
+                                        return 0;
+                                    }
+                                    String id = com.mojang.brigadier.arguments.StringArgumentType.getString(ctx, "id");
+                                    java.util.List<String> ups = new java.util.ArrayList<>(c.get().get(
+                                            com.porcupinestudios.lotrport.journey.CaravanConditions.UPGRADES)
+                                            .orElse(java.util.List.of()));
+                                    if (!ups.contains(id)) {
+                                        ups.add(id);
+                                    }
+                                    Colonies.get(player.server).set(c.get(),
+                                            com.porcupinestudios.lotrport.journey.CaravanConditions.UPGRADES, ups);
+                                    ctx.getSource().sendSuccess(() -> Component.literal(c.get().name()
+                                            + " upgrades: " + ups), false);
+                                    return 1;
+                                })))
+                        // /lotr colony event <id>: makes a colony event (colony_event/<id>) happen now, if it can
+                        .then(Commands.literal("event").then(Commands.argument("id",
+                                net.minecraft.commands.arguments.ResourceLocationArgument.id()).executes(ctx -> {
+                                    ServerPlayer player = ctx.getSource().getPlayerOrException();
+                                    Optional<Colony> c = nearestOf(player);
+                                    if (c.isEmpty()) {
+                                        ctx.getSource().sendFailure(Component.literal("You belong to no colony"));
+                                        return 0;
+                                    }
+                                    boolean ok = com.porcupinestudios.lotrport.colony.events.ColonyEvents.run(
+                                            player.server, c.get(), net.minecraft.commands.arguments
+                                                    .ResourceLocationArgument.getId(ctx, "id"), new java.util.Random());
+                                    if (!ok) {
+                                        ctx.getSource().sendFailure(Component.literal("It found nobody to happen to"));
+                                    }
+                                    return ok ? 1 : 0;
+                                })))
+                        // /lotr colony immigrants: draws the nearest colony's immigration board afresh now
+                        .then(Commands.literal("immigrants").executes(ctx -> {
+                            ServerPlayer player = ctx.getSource().getPlayerOrException();
+                            Optional<Colony> c = nearestOf(player);
+                            if (c.isEmpty()) {
+                                ctx.getSource().sendFailure(Component.literal("You belong to no colony"));
+                                return 0;
+                            }
+                            Immigration.Board b = Immigration.draw(player.server, c.get(), c.get().get(
+                                    Immigration.BOARD).orElse(Immigration.Board.EMPTY), player.server.overworld()
+                                            .getGameTime());
+                            ctx.getSource().sendSuccess(() -> Component.literal(b.offers().size() + " offers"), false);
+                            return 1;
+                        }))
                         // /lotr colony coins <n>: adds coins to the treasury of the nearest colony you belong to
                         .then(Commands.literal("coins").then(Commands.argument("n", IntegerArgumentType.integer())
                                 .executes(ctx -> {
