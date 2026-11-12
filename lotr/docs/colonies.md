@@ -88,3 +88,18 @@ https://claude.ai/artifact/VLwZ5N7pkVMJW4PCYXh41G).
   don't repeat) with tabs, scroll bar and hover/pressed/disabled buttons drawn in its style. Draw with
   `GuiGraphics.blitSprite(LotrPort.id("ui/panel_beige"), x, y, w, h)`; draw the selected tab after the panel.
   Also list rows (`row`, `row_hover`: a box per clickable row), `checkbox[_checked]` and `arrow_down` for the filter drop-down. Not used by any screen yet (the shared list table will).
+
+## Caravans (2026-11-12, `journey/`, `colony/ui/CaravanViews`, `RuleViews`, `RuleEditors`)
+- Journeys (`Journey`, `Journeys` SavedData) are parties on the road for any kind (`JourneyKind`: caravans now, armies
+  later). Routes are planned off-thread (`RoutePlanner`, A* over the map: biome speeds `journey/terrain.json`, roads,
+  rivers only on road bridges or marked bridges). Data moves them; near a player they are bodies that follow the
+  data's pace (`JourneyBodies`; GameTest `watchingDoesNotChangeSpeed`), with repath / hop / back-to-data when stuck.
+- `Caravans`: load at home (never below floors), deliver to your own colony and bring its goods back, or trade by a
+  friend's standing offers. Colony component `caravans` (`CaravanBook`): routes, offers, floors. Lines are a fixed
+  amount, the excess over N, or a top-up of the other end to N.
+- A route goes by hand or by its rules: a tree of shared conditions (`ringbearer_api:all/any/not`) with caravan
+  blocks (`CaravanConditions`: colony_stock, colony_population, days_since_sent, time_of_day, caravans_out), checked
+  every 10 s while none of the route is out. The editor (Rules tab) edits the tree as JSON through `RuleEditors`
+  specs: another system adds a block by registering its condition type and a `RuleEditors.Spec`. Any condition also
+  works without an editor via `/lotr_colony caravan route rules <n> <json>`.
+- GameTests `CaravanTests`, `JourneyTests`; screenshots `ui_caravan*` in `devscripts/ui_shots.txt`.
