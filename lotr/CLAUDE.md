@@ -324,7 +324,8 @@ https://claude.ai/artifact/KqhSSTCuKXGuwKHBoYJdcu. Rebuild features in modern co
   work and food, `Assign` houses households together (`HouseRules`), families mind sharing (`KinRules.homeThought`).
   Data `colonist_trait/`, `colonist_thought/`, `colonist_race/`, `colonist_ration/`, `colonist/settings.json`.
   Citizen page (`colony/ui/CitizenViews`, 2026-11-11): rename, portrait, mood parts, needs, orders (`orders` part:
-  workplace, rest, home, ration; permission `citizens`). **Read
+  workplace, rest, home, ration, schedule; permission `citizens`). Sleep (energy by the hour), ONI schedules per
+  colony with race rhythms, and a data-driven task queue (`colonist_task/`) that loaded bodies follow. **Read
   `lotr/docs/colonists.md`.** Marriage, births and family arrivals are not built yet. Green in CI (2026-11-11,
   unit tests and all GameTests); the daily passes are tuned for `SocietyTests` 50 x 150 tick budget (0 over, 1.8 ms
   worst): keep new per-citizen work out of collections and streams, and see the doc's Performance section.

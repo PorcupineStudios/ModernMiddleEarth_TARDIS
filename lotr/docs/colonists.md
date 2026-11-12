@@ -63,14 +63,50 @@ when nobody is homeless; mood is summed without building lists or sets. Keep new
   `family_barracks` (-14). So a child in the parents' house is never a dormitory penalty, and families want their own
   house.
 
+## Sleep, schedules and tasks
+
+- **Schedules** (colony part `schedules`, `colonist/Schedules`): ONI's 24 hour blocks, Work / Leisure / Sleep / Any,
+  as letters `W L S A` from midnight (Minecraft's day starts at 06:00: `Schedule.hourOf`). The first is the standard
+  one (`colonist_sleep/settings.json standard_schedule`: sleep 22-06, work 06-12 and 13-18, Any at noon, leisure
+  18-22). A colonist keeps the one their `orders.schedule` names; a removed schedule falls back to the first.
+- **Race rhythms** (`colonist_race/*.json rhythm`: `awake_from`, `awake_to`, `sleep_hours`, `leisure_hours`), ONI's
+  early birds and night owls by race:
+
+  | Race | Likes to be up | Sleep | Leisure | On the standard day |
+  |---|---|---|---|---|
+  | Man | 06-22 | 8 h | 3 h | fits exactly |
+  | Hobbit | 08-23 | 9 h | 5 h | up 2 h early (odd hours), tired without the noon Any hour |
+  | Dwarf | 04-20 | 7 h | 2 h | evening leisure 20-22 is late for them (odd hours) |
+  | Elf | 10-04 | 4 h | 6 h | work 06-10 is the wrong hours, too little leisure: give them a late schedule |
+  | Orc | 18-10 | 8 h | 2 h | the whole working day is the wrong hours: a night schedule |
+
+- **Energy** (person part `rest`, `colonist/Rest`, `ScheduleRules`): the needs pass runs each colonist's day hour by
+  hour. Asleep refills `day_drain / sleep_hours` an hour (x`homeless_sleep` without a home); up drains `day_drain /
+  (24 - sleep_hours)`, so keeping their race's hours never empties them (`day_drain` 70: lowest ~30 at bedtime).
+  Any hours go to sleep under `any_sleep_below`, else leisure until the race's want is met, else work. Thoughts:
+  `tired` (lowest < 25) or `exhausted` (< 10); `odd_hours` (1-3 h up outside their hours) or `wrong_hours` (4+);
+  `enough_leisure` or `no_leisure`. Work output x work hours / `standard_work_hours` (10, capped at 1.25); hours
+  worked while exhausted count 0.6. The day is memoised per (schedule, race, home, start energy) in a pass: everyone
+  in the same case gives the same day, which keeps `SocietyTests` in budget.
+- **Task queue** (`colonist_task/*.json`, `TaskDef`, `TaskRules`): sleep, eat, work, leisure, potter about. Each has an
+  action, a place (home, workplace, food = nearest storehouse or kitchen, hall), a priority per block (missing = not
+  in those hours), the need it answers with `want_below` (offered only then, except in `always_in` blocks) and
+  `urgent_below` (jumps to `urgent_priority` 10), and requirements (`job`, `paid`, `works`, `food_place`, `home`).
+  Sleep and eat have no Work-hours priority, so they never interrupt work; they only climb high when the need is low.
+  `Colonists.taskState` works out energy and food at this hour; the first open task is what they do. Loaded bodies
+  follow it (`Bodies`: `LotrNpc.TaskGoal` walks them to the place; sleepers with a home go indoors at their door).
+  Unloaded colonies keep the daily calculation; the queue is only for bodies and the citizen page.
+
 ## Data
 
 | Folder | Fields |
 |---|---|
 | `colonist_trait/` (17) | `kind` (positive, negative, neutral), `scale`, `weight`, `heritable`, `work_speed`, `need_rates`, `thoughts`, `on_break`, `conflicts` |
-| `colonist_thought/` (19) | `name` (the page's English; lang `thought.<ns>.<id>` wins), `mood`, `duration_ticks` (0 = lasts while its cause does), `stack_limit` |
+| `colonist_thought/` (25) | `name` (the page's English; lang `thought.<ns>.<id>` wins), `mood`, `duration_ticks` (0 = lasts while its cause does), `stack_limit` |
+| `colonist_sleep/settings.json` | the standard schedule, `day_drain`, `homeless_sleep`, `any_sleep_below`, `tired_below`, `exhausted_below`, `exhausted_work`, `standard_work_hours`, `max_work_factor`, `odd_hours_from`, `wrong_hours_from`, the six thoughts |
+| `colonist_task/` (5) | `action`, `place`, `priority` by block, `need`, `want_below`, `always_in`, `urgent_below`, `urgent_priority`, `requires` |
 | `colonist_ration/` (3) | `food_rate`, `thought`, `order`: small (70%, -6), normal, large (140%, +4) |
-| `colonist_race/` (5) | `days_per_year`, `adult_age`, `extended_household`, `need_rates`, `settler_age_min`, `settler_age_max` |
+| `colonist_race/` (5) | `rhythm`, `days_per_year`, `adult_age`, `extended_household`, `need_rates`, `settler_age_min`, `settler_age_max` |
 | `colonist/settings.json` | `max_traits`, `extra_trait_chance`, the six home thoughts, `barracks_households` |
 
 `ColonistData.loadProblems()` lists dangling ids (no GameTest asserts it yet).
