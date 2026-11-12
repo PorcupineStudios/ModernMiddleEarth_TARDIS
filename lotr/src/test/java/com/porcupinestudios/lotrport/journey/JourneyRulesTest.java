@@ -44,9 +44,10 @@ class JourneyRulesTest {
         Route r = RoutePlanner.plan(land, S, 100, 100, 300, 100);
         assertTrue(r.found(), "the road's bridge at z 0 gets across");
         boolean viaRoad = false;
-        for (int i = 0; i < r.points(); i++) {
-            if (r.xs()[i] >= 196 && r.xs()[i] <= 211) {
-                viaRoad |= r.zs()[i] <= 16;
+        for (double d = 0; d <= r.total(); d += 1) {
+            double[] p = r.at(d);
+            if (p[0] >= 200 && p[0] <= 207) {
+                viaRoad |= p[1] <= 16;
             }
         }
         assertTrue(viaRoad, "it went round by the road");
