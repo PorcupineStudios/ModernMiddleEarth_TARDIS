@@ -12,8 +12,9 @@ import net.minecraft.network.chat.Component;
 
 /**
  * A family tree in a box you navigate like a map: the wheel zooms round the mouse, dragging pans, so any number of
- * generations and branches fit without scroll bars. Generations are rows, each centred on the same middle (parents
- * above, children below), laid out once per tree from the person in focus. Partners sit side by side (married: a red
+ * generations and branches fit without scroll bars. Generations are rows (parents above, children below), laid out
+ * once per tree from the person in focus: each family's children in a block centred under their own couple, blocks
+ * pushed apart where they would overlap, the oldest generation centred over its children. Partners sit side by side (married: a red
  * line; were married: dashed), someone with an old and a new spouse between the two; a couple's children hang from
  * the middle of the line between them, down to a bar that splits to each child. Clicking someone who can be opened sends the tree's {@code open} action with their id.
  */
@@ -148,19 +149,109 @@ final class TreePane {
             }
             List<String> sorted = new ArrayList<>(ids);
             sorted.sort((x, y) -> Double.compare(key.get(x), key.get(y)));
-            // partners close together, families further apart
-            int[] xs = new int[sorted.size()];
-            for (int i = 1; i < sorted.size(); i++) {
-                boolean couple = partners.getOrDefault(sorted.get(i - 1), List.of()).contains(sorted.get(i));
-                xs[i] = xs[i - 1] + NODE_W + (couple ? GAP_X : FAMILY_GAP);
+            // blocks: a family's children together (with whoever married into them), each to sit centred under
+            // the middle of its own couple's line, so no two families' lines run together
+            // each person's family: their parents here, or, for someone who married in, their partner's beside them
+            List<String> fam = new ArrayList<>();
+            for (String id : sorted) {
+                List<String> ps = parentsOf.getOrDefault(id, List.of()).stream().filter(at::containsKey).sorted()
+                        .toList();
+                fam.add(ps.isEmpty() ? null : String.join("+", ps));
             }
-            // every generation centred on the same middle: the small ones over and under the big ones
-            int shift = -(xs[sorted.size() - 1] + NODE_W) / 2;
+            for (int pass = 0; pass < 2; pass++) {
+                for (int i = 0; i < sorted.size(); i++) {
+                    if (fam.get(i) != null) {
+                        continue;
+                    }
+                    List<String> ps = partners.getOrDefault(sorted.get(i), List.of());
+                    if (i > 0 && ps.contains(sorted.get(i - 1)) && fam.get(i - 1) != null) {
+                        fam.set(i, fam.get(i - 1));
+                    } else if (i + 1 < sorted.size() && ps.contains(sorted.get(i + 1)) && fam.get(i + 1) != null) {
+                        fam.set(i, fam.get(i + 1));
+                    }
+                }
+            }
+            List<List<String>> blocks = new ArrayList<>();
+            List<Double> wants = new ArrayList<>();
             for (int i = 0; i < sorted.size(); i++) {
-                at.put(sorted.get(i), new int[] {xs[i] + shift, row.getKey() * (NODE_H + GAP_Y)});
-                order.put(sorted.get(i), (double) i);
+                String family = fam.get(i);
+                if (i > 0 && family != null && family.equals(fam.get(i - 1))) {
+                    blocks.get(blocks.size() - 1).add(sorted.get(i));
+                    continue;
+                }
+                List<String> block = new ArrayList<>();
+                block.add(sorted.get(i));
+                blocks.add(block);
+                wants.add(family == null ? Double.NaN : java.util.Arrays.stream(family.split("\\+"))
+                        .mapToDouble(q -> at.get(q)[0] + NODE_W / 2.0).average().orElse(0));
+            }
+            int y = row.getKey() * (NODE_H + GAP_Y);
+            double end = Double.NEGATIVE_INFINITY;
+            boolean anyWant = wants.stream().anyMatch(w -> !w.isNaN());
+            double start = anyWant ? 0 : -(widthOf(sorted)) / 2.0;
+            for (int bi = 0; bi < blocks.size(); bi++) {
+                List<String> block = blocks.get(bi);
+                int w = widthOf(block);
+                double left = wants.get(bi).isNaN() ? (end == Double.NEGATIVE_INFINITY ? start : end + FAMILY_GAP)
+                        : wants.get(bi) - w / 2.0;
+                if (end != Double.NEGATIVE_INFINITY) {
+                    left = Math.max(left, end + FAMILY_GAP);
+                }
+                int x = (int) Math.round(left);
+                for (int i = 0; i < block.size(); i++) {
+                    String id = block.get(i);
+                    at.put(id, new int[] {x, y});
+                    order.put(id, (double) order.size());
+                    if (i + 1 < block.size()) {
+                        boolean couple = partners.getOrDefault(id, List.of()).contains(block.get(i + 1));
+                        x += NODE_W + (couple ? GAP_X : FAMILY_GAP);
+                    }
+                }
+                end = x + NODE_W;
             }
         }
+        // the oldest generations have no one above them: centre each such row over its children, top-down after
+        // the rows under them are placed would undo their own anchoring, so only rows with nobody's parents in them
+        List<Integer> keys = new ArrayList<>(rows.keySet());
+        java.util.Collections.reverse(keys);
+        for (int g : keys) {
+            List<String> ids = rows.get(g);
+            boolean anchored = ids.stream().anyMatch(id -> parentsOf.getOrDefault(id, List.of()).stream()
+                    .anyMatch(q -> gen.getOrDefault(q, 0) < g));
+            if (anchored) {
+                continue;
+            }
+            double kids = 0;
+            int n = 0;
+            double self = 0;
+            for (String id : ids) {
+                self += at.get(id)[0];
+                for (String c : children.getOrDefault(id, List.of())) {
+                    if (at.containsKey(c)) {
+                        kids += at.get(c)[0];
+                        n++;
+                    }
+                }
+            }
+            if (n > 0) {
+                int move = (int) Math.round(kids / n - self / ids.size());
+                for (String id : ids) {
+                    at.get(id)[0] += move;
+                }
+            }
+        }
+    }
+
+    /** Width of a run of people placed side by side (couples close, others further apart). */
+    private int widthOf(List<String> ids) {
+        int w = 0;
+        for (int i = 0; i < ids.size(); i++) {
+            w += NODE_W;
+            if (i + 1 < ids.size()) {
+                w += partners.getOrDefault(ids.get(i), List.of()).contains(ids.get(i + 1)) ? GAP_X : FAMILY_GAP;
+            }
+        }
+        return w;
     }
 
     // ---------------------------------------------------------------- drawing
