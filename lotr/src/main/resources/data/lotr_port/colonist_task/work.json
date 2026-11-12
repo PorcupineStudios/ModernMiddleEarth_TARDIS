@@ -1,0 +1,6 @@
+{
+  "action": "work",
+  "place": "workplace",
+  "priority": { "work": 5, "any": 2 },
+  "requires": ["job", "works", "paid"]
+}

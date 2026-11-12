@@ -18,6 +18,7 @@ import com.porcupinestudios.lotrport.colonist.Schedule;
 import com.porcupinestudios.lotrport.colonist.ScheduleRules;
 import com.porcupinestudios.lotrport.colonist.Schedules;
 import com.porcupinestudios.lotrport.colonist.SleepSettings;
+import com.porcupinestudios.lotrport.colonist.TaskRules;
 import com.porcupinestudios.lotrport.colonist.ThoughtDef;
 import com.porcupinestudios.lotrport.colony.Colony;
 import com.porcupinestudios.lotrport.colony.building.Building;
@@ -56,7 +57,8 @@ import net.minecraft.server.level.ServerPlayer;
 /**
  * {@code lotr_port:citizen} (context: {@code <colony id>/<person id>}): one colonist up close, RimWorld style, in
  * four tabs under their portrait and name (renamed here): Overview (needs as bars, and orders: where they work or that
- * they rest, where they live, their ration), Mood (the colony's part of their mood and every thought, with how long
+ * they rest, where they live, their ration), Tasks (their task queue right now: what they are doing, each task's
+ * priority or why it waits), Mood (the colony's part of their mood and every thought, with how long
  * each lasts), Schedule (their race's hours, how their last day went, which colony schedule they keep) and About
  * (traits, purse, family). Members of the colony may look; changing anything takes {@link Perm#CITIZENS}.
  * Opened from a row of the colony's People tab; Back returns there. Orders take effect at once ({@link Assign#run}).
@@ -74,6 +76,7 @@ public final class CitizenViews {
     // tabs
     static final String OVERVIEW = "overview";
     static final String MOOD = "mood";
+    static final String TASKS = "tasks";
     static final String SCHEDULE = "schedule";
     static final String ABOUT = "about";
     static final String AUTO = "auto";
@@ -122,6 +125,7 @@ public final class CitizenViews {
             Colony c = f.get().colony();
             Person p = f.get().person();
             List<View.Tab> tabs = List.of(new View.Tab(OVERVIEW, tr("citizen.tab.overview", "Overview")),
+                    new View.Tab(TASKS, tr("citizen.tab.tasks", "Tasks")),
                     new View.Tab(MOOD, tr("citizen.tab.mood", "Mood")),
                     new View.Tab(SCHEDULE, tr("citizen.tab.schedule", "Schedule")),
                     new View.Tab(ABOUT, tr("citizen.tab.about", "About")));
@@ -317,6 +321,32 @@ public final class CitizenViews {
                 buttons = List.of(com.porcupinestudios.lotrport.ui.Action.of(EDIT_SCHEDULES,
                         tr("citizen.edit_schedules", "Edit schedules")));
             }
+            case TASKS -> {
+                long dayTime = player.serverLevel().getDayTime();
+                Schedules schedules = Colonists.schedules(c);
+                boolean foodPlace = !com.porcupinestudios.lotrport.colony.work.Bodies.foodPlaces(buildings).isEmpty();
+                TaskRules.State state = Colonists.taskState(p, schedules, foodPlace, dayTime);
+                List<TaskRules.Entry> queue = TaskRules.queue(ColonistData.tasks(), state);
+                Optional<TaskRules.Entry> doing = TaskRules.current(queue);
+                List<Stat> now = new ArrayList<>();
+                now.add(Stat.of(tr("citizen.doing", "Doing"), doing.map(e -> taskName(e.id()).getString())
+                        .orElse(tr("citizen.idle", "Nothing").getString()), Tone.GOOD));
+                now.add(Stat.of(tr("citizen.hour", "Hour"), String.format(Locale.ROOT, "%02d:00, %s",
+                        Schedule.hourOf(dayTime), ScheduleViews.blockName(state.block()).getString())));
+                now.add(Stat.of(tr("citizen.energy", "Energy"), Math.round(state.energy()) + " / 100",
+                        state.energy() < sleep.tiredBelow() ? Tone.WARN : Tone.NORMAL).withBar(state.energy() / 100));
+                now.add(Stat.of(tr("citizen.food", "Food"), Math.round(state.food()) + " / 20",
+                        state.food() < life.eatBelow() ? Tone.WARN : Tone.NORMAL).withBar(state.food() / 20));
+                List<Stat> q = new ArrayList<>();
+                for (TaskRules.Entry e : queue) {
+                    q.add(e.open()
+                            ? Stat.of(taskName(e.id()), tr("citizen.priority", "priority %s", e.priority()).getString(),
+                                    e.priority() >= 9 ? Tone.BAD : Tone.NORMAL)
+                            : Stat.of(taskName(e.id()), waitReason(e.waiting().get()).getString(), Tone.MUTED));
+                }
+                left = List.of(new Page.Section(tr("citizen.right_now", "Right now"), now));
+                right = List.of(new Page.Section(tr("citizen.queue", "Task queue"), q));
+            }
             case ABOUT -> {
                 left = List.of(new Page.Section(tr("citizen.about", "About"), about));
                 right = List.of(new Page.Section(tr("citizen.family", "Family"), kin));
@@ -328,6 +358,32 @@ public final class CitizenViews {
         }
         return new Page.Profile(Optional.of(p.id()), Component.literal(personName(p)),
                 canOrder ? Optional.of(RENAME) : Optional.empty(), subtitle, left, right, buttons);
+    }
+
+    static Component taskName(ResourceLocation id) {
+        String fallback = switch (id.getPath()) {
+            case "sleep" -> "Sleep";
+            case "eat" -> "Eat";
+            case "work" -> "Work";
+            case "leisure" -> "Leisure";
+            case "wander" -> "Potter about";
+            default -> title(id.getPath());
+        };
+        return Component.translatableWithFallback("task." + id.getNamespace() + "." + id.getPath(), fallback);
+    }
+
+    static Component waitReason(String reason) {
+        String fallback = switch (reason) {
+            case TaskRules.NOT_NOW -> "not in these hours";
+            case TaskRules.NOT_NEEDED -> "not needed yet";
+            case "job" -> "no workplace";
+            case "paid" -> "striking: wages owed";
+            case "works" -> "told to rest";
+            case "food_place" -> "nowhere to eat";
+            case "home" -> "no home";
+            default -> reason;
+        };
+        return tr("task.blocked." + reason, fallback);
     }
 
     /** The race's preferred hours and wants. */

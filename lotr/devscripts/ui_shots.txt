@@ -53,6 +53,11 @@ wait 60
 shot ui_citizen
 close
 wait 5
+/lotr_colony citizen @e[type=lotr_port:npc,sort=nearest,limit=1] tasks
+wait 60
+shot ui_citizen_tasks
+close
+wait 5
 /lotr_colony citizen @e[type=lotr_port:npc,sort=nearest,limit=1] mood
 wait 60
 shot ui_citizen_mood

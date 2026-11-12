@@ -347,6 +347,50 @@ public final class Colonists {
         return r.isEmpty() ? List.of() : ScheduleRules.thoughts(r.get(), rhythm(p), ColonistData.sleep());
     }
 
+    // ---------------------------------------------------------------- the task queue
+
+    /**
+     * What a colonist is like right now, for their task queue: this hour's block, energy worked out to this hour
+     * from the day's start, food run down by the share of the day gone, and the facts tasks may require.
+     *
+     * @param foodPlace whether the colony has somewhere to eat (a storehouse or kitchen)
+     * @param dayTime the level's day time
+     */
+    public static TaskRules.State taskState(Person p, Schedules all, boolean foodPlace, long dayTime) {
+        int hour = Schedule.hourOf(dayTime);
+        Schedule schedule = scheduleOf(all, p);
+        Rhythm rhythm = rhythm(p);
+        boolean home = p.has(WorkComponents.HOME);
+        Rest rest = p.get(ColonistData.REST).orElse(Rest.FRESH);
+        double energy = TaskRules.energyAt(schedule, rhythm, rest.energy(), home, ColonistData.sleep(), hour);
+        WorkComponents.Needs n = p.get(WorkComponents.NEEDS).orElse(WorkComponents.Needs.NEW);
+        double share = Math.floorMod(dayTime, 24000L) / 24000.0;
+        double food = Math.max(0, n.food() - com.porcupinestudios.lotrport.colony.work.LifeSettings.get().foodPerDay()
+                * foodRate(p) * share);
+        java.util.Set<String> facts = new java.util.HashSet<>(6);
+        if (p.has(WorkComponents.JOB)) {
+            facts.add("job");
+        }
+        if (n.unpaid() <= 0) {
+            facts.add("paid");
+        }
+        if (orders(p).works()) {
+            facts.add("works");
+        }
+        if (foodPlace) {
+            facts.add("food_place");
+        }
+        if (home) {
+            facts.add("home");
+        }
+        return new TaskRules.State(schedule.at(hour), energy, food, facts);
+    }
+
+    /** Their task queue right now (open tasks by priority, then those waiting and why). */
+    public static List<TaskRules.Entry> tasks(Person p, Schedules all, boolean foodPlace, long dayTime) {
+        return TaskRules.queue(ColonistData.tasks(), taskState(p, all, foodPlace, dayTime));
+    }
+
     public static Orders orders(Person p) {
         return p.get(ColonistData.ORDERS).orElse(Orders.DEFAULT);
     }

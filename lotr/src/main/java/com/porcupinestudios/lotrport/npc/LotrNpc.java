@@ -110,6 +110,8 @@ public class LotrNpc extends PathfinderMob implements Merchant {
 
 
     private String personName = "";
+    /** Where a colonist's current task is (set by the colony's bodies pass; not saved: the next pass sets it). */
+    private BlockPos taskTarget;
     private int speechTicks;
     @Nullable
     private UUID owner;
@@ -254,6 +256,7 @@ public class LotrNpc extends PathfinderMob implements Merchant {
         goalSelector.addGoal(4, new OpenDoorGoal(this, true));
         goalSelector.addGoal(4, new OpenGateGoal(this));
         goalSelector.addGoal(3, new GuardGoal());
+        goalSelector.addGoal(4, new TaskGoal());
         goalSelector.addGoal(5, new WaterAvoidingRandomStrollGoal(this, 0.8) {
             @Override
             public boolean canUse() {
@@ -990,6 +993,46 @@ public class LotrNpc extends PathfinderMob implements Merchant {
             if (type.isPresent()) {
                 setNpcType(id, type.get());
             }
+        }
+    }
+
+    /** A colonist's task place (their bed's house, workplace, the Hall...); null for none. */
+    public void setTaskTarget(BlockPos pos) {
+        taskTarget = pos;
+    }
+
+    public BlockPos taskTarget() {
+        return taskTarget;
+    }
+
+    /** Walks a colonist to their task's place, then lets them potter about near it (the stroll goal). */
+    private final class TaskGoal extends Goal {
+        private static final double NEAR = 5;
+
+        TaskGoal() {
+            setFlags(EnumSet.of(Goal.Flag.MOVE));
+        }
+
+        @Override
+        public boolean canUse() {
+            return taskTarget != null && command == Order.NONE && tradingPlayer == null
+                    && distanceToSqr(net.minecraft.world.phys.Vec3.atBottomCenterOf(taskTarget)) > NEAR * NEAR;
+        }
+
+        @Override
+        public boolean canContinueToUse() {
+            return taskTarget != null && !getNavigation().isDone()
+                    && distanceToSqr(net.minecraft.world.phys.Vec3.atBottomCenterOf(taskTarget)) > 2.5 * 2.5;
+        }
+
+        @Override
+        public void start() {
+            getNavigation().moveTo(taskTarget.getX() + 0.5, taskTarget.getY(), taskTarget.getZ() + 0.5, 0.9);
+        }
+
+        @Override
+        public void stop() {
+            getNavigation().stop();
         }
     }
 
