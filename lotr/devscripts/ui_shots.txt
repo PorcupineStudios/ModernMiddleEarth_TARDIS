@@ -117,11 +117,11 @@ wait 40
 /tp @p ~-200 ~ ~
 wait 40
 /lotr_colony caravan keep bread 32
-/lotr_colony caravan route add "Osgiliath Test" 3 bread*64,cobblestone*128 iron_ingot*16
-/lotr_colony caravan route add "Osgiliath Test" 0 - oak_log*64
-/lotr_colony caravan route add "Osgiliath Test" 0 bread>30 -
+/lotr_colony caravan route add "Osgiliath Test" 3 "bread*64,cobblestone*128" "iron_ingot*16"
+/lotr_colony caravan route add "Osgiliath Test" 0 - "oak_log*64"
+/lotr_colony caravan route add "Osgiliath Test" 0 "bread>30" -
 /lotr_colony caravan route when 3 "Osgiliath Test" bread below 50
-/lotr_colony caravan offer add white_wool*2 bread*1 16 10
+/lotr_colony caravan offer add "white_wool*2" "bread*1" 16 10
 /lotr_colony caravan route send 2
 wait 40
 /lotr_colony manage caravans
