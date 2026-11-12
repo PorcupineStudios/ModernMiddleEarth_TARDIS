@@ -90,7 +90,9 @@ final class BlocksPane {
             if (draw) {
                 dashed(ui, x, cy, aw, ROW, 0xFF8A7F6A);
                 ui.text("+ Add rule", x + 12, cy + 7, 0xFF5A5040);
-                ui.hit(x, cy, aw, ROW, () -> screen.popup(new Popups.ChoiceMenu(screen, pk, x, cy + ROW, aw)));
+                int ay = cy;
+                ui.hit(x, ay, aw, ROW, () -> screen.popup(new Popups.ChoiceMenu(screen, pk, x, ay + ROW,
+                        Math.max(aw, 200))));
             }
             cy += ROW + 8;
         }
