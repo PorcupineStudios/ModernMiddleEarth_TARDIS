@@ -322,11 +322,26 @@ public final class Colonists {
         return o.isEmpty() ? all.first() : all.orFirst(o.get().schedule());
     }
 
-    /** Runs the colonist's day(s) by their schedule and keeps the result ({@link Rest}); the colony's needs pass. */
-    public static Rest restDays(Persons persons, Person p, Schedules all, boolean home, int days) {
+    /** What decides a day's {@link Rest}: colonists on one schedule, of one race, housed alike, end up the same. */
+    private record RestKey(Schedule schedule, Rhythm rhythm, boolean home, double start, int days) {}
+
+    /**
+     * Runs the colonist's day(s) by their schedule and keeps the result ({@link Rest}); the colony's needs pass.
+     * {@code memo} (one per pass) shares the answer between colonists in the same case: after a day or two everyone
+     * on a schedule has the same energy, so a colony of 150 works out a handful of days, not 150.
+     */
+    public static Rest restDays(Persons persons, Person p, Schedules all, boolean home, int days,
+            Map<Object, Rest> memo) {
         Rest start = p.get(ColonistData.REST).orElse(Rest.FRESH);
-        Rest r = ScheduleRules.days(scheduleOf(all, p), rhythm(p), start, home, ColonistData.sleep(), days);
-        persons.setQuiet(p, ColonistData.REST, r);
+        RestKey key = new RestKey(scheduleOf(all, p), rhythm(p), home, start.energy(), days);
+        Rest r = memo.get(key);
+        if (r == null) {
+            r = ScheduleRules.days(key.schedule(), key.rhythm(), start, home, ColonistData.sleep(), days);
+            memo.put(key, r);
+        }
+        if (!r.equals(start)) {
+            persons.setQuiet(p, ColonistData.REST, r);
+        }
         return r;
     }
 
