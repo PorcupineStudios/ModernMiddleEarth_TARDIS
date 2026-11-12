@@ -56,7 +56,7 @@ public final class Life {
         LifeSettings.register();
         NeoForge.EVENT_BUS.addListener(Assign::onLost);
         ColonySystems.register(ColonySystem.of(HOMES_JOBS, ColonySystem.Cadence.DAY, Tier.ALL,
-                Set.of(ColonySystemsCore.APPLICANTS), ctx -> {
+                Set.of(), ctx -> {
                     if (!ctx.colony().ai()) {
                         Assign.run(ctx.server(), ctx.colony(), ctx.now());
                     }
