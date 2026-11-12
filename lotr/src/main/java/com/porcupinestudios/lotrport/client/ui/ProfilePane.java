@@ -145,6 +145,16 @@ final class ProfilePane {
 
     /** Head and shoulders of the body, looking at the mouse; "Far away" when its body isn't loaded here. */
     private void drawPortrait(Imm ui, int x, int y, int w, int h) {
+        if (profile.portrait().isEmpty()) {
+            // not a person (a caravan route...): a chest, drawn large
+            ui.g.pose().pushPose();
+            float k = Math.min(w, h) / 16f * 0.8f;
+            ui.g.pose().translate(x + (w - 16 * k) / 2, y + (h - 16 * k) / 2, 0);
+            ui.g.pose().scale(k, k, 1);
+            ui.g.renderItem(new net.minecraft.world.item.ItemStack(net.minecraft.world.item.Items.CHEST), 0, 0);
+            ui.g.pose().popPose();
+            return;
+        }
         Optional<LivingEntity> body = profile.portrait().flatMap(ProfilePane::find);
         if (body.isEmpty()) {
             ui.text(Component.translatableWithFallback("ui.lotr_port.far_away", "Far away").getString(), x, y, w, h,

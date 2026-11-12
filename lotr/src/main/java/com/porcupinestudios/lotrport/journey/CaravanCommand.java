@@ -23,6 +23,7 @@ import net.minecraft.server.level.ServerPlayer;
  * Caravans by command, for the nearest colony you belong to (permission {@code caravans}, or its founder):
  * <ul>
  * <li>{@code /lotr_colony caravan send "<to>" <send> [<bring>]}: one caravan now;</li>
+ * <li>{@code /lotr_colony caravan route name <n> <name>}: names a route;</li>
  * <li>{@code /lotr_colony caravan route add "<to>" <every days> <send> <bring> [sell]}, {@code route list},
  * {@code route remove <n>}, {@code route send <n>}: standing routes (every 0 = only by hand);</li>
  * <li>{@code /lotr_colony caravan offer add <give> <want> [keep] [limit]}, {@code offer list}, {@code offer remove
@@ -47,6 +48,11 @@ public final class CaravanCommand {
                 .then(Commands.literal("trades").executes(c -> open(c, "trades", 0)))
                 .then(Commands.literal("route")
                         .then(Commands.literal("list").executes(CaravanCommand::listRoutes))
+                        .then(Commands.literal("name").then(Commands.argument("n", IntegerArgumentType.integer(1))
+                                .then(Commands.argument("name", StringArgumentType.greedyString()).executes(c -> edit(c,
+                                        b -> b.route(IntegerArgumentType.getInteger(c, "n")).map(r -> b.withRoute(
+                                                r.named(StringArgumentType.getString(c, "name")))).orElse(b),
+                                        "Route renamed")))))
                         .then(Commands.literal("edit").then(Commands.argument("n", IntegerArgumentType.integer(1))
                                 .executes(c -> open(c, "route", IntegerArgumentType.getInteger(c, "n")))))
                         // route when <n> "<colony>" <item> below|above <x>: the route goes by itself while that holds
@@ -198,7 +204,7 @@ public final class CaravanCommand {
         int n = IntegerArgumentType.getInteger(c, "n");
         return edit(c, b -> b.route(n).map(r -> b.withRoute(new CaravanBook.Route(r.id(), r.to(), r.send(),
                 r.bring(), 0, r.people(), r.sell(), r.lastDay(), Optional.of(new CaravanRules.Trigger(watch.get().id(),
-                        item, above, x))))).orElse(b), "Route " + n + " now goes by itself when that holds");
+                        item, above, x)), r.name()))).orElse(b), "Route " + n + " now goes by itself when that holds");
     }
 
     private static int sendRoute(CommandContext<CommandSourceStack> c) {
@@ -267,7 +273,7 @@ public final class CaravanCommand {
         }
         Colonies cs = Colonies.get(c.getSource().getServer());
         for (CaravanBook.Route r : Caravans.book(home.get()).routes()) {
-            c.getSource().sendSystemMessage(Component.literal(r.id() + ". to " + cs.get(r.to()).map(Colony::name)
+            c.getSource().sendSystemMessage(Component.literal(r.id() + ". " + r.title() + ", to " + cs.get(r.to()).map(Colony::name)
                     .orElse("(gone)") + (r.every() > 0 ? " every " + r.every() + " days" : " by hand") + ": take "
                     + show(r.send()) + ", bring " + show(r.bring()) + (r.sell() ? " (sell)" : "")));
         }

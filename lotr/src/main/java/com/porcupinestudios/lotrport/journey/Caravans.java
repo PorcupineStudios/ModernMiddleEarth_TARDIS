@@ -131,8 +131,9 @@ public final class Caravans {
         j.extra.put("route", CaravanBook.Route.CODEC.encodeStart(NbtOps.INSTANCE, route).getOrThrow());
         j.extra.putInt("capacity", capacity);
         Journeys.get(server).start(j);
-        return new Sent(Optional.of(j), Component.literal("A caravan of " + people.size() + " sets out for "
-                + dest.get().name() + " with " + CaravanRules.size(load) + " goods"));
+        return new Sent(Optional.of(j), Component.literal((route.id() > 0 ? route.title() + ": a" : "A")
+                + " caravan of " + people.size() + " sets out for " + dest.get().name() + " with "
+                + CaravanRules.size(load) + " goods"));
     }
 
     /** Standing routes that are due set out. */
@@ -223,7 +224,9 @@ public final class Caravans {
                 home.ifPresent(h -> {
                     int n = CaravanRules.size(names(j.cargo));
                     unload(server, h, j);
-                    tell(server, h, Component.literal("A caravan came home with " + n + " goods"));
+                    CaravanBook.Route r = routeOf(j);
+                    tell(server, h, Component.literal((r.id() > 0 ? r.title() + ": came" : "A caravan came")
+                            + " home with " + n + " goods"));
                 });
                 j.stage = Journey.Stage.DONE;
                 return;
@@ -247,7 +250,9 @@ public final class Caravans {
 
         @Override
         public Component label(MinecraftServer server, Journey j) {
-            return Component.literal("Caravan to " + Colonies.get(server).get(j.to).map(Colony::name).orElse("?"));
+            CaravanBook.Route r = routeOf(j);
+            String to = Colonies.get(server).get(j.to).map(Colony::name).orElse("?");
+            return Component.literal(r.id() > 0 ? r.title() + " (to " + to + ")" : "Caravan to " + to);
         }
     }
 
@@ -308,7 +313,8 @@ public final class Caravans {
         stores.save();
         int back = CaravanRules.size(names(j.cargo));
         j.extra.putInt("delivered", delivered);
-        tell(server, home, Component.literal("A caravan reached " + dest.name() + ": left " + delivered
+        tell(server, home, Component.literal((route.id() > 0 ? route.title() + ": reached " : "A caravan reached ")
+                + dest.name() + ": left " + delivered
                 + " goods, bringing back " + back));
         if (!dest.founder().equals(home.founder())) {
             tell(server, dest, Component.literal("A caravan from " + home.name() + " arrived with " + delivered
