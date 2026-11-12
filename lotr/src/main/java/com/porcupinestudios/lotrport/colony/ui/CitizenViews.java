@@ -384,10 +384,10 @@ public final class CitizenViews {
                 Optional<ResourceLocation> used = job.flatMap(j -> com.porcupinestudios.lotrport.colonist.Skills
                         .forJob(j.job()));
                 List<Stat> sk = new ArrayList<>();
-                List<Map.Entry<ResourceLocation, com.porcupinestudios.lotrport.colonist.Skills.Def>> defs =
+                List<Map.Entry<ResourceLocation, com.porcupinestudios.lotrport.colonist.Skills.Def>> skillDefs =
                         new ArrayList<>(com.porcupinestudios.lotrport.colonist.Skills.defs().entrySet());
-                defs.sort(java.util.Comparator.comparingInt(e -> e.getValue().order()));
-                for (var e : defs) {
+                skillDefs.sort(java.util.Comparator.comparingInt(e -> e.getValue().order()));
+                for (var e : skillDefs) {
                     var lv = mine.getOrDefault(e.getKey(), new com.porcupinestudios.lotrport.colonist.Skills.Skill(0,
                             0));
                     double need = set.xpBase() * (lv.level() + 1);
