@@ -33,11 +33,18 @@ public record CaravanBook(List<Route> routes, List<CaravanRules.Offer> offers, M
      * @param lastDay the day the last one set out
      * @param when sets out by itself while this holds (and none of this route is on the road)
      * @param name what the player calls it ("" for "Route n")
-     * @param logic its rules (shared conditions: all/any/not and {@link CaravanConditions}); see {@link #rule}
+     * @param logic one condition (an older form; see {@link #program})
+     * @param rules its rules: if/then/else with conditions and {@link Outcome}s, run in order every check
      */
     public record Route(int id, UUID to, List<CaravanRules.Amount> send, List<CaravanRules.Amount> bring, int every,
             int people, boolean sell, long lastDay, Optional<CaravanRules.Trigger> when, String name,
-            Optional<Condition> logic) {
+            Optional<Condition> logic, List<Rule> rules) {
+        public Route(int id, UUID to, List<CaravanRules.Amount> send, List<CaravanRules.Amount> bring, int every,
+                int people, boolean sell, long lastDay, Optional<CaravanRules.Trigger> when, String name,
+                Optional<Condition> logic) {
+            this(id, to, send, bring, every, people, sell, lastDay, when, name, logic, List.of());
+        }
+
         /** Longest name a route may have. */
         public static final int MAX_NAME = 32;
 
@@ -72,9 +79,28 @@ public record CaravanBook(List<Route> routes, List<CaravanRules.Offer> offers, M
             return every > 0 ? Optional.of(new CaravanConditions.DaysSinceSent(every)) : Optional.empty();
         }
 
-        /** The same route going by {@code rule} (empty: by hand). */
+        /** The same route with one rule: if {@code rule} then send (empty: by hand). */
         public Route withRule(Optional<Condition> rule) {
-            return new Route(id, to, send, bring, 0, people, sell, lastDay, Optional.empty(), name, rule);
+            return withRules(rule.map(c -> List.of(new Rule(Optional.of(c), List.of(new Outcomes.Send(false)),
+                    List.of(), false))).orElse(List.of()));
+        }
+
+        /** The same route with these rules (the old forms dropped). */
+        public Route withRules(List<Rule> r) {
+            return new Route(id, to, send, bring, 0, people, sell, lastDay, Optional.empty(), name, Optional.empty(),
+                    List.copyOf(r));
+        }
+
+        /**
+         * Its rules; routes saved before rules lists (every N days, one trigger, one condition) as one rule: if that,
+         * send.
+         */
+        public List<Rule> program() {
+            if (!rules.isEmpty()) {
+                return rules;
+            }
+            return rule().map(c -> List.of(new Rule(Optional.of(c), List.of(new Outcomes.Send(false)), List.of(),
+                    false))).orElse(List.of());
         }
 
         /** Its name, or "Route n" when it has none. */
@@ -87,7 +113,7 @@ public record CaravanBook(List<Route> routes, List<CaravanRules.Offer> offers, M
             if (t.length() > MAX_NAME) {
                 t = t.substring(0, MAX_NAME);
             }
-            return new Route(id, to, send, bring, every, people, sell, lastDay, when, t, logic);
+            return new Route(id, to, send, bring, every, people, sell, lastDay, when, t, logic, rules);
         }
 
         public static final Codec<CaravanRules.Amount> AMOUNT = RecordCodecBuilder.create(i -> i.group(
@@ -115,20 +141,34 @@ public record CaravanBook(List<Route> routes, List<CaravanRules.Offer> offers, M
                 Codec.LONG.optionalFieldOf("last_day", -1L).forGetter(Route::lastDay),
                 TRIGGER.optionalFieldOf("when").forGetter(Route::when),
                 Codec.STRING.optionalFieldOf("name", "").forGetter(Route::name),
-                Conditions.CODEC.optionalFieldOf("rules").forGetter(Route::logic))
+                Conditions.CODEC.optionalFieldOf("rules").forGetter(Route::logic),
+                Rule.CODEC.listOf().optionalFieldOf("program", List.of()).forGetter(Route::rules))
                 .apply(i, Route::new));
 
         public Route sentOn(long day) {
-            return new Route(id, to, send, bring, every, people, sell, day, when, name, logic);
+            return new Route(id, to, send, bring, every, people, sell, day, when, name, logic, rules);
         }
 
-        /** "rules" when it goes by itself, else "manual". */
+        /** "rules" when it has rules, else "manual". */
         public String mode() {
-            return rule().isPresent() ? "rules" : "manual";
+            return program().isEmpty() ? "manual" : "rules";
         }
     }
 
     public static final Codec<CaravanRules.Amount> AMOUNT = Route.AMOUNT;
+
+    /**
+     * One rule of a route: if {@code when} holds (none: always), run {@code then}, else {@code otherwise}. With
+     * {@code edge} it fires only when {@code when} turns true (or false, for {@code otherwise}), not at every check.
+     */
+    public record Rule(Optional<Condition> when, List<Outcome> then, List<Outcome> otherwise, boolean edge) {
+        public static final Codec<Rule> CODEC = RecordCodecBuilder.create(i -> i.group(
+                Conditions.CODEC.optionalFieldOf("if").forGetter(Rule::when),
+                Outcome.CODEC.listOf().optionalFieldOf("then", List.of()).forGetter(Rule::then),
+                Outcome.CODEC.listOf().optionalFieldOf("else", List.of()).forGetter(Rule::otherwise),
+                Codec.BOOL.optionalFieldOf("edge", false).forGetter(Rule::edge))
+                .apply(i, Rule::new));
+    }
 
     public static final Codec<CaravanRules.Offer> OFFER = RecordCodecBuilder.create(i -> i.group(
             AMOUNT.fieldOf("give").forGetter(CaravanRules.Offer::give),

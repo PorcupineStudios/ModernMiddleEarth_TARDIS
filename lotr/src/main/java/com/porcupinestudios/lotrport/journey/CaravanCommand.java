@@ -23,7 +23,8 @@ import net.minecraft.server.level.ServerPlayer;
  * Caravans by command, for the nearest colony you belong to (permission {@code caravans}, or its founder):
  * <ul>
  * <li>{@code /lotr_colony caravan send "<to>" <send> [<bring>]}: one caravan now;</li>
- * <li>{@code /lotr_colony caravan route rules <n> <json>}: a route's rules as shared conditions ({@code -} clears);</li>
+ * <li>{@code /lotr_colony caravan route rules <n> <json>}: a condition (if it, send), or a list of rules
+ * ({@code [{"if": ..., "then": [...], "else": [...]}]}); {@code -} clears;</li>
  * <li>{@code /lotr_colony caravan route name <n> <name>}: names a route;</li>
  * <li>{@code /lotr_colony caravan route add "<to>" <every days> <send> <bring> [sell]}, {@code route list},
  * {@code route remove <n>}, {@code route send <n>}: standing routes (every 0 = only by hand);</li>
@@ -208,14 +209,27 @@ public final class CaravanCommand {
             return edit(c, b -> b.route(n).map(r -> b.withRoute(r.withRule(Optional.empty()))).orElse(b),
                     "Route " + n + " now goes only by hand");
         }
-        com.mojang.serialization.DataResult<com.porcupinestudios.ringbearer.api.condition.Condition> parsed;
+        com.google.gson.JsonElement json;
         try {
-            parsed = com.porcupinestudios.ringbearer.api.condition.Conditions.CODEC.parse(
-                    com.mojang.serialization.JsonOps.INSTANCE, com.google.gson.JsonParser.parseString(text));
+            json = com.google.gson.JsonParser.parseString(text);
         } catch (RuntimeException e) {
             c.getSource().sendFailure(Component.literal("Not JSON: " + e.getMessage()));
             return 0;
         }
+        if (json.isJsonArray()) {
+            // a whole program: [{"if": {...}, "then": [...], "else": [...], "edge": false}, ...]
+            var program = CaravanBook.Rule.CODEC.listOf().parse(com.mojang.serialization.JsonOps.INSTANCE, json);
+            if (program.error().isPresent()) {
+                c.getSource().sendFailure(Component.literal("Bad rules: " + program.error().get().message()));
+                return 0;
+            }
+            List<CaravanBook.Rule> list = program.result().get();
+            return edit(c, b -> b.route(n).map(r -> b.withRoute(r.withRules(list))).orElse(b), "Route " + n
+                    + " now has " + list.size() + " rules");
+        }
+        com.mojang.serialization.DataResult<com.porcupinestudios.ringbearer.api.condition.Condition> parsed =
+                com.porcupinestudios.ringbearer.api.condition.Conditions.CODEC.parse(
+                        com.mojang.serialization.JsonOps.INSTANCE, json);
         if (parsed.error().isPresent()) {
             c.getSource().sendFailure(Component.literal("Bad rules: " + parsed.error().get().message()));
             return 0;
