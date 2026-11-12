@@ -409,11 +409,11 @@ public final class SocietyTests {
     @GameTest(template = "empty")
     public static void daySystemsRunInOrder(GameTestHelper helper) {
         List<ResourceLocation> order = ColonyScheduler.plan(ColonySystem.Cadence.DAY, Tier.ACTIVE);
-        helper.assertTrue(order.indexOf(ColonySystemsCore.APPLICANTS) < order.indexOf(ColonySystemsCore.MIGRATION)
-                && order.indexOf(ColonySystemsCore.MIGRATION) < order.indexOf(ColonySystemsCore.RECRUITS),
-                "day systems out of order: " + order);
+        // recruits only in loaded colonies; events after the needs pass
+        helper.assertTrue(order.contains(ColonySystemsCore.RECRUITS) && order.indexOf(LotrPort.id("needs"))
+                < order.indexOf(LotrPort.id("events")), "day systems out of order: " + order);
         helper.assertTrue(!ColonyScheduler.plan(ColonySystem.Cadence.DAY, Tier.UNLOADED)
-                .contains(ColonySystemsCore.MIGRATION), "migration runs in unloaded colonies");
+                .contains(ColonySystemsCore.RECRUITS), "recruits join in unloaded colonies");
         helper.assertTrue(SimSettings.loadProblems().isEmpty(), "settings: " + SimSettings.loadProblems());
         helper.succeed();
     }
