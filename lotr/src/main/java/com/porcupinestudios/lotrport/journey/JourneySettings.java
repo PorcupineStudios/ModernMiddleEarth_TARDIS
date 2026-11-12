@@ -16,10 +16,11 @@ package com.porcupinestudios.lotrport.journey;
  * @param tickInterval ticks between two moves of the parties
  * @param bridgeMaxLength longest bridge a marker accepts, in blocks
  * @param steedRadius steeds this close to the Hall can go with a party
+ * @param greed how hard route planning leans toward the goal ({@link RoutePlanner.Settings#greed})
  */
 public record JourneySettings(double walkSpeed, int cell, int sample, double roadSpeed, int margin, int maxNodes,
         int personCarry, int wagonCarry, double wagonSpeed, Bodies bodies, int tickInterval, int bridgeMaxLength,
-        int steedRadius) {
+        int steedRadius, double greed) {
     /**
      * @param showRadius a player this close to a party in a loaded chunk sees it in person
      * @param hideRadius bodies go back to being data once no player is this close
@@ -32,9 +33,9 @@ public record JourneySettings(double walkSpeed, int cell, int sample, double roa
     }
 
     public static final JourneySettings DEFAULT = new JourneySettings(2.2, 32, 8, 1.6, 1024, 250000, 4, 27, 0.85,
-            Bodies.DEFAULT, 20, 64, 48);
+            Bodies.DEFAULT, 20, 64, 48, 1.5);
 
     public RoutePlanner.Settings planner() {
-        return new RoutePlanner.Settings(cell, sample, roadSpeed, margin, maxNodes);
+        return new RoutePlanner.Settings(cell, sample, roadSpeed, margin, maxNodes, greed);
     }
 }

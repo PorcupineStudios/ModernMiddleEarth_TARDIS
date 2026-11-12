@@ -192,6 +192,7 @@ public final class Journeys extends SavedData {
             planner = Executors.newSingleThreadExecutor(r -> {
                 Thread t = new Thread(r, "lotr_port journey planner");
                 t.setDaemon(true);
+                t.setPriority(Thread.MIN_PRIORITY);
                 return t;
             });
         }

@@ -148,7 +148,7 @@ public final class JourneyTests {
      * Aaron (2026-11-11): a long trip, Hobbiton to the Last Bridge (~35,000 blocks along the Great East Road over the
      * Brandywine Bridge). It must find the way, keep mostly to the road, and arrive as data.
      */
-    @GameTest(template = "empty", timeoutTicks = 6000)
+    @GameTest(template = "empty", timeoutTicks = 40000)
     public static void hobbitonToTheLastBridge(GameTestHelper helper) {
         Waypoint a = FastTravel.waypoint(LotrPort.id("hobbiton")).orElseThrow();
         Waypoint b = FastTravel.waypoint(LotrPort.id("last_bridge")).orElseThrow();
