@@ -83,8 +83,19 @@ public sealed interface Page permits Page.Table, Page.Stats, Page.Profile, Page.
         public static final String LEFT = "left";
     }
 
-    /** {@code parent} to child, or two spouses when {@code spouse}. */
-    record TreeLink(String from, String to, boolean spouse) {}
+    /**
+     * A link: {@link #PARENT} (from the parent to the child), {@link #SPOUSE} (married now) or {@link #FORMER} (were
+     * married: divorced, or one remarried).
+     */
+    record TreeLink(String from, String to, String kind) {
+        public static final String PARENT = "parent";
+        public static final String SPOUSE = "spouse";
+        public static final String FORMER = "former";
+
+        public boolean partners() {
+            return !PARENT.equals(kind);
+        }
+    }
 
     /**
      * Rows of 24 hour cells (ONI's schedule screen): a palette of kinds above, and the player paints cells of the
