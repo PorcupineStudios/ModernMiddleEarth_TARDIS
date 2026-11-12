@@ -76,6 +76,7 @@ public final class LotrPort {
         LotrEntities.register(modBus);
         SharedApiHooks.register(modBus);
         FactionConditions.register(modBus);
+        com.porcupinestudios.lotrport.journey.CaravanConditions.register(modBus);
         WorldConditions.register(modBus);
         Factions.register();
         FactionKills.register();

@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
+import com.porcupinestudios.ringbearer.api.condition.Condition;
+import com.porcupinestudios.ringbearer.api.condition.Conditions;
 import net.minecraft.core.UUIDUtil;
 
 /**
@@ -31,20 +33,48 @@ public record CaravanBook(List<Route> routes, List<CaravanRules.Offer> offers, M
      * @param lastDay the day the last one set out
      * @param when sets out by itself while this holds (and none of this route is on the road)
      * @param name what the player calls it ("" for "Route n")
+     * @param logic its rules (shared conditions: all/any/not and {@link CaravanConditions}); see {@link #rule}
      */
     public record Route(int id, UUID to, List<CaravanRules.Amount> send, List<CaravanRules.Amount> bring, int every,
-            int people, boolean sell, long lastDay, Optional<CaravanRules.Trigger> when, String name) {
+            int people, boolean sell, long lastDay, Optional<CaravanRules.Trigger> when, String name,
+            Optional<Condition> logic) {
         /** Longest name a route may have. */
         public static final int MAX_NAME = 32;
 
         public Route(int id, UUID to, List<CaravanRules.Amount> send, List<CaravanRules.Amount> bring, int every,
                 int people, boolean sell, long lastDay) {
-            this(id, to, send, bring, every, people, sell, lastDay, Optional.empty(), "");
+            this(id, to, send, bring, every, people, sell, lastDay, Optional.empty(), "", Optional.empty());
         }
 
         public Route(int id, UUID to, List<CaravanRules.Amount> send, List<CaravanRules.Amount> bring, int every,
                 int people, boolean sell, long lastDay, Optional<CaravanRules.Trigger> when) {
-            this(id, to, send, bring, every, people, sell, lastDay, when, "");
+            this(id, to, send, bring, every, people, sell, lastDay, when, "", Optional.empty());
+        }
+
+        public Route(int id, UUID to, List<CaravanRules.Amount> send, List<CaravanRules.Amount> bring, int every,
+                int people, boolean sell, long lastDay, Optional<CaravanRules.Trigger> when, String name) {
+            this(id, to, send, bring, every, people, sell, lastDay, when, name, Optional.empty());
+        }
+
+        /**
+         * When it sets out by itself: its rules, or (routes saved before rules) every N days / its one trigger as
+         * rules; empty: only by hand.
+         */
+        public Optional<Condition> rule() {
+            if (logic.isPresent()) {
+                return logic;
+            }
+            if (when.isPresent()) {
+                CaravanRules.Trigger t = when.get();
+                return Optional.of(new CaravanConditions.Stock(t.colony().toString(), t.item(), t.above() ? ">" : "<",
+                        t.threshold()));
+            }
+            return every > 0 ? Optional.of(new CaravanConditions.DaysSinceSent(every)) : Optional.empty();
+        }
+
+        /** The same route going by {@code rule} (empty: by hand). */
+        public Route withRule(Optional<Condition> rule) {
+            return new Route(id, to, send, bring, 0, people, sell, lastDay, Optional.empty(), name, rule);
         }
 
         /** Its name, or "Route n" when it has none. */
@@ -57,13 +87,14 @@ public record CaravanBook(List<Route> routes, List<CaravanRules.Offer> offers, M
             if (t.length() > MAX_NAME) {
                 t = t.substring(0, MAX_NAME);
             }
-            return new Route(id, to, send, bring, every, people, sell, lastDay, when, t);
+            return new Route(id, to, send, bring, every, people, sell, lastDay, when, t, logic);
         }
 
         public static final Codec<CaravanRules.Amount> AMOUNT = RecordCodecBuilder.create(i -> i.group(
                 Codec.STRING.fieldOf("item").forGetter(CaravanRules.Amount::item),
                 Codec.INT.optionalFieldOf("count", 0).forGetter(CaravanRules.Amount::count),
-                Codec.INT.optionalFieldOf("over", -1).forGetter(CaravanRules.Amount::over))
+                Codec.INT.optionalFieldOf("over", -1).forGetter(CaravanRules.Amount::over),
+                Codec.INT.optionalFieldOf("up_to", -1).forGetter(CaravanRules.Amount::upTo))
                 .apply(i, CaravanRules.Amount::new));
 
         public static final Codec<CaravanRules.Trigger> TRIGGER = RecordCodecBuilder.create(i -> i.group(
@@ -83,16 +114,17 @@ public record CaravanBook(List<Route> routes, List<CaravanRules.Offer> offers, M
                 Codec.BOOL.optionalFieldOf("sell", false).forGetter(Route::sell),
                 Codec.LONG.optionalFieldOf("last_day", -1L).forGetter(Route::lastDay),
                 TRIGGER.optionalFieldOf("when").forGetter(Route::when),
-                Codec.STRING.optionalFieldOf("name", "").forGetter(Route::name))
+                Codec.STRING.optionalFieldOf("name", "").forGetter(Route::name),
+                Conditions.CODEC.optionalFieldOf("rules").forGetter(Route::logic))
                 .apply(i, Route::new));
 
         public Route sentOn(long day) {
-            return new Route(id, to, send, bring, every, people, sell, day, when, name);
+            return new Route(id, to, send, bring, every, people, sell, day, when, name, logic);
         }
 
-        /** Manual (only by hand), every N days, or when its trigger is met. */
+        /** "rules" when it goes by itself, else "manual". */
         public String mode() {
-            return when.isPresent() ? "when" : every > 0 ? "every" : "manual";
+            return rule().isPresent() ? "rules" : "manual";
         }
     }
 

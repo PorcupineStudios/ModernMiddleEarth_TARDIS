@@ -16,13 +16,22 @@ public final class CaravanRules {
      * An item and how many: a fixed {@code count}, or with {@code over} 0 or more, everything above {@code over}
      * (capped at {@code count} when that is above 0): "send the excess over 200".
      */
-    public record Amount(String item, int count, int over) {
+    public record Amount(String item, int count, int over, int upTo) {
         public Amount(String item, int count) {
-            this(item, count, -1);
+            this(item, count, -1, -1);
+        }
+
+        public Amount(String item, int count, int over) {
+            this(item, count, over, -1);
         }
 
         public boolean excess() {
             return over >= 0;
+        }
+
+        /** "Enough to bring the other end up to {@code upTo}" (capped at {@code count} when that is above 0). */
+        public boolean topUp() {
+            return upTo >= 0;
         }
     }
 
@@ -49,6 +58,15 @@ public final class CaravanRules {
      */
     public static Map<String, Integer> load(List<Amount> want, ToIntFunction<String> have, ToIntFunction<String> keep,
             int capacity) {
+        return load(want, have, keep, i -> 0, capacity);
+    }
+
+    /**
+     * As {@link #load(List, ToIntFunction, ToIntFunction, int)}, with {@code there}: how many the other end holds,
+     * for top-up lines.
+     */
+    public static Map<String, Integer> load(List<Amount> want, ToIntFunction<String> have, ToIntFunction<String> keep,
+            ToIntFunction<String> there, int capacity) {
         Map<String, Integer> out = new LinkedHashMap<>();
         int room = Math.max(0, capacity);
         for (Amount a : want) {
@@ -57,7 +75,11 @@ public final class CaravanRules {
             }
             int floor = Math.max(keep.applyAsInt(a.item()), a.excess() ? a.over() : 0);
             int spare = Math.max(0, have.applyAsInt(a.item()) - out.getOrDefault(a.item(), 0) - floor);
-            int cap = a.excess() ? (a.count() > 0 ? a.count() : Integer.MAX_VALUE) : a.count();
+            int cap = a.excess() || a.topUp() ? (a.count() > 0 ? a.count() : Integer.MAX_VALUE) : a.count();
+            if (a.topUp()) {
+                cap = Math.min(cap, Math.max(0, a.upTo() - there.applyAsInt(a.item())
+                        - out.getOrDefault(a.item(), 0)));
+            }
             int n = Math.min(Math.min(cap, spare), room);
             if (n > 0) {
                 out.merge(a.item(), n, Integer::sum);

@@ -23,6 +23,7 @@ import net.minecraft.server.level.ServerPlayer;
  * Caravans by command, for the nearest colony you belong to (permission {@code caravans}, or its founder):
  * <ul>
  * <li>{@code /lotr_colony caravan send "<to>" <send> [<bring>]}: one caravan now;</li>
+ * <li>{@code /lotr_colony caravan route rules <n> <json>}: a route's rules as shared conditions ({@code -} clears);</li>
  * <li>{@code /lotr_colony caravan route name <n> <name>}: names a route;</li>
  * <li>{@code /lotr_colony caravan route add "<to>" <every days> <send> <bring> [sell]}, {@code route list},
  * {@code route remove <n>}, {@code route send <n>}: standing routes (every 0 = only by hand);</li>
@@ -53,6 +54,10 @@ public final class CaravanCommand {
                                         b -> b.route(IntegerArgumentType.getInteger(c, "n")).map(r -> b.withRoute(
                                                 r.named(StringArgumentType.getString(c, "name")))).orElse(b),
                                         "Route renamed")))))
+                        // route rules <n> <json>: any shared condition, e.g. {"type":"ringbearer_api:any",...}; "-" clears
+                        .then(Commands.literal("rules").then(Commands.argument("n", IntegerArgumentType.integer(1))
+                                .then(Commands.argument("json", StringArgumentType.greedyString())
+                                        .executes(CaravanCommand::rules))))
                         .then(Commands.literal("edit").then(Commands.argument("n", IntegerArgumentType.integer(1))
                                 .executes(c -> open(c, "route", IntegerArgumentType.getInteger(c, "n")))))
                         // route when <n> "<colony>" <item> below|above <x>: the route goes by itself while that holds
@@ -193,6 +198,30 @@ public final class CaravanCommand {
         return 1;
     }
 
+    private static int rules(CommandContext<CommandSourceStack> c) {
+        String text = StringArgumentType.getString(c, "json").strip();
+        int n = IntegerArgumentType.getInteger(c, "n");
+        if (text.equals("-")) {
+            return edit(c, b -> b.route(n).map(r -> b.withRoute(r.withRule(Optional.empty()))).orElse(b),
+                    "Route " + n + " now goes only by hand");
+        }
+        com.mojang.serialization.DataResult<com.porcupinestudios.ringbearer.api.condition.Condition> parsed;
+        try {
+            parsed = com.porcupinestudios.ringbearer.api.condition.Conditions.CODEC.parse(
+                    com.mojang.serialization.JsonOps.INSTANCE, com.google.gson.JsonParser.parseString(text));
+        } catch (RuntimeException e) {
+            c.getSource().sendFailure(Component.literal("Not JSON: " + e.getMessage()));
+            return 0;
+        }
+        if (parsed.error().isPresent()) {
+            c.getSource().sendFailure(Component.literal("Bad rules: " + parsed.error().get().message()));
+            return 0;
+        }
+        var rule = parsed.result().get();
+        return edit(c, b -> b.route(n).map(r -> b.withRoute(r.withRule(Optional.of(rule)))).orElse(b),
+                "Route " + n + " rules set");
+    }
+
     private static int when(CommandContext<CommandSourceStack> c) {
         Optional<Colony> watch = named(c.getSource(), StringArgumentType.getString(c, "watch"));
         if (watch.isEmpty()) {
@@ -202,9 +231,8 @@ public final class CaravanCommand {
         boolean above = StringArgumentType.getString(c, "is").equals("above");
         int x = IntegerArgumentType.getInteger(c, "x");
         int n = IntegerArgumentType.getInteger(c, "n");
-        return edit(c, b -> b.route(n).map(r -> b.withRoute(new CaravanBook.Route(r.id(), r.to(), r.send(),
-                r.bring(), 0, r.people(), r.sell(), r.lastDay(), Optional.of(new CaravanRules.Trigger(watch.get().id(),
-                        item, above, x)), r.name()))).orElse(b), "Route " + n + " now goes by itself when that holds");
+        return edit(c, b -> b.route(n).map(r -> b.withRoute(r.withRule(Optional.of(new CaravanConditions.Stock(
+                watch.get().id().toString(), item, above ? ">" : "<", x))))).orElse(b), "Route " + n + " now goes by itself when that holds");
     }
 
     private static int sendRoute(CommandContext<CommandSourceStack> c) {

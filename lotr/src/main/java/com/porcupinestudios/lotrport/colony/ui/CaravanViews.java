@@ -80,7 +80,8 @@ public final class CaravanViews {
         }
         List<String> out = new ArrayList<>();
         for (CaravanRules.Amount a : l) {
-            out.add(a.excess() ? itemName(a.item()) + " over " + a.over() + (a.count() > 0 ? " (max " + a.count()
+            out.add(a.topUp() ? itemName(a.item()) + " up to " + a.upTo() : a.excess() ? itemName(a.item()) + " over "
+                    + a.over() + (a.count() > 0 ? " (max " + a.count()
                     + ")" : "") : a.count() + " " + itemName(a.item()));
         }
         return String.join(", ", out);
@@ -91,15 +92,8 @@ public final class CaravanViews {
     }
 
     static String when(MinecraftServer server, CaravanBook.Route r) {
-        return switch (r.mode()) {
-            case "every" -> "Every " + r.every() + (r.every() == 1 ? " day" : " days");
-            case "when" -> {
-                CaravanRules.Trigger t = r.when().get();
-                yield "When " + colonyName(server, t.colony()) + "'s " + itemName(t.item()) + (t.above() ? " > "
-                        : " < ") + t.threshold();
-            }
-            default -> "By hand";
-        };
+        return Colonies.get(server).all().stream().filter(c -> Caravans.book(c).routes().contains(r)).findFirst()
+                .map(h -> RuleEditors.describe(server, h, r)).orElse(r.rule().isPresent() ? "By its rules" : "By hand");
     }
 
     static Optional<Journey> out(MinecraftServer server, Colony c, int route) {
@@ -276,37 +270,14 @@ public final class CaravanViews {
                 to.add(Stat.Choice.of(x.id().toString(), Component.literal(x.name() + (mine ? "" : " (friend)"))));
             }
             where.add(picker("To", colonyName(server, r.to()), "to", r.to().toString(), to));
-            where.add(picker("Goes", when(server, r).startsWith("When") ? "When..." : when(server, r)
-                    .startsWith("Every") ? "Every few days" : "By hand", "mode", r.mode(), List.of(
-                            Stat.Choice.of("manual", Component.literal("By hand (Send now)")),
-                            Stat.Choice.of("every", Component.literal("Every few days")),
-                            Stat.Choice.of("when", Component.literal("When an item is below/above...")))));
-            if (r.mode().equals("every")) {
-                where.add(stepper("Every (days)", "every", r.every(), 1, 365));
-            }
-            if (r.when().isPresent()) {
-                CaravanRules.Trigger t = r.when().get();
-                List<Stat.Choice> watch = new ArrayList<>();
-                List<Colony> watchable = new ArrayList<>();
-                for (Colony x : Colonies.get(server).all()) {
-                    if (x.founder().equals(home.founder()) || x.id().equals(r.to())) {
-                        watchable.add(x);
-                        watch.add(Stat.Choice.of(x.id().toString(), Component.literal(x.name())));
-                    }
-                }
-                where.add(picker("Watch colony", colonyName(server, t.colony()), "w_colony", t.colony().toString(),
-                        watch));
-                Colonies.get(server).get(t.colony()).ifPresent(wc -> where.add(picker("Its item",
-                        itemName(t.item()), "w_item", t.item(), itemChoices(server, List.of(wc), Set.of(t.item()),
-                                false))));
-                where.add(picker("Is", t.above() ? "above" : "below", "w_above", t.above() ? "above" : "below",
-                        List.of(Stat.Choice.of("below", Component.literal("below")),
-                                Stat.Choice.of("above", Component.literal("above")))));
-                where.add(stepper("Than", "w_threshold", t.threshold(), 0, MAX_COUNT));
-                int now = Colonies.get(server).get(t.colony()).map(wc -> new Stores(server,
-                        server.getLevel(wc.dimension()), wc).count(ResourceLocation.parse(t.item()), null)).orElse(0);
-                where.add(Stat.of(Component.literal("Now"), now + (t.met(now) ? " (would send)" : ""),
-                        t.met(now) ? Tone.GOOD : Tone.MUTED));
+            boolean ruled = r.rule().isPresent();
+            where.add(picker("Goes", ruled ? "By its rules" : "By hand", "mode", ruled ? "rules" : "manual", List.of(
+                    Stat.Choice.of("manual", Component.literal("By hand (Send now)")),
+                    Stat.Choice.of("rules", Component.literal("By itself, when its rules hold")))));
+            if (ruled) {
+                boolean now = Caravans.dueNow(server, home, r);
+                where.add(Stat.of(Component.literal("Rules now"), now ? "would send" : "waiting",
+                        now ? Tone.GOOD : Tone.MUTED));
             }
             where.add(stepper("Colonists going", "people", r.people(), 1, 16));
             if (!own) {
@@ -322,6 +293,9 @@ public final class CaravanViews {
             List<Colony> bringFrom = own ? List.of(dest.get()) : List.of();
             List<Page.Section> sections = new ArrayList<>();
             sections.add(new Page.Section(tr("caravan.where", "Where and when"), where));
+            if (r.rule().isPresent()) {
+                sections.add(new Page.Section(tr("caravan.rules", "Rules"), RuleViews.lines(server, home, r)));
+            }
             sections.add(lines("Take from " + home.name(), "t", r.send(), server, takeFrom, home));
             if (own || !r.bring().isEmpty()) {
                 sections.add(lines("Bring back from " + colonyName(server, r.to()), "b", r.bring(), server,
@@ -347,8 +321,8 @@ public final class CaravanViews {
             String sub = when(server, r) + " to " + colonyName(server, r.to()) + out(server, home, r.id())
                     .map(j -> " - " + status(server, j)).orElse("");
             Page page = new Page.Profile(Optional.empty(), Component.literal(r.title()), may ? Optional.of("rename")
-                    : Optional.empty(), Component.literal(sub), List.of(sections.get(0)), sections.subList(1,
-                            sections.size()), buttons);
+                    : Optional.empty(), Component.literal(sub), sections.subList(0, r.rule().isPresent() ? 2 : 1),
+                    sections.subList(r.rule().isPresent() ? 2 : 1, sections.size()), buttons);
             return Optional.of(new View(ROUTE, context, Component.literal(home.name() + ": caravans"), List.of(), "",
                     page, Optional.of(new View.Target(ColonyViews.COLONY, home.id().toString(), TAB))));
         }
@@ -366,11 +340,16 @@ public final class CaravanViews {
                 int n = have.getOrDefault(ResourceLocation.tryParse(a.item()), 0);
                 out.add(picker((i + 1) + ". Item (has " + n + ")", itemName(a.item()), p + "_item:" + i, a.item(),
                         choices));
-                out.add(picker("   How much", a.excess() ? "The excess over..." : "A fixed amount", p + "_kind:" + i,
-                        a.excess() ? "excess" : "fixed", List.of(
+                String kind = a.topUp() ? "topup" : a.excess() ? "excess" : "fixed";
+                out.add(picker("   How much", a.topUp() ? "Top the other end up to..." : a.excess()
+                        ? "The excess over..." : "A fixed amount", p + "_kind:" + i, kind, List.of(
                                 Stat.Choice.of("fixed", Component.literal("A fixed amount")),
-                                Stat.Choice.of("excess", Component.literal("The excess over...")))));
-                if (a.excess()) {
+                                Stat.Choice.of("excess", Component.literal("The excess over...")),
+                                Stat.Choice.of("topup", Component.literal("Top the other end up to...")))));
+                if (a.topUp()) {
+                    out.add(stepper("   Up to", p + "_upto:" + i, a.upTo(), 0, MAX_COUNT));
+                    out.add(stepper("   At most (0: any)", p + "_count:" + i, a.count(), 0, MAX_COUNT));
+                } else if (a.excess()) {
                     out.add(stepper("   Over", p + "_over:" + i, a.over(), 0, MAX_COUNT));
                     out.add(stepper("   At most (0: all)", p + "_count:" + i, a.count(), 0, MAX_COUNT));
                 } else {
@@ -437,10 +416,9 @@ public final class CaravanViews {
             List<CaravanRules.Amount> send = new ArrayList<>(r.send());
             List<CaravanRules.Amount> bring = new ArrayList<>(r.bring());
             UUID to = r.to();
-            int every = r.every();
             int people = r.people();
             boolean sell = r.sell();
-            Optional<CaravanRules.Trigger> when = r.when();
+            Optional<com.porcupinestudios.ringbearer.api.condition.Condition> rule = r.rule();
             int v = Math.max(0, Math.min(MAX_COUNT, value));
             switch (field) {
                 case "to" -> {
@@ -458,55 +436,17 @@ public final class CaravanViews {
                         return null;
                     }
                 }
-                case "mode" -> {
-                    switch (row) {
-                        case "every" -> {
-                            every = Math.max(1, every);
-                            when = Optional.empty();
-                        }
-                        case "when" -> {
-                            every = 0;
-                            String item = !send.isEmpty() ? send.get(0).item() : "minecraft:bread";
-                            when = Optional.of(new CaravanRules.Trigger(r.to(), item, false, 64));
-                        }
-                        default -> {
-                            every = 0;
-                            when = Optional.empty();
-                        }
-                    }
-                }
-                case "every" -> every = Math.max(1, Math.min(365, value));
+                case "mode" -> rule = row.equals("rules")
+                        ? (rule.isPresent() ? rule : RuleEditors.fromJson(RuleEditors.starter())) : Optional.empty();
                 case "people" -> people = Math.max(1, Math.min(16, value));
                 case "sell" -> sell = row.equals("yes");
-                case "w_colony", "w_item", "w_above", "w_threshold" -> {
-                    if (when.isEmpty()) {
+                case "r_type", "r_field", "r_add" -> {
+                    Optional<com.porcupinestudios.ringbearer.api.condition.Condition> next = RuleViews.edit(server,
+                            home, r, field, action.substring(action.indexOf(':') + 1), row, value);
+                    if (next == null) {
                         return null;
                     }
-                    CaravanRules.Trigger t = when.get();
-                    switch (field) {
-                        case "w_colony" -> {
-                            try {
-                                UUID id = UUID.fromString(row);
-                                Optional<Colony> wc = Colonies.get(server).get(id);
-                                if (wc.isEmpty() || !wc.get().founder().equals(home.founder()) && !id.equals(r.to())) {
-                                    return null;
-                                }
-                                t = new CaravanRules.Trigger(id, t.item(), t.above(), t.threshold());
-                            } catch (IllegalArgumentException e) {
-                                return null;
-                            }
-                        }
-                        case "w_item" -> {
-                            if (ResourceLocation.tryParse(row) == null) {
-                                return null;
-                            }
-                            t = new CaravanRules.Trigger(t.colony(), row, t.above(), t.threshold());
-                        }
-                        case "w_above" -> t = new CaravanRules.Trigger(t.colony(), t.item(), row.equals("above"),
-                                t.threshold());
-                        default -> t = new CaravanRules.Trigger(t.colony(), t.item(), t.above(), v);
-                    }
-                    when = Optional.of(t);
+                    rule = next;
                 }
                 case "add_t" -> send.add(new CaravanRules.Amount(firstItem(server, home), 64));
                 case "add_b" -> {
@@ -516,12 +456,12 @@ public final class CaravanViews {
                     }
                     bring.add(new CaravanRules.Amount(firstItem(server, d.get()), 64));
                 }
-                case "t_item", "t_kind", "t_count", "t_over" -> {
+                case "t_item", "t_kind", "t_count", "t_over", "t_upto" -> {
                     if (!line(send, field.substring(2), idx, row, v)) {
                         return null;
                     }
                 }
-                case "b_item", "b_kind", "b_count", "b_over" -> {
+                case "b_item", "b_kind", "b_count", "b_over", "b_upto" -> {
                     if (!line(bring, field.substring(2), idx, row, v)) {
                         return null;
                     }
@@ -530,7 +470,8 @@ public final class CaravanViews {
                     return null;
                 }
             }
-            return new CaravanBook.Route(r.id(), to, send, bring, every, people, sell, r.lastDay(), when, r.name());
+            return new CaravanBook.Route(r.id(), to, send, bring, 0, people, sell, r.lastDay(), Optional.empty(),
+                    r.name(), rule);
         }
 
         /** Changes line {@code idx}: its item (or removes it), kind, count or over. */
@@ -548,14 +489,21 @@ public final class CaravanViews {
                     if (ResourceLocation.tryParse(row) == null) {
                         return false;
                     }
-                    list.set(idx, new CaravanRules.Amount(row, a.count(), a.over()));
+                    list.set(idx, new CaravanRules.Amount(row, a.count(), a.over(), a.upTo()));
                 }
-                case "kind" -> list.set(idx, row.equals("excess")
-                        ? new CaravanRules.Amount(a.item(), 0, Math.max(0, a.excess() ? a.over() : a.count()))
-                        : new CaravanRules.Amount(a.item(), Math.max(1, a.excess() ? a.over() : a.count()), -1));
-                case "count" -> list.set(idx, new CaravanRules.Amount(a.item(), a.excess() ? v : Math.max(1, v),
-                        a.over()));
-                default -> list.set(idx, new CaravanRules.Amount(a.item(), a.count(), a.excess() ? v : a.over()));
+                case "kind" -> {
+                    int n = a.topUp() ? a.upTo() : a.excess() ? a.over() : a.count();
+                    list.set(idx, switch (row) {
+                        case "excess" -> new CaravanRules.Amount(a.item(), 0, Math.max(0, n), -1);
+                        case "topup" -> new CaravanRules.Amount(a.item(), 0, -1, Math.max(0, n));
+                        default -> new CaravanRules.Amount(a.item(), Math.max(1, n), -1, -1);
+                    });
+                }
+                case "count" -> list.set(idx, new CaravanRules.Amount(a.item(), a.excess() || a.topUp() ? v
+                        : Math.max(1, v), a.over(), a.upTo()));
+                case "upto" -> list.set(idx, new CaravanRules.Amount(a.item(), a.count(), a.over(), v));
+                default -> list.set(idx, new CaravanRules.Amount(a.item(), a.count(), a.excess() ? v : a.over(),
+                        a.upTo()));
             }
             return true;
         }
