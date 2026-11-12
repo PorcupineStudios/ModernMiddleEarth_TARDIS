@@ -2,5 +2,11 @@
   "days_per_year": 1.0,
   "adult_age": 18,
   "settler_age_min": 18,
-  "settler_age_max": 50
+  "settler_age_max": 50,
+  "rhythm": {
+    "awake_from": 6,
+    "awake_to": 22,
+    "sleep_hours": 8,
+    "leisure_hours": 3
+  }
 }

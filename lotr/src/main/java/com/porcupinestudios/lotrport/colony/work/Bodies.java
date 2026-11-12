@@ -1,6 +1,9 @@
 package com.porcupinestudios.lotrport.colony.work;
 
 import com.porcupinestudios.lotrport.LotrPort;
+import com.porcupinestudios.lotrport.colonist.Colonists;
+import com.porcupinestudios.lotrport.colonist.Schedule;
+import com.porcupinestudios.lotrport.colonist.Schedules;
 import com.porcupinestudios.lotrport.colony.Colony;
 import com.porcupinestudios.lotrport.colony.building.Building;
 import com.porcupinestudios.lotrport.colony.building.Buildings;
@@ -13,6 +16,7 @@ import com.porcupinestudios.lotrport.society.sim.SystemContext;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
@@ -23,8 +27,9 @@ import net.minecraft.world.level.levelgen.Heightmap;
 /**
  * Bodies on demand (in person tier only): at most {@code bodies_max} citizens walk about a colony a player is near;
  * the farthest from players go inside (their bodies are removed, their records stay). Below the cap, citizens without
- * a loaded body come out of their home (or workplace, else the Hall), a few a pulse. Soldiers and applicants are left
- * alone: units keep their own bodies.
+ * a loaded body come out, a few a pulse: in work hours from their workplace, in leisure hours by the Hall, else from
+ * their home. In their sleep hours (their schedule, {@code colonist.Schedule}) those with a home go to bed: their
+ * bodies go inside and stay in until they wake. Soldiers and applicants are left alone: units keep their own bodies.
  */
 public final class Bodies {
     public static final ResourceLocation SYSTEM = LotrPort.id("bodies");
@@ -42,16 +47,28 @@ public final class Bodies {
             return;
         }
         int max = Math.max(0, LifeSettings.get().bodiesMax());
+        // their schedules: in their sleep hours those with a home go to bed (no body); the homeless sleep out
+        int hour = Schedule.hourOf(level.getDayTime());
+        Schedules schedules = Colonists.schedules(ctx.colony());
         List<LotrNpc> out = new ArrayList<>();
         List<Person> inside = new ArrayList<>();
+        int toBed = 0;
         for (Person p : Society.citizens(ctx.server(), ctx.colony())) {
             if (p.has(CoreComponents.UNIT)) {
                 continue;
             }
+            boolean asleep = p.has(WorkComponents.HOME)
+                    && Colonists.activity(schedules, p, hour) == Schedule.Block.SLEEP;
             Entity e = level.getEntity(p.id());
             if (e instanceof LotrNpc npc && npc.isAlive()) {
-                out.add(npc);
-            } else {
+                if (asleep && toBed < OUT_PER_PULSE) {
+                    npc.discard();
+                    ctx.count(INSIDE, 1);
+                    toBed++;
+                } else {
+                    out.add(npc);
+                }
+            } else if (!asleep) {
                 inside.add(p);
             }
         }
@@ -69,9 +86,15 @@ public final class Bodies {
             if (room <= 0) {
                 break;
             }
-            BlockPos door = p.get(WorkComponents.HOME).flatMap(h -> buildings.get(h.building())).map(Building::door)
-                    .or(() -> p.get(WorkComponents.JOB).flatMap(j -> buildings.get(j.building())).map(Building::door))
-                    .orElse(ctx.colony().hall());
+            // work hours: out of their workplace; leisure: by the Hall; else out of their home
+            Schedule.Block now = Colonists.activity(schedules, p, hour);
+            Optional<BlockPos> work = p.get(WorkComponents.JOB).flatMap(j -> buildings.get(j.building()))
+                    .map(Building::door);
+            Optional<BlockPos> home = p.get(WorkComponents.HOME).flatMap(h -> buildings.get(h.building()))
+                    .map(Building::door);
+            BlockPos door = now == Schedule.Block.WORK && work.isPresent() ? work.get()
+                    : now == Schedule.Block.LEISURE ? ctx.colony().hall()
+                    : home.or(() -> work).orElse(ctx.colony().hall());
             if (!level.isLoaded(door) || level.getEntity(p.id()) != null) {
                 continue;
             }

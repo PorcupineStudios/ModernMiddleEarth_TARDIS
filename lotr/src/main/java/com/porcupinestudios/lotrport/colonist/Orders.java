@@ -12,24 +12,31 @@ import net.minecraft.resources.ResourceLocation;
  * @param home the home they must sleep in; empty: the colony picks ({@link HouseRules})
  * @param works false: they take no job at all and rest
  * @param ration their ration ({@code colonist_ration/<id>.json}): how fast they eat and how they feel about it
+ * @param schedule the colony schedule they keep ({@link Schedules}); a removed one falls back to the standard one
  */
-public record Orders(Optional<UUID> job, Optional<UUID> home, boolean works, ResourceLocation ration) {
-    public static final Orders DEFAULT = new Orders(Optional.empty(), Optional.empty(), true, Rations.NORMAL);
+public record Orders(Optional<UUID> job, Optional<UUID> home, boolean works, ResourceLocation ration,
+        String schedule) {
+    public static final Orders DEFAULT = new Orders(Optional.empty(), Optional.empty(), true, Rations.NORMAL,
+            Schedules.STANDARD);
 
     public Orders withJob(Optional<UUID> job) {
-        return new Orders(job, home, works, ration);
+        return new Orders(job, home, works, ration, schedule);
     }
 
     public Orders withHome(Optional<UUID> home) {
-        return new Orders(job, home, works, ration);
+        return new Orders(job, home, works, ration, schedule);
     }
 
     public Orders withWorks(boolean works) {
-        return new Orders(job, home, works, ration);
+        return new Orders(job, home, works, ration, schedule);
     }
 
     public Orders withRation(ResourceLocation ration) {
-        return new Orders(job, home, works, ration);
+        return new Orders(job, home, works, ration, schedule);
+    }
+
+    public Orders withSchedule(String schedule) {
+        return new Orders(job, home, works, ration, schedule);
     }
 
     public boolean isDefault() {

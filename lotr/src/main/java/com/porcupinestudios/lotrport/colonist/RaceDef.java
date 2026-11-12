@@ -14,6 +14,12 @@ import net.minecraft.resources.ResourceLocation;
  * @param needRates multiplies how fast a need falls, by need id (so far only {@code lotr_port:food})
  * @param settlerAgeMin youngest age of a settler who arrives grown
  * @param settlerAgeMax oldest
+ * @param rhythm the hours they like to keep, and how much sleep and leisure they want
  */
 public record RaceDef(double daysPerYear, int adultAge, boolean extendedHousehold,
-        Map<ResourceLocation, Double> needRates, int settlerAgeMin, int settlerAgeMax) {}
+        Map<ResourceLocation, Double> needRates, int settlerAgeMin, int settlerAgeMax, Rhythm rhythm) {
+    public RaceDef(double daysPerYear, int adultAge, boolean extendedHousehold, Map<ResourceLocation, Double> needRates,
+            int settlerAgeMin, int settlerAgeMax) {
+        this(daysPerYear, adultAge, extendedHousehold, needRates, settlerAgeMin, settlerAgeMax, Rhythm.DEFAULT);
+    }
+}

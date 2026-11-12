@@ -49,13 +49,69 @@ public final class ColonistData {
             Codec.STRING.optionalFieldOf("name").forGetter(ThoughtDef::name))
             .apply(i, ThoughtDef::new));
 
+    private static final Codec<Integer> HOUR = Codec.intRange(0, 23);
+    public static final Codec<Rhythm> RHYTHM_CODEC = RecordCodecBuilder.create(i -> i.group(
+            HOUR.optionalFieldOf("awake_from", Rhythm.DEFAULT.awakeFrom()).forGetter(Rhythm::awakeFrom),
+            HOUR.optionalFieldOf("awake_to", Rhythm.DEFAULT.awakeTo()).forGetter(Rhythm::awakeTo),
+            Codec.intRange(1, 23).optionalFieldOf("sleep_hours", Rhythm.DEFAULT.sleepHours())
+                    .forGetter(Rhythm::sleepHours),
+            Codec.intRange(0, 23).optionalFieldOf("leisure_hours", Rhythm.DEFAULT.leisureHours())
+                    .forGetter(Rhythm::leisureHours))
+            .apply(i, Rhythm::new));
+
+    public static final SleepSettings DEFAULT_SLEEP = new SleepSettings("SSSSSSWWWWWWAWWWWWLLLLSS", 70, 0.7, 60, 25, 10,
+            0.6, 10, 1.25, 1, 4, new SleepSettings.Thoughts(LotrPort.id("tired"), LotrPort.id("exhausted"),
+                    LotrPort.id("odd_hours"), LotrPort.id("wrong_hours"), LotrPort.id("no_leisure"),
+                    LotrPort.id("enough_leisure")));
+
+    private static final Codec<SleepSettings.Thoughts> SLEEP_THOUGHTS_CODEC = RecordCodecBuilder.create(i -> i.group(
+            ResourceLocation.CODEC.optionalFieldOf("tired", DEFAULT_SLEEP.thoughts().tired())
+                    .forGetter(SleepSettings.Thoughts::tired),
+            ResourceLocation.CODEC.optionalFieldOf("exhausted", DEFAULT_SLEEP.thoughts().exhausted())
+                    .forGetter(SleepSettings.Thoughts::exhausted),
+            ResourceLocation.CODEC.optionalFieldOf("odd_hours", DEFAULT_SLEEP.thoughts().oddHours())
+                    .forGetter(SleepSettings.Thoughts::oddHours),
+            ResourceLocation.CODEC.optionalFieldOf("wrong_hours", DEFAULT_SLEEP.thoughts().wrongHours())
+                    .forGetter(SleepSettings.Thoughts::wrongHours),
+            ResourceLocation.CODEC.optionalFieldOf("no_leisure", DEFAULT_SLEEP.thoughts().noLeisure())
+                    .forGetter(SleepSettings.Thoughts::noLeisure),
+            ResourceLocation.CODEC.optionalFieldOf("enough_leisure", DEFAULT_SLEEP.thoughts().enoughLeisure())
+                    .forGetter(SleepSettings.Thoughts::enoughLeisure))
+            .apply(i, SleepSettings.Thoughts::new));
+
+    public static final Codec<SleepSettings> SLEEP_CODEC = RecordCodecBuilder.create(i -> i.group(
+            Codec.STRING.optionalFieldOf("standard_schedule", DEFAULT_SLEEP.standardBlocks())
+                    .forGetter(SleepSettings::standardBlocks),
+            Codec.DOUBLE.optionalFieldOf("day_drain", DEFAULT_SLEEP.dayDrain()).forGetter(SleepSettings::dayDrain),
+            Codec.DOUBLE.optionalFieldOf("homeless_sleep", DEFAULT_SLEEP.homelessSleep())
+                    .forGetter(SleepSettings::homelessSleep),
+            Codec.DOUBLE.optionalFieldOf("any_sleep_below", DEFAULT_SLEEP.anySleepBelow())
+                    .forGetter(SleepSettings::anySleepBelow),
+            Codec.DOUBLE.optionalFieldOf("tired_below", DEFAULT_SLEEP.tiredBelow()).forGetter(SleepSettings::tiredBelow),
+            Codec.DOUBLE.optionalFieldOf("exhausted_below", DEFAULT_SLEEP.exhaustedBelow())
+                    .forGetter(SleepSettings::exhaustedBelow),
+            Codec.DOUBLE.optionalFieldOf("exhausted_work", DEFAULT_SLEEP.exhaustedWork())
+                    .forGetter(SleepSettings::exhaustedWork),
+            Codec.DOUBLE.optionalFieldOf("standard_work_hours", DEFAULT_SLEEP.standardWorkHours())
+                    .forGetter(SleepSettings::standardWorkHours),
+            Codec.DOUBLE.optionalFieldOf("max_work_factor", DEFAULT_SLEEP.maxWorkFactor())
+                    .forGetter(SleepSettings::maxWorkFactor),
+            Codec.INT.optionalFieldOf("odd_hours_from", DEFAULT_SLEEP.oddHoursFrom())
+                    .forGetter(SleepSettings::oddHoursFrom),
+            Codec.INT.optionalFieldOf("wrong_hours_from", DEFAULT_SLEEP.wrongHoursFrom())
+                    .forGetter(SleepSettings::wrongHoursFrom),
+            SLEEP_THOUGHTS_CODEC.optionalFieldOf("thoughts", DEFAULT_SLEEP.thoughts())
+                    .forGetter(SleepSettings::thoughts))
+            .apply(i, SleepSettings::new));
+
     public static final Codec<RaceDef> RACE_CODEC = RecordCodecBuilder.create(i -> i.group(
             Codec.DOUBLE.optionalFieldOf("days_per_year", 1.0).forGetter(RaceDef::daysPerYear),
             Codec.INT.optionalFieldOf("adult_age", 18).forGetter(RaceDef::adultAge),
             Codec.BOOL.optionalFieldOf("extended_household", false).forGetter(RaceDef::extendedHousehold),
             RATES.optionalFieldOf("need_rates", Map.of()).forGetter(RaceDef::needRates),
             Codec.INT.optionalFieldOf("settler_age_min", 18).forGetter(RaceDef::settlerAgeMin),
-            Codec.INT.optionalFieldOf("settler_age_max", 50).forGetter(RaceDef::settlerAgeMax))
+            Codec.INT.optionalFieldOf("settler_age_max", 50).forGetter(RaceDef::settlerAgeMax),
+            RHYTHM_CODEC.optionalFieldOf("rhythm", Rhythm.DEFAULT).forGetter(RaceDef::rhythm))
             .apply(i, RaceDef::new));
 
     public static final Codec<RationDef> RATION_CODEC = RecordCodecBuilder.create(i -> i.group(
@@ -109,7 +165,8 @@ public final class ColonistData {
             UUIDUtil.CODEC.optionalFieldOf("job").forGetter(Orders::job),
             UUIDUtil.CODEC.optionalFieldOf("home").forGetter(Orders::home),
             Codec.BOOL.optionalFieldOf("works", true).forGetter(Orders::works),
-            ResourceLocation.CODEC.optionalFieldOf("ration", Rations.NORMAL).forGetter(Orders::ration))
+            ResourceLocation.CODEC.optionalFieldOf("ration", Rations.NORMAL).forGetter(Orders::ration),
+            Codec.STRING.optionalFieldOf("schedule", Schedules.STANDARD).forGetter(Orders::schedule))
             .apply(i, Orders::new));
 
     /** A person's traits, for life. */
@@ -117,6 +174,17 @@ public final class ColonistData {
             ComponentType.register(LotrPort.id("traits"), IDS);
     /** Remembered thoughts that still count. */
     public static final ComponentType<Mood> MOOD = ComponentType.register(LotrPort.id("mood"), MOOD_CODEC);
+    private static final Codec<Rest> REST_CODEC = RecordCodecBuilder.create(i -> i.group(
+            Codec.DOUBLE.fieldOf("energy").forGetter(Rest::energy),
+            Codec.DOUBLE.optionalFieldOf("lowest", 100.0).forGetter(Rest::lowest),
+            Codec.DOUBLE.optionalFieldOf("work", -1.0).forGetter(Rest::workDone),
+            Codec.INT.optionalFieldOf("leisure", -1).forGetter(Rest::leisureHours),
+            Codec.INT.optionalFieldOf("sleep", -1).forGetter(Rest::sleepHours),
+            Codec.INT.optionalFieldOf("off", 0).forGetter(Rest::offHours))
+            .apply(i, Rest::new));
+    /** Energy and how the last day's hours went (sleep and schedules). */
+    public static final ComponentType<Rest> REST = ComponentType.register(LotrPort.id("rest"), REST_CODEC);
+
     /** Race, birth and family links. */
     public static final ComponentType<Kin> KIN = ComponentType.register(LotrPort.id("kin"), KIN_CODEC);
     /** What the colony's managers told them (workplace, home, work or rest, ration); absent: all left to the colony. */
@@ -131,6 +199,9 @@ public final class ColonistData {
     private static final CodecJsonLoader<ThoughtDef> THOUGHTS_LOADER =
             new CodecJsonLoader<>("colonist_thought", THOUGHT_CODEC);
     private static final CodecJsonLoader<RaceDef> RACES_LOADER = new CodecJsonLoader<>("colonist_race", RACE_CODEC);
+    private static final ResourceLocation SLEEP_ID = LotrPort.id("settings");
+    private static final CodecJsonLoader<SleepSettings> SLEEP_LOADER =
+            new CodecJsonLoader<>("colonist_sleep", SLEEP_CODEC);
     private static final CodecJsonLoader<RationDef> RATIONS_LOADER =
             new CodecJsonLoader<>("colonist_ration", RATION_CODEC);
 
@@ -138,12 +209,15 @@ public final class ColonistData {
 
     /** Registers the loaders; also loads this class, which registers the components before any world loads. */
     public static void register() {
+        // the colony part lives in its own class: load it now, before any world, as component types must be
+        java.util.Objects.requireNonNull(Schedules.TYPE);
         NeoForge.EVENT_BUS.addListener((AddReloadListenerEvent event) -> {
             event.addListener(SETTINGS_LOADER);
             event.addListener(TRAITS_LOADER);
             event.addListener(THOUGHTS_LOADER);
             event.addListener(RACES_LOADER);
             event.addListener(RATIONS_LOADER);
+            event.addListener(SLEEP_LOADER);
         });
     }
 
@@ -163,6 +237,10 @@ public final class ColonistData {
         return RACES_LOADER.entries();
     }
 
+    public static SleepSettings sleep() {
+        return SLEEP_LOADER.entries().getOrDefault(SLEEP_ID, DEFAULT_SLEEP);
+    }
+
     public static Map<ResourceLocation, RationDef> rations() {
         return RATIONS_LOADER.entries();
     }
@@ -174,6 +252,14 @@ public final class ColonistData {
         all.addAll(THOUGHTS_LOADER.lastErrors());
         all.addAll(RACES_LOADER.lastErrors());
         all.addAll(RATIONS_LOADER.lastErrors());
+        all.addAll(SLEEP_LOADER.lastErrors());
+        SleepSettings.Thoughts st = sleep().thoughts();
+        for (ResourceLocation t : List.of(st.tired(), st.exhausted(), st.oddHours(), st.wrongHours(), st.noLeisure(),
+                st.enoughLeisure())) {
+            if (!thoughts().containsKey(t)) {
+                all.add("colonist_sleep/settings: unknown thought " + t);
+            }
+        }
         if (!rations().containsKey(Rations.NORMAL)) {
             all.add("colonist_ration: no normal.json (everyone's ration until told otherwise)");
         }
