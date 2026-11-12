@@ -148,7 +148,21 @@ public final class MountTests {
                 }
                 helper.assertTrue(pig.getHealth() < health || !pig.isAlive(),
                         "the boar didn't turn on what hurt it (target " + boar.getTarget() + ", ticks " + boar.tickCount
-                                + ", hurt by " + boar.getLastHurtByMob() + ", pig ticks " + pig.tickCount + ")");
+                                + ", hurt by " + boar.getLastHurtByMob() + ", pig ticks " + pig.tickCount
+                                + "; boar at " + boar.position() + " size " + boar.getBbWidth() + "x"
+                                + boar.getBbHeight() + ", pig at " + pig.position() + ", in reach "
+                                + boar.isWithinMeleeAttackRange(pig) + ", sees " + boar.getSensing().hasLineOfSight(pig)
+                                + ", nav done " + boar.getNavigation().isDone() + ", baby " + boar.isBaby()
+                                + ", standing " + boar.isStanding() + ", eating " + boar.isEating() + ", tame "
+                                + boar.isTamed() + ", attack " + boar.getAttributeValue(
+                                        net.minecraft.world.entity.ai.attributes.Attributes.ATTACK_DAMAGE)
+                                + ", speed " + boar.getAttributeValue(
+                                        net.minecraft.world.entity.ai.attributes.Attributes.MOVEMENT_SPEED)
+                                + ", pig hurt time " + pig.hurtTime + " invulnerable " + pig.isInvulnerable()
+                                + ", running " + boar.goalSelector.getAvailableGoals().stream()
+                                        .filter(net.minecraft.world.entity.ai.goal.WrappedGoal::isRunning)
+                                        .map(g -> g.getGoal().getClass().getSimpleName() + "(" + g.getPriority()
+                                                + ")").toList() + ")");
             });
         });
     }
