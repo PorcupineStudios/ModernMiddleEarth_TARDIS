@@ -31,10 +31,12 @@ class ScheduleRulesTest {
     }
 
     @Test
-    void aHobbitWantsMoreSleepThanTheStandardDayGives() {
-        Rest first = ScheduleRules.day(STANDARD, HOBBIT, 100, true, S);
+    void aHobbitWantsMoreSleepThanEightHours() {
+        // the standard day without its Any hour (at noon a tired hobbit naps in it, which just about saves them)
+        Schedule noAny = new Schedule("long", "Long", "SSSSSSWWWWWWWWWWWWLLLLSS");
+        Rest first = ScheduleRules.day(noAny, HOBBIT, 100, true, S);
         assertFalse(ScheduleRules.thoughts(first, HOBBIT, S).contains(S.thoughts().tired()), "fine the first day");
-        Rest second = ScheduleRules.day(STANDARD, HOBBIT, first.energy(), true, S);
+        Rest second = ScheduleRules.day(noAny, HOBBIT, first.energy(), true, S);
         assertTrue(ScheduleRules.thoughts(second, HOBBIT, S).contains(S.thoughts().tired()),
                 "8 hours in bed is short of their 9: tired by the second day, lowest " + second.lowest());
         assertEquals(2, second.offHours(), "up at 6 and 7, before their 8 o'clock");
