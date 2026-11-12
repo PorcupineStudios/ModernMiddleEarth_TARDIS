@@ -655,7 +655,10 @@ final class BlocksPane {
                     int db = drops.size();
                     ghost = 0xFFB4B4B4;
                     ui.layer = 0;
+                    // only as much as the gap has opened, so it never covers the blocks moving aside
+                    ui.clip(aim.x(), top, aim.w(), Math.max(0, gh - 4));
                     block(ui, g.block(), aim.x(), top, aim.w(), true);
+                    ui.unclip();
                     ui.layer = 1;
                     ghost = 0;
                     grabs.subList(gb, grabs.size()).clear();
