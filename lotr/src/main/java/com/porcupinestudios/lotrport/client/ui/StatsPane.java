@@ -13,10 +13,19 @@ final class StatsPane {
 
     private final UiScreen screen;
     private Page.Stats stats;
+    private final ScrollBar bar;
+    private int top;
+    private int bottom;
 
     StatsPane(UiScreen screen, Page.Stats stats) {
         this.screen = screen;
         this.stats = stats;
+        this.bar = new ScrollBar(screen);
+    }
+
+    /** Scrolls when the mouse is over the page; true if it moved. */
+    boolean scroll(double mouseY, double amount) {
+        return mouseY >= top && mouseY <= bottom && bar.wheel(amount, Sections.LINE * 2);
     }
 
     void set(Page.Stats s) {
@@ -32,7 +41,21 @@ final class StatsPane {
         for (int i = 0; i < columns; i++) {
             colY[i] = y + 7;
         }
-        ui.clip(x, y, w, h - buttonsH);
+        // measure first, so a page taller than its well scrolls
+        int[] colH = new int[columns];
+        for (Page.Section section : stats.sections()) {
+            int c = columns == 2 && colH[1] < colH[0] ? 1 : 0;
+            colH[c] += Sections.height(section) + 8;
+        }
+        int viewH = h - buttonsH - 8;
+        boolean scrolls = bar.measure(Math.max(colH[0], columns == 2 ? colH[1] : 0), viewH);
+        if (scrolls) {
+            colW = (w - 16 - (columns - 1) * 14 - ScrollBar.WIDTH - 2) / columns;
+        }
+        for (int i = 0; i < columns; i++) {
+            colY[i] = y + 7 - bar.offset;
+        }
+        ui.clip(x, y + 2, w, h - buttonsH - 4);
         for (Page.Section section : stats.sections()) {
             // the shorter column takes the next section
             int c = columns == 2 && colY[1] < colY[0] ? 1 : 0;
@@ -40,6 +63,9 @@ final class StatsPane {
             colY[c] = Sections.draw(ui, screen, section, cx, colY[c], colW) + 8;
         }
         ui.unclip();
+        top = y;
+        bottom = y + h - buttonsH;
+        bar.draw(ui, x + w - ScrollBar.WIDTH - 3, y + 3, h - buttonsH - 6);
 
         int bx = x + w;
         List<Action> buttons = stats.buttons();

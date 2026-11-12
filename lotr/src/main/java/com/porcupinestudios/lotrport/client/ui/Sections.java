@@ -30,7 +30,7 @@ final class Sections {
                 int bx = x + w - bw;
                 int by = y;
                 ui.dropdown(bx, by, bw, PICKER_LINE - 2, s.value(),
-                        () -> screen.popup(new Popups.ChoiceMenu(pk, bx, by + PICKER_LINE - 2, bw)));
+                        () -> screen.popup(new Popups.ChoiceMenu(screen, pk, bx, by + PICKER_LINE - 2, bw)));
                 y += PICKER_LINE;
                 continue;
             }

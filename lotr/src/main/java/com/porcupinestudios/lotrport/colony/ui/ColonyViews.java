@@ -47,8 +47,8 @@ import net.minecraft.server.level.ServerPlayer;
 /**
  * The colony views on the UI core:
  * <ul>
- *   <li>{@code lotr_port:colony} (context: the colony's id): Overview, Buildings, People, Stock and Members tabs, for
- *       members. Head tax and wage bonus change on Overview with the {@code treasury} permission; roles change on
+ *   <li>{@code lotr_port:colony} (context: the colony's id): Overview, Buildings, People, Schedules, Stock and
+ *       Members tabs, for members. Head tax and wage bonus change on Overview with the {@code treasury} permission; roles change on
  *       Members with {@code members}.</li>
  *   <li>{@code lotr_port:colonies}: every colony you belong to; open one to manage it.</li>
  * </ul>
@@ -62,6 +62,7 @@ public final class ColonyViews {
     static final String BUILDINGS = "buildings";
     static final String PEOPLE = "people";
     static final String STOCK = "stock";
+    static final String SCHEDULES = "schedules";
     static final String MEMBERS = "members";
 
     // people tags (the filters' ticks)
@@ -136,6 +137,7 @@ public final class ColonyViews {
                     new View.Tab(OVERVIEW, tr("tab.overview", "Overview")),
                     new View.Tab(BUILDINGS, tr("tab.buildings", "Buildings")),
                     new View.Tab(PEOPLE, tr("tab.people", "People")),
+                    new View.Tab(SCHEDULES, tr("tab.schedules", "Schedules")),
                     new View.Tab(STOCK, tr("tab.stock", "Stock")),
                     new View.Tab(MEMBERS, tr("tab.members", "Members")));
             String open = tabs.stream().anyMatch(t -> t.id().equals(tab)) ? tab : OVERVIEW;
@@ -143,6 +145,7 @@ public final class ColonyViews {
                 case BUILDINGS -> buildings(player.server, c);
                 case PEOPLE -> people(player.server, c);
                 case STOCK -> stock(c);
+                case SCHEDULES -> ScheduleViews.page(player, c);
                 case MEMBERS -> members(player, c);
                 default -> overview(player, c);
             };
@@ -162,6 +165,10 @@ public final class ColonyViews {
             Colony c = colony(player.server, context).orElse(null);
             if (c == null) {
                 return Result.NONE;
+            }
+            Optional<Result> schedule = ScheduleViews.act(player, c, action, row, value);
+            if (schedule.isPresent()) {
+                return schedule.get();
             }
             if (action.equals("citizen")) {
                 try {
@@ -329,6 +336,8 @@ public final class ColonyViews {
         LifeSettings life = LifeSettings.get();
         Buildings buildings = Buildings.of(c);
         List<Person> all = new ArrayList<>(Society.citizens(server, c));
+        com.porcupinestudios.lotrport.colonist.Schedules schedules =
+                com.porcupinestudios.lotrport.colonist.Colonists.schedules(c);
         FilterGroup status = new FilterGroup("status", tr("filter.status", "Status"), List.of(
                 new FilterGroup.Filter(HOMELESS, tr("filter.homeless", "Homeless")),
                 new FilterGroup.Filter(JOBLESS, tr("filter.jobless", "Jobless")),
@@ -357,6 +366,9 @@ public final class ColonyViews {
                 .filters(status, new FilterGroup("trait", tr("filter.trait", "Trait"), traitFilters))
                 .filterBy("race", tr("filter.race", "Race"), "race:", p -> Races.of(p.type()),
                         r -> Component.literal(title(r)))
+                .filterBy("schedule", tr("filter.schedule", "Schedule"), "schedule:",
+                        p -> com.porcupinestudios.lotrport.colonist.Colonists.scheduleOf(schedules, p).name(),
+                        Component::literal)
                 .sortBy("happiness", false)
                 .open("citizen")
                 .rowAction(Action.of("citizen", tr("open_citizen", "Citizen page")))

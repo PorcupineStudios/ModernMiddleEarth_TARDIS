@@ -16,7 +16,7 @@ import net.minecraft.network.chat.Component;
  * (only those in view, so thousands cost nothing) with a scroll bar, the "3 of 140 shown" line and the buttons.
  * The search box itself is a real text field owned by the screen; this draws the box behind it.
  */
-final class TablePane {
+final class TablePane implements UiScreen.Draggable {
     static final int SEARCH_WIDTH = 120;
     private static final int SORT_WIDTH = 116;
     private static final int FILTER_WIDTH = 86;
@@ -245,7 +245,8 @@ final class TablePane {
     }
 
     /** Scrolls so the handle's middle is at the mouse (while dragging the bar). */
-    void dragTo(double mouseY) {
+    @Override
+    public void dragTo(double mouseY) {
         int handle = Math.max(16, trackH * trackH / Math.max(1, contentHeight));
         double f = (mouseY - trackY - handle / 2.0) / Math.max(1, trackH - handle);
         state.scroll = Math.max(0, Math.min(1, f)) * Math.max(0, contentHeight - trackH);
