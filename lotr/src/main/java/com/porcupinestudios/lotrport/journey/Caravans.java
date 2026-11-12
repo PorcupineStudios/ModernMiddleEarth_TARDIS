@@ -115,8 +115,9 @@ public final class Caravans {
         ServerLevel level = server.getLevel(home.dimension());
         Stores stores = new Stores(server, level, home);
         CaravanBook hb = book(home);
+        Stores there = new Stores(server, server.getLevel(dest.get().dimension()), dest.get());
         Map<String, Integer> load = CaravanRules.load(route.send(), item -> stores.count(id(item), null),
-                hb::keepOf, capacity);
+                hb::keepOf, item -> there.count(id(item), null), capacity);
         Map<ResourceLocation, Integer> cargo = new LinkedHashMap<>();
         load.forEach((item, n) -> {
             int took = stores.take(id(item), n, null);
@@ -159,18 +160,20 @@ public final class Caravans {
     }
 
     /** Whether a standing route should set out now: its days are up, or its trigger holds. */
+    /** Whether a route's rules hold right now (for screens). */
+    public static boolean dueNow(MinecraftServer server, Colony home, CaravanBook.Route r) {
+        return due(server, home, r, server.overworld().getDayTime() / 24000L);
+    }
+
     static boolean due(MinecraftServer server, Colony home, CaravanBook.Route r, long day) {
-        if (r.when().isPresent()) {
-            CaravanRules.Trigger t = r.when().get();
-            Optional<Colony> watched = Colonies.get(server).get(t.colony());
-            if (watched.isEmpty() || !watched.get().founder().equals(home.founder())
-                    && !watched.get().id().equals(r.to())) {
-                return false; // only your own colonies, or where the route goes
+        return r.rule().map(c -> {
+            try {
+                return c.test(CaravanConditions.context(server, home, r));
+            } catch (RuntimeException e) {
+                LotrPort.LOG.warn("[caravans] {}'s route {} rules failed: {}", home.name(), r.id(), e.toString());
+                return false;
             }
-            Stores st = new Stores(server, server.getLevel(watched.get().dimension()), watched.get());
-            return t.met(st.count(id(t.item()), null));
-        }
-        return r.every() > 0 && (r.lastDay() < 0 || day - r.lastDay() >= r.every());
+        }).orElse(false);
     }
 
     /** A caravan of this route is still out. */
@@ -267,8 +270,9 @@ public final class Caravans {
             delivered = CaravanRules.size(names(j.cargo));
             j.cargo.forEach((item, n) -> stores.put(item, n, null));
             j.cargo.clear();
+            Stores homeStores = new Stores(server, server.getLevel(home.dimension()), home);
             Map<String, Integer> load = CaravanRules.load(route.bring(), item -> stores.count(id(item), null),
-                    db::keepOf, capacity);
+                    db::keepOf, item -> homeStores.count(id(item), null), capacity);
             load.forEach((item, n) -> {
                 int took = stores.take(id(item), n, null);
                 if (took > 0) {

@@ -82,6 +82,12 @@ public final class DevScript {
                         mc.screen.mouseReleased(x, y, 0);
                     }
                 }
+                case "scroll" -> {
+                    if (mc.screen != null) {
+                        mc.screen.mouseScrolled(Double.parseDouble(w[1]), Double.parseDouble(w[2]), 0,
+                                Double.parseDouble(w[3]));
+                    }
+                }
                 case "close" -> mc.player.closeContainer();
                 case "hud" -> mc.options.hideGui = w[1].equals("off");
                 case "quit" -> {
