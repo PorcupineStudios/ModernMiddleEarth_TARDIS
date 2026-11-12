@@ -46,15 +46,38 @@ public sealed interface Page permits Page.Table, Page.Stats, Page.Profile, Page.
      * @param portrait the entity whose head and shoulders are drawn, if its body is loaded on the client
      * @param rename the action a new name is sent with (as the row), if this player may rename
      * @param subtitle under the name (race, age, work)
+     * @param tree a family tree drawn in place of the right column (zoom with the wheel, drag to pan), if any
      */
     record Profile(Optional<java.util.UUID> portrait, Component name, Optional<String> rename, Component subtitle,
-            List<Section> left, List<Section> right, List<Action> buttons) implements Page {
+            List<Section> left, List<Section> right, List<Action> buttons, Optional<Tree> tree) implements Page {
         public Profile {
             left = List.copyOf(left);
             right = List.copyOf(right);
             buttons = List.copyOf(buttons);
         }
+
+        public Profile(Optional<java.util.UUID> portrait, Component name, Optional<String> rename,
+                Component subtitle, List<Section> left, List<Section> right, List<Action> buttons) {
+            this(portrait, name, rename, subtitle, left, right, buttons, Optional.empty());
+        }
     }
+
+    /**
+     * A family tree: people and the links between them; the client lays it out by generation round {@code focus}.
+     * Clicking someone {@code openable} sends {@code open} with their id as the row.
+     */
+    record Tree(String focus, List<TreeNode> nodes, List<TreeLink> links, Optional<String> open) {
+        public Tree {
+            nodes = List.copyOf(nodes);
+            links = List.copyOf(links);
+        }
+    }
+
+    /** One person in a tree; {@code detail} is a short line under the name (race and age, or a cross). */
+    record TreeNode(String id, Component name, Component detail, boolean alive, boolean openable) {}
+
+    /** {@code parent} to child, or two spouses when {@code spouse}. */
+    record TreeLink(String from, String to, boolean spouse) {}
 
     /**
      * Rows of 24 hour cells (ONI's schedule screen): a palette of kinds above, and the player paints cells of the
