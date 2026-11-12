@@ -122,7 +122,8 @@ public final class CaravanConditions {
 
         @Override
         public boolean test(ConditionContext context) {
-            return ctx(context).flatMap(x -> colony(x, colony).map(c -> compare(stockOf(x.server(), c, item),
+            return ctx(context).flatMap(x -> CaravanConditions.colony(x, colony).map(c -> CaravanConditions.compare(
+                    stockOf(x.server(), c, item),
                     compare, value))).orElse(false);
         }
     }
@@ -141,7 +142,8 @@ public final class CaravanConditions {
 
         @Override
         public boolean test(ConditionContext context) {
-            return ctx(context).flatMap(x -> colony(x, colony).map(c -> compare(Society.citizens(x.server(), c)
+            return ctx(context).flatMap(x -> CaravanConditions.colony(x, colony).map(c -> CaravanConditions.compare(
+                    Society.citizens(x.server(), c)
                     .size(), compare, value))).orElse(false);
         }
     }
@@ -207,7 +209,7 @@ public final class CaravanConditions {
                         n++;
                     }
                 }
-                return compare(n, compare, value);
+                return CaravanConditions.compare(n, compare, value);
             }).orElse(false);
         }
     }
