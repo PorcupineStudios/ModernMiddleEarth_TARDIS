@@ -155,6 +155,209 @@ shot ui_caravan_drag2
 release
 wait 30
 shot ui_caravan_dropped
+# film for a GIF: drag a new rule slowly over the script, one frame a tick
+press 90 80
+step 105 79
+wait 1
+shot gif_000
+step 120 77
+wait 1
+shot gif_001
+step 135 76
+wait 1
+shot gif_002
+step 150 74
+wait 1
+shot gif_003
+step 165 73
+wait 1
+shot gif_004
+step 180 71
+wait 1
+shot gif_005
+step 195 70
+wait 1
+shot gif_006
+step 210 69
+wait 1
+shot gif_007
+step 225 67
+wait 1
+shot gif_008
+step 240 66
+wait 1
+shot gif_009
+step 255 64
+wait 1
+shot gif_010
+step 270 63
+wait 1
+shot gif_011
+step 285 61
+wait 1
+shot gif_012
+step 300 60
+wait 1
+shot gif_013
+step 300 60
+wait 1
+shot gif_014
+step 300 60
+wait 1
+shot gif_015
+step 300 60
+wait 1
+shot gif_016
+step 300 60
+wait 1
+shot gif_017
+step 300 60
+wait 1
+shot gif_018
+step 300 60
+wait 1
+shot gif_019
+step 300 69
+wait 1
+shot gif_020
+step 300 78
+wait 1
+shot gif_021
+step 300 86
+wait 1
+shot gif_022
+step 300 95
+wait 1
+shot gif_023
+step 300 104
+wait 1
+shot gif_024
+step 300 112
+wait 1
+shot gif_025
+step 300 121
+wait 1
+shot gif_026
+step 300 130
+wait 1
+shot gif_027
+step 300 139
+wait 1
+shot gif_028
+step 300 148
+wait 1
+shot gif_029
+step 300 156
+wait 1
+shot gif_030
+step 300 165
+wait 1
+shot gif_031
+step 300 174
+wait 1
+shot gif_032
+step 300 182
+wait 1
+shot gif_033
+step 300 191
+wait 1
+shot gif_034
+step 300 200
+wait 1
+shot gif_035
+step 300 200
+wait 1
+shot gif_036
+step 300 200
+wait 1
+shot gif_037
+step 300 200
+wait 1
+shot gif_038
+step 300 200
+wait 1
+shot gif_039
+step 300 200
+wait 1
+shot gif_040
+step 300 200
+wait 1
+shot gif_041
+step 300 188
+wait 1
+shot gif_042
+step 300 177
+wait 1
+shot gif_043
+step 300 165
+wait 1
+shot gif_044
+step 300 153
+wait 1
+shot gif_045
+step 300 142
+wait 1
+shot gif_046
+step 300 130
+wait 1
+shot gif_047
+step 300 118
+wait 1
+shot gif_048
+step 300 107
+wait 1
+shot gif_049
+step 300 95
+wait 1
+shot gif_050
+step 300 83
+wait 1
+shot gif_051
+step 300 72
+wait 1
+shot gif_052
+step 300 60
+wait 1
+shot gif_053
+step 300 60
+wait 1
+shot gif_054
+step 300 60
+wait 1
+shot gif_055
+step 300 60
+wait 1
+shot gif_056
+step 300 60
+wait 1
+shot gif_057
+step 300 60
+wait 1
+shot gif_058
+step 300 60
+wait 1
+shot gif_059
+release
+wait 1
+shot gif_060
+wait 1
+shot gif_061
+wait 1
+shot gif_062
+wait 1
+shot gif_063
+wait 1
+shot gif_064
+wait 1
+shot gif_065
+wait 1
+shot gif_066
+wait 1
+shot gif_067
+wait 1
+shot gif_068
+wait 1
+shot gif_069
 close
 wait 5
 /lotr_colony caravan route edit 3

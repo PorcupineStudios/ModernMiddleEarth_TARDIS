@@ -115,6 +115,18 @@ public final class DevScript {
                         lastY = y;
                     }
                 }
+                case "step" -> {
+                    // one small drag step (for frame-by-frame films)
+                    if (mc.screen != null) {
+                        double x = Double.parseDouble(w[1]);
+                        double y = Double.parseDouble(w[2]);
+                        double k = mc.getWindow().getGuiScale();
+                        mouse(mc, x * k, y * k);
+                        mc.screen.mouseDragged(x, y, 0, x - lastX, y - lastY);
+                        lastX = x;
+                        lastY = y;
+                    }
+                }
                 case "release" -> {
                     if (mc.screen != null) {
                         mc.screen.mouseReleased(lastX, lastY, 0);
