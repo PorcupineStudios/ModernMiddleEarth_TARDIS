@@ -66,10 +66,11 @@ Search, filters, sorting and scrolling happen on the client (`TableQuery`), so t
   away". `rename` is the action a new name goes back with, as the row (the screen's one text input; empty: no Rename
   button). `left` and `right` are sections in two columns, scrolled together (wheel or the scroll bar).
 - `Profile.tree` (optional) is a `Page.Tree(focus, nodes, links, open)` drawn in place of the right column:
-  `TreeNode(id, name, detail, alive, openable)`, `TreeLink(from, to, spouse)`. The client (`TreePane`) lays out
-  generations round the focus (parents above, children below, spouses side by side, children under their parents),
-  starts zoomed to fit, zooms round the mouse with the wheel and pans by dragging, so it needs no scroll bars; a click
-  on an openable person sends `open` with their id.
+  `TreeNode(id, name, detail, alive, openable, mark)` (`mark`: `dead` draws a cross badge, `left` an arrow badge and
+  a blue-grey box), `TreeLink(from, to, spouse)`. The client (`TreePane`) lays out generations round the focus:
+  each person under the middle of their parents, spouses beside their partner, overlaps pushed apart, parentless top
+  rows centred over their children. It stays fitted and centred until the player zooms (wheel, round the mouse) or
+  drags; a click on an openable person sends `open` with their id.
 - `Page.Timetable(kinds, lines, paint, rowActions, buttons, notes)`: ONI's schedule grid. `Kind(letter, label,
   swatch, paintable)`: what a cell can be; `swatch` 0-7 picks a theme colour (`UiTheme.SWATCHES`), so colours stay on
   the client. `Line(id, label, detail, cells, editable)`: 24 letters; non-editable lines are drawn faded (a race's

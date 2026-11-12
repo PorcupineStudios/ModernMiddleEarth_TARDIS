@@ -44,6 +44,11 @@ when nobody is homeless; mood is summed without building lists or sets. Keep new
   `HouseRules` step 0 puts ordered residents in their home first while it has a bed (this does move someone else
   out, the one exception to "nobody is moved out"). A ration multiplies the food rate and may add a standing thought
   (`moodToday`, `thoughts`).
+- **Leaving** (`Colonists.depart`, person part `left`): a citizen who abandons the colony (unhappy too long,
+  `Life.leave`) or is banished (the citizen page's Banish, permission `citizens`; `/lotr colony banish`) is kept if
+  they have family, owned by nobody with `left` (colony, why, when), so family trees still show them; without family
+  they are forgotten as before. History `citizen_leave` with `why`. Trees mark them with an arrow badge (the dead
+  with a cross). `/lotr colony kin parent|spouse` links family by hand until marriage and births exist.
 - **Grief**: on `SocietyEvent.Died`, the dead person's living parents, spouse and children remember `kin_died`.
 - **Races**: which NPC type is which race stays `colony_race/` (`Races.of`). `colonist_race/<race>.json` adds how
   that race lives (days per year, adult age, extended households, food rate, settler ages). Files: man, hobbit,
