@@ -128,7 +128,7 @@ public final class MountTests {
     }
 
     // the boar's chunk can start ticking well after the pig's (33 vs 198 ticks in a failed CI run): give it time
-    @GameTest(template = "empty", batch = "mounts", timeoutTicks = 600)
+    @GameTest(template = "empty", batch = "mounts", timeoutTicks = 400)
     public static void boarsFightBack(GameTestHelper helper) {
         ThrownTests.inLoadedArea(helper, 3, 3, () -> {
             for (BlockPos p : BlockPos.betweenClosed(new BlockPos(0, 1, 0), new BlockPos(2, 1, 2))) {
@@ -139,7 +139,10 @@ public final class MountTests {
             }
             LotrHorse boar = mount(helper, "wild_boar");
             helper.getLevel().addFreshEntity(boar);
-            Pig pig = helper.spawnWithNoFreeWill(EntityType.PIG, new Vec3(1.5, 2, 2.5));
+            // a pig with its own legs: a neighbouring test in the batch can clear this floor, and the boar then
+            // drops into the hole while a pig without AI hangs in the air above it, out of reach (CI, 2026-11-12:
+            // boar at y 0 under the pig at y 2, "in reach false, sees false"). Both fall to the same ground now.
+            Pig pig = helper.spawn(EntityType.PIG, new Vec3(1.5, 2, 2.5));
             float health = pig.getHealth();
             helper.succeedWhen(() -> {
                 // hurt it again until it notices (its chunk may start ticking a few ticks late)
