@@ -135,10 +135,13 @@ wait 5
 /lotr_colony caravan route edit 1
 wait 60
 shot ui_caravan_route
-scroll 150 220 -8
-wait 10
+close
+wait 5
+/lotr_colony caravan route edit 1 rules
+wait 60
 shot ui_caravan_rules
-scroll 150 220 -8
+mouse 150 200
+scroll 150 200 -6
 wait 10
 shot ui_caravan_rules2
 close
