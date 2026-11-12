@@ -259,8 +259,9 @@ public final class ColonyViews {
         List<Stat> colony = List.of(
                 Stat.of(tr("citizens", "Citizens"), Integer.toString(counted)),
                 Stat.of(tr("soldiers", "Soldiers"), Integer.toString(Society.soldiers(server, c).size())),
-                Stat.of(tr("applicants", "Waiting at the Hall"),
-                        Integer.toString(Society.applicants(server, c).size())),
+                Stat.of(tr("immigrants", "Groups wanting to settle"),
+                        Integer.toString(c.get(com.porcupinestudios.lotrport.colony.Immigration.BOARD)
+                                .map(b -> b.offers().size()).orElse(0))),
                 Stat.of(tr("buildings", "Buildings"), Integer.toString(buildings.list().size())),
                 Stat.of(tr("homeless", "Homeless"), Integer.toString(homeless), homeless > 0 ? Tone.WARN : Tone.GOOD),
                 Stat.of(tr("jobless", "Jobless"), Integer.toString(jobless), jobless > 0 ? Tone.WARN : Tone.GOOD));

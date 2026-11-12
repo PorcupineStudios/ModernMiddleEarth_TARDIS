@@ -131,6 +131,21 @@ public final class Immigration {
 
     public static void register() {
         NeoForge.EVENT_BUS.addListener((AddReloadListenerEvent e) -> e.addListener(SETTINGS));
+        // the old migration left people waiting at Halls: their bodies go as they load, their records at start
+        NeoForge.EVENT_BUS.addListener((net.neoforged.neoforge.event.entity.EntityJoinLevelEvent e) -> {
+            if (!e.getLevel().isClientSide() && e.getEntity().getData(com.porcupinestudios.lotrport.registry
+                    .LotrRegistries.COLONY).startsWith("applicant:")) {
+                e.setCanceled(true);
+            }
+        });
+        NeoForge.EVENT_BUS.addListener((net.neoforged.neoforge.event.server.ServerStartedEvent e) -> {
+            Persons persons = Persons.get(e.getServer());
+            for (Person p : List.copyOf(persons.all())) {
+                if (p.has(com.porcupinestudios.lotrport.society.CoreComponents.APPLICANT)) {
+                    persons.remove(e.getServer(), p.id());
+                }
+            }
+        });
         NeoForge.EVENT_BUS.addListener((ServerTickEvent.Post e) -> {
             if (e.getServer().getTickCount() % 200 == 50 && settings().enabled()) {
                 for (Colony c : List.copyOf(Colonies.get(e.getServer()).all())) {

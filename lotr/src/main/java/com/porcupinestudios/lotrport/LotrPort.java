@@ -35,7 +35,6 @@ import com.porcupinestudios.lotrport.colony.ColonyCommand;
 import com.porcupinestudios.lotrport.colony.ColonyData;
 import com.porcupinestudios.lotrport.colony.ColonyItems;
 import com.porcupinestudios.lotrport.colony.Colonies;
-import com.porcupinestudios.lotrport.colony.Migrants;
 import com.porcupinestudios.lotrport.colony.Recruiting;
 import com.porcupinestudios.lotrport.registry.LotrRegistries;
 import com.porcupinestudios.lotrport.sound.LotrSounds;
@@ -124,7 +123,6 @@ public final class LotrPort {
         com.porcupinestudios.lotrport.unit.Units.register();
         ColonyScheduler.register();
         Colonies.register();
-        Migrants.register();
         AiData.register();
         AiRulers.register();
         com.porcupinestudios.lotrport.war.Wars.register();
