@@ -31,7 +31,7 @@ public record JourneySettings(double walkSpeed, int cell, int sample, double roa
         public static final Bodies DEFAULT = new Bodies(96, 144, 8, 20, 45);
     }
 
-    public static final JourneySettings DEFAULT = new JourneySettings(2.2, 32, 8, 1.6, 1024, 60000, 4, 27, 0.85,
+    public static final JourneySettings DEFAULT = new JourneySettings(2.2, 32, 8, 1.6, 1024, 250000, 4, 27, 0.85,
             Bodies.DEFAULT, 20, 64, 48);
 
     public RoutePlanner.Settings planner() {

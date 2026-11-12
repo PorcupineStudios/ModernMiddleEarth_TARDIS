@@ -143,4 +143,49 @@ public final class JourneyTests {
             Persons.get(server).remove(server, walker.id());
         });
     }
+
+    /**
+     * Aaron (2026-11-11): a long trip, Hobbiton to the Last Bridge (~35,000 blocks along the Great East Road over the
+     * Brandywine Bridge). It must find the way, keep mostly to the road, and arrive as data.
+     */
+    @GameTest(template = "empty", timeoutTicks = 6000)
+    public static void hobbitonToTheLastBridge(GameTestHelper helper) {
+        Waypoint a = FastTravel.waypoint(LotrPort.id("hobbiton")).orElseThrow();
+        Waypoint b = FastTravel.waypoint(LotrPort.id("last_bridge")).orElseThrow();
+        MinecraftServer server = helper.getLevel().getServer();
+        Journeys all = Journeys.get(server);
+        Journey j = Journey.create(TEST_KIND, null, null, helper.getLevel().dimension(), a.x(), a.z(), b.x(), b.z(),
+                List.of(), List.of(), 0, Map.of(), 1.0, helper.getLevel().getGameTime());
+        all.start(j);
+        long t0 = System.nanoTime();
+        double[] took = {-1};
+        boolean[] checked = {false};
+        helper.onEachTick(() -> {
+            if (j.stage != Journey.Stage.PLANNING && took[0] < 0) {
+                took[0] = (System.nanoTime() - t0) / 1e9;
+                if (j.route.found()) {
+                    LotrPort.LOG.info("[journeys] Hobbiton to the Last Bridge: {} points, cost {}, road {}%, {} s at"
+                            + " walking pace, planned in {} s ({})", j.route.points(), (int) j.route.total(),
+                            (int) (100 * j.route.roadShare()), (int) j.secondsLeft(
+                                    com.porcupinestudios.lotrport.journey.JourneyData.settings()), took[0],
+                            com.porcupinestudios.lotrport.journey.RoutePlanner.lastSearch);
+                }
+            }
+            if (j.route.found() && !checked[0]) {
+                checked[0] = true;
+                helper.assertTrue(j.route.roadShare() > 0.6, "only " + (int) (100 * j.route.roadShare())
+                        + "% of the way on roads");
+            }
+            if (j.moving()) {
+                all.tick(server, 120);
+            }
+        });
+        helper.succeedWhen(() -> {
+            helper.assertTrue(j.stage != Journey.Stage.PLANNING, "still planning");
+            helper.assertTrue(j.route.found(), "no route from Hobbiton to the Last Bridge ("
+                    + com.porcupinestudios.lotrport.journey.RoutePlanner.lastSearch + ")");
+            helper.assertTrue(j.stage == Journey.Stage.DONE, "not there yet: " + (int) j.done + " / "
+                    + (int) j.route.total());
+        });
+    }
 }

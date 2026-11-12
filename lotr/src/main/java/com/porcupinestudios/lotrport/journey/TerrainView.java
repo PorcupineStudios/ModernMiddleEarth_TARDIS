@@ -16,4 +16,9 @@ public interface TerrainView {
 
     /** A marked bridge is here. */
     boolean bridge(int x, int z);
+
+    /** Marked bridges end to end, {x1, z1, x2, z2} each: the planner adds each as a way across. */
+    default java.util.List<int[]> bridgeEnds() {
+        return java.util.List.of();
+    }
 }

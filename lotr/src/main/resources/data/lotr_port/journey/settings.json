@@ -4,7 +4,7 @@
   "sample": 8,
   "road_speed": 1.6,
   "margin": 1024,
-  "max_nodes": 60000,
+  "max_nodes": 250000,
   "person_carry": 4,
   "wagon_carry": 27,
   "wagon_speed": 0.85,

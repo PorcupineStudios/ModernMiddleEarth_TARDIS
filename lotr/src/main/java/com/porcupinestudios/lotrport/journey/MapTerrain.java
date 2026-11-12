@@ -52,6 +52,12 @@ public final class MapTerrain implements TerrainView {
     }
 
     @Override
+    public List<int[]> bridgeEnds() {
+        return bridges.stream().map(b -> new int[] {b.a().getX(), b.a().getZ(), b.b().getX(), b.b().getZ()})
+                .toList();
+    }
+
+    @Override
     public boolean bridge(int x, int z) {
         for (Bridges.Bridge b : bridges) {
             if (b.covers(x, z)) {
