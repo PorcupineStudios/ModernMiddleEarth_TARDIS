@@ -52,6 +52,30 @@ public final class MapTerrain implements TerrainView {
     }
 
     @Override
+    public int[] roadPoint(int cx, int cz, int half, int step) {
+        if (roads == null) {
+            return null;
+        }
+        int[] best = null;
+        double bestD = Double.MAX_VALUE;
+        for (Roads.Segment sg : roads.near(cx, cz)) {
+            double dx = sg.x2() - sg.x1();
+            double dz = sg.z2() - sg.z1();
+            double len = dx * dx + dz * dz;
+            double t = len == 0 ? 0 : Math.max(0, Math.min(1, ((cx + 0.5 - sg.x1()) * dx + (cz + 0.5 - sg.z1()) * dz)
+                    / len));
+            int px = (int) Math.floor(sg.x1() + t * dx);
+            int pz = (int) Math.floor(sg.z1() + t * dz);
+            double d = (double) (px - cx) * (px - cx) + (double) (pz - cz) * (pz - cz);
+            if (d < bestD && Math.abs(px - cx) < half && Math.abs(pz - cz) < half) {
+                bestD = d;
+                best = new int[] {px, pz};
+            }
+        }
+        return best;
+    }
+
+    @Override
     public List<int[]> bridgeEnds() {
         return bridges.stream().map(b -> new int[] {b.a().getX(), b.a().getZ(), b.b().getX(), b.b().getZ()})
                 .toList();

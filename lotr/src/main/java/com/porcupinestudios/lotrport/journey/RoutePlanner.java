@@ -20,8 +20,14 @@ public final class RoutePlanner {
      * @param roadSpeed speed on a road
      * @param margin how far beyond the two points the search may go, in blocks
      * @param maxNodes most cells it opens before giving up
+     * @param greed how much the search leans toward the goal (1 = always the quickest way; more opens far fewer
+     *     cells on long trips, for a way at most that many times slower, in practice a few percent)
      */
-    public record Settings(int cell, int sample, double roadSpeed, int margin, int maxNodes) {}
+    public record Settings(int cell, int sample, double roadSpeed, int margin, int maxNodes, double greed) {
+        public Settings(int cell, int sample, double roadSpeed, int margin, int maxNodes) {
+            this(cell, sample, roadSpeed, margin, maxNodes, 1);
+        }
+    }
 
     /** Cells the last search opened, and whether it ran out of {@code maxNodes} (for logs and tests). */
     public static volatile String lastSearch = "";
@@ -42,7 +48,8 @@ public final class RoutePlanner {
         int maxI = Math.max(si, ti) + pad;
         int minJ = Math.min(sj, tj) - pad;
         int maxJ = Math.max(sj, tj) + pad;
-        double fastest = Math.max(1, s.roadSpeed());
+        // the heuristic's speed: the road's (never overestimates), lowered by greed
+        double fastest = Math.max(1, s.roadSpeed()) / Math.max(1, s.greed());
         Map<Long, Double> best = new HashMap<>();
         Map<Long, Long> from = new HashMap<>();
         Map<Long, double[]> legOf = new HashMap<>();
@@ -263,19 +270,7 @@ public final class RoutePlanner {
         }
         int cx = centre(ix(k), cell);
         int cz = centre(jz(k), cell);
-        int half = cell / 2;
-        int st = Math.max(1, s.sample() / 2);
-        int[] bestP = null;
-        long bestD = Long.MAX_VALUE;
-        for (int dx = -half; dx < half; dx += st) {
-            for (int dz = -half; dz < half; dz += st) {
-                long d = (long) dx * dx + (long) dz * dz;
-                if (d < bestD && land.road(cx + dx, cz + dz)) {
-                    bestD = d;
-                    bestP = new int[] {cx + dx, cz + dz};
-                }
-            }
-        }
+        int[] bestP = land.roadPoint(cx, cz, cell / 2, Math.max(1, s.sample() / 2));
         p = bestP != null ? bestP : new int[] {cx, cz};
         spot.put(k, p);
         return p;

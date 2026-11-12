@@ -43,7 +43,8 @@ public final class JourneyData {
             Codec.INT.optionalFieldOf("tick_interval", D.tickInterval()).forGetter(JourneySettings::tickInterval),
             Codec.INT.optionalFieldOf("bridge_max_length", D.bridgeMaxLength())
                     .forGetter(JourneySettings::bridgeMaxLength),
-            Codec.INT.optionalFieldOf("steed_radius", D.steedRadius()).forGetter(JourneySettings::steedRadius))
+            Codec.INT.optionalFieldOf("steed_radius", D.steedRadius()).forGetter(JourneySettings::steedRadius),
+            Codec.DOUBLE.optionalFieldOf("greed", D.greed()).forGetter(JourneySettings::greed))
             .apply(i, JourneySettings::new));
 
     private static final Codec<TerrainData.Pattern> PATTERN = RecordCodecBuilder.create(i -> i.group(

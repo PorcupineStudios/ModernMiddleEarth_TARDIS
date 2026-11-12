@@ -17,5 +17,6 @@
   },
   "tick_interval": 20,
   "bridge_max_length": 64,
-  "steed_radius": 48
+  "steed_radius": 48,
+  "greed": 1.5
 }
