@@ -118,6 +118,8 @@ public final class LotrPort {
         AiData.register();
         AiRulers.register();
         com.porcupinestudios.lotrport.war.Wars.register();
+        com.porcupinestudios.lotrport.journey.JourneyData.register();
+        com.porcupinestudios.lotrport.journey.Journeys.register();
         Recruiting.register();
         com.porcupinestudios.lotrport.npc.InvasionSpawner.register();
         com.porcupinestudios.lotrport.progress.Achievements.register();
