@@ -68,6 +68,26 @@ wait 60
 shot ui_citizen_schedule
 close
 wait 5
+# skills, opinions (a few days for them to form) and immigration (a guest house widens the board)
+/lotr colony day 5
+/lotr_colony citizen @e[type=lotr_port:npc,sort=nearest,limit=1] skills
+wait 60
+shot ui_citizen_skills
+close
+wait 5
+/lotr_colony citizen @e[type=lotr_port:npc,sort=nearest,limit=1] people
+wait 60
+shot ui_citizen_people
+close
+wait 5
+/lotr colony upgrade guest_house
+/lotr colony upgrade scholars_welcome
+/lotr colony immigrants
+/lotr_colony manage immigration
+wait 60
+shot ui_immigration
+close
+wait 5
 # a family over three generations for the About tab's tree: f is a's parent; a and b married with children c and d,
 # then divorced, and a married g (child h); c married e
 /tag @e[type=lotr_port:npc,limit=1,sort=nearest,tag=!fam] add a
