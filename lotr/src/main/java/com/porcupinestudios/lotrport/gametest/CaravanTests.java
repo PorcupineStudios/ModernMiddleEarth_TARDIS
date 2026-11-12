@@ -170,18 +170,21 @@ public final class CaravanTests {
                 all.tick(server, 120);
             }
         }));
+        Journey[] sent = {null};
         helper.startSequence()
                 .thenExecute(() -> Caravans.runRoutes(server))
                 .thenExecute(() -> {
                     List<Journey> out = all.from(home.id());
                     helper.assertTrue(out.size() == 1, "the trigger sent " + out.size() + " caravans");
+                    sent[0] = out.get(0);
                     helper.assertTrue(out.get(0).cargo.getOrDefault(BREAD, 0) == 70, "it took "
                             + out.get(0).cargo + ", wanted the 70 over 30");
                 })
-                .thenWaitUntil(() -> helper.assertTrue(all.from(home.id()).stream().allMatch(j -> j.stage
-                        == Journey.Stage.DONE), "not back yet"))
+                .thenWaitUntil(() -> helper.assertTrue(sent[0].stage == Journey.Stage.DONE, "not back yet: "
+                        + sent[0].stage))
                 .thenExecute(() -> {
-                    helper.assertTrue(all.from(home.id()).get(0).route.found(), "no way to the outpost");
+                    helper.assertTrue(sent[0].route.found(), "no way to the outpost ("
+                            + com.porcupinestudios.lotrport.journey.RoutePlanner.lastSearch + ")");
                     helper.assertTrue(stock(server, outpost.id(), BREAD) == 70 && stock(server, home.id(), BREAD)
                             == 30, "outpost " + stock(server, outpost.id(), BREAD) + ", home "
                                     + stock(server, home.id(), BREAD));
