@@ -72,7 +72,11 @@ public final class RoutePlanner {
         }
         spot.put(start, new int[] {x1, z1});
         spot.put(goal, new int[] {x2, z2});
+        java.util.Set<Long> closed = new java.util.HashSet<>();
         int opened = 0;
+        double nearest = Double.MAX_VALUE;
+        int nearI = si;
+        int nearJ = sj;
         boolean reached = start == goal;
         while (!open.isEmpty() && !reached && opened < s.maxNodes()) {
             double[] cur = open.poll();
@@ -80,10 +84,16 @@ public final class RoutePlanner {
             int j = (int) cur[2];
             long k = key(i, j);
             double g = best.get(k);
-            if (cur[0] - heuristic(i, j, ti, tj, cell, fastest) > g + 1e-6) {
-                continue;
+            if (!closed.add(k)) {
+                continue; // each cell is opened once (with greed a later, better way in isn't worth reopening for)
             }
             opened++;
+            double hh = heuristic(i, j, ti, tj, cell, 1);
+            if (hh < nearest) {
+                nearest = hh;
+                nearI = i;
+                nearJ = j;
+            }
             List<Long> next = new ArrayList<>(10);
             for (int[] st : STEPS) {
                 int ni = i + st[0];
@@ -97,6 +107,9 @@ public final class RoutePlanner {
             }
             int[] a = spotOf(land, s, spot, k, cell);
             for (long nk : next) {
+                if (closed.contains(nk)) {
+                    continue;
+                }
                 int[] b = spotOf(land, s, spot, nk, cell);
                 double[] leg = leg(land, s, a[0], a[1], b[0], b[1]);
                 if (leg == null) {
@@ -116,7 +129,8 @@ public final class RoutePlanner {
             }
         }
         lastSearch = "opened " + opened + " of " + s.maxNodes() + ", box " + (maxI - minI + 1) + "x" + (maxJ - minJ + 1)
-                + (reached ? ", reached" : open.isEmpty() ? ", no way" : ", ran out");
+                + (reached ? ", reached" : open.isEmpty() ? ", no way" : ", ran out") + ", got nearest at "
+                + centre(nearI, cell) + ", " + centre(nearJ, cell);
         if (!best.containsKey(goal)) {
             return Route.NONE;
         }
