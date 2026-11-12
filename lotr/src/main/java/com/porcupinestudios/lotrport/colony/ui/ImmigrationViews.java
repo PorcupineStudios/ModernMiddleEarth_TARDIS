@@ -55,6 +55,8 @@ final class ImmigrationViews {
                         skills(o)))
                 .column(Column.text("ages", tr("immigration.col.ages", "Ages"), 2), o -> Cell.text(String.join(", ",
                         o.members().stream().map(m -> Integer.toString(m.age())).toList())))
+                .open("view")
+                .rowAction(Action.of("view", tr("immigration.view", "Look closer")))
                 .rowAction(may ? Action.of("welcome", tr("immigration.welcome", "Welcome"))
                         : Action.disabled("welcome", tr("immigration.welcome", "Welcome"), why))
                 .rowAction(may ? Action.of("turn_away", tr("immigration.turn_away", "Turn away"))
@@ -85,6 +87,10 @@ final class ImmigrationViews {
     }
 
     static Optional<ViewProvider.Result> act(ServerPlayer player, Colony c, String action, String row) {
+        if (action.equals("view")) {
+            int id = CaravanViews.parse(row);
+            return Optional.of(ViewProvider.Result.go(CandidateViews.target(c, id, 0, "")));
+        }
         if (!action.equals("welcome") && !action.equals("turn_away")) {
             return Optional.empty();
         }
