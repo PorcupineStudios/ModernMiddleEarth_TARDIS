@@ -74,13 +74,15 @@ final class Popups {
         private static final int LINE = 12;
         private static final int MAX_LINES = 14;
         private final Stat.Picker picker;
-        private int scroll;
+        private final ScrollBar bar;
 
-        ChoiceMenu(Stat.Picker picker, int x, int y, int w) {
+        ChoiceMenu(UiScreen screen, Stat.Picker picker, int x, int y, int w) {
             this.picker = picker;
+            this.bar = new ScrollBar(screen);
             this.x = x;
             this.y = y;
-            this.w = Math.max(w, 90);
+            boolean scrolls = picker.choices().size() > MAX_LINES;
+            this.w = Math.max(w, 90) + (scrolls ? ScrollBar.WIDTH + 2 : 0);
             this.h = Math.min(picker.choices().size(), MAX_LINES) * LINE + 8;
         }
 
@@ -89,22 +91,27 @@ final class Popups {
             ui.sprite(UiTheme.POPUP, x, y, w, h);
             List<Stat.Choice> choices = picker.choices();
             int shown = Math.min(choices.size(), MAX_LINES);
-            scroll = Math.max(0, Math.min(scroll, choices.size() - shown));
-            for (int i = 0; i < shown; i++) {
-                Stat.Choice c = choices.get(i + scroll);
+            boolean scrolls = bar.measure(choices.size() * LINE, shown * LINE);
+            int first = bar.offset / LINE;
+            int lineW = w - 6 - (scrolls ? ScrollBar.WIDTH + 2 : 0);
+            for (int i = 0; i < shown && i + first < choices.size(); i++) {
+                Stat.Choice c = choices.get(i + first);
                 int ly = y + 4 + i * LINE;
-                boolean hover = ui.over(x + 3, ly, w - 6, LINE);
+                boolean hover = ui.over(x + 3, ly, lineW, LINE);
                 if (hover && c.enabled()) {
-                    ui.g.fill(x + 3, ly, x + w - 3, ly + LINE, 0x30000000);
+                    ui.g.fill(x + 3, ly, x + 3 + lineW, ly + LINE, 0x30000000);
                 }
                 if (hover && !c.enabled()) {
                     c.why().ifPresent(ui::tooltip);
                 }
                 String mark = c.id().equals(picker.current()) ? "✔ " : "   ";
-                ui.text(mark + c.label().getString(), x + 5, ly, w - 10, LINE, -1,
+                ui.text(mark + c.label().getString(), x + 5, ly, lineW - 4, LINE, -1,
                         c.enabled() ? UiTheme.DARK_TEXT : UiTheme.DISABLED_TEXT);
+                if (hover && ui.font.width(mark + c.label().getString()) > lineW - 4) {
+                    ui.tooltip(c.label());
+                }
                 if (c.enabled()) {
-                    ui.hit(x + 3, ly, w - 6, LINE, () -> {
+                    ui.hit(x + 3, ly, lineW, LINE, () -> {
                         screen.popup(null);
                         if (!c.id().equals(picker.current())) {
                             screen.send(picker.action(), c.id(), 0);
@@ -112,14 +119,12 @@ final class Popups {
                     });
                 }
             }
+            bar.draw(ui, x + w - ScrollBar.WIDTH - 3, y + 4, shown * LINE);
         }
 
         /** Scrolls a long list; true if it moved. */
         boolean scroll(double amount) {
-            int before = scroll;
-            scroll = Math.max(0, Math.min(scroll - (int) Math.signum(amount),
-                    picker.choices().size() - Math.min(picker.choices().size(), MAX_LINES)));
-            return scroll != before;
+            return bar.wheel(amount, LINE);
         }
     }
 

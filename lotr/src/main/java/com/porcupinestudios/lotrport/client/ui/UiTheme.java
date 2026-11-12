@@ -56,6 +56,14 @@ public final class UiTheme {
     public static final int[] ON_LIGHT = {DARK_TEXT, 0xFF8A6F52, 0xFF3F7A2A, 0xFFB0452A, 0xFFA02A1E};
 
     /** The colour of text in this tone on brown ({@code dark} true) or on beige. */
+    /** Timetable cell colours by swatch: work, leisure, sleep, any, awake, asleep, then two spares. */
+    public static final int[] SWATCHES = {0xFFD98A2B, 0xFF6FAE4F, 0xFF3E5C9A, 0xFFA89F91, 0xFFE6CF7E, 0xFF4B4466,
+        0xFF9A4B4B, 0xFF5B8C8C};
+
+    public static int swatch(int i) {
+        return SWATCHES[Math.floorMod(i, SWATCHES.length)];
+    }
+
     public static int tone(Tone tone, boolean dark) {
         return (dark ? ON_DARK : ON_LIGHT)[tone.ordinal()];
     }

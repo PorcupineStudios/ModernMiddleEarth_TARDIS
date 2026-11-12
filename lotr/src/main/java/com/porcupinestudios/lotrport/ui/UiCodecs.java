@@ -199,6 +199,26 @@ public final class UiCodecs {
                 list(buf, p.right(), UiCodecs::writeSection);
                 list(buf, p.buttons(), UiCodecs::writeAction);
             }
+            case Page.Timetable t -> {
+                buf.writeByte(3);
+                list(buf, t.kinds(), (b, k) -> {
+                    b.writeChar(k.letter());
+                    text(b, k.label());
+                    b.writeVarInt(k.swatch());
+                    b.writeBoolean(k.paintable());
+                });
+                list(buf, t.lines(), (b, l) -> {
+                    str(b, l.id());
+                    text(b, l.label());
+                    text(b, l.detail());
+                    str(b, l.cells());
+                    b.writeBoolean(l.editable());
+                });
+                opt(buf, t.paint(), UiCodecs::str);
+                list(buf, t.rowActions(), UiCodecs::writeAction);
+                list(buf, t.buttons(), UiCodecs::writeAction);
+                list(buf, t.notes(), UiCodecs::text);
+            }
         }
     }
 
@@ -217,6 +237,12 @@ public final class UiCodecs {
             return new Page.Table(list(buf, UiCodecs::readColumn), list(buf, UiCodecs::readGroup),
                     list(buf, UiCodecs::readRow), buf.readVarInt() - 1, buf.readBoolean(), opt(buf, UiCodecs::str),
                     list(buf, UiCodecs::readAction), list(buf, UiCodecs::readAction), buf.readVarInt(), text(buf));
+        }
+        if (kind == 3) {
+            return new Page.Timetable(list(buf, b -> new Page.Kind(b.readChar(), text(b), b.readVarInt(),
+                    b.readBoolean())), list(buf, b -> new Page.Line(str(b), text(b), text(b), str(b), b.readBoolean())),
+                    opt(buf, UiCodecs::str), list(buf, UiCodecs::readAction), list(buf, UiCodecs::readAction),
+                    list(buf, UiCodecs::text));
         }
         if (kind == 2) {
             return new Page.Profile(opt(buf, b -> net.minecraft.core.UUIDUtil.STREAM_CODEC.decode(b)), text(buf),

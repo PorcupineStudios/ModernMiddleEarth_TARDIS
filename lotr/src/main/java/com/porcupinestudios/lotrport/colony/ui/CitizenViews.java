@@ -12,6 +12,12 @@ import com.porcupinestudios.lotrport.colonist.Kin;
 import com.porcupinestudios.lotrport.colonist.Orders;
 import com.porcupinestudios.lotrport.colonist.RationDef;
 import com.porcupinestudios.lotrport.colonist.Rations;
+import com.porcupinestudios.lotrport.colonist.Rest;
+import com.porcupinestudios.lotrport.colonist.Rhythm;
+import com.porcupinestudios.lotrport.colonist.Schedule;
+import com.porcupinestudios.lotrport.colonist.ScheduleRules;
+import com.porcupinestudios.lotrport.colonist.Schedules;
+import com.porcupinestudios.lotrport.colonist.SleepSettings;
 import com.porcupinestudios.lotrport.colonist.ThoughtDef;
 import com.porcupinestudios.lotrport.colony.Colony;
 import com.porcupinestudios.lotrport.colony.building.Building;
@@ -48,10 +54,11 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 
 /**
- * {@code lotr_port:citizen} (context: {@code <colony id>/<person id>}): one colonist up close, RimWorld style. Their
- * portrait and name (renamed here), needs as bars, what is on their mind (the colony's part of their mood and every
- * thought, with how long each lasts), facts (traits, family, purse), and orders: where they work or that they rest,
- * where they live, their ration. Members of the colony may look; changing anything takes {@link Perm#CITIZENS}.
+ * {@code lotr_port:citizen} (context: {@code <colony id>/<person id>}): one colonist up close, RimWorld style, in
+ * four tabs under their portrait and name (renamed here): Overview (needs as bars, and orders: where they work or that
+ * they rest, where they live, their ration), Mood (the colony's part of their mood and every thought, with how long
+ * each lasts), Schedule (their race's hours, how their last day went, which colony schedule they keep) and About
+ * (traits, purse, family). Members of the colony may look; changing anything takes {@link Perm#CITIZENS}.
  * Opened from a row of the colony's People tab; Back returns there. Orders take effect at once ({@link Assign#run}).
  */
 public final class CitizenViews {
@@ -61,6 +68,14 @@ public final class CitizenViews {
     static final String WORK = "work";
     static final String HOME = "home";
     static final String RATION = "ration";
+    static final String SCHEDULE_ORDER = "schedule";
+    static final String EDIT_SCHEDULES = "edit_schedules";
+
+    // tabs
+    static final String OVERVIEW = "overview";
+    static final String MOOD = "mood";
+    static final String SCHEDULE = "schedule";
+    static final String ABOUT = "about";
     static final String AUTO = "auto";
     static final String REST = "rest";
 
@@ -106,8 +121,13 @@ public final class CitizenViews {
             }
             Colony c = f.get().colony();
             Person p = f.get().person();
-            Page page = page(player, c, p);
-            return Optional.of(new View(CITIZEN, context, Component.literal(c.name()), List.of(), "", page,
+            List<View.Tab> tabs = List.of(new View.Tab(OVERVIEW, tr("citizen.tab.overview", "Overview")),
+                    new View.Tab(MOOD, tr("citizen.tab.mood", "Mood")),
+                    new View.Tab(SCHEDULE, tr("citizen.tab.schedule", "Schedule")),
+                    new View.Tab(ABOUT, tr("citizen.tab.about", "About")));
+            String open = tabs.stream().anyMatch(t -> t.id().equals(tab)) ? tab : OVERVIEW;
+            Page page = page(player, c, p, open);
+            return Optional.of(new View(CITIZEN, context, Component.literal(c.name()), tabs, open, page,
                     Optional.of(new View.Target(ColonyViews.COLONY, c.id().toString(), ColonyViews.PEOPLE))));
         }
 
@@ -124,6 +144,9 @@ public final class CitizenViews {
             }
             Colony c = f.get().colony();
             Person p = f.get().person();
+            if (action.equals(EDIT_SCHEDULES)) {
+                return Result.go(new View.Target(ColonyViews.COLONY, c.id().toString(), ColonyViews.SCHEDULES));
+            }
             if (!Permissions.can(player.getUUID(), c, Perm.CITIZENS)) {
                 return Result.say(tr("citizen.no_orders", "You may not give %s's citizens orders", c.name()));
             }
@@ -149,6 +172,7 @@ public final class CitizenViews {
                                 .map(id -> before.withHome(Optional.of(id))).orElse(before);
                 case RATION -> ColonistData.rations().containsKey(ResourceLocation.tryParse(row))
                         ? before.withRation(ResourceLocation.parse(row)) : before;
+                case SCHEDULE_ORDER -> Colonists.schedules(c).get(row).isPresent() ? before.withSchedule(row) : before;
                 default -> before;
             };
             if (!after.equals(before)) {
@@ -169,7 +193,7 @@ public final class CitizenViews {
 
     // ---------------------------------------------------------------- the page
 
-    static Page page(ServerPlayer player, Colony c, Person p) {
+    static Page page(ServerPlayer player, Colony c, Person p, String tab) {
         MinecraftServer server = player.server;
         long now = server.overworld().getGameTime();
         LifeSettings life = LifeSettings.get();
@@ -202,6 +226,12 @@ public final class CitizenViews {
         needs.add(Stat.of(tr("citizen.wages", "Wages"), n.unpaid() > 0
                 ? tr("citizen.owed", "Owed %s days", n.unpaid()).getString() : tr("citizen.paid", "Paid").getString(),
                 n.unpaid() > 0 ? Tone.BAD : Tone.GOOD));
+        Optional<Rest> rest = p.get(ColonistData.REST);
+        SleepSettings sleep = ColonistData.sleep();
+        double energy = rest.map(Rest::energy).orElse(100.0);
+        needs.add(Stat.of(tr("citizen.energy", "Energy"), Math.round(energy) + " / 100",
+                rest.map(r -> r.lowest() < sleep.exhaustedBelow() ? Tone.BAD : r.lowest() < sleep.tiredBelow()
+                        ? Tone.WARN : Tone.NORMAL).orElse(Tone.NORMAL)).withBar(energy / 100));
         job.ifPresent(j -> needs.add(Stat.of(tr("citizen.skill", "Skill"), Math.round(j.skill()) + " / 100")
                 .withBar(j.skill() / 100)));
 
@@ -210,20 +240,24 @@ public final class CitizenViews {
         List<ResourceLocation> traits = p.get(ColonistData.TRAITS).orElse(List.of());
         about.add(Stat.of(tr("citizen.traits", "Traits"), traits.isEmpty() ? "-"
                 : String.join(", ", traits.stream().map(t -> traitName(t).getString()).toList())));
-        family(server, p).forEach(about::add);
         about.add(Stat.of(tr("citizen.purse", "Purse"),
                 p.get(WorkComponents.PURSE).orElse(WorkComponents.Purse.EMPTY).coins() + "c"));
+        List<Stat> kin = new ArrayList<>(family(server, p));
+        if (kin.isEmpty()) {
+            kin.add(Stat.of(tr("citizen.no_family", "No family in the colony yet"), "", Tone.MUTED));
+        }
 
         // mood, RimWorld style: the colony's part, then each thought
         Optional<ResourceLocation> homeThought = Optional.ofNullable(
                 Colonists.homeThoughts(Society.citizens(server, c), now).get(p.id()));
         WorkComponents.Economy eco = c.get(WorkComponents.ECONOMY).orElse(WorkComponents.Economy.DEFAULT);
+        List<Stat> colonyMood = new ArrayList<>();
         List<Stat> mood = new ArrayList<>();
         double[] target = {0};
         if (!soldier) {
             Life.happinessParts(life, home, n.food(), false, n.unpaid(), eco, (key, v) -> {
                 target[0] += v;
-                mood.add(moodLine(colonyPart(key), v));
+                colonyMood.add(moodLine(colonyPart(key), v));
             });
         }
         Map<ResourceLocation, ThoughtDef> defs = ColonistData.thoughts();
@@ -237,6 +271,9 @@ public final class CitizenViews {
                 label += " (" + daysLeft(t.ticksLeft()) + ")";
             }
             mood.add(moodLine(Component.literal(label), t.mood()));
+        }
+        if (mood.isEmpty()) {
+            mood.add(Stat.of(tr("citizen.no_thoughts", "Nothing on their mind"), "", Tone.MUTED));
         }
         double goal = Math.max(0, Math.min(100, target[0]));
         Component moodTitle = tr("citizen.mood_title", "Mood: %s, heading for %s", Math.round(n.happiness()),
@@ -252,12 +289,109 @@ public final class CitizenViews {
             orders.add(Stat.of(tr("citizen.soldier_orders", "Soldiers take orders as units"), ""));
         }
 
-        List<Page.Section> left = List.of(new Page.Section(tr("citizen.needs", "Needs"), needs),
-                new Page.Section(tr("citizen.about", "About"), about));
-        List<Page.Section> right = List.of(new Page.Section(tr("citizen.orders", "Orders"), orders),
-                new Page.Section(moodTitle, mood));
+        List<Page.Section> left;
+        List<Page.Section> right;
+        List<com.porcupinestudios.lotrport.ui.Action> buttons = List.of();
+        switch (tab) {
+            case MOOD -> {
+                left = List.of(new Page.Section(moodTitle, List.of(Stat.of(tr("citizen.mood", "Mood"),
+                        Math.round(n.happiness()) + " / 100", ColonyViews.happinessTone(n.happiness(), life))
+                        .withBar(n.happiness() / 100))), new Page.Section(tr("citizen.from_colony", "From the colony"),
+                        colonyMood));
+                right = List.of(new Page.Section(tr("citizen.thoughts", "On their mind"), mood));
+            }
+            case SCHEDULE -> {
+                left = List.of(new Page.Section(tr("citizen.their_hours", "Their hours"), hours(p)),
+                        new Page.Section(tr("citizen.last_day", "Their last day"), lastDay(rest, sleep)));
+                Schedules schedules = Colonists.schedules(c);
+                Schedule mine = Colonists.scheduleOf(schedules, p);
+                List<Stat> sched = new ArrayList<>();
+                sched.add(schedulePicker(schedules, mine, canOrder));
+                for (Schedule.Block b : ScheduleViews.PALETTE) {
+                    String spans = spans(mine, b);
+                    if (!spans.isEmpty()) {
+                        sched.add(Stat.of(ScheduleViews.blockName(b), spans));
+                    }
+                }
+                right = List.of(new Page.Section(tr("citizen.schedule", "Schedule"), sched));
+                buttons = List.of(com.porcupinestudios.lotrport.ui.Action.of(EDIT_SCHEDULES,
+                        tr("citizen.edit_schedules", "Edit schedules")));
+            }
+            case ABOUT -> {
+                left = List.of(new Page.Section(tr("citizen.about", "About"), about));
+                right = List.of(new Page.Section(tr("citizen.family", "Family"), kin));
+            }
+            default -> {
+                left = List.of(new Page.Section(tr("citizen.needs", "Needs"), needs));
+                right = List.of(new Page.Section(tr("citizen.orders", "Orders"), orders));
+            }
+        }
         return new Page.Profile(Optional.of(p.id()), Component.literal(personName(p)),
-                canOrder ? Optional.of(RENAME) : Optional.empty(), subtitle, left, right, List.of());
+                canOrder ? Optional.of(RENAME) : Optional.empty(), subtitle, left, right, buttons);
+    }
+
+    /** The race's preferred hours and wants. */
+    private static List<Stat> hours(Person p) {
+        Rhythm r = Colonists.rhythm(p);
+        return List.of(Stat.of(tr("citizen.likes_up", "Likes to be up"), r.window()),
+                Stat.of(tr("citizen.wants_sleep", "Wants sleep"), tr("citizen.hours", "%s h", r.sleepHours())
+                        .getString()),
+                Stat.of(tr("citizen.wants_leisure", "Wants leisure"), tr("citizen.hours", "%s h", r.leisureHours())
+                        .getString()));
+    }
+
+    /** How the last day went by their schedule. */
+    private static List<Stat> lastDay(Optional<Rest> rest, SleepSettings s) {
+        if (rest.isEmpty() || !rest.get().counted()) {
+            return List.of(Stat.of(tr("citizen.no_day", "No day counted yet"), "", Tone.MUTED));
+        }
+        Rest r = rest.get();
+        double factor = ScheduleRules.workFactor(r, s);
+        return List.of(
+                Stat.of(tr("citizen.slept", "Slept"), tr("citizen.hours", "%s h", r.sleepHours()).getString()),
+                Stat.of(tr("citizen.worked", "Worked"), tr("citizen.work_hours", "%s h (%s%% output)",
+                        Math.round(r.workDone() * 10) / 10.0, Math.round(factor * 100)).getString(),
+                        factor < 0.8 ? Tone.WARN : Tone.NORMAL),
+                Stat.of(tr("citizen.leisure", "Leisure"), tr("citizen.hours", "%s h", r.leisureHours()).getString()),
+                Stat.of(tr("citizen.off_hours", "Up at odd hours"), tr("citizen.hours", "%s h", r.offHours())
+                        .getString(), r.offHours() >= s.wrongHoursFrom() ? Tone.BAD : r.offHours() >= s.oddHoursFrom()
+                        ? Tone.WARN : Tone.GOOD),
+                Stat.of(tr("citizen.lowest", "Lowest energy"), Long.toString(Math.round(r.lowest())),
+                        r.lowest() < s.exhaustedBelow() ? Tone.BAD : r.lowest() < s.tiredBelow() ? Tone.WARN
+                                : Tone.NORMAL).withBar(r.lowest() / 100));
+    }
+
+    /** "22-06, 12-13": the hour spans a schedule gives to one kind of block. */
+    static String spans(Schedule s, Schedule.Block b) {
+        List<String> out = new ArrayList<>();
+        int start = -1;
+        // start at an hour that isn't this block, so a span over midnight comes out whole
+        int from = 0;
+        while (from < Schedule.HOURS && s.at(from) == b) {
+            from++;
+        }
+        if (from == Schedule.HOURS) {
+            return "00-24";
+        }
+        for (int i = 1; i <= Schedule.HOURS; i++) {
+            int h = (from + i) % Schedule.HOURS;
+            boolean in = s.at(h) == b && i < Schedule.HOURS;
+            if (in && start < 0) {
+                start = h;
+            } else if (!in && start >= 0) {
+                out.add(String.format(Locale.ROOT, "%02d-%02d", start, h == 0 ? 24 : h));
+                start = -1;
+            }
+        }
+        return String.join(", ", out);
+    }
+
+    static Stat schedulePicker(Schedules all, Schedule mine, boolean enabled) {
+        List<Stat.Choice> choices = new ArrayList<>();
+        for (Schedule s : all.list()) {
+            choices.add(Stat.Choice.of(s.id(), Component.literal(s.name())));
+        }
+        return picker(tr("citizen.keeps", "Keeps"), mine.id(), choices, SCHEDULE_ORDER, enabled);
     }
 
     private static Stat moodLine(Component label, double v) {

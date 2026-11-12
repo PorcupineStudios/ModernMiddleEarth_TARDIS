@@ -21,6 +21,8 @@ wait 200
 wait 20
 /lotr colony settle @e[type=lotr_port:npc,distance=..40]
 /lotr colony coins 250
+# a colony day, so everyone has a day counted by their schedule
+/lotr colony day 1
 wait 40
 shot world
 /lotr_colony manage
@@ -49,6 +51,21 @@ wait 5
 /lotr_colony citizen @e[type=lotr_port:npc,sort=nearest,limit=1]
 wait 60
 shot ui_citizen
+close
+wait 5
+/lotr_colony citizen @e[type=lotr_port:npc,sort=nearest,limit=1] mood
+wait 60
+shot ui_citizen_mood
+close
+wait 5
+/lotr_colony citizen @e[type=lotr_port:npc,sort=nearest,limit=1] schedule
+wait 60
+shot ui_citizen_schedule
+close
+wait 5
+/lotr_colony manage schedules
+wait 60
+shot ui_schedules
 close
 wait 5
 quit

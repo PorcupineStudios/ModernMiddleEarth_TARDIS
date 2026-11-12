@@ -43,19 +43,11 @@ public final class ColonyCommand {
                     return 1;
                 }))
                 // the colony management screen (UI core) of the nearest colony you belong to
-                .then(Commands.literal("manage").executes(ctx -> {
-                    ServerPlayer player = ctx.getSource().getPlayerOrException();
-                    Optional<Colony> c = Colonies.get(player.server).all().stream()
-                            .filter(x -> com.porcupinestudios.lotrport.colony.members.Permissions
-                                    .isMember(player.getUUID(), x))
-                            .min(java.util.Comparator.comparingDouble(x -> x.hall().distSqr(player.blockPosition())));
-                    if (c.isEmpty()) {
-                        ctx.getSource().sendFailure(Component.literal("You belong to no colony"));
-                        return 0;
-                    }
-                    com.porcupinestudios.lotrport.colony.ui.ColonyViews.open(player, c.get());
-                    return 1;
-                }))
+                .then(Commands.literal("manage").executes(ctx -> manage(ctx.getSource(), ""))
+                        // straight to a tab: overview, buildings, people, schedules, stock, members
+                        .then(Commands.argument("tab", com.mojang.brigadier.arguments.StringArgumentType.word())
+                                .executes(ctx -> manage(ctx.getSource(),
+                                        com.mojang.brigadier.arguments.StringArgumentType.getString(ctx, "tab")))))
                 // every colony you belong to, to pick one to manage
                 .then(Commands.literal("colonies").executes(ctx -> {
                     com.porcupinestudios.lotrport.colony.ui.ColonyViews.openAll(ctx.getSource().getPlayerOrException());
@@ -78,17 +70,14 @@ public final class ColonyCommand {
                 .then(Commands.literal("buildings").executes(ctx -> buildings(ctx.getSource())))
                 // a citizen's page (as sneak + right-click on them)
                 .then(Commands.literal("citizen").then(Commands.argument("npc",
-                        net.minecraft.commands.arguments.EntityArgument.entity()).executes(ctx -> {
-                            ServerPlayer player = ctx.getSource().getPlayerOrException();
-                            var e = net.minecraft.commands.arguments.EntityArgument.getEntity(ctx, "npc");
-                            Optional<Person> p = Persons.get(player.server).get(e.getUUID());
-                            if (p.isEmpty() || !com.porcupinestudios.lotrport.colony.work.LedgerNet.sendCitizen(player,
-                                    p.get())) {
-                                ctx.getSource().sendFailure(Component.literal("Not a citizen of your colony"));
-                                return 0;
-                            }
-                            return 1;
-                        })))
+                        net.minecraft.commands.arguments.EntityArgument.entity())
+                        .executes(ctx -> citizen(ctx.getSource(),
+                                net.minecraft.commands.arguments.EntityArgument.getEntity(ctx, "npc"), ""))
+                        // straight to a tab: overview, mood, schedule, about
+                        .then(Commands.argument("tab", com.mojang.brigadier.arguments.StringArgumentType.word())
+                                .executes(ctx -> citizen(ctx.getSource(),
+                                        net.minecraft.commands.arguments.EntityArgument.getEntity(ctx, "npc"),
+                                        com.mojang.brigadier.arguments.StringArgumentType.getString(ctx, "tab"))))))
                 // the Ledger of the colony you belong to (the nearest)
                 .then(Commands.literal("ledger").executes(ctx -> {
                     ServerPlayer player = ctx.getSource().getPlayerOrException();
@@ -306,5 +295,42 @@ public final class ColonyCommand {
                             + ")")));
         }
         return list.size();
+    }
+
+    private static int manage(CommandSourceStack source, String tab)
+            throws com.mojang.brigadier.exceptions.CommandSyntaxException {
+        ServerPlayer player = source.getPlayerOrException();
+        Optional<Colony> c = Colonies.get(player.server).all().stream()
+                .filter(x -> com.porcupinestudios.lotrport.colony.members.Permissions.isMember(player.getUUID(), x))
+                .min(java.util.Comparator.comparingDouble(x -> x.hall().distSqr(player.blockPosition())));
+        if (c.isEmpty()) {
+            source.sendFailure(Component.literal("You belong to no colony"));
+            return 0;
+        }
+        if (tab.isEmpty()) {
+            com.porcupinestudios.lotrport.colony.ui.ColonyViews.open(player, c.get());
+        } else {
+            com.porcupinestudios.lotrport.ui.Views.open(player, new com.porcupinestudios.lotrport.ui.View.Target(
+                    com.porcupinestudios.lotrport.colony.ui.ColonyViews.COLONY, c.get().id().toString(), tab), true);
+        }
+        return 1;
+    }
+
+    /** A citizen's page (as sneak + right-click on them), at a tab if given. */
+    private static int citizen(CommandSourceStack source, net.minecraft.world.entity.Entity e, String tab)
+            throws com.mojang.brigadier.exceptions.CommandSyntaxException {
+        ServerPlayer player = source.getPlayerOrException();
+        Optional<Person> p = Persons.get(player.server).get(e.getUUID());
+        Optional<Colony> c = p.flatMap(x -> com.porcupinestudios.lotrport.society.Society.colonyOf(player.server, x));
+        if (p.isEmpty() || c.isEmpty()
+                || !com.porcupinestudios.lotrport.colony.members.Permissions.isMember(player.getUUID(), c.get())) {
+            source.sendFailure(Component.literal("Not a citizen of your colony"));
+            return 0;
+        }
+        com.porcupinestudios.lotrport.ui.View.Target target =
+                com.porcupinestudios.lotrport.colony.ui.CitizenViews.target(c.get(), p.get());
+        com.porcupinestudios.lotrport.ui.Views.open(player, new com.porcupinestudios.lotrport.ui.View.Target(
+                target.view(), target.context(), tab), true);
+        return 1;
     }
 }

@@ -25,7 +25,7 @@ final class ProfilePane {
 
     private final UiScreen screen;
     private Page.Profile profile;
-    private int scroll;
+    private final ScrollBar bar;
     private int bodyTop;
     private int bodyBottom;
     private int bodyHeight;
@@ -33,6 +33,7 @@ final class ProfilePane {
     ProfilePane(UiScreen screen, Page.Profile profile) {
         this.screen = screen;
         this.profile = profile;
+        this.bar = new ScrollBar(screen);
     }
 
     void set(Page.Profile p) {
@@ -74,7 +75,7 @@ final class ProfilePane {
         // body: two columns of sections
         bodyTop = py + PORTRAIT + 6;
         bodyBottom = y + h - buttonsH - 4;
-        int colW = (w - 16 - GAP) / 2;
+        int colW = (w - 16 - GAP - ScrollBar.WIDTH) / 2;
         // the right column starts higher, under the subtitle beside the portrait
         int rightTop = nb[1] + 36;
         int lift = bodyTop - rightTop;
@@ -82,7 +83,8 @@ final class ProfilePane {
         int rightH = columnHeight(profile.right()) - lift;
         bodyHeight = Math.max(leftH, rightH);
         int room = bodyBottom - bodyTop;
-        scroll = Math.max(0, Math.min(scroll, Math.max(0, bodyHeight - room)));
+        bar.measure(bodyHeight, room);
+        int scroll = bar.offset;
         int ly = bodyTop - scroll;
         ui.clip(x, bodyTop - 2, colW + 12, room + 2);
         for (Page.Section s : profile.left()) {
@@ -95,14 +97,7 @@ final class ProfilePane {
             ry = Sections.draw(ui, screen, s, x + 8 + colW + GAP, ry, colW) + 8;
         }
         ui.unclip();
-        if (bodyHeight > room) {
-            // a thin bar to say there is more
-            int track = room;
-            int handle = Math.max(12, track * room / bodyHeight);
-            int hy = bodyTop + (int) ((track - handle) * (scroll / (double) Math.max(1, bodyHeight - room)));
-            ui.g.fill(x + w - 4, bodyTop, x + w - 2, bodyTop + track, UiTheme.TROUGH);
-            ui.g.fill(x + w - 4, hy, x + w - 2, hy + handle, 0xFF8A6F52);
-        }
+        bar.draw(ui, x + w - ScrollBar.WIDTH - 2, rightTop, bodyBottom - rightTop);
 
         int bx = x + w;
         List<Action> buttons = profile.buttons();
@@ -159,7 +154,6 @@ final class ProfilePane {
         if (mouseY < bodyTop - PORTRAIT / 2 || mouseY > bodyBottom) {
             return false;
         }
-        scroll -= (int) Math.signum(amount) * 12;
-        return true;
+        return bar.wheel(amount, 12);
     }
 }

@@ -14,7 +14,7 @@ import net.minecraft.network.chat.Component;
 import net.neoforged.neoforge.network.PacketDistributor;
 
 /**
- * The one screen every UI-core view opens in: title, tabs, the framed page (a table, stats or a profile) and
+ * The one screen every UI-core view opens in: title, tabs, the framed page (a table, stats, a profile or a timetable) and
  * Back/Done. It draws whatever {@link View} the server last sent; a tab click or an action asks the server, and the
  * answer replaces the view in place, keeping the player's search, ticks, sort, scroll and selection
  * ({@link TableState}). An open screen asks for a fresh copy every {@link #REFRESH_TICKS}, so numbers stay live.
@@ -30,11 +30,12 @@ public class UiScreen extends Screen {
     private TablePane table;
     private StatsPane stats;
     private ProfilePane profile;
+    private TimetablePane timetable;
     private EditBox search;
     /** The name field while renaming on a profile page. */
     private EditBox renameBox;
     private Popups.Popup popup;
-    private TablePane dragging;
+    private Draggable dragging;
     private String pendingTab;
     private int ticks;
     // layout
@@ -90,6 +91,11 @@ public class UiScreen extends Screen {
                 stats.set(s);
             } else if (v.page() instanceof Page.Profile p && profile != null) {
                 profile.set(p);
+            } else if (v.page() instanceof Page.Timetable t && timetable != null) {
+                // keep the cells being painted until the drag ends
+                if (!timetable.painting()) {
+                    timetable.set(t);
+                }
             }
         } else {
             popup = null;
@@ -132,6 +138,7 @@ public class UiScreen extends Screen {
         table = null;
         stats = null;
         profile = null;
+        timetable = null;
         search = null;
         renameBox = null;
         String key = view.id() + "|" + view.context() + "|" + view.tab();
@@ -157,6 +164,8 @@ public class UiScreen extends Screen {
             stats = new StatsPane(this, s);
         } else if (view.page() instanceof Page.Profile p) {
             profile = new ProfilePane(this, p);
+        } else if (view.page() instanceof Page.Timetable t) {
+            timetable = new TimetablePane(this, t);
         }
     }
 
@@ -245,6 +254,8 @@ public class UiScreen extends Screen {
             stats.draw(ui, contentX(), contentY(), contentW(), contentH());
         } else if (profile != null) {
             profile.draw(ui, contentX(), contentY(), contentW(), contentH(), renameBox != null);
+        } else if (timetable != null) {
+            timetable.draw(ui, contentX(), contentY(), contentW(), contentH());
         }
         int bw = 100;
         int by = fy + fh - UiTheme.BUTTON_HEIGHT / 2 - 2;
@@ -310,7 +321,12 @@ public class UiScreen extends Screen {
         popup = p;
     }
 
-    void dragScroll(TablePane pane) {
+    /** Something the mouse drags while the button is held (a scroll bar's handle). */
+    interface Draggable {
+        void dragTo(double mouseY);
+    }
+
+    void dragScroll(Draggable pane) {
         dragging = pane;
         pane.dragTo(ui.mouseY);
     }
@@ -345,12 +361,19 @@ public class UiScreen extends Screen {
             dragging.dragTo(mouseY);
             return true;
         }
+        if (timetable != null && timetable.painting()) {
+            timetable.paintAt(mouseX, mouseY);
+            return true;
+        }
         return super.mouseDragged(mouseX, mouseY, button, dx, dy);
     }
 
     @Override
     public boolean mouseReleased(double mouseX, double mouseY, int button) {
         dragging = null;
+        if (timetable != null) {
+            timetable.stopPainting();
+        }
         return super.mouseReleased(mouseX, mouseY, button);
     }
 
@@ -363,6 +386,12 @@ public class UiScreen extends Screen {
             return true;
         }
         if (popup == null && profile != null && profile.scroll(mouseY, scrollY)) {
+            return true;
+        }
+        if (popup == null && stats != null && stats.scroll(mouseY, scrollY)) {
+            return true;
+        }
+        if (popup == null && timetable != null && timetable.scroll(mouseY, scrollY)) {
             return true;
         }
         return super.mouseScrolled(mouseX, mouseY, scrollX, scrollY);
