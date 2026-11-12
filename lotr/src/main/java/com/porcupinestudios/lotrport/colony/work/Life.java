@@ -106,7 +106,11 @@ public final class Life {
         if (needs.unpaid() > 0 || needs.food() <= 0 || place.isEmpty()) {
             return;
         }
-        double factor = def.proficiency(Races.of(p.type())) * (0.5 + job.skill() / 100.0) * ctx.days()
+        // skill (colonist.Skills): each level a little faster; the day's work trains it
+        double hours = com.porcupinestudios.lotrport.colonist.Colonists.workHours(p);
+        com.porcupinestudios.lotrport.colonist.Skills.worked(persons, p, job.job(), hours * ctx.days());
+        double factor = def.proficiency(Races.of(p.type())) * com.porcupinestudios.lotrport.colonist.Skills
+                .workFactor(p, job.job()) * 0.75 * ctx.days()
                 * com.porcupinestudios.lotrport.colonist.Colonists.workSpeed(p)
                 // the hours their schedule gives work, less when exhausted (colonist.ScheduleRules)
                 * com.porcupinestudios.lotrport.colonist.Colonists.workHours(p);

@@ -84,6 +84,8 @@ public final class CitizenViews {
     static final String TASKS = "tasks";
     static final String SCHEDULE = "schedule";
     static final String ABOUT = "about";
+    static final String SKILLS = "skills";
+    static final String PEOPLE = "people";
     static final String AUTO = "auto";
     static final String REST = "rest";
 
@@ -133,6 +135,8 @@ public final class CitizenViews {
                     new View.Tab(TASKS, tr("citizen.tab.tasks", "Tasks")),
                     new View.Tab(MOOD, tr("citizen.tab.mood", "Mood")),
                     new View.Tab(SCHEDULE, tr("citizen.tab.schedule", "Schedule")),
+                    new View.Tab(SKILLS, tr("citizen.tab.skills", "Skills")),
+                    new View.Tab(PEOPLE, tr("citizen.tab.people", "People")),
                     new View.Tab(ABOUT, tr("citizen.tab.about", "About")));
             String open = tabs.stream().anyMatch(t -> t.id().equals(tab)) ? tab : OVERVIEW;
             Page page = page(player, c, p, open);
@@ -373,6 +377,64 @@ public final class CitizenViews {
                 }
                 left = List.of(new Page.Section(tr("citizen.right_now", "Right now"), rightNow));
                 right = List.of(new Page.Section(tr("citizen.queue", "Task queue"), q));
+            }
+            case SKILLS -> {
+                var set = com.porcupinestudios.lotrport.colonist.Skills.settings();
+                var mine = com.porcupinestudios.lotrport.colonist.Skills.of(p);
+                Optional<ResourceLocation> used = job.flatMap(j -> com.porcupinestudios.lotrport.colonist.Skills
+                        .forJob(j.job()));
+                List<Stat> sk = new ArrayList<>();
+                List<Map.Entry<ResourceLocation, com.porcupinestudios.lotrport.colonist.Skills.Def>> defs =
+                        new ArrayList<>(com.porcupinestudios.lotrport.colonist.Skills.defs().entrySet());
+                defs.sort(java.util.Comparator.comparingInt(e -> e.getValue().order()));
+                for (var e : defs) {
+                    var lv = mine.getOrDefault(e.getKey(), new com.porcupinestudios.lotrport.colonist.Skills.Skill(0,
+                            0));
+                    double need = set.xpBase() * (lv.level() + 1);
+                    boolean usedNow = used.filter(e.getKey()::equals).isPresent();
+                    sk.add(Stat.of(Component.literal(com.porcupinestudios.lotrport.colonist.Skills.name(e.getKey())
+                            + (usedNow ? " (their work)" : "")), "Level " + lv.level(), lv.level() >= 8 ? Tone.GOOD
+                                    : lv.level() == 0 ? Tone.MUTED : Tone.NORMAL)
+                            .withBar(lv.level() >= set.maxLevel() ? 1 : lv.xp() / Math.max(1, need)));
+                }
+                List<Stat> work = new ArrayList<>();
+                work.add(Stat.of(tr("citizen.work", "Work"), job.map(j -> JobDef.titleOf(j.job()).getString())
+                        .orElse(tr("jobless", "Jobless").getString())));
+                job.ifPresent(j -> work.add(Stat.of(tr("citizen.skill_speed", "Speed from skill"), "+"
+                        + Math.round((com.porcupinestudios.lotrport.colonist.Skills.workFactor(p, j.job()) - 1) * 100)
+                        + "%", Tone.GOOD)));
+                work.add(Stat.of(Component.literal("Each level works " + Math.round(set.bonusPerLevel() * 100)
+                        + "% faster;"), "", Tone.MUTED));
+                work.add(Stat.of(Component.literal("a day's work trains its skill."), "", Tone.MUTED));
+                left = List.of(new Page.Section(tr("citizen.skills", "Skills"), sk));
+                right = List.of(new Page.Section(tr("citizen.skill_work", "At work"), work));
+            }
+            case PEOPLE -> {
+                Map<java.util.UUID, Double> ops = p.get(com.porcupinestudios.lotrport.colonist.Opinions.TYPE)
+                        .orElse(Map.of());
+                List<Map.Entry<java.util.UUID, Double>> sorted = new ArrayList<>(ops.entrySet());
+                sorted.sort(Map.Entry.<java.util.UUID, Double>comparingByValue().reversed());
+                List<Stat> liked = new ArrayList<>();
+                List<Stat> disliked = new ArrayList<>();
+                for (var e : sorted) {
+                    Optional<Person> o = com.porcupinestudios.lotrport.society.Persons.get(server).get(e.getKey());
+                    if (o.isEmpty()) {
+                        continue;
+                    }
+                    double v = e.getValue();
+                    Stat st = Stat.of(Component.literal(personName(o.get())), com.porcupinestudios.lotrport.colonist
+                            .Opinions.word(v) + " (" + Math.round(v) + ")", v >= 25 ? Tone.GOOD : v <= -25 ? Tone.BAD
+                                    : Tone.NORMAL).withBar((v + 100) / 200);
+                    (v >= 0 ? liked : disliked).add(st);
+                }
+                if (liked.isEmpty()) {
+                    liked.add(Stat.of(tr("citizen.nobody", "Nobody yet"), "", Tone.MUTED));
+                }
+                if (disliked.isEmpty()) {
+                    disliked.add(Stat.of(tr("citizen.nobody", "Nobody yet"), "", Tone.MUTED));
+                }
+                left = List.of(new Page.Section(tr("citizen.likes", "Likes"), liked));
+                right = List.of(new Page.Section(tr("citizen.dislikes", "Dislikes"), disliked));
             }
             case ABOUT -> {
                 left = List.of(new Page.Section(tr("citizen.about", "About"), about),

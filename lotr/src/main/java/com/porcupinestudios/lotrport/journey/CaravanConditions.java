@@ -53,7 +53,38 @@ public final class CaravanConditions {
     public static final DeferredHolder<ConditionType<?>, ConditionType<CaravansOut>> OUT =
             TYPES.register("caravans_out", () -> new ConditionType<>(CaravansOut.CODEC));
 
+    public static final DeferredHolder<ConditionType<?>, ConditionType<Upgrade>> UPGRADE =
+            TYPES.register("colony_upgrade", () -> new ConditionType<>(Upgrade.CODEC));
+
+    /** Colony upgrades (colony component {@code upgrades}): what research and buildings unlock, by id. */
+    public static final com.porcupinestudios.lotrport.society.ComponentType<java.util.List<String>> UPGRADES =
+            com.porcupinestudios.lotrport.society.ComponentType.register(LotrPort.id("upgrades"),
+                    Codec.STRING.listOf());
+
     private CaravanConditions() {}
+
+    /** A context for colony-wide rules (immigration levels, colony automation): "home" and "destination" both name it. */
+    public static ConditionContext colonyContext(MinecraftServer server, Colony c) {
+        return context(server, c, new CaravanBook.Route(0, c.id(), java.util.List.of(), java.util.List.of(), 0, 1,
+                false, -1));
+    }
+
+    /** {@code lotr_port:colony_upgrade} {id}: the colony has this upgrade (research, buildings, commands give them). */
+    public record Upgrade(String id) implements Condition {
+        public static final MapCodec<Upgrade> CODEC = RecordCodecBuilder.mapCodec(i -> i.group(
+                Codec.STRING.fieldOf("id").forGetter(Upgrade::id))
+                .apply(i, Upgrade::new));
+
+        @Override
+        public ConditionType<?> type() {
+            return UPGRADE.get();
+        }
+
+        @Override
+        public boolean test(ConditionContext context) {
+            return ctx(context).map(x -> x.home().get(UPGRADES).map(l -> l.contains(id)).orElse(false)).orElse(false);
+        }
+    }
 
     public static void register(IEventBus modBus) {
         TYPES.register(modBus);

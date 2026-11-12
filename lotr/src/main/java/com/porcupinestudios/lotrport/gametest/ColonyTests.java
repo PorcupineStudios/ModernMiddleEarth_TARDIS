@@ -8,7 +8,6 @@ import com.porcupinestudios.lotrport.LotrPort;
 import com.porcupinestudios.lotrport.colony.Colonies;
 import com.porcupinestudios.lotrport.colony.Colony;
 import com.porcupinestudios.lotrport.colony.ColonyData;
-import com.porcupinestudios.lotrport.colony.Migrants;
 import com.porcupinestudios.lotrport.colony.Recruiting;
 import com.porcupinestudios.lotrport.faction.Alignment;
 import com.porcupinestudios.lotrport.faction.FactionKills;
@@ -89,38 +88,42 @@ public final class ColonyTests {
         helper.assertTrue(colonies.found(player, "Second", hall.offset(200, 0, 0), GONDOR).colony().isEmpty(),
                 "a player founded two colonies");
 
-        // selective migration: the first migrant comes with no beds and waits at the Hall for an answer
+        // immigration by approval: one offer, a lone settler at the start; the first settler needs no bed
         // food in the colony's stock, so nobody leaves hungry while this test counts beds
         colonies.set(colony, com.porcupinestudios.lotrport.colony.work.WorkComponents.STOCK,
                 new com.porcupinestudios.lotrport.colony.work.WorkComponents.Stock(java.util.Map.of(
                         net.minecraft.resources.ResourceLocation.withDefaultNamespace("bread"), 500)));
-        helper.assertTrue(colonies.day(level, colony) == 1, "no first migrant");
-        helper.assertTrue(Society.citizens(server, colony).isEmpty() && Society.applicants(server, colony).size() == 1,
-                "the first migrant moved straight in");
-        helper.assertTrue(colonies.day(level, colony) == 0, "a second migrant came with no bed");
-        Person first = Society.applicants(server, colony).get(0);
-        helper.assertTrue(level.getEntity(first.id()) instanceof LotrNpc waiting
-                && Migrants.applicantOf(waiting).equals(Optional.of(colony.id()))
-                && Colonies.colonyOf(waiting).isEmpty(), "the migrant is not marked as waiting");
-        helper.assertTrue(Migrants.accept(player, first.id()).ok(), "could not accept the first migrant");
-        helper.assertTrue(Society.citizenCount(server, colony) == 1 && Society.applicants(server, colony).isEmpty(), "not accepted");
+        helper.assertTrue(colonies.day(level, colony) == 0, "the old migration still brings people");
+        com.porcupinestudios.lotrport.colony.Immigration.Board board = com.porcupinestudios.lotrport.colony
+                .Immigration.draw(server, colony, com.porcupinestudios.lotrport.colony.Immigration.Board.EMPTY,
+                        level.getGameTime());
+        helper.assertTrue(board.offers().size() == 1 && board.offers().get(0).members().size() == 1,
+                "a new colony's board: " + board.offers());
+        helper.assertTrue(com.porcupinestudios.lotrport.colony.Immigration.accept(player, colony,
+                board.offers().get(0).id()).ok(), "could not welcome the first settler");
+        helper.assertTrue(Society.citizenCount(server, colony) == 1, "not welcomed");
+        helper.assertTrue(colony.get(com.porcupinestudios.lotrport.colony.Immigration.BOARD).orElseThrow().offers()
+                .isEmpty(), "the welcomed group is still on the board");
 
-        // with two beds one more comes; turned away, they leave, and another comes the next day
+        // the next one needs a bed; turned away, the slot stays empty until the board is drawn again
+        board = com.porcupinestudios.lotrport.colony.Immigration.draw(server, colony, board, level.getGameTime());
+        int next = board.offers().get(0).id();
+        helper.assertTrue(!com.porcupinestudios.lotrport.colony.Immigration.accept(player, colony, next).ok(),
+                "welcomed a second settler with no bed");
         bed(helper, new BlockPos(0, 2, 0));
         bed(helper, new BlockPos(2, 2, 0));
         helper.assertTrue(Colonies.beds(level, colony) == 2, "beds counted: " + Colonies.beds(level, colony));
-        helper.assertTrue(colonies.day(level, colony) == 1, "nobody came for the second bed");
-        UUID denied = Society.applicants(server, colony).get(0).id();
-        helper.assertTrue(Migrants.deny(player, denied).ok(), "could not turn the migrant away");
-        Entity gone = level.getEntity(denied);
-        helper.assertTrue(Society.applicants(server, colony).isEmpty() && (gone == null || gone.isRemoved()),
-                "the turned-away migrant is still here");
-        helper.assertTrue(colonies.day(level, colony) == 1, "nobody came after one was turned away");
-        helper.assertTrue(colonies.day(level, colony) == 0, "more came than there are beds");
-        UUID late = Society.applicants(server, colony).get(0).id();
-        helper.assertTrue(Migrants.accept(player, late).ok(), "could not accept the second migrant");
+        helper.assertTrue(com.porcupinestudios.lotrport.colony.Immigration.accept(player, colony, next).ok(),
+                "could not welcome the second settler with a bed");
         helper.assertTrue(Society.citizenCount(server, colony) == 2, "citizens: " + Society.citizenCount(server, colony));
-        helper.assertTrue(!Migrants.accept(player, denied).ok(), "accepted a migrant who already left");
+        board = com.porcupinestudios.lotrport.colony.Immigration.draw(server, colony, board, level.getGameTime());
+        helper.assertTrue(com.porcupinestudios.lotrport.colony.Immigration.decline(server, colony,
+                board.offers().get(0).id()).ok(), "could not turn a group away");
+        helper.assertTrue(Society.citizenCount(server, colony) == 2 && colony.get(com.porcupinestudios.lotrport
+                .colony.Immigration.BOARD).orElseThrow().offers().isEmpty(), "turning away let them in");
+        Person first = Society.citizens(server, colony).get(0);
+        helper.assertTrue(!com.porcupinestudios.lotrport.colonist.Skills.of(first).isEmpty()
+                || com.porcupinestudios.lotrport.colonist.Skills.defs().isEmpty(), "a settler came with no skills");
 
         for (Person c : Society.citizens(server, colony)) {
             Entity e = level.getEntity(c.id());

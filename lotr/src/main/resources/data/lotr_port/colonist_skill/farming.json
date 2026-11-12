@@ -1,0 +1,1 @@
+{"name": "Farming", "jobs": ["lotr_port:farmer", "lotr_port:forester"], "races": {"hobbit": 2}, "order": 1}

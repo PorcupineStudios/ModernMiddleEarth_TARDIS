@@ -336,7 +336,7 @@ public final class Colonies extends SavedData {
         return Math.max(beds(level, colony), ColonyData.settings().firstSettlers());
     }
 
-    private static Optional<ResourceLocation> pickMigrant(Colony colony, RandomSource random) {
+    public static Optional<ResourceLocation> pickMigrant(Colony colony, RandomSource random) {
         Optional<ColonyData.Migration> table = ColonyData.migration(colony.faction);
         if (table.isEmpty() || table.get().entries().isEmpty()) {
             return Optional.empty();

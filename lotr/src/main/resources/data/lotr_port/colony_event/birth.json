@@ -1,0 +1,1 @@
+{"kind": "lotr_port:birth", "name": "Birth", "chance": 0.08, "cooldown_days": 5, "thought": "lotr_port:child_born", "min_people": 2}

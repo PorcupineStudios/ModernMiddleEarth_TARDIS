@@ -1,0 +1,1 @@
+{"kind": "lotr_port:wedding", "name": "Wedding", "chance": 0.25, "cooldown_days": 4, "min_opinion": 55, "thought": "lotr_port:wedding", "guest_thought": "lotr_port:attended_wedding", "opinion_change": 15, "min_people": 2}

@@ -1,0 +1,1 @@
+{"name": "Cooking", "jobs": ["lotr_port:cook", "lotr_port:brewer", "lotr_port:miller", "lotr_port:innkeeper"], "races": {"hobbit": 2}, "order": 2}

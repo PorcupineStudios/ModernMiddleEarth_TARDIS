@@ -39,7 +39,7 @@ public final class ColonySystemsCore {
         // Migrants need a loaded Hall (beds are counted from blocks); an AI colony grows by numbers instead.
         ColonySystems.register(ColonySystem.of(MIGRATION, Cadence.DAY, Tier.IN_WORLD,
                 Set.of(APPLICANTS, LotrPort.id("needs")), ctx -> {
-            if (!ctx.colony().ai() && ctx.level() != null) {
+            if (!ctx.colony().ai() && ctx.level() != null && !Immigration.enabled()) {
                 ctx.count(ARRIVALS, Colonies.get(ctx.server()).arrivals(ctx.level(), ctx.colony()));
             }
         }));
