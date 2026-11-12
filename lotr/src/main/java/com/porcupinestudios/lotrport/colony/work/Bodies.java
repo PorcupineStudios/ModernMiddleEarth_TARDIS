@@ -58,7 +58,8 @@ public final class Bodies {
         List<Person> inside = new ArrayList<>();
         java.util.Map<java.util.UUID, BlockPos> places = new java.util.HashMap<>();
         for (Person p : Society.citizens(ctx.server(), ctx.colony())) {
-            if (p.has(CoreComponents.UNIT)) {
+            if (p.has(CoreComponents.UNIT)
+                    || com.porcupinestudios.lotrport.journey.Journeys.away(ctx.server(), p.id())) {
                 continue;
             }
             Optional<TaskRules.Entry> task = TaskRules.current(Colonists.tasks(p, schedules, !food.isEmpty(),
