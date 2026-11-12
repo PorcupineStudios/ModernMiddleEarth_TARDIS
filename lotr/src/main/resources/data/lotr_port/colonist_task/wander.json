@@ -1,0 +1,5 @@
+{
+  "action": "wander",
+  "place": "home",
+  "priority": { "work": 1, "leisure": 1, "any": 1 }
+}

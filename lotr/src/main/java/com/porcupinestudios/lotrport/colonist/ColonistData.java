@@ -120,6 +120,19 @@ public final class ColonistData {
             Codec.INT.optionalFieldOf("order", 0).forGetter(RationDef::order))
             .apply(i, RationDef::new));
 
+    public static final Codec<TaskDef> TASK_CODEC = RecordCodecBuilder.create(i -> i.group(
+            Codec.STRING.fieldOf("action").forGetter(TaskDef::action),
+            Codec.STRING.optionalFieldOf("place", "home").forGetter(TaskDef::place),
+            Codec.unboundedMap(Codec.STRING, Codec.INT).optionalFieldOf("priority", Map.of())
+                    .forGetter(TaskDef::priority),
+            Codec.STRING.optionalFieldOf("need").forGetter(TaskDef::need),
+            Codec.DOUBLE.optionalFieldOf("want_below", 1000.0).forGetter(TaskDef::wantBelow),
+            Codec.STRING.listOf().optionalFieldOf("always_in", List.of()).forGetter(TaskDef::alwaysIn),
+            Codec.DOUBLE.optionalFieldOf("urgent_below", -1.0).forGetter(TaskDef::urgentBelow),
+            Codec.INT.optionalFieldOf("urgent_priority", 10).forGetter(TaskDef::urgentPriority),
+            Codec.STRING.listOf().optionalFieldOf("requires", List.of()).forGetter(TaskDef::requires))
+            .apply(i, TaskDef::new));
+
     public static final ColonistSettings DEFAULT_SETTINGS = new ColonistSettings(3, 0.35, LotrPort.id("own_home"),
             LotrPort.id("family_home"), LotrPort.id("shared_home"), LotrPort.id("family_shared"),
             LotrPort.id("barracks"), LotrPort.id("family_barracks"), 3);
@@ -202,6 +215,7 @@ public final class ColonistData {
     private static final ResourceLocation SLEEP_ID = LotrPort.id("settings");
     private static final CodecJsonLoader<SleepSettings> SLEEP_LOADER =
             new CodecJsonLoader<>("colonist_sleep", SLEEP_CODEC);
+    private static final CodecJsonLoader<TaskDef> TASKS_LOADER = new CodecJsonLoader<>("colonist_task", TASK_CODEC);
     private static final CodecJsonLoader<RationDef> RATIONS_LOADER =
             new CodecJsonLoader<>("colonist_ration", RATION_CODEC);
 
@@ -218,6 +232,7 @@ public final class ColonistData {
             event.addListener(RACES_LOADER);
             event.addListener(RATIONS_LOADER);
             event.addListener(SLEEP_LOADER);
+            event.addListener(TASKS_LOADER);
         });
     }
 
@@ -237,6 +252,10 @@ public final class ColonistData {
         return RACES_LOADER.entries();
     }
 
+    public static Map<ResourceLocation, TaskDef> tasks() {
+        return TASKS_LOADER.entries();
+    }
+
     public static SleepSettings sleep() {
         return SLEEP_LOADER.entries().getOrDefault(SLEEP_ID, DEFAULT_SLEEP);
     }
@@ -253,6 +272,20 @@ public final class ColonistData {
         all.addAll(RACES_LOADER.lastErrors());
         all.addAll(RATIONS_LOADER.lastErrors());
         all.addAll(SLEEP_LOADER.lastErrors());
+        all.addAll(TASKS_LOADER.lastErrors());
+        java.util.Set<String> actions = java.util.Set.of("sleep", "eat", "work", "leisure", "wander");
+        java.util.Set<String> places = java.util.Set.of("home", "workplace", "food", "hall");
+        java.util.Set<String> facts = java.util.Set.of("job", "paid", "works", "food_place", "home");
+        tasks().forEach((id, d) -> {
+            if (!actions.contains(d.action())) {
+                all.add("colonist_task/" + id + ": unknown action " + d.action());
+            }
+            if (!places.contains(d.place())) {
+                all.add("colonist_task/" + id + ": unknown place " + d.place());
+            }
+            d.requires().stream().filter(r -> !facts.contains(r))
+                    .forEach(r -> all.add("colonist_task/" + id + ": unknown requirement " + r));
+        });
         SleepSettings.Thoughts st = sleep().thoughts();
         for (ResourceLocation t : List.of(st.tired(), st.exhausted(), st.oddHours(), st.wrongHours(), st.noLeisure(),
                 st.enoughLeisure())) {
