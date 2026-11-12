@@ -73,8 +73,15 @@ public sealed interface Page permits Page.Table, Page.Stats, Page.Profile, Page.
         }
     }
 
-    /** One person in a tree; {@code detail} is a short line under the name (race and age, or a cross). */
-    record TreeNode(String id, Component name, Component detail, boolean alive, boolean openable) {}
+    /**
+     * One person in a tree; {@code detail} is a short line under the name (race and age).
+     *
+     * @param mark a badge on the box: {@link #DEAD}, {@link #LEFT} (left the colony) or empty
+     */
+    record TreeNode(String id, Component name, Component detail, boolean alive, boolean openable, String mark) {
+        public static final String DEAD = "dead";
+        public static final String LEFT = "left";
+    }
 
     /** {@code parent} to child, or two spouses when {@code spouse}. */
     record TreeLink(String from, String to, boolean spouse) {}

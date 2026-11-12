@@ -198,6 +198,14 @@ public final class ColonistData {
     /** Energy and how the last day's hours went (sleep and schedules). */
     public static final ComponentType<Rest> REST = ComponentType.register(LotrPort.id("rest"), REST_CODEC);
 
+    private static final Codec<Left> LEFT_CODEC = RecordCodecBuilder.create(i -> i.group(
+            UUIDUtil.CODEC.fieldOf("colony").forGetter(Left::colony),
+            Codec.STRING.fieldOf("why").forGetter(Left::why),
+            Codec.LONG.fieldOf("since").forGetter(Left::since))
+            .apply(i, Left::new));
+    /** Left their colony (abandoned or banished), kept for their family. */
+    public static final ComponentType<Left> LEFT = ComponentType.register(LotrPort.id("left"), LEFT_CODEC);
+
     /** Race, birth and family links. */
     public static final ComponentType<Kin> KIN = ComponentType.register(LotrPort.id("kin"), KIN_CODEC);
     /** What the colony's managers told them (workplace, home, work or rest, ration); absent: all left to the colony. */
