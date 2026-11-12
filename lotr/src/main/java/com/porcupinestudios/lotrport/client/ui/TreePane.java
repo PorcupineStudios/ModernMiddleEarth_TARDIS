@@ -192,8 +192,8 @@ final class TreePane {
             if (Page.TreeLink.SPOUSE.equals(l.kind())) {
                 g.fill(x1, ly - 1, x2, ly + 1, 0xFFB0452A);
             } else {
-                for (int x = x1; x < x2; x += 4) {
-                    g.fill(x, ly, Math.min(x + 2, x2), ly + 1, 0xFF8A6F52);
+                for (int dx = x1; dx < x2; dx += 4) {
+                    g.fill(dx, ly, Math.min(dx + 2, x2), ly + 1, 0xFF8A6F52);
                 }
             }
         }
