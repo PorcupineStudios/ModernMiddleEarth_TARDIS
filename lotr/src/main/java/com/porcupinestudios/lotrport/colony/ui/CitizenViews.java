@@ -328,14 +328,14 @@ public final class CitizenViews {
                 TaskRules.State state = Colonists.taskState(p, schedules, foodPlace, dayTime);
                 List<TaskRules.Entry> queue = TaskRules.queue(ColonistData.tasks(), state);
                 Optional<TaskRules.Entry> doing = TaskRules.current(queue);
-                List<Stat> now = new ArrayList<>();
-                now.add(Stat.of(tr("citizen.doing", "Doing"), doing.map(e -> taskName(e.id()).getString())
+                List<Stat> rightNow = new ArrayList<>();
+                rightNow.add(Stat.of(tr("citizen.doing", "Doing"), doing.map(e -> taskName(e.id()).getString())
                         .orElse(tr("citizen.idle", "Nothing").getString()), Tone.GOOD));
-                now.add(Stat.of(tr("citizen.hour", "Hour"), String.format(Locale.ROOT, "%02d:00, %s",
+                rightNow.add(Stat.of(tr("citizen.hour", "Hour"), String.format(Locale.ROOT, "%02d:00, %s",
                         Schedule.hourOf(dayTime), ScheduleViews.blockName(state.block()).getString())));
-                now.add(Stat.of(tr("citizen.energy", "Energy"), Math.round(state.energy()) + " / 100",
+                rightNow.add(Stat.of(tr("citizen.energy", "Energy"), Math.round(state.energy()) + " / 100",
                         state.energy() < sleep.tiredBelow() ? Tone.WARN : Tone.NORMAL).withBar(state.energy() / 100));
-                now.add(Stat.of(tr("citizen.food", "Food"), Math.round(state.food()) + " / 20",
+                rightNow.add(Stat.of(tr("citizen.food", "Food"), Math.round(state.food()) + " / 20",
                         state.food() < life.eatBelow() ? Tone.WARN : Tone.NORMAL).withBar(state.food() / 20));
                 List<Stat> q = new ArrayList<>();
                 for (TaskRules.Entry e : queue) {
@@ -344,7 +344,7 @@ public final class CitizenViews {
                                     e.priority() >= 9 ? Tone.BAD : Tone.NORMAL)
                             : Stat.of(taskName(e.id()), waitReason(e.waiting().get()).getString(), Tone.MUTED));
                 }
-                left = List.of(new Page.Section(tr("citizen.right_now", "Right now"), now));
+                left = List.of(new Page.Section(tr("citizen.right_now", "Right now"), rightNow));
                 right = List.of(new Page.Section(tr("citizen.queue", "Task queue"), q));
             }
             case ABOUT -> {
