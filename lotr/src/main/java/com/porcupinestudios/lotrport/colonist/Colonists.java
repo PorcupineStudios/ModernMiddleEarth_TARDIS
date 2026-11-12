@@ -127,6 +127,11 @@ public final class Colonists {
         if (p.name().isEmpty()) {
             persons.rename(server, p, nameFor(p));
         }
+        if (!p.has(Skills.TYPE)) {
+            // a settler's skills: a few levels, their race's head start first (immigrants bring their own)
+            Random sr = new Random(p.id().getLeastSignificantBits() * 31 + p.id().getMostSignificantBits());
+            persons.setQuiet(p, Skills.TYPE, Skills.roll(Races.of(p.type()), Skills.settings().settlerPoints(), 4, sr));
+        }
         if (p.has(ColonistData.TRAITS)) {
             return;
         }
