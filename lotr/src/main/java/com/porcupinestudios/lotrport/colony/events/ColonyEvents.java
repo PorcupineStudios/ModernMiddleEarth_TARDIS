@@ -137,7 +137,7 @@ public final class ColonyEvents {
             p.get(com.porcupinestudios.lotrport.colony.work.WorkComponents.JOB).ifPresent(j -> work.put(p.id(),
                     j.building()));
         }
-        Opinions.day(Persons.get(server), citizens, home, work, ctx.days());
+        Opinions.day(Persons.get(server), citizens, home, work, ctx.days(), day);
         for (Map.Entry<ResourceLocation, Def> e : defs().entrySet()) {
             Def d = e.getValue();
             long last = c.get(LAST).map(m -> m.getOrDefault(e.getKey(), Long.MIN_VALUE / 2)).orElse(Long.MIN_VALUE / 2);

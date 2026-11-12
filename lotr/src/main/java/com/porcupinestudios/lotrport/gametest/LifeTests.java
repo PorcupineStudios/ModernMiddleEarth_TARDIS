@@ -151,7 +151,7 @@ public final class LifeTests {
         // the base rules: no traits and a man's appetite, so the counts below are exact (colonist/ is tested apart)
         persons.setQuiet(p, com.porcupinestudios.lotrport.colonist.ColonistData.TRAITS, java.util.List.of());
         persons.setQuiet(p, com.porcupinestudios.lotrport.colonist.ColonistData.KIN,
-                new com.porcupinestudios.lotrport.colonist.Kin(com.porcupinestudios.lotrport.LotrPort.id("man"), 0,
+                new com.porcupinestudios.lotrport.colonist.Kin(com.porcupinestudios.lotrport.LotrPort.id("man"), -10_000_000L,
                         java.util.List.of(), Optional.empty(), java.util.List.of()));
         return p;
     }

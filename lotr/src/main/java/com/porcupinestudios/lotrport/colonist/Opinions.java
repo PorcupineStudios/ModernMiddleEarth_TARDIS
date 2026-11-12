@@ -119,8 +119,16 @@ public final class Opinions {
     }
 
     /** Day pass for a colony's citizens: every pair drifts. {@code homeOf} and {@code workOf} may be null. */
+    /** How many others each citizen thinks over a day (in turn, so all are reached; keeps big colonies cheap). */
+    static final int PER_DAY = 6;
+
     public static void day(Persons persons, List<Person> citizens, Map<UUID, UUID> homeOf, Map<UUID, UUID> workOf,
             int days) {
+        day(persons, citizens, homeOf, workOf, days, 0);
+    }
+
+    public static void day(Persons persons, List<Person> citizens, Map<UUID, UUID> homeOf, Map<UUID, UUID> workOf,
+            int days, long turn) {
         Settings s = settings();
         Map<UUID, Map<UUID, Double>> next = new HashMap<>();
         java.util.Set<UUID> here = new java.util.HashSet<>();
@@ -131,7 +139,9 @@ public final class Opinions {
             Map<UUID, Double> mine = new LinkedHashMap<>(a.get(TYPE).orElse(Map.of()));
             Kin ka = a.get(ColonistData.KIN).orElse(null);
             List<ResourceLocation> ta = a.get(ColonistData.TRAITS).orElse(List.of());
-            for (int j = 0; j < n; j++) {
+            int look = Math.min(n - 1, PER_DAY);
+            for (int k = 0; k < look; k++) {
+                int j = (int) ((i + 1 + Math.floorMod(turn * PER_DAY + k, Math.max(1, n - 1))) % n);
                 if (i == j) {
                     continue;
                 }
@@ -143,10 +153,14 @@ public final class Opinions {
                 Pair pair = new Pair(ka != null && kb != null && ka.race().equals(kb.race()),
                         ha != null && ha.equals(homeOf.get(b.id())), wa != null && wa.equals(workOf.get(b.id())),
                         family, ta, b.get(ColonistData.TRAITS).orElse(List.of()));
-                mine.put(b.id(), drift(mine.getOrDefault(b.id(), 0.0), target(pair, s), s, days));
+                // a pair is thought over every (n - 1) / PER_DAY days: catch up those days at once
+                int span = Math.max(1, (n - 1 + PER_DAY - 1) / PER_DAY) * days;
+                mine.put(b.id(), drift(mine.getOrDefault(b.id(), 0.0), target(pair, s), s, span));
             }
             // forget people who are no longer here
-            mine.keySet().retainAll(here);
+            if (mine.size() > n) {
+                mine.keySet().retainAll(here);
+            }
             next.put(a.id(), mine);
         }
         for (Person a : citizens) {
