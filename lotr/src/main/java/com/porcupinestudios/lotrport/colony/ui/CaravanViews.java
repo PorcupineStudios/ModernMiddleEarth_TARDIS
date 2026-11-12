@@ -576,9 +576,10 @@ public final class CaravanViews {
             List<Action> buttons = new ArrayList<>();
             Map<ResourceLocation, Integer> have = items(server, c);
             if (open.equals("offers")) {
-                sections.add(new Page.Section(tr("caravan.offers_how", "What friends' caravans may trade here"),
-                        List.of(Stat.of(Component.literal("For each 'want' a caravan brings, it gets 'give'"), "",
-                                Tone.MUTED))));
+                sections.add(new Page.Section(tr("caravan.offers_how", "How trading works"),
+                        List.of(Stat.of(Component.literal("Friends' caravans trade here:"), "", Tone.MUTED),
+                                Stat.of(Component.literal("for each 'For' they bring,"), "", Tone.MUTED),
+                                Stat.of(Component.literal("they get the 'Give' goods."), "", Tone.MUTED))));
                 for (int i = 0; i < b.offers().size(); i++) {
                     CaravanRules.Offer o = b.offers().get(i);
                     Set<String> chosen = Set.of(o.give().item(), o.want().item());

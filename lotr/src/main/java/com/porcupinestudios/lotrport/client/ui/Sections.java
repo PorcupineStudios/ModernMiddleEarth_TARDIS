@@ -19,7 +19,17 @@ final class Sections {
 
     /** Draws one section from {@code y}; returns the y under it. */
     static int draw(Imm ui, UiScreen screen, Page.Section section, int x, int y, int w) {
-        ui.text(section.title().copy().withStyle(ChatFormatting.BOLD), x, y, UiTheme.DARK_TEXT);
+        // a long title is cut to its column (it ran into the next one)
+        net.minecraft.network.chat.Component title = section.title().copy().withStyle(ChatFormatting.BOLD);
+        if (ui.font.width(title) > w) {
+            String t = section.title().getString();
+            while (t.length() > 1 && ui.font.width(net.minecraft.network.chat.Component.literal(t + "...")
+                    .withStyle(ChatFormatting.BOLD)) > w) {
+                t = t.substring(0, t.length() - 1);
+            }
+            title = net.minecraft.network.chat.Component.literal(t + "...").withStyle(ChatFormatting.BOLD);
+        }
+        ui.text(title, x, y, UiTheme.DARK_TEXT);
         y += LINE + 1;
         for (Stat s : section.stats()) {
             int valueColor = UiTheme.tone(s.tone(), false);
