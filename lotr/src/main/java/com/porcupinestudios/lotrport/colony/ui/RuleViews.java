@@ -231,7 +231,10 @@ final class RuleViews {
                 }
                 parts.add(Page.Part.slot(new Stat.Picker("c_add:" + at, "", types(false))));
             }
-            return new Page.Block("bool", RuleEditors.OPERATORS, parts, List.of(), Optional.of(menu));
+            // nested groups alternate shades so each AND/OR shows where it starts and ends
+            int depth = path.isEmpty() ? 0 : path.split("\\.").length;
+            return new Page.Block("bool", depth % 2 == 0 ? RuleEditors.OPERATORS : 0xFF3F9E3F, parts, List.of(),
+                    Optional.of(menu));
         }
         List<RuleEditors.Field> fields = spec == null ? List.of() : spec.fields();
         parts.addAll(sentence(type, spec == null ? type : spec.label(), fields, f -> field(server, home, r, j,
