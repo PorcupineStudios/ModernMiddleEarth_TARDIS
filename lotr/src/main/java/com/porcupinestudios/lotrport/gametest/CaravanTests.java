@@ -129,7 +129,10 @@ public final class CaravanTests {
                 .thenExecute(() -> {
                     helper.assertTrue(stock(server, home.id(), WOOL) == 10 && stock(server, friend.id(), WOOL) == 0,
                             "wool home " + stock(server, home.id(), WOOL) + " friend "
-                                    + stock(server, friend.id(), WOOL));
+                                    + stock(server, friend.id(), WOOL) + " (friend offers "
+                                    + Colonies.get(server).get(friend.id()).map(c -> Caravans.book(c).offers().size())
+                                    .orElse(-1) + ", caravan " + cur[0].extra + ", cargo " + cur[0].cargo
+                                    + ", friend bread " + stock(server, friend.id(), BREAD) + ")");
                     helper.assertTrue(stock(server, friend.id(), BREAD) == 5 && stock(server, home.id(), BREAD) == 45,
                             "bread friend " + stock(server, friend.id(), BREAD) + " home "
                                     + stock(server, home.id(), BREAD) + " (5 sold, 5 brought back)");
