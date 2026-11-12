@@ -115,6 +115,8 @@ public final class RoutePlanner {
                 }
             }
         }
+        lastSearch = "opened " + opened + " of " + s.maxNodes() + ", box " + (maxI - minI + 1) + "x" + (maxJ - minJ + 1)
+                + (reached ? ", reached" : open.isEmpty() ? ", no way" : ", ran out");
         if (!best.containsKey(goal)) {
             return Route.NONE;
         }
