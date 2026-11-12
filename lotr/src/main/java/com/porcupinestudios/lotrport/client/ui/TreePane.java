@@ -115,8 +115,9 @@ final class TreePane {
             Map<String, Double> key = new HashMap<>();
             for (int i = 0; i < ids.size(); i++) {
                 String id = ids.get(i);
+                // siblings share their parents' place: keep them apart by their order of discovery
                 double k = parents.getOrDefault(id, List.of()).stream().filter(order::containsKey)
-                        .mapToDouble(order::get).average().orElse(1000 + i);
+                        .mapToDouble(order::get).average().orElse(1000 + i) + i * 1e-4;
                 key.put(id, k);
             }
             // a spouse with no parents here takes their partner's place, just after them
@@ -124,7 +125,8 @@ final class TreePane {
                 if (parents.getOrDefault(id, List.of()).stream().noneMatch(order::containsKey)) {
                     for (String s : spouses.getOrDefault(id, List.of())) {
                         if (key.containsKey(s) && key.get(s) < 1000) {
-                            key.put(id, key.get(s) + 0.001);
+                            // right after the partner, before the partner's next sibling
+                            key.put(id, key.get(s) + 1e-5);
                         }
                     }
                 }
