@@ -57,6 +57,8 @@ public final class JourneyTests {
     public static void partyPlansGoesAndArrives(GameTestHelper helper) {
         List<Waypoint> ws = new ArrayList<>(FastTravel.waypoints().values().stream().filter(w -> !w.hidden())
                 .toList());
+        // the same pair every run (the loader's map order isn't fixed)
+        ws.sort(java.util.Comparator.comparingInt(Waypoint::x).thenComparingInt(Waypoint::z));
         helper.assertTrue(ws.size() >= 2, "no waypoints to travel between");
         Waypoint a = null;
         Waypoint b = null;
