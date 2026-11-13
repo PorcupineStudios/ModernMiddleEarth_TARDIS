@@ -132,14 +132,15 @@ public final class MarketViews {
             MinecraftServer server = player.server;
             boolean may = Permissions.can(player.getUUID(), c, Perm.MARKET);
             int ceiling = Market.ceiling(st.level());
-            double cost = Market.upgradeCost(st.level());
+            Optional<com.porcupinestudios.lotrport.colony.market.Cost> cost = Market.upgradeCost(st.level());
             List<Stat> research = new ArrayList<>();
             research.add(Stat.of(Component.literal("Market level"), st.level() + " / " + Market.settings().maxLevel()));
             research.add(Stat.of(Component.literal("Most of one item a day"), Integer.toString(ceiling)));
-            ResourceLocation tier = Market.upgradeTier(st.level());
-            if (cost >= 0) {
-                research.add(Stat.of(Component.literal("Next level costs"), (int) cost + " " + Research.name(tier)
-                        + " points (has " + (int) Research.points(server, c, tier) + ")"));
+            Optional<Component> missing = cost.flatMap(k -> k.missing(server, c));
+            if (cost.isPresent()) {
+                research.add(Stat.of(Component.literal("Next level costs"), "", Tone.MUTED));
+                research.add(Stat.of(Component.literal("  " + cost.get().text()), "", Tone.NORMAL));
+                missing.ifPresent(m -> research.add(Stat.of(m, "", Tone.BAD)));
             }
             List<Stat> rows = new ArrayList<>();
             rows.add(Stat.of(Component.literal("The most the colony takes from players a day, per item"), "",
@@ -153,10 +154,10 @@ public final class MarketViews {
                 rows.add(CaravanViews.stepper(name(id) + " (" + taken + " today)", "limit:" + id, lim, 0, ceiling));
             }
             List<Action> buttons = new ArrayList<>();
-            Component up = Component.literal(cost < 0 ? "Fully upgraded" : "Upgrade (" + (int) cost + " points)");
-            buttons.add(may && cost >= 0 ? Action.of("upgrade", up) : Action.disabled("upgrade", up, may
-                    ? Component.literal("The market is as large as it gets")
-                    : tr("market.no_perm", "Only those who may run the market can")));
+            Component up = Component.literal(cost.isEmpty() ? "Fully upgraded" : "Upgrade");
+            buttons.add(may && cost.isPresent() && missing.isEmpty() ? Action.of("upgrade", up)
+                    : Action.disabled("upgrade", up, !may ? tr("market.no_perm", "Only those who may run the market can")
+                            : cost.isEmpty() ? Component.literal("The market is as large as it gets") : missing.get()));
             return new Page.Stats(List.of(new Page.Section(tr("market.level", "Market"), research),
                     new Page.Section(tr("market.limits", "Daily limits"), rows)), buttons);
         }
