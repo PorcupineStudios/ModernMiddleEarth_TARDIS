@@ -1,9 +1,6 @@
 {
   "base_limit": 16,
   "limit_per_level": 16,
-  "max_level": 10,
-  "upgrade_cost": 20,
-  "upgrade_growth": 1.5,
   "target": 64,
   "curve": 0.6,
   "min_factor": 0.25,
@@ -38,16 +35,97 @@
     "minecraft:cobblestone": 256,
     "minecraft:oak_log": 128
   },
-  "upgrade_tiers": [
-    "lotr_port:basic",
-    "lotr_port:basic",
-    "lotr_port:basic",
-    "lotr_port:basic",
-    "lotr_port:scholarly",
-    "lotr_port:scholarly",
-    "lotr_port:scholarly",
-    "lotr_port:advanced",
-    "lotr_port:advanced",
-    "lotr_port:advanced"
+  "upgrades": [
+    {
+      "research": {
+        "lotr_port:basic": 20
+      }
+    },
+    {
+      "research": {
+        "lotr_port:basic": 30
+      }
+    },
+    {
+      "research": {
+        "lotr_port:basic": 45
+      },
+      "coins": 50
+    },
+    {
+      "research": {
+        "lotr_port:basic": 70
+      },
+      "items": {
+        "minecraft:oak_planks": 64
+      },
+      "coins": 100
+    },
+    {
+      "research": {
+        "lotr_port:basic": 60,
+        "lotr_port:scholarly": 20
+      },
+      "coins": 150
+    },
+    {
+      "research": {
+        "lotr_port:basic": 80,
+        "lotr_port:scholarly": 40
+      },
+      "items": {
+        "minecraft:iron_ingot": 16
+      },
+      "coins": 200
+    },
+    {
+      "research": {
+        "lotr_port:basic": 100,
+        "lotr_port:scholarly": 60
+      },
+      "items": {
+        "minecraft:iron_ingot": 32,
+        "minecraft:paper": 32
+      },
+      "coins": 300
+    },
+    {
+      "research": {
+        "lotr_port:basic": 120,
+        "lotr_port:scholarly": 80,
+        "lotr_port:advanced": 20
+      },
+      "coins": 400,
+      "requires": {
+        "type": "lotr_port:colony_population",
+        "colony": "home",
+        "compare": ">=",
+        "value": 12
+      },
+      "requires_text": "12 citizens"
+    },
+    {
+      "research": {
+        "lotr_port:basic": 150,
+        "lotr_port:scholarly": 100,
+        "lotr_port:advanced": 40
+      },
+      "items": {
+        "minecraft:gold_ingot": 16
+      },
+      "coins": 600
+    },
+    {
+      "research": {
+        "lotr_port:basic": 200,
+        "lotr_port:scholarly": 150,
+        "lotr_port:advanced": 80
+      },
+      "items": {
+        "minecraft:gold_ingot": 32,
+        "minecraft:book": 16
+      },
+      "coins": 1000
+    }
   ]
 }

@@ -59,7 +59,8 @@ public final class MarketTests {
         // points of another tier don't pay for a basic upgrade
         Research.add(server, c, LotrPort.id("scholarly"), 1000);
         helper.assertTrue(!Market.upgrade(server, c).ok(), "scholarly points paid a basic upgrade");
-        Research.add(server, c, Research.BASIC, Market.upgradeCost(0));
+        Research.add(server, c, Research.BASIC, Market.upgradeCost(0).orElseThrow().research()
+                .getOrDefault(Research.BASIC, 0.0));
         helper.assertTrue(Market.upgrade(server, c).ok(), "upgrade with enough points failed");
         Market.State st = Market.state(server, c);
         helper.assertTrue(st.level() == 1 && Market.room(st, bread) == Market.ceiling(1) - ceiling,
@@ -71,7 +72,14 @@ public final class MarketTests {
                 && !Research.tier(LotrPort.id("scholarly")).cost().isEmpty(), "tier costs are wrong");
         helper.assertTrue(Research.whyNot(server, c, LotrPort.id("scholarly")).isPresent(),
                 "an empty colony may do scholarly research");
-        helper.assertTrue(Market.upgradeTier(5).equals(LotrPort.id("scholarly")), "level 5 should cost scholarly points");
+        // a later level costs several tiers, goods and coins at once, paid whole or not at all
+        var mixed = Market.upgradeCost(5).orElseThrow();
+        helper.assertTrue(mixed.research().size() >= 2 && !mixed.items().isEmpty() && mixed.coins() > 0,
+                "level 5's cost should mix tiers, goods and coins: " + mixed.text());
+        long gold = colonies.get(c.id()).orElseThrow().get(CoreComponents.TREASURY).orElseThrow().coins();
+        helper.assertTrue(mixed.pay(server, c).isPresent(), "paid a mixed cost the colony can't afford");
+        helper.assertTrue(colonies.get(c.id()).orElseThrow().get(CoreComponents.TREASURY).orElseThrow().coins() == gold
+                && Research.points(server, c, LotrPort.id("scholarly")) == 1000, "a failed payment took something");
         // buying back costs coins and leaves the stores
         Colony now = colonies.get(c.id()).orElseThrow();
         int before = new Stores(server, helper.getLevel(), now).count(bread, null);

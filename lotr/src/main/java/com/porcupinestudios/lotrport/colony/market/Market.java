@@ -37,9 +37,8 @@ public final class Market {
     /**
      * @param baseLimit the daily ceiling per item at level 0
      * @param limitPerLevel what each upgrade adds to it
-     * @param maxLevel highest upgrade
-     * @param upgradeCost research points for the first upgrade
-     * @param upgradeGrowth each further upgrade costs this many times the last
+     * @param upgrades what each level costs, in order (their number is the highest level): research points of
+     *     any tiers, goods, coins, a condition
      * @param target the stock a colony wants of an item (price is base at the target)
      * @param curve how hard the price follows (target / stock)
      * @param minFactor cheapest, times base
@@ -48,20 +47,19 @@ public final class Market {
      * @param defaultPrice base price of an item not listed
      * @param prices base prices in coins
      * @param targets per-item targets
-     * @param upgradeTiers which research tier pays for each level (the last one for any higher); none: basic
      */
-    public record Settings(int baseLimit, int limitPerLevel, int maxLevel, double upgradeCost, double upgradeGrowth,
-            int target, double curve, double minFactor, double maxFactor, double sellShare,
-            double defaultPrice, Map<ResourceLocation, Double> prices, Map<ResourceLocation, Integer> targets,
-            java.util.List<ResourceLocation> upgradeTiers) {
-        public static final Settings DEFAULT = new Settings(16, 16, 10, 20, 1.5, 64, 0.6, 0.25, 4, 0.5, 2,
-                Map.of(), Map.of(), java.util.List.of());
+    public record Settings(int baseLimit, int limitPerLevel, java.util.List<Cost> upgrades, int target, double curve, double minFactor, double maxFactor, double sellShare,
+            double defaultPrice, Map<ResourceLocation, Double> prices, Map<ResourceLocation, Integer> targets) {
+        public static final Settings DEFAULT = new Settings(16, 16, java.util.List.of(), 64, 0.6, 0.25, 4, 0.5, 2,
+                Map.of(), Map.of());
+
+        public int maxLevel() {
+            return upgrades.size();
+        }
         public static final Codec<Settings> CODEC = RecordCodecBuilder.create(i -> i.group(
                 Codec.INT.optionalFieldOf("base_limit", DEFAULT.baseLimit).forGetter(Settings::baseLimit),
                 Codec.INT.optionalFieldOf("limit_per_level", DEFAULT.limitPerLevel).forGetter(Settings::limitPerLevel),
-                Codec.INT.optionalFieldOf("max_level", DEFAULT.maxLevel).forGetter(Settings::maxLevel),
-                Codec.DOUBLE.optionalFieldOf("upgrade_cost", DEFAULT.upgradeCost).forGetter(Settings::upgradeCost),
-                Codec.DOUBLE.optionalFieldOf("upgrade_growth", DEFAULT.upgradeGrowth).forGetter(Settings::upgradeGrowth),
+                Cost.CODEC.listOf().optionalFieldOf("upgrades", java.util.List.of()).forGetter(Settings::upgrades),
                 Codec.INT.optionalFieldOf("target", DEFAULT.target).forGetter(Settings::target),
                 Codec.DOUBLE.optionalFieldOf("curve", DEFAULT.curve).forGetter(Settings::curve),
                 Codec.DOUBLE.optionalFieldOf("min_factor", DEFAULT.minFactor).forGetter(Settings::minFactor),
@@ -71,9 +69,7 @@ public final class Market {
                 Codec.unboundedMap(ResourceLocation.CODEC, Codec.DOUBLE).optionalFieldOf("prices", Map.of())
                         .forGetter(Settings::prices),
                 Codec.unboundedMap(ResourceLocation.CODEC, Codec.INT).optionalFieldOf("targets", Map.of())
-                        .forGetter(Settings::targets),
-                ResourceLocation.CODEC.listOf().optionalFieldOf("upgrade_tiers", java.util.List.of())
-                        .forGetter(Settings::upgradeTiers))
+                        .forGetter(Settings::targets))
                 .apply(i, Settings::new));
     }
 
@@ -147,16 +143,10 @@ public final class Market {
         return s.baseLimit() + s.limitPerLevel() * Math.max(0, Math.min(level, s.maxLevel()));
     }
 
-    /** The research tier that pays for the upgrade from this level. */
-    public static ResourceLocation upgradeTier(int level) {
-        var l = settings().upgradeTiers();
-        return l.isEmpty() ? Research.BASIC : l.get(Math.max(0, Math.min(level, l.size() - 1)));
-    }
-
-    /** Research points the next upgrade costs (or -1 at the top). */
-    public static double upgradeCost(int level) {
-        Settings s = settings();
-        return level >= s.maxLevel() ? -1 : Math.ceil(s.upgradeCost() * Math.pow(s.upgradeGrowth(), level));
+    /** What the upgrade from this level costs (empty at the top). */
+    public static java.util.Optional<Cost> upgradeCost(int level) {
+        var l = settings().upgrades();
+        return level < 0 || level >= l.size() ? java.util.Optional.empty() : java.util.Optional.of(l.get(level));
     }
 
     /** Today's cap for an item: what the colony set, never above the ceiling. */
@@ -188,14 +178,13 @@ public final class Market {
     /** Spends research points on the next level: every item's ceiling rises. */
     public static Answer upgrade(MinecraftServer server, Colony c) {
         State st = state(server, c);
-        double cost = upgradeCost(st.level());
-        if (cost < 0) {
+        var cost = upgradeCost(st.level());
+        if (cost.isEmpty()) {
             return new Answer(false, Component.literal("The market is as large as it gets"));
         }
-        ResourceLocation tier = upgradeTier(st.level());
-        if (!Research.spend(server, c, tier, cost)) {
-            return new Answer(false, Component.literal("Needs " + (int) cost + " " + Research.name(tier)
-                    + " points (has " + (int) Research.points(server, c, tier) + ")"));
+        var why = cost.get().pay(server, c);
+        if (why.isPresent()) {
+            return new Answer(false, why.get());
         }
         st = state(server, c);
         save(server, c, new State(st.level() + 1, st.limits(), st.taken(), st.day(), st.accounts(), st.hatches()));
