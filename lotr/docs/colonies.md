@@ -103,3 +103,12 @@ https://claude.ai/artifact/VLwZ5N7pkVMJW4PCYXh41G).
   specs: another system adds a block by registering its condition type and a `RuleEditors.Spec`. Any condition also
   works without an editor via `/lotr_colony caravan route rules <n> <json>`.
 - GameTests `CaravanTests`, `JourneyTests`; screenshots `ui_caravan*` in `devscripts/ui_shots.txt`.
+
+## Hall events / policies (2026-11-12, `colony/events/ColonyEvents`, `colony/ui/EventViews`)
+- A `colony_event/` def with a `policy` block shows on the colony view's Events tab, to proclaim once (perm `events`,
+  Stewards have it). `policy`: title, description, cooldown_days, requires (any condition, "home" = the colony) +
+  requires_text, cost (item -> count, from the stores), min_people, min_opinion (weddings: a lower bar, the Hall makes
+  the match). `auto: false` makes it policy-only (feast, midsummer).
+- Goods and the cooldown (`proclaimed` component) are only spent when the event found someone (no match, no cost).
+- Marriage needs both of age: weddings check `Colonists.adult`; immigrant settlers are never younger than the race's
+  adult age, and an offer's spouses are only linked if both are.

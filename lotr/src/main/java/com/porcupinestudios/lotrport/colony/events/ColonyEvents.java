@@ -63,7 +63,7 @@ public final class ColonyEvents {
      */
     public record Def(ResourceLocation kind, double chance, int cooldownDays, double minOpinion,
             Optional<ResourceLocation> thought, Optional<ResourceLocation> guestThought, double opinionChange,
-            int minPeople, String name) {
+            int minPeople, String name, boolean auto, Optional<Policy> policy) {
         public static final Codec<Def> CODEC = RecordCodecBuilder.create(i -> i.group(
                 ResourceLocation.CODEC.fieldOf("kind").forGetter(Def::kind),
                 Codec.DOUBLE.optionalFieldOf("chance", 0.1).forGetter(Def::chance),
@@ -73,9 +73,53 @@ public final class ColonyEvents {
                 ResourceLocation.CODEC.optionalFieldOf("guest_thought").forGetter(Def::guestThought),
                 Codec.DOUBLE.optionalFieldOf("opinion_change", 10.0).forGetter(Def::opinionChange),
                 Codec.INT.optionalFieldOf("min_people", 2).forGetter(Def::minPeople),
-                Codec.STRING.optionalFieldOf("name", "").forGetter(Def::name))
+                Codec.STRING.optionalFieldOf("name", "").forGetter(Def::name),
+                Codec.BOOL.optionalFieldOf("auto", true).forGetter(Def::auto),
+                Policy.CODEC.optionalFieldOf("policy").forGetter(Def::policy))
                 .apply(i, Def::new));
+
+        /** As the Hall proclaims it: the policy's own opinion bar, if it sets one. */
+        Def proclaimed() {
+            return policy.flatMap(Policy::minOpinion).map(m -> new Def(kind, chance, cooldownDays, m, thought,
+                    guestThought, opinionChange, minPeople, name, auto, policy)).orElse(this);
+        }
     }
+
+    /**
+     * An event the Hall may proclaim, once in a while, when the colony meets what it asks.
+     *
+     * @param title what the Events tab calls it ("Hold a wedding")
+     * @param description a line about what it does
+     * @param cooldownDays days after it was proclaimed before it can be again
+     * @param requires what the colony must meet (any condition; "home" names the colony)
+     * @param requiresText what {@code requires} means, in words, for the screen
+     * @param cost goods it takes from the colony's stores (all of them, or it can't be held)
+     * @param minPeople citizens it needs (beyond the event's own)
+     * @param minOpinion a lower opinion bar when proclaimed (weddings: the Hall arranges a match)
+     */
+    public record Policy(String title, String description, int cooldownDays,
+            Optional<com.porcupinestudios.ringbearer.api.condition.Condition> requires, String requiresText,
+            Map<ResourceLocation, Integer> cost, int minPeople, Optional<Double> minOpinion) {
+        public static final Codec<Policy> CODEC = RecordCodecBuilder.create(i -> i.group(
+                Codec.STRING.optionalFieldOf("title", "").forGetter(Policy::title),
+                Codec.STRING.optionalFieldOf("description", "").forGetter(Policy::description),
+                Codec.INT.optionalFieldOf("cooldown_days", 7).forGetter(Policy::cooldownDays),
+                com.porcupinestudios.ringbearer.api.condition.Conditions.CODEC.optionalFieldOf("requires")
+                        .forGetter(Policy::requires),
+                Codec.STRING.optionalFieldOf("requires_text", "").forGetter(Policy::requiresText),
+                Codec.unboundedMap(ResourceLocation.CODEC, Codec.INT).optionalFieldOf("cost", Map.of())
+                        .forGetter(Policy::cost),
+                Codec.INT.optionalFieldOf("min_people", 0).forGetter(Policy::minPeople),
+                Codec.DOUBLE.optionalFieldOf("min_opinion").forGetter(Policy::minOpinion))
+                .apply(i, Policy::new));
+    }
+
+    /** Per colony: the day each policy was last proclaimed. */
+    public static final ComponentType<Map<ResourceLocation, Long>> PROCLAIMED = ComponentType.register(
+            LotrPort.id("proclaimed"), Codec.unboundedMap(ResourceLocation.CODEC, Codec.LONG));
+
+    /** What proclaiming came to. */
+    public record Answer(boolean ok, Component message) {}
 
     /** What happened: those it was about, and a line for the owner (empty: nothing happened). */
     public record Outcome(List<UUID> about, Optional<Component> line) {
@@ -141,7 +185,7 @@ public final class ColonyEvents {
         for (Map.Entry<ResourceLocation, Def> e : defs().entrySet()) {
             Def d = e.getValue();
             long last = c.get(LAST).map(m -> m.getOrDefault(e.getKey(), Long.MIN_VALUE / 2)).orElse(Long.MIN_VALUE / 2);
-            if (day - last < d.cooldownDays() || random.nextDouble() >= Math.min(1, d.chance() * ctx.days())) {
+            if (!d.auto() || day - last < d.cooldownDays() || random.nextDouble() >= Math.min(1, d.chance() * ctx.days())) {
                 continue;
             }
             run(server, c, e.getKey(), random);
@@ -150,7 +194,10 @@ public final class ColonyEvents {
 
     /** Runs an event now (if its kind finds anyone to happen to); true when it happened. */
     public static boolean run(MinecraftServer server, Colony c, ResourceLocation id, Random random) {
-        Def d = defs().get(id);
+        return run(server, c, id, defs().get(id), random);
+    }
+
+    static boolean run(MinecraftServer server, Colony c, ResourceLocation id, Def d, Random random) {
         Kind kind = d == null ? null : KINDS.get(d.kind());
         if (kind == null) {
             return false;
@@ -187,6 +234,101 @@ public final class ColonyEvents {
             owner.sendSystemMessage(Component.literal("[" + c.name() + "] ").append(o.line().get()));
         }
         return true;
+    }
+
+    // ---------------------------------------------------------------- policies (the Hall's Events tab)
+
+    /** The events the Hall may proclaim, in data order. */
+    public static Map<ResourceLocation, Def> policies() {
+        Map<ResourceLocation, Def> out = new LinkedHashMap<>();
+        defs().forEach((k, v) -> {
+            if (v.policy().isPresent()) {
+                out.put(k, v);
+            }
+        });
+        return out;
+    }
+
+    static long today(MinecraftServer server) {
+        return server.overworld().getDayTime() / 24000L;
+    }
+
+    /** Days until it may be proclaimed again (0: now). */
+    public static int daysLeft(MinecraftServer server, Colony c, ResourceLocation id) {
+        Def d = defs().get(id);
+        if (d == null || d.policy().isEmpty()) {
+            return 0;
+        }
+        Long last = c.get(PROCLAIMED).map(m -> m.get(id)).orElse(null);
+        return last == null ? 0 : (int) Math.max(0, last + d.policy().get().cooldownDays() - today(server));
+    }
+
+    /** Why it can't be proclaimed now (empty: it can). Doesn't say whether anyone will be found for it. */
+    public static Optional<Component> whyNot(MinecraftServer server, Colony c, ResourceLocation id) {
+        Def d = defs().get(id);
+        if (d == null || d.policy().isEmpty() || !KINDS.containsKey(d.kind())) {
+            return Optional.of(Component.literal("No such event"));
+        }
+        Policy p = d.policy().get();
+        int left = daysLeft(server, c, id);
+        if (left > 0) {
+            return Optional.of(Component.literal("Again in " + left + " day" + (left == 1 ? "" : "s")));
+        }
+        int need = Math.max(d.minPeople(), p.minPeople());
+        if (Society.citizens(server, c).size() < need) {
+            return Optional.of(Component.literal("Needs " + need + " citizens"));
+        }
+        if (p.requires().isPresent() && !p.requires().get().test(
+                com.porcupinestudios.lotrport.journey.CaravanConditions.colonyContext(server, c))) {
+            return Optional.of(Component.literal(p.requiresText().isEmpty() ? "The colony isn't ready"
+                    : "Needs: " + p.requiresText()));
+        }
+        var stores = new com.porcupinestudios.lotrport.colony.work.Stores(server, server.getLevel(c.dimension()), c);
+        for (Map.Entry<ResourceLocation, Integer> e : p.cost().entrySet()) {
+            int have = stores.count(e.getKey(), null);
+            if (have < e.getValue()) {
+                return Optional.of(Component.literal("Needs " + e.getValue() + " " + itemName(e.getKey())
+                        + " in the stores (has " + have + ")"));
+            }
+        }
+        return Optional.empty();
+    }
+
+    /** The cost in words: "8 Bread, 2 Cake". */
+    public static String costText(Policy p) {
+        List<String> out = new ArrayList<>();
+        p.cost().forEach((k, v) -> out.add(v + " " + itemName(k)));
+        return out.isEmpty() ? "Free" : String.join(", ", out);
+    }
+
+    static String itemName(ResourceLocation id) {
+        return net.minecraft.core.registries.BuiltInRegistries.ITEM.getOptional(id)
+                .map(i -> new net.minecraft.world.item.ItemStack(i).getHoverName().getString()).orElse(id.getPath());
+    }
+
+    /**
+     * The Hall proclaims an event: checks the cooldown, people, requirements and goods, runs it, and only then takes
+     * the goods and starts the cooldown (an event that finds nobody, such as a wedding with no match, costs nothing).
+     */
+    public static Answer proclaim(MinecraftServer server, Colony c, ResourceLocation id, Random random) {
+        Optional<Component> why = whyNot(server, c, id);
+        if (why.isPresent()) {
+            return new Answer(false, why.get());
+        }
+        Def d = defs().get(id).proclaimed();
+        if (!run(server, c, id, d, random)) {
+            return new Answer(false, Component.literal(d.kind().getPath().equals("wedding")
+                    ? "No couple is fond enough of each other to marry yet" : "Nobody could be found for it"));
+        }
+        var stores = new com.porcupinestudios.lotrport.colony.work.Stores(server, server.getLevel(c.dimension()), c);
+        d.policy().get().cost().forEach((k, v) -> stores.take(k, v, null));
+        stores.save();
+        Colony now = Colonies.get(server).get(c.id()).orElse(c);
+        Map<ResourceLocation, Long> last = new LinkedHashMap<>(now.get(PROCLAIMED).orElse(Map.of()));
+        last.put(id, today(server));
+        Colonies.get(server).set(now, PROCLAIMED, last);
+        String title = d.policy().get().title().isEmpty() ? id.getPath() : d.policy().get().title();
+        return new Answer(true, Component.literal(title + ": done."));
     }
 
     // ---------------------------------------------------------------- built-in kinds

@@ -118,4 +118,53 @@ public final class ColonistLifeTests {
         colonies.disband(server, c, "test");
         helper.succeed();
     }
+
+    /** The Hall's Events tab: a proclaimed wedding arranges a lukewarm match, takes its goods, then waits. */
+    @GameTest(template = "empty")
+    public static void theHallProclaimsAWeddingWithCostAndCooldown(GameTestHelper helper) {
+        MinecraftServer server = helper.getLevel().getServer();
+        Colonies colonies = Colonies.get(server);
+        UUID ruler = UUID.randomUUID();
+        BlockPos hall = new BlockPos(900000 + (int) (Math.abs(ruler.getLeastSignificantBits()) % 50000), 70, -950000);
+        Colony c = colonies.foundAi(server, UUID.randomUUID(), ruler, "Policy Test", helper.getLevel().dimension(),
+                hall, LotrPort.id("gondor"), 0).orElseThrow();
+        Persons persons = Persons.get(server);
+        Person a = persons.migrated(UUID.randomUUID(), LotrPort.id("gondor_man"), "", 0, c.asOwner());
+        Person b = persons.migrated(UUID.randomUUID(), LotrPort.id("gondor_man"), "", 0, c.asOwner());
+        for (Person p : List.of(a, b)) {
+            persons.set(server, p, CoreComponents.CITIZEN, new CoreComponents.Citizen(0, false));
+            Colonists.settle(server, p);
+        }
+        Opinions.set(persons, a, b.id(), 40);
+        Opinions.set(persons, b, a.id(), 40);
+        var id = LotrPort.id("wedding");
+        helper.assertTrue(!ColonyEvents.run(server, c, id, new Random(1)), "too lukewarm to marry by themselves");
+        helper.assertTrue(ColonyEvents.whyNot(server, c, id).isPresent(), "no bread, yet the wedding is ready");
+        var stores = new com.porcupinestudios.lotrport.colony.work.Stores(server, helper.getLevel(), c);
+        stores.put(net.minecraft.resources.ResourceLocation.parse("minecraft:bread"), 10, null);
+        stores.put(net.minecraft.resources.ResourceLocation.parse("minecraft:cake"), 1, null);
+        stores.save();
+        Colony now = colonies.get(c.id()).orElseThrow();
+        var why = ColonyEvents.whyNot(server, now, id);
+        helper.assertTrue(why.isEmpty(), "not ready: " + why.map(w -> w.getString()).orElse(""));
+        ColonyEvents.Answer ans = ColonyEvents.proclaim(server, now, id, new Random(1));
+        helper.assertTrue(ans.ok(), "proclaiming failed: " + ans.message().getString());
+        Person a2 = Society.person(server, a.id()).orElseThrow();
+        helper.assertTrue(a2.get(ColonistData.KIN).orElseThrow().spouse().equals(java.util.Optional.of(b.id())),
+                "the Hall's match didn't marry them");
+        now = colonies.get(c.id()).orElseThrow();
+        int bread = new com.porcupinestudios.lotrport.colony.work.Stores(server, helper.getLevel(), now)
+                .count(net.minecraft.resources.ResourceLocation.parse("minecraft:bread"), null);
+        helper.assertTrue(bread == 2, "the feast should have taken 8 bread, left " + bread);
+        helper.assertTrue(ColonyEvents.daysLeft(server, now, id) == 3, "cooldown " + ColonyEvents.daysLeft(server,
+                now, id));
+        helper.assertTrue(!ColonyEvents.proclaim(server, now, id, new Random(2)).ok(), "held twice in a row");
+        helper.assertTrue(ColonyEvents.whyNot(server, now, LotrPort.id("feast")).isPresent(),
+                "a great feast with two citizens");
+        for (Person p : Society.citizens(server, c)) {
+            persons.remove(server, p.id());
+        }
+        colonies.disband(server, c, "test");
+        helper.succeed();
+    }
 }

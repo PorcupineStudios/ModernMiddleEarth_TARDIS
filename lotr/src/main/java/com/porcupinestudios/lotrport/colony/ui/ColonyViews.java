@@ -143,6 +143,7 @@ public final class ColonyViews {
                     new View.Tab(STOCK, tr("tab.stock", "Stock")),
                     new View.Tab(ImmigrationViews.TAB, tr("tab.immigration", "Immigration")),
                     new View.Tab(CaravanViews.TAB, tr("tab.caravans", "Caravans")),
+                    new View.Tab(EventViews.TAB, tr("tab.events", "Events")),
                     new View.Tab(MEMBERS, tr("tab.members", "Members")));
             String open = tabs.stream().anyMatch(t -> t.id().equals(tab)) ? tab : OVERVIEW;
             Page page = switch (open) {
@@ -152,6 +153,7 @@ public final class ColonyViews {
                 case SCHEDULES -> ScheduleViews.page(player, c);
                 case CaravanViews.TAB -> CaravanViews.tab(player, c);
                 case ImmigrationViews.TAB -> ImmigrationViews.tab(player, c);
+                case EventViews.TAB -> EventViews.tab(player, c);
                 case MEMBERS -> members(player, c);
                 default -> overview(player, c);
             };
@@ -176,6 +178,12 @@ public final class ColonyViews {
                 Optional<Result> imm = ImmigrationViews.act(player, c, action, row);
                 if (imm.isPresent()) {
                     return imm.get();
+                }
+            }
+            if (tab.equals(EventViews.TAB)) {
+                Optional<Result> ev = EventViews.act(player, c, action, row);
+                if (ev.isPresent()) {
+                    return ev.get();
                 }
             }
             if (tab.equals(CaravanViews.TAB)) {

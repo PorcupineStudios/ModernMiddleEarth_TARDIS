@@ -265,6 +265,12 @@ public final class Immigration {
         return Optional.of(new Offer(id, members, size == 1 ? "alone" : family ? "family" : "friends"));
     }
 
+    /** Old enough to be married: grown by the race's adult age. */
+    static boolean ofAge(Prospect p) {
+        RaceDef def = ColonistData.races().get(LotrPort.id(Races.of(p.type())));
+        return p.age() >= (def == null ? 18 : def.adultAge());
+    }
+
     private static Prospect withLinks(Prospect p, int spouse, List<Integer> parents) {
         return new Prospect(p.type(), p.name(), p.traits(), p.skills(), p.age(), spouse, parents, p.skin());
     }
@@ -273,8 +279,10 @@ public final class Immigration {
         Settings s = settings();
         String race = Races.of(type);
         RaceDef def = ColonistData.races().get(LotrPort.id(race));
-        int min = def == null ? 18 : def.settlerAgeMin();
-        int max = def == null ? 50 : def.settlerAgeMax();
+        int adult = def == null ? 18 : def.adultAge();
+        // grown settlers are always of age (old enough to be married), whatever the race data says
+        int min = Math.max(adult, def == null ? 18 : def.settlerAgeMin());
+        int max = Math.max(min, def == null ? 50 : def.settlerAgeMax());
         int age = child ? 1 + random.nextInt(Math.max(1, (def == null ? 18 : def.adultAge()) - 2))
                 : min + random.nextInt(Math.max(1, max - min + 1));
         UUID tmp = new UUID(random.nextLong(), random.nextLong());
@@ -370,7 +378,8 @@ public final class Immigration {
                 continue;
             }
             Prospect p = offer.members().get(i);
-            if (p.spouse() >= 0 && p.spouse() < came.size() && came.get(p.spouse()) != null) {
+            if (p.spouse() >= 0 && p.spouse() < came.size() && came.get(p.spouse()) != null
+                    && ofAge(p) && ofAge(offer.members().get(p.spouse()))) {
                 Person b = came.get(p.spouse());
                 Kin k = a.get(ColonistData.KIN).orElseThrow();
                 persons.setQuiet(a, ColonistData.KIN, k.marry(b.id()));

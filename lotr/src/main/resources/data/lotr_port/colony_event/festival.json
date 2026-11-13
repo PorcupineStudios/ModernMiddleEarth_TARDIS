@@ -1,1 +1,4 @@
-{"kind": "lotr_port:festival", "name": "a harvest festival", "chance": 0.1, "cooldown_days": 7, "thought": "lotr_port:festival", "opinion_change": 6, "min_people": 3}
+{"kind": "lotr_port:festival", "name": "a harvest festival", "chance": 0.1, "cooldown_days": 7,
+ "thought": "lotr_port:festival", "opinion_change": 6, "min_people": 3,
+ "policy": {"title": "Call a harvest festival", "description": "Everyone takes the day; new friendships are made.",
+  "cooldown_days": 10, "cost": {"minecraft:bread": 16, "minecraft:apple": 8}}}

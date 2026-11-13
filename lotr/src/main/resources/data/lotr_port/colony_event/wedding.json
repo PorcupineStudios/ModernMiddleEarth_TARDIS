@@ -1,1 +1,4 @@
-{"kind": "lotr_port:wedding", "name": "Wedding", "chance": 0.25, "cooldown_days": 4, "min_opinion": 55, "thought": "lotr_port:wedding", "guest_thought": "lotr_port:attended_wedding", "opinion_change": 15, "min_people": 2}
+{"kind": "lotr_port:wedding", "name": "Wedding", "chance": 0.25, "cooldown_days": 4, "min_opinion": 55,
+ "thought": "lotr_port:wedding", "guest_thought": "lotr_port:attended_wedding", "opinion_change": 15, "min_people": 2,
+ "policy": {"title": "Hold a wedding", "description": "The Hall makes a match between the two single adults most fond of each other, and pays for the feast.",
+  "cooldown_days": 3, "min_opinion": 35, "cost": {"minecraft:bread": 8, "minecraft:cake": 1}}}
