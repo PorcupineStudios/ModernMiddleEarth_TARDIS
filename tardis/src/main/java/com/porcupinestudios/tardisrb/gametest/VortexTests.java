@@ -392,8 +392,11 @@ public final class VortexTests {
         longTrip(t);
         noWormholes(t);
         double laneX = t.moduleData(Vortex.MODULE).getDouble("lane_x");
-        helper.startSequence().thenWaitUntil(() -> helper.assertTrue(FreeFlight.body(server, t).isPresent(),
-                "no box in the vortex")).thenExecute(() -> {
+        // wait for the box to catch up with its trip (as the scanner test): a hole placed off a box still behind
+        // progress can end up where the next step jumps the box past it (CI 2026-11-13: "still in the vortex")
+        helper.startSequence().thenWaitUntil(() -> helper.assertTrue(FreeFlight.body(server, t)
+                .filter(b -> b.getZ() >= t.moduleData(Vortex.MODULE).getDouble("progress")).isPresent(),
+                "no box in the vortex with its trip")).thenExecute(() -> {
             TardisBody body = FreeFlight.body(server, t).orElseThrow();
             var trip = t.moduleData(Vortex.MODULE);
             // off to the side and turned 60 degrees toward the middle: the box flies into its face
