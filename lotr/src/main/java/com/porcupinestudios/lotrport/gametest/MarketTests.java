@@ -56,11 +56,22 @@ public final class MarketTests {
         Market.setLimit(server, c, wheat, 4);
         helper.assertTrue(Market.limit(Market.state(server, c), wheat) == 4, "wheat limit not set");
         helper.assertTrue(!Market.upgrade(server, c).ok(), "upgraded without research points");
-        colonies.set(colonies.get(c.id()).orElseThrow(), Research.POINTS, Market.upgradeCost(0));
+        // points of another tier don't pay for a basic upgrade
+        Research.add(server, c, LotrPort.id("scholarly"), 1000);
+        helper.assertTrue(!Market.upgrade(server, c).ok(), "scholarly points paid a basic upgrade");
+        Research.add(server, c, Research.BASIC, Market.upgradeCost(0));
         helper.assertTrue(Market.upgrade(server, c).ok(), "upgrade with enough points failed");
         Market.State st = Market.state(server, c);
         helper.assertTrue(st.level() == 1 && Market.room(st, bread) == Market.ceiling(1) - ceiling,
                 "after the upgrade: level " + st.level() + ", room " + Market.room(st, bread));
+        // tiers: basic is free, higher ones cost goods and need a bigger colony
+        helper.assertTrue(Research.tiers().keySet().containsAll(java.util.List.of(Research.BASIC,
+                LotrPort.id("scholarly"), LotrPort.id("advanced"))), "tiers: " + Research.tiers().keySet());
+        helper.assertTrue(Research.tier(Research.BASIC).cost().isEmpty()
+                && !Research.tier(LotrPort.id("scholarly")).cost().isEmpty(), "tier costs are wrong");
+        helper.assertTrue(Research.whyNot(server, c, LotrPort.id("scholarly")).isPresent(),
+                "an empty colony may do scholarly research");
+        helper.assertTrue(Market.upgradeTier(5).equals(LotrPort.id("scholarly")), "level 5 should cost scholarly points");
         // buying back costs coins and leaves the stores
         Colony now = colonies.get(c.id()).orElseThrow();
         int before = new Stores(server, helper.getLevel(), now).count(bread, null);

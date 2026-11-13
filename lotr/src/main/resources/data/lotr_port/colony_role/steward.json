@@ -1,1 +1,1 @@
-{ "name": "Steward", "rank": 80, "permissions": ["build", "containers", "doors", "command", "station", "migrants", "members", "banners", "treasury", "map", "citizens", "caravans", "events", "market"] }
+{ "name": "Steward", "rank": 80, "permissions": ["build", "containers", "doors", "command", "station", "migrants", "members", "banners", "treasury", "map", "citizens", "caravans", "events", "market", "research"] }

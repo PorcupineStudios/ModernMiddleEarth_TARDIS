@@ -121,7 +121,10 @@ https://claude.ai/artifact/VLwZ5N7pkVMJW4PCYXh41G).
   clamped, sell = price x `sell_share`, paid from/into the treasury. Each item has a daily intake cap the colony sets
   (Limits tab, perm `market`) up to a ceiling `base_limit + limit_per_level x level`; levels cost research points
   (`upgrade_cost x upgrade_growth^level`). Numbers and base prices: `colony_market/settings.json`.
-- `Research`: researchers whose job building exists earn `points_per_researcher x skill factor` a day (component
-  `research_points`); spent on market levels for now, the research tree later.
+- `Research` (tiers, Aaron 2026-11-12): `colony_research_tier/<id>.json` (name, order, rate, cost per point,
+  requires + requires_text). Researchers whose job building exists earn `rate x skill factor` a day of the tier the
+  colony puts them on (market Research tab, perm `research`; component `research_plan`); the rest do basic (free:
+  time and manpower only). Higher tiers take their goods from the stores, and earn less if short. Points per tier:
+  component `research`. Market levels cost the tier `upgrade_tiers[level]` names (basic, then scholarly, advanced).
 - `Hatches`: barrels in a market building are delivery hatches; every 200 ticks their goods are sold within the caps
   and treasury, the rest waits; coins go to the placer's account (else the founder), collected on the Sell tab.
