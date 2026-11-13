@@ -448,6 +448,8 @@ public final class VortexTests {
             // off to the side, so the autopilot flies past it
             hole[0] = Wormholes.place(server, vortex, t, trip, body[0].getZ() + 10, 8, 0, Level.OVERWORLD);
             t.setModuleData(Vortex.MODULE, trip);
+            // seen ahead right away: by the time its portal joins the level the box may have flown past it (CI)
+            helper.assertTrue(Wormholes.next(t).isPresent(), "the scanner doesn't see the wormhole ahead");
             // ours by id (not just the first in the list)
             for (Tag x : trip.getList("wormholes", Tag.TAG_COMPOUND)) {
                 if (hole[0] != null && ((net.minecraft.nbt.CompoundTag) x).hasUUID("id")
@@ -467,7 +469,6 @@ public final class VortexTests {
                     + body[0].position() + ", progress " + trip.getDouble("progress") + ", holes "
                     + trip.getList("wormholes", Tag.TAG_COMPOUND).size() + ")");
         }).thenExecute(() -> {
-            helper.assertTrue(Wormholes.next(t).isPresent(), "the scanner doesn't see the wormhole ahead");
             Entity portal = vortex.getEntity(h[0].getUUID("portal"));
             Vortex.arrive(server, t);
             helper.assertTrue(portal.isRemoved() && hole[0].isRemoved(),
