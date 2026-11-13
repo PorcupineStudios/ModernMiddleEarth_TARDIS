@@ -79,8 +79,9 @@ public final class MarketViews {
             MinecraftServer server = player.server;
             List<View.Tab> tabs = List.of(new View.Tab("buy", tr("market.tab.buy", "Buy")),
                     new View.Tab("sell", tr("market.tab.sell", "Sell")),
-                    new View.Tab("limits", tr("market.tab.limits", "Limits")));
-            String open = tab.equals("sell") || tab.equals("limits") ? tab : "buy";
+                    new View.Tab("limits", tr("market.tab.limits", "Limits")),
+                    new View.Tab("research", tr("market.tab.research", "Research")));
+            String open = tab.equals("sell") || tab.equals("limits") || tab.equals("research") ? tab : "buy";
             Map<ResourceLocation, Integer> have = CaravanViews.items(server, c);
             Market.State st = Market.state(server, c);
             Page page;
@@ -118,8 +119,10 @@ public final class MarketViews {
                                         "Barrels in a market are delivery hatches: what hoppers put in is sold here")))
                         .empty(tr("market.nothing", "You carry nothing the colony would take"))
                         .build();
-            } else {
+            } else if (open.equals("limits")) {
                 page = limits(player, c, st, have);
+            } else {
+                page = research(player, c);
             }
             return Optional.of(new View(ID, context, Component.literal(c.name() + ": market"), tabs, open, page,
                     Optional.of(new View.Target(ColonyViews.COLONY, c.id().toString(), "stock"))));
@@ -131,12 +134,13 @@ public final class MarketViews {
             int ceiling = Market.ceiling(st.level());
             double cost = Market.upgradeCost(st.level());
             List<Stat> research = new ArrayList<>();
-            research.add(Stat.of(Component.literal("Research points"), String.format("%.1f", Research.points(
-                    ColonyViews.colony(server, c.id().toString()).orElse(c)))));
-            research.add(Stat.of(Component.literal("Earned a day (researchers in a library)"), String.format("%.1f",
-                    Research.perDay(server, c)), Tone.MUTED));
             research.add(Stat.of(Component.literal("Market level"), st.level() + " / " + Market.settings().maxLevel()));
             research.add(Stat.of(Component.literal("Most of one item a day"), Integer.toString(ceiling)));
+            ResourceLocation tier = Market.upgradeTier(st.level());
+            if (cost >= 0) {
+                research.add(Stat.of(Component.literal("Next level costs"), (int) cost + " " + Research.name(tier)
+                        + " points (has " + (int) Research.points(server, c, tier) + ")"));
+            }
             List<Stat> rows = new ArrayList<>();
             rows.add(Stat.of(Component.literal("The most the colony takes from players a day, per item"), "",
                     Tone.MUTED));
@@ -153,8 +157,45 @@ public final class MarketViews {
             buttons.add(may && cost >= 0 ? Action.of("upgrade", up) : Action.disabled("upgrade", up, may
                     ? Component.literal("The market is as large as it gets")
                     : tr("market.no_perm", "Only those who may run the market can")));
-            return new Page.Stats(List.of(new Page.Section(tr("market.research", "Research"), research),
+            return new Page.Stats(List.of(new Page.Section(tr("market.level", "Market"), research),
                     new Page.Section(tr("market.limits", "Daily limits"), rows)), buttons);
+        }
+
+        private Page research(ServerPlayer player, Colony c) {
+            MinecraftServer server = player.server;
+            var assigned = Research.assignment(server, c);
+            int total = Research.researchers(server, c).size();
+            Map<ResourceLocation, Integer> plan = Research.plan(server, c);
+            List<Page.Section> sections = new ArrayList<>();
+            sections.add(new Page.Section(tr("market.research_how", "Research"), List.of(
+                    Stat.of(Component.literal("Researchers working in a library"), Integer.toString(total)),
+                    Stat.of(Component.literal("Those not put on a tier do basic research"), "", Tone.MUTED),
+                    Stat.of(Component.literal("Higher tiers use goods from the stores"), "", Tone.MUTED))));
+            for (Map.Entry<ResourceLocation, Research.TierDef> e : Research.tiers().entrySet()) {
+                ResourceLocation id = e.getKey();
+                List<Stat> st = new ArrayList<>();
+                st.add(Stat.of(Component.literal("Points"), String.format("%.1f", Research.points(server, c, id))));
+                int on = assigned.getOrDefault(id, List.of()).size();
+                double earn = 0;
+                for (var p : assigned.getOrDefault(id, List.of())) {
+                    earn += e.getValue().rate() * com.porcupinestudios.lotrport.colonist.Skills.workFactor(p,
+                            Research.JOB);
+                }
+                st.add(Stat.of(Component.literal("Earned a day"), String.format("%.1f", earn), Tone.MUTED));
+                st.add(Stat.of(Component.literal("Costs"), Research.costText(id), Tone.MUTED));
+                Optional<Component> why = Research.whyNot(server, c, id);
+                if (why.isPresent()) {
+                    st.add(Stat.of(why.get(), "", Tone.BAD));
+                }
+                if (id.equals(Research.BASIC)) {
+                    st.add(Stat.of(Component.literal("Researchers on it"), Integer.toString(on)));
+                } else {
+                    st.add(CaravanViews.stepper("Researchers on it (" + on + " working)", "plan:" + id,
+                            plan.getOrDefault(id, 0), 0, Math.max(total, plan.getOrDefault(id, 0))));
+                }
+                sections.add(new Page.Section(Component.literal(Research.name(id)), st));
+            }
+            return new Page.Stats(sections, List.of());
         }
 
         @Override
@@ -185,6 +226,15 @@ public final class MarketViews {
                     a = Market.upgrade(player.server, c);
                 }
                 default -> {
+                    if (action.startsWith("plan:")) {
+                        if (!Permissions.can(player.getUUID(), c, Perm.RESEARCH)) {
+                            return Result.say(tr("market.no_research", "Only those who may direct research can"));
+                        }
+                        ResourceLocation id = ResourceLocation.tryParse(action.substring(5));
+                        if (id != null) {
+                            Research.setPlan(player.server, c, id, value);
+                        }
+                    }
                     if (action.startsWith("limit:")) {
                         if (!Permissions.can(player.getUUID(), c, Perm.MARKET)) {
                             return Result.say(tr("market.no_perm", "Only those who may run the market can"));

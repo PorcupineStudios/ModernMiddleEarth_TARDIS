@@ -41,9 +41,12 @@ public final class Perm {
     /** Set the market's daily limits and spend research points on it. */
     public static final String MARKET = "market";
 
+    /** Put researchers on research tiers. */
+    public static final String RESEARCH = "research";
+
     public static final List<String> ALL = List.of(BUILD, CONTAINERS, DOORS, COMMAND, STATION, MIGRANTS, MEMBERS,
             BANNERS, TREASURY, WAR, MAP, CITIZENS, CARAVANS,
-            EVENTS, MARKET);
+            EVENTS, MARKET, RESEARCH);
 
     private Perm() {}
 }
