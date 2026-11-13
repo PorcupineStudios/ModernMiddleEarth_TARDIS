@@ -118,6 +118,7 @@ public final class LotrPort {
         com.porcupinestudios.lotrport.colonist.Opinions.register();
         com.porcupinestudios.lotrport.colony.events.ColonyEvents.register();
         com.porcupinestudios.lotrport.colony.Immigration.register();
+        com.porcupinestudios.lotrport.colony.market.Market.register();
         com.porcupinestudios.lotrport.colony.building.BuildingSystems.register();
         com.porcupinestudios.lotrport.colony.work.Life.register();
         com.porcupinestudios.lotrport.unit.Units.register();

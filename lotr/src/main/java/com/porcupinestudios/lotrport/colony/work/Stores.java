@@ -61,10 +61,15 @@ public final class Stores {
             var tag = RoomScan.tag("chests");
             for (long l : b.blocks()) {
                 BlockPos p = BlockPos.of(l);
-                if (!level.isLoaded(p) || !level.getBlockState(p).is(tag)) {
+                if (!level.isLoaded(p) || !level.getBlockState(p).is(tag)
+                        || com.porcupinestudios.lotrport.colony.market.StoreLock.fed(level, p)) {
+                    // a store a hopper or dropper touches isn't the colony's: goods can't be piped in or out
                     continue;
                 }
                 BlockEntity be = level.getBlockEntity(p);
+                if (com.porcupinestudios.lotrport.colony.market.StoreLock.hatch(b, be)) {
+                    continue; // a market's delivery hatch: the player's goods until sold
+                }
                 if (be instanceof Container c) {
                     out.add(new InvWrapper(c));
                 }

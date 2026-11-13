@@ -38,9 +38,12 @@ public final class Perm {
     /** Proclaim events at the Hall: weddings, festivals, feasts (they cost the stores). */
     public static final String EVENTS = "events";
 
+    /** Set the market's daily limits and spend research points on it. */
+    public static final String MARKET = "market";
+
     public static final List<String> ALL = List.of(BUILD, CONTAINERS, DOORS, COMMAND, STATION, MIGRANTS, MEMBERS,
             BANNERS, TREASURY, WAR, MAP, CITIZENS, CARAVANS,
-            EVENTS);
+            EVENTS, MARKET);
 
     private Perm() {}
 }
