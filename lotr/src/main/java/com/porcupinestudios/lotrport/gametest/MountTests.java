@@ -70,7 +70,8 @@ public final class MountTests {
         helper.succeed();
     }
 
-    @GameTest(template = "empty", batch = "mounts")
+    // forced chunks can take a while to start ticking on a busy CI server: the default 100 ticks ran out (2026-11-12)
+    @GameTest(template = "empty", batch = "mounts", timeoutTicks = 600)
     public static void armourFitsItsMount(GameTestHelper helper) {
         ItemStack gondor = item("gondorian_horse_armor");
         ItemStack boarArmour = item("dwarven_boar_armor");
