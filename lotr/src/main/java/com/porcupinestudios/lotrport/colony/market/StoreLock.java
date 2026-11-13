@@ -86,7 +86,7 @@ public final class StoreLock {
     public static boolean fed(LevelReader level, BlockPos pos) {
         for (Direction d : Direction.values()) {
             BlockPos n = pos.relative(d);
-            if (!level.isLoaded(n)) {
+            if (!level.hasChunkAt(n)) {
                 continue;
             }
             Block b = level.getBlockState(n).getBlock();
@@ -112,7 +112,7 @@ public final class StoreLock {
         e.setUseBlock(TriState.FALSE);
         e.setUseItem(TriState.FALSE);
         e.setCanceled(true);
-        MarketViews.open(sp, p.get().colony());
+        com.porcupinestudios.lotrport.colony.ui.MarketViews.open(sp, p.get().colony());
     }
 
     private static void onBreak(BlockEvent.BreakEvent e) {
