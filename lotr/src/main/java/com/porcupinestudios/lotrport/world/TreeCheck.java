@@ -81,6 +81,12 @@ final class TreeCheck {
             }
             trees++;
             for (Placed b : tree) {
+                // a structure's pieces are placed in their own chunk's feature step, after a neighbour's tree already
+                // reached in: where a building stands, its blocks (and its air) win, as in LOTR (CI 2026-11-12: a few
+                // leaves "missing" inside a structure's box, now and then)
+                if (level.structureManager().hasAnyStructureAt(b.pos())) {
+                    continue;
+                }
                 blocks++;
                 BlockState here = level.getBlockState(b.pos());
                 boolean log = b.state().is(BlockTags.LOGS);
