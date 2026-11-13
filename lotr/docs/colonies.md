@@ -112,3 +112,16 @@ https://claude.ai/artifact/VLwZ5N7pkVMJW4PCYXh41G).
 - Goods and the cooldown (`proclaimed` component) are only spent when the event found someone (no match, no cost).
 - Marriage needs both of age: weddings check `Colonists.adult`; immigrant settlers are never younger than the race's
   adult age, and an offer's spouses are only linked if both are.
+
+## Market, research points, locked stores (2026-11-12, `colony/market/`, `colony/ui/MarketViews`)
+- The colony is self-contained (Aaron): containers in workplaces and storehouses (not homes) can't be opened
+  (right-click opens the market), hoppers/droppers can't be placed against them, a store touched by one isn't counted
+  (`StoreLock.fed`), and breaking one moves its goods into the colony stock. Ops in creative pass.
+- `Market`: buy from the stores (never below caravan floors) and sell to them, prices `base x (target/stock)^curve`
+  clamped, sell = price x `sell_share`, paid from/into the treasury. Each item has a daily intake cap the colony sets
+  (Limits tab, perm `market`) up to a ceiling `base_limit + limit_per_level x level`; levels cost research points
+  (`upgrade_cost x upgrade_growth^level`). Numbers and base prices: `colony_market/settings.json`.
+- `Research`: researchers whose job building exists earn `points_per_researcher x skill factor` a day (component
+  `research_points`); spent on market levels for now, the research tree later.
+- `Hatches`: barrels in a market building are delivery hatches; every 200 ticks their goods are sold within the caps
+  and treasury, the rest waits; coins go to the placer's account (else the founder), collected on the Sell tab.

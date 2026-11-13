@@ -78,6 +78,7 @@ public final class ColonyViews {
         Views.register(COLONY, new ColonyProvider());
         Views.register(COLONIES, new ColoniesProvider());
         CitizenViews.register();
+        MarketViews.register();
         CaravanViews.register();
         CandidateViews.register();
     }
@@ -195,6 +196,9 @@ public final class ColonyViews {
             Optional<Result> schedule = ScheduleViews.act(player, c, action, row, value);
             if (schedule.isPresent()) {
                 return schedule.get();
+            }
+            if (action.equals("market")) {
+                return Result.go(new View.Target(MarketViews.ID, c.id().toString(), "buy"));
             }
             if (action.equals("citizen")) {
                 try {
@@ -455,6 +459,7 @@ public final class ColonyViews {
                         Tone.MUTED))
                 .column(Column.number("count", tr("col.count", "Count"), 1), e -> Cell.number(e.getValue()))
                 .sortBy("count", true)
+                .button(Action.of("market", tr("market.open", "Market")))
                 .empty(tr("no_stock", "The storehouses are empty"))
                 .build();
     }
