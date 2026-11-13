@@ -35,8 +35,12 @@ public final class Perm {
     /** Send caravans, set up routes, trade offers and floors. */
     public static final String CARAVANS = "caravans";
 
+    /** Proclaim events at the Hall: weddings, festivals, feasts (they cost the stores). */
+    public static final String EVENTS = "events";
+
     public static final List<String> ALL = List.of(BUILD, CONTAINERS, DOORS, COMMAND, STATION, MIGRANTS, MEMBERS,
-            BANNERS, TREASURY, WAR, MAP, CITIZENS, CARAVANS);
+            BANNERS, TREASURY, WAR, MAP, CITIZENS, CARAVANS,
+            EVENTS);
 
     private Perm() {}
 }

@@ -1,0 +1,7 @@
+{"kind": "lotr_port:festival", "name": "Midsummer", "auto": false, "thought": "lotr_port:midsummer",
+ "opinion_change": 8, "min_people": 5,
+ "policy": {"title": "Celebrate Midsummer", "description": "Bonfires, dancing and fireworks. Needs the Guest house level of the colony.",
+  "cooldown_days": 20,
+  "requires": {"type": "lotr_port:colony_upgrade", "id": "guest_house"},
+  "requires_text": "the Guest house upgrade",
+  "cost": {"minecraft:bread": 24, "minecraft:firework_rocket": 8}}}

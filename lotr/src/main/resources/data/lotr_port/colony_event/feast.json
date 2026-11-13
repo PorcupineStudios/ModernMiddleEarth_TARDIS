@@ -1,0 +1,7 @@
+{"kind": "lotr_port:festival", "name": "a great feast in the Hall", "auto": false, "thought": "lotr_port:great_feast",
+ "opinion_change": 10, "min_people": 3,
+ "policy": {"title": "Throw a great feast", "description": "A night of food and song for the whole colony: a long-lasting good mood and many friendships.",
+  "cooldown_days": 14, "min_people": 8,
+  "requires": {"type": "lotr_port:colony_population", "colony": "home", "compare": ">=", "value": 8},
+  "requires_text": "8 citizens",
+  "cost": {"minecraft:bread": 32, "minecraft:cooked_beef": 16, "minecraft:cake": 2}}}
