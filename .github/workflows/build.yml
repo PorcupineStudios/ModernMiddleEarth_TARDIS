@@ -1,15 +1,18 @@
 name: Build
 
+# THROWAWAY (wormhole-stress branches only): the TARDIS GameTest suite many times at once, a look inside Immersive
+# Portals, and a headless-client screenshot of the time vortex. Never merge this file.
 on:
   push:
-    branches: ['**']
-  pull_request:
+    branches: ['claude/wormhole-stress-*']
 
 jobs:
-  build:
+  stress:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
+    strategy:
+      fail-fast: false
+      matrix:
+        run: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-java@v4
@@ -17,62 +20,68 @@ jobs:
           distribution: temurin
           java-version: '21'
       - uses: gradle/actions/setup-gradle@v4
-      - run: ./gradlew build --stacktrace
-      - name: GameTests
-        # The game test server can exit 0 after a mod loading crash, so the log has to say the tests passed.
-        run: |
-          ./gradlew :lotr:runGameTestServer --stacktrace 2>&1 | tee gametest.log
-          grep -E "All [0-9]+ required tests passed" gametest.log
       - name: TARDIS GameTests
         run: |
           ./gradlew :tardis:runGameTestServer --stacktrace 2>&1 | tee tardis-gametest.log
           grep -E "All [0-9]+ required tests passed" tardis-gametest.log
-      - name: Middle-earth world
-        # A new world of the Middle-earth world type on a dedicated server: WorldCheck logs the spawn and stops it.
-        # It generates ~160 far-apart chunks plus two structures in one tick: watchdog off (max-tick-time=-1), 6 GB heap.
-        timeout-minutes: 15
+      - name: Failures
+        if: always()
         run: |
-          mkdir -p lotr/run
-          echo "eula=true" > lotr/run/eula.txt
-          printf 'level-type=lotr_port\\:middle_earth\nonline-mode=false\nlevel-name=middle-earth-check\nmax-tick-time=-1\n' > lotr/run/server.properties
-          cat lotr/run/server.properties
-          JAVA_TOOL_OPTIONS="-Dlotr_port.worldcheck=true -Xmx6g" ./gradlew :lotr:runServer --stacktrace 2>&1 | tee worldcheck.log
-          grep -E "\\[worldcheck\\]|WORLDCHECK" worldcheck.log
-          grep "WORLDCHECK PASSED" worldcheck.log
-      - name: TARDIS world
-        # A dedicated server: the crash site, its police box, and its interior in the interior dimension.
-        timeout-minutes: 10
+          grep -E "LogTestReporter\]: .* failed at|required tests failed|All [0-9]+ required tests passed" tardis-gametest.log || true
+      - name: Inside Immersive Portals
+        if: always() && matrix.run == 1
+        run: |
+          J=$(find ~/.gradle/caches -name "immersive-portals-neoforge*.jar" ! -name "*sources*" | head -1); echo "$J"
+          mkdir ipj && cd ipj && unzip -q -o "$J"
+          find . -name "*.jar" | head
+          for c in qouteall.imm_ptl.core.api.PortalAPI qouteall.imm_ptl.core.McHelper; do
+            javap -c -p -cp . $c 2>/dev/null | grep -n -A40 "spawnServerEntity" | head -80 || true
+          done
+          javap -p -cp . qouteall.imm_ptl.core.portal.Portal | grep -i -E "add|remove|valid|spawn|tick" | head -60 || true
+          grep -rl --include=*.class "addFreshEntity" . | head -20 || true
+
+  shot:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+      - uses: gradle/actions/setup-gradle@v4
+      - run: sudo apt-get update -q && sudo apt-get install -y -q xvfb libgl1-mesa-dri libglu1-mesa imagemagick && pip install nbtlib
+      - name: A world
+        timeout-minutes: 12
         run: |
           mkdir -p tardis/run
           echo "eula=true" > tardis/run/eula.txt
           printf 'online-mode=false\nlevel-name=tardis-check\n' > tardis/run/server.properties
-          JAVA_TOOL_OPTIONS="-Dtardis_rb.worldcheck=true" ./gradlew :tardis:runServer --stacktrace 2>&1 | tee tardis-world.log
-          grep -E "\\[worldcheck\\]|WORLDCHECK|crash site" tardis-world.log
-          grep "TARDIS WORLDCHECK PASSED" tardis-world.log
+          JAVA_TOOL_OPTIONS="-Dtardis_rb.worldcheck=true" ./gradlew :tardis:runServer --stacktrace 2>&1 | tail -3
+          mkdir -p tardis/run/saves && cp -r tardis/run/tardis-check tardis/run/saves/shot && rm -f tardis/run/saves/shot/session.lock
+          python3 .github/shot/prepare.py tardis/run
+      - name: Client in the vortex
+        timeout-minutes: 25
+        run: |
+          Xvfb :99 -screen 0 1280x720x24 &
+          sleep 3
+          (DISPLAY=:99 LIBGL_ALWAYS_SOFTWARE=1 ./gradlew :tardis:runClient -PquickPlay=shot > client.log 2>&1 &)
+          for i in $(seq 1 240); do grep -q "SHOT_READY" client.log && break; sleep 5; done
+          grep -c SHOT_READY client.log || true
+          sleep 25
+          mkdir -p shots/frames
+          DISPLAY=:99 import -window root shots/vortex.png
+          for i in $(seq -w 1 45); do DISPLAY=:99 import -window root shots/frames/f$i.png; done
+          sleep 4
+          DISPLAY=:99 import -window root shots/vortex2.png
+          convert -delay 10 -loop 0 -resize 640x shots/frames/f*.png shots/vortex.gif
+          ls -la shots
       - uses: actions/upload-artifact@v4
+        if: always()
         with:
-          name: jars
-          path: "*/build/libs/*.jar"
-      # Other mods' jars are never uploaded or released from this public repo: the release notes list the versions the
-      # build used, to download from Modrinth.
-      - name: Mods the TARDIS needs (versions only)
-        run: |
-          : > needed-mods.txt
-          for m in create immersive-portals-neoforge cloth-config jade; do
-            find ~/.gradle/caches/modules-2/files-2.1/maven.modrinth/$m -name "*.jar" ! -name "*-sources.jar" \
-              -printf "- %f (https://modrinth.com/mod/$m)\n" >> needed-mods.txt
-          done
-          cat needed-mods.txt
-      - name: Rolling test build (a pre-release with our jars; other mods are listed, not attached)
-        if: github.event_name == 'push'
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          mkdir -p test-build
-          cp api/build/libs/*.jar tardis/build/libs/*.jar lotr/build/libs/*.jar test-build/
-          rm -f test-build/*-sources.jar
-          gh release delete test-build -y --cleanup-tag || true
-          gh release create test-build test-build/*.jar --prerelease --target "${{ github.sha }}" \
-            --title "Test build (${GITHUB_REF_NAME})" --notes "Latest green build of ${GITHUB_REF_NAME} at ${GITHUB_SHA}. Also install these mods from Modrinth (the versions this build used):
-          $(cat needed-mods.txt)
-          No Sodium: Create needs Sodium 0.6.9 or newer, Immersive Portals 6.0.7 works only with 0.6.0."
+          name: vortex-shot
+          path: |
+            shots/vortex.png
+            shots/vortex2.png
+            shots/vortex.gif
+            client.log

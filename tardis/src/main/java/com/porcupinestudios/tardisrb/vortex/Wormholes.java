@@ -233,6 +233,7 @@ public final class Wormholes {
                 portal.portalTag = PORTAL_TAG;
                 portal.disableDefaultAnimation();
                 PortalAPI.spawnServerEntity(portal);
+                lastPortal = portal;
                 h.putUUID("portal", portal.getUUID());
                 hole.setOpen(true);
             }
@@ -346,6 +347,8 @@ public final class Wormholes {
         return h.contains("nz") ? new Vec3(h.getDouble("nx"), h.getDouble("ny"), h.getDouble("nz"))
                 : new Vec3(0, 0, -1);
     }
+
+    public static Portal lastPortal; // THROWAWAY diagnostics
 
     static boolean sucking(CompoundTag trip) {
         return trip.contains("suck");

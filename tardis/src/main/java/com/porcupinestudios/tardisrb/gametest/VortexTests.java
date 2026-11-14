@@ -480,6 +480,13 @@ public final class VortexTests {
                     + ", entity " + (h.hasUUID("portal") ? vortex.getEntity(h.getUUID("portal")) : "-")
                     + ", chunk loaded " + (hole != null && vortex.hasChunkAt(hole.blockPosition())) + ", body "
                     + body.position() + ", progress " + trip.getDouble("progress") + ")";
+            Portal lp = Wormholes.lastPortal;
+            seen += " LAST PORTAL " + (lp == null ? "null" : lp.getUUID() + " at " + lp.position() + " level "
+                    + lp.level().dimension().location() + " removed " + lp.isRemoved() + " reason " + lp.getRemovalReason()
+                    + " added " + lp.isAddedToLevel() + " valid " + lp.isPortalValid() + " sameLevel " + (lp.level() == vortex)
+                    + " byUuid " + vortex.getEntity(lp.getUUID()) + " chunk " + vortex.hasChunkAt(lp.blockPosition())
+                    + " near " + vortex.getEntitiesOfClass(Portal.class, lp.getBoundingBox().inflate(8)).size()
+                    + " inChunkSource " + vortex.getChunkSource().hasChunk(lp.blockPosition().getX() >> 4, lp.blockPosition().getZ() >> 4));
             helper.assertTrue(hole != null && hole.open() && h.hasUUID("portal")
                     && vortex.getEntity(h.getUUID("portal")) instanceof Portal p && !p.isTeleportable()
                     && Wormholes.PORTAL_TAG.equals(p.portalTag), "no see-through portal in the wormhole" + seen);
