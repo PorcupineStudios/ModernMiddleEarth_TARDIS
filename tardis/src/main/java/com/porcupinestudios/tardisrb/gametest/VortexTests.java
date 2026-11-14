@@ -63,6 +63,7 @@ public final class VortexTests {
         // nobody is in the vortex to load the lane: the trip has to keep the box's own chunks loaded
         Flight.Outcome left = Vortex.depart(server, t, Optional.empty(), target, Optional.empty(), Optional.empty());
         noWormholes(t);
+        noArcs(t); // only the arc this test places: a random one hitting first hid a miss (2026-11-14)
         helper.assertTrue(left.done(), "it didn't set off: " + left.problem().map(c -> c.getString()).orElse(""));
         helper.assertTrue(Vortex.inVortex(t), "no trip recorded");
         helper.assertTrue(!(helper.getLevel().getBlockState(base).getBlock() instanceof ExteriorBlock),
@@ -70,8 +71,8 @@ public final class VortexTests {
         int[] waited = {0};
         helper.startSequence().thenIdle(100).thenWaitUntil(() -> {
             waited[0]++;
-            helper.assertTrue(FreeFlight.body(server, t).filter(b -> vortex.isPositionEntityTicking(b.blockPosition()))
-                    .isPresent(), "the box in the vortex isn't kept loaded: " + state(server, t) + " plot " + t.plot());
+            helper.assertTrue(synced(server, vortex, t), "the box in the vortex isn't kept loaded (or isn't with its trip): "
+                    + state(server, t) + " plot " + t.plot());
         }).thenExecute(() -> {
             // a tick or two to catch up is fine; a box left unloaded for a second is not
             helper.assertTrue(waited[0] <= 20, "the box in the vortex wasn't kept loaded: it ticked again only after "
@@ -88,7 +89,8 @@ public final class VortexTests {
             long charge = t.charge();
             // a lightning arc straight across its path, level with its middle
             var trip = t.moduleData(Vortex.MODULE);
-            double z = body.getZ() + 3;
+            int hitsBefore = Vortex.hits(t);
+            double z = trip.getDouble("progress") + 3;
             double offset = body.getY() + 1 - Vortex.LANE_Y - Vortex.bend(z).y;
             var arc = Vortex.placeArc(vortex, trip, z, 0, offset);
             t.setModuleData(Vortex.MODULE, trip);
@@ -97,7 +99,8 @@ public final class VortexTests {
                     && Math.abs(arc.getX() - arc.half().x - axisX) >= TardisContent.tuning().vortex().radius(),
                     "the arc doesn't reach the tunnel wall at both ends");
             helper.runAfterDelay(8, () -> {
-                helper.assertTrue(Vortex.hits(t) >= 1, "flying into the lightning arc wasn't a hit");
+                helper.assertTrue(Vortex.hits(t) == hitsBefore + 1, "flying into the lightning arc wasn't a hit: hits "
+                        + hitsBefore + " -> " + Vortex.hits(t) + ", " + state(server, t));
                 helper.assertTrue(!arc.isRemoved(), "the arc went when it was hit: it should stay put");
                 helper.assertTrue(t.charge() < charge, "the hit cost no charge");
                 helper.assertTrue(Health.get(t) < Health.max(t)
@@ -157,11 +160,14 @@ public final class VortexTests {
             trip.putDouble("inaccuracy", 0);
             t.setModuleData(Vortex.MODULE, trip);
         }).thenWaitUntil(() -> helper.assertTrue(!Vortex.inVortex(t), "still falling out of the vortex"))
-                .thenExecute(() -> FreeFlight.body(server, t).ifPresent(b -> {
+                .thenWaitUntil(() -> helper.assertTrue(FreeFlight.body(server, t).isPresent(),
+                        "the box that fell out of the vortex can't be found: " + state(server, t)))
+                .thenExecute(() -> {
+                    TardisBody b = FreeFlight.body(server, t).orElseThrow();
                     helper.assertTrue(b.crashing() && !b.thrusters() && b.getY() > base.getY() + 10,
                             "it didn't appear falling high over the spot, thrusters off: " + b.position());
                     b.setDeltaMovement(0, b.getDeltaMovement().y, 0); // straight down, onto the platform
-                }))
+                })
                 .thenWaitUntil(() -> helper.assertTrue(FreeFlight.body(server, t).filter(b -> b.impactAt != null)
                         .isPresent(), "it hasn't hit the ground yet"))
                 .thenExecute(() -> {
@@ -275,6 +281,13 @@ public final class VortexTests {
     static void noWormholes(TardisRecord t) {
         var trip = t.moduleData(Vortex.MODULE);
         trip.putInt("next_wormhole", Integer.MAX_VALUE);
+        t.setModuleData(Vortex.MODULE, trip);
+    }
+
+    /** Stops random lightning arcs being placed on a trip (for tests that place their own). */
+    static void noArcs(TardisRecord t) {
+        var trip = t.moduleData(Vortex.MODULE);
+        trip.putInt("next_obstacle", Integer.MAX_VALUE);
         t.setModuleData(Vortex.MODULE, trip);
     }
 
