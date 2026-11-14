@@ -42,6 +42,11 @@ RIDGES = 1.2  # and broad ridges and valleys (the hill noise at half the frequen
 HILL_BIAS = 0.4  # the 4x-steeper ground below lifts the mean ~0.4 x hilliness (measured); lowered by that
 MAX_3D = 20.0  # hilliness given LOTR's 3D noise; mountains need it for their crags (8 left them smooth domes)
 HILL_2D = 2.5  # 2D hills per block of hilliness: measured against LOTR (terrainRoughness / the exporter's rough), 1.0 gave a third of its spread
+VALLEYS = 0.25  # the 2D hills' valleys at a quarter depth (1.18 quarter_negative): hills rise from the land, low
+# ground doesn't dip under sea level into ponds everywhere (Aaron, 2026-11-14: too many lakes next to LOTR)
+VALLEY_SHIFT = 0.1  # the lifted valleys raise the mean ~0.1 x HILL_2D x hilliness; lowered by that
+# Aaron (2026-11-14): a hillier Shire than LOTR's: biome name -> (blocks added to its height, hilliness factor)
+HILLIER = {"shire": (3.0, 1.19)}  # 10 blocks: more and crags (JAGGED_FROM) start
 SURVEY_OFFSET = 1.0  # the survey's ground is the first air block; the port's map height lands about a block higher
 # LOTR's ground patches compare one-octave Perlin sums to thresholds; 1.18's normal noise spreads about half as wide
 NOISE_SCALE = 0.45
@@ -217,6 +222,20 @@ class World:
                 {"type": "minecraft:biome"}]})
         return f"{NS}:plant/{name}"
 
+    def reed_patch(self, name, block, per_chunk):
+        """LOTRWorldGenReeds as feature lotr_port:reeds (world/feature/ReedsFeature): only over still water at most 4
+        deep, the stem from the bed up and 1-3 above. (A plain plant patch let reeds stand on dry land and float.)"""
+        gen = os.path.join(self.data, NS, "worldgen")
+        write_json(os.path.join(gen, "configured_feature", "plant", name + ".json"), {
+            "type": f"{NS}:reeds", "config": {"block": {"Name": block}, "tries": 16}})
+        count = ([{"type": "minecraft:count", "count": round(per_chunk)}] if per_chunk >= 1
+                 else [{"type": "minecraft:rarity_filter", "chance": max(1, round(1 / per_chunk))}])
+        write_json(os.path.join(gen, "placed_feature", "plant", name + ".json"), {
+            "feature": f"{NS}:plant/{name}", "placement": count + [
+                {"type": "minecraft:in_square"}, {"type": "minecraft:heightmap", "heightmap": "WORLD_SURFACE_WG"},
+                {"type": "minecraft:biome"}]})
+        return f"{NS}:plant/{name}"
+
     def marsh_plants(self, b):
         """LOTR's reeds (reedPerChunk patches, dried with dryReedChance) and, in the Dead Marshes, its dead plants
         (LOTRBiomeGenDeadMarshes.decorate)."""
@@ -226,7 +245,7 @@ class World:
         for block, k in ((f"{NS}:reeds", n * (1 - dry)), (f"{NS}:dried_reeds", n * dry)):
             if k > 0.01:
                 name = f"{block.split(':')[1]}_{round(k, 2)}".replace(".", "_")
-                out.append(self.plant_patch(name, block, k, tall=(1, 3)))
+                out.append(self.reed_patch(name, block, k))
         if b["class"].endswith("LOTRBiomeGenDeadMarshes"):
             out.append(self.plant_patch("dead_marsh_plant", f"{NS}:dead_marsh_plant", 6, tries=64))
             # LOTR's marsh lights (4 a chunk over the water) wait: the block draws as a white cube, not particles
@@ -255,13 +274,14 @@ class World:
     def height(self, b):
         f = b["fields"]
         if self.measured(b):
-            return round(max(MIN_HEIGHT, min(MAX_HEIGHT, self.measured(b)["mean"] - SURVEY_OFFSET)), 2)
+            h = self.measured(b)["mean"] - SURVEY_OFFSET + HILLIER.get(f["biomeName"], (0, 1))[0]
+            return round(max(MIN_HEIGHT, min(MAX_HEIGHT, h)), 2)
         h = GROUND_AT_ZERO + float(f.get("heightBaseParameter", 0.1)) * BLOCKS_PER_BASE
         return round(max(MIN_HEIGHT, min(MAX_HEIGHT, h)), 2)
 
     def variation(self, b):
         if self.measured(b):  # LOTR's spread of ground heights; the noise gives about STD_PER_VARIATION of it
-            return round(self.measured(b)["std"] / STD_PER_VARIATION, 2)
+            return round(self.measured(b)["std"] / STD_PER_VARIATION * HILLIER.get(b["fields"]["biomeName"], (0, 1))[1], 2)
         return round(max(0.0, float(b["fields"].get("heightVariation", 0.1))) * BLOCKS_PER_VARIATION, 2)
 
     # ------------------------------------------------------------------ map
@@ -453,7 +473,9 @@ class World:
                                 "argument2": {"type": "minecraft:max", "argument1": base, "argument2": 0.0}}}
         blended = {"type": "minecraft:old_blended_noise", "xz_scale": 1.0, "y_scale": 1.0, "xz_factor": 400.0,
                    "y_factor": 160.0, "smear_scale_multiplier": 8.0}
-        hill2d = {"type": "minecraft:noise", "noise": f"{NS}:terrain", "xz_scale": 1.0, "y_scale": 0.0}
+        hill2d = {"type": "minecraft:add", "argument1": -VALLEY_SHIFT, "argument2": {
+            "type": "minecraft:quarter_negative" if VALLEYS == 0.25 else "minecraft:half_negative",
+            "argument": {"type": "minecraft:noise", "noise": f"{NS}:terrain", "xz_scale": 1.0, "y_scale": 0.0}}}
         # the 3D part is capped at MAX_3D blocks of hilliness (more floats islands off mountains); the rest is 2D
         capped = {"type": "minecraft:min", "argument1": variation, "argument2": MAX_3D}
         hills = {"type": "minecraft:add",
