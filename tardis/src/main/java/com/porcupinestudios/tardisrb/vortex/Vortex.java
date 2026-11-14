@@ -310,11 +310,22 @@ public final class Vortex {
     private static final TicketType<ChunkPos> CRASH_TICKET = TicketType.create("tardis_rb_crash",
             Comparator.comparingLong(ChunkPos::toLong), 400);
 
-    /** Keeps the chunks round {@code at} entity-ticking for a couple of seconds (re-added each tick of a trip). */
+    /**
+     * Keeps the chunks round {@code at} entity-ticking for a couple of seconds (re-added each tick of a trip), and has
+     * the tunnel ahead (up to {@link #LOAD_AHEAD} blocks along +z) made and loaded before the box gets there: a trip
+     * alone in a new lane used to fly into chunks still being generated, and its box stopped ticking (2026-11-14).
+     */
     private static void keepLoaded(ServerLevel vortex, Vec3 at) {
         ChunkPos c = new ChunkPos(BlockPos.containing(at));
-        vortex.getChunkSource().addRegionTicket(TICKET, c, 3, c); // 3: the chunks round it too, so the next one is ready before it gets there
+        vortex.getChunkSource().addRegionTicket(TICKET, c, 3, c); // 3: the chunks round it entity-ticking, 2 more loaded
+        for (int ahead = 32; ahead <= LOAD_AHEAD; ahead += 32) {
+            ChunkPos a = new ChunkPos(BlockPos.containing(at.add(0, 0, ahead)));
+            vortex.getChunkSource().addRegionTicket(TICKET, a, 2, a); // loaded (ready to tick), with the bends' width
+        }
     }
+
+    /** How far ahead along the tunnel a trip keeps the chunks made and loaded (blocks). */
+    static final int LOAD_AHEAD = 96;
 
     /** One tick of a trip: progress, obstacles ahead, hits, arrival. */
     static void step(MinecraftServer server, ServerLevel vortex, TardisRecord tardis) {
