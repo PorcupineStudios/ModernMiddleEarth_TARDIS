@@ -225,7 +225,7 @@ public final class Vortex {
         Direction was = FreeFlight.isLoose(tardis) ? FreeFlight.facing(server, tardis)
                 : fromLevel == null ? Direction.NORTH : Exteriors.lift(fromLevel, from.pos());
         FreeFlight.dock(server, tardis);
-        double laneX = (tardis.plot() + 1) * (double) LANE_SPACING + 0.5;
+        double laneX = laneFor(server, tardis);
         TardisBody body = TardisEntities.BODY.get().create(vortex);
         if (body == null) {
             if (fromLevel != null) {
@@ -266,6 +266,30 @@ public final class Vortex {
             tardis.setModuleData(MODULE, trip);
         });
         return new Flight.Outcome(Optional.empty(), Optional.empty());
+    }
+
+    /**
+     * The lane a trip flies down. A TARDIS with an interior plot has its own, (plot + 1) x {@link #LANE_SPACING}. One
+     * without (an unclaimed wreck, a GameTest's box) used to get lane 0 every time, so trips at once shared one tunnel
+     * and saw each other's wormholes (2026-11-14): it takes the first lane from 0 down (0, -1, -2, ...) that no other
+     * trip is in. Plot lanes start at 1, so the two never meet.
+     */
+    static double laneFor(MinecraftServer server, TardisRecord tardis) {
+        if (tardis.plot() >= 0) {
+            return (tardis.plot() + 1) * (double) LANE_SPACING + 0.5;
+        }
+        java.util.Set<Double> used = new java.util.HashSet<>();
+        for (TardisRecord other : TardisManager.get(server).all()) {
+            if (other != tardis && inVortex(other)) {
+                used.add(other.moduleData(MODULE).getDouble("lane_x"));
+            }
+        }
+        for (int n = 0;; n--) {
+            double x = n * (double) LANE_SPACING + 0.5;
+            if (!used.contains(x)) {
+                return x;
+            }
+        }
     }
 
     private static void onTick(ServerTickEvent.Post event) {
