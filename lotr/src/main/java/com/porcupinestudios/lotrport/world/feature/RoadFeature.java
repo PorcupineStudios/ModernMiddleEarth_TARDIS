@@ -50,7 +50,7 @@ public final class RoadFeature extends Feature<NoneFeatureConfiguration> {
             for (int dz = 0; dz < 16; dz++) {
                 int x = x0 + dx;
                 int z = z0 + dz;
-                if (!onRoad(roads, x, z)) {
+                if (!onBridge(roads, x, z)) {
                     continue;
                 }
                 int y = level.getHeight(Heightmap.Types.WORLD_SURFACE_WG, x, z) - 1;
@@ -67,6 +67,9 @@ public final class RoadFeature extends Feature<NoneFeatureConfiguration> {
                     continue;
                 }
                 long hash = hash(x, y, z);
+                if (top.getFluidState().isEmpty() && !onRoad(roads, x, z)) {
+                    continue;  // the bridge's extra width is only over water
+                }
                 if (!top.getFluidState().isEmpty()) {
                     bridge(level, roads, style, x, y, z, fences);
                     placed = true;
@@ -97,6 +100,14 @@ public final class RoadFeature extends Feature<NoneFeatureConfiguration> {
     private static boolean onRoad(Roads roads, int x, int z) {
         double jitter = (((x * 73428767L) ^ (z * 912931L)) & 15) / 32.0;
         return roads.distance(x, z) <= roads.width() + jitter;
+    }
+
+    /** Bridges are {@link #BRIDGE_EXTRA} wider each side than the road, so the deck inside the fences is as wide. */
+    public static final double BRIDGE_EXTRA = 1.0;
+
+    private static boolean onBridge(Roads roads, int x, int z) {
+        double jitter = (((x * 73428767L) ^ (z * 912931L)) & 15) / 32.0;
+        return roads.distance(x, z) <= roads.width() + BRIDGE_EXTRA + jitter;
     }
 
     /**
@@ -161,7 +172,7 @@ public final class RoadFeature extends Feature<NoneFeatureConfiguration> {
     private static boolean fenceAt(Roads roads, int x, int z) {
         for (int i = -1; i <= 1; i++) {
             for (int k = -1; k <= 1; k++) {
-                if ((i != 0 || k != 0) && !onRoad(roads, x + i, z + k)) {
+                if ((i != 0 || k != 0) && !onBridge(roads, x + i, z + k)) {
                     return true;
                 }
             }

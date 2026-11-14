@@ -53,7 +53,7 @@ NOISE_SCALE = 0.45
 BORDER_WOBBLE = 40  # blocks a biome border or slope can shift
 BLUR = 0  # pixels of box blur on heights (0 keeps one-pixel rivers)
 OCEAN = "ocean"
-ROAD_HALF_WIDTH = 1.6  # blocks either side of a road's middle
+ROAD_HALF_WIDTH = 2.1  # blocks either side of a road's middle (Aaron 2026-11-14: 4-5 wide; bridges 1 more each side)
 # Small rivers (LOTR made these with a river layer, not on the map). Widths are in noise units: one is about 11 blocks.
 RIVERS = {"biome": f"{NS}:river", "scale": 900, "width": 0.025, "bank": 3.0, "biome_width": 1.5, "bed": 56,
           "max_height": 100, "min_height": 63, "seed": 1937}

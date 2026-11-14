@@ -121,7 +121,7 @@ public final class Roads {
 
     private void add(Segment s) {
         all.add(s);
-        double pad = width + 1;
+        double pad = width + 2;  // + RoadFeature.BRIDGE_EXTRA
         int cx0 = Math.floorDiv((int) Math.floor(Math.min(s.x1(), s.x2()) - pad), CELL);
         int cx1 = Math.floorDiv((int) Math.ceil(Math.max(s.x1(), s.x2()) + pad), CELL);
         int cz0 = Math.floorDiv((int) Math.floor(Math.min(s.z1(), s.z2()) - pad), CELL);
