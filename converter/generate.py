@@ -431,6 +431,8 @@ class Gen:
             return "gate"
         if "LOTRBlockBarrel" in c.split():
             return "keg"  # LOTR's barrel; a keg so it isn't taken for vanilla's barrel
+        if "LOTRBlockReed" in c.split():
+            return "reed"  # content/ReedBlock: waterlogged stem from the bed, LOTR's lower/mid/upper icons
         if "LOTRBlockSaplingBase" in c.split():
             return "sapling"
         if "BlockBed" in c.split():
@@ -508,6 +510,8 @@ class Gen:
             e["shape"] = [round(x * 16, 3) for x in bb]
             if b["material"] in ("plants", "vine", "circuits", "carpet", "portal", "web"):
                 e["collision"] = False
+        if kind == "reed" and "LOTRBlockReedDry" in " ".join(b["classes"]):
+            e["grows"] = False  # LOTRBlockReedDry.canReedGrow
         if kind == "door":
             e["item"] = "double_high"
         if kind == "bed":
@@ -686,6 +690,16 @@ class Gen:
             m = self.bm(new, "minecraft:block/leaves", {"all": side}, {"render_type": CUTOUT})
             self.bs(new, {"variants": {"": {"model": m}}})
             self.item_model(new, m)
+        elif kind == "reed":
+            # LOTRBlockReed's icons: <name>_lower on the bed, _mid, _upper at the top (part = ReedBlock.Part)
+            base = (v["icons"][2] or "").rsplit("_", 1)[0]
+            var = {}
+            for part, icon in (("lower", "lower"), ("middle", "mid"), ("upper", "upper")):
+                tex = self.tex.block(f"{base}_{icon}")
+                var[f"part={part}"] = {"model": self.bm(f"{new}_{icon}", "minecraft:block/cross", {"cross": tex},
+                                                        {"render_type": CUTOUT})}
+            self.bs(new, {"variants": var})
+            self.item_model(new, layer=item_icon)
         elif kind in ("plant", "sapling"):
             m = self.bm(new, "minecraft:block/cross", {"cross": side}, {"render_type": CUTOUT})
             self.bs(new, {"variants": {"": {"model": m}}})
