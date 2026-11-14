@@ -12,6 +12,9 @@ the scores are not ours to publish. It lives in the private repo `PorcupineStudi
 - A private build with the music: clone the music repo into the ignored folder, then build:
   `git clone https://github.com/PorcupineStudios/LOTR_music lotr/src/main/resources/resourcepacks/middle_earth_music`
   Never publish a jar built that way.
+- Or in CI, kept private: Actions > "Private music build" > Run workflow (`.github/workflows/music-build.yml`). It
+  needs the `MUSIC_TOKEN` secret (fine-grained token, LOTR_music only, Contents read/write) and puts
+  `lotr_port-*-music.jar` in the `music-build` release of LOTR_music, never here.
 - Or use it as a normal resource pack: zip the music repo's contents (`pack.mcmeta` at the zip's top) into
   `resourcepacks/`.
 - Rebuilding the pack from your own soundtrack files: `converter/music_pack.py --into-mod <tracks folder>` writes into
