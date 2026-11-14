@@ -1,0 +1,81 @@
+name: Private music build
+
+# Builds lotr_port WITH the Middle-earth film music and puts the jar in a release of the PRIVATE repo
+# PorcupineStudios/LOTR_music. Nothing with music in it is ever stored in this public repo (lotr/docs/music.md).
+#
+# Why this is safe in a public repo:
+# - Only "Run workflow" starts it, which needs write access here. Pull requests (forks) never run it and never see
+#   the secret.
+# - The secret MUSIC_TOKEN is a fine-grained token that can reach only LOTR_music (Contents: read and write).
+# - No artifact upload, no release here, no build cache: the jar leaves only through the private release.
+# - Gradle runs quietly and no step lists the music files, so the public log shows no track names.
+#
+# Setup (once): Settings > Secrets and variables > Actions > New repository secret, name MUSIC_TOKEN.
+
+on:
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: Branch or commit of this repo to build
+        default: claude/all-merged
+        required: true
+
+permissions:
+  contents: read
+
+concurrency:
+  group: music-build
+  cancel-in-progress: false
+
+jobs:
+  music-build:
+    if: github.repository == 'PorcupineStudios/ModernMiddleEarth_TARDIS' && github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Token present
+        env:
+          MUSIC_TOKEN: ${{ secrets.MUSIC_TOKEN }}
+        run: |
+          if [ -z "$MUSIC_TOKEN" ]; then echo "::error::Add the MUSIC_TOKEN secret first (see the top of this file)"; exit 1; fi
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.ref }}
+          persist-credentials: false
+      - name: Music (private repo)
+        uses: actions/checkout@v4
+        with:
+          repository: PorcupineStudios/LOTR_music
+          token: ${{ secrets.MUSIC_TOKEN }}
+          path: lotr/src/main/resources/resourcepacks/middle_earth_music
+          persist-credentials: false
+      - name: Music is there
+        run: test -f lotr/src/main/resources/resourcepacks/middle_earth_music/pack.mcmeta
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          # a cache of this public repo could be read by other runs; keep nothing from this job
+          cache-disabled: true
+      - name: Build lotr_port with music
+        run: ./gradlew :lotr:jar --quiet
+      - name: Put the jars in the private LOTR_music release
+        env:
+          GH_TOKEN: ${{ secrets.MUSIC_TOKEN }}
+          REF: ${{ inputs.ref }}
+        run: |
+          mkdir out
+          for j in lotr/build/libs/lotr_port-*.jar; do
+            case "$j" in *-sources.jar) ;; *) cp "$j" "out/$(basename "${j%.jar}")-music.jar" ;; esac
+          done
+          ls -l out
+          gh release view music-build -R PorcupineStudios/LOTR_music >/dev/null 2>&1 \
+            || gh release create music-build -R PorcupineStudios/LOTR_music --title "lotr_port with music" \
+                 --notes "Private builds of lotr_port with the film music. Never share these jars."
+          gh release upload music-build out/*.jar -R PorcupineStudios/LOTR_music --clobber
+          gh release edit music-build -R PorcupineStudios/LOTR_music \
+            --notes "Latest: ${REF} at $(git rev-parse HEAD). Private builds of lotr_port with the film music. Never share these jars."
+      - name: Clean up
+        if: always()
+        run: rm -rf out lotr/build lotr/src/main/resources/resourcepacks/middle_earth_music
