@@ -100,14 +100,38 @@ public record StarSystem(ResourceLocation id, ResourceKey<Level> dimension, Syst
         return null;
     }
 
-    /** The pull at a point (blocks per tick per tick): every ball and the sun, each falling off with distance squared. */
+    /**
+     * The one body that pulls here (Aaron 2026-11-15: focus on one gravitational body at a time, per player, for
+     * performance): the nearest ball whose sphere of influence ({@code focus_range} x its entry radius) holds the point,
+     * else the sun (null body). Up is away from the focus, so going round it turns you and your ship.
+     */
+    public Body focus(Vec3 pos, Tuning.SpaceTuning t) {
+        Body best = null;
+        double bestD = Double.MAX_VALUE;
+        double k = t.motion().focusRange();
+        for (Body b : bodies) {
+            double d = pos.distanceToSqr(b.center());
+            double r = b.entry() * k;
+            if (d < r * r && d < bestD) {
+                best = b;
+                bestD = d;
+            }
+        }
+        return best;
+    }
+
+    /** The centre of the focus here (a ball's or the sun's). */
+    public Vec3 focusCenter(Vec3 pos, Tuning.SpaceTuning t) {
+        Body b = focus(pos, t);
+        return b != null ? b.center() : sunCenter();
+    }
+
+    /** The pull at a point (blocks per tick per tick): only the focus body's, falling off with distance squared. */
     public Vec3 gravity(Vec3 pos, Tuning.SpaceTuning t) {
         double g0 = Orbits.G * t.gravity();
-        Vec3 sum = pull(pos, sunCenter(), sun.radius(), g0 * sun.gravity());
-        for (Body b : bodies) {
-            sum = sum.add(pull(pos, b.center(), b.radius(), g0 * b.gravity()));
-        }
-        return sum;
+        Body b = focus(pos, t);
+        return b != null ? pull(pos, b.center(), b.radius(), g0 * b.gravity())
+                : pull(pos, sunCenter(), sun.radius(), g0 * sun.gravity());
     }
 
     private static Vec3 pull(Vec3 pos, Vec3 center, double radius, double surface) {

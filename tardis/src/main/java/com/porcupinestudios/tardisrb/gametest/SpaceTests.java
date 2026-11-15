@@ -310,6 +310,41 @@ public final class SpaceTests {
     }
 
     /**
+     * Focus (Aaron 2026-11-15): only one body pulls at a time; near a ball it is that ball, far out the sun. Going a
+     * quarter way round a ball turns a floating player's up a quarter turn with it: orbit changes orientation.
+     */
+    @GameTest(template = "platform")
+    public static void orbitTurnsWithTheFocus(GameTestHelper helper) {
+        Planet p = bigPlanet(SkyLink.Wrap.TORUS);
+        Tuning.SpaceTuning t = Tuning.DEFAULT.space();
+        var system = testSystem(p, 50);
+        var body = system.body(p.id());
+        double r = body.entry() + 20;
+        helper.assertTrue(system.focus(body.center().add(r, 0, 0), t) == body, "the ball isn't the focus beside it");
+        helper.assertTrue(system.focus(new Vec3(-60, 0, 0), t) == null, "the sun isn't the focus beside it");
+        helper.assertTrue(system.gravity(new Vec3(-60, 0, 0), t).normalize().dot(new Vec3(1, 0, 0)) > 0.9999,
+                "doesn't fall to the sun");
+        net.minecraft.world.entity.player.Player player = helper.makeMockPlayer(net.minecraft.world.level.GameType.SURVIVAL);
+        player.setOnGround(false);
+        int steps = 90;
+        for (int i = 0; i <= steps; i++) {
+            double a = Math.PI / 2 * i / steps;
+            player.setPos(body.center().add(Math.cos(a) * r, Math.sin(a) * r, 0));
+            var down = system.down(player.position(), t);
+            if (i > 0 && down != ((GravityHolder) player).tardis_rb$gravity()) {
+                Tilt.regravitate(player, down);
+            }
+            ((GravityHolder) player).tardis_rb$setGravityField(down);
+            for (int k = 0; k < (i == steps ? 200 : 3); k++) {
+                Tilt.tick(player, system, t);
+            }
+        }
+        Vec3 up = Tilt.of(player).toWorld(new Vec3(0, 1, 0));
+        helper.assertTrue(up.dot(new Vec3(0, 1, 0)) > 0.9999, "a quarter orbit left up at " + up);
+        helper.succeed();
+    }
+
+    /**
      * Slice 3 (free tilt): floating, a player leans to the true pull at any angle and aims where it looks; a gravity
      * turn underneath keeps the look; on blocks it goes back to six-way; with {@code free_tilt} off there is no lean.
      */
@@ -366,7 +401,7 @@ public final class SpaceTests {
         var m = t.motion();
         var off = new Tuning.SpaceTuning(t.gravity(), t.checkTicks(), t.landingSlowFall(), t.seamView(),
                 t.seamSegment(), t.seamLinger(), t.mapBudgetMs(), new Tuning.Motion(m.orbitSpeed(), m.thrust(),
-                        m.maxSpeed(), m.dragFree(), false, m.tiltSpeed(), m.boost(), m.chunkSkipSpeed()));
+                        m.maxSpeed(), m.dragFree(), false, m.tiltSpeed(), m.boost(), m.chunkSkipSpeed(), m.focusRange()));
         Tilt.tick(player, system, off);
         helper.assertTrue(Tilt.of(player) == null, "leans with free_tilt off");
         Tilt.tick(player, system, t);
