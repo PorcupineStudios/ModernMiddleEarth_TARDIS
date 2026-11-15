@@ -59,3 +59,7 @@ config = "tardis_rb.mixins.json"
 # Fast space flight loads no chunks through Immersive Portals either (compat/immportals).
 [[mixins]]
 config = "tardis_rb.immportals.mixins.json"
+
+# Sable vs Immersive Portals collision (compat/sable); applies only when Sable is loaded.
+[[mixins]]
+config = "tardis_rb.sable.mixins.json"

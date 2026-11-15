@@ -77,7 +77,7 @@ def unpackAeroLibs = tasks.register('unpackAeroLibs', Copy) {
 
 dependencies {
     compileOnly "maven.modrinth:sable:${sable_version}"
-    // shortcut: off by default, Sable 2.0.6 crashes next to Immersive Portals (both redirect Entity collision); -Paeronautics to load them
+    // Off by default to keep dev runs light; -Paeronautics loads them (compat/sable makes them work beside Immersive Portals)
     if (project.hasProperty("aeronautics")) {
         runtimeOnly "maven.modrinth:create-aeronautics:${aeronautics_version}"
         runtimeOnly "maven.modrinth:sable:${sable_version}"
@@ -86,4 +86,16 @@ dependencies {
         include '*.jar'
         builtBy unpackAeroLibs
     }
+}
+
+// MixinSquared (bundled): lets compat/sable drop Immersive Portals' collide redirect when Sable is loaded.
+repositories {
+    maven {
+        url = 'https://maven.bawnorton.com/releases'
+        content { includeGroup 'com.github.bawnorton.mixinsquared' }
+    }
+}
+dependencies {
+    implementation(jarJar("com.github.bawnorton.mixinsquared:mixinsquared-neoforge:${mixinsquared_version}"))
+    compileOnly "com.github.bawnorton.mixinsquared:mixinsquared-common:${mixinsquared_version}"
 }
