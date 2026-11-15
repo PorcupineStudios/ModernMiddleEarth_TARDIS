@@ -1,0 +1,11 @@
+square 512 at 0,0
+water 8.0%
+slope (blocks per block) median 0.00 p90 1.00 p99 2.24 max 51.6
+overhangs 5705 columns (2.176%), first: [-245 76 110, -244 77 109, -244 76 110, -243 76 109, -243 76 110, -243 75 111, -242 75 110, -242 75 111, -241 74 111, -243 74 112, -242 74 112, -242 73 113]
+variant forest 12.6% colour B86B3A
+variant wooded_hills 10.7% colour 1F5A1A
+variant orchard 0.0% colour 3A7D2C
+variant meadows 1.5% colour 6B8E23
+variant plain 71.5% colour 808080
+variant hills 3.8% colour E8C547
+took 50 s
