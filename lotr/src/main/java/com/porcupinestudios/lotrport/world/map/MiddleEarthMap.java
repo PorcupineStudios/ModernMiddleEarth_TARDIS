@@ -441,7 +441,7 @@ public final class MiddleEarthMap {
      * (radius 0.55-0.9 of a cell), height (0.55-1) and oval, turned shape (up to 1.6 times as long as wide); one cell
      * in five is left flat for meadows. A hill's profile is (height x (1 - r^2)^2), a bell with a gentle foot; where
      * hills overlap they are blended as the root of the sum of squares, so they merge into ridges without plateaus or
-     * creases. At 18 blocks tall (the Shire's) the steepest slope is about 17 degrees. Unlike noise hills it never dips
+     * creases. At 24 blocks tall (the Shire's) the steepest slope is about 21 degrees. Unlike noise hills it never dips
      * under the biome's ground, so it makes no ponds, and it needs no seed: the same hills in every world, and reliable.
      * Tuned on a shaded preview of 1.5 km (2026-11-14).
      */
