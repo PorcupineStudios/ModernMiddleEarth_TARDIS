@@ -93,12 +93,12 @@ public final class VortexRenderer {
         // Aaron 2026-11-14: fast but not disorienting. The sense of speed comes from the thin streaks rushing along the
         // tunnel; the wall moves slower, and both layers turn the same way and twist alike (counter-turning layers
         // are what made it swim). Lightning swells and fades, never strobes: under 3 flashes a second (WCAG 2.3.1).
-        cloudWall(view, ox, oy, cam.z, half, time, time * WALL_SPEED, time * 0.015f, 0.08f, boltsNow(time, slot));
+        cloudWall(view, ox, oy, cam.z, half, time, time * WALL_SPEED, time * 0.002f, 0.08f, boltsNow(time, slot));
 
         RenderSystem.enableBlend();
         RenderSystem.blendFunc(GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ONE);
         RenderSystem.setShaderTexture(0, GLOW);
-        draw(view, ox, oy, (float) cam.z, half, WALL_RADIUS - BILLOW * 1.1f, time * STREAK_SPEED, time * 0.015f, 0.08f,
+        draw(view, ox, oy, (float) cam.z, half, WALL_RADIUS - BILLOW * 1.1f, time * STREAK_SPEED, time * 0.002f, 0.08f,
                 0.55f);
 
         RenderSystem.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE);
@@ -138,8 +138,8 @@ public final class VortexRenderer {
     // --- the wall is storm cloud, charged with lightning (Aaron 2026-11-09) ---
 
     /** Texture repeats (48 blocks) per second the wall and the streaks rush past at. */
-    private static final float WALL_SPEED = 0.35f;
-    private static final float STREAK_SPEED = 1.2f;
+    private static final float WALL_SPEED = 0.03f; // Aaron 2026-11-14: very slow; the flight itself gives the motion
+    private static final float STREAK_SPEED = 0.08f;
     /** Lightning: strike slots per second per channel, and channels (bolts that can be lit at once). Each bolt is one
      *  smooth swell and fade over its slot, so at most ~1.2 flashes a second in all. */
     private static final float BOLT_RATE = 0.6f;
