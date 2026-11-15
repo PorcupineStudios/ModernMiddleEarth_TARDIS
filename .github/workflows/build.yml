@@ -1,13 +1,16 @@
 name: Build
 
+# THROWAWAY (vortex-smooth-shot only): a smooth recording of the time vortex from the real client. The game runs at
+# 1 tick/s (20x slow) so the software renderer's few frames a second each cover 1/20 as much vortex time; the video is
+# then sped back up 20x to real speed. Never merge this file.
 on:
   push:
-    branches: ['**']
-  pull_request:
+    branches: ['claude/vortex-smooth-shot']
 
 jobs:
-  build:
+  shot:
     runs-on: ubuntu-latest
+    timeout-minutes: 50
     permissions:
       contents: write
     steps:
@@ -17,62 +20,42 @@ jobs:
           distribution: temurin
           java-version: '21'
       - uses: gradle/actions/setup-gradle@v4
-      - run: ./gradlew build --stacktrace
-      - name: GameTests
-        # The game test server can exit 0 after a mod loading crash, so the log has to say the tests passed.
-        run: |
-          ./gradlew :lotr:runGameTestServer --stacktrace 2>&1 | tee gametest.log
-          grep -E "All [0-9]+ required tests passed" gametest.log
-      - name: TARDIS GameTests
-        run: |
-          ./gradlew :tardis:runGameTestServer --stacktrace 2>&1 | tee tardis-gametest.log
-          grep -E "All [0-9]+ required tests passed" tardis-gametest.log
-      - name: Middle-earth world
-        # A new world of the Middle-earth world type on a dedicated server: WorldCheck logs the spawn and stops it.
-        # It generates ~160 far-apart chunks plus two structures in one tick: watchdog off (max-tick-time=-1), 6 GB heap.
-        timeout-minutes: 15
-        run: |
-          mkdir -p lotr/run
-          echo "eula=true" > lotr/run/eula.txt
-          printf 'level-type=lotr_port\\:middle_earth\nonline-mode=false\nlevel-name=middle-earth-check\nmax-tick-time=-1\n' > lotr/run/server.properties
-          cat lotr/run/server.properties
-          JAVA_TOOL_OPTIONS="-Dlotr_port.worldcheck=true -Xmx6g" ./gradlew :lotr:runServer --stacktrace 2>&1 | tee worldcheck.log
-          grep -E "\\[worldcheck\\]|WORLDCHECK" worldcheck.log
-          grep "WORLDCHECK PASSED" worldcheck.log
-      - name: TARDIS world
-        # A dedicated server: the crash site, its police box, and its interior in the interior dimension.
-        timeout-minutes: 10
+      - run: sudo apt-get update -q && sudo apt-get install -y -q xvfb libgl1-mesa-dri libglu1-mesa ffmpeg && pip install nbtlib
+      - name: A world
+        timeout-minutes: 12
         run: |
           mkdir -p tardis/run
           echo "eula=true" > tardis/run/eula.txt
           printf 'online-mode=false\nlevel-name=tardis-check\n' > tardis/run/server.properties
-          JAVA_TOOL_OPTIONS="-Dtardis_rb.worldcheck=true" ./gradlew :tardis:runServer --stacktrace 2>&1 | tee tardis-world.log
-          grep -E "\\[worldcheck\\]|WORLDCHECK|crash site" tardis-world.log
-          grep "TARDIS WORLDCHECK PASSED" tardis-world.log
-      - uses: actions/upload-artifact@v4
-        with:
-          name: jars
-          path: "*/build/libs/*.jar"
-      # Other mods' jars are never uploaded or released from this public repo: the release notes list the versions the
-      # build used, to download from Modrinth.
-      - name: Mods the TARDIS needs (versions only)
+          JAVA_TOOL_OPTIONS="-Dtardis_rb.worldcheck=true" ./gradlew :tardis:runServer --stacktrace 2>&1 | tail -3
+          mkdir -p tardis/run/saves && cp -r tardis/run/tardis-check tardis/run/saves/shot && rm -f tardis/run/saves/shot/session.lock
+          python3 .github/shot/prepare.py tardis/run
+      - name: Record the vortex
+        timeout-minutes: 30
         run: |
-          : > needed-mods.txt
-          for m in create immersive-portals-neoforge cloth-config jade; do
-            find ~/.gradle/caches/modules-2/files-2.1/maven.modrinth/$m -name "*.jar" ! -name "*-sources.jar" \
-              -printf "- %f (https://modrinth.com/mod/$m)\n" >> needed-mods.txt
-          done
-          cat needed-mods.txt
-      - name: Rolling test build (a pre-release with our jars; other mods are listed, not attached)
-        if: github.event_name == 'push'
-        env:
-          GH_TOKEN: ${{ github.token }}
+          Xvfb :99 -screen 0 1280x720x24 &
+          sleep 3
+          (DISPLAY=:99 LIBGL_ALWAYS_SOFTWARE=1 ./gradlew :tardis:runClient -PquickPlay=shot > client.log 2>&1 &)
+          for i in $(seq 1 240); do grep -q "SHOT_READY" client.log && break; sleep 5; done
+          sleep 30
+          mkdir -p shots
+          # 8 s of vortex time = 160 s of wall time at 1 tick/s; every frame the renderer makes is caught at 20/s
+          ffmpeg -loglevel error -f x11grab -framerate 20 -video_size 854x480 -i :99.0+213,120 -t 160 -c:v libx264 -preset veryfast -crf 12 shots/raw.mkv
+          ffprobe -v error -count_frames -show_entries stream=nb_read_frames -of csv=p=0 shots/raw.mkv
+          # how many different frames the renderer actually made
+          ffmpeg -loglevel error -i shots/raw.mkv -vf mpdecimate -f null - -stats 2>&1 | tail -1 || true
+          # back to real speed: 20x faster, 60 fps video, 30 fps GIF
+          ffmpeg -loglevel error -i shots/raw.mkv -vf "setpts=PTS/20,fps=60" -c:v libx264 -preset veryfast -crf 18 -pix_fmt yuv420p shots/vortex_smooth.mp4
+          ffmpeg -loglevel error -i shots/raw.mkv -vf "setpts=PTS/20,fps=30,scale=640:-1:flags=lanczos,split[a][b];[a]palettegen=max_colors=256[p];[b][p]paletteuse=dither=sierra2_4a" shots/vortex_smooth.gif
+          ls -la shots
+      - name: Keep the shots on a throwaway branch
+        if: always()
         run: |
-          mkdir -p test-build
-          cp api/build/libs/*.jar tardis/build/libs/*.jar lotr/build/libs/*.jar test-build/
-          rm -f test-build/*-sources.jar
-          gh release delete test-build -y --cleanup-tag || true
-          gh release create test-build test-build/*.jar --prerelease --target "${{ github.sha }}" \
-            --title "Test build (${GITHUB_REF_NAME})" --notes "Latest green build of ${GITHUB_REF_NAME} at ${GITHUB_SHA}. Also install these mods from Modrinth (the versions this build used):
-          $(cat needed-mods.txt)
-          No Sodium: Create needs Sodium 0.6.9 or newer, Immersive Portals 6.0.7 works only with 0.6.0."
+          tail -300 client.log > client-tail.log || true
+          git config user.name "ci"; git config user.email "ci@users.noreply.github.com"
+          git checkout -q --orphan shots-tmp
+          git rm -rf -q --cached .
+          cp shots/vortex_smooth.* . 2>/dev/null || true
+          git add -f vortex_smooth.* client-tail.log 2>/dev/null || true
+          git commit -q -m "vortex smooth (throwaway)"
+          git push -f -q origin HEAD:refs/heads/claude/vortex-shots-tmp
