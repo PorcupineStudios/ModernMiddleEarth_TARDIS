@@ -10,13 +10,68 @@
   "rivers": {
     "biome": "lotr_port:river",
     "scale": 1300,
-    "width": 0.025,
+    "width": 0.0173,
+    "mask_scale": 3000,
     "bank": 3.0,
     "biome_width": 1.5,
     "bed": 56,
     "max_height": 100,
     "min_height": 63,
     "seed": 1937
+  },
+  "variants": {
+    "lotr_port:shire": {
+      "cell": 176,
+      "chance": 0.6,
+      "list": [
+        {
+          "name": "meadows",
+          "weight": 3,
+          "downs": 0.55,
+          "variation": 0.7
+        },
+        {
+          "name": "light_forest",
+          "weight": 3
+        },
+        {
+          "name": "forest",
+          "weight": 2
+        },
+        {
+          "name": "hills",
+          "weight": 3,
+          "downs": 1.7,
+          "variation": 1.25
+        },
+        {
+          "name": "wooded_hills",
+          "weight": 2,
+          "downs": 1.6,
+          "variation": 1.2
+        },
+        {
+          "name": "birch_wood",
+          "weight": 1
+        },
+        {
+          "name": "aspen_wood",
+          "weight": 1
+        },
+        {
+          "name": "orchard",
+          "weight": 2,
+          "downs": 0.6,
+          "variation": 0.6
+        },
+        {
+          "name": "plum_orchard",
+          "weight": 1,
+          "downs": 0.6,
+          "variation": 0.6
+        }
+      ]
+    }
   },
   "mountains": [
     {

@@ -50,6 +50,32 @@ VALLEY_SHIFT = 0.1  # the lifted valleys raise the mean ~0.1 x HILL_2D x hilline
 # (noise hills dip as often as they rise, into ponds). Biome name -> (tallest hill in blocks, share of LOTR's noise
 # hilliness kept as roughness on top).
 DOWNS = {"shire": (18, 0.4), "shire_moors": (14, 0.45), "shire_woodlands": (12, 0.5)}
+
+# Biome variants (LOTR's LOTRBiomeVariant patches; Aaron 2026-11-14: "many biomes within the Shire"). Not separate
+# biomes, as in LOTR: patches of a jittered grid (`cell` blocks), a variant with chance `chance`, else plain
+# (MiddleEarthMap / map/Variants). downs / variation scale the terrain (blended smoothly between patches); trees,
+# orchards and flowers are placed features gated by lotr_port:in_variant. The Shire's list is LOTR's (FLOWERS, FOREST,
+# FOREST_LIGHT, HILLS, HILLS_FOREST, FOREST_BIRCH, FOREST_ASPEN, ORCHARD_SHIRE, ORCHARD_PLUM) at a higher chance.
+# trees: (per chunk, [(tree, weight)]); orchard: (row spacing, fill, [(tree, weight)]); flowers: placed features.
+VARIANTS = {
+    "shire": {"cell": 176, "chance": 0.6, "list": [
+        {"name": "meadows", "weight": 3, "downs": 0.55, "variation": 0.7,
+         "flowers": ["minecraft:flower_meadow", "minecraft:flower_flower_forest", "minecraft:patch_tall_grass"]},
+        {"name": "light_forest", "weight": 3,
+         "trees": (3, [("oak", 4), ("oak_large", 2), ("chestnut", 3), ("birch", 2), ("aspen", 1)])},
+        {"name": "forest", "weight": 2,
+         "trees": (9, [("oak", 4), ("oak_large", 3), ("chestnut", 3), ("chestnut_large", 2), ("birch", 2)])},
+        {"name": "hills", "weight": 3, "downs": 1.7, "variation": 1.25, "flowers": ["minecraft:patch_tall_grass"]},
+        {"name": "wooded_hills", "weight": 2, "downs": 1.6, "variation": 1.2,
+         "trees": (4, [("oak", 4), ("oak_large", 2), ("chestnut", 3), ("birch", 2)])},
+        {"name": "birch_wood", "weight": 1,
+         "trees": (7, [("birch", 5), ("birch_large", 2), ("birch_tall", 2)])},
+        {"name": "aspen_wood", "weight": 1, "trees": (7, [("aspen", 5), ("aspen_large", 2)])},
+        {"name": "orchard", "weight": 2, "downs": 0.6, "variation": 0.6,
+         "orchard": (7, 0.85, [("apple", 1), ("pear", 1)])},
+        {"name": "plum_orchard", "weight": 1, "downs": 0.6, "variation": 0.6, "orchard": (7, 0.85, [("plum", 1)])},
+    ]},
+}
 SURVEY_OFFSET = 1.0  # the survey's ground is the first air block; the port's map height lands about a block higher
 # LOTR's ground patches compare one-octave Perlin sums to thresholds; 1.18's normal noise spreads about half as wide
 NOISE_SCALE = 0.45
@@ -58,8 +84,10 @@ BLUR = 0  # pixels of box blur on heights (0 keeps one-pixel rivers)
 OCEAN = "ocean"
 ROAD_HALF_WIDTH = 2.1  # blocks either side of a road's middle (Aaron 2026-11-14: 4-5 wide; bridges 1 more each side)
 # Small rivers (LOTR made these with a river layer, not on the map). Widths are in noise units: one is about 11 blocks.
-# scale 1300 (was 900, Aaron 2026-11-14: fewer rivers, still a fair few): the lines are about 30% further apart
-RIVERS = {"biome": f"{NS}:river", "scale": 1300, "width": 0.025, "bank": 3.0, "biome_width": 1.5, "bed": 56,
+# Aaron 2026-11-14: fewer rivers, still a fair few. scale 1300 (was 900): the lines are about 30% further apart; width
+# is in noise units, so it shrinks by 900/1300 to keep rivers as wide in blocks; mask_scale: a third of the network
+# fades out to dry valleys (MiddleEarthMap.Rivers).
+RIVERS = {"biome": f"{NS}:river", "scale": 1300, "width": 0.0173, "mask_scale": 3000, "bank": 3.0, "biome_width": 1.5, "bed": 56,
           "max_height": 100, "min_height": 63, "seed": 1937}
 
 # Old surface blocks (registry name + meta) that are vanilla in 1.21.
@@ -182,7 +210,8 @@ class World:
         features[7] = [f"{NS}:dripstone"]  # LOTR's 3 stalactites a chunk under y 60, as dripstone
         if dec.get("quagmirePerChunk", 0) > 0:  # LOTR's quagmire patches; mud round them (1.19's swamp ground)
             features[2] = [f"{NS}:quagmire_{dec['quagmirePerChunk']}", f"{NS}:mud_patch"] + features[2]
-        features[9] = ([lotr_trees] if lotr_trees else []) + self.forest_floor(dec) + self.marsh_plants(b) + [
+        features[9] = ([lotr_trees] if lotr_trees else []) + self.variant_plants(self.biome_id(b)) + \
+            self.forest_floor(dec) + self.marsh_plants(b) + [
             v for v in VEGETATION if v in veg]
         features[10] = ["minecraft:freeze_top_layer"]
         creatures = []
@@ -198,6 +227,49 @@ class World:
             "carvers": {"air": CARVERS},
             "features": features,
         }
+
+    def variant_plants(self, biome):
+        """Placed features for a biome's variants (VARIANTS): each patch's trees, orchard rows and flowers, gated by
+        lotr_port:in_variant. Written under shire_variant/<variant>_<what> etc."""
+        if biome not in VARIANTS:
+            return []
+        gen = os.path.join(self.data, NS, "worldgen")
+        out = []
+        on_land = [{"type": "minecraft:surface_water_depth_filter", "max_water_depth": 0},
+                   {"type": "minecraft:heightmap", "heightmap": "OCEAN_FLOOR"}, {"type": "minecraft:biome"}]
+
+        def write(name, feature, placement):
+            write_json(os.path.join(gen, "placed_feature", f"{biome}_variant", name + ".json"),
+                       {"feature": feature, "placement": placement})
+            out.append(f"{NS}:{biome}_variant/{name}")
+
+        def selector(name, trees):
+            total = sum(w for _, w in trees)
+            feats, left = [], 1.0
+            for t, w in trees[:-1]:  # random_selector: each entry's chance is of what is left
+                share = w / total
+                feats.append({"feature": f"{NS}:tree/{t}", "chance": round(min(1.0, share / left), 4)})
+                left -= share
+            write_json(os.path.join(gen, "configured_feature", f"{biome}_variant", name + ".json"), {
+                "type": "minecraft:random_selector",
+                "config": {"features": feats, "default": f"{NS}:tree/{trees[-1][0]}"}})
+            return f"{NS}:{biome}_variant/{name}"
+
+        for v in VARIANTS[biome]["list"]:
+            gate = {"type": f"{NS}:in_variant", "variants": [v["name"]]}
+            if "trees" in v:
+                n, trees = v["trees"]
+                write(v["name"] + "_trees", selector(v["name"] + "_trees", trees),
+                      [{"type": "minecraft:count", "count": n}, {"type": "minecraft:in_square"}, gate] + on_land)
+            if "orchard" in v:
+                spacing, fill, trees = v["orchard"]
+                write(v["name"] + "_rows", selector(v["name"] + "_rows", trees),
+                      [{"type": f"{NS}:orchard_grid", "spacing": spacing, "fill": fill}, gate] + on_land)
+            for i, flower in enumerate(v.get("flowers", [])):
+                write(f"{v['name']}_flowers_{i}", flower,
+                      [{"type": "minecraft:count", "count": 2}, {"type": "minecraft:in_square"}, gate,
+                       {"type": "minecraft:heightmap", "heightmap": "MOTION_BLOCKING"}, {"type": "minecraft:biome"}])
+        return out
 
     def plant_patch(self, name, block, per_chunk, tall=(1, 1), on="ground", tries=16, spread=7):
         """A LOTR plant patch (random tries round a spot) as a placed feature; per_chunk under 1 is a 1-in-n chance.
@@ -285,7 +357,7 @@ class World:
 
     def variation(self, b):
         if self.measured(b):  # LOTR's spread of ground heights; the noise gives about STD_PER_VARIATION of it
-            return round(self.measured(b)["std"] / STD_PER_VARIATION * DOWNS.get(b["fields"]["biomeName"], (0, 1))[1], 2)
+            return round(self.measured(b)["std"] / STD_PER_VARIATION * DOWNS.get(self.biome_id(b), (0, 1))[1], 2)
         return round(max(0.0, float(b["fields"].get("heightVariation", 0.1))) * BLOCKS_PER_VARIATION, 2)
 
     # ------------------------------------------------------------------ map
@@ -351,6 +423,9 @@ class World:
             "blur": BLUR, "border_wobble": BORDER_WOBBLE,
             "ocean": f"{NS}:{OCEAN}",
             "rivers": RIVERS,
+            "variants": {f"{NS}:{k}": {"cell": v["cell"], "chance": v["chance"], "list": [
+                {x: e[x] for x in ("name", "weight", "downs", "variation") if x in e} for e in v["list"]]}
+                for k, v in VARIANTS.items()},
             # LOTRMountains: a cone from the land up to the peak's surveyed ground over `range` blocks
             "mountains": [self.mountain(m) for m in self.survey.get("mountains", [])],
             "biomes": [dict({"id": f"{NS}:{i}", "height": self.height(b), "variation": self.variation(b)},
