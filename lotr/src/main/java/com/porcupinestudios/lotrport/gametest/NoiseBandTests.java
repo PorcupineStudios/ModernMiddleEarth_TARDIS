@@ -31,9 +31,9 @@ public final class NoiseBandTests {
     private NoiseBandTests() {}
 
     /**
-     * The band must cover the noise's largest swing (measured, with a quarter more to spare): above the ground the
-     * noise adds at most {@code up} x hilliness, below it takes at most {@code down} x hilliness against ground 5x
-     * steeper; and every cell that holds the surface lies wholly inside (8 blocks, at hilliness 0: 4 x 2).
+     * The band must cover the noise's largest swing (sampled, with a quarter more to spare) for every hilliness up to
+     * half again the map's most: above the ground what the noise can add, below what it can take against ground 5x
+     * steeper; and every cell that holds the surface (8 blocks) lies wholly inside.
      */
     @GameTest(template = EMPTY, timeoutTicks = 600)
     public static void noiseBandCoversTheNoise(GameTestHelper helper) {
@@ -60,15 +60,27 @@ public final class NoiseBandTests {
                 min[k] = Math.min(min[k], v[k]);
             }
         }
-        // as world.py builds it: 2 x blended x min(h, 20) + 2.5 h (quarter_negative(hills) - 0.1)
-        //   + max(h - 10, 0) (2 x half_negative(jagged) + 1.2 x hills at half frequency)
-        double up = 2 * max[0] + 2.5 * Math.max(0, max[1] - 0.1) + 2 * max[2] + 1.2 * max[3];
-        double down = 2 * -min[0] + 2.5 * (-min[1] / 4 + 0.1) + 2 * (-min[2] / 2) + 1.2 * -min[3];
+        // as world.py builds it, for hilliness h: 2 x blended x min(h, 20) + 2.5 h (quarter_negative(hills) - 0.1)
+        //   + max(h - 10, 0) (2 x half_negative(jagged) + 1.2 x hills at half frequency); a quarter more to spare,
+        // and the cell holding the surface (8 blocks) wholly inside, for every hilliness up to 1.5 x the map's most
+        double most = MiddleEarthMap.get().mostHilliness();
+        double needAbove = 0;
+        double needBelow = 0;
+        double up = 0;
+        double down = 0;
+        for (double h = 0; h <= 1.5 * most; h += 0.25) {
+            double u = 2 * max[0] * Math.min(h, 20) + 2.5 * h * Math.max(0, max[1] - 0.1)
+                    + Math.max(h - 10, 0) * (2 * max[2] + 1.2 * max[3]);
+            double d = 2 * -min[0] * Math.min(h, 20) + 2.5 * h * (-min[1] / 4 + 0.1)
+                    + Math.max(h - 10, 0) * (2 * (-min[2] / 2) + 1.2 * -min[3]);
+            up = Math.max(up, u);
+            down = Math.max(down, d);
+            needAbove = Math.max(needAbove, (1.25 * u + 8) / (h + 2));
+            needBelow = Math.max(needBelow, (1.25 * d / 5 + 8) / (h + 2));
+        }
         double[] band = bandOf(helper);
-        double needAbove = Math.max(1.25 * up, 4);
-        double needBelow = Math.max(1.25 * down / 5, 4);
         LotrPort.LOG.info("[noiseband] blended {}..{}, hills {}..{}, jagged {}..{}, ridges {}..{}: noise up {} x "
-                + "hilliness, down {}; band above {} (needs {}), below {} (needs {})", fmt(min[0]), fmt(max[0]),
+                + "most, down {}; band above {} (needs {}), below {} (needs {})", fmt(min[0]), fmt(max[0]),
                 fmt(min[1]), fmt(max[1]), fmt(min[2]), fmt(max[2]), fmt(min[3]), fmt(max[3]), fmt(up), fmt(down),
                 band[0], fmt(needAbove), band[1], fmt(needBelow));
         helper.assertTrue(band[0] >= needAbove, "noise band above " + band[0] + " < " + fmt(needAbove));

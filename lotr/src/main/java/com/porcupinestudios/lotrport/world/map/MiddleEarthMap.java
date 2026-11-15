@@ -300,6 +300,17 @@ public final class MiddleEarthMap {
         return in;
     }
 
+    /** The most hilliness any biome's noise gets (the ranges' is replaced by their massif). */
+    public double mostHilliness() {
+        double most = 0;
+        for (int i = 0; i < biomes.size(); i++) {
+            if (rangeShare[i] == 0) {
+                most = Math.max(most, biomes.get(i).variation());
+            }
+        }
+        return most;
+    }
+
     public List<Entry> biomes() {
         return biomes;
     }

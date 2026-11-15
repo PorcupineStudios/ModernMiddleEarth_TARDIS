@@ -46,7 +46,7 @@ HILL_BIAS = 0.4  # the 4x-steeper ground below lifts the mean ~0.4 x hilliness (
 # says, so the plain ground shape stands in (minecraft:range_choice). The bounds must cover the noise's largest swing:
 # GameTest NoiseBandTests measures it and fails if they don't. MiddleEarthMap.noiseTop (a mixin) also stops filling
 # chunks and scanning for ground at the band's top, so the sky over low land costs nothing.
-NOISE_BAND_ABOVE, NOISE_BAND_BELOW = 6.0, 4.0
+NOISE_BAND_ABOVE, NOISE_BAND_BELOW = 9.0, 4.0  # measured 2026-11-15: needs 8.35 above, 4 below
 MAX_3D = 20.0  # hilliness given LOTR's 3D noise; mountains need it for their crags (8 left them smooth domes)
 HILL_2D = 2.5  # 2D hills per block of hilliness: measured against LOTR (terrainRoughness / the exporter's rough), 1.0 gave a third of its spread
 VALLEYS = 0.25  # the 2D hills' valleys at a quarter depth (1.18 quarter_negative): hills rise from the land, low
