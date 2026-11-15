@@ -196,7 +196,7 @@ public final class SpaceTravel {
     /** Out of the top of a planet's layer: beside its ball in the solar system, moving the same way. */
     public static Entity toSystem(Entity e, Planet planet, StarSystem.Body body, ServerLevel system,
             Tuning.SpaceTuning tuning) {
-        double sx = StationFrames.surfaceX(e.level(), planet, e.getX(), e.getZ());
+        double sx = planet.surfaceX(e.getX());
         double sz = Math.max(planet.minZ(), Math.min(Math.nextDown(planet.minZ() + planet.height()),
                 planet.surfaceZ(e.getZ())));
         Vec3 to = body.fromLayer(sx, sz);
@@ -280,8 +280,7 @@ public final class SpaceTravel {
 
     /** Down from space: under the ceiling over the spot below, falling slowly. */
     public static Entity toSurface(Entity e, Planet planet, ServerLevel world, Tuning.SpaceTuning tuning) {
-        // under where you really are: a station's frame has drifted round with it
-        double x = StationFrames.surfaceX(e.level(), planet, e.getX(), e.getZ());
+        double x = planet.surfaceX(e.getX());
         double z = planet.surfaceZ(e.getZ());
         float turn = 0;
         Planet.Wrapped w = planet.wrap(x, z);
@@ -382,14 +381,12 @@ public final class SpaceTravel {
     private static void onLogin(PlayerEvent.PlayerLoggedInEvent event) {
         if (event.getEntity() instanceof ServerPlayer sp) {
             SkyNet.sendPlanets(sp);
-            StationFrames.send(sp);
         }
     }
 
     private static void onChangeDimension(PlayerEvent.PlayerChangedDimensionEvent event) {
         if (event.getEntity() instanceof ServerPlayer sp) {
             setGravity(sp, isSpace(sp.level()));
-            StationFrames.send(sp);
         }
     }
 }

@@ -426,20 +426,14 @@ public record Tuning(CrashSite crashSite, Hop hop, Winder winder, Interior inter
     }
 
     /**
-     * Stations orbiting in real time ({@code space/StationFrames}): a station's zone is its chunks plus
-     * {@code zone_margin} blocks (the frame: spots on the planet drift with the station; leaving it puts you where the
-     * station really is); coming within {@code enter_radius} of where a station really is takes you into its frame;
-     * in a zone the planet pulls only within {@code deck_height} blocks over a solid block.
+     * Space stations are Create: Aeronautics (Sable) ships (Aaron 2026-11-15; compat/sable). Standing on or in one, a
+     * player's down is the ship's own down, at {@code deck_gravity} times normal gravity (1.0).
      */
-    public record Stations(int zoneMargin, int enterRadius, double deckHeight) {
-        public static final Stations DEFAULT = new Stations(192, 128, 2.0);
+    public record Stations(double deckGravity) {
+        public static final Stations DEFAULT = new Stations(1.0);
         public static final Codec<Stations> CODEC = RecordCodecBuilder.create(i -> i.group(
-                Codec.intRange(16, 1024).optionalFieldOf("zone_margin", DEFAULT.zoneMargin)
-                        .forGetter(Stations::zoneMargin),
-                Codec.intRange(8, 1024).optionalFieldOf("enter_radius", DEFAULT.enterRadius)
-                        .forGetter(Stations::enterRadius),
-                Codec.doubleRange(0, 16).optionalFieldOf("deck_height", DEFAULT.deckHeight)
-                        .forGetter(Stations::deckHeight))
+                Codec.doubleRange(0, 10).optionalFieldOf("deck_gravity", DEFAULT.deckGravity)
+                        .forGetter(Stations::deckGravity))
                 .apply(i, Stations::new));
     }
 
@@ -448,17 +442,14 @@ public record Tuning(CrashSite crashSite, Hop hop, Winder winder, Interior inter
      * where something is). With {@code sparse} on, space chunks that hold nothing are never saved, and players there
      * load no chunks the vanilla way: only those within {@code near_radius} of a player who isn't flying fast (to
      * build, mine and fight in; ticking), and chunks that hold something within view distance (ticking within
-     * simulation distance). Chunks with things in them within {@code station_gap} chunks of each other are one space
-     * station ({@code space/Stations}).
+     * simulation distance).
      */
-    public record Chunks(boolean sparse, int nearRadius, int stationGap) {
-        public static final Chunks DEFAULT = new Chunks(true, 3, 2);
+    public record Chunks(boolean sparse, int nearRadius) {
+        public static final Chunks DEFAULT = new Chunks(true, 3);
         public static final Codec<Chunks> CODEC = RecordCodecBuilder.create(i -> i.group(
                 Codec.BOOL.optionalFieldOf("sparse", DEFAULT.sparse).forGetter(Chunks::sparse),
                 Codec.intRange(0, 16).optionalFieldOf("near_radius", DEFAULT.nearRadius)
-                        .forGetter(Chunks::nearRadius),
-                Codec.intRange(1, 16).optionalFieldOf("station_gap", DEFAULT.stationGap)
-                        .forGetter(Chunks::stationGap))
+                        .forGetter(Chunks::nearRadius))
                 .apply(i, Chunks::new));
     }
 

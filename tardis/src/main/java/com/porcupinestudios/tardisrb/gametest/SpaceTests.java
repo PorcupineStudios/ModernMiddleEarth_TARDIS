@@ -109,46 +109,6 @@ public final class SpaceTests {
         helper.succeed();
     }
 
-    /**
-     * Stations orbit as moving frames (space/StationFrames): a new one hasn't drifted; it drifts east at the orbit
-     * speed for its height (one turn per period, lower is quicker); its zone and true place; who moves in and out.
-     */
-    @GameTest(template = "platform")
-    public static void stationFramesOrbit(GameTestHelper helper) {
-        Planet p = bigPlanet(SkyLink.Wrap.TORUS);
-        Tuning.SpaceTuning t = Tuning.DEFAULT.space();
-        double low = p.link().orbit().floor() + 10;
-        double high = p.link().orbit().top() - 10;
-        long periodLow = com.porcupinestudios.tardisrb.space.StationFrames.period(p, low, t);
-        long periodHigh = com.porcupinestudios.tardisrb.space.StationFrames.period(p, high, t);
-        helper.assertTrue(periodLow > 0 && periodLow < periodHigh, "lower orbits should be quicker: " + periodLow
-                + " vs " + periodHigh);
-        int cx = (int) p.link().orbit().x() + 40;
-        int cz = (int) p.link().orbit().z() - 30;
-        double placed = p.lon(p.surfaceX(cx));
-        var f = new com.porcupinestudios.tardisrb.space.StationFrames.Frame(1, p.id(), cx - 24, cz - 24, cx + 23,
-                cz + 23, cx, (int) low, cz, placed, periodLow, 1000);
-        helper.assertTrue(Math.abs(f.drift(p, 1000)) < 1e-6, "a new station has drifted " + f.drift(p, 1000));
-        double perTick = f.drift(p, 1001) - f.drift(p, 1000);
-        double speed = com.porcupinestudios.tardisrb.space.Orbits.orbitSpeed(p, low, t);
-        helper.assertTrue(Math.abs(perTick - speed) < speed * 0.01, "drifts " + perTick + " a tick, not the orbit "
-                + "speed " + speed);
-        helper.assertTrue(f.holds(cx + 24 + 100, cz, 192) && !f.holds(cx + 24 + 300, cz, 192), "zone edges");
-        double d = f.drift(p, 1100);
-        helper.assertTrue(f.distanceToTrue(p, 1100, cx + d, cz) < 1e-6
-                && f.distanceToTrue(p, 1100, cx, cz) > 50, "the true place is the blocks plus the drift");
-        var M = com.porcupinestudios.tardisrb.space.StationFrames.Move.class;
-        helper.assertTrue(com.porcupinestudios.tardisrb.space.StationFrames.decide(true, false, false).name()
-                .equals("STAY"), "in a zone stays");
-        helper.assertTrue(com.porcupinestudios.tardisrb.space.StationFrames.decide(false, true, true).name()
-                .equals("OUT"), "leaving a zone goes out, even near the true place");
-        helper.assertTrue(com.porcupinestudios.tardisrb.space.StationFrames.decide(false, false, true).name()
-                .equals("IN"), "near the true place comes in");
-        helper.assertTrue(com.porcupinestudios.tardisrb.space.StationFrames.decide(false, false, false).name()
-                .equals("STAY") && M != null, "elsewhere stays");
-        helper.succeed();
-    }
-
     @GameTest(template = "platform")
     public static void gravityFadesAndOrbitsHold(GameTestHelper helper) {
         Planet p = bigPlanet(SkyLink.Wrap.TORUS);
