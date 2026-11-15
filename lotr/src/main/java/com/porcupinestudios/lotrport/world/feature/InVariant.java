@@ -19,6 +19,7 @@ import net.minecraft.world.level.levelgen.placement.PlacementModifierType;
 public final class InVariant extends PlacementFilter {
     public static final MapCodec<InVariant> CODEC = Codec.STRING.listOf().fieldOf("variants")
             .xmap(InVariant::new, f -> f.variants);
+    private static final int FEATHER = 20;
     private final List<String> variants;
 
     public InVariant(List<String> variants) {
@@ -27,7 +28,10 @@ public final class InVariant extends PlacementFilter {
 
     @Override
     protected boolean shouldPlace(PlacementContext context, RandomSource random, BlockPos pos) {
-        String v = MiddleEarthMap.get().variantAt(pos.getX(), pos.getZ());
+        // looked up up to FEATHER blocks away, so a wood or orchard thins out over its edge instead of stopping on the
+        // straight line between two patches (2026-11-14 preview: square-edged forests)
+        String v = MiddleEarthMap.get().variantAt(pos.getX() + random.nextInt(2 * FEATHER + 1) - FEATHER,
+                pos.getZ() + random.nextInt(2 * FEATHER + 1) - FEATHER);
         return variants.contains(v == null ? "plain" : v);
     }
 
