@@ -14,11 +14,19 @@
   "health": 30.0,
   "speed": 0.2,
   "attack": 2.0,
+  "behaviours": [
+    "archer"
+  ],
+  "behaviour_data": {
+    "ranged_speed": 1.25,
+    "ranged_min": 30,
+    "ranged_max": 50,
+    "ranged_range": 24.0,
+    "ranged_accuracy": 0.5,
+    "ranged_swap": 0
+  },
   "gear": {
-    "mainhand": [
-      "lotr_port:dorwinion_elven_sword",
-      "lotr_port:spear_of_bladorthin"
-    ],
+    "mainhand": "lotr_port:dorwinion_elven_bow",
     "head": "lotr_port:dorwinion_elven_helmet",
     "chest": "lotr_port:dorwinion_elven_chestplate",
     "legs": "lotr_port:dorwinion_elven_leggings",

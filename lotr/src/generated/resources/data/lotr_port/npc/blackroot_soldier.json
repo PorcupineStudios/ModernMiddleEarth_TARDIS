@@ -12,12 +12,17 @@
   "health": 20.0,
   "speed": 0.2,
   "attack": 2.0,
+  "behaviour_data": {
+    "ride_chance": 10
+  },
   "gear": {
     "mainhand": "lotr_port:gondorian_sword",
     "head": "lotr_port:blackroot_vale_helmet",
     "chest": "lotr_port:blackroot_vale_chestplate",
     "legs": "lotr_port:blackroot_vale_leggings",
-    "feet": "lotr_port:blackroot_vale_boots"
+    "feet": "lotr_port:blackroot_vale_boots",
+    "mount": "lotr_port:horse",
+    "mount_armor": "lotr_port:gondorian_horse_armor"
   },
   "names": "lotr_port:gondor_male",
   "speech": "lotr_port:gondor/soldier"

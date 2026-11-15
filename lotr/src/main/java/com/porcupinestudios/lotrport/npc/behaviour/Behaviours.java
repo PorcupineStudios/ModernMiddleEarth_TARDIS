@@ -22,7 +22,8 @@ public final class Behaviours {
             Map.entry("gollum", GollumBehaviour::new),
             Map.entry("warg", WargBehaviour::new),
             Map.entry("half_troll", HalfTrollBehaviour::new),
-            Map.entry("animal", AnimalBehaviour::new));
+            Map.entry("animal", AnimalBehaviour::new),
+            Map.entry("archer", ArcherBehaviour::new));
 
     private Behaviours() {}
 

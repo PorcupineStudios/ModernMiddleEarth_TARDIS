@@ -9,7 +9,7 @@
       "npc": "lotr_port:moredain_warrior",
       "cost": 40,
       "alignment": 250.0,
-      "mount": "minecraft:horse"
+      "mount": "lotr_port:zebra"
     },
     {
       "npc": "lotr_port:moredain_banner_bearer",

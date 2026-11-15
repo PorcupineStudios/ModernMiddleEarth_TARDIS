@@ -11,6 +11,9 @@
   "health": 20.0,
   "speed": 0.2,
   "attack": 2.0,
+  "behaviour_data": {
+    "ride_chance": 8
+  },
   "gear": {
     "mainhand": [
       "lotr_port:haradric_dagger",
@@ -24,7 +27,8 @@
     ],
     "chest": "lotr_port:harnennor_chestplate",
     "legs": "lotr_port:harnennor_leggings",
-    "feet": "lotr_port:harnennor_boots"
+    "feet": "lotr_port:harnennor_boots",
+    "mount": "lotr_port:horse"
   },
   "names": "lotr_port:near_haradrim_male",
   "speech": "lotr_port:near_harad/mercenary",

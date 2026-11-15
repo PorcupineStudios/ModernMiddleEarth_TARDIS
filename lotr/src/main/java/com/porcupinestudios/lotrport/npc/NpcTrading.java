@@ -28,7 +28,23 @@ public final class NpcTrading {
         Random random = new Random(npc.getUUID().getLeastSignificantBits());
         type.buy().flatMap(NpcData::trades).ifPresent(pool -> add(offers, pool, random));
         type.sell().flatMap(NpcData::trades).ifPresent(pool -> add(offers, pool, random));
+        if (!offers.isEmpty()) {
+            exchange(offers);
+        }
         return offers;
+    }
+
+    /**
+     * LOTR's coin exchange (LOTRContainerCoinExchange, a trader's second screen): a coin for ten of the next smaller,
+     * or ten for one of the next larger, at no cost. Here they are the trader's last offers, never used up.
+     */
+    private static void exchange(MerchantOffers offers) {
+        for (int value : new int[] { 10, 100 }) {
+            Item big = Coins.coin(value);
+            Item small = Coins.coin(value / 10);
+            offers.add(new MerchantOffer(new ItemCost(big, 1), new ItemStack(small, 10), Integer.MAX_VALUE, 0, 0f));
+            offers.add(new MerchantOffer(new ItemCost(small, 10), new ItemStack(big, 1), Integer.MAX_VALUE, 0, 0f));
+        }
     }
 
     private static void add(MerchantOffers offers, TradePool pool, Random random) {

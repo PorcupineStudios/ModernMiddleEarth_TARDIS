@@ -1,0 +1,8 @@
+{
+  "kind": "negative",
+  "scale": "industry",
+  "weight": 5,
+  "heritable": 0.2,
+  "work_speed": 0.7,
+  "on_break": "idle"
+}

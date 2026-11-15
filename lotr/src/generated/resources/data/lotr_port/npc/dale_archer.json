@@ -9,11 +9,19 @@
   "health": 20.0,
   "speed": 0.2,
   "attack": 2.0,
+  "behaviours": [
+    "archer"
+  ],
+  "behaviour_data": {
+    "ranged_speed": 1.3,
+    "ranged_min": 30,
+    "ranged_max": 50,
+    "ranged_range": 16.0,
+    "ranged_accuracy": 0.5,
+    "ranged_swap": 0
+  },
   "gear": {
-    "mainhand": [
-      "lotr_port:dalish_spear",
-      "lotr_port:dalish_sword"
-    ],
+    "mainhand": "lotr_port:dalish_longbow",
     "head": "lotr_port:dalish_helmet",
     "chest": "lotr_port:dalish_chestplate",
     "legs": "lotr_port:dalish_leggings",

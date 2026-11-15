@@ -15,8 +15,20 @@
   "health": 30.0,
   "speed": 0.2,
   "attack": 2.0,
+  "behaviours": [
+    "archer"
+  ],
+  "behaviour_data": {
+    "ranged_speed": 1.25,
+    "ranged_min": 40,
+    "ranged_max": 60,
+    "ranged_range": 16.0,
+    "ranged_accuracy": 0.5,
+    "ranged_swap": 1
+  },
   "gear": {
-    "mainhand": "lotr_port:galadhrim_dagger"
+    "mainhand": "lotr_port:galadhrim_dagger",
+    "ranged": "lotr_port:mallorn_bow"
   },
   "buy": "lotr_port:galadhrim_trader_buy",
   "sell": "lotr_port:galadhrim_trader_sell",

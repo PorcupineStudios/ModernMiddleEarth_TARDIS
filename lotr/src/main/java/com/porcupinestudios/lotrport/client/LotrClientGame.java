@@ -35,6 +35,11 @@ public final class LotrClientGame {
                 mc.setScreen(new JukeboxScreen());
             }
         }
+        while (LotrClient.UNITS_KEY.consumeClick()) {
+            if (mc.player != null && mc.screen == null) {
+                PacketDistributor.sendToServer(new com.porcupinestudios.lotrport.unit.UnitNet.Open());
+            }
+        }
         while (LotrClient.MAP_KEY.consumeClick()) {
             if (mc.player != null && mc.screen == null) {
                 PacketDistributor.sendToServer(new MapNet.OpenMap());

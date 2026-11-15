@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/crop",
+  "textures": {
+    "crop": "lotr_port:block/turnip_3"
+  },
+  "render_type": "minecraft:cutout"
+}

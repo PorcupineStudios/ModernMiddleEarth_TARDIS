@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.components.PlayerFaceRenderer;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
@@ -88,6 +89,13 @@ public final class MapScreen extends Screen {
     private int y1;
     private boolean dragging;
     private MapNet.Mark selected;
+    /** Other players and colonies this player may see; the server filters them, refreshed every 2 s. */
+    private static com.porcupinestudios.lotrport.social.SocialNet.Icons icons =
+            new com.porcupinestudios.lotrport.social.SocialNet.Icons(List.of(), List.of());
+    private int iconTicks;
+    /** Colony and player names show from this zoom power, at this text scale. */
+    private static final float NAME_ZOOM = 2;
+    private static final float NAME_SCALE = 0.5f;
     /** The waypoint under the cursor in the last frame drawn: what a click selects. */
     private MapNet.Mark hovered;
 
@@ -106,6 +114,25 @@ public final class MapScreen extends Screen {
 
     public static void open(MapNet.MapData data) {
         Minecraft.getInstance().setScreen(new MapScreen(data));
+        net.neoforged.neoforge.network.PacketDistributor.sendToServer(
+                new com.porcupinestudios.lotrport.social.SocialNet.IconsRequest());
+    }
+
+    /** From the server: the icons this player may see. */
+    public static void icons(com.porcupinestudios.lotrport.social.SocialNet.Icons received) {
+        icons = received;
+    }
+
+    private Component visibilityText() {
+        return Component.translatableWithFallback("screen.lotr_port.map.visibility", "[Who sees me]");
+    }
+
+    private int[] visibilityBox() {
+        Component t = visibilityText();
+        int w = font.width(t);
+        int x = x1 - w - 6;
+        int y = y1 - font.lineHeight - 18;
+        return new int[] {x, y, w, font.lineHeight};
     }
 
     @Override
@@ -218,6 +245,11 @@ public final class MapScreen extends Screen {
         if (showLabels) {
             drawLabels(g, vx, vz);
         }
+        drawColonies(g, vx, vz);
+        drawOthers(g, vx, vz);
+        int[] vb = visibilityBox();
+        boolean overVb = mouseX >= vb[0] && mouseX < vb[0] + vb[2] && mouseY >= vb[1] && mouseY < vb[1] + vb[3];
+        g.drawString(font, visibilityText(), vb[0], vb[1], overVb ? 0xFFFFA0 : 0xFFFFFF, true);
         g.disableScissor();
         Widget overWidget = drawWidgets(g, mouseX, mouseY);
         if (!fullscreen) {
@@ -446,6 +478,47 @@ public final class MapScreen extends Screen {
         return hovered;
     }
 
+    /** Colonies: a banner-coloured square (yours gold, AI rulers' red, others white), names when zoomed in. */
+    private void drawColonies(GuiGraphics g, float vx, float vz) {
+        for (var c : icons.colonies()) {
+            int x = Math.round(cx() + (c.x() - vx) * zoomScale);
+            int y = Math.round(cy() + (c.z() - vz) * zoomScale);
+            int colour = c.member() ? 0xFFE8B83A : c.ai() ? 0xFFB03030 : 0xFFE0E0E0;
+            if (c.member() && c.limited()) {
+                colour = (colour & 0x00FFFFFF) | 0x90000000;
+            }
+            g.fill(x - 4, y - 4, x + 4, y + 4, 0xFF000000);
+            g.fill(x - 3, y - 3, x + 3, y + 3, colour);
+            if (zoomExp >= NAME_ZOOM - 1) {
+                Component name = Component.literal(c.name());
+                g.pose().pushPose();
+                g.pose().translate(x, y + 5, 0);
+                g.pose().scale(NAME_SCALE * 1.5f, NAME_SCALE * 1.5f, 1);
+                g.drawString(font, name, -font.width(name) / 2, 0, 0xFFFFFF, true);
+                g.pose().popPose();
+            }
+        }
+    }
+
+    /** Other players who let this one see them: their face and name. */
+    private void drawOthers(GuiGraphics g, float vx, float vz) {
+        Minecraft mc = Minecraft.getInstance();
+        for (var p : icons.players()) {
+            int x = Math.round(cx() + (p.x() - vx) * zoomScale);
+            int y = Math.round(cy() + (p.z() - vz) * zoomScale);
+            g.fill(x - 5, y - 5, x + 5, y + 5, 0xFF303030);
+            var info = mc.getConnection() == null ? null : mc.getConnection().getPlayerInfo(p.id());
+            if (info != null) {
+                PlayerFaceRenderer.draw(g, info.getSkin(), x - 4, y - 4, 8);
+            }
+            g.pose().pushPose();
+            g.pose().translate(x, y + 6, 0);
+            g.pose().scale(NAME_SCALE * 1.5f, NAME_SCALE * 1.5f, 1);
+            g.drawString(font, p.name(), -font.width(p.name()) / 2, 0, 0xFFFFFF, true);
+            g.pose().popPose();
+        }
+    }
+
     /** The player's face (8 px) and hat layer (9 px), kept inside the map window like LOTR's. */
     private void drawPlayer(GuiGraphics g, float vx, float vz) {
         Minecraft mc = Minecraft.getInstance();
@@ -598,6 +671,10 @@ public final class MapScreen extends Screen {
 
     @Override
     public void tick() {
+        if (++iconTicks % 40 == 0) {
+            net.neoforged.neoforge.network.PacketDistributor.sendToServer(
+                    new com.porcupinestudios.lotrport.social.SocialNet.IconsRequest());
+        }
         prevPosX = posX;
         prevPosZ = posZ;
         long win = Minecraft.getInstance().getWindow().getWindow();
@@ -642,6 +719,12 @@ public final class MapScreen extends Screen {
 
     @Override
     public boolean mouseClicked(double mouseX, double mouseY, int button) {
+        int[] vb = visibilityBox();
+        if (button == 0 && mouseX >= vb[0] && mouseX < vb[0] + vb[2] && mouseY >= vb[1] && mouseY < vb[1] + vb[3]) {
+            net.neoforged.neoforge.network.PacketDistributor.sendToServer(
+                    new com.porcupinestudios.lotrport.social.SocialNet.OpenView());
+            return true;
+        }
         if (button == 0) {
             for (Widget w : widgets) {
                 int x = widgetX(w);

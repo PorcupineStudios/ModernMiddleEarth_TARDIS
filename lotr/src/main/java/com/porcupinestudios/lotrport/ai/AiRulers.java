@@ -1,5 +1,6 @@
 package com.porcupinestudios.lotrport.ai;
 
+import com.porcupinestudios.lotrport.society.Society;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.porcupinestudios.lotrport.LotrPort;
@@ -137,7 +138,7 @@ public final class AiRulers extends SavedData {
             List<Colony> mine = colonies.ownedBy(uuid(id));
 
             for (Colony c : mine) {
-                if (c.population() < settings.maxPopulation()) {
+                if (Society.population(server, c) < settings.maxPopulation()) {
                     colonies.growAi(c, 1);
                 }
             }
@@ -158,6 +159,10 @@ public final class AiRulers extends SavedData {
                         && roll < def.aggression()) {
                     setWar(server, id, o, true, day, dim);
                 }
+            }
+
+            if (com.porcupinestudios.lotrport.war.WarSettings.get().peace().aiRaidsPlayers()) {
+                raidPlayers(server, colonies, id, def, st, rnd);
             }
 
             List<ResourceLocation> enemies = new ArrayList<>(st.wars.keySet());
@@ -228,7 +233,7 @@ public final class AiRulers extends SavedData {
         }
         State enemy = states.get(defender);
         int enemyColonies = Math.max(1, colonies.ownedBy(uuid(defender)).size());
-        double defense = target.population() * settings.defensePerPopulation()
+        double defense = Society.population(server, target) * settings.defensePerPopulation()
                 + (enemy == null ? 0 : enemy.strength * settings.garrisonShare() / enemyColonies);
         double attack = st.strength * (0.5 + rnd.nextDouble());
         if (st.strength < defense * settings.marchRatio()) {
@@ -244,15 +249,62 @@ public final class AiRulers extends SavedData {
         tag.putBoolean("won", won);
         HistoryLog.get(server).append(new HistoryEntry(server.overworld().getGameTime(), SIEGE_HISTORY, dim,
                 Optional.of(target.hall()), tag));
+        State loser = states.get(defender);
+        if (st.realm.isPresent() && loser != null && loser.realm.isPresent()) {
+            com.porcupinestudios.lotrport.war.Wars.get(server).aiSiege(server, st.realm.get(), loser.realm.get(),
+                    target, won);
+        }
         if (won) {
             colonies.transfer(server, target, uuid(id), def.faction(), true, CONQUEST);
-            colonies.growAi(target, -target.population() / 2);
+            colonies.growAi(target, -target.virtualPopulation() / 2);
             if (enemy != null) {
                 enemy.strength = (int) (enemy.strength * (1 - settings.siegeLosses()));
             }
             st.strength = (int) Math.max(0, st.strength - defense * settings.siegeLosses());
         } else {
             st.strength = (int) (st.strength * (1 - settings.siegeLosses()));
+        }
+    }
+
+    /**
+     * With {@code ai_raids_players} on: the ruler may declare a tribute war on the nearest player colony of a hostile
+     * faction near its home, and while that war is fought, send small raids when the colony's leaders are offline
+     * (the same capped raids players make; they never break blocks).
+     */
+    private void raidPlayers(MinecraftServer server, Colonies colonies, ResourceLocation id, AiData.RulerDef def,
+            State st, RandomSource rnd) {
+        com.porcupinestudios.lotrport.war.WarSettings ws = com.porcupinestudios.lotrport.war.WarSettings.get();
+        Optional<Waypoint> home = FastTravel.waypoint(def.home());
+        double roll = rnd.nextDouble();
+        if (home.isEmpty() || st.realm.isEmpty() || roll >= def.aggression()) {
+            return;
+        }
+        BlockPos from = new BlockPos(home.get().x(), 64, home.get().z());
+        long range = (long) ws.peace().aiRaidRange() * ws.peace().aiRaidRange();
+        Colony target = null;
+        for (Colony c : colonies.all()) {
+            if (!c.ai() && c.hall().distSqr(from) <= range
+                    && Factions.relation(server, def.faction(), c.faction()).isBad()
+                    && (target == null || c.hall().distSqr(from) < target.hall().distSqr(from))) {
+                target = c;
+            }
+        }
+        if (target == null) {
+            return;
+        }
+        com.porcupinestudios.lotrport.war.Wars wars = com.porcupinestudios.lotrport.war.Wars.get(server);
+        com.porcupinestudios.lotrport.society.Owner realm = new com.porcupinestudios.lotrport.society.Owner.OfRealm(
+                st.realm.get());
+        Optional<com.porcupinestudios.lotrport.war.War> war = wars.between(realm, target.asOwner());
+        if (war.isEmpty()) {
+            wars.declare(server, realm, target.asOwner(), com.porcupinestudios.lotrport.war.War.Goal.TRIBUTE,
+                    "ai", Optional.empty(), ws.armies().warningTicks());
+            return;
+        }
+        int size = Math.min(ws.armies().raidCap(), st.strength / 10);
+        if (wars.musterCounted(server, war.get(), size,
+                com.porcupinestudios.lotrport.war.War.Army.Kind.RAID, from).isPresent()) {
+            st.strength -= size;
         }
     }
 
@@ -272,6 +324,9 @@ public final class AiRulers extends SavedData {
             sb.wars.remove(a);
         }
         setDirty();
+        // the realms' war lives with every other war (score, reports, peace)
+        sa.realm.ifPresent(ra -> sb.realm.ifPresent(rb -> com.porcupinestudios.lotrport.war.Wars.get(server)
+                .aiWar(server, ra, rb, war)));
         CompoundTag tag = new CompoundTag();
         tag.putString("a", a.toString());
         tag.putString("b", b.toString());

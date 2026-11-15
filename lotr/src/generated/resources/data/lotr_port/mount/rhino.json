@@ -1,0 +1,38 @@
+{
+  "food": [
+    "minecraft:wheat"
+  ],
+  "armour": "rhino",
+  "attack": 4.0,
+  "fights_back": 1.0,
+  "spawn": {
+    "health": {
+      "mul": 1.5,
+      "min": 40
+    },
+    "speed": {
+      "mul": 1.2
+    },
+    "jump": {
+      "mul": 0.5
+    }
+  },
+  "clamp_health": [
+    20,
+    50
+  ],
+  "clamp_jump": [
+    0.2,
+    0.8
+  ],
+  "clamp_speed": [
+    0.12,
+    0.42
+  ],
+  "sounds": {
+    "ambient": "rhino.say",
+    "hurt": "rhino.hurt",
+    "death": "rhino.death",
+    "angry": "rhino.say"
+  }
+}

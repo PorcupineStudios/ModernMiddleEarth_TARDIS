@@ -1,3 +1,6 @@
 {
-  "parent": "lotr_port:block/weapon_rack"
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "lotr_port:item/weapon_rack"
+  }
 }

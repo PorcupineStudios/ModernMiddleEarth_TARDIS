@@ -14,13 +14,13 @@
       "npc": "lotr_port:gulf_warrior",
       "cost": 50,
       "alignment": 250.0,
-      "mount": "minecraft:horse"
+      "mount": "lotr_port:horse"
     },
     {
       "npc": "lotr_port:gulf_archer",
       "cost": 70,
       "alignment": 300.0,
-      "mount": "minecraft:horse"
+      "mount": "lotr_port:horse"
     },
     {
       "npc": "lotr_port:gulf_banner_bearer",

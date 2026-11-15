@@ -1,0 +1,21 @@
+{
+  "standard_schedule": "SSSSSSWWWWWWAWWWWWLLLLSS",
+  "day_drain": 70,
+  "homeless_sleep": 0.7,
+  "any_sleep_below": 60,
+  "tired_below": 25,
+  "exhausted_below": 10,
+  "exhausted_work": 0.6,
+  "standard_work_hours": 10,
+  "max_work_factor": 1.25,
+  "odd_hours_from": 1,
+  "wrong_hours_from": 4,
+  "thoughts": {
+    "tired": "lotr_port:tired",
+    "exhausted": "lotr_port:exhausted",
+    "odd_hours": "lotr_port:odd_hours",
+    "wrong_hours": "lotr_port:wrong_hours",
+    "no_leisure": "lotr_port:no_leisure",
+    "enough_leisure": "lotr_port:enough_leisure"
+  }
+}

@@ -65,6 +65,7 @@ public final class VortexTests {
         noWormholes(t);
         noArcs(t); // only the arc this test places: a random one hitting first hid a miss (2026-11-14)
         helper.assertTrue(left.done(), "it didn't set off: " + left.problem().map(c -> c.getString()).orElse(""));
+        longTrip(t);
         helper.assertTrue(Vortex.inVortex(t), "no trip recorded");
         helper.assertTrue(!(helper.getLevel().getBlockState(base).getBlock() instanceof ExteriorBlock),
                 "the exterior block is still there");
@@ -408,6 +409,7 @@ public final class VortexTests {
         t.addCharge(1000);
         helper.assertTrue(Vortex.depart(server, t, Optional.empty(), base.east(20), Optional.empty(), Optional.empty())
                 .done(), "it didn't set off");
+        longTrip(t);
         noWormholes(t);
         double laneX = t.moduleData(Vortex.MODULE).getDouble("lane_x");
         TestTrace trace = new TestTrace(30, 60);
@@ -493,6 +495,7 @@ public final class VortexTests {
         upgrade(t, "scanner", 2);
         helper.assertTrue(Vortex.depart(server, t, Optional.empty(), base.east(20), Optional.empty(), Optional.empty())
                 .done(), "it didn't set off");
+        longTrip(t);
         noWormholes(t);
         TestTrace trace = new TestTrace(20, 40);
         Wormhole[] hole = new Wormhole[1];
@@ -527,5 +530,15 @@ public final class VortexTests {
             helper.assertTrue(portal.isRemoved() && hole[0].isRemoved(), "the wormhole or its portal outlived the trip");
             helper.succeed();
         });
+    }
+
+    /**
+     * Stretches a short hop's tunnel so the trip can't end while a test waits on it (CI 2026-11-12: a 20-block hop
+     * landed mid-test, taking its wormholes and the box with it). Tests that land call {@code Vortex.arrive}.
+     */
+    static void longTrip(TardisRecord t) {
+        var trip = t.moduleData(Vortex.MODULE);
+        trip.putInt("length", 100000);
+        t.setModuleData(Vortex.MODULE, trip);
     }
 }

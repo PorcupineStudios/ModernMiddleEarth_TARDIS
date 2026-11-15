@@ -23,14 +23,6 @@
     {
       "npc": "lotr_port:uruk_hai_sapper",
       "weight": 1
-    },
-    {
-      "npc": "lotr_port:uruk_warg",
-      "weight": 1
-    },
-    {
-      "npc": "lotr_port:uruk_warg_bombardier",
-      "weight": 1
     }
   ]
 }

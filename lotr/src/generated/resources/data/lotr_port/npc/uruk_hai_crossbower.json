@@ -15,15 +15,19 @@
   "health": 26.0,
   "speed": 0.22,
   "attack": 2.0,
+  "behaviours": [
+    "archer"
+  ],
+  "behaviour_data": {
+    "ranged_speed": 1.4,
+    "ranged_min": 30,
+    "ranged_max": 50,
+    "ranged_range": 16.0,
+    "ranged_accuracy": 1.0,
+    "ranged_swap": 0
+  },
   "gear": {
-    "mainhand": [
-      "lotr_port:uruk_battleaxe",
-      "lotr_port:uruk_cleaver",
-      "lotr_port:uruk_dagger",
-      "lotr_port:uruk_pike",
-      "lotr_port:uruk_spear",
-      "lotr_port:uruk_warhammer"
-    ],
+    "mainhand": "lotr_port:uruk_crossbow",
     "head": "lotr_port:uruk_helmet",
     "chest": "lotr_port:uruk_chestplate",
     "legs": "lotr_port:uruk_leggings",

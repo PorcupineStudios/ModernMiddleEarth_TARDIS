@@ -12,6 +12,9 @@
   "health": 20.0,
   "speed": 0.2,
   "attack": 2.0,
+  "behaviour_data": {
+    "ride_chance": 3
+  },
   "gear": {
     "mainhand": [
       "lotr_port:rohirric_battleaxe",
@@ -21,7 +24,9 @@
     "head": "lotr_port:rohirric_coif",
     "chest": "lotr_port:rohirric_hauberk",
     "legs": "lotr_port:rohirric_leggings",
-    "feet": "lotr_port:rohirric_boots"
+    "feet": "lotr_port:rohirric_boots",
+    "mount": "lotr_port:horse",
+    "mount_armor": "lotr_port:rohirric_horse_armor"
   },
   "names": "lotr_port:rohan_male",
   "speech": "lotr_port:rohan/warrior",

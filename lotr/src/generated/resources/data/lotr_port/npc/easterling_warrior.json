@@ -11,6 +11,9 @@
   "health": 20.0,
   "speed": 0.2,
   "attack": 2.0,
+  "behaviour_data": {
+    "ride_chance": 6
+  },
   "gear": {
     "mainhand": [
       "lotr_port:rh_nic_bardiche",
@@ -21,7 +24,8 @@
     "head": "lotr_port:rh_nic_helmet",
     "chest": "lotr_port:rh_nic_chestplate",
     "legs": "lotr_port:rh_nic_leggings",
-    "feet": "lotr_port:rh_nic_boots"
+    "feet": "lotr_port:rh_nic_boots",
+    "mount": "lotr_port:horse"
   },
   "names": "lotr_port:rhudaur_male",
   "speech": "lotr_port:rhun/warrior",

@@ -262,7 +262,7 @@ class EntityModels:
             out["defs"] = defs
             out["inputs"] = sorted(set(entity_inputs([anim, out["renderers"], defs])))
             write_json(os.path.join(self.assets, "npc_model", name + ".json"), out)
-            if any(e[1] == "visible" for e in anim["set"]) or "draws" in anim:
+            if anim and (any(e[1] == "visible" for e in anim["set"]) or "draws" in anim):
                 out["hidden"] = []  # LOTR's own code chooses which parts show
 
 

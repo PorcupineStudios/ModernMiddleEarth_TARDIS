@@ -9,12 +9,27 @@
   "health": 25.0,
   "speed": 0.25,
   "attack": 2.0,
+  "behaviours": [
+    "archer"
+  ],
+  "behaviour_data": {
+    "ranged_speed": 1.25,
+    "ranged_min": 20,
+    "ranged_max": 40,
+    "ranged_range": 20.0,
+    "ranged_accuracy": 0.5,
+    "ranged_swap": 1
+  },
   "gear": {
     "mainhand": "minecraft:iron_sword",
     "head": "lotr_port:ranger_hood",
     "chest": "lotr_port:ranger_tunic",
     "legs": "lotr_port:ranger_leggings",
-    "feet": "lotr_port:ranger_boots"
+    "feet": "lotr_port:ranger_boots",
+    "ranged": [
+      "lotr_port:ranger_bow",
+      "minecraft:bow"
+    ]
   },
   "names": "lotr_port:gondor_male",
   "units": "lotr_port:ranger_north_captain",
