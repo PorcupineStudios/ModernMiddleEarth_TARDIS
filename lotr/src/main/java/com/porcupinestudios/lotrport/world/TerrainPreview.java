@@ -58,6 +58,7 @@ public final class TerrainPreview {
         int z0 = cz - size / 2;
         int[] ground = new int[size * size];
         int[] kind = new int[size * size]; // 0 ground, 1 water, 2 tree crown
+        boolean[] overhang = new boolean[size * size];
         int sea = level.getSeaLevel();
         int overhangs = 0;
         List<String> spots = new ArrayList<>();
@@ -97,6 +98,7 @@ public final class TerrainPreview {
                             for (int d = 1; d <= 6; d++) {
                                 if (level.getBlockState(m.set(x, y - d, z)).isAir()) {
                                     overhangs++;
+                                    overhang[idx] = true;
                                     if (spots.size() < 12) {
                                         spots.add(x + " " + y + " " + z);
                                     }
@@ -151,6 +153,12 @@ public final class TerrainPreview {
             }
         }
         ImageIO.write(relief, "png", out.resolve("relief.png").toFile());
+        for (int i = 0; i < size * size; i++) {
+            if (overhang[i]) {
+                relief.setRGB(i % size, i / size, 0xFF2020);
+            }
+        }
+        ImageIO.write(relief, "png", out.resolve("overhangs.png").toFile()); // the relief with overhangs in red
         ImageIO.write(variants, "png", out.resolve("variants.png").toFile());
         double[] s = Arrays.copyOf(slopes, n);
         Arrays.sort(s);
