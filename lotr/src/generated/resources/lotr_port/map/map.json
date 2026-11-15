@@ -19,35 +19,28 @@
     "seed": 1937
   },
   "ranges": {
-    "biomes": [
-      "lotr_port:misty_mountains",
-      "lotr_port:grey_mountains",
-      "lotr_port:forodwaith_mountains",
-      "lotr_port:angmar_mountains",
-      "lotr_port:white_mountains",
-      "lotr_port:blue_mountains",
-      "lotr_port:mordor_mountains",
-      "lotr_port:red_mountains",
-      "lotr_port:wind_mountains",
-      "lotr_port:harad_mountains",
-      "lotr_port:mirkwood_mountains"
-    ],
-    "reach": 8.0,
-    "cell": 240,
-    "crest": 1.1,
-    "spurs": 1.9,
-    "relief": 1.4,
-    "sink": 1.75,
-    "wave": 260,
-    "band": 10.0,
+    "biomes": {
+      "lotr_port:misty_mountains": 1.0,
+      "lotr_port:grey_mountains": 0.8,
+      "lotr_port:forodwaith_mountains": 0.75,
+      "lotr_port:angmar_mountains": 0.7,
+      "lotr_port:white_mountains": 0.9,
+      "lotr_port:blue_mountains": 0.75,
+      "lotr_port:mordor_mountains": 0.7,
+      "lotr_port:red_mountains": 0.7,
+      "lotr_port:wind_mountains": 0.6,
+      "lotr_port:harad_mountains": 0.65,
+      "lotr_port:mirkwood_mountains": 0.55
+    },
+    "reach": 10.0,
+    "floor": 85.0,
+    "relief": 300.0,
+    "region": 2600.0,
+    "blend": 0.35,
+    "band": 12.0,
     "sharp": 3.0,
-    "strata": 0.85,
-    "uplift": 0.8,
-    "ceiling": 420,
-    "peak": 1.6,
-    "peak_reach": 3.0,
-    "pass": 400,
-    "pass_floor": 0.2
+    "strata": 0.8,
+    "ceiling": 610
   },
   "variants": {
     "lotr_port:shire": {

@@ -49,7 +49,7 @@ public record MapTerrain(Value value) implements DensityFunction.SimpleFunction 
 
     @Override
     public double maxValue() {
-        return value == Value.HEIGHT ? 448 : 256; // the world's top (converter/world.py TOP_Y)
+        return value == Value.HEIGHT ? 640 : 256; // the world's top (converter/world.py TOP_Y)
     }
 
     @Override

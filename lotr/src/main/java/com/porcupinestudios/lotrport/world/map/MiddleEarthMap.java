@@ -29,6 +29,8 @@ import net.minecraft.world.level.levelgen.synth.ImprovedNoise;
  */
 public final class MiddleEarthMap {
     private static volatile MiddleEarthMap instance;
+    /** The world seed the mountain ranges use (set as a server starts, before terrain is made). */
+    private static volatile long seed;
 
     private final int width;
     private final int height;
@@ -164,12 +166,10 @@ public final class MiddleEarthMap {
     }
 
     private final List<Mountain> mountains = new ArrayList<>();
-    /** The mountains drawn as cones: those inside a range are its summits instead ({@link Ranges}). */
-    private final List<Mountain> cones = new ArrayList<>();
     /** The mountain ranges' massifs (Misty Mountains...); null if the map has none. */
     private final Ranges ranges;
-    /** Per biome: its LOTR hilliness if it is a range (scales the massif), else 0. */
-    private final float[] rangeHilliness = new float[256];
+    /** Per biome: its height scale if it is a range, else 0. */
+    private final float[] rangeScale = new float[256];
     /** Per biome: 1 for a range (its noise hilliness is replaced by the massif), else 0. */
     private final float[] rangeShare = new float[256];
 
@@ -224,13 +224,8 @@ public final class MiddleEarthMap {
                 height, blocksPerPixel, originX, originZ) : null;
         for (int i = 0; i < list.size(); i++) {
             if (ranges != null && ranges.isRange(i)) {
-                rangeHilliness[i] = list.get(i).variation();
+                rangeScale[i] = ranges.scale(i);
                 rangeShare[i] = 1;
-            }
-        }
-        for (Mountain m : mountains) {
-            if (ranges == null || m.crater() > 0 || !ranges.takePeak(m.x(), m.z(), m.range())) {
-                cones.add(m);
             }
         }
         this.rivers = Rivers.read(settings.has("rivers") ? settings.getAsJsonObject("rivers") : null, list);
@@ -244,6 +239,18 @@ public final class MiddleEarthMap {
         }
     }
 
+    /**
+     * The world seed for the seeded parts of the terrain (the mountain ranges; Aaron 2026-11-15: they "should change
+     * depending on seed"). Called as a server starts, before its levels make any terrain.
+     */
+    public static void setSeed(long worldSeed) {
+        seed = worldSeed;
+        MiddleEarthMap map = instance;
+        if (map != null && map.ranges != null) {
+            map.ranges.seed(worldSeed);
+        }
+    }
+
     public static MiddleEarthMap get() {
         MiddleEarthMap map = instance;
         if (map == null) {
@@ -251,6 +258,9 @@ public final class MiddleEarthMap {
                 map = instance;
                 if (map == null) {
                     map = load();
+                    if (map.ranges != null) {
+                        map.ranges.seed(seed);
+                    }
                     instance = map;
                 }
             }
@@ -421,13 +431,12 @@ public final class MiddleEarthMap {
             ground += downs * downs(blockX, blockZ) * (0.3 + 0.7 * road);
         }
         if (ranges != null) {
-            double hilliness = smoothed(wx, wz, rangeHilliness);
-            if (hilliness > 0) {
-                ground = ranges.ceiling(ground + ranges.massif(blockX, blockZ, hilliness,
-                        Roads.get().distanceWithin(blockX, blockZ, ranges.passWidth())));
+            double k = smoothed(wx, wz, rangeScale);
+            if (k > 0) {
+                ground = ranges.ceiling(ground + ranges.massif(blockX, blockZ, k));
             }
         }
-        for (Mountain m : cones) {
+        for (Mountain m : mountains) {
             double d = m.distance(blockX, blockZ);
             if (d < m.crater) {
                 ground = Math.max(ground, m.floor);
