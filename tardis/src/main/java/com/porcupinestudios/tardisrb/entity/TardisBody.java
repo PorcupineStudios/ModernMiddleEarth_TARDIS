@@ -36,7 +36,7 @@ import org.joml.Vector3f;
  * the server; the client is sent its position. It can't be hurt or broken: {@link FreeFlight#phase} turns it back into
  * the block.
  */
-public class TardisBody extends Entity {
+public class TardisBody extends Entity implements qouteall.imm_ptl.core.api.ImmPtlEntityExtension {
     private static final EntityDataAccessor<Optional<UUID>> TARDIS = SynchedEntityData.defineId(TardisBody.class,
             EntityDataSerializers.OPTIONAL_UUID);
     private static final EntityDataAccessor<Boolean> THRUSTERS = SynchedEntityData.defineId(TardisBody.class,
@@ -116,6 +116,16 @@ public class TardisBody extends Entity {
 
     public boolean doorsOpen() {
         return entityData.get(DOORS) != 0;
+    }
+
+    /**
+     * The box never goes through a portal (Immersive Portals' own check). With its doors open in flight, its doorway
+     * portal rides just in front of it, and a box flying or falling forward went through its own doorway into its
+     * interior (2026-11-14). It changes dimension only by our code (wormholes, crash landings, space).
+     */
+    @Override
+    public boolean imm_ptl_canTeleportThroughPortal(Entity portal) {
+        return false;
     }
 
     /** Open and not swinging shut: the doors are drawn open. */
