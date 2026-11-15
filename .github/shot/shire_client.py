@@ -6,7 +6,7 @@ run = sys.argv[1]
 save = os.path.join(run, "saves", "shire")
 with open(os.path.join(run, "options.txt"), "w") as f:
     f.write("onboardAccessibility:false\npauseOnLostFocus:false\nrenderDistance:10\ntutorialStep:none\n"
-            "chatVisibility:2\nfov:0.25\n")
+            "fov:0.25\n")
 lvl = nbtlib.load(os.path.join(save, "level.dat"))
 lvl["Data"]["confirmedExperimentalSettings"] = nbtlib.Byte(1)
 lvl["Data"]["allowCommands"] = nbtlib.Byte(1)
@@ -17,18 +17,21 @@ steps = """wait 100
 /weather clear
 /gamerule doDaylightCycle false
 hud off
-/tp @s 0 125 -260 0 18
-wait 500
-shot a_south
-/tp @s -270 120 30 -90 16
-wait 500
-shot b_east
-/tp @s 160 105 170 135 12
-wait 500
+/tp @s 0 150 -300 0 22
+wait 600
+shot a_south_high
+/tp @s -300 125 20 -90 14
+wait 600
+shot b_west
+/tp @s 180 100 180 135 8
+wait 600
 shot c_low
-/tp @s -120 100 -120 45 10
-wait 500
+/tp @s -150 95 -150 45 6
+wait 600
 shot d_low2
+/tp @s 0 260 0 0 90
+wait 600
+shot e_top
 quit
 """
 open(os.path.join(run, "aerial.txt"), "w").write(steps)
