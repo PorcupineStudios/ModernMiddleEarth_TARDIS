@@ -52,11 +52,14 @@ public final class MapScreen extends Screen {
     private static final int FRAME = 4;
     private static final int MIN_ZOOM = -3;
     private static final int MAX_ZOOM = 4;
-    private static final int ZOOM_TICKS = 6;
+    /** A zoom step takes LOTR's 6 ticks, timed by the clock so it is smooth at any frame rate. */
+    private static final long ZOOM_NANOS = 300_000_000L;
     /** Waypoint icons in LOTR's map sheet, by state (locked, blocked, ready); 4 px, drawn at 4 px like LOTR's. */
     private static final int[][] ICON_UV = { { 0, 204 }, { 0, 208 }, { 4, 208 } };
     private static final int ICON = 4;
-    private static final int SELECT_RANGE = 5;
+    /** How near (screen px) the cursor must be to a waypoint dot: LOTR's 5 from zoom power 0 in, less zoomed out. */
+    private static final float SELECT_RANGE = 5;
+    private static final float SELECT_RANGE_MIN = 2;
     private static final int ROAD_COLOR = 0x000000;
 
     /** Kept between openings, like LOTR's. */
@@ -74,9 +77,10 @@ public final class MapScreen extends Screen {
     private float posZ;
     private float prevPosX;
     private float prevPosZ;
-    private int prevZoomPower = zoomPower;
-    private int zoomTicks;
-    private float zoomExp;
+    /** The zoom power an animation started from (can be between powers when zooming again mid-way). */
+    private float zoomFrom = zoomPower;
+    private long zoomStart;
+    private float zoomExp = zoomPower;
     private float zoomScale;
     private int x0;
     private int y0;
@@ -84,6 +88,8 @@ public final class MapScreen extends Screen {
     private int y1;
     private boolean dragging;
     private MapNet.Mark selected;
+    /** The waypoint under the cursor in the last frame drawn: what a click selects. */
+    private MapNet.Mark hovered;
 
     /** One of LOTR's map labels: lang key or biome, map pixel, size, angle and the zoom powers it shows between. */
     record Label(Component name, float x, float y, float scale, float angle, float minZoom, float maxZoom) {}
@@ -127,13 +133,27 @@ public final class MapScreen extends Screen {
 
     // ------------------------------------------------------------------ coordinates
 
-    private void updateZoom(float partialTick) {
-        zoomExp = zoomPower;
-        if (zoomTicks > 0) {
-            float t = (zoomTicks - partialTick) / ZOOM_TICKS;
-            zoomExp = prevZoomPower + (zoomPower - prevZoomPower) * (1 - t);
-        }
+    /**
+     * The zoom now: eased (fast start, soft landing) from where the last zoom started to the target power, by the
+     * clock. Each zoom starts from wherever the previous one had got to, so quick scrolling never jumps.
+     */
+    private void updateZoom() {
+        float t = zoomAnimating() ? (System.nanoTime() - zoomStart) / (float) ZOOM_NANOS : 1;
+        float eased = 1 - (1 - t) * (1 - t) * (1 - t);
+        zoomExp = zoomFrom + (zoomPower - zoomFrom) * eased;
         zoomScale = (float) Math.pow(2, zoomExp);
+    }
+
+    private boolean zoomAnimating() {
+        return zoomFrom != zoomPower && System.nanoTime() - zoomStart < ZOOM_NANOS;
+    }
+
+    /**
+     * The fraction of the current game tick, for panning between tick positions. A screen's render gets the frame's
+     * real-time delta in 1.21, not this, which made panning and zooming jitter.
+     */
+    private static float partialTick() {
+        return Minecraft.getInstance().getTimer().getGameTimeDeltaPartialTick(false);
     }
 
     private float viewX(float partialTick) {
@@ -142,6 +162,11 @@ public final class MapScreen extends Screen {
 
     private float viewZ(float partialTick) {
         return Mth.lerp(partialTick, prevPosZ, posZ);
+    }
+
+    /** The cursor's reach to a waypoint dot: 5 px from zoom power 0 in, down to 2 px at -3, where dots crowd. */
+    private float selectRange() {
+        return Mth.clamp(SELECT_RANGE + zoomExp, SELECT_RANGE_MIN, SELECT_RANGE);
     }
 
     private float cx() {
@@ -159,8 +184,9 @@ public final class MapScreen extends Screen {
     // ------------------------------------------------------------------ drawing
 
     @Override
-    public void render(GuiGraphics g, int mouseX, int mouseY, float partialTick) {
-        updateZoom(partialTick);
+    public void render(GuiGraphics g, int mouseX, int mouseY, float frameDelta) {
+        updateZoom();
+        float partialTick = partialTick();
         float vx = viewX(partialTick);
         float vz = viewZ(partialTick);
         g.fill(0, 0, width, height, 0xFF000000);
@@ -185,7 +211,10 @@ public final class MapScreen extends Screen {
             drawRoads(g, vx, vz);
         }
         drawPlayer(g, vx, vz);
-        MapNet.Mark hovered = showWaypoints ? drawWaypoints(g, vx, vz, mouseX, mouseY) : null;
+        hovered = showWaypoints ? drawWaypoints(g, vx, vz, mouseX, mouseY) : null;
+        if (dragging) {
+            hovered = null;
+        }
         if (showLabels) {
             drawLabels(g, vx, vz);
         }
@@ -283,13 +312,22 @@ public final class MapScreen extends Screen {
         float bpp = map.blocksPerPixel();
         float ox = (float) map.pixelX(0);
         float oz = (float) map.pixelZ(0);
-        float stable = (float) Math.pow(2, zoomTicks == 0 ? zoomPower : Math.min(zoomPower, prevZoomPower));
+        // the smaller of the two powers while zooming: halving or doubling the spacing keeps every other dot in place
+        float stable = (float) Math.pow(2, zoomAnimating() ? Math.min(zoomPower, (int) Math.floor(zoomFrom))
+                : zoomPower);
         float spacing = Math.max(1f / bpp, 400f / bpp / stable); // map pixels between dots (400 blocks / stable zoom)
         float left = vx - (x1 - x0) / 2f / zoomScale;
         float right = vx + (x1 - x0) / 2f / zoomScale;
         float top = vz - (y1 - y0) / 2f / zoomScale;
         float bottom = vz + (y1 - y0) / 2f / zoomScale;
-        // walk each road as one line, so dots stay evenly spaced across its many short segments
+        // walk each road as one line, so dots stay evenly spaced across its many short segments; every dot is a
+        // 1 px square centred on its exact point (not snapped to the pixel grid), all in one batch
+        float r = ((color >> 16) & 0xFF) / 255f;
+        float gr = ((color >> 8) & 0xFF) / 255f;
+        float bl = (color & 0xFF) / 255f;
+        float a = alpha;
+        Matrix4f m = g.pose().last().pose();
+        BufferBuilder buf = null;
         float carry = 0;
         float lastX = Float.NaN;
         float lastZ = Float.NaN;
@@ -312,11 +350,26 @@ public final class MapScreen extends Screen {
                     continue;
                 }
                 float t = d / len;
-                int px = (int) Math.floor(cx() + (ax + (bx - ax) * t - vx) * zoomScale);
-                int py = (int) Math.floor(cy() + (az + (bz - az) * t - vz) * zoomScale);
-                g.fill(px, py, px + 1, py + 1, color);
+                float px = cx() + (ax + (bx - ax) * t - vx) * zoomScale;
+                float py = cy() + (az + (bz - az) * t - vz) * zoomScale;
+                if (px < x0 - 1 || px > x1 + 1 || py < y0 - 1 || py > y1 + 1) {
+                    continue;
+                }
+                if (buf == null) {
+                    buf = Tesselator.getInstance().begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_COLOR);
+                }
+                buf.addVertex(m, px - 0.5f, py - 0.5f, 0).setColor(r, gr, bl, a);
+                buf.addVertex(m, px - 0.5f, py + 0.5f, 0).setColor(r, gr, bl, a);
+                buf.addVertex(m, px + 0.5f, py + 0.5f, 0).setColor(r, gr, bl, a);
+                buf.addVertex(m, px + 0.5f, py - 0.5f, 0).setColor(r, gr, bl, a);
             }
             carry = d - len;
+        }
+        if (buf != null) {
+            RenderSystem.enableBlend();
+            RenderSystem.defaultBlendFunc();
+            RenderSystem.setShader(GameRenderer::getPositionColorShader);
+            BufferUploader.drawWithShader(buf.buildOrThrow());
         }
     }
 
@@ -357,6 +410,7 @@ public final class MapScreen extends Screen {
         MapNet.Mark hovered = null;
         double best = Double.MAX_VALUE;
         boolean inWindow = inMap(mouseX, mouseY);
+        float range = selectRange();
         float nameScale = Math.min(1, (zoomExp + 1) / 4);
         int nameAlpha = Mth.clamp((int) (nameScale * 0.8f * 255), 4, 255);
         RenderSystem.enableBlend();
@@ -367,7 +421,7 @@ public final class MapScreen extends Screen {
                 continue;
             }
             double dist = Math.hypot(x - mouseX, y - mouseY);
-            if (inWindow && dist <= SELECT_RANGE && dist <= best) {
+            if (inWindow && dist <= range && dist <= best) {
                 hovered = m;
                 best = dist;
             }
@@ -546,9 +600,6 @@ public final class MapScreen extends Screen {
     public void tick() {
         prevPosX = posX;
         prevPosZ = posZ;
-        if (zoomTicks > 0) {
-            zoomTicks--;
-        }
         long win = Minecraft.getInstance().getWindow().getWindow();
         float step = 12f / (float) Math.pow(2, zoomPower);
         float dx = 0;
@@ -582,10 +633,10 @@ public final class MapScreen extends Screen {
     private void zoom(int by) {
         int next = Mth.clamp(zoomPower + by, MIN_ZOOM, MAX_ZOOM);
         if (next != zoomPower) {
-            updateZoom(0);
-            prevZoomPower = Math.round(zoomExp);
+            updateZoom();
+            zoomFrom = zoomExp;
+            zoomStart = System.nanoTime();
             zoomPower = next;
-            zoomTicks = ZOOM_TICKS;
         }
     }
 
@@ -601,17 +652,8 @@ public final class MapScreen extends Screen {
                 }
             }
             if (inMap(mouseX, mouseY)) {
-                MapNet.Mark hit = null;
-                if (showWaypoints) {
-                    updateZoom(0);
-                    for (MapNet.Mark m : data.marks()) {
-                        if (Math.abs(mouseX - (cx() + (m.mapX() - posX) * zoomScale)) <= SELECT_RANGE
-                                && Math.abs(mouseY - (cy() + (m.mapZ() - posZ) * zoomScale)) <= SELECT_RANGE) {
-                            hit = m;
-                            break;
-                        }
-                    }
-                }
+                // the dot drawn under the cursor last frame: what you see is what you click
+                MapNet.Mark hit = showWaypoints ? hovered : null;
                 selected = hit;
                 dragging = hit == null;
                 return true;
@@ -646,7 +688,7 @@ public final class MapScreen extends Screen {
     @Override
     public boolean mouseDragged(double mouseX, double mouseY, int button, double dragX, double dragY) {
         if (dragging) {
-            updateZoom(0);
+            updateZoom();
             move((float) (-dragX / zoomScale), (float) (-dragY / zoomScale));
             prevPosX = posX;
             prevPosZ = posZ;
@@ -668,7 +710,7 @@ public final class MapScreen extends Screen {
         double mx = mc.mouseHandler.xpos() * width / mc.getWindow().getScreenWidth();
         double my = mc.mouseHandler.ypos() * height / mc.getWindow().getScreenHeight();
         if (LotrClient.MAP_TELEPORT_KEY.matches(keyCode, scanCode) && data.canTeleport() && inMap(mx, my)) {
-            updateZoom(0);
+            updateZoom();
             float mapX = posX + (float) (mx - cx()) / zoomScale;
             float mapZ = posZ + (float) (my - cy()) / zoomScale;
             int bx = (int) Math.round((mapX - map.pixelX(0)) * map.blocksPerPixel());

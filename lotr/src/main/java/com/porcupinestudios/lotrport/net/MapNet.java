@@ -82,6 +82,7 @@ public final class MapNet {
 
     /** What the map screen shows this player. */
     public static MapData data(ServerPlayer player) {
+        MiddleEarthMap map = MiddleEarthMap.get();
         List<Mark> marks = new ArrayList<>();
         for (Map.Entry<ResourceLocation, Waypoint> e : FastTravel.waypoints().entrySet()) {
             Waypoint w = e.getValue();
@@ -92,10 +93,11 @@ public final class MapNet {
             Optional<Component> problem = unlocked ? FastTravel.problem(player, e.getKey()) : Optional.empty();
             int state = !unlocked ? Mark.LOCKED : problem.isPresent() ? Mark.BLOCKED : Mark.READY;
             int distance = (int) Math.round(Math.hypot(w.x() - player.getX(), w.z() - player.getZ()));
-            marks.add(new Mark(e.getKey(), (float) w.mapX(), (float) w.mapZ(), state, distance,
+            // from the block position like LOTR's (and the roads, which run through it): the data's map_x/map_z is
+            // the pixel's corner, half a map pixel off
+            marks.add(new Mark(e.getKey(), (float) map.pixelX(w.x()), (float) map.pixelZ(w.z()), state, distance,
                     problem.orElse(Component.empty())));
         }
-        MiddleEarthMap map = MiddleEarthMap.get();
         return new MapData(marks, (float) map.pixelX(player.getX()), (float) map.pixelZ(player.getZ()),
                 (int) FastTravel.waitTicks(player), canTeleport(player));
     }
