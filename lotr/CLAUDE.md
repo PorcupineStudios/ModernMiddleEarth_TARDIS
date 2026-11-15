@@ -65,7 +65,9 @@ https://claude.ai/artifact/KqhSSTCuKXGuwKHBoYJdcu. Rebuild features in modern co
 - Reeds (2026-11-14): kind `reed` (`content/ReedBlock`): waterlogged stem from the bed of still water, LOTR's
   lower/mid/upper icons by `part`, live reeds grow to 3 above the water; worldgen `world/feature/ReedsFeature`
   (LOTRWorldGenReeds: still water at most 4 deep, never dry land). Lakes and Shire (2026-11-14): the 2D hill noise's
-  valleys are a quarter deep (`VALLEYS`, fewer sea-level ponds); `HILLIER` raises and roughens the Shire.
+  valleys are a quarter deep (`VALLEYS`, fewer sea-level ponds). The Shire's hills are its own "downs"
+  (`MiddleEarthMap.downs`, `DOWNS` in converter/world.py): round seedless hills that only rise, on a 160-block grid,
+  with LOTR's noise kept only as roughness. Rivers: `RIVERS` scale 1300 (was 900), about 30% fewer.
   Roads are 4-5 wide (`ROAD_HALF_WIDTH` 2.1, LOTR's were narrower); bridges `RoadFeature.BRIDGE_EXTRA` 1 wider each
   side so 4-5 blocks of deck lie between the fences.
 - Plants: LOTR's reed patches (`reedPerChunk`, dried with `dryReedChance`) and the Dead Marshes' dead plants
