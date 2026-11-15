@@ -44,6 +44,14 @@ versionRange = "[6.0.7,)"
 ordering = "AFTER"
 side = "BOTH"
 
+# Create: Aeronautics ships fly on Sable sub-levels; optional.
+[[dependencies.${mod_id}]]
+modId = "sable"
+type = "optional"
+versionRange = "[2.0.6,)"
+ordering = "AFTER"
+side = "BOTH"
+
 # Six-direction gravity: Gravity Changer's mixins, ported (gravity/gc, see its NOTICE).
 [[mixins]]
 config = "tardis_rb.mixins.json"
