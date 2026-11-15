@@ -21,6 +21,8 @@ import java.util.Map;
  */
 public final class Roads {
     private static final int CELL = 256;
+    /** How far from a road the terrain flattens (LOTRChunkProvider's roadNear): {@link #distance} is exact within it. */
+    public static final double FLATTEN = 32;
     private static volatile Roads instance;
 
     /** One straight piece of road, from (x1, z1) to (x2, z2). */
@@ -121,7 +123,9 @@ public final class Roads {
 
     private void add(Segment s) {
         all.add(s);
-        double pad = width + 1;
+        // every cell within FLATTEN of the segment: the terrain flattens hills over that range, and a segment missing
+        // from a cell made the distance jump to infinity at the cell's edge, a straight cliff (2026-11-14)
+        double pad = Math.max(width + 2, FLATTEN + 1);
         int cx0 = Math.floorDiv((int) Math.floor(Math.min(s.x1(), s.x2()) - pad), CELL);
         int cx1 = Math.floorDiv((int) Math.ceil(Math.max(s.x1(), s.x2()) + pad), CELL);
         int cz0 = Math.floorDiv((int) Math.floor(Math.min(s.z1(), s.z2()) - pad), CELL);
@@ -155,7 +159,10 @@ public final class Roads {
         return cells.getOrDefault(key(Math.floorDiv(blockX, CELL), Math.floorDiv(blockZ, CELL)), List.of());
     }
 
-    /** Distance from a block column's centre to the nearest road, or infinity if none is near. */
+    /**
+     * Distance from a block column's centre to the nearest road: exact up to {@link #FLATTEN} blocks, beyond that at
+     * least FLATTEN (infinity if no road is in the column's cell).
+     */
     public double distance(int blockX, int blockZ) {
         double best = Double.POSITIVE_INFINITY;
         for (Segment s : near(blockX, blockZ)) {

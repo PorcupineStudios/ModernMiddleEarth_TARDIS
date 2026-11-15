@@ -133,18 +133,53 @@ public final class Doors {
             close(server, tardis);
             return;
         }
-        Side side = outside(body.get());
-        if (out.getOriginPos().distanceToSqr(side.center()) < 1.0E-4) {
-            return;
+        Portal in = Interiors.level(server).filter(l -> tag.hasUUID("inside"))
+                .map(l -> l.getEntity(tag.getUUID("inside"))).filter(e -> e instanceof Portal).map(e -> (Portal) e)
+                .orElse(null);
+        float spin = spin(body.get(), level.getGameTime());
+        Vec3 before = out.getOriginPos();
+        place(out, in, body.get(), body.get().position(), spin);
+        if (spin == 0 && before.distanceToSqr(out.getOriginPos()) < 1.0E-4) {
+            return; // not moved, not turning: nothing to send
         }
-        out.setOriginPos(side.center());
         out.reloadAndSyncToClient();
-        Interiors.level(server).ifPresent(l -> {
-            if (tag.hasUUID("inside") && l.getEntity(tag.getUUID("inside")) instanceof Portal in) {
-                in.setDestination(side.center());
-                in.reloadAndSyncToClient();
-            }
-        });
+        if (in != null) {
+            in.reloadAndSyncToClient();
+        }
+    }
+
+    /**
+     * How far (degrees) a flown box has spun past its facing at {@code time} (game ticks, partial ticks included). It
+     * spins only with a pilot aboard. Worked from the level's clock, so the server and every client agree, and the
+     * doors and their doorway turn together (2026-11-14: the spin used to stop whenever the doors were open).
+     */
+    public static float spin(TardisBody body, double time) {
+        return body.isVehicle() ? (float) (time * TardisContent.tuning().flight().piloting().spin() % 360) : 0;
+    }
+
+    /**
+     * Puts an open loose box's doorway where its doors are: {@code out} in front of them at the box's position
+     * {@code at}, turned {@code spin} degrees past its facing with it, looking into the console room; and {@code in}'s
+     * view back out through them (if given). Doesn't sync.
+     */
+    public static void place(Portal out, Portal in, TardisBody body, Vec3 at, float spin) {
+        Tuning.DoorTuning t = TardisContent.tuning().door();
+        double yaw = Math.toRadians(Direction.fromYRot(body.getYRot()).toYRot() + spin);
+        Vec3 n = new Vec3(-Math.sin(yaw), 0, Math.cos(yaw)); // the way the doors face
+        Vec3 c = at.add(0, t.bottom() + t.height() / 2, 0).add(n.scale(0.5 + t.offset()));
+        out.setOriginPos(c);
+        out.setOrientationAndSize(new Vec3(n.z, 0, -n.x), new Vec3(0, 1, 0), t.width(), t.height());
+        Direction to = t.interiorFacing();
+        double a = Math.atan2(-n.x, -n.z);
+        double b = Math.atan2(to.getStepX(), to.getStepZ());
+        DQuaternion turn = DQuaternion.rotationByRadians(new Vec3(0, 1, 0), b - a);
+        out.setRotationTransformation(turn);
+        out.updateCache();
+        if (in != null) {
+            in.setDestination(c);
+            in.setRotationTransformation(turn.getConjugated());
+            in.updateCache();
+        }
     }
 
     /** The inside opening, in front of the interior door, facing into the console room. */

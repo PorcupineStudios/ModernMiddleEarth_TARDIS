@@ -139,6 +139,7 @@ public final class LotrBlocks {
             case "ladder" -> LadderBlock::new;
             case "leaves" -> LeavesBlock::new;
             case "plant" -> PlantBlock::new;
+            case "reed" -> p -> new ReedBlock(p, ContentData.bool(e, "grows", true));
             case "sapling" -> LotrSaplingBlock::new;
             case "torch" -> LotrTorchBlock::new;
             case "bed" -> LotrBedBlock::new;
@@ -205,7 +206,7 @@ public final class LotrBlocks {
         switch (kind) {
             case "leaves" -> p.randomTicks().isValidSpawn((s, l, pos, type) -> false)
                     .pushReaction(PushReaction.DESTROY);
-            case "plant", "sapling", "torch", "button", "pressure_plate" ->
+            case "plant", "sapling", "torch", "button", "pressure_plate", "reed" ->
                     p.noCollission().pushReaction(PushReaction.DESTROY);
             case "door", "trapdoor", "bed" -> p.pushReaction(PushReaction.DESTROY);
             case "crop", "corn" -> p.noCollission().randomTicks().noOcclusion().pushReaction(PushReaction.DESTROY);

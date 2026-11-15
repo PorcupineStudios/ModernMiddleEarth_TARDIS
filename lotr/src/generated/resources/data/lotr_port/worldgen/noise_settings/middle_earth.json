@@ -192,10 +192,17 @@
                   "type": "minecraft:mul",
                   "argument1": 2.5,
                   "argument2": {
-                    "type": "minecraft:noise",
-                    "noise": "lotr_port:terrain",
-                    "xz_scale": 1.0,
-                    "y_scale": 0.0
+                    "type": "minecraft:add",
+                    "argument1": -0.1,
+                    "argument2": {
+                      "type": "minecraft:quarter_negative",
+                      "argument": {
+                        "type": "minecraft:noise",
+                        "noise": "lotr_port:terrain",
+                        "xz_scale": 1.0,
+                        "y_scale": 0.0
+                      }
+                    }
                   }
                 }
               }
@@ -5322,6 +5329,141 @@
               "if_true": {
                 "type": "minecraft:biome",
                 "biome_is": [
+                  "lotr_port:shire_woodlands"
+                ]
+              },
+              "then_run": {
+                "type": "minecraft:sequence",
+                "sequence": [
+                  {
+                    "type": "minecraft:condition",
+                    "if_true": {
+                      "type": "minecraft:stone_depth",
+                      "offset": 0,
+                      "add_surface_depth": false,
+                      "secondary_depth_range": 0,
+                      "surface_type": "floor"
+                    },
+                    "then_run": {
+                      "type": "minecraft:sequence",
+                      "sequence": [
+                        {
+                          "type": "minecraft:condition",
+                          "if_true": {
+                            "type": "minecraft:water",
+                            "offset": -1,
+                            "surface_depth_multiplier": 0,
+                            "add_stone_depth": false
+                          },
+                          "then_run": {
+                            "type": "minecraft:sequence",
+                            "sequence": [
+                              {
+                                "type": "minecraft:condition",
+                                "if_true": {
+                                  "type": "minecraft:noise_threshold",
+                                  "noise": "lotr_port:podzol",
+                                  "min_threshold": 0.0,
+                                  "max_threshold": 44.550000000000004
+                                },
+                                "then_run": {
+                                  "type": "minecraft:sequence",
+                                  "sequence": [
+                                    {
+                                      "type": "minecraft:condition",
+                                      "if_true": {
+                                        "type": "minecraft:noise_threshold",
+                                        "noise": "lotr_port:ground_pick",
+                                        "min_threshold": 0.13,
+                                        "max_threshold": 44.550000000000004
+                                      },
+                                      "then_run": {
+                                        "type": "minecraft:block",
+                                        "result_state": {
+                                          "Name": "minecraft:podzol"
+                                        }
+                                      }
+                                    },
+                                    {
+                                      "type": "minecraft:condition",
+                                      "if_true": {
+                                        "type": "minecraft:noise_threshold",
+                                        "noise": "lotr_port:ground_pick",
+                                        "min_threshold": 0.0,
+                                        "max_threshold": 44.550000000000004
+                                      },
+                                      "then_run": {
+                                        "type": "minecraft:block",
+                                        "result_state": {
+                                          "Name": "minecraft:coarse_dirt"
+                                        }
+                                      }
+                                    },
+                                    {
+                                      "type": "minecraft:condition",
+                                      "if_true": {
+                                        "type": "minecraft:noise_threshold",
+                                        "noise": "lotr_port:ground_pick",
+                                        "min_threshold": -44.550000000000004,
+                                        "max_threshold": -0.3
+                                      },
+                                      "then_run": {
+                                        "type": "minecraft:block",
+                                        "result_state": {
+                                          "Name": "minecraft:moss_block"
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              },
+                              {
+                                "type": "minecraft:block",
+                                "result_state": {
+                                  "Name": "minecraft:grass_block"
+                                }
+                              }
+                            ]
+                          }
+                        },
+                        {
+                          "type": "minecraft:block",
+                          "result_state": {
+                            "Name": "minecraft:dirt"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "type": "minecraft:condition",
+                    "if_true": {
+                      "type": "minecraft:stone_depth",
+                      "offset": 0,
+                      "add_surface_depth": true,
+                      "secondary_depth_range": 0,
+                      "surface_type": "floor"
+                    },
+                    "then_run": {
+                      "type": "minecraft:sequence",
+                      "sequence": [
+                        {
+                          "type": "minecraft:block",
+                          "result_state": {
+                            "Name": "minecraft:dirt"
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "type": "minecraft:condition",
+              "if_true": {
+                "type": "minecraft:biome",
+                "biome_is": [
                   "lotr_port:umbar_forest"
                 ]
               },
@@ -7819,8 +7961,7 @@
                   "lotr_port:old_forest",
                   "lotr_port:rhun_forest",
                   "lotr_port:rhun_island_forest",
-                  "lotr_port:rhun_red_forest",
-                  "lotr_port:shire_woodlands"
+                  "lotr_port:rhun_red_forest"
                 ]
               },
               "then_run": {
@@ -24708,6 +24849,83 @@
                             }
                           ]
                         },
+                        {
+                          "type": "minecraft:block",
+                          "result_state": {
+                            "Name": "minecraft:dirt"
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "type": "minecraft:condition",
+              "if_true": {
+                "type": "minecraft:biome",
+                "biome_is": [
+                  "lotr_port:shire",
+                  "lotr_port:shire_moors"
+                ]
+              },
+              "then_run": {
+                "type": "minecraft:sequence",
+                "sequence": [
+                  {
+                    "type": "minecraft:condition",
+                    "if_true": {
+                      "type": "minecraft:stone_depth",
+                      "offset": 0,
+                      "add_surface_depth": false,
+                      "secondary_depth_range": 0,
+                      "surface_type": "floor"
+                    },
+                    "then_run": {
+                      "type": "minecraft:sequence",
+                      "sequence": [
+                        {
+                          "type": "minecraft:condition",
+                          "if_true": {
+                            "type": "minecraft:water",
+                            "offset": -1,
+                            "surface_depth_multiplier": 0,
+                            "add_stone_depth": false
+                          },
+                          "then_run": {
+                            "type": "minecraft:sequence",
+                            "sequence": [
+                              {
+                                "type": "minecraft:block",
+                                "result_state": {
+                                  "Name": "minecraft:grass_block"
+                                }
+                              }
+                            ]
+                          }
+                        },
+                        {
+                          "type": "minecraft:block",
+                          "result_state": {
+                            "Name": "minecraft:dirt"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "type": "minecraft:condition",
+                    "if_true": {
+                      "type": "minecraft:stone_depth",
+                      "offset": 0,
+                      "add_surface_depth": true,
+                      "secondary_depth_range": 0,
+                      "surface_type": "floor"
+                    },
+                    "then_run": {
+                      "type": "minecraft:sequence",
+                      "sequence": [
                         {
                           "type": "minecraft:block",
                           "result_state": {
@@ -45311,8 +45529,6 @@
                   "lotr_port:river",
                   "lotr_port:rohan",
                   "lotr_port:rohan_uruk_highlands",
-                  "lotr_port:shire",
-                  "lotr_port:shire_moors",
                   "lotr_port:tower_hills",
                   "lotr_port:wilderland",
                   "lotr_port:wilderland_north",

@@ -42,7 +42,12 @@ public final class MiddleEarthMap {
     private final List<Entry> biomes;
     private final float[] biomeHeights;
     private final float[] biomeVariations;
+    /** Per biome: the tallest of its "downs" (round hills, {@link #downs}), in blocks; 0 for none. */
+    private final float[] biomeDowns;
     private final Rivers rivers;
+    private final Variants variants;
+    /** Per biome with variants: a table that is 1 for it, smoothed like heights to fade its variants' terrain out. */
+    private final java.util.Map<Integer, float[]> variantMasks = new java.util.LinkedHashMap<>();
 
     /**
      * Small rivers LOTR drew with its river layer rather than on the map: lines where a fixed noise crosses zero, cut
@@ -55,9 +60,11 @@ public final class MiddleEarthMap {
      * @param maxHeight ground above this has no rivers
      * @param minHeight ground below this (lakes, sea) has no rivers
      * @param biomeWidth river widths from the middle that get the river biome
+     * @param maskScale scale (blocks) of a second noise where rivers run at all (0: everywhere); where it is low they
+     *     fade out to dry valleys, so whole stretches of the network are missing (Aaron, 2026-11-14: fewer rivers)
      */
     record Rivers(int biome, double scale, double width, double bank, double bed, double maxHeight,
-            double minHeight, double biomeWidth, ImprovedNoise noise) {
+            double minHeight, double biomeWidth, ImprovedNoise noise, double maskScale, ImprovedNoise mask) {
         static Rivers read(JsonObject o, List<Entry> biomes) {
             if (o == null) {
                 return null;
@@ -75,7 +82,9 @@ public final class MiddleEarthMap {
             return new Rivers(index, o.get("scale").getAsDouble(), o.get("width").getAsDouble(),
                     o.get("bank").getAsDouble(), o.get("bed").getAsDouble(), o.get("max_height").getAsDouble(),
                     o.get("min_height").getAsDouble(), o.get("biome_width").getAsDouble(),
-                    new ImprovedNoise(RandomSource.create(o.get("seed").getAsLong())));
+                    new ImprovedNoise(RandomSource.create(o.get("seed").getAsLong())),
+                    o.has("mask_scale") ? o.get("mask_scale").getAsDouble() : 0,
+                    new ImprovedNoise(RandomSource.create(o.get("seed").getAsLong() + 1)));
         }
 
         /** Distance from the river's middle, in river widths. */
@@ -83,12 +92,46 @@ public final class MiddleEarthMap {
             return Math.abs(noise.noise(x / scale, 0.37, z / scale)) / width;
         }
 
-        /** How strongly a river can cut here, from the ground height without rivers. */
+        /** How strongly a river can cut, from the ground height without rivers. */
         double strength(double ground) {
             if (ground < minHeight) {
                 return 0;
             }
             return Math.max(0, Math.min(1, (maxHeight - ground) / 25.0)) * Math.min(1, (ground - minHeight) / 3.0);
+        }
+
+        /**
+         * Distance from the river's middle in river widths, narrowed by the mask: where the mask fades, the river
+         * gets narrower (not shallower) and ends, about a third of the network (2026-11-14; fading the depth left
+         * short slits of water).
+         */
+        double reach(double x, double z) {
+            double d = distance(x, z);
+            if (maskScale <= 0) {
+                return d;
+            }
+            double m = smooth(Math.max(0, Math.min(1, (mask.noise(x / maskScale, 0.71, z / maskScale) + 0.12) / 0.18)));
+            return m < 0.02 ? Double.MAX_VALUE : d / m;
+        }
+
+        /**
+         * The ground a river leaves at distance {@code d} (river widths) from its middle: its bed in the channel
+         * (inside half a width), rising to one block over sea level ({@code minHeight}) at a width, then up its banks
+         * to the land at {@code bank} widths. Only the channel holds water: before 2026-11-14 the whole valley was cut
+         * towards the bed, and on low ground that flooded 60-80 blocks wide (lakes, not rivers).
+         */
+        double carve(double ground, double d) {
+            double target;
+            if (d <= 0.5) {
+                target = bed;
+            } else if (d <= 1) {
+                target = bed + (minHeight - bed) * smooth((d - 0.5) / 0.5);
+            } else if (d < bank) {
+                target = minHeight + (ground - minHeight) * smooth((d - 1) / (bank - 1));
+            } else {
+                return ground;
+            }
+            return Math.min(ground, target);
         }
 
         /** 1 in the river and its near banks, falling to 0 at the valley edge. */
@@ -103,8 +146,11 @@ public final class MiddleEarthMap {
         }
     }
 
-    /** One biome of the map: its id, ground height (y of the surface) and hilliness (blocks up or down). */
-    public record Entry(String id, float height, float variation) {}
+    /**
+     * One biome of the map: its id, ground height (y of the surface), hilliness (blocks up or down, from noise) and
+     * downs (the tallest of its round hills, {@link #downs}; 0 for none).
+     */
+    public record Entry(String id, float height, float variation, float downs) {}
 
     /**
      * LOTRMountains: the ground rises in a cone to {@code peak} (a y level) at x, z over {@code range} blocks; hills
@@ -135,16 +181,18 @@ public final class MiddleEarthMap {
         for (JsonElement e : settings.getAsJsonArray("biomes")) {
             JsonObject o = e.getAsJsonObject();
             list.add(new Entry(o.get("id").getAsString(), o.get("height").getAsFloat(),
-                    o.get("variation").getAsFloat()));
+                    o.get("variation").getAsFloat(), o.has("downs") ? o.get("downs").getAsFloat() : 0));
         }
         this.biomes = Collections.unmodifiableList(list);
         this.biomeHeights = new float[256];
         this.biomeVariations = new float[256];
+        this.biomeDowns = new float[256];
         String ocean = settings.get("ocean").getAsString();
         int oceanAt = -1;
         for (int i = 0; i < list.size(); i++) {
             biomeHeights[i] = list.get(i).height();
             biomeVariations[i] = list.get(i).variation();
+            biomeDowns[i] = list.get(i).downs();
             if (list.get(i).id().equals(ocean)) {
                 oceanAt = i;
             }
@@ -165,6 +213,14 @@ public final class MiddleEarthMap {
             }
         }
         this.rivers = Rivers.read(settings.has("rivers") ? settings.getAsJsonObject("rivers") : null, list);
+        this.variants = new Variants(settings.has("variants") ? settings.getAsJsonObject("variants") : null, list);
+        for (int i = 0; i < list.size(); i++) {
+            if (variants.has(i)) {
+                float[] mask = new float[256];
+                mask[i] = 1;
+                variantMasks.put(i, mask);
+            }
+        }
     }
 
     public static MiddleEarthMap get() {
@@ -244,7 +300,7 @@ public final class MiddleEarthMap {
     public int biomeIndexAt(int blockX, int blockZ) {
         double wx = wobbledX(blockX, blockZ);
         double wz = wobbledZ(blockX, blockZ);
-        if (rivers != null && rivers.distance(wx, wz) < rivers.biomeWidth()
+        if (rivers != null && rivers.reach(wx, wz) < rivers.biomeWidth()
                 && rivers.strength(smoothed(wx, wz, biomeHeights)) > 0.5) {
             return rivers.biome();
         }
@@ -258,6 +314,43 @@ public final class MiddleEarthMap {
 
     private double wobbledZ(int blockX, int blockZ) {
         return blockZ + 0.5 + wobble(blockX, blockZ, 0x2545F4914F6CDD1DL) * borderWobble;
+    }
+
+    /**
+     * The biome variant (LOTR's variant patches, {@link Variants}) at a column: its name, or null in the plain biome,
+     * a river, or a biome without variants. Plants follow it ({@code lotr_port:in_variant}).
+     */
+    public String variantAt(int blockX, int blockZ) {
+        Variants.Variant v = variants.at(biomeIndexAt(blockX, blockZ), blockX, blockZ);
+        return v == null ? null : v.name();
+    }
+
+    /** How the variant patches scale downs or hilliness here, faded in over their biome's smoothed pixels. */
+    private double variantFactor(double wx, double wz, int blockX, int blockZ, boolean downs) {
+        double f = 1;
+        for (var e : variantMasks.entrySet()) {
+            double share = smoothed(wx, wz, e.getValue());
+            if (share > 0) {
+                double v = downs ? variants.downsFactor(e.getKey(), blockX, blockZ)
+                        : variants.variationFactor(e.getKey(), blockX, blockZ);
+                f += share * (v - 1);
+            }
+        }
+        return f;
+    }
+
+    /** The block centres of up to {@code limit} map pixels of a biome, in map order. For tests and tools. */
+    public List<int[]> pixelCentres(int biome, int limit) {
+        List<int[]> out = new ArrayList<>();
+        for (int pz = 0; pz < height && out.size() < limit; pz++) {
+            for (int px = 0; px < width && out.size() < limit; px++) {
+                if ((pixels[pz * width + px] & 0xFF) == biome) {
+                    out.add(new int[] { (px - originX) * blocksPerPixel + blocksPerPixel / 2,
+                            (pz - originZ) * blocksPerPixel + blocksPerPixel / 2 });
+                }
+            }
+        }
+        return out;
     }
 
     /**
@@ -305,6 +398,12 @@ public final class MiddleEarthMap {
         double wx = wobbledX(blockX, blockZ);
         double wz = wobbledZ(blockX, blockZ);
         double ground = smoothed(wx, wz, biomeHeights);
+        double downs = smoothed(wx, wz, biomeDowns) * variantFactor(wx, wz, blockX, blockZ, true);
+        if (downs > 0) {
+            // flattened near roads, as LOTR flattened its hills there
+            double road = Math.min(1, Roads.get().distance(blockX, blockZ) / Roads.FLATTEN);
+            ground += downs * downs(blockX, blockZ) * (0.3 + 0.7 * road);
+        }
         for (Mountain m : mountains) {
             double d = m.distance(blockX, blockZ);
             if (d < m.crater) {
@@ -313,18 +412,21 @@ public final class MiddleEarthMap {
                 ground += (m.peak - ground) * (1 - d / m.range);
             }
         }
-        double cut = riverCut(wx, wz, ground);
-        return cut == 0 ? ground : ground - (ground - rivers.bed()) * cut;
+        if (rivers == null) {
+            return ground;
+        }
+        double strength = rivers.strength(ground);
+        return strength == 0 ? ground : ground - strength * (ground - rivers.carve(ground, rivers.reach(wx, wz)));
     }
 
     /** Hilliness (how far the ground rises and falls, in blocks) at a block position, smoothed like the height. */
     public double variationAt(int blockX, int blockZ) {
         double wx = wobbledX(blockX, blockZ);
         double wz = wobbledZ(blockX, blockZ);
-        double variation = smoothed(wx, wz, biomeVariations);
+        double variation = smoothed(wx, wz, biomeVariations) * variantFactor(wx, wz, blockX, blockZ, false);
         double cut = riverCut(wx, wz, smoothed(wx, wz, biomeHeights));
         // LOTR flattens the land within 32 blocks of a road (LOTRChunkProvider roadNear)
-        double road = Math.min(1, Roads.get().distance(blockX, blockZ) / 32.0);
+        double road = Math.min(1, Roads.get().distance(blockX, blockZ) / Roads.FLATTEN);
         double boost = 0; // LOTR: a mountain's hills flatten by 1 + its height boost (LOTRChunkProvider)
         for (Mountain m : mountains) {
             double d = m.distance(blockX, blockZ);
@@ -333,6 +435,65 @@ public final class MiddleEarthMap {
             }
         }
         return variation * (1 - cut) * (0.25 + 0.75 * road) / (1 + boost);
+    }
+
+    /** Grid spacing of the downs (blocks): about one hill per cell. */
+    static final int DOWNS_CELL = 112;
+
+    /**
+     * The Shire's own hills (Aaron, 2026-11-14): round "downs" that only rise from the land, 0 on the flat to about 1
+     * on a hilltop. One hill per {@link #DOWNS_CELL} grid cell, its middle jittered within the cell, each its own size
+     * (radius 0.5-0.8 of a cell), height (0.55-1) and oval, turned shape (up to 1.6 times as long as wide); one cell
+     * in five is left flat for meadows. A hill's profile is (height x (1 - r^2)^2), a bell with a gentle foot; where
+     * hills overlap they are blended as the root of the sum of squares, so they merge into ridges without plateaus or
+     * creases. At 30 blocks tall (the Shire's) the steepest slope is about 0.7 blocks per block: steep, round hills
+     * whose every step is a grass edge (Aaron 2026-11-14). Unlike noise hills it never dips
+     * under the biome's ground, so it makes no ponds, and it needs no seed: the same hills in every world, and reliable.
+     * Tuned on a shaded preview of 1.5 km (2026-11-14).
+     */
+    static double downs(int x, int z) {
+        int cx = Math.floorDiv(x, DOWNS_CELL);
+        int cz = Math.floorDiv(z, DOWNS_CELL);
+        double sum = 0;
+        // 5 x 5 cells: a long hill reaches up to 1.44 cells from its middle, which can be in the next cell but one
+        for (int i = -2; i <= 2; i++) {
+            for (int k = -2; k <= 2; k++) {
+                long h = mix((cx + i) * 0x9E3779B97F4A7C15L ^ (cz + k) * 0xC2B2AE3D27D4EB4FL ^ 0x5348495245L);
+                if (unit(h, 0) < 0.2) {
+                    continue; // a meadow
+                }
+                double hx = (cx + i + 0.15 + 0.7 * unit(h, 1)) * DOWNS_CELL;
+                double hz = (cz + k + 0.15 + 0.7 * unit(h, 2)) * DOWNS_CELL;
+                double radius = DOWNS_CELL * (0.5 + 0.3 * unit(h, 3));
+                double height = 0.55 + 0.45 * unit(h, 4);
+                double turn = Math.PI * unit(h, 5);
+                double stretch = 1 + 0.6 * unit(h, 6);
+                double dx = x - hx;
+                double dz = z - hz;
+                double along = (dx * Math.cos(turn) + dz * Math.sin(turn)) / (radius * stretch);
+                double across = (-dx * Math.sin(turn) + dz * Math.cos(turn)) / radius;
+                double r2 = along * along + across * across;
+                if (r2 < 1) {
+                    double u = 1 - r2;
+                    double hill = height * u * u;
+                    sum += hill * hill;
+                }
+            }
+        }
+        return Math.sqrt(sum);
+    }
+
+    private static long mix(long h) {
+        h ^= h >>> 33;
+        h *= 0xFF51AFD7ED558CCDL;
+        h ^= h >>> 33;
+        h *= 0xC4CEB9FE1A85EC53L;
+        return h ^ (h >>> 33);
+    }
+
+    /** The {@code n}th number in [0, 1) drawn from hash {@code h}. */
+    private static double unit(long h, int n) {
+        return (mix(h + n * 0x632BE59BD9B4E019L) >>> 11) * 0x1.0p-53;
     }
 
     /** The lava level of a volcano's crater at a block column (LOTR's getLavaHeight), or 0. */
@@ -350,7 +511,7 @@ public final class MiddleEarthMap {
             return 0;
         }
         double strength = rivers.strength(ground);
-        return strength == 0 ? 0 : strength * rivers.cut(rivers.distance(wx, wz));
+        return strength == 0 ? 0 : strength * rivers.cut(rivers.reach(wx, wz));
     }
 
     /**

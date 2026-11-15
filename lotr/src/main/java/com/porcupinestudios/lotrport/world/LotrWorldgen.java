@@ -32,10 +32,24 @@ public final class LotrWorldgen {
     private static final DeferredRegister<Feature<?>> FEATURES =
             DeferredRegister.create(Registries.FEATURE, LotrPort.MOD_ID);
 
+    private static final DeferredRegister<net.minecraft.world.level.levelgen.placement.PlacementModifierType<?>>
+            PLACEMENT_MODIFIERS = DeferredRegister.create(Registries.PLACEMENT_MODIFIER_TYPE, LotrPort.MOD_ID);
+    public static final net.neoforged.neoforge.registries.DeferredHolder<
+            net.minecraft.world.level.levelgen.placement.PlacementModifierType<?>,
+            net.minecraft.world.level.levelgen.placement.PlacementModifierType<
+                    com.porcupinestudios.lotrport.world.feature.InVariant>> IN_VARIANT = PLACEMENT_MODIFIERS.register(
+                            "in_variant", () -> () -> com.porcupinestudios.lotrport.world.feature.InVariant.CODEC);
+    public static final net.neoforged.neoforge.registries.DeferredHolder<
+            net.minecraft.world.level.levelgen.placement.PlacementModifierType<?>,
+            net.minecraft.world.level.levelgen.placement.PlacementModifierType<
+                    com.porcupinestudios.lotrport.world.feature.OrchardGrid>> ORCHARD_GRID = PLACEMENT_MODIFIERS.register(
+                            "orchard_grid", () -> () -> com.porcupinestudios.lotrport.world.feature.OrchardGrid.CODEC);
+
     static {
         FEATURES.register("roads", RoadFeature::new);
         FEATURES.register("forest_floor", com.porcupinestudios.lotrport.world.feature.ForestFloorFeature::new);
         FEATURES.register("crater_lava", com.porcupinestudios.lotrport.world.feature.CraterLavaFeature::new);
+        FEATURES.register("reeds", com.porcupinestudios.lotrport.world.feature.ReedsFeature::new);
         FEATURES.register("template_tree", com.porcupinestudios.lotrport.world.feature.TemplateTreeFeature::new);
         BIOME_SOURCES.register("middle_earth", () -> MapBiomeSource.CODEC);
         DENSITY_FUNCTIONS.register("map_terrain", () -> MapTerrain.MAP_CODEC);
@@ -47,6 +61,7 @@ public final class LotrWorldgen {
         BIOME_SOURCES.register(modBus);
         DENSITY_FUNCTIONS.register(modBus);
         FEATURES.register(modBus);
+        PLACEMENT_MODIFIERS.register(modBus);
         com.porcupinestudios.lotrport.world.structure.LotrStructures.register(modBus);
         NeoForge.EVENT_BUS.addListener(LotrWorldgen::onServerStarted);
         NeoForge.EVENT_BUS.addListener(LotrWorldgen::onCreateSpawn);
@@ -99,5 +114,6 @@ public final class LotrWorldgen {
             data.setStartsInMiddleEarth(middleEarthWorld);
         }
         WorldCheck.runIfAsked(event.getServer());
+        TerrainPreview.runIfAsked(event.getServer());
     }
 }
