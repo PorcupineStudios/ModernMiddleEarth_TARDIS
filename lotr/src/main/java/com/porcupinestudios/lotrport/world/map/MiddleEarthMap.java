@@ -423,8 +423,8 @@ public final class MiddleEarthMap {
         if (ranges != null) {
             double hilliness = smoothed(wx, wz, rangeHilliness);
             if (hilliness > 0) {
-                ground += ranges.massif(blockX, blockZ, hilliness, Roads.get().distanceWithin(blockX, blockZ,
-                        ranges.passWidth()));
+                ground = ranges.ceiling(ground + ranges.massif(blockX, blockZ, hilliness,
+                        Roads.get().distanceWithin(blockX, blockZ, ranges.passWidth())));
             }
         }
         for (Mountain m : cones) {

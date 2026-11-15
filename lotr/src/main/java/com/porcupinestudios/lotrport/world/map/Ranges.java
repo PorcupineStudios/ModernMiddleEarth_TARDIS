@@ -49,6 +49,11 @@ final class Ranges {
     private final double peak;
     private final double peakReach;
     private final double pass;
+    private final double band;
+    private final double sharp;
+    private final double strata;
+    private final double uplift;
+    private final double ceiling;
     private final double passFloor;
     private final List<double[]> peaks = new ArrayList<>();
 
@@ -77,6 +82,11 @@ final class Ranges {
         peakReach = o.get("peak_reach").getAsDouble();
         pass = o.get("pass").getAsDouble();
         passFloor = o.get("pass_floor").getAsDouble();
+        band = o.get("band").getAsDouble();
+        sharp = o.get("sharp").getAsDouble();
+        strata = o.get("strata").getAsDouble();
+        uplift = o.get("uplift").getAsDouble();
+        ceiling = o.get("ceiling").getAsDouble();
         tilesX = (width + TILE - 1) / TILE;
         int tilesZ = (height + TILE - 1) / TILE;
         tiles = new float[tilesX * tilesZ][];
@@ -255,12 +265,48 @@ final class Ranges {
         if (s == 0) {
             return 0;
         }
-        double m = s * std * (crest * s + spurs * spurs(x, z) + relief * relief(x, z) + peak * peaks(x, z) - sink);
+        double m = shape(x, z, std, s);
+        double sx = (shape(x + 2, z, std, s) - m) / 2;
+        double sz = (shape(x, z + 2, std, s) - m) / 2;
+        m = strata(x, z, m, s, Math.sqrt(sx * sx + sz * sz));
         if (road < pass) {
             double r = road / pass;
             m *= passFloor + (1 - passFloor) * r * r * (3 - 2 * r);
         }
         return m;
+    }
+
+    /**
+     * The ground ceiling: heights above {@code ceiling} - 40 are eased so they never pass the ceiling (Caradhras'
+     * massif reached 390 before; the world tops out at 448).
+     */
+    double ceiling(double ground) {
+        double k = ceiling - 40;
+        return ground > k ? k + 40 * Math.tanh((ground - k) / 40) : ground;
+    }
+
+    private double shape(double x, double z, double std, double s) {
+        return s * std * (crest * s + spurs * spurs(x, z) + relief * relief(x, z) + peak * peaks(x, z) - sink);
+    }
+
+    /**
+     * Cliff bands (2026-11-15: smooth snow slopes read as hills, not mountains): where the ground is already steep
+     * (over 0.3 blocks per block), and in patches, its rise gathers into rock faces about {@code band} blocks tall
+     * with ledges between, and rises higher. Still a height field: steeper, never overhanging.
+     */
+    private double strata(double x, double z, double m, double s, double slope) {
+        double k = Math.max(0, Math.min(1, (slope - 0.3) / 0.5));
+        double w = Math.max(0, Math.min(1, 0.45 + 1.3 * perlin(x / 320, z / 320, 33))) * k * k * (3 - 2 * k);
+        if (w == 0) {
+            return m;
+        }
+        double t = band * (1 + 0.45 * perlin(x / 400, z / 400, 31));
+        double q = (m + t * perlin(x / 250, z / 250, 32)) / t;
+        double f = q - Math.floor(q);
+        double a = Math.pow(f, sharp);
+        double g = a / (a + Math.pow(1 - f, sharp));
+        // crags: the steep patches also rise further (by up to `uplift`), into spires and rock walls
+        return m * (1 + uplift * w * s) + strata * w * s * t * (g - f);
     }
 
     private double spurs(double x, double z) {

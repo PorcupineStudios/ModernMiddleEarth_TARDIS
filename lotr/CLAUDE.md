@@ -91,7 +91,11 @@ https://claude.ai/artifact/KqhSSTCuKXGuwKHBoYJdcu. Rebuild features in modern co
   down the depth's slope (valleys between run to the foothills), warped ridged crags, LOTR's named mountains inside a
   range as broad summits (their cones dropped), passes within 400 blocks of a road (East-West road, Blue Mountains'
   dwarf road), all scaled by the biome's LOTR hilliness. Mapped rivers aren't range pixels, so they cut valleys.
-  Prototyped in numpy on shaded reliefs of the map; `Ranges` reproduces the prototype exactly.
+  Cliff bands (`Ranges.strata`): on ground steeper than 0.3, in noise patches, the rise gathers into ~10-block rock
+  faces with ledges, and those patches rise up to 80% higher (crags, spires). Summits eased under y 420.
+  Prototyped in numpy on shaded reliefs and a voxel-space perspective render; `Ranges` reproduces the prototype exactly.
+- Build limit (2026-11-15): Middle-earth goes up to y 448 (`world.py TOP_Y`; its own dimension type, also for the
+  world preset's overworld). Worlds made before keep vanilla's 320, and their mountains get cut flat at the top.
 - `Roads` registers each segment in every 256-block cell within `Roads.FLATTEN` (32): the terrain flattens hills by
   road distance, and a segment missing from a cell made it jump at the cell edge (straight 10+ block cliffs).
 - Terrain preview (dev tool): `-Dlotr_port.terrainpreview=<x>,<z>,<size>` on a Middle-earth server writes
