@@ -20,6 +20,7 @@
     "EntityGravityDataMixin",
     "SpaceSpeedMixin",
     "SpaceChunkMapMixin",
+    "SpaceEntityStorageMixin",
     "EntityMixin",
     "ExperienceBottleItemMixin",
     "ExplosionMixin",

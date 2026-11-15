@@ -366,7 +366,7 @@ public final class SpaceTests {
         var m = t.motion();
         var off = new Tuning.SpaceTuning(t.gravity(), t.checkTicks(), t.landingSlowFall(), t.seamView(),
                 t.seamSegment(), t.seamLinger(), t.mapBudgetMs(), new Tuning.Motion(m.orbitSpeed(), m.thrust(),
-                        m.maxSpeed(), m.dragFree(), false, m.tiltSpeed(), m.boost(), m.chunkSkipSpeed()));
+                        m.maxSpeed(), m.dragFree(), false, m.tiltSpeed(), m.boost(), m.chunkSkipSpeed()), t.chunks());
         Tilt.tick(player, system, off);
         helper.assertTrue(Tilt.of(player) == null, "leans with free_tilt off");
         Tilt.tick(player, system, t);
