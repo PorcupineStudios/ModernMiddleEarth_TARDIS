@@ -217,6 +217,22 @@ public final class WorldCheck {
      * whose orbit places it back where it is; an empty chunk next to it is never written to disk.
      */
     private static void checkSparse(MinecraftServer server, Planet planet, ServerLevel space, List<String> problems) {
+        // no weather in space (SpaceWeatherMixin): full rain and thunder set there still read 0; the overworld's don't
+        space.setRainLevel(1);
+        space.setThunderLevel(1);
+        server.overworld().setRainLevel(1);
+        float spaceRain = space.getRainLevel(1);
+        float spaceThunder = space.getThunderLevel(1);
+        float worldRain = server.overworld().getRainLevel(1);
+        space.setRainLevel(0);
+        space.setThunderLevel(0);
+        server.overworld().setRainLevel(0);
+        TardisRB.LOG.info("[worldcheck] weather: space rain {} thunder {}, overworld rain {}", spaceRain, spaceThunder,
+                worldRain);
+        if (spaceRain != 0 || spaceThunder != 0 || worldRain != 1) {
+            problems.add("space has weather: rain " + spaceRain + ", thunder " + spaceThunder + " (overworld rain "
+                    + worldRain + ")");
+        }
         if (!SpaceChunks.sparse(space)) {
             problems.add("sparse space is off in " + space.dimension().location());
             return;

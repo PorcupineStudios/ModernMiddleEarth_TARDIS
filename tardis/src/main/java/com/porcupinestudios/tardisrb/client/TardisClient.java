@@ -32,10 +32,11 @@ public final class TardisClient {
         event.registerEntityRenderer(TardisEntities.ARC.get(), ArcRenderer::new);
     }
 
-    /** The time vortex's sky settings (its tunnel is drawn by {@link VortexRenderer}). */
+    /** The time vortex's sky settings (its tunnel is drawn by {@link VortexRenderer}); space's (no clouds). */
     @SubscribeEvent
     public static void skies(RegisterDimensionSpecialEffectsEvent event) {
         event.register(TardisRB.id("time_vortex"), new VortexRenderer.Effects());
+        event.register(TardisRB.id("space"), new SpaceSky());
     }
 
     @SubscribeEvent
