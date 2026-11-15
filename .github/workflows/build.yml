@@ -1,79 +1,69 @@
 name: Build
 
+# THROWAWAY (bench-heights only): times generating the same lowland (Shire) and mountain (Misty Mountains) squares
+# with the code before the noise cuts at y 640, and with the cuts at 640, 448 and 320; peak server memory too.
 on:
   push:
-    branches: ['**']
-  pull_request:
+    branches: ['claude/bench-heights']
 
 jobs:
-  build:
+  bench:
     runs-on: ubuntu-latest
+    timeout-minutes: 60
     permissions:
       contents: write
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - {name: before640, ref: 035d39cd0a0a1f856c276a438dc06ca5f0f382de, top: 640}
+          - {name: cut640, ref: claude/reeds-lakes-shire, top: 640}
+          - {name: cut448, ref: claude/reeds-lakes-shire, top: 448}
+          - {name: cut320, ref: claude/reeds-lakes-shire, top: 320}
     steps:
       - uses: actions/checkout@v4
+        with:
+          path: bench
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ matrix.ref }}
+          path: code
       - uses: actions/setup-java@v4
         with:
           distribution: temurin
           java-version: '21'
       - uses: gradle/actions/setup-gradle@v4
-      - run: ./gradlew build --stacktrace
-      - name: GameTests
-        # The game test server can exit 0 after a mod loading crash, so the log has to say the tests passed.
+      - name: Heights
+        working-directory: code
         run: |
-          ./gradlew :lotr:runGameTestServer --stacktrace 2>&1 | tee gametest.log
-          grep -E "All [0-9]+ required tests passed" gametest.log
-      - name: TARDIS GameTests
+          if [ "${{ matrix.top }}" != "640" ]; then python3 ../bench/.github/bench/height.py ${{ matrix.top }}; fi
+          ./gradlew :lotr:compileJava -q
+      - name: Generate
+        working-directory: code
+        timeout-minutes: 40
         run: |
-          ./gradlew :tardis:runGameTestServer --stacktrace 2>&1 | tee tardis-gametest.log
-          grep -E "All [0-9]+ required tests passed" tardis-gametest.log
-      - name: Middle-earth world
-        # A new world of the Middle-earth world type on a dedicated server: WorldCheck logs the spawn and stops it.
-        # It generates ~160 far-apart chunks plus two structures in one tick: watchdog off (max-tick-time=-1), 10 GB heap
-        # (6 GB ran out saving them once the world went up to y 640, 2026-11-15; runners have 16 GB).
-        timeout-minutes: 15
-        run: |
-          mkdir -p lotr/run
+          mkdir -p lotr/run ../out
           echo "eula=true" > lotr/run/eula.txt
-          printf 'level-type=lotr_port\\:middle_earth\nonline-mode=false\nlevel-name=middle-earth-check\nmax-tick-time=-1\n' > lotr/run/server.properties
-          cat lotr/run/server.properties
-          JAVA_TOOL_OPTIONS="-Dlotr_port.worldcheck=true -Xmx10g" ./gradlew :lotr:runServer --stacktrace 2>&1 | tee worldcheck.log
-          grep -E "\\[worldcheck\\]|WORLDCHECK" worldcheck.log
-          grep "WORLDCHECK PASSED" worldcheck.log
-      - name: TARDIS world
-        # A dedicated server: the crash site, its police box, and its interior in the interior dimension.
-        timeout-minutes: 10
-        run: |
-          mkdir -p tardis/run
-          echo "eula=true" > tardis/run/eula.txt
-          printf 'online-mode=false\nlevel-name=tardis-check\n' > tardis/run/server.properties
-          JAVA_TOOL_OPTIONS="-Dtardis_rb.worldcheck=true" ./gradlew :tardis:runServer --stacktrace 2>&1 | tee tardis-world.log
-          grep -E "\\[worldcheck\\]|WORLDCHECK|crash site" tardis-world.log
-          grep "TARDIS WORLDCHECK PASSED" tardis-world.log
-      - uses: actions/upload-artifact@v4
-        with:
-          name: jars
-          path: "*/build/libs/*.jar"
-      # Other mods' jars are never uploaded or released from this public repo: the release notes list the versions the
-      # build used, to download from Modrinth.
-      - name: Mods the TARDIS needs (versions only)
-        run: |
-          : > needed-mods.txt
-          for m in create immersive-portals-neoforge cloth-config jade; do
-            find ~/.gradle/caches/modules-2/files-2.1/maven.modrinth/$m -name "*.jar" ! -name "*-sources.jar" \
-              -printf "- %f (https://modrinth.com/mod/$m)\n" >> needed-mods.txt
+          for spot in shire:0,0 misty:51000,6500 shire2:2048,0; do
+            name=${spot%%:*}; at=${spot#*:}
+            printf "level-type=lotr_port\\\\:middle_earth\nonline-mode=false\nlevel-name=$name\nmax-tick-time=-1\nlevel-seed=12345\n" > lotr/run/server.properties
+            rm -rf lotr/run/terrain_preview
+            (while true; do ps -C java -o rss= | sort -n | tail -1; sleep 1; done) > ../out/rss_$name.txt &
+            sampler=$!
+            JAVA_TOOL_OPTIONS="-Dlotr_port.terrainpreview=$at,512 -Xmx8g" ./gradlew :lotr:runServer > ../out/log_$name.txt 2>&1 || true
+            kill $sampler
+            cp lotr/run/terrain_preview/stats.txt ../out/stats_$name.txt || true
+            echo "$name: $(grep took ../out/stats_$name.txt) peak rss $(sort -n ../out/rss_$name.txt | tail -1) kB"
           done
-          cat needed-mods.txt
-      - name: Rolling test build (a pre-release with our jars; other mods are listed, not attached)
-        if: github.event_name == 'push'
-        env:
-          GH_TOKEN: ${{ github.token }}
+      - name: Keep the results
+        if: always()
+        working-directory: code
         run: |
-          mkdir -p test-build
-          cp api/build/libs/*.jar tardis/build/libs/*.jar lotr/build/libs/*.jar test-build/
-          rm -f test-build/*-sources.jar
-          gh release delete test-build -y --cleanup-tag || true
-          gh release create test-build test-build/*.jar --prerelease --target "${{ github.sha }}" \
-            --title "Test build (${GITHUB_REF_NAME})" --notes "Latest green build of ${GITHUB_REF_NAME} at ${GITHUB_SHA}. Also install these mods from Modrinth (the versions this build used):
-          $(cat needed-mods.txt)
-          No Sodium: Create needs Sodium 0.6.9 or newer, Immersive Portals 6.0.7 works only with 0.6.0."
+          for f in ../out/log_*.txt; do grep -E "\[preview\]|Exception|ERROR" $f | grep -v "Invalid path" | head -20 > $f.short; rm $f; done
+          git config user.name "ci"; git config user.email "ci@users.noreply.github.com"
+          git checkout -q --orphan bench-out
+          git rm -rf -q --cached .
+          rm -rf out && cp -r ../out out
+          git add -f out
+          git commit -q -m "bench ${{ matrix.name }} (throwaway)"
+          git push -f -q origin HEAD:refs/heads/claude/bench-out-${{ matrix.name }}
