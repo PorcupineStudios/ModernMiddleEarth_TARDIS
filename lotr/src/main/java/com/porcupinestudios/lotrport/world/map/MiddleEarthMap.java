@@ -262,6 +262,20 @@ public final class MiddleEarthMap {
         return blockZ + 0.5 + wobble(blockX, blockZ, 0x2545F4914F6CDD1DL) * borderWobble;
     }
 
+    /** The block centres of up to {@code limit} map pixels of a biome, in map order. For tests and tools. */
+    public List<int[]> pixelCentres(int biome, int limit) {
+        List<int[]> out = new ArrayList<>();
+        for (int pz = 0; pz < height && out.size() < limit; pz++) {
+            for (int px = 0; px < width && out.size() < limit; px++) {
+                if ((pixels[pz * width + px] & 0xFF) == biome) {
+                    out.add(new int[] { (px - originX) * blocksPerPixel + blocksPerPixel / 2,
+                            (pz - originZ) * blocksPerPixel + blocksPerPixel / 2 });
+                }
+            }
+        }
+        return out;
+    }
+
     /**
      * A block position inside each biome, by biome index: the centre of a pixel whose four neighbours are the same
      * biome where there is one, else any pixel of it. Null for a biome that isn't on the map. For tests and tools.
