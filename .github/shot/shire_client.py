@@ -17,19 +17,19 @@ steps = """wait 100
 /weather clear
 /gamerule doDaylightCycle false
 hud off
-/tp @s 45632 420 13700 0 25
+/tp @s 51000 630 6100 0 20
 wait 700
 shot a_north_high
-/tp @s 45100 400 14400 -90 22
+/tp @s 50650 600 6500 -90 15
 wait 700
 shot b_west
-/tp @s 46200 410 14900 135 25
+/tp @s 51350 600 6850 135 15
 wait 700
-shot c_inside
-/tp @s 45632 440 15200 180 30
+shot c_se
+/tp @s 51000 630 6900 180 25
 wait 700
-shot d_low
-/tp @s 45632 446 14400 0 90
+shot d_south
+/tp @s 51000 638 6500 0 90
 wait 700
 shot e_top
 quit

@@ -26,7 +26,7 @@ jobs:
           mkdir -p lotr/run
           echo "eula=true" > lotr/run/eula.txt
           printf 'level-type=lotr_port\\:middle_earth\nonline-mode=false\nlevel-name=misty\nmax-tick-time=-1\n' > lotr/run/server.properties
-          JAVA_TOOL_OPTIONS="-Dlotr_port.terrainpreview=45632,14400,768 -Dlotr_port.terrainpreview.save=true -Xmx6g" ./gradlew :lotr:runServer --stacktrace > preview.log 2>&1 || true
+          JAVA_TOOL_OPTIONS="-Dlotr_port.terrainpreview=51000,6500,768 -Dlotr_port.terrainpreview.save=true -Xmx6g" ./gradlew :lotr:runServer --stacktrace > preview.log 2>&1 || true
           grep -E "\[preview\]|ERROR|Exception" preview.log | head -20 || true
           cat lotr/run/terrain_preview/stats.txt
       - name: Aerial shots
