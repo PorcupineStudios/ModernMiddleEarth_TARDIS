@@ -1,39 +1,33 @@
 name: Build
 
-# THROWAWAY (worldcheck-dump only): runs the Middle-earth world check with thread dumps every 60 s after 4 minutes,
-# and pushes the log and dumps to claude/terrain-shots-tmp.
+# THROWAWAY (treecheck-repro only): the Middle-earth world check with one seed, on the code with the noise cuts and
+# on the code before them, to see whether the cuts lose tree leaves.
 on:
   push:
-    branches: ['claude/worldcheck-dump']
+    branches: ['claude/treecheck-repro']
 
 jobs:
   check:
     runs-on: ubuntu-latest
     timeout-minutes: 40
-    permissions:
-      contents: write
+    strategy:
+      fail-fast: false
+      matrix:
+        ref: [claude/reeds-lakes-shire, 035d39cd0a0a1f856c276a438dc06ca5f0f382de]
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ matrix.ref }}
       - uses: actions/setup-java@v4
         with:
           distribution: temurin
           java-version: '21'
       - uses: gradle/actions/setup-gradle@v4
-      - name: Middle-earth world with dumps
+      - name: Middle-earth world, seed 7866868388345729068
         timeout-minutes: 30
         run: |
-          mkdir -p lotr/run out
+          mkdir -p lotr/run
           echo "eula=true" > lotr/run/eula.txt
-          printf 'level-type=lotr_port\\:middle_earth\nonline-mode=false\nlevel-name=middle-earth-check\nmax-tick-time=-1\nlevel-seed=-642785164712710613\n' > lotr/run/server.properties
-          (sleep 240; for i in $(seq 1 18); do for p in $(jps -l | grep -v -i "gradle\|jps" | awk '{print $1}'); do jcmd $p Thread.print > out/dump_${i}_$p.txt 2>&1; done; sleep 60; done) &
-          (JAVA_TOOL_OPTIONS="-Dlotr_port.worldcheck=true -Xmx6g" timeout 1500 ./gradlew :lotr:runServer --stacktrace > out/worldcheck.log 2>&1 || true)
-          grep -E "\[worldcheck\]|WORLDCHECK" out/worldcheck.log | tail -30 || true
-      - name: Push results
-        if: always()
-        run: |
-          git config user.name "ci"; git config user.email "ci@users.noreply.github.com"
-          git checkout -q --orphan shots-tmp
-          git rm -rf -q --cached .
-          git add -f out
-          git commit -q -m "worldcheck dumps (throwaway)"
-          git push -f -q origin HEAD:refs/heads/claude/terrain-shots-tmp
+          printf 'level-type=lotr_port\\:middle_earth\nonline-mode=false\nlevel-name=middle-earth-check\nmax-tick-time=-1\nlevel-seed=7866868388345729068\n' > lotr/run/server.properties
+          JAVA_TOOL_OPTIONS="-Dlotr_port.worldcheck=true -Xmx10g" ./gradlew :lotr:runServer > worldcheck.log 2>&1 || true
+          grep -E "\[worldcheck\] (seed|generated|trees)|WORLDCHECK" worldcheck.log | cut -c1-600
