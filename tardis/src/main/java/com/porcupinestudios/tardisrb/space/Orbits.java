@@ -82,7 +82,10 @@ public final class Orbits {
     }
 
     public static void stepSystem(Entity e, StarSystem s, Tuning.SpaceTuning t, int thrust, int boost) {
-        apply(e, t, thrust, boost, v -> s.gravity(e.position(), t).scale(GravityScale.of(e)));
+        // on a ship the focus pulls it and you alike, so you feel only its deck (gravity/Decks)
+        Vec3 deck = com.porcupinestudios.tardisrb.gravity.Decks.pull(e, t);
+        apply(e, t, thrust, boost, v -> s.gravity(e.position(), t).add(deck == null ? Vec3.ZERO : deck)
+                .scale(GravityScale.of(e)));
     }
 
     private static void apply(Entity e, Tuning.SpaceTuning t, int thrust, int boost,

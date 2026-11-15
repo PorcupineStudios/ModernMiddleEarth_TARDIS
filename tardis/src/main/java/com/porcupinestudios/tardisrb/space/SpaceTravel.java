@@ -182,8 +182,12 @@ public final class SpaceTravel {
                     }
                 } else if (st.inSun(pos)) {
                     burn(e, st);
-                } else if (all && Orbits.moves(e) && !e.onGround()) {
-                    net.minecraft.core.Direction down = st.down(pos, tuning);
+                } else if (all && Orbits.moves(e)
+                        && (!e.onGround() || com.porcupinestudios.tardisrb.gravity.Decks.down.apply(e) != null)) {
+                    // on a ship's deck the six-way hitbox takes the nearest direction to its floor
+                    Vec3 deck = com.porcupinestudios.tardisrb.gravity.Decks.down.apply(e);
+                    net.minecraft.core.Direction down = deck != null
+                            ? net.minecraft.core.Direction.getNearest(deck.x, deck.y, deck.z) : st.down(pos, tuning);
                     if (down != com.porcupinestudios.tardisrb.gravity.GravityDirection.of(e)) {
                         com.porcupinestudios.tardisrb.gravity.GravityDirection.set(e, down, TURN_MS);
                     }

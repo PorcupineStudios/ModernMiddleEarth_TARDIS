@@ -468,13 +468,13 @@ public record Tuning(CrashSite crashSite, Hop hop, Winder winder, Interior inter
      * within {@code focus_range} times its entry radius, else the sun ({@code StarSystem#focus}).
      * Aeronautics ships (compat/sable, Sable loaded): {@code ship_align} turns a ship's up toward the focus away from its
      * centre, as a spring ({@code ship_align_strength}, rad/s² per radian) with damping ({@code ship_align_damping}, per
-     * second); the defaults are critically damped and settle in about two seconds. Yaw stays free.
+     * second); the defaults (9, 6) are critically damped and settle in about 1.5 seconds. Yaw stays free.
      */
     public record Motion(double orbitSpeed, double thrust, double maxSpeed, boolean dragFree, boolean freeTilt,
             double tiltSpeed, double boost, double chunkSkipSpeed, double focusRange, boolean shipAlign,
             double shipAlignStrength, double shipAlignDamping) {
         public static final Motion DEFAULT =
-                new Motion(2.5, 0.02, 40.0, true, true, 0.12, 0.25, 4.0, 6.0, true, 4.0, 4.0);
+                new Motion(2.5, 0.02, 40.0, true, true, 0.12, 0.25, 4.0, 6.0, true, 9.0, 6.0);
         public static final Codec<Motion> CODEC = RecordCodecBuilder.create(i -> i.group(
                 Codec.doubleRange(0, 64).optionalFieldOf("orbit_speed", DEFAULT.orbitSpeed)
                         .forGetter(Motion::orbitSpeed),

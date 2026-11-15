@@ -82,7 +82,10 @@ public final class Tilt {
             h.tardis_rb$setTilt(tilt);
         }
         tilt.prev.set(tilt.now);
-        tilt.now.slerp(target(f, e.onGround() ? null : st.gravity(e.position(), t)), (float) t.motion().tiltSpeed())
+        // on a ship (a station's deck) lean to its floor even standing; otherwise to the pull while floating
+        Vec3 deck = Decks.down.apply(e);
+        Vec3 pull = deck != null ? deck : e.onGround() ? null : st.gravity(e.position(), t);
+        tilt.now.slerp(target(f, pull), (float) t.motion().tiltSpeed())
                 .normalize();
     }
 

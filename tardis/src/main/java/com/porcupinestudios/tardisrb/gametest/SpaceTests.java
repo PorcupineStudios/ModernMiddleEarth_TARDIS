@@ -430,7 +430,7 @@ public final class SpaceTests {
         org.joml.Vector3d omega = new org.joml.Vector3d();
         double dt = 0.05, overshoot = 0;
         for (int i = 0; i < 200; i++) { // 10 seconds
-            omega.add(com.porcupinestudios.tardisrb.compat.sable.ShipAlign.deltaOmega(up, want, omega,
+            omega.add(com.porcupinestudios.tardisrb.compat.sable.ShipAlign.deltaOmega(up, want, omega, new org.joml.Vector3d(),
                     m.shipAlignStrength(), m.shipAlignDamping(), dt));
             double w = omega.length();
             if (w > 0) {
@@ -443,5 +443,18 @@ public final class SpaceTests {
         helper.assertTrue(off < 2, "not settled: " + off + " degrees off");
         helper.assertTrue(overshoot <= 10, "overshot by " + overshoot + " degrees");
         helper.succeed();
+    }
+
+    /**
+     * Space stations are Aeronautics ships: a real Sable ship given a circular orbit keeps its floor toward the centre
+     * as it goes round ({@code compat/sable/ShipOrbitTest}). Passes trivially without Sable.
+     */
+    @GameTest(template = "platform", timeoutTicks = 200)
+    public static void stationOrbitKeepsItsFloorDown(GameTestHelper helper) {
+        if (!net.neoforged.fml.ModList.get().isLoaded("sable")) {
+            helper.succeed();
+            return;
+        }
+        com.porcupinestudios.tardisrb.compat.sable.ShipOrbitTest.run(helper);
     }
 }
