@@ -95,6 +95,15 @@ https://claude.ai/artifact/KqhSSTCuKXGuwKHBoYJdcu. Rebuild features in modern co
   6 km stretch y 340-490.
 - Build limit (2026-11-15): Middle-earth goes up to y 640 (`world.py TOP_Y`; its own dimension type, also for the
   world preset's overworld). Worlds made before keep vanilla's 320, and their mountains get cut flat at the top.
+- Cheap terrain (2026-11-15, Aaron: LOTR's fast travel needs fast chunk loading): the hills' noise only within a
+  band of the ground (`range_choice` on (level - y) / (hilliness + 2), `world.py NOISE_BAND_*`, map_terrain value
+  `band`); mixin `NoiseGeneratorMixin` cuts Middle-earth's noise height to the band's top per chunk and per column
+  (`map/NoiseTop`, never under the sea) for filling, the noise chunk and ground scans; `MapBiomeSource` caches the
+  last 16 quart columns per thread (biomes don't vary with height; a chunk asks all 44 sections). GameTests
+  `NoiseBandTests`: the band covers the sampled noise for every hilliness (needs 8.4 above, 4 below), and 3000
+  columns with the cuts match the full formula exactly. Benchmark (one runner, 512x512 squares, seed 12345):
+  Shire 44 s before -> 31 s, the same as the world at y 320; Misty Mountains 84 s (y 320 flattens them: 57 s).
+  The world check's leaf failure on seed 7866868388345729068 (Gondor woodlands, 64928 74 59930) predates the cuts.
 - `Roads` registers each segment in every 256-block cell within `Roads.FLATTEN` (32): the terrain flattens hills by
   road distance, and a segment missing from a cell made it jump at the cell edge (straight 10+ block cliffs).
 - Terrain preview (dev tool): `-Dlotr_port.terrainpreview=<x>,<z>,<size>` on a Middle-earth server writes
