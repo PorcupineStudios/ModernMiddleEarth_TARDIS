@@ -1,0 +1,410 @@
+# The colony management screen (UI core), for the "UI screenshots" workflow: a colony with dwarves, hobbits and men,
+# then the People tab, its filter box, Overview, Buildings and Members, and one citizen's page. Click spots are GUI
+# units for a 1280x720 window at GUI scale 3 (427 x 240): see UiScreen's layout.
+wait 200
+/time set 6000
+/weather clear
+/gamerule doMobSpawning false
+/lotr colony found "Minas Test"
+/lotr npc spawn lotr_port:blue_dwarf
+/lotr npc spawn lotr_port:blue_dwarf
+/lotr npc spawn lotr_port:blue_dwarf
+/lotr npc spawn lotr_port:blue_dwarf
+/lotr npc spawn lotr_port:blue_dwarf
+/lotr npc spawn lotr_port:hobbit
+/lotr npc spawn lotr_port:hobbit
+/lotr npc spawn lotr_port:hobbit_farmer
+/lotr npc spawn lotr_port:hobbit
+/lotr npc spawn lotr_port:gondor_man
+/lotr npc spawn lotr_port:gondor_man
+/lotr npc spawn lotr_port:bree_man
+wait 20
+/lotr colony settle @e[type=lotr_port:npc,distance=..40]
+/lotr colony coins 250
+# a colony day, so everyone has a day counted by their schedule
+/lotr colony day 1
+wait 40
+shot world
+/lotr_colony manage
+wait 60
+shot ui_people
+# Filters (n) drop-down at the table's top right
+click 368 51
+wait 10
+shot ui_filters
+# a click outside the box closes it
+click 30 200
+wait 5
+# the tabs: Overview, Buildings, ..., Members
+click 83 26
+wait 40
+shot ui_overview
+click 152 26
+wait 40
+shot ui_buildings
+click 345 26
+wait 40
+shot ui_members
+close
+wait 5
+# the citizen page of the nearest colonist (as sneak + right-click on them)
+/lotr_colony citizen @e[type=lotr_port:npc,sort=nearest,limit=1]
+wait 60
+shot ui_citizen
+close
+wait 5
+/lotr_colony citizen @e[type=lotr_port:npc,sort=nearest,limit=1] tasks
+wait 60
+shot ui_citizen_tasks
+close
+wait 5
+/lotr_colony citizen @e[type=lotr_port:npc,sort=nearest,limit=1] mood
+wait 60
+shot ui_citizen_mood
+close
+wait 5
+/lotr_colony citizen @e[type=lotr_port:npc,sort=nearest,limit=1] schedule
+wait 60
+shot ui_citizen_schedule
+close
+wait 5
+# skills, opinions (a few days for them to form) and immigration (a guest house widens the board)
+/lotr colony day 5
+/lotr_colony citizen @e[type=lotr_port:npc,sort=nearest,limit=1] skills
+wait 60
+shot ui_citizen_skills
+close
+wait 5
+/lotr_colony citizen @e[type=lotr_port:npc,sort=nearest,limit=1] people
+wait 60
+shot ui_citizen_people
+close
+wait 5
+/lotr colony upgrade guest_house
+/lotr colony upgrade scholars_welcome
+/lotr colony immigrants
+/lotr_colony manage immigration
+wait 60
+shot ui_immigration
+close
+wait 5
+# a family on the board for the candidate page and its tree (an admin command draws one)
+/lotr colony immigrants family
+wait 60
+shot ui_candidate_tree
+close
+wait 5
+/lotr_colony manage immigration
+wait 40
+press 60 95
+release
+wait 5
+press 60 95
+release
+wait 40
+shot ui_candidate
+close
+wait 5
+# a family over three generations for the About tab's tree: f is a's parent; a and b married with children c and d,
+# then divorced, and a married g (child h); c married e
+/tag @e[type=lotr_port:npc,limit=1,sort=nearest,tag=!fam] add a
+/tag @e[tag=a] add fam
+/tag @e[type=lotr_port:npc,limit=1,sort=nearest,tag=!fam] add b
+/tag @e[tag=b] add fam
+/tag @e[type=lotr_port:npc,limit=1,sort=nearest,tag=!fam] add c
+/tag @e[tag=c] add fam
+/tag @e[type=lotr_port:npc,limit=1,sort=nearest,tag=!fam] add d
+/tag @e[tag=d] add fam
+/tag @e[type=lotr_port:npc,limit=1,sort=nearest,tag=!fam] add e
+/tag @e[tag=e] add fam
+/tag @e[type=lotr_port:npc,limit=1,sort=nearest,tag=!fam] add f
+/tag @e[tag=f] add fam
+/tag @e[type=lotr_port:npc,limit=1,sort=nearest,tag=!fam] add g
+/tag @e[tag=g] add fam
+/tag @e[type=lotr_port:npc,limit=1,sort=nearest,tag=!fam] add h
+/lotr colony kin spouse @e[tag=a,limit=1] @e[tag=b,limit=1]
+/lotr colony kin parent @e[tag=a,limit=1] @e[tag=f,limit=1]
+/lotr colony kin parent @e[tag=c,limit=1] @e[tag=a,limit=1]
+/lotr colony kin parent @e[tag=c,limit=1] @e[tag=b,limit=1]
+/lotr colony kin parent @e[tag=d,limit=1] @e[tag=a,limit=1]
+/lotr colony kin parent @e[tag=d,limit=1] @e[tag=b,limit=1]
+/lotr colony kin spouse @e[tag=c,limit=1] @e[tag=e,limit=1]
+# a and b divorce and a remarries g; their child h
+/lotr colony kin spouse @e[tag=a,limit=1] @e[tag=g,limit=1]
+/lotr colony kin parent @e[tag=h,limit=1] @e[tag=a,limit=1]
+/lotr colony kin parent @e[tag=h,limit=1] @e[tag=g,limit=1]
+# d is banished (an arrow badge), f dies (a cross)
+/lotr colony banish @e[tag=d,limit=1]
+/kill @e[tag=f]
+wait 10
+/lotr_colony citizen @e[tag=c,limit=1] about
+wait 60
+shot ui_citizen_about
+close
+wait 5
+/lotr_colony manage schedules
+wait 60
+shot ui_schedules
+close
+wait 5
+# caravans: a friendly AI colony 200 blocks east as the other end
+/tp @p ~200 ~ ~
+wait 40
+/lotr colony found_ai "Osgiliath Test"
+/tp @p ~-200 ~ ~
+wait 40
+/lotr_colony caravan keep bread 32
+/lotr_colony caravan route add "Osgiliath Test" 3 "bread*64,cobblestone*128" "iron_ingot*16"
+/lotr_colony caravan route add "Osgiliath Test" 0 - "oak_log*64"
+/lotr_colony caravan route add "Osgiliath Test" 0 "bread>30" -
+/lotr_colony caravan route name 1 Grain to Osgiliath
+/lotr_colony caravan route name 3 Bread top-up
+/lotr_colony caravan route when 3 "Osgiliath Test" bread below 50
+/lotr_colony caravan route rules 1 [{"if":{"type":"ringbearer_api:all","conditions":[{"type":"lotr_port:days_since_sent","days":3},{"type":"ringbearer_api:any","conditions":[{"type":"lotr_port:colony_stock","colony":"destination","item":"minecraft:bread","compare":"<","value":100},{"type":"lotr_port:colony_population","colony":"destination","compare":">","value":20}]}]},"then":[{"type":"lotr_port:take","item":"minecraft:bread","mode":"topup","amount":200},{"type":"lotr_port:send_caravan"}],"else":[{"type":"lotr_port:message","text":"Nothing to send"}],"edge":true},{"if":{"type":"lotr_port:colony_stock","colony":"home","item":"minecraft:cobblestone","compare":">","value":1000},"then":[{"type":"lotr_port:take","item":"minecraft:cobblestone","mode":"excess","amount":1000},{"type":"lotr_port:send_caravan","only_extras":true}]}]
+/lotr_colony caravan offer add "white_wool*2" "bread*1" 16 10
+/lotr_colony caravan route send 2
+wait 40
+/lotr_colony manage caravans
+wait 60
+shot ui_caravans
+close
+wait 5
+/lotr_colony caravan route edit 1
+wait 60
+shot ui_caravan_route
+close
+wait 5
+/lotr_colony caravan route edit 1 rules
+wait 60
+shot ui_caravan_rules
+# the block menu (GUI coordinates; CI runs at GUI scale 3): Control, then drag "if then else" to the top
+press 34 58
+release
+wait 10
+shot ui_caravan_palette
+press 90 80
+move 300 60
+wait 10
+shot ui_caravan_drag
+move 300 200
+wait 10
+shot ui_caravan_drag2
+release
+wait 30
+shot ui_caravan_dropped
+# film for a GIF: drag a new rule slowly over the script, one frame a tick
+press 90 80
+step 105 79
+wait 1
+shot gif_000
+step 120 77
+wait 1
+shot gif_001
+step 135 76
+wait 1
+shot gif_002
+step 150 74
+wait 1
+shot gif_003
+step 165 73
+wait 1
+shot gif_004
+step 180 71
+wait 1
+shot gif_005
+step 195 70
+wait 1
+shot gif_006
+step 210 69
+wait 1
+shot gif_007
+step 225 67
+wait 1
+shot gif_008
+step 240 66
+wait 1
+shot gif_009
+step 255 64
+wait 1
+shot gif_010
+step 270 63
+wait 1
+shot gif_011
+step 285 61
+wait 1
+shot gif_012
+step 300 60
+wait 1
+shot gif_013
+step 300 60
+wait 1
+shot gif_014
+step 300 60
+wait 1
+shot gif_015
+step 300 60
+wait 1
+shot gif_016
+step 300 60
+wait 1
+shot gif_017
+step 300 60
+wait 1
+shot gif_018
+step 300 60
+wait 1
+shot gif_019
+step 300 69
+wait 1
+shot gif_020
+step 300 78
+wait 1
+shot gif_021
+step 300 86
+wait 1
+shot gif_022
+step 300 95
+wait 1
+shot gif_023
+step 300 104
+wait 1
+shot gif_024
+step 300 112
+wait 1
+shot gif_025
+step 300 121
+wait 1
+shot gif_026
+step 300 130
+wait 1
+shot gif_027
+step 300 139
+wait 1
+shot gif_028
+step 300 148
+wait 1
+shot gif_029
+step 300 156
+wait 1
+shot gif_030
+step 300 165
+wait 1
+shot gif_031
+step 300 174
+wait 1
+shot gif_032
+step 300 182
+wait 1
+shot gif_033
+step 300 191
+wait 1
+shot gif_034
+step 300 200
+wait 1
+shot gif_035
+step 300 200
+wait 1
+shot gif_036
+step 300 200
+wait 1
+shot gif_037
+step 300 200
+wait 1
+shot gif_038
+step 300 200
+wait 1
+shot gif_039
+step 300 200
+wait 1
+shot gif_040
+step 300 200
+wait 1
+shot gif_041
+step 300 188
+wait 1
+shot gif_042
+step 300 177
+wait 1
+shot gif_043
+step 300 165
+wait 1
+shot gif_044
+step 300 153
+wait 1
+shot gif_045
+step 300 142
+wait 1
+shot gif_046
+step 300 130
+wait 1
+shot gif_047
+step 300 118
+wait 1
+shot gif_048
+step 300 107
+wait 1
+shot gif_049
+step 300 95
+wait 1
+shot gif_050
+step 300 83
+wait 1
+shot gif_051
+step 300 72
+wait 1
+shot gif_052
+step 300 60
+wait 1
+shot gif_053
+step 300 60
+wait 1
+shot gif_054
+step 300 60
+wait 1
+shot gif_055
+step 300 60
+wait 1
+shot gif_056
+step 300 60
+wait 1
+shot gif_057
+step 300 60
+wait 1
+shot gif_058
+step 300 60
+wait 1
+shot gif_059
+release
+wait 1
+shot gif_060
+wait 1
+shot gif_061
+wait 1
+shot gif_062
+wait 1
+shot gif_063
+wait 1
+shot gif_064
+wait 1
+shot gif_065
+wait 1
+shot gif_066
+wait 1
+shot gif_067
+wait 1
+shot gif_068
+wait 1
+shot gif_069
+close
+wait 5
+/lotr_colony caravan route edit 3
+wait 60
+shot ui_caravan_trigger
+close
+wait 5
+/lotr_colony caravan trades
+wait 60
+shot ui_caravan_trades
+close
+wait 5
+quit

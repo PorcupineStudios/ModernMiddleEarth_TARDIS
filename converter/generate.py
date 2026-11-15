@@ -38,6 +38,11 @@ from create_compat import CreateCompat  # noqa: E402
 from sounds import Sounds  # noqa: E402
 from extra import Extra  # noqa: E402
 from drinks import Drinks  # noqa: E402
+from machines import Machines
+from farming import Farming  # noqa: E402
+from ores import Ores  # noqa: E402
+from thrown import Thrown  # noqa: E402
+from mounts import Mounts  # noqa: E402
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 EXPORT = os.path.join(ROOT, "converter", "export")
@@ -128,6 +133,7 @@ class Gen:
         self.unloc = {}  # new id -> old unlocalized key (for other languages)
         self.tags = collections.defaultdict(set)  # "minecraft:block/mineable/pickaxe" -> ids
         self.recipe_count = 0
+        self.tab_after = {}
         self.pending_vessels = []  # vessels met before the water mug got its id
         self.melee = self.weapon_tables()
         self.drinks = Drinks(self, EXPORT, ASSETS, DATA, os.path.join(OUT, NS, "content"))
@@ -1307,6 +1313,11 @@ class Gen:
                 if new not in placed and new not in self.hidden:
                     placed.add(new)
                     tab["items"].append(new)
+        for new, anchor in self.tab_after.items():  # the port's own items go beside a LOTR item
+            for tab in tabs.values():
+                if anchor in tab["items"] and new not in placed:
+                    tab["items"].insert(tab["items"].index(anchor) + 1, new)
+                    placed.add(new)
         everything = [e["id"] for e in self.blocks if e["id"] not in self.hidden] + [e["id"] for e in self.items]
         missing = [i for i in everything if i not in placed]
         if missing:
@@ -1363,6 +1374,12 @@ class Gen:
         drinks = self.drinks.run()
         self.ore_tags()
         create = CreateCompat(self, DATA, EXPORT).run()
+        machines = Machines(self, EXPORT, ASSETS, DATA, self.jar).run()
+        machines.update(Farming(self, EXPORT, ASSETS, DATA).run())
+        machines.update(Ores(self, EXPORT, DATA).run())
+        machines.update(Thrown(self, EXPORT, DATA).run())
+        machines.update(Mounts(self, EXPORT, DATA, ASSETS, os.path.join(OUT, NS, "content"),
+                               os.path.join(ROOT, "converter", "cache")).run())
         tabs = self.do_tabs()
         self.other_langs()
         extra = Extra(self, EXPORT, DATA, ASSETS, os.path.join(OUT, NS, "content"), self.jar).run()
@@ -1394,7 +1411,7 @@ class Gen:
         write_json(os.path.join(ROOT, "converter", "idtable.json"), dict(sorted(self.idtable.items())))
         summary = {"blocks": len(self.blocks), "items": len(self.items), "recipes": self.recipe_count, **sounds, **extra,
                    "textures": len(self.tex.copied), "languages": len(self.lang), "tabs": len(tabs), **world, **factions, **npcs,
-                   **drinks}
+                   **drinks, **machines}
         self.report["missing_textures"] = [m for m in self.report["missing_textures"] if not m.endswith("_mug")]
         rep = {"summary": summary}
         for k, v in sorted(self.report.items()):

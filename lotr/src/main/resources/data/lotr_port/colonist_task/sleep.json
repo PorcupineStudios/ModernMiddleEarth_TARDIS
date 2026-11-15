@@ -1,0 +1,10 @@
+{
+  "action": "sleep",
+  "place": "home",
+  "priority": { "sleep": 8, "any": 3, "leisure": 2 },
+  "need": "energy",
+  "want_below": 60,
+  "always_in": ["sleep"],
+  "urgent_below": 25,
+  "urgent_priority": 10
+}

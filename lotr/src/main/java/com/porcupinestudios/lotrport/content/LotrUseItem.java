@@ -27,7 +27,7 @@ import net.minecraft.world.phys.HitResult;
  * <li>{@code horn} (horns of command, warhorns): blown for 40 ticks, then {@code item.horn}, loud (volume 4, as
  * LOTRItemCommandHorn). Ordering hired units and calling invasions come with those systems.</li>
  * <li>{@code pipe} (the smoking pipe): smoked for 40 ticks with pipe-weed in the inventory, which it uses up, then
- * {@code item.puff} and a smoke ring of particles (LOTRItemHobbitPipe).</li>
+ * {@code item.puff} and a smoke ring drifting off (LOTRItemHobbitPipe).</li>
  * <li>{@code vessel} (mugs, goblets, cups): used on water it becomes a vessel of water, with {@code item.mug_fill}
  * (LOTRItemMug).</li>
  * </ul>
@@ -88,15 +88,33 @@ public class LotrUseItem extends Item {
             LotrSounds.playAt(level, player.getX(), player.getY(), player.getZ(), "item.puff", SoundSource.PLAYERS,
                     1f, 1f);
             if (level instanceof ServerLevel server) {
-                var look = player.getLookAngle();
-                for (int i = 0; i < 16; i++) {
-                    server.sendParticles(ParticleTypes.CLOUD, player.getX() + look.x * 0.6,
-                            player.getEyeY() + look.y * 0.6, player.getZ() + look.z * 0.6, 1,
-                            0.05, 0.05, 0.05, 0.01);
-                }
+                smokeRing(server, player);
             }
         }
         return stack;
+    }
+
+    /**
+     * LOTR's smoke ring (LOTREntitySmokeRing): a ring blown from the mouth that drifts slowly the way you look. Drawn
+     * as a circle of smoke particles, each moving forward and a little outward so the ring widens as it goes.
+     */
+    private static void smokeRing(ServerLevel server, Player player) {
+        var look = player.getLookAngle().normalize();
+        var side = look.cross(new net.minecraft.world.phys.Vec3(0, 1, 0));
+        if (side.lengthSqr() < 1e-4) {
+            side = new net.minecraft.world.phys.Vec3(1, 0, 0);
+        }
+        side = side.normalize();
+        var up = side.cross(look).normalize();
+        double x = player.getX() + look.x * 0.6;
+        double y = player.getEyeY() - 0.1 + look.y * 0.6;
+        double z = player.getZ() + look.z * 0.6;
+        for (int i = 0; i < 24; i++) {
+            double a = i * Math.PI * 2 / 24;
+            var r = side.scale(Math.cos(a) * 0.15).add(up.scale(Math.sin(a) * 0.15));
+            var v = look.scale(0.08).add(r.scale(0.15));
+            server.sendParticles(ParticleTypes.POOF, x + r.x, y + r.y, z + r.z, 0, v.x, v.y, v.z, 1);
+        }
     }
 
     private static ItemStack findPipeWeed(Player player) {

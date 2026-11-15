@@ -11,6 +11,9 @@
   "health": 20.0,
   "speed": 0.2,
   "attack": 2.0,
+  "behaviour_data": {
+    "ride_chance": 6
+  },
   "gear": {
     "mainhand": [
       "lotr_port:poisoned_umbaric_dagger",
@@ -21,7 +24,9 @@
     "head": "lotr_port:umbaric_helmet",
     "chest": "lotr_port:umbaric_chestplate",
     "legs": "lotr_port:umbaric_leggings",
-    "feet": "lotr_port:umbaric_boots"
+    "feet": "lotr_port:umbaric_boots",
+    "mount": "lotr_port:horse",
+    "mount_armor": "lotr_port:umbaric_horse_armor"
   },
   "names": "lotr_port:umbar_male",
   "speech": "lotr_port:near_harad/mercenary",

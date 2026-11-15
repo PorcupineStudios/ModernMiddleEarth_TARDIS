@@ -14,7 +14,16 @@
       "offset": 2.0
     }
   },
-  "spawners": {},
+  "spawners": {
+    "creature": [
+      {
+        "type": "lotr_port:rhino",
+        "weight": 8,
+        "minCount": 4,
+        "maxCount": 4
+      }
+    ]
+  },
   "spawn_costs": {},
   "carvers": {
     "air": [

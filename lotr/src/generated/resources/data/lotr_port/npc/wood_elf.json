@@ -15,8 +15,20 @@
   "health": 30.0,
   "speed": 0.2,
   "attack": 2.0,
+  "behaviours": [
+    "archer"
+  ],
+  "behaviour_data": {
+    "ranged_speed": 1.25,
+    "ranged_min": 30,
+    "ranged_max": 50,
+    "ranged_range": 16.0,
+    "ranged_accuracy": 0.5,
+    "ranged_swap": 1
+  },
   "gear": {
-    "mainhand": "lotr_port:bow_of_mirkwood"
+    "mainhand": "lotr_port:bow_of_mirkwood",
+    "ranged": "lotr_port:bow_of_mirkwood"
   },
   "speech": "lotr_port:wood_elf/elf",
   "quests": "lotr_port:wood_elf"

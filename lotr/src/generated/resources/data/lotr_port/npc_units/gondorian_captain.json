@@ -19,7 +19,7 @@
       "npc": "lotr_port:gondor_soldier",
       "cost": 50,
       "alignment": 350.0,
-      "mount": "minecraft:horse"
+      "mount": "lotr_port:horse"
     },
     {
       "npc": "lotr_port:gondor_tower_guard",

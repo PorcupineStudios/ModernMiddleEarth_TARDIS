@@ -152,7 +152,8 @@
     "kind": "item",
     "stack": 1,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "places": "armor_stand_block"
   },
   {
     "id": "poisoned_arrow",
@@ -348,294 +349,294 @@
   },
   {
     "id": "banner_of_gondor",
-    "kind": "item",
+    "kind": "banner",
     "stack": 16,
     "level": 2,
     "speed": 6.0
   },
   {
     "id": "banner_of_rohan",
-    "kind": "item",
+    "kind": "banner",
     "stack": 16,
     "level": 2,
     "speed": 6.0
   },
   {
     "id": "banner_of_mordor",
-    "kind": "item",
+    "kind": "banner",
     "stack": 16,
     "level": 2,
     "speed": 6.0
   },
   {
     "id": "banner_of_lothl_rien",
-    "kind": "item",
+    "kind": "banner",
     "stack": 16,
     "level": 2,
     "speed": 6.0
   },
   {
     "id": "banner_of_the_woodland_realm",
-    "kind": "item",
+    "kind": "banner",
     "stack": 16,
     "level": 2,
     "speed": 6.0
   },
   {
     "id": "banner_of_dunland",
-    "kind": "item",
+    "kind": "banner",
     "stack": 16,
     "level": 2,
     "speed": 6.0
   },
   {
     "id": "banner_of_isengard",
-    "kind": "item",
+    "kind": "banner",
     "stack": 16,
     "level": 2,
     "speed": 6.0
   },
   {
     "id": "banner_of_durins_folk",
-    "kind": "item",
+    "kind": "banner",
     "stack": 16,
     "level": 2,
     "speed": 6.0
   },
   {
     "id": "banner_of_angmar",
-    "kind": "item",
+    "kind": "banner",
     "stack": 16,
     "level": 2,
     "speed": 6.0
   },
   {
     "id": "banner_of_near_harad",
-    "kind": "item",
+    "kind": "banner",
     "stack": 16,
     "level": 2,
     "speed": 6.0
   },
   {
     "id": "banner_of_lindon",
-    "kind": "item",
+    "kind": "banner",
     "stack": 16,
     "level": 2,
     "speed": 6.0
   },
   {
     "id": "banner_of_the_blue_mountains",
-    "kind": "item",
+    "kind": "banner",
     "stack": 16,
     "level": 2,
     "speed": 6.0
   },
   {
     "id": "banner_of_the_d_nedain_of_the_north",
-    "kind": "item",
+    "kind": "banner",
     "stack": 16,
     "level": 2,
     "speed": 6.0
   },
   {
     "id": "banner_of_dol_guldur",
-    "kind": "item",
+    "kind": "banner",
     "stack": 16,
     "level": 2,
     "speed": 6.0
   },
   {
     "id": "banner_of_gundabad",
-    "kind": "item",
+    "kind": "banner",
     "stack": 16,
     "level": 2,
     "speed": 6.0
   },
   {
     "id": "banner_of_the_half_trolls",
-    "kind": "item",
+    "kind": "banner",
     "stack": 16,
     "level": 2,
     "speed": 6.0
   },
   {
     "id": "banner_of_dol_amroth",
-    "kind": "item",
+    "kind": "banner",
     "stack": 16,
     "level": 2,
     "speed": 6.0
   },
   {
     "id": "banner_of_the_morwaith",
-    "kind": "item",
+    "kind": "banner",
     "stack": 16,
     "level": 2,
     "speed": 6.0
   },
   {
     "id": "banner_of_the_taurethrim",
-    "kind": "item",
+    "kind": "banner",
     "stack": 16,
     "level": 2,
     "speed": 6.0
   },
   {
     "id": "banner_of_dale",
-    "kind": "item",
+    "kind": "banner",
     "stack": 16,
     "level": 2,
     "speed": 6.0
   },
   {
     "id": "banner_of_dorwinion",
-    "kind": "item",
+    "kind": "banner",
     "stack": 16,
     "level": 2,
     "speed": 6.0
   },
   {
     "id": "banner_of_the_hobbits",
-    "kind": "item",
+    "kind": "banner",
     "stack": 16,
     "level": 2,
     "speed": 6.0
   },
   {
     "id": "banner_of_an_rien",
-    "kind": "item",
+    "kind": "banner",
     "stack": 16,
     "level": 2,
     "speed": 6.0
   },
   {
     "id": "banner_of_ithilien",
-    "kind": "item",
+    "kind": "banner",
     "stack": 16,
     "level": 2,
     "speed": 6.0
   },
   {
     "id": "banner_of_lossarnach",
-    "kind": "item",
+    "kind": "banner",
     "stack": 16,
     "level": 2,
     "speed": 6.0
   },
   {
     "id": "banner_of_lebennin",
-    "kind": "item",
+    "kind": "banner",
     "stack": 16,
     "level": 2,
     "speed": 6.0
   },
   {
     "id": "banner_of_pelargir",
-    "kind": "item",
+    "kind": "banner",
     "stack": 16,
     "level": 2,
     "speed": 6.0
   },
   {
     "id": "banner_of_blackroot_vale",
-    "kind": "item",
+    "kind": "banner",
     "stack": 16,
     "level": 2,
     "speed": 6.0
   },
   {
     "id": "banner_of_pinnath_gelin",
-    "kind": "item",
+    "kind": "banner",
     "stack": 16,
     "level": 2,
     "speed": 6.0
   },
   {
     "id": "banner_of_minas_morgul",
-    "kind": "item",
+    "kind": "banner",
     "stack": 16,
     "level": 2,
     "speed": 6.0
   },
   {
     "id": "banner_of_the_black_uruks",
-    "kind": "item",
+    "kind": "banner",
     "stack": 16,
     "level": 2,
     "speed": 6.0
   },
   {
     "id": "banner_of_the_stewards_of_gondor",
-    "kind": "item",
+    "kind": "banner",
     "stack": 16,
     "level": 2,
     "speed": 6.0
   },
   {
     "id": "banner_of_nan_ungol",
-    "kind": "item",
+    "kind": "banner",
     "stack": 16,
     "level": 2,
     "speed": 6.0
   },
   {
     "id": "banner_of_the_rhudaur_hillmen",
-    "kind": "item",
+    "kind": "banner",
     "stack": 16,
     "level": 2,
     "speed": 6.0
   },
   {
     "id": "banner_of_lamedon",
-    "kind": "item",
+    "kind": "banner",
     "stack": 16,
     "level": 2,
     "speed": 6.0
   },
   {
     "id": "banner_of_rh_del",
-    "kind": "item",
+    "kind": "banner",
     "stack": 16,
     "level": 2,
     "speed": 6.0
   },
   {
     "id": "banner_of_rivendell",
-    "kind": "item",
+    "kind": "banner",
     "stack": 16,
     "level": 2,
     "speed": 6.0
   },
   {
     "id": "banner_of_esgaroth",
-    "kind": "item",
+    "kind": "banner",
     "stack": 16,
     "level": 2,
     "speed": 6.0
   },
   {
     "id": "banner_of_umbar",
-    "kind": "item",
+    "kind": "banner",
     "stack": 16,
     "level": 2,
     "speed": 6.0
   },
   {
     "id": "banner_of_the_southron_nomads",
-    "kind": "item",
+    "kind": "banner",
     "stack": 16,
     "level": 2,
     "speed": 6.0
   },
   {
     "id": "banner_of_the_gulf_of_harad",
-    "kind": "item",
+    "kind": "banner",
     "stack": 16,
     "level": 2,
     "speed": 6.0
   },
   {
     "id": "banner_of_bree_land",
-    "kind": "item",
+    "kind": "banner",
     "stack": 16,
     "level": 2,
     "speed": 6.0
@@ -1122,17 +1123,27 @@
   },
   {
     "id": "blue_dwarven_boar_armor",
-    "kind": "item",
+    "kind": "mount_armor",
     "stack": 1,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "mount_armor": {
+      "mount": "boar",
+      "protection": 13,
+      "texture": "lotr_port:textures/entity/mount_armor/boar_blue_dwarven.png"
+    }
   },
   {
     "id": "dwarven_boar_armor",
-    "kind": "item",
+    "kind": "mount_armor",
     "stack": 1,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "mount_armor": {
+      "mount": "boar",
+      "protection": 13,
+      "texture": "lotr_port:textures/entity/mount_armor/boar_dwarven.png"
+    }
   },
   {
     "id": "angmar_chestplate",
@@ -2916,7 +2927,9 @@
     "kind": "item",
     "stack": 64,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "places": "ceramic_plate",
+    "throwable": "plate"
   },
   {
     "id": "cherries",
@@ -2938,10 +2951,11 @@
   },
   {
     "id": "conker",
-    "kind": "item",
+    "kind": "throwable",
     "stack": 16,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "throwable": "conker"
   },
   {
     "id": "roast_chestnut",
@@ -4736,10 +4750,15 @@
   },
   {
     "id": "wood_elven_elk_armor",
-    "kind": "item",
+    "kind": "mount_armor",
     "stack": 1,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "mount_armor": {
+      "mount": "elk",
+      "protection": 11,
+      "texture": "lotr_port:textures/entity/mount_armor/elk_wood_elven.png"
+    }
   },
   {
     "id": "galadhrim_bed",
@@ -4837,7 +4856,8 @@
     "kind": "item",
     "stack": 64,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "places": "flax_block"
   },
   {
     "id": "galvorn_ingot",
@@ -6359,94 +6379,159 @@
   },
   {
     "id": "dalish_horse_armor",
-    "kind": "item",
+    "kind": "mount_armor",
     "stack": 1,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "mount_armor": {
+      "mount": "horse",
+      "protection": 11,
+      "texture": "lotr_port:textures/entity/mount_armor/horse_dale.png"
+    }
   },
   {
     "id": "dol_amroth_horse_armor",
-    "kind": "item",
+    "kind": "mount_armor",
     "stack": 1,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "mount_armor": {
+      "mount": "horse",
+      "protection": 11,
+      "texture": "lotr_port:textures/entity/mount_armor/horse_dol_amroth.png"
+    }
   },
   {
     "id": "galadhrim_horse_armor",
-    "kind": "item",
+    "kind": "mount_armor",
     "stack": 1,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "mount_armor": {
+      "mount": "horse",
+      "protection": 11,
+      "texture": "lotr_port:textures/entity/mount_armor/horse_galadhrim.png"
+    }
   },
   {
     "id": "gondorian_horse_armor",
-    "kind": "item",
+    "kind": "mount_armor",
     "stack": 1,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "mount_armor": {
+      "mount": "horse",
+      "protection": 11,
+      "texture": "lotr_port:textures/entity/mount_armor/horse_gondor.png"
+    }
   },
   {
     "id": "lindon_horse_armor",
-    "kind": "item",
+    "kind": "mount_armor",
     "stack": 1,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "mount_armor": {
+      "mount": "horse",
+      "protection": 11,
+      "texture": "lotr_port:textures/entity/mount_armor/horse_high_elven.png"
+    }
   },
   {
     "id": "lamedon_horse_armor",
-    "kind": "item",
+    "kind": "mount_armor",
     "stack": 1,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "mount_armor": {
+      "mount": "horse",
+      "protection": 9,
+      "texture": "lotr_port:textures/entity/mount_armor/horse_lamedon.png"
+    }
   },
   {
     "id": "mithril_horse_armor",
-    "kind": "item",
+    "kind": "mount_armor",
     "stack": 1,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "mount_armor": {
+      "mount": "horse",
+      "protection": 14,
+      "texture": "lotr_port:textures/entity/mount_armor/horse_mithril.png"
+    }
   },
   {
     "id": "morgul_horse_armor",
-    "kind": "item",
+    "kind": "mount_armor",
     "stack": 1,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "mount_armor": {
+      "mount": "horse",
+      "protection": 11,
+      "texture": "lotr_port:textures/entity/mount_armor/horse_morgul.png"
+    }
   },
   {
     "id": "coast_southron_horse_armor",
-    "kind": "item",
+    "kind": "mount_armor",
     "stack": 1,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "mount_armor": {
+      "mount": "horse",
+      "protection": 9,
+      "texture": "lotr_port:textures/entity/mount_armor/horse_near_harad.png"
+    }
   },
   {
     "id": "rh_nic_horse_armor",
-    "kind": "item",
+    "kind": "mount_armor",
     "stack": 1,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "mount_armor": {
+      "mount": "horse",
+      "protection": 11,
+      "texture": "lotr_port:textures/entity/mount_armor/horse_rhun_gold.png"
+    }
   },
   {
     "id": "rivendell_horse_armor",
-    "kind": "item",
+    "kind": "mount_armor",
     "stack": 1,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "mount_armor": {
+      "mount": "horse",
+      "protection": 11,
+      "texture": "lotr_port:textures/entity/mount_armor/horse_rivendell.png"
+    }
   },
   {
     "id": "rohirric_horse_armor",
-    "kind": "item",
+    "kind": "mount_armor",
     "stack": 1,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "mount_armor": {
+      "mount": "horse",
+      "protection": 9,
+      "texture": "lotr_port:textures/entity/mount_armor/horse_rohan.png"
+    }
   },
   {
     "id": "umbaric_horse_armor",
-    "kind": "item",
+    "kind": "mount_armor",
     "stack": 1,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "mount_armor": {
+      "mount": "horse",
+      "protection": 11,
+      "texture": "lotr_port:textures/entity/mount_armor/horse_umbar.png"
+    }
   },
   {
     "id": "iron_crossbow",
@@ -6573,7 +6658,8 @@
     "food": {
       "nutrition": 2,
       "saturation": 0.3
-    }
+    },
+    "places": "leek_block"
   },
   {
     "id": "leek_soup",
@@ -7456,7 +7542,8 @@
     "food": {
       "nutrition": 3,
       "saturation": 0.4
-    }
+    },
+    "places": "lettuce_block"
   },
   {
     "id": "lime",
@@ -8797,10 +8884,11 @@
   },
   {
     "id": "mystery_web",
-    "kind": "item",
+    "kind": "throwable",
     "stack": 64,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "throwable": "mystery_web"
   },
   {
     "id": "durnor",
@@ -8970,10 +9058,11 @@
   },
   {
     "id": "pebble",
-    "kind": "item",
+    "kind": "throwable",
     "stack": 64,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "throwable": "pebble"
   },
   {
     "id": "angmar_pickaxe",
@@ -9367,14 +9456,17 @@
     "kind": "item",
     "stack": 64,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "places": "pipeweed"
   },
   {
     "id": "fine_plate",
     "kind": "item",
     "stack": 64,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "places": "plate",
+    "throwable": "plate"
   },
   {
     "id": "plum",
@@ -9552,26 +9644,29 @@
   },
   {
     "id": "small_pouch",
-    "kind": "item",
+    "kind": "pouch",
     "stack": 1,
     "level": 2,
     "speed": 6.0,
+    "slots": 9,
     "dyeable": true
   },
   {
     "id": "medium_pouch",
-    "kind": "item",
+    "kind": "pouch",
     "stack": 1,
     "level": 2,
     "speed": 6.0,
+    "slots": 18,
     "dyeable": true
   },
   {
     "id": "large_pouch",
-    "kind": "item",
+    "kind": "pouch",
     "stack": 1,
     "level": 2,
     "speed": 6.0,
+    "slots": 27,
     "dyeable": true
   },
   {
@@ -9664,10 +9759,15 @@
   },
   {
     "id": "half_troll_rhino_armor",
-    "kind": "item",
+    "kind": "mount_armor",
     "stack": 1,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "mount_armor": {
+      "mount": "rhino",
+      "protection": 9,
+      "texture": "lotr_port:textures/entity/mount_armor/rhino_half_troll.png"
+    }
   },
   {
     "id": "cooked_rhino",
@@ -9712,10 +9812,11 @@
   },
   {
     "id": "rh_nic_fire_pot",
-    "kind": "item",
+    "kind": "throwable",
     "stack": 4,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "throwable": "fire_pot"
   },
   {
     "id": "ringil",
@@ -9953,17 +10054,19 @@
   },
   {
     "id": "red_grape_seeds",
-    "kind": "item",
+    "kind": "grape_seeds",
     "stack": 64,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "places": "grapevine_red"
   },
   {
     "id": "green_grape_seeds",
-    "kind": "item",
+    "kind": "grape_seeds",
     "stack": 64,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "places": "grapevine_white"
   },
   {
     "id": "shish_kebab",
@@ -10133,7 +10236,7 @@
   },
   {
     "id": "sling",
-    "kind": "item",
+    "kind": "sling",
     "durability": 250,
     "level": 2,
     "speed": 6.0
@@ -10155,6 +10258,9 @@
       "knockback": 0,
       "sweep": false,
       "sweep_ratio": 0.0
+    },
+    "throw": {
+      "damage": 3.85
     }
   },
   {
@@ -10174,6 +10280,9 @@
       "knockback": 0,
       "sweep": false,
       "sweep_ratio": 0.0
+    },
+    "throw": {
+      "damage": 3.85
     }
   },
   {
@@ -10193,6 +10302,9 @@
       "knockback": 0,
       "sweep": false,
       "sweep_ratio": 0.0
+    },
+    "throw": {
+      "damage": 3.85
     }
   },
   {
@@ -10212,6 +10324,9 @@
       "knockback": 0,
       "sweep": false,
       "sweep_ratio": 0.0
+    },
+    "throw": {
+      "damage": 4.2
     }
   },
   {
@@ -10231,6 +10346,9 @@
       "knockback": 0,
       "sweep": false,
       "sweep_ratio": 0.0
+    },
+    "throw": {
+      "damage": 4.2
     }
   },
   {
@@ -10250,6 +10368,9 @@
       "knockback": 0,
       "sweep": false,
       "sweep_ratio": 0.0
+    },
+    "throw": {
+      "damage": 4.2
     }
   },
   {
@@ -10269,6 +10390,9 @@
       "knockback": 0,
       "sweep": false,
       "sweep_ratio": 0.0
+    },
+    "throw": {
+      "damage": 3.15
     }
   },
   {
@@ -10288,6 +10412,9 @@
       "knockback": 0,
       "sweep": false,
       "sweep_ratio": 0.0
+    },
+    "throw": {
+      "damage": 3.85
     }
   },
   {
@@ -10307,6 +10434,9 @@
       "knockback": 0,
       "sweep": false,
       "sweep_ratio": 0.0
+    },
+    "throw": {
+      "damage": 3.85
     }
   },
   {
@@ -10326,6 +10456,9 @@
       "knockback": 0,
       "sweep": false,
       "sweep_ratio": 0.0
+    },
+    "throw": {
+      "damage": 3.85
     }
   },
   {
@@ -10345,6 +10478,9 @@
       "knockback": 0,
       "sweep": false,
       "sweep_ratio": 0.0
+    },
+    "throw": {
+      "damage": 4.2
     }
   },
   {
@@ -10364,6 +10500,9 @@
       "knockback": 0,
       "sweep": false,
       "sweep_ratio": 0.0
+    },
+    "throw": {
+      "damage": 4.2
     }
   },
   {
@@ -10383,6 +10522,9 @@
       "knockback": 0,
       "sweep": false,
       "sweep_ratio": 0.0
+    },
+    "throw": {
+      "damage": 3.85
     }
   },
   {
@@ -10402,6 +10544,9 @@
       "knockback": 0,
       "sweep": false,
       "sweep_ratio": 0.0
+    },
+    "throw": {
+      "damage": 4.2
     }
   },
   {
@@ -10421,6 +10566,9 @@
       "knockback": 0,
       "sweep": false,
       "sweep_ratio": 0.0
+    },
+    "throw": {
+      "damage": 3.85
     }
   },
   {
@@ -10440,6 +10588,9 @@
       "knockback": 0,
       "sweep": false,
       "sweep_ratio": 0.0
+    },
+    "throw": {
+      "damage": 4.2
     }
   },
   {
@@ -10459,6 +10610,9 @@
       "knockback": 0,
       "sweep": false,
       "sweep_ratio": 0.0
+    },
+    "throw": {
+      "damage": 3.5
     }
   },
   {
@@ -10478,6 +10632,9 @@
       "knockback": 0,
       "sweep": false,
       "sweep_ratio": 0.0
+    },
+    "throw": {
+      "damage": 5.6
     }
   },
   {
@@ -10497,6 +10654,9 @@
       "knockback": 0,
       "sweep": false,
       "sweep_ratio": 0.0
+    },
+    "throw": {
+      "damage": 4.2
     }
   },
   {
@@ -10516,6 +10676,9 @@
       "knockback": 0,
       "sweep": false,
       "sweep_ratio": 0.0
+    },
+    "throw": {
+      "damage": 3.85
     }
   },
   {
@@ -10535,6 +10698,9 @@
       "knockback": 0,
       "sweep": false,
       "sweep_ratio": 0.0
+    },
+    "throw": {
+      "damage": 3.85
     }
   },
   {
@@ -10554,6 +10720,9 @@
       "knockback": 0,
       "sweep": false,
       "sweep_ratio": 0.0
+    },
+    "throw": {
+      "damage": 3.85
     }
   },
   {
@@ -10573,6 +10742,9 @@
       "knockback": 0,
       "sweep": false,
       "sweep_ratio": 0.0
+    },
+    "throw": {
+      "damage": 4.2
     }
   },
   {
@@ -10592,6 +10764,9 @@
       "knockback": 0,
       "sweep": false,
       "sweep_ratio": 0.0
+    },
+    "throw": {
+      "damage": 3.85
     }
   },
   {
@@ -10611,6 +10786,9 @@
       "knockback": 0,
       "sweep": false,
       "sweep_ratio": 0.0
+    },
+    "throw": {
+      "damage": 2.8
     }
   },
   {
@@ -10630,6 +10808,9 @@
       "knockback": 0,
       "sweep": false,
       "sweep_ratio": 0.0
+    },
+    "throw": {
+      "damage": 3.85
     }
   },
   {
@@ -10649,6 +10830,9 @@
       "knockback": 0,
       "sweep": false,
       "sweep_ratio": 0.0
+    },
+    "throw": {
+      "damage": 4.2
     }
   },
   {
@@ -10668,6 +10852,9 @@
       "knockback": 0,
       "sweep": false,
       "sweep_ratio": 0.0
+    },
+    "throw": {
+      "damage": 4.55
     }
   },
   {
@@ -10687,6 +10874,9 @@
       "knockback": 0,
       "sweep": false,
       "sweep_ratio": 0.0
+    },
+    "throw": {
+      "damage": 4.2
     }
   },
   {
@@ -11278,24 +11468,30 @@
   },
   {
     "id": "taurethrim_blowgun",
-    "kind": "item",
+    "kind": "blowgun",
     "durability": 300,
     "level": 2,
     "speed": 6.0
   },
   {
     "id": "taurethrim_dart",
-    "kind": "item",
+    "kind": "dart",
     "stack": 64,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "dart": {
+      "poisoned": false
+    }
   },
   {
     "id": "poisoned_taurethrim_dart",
-    "kind": "item",
+    "kind": "dart",
     "stack": 64,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "dart": {
+      "poisoned": true
+    }
   },
   {
     "id": "taurethrim_torch",
@@ -11313,38 +11509,53 @@
   },
   {
     "id": "blue_dwarven_throwing_axe",
-    "kind": "item",
+    "kind": "throwing_axe",
     "durability": 650,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "throw": {
+      "damage": 3.5
+    }
   },
   {
     "id": "bronze_throwing_axe",
-    "kind": "item",
+    "kind": "throwing_axe",
     "durability": 230,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "throw": {
+      "damage": 2.75
+    }
   },
   {
     "id": "dwarven_throwing_axe",
-    "kind": "item",
+    "kind": "throwing_axe",
     "durability": 700,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "throw": {
+      "damage": 3.5
+    }
   },
   {
     "id": "iron_throwing_axe",
-    "kind": "item",
+    "kind": "throwing_axe",
     "durability": 250,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "throw": {
+      "damage": 3.0
+    }
   },
   {
     "id": "lossarnach_throwing_axe",
-    "kind": "item",
+    "kind": "throwing_axe",
     "durability": 300,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "throw": {
+      "damage": 3.25
+    }
   },
   {
     "id": "tin_ingot",
@@ -11427,7 +11638,8 @@
     "food": {
       "nutrition": 2,
       "saturation": 0.3
-    }
+    },
+    "places": "turnip_block"
   },
   {
     "id": "roast_turnip",
@@ -11538,24 +11750,39 @@
   },
   {
     "id": "angmar_warg_armor",
-    "kind": "item",
+    "kind": "mount_armor",
     "stack": 1,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "mount_armor": {
+      "mount": "warg",
+      "protection": 11,
+      "texture": "lotr_port:textures/entity/mount_armor/warg_angmar.png"
+    }
   },
   {
     "id": "mordor_warg_armor",
-    "kind": "item",
+    "kind": "mount_armor",
     "stack": 1,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "mount_armor": {
+      "mount": "warg",
+      "protection": 11,
+      "texture": "lotr_port:textures/entity/mount_armor/warg_mordor.png"
+    }
   },
   {
     "id": "isengard_warg_armor",
-    "kind": "item",
+    "kind": "mount_armor",
     "stack": 1,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "mount_armor": {
+      "mount": "warg",
+      "protection": 13,
+      "texture": "lotr_port:textures/entity/mount_armor/warg_uruk.png"
+    }
   },
   {
     "id": "warg_bone",
@@ -11626,7 +11853,9 @@
     "kind": "item",
     "stack": 64,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "places": "wood_plate",
+    "throwable": "plate"
   },
   {
     "id": "yam",
@@ -11637,7 +11866,8 @@
     "food": {
       "nutrition": 1,
       "saturation": 0.4
-    }
+    },
+    "places": "yam_block"
   },
   {
     "id": "roast_yam",
@@ -11670,6 +11900,66 @@
     "food": {
       "nutrition": 2,
       "saturation": 0.1
+    }
+  },
+  {
+    "id": "iron_giraffe_armor",
+    "kind": "mount_armor",
+    "stack": 1,
+    "mount_armor": {
+      "mount": "giraffe",
+      "protection": 5,
+      "texture": "lotr_port:textures/entity/mount_armor/giraffe_iron.png"
+    }
+  },
+  {
+    "id": "golden_giraffe_armor",
+    "kind": "mount_armor",
+    "stack": 1,
+    "mount_armor": {
+      "mount": "giraffe",
+      "protection": 7,
+      "texture": "lotr_port:textures/entity/mount_armor/giraffe_golden.png"
+    }
+  },
+  {
+    "id": "diamond_giraffe_armor",
+    "kind": "mount_armor",
+    "stack": 1,
+    "mount_armor": {
+      "mount": "giraffe",
+      "protection": 11,
+      "texture": "lotr_port:textures/entity/mount_armor/giraffe_diamond.png"
+    }
+  },
+  {
+    "id": "iron_camel_armor",
+    "kind": "mount_armor",
+    "stack": 1,
+    "mount_armor": {
+      "mount": "camel",
+      "protection": 5,
+      "texture": "lotr_port:textures/entity/mount_armor/camel_iron.png"
+    }
+  },
+  {
+    "id": "golden_camel_armor",
+    "kind": "mount_armor",
+    "stack": 1,
+    "mount_armor": {
+      "mount": "camel",
+      "protection": 7,
+      "texture": "lotr_port:textures/entity/mount_armor/camel_golden.png"
+    }
+  },
+  {
+    "id": "diamond_camel_armor",
+    "kind": "mount_armor",
+    "stack": 1,
+    "mount_armor": {
+      "mount": "camel",
+      "protection": 11,
+      "texture": "lotr_port:textures/entity/mount_armor/camel_diamond.png"
     }
   }
 ]

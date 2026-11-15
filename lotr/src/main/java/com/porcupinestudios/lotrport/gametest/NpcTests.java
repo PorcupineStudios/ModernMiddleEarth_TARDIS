@@ -1,5 +1,6 @@
 package com.porcupinestudios.lotrport.gametest;
 
+import com.porcupinestudios.lotrport.society.CoreComponents;
 import com.porcupinestudios.lotrport.LotrPort;
 import com.porcupinestudios.lotrport.content.ContentData;
 import com.porcupinestudios.lotrport.faction.Alignment;
@@ -8,7 +9,10 @@ import com.porcupinestudios.lotrport.npc.Hiring;
 import com.porcupinestudios.lotrport.npc.LotrEntities;
 import com.porcupinestudios.lotrport.npc.LotrNpc;
 import com.porcupinestudios.lotrport.npc.NpcData;
-import com.porcupinestudios.lotrport.npc.People;
+import com.porcupinestudios.lotrport.society.Owner;
+import com.porcupinestudios.lotrport.society.Person;
+import com.porcupinestudios.lotrport.society.Persons;
+import com.porcupinestudios.lotrport.society.Society;
 import java.util.Optional;
 import net.minecraft.gametest.framework.GameTest;
 import net.minecraft.gametest.framework.GameTestHelper;
@@ -100,17 +104,18 @@ public final class NpcTests {
         LotrNpc unit = result.unit().get();
         helper.assertTrue(unit.isOwnedBy(player), "the unit is not the player's");
         helper.assertTrue(unit.faction().equals(Optional.of(faction)), "the unit fights for " + unit.faction());
-        helper.assertTrue(unit.command() == LotrNpc.Command.FOLLOW, "a new unit does not follow");
+        helper.assertTrue(unit.command() == CoreComponents.Order.FOLLOW, "a new unit does not follow");
         helper.assertTrue(Coins.count(player) == 1000 - cost, "paid " + (1000 - Coins.count(player)) + " not " + cost);
-        helper.assertTrue(People.get(server).get(unit.getUUID()).flatMap(People.Person::owner)
-                .equals(Optional.of(player.getUUID())), "no person record for the hired unit");
+        helper.assertTrue(Persons.get(server).get(unit.getUUID()).map(Person::owner)
+                .equals(Optional.of(Owner.player(player.getUUID())))
+                && Society.unitsOf(server, player.getUUID()).stream().anyMatch(p -> p.id().equals(unit.getUUID())), "no person record for the hired unit");
 
         // commanding: sneak + right-click switches between guarding the spot and following
         player.setShiftKeyDown(true);
         player.interactOn(unit, InteractionHand.MAIN_HAND);
-        helper.assertTrue(unit.command() == LotrNpc.Command.GUARD, "the unit did not start guarding");
+        helper.assertTrue(unit.command() == CoreComponents.Order.GUARD, "the unit did not start guarding");
         player.interactOn(unit, InteractionHand.MAIN_HAND);
-        helper.assertTrue(unit.command() == LotrNpc.Command.FOLLOW, "the unit did not follow again");
+        helper.assertTrue(unit.command() == CoreComponents.Order.FOLLOW, "the unit did not follow again");
         player.setShiftKeyDown(false);
         helper.assertFalse(unit.isEnemy(player), "the unit would attack its owner");
         return unit;
@@ -158,11 +163,11 @@ public final class NpcTests {
     public static void aHiredUnitKeepsItsRecordAndARandomOrcLeavesNone(GameTestHelper helper) {
         MinecraftServer server = helper.getLevel().getServer();
         LotrNpc unit = hire(helper, "gondorian_captain", GONDOR);
-        unit.setCommand(LotrNpc.Command.GUARD);
+        unit.setCommand(CoreComponents.Order.GUARD);
 
         // a restart: the world's records and the entity are saved and read back
-        CompoundTag saved = People.get(server).save(new CompoundTag(), server.registryAccess());
-        People reloaded = People.load(saved, server.registryAccess());
+        CompoundTag saved = Persons.get(server).save(new CompoundTag(), server.registryAccess());
+        Persons reloaded = Persons.load(saved, server.registryAccess());
         helper.assertTrue(reloaded.get(unit.getUUID()).isPresent(), "the record did not survive saving");
         helper.assertTrue(reloaded.get(unit.getUUID()).get().type().equals(unit.typeId()), "the record lost its type");
 
@@ -171,13 +176,13 @@ public final class NpcTests {
         helper.assertTrue(copy != null, "could not make an NPC");
         copy.load(entity);
         helper.assertTrue(copy.owner().equals(unit.owner()), "the unit forgot its owner");
-        helper.assertTrue(copy.command() == LotrNpc.Command.GUARD, "the unit forgot its orders");
+        helper.assertTrue(copy.command() == CoreComponents.Order.GUARD, "the unit forgot its orders");
         helper.assertTrue(copy.typeId().equals(unit.typeId()), "the unit forgot its type");
         helper.assertTrue(copy.faction().equals(unit.faction()), "the unit forgot its faction");
 
         LotrNpc orc = spawn(helper, "mordor_orc");
-        helper.assertTrue(People.get(server).get(orc.getUUID()).isEmpty(), "a random orc got a person record");
-        helper.assertTrue(orc.owner().isEmpty() && orc.command() == LotrNpc.Command.NONE, "a random orc is hired");
+        helper.assertTrue(Persons.get(server).get(orc.getUUID()).isEmpty(), "a random orc got a person record");
+        helper.assertTrue(orc.owner().isEmpty() && orc.command() == CoreComponents.Order.NONE, "a random orc is hired");
         helper.assertFalse(orc.getMainHandItem().isEmpty(), "the orc spawned without a weapon");
         helper.succeed();
     }
@@ -248,13 +253,13 @@ public final class NpcTests {
         troll.setNoGravity(true);
         troll.setPersistenceRequired(); // no player near: it would despawn before its first tick
         troll.setState("burnTime", 2);
-        helper.runAfterDelay(20, () -> {
+        // entities tick only in entity-ticking chunks; the 1-block template may sit on a chunk's edge
+        ThrownTests.inLoadedArea(helper, 1, 1, () -> helper.succeedWhen(() -> {
             helper.assertTrue(troll.state("is.LOTREntityStoneTroll") > 0, "the troll did not turn to stone (burn "
                     + troll.state("burnTime") + ", day " + troll.level().isDay() + ", sky "
                     + troll.level().canSeeSky(troll.blockPosition()) + ", rain " + troll.level().isRaining()
                     + ", behaviours " + troll.behaviours().size() + ")");
             helper.assertTrue(troll.isNoAi(), "a stone troll still thinks");
-            helper.succeed();
-        });
+        }));
     }
 }

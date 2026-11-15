@@ -1,0 +1,30 @@
+{
+  "food": [
+    "minecraft:apple",
+    "#minecraft:horse_food"
+  ],
+  "armour": "horse",
+  "spawn": {
+    "health": {
+      "mul": 0.75
+    },
+    "jump": {
+      "mul": 0.5
+    },
+    "speed": {
+      "mul": 0.8
+    }
+  },
+  "clamp_health": [
+    10,
+    28
+  ],
+  "clamp_jump": [
+    0.2,
+    1.0
+  ],
+  "clamp_speed": [
+    0.08,
+    0.3
+  ]
+}

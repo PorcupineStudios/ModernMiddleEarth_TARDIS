@@ -197,14 +197,38 @@ https://claude.ai/artifact/KqhSSTCuKXGuwKHBoYJdcu. Rebuild features in modern co
   yet (rock throwing, sniffing, Gollum sitting...) reads 0. Its hitbox is `width` x `height` (synced; `LotrNpc.getDefaultDimensions`). Huorns are trees of
   real blocks with a face (`client/HuornRenderer`). Skins LOTR picked in code (warg colours per kind, ents,
   spiders, char/) come from `npcs.py CODE_SKINS` and `warg_type`.
-- Not yet: animals, creature behaviour (troll stone, spider webs, ent rooting...), mounts for mounted units,
-  female NPCs, LOTR's trader outfits. `/lotr npc spawn|types|people` for testing.
+- Not yet: female NPCs, LOTR's trader outfits. `/lotr npc spawn|types|people` for testing.
 
-## Animals
-- Animals are creature NPCs (above) with vanilla stand-ins; `converter/world.py GRAZERS` adds vanilla spawners on
-  grass biomes. The PC branch's own animal port (`animal/`, `animals.py`, `creatures.py`, mount armor) was dropped in
-  the 2026-11-09 merge in favour of this. NPCs with `spawnsInDarkness` spawn only in the dark unless the biome has
-  `hostiles_in_day` (`npc_spawns`, `NpcSpawner`). LOTR mutton and horse armor items are vanilla (`VANILLA_ITEMS`).
+## Animals and mounts
+- Animals are creature NPCs (above); `converter/world.py GRAZERS` adds vanilla spawners on grass biomes. NPCs with
+  `spawnsInDarkness` spawn only in the dark unless the biome has `hostiles_in_day` (`npc_spawns`, `NpcSpawner`).
+  LOTR mutton and the three vanilla horse armours are vanilla items (`VANILLA_ITEMS`).
+- Mounts (2026-11-10, `mount/`, `converter/mounts.py`): LOTR's horse family is one entity class, `LotrHorse` (a
+  vanilla `AbstractChestedHorse`, so taming, saddle, inventory screen, jumping and breeding are vanilla's), with one
+  entity type per breed: `horse`, `shire_pony`, `zebra`, `wild_boar`, `camel`, `elk`, `rhino`, `giraffe`. Looks and
+  sizes are `content/mounts.json` (startup: model, textures, markings, saddle, carpet, scale, `seat`); numbers are
+  `data/<ns>/mount/<breed>.json` and reload: `food` (items or `#tags`), `armour` (which mount armour fits), `attack`,
+  `fights_back` (speed; boars, elk, rhinos), `spawn` (ops on the vanilla roll: `mul`, `mul_rand`, `min`, `max`),
+  `boosts` (biome tag: Rohan and Dor-en-Ernil horses), `clamp_*` (foals: mean of parents and a fresh roll, clamped),
+  `chest`, `milk`, `sounds`. `/summon` skips the rolls (vanilla does too).
+- `MountArmorItem` (kind `mount_armor`: mount, protection, texture) goes in the body slot; vanilla horse armour fits
+  breeds with `armour: horse` (horses, ponies, zebras, as in LOTR), wool carpets fit camels. Warg armour items exist
+  but wargs don't wear them yet. Giraffe and camel armour (iron, golden, diamond) is the port's own (Aaron
+  2026-11-10; LOTR's Mount enum had both but no items): `mounts.py NEW_ARMOUR_*` paints plates onto the model's
+  texture layout (`paint_armour`), stamps vanilla's icon, and writes a recipe (vanilla horse armour + 2 leather).
+- Drawing (`client/MountModel`, `MountRenderer`): horses, ponies and zebras use Minecraft 1.7.10's horse model,
+  because LOTR's zebra and horse armour textures are painted for its 128x128 layout. The converter reads it from
+  Mojang's 1.7.10 client jar (downloaded to `converter/cache/`, gitignored) into `npc_model/old_horse.json`; its
+  animation is written in `MountModel` from 1.7.10's numbers. The others use LOTR's models through `CreatureModel`
+  (`CreatureAnim.Ctx.state` answers what they ask of a horse), with `<id>_saddle` (inflated) for saddle, armour and
+  carpet passes. Foals of the 1.7.10 models are the adult at half size.
+- NPC riders: `npcs.py` reads LOTR's `spawnRidingHorse` chance and `createMountToRide` (mount and its armour) into
+  gear `mount` / `mount_armor` and `ride_chance`; `LotrNpc.maybeRide` (wild and invasion spawns) and hired units go
+  through `Hiring.mount`. An NPC's mount is tame, saddled and `NpcOwned` (despawns like its rider; players can't use
+  it while the NPC rides). The NPC entity has a riding offset so riders sit in the saddle. The rider's feet are at
+  half the mount's height (LOTR), which is `seat`.
+- GameTests `MountTests`. Earlier batches leave blocks outside the 1-block `empty` template: clear the space first.
+  Screenshot script: `lotr/run/mount_shots.txt`.
 
 ## Structures and spawning (phase 7)
 - 82 LOTR structures (`converter/structures.py`): `structure/<id>/<0-2>.nbt` (3 seeded layouts), placed by our own
@@ -319,12 +343,13 @@ https://claude.ai/artifact/KqhSSTCuKXGuwKHBoYJdcu. Rebuild features in modern co
   founder's pledged faction; renamed on an anvil = colony name. One colony per player; Halls `hall_gap` apart.
   Saved in `Colonies` (SavedData `lotr_port_colonies`, codecs); history `colony_founded`, `citizen_arrive`,
   `citizen_die`, `recruit_started`. Citizens carry the `lotr_port:colony` attachment and never despawn.
-- Growth (`colony/settings.json`): once a colony day, `arrivals_per_day` migrants come to a loaded Hall while there are
-  free beds (bed heads within `bed_radius`); the first settler needs no bed. Selective migration (`colony/Migrants`,
-  Aaron 2026-11-03, `selective_migration` on by default): migrants wait at the Hall marked `applicant:<colony>` (not
-  citizens) and hold a bed; the owner right-clicks them or uses the chat [Accept]/[Deny] links (`/lotr_colony
-  accept|deny <uuid>`). At most `max_applicants` wait; unanswered ones leave after `applicant_days`. History
-  `migrant_offer`, `migrant_leave` (why: denied/waited). A turned-away applicant that was unloaded is dropped on load. Who comes: `colony_migration/<faction>.json`
+- Growth is immigration by approval, all in the GUI (Aaron 2026-11-12, `colony/Immigration`, colony view tab
+  Immigration): a board of groups (alone, family or friends) redrawn every `refresh_ticks` (30 min); Welcome brings
+  them to the Hall as citizens with names, traits, skills and ties (needs free beds, bed heads within `bed_radius`;
+  `first_settlers` need none), Turn away leaves the slot empty. Slots, group size and quality come from `levels` in
+  `colony_immigration/settings.json` (shared conditions: population, `lotr_port:colony_upgrade`). The old migration
+  (migrants waiting at the Hall, chat accept/deny) is removed; old saves' waiting migrants are dropped. Who comes:
+  `colony_migration/<faction>.json`
   (generated by `converter/colonies.py`: the faction's people minus traders, captains, leaders, rare races).
 - Rare races (`recruit/<id>.json`, hand-written in `src/main/resources`): never migrate. The founder sneak +
   right-clicks an envoy (an NPC of that type) to start; gates are faction alignment, population and a per-colony
@@ -334,8 +359,31 @@ https://claude.ai/artifact/KqhSSTCuKXGuwKHBoYJdcu. Rebuild features in modern co
 - TARDIS researchers (shared API `ResearcherProvider`, in `shared/SharedApiHooks`): a founder's colony counts every rare
   citizen plus one per `citizens_per_researcher` others; the TARDIS runs its research faster for each.
 - `/lotr_colony` (info, citizens, open recruitments); admin `/lotr colony list|day [n]`.
-- Not yet (RingRealms has them on 1.7.10): buildings and the validator, jobs, needs and happiness, the Ledger and
-  other screens, realms on the colony, envoy spawning (rare NPCs come from normal spawning or commands for now).
+- The rest (2026-11-11 rework): society core (Persons + components, `Society` facade), colony systems scheduler,
+  hired units, Town Hall roles and land protection, map visibility, buildings and the Building Writ, homes, jobs,
+  work, wages, needs, the Ledger, and colony wars: **read `lotr/docs/colonies.md`** before touching `society/`,
+  `colony/`, `unit/`, `land/`, `social/`, `war/` or `ai/`.
+- Not yet: realms on the colony, envoy spawning (rare NPCs come from normal spawning or commands for now).
+
+## UI core (2026-11-11, `ui/`, `client/ui/`, `colony/ui/`)
+- Management screens are views the server builds (tabs + a table or stats page + actions) and one client screen
+  (`client/ui/UiScreen`) draws with the Kenney sprites; a new screen is a `ViewProvider` registered in `ui/Views`, no
+  client code. Four payloads (`ui/UiNet`). Search, filters and sort run on the client (`ui/TableQuery`, JUnit
+  `TableQueryTest`). Colony views (`colony/ui/ColonyViews`): one colony (Overview, Buildings, People, Stock, Members)
+  and all your colonies; the Town Hall's Manage button, `/lotr_colony manage`, `/lotr_colony colonies`.
+- **Read `lotr/docs/ui-core.md`** before adding or changing a management screen. Builds and its unit test passes in CI
+  (2026-11-11); the screen has not been looked at in game yet.
+
+## Colonists: traits, mood, kin (2026-11-11, `colonist/`)
+- Person components `traits`, `mood`, `kin` on the society core; mood adds to `Life`'s happiness target, traits scale
+  work and food, `Assign` houses households together (`HouseRules`), families mind sharing (`KinRules.homeThought`).
+  Data `colonist_trait/`, `colonist_thought/`, `colonist_race/`, `colonist_ration/`, `colonist/settings.json`.
+  Citizen page (`colony/ui/CitizenViews`, 2026-11-11): rename, portrait, mood parts, needs, orders (`orders` part:
+  workplace, rest, home, ration, schedule; permission `citizens`). Sleep (energy by the hour), ONI schedules per
+  colony with race rhythms, and a data-driven task queue (`colonist_task/`) that loaded bodies follow. **Read
+  `lotr/docs/colonists.md`.** Marriage, births and family arrivals are not built yet. Green in CI (2026-11-11,
+  unit tests and all GameTests); the daily passes are tuned for `SocietyTests` 50 x 150 tick budget (0 over, 1.8 ms
+  worst): keep new per-citizen work out of collections and streams, and see the doc's Performance section.
 
 ## AI rulers (phase 10: `ai/`)
 - Rulers from data (`ai_ruler/<id>.json`: name, faction, home waypoint, aggression, expansion, max_colonies, colony
@@ -348,8 +396,9 @@ https://claude.ai/artifact/KqhSSTCuKXGuwKHBoYJdcu. Rebuild features in modern co
   relation is bad), march on the nearest enemy AI colony only when strength >= march_ratio x its defense, peace after
   min_war_days. A won siege is `Colonies.transfer` (history `colony_transferred`, also for handing colonies to players).
 - History: `colony_founded` (with `ai`), `ai_relation`, `ai_siege`, `colony_transferred`; `AiReplay` rebuilds owners
-  and wars from the log alone. Admin: `/lotr ai list|day [n]`. Not yet: attacking player colonies (needs RingRealms'
-  offline protections), real soldiers on the march, trade and treaties beyond war/peace, refugees.
+  and wars from the log alone. Admin: `/lotr ai list|day [n]`. Their wars and sieges are also `war/` records on
+  realm parties; raiding player colonies is behind `ai_raids_players` (off). Not yet: real soldiers on AI marches,
+  trade and treaties beyond war/peace, refugees.
 
 ## Gates and connected textures (2026-11-04)
 - LOTR drew many blocks with connected textures (gates, portcullises, dwarven bricks): a base plus side, corner and
@@ -409,10 +458,50 @@ https://claude.ai/artifact/KqhSSTCuKXGuwKHBoYJdcu. Rebuild features in modern co
 ## Recipes and JEI (2026-11-06)
 - Machine recipes are `crafting/MachineRecipe`: one recipe type and serializer per machine (`alloy_forge`,
   `millstone`, `brewing`, `ent_jar`, `unsmelting`). Inputs match in any order, plus optional `station`, `chance`
-  and `time`. They load and show in JEI; the machine blocks don't run them yet.
+  and `time`. They load and show in JEI and the machine blocks run them (see Machines).
 - JEI is optional (`compileOnly` API, `jei_version` in `lotr/gradle.properties`, optional dependency in
   mods.toml). `compat/jei/LotrJeiPlugin` adds one category for faction tables, which shows the table each recipe
   needs, and one category per machine, with the machine blocks as catalysts.
+
+## Machines and display blocks (2026-11-10, `machine/`)
+- Which block is which machine is `machine` in `blocks.json` (`converter/machines.py`, by LOTR class); `LotrBlocks`
+  picks the block class from it. LOTR's numbers are `machine/settings.json` (`Machines.Settings`).
+- `MachineBlock` + `MachineBlockEntity`: faction forges (4 columns of alloy + input; alloy recipes for this
+  `station`, else single-ingredient ones, else a furnace result for `#lotr_port:forge_smeltable`), hobbit oven (9
+  food slots), millstone (runs while redstone-powered, recipe `chance`), unsmeltery (yield from
+  `content/unsmelting.json` × durability left). `lit` shows LOTR's active texture. One `client/MachineScreen` draws
+  every `MachineMenu.Layout` (slot spots read from LOTR's containers). Hoppers through `SidedInvWrapper`.
+- `DisplayBlock` (plate: food stack, eat with empty hand; weapon rack; armour stand: 4-slot screen), `KebabStandBlock`
+  (fuel from the container below, LOTR's takeFuelFromBelow), `EntJarBlock` (biome tag `ent_jar_brewing`),
+  `LotrChestBlock` (27 slots, 1.7.10 chest model in LOTR's texture). Renderers in `client/MachineRenderers` on
+  LOTR's models (`npc_model/`, static); the armour stand's armour is drawn on an invisible vanilla armour stand.
+  `WeaponRackBlock`: floor (faces the placer's look) or `wall` (faces the block it hangs on, breaks without it);
+  the model takes LOTR's onWall pose. Racks and stands in structures: meta & 3 = north/east/south/west, & 4 = wall.
+  The rack's weapon is drawn with `ItemDisplayContext.NONE` moved to 1.7.10's flat-icon frame (checked in game).
+- Items that place another block (`places`): beds stay `BedItem`, the rest are `ItemNameBlockItem`.
+- GameTests `MachineTests` (own batch: the 1-block `empty` template lets other tests land on long-running ones).
+
+## Farming, ores and pouches (2026-11-10, `content/farm/`, `content/pouch/`)
+- `converter/farming.py`: crops (`crop`, vanilla CropBlock, 8 ages on LOTR's 4 icons, age>>1), berry bushes (ripe and
+  bare are two blocks that swap), corn (`corn`: stalks up to `corn_height`, cobs on non-bottom stalks, a guess),
+  grapevines (`grapevine` on a post; seeds plant on a post with farmland within 3 blocks below; picking leaves the
+  post). Numbers in `farming/settings.json` (`Farming.Settings`).
+- `converter/ores.py`: 15 item-dropping ores (`ore` = DropExperienceBlock, LOTR's xp), loot with silk touch, fortune.
+- `PouchItem` keeps items in `DataComponents.CONTAINER`; `PouchMenu`/`client/PouchScreen` on LOTR's layout with the
+  name field (`Pouches.Rename` payload). Pick-ups go into pouches when the inventory is full.
+- GameTests `FarmTests`. `GameTestHelper.destroyBlock` drops nothing: use `level.destroyBlock(pos, true)` to test loot.
+
+## Thrown weapons and NPC archers (2026-11-10, `content/thrown/`)
+- `converter/thrown.py` marks items by LOTR class (spear `throw`, `throwing_axe`, `blowgun`, `dart`, `sling`,
+  `throwable` pebble/conker/fire_pot/mystery_web/plate) and orc bomb blocks (`bomb` strength, fire); LOTR's numbers
+  go to `thrown/settings.json` (`Thrown.num`). Spears, axes and darts fly as `ThrownWeapon` (an arrow carrying its
+  item, damage = speed x multiplier, comes back one point worn); the rest as `ThrownMissile`; `OrcBomb` is a TNT-like
+  entity (fuse 40 + 20 x strength). Dispensers for all of them (`Thrown.dispensers`). Renderers in
+  `client/ThrownRenderers`.
+- NPC archers: `npcs.py` gives types with a ranged weapon behaviour `archer` and LOTR's AI numbers (`behaviours.py
+  archer`, read from the constructor's LOTREntityAIRangedAttack). Pure archers hold the bow; swap types (elves...)
+  keep it as `ranged` gear and draw it outside melee range. Pike reach: `LotrNpc.getAttackBoundingBox`.
+- GameTests `ThrownTests` force-load the chunks they shoot across (the 1-block template keeps only its own loaded).
 
 ## Create compat (2026-11-06)
 - `converter/create_compat.py` writes 134 cross-mod recipes under `recipe/create/` (conditional on
@@ -441,7 +530,7 @@ From the repo root: `./gradlew :lotr:build`, `:lotr:runClient`, `:lotr:runServer
   (`progress/Achievements.grant` by LOTR name), titles (`/lotr_title`), shields and capes (`/lotr_shield`,
   `/lotr_cape`; not drawn yet), drinks (`content/LotrDrinkItem`, components `drink_strength` and `vessel`),
   calendar (`/lotr_date`), music regions (biome music events a pack fills), invasions (`npc/InvasionSpawner`),
-  animals (creature NPCs + `npc_animals/`, `AnimalBehaviour`; vanilla stand-ins for horses and boars).
+  animals (creature NPCs + `npc_animals/`, `AnimalBehaviour`).
 - Recipes: unsmeltery computed from crafting recipes, hobbit oven and kebab stand from furnace foods. Lore books
   (`converter/lore.py`) go into structure chests. Quests: pickpocket kind, LOTR's per-quest lines
   (`speech/miniquest/...`). Mounted units ride (`Hiring.mount`).

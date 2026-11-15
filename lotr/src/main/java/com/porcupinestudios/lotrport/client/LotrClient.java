@@ -11,6 +11,7 @@ import com.porcupinestudios.lotrport.content.LotrCrossbowItem;
 import com.porcupinestudios.lotrport.content.LotrItems;
 import com.porcupinestudios.lotrport.content.LotrDrinkItem;
 import com.porcupinestudios.lotrport.drink.Drinks;
+import com.porcupinestudios.lotrport.machine.Machines;
 import java.util.Map;
 import java.util.function.Supplier;
 import net.minecraft.client.renderer.item.ItemPropertyFunction;
@@ -60,6 +61,10 @@ public final class LotrClient {
     public static final KeyMapping JUKEBOX_KEY = new KeyMapping("key.lotr_port.jukebox", InputConstants.Type.KEYSYM,
             GLFW.GLFW_KEY_J, "key.categories.lotr_port");
 
+    /** Opens the unit screen: your hired units and your colonies' soldiers. */
+    public static final KeyMapping UNITS_KEY = new KeyMapping("key.lotr_port.units", InputConstants.Type.KEYSYM,
+            GLFW.GLFW_KEY_U, "key.categories.lotr_port");
+
     private LotrClient() {}
 
     @SubscribeEvent
@@ -68,6 +73,14 @@ public final class LotrClient {
         QuestNet.offerHandler = QuestOfferScreen::open;
         QuestNet.bookHandler = RedBookScreen::show;
         HudNet.barHandler = LotrHud::receive;
+        com.porcupinestudios.lotrport.unit.UnitNet.listHandler = UnitScreen::show;
+        com.porcupinestudios.lotrport.colony.members.HallNet.hallHandler = HallScreen::show;
+        com.porcupinestudios.lotrport.colony.work.LedgerNet.ledgerHandler = LedgerScreen::show;
+        com.porcupinestudios.lotrport.colony.work.LedgerNet.citizenHandler = CitizenScreen::show;
+        com.porcupinestudios.lotrport.social.SocialNet.iconsHandler = MapScreen::icons;
+        com.porcupinestudios.lotrport.social.SocialNet.viewHandler = VisibilityScreen::show;
+        com.porcupinestudios.lotrport.ui.UiNet.showHandler = com.porcupinestudios.lotrport.client.ui.UiScreen::show;
+        com.porcupinestudios.lotrport.ui.UiNet.closeHandler = com.porcupinestudios.lotrport.client.ui.UiScreen::close;
         event.enqueueWork(LotrClient::rangedProperties);
     }
 
@@ -107,6 +120,12 @@ public final class LotrClient {
     @SubscribeEvent
     public static void screens(RegisterMenuScreensEvent event) {
         event.register(Drinks.KEG_MENU.get(), KegScreen::new);
+        event.register(Machines.FORGE_MENU.get(), MachineScreen::new);
+        event.register(Machines.OVEN_MENU.get(), MachineScreen::new);
+        event.register(Machines.MILLSTONE_MENU.get(), MachineScreen::new);
+        event.register(Machines.UNSMELTERY_MENU.get(), MachineScreen::new);
+        event.register(Machines.ARMOR_STAND_MENU.get(), MachineScreen::new);
+        event.register(com.porcupinestudios.lotrport.content.pouch.Pouches.MENU.get(), PouchScreen::new);
     }
 
     /**
@@ -156,6 +175,7 @@ public final class LotrClient {
     public static void keys(RegisterKeyMappingsEvent event) {
         event.register(MAP_KEY);
         event.register(JUKEBOX_KEY);
+        event.register(UNITS_KEY);
         event.register(MAP_TELEPORT_KEY);
         event.register(FAST_TRAVEL_KEY);
     }
@@ -174,8 +194,14 @@ public final class LotrClient {
     @SubscribeEvent
     public static void renderers(EntityRenderersEvent.RegisterRenderers event) {
         event.registerEntityRenderer(LotrEntities.NPC.get(), NpcRenderer::new);
+        event.registerEntityRenderer(com.porcupinestudios.lotrport.land.LandEntities.BANNER.get(),
+                ClaimBannerRenderer::new);
+        com.porcupinestudios.lotrport.mount.Mounts.TYPE_BY_BREED.values()
+                .forEach(t -> event.registerEntityRenderer(t.get(), MountRenderer::new));
         // rocks, snowballs and wraith bolts thrown by LOTR's creatures, drawn as their item
         event.registerEntityRenderer(LotrEntities.PROJECTILE.get(),
                 net.minecraft.client.renderer.entity.ThrownItemRenderer::new);
+        MachineRenderers.register(event);
+        ThrownRenderers.register(event);
     }
 }

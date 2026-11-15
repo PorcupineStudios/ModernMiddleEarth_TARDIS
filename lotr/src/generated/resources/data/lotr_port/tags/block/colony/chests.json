@@ -1,0 +1,15 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "#c:chests",
+      "required": false
+    },
+    "minecraft:barrel",
+    "lotr_port:ancient_haradric_chest",
+    "lotr_port:lebethron_casket",
+    "lotr_port:mallorn_box",
+    "lotr_port:reed_basket",
+    "lotr_port:stone_chest"
+  ]
+}

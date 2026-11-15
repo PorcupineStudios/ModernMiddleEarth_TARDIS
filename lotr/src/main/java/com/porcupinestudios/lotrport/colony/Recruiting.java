@@ -8,6 +8,8 @@ import com.porcupinestudios.lotrport.travel.FastTravel;
 import com.porcupinestudios.lotrport.travel.Waypoint;
 import com.porcupinestudios.ringbearer.api.history.HistoryEntry;
 import com.porcupinestudios.ringbearer.api.history.HistoryLog;
+import com.porcupinestudios.lotrport.society.CoreComponents;
+import com.porcupinestudios.lotrport.society.Society;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -94,11 +96,12 @@ public final class Recruiting {
                     "%s will not listen until you have %s alignment with %s", npc.getDisplayName(), def.alignment(),
                     Component.translatable("faction." + f.getNamespace() + "." + f.getPath())));
         }
-        if (colony.citizens.size() < def.minPopulation()) {
+        if (Society.citizenCount(player.server, colony) < def.minPopulation()) {
             return Optional.of(Component.translatableWithFallback("recruit.lotr_port.population",
                     "%s wants to see a colony of at least %s people", npc.getDisplayName(), def.minPopulation()));
         }
-        long already = colony.citizens.stream().filter(c -> c.rare() && c.type().equals(def.npc())).count();
+        long already = Society.citizens(player.server, colony).stream().filter(c -> c.type().equals(def.npc())
+                && c.get(CoreComponents.CITIZEN).map(CoreComponents.Citizen::rare).orElse(false)).count();
         if (def.limit() > 0 && already >= def.limit()) {
             return Optional.of(Component.translatableWithFallback("recruit.lotr_port.limit",
                     "%s already has as many of them as it can keep", colony.name));
@@ -147,9 +150,9 @@ public final class Recruiting {
         return r.stage() < stages.size() ? stages.get(r.stage()).objectives() : List.of();
     }
 
-    private static boolean met(Colony colony, Recruitment r, int i, ColonyData.Objective o) {
+    private static boolean met(MinecraftServer server, Colony colony, Recruitment r, int i, ColonyData.Objective o) {
         if (o.type() == ColonyData.ObjectiveType.POPULATION) {
-            return colony.citizens.size() >= o.count();
+            return Society.citizenCount(server, colony) >= o.count();
         }
         return r.progress(i) >= o.goal();
     }
@@ -165,7 +168,7 @@ public final class Recruiting {
             List<ColonyData.Objective> objectives = def.stages().get(r.stage()).objectives();
             boolean done = true;
             for (int i = 0; i < objectives.size(); i++) {
-                done &= met(colony, r, i, objectives.get(i));
+                done &= met(server, colony, r, i, objectives.get(i));
             }
             if (!done) {
                 break;
@@ -236,7 +239,8 @@ public final class Recruiting {
                 "Stage %s of %s:", r.stage() + 1, stages));
         for (int i = 0; i < objectives.size(); i++) {
             ColonyData.Objective o = objectives.get(i);
-            int done = o.type() == ColonyData.ObjectiveType.POPULATION ? colony.citizens.size() : r.progress(i);
+            int done = o.type() == ColonyData.ObjectiveType.POPULATION ? Society.citizenCount(player.server, colony)
+                    : r.progress(i);
             player.sendSystemMessage(Component.literal(" - ").append(text(o))
                     .append(" (" + Math.min(done, o.goal()) + "/" + o.goal() + ")"));
         }

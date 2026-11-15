@@ -1,0 +1,10 @@
+{
+  "name": "colony_job.lotr_port.merchant",
+  "priority": 80,
+  "wage": 3,
+  "max": 1,
+  "races": {
+    "orc": 0.6,
+    "goblin": 0.6
+  }
+}

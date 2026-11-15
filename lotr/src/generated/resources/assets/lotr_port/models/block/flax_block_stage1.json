@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/crop",
+  "textures": {
+    "crop": "lotr_port:block/flax_1"
+  },
+  "render_type": "minecraft:cutout"
+}

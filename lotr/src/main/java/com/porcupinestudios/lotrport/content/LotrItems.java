@@ -1,5 +1,12 @@
 package com.porcupinestudios.lotrport.content;
 
+import com.porcupinestudios.lotrport.content.thrown.BlowgunItem;
+import com.porcupinestudios.lotrport.content.thrown.DartItem;
+import com.porcupinestudios.lotrport.content.thrown.PlateItem;
+import com.porcupinestudios.lotrport.content.thrown.SlingItem;
+import com.porcupinestudios.lotrport.content.thrown.ThrowableItem;
+import com.porcupinestudios.lotrport.content.thrown.ThrowingAxeItem;
+import com.porcupinestudios.lotrport.content.thrown.ThrownMissile;
 import com.google.gson.JsonObject;
 import com.porcupinestudios.lotrport.LotrPort;
 import com.porcupinestudios.lotrport.quest.RedBookItem;
@@ -90,7 +97,8 @@ public final class LotrItems {
         float damage = ContentData.num(e, "damage", 1f);
         return switch (kind) {
             case "sword" -> e.has("weapon")
-                    ? new LotrWeaponItem(tier, p, damage, e.getAsJsonObject("weapon"), poison(e))
+                    ? new LotrWeaponItem(tier, p, damage, e.getAsJsonObject("weapon"), poison(e),
+                            e.has("throw") ? e.getAsJsonObject("throw") : null)
                     : new SwordItem(tier, p.attributes(SwordItem.createAttributes(tier, damage, -2.4f)));
             case "bow" -> {
                 JsonObject r = ranged(e);
@@ -113,14 +121,40 @@ public final class LotrItems {
                 yield new ArmorItem(MATERIALS.get(key(a)), slot(a), p);
             }
             case "red_book" -> new RedBookItem(p);
+            case "banner" -> new com.porcupinestudios.lotrport.land.ClaimBannerItem(p);
+            case "pouch" -> new com.porcupinestudios.lotrport.content.pouch.PouchItem(p,
+                    ContentData.integer(e, "slots", 9));
+            case "grape_seeds" -> new com.porcupinestudios.lotrport.content.farm.GrapeSeedItem(
+                    LotrBlocks.BY_ID.get(e.get("places").getAsString()).get(), p);
             case "drink" -> new LotrDrinkItem(p, e.getAsJsonObject("drink"));
-            default -> e.has("places")
-                    // LOTR's bed items place their bed block (both halves, as vanilla's BedItem)
-                    ? new net.minecraft.world.item.BedItem(LotrBlocks.BY_ID.get(e.get("places").getAsString()).get(), p)
+            case "mount_armor" -> {
+                JsonObject m = e.getAsJsonObject("mount_armor");
+                yield new com.porcupinestudios.lotrport.mount.MountArmorItem(p, ContentData.str(m, "mount", "horse"),
+                        ContentData.integer(m, "protection", 0),
+                        net.minecraft.resources.ResourceLocation.parse(m.get("texture").getAsString()));
+            }
+            case "throwing_axe" -> new ThrowingAxeItem(p, ContentData.num(e.getAsJsonObject("throw"), "damage", 3f));
+            case "blowgun" -> new BlowgunItem(p);
+            case "dart" -> new DartItem(p, e.has("dart") && ContentData.bool(e.getAsJsonObject("dart"), "poisoned", false));
+            case "sling" -> new SlingItem(p);
+            case "throwable" -> new ThrowableItem(p, ThrownMissile.Kind.of(ContentData.str(e, "throwable", "pebble")));
+            default -> e.has("places") && "plate".equals(ContentData.str(e, "throwable", ""))
+                    ? new PlateItem(LotrBlocks.BY_ID.get(e.get("places").getAsString()).get(), p)
+                    : e.has("places") ? placing(LotrBlocks.BY_ID.get(e.get("places").getAsString()).get(), p)
                     : new Item(p);
             case "horn", "pipe", "vessel" -> new LotrUseItem(kind.equals("vessel") ? p : p.stacksTo(1), kind,
                     ContentData.str(e, "fills", null));
         };
+    }
+
+    /**
+     * An item that places a block of another name (LOTR's plates, armour stand, seeds and crops): beds put down both
+     * halves as vanilla's BedItem; anything else is a plain block item keeping its own name and food.
+     */
+    private static Item placing(net.minecraft.world.level.block.Block block, Item.Properties p) {
+        return block instanceof net.minecraft.world.level.block.BedBlock
+                ? new net.minecraft.world.item.BedItem(block, p)
+                : new net.minecraft.world.item.ItemNameBlockItem(block, p);
     }
 
     private static JsonObject ranged(JsonObject e) {

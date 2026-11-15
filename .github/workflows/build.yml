@@ -4,6 +4,9 @@ on:
   push:
     branches: ['**']
   pull_request:
+  # "Run workflow" in the Actions tab builds any branch by hand (GitHub creates no push events when more than three
+  # branches are pushed at once)
+  workflow_dispatch:
 
 jobs:
   build:

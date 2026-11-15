@@ -1,10 +1,10 @@
 [
   {
-    "recipes": 3250,
+    "recipes": 3256,
     "create_compat_recipes": 134,
     "factions": 29,
-    "npcs": 416,
-    "npc_skins": 285,
+    "npcs": 412,
+    "npc_skins": 279,
     "structures": 93,
     "structures_with_npcs": 77,
     "npc_spawn_tables": 135,
@@ -13,6 +13,14 @@
     "waypoints": 274,
     "quest_pools": 37,
     "quest_givers": 287,
-    "migration_tables": 28
+    "migration_tables": 23,
+    "claim_banners": 42,
+    "room_counters": 11,
+    "colony_races": {
+      "orc": 37,
+      "dwarf": 16,
+      "hobbit": 13,
+      "elf": 31
+    }
   }
 ]
