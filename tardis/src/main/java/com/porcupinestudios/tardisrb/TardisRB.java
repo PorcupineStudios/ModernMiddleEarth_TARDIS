@@ -45,6 +45,9 @@ public final class TardisRB {
         DoorNet.register(modBus);
         CrashSite.register();
         CreateCompat.register(modBus);
+        if (net.neoforged.fml.ModList.get().isLoaded("sable")) {
+            com.porcupinestudios.tardisrb.compat.sable.ShipOrbits.register();
+        }
         WorldCheck.register();
         Researching.register();
         WorldDamage.register();
