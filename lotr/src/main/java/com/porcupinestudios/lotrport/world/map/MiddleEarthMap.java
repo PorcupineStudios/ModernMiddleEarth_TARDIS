@@ -164,6 +164,14 @@ public final class MiddleEarthMap {
     }
 
     private final List<Mountain> mountains = new ArrayList<>();
+    /** The mountains drawn as cones: those inside a range are its summits instead ({@link Ranges}). */
+    private final List<Mountain> cones = new ArrayList<>();
+    /** The mountain ranges' massifs (Misty Mountains...); null if the map has none. */
+    private final Ranges ranges;
+    /** Per biome: its LOTR hilliness if it is a range (scales the massif), else 0. */
+    private final float[] rangeHilliness = new float[256];
+    /** Per biome: 1 for a range (its noise hilliness is replaced by the massif), else 0. */
+    private final float[] rangeShare = new float[256];
 
     MiddleEarthMap(JsonObject settings, byte[] pixels) {
         this.width = settings.get("width").getAsInt();
@@ -210,6 +218,19 @@ public final class MiddleEarthMap {
                         o.get("peak").getAsInt(), o.has("boost") ? o.get("boost").getAsDouble() : 0,
                         o.has("crater") ? o.get("crater").getAsInt() : 0, o.has("floor") ? o.get("floor").getAsInt() : 0,
                         o.has("lava") ? o.get("lava").getAsInt() : 0));
+            }
+        }
+        this.ranges = settings.has("ranges") ? new Ranges(settings.getAsJsonObject("ranges"), list, pixels, width,
+                height, blocksPerPixel, originX, originZ) : null;
+        for (int i = 0; i < list.size(); i++) {
+            if (ranges != null && ranges.isRange(i)) {
+                rangeHilliness[i] = list.get(i).variation();
+                rangeShare[i] = 1;
+            }
+        }
+        for (Mountain m : mountains) {
+            if (ranges == null || m.crater() > 0 || !ranges.takePeak(m.x(), m.z(), m.range())) {
+                cones.add(m);
             }
         }
         this.rivers = Rivers.read(settings.has("rivers") ? settings.getAsJsonObject("rivers") : null, list);
@@ -399,7 +420,14 @@ public final class MiddleEarthMap {
             double road = Math.min(1, Roads.get().distance(blockX, blockZ) / Roads.FLATTEN);
             ground += downs * downs(blockX, blockZ) * (0.3 + 0.7 * road);
         }
-        for (Mountain m : mountains) {
+        if (ranges != null) {
+            double hilliness = smoothed(wx, wz, rangeHilliness);
+            if (hilliness > 0) {
+                ground += ranges.massif(blockX, blockZ, hilliness, Roads.get().distanceWithin(blockX, blockZ,
+                        ranges.passWidth()));
+            }
+        }
+        for (Mountain m : cones) {
             double d = m.distance(blockX, blockZ);
             if (d < m.crater) {
                 ground = Math.max(ground, m.floor);
@@ -429,7 +457,9 @@ public final class MiddleEarthMap {
                 boost += m.boost * (1 - d / m.range);
             }
         }
-        return variation * (1 - cut) * (0.25 + 0.75 * road) / (1 + boost);
+        // a range's own massif replaces its noise hilliness: noise's 3D part overhung and floated rock (2026-11-15)
+        double share = ranges == null ? 0 : smoothed(wx, wz, rangeShare);
+        return variation * (1 - share) * (1 - cut) * (0.25 + 0.75 * road) / (1 + boost);
     }
 
     /** Grid spacing of the downs (blocks): about one hill per cell. */

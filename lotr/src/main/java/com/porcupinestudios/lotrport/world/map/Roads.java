@@ -159,6 +159,27 @@ public final class Roads {
         return cells.getOrDefault(key(Math.floorDiv(blockX, CELL), Math.floorDiv(blockZ, CELL)), List.of());
     }
 
+    /** Distance to the nearest road, exact up to {@code max} blocks (max beyond). */
+    public double distanceWithin(int blockX, int blockZ, double max) {
+        if (max <= FLATTEN) {
+            return distance(blockX, blockZ);
+        }
+        // a segment within max passes through a cell within max of the column (segments are listed in the cells
+        // their bounds cross)
+        int r = (int) Math.ceil(max / CELL);
+        int cx = Math.floorDiv(blockX, CELL);
+        int cz = Math.floorDiv(blockZ, CELL);
+        double best = Double.POSITIVE_INFINITY;
+        for (int i = -r; i <= r; i++) {
+            for (int k = -r; k <= r; k++) {
+                for (Segment s : cells.getOrDefault(key(cx + i, cz + k), List.of())) {
+                    best = Math.min(best, s.distanceSq(blockX + 0.5, blockZ + 0.5));
+                }
+            }
+        }
+        return Math.min(Math.sqrt(best), max);
+    }
+
     /**
      * Distance from a block column's centre to the nearest road: exact up to {@link #FLATTEN} blocks, beyond that at
      * least FLATTEN (infinity if no road is in the column's cell).
