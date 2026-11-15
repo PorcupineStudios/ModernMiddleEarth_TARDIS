@@ -49,7 +49,9 @@ VALLEY_SHIFT = 0.1  # the lifted valleys raise the mean ~0.1 x HILL_2D x hilline
 # Aaron (2026-11-14): the Shire's own hills ("downs", MiddleEarthMap.downs): round hills that only rise from the land
 # (noise hills dip as often as they rise, into ponds). Biome name -> (tallest hill in blocks, share of LOTR's noise
 # hilliness kept as roughness on top).
-DOWNS = {"shire": (24, 0.4), "shire_moors": (18, 0.45), "shire_woodlands": (16, 0.5)}  # 2026-11-14: taller (was 18, 14, 12)
+# 2026-11-14 (Aaron: steep round hills that stay grassy): 30 / 20 / 18 on a 112-block grid; the steepest slope stays
+# under one block per block (about 0.7, 0.9 in "hills" patches), so every step is a grass edge, never a dirt wall.
+DOWNS = {"shire": (30, 0.4), "shire_moors": (20, 0.45), "shire_woodlands": (18, 0.5)}
 
 # Biome variants (LOTR's LOTRBiomeVariant patches; Aaron 2026-11-14: "many biomes within the Shire"). Not separate
 # biomes, as in LOTR: patches of a jittered grid (`cell` blocks), a variant with chance `chance`, else plain
@@ -65,8 +67,8 @@ VARIANTS = {
          "trees": (3, [("oak", 4), ("oak_large", 2), ("chestnut", 3), ("birch", 2), ("aspen", 1)])},
         {"name": "forest", "weight": 2,
          "trees": (9, [("oak", 4), ("oak_large", 3), ("chestnut", 3), ("chestnut_large", 2), ("birch", 2)])},
-        {"name": "hills", "weight": 3, "downs": 1.7, "variation": 1.25, "flowers": ["minecraft:patch_tall_grass"]},
-        {"name": "wooded_hills", "weight": 2, "downs": 1.6, "variation": 1.2,
+        {"name": "hills", "weight": 3, "downs": 1.3, "variation": 1.2, "flowers": ["minecraft:patch_tall_grass"]},
+        {"name": "wooded_hills", "weight": 2, "downs": 1.25, "variation": 1.15,
          "trees": (4, [("oak", 4), ("oak_large", 2), ("chestnut", 3), ("birch", 2)])},
         {"name": "birch_wood", "weight": 1,
          "trees": (7, [("birch", 5), ("birch_large", 2), ("birch_tall", 2)])},
@@ -84,10 +86,10 @@ BLUR = 0  # pixels of box blur on heights (0 keeps one-pixel rivers)
 OCEAN = "ocean"
 ROAD_HALF_WIDTH = 2.1  # blocks either side of a road's middle (Aaron 2026-11-14: 4-5 wide; bridges 1 more each side)
 # Small rivers (LOTR made these with a river layer, not on the map). Widths are in noise units: one is about 11 blocks.
-# Aaron 2026-11-14: fewer rivers, still a fair few. scale 1300 (was 900): the lines are about 30% further apart; width
-# is in noise units, so it shrinks by 900/1300 to keep rivers as wide in blocks; mask_scale: a third of the network
-# fades out to dry valleys (MiddleEarthMap.Rivers).
-RIVERS = {"biome": f"{NS}:river", "scale": 1300, "width": 0.0173, "mask_scale": 3000, "bank": 3.0, "biome_width": 1.5, "bed": 56,
+# Aaron 2026-11-14: fewer rivers, still a fair few. scale 1700 (was 900): the lines are about half as dense; width is in
+# noise units, so it shrinks by 900/1700 to keep rivers as wide in blocks. (A mask fading a third of the network out
+# squeezed its banks into cliffs: dropped.) bank 5 widths (was 3): gentler, grassy valley sides in the Shire's hills.
+RIVERS = {"biome": f"{NS}:river", "scale": 1700, "width": 0.01324, "bank": 5.0, "biome_width": 1.5, "bed": 56,
           "max_height": 100, "min_height": 63, "seed": 1937}
 
 # Old surface blocks (registry name + meta) that are vanilla in 1.21.
@@ -535,7 +537,9 @@ class World:
         if mtn and mtn != "all":
             snow, stone_y, stone, sand = mtn
             mtn = (snow, stone_y, old(stone), old(sand))
-        return (podzol, bool(f.get("enableRocky", True)), wet, dec.get("quagmirePerChunk", 0) > 0, tuple(resolved),
+        # no rock breaking through on the Shire's downs (Aaron 2026-11-14: hills stay grassy; they reach y 100+)
+        rocky = bool(f.get("enableRocky", True)) and self.biome_id(b) not in DOWNS
+        return (podzol, rocky, wet, dec.get("quagmirePerChunk", 0) > 0, tuple(resolved),
                 marsh, mtn)
 
     def noise_settings(self, biomes):

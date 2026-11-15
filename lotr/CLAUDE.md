@@ -66,7 +66,7 @@ https://claude.ai/artifact/KqhSSTCuKXGuwKHBoYJdcu. Rebuild features in modern co
   lower/mid/upper icons by `part`, live reeds grow to 3 above the water; worldgen `world/feature/ReedsFeature`
   (LOTRWorldGenReeds: still water at most 4 deep, never dry land). Lakes and Shire (2026-11-14): the 2D hill noise's
   valleys are a quarter deep (`VALLEYS`, fewer sea-level ponds). The Shire's hills are its own "downs"
-  (`MiddleEarthMap.downs`, `DOWNS` in converter/world.py): round seedless hills that only rise, on a 160-block grid,
+  (`MiddleEarthMap.downs`, `DOWNS` in converter/world.py): round seedless hills that only rise,
   with LOTR's noise kept only as roughness.
 - Biome variants (2026-11-14, LOTR's LOTRBiomeVariant; Aaron: "many biomes within the Shire"): `map/Variants`, set in
   `converter/world.py VARIANTS` -> map.json `variants`. Patches of a jittered 176-block grid inside a biome (Shire:
@@ -75,11 +75,14 @@ https://claude.ai/artifact/KqhSSTCuKXGuwKHBoYJdcu. Rebuild features in modern co
   `<biome>_variant/*` gated by placement filter `lotr_port:in_variant` (looked up up to 20 blocks away, so edges
   feather) and orchard rows by `lotr_port:orchard_grid`. Not separate biomes, as in LOTR: NPCs, structures, roads,
   music and waypoint regions keyed to the biome are unchanged. `MiddleEarthMap.variantAt` names a column's patch.
-- Rivers (2026-11-14): `RIVERS` scale 1300 (lines ~30% further apart), width 0.0173 (noise units: same width in
-  blocks as before), `mask_scale` 3000: where a second noise is low the river narrows and ends (a third of the network).
-  `Rivers.carve`: only the channel (half a width) is cut to the bed; the banks come down to a block over sea level at
-  a width, then up to the land at `bank` widths (cutting the whole valley towards the bed flooded low ground 60-80
-  blocks wide).
+- Rivers (2026-11-14): `RIVERS` scale 1700 (about half as dense as LOTR-like 900), width 0.01324 (noise units: same
+  width in blocks), banks 5 widths. `Rivers.carve`: only the channel (half a width) is cut to the bed; the banks come
+  down to a block over sea level at a width, then up to the land (cutting the whole valley towards the bed flooded low
+  ground 60-80 blocks wide). A mask that faded part of the network out squeezed banks into cliffs and was dropped
+  (`mask_scale` still read, 0 = off).
+- Shire downs (2026-11-14, Aaron: steep round hills that stay grassy): 30 blocks (moors 20, woodlands 18) on a
+  112-block grid, steepest ~0.7 blocks per block (0.9 in "hills" patches), so steps are grass edges; no rock breaking
+  through in biomes with downs (`ground_style`).
 - `Roads` registers each segment in every 256-block cell within `Roads.FLATTEN` (32): the terrain flattens hills by
   road distance, and a segment missing from a cell made it jump at the cell edge (straight 10+ block cliffs).
 - Terrain preview (dev tool): `-Dlotr_port.terrainpreview=<x>,<z>,<size>` on a Middle-earth server writes

@@ -433,15 +433,16 @@ public final class MiddleEarthMap {
     }
 
     /** Grid spacing of the downs (blocks): about one hill per cell. */
-    static final int DOWNS_CELL = 160;
+    static final int DOWNS_CELL = 112;
 
     /**
      * The Shire's own hills (Aaron, 2026-11-14): round "downs" that only rise from the land, 0 on the flat to about 1
      * on a hilltop. One hill per {@link #DOWNS_CELL} grid cell, its middle jittered within the cell, each its own size
-     * (radius 0.55-0.9 of a cell), height (0.55-1) and oval, turned shape (up to 1.6 times as long as wide); one cell
+     * (radius 0.5-0.8 of a cell), height (0.55-1) and oval, turned shape (up to 1.6 times as long as wide); one cell
      * in five is left flat for meadows. A hill's profile is (height x (1 - r^2)^2), a bell with a gentle foot; where
      * hills overlap they are blended as the root of the sum of squares, so they merge into ridges without plateaus or
-     * creases. At 24 blocks tall (the Shire's) the steepest slope is about 21 degrees. Unlike noise hills it never dips
+     * creases. At 30 blocks tall (the Shire's) the steepest slope is about 0.7 blocks per block: steep, round hills
+     * whose every step is a grass edge (Aaron 2026-11-14). Unlike noise hills it never dips
      * under the biome's ground, so it makes no ponds, and it needs no seed: the same hills in every world, and reliable.
      * Tuned on a shaded preview of 1.5 km (2026-11-14).
      */
@@ -458,7 +459,7 @@ public final class MiddleEarthMap {
                 }
                 double hx = (cx + i + 0.15 + 0.7 * unit(h, 1)) * DOWNS_CELL;
                 double hz = (cz + k + 0.15 + 0.7 * unit(h, 2)) * DOWNS_CELL;
-                double radius = DOWNS_CELL * (0.55 + 0.35 * unit(h, 3));
+                double radius = DOWNS_CELL * (0.5 + 0.3 * unit(h, 3));
                 double height = 0.55 + 0.45 * unit(h, 4);
                 double turn = Math.PI * unit(h, 5);
                 double stretch = 1 + 0.6 * unit(h, 6);
