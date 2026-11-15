@@ -1,0 +1,32 @@
+# lotr_port_music: the Middle-earth film music as its own resource-only mod (no code).
+# This file is the only part kept in this public repo. The tracks come from the private repo PorcupineStudios/LOTR_music
+# and are packed with it by .github/workflows/music-build.yml (lotr/docs/music.md). Never publish the jar.
+#
+# lowcodefml: a mod with no Java code. Its assets/lotr_port/ (sounds, music/playlists.json, music/tracks.json) load as
+# mod resources, which lotr_port's LotrMusic reads like any pack. Nothing here names lotr_port's version, so this jar
+# keeps working across lotr_port updates; rebuild it only when the music itself changes.
+modLoader = "lowcodefml"
+loaderVersion = "[4,)"
+license = "All Rights Reserved"
+
+[[mods]]
+modId = "lotr_port_music"
+version = "${version}"
+displayName = "Middle-earth Music"
+authors = "PorcupineStudios"
+description = '''The six films' scores for lotr_port's lands, by mood (calm, suspense, fight). Private: never share this jar.'''
+
+[[dependencies.lotr_port_music]]
+modId = "minecraft"
+type = "required"
+versionRange = "[1.21,1.22)"
+ordering = "NONE"
+side = "CLIENT"
+
+# Optional so the jar never has to match a lotr_port version; it only plays when lotr_port is there.
+[[dependencies.lotr_port_music]]
+modId = "lotr_port"
+type = "optional"
+versionRange = "*"
+ordering = "NONE"
+side = "CLIENT"
