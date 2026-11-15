@@ -43,7 +43,7 @@
     "ceiling": 610
   },
   "noise_band": {
-    "above": 6.0,
+    "above": 9.0,
     "below": 4.0,
     "hill_bias": 0.4,
     "sea_level": 62,
