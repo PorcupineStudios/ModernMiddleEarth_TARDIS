@@ -229,10 +229,17 @@ public final class SpaceTests {
         helper.assertTrue(!SpaceChunks.decide(false, false, 40, at), "skips outside space");
         helper.assertTrue(!SpaceChunks.decide(false, true, 40, 0), "skips with the setting at 0");
         // both loaders are hooked: vanilla's, and Immersive Portals' (loaded here; no player has made it load yet)
-        helper.assertTrue(hooked(net.minecraft.server.level.ChunkMap.class, "skipFastInSpace"),
+        helper.assertTrue(hooked(net.minecraft.server.level.ChunkMap.class, "skipInSpace"),
                 "vanilla chunk loading isn't hooked");
-        helper.assertTrue(hooked(qouteall.imm_ptl.core.chunk_loading.ChunkVisibility.class,
-                "noLoadersWhenFastInSpace"), "Immersive Portals' chunk loading isn't hooked");
+        helper.assertTrue(hooked(net.minecraft.server.level.ChunkMap.class, "skipEmptySpace"),
+                "chunk saving isn't hooked");
+        helper.assertTrue(hooked(net.minecraft.world.level.chunk.storage.EntityStorage.class, "indexEntities"),
+                "entity saving isn't hooked");
+        helper.assertTrue(hooked(qouteall.imm_ptl.core.chunk_loading.ChunkVisibility.class, "spaceLoaders"),
+                "Immersive Portals' chunk loading isn't hooked");
+        // sparse space: a player's (near) ticket beats a content one on the same chunk; else the larger radius
+        helper.assertTrue(SpaceChunks.stronger(2 << 8 | 2, 1 << 8 | 5) == (1 << 8 | 5), "near ticket lost");
+        helper.assertTrue(SpaceChunks.stronger(2 << 8 | 0, 2 << 8 | 2) == (2 << 8 | 2), "ticking content lost");
         helper.succeed();
     }
 

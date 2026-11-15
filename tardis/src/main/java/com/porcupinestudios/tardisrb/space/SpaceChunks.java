@@ -176,7 +176,7 @@ public final class SpaceChunks {
     }
 
     /** Of two tickets for one chunk: a player's (near) one, else the larger radius. */
-    static int stronger(int a, int b) {
+    public static int stronger(int a, int b) {
         if (a >> 8 != b >> 8) {
             return a >> 8 == 1 ? a : b;
         }
