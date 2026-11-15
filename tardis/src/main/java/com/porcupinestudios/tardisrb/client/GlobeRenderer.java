@@ -50,6 +50,9 @@ public final class GlobeRenderer {
 
     public static void set(SkyNet.Planets p) {
         planets = p.planets();
+        com.porcupinestudios.tardisrb.space.StationFrames.clientTuning = () -> tuning;
+        com.porcupinestudios.tardisrb.space.StationFrames.clientPlanet = id -> planets.stream()
+                .filter(pl -> pl.id().equals(id)).findFirst();
         tuning = p.tuning();
         List<StarSystem> list = new java.util.ArrayList<>();
         for (SkyNet.SystemData d : p.systems()) {
@@ -218,7 +221,11 @@ public final class GlobeRenderer {
             RenderSystem.setShaderColor(1, 1, 1, 1);
         }
         // the map spot below the camera, and the ball's radius in map widths and heights
-        double u = (p.surfaceX(cam.x) - p.minX()) / p.width();
+        // (in a station's zone the spot drifts round with its orbit: StationFrames)
+        Level here = net.minecraft.client.Minecraft.getInstance().level;
+        double sx = here == null ? p.surfaceX(cam.x) : com.porcupinestudios.tardisrb.space.StationFrames.surfaceX(here,
+                p, cam.x, cam.z, here.getGameTime() + event.getPartialTick().getGameTimeDeltaPartialTick(false));
+        double u = (sx - p.minX()) / p.width();
         double v = (p.surfaceZ(cam.z) - p.minZ()) / p.height();
         GlobeMesh.surface(detail).draw(ball, event.getProjectionMatrix(), RenderSystem.getShader(), u, v,
                 radius / p.width(), radius / p.height(), 1.0 / 4096);

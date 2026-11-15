@@ -47,8 +47,8 @@ import net.minecraft.world.level.storage.LevelResource;
  * can move its location around the planet's center)"): indexed chunks within {@code station_gap} chunks of each other
  * are one station. Each keeps its id while it grows or shrinks, its chunks, and where it is as an orbit: the planet
  * whose layer it's over, the longitude and latitude round that planet's centre and the full-size altitude
- * ({@link Station#orbit}). {@link Station#placeAt} turns an orbit back into layer coordinates, so a station's spot can
- * be moved round the planet (by {@code period}); moving its blocks there is not built yet.
+ * ({@link Station#orbit}), going once round per {@code period} ticks: it orbits in real time as a moving frame while
+ * its blocks stay put ({@link StationFrames}). {@link Station#placeAt} gives where it really is at any time.
  */
 public final class SpaceContent extends SavedData {
     private static final String NAME = "tardis_rb_space_chunks";
@@ -314,12 +314,19 @@ public final class SpaceContent extends SavedData {
         int x = (minX + maxX + 1) * 8;
         int z = (minZ + maxZ + 1) * 8;
         int y = minY == Integer.MAX_VALUE ? level.getSeaLevel() : (minY + maxY + 1) * 8;
-        long period = before == null ? 0 : before.orbit().period();
         long now = level.getGameTime();
-        Orbit orbit = Planets.under(level.getServer(), level.dimension(), x, z)
-                .map(p -> new Orbit(Optional.of(p.id()), p.lon(p.surfaceX(x)), p.lat(p.surfaceZ(z)),
-                        p.altitude(y), period, now))
-                .orElse(new Orbit(Optional.empty(), x, z, y, period, now));
+        Orbit orbit = Planets.under(level.getServer(), level.dimension(), x, z).map(p -> {
+            // it orbits once round at the orbit speed for its height (Kepler-style: lower is quicker); a station that
+            // changed keeps going from where its old frame had got to, so nothing jumps
+            long period = StationFrames.period(p, y, com.porcupinestudios.tardisrb.progression.TardisContent.tuning()
+                    .space());
+            double drift = 0;
+            if (before != null && before.orbit().planet().equals(Optional.of(p.id()))) {
+                drift = before.orbit().lonAt(now) - p.lon(p.surfaceX(before.centreX()));
+            }
+            return new Orbit(Optional.of(p.id()), Math.IEEEremainder(p.lon(p.surfaceX(x)) + drift, 2 * Math.PI),
+                    p.lat(p.surfaceZ(z)), p.altitude(y), period, now);
+        }).orElse(new Orbit(Optional.empty(), x, z, y, 0, now));
         return new Station(id, List.copyOf(chunks), x, y, z, orbit);
     }
 
