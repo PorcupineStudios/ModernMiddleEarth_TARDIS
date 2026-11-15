@@ -83,6 +83,15 @@ https://claude.ai/artifact/KqhSSTCuKXGuwKHBoYJdcu. Rebuild features in modern co
 - Shire downs (2026-11-14, Aaron: steep round hills that stay grassy): 30 blocks (moors 20, woodlands 18) on a
   112-block grid, steepest ~0.7 blocks per block (0.9 in "hills" patches), so steps are grass edges; no rock breaking
   through in biomes with downs (`ground_style`).
+- Mountain ranges (2026-11-15, Aaron: the Misty Mountains' 3D noise made overhangs and floating rock): `map/Ranges`,
+  set in `converter/world.py RANGES` -> map.json `ranges`. The range biomes (Misty, Grey, Forodwaith, Angmar, White,
+  Blue, Mordor, Red, Wind, Harad, Mirkwood mountains) lose their noise hilliness (`variationAt` x (1 - range share), so
+  no 3D noise or crags) and get a height-field massif instead, so they can't overhang: depth in from the range's edge
+  on the map (exact distance transform per 64-pixel tile, capped 20 px, blurred), spurs on a 240-block grid turned
+  down the depth's slope (valleys between run to the foothills), warped ridged crags, LOTR's named mountains inside a
+  range as broad summits (their cones dropped), passes within 400 blocks of a road (East-West road, Blue Mountains'
+  dwarf road), all scaled by the biome's LOTR hilliness. Mapped rivers aren't range pixels, so they cut valleys.
+  Prototyped in numpy on shaded reliefs of the map; `Ranges` reproduces the prototype exactly.
 - `Roads` registers each segment in every 256-block cell within `Roads.FLATTEN` (32): the terrain flattens hills by
   road distance, and a segment missing from a cell made it jump at the cell edge (straight 10+ block cliffs).
 - Terrain preview (dev tool): `-Dlotr_port.terrainpreview=<x>,<z>,<size>` on a Middle-earth server writes
