@@ -1,13 +1,15 @@
 name: Build
 
+# THROWAWAY (shire-preview only): generates the Shire round spawn, writes TerrainPreview's relief/variants/stats,
+# then flies the real client over the saved world for aerial shots, and pushes it all to claude/terrain-shots-tmp.
 on:
   push:
-    branches: ['**']
-  pull_request:
+    branches: ['claude/shire-preview']
 
 jobs:
-  build:
+  preview:
     runs-on: ubuntu-latest
+    timeout-minutes: 60
     permissions:
       contents: write
     steps:
@@ -17,62 +19,33 @@ jobs:
           distribution: temurin
           java-version: '21'
       - uses: gradle/actions/setup-gradle@v4
-      - run: ./gradlew build --stacktrace
-      - name: GameTests
-        # The game test server can exit 0 after a mod loading crash, so the log has to say the tests passed.
-        run: |
-          ./gradlew :lotr:runGameTestServer --stacktrace 2>&1 | tee gametest.log
-          grep -E "All [0-9]+ required tests passed" gametest.log
-      - name: TARDIS GameTests
-        run: |
-          ./gradlew :tardis:runGameTestServer --stacktrace 2>&1 | tee tardis-gametest.log
-          grep -E "All [0-9]+ required tests passed" tardis-gametest.log
-      - name: Middle-earth world
-        # A new world of the Middle-earth world type on a dedicated server: WorldCheck logs the spawn and stops it.
-        # It generates ~160 far-apart chunks plus two structures in one tick: watchdog off (max-tick-time=-1), 6 GB heap.
-        timeout-minutes: 15
+      - run: sudo apt-get update -q && sudo apt-get install -y -q xvfb libgl1-mesa-dri libglu1-mesa && pip install nbtlib
+      - name: Generate and preview
+        timeout-minutes: 25
         run: |
           mkdir -p lotr/run
           echo "eula=true" > lotr/run/eula.txt
-          printf 'level-type=lotr_port\\:middle_earth\nonline-mode=false\nlevel-name=middle-earth-check\nmax-tick-time=-1\n' > lotr/run/server.properties
-          cat lotr/run/server.properties
-          JAVA_TOOL_OPTIONS="-Dlotr_port.worldcheck=true -Xmx6g" ./gradlew :lotr:runServer --stacktrace 2>&1 | tee worldcheck.log
-          grep -E "\\[worldcheck\\]|WORLDCHECK" worldcheck.log
-          grep "WORLDCHECK PASSED" worldcheck.log
-      - name: TARDIS world
-        # A dedicated server: the crash site, its police box, and its interior in the interior dimension.
-        timeout-minutes: 10
+          printf 'level-type=lotr_port\\:middle_earth\nonline-mode=false\nlevel-name=shire\nmax-tick-time=-1\n' > lotr/run/server.properties
+          JAVA_TOOL_OPTIONS="-Dlotr_port.terrainpreview=0,0,640 -Dlotr_port.terrainpreview.save=true -Xmx6g" ./gradlew :lotr:runServer --stacktrace > preview.log 2>&1 || true
+          grep -E "\[preview\]|ERROR|Exception" preview.log | head -20 || true
+          cat lotr/run/terrain_preview/stats.txt
+      - name: Aerial shots
+        timeout-minutes: 25
         run: |
-          mkdir -p tardis/run
-          echo "eula=true" > tardis/run/eula.txt
-          printf 'online-mode=false\nlevel-name=tardis-check\n' > tardis/run/server.properties
-          JAVA_TOOL_OPTIONS="-Dtardis_rb.worldcheck=true" ./gradlew :tardis:runServer --stacktrace 2>&1 | tee tardis-world.log
-          grep -E "\\[worldcheck\\]|WORLDCHECK|crash site" tardis-world.log
-          grep "TARDIS WORLDCHECK PASSED" tardis-world.log
-      - uses: actions/upload-artifact@v4
-        with:
-          name: jars
-          path: "*/build/libs/*.jar"
-      # Other mods' jars are never uploaded or released from this public repo: the release notes list the versions the
-      # build used, to download from Modrinth.
-      - name: Mods the TARDIS needs (versions only)
+          mkdir -p lotr/run/saves && cp -r lotr/run/shire lotr/run/saves/shire && rm -f lotr/run/saves/shire/session.lock
+          python3 .github/shot/shire_client.py lotr/run
+          Xvfb :99 -screen 0 1280x720x24 &
+          sleep 3
+          DISPLAY=:99 LIBGL_ALWAYS_SOFTWARE=1 JAVA_TOOL_OPTIONS="-Dlotr_port.devscript=aerial.txt" timeout 1300 ./gradlew :lotr:runClient -PquickPlay=shire > client.log 2>&1 || true
+          ls -la lotr/run/screenshots || true
+          grep -iE "devscript|exception" client.log | head -20 || true
+      - name: Keep the results on a throwaway branch
+        if: always()
         run: |
-          : > needed-mods.txt
-          for m in create immersive-portals-neoforge cloth-config jade; do
-            find ~/.gradle/caches/modules-2/files-2.1/maven.modrinth/$m -name "*.jar" ! -name "*-sources.jar" \
-              -printf "- %f (https://modrinth.com/mod/$m)\n" >> needed-mods.txt
-          done
-          cat needed-mods.txt
-      - name: Rolling test build (a pre-release with our jars; other mods are listed, not attached)
-        if: github.event_name == 'push'
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          mkdir -p test-build
-          cp api/build/libs/*.jar tardis/build/libs/*.jar lotr/build/libs/*.jar test-build/
-          rm -f test-build/*-sources.jar
-          gh release delete test-build -y --cleanup-tag || true
-          gh release create test-build test-build/*.jar --prerelease --target "${{ github.sha }}" \
-            --title "Test build (${GITHUB_REF_NAME})" --notes "Latest green build of ${GITHUB_REF_NAME} at ${GITHUB_SHA}. Also install these mods from Modrinth (the versions this build used):
-          $(cat needed-mods.txt)
-          No Sodium: Create needs Sodium 0.6.9 or newer, Immersive Portals 6.0.7 works only with 0.6.0."
+          mkdir -p out && cp lotr/run/terrain_preview/* out/ 2>/dev/null; cp lotr/run/screenshots/*.png out/ 2>/dev/null; tail -200 client.log > out/client-tail.log 2>/dev/null; grep -E "\[preview\]|ERROR|Exception" preview.log | head -50 > out/preview-errors.log || true
+          git config user.name "ci"; git config user.email "ci@users.noreply.github.com"
+          git checkout -q --orphan shots-tmp
+          git rm -rf -q --cached .
+          git add -f out
+          git commit -q -m "terrain shots (throwaway)"
+          git push -f -q origin HEAD:refs/heads/claude/terrain-shots-tmp
