@@ -248,22 +248,10 @@ public final class WorldCheck {
         boolean builtSaved = storage.read(builtChunk).join().isPresent();
         boolean emptySaved = storage.read(empty).join().isPresent();
         SpaceContent content = SpaceContent.get(space);
-        content.updateStations(space, TardisContent.tuning().space().chunks().stationGap());
-        var station = content.stations().stream().filter(s -> s.chunks().contains(builtChunk.toLong())).findFirst();
-        TardisRB.LOG.info("[worldcheck] sparse space: built chunk saved {}, empty chunk saved {}, {} indexed, "
-                + "station {}", builtSaved, emptySaved, content.size(), station.orElse(null));
+        TardisRB.LOG.info("[worldcheck] sparse space: built chunk saved {}, empty chunk saved {}, {} indexed",
+                builtSaved, emptySaved, content.size());
         if (!builtSaved || emptySaved) {
             problems.add("sparse space saved the built chunk: " + builtSaved + ", the empty one: " + emptySaved);
-        }
-        if (station.isEmpty() || station.get().orbit().planet().isEmpty()
-                || !station.get().orbit().planet().get().equals(planet.id())) {
-            problems.add("no station over " + planet.id() + " for the block at " + built + ": " + content.stations());
-            return;
-        }
-        double[] placed = station.get().placeAt(planet, station.get().orbit().epoch());
-        Vec3 centre = new Vec3(station.get().centreX(), station.get().centreY(), station.get().centreZ());
-        if (centre.distanceTo(new Vec3(placed[0], placed[1], placed[2])) > 1) {
-            problems.add("the station's orbit places it at " + java.util.Arrays.toString(placed) + ", not " + centre);
         }
     }
 

@@ -55,24 +55,10 @@ shared API's `PlanetProvider`.
   chunk with radius `near_radius` + 2 (not while flying fast or spectating) and one radius-0 loader per indexed chunk
   within view distance; tickets (`tardis_rb_space_near` / `_content`) make those ticking (content within simulation
   distance). The index is saved again on `LevelEvent.Save` (Minecraft saves data before chunks).
-- **Space stations** (Aaron: "save where they are (with orbit kept in mind so we can move it's location around the
-  planet's center)"): indexed chunks within `station_gap` chunks of each other are one station (`SpaceContent.Station`:
-  id kept while it changes, its chunks, centre block, `Orbit`: planet, lon/lat round its centre, full-size altitude,
-  `period` ticks per turn (0 = still) and `epoch`). `Station.placeAt(planet, time)` gives the layer spot for any time.
-- **Stations orbit in real time as moving frames** (Aaron 2026-11-15: stations are built automatically, orbit
-  Kepler-style, seen moving; Create thrusters next; `space/StationFrames`, tuning `space.stations`): a station's
-  blocks stay put while where they are over the planet drifts east at `Orbits.orbitSpeed` for its height (period =
-  layer width / that speed; lower is quicker). In its zone (chunks + `zone_margin` 192) spots on the planet include
-  the drift (`StationFrames.surfaceX`: the globe scrolls by, smoothed between ticks; going down and into the solar
-  system land under where it really is), and the planet pulls only within `deck_height` (2) over solid blocks (deck
-  gravity, `Orbits.step`): elsewhere you co-orbit and float. Leaving the zone moves you to its true place (+ drift, +
-  orbit speed east); coming within `enter_radius` (128) of a station's true place moves you into its frame (persistent
-  entity tag `tardis_rb:station_frame`, so restarts keep it). A changed station keeps its drift (new orbit starts
-  where the old frame had got to). Frames go to clients (`SkyNet.Frames`, registrar 5) on login, level change and
-  change. Real orbit speed (2.5 blocks a tick at the floor) is why the blocks don't move: riding a contraption that
-  fast, and streaming chunks, would lag. Test: `SpaceTests.stationFramesOrbit`. Not tried in a game client: the
-  scrolling globe, the frame moves (players go through Immersive Portals' seamless teleport). World check: a built
-  block is saved and indexed, its empty neighbour isn't written, and its station's orbit places it back.
+- **Space stations are Create: Aeronautics (Sable) ships** (Aaron 2026-11-15), not fixed blocks: in the solar-system
+  zone the focus pulls them and they turn to keep their floor toward it (`compat/sable`, `docs/sable.md`). The earlier
+  fixed-frame stations (blocks staying put while the planet scrolled under them) were retired the same day; old saves'
+  station lists are ignored. World check: a built block is saved and indexed, its empty neighbour isn't written.
 - Leaving the layer top into the solar system: `docs/solar-system.md`.
 - Next: atmosphere rim, a sharper local map patch when low,
   terrain relief on the globe.
