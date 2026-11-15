@@ -5,6 +5,7 @@
   "plugin": "com.porcupinestudios.tardisrb.compat.sable.SableMixinPlugin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
+    "PlayerFitMixin",
     "PortalCollisionMixin",
     "SubLevelEntityGetterMixin",
     "TurnedGravityGroundMixin"

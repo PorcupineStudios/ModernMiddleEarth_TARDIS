@@ -23,7 +23,8 @@ public final class SableMixinPlugin implements IMixinConfigPlugin {
      */
     private static final Set<String> DROPPED = Set.of(
             "qouteall.imm_ptl.core.mixin.common.collision.MixinEntity#redirectHandleCollisions",
-            "dev.ryanhcode.sable.mixin.entity.entity_tracking.TrackedEntityMixin#sable$trackSubLevelEntities");
+            "dev.ryanhcode.sable.mixin.entity.entity_tracking.TrackedEntityMixin#sable$trackSubLevelEntities",
+            "dev.ryanhcode.sable.mixin.player_standup.PlayerMixin#sable$noCollisionWithSubLevels");
 
     private boolean sable;
 

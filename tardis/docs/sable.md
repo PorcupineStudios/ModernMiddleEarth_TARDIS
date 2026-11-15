@@ -2,7 +2,7 @@
 
 Optional. Aeronautics 1.3.2 ships fly on Sable 2.0.6 "sub-levels". Built against both (`tardis/build.gradle`); dev runs
 load them only with `-Paeronautics`. `tardis_rb.sable.mixins.json` applies only when Sable is loaded
-(`SableMixinPlugin`), and fixes three clashes with Immersive Portals 6.0.7 plus one with our gravity port:
+(`SableMixinPlugin`), and fixes four clashes with Immersive Portals 6.0.7 plus one with our gravity port:
 
 | Clash | Fix |
 |---|---|
@@ -10,10 +10,11 @@ load them only with `-Paeronautics`. `tardis_rb.sable.mixins.json` applies only 
 | IP `@Overwrite`s `ChunkMap$TrackedEntity.updatePlayer` empty; Sable redirects inside it (startup crash) | MixinSquared drops Sable's `sable$trackSubLevelEntities` (it had nothing to act on) |
 | Sable wraps each level's entity getter; IP casts it to its accessor (server tick crash) | `SubLevelEntityGetterMixin` answers IP's accessor from the wrapped vanilla getter |
 | Sable sets on-ground in world axes; turned gravity never lands on a ceiling | `TurnedGravityGroundMixin` recomputes the collision flags in the entity's own axes when gravity isn't down |
+| IP `@Overwrite`s `Player.canPlayerFitWithinBlocksAndEntitiesWhen`; Sable wraps a call inside it (client startup crash) | MixinSquared drops Sable's `sable$noCollisionWithSubLevels`; `PlayerFitMixin` (priority 1100) re-adds it on IP's version |
 
 Known gaps: IP tracks entities by its own chunk records, so entities riding a ship may not show to players who don't
 have the ship's plot chunks loaded (untested). IP's portal-entity lookups don't see ship-borne entities. Verified only
-by `runGameTestServer -Paeronautics` (43/43), not in a client.
+by `runGameTestServer -Paeronautics` and a dev `runClient -Paeronautics` reaching the title screen; no world joined.
 
 ## Ships in a solar system (`ShipOrbits`, `ShipAlign`)
 On every Sable pre-physics tick, in a solar-system dimension (`Systems.isSystem`):
