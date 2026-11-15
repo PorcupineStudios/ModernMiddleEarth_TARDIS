@@ -67,7 +67,25 @@ https://claude.ai/artifact/KqhSSTCuKXGuwKHBoYJdcu. Rebuild features in modern co
   (LOTRWorldGenReeds: still water at most 4 deep, never dry land). Lakes and Shire (2026-11-14): the 2D hill noise's
   valleys are a quarter deep (`VALLEYS`, fewer sea-level ponds). The Shire's hills are its own "downs"
   (`MiddleEarthMap.downs`, `DOWNS` in converter/world.py): round seedless hills that only rise, on a 160-block grid,
-  with LOTR's noise kept only as roughness. Rivers: `RIVERS` scale 1300 (was 900), about 30% fewer.
+  with LOTR's noise kept only as roughness.
+- Biome variants (2026-11-14, LOTR's LOTRBiomeVariant; Aaron: "many biomes within the Shire"): `map/Variants`, set in
+  `converter/world.py VARIANTS` -> map.json `variants`. Patches of a jittered 176-block grid inside a biome (Shire:
+  meadows, light forest, forest, hills, wooded hills, birch wood, aspen wood, orchard, plum orchard; 60% of cells) that
+  scale its downs and hilliness (blended smoothly between patches) and get their own plants: placed features
+  `<biome>_variant/*` gated by placement filter `lotr_port:in_variant` (looked up up to 20 blocks away, so edges
+  feather) and orchard rows by `lotr_port:orchard_grid`. Not separate biomes, as in LOTR: NPCs, structures, roads,
+  music and waypoint regions keyed to the biome are unchanged. `MiddleEarthMap.variantAt` names a column's patch.
+- Rivers (2026-11-14): `RIVERS` scale 1300 (lines ~30% further apart), width 0.0173 (noise units: same width in
+  blocks as before), `mask_scale` 3000: where a second noise is low the river narrows and ends (a third of the network).
+  `Rivers.carve`: only the channel (half a width) is cut to the bed; the banks come down to a block over sea level at
+  a width, then up to the land at `bank` widths (cutting the whole valley towards the bed flooded low ground 60-80
+  blocks wide).
+- `Roads` registers each segment in every 256-block cell within `Roads.FLATTEN` (32): the terrain flattens hills by
+  road distance, and a segment missing from a cell made it jump at the cell edge (straight 10+ block cliffs).
+- Terrain preview (dev tool): `-Dlotr_port.terrainpreview=<x>,<z>,<size>` on a Middle-earth server writes
+  `run/terrain_preview/` (relief.png, variants.png, overhangs.png, stats.txt: water share, slopes, overhangs) and stops
+  (`.save=true`: saves the world for a client, e.g. DevScript aerial shots; don't set `chatVisibility` hidden in
+  options.txt, it blocks the script's commands).
   Roads are 4-5 wide (`ROAD_HALF_WIDTH` 2.1, LOTR's were narrower); bridges `RoadFeature.BRIDGE_EXTRA` 1 wider each
   side so 4-5 blocks of deck lie between the fences.
 - Plants: LOTR's reed patches (`reedPerChunk`, dried with `dryReedChance`) and the Dead Marshes' dead plants
