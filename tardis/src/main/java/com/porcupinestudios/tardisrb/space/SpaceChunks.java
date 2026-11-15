@@ -129,6 +129,8 @@ public final class SpaceChunks {
             if (sparse(level)) {
                 SpaceContent content = SpaceContent.get(level);
                 content.updateStations(level, tuning.stationGap());
+                StationFrames.sync(level);
+                StationFrames.check(level);
                 for (ServerPlayer player : level.players()) {
                     ChunkPos at = player.chunkPosition();
                     if (!fast(player) && !player.isSpectator()) {
