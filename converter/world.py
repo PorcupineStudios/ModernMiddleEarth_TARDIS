@@ -46,7 +46,10 @@ VALLEYS = 0.25  # the 2D hills' valleys at a quarter depth (1.18 quarter_negativ
 # ground doesn't dip under sea level into ponds everywhere (Aaron, 2026-11-14: too many lakes next to LOTR)
 VALLEY_SHIFT = 0.1  # the lifted valleys raise the mean ~0.1 x HILL_2D x hilliness; lowered by that
 # Aaron (2026-11-14): a hillier Shire than LOTR's: biome name -> (blocks added to its height, hilliness factor)
-HILLIER = {"shire": (3.0, 1.19)}  # 10 blocks: more and crags (JAGGED_FROM) start
+# Aaron (2026-11-14): the Shire's own hills ("downs", MiddleEarthMap.downs): round hills that only rise from the land
+# (noise hills dip as often as they rise, into ponds). Biome name -> (tallest hill in blocks, share of LOTR's noise
+# hilliness kept as roughness on top).
+DOWNS = {"shire": (18, 0.4), "shire_moors": (14, 0.45), "shire_woodlands": (12, 0.5)}
 SURVEY_OFFSET = 1.0  # the survey's ground is the first air block; the port's map height lands about a block higher
 # LOTR's ground patches compare one-octave Perlin sums to thresholds; 1.18's normal noise spreads about half as wide
 NOISE_SCALE = 0.45
@@ -55,7 +58,8 @@ BLUR = 0  # pixels of box blur on heights (0 keeps one-pixel rivers)
 OCEAN = "ocean"
 ROAD_HALF_WIDTH = 2.1  # blocks either side of a road's middle (Aaron 2026-11-14: 4-5 wide; bridges 1 more each side)
 # Small rivers (LOTR made these with a river layer, not on the map). Widths are in noise units: one is about 11 blocks.
-RIVERS = {"biome": f"{NS}:river", "scale": 900, "width": 0.025, "bank": 3.0, "biome_width": 1.5, "bed": 56,
+# scale 1300 (was 900, Aaron 2026-11-14: fewer rivers, still a fair few): the lines are about 30% further apart
+RIVERS = {"biome": f"{NS}:river", "scale": 1300, "width": 0.025, "bank": 3.0, "biome_width": 1.5, "bed": 56,
           "max_height": 100, "min_height": 63, "seed": 1937}
 
 # Old surface blocks (registry name + meta) that are vanilla in 1.21.
@@ -274,14 +278,14 @@ class World:
     def height(self, b):
         f = b["fields"]
         if self.measured(b):
-            h = self.measured(b)["mean"] - SURVEY_OFFSET + HILLIER.get(f["biomeName"], (0, 1))[0]
+            h = self.measured(b)["mean"] - SURVEY_OFFSET
             return round(max(MIN_HEIGHT, min(MAX_HEIGHT, h)), 2)
         h = GROUND_AT_ZERO + float(f.get("heightBaseParameter", 0.1)) * BLOCKS_PER_BASE
         return round(max(MIN_HEIGHT, min(MAX_HEIGHT, h)), 2)
 
     def variation(self, b):
         if self.measured(b):  # LOTR's spread of ground heights; the noise gives about STD_PER_VARIATION of it
-            return round(self.measured(b)["std"] / STD_PER_VARIATION * HILLIER.get(b["fields"]["biomeName"], (0, 1))[1], 2)
+            return round(self.measured(b)["std"] / STD_PER_VARIATION * DOWNS.get(b["fields"]["biomeName"], (0, 1))[1], 2)
         return round(max(0.0, float(b["fields"].get("heightVariation", 0.1))) * BLOCKS_PER_VARIATION, 2)
 
     # ------------------------------------------------------------------ map
@@ -349,7 +353,8 @@ class World:
             "rivers": RIVERS,
             # LOTRMountains: a cone from the land up to the peak's surveyed ground over `range` blocks
             "mountains": [self.mountain(m) for m in self.survey.get("mountains", [])],
-            "biomes": [{"id": f"{NS}:{i}", "height": self.height(b), "variation": self.variation(b)}
+            "biomes": [dict({"id": f"{NS}:{i}", "height": self.height(b), "variation": self.variation(b)},
+                            **({"downs": DOWNS[i][0]} if i in DOWNS else {}))
                        for i, b in zip(ids, biomes)],
         })
         return w, h

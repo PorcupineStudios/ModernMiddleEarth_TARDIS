@@ -42,6 +42,8 @@ public final class MiddleEarthMap {
     private final List<Entry> biomes;
     private final float[] biomeHeights;
     private final float[] biomeVariations;
+    /** Per biome: the tallest of its "downs" (round hills, {@link #downs}), in blocks; 0 for none. */
+    private final float[] biomeDowns;
     private final Rivers rivers;
 
     /**
@@ -103,8 +105,11 @@ public final class MiddleEarthMap {
         }
     }
 
-    /** One biome of the map: its id, ground height (y of the surface) and hilliness (blocks up or down). */
-    public record Entry(String id, float height, float variation) {}
+    /**
+     * One biome of the map: its id, ground height (y of the surface), hilliness (blocks up or down, from noise) and
+     * downs (the tallest of its round hills, {@link #downs}; 0 for none).
+     */
+    public record Entry(String id, float height, float variation, float downs) {}
 
     /**
      * LOTRMountains: the ground rises in a cone to {@code peak} (a y level) at x, z over {@code range} blocks; hills
@@ -135,16 +140,18 @@ public final class MiddleEarthMap {
         for (JsonElement e : settings.getAsJsonArray("biomes")) {
             JsonObject o = e.getAsJsonObject();
             list.add(new Entry(o.get("id").getAsString(), o.get("height").getAsFloat(),
-                    o.get("variation").getAsFloat()));
+                    o.get("variation").getAsFloat(), o.has("downs") ? o.get("downs").getAsFloat() : 0));
         }
         this.biomes = Collections.unmodifiableList(list);
         this.biomeHeights = new float[256];
         this.biomeVariations = new float[256];
+        this.biomeDowns = new float[256];
         String ocean = settings.get("ocean").getAsString();
         int oceanAt = -1;
         for (int i = 0; i < list.size(); i++) {
             biomeHeights[i] = list.get(i).height();
             biomeVariations[i] = list.get(i).variation();
+            biomeDowns[i] = list.get(i).downs();
             if (list.get(i).id().equals(ocean)) {
                 oceanAt = i;
             }
@@ -300,6 +307,12 @@ public final class MiddleEarthMap {
         double wx = wobbledX(blockX, blockZ);
         double wz = wobbledZ(blockX, blockZ);
         double ground = smoothed(wx, wz, biomeHeights);
+        double downs = smoothed(wx, wz, biomeDowns);
+        if (downs > 0) {
+            // flattened near roads, as LOTR flattened its hills there
+            double road = Math.min(1, Roads.get().distance(blockX, blockZ) / 32.0);
+            ground += downs * downs(blockX, blockZ) * (0.3 + 0.7 * road);
+        }
         for (Mountain m : mountains) {
             double d = m.distance(blockX, blockZ);
             if (d < m.crater) {
@@ -328,6 +341,64 @@ public final class MiddleEarthMap {
             }
         }
         return variation * (1 - cut) * (0.25 + 0.75 * road) / (1 + boost);
+    }
+
+    /** Grid spacing of the downs (blocks): about one hill per cell. */
+    static final int DOWNS_CELL = 160;
+
+    /**
+     * The Shire's own hills (Aaron, 2026-11-14): round "downs" that only rise from the land, 0 on the flat to about 1
+     * on a hilltop. One hill per {@link #DOWNS_CELL} grid cell, its middle jittered within the cell, each its own size
+     * (radius 0.55-0.9 of a cell), height (0.55-1) and oval, turned shape (up to 1.6 times as long as wide); one cell
+     * in five is left flat for meadows. A hill's profile is (height x (1 - r^2)^2), a bell with a gentle foot; where
+     * hills overlap they are blended as the root of the sum of squares, so they merge into ridges without plateaus or
+     * creases. At 18 blocks tall (the Shire's) the steepest slope is about 17 degrees. Unlike noise hills it never dips
+     * under the biome's ground, so it makes no ponds, and it needs no seed: the same hills in every world, and reliable.
+     * Tuned on a shaded preview of 1.5 km (2026-11-14).
+     */
+    static double downs(int x, int z) {
+        int cx = Math.floorDiv(x, DOWNS_CELL);
+        int cz = Math.floorDiv(z, DOWNS_CELL);
+        double sum = 0;
+        // 5 x 5 cells: a long hill reaches up to 1.44 cells from its middle, which can be in the next cell but one
+        for (int i = -2; i <= 2; i++) {
+            for (int k = -2; k <= 2; k++) {
+                long h = mix((cx + i) * 0x9E3779B97F4A7C15L ^ (cz + k) * 0xC2B2AE3D27D4EB4FL ^ 0x5348495245L);
+                if (unit(h, 0) < 0.2) {
+                    continue; // a meadow
+                }
+                double hx = (cx + i + 0.15 + 0.7 * unit(h, 1)) * DOWNS_CELL;
+                double hz = (cz + k + 0.15 + 0.7 * unit(h, 2)) * DOWNS_CELL;
+                double radius = DOWNS_CELL * (0.55 + 0.35 * unit(h, 3));
+                double height = 0.55 + 0.45 * unit(h, 4);
+                double turn = Math.PI * unit(h, 5);
+                double stretch = 1 + 0.6 * unit(h, 6);
+                double dx = x - hx;
+                double dz = z - hz;
+                double along = (dx * Math.cos(turn) + dz * Math.sin(turn)) / (radius * stretch);
+                double across = (-dx * Math.sin(turn) + dz * Math.cos(turn)) / radius;
+                double r2 = along * along + across * across;
+                if (r2 < 1) {
+                    double u = 1 - r2;
+                    double hill = height * u * u;
+                    sum += hill * hill;
+                }
+            }
+        }
+        return Math.sqrt(sum);
+    }
+
+    private static long mix(long h) {
+        h ^= h >>> 33;
+        h *= 0xFF51AFD7ED558CCDL;
+        h ^= h >>> 33;
+        h *= 0xC4CEB9FE1A85EC53L;
+        return h ^ (h >>> 33);
+    }
+
+    /** The {@code n}th number in [0, 1) drawn from hash {@code h}. */
+    private static double unit(long h, int n) {
+        return (mix(h + n * 0x632BE59BD9B4E019L) >>> 11) * 0x1.0p-53;
     }
 
     /** The lava level of a volcano's crater at a block column (LOTR's getLavaHeight), or 0. */
