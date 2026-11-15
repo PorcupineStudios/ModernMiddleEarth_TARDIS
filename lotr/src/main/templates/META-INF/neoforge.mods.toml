@@ -37,3 +37,7 @@ type = "optional"
 versionRange = "[19.0,)"
 ordering = "NONE"
 side = "CLIENT"
+
+# Middle-earth's chunks are filled only up to where its terrain can reach (world/map/NoiseTop).
+[[mixins]]
+config = "lotr_port.mixins.json"
