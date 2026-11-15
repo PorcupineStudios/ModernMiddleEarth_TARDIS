@@ -84,6 +84,22 @@ NOISE_SCALE = 0.45
 BORDER_WOBBLE = 40  # blocks a biome border or slope can shift
 BLUR = 0  # pixels of box blur on heights (0 keeps one-pixel rivers)
 OCEAN = "ocean"
+# Mountain ranges' own terrain (Aaron 2026-11-15: the Misty Mountains' 3D noise made overhangs and floating rock):
+# a height field read off the map (MiddleEarthMap / map/Ranges, whose javadoc explains each number), replacing the
+# biomes' noise hilliness. Tuned on shaded reliefs of the map round Caradhras and the whole Misty Mountains
+# (2026-11-15): spurs and valleys run from a crest to the foothills, about 175 mean / 285 top in the Misty Mountains.
+RANGES = {
+    "biomes": [f"{NS}:{b}" for b in ("misty_mountains", "grey_mountains", "forodwaith_mountains", "angmar_mountains",
+                                      "white_mountains", "blue_mountains", "mordor_mountains", "red_mountains",
+                                      "wind_mountains", "harad_mountains", "mirkwood_mountains")],
+    "reach": 8.0,  # map pixels in from the edge to full height
+    "cell": 240,  # spur grid, blocks
+    "crest": 1.1, "spurs": 2.2, "relief": 0.9, "sink": 1.6,  # x the biome's LOTR hilliness
+    "wave": 300,  # crags' longest wavelength, blocks
+    "peak": 1.6, "peak_reach": 3.0,  # named mountains: extra height, and their width x LOTR's range
+    "pass": 400, "pass_floor": 0.2,  # passes: blocks either side of a road, and the massif's share left on it
+}
+
 ROAD_HALF_WIDTH = 2.1  # blocks either side of a road's middle (Aaron 2026-11-14: 4-5 wide; bridges 1 more each side)
 # Small rivers (LOTR made these with a river layer, not on the map). Widths are in noise units: one is about 11 blocks.
 # Aaron 2026-11-14: fewer rivers, still a fair few. scale 1700 (was 900): the lines are about half as dense; width is in
@@ -425,6 +441,7 @@ class World:
             "blur": BLUR, "border_wobble": BORDER_WOBBLE,
             "ocean": f"{NS}:{OCEAN}",
             "rivers": RIVERS,
+            "ranges": RANGES,
             "variants": {f"{NS}:{k}": {"cell": v["cell"], "chance": v["chance"], "list": [
                 {x: e[x] for x in ("name", "weight", "downs", "variation") if x in e} for e in v["list"]]}
                 for k, v in VARIANTS.items()},

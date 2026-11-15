@@ -18,6 +18,32 @@
     "min_height": 63,
     "seed": 1937
   },
+  "ranges": {
+    "biomes": [
+      "lotr_port:misty_mountains",
+      "lotr_port:grey_mountains",
+      "lotr_port:forodwaith_mountains",
+      "lotr_port:angmar_mountains",
+      "lotr_port:white_mountains",
+      "lotr_port:blue_mountains",
+      "lotr_port:mordor_mountains",
+      "lotr_port:red_mountains",
+      "lotr_port:wind_mountains",
+      "lotr_port:harad_mountains",
+      "lotr_port:mirkwood_mountains"
+    ],
+    "reach": 8.0,
+    "cell": 240,
+    "crest": 1.1,
+    "spurs": 2.2,
+    "relief": 0.9,
+    "sink": 1.6,
+    "wave": 300,
+    "peak": 1.6,
+    "peak_reach": 3.0,
+    "pass": 400,
+    "pass_floor": 0.2
+  },
   "variants": {
     "lotr_port:shire": {
       "cell": 176,
