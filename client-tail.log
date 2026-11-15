@@ -1,0 +1,300 @@
+[01:52:56] [Render thread/DEBUG] [mixin/]: imm_ptl_fabric.mixins.json:common.MixinPlayerManager_MA from mod immersive_portals_core->@Inject::onPlayerRespawn(Lnet/minecraft/server/level/ServerPlayer;ZLnet/minecraft/world/entity/Entity$RemovalReason;Lorg/spongepowered/asm/mixin/injection/callback/CallbackInfoReturnable;)V doesn't use it's CallbackInfoReturnable
+[01:52:56] [Render thread/DEBUG] [mixin/]: imm_ptl_fabric.mixins.json:common.MixinPlayerManager_MA from mod immersive_portals_core->@Inject::onPlayerRespawn(Lnet/minecraft/server/level/ServerPlayer;ZLnet/minecraft/world/entity/Entity$RemovalReason;Lorg/spongepowered/asm/mixin/injection/callback/CallbackInfoReturnable;)V has 0 override(s) in child classes
+[01:52:56] [Render thread/DEBUG] [mixin/]: imm_ptl_fabric.mixins.json:common.MixinPlayerManager_MA from mod immersive_portals_core->@Inject::onPlayerRespawn(Lnet/minecraft/server/level/ServerPlayer;ZLnet/minecraft/world/entity/Entity$RemovalReason;Lorg/spongepowered/asm/mixin/injection/callback/CallbackInfoReturnable;)V won't be passed a CallbackInfoReturnable as a result
+[01:52:56] [Render thread/DEBUG] [mixin/]: imm_ptl_fabric.mixins.json:common.MixinPlayerManager_MA from mod immersive_portals_core->@Inject::onPlayerDisconnect(Lnet/minecraft/server/level/ServerPlayer;Lorg/spongepowered/asm/mixin/injection/callback/CallbackInfo;)V doesn't use it's CallbackInfo
+[01:52:56] [Render thread/DEBUG] [mixin/]: imm_ptl_fabric.mixins.json:common.MixinPlayerManager_MA from mod immersive_portals_core->@Inject::onPlayerDisconnect(Lnet/minecraft/server/level/ServerPlayer;Lorg/spongepowered/asm/mixin/injection/callback/CallbackInfo;)V has 0 override(s) in child classes
+[01:52:56] [Render thread/DEBUG] [mixin/]: imm_ptl_fabric.mixins.json:common.MixinPlayerManager_MA from mod immersive_portals_core->@Inject::onPlayerDisconnect(Lnet/minecraft/server/level/ServerPlayer;Lorg/spongepowered/asm/mixin/injection/callback/CallbackInfo;)V won't be passed a CallbackInfo as a result
+[01:52:56] [Render thread/DEBUG] [mixin/]: q_misc_util.mixins.json:dimension.MixinPlayerList_Misc from mod immersive_portals_core->@Inject::onConnectionEstablished(Lnet/minecraft/network/Connection;Lnet/minecraft/server/level/ServerPlayer;Lnet/minecraft/server/network/CommonListenerCookie;Lorg/spongepowered/asm/mixin/injection/callback/CallbackInfo;)V doesn't use it's CallbackInfo
+[01:52:56] [Render thread/DEBUG] [mixin/]: q_misc_util.mixins.json:dimension.MixinPlayerList_Misc from mod immersive_portals_core->@Inject::onConnectionEstablished(Lnet/minecraft/network/Connection;Lnet/minecraft/server/level/ServerPlayer;Lnet/minecraft/server/network/CommonListenerCookie;Lorg/spongepowered/asm/mixin/injection/callback/CallbackInfo;)V has 0 override(s) in child classes
+[01:52:56] [Render thread/DEBUG] [mixin/]: q_misc_util.mixins.json:dimension.MixinPlayerList_Misc from mod immersive_portals_core->@Inject::onConnectionEstablished(Lnet/minecraft/network/Connection;Lnet/minecraft/server/level/ServerPlayer;Lnet/minecraft/server/network/CommonListenerCookie;Lorg/spongepowered/asm/mixin/injection/callback/CallbackInfo;)V won't be passed a CallbackInfo as a result
+[01:52:56] [Render thread/DEBUG] [mixin/]: Mixing accessor.PotionBrewingAccessor from create.mixins.json into net.minecraft.world.item.alchemy.PotionBrewing
+[01:52:56] [Server thread/INFO] [minecraft/IntegratedServer]: Starting integrated minecraft server version 1.21.1
+[01:52:56] [Server thread/INFO] [minecraft/MinecraftServer]: Generating keypair
+[01:52:56] [Server thread/DEBUG] [ne.ne.fm.co.ConfigTracker/CONFIG]: Loading configs type SERVER
+[01:52:56] [Server thread/DEBUG] [ne.ne.fm.co.ConfigTracker/CONFIG]: Loaded TOML config file /home/runner/work/ModernMiddleEarth_TARDIS/ModernMiddleEarth_TARDIS/tardis/run/config/ringbearer_api-server.toml
+[01:52:56] [Server thread/DEBUG] [ne.ne.fm.co.ConfigTracker/CONFIG]: Watching TOML config file /home/runner/work/ModernMiddleEarth_TARDIS/ModernMiddleEarth_TARDIS/tardis/run/config/ringbearer_api-server.toml for changes
+[01:52:56] [Server thread/DEBUG] [ne.ne.ne.co.NeoForgeConfig/FORGEMOD]: Loaded NeoForge config file neoforge-server.toml
+[01:52:56] [Server thread/DEBUG] [ne.ne.fm.co.ConfigTracker/CONFIG]: Loaded TOML config file /home/runner/work/ModernMiddleEarth_TARDIS/ModernMiddleEarth_TARDIS/tardis/run/config/neoforge-server.toml
+[01:52:56] [Server thread/DEBUG] [ne.ne.fm.co.ConfigTracker/CONFIG]: Watching TOML config file /home/runner/work/ModernMiddleEarth_TARDIS/ModernMiddleEarth_TARDIS/tardis/run/config/neoforge-server.toml for changes
+[01:52:56] [Server thread/DEBUG] [ne.ne.fm.co.ConfigTracker/CONFIG]: Loaded TOML config file /home/runner/work/ModernMiddleEarth_TARDIS/ModernMiddleEarth_TARDIS/tardis/run/config/create-server.toml
+[01:52:56] [Server thread/DEBUG] [ne.ne.fm.co.ConfigTracker/CONFIG]: Watching TOML config file /home/runner/work/ModernMiddleEarth_TARDIS/ModernMiddleEarth_TARDIS/tardis/run/config/create-server.toml for changes
+[01:52:56] [Server thread/DEBUG] [ne.ne.fm.co.ConfigTracker/CONFIG]: Loaded TOML config file /home/runner/work/ModernMiddleEarth_TARDIS/ModernMiddleEarth_TARDIS/tardis/run/config/tardis_rb-server.toml
+[01:52:56] [Server thread/DEBUG] [ne.ne.fm.co.ConfigTracker/CONFIG]: Watching TOML config file /home/runner/work/ModernMiddleEarth_TARDIS/ModernMiddleEarth_TARDIS/tardis/run/config/tardis_rb-server.toml for changes
+[01:52:56] [Server thread/DEBUG] [mixin/]: Mixing common.dim_stack.MixinChunkStatusTasks_BedrockReplacement from imm_ptl_peripheral.mixins.json into net.minecraft.world.level.chunk.status.ChunkStatusTasks
+[01:52:56] [Server thread/DEBUG] [mixin/]: imm_ptl_peripheral.mixins.json:common.dim_stack.MixinChunkStatusTasks_BedrockReplacement from mod immersive_portals_core: Class version 65 required is higher than the class version supported by the current version of Mixin (JAVA_17 supports class version 61)
+[01:52:56] [Server thread/DEBUG] [mixin/]: imm_ptl_peripheral.mixins.json:common.dim_stack.MixinChunkStatusTasks_BedrockReplacement from mod immersive_portals_core->@Inject::onGenerateSpawn(Lnet/minecraft/world/level/chunk/status/WorldGenContext;Lnet/minecraft/world/level/chunk/status/ChunkStep;Lnet/minecraft/util/StaticCache2D;Lnet/minecraft/world/level/chunk/ChunkAccess;Lorg/spongepowered/asm/mixin/injection/callback/CallbackInfoReturnable;)V doesn't use it's CallbackInfoReturnable
+[01:52:56] [Server thread/DEBUG] [mixin/]: Mixing accessor.BiomeManagerAccessor from ponder-common.mixins.json into net.minecraft.world.level.biome.BiomeManager
+[01:52:56] [Server thread/DEBUG] [mixin/]: ponder-common.mixins.json:accessor.BiomeManagerAccessor from mod ponder: Class version 65 required is higher than the class version supported by the current version of Mixin (JAVA_17 supports class version 61)
+[01:52:56] [Server thread/DEBUG] [mixin/]: Mixing common.entity_sync.MixinPersistentEntitySectionManager from imm_ptl.mixins.json into net.minecraft.world.level.entity.PersistentEntitySectionManager
+[01:52:56] [Server thread/DEBUG] [mixin/]: imm_ptl.mixins.json:common.entity_sync.MixinPersistentEntitySectionManager from mod immersive_portals_core: Class version 65 required is higher than the class version supported by the current version of Mixin (JAVA_17 supports class version 61)
+[01:52:56] [Server thread/DEBUG] [mixin/]: Mixing common.mc_util.MixinEntitySectionStorage from imm_ptl.mixins.json into net.minecraft.world.level.entity.EntitySectionStorage
+[01:52:56] [Server thread/DEBUG] [mixin/]: imm_ptl.mixins.json:common.mc_util.MixinEntitySectionStorage from mod immersive_portals_core: Class version 65 required is higher than the class version supported by the current version of Mixin (JAVA_17 supports class version 61)
+[01:52:56] [Server thread/DEBUG] [mixin/]: Mixing common.mc_util.IELevelEntityGetterAdapter from imm_ptl.mixins.json into net.minecraft.world.level.entity.LevelEntityGetterAdapter
+[01:52:56] [Server thread/DEBUG] [mixin/]: imm_ptl.mixins.json:common.mc_util.IELevelEntityGetterAdapter from mod immersive_portals_core: Class version 65 required is higher than the class version supported by the current version of Mixin (JAVA_17 supports class version 61)
+[01:52:56] [Server thread/DEBUG] [mixin/]: Mixing common.debug.MixinServerChunkCacheMainThreadExecutor from imm_ptl.mixins.json into net.minecraft.server.level.ServerChunkCache$MainThreadExecutor
+[01:52:56] [Server thread/DEBUG] [mixin/]: imm_ptl.mixins.json:common.debug.MixinServerChunkCacheMainThreadExecutor from mod immersive_portals_core: Class version 65 required is higher than the class version supported by the current version of Mixin (JAVA_17 supports class version 61)
+[01:52:56] [Server thread/DEBUG] [mixin/]: Mixing common.chunk_sync.IEChunkMap_Accessor from imm_ptl.mixins.json into net.minecraft.server.level.ChunkMap
+[01:52:56] [Server thread/DEBUG] [mixin/]: imm_ptl.mixins.json:common.chunk_sync.IEChunkMap_Accessor from mod immersive_portals_core: Class version 65 required is higher than the class version supported by the current version of Mixin (JAVA_17 supports class version 61)
+[01:52:56] [Server thread/DEBUG] [mixin/]: Mixing common.entity_sync.MixinChunkMap_E from imm_ptl.mixins.json into net.minecraft.server.level.ChunkMap
+[01:52:56] [Server thread/DEBUG] [mixin/]: imm_ptl.mixins.json:common.entity_sync.MixinChunkMap_E from mod immersive_portals_core: Class version 65 required is higher than the class version supported by the current version of Mixin (JAVA_17 supports class version 61)
+[01:52:56] [Server thread/DEBUG] [mixin/]: Renaming synthetic method lambda$ip_onDimensionRemove$1(Lnet/minecraft/server/level/ChunkMap$TrackedEntity;)V to mdcff5ea$immersive_portals_core$lambda$ip_onDimensionRemove$1$0 in imm_ptl.mixins.json:common.entity_sync.MixinChunkMap_E from mod immersive_portals_core
+[01:52:56] [Server thread/DEBUG] [mixin/]: Renaming synthetic method lambda$ip_onPlayerUnload$0(Lnet/minecraft/server/level/ServerPlayer;Lnet/minecraft/server/level/ChunkMap$TrackedEntity;)V to mdcff5ea$immersive_portals_core$lambda$ip_onPlayerUnload$0$1 in imm_ptl.mixins.json:common.entity_sync.MixinChunkMap_E from mod immersive_portals_core
+[01:52:56] [Server thread/DEBUG] [mixin/]: Mixing SpaceChunkMapMixin from tardis_rb.mixins.json into net.minecraft.server.level.ChunkMap
+[01:52:56] [Server thread/DEBUG] [mixin/]: Mixing common.chunk_sync.MixinChunkMap_C from imm_ptl.mixins.json into net.minecraft.server.level.ChunkMap
+[01:52:56] [Server thread/DEBUG] [mixin/]: imm_ptl.mixins.json:common.chunk_sync.MixinChunkMap_C from mod immersive_portals_core: Class version 65 required is higher than the class version supported by the current version of Mixin (JAVA_17 supports class version 61)
+[01:52:56] [Server thread/DEBUG] [mixin/]: imm_ptl.mixins.json:common.entity_sync.MixinChunkMap_E from mod immersive_portals_core->@Inject::onUnloadEntity(Lnet/minecraft/world/entity/Entity;Lorg/spongepowered/asm/mixin/injection/callback/CallbackInfo;)V does use it's CallbackInfo
+[01:52:56] [Server thread/DEBUG] [mixin/]: imm_ptl.mixins.json:common.entity_sync.MixinChunkMap_E from mod immersive_portals_core->@Inject::onTickEntityMovement(Lorg/spongepowered/asm/mixin/injection/callback/CallbackInfo;)V does use it's CallbackInfo
+[01:52:56] [Server thread/DEBUG] [mixin/]: tardis_rb.mixins.json:SpaceChunkMapMixin from mod tardis_rb->@Inject::tardis_rb$skipFastInSpace(Lnet/minecraft/server/level/ServerPlayer;Lorg/spongepowered/asm/mixin/injection/callback/CallbackInfoReturnable;)V does use it's CallbackInfoReturnable
+[01:52:56] [Server thread/DEBUG] [mixin/]: imm_ptl.mixins.json:common.chunk_sync.MixinChunkMap_C from mod immersive_portals_core->@Inject::onUpdateChunkTracking(Lnet/minecraft/server/level/ServerPlayer;Lnet/minecraft/server/level/ChunkTrackingView;Lorg/spongepowered/asm/mixin/injection/callback/CallbackInfo;)V does use it's CallbackInfo
+[01:52:56] [Server thread/DEBUG] [mixin/]: Mixing common.chunk_sync.IEDistanceManager from imm_ptl.mixins.json into net.minecraft.server.level.DistanceManager
+[01:52:56] [Server thread/DEBUG] [mixin/]: imm_ptl.mixins.json:common.chunk_sync.IEDistanceManager from mod immersive_portals_core: Class version 65 required is higher than the class version supported by the current version of Mixin (JAVA_17 supports class version 61)
+[01:52:56] [Server thread/DEBUG] [mixin/]: Mixing common.chunk_sync.MixinDistanceManager from imm_ptl.mixins.json into net.minecraft.server.level.DistanceManager
+[01:52:56] [Server thread/DEBUG] [mixin/]: imm_ptl.mixins.json:common.chunk_sync.MixinDistanceManager from mod immersive_portals_core: Class version 65 required is higher than the class version supported by the current version of Mixin (JAVA_17 supports class version 61)
+[01:52:56] [Server thread/DEBUG] [mixin/]: Renaming synthetic method lambda$onHandleChunkLeave$0(J)Lit/unimi/dsi/fastutil/objects/ObjectSet; to mdcff5ea$immersive_portals_core$lambda$onHandleChunkLeave$0$0 in imm_ptl.mixins.json:common.chunk_sync.MixinDistanceManager from mod immersive_portals_core
+[01:52:56] [Server thread/DEBUG] [mixin/]: Mixing common.debug.MixinDistanceManager_Debug from imm_ptl.mixins.json into net.minecraft.server.level.DistanceManager
+[01:52:56] [Server thread/DEBUG] [mixin/]: imm_ptl.mixins.json:common.debug.MixinDistanceManager_Debug from mod immersive_portals_core: Class version 65 required is higher than the class version supported by the current version of Mixin (JAVA_17 supports class version 61)
+[01:52:56] [Server thread/DEBUG] [mixin/]: imm_ptl.mixins.json:common.chunk_sync.MixinDistanceManager from mod immersive_portals_core->@Inject::onHandleChunkLeave(Lnet/minecraft/core/SectionPos;Lnet/minecraft/server/level/ServerPlayer;Lorg/spongepowered/asm/mixin/injection/callback/CallbackInfo;)V doesn't use it's CallbackInfo
+[01:52:56] [Server thread/DEBUG] [mixin/]: imm_ptl.mixins.json:common.chunk_sync.MixinDistanceManager from mod immersive_portals_core->@Inject::onHandleChunkLeave(Lnet/minecraft/core/SectionPos;Lnet/minecraft/server/level/ServerPlayer;Lorg/spongepowered/asm/mixin/injection/callback/CallbackInfo;)V has 0 override(s) in child classes
+[01:52:56] [Server thread/DEBUG] [mixin/]: imm_ptl.mixins.json:common.chunk_sync.MixinDistanceManager from mod immersive_portals_core->@Inject::onHandleChunkLeave(Lnet/minecraft/core/SectionPos;Lnet/minecraft/server/level/ServerPlayer;Lorg/spongepowered/asm/mixin/injection/callback/CallbackInfo;)V won't be passed a CallbackInfo as a result
+[01:52:56] [Server thread/DEBUG] [mixin/]: imm_ptl.mixins.json:common.chunk_sync.MixinDistanceManager from mod immersive_portals_core->@Inject::onRunAllUpdates(Lnet/minecraft/server/level/ChunkMap;Lorg/spongepowered/asm/mixin/injection/callback/CallbackInfoReturnable;)V doesn't use it's CallbackInfoReturnable
+[01:52:56] [Server thread/DEBUG] [mixin/]: imm_ptl.mixins.json:common.chunk_sync.MixinDistanceManager from mod immersive_portals_core->@Inject::onRunAllUpdates(Lnet/minecraft/server/level/ChunkMap;Lorg/spongepowered/asm/mixin/injection/callback/CallbackInfoReturnable;)V has 0 override(s) in child classes
+[01:52:56] [Server thread/DEBUG] [mixin/]: imm_ptl.mixins.json:common.chunk_sync.MixinDistanceManager from mod immersive_portals_core->@Inject::onRunAllUpdates(Lnet/minecraft/server/level/ChunkMap;Lorg/spongepowered/asm/mixin/injection/callback/CallbackInfoReturnable;)V won't be passed a CallbackInfoReturnable as a result
+[01:52:56] [Server thread/DEBUG] [mixin/]: imm_ptl.mixins.json:common.chunk_sync.MixinDistanceManager from mod immersive_portals_core->@Inject::onRunAllUpdates(Lnet/minecraft/server/level/ChunkMap;Lorg/spongepowered/asm/mixin/injection/callback/CallbackInfoReturnable;)V doesn't use it's CallbackInfoReturnable
+[01:52:56] [Server thread/DEBUG] [mixin/]: imm_ptl.mixins.json:common.chunk_sync.MixinDistanceManager from mod immersive_portals_core->@Inject::onRunAllUpdates(Lnet/minecraft/server/level/ChunkMap;Lorg/spongepowered/asm/mixin/injection/callback/CallbackInfoReturnable;)V has 0 override(s) in child classes
+[01:52:56] [Server thread/DEBUG] [mixin/]: imm_ptl.mixins.json:common.chunk_sync.MixinDistanceManager from mod immersive_portals_core->@Inject::onRunAllUpdates(Lnet/minecraft/server/level/ChunkMap;Lorg/spongepowered/asm/mixin/injection/callback/CallbackInfoReturnable;)V won't be passed a CallbackInfoReturnable as a result
+[01:52:56] [Server thread/DEBUG] [mixin/]: Mixing common.chunk_sync.MixinChunkHolder from imm_ptl.mixins.json into net.minecraft.server.level.ChunkHolder
+[01:52:56] [Server thread/DEBUG] [mixin/]: imm_ptl.mixins.json:common.chunk_sync.MixinChunkHolder from mod immersive_portals_core: Class version 65 required is higher than the class version supported by the current version of Mixin (JAVA_17 supports class version 61)
+[01:52:56] [Server thread/DEBUG] [mixin/]: Mixing common.debug.IEChunkHolder_Debug from imm_ptl.mixins.json into net.minecraft.server.level.ChunkHolder
+[01:52:56] [Server thread/DEBUG] [mixin/]: imm_ptl.mixins.json:common.debug.IEChunkHolder_Debug from mod immersive_portals_core: Class version 65 required is higher than the class version supported by the current version of Mixin (JAVA_17 supports class version 61)
+[01:52:56] [Server thread/DEBUG] [mixin/]: Mixing common.chunk_sync.IEChunkTaskPriorityQueueSorter from imm_ptl.mixins.json into net.minecraft.server.level.ChunkTaskPriorityQueueSorter
+[01:52:56] [Server thread/DEBUG] [mixin/]: imm_ptl.mixins.json:common.chunk_sync.IEChunkTaskPriorityQueueSorter from mod immersive_portals_core: Class version 65 required is higher than the class version supported by the current version of Mixin (JAVA_17 supports class version 61)
+[01:52:56] [Server thread/DEBUG] [mixin/]: Mixing common.debug.MixinChunkTaskPriorityQueue from imm_ptl.mixins.json into net.minecraft.server.level.ChunkTaskPriorityQueue
+[01:52:56] [Server thread/DEBUG] [mixin/]: imm_ptl.mixins.json:common.debug.MixinChunkTaskPriorityQueue from mod immersive_portals_core: Class version 65 required is higher than the class version supported by the current version of Mixin (JAVA_17 supports class version 61)
+[01:52:56] [Server thread/DEBUG] [mixin/]: Mixing light.LightEngineAccessor from flywheel.backend.mixins.json into net.minecraft.world.level.lighting.LightEngine
+[01:52:56] [Server thread/DEBUG] [mixin/]: Mixing light.LayerLightSectionStorageAccessor from flywheel.backend.mixins.json into net.minecraft.world.level.lighting.LayerLightSectionStorage
+[01:52:56] [Server thread/DEBUG] [mixin/]: Mixing light.SkyLightSectionStorageMixin from flywheel.backend.mixins.json into net.minecraft.world.level.lighting.SkyLightSectionStorage
+[01:52:56] [Server thread/DEBUG] [mixin/]: Mixing light.SkyDataLayerStorageMapAccessor from flywheel.backend.mixins.json into net.minecraft.world.level.lighting.SkyLightSectionStorage$SkyDataLayerStorageMap
+[01:52:56] [Server thread/DEBUG] [mixin/]: Mixing common.chunk_sync.MixinPlayerTicketTracker from imm_ptl.mixins.json into net.minecraft.server.level.DistanceManager$PlayerTicketTracker
+[01:52:56] [Server thread/DEBUG] [mixin/]: imm_ptl.mixins.json:common.chunk_sync.MixinPlayerTicketTracker from mod immersive_portals_core: Class version 65 required is higher than the class version supported by the current version of Mixin (JAVA_17 supports class version 61)
+[01:52:56] [Server thread/DEBUG] [mixin/]: Mixing common.debug.MixinPlayerTicketTracker_Debug from imm_ptl.mixins.json into net.minecraft.server.level.DistanceManager$PlayerTicketTracker
+[01:52:56] [Server thread/DEBUG] [mixin/]: imm_ptl.mixins.json:common.debug.MixinPlayerTicketTracker_Debug from mod immersive_portals_core: Class version 65 required is higher than the class version supported by the current version of Mixin (JAVA_17 supports class version 61)
+[01:52:56] [Server thread/DEBUG] [mixin/]: imm_ptl.mixins.json:common.chunk_sync.MixinPlayerTicketTracker from mod immersive_portals_core->@Inject::onInject(Lorg/spongepowered/asm/mixin/injection/callback/CallbackInfo;)V does use it's CallbackInfo
+[01:52:56] [Server thread/DEBUG] [mixin/]: imm_ptl.mixins.json:common.chunk_sync.MixinPlayerTicketTracker from mod immersive_portals_core->@Inject::onInject(Lorg/spongepowered/asm/mixin/injection/callback/CallbackInfo;)V does use it's CallbackInfo
+[01:52:56] [Server thread/DEBUG] [mixin/]: imm_ptl.mixins.json:common.chunk_sync.MixinPlayerTicketTracker from mod immersive_portals_core->@Inject::onInject(Lorg/spongepowered/asm/mixin/injection/callback/CallbackInfo;)V does use it's CallbackInfo
+[01:52:56] [Server thread/DEBUG] [mixin/]: imm_ptl.mixins.json:common.chunk_sync.MixinPlayerTicketTracker from mod immersive_portals_core->@Inject::onInject(Lorg/spongepowered/asm/mixin/injection/callback/CallbackInfo;)V does use it's CallbackInfo
+[01:52:56] [Server thread/DEBUG] [co.si.cr.Create/]: Prepared Redstone Network Space for minecraft:overworld
+[01:52:56] [Server thread/DEBUG] [co.si.cr.Create/]: Prepared Kinetic Network Space for minecraft:overworld
+[01:52:59] [Server thread/DEBUG] [co.si.cr.Create/]: Prepared Redstone Network Space for tardis_rb:space
+[01:52:59] [Server thread/DEBUG] [co.si.cr.Create/]: Prepared Kinetic Network Space for tardis_rb:space
+[01:52:59] [Server thread/DEBUG] [co.si.cr.Create/]: Prepared Redstone Network Space for tardis_rb:time_vortex
+[01:52:59] [Server thread/DEBUG] [co.si.cr.Create/]: Prepared Kinetic Network Space for tardis_rb:time_vortex
+[01:52:59] [Server thread/DEBUG] [co.si.cr.Create/]: Prepared Redstone Network Space for tardis_rb:interior
+[01:52:59] [Server thread/DEBUG] [co.si.cr.Create/]: Prepared Kinetic Network Space for tardis_rb:interior
+[01:52:59] [Server thread/DEBUG] [co.si.cr.Create/]: Prepared Redstone Network Space for tardis_rb:space
+[01:52:59] [Server thread/DEBUG] [co.si.cr.Create/]: Prepared Kinetic Network Space for tardis_rb:space
+[01:52:59] [Server thread/DEBUG] [co.si.cr.Create/]: Prepared Redstone Network Space for minecraft:the_nether
+[01:52:59] [Server thread/DEBUG] [co.si.cr.Create/]: Prepared Kinetic Network Space for minecraft:the_nether
+[01:52:59] [Server thread/DEBUG] [co.si.cr.Create/]: Prepared Redstone Network Space for minecraft:the_end
+[01:52:59] [Server thread/DEBUG] [co.si.cr.Create/]: Prepared Kinetic Network Space for minecraft:the_end
+[01:52:59] [Server thread/INFO] [qo.im.co.po.gl.GlobalPortalStorage/]: Global portal storage initialized minecraft:overworld
+[01:52:59] [Server thread/INFO] [qo.im.pe.di.DimStackManagement/]: Bedrock Replacement minecraft:overworld null
+[01:52:59] [Server thread/INFO] [qo.im.co.po.gl.GlobalPortalStorage/]: Global portal storage initialized tardis_rb:solar_system
+[01:52:59] [Server thread/INFO] [qo.im.pe.di.DimStackManagement/]: Bedrock Replacement tardis_rb:solar_system null
+[01:52:59] [Server thread/INFO] [qo.im.co.po.gl.GlobalPortalStorage/]: Global portal storage initialized tardis_rb:time_vortex
+[01:52:59] [Server thread/INFO] [qo.im.pe.di.DimStackManagement/]: Bedrock Replacement tardis_rb:time_vortex null
+[01:52:59] [Server thread/INFO] [qo.im.co.po.gl.GlobalPortalStorage/]: Global portal storage initialized tardis_rb:interior
+[01:52:59] [Server thread/INFO] [qo.im.pe.di.DimStackManagement/]: Bedrock Replacement tardis_rb:interior null
+[01:52:59] [Server thread/INFO] [qo.im.co.po.gl.GlobalPortalStorage/]: Global portal storage initialized tardis_rb:space
+[01:52:59] [Server thread/INFO] [qo.im.pe.di.DimStackManagement/]: Bedrock Replacement tardis_rb:space null
+[01:52:59] [Server thread/INFO] [qo.im.co.po.gl.GlobalPortalStorage/]: Global portal storage initialized minecraft:the_nether
+[01:52:59] [Server thread/INFO] [qo.im.pe.di.DimStackManagement/]: Bedrock Replacement minecraft:the_nether null
+[01:52:59] [Server thread/INFO] [qo.im.co.po.gl.GlobalPortalStorage/]: Global portal storage initialized minecraft:the_end
+[01:52:59] [Server thread/INFO] [qo.im.pe.di.DimStackManagement/]: Bedrock Replacement minecraft:the_end null
+[01:52:59] [Server thread/INFO] [qo.q_.di.DimensionIntId/]: Server dimension integer id mapping:
+minecraft:the_nether -> -1
+minecraft:overworld -> 0
+minecraft:the_end -> 1
+tardis_rb:solar_system -> 2
+tardis_rb:time_vortex -> 3
+tardis_rb:interior -> 4
+tardis_rb:space -> 5
+[01:52:59] [Server thread/INFO] [minecraft/MinecraftServer]: Preparing start region for dimension minecraft:overworld
+[01:52:59] [Server thread/DEBUG] [mixin/]: Mixing common.debug.MixinLinearPalette from imm_ptl.mixins.json into net.minecraft.world.level.chunk.LinearPalette
+[01:52:59] [Server thread/DEBUG] [mixin/]: imm_ptl.mixins.json:common.debug.MixinLinearPalette from mod immersive_portals_core: Class version 65 required is higher than the class version supported by the current version of Mixin (JAVA_17 supports class version 61)
+[01:52:59] [Server thread/DEBUG] [mixin/]: Mixing common.debug.MixinHashMapPalette from imm_ptl.mixins.json into net.minecraft.world.level.chunk.HashMapPalette
+[01:52:59] [Server thread/DEBUG] [mixin/]: imm_ptl.mixins.json:common.debug.MixinHashMapPalette from mod immersive_portals_core: Class version 65 required is higher than the class version supported by the current version of Mixin (JAVA_17 supports class version 61)
+[01:53:00] [progressListener/INFO] [minecraft/LoggerChunkProgressListener]: Preparing spawn area: 0%
+[01:53:00] [Server thread/DEBUG] [mixin/]: Mixing common.mc_util.MixinEntitySection from imm_ptl.mixins.json into net.minecraft.world.level.entity.EntitySection
+[01:53:00] [Server thread/DEBUG] [mixin/]: imm_ptl.mixins.json:common.mc_util.MixinEntitySection from mod immersive_portals_core: Class version 65 required is higher than the class version supported by the current version of Mixin (JAVA_17 supports class version 61)
+[01:53:00] [Server thread/INFO] [ne.ne.ne.se.pe.PermissionAPI/]: Successfully initialized permission handler neoforge:default_handler
+[01:53:00] [Server thread/INFO] [qo.im.co.po.cu.CustomPortalGenManager/]: Processing custom portal generation
+[01:53:00] [progressListener/INFO] [minecraft/LoggerChunkProgressListener]: Time elapsed: 538 ms
+[01:53:00] [Server thread/DEBUG] [mixin/]: Mixing common.entity_sync.MixinTrackedEntity from imm_ptl.mixins.json into net.minecraft.server.level.ChunkMap$TrackedEntity
+[01:53:00] [Server thread/DEBUG] [mixin/]: imm_ptl.mixins.json:common.entity_sync.MixinTrackedEntity from mod immersive_portals_core: Class version 65 required is higher than the class version supported by the current version of Mixin (JAVA_17 supports class version 61)
+[01:53:00] [Server thread/DEBUG] [mixin/]: Renaming synthetic method lambda$ip_resendSpawnPacketToTrackers$4(Lnet/minecraft/network/protocol/Packet;Lnet/minecraft/server/network/ServerPlayerConnection;)V to mdcff5ea$immersive_portals_core$lambda$ip_resendSpawnPacketToTrackers$4$0 in imm_ptl.mixins.json:common.entity_sync.MixinTrackedEntity from mod immersive_portals_core
+[01:53:00] [Server thread/DEBUG] [mixin/]: Renaming synthetic method lambda$ip_updateEntityTrackingStatus$3(Lnet/minecraft/server/level/ServerPlayer;)V to mdcff5ea$immersive_portals_core$lambda$ip_updateEntityTrackingStatus$3$1 in imm_ptl.mixins.json:common.entity_sync.MixinTrackedEntity from mod immersive_portals_core
+[01:53:00] [Server thread/DEBUG] [mixin/]: Renaming synthetic method lambda$ip_updateEntityTrackingStatus$2(Lit/unimi/dsi/fastutil/objects/Object2ObjectOpenHashMap;ILnet/minecraft/server/network/ServerPlayerConnection;)Z to mdcff5ea$immersive_portals_core$lambda$ip_updateEntityTrackingStatus$2$2 in imm_ptl.mixins.json:common.entity_sync.MixinTrackedEntity from mod immersive_portals_core
+[01:53:00] [Server thread/DEBUG] [mixin/]: Renaming synthetic method lambda$ip_updateEntityTrackingStatus$1(Lnet/minecraft/server/level/ServerPlayer;)V to mdcff5ea$immersive_portals_core$lambda$ip_updateEntityTrackingStatus$1$3 in imm_ptl.mixins.json:common.entity_sync.MixinTrackedEntity from mod immersive_portals_core
+[01:53:00] [Server thread/DEBUG] [mixin/]: Renaming synthetic method lambda$onSendToOtherNearbyPlayers$0(Lnet/minecraft/server/network/ServerPlayerConnection;Lnet/minecraft/network/protocol/Packet;)V to mdcff5ea$immersive_portals_core$lambda$onSendToOtherNearbyPlayers$0$4 in imm_ptl.mixins.json:common.entity_sync.MixinTrackedEntity from mod immersive_portals_core
+[01:53:00] [Server thread/INFO] [iPortal/]: Server performance level: medium
+[01:53:00] [Server thread/INFO] [minecraft/IntegratedServer]: Changing view distance to 4, from 10
+[01:53:00] [Server thread/INFO] [minecraft/IntegratedServer]: Changing simulation distance to 12, from 0
+[01:53:00] [Render thread/DEBUG] [io.ne.ch.MultithreadEventLoopGroup/]: -Dio.netty.eventLoopThreads: 8
+[01:53:00] [Render thread/DEBUG] [io.ne.ut.co.GlobalEventExecutor/]: -Dio.netty.globalEventExecutor.quietPeriodSeconds: 1
+[01:53:00] [Render thread/DEBUG] [io.ne.ch.ni.NioEventLoop/]: -Dio.netty.noKeySetOptimization: false
+[01:53:00] [Render thread/DEBUG] [io.ne.ch.ni.NioEventLoop/]: -Dio.netty.selectorAutoRebuildThreshold: 512
+[01:53:00] [Render thread/DEBUG] [io.ne.ut.in.PlatformDependent/]: org.jctools-core.MpscChunkedArrayQueue: available
+[01:53:00] [Render thread/DEBUG] [io.ne.ch.DefaultChannelId/]: -Dio.netty.processId: 4106 (auto-detected)
+[01:53:00] [Render thread/DEBUG] [io.ne.ut.NetUtil/]: -Djava.net.preferIPv4Stack: false
+[01:53:00] [Render thread/DEBUG] [io.ne.ut.NetUtil/]: -Djava.net.preferIPv6Addresses: system
+[01:53:00] [Render thread/DEBUG] [io.ne.ut.NetUtilInitializations/]: Loopback interface: lo (lo, 0:0:0:0:0:0:0:1%lo)
+[01:53:00] [Render thread/DEBUG] [io.ne.ut.NetUtil/]: /proc/sys/net/core/somaxconn: 4096
+[01:53:00] [Render thread/DEBUG] [io.ne.ch.DefaultChannelId/]: -Dio.netty.machineId: 70:a8:a5:ff:fe:6b:69:23 (auto-detected)
+[01:53:00] [Render thread/DEBUG] [io.ne.ut.Recycler/]: -Dio.netty.recycler.maxCapacityPerThread: 4096
+[01:53:00] [Render thread/DEBUG] [io.ne.ut.Recycler/]: -Dio.netty.recycler.ratio: 8
+[01:53:00] [Render thread/DEBUG] [io.ne.ut.Recycler/]: -Dio.netty.recycler.chunkSize: 32
+[01:53:00] [Render thread/DEBUG] [io.ne.ut.Recycler/]: -Dio.netty.recycler.blocking: false
+[01:53:00] [Render thread/DEBUG] [io.ne.ut.Recycler/]: -Dio.netty.recycler.batchFastThreadLocalOnly: true
+[01:53:00] [Netty Server IO #1/DEBUG] [mixin/]: Mixing common.other_sync.IEServerConfigurationPacketListenerImpl from imm_ptl.mixins.json into net.minecraft.server.network.ServerConfigurationPacketListenerImpl
+[01:53:00] [Netty Server IO #1/DEBUG] [mixin/]: imm_ptl.mixins.json:common.other_sync.IEServerConfigurationPacketListenerImpl from mod immersive_portals_core: Class version 65 required is higher than the class version supported by the current version of Mixin (JAVA_17 supports class version 61)
+[01:53:00] [Netty Server IO #1/DEBUG] [ne.ne.ne.ne.fi.NetworkFilters/]: Injected net.neoforged.neoforge.network.filters.GenericPacketSplitter@7046f6e3 into net.minecraft.network.Connection@43063dcb
+[01:53:00] [Netty Local Client IO #0/DEBUG] [ne.ne.ne.ne.fi.NetworkFilters/]: Injected net.neoforged.neoforge.network.filters.GenericPacketSplitter@3292b912 into net.minecraft.network.Connection@c60505f
+[01:53:00] [Render thread/INFO] [co.si.cr.Create/]: Created 157 recipes which will be injected into the game
+[01:53:00] [Render thread/INFO] [co.si.cr.Create/]: Created 0 tags which will be injected into the game
+[01:53:00] [Render thread/INFO] [qo.im.co.ne.ImmPtlNetworkConfig/]: Client received ImmPtl config packet. Server mod version: 1.0.0
+[01:53:01] [Render thread/DEBUG] [mixin/]: Mixing client.RemotePlayerEntityMixin from tardis_rb.mixins.json into net.minecraft.client.player.RemotePlayer
+[01:53:01] [Render thread/DEBUG] [mixin/]: Mixing client.ItemPickupParticleMixin from tardis_rb.mixins.json into net.minecraft.client.particle.ItemPickupParticle
+[01:53:01] [Netty Server IO #1/DEBUG] [ne.ne.ne.ne.fi.NetworkFilters/]: Injected net.neoforged.neoforge.network.filters.GenericPacketSplitter@3d0fd156 into net.minecraft.network.Connection@43063dcb
+[01:53:01] [Server thread/INFO] [minecraft/PlayerList]: Dev[local:E:862eedd3] logged in with entity id 6 at (-4.5, 97.0, -2.5)
+[01:53:01] [Server thread/DEBUG] [mixin/]: Mixing common.chunk_sync.MixinPlayerChunkSender from imm_ptl.mixins.json into net.minecraft.server.network.PlayerChunkSender
+[01:53:01] [Server thread/DEBUG] [mixin/]: imm_ptl.mixins.json:common.chunk_sync.MixinPlayerChunkSender from mod immersive_portals_core: Class version 65 required is higher than the class version supported by the current version of Mixin (JAVA_17 supports class version 61)
+[01:53:01] [Server thread/DEBUG] [mixin/]: imm_ptl.mixins.json:common.chunk_sync.MixinPlayerChunkSender from mod immersive_portals_core->@Inject::sendNextChunks(Lnet/minecraft/server/level/ServerPlayer;Lorg/spongepowered/asm/mixin/injection/callback/CallbackInfo;)V does use it's CallbackInfo
+[01:53:01] [Server thread/INFO] [minecraft/MinecraftServer]: Dev joined the game
+[01:53:01] [Render thread/DEBUG] [mixin/]: Mixing client.interaction.MixinMultiPlayerGameMode from imm_ptl.mixins.json into net.minecraft.client.multiplayer.MultiPlayerGameMode
+[01:53:01] [Render thread/DEBUG] [mixin/]: imm_ptl.mixins.json:client.interaction.MixinMultiPlayerGameMode from mod immersive_portals_core: Class version 65 required is higher than the class version supported by the current version of Mixin (JAVA_17 supports class version 61)
+[01:53:01] [Render thread/DEBUG] [mixin/]: Mixing client.accessor.IEClientLevelData from imm_ptl.mixins.json into net.minecraft.client.multiplayer.ClientLevel$ClientLevelData
+[01:53:01] [Render thread/DEBUG] [mixin/]: imm_ptl.mixins.json:client.accessor.IEClientLevelData from mod immersive_portals_core: Class version 65 required is higher than the class version supported by the current version of Mixin (JAVA_17 supports class version 61)
+[01:53:01] [Render thread/DEBUG] [mixin/]: Mixing client.alternate_dimension.MixinClientLevelData_CVB from imm_ptl_peripheral.mixins.json into net.minecraft.client.multiplayer.ClientLevel$ClientLevelData
+[01:53:01] [Render thread/DEBUG] [mixin/]: imm_ptl_peripheral.mixins.json:client.alternate_dimension.MixinClientLevelData_CVB from mod immersive_portals_core: Class version 65 required is higher than the class version supported by the current version of Mixin (JAVA_17 supports class version 61)
+[01:53:01] [Render thread/DEBUG] [mixin/]: imm_ptl_peripheral.mixins.json:client.alternate_dimension.MixinClientLevelData_CVB from mod immersive_portals_core->@Inject::onGetSkyDarknessHeight(Lorg/spongepowered/asm/mixin/injection/callback/CallbackInfoReturnable;)V does use it's CallbackInfoReturnable
+[01:53:01] [Server thread/DEBUG] [mixin/]: Mixing ChunkVisibilityMixin from tardis_rb.immportals.mixins.json into qouteall.imm_ptl.core.chunk_loading.ChunkVisibility
+[01:53:01] [Server thread/DEBUG] [mixin/]: tardis_rb.immportals.mixins.json:ChunkVisibilityMixin from mod tardis_rb->@Inject::tardis_rb$noLoadersWhenFastInSpace(Lnet/minecraft/server/level/ServerPlayer;Ljava/util/function/Consumer;Lorg/spongepowered/asm/mixin/injection/callback/CallbackInfo;)V does use it's CallbackInfo
+[01:53:01] [Render thread/DEBUG] [mixin/]: Mixing client.sync.IEBlockStatePredictionHandler from imm_ptl.mixins.json into net.minecraft.client.multiplayer.prediction.BlockStatePredictionHandler
+[01:53:01] [Render thread/DEBUG] [mixin/]: imm_ptl.mixins.json:client.sync.IEBlockStatePredictionHandler from mod immersive_portals_core: Class version 65 required is higher than the class version supported by the current version of Mixin (JAVA_17 supports class version 61)
+[01:53:01] [Render thread/DEBUG] [mixin/]: Mixing client.sync.MixinBlockStatePredictionHandler from imm_ptl.mixins.json into net.minecraft.client.multiplayer.prediction.BlockStatePredictionHandler
+[01:53:01] [Render thread/DEBUG] [mixin/]: imm_ptl.mixins.json:client.sync.MixinBlockStatePredictionHandler from mod immersive_portals_core: Class version 65 required is higher than the class version supported by the current version of Mixin (JAVA_17 supports class version 61)
+[01:53:01] [Render thread/DEBUG] [mixin/]: imm_ptl.mixins.json:client.sync.MixinBlockStatePredictionHandler from mod immersive_portals_core->@Inject::onStartPredictingEnd(Lorg/spongepowered/asm/mixin/injection/callback/CallbackInfoReturnable;)V doesn't use it's CallbackInfoReturnable
+[01:53:01] [Render thread/DEBUG] [mixin/]: imm_ptl.mixins.json:client.sync.MixinBlockStatePredictionHandler from mod immersive_portals_core->@Inject::onStartPredictingEnd(Lorg/spongepowered/asm/mixin/injection/callback/CallbackInfoReturnable;)V has 0 override(s) in child classes
+[01:53:01] [Render thread/DEBUG] [mixin/]: imm_ptl.mixins.json:client.sync.MixinBlockStatePredictionHandler from mod immersive_portals_core->@Inject::onStartPredictingEnd(Lorg/spongepowered/asm/mixin/injection/callback/CallbackInfoReturnable;)V won't be passed a CallbackInfoReturnable as a result
+[01:53:01] [Render thread/DEBUG] [co.si.cr.Create/]: Prepared Redstone Network Space for minecraft:overworld
+[01:53:01] [Render thread/DEBUG] [co.si.cr.Create/]: Prepared Kinetic Network Space for minecraft:overworld
+[01:53:01] [Server thread/INFO] [iPortal/]: Player login 17 ServerPlayer['Dev'/6, l='ServerWorld minecraft:overworld tardis-check', x=-4.50, y=97.00, z=-2.50]
+[01:53:01] [Server thread/ERROR] [qo.im.co.ch.ImmPtlChunkTickets/]: Chunk loading failure ServerWorld minecraft:overworld tardis-check [-2, 0] {}
+[01:53:01] [Server thread/ERROR] [qo.im.co.ch.ImmPtlChunkTickets/]: Chunk loading failure ServerWorld minecraft:overworld tardis-check [-2, -2] {}
+[01:53:01] [Server thread/ERROR] [qo.im.co.ch.ImmPtlChunkTickets/]: Chunk loading failure ServerWorld minecraft:overworld tardis-check [-2, -1] {}
+[01:53:01] [Render thread/INFO] [minecraft/Minecraft]: Client world updated but not counted as cleanup
+[01:53:01] [Render thread/DEBUG] [mixin/]: Mixing client.render.IESectionRenderDispatcher from imm_ptl.mixins.json into net.minecraft.client.renderer.chunk.SectionRenderDispatcher
+[01:53:01] [Render thread/DEBUG] [mixin/]: imm_ptl.mixins.json:client.render.IESectionRenderDispatcher from mod immersive_portals_core: Class version 65 required is higher than the class version supported by the current version of Mixin (JAVA_17 supports class version 61)
+[01:53:01] [Render thread/DEBUG] [mixin/]: Mixing client.render.MixinSectionRenderDispatcher from imm_ptl.mixins.json into net.minecraft.client.renderer.chunk.SectionRenderDispatcher
+[01:53:01] [Render thread/DEBUG] [mixin/]: imm_ptl.mixins.json:client.render.MixinSectionRenderDispatcher from mod immersive_portals_core: Class version 65 required is higher than the class version supported by the current version of Mixin (JAVA_17 supports class version 61)
+[01:53:01] [Render thread/DEBUG] [mixin/]: Mixing visualmanage.SectionCompilerMixin from flywheel.impl.mixins.json into net.minecraft.client.renderer.chunk.SectionCompiler
+[01:53:01] [Render thread/DEBUG] [mixin/]: flywheel.impl.mixins.json:visualmanage.SectionCompilerMixin from mod flywheel->@Inject::flywheel$tryAddBlockEntity(Ljava/lang/Object;Lnet/minecraft/world/level/block/entity/BlockEntity;Lorg/spongepowered/asm/mixin/injection/callback/CallbackInfo;)V does use it's CallbackInfo
+[01:53:01] [Render thread/DEBUG] [mixin/]: Mixing client.render.MixinRenderSection from imm_ptl.mixins.json into net.minecraft.client.renderer.chunk.SectionRenderDispatcher$RenderSection
+[01:53:01] [Render thread/DEBUG] [mixin/]: imm_ptl.mixins.json:client.render.MixinRenderSection from mod immersive_portals_core: Class version 65 required is higher than the class version supported by the current version of Mixin (JAVA_17 supports class version 61)
+[01:53:01] [Render thread/INFO] [qo.im.co.ClientWorldLoader/]: WorldRenderer reloaded minecraft:overworld
+[01:53:01] [Render thread/DEBUG] [mixin/]: Mixing client.multiworld_awareness.MixinBiomeAmbientSoundPlayer from imm_ptl.mixins.json into net.minecraft.client.resources.sounds.BiomeAmbientSoundsHandler
+[01:53:01] [Render thread/DEBUG] [mixin/]: imm_ptl.mixins.json:client.multiworld_awareness.MixinBiomeAmbientSoundPlayer from mod immersive_portals_core: Class version 65 required is higher than the class version supported by the current version of Mixin (JAVA_17 supports class version 61)
+[01:53:01] [Render thread/DEBUG] [mixin/]: imm_ptl.mixins.json:client.multiworld_awareness.MixinBiomeAmbientSoundPlayer from mod immersive_portals_core->@Inject::onTick(Lorg/spongepowered/asm/mixin/injection/callback/CallbackInfo;)V doesn't use it's CallbackInfo
+[01:53:01] [Render thread/DEBUG] [mixin/]: imm_ptl.mixins.json:client.multiworld_awareness.MixinBiomeAmbientSoundPlayer from mod immersive_portals_core->@Inject::onTick(Lorg/spongepowered/asm/mixin/injection/callback/CallbackInfo;)V has 0 override(s) in child classes
+[01:53:01] [Render thread/DEBUG] [mixin/]: imm_ptl.mixins.json:client.multiworld_awareness.MixinBiomeAmbientSoundPlayer from mod immersive_portals_core->@Inject::onTick(Lorg/spongepowered/asm/mixin/injection/callback/CallbackInfo;)V won't be passed a CallbackInfo as a result
+[01:53:01] [Render thread/INFO] [flywheel/]: Started 1 worker threads
+[01:53:01] [Render thread/INFO] [qo.q_.MiscNetworking/]: Client received dim intId sync packet
+minecraft:the_nether -> -1
+minecraft:overworld -> 0
+minecraft:the_end -> 1
+tardis_rb:solar_system -> 2
+tardis_rb:time_vortex -> 3
+tardis_rb:interior -> 4
+tardis_rb:space -> 5
+[01:53:01] [Render thread/INFO] [qo.q_.MiscNetworking/]: Client accepted dimension type mapping {ResourceKey[minecraft:dimension / minecraft:overworld]=ResourceKey[minecraft:dimension_type / minecraft:overworld], ResourceKey[minecraft:dimension / tardis_rb:solar_system]=ResourceKey[minecraft:dimension_type / tardis_rb:space], ResourceKey[minecraft:dimension / tardis_rb:interior]=ResourceKey[minecraft:dimension_type / tardis_rb:interior], ResourceKey[minecraft:dimension / tardis_rb:time_vortex]=ResourceKey[minecraft:dimension_type / tardis_rb:time_vortex], ResourceKey[minecraft:dimension / tardis_rb:space]=ResourceKey[minecraft:dimension_type / tardis_rb:space], ResourceKey[minecraft:dimension / minecraft:the_nether]=ResourceKey[minecraft:dimension_type / minecraft:the_nether], ResourceKey[minecraft:dimension / minecraft:the_end]=ResourceKey[minecraft:dimension_type / minecraft:the_end]}
+[01:53:01] [Render thread/DEBUG] [mixin/]: Mixing common.MixinClipContext from imm_ptl.mixins.json into net.minecraft.world.level.ClipContext
+[01:53:01] [Render thread/DEBUG] [mixin/]: imm_ptl.mixins.json:common.MixinClipContext from mod immersive_portals_core: Class version 65 required is higher than the class version supported by the current version of Mixin (JAVA_17 supports class version 61)
+[01:53:01] [Render thread/DEBUG] [mixin/]: Renaming synthetic method lambda$onGetBlockShape$0(Lqouteall/imm_ptl/core/portal/Portal;)Lqouteall/imm_ptl/core/McHelper$Placeholder; to mdcff5ea$immersive_portals_core$lambda$onGetBlockShape$0$0 in imm_ptl.mixins.json:common.MixinClipContext from mod immersive_portals_core
+[01:53:01] [Render thread/DEBUG] [mixin/]: Mixing common.interaction.IEClipContext from imm_ptl.mixins.json into net.minecraft.world.level.ClipContext
+[01:53:01] [Render thread/DEBUG] [mixin/]: imm_ptl.mixins.json:common.interaction.IEClipContext from mod immersive_portals_core: Class version 65 required is higher than the class version supported by the current version of Mixin (JAVA_17 supports class version 61)
+[01:53:01] [Render thread/DEBUG] [mixin/]: imm_ptl.mixins.json:common.MixinClipContext from mod immersive_portals_core->@Inject::onGetBlockShape(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/BlockGetter;Lnet/minecraft/core/BlockPos;Lorg/spongepowered/asm/mixin/injection/callback/CallbackInfoReturnable;)V does use it's CallbackInfoReturnable
+[01:53:01] [Render thread/DEBUG] [mixin/]: Mixing ProjectileUtilMixin from create.mixins.json into net.minecraft.world.entity.projectile.ProjectileUtil
+[01:53:01] [Render thread/INFO] [minecraft/ChatComponent]: [System] [CHAT] WARNING: Immersive Portals mod maybe has compatibility issues with mod Create(create). If you are sure that two mods become compatible again, report to qouteall.  Disable warning  Sometimes some contraptions will be invisible. 
+[01:53:01] [Render thread/DEBUG] [mixin/]: Mixing client.render.MixinFrustum_FixDeadLoop from imm_ptl.mixins.json into net.minecraft.client.renderer.culling.Frustum
+[01:53:01] [Render thread/DEBUG] [mixin/]: imm_ptl.mixins.json:client.render.MixinFrustum_FixDeadLoop from mod immersive_portals_core: Class version 65 required is higher than the class version supported by the current version of Mixin (JAVA_17 supports class version 61)
+[01:53:01] [Render thread/DEBUG] [mixin/]: Renaming synthetic method lambda$offsetToFullyIncludeCameraCube$0()V to mdcff5ea$immersive_portals_core$lambda$offsetToFullyIncludeCameraCube$0$0 in imm_ptl.mixins.json:client.render.MixinFrustum_FixDeadLoop from mod immersive_portals_core
+[01:53:01] [Render thread/DEBUG] [mixin/]: Mixing client.render.optimization.MixinFrustum from imm_ptl.mixins.json into net.minecraft.client.renderer.culling.Frustum
+[01:53:01] [Render thread/DEBUG] [mixin/]: imm_ptl.mixins.json:client.render.optimization.MixinFrustum from mod immersive_portals_core: Class version 65 required is higher than the class version supported by the current version of Mixin (JAVA_17 supports class version 61)
+[01:53:01] [Render thread/DEBUG] [mixin/]: imm_ptl.mixins.json:client.render.optimization.MixinFrustum from mod immersive_portals_core->@Inject::onFrustumCopy(Lnet/minecraft/client/renderer/culling/Frustum;Lorg/spongepowered/asm/mixin/injection/callback/CallbackInfo;)V doesn't use it's CallbackInfo
+[01:53:01] [Render thread/DEBUG] [mixin/]: imm_ptl.mixins.json:client.render.optimization.MixinFrustum from mod immersive_portals_core->@Inject::onFrustumCopy(Lnet/minecraft/client/renderer/culling/Frustum;Lorg/spongepowered/asm/mixin/injection/callback/CallbackInfo;)V has 0 override(s) in child classes
+[01:53:01] [Render thread/DEBUG] [mixin/]: imm_ptl.mixins.json:client.render.optimization.MixinFrustum from mod immersive_portals_core->@Inject::onFrustumCopy(Lnet/minecraft/client/renderer/culling/Frustum;Lorg/spongepowered/asm/mixin/injection/callback/CallbackInfo;)V won't be passed a CallbackInfo as a result
+[01:53:01] [Render thread/DEBUG] [mixin/]: imm_ptl.mixins.json:client.render.optimization.MixinFrustum from mod immersive_portals_core->@Inject::onSetOrigin(DDDLorg/spongepowered/asm/mixin/injection/callback/CallbackInfo;)V doesn't use it's CallbackInfo
+[01:53:01] [Render thread/DEBUG] [mixin/]: imm_ptl.mixins.json:client.render.optimization.MixinFrustum from mod immersive_portals_core->@Inject::onSetOrigin(DDDLorg/spongepowered/asm/mixin/injection/callback/CallbackInfo;)V has 0 override(s) in child classes
+[01:53:01] [Render thread/DEBUG] [mixin/]: imm_ptl.mixins.json:client.render.optimization.MixinFrustum from mod immersive_portals_core->@Inject::onSetOrigin(DDDLorg/spongepowered/asm/mixin/injection/callback/CallbackInfo;)V won't be passed a CallbackInfo as a result
+[01:53:01] [Render thread/DEBUG] [mixin/]: imm_ptl.mixins.json:client.render.optimization.MixinFrustum from mod immersive_portals_core->@Inject::onCubeInFrustum(DDDDDDLorg/spongepowered/asm/mixin/injection/callback/CallbackInfoReturnable;)V does use it's CallbackInfoReturnable
+[01:53:01] [Render thread/DEBUG] [mixin/]: imm_ptl.mixins.json:client.render.optimization.MixinFrustum from mod immersive_portals_core->@Inject::onCalculateFrustumReturn(Lorg/joml/Matrix4f;Lorg/joml/Matrix4f;Lorg/spongepowered/asm/mixin/injection/callback/CallbackInfo;)V doesn't use it's CallbackInfo
+[01:53:01] [Render thread/DEBUG] [mixin/]: imm_ptl.mixins.json:client.render.optimization.MixinFrustum from mod immersive_portals_core->@Inject::onCalculateFrustumReturn(Lorg/joml/Matrix4f;Lorg/joml/Matrix4f;Lorg/spongepowered/asm/mixin/injection/callback/CallbackInfo;)V has 0 override(s) in child classes
+[01:53:01] [Render thread/DEBUG] [mixin/]: imm_ptl.mixins.json:client.render.optimization.MixinFrustum from mod immersive_portals_core->@Inject::onCalculateFrustumReturn(Lorg/joml/Matrix4f;Lorg/joml/Matrix4f;Lorg/spongepowered/asm/mixin/injection/callback/CallbackInfo;)V won't be passed a CallbackInfo as a result
+[01:53:01] [Render thread/DEBUG] [mixin/]: Mixing client.render.optimization.IEChunkCompileTask from imm_ptl.mixins.json into net.minecraft.client.renderer.chunk.SectionRenderDispatcher$RenderSection$CompileTask
+[01:53:01] [Render thread/DEBUG] [mixin/]: imm_ptl.mixins.json:client.render.optimization.IEChunkCompileTask from mod immersive_portals_core: Class version 65 required is higher than the class version supported by the current version of Mixin (JAVA_17 supports class version 61)
+[01:53:01] [Render thread/DEBUG] [mixin/]: Mixing client.render.MixinScreenEffectRenderer from imm_ptl.mixins.json into net.minecraft.client.renderer.ScreenEffectRenderer
+[01:53:01] [Render thread/DEBUG] [mixin/]: imm_ptl.mixins.json:client.render.MixinScreenEffectRenderer from mod immersive_portals_core: Class version 65 required is higher than the class version supported by the current version of Mixin (JAVA_17 supports class version 61)
+[01:53:01] [Render thread/DEBUG] [mixin/]: Mixing client.ScreenEffectRendererMixin from tardis_rb.mixins.json into net.minecraft.client.renderer.ScreenEffectRenderer
+[01:53:01] [Render thread/DEBUG] [mixin/]: imm_ptl.mixins.json:client.render.MixinScreenEffectRenderer from mod immersive_portals_core->@Inject::onRenderInWallOverlay(Lnet/minecraft/client/renderer/texture/TextureAtlasSprite;Lcom/mojang/blaze3d/vertex/PoseStack;Lorg/spongepowered/asm/mixin/injection/callback/CallbackInfo;)V does use it's CallbackInfo
+[01:53:01] [Render thread/DEBUG] [mixin/]: tardis_rb.mixins.json:client.ScreenEffectRendererMixin from mod tardis_rb->@Inject::inject_getInWallBlockState(Lnet/minecraft/world/entity/player/Player;Lorg/spongepowered/asm/mixin/injection/callback/CallbackInfoReturnable;)V does use it's CallbackInfoReturnable
+[01:53:02] [Render thread/INFO] [minecraft/ClientPacketListener]: [ImmPtl] Client accepted position packet minecraft:overworld -4.5 97.0 -2.5
+[01:53:02] [Render thread/INFO] [minecraft/AdvancementTree]: Loaded 2 advancements
+[01:53:05] [Server thread/INFO] [minecraft/MinecraftServer]: [Not Secure] [Dev] SHOT_READY
+[01:53:06] [Server thread/INFO] [minecraft/ServerGamePacketListenerImpl]: [ImmPtl] Ignoring player move packet. Player: ServerPlayer['Dev'/6, l='ServerWorld tardis_rb:time_vortex tardis-check', x=0.50, y=126.40, z=40.50] Packet: minecraft:overworld -4.5 97.0 -2.5
+[01:53:06] [Render thread/DEBUG] [co.si.cr.Create/]: Prepared Redstone Network Space for tardis_rb:time_vortex
+[01:53:06] [Render thread/DEBUG] [co.si.cr.Create/]: Prepared Kinetic Network Space for tardis_rb:time_vortex
+[01:53:06] [Render thread/DEBUG] [co.si.cr.Create/]: Removed Redstone Network Space for minecraft:overworld
+[01:53:06] [Render thread/DEBUG] [co.si.cr.Create/]: Removed Kinetic Network Space for minecraft:overworld
+[01:53:06] [Render thread/INFO] [minecraft/Minecraft]: Client cleanup
+[01:53:06] [Render thread/INFO] [qo.im.co.ClientWorldLoader/]: WorldRenderer reloaded tardis_rb:time_vortex
+[01:53:06] [Render thread/INFO] [minecraft/ClientPacketListener]: [ImmPtl] Client accepted position packet tardis_rb:time_vortex 0.5 126.4 40.5
+[01:53:06] [Render thread/ERROR] [iPortal/]: Null RenderChunk BlockPos{x=0, y=126, z=40}
+[01:53:07] [Render thread/DEBUG] [co.si.cr.Create/]: Prepared Redstone Network Space for minecraft:overworld
+[01:53:07] [Render thread/DEBUG] [co.si.cr.Create/]: Prepared Kinetic Network Space for minecraft:overworld
+[01:53:07] [Render thread/INFO] [qo.im.co.ClientWorldLoader/]: Client World Created minecraft:overworld
+[01:53:10] [Server thread/INFO] [minecraft/MinecraftServer]: [Not Secure] [Dev] SHOT_READY
+[01:53:10] [Render thread/INFO] [minecraft/ClientPacketListener]: [ImmPtl] Client accepted position packet tardis_rb:time_vortex 0.5 126.4 40.5
+[01:53:15] [Server thread/INFO] [minecraft/MinecraftServer]: [Not Secure] [Dev] SHOT_READY
+[01:53:15] [Render thread/INFO] [minecraft/ClientPacketListener]: [ImmPtl] Client accepted position packet tardis_rb:time_vortex 0.5 126.4 40.5
+[01:53:20] [Server thread/INFO] [minecraft/MinecraftServer]: [Not Secure] [Dev] SHOT_READY
+[01:53:20] [Render thread/INFO] [minecraft/ClientPacketListener]: [ImmPtl] Client accepted position packet tardis_rb:time_vortex 0.5 126.4 40.5
+[01:53:20] [Server thread/INFO] [iPortal/]: Server performance level: good
+[01:53:25] [Server thread/INFO] [minecraft/MinecraftServer]: [Not Secure] [Dev] SHOT_READY
+[01:53:25] [Render thread/INFO] [minecraft/ClientPacketListener]: [ImmPtl] Client accepted position packet tardis_rb:time_vortex 0.5 126.4 40.5
+[01:53:30] [Server thread/INFO] [minecraft/MinecraftServer]: [Not Secure] [Dev] SHOT_READY
+[01:53:30] [Render thread/INFO] [minecraft/ClientPacketListener]: [ImmPtl] Client accepted position packet tardis_rb:time_vortex 0.5 126.4 40.5
+[01:53:35] [Server thread/INFO] [minecraft/MinecraftServer]: [Not Secure] [Dev] SHOT_READY
+[01:53:35] [Render thread/INFO] [minecraft/ClientPacketListener]: [ImmPtl] Client accepted position packet tardis_rb:time_vortex 0.5 126.4 40.5
+[01:53:40] [Server thread/INFO] [minecraft/MinecraftServer]: [Not Secure] [Dev] SHOT_READY
+[01:53:40] [Render thread/INFO] [minecraft/ClientPacketListener]: [ImmPtl] Client accepted position packet tardis_rb:time_vortex 0.5 126.4 40.5
+[01:53:42] [Server thread/INFO] [co.po.ta.TardisRB/]: Globe map of tardis_rb:overworld done (512x256)
+[01:53:45] [Server thread/INFO] [minecraft/MinecraftServer]: [Not Secure] [Dev] SHOT_READY
+[01:53:45] [Render thread/INFO] [minecraft/ClientPacketListener]: [ImmPtl] Client accepted position packet tardis_rb:time_vortex 0.5 126.4 40.5
+[01:53:50] [Server thread/INFO] [minecraft/MinecraftServer]: [Not Secure] [Dev] SHOT_READY
+[01:53:50] [Render thread/INFO] [minecraft/ClientPacketListener]: [ImmPtl] Client accepted position packet tardis_rb:time_vortex 0.5 126.4 40.5
+[01:53:55] [Server thread/INFO] [minecraft/MinecraftServer]: [Not Secure] [Dev] SHOT_READY
+[01:53:55] [Render thread/INFO] [minecraft/ClientPacketListener]: [ImmPtl] Client accepted position packet tardis_rb:time_vortex 0.5 126.4 40.5
+[01:54:00] [Server thread/INFO] [minecraft/MinecraftServer]: [Not Secure] [Dev] SHOT_READY
+[01:54:00] [Render thread/INFO] [minecraft/ClientPacketListener]: [ImmPtl] Client accepted position packet tardis_rb:time_vortex 0.5 126.4 40.5
+[01:54:05] [Server thread/INFO] [minecraft/MinecraftServer]: [Not Secure] [Dev] SHOT_READY
+[01:54:05] [Render thread/INFO] [minecraft/ClientPacketListener]: [ImmPtl] Client accepted position packet tardis_rb:time_vortex 0.5 126.4 40.5
+[01:54:10] [Server thread/INFO] [minecraft/MinecraftServer]: [Not Secure] [Dev] SHOT_READY
+[01:54:10] [Render thread/INFO] [minecraft/ClientPacketListener]: [ImmPtl] Client accepted position packet tardis_rb:time_vortex 0.5 126.4 40.5
+[01:54:15] [Server thread/INFO] [minecraft/MinecraftServer]: [Not Secure] [Dev] SHOT_READY
+[01:54:15] [Render thread/INFO] [minecraft/ClientPacketListener]: [ImmPtl] Client accepted position packet tardis_rb:time_vortex 0.5 126.4 40.5
+[01:54:20] [Server thread/INFO] [minecraft/MinecraftServer]: [Not Secure] [Dev] SHOT_READY
+[01:54:20] [Render thread/INFO] [minecraft/ClientPacketListener]: [ImmPtl] Client accepted position packet tardis_rb:time_vortex 0.5 126.4 40.5
+[01:54:25] [Server thread/INFO] [minecraft/MinecraftServer]: [Not Secure] [Dev] SHOT_READY
+[01:54:25] [Render thread/INFO] [minecraft/ClientPacketListener]: [ImmPtl] Client accepted position packet tardis_rb:time_vortex 0.5 126.4 40.5
+[01:54:30] [Server thread/INFO] [minecraft/MinecraftServer]: [Not Secure] [Dev] SHOT_READY
+[01:54:30] [Render thread/INFO] [minecraft/ClientPacketListener]: [ImmPtl] Client accepted position packet tardis_rb:time_vortex 0.5 126.4 40.5
