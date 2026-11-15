@@ -401,12 +401,40 @@ public final class SpaceTests {
         var m = t.motion();
         var off = new Tuning.SpaceTuning(t.gravity(), t.checkTicks(), t.landingSlowFall(), t.seamView(),
                 t.seamSegment(), t.seamLinger(), t.mapBudgetMs(), new Tuning.Motion(m.orbitSpeed(), m.thrust(),
-                        m.maxSpeed(), m.dragFree(), false, m.tiltSpeed(), m.boost(), m.chunkSkipSpeed(), m.focusRange()));
+                        m.maxSpeed(), m.dragFree(), false, m.tiltSpeed(), m.boost(), m.chunkSkipSpeed(), m.focusRange(), m.shipAlign(),
+                        m.shipAlignStrength(), m.shipAlignDamping()));
         Tilt.tick(player, system, off);
         helper.assertTrue(Tilt.of(player) == null, "leans with free_tilt off");
         Tilt.tick(player, system, t);
         Tilt.tick(player, null, t);
         helper.assertTrue(Tilt.of(player) == null, "leans outside a system");
+        helper.succeed();
+    }
+
+    /**
+     * compat/sable's ship alignment spring, integrated on its own: from an up 90 degrees off it settles within 2 degrees
+     * of the wanted up, overshooting by no more than 10, with the default gains (pure maths; runs without Sable).
+     */
+    @GameTest(template = "platform")
+    public static void shipAlignSettles(GameTestHelper helper) {
+        var m = Tuning.Motion.DEFAULT;
+        org.joml.Vector3d up = new org.joml.Vector3d(1, 0, 0);
+        org.joml.Vector3d want = new org.joml.Vector3d(0, 1, 0);
+        org.joml.Vector3d omega = new org.joml.Vector3d();
+        double dt = 0.05, overshoot = 0;
+        for (int i = 0; i < 200; i++) { // 10 seconds
+            omega.add(com.porcupinestudios.tardisrb.compat.sable.ShipAlign.deltaOmega(up, want, omega,
+                    m.shipAlignStrength(), m.shipAlignDamping(), dt));
+            double w = omega.length();
+            if (w > 0) {
+                new org.joml.Quaterniond().fromAxisAngleRad(omega.x / w, omega.y / w, omega.z / w, w * dt)
+                        .transform(up).normalize();
+            }
+            overshoot = Math.max(overshoot, -Math.toDegrees(Math.atan2(up.x, up.y)));
+        }
+        double off = Math.toDegrees(up.angle(want));
+        helper.assertTrue(off < 2, "not settled: " + off + " degrees off");
+        helper.assertTrue(overshoot <= 10, "overshot by " + overshoot + " degrees");
         helper.succeed();
     }
 }

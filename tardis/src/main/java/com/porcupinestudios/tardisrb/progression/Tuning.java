@@ -435,10 +435,15 @@ public record Tuning(CrashSite crashSite, Hop hop, Winder winder, Interior inter
      * blocks a tick loads no chunks until slower than half that ({@code space/SpaceChunks}; 0 = always load).
      * In a solar system only one body pulls at a time, the focus (Aaron 2026-11-15, for performance): the nearest ball
      * within {@code focus_range} times its entry radius, else the sun ({@code StarSystem#focus}).
+     * Aeronautics ships (compat/sable, Sable loaded): {@code ship_align} turns a ship's up toward the focus away from its
+     * centre, as a spring ({@code ship_align_strength}, rad/s² per radian) with damping ({@code ship_align_damping}, per
+     * second); the defaults are critically damped and settle in about two seconds. Yaw stays free.
      */
     public record Motion(double orbitSpeed, double thrust, double maxSpeed, boolean dragFree, boolean freeTilt,
-            double tiltSpeed, double boost, double chunkSkipSpeed, double focusRange) {
-        public static final Motion DEFAULT = new Motion(2.5, 0.02, 40.0, true, true, 0.12, 0.25, 4.0, 6.0);
+            double tiltSpeed, double boost, double chunkSkipSpeed, double focusRange, boolean shipAlign,
+            double shipAlignStrength, double shipAlignDamping) {
+        public static final Motion DEFAULT =
+                new Motion(2.5, 0.02, 40.0, true, true, 0.12, 0.25, 4.0, 6.0, true, 4.0, 4.0);
         public static final Codec<Motion> CODEC = RecordCodecBuilder.create(i -> i.group(
                 Codec.doubleRange(0, 64).optionalFieldOf("orbit_speed", DEFAULT.orbitSpeed)
                         .forGetter(Motion::orbitSpeed),
@@ -452,7 +457,12 @@ public record Tuning(CrashSite crashSite, Hop hop, Winder winder, Interior inter
                 Codec.doubleRange(0, 200).optionalFieldOf("chunk_skip_speed", DEFAULT.chunkSkipSpeed)
                         .forGetter(Motion::chunkSkipSpeed),
                 Codec.doubleRange(1, 1000).optionalFieldOf("focus_range", DEFAULT.focusRange)
-                        .forGetter(Motion::focusRange))
+                        .forGetter(Motion::focusRange),
+                Codec.BOOL.optionalFieldOf("ship_align", DEFAULT.shipAlign).forGetter(Motion::shipAlign),
+                Codec.doubleRange(0, 100).optionalFieldOf("ship_align_strength", DEFAULT.shipAlignStrength)
+                        .forGetter(Motion::shipAlignStrength),
+                Codec.doubleRange(0, 100).optionalFieldOf("ship_align_damping", DEFAULT.shipAlignDamping)
+                        .forGetter(Motion::shipAlignDamping))
                 .apply(i, Motion::new));
     }
 
