@@ -15,7 +15,7 @@ Read when touching `space/StarSystem`, `Systems`, `progression/SystemFile`, `cli
 - Pull (Aaron 2026-11-15, performance): only the **focus** pulls, G * tuning.gravity * body.gravity * (r/d)^2. Focus
   (`StarSystem.focus`) = nearest ball whose sphere of influence (`space.motion.focus_range` x entry radius, 6) holds
   you, else the sun. Up points away from it, so free tilt turns you as you orbit (`SpaceTests.orbitTurnsWithTheFocus`).
-  Next: Create: Aeronautics ships turn the same way (Aaron: Aeronautics is the station/ship base). Feet
+  Aeronautics ships (space stations) turn the same way, and players on their decks with them (`docs/sable.md`). Feet
   turn to the nearest of the six directions of the total pull (`GravityDirection`, 1000 ms turn), checked every check
   tick while not on the ground. Players step on the client (`ClientSpacePhysics`), others on the server
   (`SpacePhysics`), both through `Orbits.stepSystem`.

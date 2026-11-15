@@ -12,11 +12,12 @@ public final class ShipAlign {
 
     /**
      * The angular velocity to add this step (rad/s, world axes): {@code (strength * angle - damping * w) * dt} about
-     * the turn axis, where w is the current spin about that axis. Spin about other axes (yaw round {@code want}) is
-     * left alone.
+     * the turn axis, where w is the spin about that axis beyond {@code wantOmega} (how fast {@code want} itself turns,
+     * e.g. once per orbit: damping against it, not against all spin, leaves no lag behind a turning target). Spin about
+     * other axes (yaw round {@code want}) is left alone.
      */
-    public static Vector3d deltaOmega(Vector3dc up, Vector3dc want, Vector3dc omega, double strength, double damping,
-                                      double dt) {
+    public static Vector3d deltaOmega(Vector3dc up, Vector3dc want, Vector3dc omega, Vector3dc wantOmega,
+                                      double strength, double damping, double dt) {
         Vector3d axis = up.cross(want, new Vector3d());
         double sin = axis.length();
         double angle = Math.atan2(sin, up.dot(want));
@@ -27,7 +28,7 @@ public final class ShipAlign {
             axis = up.cross(Math.abs(up.x()) < 0.9 ? new Vector3d(1, 0, 0) : new Vector3d(0, 0, 1), new Vector3d());
         }
         axis.normalize();
-        double w = omega.dot(axis);
+        double w = omega.dot(axis) - wantOmega.dot(axis);
         return axis.mul((strength * angle - damping * w) * dt);
     }
 }
