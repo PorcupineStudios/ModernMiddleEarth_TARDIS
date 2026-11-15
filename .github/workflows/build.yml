@@ -1,7 +1,7 @@
 name: Build
 
-# THROWAWAY (bench-heights only): times generating the same lowland (Shire) and mountain (Misty Mountains) squares
-# with the code before the noise cuts at y 640, and with the cuts at 640, 448 and 320; peak server memory too.
+# THROWAWAY (bench-heights only): on ONE runner, one after another, times generating the same squares (Shire twice,
+# Misty Mountains) twice each: the code before the noise cuts at y 640, the current code at 640, and at 320.
 on:
   push:
     branches: ['claude/bench-heights']
@@ -9,61 +9,57 @@ on:
 jobs:
   bench:
     runs-on: ubuntu-latest
-    timeout-minutes: 60
+    timeout-minutes: 120
     permissions:
       contents: write
-    strategy:
-      fail-fast: false
-      matrix:
-        include:
-          - {name: before640, ref: 035d39cd0a0a1f856c276a438dc06ca5f0f382de, top: 640}
-          - {name: cut640, ref: claude/reeds-lakes-shire, top: 640}
-          - {name: cut448, ref: claude/reeds-lakes-shire, top: 448}
-          - {name: cut320, ref: claude/reeds-lakes-shire, top: 320}
     steps:
       - uses: actions/checkout@v4
         with:
           path: bench
       - uses: actions/checkout@v4
         with:
-          ref: ${{ matrix.ref }}
-          path: code
+          ref: 035d39cd0a0a1f856c276a438dc06ca5f0f382de
+          path: before640
+      - uses: actions/checkout@v4
+        with:
+          ref: 5439e69a3b8bdb1572fa206e619601636a693fd2
+          path: now640
+      - uses: actions/checkout@v4
+        with:
+          ref: 5439e69a3b8bdb1572fa206e619601636a693fd2
+          path: now320
       - uses: actions/setup-java@v4
         with:
           distribution: temurin
           java-version: '21'
       - uses: gradle/actions/setup-gradle@v4
-      - name: Heights
-        working-directory: code
+      - name: Build all
         run: |
-          if [ "${{ matrix.top }}" != "640" ]; then python3 ../bench/.github/bench/height.py ${{ matrix.top }}; fi
-          ./gradlew :lotr:compileJava -q
+          (cd now320 && python3 ../bench/.github/bench/height.py 320)
+          for v in before640 now640 now320; do (cd $v && ./gradlew :lotr:compileJava -q); done
       - name: Generate
-        working-directory: code
-        timeout-minutes: 40
+        timeout-minutes: 100
         run: |
-          mkdir -p lotr/run ../out
-          echo "eula=true" > lotr/run/eula.txt
-          for spot in shire:0,0 misty:51000,6500 shire2:2048,0; do
+          mkdir -p out
+          for rep in 1 2; do
+          for v in before640 now640 now320; do
+          for spot in shire:0,0 shire2:2048,0 misty:51000,6500; do
             name=${spot%%:*}; at=${spot#*:}
+            cd $v; mkdir -p lotr/run; echo "eula=true" > lotr/run/eula.txt; rm -rf lotr/run/$name lotr/run/terrain_preview
             printf "level-type=lotr_port\\\\:middle_earth\nonline-mode=false\nlevel-name=$name\nmax-tick-time=-1\nlevel-seed=12345\n" > lotr/run/server.properties
-            rm -rf lotr/run/terrain_preview
-            (while true; do ps -C java -o rss= | sort -n | tail -1; sleep 1; done) > ../out/rss_$name.txt &
-            sampler=$!
-            JAVA_TOOL_OPTIONS="-Dlotr_port.terrainpreview=$at,512 -Xmx8g" ./gradlew :lotr:runServer > ../out/log_$name.txt 2>&1 || true
-            kill $sampler
-            cp lotr/run/terrain_preview/stats.txt ../out/stats_$name.txt || true
-            echo "$name: $(grep took ../out/stats_$name.txt) peak rss $(sort -n ../out/rss_$name.txt | tail -1) kB"
-          done
+            JAVA_TOOL_OPTIONS="-Dlotr_port.terrainpreview=$at,512 -Xmx8g" ./gradlew :lotr:runServer > ../out/log_${v}_${name}_$rep.txt 2>&1 || true
+            t=$(grep took lotr/run/terrain_preview/stats.txt | grep -o "[0-9]*")
+            cd ..
+            echo "$v $name rep$rep $t" | tee -a out/times.txt
+          done; done; done
       - name: Keep the results
         if: always()
-        working-directory: code
         run: |
-          for f in ../out/log_*.txt; do grep -E "\[preview\]|Exception|ERROR" $f | grep -v "Invalid path" | head -20 > $f.short; rm $f; done
+          cd bench
           git config user.name "ci"; git config user.email "ci@users.noreply.github.com"
           git checkout -q --orphan bench-out
           git rm -rf -q --cached .
-          rm -rf out && cp -r ../out out
+          rm -rf out && mkdir out && cp ../out/times.txt out/ && for f in ../out/log_*.txt; do grep -E "\[preview\]|Exception|ERROR" $f | grep -v "Invalid path" | head -10 > out/$(basename $f).short; done
           git add -f out
-          git commit -q -m "bench ${{ matrix.name }} (throwaway)"
-          git push -f -q origin HEAD:refs/heads/claude/bench-out-${{ matrix.name }}
+          git commit -q -m "bench (throwaway)"
+          git push -f -q origin HEAD:refs/heads/claude/bench-out
