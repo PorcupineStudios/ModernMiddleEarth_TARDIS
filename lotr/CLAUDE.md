@@ -83,18 +83,17 @@ https://claude.ai/artifact/KqhSSTCuKXGuwKHBoYJdcu. Rebuild features in modern co
 - Shire downs (2026-11-14, Aaron: steep round hills that stay grassy): 30 blocks (moors 20, woodlands 18) on a
   112-block grid, steepest ~0.7 blocks per block (0.9 in "hills" patches), so steps are grass edges; no rock breaking
   through in biomes with downs (`ground_style`).
-- Mountain ranges (2026-11-15, Aaron: the Misty Mountains' 3D noise made overhangs and floating rock): `map/Ranges`,
-  set in `converter/world.py RANGES` -> map.json `ranges`. The range biomes (Misty, Grey, Forodwaith, Angmar, White,
-  Blue, Mordor, Red, Wind, Harad, Mirkwood mountains) lose their noise hilliness (`variationAt` x (1 - range share), so
-  no 3D noise or crags) and get a height-field massif instead, so they can't overhang: depth in from the range's edge
-  on the map (exact distance transform per 64-pixel tile, capped 20 px, blurred), spurs on a 240-block grid turned
-  down the depth's slope (valleys between run to the foothills), warped ridged crags, LOTR's named mountains inside a
-  range as broad summits (their cones dropped), passes within 400 blocks of a road (East-West road, Blue Mountains'
-  dwarf road), all scaled by the biome's LOTR hilliness. Mapped rivers aren't range pixels, so they cut valleys.
-  Cliff bands (`Ranges.strata`): on ground steeper than 0.3, in noise patches, the rise gathers into ~10-block rock
-  faces with ledges, and those patches rise up to 80% higher (crags, spires). Summits eased under y 420.
-  Prototyped in numpy on shaded reliefs and a voxel-space perspective render; `Ranges` reproduces the prototype exactly.
-- Build limit (2026-11-15): Middle-earth goes up to y 448 (`world.py TOP_Y`; its own dimension type, also for the
+- Mountain ranges (2026-11-15, Aaron: overhangs and floating rock; then "gigantic mountain ranges with basically no
+  passes ... change depending on seed ... huge variety", no needle spires): `map/Ranges`, set in `converter/world.py
+  RANGES` -> map.json `ranges` (range biome -> height scale; Misty 1). The range biomes lose their noise hilliness
+  (`variationAt` x (1 - range share): no 3D noise, so no overhangs) and get a seeded height field: depth in from the
+  range's edge on the map (exact distance transform per 64-pixel tile), valley floors climbing with depth (the wall:
+  no low passes; roads cross over the top), ridges in seeded 2600-block regions of four kinds (sawtooth aretes, spurs
+  down the depth's slope, glacial U-valleys, giant summits), cliff bands on steep ground, summits eased under y 610.
+  `MiddleEarthMap.setSeed` (ServerAboutToStartEvent) salts all its noise. Prototype: numpy + a voxel-space perspective
+  renderer; `Ranges` reproduces it exactly. Misty Mountains: valleys ~200-300, ridges 400-600, lowest crossing of any
+  6 km stretch y 340-490.
+- Build limit (2026-11-15): Middle-earth goes up to y 640 (`world.py TOP_Y`; its own dimension type, also for the
   world preset's overworld). Worlds made before keep vanilla's 320, and their mountains get cut flat at the top.
 - `Roads` registers each segment in every 256-block cell within `Roads.FLATTEN` (32): the terrain flattens hills by
   road distance, and a segment missing from a cell made it jump at the cell edge (straight 10+ block cliffs).
