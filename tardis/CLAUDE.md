@@ -18,6 +18,7 @@ Read both with the Claude Docs tools, not a web fetch. Add notes in `docs/<area>
 | Adding rooms, the room cap, room templates and layout | `docs/rooms.md` |
 | Dimension travel: destination files, jumps, the console's destination picker | `docs/destinations.md` |
 | The see-through door (Immersive Portals, required), portals for space | `docs/door.md` |
+| Create: Aeronautics / Sable ships beside Immersive Portals and turned gravity (`compat/sable`) | `docs/sable.md` |
 | Space: full-size planets, orbit layers, going up/down, wrapping + seam portals, the globe (`space/`, `SkyLink`, `client/Globe*`) | `docs/space.md` |
 | Solar system zone: planets as balls, every body pulls, the sun, layer <-> system, free tilt while floating (`gravity/Tilt`) (`space/StarSystem`, `Systems`, `client/SystemRenderer`) | `docs/solar-system.md` |
 | Gravity and orbits in space, no drag, thrust, the `/gravity` command, gravity direction (Gravity Changer port, `gravity/gc`) (`space/Orbits`, `gravity/`) | `docs/gravity.md` |

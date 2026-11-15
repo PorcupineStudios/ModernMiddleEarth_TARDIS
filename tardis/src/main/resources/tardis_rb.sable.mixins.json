@@ -1,0 +1,15 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "com.porcupinestudios.tardisrb.compat.sable.mixin",
+  "plugin": "com.porcupinestudios.tardisrb.compat.sable.SableMixinPlugin",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": [
+    "PortalCollisionMixin",
+    "SubLevelEntityGetterMixin",
+    "TurnedGravityGroundMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
