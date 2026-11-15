@@ -31,22 +31,19 @@ jobs:
           mkdir -p tardis/run/saves && cp -r tardis/run/tardis-check tardis/run/saves/shot && rm -f tardis/run/saves/shot/session.lock
           python3 .github/shot/prepare.py tardis/run
       - name: Record the vortex
-        timeout-minutes: 30
+        timeout-minutes: 35
         run: |
           Xvfb :99 -screen 0 1280x720x24 &
           sleep 3
-          (DISPLAY=:99 LIBGL_ALWAYS_SOFTWARE=1 ./gradlew :tardis:runClient -PquickPlay=shot > client.log 2>&1 &)
-          for i in $(seq 1 240); do grep -q "SHOT_READY" client.log && break; sleep 5; done
-          sleep 30
+          (DISPLAY=:99 LIBGL_ALWAYS_SOFTWARE=1 JAVA_TOOL_OPTIONS="-Dtardis_rb.vortexStep=0.0166667 -Dtardis_rb.vortexFrames=360" ./gradlew :tardis:runClient -PquickPlay=shot > client.log 2>&1 &)
+          for i in $(seq 1 400); do n=$(ls tardis/run/vortex_frames 2>/dev/null | wc -l); [ "$n" -ge 360 ] && break; [ $((i % 12)) = 0 ] && echo "$n frames"; sleep 5; done
+          sleep 3
+          ls tardis/run/vortex_frames | wc -l
           mkdir -p shots
-          # 8 s of vortex time = 160 s of wall time at 1 tick/s; every frame the renderer makes is caught at 20/s
-          ffmpeg -loglevel error -f x11grab -framerate 20 -video_size 854x480 -i :99.0+213,120 -t 160 -c:v libx264 -preset veryfast -crf 12 shots/raw.mkv
-          ffprobe -v error -count_frames -show_entries stream=nb_read_frames -of csv=p=0 shots/raw.mkv
-          # how many different frames the renderer actually made
-          ffmpeg -loglevel error -i shots/raw.mkv -vf mpdecimate -f null - -stats 2>&1 | tail -1 || true
-          # back to real speed: 20x faster, 60 fps video, 30 fps GIF
-          ffmpeg -loglevel error -i shots/raw.mkv -vf "setpts=PTS/20,fps=60" -c:v libx264 -preset veryfast -crf 18 -pix_fmt yuv420p shots/vortex_smooth.mp4
-          ffmpeg -loglevel error -i shots/raw.mkv -vf "setpts=PTS/20,fps=30,scale=640:-1:flags=lanczos,split[a][b];[a]palettegen=max_colors=256[p];[b][p]paletteuse=dither=sierra2_4a" shots/vortex_smooth.gif
+          F=tardis/run/vortex_frames/f%05d.png
+          ffmpeg -loglevel error -framerate 60 -i $F -c:v libx264 -preset slow -crf 16 -pix_fmt yuv420p shots/vortex_smooth.mp4
+          ffmpeg -loglevel error -framerate 60 -i $F -vf "fps=50,scale=640:-1:flags=lanczos,split[a][b];[a]palettegen=max_colors=256:stats_mode=full[p];[b][p]paletteuse=dither=sierra2_4a" -loop 0 shots/vortex_smooth.gif
+          cp tardis/run/vortex_frames/f00000.png shots/vortex_frame0.png
           ls -la shots
       - name: Keep the shots on a throwaway branch
         if: always()
@@ -55,7 +52,7 @@ jobs:
           git config user.name "ci"; git config user.email "ci@users.noreply.github.com"
           git checkout -q --orphan shots-tmp
           git rm -rf -q --cached .
-          cp shots/vortex_smooth.* . 2>/dev/null || true
-          git add -f vortex_smooth.* client-tail.log 2>/dev/null || true
+          cp shots/vortex_smooth.* shots/vortex_frame0.png . 2>/dev/null || true
+          git add -f vortex_smooth.* vortex_frame0.png client-tail.log 2>/dev/null || true
           git commit -q -m "vortex smooth (throwaway)"
           git push -f -q origin HEAD:refs/heads/claude/vortex-shots-tmp

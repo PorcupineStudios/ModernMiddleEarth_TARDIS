@@ -22,7 +22,6 @@ open(os.path.join(pack, "data", "shot", "function", "start.mcfunction"), "w").wr
 # a spectator on the tunnel's axis (lane 0, LANE_Y 128), looking down it (+z); again every 5 s, so a late join is caught
 open(os.path.join(pack, "data", "shot", "function", "go.mcfunction"), "w").write(
     "gamemode spectator @a\n"
-    "tick rate 1\n"
     "execute in tardis_rb:time_vortex run tp @a 0.5 126.4 40 0 0\n"
     "execute as @a at @s if dimension tardis_rb:time_vortex run say SHOT_READY\n"
     "schedule function shot:go 100t\n")

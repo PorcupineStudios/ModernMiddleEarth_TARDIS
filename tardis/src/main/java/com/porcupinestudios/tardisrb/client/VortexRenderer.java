@@ -71,6 +71,9 @@ public final class VortexRenderer {
         }
         Vec3 cam = event.getCamera().getPosition();
         float time = (level.getGameTime() % 24000L + event.getPartialTick().getGameTimeDeltaPartialTick(false)) / 20f;
+        if (FrameDump.STEP > 0) {
+            time = FrameDump.vortexTime(); // THROWAWAY: a fixed 1/60 s per rendered frame, for a smooth recording
+        }
         float far = Minecraft.getInstance().gameRenderer.getDepthFar() * 0.45f;
         float half = Math.max(24, Math.min(160, far));
         // the axis of the lane the camera is in (lanes are LANE_SPACING apart, at x = n * spacing + 0.5)
