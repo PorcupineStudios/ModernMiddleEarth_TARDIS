@@ -64,6 +64,10 @@ public final class LotrWorldgen {
         PLACEMENT_MODIFIERS.register(modBus);
         com.porcupinestudios.lotrport.world.structure.LotrStructures.register(modBus);
         NeoForge.EVENT_BUS.addListener(LotrWorldgen::onServerStarted);
+        // before the server makes its levels (and their terrain): the ranges are seeded by the world seed
+        NeoForge.EVENT_BUS.addListener((net.neoforged.neoforge.event.server.ServerAboutToStartEvent event) ->
+                com.porcupinestudios.lotrport.world.map.MiddleEarthMap.setSeed(
+                        event.getServer().getWorldData().worldGenOptions().seed()));
         NeoForge.EVENT_BUS.addListener(LotrWorldgen::onCreateSpawn);
     }
 

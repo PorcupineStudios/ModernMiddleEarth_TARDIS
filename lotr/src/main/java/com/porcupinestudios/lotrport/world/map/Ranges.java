@@ -2,60 +2,61 @@ package com.porcupinestudios.lotrport.world.map;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
- * The mountain ranges' own terrain (Aaron 2026-11-15: the Misty Mountains' 3D noise made overhangs and floating rock).
- * A height field, so it can't overhang: the range biomes' noise hilliness is replaced by a massif read off the map
- * (prototyped and tuned on shaded reliefs of the map, 2026-11-15):
+ * The mountain ranges' own terrain (Aaron 2026-11-15: "the misty mountains span tens of thousands of blocks ... should
+ * be incredibly hard to navigate on foot ... change depending on seed ... a sense of awe at gigantic mountain ranges
+ * with basically no passes, but still huge variety"). A height field, so it can't overhang or float rock: the range
+ * biomes' noise hilliness is replaced by this (prototyped in numpy on the map with perspective renders; this class
+ * reproduces the prototype exactly):
  * <ul>
  * <li><b>depth</b>: how far a point is in from the range's edge on the map (an exact distance transform of the range
- * pixels, capped at 20 pixels, blurred twice 3x3). Narrow stretches of a range stay low; wide ones rise to a crest.
- * <li><b>envelope</b> s: depth over {@code reach} pixels, smoothstepped; everything is scaled by it and by the biome's
- * LOTR hilliness (its measured spread, so taller ranges stay taller), so the range rises out of its foothills.
- * <li><b>spurs</b>: long ridges on a jittered {@code cell}-block grid, each turned to run down the slope of the depth
- * field (from the crest to the foothills), with valleys between: the pattern of real ranges. In a range's middle,
- * where the depth is flat, they are round summits instead.
- * <li><b>relief</b>: warped ridged noise, the crags and gullies on top.
- * <li><b>peaks</b>: LOTR's named mountains inside a range (Caradhras, Gundabad, the dwarf mountains of the Blue
- * Mountains...) rise as broad summits over the rest.
- * <li><b>passes</b>: within {@code pass} blocks of a road (the East-West road's High Pass, the Blue Mountains' dwarf
- * road...) the massif sinks to a fifth, a valley for the road.
+ * pixels per 64-pixel tile, capped at 20 pixels, blurred twice 3x3).
+ * <li><b>floor</b>: the valley floors climb with depth, up to {@code floor} blocks at {@code reach} pixels in. That is
+ * the wall: every way across the range climbs to its core, so there are no low passes (a crossing of the Misty
+ * Mountains tops out at y 340-490 depending on where).
+ * <li><b>ridges</b>: up to {@code relief} blocks over the floor, in seeded <b>regions</b> on a jittered
+ * {@code region}-block grid, each one of four kinds (blended over a few hundred blocks) with its own height: sawtooth
+ * knife ridges; long spurs running down the depth's slope to the foothills; glacial U-valleys under jagged crests; and
+ * giants, fewer and bigger summits. No needle spires or mesas (Aaron: "I dont like the pointy spires").
+ * <li><b>cliff bands</b>: on ground steeper than 0.35 blocks per block, in patches, the rise gathers into ~12-block
+ * rock faces with ledges.
+ * <li><b>ceiling</b>: summits eased under {@code ceiling} (the world tops out at y 640).
  * </ul>
- * Rivers drawn on the map are not range pixels, so they cut valleys into it (the Bruinen, the Gladden).
+ * The world seed salts all of it ({@link #seed}), so every world's ranges differ; the map (where the ranges are, and
+ * so their floor) does not. Each range biome has its own height {@code scale} (the Misty Mountains 1).
  */
 final class Ranges {
     private static final int TILE = 64;
     private static final int CAP = 20;
     private static final int MARGIN = CAP + 3;
+    private static final int STYLES = 4;
+    private static final int ARETES = 0;
+    private static final int SPURS = 1;
+    private static final int GLACIAL = 2;
+    private static final int GIANTS = 3;
 
     private final int width;
     private final int height;
     private final int blocksPerPixel;
     private final int originX;
     private final int originZ;
-    private final boolean[] isRange = new boolean[256];
+    private final float[] scale = new float[256];
     /** Tiles of the blurred depth field in pixels; null = no range near, -0.5 throughout. */
     private final float[][] tiles;
     private final int tilesX;
     private final double reach;
-    private final double cell;
-    private final double crest;
-    private final double spurs;
+    private final double floor;
     private final double relief;
-    private final double sink;
-    private final double wave;
-    private final double peak;
-    private final double peakReach;
-    private final double pass;
+    private final double region;
+    private final double blend;
     private final double band;
     private final double sharp;
     private final double strata;
-    private final double uplift;
     private final double ceiling;
-    private final double passFloor;
-    private final List<double[]> peaks = new ArrayList<>();
+    /** The world seed, set before any terrain is made ({@link MiddleEarthMap#setSeed}). */
+    private volatile long seed;
 
     Ranges(JsonObject o, List<MiddleEarthMap.Entry> biomes, byte[] pixels, int width, int height, int blocksPerPixel,
             int originX, int originZ) {
@@ -64,28 +65,21 @@ final class Ranges {
         this.blocksPerPixel = blocksPerPixel;
         this.originX = originX;
         this.originZ = originZ;
-        for (JsonElement e : o.getAsJsonArray("biomes")) {
+        for (var e : o.getAsJsonObject("biomes").entrySet()) {
             for (int i = 0; i < biomes.size(); i++) {
-                if (biomes.get(i).id().equals(e.getAsString())) {
-                    isRange[i] = true;
+                if (biomes.get(i).id().equals(e.getKey())) {
+                    scale[i] = e.getValue().getAsFloat();
                 }
             }
         }
         reach = o.get("reach").getAsDouble();
-        cell = o.get("cell").getAsDouble();
-        crest = o.get("crest").getAsDouble();
-        spurs = o.get("spurs").getAsDouble();
+        floor = o.get("floor").getAsDouble();
         relief = o.get("relief").getAsDouble();
-        sink = o.get("sink").getAsDouble();
-        wave = o.get("wave").getAsDouble();
-        peak = o.get("peak").getAsDouble();
-        peakReach = o.get("peak_reach").getAsDouble();
-        pass = o.get("pass").getAsDouble();
-        passFloor = o.get("pass_floor").getAsDouble();
+        region = o.get("region").getAsDouble();
+        blend = o.get("blend").getAsDouble();
         band = o.get("band").getAsDouble();
         sharp = o.get("sharp").getAsDouble();
         strata = o.get("strata").getAsDouble();
-        uplift = o.get("uplift").getAsDouble();
         ceiling = o.get("ceiling").getAsDouble();
         tilesX = (width + TILE - 1) / TILE;
         int tilesZ = (height + TILE - 1) / TILE;
@@ -97,22 +91,17 @@ final class Ranges {
         }
     }
 
-    /** How far from a road (blocks) the massif sinks towards a pass. */
-    double passWidth() {
-        return pass;
+    void seed(long seed) {
+        this.seed = seed;
     }
 
     boolean isRange(int biome) {
-        return isRange[biome];
+        return scale[biome] > 0;
     }
 
-    /** LOTR's mountains inside a range become its summits (the caller keeps the rest's cones). */
-    boolean takePeak(int x, int z, int range) {
-        if (depth(x + 0.5, z + 0.5) <= 0) {
-            return false;
-        }
-        peaks.add(new double[] {x, z, range * peakReach});
-        return true;
+    /** The range biome's height scale (0 for other biomes); MiddleEarthMap smooths it over borders. */
+    float scale(int biome) {
+        return scale[biome];
     }
 
     private boolean range(byte[] pixels, int px, int pz) {
@@ -120,7 +109,7 @@ final class Ranges {
             return false;
         }
         int v = pixels[pz * width + px] & 0xFF;
-        return v != 255 && isRange[v];
+        return v != 255 && scale[v] > 0;
     }
 
     /** One tile of the depth field, worked out on a window MARGIN pixels wider (enough for the cap and the blurs). */
@@ -255,71 +244,124 @@ final class Ranges {
     }
 
     /**
-     * Blocks the ground rises over the range biome's own height, for a range whose LOTR hilliness here is {@code std}
-     * (smoothed, so it fades out over the border) and that is {@code road} blocks from a road.
+     * Blocks the ground rises over the range biome's own height, where the range's height scale is {@code k}
+     * (smoothed over borders, so it fades out).
      */
-    double massif(int x, int z, double std, double road) {
+    double massif(int x, int z, double k) {
         double d = depth(x, z);
-        double s = Math.max(0, Math.min(1, d / reach));
-        s = s * s * (3 - 2 * s);
-        if (s == 0) {
+        if (d <= 0) {
             return 0;
         }
-        double m = shape(x, z, std, s);
-        double sx = (shape(x + 2, z, std, s) - m) / 2;
-        double sz = (shape(x, z + 2, std, s) - m) / 2;
-        m = strata(x, z, m, s, Math.sqrt(sx * sx + sz * sz));
-        if (road < pass) {
-            double r = road / pass;
-            m *= passFloor + (1 - passFloor) * r * r * (3 - 2 * r);
-        }
-        return m;
+        double m = k * shape(x, z, d);
+        double sx = (k * shape(x + 2, z, depth(x + 2, z)) - m) / 2;
+        double sz = (k * shape(x, z + 2, depth(x, z + 2)) - m) / 2;
+        return cliffs(x, z, m, Math.sqrt(sx * sx + sz * sz));
     }
 
-    /**
-     * The ground ceiling: heights above {@code ceiling} - 40 are eased so they never pass the ceiling (Caradhras'
-     * massif reached 390 before; the world tops out at 448).
-     */
+    /** The ground ceiling: heights over {@code ceiling} - 50 are eased so they never reach it. */
     double ceiling(double ground) {
-        double k = ceiling - 40;
-        return ground > k ? k + 40 * Math.tanh((ground - k) / 40) : ground;
+        double k = ceiling - 50;
+        return ground > k ? k + 50 * Math.tanh((ground - k) / 50) : ground;
     }
 
-    private double shape(double x, double z, double std, double s) {
-        return s * std * (crest * s + spurs * spurs(x, z) + relief * relief(x, z) + peak * peaks(x, z) - sink);
-    }
-
-    /**
-     * Cliff bands (2026-11-15: smooth snow slopes read as hills, not mountains): where the ground is already steep
-     * (over 0.3 blocks per block), and in patches, its rise gathers into rock faces about {@code band} blocks tall
-     * with ledges between, and rises higher. Still a height field: steeper, never overhanging.
-     */
-    private double strata(double x, double z, double m, double s, double slope) {
-        double k = Math.max(0, Math.min(1, (slope - 0.3) / 0.5));
-        double w = Math.max(0, Math.min(1, 0.45 + 1.3 * perlin(x / 320, z / 320, 33))) * k * k * (3 - 2 * k);
-        if (w == 0) {
-            return m;
+    /** Blocks over the biome's height before cliff bands, for depth d (pixels). */
+    double shape(double x, double z, double d) {
+        double s = smooth(d / reach);
+        double edge = smooth(d / 2); // ridges grow in over the first 2 pixels
+        // the regions round here: weights from how much further each cell's centre is than the nearest one
+        double cx = Math.floor(x / region);
+        double cz = Math.floor(z / region);
+        double[] dist = new double[9];
+        long[] hash = new long[9];
+        double nearest = Double.POSITIVE_INFINITY;
+        for (int i = 0; i < 9; i++) {
+            double ccx = cx + i / 3 - 1;
+            double ccz = cz + i % 3 - 1;
+            long h = cellHash((long) ccx, (long) ccz, 0x5354594CL ^ seed);
+            double hx = (ccx + 0.15 + 0.7 * unit(h, 1)) * region;
+            double hz = (ccz + 0.15 + 0.7 * unit(h, 2)) * region;
+            dist[i] = Math.hypot(x - hx, z - hz);
+            hash[i] = h;
+            nearest = Math.min(nearest, dist[i]);
         }
-        double t = band * (1 + 0.45 * perlin(x / 400, z / 400, 31));
-        double q = (m + t * perlin(x / 250, z / 250, 32)) / t;
-        double f = q - Math.floor(q);
-        double a = Math.pow(f, sharp);
-        double g = a / (a + Math.pow(1 - f, sharp));
-        // crags: the steep patches also rise further (by up to `uplift`), into spires and rock walls
-        return m * (1 + uplift * w * s) + strata * w * s * t * (g - f);
+        double[] weight = new double[STYLES];
+        double amp = 0;
+        double total = 0;
+        double spread = region * blend * 0.5;
+        for (int i = 0; i < 9; i++) {
+            double t = (dist[i] - nearest) / spread;
+            double w = Math.exp(-t * t);
+            weight[(int) (unit(hash[i], 3) * STYLES)] += w;
+            amp += w * (0.75 + 0.5 * unit(hash[i], 4));
+            total += w;
+        }
+        double ridges = 0;
+        for (int style = 0; style < STYLES; style++) {
+            double w = weight[style] / total;
+            if (w > 0.001) {
+                ridges += w * style(style, x, z);
+            }
+        }
+        return floor * s + relief * (amp / total) * edge * (0.6 + 0.4 * s) * ridges;
     }
 
-    private double spurs(double x, double z) {
+    private static double smooth(double t) {
+        t = Math.max(0, Math.min(1, t));
+        return t * t * (3 - 2 * t);
+    }
+
+    /** Ridge-ness of one region kind: 0 on valley floors, about 1 on summits. */
+    private double style(int style, double x, double z) {
+        switch (style) {
+            case ARETES:
+                return Math.pow(ridged(x, z, 520, 5, 100, 0.5, 220), 1.35);
+            case SPURS:
+                return Math.pow(Math.max(0, Math.min(1.2, 0.75 * spurs(x, z, 420, 0x5350)
+                        + 0.4 * ridged(x, z, 300, 4, 110, 0.5, 0))), 1.25);
+            case GLACIAL: {
+                double r = ridged(x, z, 800, 3, 120, 0.45, 300);
+                double u = smooth((r - 0.2) / 0.45);
+                return 0.2 * r + u * (0.5 + 0.55 * Math.pow(ridged(x, z, 320, 4, 126, 0.5, 0), 1.2));
+            }
+            default:
+                return Math.max(0, Math.min(1.25, 1.1 * Math.pow(ridged(x, z, 950, 5, 140, 0.5, 300), 1.5)
+                        + 0.2 * ridged(x, z, 260, 4, 141, 0.5, 0)));
+        }
+    }
+
+    private double ridged(double x, double z, double wave, int octaves, long salt, double gain, double warp) {
+        if (warp != 0) {
+            x += warp * perlin(x / (wave * 2.2), z / (wave * 2.2), salt + 50);
+            z += warp * perlin(x / (wave * 2.2), z / (wave * 2.2), salt + 51);
+        }
+        double total = 0;
+        double norm = 0;
+        double amp = 1;
+        double weight = 1;
+        double f = 1 / wave;
+        for (int o = 0; o < octaves; o++) {
+            double n = perlin(x * f, z * f, salt + o);
+            double r = Math.max(0, Math.min(1, 1 - Math.sqrt(n * n + 0.002)));
+            r = r * r * weight;
+            weight = Math.max(0, Math.min(1, r * 1.7));
+            total += r * amp;
+            norm += amp;
+            amp *= gain;
+            f *= 2.03;
+        }
+        return Math.max(0, Math.min(1.2, total / norm * 1.5));
+    }
+
+    /** Long ridges on a jittered grid, each turned down the depth field's slope (from the crest to the foothills). */
+    private double spurs(double x, double z, double cell, long salt) {
         double cx = Math.floor(x / cell);
         double cz = Math.floor(z / cell);
         double sum = 0;
-        // 5 x 5 cells: the longest spur (2 cells) can't reach from further
         for (int i = -2; i <= 2; i++) {
             for (int k = -2; k <= 2; k++) {
-                long h = cellHash((long) cx + i, (long) cz + k, 0x5350555253L);
+                long h = cellHash((long) cx + i, (long) cz + k, salt ^ seed);
                 double hx = (cx + i + 0.1 + 0.8 * unit(h, 1)) * cell;
                 double hz = (cz + k + 0.1 + 0.8 * unit(h, 2)) * cell;
-                // downhill here: the slope of the depth field (pixels per pixel)
                 double gx = depth(hx + 64, hz) - depth(hx - 64, hz);
                 double gz = depth(hx, hz + 64) - depth(hx, hz - 64);
                 double g = Math.sqrt(gx * gx + gz * gz);
@@ -327,7 +369,7 @@ final class Ranges {
                     gx = 1;
                     g = 1;
                 }
-                double along = Math.min(1, g); // 0 in the range's middle: a round summit
+                double along = Math.min(1, g);
                 double turn = (unit(h, 6) - 0.5) * 0.7 * along;
                 double c = Math.cos(turn);
                 double sn = Math.sin(turn);
@@ -341,50 +383,30 @@ final class Ranges {
                 double dz = z - hz;
                 double a = (dx * ux + dz * uz) / len;
                 double b = (-dx * uz + dz * ux) / wide;
-                double r2 = a * a + b * b;
-                if (r2 < 1) {
-                    double u = 1 - r2;
-                    double hill = tall * u * u;
-                    sum += hill * hill;
-                }
+                double u = Math.max(0, 1 - a * a - b * b);
+                double hill = tall * u * u;
+                sum += hill * hill;
             }
         }
         return Math.sqrt(sum);
     }
 
-    private double relief(double x, double z) {
-        double wx = x + 120 * perlin(x / 700, z / 700, 11);
-        double wz = z + 120 * perlin(x / 700, z / 700, 12);
-        double total = 0;
-        double norm = 0;
-        double amp = 1;
-        double weight = 1;
-        double f = 1 / wave;
-        for (int o = 0; o < 4; o++) {
-            double n = perlin(wx * f, wz * f, 100 + o);
-            double r = Math.max(0, Math.min(1, 1 - Math.sqrt(n * n + 0.004)));
-            r = r * r * weight;
-            weight = Math.max(0, Math.min(1, r * 1.6));
-            total += r * amp;
-            norm += amp;
-            amp *= 0.5;
-            f *= 2.03;
+    /**
+     * Cliff bands: where the ground is steeper than 0.35, and in patches, its rise gathers into rock faces about
+     * {@code band} blocks tall with ledges between. Still a height field: steeper, never overhanging.
+     */
+    private double cliffs(double x, double z, double m, double slope) {
+        double k = smooth((slope - 0.35) / 0.5);
+        double w = Math.max(0, Math.min(1, 0.45 + 1.3 * perlin(x / 320, z / 320, 33))) * k;
+        if (w == 0) {
+            return m;
         }
-        return total / norm * 1.6;
-    }
-
-    private double peaks(double x, double z) {
-        double best = 0;
-        for (double[] p : peaks) {
-            double dx = x - p[0];
-            double dz = z - p[1];
-            double r2 = (dx * dx + dz * dz) / (p[2] * p[2]);
-            if (r2 < 1) {
-                double u = 1 - r2;
-                best = Math.max(best, u * u);
-            }
-        }
-        return best;
+        double t = band * (1 + 0.45 * perlin(x / 400, z / 400, 31));
+        double q = (m + t * perlin(x / 250, z / 250, 32)) / t;
+        double f = q - Math.floor(q);
+        double a = Math.pow(f, sharp);
+        double g = a / (a + Math.pow(1 - f, sharp));
+        return m + strata * w * t * (g - f);
     }
 
     private static long mix(long h) {
@@ -408,8 +430,12 @@ final class Ranges {
         return t * t * t * (t * (t * 6 - 15) + 10);
     }
 
-    /** 2D gradient noise, about -1 to 1. */
-    private static double perlin(double x, double z, long salt) {
+    /** 2D gradient noise, about -1 to 1, salted by the world seed. */
+    private double perlin(double x, double z, long salt) {
+        return gradientNoise(x, z, salt ^ seed);
+    }
+
+    private static double gradientNoise(double x, double z, long salt) {
         double x0 = Math.floor(x);
         double z0 = Math.floor(z);
         double fx = x - x0;

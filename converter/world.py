@@ -84,28 +84,29 @@ NOISE_SCALE = 0.45
 BORDER_WOBBLE = 40  # blocks a biome border or slope can shift
 BLUR = 0  # pixels of box blur on heights (0 keeps one-pixel rivers)
 OCEAN = "ocean"
-# Mountain ranges' own terrain (Aaron 2026-11-15: the Misty Mountains' 3D noise made overhangs and floating rock):
-# a height field read off the map (MiddleEarthMap / map/Ranges, whose javadoc explains each number), replacing the
-# biomes' noise hilliness. Tuned on shaded reliefs of the map round Caradhras and the whole Misty Mountains
-# (2026-11-15): spurs and valleys run from a crest to the foothills, about 175 mean / 285 top in the Misty Mountains.
-# Middle-earth's build limit (Aaron 2026-11-15: "increase build limit"; vanilla's is 320): its dimension type and noise
-# go up to here, so the mountain ranges' summits (eased under RANGES ceiling) fit with room to build over them.
-TOP_Y = 448
+# Mountain ranges' own terrain (Aaron 2026-11-15: "the misty mountains ... should be incredibly hard to navigate on
+# foot ... change depending on seed ... a sense of awe at gigantic mountain ranges with basically no passes (but still
+# huge variety)"; no needle spires): a seeded height field read off the map (map/Ranges, whose javadoc explains each
+# number) replacing the biomes' noise hilliness. Prototyped on the map with perspective renders (2026-11-15): in the
+# Misty Mountains valleys lie at 200-300, ridges 400-600, and the lowest crossing of any 6 km stretch tops out at
+# y 340-490.
+# Middle-earth's build limit (vanilla's is 320): its dimension type and noise go up to here.
+TOP_Y = 640
 
 RANGES = {
-    "biomes": [f"{NS}:{b}" for b in ("misty_mountains", "grey_mountains", "forodwaith_mountains", "angmar_mountains",
-                                      "white_mountains", "blue_mountains", "mordor_mountains", "red_mountains",
-                                      "wind_mountains", "harad_mountains", "mirkwood_mountains")],
-    "reach": 8.0,  # map pixels in from the edge to full height
-    "cell": 240,  # spur grid, blocks
-    "crest": 1.1, "spurs": 1.9, "relief": 1.4, "sink": 1.75,  # x the biome's LOTR hilliness
-    "wave": 260,  # crags' longest wavelength, blocks
-    # cliff bands on steep ground (Ranges.strata): band height, how sharp the faces are, and how strongly
-    "band": 10.0, "sharp": 3.0, "strata": 0.85,
-    "uplift": 0.8,  # and those steep patches rise up to 80% more: crags and rock walls
-    "ceiling": 420,  # summits eased under this y
-    "peak": 1.6, "peak_reach": 3.0,  # named mountains: extra height, and their width x LOTR's range
-    "pass": 400, "pass_floor": 0.2,  # passes: blocks either side of a road, and the massif's share left on it
+    # range biome: height scale (the Misty Mountains are the giants; the others are scaled down from them)
+    "biomes": {f"{NS}:{b}": k for b, k in (("misty_mountains", 1.0), ("grey_mountains", 0.8),
+                                           ("forodwaith_mountains", 0.75), ("angmar_mountains", 0.7),
+                                           ("white_mountains", 0.9), ("blue_mountains", 0.75),
+                                           ("mordor_mountains", 0.7), ("red_mountains", 0.7),
+                                           ("wind_mountains", 0.6), ("harad_mountains", 0.65),
+                                           ("mirkwood_mountains", 0.55))},
+    "reach": 10.0,  # map pixels in from the edge to the core's floor height
+    "floor": 85.0,  # the valley floors' climb from the edge to the core: the wall that leaves no low passes
+    "relief": 300.0,  # ridges over the floor (x the region's own 0.75-1.25)
+    "region": 2600.0, "blend": 0.35,  # region grid (blocks; each one kind of ridges) and how far regions blend
+    "band": 12.0, "sharp": 3.0, "strata": 0.8,  # cliff bands on steep ground: height, sharpness, strength
+    "ceiling": 610,  # summits eased under this y
 }
 
 ROAD_HALF_WIDTH = 2.1  # blocks either side of a road's middle (Aaron 2026-11-14: 4-5 wide; bridges 1 more each side)
