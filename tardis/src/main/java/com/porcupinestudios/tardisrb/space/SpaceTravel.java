@@ -196,7 +196,7 @@ public final class SpaceTravel {
     /** Out of the top of a planet's layer: beside its ball in the solar system, moving the same way. */
     public static Entity toSystem(Entity e, Planet planet, StarSystem.Body body, ServerLevel system,
             Tuning.SpaceTuning tuning) {
-        double sx = planet.surfaceX(e.getX());
+        double sx = StationFrames.surfaceX(e.level(), planet, e.getX(), e.getZ());
         double sz = Math.max(planet.minZ(), Math.min(Math.nextDown(planet.minZ() + planet.height()),
                 planet.surfaceZ(e.getZ())));
         Vec3 to = body.fromLayer(sx, sz);
@@ -280,7 +280,8 @@ public final class SpaceTravel {
 
     /** Down from space: under the ceiling over the spot below, falling slowly. */
     public static Entity toSurface(Entity e, Planet planet, ServerLevel world, Tuning.SpaceTuning tuning) {
-        double x = planet.surfaceX(e.getX());
+        // under where you really are: a station's frame has drifted round with it
+        double x = StationFrames.surfaceX(e.level(), planet, e.getX(), e.getZ());
         double z = planet.surfaceZ(e.getZ());
         float turn = 0;
         Planet.Wrapped w = planet.wrap(x, z);
@@ -323,7 +324,7 @@ public final class SpaceTravel {
      * Players go through Immersive Portals' seamless teleport (no loading screen) unless they must turn round (over a
      * pole); everything else moves the vanilla way, at once.
      */
-    private static Entity move(Entity e, ServerLevel to, Vec3 pos, float turn) {
+    static Entity move(Entity e, ServerLevel to, Vec3 pos, float turn) {
         if (e instanceof ServerPlayer sp) {
             if (to != e.level()) {
                 setGravity(sp, isSpace(to));
@@ -381,12 +382,14 @@ public final class SpaceTravel {
     private static void onLogin(PlayerEvent.PlayerLoggedInEvent event) {
         if (event.getEntity() instanceof ServerPlayer sp) {
             SkyNet.sendPlanets(sp);
+            StationFrames.send(sp);
         }
     }
 
     private static void onChangeDimension(PlayerEvent.PlayerChangedDimensionEvent event) {
         if (event.getEntity() instanceof ServerPlayer sp) {
             setGravity(sp, isSpace(sp.level()));
+            StationFrames.send(sp);
         }
     }
 }

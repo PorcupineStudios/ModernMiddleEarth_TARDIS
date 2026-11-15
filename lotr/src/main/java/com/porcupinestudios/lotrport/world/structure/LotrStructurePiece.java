@@ -11,6 +11,10 @@ import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.StructureManager;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.ChestBlock;
+import net.minecraft.world.level.block.entity.ChestBlockEntity;
+import net.minecraft.world.level.block.state.properties.ChestType;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.chunk.ChunkGenerator;
@@ -94,6 +98,57 @@ public final class LotrStructurePiece extends TemplateStructurePiece {
                     level.setBlock(at, fill, 2);
                 }
             }
+        }
+        compactDoubleChests(level, mine, box);
+    }
+
+    /**
+     * LOTR filled each half of a double chest on its own, so opened it showed the first half's items, empty rows,
+     * then the second's (Aaron 2026-11-15: "double chests shouldn't have an item gap"). Packs a pair's items, in their
+     * order, into the half shown on top (vanilla's FIRST: type RIGHT) and then the other. A pair whose halves are in
+     * two chunks is packed when the second of them is built (the first's half isn't a chest yet when it runs).
+     */
+    private static void compactDoubleChests(WorldGenLevel level, BoundingBox mine, BoundingBox box) {
+        BlockPos.MutableBlockPos at = new BlockPos.MutableBlockPos();
+        for (int x = Math.max(mine.minX(), box.minX()); x <= Math.min(mine.maxX(), box.maxX()); x++) {
+            for (int z = Math.max(mine.minZ(), box.minZ()); z <= Math.min(mine.maxZ(), box.maxZ()); z++) {
+                for (int y = mine.minY(); y <= mine.maxY(); y++) {
+                    BlockState state = level.getBlockState(at.set(x, y, z));
+                    if (!(state.getBlock() instanceof ChestBlock) || state.getValue(ChestBlock.TYPE) == ChestType.SINGLE) {
+                        continue;
+                    }
+                    BlockPos other = at.relative(ChestBlock.getConnectedDirection(state));
+                    BlockState otherState = level.getBlockState(other);
+                    if (otherState.getBlock() != state.getBlock()
+                            || otherState.getValue(ChestBlock.TYPE) != state.getValue(ChestBlock.TYPE).getOpposite()) {
+                        continue;
+                    }
+                    boolean first = state.getValue(ChestBlock.TYPE) == ChestType.RIGHT;
+                    if (level.getBlockEntity(first ? at : other) instanceof ChestBlockEntity top
+                            && level.getBlockEntity(first ? other : at) instanceof ChestBlockEntity bottom) {
+                        pack(top, bottom);
+                    }
+                }
+            }
+        }
+    }
+
+    private static void pack(ChestBlockEntity top, ChestBlockEntity bottom) {
+        java.util.List<ItemStack> items = new java.util.ArrayList<>();
+        for (ChestBlockEntity half : new ChestBlockEntity[] {top, bottom}) {
+            for (int i = 0; i < half.getContainerSize(); i++) {
+                if (!half.getItem(i).isEmpty()) {
+                    items.add(half.getItem(i));
+                }
+                half.setItem(i, ItemStack.EMPTY);
+            }
+        }
+        int n = 0;
+        for (ChestBlockEntity half : new ChestBlockEntity[] {top, bottom}) {
+            for (int i = 0; i < half.getContainerSize() && n < items.size(); i++) {
+                half.setItem(i, items.get(n++));
+            }
+            half.setChanged();
         }
     }
 

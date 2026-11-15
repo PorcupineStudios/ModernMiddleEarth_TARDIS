@@ -63,16 +63,24 @@ public final class VortexTests {
         // nobody is in the vortex to load the lane: the trip has to keep the box's own chunks loaded
         Flight.Outcome left = Vortex.depart(server, t, Optional.empty(), target, Optional.empty(), Optional.empty());
         noWormholes(t);
+        noArcs(t); // only the arc this test places: a random one hitting first hid a miss (2026-11-14)
         helper.assertTrue(left.done(), "it didn't set off: " + left.problem().map(c -> c.getString()).orElse(""));
         helper.assertTrue(Vortex.inVortex(t), "no trip recorded");
         helper.assertTrue(!(helper.getLevel().getBlockState(base).getBlock() instanceof ExteriorBlock),
                 "the exterior block is still there");
-        helper.startSequence().thenIdle(100).thenExecute(() -> helper.assertTrue(FreeFlight.body(server, t)
-                .filter(b -> vortex.isPositionEntityTicking(b.blockPosition())).isPresent(),
-                "the box in the vortex isn't kept loaded: " + FreeFlight.body(server, t).map(b -> b.position() + " " + b.level().dimension()) + " at " + t.location() + " trip " + t.moduleData(Vortex.MODULE) + " plot " + t.plot()))
-                .thenExecute(() -> {
+        int[] waited = {0};
+        helper.startSequence().thenIdle(100).thenWaitUntil(() -> {
+            waited[0]++;
+            helper.assertTrue(synced(server, vortex, t), "the box in the vortex isn't kept loaded (or isn't with its trip): "
+                    + state(server, t) + " plot " + t.plot());
+        }).thenExecute(() -> {
+            // a tick or two to catch up is fine; a box left unloaded for a second is not
+            helper.assertTrue(waited[0] <= 20, "the box in the vortex wasn't kept loaded: it ticked again only after "
+                    + waited[0] + " ticks");
             TardisBody body = FreeFlight.body(server, t).orElse(null);
-            helper.assertTrue(body != null && body.level() == vortex && body.inLane(), "the box isn't in its vortex lane");
+            helper.assertTrue(body != null && body.level() == vortex && body.inLane(), "the box isn't in its vortex lane: "
+                    + state(server, t) + (body == null ? "" : " level " + body.level().dimension().location() + " inLane "
+                    + body.inLane()));
 
             // the doors open in flight; landing has to take the doorway out of the vortex with the box
             helper.assertTrue(Doors.open(server, t), "the doors didn't open in the vortex");
@@ -81,7 +89,8 @@ public final class VortexTests {
             long charge = t.charge();
             // a lightning arc straight across its path, level with its middle
             var trip = t.moduleData(Vortex.MODULE);
-            double z = body.getZ() + 3;
+            int hitsBefore = Vortex.hits(t);
+            double z = trip.getDouble("progress") + 3;
             double offset = body.getY() + 1 - Vortex.LANE_Y - Vortex.bend(z).y;
             var arc = Vortex.placeArc(vortex, trip, z, 0, offset);
             t.setModuleData(Vortex.MODULE, trip);
@@ -90,7 +99,8 @@ public final class VortexTests {
                     && Math.abs(arc.getX() - arc.half().x - axisX) >= TardisContent.tuning().vortex().radius(),
                     "the arc doesn't reach the tunnel wall at both ends");
             helper.runAfterDelay(8, () -> {
-                helper.assertTrue(Vortex.hits(t) >= 1, "flying into the lightning arc wasn't a hit");
+                helper.assertTrue(Vortex.hits(t) == hitsBefore + 1, "flying into the lightning arc wasn't a hit: hits "
+                        + hitsBefore + " -> " + Vortex.hits(t) + ", " + state(server, t));
                 helper.assertTrue(!arc.isRemoved(), "the arc went when it was hit: it should stay put");
                 helper.assertTrue(t.charge() < charge, "the hit cost no charge");
                 helper.assertTrue(Health.get(t) < Health.max(t)
@@ -150,11 +160,14 @@ public final class VortexTests {
             trip.putDouble("inaccuracy", 0);
             t.setModuleData(Vortex.MODULE, trip);
         }).thenWaitUntil(() -> helper.assertTrue(!Vortex.inVortex(t), "still falling out of the vortex"))
-                .thenExecute(() -> FreeFlight.body(server, t).ifPresent(b -> {
+                .thenWaitUntil(() -> helper.assertTrue(FreeFlight.body(server, t).isPresent(),
+                        "the box that fell out of the vortex can't be found: " + state(server, t)))
+                .thenExecute(() -> {
+                    TardisBody b = FreeFlight.body(server, t).orElseThrow();
                     helper.assertTrue(b.crashing() && !b.thrusters() && b.getY() > base.getY() + 10,
                             "it didn't appear falling high over the spot, thrusters off: " + b.position());
                     b.setDeltaMovement(0, b.getDeltaMovement().y, 0); // straight down, onto the platform
-                }))
+                })
                 .thenWaitUntil(() -> helper.assertTrue(FreeFlight.body(server, t).filter(b -> b.impactAt != null)
                         .isPresent(), "it hasn't hit the ground yet"))
                 .thenExecute(() -> {
@@ -268,6 +281,13 @@ public final class VortexTests {
     static void noWormholes(TardisRecord t) {
         var trip = t.moduleData(Vortex.MODULE);
         trip.putInt("next_wormhole", Integer.MAX_VALUE);
+        t.setModuleData(Vortex.MODULE, trip);
+    }
+
+    /** Stops random lightning arcs being placed on a trip (for tests that place their own). */
+    static void noArcs(TardisRecord t) {
+        var trip = t.moduleData(Vortex.MODULE);
+        trip.putInt("next_obstacle", Integer.MAX_VALUE);
         t.setModuleData(Vortex.MODULE, trip);
     }
 
@@ -390,35 +410,78 @@ public final class VortexTests {
                 .done(), "it didn't set off");
         noWormholes(t);
         double laneX = t.moduleData(Vortex.MODULE).getDouble("lane_x");
-        helper.startSequence().thenWaitUntil(() -> helper.assertTrue(FreeFlight.body(server, t).isPresent(),
-                "no box in the vortex")).thenExecute(() -> {
-            TardisBody body = FreeFlight.body(server, t).orElseThrow();
+        TestTrace trace = new TestTrace(30, 60);
+        helper.startSequence().thenWaitUntil(() -> {
+            trace.see(state(server, t));
+            helper.assertTrue(synced(server, vortex, t), "the box in the vortex isn't loaded and with its trip" + trace);
+        }).thenExecute(() -> {
             var trip = t.moduleData(Vortex.MODULE);
             // off to the side and turned 60 degrees toward the middle: the box flies into its face
-            Wormhole hole = Wormholes.place(server, vortex, t, trip, body.getZ() + 20, 4, 0, dim, 5, -60, 0);
+            Wormhole hole = Wormholes.place(server, vortex, t, trip, trip.getDouble("progress") + 20, 4, 0, dim, 5, -60, 0);
             t.setModuleData(Vortex.MODULE, trip);
+            trace.note("hole at " + (hole == null ? "none" : hole.position()) + " lane " + laneX);
             helper.assertTrue(hole != null && !hole.open(), "the wormhole wasn't placed, or is see-through at scanner 0");
-        }).thenWaitUntil(() -> helper.assertTrue(!Vortex.inVortex(t), "still in the vortex")).thenExecute(() -> {
-            helper.assertTrue(t.location().get().dimension().equals(dim), "it came out in "
-                    + t.location().get().dimension().location() + ", not " + dim.location());
         }).thenWaitUntil(() -> {
+            trace.see(state(server, t));
+            helper.assertTrue(!Vortex.inVortex(t), "still in the vortex" + trace);
+        }).thenExecute(() -> {
+            helper.assertTrue(t.location().get().dimension().equals(dim), "it came out in "
+                    + t.location().get().dimension().location() + ", not " + dim.location() + trace);
+        }).thenWaitUntil(() -> {
+            trace.see(state(server, t));
             // the spot it was thrown out over loads a tick later
             TardisBody out = FreeFlight.body(server, t).orElse(null);
             helper.assertTrue(out != null && out.level().dimension().equals(dim) && !out.thrusters(),
-                    "no loose box thrown out in " + dim.location() + " at " + t.location() + " plot " + t.plot() + " flight " + t.moduleData(FreeFlight.MODULE));
+                    "no loose box thrown out in " + dim.location() + trace);
             // it comes out falling and still going forward, then hits the ground
             helper.assertTrue(out.crashing() && out.getDeltaMovement().z > 0.05, "it didn't come out moving: "
-                    + out.getDeltaMovement());
-            helper.assertTrue(vortex.getEntitiesOfClass(Wormhole.class, new AABB(laneX - 64, 0, -10, laneX + 64, 256, 600))
-                    .isEmpty(), "a wormhole was left behind in the vortex");
-        }).thenWaitUntil(() -> helper.assertTrue(FreeFlight.body(server, t).filter(b -> b.impactAt != null).isPresent(),
-                "it hasn't fallen to the ground")).thenExecute(() -> {
+                    + out.getDeltaMovement() + trace);
+            helper.assertTrue(vortex.getEntitiesOfClass(Wormhole.class, new AABB(laneX - 64, 0, -10, laneX + 64, 256, 600),
+                    w -> w.owner().equals(Optional.of(t.id()))).isEmpty(), "a wormhole was left behind in the vortex" + trace);
+        }).thenWaitUntil(() -> {
+            trace.see(state(server, t));
+            helper.assertTrue(FreeFlight.body(server, t).filter(b -> b.impactAt != null).isPresent(),
+                    "it hasn't fallen to the ground" + trace);
+        }).thenExecute(() -> {
             helper.succeed();
         });
     }
 
+    /**
+     * The box is loaded, ticking, and where its trip is. A box first found can still stand where it set off while the
+     * trip's progress has gone on (its chunk wasn't visible to the trip yet; the trip moves it up when it next sees it),
+     * so anything placed from the box's position before then can end up behind it (2026-11-14).
+     */
+    static boolean synced(MinecraftServer server, ServerLevel vortex, TardisRecord t) {
+        double progress = t.moduleData(Vortex.MODULE).getDouble("progress");
+        return FreeFlight.body(server, t).filter(b -> vortex.isPositionEntityTicking(b.blockPosition())
+                && Math.abs(b.getZ() - progress) < 2).isPresent();
+    }
+
+    /** A TARDIS's trip and box, briefly, for a {@link TestTrace}. */
+    static String state(MinecraftServer server, TardisRecord t) {
+        var trip = t.moduleData(Vortex.MODULE);
+        StringBuilder b = new StringBuilder();
+        b.append(t.location().map(l -> l.dimension().location().getPath() + "@" + l.pos().toShortString()).orElse("-"));
+        if (Vortex.inVortex(t)) {
+            b.append(" trip p").append((int) trip.getDouble("progress")).append("/").append(trip.getInt("length"))
+                    .append(" hits ").append(trip.getInt("hits")).append(" hp ").append((int) Health.get(t));
+            if (trip.contains("suck")) {
+                b.append(" SUCK").append(trip.getInt("suck_ticks"));
+            }
+            if (trip.contains("crash")) {
+                b.append(" CRASH");
+            }
+        }
+        FreeFlight.body(server, t).ifPresentOrElse(body -> b.append(" body ")
+                .append(String.format("%.1f,%.1f,%.1f", body.getX(), body.getY(), body.getZ()))
+                .append(body.crashing() ? " crashing" : "").append(body.thrusters() ? " thr" : "")
+                .append(body.impactAt != null ? " landed" : ""), () -> b.append(" nobody"));
+        return b.toString();
+    }
+
     /** With the scanner at level 2 a wormhole is see-through: an Immersive Portals portal fills it, gone after. */
-    @GameTest(template = "platform", timeoutTicks = 200)
+    @GameTest(template = "platform", timeoutTicks = 400)
     public static void theScannerMakesWormholesSeeThrough(GameTestHelper helper) {
         MinecraftServer server = helper.getLevel().getServer();
         ServerLevel vortex = server.getLevel(Vortex.DIMENSION);
@@ -431,21 +494,37 @@ public final class VortexTests {
         helper.assertTrue(Vortex.depart(server, t, Optional.empty(), base.east(20), Optional.empty(), Optional.empty())
                 .done(), "it didn't set off");
         noWormholes(t);
-        helper.startSequence().thenWaitUntil(() -> helper.assertTrue(FreeFlight.body(server, t).isPresent(),
-                "no box in the vortex")).thenExecute(() -> {
-            TardisBody body = FreeFlight.body(server, t).orElseThrow();
+        TestTrace trace = new TestTrace(20, 40);
+        Wormhole[] hole = new Wormhole[1];
+        int[] placedAt = {0};
+        helper.startSequence().thenWaitUntil(() -> {
+            trace.see(state(server, t));
+            helper.assertTrue(synced(server, vortex, t), "the box in the vortex isn't loaded and with its trip" + trace);
+        }).thenExecute(() -> {
             var trip = t.moduleData(Vortex.MODULE);
-            // off to the side, so the autopilot flies past it
-            Wormhole hole = Wormholes.place(server, vortex, t, trip, body.getZ() + 10, 8, 0, Level.OVERWORLD);
+            // well ahead (about 3 s of flying), off to the side, small and facing straight back: the box flies past it
+            hole[0] = Wormholes.place(server, vortex, t, trip, trip.getDouble("progress") + 40, 8, 0, Level.OVERWORLD, 2,
+                    0, 0);
             t.setModuleData(Vortex.MODULE, trip);
-            var h = trip.getList("wormholes", Tag.TAG_COMPOUND).getCompound(0);
-            helper.assertTrue(hole != null && hole.open() && h.hasUUID("portal")
-                    && vortex.getEntity(h.getUUID("portal")) instanceof Portal p && !p.isTeleportable()
-                    && Wormholes.PORTAL_TAG.equals(p.portalTag), "no see-through portal in the wormhole");
-            helper.assertTrue(Wormholes.next(t).isPresent(), "the scanner doesn't see the wormhole ahead");
+            helper.assertTrue(hole[0] != null && hole[0].open(), "the wormhole isn't see-through at scanner 2");
+            placedAt[0] = trace.ticks();
+            trace.note("hole at " + hole[0].position());
+        }).thenWaitUntil(() -> {
+            trace.see(state(server, t));
+            var list = t.moduleData(Vortex.MODULE).getList("wormholes", Tag.TAG_COMPOUND);
+            helper.assertTrue(list.size() == 1 && list.getCompound(0).hasUUID("portal"), "the wormhole has no portal"
+                    + trace);
+            Entity e = vortex.getEntity(list.getCompound(0).getUUID("portal"));
+            helper.assertTrue(e instanceof Portal p && !p.isTeleportable() && Wormholes.PORTAL_TAG.equals(p.portalTag),
+                    "no see-through portal in the wormhole: " + e + trace);
+        }).thenExecute(() -> {
+            helper.assertTrue(trace.ticks() - placedAt[0] <= 20, "the portal took " + (trace.ticks() - placedAt[0])
+                    + " ticks to show" + trace);
+            helper.assertTrue(Wormholes.next(t).isPresent(), "the scanner doesn't see the wormhole ahead" + trace);
+            var h = t.moduleData(Vortex.MODULE).getList("wormholes", Tag.TAG_COMPOUND).getCompound(0);
             Entity portal = vortex.getEntity(h.getUUID("portal"));
             Vortex.arrive(server, t);
-            helper.assertTrue(portal.isRemoved() && hole.isRemoved(), "the wormhole or its portal outlived the trip");
+            helper.assertTrue(portal.isRemoved() && hole[0].isRemoved(), "the wormhole or its portal outlived the trip");
             helper.succeed();
         });
     }

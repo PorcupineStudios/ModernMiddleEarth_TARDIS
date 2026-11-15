@@ -33,9 +33,12 @@ public final class SkyNet {
     }
 
     private static void payloads(RegisterPayloadHandlersEvent event) {
-        var r = event.registrar("4");
+        var r = event.registrar("5");
         r.playToClient(Planets.TYPE, Planets.CODEC, (p, ctx) -> ctx.enqueueWork(() -> clientHandler.accept(p)));
         r.playToClient(PlanetMap.TYPE, PlanetMap.CODEC, (p, ctx) -> ctx.enqueueWork(() -> clientMapHandler.accept(p)));
+        r.playToClient(Frames.TYPE, Frames.CODEC, (p, ctx) -> ctx.enqueueWork(() ->
+                com.porcupinestudios.tardisrb.space.StationFrames.setClient(net.minecraft.resources.ResourceKey.create(
+                        net.minecraft.core.registries.Registries.DIMENSION, p.dimension()), p.frames())));
         r.playToClient(GravityDir.TYPE, GravityDir.CODEC, (p, ctx) -> ctx.enqueueWork(
                 () -> com.porcupinestudios.tardisrb.gravity.GravityDirection.receive(ctx.player().level(), p)));
     }
@@ -89,6 +92,21 @@ public final class SkyNet {
         static final StreamCodec<ByteBuf, PlanetMap> CODEC = StreamCodec.composite(ResourceLocation.STREAM_CODEC,
                 PlanetMap::planet, ByteBufCodecs.VAR_INT, PlanetMap::width, ByteBufCodecs.VAR_INT,
                 PlanetMap::height, ByteBufCodecs.byteArray(4 << 20), PlanetMap::packed, PlanetMap::new);
+
+        @Override
+        public Type<? extends CustomPacketPayload> type() {
+            return TYPE;
+        }
+    }
+
+    /** A space level's station frames (space/StationFrames), for the client's globe and deck gravity. */
+    public record Frames(ResourceLocation dimension, List<com.porcupinestudios.tardisrb.space.StationFrames.Frame> frames)
+            implements CustomPacketPayload {
+        public static final Type<Frames> TYPE = new Type<>(TardisRB.id("station_frames"));
+        static final StreamCodec<ByteBuf, Frames> CODEC = StreamCodec.composite(ResourceLocation.STREAM_CODEC,
+                Frames::dimension, ByteBufCodecs.fromCodec(
+                        com.porcupinestudios.tardisrb.space.StationFrames.Frame.CODEC.listOf()),
+                Frames::frames, Frames::new);
 
         @Override
         public Type<? extends CustomPacketPayload> type() {

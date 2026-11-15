@@ -1,7 +1,7 @@
 {
   "dimensions": {
     "minecraft:overworld": {
-      "type": "minecraft:overworld",
+      "type": "lotr_port:middle_earth",
       "generator": {
         "type": "minecraft:noise",
         "settings": "lotr_port:middle_earth",

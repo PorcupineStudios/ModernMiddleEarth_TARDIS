@@ -431,6 +431,8 @@ class Gen:
             return "gate"
         if "LOTRBlockBarrel" in c.split():
             return "keg"  # LOTR's barrel; a keg so it isn't taken for vanilla's barrel
+        if "LOTRBlockReed" in c.split():
+            return "reed"  # content/ReedBlock: waterlogged stem from the bed, LOTR's lower/mid/upper icons
         if "LOTRBlockSaplingBase" in c.split():
             return "sapling"
         if "BlockBed" in c.split():
@@ -508,6 +510,8 @@ class Gen:
             e["shape"] = [round(x * 16, 3) for x in bb]
             if b["material"] in ("plants", "vine", "circuits", "carpet", "portal", "web"):
                 e["collision"] = False
+        if kind == "reed" and "LOTRBlockReedDry" in " ".join(b["classes"]):
+            e["grows"] = False  # LOTRBlockReedDry.canReedGrow
         if kind == "door":
             e["item"] = "double_high"
         if kind == "bed":
@@ -588,6 +592,8 @@ class Gen:
         if kind in ("cube", "shaped", "keg") and FACING_CLASSES & {x.split(".")[-1] for x in b["classes"]}:
             # the exported front (LOTR's side 3) is south; turn it to face the block's facing
             m = self.cube(new, icons, rt) if kind == "cube" else self.shaped(new, icons, b)
+            if kind == "keg":
+                self.keg_tap(new)
             self.bs(new, {"variants": {f"facing={f}": ({"model": m, "y": y} if y else {"model": m})
                                        for f, y in (("south", 0), ("west", 90), ("north", 180), ("east", 270))}})
             self.item_model(new, m)
@@ -686,6 +692,16 @@ class Gen:
             m = self.bm(new, "minecraft:block/leaves", {"all": side}, {"render_type": CUTOUT})
             self.bs(new, {"variants": {"": {"model": m}}})
             self.item_model(new, m)
+        elif kind == "reed":
+            # LOTRBlockReed's icons: <name>_lower on the bed, _mid, _upper at the top (part = ReedBlock.Part)
+            base = (v["icons"][2] or "").rsplit("_", 1)[0]
+            var = {}
+            for part, icon in (("lower", "lower"), ("middle", "mid"), ("upper", "upper")):
+                tex = self.tex.block(f"{base}_{icon}")
+                var[f"part={part}"] = {"model": self.bm(f"{new}_{icon}", "minecraft:block/cross", {"cross": tex},
+                                                        {"render_type": CUTOUT})}
+            self.bs(new, {"variants": var})
+            self.item_model(new, layer=item_icon)
         elif kind in ("plant", "sapling"):
             m = self.bm(new, "minecraft:block/cross", {"cross": side}, {"render_type": CUTOUT})
             self.bs(new, {"variants": {"": {"model": m}}})
@@ -806,6 +822,19 @@ class Gen:
                         "particle": north},
                        {"render_type": CUTOUT, "elements": [{"from": bb[:3], "to": bb[3:], "faces": faces}]})
 
+    def keg_tap(self, new):
+        """LOTR's barrel tap (LOTRRenderBlocks.renderBarrel, its _tap icon): a spout out of the front a third of the
+        way up and a nozzle under its end. The model's front is south (facing=south is unturned), so the tap is there;
+        the blockstate turns it with the keg, which a structure's barrel metadata sets (2026-11-15: no spout)."""
+        path = os.path.join(ASSETS, "models", "block", new + ".json")
+        with open(path) as f:
+            model = json.load(f)
+        model["textures"]["tap"] = self.tex.block("lotr:barrel_tap")
+        faces = lambda: {d: {"texture": "#tap"} for d in ("down", "up", "north", "south", "west", "east")}
+        model["elements"] += [{"from": [7, 4, 14], "to": [9, 6, 16], "faces": faces()},
+                              {"from": [7.5, 2, 15], "to": [8.5, 4, 16], "faces": faces()}]
+        write_json(path, model)
+
     def bed(self, new, icons, head_icons):
         """LOTR's beds as 1.7.10 drew them: a 9/16 high block per half, top, end and sides from its icons (the
         export lists the foot's; the head's are the same names with _head_). Facing points from foot to head."""
@@ -816,7 +845,9 @@ class Gen:
             # drawn for facing=north: the head is north, so the foot's end shows south and the head's north
             end_face = "south" if part == "foot" else "north"
             faces = {"down": {"texture": "#bottom", "uv": [0, 0, 16, 16]},
-                     "up": {"texture": "#top", "uv": [0, 0, 16, 16], "rotation": 180 if part == "foot" else 0},
+                     # 1.7.10's bed icons lie sideways, the head end at the icon's right (the pillow strip):
+                     # turned 270 so it lies at the head (2026-11-15: pillows ran down the bed's length)
+                     "up": {"texture": "#top", "uv": [0, 0, 16, 16], "rotation": 270},
                      "east": {"texture": "#side", "uv": [0, 7, 16, 16]},
                      "west": {"texture": "#side", "uv": [16, 7, 0, 16]},
                      end_face: {"texture": "#end", "uv": [0, 7, 16, 16]}}

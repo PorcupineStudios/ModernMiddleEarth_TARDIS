@@ -42,6 +42,37 @@ shared API's `PlanetProvider`.
 - Tests: `SpaceTests` (layer round trip, altitude, wrap + pole fold, seam pieces), world check (up, down, east edge
   wrap, seam portals at the edge leading to the west edge). **Not tried in a game client**: the globe drawing, fog,
   haze, the look of the seams, IP teleport smoothness.
+- **No weather or clouds** (Aaron 2026-11-15): space levels' rain and thunder levels read 0 on server and client
+  (`SpaceWeatherMixin` on `Level.getRainLevel/getThunderLevel`; other levels share the overworld's weather), and the
+  space dimension type's effects are `tardis_rb:space` (`client/SpaceSky`: the overworld's sky without clouds). The
+  biome is `minecraft:the_void` (no precipitation). World check: forced rain/thunder in space read 0.
+- **Sparse space** (Aaron 2026-11-15: "99.99% of chunks are empty, only store where [things] are and only load
+  those chunks"; `space.chunks` tuning, `space/SpaceContent`, `SpaceChunks`): in space levels empty chunks are never
+  saved (`SpaceChunkMapMixin` on `ChunkMap.save`), and an index (saved data `tardis_rb_space_chunks`) keeps the chunks
+  whose last save had blocks/block entities or entities (`SpaceEntityStorageMixin`); a chunk that went empty is written
+  once more and leaves it. Old worlds are indexed from their region headers on first use. Every player in space is
+  left out of vanilla and Immersive Portals loading; IP gets our loaders instead (`ChunkVisibilityMixin`): the player's
+  chunk with radius `near_radius` + 2 (not while flying fast or spectating) and one radius-0 loader per indexed chunk
+  within view distance; tickets (`tardis_rb_space_near` / `_content`) make those ticking (content within simulation
+  distance). The index is saved again on `LevelEvent.Save` (Minecraft saves data before chunks).
+- **Space stations** (Aaron: "save where they are (with orbit kept in mind so we can move it's location around the
+  planet's center)"): indexed chunks within `station_gap` chunks of each other are one station (`SpaceContent.Station`:
+  id kept while it changes, its chunks, centre block, `Orbit`: planet, lon/lat round its centre, full-size altitude,
+  `period` ticks per turn (0 = still) and `epoch`). `Station.placeAt(planet, time)` gives the layer spot for any time.
+- **Stations orbit in real time as moving frames** (Aaron 2026-11-15: stations are built automatically, orbit
+  Kepler-style, seen moving; Create thrusters next; `space/StationFrames`, tuning `space.stations`): a station's
+  blocks stay put while where they are over the planet drifts east at `Orbits.orbitSpeed` for its height (period =
+  layer width / that speed; lower is quicker). In its zone (chunks + `zone_margin` 192) spots on the planet include
+  the drift (`StationFrames.surfaceX`: the globe scrolls by, smoothed between ticks; going down and into the solar
+  system land under where it really is), and the planet pulls only within `deck_height` (2) over solid blocks (deck
+  gravity, `Orbits.step`): elsewhere you co-orbit and float. Leaving the zone moves you to its true place (+ drift, +
+  orbit speed east); coming within `enter_radius` (128) of a station's true place moves you into its frame (persistent
+  entity tag `tardis_rb:station_frame`, so restarts keep it). A changed station keeps its drift (new orbit starts
+  where the old frame had got to). Frames go to clients (`SkyNet.Frames`, registrar 5) on login, level change and
+  change. Real orbit speed (2.5 blocks a tick at the floor) is why the blocks don't move: riding a contraption that
+  fast, and streaming chunks, would lag. Test: `SpaceTests.stationFramesOrbit`. Not tried in a game client: the
+  scrolling globe, the frame moves (players go through Immersive Portals' seamless teleport). World check: a built
+  block is saved and indexed, its empty neighbour isn't written, and its station's orbit places it back.
 - Leaving the layer top into the solar system: `docs/solar-system.md`.
 - Next: atmosphere rim, a sharper local map patch when low,
   terrain relief on the globe.
