@@ -49,7 +49,7 @@ VALLEY_SHIFT = 0.1  # the lifted valleys raise the mean ~0.1 x HILL_2D x hilline
 # Aaron (2026-11-14): the Shire's own hills ("downs", MiddleEarthMap.downs): round hills that only rise from the land
 # (noise hills dip as often as they rise, into ponds). Biome name -> (tallest hill in blocks, share of LOTR's noise
 # hilliness kept as roughness on top).
-DOWNS = {"shire": (18, 0.4), "shire_moors": (14, 0.45), "shire_woodlands": (12, 0.5)}
+DOWNS = {"shire": (24, 0.4), "shire_moors": (18, 0.45), "shire_woodlands": (16, 0.5)}  # 2026-11-14: taller (was 18, 14, 12)
 
 # Biome variants (LOTR's LOTRBiomeVariant patches; Aaron 2026-11-14: "many biomes within the Shire"). Not separate
 # biomes, as in LOTR: patches of a jittered grid (`cell` blocks), a variant with chance `chance`, else plain
