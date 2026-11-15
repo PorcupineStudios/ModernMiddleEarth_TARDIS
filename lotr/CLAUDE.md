@@ -62,6 +62,35 @@ https://claude.ai/artifact/KqhSSTCuKXGuwKHBoYJdcu. Rebuild features in modern co
   spread 4.0 vs LOTR 4.8), `HILL_BIAS` 0.4 (the 4x-steeper ground below lifted means), crags `JAGGED` 2 and ridges
   `RIDGES` 1.2 over hilliness 10. Mountains now match LOTR's slopes (step ~3.8, 30% steep vs 3.1-3.7, 28-38%) and
   means, but their spread over 384 blocks is ~23 vs LOTR's 32-40 (wider ridges only shifted whole areas).
+- Reeds (2026-11-14): kind `reed` (`content/ReedBlock`): waterlogged stem from the bed of still water, LOTR's
+  lower/mid/upper icons by `part`, live reeds grow to 3 above the water; worldgen `world/feature/ReedsFeature`
+  (LOTRWorldGenReeds: still water at most 4 deep, never dry land). Lakes and Shire (2026-11-14): the 2D hill noise's
+  valleys are a quarter deep (`VALLEYS`, fewer sea-level ponds). The Shire's hills are its own "downs"
+  (`MiddleEarthMap.downs`, `DOWNS` in converter/world.py): round seedless hills that only rise,
+  with LOTR's noise kept only as roughness.
+- Biome variants (2026-11-14, LOTR's LOTRBiomeVariant; Aaron: "many biomes within the Shire"): `map/Variants`, set in
+  `converter/world.py VARIANTS` -> map.json `variants`. Patches of a jittered 176-block grid inside a biome (Shire:
+  meadows, light forest, forest, hills, wooded hills, birch wood, aspen wood, orchard, plum orchard; 60% of cells) that
+  scale its downs and hilliness (blended smoothly between patches) and get their own plants: placed features
+  `<biome>_variant/*` gated by placement filter `lotr_port:in_variant` (looked up up to 20 blocks away, so edges
+  feather) and orchard rows by `lotr_port:orchard_grid`. Not separate biomes, as in LOTR: NPCs, structures, roads,
+  music and waypoint regions keyed to the biome are unchanged. `MiddleEarthMap.variantAt` names a column's patch.
+- Rivers (2026-11-14): `RIVERS` scale 1700 (about half as dense as LOTR-like 900), width 0.01324 (noise units: same
+  width in blocks), banks 5 widths. `Rivers.carve`: only the channel (half a width) is cut to the bed; the banks come
+  down to a block over sea level at a width, then up to the land (cutting the whole valley towards the bed flooded low
+  ground 60-80 blocks wide). A mask that faded part of the network out squeezed banks into cliffs and was dropped
+  (`mask_scale` still read, 0 = off).
+- Shire downs (2026-11-14, Aaron: steep round hills that stay grassy): 30 blocks (moors 20, woodlands 18) on a
+  112-block grid, steepest ~0.7 blocks per block (0.9 in "hills" patches), so steps are grass edges; no rock breaking
+  through in biomes with downs (`ground_style`).
+- `Roads` registers each segment in every 256-block cell within `Roads.FLATTEN` (32): the terrain flattens hills by
+  road distance, and a segment missing from a cell made it jump at the cell edge (straight 10+ block cliffs).
+- Terrain preview (dev tool): `-Dlotr_port.terrainpreview=<x>,<z>,<size>` on a Middle-earth server writes
+  `run/terrain_preview/` (relief.png, variants.png, overhangs.png, stats.txt: water share, slopes, overhangs) and stops
+  (`.save=true`: saves the world for a client, e.g. DevScript aerial shots; don't set `chatVisibility` hidden in
+  options.txt, it blocks the script's commands).
+  Roads are 4-5 wide (`ROAD_HALF_WIDTH` 2.1, LOTR's were narrower); bridges `RoadFeature.BRIDGE_EXTRA` 1 wider each
+  side so 4-5 blocks of deck lie between the fences.
 - Plants: LOTR's reed patches (`reedPerChunk`, dried with `dryReedChance`) and the Dead Marshes' dead plants
   (`world.py marsh_plants`). Marsh lights left out: the block draws as a white cube, not LOTR's particles.
 - Big trees (Fangorn oaks reach 25+ blocks from the trunk) overflow what a feature may write: `tree/TreeOverflow`
@@ -262,9 +291,13 @@ https://claude.ai/artifact/KqhSSTCuKXGuwKHBoYJdcu. Rebuild features in modern co
   waypoints, labels, zoom, fullscreen and sepia (icons from LOTR's map sheet). Hovering shows the biome and block
   x, z; an operator or creative player in Middle-earth presses Map Teleport (T, `MapNet.Teleport`, checked again on
   the server) to go there. Click a waypoint to select it, Fast Travel (F) travels; tooltips give distance and why
-  travel is blocked. `client/MapTextures` keeps the map at full size and halved three times (box filter, plain and
-  sepia) and the screen draws the copy that fits the zoom with float positions, so zoomed-out maps don't shimmer;
-  the parchment overlay is one stretch over the window at 20% (as LOTR), the sea beyond the edge the map's ocean
+  travel is blocked. Drawn like LOTR 1.7.10's (2026-11-14, from the decompiled LOTRGuiMap): the full map image with
+  nearest filtering at every zoom (`client/MapTextures`, plain and sepia), red-to-black frame, 1 px road dots every
+  400 blocks / zoom, 4 px waypoint dots placed from their block x/z (the data's `map_x` is the pixel corner, half a
+  pixel off the roads), names above them from zoom -1, LOTR's dark red-edged waypoint box. Zoom is eased by the clock
+  (`System.nanoTime`) and panning lerps with `DeltaTracker.getGameTimeDeltaPartialTick`: in 1.21 a screen's render
+  gets the frame delta, not the partial tick, which made both jitter. Waypoint reach shrinks from 5 px to 2 px zoomed
+  out; a click selects the dot hovered in the last frame. The parchment overlay is one stretch over the window at 20% (as LOTR), the sea beyond the edge the map's ocean
   colour. Packets in `net/MapNet` (the client handler is set in client setup, so common code never names the screen).
 - Mini-quests: `quest_pool/<group>.json` (collect / kill_faction / kill_npc, min-max, weight, reward factor; coins
   and alignment per target), named by an NPC type's `quests`. Right-click a giver (not traders/captains) to get LOTR's
