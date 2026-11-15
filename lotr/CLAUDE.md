@@ -246,9 +246,13 @@ https://claude.ai/artifact/KqhSSTCuKXGuwKHBoYJdcu. Rebuild features in modern co
   waypoints, labels, zoom, fullscreen and sepia (icons from LOTR's map sheet). Hovering shows the biome and block
   x, z; an operator or creative player in Middle-earth presses Map Teleport (T, `MapNet.Teleport`, checked again on
   the server) to go there. Click a waypoint to select it, Fast Travel (F) travels; tooltips give distance and why
-  travel is blocked. `client/MapTextures` keeps the map at full size and halved three times (box filter, plain and
-  sepia) and the screen draws the copy that fits the zoom with float positions, so zoomed-out maps don't shimmer;
-  the parchment overlay is one stretch over the window at 20% (as LOTR), the sea beyond the edge the map's ocean
+  travel is blocked. Drawn like LOTR 1.7.10's (2026-11-14, from the decompiled LOTRGuiMap): the full map image with
+  nearest filtering at every zoom (`client/MapTextures`, plain and sepia), red-to-black frame, 1 px road dots every
+  400 blocks / zoom, 4 px waypoint dots placed from their block x/z (the data's `map_x` is the pixel corner, half a
+  pixel off the roads), names above them from zoom -1, LOTR's dark red-edged waypoint box. Zoom is eased by the clock
+  (`System.nanoTime`) and panning lerps with `DeltaTracker.getGameTimeDeltaPartialTick`: in 1.21 a screen's render
+  gets the frame delta, not the partial tick, which made both jitter. Waypoint reach shrinks from 5 px to 2 px zoomed
+  out; a click selects the dot hovered in the last frame. The parchment overlay is one stretch over the window at 20% (as LOTR), the sea beyond the edge the map's ocean
   colour. Packets in `net/MapNet` (the client handler is set in client setup, so common code never names the screen).
 - Mini-quests: `quest_pool/<group>.json` (collect / kill_faction / kill_npc, min-max, weight, reward factor; coins
   and alignment per target), named by an NPC type's `quests`. Right-click a giver (not traders/captains) to get LOTR's
