@@ -92,18 +92,46 @@ public final class MiddleEarthMap {
             return Math.abs(noise.noise(x / scale, 0.37, z / scale)) / width;
         }
 
-        /** How strongly a river can cut at (x, z), from the ground height without rivers. */
-        double strength(double ground, double x, double z) {
+        /** How strongly a river can cut, from the ground height without rivers. */
+        double strength(double ground) {
             if (ground < minHeight) {
                 return 0;
             }
-            double s = Math.max(0, Math.min(1, (maxHeight - ground) / 25.0)) * Math.min(1, (ground - minHeight) / 3.0);
-            if (maskScale > 0 && s > 0) {
-                // fades over a band of the mask noise: about a third of the network is dry valley or missing
-                double m = mask.noise(x / maskScale, 0.71, z / maskScale);
-                s *= smooth(Math.max(0, Math.min(1, (m + 0.12) / 0.18)));
+            return Math.max(0, Math.min(1, (maxHeight - ground) / 25.0)) * Math.min(1, (ground - minHeight) / 3.0);
+        }
+
+        /**
+         * Distance from the river's middle in river widths, narrowed by the mask: where the mask fades, the river
+         * gets narrower (not shallower) and ends, about a third of the network (2026-11-14; fading the depth left
+         * short slits of water).
+         */
+        double reach(double x, double z) {
+            double d = distance(x, z);
+            if (maskScale <= 0) {
+                return d;
             }
-            return s;
+            double m = smooth(Math.max(0, Math.min(1, (mask.noise(x / maskScale, 0.71, z / maskScale) + 0.12) / 0.18)));
+            return m < 0.02 ? Double.MAX_VALUE : d / m;
+        }
+
+        /**
+         * The ground a river leaves at distance {@code d} (river widths) from its middle: its bed in the channel
+         * (inside half a width), rising to one block over sea level ({@code minHeight}) at a width, then up its banks
+         * to the land at {@code bank} widths. Only the channel holds water: before 2026-11-14 the whole valley was cut
+         * towards the bed, and on low ground that flooded 60-80 blocks wide (lakes, not rivers).
+         */
+        double carve(double ground, double d) {
+            double target;
+            if (d <= 0.5) {
+                target = bed;
+            } else if (d <= 1) {
+                target = bed + (minHeight - bed) * smooth((d - 0.5) / 0.5);
+            } else if (d < bank) {
+                target = minHeight + (ground - minHeight) * smooth((d - 1) / (bank - 1));
+            } else {
+                return ground;
+            }
+            return Math.min(ground, target);
         }
 
         /** 1 in the river and its near banks, falling to 0 at the valley edge. */
@@ -267,8 +295,8 @@ public final class MiddleEarthMap {
     public int biomeIndexAt(int blockX, int blockZ) {
         double wx = wobbledX(blockX, blockZ);
         double wz = wobbledZ(blockX, blockZ);
-        if (rivers != null && rivers.distance(wx, wz) < rivers.biomeWidth()
-                && rivers.strength(smoothed(wx, wz, biomeHeights), wx, wz) > 0.5) {
+        if (rivers != null && rivers.reach(wx, wz) < rivers.biomeWidth()
+                && rivers.strength(smoothed(wx, wz, biomeHeights)) > 0.5) {
             return rivers.biome();
         }
         return pixelIndex((int) Math.floor(wx / blocksPerPixel + originX),
@@ -379,8 +407,11 @@ public final class MiddleEarthMap {
                 ground += (m.peak - ground) * (1 - d / m.range);
             }
         }
-        double cut = riverCut(wx, wz, ground);
-        return cut == 0 ? ground : ground - (ground - rivers.bed()) * cut;
+        if (rivers == null) {
+            return ground;
+        }
+        double strength = rivers.strength(ground);
+        return strength == 0 ? ground : ground - strength * (ground - rivers.carve(ground, rivers.reach(wx, wz)));
     }
 
     /** Hilliness (how far the ground rises and falls, in blocks) at a block position, smoothed like the height. */
@@ -473,8 +504,8 @@ public final class MiddleEarthMap {
         if (rivers == null) {
             return 0;
         }
-        double strength = rivers.strength(ground, wx, wz);
-        return strength == 0 ? 0 : strength * rivers.cut(rivers.distance(wx, wz));
+        double strength = rivers.strength(ground);
+        return strength == 0 ? 0 : strength * rivers.cut(rivers.reach(wx, wz));
     }
 
     /**
