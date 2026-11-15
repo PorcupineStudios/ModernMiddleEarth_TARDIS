@@ -42,6 +42,13 @@
     "strata": 0.8,
     "ceiling": 610
   },
+  "noise_band": {
+    "above": 6.0,
+    "below": 4.0,
+    "hill_bias": 0.4,
+    "sea_level": 62,
+    "top": 640
+  },
   "variants": {
     "lotr_port:shire": {
       "cell": 176,

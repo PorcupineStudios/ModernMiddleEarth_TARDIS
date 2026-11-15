@@ -19,7 +19,9 @@ public record MapTerrain(Value value) implements DensityFunction.SimpleFunction 
 
     public enum Value implements StringRepresentable {
         HEIGHT("height"),
-        VARIATION("variation");
+        VARIATION("variation"),
+        /** 1 / (hilliness + 2): (ground level - y) times this says how far into the noise band a point is. */
+        BAND("band");
 
         public static final com.mojang.serialization.Codec<Value> CODEC = StringRepresentable.fromEnum(Value::values);
         private final String name;
@@ -37,9 +39,12 @@ public record MapTerrain(Value value) implements DensityFunction.SimpleFunction 
     @Override
     public double compute(FunctionContext context) {
         MiddleEarthMap map = MiddleEarthMap.get();
-        return value == Value.HEIGHT
-                ? map.heightAt(context.blockX(), context.blockZ())
-                : map.variationAt(context.blockX(), context.blockZ());
+        return switch (value) {
+            case HEIGHT -> map.heightAt(context.blockX(), context.blockZ());
+            case VARIATION -> map.variationAt(context.blockX(), context.blockZ());
+            // 0 puts every point in the band: the full formula, for NoiseBandTests' reference
+            case BAND -> NoiseTop.disabled() ? 0 : 1 / (map.variationAt(context.blockX(), context.blockZ()) + 2);
+        };
     }
 
     @Override
@@ -49,7 +54,11 @@ public record MapTerrain(Value value) implements DensityFunction.SimpleFunction 
 
     @Override
     public double maxValue() {
-        return value == Value.HEIGHT ? 640 : 256; // the world's top (converter/world.py TOP_Y)
+        return switch (value) {
+            case HEIGHT -> 640; // the world's top (converter/world.py TOP_Y)
+            case VARIATION -> 256;
+            case BAND -> 0.5;
+        };
     }
 
     @Override

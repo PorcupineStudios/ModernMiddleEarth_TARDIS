@@ -166,6 +166,8 @@ public final class MiddleEarthMap {
     }
 
     private final List<Mountain> mountains = new ArrayList<>();
+    /** The noise band (NoiseTop): above, below, hill bias, sea level, top of the world; null if the map has none. */
+    final double[] noiseBand;
     /** The mountain ranges' massifs (Misty Mountains...); null if the map has none. */
     private final Ranges ranges;
     /** Per biome: its height scale if it is a range, else 0. */
@@ -220,6 +222,10 @@ public final class MiddleEarthMap {
                         o.has("lava") ? o.get("lava").getAsInt() : 0));
             }
         }
+        JsonObject band = settings.has("noise_band") ? settings.getAsJsonObject("noise_band") : null;
+        this.noiseBand = band == null ? null : new double[] {band.get("above").getAsDouble(),
+                band.get("below").getAsDouble(), band.get("hill_bias").getAsDouble(),
+                band.get("sea_level").getAsDouble(), band.get("top").getAsDouble()};
         this.ranges = settings.has("ranges") ? new Ranges(settings.getAsJsonObject("ranges"), list, pixels, width,
                 height, blocksPerPixel, originX, originZ) : null;
         for (int i = 0; i < list.size(); i++) {
@@ -243,6 +249,11 @@ public final class MiddleEarthMap {
      * The world seed for the seeded parts of the terrain (the mountain ranges; Aaron 2026-11-15: they "should change
      * depending on seed"). Called as a server starts, before its levels make any terrain.
      */
+    /** The noise band: above, below, hill bias, sea level, top of the world (map.json noise_band); null if none. */
+    public double[] noiseBand() {
+        return noiseBand == null ? null : noiseBand.clone();
+    }
+
     public static void setSeed(long worldSeed) {
         seed = worldSeed;
         MiddleEarthMap map = instance;

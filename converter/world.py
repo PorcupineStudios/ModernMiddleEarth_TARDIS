@@ -40,6 +40,13 @@ STD_PER_VARIATION = 1.0
 JAGGED_FROM, JAGGED = 10.0, 2.0  # crags for hilliness over 10 blocks (mountains), up to 2 x the excess
 RIDGES = 1.2  # and broad ridges and valleys (the hill noise at half the frequency) of 1.2 x the excess
 HILL_BIAS = 0.4  # the 4x-steeper ground below lifts the mean ~0.4 x hilliness (measured); lowered by that
+# Noise only near the surface (Aaron 2026-11-15: "make it as cheap as possible ... very fast chunk loading"): the
+# hills' noise (3D blended, 2D hills, crags) is worked out only where (ground level - y) / (hilliness + 2) lies in
+# [-NOISE_BAND_ABOVE, NOISE_BAND_BELOW); further above the ground is air and further below solid whatever the noise
+# says, so the plain ground shape stands in (minecraft:range_choice). The bounds must cover the noise's largest swing:
+# GameTest NoiseBandTests measures it and fails if they don't. MiddleEarthMap.noiseTop (a mixin) also stops filling
+# chunks and scanning for ground at the band's top, so the sky over low land costs nothing.
+NOISE_BAND_ABOVE, NOISE_BAND_BELOW = 6.0, 4.0
 MAX_3D = 20.0  # hilliness given LOTR's 3D noise; mountains need it for their crags (8 left them smooth domes)
 HILL_2D = 2.5  # 2D hills per block of hilliness: measured against LOTR (terrainRoughness / the exporter's rough), 1.0 gave a third of its spread
 VALLEYS = 0.25  # the 2D hills' valleys at a quarter depth (1.18 quarter_negative): hills rise from the land, low
@@ -451,6 +458,9 @@ class World:
             "ocean": f"{NS}:{OCEAN}",
             "rivers": RIVERS,
             "ranges": RANGES,
+            # for MiddleEarthMap.noiseTop: the noise band's top, and where water fills to
+            "noise_band": {"above": NOISE_BAND_ABOVE, "below": NOISE_BAND_BELOW, "hill_bias": HILL_BIAS,
+                           "sea_level": SEA_LEVEL, "top": TOP_Y},
             "variants": {f"{NS}:{k}": {"cell": v["cell"], "chance": v["chance"], "list": [
                 {x: e[x] for x in ("name", "weight", "downs", "variation") if x in e} for e in v["list"]]}
                 for k, v in VARIANTS.items()},
@@ -571,6 +581,7 @@ class World:
     def noise_settings(self, biomes):
         height = {"type": "minecraft:flat_cache", "argument": {"type": f"{NS}:map_terrain", "value": "height"}}
         variation = {"type": "minecraft:flat_cache", "argument": {"type": f"{NS}:map_terrain", "value": "variation"}}
+        band = {"type": "minecraft:flat_cache", "argument": {"type": f"{NS}:map_terrain", "value": "band"}}
         minus_y = {"type": "minecraft:y_clamped_gradient", "from_y": -64, "to_y": TOP_Y, "from_value": 64,
                    "to_value": -TOP_Y}
         # LOTR's shape (LOTRChunkProvider): 1.7's blended 3D noise (old_blended_noise, xz factor 400 as LOTR) scaled by
@@ -606,9 +617,13 @@ class World:
                 "type": "minecraft:noise", "noise": f"{NS}:terrain", "xz_scale": 0.5, "y_scale": 0.0}}}
         hills = {"type": "minecraft:add", "argument1": hills, "argument2": {
             "type": "minecraft:add", "argument1": jagged, "argument2": ridges}}
+        # the noise only within its band of the ground (NOISE_BAND_*): out of it the plain shape has the same sign
+        near = {"type": "minecraft:range_choice", "input": {"type": "minecraft:mul", "argument1": base, "argument2": band},
+                "min_inclusive": -NOISE_BAND_ABOVE, "max_exclusive": NOISE_BAND_BELOW,
+                "when_in_range": {"type": "minecraft:add", "argument1": shaped, "argument2": hills},
+                "when_out_of_range": shaped}
         final = {"type": "minecraft:interpolated", "argument": {
-            "type": "minecraft:mul", "argument1": 1 / 24,
-            "argument2": {"type": "minecraft:add", "argument1": shaped, "argument2": hills}}}
+            "type": "minecraft:mul", "argument1": 1 / 24, "argument2": near}}
         prelim = {"type": "minecraft:mul", "argument1": 1 / 24, "argument2": base}
         zero = 0.0
         return {
