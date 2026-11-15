@@ -371,13 +371,13 @@
       "id": "lotr_port:shire",
       "height": 71.3,
       "variation": 3.36,
-      "downs": 18
+      "downs": 24
     },
     {
       "id": "lotr_port:shire_woodlands",
       "height": 82.3,
       "variation": 7.1,
-      "downs": 12
+      "downs": 16
     },
     {
       "id": "lotr_port:mordor",
@@ -1003,7 +1003,7 @@
       "id": "lotr_port:shire_moors",
       "height": 77.7,
       "variation": 4.86,
-      "downs": 14
+      "downs": 18
     },
     {
       "id": "lotr_port:shire_marshes",
