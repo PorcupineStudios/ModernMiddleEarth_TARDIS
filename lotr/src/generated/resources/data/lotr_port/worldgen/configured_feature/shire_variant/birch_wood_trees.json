@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:random_selector",
+  "config": {
+    "features": [
+      {
+        "feature": "lotr_port:tree/birch",
+        "chance": 0.5556
+      },
+      {
+        "feature": "lotr_port:tree/birch_large",
+        "chance": 0.5
+      }
+    ],
+    "default": "lotr_port:tree/birch_tall"
+  }
+}

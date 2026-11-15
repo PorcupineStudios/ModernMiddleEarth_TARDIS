@@ -2956,22 +2956,14 @@
   },
   {
     "id": "dried_reeds",
-    "kind": "shaped",
+    "kind": "reed",
     "hardness": 0,
     "resistance": 0.0,
     "light": 0,
     "sound": "grass",
     "requiresTool": false,
     "solid": false,
-    "shape": [
-      2.0,
-      0.0,
-      2.0,
-      14.0,
-      16.0,
-      14.0
-    ],
-    "collision": false
+    "grows": false
   },
   {
     "id": "dunlending_crafting_table",
@@ -8269,22 +8261,13 @@
   },
   {
     "id": "reeds",
-    "kind": "shaped",
+    "kind": "reed",
     "hardness": 0,
     "resistance": 0.0,
     "light": 0,
     "sound": "grass",
     "requiresTool": false,
-    "solid": false,
-    "shape": [
-      2.0,
-      0.0,
-      2.0,
-      14.0,
-      16.0,
-      14.0
-    ],
-    "collision": false
+    "solid": false
   },
   {
     "id": "remains",

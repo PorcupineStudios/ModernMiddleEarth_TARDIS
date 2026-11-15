@@ -21,7 +21,6 @@ import java.util.ArrayList;
 import java.util.List;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.gui.components.PlayerFaceRenderer;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
@@ -36,7 +35,10 @@ import org.lwjgl.glfw.GLFW;
  * window with a 30 px border), zoom in powers of two from 1/8 to 16 map pixels per screen pixel, eased over 6 ticks,
  * around the centre; drag or WASD/arrows to pan; LOTR's region and sea labels, fading in and out over their zoom
  * range; the parchment overlay stretched over the window at 20%; the compass in the bottom left; widgets for
- * waypoints, zoom, fullscreen, sepia and labels. Hovering the map shows the biome and the block x, z under the
+ * waypoints, zoom, fullscreen, sepia and labels. Drawn the way LOTR 1.7.10's LOTRGuiMap draws it: the full map image
+ * with nearest filtering, the red-to-black frame, 1 px dotted roads, 4 px waypoint dots with their names above them
+ * from zoom power -1 in, labels brightest mid-range, the player's head clamped inside the window, and LOTR's
+ * dark red-edged waypoint boxes and subtitle layout. Hovering the map shows the biome and the block x, z under the
  * cursor; an operator or creative player in Middle-earth presses the Map Teleport key (T) to go there. Click a
  * waypoint to select it, then press Fast Travel (F) to travel.
  */
@@ -46,18 +48,19 @@ public final class MapScreen extends Screen {
     private static final ResourceLocation LABELS = LotrPort.id("map/labels.json");
     private static final int BORDER = 30;
     private static final int BORDER_COLOR = 0xFFA21100;
+    /** Width of LOTR's red-to-black frame round the map. */
+    private static final int FRAME = 4;
     private static final int MIN_ZOOM = -3;
     private static final int MAX_ZOOM = 4;
-    private static final int ZOOM_TICKS = 6;
-    /** Waypoint icons in LOTR's map sheet, by state (locked, blocked, ready), and the selected or hovered one. */
+    /** A zoom step takes LOTR's 6 ticks, timed by the clock so it is smooth at any frame rate. */
+    private static final long ZOOM_NANOS = 300_000_000L;
+    /** Waypoint icons in LOTR's map sheet, by state (locked, blocked, ready); 4 px, drawn at 4 px like LOTR's. */
     private static final int[][] ICON_UV = { { 0, 204 }, { 0, 208 }, { 4, 208 } };
-    private static final int[] HOVER_UV = { 4, 204 };
-    private static final int ICON = 6;
-    private static final int SELECT_RANGE = 5;
+    private static final int ICON = 4;
+    /** How near (screen px) the cursor must be to a waypoint dot: LOTR's 5 from zoom power 0 in, less zoomed out. */
+    private static final float SELECT_RANGE = 5;
+    private static final float SELECT_RANGE_MIN = 2;
     private static final int ROAD_COLOR = 0x000000;
-    /** Waypoint names show from this zoom power in, at this text size. */
-    private static final float NAME_ZOOM = 2;
-    private static final float NAME_SCALE = 0.5f;
 
     /** Kept between openings, like LOTR's. */
     private static int zoomPower;
@@ -74,9 +77,10 @@ public final class MapScreen extends Screen {
     private float posZ;
     private float prevPosX;
     private float prevPosZ;
-    private int prevZoomPower = zoomPower;
-    private int zoomTicks;
-    private float zoomExp;
+    /** The zoom power an animation started from (can be between powers when zooming again mid-way). */
+    private float zoomFrom = zoomPower;
+    private long zoomStart;
+    private float zoomExp = zoomPower;
     private float zoomScale;
     private int x0;
     private int y0;
@@ -84,6 +88,8 @@ public final class MapScreen extends Screen {
     private int y1;
     private boolean dragging;
     private MapNet.Mark selected;
+    /** The waypoint under the cursor in the last frame drawn: what a click selects. */
+    private MapNet.Mark hovered;
 
     /** One of LOTR's map labels: lang key or biome, map pixel, size, angle and the zoom powers it shows between. */
     record Label(Component name, float x, float y, float scale, float angle, float minZoom, float maxZoom) {}
@@ -127,13 +133,27 @@ public final class MapScreen extends Screen {
 
     // ------------------------------------------------------------------ coordinates
 
-    private void updateZoom(float partialTick) {
-        zoomExp = zoomPower;
-        if (zoomTicks > 0) {
-            float t = (zoomTicks - partialTick) / ZOOM_TICKS;
-            zoomExp = prevZoomPower + (zoomPower - prevZoomPower) * (1 - t);
-        }
+    /**
+     * The zoom now: eased (fast start, soft landing) from where the last zoom started to the target power, by the
+     * clock. Each zoom starts from wherever the previous one had got to, so quick scrolling never jumps.
+     */
+    private void updateZoom() {
+        float t = zoomAnimating() ? (System.nanoTime() - zoomStart) / (float) ZOOM_NANOS : 1;
+        float eased = 1 - (1 - t) * (1 - t) * (1 - t);
+        zoomExp = zoomFrom + (zoomPower - zoomFrom) * eased;
         zoomScale = (float) Math.pow(2, zoomExp);
+    }
+
+    private boolean zoomAnimating() {
+        return zoomFrom != zoomPower && System.nanoTime() - zoomStart < ZOOM_NANOS;
+    }
+
+    /**
+     * The fraction of the current game tick, for panning between tick positions. A screen's render gets the frame's
+     * real-time delta in 1.21, not this, which made panning and zooming jitter.
+     */
+    private static float partialTick() {
+        return Minecraft.getInstance().getTimer().getGameTimeDeltaPartialTick(false);
     }
 
     private float viewX(float partialTick) {
@@ -142,6 +162,11 @@ public final class MapScreen extends Screen {
 
     private float viewZ(float partialTick) {
         return Mth.lerp(partialTick, prevPosZ, posZ);
+    }
+
+    /** The cursor's reach to a waypoint dot: 5 px from zoom power 0 in, down to 2 px at -3, where dots crowd. */
+    private float selectRange() {
+        return Mth.clamp(SELECT_RANGE + zoomExp, SELECT_RANGE_MIN, SELECT_RANGE);
     }
 
     private float cx() {
@@ -159,58 +184,84 @@ public final class MapScreen extends Screen {
     // ------------------------------------------------------------------ drawing
 
     @Override
-    public void render(GuiGraphics g, int mouseX, int mouseY, float partialTick) {
-        updateZoom(partialTick);
+    public void render(GuiGraphics g, int mouseX, int mouseY, float frameDelta) {
+        updateZoom();
+        float partialTick = partialTick();
         float vx = viewX(partialTick);
         float vz = viewZ(partialTick);
         g.fill(0, 0, width, height, 0xFF000000);
         if (!fullscreen) {
-            // LOTR's framed map: the parchment overlay over the whole screen, tinted brown, and a black-red-black frame
+            // LOTR's framed map: the parchment overlay over the whole screen, tinted brown, and a 4 px frame that
+            // fades from red (next to the map) to black (outside), LOTR's renderGraduatedRects
             RenderSystem.enableBlend();
             g.setColor(0.65f, 0.5f, 0.35f, 1f);
             quad(g, OVERLAY, 0, 0, width, height, 0, 0, 1, 1, 1f);
             g.setColor(1f, 1f, 1f, 1f);
-            g.fill(x0 - 4, y0 - 4, x1 + 4, y1 + 4, 0xFF000000);
-            g.fill(x0 - 3, y0 - 3, x1 + 3, y1 + 3, BORDER_COLOR);
-            g.fill(x0 - 1, y0 - 1, x1 + 1, y1 + 1, 0xFF000000);
+            for (int l = FRAME - 1; l >= 0; l--) {
+                int c = lerpColor(BORDER_COLOR, 0xFF000000, (float) l / (FRAME - 1));
+                g.fill(x0 - 1 - l, y0 - 1 - l, x1 + 1 + l, y1 + 1 + l, c);
+            }
         }
         g.enableScissor(x0, y0, x1, y1);
         drawMap(g, vx, vz);
-        drawRoads(g, vx, vz);
+        // LOTR's order: compass, roads, player, waypoints, labels (labels go over the dots)
+        RenderSystem.enableBlend();
+        g.blit(ICONS, x0 + 12, y1 - 44, 224, 200, 32, 32, 256, 256);
+        if (showWaypoints) {
+            drawRoads(g, vx, vz);
+        }
+        drawPlayer(g, vx, vz);
+        hovered = showWaypoints ? drawWaypoints(g, vx, vz, mouseX, mouseY) : null;
+        if (dragging) {
+            hovered = null;
+        }
         if (showLabels) {
             drawLabels(g, vx, vz);
         }
-        MapNet.Mark hovered = showWaypoints ? drawWaypoints(g, vx, vz, mouseX, mouseY) : null;
-        drawPlayer(g, vx, vz);
-        // compass, bottom left
-        RenderSystem.enableBlend();
-        g.blit(ICONS, x0 + 12, y1 - 44, 224, 200, 32, 32, 256, 256);
         g.disableScissor();
         Widget overWidget = drawWidgets(g, mouseX, mouseY);
         if (!fullscreen) {
-            g.drawCenteredString(font, title, width / 2, (y0 - font.lineHeight) / 2, 0xFFFFFF);
+            g.drawString(font, title, width / 2 - font.width(title) / 2, 10, 0xFFFFFF, false);
+        }
+        if (!showWaypoints) {
+            selected = null; // LOTR drops the selection when its waypoint is hidden
         }
         List<Component> lines = new ArrayList<>();
         Component tp = null;
-        if (overWidget == null && hovered == null && inMap(mouseX, mouseY) && !dragging) {
+        if (selected != null) {
+            selectedLines(lines);
+        } else if (overWidget == null && inMap(mouseX, mouseY)) {
             tp = hoverLines(lines, vx, vz, mouseX, mouseY);
         }
-        selectedLines(lines);
         drawSubtitles(g, lines);
         if (tp != null) {
-            // LOTR puts the teleport hint at the bottom right, under the map
-            int ty = fullscreen ? y1 - 6 - font.lineHeight : y1 + (BORDER - font.lineHeight) / 2 + 1;
-            g.drawString(font, tp, x1 - font.width(tp) - (fullscreen ? 6 : 0), ty, 0xFFFFFF);
+            // LOTR puts the teleport hint at the bottom right, under the map, level between the two lines
+            int ty = fullscreen ? y1 - 6 - font.lineHeight : y1 + 7 + (font.lineHeight + 3) / 2;
+            g.drawString(font, tp, x1 - font.width(tp) - (fullscreen ? 6 : 0), ty, 0xFFFFFF, false);
+        }
+        if (selected != null) {
+            waypointTooltip(g, selected, true, vx, vz);
         }
         if (overWidget != null) {
             g.renderTooltip(font, Component.translatableWithFallback("screen.lotr_port.map.widget." + overWidget.name,
                     overWidget.name.replace('_', ' ')), mouseX, mouseY);
-        } else if (hovered != null) {
-            tooltip(g, hovered, mouseX, mouseY);
+        } else if (hovered != null && hovered != selected) {
+            waypointTooltip(g, hovered, false, vx, vz);
         }
     }
 
-    /** The map image, the ocean around it, and the overlay. Float positions, so panning is smooth. */
+    private static int lerpColor(int a, int b, float t) {
+        int r = Math.round(((a >> 16) & 0xFF) + (((b >> 16) & 0xFF) - ((a >> 16) & 0xFF)) * t);
+        int gr = Math.round(((a >> 8) & 0xFF) + (((b >> 8) & 0xFF) - ((a >> 8) & 0xFF)) * t);
+        int bl = Math.round((a & 0xFF) + ((b & 0xFF) - (a & 0xFF)) * t);
+        return 0xFF000000 | r << 16 | gr << 8 | bl;
+    }
+
+    /**
+     * The map image, the ocean around it, and the overlay. Like LOTR, the full-size image with nearest filtering at
+     * every zoom: crisp painted pixels zoomed out, big square map pixels zoomed in. Float positions, so panning is
+     * smooth.
+     */
     private void drawMap(GuiGraphics g, float vx, float vz) {
         g.fill(x0, y0, x1, y1, MapTextures.ocean(sepia));
         int w = MapTextures.width();
@@ -222,11 +273,8 @@ public final class MapScreen extends Screen {
         float u1 = Math.min(w, vx + halfW);
         float v1 = Math.min(h, vz + halfH);
         if (u1 > u0 && v1 > v0) {
-            double screenPerTexel = zoomScale * Minecraft.getInstance().getWindow().getGuiScale();
-            int level = screenPerTexel >= 1 ? 0 : Math.min(MapTextures.LEVELS - 1,
-                    (int) Math.floor(Math.log(1 / screenPerTexel) / Math.log(2)));
-            ResourceLocation tex = MapTextures.get(level, sepia);
-            Minecraft.getInstance().getTextureManager().getTexture(tex).setFilter(screenPerTexel < 1, false);
+            ResourceLocation tex = MapTextures.get(sepia);
+            Minecraft.getInstance().getTextureManager().getTexture(tex).setFilter(false, false);
             quad(g, tex, cx() + (u0 - vx) * zoomScale, cy() + (v0 - vz) * zoomScale, cx() + (u1 - vx) * zoomScale,
                     cy() + (v1 - vz) * zoomScale, u0 / w, v0 / h, u1 / w, v1 / h, 1f);
         }
@@ -251,24 +299,35 @@ public final class MapScreen extends Screen {
     }
 
     /**
-     * LOTR's roads as dotted lines: small dark squares along each road, a dot every few screen pixels at any zoom,
-     * fading out when zoomed far out.
+     * LOTR's roads as dotted lines: 1 px black dots along each road, fading out when zoomed far out. LOTR draws every
+     * (400 / stable zoom)th block-spaced road point, so a dot every 400/128 = 3.125 screen pixels; while zooming the
+     * dots keep the spacing of the smaller zoom, as LOTR's.
      */
     private void drawRoads(GuiGraphics g, float vx, float vz) {
-        float alpha = Math.min(1, Math.max(0, (zoomExp + 3.3f) / 2.2f));
-        if (alpha <= 0.05f) {
+        float alpha = Math.min(1, (zoomExp + 3.3f) / 2.2f);
+        if (alpha <= 0) {
             return;
         }
         int color = Math.round(alpha * 255) << 24 | ROAD_COLOR;
         float bpp = map.blocksPerPixel();
         float ox = (float) map.pixelX(0);
         float oz = (float) map.pixelZ(0);
-        float spacing = 5f / zoomScale; // map pixels between dots (5 screen pixels, as LOTR's dotted roads)
-                float left = vx - (x1 - x0) / 2f / zoomScale;
+        // the smaller of the two powers while zooming: halving or doubling the spacing keeps every other dot in place
+        float stable = (float) Math.pow(2, zoomAnimating() ? Math.min(zoomPower, (int) Math.floor(zoomFrom))
+                : zoomPower);
+        float spacing = Math.max(1f / bpp, 400f / bpp / stable); // map pixels between dots (400 blocks / stable zoom)
+        float left = vx - (x1 - x0) / 2f / zoomScale;
         float right = vx + (x1 - x0) / 2f / zoomScale;
         float top = vz - (y1 - y0) / 2f / zoomScale;
         float bottom = vz + (y1 - y0) / 2f / zoomScale;
-        // walk each road as one line, so dots stay evenly spaced across its many short segments
+        // walk each road as one line, so dots stay evenly spaced across its many short segments; every dot is a
+        // 1 px square centred on its exact point (not snapped to the pixel grid), all in one batch
+        float r = ((color >> 16) & 0xFF) / 255f;
+        float gr = ((color >> 8) & 0xFF) / 255f;
+        float bl = (color & 0xFF) / 255f;
+        float a = alpha;
+        Matrix4f m = g.pose().last().pose();
+        BufferBuilder buf = null;
         float carry = 0;
         float lastX = Float.NaN;
         float lastZ = Float.NaN;
@@ -291,25 +350,41 @@ public final class MapScreen extends Screen {
                     continue;
                 }
                 float t = d / len;
-                int px = (int) Math.floor(cx() + (ax + (bx - ax) * t - vx) * zoomScale);
-                int py = (int) Math.floor(cy() + (az + (bz - az) * t - vz) * zoomScale);
-                g.fill(px, py, px + 1, py + 1, color);
+                float px = cx() + (ax + (bx - ax) * t - vx) * zoomScale;
+                float py = cy() + (az + (bz - az) * t - vz) * zoomScale;
+                if (px < x0 - 1 || px > x1 + 1 || py < y0 - 1 || py > y1 + 1) {
+                    continue;
+                }
+                if (buf == null) {
+                    buf = Tesselator.getInstance().begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_COLOR);
+                }
+                buf.addVertex(m, px - 0.5f, py - 0.5f, 0).setColor(r, gr, bl, a);
+                buf.addVertex(m, px - 0.5f, py + 0.5f, 0).setColor(r, gr, bl, a);
+                buf.addVertex(m, px + 0.5f, py + 0.5f, 0).setColor(r, gr, bl, a);
+                buf.addVertex(m, px + 0.5f, py - 0.5f, 0).setColor(r, gr, bl, a);
             }
             carry = d - len;
         }
+        if (buf != null) {
+            RenderSystem.enableBlend();
+            RenderSystem.defaultBlendFunc();
+            RenderSystem.setShader(GameRenderer::getPositionColorShader);
+            BufferUploader.drawWithShader(buf.buildOrThrow());
+        }
     }
 
-    /** LOTR's labels: scaled with the zoom, turned by their angle, faded at the ends of their zoom range. */
+    /**
+     * LOTR's labels: scaled with the zoom, turned by their angle, brightest (70%) in the middle of their zoom range
+     * and fading to nothing at both ends.
+     */
     private void drawLabels(GuiGraphics g, float vx, float vz) {
+        RenderSystem.enableBlend();
         for (Label l : labels) {
-            if (zoomExp < l.minZoom() || zoomExp > l.maxZoom()) {
+            float t = (zoomExp - l.minZoom()) / (l.maxZoom() - l.minZoom());
+            if (t <= 0 || t >= 1) {
                 continue;
             }
-            float fade = Math.min(1, Math.min(zoomExp - l.minZoom(), l.maxZoom() - zoomExp) / 0.5f);
-            int alpha = Math.round(255 * 0.7f * Math.min(1, Math.max(0, fade)));
-            if (alpha < 8) {
-                continue;
-            }
+            int alpha = Mth.clamp((int) ((0.5f - Math.abs(t - 0.5f)) / 0.5f * 0.7f * 255), 4, 255);
             float sx = cx() + (l.x() - vx) * zoomScale;
             float sy = cy() + (l.y() - vz) * zoomScale;
             g.pose().pushPose();
@@ -322,44 +397,72 @@ public final class MapScreen extends Screen {
         }
     }
 
+    /**
+     * LOTR's waypoints: a 4 px dot (fading out when zoomed far out) and, from zoom power -1 in, the name above it,
+     * growing to full size at zoom power 3, at 80% with a 1 px drop shadow. Returns the dot nearest the cursor
+     * (within 5 px).
+     */
     private MapNet.Mark drawWaypoints(GuiGraphics g, float vx, float vz, int mouseX, int mouseY) {
+        float dotAlpha = Math.min(1, (zoomExp + 3.3f) / 2.2f);
+        if (dotAlpha <= 0) {
+            return null;
+        }
         MapNet.Mark hovered = null;
+        double best = Double.MAX_VALUE;
         boolean inWindow = inMap(mouseX, mouseY);
+        float range = selectRange();
+        float nameScale = Math.min(1, (zoomExp + 1) / 4);
+        int nameAlpha = Mth.clamp((int) (nameScale * 0.8f * 255), 4, 255);
+        RenderSystem.enableBlend();
         for (MapNet.Mark m : data.marks()) {
-            int x = Math.round(cx() + (m.mapX() - vx) * zoomScale);
-            int y = Math.round(cy() + (m.mapZ() - vz) * zoomScale);
-            if (x < x0 - 50 || x > x1 + 50 || y < y0 - 10 || y > y1 + 10) {
+            float x = cx() + (m.mapX() - vx) * zoomScale;
+            float y = cy() + (m.mapZ() - vz) * zoomScale;
+            if (x < x0 - 200 || x > x1 + 200 || y < y0 - 200 || y > y1 + 200) {
                 continue;
             }
-            boolean over = inWindow && Math.abs(mouseX - x) <= SELECT_RANGE && Math.abs(mouseY - y) <= SELECT_RANGE;
-            if (over && hovered == null) {
+            double dist = Math.hypot(x - mouseX, y - mouseY);
+            if (inWindow && dist <= range && dist <= best) {
                 hovered = m;
+                best = dist;
             }
-            boolean lit = over || selected != null && selected.id().equals(m.id());
-            int[] uv = lit ? HOVER_UV : ICON_UV[Math.max(0, Math.min(2, m.state()))];
-            RenderSystem.enableBlend();
-            g.blit(ICONS, x - ICON / 2, y - ICON / 2, ICON, ICON, uv[0], uv[1], 4, 4, 256, 256);
-            // names only when zoomed in close, in small text under the dot
-            if (zoomExp >= NAME_ZOOM) {
+            int[] uv = ICON_UV[Math.max(0, Math.min(2, m.state()))];
+            g.setColor(1f, 1f, 1f, dotAlpha);
+            g.pose().pushPose();
+            g.pose().translate(x - ICON / 2f, y - ICON / 2f, 0);
+            g.blit(ICONS, 0, 0, uv[0], uv[1], ICON, ICON, 256, 256);
+            g.pose().popPose();
+            g.setColor(1f, 1f, 1f, 1f);
+            if (showLabels && nameScale > 0) {
                 Component name = name(m);
                 g.pose().pushPose();
-                g.pose().translate(x, y + ICON / 2f + 1, 0);
-                g.pose().scale(NAME_SCALE, NAME_SCALE, 1);
-                g.drawString(font, name, -font.width(name) / 2, 0, 0xFFFFFF, true);
+                g.pose().translate(x, y, 0);
+                g.pose().scale(nameScale, nameScale, 1);
+                int sx = -font.width(name) / 2;
+                g.drawString(font, name, sx + 1, -15 + 1, nameAlpha << 24, false);
+                g.drawString(font, name, sx, -15, nameAlpha << 24 | 0xFFFFFF, false);
                 g.pose().popPose();
             }
         }
         return hovered;
     }
 
+    /** The player's face (8 px) and hat layer (9 px), kept inside the map window like LOTR's. */
     private void drawPlayer(GuiGraphics g, float vx, float vz) {
-        int px = Math.round(cx() + (data.playerX() - vx) * zoomScale);
-        int py = Math.round(cy() + (data.playerZ() - vz) * zoomScale);
         Minecraft mc = Minecraft.getInstance();
-        if (mc.player != null) {
-            g.fill(px - 5, py - 5, px + 5, py + 5, 0xFF000000);
-            PlayerFaceRenderer.draw(g, mc.player.getSkin(), px - 4, py - 4, 8);
+        if (mc.player == null) {
+            return;
         }
+        float px = Mth.clamp(cx() + (data.playerX() - vx) * zoomScale, x0 + 5, x1 - 6) + 0.5f;
+        float py = Mth.clamp(cy() + (data.playerZ() - vz) * zoomScale, y0 + 5, y1 - 6) + 0.5f;
+        ResourceLocation skin = mc.player.getSkin().texture();
+        RenderSystem.enableBlend();
+        g.pose().pushPose();
+        g.pose().translate(px - 4, py - 4, 0);
+        g.blit(skin, 0, 0, 8, 8, 8, 8, 8, 8, 64, 64);
+        g.pose().translate(-0.5f, -0.5f, 0);
+        g.pose().scale(9 / 8f, 9 / 8f, 1);
+        g.blit(skin, 0, 0, 8, 8, 40, 8, 8, 8, 64, 64);
+        g.pose().popPose();
     }
 
     private Widget drawWidgets(GuiGraphics g, int mouseX, int mouseY) {
@@ -368,13 +471,11 @@ public final class MapScreen extends Screen {
         for (Widget w : widgets) {
             int x = widgetX(w);
             int y = y0 + w.y();
+            // like LOTR's: only the toggles and the zoom limits change icon; fullscreen and sepia stay as they are
             boolean off = switch (w.name()) {
                 case "waypoints" -> !showWaypoints;
-                case "labels" -> !showLabels;
                 case "zoom_in" -> zoomPower >= MAX_ZOOM;
                 case "zoom_out" -> zoomPower <= MIN_ZOOM;
-                case "fullscreen" -> !fullscreen;
-                case "sepia" -> !sepia;
                 default -> false;
             };
             g.blit(ICONS, x, y, w.u(), w.v() + (off ? 10 : 0), 10, 10, 256, 256);
@@ -404,29 +505,33 @@ public final class MapScreen extends Screen {
                 LotrClient.MAP_TELEPORT_KEY.getTranslatedKeyMessage()) : null;
     }
 
+    /** LOTR's lines for the selected waypoint: why it is locked, how to travel, or how long to wait. */
     private void selectedLines(List<Component> lines) {
-        if (selected == null || selected.state() == MapNet.Mark.LOCKED) {
-            return;
-        }
-        if (data.waitTicks() > 0) {
+        if (selected.state() == MapNet.Mark.LOCKED) {
+            lines.add(Component.translatableWithFallback("screen.lotr_port.map.locked_region",
+                    "Unlock this waypoint by visiting its region"));
+        } else if (selected.state() == MapNet.Mark.BLOCKED) {
+            lines.add(selected.problem());
+        } else if (data.waitTicks() > 0) {
             lines.add(Component.translatableWithFallback("screen.lotr_port.map.travel_wait",
                     "You can fast travel to the selected waypoint in: %s", (data.waitTicks() + 19) / 20 + "s"));
-        } else if (selected.state() == MapNet.Mark.READY) {
+        } else {
             lines.add(Component.translatableWithFallback("screen.lotr_port.map.travel_prompt",
                     "Press '%s' to fast travel to the selected waypoint",
                     LotrClient.FAST_TRAVEL_KEY.getTranslatedKeyMessage()));
-        } else {
-            lines.add(selected.problem());
         }
     }
 
-    /** Text lines at the bottom: inside the window when fullscreen (on a dark band), in the border otherwise. */
+    /**
+     * Text lines at the bottom: inside the window when fullscreen (on a dark band); otherwise in the border under the
+     * map like LOTR's, from 7 px below it, 3 px apart, a single line moved down half a line.
+     */
     private void drawSubtitles(GuiGraphics g, List<Component> lines) {
         if (lines.isEmpty()) {
             return;
         }
-        int lh = font.lineHeight + 1;
-        int top = fullscreen ? y1 - 6 - lines.size() * lh : y1 + 5;
+        int lh = font.lineHeight + (fullscreen ? 1 : 3);
+        int top = fullscreen ? y1 - 6 - lines.size() * lh : y1 + 7 + (lines.size() == 1 ? lh / 2 : 0);
         if (fullscreen) {
             int w = 0;
             for (Component c : lines) {
@@ -434,24 +539,48 @@ public final class MapScreen extends Screen {
             }
             g.fill(width / 2 - w / 2 - 4, top - 3, width / 2 + w / 2 + 4, top + lines.size() * lh + 2, 0xA0000000);
         }
+        int mid = (x0 + x1) / 2;
         for (int i = 0; i < lines.size(); i++) {
-            g.drawCenteredString(font, lines.get(i), width / 2, top + i * lh, 0xFFFFFF);
+            Component c = lines.get(i);
+            g.drawString(font, c, mid - font.width(c) / 2, top + i * lh, 0xFFFFFF, false);
         }
     }
 
-    private void tooltip(GuiGraphics g, MapNet.Mark m, int mouseX, int mouseY) {
-        List<Component> lines = new ArrayList<>();
-        lines.add(name(m));
-        lines.add(Component.translatableWithFallback("screen.lotr_port.map.distance", "%s blocks away",
-                m.distance()).withStyle(s -> s.withColor(0xA0A0A0)));
-        switch (m.state()) {
-            case MapNet.Mark.READY -> lines.add(Component.translatableWithFallback("screen.lotr_port.map.select",
-                    "Click to select").withStyle(s -> s.withColor(0x40E040)));
-            case MapNet.Mark.BLOCKED -> lines.add(m.problem().copy().withStyle(s -> s.withColor(0xE0C040)));
-            default -> lines.add(Component.translatableWithFallback("screen.lotr_port.map.locked_region",
-                    "Unlock this waypoint by visiting its region").withStyle(s -> s.withColor(0x909090)));
+    /**
+     * LOTR's waypoint box: dark with a red edge, under the dot and kept inside the map; the name, and for the
+     * selected waypoint its block coordinates too.
+     */
+    private void waypointTooltip(GuiGraphics g, MapNet.Mark m, boolean isSelected, float vx, float vz) {
+        Component name = name(m);
+        int bx = (int) Math.round((m.mapX() - map.pixelX(0)) * map.blocksPerPixel());
+        int bz = (int) Math.round((m.mapZ() - map.pixelZ(0)) * map.blocksPerPixel());
+        Component coords = Component.translatableWithFallback("screen.lotr_port.map.coords", "x: %s, z: %s", bx, bz);
+        int border = 3;
+        int lh = font.lineHeight;
+        int inner = font.width(name);
+        int h = border * 2 + lh;
+        if (isSelected) {
+            inner = Math.max(inner, font.width(coords));
+            h += border + lh;
         }
-        g.renderComponentTooltip(font, lines, mouseX, mouseY);
+        int w = inner + border * 2;
+        int rx = Math.round(cx() + (m.mapX() - vx) * zoomScale) - w / 2;
+        int ry = Math.round(cy() + (m.mapZ() - vz) * zoomScale) + 5;
+        rx = Math.min(Math.max(rx, x0 + 2), x1 - 2 - w);
+        ry = Math.min(Math.max(ry, y0 + 2), y1 - 2 - h);
+        g.pose().pushPose();
+        g.pose().translate(0, 0, 300);
+        g.fill(rx, ry, rx + w, ry + h, 0xC0000000);
+        g.fill(rx - 1, ry - 1, rx + w + 1, ry, BORDER_COLOR);
+        g.fill(rx - 1, ry + h, rx + w + 1, ry + h + 1, BORDER_COLOR);
+        g.fill(rx - 1, ry, rx, ry + h, BORDER_COLOR);
+        g.fill(rx + w, ry, rx + w + 1, ry + h, BORDER_COLOR);
+        int mid = rx + w / 2;
+        g.drawString(font, name, mid - font.width(name) / 2, ry + border, 0xFFFFFF, false);
+        if (isSelected) {
+            g.drawString(font, coords, mid - font.width(coords) / 2, ry + border * 2 + lh, 0xFFFFFF, false);
+        }
+        g.pose().popPose();
     }
 
     private static Component name(MapNet.Mark m) {
@@ -471,9 +600,6 @@ public final class MapScreen extends Screen {
     public void tick() {
         prevPosX = posX;
         prevPosZ = posZ;
-        if (zoomTicks > 0) {
-            zoomTicks--;
-        }
         long win = Minecraft.getInstance().getWindow().getWindow();
         float step = 12f / (float) Math.pow(2, zoomPower);
         float dx = 0;
@@ -507,10 +633,10 @@ public final class MapScreen extends Screen {
     private void zoom(int by) {
         int next = Mth.clamp(zoomPower + by, MIN_ZOOM, MAX_ZOOM);
         if (next != zoomPower) {
-            updateZoom(0);
-            prevZoomPower = Math.round(zoomExp);
+            updateZoom();
+            zoomFrom = zoomExp;
+            zoomStart = System.nanoTime();
             zoomPower = next;
-            zoomTicks = ZOOM_TICKS;
         }
     }
 
@@ -526,17 +652,8 @@ public final class MapScreen extends Screen {
                 }
             }
             if (inMap(mouseX, mouseY)) {
-                MapNet.Mark hit = null;
-                if (showWaypoints) {
-                    updateZoom(0);
-                    for (MapNet.Mark m : data.marks()) {
-                        if (Math.abs(mouseX - (cx() + (m.mapX() - posX) * zoomScale)) <= SELECT_RANGE
-                                && Math.abs(mouseY - (cy() + (m.mapZ() - posZ) * zoomScale)) <= SELECT_RANGE) {
-                            hit = m;
-                            break;
-                        }
-                    }
-                }
+                // the dot drawn under the cursor last frame: what you see is what you click
+                MapNet.Mark hit = showWaypoints ? hovered : null;
                 selected = hit;
                 dragging = hit == null;
                 return true;
@@ -571,7 +688,7 @@ public final class MapScreen extends Screen {
     @Override
     public boolean mouseDragged(double mouseX, double mouseY, int button, double dragX, double dragY) {
         if (dragging) {
-            updateZoom(0);
+            updateZoom();
             move((float) (-dragX / zoomScale), (float) (-dragY / zoomScale));
             prevPosX = posX;
             prevPosZ = posZ;
@@ -593,7 +710,7 @@ public final class MapScreen extends Screen {
         double mx = mc.mouseHandler.xpos() * width / mc.getWindow().getScreenWidth();
         double my = mc.mouseHandler.ypos() * height / mc.getWindow().getScreenHeight();
         if (LotrClient.MAP_TELEPORT_KEY.matches(keyCode, scanCode) && data.canTeleport() && inMap(mx, my)) {
-            updateZoom(0);
+            updateZoom();
             float mapX = posX + (float) (mx - cx()) / zoomScale;
             float mapZ = posZ + (float) (my - cy()) / zoomScale;
             int bx = (int) Math.round((mapX - map.pixelX(0)) * map.blocksPerPixel());

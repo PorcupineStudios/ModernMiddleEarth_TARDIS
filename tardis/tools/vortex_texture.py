@@ -74,15 +74,17 @@ def wall():
     fine = periodic_noise(SIZE, 1.3, stretch_v=1 / 10)
     clouds = warp(clouds, swirl, twist)
     fine = warp(fine, swirl * 1.3, twist)
-    base = 0.5 + 0.22 * clouds + 0.08 * fine
-    hue = periodic_noise(SIZE, 2.8, stretch_v=1 / 3)
+    # Aaron 2026-11-14: calmer. Low contrast (no near-black next to near-white), one cool family of blues and
+    # violets with a soft amber glow only in the brightest bands, no saturated red (it is the worst for flashes)
+    base = 0.5 + 0.14 * clouds + 0.04 * fine
+    hue = periodic_noise(SIZE, 3.2, stretch_v=1 / 3)
     hue = warp(hue, swirl, 0)
-    hue = 0.5 + 0.25 * hue
-    cool = ramp(base, [(0.0, (6, 4, 26)), (0.35, (30, 18, 92)), (0.55, (70, 60, 190)), (0.75, (120, 170, 255)),
-                       (1.0, (235, 245, 255))])
-    warm = ramp(base, [(0.0, (14, 2, 10)), (0.35, (90, 14, 40)), (0.55, (200, 70, 30)), (0.75, (255, 160, 60)),
-                       (1.0, (255, 240, 200))])
-    k = smooth(hue, 0.35, 0.7)[..., None]
+    hue = 0.5 + 0.2 * hue
+    cool = ramp(base, [(0.0, (14, 12, 48)), (0.35, (30, 26, 96)), (0.55, (52, 60, 150)), (0.75, (90, 120, 205)),
+                       (1.0, (160, 190, 235))])
+    warm = ramp(base, [(0.0, (26, 16, 52)), (0.35, (60, 34, 96)), (0.55, (120, 80, 130)), (0.75, (200, 150, 120)),
+                       (1.0, (235, 205, 160))])
+    k = 0.6 * smooth(hue, 0.45, 0.75)[..., None]
     rgb = cool * (1 - k) + warm * k
     return np.clip(rgb, 0, 255).astype(np.uint8)
 
@@ -90,12 +92,13 @@ def wall():
 def glow():
     # thin bright wisps streaking along the tunnel (they scroll faster than the wall, for speed)
     swirl = periodic_noise(SIZE, 2.4, stretch_v=0.5) * 90
-    streak = periodic_noise(SIZE, 1.6, stretch_v=3.0, low=2)
-    streak = warp(streak, swirl, 0)
-    w = smooth(streak, 1.5, 2.8)
+    # thin, long along the tunnel (stretch_v 8), barely bent: speed lines rushing past, many but soft
+    streak = periodic_noise(SIZE, 1.1, stretch_v=8.0, low=2)
+    streak = warp(streak, swirl * 0.25, 0)
+    w = smooth(streak, 1.0, 2.4)
     tint = ramp(smooth(warp(periodic_noise(SIZE, 2.8), swirl, 0), -0.6, 0.6),
-                [(0.0, (120, 170, 255)), (0.5, (240, 220, 255)), (1.0, (255, 190, 110))])
-    rgb = tint * w[..., None]
+                [(0.0, (110, 150, 230)), (0.5, (190, 185, 235)), (1.0, (220, 180, 130))])
+    rgb = 0.7 * tint * w[..., None]  # soft streaks, long along the tunnel: they give the speed
     return np.clip(rgb, 0, 255).astype(np.uint8)
 
 

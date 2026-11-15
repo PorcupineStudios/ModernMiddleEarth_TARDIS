@@ -7,7 +7,8 @@
     "south": "lotr_port:block/barrel_side",
     "west": "lotr_port:block/barrel_side",
     "east": "lotr_port:block/barrel_side",
-    "particle": "lotr_port:block/barrel_side"
+    "particle": "lotr_port:block/barrel_side",
+    "tap": "lotr_port:block/barrel_tap"
   },
   "render_type": "minecraft:cutout",
   "elements": [
@@ -40,6 +41,70 @@
         },
         "east": {
           "texture": "#east"
+        }
+      }
+    },
+    {
+      "from": [
+        7,
+        4,
+        14
+      ],
+      "to": [
+        9,
+        6,
+        16
+      ],
+      "faces": {
+        "down": {
+          "texture": "#tap"
+        },
+        "up": {
+          "texture": "#tap"
+        },
+        "north": {
+          "texture": "#tap"
+        },
+        "south": {
+          "texture": "#tap"
+        },
+        "west": {
+          "texture": "#tap"
+        },
+        "east": {
+          "texture": "#tap"
+        }
+      }
+    },
+    {
+      "from": [
+        7.5,
+        2,
+        15
+      ],
+      "to": [
+        8.5,
+        4,
+        16
+      ],
+      "faces": {
+        "down": {
+          "texture": "#tap"
+        },
+        "up": {
+          "texture": "#tap"
+        },
+        "north": {
+          "texture": "#tap"
+        },
+        "south": {
+          "texture": "#tap"
+        },
+        "west": {
+          "texture": "#tap"
+        },
+        "east": {
+          "texture": "#tap"
         }
       }
     }

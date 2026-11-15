@@ -73,7 +73,10 @@ public final class Orbits {
 
     /** As {@link #step}, with {@code boost} 1 (sprint + forward: along the look), -1 (sprint + back: slow down) or 0. */
     public static void step(Entity e, Planet p, Tuning.SpaceTuning t, int thrust, int boost) {
-        apply(e, t, thrust, boost, v -> new Vec3(0, -down(p, e.getY(), v, t) * GravityScale.of(e), 0));
+        // round a station you co-orbit with it and float, except on its decks (StationFrames)
+        boolean pulled = StationFrames.pulled(e, t);
+        apply(e, t, thrust, boost, v -> pulled ? new Vec3(0, -down(p, e.getY(), v, t) * GravityScale.of(e), 0)
+                : Vec3.ZERO);
     }
 
     /** The same between the planets of a solar system: every ball and the sun pull ({@link StarSystem#gravity}). */

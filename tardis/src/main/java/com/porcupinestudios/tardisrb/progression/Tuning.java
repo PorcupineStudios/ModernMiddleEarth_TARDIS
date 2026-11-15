@@ -402,8 +402,9 @@ public record Tuning(CrashSite crashSite, Hop hop, Winder winder, Interior inter
      * planets without a picture are sampled for at most {@code map_budget_ms} milliseconds a tick.
      */
     public record SpaceTuning(double gravity, int checkTicks, int landingSlowFall, int seamView, int seamSegment,
-            int seamLinger, double mapBudgetMs, Motion motion) {
-        public static final SpaceTuning DEFAULT = new SpaceTuning(0.15, 5, 30, 160, 64, 200, 2.0, Motion.DEFAULT);
+            int seamLinger, double mapBudgetMs, Motion motion, Chunks chunks, Stations stations) {
+        public static final SpaceTuning DEFAULT = new SpaceTuning(0.15, 5, 30, 160, 64, 200, 2.0, Motion.DEFAULT,
+                Chunks.DEFAULT, Stations.DEFAULT);
         public static final Codec<SpaceTuning> CODEC = RecordCodecBuilder.create(i -> i.group(
                 Codec.doubleRange(0, 1).optionalFieldOf("gravity", DEFAULT.gravity).forGetter(SpaceTuning::gravity),
                 Codec.intRange(1, 200).optionalFieldOf("check_ticks", DEFAULT.checkTicks)
@@ -418,8 +419,47 @@ public record Tuning(CrashSite crashSite, Hop hop, Winder winder, Interior inter
                         .forGetter(SpaceTuning::seamLinger),
                 Codec.doubleRange(0, 50).optionalFieldOf("map_budget_ms", DEFAULT.mapBudgetMs)
                         .forGetter(SpaceTuning::mapBudgetMs),
-                Motion.CODEC.optionalFieldOf("motion", Motion.DEFAULT).forGetter(SpaceTuning::motion))
+                Motion.CODEC.optionalFieldOf("motion", Motion.DEFAULT).forGetter(SpaceTuning::motion),
+                Chunks.CODEC.optionalFieldOf("chunks", Chunks.DEFAULT).forGetter(SpaceTuning::chunks),
+                Stations.CODEC.optionalFieldOf("stations", Stations.DEFAULT).forGetter(SpaceTuning::stations))
                 .apply(i, SpaceTuning::new));
+    }
+
+    /**
+     * Stations orbiting in real time ({@code space/StationFrames}): a station's zone is its chunks plus
+     * {@code zone_margin} blocks (the frame: spots on the planet drift with the station; leaving it puts you where the
+     * station really is); coming within {@code enter_radius} of where a station really is takes you into its frame;
+     * in a zone the planet pulls only within {@code deck_height} blocks over a solid block.
+     */
+    public record Stations(int zoneMargin, int enterRadius, double deckHeight) {
+        public static final Stations DEFAULT = new Stations(192, 128, 2.0);
+        public static final Codec<Stations> CODEC = RecordCodecBuilder.create(i -> i.group(
+                Codec.intRange(16, 1024).optionalFieldOf("zone_margin", DEFAULT.zoneMargin)
+                        .forGetter(Stations::zoneMargin),
+                Codec.intRange(8, 1024).optionalFieldOf("enter_radius", DEFAULT.enterRadius)
+                        .forGetter(Stations::enterRadius),
+                Codec.doubleRange(0, 16).optionalFieldOf("deck_height", DEFAULT.deckHeight)
+                        .forGetter(Stations::deckHeight))
+                .apply(i, Stations::new));
+    }
+
+    /**
+     * Sparse space ({@code space/SpaceContent}, Aaron 2026-11-15: almost all of space is empty, so only store and load
+     * where something is). With {@code sparse} on, space chunks that hold nothing are never saved, and players there
+     * load no chunks the vanilla way: only those within {@code near_radius} of a player who isn't flying fast (to
+     * build, mine and fight in; ticking), and chunks that hold something within view distance (ticking within
+     * simulation distance). Chunks with things in them within {@code station_gap} chunks of each other are one space
+     * station ({@code space/Stations}).
+     */
+    public record Chunks(boolean sparse, int nearRadius, int stationGap) {
+        public static final Chunks DEFAULT = new Chunks(true, 3, 2);
+        public static final Codec<Chunks> CODEC = RecordCodecBuilder.create(i -> i.group(
+                Codec.BOOL.optionalFieldOf("sparse", DEFAULT.sparse).forGetter(Chunks::sparse),
+                Codec.intRange(0, 16).optionalFieldOf("near_radius", DEFAULT.nearRadius)
+                        .forGetter(Chunks::nearRadius),
+                Codec.intRange(1, 16).optionalFieldOf("station_gap", DEFAULT.stationGap)
+                        .forGetter(Chunks::stationGap))
+                .apply(i, Chunks::new));
     }
 
     /**

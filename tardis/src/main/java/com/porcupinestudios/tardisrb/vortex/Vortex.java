@@ -225,7 +225,7 @@ public final class Vortex {
         Direction was = FreeFlight.isLoose(tardis) ? FreeFlight.facing(server, tardis)
                 : fromLevel == null ? Direction.NORTH : Exteriors.lift(fromLevel, from.pos());
         FreeFlight.dock(server, tardis);
-        double laneX = (tardis.plot() + 1) * (double) LANE_SPACING + 0.5;
+        double laneX = laneFor(server, tardis);
         TardisBody body = TardisEntities.BODY.get().create(vortex);
         if (body == null) {
             if (fromLevel != null) {
@@ -268,6 +268,30 @@ public final class Vortex {
         return new Flight.Outcome(Optional.empty(), Optional.empty());
     }
 
+    /**
+     * The lane a trip flies down. A TARDIS with an interior plot has its own, (plot + 1) x {@link #LANE_SPACING}. One
+     * without (an unclaimed wreck, a GameTest's box) used to get lane 0 every time, so trips at once shared one tunnel
+     * and saw each other's wormholes (2026-11-14): it takes the first lane from 0 down (0, -1, -2, ...) that no other
+     * trip is in. Plot lanes start at 1, so the two never meet.
+     */
+    static double laneFor(MinecraftServer server, TardisRecord tardis) {
+        if (tardis.plot() >= 0) {
+            return (tardis.plot() + 1) * (double) LANE_SPACING + 0.5;
+        }
+        java.util.Set<Double> used = new java.util.HashSet<>();
+        for (TardisRecord other : TardisManager.get(server).all()) {
+            if (other != tardis && inVortex(other)) {
+                used.add(other.moduleData(MODULE).getDouble("lane_x"));
+            }
+        }
+        for (int n = 0;; n--) {
+            double x = n * (double) LANE_SPACING + 0.5;
+            if (!used.contains(x)) {
+                return x;
+            }
+        }
+    }
+
     private static void onTick(ServerTickEvent.Post event) {
         MinecraftServer server = event.getServer();
         ServerLevel vortex = server.getLevel(DIMENSION);
@@ -286,11 +310,22 @@ public final class Vortex {
     private static final TicketType<ChunkPos> CRASH_TICKET = TicketType.create("tardis_rb_crash",
             Comparator.comparingLong(ChunkPos::toLong), 400);
 
-    /** Keeps the chunks round {@code at} entity-ticking for a couple of seconds (re-added each tick of a trip). */
+    /**
+     * Keeps the chunks round {@code at} entity-ticking for a couple of seconds (re-added each tick of a trip), and has
+     * the tunnel ahead (up to {@link #LOAD_AHEAD} blocks along +z) made and loaded before the box gets there: a trip
+     * alone in a new lane used to fly into chunks still being generated, and its box stopped ticking (2026-11-14).
+     */
     private static void keepLoaded(ServerLevel vortex, Vec3 at) {
         ChunkPos c = new ChunkPos(BlockPos.containing(at));
-        vortex.getChunkSource().addRegionTicket(TICKET, c, 3, c); // 3: the chunks round it too, so the next one is ready before it gets there
+        vortex.getChunkSource().addRegionTicket(TICKET, c, 3, c); // 3: the chunks round it entity-ticking, 2 more loaded
+        for (int ahead = 32; ahead <= LOAD_AHEAD; ahead += 32) {
+            ChunkPos a = new ChunkPos(BlockPos.containing(at.add(0, 0, ahead)));
+            vortex.getChunkSource().addRegionTicket(TICKET, a, 2, a); // loaded (ready to tick), with the bends' width
+        }
     }
+
+    /** How far ahead along the tunnel a trip keeps the chunks made and loaded (blocks). */
+    static final int LOAD_AHEAD = 96;
 
     /** One tick of a trip: progress, obstacles ahead, hits, arrival. */
     static void step(MinecraftServer server, ServerLevel vortex, TardisRecord tardis) {
