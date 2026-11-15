@@ -60,3 +60,30 @@ neoForge {
     }
 }
 
+
+// Create: Aeronautics + Sable (optional, Aaron 2026-11-15): ships/sub-levels. Compile against them; dev runs load them
+// only with -Paeronautics; players install them themselves. Like Create, their real code is jar-in-jar, unpacked for the compiler.
+def aeroJars = configurations.detachedConfiguration(
+        dependencies.create("maven.modrinth:create-aeronautics:${aeronautics_version}"),
+        dependencies.create("maven.modrinth:sable:${sable_version}"))
+aeroJars.transitive = false
+
+def unpackAeroLibs = tasks.register('unpackAeroLibs', Copy) {
+    from({ aeroJars.files.collect { zipTree(it).matching { include 'META-INF/jarjar/*.jar' } } })
+    into layout.buildDirectory.dir('aero-libs')
+    eachFile { path = name }
+    includeEmptyDirs = false
+}
+
+dependencies {
+    compileOnly "maven.modrinth:sable:${sable_version}"
+    // shortcut: off by default, Sable 2.0.6 crashes next to Immersive Portals (both redirect Entity collision); -Paeronautics to load them
+    if (project.hasProperty("aeronautics")) {
+        runtimeOnly "maven.modrinth:create-aeronautics:${aeronautics_version}"
+        runtimeOnly "maven.modrinth:sable:${sable_version}"
+    }
+    compileOnly fileTree(layout.buildDirectory.dir('aero-libs')) {
+        include '*.jar'
+        builtBy unpackAeroLibs
+    }
+}
