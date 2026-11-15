@@ -88,14 +88,22 @@ OCEAN = "ocean"
 # a height field read off the map (MiddleEarthMap / map/Ranges, whose javadoc explains each number), replacing the
 # biomes' noise hilliness. Tuned on shaded reliefs of the map round Caradhras and the whole Misty Mountains
 # (2026-11-15): spurs and valleys run from a crest to the foothills, about 175 mean / 285 top in the Misty Mountains.
+# Middle-earth's build limit (Aaron 2026-11-15: "increase build limit"; vanilla's is 320): its dimension type and noise
+# go up to here, so the mountain ranges' summits (eased under RANGES ceiling) fit with room to build over them.
+TOP_Y = 448
+
 RANGES = {
     "biomes": [f"{NS}:{b}" for b in ("misty_mountains", "grey_mountains", "forodwaith_mountains", "angmar_mountains",
                                       "white_mountains", "blue_mountains", "mordor_mountains", "red_mountains",
                                       "wind_mountains", "harad_mountains", "mirkwood_mountains")],
     "reach": 8.0,  # map pixels in from the edge to full height
     "cell": 240,  # spur grid, blocks
-    "crest": 1.1, "spurs": 2.2, "relief": 0.9, "sink": 1.6,  # x the biome's LOTR hilliness
-    "wave": 300,  # crags' longest wavelength, blocks
+    "crest": 1.1, "spurs": 1.9, "relief": 1.4, "sink": 1.75,  # x the biome's LOTR hilliness
+    "wave": 260,  # crags' longest wavelength, blocks
+    # cliff bands on steep ground (Ranges.strata): band height, how sharp the faces are, and how strongly
+    "band": 10.0, "sharp": 3.0, "strata": 0.85,
+    "uplift": 0.8,  # and those steep patches rise up to 80% more: crags and rock walls
+    "ceiling": 420,  # summits eased under this y
     "peak": 1.6, "peak_reach": 3.0,  # named mountains: extra height, and their width x LOTR's range
     "pass": 400, "pass_floor": 0.2,  # passes: blocks either side of a road, and the massif's share left on it
 }
@@ -562,8 +570,8 @@ class World:
     def noise_settings(self, biomes):
         height = {"type": "minecraft:flat_cache", "argument": {"type": f"{NS}:map_terrain", "value": "height"}}
         variation = {"type": "minecraft:flat_cache", "argument": {"type": f"{NS}:map_terrain", "value": "variation"}}
-        minus_y = {"type": "minecraft:y_clamped_gradient", "from_y": -64, "to_y": 320, "from_value": 64,
-                   "to_value": -320}
+        minus_y = {"type": "minecraft:y_clamped_gradient", "from_y": -64, "to_y": TOP_Y, "from_value": 64,
+                   "to_value": -TOP_Y}
         # LOTR's shape (LOTRChunkProvider): 1.7's blended 3D noise (old_blended_noise, xz factor 400 as LOTR) scaled by
         # hilliness, a 2D hill noise, and ground 4x steeper below the map height so hills don't float or terrace
         level = {"type": "minecraft:add", "argument1": height,
@@ -610,7 +618,7 @@ class World:
             "legacy_random_source": False,
             "default_block": {"Name": "minecraft:stone"},
             "default_fluid": {"Name": "minecraft:water", "Properties": {"level": "0"}},
-            "noise": {"min_y": -64, "height": 384, "size_horizontal": 1, "size_vertical": 2},
+            "noise": {"min_y": -64, "height": TOP_Y + 64, "size_horizontal": 1, "size_vertical": 2},
             "noise_router": {
                 "barrier": zero, "fluid_level_floodedness": zero, "fluid_level_spread": zero, "lava": zero,
                 "temperature": zero, "vegetation": zero, "continents": zero, "erosion": zero, "depth": zero,
@@ -632,13 +640,14 @@ class World:
             "has_ceiling": False, "ambient_light": 0.0,
             "monster_spawn_light_level": {"type": "minecraft:uniform", "min_inclusive": 0, "max_inclusive": 7},
             "monster_spawn_block_light_limit": 0, "piglin_safe": False, "bed_works": True,
-            "respawn_anchor_works": False, "has_raids": True, "logical_height": 384, "min_y": -64, "height": 384,
+            "respawn_anchor_works": False, "has_raids": True, "logical_height": TOP_Y + 64, "min_y": -64, "height": TOP_Y + 64,
             "infiniburn": "#minecraft:infiniburn_overworld", "effects": "minecraft:overworld",
         })
         write_json(os.path.join(d, "dimension", "middle_earth.json"),
                    {"type": f"{NS}:middle_earth", "generator": generator})
         write_json(os.path.join(d, "worldgen", "world_preset", "middle_earth.json"), {"dimensions": {
-            "minecraft:overworld": {"type": "minecraft:overworld", "generator": generator},
+            # Middle-earth's own dimension type: its build limit (TOP_Y) is over vanilla's 320
+            "minecraft:overworld": {"type": f"{NS}:middle_earth", "generator": generator},
             "minecraft:the_nether": {"type": "minecraft:the_nether", "generator": {
                 "type": "minecraft:noise", "settings": "minecraft:nether",
                 "biome_source": {"type": "minecraft:multi_noise", "preset": "minecraft:nether"}}},

@@ -15,7 +15,7 @@
   },
   "noise": {
     "min_y": -64,
-    "height": 384,
+    "height": 512,
     "size_horizontal": 1,
     "size_vertical": 2
   },
@@ -59,9 +59,9 @@
         "argument2": {
           "type": "minecraft:y_clamped_gradient",
           "from_y": -64,
-          "to_y": 320,
+          "to_y": 448,
           "from_value": 64,
-          "to_value": -320
+          "to_value": -448
         }
       }
     },
@@ -102,9 +102,9 @@
                 "argument2": {
                   "type": "minecraft:y_clamped_gradient",
                   "from_y": -64,
-                  "to_y": 320,
+                  "to_y": 448,
                   "from_value": 64,
-                  "to_value": -320
+                  "to_value": -448
                 }
               },
               "argument2": 0.0
@@ -140,9 +140,9 @@
                   "argument2": {
                     "type": "minecraft:y_clamped_gradient",
                     "from_y": -64,
-                    "to_y": 320,
+                    "to_y": 448,
                     "from_value": 64,
-                    "to_value": -320
+                    "to_value": -448
                   }
                 },
                 "argument2": 0.0
