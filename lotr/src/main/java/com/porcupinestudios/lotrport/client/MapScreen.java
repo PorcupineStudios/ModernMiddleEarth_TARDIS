@@ -93,6 +93,9 @@ public final class MapScreen extends Screen {
     private static com.porcupinestudios.lotrport.social.SocialNet.Icons icons =
             new com.porcupinestudios.lotrport.social.SocialNet.Icons(List.of(), List.of());
     private int iconTicks;
+    /** Colony and player names show from this zoom power, at this text scale. */
+    private static final float NAME_ZOOM = 2;
+    private static final float NAME_SCALE = 0.5f;
     /** The waypoint under the cursor in the last frame drawn: what a click selects. */
     private MapNet.Mark hovered;
 
