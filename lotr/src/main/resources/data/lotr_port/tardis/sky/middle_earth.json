@@ -1,7 +1,7 @@
 {
   "dimension": "lotr_port:middle_earth",
   "space": "tardis_rb:space",
-  "ceiling": 500,
+  "ceiling": 700,
   "ground": 64,
   "orbit": {
     "x": 2000000,
