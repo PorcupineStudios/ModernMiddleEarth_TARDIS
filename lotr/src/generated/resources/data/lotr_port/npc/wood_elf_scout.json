@@ -16,7 +16,8 @@
   "speed": 0.2,
   "attack": 2.0,
   "behaviours": [
-    "archer"
+    "archer",
+    "elf_scout"
   ],
   "behaviour_data": {
     "ranged_speed": 1.25,

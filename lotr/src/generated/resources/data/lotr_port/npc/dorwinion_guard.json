@@ -24,5 +24,8 @@
   },
   "names": "lotr_port:dorwinion_male",
   "speech": "lotr_port:dorwinion/guard",
-  "quests": "lotr_port:dorwinion"
+  "quests": "lotr_port:dorwinion",
+  "behaviours": [
+    "grape_guard"
+  ]
 }

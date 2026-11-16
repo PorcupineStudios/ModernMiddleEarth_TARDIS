@@ -6,7 +6,8 @@
   "width": 0.4,
   "height": 0.4,
   "behaviours": [
-    "animal"
+    "animal",
+    "termite"
   ],
   "lotr_classes": [
     "LOTREntityTermite",

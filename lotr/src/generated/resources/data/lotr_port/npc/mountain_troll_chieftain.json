@@ -8,8 +8,9 @@
   "width": 3.2,
   "height": 6.4,
   "behaviours": [
-    "troll",
-    "rock_thrower"
+    "boss_jump",
+    "rock_thrower",
+    "troll"
   ],
   "lotr_classes": [
     "LOTREntityMountainTrollChieftain",
