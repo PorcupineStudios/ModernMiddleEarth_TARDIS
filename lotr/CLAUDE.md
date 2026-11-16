@@ -125,7 +125,7 @@ https://claude.ai/artifact/KqhSSTCuKXGuwKHBoYJdcu. Rebuild features in modern co
   `lotr/run/server.properties` first: the GameTest server uses it too). Screenshot script: `lotr/run/trees.txt`.
 - Forest floor (`ForestFloorFeature`, LOTRBiomeDecorator): fallen leaves (trees / 2 a chunk), leaf bushes (trees / 3),
   rotten logs (`logsPerChunk`); ferns and tall grass where LOTR had them. Foggy biomes (tag `lotr_port:foggy`, LOTR's
-  biomeColors foggy) get a client fog (`LotrClientGame.fog`). Screenshot scripts: `lotr/run/mt.txt`,
+  biomeColors foggy) get a client fog (entry `atmosphere/foggy.json`). Region looks (2026-11-16, `client/Atmosphere`): fog distance, fog colour and a screen filter per biome from `assets/lotr_port/atmosphere/*.json` (biome ids, `#tags`, `prefix*`; highest `priority` wins; F3+T reloads); client config `atmosphere.*` toggles and scales them. Screenshot scripts: `lotr/run/mt.txt`,
   `converter/run/client/shots3.txt` (the shot runner gives night vision; `goto ... floor` = ground under trees).
 - World type "Middle-earth" (`lotr_port:middle_earth` preset): the overworld is generated from the map, so spawn and
   respawn are vanilla. Any other world gets the `lotr_port:middle_earth` dimension; `/lotr travel` goes there and

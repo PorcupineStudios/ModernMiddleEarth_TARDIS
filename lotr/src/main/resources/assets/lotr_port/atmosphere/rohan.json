@@ -1,0 +1,16 @@
+{
+  "comment": "Wide, wind-bleached gold",
+  "biomes": [
+    "rohan",
+    "rohan_woodlands",
+    "wold",
+    "adornland"
+  ],
+  "priority": 5,
+  "fog_start": 0.4,
+  "fog_end": 1.0,
+  "fog_color": "#e0d0a0",
+  "fog_color_strength": 0.2,
+  "filter": "#e0c070",
+  "filter_alpha": 0.03
+}

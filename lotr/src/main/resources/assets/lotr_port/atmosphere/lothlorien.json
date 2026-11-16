@@ -1,0 +1,15 @@
+{
+  "comment": "Golden light",
+  "biomes": [
+    "lothlorien",
+    "lothlorien_edge",
+    "celebrant"
+  ],
+  "priority": 10,
+  "fog_start": 0.2,
+  "fog_end": 0.9,
+  "fog_color": "#e8c870",
+  "fog_color_strength": 0.5,
+  "filter": "#ffd060",
+  "filter_alpha": 0.08
+}

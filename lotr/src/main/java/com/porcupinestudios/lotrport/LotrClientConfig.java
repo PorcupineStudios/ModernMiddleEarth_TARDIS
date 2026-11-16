@@ -30,6 +30,22 @@ public final class LotrClientConfig {
             .comment("LOTR's attack meter (bottom right) while your melee wait runs.")
             .define("hud.attackMeter", true);
 
+    public static final ModConfigSpec.BooleanValue ATMOSPHERE = BUILDER
+            .comment("Region looks (fog and colour filters per biome, assets/<ns>/atmosphere/*.json).")
+            .define("atmosphere.enabled", true);
+
+    public static final ModConfigSpec.BooleanValue ATMOSPHERE_FOG = BUILDER
+            .comment("Region fog distance and colour.")
+            .define("atmosphere.fog", true);
+
+    public static final ModConfigSpec.BooleanValue ATMOSPHERE_FILTER = BUILDER
+            .comment("Region colour filters over the screen.")
+            .define("atmosphere.filters", true);
+
+    public static final ModConfigSpec.DoubleValue ATMOSPHERE_STRENGTH = BUILDER
+            .comment("Scale for all region looks: 0.5 = half as strong, 2 = twice.")
+            .defineInRange("atmosphere.strength", 1.0, 0.0, 2.0);
+
     public static final ModConfigSpec SPEC = BUILDER.build();
 
     private LotrClientConfig() {}
