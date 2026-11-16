@@ -45,6 +45,9 @@ Read when: the doors, Immersive Portals, portals for space.
   (0.875 x 1.875) was bigger than the police box model's doorway (x +-0.375, y 0.125-1.75, doors' outer face at
   z -0.4375). Now 0.75 x 1.625, `bottom` 0.125, offset -0.0625; the interior door shell's frame and `DoorShapes`
   walls match (2 px sides, 2 px sill, lintel at 28 px). Portals opened before keep their old size until reopened.
+- With Iris shaders IP loses its clip plane, so the box drew its own doors over the view out of the doorway (Aaron
+  2026-11-16). `ExteriorRenderer.viewedFromInside`: while IP renders a portal view whose camera is inside the box (block or
+  `TardisBody`), the box is not drawn. Not checked in game.
 - The glow layer is a full-bright `entityCutoutNoCull`, not `RenderType.eyes`: the eyes pass doesn't seem to get IP's
   clipping, and the glowing lantern showed as a white box through the doorway (a guess from the screenshot).
 - **A loose box's doorway** (2026-11-09): `Doors.follow` moves the outside portal (and the inside one's destination)
