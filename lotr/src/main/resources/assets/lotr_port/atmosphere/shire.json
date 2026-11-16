@@ -1,0 +1,16 @@
+{
+  "comment": "Warm late-afternoon",
+  "biomes": [
+    "shire",
+    "shire_woodlands",
+    "shire_moors",
+    "shire_marshes"
+  ],
+  "priority": 8,
+  "fog_start": 0.3,
+  "fog_end": 1.0,
+  "fog_color": "#f0d8a0",
+  "fog_color_strength": 0.3,
+  "filter": "#ffb850",
+  "filter_alpha": 0.05
+}

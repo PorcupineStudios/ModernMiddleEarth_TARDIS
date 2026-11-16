@@ -1,0 +1,15 @@
+{
+  "comment": "Old, green, heavy air",
+  "biomes": [
+    "fangorn",
+    "fangorn_wasteland",
+    "fangorn_clearing"
+  ],
+  "priority": 9,
+  "fog_start": 0.05,
+  "fog_end": 0.55,
+  "fog_color": "#4a5a40",
+  "fog_color_strength": 0.5,
+  "filter": "#2a4020",
+  "filter_alpha": 0.07
+}
