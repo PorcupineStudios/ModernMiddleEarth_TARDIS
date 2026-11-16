@@ -164,4 +164,32 @@ public final class MountTests {
             });
         });
     }
+
+    /** LOTR's rhino charge: ridden faster than 0.32 blocks a tick it gores a pig in its way. */
+    @GameTest(template = "empty", batch = "mounts", timeoutTicks = 200)
+    public static void rhinoChargeGores(GameTestHelper helper) {
+        LotrHorse rhino = mount(helper, "rhino");
+        rhino.setTamed(true);
+        rhino.equipSaddle(new ItemStack(Items.SADDLE), null);
+        rhino.setNoAi(true);
+        helper.getLevel().addFreshEntity(rhino);
+        var rider = helper.makeMockPlayer(net.minecraft.world.level.GameType.SURVIVAL);
+        rider.moveTo(rhino.getX(), rhino.getY(), rhino.getZ());
+        rider.startRiding(rhino, true);
+        Vec3 ahead = rhino.position().add(4, 0, 0);
+        Pig pig = EntityType.PIG.create(helper.getLevel());
+        pig.moveTo(ahead.x, ahead.y, ahead.z, 0, 0);
+        pig.setNoAi(true);
+        helper.getLevel().addFreshEntity(pig);
+        float full = pig.getHealth();
+        rhino.setYRot(-90f); // facing +x
+        helper.onEachTick(() -> {
+            if (rhino.getX() < ahead.x + 2) {
+                rhino.setPos(rhino.getX() + 0.5, rhino.getY(), rhino.getZ());
+                rhino.setYRot(-90f);
+            }
+        });
+        helper.succeedWhen(() -> helper.assertTrue(!pig.isAlive() || pig.getHealth() < full,
+                "the charging rhino didn't hurt the pig"));
+    }
 }
