@@ -1,46 +1,93 @@
 {
   "parent": "minecraft:block/block",
   "textures": {
-    "down": "minecraft:block/oak_planks",
-    "up": "minecraft:block/oak_planks",
-    "north": "minecraft:block/oak_planks",
-    "south": "minecraft:block/oak_planks",
-    "west": "minecraft:block/oak_planks",
-    "east": "minecraft:block/oak_planks",
-    "particle": "minecraft:block/oak_planks"
+    "sprite": "lotr_port:item/mug",
+    "particle": "lotr_port:item/mug"
   },
   "render_type": "minecraft:cutout",
   "elements": [
     {
       "from": [
-        5.75,
-        0.0,
-        5.75
+        2.5,
+        0,
+        8
       ],
       "to": [
-        10.25,
-        6.0,
-        10.25
+        13.5,
+        11,
+        8
       ],
+      "shade": false,
       "faces": {
-        "down": {
-          "texture": "#down"
-        },
-        "up": {
-          "texture": "#up"
-        },
         "north": {
-          "texture": "#north"
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#sprite"
         },
         "south": {
-          "texture": "#south"
-        },
-        "west": {
-          "texture": "#west"
-        },
-        "east": {
-          "texture": "#east"
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#sprite"
         }
+      },
+      "rotation": {
+        "origin": [
+          8,
+          8,
+          8
+        ],
+        "axis": "y",
+        "angle": 45
+      }
+    },
+    {
+      "from": [
+        2.5,
+        0,
+        8
+      ],
+      "to": [
+        13.5,
+        11,
+        8
+      ],
+      "shade": false,
+      "faces": {
+        "north": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#sprite"
+        },
+        "south": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#sprite"
+        }
+      },
+      "rotation": {
+        "origin": [
+          8,
+          8,
+          8
+        ],
+        "axis": "y",
+        "angle": -45
       }
     }
   ]
