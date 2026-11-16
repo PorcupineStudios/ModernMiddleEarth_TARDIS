@@ -453,6 +453,9 @@ https://claude.ai/artifact/KqhSSTCuKXGuwKHBoYJdcu. Rebuild features in modern co
 - LOTR's large in-hand icons: `separate_transforms` item models on `item/large_2x` / `large_3x`.
 - Special armor models: `converter/armor_models.py` → `lotr_port/content/armor_models.json` → `client/ArmorModels`
   (`RegisterClientExtensionsEvent`). Animated parts keep their resting pose.
+- Per-item armor textures (2026-11-16): LOTR's `new LOTRItemArmor(mat, slot, "extra")` pieces (special helmets,
+  winged/Harnedor/Gulf bodies, trimmed dwarven sets) draw `armor/<mat>_<extra>.png`; `generate.py armor_extras` reads
+  them from LOTRMod's bytecode. With the material texture their models showed broken. Check: `lotr/run/armor_script.txt`.
 - Every 1.7.10 → 1.21.1 mismatch and what was decided: `lotr/docs/missing-features.md`.
 
 ## Recipes and JEI (2026-11-06)
