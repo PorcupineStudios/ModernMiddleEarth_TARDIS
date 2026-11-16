@@ -60,9 +60,9 @@ public final class Materialise {
     }
 
     /** Starts the fade-in of the box just placed at {@code base}. */
-    public static void fadeIn(ServerLevel level, BlockPos base, int delay) {
+    public static void fadeIn(ServerLevel level, BlockPos base) {
         if (level.getBlockEntity(base) instanceof ExteriorBlockEntity be) {
-            be.materialise(level.getGameTime() + delay, ticks());
+            be.materialise(level.getGameTime(), ticks());
         }
     }
 

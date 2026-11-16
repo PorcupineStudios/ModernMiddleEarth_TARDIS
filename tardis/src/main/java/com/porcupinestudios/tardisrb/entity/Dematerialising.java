@@ -48,7 +48,7 @@ public class Dematerialising extends Entity {
     @Override
     public void tick() {
         super.tick();
-        if (!level().isClientSide && tickCount > entityData.get(TICKS) + 20) {
+        if (!level().isClientSide && tickCount > entityData.get(TICKS)) {
             discard();
         }
     }
