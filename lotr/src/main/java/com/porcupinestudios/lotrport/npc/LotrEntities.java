@@ -22,6 +22,17 @@ public final class LotrEntities {
                     .clientTrackingRange(10)
                     .build(LotrPort.MOD_ID + ":npc"));
 
+    /**
+     * NPCs drawn on a procedural rig (giant spiders, mumakil, stone giants, dragons): the same NPC with hitbox parts.
+     * Seen from further away than people (big creatures stand out on the horizon).
+     */
+    public static final DeferredHolder<EntityType<?>, EntityType<RiggedNpc>> RIGGED = TYPES.register("rigged_npc",
+            () -> EntityType.Builder.<RiggedNpc>of(RiggedNpc::new, MobCategory.CREATURE)
+                    .sized(1f, 1f)
+                    .eyeHeight(0.8f)
+                    .clientTrackingRange(16)
+                    .build(LotrPort.MOD_ID + ":rigged_npc"));
+
     /** Rocks, snowballs and wraith bolts LOTR's creatures throw. */
     public static final DeferredHolder<EntityType<?>, EntityType<com.porcupinestudios.lotrport.npc.behaviour.LotrProjectile>>
             PROJECTILE = TYPES.register("projectile", () -> EntityType.Builder
@@ -34,7 +45,9 @@ public final class LotrEntities {
 
     public static void register(IEventBus modBus) {
         TYPES.register(modBus);
-        modBus.addListener((EntityAttributeCreationEvent event) ->
-                event.put(NPC.get(), LotrNpc.createAttributes().build()));
+        modBus.addListener((EntityAttributeCreationEvent event) -> {
+            event.put(NPC.get(), LotrNpc.createAttributes().build());
+            event.put(RIGGED.get(), LotrNpc.createAttributes().build());
+        });
     }
 }

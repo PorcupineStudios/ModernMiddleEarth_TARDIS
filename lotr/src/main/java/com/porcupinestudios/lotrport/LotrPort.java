@@ -98,6 +98,7 @@ public final class LotrPort {
         MapNet.register(modBus);
         QuestNet.register(modBus);
         HudNet.register(modBus);
+        com.porcupinestudios.lotrport.rig.Rigs.register(modBus);
         com.porcupinestudios.lotrport.unit.UnitNet.register(modBus);
         com.porcupinestudios.lotrport.land.LandEntities.register(modBus);
         com.porcupinestudios.lotrport.colony.members.Permissions.register();
