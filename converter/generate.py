@@ -885,6 +885,14 @@ class Gen:
                          "rotation": {"origin": [8, 8, 8], "axis": "y", "angle": a}} for a in (45, -45)]
             return self.bm(new, "minecraft:block/block", {"sprite": tex, "particle": tex},
                            {"render_type": CUTOUT, "elements": elements})
+        if new.startswith("fallen_") and new.endswith("_leaves"):
+            # LOTRBlockFallenLeaves: a flat litter of the leaf icon, tinted like its leaves (LotrClient.blockColors);
+            # a 2-pixel box showed the grey untinted vanilla-leaf icons as a purple-grey carpet
+            tint = {"tintindex": 0}
+            return self.bm(new, "minecraft:block/block", {"all": icons[1], "particle": icons[1]},
+                           {"render_type": CUTOUT, "elements": [{"from": [0, 0.25, 0], "to": [16, 0.25, 16],
+                                                                 "faces": {"up": {"texture": "#all", **tint},
+                                                                           "down": {"texture": "#all", **tint}}}]})
         bb = [round(x * 16, 3) for x in (b.get("bounds") or [0, 0, 0, 1, 1, 1])]
         if bb[3] - bb[0] <= 0 or bb[4] - bb[1] <= 0 or bb[5] - bb[2] <= 0:
             bb = [0, 0, 0, 16, 16, 16]

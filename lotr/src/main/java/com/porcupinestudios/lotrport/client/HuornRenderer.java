@@ -60,15 +60,21 @@ final class HuornRenderer {
         pose.popPose();
     }
 
+    // LOTRModelHuorn's face box: the front of a 16x16x16 box at texture offset 0,0 on the 64x32 skin
+    private static final float U0 = 16f / 64f;
+    private static final float U1 = 32f / 64f;
+    private static final float V0 = 16f / 32f;
+    private static final float V1 = 1f;
+
     private static void quad(VertexConsumer v, Matrix4f m, float x0, float y0, float z, float x1, float y1,
             int light) {
-        v.addVertex(m, x0, y0, z).setColor(-1).setUv(1, 1).setOverlay(OverlayTexture.NO_OVERLAY).setLight(light)
+        v.addVertex(m, x0, y0, z).setColor(-1).setUv(U1, V1).setOverlay(OverlayTexture.NO_OVERLAY).setLight(light)
                 .setNormal(0, 0, -1);
-        v.addVertex(m, x1, y0, z).setColor(-1).setUv(0, 1).setOverlay(OverlayTexture.NO_OVERLAY).setLight(light)
+        v.addVertex(m, x1, y0, z).setColor(-1).setUv(U0, V1).setOverlay(OverlayTexture.NO_OVERLAY).setLight(light)
                 .setNormal(0, 0, -1);
-        v.addVertex(m, x1, y1, z).setColor(-1).setUv(0, 0).setOverlay(OverlayTexture.NO_OVERLAY).setLight(light)
+        v.addVertex(m, x1, y1, z).setColor(-1).setUv(U0, V0).setOverlay(OverlayTexture.NO_OVERLAY).setLight(light)
                 .setNormal(0, 0, -1);
-        v.addVertex(m, x0, y1, z).setColor(-1).setUv(1, 0).setOverlay(OverlayTexture.NO_OVERLAY).setLight(light)
+        v.addVertex(m, x0, y1, z).setColor(-1).setUv(U1, V0).setOverlay(OverlayTexture.NO_OVERLAY).setLight(light)
                 .setNormal(0, 0, -1);
     }
 }

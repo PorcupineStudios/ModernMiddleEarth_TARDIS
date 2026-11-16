@@ -85,6 +85,24 @@
     "top": 640
   },
   "variants": {
+    "lotr_port:shire_marshes": {
+      "cell": 96,
+      "chance": 0.75,
+      "list": [
+        {
+          "name": "lowland",
+          "weight": 2,
+          "downs": 0.5,
+          "variation": 0.6
+        },
+        {
+          "name": "upland",
+          "weight": 1,
+          "downs": 1.8,
+          "variation": 1.2
+        }
+      ]
+    },
     "lotr_port:shire": {
       "cell": 176,
       "chance": 0.6,
@@ -1079,8 +1097,9 @@
     },
     {
       "id": "lotr_port:shire_marshes",
-      "height": 59.2,
-      "variation": 3.5
+      "height": 61.4,
+      "variation": 1.22,
+      "downs": 4
     },
     {
       "id": "lotr_port:near_harad_red_desert",
