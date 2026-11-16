@@ -165,8 +165,30 @@ public final class LotrClient {
         }
     }
 
+    /** Fallen leaves of the grey vanilla-leaf icons (oak, dark oak, acacia), tinted by foliage like LOTR's. */
+    private static final String[] TINTED_FALLEN = {"fallen_oak_leaves", "fallen_dark_oak_leaves",
+        "fallen_acacia_leaves"};
+
+    private static net.minecraft.world.level.block.Block[] tintedFallen() {
+        return java.util.Arrays.stream(TINTED_FALLEN)
+                .map(id -> net.minecraft.core.registries.BuiltInRegistries.BLOCK.get(
+                        net.minecraft.resources.ResourceLocation.fromNamespaceAndPath(LotrPort.MOD_ID, id)))
+                .filter(b -> b != net.minecraft.world.level.block.Blocks.AIR)
+                .toArray(net.minecraft.world.level.block.Block[]::new);
+    }
+
+    @SubscribeEvent
+    public static void blockColors(net.neoforged.neoforge.client.event.RegisterColorHandlersEvent.Block event) {
+        event.register((state, level, pos, tint) -> level != null && pos != null
+                ? net.minecraft.client.renderer.BiomeColors.getAverageFoliageColor(level, pos)
+                : net.minecraft.world.level.FoliageColor.getDefaultColor(), tintedFallen());
+    }
+
     @SubscribeEvent
     public static void itemColors(net.neoforged.neoforge.client.event.RegisterColorHandlersEvent.Item event) {
+        event.register((stack, layer) -> net.minecraft.world.level.FoliageColor.getDefaultColor(),
+                java.util.Arrays.stream(tintedFallen()).map(net.minecraft.world.level.block.Block::asItem)
+                        .toArray(net.minecraft.world.level.ItemLike[]::new));
         event.register((stack, layer) -> layer == 0
                 ? net.minecraft.world.item.component.DyedItemColor.getOrDefault(stack, -1) : -1,
                 com.porcupinestudios.lotrport.content.LotrItems.dyeable().toArray(new net.minecraft.world.item.Item[0]));
