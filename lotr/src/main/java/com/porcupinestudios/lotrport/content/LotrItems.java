@@ -95,6 +95,10 @@ public final class LotrItems {
         ConvertedTier tier = new ConvertedTier(Math.max(1, durability), ContentData.num(e, "speed", 4f),
                 ContentData.integer(e, "level", 0), ContentData.integer(e, "enchant", 10));
         float damage = ContentData.num(e, "damage", 1f);
+        Item special = behaviour(e.get("id").getAsString(), p);
+        if (special != null) {
+            return special;
+        }
         return switch (kind) {
             case "sword" -> e.has("weapon")
                     ? new LotrWeaponItem(tier, p, damage, e.getAsJsonObject("weapon"), poison(e),
@@ -155,6 +159,31 @@ public final class LotrItems {
         return block instanceof net.minecraft.world.level.block.BedBlock
                 ? new net.minecraft.world.item.BedItem(block, p)
                 : new net.minecraft.world.item.ItemNameBlockItem(block, p);
+    }
+
+    /** Hand-kept behaviours from {@code behaviors.json}: pies that place, Ent-draughts, matches. */
+    private static Item behaviour(String id, Item.Properties p) {
+        JsonObject b = ContentData.behaviours();
+        if (b.getAsJsonObject("pie").has(id)) {
+            return new net.minecraft.world.item.BlockItem(
+                    LotrBlocks.BY_ID.get(b.getAsJsonObject("pie").get(id).getAsString()).get(), p);
+        }
+        if (b.getAsJsonObject("draught").has(id)) {
+            return new EntDraughtItem(p.stacksTo(1), b.getAsJsonObject("draught").getAsJsonObject(id));
+        }
+        if ("branding_iron".equals(id)) {
+            return new BrandingIronItem(p);
+        }
+        if (b.getAsJsonObject("figures").has(id)) {
+            return new com.porcupinestudios.lotrport.content.figure.FigureItem(p.stacksTo(16),
+                    b.getAsJsonObject("figures").getAsJsonObject(id));
+        }
+        for (var m : b.getAsJsonArray("match")) {
+            if (m.getAsString().equals(id)) {
+                return new MatchItem(p);
+            }
+        }
+        return null;
     }
 
     private static JsonObject ranged(JsonObject e) {

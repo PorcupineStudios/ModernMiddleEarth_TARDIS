@@ -6,6 +6,8 @@
   "width": 1.2,
   "height": 0.9,
   "behaviours": [
+    "scorpion",
+    "on_hit",
     "animal"
   ],
   "lotr_classes": [
@@ -17,6 +19,13 @@
     "EntityLivingBase"
   ],
   "behaviour_data": {
+    "size_max": 2,
+    "health_base": 12,
+    "health_per_size": 6,
+    "attack_base": 2,
+    "attack_per_size": 1,
+    "poison_d2": 0.5,
+    "poison_d": 2.5,
     "fights_back": 1,
     "panic_speed": 1.25,
     "state.renderer": 0

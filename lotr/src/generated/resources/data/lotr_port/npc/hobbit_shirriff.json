@@ -17,14 +17,21 @@
   ],
   "skin_height": 64,
   "model": "hobbit",
-  "scale": 0.667,
-  "health": 20.0,
-  "speed": 0.2,
-  "attack": 2.0,
   "behaviours": [
+    "avoid_evil",
+    "man_flesh",
+    "burning_panic",
     "archer"
   ],
   "behaviour_data": {
+    "avoid_range": 8,
+    "avoid_speed": 1.5,
+    "avoid_near_speed": 1.8,
+    "avoid_alignment": -100,
+    "flesh_chance": 5,
+    "burn_panic_speed": 1.5,
+    "eat_chance": 3000,
+    "drink_chance": 3000,
     "ranged_speed": 1.5,
     "ranged_min": 20,
     "ranged_max": 40,
@@ -33,6 +40,10 @@
     "ranged_swap": 1,
     "ride_chance": 3
   },
+  "scale": 0.667,
+  "health": 20.0,
+  "speed": 0.2,
+  "attack": 2.0,
   "gear": {
     "mainhand": [
       "lotr_port:bronze_dagger",

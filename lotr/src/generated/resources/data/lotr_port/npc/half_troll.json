@@ -10,7 +10,8 @@
   "width": 1.0,
   "height": 2.4,
   "behaviours": [
-    "half_troll"
+    "half_troll",
+    "burning_panic"
   ],
   "lotr_classes": [
     "LOTREntityHalfTroll",
@@ -20,6 +21,9 @@
     "EntityLivingBase"
   ],
   "behaviour_data": {
+    "burn_panic_speed": 1.5,
+    "eat_chance": 6000,
+    "drink_chance": 6000,
     "state.renderer": 0
   },
   "sounds": {

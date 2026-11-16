@@ -9,7 +9,9 @@
   "height": 2.56,
   "behaviours": [
     "troll",
-    "snow_thrower"
+    "snow_thrower",
+    "on_hit",
+    "burning_panic"
   ],
   "lotr_classes": [
     "LOTREntityUtumnoSnowTroll",
@@ -29,6 +31,9 @@
     "throw_min": 20,
     "throw_max": 30,
     "throw_damage": 3,
+    "burn_panic_speed": 1.5,
+    "slow_d2": 0.5,
+    "slow_d": 2.5,
     "scale": 0.8,
     "sun_immune": 0,
     "state.renderer": 2

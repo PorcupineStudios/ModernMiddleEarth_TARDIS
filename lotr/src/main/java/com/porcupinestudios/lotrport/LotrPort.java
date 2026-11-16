@@ -66,6 +66,11 @@ public final class LotrPort {
         LotrTabs.register(modBus);
         LotrRecipes.register(modBus);
         com.porcupinestudios.lotrport.drink.Drinks.register(modBus);
+        com.porcupinestudios.lotrport.drink.Vessels.register(modBus);
+        com.porcupinestudios.lotrport.machine.BookshelfStorageBlock.register();
+        com.porcupinestudios.lotrport.content.GondorBeaconBlock.register(modBus);
+        com.porcupinestudios.lotrport.content.figure.Figures.register(modBus);
+        com.porcupinestudios.lotrport.npc.behaviour.GrapeGuardBehaviour.register();
         com.porcupinestudios.lotrport.machine.Machines.register(modBus);
         com.porcupinestudios.lotrport.content.farm.Farming.register();
         com.porcupinestudios.lotrport.content.pouch.Pouches.register(modBus);

@@ -12,7 +12,8 @@
   "height": 4.0,
   "behaviours": [
     "tree",
-    "huorn"
+    "huorn",
+    "burning_panic"
   ],
   "lotr_classes": [
     "LOTREntityDarkHuorn",
@@ -27,6 +28,7 @@
     "tree_weakness": 2,
     "tree_resistance": 0.5,
     "wake_range": 24,
+    "burn_panic_speed": 1.5,
     "state.renderer": 0
   },
   "health": 60.0,

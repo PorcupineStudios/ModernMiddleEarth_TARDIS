@@ -297,6 +297,9 @@ public final class MachineRenderers {
         public void render(LotrChestBlockEntity be, float partial, PoseStack pose, MultiBufferSource buffers,
                 int light, int overlay) {
             BlockState state = be.getBlockState();
+            if (state.getBlock() instanceof com.porcupinestudios.lotrport.machine.BookshelfStorageBlock) {
+                return; // drawn as its bookshelf model
+            }
             String texture = LotrBlocks.texture(BuiltInRegistries.BLOCK.getKey(state.getBlock()).getPath());
             var buffer = buffers.getBuffer(RenderType.entityCutout(
                     LotrPort.id("textures/entity/block/chest/" + (texture == null ? "stone" : texture) + ".png")));

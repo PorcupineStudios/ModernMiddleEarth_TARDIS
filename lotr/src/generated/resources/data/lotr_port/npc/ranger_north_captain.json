@@ -6,13 +6,18 @@
     "lotr_port:textures/entity/gondor/ranger/2.png"
   ],
   "skin_height": 64,
-  "health": 25.0,
-  "speed": 0.25,
-  "attack": 2.0,
   "behaviours": [
+    "sneak",
+    "man_flesh",
+    "burning_panic",
     "archer"
   ],
   "behaviour_data": {
+    "sneak_cooldown": 20,
+    "flesh_chance": 5,
+    "burn_panic_speed": 1.5,
+    "eat_chance": 8000,
+    "drink_chance": 8000,
     "ranged_speed": 1.25,
     "ranged_min": 20,
     "ranged_max": 40,
@@ -20,6 +25,9 @@
     "ranged_accuracy": 0.5,
     "ranged_swap": 1
   },
+  "health": 25.0,
+  "speed": 0.25,
+  "attack": 2.0,
   "gear": {
     "mainhand": "minecraft:iron_sword",
     "head": "lotr_port:ranger_hood",

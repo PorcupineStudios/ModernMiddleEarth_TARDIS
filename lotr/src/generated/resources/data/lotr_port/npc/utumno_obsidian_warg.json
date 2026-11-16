@@ -8,7 +8,8 @@
   "width": 1.5,
   "height": 1.7,
   "behaviours": [
-    "warg"
+    "warg",
+    "burning_panic"
   ],
   "lotr_classes": [
     "LOTREntityUtumnoObsidianWarg",
@@ -21,6 +22,7 @@
     "EntityLivingBase"
   ],
   "behaviour_data": {
+    "burn_panic_speed": 1.5,
     "state.renderer": 0
   },
   "sounds": {

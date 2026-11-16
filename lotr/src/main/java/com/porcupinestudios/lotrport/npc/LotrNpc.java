@@ -393,6 +393,14 @@ public class LotrNpc extends PathfinderMob implements Merchant {
                 armour.isEmpty() ? null : armour.get(random.nextInt(armour.size())));
     }
 
+    /** LOTR's kill drops for this NPC type: {@code loot_table/entities/npc/<type>.json} (converter/npcs.py). */
+    @Override
+    protected net.minecraft.resources.ResourceKey<net.minecraft.world.level.storage.loot.LootTable> getDefaultLootTable() {
+        ResourceLocation t = typeId();
+        return net.minecraft.resources.ResourceKey.create(net.minecraft.core.registries.Registries.LOOT_TABLE,
+                t.withPath("entities/npc/" + t.getPath()));
+    }
+
     public ResourceLocation typeId() {
         ResourceLocation id = ResourceLocation.tryParse(entityData.get(TYPE));
         return id == null ? LotrEntities.NPC.getId() : id;
@@ -438,6 +446,10 @@ public class LotrNpc extends PathfinderMob implements Merchant {
 
     public GoalSelector goals() {
         return goalSelector;
+    }
+
+    public GoalSelector targets() {
+        return targetSelector;
     }
 
     public List<CreatureBehaviour> behaviours() {
@@ -527,6 +539,11 @@ public class LotrNpc extends PathfinderMob implements Merchant {
         } else {
             moods = List.of("friendly", "neutral");
         }
+        return speak(player, bank, moods);
+    }
+
+    /** Says a line from speech bank {@code bank}, the first of {@code moods} that has lines (LOTR's sendSpeechBank). */
+    public boolean speak(ServerPlayer player, ResourceLocation bank, List<String> moods) {
         List<String> lines = List.of();
         for (String mood : moods) {
             lines = NpcData.speech(bank, mood);
@@ -756,6 +773,7 @@ public class LotrNpc extends PathfinderMob implements Merchant {
     public void die(DamageSource source) {
         super.die(source);
         if (level() instanceof ServerLevel level) {
+            behaviours.forEach(b -> b.died(this, source));
             Persons.get(level.getServer()).died(level.getServer(), getUUID(), Optional.of(Society.where(this)));
         }
     }

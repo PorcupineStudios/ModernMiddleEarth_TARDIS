@@ -8,17 +8,17 @@
   ],
   "skin_height": 64,
   "model": "elf",
-  "sounds": {
-    "ambient": "lotr_port:elf.male.say",
-    "attack": "lotr_port:elf.male.attack"
-  },
-  "health": 30.0,
-  "speed": 0.2,
-  "attack": 2.0,
   "behaviours": [
+    "elf_bow",
+    "burning_panic",
     "archer"
   ],
   "behaviour_data": {
+    "bow_range": 8,
+    "bow_ticks": 40,
+    "burn_panic_speed": 1.5,
+    "eat_chance": 12000,
+    "drink_chance": 8000,
     "ranged_speed": 1.25,
     "ranged_min": 30,
     "ranged_max": 40,
@@ -27,6 +27,13 @@
     "ranged_swap": 1,
     "ride_chance": 4
   },
+  "sounds": {
+    "ambient": "lotr_port:elf.male.say",
+    "attack": "lotr_port:elf.male.attack"
+  },
+  "health": 30.0,
+  "speed": 0.2,
+  "attack": 2.0,
   "gear": {
     "mainhand": [
       "lotr_port:galadhrim_spear",

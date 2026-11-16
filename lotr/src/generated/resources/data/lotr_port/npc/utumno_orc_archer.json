@@ -11,6 +11,31 @@
     "lotr_port:textures/entity/orc/orc/7.png"
   ],
   "model": "orc",
+  "behaviours": [
+    "orc",
+    "burning_panic",
+    "archer"
+  ],
+  "behaviour_data": {
+    "daylight_ticks": 200,
+    "avoid_range": 8,
+    "avoid_speed": 1.5,
+    "avoid_alignment": -500,
+    "burn_panic_speed": 1.5,
+    "skirmish_chance": 20000,
+    "skirmish_min": 40,
+    "skirmish_ticks": 160,
+    "weak_orc": 0,
+    "avoid_good": 0,
+    "eat_chance": 6000,
+    "drink_chance": 6000,
+    "ranged_speed": 1.4,
+    "ranged_min": 30,
+    "ranged_max": 50,
+    "ranged_range": 16.0,
+    "ranged_accuracy": 1.0,
+    "ranged_swap": 0
+  },
   "sounds": {
     "ambient": "lotr_port:orc.say",
     "hurt": "lotr_port:orc.hurt",
@@ -20,17 +45,6 @@
   "health": 24.0,
   "speed": 0.2,
   "attack": 2.0,
-  "behaviours": [
-    "archer"
-  ],
-  "behaviour_data": {
-    "ranged_speed": 1.4,
-    "ranged_min": 30,
-    "ranged_max": 50,
-    "ranged_range": 16.0,
-    "ranged_accuracy": 1.0,
-    "ranged_swap": 0
-  },
   "gear": {
     "mainhand": "lotr_port:utumno_bow",
     "head": "lotr_port:utumno_helmet",

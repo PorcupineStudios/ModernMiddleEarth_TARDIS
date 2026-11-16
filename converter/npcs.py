@@ -64,6 +64,26 @@ class Npcs:
 
     # ------------------------------------------------------------------ helpers
 
+    def loot(self, e):
+        """LOTR's kill drops (dropFewItems: bones, race items, coins, rares) as a loot table: one pool per item,
+        dropped in the sampled share of kills, between the fewest and most seen. Measured by NpcExporter.drops."""
+        pools = []
+        for key, d in sorted((e.get("drops") or {}).items()):
+            item, _, meta = key.rpartition("#")
+            new = self.item({"item": item, "meta": int(meta or 0)})
+            if not new:
+                self.report["npc_drops_unmapped"].append(f"{e.get('name')}: {key}")
+                continue
+            entry = {"type": "minecraft:item", "name": new}
+            if d["max"] > 1:
+                entry["functions"] = [{"function": "minecraft:set_count",
+                                       "count": {"type": "minecraft:uniform", "min": d["min"], "max": d["max"]}}]
+            pool = {"rolls": 1, "entries": [entry]}
+            if d["chance"] < 0.999:
+                pool["conditions"] = [{"condition": "minecraft:random_chance", "chance": round(d["chance"], 4)}]
+            pools.append(pool)
+        return {"type": "minecraft:entity", "pools": pools} if pools else None
+
     def item(self, stack):
         if not stack:
             return None
@@ -311,6 +331,10 @@ class Npcs:
             out["behaviour_data"] = data
         elif model:
             out["model"] = model
+        if not creature and behaviours_of(e):
+            # people with a behaviour of their own (Wood-elf scouts, Dorwinion guards)
+            out["behaviours"] = behaviours_of(e)
+            out["behaviour_data"] = behaviour_data(e, self.jar)
         voice = npc_sounds(e.get("classes") or [e.get("class", "")])
         if voice:
             out["sounds"] = voice
@@ -396,6 +420,9 @@ class Npcs:
                     self.report["npc_pools_missing"].append(f"{tid}: {v[key]}")
                     del v[key]
             write_json(os.path.join(self.data, "npc", tid + ".json"), v)
+            loot = self.loot(types[tid])
+            if loot:
+                write_json(os.path.join(self.data, "loot_table", "entities", "npc", tid + ".json"), loot)
         self.models.write_all()
         self.lang(types)
         skipped = sorted({(e.get("render") or {}).get("model") or "none" for e in self.export.get("entities", [])
