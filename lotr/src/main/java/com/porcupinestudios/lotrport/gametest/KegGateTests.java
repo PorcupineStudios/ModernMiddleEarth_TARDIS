@@ -76,6 +76,7 @@ public final class KegGateTests {
         helper.assertFalse(level.getBlockState(behind).getValue(GateBlock.OPEN), "the gate behind opened too");
         BlockState open = level.getBlockState(base);
         helper.assertTrue(open.getCollisionShape(level, base).isEmpty(), "an open gate still blocks");
+        helper.assertFalse(open.getShape(level, base).isEmpty(), "an open gate has no outline, so it can't be clicked shut");
         helper.assertTrue(level.getBlockState(base).getBlock() == gate, "opening the gate removed it");
         helper.assertTrue(GateBlock.connects(level, base, open, base.below())
                         && GateBlock.connects(level, base, open, base.below().east()),
