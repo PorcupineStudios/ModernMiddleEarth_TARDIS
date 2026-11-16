@@ -92,5 +92,93 @@
    "ice_stalagmite",
    "obsidian_stalagmite"
   ]
- }
+ },
+ "hazard": {
+  "quagmire": [
+   "quagmire"
+  ],
+  "waste": [
+   "waste_block"
+  ],
+  "coral": [
+   "coral_reef"
+  ],
+  "thorn": [
+   "stabbing_thorn"
+  ],
+  "nettle": [
+   "thistle",
+   "nettles"
+  ],
+  "morgul": [
+   "morgul_flowers"
+  ]
+ },
+ "pie": {
+  "apple_crumble": "apple_crumble_block",
+  "banana_cake": "banana_cake_block",
+  "berry_pie": "berry_pie_block",
+  "cherry_pie": "cherry_pie_block",
+  "dalish_pastry": "dalish_pastry_block",
+  "lemon_cake": "lemon_cake_block"
+ },
+ "draught": {
+  "_comment": "LOTRItemEntDraught: drinkers below 0 Fangorn alignment are poisoned 5 s instead",
+  "green_ent_draught": {
+   "effects": [
+    {
+     "effect": "speed",
+     "seconds": 120
+    },
+    {
+     "effect": "haste",
+     "seconds": 120
+    },
+    {
+     "effect": "strength",
+     "seconds": 120
+    }
+   ]
+  },
+  "brown_ent_draught": {
+   "heal": 20,
+   "saturation": 3.0
+  },
+  "golden_ent_draught": {},
+  "yellow_ent_draught": {
+   "effects": [
+    {
+     "effect": "regeneration",
+     "seconds": 60
+    }
+   ]
+  },
+  "red_ent_draught": {
+   "effects": [
+    {
+     "effect": "fire_resistance",
+     "seconds": 180
+    }
+   ]
+  },
+  "silver_ent_draught": {
+   "effects": [
+    {
+     "effect": "night_vision",
+     "seconds": 180
+    }
+   ]
+  },
+  "blue_ent_draught": {
+   "effects": [
+    {
+     "effect": "water_breathing",
+     "seconds": 150
+    }
+   ]
+  }
+ },
+ "match": [
+  "sulfur_match"
+ ]
 }

@@ -37,6 +37,16 @@ public final class ContentData {
     }
 
     /** A generated content file that holds one object; empty if missing. */
+    private static JsonObject behaviours;
+
+    /** The hand-kept {@code behaviors.json} (what LOTR blocks and items do), read once. */
+    public static JsonObject behaviours() {
+        if (behaviours == null) {
+            behaviours = readObject("behaviors.json");
+        }
+        return behaviours;
+    }
+
     public static JsonObject readObject(String file) {
         try (InputStream in = ContentData.class.getResourceAsStream(ROOT + file)) {
             if (in == null) {
