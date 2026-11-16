@@ -61,6 +61,10 @@ public final class LotrClient {
     public static final KeyMapping JUKEBOX_KEY = new KeyMapping("key.lotr_port.jukebox", InputConstants.Type.KEYSYM,
             GLFW.GLFW_KEY_J, "key.categories.lotr_port");
 
+    /** Server admins (op level 4): the race screen (players' races and sizes, race presets' size and reach). */
+    public static final KeyMapping RACE_ADMIN_KEY = new KeyMapping("key.lotr_port.race_admin", InputConstants.Type.KEYSYM,
+            GLFW.GLFW_KEY_K, "key.categories.lotr_port");
+
     /** Opens the unit screen: your hired units and your colonies' soldiers. */
     public static final KeyMapping UNITS_KEY = new KeyMapping("key.lotr_port.units", InputConstants.Type.KEYSYM,
             GLFW.GLFW_KEY_U, "key.categories.lotr_port");
@@ -224,6 +228,7 @@ public final class LotrClient {
         event.register(MAP_KEY);
         event.register(JUKEBOX_KEY);
         event.register(UNITS_KEY);
+        event.register(RACE_ADMIN_KEY);
         event.register(MAP_TELEPORT_KEY);
         event.register(FAST_TRAVEL_KEY);
         event.register(ALIGNMENT_PREV_KEY);
