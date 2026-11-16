@@ -130,6 +130,11 @@ https://claude.ai/artifact/KqhSSTCuKXGuwKHBoYJdcu. Rebuild features in modern co
 - World type "Middle-earth" (`lotr_port:middle_earth` preset): the overworld is generated from the map, so spawn and
   respawn are vanilla. Any other world gets the `lotr_port:middle_earth` dimension; `/lotr travel` goes there and
   back. `LotrDimensions.middleEarth(server)` returns whichever level is Middle-earth.
+- Rivers and peaks (2026-11-16, Aaron: rivers too wide, green banks in Mordor, Erebor a round cone): small rivers
+  narrowed (width 0.013, river biome only 0.7 widths out); `keep_biome` biomes (Mordor, deserts, wastes) keep their own
+  ground instead of the river biome. Peaks use `map.json mountain_shape` (`MiddleEarthMap.MountainShape`: warped
+  distance, concave flanks, ridged crests/gullies, hills flattened by only 0.25 x boost; volcanoes untouched).
+  JAGGED 3, RIDGES 2 for steeper, less rounded mountains. Not yet checked in game.
 - Rivers: `MiddleEarthMap.Rivers` (noise, cut into ground under `max_height`); roads: `map/Roads` +
   `world/feature/RoadFeature`. Road blocks are LOTR's per biome (2026-11-04, `converter/roads.py`, a table read from the
   decompiled LOTRRoadType and biome getRoadBlock/getBridgeBlock; 22 road types, weights = LOTR's random branches,
