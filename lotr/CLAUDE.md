@@ -211,6 +211,8 @@ https://claude.ai/artifact/KqhSSTCuKXGuwKHBoYJdcu. Rebuild features in modern co
   real blocks with a face (`client/HuornRenderer`). Skins LOTR picked in code (warg colours per kind, ents,
   spiders, char/) come from `npcs.py CODE_SKINS` and `warg_type`.
 - Not yet: female NPCs, LOTR's trader outfits. `/lotr npc spawn|types|people` for testing.
+- Big creatures on procedural rigs (2026-11-16: IK legs on the real ground, body tilt, hitbox parts; spiders first):
+  **read `lotr/docs/rig.md`** before touching `rig/`, `RiggedNpc` or `data/<ns>/rig/`.
 
 ## Animals and mounts
 - Animals are creature NPCs (above); `converter/world.py GRAZERS` adds vanilla spawners on grass biomes. NPCs with
