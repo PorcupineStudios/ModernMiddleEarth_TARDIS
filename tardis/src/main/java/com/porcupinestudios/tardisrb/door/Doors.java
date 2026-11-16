@@ -297,31 +297,6 @@ public final class Doors {
         }
     }
 
-    /**
-     * Taking off (Aaron 2026-11-16): open doors on a standing box stay open while it fades out, the doorway still at
-     * the old spot (the fading box's doors) showing the console room; when the fade ends that doorway goes and a new
-     * one opens wherever the TARDIS is then. Shutting doors and a loose box's close as before. Returns whether the
-     * doors stayed open. Call before the box is lifted.
-     */
-    public static boolean takeOff(MinecraftServer server, TardisRecord tardis) {
-        CompoundTag tag = tardis.moduleData(MODULE);
-        ServerLevel old = tardis.location().map(g -> server.getLevel(g.dimension())).orElse(null);
-        if (!tag.getBoolean("open") || tag.contains("closing_at") || FreeFlight.isLoose(tardis) || old == null) {
-            close(server, tardis);
-            return false;
-        }
-        tardis.setModuleData(MODULE, new CompoundTag()); // the old doorway is the fading box's now
-        com.porcupinestudios.tardisrb.flight.Materialise.later(server,
-                com.porcupinestudios.tardisrb.flight.Materialise.ticks(), () -> {
-                    remove(old, tag, "outside");
-                    Interiors.level(server).ifPresent(l -> remove(l, tag, "inside"));
-                    if (!open(server, tardis)) {
-                        Interiors.level(server).ifPresent(l -> setOpen(l, interiorDoor(tardis), false));
-                    }
-                });
-        return true;
-    }
-
     /** Stops the doors shutting: they swing open again and the portals stay. */
     static void reopen(MinecraftServer server, TardisRecord tardis) {
         CompoundTag tag = tardis.moduleData(MODULE);

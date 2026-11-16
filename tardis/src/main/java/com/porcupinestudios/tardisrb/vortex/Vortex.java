@@ -219,13 +219,13 @@ public final class Vortex {
         }
         int length = (int) Math.min(t.maxLength(), distance < 0 ? t.jumpLength()
                 : t.minLength() + distance * t.lengthPerBlock());
-        // leave: doors close (or stay open on the fading box), the block (or the loose body) goes
-        boolean doorsOpen = Doors.takeOff(server, tardis); // open doors stay open while it fades
+        // leave: doors shut, the block (or the loose body) goes
+        Doors.close(server, tardis);
         ServerLevel fromLevel = server.getLevel(from.dimension());
         Direction was = FreeFlight.isLoose(tardis) ? FreeFlight.facing(server, tardis)
                 : fromLevel == null ? Direction.NORTH : Exteriors.lift(fromLevel, from.pos());
         if (!FreeFlight.isLoose(tardis) && fromLevel != null) {
-            com.porcupinestudios.tardisrb.flight.Materialise.fadeOut(fromLevel, from.pos(), was, tardis, doorsOpen);
+            com.porcupinestudios.tardisrb.flight.Materialise.fadeOut(fromLevel, from.pos(), was, tardis);
         }
         FreeFlight.dock(server, tardis);
         double laneX = laneFor(server, tardis);
