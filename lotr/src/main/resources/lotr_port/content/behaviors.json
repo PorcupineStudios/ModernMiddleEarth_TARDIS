@@ -413,5 +413,44 @@
    "spread": 0.4,
    "count": 1
   }
+ },
+ "figures": {
+  "_comment": "Items that set down a still figure on LOTR's creature model (LOTRItemTrollStatue, the rugs). texture under textures/entity/",
+  "troll_statue_1": {
+   "model": "lotr_port:troll",
+   "texture": "troll/stone.png",
+   "flat": false,
+   "scale": 1.0
+  },
+  "troll_statue_2": {
+   "model": "lotr_port:troll",
+   "texture": "troll/stone.png",
+   "flat": false,
+   "scale": 1.0
+  },
+  "troll_statue_3": {
+   "model": "lotr_port:troll",
+   "texture": "troll/stone.png",
+   "flat": false,
+   "scale": 1.0
+  },
+  "wargskin_rug": {
+   "model": "lotr_port:warg",
+   "texture": "warg/black.png",
+   "flat": true,
+   "scale": 1.0
+  },
+  "lionskin_rug": {
+   "model": "lotr_port:lion",
+   "texture": "lion/lion.png",
+   "flat": true,
+   "scale": 1.0
+  },
+  "giraffeskin_rug": {
+   "model": "lotr_port:giraffe",
+   "texture": "giraffe/giraffe.png",
+   "flat": true,
+   "scale": 1.0
+  }
  }
 }

@@ -201,6 +201,7 @@ public final class LotrClient {
         // rocks, snowballs and wraith bolts thrown by LOTR's creatures, drawn as their item
         event.registerEntityRenderer(LotrEntities.PROJECTILE.get(),
                 net.minecraft.client.renderer.entity.ThrownItemRenderer::new);
+        event.registerEntityRenderer(com.porcupinestudios.lotrport.content.figure.Figures.TYPE.get(), FigureRenderer::new);
         MachineRenderers.register(event);
         ThrownRenderers.register(event);
     }
