@@ -10,12 +10,14 @@
   "skin_height": 64,
   "behaviours": [
     "ruffian",
+    "man_flesh",
     "burning_panic"
   ],
   "behaviour_data": {
     "anger_per_hit": 100,
     "anger_per_block": 25,
     "anger_range": 24,
+    "flesh_chance": 5,
     "burn_panic_speed": 1.5,
     "drink_chance": 8000
   },

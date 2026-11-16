@@ -9,10 +9,15 @@
   "skin_height": 64,
   "model": "elf",
   "behaviours": [
+    "sneak",
+    "elf_bow",
     "burning_panic",
     "archer"
   ],
   "behaviour_data": {
+    "sneak_cooldown": 20,
+    "bow_range": 8,
+    "bow_ticks": 40,
     "burn_panic_speed": 1.5,
     "eat_chance": 12000,
     "drink_chance": 8000,

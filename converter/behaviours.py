@@ -36,7 +36,17 @@ BEHAVIOURS = (
     ("LOTREntityBreeRuffian", "ruffian"),
     ("LOTREntityOrc", "orc"),
     ("LOTREntityHobbit", "avoid_evil"),
+    ("LOTREntityMordorOrcBombardier", "orc_bomb"),
+    ("LOTREntityAngmarOrcBombardier", "orc_bomb"),
+    ("LOTREntityUrukHaiSapper", "orc_bomb"),
+    ("LOTREntityRanger", "sneak"),
+    ("LOTREntityGaladhrimWarden", "sneak"),
+    ("LOTREntityElf", "elf_bow"),
+    ("LOTREntityMan", "man_flesh"),
+    ("LOTREntityGandalf", "gandalf"),
 )
+# LOTREntityAIOrcPlaceBomb(speed): bombardiers 1.4, Uruk sappers 1.5
+BOMB_SPEED = {"LOTREntityUrukHaiSapper": 1.5}
 # IBandit thieves: getMaxThefts, LOTREntityAIBanditSteal / BanditFlee speeds; the ruffian spy only robs players it is
 # fighting or who are drunk (canRuffianTarget), and its theft message is the ruffian's
 BANDITS = {
@@ -104,7 +114,12 @@ CONSTANTS = {
     "orc": {"daylight_ticks": 200, "avoid_range": 8, "avoid_speed": 1.5, "avoid_alignment": -500},
     # LOTREntityAINPCAvoidEvilPlayer(8, 1.5, 1.8): hobbits flee players at -100 or worse
     "avoid_evil": {"avoid_range": 8, "avoid_speed": 1.5, "avoid_near_speed": 1.8, "avoid_alignment": -100},
-    "burning_panic": {"burn_panic_speed": 1.5},  # LOTREntityNPC: LOTREntityAIBurningPanic(1.5)  # LOTRFarmhand: keeps rabbits off crops  # LOTREntityUtumnoFireWarg: nextInt(3) > 0 flame, else smoke
+    "burning_panic": {"burn_panic_speed": 1.5},
+    "orc_bomb": {"bomb_speed": 1.4, "bomb_drop_range": 3},  # LOTREntityAIOrcPlaceBomb: drops within 3
+    "sneak": {"sneak_cooldown": 20},  # LOTREntityRanger.sneakCooldown
+    "elf_bow": {"bow_range": 8, "bow_ticks": 40},  # LOTREntityElf.onLivingUpdate
+    "man_flesh": {"flesh_chance": 5},
+    "gandalf": {"wander_ticks": 3600},  # LOTRGreyWandererTracker.greyWandererCooldown_MAX  # LOTREntityMan.onDeath: nextInt(5)  # LOTREntityNPC: LOTREntityAIBurningPanic(1.5)  # LOTRFarmhand: keeps rabbits off crops  # LOTREntityUtumnoFireWarg: nextInt(3) > 0 flame, else smoke
 }
 
 
@@ -193,7 +208,13 @@ def behaviour_data(e, jar):
         data.update(BANDITS.get(c, {}))
     if "bandit" in behaviours_of(e):
         data["flee_range"] = (e.get("attributes") or {}).get("generic.followRange", 16.0)
+    for c in chain:
+        if c in BOMB_SPEED:
+            data["bomb_speed"] = BOMB_SPEED[c]
+    if "LOTREntityUrukHai" in chain:
+        data["raid_camp"] = 1  # LOTREntityUrukHai.onDeath: raidUrukCamp
     if "LOTREntityOrc" in chain:
+        data.update({"skirmish_chance": 20000, "skirmish_min": 40, "skirmish_ticks": 160})  # AIOrcSkirmish
         weak = (e.get("fields") or {}).get("isWeakOrc", True)
         data["weak_orc"] = 1 if weak else 0
         data["avoid_good"] = 1 if weak and (e.get("faction") or "") != "MORDOR" else 0  # Mordor's orcs stand

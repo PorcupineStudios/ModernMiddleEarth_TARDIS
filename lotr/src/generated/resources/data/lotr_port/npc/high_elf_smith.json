@@ -23,10 +23,13 @@
   "skin_height": 64,
   "model": "elf",
   "behaviours": [
+    "elf_bow",
     "burning_panic",
     "archer"
   ],
   "behaviour_data": {
+    "bow_range": 8,
+    "bow_ticks": 40,
     "burn_panic_speed": 1.5,
     "eat_chance": 12000,
     "drink_chance": 8000,
