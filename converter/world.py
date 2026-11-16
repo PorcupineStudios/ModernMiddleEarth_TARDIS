@@ -37,8 +37,8 @@ MIN_HEIGHT, MAX_HEIGHT = -40, 300
 PEAK_BIOME_MIN = 1000  # columns a biome holding a peak needs before its survey isn't mostly the mountain
 SURVEY_MIN = 32  # biomes with fewer surveyed columns keep the formula from LOTR's height parameters
 STD_PER_VARIATION = 1.0
-JAGGED_FROM, JAGGED = 10.0, 2.0  # crags for hilliness over 10 blocks (mountains), up to 2 x the excess
-RIDGES = 1.2  # and broad ridges and valleys (the hill noise at half the frequency) of 1.2 x the excess
+JAGGED_FROM, JAGGED = 10.0, 3.0  # (2.0 until 2026-11-16: mountains too rounded) crags for hilliness over 10 blocks (mountains), up to 2 x the excess
+RIDGES = 2.0  # (1.2 until 2026-11-16: spread was 23 vs LOTR 32-40) and broad ridges and valleys (the hill noise at half the frequency) of 1.2 x the excess
 HILL_BIAS = 0.4  # the 4x-steeper ground below lifts the mean ~0.4 x hilliness (measured); lowered by that
 # Noise only near the surface (Aaron 2026-11-15: "make it as cheap as possible ... very fast chunk loading"): the
 # hills' noise (3D blended, 2D hills, crags) is worked out only where (ground level - y) / (hilliness + 2) lies in
@@ -118,11 +118,19 @@ RANGES = {
 
 ROAD_HALF_WIDTH = 2.1  # blocks either side of a road's middle (Aaron 2026-11-14: 4-5 wide; bridges 1 more each side)
 # Small rivers (LOTR made these with a river layer, not on the map). Widths are in noise units: one is about 11 blocks.
-# Aaron 2026-11-14: fewer rivers, still a fair few. scale 1700 (was 900): the lines are about half as dense; width is in
-# noise units, so it shrinks by 900/1700 to keep rivers as wide in blocks. (A mask fading a third of the network out
-# squeezed its banks into cliffs: dropped.) bank 5 widths (was 3): gentler, grassy valley sides in the Shire's hills.
-RIVERS = {"biome": f"{NS}:river", "scale": 1700, "width": 0.01324, "bank": 5.0, "biome_width": 1.5, "bed": 56,
-          "max_height": 100, "min_height": 63, "seed": 1937}
+# Aaron 2026-11-14: fewer rivers (scale 1700; width in noise units scaled by 900/1700).
+# Aaron 2026-11-16: LOTR's small rivers are narrow (its NarrowRivers layer); 0.025/1.5 gave wide green-banked channels.
+# keep_biome: dark and dry lands keep their own ground on the banks and bed instead of the green river biome.
+RIVER_KEEP = ["mordor", "mordor_mountains", "gorgoroth", "udun", "nan_ungol", "morgul_vale", "dagorlad",
+              "eastern_desolation", "brown_lands", "dead_marshes", "dol_guldur", "mirkwood_corrupted", "angmar",
+              "angmar_mountains", "ettenmoors", "coldfells", "fangorn_wasteland", "ithilien_wasteland", "nan_curunir",
+              "emyn_muil", "near_harad", "near_harad_red_desert", "near_harad_semi_desert", "far_harad_arid",
+              "far_harad_arid_hills", "harad_mountains", "last_desert", "forodwaith", "forodwaith_mountains",
+              "forodwaith_glacier", "tundra", "far_harad_volcano", "half_troll_forest"]
+RIVERS = {"biome": f"{NS}:river", "scale": 1700, "width": 0.00688, "bank": 2.5, "biome_width": 0.7, "bed": 56,
+          "max_height": 100, "min_height": 63, "seed": 1937, "keep_biome": [f"{NS}:{b}" for b in RIVER_KEEP]}
+# LOTRMountains peaks roughed up (MiddleEarthMap.MountainShape): lobed foot, ridged flanks, hills kept on the slopes
+MOUNTAIN_SHAPE = {"warp": 0.35, "ridges": 0.22, "scale": 40.0, "flatten": 0.25, "seed": 1213}
 
 # Old surface blocks (registry name + meta) that are vanilla in 1.21.
 VANILLA_SURFACE = {
@@ -464,6 +472,7 @@ class World:
             "variants": {f"{NS}:{k}": {"cell": v["cell"], "chance": v["chance"], "list": [
                 {x: e[x] for x in ("name", "weight", "downs", "variation") if x in e} for e in v["list"]]}
                 for k, v in VARIANTS.items()},
+            "mountain_shape": MOUNTAIN_SHAPE,
             # LOTRMountains: a cone from the land up to the peak's surveyed ground over `range` blocks
             "mountains": [self.mountain(m) for m in self.survey.get("mountains", [])],
             "biomes": [dict({"id": f"{NS}:{i}", "height": self.height(b), "variation": self.variation(b)},

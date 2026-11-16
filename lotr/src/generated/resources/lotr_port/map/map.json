@@ -10,13 +10,48 @@
   "rivers": {
     "biome": "lotr_port:river",
     "scale": 1700,
-    "width": 0.01324,
-    "bank": 5.0,
-    "biome_width": 1.5,
+    "width": 0.00688,
+    "bank": 2.5,
+    "biome_width": 0.7,
     "bed": 56,
     "max_height": 100,
     "min_height": 63,
-    "seed": 1937
+    "seed": 1937,
+    "keep_biome": [
+      "lotr_port:mordor",
+      "lotr_port:mordor_mountains",
+      "lotr_port:gorgoroth",
+      "lotr_port:udun",
+      "lotr_port:nan_ungol",
+      "lotr_port:morgul_vale",
+      "lotr_port:dagorlad",
+      "lotr_port:eastern_desolation",
+      "lotr_port:brown_lands",
+      "lotr_port:dead_marshes",
+      "lotr_port:dol_guldur",
+      "lotr_port:mirkwood_corrupted",
+      "lotr_port:angmar",
+      "lotr_port:angmar_mountains",
+      "lotr_port:ettenmoors",
+      "lotr_port:coldfells",
+      "lotr_port:fangorn_wasteland",
+      "lotr_port:ithilien_wasteland",
+      "lotr_port:nan_curunir",
+      "lotr_port:emyn_muil",
+      "lotr_port:near_harad",
+      "lotr_port:near_harad_red_desert",
+      "lotr_port:near_harad_semi_desert",
+      "lotr_port:far_harad_arid",
+      "lotr_port:far_harad_arid_hills",
+      "lotr_port:harad_mountains",
+      "lotr_port:last_desert",
+      "lotr_port:forodwaith",
+      "lotr_port:forodwaith_mountains",
+      "lotr_port:forodwaith_glacier",
+      "lotr_port:tundra",
+      "lotr_port:far_harad_volcano",
+      "lotr_port:half_troll_forest"
+    ]
   },
   "ranges": {
     "biomes": {
@@ -102,6 +137,13 @@
         }
       ]
     }
+  },
+  "mountain_shape": {
+    "warp": 0.35,
+    "ridges": 0.22,
+    "scale": 40.0,
+    "flatten": 0.25,
+    "seed": 1213
   },
   "mountains": [
     {
