@@ -85,6 +85,7 @@ public final class LotrClient {
         QuestNet.offerHandler = QuestOfferScreen::open;
         QuestNet.bookHandler = RedBookScreen::show;
         HudNet.barHandler = LotrHud::receive;
+        RigRenderer.init();
         com.porcupinestudios.lotrport.unit.UnitNet.listHandler = UnitScreen::show;
         com.porcupinestudios.lotrport.colony.members.HallNet.hallHandler = HallScreen::show;
         com.porcupinestudios.lotrport.colony.work.LedgerNet.ledgerHandler = LedgerScreen::show;
@@ -249,6 +250,7 @@ public final class LotrClient {
     @SubscribeEvent
     public static void renderers(EntityRenderersEvent.RegisterRenderers event) {
         event.registerEntityRenderer(LotrEntities.NPC.get(), NpcRenderer::new);
+        event.registerEntityRenderer(LotrEntities.RIGGED.get(), NpcRenderer::new);
         event.registerEntityRenderer(com.porcupinestudios.lotrport.land.LandEntities.BANNER.get(),
                 ClaimBannerRenderer::new);
         com.porcupinestudios.lotrport.mount.Mounts.TYPE_BY_BREED.values()

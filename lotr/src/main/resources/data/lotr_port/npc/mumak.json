@@ -1,0 +1,22 @@
+{
+  "faction": "lotr_port:near_harad",
+  "skins": [
+    "lotr_port:textures/entity/rig/mumak.png"
+  ],
+  "skin_height": 256,
+  "model": "lotr_port:rhino",
+  "width": 1.4,
+  "height": 1.8,
+  "behaviours": [
+    "burning_panic"
+  ],
+  "sounds": {
+    "ambient": "minecraft:entity.ravager.ambient",
+    "hurt": "minecraft:entity.ravager.hurt",
+    "death": "minecraft:entity.ravager.death",
+    "attack": "minecraft:entity.ravager.attack"
+  },
+  "health": 200,
+  "speed": 0.22,
+  "attack": 14
+}
