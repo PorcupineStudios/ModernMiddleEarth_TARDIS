@@ -8,9 +8,9 @@
   "width": 3.2,
   "height": 6.4,
   "behaviours": [
-    "boss_jump",
+    "troll",
     "rock_thrower",
-    "troll"
+    "boss_jump"
   ],
   "lotr_classes": [
     "LOTREntityMountainTrollChieftain",
@@ -30,6 +30,8 @@
     "throw_min": 30,
     "throw_max": 60,
     "throw_damage": 5,
+    "jump_chance": 0.03,
+    "jump_speed": 1.5,
     "scale": 2.0,
     "sun_immune": 0,
     "two_heads": 1,

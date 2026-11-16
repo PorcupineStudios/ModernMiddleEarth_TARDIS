@@ -8,7 +8,8 @@
   "width": 2.0,
   "height": 4.0,
   "behaviours": [
-    "troll"
+    "troll",
+    "on_hit"
   ],
   "lotr_classes": [
     "LOTREntityOlogHai",
@@ -22,13 +23,16 @@
     "burn_ticks": 300,
     "shade_range": 12,
     "tickle_alignment": 100,
+    "knockback_per_damage": 0.25,
+    "splash_range": 4,
     "scale": 1.25,
     "sun_immune": 1,
     "state.renderer": 5
   },
   "sounds": {
     "ambient": "lotr_port:troll.say",
-    "step": "lotr_port:troll.step"
+    "step": "lotr_port:troll.step",
+    "attack": "lotr_port:troll.olog_hai_hammer"
   },
   "health": 80.0,
   "speed": 0.2,

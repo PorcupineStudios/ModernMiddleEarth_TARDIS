@@ -30,6 +30,7 @@ NPC_SOUNDS = {
     "LOTREntityGollum": {"ambient": "gollum.say", "hurt": "gollum.hurt", "death": "gollum.death"},
     "LOTREntityBarrowWight": {"hurt": "wight.hurt", "death": "wight.death"},
     "LOTREntityMarshWraith": {"hurt": "wight.hurt", "death": "wight.death"},
+    "LOTREntityOlogHai": {"ambient": "troll.say", "step": "troll.step", "attack": "troll.olog_hai_hammer"},
     "LOTREntityTroll": {"ambient": "troll.say", "step": "troll.step"},
     "LOTREntityBalrog": {"ambient": "troll.say", "step": "troll.step"},
     "LOTREntityEnt": {"step": "ent.step"},

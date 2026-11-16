@@ -8,7 +8,9 @@
   "width": 1.5,
   "height": 1.7,
   "behaviours": [
-    "warg"
+    "warg",
+    "trail",
+    "on_hit"
   ],
   "lotr_classes": [
     "LOTREntityUtumnoFireWarg",
@@ -21,6 +23,8 @@
     "EntityLivingBase"
   ],
   "behaviour_data": {
+    "trail_flame": 0.6666666666666666,
+    "fire": 4,
     "state.renderer": 0
   },
   "sounds": {

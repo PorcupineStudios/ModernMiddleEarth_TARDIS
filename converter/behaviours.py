@@ -24,7 +24,22 @@ BEHAVIOURS = (
     ("LOTREntityWoodElfScout", "elf_scout"),
     ("LOTREntityDorwinionGuard", "grape_guard"),
     ("LOTREntityMountainTrollChieftain", "boss_jump"),
+    ("LOTREntityWargBombardier", "warg_bomb"),
+    ("LOTREntityScorpion", "scorpion"),
+    ("LOTREntityUtumnoFireWarg", "trail"),
 )
+# What a blow does besides damage (each class's attackEntityAsMob), for the on_hit behaviour: effect seconds are
+# <effect>_d2 x d^2 + <effect>_d x d + <effect>_c (d = difficulty). The most specific class listed wins.
+DD5 = {"_d2": 0.5, "_d": 2.5}  # d(d + 5) / 2
+ON_HIT = {
+    "LOTREntityOlogHai": {"knockback_per_damage": 0.25, "splash_range": 4},  # hammer: knockback 0.25 x damage, 4 around
+    "LOTREntityMirkTroll": {"poison_d": 3, "poison_c": -1},  # poison 3d - 1 s
+    "LOTREntitySnowTroll": {"slow" + k: v for k, v in DD5.items()},
+    "LOTREntityUtumnoFireWarg": {"fire": 4},
+    "LOTREntityUtumnoIceWarg": {"frost": 1, **{"slow" + k: v for k, v in DD5.items()}},
+    "LOTREntityUtumnoIceSpider": {"frost": 1},
+    "LOTREntityScorpion": {"poison" + k: v for k, v in DD5.items()},
+}
 # LOTR animals that turn on what hurts them (LOTREntityBear, lions, rhinos, aurochs); every other animal panics
 FIGHTS_BACK = ("LOTREntityBear", "LOTREntityLionBase", "LOTREntityRhino", "LOTREntityAurochs", "LOTREntityCrocodile",
                "LOTREntityScorpion")
@@ -47,6 +62,11 @@ CONSTANTS = {
     "elf_scout": {"too_close": 6, "chance": 20},  # LOTREntityWoodElfScout.onLivingUpdate
     "grape_guard": {"range": 32, "alert_ticks": 600},  # LOTREntityDorwinionGuard GrapeAlert
     "boss_jump": {"jump_chance": 0.03, "jump_speed": 1.5},  # LOTREntityMountainTrollChieftain: AIBossJumpAttack(1.5, 0.03)
+    # LOTREntityWargBombardier: fuse watcher 35, strength 1; AIWargBombardierAttack: 16 = 4 blocks squared, (s + 1) x 4
+    "warg_bomb": {"fuse": 35, "bomb_strength": 1, "bomb_range": 4, "power_per_strength": 4},
+    # LOTREntityScorpion: scale nextInt(3), health 12 + 6s, damage 2 + s
+    "scorpion": {"size_max": 2, "health_base": 12, "health_per_size": 6, "attack_base": 2, "attack_per_size": 1},
+    "trail": {"trail_flame": 2 / 3},  # LOTREntityUtumnoFireWarg: nextInt(3) > 0 flame, else smoke
 }
 
 
@@ -59,6 +79,8 @@ def is_animal(e):
 def behaviours_of(e):
     chain = [c.split(".")[-1] for c in e.get("classes") or []]
     out = [b for cls, b in BEHAVIOURS if cls in chain]
+    if any(c in ON_HIT for c in chain):
+        out.append("on_hit")
     if is_animal(e) and "animal" not in out:
         out.append("animal")
     return out
@@ -105,6 +127,8 @@ def behaviour_data(e, jar):
     for b in behaviours_of(e):
         data.update(CONSTANTS.get(b, {}))
     chain = [c.split(".")[-1] for c in classes]
+    for c in reversed(chain):
+        data.update(ON_HIT.get(c, {}))
     if "LOTREntityTroll" in chain:
         for c in classes:
             scale = _float_return(jar, c, "getTrollScale")

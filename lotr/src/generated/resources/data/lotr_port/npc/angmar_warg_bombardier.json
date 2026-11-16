@@ -8,7 +8,8 @@
   "width": 1.5,
   "height": 1.7,
   "behaviours": [
-    "warg"
+    "warg",
+    "warg_bomb"
   ],
   "lotr_classes": [
     "LOTREntityAngmarWargBombardier",
@@ -21,6 +22,10 @@
     "EntityLivingBase"
   ],
   "behaviour_data": {
+    "fuse": 35,
+    "bomb_strength": 1,
+    "bomb_range": 4,
+    "power_per_strength": 4,
     "state.renderer": 0
   },
   "sounds": {

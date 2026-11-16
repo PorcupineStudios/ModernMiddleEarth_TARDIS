@@ -6,8 +6,8 @@
   "width": 0.4,
   "height": 0.4,
   "behaviours": [
-    "animal",
-    "termite"
+    "termite",
+    "animal"
   ],
   "lotr_classes": [
     "LOTREntityTermite",
@@ -17,6 +17,8 @@
     "EntityLivingBase"
   ],
   "behaviour_data": {
+    "explosion": 2.0,
+    "fuse": 20,
     "fights_back": 0,
     "panic_speed": 1.25,
     "state.renderer": 0
