@@ -21,7 +21,6 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.level.TicketType;
 import net.minecraft.world.level.ChunkPos;
-import net.minecraft.world.level.chunk.status.ChunkStatus;
 import net.minecraft.world.level.saveddata.SavedData;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.tick.ServerTickEvent;
@@ -48,7 +47,7 @@ public final class Pregen extends SavedData {
     private int maxInFlight = 8;
     private long done;
     // runtime only
-    private int inFlight;
+    private final it.unimi.dsi.fastutil.longs.Long2IntOpenHashMap pending = new it.unimi.dsi.fastutil.longs.Long2IntOpenHashMap();
     private final LongLinkedOpenHashSet followed = new LongLinkedOpenHashSet();
 
     public static void register() {
@@ -103,28 +102,35 @@ public final class Pregen extends SavedData {
                 p.followed.clear();
             }
         }
-        if (p.paused || p.queue.isEmpty()) {
+        if (p.paused || (p.queue.isEmpty() && p.pending.isEmpty())) {
             return;
         }
         // back off while the server is over its tick budget
         double mspt = server.getAverageTickTimeNanos() / 1_000_000.0;
         int limit = mspt > 45 ? 1 : mspt > 35 ? Math.max(1, p.maxInFlight / 4) : p.maxInFlight;
-        while (p.inFlight < limit && !p.queue.isEmpty()) {
+        // never wait on a chunk here (the server thread is what finishes it): ticket it, check on later ticks
+        var it = p.pending.long2IntEntrySet().fastIterator();
+        while (it.hasNext()) {
+            var e = it.next();
+            ChunkPos pos = new ChunkPos(e.getLongKey());
+            // shortcut: a chunk not loaded after 60 s is dropped, not retried
+            if (level.getChunkSource().getChunkNow(pos.x, pos.z) != null
+                    || server.getTickCount() - e.getIntValue() > 1200) {
+                level.getChunkSource().removeRegionTicket(TICKET, pos, 0, pos);
+                it.remove();
+                p.done++;
+            }
+        }
+        while (p.pending.size() < limit && !p.queue.isEmpty()) {
             long key = p.queue.removeFirstLong();
             ChunkPos pos = new ChunkPos(key);
-            p.inFlight++;
+            p.pending.put(key, server.getTickCount());
             level.getChunkSource().addRegionTicket(TICKET, pos, 0, pos);
-            level.getChunkSource().getChunkFuture(pos.x, pos.z, ChunkStatus.FULL, true)
-                    .whenCompleteAsync((r, e) -> {
-                        level.getChunkSource().removeRegionTicket(TICKET, pos, 0, pos);
-                        p.inFlight--;
-                        p.done++;
-                        if (p.queue.isEmpty() && p.inFlight == 0) {
-                            server.getPlayerList().broadcastSystemMessage(Component.literal(
-                                    "[Pregen] Finished: " + p.done + " chunks"), false);
-                        }
-                    }, server);
             p.setDirty();
+        }
+        if (p.queue.isEmpty() && p.pending.isEmpty()) {
+            server.getPlayerList().broadcastSystemMessage(Component.literal(
+                    "[Pregen] Finished: " + p.done + " chunks"), false);
         }
     }
 
@@ -219,7 +225,7 @@ public final class Pregen extends SavedData {
                 .then(Commands.literal("status").executes(ctx -> {
                     Pregen p = get(ctx.getSource().getServer());
                     reply(ctx, (p.paused ? "Paused" : p.queue.isEmpty() ? "Idle" : "Running") + ": "
-                            + p.queue.size() + " queued, " + p.inFlight + " generating, " + p.done
+                            + p.queue.size() + " queued, " + p.pending.size() + " generating, " + p.done
                             + " done; speed " + p.maxInFlight + "; follow players "
                             + (p.follow ? "on (" + p.followRadius + ")" : "off"));
                     return p.queue.size();
