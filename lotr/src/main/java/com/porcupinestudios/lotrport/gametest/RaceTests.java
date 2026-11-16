@@ -28,6 +28,8 @@ public final class RaceTests {
         helper.assertTrue(player.getEyeHeight() < 1.2f, "eye height " + player.getEyeHeight());
         helper.assertTrue(Races.settlerFactor(player.getUUID(), "hobbit") > 1.0, "no settler bias for hobbits");
         helper.assertTrue(Races.settlerFactor(player.getUUID(), "orc") == 1.0, "settler bias for orcs");
+        helper.assertTrue(player.getDimensions(net.minecraft.world.entity.Pose.CROUCHING).height() < 1f,
+                "crouch check sees a full-height hobbit: it would crawl in 1-block gaps");
         player.setPose(net.minecraft.world.entity.Pose.CROUCHING);
         player.refreshDimensions();
         helper.assertTrue(player.getBbHeight() < 1f, "crouching hobbit " + player.getBbHeight() + " tall: no 1-block gaps");
