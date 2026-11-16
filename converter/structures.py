@@ -322,6 +322,7 @@ class Structures:
             if s is None:
                 self.report["structure_blocks_unmapped"].append(k)
         chests = {tuple(c["pos"]): c for c in layout.get("chests", [])}
+        signs = {tuple(c["pos"]): c["lines"] for c in layout.get("signs", [])}
         by_pos = {}
         for x, y, z, p in layout["blocks"]:
             by_pos[(x, y, z)] = p
@@ -390,6 +391,9 @@ class Structures:
                     st, nbt_tag = self.container(st, items)
                     if nbt_tag is not None:
                         entry["nbt"] = nbt_tag
+            lines = signs.get((x, y, z))
+            if lines is not None and st["Name"].endswith("sign"):
+                entry["nbt"] = self.sign(st, lines)
             placed[(x, y, z)] = (st, entry)
         # Real air only where LOTR cleared space; every other spot is left out (structure void), so the natural ground
         # stays there. Below the ground layer the export already holds the air LOTR dug (cellars). Above it, a column's
@@ -441,6 +445,15 @@ class Structures:
     CHESTS = ("minecraft:chest", "minecraft:trapped_chest")
     # the side a chest's partner is on for type=left (from the front, the partner is to the chest's left)
     LEFT_OF = {"north": (1, 0), "south": (-1, 0), "west": (0, -1), "east": (0, 1)}
+
+    @staticmethod
+    def sign(st, lines):
+        """A sign's text as LOTR wrote it while building (inn names, warnings); without it every sign stood blank."""
+        def side(texts):
+            return {"messages": [json.dumps({"text": t}) for t in (texts + ["", "", "", ""])[:4]],
+                    "color": "black", "has_glowing_text": nbt.Byte(0)}
+        block = "minecraft:hanging_sign" if "hanging" in st["Name"] else "minecraft:sign"
+        return {"id": block, "front_text": side(list(lines)), "back_text": side([]), "is_waxed": nbt.Byte(0)}
 
     def pair_chests(self, placed):
         """Two chests side by side, facing the same way, are one double chest (1.7.10 joined them by placement;
