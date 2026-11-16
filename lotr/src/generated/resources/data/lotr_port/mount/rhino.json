@@ -5,6 +5,12 @@
   "armour": "rhino",
   "attack": 4.0,
   "fights_back": 1.0,
+  "charge": {
+    "sprint_speed": 0.2,
+    "min_speed": 0.32,
+    "damage_per_speed": 15.0,
+    "knockback": 0.05
+  },
   "spawn": {
     "health": {
       "mul": 1.5,

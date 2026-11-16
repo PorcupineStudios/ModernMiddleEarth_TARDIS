@@ -6,13 +6,16 @@
     "lotr_port:textures/entity/dale/dale_male/2.png"
   ],
   "skin_height": 64,
-  "health": 20.0,
-  "speed": 0.2,
-  "attack": 2.0,
   "behaviours": [
+    "man_flesh",
+    "burning_panic",
     "archer"
   ],
   "behaviour_data": {
+    "flesh_chance": 5,
+    "burn_panic_speed": 1.5,
+    "eat_chance": 8000,
+    "drink_chance": 8000,
     "ranged_speed": 1.3,
     "ranged_min": 30,
     "ranged_max": 50,
@@ -20,6 +23,9 @@
     "ranged_accuracy": 0.5,
     "ranged_swap": 0
   },
+  "health": 20.0,
+  "speed": 0.2,
+  "attack": 2.0,
   "gear": {
     "mainhand": "lotr_port:dalish_longbow",
     "head": "lotr_port:dalish_helmet",

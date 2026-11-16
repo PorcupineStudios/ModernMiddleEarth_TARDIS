@@ -291,6 +291,12 @@ public class CreatureModel extends EntityModel<LotrNpc> {
         setupAnimFor(npc, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
     }
 
+    /** The whole model in its resting pose, without LOTR's draw calls (still figures: statues, rugs). */
+    void renderRest(PoseStack pose, VertexConsumer buffer, int light, int overlay) {
+        resetPose();
+        root.render(pose, buffer, light, overlay, -1);
+    }
+
     /** Puts every part back in its resting pose. */
     void resetPose() {
         rest.forEach(ModelPart::loadPose);

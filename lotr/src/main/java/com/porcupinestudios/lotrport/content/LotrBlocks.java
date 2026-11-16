@@ -121,6 +121,32 @@ public final class LotrBlocks {
                 default -> p -> new LotrChestBlock(p, box);
             };
         }
+        SupportedBlock.Support support = SupportedBlock.of(e.get("id").getAsString());
+        if (support != null) {
+            float[] box = box(e);
+            float[] fit = box != null ? box : new float[] {2, 2, 2, 14, 16, 14}; // chandeliers come without a shape
+            return p -> new SupportedBlock(p, fit, support);
+        }
+        if (ContentData.behaviours().getAsJsonObject("pie").entrySet().stream()
+                .anyMatch(x -> x.getValue().getAsString().equals(e.get("id").getAsString()))) {
+            return PieBlock::new;
+        }
+        if (com.porcupinestudios.lotrport.drink.Vessels.isVesselBlock(e.get("id").getAsString())) {
+            float[] vbox = box(e);
+            return p -> new com.porcupinestudios.lotrport.drink.VesselBlock(p, vbox);
+        }
+        if ("beacon_of_gondor".equals(e.get("id").getAsString())) {
+            float[] bbox = box(e);
+            return p -> new GondorBeaconBlock(p, bbox);
+        }
+        if ("bookshelf_storage".equals(e.get("id").getAsString())) {
+            return com.porcupinestudios.lotrport.machine.BookshelfStorageBlock::new;
+        }
+        Hazards.Hazard hazard = Hazards.of(e.get("id").getAsString());
+        if (hazard != null) {
+            float[] box = box(e);
+            return "plant".equals(kind) ? p -> new HazardPlantBlock(p, hazard) : p -> new HazardBlock(p, box, hazard);
+        }
         if (ContentData.bool(e, "facing", false)) {
             float[] box = "shaped".equals(kind) ? box(e) : null;
             return p -> new FacingBlock(p, box);

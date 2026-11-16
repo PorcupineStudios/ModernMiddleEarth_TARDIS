@@ -9,7 +9,8 @@
   "width": 1.4,
   "height": 0.8,
   "behaviours": [
-    "spider"
+    "spider",
+    "burning_panic"
   ],
   "lotr_classes": [
     "LOTREntityMirkwoodSpider",
@@ -21,6 +22,7 @@
     "EntityLivingBase"
   ],
   "behaviour_data": {
+    "burn_panic_speed": 1.5,
     "size_min": 0,
     "size_max": 2,
     "venom": -1,

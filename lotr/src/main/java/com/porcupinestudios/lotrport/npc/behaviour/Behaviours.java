@@ -23,7 +23,30 @@ public final class Behaviours {
             Map.entry("warg", WargBehaviour::new),
             Map.entry("half_troll", HalfTrollBehaviour::new),
             Map.entry("animal", AnimalBehaviour::new),
-            Map.entry("archer", ArcherBehaviour::new));
+            Map.entry("archer", ArcherBehaviour::new),
+            Map.entry("termite", TermiteBehaviour::new),
+            Map.entry("elf_scout", ElfScoutBehaviour::new),
+            Map.entry("grape_guard", GrapeGuardBehaviour::new),
+            Map.entry("boss_jump", BossJumpBehaviour::new),
+            Map.entry("on_hit", OnHitBehaviour::new),
+            Map.entry("trail", TrailBehaviour::new),
+            Map.entry("warg_bomb", WargBombBehaviour::new),
+            Map.entry("scorpion", ScorpionBehaviour::new),
+            Map.entry("crocodile", CrocodileBehaviour::new),
+            Map.entry("prey_chase", PreyChaseBehaviour::new),
+            Map.entry("crop_eater", CropEaterBehaviour::new),
+            Map.entry("bird_thief", BirdThiefBehaviour::new),
+            Map.entry("farmhand", () -> new CreatureBehaviour() {}),
+            Map.entry("bandit", BanditBehaviour::new),
+            Map.entry("ruffian", RuffianBehaviour::new),
+            Map.entry("orc", OrcBehaviour::new),
+            Map.entry("avoid_evil", AvoidEvilBehaviour::new),
+            Map.entry("burning_panic", BurningPanicBehaviour::new),
+            Map.entry("orc_bomb", OrcBombBehaviour::new),
+            Map.entry("sneak", SneakBehaviour::new),
+            Map.entry("elf_bow", ElfBowBehaviour::new),
+            Map.entry("man_flesh", ManFleshBehaviour::new),
+            Map.entry("gandalf", GandalfBehaviour::new));
 
     private Behaviours() {}
 
@@ -34,6 +57,10 @@ public final class Behaviours {
             if (b != null) {
                 out.add(b.get());
             }
+        }
+        Map<String, Float> data = type.persona().behaviourData();
+        if (data.containsKey("eat_chance") || data.containsKey("drink_chance")) {
+            out.add(new EatDrinkBehaviour()); // LOTR's AIEat / AIDrink, wherever a type has their chances
         }
         return out;
     }

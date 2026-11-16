@@ -1,0 +1,456 @@
+{
+ "_comment": "Hand-kept: what each LOTR block needs next to it to stay put (LOTR canBlockStay). Blocks pop off when support goes.",
+ "support": {
+  "floor_or_water": [
+   "fallen_oak_leaves",
+   "fallen_spruce_leaves",
+   "fallen_birch_leaves",
+   "fallen_jungle_leaves",
+   "fallen_acacia_leaves",
+   "fallen_dark_oak_leaves",
+   "fallen_shire_pine_leaves",
+   "fallen_mallorn_leaves",
+   "fallen_mirk_oak_leaves",
+   "fallen_red_oak_leaves",
+   "fallen_apple_leaves",
+   "fallen_pear_leaves",
+   "fallen_cherry_leaves",
+   "fallen_mango_leaves",
+   "fallen_lebethron_leaves",
+   "fallen_beech_leaves",
+   "fallen_holly_leaves",
+   "fallen_banana_leaves",
+   "fallen_maple_leaves",
+   "fallen_larch_leaves",
+   "fallen_date_palm_leaves",
+   "fallen_mangrove_leaves",
+   "fallen_chestnut_leaves",
+   "fallen_baobab_leaves",
+   "fallen_cedar_leaves",
+   "fallen_fir_leaves",
+   "fallen_pine_leaves",
+   "fallen_lemon_leaves",
+   "fallen_orange_leaves",
+   "fallen_lime_leaves",
+   "fallen_mahogany_leaves",
+   "fallen_willow_leaves",
+   "fallen_cypress_leaves",
+   "fallen_olive_leaves",
+   "fallen_aspen_leaves",
+   "fallen_green_oak_leaves",
+   "fallen_laireloss_leaves",
+   "fallen_almond_leaves",
+   "fallen_plum_leaves",
+   "fallen_redwood_leaves",
+   "fallen_pomegranate_leaves",
+   "fallen_palm_leaves",
+   "fallen_dragonblood_leaves",
+   "fallen_kanuka_leaves"
+  ],
+  "floor": [
+   "thatch_flooring"
+  ],
+  "water": [
+   "marsh_lights"
+  ],
+  "hanging": [
+   "bronze_chandelier",
+   "iron_chandelier",
+   "silver_chandelier",
+   "gold_chandelier",
+   "mithril_chandelier",
+   "silver_mallorn_chandelier",
+   "wood_elven_chandelier",
+   "orc_chandelier",
+   "dwarven_chandelier",
+   "uruk_chandelier",
+   "high_elven_chandelier",
+   "blue_dwarven_chandelier",
+   "morgul_chandelier",
+   "blue_mallorn_chandelier",
+   "golden_mallorn_chandelier",
+   "green_mallorn_chandelier"
+  ],
+  "hanging_or_floor": [
+   "bronze_bird_cage",
+   "iron_bird_cage",
+   "silver_bird_cage",
+   "golden_bird_cage",
+   "wooden_bird_cage",
+   "butterfly_jar"
+  ],
+  "chain": [
+   "orc_chain"
+  ],
+  "stalactite": [
+   "stalactite",
+   "ice_stalactite",
+   "obsidian_stalactite"
+  ],
+  "stalagmite": [
+   "stalagmite",
+   "ice_stalagmite",
+   "obsidian_stalagmite"
+  ]
+ },
+ "hazard": {
+  "quagmire": [
+   "quagmire"
+  ],
+  "waste": [
+   "waste_block"
+  ],
+  "coral": [
+   "coral_reef"
+  ],
+  "thorn": [
+   "stabbing_thorn"
+  ],
+  "nettle": [
+   "thistle",
+   "nettles"
+  ],
+  "morgul": [
+   "morgul_flowers"
+  ]
+ },
+ "pie": {
+  "apple_crumble": "apple_crumble_block",
+  "banana_cake": "banana_cake_block",
+  "berry_pie": "berry_pie_block",
+  "cherry_pie": "cherry_pie_block",
+  "dalish_pastry": "dalish_pastry_block",
+  "lemon_cake": "lemon_cake_block"
+ },
+ "draught": {
+  "_comment": "LOTRItemEntDraught: drinkers below 0 Fangorn alignment are poisoned 5 s instead",
+  "green_ent_draught": {
+   "effects": [
+    {
+     "effect": "speed",
+     "seconds": 120
+    },
+    {
+     "effect": "haste",
+     "seconds": 120
+    },
+    {
+     "effect": "strength",
+     "seconds": 120
+    }
+   ]
+  },
+  "brown_ent_draught": {
+   "heal": 20,
+   "saturation": 3.0
+  },
+  "golden_ent_draught": {},
+  "yellow_ent_draught": {
+   "effects": [
+    {
+     "effect": "regeneration",
+     "seconds": 60
+    }
+   ]
+  },
+  "red_ent_draught": {
+   "effects": [
+    {
+     "effect": "fire_resistance",
+     "seconds": 180
+    }
+   ]
+  },
+  "silver_ent_draught": {
+   "effects": [
+    {
+     "effect": "night_vision",
+     "seconds": 180
+    }
+   ]
+  },
+  "blue_ent_draught": {
+   "effects": [
+    {
+     "effect": "water_breathing",
+     "seconds": 150
+    }
+   ]
+  }
+ },
+ "match": [
+  "sulfur_match"
+ ],
+ "vessel_blocks": {
+  "_comment": "LOTRBlockMug and kin: sneak + use an empty vessel or a drink on a block top to set it down",
+  "lotr_port:mug": "mug_block",
+  "lotr_port:ceramic_mug": "ceramic_mug_block",
+  "lotr_port:golden_goblet": "goblet_gold",
+  "lotr_port:silver_goblet": "goblet_silver",
+  "lotr_port:copper_goblet": "goblet_copper",
+  "lotr_port:wooden_cup": "goblet_wood",
+  "lotr_port:skull_cup": "skull_cup_block",
+  "lotr_port:wine_glass": "wine_glass_block",
+  "minecraft:glass_bottle": "glass_bottle",
+  "lotr_port:ale_horn": "ale_horn_block",
+  "lotr_port:golden_ale_horn": "ale_horn_gold"
+ },
+ "particles": {
+  "high_elven_torch": {
+   "particle": "minecraft:end_rod",
+   "chance": 0.6,
+   "y": 0.75,
+   "spread": 0.15,
+   "count": 1
+  },
+  "wood_elven_torch": {
+   "particle": "minecraft:end_rod",
+   "chance": 0.6,
+   "y": 0.75,
+   "spread": 0.15,
+   "count": 1
+  },
+  "silver_mallorn_torch": {
+   "particle": "minecraft:end_rod",
+   "chance": 0.6,
+   "y": 0.75,
+   "spread": 0.15,
+   "count": 1
+  },
+  "blue_mallorn_torch": {
+   "particle": "minecraft:end_rod",
+   "chance": 0.6,
+   "y": 0.75,
+   "spread": 0.15,
+   "count": 1
+  },
+  "golden_mallorn_torch": {
+   "particle": "minecraft:end_rod",
+   "chance": 0.6,
+   "y": 0.75,
+   "spread": 0.15,
+   "count": 1
+  },
+  "green_mallorn_torch": {
+   "particle": "minecraft:end_rod",
+   "chance": 0.6,
+   "y": 0.75,
+   "spread": 0.15,
+   "count": 1
+  },
+  "morgul_torch": {
+   "particle": "minecraft:soul_fire_flame",
+   "chance": 0.8,
+   "y": 0.75,
+   "spread": 0.1,
+   "count": 1
+  },
+  "orc_torch_block": {
+   "particle": "minecraft:flame",
+   "chance": 0.9,
+   "y": 0.95,
+   "spread": 0.1,
+   "count": 1
+  },
+  "tauredain_double_torch": {
+   "particle": "minecraft:flame",
+   "chance": 0.9,
+   "y": 0.95,
+   "spread": 0.1,
+   "count": 1
+  },
+  "iron_chandelier": {
+   "particle": "minecraft:flame",
+   "chance": 0.9,
+   "y": 0.75,
+   "spread": 0.35,
+   "count": 2
+  },
+  "orc_chandelier": {
+   "particle": "minecraft:flame",
+   "chance": 0.9,
+   "y": 0.75,
+   "spread": 0.35,
+   "count": 2
+  },
+  "gold_chandelier": {
+   "particle": "minecraft:flame",
+   "chance": 0.9,
+   "y": 0.75,
+   "spread": 0.35,
+   "count": 2
+  },
+  "mithril_chandelier": {
+   "particle": "minecraft:flame",
+   "chance": 0.9,
+   "y": 0.75,
+   "spread": 0.35,
+   "count": 2
+  },
+  "high_elven_chandelier": {
+   "particle": "minecraft:flame",
+   "chance": 0.9,
+   "y": 0.75,
+   "spread": 0.35,
+   "count": 2
+  },
+  "silver_chandelier": {
+   "particle": "minecraft:flame",
+   "chance": 0.9,
+   "y": 0.75,
+   "spread": 0.35,
+   "count": 2
+  },
+  "morgul_chandelier": {
+   "particle": "minecraft:flame",
+   "chance": 0.9,
+   "y": 0.75,
+   "spread": 0.35,
+   "count": 2
+  },
+  "bronze_chandelier": {
+   "particle": "minecraft:flame",
+   "chance": 0.9,
+   "y": 0.75,
+   "spread": 0.35,
+   "count": 2
+  },
+  "dwarven_chandelier": {
+   "particle": "minecraft:flame",
+   "chance": 0.9,
+   "y": 0.75,
+   "spread": 0.35,
+   "count": 2
+  },
+  "uruk_chandelier": {
+   "particle": "minecraft:flame",
+   "chance": 0.9,
+   "y": 0.75,
+   "spread": 0.35,
+   "count": 2
+  },
+  "blue_mallorn_chandelier": {
+   "particle": "minecraft:flame",
+   "chance": 0.9,
+   "y": 0.75,
+   "spread": 0.35,
+   "count": 2
+  },
+  "golden_mallorn_chandelier": {
+   "particle": "minecraft:flame",
+   "chance": 0.9,
+   "y": 0.75,
+   "spread": 0.35,
+   "count": 2
+  },
+  "green_mallorn_chandelier": {
+   "particle": "minecraft:flame",
+   "chance": 0.9,
+   "y": 0.75,
+   "spread": 0.35,
+   "count": 2
+  },
+  "wood_elven_chandelier": {
+   "particle": "minecraft:flame",
+   "chance": 0.9,
+   "y": 0.75,
+   "spread": 0.35,
+   "count": 2
+  },
+  "silver_mallorn_chandelier": {
+   "particle": "minecraft:flame",
+   "chance": 0.9,
+   "y": 0.75,
+   "spread": 0.35,
+   "count": 2
+  },
+  "blue_dwarven_chandelier": {
+   "particle": "minecraft:flame",
+   "chance": 0.9,
+   "y": 0.75,
+   "spread": 0.35,
+   "count": 2
+  },
+  "mallorn_leaves": {
+   "particle": "minecraft:end_rod",
+   "chance": 0.05,
+   "y": 0.0,
+   "spread": 0.5,
+   "count": 1
+  },
+  "elvengrass": {
+   "particle": "minecraft:end_rod",
+   "chance": 0.04,
+   "y": 1.1,
+   "spread": 0.5,
+   "count": 1
+  },
+  "hearth_block": {
+   "particle": "minecraft:campfire_cosy_smoke",
+   "chance": 0.15,
+   "y": 1.1,
+   "spread": 0.25,
+   "count": 1
+  },
+  "pipe_weed_plant": {
+   "particle": "minecraft:smoke",
+   "chance": 0.1,
+   "y": 0.8,
+   "spread": 0.3,
+   "count": 1
+  },
+  "corrupt_mallorn_sapling": {
+   "particle": "minecraft:smoke",
+   "chance": 0.2,
+   "y": 0.6,
+   "spread": 0.3,
+   "count": 1
+  },
+  "morgul_flowers": {
+   "particle": "minecraft:mycelium",
+   "chance": 0.3,
+   "y": 0.6,
+   "spread": 0.4,
+   "count": 1
+  }
+ },
+ "figures": {
+  "_comment": "Items that set down a still figure on LOTR's creature model (LOTRItemTrollStatue, the rugs). texture under textures/entity/",
+  "troll_statue_1": {
+   "model": "lotr_port:troll",
+   "texture": "troll/stone.png",
+   "flat": false,
+   "scale": 1.0
+  },
+  "troll_statue_2": {
+   "model": "lotr_port:troll",
+   "texture": "troll/stone.png",
+   "flat": false,
+   "scale": 1.0
+  },
+  "troll_statue_3": {
+   "model": "lotr_port:troll",
+   "texture": "troll/stone.png",
+   "flat": false,
+   "scale": 1.0
+  },
+  "wargskin_rug": {
+   "model": "lotr_port:warg",
+   "texture": "warg/black.png",
+   "flat": true,
+   "scale": 1.0
+  },
+  "lionskin_rug": {
+   "model": "lotr_port:lion",
+   "texture": "lion/lion.png",
+   "flat": true,
+   "scale": 1.0
+  },
+  "giraffeskin_rug": {
+   "model": "lotr_port:giraffe",
+   "texture": "giraffe/giraffe.png",
+   "flat": true,
+   "scale": 1.0
+  }
+ }
+}

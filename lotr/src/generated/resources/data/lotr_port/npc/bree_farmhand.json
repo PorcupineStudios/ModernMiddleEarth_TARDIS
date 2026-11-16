@@ -33,6 +33,17 @@
     "lotr_port:textures/entity/bree/bree_male/9.png"
   ],
   "skin_height": 64,
+  "behaviours": [
+    "man_flesh",
+    "farmhand",
+    "burning_panic"
+  ],
+  "behaviour_data": {
+    "flesh_chance": 5,
+    "farmhand": 1,
+    "burn_panic_speed": 1.5,
+    "drink_chance": 8000
+  },
   "health": 20.0,
   "speed": 0.2,
   "attack": 2.0,

@@ -47,7 +47,10 @@ public final class Machines {
     public static final Supplier<BlockEntityType<EntJarBlockEntity>> ENT_JAR =
             type("ent_jar", EntJarBlockEntity::new, "ent_jar");
     public static final Supplier<BlockEntityType<LotrChestBlockEntity>> CHEST =
-            type("chest", LotrChestBlockEntity::new, "chest");
+            BLOCK_ENTITIES.register("chest",
+            () -> BlockEntityType.Builder.of(LotrChestBlockEntity::new, LotrBlocks.BY_ID.values().stream()
+                    .map(java.util.function.Supplier::get).filter(b -> b instanceof LotrChestBlock)
+                    .toArray(Block[]::new)).build(null));
 
     public static final Supplier<MenuType<MachineMenu>> FORGE_MENU = menu(MachineMenu.Layout.FORGE);
     public static final Supplier<MenuType<MachineMenu>> OVEN_MENU = menu(MachineMenu.Layout.OVEN);
