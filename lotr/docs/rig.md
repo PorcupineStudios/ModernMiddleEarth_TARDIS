@@ -30,17 +30,27 @@ feet keep up), `sways`, `chains` (bones that lag behind turns), `parts`, `scale`
 the size, e.g. `getSpiderScaleAmount`), `hide` (below).
 
 ## Hiding as blocks (stone giants)
-`hide`: `block`, `blocks` (whole-block offsets from the feet, rig axes), `wake` (6), `settle` (100 ticks). Server
-(`RiggedNpc.hideTick`): no target within `wake` and not hurt for `settle` ticks -> snaps to the block centre and a quarter
-turn, stops, state `rig_hidden` 1 (synced, saved). A near target or a hit wakes it. Hidden: part hitboxes off (only the
-entity box), not pushable; the client draws the blocks with `renderSingleBlock` (`RigRenderer.drawHidden`) and throws
-block dust when it changes. Like huorns: the AI may target from further away, it just stays hidden until `wake`.
+`hide`: `block` (default stone), `wake` (6), `settle` (100 ticks), `ticks` (40, the whole change), `drop` (model px
+the body sinks), `pose` (bone -> extra rotation, degrees like a bone's), optional `blocks` (hand-written cells).
+- Server (`RiggedNpc.hideTick`): no target within `wake` and not hurt for `settle` ticks -> snaps to the block centre
+  and a quarter turn, state `rig_hidden` 1 (synced, saved). A near target or a hit sets it 0. Both sides step
+  `hideNow` 0..1 by 1/`ticks` from that state; while it is above 0 the creature holds still (also while getting up).
+- Pose (`RigPose`, `Body.hide` = eased share of the first `CROUCH` 0.8): sinks by `drop`, slerps bones to `pose`,
+  fades look, sways and chain lag; the feet stay planted so IK kneels it.
+- Blocks (`RigVoxels`, pure, cached per skeleton, also used server side for the hidden hitbox height): the boxes in the
+  full hide pose on flat ground, 27 samples a cell, filled at 40%; each cell takes the `block` of the box most samples
+  hit. Cells are in the drawing frame (feet on a block centre, quarter turn), so they land on the world grid.
+- Client (`RigRenderer`): over the last 20% the blocks grow from 55% to full size inside the crouched body, then only
+  the blocks draw (`drawVoxels`, `renderSingleBlock`). Dust when it settles or breaks out. Hidden: no part hitboxes,
+  not pushable, entity box as tall as the pile.
+- Boxes with `block` draw that block's texture tiled at real block size (`tiledCube`, block atlas, particle sprite), so
+  the stone giant's body and its pile look the same; textured boxes (its eyes) still use the skin.
 
 ## Models
 Spider is LOTR's model. Mûmak, stone giant and dragon are our own (Aaron 2026-11-16, references only):
 `converter/rig_models.py` writes their rig JSON and painted textures (`textures/entity/rig/<name>.png`). NPC types
 `data/lotr_port/npc/{mumak,stone_giant,dragon}.json` are hand-written (not in `src/generated`); their `model` is only
-a fallback when the rig is missing. Offline viewer (not in the repo): dump posed boxes from RigState/RigPose and draw
+a fallback when the rig is missing. Offline viewer (not in the repo; it also draws the crouch and the block pile): dump posed boxes from RigState/RigPose and draw
 side/iso/top views, rest/walking/slope.
 
 ## Tests
@@ -49,6 +59,7 @@ lag, and every shipped rig file parses and walks without NaNs. They also run out
 
 ## Status
 - 2026-11-16: core, spider rig (LOTR's spider model, legs split at the knee); mûmak, stone giant (hides as stone),
-  dragon (walks only). Compiled on the PC, RigTest green; not yet seen in game. No natural spawns yet (`/lotr npc spawn`).
+  dragon (walks only). Stone giant remodelled after Aaron's film reference (stone block textures, pile =
+  its own shape, crouch transition), 2026-11-16. Compiled on the PC, RigTest green; not yet seen in game. No natural spawns yet (`/lotr npc spawn`).
 - Not yet: wall climbing for spiders (legs keep looking for ground below), FABRIK for 3+ bone legs, riding seats,
   players carried on solid parts, dragon flight, spawn lists for the new creatures.

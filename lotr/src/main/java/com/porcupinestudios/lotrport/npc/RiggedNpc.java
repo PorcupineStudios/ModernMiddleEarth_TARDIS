@@ -48,6 +48,8 @@ public class RiggedNpc extends LotrNpc {
     /** Ticks since it last had something to fight (server; hiding creatures hide again after the rig's settle). */
     private int idle;
     private boolean wasHidden;
+    private float hideNow;
+    private float hidePrev;
 
     /** A foot landing, for the client's effects. */
     public record Footfall(RiggedNpc npc, int leg, double x, double y, double z, float heavy, float scale) {}
@@ -145,6 +147,8 @@ public class RiggedNpc extends LotrNpc {
         b.headYaw = Mth.wrapDegrees(Mth.rotLerp(partial, yHeadRotO, yHeadRot) - b.yaw);
         b.headPitch = getViewXRot(partial);
         b.age = tickCount + partial;
+        float u = hideProgress(partial);
+        b.hide = u <= 0 ? 0 : smooth(Math.min(1, u / CROUCH));
         b.airborne = !onGround() && !isInWater() && !onClimbable() && getDeltaMovement().y < -0.2;
         return b;
     }
@@ -165,7 +169,7 @@ public class RiggedNpc extends LotrNpc {
         if (!isAlive() || sk.parts.length == 0) {
             return;
         }
-        if (hidden()) { // a pile of blocks: only the body's own box can be hit
+        if (asBlocks()) { // a pile of blocks: only the body's own box can be hit
             for (int i = 0; i < sk.parts.length && i < MAX_PARTS; i++) {
                 parts[i].configure(false, sk.parts[i].name(), 0.1f, 0.1f, 0, false);
                 parts[i].follow(getX(), getY(), getZ());
@@ -183,20 +187,44 @@ public class RiggedNpc extends LotrNpc {
         }
     }
 
-    /** Whether it is hiding as blocks now (synced state {@code rig_hidden}). */
+    /** Whether it wants to be hidden (synced state {@code rig_hidden}); see {@link #hideProgress}. */
     public boolean hidden() {
         return state("rig_hidden") > 0.5f;
     }
 
+    /** How far into hiding, 0 standing to 1 a pile of blocks, interpolated; both sides step it the same way. */
+    public float hideProgress(float partial) {
+        return Mth.lerp(partial, hidePrev, hideNow);
+    }
+
+    /** Fully hidden: drawn only as blocks, no part hitboxes. */
+    public boolean asBlocks() {
+        return hideNow >= 1f;
+    }
+
+    /** The share of the hide that is the crouch (the rest is the settle into blocks). */
+    public static final float CROUCH = 0.8f;
+
     /**
      * Stone giants hiding as rocks, like huorns as trees: with no target within {@code wake} and nothing hurting it for
-     * {@code settle} ticks it stops on the block grid, a quarter turn, and draws as blocks; a target near or a hit wakes
-     * it. On the client a change throws up dust of the hiding block.
+     * {@code settle} ticks it stops on the block grid, a quarter turn, and over {@code ticks} crouches into its hide
+     * pose and settles into blocks; a target near or a hit wakes it the same way back. It doesn't move until it is
+     * fully up again.
      */
     private void hideTick(RigDef.Hide hide) {
+        if (tickCount <= 1 && hidden()) { // loaded or first seen hidden: already a pile
+            hideNow = 1;
+        }
+        hidePrev = hideNow;
+        float step = 1f / Math.max(1, hide.ticks());
+        boolean blocksBefore = hideNow >= 1;
+        hideNow = hidden() ? Math.min(1, hideNow + step) : Math.max(0, hideNow - step);
+        if (blocksBefore != (hideNow >= 1)) {
+            refreshDimensions(); // a pile is lower than the creature standing
+        }
         if (level().isClientSide) {
-            boolean h = hidden();
-            if (h != wasHidden && tickCount > 1) {
+            boolean settled = hideNow >= CROUCH;
+            if (settled != wasHidden && tickCount > 1) { // dust as it turns to blocks or breaks out of them
                 BlockState s = hideBlock(hide);
                 double r = getBbWidth() * 0.6;
                 for (int i = 0; i < 40; i++) {
@@ -206,7 +234,7 @@ public class RiggedNpc extends LotrNpc {
                             getZ() + (random.nextDouble() - 0.5) * 2 * r, 0, 0.1, 0);
                 }
             }
-            wasHidden = h;
+            wasHidden = settled;
             return;
         }
         LivingEntity target = getTarget();
@@ -215,36 +243,41 @@ public class RiggedNpc extends LotrNpc {
         if (near || hurtLately) {
             idle = 0;
             setState("rig_hidden", 0f);
-            return;
+        } else {
+            if (target == null || !target.isAlive()) {
+                idle++;
+            }
+            if (!hidden() && idle >= hide.settle() && onGround() && hideNow <= 0) {
+                float yaw = Math.round(getYRot() / 90f) * 90f;
+                moveTo(Mth.floor(getX()) + 0.5, getY(), Mth.floor(getZ()) + 0.5, yaw, 0);
+                setYBodyRot(yaw);
+                yBodyRotO = yaw;
+                setYHeadRot(yaw);
+                setState("rig_hidden", 1f);
+            }
         }
-        if (target == null || !target.isAlive()) {
-            idle++;
-        }
-        boolean hide2 = hidden() || idle >= hide.settle() && onGround();
-        if (!hide2) {
-            return;
-        }
-        if (!hidden()) {
+        if (hidden() || hideNow > 0) { // hiding, hidden or getting up: hold still, square to the grid
+            getNavigation().stop();
+            setDeltaMovement(new net.minecraft.world.phys.Vec3(0, getDeltaMovement().y, 0));
             float yaw = Math.round(getYRot() / 90f) * 90f;
-            moveTo(Mth.floor(getX()) + 0.5, getY(), Mth.floor(getZ()) + 0.5, yaw, 0);
+            setYRot(yaw);
             setYBodyRot(yaw);
-            setYHeadRot(yaw);
             yBodyRotO = yaw;
-            setState("rig_hidden", 1f);
+            setYHeadRot(yaw);
+            yHeadRotO = yaw;
         }
-        getNavigation().stop();
-        setDeltaMovement(new net.minecraft.world.phys.Vec3(0, getDeltaMovement().y, 0));
-        float yaw = Math.round(getYRot() / 90f) * 90f;
-        setYRot(yaw);
-        setYBodyRot(yaw);
-        setYHeadRot(yaw);
     }
 
     /** The block a hiding creature looks like (stone if the rig names an unknown one). */
     public static BlockState hideBlock(RigDef.Hide hide) {
-        net.minecraft.resources.ResourceLocation id = net.minecraft.resources.ResourceLocation.tryParse(hide.block());
-        return id == null ? net.minecraft.world.level.block.Blocks.STONE.defaultBlockState()
-                : net.minecraft.core.registries.BuiltInRegistries.BLOCK.getOptional(id)
+        return block(hide.block());
+    }
+
+    /** A block by id; stone if there is none of that name. */
+    public static BlockState block(String id) {
+        net.minecraft.resources.ResourceLocation rl = net.minecraft.resources.ResourceLocation.tryParse(id);
+        return rl == null ? net.minecraft.world.level.block.Blocks.STONE.defaultBlockState()
+                : net.minecraft.core.registries.BuiltInRegistries.BLOCK.getOptional(rl)
                         .orElse(net.minecraft.world.level.block.Blocks.STONE).defaultBlockState();
     }
 
@@ -301,9 +334,13 @@ public class RiggedNpc extends LotrNpc {
         return hurt(source, amount);
     }
 
+    private static float smooth(float t) {
+        return t * t * (3 - 2 * t);
+    }
+
     @Override
     public boolean isPushable() {
-        return !hidden() && super.isPushable();
+        return hideNow <= 0 && super.isPushable();
     }
 
     @Override
@@ -319,7 +356,18 @@ public class RiggedNpc extends LotrNpc {
             return d;
         }
         RigSkeleton sk = skeleton();
-        return sk == null ? d : d.scale(sk.def.scale());
+        if (sk == null) {
+            return d;
+        }
+        d = d.scale(sk.def.scale());
+        if (hideNow >= 1 && sk.voxels().cells.length > 0) {
+            int top = 0;
+            for (int[] c : sk.voxels().cells) {
+                top = Math.max(top, c[1] + 1);
+            }
+            d = net.minecraft.world.entity.EntityDimensions.scalable(d.width(), Math.min(d.height(), top));
+        }
+        return d;
     }
 
     @Override

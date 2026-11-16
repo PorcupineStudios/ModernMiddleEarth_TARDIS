@@ -37,6 +37,8 @@ public final class RigState {
         public float headYaw;
         public float headPitch;
         public float age;
+        /** How far into hiding (0 up, 1 crouched into its rock pose), eased. */
+        public float hide;
         /** Off the ground (flying, falling, swimming): feet hang instead of stepping. */
         public boolean airborne;
     }

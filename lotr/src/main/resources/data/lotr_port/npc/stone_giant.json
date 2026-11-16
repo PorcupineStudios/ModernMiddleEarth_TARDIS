@@ -5,8 +5,8 @@
   ],
   "skin_height": 256,
   "model": "lotr_port:troll",
-  "width": 0.6,
-  "height": 1.1,
+  "width": 0.75,
+  "height": 3.3,
   "behaviours": [],
   "sounds": {
     "ambient": "minecraft:entity.iron_golem.step",
@@ -14,7 +14,7 @@
     "death": "minecraft:entity.iron_golem.death",
     "attack": "minecraft:entity.iron_golem.attack"
   },
-  "health": 160,
-  "speed": 0.2,
-  "attack": 16
+  "health": 220,
+  "speed": 0.18,
+  "attack": 18
 }
