@@ -131,6 +131,10 @@ public final class LotrBlocks {
                 .anyMatch(x -> x.getValue().getAsString().equals(e.get("id").getAsString()))) {
             return PieBlock::new;
         }
+        if (com.porcupinestudios.lotrport.drink.Vessels.isVesselBlock(e.get("id").getAsString())) {
+            float[] vbox = box(e);
+            return p -> new com.porcupinestudios.lotrport.drink.VesselBlock(p, vbox);
+        }
         Hazards.Hazard hazard = Hazards.of(e.get("id").getAsString());
         if (hazard != null) {
             float[] box = box(e);
