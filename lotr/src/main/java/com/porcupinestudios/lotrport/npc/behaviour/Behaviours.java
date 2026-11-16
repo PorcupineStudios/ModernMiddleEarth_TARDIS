@@ -27,7 +27,11 @@ public final class Behaviours {
             Map.entry("termite", TermiteBehaviour::new),
             Map.entry("elf_scout", ElfScoutBehaviour::new),
             Map.entry("grape_guard", GrapeGuardBehaviour::new),
-            Map.entry("boss_jump", BossJumpBehaviour::new));
+            Map.entry("boss_jump", BossJumpBehaviour::new),
+            Map.entry("on_hit", OnHitBehaviour::new),
+            Map.entry("trail", TrailBehaviour::new),
+            Map.entry("warg_bomb", WargBombBehaviour::new),
+            Map.entry("scorpion", ScorpionBehaviour::new));
 
     private Behaviours() {}
 

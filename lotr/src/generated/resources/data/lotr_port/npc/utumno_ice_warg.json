@@ -8,7 +8,8 @@
   "width": 1.5,
   "height": 1.7,
   "behaviours": [
-    "warg"
+    "warg",
+    "on_hit"
   ],
   "lotr_classes": [
     "LOTREntityUtumnoIceWarg",
@@ -21,6 +22,9 @@
     "EntityLivingBase"
   ],
   "behaviour_data": {
+    "frost": 1,
+    "slow_d2": 0.5,
+    "slow_d": 2.5,
     "state.renderer": 0
   },
   "sounds": {

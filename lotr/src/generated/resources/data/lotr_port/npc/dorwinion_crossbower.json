@@ -7,14 +7,13 @@
     "lotr_port:textures/entity/dorwinion/dorwinion_male/3.png"
   ],
   "skin_height": 64,
-  "health": 20.0,
-  "speed": 0.2,
-  "attack": 2.0,
   "behaviours": [
-    "archer",
-    "grape_guard"
+    "grape_guard",
+    "archer"
   ],
   "behaviour_data": {
+    "range": 32,
+    "alert_ticks": 600,
     "ranged_speed": 1.25,
     "ranged_min": 30,
     "ranged_max": 50,
@@ -22,6 +21,9 @@
     "ranged_accuracy": 1.0,
     "ranged_swap": 0
   },
+  "health": 20.0,
+  "speed": 0.2,
+  "attack": 2.0,
   "gear": {
     "mainhand": "lotr_port:iron_crossbow",
     "head": "lotr_port:dorwinion_helmet",
