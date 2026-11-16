@@ -21,6 +21,7 @@ import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.LivingEntityRenderer;
+import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
@@ -67,6 +68,10 @@ public final class RigRenderer {
             return false;
         }
         RigState.Body body = npc.body(partial);
+        if (npc.hidden() && sk.def.hide().isPresent()) {
+            drawHidden(npc, sk.def.hide().get(), body.yaw, stack, buffers, light);
+            return true;
+        }
         double dist = Minecraft.getInstance().gameRenderer.getMainCamera().getPosition()
                 .distanceToSqr(body.x, body.y, body.z);
         boolean ik = npc.isAlive() && dist < IK_RANGE * IK_RANGE;
@@ -96,6 +101,25 @@ public final class RigRenderer {
         }
         stack.popPose();
         return true;
+    }
+
+    /** A hiding creature: its pile of blocks, on the block grid (it stands on a block centre, a quarter turn). */
+    private static void drawHidden(RiggedNpc npc, RigDef.Hide hide, float yaw, PoseStack stack,
+            MultiBufferSource buffers, int light) {
+        BlockState block = RiggedNpc.hideBlock(hide);
+        var blocks = Minecraft.getInstance().getBlockRenderer();
+        stack.pushPose();
+        stack.mulPose(Axis.YP.rotationDegrees(-Math.round(yaw / 90f) * 90f));
+        for (List<Integer> b : hide.blocks()) {
+            if (b.size() < 3) {
+                continue;
+            }
+            stack.pushPose();
+            stack.translate(b.get(0) - 0.5, b.get(1), b.get(2) - 0.5);
+            blocks.renderSingleBlock(block, stack, buffers, light, OverlayTexture.NO_OVERLAY);
+            stack.popPose();
+        }
+        stack.popPose();
     }
 
     /** One model part per bone holding its boxes (relative to the bone pivot, as written). */

@@ -99,10 +99,12 @@ public record RigDef(List<String> npcTypes, List<Integer> texture, float scale, 
      * @param bodySpring how fast body height and tilt follow the feet (0..1 per tick)
      * @param heavy camera shake and dust on each footfall (0 = none; 1 = a mumak)
      * @param stomp damage to small creatures under a landing foot (0 = none)
+     * @param overlap how far through its step a group must be before the next group may lift (1 = never two groups
+     *        off the ground at once; 0.5 = an elephant's overlapping walk)
      */
     public record Gait(float stepDistance, int stepTicks, float stepHeight, float lead, float reachUp,
-            float reachDown, float maxTilt, float bodySpring, float heavy, float stomp) {
-        public static final Gait DEFAULT = new Gait(0.6f, 5, 0.25f, 3f, 0.6f, 1.2f, 20f, 0.35f, 0f, 0f);
+            float reachDown, float maxTilt, float bodySpring, float heavy, float stomp, float overlap) {
+        public static final Gait DEFAULT = new Gait(0.6f, 5, 0.25f, 3f, 0.6f, 1.2f, 20f, 0.35f, 0f, 0f, 1f);
         public static final Codec<Gait> CODEC = RecordCodecBuilder.create(i -> i.group(
                 Codec.FLOAT.optionalFieldOf("step_distance", DEFAULT.stepDistance).forGetter(Gait::stepDistance),
                 Codec.INT.optionalFieldOf("step_ticks", DEFAULT.stepTicks).forGetter(Gait::stepTicks),
@@ -113,7 +115,8 @@ public record RigDef(List<String> npcTypes, List<Integer> texture, float scale, 
                 Codec.FLOAT.optionalFieldOf("max_tilt", DEFAULT.maxTilt).forGetter(Gait::maxTilt),
                 Codec.FLOAT.optionalFieldOf("body_spring", DEFAULT.bodySpring).forGetter(Gait::bodySpring),
                 Codec.FLOAT.optionalFieldOf("heavy", DEFAULT.heavy).forGetter(Gait::heavy),
-                Codec.FLOAT.optionalFieldOf("stomp", DEFAULT.stomp).forGetter(Gait::stomp))
+                Codec.FLOAT.optionalFieldOf("stomp", DEFAULT.stomp).forGetter(Gait::stomp),
+                Codec.FLOAT.optionalFieldOf("overlap", DEFAULT.overlap).forGetter(Gait::overlap))
                 .apply(i, Gait::new));
     }
 
@@ -165,13 +168,15 @@ public record RigDef(List<String> npcTypes, List<Integer> texture, float scale, 
     /**
      * Hiding as blocks (stone giants): while hidden it stands still, snapped to the block grid and turned to a
      * quarter turn, and draws as {@code block} instead of its body, in the shape of its {@code blocks} (offsets from its
-     * feet, model pixels / 16 rounded to whole blocks). It wakes when a target comes within {@code wake} blocks.
+     * feet, model pixels / 16 rounded to whole blocks). It wakes when a target comes within {@code wake} blocks or it
+     * is hurt, and hides again after {@code settle} ticks with nothing to fight.
      */
-    public record Hide(String block, List<List<Integer>> blocks, float wake) {
+    public record Hide(String block, List<List<Integer>> blocks, float wake, int settle) {
         public static final Codec<Hide> CODEC = RecordCodecBuilder.create(i -> i.group(
                 Codec.STRING.fieldOf("block").forGetter(Hide::block),
                 Codec.INT.listOf().listOf().fieldOf("blocks").forGetter(Hide::blocks),
-                Codec.FLOAT.optionalFieldOf("wake", 6f).forGetter(Hide::wake))
+                Codec.FLOAT.optionalFieldOf("wake", 6f).forGetter(Hide::wake),
+                Codec.INT.optionalFieldOf("settle", 100).forGetter(Hide::settle))
                 .apply(i, Hide::new));
     }
 
