@@ -243,6 +243,7 @@ class Mounts:
             breeds.append(out)
             self.gen.lang["en_us"][f"entity.{NS}.{b['id']}"] = b["name"]
             counts["mount_breeds"] += 1
+        self.gen.lang["en_us"][f"entity.{NS}.figure"] = "Figure"  # statues and rugs (content/figure)
         models.write_all()
         for tag, biomes in BOOST_BIOMES.items():
             write_json(os.path.join(self.data, NS, "tags", "worldgen", "biome", tag + ".json"),

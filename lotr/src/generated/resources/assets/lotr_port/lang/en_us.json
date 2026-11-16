@@ -1643,6 +1643,7 @@
   "container.lotr_port.keg.start_brewing": "Start Brewing",
   "container.lotr_port.keg.stop_brewing": "Stop Brewing",
   "entity.lotr_port.camel": "Camel",
+  "entity.lotr_port.figure": "Figure",
   "entity.lotr_port.elk": "Elk",
   "entity.lotr_port.giraffe": "Giraffe",
   "entity.lotr_port.horse": "Horse",

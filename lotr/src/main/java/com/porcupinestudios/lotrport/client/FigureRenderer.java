@@ -34,11 +34,7 @@ public class FigureRenderer extends EntityRenderer<Figure> {
         pose.scale(-1f, -1f, 1f); // a living renderer's model frame
         pose.translate(0, -1.501, 0);
         var buffer = buffers.getBuffer(RenderType.entityCutoutNoCull(getTextureLocation(figure)));
-        try {
-            model.renderToBuffer(pose, buffer, light, OverlayTexture.NO_OVERLAY, -1);
-        } catch (RuntimeException e) {
-            // the model's draw conditions may ask for an NPC; a figure has none, so it simply isn't drawn
-        }
+        model.renderRest(pose, buffer, light, OverlayTexture.NO_OVERLAY);
         pose.popPose();
         super.render(figure, yaw, partialTick, pose, buffers, light);
     }
