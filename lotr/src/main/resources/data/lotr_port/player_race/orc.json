@@ -1,0 +1,1 @@
+{"name":"Orc","description":"Stooped servants of the Enemy. Keeps your own skin: LOTR orc skins are the old 64x32 layout.","scale":0.861,"attributes":{"minecraft:generic.attack_damage":0.5},"factions":["lotr_port:mordor","lotr_port:gundabad","lotr_port:angmar"],"order":4}

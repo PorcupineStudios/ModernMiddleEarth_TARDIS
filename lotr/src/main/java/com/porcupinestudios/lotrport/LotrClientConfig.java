@@ -30,6 +30,10 @@ public final class LotrClientConfig {
             .comment("LOTR's attack meter (bottom right) while your melee wait runs.")
             .define("hud.attackMeter", true);
 
+    public static final ModConfigSpec.BooleanValue RACE_SKINS = BUILDER
+            .comment("Draw players with their race's skin (player_race files) instead of their own.")
+            .define("race.skins", true);
+
     public static final ModConfigSpec.BooleanValue ATMOSPHERE = BUILDER
             .comment("Region looks (fog and colour filters per biome, assets/<ns>/atmosphere/*.json).")
             .define("atmosphere.enabled", true);

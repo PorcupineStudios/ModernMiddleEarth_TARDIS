@@ -109,6 +109,7 @@ public final class LotrPort {
         com.porcupinestudios.lotrport.colonist.Colonists.register();
         com.porcupinestudios.lotrport.colony.ui.ColonyViews.register();
         AlignmentHud.register();
+        com.porcupinestudios.lotrport.player.Races.register(modBus);
         AttackTiming.register();
         ColonyItems.register(modBus);
         ColonyData.register();
@@ -153,6 +154,7 @@ public final class LotrPort {
             com.porcupinestudios.lotrport.progress.Cosmetics.registerCommands(event.getDispatcher());
             com.porcupinestudios.lotrport.progress.Calendar.registerCommands(event.getDispatcher());
             AlignmentHud.registerCommands(event.getDispatcher());
+            com.porcupinestudios.lotrport.player.Races.registerCommands(event.getDispatcher());
         });
     }
 
