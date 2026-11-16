@@ -65,9 +65,15 @@ public final class Races {
      * @param skin texture drawn on the player in place of their own skin (64x64 layout), if any
      * @param factions peoples of this race, shown in the picker (not enforced)
      * @param order place in the picker, lowest first
+     * @param alignment alignment given per faction when the race is first chosen
+     * @param spawn waypoint the player is sent to (and respawns at) when the race is first chosen
+     * @param colonyRace colonist race (colony_race names) this race counts as; default: this race's id path
+     * @param settlerBias settler weight multiplier for that colonist race in colonies the player founded
      */
     public record Def(String name, String description, double scale, Map<ResourceLocation, Double> attributes,
-            Optional<ResourceLocation> skin, List<ResourceLocation> factions, int order) {
+            Optional<ResourceLocation> skin, List<ResourceLocation> factions, int order,
+            Map<ResourceLocation, Float> alignment, Optional<ResourceLocation> spawn, Optional<String> colonyRace,
+            double settlerBias) {
         public static final Codec<Def> CODEC = RecordCodecBuilder.create(i -> i.group(
                 Codec.STRING.fieldOf("name").forGetter(Def::name),
                 Codec.STRING.optionalFieldOf("description", "").forGetter(Def::description),
@@ -76,7 +82,12 @@ public final class Races {
                         .forGetter(Def::attributes),
                 ResourceLocation.CODEC.optionalFieldOf("skin").forGetter(Def::skin),
                 ResourceLocation.CODEC.listOf().optionalFieldOf("factions", List.of()).forGetter(Def::factions),
-                Codec.INT.optionalFieldOf("order", 0).forGetter(Def::order))
+                Codec.INT.optionalFieldOf("order", 0).forGetter(Def::order),
+                Codec.unboundedMap(ResourceLocation.CODEC, Codec.FLOAT).optionalFieldOf("alignment", Map.of())
+                        .forGetter(Def::alignment),
+                ResourceLocation.CODEC.optionalFieldOf("spawn").forGetter(Def::spawn),
+                Codec.STRING.optionalFieldOf("colony_race").forGetter(Def::colonyRace),
+                Codec.doubleRange(0, 100).optionalFieldOf("settler_bias", 1.15).forGetter(Def::settlerBias))
                 .apply(i, Def::new));
     }
 
@@ -113,6 +124,35 @@ public final class Races {
         player.setData(LotrRegistries.RACE, race == null ? "" : race.toString());
         apply(player);
         sendToAll(player, skinOf(player));
+    }
+
+    /** A first race's starting alignment and home: alignment added per faction, then off to its waypoint. */
+    private static void start(ServerPlayer player, Def def) {
+        def.alignment().forEach((faction, amount) -> com.porcupinestudios.lotrport.faction.Alignment.add(player,
+                faction, amount));
+        def.spawn().flatMap(com.porcupinestudios.lotrport.travel.FastTravel::waypoint).ifPresent(w -> {
+            ServerLevel me = LotrDimensions.middleEarth(player.server);
+            net.minecraft.core.BlockPos pos = LotrDimensions.surface(me, w.x(), w.z());
+            player.teleportTo(me, pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5, player.getYRot(), player.getXRot());
+            player.setRespawnPosition(me.dimension(), pos, 0f, true, false);
+        });
+    }
+
+    /**
+     * How much more likely a settler of colonist race {@code colonistRace} is in a colony this player founded: the
+     * founder race's {@code settler_bias} if it counts as that race, else 1.
+     * shortcut: reads the founder only while online (offline founders give 1); store the race on the colony if that matters.
+     */
+    public static double settlerFactor(java.util.UUID founder, String colonistRace) {
+        var server = net.neoforged.neoforge.server.ServerLifecycleHooks.getCurrentServer();
+        ServerPlayer p = server == null ? null : server.getPlayerList().getPlayer(founder);
+        if (p == null) {
+            return 1.0;
+        }
+        return of(p).map(id -> {
+            Def d = all().get(id);
+            return d.colonyRace().orElse(id.getPath()).equals(colonistRace) ? d.settlerBias() : 1.0;
+        }).orElse(1.0);
     }
 
     private static void joined(net.minecraft.world.entity.player.Player p) {
@@ -233,7 +273,11 @@ public final class Races {
             if (!"choose".equals(action) || id == null || !all().containsKey(id) || !mayPick(player)) {
                 return Result.NONE;
             }
+            boolean first = of(player).isEmpty();
             set(player, id);
+            if (first) {
+                start(player, all().get(id));
+            }
             return Result.say(Component.translatableWithFallback("ui.lotr_port.race_picker.chosen", "You are now: %s",
                     name(id, all().get(id))));
         }
