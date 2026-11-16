@@ -176,7 +176,7 @@ public final class Flight {
     private static Outcome land(MinecraftServer server, TardisRecord tardis, GlobalPos from, ServerLevel level,
             ServerLevel toLevel, BlockPos target, long charge, ResourceLocation history, Optional<Direction> turn) {
         Tuning.Hop t = TardisContent.tuning().hop();
-        Doors.close(server, tardis); // the doors shut before it moves
+        boolean doorsOpen = Doors.takeOff(server, tardis); // open doors stay open while it fades
         boolean loose = FreeFlight.isLoose(tardis);
         // so the old spot doesn't block the search (a loose box has no block to lift)
         Direction facing = loose ? FreeFlight.facing(server, tardis) : Exteriors.lift(level, from.pos());
@@ -188,7 +188,7 @@ public final class Flight {
             return Outcome.fail("tardis_rb.hop.no_space", "There is nowhere to land near there");
         }
         if (!loose && !from.dimension().equals(Vortex.DIMENSION)) {
-            Materialise.fadeOut(level, from.pos(), facing, tardis);
+            Materialise.fadeOut(level, from.pos(), facing, tardis, doorsOpen);
         }
         FreeFlight.dock(server, tardis); // a loose box dematerialises and lands as a block
         JumpEvent.Land land = NeoForge.EVENT_BUS.post(new JumpEvent.Land(tardis, from,

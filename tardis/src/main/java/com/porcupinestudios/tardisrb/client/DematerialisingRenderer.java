@@ -18,11 +18,16 @@ public final class DematerialisingRenderer extends EntityRenderer<Dematerialisin
     @Override
     public void render(Dematerialising ghost, float yaw, float partialTick, PoseStack pose, MultiBufferSource buffers,
             int light) {
+        // seen from the console room through its open doorway: the doorway's view starts inside this box
+        if (ExteriorRenderer.viewedFromInside(new net.minecraft.world.phys.AABB(ghost.blockPosition())
+                .expandTowards(0, 1, 0))) {
+            return;
+        }
         PoliceBoxModel model = PoliceBoxModel.get();
         int look = Math.max(0, Math.min(ExteriorRenderer.LOOKS.length - 1, ghost.look()));
         pose.pushPose();
         pose.mulPose(Axis.YP.rotationDegrees(180 - ghost.getYRot()));
-        ExteriorRenderer.drawBox(model, look, 0, Materialise.alpha(ghost.progress(partialTick), true), pose, buffers,
+        ExteriorRenderer.drawBox(model, look, ghost.doorsOpen() ? model.swingDegrees : 0, Materialise.alpha(ghost.progress(partialTick), true), pose, buffers,
                 light);
         pose.popPose();
     }
