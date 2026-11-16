@@ -59,6 +59,8 @@ public final class MachineRenderers {
         event.registerBlockEntityRenderer(Machines.KEBAB_STAND.get(), c -> new Kebab());
         event.registerBlockEntityRenderer(Machines.UNSMELTERY.get(), c -> new Unsmeltery());
         event.registerBlockEntityRenderer(Machines.CHEST.get(), c -> new Chest());
+        event.registerBlockEntityRenderer(com.porcupinestudios.lotrport.drink.Vessels.BLOCK_ENTITY.get(),
+                c -> new VesselRenderer());
     }
 
     /** One of LOTR's block models, static (its animation and render passes left out). */
