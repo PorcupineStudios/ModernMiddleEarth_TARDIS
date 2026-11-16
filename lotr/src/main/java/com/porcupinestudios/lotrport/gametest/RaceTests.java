@@ -26,6 +26,8 @@ public final class RaceTests {
         helper.assertTrue(Math.abs(player.getScale() - 0.667f) < 0.01f, "hobbit scale " + player.getScale());
         helper.assertTrue(player.getAttributeValue(Attributes.BLOCK_INTERACTION_RANGE) < reach, "reach not shorter");
         helper.assertTrue(player.getEyeHeight() < 1.2f, "eye height " + player.getEyeHeight());
+        helper.assertTrue(Races.settlerFactor(player.getUUID(), "hobbit") > 1.0, "no settler bias for hobbits");
+        helper.assertTrue(Races.settlerFactor(player.getUUID(), "orc") == 1.0, "settler bias for orcs");
         player.setData(LotrRegistries.RACE, "lotr_port:man");
         Races.apply(player); // switching race removes the hobbit's modifiers
         helper.assertTrue(player.getScale() == 1f, "man scale " + player.getScale());
