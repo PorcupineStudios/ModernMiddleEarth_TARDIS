@@ -207,4 +207,20 @@ public final class MiddleEarthTests {
                 && pic.maxZ() == planet.maxZ(), "the globe's picture doesn't cover exactly the planet: " + pic);
         helper.succeed();
     }
+
+    /** Aaron 2026-11-16: you go up into Middle-earth's orbit layer at y=500 (its sky link, read by the TARDIS mod). */
+    @GameTest(template = EMPTY)
+    public static void spaceStartsAt500(GameTestHelper helper) {
+        var res = helper.getLevel().getServer().getResourceManager().getResource(
+                net.minecraft.resources.ResourceLocation.fromNamespaceAndPath(LotrPort.MOD_ID,
+                        "tardis/sky/middle_earth.json"));
+        helper.assertTrue(res.isPresent(), "no Middle-earth sky link");
+        try (var in = res.get().openAsReader()) {
+            int ceiling = com.google.gson.JsonParser.parseReader(in).getAsJsonObject().get("ceiling").getAsInt();
+            helper.assertTrue(ceiling == 500, "Middle-earth's space line is y=" + ceiling + ", not 500");
+        } catch (java.io.IOException e) {
+            helper.fail("can't read the sky link: " + e);
+        }
+        helper.succeed();
+    }
 }
