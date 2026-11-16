@@ -46,6 +46,10 @@ public final class LotrClientConfig {
             .comment("Scale for all region looks: 0.5 = half as strong, 2 = twice.")
             .defineInRange("atmosphere.strength", 1.0, 0.0, 2.0);
 
+    public static final ModConfigSpec.BooleanValue SKY = BUILDER
+            .comment("Middle-earth's own sky: LOTR's sun, moon, night sky and Earendil.")
+            .define("sky.enabled", true);
+
     public static final ModConfigSpec SPEC = BUILDER.build();
 
     private LotrClientConfig() {}
