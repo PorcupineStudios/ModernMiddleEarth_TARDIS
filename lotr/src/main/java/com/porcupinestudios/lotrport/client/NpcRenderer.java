@@ -55,7 +55,10 @@ public class NpcRenderer extends HumanoidMobRenderer<LotrNpc, HumanoidModel<Lotr
     @Override
     public void render(LotrNpc npc, float yaw, float partialTick, PoseStack pose, MultiBufferSource buffers,
             int light) {
-        if (npc.model().equals("lotr_port:huorn")) {
+        if (npc instanceof com.porcupinestudios.lotrport.npc.RiggedNpc rigged
+                && RigRenderer.draw(rigged, getTextureLocation(npc), partialTick, pose, buffers, light)) {
+            // drawn on its procedural rig
+        } else if (npc.model().equals("lotr_port:huorn")) {
             HuornRenderer.render(npc, yaw, partialTick, pose, buffers, light, getTextureLocation(npc));
         } else if (!npc.model().contains(":") || !creatures.draw(npc, yaw, partialTick, pose, buffers, light)) {
             // 64x64 skins use LOTR's body for the race (hair layer, feet, ears); 64x32 ones the classic humanoid

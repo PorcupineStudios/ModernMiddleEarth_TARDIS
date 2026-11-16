@@ -146,7 +146,7 @@ public class LotrNpc extends PathfinderMob implements Merchant {
      */
     public static Optional<LotrNpc> bodyFor(ServerLevel level, com.porcupinestudios.lotrport.society.Person person) {
         Optional<NpcType> type = NpcData.type(person.type());
-        LotrNpc npc = type.isEmpty() ? null : LotrEntities.NPC.get().create(level);
+        LotrNpc npc = type.isEmpty() ? null : entityTypeFor(person.type()).create(level);
         if (npc == null) {
             return Optional.empty();
         }
@@ -158,13 +158,19 @@ public class LotrNpc extends PathfinderMob implements Merchant {
         return Optional.of(npc);
     }
 
+    /** The entity an NPC type spawns as: a rigged one when a rig file names the type, else the plain NPC. */
+    public static EntityType<? extends LotrNpc> entityTypeFor(ResourceLocation typeId) {
+        return com.porcupinestudios.lotrport.rig.Rigs.rigged(typeId) ? LotrEntities.RIGGED.get()
+                : LotrEntities.NPC.get();
+    }
+
     /** Makes an NPC of the given type and adds it to the world; empty if the type is unknown. */
     public static Optional<LotrNpc> spawn(ServerLevel level, ResourceLocation typeId, double x, double y, double z) {
         Optional<NpcType> type = NpcData.type(typeId);
         if (type.isEmpty()) {
             return Optional.empty();
         }
-        LotrNpc npc = LotrEntities.NPC.get().create(level);
+        LotrNpc npc = entityTypeFor(typeId).create(level);
         if (npc == null) {
             return Optional.empty();
         }
