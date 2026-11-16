@@ -3,6 +3,7 @@ package com.porcupinestudios.lotrport.drink;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -21,14 +22,32 @@ public class VesselBlockEntity extends BlockEntity {
 
     public void set(ItemStack stack) {
         held = stack.copyWithCount(1);
-        setChanged();
+        changed();
     }
 
     public ItemStack take() {
         ItemStack s = held;
         held = ItemStack.EMPTY;
-        setChanged();
+        changed();
         return s;
+    }
+
+    /** Saves and sends the drink to clients, which draw it inside the vessel. */
+    private void changed() {
+        setChanged();
+        if (level != null && !level.isClientSide) {
+            level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), 3);
+        }
+    }
+
+    @Override
+    public CompoundTag getUpdateTag(HolderLookup.Provider registries) {
+        return saveWithoutMetadata(registries);
+    }
+
+    @Override
+    public ClientboundBlockEntityDataPacket getUpdatePacket() {
+        return ClientboundBlockEntityDataPacket.create(this);
     }
 
     @Override
