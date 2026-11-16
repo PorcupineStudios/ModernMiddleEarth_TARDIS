@@ -265,6 +265,8 @@ public final class Vortex {
             trip.putUUID("pilot", p.getUUID());
             tardis.setModuleData(MODULE, trip);
         });
+        com.porcupinestudios.tardisrb.flight.TardisSounds.play(server, tardis, from,
+                com.porcupinestudios.tardisrb.flight.TardisSounds.MATERIALISE);
         return new Flight.Outcome(Optional.empty(), Optional.empty());
     }
 
@@ -422,6 +424,9 @@ public final class Vortex {
         body.setThrusters(false);
         body.setCrashing(true);
         body.setDeltaMovement(0, -0.1, 0);
+        com.porcupinestudios.tardisrb.flight.TardisSounds.play(server, tardis,
+                GlobalPos.of(body.level().dimension(), body.blockPosition()),
+                com.porcupinestudios.tardisrb.flight.TardisSounds.STUTTER);
     }
 
     /** Falling out of the tunnel through the clouds; once well under the tube (or after 3 s) it drops into the world. */
@@ -513,6 +518,8 @@ public final class Vortex {
         body.crater = crater;
         body.setDeltaMovement(velocity);
         level.addFreshEntity(body);
+        com.porcupinestudios.tardisrb.flight.TardisSounds.play(server, tardis, GlobalPos.of(level.dimension(), start),
+                com.porcupinestudios.tardisrb.flight.TardisSounds.STUTTER);
         // the rift it comes out of, facing the way it is going
         Wormhole rift = TardisEntities.WORMHOLE.get().create(level);
         if (rift != null) {

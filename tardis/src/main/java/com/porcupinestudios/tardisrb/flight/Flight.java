@@ -199,6 +199,7 @@ public final class Flight {
         tardis.useCharge(charge);
         Exteriors.place(landLevel, landed.pos(), turn.orElse(facing), tardis.id());
         tardis.setLocation(Optional.of(landed));
+        TardisSounds.play(server, tardis, landed, TardisSounds.MATERIALISE);
         NeoForge.EVENT_BUS.post(new JumpEvent.Arrived(tardis, from, landed));
         CompoundTag tag = new CompoundTag();
         tag.putUUID("tardis", tardis.id());

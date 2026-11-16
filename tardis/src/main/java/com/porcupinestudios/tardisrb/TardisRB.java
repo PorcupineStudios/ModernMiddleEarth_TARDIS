@@ -41,6 +41,7 @@ public final class TardisRB {
         TardisEntities.register(modBus);
         Piloting.register();
         Vortex.register();
+        com.porcupinestudios.tardisrb.flight.TardisSounds.register(modBus);
         ConsoleNet.register(modBus);
         DoorNet.register(modBus);
         CrashSite.register();
