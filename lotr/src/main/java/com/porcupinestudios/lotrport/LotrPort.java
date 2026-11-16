@@ -93,6 +93,7 @@ public final class LotrPort {
         AiData.register();
         AiRulers.register();
         Recruiting.register();
+        com.porcupinestudios.lotrport.world.Pregen.register();
         com.porcupinestudios.lotrport.npc.InvasionSpawner.register();
         com.porcupinestudios.lotrport.progress.Achievements.register();
         com.porcupinestudios.lotrport.progress.Titles.register();
@@ -107,6 +108,7 @@ public final class LotrPort {
             com.porcupinestudios.lotrport.progress.Cosmetics.registerCommands(event.getDispatcher());
             com.porcupinestudios.lotrport.progress.Calendar.registerCommands(event.getDispatcher());
             AlignmentHud.registerCommands(event.getDispatcher());
+            com.porcupinestudios.lotrport.world.Pregen.registerCommands(event.getDispatcher());
         });
     }
 
