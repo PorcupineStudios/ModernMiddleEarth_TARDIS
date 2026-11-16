@@ -265,6 +265,41 @@ class Structures:
             return "minecraft:" + RENAMED.get(old, old.split(":", 1)[1])
         return None
 
+    # LOTR's blocks with an inventory, by their port machine kind: the block entity they get (Aaron 2026-11-16: a chest
+    # stood where the hobbit oven should be, and so for every modded block with an inventory)
+    MACHINE_BE = {"chest": "chest", "armor_stand": "display", "kebab_stand": "kebab_stand", "forge": "forge",
+                  "oven": "oven", "unsmeltery": "unsmeltery", "millstone": "millstone"}
+    ARMOR_SLOT = (("helmet", 0), ("body", 1), ("legs", 2), ("boots", 3))
+
+    def container(self, st, items):
+        """The block and its block entity's data for a spot LOTR's export listed with an inventory. Vanilla chests,
+        barrels and LOTR's chests keep their loot; armour stands their armour; kebab stands their kebabs. Machines
+        (forges, ovens, furnaces) are placed empty: their slots don't line up with LOTR's. A block with no inventory
+        here (dart traps) keeps the block and drops the items. Only a block that has no port block at all, LOTR's
+        spawner chests, still becomes a vanilla chest so its loot isn't lost."""
+        name = st["Name"]
+        if name in ("minecraft:chest", "minecraft:trapped_chest", "minecraft:barrel"):
+            return st, {"id": name, "Items": items}
+        if name in ("minecraft:furnace", "minecraft:smoker", "minecraft:blast_furnace"):
+            return st, None
+        short = name.split(":", 1)[1]
+        kind = self.machine.get(short) if name.startswith(NS + ":") else None
+        be = self.MACHINE_BE.get(kind)
+        if be in ("chest", "kebab_stand"):
+            return st, {"id": f"{NS}:{be}", "Items": items}
+        if be == "display":
+            slotted = []
+            for i, stack in enumerate(items):
+                slot = next((n for word, n in self.ARMOR_SLOT if word in stack["id"]), i)
+                if 0 <= slot < 4 and all(o["Slot"] != slot for o in slotted):
+                    slotted.append({**stack, "Slot": nbt.Byte(slot)})
+            return st, {"id": f"{NS}:display", "Items": slotted}
+        if be is not None or not short.startswith("spawner_chest"):
+            return st, None
+        facing = st.get("Properties", {}).get("facing")
+        st = {"Name": "minecraft:chest", **({"Properties": {"facing": facing}} if facing else {})}
+        return st, {"id": "minecraft:chest", "Items": items}
+
     @staticmethod
     def keg(items):
         """
@@ -352,11 +387,9 @@ class Structures:
                 if st["Name"] == f"{NS}:keg":
                     entry["nbt"] = self.keg(items)
                 else:
-                    # only vanilla chests keep their contents (LOTR's chests have no storage yet)
-                    if st["Name"] not in ("minecraft:chest", "minecraft:trapped_chest", "minecraft:barrel"):
-                        facing = st.get("Properties", {}).get("facing")
-                        st = {"Name": "minecraft:chest", **({"Properties": {"facing": facing}} if facing else {})}
-                    entry["nbt"] = {"id": "minecraft:chest", "Items": items}
+                    st, nbt_tag = self.container(st, items)
+                    if nbt_tag is not None:
+                        entry["nbt"] = nbt_tag
             placed[(x, y, z)] = (st, entry)
         # Real air only where LOTR cleared space; every other spot is left out (structure void), so the natural ground
         # stays there. Below the ground layer the export already holds the air LOTR dug (cellars). Above it, a column's

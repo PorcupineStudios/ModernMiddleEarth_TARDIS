@@ -31,6 +31,23 @@ public final class HudNet {
     private static void payloads(RegisterPayloadHandlersEvent event) {
         PayloadRegistrar r = event.registrar("1");
         r.playToClient(AlignmentBar.TYPE, AlignmentBar.CODEC, (p, ctx) -> ctx.enqueueWork(() -> barHandler.accept(p)));
+        r.playToServer(CycleView.TYPE, CycleView.CODEC, (p, ctx) -> ctx.enqueueWork(() -> {
+            if (ctx.player() instanceof net.minecraft.server.level.ServerPlayer sp) {
+                com.porcupinestudios.lotrport.faction.AlignmentHud.cycle(sp, p.step());
+            }
+        }));
+    }
+
+    /** The alignment bar's arrow keys (as LOTR's): show the next ({@code step} 1) or previous (-1) faction. */
+    public record CycleView(int step) implements CustomPacketPayload {
+        public static final Type<CycleView> TYPE = new Type<>(LotrPort.id("cycle_view"));
+        public static final StreamCodec<RegistryFriendlyByteBuf, CycleView> CODEC =
+                ByteBufCodecs.VAR_INT.map(CycleView::new, CycleView::step).cast();
+
+        @Override
+        public Type<CycleView> type() {
+            return TYPE;
+        }
     }
 
     /** A rank on the bar: the alignment it starts at and its name. */

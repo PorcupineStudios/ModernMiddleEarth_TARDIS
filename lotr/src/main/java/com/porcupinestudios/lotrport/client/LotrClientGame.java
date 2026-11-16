@@ -45,6 +45,16 @@ public final class LotrClientGame {
                 PacketDistributor.sendToServer(new MapNet.OpenMap());
             }
         }
+        while (LotrClient.ALIGNMENT_PREV_KEY.consumeClick()) {
+            if (mc.player != null && mc.screen == null) {
+                PacketDistributor.sendToServer(new com.porcupinestudios.lotrport.net.HudNet.CycleView(-1));
+            }
+        }
+        while (LotrClient.ALIGNMENT_NEXT_KEY.consumeClick()) {
+            if (mc.player != null && mc.screen == null) {
+                PacketDistributor.sendToServer(new com.porcupinestudios.lotrport.net.HudNet.CycleView(1));
+            }
+        }
         lastFog = fog;
         boolean foggy = mc.level != null && mc.player != null
                 && mc.level.getBiome(mc.player.blockPosition()).is(FOGGY);

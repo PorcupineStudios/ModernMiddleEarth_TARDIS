@@ -122,6 +122,21 @@ public final class AlignmentHud {
                 .or(() -> Factions.all(server).stream().filter(Faction::playable).findFirst());
     }
 
+    /**
+     * The arrow keys (Aaron 2026-11-16: LOTR switched the bar's faction with them): the next or previous playable
+     * faction after the one shown, in the factions' own order, wrapping round; the choice sticks as with /lotr_view.
+     */
+    public static void cycle(ServerPlayer player, int step) {
+        List<Faction> all = Factions.all(player.server).stream().filter(Faction::playable).toList();
+        if (all.isEmpty()) {
+            return;
+        }
+        int at = watched(player).map(all::indexOf).orElse(-1);
+        int next = Math.floorMod((at < 0 ? 0 : at) + Integer.signum(step == 0 ? 1 : step), all.size());
+        player.setData(LotrRegistries.VIEW_FACTION, all.get(next).id().toString());
+        update(player);
+    }
+
     // ------------------------------------------------------------------ /lotr_view
 
     public static void registerCommands(CommandDispatcher<CommandSourceStack> d) {
