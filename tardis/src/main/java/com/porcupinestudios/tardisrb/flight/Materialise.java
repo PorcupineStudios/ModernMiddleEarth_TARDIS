@@ -19,8 +19,8 @@ import net.neoforged.neoforge.event.tick.ServerTickEvent;
 /**
  * The police box (de)materialising (Aaron 2026-11-16): it fades out where it stood (a {@link Dematerialising} ghost)
  * and fades in where it lands (the block entity's fade-in), with the show's pulsing fade over the tuning's
- * {@code hop.materialise_ticks}. Doors left open stay open on the fading box ({@link Doors#takeOff}), its doorway still
- * showing the console room, never what is behind it, until the fade ends and the doorway moves to where the TARDIS is.
+ * {@code hop.materialise_ticks}. Taking off with the doors open first swings them shut ({@link #afterDoorsShut}): the
+ * doors close over the portal, so the doorway never shows what is behind it.
  */
 public final class Materialise {
     private record Later(long due, Runnable run) {}
@@ -42,19 +42,27 @@ public final class Materialise {
         return TardisContent.tuning().hop().materialiseTicks();
     }
 
-    /** Runs {@code run} {@code ticks} server ticks from now. Not saved: a restart drops it. */
-    public static void later(MinecraftServer server, int ticks, Runnable run) {
-        LATER.add(new Later(server.getTickCount() + ticks, run));
+    /**
+     * Runs {@code flight} now if the doors are shut, else swings them shut and runs it once they are (the doors' own
+     * close time, then they're closed for real by {@link Doors}).
+     */
+    public static void afterDoorsShut(MinecraftServer server, TardisRecord tardis, Runnable flight) {
+        if (!Doors.isOpen(tardis)) {
+            flight.run();
+            return;
+        }
+        Doors.shut(server, tardis);
+        int wait = TardisContent.tuning().door().closeTicks() + 2;
+        LATER.add(new Later(server.getTickCount() + wait, flight));
     }
 
-    /** Leaves a fading box where the TARDIS stood, its doors open if {@code doorsOpen}. */
-    public static void fadeOut(ServerLevel level, BlockPos base, Direction facing, TardisRecord tardis,
-            boolean doorsOpen) {
+    /** Leaves a fading box where the TARDIS stood. */
+    public static void fadeOut(ServerLevel level, BlockPos base, Direction facing, TardisRecord tardis) {
         Dematerialising ghost = TardisEntities.DEMATERIALISING.get().create(level);
         if (ghost == null) {
             return;
         }
-        ghost.setup(Looks.exterior(level.getServer(), tardis), ticks(), doorsOpen);
+        ghost.setup(Looks.exterior(level.getServer(), tardis), ticks());
         ghost.moveTo(base.getX() + 0.5, base.getY(), base.getZ() + 0.5, facing.toYRot(), 0);
         level.addFreshEntity(ghost);
     }
