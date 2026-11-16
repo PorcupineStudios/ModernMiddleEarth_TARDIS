@@ -187,6 +187,9 @@ public final class Flight {
             }
             return Outcome.fail("tardis_rb.hop.no_space", "There is nowhere to land near there");
         }
+        if (!loose && !from.dimension().equals(Vortex.DIMENSION)) {
+            Materialise.fadeOut(level, from.pos(), facing, tardis);
+        }
         FreeFlight.dock(server, tardis); // a loose box dematerialises and lands as a block
         JumpEvent.Land land = NeoForge.EVENT_BUS.post(new JumpEvent.Land(tardis, from,
                 GlobalPos.of(toLevel.dimension(), spot.get())));
@@ -200,6 +203,7 @@ public final class Flight {
         Exteriors.place(landLevel, landed.pos(), turn.orElse(facing), tardis.id());
         tardis.setLocation(Optional.of(landed));
         TardisSounds.play(server, tardis, landed, TardisSounds.MATERIALISE);
+        Materialise.fadeIn(landLevel, landed.pos());
         NeoForge.EVENT_BUS.post(new JumpEvent.Arrived(tardis, from, landed));
         CompoundTag tag = new CompoundTag();
         tag.putUUID("tardis", tardis.id());

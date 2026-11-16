@@ -224,6 +224,9 @@ public final class Vortex {
         ServerLevel fromLevel = server.getLevel(from.dimension());
         Direction was = FreeFlight.isLoose(tardis) ? FreeFlight.facing(server, tardis)
                 : fromLevel == null ? Direction.NORTH : Exteriors.lift(fromLevel, from.pos());
+        if (!FreeFlight.isLoose(tardis) && fromLevel != null) {
+            com.porcupinestudios.tardisrb.flight.Materialise.fadeOut(fromLevel, from.pos(), was, tardis);
+        }
         FreeFlight.dock(server, tardis);
         double laneX = laneFor(server, tardis);
         TardisBody body = TardisEntities.BODY.get().create(vortex);
