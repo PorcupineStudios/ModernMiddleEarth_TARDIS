@@ -121,6 +121,12 @@ public final class LotrBlocks {
                 default -> p -> new LotrChestBlock(p, box);
             };
         }
+        SupportedBlock.Support support = SupportedBlock.of(e.get("id").getAsString());
+        if (support != null) {
+            float[] box = box(e);
+            float[] fit = box != null ? box : new float[] {2, 2, 2, 14, 16, 14}; // chandeliers come without a shape
+            return p -> new SupportedBlock(p, fit, support);
+        }
         if (ContentData.bool(e, "facing", false)) {
             float[] box = "shaped".equals(kind) ? box(e) : null;
             return p -> new FacingBlock(p, box);
