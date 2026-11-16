@@ -76,6 +76,7 @@ public final class LotrClient {
     @SubscribeEvent
     public static void setup(FMLClientSetupEvent event) {
         Atmosphere.init();
+        ColorGrade.init();
         MapNet.clientHandler = (data, ctx) -> MapScreen.open(data);
         QuestNet.offerHandler = QuestOfferScreen::open;
         QuestNet.bookHandler = RedBookScreen::show;
@@ -205,6 +206,11 @@ public final class LotrClient {
     @SubscribeEvent
     public static void skyEffects(net.neoforged.neoforge.client.event.RegisterDimensionSpecialEffectsEvent event) {
         event.register(com.porcupinestudios.lotrport.LotrPort.id("middle_earth"), new MiddleEarthSky());
+    }
+
+    @SubscribeEvent
+    public static void shaders(net.neoforged.neoforge.client.event.RegisterShadersEvent event) throws java.io.IOException {
+        ColorGrade.register(event);
     }
 
     /** Region fogs and filters (assets/<ns>/atmosphere). */
