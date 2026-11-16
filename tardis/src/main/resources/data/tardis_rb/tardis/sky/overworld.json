@@ -7,7 +7,7 @@
     "min_z": -16384,
     "max_z": 16384
   },
-  "ceiling": 340,
+  "ceiling": 500,
   "ground": 64,
   "orbit": {
     "x": 0,

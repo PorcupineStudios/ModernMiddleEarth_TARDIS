@@ -1,7 +1,7 @@
 {
   "dimension": "lotr_port:vanilla_overworld",
   "space": "tardis_rb:space",
-  "ceiling": 340,
+  "ceiling": 500,
   "ground": 64,
   "orbit": {
     "x": 2000000,
