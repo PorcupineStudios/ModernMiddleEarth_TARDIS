@@ -1,5 +1,35 @@
 # LOTR 1.7.10 → port: what is missing (task list)
 
+## Still open (checked against code 2026-11-16, branch claude/project-thread-k9qmje)
+
+The numbered tasks below date from 2026-11-04; most are done. This is what is actually left, biggest first.
+
+- **World:** Utumno (dimension, layers, caves, return portal) and the ring/elven/Morgul portals; fixed builds at map
+  coordinates (Minas Tirith, Isengard walls, Rammas Echor, other waypoint settlements); dwarven mines and Taurëdain
+  pyramids; villages are one fixed layout per seed; sky (sun/moon/stars, northern lights), sandstorms, Mordor ash,
+  seasonal grass, holidays.
+- **NPCs:** families (hobbit/dwarf/man marriage, rings, children); travelling traders and scrap traders; Sauron;
+  skeletal wraith; Gollum's fishing and inventory; troll chieftain boss fight; warg bombardier bombs; spider webs
+  (mystery web loot); NPCs throwing spears; mounted lances; players riding wargs/spiders; structure NPCs riding.
+- **Multiplayer and meta:** fellowships (replaced by colony membership, not built as LOTR's); bounty quests
+  (30); custom waypoints; factions screen with faction map; Red Book tabs; shield and cape rendering on players;
+  most achievement triggers (kills, crafting, trading, drinking); most LOTR commands; spawn damping.
+- **Blocks still without LOTR behaviour** (`docs/behavior-audit.md`): spawner chests and mob spawner, NPC respawner,
+  Taurëdain dart traps, treasure piles, troll totems, chisels, mechanism and mechanised rails, table of command,
+  goran, Rhûn fire and fire jar, Mordor moss/shrooms, sand/gravel slabs falling, Gulduril/Edhelvir use-on, ancient
+  items, dye on mobs, ore glow particles.
+- **Items and polish:** glowing elven blades near orcs (Sting, Glamdring, Orcrist); animated armour parts (swan wings,
+  robes); dyeable hats/armour and the other special recipes (task 36); carved stone sign text; drunken speech and
+  alcohol tolerance; barrels ageing drinks; pipe smoke colour; pouch restock from chests; mud farmland and fruit
+  leaves; unsmeltery rocking.
+
+Done since the list was written (don't redo): sounds, music, enchantments, achievements/titles, lore books,
+creatures with LOTR models and animations, animals, invasions, 11 village kinds, drinks and kegs, set-down vessels,
+machines and their screens, crops, ores, pouches, coins, pipes, thrown weapons, archers, mounts and riders, armour
+models and per-item textures, fogs, terrain and mountains, gates, walls, structure signs, people/monster behaviours,
+NPC drops, quests incl. pickpocket, calendar, colonies/hired units/wars (colony-first rework).
+
+
 Written 2026-11-04 against `claude/happy-heisenberg-4yebld` (commit 8eed5eb7). Source of truth for "what LOTR has" is
 the class list of `converter/libs/LOTRMod v36.15.jar` (3,469 classes) plus `converter/export/*.json`; "what we have"
 is `lotr/src/main/java`, `converter/*.py` and `lotr/CLAUDE.md`.
