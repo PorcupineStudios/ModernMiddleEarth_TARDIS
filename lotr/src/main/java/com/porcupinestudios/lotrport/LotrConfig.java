@@ -30,6 +30,10 @@ public final class LotrConfig {
                     "Off: vanilla, where only always-edible food (golden apples...) can be eaten when full.")
             .define("food.feastMode", true);
 
+    public static final ModConfigSpec.BooleanValue ORC_SKIRMISHES = BUILDER
+            .comment("LOTR's orc skirmishes: now and then an orc picks a fight with a nearby orc, and others join in.")
+            .define("npc.orcSkirmishes", true);
+
     public static final ModConfigSpec SPEC = BUILDER.build();
 
     private LotrConfig() {}

@@ -41,7 +41,12 @@ public final class Behaviours {
             Map.entry("ruffian", RuffianBehaviour::new),
             Map.entry("orc", OrcBehaviour::new),
             Map.entry("avoid_evil", AvoidEvilBehaviour::new),
-            Map.entry("burning_panic", BurningPanicBehaviour::new));
+            Map.entry("burning_panic", BurningPanicBehaviour::new),
+            Map.entry("orc_bomb", OrcBombBehaviour::new),
+            Map.entry("sneak", SneakBehaviour::new),
+            Map.entry("elf_bow", ElfBowBehaviour::new),
+            Map.entry("man_flesh", ManFleshBehaviour::new),
+            Map.entry("gandalf", GandalfBehaviour::new));
 
     private Behaviours() {}
 

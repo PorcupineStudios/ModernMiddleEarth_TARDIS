@@ -27,6 +27,14 @@ public class GrapeGuardBehaviour implements CreatureBehaviour {
         }
     }
 
+    /** LOTREntityDorwinionGuard.onDeath: a guard on alert killed by a player gives stealDorwinionGrapes. */
+    @Override
+    public void died(LotrNpc npc, net.minecraft.world.damagesource.DamageSource source) {
+        if (npc.state(ALERT) > 0 && source.getEntity() instanceof ServerPlayer p) {
+            com.porcupinestudios.lotrport.progress.Achievements.grant(p, "stealDorwinionGrapes");
+        }
+    }
+
     private static void onBreak(BlockEvent.BreakEvent event) {
         if (!(event.getState().getBlock() instanceof GrapevineBlock) || !(event.getPlayer() instanceof ServerPlayer p)
                 || p.isCreative()) {
