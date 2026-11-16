@@ -1,13 +1,13 @@
 {
   "parent": "minecraft:block/block",
   "textures": {
-    "down": "minecraft:block/textures/blocks/LOTR_EMPTY_ICON",
-    "up": "minecraft:block/textures/blocks/LOTR_EMPTY_ICON",
-    "north": "minecraft:block/textures/blocks/LOTR_EMPTY_ICON",
-    "south": "minecraft:block/textures/blocks/LOTR_EMPTY_ICON",
-    "west": "minecraft:block/textures/blocks/LOTR_EMPTY_ICON",
-    "east": "minecraft:block/textures/blocks/LOTR_EMPTY_ICON",
-    "particle": "minecraft:block/textures/blocks/LOTR_EMPTY_ICON"
+    "down": "minecraft:block/stone",
+    "up": "minecraft:block/stone",
+    "north": "minecraft:block/stone",
+    "south": "minecraft:block/stone",
+    "west": "minecraft:block/stone",
+    "east": "minecraft:block/stone",
+    "particle": "minecraft:block/stone"
   },
   "render_type": "minecraft:cutout",
   "elements": [

@@ -1,46 +1,93 @@
 {
   "parent": "minecraft:block/block",
   "textures": {
-    "down": "minecraft:block/hardened_clay_stained_white",
-    "up": "minecraft:block/hardened_clay_stained_white",
-    "north": "minecraft:block/hardened_clay_stained_white",
-    "south": "minecraft:block/hardened_clay_stained_white",
-    "west": "minecraft:block/hardened_clay_stained_white",
-    "east": "minecraft:block/hardened_clay_stained_white",
-    "particle": "minecraft:block/hardened_clay_stained_white"
+    "sprite": "lotr_port:item/ale_horn_gold",
+    "particle": "lotr_port:item/ale_horn_gold"
   },
   "render_type": "minecraft:cutout",
   "elements": [
     {
       "from": [
-        4.25,
-        0.0,
-        4.25
+        2.5,
+        0,
+        8
       ],
       "to": [
-        11.75,
-        9.0,
-        11.75
+        13.5,
+        11,
+        8
       ],
+      "shade": false,
       "faces": {
-        "down": {
-          "texture": "#down"
-        },
-        "up": {
-          "texture": "#up"
-        },
         "north": {
-          "texture": "#north"
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#sprite"
         },
         "south": {
-          "texture": "#south"
-        },
-        "west": {
-          "texture": "#west"
-        },
-        "east": {
-          "texture": "#east"
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#sprite"
         }
+      },
+      "rotation": {
+        "origin": [
+          8,
+          8,
+          8
+        ],
+        "axis": "y",
+        "angle": 45
+      }
+    },
+    {
+      "from": [
+        2.5,
+        0,
+        8
+      ],
+      "to": [
+        13.5,
+        11,
+        8
+      ],
+      "shade": false,
+      "faces": {
+        "north": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#sprite"
+        },
+        "south": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#sprite"
+        }
+      },
+      "rotation": {
+        "origin": [
+          8,
+          8,
+          8
+        ],
+        "axis": "y",
+        "angle": -45
       }
     }
   ]
