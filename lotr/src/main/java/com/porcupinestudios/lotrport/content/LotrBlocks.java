@@ -135,6 +135,13 @@ public final class LotrBlocks {
             float[] vbox = box(e);
             return p -> new com.porcupinestudios.lotrport.drink.VesselBlock(p, vbox);
         }
+        if ("beacon_of_gondor".equals(e.get("id").getAsString())) {
+            float[] bbox = box(e);
+            return p -> new GondorBeaconBlock(p, bbox);
+        }
+        if ("bookshelf_storage".equals(e.get("id").getAsString())) {
+            return com.porcupinestudios.lotrport.machine.BookshelfStorageBlock::new;
+        }
         Hazards.Hazard hazard = Hazards.of(e.get("id").getAsString());
         if (hazard != null) {
             float[] box = box(e);
