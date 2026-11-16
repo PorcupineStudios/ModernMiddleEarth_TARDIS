@@ -180,5 +180,19 @@
  },
  "match": [
   "sulfur_match"
- ]
+ ],
+ "vessel_blocks": {
+  "_comment": "LOTRBlockMug and kin: sneak + use an empty vessel or a drink on a block top to set it down",
+  "lotr_port:mug": "mug_block",
+  "lotr_port:ceramic_mug": "ceramic_mug_block",
+  "lotr_port:golden_goblet": "goblet_gold",
+  "lotr_port:silver_goblet": "goblet_silver",
+  "lotr_port:copper_goblet": "goblet_copper",
+  "lotr_port:wooden_cup": "goblet_wood",
+  "lotr_port:skull_cup": "skull_cup_block",
+  "lotr_port:wine_glass": "wine_glass_block",
+  "minecraft:glass_bottle": "glass_bottle",
+  "lotr_port:ale_horn": "ale_horn_block",
+  "lotr_port:golden_ale_horn": "ale_horn_gold"
+ }
 }
