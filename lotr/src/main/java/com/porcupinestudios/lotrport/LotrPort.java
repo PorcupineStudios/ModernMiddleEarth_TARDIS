@@ -56,7 +56,7 @@ public final class LotrPort {
     public static final Logger LOG = LogUtils.getLogger();
 
     public LotrPort(IEventBus modBus, ModContainer container) {
-        container.registerConfig(ModConfig.Type.SERVER, LotrConfig.SPEC);
+        container.registerConfig(ModConfig.Type.COMMON, LotrConfig.SPEC);
         container.registerConfig(ModConfig.Type.CLIENT, LotrClientConfig.SPEC);
         LotrRegistries.register(modBus);
         LotrSounds.register(modBus);
