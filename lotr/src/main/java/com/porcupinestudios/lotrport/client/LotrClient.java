@@ -201,6 +201,12 @@ public final class LotrClient {
         Atmosphere.layers(event);
     }
 
+    /** Middle-earth's sky (dimension type effects {@code lotr_port:middle_earth}). */
+    @SubscribeEvent
+    public static void skyEffects(net.neoforged.neoforge.client.event.RegisterDimensionSpecialEffectsEvent event) {
+        event.register(com.porcupinestudios.lotrport.LotrPort.id("middle_earth"), new MiddleEarthSky());
+    }
+
     /** Region fogs and filters (assets/<ns>/atmosphere). */
     @SubscribeEvent
     public static void reloadListeners(net.neoforged.neoforge.client.event.RegisterClientReloadListenersEvent event) {
