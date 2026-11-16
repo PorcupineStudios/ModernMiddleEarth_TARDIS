@@ -1,0 +1,15 @@
+{
+  "comment": "Everywhere else in Middle-earth: slightly softer, warmer, painterly colour",
+  "biomes": [
+    "lotr_port:*"
+  ],
+  "priority": -100,
+  "grade": {
+    "saturation": -0.05,
+    "contrast": 0.04,
+    "warmth": 0.12,
+    "brightness": 0,
+    "vignette": 0.12,
+    "bloom": 0.1
+  }
+}

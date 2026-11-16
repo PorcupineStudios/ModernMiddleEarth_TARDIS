@@ -25,7 +25,7 @@
     "burn_panic_speed": 1.5,
     "eat_chance": 6000,
     "drink_chance": 6000,
-    "state.renderer": 0,
+    "state.renderer": 1,
     "ride_chance": 12
   },
   "sounds": {
@@ -41,8 +41,8 @@
       "lotr_port:half_troll_battleaxe",
       "lotr_port:half_troll_dagger",
       "lotr_port:half_troll_mace",
-      "lotr_port:half_troll_pike",
-      "lotr_port:half_troll_scimitar"
+      "lotr_port:half_troll_scimitar",
+      "lotr_port:half_troll_warhammer"
     ],
     "head": "lotr_port:half_troll_helmet",
     "chest": "lotr_port:half_troll_chestplate",

@@ -34,6 +34,15 @@ public final class LotrConfig {
             .comment("LOTR's orc skirmishes: now and then an orc picks a fight with a nearby orc, and others join in.")
             .define("npc.orcSkirmishes", true);
 
+    public static final ModConfigSpec.BooleanValue RACE_PICKER = BUILDER
+            .comment("Ask each player to choose a race (data/<ns>/player_race/*.json) the first time they are in",
+                    "Middle-earth. /lotr_race opens the picker by hand.")
+            .define("race.picker", true);
+
+    public static final ModConfigSpec.BooleanValue RACE_CHANGE = BUILDER
+            .comment("Players may choose again with /lotr_race after they have a race (operators always may).")
+            .define("race.allowChange", false);
+
     public static final ModConfigSpec SPEC = BUILDER.build();
 
     private LotrConfig() {}

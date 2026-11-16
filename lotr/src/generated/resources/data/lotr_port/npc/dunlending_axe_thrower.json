@@ -32,10 +32,7 @@
       "lotr_port:bronze_throwing_axe",
       "lotr_port:iron_throwing_axe"
     ],
-    "head": [
-      "lotr_port:dunlending_helmet",
-      "lotr_port:fur_hat"
-    ],
+    "head": "lotr_port:dunlending_helmet",
     "chest": "lotr_port:dunlending_chestplate",
     "legs": "lotr_port:dunlending_leggings",
     "feet": "lotr_port:dunlending_boots"

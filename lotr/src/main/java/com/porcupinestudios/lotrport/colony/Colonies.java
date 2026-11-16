@@ -305,13 +305,17 @@ public final class Colonies extends SavedData {
         if (table.isEmpty() || table.get().entries().isEmpty()) {
             return Optional.empty();
         }
-        int total = table.get().entries().stream().mapToInt(e -> Math.max(0, e.weight())).sum();
+        // the founder's own race comes a little more often (player_race settler_bias)
+        java.util.function.ToDoubleFunction<ColonyData.Migration.Entry> weight = e -> Math.max(0, e.weight())
+                * com.porcupinestudios.lotrport.player.Races.settlerFactor(colony.founder,
+                        com.porcupinestudios.lotrport.colony.work.Races.of(e.npc()));
+        double total = table.get().entries().stream().mapToDouble(weight).sum();
         if (total <= 0) {
             return Optional.empty();
         }
-        int roll = random.nextInt(total);
+        double roll = random.nextDouble() * total;
         for (ColonyData.Migration.Entry e : table.get().entries()) {
-            roll -= Math.max(0, e.weight());
+            roll -= weight.applyAsDouble(e);
             if (roll < 0) {
                 return Optional.of(e.npc());
             }

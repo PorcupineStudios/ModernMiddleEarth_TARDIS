@@ -24,5 +24,6 @@
   "gear": {
     "mainhand": "lotr_port:morwaith_dagger"
   },
-  "speech": "lotr_port:moredain/moredain"
+  "speech": "lotr_port:moredain/moredain",
+  "quests": "lotr_port:moredain"
 }

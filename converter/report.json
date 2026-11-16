@@ -36,7 +36,7 @@
     "lore_books_in_chests": 136,
     "waypoints": 274,
     "quest_pools": 37,
-    "quest_givers": 287,
+    "quest_givers": 295,
     "migration_tables": 23,
     "claim_banners": 42,
     "room_counters": 11,
@@ -202,16 +202,12 @@
     ]
   },
   "guessed_vanilla_textures": {
-    "count": 8,
+    "count": 4,
     "entries": [
       "feather",
-      "hardened_clay_stained_white",
       "portal",
       "flower_pot",
-      "mob_spawner",
-      "textures/blocks/LOTR_EMPTY_ICON",
-      "soul_sand",
-      "ice_packed"
+      "soul_sand"
     ]
   },
   "large_in_hand_icons": {

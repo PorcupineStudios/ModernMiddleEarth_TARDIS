@@ -1,4 +1,10 @@
 {
+  "skins": [
+    "lotr_port:textures/entity/bear/light.png",
+    "lotr_port:textures/entity/bear/dark.png",
+    "lotr_port:textures/entity/bear/black.png"
+  ],
+  "skin_height": 64,
   "model": "lotr_port:bear",
   "width": 1.6,
   "height": 1.8,

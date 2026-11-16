@@ -33,7 +33,7 @@ public final class TardisRB {
     public static final Logger LOG = LogUtils.getLogger();
 
     public TardisRB(IEventBus modBus, ModContainer container) {
-        container.registerConfig(ModConfig.Type.SERVER, Config.SPEC);
+        container.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
         TardisConditions.register(modBus);
         TardisContent.register();
         TardisCommand.register();
@@ -41,6 +41,8 @@ public final class TardisRB {
         TardisEntities.register(modBus);
         Piloting.register();
         Vortex.register();
+        com.porcupinestudios.tardisrb.flight.Materialise.register();
+        com.porcupinestudios.tardisrb.flight.TardisSounds.register(modBus);
         ConsoleNet.register(modBus);
         DoorNet.register(modBus);
         CrashSite.register();

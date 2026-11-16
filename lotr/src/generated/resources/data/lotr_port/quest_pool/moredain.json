@@ -1,6 +1,78 @@
 {
   "quests": [
     {
+      "kind": "kill_faction",
+      "target": "lotr_port:gondor",
+      "min": 20,
+      "max": 50,
+      "reward": 1.0,
+      "speech": "lotr_port:miniquest/moredain/kill_gondor",
+      "weight": 100
+    },
+    {
+      "kind": "kill_npc",
+      "target": "lotr_port:gondor_soldier",
+      "min": 10,
+      "max": 30,
+      "reward": 1.0,
+      "speech": "lotr_port:miniquest/moredain/kill_gondor_soldier",
+      "weight": 100
+    },
+    {
+      "kind": "kill_npc",
+      "target": "lotr_port:ranger_ithilien",
+      "min": 10,
+      "max": 30,
+      "reward": 1.0,
+      "speech": "lotr_port:miniquest/moredain/kill_ranger",
+      "weight": 100
+    },
+    {
+      "kind": "kill_npc",
+      "target": "lotr_port:crocodile",
+      "min": 10,
+      "max": 20,
+      "reward": 1.0,
+      "speech": "lotr_port:miniquest/moredain/kill_crocodile",
+      "weight": 100
+    },
+    {
+      "kind": "kill_npc",
+      "target": "lotr_port:lion",
+      "min": 10,
+      "max": 20,
+      "reward": 1.0,
+      "speech": "lotr_port:miniquest/moredain/kill_lion",
+      "weight": 100
+    },
+    {
+      "kind": "kill_npc",
+      "target": "lotr_port:lioness",
+      "min": 10,
+      "max": 20,
+      "reward": 1.0,
+      "speech": "lotr_port:miniquest/moredain/kill_lion",
+      "weight": 100
+    },
+    {
+      "kind": "kill_faction",
+      "target": "lotr_port:taurethrim",
+      "min": 20,
+      "max": 50,
+      "reward": 1.0,
+      "speech": "lotr_port:miniquest/moredain/kill_tauredain",
+      "weight": 100
+    },
+    {
+      "kind": "kill_npc",
+      "target": "lotr_port:tauredain_blowgunner",
+      "min": 10,
+      "max": 30,
+      "reward": 1.0,
+      "speech": "lotr_port:miniquest/moredain/kill_tauredain_blowgunner",
+      "weight": 100
+    },
+    {
       "kind": "collect",
       "target": "lotr_port:lion_fur",
       "min": 3,
@@ -215,78 +287,6 @@
       "reward": 0.25,
       "speech": "lotr_port:miniquest/moredain/jungle_wood",
       "weight": 42
-    },
-    {
-      "kind": "kill_faction",
-      "target": "lotr_port:gondor",
-      "min": 20,
-      "max": 50,
-      "reward": 1.0,
-      "speech": "lotr_port:miniquest/moredain/kill_gondor",
-      "weight": 100
-    },
-    {
-      "kind": "kill_npc",
-      "target": "lotr_port:gondor_soldier",
-      "min": 10,
-      "max": 30,
-      "reward": 1.0,
-      "speech": "lotr_port:miniquest/moredain/kill_gondor_soldier",
-      "weight": 100
-    },
-    {
-      "kind": "kill_npc",
-      "target": "lotr_port:ranger_ithilien",
-      "min": 10,
-      "max": 30,
-      "reward": 1.0,
-      "speech": "lotr_port:miniquest/moredain/kill_ranger",
-      "weight": 100
-    },
-    {
-      "kind": "kill_npc",
-      "target": "lotr_port:crocodile",
-      "min": 10,
-      "max": 20,
-      "reward": 1.0,
-      "speech": "lotr_port:miniquest/moredain/kill_crocodile",
-      "weight": 100
-    },
-    {
-      "kind": "kill_npc",
-      "target": "lotr_port:lion",
-      "min": 10,
-      "max": 20,
-      "reward": 1.0,
-      "speech": "lotr_port:miniquest/moredain/kill_lion",
-      "weight": 100
-    },
-    {
-      "kind": "kill_npc",
-      "target": "lotr_port:lioness",
-      "min": 10,
-      "max": 20,
-      "reward": 1.0,
-      "speech": "lotr_port:miniquest/moredain/kill_lion",
-      "weight": 100
-    },
-    {
-      "kind": "kill_faction",
-      "target": "lotr_port:taurethrim",
-      "min": 20,
-      "max": 50,
-      "reward": 1.0,
-      "speech": "lotr_port:miniquest/moredain/kill_tauredain",
-      "weight": 100
-    },
-    {
-      "kind": "kill_npc",
-      "target": "lotr_port:tauredain_blowgunner",
-      "min": 10,
-      "max": 30,
-      "reward": 1.0,
-      "speech": "lotr_port:miniquest/moredain/kill_tauredain_blowgunner",
-      "weight": 100
     }
   ]
 }

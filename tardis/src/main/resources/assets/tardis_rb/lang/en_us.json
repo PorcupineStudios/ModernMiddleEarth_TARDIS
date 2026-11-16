@@ -198,5 +198,7 @@
   "tardis_rb.vortex.failed": "The TARDIS shudders and stays put",
   "tardis_rb.vortex.not_in": "The TARDIS isn't in the vortex",
   "block.tardis_rb.repair_core": "Repair Core",
-  "block.tardis_rb.core_casing": "Repair Core Casing"
+  "block.tardis_rb.core_casing": "Repair Core Casing",
+  "subtitles.tardis_rb.materialise": "TARDIS materialises",
+  "subtitles.tardis_rb.stutter": "TARDIS engines stutter"
 }

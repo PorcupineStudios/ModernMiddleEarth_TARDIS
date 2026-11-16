@@ -24,6 +24,9 @@ import nbt
 from assets import NS, snake, write_json
 from vanilla import BY_META, RENAMED
 
+# blocks over the ground layer cleared across a structure's footprint (the most a site may slope: max_slope)
+LEVEL_CLEAR = 6
+
 DATA_VERSION = 3955  # 1.21.1
 RATE_MIN = 20  # fewer probes than this in a biome: use the structure's share over every biome
 STAIRS_FACING = ["east", "west", "south", "north"]
@@ -322,6 +325,7 @@ class Structures:
             if s is None:
                 self.report["structure_blocks_unmapped"].append(k)
         chests = {tuple(c["pos"]): c for c in layout.get("chests", [])}
+        signs = {tuple(c["pos"]): c["lines"] for c in layout.get("signs", [])}
         by_pos = {}
         for x, y, z, p in layout["blocks"]:
             by_pos[(x, y, z)] = p
@@ -390,6 +394,9 @@ class Structures:
                     st, nbt_tag = self.container(st, items)
                     if nbt_tag is not None:
                         entry["nbt"] = nbt_tag
+            lines = signs.get((x, y, z))
+            if lines is not None and st["Name"].endswith("sign"):
+                entry["nbt"] = self.sign(st, lines)
             placed[(x, y, z)] = (st, entry)
         # Real air only where LOTR cleared space; every other spot is left out (structure void), so the natural ground
         # stays there. Below the ground layer the export already holds the air LOTR dug (cellars). Above it, a column's
@@ -411,6 +418,18 @@ class Structures:
             for y in range(ground_y + 1, top):
                 if (x, y, z) not in placed:
                     placed[(x, y, z)] = ({"Name": "minecraft:air"}, {"pos": [x - lo[0], y - base_y, z - lo[2]]})
+        # LOTR levelled its whole footprint: a yard or garden on ground higher than the template's ground layer kept
+        # the natural hill over it, burying garden walls and fences to their tops (Aaron 2026-11-16). So every open
+        # column of the footprint is cleared up to LEVEL_CLEAR blocks over the ground and gets grass on the ground
+        # layer (the piece fills dirt under it).
+        clear_top = min(hi[1], ground_y + LEVEL_CLEAR)
+        for x in range(lo[0], hi[0] + 1):
+            for z in range(lo[2], hi[2] + 1):
+                if (x, ground_y, z) not in placed:
+                    placed[(x, ground_y, z)] = (grass, {"pos": [x - lo[0], ground_y - base_y, z - lo[2]]})
+                for y in range(ground_y + 1, clear_top + 1):
+                    if (x, y, z) not in placed:
+                        placed[(x, y, z)] = ({"Name": "minecraft:air"}, {"pos": [x - lo[0], y - base_y, z - lo[2]]})
         # templates are placed without block updates, so panes, fences and walls need their sides set here (a lone
         # pane post showed as a small dark square by the windows)
         self.pair_chests(placed)
@@ -441,6 +460,15 @@ class Structures:
     CHESTS = ("minecraft:chest", "minecraft:trapped_chest")
     # the side a chest's partner is on for type=left (from the front, the partner is to the chest's left)
     LEFT_OF = {"north": (1, 0), "south": (-1, 0), "west": (0, -1), "east": (0, 1)}
+
+    @staticmethod
+    def sign(st, lines):
+        """A sign's text as LOTR wrote it while building (inn names, warnings); without it every sign stood blank."""
+        def side(texts):
+            return {"messages": [json.dumps({"text": t}) for t in (texts + ["", "", "", ""])[:4]],
+                    "color": "black", "has_glowing_text": nbt.Byte(0)}
+        block = "minecraft:hanging_sign" if "hanging" in st["Name"] else "minecraft:sign"
+        return {"id": block, "front_text": side(list(lines)), "back_text": side([]), "is_waxed": nbt.Byte(0)}
 
     def pair_chests(self, placed):
         """Two chests side by side, facing the same way, are one double chest (1.7.10 joined them by placement;

@@ -26,7 +26,7 @@
     "burn_panic_speed": 1.5,
     "eat_chance": 6000,
     "drink_chance": 6000,
-    "state.renderer": 0,
+    "state.renderer": 1,
     "ride_chance": 12
   },
   "sounds": {

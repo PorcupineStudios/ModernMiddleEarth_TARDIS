@@ -131,7 +131,11 @@ public class NpcRenderer extends HumanoidMobRenderer<LotrNpc, HumanoidModel<Lotr
             FormattedCharSequence row = rows.get(i);
             float x = -font.width(row) / 2f;
             float y = (i - rows.size() + 1) * (font.lineHeight + 1);
-            font.drawInBatch(row, x, y, 0xFFFFFFFF, false, matrix, buffers, Font.DisplayMode.NORMAL, background,
+            // background first, then the text pushed in front with polygon offset: text and its box in one pass
+            // share a depth and z-fight under shaderpacks (Iris), which ate half of every letter
+            font.drawInBatch(row, x, y, 0x00FFFFFF, false, matrix, buffers, Font.DisplayMode.NORMAL, background,
+                    light);
+            font.drawInBatch(row, x, y, 0xFFFFFFFF, false, matrix, buffers, Font.DisplayMode.POLYGON_OFFSET, 0,
                     light);
         }
         pose.popPose();

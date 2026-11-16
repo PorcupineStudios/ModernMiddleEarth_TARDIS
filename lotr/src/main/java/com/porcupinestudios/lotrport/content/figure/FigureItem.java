@@ -19,6 +19,11 @@ public class FigureItem extends Item {
         this.spec = spec;
     }
 
+    /** The figure's behaviors.json entry (model, texture, rug layout). */
+    public JsonObject spec() {
+        return spec;
+    }
+
     @Override
     public InteractionResult useOn(UseOnContext ctx) {
         if (ctx.getClickedFace() != Direction.UP) {

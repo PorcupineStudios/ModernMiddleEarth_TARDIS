@@ -22,10 +22,12 @@
   "gear": {
     "mainhand": [
       "lotr_port:bronze_axe",
-      "lotr_port:bronze_dagger",
-      "lotr_port:bronze_spear",
+      "lotr_port:bronze_battleaxe",
       "lotr_port:iron_spear",
-      "lotr_port:stone_spear"
+      "minecraft:iron_sword",
+      "minecraft:stone_axe",
+      "minecraft:stone_sword",
+      "minecraft:wooden_axe"
     ]
   },
   "speech": "lotr_port:angmar/hillman",

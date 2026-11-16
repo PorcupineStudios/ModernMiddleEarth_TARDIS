@@ -40,36 +40,42 @@
   "attack": 2.0,
   "gear": {
     "mainhand": [
-      "lotr_port:angmar_warhammer",
+      "lotr_port:angmar_poleaxe",
       "lotr_port:bronze_axe",
-      "lotr_port:dol_guldur_pickaxe",
-      "lotr_port:dol_guldur_spear",
-      "lotr_port:dol_guldur_spike",
+      "lotr_port:dol_guldur_warhammer",
+      "lotr_port:gundabad_uruk_spear",
+      "lotr_port:mordor_axe",
       "lotr_port:mordor_battleaxe",
-      "lotr_port:poisoned_iron_dagger"
+      "lotr_port:mordor_warhammer",
+      "lotr_port:stone_spear"
     ],
     "head": [
+      "lotr_port:angmar_helmet",
+      "lotr_port:bone_helmet",
+      "lotr_port:bronze_helmet",
       "lotr_port:dol_guldur_helmet",
-      "lotr_port:mordor_helmet",
-      "minecraft:leather_helmet"
+      "lotr_port:fur_hat",
+      "lotr_port:mordor_helmet"
     ],
     "chest": [
+      "lotr_port:angmar_chestplate",
       "lotr_port:bone_chestplate",
       "lotr_port:bronze_chestplate",
       "lotr_port:dol_guldur_chestplate",
-      "lotr_port:gundabad_uruk_chestplate",
-      "lotr_port:mordor_chestplate"
+      "lotr_port:gundabad_uruk_chestplate"
     ],
     "legs": [
-      "lotr_port:bone_leggings",
-      "lotr_port:bronze_leggings",
-      "lotr_port:fur_leggings",
+      "lotr_port:angmar_leggings",
+      "lotr_port:dol_guldur_leggings",
       "lotr_port:mordor_leggings",
       "minecraft:leather_leggings"
     ],
     "feet": [
-      "lotr_port:bronze_boots",
+      "lotr_port:angmar_boots",
+      "lotr_port:bone_boots",
       "lotr_port:dol_guldur_boots",
+      "lotr_port:fur_boots",
+      "lotr_port:gundabad_uruk_boots",
       "minecraft:leather_boots"
     ]
   },

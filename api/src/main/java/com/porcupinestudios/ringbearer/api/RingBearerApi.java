@@ -22,7 +22,7 @@ public final class RingBearerApi {
     public static final Logger LOG = LogUtils.getLogger();
 
     public RingBearerApi(IEventBus modBus, ModContainer container) {
-        container.registerConfig(ModConfig.Type.SERVER, ApiConfig.SPEC);
+        container.registerConfig(ModConfig.Type.COMMON, ApiConfig.SPEC);
         Conditions.register(modBus);
         Providers.register(modBus);
         HistoryRecorder.register(NeoForge.EVENT_BUS);

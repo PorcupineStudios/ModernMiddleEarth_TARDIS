@@ -56,7 +56,7 @@ public final class LotrPort {
     public static final Logger LOG = LogUtils.getLogger();
 
     public LotrPort(IEventBus modBus, ModContainer container) {
-        container.registerConfig(ModConfig.Type.SERVER, LotrConfig.SPEC);
+        container.registerConfig(ModConfig.Type.COMMON, LotrConfig.SPEC);
         container.registerConfig(ModConfig.Type.CLIENT, LotrClientConfig.SPEC);
         LotrRegistries.register(modBus);
         LotrSounds.register(modBus);
@@ -78,6 +78,7 @@ public final class LotrPort {
         com.porcupinestudios.lotrport.mount.Mounts.register(modBus);
         LotrWorldgen.register(modBus);
         LotrEntities.register(modBus);
+        com.porcupinestudios.lotrport.npc.SpawnEggs.register(modBus);
         SharedApiHooks.register(modBus);
         FactionConditions.register(modBus);
         com.porcupinestudios.lotrport.journey.CaravanConditions.register(modBus);
@@ -109,6 +110,7 @@ public final class LotrPort {
         com.porcupinestudios.lotrport.colonist.Colonists.register();
         com.porcupinestudios.lotrport.colony.ui.ColonyViews.register();
         AlignmentHud.register();
+        com.porcupinestudios.lotrport.player.Races.register(modBus);
         AttackTiming.register();
         ColonyItems.register(modBus);
         ColonyData.register();
@@ -153,6 +155,7 @@ public final class LotrPort {
             com.porcupinestudios.lotrport.progress.Cosmetics.registerCommands(event.getDispatcher());
             com.porcupinestudios.lotrport.progress.Calendar.registerCommands(event.getDispatcher());
             AlignmentHud.registerCommands(event.getDispatcher());
+            com.porcupinestudios.lotrport.player.Races.registerCommands(event.getDispatcher());
         });
     }
 

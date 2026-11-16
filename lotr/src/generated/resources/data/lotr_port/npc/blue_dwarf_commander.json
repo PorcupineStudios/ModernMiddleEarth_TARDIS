@@ -32,6 +32,5 @@
   },
   "names": "lotr_port:dwarf_male",
   "units": "lotr_port:blue_dwarf_commander",
-  "speech": "lotr_port:blue_dwarf/commander",
-  "quests": "lotr_port:blue_mountains"
+  "speech": "lotr_port:blue_dwarf/commander"
 }

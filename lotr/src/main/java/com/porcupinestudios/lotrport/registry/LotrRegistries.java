@@ -51,6 +51,14 @@ public final class LotrRegistries {
     public static final Supplier<AttachmentType<String>> ENTITY_FACTION = ATTACHMENTS.register("faction",
             () -> AttachmentType.builder(() -> "").serialize(Codec.STRING).build());
 
+    /** The player's race id (player_race/<id>.json; "" = not chosen yet); kept on death. Read through player.Races. */
+    public static final Supplier<AttachmentType<String>> RACE = ATTACHMENTS.register("race",
+            () -> AttachmentType.builder(() -> "").serialize(Codec.STRING).copyOnDeath().build());
+
+    /** An operator's size for the player (race_admin screen), 0 = the race's own; kept on death. */
+    public static final Supplier<AttachmentType<Float>> RACE_SCALE = ATTACHMENTS.register("race_scale",
+            () -> AttachmentType.builder(() -> 0f).serialize(Codec.FLOAT).copyOnDeath().build());
+
     /** The player's chosen LOTR title id ("" for none); kept on death. */
     public static final Supplier<AttachmentType<String>> TITLE = ATTACHMENTS.register("title",
             () -> AttachmentType.builder(() -> "").serialize(Codec.STRING).copyOnDeath().build());

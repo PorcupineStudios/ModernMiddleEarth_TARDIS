@@ -24,7 +24,7 @@
     "size_min": 1,
     "size_max": 3,
     "venom": 2,
-    "state.renderer": 1
+    "state.renderer": 0
   },
   "sounds": {
     "ambient": "minecraft:entity.spider.ambient",

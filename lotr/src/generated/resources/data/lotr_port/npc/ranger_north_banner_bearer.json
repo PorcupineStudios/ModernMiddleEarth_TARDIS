@@ -39,13 +39,11 @@
     "chest": "lotr_port:ranger_tunic",
     "legs": "lotr_port:ranger_leggings",
     "feet": "lotr_port:ranger_boots",
-    "ranged": [
-      "lotr_port:ranger_bow",
-      "minecraft:bow"
-    ],
+    "ranged": "lotr_port:ranger_bow",
     "mount": "lotr_port:horse",
     "mount_armor": "minecraft:iron_horse_armor"
   },
   "names": "lotr_port:gondor_male",
-  "speech": "lotr_port:ranger_north/ranger"
+  "speech": "lotr_port:ranger_north/ranger",
+  "quests": "lotr_port:ranger_north"
 }
