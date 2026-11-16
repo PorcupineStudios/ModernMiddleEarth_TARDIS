@@ -17,7 +17,6 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ProjectileWeaponItem;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -112,11 +111,12 @@ public class GateBlock extends DirectionalBlock {
         };
     }
 
-    /** As LOTR: with a block or a bow in hand the click places or shoots instead of working the gate. */
+    /** With a bow in hand the click shoots (LOTR). With a block it works the gate (Aaron 2026-11-16); sneak to place
+     * the block (vanilla skips the block's use while sneaking with an item). */
     @Override
     protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos,
             Player player, InteractionHand hand, BlockHitResult hit) {
-        return stack.getItem() instanceof BlockItem || stack.getItem() instanceof ProjectileWeaponItem
+        return stack.getItem() instanceof ProjectileWeaponItem
                 ? ItemInteractionResult.SKIP_DEFAULT_BLOCK_INTERACTION
                 : ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
     }
