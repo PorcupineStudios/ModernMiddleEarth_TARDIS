@@ -84,6 +84,9 @@ public final class LotrStructurePiece extends TemplateStructurePiece {
         for (int x = Math.max(mine.minX(), box.minX()); x <= Math.min(mine.maxX(), box.maxX()); x++) {
             for (int z = Math.max(mine.minZ(), box.minZ()); z <= Math.min(mine.maxZ(), box.maxZ()); z++) {
                 BlockState top = level.getBlockState(at.set(x, y, z));
+                if (top.isAir() && levelGround(level, at, x, y, z)) {
+                    continue;
+                }
                 // paths and farmland (porches, garden beds) aren't full blocks but stand on dirt all the same
                 boolean soil = top.is(Blocks.DIRT_PATH) || top.is(Blocks.FARMLAND);
                 if (top.isAir() || !soil && !top.isCollisionShapeFullBlock(level, at)) {
@@ -100,6 +103,28 @@ public final class LotrStructurePiece extends TemplateStructurePiece {
             }
         }
         compactDoubleChests(level, mine, box);
+    }
+
+    /**
+     * The template leaves the ground layer out where LOTR's flat export world still had its own grass (gardens, yards,
+     * between fences), so on lower ground those spots kept the natural surface a block or more down: pits around the
+     * house (Aaron 2026-11-16). LOTR's generators levelled their whole footprint, so an open ground-layer spot with open
+     * space under it gets grass, and dirt under that down to the ground, as far as the foundation may go.
+     */
+    private boolean levelGround(WorldGenLevel level, BlockPos.MutableBlockPos at, int x, int y, int z) {
+        int depth = 1;
+        while (depth <= maxFoundation && y - depth > level.getMinBuildHeight()
+                && open(level.getBlockState(at.set(x, y - depth, z)))) {
+            depth++;
+        }
+        if (depth == 1 || depth > maxFoundation) {
+            return false;
+        }
+        level.setBlock(at.set(x, y, z), Blocks.GRASS_BLOCK.defaultBlockState(), 2);
+        for (int d = 1; d < depth; d++) {
+            level.setBlock(at.set(x, y - d, z), Blocks.DIRT.defaultBlockState(), 2);
+        }
+        return true;
     }
 
     /**
