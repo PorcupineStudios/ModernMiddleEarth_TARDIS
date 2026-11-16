@@ -122,7 +122,6 @@ public final class Races {
         NeoForge.EVENT_BUS.addListener((PlayerEvent.PlayerLoggedInEvent e) -> joined(e.getEntity()));
         NeoForge.EVENT_BUS.addListener((PlayerEvent.PlayerRespawnEvent e) -> joined(e.getEntity()));
         NeoForge.EVENT_BUS.addListener((PlayerEvent.PlayerChangedDimensionEvent e) -> joined(e.getEntity()));
-        NeoForge.EVENT_BUS.addListener(Races::size);
         modBus.addListener((RegisterPayloadHandlersEvent e) -> e.registrar("1").playToClient(Skin.TYPE, Skin.CODEC,
                 (p, ctx) -> ctx.enqueueWork(() -> {
                     CLIENT_CROUCH.put(p.player(), p.crouch());
@@ -183,18 +182,14 @@ public final class Races {
         }).orElse(1.0);
     }
 
-    /** The race's crouch_height on the crouching hitbox (and eyes), server and client alike. */
-    private static void size(net.neoforged.neoforge.event.entity.EntityEvent.Size e) {
-        if (e.getPose() != net.minecraft.world.entity.Pose.CROUCHING
-                || !(e.getEntity() instanceof net.minecraft.world.entity.player.Player p)) {
-            return;
-        }
-        float f = p instanceof ServerPlayer sp
+    /**
+     * The race's crouch_height for this player, server and client alike; read by the dimensions mixin, so vanilla's
+     * crouch-or-crawl check sees the same hitbox.
+     */
+    public static float crouchFactor(net.minecraft.world.entity.player.Player p) {
+        return p instanceof ServerPlayer sp
                 ? of(sp).map(id -> (float) all().get(id).crouchHeight()).orElse(1f)
                 : CLIENT_CROUCH.getOrDefault(p.getUUID(), 1f);
-        if (f != 1f) {
-            e.setNewSize(e.getNewSize().scale(1f, f));
-        }
     }
 
     private static void joined(net.minecraft.world.entity.player.Player p) {

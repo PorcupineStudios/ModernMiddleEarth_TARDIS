@@ -106,6 +106,37 @@ public final class RacePlayers {
             return HumanoidModel.ArmPose.ITEM;
         }
 
+        /** PlayerRenderer's body tilts: elytra flight, and swimming or crawling (LivingEntityRenderer has neither). */
+        @Override
+        protected void setupRotations(AbstractClientPlayer player, com.mojang.blaze3d.vertex.PoseStack pose, float bob,
+                float yBodyRot, float partialTick, float scale) {
+            super.setupRotations(player, pose, bob, yBodyRot, partialTick, scale);
+            float swim = player.getSwimAmount(partialTick);
+            float xRot = player.getViewXRot(partialTick);
+            if (player.isFallFlying()) {
+                float t = player.getFallFlyingTicks() + partialTick;
+                float lean = Mth.clamp(t * t / 100f, 0f, 1f);
+                if (!player.isAutoSpinAttack()) {
+                    pose.mulPose(com.mojang.math.Axis.XP.rotationDegrees(lean * (-90f - xRot)));
+                }
+                net.minecraft.world.phys.Vec3 look = player.getViewVector(partialTick);
+                net.minecraft.world.phys.Vec3 move = player.getDeltaMovementLerped(partialTick);
+                double m = move.horizontalDistanceSqr();
+                double l = look.horizontalDistanceSqr();
+                if (m > 0 && l > 0) {
+                    double cos = (move.x * look.x + move.z * look.z) / Math.sqrt(m * l);
+                    double side = move.x * look.z - move.z * look.x;
+                    pose.mulPose(com.mojang.math.Axis.YP.rotation((float) (Math.signum(side) * Math.acos(cos))));
+                }
+            } else if (swim > 0f) {
+                float target = player.isInWater() ? -90f - xRot : -90f;
+                pose.mulPose(com.mojang.math.Axis.XP.rotationDegrees(Mth.lerp(swim, 0f, target)));
+                if (player.isVisuallySwimming()) {
+                    pose.translate(0f, -1f, 0.3f);
+                }
+            }
+        }
+
         @Override
         public ResourceLocation getTextureLocation(AbstractClientPlayer player) {
             return skin;
