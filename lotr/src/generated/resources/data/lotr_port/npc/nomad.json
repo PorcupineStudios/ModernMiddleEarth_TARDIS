@@ -26,5 +26,6 @@
     "head": "lotr_port:harad_turban"
   },
   "names": "lotr_port:nomad_male",
-  "speech": "lotr_port:near_harad/merchant"
+  "speech": "lotr_port:near_harad/merchant",
+  "quests": "lotr_port:nomad"
 }

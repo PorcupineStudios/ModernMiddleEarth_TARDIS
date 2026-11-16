@@ -12,8 +12,8 @@
               "function": "minecraft:set_count",
               "count": {
                 "type": "minecraft:uniform",
-                "min": 2,
-                "max": 2
+                "min": 3,
+                "max": 3
               }
             }
           ]
@@ -31,14 +31,14 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "lotr_port:apple",
+          "name": "lotr_port:almond",
           "functions": [
             {
               "function": "minecraft:set_count",
               "count": {
                 "type": "minecraft:uniform",
-                "min": 2,
-                "max": 2
+                "min": 1,
+                "max": 3
               }
             }
           ]
@@ -47,7 +47,37 @@
       "conditions": [
         {
           "condition": "minecraft:random_chance",
+          "chance": 0.0075
+        }
+      ]
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "lotr_port:apple"
+        }
+      ],
+      "conditions": [
+        {
+          "condition": "minecraft:random_chance",
           "chance": 0.005
+        }
+      ]
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "lotr_port:gondorian_chestplate"
+        }
+      ],
+      "conditions": [
+        {
+          "condition": "minecraft:random_chance",
+          "chance": 0.0025
         }
       ]
     },
@@ -92,7 +122,7 @@
               "function": "minecraft:set_count",
               "count": {
                 "type": "minecraft:uniform",
-                "min": 1,
+                "min": 3,
                 "max": 3
               }
             }
@@ -102,7 +132,7 @@
       "conditions": [
         {
           "condition": "minecraft:random_chance",
-          "chance": 0.01
+          "chance": 0.0075
         }
       ]
     },
@@ -111,69 +141,14 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "lotr_port:ceramic_mug"
-        }
-      ],
-      "conditions": [
-        {
-          "condition": "minecraft:random_chance",
-          "chance": 0.0025
-        }
-      ]
-    },
-    {
-      "rolls": 1,
-      "entries": [
-        {
-          "type": "minecraft:item",
-          "name": "lotr_port:silver_coin",
+          "name": "lotr_port:ceramic_mug",
           "functions": [
             {
               "function": "minecraft:set_count",
               "count": {
                 "type": "minecraft:uniform",
                 "min": 1,
-                "max": 8
-              }
-            }
-          ]
-        }
-      ],
-      "conditions": [
-        {
-          "condition": "minecraft:random_chance",
-          "chance": 0.125
-        }
-      ]
-    },
-    {
-      "rolls": 1,
-      "entries": [
-        {
-          "type": "minecraft:item",
-          "name": "lotr_port:gondorian_dagger"
-        }
-      ],
-      "conditions": [
-        {
-          "condition": "minecraft:random_chance",
-          "chance": 0.0025
-        }
-      ]
-    },
-    {
-      "rolls": 1,
-      "entries": [
-        {
-          "type": "minecraft:item",
-          "name": "lotr_port:wooden_cup",
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": {
-                "type": "minecraft:uniform",
-                "min": 1,
-                "max": 3
+                "max": 2
               }
             }
           ]
@@ -191,7 +166,32 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "lotr_port:gondorian_bow"
+          "name": "lotr_port:silver_coin",
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 1,
+                "max": 10
+              }
+            }
+          ]
+        }
+      ],
+      "conditions": [
+        {
+          "condition": "minecraft:random_chance",
+          "chance": 0.12
+        }
+      ]
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "lotr_port:gold_ring"
         }
       ],
       "conditions": [
@@ -236,23 +236,13 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "lotr_port:iron_nugget",
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": {
-                "type": "minecraft:uniform",
-                "min": 3,
-                "max": 5
-              }
-            }
-          ]
+          "name": "lotr_port:gondorian_helmet"
         }
       ],
       "conditions": [
         {
           "condition": "minecraft:random_chance",
-          "chance": 0.0075
+          "chance": 0.0025
         }
       ]
     },
@@ -276,13 +266,43 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "lotr_port:leek",
+          "name": "lotr_port:leek"
+        }
+      ],
+      "conditions": [
+        {
+          "condition": "minecraft:random_chance",
+          "chance": 0.0025
+        }
+      ]
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "lotr_port:gondorian_leggings"
+        }
+      ],
+      "conditions": [
+        {
+          "condition": "minecraft:random_chance",
+          "chance": 0.0025
+        }
+      ]
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "lotr_port:lettuce",
           "functions": [
             {
               "function": "minecraft:set_count",
               "count": {
                 "type": "minecraft:uniform",
-                "min": 2,
+                "min": 1,
                 "max": 2
               }
             }
@@ -292,7 +312,7 @@
       "conditions": [
         {
           "condition": "minecraft:random_chance",
-          "chance": 0.0025
+          "chance": 0.0075
         }
       ]
     },
@@ -301,37 +321,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "lotr_port:gondorian_leggings"
-        }
-      ],
-      "conditions": [
-        {
-          "condition": "minecraft:random_chance",
-          "chance": 0.0025
-        }
-      ]
-    },
-    {
-      "rolls": 1,
-      "entries": [
-        {
-          "type": "minecraft:item",
-          "name": "lotr_port:gondorian_leggings"
-        }
-      ],
-      "conditions": [
-        {
-          "condition": "minecraft:random_chance",
-          "chance": 0.0025
-        }
-      ]
-    },
-    {
-      "rolls": 1,
-      "entries": [
-        {
-          "type": "minecraft:item",
-          "name": "lotr_port:gondorian_leggings"
+          "name": "lotr_port:chocolate_marchpane"
         }
       ],
       "conditions": [
@@ -352,7 +342,7 @@
       "conditions": [
         {
           "condition": "minecraft:random_chance",
-          "chance": 0.0225
+          "chance": 0.015
         }
       ]
     },
@@ -377,141 +367,6 @@
       "conditions": [
         {
           "condition": "minecraft:random_chance",
-          "chance": 0.0025
-        }
-      ]
-    },
-    {
-      "rolls": 1,
-      "entries": [
-        {
-          "type": "minecraft:item",
-          "name": "lotr_port:mead"
-        }
-      ],
-      "conditions": [
-        {
-          "condition": "minecraft:random_chance",
-          "chance": 0.0025
-        }
-      ]
-    },
-    {
-      "rolls": 1,
-      "entries": [
-        {
-          "type": "minecraft:item",
-          "name": "lotr_port:perry"
-        }
-      ],
-      "conditions": [
-        {
-          "condition": "minecraft:random_chance",
-          "chance": 0.0025
-        }
-      ]
-    },
-    {
-      "rolls": 1,
-      "entries": [
-        {
-          "type": "minecraft:item",
-          "name": "minecraft:cooked_mutton"
-        }
-      ],
-      "conditions": [
-        {
-          "condition": "minecraft:random_chance",
-          "chance": 0.0025
-        }
-      ]
-    },
-    {
-      "rolls": 1,
-      "entries": [
-        {
-          "type": "minecraft:item",
-          "name": "lotr_port:olives",
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": {
-                "type": "minecraft:uniform",
-                "min": 4,
-                "max": 4
-              }
-            }
-          ]
-        }
-      ],
-      "conditions": [
-        {
-          "condition": "minecraft:random_chance",
-          "chance": 0.0025
-        }
-      ]
-    },
-    {
-      "rolls": 1,
-      "entries": [
-        {
-          "type": "minecraft:item",
-          "name": "lotr_port:olive_bread"
-        }
-      ],
-      "conditions": [
-        {
-          "condition": "minecraft:random_chance",
-          "chance": 0.0025
-        }
-      ]
-    },
-    {
-      "rolls": 1,
-      "entries": [
-        {
-          "type": "minecraft:item",
-          "name": "lotr_port:pear",
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": {
-                "type": "minecraft:uniform",
-                "min": 2,
-                "max": 2
-              }
-            }
-          ]
-        }
-      ],
-      "conditions": [
-        {
-          "condition": "minecraft:random_chance",
-          "chance": 0.0025
-        }
-      ]
-    },
-    {
-      "rolls": 1,
-      "entries": [
-        {
-          "type": "minecraft:item",
-          "name": "lotr_port:plum",
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": {
-                "type": "minecraft:uniform",
-                "min": 2,
-                "max": 3
-              }
-            }
-          ]
-        }
-      ],
-      "conditions": [
-        {
-          "condition": "minecraft:random_chance",
           "chance": 0.005
         }
       ]
@@ -521,7 +376,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "lotr_port:cooked_rabbit",
+          "name": "minecraft:cooked_mutton",
           "functions": [
             {
               "function": "minecraft:set_count",
@@ -546,7 +401,72 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "lotr_port:silver_ingot"
+          "name": "lotr_port:olives"
+        }
+      ],
+      "conditions": [
+        {
+          "condition": "minecraft:random_chance",
+          "chance": 0.0025
+        }
+      ]
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "lotr_port:pear",
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 2,
+                "max": 3
+              }
+            }
+          ]
+        }
+      ],
+      "conditions": [
+        {
+          "condition": "minecraft:random_chance",
+          "chance": 0.005
+        }
+      ]
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "lotr_port:plum",
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 2,
+                "max": 2
+              }
+            }
+          ]
+        }
+      ],
+      "conditions": [
+        {
+          "condition": "minecraft:random_chance",
+          "chance": 0.0025
+        }
+      ]
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "lotr_port:bronze_shovel"
         }
       ],
       "conditions": [
@@ -567,8 +487,8 @@
               "function": "minecraft:set_count",
               "count": {
                 "type": "minecraft:uniform",
-                "min": 4,
-                "max": 5
+                "min": 3,
+                "max": 6
               }
             }
           ]
@@ -577,7 +497,37 @@
       "conditions": [
         {
           "condition": "minecraft:random_chance",
-          "chance": 0.015
+          "chance": 0.0125
+        }
+      ]
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "lotr_port:silver_ring"
+        }
+      ],
+      "conditions": [
+        {
+          "condition": "minecraft:random_chance",
+          "chance": 0.0025
+        }
+      ]
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "lotr_port:gondorian_spear"
+        }
+      ],
+      "conditions": [
+        {
+          "condition": "minecraft:random_chance",
+          "chance": 0.0025
         }
       ]
     },
@@ -587,6 +537,31 @@
         {
           "type": "minecraft:item",
           "name": "lotr_port:turnip",
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 2,
+                "max": 2
+              }
+            }
+          ]
+        }
+      ],
+      "conditions": [
+        {
+          "condition": "minecraft:random_chance",
+          "chance": 0.005
+        }
+      ]
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "lotr_port:roast_turnip",
           "functions": [
             {
               "function": "minecraft:set_count",
@@ -602,7 +577,7 @@
       "conditions": [
         {
           "condition": "minecraft:random_chance",
-          "chance": 0.0125
+          "chance": 0.0075
         }
       ]
     },
@@ -642,8 +617,8 @@
               "function": "minecraft:set_count",
               "count": {
                 "type": "minecraft:uniform",
-                "min": 2,
-                "max": 7
+                "min": 3,
+                "max": 3
               }
             }
           ]
@@ -652,7 +627,7 @@
       "conditions": [
         {
           "condition": "minecraft:random_chance",
-          "chance": 0.0125
+          "chance": 0.0025
         }
       ]
     },
@@ -667,7 +642,7 @@
       "conditions": [
         {
           "condition": "minecraft:random_chance",
-          "chance": 0.475
+          "chance": 0.5
         }
       ]
     },
@@ -701,13 +676,43 @@
       "entries": [
         {
           "type": "minecraft:item",
+          "name": "minecraft:bow"
+        }
+      ],
+      "conditions": [
+        {
+          "condition": "minecraft:random_chance",
+          "chance": 0.0025
+        }
+      ]
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:bow"
+        }
+      ],
+      "conditions": [
+        {
+          "condition": "minecraft:random_chance",
+          "chance": 0.0025
+        }
+      ]
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
           "name": "minecraft:bread",
           "functions": [
             {
               "function": "minecraft:set_count",
               "count": {
                 "type": "minecraft:uniform",
-                "min": 2,
+                "min": 1,
                 "max": 3
               }
             }
@@ -751,7 +756,32 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "minecraft:charcoal"
+          "name": "minecraft:charcoal",
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 1,
+                "max": 3
+              }
+            }
+          ]
+        }
+      ],
+      "conditions": [
+        {
+          "condition": "minecraft:random_chance",
+          "chance": 0.015
+        }
+      ]
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:cooked_cod"
         }
       ],
       "conditions": [
@@ -766,17 +796,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "minecraft:cooked_porkchop",
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": {
-                "type": "minecraft:uniform",
-                "min": 2,
-                "max": 2
-              }
-            }
-          ]
+          "name": "minecraft:cooked_porkchop"
         }
       ],
       "conditions": [
@@ -797,7 +817,7 @@
               "function": "minecraft:set_count",
               "count": {
                 "type": "minecraft:uniform",
-                "min": 2,
+                "min": 1,
                 "max": 4
               }
             }
@@ -823,7 +843,7 @@
               "count": {
                 "type": "minecraft:uniform",
                 "min": 2,
-                "max": 2
+                "max": 3
               }
             }
           ]
@@ -832,67 +852,7 @@
       "conditions": [
         {
           "condition": "minecraft:random_chance",
-          "chance": 0.0025
-        }
-      ]
-    },
-    {
-      "rolls": 1,
-      "entries": [
-        {
-          "type": "minecraft:item",
-          "name": "minecraft:flint_and_steel"
-        }
-      ],
-      "conditions": [
-        {
-          "condition": "minecraft:random_chance",
-          "chance": 0.0025
-        }
-      ]
-    },
-    {
-      "rolls": 1,
-      "entries": [
-        {
-          "type": "minecraft:item",
-          "name": "minecraft:flint_and_steel"
-        }
-      ],
-      "conditions": [
-        {
-          "condition": "minecraft:random_chance",
-          "chance": 0.0025
-        }
-      ]
-    },
-    {
-      "rolls": 1,
-      "entries": [
-        {
-          "type": "minecraft:item",
-          "name": "minecraft:flint_and_steel"
-        }
-      ],
-      "conditions": [
-        {
-          "condition": "minecraft:random_chance",
-          "chance": 0.0025
-        }
-      ]
-    },
-    {
-      "rolls": 1,
-      "entries": [
-        {
-          "type": "minecraft:item",
-          "name": "minecraft:gold_ingot"
-        }
-      ],
-      "conditions": [
-        {
-          "condition": "minecraft:random_chance",
-          "chance": 0.0025
+          "chance": 0.01
         }
       ]
     },
@@ -907,8 +867,8 @@
               "function": "minecraft:set_count",
               "count": {
                 "type": "minecraft:uniform",
-                "min": 3,
-                "max": 3
+                "min": 1,
+                "max": 6
               }
             }
           ]
@@ -917,52 +877,7 @@
       "conditions": [
         {
           "condition": "minecraft:random_chance",
-          "chance": 0.005
-        }
-      ]
-    },
-    {
-      "rolls": 1,
-      "entries": [
-        {
-          "type": "minecraft:item",
-          "name": "minecraft:iron_axe"
-        }
-      ],
-      "conditions": [
-        {
-          "condition": "minecraft:random_chance",
-          "chance": 0.0025
-        }
-      ]
-    },
-    {
-      "rolls": 1,
-      "entries": [
-        {
-          "type": "minecraft:item",
-          "name": "minecraft:iron_hoe"
-        }
-      ],
-      "conditions": [
-        {
-          "condition": "minecraft:random_chance",
-          "chance": 0.0025
-        }
-      ]
-    },
-    {
-      "rolls": 1,
-      "entries": [
-        {
-          "type": "minecraft:item",
-          "name": "minecraft:iron_hoe"
-        }
-      ],
-      "conditions": [
-        {
-          "condition": "minecraft:random_chance",
-          "chance": 0.0025
+          "chance": 0.02
         }
       ]
     },
@@ -987,37 +902,7 @@
       "conditions": [
         {
           "condition": "minecraft:random_chance",
-          "chance": 0.005
-        }
-      ]
-    },
-    {
-      "rolls": 1,
-      "entries": [
-        {
-          "type": "minecraft:item",
-          "name": "minecraft:iron_shovel"
-        }
-      ],
-      "conditions": [
-        {
-          "condition": "minecraft:random_chance",
-          "chance": 0.0025
-        }
-      ]
-    },
-    {
-      "rolls": 1,
-      "entries": [
-        {
-          "type": "minecraft:item",
-          "name": "minecraft:iron_shovel"
-        }
-      ],
-      "conditions": [
-        {
-          "condition": "minecraft:random_chance",
-          "chance": 0.0025
+          "chance": 0.0125
         }
       ]
     },
@@ -1032,8 +917,8 @@
               "function": "minecraft:set_count",
               "count": {
                 "type": "minecraft:uniform",
-                "min": 4,
-                "max": 4
+                "min": 2,
+                "max": 3
               }
             }
           ]
@@ -1042,7 +927,32 @@
       "conditions": [
         {
           "condition": "minecraft:random_chance",
-          "chance": 0.0025
+          "chance": 0.005
+        }
+      ]
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:paper",
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 1,
+                "max": 3
+              }
+            }
+          ]
+        }
+      ],
+      "conditions": [
+        {
+          "condition": "minecraft:random_chance",
+          "chance": 0.0125
         }
       ]
     },
@@ -1057,8 +967,8 @@
               "function": "minecraft:set_count",
               "count": {
                 "type": "minecraft:uniform",
-                "min": 2,
-                "max": 7
+                "min": 4,
+                "max": 6
               }
             }
           ]
@@ -1067,7 +977,7 @@
       "conditions": [
         {
           "condition": "minecraft:random_chance",
-          "chance": 0.015
+          "chance": 0.0075
         }
       ]
     },
@@ -1098,6 +1008,31 @@
               "count": {
                 "type": "minecraft:uniform",
                 "min": 1,
+                "max": 3
+              }
+            }
+          ]
+        }
+      ],
+      "conditions": [
+        {
+          "condition": "minecraft:random_chance",
+          "chance": 0.0175
+        }
+      ]
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:wheat",
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 2,
                 "max": 4
               }
             }
@@ -1116,32 +1051,17 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "minecraft:wheat",
+          "name": "minecraft:wheat_seeds",
           "functions": [
             {
               "function": "minecraft:set_count",
               "count": {
                 "type": "minecraft:uniform",
-                "min": 2,
+                "min": 3,
                 "max": 3
               }
             }
           ]
-        }
-      ],
-      "conditions": [
-        {
-          "condition": "minecraft:random_chance",
-          "chance": 0.005
-        }
-      ]
-    },
-    {
-      "rolls": 1,
-      "entries": [
-        {
-          "type": "minecraft:item",
-          "name": "minecraft:wooden_axe"
         }
       ],
       "conditions": [
@@ -1156,23 +1076,28 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "minecraft:written_book",
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": {
-                "type": "minecraft:uniform",
-                "min": 1,
-                "max": 2
-              }
-            }
-          ]
+          "name": "minecraft:wooden_shovel"
         }
       ],
       "conditions": [
         {
           "condition": "minecraft:random_chance",
-          "chance": 0.0125
+          "chance": 0.005
+        }
+      ]
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:written_book"
+        }
+      ],
+      "conditions": [
+        {
+          "condition": "minecraft:random_chance",
+          "chance": 0.0075
         }
       ]
     }

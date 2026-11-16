@@ -6,66 +6,6 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "lotr_port:wood_elven_axe"
-        }
-      ],
-      "conditions": [
-        {
-          "condition": "minecraft:random_chance",
-          "chance": 0.0025
-        }
-      ]
-    },
-    {
-      "rolls": 1,
-      "entries": [
-        {
-          "type": "minecraft:item",
-          "name": "lotr_port:wood_elven_axe"
-        }
-      ],
-      "conditions": [
-        {
-          "condition": "minecraft:random_chance",
-          "chance": 0.0025
-        }
-      ]
-    },
-    {
-      "rolls": 1,
-      "entries": [
-        {
-          "type": "minecraft:item",
-          "name": "lotr_port:wood_elven_axe"
-        }
-      ],
-      "conditions": [
-        {
-          "condition": "minecraft:random_chance",
-          "chance": 0.0025
-        }
-      ]
-    },
-    {
-      "rolls": 1,
-      "entries": [
-        {
-          "type": "minecraft:item",
-          "name": "lotr_port:wood_elven_axe"
-        }
-      ],
-      "conditions": [
-        {
-          "condition": "minecraft:random_chance",
-          "chance": 0.0025
-        }
-      ]
-    },
-    {
-      "rolls": 1,
-      "entries": [
-        {
-          "type": "minecraft:item",
           "name": "lotr_port:silver_coin",
           "functions": [
             {
@@ -73,7 +13,7 @@
               "count": {
                 "type": "minecraft:uniform",
                 "min": 1,
-                "max": 9
+                "max": 16
               }
             }
           ]
@@ -82,7 +22,22 @@
       "conditions": [
         {
           "condition": "minecraft:random_chance",
-          "chance": 0.1425
+          "chance": 0.16
+        }
+      ]
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "lotr_port:wood_elven_dagger"
+        }
+      ],
+      "conditions": [
+        {
+          "condition": "minecraft:random_chance",
+          "chance": 0.0025
         }
       ]
     },
@@ -97,7 +52,7 @@
       "conditions": [
         {
           "condition": "minecraft:random_chance",
-          "chance": 0.49
+          "chance": 0.565
         }
       ]
     },
@@ -122,7 +77,7 @@
       "conditions": [
         {
           "condition": "minecraft:random_chance",
-          "chance": 0.01
+          "chance": 0.005
         }
       ]
     },
@@ -137,7 +92,7 @@
       "conditions": [
         {
           "condition": "minecraft:random_chance",
-          "chance": 0.03
+          "chance": 0.04
         }
       ]
     },
@@ -146,7 +101,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "lotr_port:bow_of_mirkwood"
+          "name": "lotr_port:wood_elven_longspear"
         }
       ],
       "conditions": [
@@ -161,7 +116,37 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "lotr_port:bow_of_mirkwood"
+          "name": "lotr_port:wood_elven_longspear"
+        }
+      ],
+      "conditions": [
+        {
+          "condition": "minecraft:random_chance",
+          "chance": 0.0025
+        }
+      ]
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "lotr_port:wood_elven_longspear"
+        }
+      ],
+      "conditions": [
+        {
+          "condition": "minecraft:random_chance",
+          "chance": 0.0025
+        }
+      ]
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "lotr_port:wood_elven_longspear"
         }
       ],
       "conditions": [
@@ -347,7 +332,32 @@
       "conditions": [
         {
           "condition": "minecraft:random_chance",
-          "chance": 0.015
+          "chance": 0.025
+        }
+      ]
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "lotr_port:mug",
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 1,
+                "max": 3
+              }
+            }
+          ]
+        }
+      ],
+      "conditions": [
+        {
+          "condition": "minecraft:random_chance",
+          "chance": 0.0075
         }
       ]
     },
@@ -362,7 +372,22 @@
       "conditions": [
         {
           "condition": "minecraft:random_chance",
-          "chance": 0.0075
+          "chance": 0.0025
+        }
+      ]
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "lotr_port:red_wine"
+        }
+      ],
+      "conditions": [
+        {
+          "condition": "minecraft:random_chance",
+          "chance": 0.0025
         }
       ]
     },
@@ -392,7 +417,7 @@
       "conditions": [
         {
           "condition": "minecraft:random_chance",
-          "chance": 0.0075
+          "chance": 0.005
         }
       ]
     },
@@ -407,7 +432,7 @@
       "conditions": [
         {
           "condition": "minecraft:random_chance",
-          "chance": 0.0075
+          "chance": 0.0025
         }
       ]
     },
@@ -422,7 +447,7 @@
       "conditions": [
         {
           "condition": "minecraft:random_chance",
-          "chance": 0.0075
+          "chance": 0.0025
         }
       ]
     },
@@ -438,6 +463,51 @@
         {
           "condition": "minecraft:random_chance",
           "chance": 0.005
+        }
+      ]
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "lotr_port:red_wine"
+        }
+      ],
+      "conditions": [
+        {
+          "condition": "minecraft:random_chance",
+          "chance": 0.005
+        }
+      ]
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "lotr_port:red_wine"
+        }
+      ],
+      "conditions": [
+        {
+          "condition": "minecraft:random_chance",
+          "chance": 0.0025
+        }
+      ]
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "lotr_port:red_wine"
+        }
+      ],
+      "conditions": [
+        {
+          "condition": "minecraft:random_chance",
+          "chance": 0.0025
         }
       ]
     },
@@ -482,7 +552,7 @@
       "conditions": [
         {
           "condition": "minecraft:random_chance",
-          "chance": 0.0025
+          "chance": 0.005
         }
       ]
     },
@@ -497,7 +567,7 @@
       "conditions": [
         {
           "condition": "minecraft:random_chance",
-          "chance": 0.0025
+          "chance": 0.005
         }
       ]
     },
@@ -512,7 +582,7 @@
       "conditions": [
         {
           "condition": "minecraft:random_chance",
-          "chance": 0.0075
+          "chance": 0.01
         }
       ]
     },
@@ -527,7 +597,7 @@
       "conditions": [
         {
           "condition": "minecraft:random_chance",
-          "chance": 0.015
+          "chance": 0.005
         }
       ]
     },
@@ -558,81 +628,6 @@
         {
           "condition": "minecraft:random_chance",
           "chance": 0.005
-        }
-      ]
-    },
-    {
-      "rolls": 1,
-      "entries": [
-        {
-          "type": "minecraft:item",
-          "name": "lotr_port:red_wine"
-        }
-      ],
-      "conditions": [
-        {
-          "condition": "minecraft:random_chance",
-          "chance": 0.0075
-        }
-      ]
-    },
-    {
-      "rolls": 1,
-      "entries": [
-        {
-          "type": "minecraft:item",
-          "name": "lotr_port:red_wine"
-        }
-      ],
-      "conditions": [
-        {
-          "condition": "minecraft:random_chance",
-          "chance": 0.0075
-        }
-      ]
-    },
-    {
-      "rolls": 1,
-      "entries": [
-        {
-          "type": "minecraft:item",
-          "name": "lotr_port:red_wine"
-        }
-      ],
-      "conditions": [
-        {
-          "condition": "minecraft:random_chance",
-          "chance": 0.005
-        }
-      ]
-    },
-    {
-      "rolls": 1,
-      "entries": [
-        {
-          "type": "minecraft:item",
-          "name": "lotr_port:wood_elven_battlestaff"
-        }
-      ],
-      "conditions": [
-        {
-          "condition": "minecraft:random_chance",
-          "chance": 0.0025
-        }
-      ]
-    },
-    {
-      "rolls": 1,
-      "entries": [
-        {
-          "type": "minecraft:item",
-          "name": "lotr_port:wood_elven_battlestaff"
-        }
-      ],
-      "conditions": [
-        {
-          "condition": "minecraft:random_chance",
-          "chance": 0.0025
         }
       ]
     },
@@ -647,8 +642,33 @@
               "function": "minecraft:set_count",
               "count": {
                 "type": "minecraft:uniform",
-                "min": 1,
-                "max": 4
+                "min": 3,
+                "max": 6
+              }
+            }
+          ]
+        }
+      ],
+      "conditions": [
+        {
+          "condition": "minecraft:random_chance",
+          "chance": 0.0125
+        }
+      ]
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "lotr_port:wine_glass",
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 2,
+                "max": 3
               }
             }
           ]
@@ -658,21 +678,6 @@
         {
           "condition": "minecraft:random_chance",
           "chance": 0.01
-        }
-      ]
-    },
-    {
-      "rolls": 1,
-      "entries": [
-        {
-          "type": "minecraft:item",
-          "name": "lotr_port:wood_elven_sword"
-        }
-      ],
-      "conditions": [
-        {
-          "condition": "minecraft:random_chance",
-          "chance": 0.0025
         }
       ]
     },
@@ -697,7 +702,7 @@
       "conditions": [
         {
           "condition": "minecraft:random_chance",
-          "chance": 0.02
+          "chance": 0.0175
         }
       ]
     },
@@ -722,7 +727,7 @@
       "conditions": [
         {
           "condition": "minecraft:random_chance",
-          "chance": 0.68
+          "chance": 0.715
         }
       ]
     },
@@ -731,14 +736,29 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "minecraft:glass_bottle",
+          "name": "minecraft:glass_bottle"
+        }
+      ],
+      "conditions": [
+        {
+          "condition": "minecraft:random_chance",
+          "chance": 0.0025
+        }
+      ]
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:gold_nugget",
           "functions": [
             {
               "function": "minecraft:set_count",
               "count": {
                 "type": "minecraft:uniform",
                 "min": 2,
-                "max": 3
+                "max": 4
               }
             }
           ]
@@ -772,7 +792,7 @@
       "conditions": [
         {
           "condition": "minecraft:random_chance",
-          "chance": 0.0225
+          "chance": 0.025
         }
       ]
     },
@@ -787,7 +807,7 @@
       "conditions": [
         {
           "condition": "minecraft:random_chance",
-          "chance": 0.005
+          "chance": 0.0175
         }
       ]
     }

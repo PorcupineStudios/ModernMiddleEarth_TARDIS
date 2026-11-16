@@ -30,7 +30,7 @@
     "panic_speed": 1.25,
     "state.renderer": 0
   },
-  "health": 12.0,
-  "speed": 0.35,
+  "health": 24.0,
+  "speed": 0.24999999999999997,
   "attack": 2.0
 }

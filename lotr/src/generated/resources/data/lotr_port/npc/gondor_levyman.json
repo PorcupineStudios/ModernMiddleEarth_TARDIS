@@ -29,11 +29,9 @@
   "gear": {
     "mainhand": [
       "lotr_port:bronze_axe",
-      "lotr_port:bronze_battleaxe",
-      "lotr_port:bronze_sword",
-      "lotr_port:gondorian_warhammer",
-      "lotr_port:iron_battleaxe",
-      "minecraft:iron_sword"
+      "lotr_port:gondorian_pike",
+      "lotr_port:gondorian_sword",
+      "lotr_port:gondorian_warhammer"
     ],
     "head": [
       "lotr_port:gondorian_helmet",

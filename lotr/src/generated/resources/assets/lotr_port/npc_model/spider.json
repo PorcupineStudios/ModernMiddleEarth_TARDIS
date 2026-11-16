@@ -516,7 +516,7 @@
   "hidden": [],
   "renderers": [
     {
-      "name": "LOTRRenderUtumnoIceSpider",
+      "name": "LOTRRenderMordorSpider",
       "pre": {
         "ops": [
           [
@@ -534,7 +534,7 @@
       }
     },
     {
-      "name": "LOTRRenderMordorSpider",
+      "name": "LOTRRenderUtumnoIceSpider",
       "pre": {
         "ops": [
           [

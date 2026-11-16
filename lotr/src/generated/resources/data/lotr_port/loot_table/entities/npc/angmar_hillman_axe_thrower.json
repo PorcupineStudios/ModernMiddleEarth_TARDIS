@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "lotr_port:fur_tunic"
+          "name": "lotr_port:angmar_chestplate"
         }
       ],
       "conditions": [
@@ -21,7 +21,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "lotr_port:bone_boots"
+          "name": "lotr_port:angmar_boots"
         }
       ],
       "conditions": [
@@ -43,7 +43,7 @@
               "count": {
                 "type": "minecraft:uniform",
                 "min": 1,
-                "max": 12
+                "max": 15
               }
             }
           ]
@@ -52,7 +52,7 @@
       "conditions": [
         {
           "condition": "minecraft:random_chance",
-          "chance": 0.12
+          "chance": 0.15
         }
       ]
     },
@@ -76,7 +76,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "lotr_port:fur_leggings"
+          "name": "lotr_port:bone_leggings"
         }
       ],
       "conditions": [
@@ -97,7 +97,7 @@
       "conditions": [
         {
           "condition": "minecraft:random_chance",
-          "chance": 0.0275
+          "chance": 0.0125
         }
       ]
     },
@@ -112,8 +112,8 @@
               "function": "minecraft:set_count",
               "count": {
                 "type": "minecraft:uniform",
-                "min": 1,
-                "max": 3
+                "min": 2,
+                "max": 6
               }
             }
           ]
@@ -122,7 +122,7 @@
       "conditions": [
         {
           "condition": "minecraft:random_chance",
-          "chance": 0.0125
+          "chance": 0.0175
         }
       ]
     },
@@ -137,7 +137,7 @@
       "conditions": [
         {
           "condition": "minecraft:random_chance",
-          "chance": 0.475
+          "chance": 0.4575
         }
       ]
     },
@@ -152,8 +152,8 @@
               "function": "minecraft:set_count",
               "count": {
                 "type": "minecraft:uniform",
-                "min": 1,
-                "max": 4
+                "min": 2,
+                "max": 3
               }
             }
           ]
@@ -162,7 +162,7 @@
       "conditions": [
         {
           "condition": "minecraft:random_chance",
-          "chance": 0.0125
+          "chance": 0.0075
         }
       ]
     }

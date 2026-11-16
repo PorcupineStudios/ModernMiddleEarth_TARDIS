@@ -1,6 +1,60 @@
 {
   "quests": [
     {
+      "kind": "kill_npc",
+      "target": "lotr_port:gundabad_warg",
+      "min": 10,
+      "max": 30,
+      "reward": 1.0,
+      "speech": "lotr_port:miniquest/bree/kill_enemy",
+      "weight": 133
+    },
+    {
+      "kind": "kill_npc",
+      "target": "lotr_port:gundabad_orc",
+      "min": 10,
+      "max": 30,
+      "reward": 1.0,
+      "speech": "lotr_port:miniquest/bree/kill_enemy",
+      "weight": 133
+    },
+    {
+      "kind": "kill_faction",
+      "target": "lotr_port:gundabad",
+      "min": 10,
+      "max": 30,
+      "reward": 1.0,
+      "speech": "lotr_port:miniquest/bree/kill_enemy",
+      "weight": 133
+    },
+    {
+      "kind": "kill_npc",
+      "target": "lotr_port:bandit",
+      "min": 1,
+      "max": 3,
+      "reward": 8.0,
+      "speech": "lotr_port:miniquest/bree/kill_enemy",
+      "weight": 133
+    },
+    {
+      "kind": "kill_npc",
+      "target": "lotr_port:gundabad_orc",
+      "min": 10,
+      "max": 40,
+      "reward": 1.0,
+      "speech": "lotr_port:miniquest/bree/kill_orc",
+      "weight": 133
+    },
+    {
+      "kind": "kill_npc",
+      "target": "lotr_port:barrow_wight",
+      "min": 5,
+      "max": 10,
+      "reward": 3.0,
+      "speech": "lotr_port:miniquest/bree/kill_wight",
+      "weight": 133
+    },
+    {
       "kind": "collect",
       "target": "minecraft:bucket",
       "min": 1,
@@ -368,60 +422,6 @@
       "reward": 0.25,
       "speech": "lotr_port:miniquest/bree/pipeweed",
       "weight": 24
-    },
-    {
-      "kind": "kill_npc",
-      "target": "lotr_port:gundabad_warg",
-      "min": 10,
-      "max": 30,
-      "reward": 1.0,
-      "speech": "lotr_port:miniquest/bree/kill_enemy",
-      "weight": 133
-    },
-    {
-      "kind": "kill_npc",
-      "target": "lotr_port:gundabad_orc",
-      "min": 10,
-      "max": 30,
-      "reward": 1.0,
-      "speech": "lotr_port:miniquest/bree/kill_enemy",
-      "weight": 133
-    },
-    {
-      "kind": "kill_faction",
-      "target": "lotr_port:gundabad",
-      "min": 10,
-      "max": 30,
-      "reward": 1.0,
-      "speech": "lotr_port:miniquest/bree/kill_enemy",
-      "weight": 133
-    },
-    {
-      "kind": "kill_npc",
-      "target": "lotr_port:bandit",
-      "min": 1,
-      "max": 3,
-      "reward": 8.0,
-      "speech": "lotr_port:miniquest/bree/kill_enemy",
-      "weight": 133
-    },
-    {
-      "kind": "kill_npc",
-      "target": "lotr_port:gundabad_orc",
-      "min": 10,
-      "max": 40,
-      "reward": 1.0,
-      "speech": "lotr_port:miniquest/bree/kill_orc",
-      "weight": 133
-    },
-    {
-      "kind": "kill_npc",
-      "target": "lotr_port:barrow_wight",
-      "min": 5,
-      "max": 10,
-      "reward": 3.0,
-      "speech": "lotr_port:miniquest/bree/kill_wight",
-      "weight": 133
     }
   ]
 }

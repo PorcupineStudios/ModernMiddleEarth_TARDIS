@@ -21,7 +21,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "lotr_port:mordor_axe"
+          "name": "lotr_port:black_uruk_bow"
         }
       ],
       "conditions": [
@@ -36,7 +36,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "lotr_port:black_uruk_battleaxe"
+          "name": "lotr_port:black_uruk_bow"
         }
       ],
       "conditions": [
@@ -51,7 +51,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "lotr_port:black_uruk_battleaxe"
+          "name": "lotr_port:black_uruk_bow"
         }
       ],
       "conditions": [
@@ -66,7 +66,37 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "lotr_port:black_uruk_battleaxe"
+          "name": "lotr_port:black_uruk_bow"
+        }
+      ],
+      "conditions": [
+        {
+          "condition": "minecraft:random_chance",
+          "chance": 0.0025
+        }
+      ]
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "lotr_port:black_uruk_bow"
+        }
+      ],
+      "conditions": [
+        {
+          "condition": "minecraft:random_chance",
+          "chance": 0.0025
+        }
+      ]
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "lotr_port:black_uruk_bow"
         }
       ],
       "conditions": [
@@ -163,7 +193,7 @@
               "count": {
                 "type": "minecraft:uniform",
                 "min": 1,
-                "max": 2
+                "max": 3
               }
             }
           ]
@@ -172,7 +202,7 @@
       "conditions": [
         {
           "condition": "minecraft:random_chance",
-          "chance": 0.01
+          "chance": 0.02
         }
       ]
     },
@@ -218,7 +248,7 @@
               "count": {
                 "type": "minecraft:uniform",
                 "min": 1,
-                "max": 10
+                "max": 13
               }
             }
           ]
@@ -227,7 +257,7 @@
       "conditions": [
         {
           "condition": "minecraft:random_chance",
-          "chance": 0.1025
+          "chance": 0.125
         }
       ]
     },
@@ -243,21 +273,6 @@
         {
           "condition": "minecraft:random_chance",
           "chance": 0.0025
-        }
-      ]
-    },
-    {
-      "rolls": 1,
-      "entries": [
-        {
-          "type": "minecraft:item",
-          "name": "lotr_port:black_uruk_dagger"
-        }
-      ],
-      "conditions": [
-        {
-          "condition": "minecraft:random_chance",
-          "chance": 0.005
         }
       ]
     },
@@ -267,46 +282,6 @@
         {
           "type": "minecraft:item",
           "name": "lotr_port:poisoned_black_uruk_dagger"
-        }
-      ],
-      "conditions": [
-        {
-          "condition": "minecraft:random_chance",
-          "chance": 0.0025
-        }
-      ]
-    },
-    {
-      "rolls": 1,
-      "entries": [
-        {
-          "type": "minecraft:item",
-          "name": "lotr_port:elf_bone",
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": {
-                "type": "minecraft:uniform",
-                "min": 2,
-                "max": 2
-              }
-            }
-          ]
-        }
-      ],
-      "conditions": [
-        {
-          "condition": "minecraft:random_chance",
-          "chance": 0.0025
-        }
-      ]
-    },
-    {
-      "rolls": 1,
-      "entries": [
-        {
-          "type": "minecraft:item",
-          "name": "lotr_port:black_uruk_warhammer"
         }
       ],
       "conditions": [
@@ -352,7 +327,7 @@
       "conditions": [
         {
           "condition": "minecraft:random_chance",
-          "chance": 0.13
+          "chance": 0.1375
         }
       ]
     },
@@ -367,7 +342,37 @@
       "conditions": [
         {
           "condition": "minecraft:random_chance",
-          "chance": 0.0175
+          "chance": 0.015
+        }
+      ]
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "lotr_port:orc_draught"
+        }
+      ],
+      "conditions": [
+        {
+          "condition": "minecraft:random_chance",
+          "chance": 0.0125
+        }
+      ]
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "lotr_port:orc_draught"
+        }
+      ],
+      "conditions": [
+        {
+          "condition": "minecraft:random_chance",
+          "chance": 0.0075
         }
       ]
     },
@@ -412,7 +417,7 @@
       "conditions": [
         {
           "condition": "minecraft:random_chance",
-          "chance": 0.0075
+          "chance": 0.01
         }
       ]
     },
@@ -428,7 +433,7 @@
               "count": {
                 "type": "minecraft:uniform",
                 "min": 1,
-                "max": 2
+                "max": 3
               }
             }
           ]
@@ -452,21 +457,6 @@
       "conditions": [
         {
           "condition": "minecraft:random_chance",
-          "chance": 0.005
-        }
-      ]
-    },
-    {
-      "rolls": 1,
-      "entries": [
-        {
-          "type": "minecraft:item",
-          "name": "lotr_port:orc_draught"
-        }
-      ],
-      "conditions": [
-        {
-          "condition": "minecraft:random_chance",
           "chance": 0.0025
         }
       ]
@@ -482,7 +472,7 @@
       "conditions": [
         {
           "condition": "minecraft:random_chance",
-          "chance": 0.0025
+          "chance": 0.0075
         }
       ]
     },
@@ -512,8 +502,8 @@
               "function": "minecraft:set_count",
               "count": {
                 "type": "minecraft:uniform",
-                "min": 2,
-                "max": 4
+                "min": 1,
+                "max": 3
               }
             }
           ]
@@ -537,7 +527,32 @@
       "conditions": [
         {
           "condition": "minecraft:random_chance",
-          "chance": 0.4975
+          "chance": 0.495
+        }
+      ]
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "lotr_port:orc_steel_ingot",
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 1,
+                "max": 3
+              }
+            }
+          ]
+        }
+      ],
+      "conditions": [
+        {
+          "condition": "minecraft:random_chance",
+          "chance": 0.015
         }
       ]
     },
@@ -591,14 +606,29 @@
       "entries": [
         {
           "type": "minecraft:item",
+          "name": "lotr_port:black_uruk_cleaver"
+        }
+      ],
+      "conditions": [
+        {
+          "condition": "minecraft:random_chance",
+          "chance": 0.0025
+        }
+      ]
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
           "name": "lotr_port:silver_nugget",
           "functions": [
             {
               "function": "minecraft:set_count",
               "count": {
                 "type": "minecraft:uniform",
-                "min": 1,
-                "max": 6
+                "min": 2,
+                "max": 5
               }
             }
           ]
@@ -607,7 +637,7 @@
       "conditions": [
         {
           "condition": "minecraft:random_chance",
-          "chance": 0.015
+          "chance": 0.0075
         }
       ]
     },
@@ -632,7 +662,22 @@
       "conditions": [
         {
           "condition": "minecraft:random_chance",
-          "chance": 0.0075
+          "chance": 0.0125
+        }
+      ]
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "lotr_port:black_uruk_spear"
+        }
+      ],
+      "conditions": [
+        {
+          "condition": "minecraft:random_chance",
+          "chance": 0.0025
         }
       ]
     },
@@ -692,33 +737,8 @@
               "function": "minecraft:set_count",
               "count": {
                 "type": "minecraft:uniform",
-                "min": 3,
-                "max": 3
-              }
-            }
-          ]
-        }
-      ],
-      "conditions": [
-        {
-          "condition": "minecraft:random_chance",
-          "chance": 0.005
-        }
-      ]
-    },
-    {
-      "rolls": 1,
-      "entries": [
-        {
-          "type": "minecraft:item",
-          "name": "lotr_port:waterskin",
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": {
-                "type": "minecraft:uniform",
-                "min": 1,
-                "max": 3
+                "min": 2,
+                "max": 4
               }
             }
           ]
@@ -736,14 +756,14 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "minecraft:arrow",
+          "name": "lotr_port:waterskin",
           "functions": [
             {
               "function": "minecraft:set_count",
               "count": {
                 "type": "minecraft:uniform",
-                "min": 4,
-                "max": 5
+                "min": 2,
+                "max": 2
               }
             }
           ]
@@ -752,7 +772,32 @@
       "conditions": [
         {
           "condition": "minecraft:random_chance",
-          "chance": 0.0075
+          "chance": 0.0025
+        }
+      ]
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:arrow",
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 2,
+                "max": 8
+              }
+            }
+          ]
+        }
+      ],
+      "conditions": [
+        {
+          "condition": "minecraft:random_chance",
+          "chance": 0.0275
         }
       ]
     },
@@ -793,7 +838,7 @@
               "count": {
                 "type": "minecraft:uniform",
                 "min": 2,
-                "max": 3
+                "max": 2
               }
             }
           ]
@@ -802,7 +847,7 @@
       "conditions": [
         {
           "condition": "minecraft:random_chance",
-          "chance": 0.005
+          "chance": 0.0025
         }
       ]
     },
@@ -818,7 +863,7 @@
               "count": {
                 "type": "minecraft:uniform",
                 "min": 2,
-                "max": 3
+                "max": 6
               }
             }
           ]
@@ -827,7 +872,7 @@
       "conditions": [
         {
           "condition": "minecraft:random_chance",
-          "chance": 0.005
+          "chance": 0.01
         }
       ]
     },
@@ -843,7 +888,7 @@
               "count": {
                 "type": "minecraft:uniform",
                 "min": 1,
-                "max": 5
+                "max": 4
               }
             }
           ]
@@ -852,7 +897,7 @@
       "conditions": [
         {
           "condition": "minecraft:random_chance",
-          "chance": 0.6425
+          "chance": 0.7075
         }
       ]
     },
@@ -867,7 +912,7 @@
       "conditions": [
         {
           "condition": "minecraft:random_chance",
-          "chance": 0.005
+          "chance": 0.0025
         }
       ]
     },
@@ -882,8 +927,8 @@
               "function": "minecraft:set_count",
               "count": {
                 "type": "minecraft:uniform",
-                "min": 8,
-                "max": 14
+                "min": 10,
+                "max": 16
               }
             }
           ]
@@ -892,7 +937,7 @@
       "conditions": [
         {
           "condition": "minecraft:random_chance",
-          "chance": 0.0275
+          "chance": 0.0125
         }
       ]
     },

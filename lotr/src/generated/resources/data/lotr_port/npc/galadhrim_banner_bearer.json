@@ -49,6 +49,7 @@
     "mount": "lotr_port:horse",
     "mount_armor": "lotr_port:galadhrim_horse_armor"
   },
+  "names": "lotr_port:sindarin_male",
   "speech": "lotr_port:galadhrim/warrior",
   "quests": "lotr_port:galadhrim"
 }

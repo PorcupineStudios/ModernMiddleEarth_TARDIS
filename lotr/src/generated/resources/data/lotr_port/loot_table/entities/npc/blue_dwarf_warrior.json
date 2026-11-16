@@ -13,6 +13,31 @@
               "count": {
                 "type": "minecraft:uniform",
                 "min": 1,
+                "max": 3
+              }
+            }
+          ]
+        }
+      ],
+      "conditions": [
+        {
+          "condition": "minecraft:random_chance",
+          "chance": 0.0175
+        }
+      ]
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "lotr_port:blue_dwarven_steel_ingot",
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 1,
                 "max": 2
               }
             }
@@ -22,7 +47,7 @@
       "conditions": [
         {
           "condition": "minecraft:random_chance",
-          "chance": 0.0125
+          "chance": 0.03
         }
       ]
     },
@@ -31,43 +56,13 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "lotr_port:blue_dwarven_battleaxe"
+          "name": "lotr_port:blue_dwarven_chestplate"
         }
       ],
       "conditions": [
         {
           "condition": "minecraft:random_chance",
           "chance": 0.0025
-        }
-      ]
-    },
-    {
-      "rolls": 1,
-      "entries": [
-        {
-          "type": "minecraft:item",
-          "name": "lotr_port:blue_dwarven_battleaxe"
-        }
-      ],
-      "conditions": [
-        {
-          "condition": "minecraft:random_chance",
-          "chance": 0.0025
-        }
-      ]
-    },
-    {
-      "rolls": 1,
-      "entries": [
-        {
-          "type": "minecraft:item",
-          "name": "lotr_port:blue_dwarven_steel_ingot"
-        }
-      ],
-      "conditions": [
-        {
-          "condition": "minecraft:random_chance",
-          "chance": 0.015
         }
       ]
     },
@@ -106,7 +101,57 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "lotr_port:blue_dwarven_boots"
+          "name": "lotr_port:stoneware_plate",
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 1,
+                "max": 2
+              }
+            }
+          ]
+        }
+      ],
+      "conditions": [
+        {
+          "condition": "minecraft:random_chance",
+          "chance": 0.0175
+        }
+      ]
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "lotr_port:silver_coin",
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 1,
+                "max": 13
+              }
+            }
+          ]
+        }
+      ],
+      "conditions": [
+        {
+          "condition": "minecraft:random_chance",
+          "chance": 0.135
+        }
+      ]
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "lotr_port:blue_dwarven_dagger"
         }
       ],
       "conditions": [
@@ -121,14 +166,14 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "lotr_port:stoneware_plate",
+          "name": "lotr_port:cooked_venison",
           "functions": [
             {
               "function": "minecraft:set_count",
               "count": {
                 "type": "minecraft:uniform",
                 "min": 1,
-                "max": 4
+                "max": 2
               }
             }
           ]
@@ -146,68 +191,13 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "lotr_port:silver_coin",
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": {
-                "type": "minecraft:uniform",
-                "min": 1,
-                "max": 9
-              }
-            }
-          ]
-        }
-      ],
-      "conditions": [
-        {
-          "condition": "minecraft:random_chance",
-          "chance": 0.1175
-        }
-      ]
-    },
-    {
-      "rolls": 1,
-      "entries": [
-        {
-          "type": "minecraft:item",
-          "name": "lotr_port:cooked_venison"
-        }
-      ],
-      "conditions": [
-        {
-          "condition": "minecraft:random_chance",
-          "chance": 0.0175
-        }
-      ]
-    },
-    {
-      "rolls": 1,
-      "entries": [
-        {
-          "type": "minecraft:item",
           "name": "lotr_port:dwarf_bone"
         }
       ],
       "conditions": [
         {
           "condition": "minecraft:random_chance",
-          "chance": 0.5075
-        }
-      ]
-    },
-    {
-      "rolls": 1,
-      "entries": [
-        {
-          "type": "minecraft:item",
-          "name": "lotr_port:dwarven_marriage_ring"
-        }
-      ],
-      "conditions": [
-        {
-          "condition": "minecraft:random_chance",
-          "chance": 0.0025
+          "chance": 0.4775
         }
       ]
     },
@@ -257,7 +247,7 @@
       "conditions": [
         {
           "condition": "minecraft:random_chance",
-          "chance": 0.015
+          "chance": 0.0125
         }
       ]
     },
@@ -282,7 +272,7 @@
       "conditions": [
         {
           "condition": "minecraft:random_chance",
-          "chance": 0.0125
+          "chance": 0.02
         }
       ]
     },
@@ -321,37 +311,17 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "lotr_port:blue_dwarven_helmet"
-        }
-      ],
-      "conditions": [
-        {
-          "condition": "minecraft:random_chance",
-          "chance": 0.0025
-        }
-      ]
-    },
-    {
-      "rolls": 1,
-      "entries": [
-        {
-          "type": "minecraft:item",
-          "name": "lotr_port:blue_dwarven_helmet"
-        }
-      ],
-      "conditions": [
-        {
-          "condition": "minecraft:random_chance",
-          "chance": 0.0025
-        }
-      ]
-    },
-    {
-      "rolls": 1,
-      "entries": [
-        {
-          "type": "minecraft:item",
-          "name": "lotr_port:iron_nugget"
+          "name": "lotr_port:iron_nugget",
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 4,
+                "max": 4
+              }
+            }
+          ]
         }
       ],
       "conditions": [
@@ -382,6 +352,36 @@
         {
           "type": "minecraft:item",
           "name": "lotr_port:blue_dwarven_leggings"
+        }
+      ],
+      "conditions": [
+        {
+          "condition": "minecraft:random_chance",
+          "chance": 0.0025
+        }
+      ]
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "lotr_port:blue_dwarven_mattock"
+        }
+      ],
+      "conditions": [
+        {
+          "condition": "minecraft:random_chance",
+          "chance": 0.0025
+        }
+      ]
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "lotr_port:blue_dwarven_mattock"
         }
       ],
       "conditions": [
@@ -402,7 +402,7 @@
       "conditions": [
         {
           "condition": "minecraft:random_chance",
-          "chance": 0.025
+          "chance": 0.04
         }
       ]
     },
@@ -417,7 +417,7 @@
       "conditions": [
         {
           "condition": "minecraft:random_chance",
-          "chance": 0.015
+          "chance": 0.0175
         }
       ]
     },
@@ -442,7 +442,7 @@
       "conditions": [
         {
           "condition": "minecraft:random_chance",
-          "chance": 0.0275
+          "chance": 0.02
         }
       ]
     },
@@ -467,7 +467,7 @@
       "conditions": [
         {
           "condition": "minecraft:random_chance",
-          "chance": 0.0625
+          "chance": 0.0425
         }
       ]
     },
@@ -476,7 +476,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "lotr_port:blue_dwarven_pickaxe"
+          "name": "lotr_port:blue_dwarven_pike"
         }
       ],
       "conditions": [
@@ -491,22 +491,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "lotr_port:blue_dwarven_pickaxe"
-        }
-      ],
-      "conditions": [
-        {
-          "condition": "minecraft:random_chance",
-          "chance": 0.0025
-        }
-      ]
-    },
-    {
-      "rolls": 1,
-      "entries": [
-        {
-          "type": "minecraft:item",
-          "name": "lotr_port:blue_dwarven_pickaxe"
+          "name": "lotr_port:blue_dwarven_pike"
         }
       ],
       "conditions": [
@@ -537,7 +522,7 @@
       "conditions": [
         {
           "condition": "minecraft:random_chance",
-          "chance": 0.03
+          "chance": 0.0175
         }
       ]
     },
@@ -561,67 +546,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "lotr_port:blue_dwarven_spear"
-        }
-      ],
-      "conditions": [
-        {
-          "condition": "minecraft:random_chance",
-          "chance": 0.0025
-        }
-      ]
-    },
-    {
-      "rolls": 1,
-      "entries": [
-        {
-          "type": "minecraft:item",
-          "name": "lotr_port:blue_dwarven_spear"
-        }
-      ],
-      "conditions": [
-        {
-          "condition": "minecraft:random_chance",
-          "chance": 0.0025
-        }
-      ]
-    },
-    {
-      "rolls": 1,
-      "entries": [
-        {
-          "type": "minecraft:item",
-          "name": "lotr_port:blue_dwarven_sword"
-        }
-      ],
-      "conditions": [
-        {
-          "condition": "minecraft:random_chance",
-          "chance": 0.0025
-        }
-      ]
-    },
-    {
-      "rolls": 1,
-      "entries": [
-        {
-          "type": "minecraft:item",
-          "name": "lotr_port:blue_dwarven_sword"
-        }
-      ],
-      "conditions": [
-        {
-          "condition": "minecraft:random_chance",
-          "chance": 0.0025
-        }
-      ]
-    },
-    {
-      "rolls": 1,
-      "entries": [
-        {
-          "type": "minecraft:item",
-          "name": "lotr_port:blue_dwarven_sword"
+          "name": "lotr_port:blue_dwarven_throwing_axe"
         }
       ],
       "conditions": [
@@ -667,7 +592,7 @@
       "conditions": [
         {
           "condition": "minecraft:random_chance",
-          "chance": 0.015
+          "chance": 0.0225
         }
       ]
     },
@@ -683,7 +608,7 @@
               "count": {
                 "type": "minecraft:uniform",
                 "min": 1,
-                "max": 5
+                "max": 3
               }
             }
           ]
@@ -692,7 +617,7 @@
       "conditions": [
         {
           "condition": "minecraft:random_chance",
-          "chance": 0.05
+          "chance": 0.0625
         }
       ]
     },
@@ -708,7 +633,7 @@
               "count": {
                 "type": "minecraft:uniform",
                 "min": 1,
-                "max": 3
+                "max": 2
               }
             }
           ]
@@ -717,22 +642,7 @@
       "conditions": [
         {
           "condition": "minecraft:random_chance",
-          "chance": 0.0175
-        }
-      ]
-    },
-    {
-      "rolls": 1,
-      "entries": [
-        {
-          "type": "minecraft:item",
-          "name": "minecraft:compass"
-        }
-      ],
-      "conditions": [
-        {
-          "condition": "minecraft:random_chance",
-          "chance": 0.005
+          "chance": 0.01
         }
       ]
     },
@@ -748,7 +658,7 @@
               "count": {
                 "type": "minecraft:uniform",
                 "min": 1,
-                "max": 3
+                "max": 2
               }
             }
           ]
@@ -757,7 +667,7 @@
       "conditions": [
         {
           "condition": "minecraft:random_chance",
-          "chance": 0.045
+          "chance": 0.055
         }
       ]
     },
@@ -782,7 +692,7 @@
       "conditions": [
         {
           "condition": "minecraft:random_chance",
-          "chance": 0.05
+          "chance": 0.0525
         }
       ]
     },
@@ -798,7 +708,7 @@
               "count": {
                 "type": "minecraft:uniform",
                 "min": 1,
-                "max": 4
+                "max": 3
               }
             }
           ]
@@ -832,7 +742,7 @@
       "conditions": [
         {
           "condition": "minecraft:random_chance",
-          "chance": 0.05
+          "chance": 0.0275
         }
       ]
     },
@@ -857,7 +767,7 @@
       "conditions": [
         {
           "condition": "minecraft:random_chance",
-          "chance": 0.025
+          "chance": 0.02
         }
       ]
     },
@@ -872,7 +782,7 @@
       "conditions": [
         {
           "condition": "minecraft:random_chance",
-          "chance": 0.0325
+          "chance": 0.0275
         }
       ]
     },
@@ -887,7 +797,7 @@
               "function": "minecraft:set_count",
               "count": {
                 "type": "minecraft:uniform",
-                "min": 2,
+                "min": 3,
                 "max": 4
               }
             }
@@ -897,7 +807,7 @@
       "conditions": [
         {
           "condition": "minecraft:random_chance",
-          "chance": 0.0075
+          "chance": 0.01
         }
       ]
     },
@@ -912,7 +822,7 @@
       "conditions": [
         {
           "condition": "minecraft:random_chance",
-          "chance": 0.005
+          "chance": 0.01
         }
       ]
     }

@@ -405,6 +405,9 @@
   "hidden": [],
   "renderers": [
     {
+      "name": "LOTRRenderGemsbok"
+    },
+    {
       "name": "LOTRRenderWhiteOryx",
       "pre": {
         "ops": [
@@ -423,9 +426,6 @@
         ],
         "blend": false
       }
-    },
-    {
-      "name": "LOTRRenderGemsbok"
     }
   ],
   "anim": {

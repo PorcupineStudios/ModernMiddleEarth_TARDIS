@@ -31,8 +31,9 @@
   "gear": {
     "mainhand": [
       "lotr_port:corsair_battleaxe",
-      "lotr_port:corsair_dagger",
-      "lotr_port:corsair_harpoon"
+      "lotr_port:corsair_eket",
+      "lotr_port:corsair_harpoon",
+      "lotr_port:poisoned_corsair_dagger"
     ],
     "head": "lotr_port:corsair_helmet",
     "chest": "lotr_port:corsair_chestplate",
@@ -41,6 +42,5 @@
     "ranged": "lotr_port:bow_of_harad"
   },
   "names": "lotr_port:umbar_male",
-  "speech": "lotr_port:near_harad/merchant",
-  "quests": "lotr_port:corsair"
+  "speech": "lotr_port:near_harad/merchant"
 }

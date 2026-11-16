@@ -596,7 +596,7 @@
   "hidden": [],
   "renderers": [
     {
-      "name": "LOTRRenderHalfTroll",
+      "name": "LOTRRenderHalfTrollScavenger",
       "pre": {
         "ops": [
           [
@@ -616,7 +616,7 @@
       }
     },
     {
-      "name": "LOTRRenderHalfTrollScavenger",
+      "name": "LOTRRenderHalfTroll",
       "pre": {
         "ops": [
           [
