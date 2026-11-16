@@ -127,6 +127,15 @@ public final class LotrBlocks {
             float[] fit = box != null ? box : new float[] {2, 2, 2, 14, 16, 14}; // chandeliers come without a shape
             return p -> new SupportedBlock(p, fit, support);
         }
+        if (ContentData.behaviours().getAsJsonObject("pie").entrySet().stream()
+                .anyMatch(x -> x.getValue().getAsString().equals(e.get("id").getAsString()))) {
+            return PieBlock::new;
+        }
+        Hazards.Hazard hazard = Hazards.of(e.get("id").getAsString());
+        if (hazard != null) {
+            float[] box = box(e);
+            return "plant".equals(kind) ? p -> new HazardPlantBlock(p, hazard) : p -> new HazardBlock(p, box, hazard);
+        }
         if (ContentData.bool(e, "facing", false)) {
             float[] box = "shaped".equals(kind) ? box(e) : null;
             return p -> new FacingBlock(p, box);

@@ -40,7 +40,7 @@ public class SupportedBlock extends ShapedBlock {
     public static Support of(String id) {
         if (byId == null) {
             byId = new HashMap<>();
-            JsonObject s = ContentData.readObject("behaviors.json").getAsJsonObject("support");
+            JsonObject s = ContentData.behaviours().getAsJsonObject("support");
             for (String key : s.keySet()) {
                 Support v = Support.valueOf(key.toUpperCase(Locale.ROOT));
                 JsonArray ids = s.getAsJsonArray(key);
