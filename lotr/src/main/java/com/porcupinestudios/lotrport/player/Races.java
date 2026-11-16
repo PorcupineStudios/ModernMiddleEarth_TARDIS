@@ -57,6 +57,8 @@ public final class Races {
     public static final int ADMIN_LEVEL = 4;
     static final ResourceLocation BLOCK_REACH = ResourceLocation.withDefaultNamespace("player.block_interaction_range");
     static final ResourceLocation ENTITY_REACH = ResourceLocation.withDefaultNamespace("player.entity_interaction_range");
+    static final ResourceLocation MAX_HEALTH = ResourceLocation.withDefaultNamespace("generic.max_health");
+    static final ResourceLocation SPEED = ResourceLocation.withDefaultNamespace("generic.movement_speed");
     /** Modifier id on every attribute a race changes, so a new race replaces the old one cleanly. */
     private static final ResourceLocation MODIFIER = LotrPort.id("race");
 
@@ -75,13 +77,15 @@ public final class Races {
      * @param colonyRace colonist race (colony_race names) this race counts as; default: this race's id path
      * @param settlerBias settler weight multiplier for that colonist race in colonies the player founded
      * @param crouchHeight extra factor on the crouching hitbox and eyes (hobbit 0.99: fits a 1-block gap)
+     * @param hunger how fast hunger drains (multiplies the player's exhaustion), 1 = vanilla
      * @param model LOTR body the player is drawn on (an NPC model kind: human, hobbit, dwarf, elf, orc; "classic" for
      *     64x32 skins); empty: the vanilla player model
      */
     public record Def(String name, String description, double scale, Map<ResourceLocation, Double> attributes,
             Optional<ResourceLocation> skin, List<ResourceLocation> factions, int order,
             Map<ResourceLocation, Float> alignment, Optional<ResourceLocation> spawn, Optional<String> colonyRace,
-            double settlerBias, Optional<String> model, double crouchHeight) {
+            double settlerBias, Optional<String> model, double crouchHeight,
+            double hunger) {
         public static final Codec<Def> CODEC = RecordCodecBuilder.create(i -> i.group(
                 Codec.STRING.fieldOf("name").forGetter(Def::name),
                 Codec.STRING.optionalFieldOf("description", "").forGetter(Def::description),
@@ -97,7 +101,8 @@ public final class Races {
                 Codec.STRING.optionalFieldOf("colony_race").forGetter(Def::colonyRace),
                 Codec.doubleRange(0, 100).optionalFieldOf("settler_bias", 1.15).forGetter(Def::settlerBias),
                 Codec.STRING.optionalFieldOf("model").forGetter(Def::model),
-                Codec.doubleRange(0.1, 2).optionalFieldOf("crouch_height", 1.0).forGetter(Def::crouchHeight))
+                Codec.doubleRange(0.1, 2).optionalFieldOf("crouch_height", 1.0).forGetter(Def::crouchHeight),
+                Codec.doubleRange(0, 10).optionalFieldOf("hunger", 1.0).forGetter(Def::hunger))
                 .apply(i, Def::new));
     }
 
@@ -416,6 +421,7 @@ public final class Races {
             }
             Def d = tuned(op.server, id);
             boolean changed = RaceTunes.get(op.server).tune(id).isPresent();
+            RaceTunes.Tune tune = tuneOf(d);
             int block = (int) Math.round(d.attributes().getOrDefault(BLOCK_REACH, 0.0) * 10);
             int entity = (int) Math.round(d.attributes().getOrDefault(ENTITY_REACH, 0.0) * 10);
             var page = new com.porcupinestudios.lotrport.ui.Page.Stats(List.of(
@@ -430,6 +436,17 @@ public final class Races {
                             com.porcupinestudios.lotrport.ui.Stat.of(label("entity_reach", "Hit reach"),
                                     reachText(entity / 10.0)).withStepper(
                                     new com.porcupinestudios.lotrport.ui.Stat.Stepper("entity", entity, -40, 40, 1)),
+                            com.porcupinestudios.lotrport.ui.Stat.of(label("health", "Health"),
+                                    String.format(java.util.Locale.ROOT, "%+.1f hearts", tune.health() / 2)).withStepper(
+                                    new com.porcupinestudios.lotrport.ui.Stat.Stepper("health", (int) tune.health(), -18, 80, 1)),
+                            com.porcupinestudios.lotrport.ui.Stat.of(label("speed", "Speed"),
+                                    Math.round(100 + tune.speed() * 1000) + "%").withStepper(
+                                    new com.porcupinestudios.lotrport.ui.Stat.Stepper("speed",
+                                            (int) Math.round(100 + tune.speed() * 1000), 25, 300, 1)),
+                            com.porcupinestudios.lotrport.ui.Stat.of(label("hunger", "Hunger drain"),
+                                    Math.round(tune.hunger() * 100) + "%").withStepper(
+                                    new com.porcupinestudios.lotrport.ui.Stat.Stepper("hunger",
+                                            (int) Math.round(tune.hunger() * 100), 0, 500, 5)),
                             com.porcupinestudios.lotrport.ui.Stat.of(label("source", "Numbers from"), changed
                                     ? label("source_tuned", "this world (Reset uses the race file)").getString()
                                     : label("source_file", "the race file").getString())))),
@@ -483,19 +500,9 @@ public final class Races {
                 return Result.go(new View.Target(ADMIN_VIEW, context, ""));
             }
             Def d = tuned(op.server, id);
-            RaceTunes.Tune t = new RaceTunes.Tune(d.scale(), d.attributes().getOrDefault(BLOCK_REACH, 0.0),
-                    d.attributes().getOrDefault(ENTITY_REACH, 0.0));
-            switch (action) {
-                case "size" -> t = new RaceTunes.Tune(Math.max(10, Math.min(400, value)) / 100.0, t.blockReach(),
-                        t.entityReach());
-                case "block" -> t = new RaceTunes.Tune(t.scale(), Math.max(-40, Math.min(40, value)) / 10.0,
-                        t.entityReach());
-                case "entity" -> t = new RaceTunes.Tune(t.scale(), t.blockReach(),
-                        Math.max(-40, Math.min(40, value)) / 10.0);
-                case "reset" -> t = null;
-                default -> {
-                    return Result.NONE;
-                }
+            RaceTunes.Tune t = "reset".equals(action) ? null : tuneOf(d).with(action, value);
+            if (t == null && !"reset".equals(action)) {
+                return Result.NONE;
             }
             RaceTunes.get(op.server).set(id, t);
             // everyone of that race takes the new numbers now
@@ -534,6 +541,18 @@ public final class Races {
         }
     }
 
+    /** A preset's numbers as an admin tune. */
+    private static RaceTunes.Tune tuneOf(Def d) {
+        return new RaceTunes.Tune(d.scale(), d.attributes().getOrDefault(BLOCK_REACH, 0.0),
+                d.attributes().getOrDefault(ENTITY_REACH, 0.0), d.attributes().getOrDefault(MAX_HEALTH, 0.0),
+                d.attributes().getOrDefault(SPEED, 0.0), d.hunger());
+    }
+
+    /** The player's race's hunger drain multiplier (1 without a race); read by the exhaustion mixin. */
+    public static float hunger(ServerPlayer player) {
+        return of(player).map(id -> (float) tuned(player.server, id).hunger()).orElse(1f);
+    }
+
     /** The race presets in picker order. */
     private static List<Map.Entry<ResourceLocation, Def>> sorted() {
         return all().entrySet().stream()
@@ -549,8 +568,10 @@ public final class Races {
             Map<ResourceLocation, Double> attrs = new java.util.HashMap<>(d.attributes());
             attrs.put(BLOCK_REACH, t.blockReach());
             attrs.put(ENTITY_REACH, t.entityReach());
+            attrs.put(MAX_HEALTH, t.health());
+            attrs.put(SPEED, t.speed());
             return new Def(d.name(), d.description(), t.scale(), Map.copyOf(attrs), d.skin(), d.factions(), d.order(),
-                    d.alignment(), d.spawn(), d.colonyRace(), d.settlerBias(), d.model(), d.crouchHeight());
+                    d.alignment(), d.spawn(), d.colonyRace(), d.settlerBias(), d.model(), d.crouchHeight(), t.hunger());
         }).orElse(d);
     }
 

@@ -33,10 +33,12 @@ public final class RaceTests {
         helper.assertTrue(player.getBbHeight() < 1f, "crouching hobbit " + player.getBbHeight() + " tall: no 1-block gaps");
         player.setPose(net.minecraft.world.entity.Pose.STANDING);
         var tunes = com.porcupinestudios.lotrport.player.RaceTunes.get(helper.getLevel().getServer());
-        tunes.set(LotrPort.id("hobbit"), new com.porcupinestudios.lotrport.player.RaceTunes.Tune(0.5, -2, -2));
+        tunes.set(LotrPort.id("hobbit"), new com.porcupinestudios.lotrport.player.RaceTunes.Tune(0.5, -2, -2, 4, 0, 2));
         Races.apply(player); // an admin's tune wins over the file
         helper.assertTrue(Math.abs(player.getScale() - 0.5f) < 0.01f, "tuned hobbit scale " + player.getScale());
         helper.assertTrue(player.getAttributeValue(Attributes.BLOCK_INTERACTION_RANGE) == reach - 2, "tuned reach");
+        helper.assertTrue(player.getMaxHealth() == 24f, "tuned health " + player.getMaxHealth());
+        helper.assertTrue(Races.hunger(player) == 2f, "tuned hunger");
         tunes.set(LotrPort.id("hobbit"), null);
         player.setData(LotrRegistries.RACE, "lotr_port:man");
         Races.apply(player); // switching race removes the hobbit's modifiers
