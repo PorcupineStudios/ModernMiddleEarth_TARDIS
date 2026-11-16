@@ -65,17 +65,18 @@ public final class ExteriorRenderer implements BlockEntityRenderer<ExteriorBlock
     }
 
     /**
-     * True while Immersive Portals draws the view out of the TARDIS doorway and that view's camera stands inside this
-     * box. IP normally clips away the box behind the doorway; with Iris shaders the clip is lost and the box's own
-     * doors filled the view out (Aaron 2026-11-16), so the box isn't drawn in that view at all.
+     * True while Immersive Portals draws the view out of a TARDIS doorway that comes out at this box. That view's camera
+     * stands behind the outside doorway, inside or just behind the box, and IP clips away what lies between camera
+     * and doorway. Iris shaders lose that clip, so the box's own back wall filled the view out (Aaron 2026-11-16; seen
+     * in a dev client: camera 0.4 blocks behind the box). So the box isn't drawn in a view through a portal that
+     * leads into it.
      */
     static boolean viewedFromInside(net.minecraft.world.phys.AABB box) {
         if (!qouteall.imm_ptl.core.render.context_management.PortalRendering.isRendering()) {
             return false;
         }
-        net.minecraft.world.phys.Vec3 cam =
-                qouteall.imm_ptl.core.render.context_management.PortalRendering.getRenderingCameraPos();
-        return cam != null && box.inflate(0.25).contains(cam);
+        var portal = qouteall.imm_ptl.core.render.context_management.PortalRendering.getRenderingPortal();
+        return box.inflate(1.0).contains(portal.getDestPos());
     }
 
     static void drawAll(PoliceBoxModel model, float angle, PoseStack pose, VertexConsumer vc, int light) {

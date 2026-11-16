@@ -109,6 +109,15 @@ public final class TardisCommand {
                             + out.landed().get().pos().toShortString()), true);
                     return 1;
                 }))
+                // /tardis door: opens or shuts your TARDIS's doors from anywhere, and says where the inside doorway is
+                .then(Commands.literal("door").executes(ctx -> {
+                    TardisRecord t = mine(ctx);
+                    boolean done = com.porcupinestudios.tardisrb.door.Doors.toggle(ctx.getSource().getServer(), t);
+                    var in = com.porcupinestudios.tardisrb.door.Doors.inside(t);
+                    ctx.getSource().sendSuccess(() -> Component.literal((done ? "Doors used" : "The doors won't move")
+                            + "; inside doorway " + in.center() + " facing " + in.facing()), true);
+                    return done ? 1 : 0;
+                }))
                 // /tardis fullRestore: every repair and research done, full health and charge, restored look
                 .then(Commands.literal("fullRestore").executes(ctx -> fullRestore(ctx, mine(ctx))))
                 .then(Commands.literal("data").executes(ctx -> {
