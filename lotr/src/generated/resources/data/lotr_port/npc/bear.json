@@ -14,6 +14,7 @@
     "EntityLivingBase"
   ],
   "behaviour_data": {
+    "defend_young": 12,
     "fights_back": 1,
     "panic_speed": 1.25,
     "state.renderer": 0

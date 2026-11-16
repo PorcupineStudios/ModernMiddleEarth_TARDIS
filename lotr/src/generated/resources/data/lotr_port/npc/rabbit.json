@@ -10,6 +10,7 @@
   "width": 0.5,
   "height": 0.5,
   "behaviours": [
+    "crop_eater",
     "animal"
   ],
   "lotr_classes": [
@@ -19,6 +20,8 @@
     "EntityLivingBase"
   ],
   "behaviour_data": {
+    "eat_ticks": 60,
+    "eat_speed": 1.2,
     "fights_back": 0,
     "panic_speed": 1.25,
     "state.renderer": 0

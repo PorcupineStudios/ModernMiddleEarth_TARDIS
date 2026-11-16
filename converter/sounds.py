@@ -39,6 +39,7 @@ NPC_SOUNDS = {
     "LOTREntitySkeletalWraith": {"ambient": "minecraft:entity.skeleton.ambient",
                                  "hurt": "minecraft:entity.skeleton.hurt", "death": "minecraft:entity.skeleton.death",
                                  "step": "minecraft:entity.skeleton.step"},
+    "LOTREntityCrocodile": {"ambient": "crocodile.say", "death": "crocodile.death", "attack": "crocodile.snap"},
     "LOTREntityWarg": {"ambient": "warg.say", "hurt": "warg.hurt", "death": "warg.death", "attack": "warg.attack"},
 }
 # Creatures not ported yet (missing-features task 9/26): their LOTR sounds, for the creature types when they land.
