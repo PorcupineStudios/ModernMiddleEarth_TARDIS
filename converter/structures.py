@@ -24,6 +24,9 @@ import nbt
 from assets import NS, snake, write_json
 from vanilla import BY_META, RENAMED
 
+# blocks over the ground layer cleared across a structure's footprint (the most a site may slope: max_slope)
+LEVEL_CLEAR = 6
+
 DATA_VERSION = 3955  # 1.21.1
 RATE_MIN = 20  # fewer probes than this in a biome: use the structure's share over every biome
 STAIRS_FACING = ["east", "west", "south", "north"]
@@ -415,6 +418,18 @@ class Structures:
             for y in range(ground_y + 1, top):
                 if (x, y, z) not in placed:
                     placed[(x, y, z)] = ({"Name": "minecraft:air"}, {"pos": [x - lo[0], y - base_y, z - lo[2]]})
+        # LOTR levelled its whole footprint: a yard or garden on ground higher than the template's ground layer kept
+        # the natural hill over it, burying garden walls and fences to their tops (Aaron 2026-11-16). So every open
+        # column of the footprint is cleared up to LEVEL_CLEAR blocks over the ground and gets grass on the ground
+        # layer (the piece fills dirt under it).
+        clear_top = min(hi[1], ground_y + LEVEL_CLEAR)
+        for x in range(lo[0], hi[0] + 1):
+            for z in range(lo[2], hi[2] + 1):
+                if (x, ground_y, z) not in placed:
+                    placed[(x, ground_y, z)] = (grass, {"pos": [x - lo[0], ground_y - base_y, z - lo[2]]})
+                for y in range(ground_y + 1, clear_top + 1):
+                    if (x, y, z) not in placed:
+                        placed[(x, y, z)] = ({"Name": "minecraft:air"}, {"pos": [x - lo[0], y - base_y, z - lo[2]]})
         # templates are placed without block updates, so panes, fences and walls need their sides set here (a lone
         # pane post showed as a small dark square by the windows)
         self.pair_chests(placed)

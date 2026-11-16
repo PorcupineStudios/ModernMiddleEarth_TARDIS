@@ -422,7 +422,7 @@ https://claude.ai/artifact/KqhSSTCuKXGuwKHBoYJdcu. Rebuild features in modern co
   screenshots (`run/screenshots/`), then quits; steps in its javadoc. The save needs `allowCommands` and
   `confirmedExperimentalSettings`, and `run/options.txt` `onboardAccessibility:false`, or a screen blocks quick play.
 - Gates (`content/GateBlock`): use or redstone opens/shuts the whole gate (same block, same axis, in its plane, max 64);
-  with a block item or a bow in hand the click places/shoots instead (LOTR). Open gates have no collision and draw
+  with a bow in hand the click shoots (LOTR); with a block it works the gate, sneak to place (Aaron 2026-11-16). Open gates have no collision and draw
   their frame (they used to render as air: "right-clicking deletes it"). Dwarven doors (`full`) are whole blocks while
   shut; they have no LOTR texture of their own to frame, so they keep a plain panel (`gates_without_frame`). LOTR's
   gate sounds aren't ported: vanilla wooden/iron door sounds.
