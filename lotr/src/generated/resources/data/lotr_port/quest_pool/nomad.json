@@ -1,6 +1,42 @@
 {
   "quests": [
     {
+      "kind": "kill_npc",
+      "target": "lotr_port:desert_scorpion",
+      "min": 10,
+      "max": 30,
+      "reward": 1.0,
+      "speech": "lotr_port:miniquest/nomad/kill_scorpions",
+      "weight": 200
+    },
+    {
+      "kind": "kill_npc",
+      "target": "lotr_port:desert_scorpion",
+      "min": 40,
+      "max": 80,
+      "reward": 1.0,
+      "speech": "lotr_port:miniquest/nomad/kill_many_scorpions",
+      "weight": 200
+    },
+    {
+      "kind": "kill_npc",
+      "target": "lotr_port:bandit_harad",
+      "min": 1,
+      "max": 3,
+      "reward": 8.0,
+      "speech": "lotr_port:miniquest/nomad/kill_bandits",
+      "weight": 200
+    },
+    {
+      "kind": "kill_npc",
+      "target": "lotr_port:ranger_ithilien",
+      "min": 10,
+      "max": 20,
+      "reward": 1.0,
+      "speech": "lotr_port:miniquest/nomad/kill_rangers",
+      "weight": 200
+    },
+    {
       "kind": "collect",
       "target": "lotr_port:date",
       "min": 8,
@@ -215,42 +251,6 @@
       "reward": 8.0,
       "speech": "lotr_port:miniquest/nomad/umbar_equipment",
       "weight": 42
-    },
-    {
-      "kind": "kill_npc",
-      "target": "lotr_port:desert_scorpion",
-      "min": 10,
-      "max": 30,
-      "reward": 1.0,
-      "speech": "lotr_port:miniquest/nomad/kill_scorpions",
-      "weight": 200
-    },
-    {
-      "kind": "kill_npc",
-      "target": "lotr_port:desert_scorpion",
-      "min": 40,
-      "max": 80,
-      "reward": 1.0,
-      "speech": "lotr_port:miniquest/nomad/kill_many_scorpions",
-      "weight": 200
-    },
-    {
-      "kind": "kill_npc",
-      "target": "lotr_port:bandit_harad",
-      "min": 1,
-      "max": 3,
-      "reward": 8.0,
-      "speech": "lotr_port:miniquest/nomad/kill_bandits",
-      "weight": 200
-    },
-    {
-      "kind": "kill_npc",
-      "target": "lotr_port:ranger_ithilien",
-      "min": 10,
-      "max": 20,
-      "reward": 1.0,
-      "speech": "lotr_port:miniquest/nomad/kill_rangers",
-      "weight": 200
     }
   ]
 }

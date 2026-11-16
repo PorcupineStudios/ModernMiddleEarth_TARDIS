@@ -36,8 +36,8 @@
   "attack": 2.0,
   "gear": {
     "mainhand": [
+      "lotr_port:rivendell_battlestaff",
       "lotr_port:rivendell_longspear",
-      "lotr_port:rivendell_spear",
       "lotr_port:rivendell_sword"
     ],
     "head": "lotr_port:rivendell_helmet",
@@ -48,7 +48,6 @@
     "mount": "lotr_port:horse",
     "mount_armor": "lotr_port:rivendell_horse_armor"
   },
-  "names": "lotr_port:quenya_male",
   "speech": "lotr_port:rivendell/warrior",
   "quests": "lotr_port:rivendell"
 }

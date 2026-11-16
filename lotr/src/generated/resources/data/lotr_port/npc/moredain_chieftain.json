@@ -30,7 +30,7 @@
     "feet": "lotr_port:morwaith_chieftain_boots",
     "mount": "lotr_port:zebra"
   },
-  "names": "lotr_port:moredain_male",
+  "names": "lotr_port:gulf_male",
   "units": "lotr_port:moredain_chieftain",
   "speech": "lotr_port:moredain/chieftain",
   "quests": "lotr_port:moredain"

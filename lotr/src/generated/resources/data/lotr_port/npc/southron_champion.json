@@ -32,5 +32,6 @@
     "mount_armor": "lotr_port:coast_southron_horse_armor"
   },
   "names": "lotr_port:near_haradrim_male",
-  "speech": "lotr_port:near_harad/merchant"
+  "speech": "lotr_port:near_harad/merchant",
+  "quests": "lotr_port:near_harad"
 }

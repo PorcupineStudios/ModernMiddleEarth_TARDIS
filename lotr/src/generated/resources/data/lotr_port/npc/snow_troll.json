@@ -35,7 +35,7 @@
     "slow_d": 2.5,
     "scale": 0.8,
     "sun_immune": 0,
-    "state.renderer": 2
+    "state.renderer": 4
   },
   "sounds": {
     "ambient": "lotr_port:troll.say",

@@ -51,6 +51,7 @@
   "gear": {
     "mainhand": [
       "lotr_port:lindon_battlestaff",
+      "lotr_port:lindon_longspear",
       "lotr_port:lindon_spear",
       "lotr_port:lindon_sword"
     ],
@@ -62,6 +63,7 @@
     "mount": "lotr_port:horse",
     "mount_armor": "lotr_port:lindon_horse_armor"
   },
+  "names": "lotr_port:quenya_male",
   "speech": "lotr_port:high_elf/warrior",
   "quests": "lotr_port:high_elf"
 }

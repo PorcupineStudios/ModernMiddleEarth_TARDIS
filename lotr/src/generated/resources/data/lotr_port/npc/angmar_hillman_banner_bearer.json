@@ -21,6 +21,7 @@
   "attack": 2.0,
   "gear": {
     "mainhand": [
+      "lotr_port:angmar_battleaxe",
       "lotr_port:angmar_dagger",
       "lotr_port:angmar_poleaxe",
       "lotr_port:angmar_spear",
@@ -37,7 +38,6 @@
     ],
     "legs": [
       "lotr_port:angmar_leggings",
-      "lotr_port:bone_leggings",
       "lotr_port:fur_leggings"
     ],
     "feet": [
@@ -47,5 +47,6 @@
     ]
   },
   "names": "lotr_port:rhudaur_male",
-  "speech": "lotr_port:angmar/hillman"
+  "speech": "lotr_port:angmar/hillman",
+  "quests": "lotr_port:angmar_hillman"
 }

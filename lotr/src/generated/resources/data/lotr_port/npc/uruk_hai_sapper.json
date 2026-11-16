@@ -39,7 +39,6 @@
   "attack": 2.0,
   "gear": {
     "mainhand": [
-      "lotr_port:poisoned_uruk_dagger",
       "lotr_port:uruk_cleaver",
       "lotr_port:uruk_dagger",
       "lotr_port:uruk_pike",

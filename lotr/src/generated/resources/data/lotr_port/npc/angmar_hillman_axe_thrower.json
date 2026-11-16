@@ -27,10 +27,7 @@
   "speed": 0.2,
   "attack": 2.0,
   "gear": {
-    "mainhand": [
-      "lotr_port:bronze_throwing_axe",
-      "lotr_port:iron_throwing_axe"
-    ],
+    "mainhand": "lotr_port:bronze_throwing_axe",
     "head": [
       "lotr_port:bone_helmet",
       "lotr_port:fur_hat"

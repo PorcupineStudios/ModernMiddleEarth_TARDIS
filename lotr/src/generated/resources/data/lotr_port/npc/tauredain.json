@@ -24,5 +24,6 @@
     "mainhand": "lotr_port:taurethrim_dagger"
   },
   "names": "lotr_port:tauredain_male",
-  "speech": "lotr_port:tauredain/tauredain"
+  "speech": "lotr_port:tauredain/tauredain",
+  "quests": "lotr_port:tauredain"
 }

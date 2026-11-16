@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "lotr_port:beech_wood",
+          "name": "minecraft:birch_log",
           "functions": [
             {
               "function": "minecraft:set_count",

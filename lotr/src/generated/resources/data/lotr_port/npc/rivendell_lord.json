@@ -43,6 +43,7 @@
     "mount": "lotr_port:horse",
     "mount_armor": "lotr_port:rivendell_horse_armor"
   },
+  "names": "lotr_port:sindarin_male",
   "units": "lotr_port:rivendell_lord",
   "speech": "lotr_port:rivendell/lord",
   "quests": "lotr_port:rivendell"

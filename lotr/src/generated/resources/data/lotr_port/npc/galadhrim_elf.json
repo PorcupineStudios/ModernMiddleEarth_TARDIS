@@ -37,6 +37,6 @@
     "mainhand": "lotr_port:galadhrim_dagger",
     "ranged": "lotr_port:mallorn_bow"
   },
-  "names": "lotr_port:quenya_male",
-  "speech": "lotr_port:galadhrim/elf"
+  "speech": "lotr_port:galadhrim/elf",
+  "quests": "lotr_port:galadhrim"
 }

@@ -43,6 +43,7 @@
     "mount": "lotr_port:horse",
     "mount_armor": "lotr_port:galadhrim_horse_armor"
   },
+  "names": "lotr_port:quenya_male",
   "units": "lotr_port:elf_lord",
   "speech": "lotr_port:galadhrim/lord",
   "quests": "lotr_port:galadhrim"

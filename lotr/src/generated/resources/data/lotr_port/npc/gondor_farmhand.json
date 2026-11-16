@@ -32,6 +32,5 @@
     "mainhand": "minecraft:iron_hoe"
   },
   "names": "lotr_port:gondor_male",
-  "speech": "lotr_port:gondor/man",
-  "quests": "lotr_port:gondor"
+  "speech": "lotr_port:gondor/man"
 }

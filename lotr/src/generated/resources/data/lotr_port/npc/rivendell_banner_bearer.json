@@ -48,5 +48,6 @@
     "mount": "lotr_port:horse",
     "mount_armor": "lotr_port:rivendell_horse_armor"
   },
-  "speech": "lotr_port:rivendell/warrior"
+  "speech": "lotr_port:rivendell/warrior",
+  "quests": "lotr_port:rivendell"
 }

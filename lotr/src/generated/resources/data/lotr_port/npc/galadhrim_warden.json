@@ -43,7 +43,6 @@
     "feet": "lotr_port:galadhrim_cloak_boots",
     "ranged": "lotr_port:mallorn_bow"
   },
-  "names": "lotr_port:sindarin_male",
   "speech": "lotr_port:galadhrim/warrior",
   "quests": "lotr_port:galadhrim"
 }
