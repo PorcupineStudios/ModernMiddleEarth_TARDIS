@@ -45,6 +45,9 @@ public class RiggedNpc extends LotrNpc {
     @Nullable
     private RigPose renderPose;
     private final RigState.Body body = new RigState.Body();
+    /** Ticks since it last had something to fight (server; hiding creatures hide again after the rig's settle). */
+    private int idle;
+    private boolean wasHidden;
 
     /** A foot landing, for the client's effects. */
     public record Footfall(RiggedNpc npc, int leg, double x, double y, double z, float heavy, float scale) {}
@@ -153,10 +156,20 @@ public class RiggedNpc extends LotrNpc {
         if (sk == null || state == null) {
             return;
         }
+        if (sk.def.hide().isPresent()) {
+            hideTick(sk.def.hide().get());
+        }
         RigState.Body b = body(1f);
         RigDef.Gait gait = sk.def.gait();
         state.tick(b, this::groundHeight, (leg, x, y, z) -> landed(gait, leg, x, y, z, b.scale));
         if (!isAlive() || sk.parts.length == 0) {
+            return;
+        }
+        if (hidden()) { // a pile of blocks: only the body's own box can be hit
+            for (int i = 0; i < sk.parts.length && i < MAX_PARTS; i++) {
+                parts[i].configure(false, sk.parts[i].name(), 0.1f, 0.1f, 0, false);
+                parts[i].follow(getX(), getY(), getZ());
+            }
             return;
         }
         pose.pose(state, b, 1f, hasLegParts(sk));
@@ -168,6 +181,71 @@ public class RiggedNpc extends LotrNpc {
             parts[i].configure(true, p.name(), p.width() * b.scale, p.height() * b.scale, p.damage(), p.solid());
             parts[i].follow(w.x, w.y, w.z);
         }
+    }
+
+    /** Whether it is hiding as blocks now (synced state {@code rig_hidden}). */
+    public boolean hidden() {
+        return state("rig_hidden") > 0.5f;
+    }
+
+    /**
+     * Stone giants hiding as rocks, like huorns as trees: with no target within {@code wake} and nothing hurting it for
+     * {@code settle} ticks it stops on the block grid, a quarter turn, and draws as blocks; a target near or a hit wakes
+     * it. On the client a change throws up dust of the hiding block.
+     */
+    private void hideTick(RigDef.Hide hide) {
+        if (level().isClientSide) {
+            boolean h = hidden();
+            if (h != wasHidden && tickCount > 1) {
+                BlockState s = hideBlock(hide);
+                double r = getBbWidth() * 0.6;
+                for (int i = 0; i < 40; i++) {
+                    level().addParticle(new net.minecraft.core.particles.BlockParticleOption(
+                            net.minecraft.core.particles.ParticleTypes.BLOCK, s),
+                            getX() + (random.nextDouble() - 0.5) * 2 * r, getY() + random.nextDouble() * getBbHeight(),
+                            getZ() + (random.nextDouble() - 0.5) * 2 * r, 0, 0.1, 0);
+                }
+            }
+            wasHidden = h;
+            return;
+        }
+        LivingEntity target = getTarget();
+        boolean near = target != null && target.isAlive() && distanceTo(target) <= hide.wake();
+        boolean hurtLately = getLastHurtByMob() != null && tickCount - getLastHurtByMobTimestamp() < hide.settle();
+        if (near || hurtLately) {
+            idle = 0;
+            setState("rig_hidden", 0f);
+            return;
+        }
+        if (target == null || !target.isAlive()) {
+            idle++;
+        }
+        boolean hide2 = hidden() || idle >= hide.settle() && onGround();
+        if (!hide2) {
+            return;
+        }
+        if (!hidden()) {
+            float yaw = Math.round(getYRot() / 90f) * 90f;
+            moveTo(Mth.floor(getX()) + 0.5, getY(), Mth.floor(getZ()) + 0.5, yaw, 0);
+            setYBodyRot(yaw);
+            setYHeadRot(yaw);
+            yBodyRotO = yaw;
+            setState("rig_hidden", 1f);
+        }
+        getNavigation().stop();
+        setDeltaMovement(new net.minecraft.world.phys.Vec3(0, getDeltaMovement().y, 0));
+        float yaw = Math.round(getYRot() / 90f) * 90f;
+        setYRot(yaw);
+        setYBodyRot(yaw);
+        setYHeadRot(yaw);
+    }
+
+    /** The block a hiding creature looks like (stone if the rig names an unknown one). */
+    public static BlockState hideBlock(RigDef.Hide hide) {
+        net.minecraft.resources.ResourceLocation id = net.minecraft.resources.ResourceLocation.tryParse(hide.block());
+        return id == null ? net.minecraft.world.level.block.Blocks.STONE.defaultBlockState()
+                : net.minecraft.core.registries.BuiltInRegistries.BLOCK.getOptional(id)
+                        .orElse(net.minecraft.world.level.block.Blocks.STONE).defaultBlockState();
     }
 
     private static boolean hasLegParts(RigSkeleton sk) {
@@ -221,6 +299,11 @@ public class RiggedNpc extends LotrNpc {
     /** A hit on one of its parts: the part's factor is already applied. */
     public boolean hurtPart(RigPart part, DamageSource source, float amount) {
         return hurt(source, amount);
+    }
+
+    @Override
+    public boolean isPushable() {
+        return !hidden() && super.isPushable();
     }
 
     @Override

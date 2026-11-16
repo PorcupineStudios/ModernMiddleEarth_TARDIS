@@ -133,6 +133,7 @@ public final class RigState {
 
         // feet mid-step move on; landing ones plant
         int active = -1;
+        float least = 1;
         for (int i = 0; i < legs.length; i++) {
             LegState l = legs[i];
             if (!l.stepping) {
@@ -149,16 +150,21 @@ public final class RigState {
             } else {
                 l.foot.set(position(l, 0, g.stepHeight() * s));
                 active = skeleton.legs[i].group();
+                least = Math.min(least, l.t);
             }
         }
 
-        // which group steps next: the one whose feet lag most, taking turns
-        if (active < 0) {
+        // which group steps next: the one whose feet lag most, taking turns; with overlap, before the last one lands
+        double speed = Math.sqrt(body.vx * body.vx + body.vz * body.vz);
+        if (active < 0 || least >= g.overlap()) {
             double best = 0;
             int bestGroup = -1;
             for (int i = 0; i < legs.length; i++) {
                 double need = need(i, targets[i], stepDist);
                 int grp = skeleton.legs[i].group();
+                if (grp == active) {
+                    continue;
+                }
                 double score = need + (grp == lastGroup ? -0.25 : 0);
                 if (need > 1 && (bestGroup < 0 || score > best)) {
                     best = score;
@@ -169,7 +175,7 @@ public final class RigState {
                 lastGroup = bestGroup;
                 for (int i = 0; i < legs.length; i++) {
                     if (skeleton.legs[i].group() == bestGroup && need(i, targets[i], stepDist) > 0.35) {
-                        start(legs[i], targets[i], stepDist, g);
+                        start(legs[i], targets[i], stepDist, speed, g);
                     }
                 }
             }
@@ -189,13 +195,18 @@ public final class RigState {
         return d / bar;
     }
 
-    private void start(LegState l, Vector3d target, double stepDist, RigDef.Gait g) {
+    private void start(LegState l, Vector3d target, double stepDist, double speed, RigDef.Gait g) {
         l.from.set(l.foot);
         l.to.set(target);
         double d = horizontal(l.foot, target);
-        // long strides take a little longer, short shuffles are quick
-        float ticks = (float) Math.max(2, g.stepTicks() * Math.min(1.5, Math.max(0.5, d / stepDist)));
-        l.dt = 1f / ticks;
+        // long strides take a little longer, short shuffles are quick; moving fast, every step is quicker so the
+        // feet keep up (a foot may be off the ground while the body covers at most half a step)
+        double ticks = g.stepTicks() * Math.min(1.5, Math.max(0.5, d / stepDist));
+        if (speed > 1e-3) {
+            ticks = Math.min(ticks, 0.5 * stepDist / speed);
+        }
+        ticks = Math.max(2, ticks);
+        l.dt = (float) (1.0 / ticks);
         l.t = 0;
         l.stepping = true;
     }

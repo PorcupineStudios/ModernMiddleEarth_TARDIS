@@ -25,14 +25,30 @@ Proposal agreed with Aaron 2026-11-16: https://claude.ai/artifact/SAvtwnRnAbBWj2
 `bones` (parent, pivot, rotation, cubes), `body` (root bone that tilts), `look` (bone that follows head yaw/pitch),
 `legs` (upper, lower, `foot` tip at rest, `group` that steps together, `bend` for straight legs, `spread` = how far out
 feet plant vs. the rest pose), `gait` (step distance/ticks/height, lead, reach up/down, max tilt, body spring, heavy,
-stomp), `sways`, `chains` (bones that lag behind turns), `parts`, `scale`, `scale_state` (NPC state multiplying the
-size, e.g. `getSpiderScaleAmount`), `hide` (not used yet; stone giants hiding as rocks).
+stomp, `overlap`: how far through its step a group must be before the next starts; steps also get shorter at speed so
+feet keep up), `sways`, `chains` (bones that lag behind turns), `parts`, `scale`, `scale_state` (NPC state multiplying
+the size, e.g. `getSpiderScaleAmount`), `hide` (below).
+
+## Hiding as blocks (stone giants)
+`hide`: `block`, `blocks` (whole-block offsets from the feet, rig axes), `wake` (6), `settle` (100 ticks). Server
+(`RiggedNpc.hideTick`): no target within `wake` and not hurt for `settle` ticks -> snaps to the block centre and a quarter
+turn, stops, state `rig_hidden` 1 (synced, saved). A near target or a hit wakes it. Hidden: part hitboxes off (only the
+entity box), not pushable; the client draws the blocks with `renderSingleBlock` (`RigRenderer.drawHidden`) and throws
+block dust when it changes. Like huorns: the AI may target from further away, it just stays hidden until `wake`.
+
+## Models
+Spider is LOTR's model. Mûmak, stone giant and dragon are our own (Aaron 2026-11-16, references only):
+`converter/rig_models.py` writes their rig JSON and painted textures (`textures/entity/rig/<name>.png`). NPC types
+`data/lotr_port/npc/{mumak,stone_giant,dragon}.json` are hand-written (not in `src/generated`); their `model` is only
+a fallback when the rig is missing. Offline viewer (not in the repo): dump posed boxes from RigState/RigPose and draw
+side/iso/top views, rest/walking/slope.
 
 ## Tests
 `RigTest` (JUnit, no game): IK lengths/reach, rest pose = model, walking steps in turns and keeps up, slope tilt, chain
 lag, and every shipped rig file parses and walks without NaNs. They also run outside Gradle with JOML + DFU jars.
 
 ## Status
-- 2026-11-16: core, spider rig (LOTR's spider model, legs split at the knee), not yet built or seen in game.
+- 2026-11-16: core, spider rig (LOTR's spider model, legs split at the knee); mûmak, stone giant (hides as stone),
+  dragon (walks only). Compiled on the PC, RigTest green; not yet seen in game. No natural spawns yet (`/lotr npc spawn`).
 - Not yet: wall climbing for spiders (legs keep looking for ground below), FABRIK for 3+ bone legs, riding seats,
-  players carried on solid parts, mumak / stone giant / dragon models (our own; references only, see project memory).
+  players carried on solid parts, dragon flight, spawn lists for the new creatures.
