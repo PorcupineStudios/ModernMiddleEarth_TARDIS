@@ -397,3 +397,9 @@ From the repo root: `./gradlew :lotr:build`, `:lotr:runClient`, `:lotr:runServer
   `npc_radius` of one of its NPCs in any dimension (`data/lotr_port/alignment/settings.json`). The bar shows LOTR's
   arrows either side (gold: zone, pale: near its people, none: kills don't count), and shows outside Middle-earth
   while a faction NPC is near (auto-watching that NPC's faction there). Payload `HudNet.AlignmentBar.flags`.
+
+## Server pregeneration (2026-11-16, `world/Pregen`)
+- `/lotr_pregen start <all|roads|waypoints|spawn|players> [radius]`, `pause|resume|cancel|status`, `speed <n>`,
+  `follow on [radius]|off` (op level 3). Default radii (chunks): spawn 32, waypoints 12, roads 4, players 24. Queue is
+  SavedData `lotr_port_pregen` (resumes after restart); a region ticket per chunk, FULL status, fewer at a time over
+  35/45 mspt. Distant Horizons (3.3.3) is installed on the server too, so it sends LODs to clients.
