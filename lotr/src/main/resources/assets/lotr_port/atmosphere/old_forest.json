@@ -1,0 +1,21 @@
+{
+  "comment": "Brooding, close",
+  "biomes": [
+    "old_forest"
+  ],
+  "priority": 9,
+  "fog_start": 0.0,
+  "fog_end": 0.4,
+  "fog_color": "#3a4a2a",
+  "fog_color_strength": 0.6,
+  "filter": "#203010",
+  "filter_alpha": 0.1,
+  "grade": {
+    "saturation": -0.1,
+    "contrast": 0.06,
+    "warmth": 0,
+    "brightness": -0.08,
+    "vignette": 0.35,
+    "bloom": 0
+  }
+}

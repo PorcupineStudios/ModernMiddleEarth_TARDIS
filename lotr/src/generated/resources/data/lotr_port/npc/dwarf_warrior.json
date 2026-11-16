@@ -7,6 +7,14 @@
   ],
   "skin_height": 64,
   "model": "dwarf",
+  "behaviours": [
+    "burning_panic"
+  ],
+  "behaviour_data": {
+    "burn_panic_speed": 1.5,
+    "eat_chance": 6000,
+    "drink_chance": 6000
+  },
   "sounds": {
     "hurt": "lotr_port:dwarf.hurt",
     "attack": "lotr_port:dwarf.attack",
@@ -22,7 +30,6 @@
       "lotr_port:dwarven_mattock",
       "lotr_port:dwarven_pike",
       "lotr_port:dwarven_spear",
-      "lotr_port:dwarven_sword",
       "lotr_port:dwarven_warhammer"
     ],
     "head": "lotr_port:dwarven_helmet",
@@ -31,6 +38,5 @@
     "feet": "lotr_port:dwarven_boots"
   },
   "names": "lotr_port:dwarf_male",
-  "speech": "lotr_port:dwarf/dwarf",
-  "quests": "lotr_port:durin"
+  "speech": "lotr_port:dwarf/dwarf"
 }

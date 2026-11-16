@@ -39,6 +39,7 @@ import net.minecraft.core.GlobalPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.RegisterCommandsEvent;
@@ -95,6 +96,30 @@ public final class TardisCommand {
                                     + out.landed().get().pos().toShortString()), true);
                             return 1;
                         })))
+                // /tardis summon: your TARDIS lands next to you, wherever you are (free)
+                .then(Commands.literal("summon").executes(ctx -> {
+                    ServerPlayer p = ctx.getSource().getPlayerOrException();
+                    var out = Flight.summon(ctx.getSource().getServer(), mine(ctx), p.serverLevel(),
+                            p.blockPosition().relative(p.getDirection(), 2));
+                    if (!out.done()) {
+                        ctx.getSource().sendFailure(out.problem().get());
+                        return 0;
+                    }
+                    ctx.getSource().sendSuccess(() -> Component.literal("Your TARDIS landed at "
+                            + out.landed().get().pos().toShortString()), true);
+                    return 1;
+                }))
+                // /tardis door: opens or shuts your TARDIS's doors from anywhere, and says where the inside doorway is
+                .then(Commands.literal("door").executes(ctx -> {
+                    TardisRecord t = mine(ctx);
+                    boolean done = com.porcupinestudios.tardisrb.door.Doors.toggle(ctx.getSource().getServer(), t);
+                    var in = com.porcupinestudios.tardisrb.door.Doors.inside(t);
+                    ctx.getSource().sendSuccess(() -> Component.literal((done ? "Doors used" : "The doors won't move")
+                            + "; inside doorway " + in.center() + " facing " + in.facing()), true);
+                    return done ? 1 : 0;
+                }))
+                // /tardis fullRestore: every repair and research done, full health and charge, restored look
+                .then(Commands.literal("fullRestore").executes(ctx -> fullRestore(ctx, mine(ctx))))
                 .then(Commands.literal("data").executes(ctx -> {
                     var data = TardisContent.get();
                     ctx.getSource().sendSuccess(() -> Component.literal(data.subsystems().size() + " subsystems, "
@@ -219,6 +244,32 @@ public final class TardisCommand {
         }
         ctx.getSource().sendSuccess(() -> Component.literal("Landed in "
                 + out.landed().get().dimension().location() + " at " + out.landed().get().pos().toShortString()), true);
+        return 1;
+    }
+
+    private static int fullRestore(CommandContext<CommandSourceStack> ctx, TardisRecord t) {
+        MinecraftServer server = ctx.getSource().getServer();
+        var data = TardisContent.get();
+        // lowest levels first, so each subsystem ends on its highest repair with no damage left
+        data.repairs().entrySet().stream()
+                .sorted(java.util.Comparator.comparingInt(e -> e.getValue().level()))
+                .forEach(e -> t.applyRepair(e.getKey(), e.getValue()));
+        data.subsystems().keySet().forEach(sub -> {
+            if (t.damage(sub) > 0) {
+                data.repairs().entrySet().stream().filter(e -> e.getValue().subsystem().equals(sub))
+                        .max(java.util.Comparator.comparingInt(e -> e.getValue().level()))
+                        .ifPresent(e -> t.applyRepair(e.getKey(), e.getValue()));
+            }
+        });
+        data.research().keySet().forEach(t::completeResearch);
+        data.milestones().keySet().forEach(t::passMilestone);
+        Progression.update(server, t);
+        Health.set(t, Health.max(t));
+        t.addCharge(Long.MAX_VALUE);
+        com.porcupinestudios.tardisrb.look.Looks.update(server, t);
+        ctx.getSource().sendSuccess(() -> Component.literal(t.name() + " fully restored: "
+                + data.repairs().size() + " repairs, " + data.research().size() + " research, full health and charge"),
+                true);
         return 1;
     }
 

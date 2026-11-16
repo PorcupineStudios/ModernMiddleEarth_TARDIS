@@ -8,6 +8,16 @@
     "lotr_port:textures/entity/ranger/ranger_male/4.png"
   ],
   "skin_height": 64,
+  "behaviours": [
+    "man_flesh",
+    "burning_panic"
+  ],
+  "behaviour_data": {
+    "flesh_chance": 5,
+    "burn_panic_speed": 1.5,
+    "eat_chance": 8000,
+    "drink_chance": 8000
+  },
   "health": 20.0,
   "speed": 0.2,
   "attack": 2.0,
@@ -16,6 +26,7 @@
       "lotr_port:barrow_blade",
       "lotr_port:bronze_axe",
       "lotr_port:bronze_dagger",
+      "lotr_port:iron_dagger",
       "minecraft:iron_axe",
       "minecraft:stone_axe"
     ]

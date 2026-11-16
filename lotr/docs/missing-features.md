@@ -1,5 +1,35 @@
 # LOTR 1.7.10 → port: what is missing (task list)
 
+## Still open (checked against code 2026-11-16, branch claude/project-thread-k9qmje)
+
+The numbered tasks below date from 2026-11-04; most are done. This is what is actually left, biggest first.
+
+- **World:** Utumno (dimension, layers, caves, return portal) and the ring/elven/Morgul portals; fixed builds at map
+  coordinates (Minas Tirith, Isengard walls, Rammas Echor, other waypoint settlements); dwarven mines and Taurëdain
+  pyramids; villages are one fixed layout per seed; sky (sun/moon/stars, northern lights), sandstorms, Mordor ash,
+  seasonal grass, holidays.
+- **NPCs:** families (hobbit/dwarf/man marriage, rings, children); travelling traders and scrap traders; Sauron;
+  skeletal wraith; Gollum's fishing and inventory; troll chieftain boss fight; warg bombardier bombs; spider webs
+  (mystery web loot); NPCs throwing spears; mounted lances; players riding wargs/spiders; structure NPCs riding.
+- **Multiplayer and meta:** fellowships (replaced by colony membership, not built as LOTR's); bounty quests
+  (30); custom waypoints; factions screen with faction map; Red Book tabs; shield and cape rendering on players;
+  most achievement triggers (kills, crafting, trading, drinking); most LOTR commands; spawn damping.
+- **Blocks still without LOTR behaviour** (`docs/behavior-audit.md`): spawner chests and mob spawner, NPC respawner,
+  Taurëdain dart traps, treasure piles, troll totems, chisels, mechanism and mechanised rails, table of command,
+  goran, Rhûn fire and fire jar, Mordor moss/shrooms, sand/gravel slabs falling, Gulduril/Edhelvir use-on, ancient
+  items, dye on mobs, ore glow particles.
+- **Items and polish:** glowing elven blades near orcs (Sting, Glamdring, Orcrist); animated armour parts (swan wings,
+  robes); dyeable hats/armour and the other special recipes (task 36); carved stone sign text; drunken speech and
+  alcohol tolerance; barrels ageing drinks; pipe smoke colour; pouch restock from chests; mud farmland and fruit
+  leaves; unsmeltery rocking.
+
+Done since the list was written (don't redo): sounds, music, enchantments, achievements/titles, lore books,
+creatures with LOTR models and animations, animals, invasions, 11 village kinds, drinks and kegs, set-down vessels,
+machines and their screens, crops, ores, pouches, coins, pipes, thrown weapons, archers, mounts and riders, armour
+models and per-item textures, fogs, terrain and mountains, gates, walls, structure signs, people/monster behaviours,
+NPC drops, quests incl. pickpocket, calendar, colonies/hired units/wars (colony-first rework).
+
+
 Written 2026-11-04 against `claude/happy-heisenberg-4yebld` (commit 8eed5eb7). Source of truth for "what LOTR has" is
 the class list of `converter/libs/LOTRMod v36.15.jar` (3,469 classes) plus `converter/export/*.json`; "what we have"
 is `lotr/src/main/java`, `converter/*.py` and `lotr/CLAUDE.md`.
@@ -45,7 +75,7 @@ branch, and **Decision** means it needs Aaron to choose.
 | Extra knockback (hammer, lance +1) | `attack_knockback` attribute | +1 modifier | Done |
 | No sweep attack | Swords sweep (1.9) | Swords sweep. Battleaxes sweep harder (+0.5 `sweeping_damage_ratio`, Aaron 2026-11-04). Daggers, spears, polearms and hammers hit one target | Done |
 | NPCs swing every 20 ticks ÷ speed factor | `MeleeAttackGoal` always waits 20 ticks | `LotrNpc.WeaponMeleeGoal` uses the held weapon's `mob_ticks` | Done |
-| NPC reach scaled with the weapon | Mob melee range comes from the hitbox (`isWithinMeleeAttackRange`), not an attribute | Pike NPCs still reach like sword NPCs | Todo |
+| NPC reach scaled with the weapon | Mob melee range comes from the hitbox (`isWithinMeleeAttackRange`), not an attribute | `LotrNpc.getAttackBoundingBox` grows by LOTR's NPC reach (sqrt(4 + width²)) × (weapon reach factor − 1): pike NPCs strike from further off, shorter weapons keep vanilla's box (2026-11-10) | Done |
 | Crits whenever falling | Crits need a full-charge hit (1.9) | Nothing to port. Fast daggers crit easily, slow pikes rarely | Note |
 | No off-hand, no shield | Off-hand and vanilla shields (1.9) block LOTR NPCs' melee and arrows | Kept: vanilla shields block LOTR NPCs (Aaron 2026-11-04). LOTR's "shields" are cosmetic back-banners | Done |
 | Armor: flat 4% per point, capped at 80% | Reduction falls as hits get bigger, offset by toughness (1.9) | LOTR armor keeps its defense points with toughness 0, so trolls and 9–11 damage hammers pierce more than in 1.7.10. `armor.toughness` / `knockback_resistance` are data fields. Mithril gets toughness 3 (like netherite), dwarven and blue dwarven 2 (like diamond) (Aaron 2026-11-04, `ARMOR_TOUGHNESS` in `generate.py`) | Done |
@@ -53,7 +83,7 @@ branch, and **Decision** means it needs Aaron to choose.
 | Crossbow = a bow subclass that fires bolts | Vanilla crossbow (load, then fire, 1.14) | `LotrCrossbowItem` extends `CrossbowItem`, takes only `#lotr_port:crossbow_bolts`, and scales bolt damage. Load time stays 1.25 s because `getChargeDuration` is static in 1.21.1. Bolts fly as vanilla arrows. Multishot and Piercing would now apply | Done (bolt entity look: Todo) |
 | Poisoned daggers, bolts and darts: Poison I for n…2n−1 s, n = 1 + 2 × difficulty | Tipped arrows carry a fixed potion | Daggers apply LOTR's formula on hit (`LotrWeaponItem.applyPoison`). Poisoned arrows and bolts carry a fixed 7 s Poison (the normal-difficulty middle) | Done |
 | LOTR trident = melee polearm | Vanilla trident is thrown (1.13) | Kept as melee polearm | Note |
-| Spears: melee and thrown | No vanilla spear in 1.21.1 (it arrives in 1.21.11) | Melee done. Throwing needs a projectile entity (task 28) | Todo |
+| Spears: melee and thrown | No vanilla spear in 1.21.1 (it arrives in 1.21.11) | Melee done. Thrown like LOTR (draw up to 20 ticks, `content/thrown/ThrownWeapon`), task 28 (2026-11-10) | Done |
 | LOTR enchantments ("modifiers") replace vanilla's | Enchantments are data (1.21) | Task 18 | Todo |
 
 ### Rendering and items
@@ -65,7 +95,7 @@ branch, and **Decision** means it needs Aaron to choose.
 | Animated armor parts (swan wings, robes following the legs) and items drawn on armor (leather hat feather) | `setupModelAnimations` hook | Resting pose only, so the swan chestplate's wings stay spread | Todo |
 | Dyed hats via `getColorFromItemStack` | `dyed_color` component | Hats tinted their undyed LOTR colour. Dyeing is task 36 | Todo |
 | Item damage values (metadata) for variants | Flattening (1.13), data components (1.20.5) | Separate ids. 138 drink metas merged (task 16) | Partly |
-| Horse armor in metadata, many mount types | Body slot / `AnimalArmorItem` | Task 27 | Todo |
+| Horse armor in metadata, many mount types | Body slot / `AnimalArmorItem` | `MountArmorItem` in the body slot (armour attribute = LOTR's chestplate + leggings), one entity type per breed (`mount/`) | Done |
 | `IItemRenderer` for bows (`LOTRRenderBow`), crossbows, elven blades glowing near orcs, skull staff, horns | Item model overrides and properties | Bows and crossbows done (pull, charged). Glowing blades: Todo | Partly |
 
 ### World and data (already handled by earlier phases, listed so nobody redoes them)
@@ -129,7 +159,7 @@ branch, and **Decision** means it needs Aaron to choose.
    hook is the only JAVA part.
 10. **GEN — NPC name banks are done; titles are not.** `LOTRTitle` values are lang keys + alignment/achievement
     requirements: read with `classfile.py` or a 20-line **EXP** section → `data/lotr_port/title/*.json`.
-11. **GEN — mounted units.** `npc_mounted_units_skipped` (46 entries, e.g. `ROHIRRIM_MARSHAL: Rohirrim_Horse`) is
+11. **GEN — mounted units. Done 2026-11-10** (unit `mount` is the breed's entity or a warg/spider NPC type). `npc_mounted_units_skipped` (46 entries, e.g. `ROHIRRIM_MARSHAL: Rohirrim_Horse`) is
     already in the export; write the unit pool entry with a `mount` field now so it's ready when mounts land (task 27).
 12. **GEN — unmapped trades/quest targets/structure blocks.** Fix the mapping tables behind `npc_trades_unmapped` (43,
     all `minecraft:coal` meta 32767 → `#minecraft:coals`), `structure_blocks_unmapped` (`stone_slab#8/#11` = double
@@ -195,31 +225,43 @@ Each task picks up one `kind` from Tier 1 and makes it work; stats come from Tie
 26. **Creature models.** Port the 34 `LOTRModel*` boxes as `LayerDefinition`s. Mechanical but long: do it with a
     script that reads cube/rotation constants from the model classes' constructors (`classfile.py` can read the
     `addBox` call constants) and writes Java or entity-model JSON. Start with warg, spider, troll, horse.
-27. **Mounts.** Horses (LOTR stats per breed), ponies, wargs, elk, boars, camels, rhinos, zebras, giraffes; NPCs
-    riding them (task 11 data), horse armour items (`horse_armor` kind).
-28. **Ranged weapons.** Bows, crossbows and bolts are done (`LotrBowItem`, `LotrCrossbowItem`). Left:
-    `throwing_axe`, `spear` (thrown), `projectile` kinds with entities
-    (`LOTREntitySpear`, `ThrowingAxe`, `CrossbowBolt`, `Dart`, `Plate`, `Pebble`, `FirePot`, `MysteryWeb`) and the 14
-    dispenser behaviours. NPC archers use them.
+27. **Mounts. Done 2026-11-10** (`mount/`, `converter/mounts.py`): horses, Shire ponies, zebras, wild boars, camels,
+    elk, rhinos and giraffes with LOTR's stats per breed, food, breeding ranges, mount armour (20 items, plus the port's own 6 for giraffes and camels), camel chests
+    and carpets, zebra milk, boars/elk/rhinos fighting back, and NPCs that spawn riding (67 types, 47 with LOTR's horse
+    armour). Left: players riding wargs and spiders, warg armour worn by wargs, 1.7.10's baby horse proportions (foals
+    are the adult at half size), structure NPCs never come riding, a rider's mounted weapon (lances).
+28. **Ranged weapons. Done 2026-11-10** (`content/thrown/`, numbers in `thrown/settings.json` from
+    `converter/thrown.py`): thrown spears, throwing axes, the blowgun and darts (poisoned too), the sling and pebbles,
+    conkers, fire pots, plates (throwing breaks glass), mystery webs (a Mirkwood spider 1 in 4), orc bombs (block lit
+    by redstone or a blast, entity, renderer), dispensers for all of them, NPC archers and throwers
+    (`npc/behaviour/ArcherBehaviour`, LOTR's AI numbers per type). Left: mystery web chest loot (LOTR's chest
+    contents aren't converted), the Rhun fire jar's blast, NPCs throwing spears, orc bombardiers placing bombs.
 29. **Melee reach/speed. Done** (`LotrWeaponItem`, see the table above). Left: the `LOTRRecipePoisonWeapon` special
     recipe (dagger + poison bottle).
 30. **Drinks and drunkenness.** Done: `drink`/`vessel` kinds, drinking with LOTR's food, nausea, effects, cures and
     specials. Left: placeable mugs (`mug` block kind, holds the item), alcohol tolerance (LOTR lowered nausea 1% per
     point), `LOTRDrunkenSpeech` scrambling chat (word table from constants), NPCs drinking.
-31. **Station blocks.** `furnace` kind (faction forges: alloy recipes; hobbit oven: 9-slot food oven), `keg`
+31. **Done (2026-11-10, `machine/`):** faction forges, hobbit oven, millstone, unsmeltery (screens on LOTR's
+    textures), kebab stand, plates, armour stand, weapon rack, Ent jar, LOTR chests. Left: `bookshelf_storage`, the
+    unsmeltery's rocking. Original task: **Station blocks.** `furnace` kind (faction forges: alloy recipes; hobbit oven: 9-slot food oven), `keg`
     (LOTR's barrel: **done**, `drink/KegBlock`), `millstone`, `unsmeltery`, `kebab_stand`, `chest` (LOTR chests with LOTR textures), `plate`
     (holds food), `bookshelf_storage`, `armor_stand`, `weapon_rack`. Menus can copy vanilla furnace/brewing layouts
     with LOTR's GUI textures from `assets/lotr/gui`.
-32. **Crops and farming.** `crop` kind growth stages from the block's `variants`; seeds plant; grapevines on
+32. **Done (2026-11-10, `content/farm/`):** leek, lettuce, turnip, yam, flax, pipe-weed crops; berry bushes; corn;
+    grapevines on posts. Left: fruit leaves dropping fruit, mud farmland. Original task: **Crops and farming.** `crop` kind growth stages from the block's `variants`; seeds plant; grapevines on
     trellises; fruit leaves drop fruit; mud farmland. Hired farmers later.
-33. **Pouches.** `pouch` kind (small/medium/large = 9/18/27 slots), dye recipe (`LOTRRecipesPouch`), auto-pick-up and
+33. **Done (2026-11-10, `content/pouch/`):** 9/18/27-slot pouches with LOTR's screen and renaming, pick-ups go in
+    when the inventory is full. Left: restock from a chest. Original task: **Pouches.** `pouch` kind (small/medium/large = 9/18/27 slots), dye recipe (`LOTRRecipesPouch`), auto-pick-up and
     restock from a chest (`LOTRContainerChestWithPouch`).
-34. **Coin exchange.** `LOTRContainerCoinExchange`: split/merge silver coin denominations (`coin` kind; `Coins`
+34. **Done (2026-11-10):** every trader's last offers split and merge coins (`NpcTrading.exchange`). Original
+    task: **Coin exchange.** `LOTRContainerCoinExchange`: split/merge silver coin denominations (`coin` kind; `Coins`
     already exists).
-35. **Pipes.** `smoking_pipe` + pipeweed: smoke ring projectile, colour by dye (`LOTRRecipeHobbitPipe`).
+35. **Done (2026-11-10):** pipe blows a smoke ring of particles (`LotrUseItem.smokeRing`). Left: ring colour by
+    dye. Original task: **Pipes.** `smoking_pipe` + pipeweed: smoke ring projectile, colour by dye (`LOTRRecipeHobbitPipe`).
 36. **Dye/special recipes.** The 44 `special_recipes`: armor dyes, feather dye, leather hat dye/feather, party hat,
     Harad robe/turban, banner patterns, treasure-pile, poison drinks. Each is a small `CustomRecipe`.
-37. **Ores and gems.** `ore` kind: xp, silk touch, fortune; Mithril, Naurite, Quendite, Gulduril, Morgul iron,
+37. **Done (2026-11-10, `converter/ores.py`):** item-dropping ores with LOTR's xp, silk touch, fortune. Left:
+    Quendite/Gulduril particles. Original task: **Ores and gems.** `ore` kind: xp, silk touch, fortune; Mithril, Naurite, Quendite, Gulduril, Morgul iron,
     Edhelvir; glowing Quendite/Gulduril (light + particles from `LOTRTileEntityGulduril`).
 38. **Quagmire, dead marshes, webs.** Quagmire slows and sinks, marsh lights (`blocks_without_texture`: give them a
     particle-only renderer), marsh faces (`LOTREntityDeadMarshFace`), Ungoliant webs.

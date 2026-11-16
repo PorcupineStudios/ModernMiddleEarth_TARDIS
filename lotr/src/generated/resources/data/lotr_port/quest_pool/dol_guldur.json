@@ -1,6 +1,51 @@
 {
   "quests": [
     {
+      "kind": "kill_faction",
+      "target": "lotr_port:lothlorien",
+      "min": 10,
+      "max": 40,
+      "reward": 1.0,
+      "speech": "lotr_port:miniquest/dol_guldur/kill_enemy",
+      "weight": 160
+    },
+    {
+      "kind": "kill_faction",
+      "target": "lotr_port:wood_elf",
+      "min": 10,
+      "max": 40,
+      "reward": 1.0,
+      "speech": "lotr_port:miniquest/dol_guldur/kill_enemy",
+      "weight": 160
+    },
+    {
+      "kind": "kill_faction",
+      "target": "lotr_port:dale",
+      "min": 10,
+      "max": 40,
+      "reward": 1.0,
+      "speech": "lotr_port:miniquest/dol_guldur/kill_enemy",
+      "weight": 160
+    },
+    {
+      "kind": "kill_npc",
+      "target": "lotr_port:galadhrim_elf",
+      "min": 10,
+      "max": 30,
+      "reward": 1.0,
+      "speech": "lotr_port:miniquest/dol_guldur/kill_elf",
+      "weight": 160
+    },
+    {
+      "kind": "kill_npc",
+      "target": "lotr_port:wood_elf",
+      "min": 10,
+      "max": 30,
+      "reward": 1.0,
+      "speech": "lotr_port:miniquest/dol_guldur/kill_elf",
+      "weight": 160
+    },
+    {
       "kind": "collect",
       "target": "lotr_port:dol_guldur_sword",
       "min": 1,
@@ -188,51 +233,6 @@
       "reward": 10.0,
       "speech": "lotr_port:miniquest/dol_guldur/collect_mineral",
       "weight": 48
-    },
-    {
-      "kind": "kill_faction",
-      "target": "lotr_port:lothlorien",
-      "min": 10,
-      "max": 40,
-      "reward": 1.0,
-      "speech": "lotr_port:miniquest/dol_guldur/kill_enemy",
-      "weight": 160
-    },
-    {
-      "kind": "kill_faction",
-      "target": "lotr_port:wood_elf",
-      "min": 10,
-      "max": 40,
-      "reward": 1.0,
-      "speech": "lotr_port:miniquest/dol_guldur/kill_enemy",
-      "weight": 160
-    },
-    {
-      "kind": "kill_faction",
-      "target": "lotr_port:dale",
-      "min": 10,
-      "max": 40,
-      "reward": 1.0,
-      "speech": "lotr_port:miniquest/dol_guldur/kill_enemy",
-      "weight": 160
-    },
-    {
-      "kind": "kill_npc",
-      "target": "lotr_port:galadhrim_elf",
-      "min": 10,
-      "max": 30,
-      "reward": 1.0,
-      "speech": "lotr_port:miniquest/dol_guldur/kill_elf",
-      "weight": 160
-    },
-    {
-      "kind": "kill_npc",
-      "target": "lotr_port:wood_elf",
-      "min": 10,
-      "max": 30,
-      "reward": 1.0,
-      "speech": "lotr_port:miniquest/dol_guldur/kill_elf",
-      "weight": 160
     }
   ]
 }

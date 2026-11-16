@@ -1,0 +1,9 @@
+{
+  "entities": [
+    "lotr_port:shire_pony"
+  ],
+  "speed": 1.6,
+  "carry": 5,
+  "draws_wagon": true,
+  "needs_tame": true
+}

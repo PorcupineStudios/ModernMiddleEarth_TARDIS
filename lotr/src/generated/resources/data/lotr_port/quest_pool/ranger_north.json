@@ -1,6 +1,96 @@
 {
   "quests": [
     {
+      "kind": "kill_faction",
+      "target": "lotr_port:gundabad",
+      "min": 10,
+      "max": 40,
+      "reward": 1.0,
+      "speech": "lotr_port:miniquest/ranger_north/kill_gundabad",
+      "weight": 80
+    },
+    {
+      "kind": "kill_faction",
+      "target": "lotr_port:angmar",
+      "min": 10,
+      "max": 30,
+      "reward": 1.0,
+      "speech": "lotr_port:miniquest/ranger_north/kill_angmar",
+      "weight": 80
+    },
+    {
+      "kind": "kill_npc",
+      "target": "lotr_port:troll",
+      "min": 10,
+      "max": 30,
+      "reward": 1.0,
+      "speech": "lotr_port:miniquest/ranger_north/kill_troll",
+      "weight": 80
+    },
+    {
+      "kind": "kill_npc",
+      "target": "lotr_port:mountain_troll",
+      "min": 20,
+      "max": 40,
+      "reward": 1.0,
+      "speech": "lotr_port:miniquest/ranger_north/kill_mountain_troll",
+      "weight": 80
+    },
+    {
+      "kind": "kill_npc",
+      "target": "lotr_port:gundabad_warg",
+      "min": 10,
+      "max": 40,
+      "reward": 1.0,
+      "speech": "lotr_port:miniquest/ranger_north/kill_warg",
+      "weight": 80
+    },
+    {
+      "kind": "kill_npc",
+      "target": "lotr_port:angmar_warg",
+      "min": 10,
+      "max": 30,
+      "reward": 1.0,
+      "speech": "lotr_port:miniquest/ranger_north/kill_warg",
+      "weight": 80
+    },
+    {
+      "kind": "kill_npc",
+      "target": "lotr_port:dark_huorn",
+      "min": 20,
+      "max": 30,
+      "reward": 1.0,
+      "speech": "lotr_port:miniquest/ranger_north/kill_dark_huorn",
+      "weight": 80
+    },
+    {
+      "kind": "kill_npc",
+      "target": "lotr_port:gundabad_orc",
+      "min": 10,
+      "max": 30,
+      "reward": 1.0,
+      "speech": "lotr_port:miniquest/ranger_north/avenge_brother",
+      "weight": 80
+    },
+    {
+      "kind": "kill_npc",
+      "target": "lotr_port:gundabad_warg",
+      "min": 10,
+      "max": 30,
+      "reward": 1.0,
+      "speech": "lotr_port:miniquest/ranger_north/avenge_brother",
+      "weight": 80
+    },
+    {
+      "kind": "kill_npc",
+      "target": "lotr_port:angmar_hillman",
+      "min": 10,
+      "max": 30,
+      "reward": 1.0,
+      "speech": "lotr_port:miniquest/ranger_north/kill_hillmen",
+      "weight": 80
+    },
+    {
       "kind": "collect",
       "target": "minecraft:oak_log",
       "min": 30,
@@ -260,96 +350,6 @@
       "reward": 0.75,
       "speech": "lotr_port:miniquest/ranger_north/collect_enemy_bones",
       "weight": 34
-    },
-    {
-      "kind": "kill_faction",
-      "target": "lotr_port:gundabad",
-      "min": 10,
-      "max": 40,
-      "reward": 1.0,
-      "speech": "lotr_port:miniquest/ranger_north/kill_gundabad",
-      "weight": 80
-    },
-    {
-      "kind": "kill_faction",
-      "target": "lotr_port:angmar",
-      "min": 10,
-      "max": 30,
-      "reward": 1.0,
-      "speech": "lotr_port:miniquest/ranger_north/kill_angmar",
-      "weight": 80
-    },
-    {
-      "kind": "kill_npc",
-      "target": "lotr_port:troll",
-      "min": 10,
-      "max": 30,
-      "reward": 1.0,
-      "speech": "lotr_port:miniquest/ranger_north/kill_troll",
-      "weight": 80
-    },
-    {
-      "kind": "kill_npc",
-      "target": "lotr_port:mountain_troll",
-      "min": 20,
-      "max": 40,
-      "reward": 1.0,
-      "speech": "lotr_port:miniquest/ranger_north/kill_mountain_troll",
-      "weight": 80
-    },
-    {
-      "kind": "kill_npc",
-      "target": "lotr_port:gundabad_warg",
-      "min": 10,
-      "max": 40,
-      "reward": 1.0,
-      "speech": "lotr_port:miniquest/ranger_north/kill_warg",
-      "weight": 80
-    },
-    {
-      "kind": "kill_npc",
-      "target": "lotr_port:angmar_warg",
-      "min": 10,
-      "max": 30,
-      "reward": 1.0,
-      "speech": "lotr_port:miniquest/ranger_north/kill_warg",
-      "weight": 80
-    },
-    {
-      "kind": "kill_npc",
-      "target": "lotr_port:dark_huorn",
-      "min": 20,
-      "max": 30,
-      "reward": 1.0,
-      "speech": "lotr_port:miniquest/ranger_north/kill_dark_huorn",
-      "weight": 80
-    },
-    {
-      "kind": "kill_npc",
-      "target": "lotr_port:gundabad_orc",
-      "min": 10,
-      "max": 30,
-      "reward": 1.0,
-      "speech": "lotr_port:miniquest/ranger_north/avenge_brother",
-      "weight": 80
-    },
-    {
-      "kind": "kill_npc",
-      "target": "lotr_port:gundabad_warg",
-      "min": 10,
-      "max": 30,
-      "reward": 1.0,
-      "speech": "lotr_port:miniquest/ranger_north/avenge_brother",
-      "weight": 80
-    },
-    {
-      "kind": "kill_npc",
-      "target": "lotr_port:angmar_hillman",
-      "min": 10,
-      "max": 30,
-      "reward": 1.0,
-      "speech": "lotr_port:miniquest/ranger_north/kill_hillmen",
-      "weight": 80
     }
   ]
 }

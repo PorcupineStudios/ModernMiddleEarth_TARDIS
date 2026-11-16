@@ -8,24 +8,34 @@
     "lotr_port:textures/entity/rhun/easterling_male/4.png"
   ],
   "skin_height": 64,
+  "behaviours": [
+    "man_flesh",
+    "burning_panic"
+  ],
+  "behaviour_data": {
+    "flesh_chance": 5,
+    "burn_panic_speed": 1.5,
+    "eat_chance": 8000,
+    "drink_chance": 8000
+  },
   "health": 20.0,
   "speed": 0.2,
   "attack": 2.0,
   "gear": {
     "mainhand": [
-      "lotr_port:bronze_dagger",
-      "lotr_port:iron_dagger",
-      "lotr_port:iron_spear",
-      "lotr_port:poisoned_rh_nic_dagger",
-      "lotr_port:rh_nic_battleaxe",
+      "lotr_port:bronze_battleaxe",
+      "lotr_port:bronze_spear",
+      "lotr_port:bronze_sword",
+      "lotr_port:iron_battleaxe",
       "lotr_port:rh_nic_sword"
     ],
     "chest": [
+      "lotr_port:bronze_chestplate",
       "lotr_port:kaftan",
       "minecraft:leather_chestplate"
     ],
     "legs": [
-      "lotr_port:kaftan_leggings",
+      "lotr_port:bronze_leggings",
       "minecraft:leather_leggings"
     ],
     "feet": [

@@ -8,6 +8,27 @@
   ],
   "skin_height": 64,
   "model": "elf",
+  "behaviours": [
+    "elf_scout",
+    "elf_bow",
+    "burning_panic",
+    "archer"
+  ],
+  "behaviour_data": {
+    "too_close": 6,
+    "chance": 20,
+    "bow_range": 8,
+    "bow_ticks": 40,
+    "burn_panic_speed": 1.5,
+    "eat_chance": 12000,
+    "drink_chance": 8000,
+    "ranged_speed": 1.25,
+    "ranged_min": 25,
+    "ranged_max": 35,
+    "ranged_range": 24.0,
+    "ranged_accuracy": 0.5,
+    "ranged_swap": 1
+  },
   "sounds": {
     "ambient": "lotr_port:elf.male.say",
     "attack": "lotr_port:elf.male.attack"
@@ -20,9 +41,9 @@
     "head": "lotr_port:wood_elven_scout_hood",
     "chest": "lotr_port:wood_elven_scout_tunic",
     "legs": "lotr_port:wood_elven_scout_leggings",
-    "feet": "lotr_port:wood_elven_scout_boots"
+    "feet": "lotr_port:wood_elven_scout_boots",
+    "ranged": "lotr_port:bow_of_mirkwood"
   },
-  "names": "lotr_port:sindarin_male",
   "speech": "lotr_port:wood_elf/elf",
   "quests": "lotr_port:wood_elf"
 }

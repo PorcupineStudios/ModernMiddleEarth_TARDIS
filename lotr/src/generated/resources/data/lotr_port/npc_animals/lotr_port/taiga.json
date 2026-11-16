@@ -7,12 +7,6 @@
       "max": 6
     },
     {
-      "npc": "lotr_port:elk",
-      "weight": 10,
-      "min": 4,
-      "max": 6
-    },
-    {
       "npc": "lotr_port:bear",
       "weight": 10,
       "min": 1,

@@ -90,13 +90,16 @@ public final class VortexRenderer {
         long slot = (long) Math.floor(time * BOLT_RATE);
         RenderSystem.disableBlend();
         RenderSystem.setShaderTexture(0, WALL);
-        cloudWall(view, ox, oy, cam.z, half, time, time * 0.9f, time * 0.02f, 0.15f, boltsNow(time, slot));
+        // Aaron 2026-11-14: fast but not disorienting. The sense of speed comes from the thin streaks rushing along the
+        // tunnel; the wall moves slower, and both layers turn the same way and twist alike (counter-turning layers
+        // are what made it swim). Lightning swells and fades, never strobes: under 3 flashes a second (WCAG 2.3.1).
+        cloudWall(view, ox, oy, cam.z, half, time, time * WALL_SPEED, time * 0.002f, 0.08f, boltsNow(time, slot));
 
         RenderSystem.enableBlend();
         RenderSystem.blendFunc(GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ONE);
         RenderSystem.setShaderTexture(0, GLOW);
-        draw(view, ox, oy, (float) cam.z, half, WALL_RADIUS - BILLOW * 1.1f, time * 1.6f, -time * 0.05f, -0.25f,
-                0.45f);
+        draw(view, ox, oy, (float) cam.z, half, WALL_RADIUS - BILLOW * 1.1f, time * STREAK_SPEED, time * 0.002f, 0.08f,
+                0.55f);
 
         RenderSystem.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE);
         RenderSystem.setShader(GameRenderer::getPositionColorShader);
@@ -134,9 +137,15 @@ public final class VortexRenderer {
 
     // --- the wall is storm cloud, charged with lightning (Aaron 2026-11-09) ---
 
-    /** Lightning: new bolts per second per channel, and channels (bolts that can be lit at once). */
-    private static final float BOLT_RATE = 3;
-    private static final int BOLT_CHANNELS = 4;
+    /** Texture repeats (48 blocks) per second the wall and the streaks rush past at. */
+    private static final float WALL_SPEED = 0.03f; // Aaron 2026-11-14: very slow; the flight itself gives the motion
+    private static final float STREAK_SPEED = 0.08f;
+    /** Lightning: strike slots per second per channel, and channels (bolts that can be lit at once). Each bolt is one
+     *  smooth swell and fade over its slot, so at most ~1.2 flashes a second in all. */
+    private static final float BOLT_RATE = 0.6f;
+    private static final int BOLT_CHANNELS = 2;
+    /** How much a bolt lights the cloud round it (was a full flash of the wall). */
+    private static final float WALL_GLOW = 0.3f;
     private static final int BOLT_STEPS = 10;
     /** How far the cloud wall billows in from {@link #WALL_RADIUS} at the top of a puff. */
     private static final float BILLOW = 4;
@@ -190,7 +199,8 @@ public final class VortexRenderer {
                         flash = Math.max(flash, b.strength() * Math.max(0, 1 - da / 0.8f));
                     }
                 }
-                float bright = 0.4f + 0.75f * p;
+                flash *= WALL_GLOW;
+                float bright = 0.55f + 0.45f * p; // gentler puff/fold contrast
                 shade[k * 3] = Math.round(255 * edge * Math.min(1, bright + flash * 0.5f));
                 shade[k * 3 + 1] = Math.round(255 * edge * Math.min(1, bright + flash * 0.6f));
                 shade[k * 3 + 2] = Math.round(255 * edge * Math.min(1, bright + flash * 0.9f));
@@ -256,16 +266,16 @@ public final class VortexRenderer {
         Bolt[] out = new Bolt[BOLT_CHANNELS];
         float life = time * BOLT_RATE - slot;
         for (int c = 0; c < BOLT_CHANNELS; c++) {
-            if (hash(slot, c, 1) > 0.8f) {
+            if (hash(slot, c, 1) > 0.6f) {
                 continue;
             }
             float a0 = hash(slot, c, 2) * (float) (2 * Math.PI);
             float z0 = -24 + hash(slot, c, 3) * 100;
             float a1 = a0 + (hash(slot, c, 4) - 0.5f) * 2.2f;
             float z1 = z0 + 8 + hash(slot, c, 5) * 26;
-            // a bright strike that flickers out
-            float flicker = hash(slot, c, (long) (time * 24)) < 0.25f ? 0.3f : 1;
-            out[c] = new Bolt(a0, z0, a1, z1, Math.max(0, 1 - life * 1.3f) * flicker, slot * 31 + c);
+            // one smooth swell (a fifth of the slot) and a slow fade; no flicker
+            float swell = life < 0.2f ? life / 0.2f : Math.max(0, 1 - (life - 0.2f) / 0.6f);
+            out[c] = new Bolt(a0, z0, a1, z1, 0.7f * swell * swell * (3 - 2 * swell), slot * 31 + c);
         }
         return out;
     }
@@ -275,7 +285,7 @@ public final class VortexRenderer {
     private static void bolts(Matrix4f view, float ox, float oy, double camZ, float time, long slot) {
         BufferBuilder buf = Tesselator.getInstance().begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_COLOR);
         boolean any = false;
-        long jitter = (long) (time * 20); // the bolt's shape crackles a few times while lit
+        long jitter = 0; // a steady shape: a crackling one strobed
         for (Bolt b : boltsNow(time, slot)) {
             if (b == null || b.strength() <= 0.02f) {
                 continue;
@@ -293,7 +303,7 @@ public final class VortexRenderer {
             }
             ribbon(buf, view, pts, 0, BOLT_STEPS, 2.6f, Math.round(150 * b.strength()), 120, 160, 255);
             ribbon(buf, view, pts, 0, BOLT_STEPS, 0.35f, Math.round(255 * b.strength()), 200, 225, 255);
-            ribbon(buf, view, pts, 0, BOLT_STEPS, 0.15f, Math.round(255 * b.strength()), 255, 255, 255); // white-hot core
+            ribbon(buf, view, pts, 0, BOLT_STEPS, 0.15f, Math.round(180 * b.strength()), 230, 240, 255); // soft core
             // a short fork from partway along
             int from = 3 + (int) (hash(b.seed(), 99, 0) * 4);
             Vector3f[] fork = new Vector3f[4];

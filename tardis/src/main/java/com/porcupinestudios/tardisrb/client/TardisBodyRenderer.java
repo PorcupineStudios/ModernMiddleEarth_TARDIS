@@ -29,14 +29,17 @@ public final class TardisBodyRenderer extends EntityRenderer<TardisBody> {
     @Override
     public void render(TardisBody body, float yaw, float partialTick, PoseStack pose, MultiBufferSource buffers,
             int light) {
+        if (ExteriorRenderer.viewedFromInside(body.getBoundingBox().inflate(0.5))) {
+            return;
+        }
         PoliceBoxModel model = PoliceBoxModel.get();
         int look = Math.max(0, Math.min(ExteriorRenderer.LOOKS.length - 1, body.look()));
         pose.pushPose();
         float turn = Mth.rotLerp(partialTick, body.yRotO, body.getYRot());
-        if (body.isVehicle() && !body.doorsOpen()) {
-            // flown: the box spins as it flies, for show (its collision box doesn't turn)
-            turn += (float) ((body.tickCount + partialTick) * TardisContent.tuning().flight().piloting().spin());
-        }
+        // flown: the box spins as it flies, for show (its collision box doesn't turn); open doors and their doorway
+        // turn with it (Doors.spin, from the level's clock so the server's doorway agrees)
+        float spin = Doors.spin(body, body.level().getGameTime() + partialTick);
+        turn += spin;
         float shock = ShockRenderer.age(body, partialTick);
         ShockRenderer.wobble(body, shock, model.max[1] - model.min[1], pose);
         if (body.crashing()) {
@@ -61,7 +64,7 @@ public final class TardisBodyRenderer extends EntityRenderer<TardisBody> {
         ShockRenderer.draw(body, shock, model, facing, pose, buffers);
         pose.popPose();
         if (body.doorsOpen()) {
-            keepDoorway(body, partialTick);
+            keepDoorway(body, partialTick, spin);
         }
         super.render(body, yaw, partialTick, pose, buffers, light);
     }
@@ -70,12 +73,11 @@ public final class TardisBodyRenderer extends EntityRenderer<TardisBody> {
      * Keeps the open doorway's portal on the box as drawn this frame: the server moves it too, but its update reaches
      * this client a tick or more after the box (flown from here, or lerped) has moved on.
      */
-    private static void keepDoorway(TardisBody body, float partialTick) {
-        Vec3 at = Doors.outside(body).center().add(body.getPosition(partialTick).subtract(body.position()));
+    private static void keepDoorway(TardisBody body, float partialTick, float spin) {
+        Vec3 at = body.getPosition(partialTick);
         for (Portal p : body.level().getEntitiesOfClass(Portal.class, body.getBoundingBox().inflate(3),
                 p -> Doors.TAG.equals(p.portalTag))) {
-            p.setOriginPos(at);
-            p.updateCache();
+            Doors.place(p, null, body, at, spin);
         }
     }
 

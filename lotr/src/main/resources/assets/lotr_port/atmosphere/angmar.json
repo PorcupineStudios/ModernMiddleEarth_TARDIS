@@ -1,0 +1,28 @@
+{
+  "comment": "Cold blue-grey",
+  "biomes": [
+    "angmar",
+    "angmar_mountains",
+    "ettenmoors",
+    "coldfells",
+    "forodwaith",
+    "forodwaith_coast",
+    "forodwaith_glacier",
+    "forodwaith_mountains"
+  ],
+  "priority": 7,
+  "fog_start": 0.05,
+  "fog_end": 0.6,
+  "fog_color": "#a8b4c8",
+  "fog_color_strength": 0.5,
+  "filter": "#506080",
+  "filter_alpha": 0.08,
+  "grade": {
+    "saturation": -0.25,
+    "contrast": 0.08,
+    "warmth": -0.5,
+    "brightness": -0.06,
+    "vignette": 0.25,
+    "bloom": 0
+  }
+}

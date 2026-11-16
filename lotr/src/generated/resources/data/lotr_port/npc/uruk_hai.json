@@ -6,6 +6,25 @@
     "lotr_port:textures/entity/orc/uruk_hai/2.png"
   ],
   "model": "orc",
+  "behaviours": [
+    "orc",
+    "burning_panic"
+  ],
+  "behaviour_data": {
+    "daylight_ticks": 200,
+    "avoid_range": 8,
+    "avoid_speed": 1.5,
+    "avoid_alignment": -500,
+    "burn_panic_speed": 1.5,
+    "raid_camp": 1,
+    "skirmish_chance": 20000,
+    "skirmish_min": 40,
+    "skirmish_ticks": 160,
+    "weak_orc": 0,
+    "avoid_good": 0,
+    "eat_chance": 6000,
+    "drink_chance": 6000
+  },
   "sounds": {
     "ambient": "lotr_port:orc.say",
     "hurt": "lotr_port:orc.hurt",
@@ -20,8 +39,8 @@
       "lotr_port:poisoned_uruk_dagger",
       "lotr_port:uruk_battleaxe",
       "lotr_port:uruk_cleaver",
-      "lotr_port:uruk_spear",
-      "lotr_port:uruk_warhammer"
+      "lotr_port:uruk_pike",
+      "lotr_port:uruk_spear"
     ],
     "head": "lotr_port:uruk_helmet",
     "chest": "lotr_port:uruk_chestplate",

@@ -1,6 +1,51 @@
 {
   "quests": [
     {
+      "kind": "kill_faction",
+      "target": "lotr_port:gondor",
+      "min": 20,
+      "max": 50,
+      "reward": 1.0,
+      "speech": "lotr_port:miniquest/half_troll/kill_gondor",
+      "weight": 160
+    },
+    {
+      "kind": "kill_npc",
+      "target": "lotr_port:gondor_soldier",
+      "min": 20,
+      "max": 40,
+      "reward": 1.0,
+      "speech": "lotr_port:miniquest/half_troll/kill_gondor_soldier",
+      "weight": 160
+    },
+    {
+      "kind": "kill_npc",
+      "target": "lotr_port:ranger_ithilien",
+      "min": 10,
+      "max": 30,
+      "reward": 1.0,
+      "speech": "lotr_port:miniquest/half_troll/kill_ranger",
+      "weight": 160
+    },
+    {
+      "kind": "kill_npc",
+      "target": "lotr_port:rohirrim",
+      "min": 10,
+      "max": 30,
+      "reward": 1.0,
+      "speech": "lotr_port:miniquest/half_troll/kill_rohirrim",
+      "weight": 160
+    },
+    {
+      "kind": "kill_faction",
+      "target": "lotr_port:taurethrim",
+      "min": 20,
+      "max": 50,
+      "reward": 1.0,
+      "speech": "lotr_port:miniquest/half_troll/kill_tauredain",
+      "weight": 160
+    },
+    {
       "kind": "collect",
       "target": "lotr_port:half_troll_scimitar",
       "min": 2,
@@ -296,51 +341,6 @@
       "reward": 20.0,
       "speech": "lotr_port:miniquest/half_troll/tribe_item",
       "weight": 30
-    },
-    {
-      "kind": "kill_faction",
-      "target": "lotr_port:gondor",
-      "min": 20,
-      "max": 50,
-      "reward": 1.0,
-      "speech": "lotr_port:miniquest/half_troll/kill_gondor",
-      "weight": 160
-    },
-    {
-      "kind": "kill_npc",
-      "target": "lotr_port:gondor_soldier",
-      "min": 20,
-      "max": 40,
-      "reward": 1.0,
-      "speech": "lotr_port:miniquest/half_troll/kill_gondor_soldier",
-      "weight": 160
-    },
-    {
-      "kind": "kill_npc",
-      "target": "lotr_port:ranger_ithilien",
-      "min": 10,
-      "max": 30,
-      "reward": 1.0,
-      "speech": "lotr_port:miniquest/half_troll/kill_ranger",
-      "weight": 160
-    },
-    {
-      "kind": "kill_npc",
-      "target": "lotr_port:rohirrim",
-      "min": 10,
-      "max": 30,
-      "reward": 1.0,
-      "speech": "lotr_port:miniquest/half_troll/kill_rohirrim",
-      "weight": 160
-    },
-    {
-      "kind": "kill_faction",
-      "target": "lotr_port:taurethrim",
-      "min": 20,
-      "max": 50,
-      "reward": 1.0,
-      "speech": "lotr_port:miniquest/half_troll/kill_tauredain",
-      "weight": 160
     }
   ]
 }

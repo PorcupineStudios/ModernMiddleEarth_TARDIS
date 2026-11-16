@@ -9,7 +9,7 @@
       "npc": "lotr_port:hobbit_shirriff",
       "cost": 40,
       "alignment": 100.0,
-      "mount": "minecraft:donkey"
+      "mount": "lotr_port:shire_pony"
     }
   ]
 }

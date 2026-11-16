@@ -1,0 +1,6 @@
+{
+  "name": "Saw someone die",
+  "mood": -6,
+  "duration_ticks": 48000,
+  "stack_limit": 3
+}

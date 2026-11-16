@@ -1,3 +1,6 @@
 {
-  "parent": "lotr_port:block/reeds"
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "lotr_port:item/reeds"
+  }
 }

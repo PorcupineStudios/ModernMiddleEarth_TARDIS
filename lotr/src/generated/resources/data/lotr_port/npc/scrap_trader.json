@@ -5,6 +5,16 @@
     "lotr_port:textures/entity/scrap_trader/1.png"
   ],
   "skin_height": 64,
+  "behaviours": [
+    "man_flesh",
+    "burning_panic"
+  ],
+  "behaviour_data": {
+    "flesh_chance": 5,
+    "burn_panic_speed": 1.5,
+    "eat_chance": 8000,
+    "drink_chance": 8000
+  },
   "health": 20.0,
   "speed": 0.2,
   "attack": 2.0,
@@ -15,7 +25,7 @@
     ],
     "head": "lotr_port:leather_hat"
   },
-  "names": "lotr_port:rohan_male",
+  "names": "lotr_port:bree_male",
   "buy": "lotr_port:scrap_trader_buy",
   "sell": "lotr_port:scrap_trader_sell",
   "speech": "lotr_port:misc/scrap_trader"

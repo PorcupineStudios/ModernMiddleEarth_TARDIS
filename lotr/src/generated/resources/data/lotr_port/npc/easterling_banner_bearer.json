@@ -8,21 +8,33 @@
     "lotr_port:textures/entity/rhun/easterling_male/4.png"
   ],
   "skin_height": 64,
+  "behaviours": [
+    "man_flesh",
+    "burning_panic"
+  ],
+  "behaviour_data": {
+    "flesh_chance": 5,
+    "burn_panic_speed": 1.5,
+    "eat_chance": 8000,
+    "drink_chance": 8000,
+    "ride_chance": 6
+  },
   "health": 20.0,
   "speed": 0.2,
   "attack": 2.0,
   "gear": {
     "mainhand": [
-      "lotr_port:rh_nic_bardiche",
+      "lotr_port:poisoned_rh_nic_dagger",
       "lotr_port:rh_nic_battleaxe",
       "lotr_port:rh_nic_dagger",
-      "lotr_port:rh_nic_pike",
-      "lotr_port:rh_nic_spear"
+      "lotr_port:rh_nic_spear",
+      "lotr_port:rh_nic_sword"
     ],
     "head": "lotr_port:rh_nic_helmet",
     "chest": "lotr_port:rh_nic_chestplate",
     "legs": "lotr_port:rh_nic_leggings",
-    "feet": "lotr_port:rh_nic_boots"
+    "feet": "lotr_port:rh_nic_boots",
+    "mount": "lotr_port:horse"
   },
   "names": "lotr_port:rhun_male",
   "speech": "lotr_port:rhun/warrior",

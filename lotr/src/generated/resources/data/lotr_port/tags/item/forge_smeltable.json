@@ -1,0 +1,66 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "#c:cobblestones",
+      "required": false
+    },
+    {
+      "id": "#c:ores",
+      "required": false
+    },
+    {
+      "id": "#c:raw_materials",
+      "required": false
+    },
+    {
+      "id": "#c:sandstone/blocks",
+      "required": false
+    },
+    {
+      "id": "#c:stones",
+      "required": false
+    },
+    "#minecraft:logs",
+    "#minecraft:sand",
+    "lotr_port:amber_vein",
+    "lotr_port:amethyst_vein",
+    "lotr_port:cargon",
+    "lotr_port:chalk",
+    "lotr_port:clay_mug",
+    "lotr_port:clay_plate",
+    "lotr_port:copper_ore",
+    "lotr_port:diamond_vein",
+    "lotr_port:durnor_ore",
+    "lotr_port:edhelvir_ore",
+    "lotr_port:emerald_vein",
+    "lotr_port:glowstone_ore",
+    "lotr_port:gondor_rock",
+    "lotr_port:gulduril_ore",
+    "lotr_port:gulduril_ore_block",
+    "lotr_port:luigon",
+    "lotr_port:mithril_ore",
+    "lotr_port:mordor_rock",
+    "lotr_port:morgul_iron_ore",
+    "lotr_port:morgul_iron_ore_block",
+    "lotr_port:niter_ore",
+    "lotr_port:opal_vein",
+    "lotr_port:red_clay",
+    "lotr_port:red_clay_block",
+    "lotr_port:rock_salt",
+    "lotr_port:rohan_rock",
+    "lotr_port:ruby_vein",
+    "lotr_port:sapphire_vein",
+    "lotr_port:silver_ore",
+    "lotr_port:stoneware_plate",
+    "lotr_port:sulfur_ore",
+    "lotr_port:tin_ore",
+    "lotr_port:topaz_vein",
+    "lotr_port:white_sand",
+    "minecraft:clay",
+    "minecraft:clay_ball",
+    "minecraft:netherrack",
+    "minecraft:stone_bricks",
+    "minecraft:wet_sponge"
+  ]
+}

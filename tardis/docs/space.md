@@ -42,6 +42,23 @@ shared API's `PlanetProvider`.
 - Tests: `SpaceTests` (layer round trip, altitude, wrap + pole fold, seam pieces), world check (up, down, east edge
   wrap, seam portals at the edge leading to the west edge). **Not tried in a game client**: the globe drawing, fog,
   haze, the look of the seams, IP teleport smoothness.
+- **No weather or clouds** (Aaron 2026-11-15): space levels' rain and thunder levels read 0 on server and client
+  (`SpaceWeatherMixin` on `Level.getRainLevel/getThunderLevel`; other levels share the overworld's weather), and the
+  space dimension type's effects are `tardis_rb:space` (`client/SpaceSky`: the overworld's sky without clouds). The
+  biome is `minecraft:the_void` (no precipitation). World check: forced rain/thunder in space read 0.
+- **Sparse space** (Aaron 2026-11-15: "99.99% of chunks are empty, only store where [things] are and only load
+  those chunks"; `space.chunks` tuning, `space/SpaceContent`, `SpaceChunks`): in space levels empty chunks are never
+  saved (`SpaceChunkMapMixin` on `ChunkMap.save`), and an index (saved data `tardis_rb_space_chunks`) keeps the chunks
+  whose last save had blocks/block entities or entities (`SpaceEntityStorageMixin`); a chunk that went empty is written
+  once more and leaves it. Old worlds are indexed from their region headers on first use. Every player in space is
+  left out of vanilla and Immersive Portals loading; IP gets our loaders instead (`ChunkVisibilityMixin`): the player's
+  chunk with radius `near_radius` + 2 (not while flying fast or spectating) and one radius-0 loader per indexed chunk
+  within view distance; tickets (`tardis_rb_space_near` / `_content`) make those ticking (content within simulation
+  distance). The index is saved again on `LevelEvent.Save` (Minecraft saves data before chunks).
+- **Space stations are Create: Aeronautics (Sable) ships** (Aaron 2026-11-15), not fixed blocks: in the solar-system
+  zone the focus pulls them and they turn to keep their floor toward it (`compat/sable`, `docs/sable.md`). The earlier
+  fixed-frame stations (blocks staying put while the planet scrolled under them) were retired the same day; old saves'
+  station lists are ignored. World check: a built block is saved and indexed, its empty neighbour isn't written.
 - Leaving the layer top into the solar system: `docs/solar-system.md`.
 - Next: atmosphere rim, a sharper local map patch when low,
   terrain relief on the globe.

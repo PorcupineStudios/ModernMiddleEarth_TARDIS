@@ -206,3 +206,64 @@ class ClassFile:
                 else:
                     i += 1
         return entries
+
+    def constructions(self, target):
+        """The constant arguments of every `new target(...)` in any method, e.g. LOTR's
+        `new LOTREntityAIRangedAttack(this, 1.25D, 30, 50, 16.0F)` -> [1.25, 30, 50, 16.0]."""
+        out = []
+        for code in self.methods.values():
+            if not code:
+                continue
+            i, args, inside = 0, [], False
+            while i < len(code):
+                op = code[i]
+                if op == 0xBB:
+                    idx = struct.unpack(">H", code[i + 1:i + 3])[0]
+                    if self.constant(idx) == ("class", target):
+                        inside, args = True, []
+                    i += 3
+                    continue
+                if not inside:
+                    i += 1 if op not in (0x10, 0x12, 0x15, 0x16, 0x17, 0x18, 0x19, 0x36, 0x37, 0x38, 0x39, 0x3A,
+                                         0xBC, 0xA9) else 2
+                    if op in (0x11, 0x13, 0x14, 0xB2, 0xB3, 0xB4, 0xB5, 0xB6, 0xB7, 0xB8, 0xBD, 0xC0, 0xC1, 0x99,
+                              0x9A, 0x9B, 0x9C, 0x9D, 0x9E, 0x9F, 0xA0, 0xA1, 0xA2, 0xA3, 0xA4, 0xA5, 0xA6, 0xA7,
+                              0xA8, 0xC6, 0xC7, 0x84):
+                        i += 2
+                    elif op == 0xB9:
+                        i += 4
+                    continue
+                if op == 0x12:
+                    args.append(self.constant(code[i + 1]))
+                    i += 2
+                elif op in (0x13, 0x14):
+                    args.append(self.constant(struct.unpack(">H", code[i + 1:i + 3])[0]))
+                    i += 3
+                elif 0x02 <= op <= 0x08:
+                    args.append(op - 0x03)
+                    i += 1
+                elif 0x0B <= op <= 0x0D:
+                    args.append(float(op - 0x0B))
+                    i += 1
+                elif 0x0E <= op <= 0x0F:
+                    args.append(float(op - 0x0E))
+                    i += 1
+                elif op == 0x10:
+                    args.append(struct.unpack(">b", code[i + 1:i + 2])[0])
+                    i += 2
+                elif op == 0x11:
+                    args.append(struct.unpack(">h", code[i + 1:i + 3])[0])
+                    i += 3
+                elif op == 0xB7:
+                    owner, name = self.ref_name(struct.unpack(">H", code[i + 1:i + 3])[0])
+                    if owner == target and name == "<init>":
+                        out.append(args)
+                        inside = False
+                    i += 3
+                elif op in (0x59, 0x2A):  # dup, aload_0
+                    i += 1
+                else:
+                    inside = False  # something computed: not a plain constant call
+                    i += 1
+        return out
+

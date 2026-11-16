@@ -18,6 +18,7 @@ import io
 import json
 import os
 import shutil
+import struct
 import sys
 
 from PIL import Image
@@ -25,6 +26,7 @@ from PIL import Image
 sys.path.insert(0, os.path.dirname(__file__))
 from assets import NS, Jar, Textures, id_from_name, snake, write_json  # noqa: E402
 import vanilla  # noqa: E402
+import vessels  # noqa: E402
 from world import World  # noqa: E402
 from factions import FactionData  # noqa: E402
 from npcs import Npcs  # noqa: E402
@@ -38,6 +40,11 @@ from create_compat import CreateCompat  # noqa: E402
 from sounds import Sounds  # noqa: E402
 from extra import Extra  # noqa: E402
 from drinks import Drinks  # noqa: E402
+from machines import Machines
+from farming import Farming  # noqa: E402
+from ores import Ores  # noqa: E402
+from thrown import Thrown  # noqa: E402
+from mounts import Mounts  # noqa: E402
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 EXPORT = os.path.join(ROOT, "converter", "export")
@@ -98,8 +105,48 @@ ITEM_ARMOR = {"dalish_gambeson": "gambeson_dale", "dol_amroth_gambeson": "gambes
               "gondorian_gambeson": "gambeson_gondor", "lamedon_jacket": "jacket_lamedon",
               "lebennin_gambeson": "gambeson_lebennin", "dol_amroth_chaps": "gambeson_dolAmrothLegs",
               "leather_hat": "hat", "party_hat": "partyhat"}
+# Armor items with a texture that doesn't follow the item's material (LOTRItemHaradTurban.getArmorTexture).
+FIXED_ARMOR = {"helmetHaradRobes": "harad_turban"}
 # LOTR dyes its hats; these are the undyed colours (leather brown, a festive red).
 HAT_TINTS = {"leather_hat": (0x68, 0x4A, 0x36), "party_hat": (0xC8, 0x3A, 0x3A)}
+
+
+def armor_extras(jar):
+    """LOTRMod item field -> (LOTRMaterial constant, extra) for every `new LOTRItemArmor(material, slot, "extra")` in
+    LOTRMod's bytecode (getstatic LOTRMaterial.X ... ldc "extra" ... invokespecial <init> ... putstatic LOTRMod.f)."""
+    cf = ClassFile(jar.read("lotr/common/LOTRMod.class"))
+    lengths = {0x10: 2, 0x12: 2, 0x15: 2, 0x16: 2, 0x17: 2, 0x18: 2, 0x19: 2, 0x36: 2, 0x37: 2, 0x38: 2, 0x39: 2,
+               0x3A: 2, 0xA9: 2, 0xBC: 2, 0xB9: 5, 0xBA: 5, 0xC5: 4}
+    out = {}
+    for code in cf.methods.values():
+        if not code:
+            continue
+        i, last, mat, pending = 0, None, None, None
+        while i < len(code):
+            op = code[i]
+            ref = struct.unpack(">H", code[i + 1:i + 3])[0] if i + 3 <= len(code) else 0
+            if op == 0x12:
+                last = cf.constant(code[i + 1])
+            elif op == 0x13:
+                last = cf.constant(ref)
+            elif op == 0xB2:
+                owner, name, _ = cf.ref_full(ref)
+                if owner == "lotr/common/item/LOTRMaterial":
+                    mat = name
+            elif op == 0xB7:
+                owner, name, desc = cf.ref_full(ref)
+                if name == "<init>" and desc == "(Llotr/common/item/LOTRMaterial;ILjava/lang/String;)V":
+                    pending = (mat, last) if isinstance(last, str) and mat else None
+            elif op == 0xB3:
+                owner, name, _ = cf.ref_full(ref)
+                if owner == "lotr/common/LOTRMod" and pending:
+                    out[name] = pending
+                pending = None
+            elif op in (0xAA, 0xAB):
+                break  # no switches among the item constructions; stop rather than misread the padding
+            i += lengths.get(op, 3 if op in (0x11, 0x13, 0x14, 0x84, 0xB2, 0xB3, 0xB4, 0xB5, 0xB6, 0xB7, 0xB8, 0xBB,
+                                             0xBD, 0xC0, 0xC1, 0xC6, 0xC7) or 0x99 <= op <= 0xA8 else 1)
+    return out
 
 
 def tint(img, rgb):
@@ -123,11 +170,13 @@ class Gen:
         self.idtable = {}  # "lotr:tile.rock#1" -> "lotr_port:gondor_rock"
         self.old_to_new = collections.defaultdict(list)  # "lotr:tile.rock" -> [new ids]
         self.blocks = []  # content entries
+        self.armor_extras = None  # LOTRMod field -> (LOTRMaterial name, texture extra), see armor_extra_texture
         self.items = []
         self.lang = collections.defaultdict(dict)  # code -> key -> text
         self.unloc = {}  # new id -> old unlocalized key (for other languages)
         self.tags = collections.defaultdict(set)  # "minecraft:block/mineable/pickaxe" -> ids
         self.recipe_count = 0
+        self.tab_after = {}
         self.pending_vessels = []  # vessels met before the water mug got its id
         self.melee = self.weapon_tables()
         self.drinks = Drinks(self, EXPORT, ASSETS, DATA, os.path.join(OUT, NS, "content"))
@@ -260,7 +309,7 @@ class Gen:
             a = it["armor"]
             mat = snake(a["material"].replace("LOTR_", "")) or "armor"
             slot = ["head", "chest", "legs", "feet"][a["slot"]]
-            texture = self.item_armor_texture(new, slot) or self.armor_texture(mat)
+            texture = self.item_armor_texture(new, slot, old_base) or self.armor_texture(mat)
             e["armor"] = {"slot": slot, "defense": a["defense"], "material": mat, "texture": texture}
             if mat in ARMOR_TOUGHNESS:
                 e["armor"]["toughness"] = ARMOR_TOUGHNESS[mat]
@@ -395,13 +444,13 @@ class Gen:
         self.report["armor_without_texture"].append(mat)
         return mat
 
-    def item_armor_texture(self, item, slot):
+    def item_armor_texture(self, item, slot, old_field=None):
         """
         Armor whose LOTR texture is per item, not per material: the gambesons and jacket (one armor/<name>.png already
         in the vanilla layer layout) and the hats (LOTR's own hat models, ported by armor_models.py, so the texture
         keeps LOTR's layout, tinted the colour LOTR dyes it). Returns the texture name (the item id), or None.
         """
-        src = ITEM_ARMOR.get(item)
+        src = ITEM_ARMOR.get(item) or self.armor_extra_texture(old_field)
         if src is None or not self.jar.has(f"assets/lotr/armor/{src}.png"):
             return None
         img = Image.open(io.BytesIO(self.jar.read(f"assets/lotr/armor/{src}.png"))).convert("RGBA")
@@ -413,6 +462,24 @@ class Gen:
         os.makedirs(os.path.dirname(dst), exist_ok=True)
         img.save(dst)
         return item
+
+    def armor_extra_texture(self, field):
+        """
+        LOTR's helmets with their own models (winged, crested, warlord...), the Dol Amroth winged body, the Harnedor and
+        Gulf bodies and the dwarven silver/gold/mithril sets are built as new LOTRItemArmor(material, slot, extra), and
+        LOTRItemArmor.getArmorTexture then draws them from armor/<material>_<extra>.png instead of the material's
+        layers. Their models' extra boxes only have UVs in that file, so the material texture shows them broken.
+        """
+        if field is None:
+            return None
+        if self.armor_extras is None:
+            self.armor_extras = armor_extras(self.jar)
+        if field in FIXED_ARMOR:
+            return FIXED_ARMOR[field]
+        if field not in self.armor_extras:
+            return None
+        mat, extra = self.armor_extras[field]
+        return f"{mat.lower()}_{extra}"
 
     def armor_sources(self, cand):
         want = cand.replace("_", "").lower()
@@ -431,6 +498,8 @@ class Gen:
             return "gate"
         if "LOTRBlockBarrel" in c.split():
             return "keg"  # LOTR's barrel; a keg so it isn't taken for vanilla's barrel
+        if "LOTRBlockReed" in c.split():
+            return "reed"  # content/ReedBlock: waterlogged stem from the bed, LOTR's lower/mid/upper icons
         if "LOTRBlockSaplingBase" in c.split():
             return "sapling"
         if "BlockBed" in c.split():
@@ -508,6 +577,8 @@ class Gen:
             e["shape"] = [round(x * 16, 3) for x in bb]
             if b["material"] in ("plants", "vine", "circuits", "carpet", "portal", "web"):
                 e["collision"] = False
+        if kind == "reed" and "LOTRBlockReedDry" in " ".join(b["classes"]):
+            e["grows"] = False  # LOTRBlockReedDry.canReedGrow
         if kind == "door":
             e["item"] = "double_high"
         if kind == "bed":
@@ -588,6 +659,8 @@ class Gen:
         if kind in ("cube", "shaped", "keg") and FACING_CLASSES & {x.split(".")[-1] for x in b["classes"]}:
             # the exported front (LOTR's side 3) is south; turn it to face the block's facing
             m = self.cube(new, icons, rt) if kind == "cube" else self.shaped(new, icons, b)
+            if kind == "keg":
+                self.keg_tap(new)
             self.bs(new, {"variants": {f"facing={f}": ({"model": m, "y": y} if y else {"model": m})
                                        for f, y in (("south", 0), ("west", 90), ("north", 180), ("east", 270))}})
             self.item_model(new, m)
@@ -686,6 +759,16 @@ class Gen:
             m = self.bm(new, "minecraft:block/leaves", {"all": side}, {"render_type": CUTOUT})
             self.bs(new, {"variants": {"": {"model": m}}})
             self.item_model(new, m)
+        elif kind == "reed":
+            # LOTRBlockReed's icons: <name>_lower on the bed, _mid, _upper at the top (part = ReedBlock.Part)
+            base = (v["icons"][2] or "").rsplit("_", 1)[0]
+            var = {}
+            for part, icon in (("lower", "lower"), ("middle", "mid"), ("upper", "upper")):
+                tex = self.tex.block(f"{base}_{icon}")
+                var[f"part={part}"] = {"model": self.bm(f"{new}_{icon}", "minecraft:block/cross", {"cross": tex},
+                                                        {"render_type": CUTOUT})}
+            self.bs(new, {"variants": var})
+            self.item_model(new, layer=item_icon)
         elif kind in ("plant", "sapling"):
             m = self.bm(new, "minecraft:block/cross", {"cross": side}, {"render_type": CUTOUT})
             self.bs(new, {"variants": {"": {"model": m}}})
@@ -793,6 +876,10 @@ class Gen:
                                                                  "dirt": "minecraft:block/dirt",
                                                                  "particle": "minecraft:block/flower_pot"},
                            {"render_type": CUTOUT})
+        if new in vessels.VESSELS:
+            # LOTR's set-down mugs, cups and horns: open 3D vessels; the client draws the drink inside
+            write_json(os.path.join(ASSETS, "models", "block", new + ".json"), vessels.model(new))
+            return f"{NS}:block/{new}"
         bb = [round(x * 16, 3) for x in (b.get("bounds") or [0, 0, 0, 1, 1, 1])]
         if bb[3] - bb[0] <= 0 or bb[4] - bb[1] <= 0 or bb[5] - bb[2] <= 0:
             bb = [0, 0, 0, 16, 16, 16]
@@ -806,6 +893,19 @@ class Gen:
                         "particle": north},
                        {"render_type": CUTOUT, "elements": [{"from": bb[:3], "to": bb[3:], "faces": faces}]})
 
+    def keg_tap(self, new):
+        """LOTR's barrel tap (LOTRRenderBlocks.renderBarrel, its _tap icon): a spout out of the front a third of the
+        way up and a nozzle under its end. The model's front is south (facing=south is unturned), so the tap is there;
+        the blockstate turns it with the keg, which a structure's barrel metadata sets (2026-11-15: no spout)."""
+        path = os.path.join(ASSETS, "models", "block", new + ".json")
+        with open(path) as f:
+            model = json.load(f)
+        model["textures"]["tap"] = self.tex.block("lotr:barrel_tap")
+        faces = lambda: {d: {"texture": "#tap"} for d in ("down", "up", "north", "south", "west", "east")}
+        model["elements"] += [{"from": [7, 4, 14], "to": [9, 6, 16], "faces": faces()},
+                              {"from": [7.5, 2, 15], "to": [8.5, 4, 16], "faces": faces()}]
+        write_json(path, model)
+
     def bed(self, new, icons, head_icons):
         """LOTR's beds as 1.7.10 drew them: a 9/16 high block per half, top, end and sides from its icons (the
         export lists the foot's; the head's are the same names with _head_). Facing points from foot to head."""
@@ -816,7 +916,9 @@ class Gen:
             # drawn for facing=north: the head is north, so the foot's end shows south and the head's north
             end_face = "south" if part == "foot" else "north"
             faces = {"down": {"texture": "#bottom", "uv": [0, 0, 16, 16]},
-                     "up": {"texture": "#top", "uv": [0, 0, 16, 16], "rotation": 180 if part == "foot" else 0},
+                     # 1.7.10's bed icons lie sideways, the head end at the icon's right (the pillow strip):
+                     # turned 270 so it lies at the head (2026-11-15: pillows ran down the bed's length)
+                     "up": {"texture": "#top", "uv": [0, 0, 16, 16], "rotation": 270},
                      "east": {"texture": "#side", "uv": [0, 7, 16, 16]},
                      "west": {"texture": "#side", "uv": [16, 7, 0, 16]},
                      end_face: {"texture": "#end", "uv": [0, 7, 16, 16]}}
@@ -1276,6 +1378,11 @@ class Gen:
                 if new not in placed and new not in self.hidden:
                     placed.add(new)
                     tab["items"].append(new)
+        for new, anchor in self.tab_after.items():  # the port's own items go beside a LOTR item
+            for tab in tabs.values():
+                if anchor in tab["items"] and new not in placed:
+                    tab["items"].insert(tab["items"].index(anchor) + 1, new)
+                    placed.add(new)
         everything = [e["id"] for e in self.blocks if e["id"] not in self.hidden] + [e["id"] for e in self.items]
         missing = [i for i in everything if i not in placed]
         if missing:
@@ -1332,6 +1439,12 @@ class Gen:
         drinks = self.drinks.run()
         self.ore_tags()
         create = CreateCompat(self, DATA, EXPORT).run()
+        machines = Machines(self, EXPORT, ASSETS, DATA, self.jar).run()
+        machines.update(Farming(self, EXPORT, ASSETS, DATA).run())
+        machines.update(Ores(self, EXPORT, DATA).run())
+        machines.update(Thrown(self, EXPORT, DATA).run())
+        machines.update(Mounts(self, EXPORT, DATA, ASSETS, os.path.join(OUT, NS, "content"),
+                               os.path.join(ROOT, "converter", "cache")).run())
         tabs = self.do_tabs()
         self.other_langs()
         extra = Extra(self, EXPORT, DATA, ASSETS, os.path.join(OUT, NS, "content"), self.jar).run()
@@ -1363,7 +1476,7 @@ class Gen:
         write_json(os.path.join(ROOT, "converter", "idtable.json"), dict(sorted(self.idtable.items())))
         summary = {"blocks": len(self.blocks), "items": len(self.items), "recipes": self.recipe_count, **sounds, **extra,
                    "textures": len(self.tex.copied), "languages": len(self.lang), "tabs": len(tabs), **world, **factions, **npcs,
-                   **drinks}
+                   **drinks, **machines}
         self.report["missing_textures"] = [m for m in self.report["missing_textures"] if not m.endswith("_mug")]
         rep = {"summary": summary}
         for k, v in sorted(self.report.items()):

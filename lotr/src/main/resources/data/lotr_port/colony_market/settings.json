@@ -1,0 +1,131 @@
+{
+  "base_limit": 16,
+  "limit_per_level": 16,
+  "target": 64,
+  "curve": 0.6,
+  "min_factor": 0.25,
+  "max_factor": 4.0,
+  "sell_share": 0.5,
+  "default_price": 2,
+  "prices": {
+    "minecraft:wheat": 1,
+    "minecraft:bread": 3,
+    "minecraft:apple": 2,
+    "minecraft:carrot": 1,
+    "minecraft:potato": 1,
+    "minecraft:cooked_beef": 4,
+    "minecraft:cooked_porkchop": 4,
+    "minecraft:cooked_mutton": 4,
+    "minecraft:cake": 12,
+    "minecraft:oak_log": 2,
+    "minecraft:spruce_log": 2,
+    "minecraft:birch_log": 2,
+    "minecraft:oak_planks": 1,
+    "minecraft:cobblestone": 1,
+    "minecraft:stone": 1,
+    "minecraft:coal": 3,
+    "minecraft:iron_ingot": 10,
+    "minecraft:gold_ingot": 25,
+    "minecraft:leather": 4,
+    "minecraft:white_wool": 3
+  },
+  "targets": {
+    "minecraft:bread": 128,
+    "minecraft:wheat": 128,
+    "minecraft:cobblestone": 256,
+    "minecraft:oak_log": 128
+  },
+  "upgrades": [
+    {
+      "research": {
+        "lotr_port:basic": 20
+      }
+    },
+    {
+      "research": {
+        "lotr_port:basic": 30
+      }
+    },
+    {
+      "research": {
+        "lotr_port:basic": 45
+      },
+      "coins": 50
+    },
+    {
+      "research": {
+        "lotr_port:basic": 70
+      },
+      "items": {
+        "minecraft:oak_planks": 64
+      },
+      "coins": 100
+    },
+    {
+      "research": {
+        "lotr_port:basic": 60,
+        "lotr_port:scholarly": 20
+      },
+      "coins": 150
+    },
+    {
+      "research": {
+        "lotr_port:basic": 80,
+        "lotr_port:scholarly": 40
+      },
+      "items": {
+        "minecraft:iron_ingot": 16
+      },
+      "coins": 200
+    },
+    {
+      "research": {
+        "lotr_port:basic": 100,
+        "lotr_port:scholarly": 60
+      },
+      "items": {
+        "minecraft:iron_ingot": 32,
+        "minecraft:paper": 32
+      },
+      "coins": 300
+    },
+    {
+      "research": {
+        "lotr_port:basic": 120,
+        "lotr_port:scholarly": 80,
+        "lotr_port:advanced": 20
+      },
+      "coins": 400,
+      "requires": {
+        "type": "lotr_port:colony_population",
+        "colony": "home",
+        "compare": ">=",
+        "value": 12
+      },
+      "requires_text": "12 citizens"
+    },
+    {
+      "research": {
+        "lotr_port:basic": 150,
+        "lotr_port:scholarly": 100,
+        "lotr_port:advanced": 40
+      },
+      "items": {
+        "minecraft:gold_ingot": 16
+      },
+      "coins": 600
+    },
+    {
+      "research": {
+        "lotr_port:basic": 200,
+        "lotr_port:scholarly": 150,
+        "lotr_port:advanced": 80
+      },
+      "items": {
+        "minecraft:gold_ingot": 32,
+        "minecraft:book": 16
+      },
+      "coins": 1000
+    }
+  ]
+}

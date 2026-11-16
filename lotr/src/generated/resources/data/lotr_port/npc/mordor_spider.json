@@ -7,7 +7,8 @@
   "width": 1.4,
   "height": 0.8,
   "behaviours": [
-    "spider"
+    "spider",
+    "burning_panic"
   ],
   "lotr_classes": [
     "LOTREntityMordorSpider",
@@ -19,10 +20,11 @@
     "EntityLivingBase"
   ],
   "behaviour_data": {
+    "burn_panic_speed": 1.5,
     "size_min": 1,
     "size_max": 3,
     "venom": 2,
-    "state.renderer": 1
+    "state.renderer": 0
   },
   "sounds": {
     "ambient": "minecraft:entity.spider.ambient",

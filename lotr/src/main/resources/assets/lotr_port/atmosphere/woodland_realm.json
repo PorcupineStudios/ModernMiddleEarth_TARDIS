@@ -1,0 +1,23 @@
+{
+  "comment": "Thranduil's halls: green shade, lighter",
+  "biomes": [
+    "woodland_realm",
+    "woodland_realm_hills",
+    "mirkwood_north"
+  ],
+  "priority": 6,
+  "fog_start": 0.1,
+  "fog_end": 0.65,
+  "fog_color": "#506848",
+  "fog_color_strength": 0.35,
+  "filter": "#304a20",
+  "filter_alpha": 0.05,
+  "grade": {
+    "saturation": 0.05,
+    "contrast": 0.04,
+    "warmth": 0,
+    "brightness": -0.03,
+    "vignette": 0.25,
+    "bloom": 0.05
+  }
+}

@@ -38,7 +38,7 @@
             16,
             16
           ],
-          "rotation": 0
+          "rotation": 270
         },
         "east": {
           "texture": "#side",

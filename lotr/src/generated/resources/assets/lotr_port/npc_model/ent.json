@@ -1299,9 +1299,6 @@
   "hidden": [],
   "renderers": [
     {
-      "name": "LOTRRenderEnt"
-    },
-    {
       "name": "LOTRRenderMallornEnt",
       "pre": {
         "ops": [
@@ -1341,6 +1338,9 @@
         ],
         "blend": false
       }
+    },
+    {
+      "name": "LOTRRenderEnt"
     }
   ],
   "anim": {

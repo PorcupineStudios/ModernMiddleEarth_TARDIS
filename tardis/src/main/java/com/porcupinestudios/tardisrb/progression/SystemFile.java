@@ -19,10 +19,15 @@ import net.minecraft.world.level.Level;
  * {@code radius} is the ball's size in blocks: you come out of the planet's layer at {@code 1 + max_altitude} radii
  * from its centre, so it looks the size it did from the top of the layer. {@code gravity} multiplies the pull (1 = the
  * same as just above the clouds, at the ball's surface). The sun is a glowing ball that burns and pushes you out.
+ * {@code gravity_radius} (Aaron 2026-11-15, Outer Wilds style) is how far a body pulls: the focus is the nearest body
+ * whose radius holds you, and outside them all nothing pulls (you drift). The pull fades to nothing over the outer
+ * {@code space.motion.gravity_edge} of the radius. Unset (0): a ball pulls out to {@code focus_range} x its entry
+ * radius, and the sun everywhere.
  */
 public record SystemFile(ResourceKey<Level> dimension, Sun sun, List<Body> bodies) {
-    public record Sun(double x, double y, double z, double radius, double gravity, int color, float burn) {
-        public static final Sun NONE = new Sun(0, 0, 0, 0, 0, 0xFFE9A0, 0);
+    public record Sun(double x, double y, double z, double radius, double gravity, int color, float burn,
+            double gravityRadius) {
+        public static final Sun NONE = new Sun(0, 0, 0, 0, 0, 0xFFE9A0, 0, 0);
         public static final Codec<Sun> CODEC = RecordCodecBuilder.create(i -> i.group(
                 Codec.DOUBLE.optionalFieldOf("x", 0.0).forGetter(Sun::x),
                 Codec.DOUBLE.optionalFieldOf("y", 0.0).forGetter(Sun::y),
@@ -32,18 +37,21 @@ public record SystemFile(ResourceKey<Level> dimension, Sun sun, List<Body> bodie
                 Codec.STRING.xmap(s -> Integer.parseInt(s.replace("#", ""), 16),
                         c -> String.format("#%06X", c & 0xFFFFFF)).optionalFieldOf("color", 0xFFE9A0)
                         .forGetter(Sun::color),
-                Codec.floatRange(0, 1000).optionalFieldOf("burn", 4.0f).forGetter(Sun::burn))
+                Codec.floatRange(0, 1000).optionalFieldOf("burn", 4.0f).forGetter(Sun::burn),
+                Codec.doubleRange(0, 10_000_000).optionalFieldOf("gravity_radius", 0.0).forGetter(Sun::gravityRadius))
                 .apply(i, Sun::new));
     }
 
-    public record Body(ResourceLocation planet, double x, double y, double z, double radius, double gravity) {
+    public record Body(ResourceLocation planet, double x, double y, double z, double radius, double gravity,
+            double gravityRadius) {
         public static final Codec<Body> CODEC = RecordCodecBuilder.create(i -> i.group(
                 ResourceLocation.CODEC.fieldOf("planet").forGetter(Body::planet),
                 Codec.DOUBLE.optionalFieldOf("x", 0.0).forGetter(Body::x),
                 Codec.DOUBLE.optionalFieldOf("y", 0.0).forGetter(Body::y),
                 Codec.DOUBLE.optionalFieldOf("z", 0.0).forGetter(Body::z),
                 Codec.doubleRange(1, 10_000).optionalFieldOf("radius", 128.0).forGetter(Body::radius),
-                Codec.doubleRange(0, 1000).optionalFieldOf("gravity", 1.0).forGetter(Body::gravity))
+                Codec.doubleRange(0, 1000).optionalFieldOf("gravity", 1.0).forGetter(Body::gravity),
+                Codec.doubleRange(0, 10_000_000).optionalFieldOf("gravity_radius", 0.0).forGetter(Body::gravityRadius))
                 .apply(i, Body::new));
     }
 

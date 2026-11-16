@@ -1,0 +1,23 @@
+{
+  "comment": "Dust and blight",
+  "biomes": [
+    "ithilien_wasteland",
+    "brown_lands",
+    "emyn_muil"
+  ],
+  "priority": 6,
+  "fog_start": 0.1,
+  "fog_end": 0.75,
+  "fog_color": "#8a7a60",
+  "fog_color_strength": 0.4,
+  "filter": "#605030",
+  "filter_alpha": 0.06,
+  "grade": {
+    "saturation": -0.25,
+    "contrast": 0.05,
+    "warmth": 0.2,
+    "brightness": -0.04,
+    "vignette": 0.2,
+    "bloom": 0
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "enabled": true,
+  "refresh_ticks": 36000,
+  "slots": 1,
+  "max_group": 1,
+  "quality": 0,
+  "group_chance": 0.25,
+  "family_share": 0.6,
+  "points_per_quality": 2,
+  "cap_base": 4,
+  "cap_per_quality": 2,
+  "levels": [
+    {"name": "Village", "when": {"type": "lotr_port:colony_population", "colony": "home", "compare": ">=", "value": 5}, "slots": 1},
+    {"name": "Town", "when": {"type": "lotr_port:colony_population", "colony": "home", "compare": ">=", "value": 12}, "max_group": 2, "quality": 1},
+    {"name": "City", "when": {"type": "lotr_port:colony_population", "colony": "home", "compare": ">=", "value": 25}, "slots": 1, "max_group": 2, "quality": 1},
+    {"name": "Guest house", "when": {"type": "lotr_port:colony_upgrade", "id": "guest_house"}, "slots": 1, "max_group": 1},
+    {"name": "Open roads", "when": {"type": "lotr_port:colony_upgrade", "id": "open_roads"}, "slots": 1},
+    {"name": "Scholars welcome", "when": {"type": "lotr_port:colony_upgrade", "id": "scholars_welcome"}, "quality": 2}
+  ]
+}

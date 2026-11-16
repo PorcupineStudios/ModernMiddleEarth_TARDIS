@@ -8,7 +8,8 @@
   "width": 2.4,
   "height": 5.0,
   "behaviours": [
-    "balrog"
+    "balrog",
+    "burning_panic"
   ],
   "lotr_classes": [
     "LOTREntityBalrog",
@@ -22,6 +23,7 @@
     "charge_after": 200,
     "charge_speed": 2.0,
     "charge_damage": 2.0,
+    "burn_panic_speed": 1.5,
     "state.renderer": 0
   },
   "sounds": {
@@ -35,7 +37,6 @@
     "mainhand": [
       "lotr_port:balrog_whip",
       "lotr_port:utumno_battleaxe",
-      "lotr_port:utumno_sword",
       "lotr_port:utumno_warhammer"
     ]
   },

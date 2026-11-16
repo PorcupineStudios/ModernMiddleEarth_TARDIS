@@ -44,6 +44,14 @@ versionRange = "[6.0.7,)"
 ordering = "AFTER"
 side = "BOTH"
 
+# Create: Aeronautics ships fly on Sable sub-levels; optional.
+[[dependencies.${mod_id}]]
+modId = "sable"
+type = "optional"
+versionRange = "[2.0.6,)"
+ordering = "AFTER"
+side = "BOTH"
+
 # Six-direction gravity: Gravity Changer's mixins, ported (gravity/gc, see its NOTICE).
 [[mixins]]
 config = "tardis_rb.mixins.json"
@@ -51,3 +59,7 @@ config = "tardis_rb.mixins.json"
 # Fast space flight loads no chunks through Immersive Portals either (compat/immportals).
 [[mixins]]
 config = "tardis_rb.immportals.mixins.json"
+
+# Sable vs Immersive Portals collision (compat/sable); applies only when Sable is loaded.
+[[mixins]]
+config = "tardis_rb.sable.mixins.json"

@@ -17,7 +17,6 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ProjectileWeaponItem;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -85,11 +84,23 @@ public class GateBlock extends DirectionalBlock {
         return state.rotate(mirror.getRotation(state.getValue(FACING)));
     }
 
+    /**
+     * The outline (what the crosshair hits): the panel whether open or shut, as LOTR's gates kept their selection box
+     * when open. An empty outline here made open gates unclickable, so they couldn't be shut and seemed to vanish.
+     */
     @Override
     protected VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
-        if (state.getValue(OPEN)) {
-            return Shapes.empty();
-        }
+        return panel(state);
+    }
+
+    /** Open, a gate lets everything through (LOTR: no collision box while open). */
+    @Override
+    protected VoxelShape getCollisionShape(BlockState state, BlockGetter level, BlockPos pos,
+            CollisionContext context) {
+        return state.getValue(OPEN) ? Shapes.empty() : panel(state);
+    }
+
+    private VoxelShape panel(BlockState state) {
         if (full) {
             return Shapes.block();
         }
@@ -100,16 +111,12 @@ public class GateBlock extends DirectionalBlock {
         };
     }
 
-    @Override
-    protected VoxelShape getInteractionShape(BlockState state, BlockGetter level, BlockPos pos) {
-        return state.getValue(OPEN) ? Shapes.block() : getShape(state, level, pos, CollisionContext.empty());
-    }
-
-    /** As LOTR: with a block or a bow in hand the click places or shoots instead of working the gate. */
+    /** With a bow in hand the click shoots (LOTR). With a block it works the gate (Aaron 2026-11-16); sneak to place
+     * the block (vanilla skips the block's use while sneaking with an item). */
     @Override
     protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos,
             Player player, InteractionHand hand, BlockHitResult hit) {
-        return stack.getItem() instanceof BlockItem || stack.getItem() instanceof ProjectileWeaponItem
+        return stack.getItem() instanceof ProjectileWeaponItem
                 ? ItemInteractionResult.SKIP_DEFAULT_BLOCK_INTERACTION
                 : ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
     }

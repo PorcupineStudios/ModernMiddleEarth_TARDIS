@@ -9,7 +9,8 @@
   "height": 5.12,
   "behaviours": [
     "troll",
-    "rock_thrower"
+    "rock_thrower",
+    "burning_panic"
   ],
   "lotr_classes": [
     "LOTREntityMountainTroll",
@@ -28,9 +29,10 @@
     "throw_min": 30,
     "throw_max": 60,
     "throw_damage": 5,
+    "burn_panic_speed": 1.5,
     "scale": 1.6,
     "sun_immune": 0,
-    "state.renderer": 1
+    "state.renderer": 2
   },
   "sounds": {
     "ambient": "lotr_port:troll.say",

@@ -17,6 +17,9 @@ import com.porcupinestudios.tardisrb.space.Planets;
 import com.porcupinestudios.tardisrb.space.SeamPortals;
 import com.porcupinestudios.tardisrb.space.SpaceTravel;
 import java.util.ArrayList;
+import com.porcupinestudios.tardisrb.space.SpaceChunks;
+import com.porcupinestudios.tardisrb.space.SpaceContent;
+import net.minecraft.world.level.ChunkPos;
 import java.util.List;
 import java.util.Optional;
 import net.minecraft.core.BlockPos;
@@ -186,6 +189,7 @@ public final class WorldCheck {
         }
         back.discard();
         checkSystem(server, planet, space, problems);
+        checkSparse(server, planet, space, problems);
         // a probe near the east edge puts up seam portals there that look round to the west edge
         for (int dz = -160; dz <= 160; dz += 16) {
             world.getChunk(BlockPos.containing(b.maxX() + 1, 64, dz));
@@ -208,6 +212,49 @@ public final class WorldCheck {
     }
 
     /** Out of the top of the Overworld's layer into the solar system beside its ball, and back in. */
+    /**
+     * Sparse space (space/SpaceContent): a block built in an orbit layer is saved and indexed and makes a station
+     * whose orbit places it back where it is; an empty chunk next to it is never written to disk.
+     */
+    private static void checkSparse(MinecraftServer server, Planet planet, ServerLevel space, List<String> problems) {
+        // no weather in space (SpaceWeatherMixin): full rain and thunder set there still read 0; the overworld's don't
+        space.setRainLevel(1);
+        space.setThunderLevel(1);
+        server.overworld().setRainLevel(1);
+        float spaceRain = space.getRainLevel(1);
+        float spaceThunder = space.getThunderLevel(1);
+        float worldRain = server.overworld().getRainLevel(1);
+        space.setRainLevel(0);
+        space.setThunderLevel(0);
+        server.overworld().setRainLevel(0);
+        TardisRB.LOG.info("[worldcheck] weather: space rain {} thunder {}, overworld rain {}", spaceRain, spaceThunder,
+                worldRain);
+        if (spaceRain != 0 || spaceThunder != 0 || worldRain != 1) {
+            problems.add("space has weather: rain " + spaceRain + ", thunder " + spaceThunder + " (overworld rain "
+                    + worldRain + ")");
+        }
+        if (!SpaceChunks.sparse(space)) {
+            problems.add("sparse space is off in " + space.dimension().location());
+            return;
+        }
+        BlockPos built = BlockPos.containing(planet.spaceX(1000), planet.link().orbit().floor() + 40,
+                planet.spaceZ(-500));
+        ChunkPos builtChunk = new ChunkPos(built);
+        ChunkPos empty = new ChunkPos(builtChunk.x + 10, builtChunk.z + 10);
+        space.setBlockAndUpdate(built, net.minecraft.world.level.block.Blocks.STONE.defaultBlockState());
+        space.getChunk(empty.x, empty.z);
+        space.save(null, true, false);
+        var storage = space.getChunkSource().chunkMap;
+        boolean builtSaved = storage.read(builtChunk).join().isPresent();
+        boolean emptySaved = storage.read(empty).join().isPresent();
+        SpaceContent content = SpaceContent.get(space);
+        TardisRB.LOG.info("[worldcheck] sparse space: built chunk saved {}, empty chunk saved {}, {} indexed",
+                builtSaved, emptySaved, content.size());
+        if (!builtSaved || emptySaved) {
+            problems.add("sparse space saved the built chunk: " + builtSaved + ", the empty one: " + emptySaved);
+        }
+    }
+
     private static void checkSystem(MinecraftServer server, Planet planet, ServerLevel space, List<String> problems) {
         var system = com.porcupinestudios.tardisrb.space.Systems.ofPlanet(server, planet.id());
         if (system.isEmpty()) {

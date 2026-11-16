@@ -8,14 +8,23 @@
     "lotr_port:textures/entity/near_harad/haradrim_male/4.png"
   ],
   "skin_height": 64,
+  "behaviours": [
+    "man_flesh",
+    "burning_panic"
+  ],
+  "behaviour_data": {
+    "flesh_chance": 5,
+    "burn_panic_speed": 1.5,
+    "eat_chance": 8000,
+    "drink_chance": 6000
+  },
   "health": 20.0,
   "speed": 0.2,
   "attack": 2.0,
   "gear": {
     "mainhand": [
       "lotr_port:haradric_pike",
-      "lotr_port:haradric_sword",
-      "lotr_port:umbaric_dagger",
+      "lotr_port:haradric_spear",
       "lotr_port:umbaric_poleaxe",
       "lotr_port:umbaric_scimitar",
       "lotr_port:umbaric_spear"
@@ -28,6 +37,7 @@
     "legs": "lotr_port:coast_southron_leggings",
     "feet": "lotr_port:coast_southron_boots"
   },
-  "names": "lotr_port:near_haradrim_male",
-  "speech": "lotr_port:near_harad/mercenary"
+  "names": "lotr_port:umbar_male",
+  "speech": "lotr_port:near_harad/mercenary",
+  "quests": "lotr_port:near_harad"
 }

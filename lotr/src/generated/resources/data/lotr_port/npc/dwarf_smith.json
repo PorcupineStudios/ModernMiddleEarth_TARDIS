@@ -7,6 +7,14 @@
   ],
   "skin_height": 64,
   "model": "dwarf",
+  "behaviours": [
+    "burning_panic"
+  ],
+  "behaviour_data": {
+    "burn_panic_speed": 1.5,
+    "eat_chance": 6000,
+    "drink_chance": 6000
+  },
   "sounds": {
     "hurt": "lotr_port:dwarf.hurt",
     "attack": "lotr_port:dwarf.attack",
@@ -22,5 +30,6 @@
   "names": "lotr_port:dwarf_male",
   "buy": "lotr_port:dwarf_smith_buy",
   "sell": "lotr_port:dwarf_smith_sell",
-  "speech": "lotr_port:dwarf/smith"
+  "speech": "lotr_port:dwarf/smith",
+  "quests": "lotr_port:durin"
 }

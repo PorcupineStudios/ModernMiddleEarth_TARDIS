@@ -37,3 +37,17 @@ type = "optional"
 versionRange = "[19.0,)"
 ordering = "NONE"
 side = "CLIENT"
+
+# Middle-earth's chunks are filled only up to where its terrain can reach (world/map/NoiseTop).
+[[mixins]]
+config = "lotr_port.mixins.json"
+
+# The film music is its own resource-only mod, lotr_port_music (built from the private repo PorcupineStudios/LOTR_music,
+# lotr/docs/music.md). Its assets/lotr_port/ sounds, playlists and track titles merge into LotrMusic like any pack's,
+# so it needs no rebuild when this mod changes. Without it the mod runs with no soundtrack. Any 1.x works.
+[[dependencies.${mod_id}]]
+modId = "lotr_port_music"
+type = "optional"
+versionRange = "[1.0,2.0)"
+ordering = "NONE"
+side = "CLIENT"

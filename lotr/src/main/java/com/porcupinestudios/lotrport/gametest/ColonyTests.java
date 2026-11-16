@@ -1,10 +1,13 @@
 package com.porcupinestudios.lotrport.gametest;
 
+import com.porcupinestudios.lotrport.society.CoreComponents;
+import com.porcupinestudios.lotrport.society.Person;
+import com.porcupinestudios.lotrport.society.Society;
+import net.minecraft.server.MinecraftServer;
 import com.porcupinestudios.lotrport.LotrPort;
 import com.porcupinestudios.lotrport.colony.Colonies;
 import com.porcupinestudios.lotrport.colony.Colony;
 import com.porcupinestudios.lotrport.colony.ColonyData;
-import com.porcupinestudios.lotrport.colony.Migrants;
 import com.porcupinestudios.lotrport.colony.Recruiting;
 import com.porcupinestudios.lotrport.faction.Alignment;
 import com.porcupinestudios.lotrport.faction.FactionKills;
@@ -71,7 +74,8 @@ public final class ColonyTests {
         helper.succeed();
     }
 
-    @GameTest(template = EMPTY, timeoutTicks = 400)
+    // own batch: the colony claims land around the test area, which would stop other tests building there
+    @GameTest(template = EMPTY, timeoutTicks = 400, batch = "colonies")
     public static void aColonyGrowsAndARareRaceJoinsByQuest(GameTestHelper helper) {
         ServerLevel level = helper.getLevel();
         ServerPlayer player = helper.makeMockServerPlayerInLevel();
@@ -80,40 +84,50 @@ public final class ColonyTests {
         Colonies.Founding founding = colonies.found(player, "Test Hold", hall, GONDOR);
         helper.assertTrue(founding.colony().isPresent(), "not founded: " + founding.problem().getString());
         Colony colony = founding.colony().get();
+        MinecraftServer server = level.getServer();
         helper.assertTrue(colonies.found(player, "Second", hall.offset(200, 0, 0), GONDOR).colony().isEmpty(),
                 "a player founded two colonies");
 
-        // selective migration: the first migrant comes with no beds and waits at the Hall for an answer
-        helper.assertTrue(colonies.day(level, colony) == 1, "no first migrant");
-        helper.assertTrue(colony.citizens().isEmpty() && colony.applicants().size() == 1,
-                "the first migrant moved straight in");
-        helper.assertTrue(colonies.day(level, colony) == 0, "a second migrant came with no bed");
-        Colony.Applicant first = colony.applicants().get(0);
-        helper.assertTrue(level.getEntity(first.entity()) instanceof LotrNpc waiting
-                && Migrants.applicantOf(waiting).equals(Optional.of(colony.id()))
-                && Colonies.colonyOf(waiting).isEmpty(), "the migrant is not marked as waiting");
-        helper.assertTrue(Migrants.accept(player, first.entity()).ok(), "could not accept the first migrant");
-        helper.assertTrue(colony.citizens().size() == 1 && colony.applicants().isEmpty(), "not accepted");
+        // immigration by approval: one offer, a lone settler at the start; the first settler needs no bed
+        // food in the colony's stock, so nobody leaves hungry while this test counts beds
+        colonies.set(colony, com.porcupinestudios.lotrport.colony.work.WorkComponents.STOCK,
+                new com.porcupinestudios.lotrport.colony.work.WorkComponents.Stock(java.util.Map.of(
+                        net.minecraft.resources.ResourceLocation.withDefaultNamespace("bread"), 500)));
+        colonies.day(level, colony);
+        helper.assertTrue(Society.citizenCount(server, colony) == 0, "people came without being welcomed");
+        com.porcupinestudios.lotrport.colony.Immigration.Board board = com.porcupinestudios.lotrport.colony
+                .Immigration.draw(server, colony, com.porcupinestudios.lotrport.colony.Immigration.Board.EMPTY,
+                        level.getGameTime());
+        helper.assertTrue(board.offers().size() == 1 && board.offers().get(0).members().size() == 1,
+                "a new colony's board: " + board.offers());
+        helper.assertTrue(com.porcupinestudios.lotrport.colony.Immigration.accept(player, colony,
+                board.offers().get(0).id()).ok(), "could not welcome the first settler");
+        helper.assertTrue(Society.citizenCount(server, colony) == 1, "not welcomed");
+        helper.assertTrue(colony.get(com.porcupinestudios.lotrport.colony.Immigration.BOARD).orElseThrow().offers()
+                .isEmpty(), "the welcomed group is still on the board");
 
-        // with two beds one more comes; turned away, they leave, and another comes the next day
+        // the next one needs a bed; turned away, the slot stays empty until the board is drawn again
+        board = com.porcupinestudios.lotrport.colony.Immigration.draw(server, colony, board, level.getGameTime());
+        int next = board.offers().get(0).id();
+        helper.assertTrue(!com.porcupinestudios.lotrport.colony.Immigration.accept(player, colony, next).ok(),
+                "welcomed a second settler with no bed");
         bed(helper, new BlockPos(0, 2, 0));
         bed(helper, new BlockPos(2, 2, 0));
         helper.assertTrue(Colonies.beds(level, colony) == 2, "beds counted: " + Colonies.beds(level, colony));
-        helper.assertTrue(colonies.day(level, colony) == 1, "nobody came for the second bed");
-        UUID denied = colony.applicants().get(0).entity();
-        helper.assertTrue(Migrants.deny(player, denied).ok(), "could not turn the migrant away");
-        Entity gone = level.getEntity(denied);
-        helper.assertTrue(colony.applicants().isEmpty() && (gone == null || gone.isRemoved()),
-                "the turned-away migrant is still here");
-        helper.assertTrue(colonies.day(level, colony) == 1, "nobody came after one was turned away");
-        helper.assertTrue(colonies.day(level, colony) == 0, "more came than there are beds");
-        UUID late = colony.applicants().get(0).entity();
-        helper.assertTrue(Migrants.accept(player, late).ok(), "could not accept the second migrant");
-        helper.assertTrue(colony.citizens().size() == 2, "citizens: " + colony.citizens().size());
-        helper.assertTrue(!Migrants.accept(player, denied).ok(), "accepted a migrant who already left");
+        helper.assertTrue(com.porcupinestudios.lotrport.colony.Immigration.accept(player, colony, next).ok(),
+                "could not welcome the second settler with a bed");
+        helper.assertTrue(Society.citizenCount(server, colony) == 2, "citizens: " + Society.citizenCount(server, colony));
+        board = com.porcupinestudios.lotrport.colony.Immigration.draw(server, colony, board, level.getGameTime());
+        helper.assertTrue(com.porcupinestudios.lotrport.colony.Immigration.decline(server, colony,
+                board.offers().get(0).id()).ok(), "could not turn a group away");
+        helper.assertTrue(Society.citizenCount(server, colony) == 2 && colony.get(com.porcupinestudios.lotrport
+                .colony.Immigration.BOARD).orElseThrow().offers().isEmpty(), "turning away let them in");
+        Person first = Society.citizens(server, colony).get(0);
+        helper.assertTrue(!com.porcupinestudios.lotrport.colonist.Skills.of(first).isEmpty()
+                || com.porcupinestudios.lotrport.colonist.Skills.defs().isEmpty(), "a settler came with no skills");
 
-        for (Colony.Citizen c : colony.citizens()) {
-            Entity e = level.getEntity(c.entity());
+        for (Person c : Society.citizens(server, colony)) {
+            Entity e = level.getEntity(c.id());
             helper.assertTrue(e instanceof LotrNpc, "citizen " + c.name() + " has no body");
             LotrNpc npc = (LotrNpc) e;
             helper.assertTrue(Colonies.colonyOf(npc).equals(Optional.of(colony.id())), "citizen not marked");
@@ -156,8 +170,9 @@ public final class ColonyTests {
         Recruiting.visited(player);
 
         helper.assertTrue(colony.recruits().isEmpty(), "the recruitment is still open at stage " + stage(colony));
-        helper.assertTrue(colony.citizens().size() == 3, "citizens after recruiting: " + colony.citizens().size());
-        helper.assertTrue(colony.citizens().stream().anyMatch(c -> c.rare() && c.entity().equals(ranger.getUUID())),
+        helper.assertTrue(Society.citizenCount(server, colony) == 3, "citizens after recruiting: " + Society.citizenCount(server, colony));
+        helper.assertTrue(Society.citizens(server, colony).stream().anyMatch(c -> c.id().equals(ranger.getUUID())
+                && c.get(CoreComponents.CITIZEN).map(CoreComponents.Citizen::rare).orElse(false)),
                 "the Ranger is not a rare citizen");
         helper.assertTrue(Colonies.colonyOf(ranger).equals(Optional.of(colony.id())), "the Ranger is not marked");
         // horizontal: the Ranger lands on top of whatever stands at the Hall (Recruiting uses the heightmap)
@@ -165,6 +180,7 @@ public final class ColonyTests {
         // Stage 4: colonists research TARDIS tech; the rare Ranger is a researcher for the founder
         int researchers = Providers.researchers(level.getServer(), Set.of(player.getUUID()));
         helper.assertTrue(researchers == 1, "researchers after the Ranger joined: " + researchers);
+        colonies.disband(level.getServer(), colony, "test");
         helper.succeed();
     }
 

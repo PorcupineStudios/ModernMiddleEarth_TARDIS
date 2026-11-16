@@ -250,7 +250,74 @@ final class NpcExporter {
                 }
             }
             o.add("gear", gear);
+            o.add("drops", drops(living, c));
         }
+    }
+
+    /**
+     * Samples what LOTR's dropFewItems gives on a player kill (bones, race items, coins, rares; equipment is a separate
+     * vanilla roll), 400 times with Forge's drop capture on: per item and damage, how often it dropped (share of
+     * kills) and the least and most per kill. The runtime decides; no LOTR code is read.
+     */
+    private JsonObject drops(EntityLiving living, Class<?> c) {
+        JsonObject out = new JsonObject();
+        java.lang.reflect.Method m = null;
+        for (Class<?> k = c; k != null && m == null; k = k.getSuperclass()) {
+            for (String name : new String[] { "dropFewItems", "func_70628_a" }) {
+                try {
+                    m = k.getDeclaredMethod(name, boolean.class, int.class);
+                    m.setAccessible(true);
+                    break;
+                } catch (NoSuchMethodException ignored) {
+                    // try the next name or the superclass
+                }
+            }
+        }
+        if (m == null) {
+            return out;
+        }
+        int samples = 400;
+        Map<String, int[]> seen = new java.util.TreeMap<>(); // kills it dropped in, min, max, total
+        try {
+            for (int i = 0; i < samples; i++) {
+                living.captureDrops = true;
+                living.capturedDrops.clear();
+                m.invoke(living, true, 0);
+                living.captureDrops = false;
+                Map<String, Integer> kill = new java.util.HashMap<>();
+                for (net.minecraft.entity.item.EntityItem ei : living.capturedDrops) {
+                    ItemStack st = ei.getEntityItem();
+                    if (st == null || st.getItem() == null) {
+                        continue;
+                    }
+                    String id = net.minecraft.item.Item.itemRegistry.getNameForObject(st.getItem()) + "#"
+                            + st.getItemDamage();
+                    kill.merge(id, st.stackSize, Integer::sum);
+                }
+                for (Map.Entry<String, Integer> e : kill.entrySet()) {
+                    int[] v = seen.computeIfAbsent(e.getKey(), k -> new int[] { 0, Integer.MAX_VALUE, 0, 0 });
+                    v[0]++;
+                    v[1] = Math.min(v[1], e.getValue());
+                    v[2] = Math.max(v[2], e.getValue());
+                    v[3] += e.getValue();
+                }
+            }
+        } catch (Throwable t) {
+            error("drops " + c.getSimpleName(), t);
+        } finally {
+            living.captureDrops = false;
+            living.capturedDrops.clear();
+        }
+        for (Map.Entry<String, int[]> e : seen.entrySet()) {
+            int[] v = e.getValue();
+            JsonObject d = new JsonObject();
+            d.addProperty("chance", v[0] / (double) samples);
+            d.addProperty("min", v[1]);
+            d.addProperty("max", v[2]);
+            d.addProperty("mean", v[3] / (double) v[0]);
+            out.add(e.getKey(), d);
+        }
+        return out;
     }
 
     private static void addGear(JsonObject gear, String slot, ItemStack stack) {

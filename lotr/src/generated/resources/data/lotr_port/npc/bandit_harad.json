@@ -8,6 +8,24 @@
     "lotr_port:textures/entity/bandit/harad/4.png"
   ],
   "skin_height": 64,
+  "behaviours": [
+    "bandit",
+    "man_flesh",
+    "burning_panic"
+  ],
+  "behaviour_data": {
+    "steal_range": 32,
+    "chase_ticks": 600,
+    "steal_reach": 2,
+    "steal_amount": 8,
+    "flesh_chance": 5,
+    "burn_panic_speed": 1.5,
+    "max_thefts": 3,
+    "steal_speed": 1.8,
+    "flee_speed": 1.5,
+    "loot_achievement": 1,
+    "flee_range": 40.0
+  },
   "health": 20.0,
   "speed": 0.2,
   "attack": 2.0,
@@ -16,8 +34,8 @@
       "lotr_port:bronze_dagger",
       "lotr_port:haradric_dagger",
       "lotr_port:iron_dagger",
-      "lotr_port:poisoned_umbaric_dagger",
-      "lotr_port:umbaric_dagger"
+      "lotr_port:poisoned_haradric_dagger",
+      "lotr_port:poisoned_umbaric_dagger"
     ],
     "head": "lotr_port:harad_turban"
   },

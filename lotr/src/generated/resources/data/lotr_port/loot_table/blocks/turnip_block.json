@@ -1,17 +1,64 @@
 {
   "type": "minecraft:block",
+  "functions": [
+    {
+      "function": "minecraft:explosion_decay"
+    }
+  ],
   "pools": [
     {
       "rolls": 1,
       "entries": [
         {
-          "type": "minecraft:item",
-          "name": "lotr_port:turnip"
+          "type": "minecraft:alternatives",
+          "children": [
+            {
+              "type": "minecraft:item",
+              "name": "lotr_port:turnip",
+              "conditions": [
+                {
+                  "condition": "minecraft:block_state_property",
+                  "block": "lotr_port:turnip_block",
+                  "properties": {
+                    "age": "7"
+                  }
+                }
+              ]
+            },
+            {
+              "type": "minecraft:item",
+              "name": "lotr_port:turnip"
+            }
+          ]
         }
-      ],
+      ]
+    },
+    {
+      "rolls": 1,
       "conditions": [
         {
-          "condition": "minecraft:survives_explosion"
+          "condition": "minecraft:block_state_property",
+          "block": "lotr_port:turnip_block",
+          "properties": {
+            "age": "7"
+          }
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "lotr_port:turnip",
+          "functions": [
+            {
+              "function": "minecraft:apply_bonus",
+              "enchantment": "minecraft:fortune",
+              "formula": "minecraft:binomial_with_bonus_count",
+              "parameters": {
+                "extra": 3,
+                "probability": 0.5333
+              }
+            }
+          ]
         }
       ]
     }

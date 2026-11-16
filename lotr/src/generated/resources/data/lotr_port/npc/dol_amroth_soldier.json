@@ -6,6 +6,17 @@
     "lotr_port:textures/entity/gondor/swan_knight/2.png"
   ],
   "skin_height": 64,
+  "behaviours": [
+    "man_flesh",
+    "burning_panic"
+  ],
+  "behaviour_data": {
+    "flesh_chance": 5,
+    "burn_panic_speed": 1.5,
+    "eat_chance": 8000,
+    "drink_chance": 8000,
+    "ride_chance": 6
+  },
   "health": 20.0,
   "speed": 0.2,
   "attack": 2.0,
@@ -22,8 +33,11 @@
     ],
     "chest": "lotr_port:dol_amroth_gambeson",
     "legs": "lotr_port:dol_amroth_chaps",
-    "feet": "minecraft:leather_boots"
+    "feet": "minecraft:leather_boots",
+    "mount": "lotr_port:horse",
+    "mount_armor": "lotr_port:dol_amroth_horse_armor"
   },
   "names": "lotr_port:gondor_male",
-  "speech": "lotr_port:gondor/swan_knight"
+  "speech": "lotr_port:gondor/swan_knight",
+  "quests": "lotr_port:gondor"
 }

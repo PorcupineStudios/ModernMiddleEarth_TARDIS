@@ -8,7 +8,8 @@
   "width": 0.8,
   "height": 2.5,
   "behaviours": [
-    "wight"
+    "wight",
+    "burning_panic"
   ],
   "lotr_classes": [
     "LOTREntityBarrowWight",
@@ -18,6 +19,7 @@
     "EntityLivingBase"
   ],
   "behaviour_data": {
+    "burn_panic_speed": 1.5,
     "state.renderer": 0
   },
   "sounds": {

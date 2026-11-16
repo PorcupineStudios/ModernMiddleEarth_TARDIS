@@ -12,6 +12,7 @@ import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.ClientTickEvent;
+import net.neoforged.neoforge.client.event.RenderPlayerEvent;
 import org.lwjgl.glfw.GLFW;
 
 /**
@@ -34,6 +35,17 @@ public final class PilotClient {
 
     private PilotClient() {}
 
+    /**
+     * The pilot rides inside the box: invisibility hid their body, but armour, held items and the name tag still drew
+     * floating on it. Anyone riding a box isn't drawn at all.
+     */
+    @SubscribeEvent
+    public static void onRenderPlayer(RenderPlayerEvent.Pre event) {
+        if (event.getEntity().getVehicle() instanceof TardisBody) {
+            event.setCanceled(true);
+        }
+    }
+
     @SubscribeEvent
     public static void onTick(ClientTickEvent.Pre event) {
         Minecraft mc = Minecraft.getInstance();
@@ -47,6 +59,7 @@ public final class PilotClient {
             }
             return;
         }
+        player.setAirSupply(player.getMaxAirSupply()); // no air bubbles in the box (the server keeps it full too)
         if (before == null) {
             before = mc.options.getCameraType();
             mc.options.setCameraType(CameraType.THIRD_PERSON_BACK);

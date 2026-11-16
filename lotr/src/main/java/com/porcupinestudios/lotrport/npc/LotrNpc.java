@@ -1,12 +1,14 @@
 package com.porcupinestudios.lotrport.npc;
 
-import com.porcupinestudios.lotrport.colony.Migrants;
 import com.porcupinestudios.lotrport.colony.Recruiting;
 import com.porcupinestudios.lotrport.content.LotrWeaponItem;
 import com.porcupinestudios.lotrport.faction.Alignment;
 import com.porcupinestudios.lotrport.faction.FactionKills;
 import com.porcupinestudios.lotrport.faction.Factions;
 import com.porcupinestudios.lotrport.quest.Quests;
+import com.porcupinestudios.lotrport.society.CoreComponents.Order;
+import com.porcupinestudios.lotrport.society.Persons;
+import com.porcupinestudios.lotrport.society.Society;
 import com.porcupinestudios.lotrport.npc.behaviour.Behaviours;
 import com.porcupinestudios.lotrport.npc.behaviour.CreatureBehaviour;
 import com.porcupinestudios.lotrport.sound.LotrSounds;
@@ -70,7 +72,7 @@ import net.minecraft.world.level.Level;
  * Every LOTR person: one entity whose {@link NpcType} (from data) says who it is. Clients only get what they draw
  * (type id for the name, skin texture); size comes through the scale attribute. Traders use the vanilla trading screen;
  * captains hire out units through {@link Hiring}; hired units follow or guard for their owner and get a
- * {@link People} record.
+ * {@link com.porcupinestudios.lotrport.society.Person} record.
  */
 public class LotrNpc extends PathfinderMob implements Merchant {
     private static final EntityDataAccessor<String> TYPE =
@@ -105,14 +107,17 @@ public class LotrNpc extends PathfinderMob implements Merchant {
     /** How far a trading or hiring player may stand. */
     public static final double DEAL_DISTANCE = 8;
 
-    /** What a hired unit does. */
-    public enum Command { NONE, FOLLOW, GUARD }
 
     private String personName = "";
+    /** Where a colonist's current task is (set by the colony's bodies pass; not saved: the next pass sets it). */
+    private BlockPos taskTarget;
     private int speechTicks;
     @Nullable
     private UUID owner;
-    private Command command = Command.NONE;
+    private Order command = Order.NONE;
+    /** The colony this body is a soldier of (its Person is owned by that colony), else null. */
+    @Nullable
+    private UUID garrison;
     @Nullable
     private BlockPos guardPos;
     @Nullable
@@ -133,6 +138,24 @@ public class LotrNpc extends PathfinderMob implements Merchant {
                 .add(Attributes.MOVEMENT_SPEED, 0.25)
                 .add(Attributes.ATTACK_DAMAGE, 2)
                 .add(Attributes.FOLLOW_RANGE, 24);
+    }
+
+    /**
+     * Makes the body of a Person that has none loaded: its id, type and name (skin and gear are rolled again). Not
+     * added to the world yet: the caller places it, sets what it needs and adds it.
+     */
+    public static Optional<LotrNpc> bodyFor(ServerLevel level, com.porcupinestudios.lotrport.society.Person person) {
+        Optional<NpcType> type = NpcData.type(person.type());
+        LotrNpc npc = type.isEmpty() ? null : LotrEntities.NPC.get().create(level);
+        if (npc == null) {
+            return Optional.empty();
+        }
+        npc.setUUID(person.id());
+        npc.setNpcType(person.type(), type.get());
+        if (!person.name().isEmpty()) {
+            npc.personName = person.name();
+        }
+        return Optional.of(npc);
     }
 
     /** Makes an NPC of the given type and adds it to the world; empty if the type is unknown. */
@@ -168,6 +191,16 @@ public class LotrNpc extends PathfinderMob implements Merchant {
 
     /** Ticks left on the quest it is offering; 0 when it offers none. */
     private int questOfferTicks;
+    /** The quest this offer is for, rolled on the first ask and kept until the offer ends (LOTR's offers didn't change). */
+    private com.porcupinestudios.lotrport.quest.ActiveQuest offeredQuest;
+
+    public Optional<com.porcupinestudios.lotrport.quest.ActiveQuest> offeredQuest() {
+        return Optional.ofNullable(offeredQuest);
+    }
+
+    public void setOfferedQuest(com.porcupinestudios.lotrport.quest.ActiveQuest quest) {
+        offeredQuest = quest;
+    }
 
     /** The quest mark's colour, or -1 when it isn't offering a quest. */
     public int questOfferColor() {
@@ -188,6 +221,7 @@ public class LotrNpc extends PathfinderMob implements Merchant {
             return false;
         }
         questOfferTicks = Math.max(1, pool.get().offerTicks());
+        offeredQuest = null;
         entityData.set(QUEST_OFFER, faction().flatMap(f -> Optional.ofNullable(
                 com.porcupinestudios.lotrport.faction.Factions.definitions().get(f)))
                 .map(com.porcupinestudios.lotrport.faction.FactionDef::color).orElse(0xFFFFFF) & 0xFFFFFF);
@@ -197,6 +231,7 @@ public class LotrNpc extends PathfinderMob implements Merchant {
     /** Ends its offer (the quest was taken, or it can't give quests any more). */
     public void clearQuestOffer() {
         questOfferTicks = 0;
+        offeredQuest = null;
         entityData.set(QUEST_OFFER, -1);
     }
 
@@ -232,10 +267,11 @@ public class LotrNpc extends PathfinderMob implements Merchant {
         goalSelector.addGoal(4, new OpenDoorGoal(this, true));
         goalSelector.addGoal(4, new OpenGateGoal(this));
         goalSelector.addGoal(3, new GuardGoal());
+        goalSelector.addGoal(4, new TaskGoal());
         goalSelector.addGoal(5, new WaterAvoidingRandomStrollGoal(this, 0.8) {
             @Override
             public boolean canUse() {
-                return command == Command.NONE && tradingPlayer == null && super.canUse();
+                return command == Order.NONE && tradingPlayer == null && super.canUse();
             }
         });
         goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 8f));
@@ -273,6 +309,22 @@ public class LotrNpc extends PathfinderMob implements Merchant {
         protected boolean isTimeToAttack() {
             return level().getGameTime() >= nextAttack;
         }
+    }
+
+    /**
+     * LOTR's NPC melee reach (LOTREntityAIAttackOnCollide): the reach squared is (2 x width)^2 + target width,
+     * times the weapon's reach factor squared, so pikes and spears strike from further off. Here the attack box
+     * grows by the extra distance a longer weapon gives (shorter weapons keep vanilla's box).
+     */
+    @Override
+    protected net.minecraft.world.phys.AABB getAttackBoundingBox() {
+        net.minecraft.world.phys.AABB box = super.getAttackBoundingBox();
+        if (getMainHandItem().getItem() instanceof LotrWeaponItem w && w.reachFactor() > 1f) {
+            double base = Math.sqrt(4.0 + getBbWidth() * getBbWidth());
+            double extra = base * (w.reachFactor() - 1f);
+            return box.inflate(extra, 0, extra);
+        }
+        return box;
     }
 
     // ---------------------------------------------------------------- type
@@ -322,6 +374,33 @@ public class LotrNpc extends PathfinderMob implements Merchant {
         }
     }
 
+    /**
+     * LOTR's spawnRidingHorse: one spawn in the type's {@code ride_chance} comes riding its {@code mount} gear, in
+     * its {@code mount_armor}. For NPCs that spawn in the wild; a structure's people stay on foot.
+     */
+    public void maybeRide() {
+        NpcType type = npcType();
+        if (type == null || isPassenger()) {
+            return;
+        }
+        float chance = type.persona().behaviourData().getOrDefault("ride_chance", 0f);
+        List<ResourceLocation> mounts = type.gear().getOrDefault("mount", List.of());
+        if (chance < 1 || mounts.isEmpty() || random.nextInt((int) chance) != 0) {
+            return;
+        }
+        List<ResourceLocation> armour = type.gear().getOrDefault("mount_armor", List.of());
+        Hiring.mount(this, mounts.get(random.nextInt(mounts.size())), null,
+                armour.isEmpty() ? null : armour.get(random.nextInt(armour.size())));
+    }
+
+    /** LOTR's kill drops for this NPC type: {@code loot_table/entities/npc/<type>.json} (converter/npcs.py). */
+    @Override
+    protected net.minecraft.resources.ResourceKey<net.minecraft.world.level.storage.loot.LootTable> getDefaultLootTable() {
+        ResourceLocation t = typeId();
+        return net.minecraft.resources.ResourceKey.create(net.minecraft.core.registries.Registries.LOOT_TABLE,
+                t.withPath("entities/npc/" + t.getPath()));
+    }
+
     public ResourceLocation typeId() {
         ResourceLocation id = ResourceLocation.tryParse(entityData.get(TYPE));
         return id == null ? LotrEntities.NPC.getId() : id;
@@ -367,6 +446,10 @@ public class LotrNpc extends PathfinderMob implements Merchant {
 
     public GoalSelector goals() {
         return goalSelector;
+    }
+
+    public GoalSelector targets() {
+        return targetSelector;
     }
 
     public List<CreatureBehaviour> behaviours() {
@@ -456,6 +539,11 @@ public class LotrNpc extends PathfinderMob implements Merchant {
         } else {
             moods = List.of("friendly", "neutral");
         }
+        return speak(player, bank, moods);
+    }
+
+    /** Says a line from speech bank {@code bank}, the first of {@code moods} that has lines (LOTR's sendSpeechBank). */
+    public boolean speak(ServerPlayer player, ResourceLocation bank, List<String> moods) {
         List<String> lines = List.of();
         for (String mood : moods) {
             lines = NpcData.speech(bank, mood);
@@ -474,6 +562,17 @@ public class LotrNpc extends PathfinderMob implements Merchant {
                 .replace("@", "here");
         say(Component.literal(line), player);
         return true;
+    }
+
+    /**
+     * Its Person was renamed: the body takes the name, and shows it over its head like a trader's (a citizen with a
+     * name is someone).
+     */
+    public void takeName(String name) {
+        personName = name;
+        NpcType type = npcType();
+        setCustomName(type != null && (type.trader() || type.captain())
+                ? Component.literal(name + ", ").append(typeName()) : Component.literal(name));
     }
 
     public String personName() {
@@ -504,20 +603,54 @@ public class LotrNpc extends PathfinderMob implements Merchant {
         return owner != null && owner.equals(player.getUUID());
     }
 
-    public Command command() {
+    public Order command() {
         return command;
+    }
+
+    /** The colony this NPC is a soldier of. */
+    public Optional<UUID> garrison() {
+        return Optional.ofNullable(garrison);
+    }
+
+    /**
+     * Takes the commander, colony and orders its Person holds ({@code unit.Units} calls this when the record changes
+     * and when the body loads): a player's unit follows or guards for them, a colony soldier guards its post.
+     */
+    public void applyUnit(@Nullable UUID commander, @Nullable UUID colony, Order order, @Nullable BlockPos post) {
+        owner = commander;
+        garrison = colony;
+        if (commander != null || colony != null) {
+            setPersistenceRequired();
+        }
+        command = order;
+        guardPos = order == Order.GUARD ? (post != null ? post : blockPosition()) : null;
+        getNavigation().stop();
+    }
+
+    /** Whether {@code e} fights on this NPC's side: same commander, same colony, or a citizen of its colony. */
+    public boolean sameSide(Entity e) {
+        if (e instanceof LotrNpc n) {
+            if (owner != null && owner.equals(n.owner)) {
+                return true;
+            }
+            if (garrison != null && garrison.equals(n.garrison)) {
+                return true;
+            }
+        }
+        return garrison != null && com.porcupinestudios.lotrport.colony.Colonies.colonyOf(e)
+                .map(garrison::equals).orElse(false);
     }
 
     /** Makes this NPC a hired unit of {@code player}, following them. */
     public void hireTo(ServerPlayer player) {
         owner = player.getUUID();
         setPersistenceRequired();
-        setCommand(Command.FOLLOW);
+        setCommand(Order.FOLLOW);
     }
 
-    public void setCommand(Command command) {
+    public void setCommand(Order command) {
         this.command = command;
-        guardPos = command == Command.GUARD ? blockPosition() : null;
+        guardPos = command == Order.GUARD ? blockPosition() : null;
         getNavigation().stop();
     }
 
@@ -534,7 +667,7 @@ public class LotrNpc extends PathfinderMob implements Merchant {
     @Override
     public boolean requiresCustomPersistence() {
         NpcType type = npcType();
-        return owner != null || (type != null && (type.trader() || type.captain())) || super.requiresCustomPersistence();
+        return owner != null || garrison != null || (type != null && (type.trader() || type.captain())) || super.requiresCustomPersistence();
     }
 
     // ---------------------------------------------------------------- fighting
@@ -550,17 +683,17 @@ public class LotrNpc extends PathfinderMob implements Merchant {
                 return false;
             }
             NpcType type = npcType();
-            return type != null && type.hostile() && mine.isPresent() && owner == null
+            return type != null && type.hostile() && mine.isPresent() && owner == null && garrison == null
                     && Alignment.get(player, mine.get()) < 0;
         }
-        if (e instanceof LotrNpc other && owner != null && owner.equals(other.owner)) {
+        if (sameSide(e)) {
             return false;
         }
         Optional<ResourceLocation> theirs = FactionKills.factionOf(e);
         if (mine.isPresent() && theirs.isPresent()) {
             return Factions.relation(level.getServer(), mine.get(), theirs.get()).isBad();
         }
-        return owner != null && e instanceof Enemy;
+        return (owner != null || garrison != null) && e instanceof Enemy;
     }
 
     @Override
@@ -640,7 +773,8 @@ public class LotrNpc extends PathfinderMob implements Merchant {
     public void die(DamageSource source) {
         super.die(source);
         if (level() instanceof ServerLevel level) {
-            People.get(level.getServer()).died(level.getServer(), this);
+            behaviours.forEach(b -> b.died(this, source));
+            Persons.get(level.getServer()).died(level.getServer(), getUUID(), Optional.of(Society.where(this)));
         }
     }
 
@@ -663,14 +797,15 @@ public class LotrNpc extends PathfinderMob implements Merchant {
                 return r;
             }
         }
-        if (isOwnedBy(sp)) {
-            if (sp.isShiftKeyDown()) {
-                setCommand(command == Command.FOLLOW ? Command.GUARD : Command.FOLLOW);
+        if (isOwnedBy(sp) || (garrison != null && com.porcupinestudios.lotrport.unit.Units.canCommand(sp, this))) {
+            if (sp.isShiftKeyDown() && isOwnedBy(sp)) {
+                com.porcupinestudios.lotrport.unit.Units.toggle(sp, this);
             } else {
                 speak(sp);
+                com.porcupinestudios.lotrport.unit.Units.openScreen(sp, Optional.of(getUUID()));
             }
             sp.displayClientMessage(Component.translatableWithFallback("npc.lotr_port.command." + command.name()
-                    .toLowerCase(), command == Command.FOLLOW ? "%s is following you" : "%s is guarding here",
+                    .toLowerCase(), command == Order.FOLLOW ? "%s is following you" : "%s is guarding here",
                     getDisplayName()), true);
             return InteractionResult.SUCCESS;
         }
@@ -678,7 +813,11 @@ public class LotrNpc extends PathfinderMob implements Merchant {
         if (owner == null && com.porcupinestudios.lotrport.quest.Quests.pickpocket(sp, this)) {
             return InteractionResult.SUCCESS;
         }
-        if (owner == null && Migrants.interact(sp, this)) {
+        // sneak + right-click a citizen of your colony: its page (RingRealms' colonist screen)
+        if (sp.isShiftKeyDown() && owner == null
+                && com.porcupinestudios.lotrport.colony.Colonies.colonyOf(this).isPresent()
+                && com.porcupinestudios.lotrport.colony.work.LedgerNet.sendCitizen(sp,
+                        com.porcupinestudios.lotrport.society.Society.recordOf(sp.server, this))) {
             return InteractionResult.SUCCESS;
         }
         if (sp.isShiftKeyDown() && owner == null && Recruiting.interact(sp, this)) {
@@ -803,6 +942,20 @@ public class LotrNpc extends PathfinderMob implements Merchant {
         return level().isClientSide;
     }
 
+    /** A bare {@code /summon lotr_port:npc} (no NpcType) becomes a random type instead of a blank figure. */
+    @Override
+    public net.minecraft.world.entity.SpawnGroupData finalizeSpawn(net.minecraft.world.level.ServerLevelAccessor level,
+            net.minecraft.world.DifficultyInstance difficulty, net.minecraft.world.entity.MobSpawnType reason,
+            net.minecraft.world.entity.SpawnGroupData data) {
+        data = super.finalizeSpawn(level, difficulty, reason, data);
+        if (entityData.get(TYPE).isEmpty() && !NpcData.types().isEmpty()) {
+            var ids = new java.util.ArrayList<>(NpcData.types().keySet());
+            ResourceLocation id = ids.get(random.nextInt(ids.size()));
+            setNpcType(id, NpcData.types().get(id));
+        }
+        return data;
+    }
+
     // ---------------------------------------------------------------- saving
 
     @Override
@@ -820,10 +973,18 @@ public class LotrNpc extends PathfinderMob implements Merchant {
         if (owner != null) {
             tag.putUUID("Owner", owner);
         }
-        tag.putString("Command", command.name());
+        if (garrison != null) {
+            tag.putUUID("Garrison", garrison);
+        }
+        tag.putString("Order", command.name());
         if (questOfferTicks > 0) {
             tag.putInt("QuestOfferTicks", questOfferTicks);
             tag.putInt("QuestOfferColor", entityData.get(QUEST_OFFER));
+            if (offeredQuest != null) {
+                com.porcupinestudios.lotrport.quest.ActiveQuest.CODEC
+                        .encodeStart(net.minecraft.nbt.NbtOps.INSTANCE, offeredQuest).result()
+                        .ifPresent(t -> tag.put("OfferedQuest", t));
+            }
         }
         if (guardPos != null) {
             tag.put("GuardPos", NbtUtils.writeBlockPos(guardPos));
@@ -861,21 +1022,67 @@ public class LotrNpc extends PathfinderMob implements Merchant {
         }
         personName = tag.getString("PersonName");
         owner = tag.hasUUID("Owner") ? tag.getUUID("Owner") : null;
+        garrison = tag.hasUUID("Garrison") ? tag.getUUID("Garrison") : null;
         try {
-            command = Command.valueOf(tag.getString("Command"));
+            command = Order.valueOf(tag.getString("Order"));
         } catch (IllegalArgumentException e) {
-            command = Command.NONE;
+            command = Order.NONE;
         }
         guardPos = NbtUtils.readBlockPos(tag, "GuardPos").orElse(null);
         questOfferTicks = tag.getInt("QuestOfferTicks");
         entityData.set(QUEST_OFFER, questOfferTicks > 0 ? tag.getInt("QuestOfferColor") : -1);
+        offeredQuest = questOfferTicks > 0 && tag.contains("OfferedQuest")
+                ? com.porcupinestudios.lotrport.quest.ActiveQuest.CODEC
+                        .parse(net.minecraft.nbt.NbtOps.INSTANCE, tag.get("OfferedQuest")).result().orElse(null)
+                : null;
         // Structure templates hold only the type and "Fresh": roll skin, gear and name when placed.
-        if (tag.getBoolean("Fresh") && !level().isClientSide) {
+        // and plain /summon with just an NpcType (no saved Skin yet) rolls the same way
+        if ((tag.getBoolean("Fresh") || !tag.contains("Skin")) && !level().isClientSide) {
             ResourceLocation id = ResourceLocation.tryParse(tag.getString("NpcType"));
             Optional<NpcType> type = id == null ? Optional.empty() : NpcData.type(id);
             if (type.isPresent()) {
                 setNpcType(id, type.get());
             }
+        }
+    }
+
+    /** A colonist's task place (their bed's house, workplace, the Hall...); null for none. */
+    public void setTaskTarget(BlockPos pos) {
+        taskTarget = pos;
+    }
+
+    public BlockPos taskTarget() {
+        return taskTarget;
+    }
+
+    /** Walks a colonist to their task's place, then lets them potter about near it (the stroll goal). */
+    private final class TaskGoal extends Goal {
+        private static final double NEAR = 5;
+
+        TaskGoal() {
+            setFlags(EnumSet.of(Goal.Flag.MOVE));
+        }
+
+        @Override
+        public boolean canUse() {
+            return taskTarget != null && command == Order.NONE && tradingPlayer == null
+                    && distanceToSqr(net.minecraft.world.phys.Vec3.atBottomCenterOf(taskTarget)) > NEAR * NEAR;
+        }
+
+        @Override
+        public boolean canContinueToUse() {
+            return taskTarget != null && !getNavigation().isDone()
+                    && distanceToSqr(net.minecraft.world.phys.Vec3.atBottomCenterOf(taskTarget)) > 2.5 * 2.5;
+        }
+
+        @Override
+        public void start() {
+            getNavigation().moveTo(taskTarget.getX() + 0.5, taskTarget.getY(), taskTarget.getZ() + 0.5, 0.9);
+        }
+
+        @Override
+        public void stop() {
+            getNavigation().stop();
         }
     }
 
@@ -890,13 +1097,13 @@ public class LotrNpc extends PathfinderMob implements Merchant {
         @Override
         public boolean canUse() {
             Player o = ownerPlayer();
-            return command == Command.FOLLOW && o != null && !o.isSpectator() && distanceTo(o) > 5;
+            return command == Order.FOLLOW && o != null && !o.isSpectator() && distanceTo(o) > 5;
         }
 
         @Override
         public boolean canContinueToUse() {
             Player o = ownerPlayer();
-            return command == Command.FOLLOW && o != null && distanceTo(o) > 2.5 && !getNavigation().isDone();
+            return command == Order.FOLLOW && o != null && distanceTo(o) > 2.5 && !getNavigation().isDone();
         }
 
         @Override
@@ -935,7 +1142,7 @@ public class LotrNpc extends PathfinderMob implements Merchant {
 
         @Override
         public boolean canUse() {
-            return command == Command.GUARD && guardPos != null && getTarget() == null
+            return command == Order.GUARD && guardPos != null && getTarget() == null
                     && guardPos.distToCenterSqr(position()) > 9;
         }
 
@@ -946,7 +1153,7 @@ public class LotrNpc extends PathfinderMob implements Merchant {
 
         @Override
         public boolean canContinueToUse() {
-            return command == Command.GUARD && !getNavigation().isDone();
+            return command == Order.GUARD && !getNavigation().isDone();
         }
     }
 
@@ -965,7 +1172,7 @@ public class LotrNpc extends PathfinderMob implements Merchant {
         @Override
         public boolean canUse() {
             Player o = ownerPlayer();
-            if (o == null || command == Command.NONE) {
+            if (o == null || command == Order.NONE) {
                 return false;
             }
             LivingEntity attacker = o.getLastHurtByMob();
@@ -982,7 +1189,7 @@ public class LotrNpc extends PathfinderMob implements Merchant {
         }
 
         private boolean fair(LivingEntity e) {
-            return e != LotrNpc.this && !(e instanceof LotrNpc n && owner.equals(n.owner))
+            return e != LotrNpc.this && !sameSide(e)
                     && canAttack(e, TargetingConditions.DEFAULT);
         }
 

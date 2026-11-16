@@ -1,0 +1,7 @@
+{
+  "replace": false,
+  "values": [
+    "lotr_port:armor_stand_block",
+    "lotr_port:weapon_rack"
+  ]
+}

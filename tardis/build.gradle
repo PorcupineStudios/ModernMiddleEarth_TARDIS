@@ -32,7 +32,13 @@ def unpackCreateLibs = tasks.register('unpackCreateLibs', Copy) {
 // Immersive Portals (required, Aaron 2026-11-03): the see-through TARDIS door and seamless space. Its NeoForge build is
 // one "-all" jar (imm_ptl_core, q_misc_util); it needs Cloth Config at runtime.
 dependencies {
-    implementation "maven.modrinth:immersive-portals-neoforge:${immersive_portals_version}"
+    // -PipJar=<jar> runs dev on another Immersive Portals build (the Sodium 0.8 fork the pack uses with Iris)
+    if (project.hasProperty("ipJar")) {
+        compileOnly "maven.modrinth:immersive-portals-neoforge:${immersive_portals_version}"
+        runtimeOnly files(project.property("ipJar"))
+    } else {
+        implementation "maven.modrinth:immersive-portals-neoforge:${immersive_portals_version}"
+    }
     runtimeOnly "maven.modrinth:cloth-config:${cloth_config_version}"
 }
 
@@ -60,3 +66,42 @@ neoForge {
     }
 }
 
+
+// Create: Aeronautics + Sable (optional, Aaron 2026-11-15): ships/sub-levels. Compile against them; dev runs load them
+// only with -Paeronautics; players install them themselves. Like Create, their real code is jar-in-jar, unpacked for the compiler.
+def aeroJars = configurations.detachedConfiguration(
+        dependencies.create("maven.modrinth:create-aeronautics:${aeronautics_version}"),
+        dependencies.create("maven.modrinth:sable:${sable_version}"))
+aeroJars.transitive = false
+
+def unpackAeroLibs = tasks.register('unpackAeroLibs', Copy) {
+    from({ aeroJars.files.collect { zipTree(it).matching { include 'META-INF/jarjar/*.jar' } } })
+    into layout.buildDirectory.dir('aero-libs')
+    eachFile { path = name }
+    includeEmptyDirs = false
+}
+
+dependencies {
+    compileOnly "maven.modrinth:sable:${sable_version}"
+    // Off by default to keep dev runs light; -Paeronautics loads them (compat/sable makes them work beside Immersive Portals)
+    if (project.hasProperty("aeronautics")) {
+        runtimeOnly "maven.modrinth:create-aeronautics:${aeronautics_version}"
+        runtimeOnly "maven.modrinth:sable:${sable_version}"
+    }
+    compileOnly fileTree(layout.buildDirectory.dir('aero-libs')) {
+        include '*.jar'
+        builtBy unpackAeroLibs
+    }
+}
+
+// MixinSquared (bundled): lets compat/sable drop Immersive Portals' collide redirect when Sable is loaded.
+repositories {
+    maven {
+        url = 'https://maven.bawnorton.com/releases'
+        content { includeGroup 'com.github.bawnorton.mixinsquared' }
+    }
+}
+dependencies {
+    implementation(jarJar("com.github.bawnorton.mixinsquared:mixinsquared-neoforge:${mixinsquared_version}"))
+    compileOnly "com.github.bawnorton.mixinsquared:mixinsquared-common:${mixinsquared_version}"
+}

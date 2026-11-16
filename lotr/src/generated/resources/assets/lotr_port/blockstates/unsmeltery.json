@@ -1,19 +1,28 @@
 {
   "variants": {
-    "facing=south": {
+    "facing=south,lit=false": {
       "model": "lotr_port:block/unsmeltery"
     },
-    "facing=west": {
-      "model": "lotr_port:block/unsmeltery",
-      "y": 90
+    "facing=south,lit=true": {
+      "model": "lotr_port:block/unsmeltery"
     },
-    "facing=north": {
-      "model": "lotr_port:block/unsmeltery",
-      "y": 180
+    "facing=west,lit=false": {
+      "model": "lotr_port:block/unsmeltery"
     },
-    "facing=east": {
-      "model": "lotr_port:block/unsmeltery",
-      "y": 270
+    "facing=west,lit=true": {
+      "model": "lotr_port:block/unsmeltery"
+    },
+    "facing=north,lit=false": {
+      "model": "lotr_port:block/unsmeltery"
+    },
+    "facing=north,lit=true": {
+      "model": "lotr_port:block/unsmeltery"
+    },
+    "facing=east,lit=false": {
+      "model": "lotr_port:block/unsmeltery"
+    },
+    "facing=east,lit=true": {
+      "model": "lotr_port:block/unsmeltery"
     }
   }
 }

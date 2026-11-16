@@ -1,0 +1,17 @@
+{
+  "name": "colony_job.lotr_port.brewer",
+  "priority": 150,
+  "wage": 2,
+  "consumes": {
+    "minecraft:wheat": 4
+  },
+  "produces": {
+    "lotr_port:ale": 1
+  },
+  "batches": 3,
+  "races": {
+    "hobbit": 1.5,
+    "orc": 0.6,
+    "goblin": 0.6
+  }
+}

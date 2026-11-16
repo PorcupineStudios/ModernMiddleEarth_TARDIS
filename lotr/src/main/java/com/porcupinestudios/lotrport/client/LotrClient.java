@@ -11,6 +11,7 @@ import com.porcupinestudios.lotrport.content.LotrCrossbowItem;
 import com.porcupinestudios.lotrport.content.LotrItems;
 import com.porcupinestudios.lotrport.content.LotrDrinkItem;
 import com.porcupinestudios.lotrport.drink.Drinks;
+import com.porcupinestudios.lotrport.machine.Machines;
 import java.util.Map;
 import java.util.function.Supplier;
 import net.minecraft.client.renderer.item.ItemPropertyFunction;
@@ -60,14 +61,38 @@ public final class LotrClient {
     public static final KeyMapping JUKEBOX_KEY = new KeyMapping("key.lotr_port.jukebox", InputConstants.Type.KEYSYM,
             GLFW.GLFW_KEY_J, "key.categories.lotr_port");
 
+    /** Server admins (op level 4): the race screen (players' races and sizes, race presets' size and reach). */
+    public static final KeyMapping RACE_ADMIN_KEY = new KeyMapping("key.lotr_port.race_admin", InputConstants.Type.KEYSYM,
+            GLFW.GLFW_KEY_K, "key.categories.lotr_port");
+
+    /** Opens the unit screen: your hired units and your colonies' soldiers. */
+    public static final KeyMapping UNITS_KEY = new KeyMapping("key.lotr_port.units", InputConstants.Type.KEYSYM,
+            GLFW.GLFW_KEY_U, "key.categories.lotr_port");
+
+    /** The alignment bar's faction: previous / next, LOTR's arrow keys. */
+    public static final KeyMapping ALIGNMENT_PREV_KEY = new KeyMapping("key.lotr_port.alignment_prev",
+            KeyConflictContext.IN_GAME, InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_LEFT, "key.categories.lotr_port");
+    public static final KeyMapping ALIGNMENT_NEXT_KEY = new KeyMapping("key.lotr_port.alignment_next",
+            KeyConflictContext.IN_GAME, InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_RIGHT, "key.categories.lotr_port");
+
     private LotrClient() {}
 
     @SubscribeEvent
     public static void setup(FMLClientSetupEvent event) {
+        Atmosphere.init();
+        ColorGrade.init();
         MapNet.clientHandler = (data, ctx) -> MapScreen.open(data);
         QuestNet.offerHandler = QuestOfferScreen::open;
         QuestNet.bookHandler = RedBookScreen::show;
         HudNet.barHandler = LotrHud::receive;
+        com.porcupinestudios.lotrport.unit.UnitNet.listHandler = UnitScreen::show;
+        com.porcupinestudios.lotrport.colony.members.HallNet.hallHandler = HallScreen::show;
+        com.porcupinestudios.lotrport.colony.work.LedgerNet.ledgerHandler = LedgerScreen::show;
+        com.porcupinestudios.lotrport.colony.work.LedgerNet.citizenHandler = CitizenScreen::show;
+        com.porcupinestudios.lotrport.social.SocialNet.iconsHandler = MapScreen::icons;
+        com.porcupinestudios.lotrport.social.SocialNet.viewHandler = VisibilityScreen::show;
+        com.porcupinestudios.lotrport.ui.UiNet.showHandler = com.porcupinestudios.lotrport.client.ui.UiScreen::show;
+        com.porcupinestudios.lotrport.ui.UiNet.closeHandler = com.porcupinestudios.lotrport.client.ui.UiScreen::close;
         event.enqueueWork(LotrClient::rangedProperties);
     }
 
@@ -107,6 +132,12 @@ public final class LotrClient {
     @SubscribeEvent
     public static void screens(RegisterMenuScreensEvent event) {
         event.register(Drinks.KEG_MENU.get(), KegScreen::new);
+        event.register(Machines.FORGE_MENU.get(), MachineScreen::new);
+        event.register(Machines.OVEN_MENU.get(), MachineScreen::new);
+        event.register(Machines.MILLSTONE_MENU.get(), MachineScreen::new);
+        event.register(Machines.UNSMELTERY_MENU.get(), MachineScreen::new);
+        event.register(Machines.ARMOR_STAND_MENU.get(), MachineScreen::new);
+        event.register(com.porcupinestudios.lotrport.content.pouch.Pouches.MENU.get(), PouchScreen::new);
     }
 
     /**
@@ -139,8 +170,30 @@ public final class LotrClient {
         }
     }
 
+    /** Fallen leaves of the grey vanilla-leaf icons (oak, dark oak, acacia), tinted by foliage like LOTR's. */
+    private static final String[] TINTED_FALLEN = {"fallen_oak_leaves", "fallen_dark_oak_leaves",
+        "fallen_acacia_leaves"};
+
+    private static net.minecraft.world.level.block.Block[] tintedFallen() {
+        return java.util.Arrays.stream(TINTED_FALLEN)
+                .map(id -> net.minecraft.core.registries.BuiltInRegistries.BLOCK.get(
+                        net.minecraft.resources.ResourceLocation.fromNamespaceAndPath(LotrPort.MOD_ID, id)))
+                .filter(b -> b != net.minecraft.world.level.block.Blocks.AIR)
+                .toArray(net.minecraft.world.level.block.Block[]::new);
+    }
+
+    @SubscribeEvent
+    public static void blockColors(net.neoforged.neoforge.client.event.RegisterColorHandlersEvent.Block event) {
+        event.register((state, level, pos, tint) -> level != null && pos != null
+                ? net.minecraft.client.renderer.BiomeColors.getAverageFoliageColor(level, pos)
+                : net.minecraft.world.level.FoliageColor.getDefaultColor(), tintedFallen());
+    }
+
     @SubscribeEvent
     public static void itemColors(net.neoforged.neoforge.client.event.RegisterColorHandlersEvent.Item event) {
+        event.register((stack, layer) -> net.minecraft.world.level.FoliageColor.getDefaultColor(),
+                java.util.Arrays.stream(tintedFallen()).map(net.minecraft.world.level.block.Block::asItem)
+                        .toArray(net.minecraft.world.level.ItemLike[]::new));
         event.register((stack, layer) -> layer == 0
                 ? net.minecraft.world.item.component.DyedItemColor.getOrDefault(stack, -1) : -1,
                 com.porcupinestudios.lotrport.content.LotrItems.dyeable().toArray(new net.minecraft.world.item.Item[0]));
@@ -150,14 +203,36 @@ public final class LotrClient {
     @SubscribeEvent
     public static void guiLayers(net.neoforged.neoforge.client.event.RegisterGuiLayersEvent event) {
         LotrHud.registerLayers(event);
+        Atmosphere.layers(event);
+    }
+
+    /** Middle-earth's sky (dimension type effects {@code lotr_port:middle_earth}). */
+    @SubscribeEvent
+    public static void skyEffects(net.neoforged.neoforge.client.event.RegisterDimensionSpecialEffectsEvent event) {
+        event.register(com.porcupinestudios.lotrport.LotrPort.id("middle_earth"), new MiddleEarthSky());
+    }
+
+    @SubscribeEvent
+    public static void shaders(net.neoforged.neoforge.client.event.RegisterShadersEvent event) throws java.io.IOException {
+        ColorGrade.register(event);
+    }
+
+    /** Region fogs and filters (assets/<ns>/atmosphere). */
+    @SubscribeEvent
+    public static void reloadListeners(net.neoforged.neoforge.client.event.RegisterClientReloadListenersEvent event) {
+        Atmosphere.reload(event);
     }
 
     @SubscribeEvent
     public static void keys(RegisterKeyMappingsEvent event) {
         event.register(MAP_KEY);
         event.register(JUKEBOX_KEY);
+        event.register(UNITS_KEY);
+        event.register(RACE_ADMIN_KEY);
         event.register(MAP_TELEPORT_KEY);
         event.register(FAST_TRAVEL_KEY);
+        event.register(ALIGNMENT_PREV_KEY);
+        event.register(ALIGNMENT_NEXT_KEY);
     }
 
     @SubscribeEvent
@@ -174,8 +249,15 @@ public final class LotrClient {
     @SubscribeEvent
     public static void renderers(EntityRenderersEvent.RegisterRenderers event) {
         event.registerEntityRenderer(LotrEntities.NPC.get(), NpcRenderer::new);
+        event.registerEntityRenderer(com.porcupinestudios.lotrport.land.LandEntities.BANNER.get(),
+                ClaimBannerRenderer::new);
+        com.porcupinestudios.lotrport.mount.Mounts.TYPE_BY_BREED.values()
+                .forEach(t -> event.registerEntityRenderer(t.get(), MountRenderer::new));
         // rocks, snowballs and wraith bolts thrown by LOTR's creatures, drawn as their item
         event.registerEntityRenderer(LotrEntities.PROJECTILE.get(),
                 net.minecraft.client.renderer.entity.ThrownItemRenderer::new);
+        event.registerEntityRenderer(com.porcupinestudios.lotrport.content.figure.Figures.TYPE.get(), FigureRenderer::new);
+        MachineRenderers.register(event);
+        ThrownRenderers.register(event);
     }
 }

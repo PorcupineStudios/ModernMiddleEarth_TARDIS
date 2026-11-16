@@ -1,0 +1,22 @@
+{
+  "comment": "Silver-blue clarity",
+  "biomes": [
+    "rivendell",
+    "rivendell_hills"
+  ],
+  "priority": 8,
+  "fog_start": 0.2,
+  "fog_end": 0.9,
+  "fog_color": "#b8d0e8",
+  "fog_color_strength": 0.35,
+  "filter": "#c0e0ff",
+  "filter_alpha": 0.04,
+  "grade": {
+    "saturation": 0.05,
+    "contrast": 0.03,
+    "warmth": -0.1,
+    "brightness": 0.05,
+    "vignette": 0.08,
+    "bloom": 0.3
+  }
+}

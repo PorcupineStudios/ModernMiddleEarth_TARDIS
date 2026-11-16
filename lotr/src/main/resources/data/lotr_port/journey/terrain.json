@@ -1,0 +1,121 @@
+{
+  "fallback": 1.0,
+  "roughness": 40,
+  "water": [
+    "ocean",
+    "lake",
+    "nurnen",
+    "far_harad_jungle_lake"
+  ],
+  "biomes": {
+    "misty_mountains": 0.15,
+    "white_mountains": 0.18,
+    "grey_mountains": 0.18,
+    "blue_mountains": 0.2,
+    "iron_hills": 0.35,
+    "mordor_mountains": 0.15,
+    "angmar_mountains": 0.2,
+    "harad_mountains": 0.2,
+    "red_mountains": 0.2,
+    "wind_mountains": 0.2,
+    "forodwaith_mountains": 0.15,
+    "mirkwood_mountains": 0.25,
+    "far_harad_jungle_mountains": 0.15,
+    "far_harad_volcano": 0.15,
+    "eriador": 1.1,
+    "rohan": 1.15,
+    "pelennor": 1.15,
+    "rhun_land_steppe": 1.15,
+    "shire": 1.05,
+    "breeland": 1.0,
+    "lone_lands": 1.0,
+    "dagorlad": 1.0,
+    "brown_lands": 0.95,
+    "gorgoroth": 0.7,
+    "udun": 0.6,
+    "dead_marshes": 0.35,
+    "emyn_muil": 0.4,
+    "fangorn": 0.45,
+    "old_forest": 0.4,
+    "mirkwood_corrupted": 0.4,
+    "mirkwood_north": 0.45,
+    "woodland_realm": 0.55,
+    "lothlorien": 0.7,
+    "rivendell": 0.8,
+    "ettenmoors": 0.55,
+    "coldfells": 0.55,
+    "trollshaws": 0.6,
+    "barrow_downs": 0.8,
+    "forodwaith_glacier": 0.3,
+    "tundra": 0.75,
+    "taiga": 0.65,
+    "last_desert": 0.6,
+    "near_harad_red_desert": 0.65,
+    "beach": 0.85,
+    "beach_gravel": 0.8,
+    "beach_white": 0.85,
+    "island": 0.9
+  },
+  "patterns": [
+    {
+      "contains": "_mountains",
+      "speed": 0.2
+    },
+    {
+      "contains": "_foothills",
+      "speed": 0.6
+    },
+    {
+      "contains": "volcano",
+      "speed": 0.15
+    },
+    {
+      "contains": "glacier",
+      "speed": 0.3
+    },
+    {
+      "contains": "marsh",
+      "speed": 0.45
+    },
+    {
+      "contains": "swamp",
+      "speed": 0.4
+    },
+    {
+      "contains": "mangrove",
+      "speed": 0.35
+    },
+    {
+      "contains": "jungle",
+      "speed": 0.45
+    },
+    {
+      "contains": "_hills",
+      "speed": 0.7
+    },
+    {
+      "contains": "downs",
+      "speed": 0.8
+    },
+    {
+      "contains": "forest",
+      "speed": 0.6
+    },
+    {
+      "contains": "woodlands",
+      "speed": 0.65
+    },
+    {
+      "contains": "desert",
+      "speed": 0.7
+    },
+    {
+      "contains": "wasteland",
+      "speed": 0.75
+    },
+    {
+      "contains": "mouth",
+      "speed": 0.6
+    }
+  ]
+}

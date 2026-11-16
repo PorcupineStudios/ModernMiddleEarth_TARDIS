@@ -9,7 +9,9 @@ dimension, dodging obstacles, "to" the destination.
   as before. Fast return still lands at once.
 - **Depart** checks what the landing will check (hop unlock/range/charge, or the jump's destination and charge), shuts
   the doors, lifts the block (or docks a loose body) and spawns a `TardisBody` at the start of its lane: x =
-  (plot + 1) x 4096 + 0.5, y 128, z 0.5, facing south (+z). `setLane` marks it; the puller is seated with
+  (plot + 1) x 4096 + 0.5, y 128, z 0.5, facing south (+z). A TARDIS without a plot (an unclaimed wreck, a GameTest's
+  box) takes the first lane from 0 down (0, -1, -2, ...) that no other trip is in (`Vortex.laneFor`; before
+  2026-11-14 they all shared lane 0, and parallel tests saw each other's wormholes). `setLane` marks it; the puller is seated with
   `Piloting.seat` (no piloting unlock needed). The record's location is the vortex while it flies.
 - **Trip** is module `tardis_rb:vortex` on the record: from (dimension, pos, facing), destination (jumps only), target,
   facing (-1 = as it left), lane x, length, progress, hits, health, inaccuracy, crash (the fraction it broke down at) and crash ticks while
@@ -139,9 +141,15 @@ dimension, dodging obstacles, "to" the destination.
   from the cloud sandbox, so nothing was downloaded. Any seamless 1024 x 1024 image can replace them (wrapping both
   ways: u round the tube, v along it).
 - **Loading**: nobody may be in the lane (the pilot pressed Shift, or no pilot), so each tick of a trip adds a
-  short `tardis_rb_vortex` region ticket (radius 3: the box's chunk and the ring round it entity-ticking, so the next chunk is ready before it gets there) round the box, or round where it should be. The pilot's seat
+  short `tardis_rb_vortex` region ticket (radius 3: the box's chunk and the ring round it entity-ticking, so the next chunk is ready before it gets there) round the box, or round where it should be, plus smaller ones every 32 blocks up to
+  `LOAD_AHEAD` (96) ahead, so a lone trip in a new lane never flies into chunks still being generated. The pilot's seat
   waits (trip `pilot`) until the box can be found, then `Piloting.seat` runs. Vanilla still stops ticking entities in
   a dimension 300 ticks after its last player leaves (`emptyTime`); the autopilot moves the box with `setPos` anyway.
 - Test: `gametest/VortexTests` (depart without a pilot or forced chunk, the box's chunk is still entity-ticking 100
-  ticks in, an arc hit that leaves the arc in place, arrive near the target). Run locally 2026-11-09: passes; fails with the ticket switched off.
+  ticks in (20 ticks' grace), an arc hit that leaves the arc in place, arrive near the target). Run locally 2026-11-09: passes; fails with the ticket switched off.
+- Writing vortex tests (2026-11-14, after the wormhole tests failed about 60% of CI runs): a box first found can still
+  stand at z 0.5 while its trip's progress has gone on (its chunk wasn't visible yet; the trip moves it up when it next
+  sees it). Wait for `VortexTests.synced` (loaded, ticking, at its progress) before placing anything relative to it,
+  and place from the trip's `progress`. A box thrown out into another dimension can take a few seconds to become
+  visible there. Sequence waits report only their last attempt: `TestTrace` keeps what the test saw, for the message.
 - Not done yet: the pilot's own view of progress (a HUD bar), sounds, other obstacle kinds; the autopilot doesn't dodge arcs.

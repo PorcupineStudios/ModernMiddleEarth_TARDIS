@@ -7,7 +7,9 @@
   "width": 1.4,
   "height": 0.8,
   "behaviours": [
-    "spider"
+    "spider",
+    "on_hit",
+    "burning_panic"
   ],
   "lotr_classes": [
     "LOTREntityUtumnoIceSpider",
@@ -19,10 +21,12 @@
     "EntityLivingBase"
   ],
   "behaviour_data": {
+    "burn_panic_speed": 1.5,
+    "frost": 1,
     "size_min": 0,
     "size_max": 3,
     "venom": 1,
-    "state.renderer": 0
+    "state.renderer": 1
   },
   "sounds": {
     "ambient": "minecraft:entity.spider.ambient",
@@ -30,8 +34,8 @@
     "death": "minecraft:entity.spider.death",
     "step": "minecraft:entity.spider.step"
   },
-  "health": 12.0,
-  "speed": 0.35,
-  "attack": 2.0,
+  "health": 30.0,
+  "speed": 0.26,
+  "attack": 5.0,
   "speech": "lotr_port:utumno/orc"
 }

@@ -1,0 +1,25 @@
+{
+  "comment": "Steaming humid green",
+  "biomes": [
+    "far_harad_jungle*",
+    "far_harad_cloud_forest",
+    "far_harad_swamp",
+    "far_harad_mangrove",
+    "half_troll_forest"
+  ],
+  "priority": 5,
+  "fog_start": 0.0,
+  "fog_end": 0.55,
+  "fog_color": "#90b080",
+  "fog_color_strength": 0.45,
+  "filter": "#50a050",
+  "filter_alpha": 0.06,
+  "grade": {
+    "saturation": 0.15,
+    "contrast": 0,
+    "warmth": 0.15,
+    "brightness": 0,
+    "vignette": 0.15,
+    "bloom": 0.1
+  }
+}

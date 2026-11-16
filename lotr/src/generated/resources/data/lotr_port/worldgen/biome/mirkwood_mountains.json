@@ -25,7 +25,7 @@
         "maxCount": 4
       },
       {
-        "type": "minecraft:pig",
+        "type": "lotr_port:wild_boar",
         "weight": 10,
         "minCount": 4,
         "maxCount": 4
@@ -35,6 +35,12 @@
         "weight": 8,
         "minCount": 4,
         "maxCount": 4
+      },
+      {
+        "type": "lotr_port:elk",
+        "weight": 30,
+        "minCount": 4,
+        "maxCount": 6
       }
     ]
   },

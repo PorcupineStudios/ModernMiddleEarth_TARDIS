@@ -37,21 +37,111 @@ MIN_HEIGHT, MAX_HEIGHT = -40, 300
 PEAK_BIOME_MIN = 1000  # columns a biome holding a peak needs before its survey isn't mostly the mountain
 SURVEY_MIN = 32  # biomes with fewer surveyed columns keep the formula from LOTR's height parameters
 STD_PER_VARIATION = 1.0
-JAGGED_FROM, JAGGED = 10.0, 2.0  # crags for hilliness over 10 blocks (mountains), up to 2 x the excess
-RIDGES = 1.2  # and broad ridges and valleys (the hill noise at half the frequency) of 1.2 x the excess
+JAGGED_FROM, JAGGED = 10.0, 3.0  # (2.0 until 2026-11-16: mountains too rounded) crags for hilliness over 10 blocks (mountains), up to 2 x the excess
+RIDGES = 2.0  # (1.2 until 2026-11-16: spread was 23 vs LOTR 32-40) and broad ridges and valleys (the hill noise at half the frequency) of 1.2 x the excess
 HILL_BIAS = 0.4  # the 4x-steeper ground below lifts the mean ~0.4 x hilliness (measured); lowered by that
+# Noise only near the surface (Aaron 2026-11-15: "make it as cheap as possible ... very fast chunk loading"): the
+# hills' noise (3D blended, 2D hills, crags) is worked out only where (ground level - y) / (hilliness + 2) lies in
+# [-NOISE_BAND_ABOVE, NOISE_BAND_BELOW); further above the ground is air and further below solid whatever the noise
+# says, so the plain ground shape stands in (minecraft:range_choice). The bounds must cover the noise's largest swing:
+# GameTest NoiseBandTests measures it and fails if they don't. MiddleEarthMap.noiseTop (a mixin) also stops filling
+# chunks and scanning for ground at the band's top, so the sky over low land costs nothing.
+NOISE_BAND_ABOVE, NOISE_BAND_BELOW = 9.0, 4.0  # measured 2026-11-15: needs 8.35 above, 4 below
 MAX_3D = 20.0  # hilliness given LOTR's 3D noise; mountains need it for their crags (8 left them smooth domes)
 HILL_2D = 2.5  # 2D hills per block of hilliness: measured against LOTR (terrainRoughness / the exporter's rough), 1.0 gave a third of its spread
+VALLEYS = 0.25  # the 2D hills' valleys at a quarter depth (1.18 quarter_negative): hills rise from the land, low
+# ground doesn't dip under sea level into ponds everywhere (Aaron, 2026-11-14: too many lakes next to LOTR)
+VALLEY_SHIFT = 0.1  # the lifted valleys raise the mean ~0.1 x HILL_2D x hilliness; lowered by that
+# Aaron (2026-11-14): a hillier Shire than LOTR's: biome name -> (blocks added to its height, hilliness factor)
+# Aaron (2026-11-14): the Shire's own hills ("downs", MiddleEarthMap.downs): round hills that only rise from the land
+# (noise hills dip as often as they rise, into ponds). Biome name -> (tallest hill in blocks, share of LOTR's noise
+# hilliness kept as roughness on top).
+# 2026-11-14 (Aaron: steep round hills that stay grassy): 30 / 20 / 18 on a 112-block grid; the steepest slope stays
+# under one block per block (about 0.7, 0.9 in "hills" patches), so every step is a grass edge, never a dirt wall.
+DOWNS = {"shire": (30, 0.4), "shire_moors": (20, 0.45), "shire_woodlands": (18, 0.5),
+         # Aaron 2026-11-16: the marshes were all water. LOTR's are mostly grass a block or two over the water with
+         # pools (marsh rule) in the low ground; low hummocks over a base at the pool level give that
+         "shire_marshes": (4, 0.35)}
+# ground heights set by hand where the survey is off (shireMarshes: 96 columns, mostly the Brandywine's water)
+HEIGHT_FIX = {"shire_marshes": 61.4}
+
+# Biome variants (LOTR's LOTRBiomeVariant patches; Aaron 2026-11-14: "many biomes within the Shire"). Not separate
+# biomes, as in LOTR: patches of a jittered grid (`cell` blocks), a variant with chance `chance`, else plain
+# (MiddleEarthMap / map/Variants). downs / variation scale the terrain (blended smoothly between patches); trees,
+# orchards and flowers are placed features gated by lotr_port:in_variant. The Shire's list is LOTR's (FLOWERS, FOREST,
+# FOREST_LIGHT, HILLS, HILLS_FOREST, FOREST_BIRCH, FOREST_ASPEN, ORCHARD_SHIRE, ORCHARD_PLUM) at a higher chance.
+# trees: (per chunk, [(tree, weight)]); orchard: (row spacing, fill, [(tree, weight)]); flowers: placed features.
+VARIANTS = {
+    # LOTR's swampLowland (marsh, few trees) and swampUpland (higher, 6x trees): willows, swamp oaks, oaks
+    "shire_marshes": {"cell": 96, "chance": 0.75, "list": [
+        {"name": "lowland", "weight": 2, "downs": 0.5, "variation": 0.6},
+        {"name": "upland", "weight": 1, "downs": 1.8, "variation": 1.2,
+         "trees": (4, [("oak_swamp", 4), ("willow", 3), ("oak", 2), ("oak_large", 1)])},
+    ]},
+    "shire": {"cell": 176, "chance": 0.6, "list": [
+        {"name": "meadows", "weight": 3, "downs": 0.55, "variation": 0.7,
+         "flowers": ["minecraft:flower_meadow", "minecraft:flower_flower_forest", "minecraft:patch_tall_grass"]},
+        {"name": "light_forest", "weight": 3,
+         "trees": (3, [("oak", 4), ("oak_large", 2), ("chestnut", 3), ("birch", 2), ("aspen", 1)])},
+        {"name": "forest", "weight": 2,
+         "trees": (9, [("oak", 4), ("oak_large", 3), ("chestnut", 3), ("chestnut_large", 2), ("birch", 2)])},
+        {"name": "hills", "weight": 3, "downs": 1.3, "variation": 1.2, "flowers": ["minecraft:patch_tall_grass"]},
+        {"name": "wooded_hills", "weight": 2, "downs": 1.25, "variation": 1.15,
+         "trees": (4, [("oak", 4), ("oak_large", 2), ("chestnut", 3), ("birch", 2)])},
+        {"name": "birch_wood", "weight": 1,
+         "trees": (7, [("birch", 5), ("birch_large", 2), ("birch_tall", 2)])},
+        {"name": "aspen_wood", "weight": 1, "trees": (7, [("aspen", 5), ("aspen_large", 2)])},
+        {"name": "orchard", "weight": 2, "downs": 0.6, "variation": 0.6,
+         "orchard": (7, 0.85, [("apple", 1), ("pear", 1)])},
+        {"name": "plum_orchard", "weight": 1, "downs": 0.6, "variation": 0.6, "orchard": (7, 0.85, [("plum", 1)])},
+    ]},
+}
 SURVEY_OFFSET = 1.0  # the survey's ground is the first air block; the port's map height lands about a block higher
 # LOTR's ground patches compare one-octave Perlin sums to thresholds; 1.18's normal noise spreads about half as wide
 NOISE_SCALE = 0.45
 BORDER_WOBBLE = 40  # blocks a biome border or slope can shift
 BLUR = 0  # pixels of box blur on heights (0 keeps one-pixel rivers)
 OCEAN = "ocean"
-ROAD_HALF_WIDTH = 1.6  # blocks either side of a road's middle
+# Mountain ranges' own terrain (Aaron 2026-11-15: "the misty mountains ... should be incredibly hard to navigate on
+# foot ... change depending on seed ... a sense of awe at gigantic mountain ranges with basically no passes (but still
+# huge variety)"; no needle spires): a seeded height field read off the map (map/Ranges, whose javadoc explains each
+# number) replacing the biomes' noise hilliness. Prototyped on the map with perspective renders (2026-11-15): in the
+# Misty Mountains valleys lie at 200-300, ridges 400-600, and the lowest crossing of any 6 km stretch tops out at
+# y 340-490.
+# Middle-earth's build limit (vanilla's is 320): its dimension type and noise go up to here.
+TOP_Y = 640
+
+RANGES = {
+    # range biome: height scale (the Misty Mountains are the giants; the others are scaled down from them)
+    "biomes": {f"{NS}:{b}": k for b, k in (("misty_mountains", 1.0), ("grey_mountains", 0.8),
+                                           ("forodwaith_mountains", 0.75), ("angmar_mountains", 0.7),
+                                           ("white_mountains", 0.9), ("blue_mountains", 0.75),
+                                           ("mordor_mountains", 0.7), ("red_mountains", 0.7),
+                                           ("wind_mountains", 0.6), ("harad_mountains", 0.65),
+                                           ("mirkwood_mountains", 0.55))},
+    "reach": 10.0,  # map pixels in from the edge to the core's floor height
+    "floor": 85.0,  # the valley floors' climb from the edge to the core: the wall that leaves no low passes
+    "relief": 300.0,  # ridges over the floor (x the region's own 0.75-1.25)
+    "region": 2600.0, "blend": 0.35,  # region grid (blocks; each one kind of ridges) and how far regions blend
+    "band": 12.0, "sharp": 3.0, "strata": 0.8,  # cliff bands on steep ground: height, sharpness, strength
+    "ceiling": 610,  # summits eased under this y
+}
+
+ROAD_HALF_WIDTH = 2.1  # blocks either side of a road's middle (Aaron 2026-11-14: 4-5 wide; bridges 1 more each side)
 # Small rivers (LOTR made these with a river layer, not on the map). Widths are in noise units: one is about 11 blocks.
-RIVERS = {"biome": f"{NS}:river", "scale": 900, "width": 0.025, "bank": 3.0, "biome_width": 1.5, "bed": 56,
-          "max_height": 100, "min_height": 63, "seed": 1937}
+# Aaron 2026-11-14: fewer rivers (scale 1700; width in noise units scaled by 900/1700).
+# Aaron 2026-11-16: LOTR's small rivers are narrow (its NarrowRivers layer); 0.025/1.5 gave wide green-banked channels.
+# keep_biome: dark and dry lands keep their own ground on the banks and bed instead of the green river biome.
+RIVER_KEEP = ["mordor", "mordor_mountains", "gorgoroth", "udun", "nan_ungol", "morgul_vale", "dagorlad",
+              "eastern_desolation", "brown_lands", "dead_marshes", "dol_guldur", "mirkwood_corrupted", "angmar",
+              "angmar_mountains", "ettenmoors", "coldfells", "fangorn_wasteland", "ithilien_wasteland", "nan_curunir",
+              "emyn_muil", "near_harad", "near_harad_red_desert", "near_harad_semi_desert", "far_harad_arid",
+              "far_harad_arid_hills", "harad_mountains", "last_desert", "forodwaith", "forodwaith_mountains",
+              "forodwaith_glacier", "tundra", "far_harad_volcano", "half_troll_forest"]
+RIVERS = {"biome": f"{NS}:river", "scale": 1700, "width": 0.00688, "bank": 2.5, "biome_width": 0.7, "bed": 56,
+          "max_height": 100, "min_height": 63, "seed": 1937, "keep_biome": [f"{NS}:{b}" for b in RIVER_KEEP]}
+# LOTRMountains peaks roughed up (MiddleEarthMap.MountainShape): lobed foot, ridged flanks, hills kept on the slopes
+MOUNTAIN_SHAPE = {"warp": 0.35, "ridges": 0.22, "scale": 40.0, "flatten": 0.25, "seed": 1213}
 
 # Old surface blocks (registry name + meta) that are vanilla in 1.21.
 VANILLA_SURFACE = {
@@ -173,7 +263,8 @@ class World:
         features[7] = [f"{NS}:dripstone"]  # LOTR's 3 stalactites a chunk under y 60, as dripstone
         if dec.get("quagmirePerChunk", 0) > 0:  # LOTR's quagmire patches; mud round them (1.19's swamp ground)
             features[2] = [f"{NS}:quagmire_{dec['quagmirePerChunk']}", f"{NS}:mud_patch"] + features[2]
-        features[9] = ([lotr_trees] if lotr_trees else []) + self.forest_floor(dec) + self.marsh_plants(b) + [
+        features[9] = ([lotr_trees] if lotr_trees else []) + self.variant_plants(self.biome_id(b)) + \
+            self.forest_floor(dec) + self.marsh_plants(b) + [
             v for v in VEGETATION if v in veg]
         features[10] = ["minecraft:freeze_top_layer"]
         creatures = []
@@ -189,6 +280,49 @@ class World:
             "carvers": {"air": CARVERS},
             "features": features,
         }
+
+    def variant_plants(self, biome):
+        """Placed features for a biome's variants (VARIANTS): each patch's trees, orchard rows and flowers, gated by
+        lotr_port:in_variant. Written under shire_variant/<variant>_<what> etc."""
+        if biome not in VARIANTS:
+            return []
+        gen = os.path.join(self.data, NS, "worldgen")
+        out = []
+        on_land = [{"type": "minecraft:surface_water_depth_filter", "max_water_depth": 0},
+                   {"type": "minecraft:heightmap", "heightmap": "OCEAN_FLOOR"}, {"type": "minecraft:biome"}]
+
+        def write(name, feature, placement):
+            write_json(os.path.join(gen, "placed_feature", f"{biome}_variant", name + ".json"),
+                       {"feature": feature, "placement": placement})
+            out.append(f"{NS}:{biome}_variant/{name}")
+
+        def selector(name, trees):
+            total = sum(w for _, w in trees)
+            feats, left = [], 1.0
+            for t, w in trees[:-1]:  # random_selector: each entry's chance is of what is left
+                share = w / total
+                feats.append({"feature": f"{NS}:tree/{t}", "chance": round(min(1.0, share / left), 4)})
+                left -= share
+            write_json(os.path.join(gen, "configured_feature", f"{biome}_variant", name + ".json"), {
+                "type": "minecraft:random_selector",
+                "config": {"features": feats, "default": f"{NS}:tree/{trees[-1][0]}"}})
+            return f"{NS}:{biome}_variant/{name}"
+
+        for v in VARIANTS[biome]["list"]:
+            gate = {"type": f"{NS}:in_variant", "variants": [v["name"]]}
+            if "trees" in v:
+                n, trees = v["trees"]
+                write(v["name"] + "_trees", selector(v["name"] + "_trees", trees),
+                      [{"type": "minecraft:count", "count": n}, {"type": "minecraft:in_square"}, gate] + on_land)
+            if "orchard" in v:
+                spacing, fill, trees = v["orchard"]
+                write(v["name"] + "_rows", selector(v["name"] + "_rows", trees),
+                      [{"type": f"{NS}:orchard_grid", "spacing": spacing, "fill": fill}, gate] + on_land)
+            for i, flower in enumerate(v.get("flowers", [])):
+                write(f"{v['name']}_flowers_{i}", flower,
+                      [{"type": "minecraft:count", "count": 2}, {"type": "minecraft:in_square"}, gate,
+                       {"type": "minecraft:heightmap", "heightmap": "MOTION_BLOCKING"}, {"type": "minecraft:biome"}])
+        return out
 
     def plant_patch(self, name, block, per_chunk, tall=(1, 1), on="ground", tries=16, spread=7):
         """A LOTR plant patch (random tries round a spot) as a placed feature; per_chunk under 1 is a 1-in-n chance.
@@ -217,6 +351,20 @@ class World:
                 {"type": "minecraft:biome"}]})
         return f"{NS}:plant/{name}"
 
+    def reed_patch(self, name, block, per_chunk):
+        """LOTRWorldGenReeds as feature lotr_port:reeds (world/feature/ReedsFeature): only over still water at most 4
+        deep, the stem from the bed up and 1-3 above. (A plain plant patch let reeds stand on dry land and float.)"""
+        gen = os.path.join(self.data, NS, "worldgen")
+        write_json(os.path.join(gen, "configured_feature", "plant", name + ".json"), {
+            "type": f"{NS}:reeds", "config": {"block": {"Name": block}, "tries": 16}})
+        count = ([{"type": "minecraft:count", "count": round(per_chunk)}] if per_chunk >= 1
+                 else [{"type": "minecraft:rarity_filter", "chance": max(1, round(1 / per_chunk))}])
+        write_json(os.path.join(gen, "placed_feature", "plant", name + ".json"), {
+            "feature": f"{NS}:plant/{name}", "placement": count + [
+                {"type": "minecraft:in_square"}, {"type": "minecraft:heightmap", "heightmap": "WORLD_SURFACE_WG"},
+                {"type": "minecraft:biome"}]})
+        return f"{NS}:plant/{name}"
+
     def marsh_plants(self, b):
         """LOTR's reeds (reedPerChunk patches, dried with dryReedChance) and, in the Dead Marshes, its dead plants
         (LOTRBiomeGenDeadMarshes.decorate)."""
@@ -226,7 +374,7 @@ class World:
         for block, k in ((f"{NS}:reeds", n * (1 - dry)), (f"{NS}:dried_reeds", n * dry)):
             if k > 0.01:
                 name = f"{block.split(':')[1]}_{round(k, 2)}".replace(".", "_")
-                out.append(self.plant_patch(name, block, k, tall=(1, 3)))
+                out.append(self.reed_patch(name, block, k))
         if b["class"].endswith("LOTRBiomeGenDeadMarshes"):
             out.append(self.plant_patch("dead_marsh_plant", f"{NS}:dead_marsh_plant", 6, tries=64))
             # LOTR's marsh lights (4 a chunk over the water) wait: the block draws as a white cube, not particles
@@ -254,14 +402,17 @@ class World:
 
     def height(self, b):
         f = b["fields"]
+        if self.biome_id(b) in HEIGHT_FIX:
+            return HEIGHT_FIX[self.biome_id(b)]
         if self.measured(b):
-            return round(max(MIN_HEIGHT, min(MAX_HEIGHT, self.measured(b)["mean"] - SURVEY_OFFSET)), 2)
+            h = self.measured(b)["mean"] - SURVEY_OFFSET
+            return round(max(MIN_HEIGHT, min(MAX_HEIGHT, h)), 2)
         h = GROUND_AT_ZERO + float(f.get("heightBaseParameter", 0.1)) * BLOCKS_PER_BASE
         return round(max(MIN_HEIGHT, min(MAX_HEIGHT, h)), 2)
 
     def variation(self, b):
         if self.measured(b):  # LOTR's spread of ground heights; the noise gives about STD_PER_VARIATION of it
-            return round(self.measured(b)["std"] / STD_PER_VARIATION, 2)
+            return round(self.measured(b)["std"] / STD_PER_VARIATION * DOWNS.get(self.biome_id(b), (0, 1))[1], 2)
         return round(max(0.0, float(b["fields"].get("heightVariation", 0.1))) * BLOCKS_PER_VARIATION, 2)
 
     # ------------------------------------------------------------------ map
@@ -327,9 +478,18 @@ class World:
             "blur": BLUR, "border_wobble": BORDER_WOBBLE,
             "ocean": f"{NS}:{OCEAN}",
             "rivers": RIVERS,
+            "ranges": RANGES,
+            # for MiddleEarthMap.noiseTop: the noise band's top, and where water fills to
+            "noise_band": {"above": NOISE_BAND_ABOVE, "below": NOISE_BAND_BELOW, "hill_bias": HILL_BIAS,
+                           "sea_level": SEA_LEVEL, "top": TOP_Y},
+            "variants": {f"{NS}:{k}": {"cell": v["cell"], "chance": v["chance"], "list": [
+                {x: e[x] for x in ("name", "weight", "downs", "variation") if x in e} for e in v["list"]]}
+                for k, v in VARIANTS.items()},
+            "mountain_shape": MOUNTAIN_SHAPE,
             # LOTRMountains: a cone from the land up to the peak's surveyed ground over `range` blocks
             "mountains": [self.mountain(m) for m in self.survey.get("mountains", [])],
-            "biomes": [{"id": f"{NS}:{i}", "height": self.height(b), "variation": self.variation(b)}
+            "biomes": [dict({"id": f"{NS}:{i}", "height": self.height(b), "variation": self.variation(b)},
+                            **({"downs": DOWNS[i][0]} if i in DOWNS else {}))
                        for i, b in zip(ids, biomes)],
         })
         return w, h
@@ -435,14 +595,17 @@ class World:
         if mtn and mtn != "all":
             snow, stone_y, stone, sand = mtn
             mtn = (snow, stone_y, old(stone), old(sand))
-        return (podzol, bool(f.get("enableRocky", True)), wet, dec.get("quagmirePerChunk", 0) > 0, tuple(resolved),
+        # no rock breaking through on the Shire's downs (Aaron 2026-11-14: hills stay grassy; they reach y 100+)
+        rocky = bool(f.get("enableRocky", True)) and self.biome_id(b) not in DOWNS
+        return (podzol, rocky, wet, dec.get("quagmirePerChunk", 0) > 0, tuple(resolved),
                 marsh, mtn)
 
     def noise_settings(self, biomes):
         height = {"type": "minecraft:flat_cache", "argument": {"type": f"{NS}:map_terrain", "value": "height"}}
         variation = {"type": "minecraft:flat_cache", "argument": {"type": f"{NS}:map_terrain", "value": "variation"}}
-        minus_y = {"type": "minecraft:y_clamped_gradient", "from_y": -64, "to_y": 320, "from_value": 64,
-                   "to_value": -320}
+        band = {"type": "minecraft:flat_cache", "argument": {"type": f"{NS}:map_terrain", "value": "band"}}
+        minus_y = {"type": "minecraft:y_clamped_gradient", "from_y": -64, "to_y": TOP_Y, "from_value": 64,
+                   "to_value": -TOP_Y}
         # LOTR's shape (LOTRChunkProvider): 1.7's blended 3D noise (old_blended_noise, xz factor 400 as LOTR) scaled by
         # hilliness, a 2D hill noise, and ground 4x steeper below the map height so hills don't float or terrace
         level = {"type": "minecraft:add", "argument1": height,
@@ -453,7 +616,9 @@ class World:
                                 "argument2": {"type": "minecraft:max", "argument1": base, "argument2": 0.0}}}
         blended = {"type": "minecraft:old_blended_noise", "xz_scale": 1.0, "y_scale": 1.0, "xz_factor": 400.0,
                    "y_factor": 160.0, "smear_scale_multiplier": 8.0}
-        hill2d = {"type": "minecraft:noise", "noise": f"{NS}:terrain", "xz_scale": 1.0, "y_scale": 0.0}
+        hill2d = {"type": "minecraft:add", "argument1": -VALLEY_SHIFT, "argument2": {
+            "type": "minecraft:quarter_negative" if VALLEYS == 0.25 else "minecraft:half_negative",
+            "argument": {"type": "minecraft:noise", "noise": f"{NS}:terrain", "xz_scale": 1.0, "y_scale": 0.0}}}
         # the 3D part is capped at MAX_3D blocks of hilliness (more floats islands off mountains); the rest is 2D
         capped = {"type": "minecraft:min", "argument1": variation, "argument2": MAX_3D}
         hills = {"type": "minecraft:add",
@@ -474,9 +639,13 @@ class World:
                 "type": "minecraft:noise", "noise": f"{NS}:terrain", "xz_scale": 0.5, "y_scale": 0.0}}}
         hills = {"type": "minecraft:add", "argument1": hills, "argument2": {
             "type": "minecraft:add", "argument1": jagged, "argument2": ridges}}
+        # the noise only within its band of the ground (NOISE_BAND_*): out of it the plain shape has the same sign
+        near = {"type": "minecraft:range_choice", "input": {"type": "minecraft:mul", "argument1": base, "argument2": band},
+                "min_inclusive": -NOISE_BAND_ABOVE, "max_exclusive": NOISE_BAND_BELOW,
+                "when_in_range": {"type": "minecraft:add", "argument1": shaped, "argument2": hills},
+                "when_out_of_range": shaped}
         final = {"type": "minecraft:interpolated", "argument": {
-            "type": "minecraft:mul", "argument1": 1 / 24,
-            "argument2": {"type": "minecraft:add", "argument1": shaped, "argument2": hills}}}
+            "type": "minecraft:mul", "argument1": 1 / 24, "argument2": near}}
         prelim = {"type": "minecraft:mul", "argument1": 1 / 24, "argument2": base}
         zero = 0.0
         return {
@@ -487,7 +656,7 @@ class World:
             "legacy_random_source": False,
             "default_block": {"Name": "minecraft:stone"},
             "default_fluid": {"Name": "minecraft:water", "Properties": {"level": "0"}},
-            "noise": {"min_y": -64, "height": 384, "size_horizontal": 1, "size_vertical": 2},
+            "noise": {"min_y": -64, "height": TOP_Y + 64, "size_horizontal": 1, "size_vertical": 2},
             "noise_router": {
                 "barrier": zero, "fluid_level_floodedness": zero, "fluid_level_spread": zero, "lava": zero,
                 "temperature": zero, "vegetation": zero, "continents": zero, "erosion": zero, "depth": zero,
@@ -509,13 +678,14 @@ class World:
             "has_ceiling": False, "ambient_light": 0.0,
             "monster_spawn_light_level": {"type": "minecraft:uniform", "min_inclusive": 0, "max_inclusive": 7},
             "monster_spawn_block_light_limit": 0, "piglin_safe": False, "bed_works": True,
-            "respawn_anchor_works": False, "has_raids": True, "logical_height": 384, "min_y": -64, "height": 384,
-            "infiniburn": "#minecraft:infiniburn_overworld", "effects": "minecraft:overworld",
+            "respawn_anchor_works": False, "has_raids": True, "logical_height": TOP_Y + 64, "min_y": -64, "height": TOP_Y + 64,
+            "infiniburn": "#minecraft:infiniburn_overworld", "effects": f"{NS}:middle_earth",
         })
         write_json(os.path.join(d, "dimension", "middle_earth.json"),
                    {"type": f"{NS}:middle_earth", "generator": generator})
         write_json(os.path.join(d, "worldgen", "world_preset", "middle_earth.json"), {"dimensions": {
-            "minecraft:overworld": {"type": "minecraft:overworld", "generator": generator},
+            # Middle-earth's own dimension type: its build limit (TOP_Y) is over vanilla's 320
+            "minecraft:overworld": {"type": f"{NS}:middle_earth", "generator": generator},
             "minecraft:the_nether": {"type": "minecraft:the_nether", "generator": {
                 "type": "minecraft:noise", "settings": "minecraft:nether",
                 "biome_source": {"type": "minecraft:multi_noise", "preset": "minecraft:nether"}}},
@@ -785,7 +955,7 @@ MUD_RULE = {"type": "minecraft:condition", "if_true": {"type": "minecraft:not", 
 MARSH_RULE = {"type": "minecraft:condition", "if_true": {"type": "minecraft:y_above", "anchor": {
     "absolute": SEA_LEVEL - 1}, "surface_depth_multiplier": 0, "add_stone_depth": False}, "then_run": {
     "type": "minecraft:condition", "if_true": {"type": "minecraft:not", "invert": {
-        "type": "minecraft:y_above", "anchor": {"absolute": SEA_LEVEL + 2}, "surface_depth_multiplier": 0,
+        "type": "minecraft:y_above", "anchor": {"absolute": SEA_LEVEL}, "surface_depth_multiplier": 0,
         "add_stone_depth": False}}, "then_run": {"type": "minecraft:condition", "if_true": noise_at("marsh", -0.1),
                                                   "then_run": block_rule("minecraft:water")}}}
 SANDSTONE = {"minecraft:sand": "minecraft:sandstone", "minecraft:red_sand": "minecraft:red_sandstone"}

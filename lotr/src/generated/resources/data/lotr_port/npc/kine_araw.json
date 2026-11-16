@@ -8,7 +8,8 @@
   "width": 0.9,
   "height": 1.3,
   "behaviours": [
-    "animal"
+    "animal",
+    "on_hit"
   ],
   "lotr_classes": [
     "LOTREntityKineAraw",
@@ -21,6 +22,8 @@
     "EntityLivingBase"
   ],
   "behaviour_data": {
+    "knockback": 0.75,
+    "defend_young": 12,
     "fights_back": 1,
     "panic_speed": 1.25,
     "state.renderer": 0

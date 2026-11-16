@@ -1,0 +1,12 @@
+{
+  "name": "colony_job.lotr_port.carpenter",
+  "priority": 120,
+  "wage": 2,
+  "consumes": {
+    "minecraft:oak_log": 1
+  },
+  "produces": {
+    "minecraft:oak_planks": 4
+  },
+  "batches": 8
+}

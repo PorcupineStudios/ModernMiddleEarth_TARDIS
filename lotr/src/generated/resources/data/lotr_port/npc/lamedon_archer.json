@@ -13,15 +13,28 @@
     "lotr_port:textures/entity/gondor/gondor_male/9.png"
   ],
   "skin_height": 64,
+  "behaviours": [
+    "man_flesh",
+    "burning_panic",
+    "archer"
+  ],
+  "behaviour_data": {
+    "flesh_chance": 5,
+    "burn_panic_speed": 1.5,
+    "eat_chance": 8000,
+    "drink_chance": 8000,
+    "ranged_speed": 1.25,
+    "ranged_min": 30,
+    "ranged_max": 50,
+    "ranged_range": 16.0,
+    "ranged_accuracy": 0.75,
+    "ranged_swap": 0
+  },
   "health": 20.0,
   "speed": 0.2,
   "attack": 2.0,
   "gear": {
-    "mainhand": [
-      "lotr_port:gondorian_pike",
-      "lotr_port:gondorian_sword",
-      "lotr_port:gondorian_warhammer"
-    ],
+    "mainhand": "lotr_port:gondorian_bow",
     "head": "lotr_port:lamedon_helmet",
     "chest": "lotr_port:lamedon_chestplate",
     "legs": "lotr_port:lamedon_leggings",
@@ -29,5 +42,5 @@
   },
   "names": "lotr_port:gondor_male",
   "speech": "lotr_port:gondor/soldier",
-  "quests": "lotr_port:gondor"
+  "quests": "lotr_port:gondor_kill_renegade"
 }

@@ -16,5 +16,5 @@
   "min_y": -2032,
   "height": 4064,
   "infiniburn": "#minecraft:infiniburn_overworld",
-  "effects": "minecraft:overworld"
+  "effects": "tardis_rb:space"
 }

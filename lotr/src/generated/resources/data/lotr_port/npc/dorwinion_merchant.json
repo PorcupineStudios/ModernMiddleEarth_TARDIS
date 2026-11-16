@@ -7,6 +7,17 @@
   ],
   "skin_height": 64,
   "model": "elf",
+  "behaviours": [
+    "elf_bow",
+    "burning_panic"
+  ],
+  "behaviour_data": {
+    "bow_range": 8,
+    "bow_ticks": 40,
+    "burn_panic_speed": 1.5,
+    "eat_chance": 12000,
+    "drink_chance": 8000
+  },
   "sounds": {
     "ambient": "lotr_port:elf.male.say",
     "attack": "lotr_port:elf.male.attack"
@@ -18,6 +29,7 @@
     "mainhand": "lotr_port:dorwinion_elven_dagger",
     "head": "lotr_port:leather_hat"
   },
+  "names": "lotr_port:sindarin_male",
   "buy": "lotr_port:dorwinion_merchant_buy",
   "sell": "lotr_port:dorwinion_merchant_sell",
   "speech": "lotr_port:dorwinion/merchant_elf",

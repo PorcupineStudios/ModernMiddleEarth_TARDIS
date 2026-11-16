@@ -7,22 +7,32 @@
     "lotr_port:textures/entity/dunland/dunlending_male/3.png"
   ],
   "skin_height": 64,
+  "behaviours": [
+    "man_flesh",
+    "burning_panic",
+    "archer"
+  ],
+  "behaviour_data": {
+    "flesh_chance": 5,
+    "burn_panic_speed": 1.5,
+    "eat_chance": 8000,
+    "drink_chance": 8000,
+    "ranged_speed": 1.4,
+    "ranged_min": 40,
+    "ranged_max": 60,
+    "ranged_range": 12.0,
+    "ranged_accuracy": 1.0,
+    "ranged_swap": 0
+  },
   "health": 20.0,
   "speed": 0.2,
   "attack": 2.0,
   "gear": {
     "mainhand": [
-      "lotr_port:bronze_battleaxe",
-      "lotr_port:bronze_spear",
-      "lotr_port:iron_battleaxe",
-      "lotr_port:iron_dagger",
-      "lotr_port:iron_pike",
-      "minecraft:iron_sword"
+      "lotr_port:bronze_throwing_axe",
+      "lotr_port:iron_throwing_axe"
     ],
-    "head": [
-      "lotr_port:dunlending_helmet",
-      "lotr_port:fur_hat"
-    ],
+    "head": "lotr_port:dunlending_helmet",
     "chest": "lotr_port:dunlending_chestplate",
     "legs": "lotr_port:dunlending_leggings",
     "feet": "lotr_port:dunlending_boots"

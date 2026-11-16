@@ -1,6 +1,12 @@
 {
   "values": [
+    "lotr_port:corsair_camp_100",
+    "lotr_port:corsair_camp_800",
+    "lotr_port:corsair_cove",
     "lotr_port:moredain_camp",
-    "lotr_port:moredain_village"
+    "lotr_port:moredain_village",
+    "lotr_port:village_gulf_harad",
+    "lotr_port:village_southron",
+    "lotr_port:village_umbar"
   ]
 }

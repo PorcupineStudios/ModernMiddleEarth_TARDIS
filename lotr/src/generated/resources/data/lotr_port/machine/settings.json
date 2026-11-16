@@ -1,0 +1,10 @@
+{
+  "forge_ticks": 200,
+  "oven_ticks": 400,
+  "millstone_ticks": 200,
+  "unsmeltery_ticks": 400,
+  "kebab_ticks": 200,
+  "kebab_slots": 8,
+  "ent_jar_capacity": 6,
+  "ent_jar_rain_chance": 2500
+}

@@ -1,0 +1,21 @@
+{
+  "comment": "Morgul Vale: corpse-green pall",
+  "biomes": [
+    "morgul_vale"
+  ],
+  "priority": 11,
+  "fog_start": 0.0,
+  "fog_end": 0.5,
+  "fog_color": "#3a5a48",
+  "fog_color_strength": 0.6,
+  "filter": "#20503a",
+  "filter_alpha": 0.1,
+  "grade": {
+    "saturation": -0.4,
+    "contrast": 0.1,
+    "warmth": -0.2,
+    "brightness": -0.1,
+    "vignette": 0.35,
+    "bloom": 0.1
+  }
+}
