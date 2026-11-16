@@ -171,6 +171,10 @@ public final class LotrItems {
         if (b.getAsJsonObject("draught").has(id)) {
             return new EntDraughtItem(p.stacksTo(1), b.getAsJsonObject("draught").getAsJsonObject(id));
         }
+        if (b.getAsJsonObject("figures").has(id)) {
+            return new com.porcupinestudios.lotrport.content.figure.FigureItem(p.stacksTo(16),
+                    b.getAsJsonObject("figures").getAsJsonObject(id));
+        }
         for (var m : b.getAsJsonArray("match")) {
             if (m.getAsString().equals(id)) {
                 return new MatchItem(p);
