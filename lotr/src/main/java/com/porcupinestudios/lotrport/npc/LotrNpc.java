@@ -942,6 +942,20 @@ public class LotrNpc extends PathfinderMob implements Merchant {
         return level().isClientSide;
     }
 
+    /** A bare {@code /summon lotr_port:npc} (no NpcType) becomes a random type instead of a blank figure. */
+    @Override
+    public net.minecraft.world.entity.SpawnGroupData finalizeSpawn(net.minecraft.world.level.ServerLevelAccessor level,
+            net.minecraft.world.DifficultyInstance difficulty, net.minecraft.world.entity.MobSpawnType reason,
+            net.minecraft.world.entity.SpawnGroupData data) {
+        data = super.finalizeSpawn(level, difficulty, reason, data);
+        if (entityData.get(TYPE).isEmpty() && !NpcData.types().isEmpty()) {
+            var ids = new java.util.ArrayList<>(NpcData.types().keySet());
+            ResourceLocation id = ids.get(random.nextInt(ids.size()));
+            setNpcType(id, NpcData.types().get(id));
+        }
+        return data;
+    }
+
     // ---------------------------------------------------------------- saving
 
     @Override
@@ -1022,7 +1036,8 @@ public class LotrNpc extends PathfinderMob implements Merchant {
                         .parse(net.minecraft.nbt.NbtOps.INSTANCE, tag.get("OfferedQuest")).result().orElse(null)
                 : null;
         // Structure templates hold only the type and "Fresh": roll skin, gear and name when placed.
-        if (tag.getBoolean("Fresh") && !level().isClientSide) {
+        // and plain /summon with just an NpcType (no saved Skin yet) rolls the same way
+        if ((tag.getBoolean("Fresh") || !tag.contains("Skin")) && !level().isClientSide) {
             ResourceLocation id = ResourceLocation.tryParse(tag.getString("NpcType"));
             Optional<NpcType> type = id == null ? Optional.empty() : NpcData.type(id);
             if (type.isPresent()) {
