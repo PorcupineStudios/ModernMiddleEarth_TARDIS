@@ -48,6 +48,10 @@ public final class ExteriorRenderer implements BlockEntityRenderer<ExteriorBlock
         int look = Math.max(0, Math.min(LOOKS.length - 1, state.getValue(ExteriorBlock.LOOK)));
         float open = doorProgress(be,
                 state.getValue(ExteriorBlock.OPEN) && !state.getValue(ExteriorBlock.CLOSING), partialTick, model.swingTicks);
+        float time0 = (be.getLevel() == null ? 0 : be.getLevel().getGameTime()) + partialTick;
+        if (be.materialised(time0) < 1 && state.getValue(ExteriorBlock.OPEN)) {
+            open = 1; // landing with its doors open: they're open all through the fade-in, no swing at the end
+        }
         // ease in and out
         float angle = model.swingDegrees * open * open * (3 - 2 * open);
         Direction facing = state.getValue(ExteriorBlock.FACING);

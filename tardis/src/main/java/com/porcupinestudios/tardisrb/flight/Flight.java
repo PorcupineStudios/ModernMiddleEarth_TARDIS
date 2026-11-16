@@ -203,7 +203,8 @@ public final class Flight {
         Exteriors.place(landLevel, landed.pos(), turn.orElse(facing), tardis.id());
         tardis.setLocation(Optional.of(landed));
         TardisSounds.play(server, tardis, landed, TardisSounds.MATERIALISE);
-        Materialise.fadeIn(landLevel, landed.pos());
+        // doors left open: it fades in once the old doorway has faded out and the new one opens (Doors.takeOff)
+        Materialise.fadeIn(landLevel, landed.pos(), doorsOpen ? Materialise.ticks() : 0);
         NeoForge.EVENT_BUS.post(new JumpEvent.Arrived(tardis, from, landed));
         CompoundTag tag = new CompoundTag();
         tag.putUUID("tardis", tardis.id());
