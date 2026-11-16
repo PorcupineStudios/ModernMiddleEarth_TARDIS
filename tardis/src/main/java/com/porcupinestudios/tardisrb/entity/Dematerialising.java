@@ -23,9 +23,17 @@ public class Dematerialising extends Entity {
         noPhysics = true;
     }
 
-    public void setup(int look, int ticks) {
+    private static final EntityDataAccessor<Boolean> DOORS = SynchedEntityData.defineId(Dematerialising.class,
+            EntityDataSerializers.BOOLEAN);
+
+    public void setup(int look, int ticks, boolean doorsOpen) {
+        entityData.set(DOORS, doorsOpen);
         entityData.set(LOOK, look);
         entityData.set(TICKS, ticks);
+    }
+
+    public boolean doorsOpen() {
+        return entityData.get(DOORS);
     }
 
     public int look() {
@@ -47,7 +55,7 @@ public class Dematerialising extends Entity {
 
     @Override
     protected void defineSynchedData(SynchedEntityData.Builder builder) {
-        builder.define(LOOK, 0).define(TICKS, 200);
+        builder.define(LOOK, 0).define(TICKS, 200).define(DOORS, false);
     }
 
     @Override
