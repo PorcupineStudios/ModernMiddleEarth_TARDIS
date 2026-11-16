@@ -28,6 +28,13 @@ public final class LotrClientGame {
                 PacketDistributor.sendToServer(new com.porcupinestudios.lotrport.unit.UnitNet.Open());
             }
         }
+        while (LotrClient.RACE_ADMIN_KEY.consumeClick()) {
+            if (mc.player != null && mc.screen == null
+                    && mc.player.hasPermissions(com.porcupinestudios.lotrport.player.Races.ADMIN_LEVEL)) {
+                com.porcupinestudios.lotrport.client.ui.UiScreen.request(new com.porcupinestudios.lotrport.ui.View.Target(
+                        com.porcupinestudios.lotrport.player.Races.ADMIN_VIEW, "", "players"));
+            }
+        }
         while (LotrClient.MAP_KEY.consumeClick()) {
             if (mc.player != null && mc.screen == null) {
                 PacketDistributor.sendToServer(new MapNet.OpenMap());

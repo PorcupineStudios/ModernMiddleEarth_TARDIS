@@ -28,6 +28,16 @@ public final class RaceTests {
         helper.assertTrue(player.getEyeHeight() < 1.2f, "eye height " + player.getEyeHeight());
         helper.assertTrue(Races.settlerFactor(player.getUUID(), "hobbit") > 1.0, "no settler bias for hobbits");
         helper.assertTrue(Races.settlerFactor(player.getUUID(), "orc") == 1.0, "settler bias for orcs");
+        player.setPose(net.minecraft.world.entity.Pose.CROUCHING);
+        player.refreshDimensions();
+        helper.assertTrue(player.getBbHeight() < 1f, "crouching hobbit " + player.getBbHeight() + " tall: no 1-block gaps");
+        player.setPose(net.minecraft.world.entity.Pose.STANDING);
+        var tunes = com.porcupinestudios.lotrport.player.RaceTunes.get(helper.getLevel().getServer());
+        tunes.set(LotrPort.id("hobbit"), new com.porcupinestudios.lotrport.player.RaceTunes.Tune(0.5, -2, -2));
+        Races.apply(player); // an admin's tune wins over the file
+        helper.assertTrue(Math.abs(player.getScale() - 0.5f) < 0.01f, "tuned hobbit scale " + player.getScale());
+        helper.assertTrue(player.getAttributeValue(Attributes.BLOCK_INTERACTION_RANGE) == reach - 2, "tuned reach");
+        tunes.set(LotrPort.id("hobbit"), null);
         player.setData(LotrRegistries.RACE, "lotr_port:man");
         Races.apply(player); // switching race removes the hobbit's modifiers
         helper.assertTrue(player.getScale() == 1f, "man scale " + player.getScale());
