@@ -37,8 +37,8 @@ MIN_HEIGHT, MAX_HEIGHT = -40, 300
 PEAK_BIOME_MIN = 1000  # columns a biome holding a peak needs before its survey isn't mostly the mountain
 SURVEY_MIN = 32  # biomes with fewer surveyed columns keep the formula from LOTR's height parameters
 STD_PER_VARIATION = 1.0
-JAGGED_FROM, JAGGED = 10.0, 2.0  # crags for hilliness over 10 blocks (mountains), up to 2 x the excess
-RIDGES = 1.2  # and broad ridges and valleys (the hill noise at half the frequency) of 1.2 x the excess
+JAGGED_FROM, JAGGED = 10.0, 3.0  # (2.0 until 2026-11-16: mountains too rounded) crags for hilliness over 10 blocks (mountains), up to 2 x the excess
+RIDGES = 2.0  # (1.2 until 2026-11-16: spread was 23 vs LOTR 32-40) and broad ridges and valleys (the hill noise at half the frequency) of 1.2 x the excess
 HILL_BIAS = 0.4  # the 4x-steeper ground below lifts the mean ~0.4 x hilliness (measured); lowered by that
 MAX_3D = 20.0  # hilliness given LOTR's 3D noise; mountains need it for their crags (8 left them smooth domes)
 HILL_2D = 2.5  # 2D hills per block of hilliness: measured against LOTR (terrainRoughness / the exporter's rough), 1.0 gave a third of its spread
@@ -50,8 +50,18 @@ BLUR = 0  # pixels of box blur on heights (0 keeps one-pixel rivers)
 OCEAN = "ocean"
 ROAD_HALF_WIDTH = 1.6  # blocks either side of a road's middle
 # Small rivers (LOTR made these with a river layer, not on the map). Widths are in noise units: one is about 11 blocks.
-RIVERS = {"biome": f"{NS}:river", "scale": 900, "width": 0.025, "bank": 3.0, "biome_width": 1.5, "bed": 56,
-          "max_height": 100, "min_height": 63, "seed": 1937}
+# Aaron 2026-11-16: LOTR's small rivers are narrow (its NarrowRivers layer); 0.025/1.5 gave wide green-banked channels.
+# keep_biome: dark and dry lands keep their own ground on the banks and bed instead of the green river biome.
+RIVER_KEEP = ["mordor", "mordor_mountains", "gorgoroth", "udun", "nan_ungol", "morgul_vale", "dagorlad",
+              "eastern_desolation", "brown_lands", "dead_marshes", "dol_guldur", "mirkwood_corrupted", "angmar",
+              "angmar_mountains", "ettenmoors", "coldfells", "fangorn_wasteland", "ithilien_wasteland", "nan_curunir",
+              "emyn_muil", "near_harad", "near_harad_red_desert", "near_harad_semi_desert", "far_harad_arid",
+              "far_harad_arid_hills", "harad_mountains", "last_desert", "forodwaith", "forodwaith_mountains",
+              "forodwaith_glacier", "tundra", "far_harad_volcano", "half_troll_forest"]
+RIVERS = {"biome": f"{NS}:river", "scale": 900, "width": 0.013, "bank": 2.5, "biome_width": 0.7, "bed": 56,
+          "max_height": 100, "min_height": 63, "seed": 1937, "keep_biome": [f"{NS}:{b}" for b in RIVER_KEEP]}
+# LOTRMountains peaks roughed up (MiddleEarthMap.MountainShape): lobed foot, ridged flanks, hills kept on the slopes
+MOUNTAIN_SHAPE = {"warp": 0.35, "ridges": 0.22, "scale": 40.0, "flatten": 0.25, "seed": 1213}
 
 # Old surface blocks (registry name + meta) that are vanilla in 1.21.
 VANILLA_SURFACE = {
@@ -327,6 +337,7 @@ class World:
             "blur": BLUR, "border_wobble": BORDER_WOBBLE,
             "ocean": f"{NS}:{OCEAN}",
             "rivers": RIVERS,
+            "mountain_shape": MOUNTAIN_SHAPE,
             # LOTRMountains: a cone from the land up to the peak's surveyed ground over `range` blocks
             "mountains": [self.mountain(m) for m in self.survey.get("mountains", [])],
             "biomes": [{"id": f"{NS}:{i}", "height": self.height(b), "variation": self.variation(b)}
