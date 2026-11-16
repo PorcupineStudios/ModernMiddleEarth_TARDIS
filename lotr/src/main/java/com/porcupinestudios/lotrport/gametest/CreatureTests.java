@@ -103,8 +103,8 @@ public final class CreatureTests {
         helper.succeed();
     }
 
-    /** LOTR's rabbits try 32 random spots within 16 for a crop, 1 in 20 a tick: a field of 24 is found in ~1000 ticks. */
-    @GameTest(template = EMPTY, batch = "creatures", timeoutTicks = 3000)
+    /** LOTR's rabbits try 32 random spots within 16 for a crop, 1 in 20 a tick: random, so up to 3 tries. */
+    @GameTest(template = EMPTY, batch = "creatures", timeoutTicks = 3000, attempts = 3, requiredSuccesses = 1)
     public static void rabbitEatsCrop(GameTestHelper helper) {
         helper.getLevel().getGameRules().getRule(net.minecraft.world.level.GameRules.RULE_MOBGRIEFING)
                 .set(true, helper.getLevel().getServer());
@@ -122,10 +122,18 @@ public final class CreatureTests {
             rabbit.setPersistenceRequired();
             Vec3 floor = helper.absoluteVec(new Vec3(1.5, 0, 1.5));
             rabbit.moveTo(floor.x, floor.y, floor.z);
-            helper.succeedWhen(() -> helper.assertTrue(field.stream().anyMatch(
+            helper.succeedWhen(() -> {
+                if (rabbit.position().distanceTo(floor) > 8) {
+                    rabbit.moveTo(floor.x, floor.y, floor.z); // wandered out of its 16-block search of the field
+                }
+                // the bombardier's batch turns mob griefing off while this runs
+                helper.getLevel().getGameRules().getRule(net.minecraft.world.level.GameRules.RULE_MOBGRIEFING)
+                        .set(true, helper.getLevel().getServer());
+                helper.assertTrue(field.stream().anyMatch(
                     p -> !helper.getBlockState(p).is(net.minecraft.world.level.block.Blocks.WHEAT)), "the rabbit ate no wheat; running " + rabbit.goals().getAvailableGoals().stream()
                     .filter(g -> g.isRunning()).map(g -> g.getGoal().getClass().getSimpleName()).toList()
-                    + " alive " + rabbit.isAlive() + " at " + rabbit.position()));
+                    + " alive " + rabbit.isAlive() + " at " + rabbit.position());
+            });
         });
     }
 

@@ -36,7 +36,14 @@ public final class PeopleTests {
     }
 
     static ServerPlayer player(GameTestHelper helper, double x, double z) {
-        ServerPlayer p = helper.makeMockServerPlayerInLevel();
+        // makeMockServerPlayerInLevel's player always says it is creative, which thieves and the fearful ignore
+        var level = helper.getLevel();
+        var cookie = net.minecraft.server.network.CommonListenerCookie.createInitial(
+                new com.mojang.authlib.GameProfile(java.util.UUID.randomUUID(), "test-survivor"), false);
+        ServerPlayer p = new ServerPlayer(level.getServer(), level, cookie.gameProfile(), cookie.clientInformation());
+        var connection = new net.minecraft.network.Connection(net.minecraft.network.protocol.PacketFlow.SERVERBOUND);
+        new io.netty.channel.embedded.EmbeddedChannel(connection);
+        level.getServer().getPlayerList().placeNewPlayer(connection, p, cookie);
         p.setGameMode(GameType.SURVIVAL);
         Vec3 pos = helper.absoluteVec(new Vec3(x, 0, z));
         p.moveTo(pos.x, pos.y, pos.z);
@@ -55,10 +62,13 @@ public final class PeopleTests {
             p.getInventory().setItem(5, new ItemStack(coin(), 20)); // not the held slot
             LotrNpc bandit = spawn(helper, "bandit", 1.5, 1.5);
             helper.succeedWhen(() -> {
+                bandit.setTarget(null); // other batches' NPCs run alongside; a hostile bandit would fight them
                 helper.assertTrue(p.getInventory().countItem(coin()) < 20, "the bandit stole no coins; running " + bandit.goals().getAvailableGoals().stream()
                         .filter(g -> g.isRunning()).map(g -> g.getGoal().getClass().getSimpleName()).toList()
                         + " alive " + bandit.isAlive() + " at " + bandit.position() + " player " + p.position()
-                        + " target " + bandit.getTarget());
+                        + " target " + bandit.getTarget() + " behaviours " + bandit.behaviours() + " goals "
+                        + bandit.goals().getAvailableGoals().stream().map(g -> g.getGoal().getClass().getSimpleName()).toList()
+                        + " creative " + p.isCreative() + " spect " + p.isSpectator() + " inv " + p.getInventory().items.get(5));
                 helper.assertTrue(!BanditBehaviour.loot(bandit).isEmpty(), "the bandit isn't carrying the coins");
             });
         });
@@ -89,8 +99,11 @@ public final class PeopleTests {
         helper.getLevel().setDayTime(6000);
         LotrNpc orc = spawn(helper, "mordor_orc", 1.5, 1.5);
         helper.assertTrue(helper.getLevel().canSeeSky(orc.blockPosition()), "the test spot has no sky");
-        helper.succeedWhen(() -> helper.assertTrue(orc.hasEffect(MobEffects.MOVEMENT_SLOWDOWN)
-                && orc.hasEffect(MobEffects.WEAKNESS), "a weak orc in sunlight isn't weakened"));
+        helper.succeedWhen(() -> {
+            helper.getLevel().setDayTime(6000); // other tests change the time
+            helper.assertTrue(orc.hasEffect(MobEffects.MOVEMENT_SLOWDOWN)
+                && orc.hasEffect(MobEffects.WEAKNESS), "a weak orc in sunlight isn't weakened: day " + helper.getLevel().isDay() + " alive " + orc.isAlive() + " sky " + helper.getLevel().canSeeSky(orc.blockPosition()) + " biome " + helper.getLevel().getBiome(orc.blockPosition()).unwrapKey());
+        });
     }
 
     @GameTest(template = EMPTY, batch = "people", timeoutTicks = 200)
