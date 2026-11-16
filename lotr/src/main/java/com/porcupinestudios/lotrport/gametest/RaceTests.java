@@ -31,6 +31,11 @@ public final class RaceTests {
         player.setData(LotrRegistries.RACE, "lotr_port:man");
         Races.apply(player); // switching race removes the hobbit's modifiers
         helper.assertTrue(player.getScale() == 1f, "man scale " + player.getScale());
+        player.setData(LotrRegistries.RACE_SCALE, 2f);
+        Races.apply(player); // an operator's size wins over the race's
+        helper.assertTrue(player.getScale() == 2f, "operator size " + player.getScale());
+        player.setData(LotrRegistries.RACE_SCALE, 0f);
+        Races.apply(player);
         helper.assertTrue(player.getAttributeValue(Attributes.BLOCK_INTERACTION_RANGE) == reach, "reach not restored");
         helper.succeed();
     }

@@ -52,6 +52,7 @@ import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
  */
 public final class Races {
     public static final ResourceLocation VIEW = LotrPort.id("race_picker");
+    public static final ResourceLocation ADMIN_VIEW = LotrPort.id("race_admin");
     /** Modifier id on every attribute a race changes, so a new race replaces the old one cleanly. */
     private static final ResourceLocation MODIFIER = LotrPort.id("race");
 
@@ -69,11 +70,13 @@ public final class Races {
      * @param spawn waypoint the player is sent to (and respawns at) when the race is first chosen
      * @param colonyRace colonist race (colony_race names) this race counts as; default: this race's id path
      * @param settlerBias settler weight multiplier for that colonist race in colonies the player founded
+     * @param model LOTR body the player is drawn on (an NPC model kind: human, hobbit, dwarf, elf, orc; "classic" for
+     *     64x32 skins); empty: the vanilla player model
      */
     public record Def(String name, String description, double scale, Map<ResourceLocation, Double> attributes,
             Optional<ResourceLocation> skin, List<ResourceLocation> factions, int order,
             Map<ResourceLocation, Float> alignment, Optional<ResourceLocation> spawn, Optional<String> colonyRace,
-            double settlerBias) {
+            double settlerBias, Optional<String> model) {
         public static final Codec<Def> CODEC = RecordCodecBuilder.create(i -> i.group(
                 Codec.STRING.fieldOf("name").forGetter(Def::name),
                 Codec.STRING.optionalFieldOf("description", "").forGetter(Def::description),
@@ -87,7 +90,8 @@ public final class Races {
                         .forGetter(Def::alignment),
                 ResourceLocation.CODEC.optionalFieldOf("spawn").forGetter(Def::spawn),
                 Codec.STRING.optionalFieldOf("colony_race").forGetter(Def::colonyRace),
-                Codec.doubleRange(0, 100).optionalFieldOf("settler_bias", 1.15).forGetter(Def::settlerBias))
+                Codec.doubleRange(0, 100).optionalFieldOf("settler_bias", 1.15).forGetter(Def::settlerBias),
+                Codec.STRING.optionalFieldOf("model").forGetter(Def::model))
                 .apply(i, Def::new));
     }
 
@@ -95,6 +99,8 @@ public final class Races {
 
     /** Each known player's race skin texture, on the client (filled by {@link Skin}); read by the skin mixin. */
     public static final Map<UUID, ResourceLocation> CLIENT_SKINS = new ConcurrentHashMap<>();
+    /** Each known player's LOTR body (Def.model), on the client; read by client.RacePlayers. */
+    public static final Map<UUID, String> CLIENT_MODELS = new ConcurrentHashMap<>();
 
     private Races() {}
 
@@ -104,9 +110,16 @@ public final class Races {
         NeoForge.EVENT_BUS.addListener((PlayerEvent.PlayerRespawnEvent e) -> joined(e.getEntity()));
         NeoForge.EVENT_BUS.addListener((PlayerEvent.PlayerChangedDimensionEvent e) -> joined(e.getEntity()));
         modBus.addListener((RegisterPayloadHandlersEvent e) -> e.registrar("1").playToClient(Skin.TYPE, Skin.CODEC,
-                (p, ctx) -> ctx.enqueueWork(() -> p.skin().ifPresentOrElse(s -> CLIENT_SKINS.put(p.player(), s),
-                        () -> CLIENT_SKINS.remove(p.player())))));
+                (p, ctx) -> ctx.enqueueWork(() -> {
+                    p.skin().ifPresentOrElse(s -> CLIENT_SKINS.put(p.player(), s), () -> CLIENT_SKINS.remove(p.player()));
+                    if (p.model().isEmpty() || p.skin().isEmpty()) {
+                        CLIENT_MODELS.remove(p.player());
+                    } else {
+                        CLIENT_MODELS.put(p.player(), p.model());
+                    }
+                })));
         Views.register(VIEW, new Picker());
+        Views.register(ADMIN_VIEW, new Admin());
     }
 
     public static Map<ResourceLocation, Def> all() {
@@ -182,6 +195,15 @@ public final class Races {
             }
         }
         Def def = of(player).map(all()::get).orElse(null);
+        float size = player.getData(LotrRegistries.RACE_SCALE); // an operator's size, 0 = the race's
+        double scale = size > 0 ? size : def == null ? 1.0 : def.scale();
+        if (scale != 1.0) {
+            AttributeInstance inst = player.getAttribute(Attributes.SCALE);
+            if (inst != null) {
+                inst.addTransientModifier(new AttributeModifier(MODIFIER, scale - 1.0,
+                        AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL));
+            }
+        }
         if (def == null) {
             player.refreshDimensions();
             return;
@@ -193,10 +215,6 @@ public final class Races {
                         inst.addTransientModifier(mod);
                     }
                 };
-        if (def.scale() != 1.0) {
-            add.accept(Attributes.SCALE, new AttributeModifier(MODIFIER, def.scale() - 1.0,
-                    AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL));
-        }
         def.attributes().forEach((id, amount) -> BuiltInRegistries.ATTRIBUTE.getHolder(id).ifPresentOrElse(
                 attr -> add.accept(attr, new AttributeModifier(MODIFIER, amount, AttributeModifier.Operation.ADD_VALUE)),
                 () -> LotrPort.LOG.warn("[player_race] unknown attribute {}", id)));
@@ -214,7 +232,8 @@ public final class Races {
     }
 
     private static Skin skinOf(ServerPlayer player) {
-        return new Skin(player.getUUID(), of(player).flatMap(r -> all().get(r).skin()));
+        Optional<Def> def = of(player).map(all()::get);
+        return new Skin(player.getUUID(), def.flatMap(Def::skin), def.flatMap(Def::model).orElse(""));
     }
 
     private static boolean mayPick(ServerPlayer player) {
@@ -228,6 +247,10 @@ public final class Races {
                     Views.open(c.getSource().getPlayerOrException(), new View.Target(VIEW, "", ""), true);
                     return 1;
                 })
+                .then(Commands.literal("admin").requires(s -> s.hasPermission(2)).executes(c -> {
+                    Views.open(c.getSource().getPlayerOrException(), new View.Target(ADMIN_VIEW, "", ""), true);
+                    return 1;
+                }))
                 .then(Commands.literal("reset").requires(s -> s.hasPermission(2))
                         .then(Commands.argument("player", EntityArgument.player()).executes(c -> {
                             ServerPlayer target = EntityArgument.getPlayer(c, "player");
@@ -287,12 +310,109 @@ public final class Races {
         }
     }
 
+    /**
+     * Operators only: every online player with their race and size (context ""), and one player's page (context = their
+     * UUID) with a race drop-down and a size stepper.
+     */
+    private static final class Admin implements ViewProvider {
+        private static final View.Target LIST = new View.Target(ADMIN_VIEW, "", "");
+
+        @Override
+        public Optional<View> build(ServerPlayer op, String context, String tab) {
+            if (!op.hasPermissions(2)) {
+                return Optional.empty();
+            }
+            if (context.isEmpty()) {
+                var page = TableBuilder.of(op.server.getPlayerList().getPlayers(), p -> p.getUUID().toString())
+                        .column(Column.text("player", label("player", "Player"), 3),
+                                p -> Cell.text(p.getGameProfile().getName()))
+                        .column(Column.text("race", label("race", "Race"), 2), p -> Cell.text(raceName(p)))
+                        .column(Column.number("size", label("size", "Size"), 1),
+                                p -> Cell.number(p.getScale(), Math.round(p.getScale() * 100) + "%",
+                                        com.porcupinestudios.lotrport.ui.Tone.NORMAL))
+                        .open("edit")
+                        .rowAction(Action.of("edit", label("edit", "Edit")))
+                        .build();
+                return Optional.of(new View(ADMIN_VIEW, "", label("title", "Player races"), List.of(), "", page,
+                        Optional.empty()));
+            }
+            ServerPlayer p = target(op, context);
+            if (p == null) {
+                return Optional.empty();
+            }
+            List<com.porcupinestudios.lotrport.ui.Stat.Choice> choices = new java.util.ArrayList<>();
+            choices.add(com.porcupinestudios.lotrport.ui.Stat.Choice.of("", label("none", "None")));
+            all().forEach((id, d) -> choices.add(com.porcupinestudios.lotrport.ui.Stat.Choice.of(id.toString(),
+                    name(id, d))));
+            float size = p.getData(LotrRegistries.RACE_SCALE);
+            var page = new com.porcupinestudios.lotrport.ui.Page.Stats(List.of(
+                    new com.porcupinestudios.lotrport.ui.Page.Section(Component.literal(p.getGameProfile().getName()),
+                            List.of(
+                                    com.porcupinestudios.lotrport.ui.Stat.of(label("race", "Race"), raceName(p))
+                                            .withPicker(new com.porcupinestudios.lotrport.ui.Stat.Picker("race",
+                                                    p.getData(LotrRegistries.RACE), choices)),
+                                    com.porcupinestudios.lotrport.ui.Stat.of(label("size", "Size"),
+                                            Math.round(p.getScale() * 100) + "%" + (size > 0 ? "" : " (race)"))
+                                            .withStepper(new com.porcupinestudios.lotrport.ui.Stat.Stepper("size",
+                                                    Math.round(p.getScale() * 100), 10, 400, 5))))),
+                    List.of(Action.of("size_reset", label("size_reset", "Race size"))));
+            return Optional.of(new View(ADMIN_VIEW, context, label("title", "Player races"), List.of(), "", page,
+                    Optional.of(LIST)));
+        }
+
+        @Override
+        public Result act(ServerPlayer op, String context, String tab, String action, String row, int value) {
+            ServerPlayer p = op.hasPermissions(2) ? target(op, context.isEmpty() ? row : context) : null;
+            if (p == null) {
+                return Result.NONE;
+            }
+            switch (action) {
+                case "edit" -> {
+                    return Result.go(new View.Target(ADMIN_VIEW, p.getUUID().toString(), ""));
+                }
+                case "race" -> {
+                    ResourceLocation id = row.isEmpty() ? null : ResourceLocation.tryParse(row);
+                    if (id == null || all().containsKey(id)) {
+                        set(p, id); // no starting alignment or teleport: that is for a player's own first choice
+                    }
+                }
+                case "size" -> {
+                    p.setData(LotrRegistries.RACE_SCALE, Math.max(10, Math.min(400, value)) / 100f);
+                    apply(p);
+                }
+                case "size_reset" -> {
+                    p.setData(LotrRegistries.RACE_SCALE, 0f);
+                    apply(p);
+                }
+                default -> { }
+            }
+            return Result.NONE;
+        }
+
+        private static ServerPlayer target(ServerPlayer op, String uuid) {
+            try {
+                return op.server.getPlayerList().getPlayer(UUID.fromString(uuid));
+            } catch (IllegalArgumentException e) {
+                return null;
+            }
+        }
+
+        private static String raceName(ServerPlayer p) {
+            return of(p).map(id -> name(id, all().get(id)).getString()).orElse("-");
+        }
+
+        private static Component label(String key, String fallback) {
+            return Component.translatableWithFallback("ui.lotr_port.race_admin." + key, fallback);
+        }
+    }
+
     /** Server -> client: this player's race skin (empty: their own skin). */
-    public record Skin(UUID player, Optional<ResourceLocation> skin) implements CustomPacketPayload {
+    public record Skin(UUID player, Optional<ResourceLocation> skin, String model) implements CustomPacketPayload {
         public static final Type<Skin> TYPE = new Type<>(LotrPort.id("race_skin"));
         public static final StreamCodec<RegistryFriendlyByteBuf, Skin> CODEC = StreamCodec.composite(
                 UUIDUtil.STREAM_CODEC, Skin::player,
                 ByteBufCodecs.optional(ResourceLocation.STREAM_CODEC), Skin::skin,
+                ByteBufCodecs.STRING_UTF8, Skin::model,
                 Skin::new);
 
         @Override
