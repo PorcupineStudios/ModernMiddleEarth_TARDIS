@@ -33,7 +33,7 @@ public final class TardisRB {
     public static final Logger LOG = LogUtils.getLogger();
 
     public TardisRB(IEventBus modBus, ModContainer container) {
-        container.registerConfig(ModConfig.Type.SERVER, Config.SPEC);
+        container.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
         TardisConditions.register(modBus);
         TardisContent.register();
         TardisCommand.register();

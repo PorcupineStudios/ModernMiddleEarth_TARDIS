@@ -31,6 +31,8 @@ maven.neoforged.net, so builds there are verified only by CI.
 - Tuning data (repairs, costs, research, quests, trades) loads through reload listeners so `/reload` and KubeJS apply
   it live; datapack registries only for what world generation needs (dimensions, biomes, planets).
 - Every number and list a pack maker might tune goes in data files, never Java constants.
+- Configs are COMMON or CLIENT (never SERVER) and each mod registers NeoForge's `ConfigurationScreen` in its client entry, so
+  every setting is editable from the main menu's Mods > Config (Aaron 2026-11-16).
 - Saved data uses Codecs with a `dataVersion` and migrations; formats stay readable. New worlds only: 1.7.10 saves are
   not converted.
 - Network payloads: `CustomPacketPayload` + `StreamCodec`. Client classes are never referenced from common code.
