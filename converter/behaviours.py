@@ -20,6 +20,10 @@ BEHAVIOURS = (
     ("LOTREntityWarg", "warg"),
     ("LOTREntityHalfTroll", "half_troll"),
     ("EntityAnimal", "animal"),
+    ("LOTREntityTermite", "termite"),
+    ("LOTREntityWoodElfScout", "elf_scout"),
+    ("LOTREntityDorwinionGuard", "grape_guard"),
+    ("LOTREntityMountainTrollChieftain", "boss_jump"),
 )
 # LOTR animals that turn on what hurts them (LOTREntityBear, lions, rhinos, aurochs); every other animal panics
 FIGHTS_BACK = ("LOTREntityBear", "LOTREntityLionBase", "LOTREntityRhino", "LOTREntityAurochs", "LOTREntityCrocodile",
@@ -39,6 +43,10 @@ CONSTANTS = {
     "marsh_wraith": {"melee_range": 0, "ranged_range": 12, "throw_min": 40, "throw_max": 40, "throw_damage": 5,
                      "despawn_ticks": 100},
     "gollum": {"fish_required": 20},  # LOTREntityGollum.prevFishRequired
+    "termite": {"explosion": 2.0, "fuse": 20},  # LOTREntityTermite.explosionSize, creeper.primed then 20 ticks
+    "elf_scout": {"too_close": 6, "chance": 20},  # LOTREntityWoodElfScout.onLivingUpdate
+    "grape_guard": {"range": 32, "alert_ticks": 600},  # LOTREntityDorwinionGuard GrapeAlert
+    "boss_jump": {"jump_chance": 0.03, "jump_speed": 1.5},  # LOTREntityMountainTrollChieftain: AIBossJumpAttack(1.5, 0.03)
 }
 
 
