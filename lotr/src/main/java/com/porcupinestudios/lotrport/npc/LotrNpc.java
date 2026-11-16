@@ -191,6 +191,16 @@ public class LotrNpc extends PathfinderMob implements Merchant {
 
     /** Ticks left on the quest it is offering; 0 when it offers none. */
     private int questOfferTicks;
+    /** The quest this offer is for, rolled on the first ask and kept until the offer ends (LOTR's offers didn't change). */
+    private com.porcupinestudios.lotrport.quest.ActiveQuest offeredQuest;
+
+    public Optional<com.porcupinestudios.lotrport.quest.ActiveQuest> offeredQuest() {
+        return Optional.ofNullable(offeredQuest);
+    }
+
+    public void setOfferedQuest(com.porcupinestudios.lotrport.quest.ActiveQuest quest) {
+        offeredQuest = quest;
+    }
 
     /** The quest mark's colour, or -1 when it isn't offering a quest. */
     public int questOfferColor() {
@@ -211,6 +221,7 @@ public class LotrNpc extends PathfinderMob implements Merchant {
             return false;
         }
         questOfferTicks = Math.max(1, pool.get().offerTicks());
+        offeredQuest = null;
         entityData.set(QUEST_OFFER, faction().flatMap(f -> Optional.ofNullable(
                 com.porcupinestudios.lotrport.faction.Factions.definitions().get(f)))
                 .map(com.porcupinestudios.lotrport.faction.FactionDef::color).orElse(0xFFFFFF) & 0xFFFFFF);
@@ -220,6 +231,7 @@ public class LotrNpc extends PathfinderMob implements Merchant {
     /** Ends its offer (the quest was taken, or it can't give quests any more). */
     public void clearQuestOffer() {
         questOfferTicks = 0;
+        offeredQuest = null;
         entityData.set(QUEST_OFFER, -1);
     }
 
@@ -936,6 +948,11 @@ public class LotrNpc extends PathfinderMob implements Merchant {
         if (questOfferTicks > 0) {
             tag.putInt("QuestOfferTicks", questOfferTicks);
             tag.putInt("QuestOfferColor", entityData.get(QUEST_OFFER));
+            if (offeredQuest != null) {
+                com.porcupinestudios.lotrport.quest.ActiveQuest.CODEC
+                        .encodeStart(net.minecraft.nbt.NbtOps.INSTANCE, offeredQuest).result()
+                        .ifPresent(t -> tag.put("OfferedQuest", t));
+            }
         }
         if (guardPos != null) {
             tag.put("GuardPos", NbtUtils.writeBlockPos(guardPos));
@@ -982,6 +999,10 @@ public class LotrNpc extends PathfinderMob implements Merchant {
         guardPos = NbtUtils.readBlockPos(tag, "GuardPos").orElse(null);
         questOfferTicks = tag.getInt("QuestOfferTicks");
         entityData.set(QUEST_OFFER, questOfferTicks > 0 ? tag.getInt("QuestOfferColor") : -1);
+        offeredQuest = questOfferTicks > 0 && tag.contains("OfferedQuest")
+                ? com.porcupinestudios.lotrport.quest.ActiveQuest.CODEC
+                        .parse(net.minecraft.nbt.NbtOps.INSTANCE, tag.get("OfferedQuest")).result().orElse(null)
+                : null;
         // Structure templates hold only the type and "Fresh": roll skin, gear and name when placed.
         if (tag.getBoolean("Fresh") && !level().isClientSide) {
             ResourceLocation id = ResourceLocation.tryParse(tag.getString("NpcType"));

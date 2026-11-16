@@ -254,7 +254,10 @@ VANILLA = {
     "sandstone_top": "sandstone_top", "sandstone_bottom": "sandstone_bottom", "sandstone_smooth": "cut_sandstone",
     "sandstone_carved": "chiseled_sandstone", "quartz_block_side": "quartz_block_side", "nether_brick": "nether_bricks",
     "grass_top": "grass_block_top", "grass_side": "grass_block_side", "wool_colored_white": "white_wool",
-    "hardened_clay": "terracotta", "red_sand": "red_sand", "gravel": "gravel", "glass": "glass", "ice": "ice",
+    "hardened_clay": "terracotta", "hardened_clay_stained_white": "white_terracotta",
+    "ice_packed": "packed_ice", "mob_spawner": "spawner",
+    # LOTR's carved signs have no icon of their own; they sit on stone
+    "textures/blocks/LOTR_EMPTY_ICON": "stone", "red_sand": "red_sand", "gravel": "gravel", "glass": "glass", "ice": "ice",
     "snow": "snow", "obsidian": "obsidian", "iron_block": "iron_block", "gold_block": "gold_block",
     "clay": "clay", "dirt": "dirt", "sand": "sand", "stone": "stone", "cobblestone": "cobblestone",
     "leaves_oak": "oak_leaves", "torch_on": "torch", "door_wood_lower": "oak_door_bottom",

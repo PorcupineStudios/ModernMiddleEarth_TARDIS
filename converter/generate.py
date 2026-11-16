@@ -815,6 +815,16 @@ class Gen:
                                                                  "dirt": "minecraft:block/dirt",
                                                                  "particle": "minecraft:block/flower_pot"},
                            {"render_type": CUTOUT})
+        if new in self.VESSEL_SPRITES:
+            # LOTR drew a set-down mug, cup or horn as its item picture; a box with a stand-in block texture (or a
+            # 1.7.10 name such as hardened_clay_stained_white that no longer exists) looked wrong or magenta
+            tex = f"{NS}:item/" + self.VESSEL_SPRITES[new]
+            plane = {"north": {"uv": [0, 0, 16, 16], "texture": "#sprite"},
+                     "south": {"uv": [0, 0, 16, 16], "texture": "#sprite"}}
+            elements = [{"from": [2.5, 0, 8], "to": [13.5, 11, 8], "shade": False, "faces": plane,
+                         "rotation": {"origin": [8, 8, 8], "axis": "y", "angle": a}} for a in (45, -45)]
+            return self.bm(new, "minecraft:block/block", {"sprite": tex, "particle": tex},
+                           {"render_type": CUTOUT, "elements": elements})
         bb = [round(x * 16, 3) for x in (b.get("bounds") or [0, 0, 0, 1, 1, 1])]
         if bb[3] - bb[0] <= 0 or bb[4] - bb[1] <= 0 or bb[5] - bb[2] <= 0:
             bb = [0, 0, 0, 16, 16, 16]
@@ -991,6 +1001,12 @@ class Gen:
                         [{"condition": "minecraft:block_state_property", "block": f"{NS}:{new}",
                           "properties": {"part": "head"}}] if self.kind_of_block.get(new) == "bed" else [])}]})
         self.report["placed_blocks_with_loot"].append(f"{new} -> {ing['item']}")
+
+    # set-down drinking vessels -> the item picture they show (textures/item/...)
+    VESSEL_SPRITES = {"mug_block": "mug", "ceramic_mug_block": "ceramic_mug", "goblet_gold": "goblet_gold",
+                      "goblet_silver": "goblet_silver", "goblet_copper": "goblet_copper", "goblet_wood": "goblet_wood",
+                      "skull_cup_block": "skull_cup", "wine_glass_block": "wine_glass", "ale_horn_block": "ale_horn",
+                      "ale_horn_gold": "ale_horn_gold"}
 
     SELF_DROPS = {"mug_block": f"{NS}:mug", "ceramic_mug_block": f"{NS}:ceramic_mug",
                   "goblet_gold": f"{NS}:golden_goblet", "goblet_silver": f"{NS}:silver_goblet",
