@@ -150,7 +150,16 @@ public final class Flight {
     /** Admin {@code /tardis summon}: lands the box near {@code target} in any dimension, free and unchecked. */
     public static Outcome summon(MinecraftServer server, TardisRecord tardis, ServerLevel toLevel, BlockPos target) {
         if (tardis.location().isEmpty()) {
-            return Outcome.fail("tardis_rb.hop.nowhere", "The TARDIS isn't standing anywhere");
+            // never placed (e.g. /tardis create): just set it down
+            Tuning.Hop t = TardisContent.tuning().hop();
+            Optional<BlockPos> spot = Landing.find(toLevel, target, t.landingRadius(), t.landingHeight());
+            if (spot.isEmpty()) {
+                return Outcome.fail("tardis_rb.hop.no_space", "There is nowhere to land near there");
+            }
+            Exteriors.place(toLevel, spot.get(), Direction.NORTH, tardis.id());
+            GlobalPos at = GlobalPos.of(toLevel.dimension(), spot.get());
+            tardis.setLocation(Optional.of(at));
+            return new Outcome(Optional.empty(), Optional.of(at));
         }
         if (Vortex.inVortex(tardis)) {
             return Outcome.fail("tardis_rb.vortex.busy", "The TARDIS is in the time vortex");
