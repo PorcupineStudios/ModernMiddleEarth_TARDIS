@@ -1,0 +1,17 @@
+{
+  "comment": "Ash haze: close brown-red fog, ember filter",
+  "biomes": [
+    "mordor",
+    "mordor_mountains",
+    "gorgoroth",
+    "udun",
+    "nan_ungol"
+  ],
+  "priority": 10,
+  "fog_start": 0.0,
+  "fog_end": 0.45,
+  "fog_color": "#5a3a2a",
+  "fog_color_strength": 0.7,
+  "filter": "#7a2a10",
+  "filter_alpha": 0.12
+}

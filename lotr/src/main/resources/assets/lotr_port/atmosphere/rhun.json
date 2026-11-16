@@ -1,0 +1,13 @@
+{
+  "comment": "Dusty eastern steppe",
+  "biomes": [
+    "rhun*"
+  ],
+  "priority": 3,
+  "fog_start": 0.3,
+  "fog_end": 1.0,
+  "fog_color": "#e0c8a0",
+  "fog_color_strength": 0.2,
+  "filter": "#c08040",
+  "filter_alpha": 0.03
+}

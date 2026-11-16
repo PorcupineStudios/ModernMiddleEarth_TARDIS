@@ -1,0 +1,14 @@
+{
+  "comment": "Smoke of the furnaces",
+  "biomes": [
+    "nan_curunir",
+    "rohan_uruk_highlands"
+  ],
+  "priority": 8,
+  "fog_start": 0.05,
+  "fog_end": 0.6,
+  "fog_color": "#504840",
+  "fog_color_strength": 0.5,
+  "filter": "#302820",
+  "filter_alpha": 0.07
+}

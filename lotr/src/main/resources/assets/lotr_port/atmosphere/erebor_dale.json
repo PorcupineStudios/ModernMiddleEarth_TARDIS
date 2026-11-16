@@ -1,0 +1,17 @@
+{
+  "comment": "Cool mountain stone",
+  "biomes": [
+    "erebor",
+    "dale",
+    "iron_hills",
+    "blue_mountains*",
+    "grey_mountains*"
+  ],
+  "priority": 3,
+  "fog_start": 0.3,
+  "fog_end": 1.0,
+  "fog_color": "#c8c0b8",
+  "fog_color_strength": 0.2,
+  "filter": "#a09080",
+  "filter_alpha": 0.025
+}
