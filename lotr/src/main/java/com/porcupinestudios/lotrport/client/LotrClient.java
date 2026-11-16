@@ -65,6 +65,12 @@ public final class LotrClient {
     public static final KeyMapping UNITS_KEY = new KeyMapping("key.lotr_port.units", InputConstants.Type.KEYSYM,
             GLFW.GLFW_KEY_U, "key.categories.lotr_port");
 
+    /** The alignment bar's faction: previous / next, LOTR's arrow keys. */
+    public static final KeyMapping ALIGNMENT_PREV_KEY = new KeyMapping("key.lotr_port.alignment_prev",
+            KeyConflictContext.IN_GAME, InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_LEFT, "key.categories.lotr_port");
+    public static final KeyMapping ALIGNMENT_NEXT_KEY = new KeyMapping("key.lotr_port.alignment_next",
+            KeyConflictContext.IN_GAME, InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_RIGHT, "key.categories.lotr_port");
+
     private LotrClient() {}
 
     @SubscribeEvent
@@ -178,6 +184,8 @@ public final class LotrClient {
         event.register(UNITS_KEY);
         event.register(MAP_TELEPORT_KEY);
         event.register(FAST_TRAVEL_KEY);
+        event.register(ALIGNMENT_PREV_KEY);
+        event.register(ALIGNMENT_NEXT_KEY);
     }
 
     @SubscribeEvent
