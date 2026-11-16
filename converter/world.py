@@ -58,7 +58,12 @@ VALLEY_SHIFT = 0.1  # the lifted valleys raise the mean ~0.1 x HILL_2D x hilline
 # hilliness kept as roughness on top).
 # 2026-11-14 (Aaron: steep round hills that stay grassy): 30 / 20 / 18 on a 112-block grid; the steepest slope stays
 # under one block per block (about 0.7, 0.9 in "hills" patches), so every step is a grass edge, never a dirt wall.
-DOWNS = {"shire": (30, 0.4), "shire_moors": (20, 0.45), "shire_woodlands": (18, 0.5)}
+DOWNS = {"shire": (30, 0.4), "shire_moors": (20, 0.45), "shire_woodlands": (18, 0.5),
+         # Aaron 2026-11-16: the marshes were all water. LOTR's are mostly grass a block or two over the water with
+         # pools (marsh rule) in the low ground; low hummocks over a base at the pool level give that
+         "shire_marshes": (4, 0.35)}
+# ground heights set by hand where the survey is off (shireMarshes: 96 columns, mostly the Brandywine's water)
+HEIGHT_FIX = {"shire_marshes": 61.4}
 
 # Biome variants (LOTR's LOTRBiomeVariant patches; Aaron 2026-11-14: "many biomes within the Shire"). Not separate
 # biomes, as in LOTR: patches of a jittered grid (`cell` blocks), a variant with chance `chance`, else plain
@@ -67,6 +72,12 @@ DOWNS = {"shire": (30, 0.4), "shire_moors": (20, 0.45), "shire_woodlands": (18, 
 # FOREST_LIGHT, HILLS, HILLS_FOREST, FOREST_BIRCH, FOREST_ASPEN, ORCHARD_SHIRE, ORCHARD_PLUM) at a higher chance.
 # trees: (per chunk, [(tree, weight)]); orchard: (row spacing, fill, [(tree, weight)]); flowers: placed features.
 VARIANTS = {
+    # LOTR's swampLowland (marsh, few trees) and swampUpland (higher, 6x trees): willows, swamp oaks, oaks
+    "shire_marshes": {"cell": 96, "chance": 0.75, "list": [
+        {"name": "lowland", "weight": 2, "downs": 0.5, "variation": 0.6},
+        {"name": "upland", "weight": 1, "downs": 1.8, "variation": 1.2,
+         "trees": (4, [("oak_swamp", 4), ("willow", 3), ("oak", 2), ("oak_large", 1)])},
+    ]},
     "shire": {"cell": 176, "chance": 0.6, "list": [
         {"name": "meadows", "weight": 3, "downs": 0.55, "variation": 0.7,
          "flowers": ["minecraft:flower_meadow", "minecraft:flower_flower_forest", "minecraft:patch_tall_grass"]},
@@ -383,6 +394,8 @@ class World:
 
     def height(self, b):
         f = b["fields"]
+        if self.biome_id(b) in HEIGHT_FIX:
+            return HEIGHT_FIX[self.biome_id(b)]
         if self.measured(b):
             h = self.measured(b)["mean"] - SURVEY_OFFSET
             return round(max(MIN_HEIGHT, min(MAX_HEIGHT, h)), 2)
@@ -933,7 +946,7 @@ MUD_RULE = {"type": "minecraft:condition", "if_true": {"type": "minecraft:not", 
 MARSH_RULE = {"type": "minecraft:condition", "if_true": {"type": "minecraft:y_above", "anchor": {
     "absolute": SEA_LEVEL - 1}, "surface_depth_multiplier": 0, "add_stone_depth": False}, "then_run": {
     "type": "minecraft:condition", "if_true": {"type": "minecraft:not", "invert": {
-        "type": "minecraft:y_above", "anchor": {"absolute": SEA_LEVEL + 2}, "surface_depth_multiplier": 0,
+        "type": "minecraft:y_above", "anchor": {"absolute": SEA_LEVEL}, "surface_depth_multiplier": 0,
         "add_stone_depth": False}}, "then_run": {"type": "minecraft:condition", "if_true": noise_at("marsh", -0.1),
                                                   "then_run": block_rule("minecraft:water")}}}
 SANDSTONE = {"minecraft:sand": "minecraft:sandstone", "minecraft:red_sand": "minecraft:red_sandstone"}

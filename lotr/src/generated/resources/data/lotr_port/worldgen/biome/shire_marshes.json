@@ -103,6 +103,7 @@
     [],
     [
       "lotr_port:trees/shire_marshes",
+      "lotr_port:shire_marshes_variant/upland_trees",
       "lotr_port:forest_floor/0_2",
       "lotr_port:plant/reeds_3_6",
       "lotr_port:plant/dried_reeds_0_4",
