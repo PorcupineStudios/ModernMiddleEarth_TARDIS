@@ -96,6 +96,7 @@ public class RiggedNpc extends LotrNpc {
                     }
                 }
             }
+            refreshDimensions();
         }
         return skeleton;
     }
@@ -225,6 +226,17 @@ public class RiggedNpc extends LotrNpc {
     @Override
     public boolean canCollideWith(Entity other) {
         return !(other instanceof RigPart p && p.getParent() == this) && super.canCollideWith(other);
+    }
+
+    /** The type's hitbox grown by the rig's scale (the size roll is already in it). */
+    @Override
+    protected net.minecraft.world.entity.EntityDimensions getDefaultDimensions(net.minecraft.world.entity.Pose p) {
+        net.minecraft.world.entity.EntityDimensions d = super.getDefaultDimensions(p);
+        if (parts == null) { // still constructing
+            return d;
+        }
+        RigSkeleton sk = skeleton();
+        return sk == null ? d : d.scale(sk.def.scale());
     }
 
     @Override
