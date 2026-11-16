@@ -1,0 +1,18 @@
+{
+  "comment": "Mordor's borders: thinner ash",
+  "biomes": [
+    "dagorlad",
+    "nurn",
+    "nurn_marshes",
+    "nurnen",
+    "morgul_vale",
+    "eastern_desolation"
+  ],
+  "priority": 5,
+  "fog_start": 0.1,
+  "fog_end": 0.7,
+  "fog_color": "#6a5040",
+  "fog_color_strength": 0.45,
+  "filter": "#5a3020",
+  "filter_alpha": 0.06
+}

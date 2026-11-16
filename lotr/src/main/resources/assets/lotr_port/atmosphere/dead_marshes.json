@@ -1,0 +1,16 @@
+{
+  "comment": "Sickly marsh vapour",
+  "biomes": [
+    "dead_marshes",
+    "long_marshes",
+    "midgewater",
+    "nindalf"
+  ],
+  "priority": 8,
+  "fog_start": 0.0,
+  "fog_end": 0.4,
+  "fog_color": "#6a7058",
+  "fog_color_strength": 0.65,
+  "filter": "#405030",
+  "filter_alpha": 0.1
+}

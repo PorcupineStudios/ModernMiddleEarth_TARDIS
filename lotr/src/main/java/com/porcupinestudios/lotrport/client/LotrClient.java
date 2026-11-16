@@ -69,6 +69,7 @@ public final class LotrClient {
 
     @SubscribeEvent
     public static void setup(FMLClientSetupEvent event) {
+        Atmosphere.init();
         MapNet.clientHandler = (data, ctx) -> MapScreen.open(data);
         QuestNet.offerHandler = QuestOfferScreen::open;
         QuestNet.bookHandler = RedBookScreen::show;
@@ -169,6 +170,13 @@ public final class LotrClient {
     @SubscribeEvent
     public static void guiLayers(net.neoforged.neoforge.client.event.RegisterGuiLayersEvent event) {
         LotrHud.registerLayers(event);
+        Atmosphere.layers(event);
+    }
+
+    /** Region fogs and filters (assets/<ns>/atmosphere). */
+    @SubscribeEvent
+    public static void reloadListeners(net.neoforged.neoforge.client.event.RegisterClientReloadListenersEvent event) {
+        Atmosphere.reload(event);
     }
 
     @SubscribeEvent

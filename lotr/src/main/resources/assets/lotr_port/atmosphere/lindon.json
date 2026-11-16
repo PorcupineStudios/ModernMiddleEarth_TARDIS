@@ -1,0 +1,16 @@
+{
+  "comment": "Sea-light of the Grey Havens",
+  "biomes": [
+    "lindon",
+    "lindon_coast",
+    "lindon_woodlands",
+    "tower_hills"
+  ],
+  "priority": 5,
+  "fog_start": 0.3,
+  "fog_end": 1.0,
+  "fog_color": "#c8e0f0",
+  "fog_color_strength": 0.3,
+  "filter": "#a0d0ff",
+  "filter_alpha": 0.04
+}
