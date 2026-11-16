@@ -123,7 +123,9 @@ public final class CreatureTests {
             Vec3 floor = helper.absoluteVec(new Vec3(1.5, 0, 1.5));
             rabbit.moveTo(floor.x, floor.y, floor.z);
             helper.succeedWhen(() -> helper.assertTrue(field.stream().anyMatch(
-                    p -> !helper.getBlockState(p).is(net.minecraft.world.level.block.Blocks.WHEAT)), "the rabbit ate no wheat"));
+                    p -> !helper.getBlockState(p).is(net.minecraft.world.level.block.Blocks.WHEAT)), "the rabbit ate no wheat; running " + rabbit.goals().getAvailableGoals().stream()
+                    .filter(g -> g.isRunning()).map(g -> g.getGoal().getClass().getSimpleName()).toList()
+                    + " alive " + rabbit.isAlive() + " at " + rabbit.position()));
         });
     }
 

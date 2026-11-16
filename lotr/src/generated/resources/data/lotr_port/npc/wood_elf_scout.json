@@ -10,11 +10,15 @@
   "model": "elf",
   "behaviours": [
     "elf_scout",
+    "burning_panic",
     "archer"
   ],
   "behaviour_data": {
     "too_close": 6,
     "chance": 20,
+    "burn_panic_speed": 1.5,
+    "eat_chance": 12000,
+    "drink_chance": 8000,
     "ranged_speed": 1.25,
     "ranged_min": 25,
     "ranged_max": 35,

@@ -6,12 +6,18 @@
     "lotr_port:textures/entity/dale/dale_male/2.png"
   ],
   "skin_height": 64,
+  "behaviours": [
+    "burning_panic"
+  ],
+  "behaviour_data": {
+    "burn_panic_speed": 1.5,
+    "eat_chance": 8000,
+    "drink_chance": 8000,
+    "ride_chance": 8
+  },
   "health": 25.0,
   "speed": 0.2,
   "attack": 2.0,
-  "behaviour_data": {
-    "ride_chance": 8
-  },
   "gear": {
     "mainhand": "lotr_port:dalish_sword",
     "chest": "lotr_port:dalish_chestplate",

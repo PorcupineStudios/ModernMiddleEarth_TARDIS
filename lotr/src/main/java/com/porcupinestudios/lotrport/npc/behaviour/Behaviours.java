@@ -36,7 +36,12 @@ public final class Behaviours {
             Map.entry("prey_chase", PreyChaseBehaviour::new),
             Map.entry("crop_eater", CropEaterBehaviour::new),
             Map.entry("bird_thief", BirdThiefBehaviour::new),
-            Map.entry("farmhand", () -> new CreatureBehaviour() {}));
+            Map.entry("farmhand", () -> new CreatureBehaviour() {}),
+            Map.entry("bandit", BanditBehaviour::new),
+            Map.entry("ruffian", RuffianBehaviour::new),
+            Map.entry("orc", OrcBehaviour::new),
+            Map.entry("avoid_evil", AvoidEvilBehaviour::new),
+            Map.entry("burning_panic", BurningPanicBehaviour::new));
 
     private Behaviours() {}
 
@@ -47,6 +52,10 @@ public final class Behaviours {
             if (b != null) {
                 out.add(b.get());
             }
+        }
+        Map<String, Float> data = type.persona().behaviourData();
+        if (data.containsKey("eat_chance") || data.containsKey("drink_chance")) {
+            out.add(new EatDrinkBehaviour()); // LOTR's AIEat / AIDrink, wherever a type has their chances
         }
         return out;
     }

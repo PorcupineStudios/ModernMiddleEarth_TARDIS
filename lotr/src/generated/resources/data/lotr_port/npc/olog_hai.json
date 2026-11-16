@@ -9,7 +9,8 @@
   "height": 4.0,
   "behaviours": [
     "troll",
-    "on_hit"
+    "on_hit",
+    "burning_panic"
   ],
   "lotr_classes": [
     "LOTREntityOlogHai",
@@ -23,6 +24,7 @@
     "burn_ticks": 300,
     "shade_range": 12,
     "tickle_alignment": 100,
+    "burn_panic_speed": 1.5,
     "knockback_per_damage": 0.25,
     "splash_range": 4,
     "scale": 1.25,

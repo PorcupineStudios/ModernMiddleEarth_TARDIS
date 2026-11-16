@@ -7,6 +7,14 @@
     "lotr_port:textures/entity/dorwinion/dorwinion_male/3.png"
   ],
   "skin_height": 64,
+  "behaviours": [
+    "burning_panic"
+  ],
+  "behaviour_data": {
+    "burn_panic_speed": 1.5,
+    "eat_chance": 8000,
+    "drink_chance": 8000
+  },
   "health": 20.0,
   "speed": 0.2,
   "attack": 2.0,
