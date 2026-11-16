@@ -55,9 +55,10 @@ public final class MiddleEarthMap {
      * @param maxHeight ground above this has no rivers
      * @param minHeight ground below this (lakes, sea) has no rivers
      * @param biomeWidth river widths from the middle that get the river biome
+     * @param keep biome indexes whose rivers keep the land's own biome (Mordor, deserts): no green river banks there
      */
     record Rivers(int biome, double scale, double width, double bank, double bed, double maxHeight,
-            double minHeight, double biomeWidth, ImprovedNoise noise) {
+            double minHeight, double biomeWidth, boolean[] keep, ImprovedNoise noise) {
         static Rivers read(JsonObject o, List<Entry> biomes) {
             if (o == null) {
                 return null;
@@ -72,9 +73,19 @@ public final class MiddleEarthMap {
             if (index < 0) {
                 throw new IllegalArgumentException("river biome " + id + " is not in the biome table");
             }
+            boolean[] keep = new boolean[256];
+            if (o.has("keep_biome")) {
+                for (JsonElement k : o.getAsJsonArray("keep_biome")) {
+                    for (int i = 0; i < biomes.size(); i++) {
+                        if (biomes.get(i).id().equals(k.getAsString())) {
+                            keep[i] = true;
+                        }
+                    }
+                }
+            }
             return new Rivers(index, o.get("scale").getAsDouble(), o.get("width").getAsDouble(),
                     o.get("bank").getAsDouble(), o.get("bed").getAsDouble(), o.get("max_height").getAsDouble(),
-                    o.get("min_height").getAsDouble(), o.get("biome_width").getAsDouble(),
+                    o.get("min_height").getAsDouble(), o.get("biome_width").getAsDouble(), keep,
                     new ImprovedNoise(RandomSource.create(o.get("seed").getAsLong())));
         }
 
@@ -118,6 +129,43 @@ public final class MiddleEarthMap {
     }
 
     private final List<Mountain> mountains = new ArrayList<>();
+
+    /**
+     * How LOTRMountains peaks are roughed up so they aren't round cones: the distance to the peak is stretched by a
+     * low noise ({@code warp}, share of the distance) so the foot spreads into lobes and spurs, ridged noise
+     * ({@code ridges}, share of the peak's rise, at {@code scale} blocks) cuts crests and gullies down the flanks, and
+     * hills flatten by only {@code flatten} x LOTR's boost. All zero gives the old smooth cone.
+     */
+    record MountainShape(double warp, double ridges, double scale, double flatten, ImprovedNoise noise) {
+        static MountainShape read(JsonObject o) {
+            if (o == null) {
+                return new MountainShape(0, 0, 1, 1, new ImprovedNoise(RandomSource.create(0)));
+            }
+            return new MountainShape(o.get("warp").getAsDouble(), o.get("ridges").getAsDouble(),
+                    o.get("scale").getAsDouble(), o.get("flatten").getAsDouble(),
+                    new ImprovedNoise(RandomSource.create(o.get("seed").getAsLong())));
+        }
+
+        /** The distance to the peak, stretched by the warp noise. */
+        double distance(Mountain m, int x, int z) {
+            double d = m.distance(x, z);
+            if (warp == 0) {
+                return d;
+            }
+            double n = noise.noise(x / (scale * 3), 11.3, z / (scale * 3)) + 0.5 * noise.noise(x / scale, 17.9,
+                    z / scale);
+            return d * (1 + warp * n);
+        }
+
+        /** Ridged noise around 0 (sharp crests up, broad gullies down), two octaves. */
+        double ridged(int x, int z) {
+            double a = 1 - Math.abs(noise.noise(x / scale, 3.7, z / scale)) * 2;
+            double b = 1 - Math.abs(noise.noise(x / (scale / 2.3), 5.1, z / (scale / 2.3))) * 2;
+            return (a * 0.65 + b * 0.35) - 0.3;
+        }
+    }
+
+    private final MountainShape mountainShape;
 
     MiddleEarthMap(JsonObject settings, byte[] pixels) {
         this.width = settings.get("width").getAsInt();
@@ -164,6 +212,8 @@ public final class MiddleEarthMap {
                         o.has("lava") ? o.get("lava").getAsInt() : 0));
             }
         }
+        this.mountainShape = MountainShape.read(
+                settings.has("mountain_shape") ? settings.getAsJsonObject("mountain_shape") : null);
         this.rivers = Rivers.read(settings.has("rivers") ? settings.getAsJsonObject("rivers") : null, list);
     }
 
@@ -239,12 +289,13 @@ public final class MiddleEarthMap {
     public int biomeIndexAt(int blockX, int blockZ) {
         double wx = wobbledX(blockX, blockZ);
         double wz = wobbledZ(blockX, blockZ);
-        if (rivers != null && rivers.distance(wx, wz) < rivers.biomeWidth()
+        int land = pixelIndex((int) Math.floor(wx / blocksPerPixel + originX),
+                (int) Math.floor(wz / blocksPerPixel + originZ));
+        if (rivers != null && !rivers.keep()[land] && rivers.distance(wx, wz) < rivers.biomeWidth()
                 && rivers.strength(smoothed(wx, wz, biomeHeights)) > 0.5) {
             return rivers.biome();
         }
-        return pixelIndex((int) Math.floor(wx / blocksPerPixel + originX),
-                (int) Math.floor(wz / blocksPerPixel + originZ));
+        return land;
     }
 
     private double wobbledX(int blockX, int blockZ) {
@@ -304,8 +355,21 @@ public final class MiddleEarthMap {
             double d = m.distance(blockX, blockZ);
             if (d < m.crater) {
                 ground = Math.max(ground, m.floor);
-            } else if (d < m.range && m.peak > ground) {
-                ground += (m.peak - ground) * (1 - d / m.range);
+                continue;
+            }
+            if (m.crater > 0) { // volcanoes keep their clean cone and crater rim
+                if (d < m.range && m.peak > ground) {
+                    ground += (m.peak - ground) * (1 - d / m.range);
+                }
+                continue;
+            }
+            double wd = mountainShape.distance(m, blockX, blockZ);
+            if (wd < m.range && m.peak > ground) {
+                double t = 1 - wd / m.range;
+                double rise = m.peak - ground;
+                // concave flanks (steeper near the top), crests and gullies strongest mid-slope
+                ground += rise * (t * t * (1.6 - 0.6 * t))
+                        + rise * mountainShape.ridges() * 4 * t * (1 - t) * mountainShape.ridged(blockX, blockZ);
             }
         }
         double cut = riverCut(wx, wz, ground);
@@ -324,7 +388,7 @@ public final class MiddleEarthMap {
         for (Mountain m : mountains) {
             double d = m.distance(blockX, blockZ);
             if (d < m.range) {
-                boost += m.boost * (1 - d / m.range);
+                boost += m.boost * (1 - d / m.range) * (m.crater > 0 ? 1 : mountainShape.flatten());
             }
         }
         return variation * (1 - cut) * (0.25 + 0.75 * road) / (1 + boost);
