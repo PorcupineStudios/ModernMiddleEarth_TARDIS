@@ -37,18 +37,20 @@ public final class RigPose {
         float pitch = RigState.lerp(partial, state.prevPitch, state.pitch);
         float roll = RigState.lerp(partial, state.prevRoll, state.roll);
         float walk = RigState.lerp(partial, state.prevWalk, state.walk);
+        float h = body.hide;
+        float awake = 1 - h;
         Vector3f c = sk.tiltCentre;
-        Matrix4f bodyFrame = new Matrix4f().translation(0, lift, 0).translate(c).rotateX(-pitch).rotateZ(roll)
+        Matrix4f bodyFrame = new Matrix4f().translation(0, lift - sk.hideDrop * h, 0).translate(c).rotateX(-pitch).rotateZ(roll)
                 .translate(-c.x, -c.y, -c.z);
         Quaternionf bodyTurn = bodyFrame.getNormalizedRotation(new Quaternionf());
 
         Quaternionf[] anim = new Quaternionf[sk.count];
-        if (sk.look >= 0) {
-            anim[sk.look] = new Quaternionf().rotateY((float) Math.toRadians(-body.headYaw))
-                    .rotateX((float) Math.toRadians(body.headPitch));
+        if (sk.look >= 0 && awake > 0) {
+            anim[sk.look] = new Quaternionf().rotateY((float) Math.toRadians(-body.headYaw * awake))
+                    .rotateX((float) Math.toRadians(body.headPitch * awake));
         }
         for (RigSkeleton.Sway s : sk.sways) {
-            float amount = s.amount() * (1 + (s.walk() - 1) * walk);
+            float amount = s.amount() * (1 + (s.walk() - 1) * walk) * awake;
             float a = (float) Math.sin(body.age * s.speed() + s.phase()) * amount;
             Quaternionf q = switch (s.axis()) {
                 case 1 -> new Quaternionf().rotationY(-a);
@@ -60,10 +62,19 @@ public final class RigPose {
         for (int ch = 0; ch < sk.chains.length; ch++) {
             RigSkeleton.Chain chain = sk.chains[ch];
             for (int i = 0; i < chain.bones().length; i++) {
-                float yaw = RigState.lerp(partial, state.prevChainYaw[ch][i], state.chainYaw[ch][i]);
+                float yaw = RigState.lerp(partial, state.prevChainYaw[ch][i], state.chainYaw[ch][i]) * awake;
                 Quaternionf q = new Quaternionf().rotationY(yaw).rotateX(chain.droop() * walk);
                 int b = chain.bones()[i];
                 anim[b] = anim[b] == null ? q : anim[b].mul(q);
+            }
+        }
+
+        if (h > 0) {
+            for (int b = 0; b < sk.count; b++) {
+                if (sk.hidePose[b] != null) {
+                    Quaternionf q = new Quaternionf().slerp(sk.hidePose[b], h);
+                    anim[b] = anim[b] == null ? q : anim[b].mul(q);
+                }
             }
         }
 

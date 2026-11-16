@@ -1,7 +1,7 @@
 {
  "texture": [
-  256,
-  256
+  64,
+  64
  ],
  "scale": 4.0,
  "npc_types": [
@@ -44,43 +44,43 @@
   }
  ],
  "gait": {
-  "step_distance": 0.55,
-  "step_ticks": 11,
-  "step_height": 0.12,
+  "step_distance": 0.5,
+  "step_ticks": 14,
+  "step_height": 0.1,
   "lead": 5,
   "reach_up": 0.3,
   "reach_down": 0.45,
   "max_tilt": 8,
-  "body_spring": 0.2,
-  "heavy": 1.2,
-  "stomp": 10
+  "body_spring": 0.18,
+  "heavy": 1.5,
+  "stomp": 12
  },
  "sways": [
   {
    "bone": "arm_l",
    "axis": "x",
-   "amount": 4,
+   "amount": 3,
    "speed": 0.05,
-   "walk": 5
+   "walk": 4
   },
   {
    "bone": "arm_r",
    "axis": "x",
-   "amount": -4,
+   "amount": -3,
    "speed": 0.05,
-   "walk": 5
+   "walk": 4
   },
   {
    "bone": "chest",
    "axis": "z",
    "amount": 1.5,
-   "speed": 0.12,
-   "walk": 3
+   "speed": 0.1,
+   "walk": 2.5
   },
   {
    "bone": "chest",
    "axis": "x",
-   "amount": 1.5,
+   "amount": 1.2,
    "speed": 0.04,
    "walk": 1
   }
@@ -91,11 +91,11 @@
    "bone": "head",
    "center": [
     0,
-    -18,
+    -25,
     -8
    ],
-   "width": 0.9,
-   "height": 0.8,
+   "width": 0.65,
+   "height": 0.6,
    "damage": 1.5
   },
   {
@@ -103,182 +103,194 @@
    "bone": "chest",
    "center": [
     0,
-    -6,
+    -17,
     0
    ],
    "width": 1.6,
-   "height": 1.5,
+   "height": 1.0,
    "solid": true
+  },
+  {
+   "name": "waist",
+   "bone": "chest",
+   "center": [
+    0,
+    -5,
+    0
+   ],
+   "width": 0.8,
+   "height": 0.5
   },
   {
    "name": "arm_l",
    "bone": "forearm_l",
    "center": [
-    -15,
-    10,
+    -14,
+    5,
     0
    ],
-   "width": 0.7,
-   "height": 1.2,
+   "width": 0.65,
+   "height": 1.3,
    "damage": 0.6
   },
   {
    "name": "arm_r",
    "bone": "forearm_r",
    "center": [
-    15,
-    10,
+    14,
+    5,
     0
    ],
-   "width": 0.7,
-   "height": 1.2,
+   "width": 0.65,
+   "height": 1.3,
    "damage": 0.6
   },
   {
    "name": "leg_l",
-   "bone": "leg_l_lower",
+   "bone": "leg_l",
    "center": [
     -5,
-    19,
-    -1
+    8,
+    0
    ],
-   "width": 0.55,
-   "height": 0.6,
+   "width": 0.6,
+   "height": 0.7,
    "damage": 0.75
   },
   {
    "name": "leg_r",
+   "bone": "leg_r",
+   "center": [
+    5,
+    8,
+    0
+   ],
+   "width": 0.6,
+   "height": 0.7,
+   "damage": 0.75
+  },
+  {
+   "name": "shin_l",
+   "bone": "leg_l_lower",
+   "center": [
+    -5,
+    18,
+    -1
+   ],
+   "width": 0.5,
+   "height": 0.6,
+   "damage": 0.75
+  },
+  {
+   "name": "shin_r",
    "bone": "leg_r_lower",
    "center": [
     5,
-    19,
+    18,
     -1
    ],
-   "width": 0.55,
+   "width": 0.5,
    "height": 0.6,
    "damage": 0.75
   }
  ],
  "hide": {
   "block": "minecraft:stone",
-  "blocks": [
-   [
-    -1,
-    0,
-    -1
-   ],
-   [
-    -1,
-    0,
-    0
-   ],
-   [
-    -1,
-    0,
-    1
-   ],
-   [
-    0,
-    0,
-    -1
-   ],
-   [
-    0,
+  "wake": 6,
+  "settle": 100,
+  "ticks": 40,
+  "drop": 12,
+  "pose": {
+   "chest": [
+    50,
     0,
     0
    ],
-   [
-    0,
-    0,
-    1
-   ],
-   [
-    1,
-    0,
-    -1
-   ],
-   [
-    1,
+   "head": [
+    35,
     0,
     0
    ],
-   [
-    1,
+   "arm_l": [
+    -25,
     0,
-    1
+    -10
    ],
-   [
-    -1,
-    1,
-    0
-   ],
-   [
+   "arm_r": [
+    -25,
     0,
-    1,
-    0
+    10
    ],
-   [
+   "forearm_l": [
+    -50,
     0,
-    1,
-    -1
+    -15
    ],
-   [
-    1,
-    1,
-    0
-   ],
-   [
+   "forearm_r": [
+    -50,
     0,
-    1,
-    1
-   ],
-   [
-    0,
-    2,
-    0
+    15
    ]
-  ],
-  "wake": 6
+  }
  },
  "bones": {
   "hips": {
    "pivot": [
     0.0,
-    9.0,
+    2.0,
     0.0
    ],
    "cubes": [
     {
-     "uv": [
-      204,
-      34
-     ],
      "origin": [
       -8.0,
-      -5.0,
+      -4.0,
       -5.0
      ],
      "size": [
       16,
-      7,
+      6,
       10
-     ]
+     ],
+     "block": "minecraft:stone"
+    },
+    {
+     "origin": [
+      -5.0,
+      1.0,
+      -6.0
+     ],
+     "size": [
+      10,
+      4,
+      2
+     ],
+     "block": "minecraft:cobblestone"
     }
    ]
   },
   "chest": {
    "pivot": [
     0.0,
-    5.0,
+    -2.0,
     0.0
    ],
    "parent": "hips",
    "cubes": [
     {
-     "uv": [
-      0,
-      0
+     "origin": [
+      -6.0,
+      -6.0,
+      -4.0
      ],
+     "size": [
+      12,
+      6,
+      8
+     ],
+     "block": "minecraft:andesite"
+    },
+    {
      "origin": [
       -12.0,
       -20.0,
@@ -286,98 +298,207 @@
      ],
      "size": [
       24,
-      20,
-      14
-     ]
+      14,
+      13
+     ],
+     "block": "minecraft:stone"
     },
     {
-     "uv": [
-      124,
-      34
-     ],
      "origin": [
-      -14.0,
-      -22.0,
+      -10.0,
+      -18.0,
+      -9.0
+     ],
+     "size": [
+      20,
+      8,
+      2
+     ],
+     "block": "minecraft:stone"
+    },
+    {
+     "origin": [
+      -9.0,
+      -23.0,
+      -1.0
+     ],
+     "size": [
+      18,
+      8,
+      9
+     ],
+     "block": "minecraft:mossy_cobblestone"
+    },
+    {
+     "origin": [
+      -4.0,
+      -26.0,
+      2.0
+     ],
+     "size": [
+      8,
+      5,
+      6
+     ],
+     "block": "minecraft:andesite"
+    },
+    {
+     "origin": [
+      -12.0,
+      -9.0,
+      1.0
+     ],
+     "size": [
+      6,
+      4,
+      6
+     ],
+     "block": "minecraft:cobblestone"
+    },
+    {
+     "origin": [
+      6.0,
+      -11.0,
+      1.0
+     ],
+     "size": [
+      6,
+      4,
+      6
+     ],
+     "block": "minecraft:cobblestone"
+    },
+    {
+     "origin": [
+      -18.0,
+      -25.0,
       -6.0
      ],
      "size": [
-      28,
-      6,
+      9,
+      10,
       12
-     ]
+     ],
+     "block": "minecraft:stone"
     },
     {
-     "uv": [
-      122,
-      55
-     ],
      "origin": [
-      -8.0,
-      -24.0,
-      -2.0
+      -17.0,
+      -27.0,
+      -3.0
      ],
      "size": [
-      16,
-      4,
-      9
-     ]
+      6,
+      2,
+      6
+     ],
+     "block": "minecraft:mossy_cobblestone"
+    },
+    {
+     "origin": [
+      9.0,
+      -25.0,
+      -6.0
+     ],
+     "size": [
+      9,
+      10,
+      12
+     ],
+     "block": "minecraft:stone"
+    },
+    {
+     "origin": [
+      11.0,
+      -27.0,
+      -3.0
+     ],
+     "size": [
+      6,
+      2,
+      6
+     ],
+     "block": "minecraft:mossy_cobblestone"
     }
    ]
   },
   "head": {
    "pivot": [
     0.0,
-    -15.0,
-    -4.0
+    -21.0,
+    -5.0
    ],
    "parent": "chest",
    "cubes": [
     {
-     "uv": [
-      156,
-      0
-     ],
      "origin": [
-      -7.0,
-      -7.0,
-      -10.0
-     ],
-     "size": [
-      14,
-      10,
-      12
-     ]
-    },
-    {
-     "uv": [
-      0,
-      55
-     ],
-     "origin": [
-      -8.0,
+      -5.0,
       -9.0,
-      -11.0
+      -7.0
      ],
      "size": [
-      16,
-      4,
-      13
-     ]
+      10,
+      9,
+      9
+     ],
+     "block": "minecraft:stone"
     },
     {
-     "uv": [
-      66,
-      72
-     ],
      "origin": [
       -6.0,
-      3.0,
-      -9.0
+      -8.0,
+      -8.0
      ],
      "size": [
       12,
       3,
-      9
+      3
+     ],
+     "block": "minecraft:cobblestone"
+    },
+    {
+     "origin": [
+      -4.0,
+      -1.0,
+      -7.0
+     ],
+     "size": [
+      8,
+      3,
+      7
+     ],
+     "block": "minecraft:andesite"
+    },
+    {
+     "origin": [
+      -4.0,
+      -5.0,
+      -7.5
+     ],
+     "size": [
+      2,
+      1,
+      1
+     ],
+     "uv": [
+      0,
+      0
+     ]
+    },
+    {
+     "origin": [
+      2.0,
+      -5.0,
+      -7.5
+     ],
+     "size": [
+      2,
+      1,
+      1
+     ],
+     "uv": [
+      6,
+      0
      ]
     }
    ]
@@ -385,272 +506,298 @@
   "arm_l": {
    "pivot": [
     -14.0,
-    -13.0,
+    -22.0,
     0.0
    ],
    "parent": "chest",
+   "rotation": [
+    0.0,
+    0.0,
+    -4.0
+   ],
    "cubes": [
     {
-     "uv": [
-      76,
-      0
-     ],
      "origin": [
-      -5.0,
       -3.0,
-      -5.0
+      0.0,
+      -4.0
      ],
      "size": [
-      10,
+      7,
       16,
-      10
-     ]
+      8
+     ],
+     "block": "minecraft:stone"
+    },
+    {
+     "origin": [
+      -3.0,
+      13.0,
+      -1.0
+     ],
+     "size": [
+      6,
+      4,
+      6
+     ],
+     "block": "minecraft:cobblestone"
     }
    ]
   },
   "forearm_l": {
    "pivot": [
-    -15.0,
-    0.0,
+    -14.0,
+    -6.0,
     0.0
    ],
    "parent": "arm_l",
    "cubes": [
     {
-     "uv": [
-      208,
-      0
-     ],
      "origin": [
-      -4.5,
+      -4.0,
       0.0,
-      -4.5
+      -4.0
      ],
      "size": [
-      9,
-      12,
-      9
-     ]
+      8,
+      14,
+      8
+     ],
+     "block": "minecraft:stone"
     },
     {
-     "uv": [
-      36,
-      34
-     ],
      "origin": [
-      -5.5,
-      11.0,
-      -6.0
+      -5.0,
+      14.0,
+      -5.0
      ],
      "size": [
-      11,
-      8,
-      11
-     ]
+      10,
+      7,
+      10
+     ],
+     "block": "minecraft:cobblestone"
     }
    ]
   },
   "arm_r": {
    "pivot": [
     14.0,
-    -13.0,
+    -22.0,
     0.0
    ],
    "parent": "chest",
+   "rotation": [
+    0.0,
+    0.0,
+    4.0
+   ],
    "cubes": [
     {
-     "uv": [
-      116,
-      0
-     ],
      "origin": [
-      -5.0,
-      -3.0,
-      -5.0
+      -4.0,
+      0.0,
+      -4.0
      ],
      "size": [
-      10,
+      7,
       16,
-      10
-     ]
+      8
+     ],
+     "block": "minecraft:stone"
+    },
+    {
+     "origin": [
+      -3.0,
+      13.0,
+      -1.0
+     ],
+     "size": [
+      6,
+      4,
+      6
+     ],
+     "block": "minecraft:cobblestone"
     }
    ]
   },
   "forearm_r": {
    "pivot": [
-    15.0,
-    0.0,
+    14.0,
+    -6.0,
     0.0
    ],
    "parent": "arm_r",
    "cubes": [
     {
-     "uv": [
-      0,
-      34
-     ],
      "origin": [
-      -4.5,
+      -4.0,
       0.0,
-      -4.5
+      -4.0
      ],
      "size": [
-      9,
-      12,
-      9
-     ]
+      8,
+      14,
+      8
+     ],
+     "block": "minecraft:stone"
     },
     {
-     "uv": [
-      80,
-      34
-     ],
      "origin": [
-      -5.5,
-      11.0,
-      -6.0
+      -5.0,
+      14.0,
+      -5.0
      ],
      "size": [
-      11,
-      8,
-      11
-     ]
+      10,
+      7,
+      10
+     ],
+     "block": "minecraft:cobblestone"
     }
    ]
   },
   "leg_l": {
    "pivot": [
     -5.0,
-    10.0,
+    3.0,
     0.0
    ],
    "parent": "hips",
    "cubes": [
     {
-     "uv": [
-      58,
-      55
-     ],
      "origin": [
-      -4.0,
+      -4.5,
       -1.0,
-      -4.0
+      -4.5
      ],
      "size": [
-      8,
-      8,
-      8
-     ]
+      9,
+      11,
+      9
+     ],
+     "block": "minecraft:stone"
     }
    ]
   },
   "leg_l_lower": {
    "pivot": [
     -5.0,
-    16.0,
+    13.0,
     -1.0
    ],
    "parent": "leg_l",
    "cubes": [
     {
-     "uv": [
-      172,
-      55
-     ],
      "origin": [
       -3.5,
       0.0,
-      -3.5
+      -3.0
      ],
      "size": [
       7,
-      6,
+      8,
       7
-     ]
+     ],
+     "block": "minecraft:stone"
     },
     {
-     "uv": [
-      200,
-      55
+     "origin": [
+      -3.0,
+      -2.0,
+      -5.0
      ],
+     "size": [
+      6,
+      4,
+      3
+     ],
+     "block": "minecraft:cobblestone"
+    },
+    {
      "origin": [
       -4.5,
-      5.0,
-      -5.5
+      8.0,
+      -6.0
      ],
      "size": [
       9,
       3,
-      10
-     ]
+      11
+     ],
+     "block": "minecraft:andesite"
     }
    ]
   },
   "leg_r": {
    "pivot": [
     5.0,
-    10.0,
+    3.0,
     0.0
    ],
    "parent": "hips",
    "cubes": [
     {
-     "uv": [
-      90,
-      55
-     ],
      "origin": [
-      -4.0,
+      -4.5,
       -1.0,
-      -4.0
+      -4.5
      ],
      "size": [
-      8,
-      8,
-      8
-     ]
+      9,
+      11,
+      9
+     ],
+     "block": "minecraft:stone"
     }
    ]
   },
   "leg_r_lower": {
    "pivot": [
     5.0,
-    16.0,
+    13.0,
     -1.0
    ],
    "parent": "leg_r",
    "cubes": [
     {
-     "uv": [
-      0,
-      72
-     ],
      "origin": [
       -3.5,
       0.0,
-      -3.5
+      -3.0
      ],
      "size": [
       7,
-      6,
+      8,
       7
-     ]
+     ],
+     "block": "minecraft:stone"
     },
     {
-     "uv": [
-      28,
-      72
+     "origin": [
+      -3.0,
+      -2.0,
+      -5.0
      ],
+     "size": [
+      6,
+      4,
+      3
+     ],
+     "block": "minecraft:cobblestone"
+    },
+    {
      "origin": [
       -4.5,
-      5.0,
-      -5.5
+      8.0,
+      -6.0
      ],
      "size": [
       9,
       3,
-      10
-     ]
+      11
+     ],
+     "block": "minecraft:andesite"
     }
    ]
   }

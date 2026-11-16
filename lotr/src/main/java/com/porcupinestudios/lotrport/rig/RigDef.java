@@ -37,14 +37,21 @@ public record RigDef(List<String> npcTypes, List<Integer> texture, float scale, 
                 : com.mojang.serialization.DataResult.error(() -> "need 3 numbers, got " + l.size()));
     }
 
-    /** One box of a bone, as LOTR's and Blockbench's Java models: origin relative to the bone pivot. */
-    public record Cube(List<Integer> uv, List<Float> origin, List<Float> size, float inflate, boolean mirror) {
+    /**
+     * One box of a bone, as LOTR's and Blockbench's Java models: origin relative to the bone pivot.
+     *
+     * @param block a block whose texture tiles this box at real block size (a stone giant's stone) instead of the
+     *        skin at {@code uv}; it is also the block this part becomes when the creature hides
+     */
+    public record Cube(List<Integer> uv, List<Float> origin, List<Float> size, float inflate, boolean mirror,
+            Optional<String> block) {
         public static final Codec<Cube> CODEC = RecordCodecBuilder.create(i -> i.group(
-                Codec.INT.listOf().fieldOf("uv").forGetter(Cube::uv),
+                Codec.INT.listOf().optionalFieldOf("uv", List.of(0, 0)).forGetter(Cube::uv),
                 V.VEC.fieldOf("origin").forGetter(Cube::origin),
                 V.VEC.fieldOf("size").forGetter(Cube::size),
                 Codec.FLOAT.optionalFieldOf("inflate", 0f).forGetter(Cube::inflate),
-                Codec.BOOL.optionalFieldOf("mirror", false).forGetter(Cube::mirror))
+                Codec.BOOL.optionalFieldOf("mirror", false).forGetter(Cube::mirror),
+                Codec.STRING.optionalFieldOf("block").forGetter(Cube::block))
                 .apply(i, Cube::new));
     }
 
@@ -166,17 +173,23 @@ public record RigDef(List<String> npcTypes, List<Integer> texture, float scale, 
     }
 
     /**
-     * Hiding as blocks (stone giants): while hidden it stands still, snapped to the block grid and turned to a
-     * quarter turn, and draws as {@code block} instead of its body, in the shape of its {@code blocks} (offsets from its
-     * feet, model pixels / 16 rounded to whole blocks). It wakes when a target comes within {@code wake} blocks or it
-     * is hurt, and hides again after {@code settle} ticks with nothing to fight.
+     * Hiding as blocks (stone giants, as huorns hide as trees). With nothing to fight it settles: over {@code ticks}
+     * it sinks {@code drop} model pixels and turns its bones to {@code pose} (degrees, like a bone's rotation; the legs
+     * kneel by IK), then becomes blocks on the grid. The blocks are its own boxes in that pose, filled into whole blocks
+     * ({@code RigVoxels}), each of its box's {@code block} or else {@code block}; {@code blocks} (offsets from its feet)
+     * replaces them when given. It wakes the same way back when a target comes within {@code wake} blocks or it is hurt,
+     * and hides again after {@code settle} ticks with nothing to fight.
      */
-    public record Hide(String block, List<List<Integer>> blocks, float wake, int settle) {
+    public record Hide(String block, List<List<Integer>> blocks, float wake, int settle, int ticks, float drop,
+            Map<String, List<Float>> pose) {
         public static final Codec<Hide> CODEC = RecordCodecBuilder.create(i -> i.group(
-                Codec.STRING.fieldOf("block").forGetter(Hide::block),
-                Codec.INT.listOf().listOf().fieldOf("blocks").forGetter(Hide::blocks),
+                Codec.STRING.optionalFieldOf("block", "minecraft:stone").forGetter(Hide::block),
+                Codec.INT.listOf().listOf().optionalFieldOf("blocks", List.of()).forGetter(Hide::blocks),
                 Codec.FLOAT.optionalFieldOf("wake", 6f).forGetter(Hide::wake),
-                Codec.INT.optionalFieldOf("settle", 100).forGetter(Hide::settle))
+                Codec.INT.optionalFieldOf("settle", 100).forGetter(Hide::settle),
+                Codec.INT.optionalFieldOf("ticks", 40).forGetter(Hide::ticks),
+                Codec.FLOAT.optionalFieldOf("drop", 0f).forGetter(Hide::drop),
+                Codec.unboundedMap(Codec.STRING, V.VEC).optionalFieldOf("pose", Map.of()).forGetter(Hide::pose))
                 .apply(i, Hide::new));
     }
 

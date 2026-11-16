@@ -40,6 +40,11 @@ public final class RigSkeleton {
     public final Vector3f tiltCentre = new Vector3f();
     public final float frontBackZ;
     public final float leftRightX;
+    /** Hide pose: each bone's extra turn when fully hidden (null = none), and how far it sinks (rig blocks). */
+    public final Quaternionf[] hidePose;
+    public final float hideDrop;
+    private RigVoxels voxels;
+
     /** How far any bone or foot reaches from the origin at rest (rig blocks), for render culling. */
     public final float reach;
 
@@ -179,6 +184,26 @@ public final class RigSkeleton {
             reachMax = Math.max(reachMax, restWorld[i].getTranslation(new Vector3f()).length() + 1);
         }
         reach = reachMax;
+        hidePose = new Quaternionf[count];
+        float drop = 0;
+        if (def.hide().isPresent()) {
+            def.hide().get().pose().forEach((name, deg) -> {
+                int b = bone(name);
+                if (b >= 0) {
+                    hidePose[b] = rotation(deg);
+                }
+            });
+            drop = def.hide().get().drop() / 16f;
+        }
+        hideDrop = drop;
+    }
+
+    /** The blocks it hides as (made once per rig). */
+    public RigVoxels voxels() {
+        if (voxels == null) {
+            voxels = RigVoxels.of(this);
+        }
+        return voxels;
     }
 
     /** A bone's index, -1 if there is none of that name. */

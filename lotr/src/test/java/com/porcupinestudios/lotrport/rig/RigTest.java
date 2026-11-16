@@ -169,6 +169,42 @@ class RigTest {
         assertEquals(0f, state.chainYaw[0][0], 1e-3f, "and it settles");
     }
 
+    /** The stone giant's hide pile is its own crouched boxes in blocks, and the crouch poses cleanly. */
+    @Test
+    void hidingGiantBecomesItsOwnShape() throws java.io.IOException {
+        String json = java.nio.file.Files.readString(
+                java.nio.file.Path.of("src/main/resources/data/lotr_port/rig/stone_giant.json"));
+        RigDef def = RigDef.CODEC.parse(com.mojang.serialization.JsonOps.INSTANCE,
+                com.google.gson.JsonParser.parseString(json)).getOrThrow();
+        RigSkeleton sk = new RigSkeleton(def);
+        RigVoxels vox = sk.voxels();
+        assertTrue(vox.cells.length > 60, "a pile of real size: " + vox.cells.length);
+        int top = 0;
+        java.util.Set<Long> seen = new java.util.HashSet<>();
+        for (int[] c : vox.cells) {
+            assertTrue(c[1] >= 0, "nothing under the ground");
+            top = Math.max(top, c[1] + 1);
+            assertTrue(seen.add(((long) c[0] << 40) ^ ((long) c[1] << 20) ^ c[2]), "each cell once");
+        }
+        assertTrue(top < def.scale() * 54 / 16f, "crouched lower than it stands: " + top);
+        assertTrue(vox.blocks.contains("minecraft:stone"), "mostly stone");
+        // the crouch itself poses finite and lower
+        RigState state = new RigState(sk);
+        RigPose pose = new RigPose(sk);
+        RigState.Body body = new RigState.Body();
+        body.scale = def.scale();
+        for (float h = 0; h <= 1; h += 0.1f) {
+            body.hide = h;
+            state.tick(body, FLAT, null);
+            pose.pose(state, body, 1, true);
+            for (org.joml.Matrix4f m : pose.bones) {
+                assertTrue(m.isFinite(), "finite crouch at " + h);
+            }
+        }
+        int head = sk.bone("head");
+        assertTrue(pose.bones[head].m31() < sk.restWorld[head].m31() - 0.3f, "head comes down");
+    }
+
     /** Every shipped rig file parses, names only real bones, and walks without NaNs or lost feet. */
     @Test
     void shippedRigsWalk() throws java.io.IOException {

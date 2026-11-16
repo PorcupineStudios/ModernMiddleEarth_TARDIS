@@ -127,7 +127,8 @@ class Model:
         return name
 
     def box(self, bone, origin, size, mat, details=None):
-        """A box at an absolute origin (model pixels, unrotated) on a bone."""
+        """A box at an absolute origin (model pixels, unrotated) on a bone. mat is a Material (painted on the
+        texture) or a block id string (that block's texture tiled at real block size, no texture space)."""
         self.boxes.append((bone, [float(v) for v in origin], [int(v) for v in size], mat, details or {}))
 
     def mirror_x(self, name):
@@ -137,6 +138,8 @@ class Model:
         # pack UV nets on shelves, biggest first
         nets = []
         for i, (bone, o, s, mat, det) in enumerate(self.boxes):
+            if isinstance(mat, str):
+                continue
             w, h, d = s
             nets.append((i, 2 * (d + w), d + h))
         nets.sort(key=lambda n: -n[2])
@@ -165,6 +168,9 @@ class Model:
         img = Image.new("RGBA", (size, size), (0, 0, 0, 0))
         rnd = random.Random(self.name)
         for i, (bone, o, s, mat, det) in enumerate(self.boxes):
+            if isinstance(mat, str):
+                self.boxes[i] = (bone, o, s, mat, det, None)
+                continue
             u, v = placed[i]
             w, h, d = s
             faces = {
@@ -191,7 +197,12 @@ class Model:
             bones[name]["cubes"] = []
         for bone, o, s, mat, det, uv in self.boxes:
             p = self.bones[bone]["pivot"]
-            bones[bone]["cubes"].append({"uv": list(uv), "origin": [o[k] - p[k] for k in range(3)], "size": s})
+            cube = {"origin": [o[k] - p[k] for k in range(3)], "size": s}
+            if isinstance(mat, str):
+                cube["block"] = mat
+            else:
+                cube["uv"] = list(uv)
+            bones[bone]["cubes"].append(cube)
         rig = {"texture": [size, size], "scale": self.scale}
         rig.update(self.extra)
         rig["bones"] = bones
@@ -310,73 +321,88 @@ def mumak():
 # ---------------------------------------------------------------------------------------------------------- stone giant
 
 def stone_giant():
+    """A Misty Mountains stone giant (Aaron's film reference, 2026-11-16): tall and gaunt, slab chest, boulder
+    shoulders, small head set low and forward, long arms with fists near the knees. Built of real block textures
+    (mostly stone) at 4 model pixels a block, so its hide pile (the same boxes crouched, filled into blocks by
+    RigVoxels) matches it block for block."""
     m = Model("stone_giant", 4.0)
-    stone = Material((128, 124, 116), 0.1, top=(140, 136, 126), pattern=cracks)
-    moss = Material((128, 124, 116), 0.1, pattern=mossy)
-    darkstone = Material((92, 90, 88), 0.1, pattern=cracks)
-    glow = (190, 236, 255)
+    S, C, A, M, G = ("minecraft:stone", "minecraft:cobblestone", "minecraft:andesite", "minecraft:mossy_cobblestone",
+                     "minecraft:gravel")
+    glow = Material((170, 228, 255), 0.04, edge=1.0)
 
-    m.bone("hips", None, [0, 9, 0])
-    m.box("hips", [-8, 4, -5], [16, 7, 10], darkstone)
-    m.bone("chest", "hips", [0, 5, 0])
-    m.box("chest", [-12, -15, -7], [24, 20, 14], moss)              # barrel chest
-    m.box("chest", [-14, -17, -6], [28, 6, 12], moss)               # shoulders
-    m.box("chest", [-8, -19, -2], [16, 4, 9], moss)                 # hunched back
-    m.bone("head", "chest", [0, -15, -4])
-    m.box("head", [-7, -22, -14], [14, 10, 12], stone,
-          {"pixels": [("front", 3, 6, glow), ("front", 4, 6, glow), ("front", 9, 6, glow), ("front", 10, 6, glow)]})
-    m.box("head", [-8, -24, -15], [16, 4, 13], moss)                # heavy brow slab
-    m.box("head", [-6, -12, -13], [12, 3, 9], darkstone)            # jaw
+    m.bone("hips", None, [0, 2, 0])
+    m.box("hips", [-8, -2, -5], [16, 6, 10], S)
+    m.box("hips", [-5, 3, -6], [10, 4, 2], C)                      # slab hanging in front
+    m.bone("chest", "hips", [0, -2, 0])
+    m.box("chest", [-6, -8, -4], [12, 6, 8], A)                    # gaunt waist
+    m.box("chest", [-12, -22, -7], [24, 14, 13], S)                # slab chest
+    m.box("chest", [-10, -20, -9], [20, 8, 2], S)                  # breast ledge
+    m.box("chest", [-9, -25, -1], [18, 8, 9], M)                   # hunched back, moss on top
+    m.box("chest", [-4, -28, 2], [8, 5, 6], A)                     # crag on the back
+    m.box("chest", [-12, -11, 1], [6, 4, 6], C)                    # broken ribs at the sides
+    m.box("chest", [6, -13, 1], [6, 4, 6], C)
+    for side, sx in (("l", -1), ("r", 1)):
+        x0 = 9 if sx > 0 else -18
+        m.box("chest", [x0, -27, -6], [9, 10, 12], S)              # boulder shoulders, higher than the head
+        m.box("chest", [x0 + (2 if sx > 0 else 1), -29, -3], [6, 2, 6], M)
+
+    m.bone("head", "chest", [0, -21, -5])
+    m.box("head", [-5, -30, -12], [10, 9, 9], S)
+    m.box("head", [-6, -29, -13], [12, 3, 3], C)                   # heavy brow
+    m.box("head", [-4, -22, -12], [8, 3, 7], A)                    # jaw
+    m.box("head", [-4, -26, -12.5], [2, 1, 1], glow)               # eyes, deep under the brow
+    m.box("head", [2, -26, -12.5], [2, 1, 1], glow)
 
     for side, sx in (("l", -1), ("r", 1)):
-        sh = m.bone("arm_" + side, "chest", [14 * sx, -13, 0])
-        m.box(sh, [14 * sx - 5 if sx > 0 else -19, -16, -5], [10, 16, 10], moss)
-        fa = m.bone("forearm_" + side, sh, [15 * sx, 0, 0])
-        m.box(fa, [15 * sx - 4.5 if sx > 0 else -19.5, 0, -4.5], [9, 12, 9], stone)
-        m.box(fa, [15 * sx - 5.5 if sx > 0 else -20.5, 11, -6], [11, 8, 11], darkstone)   # fist
+        sh = m.bone("arm_" + side, "chest", [14 * sx, -22, 0], [0, 0, 4 * sx])
+        m.box(sh, [10 if sx > 0 else -17, -22, -4], [7, 16, 8], S)
+        m.box(sh, [11 if sx > 0 else -17, -9, -1], [6, 4, 6], C)    # elbow knob
+        fa = m.bone("forearm_" + side, sh, [14 * sx, -6, 0])
+        m.box(fa, [10 if sx > 0 else -18, -6, -4], [8, 14, 8], S)
+        m.box(fa, [9 if sx > 0 else -19, 8, -5], [10, 7, 10], C)     # fist
+
     legs = []
     for side, sx, grp in (("l", -1, 0), ("r", 1, 1)):
-        up = m.bone("leg_" + side, "hips", [5 * sx, 10, 0])
-        lo = m.bone("leg_" + side + "_lower", up, [5 * sx, 16, -1])
-        m.box(up, [5 * sx - 4, 9, -4], [8, 8, 8], stone)
-        m.box(lo, [5 * sx - 3.5, 16, -4.5], [7, 6, 7], stone)
-        m.box(lo, [5 * sx - 4.5, 21, -6.5], [9, 3, 10], darkstone)   # foot slab
+        up = m.bone("leg_" + side, "hips", [5 * sx, 3, 0])
+        lo = m.bone("leg_" + side + "_lower", up, [5 * sx, 13, -1])
+        m.box(up, [5 * sx - 4.5, 2, -4.5], [9, 11, 9], S)
+        m.box(lo, [5 * sx - 3.5, 13, -4], [7, 8, 7], S)
+        m.box(lo, [5 * sx - 3, 11, -6], [6, 4, 3], C)               # knee cap
+        m.box(lo, [5 * sx - 4.5, 21, -7], [9, 3, 11], A)            # foot slab
         legs.append({"upper": up, "lower": lo, "foot": [5 * sx, 24, -1], "group": grp, "bend": [0, 0, -1],
                      "spread": 1.0})
-
-    # the rock pile it hides as: blocks around its feet (x, y, z), at scale 4 about 3 x 3 x 3
-    pile = []
-    for x in (-1, 0, 1):
-        for z in (-1, 0, 1):
-            pile.append([x, 0, z])
-    for x, z in ((-1, 0), (0, 0), (0, -1), (1, 0), (0, 1)):
-        pile.append([x, 1, z])
-    pile.append([0, 2, 0])
 
     m.extra = {
         "npc_types": ["lotr_port:stone_giant"],
         "body": "hips",
         "look": "head",
         "legs": legs,
-        "gait": {"step_distance": 0.55, "step_ticks": 11, "step_height": 0.12, "lead": 5, "reach_up": 0.3,
-                 "reach_down": 0.45, "max_tilt": 8, "body_spring": 0.2, "heavy": 1.2, "stomp": 10},
-        "sways": [{"bone": "arm_l", "axis": "x", "amount": 4, "speed": 0.05, "walk": 5},
-                  {"bone": "arm_r", "axis": "x", "amount": -4, "speed": 0.05, "walk": 5},
-                  {"bone": "chest", "axis": "z", "amount": 1.5, "speed": 0.12, "walk": 3},
-                  {"bone": "chest", "axis": "x", "amount": 1.5, "speed": 0.04, "walk": 1}],
+        "gait": {"step_distance": 0.5, "step_ticks": 14, "step_height": 0.1, "lead": 5, "reach_up": 0.3,
+                 "reach_down": 0.45, "max_tilt": 8, "body_spring": 0.18, "heavy": 1.5, "stomp": 12},
+        "sways": [{"bone": "arm_l", "axis": "x", "amount": 3, "speed": 0.05, "walk": 4},
+                  {"bone": "arm_r", "axis": "x", "amount": -3, "speed": 0.05, "walk": 4},
+                  {"bone": "chest", "axis": "z", "amount": 1.5, "speed": 0.1, "walk": 2.5},
+                  {"bone": "chest", "axis": "x", "amount": 1.2, "speed": 0.04, "walk": 1}],
         "parts": [
-            {"name": "head", "bone": "head", "center": [0, -18, -8], "width": 0.9, "height": 0.8, "damage": 1.5},
-            {"name": "chest", "bone": "chest", "center": [0, -6, 0], "width": 1.6, "height": 1.5, "solid": True},
-            {"name": "arm_l", "bone": "forearm_l", "center": [-15, 10, 0], "width": 0.7, "height": 1.2,
+            {"name": "head", "bone": "head", "center": [0, -25, -8], "width": 0.65, "height": 0.6, "damage": 1.5},
+            {"name": "chest", "bone": "chest", "center": [0, -17, 0], "width": 1.6, "height": 1.0, "solid": True},
+            {"name": "waist", "bone": "chest", "center": [0, -5, 0], "width": 0.8, "height": 0.5},
+            {"name": "arm_l", "bone": "forearm_l", "center": [-14, 5, 0], "width": 0.65, "height": 1.3,
              "damage": 0.6},
-            {"name": "arm_r", "bone": "forearm_r", "center": [15, 10, 0], "width": 0.7, "height": 1.2,
+            {"name": "arm_r", "bone": "forearm_r", "center": [14, 5, 0], "width": 0.65, "height": 1.3,
              "damage": 0.6},
-            {"name": "leg_l", "bone": "leg_l_lower", "center": [-5, 19, -1], "width": 0.55, "height": 0.6,
+            {"name": "leg_l", "bone": "leg_l", "center": [-5, 8, 0], "width": 0.6, "height": 0.7, "damage": 0.75},
+            {"name": "leg_r", "bone": "leg_r", "center": [5, 8, 0], "width": 0.6, "height": 0.7, "damage": 0.75},
+            {"name": "shin_l", "bone": "leg_l_lower", "center": [-5, 18, -1], "width": 0.5, "height": 0.6,
              "damage": 0.75},
-            {"name": "leg_r", "bone": "leg_r_lower", "center": [5, 19, -1], "width": 0.55, "height": 0.6,
+            {"name": "shin_r", "bone": "leg_r_lower", "center": [5, 18, -1], "width": 0.5, "height": 0.6,
              "damage": 0.75},
         ],
-        "hide": {"block": "minecraft:stone", "blocks": pile, "wake": 6},
+        # crouched into a boulder: sinks, kneels (IK), folds over its knees, head tucked, arms wrapped round
+        "hide": {"block": S, "wake": 6, "settle": 100, "ticks": 40, "drop": 12,
+                 "pose": {"chest": [50, 0, 0], "head": [35, 0, 0],
+                          "arm_l": [-25, 0, -10], "arm_r": [-25, 0, 10],
+                          "forearm_l": [-50, 0, -15], "forearm_r": [-50, 0, 15]}},
     }
     m.write()
 
