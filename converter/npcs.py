@@ -331,6 +331,10 @@ class Npcs:
             out["behaviour_data"] = data
         elif model:
             out["model"] = model
+        if not creature and behaviours_of(e):
+            # people with a behaviour of their own (Wood-elf scouts, Dorwinion guards)
+            out["behaviours"] = behaviours_of(e)
+            out["behaviour_data"] = behaviour_data(e, self.jar)
         voice = npc_sounds(e.get("classes") or [e.get("class", "")])
         if voice:
             out["sounds"] = voice
