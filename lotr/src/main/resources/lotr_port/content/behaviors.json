@@ -194,5 +194,224 @@
   "minecraft:glass_bottle": "glass_bottle",
   "lotr_port:ale_horn": "ale_horn_block",
   "lotr_port:golden_ale_horn": "ale_horn_gold"
+ },
+ "particles": {
+  "high_elven_torch": {
+   "particle": "minecraft:end_rod",
+   "chance": 0.6,
+   "y": 0.75,
+   "spread": 0.15,
+   "count": 1
+  },
+  "wood_elven_torch": {
+   "particle": "minecraft:end_rod",
+   "chance": 0.6,
+   "y": 0.75,
+   "spread": 0.15,
+   "count": 1
+  },
+  "silver_mallorn_torch": {
+   "particle": "minecraft:end_rod",
+   "chance": 0.6,
+   "y": 0.75,
+   "spread": 0.15,
+   "count": 1
+  },
+  "blue_mallorn_torch": {
+   "particle": "minecraft:end_rod",
+   "chance": 0.6,
+   "y": 0.75,
+   "spread": 0.15,
+   "count": 1
+  },
+  "golden_mallorn_torch": {
+   "particle": "minecraft:end_rod",
+   "chance": 0.6,
+   "y": 0.75,
+   "spread": 0.15,
+   "count": 1
+  },
+  "green_mallorn_torch": {
+   "particle": "minecraft:end_rod",
+   "chance": 0.6,
+   "y": 0.75,
+   "spread": 0.15,
+   "count": 1
+  },
+  "morgul_torch": {
+   "particle": "minecraft:soul_fire_flame",
+   "chance": 0.8,
+   "y": 0.75,
+   "spread": 0.1,
+   "count": 1
+  },
+  "orc_torch_block": {
+   "particle": "minecraft:flame",
+   "chance": 0.9,
+   "y": 0.95,
+   "spread": 0.1,
+   "count": 1
+  },
+  "tauredain_double_torch": {
+   "particle": "minecraft:flame",
+   "chance": 0.9,
+   "y": 0.95,
+   "spread": 0.1,
+   "count": 1
+  },
+  "iron_chandelier": {
+   "particle": "minecraft:flame",
+   "chance": 0.9,
+   "y": 0.75,
+   "spread": 0.35,
+   "count": 2
+  },
+  "orc_chandelier": {
+   "particle": "minecraft:flame",
+   "chance": 0.9,
+   "y": 0.75,
+   "spread": 0.35,
+   "count": 2
+  },
+  "gold_chandelier": {
+   "particle": "minecraft:flame",
+   "chance": 0.9,
+   "y": 0.75,
+   "spread": 0.35,
+   "count": 2
+  },
+  "mithril_chandelier": {
+   "particle": "minecraft:flame",
+   "chance": 0.9,
+   "y": 0.75,
+   "spread": 0.35,
+   "count": 2
+  },
+  "high_elven_chandelier": {
+   "particle": "minecraft:flame",
+   "chance": 0.9,
+   "y": 0.75,
+   "spread": 0.35,
+   "count": 2
+  },
+  "silver_chandelier": {
+   "particle": "minecraft:flame",
+   "chance": 0.9,
+   "y": 0.75,
+   "spread": 0.35,
+   "count": 2
+  },
+  "morgul_chandelier": {
+   "particle": "minecraft:flame",
+   "chance": 0.9,
+   "y": 0.75,
+   "spread": 0.35,
+   "count": 2
+  },
+  "bronze_chandelier": {
+   "particle": "minecraft:flame",
+   "chance": 0.9,
+   "y": 0.75,
+   "spread": 0.35,
+   "count": 2
+  },
+  "dwarven_chandelier": {
+   "particle": "minecraft:flame",
+   "chance": 0.9,
+   "y": 0.75,
+   "spread": 0.35,
+   "count": 2
+  },
+  "uruk_chandelier": {
+   "particle": "minecraft:flame",
+   "chance": 0.9,
+   "y": 0.75,
+   "spread": 0.35,
+   "count": 2
+  },
+  "blue_mallorn_chandelier": {
+   "particle": "minecraft:flame",
+   "chance": 0.9,
+   "y": 0.75,
+   "spread": 0.35,
+   "count": 2
+  },
+  "golden_mallorn_chandelier": {
+   "particle": "minecraft:flame",
+   "chance": 0.9,
+   "y": 0.75,
+   "spread": 0.35,
+   "count": 2
+  },
+  "green_mallorn_chandelier": {
+   "particle": "minecraft:flame",
+   "chance": 0.9,
+   "y": 0.75,
+   "spread": 0.35,
+   "count": 2
+  },
+  "wood_elven_chandelier": {
+   "particle": "minecraft:flame",
+   "chance": 0.9,
+   "y": 0.75,
+   "spread": 0.35,
+   "count": 2
+  },
+  "silver_mallorn_chandelier": {
+   "particle": "minecraft:flame",
+   "chance": 0.9,
+   "y": 0.75,
+   "spread": 0.35,
+   "count": 2
+  },
+  "blue_dwarven_chandelier": {
+   "particle": "minecraft:flame",
+   "chance": 0.9,
+   "y": 0.75,
+   "spread": 0.35,
+   "count": 2
+  },
+  "mallorn_leaves": {
+   "particle": "minecraft:end_rod",
+   "chance": 0.05,
+   "y": 0.0,
+   "spread": 0.5,
+   "count": 1
+  },
+  "elvengrass": {
+   "particle": "minecraft:end_rod",
+   "chance": 0.04,
+   "y": 1.1,
+   "spread": 0.5,
+   "count": 1
+  },
+  "hearth_block": {
+   "particle": "minecraft:campfire_cosy_smoke",
+   "chance": 0.15,
+   "y": 1.1,
+   "spread": 0.25,
+   "count": 1
+  },
+  "pipe_weed_plant": {
+   "particle": "minecraft:smoke",
+   "chance": 0.1,
+   "y": 0.8,
+   "spread": 0.3,
+   "count": 1
+  },
+  "corrupt_mallorn_sapling": {
+   "particle": "minecraft:smoke",
+   "chance": 0.2,
+   "y": 0.6,
+   "spread": 0.3,
+   "count": 1
+  },
+  "morgul_flowers": {
+   "particle": "minecraft:mycelium",
+   "chance": 0.3,
+   "y": 0.6,
+   "spread": 0.4,
+   "count": 1
+  }
  }
 }
