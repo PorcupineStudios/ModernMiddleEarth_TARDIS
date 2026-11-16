@@ -2,23 +2,22 @@
 
 The mod plays a shuffled playlist per biome (`client/LotrMusic`). The tracks (the six films' scores, 184 levelled
 tracks, ~310 MB) are **not in this repo**: they live in the private repo `PorcupineStudios/LOTR_music` (moved
-2026-11-11, when this repo went public; where it fits and how to build with it: `lotr/docs/music.md`). A private build
-copies them into `lotr/src/main/resources/resourcepacks/middle_earth_music` (ignored by git), and `LotrMusic` then
-registers that folder as an always-on built-in pack ("Middle-earth Music" in the pack list). Its `sounds.json` and
-`music/playlists.json` merge over the mod's own. `tracklist.txt` there lists every land's calm, suspense and fight
+2026-11-11, when this repo went public; where it fits and how to build with it: `lotr/docs/music.md`). They ship as
+their own resource-only mod, `lotr_port_music` ("Middle-earth Music"), which `lotr_port` loads when it is installed. Its
+`sounds.json` and `music/playlists.json` merge with the mod's own. `tracklist.txt` there lists every land's calm, suspense and fight
 tracks.
 
 The recordings are copyrighted: never commit them here, and never upload or share a jar built with them (CurseForge,
 Modrinth, a public modpack). Changes to the pack are committed to `LOTR_music`.
 
-To rebuild the built-in copy (new tracks, changed rules), from the repo root (it writes the ignored folder; then copy
-it into your `LOTR_music` clone and commit there):
+To rebuild the music (new tracks, changed rules), from the repo root (it writes the ignored folder; then copy it into
+your `LOTR_music` clone, commit there, and run "Private music build" for a new music jar):
 
 ```bash
 python3 converter/music_pack.py "/path/to/your/soundtracks" --into-mod
 ```
 
-A separate resource pack still works on top (it merges over the built-in one), e.g. a zip of the folder:
+A separate resource pack still works on top (it merges over the music mod), e.g. a zip of the folder:
 `python3 converter/music_pack.py --zip-pack lotr/src/main/resources/resourcepacks/middle_earth_music`.
 
 ## Quick way: build it from your files

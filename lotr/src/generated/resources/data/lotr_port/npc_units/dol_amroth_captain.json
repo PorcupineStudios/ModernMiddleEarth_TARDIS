@@ -20,14 +20,14 @@
       "npc": "lotr_port:dol_amroth_soldier",
       "cost": 50,
       "alignment": 300.0,
-      "mount": "minecraft:horse"
+      "mount": "lotr_port:horse"
     },
     {
       "npc": "lotr_port:swan_knight",
       "cost": 70,
       "alignment": 400.0,
       "pledge": true,
-      "mount": "minecraft:horse"
+      "mount": "lotr_port:horse"
     },
     {
       "npc": "lotr_port:dol_amroth_banner_bearer",

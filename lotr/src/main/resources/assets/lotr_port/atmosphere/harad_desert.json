@@ -1,0 +1,28 @@
+{
+  "comment": "Heat haze",
+  "biomes": [
+    "near_harad",
+    "near_harad_semi_desert",
+    "near_harad_red_desert",
+    "harad_mountains",
+    "last_desert",
+    "lostladen",
+    "far_harad_arid",
+    "far_harad_arid_hills"
+  ],
+  "priority": 5,
+  "fog_start": 0.2,
+  "fog_end": 0.85,
+  "fog_color": "#f0d090",
+  "fog_color_strength": 0.4,
+  "filter": "#ffa040",
+  "filter_alpha": 0.06,
+  "grade": {
+    "saturation": 0.05,
+    "contrast": 0.05,
+    "warmth": 0.45,
+    "brightness": 0.04,
+    "vignette": 0.12,
+    "bloom": 0.2
+  }
+}

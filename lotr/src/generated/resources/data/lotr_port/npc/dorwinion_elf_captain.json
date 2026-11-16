@@ -7,6 +7,17 @@
   ],
   "skin_height": 64,
   "model": "elf",
+  "behaviours": [
+    "elf_bow",
+    "burning_panic"
+  ],
+  "behaviour_data": {
+    "bow_range": 8,
+    "bow_ticks": 40,
+    "burn_panic_speed": 1.5,
+    "eat_chance": 12000,
+    "drink_chance": 8000
+  },
   "sounds": {
     "ambient": "lotr_port:elf.male.say",
     "attack": "lotr_port:elf.male.attack"
@@ -20,6 +31,7 @@
     "legs": "lotr_port:dorwinion_elven_leggings",
     "feet": "lotr_port:dorwinion_elven_boots"
   },
+  "names": "lotr_port:sindarin_male",
   "units": "lotr_port:dorwinion_elf_captain",
   "speech": "lotr_port:dorwinion/elf_captain",
   "quests": "lotr_port:dorwinion_elf"

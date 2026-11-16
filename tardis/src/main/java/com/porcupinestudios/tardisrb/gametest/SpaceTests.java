@@ -229,10 +229,17 @@ public final class SpaceTests {
         helper.assertTrue(!SpaceChunks.decide(false, false, 40, at), "skips outside space");
         helper.assertTrue(!SpaceChunks.decide(false, true, 40, 0), "skips with the setting at 0");
         // both loaders are hooked: vanilla's, and Immersive Portals' (loaded here; no player has made it load yet)
-        helper.assertTrue(hooked(net.minecraft.server.level.ChunkMap.class, "skipFastInSpace"),
+        helper.assertTrue(hooked(net.minecraft.server.level.ChunkMap.class, "skipInSpace"),
                 "vanilla chunk loading isn't hooked");
-        helper.assertTrue(hooked(qouteall.imm_ptl.core.chunk_loading.ChunkVisibility.class,
-                "noLoadersWhenFastInSpace"), "Immersive Portals' chunk loading isn't hooked");
+        helper.assertTrue(hooked(net.minecraft.server.level.ChunkMap.class, "skipEmptySpace"),
+                "chunk saving isn't hooked");
+        helper.assertTrue(hooked(net.minecraft.world.level.chunk.storage.EntityStorage.class, "indexEntities"),
+                "entity saving isn't hooked");
+        helper.assertTrue(hooked(qouteall.imm_ptl.core.chunk_loading.ChunkVisibility.class, "spaceLoaders"),
+                "Immersive Portals' chunk loading isn't hooked");
+        // sparse space: a player's (near) ticket beats a content one on the same chunk; else the larger radius
+        helper.assertTrue(SpaceChunks.stronger(2 << 8 | 2, 1 << 8 | 5) == (1 << 8 | 5), "near ticket lost");
+        helper.assertTrue(SpaceChunks.stronger(2 << 8 | 0, 2 << 8 | 2) == (2 << 8 | 2), "ticking content lost");
         helper.succeed();
     }
 
@@ -247,10 +254,16 @@ public final class SpaceTests {
     }
 
     private static com.porcupinestudios.tardisrb.space.StarSystem testSystem(Planet p, double sunRadius) {
+        return testSystem(p, sunRadius, 0, 0);
+    }
+
+    private static com.porcupinestudios.tardisrb.space.StarSystem testSystem(Planet p, double sunRadius,
+            double sunReach, double bodyReach) {
         var file = new com.porcupinestudios.tardisrb.progression.SystemFile(Level.OVERWORLD,
-                new com.porcupinestudios.tardisrb.progression.SystemFile.Sun(0, 0, 0, sunRadius, 1, 0xFFFFFF, 4),
+                new com.porcupinestudios.tardisrb.progression.SystemFile.Sun(0, 0, 0, sunRadius, 1, 0xFFFFFF, 4,
+                        sunReach),
                 List.of(new com.porcupinestudios.tardisrb.progression.SystemFile.Body(p.id(), 5000, 100, -2000, 200,
-                        1)));
+                        1, bodyReach)));
         helper(file.problem() == null, "system rejected: " + file.problem());
         return com.porcupinestudios.tardisrb.space.StarSystem.resolve(TardisRB.id("sys"), file, List.of(p));
     }
@@ -309,6 +322,69 @@ public final class SpaceTests {
         helper.succeed();
     }
 
+    /** Gravity radius (Aaron 2026-11-15): outside every radius nothing pulls; the pull fades smoothly to 0 at the edge. */
+    @GameTest(template = "platform")
+    public static void gravityRadiusFades(GameTestHelper helper) {
+        Planet p = bigPlanet(SkyLink.Wrap.TORUS);
+        Tuning.SpaceTuning t = Tuning.DEFAULT.space();
+        var body0 = testSystem(p, 50).body(p.id());
+        double reach = body0.entry() * 2;
+        var system = testSystem(p, 50, 200, reach);
+        var body = system.body(p.id());
+        helper.assertTrue(system.gravity(body.center().add(reach + 1, 0, 0), t).lengthSqr() == 0,
+                "pull outside the planet's radius");
+        helper.assertTrue(system.gravity(new Vec3(1000, -3000, 4000), t).lengthSqr() == 0, "pull in empty space");
+        helper.assertTrue(system.focus(new Vec3(1000, -3000, 4000), t) == null, "a focus in empty space");
+        double last = Double.MAX_VALUE;
+        for (int i = 0; i <= 40; i++) {
+            double d = reach * (0.85 + 0.15 * i / 40);
+            double g = system.gravity(body.center().add(d, 0, 0), t).length();
+            helper.assertTrue(g <= last + 1e-12, "pull rises toward the edge at " + d);
+            last = g;
+        }
+        helper.assertTrue(last < 1e-9, "pull at the edge is " + last);
+        double edge = t.motion().gravityEdge();
+        helper.assertTrue(com.porcupinestudios.tardisrb.space.StarSystem.fade(reach * (1 - edge) - 1, reach, edge) == 1, "fades inside the edge band");
+        helper.assertTrue(Math.abs(com.porcupinestudios.tardisrb.space.StarSystem.fade(reach * (1 - edge / 2), reach, edge) - 0.5) < 1e-9,
+                "fade midpoint isn't half");
+        helper.succeed();
+    }
+
+    /**
+     * Focus (Aaron 2026-11-15): only one body pulls at a time; near a ball it is that ball, far out the sun. Going a
+     * quarter way round a ball turns a floating player's up a quarter turn with it: orbit changes orientation.
+     */
+    @GameTest(template = "platform")
+    public static void orbitTurnsWithTheFocus(GameTestHelper helper) {
+        Planet p = bigPlanet(SkyLink.Wrap.TORUS);
+        Tuning.SpaceTuning t = Tuning.DEFAULT.space();
+        var system = testSystem(p, 50);
+        var body = system.body(p.id());
+        double r = body.entry() + 20;
+        helper.assertTrue(system.focus(body.center().add(r, 0, 0), t) == body, "the ball isn't the focus beside it");
+        helper.assertTrue(system.focus(new Vec3(-60, 0, 0), t) == null, "the sun isn't the focus beside it");
+        helper.assertTrue(system.gravity(new Vec3(-60, 0, 0), t).normalize().dot(new Vec3(1, 0, 0)) > 0.9999,
+                "doesn't fall to the sun");
+        net.minecraft.world.entity.player.Player player = helper.makeMockPlayer(net.minecraft.world.level.GameType.SURVIVAL);
+        player.setOnGround(false);
+        int steps = 90;
+        for (int i = 0; i <= steps; i++) {
+            double a = Math.PI / 2 * i / steps;
+            player.setPos(body.center().add(Math.cos(a) * r, Math.sin(a) * r, 0));
+            var down = system.down(player.position(), t);
+            if (i > 0 && down != ((GravityHolder) player).tardis_rb$gravity()) {
+                Tilt.regravitate(player, down);
+            }
+            ((GravityHolder) player).tardis_rb$setGravityField(down);
+            for (int k = 0; k < (i == steps ? 200 : 3); k++) {
+                Tilt.tick(player, system, t, true);
+            }
+        }
+        Vec3 up = Tilt.of(player).toWorld(new Vec3(0, 1, 0));
+        helper.assertTrue(up.dot(new Vec3(0, 1, 0)) > 0.9999, "a quarter orbit left up at " + up);
+        helper.succeed();
+    }
+
     /**
      * Slice 3 (free tilt): floating, a player leans to the true pull at any angle and aims where it looks; a gravity
      * turn underneath keeps the look; on blocks it goes back to six-way; with {@code free_tilt} off there is no lean.
@@ -340,7 +416,7 @@ public final class SpaceTests {
         player.setYHeadRot(30);
         player.yHeadRotO = 30;
         for (int i = 0; i < 200; i++) {
-            Tilt.tick(player, system, t);
+            Tilt.tick(player, system, t, true);
         }
         Tilt tilt = Tilt.of(player);
         helper.assertTrue(tilt != null, "no lean while floating in a system");
@@ -366,12 +442,115 @@ public final class SpaceTests {
         var m = t.motion();
         var off = new Tuning.SpaceTuning(t.gravity(), t.checkTicks(), t.landingSlowFall(), t.seamView(),
                 t.seamSegment(), t.seamLinger(), t.mapBudgetMs(), new Tuning.Motion(m.orbitSpeed(), m.thrust(),
-                        m.maxSpeed(), m.dragFree(), false, m.tiltSpeed(), m.boost(), m.chunkSkipSpeed()));
+                        m.maxSpeed(), m.dragFree(), false, m.tiltSpeed(), m.boost(), m.chunkSkipSpeed(), m.focusRange(),
+                        m.shipAlign(), m.shipAlignStrength(), m.shipAlignDamping(), m.gravityEdge(),
+                        m.airThrust(), m.autoAlignAltitude(), m.rollSpeed()), t.chunks(), t.stations());
         Tilt.tick(player, system, off);
         helper.assertTrue(Tilt.of(player) == null, "leans with free_tilt off");
         Tilt.tick(player, system, t);
         Tilt.tick(player, null, t);
         helper.assertTrue(Tilt.of(player) == null, "leans outside a system");
         helper.succeed();
+    }
+
+    /**
+     * Free frame (Aaron 2026-11-15, Outer Wilds style): floating far from a surface the frame stays put; pitching keeps
+     * going past straight up (no clamp) and rolling turns about the look, both without moving the view as they fold
+     * in; holding align eases up away from the pull; the layer <-> system turn matches the velocity mapping.
+     */
+    @GameTest(template = "platform")
+    public static void freeFrameTurns(GameTestHelper helper) {
+        Planet p = bigPlanet(SkyLink.Wrap.TORUS);
+        Tuning.SpaceTuning t = Tuning.DEFAULT.space();
+        var system = testSystem(p, 0);
+        var body = system.body(p.id());
+        Vec3 out = new Vec3(2, 1, 0).normalize();
+        net.minecraft.world.entity.player.Player player = helper.makeMockPlayer(net.minecraft.world.level.GameType.SURVIVAL);
+        player.setPos(body.center().add(out.scale(body.entry() + 200)));
+        player.setOnGround(false);
+        ((GravityHolder) player).tardis_rb$setGravityField(system.down(player.position(), t));
+        helper.assertTrue(system.gravity(player.position(), t).lengthSqr() > 0, "no pull to test against");
+        Tilt.tick(player, system, t);
+        org.joml.Quaternionf start = Tilt.of(player).now();
+        for (int i = 0; i < 100; i++) {
+            Tilt.tick(player, system, t);
+        }
+        helper.assertTrue(Tilt.of(player).now().equals(start, 1e-6f), "the frame leaned by itself while floating");
+
+        Vec3 up0 = Tilt.of(player).toWorld(new Vec3(0, 1, 0));
+        Vec3 look0 = player.getViewVector(1);
+        for (int i = 1; i <= 6; i++) {
+            player.setXRot(-60);
+            Vec3 before = player.getViewVector(1);
+            Tilt.of(player).spin(player, 0);
+            helper.assertTrue(player.getXRot() == 0, "pitch not folded in");
+            helper.assertTrue(player.getViewVector(1).distanceTo(before) < 1e-4, "folding moved the view from " + before + " to " + player.getViewVector(1) + " at " + i + " yaw " + player.getYRot() + "/" + player.getYHeadRot());
+            Vec3 up = Tilt.of(player).toWorld(new Vec3(0, 1, 0));
+            if (i == 3) {
+                helper.assertTrue(up.dot(up0) < -0.9999, "half a loop up isn't upside down (clamped?): " + up);
+            }
+        }
+        helper.assertTrue(player.getViewVector(1).distanceTo(look0) < 1e-3, "a full loop didn't come round");
+        helper.assertTrue(Tilt.of(player).toWorld(new Vec3(0, 1, 0)).dot(up0) > 0.9999, "a full loop moved up");
+
+        Vec3 right0 = Tilt.of(player).toWorld(RotationUtil.rotToVec(player.getViewYRot(1) + 90, 0));
+        Tilt.of(player).spin(player, 90);
+        helper.assertTrue(player.getViewVector(1).distanceTo(look0) < 1e-3, "rolling moved the look");
+        helper.assertTrue(Math.abs(Tilt.of(player).toWorld(new Vec3(0, 1, 0)).dot(right0)) > 0.9999,
+                "a quarter roll didn't put up where right was");
+
+        for (int i = 0; i < 300; i++) {
+            Tilt.tick(player, system, t, true);
+        }
+        Vec3 away = player.position().subtract(body.center()).normalize();
+        helper.assertTrue(Tilt.of(player).toWorld(new Vec3(0, 1, 0)).dot(away) > 0.9999, "align didn't converge");
+
+        org.joml.Quaternionf q = body.layerToSystem(1234, 567);
+        for (Vec3 v : List.of(new Vec3(1, 0, 0), new Vec3(0, 1, 0), new Vec3(0, 0, 1), new Vec3(0.3, -2, 5))) {
+            org.joml.Vector3f r = q.transform(new org.joml.Vector3f((float) v.x, (float) v.y, (float) v.z));
+            helper.assertTrue(new Vec3(r.x, r.y, r.z).distanceTo(body.velocityFromLayer(1234, 567, v)) < 1e-4,
+                    "the frame turn doesn't match the velocity mapping for " + v);
+        }
+        helper.succeed();
+    }
+
+    /**
+     * compat/sable's ship alignment spring, integrated on its own: from an up 90 degrees off it settles within 2 degrees
+     * of the wanted up, overshooting by no more than 10, with the default gains (pure maths; runs without Sable).
+     */
+    @GameTest(template = "platform")
+    public static void shipAlignSettles(GameTestHelper helper) {
+        var m = Tuning.Motion.DEFAULT;
+        org.joml.Vector3d up = new org.joml.Vector3d(1, 0, 0);
+        org.joml.Vector3d want = new org.joml.Vector3d(0, 1, 0);
+        org.joml.Vector3d omega = new org.joml.Vector3d();
+        double dt = 0.05, overshoot = 0;
+        for (int i = 0; i < 200; i++) { // 10 seconds
+            omega.add(com.porcupinestudios.tardisrb.compat.sable.ShipAlign.deltaOmega(up, want, omega, new org.joml.Vector3d(),
+                    m.shipAlignStrength(), m.shipAlignDamping(), dt));
+            double w = omega.length();
+            if (w > 0) {
+                new org.joml.Quaterniond().fromAxisAngleRad(omega.x / w, omega.y / w, omega.z / w, w * dt)
+                        .transform(up).normalize();
+            }
+            overshoot = Math.max(overshoot, -Math.toDegrees(Math.atan2(up.x, up.y)));
+        }
+        double off = Math.toDegrees(up.angle(want));
+        helper.assertTrue(off < 2, "not settled: " + off + " degrees off");
+        helper.assertTrue(overshoot <= 10, "overshot by " + overshoot + " degrees");
+        helper.succeed();
+    }
+
+    /**
+     * Space stations are Aeronautics ships: a real Sable ship given a circular orbit keeps its floor toward the centre
+     * as it goes round ({@code compat/sable/ShipOrbitTest}). Passes trivially without Sable.
+     */
+    @GameTest(template = "platform", timeoutTicks = 200)
+    public static void stationOrbitKeepsItsFloorDown(GameTestHelper helper) {
+        if (!net.neoforged.fml.ModList.get().isLoaded("sable")) {
+            helper.succeed();
+            return;
+        }
+        com.porcupinestudios.tardisrb.compat.sable.ShipOrbitTest.run(helper);
     }
 }

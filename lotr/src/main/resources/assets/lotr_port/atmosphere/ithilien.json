@@ -1,0 +1,22 @@
+{
+  "comment": "Fresh green garden",
+  "biomes": [
+    "ithilien",
+    "ithilien_hills"
+  ],
+  "priority": 6,
+  "fog_start": 0.3,
+  "fog_end": 1.0,
+  "fog_color": "#d0e0a0",
+  "fog_color_strength": 0.25,
+  "filter": "#a0d060",
+  "filter_alpha": 0.04,
+  "grade": {
+    "saturation": 0.15,
+    "contrast": 0.03,
+    "warmth": 0.15,
+    "brightness": 0.02,
+    "vignette": 0.1,
+    "bloom": 0.1
+  }
+}

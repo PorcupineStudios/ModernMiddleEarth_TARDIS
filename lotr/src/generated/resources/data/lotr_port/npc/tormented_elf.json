@@ -7,6 +7,24 @@
   ],
   "skin_height": 64,
   "model": "elf",
+  "behaviours": [
+    "elf_bow",
+    "burning_panic",
+    "archer"
+  ],
+  "behaviour_data": {
+    "bow_range": 8,
+    "bow_ticks": 40,
+    "burn_panic_speed": 1.5,
+    "eat_chance": 12000,
+    "drink_chance": 8000,
+    "ranged_speed": 1.25,
+    "ranged_min": 40,
+    "ranged_max": 60,
+    "ranged_range": 16.0,
+    "ranged_accuracy": 0.5,
+    "ranged_swap": 1
+  },
   "sounds": {
     "ambient": "lotr_port:elf.male.say",
     "attack": "lotr_port:elf.male.attack"
@@ -16,10 +34,12 @@
   "attack": 2.0,
   "gear": {
     "mainhand": [
+      "lotr_port:poisoned_utumno_dagger",
       "lotr_port:utumno_dagger",
       "lotr_port:utumno_sword"
-    ]
+    ],
+    "ranged": "lotr_port:utumno_bow"
   },
-  "names": "lotr_port:sindarin_male",
+  "names": "lotr_port:gondor_male",
   "speech": "lotr_port:utumno/elf"
 }

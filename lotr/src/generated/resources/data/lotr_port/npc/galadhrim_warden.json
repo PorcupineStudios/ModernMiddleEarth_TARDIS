@@ -8,6 +8,26 @@
   ],
   "skin_height": 64,
   "model": "elf",
+  "behaviours": [
+    "sneak",
+    "elf_bow",
+    "burning_panic",
+    "archer"
+  ],
+  "behaviour_data": {
+    "sneak_cooldown": 20,
+    "bow_range": 8,
+    "bow_ticks": 40,
+    "burn_panic_speed": 1.5,
+    "eat_chance": 12000,
+    "drink_chance": 8000,
+    "ranged_speed": 1.25,
+    "ranged_min": 25,
+    "ranged_max": 35,
+    "ranged_range": 24.0,
+    "ranged_accuracy": 0.5,
+    "ranged_swap": 1
+  },
   "sounds": {
     "ambient": "lotr_port:elf.male.say",
     "attack": "lotr_port:elf.male.attack"
@@ -20,9 +40,9 @@
     "head": "lotr_port:galadhrim_cloak_hood",
     "chest": "lotr_port:galadhrim_cloak_tunic",
     "legs": "lotr_port:galadhrim_cloak_leggings",
-    "feet": "lotr_port:galadhrim_cloak_boots"
+    "feet": "lotr_port:galadhrim_cloak_boots",
+    "ranged": "lotr_port:mallorn_bow"
   },
-  "names": "lotr_port:sindarin_male",
   "speech": "lotr_port:galadhrim/warrior",
   "quests": "lotr_port:galadhrim"
 }

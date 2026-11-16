@@ -1,0 +1,4 @@
+{"name": "Scholarly research", "order": 2, "rate": 0.75,
+ "cost": {"minecraft:paper": 2, "minecraft:ink_sac": 0.5},
+ "requires": {"type": "lotr_port:colony_population", "colony": "home", "compare": ">=", "value": 6},
+ "requires_text": "6 citizens"}

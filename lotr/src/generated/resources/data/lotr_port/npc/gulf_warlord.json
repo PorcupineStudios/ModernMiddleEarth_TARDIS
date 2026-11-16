@@ -8,6 +8,17 @@
     "lotr_port:textures/entity/near_harad/haradrim_male/4.png"
   ],
   "skin_height": 64,
+  "behaviours": [
+    "man_flesh",
+    "burning_panic"
+  ],
+  "behaviour_data": {
+    "flesh_chance": 5,
+    "burn_panic_speed": 1.5,
+    "eat_chance": 8000,
+    "drink_chance": 6000,
+    "ride_chance": 10
+  },
   "health": 25.0,
   "speed": 0.2,
   "attack": 2.0,
@@ -15,9 +26,11 @@
     "mainhand": "lotr_port:haradric_pike",
     "chest": "lotr_port:gulfen_chestplate",
     "legs": "lotr_port:gulfen_leggings",
-    "feet": "lotr_port:gulfen_boots"
+    "feet": "lotr_port:gulfen_boots",
+    "mount": "lotr_port:horse"
   },
   "names": "lotr_port:gulf_male",
   "units": "lotr_port:gulf_warlord",
-  "speech": "lotr_port:near_harad/mercenary"
+  "speech": "lotr_port:near_harad/mercenary",
+  "quests": "lotr_port:gulf_harad"
 }

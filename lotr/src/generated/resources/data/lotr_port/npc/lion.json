@@ -7,7 +7,8 @@
   "width": 1.4,
   "height": 1.6,
   "behaviours": [
-    "animal"
+    "animal",
+    "prey_chase"
   ],
   "lotr_classes": [
     "LOTREntityLion",
@@ -20,6 +21,9 @@
     "EntityLivingBase"
   ],
   "behaviour_data": {
+    "chase_chance": 800,
+    "chase_speed": 1.5,
+    "defend_young": 12,
     "fights_back": 1,
     "panic_speed": 1.25,
     "state.renderer": 0

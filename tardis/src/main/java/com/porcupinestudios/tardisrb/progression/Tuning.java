@@ -198,13 +198,17 @@ public record Tuning(CrashSite crashSite, Hop hop, Winder winder, Interior inter
      * Short hops in one dimension. Cost = max({@code min_charge}, distance x {@code charge_per_block}). The landing
      * search looks {@code landing_radius} blocks sideways and {@code landing_height} up and down for a dry, safe spot.
      */
-    public record Hop(double chargePerBlock, long minCharge, int landingRadius, int landingHeight) {
-        static final Hop DEFAULT = new Hop(0.5, 5, 8, 24);
+    public record Hop(double chargePerBlock, long minCharge, int landingRadius, int landingHeight,
+            int materialiseTicks) {
+        static final Hop DEFAULT = new Hop(0.5, 5, 8, 24, 200);
         static final Codec<Hop> CODEC = RecordCodecBuilder.create(i -> i.group(
                 Codec.DOUBLE.optionalFieldOf("charge_per_block", DEFAULT.chargePerBlock).forGetter(Hop::chargePerBlock),
                 Codec.LONG.optionalFieldOf("min_charge", DEFAULT.minCharge).forGetter(Hop::minCharge),
                 Codec.INT.optionalFieldOf("landing_radius", DEFAULT.landingRadius).forGetter(Hop::landingRadius),
-                Codec.INT.optionalFieldOf("landing_height", DEFAULT.landingHeight).forGetter(Hop::landingHeight))
+                Codec.INT.optionalFieldOf("landing_height", DEFAULT.landingHeight).forGetter(Hop::landingHeight),
+                // the (de)materialise fade, in ticks (Aaron 2026-11-16)
+                Codec.INT.optionalFieldOf("materialise_ticks", DEFAULT.materialiseTicks)
+                        .forGetter(Hop::materialiseTicks))
                 .apply(i, Hop::new));
     }
 
@@ -402,8 +406,9 @@ public record Tuning(CrashSite crashSite, Hop hop, Winder winder, Interior inter
      * planets without a picture are sampled for at most {@code map_budget_ms} milliseconds a tick.
      */
     public record SpaceTuning(double gravity, int checkTicks, int landingSlowFall, int seamView, int seamSegment,
-            int seamLinger, double mapBudgetMs, Motion motion) {
-        public static final SpaceTuning DEFAULT = new SpaceTuning(0.15, 5, 30, 160, 64, 200, 2.0, Motion.DEFAULT);
+            int seamLinger, double mapBudgetMs, Motion motion, Chunks chunks, Stations stations) {
+        public static final SpaceTuning DEFAULT = new SpaceTuning(0.15, 5, 30, 160, 64, 200, 2.0, Motion.DEFAULT,
+                Chunks.DEFAULT, Stations.DEFAULT);
         public static final Codec<SpaceTuning> CODEC = RecordCodecBuilder.create(i -> i.group(
                 Codec.doubleRange(0, 1).optionalFieldOf("gravity", DEFAULT.gravity).forGetter(SpaceTuning::gravity),
                 Codec.intRange(1, 200).optionalFieldOf("check_ticks", DEFAULT.checkTicks)
@@ -418,8 +423,38 @@ public record Tuning(CrashSite crashSite, Hop hop, Winder winder, Interior inter
                         .forGetter(SpaceTuning::seamLinger),
                 Codec.doubleRange(0, 50).optionalFieldOf("map_budget_ms", DEFAULT.mapBudgetMs)
                         .forGetter(SpaceTuning::mapBudgetMs),
-                Motion.CODEC.optionalFieldOf("motion", Motion.DEFAULT).forGetter(SpaceTuning::motion))
+                Motion.CODEC.optionalFieldOf("motion", Motion.DEFAULT).forGetter(SpaceTuning::motion),
+                Chunks.CODEC.optionalFieldOf("chunks", Chunks.DEFAULT).forGetter(SpaceTuning::chunks),
+                Stations.CODEC.optionalFieldOf("stations", Stations.DEFAULT).forGetter(SpaceTuning::stations))
                 .apply(i, SpaceTuning::new));
+    }
+
+    /**
+     * Space stations are Create: Aeronautics (Sable) ships (Aaron 2026-11-15; compat/sable). Standing on or in one, a
+     * player's down is the ship's own down, at {@code deck_gravity} times normal gravity (1.0).
+     */
+    public record Stations(double deckGravity) {
+        public static final Stations DEFAULT = new Stations(1.0);
+        public static final Codec<Stations> CODEC = RecordCodecBuilder.create(i -> i.group(
+                Codec.doubleRange(0, 10).optionalFieldOf("deck_gravity", DEFAULT.deckGravity)
+                        .forGetter(Stations::deckGravity))
+                .apply(i, Stations::new));
+    }
+
+    /**
+     * Sparse space ({@code space/SpaceContent}, Aaron 2026-11-15: almost all of space is empty, so only store and load
+     * where something is). With {@code sparse} on, space chunks that hold nothing are never saved, and players there
+     * load no chunks the vanilla way: only those within {@code near_radius} of a player who isn't flying fast (to
+     * build, mine and fight in; ticking), and chunks that hold something within view distance (ticking within
+     * simulation distance).
+     */
+    public record Chunks(boolean sparse, int nearRadius) {
+        public static final Chunks DEFAULT = new Chunks(true, 3);
+        public static final Codec<Chunks> CODEC = RecordCodecBuilder.create(i -> i.group(
+                Codec.BOOL.optionalFieldOf("sparse", DEFAULT.sparse).forGetter(Chunks::sparse),
+                Codec.intRange(0, 16).optionalFieldOf("near_radius", DEFAULT.nearRadius)
+                        .forGetter(Chunks::nearRadius))
+                .apply(i, Chunks::new));
     }
 
     /**
@@ -433,10 +468,22 @@ public record Tuning(CrashSite crashSite, Hop hop, Winder winder, Interior inter
      * a solar system, a player's view and body lean to the true pull ({@code free_tilt}), turning {@code tilt_speed}
      * of the way each tick; standing on blocks they stay six-way. A player faster than {@code chunk_skip_speed}
      * blocks a tick loads no chunks until slower than half that ({@code space/SpaceChunks}; 0 = always load).
+     * In a solar system only one body pulls at a time, the focus (Aaron 2026-11-15, for performance): the nearest ball
+     * within {@code focus_range} times its entry radius, else the sun ({@code StarSystem#focus}).
+     * Aeronautics ships (compat/sable, Sable loaded): {@code ship_align} turns a ship's up toward the focus away from its
+     * centre, as a spring ({@code ship_align_strength}, rad/s² per radian) with damping ({@code ship_align_damping}, per
+     * second); the defaults (9, 6) are critically damped and settle in about 1.5 seconds. Yaw stays free.
+     * Outer Wilds style (Aaron 2026-11-15): a body pulls only inside its gravity radius, fading over the outer
+     * {@code gravity_edge} share; floating, a player turns freely in all three axes (mouse, roll keys) and {@code air_thrust}
+     * (blocks a tick per tick) pushes along their own forward, right and up; their frame only eases upright on the
+     * ground or a deck, while holding the align key, or within {@code auto_align_altitude} blocks over a surface. The roll keys turn {@code roll_speed} degrees a tick.
      */
     public record Motion(double orbitSpeed, double thrust, double maxSpeed, boolean dragFree, boolean freeTilt,
-            double tiltSpeed, double boost, double chunkSkipSpeed) {
-        public static final Motion DEFAULT = new Motion(2.5, 0.02, 40.0, true, true, 0.12, 0.25, 4.0);
+            double tiltSpeed, double boost, double chunkSkipSpeed, double focusRange, boolean shipAlign,
+            double shipAlignStrength, double shipAlignDamping, double gravityEdge, double airThrust,
+            double autoAlignAltitude, double rollSpeed) {
+        public static final Motion DEFAULT =
+                new Motion(2.5, 0.02, 40.0, true, true, 0.12, 0.25, 4.0, 6.0, true, 9.0, 6.0, 0.1, 0.01, 24.0, 3.0);
         public static final Codec<Motion> CODEC = RecordCodecBuilder.create(i -> i.group(
                 Codec.doubleRange(0, 64).optionalFieldOf("orbit_speed", DEFAULT.orbitSpeed)
                         .forGetter(Motion::orbitSpeed),
@@ -448,7 +495,21 @@ public record Tuning(CrashSite crashSite, Hop hop, Winder winder, Interior inter
                         .forGetter(Motion::tiltSpeed),
                 Codec.doubleRange(0, 10).optionalFieldOf("boost", DEFAULT.boost).forGetter(Motion::boost),
                 Codec.doubleRange(0, 200).optionalFieldOf("chunk_skip_speed", DEFAULT.chunkSkipSpeed)
-                        .forGetter(Motion::chunkSkipSpeed))
+                        .forGetter(Motion::chunkSkipSpeed),
+                Codec.doubleRange(1, 1000).optionalFieldOf("focus_range", DEFAULT.focusRange)
+                        .forGetter(Motion::focusRange),
+                Codec.BOOL.optionalFieldOf("ship_align", DEFAULT.shipAlign).forGetter(Motion::shipAlign),
+                Codec.doubleRange(0, 100).optionalFieldOf("ship_align_strength", DEFAULT.shipAlignStrength)
+                        .forGetter(Motion::shipAlignStrength),
+                Codec.doubleRange(0, 100).optionalFieldOf("ship_align_damping", DEFAULT.shipAlignDamping)
+                        .forGetter(Motion::shipAlignDamping),
+                Codec.doubleRange(0, 1).optionalFieldOf("gravity_edge", DEFAULT.gravityEdge)
+                        .forGetter(Motion::gravityEdge),
+                Codec.doubleRange(0, 1).optionalFieldOf("air_thrust", DEFAULT.airThrust).forGetter(Motion::airThrust),
+                Codec.doubleRange(0, 1000).optionalFieldOf("auto_align_altitude", DEFAULT.autoAlignAltitude)
+                        .forGetter(Motion::autoAlignAltitude),
+                Codec.doubleRange(0, 45).optionalFieldOf("roll_speed", DEFAULT.rollSpeed)
+                        .forGetter(Motion::rollSpeed))
                 .apply(i, Motion::new));
     }
 

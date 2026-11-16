@@ -16,7 +16,8 @@ import json
 import os
 
 from entity_models import EntityModels
-from behaviours import behaviour_data, behaviours_of
+from behaviours import archer, behaviour_data, behaviours_of, rider
+from mounts import BY_NAME, BREEDS, breed_of
 from sounds import npc_sounds
 import re
 
@@ -28,10 +29,6 @@ def speech_path(folder):
     return "/".join(snake(x) for x in folder.split("/"))
 
 
-# LOTR mounts drawn on vanilla's horse and pig models: the vanilla animal stands in (dwarves' war boars ride pigs
-# until LOTR's boar model converts)
-MOUNT_STAND_INS = {"Horse": "minecraft:horse", "Boar": "minecraft:pig", "Camel": "minecraft:camel",
-                   "ShirePony": "minecraft:donkey", "Zebra": "minecraft:horse"}
 PERSON_MODELS = {"LOTRModelHuman", "LOTRModelOrc", "LOTRModelElf", "LOTRModelDwarf", "LOTRModelHobbit"}
 # The head and body shape each LOTR model draws (hair layer, ears, hobbit feet); humans are the default.
 MODELS = {"LOTRModelHobbit": "hobbit", "LOTRModelDwarf": "dwarf", "LOTRModelElf": "elf", "LOTRModelOrc": "orc"}
@@ -66,6 +63,26 @@ class Npcs:
         self.banks = {}
 
     # ------------------------------------------------------------------ helpers
+
+    def loot(self, e):
+        """LOTR's kill drops (dropFewItems: bones, race items, coins, rares) as a loot table: one pool per item,
+        dropped in the sampled share of kills, between the fewest and most seen. Measured by NpcExporter.drops."""
+        pools = []
+        for key, d in sorted((e.get("drops") or {}).items()):
+            item, _, meta = key.rpartition("#")
+            new = self.item({"item": item, "meta": int(meta or 0)})
+            if not new:
+                self.report["npc_drops_unmapped"].append(f"{e.get('name')}: {key}")
+                continue
+            entry = {"type": "minecraft:item", "name": new}
+            if d["max"] > 1:
+                entry["functions"] = [{"function": "minecraft:set_count",
+                                       "count": {"type": "minecraft:uniform", "min": d["min"], "max": d["max"]}}]
+            pool = {"rolls": 1, "entries": [entry]}
+            if d["chance"] < 0.999:
+                pool["conditions"] = [{"condition": "minecraft:random_chance", "chance": round(d["chance"], 4)}]
+            pools.append(pool)
+        return {"type": "minecraft:entity", "pools": pools} if pools else None
 
     def item(self, stack):
         if not stack:
@@ -150,7 +167,8 @@ class Npcs:
                   ("HaradSlave", ["nearHarad/slave/gondor_male/0", "nearHarad/slave/gondor_male/1",
                                   "nearHarad/slave/morwaith_male/0", "nearHarad/slave/nearHarad_male/0",
                                   "nearHarad/slave/nearHarad_male/1", "nearHarad/slave/taurethrim_male/0"]),
-                  ("Wraith", ["minecraft:textures/entity/skeleton/skeleton.png"]))
+                  ("Wraith", ["minecraft:textures/entity/skeleton/skeleton.png"]),
+                  ("Bear", ["bear/light", "bear/dark", "bear/black"]))
     WARG_COLOURS = ("black", "brown", "grey", "white")
 
     def code_skins(self, e):
@@ -264,9 +282,9 @@ class Npcs:
             npc = type_id(u.get("entity") or "")
             mount = None
             if u.get("mount"):
-                # LOTR's mounted units: wargs are NPC types; its horses, boars and the like are vanilla stand-ins
+                # LOTR's mounted units: wargs and spiders are NPC types; horses, boars and the like are mounts.py's
                 mid = type_id(u["mount"])
-                mount = f"{NS}:{mid}" if mid in types else MOUNT_STAND_INS.get(u["mount"].split(".")[-1])
+                mount = BY_NAME.get(u["mount"]) or (f"{NS}:{mid}" if mid in types else None)
                 if not mount:
                     self.report["npc_mounted_units_skipped"].append(f"{name}: {u.get('name')} ({u['mount']})")
                     continue
@@ -314,6 +332,10 @@ class Npcs:
             out["behaviour_data"] = data
         elif model:
             out["model"] = model
+        if not creature and behaviours_of(e):
+            # people with a behaviour of their own (Wood-elf scouts, Dorwinion guards)
+            out["behaviours"] = behaviours_of(e)
+            out["behaviour_data"] = behaviour_data(e, self.jar)
         voice = npc_sounds(e.get("classes") or [e.get("class", "")])
         if voice:
             out["sounds"] = voice
@@ -332,6 +354,26 @@ class Npcs:
                 if items:
                     gear[slot] = items[0] if len(items) == 1 else items  # several: one is picked at spawn
                     break
+        shots = archer(e, self.jar)
+        if shots:
+            # LOTR archers and throwers: their ranged weapon (pure archers hold it; elves and the like swap it with
+            # their melee weapon by distance, LOTREntityNPC.onAttackModeChange)
+            stacks = sampled.get("rangedWeapon") if isinstance(sampled, dict) else None
+            ranged = sorted({i for i in (self.item(st) for st in stacks or []) if i})
+            if ranged:
+                gear["ranged" if shots["ranged_swap"] else "mainhand"] = ranged[0] if len(ranged) == 1 else ranged
+            if ranged:
+                out["behaviours"] = out.get("behaviours", []) + ["archer"]
+                out["behaviour_data"] = {**out.get("behaviour_data", {}), **shots}
+        ride = rider(e, self.jar, lambda c: breed_of(c) or self.class_types.get(c))
+        if ride:
+            # LOTREntityNPC.spawnRidingHorse: one spawn in `ride_chance` comes riding its `mount`
+            gear["mount"] = ride["mount"]
+            worn = sorted({a if ":" in a else (self.gen.idtable.get(f"lotr:item.{a}#0") or "").split("[")[0]
+                           for a in ride["armour"]} - {""})
+            if worn:
+                gear["mount_armor"] = worn[0] if len(worn) == 1 else worn
+            out["behaviour_data"] = {**out.get("behaviour_data", {}), "ride_chance": ride["chance"]}
         if gear:
             out["gear"] = gear
         bank = self.bank_for(e.get("sampleName"))
@@ -348,11 +390,14 @@ class Npcs:
         factions = {f[:-5] for f in os.listdir(os.path.join(self.data, "faction"))}
         self.load_banks()
         self.models = EntityModels(self.jar, self.assets, self.report)
+        # LOTR's horse family (horses, boars, camels...) are mount entities (mounts.py), not NPC types
         people = [e for e in self.export.get("entities", [])
-                  if ((e.get("render") or {}).get("model") or "").split(".")[-1] in PERSON_MODELS
+                  if (e.get("class") or "").split(".")[-1] not in BREEDS
+                  and (((e.get("render") or {}).get("model") or "").split(".")[-1] in PERSON_MODELS
                   or ((".npc." in (e.get("classes") or [""])[0] or ".animal." in (e.get("classes") or [""])[0])
-                      and self.creature_model(e))]
+                      and self.creature_model(e)))]
         types = {type_id(e["name"]): e for e in people}
+        self.class_types = {e.get("class"): f"{NS}:{type_id(e['name'])}" for e in people}
         written = {}
         for tid, e in sorted(types.items()):
             written[tid] = self.npc_type(e, factions)
@@ -376,6 +421,9 @@ class Npcs:
                     self.report["npc_pools_missing"].append(f"{tid}: {v[key]}")
                     del v[key]
             write_json(os.path.join(self.data, "npc", tid + ".json"), v)
+            loot = self.loot(types[tid])
+            if loot:
+                write_json(os.path.join(self.data, "loot_table", "entities", "npc", tid + ".json"), loot)
         self.models.write_all()
         self.lang(types)
         skipped = sorted({(e.get("render") or {}).get("model") or "none" for e in self.export.get("entities", [])

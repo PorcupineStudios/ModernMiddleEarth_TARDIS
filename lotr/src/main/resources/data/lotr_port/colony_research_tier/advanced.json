@@ -1,0 +1,4 @@
+{"name": "Advanced research", "order": 3, "rate": 0.5,
+ "cost": {"minecraft:book": 1, "minecraft:glowstone_dust": 1, "minecraft:gold_nugget": 2},
+ "requires": {"type": "lotr_port:colony_population", "colony": "home", "compare": ">=", "value": 12},
+ "requires_text": "12 citizens"}

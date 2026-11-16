@@ -1,6 +1,33 @@
 {
   "quests": [
     {
+      "kind": "kill_faction",
+      "target": "lotr_port:ranger_north",
+      "min": 10,
+      "max": 30,
+      "reward": 1.0,
+      "speech": "lotr_port:miniquest/angmar_hillman/kill_ranger",
+      "weight": 267
+    },
+    {
+      "kind": "kill_faction",
+      "target": "lotr_port:ranger_north",
+      "min": 40,
+      "max": 60,
+      "reward": 1.0,
+      "speech": "lotr_port:miniquest/angmar_hillman/kill_ranger_many",
+      "weight": 267
+    },
+    {
+      "kind": "kill_faction",
+      "target": "lotr_port:high_elf",
+      "min": 10,
+      "max": 30,
+      "reward": 1.0,
+      "speech": "lotr_port:miniquest/angmar_hillman/kill_high_elf",
+      "weight": 267
+    },
+    {
       "kind": "collect",
       "target": "minecraft:cooked_porkchop",
       "min": 4,
@@ -305,33 +332,6 @@
       "reward": 4.0,
       "speech": "lotr_port:miniquest/angmar_hillman/collect_treasure",
       "weight": 29
-    },
-    {
-      "kind": "kill_faction",
-      "target": "lotr_port:ranger_north",
-      "min": 10,
-      "max": 30,
-      "reward": 1.0,
-      "speech": "lotr_port:miniquest/angmar_hillman/kill_ranger",
-      "weight": 267
-    },
-    {
-      "kind": "kill_faction",
-      "target": "lotr_port:ranger_north",
-      "min": 40,
-      "max": 60,
-      "reward": 1.0,
-      "speech": "lotr_port:miniquest/angmar_hillman/kill_ranger_many",
-      "weight": 267
-    },
-    {
-      "kind": "kill_faction",
-      "target": "lotr_port:high_elf",
-      "min": 10,
-      "max": 30,
-      "reward": 1.0,
-      "speech": "lotr_port:miniquest/angmar_hillman/kill_high_elf",
-      "weight": 267
     }
   ]
 }

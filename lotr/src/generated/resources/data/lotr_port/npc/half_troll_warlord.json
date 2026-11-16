@@ -10,7 +10,8 @@
   "width": 1.0,
   "height": 2.4,
   "behaviours": [
-    "half_troll"
+    "half_troll",
+    "burning_panic"
   ],
   "lotr_classes": [
     "LOTREntityHalfTrollWarlord",
@@ -22,7 +23,11 @@
     "EntityLivingBase"
   ],
   "behaviour_data": {
-    "state.renderer": 0
+    "burn_panic_speed": 1.5,
+    "eat_chance": 6000,
+    "drink_chance": 6000,
+    "state.renderer": 1,
+    "ride_chance": 12
   },
   "sounds": {
     "ambient": "lotr_port:half_troll.say",
@@ -36,7 +41,9 @@
     "mainhand": "lotr_port:half_troll_scimitar",
     "chest": "lotr_port:half_troll_chestplate",
     "legs": "lotr_port:half_troll_leggings",
-    "feet": "lotr_port:half_troll_boots"
+    "feet": "lotr_port:half_troll_boots",
+    "mount": "lotr_port:rhino",
+    "mount_armor": "lotr_port:half_troll_rhino_armor"
   },
   "names": "lotr_port:orc",
   "units": "lotr_port:half_troll_warlord",

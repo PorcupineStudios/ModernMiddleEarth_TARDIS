@@ -7,6 +7,14 @@
   ],
   "skin_height": 64,
   "model": "dwarf",
+  "behaviours": [
+    "burning_panic"
+  ],
+  "behaviour_data": {
+    "burn_panic_speed": 1.5,
+    "eat_chance": 6000,
+    "drink_chance": 6000
+  },
   "sounds": {
     "hurt": "lotr_port:dwarf.hurt",
     "attack": "lotr_port:dwarf.attack",
@@ -24,6 +32,5 @@
   },
   "names": "lotr_port:dwarf_male",
   "units": "lotr_port:blue_dwarf_commander",
-  "speech": "lotr_port:blue_dwarf/commander",
-  "quests": "lotr_port:blue_mountains"
+  "speech": "lotr_port:blue_dwarf/commander"
 }

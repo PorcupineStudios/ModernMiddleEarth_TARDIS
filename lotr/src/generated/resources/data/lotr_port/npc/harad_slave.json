@@ -1,5 +1,5 @@
 {
-  "faction": "lotr_port:near_harad",
+  "faction": "lotr_port:morwaith",
   "skins": [
     "lotr_port:textures/entity/near_harad/slave/gondor_male/0.png",
     "lotr_port:textures/entity/near_harad/slave/gondor_male/1.png",
@@ -9,12 +9,24 @@
     "lotr_port:textures/entity/near_harad/slave/taurethrim_male/0.png"
   ],
   "skin_height": 64,
+  "behaviours": [
+    "man_flesh",
+    "farmhand",
+    "burning_panic"
+  ],
+  "behaviour_data": {
+    "flesh_chance": 5,
+    "farmhand": 1,
+    "burn_panic_speed": 1.5,
+    "eat_chance": 12000,
+    "drink_chance": 8000
+  },
   "health": 20.0,
   "speed": 0.2,
   "attack": 2.0,
   "gear": {
     "mainhand": "lotr_port:bronze_hoe"
   },
-  "names": "lotr_port:near_haradrim_male",
+  "names": "lotr_port:moredain_male",
   "speech": "lotr_port:near_harad/slave"
 }

@@ -30,6 +30,7 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.tileentity.TileEntitySign;
 import net.minecraft.world.chunk.Chunk;
 
 /**
@@ -236,6 +237,7 @@ public class StructureExporter {
         Map<String, Integer> palette = new LinkedHashMap<>();
         JsonArray blocks = new JsonArray();
         JsonArray chests = new JsonArray();
+        JsonArray signs = new JsonArray();
         int minX = Integer.MAX_VALUE, minY = Integer.MAX_VALUE, minZ = Integer.MAX_VALUE;
         int maxX = Integer.MIN_VALUE, maxY = Integer.MIN_VALUE, maxZ = Integer.MIN_VALUE;
         List<int[]> changed = new ArrayList<>();
@@ -279,6 +281,17 @@ public class StructureExporter {
                         }
                         chest.add("items", items);
                         chests.add(chest);
+                    }
+                    if (te instanceof TileEntitySign sign) {
+                        // LOTR writes sign text as it builds (inn names, warnings, carved signs): keep the lines
+                        JsonObject so = new JsonObject();
+                        so.add("pos", pos(x - cx, y, z - cz));
+                        JsonArray lines = new JsonArray();
+                        for (String line : sign.signText) {
+                            lines.add(new JsonPrimitive(line == null ? "" : line));
+                        }
+                        so.add("lines", lines);
+                        signs.add(so);
                     }
                 }
             }
@@ -337,6 +350,7 @@ public class StructureExporter {
         o.add("palette", pal);
         o.add("blocks", blocks);
         o.add("chests", chests);
+        o.add("signs", signs);
         o.add("entities", entities);
         return o;
     }

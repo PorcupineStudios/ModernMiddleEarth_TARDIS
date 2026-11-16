@@ -1,0 +1,31 @@
+{
+  "food": [
+    "minecraft:wheat"
+  ],
+  "armour": "elk",
+  "attack": 3.0,
+  "fights_back": 1.25,
+  "spawn": {
+    "health": {
+      "mul_rand": 0.5
+    }
+  },
+  "clamp_health": [
+    16,
+    50
+  ],
+  "clamp_jump": [
+    0.3,
+    1.0
+  ],
+  "clamp_speed": [
+    0.08,
+    0.34
+  ],
+  "sounds": {
+    "ambient": "elk.say",
+    "hurt": "elk.hurt",
+    "death": "elk.death",
+    "angry": "elk.hurt"
+  }
+}

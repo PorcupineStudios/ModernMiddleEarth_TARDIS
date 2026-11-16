@@ -7,6 +7,7 @@
   "width": 2.1,
   "height": 0.7,
   "behaviours": [
+    "crocodile",
     "animal"
   ],
   "lotr_classes": [
@@ -17,9 +18,16 @@
     "EntityLivingBase"
   ],
   "behaviour_data": {
+    "hunt_light": 8,
+    "prey_chance": 1000,
     "fights_back": 1,
     "panic_speed": 1.25,
     "state.renderer": 0
+  },
+  "sounds": {
+    "ambient": "lotr_port:crocodile.say",
+    "death": "lotr_port:crocodile.death",
+    "attack": "lotr_port:crocodile.snap"
   },
   "health": 20.0,
   "speed": 0.2,

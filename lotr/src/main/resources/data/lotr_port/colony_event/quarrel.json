@@ -1,0 +1,1 @@
+{"kind": "lotr_port:quarrel", "name": "Quarrel", "chance": 0.2, "cooldown_days": 2, "min_opinion": 30, "thought": "lotr_port:quarrel", "opinion_change": 10, "min_people": 2}

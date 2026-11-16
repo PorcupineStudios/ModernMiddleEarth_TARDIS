@@ -1,0 +1,13 @@
+{
+  "light": 9,
+  "berry_divisor": 50,
+  "berry_min": 1,
+  "berry_max": 4,
+  "corn_height": 3,
+  "corn_divisor": 25,
+  "corn_cob_divisor": 100,
+  "grape_height": 3,
+  "grape_divisor": 25,
+  "grape_min": 1,
+  "grape_max": 3
+}

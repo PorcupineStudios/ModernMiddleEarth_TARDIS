@@ -1,0 +1,17 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "com.porcupinestudios.lotrport.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": [
+    "NoiseGeneratorMixin",
+    "RaceHungerMixin",
+    "RaceCrouchMixin"
+  ],
+  "client": [
+    "PlayerSkinMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

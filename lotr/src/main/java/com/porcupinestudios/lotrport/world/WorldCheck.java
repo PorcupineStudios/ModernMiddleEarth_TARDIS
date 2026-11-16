@@ -98,6 +98,14 @@ final class WorldCheck {
             // the map pixel is 128 blocks wide; rivers and border wobble can cover its centre, so look for a
             // column inside it where the biome source itself answers this biome
             int[] at = columnWithBiome(map, i, samples[i][0], samples[i][1]);
+            // a biome on few pixels can have its chosen one covered (2026-11-14: moving the rivers covered wold's):
+            // it only has to be found in one of its pixels
+            for (int[] c : at == null ? map.pixelCentres(i, 40) : List.<int[]>of()) {
+                at = columnWithBiome(map, i, c[0], c[1]);
+                if (at != null) {
+                    break;
+                }
+            }
             if (at == null) {
                 missing.add(id + " (rivers or borders cover its whole pixel at " + samples[i][0] + ","
                         + samples[i][1] + ")");

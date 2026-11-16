@@ -8,19 +8,33 @@
     "lotr_port:textures/entity/moredain/moredain_male/4.png"
   ],
   "skin_height": 64,
+  "behaviours": [
+    "man_flesh",
+    "burning_panic"
+  ],
+  "behaviour_data": {
+    "flesh_chance": 5,
+    "burn_panic_speed": 1.5,
+    "eat_chance": 8000,
+    "drink_chance": 8000,
+    "ride_chance": 10
+  },
   "health": 20.0,
   "speed": 0.2,
   "attack": 2.0,
   "gear": {
     "mainhand": [
-      "lotr_port:morwaith_club",
+      "lotr_port:haradric_sword",
+      "lotr_port:morwaith_battleaxe",
       "lotr_port:morwaith_spear",
-      "lotr_port:morwaith_sword"
+      "lotr_port:poisoned_morwaith_dagger",
+      "lotr_port:umbaric_mace"
     ],
     "head": "lotr_port:morwaith_helmet",
     "chest": "lotr_port:morwaith_chestplate",
     "legs": "lotr_port:morwaith_leggings",
-    "feet": "lotr_port:morwaith_boots"
+    "feet": "lotr_port:morwaith_boots",
+    "mount": "lotr_port:zebra"
   },
   "names": "lotr_port:moredain_male",
   "speech": "lotr_port:moredain/moredain",

@@ -8,7 +8,9 @@
   "width": 1.5,
   "height": 1.7,
   "behaviours": [
-    "warg"
+    "warg",
+    "on_hit",
+    "burning_panic"
   ],
   "lotr_classes": [
     "LOTREntityUtumnoIceWarg",
@@ -21,6 +23,10 @@
     "EntityLivingBase"
   ],
   "behaviour_data": {
+    "burn_panic_speed": 1.5,
+    "frost": 1,
+    "slow_d2": 0.5,
+    "slow_d": 2.5,
     "state.renderer": 0
   },
   "sounds": {
@@ -31,6 +37,6 @@
   },
   "health": 40.0,
   "speed": 0.25,
-  "attack": 3.0,
+  "attack": 4.0,
   "speech": "lotr_port:utumno/orc"
 }

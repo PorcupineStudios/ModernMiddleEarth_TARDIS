@@ -8,6 +8,25 @@
   ],
   "skin_height": 64,
   "model": "elf",
+  "behaviours": [
+    "elf_bow",
+    "burning_panic",
+    "archer"
+  ],
+  "behaviour_data": {
+    "bow_range": 8,
+    "bow_ticks": 40,
+    "burn_panic_speed": 1.5,
+    "eat_chance": 12000,
+    "drink_chance": 8000,
+    "ranged_speed": 1.25,
+    "ranged_min": 25,
+    "ranged_max": 35,
+    "ranged_range": 24.0,
+    "ranged_accuracy": 0.5,
+    "ranged_swap": 1,
+    "ride_chance": 4
+  },
   "sounds": {
     "ambient": "lotr_port:elf.male.say",
     "attack": "lotr_port:elf.male.attack"
@@ -19,9 +38,12 @@
     "mainhand": "lotr_port:wood_elven_sword",
     "chest": "lotr_port:wood_elven_chestplate",
     "legs": "lotr_port:wood_elven_leggings",
-    "feet": "lotr_port:wood_elven_boots"
+    "feet": "lotr_port:wood_elven_boots",
+    "ranged": "lotr_port:bow_of_mirkwood",
+    "mount": "lotr_port:elk",
+    "mount_armor": "lotr_port:wood_elven_elk_armor"
   },
-  "names": "lotr_port:sindarin_male",
   "units": "lotr_port:wood_elf_captain",
-  "speech": "lotr_port:wood_elf/captain"
+  "speech": "lotr_port:wood_elf/captain",
+  "quests": "lotr_port:wood_elf"
 }

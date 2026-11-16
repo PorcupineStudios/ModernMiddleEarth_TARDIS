@@ -1,6 +1,51 @@
 {
   "quests": [
     {
+      "kind": "kill_faction",
+      "target": "lotr_port:ranger_north",
+      "min": 10,
+      "max": 40,
+      "reward": 1.0,
+      "speech": "lotr_port:miniquest/angmar/kill_enemy",
+      "weight": 160
+    },
+    {
+      "kind": "kill_faction",
+      "target": "lotr_port:high_elf",
+      "min": 10,
+      "max": 40,
+      "reward": 1.0,
+      "speech": "lotr_port:miniquest/angmar/kill_enemy",
+      "weight": 160
+    },
+    {
+      "kind": "kill_npc",
+      "target": "lotr_port:ranger_north",
+      "min": 10,
+      "max": 30,
+      "reward": 1.0,
+      "speech": "lotr_port:miniquest/angmar/kill_ranger",
+      "weight": 160
+    },
+    {
+      "kind": "kill_npc",
+      "target": "lotr_port:high_elf",
+      "min": 10,
+      "max": 30,
+      "reward": 1.0,
+      "speech": "lotr_port:miniquest/angmar/kill_elf",
+      "weight": 160
+    },
+    {
+      "kind": "kill_npc",
+      "target": "lotr_port:rivendell_elf",
+      "min": 10,
+      "max": 30,
+      "reward": 1.0,
+      "speech": "lotr_port:miniquest/angmar/kill_elf",
+      "weight": 160
+    },
+    {
       "kind": "collect",
       "target": "lotr_port:angmar_sword",
       "min": 1,
@@ -179,51 +224,6 @@
       "reward": 12.0,
       "speech": "lotr_port:miniquest/angmar/collect_mineral",
       "weight": 50
-    },
-    {
-      "kind": "kill_faction",
-      "target": "lotr_port:ranger_north",
-      "min": 10,
-      "max": 40,
-      "reward": 1.0,
-      "speech": "lotr_port:miniquest/angmar/kill_enemy",
-      "weight": 160
-    },
-    {
-      "kind": "kill_faction",
-      "target": "lotr_port:high_elf",
-      "min": 10,
-      "max": 40,
-      "reward": 1.0,
-      "speech": "lotr_port:miniquest/angmar/kill_enemy",
-      "weight": 160
-    },
-    {
-      "kind": "kill_npc",
-      "target": "lotr_port:ranger_north",
-      "min": 10,
-      "max": 30,
-      "reward": 1.0,
-      "speech": "lotr_port:miniquest/angmar/kill_ranger",
-      "weight": 160
-    },
-    {
-      "kind": "kill_npc",
-      "target": "lotr_port:high_elf",
-      "min": 10,
-      "max": 30,
-      "reward": 1.0,
-      "speech": "lotr_port:miniquest/angmar/kill_elf",
-      "weight": 160
-    },
-    {
-      "kind": "kill_npc",
-      "target": "lotr_port:rivendell_elf",
-      "min": 10,
-      "max": 30,
-      "reward": 1.0,
-      "speech": "lotr_port:miniquest/angmar/kill_elf",
-      "weight": 160
     }
   ]
 }

@@ -4,6 +4,17 @@
     "lotr_port:textures/entity/near_harad/warrior/0.png"
   ],
   "skin_height": 64,
+  "behaviours": [
+    "man_flesh",
+    "burning_panic"
+  ],
+  "behaviour_data": {
+    "flesh_chance": 5,
+    "burn_panic_speed": 1.5,
+    "eat_chance": 8000,
+    "drink_chance": 6000,
+    "ride_chance": 8
+  },
   "health": 20.0,
   "speed": 0.2,
   "attack": 2.0,
@@ -20,7 +31,8 @@
     ],
     "chest": "lotr_port:nomad_tunic",
     "legs": "lotr_port:nomad_leggings",
-    "feet": "lotr_port:nomad_shoes"
+    "feet": "lotr_port:nomad_shoes",
+    "mount": "lotr_port:camel"
   },
   "names": "lotr_port:nomad_male",
   "speech": "lotr_port:near_harad/mercenary",

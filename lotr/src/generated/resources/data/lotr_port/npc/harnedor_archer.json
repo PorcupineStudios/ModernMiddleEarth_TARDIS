@@ -8,24 +8,37 @@
     "lotr_port:textures/entity/near_harad/harnedor_male/4.png"
   ],
   "skin_height": 64,
+  "behaviours": [
+    "man_flesh",
+    "burning_panic",
+    "archer"
+  ],
+  "behaviour_data": {
+    "flesh_chance": 5,
+    "burn_panic_speed": 1.5,
+    "eat_chance": 8000,
+    "drink_chance": 6000,
+    "ranged_speed": 1.25,
+    "ranged_min": 30,
+    "ranged_max": 50,
+    "ranged_range": 16.0,
+    "ranged_accuracy": 0.75,
+    "ranged_swap": 0,
+    "ride_chance": 8
+  },
   "health": 20.0,
   "speed": 0.2,
   "attack": 2.0,
   "gear": {
-    "mainhand": [
-      "lotr_port:haradric_dagger",
-      "lotr_port:haradric_pike",
-      "lotr_port:haradric_spear",
-      "lotr_port:haradric_sword",
-      "lotr_port:poisoned_haradric_dagger"
-    ],
+    "mainhand": "lotr_port:bow_of_harad",
     "head": [
       "lotr_port:harad_turban",
       "lotr_port:harnennor_helmet"
     ],
     "chest": "lotr_port:harnennor_chestplate",
     "legs": "lotr_port:harnennor_leggings",
-    "feet": "lotr_port:harnennor_boots"
+    "feet": "lotr_port:harnennor_boots",
+    "mount": "lotr_port:horse"
   },
   "names": "lotr_port:near_haradrim_male",
   "speech": "lotr_port:near_harad/mercenary",

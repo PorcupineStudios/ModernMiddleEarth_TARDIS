@@ -1,0 +1,10 @@
+{
+  "entities": [
+    "minecraft:llama",
+    "minecraft:trader_llama"
+  ],
+  "speed": 1.2,
+  "carry": 6,
+  "draws_wagon": false,
+  "needs_tame": true
+}

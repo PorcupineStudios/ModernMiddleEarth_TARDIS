@@ -66,6 +66,19 @@ public class NpcRenderer extends HumanoidMobRenderer<LotrNpc, HumanoidModel<Lotr
         renderQuestMark(npc, pose, buffers);
     }
 
+    /** LOTR's elf bow (LOTRRenderElf): the body leans forward from the hips while {@code bowingTick} runs 0..40. */
+    @Override
+    protected void setupRotations(LotrNpc npc, PoseStack pose, float bob, float yRot, float partialTick, float scale) {
+        super.setupRotations(npc, pose, bob, yRot, partialTick, scale);
+        float tick = npc.state("bowingTick");
+        if (tick > 0) {
+            float bow = (float) Math.sin(Math.min(tick + partialTick, 40) / 40 * Math.PI);
+            pose.translate(0, 0.75 * scale, 0);
+            pose.mulPose(com.mojang.math.Axis.XP.rotationDegrees(bow * 30)); // not checked in game
+            pose.translate(0, -0.75 * scale, 0);
+        }
+    }
+
     /**
      * LOTR's quest mark: its quest-offer icon above the head of an NPC offering a quest, tinted with the faction
      * colour, facing the camera, within 16 blocks (higher when the NPC is talking, so it clears the speech).
@@ -115,7 +128,11 @@ public class NpcRenderer extends HumanoidMobRenderer<LotrNpc, HumanoidModel<Lotr
             FormattedCharSequence row = rows.get(i);
             float x = -font.width(row) / 2f;
             float y = (i - rows.size() + 1) * (font.lineHeight + 1);
-            font.drawInBatch(row, x, y, 0xFFFFFFFF, false, matrix, buffers, Font.DisplayMode.NORMAL, background,
+            // background first, then the text pushed in front with polygon offset: text and its box in one pass
+            // share a depth and z-fight under shaderpacks (Iris), which ate half of every letter
+            font.drawInBatch(row, x, y, 0x00FFFFFF, false, matrix, buffers, Font.DisplayMode.NORMAL, background,
+                    light);
+            font.drawInBatch(row, x, y, 0xFFFFFFFF, false, matrix, buffers, Font.DisplayMode.POLYGON_OFFSET, 0,
                     light);
         }
         pose.popPose();

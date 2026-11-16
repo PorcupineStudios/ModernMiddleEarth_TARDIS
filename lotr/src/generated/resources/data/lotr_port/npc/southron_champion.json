@@ -8,6 +8,17 @@
     "lotr_port:textures/entity/near_harad/haradrim_male/4.png"
   ],
   "skin_height": 64,
+  "behaviours": [
+    "man_flesh",
+    "burning_panic"
+  ],
+  "behaviour_data": {
+    "flesh_chance": 5,
+    "burn_panic_speed": 1.5,
+    "eat_chance": 8000,
+    "drink_chance": 6000,
+    "ride_chance": 1
+  },
   "health": 25.0,
   "speed": 0.2,
   "attack": 2.0,
@@ -16,8 +27,11 @@
     "head": "lotr_port:southron_champion_helmet",
     "chest": "lotr_port:coast_southron_chestplate",
     "legs": "lotr_port:coast_southron_leggings",
-    "feet": "lotr_port:coast_southron_boots"
+    "feet": "lotr_port:coast_southron_boots",
+    "mount": "lotr_port:horse",
+    "mount_armor": "lotr_port:coast_southron_horse_armor"
   },
   "names": "lotr_port:near_haradrim_male",
-  "speech": "lotr_port:near_harad/merchant"
+  "speech": "lotr_port:near_harad/merchant",
+  "quests": "lotr_port:near_harad"
 }

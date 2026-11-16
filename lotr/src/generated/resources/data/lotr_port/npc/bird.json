@@ -3,6 +3,7 @@
   "width": 0.5,
   "height": 0.5,
   "behaviours": [
+    "bird_thief",
     "animal"
   ],
   "lotr_classes": [
@@ -11,11 +12,13 @@
     "EntityLivingBase"
   ],
   "behaviour_data": {
+    "steal_slots": 9,
+    "steal_kind": 0,
     "fights_back": 0,
     "panic_speed": 1.25,
     "state.renderer": 0
   },
   "health": 4.0,
-  "speed": 0.12858261654181796,
+  "speed": 0.09318153312295865,
   "attack": 2.0
 }

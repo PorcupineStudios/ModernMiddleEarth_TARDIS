@@ -20,11 +20,14 @@ import net.neoforged.neoforge.client.event.ClientTickEvent;
  * sandbox). Off unless the JVM has {@code -Dlotr_port.devscript=<file in the run folder>}; with
  * {@code -PquickPlay=<save>} the client opens the save and runs it once the player is in. One step per line:
  * {@code wait <ticks>}, {@code /<command>} (sent as the player), {@code use <x> <y> <z>} (right-click that block with
- * the main hand), {@code close} (the open screen), {@code hud on|off}, {@code shot <name>}
+ * the main hand), {@code mouse <x> <y>} (move the pointer, window pixels), {@code click <x> <y>} (left-click the open screen at
+ * GUI-scaled x, y), {@code close} (the open screen), {@code hud on|off}, {@code shot <name>}
  * ({@code screenshots/<name>.png}), {@code quit}; {@code #} starts a comment.
  */
 @EventBusSubscriber(modid = LotrPort.MOD_ID, value = Dist.CLIENT)
 public final class DevScript {
+    private static double lastX;
+    private static double lastY;
     private static final String FILE = System.getProperty("lotr_port.devscript");
     private static List<String> steps;
     private static int next;
@@ -72,6 +75,63 @@ public final class DevScript {
                     mc.gameMode.useItemOn(mc.player, InteractionHand.MAIN_HAND,
                             new BlockHitResult(Vec3.atCenterOf(p), Direction.UP, p, false));
                 }
+                case "mouse" -> mouse(mc, Double.parseDouble(w[1]), Double.parseDouble(w[2]));
+                case "click" -> {
+                    if (mc.screen != null) {
+                        double x = Double.parseDouble(w[1]);
+                        double y = Double.parseDouble(w[2]);
+                        mc.screen.mouseClicked(x, y, 0);
+                        mc.screen.mouseReleased(x, y, 0);
+                    }
+                }
+                case "scroll" -> {
+                    if (mc.screen != null) {
+                        mc.screen.mouseScrolled(Double.parseDouble(w[1]), Double.parseDouble(w[2]), 0,
+                                Double.parseDouble(w[3]));
+                    }
+                }
+                case "press" -> {
+                    if (mc.screen != null) {
+                        lastX = Double.parseDouble(w[1]);
+                        lastY = Double.parseDouble(w[2]);
+                        double k = mc.getWindow().getGuiScale();
+                        mouse(mc, lastX * k, lastY * k);
+                        mc.screen.mouseClicked(lastX, lastY, 0);
+                    }
+                }
+                case "move" -> {
+                    if (mc.screen != null) {
+                        double x = Double.parseDouble(w[1]);
+                        double y = Double.parseDouble(w[2]);
+                        // in steps, like a hand
+                        for (int i = 1; i <= 8; i++) {
+                            double mx = lastX + (x - lastX) * i / 8;
+                            double my = lastY + (y - lastY) * i / 8;
+                            double k = mc.getWindow().getGuiScale();
+                            mouse(mc, mx * k, my * k);
+                            mc.screen.mouseDragged(mx, my, 0, (x - lastX) / 8, (y - lastY) / 8);
+                        }
+                        lastX = x;
+                        lastY = y;
+                    }
+                }
+                case "step" -> {
+                    // one small drag step (for frame-by-frame films)
+                    if (mc.screen != null) {
+                        double x = Double.parseDouble(w[1]);
+                        double y = Double.parseDouble(w[2]);
+                        double k = mc.getWindow().getGuiScale();
+                        mouse(mc, x * k, y * k);
+                        mc.screen.mouseDragged(x, y, 0, x - lastX, y - lastY);
+                        lastX = x;
+                        lastY = y;
+                    }
+                }
+                case "release" -> {
+                    if (mc.screen != null) {
+                        mc.screen.mouseReleased(lastX, lastY, 0);
+                    }
+                }
                 case "close" -> mc.player.closeContainer();
                 case "hud" -> mc.options.hideGui = w[1].equals("off");
                 case "quit" -> {
@@ -86,6 +146,20 @@ public final class DevScript {
                     }
                 }
             }
+        }
+    }
+
+    /** Moves the pointer. GLFW drops the event of its own cursor warp on X11, so set the handler's fields too. */
+    private static void mouse(Minecraft mc, double x, double y) {
+        org.lwjgl.glfw.GLFW.glfwSetCursorPos(mc.getWindow().getWindow(), x, y);
+        try {
+            for (String f : new String[] {"xpos", "ypos"}) {
+                var field = net.minecraft.client.MouseHandler.class.getDeclaredField(f);
+                field.setAccessible(true);
+                field.setDouble(mc.mouseHandler, f.equals("xpos") ? x : y);
+            }
+        } catch (ReflectiveOperationException e) {
+            LotrPort.LOG.warn("[devscript] can't move the mouse", e);
         }
     }
 }

@@ -73,7 +73,13 @@ public final class Orbits {
 
     /** As {@link #step}, with {@code boost} 1 (sprint + forward: along the look), -1 (sprint + back: slow down) or 0. */
     public static void step(Entity e, Planet p, Tuning.SpaceTuning t, int thrust, int boost) {
-        apply(e, t, thrust, boost, v -> new Vec3(0, -down(p, e.getY(), v, t) * GravityScale.of(e), 0));
+        step(e, p, t, thrust, boost, 0, 0);
+    }
+
+    /** As above, with WASD while floating free ({@code forward}, {@code left}, -1..1) pushing along the frame. */
+    public static void step(Entity e, Planet p, Tuning.SpaceTuning t, int thrust, int boost, float forward,
+            float left) {
+        apply(e, t, thrust, boost, forward, left, v -> new Vec3(0, -down(p, e.getY(), v, t) * GravityScale.of(e), 0));
     }
 
     /** The same between the planets of a solar system: every ball and the sun pull ({@link StarSystem#gravity}). */
@@ -82,10 +88,18 @@ public final class Orbits {
     }
 
     public static void stepSystem(Entity e, StarSystem s, Tuning.SpaceTuning t, int thrust, int boost) {
-        apply(e, t, thrust, boost, v -> s.gravity(e.position(), t).scale(GravityScale.of(e)));
+        stepSystem(e, s, t, thrust, boost, 0, 0);
     }
 
-    private static void apply(Entity e, Tuning.SpaceTuning t, int thrust, int boost,
+    public static void stepSystem(Entity e, StarSystem s, Tuning.SpaceTuning t, int thrust, int boost, float forward,
+            float left) {
+        // on a ship the focus pulls it and you alike, so you feel only its deck (gravity/Decks)
+        Vec3 deck = com.porcupinestudios.tardisrb.gravity.Decks.pull(e, t);
+        apply(e, t, thrust, boost, forward, left, v -> s.gravity(e.position(), t).add(deck == null ? Vec3.ZERO : deck)
+                .scale(GravityScale.of(e)));
+    }
+
+    private static void apply(Entity e, Tuning.SpaceTuning t, int thrust, int boost, float forward, float left,
             java.util.function.UnaryOperator<Vec3> pull) {
         Vec3 v = e.getDeltaMovement();
         Tuning.Motion m = t.motion();
@@ -109,6 +123,12 @@ public final class Orbits {
         com.porcupinestudios.tardisrb.gravity.Tilt tilt = com.porcupinestudios.tardisrb.gravity.Tilt.of(e);
         Vec3 up = tilt != null ? tilt.toWorld(new Vec3(0, 1, 0)) : RotationUtil.vecPlayerToWorld(0.0, 1.0, 0.0, g);
         v = v.add(pull.apply(v)).add(up.scale(thrust * m.thrust()));
+        if (tilt != null && (forward != 0 || left != 0)) {
+            // along the frame at the player's yaw: forward is its look with pitch folded in (Tilt#spin)
+            Vec3 local = RotationUtil.rotToVec(e.getViewYRot(1), 0).scale(forward)
+                    .add(RotationUtil.rotToVec(e.getViewYRot(1) - 90, 0).scale(left));
+            v = v.add(tilt.toWorld(local.normalize()).scale(m.airThrust()));
+        }
         if (boost > 0 && m.boost() > 0) {
             v = v.add(e.getViewVector(1).scale(m.boost()));
         } else if (boost < 0 && m.boost() > 0) {

@@ -11,6 +11,24 @@
     "lotr_port:textures/entity/orc/orc/7.png"
   ],
   "model": "orc",
+  "behaviours": [
+    "orc",
+    "burning_panic"
+  ],
+  "behaviour_data": {
+    "daylight_ticks": 200,
+    "avoid_range": 8,
+    "avoid_speed": 1.5,
+    "avoid_alignment": -500,
+    "burn_panic_speed": 1.5,
+    "skirmish_chance": 20000,
+    "skirmish_min": 40,
+    "skirmish_ticks": 160,
+    "weak_orc": 1,
+    "avoid_good": 1,
+    "eat_chance": 6000,
+    "drink_chance": 6000
+  },
   "sounds": {
     "ambient": "lotr_port:orc.say",
     "hurt": "lotr_port:orc.hurt",
@@ -22,42 +40,41 @@
   "attack": 2.0,
   "gear": {
     "mainhand": [
-      "lotr_port:bronze_battleaxe",
-      "lotr_port:bronze_spear",
-      "lotr_port:dol_guldur_battleaxe",
-      "lotr_port:gundabad_uruk_cleaver",
-      "lotr_port:gundabad_uruk_pike",
-      "lotr_port:mordor_dagger",
-      "lotr_port:poisoned_mordor_dagger"
+      "lotr_port:bronze_axe",
+      "lotr_port:bronze_sword",
+      "lotr_port:dol_guldur_warhammer",
+      "lotr_port:gundabad_uruk_bludgeon",
+      "lotr_port:iron_dagger",
+      "lotr_port:stone_spear",
+      "minecraft:iron_pickaxe"
     ],
     "head": [
       "lotr_port:bone_helmet",
       "lotr_port:bronze_helmet",
+      "lotr_port:dol_guldur_helmet",
       "lotr_port:fur_hat",
-      "lotr_port:mordor_helmet",
       "minecraft:leather_helmet"
     ],
     "chest": [
-      "lotr_port:angmar_chestplate",
       "lotr_port:bone_chestplate",
+      "lotr_port:bronze_chestplate",
       "lotr_port:dol_guldur_chestplate",
-      "lotr_port:fur_tunic",
       "lotr_port:gundabad_uruk_chestplate",
       "lotr_port:mordor_chestplate",
       "minecraft:leather_chestplate"
     ],
     "legs": [
       "lotr_port:angmar_leggings",
+      "lotr_port:bone_leggings",
       "lotr_port:dol_guldur_leggings",
-      "lotr_port:gundabad_uruk_leggings",
-      "lotr_port:mordor_leggings",
-      "minecraft:leather_leggings"
+      "lotr_port:fur_leggings",
+      "lotr_port:gundabad_uruk_leggings"
     ],
     "feet": [
       "lotr_port:angmar_boots",
-      "lotr_port:bronze_boots",
       "lotr_port:fur_boots",
-      "lotr_port:gundabad_uruk_boots"
+      "lotr_port:mordor_boots",
+      "minecraft:leather_boots"
     ]
   },
   "names": "lotr_port:orc",

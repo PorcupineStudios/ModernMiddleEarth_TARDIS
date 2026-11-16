@@ -17,6 +17,29 @@
   ],
   "skin_height": 64,
   "model": "hobbit",
+  "behaviours": [
+    "avoid_evil",
+    "man_flesh",
+    "burning_panic",
+    "archer"
+  ],
+  "behaviour_data": {
+    "avoid_range": 8,
+    "avoid_speed": 1.5,
+    "avoid_near_speed": 1.8,
+    "avoid_alignment": -100,
+    "flesh_chance": 5,
+    "burn_panic_speed": 1.5,
+    "eat_chance": 3000,
+    "drink_chance": 3000,
+    "ranged_speed": 1.5,
+    "ranged_min": 20,
+    "ranged_max": 40,
+    "ranged_range": 12.0,
+    "ranged_accuracy": 1.0,
+    "ranged_swap": 1,
+    "ride_chance": 3
+  },
   "scale": 0.667,
   "health": 20.0,
   "speed": 0.2,
@@ -26,7 +49,9 @@
       "lotr_port:bronze_dagger",
       "lotr_port:iron_dagger"
     ],
-    "head": "lotr_port:leather_hat"
+    "head": "lotr_port:leather_hat",
+    "ranged": "lotr_port:sling",
+    "mount": "lotr_port:shire_pony"
   },
   "names": "lotr_port:hobbit_male",
   "units": "lotr_port:hobbit_shirriff",

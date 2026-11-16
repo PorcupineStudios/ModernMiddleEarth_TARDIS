@@ -1,4 +1,10 @@
 {
+  "skins": [
+    "lotr_port:textures/entity/bear/light.png",
+    "lotr_port:textures/entity/bear/dark.png",
+    "lotr_port:textures/entity/bear/black.png"
+  ],
+  "skin_height": 64,
   "model": "lotr_port:bear",
   "width": 1.6,
   "height": 1.8,
@@ -14,6 +20,7 @@
     "EntityLivingBase"
   ],
   "behaviour_data": {
+    "defend_young": 12,
     "fights_back": 1,
     "panic_speed": 1.25,
     "state.renderer": 0

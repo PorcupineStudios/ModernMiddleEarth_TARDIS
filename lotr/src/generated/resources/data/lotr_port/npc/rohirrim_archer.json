@@ -9,19 +9,35 @@
     "lotr_port:textures/entity/rohan/rohan_male/5.png"
   ],
   "skin_height": 64,
+  "behaviours": [
+    "man_flesh",
+    "burning_panic",
+    "archer"
+  ],
+  "behaviour_data": {
+    "flesh_chance": 5,
+    "burn_panic_speed": 1.5,
+    "eat_chance": 8000,
+    "drink_chance": 8000,
+    "ranged_speed": 1.25,
+    "ranged_min": 30,
+    "ranged_max": 50,
+    "ranged_range": 16.0,
+    "ranged_accuracy": 0.75,
+    "ranged_swap": 0,
+    "ride_chance": 3
+  },
   "health": 20.0,
   "speed": 0.2,
   "attack": 2.0,
   "gear": {
-    "mainhand": [
-      "lotr_port:rohirric_battleaxe",
-      "lotr_port:rohirric_spear",
-      "lotr_port:rohirric_sword"
-    ],
+    "mainhand": "lotr_port:rohirric_bow",
     "head": "lotr_port:rohirric_coif",
     "chest": "lotr_port:rohirric_hauberk",
     "legs": "lotr_port:rohirric_leggings",
-    "feet": "lotr_port:rohirric_boots"
+    "feet": "lotr_port:rohirric_boots",
+    "mount": "lotr_port:horse",
+    "mount_armor": "lotr_port:rohirric_horse_armor"
   },
   "names": "lotr_port:rohan_male",
   "speech": "lotr_port:rohan/warrior",

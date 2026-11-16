@@ -17,6 +17,21 @@
   ],
   "skin_height": 64,
   "model": "hobbit",
+  "behaviours": [
+    "avoid_evil",
+    "man_flesh",
+    "burning_panic"
+  ],
+  "behaviour_data": {
+    "avoid_range": 8,
+    "avoid_speed": 1.5,
+    "avoid_near_speed": 1.8,
+    "avoid_alignment": -100,
+    "flesh_chance": 5,
+    "burn_panic_speed": 1.5,
+    "eat_chance": 3000,
+    "drink_chance": 3000
+  },
   "scale": 0.667,
   "health": 16.0,
   "speed": 0.2,
@@ -29,6 +44,7 @@
     ],
     "head": "lotr_port:leather_hat"
   },
+  "names": "lotr_port:hobbit_male",
   "buy": "lotr_port:hobbit_orcharder_buy",
   "sell": "lotr_port:hobbit_orcharder_sell",
   "speech": "lotr_port:hobbit/orcharder",

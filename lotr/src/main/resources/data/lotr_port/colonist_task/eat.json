@@ -1,0 +1,10 @@
+{
+  "action": "eat",
+  "place": "food",
+  "priority": { "leisure": 6, "any": 6, "sleep": 4 },
+  "need": "food",
+  "want_below": 14,
+  "urgent_below": 5,
+  "urgent_priority": 10,
+  "requires": ["food_place"]
+}

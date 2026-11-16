@@ -8,6 +8,25 @@
   ],
   "skin_height": 64,
   "model": "elf",
+  "behaviours": [
+    "elf_bow",
+    "burning_panic",
+    "archer"
+  ],
+  "behaviour_data": {
+    "bow_range": 8,
+    "bow_ticks": 40,
+    "burn_panic_speed": 1.5,
+    "eat_chance": 12000,
+    "drink_chance": 8000,
+    "ranged_speed": 1.25,
+    "ranged_min": 30,
+    "ranged_max": 40,
+    "ranged_range": 24.0,
+    "ranged_accuracy": 0.5,
+    "ranged_swap": 1,
+    "ride_chance": 4
+  },
   "sounds": {
     "ambient": "lotr_port:elf.male.say",
     "attack": "lotr_port:elf.male.attack"
@@ -17,14 +36,19 @@
   "attack": 2.0,
   "gear": {
     "mainhand": [
+      "lotr_port:galadhrim_battlestaff",
+      "lotr_port:galadhrim_longspear",
       "lotr_port:galadhrim_spear",
       "lotr_port:galadhrim_sword"
     ],
     "head": "lotr_port:galadhrim_helmet",
     "chest": "lotr_port:galadhrim_chestplate",
     "legs": "lotr_port:galadhrim_leggings",
-    "feet": "lotr_port:galadhrim_boots"
+    "feet": "lotr_port:galadhrim_boots",
+    "ranged": "lotr_port:galadhrim_bow",
+    "mount": "lotr_port:horse",
+    "mount_armor": "lotr_port:galadhrim_horse_armor"
   },
-  "speech": "lotr_port:galadhrim/warrior",
-  "quests": "lotr_port:galadhrim"
+  "names": "lotr_port:sindarin_male",
+  "speech": "lotr_port:galadhrim/warrior"
 }

@@ -30,18 +30,23 @@ public final class TardisClient {
         event.registerEntityRenderer(TardisEntities.BODY.get(), TardisBodyRenderer::new);
         event.registerEntityRenderer(TardisEntities.WORMHOLE.get(), WormholeRenderer::new);
         event.registerEntityRenderer(TardisEntities.ARC.get(), ArcRenderer::new);
+        event.registerEntityRenderer(TardisEntities.DEMATERIALISING.get(), DematerialisingRenderer::new);
     }
 
-    /** The time vortex's sky settings (its tunnel is drawn by {@link VortexRenderer}). */
+    /** The time vortex's sky settings (its tunnel is drawn by {@link VortexRenderer}); space's (no clouds). */
     @SubscribeEvent
     public static void skies(RegisterDimensionSpecialEffectsEvent event) {
         event.register(TardisRB.id("time_vortex"), new VortexRenderer.Effects());
+        event.register(TardisRB.id("space"), new SpaceSky());
     }
 
     @SubscribeEvent
     public static void keys(RegisterKeyMappingsEvent event) {
         event.register(PilotClient.UP);
         event.register(PilotClient.DOWN);
+        event.register(ClientSpacePhysics.ROLL_LEFT);
+        event.register(ClientSpacePhysics.ROLL_RIGHT);
+        event.register(ClientSpacePhysics.ALIGN);
     }
 
     @SubscribeEvent

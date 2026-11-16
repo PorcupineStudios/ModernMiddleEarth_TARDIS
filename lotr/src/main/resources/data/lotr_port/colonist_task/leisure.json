@@ -1,0 +1,5 @@
+{
+  "action": "leisure",
+  "place": "hall",
+  "priority": { "leisure": 4, "any": 1 }
+}

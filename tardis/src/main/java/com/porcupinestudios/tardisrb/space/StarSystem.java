@@ -23,7 +23,16 @@ public record StarSystem(ResourceLocation id, ResourceKey<Level> dimension, Syst
     public static final double ARRIVE_OUTSIDE = 3;
 
     /** A planet's ball in the system. */
-    public record Body(Planet planet, Vec3 center, double radius, double gravity) {
+    public record Body(Planet planet, Vec3 center, double radius, double gravity, double gravityRadius) {
+        public Body(Planet planet, Vec3 center, double radius, double gravity) {
+            this(planet, center, radius, gravity, 0);
+        }
+
+        /** How far it pulls: its {@code gravity_radius}, else {@code focus_range} x its entry radius. */
+        public double reach(Tuning.SpaceTuning t) {
+            return gravityRadius > 0 ? gravityRadius : entry() * t.motion().focusRange();
+        }
+
         /** How far from the centre the layer's top is: 1 + max_altitude radii, so the ball looks as big as it did. */
         public double entry() {
             return radius * (1 + planet.link().orbit().maxAltitude());
@@ -60,6 +69,15 @@ public record StarSystem(ResourceLocation id, ResourceKey<Level> dimension, Syst
             return new Vec3[] {east, north, Planet.direction(lon, lat)};
         }
 
+        /** Turns layer axes (x east, y up, z south) into system axes at that spot (velocityFromLayer as a rotation). */
+        public org.joml.Quaternionf layerToSystem(double surfaceX, double surfaceZ) {
+            Vec3[] f = frame(surfaceX, surfaceZ);
+            return new org.joml.Quaternionf().setFromNormalized(new org.joml.Matrix3f()
+                    .setColumn(0, (float) f[0].x, (float) f[0].y, (float) f[0].z)
+                    .setColumn(1, (float) f[2].x, (float) f[2].y, (float) f[2].z)
+                    .setColumn(2, (float) -f[1].x, (float) -f[1].y, (float) -f[1].z));
+        }
+
         /** A layer velocity (x east, y up, z south) as a system velocity at that spot. */
         public Vec3 velocityFromLayer(double surfaceX, double surfaceZ, Vec3 v) {
             Vec3[] f = frame(surfaceX, surfaceZ);
@@ -79,7 +97,7 @@ public record StarSystem(ResourceLocation id, ResourceKey<Level> dimension, Syst
         for (SystemFile.Body b : file.bodies()) {
             for (Planet p : planets) {
                 if (p.id().equals(b.planet())) {
-                    bodies.add(new Body(p, new Vec3(b.x(), b.y(), b.z()), b.radius(), b.gravity()));
+                    bodies.add(new Body(p, new Vec3(b.x(), b.y(), b.z()), b.radius(), b.gravity(), b.gravityRadius()));
                     break;
                 }
             }
@@ -100,14 +118,63 @@ public record StarSystem(ResourceLocation id, ResourceKey<Level> dimension, Syst
         return null;
     }
 
-    /** The pull at a point (blocks per tick per tick): every ball and the sun, each falling off with distance squared. */
+    /**
+     * The one body that pulls here (Aaron 2026-11-15: focus on one gravitational body at a time, per player, for
+     * performance): the nearest ball whose gravity radius ({@link Body#reach}) holds the point, else the sun (null
+     * body). Up is away from the focus, so going round it turns you and your ship.
+     */
+    public Body focus(Vec3 pos, Tuning.SpaceTuning t) {
+        Body best = null;
+        double bestD = Double.MAX_VALUE;
+        for (Body b : bodies) {
+            double d = pos.distanceToSqr(b.center());
+            double r = b.reach(t);
+            if (d < r * r && d < bestD) {
+                best = b;
+                bestD = d;
+            }
+        }
+        return best;
+    }
+
+    /** Whether the sun pulls here: inside its gravity radius (unset: everywhere). */
+    public boolean inSunReach(Vec3 pos) {
+        double r = sun.gravityRadius();
+        return r <= 0 || pos.distanceToSqr(sunCenter()) < r * r;
+    }
+
+    /** The centre of the focus here (a ball's or the sun's), or null where nothing pulls. */
+    public Vec3 focusCenter(Vec3 pos, Tuning.SpaceTuning t) {
+        Body b = focus(pos, t);
+        return b != null ? b.center() : inSunReach(pos) ? sunCenter() : null;
+    }
+
+    /**
+     * The pull at a point (blocks per tick per tick): only the focus body's, falling off with distance squared and
+     * fading to nothing over the outer {@code gravity_edge} of its gravity radius; zero outside every radius.
+     */
     public Vec3 gravity(Vec3 pos, Tuning.SpaceTuning t) {
         double g0 = Orbits.G * t.gravity();
-        Vec3 sum = pull(pos, sunCenter(), sun.radius(), g0 * sun.gravity());
-        for (Body b : bodies) {
-            sum = sum.add(pull(pos, b.center(), b.radius(), g0 * b.gravity()));
+        double edge = t.motion().gravityEdge();
+        Body b = focus(pos, t);
+        if (b != null) {
+            return pull(pos, b.center(), b.radius(), g0 * b.gravity())
+                    .scale(fade(pos.distanceTo(b.center()), b.reach(t), edge));
         }
-        return sum;
+        if (!inSunReach(pos)) {
+            return Vec3.ZERO;
+        }
+        Vec3 g = pull(pos, sunCenter(), sun.radius(), g0 * sun.gravity());
+        return sun.gravityRadius() > 0 ? g.scale(fade(pos.distanceTo(sunCenter()), sun.gravityRadius(), edge)) : g;
+    }
+
+    /** 1 well inside a radius, easing (smoothstep) to 0 at its edge over the outer {@code edge} share. */
+    public static double fade(double d, double radius, double edge) {
+        if (edge <= 0) {
+            return d < radius ? 1 : 0;
+        }
+        double s = Math.max(0, Math.min(1, (radius - d) / (edge * radius)));
+        return s * s * (3 - 2 * s);
     }
 
     private static Vec3 pull(Vec3 pos, Vec3 center, double radius, double surface) {

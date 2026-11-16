@@ -11,7 +11,8 @@
   "height": 4.6,
   "behaviours": [
     "tree",
-    "ent"
+    "ent",
+    "burning_panic"
   ],
   "lotr_classes": [
     "LOTREntityEnt",
@@ -28,7 +29,8 @@
     "heal_interval": 300,
     "heal_range": 24,
     "heal_ticks": 160,
-    "state.renderer": 0
+    "burn_panic_speed": 1.5,
+    "state.renderer": 1
   },
   "sounds": {
     "step": "lotr_port:ent.step"

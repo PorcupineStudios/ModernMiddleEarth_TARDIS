@@ -1,0 +1,17 @@
+{
+  "name": "colony_job.lotr_port.cook",
+  "priority": 20,
+  "wage": 2,
+  "consumes": {
+    "minecraft:wheat": 3
+  },
+  "produces": {
+    "minecraft:bread": 1
+  },
+  "batches": 6,
+  "races": {
+    "hobbit": 1.5,
+    "orc": 0.6,
+    "goblin": 0.6
+  }
+}

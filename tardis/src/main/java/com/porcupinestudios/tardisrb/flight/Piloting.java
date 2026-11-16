@@ -153,6 +153,11 @@ public final class Piloting {
 
     private static void onTick(ServerTickEvent.Post event) {
         MinecraftServer server = event.getServer();
+        for (ServerPlayer player : server.getPlayerList().getPlayers()) {
+            if (player.getVehicle() instanceof TardisBody) {
+                player.setAirSupply(player.getMaxAirSupply()); // inside the box: no drowning, no air bubbles
+            }
+        }
         for (Iterator<Map.Entry<UUID, UUID>> it = PENDING.entrySet().iterator(); it.hasNext();) {
             Map.Entry<UUID, UUID> e = it.next();
             ServerPlayer player = server.getPlayerList().getPlayer(e.getKey());

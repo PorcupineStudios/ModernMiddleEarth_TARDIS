@@ -1,7 +1,13 @@
 {
   "variants": {
-    "": {
-      "model": "lotr_port:block/dried_reeds"
+    "part=lower": {
+      "model": "lotr_port:block/dried_reeds_lower"
+    },
+    "part=middle": {
+      "model": "lotr_port:block/dried_reeds_mid"
+    },
+    "part=upper": {
+      "model": "lotr_port:block/dried_reeds_upper"
     }
   }
 }

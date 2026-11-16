@@ -61,7 +61,8 @@ final class ShockRenderer {
         knock.rotate(new Quaternionf(turn).conjugate());
         Vector3f struck = s.onSurface(new Vector3f(s.c).sub(new Vector3f(knock).mul(4)), 0);
 
-        s.glow(vc, m, 0.30F * fade * fade);
+        // no glow shell over the whole box (2026-11-14): drawn with the lightning type it wrote depth, so water and
+        // portal views behind the box vanished through it; the arcs alone show the shock
         int arcs = Math.round(tuning.arcs() * (1 - 0.6F * age));
         for (int i = 0; i < arcs; i++) {
             // each arc keeps its ends for the whole shock and crawls between them, redrawn each frame

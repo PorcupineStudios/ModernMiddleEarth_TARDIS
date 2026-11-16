@@ -22,6 +22,25 @@
   ],
   "skin_height": 64,
   "model": "elf",
+  "behaviours": [
+    "elf_bow",
+    "burning_panic",
+    "archer"
+  ],
+  "behaviour_data": {
+    "bow_range": 8,
+    "bow_ticks": 40,
+    "burn_panic_speed": 1.5,
+    "eat_chance": 12000,
+    "drink_chance": 8000,
+    "ranged_speed": 1.25,
+    "ranged_min": 25,
+    "ranged_max": 40,
+    "ranged_range": 24.0,
+    "ranged_accuracy": 0.5,
+    "ranged_swap": 1,
+    "ride_chance": 4
+  },
   "sounds": {
     "ambient": "lotr_port:elf.male.say",
     "attack": "lotr_port:elf.male.attack"
@@ -32,14 +51,19 @@
   "gear": {
     "mainhand": [
       "lotr_port:lindon_battlestaff",
+      "lotr_port:lindon_longspear",
       "lotr_port:lindon_spear",
       "lotr_port:lindon_sword"
     ],
     "head": "lotr_port:lindon_helmet",
     "chest": "lotr_port:lindon_chestplate",
     "legs": "lotr_port:lindon_leggings",
-    "feet": "lotr_port:lindon_boots"
+    "feet": "lotr_port:lindon_boots",
+    "ranged": "lotr_port:lindon_bow",
+    "mount": "lotr_port:horse",
+    "mount_armor": "lotr_port:lindon_horse_armor"
   },
+  "names": "lotr_port:quenya_male",
   "speech": "lotr_port:high_elf/warrior",
   "quests": "lotr_port:high_elf"
 }

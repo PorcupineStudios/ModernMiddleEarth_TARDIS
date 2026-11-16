@@ -78,7 +78,7 @@ public record SkyLink(ResourceKey<Level> dimension, ResourceKey<Level> space, Bo
             ResourceKey.codec(Registries.DIMENSION).fieldOf("dimension").forGetter(SkyLink::dimension),
             ResourceKey.codec(Registries.DIMENSION).fieldOf("space").forGetter(SkyLink::space),
             Bounds.CODEC.optionalFieldOf("surface", DEFAULT_SURFACE).forGetter(SkyLink::surface),
-            Codec.INT.optionalFieldOf("ceiling", 340).forGetter(SkyLink::ceiling),
+            Codec.INT.optionalFieldOf("ceiling", 700).forGetter(SkyLink::ceiling),
             Codec.INT.optionalFieldOf("ground", 64).forGetter(SkyLink::ground),
             Orbit.CODEC.optionalFieldOf("orbit", Orbit.DEFAULT).forGetter(SkyLink::orbit),
             Wrap.CODEC.optionalFieldOf("wrap", Wrap.TORUS).forGetter(SkyLink::wrap),

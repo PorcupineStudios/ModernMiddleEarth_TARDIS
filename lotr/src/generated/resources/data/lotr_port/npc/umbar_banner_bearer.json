@@ -8,20 +8,33 @@
     "lotr_port:textures/entity/near_harad/haradrim_male/4.png"
   ],
   "skin_height": 64,
+  "behaviours": [
+    "man_flesh",
+    "burning_panic"
+  ],
+  "behaviour_data": {
+    "flesh_chance": 5,
+    "burn_panic_speed": 1.5,
+    "eat_chance": 8000,
+    "drink_chance": 6000,
+    "ride_chance": 6
+  },
   "health": 20.0,
   "speed": 0.2,
   "attack": 2.0,
   "gear": {
     "mainhand": [
-      "lotr_port:poisoned_umbaric_dagger",
       "lotr_port:umbaric_mace",
       "lotr_port:umbaric_poleaxe",
-      "lotr_port:umbaric_scimitar"
+      "lotr_port:umbaric_scimitar",
+      "lotr_port:umbaric_spear"
     ],
     "head": "lotr_port:umbaric_helmet",
     "chest": "lotr_port:umbaric_chestplate",
     "legs": "lotr_port:umbaric_leggings",
-    "feet": "lotr_port:umbaric_boots"
+    "feet": "lotr_port:umbaric_boots",
+    "mount": "lotr_port:horse",
+    "mount_armor": "lotr_port:umbaric_horse_armor"
   },
   "names": "lotr_port:umbar_male",
   "speech": "lotr_port:near_harad/mercenary",

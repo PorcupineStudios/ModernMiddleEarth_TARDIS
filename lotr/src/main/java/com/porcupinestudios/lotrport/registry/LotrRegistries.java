@@ -39,9 +39,25 @@ public final class LotrRegistries {
     public static final Supplier<AttachmentType<String>> COLONY = ATTACHMENTS.register("colony",
             () -> AttachmentType.builder(() -> "").serialize(Codec.STRING).build());
 
+    /**
+     * The journey an entity's body belongs to ("" for none): a caravan's or army's people, steeds and wagons while a
+     * player sees them in person. Such bodies are saved with their chunk like any other, so one that loads when its
+     * journey has gone back to being data is removed ({@code journey.Journeys}).
+     */
+    public static final Supplier<AttachmentType<String>> JOURNEY = ATTACHMENTS.register("journey",
+            () -> AttachmentType.builder(() -> "").serialize(Codec.STRING).build());
+
     /** The faction an entity belongs to ("" for none); NPCs set it when they spawn. Read through FactionKills. */
     public static final Supplier<AttachmentType<String>> ENTITY_FACTION = ATTACHMENTS.register("faction",
             () -> AttachmentType.builder(() -> "").serialize(Codec.STRING).build());
+
+    /** The player's race id (player_race/<id>.json; "" = not chosen yet); kept on death. Read through player.Races. */
+    public static final Supplier<AttachmentType<String>> RACE = ATTACHMENTS.register("race",
+            () -> AttachmentType.builder(() -> "").serialize(Codec.STRING).copyOnDeath().build());
+
+    /** An operator's size for the player (race_admin screen), 0 = the race's own; kept on death. */
+    public static final Supplier<AttachmentType<Float>> RACE_SCALE = ATTACHMENTS.register("race_scale",
+            () -> AttachmentType.builder(() -> 0f).serialize(Codec.FLOAT).copyOnDeath().build());
 
     /** The player's chosen LOTR title id ("" for none); kept on death. */
     public static final Supplier<AttachmentType<String>> TITLE = ATTACHMENTS.register("title",

@@ -48,7 +48,9 @@
     "sound": "stone",
     "requiresTool": true,
     "solid": true,
-    "facing": true
+    "facing": true,
+    "machine": "forge",
+    "lit": true
   },
   {
     "id": "angmar_crafting_table",
@@ -107,7 +109,10 @@
       16.0
     ],
     "collision": false,
-    "item": "none"
+    "item": "none",
+    "machine": "armor_stand",
+    "render": "entity",
+    "facing": true
   },
   {
     "id": "asphodel",
@@ -207,231 +212,207 @@
   },
   {
     "id": "bare_blueberry_bush",
-    "kind": "shaped",
+    "kind": "berry_bush",
     "hardness": 0.4,
     "resistance": 0.667,
     "light": 0,
     "sound": "grass",
     "requiresTool": false,
     "solid": false,
-    "shape": [
-      0.0,
-      0.0,
-      0.0,
-      16.0,
-      16.0,
-      16.0
-    ],
-    "collision": false
+    "collision": false,
+    "berry": {
+      "ripe": "blueberry_bush",
+      "bare": "bare_blueberry_bush",
+      "item": "lotr_port:blueberries",
+      "has_berries": false
+    }
   },
   {
     "id": "bare_blackberry_bush",
-    "kind": "shaped",
+    "kind": "berry_bush",
     "hardness": 0.4,
     "resistance": 0.667,
     "light": 0,
     "sound": "grass",
     "requiresTool": false,
     "solid": false,
-    "shape": [
-      0.0,
-      0.0,
-      0.0,
-      16.0,
-      16.0,
-      16.0
-    ],
-    "collision": false
+    "collision": false,
+    "berry": {
+      "ripe": "blackberry_bush",
+      "bare": "bare_blackberry_bush",
+      "item": "lotr_port:blackberries",
+      "has_berries": false
+    }
   },
   {
     "id": "bare_raspberry_bush",
-    "kind": "shaped",
+    "kind": "berry_bush",
     "hardness": 0.4,
     "resistance": 0.667,
     "light": 0,
     "sound": "grass",
     "requiresTool": false,
     "solid": false,
-    "shape": [
-      0.0,
-      0.0,
-      0.0,
-      16.0,
-      16.0,
-      16.0
-    ],
-    "collision": false
+    "collision": false,
+    "berry": {
+      "ripe": "raspberry_bush",
+      "bare": "bare_raspberry_bush",
+      "item": "lotr_port:raspberries",
+      "has_berries": false
+    }
   },
   {
     "id": "bare_cranberry_bush",
-    "kind": "shaped",
+    "kind": "berry_bush",
     "hardness": 0.4,
     "resistance": 0.667,
     "light": 0,
     "sound": "grass",
     "requiresTool": false,
     "solid": false,
-    "shape": [
-      0.0,
-      0.0,
-      0.0,
-      16.0,
-      16.0,
-      16.0
-    ],
-    "collision": false
+    "collision": false,
+    "berry": {
+      "ripe": "cranberry_bush",
+      "bare": "bare_cranberry_bush",
+      "item": "lotr_port:cranberries",
+      "has_berries": false
+    }
   },
   {
     "id": "bare_elderberry_bush",
-    "kind": "shaped",
+    "kind": "berry_bush",
     "hardness": 0.4,
     "resistance": 0.667,
     "light": 0,
     "sound": "grass",
     "requiresTool": false,
     "solid": false,
-    "shape": [
-      0.0,
-      0.0,
-      0.0,
-      16.0,
-      16.0,
-      16.0
-    ],
-    "collision": false
+    "collision": false,
+    "berry": {
+      "ripe": "elderberry_bush",
+      "bare": "bare_elderberry_bush",
+      "item": "lotr_port:elderberries",
+      "has_berries": false
+    }
   },
   {
     "id": "bare_wildberry_bush",
-    "kind": "shaped",
+    "kind": "berry_bush",
     "hardness": 0.4,
     "resistance": 0.667,
     "light": 0,
     "sound": "grass",
     "requiresTool": false,
     "solid": false,
-    "shape": [
-      0.0,
-      0.0,
-      0.0,
-      16.0,
-      16.0,
-      16.0
-    ],
-    "collision": false
+    "collision": false,
+    "berry": {
+      "ripe": "wildberry_bush",
+      "bare": "bare_wildberry_bush",
+      "item": "lotr_port:wildberries",
+      "has_berries": false
+    }
   },
   {
     "id": "blueberry_bush",
-    "kind": "shaped",
+    "kind": "berry_bush",
     "hardness": 0.4,
     "resistance": 0.667,
     "light": 0,
     "sound": "grass",
     "requiresTool": false,
     "solid": false,
-    "shape": [
-      0.0,
-      0.0,
-      0.0,
-      16.0,
-      16.0,
-      16.0
-    ],
-    "collision": false
+    "collision": false,
+    "berry": {
+      "ripe": "blueberry_bush",
+      "bare": "bare_blueberry_bush",
+      "item": "lotr_port:blueberries",
+      "has_berries": true
+    }
   },
   {
     "id": "blackberry_bush",
-    "kind": "shaped",
+    "kind": "berry_bush",
     "hardness": 0.4,
     "resistance": 0.667,
     "light": 0,
     "sound": "grass",
     "requiresTool": false,
     "solid": false,
-    "shape": [
-      0.0,
-      0.0,
-      0.0,
-      16.0,
-      16.0,
-      16.0
-    ],
-    "collision": false
+    "collision": false,
+    "berry": {
+      "ripe": "blackberry_bush",
+      "bare": "bare_blackberry_bush",
+      "item": "lotr_port:blackberries",
+      "has_berries": true
+    }
   },
   {
     "id": "raspberry_bush",
-    "kind": "shaped",
+    "kind": "berry_bush",
     "hardness": 0.4,
     "resistance": 0.667,
     "light": 0,
     "sound": "grass",
     "requiresTool": false,
     "solid": false,
-    "shape": [
-      0.0,
-      0.0,
-      0.0,
-      16.0,
-      16.0,
-      16.0
-    ],
-    "collision": false
+    "collision": false,
+    "berry": {
+      "ripe": "raspberry_bush",
+      "bare": "bare_raspberry_bush",
+      "item": "lotr_port:raspberries",
+      "has_berries": true
+    }
   },
   {
     "id": "cranberry_bush",
-    "kind": "shaped",
+    "kind": "berry_bush",
     "hardness": 0.4,
     "resistance": 0.667,
     "light": 0,
     "sound": "grass",
     "requiresTool": false,
     "solid": false,
-    "shape": [
-      0.0,
-      0.0,
-      0.0,
-      16.0,
-      16.0,
-      16.0
-    ],
-    "collision": false
+    "collision": false,
+    "berry": {
+      "ripe": "cranberry_bush",
+      "bare": "bare_cranberry_bush",
+      "item": "lotr_port:cranberries",
+      "has_berries": true
+    }
   },
   {
     "id": "elderberry_bush",
-    "kind": "shaped",
+    "kind": "berry_bush",
     "hardness": 0.4,
     "resistance": 0.667,
     "light": 0,
     "sound": "grass",
     "requiresTool": false,
     "solid": false,
-    "shape": [
-      0.0,
-      0.0,
-      0.0,
-      16.0,
-      16.0,
-      16.0
-    ],
-    "collision": false
+    "collision": false,
+    "berry": {
+      "ripe": "elderberry_bush",
+      "bare": "bare_elderberry_bush",
+      "item": "lotr_port:elderberries",
+      "has_berries": true
+    }
   },
   {
     "id": "wildberry_bush",
-    "kind": "shaped",
+    "kind": "berry_bush",
     "hardness": 0.4,
     "resistance": 0.667,
     "light": 0,
     "sound": "grass",
     "requiresTool": false,
     "solid": false,
-    "shape": [
-      0.0,
-      0.0,
-      0.0,
-      16.0,
-      16.0,
-      16.0
-    ],
-    "collision": false
+    "collision": false,
+    "berry": {
+      "ripe": "wildberry_bush",
+      "bare": "bare_wildberry_bush",
+      "item": "lotr_port:wildberries",
+      "has_berries": true
+    }
   },
   {
     "id": "berry_pie_block",
@@ -1779,7 +1760,9 @@
       14.0
     ],
     "collision": false,
-    "item": "none"
+    "item": "none",
+    "machine": "plate",
+    "facing": true
   },
   {
     "id": "bronze_chandelier",
@@ -1977,7 +1960,10 @@
       14.0,
       15.0
     ],
-    "facing": true
+    "facing": true,
+    "machine": "chest",
+    "render": "entity",
+    "texture": "ancient_harad"
   },
   {
     "id": "reed_basket",
@@ -1996,7 +1982,10 @@
       14.0,
       15.0
     ],
-    "facing": true
+    "facing": true,
+    "machine": "chest",
+    "render": "entity",
+    "texture": "basket"
   },
   {
     "id": "lebethron_casket",
@@ -2015,7 +2004,10 @@
       14.0,
       15.0
     ],
-    "facing": true
+    "facing": true,
+    "machine": "chest",
+    "render": "entity",
+    "texture": "lebethron"
   },
   {
     "id": "mallorn_box",
@@ -2034,7 +2026,10 @@
       14.0,
       15.0
     ],
-    "facing": true
+    "facing": true,
+    "machine": "chest",
+    "render": "entity",
+    "texture": "mallorn"
   },
   {
     "id": "stone_chest",
@@ -2053,7 +2048,10 @@
       14.0,
       15.0
     ],
-    "facing": true
+    "facing": true,
+    "machine": "chest",
+    "render": "entity",
+    "texture": "stone"
   },
   {
     "id": "clay_tiling",
@@ -2293,13 +2291,16 @@
   },
   {
     "id": "corn_stalks",
-    "kind": "plant",
+    "kind": "corn",
     "hardness": 0,
     "resistance": 0.0,
     "light": 0,
     "sound": "grass",
     "requiresTool": false,
-    "solid": false
+    "solid": false,
+    "corn": {
+      "item": "lotr_port:corn"
+    }
   },
   {
     "id": "corrupt_mallorn_sapling",
@@ -2956,22 +2957,14 @@
   },
   {
     "id": "dried_reeds",
-    "kind": "shaped",
+    "kind": "reed",
     "hardness": 0,
     "resistance": 0.0,
     "light": 0,
     "sound": "grass",
     "requiresTool": false,
     "solid": false,
-    "shape": [
-      2.0,
-      0.0,
-      2.0,
-      14.0,
-      16.0,
-      14.0
-    ],
-    "collision": false
+    "grows": false
   },
   {
     "id": "dunlending_crafting_table",
@@ -3055,7 +3048,9 @@
     "sound": "stone",
     "requiresTool": true,
     "solid": true,
-    "facing": true
+    "facing": true,
+    "machine": "forge",
+    "lit": true
   },
   {
     "id": "elanor",
@@ -3097,7 +3092,9 @@
     "sound": "stone",
     "requiresTool": true,
     "solid": true,
-    "facing": true
+    "facing": true,
+    "machine": "forge",
+    "lit": true
   },
   {
     "id": "elven_portal",
@@ -3135,7 +3132,8 @@
       12.0,
       14.0,
       12.0
-    ]
+    ],
+    "machine": "ent_jar"
   },
   {
     "id": "fallen_oak_leaves",
@@ -4875,14 +4873,18 @@
   },
   {
     "id": "flax_block",
-    "kind": "plant",
+    "kind": "crop",
     "hardness": 0,
     "resistance": 0.0,
     "light": 0,
     "sound": "grass",
     "requiresTool": false,
     "solid": false,
-    "item": "none"
+    "item": "none",
+    "crop": {
+      "seed": "lotr_port:flax_seeds",
+      "produce": "lotr_port:flax"
+    }
   },
   {
     "id": "flax_plant",
@@ -5475,43 +5477,37 @@
   },
   {
     "id": "grapevine_red",
-    "kind": "shaped",
+    "kind": "grapevine",
     "hardness": 0,
     "resistance": 0.0,
     "light": 0,
     "sound": "grass",
     "requiresTool": false,
     "solid": false,
-    "shape": [
-      6.0,
-      0.0,
-      6.0,
-      10.0,
-      16.0,
-      10.0
-    ],
     "collision": false,
-    "item": "none"
+    "item": "none",
+    "grapevine": {
+      "grapes": "lotr_port:red_grapes",
+      "seeds": "lotr_port:red_grape_seeds",
+      "post": "lotr_port:grapevine_post"
+    }
   },
   {
     "id": "grapevine_white",
-    "kind": "shaped",
+    "kind": "grapevine",
     "hardness": 0,
     "resistance": 0.0,
     "light": 0,
     "sound": "grass",
     "requiresTool": false,
     "solid": false,
-    "shape": [
-      6.0,
-      0.0,
-      6.0,
-      10.0,
-      16.0,
-      10.0
-    ],
     "collision": false,
-    "item": "none"
+    "item": "none",
+    "grapevine": {
+      "grapes": "lotr_port:green_grapes",
+      "seeds": "lotr_port:green_grape_seeds",
+      "post": "lotr_port:grapevine_post"
+    }
   },
   {
     "id": "gulduril_mordor_brick",
@@ -5853,7 +5849,9 @@
     "sound": "stone",
     "requiresTool": true,
     "solid": true,
-    "facing": true
+    "facing": true,
+    "machine": "oven",
+    "lit": true
   },
   {
     "id": "block_of_kebab",
@@ -5883,7 +5881,10 @@
       16.0
     ],
     "collision": false,
-    "facing": true
+    "facing": true,
+    "machine": "kebab_stand",
+    "render": "entity",
+    "texture": "stand"
   },
   {
     "id": "sandstone_kebab_stand",
@@ -5903,7 +5904,10 @@
       16.0
     ],
     "collision": false,
-    "facing": true
+    "facing": true,
+    "machine": "kebab_stand",
+    "render": "entity",
+    "texture": "stand_sand"
   },
   {
     "id": "lavender",
@@ -6257,14 +6261,18 @@
   },
   {
     "id": "leek_block",
-    "kind": "plant",
+    "kind": "crop",
     "hardness": 0,
     "resistance": 0.0,
     "light": 0,
     "sound": "grass",
     "requiresTool": false,
     "solid": false,
-    "item": "none"
+    "item": "none",
+    "crop": {
+      "seed": "lotr_port:leek",
+      "produce": "lotr_port:leek"
+    }
   },
   {
     "id": "lemon_cake_block",
@@ -6287,14 +6295,18 @@
   },
   {
     "id": "lettuce_block",
-    "kind": "plant",
+    "kind": "crop",
     "hardness": 0,
     "resistance": 0.0,
     "light": 0,
     "sound": "grass",
     "requiresTool": false,
     "solid": false,
-    "item": "none"
+    "item": "none",
+    "crop": {
+      "seed": "lotr_port:lettuce",
+      "produce": "lotr_port:lettuce"
+    }
   },
   {
     "id": "lion_bed",
@@ -6454,7 +6466,9 @@
     "sound": "stone",
     "requiresTool": true,
     "solid": true,
-    "facing": true
+    "facing": true,
+    "machine": "millstone",
+    "lit": true
   },
   {
     "id": "mirkwood_vines",
@@ -6736,7 +6750,7 @@
   },
   {
     "id": "orc_bomb",
-    "kind": "shaped",
+    "kind": "orc_bomb",
     "hardness": 3.0,
     "resistance": 0.0,
     "light": 0,
@@ -6750,11 +6764,15 @@
       16.0,
       16.0,
       16.0
-    ]
+    ],
+    "bomb": {
+      "strength": 0,
+      "fire": false
+    }
   },
   {
     "id": "orc_bomb_block",
-    "kind": "shaped",
+    "kind": "orc_bomb",
     "hardness": 3.0,
     "resistance": 0.0,
     "light": 0,
@@ -6768,11 +6786,15 @@
       16.0,
       16.0,
       16.0
-    ]
+    ],
+    "bomb": {
+      "strength": 1,
+      "fire": false
+    }
   },
   {
     "id": "orc_bomb_2",
-    "kind": "shaped",
+    "kind": "orc_bomb",
     "hardness": 3.0,
     "resistance": 0.0,
     "light": 0,
@@ -6786,11 +6808,15 @@
       16.0,
       16.0,
       16.0
-    ]
+    ],
+    "bomb": {
+      "strength": 2,
+      "fire": false
+    }
   },
   {
     "id": "orc_bomb_3",
-    "kind": "shaped",
+    "kind": "orc_bomb",
     "hardness": 3.0,
     "resistance": 0.0,
     "light": 0,
@@ -6804,11 +6830,15 @@
       16.0,
       16.0,
       16.0
-    ]
+    ],
+    "bomb": {
+      "strength": 0,
+      "fire": true
+    }
   },
   {
     "id": "orc_bomb_4",
-    "kind": "shaped",
+    "kind": "orc_bomb",
     "hardness": 3.0,
     "resistance": 0.0,
     "light": 0,
@@ -6822,11 +6852,15 @@
       16.0,
       16.0,
       16.0
-    ]
+    ],
+    "bomb": {
+      "strength": 1,
+      "fire": true
+    }
   },
   {
     "id": "orc_bomb_5",
-    "kind": "shaped",
+    "kind": "orc_bomb",
     "hardness": 3.0,
     "resistance": 0.0,
     "light": 0,
@@ -6840,7 +6874,11 @@
       16.0,
       16.0,
       16.0
-    ]
+    ],
+    "bomb": {
+      "strength": 2,
+      "fire": true
+    }
   },
   {
     "id": "orc_chain",
@@ -6870,7 +6908,9 @@
     "sound": "stone",
     "requiresTool": true,
     "solid": true,
-    "facing": true
+    "facing": true,
+    "machine": "forge",
+    "lit": true
   },
   {
     "id": "orc_plating",
@@ -6950,113 +6990,157 @@
   },
   {
     "id": "topaz_vein",
-    "kind": "cube",
+    "kind": "ore",
     "hardness": 3.0,
     "resistance": 5.0,
     "light": 0,
     "sound": "stone",
     "requiresTool": true,
-    "solid": true
+    "solid": true,
+    "xp": [
+      0,
+      2
+    ]
   },
   {
     "id": "amethyst_vein",
-    "kind": "cube",
+    "kind": "ore",
     "hardness": 3.0,
     "resistance": 5.0,
     "light": 0,
     "sound": "stone",
     "requiresTool": true,
-    "solid": true
+    "solid": true,
+    "xp": [
+      0,
+      2
+    ]
   },
   {
     "id": "sapphire_vein",
-    "kind": "cube",
+    "kind": "ore",
     "hardness": 3.0,
     "resistance": 5.0,
     "light": 0,
     "sound": "stone",
     "requiresTool": true,
-    "solid": true
+    "solid": true,
+    "xp": [
+      0,
+      2
+    ]
   },
   {
     "id": "ruby_vein",
-    "kind": "cube",
+    "kind": "ore",
     "hardness": 3.0,
     "resistance": 5.0,
     "light": 0,
     "sound": "stone",
     "requiresTool": true,
-    "solid": true
+    "solid": true,
+    "xp": [
+      0,
+      2
+    ]
   },
   {
     "id": "amber_vein",
-    "kind": "cube",
+    "kind": "ore",
     "hardness": 3.0,
     "resistance": 5.0,
     "light": 0,
     "sound": "stone",
     "requiresTool": true,
-    "solid": true
+    "solid": true,
+    "xp": [
+      0,
+      2
+    ]
   },
   {
     "id": "diamond_vein",
-    "kind": "cube",
+    "kind": "ore",
     "hardness": 3.0,
     "resistance": 5.0,
     "light": 0,
     "sound": "stone",
     "requiresTool": true,
-    "solid": true
+    "solid": true,
+    "xp": [
+      0,
+      2
+    ]
   },
   {
     "id": "opal_vein",
-    "kind": "cube",
+    "kind": "ore",
     "hardness": 3.0,
     "resistance": 5.0,
     "light": 0,
     "sound": "stone",
     "requiresTool": true,
-    "solid": true
+    "solid": true,
+    "xp": [
+      0,
+      2
+    ]
   },
   {
     "id": "emerald_vein",
-    "kind": "cube",
+    "kind": "ore",
     "hardness": 3.0,
     "resistance": 5.0,
     "light": 0,
     "sound": "stone",
     "requiresTool": true,
-    "solid": true
+    "solid": true,
+    "xp": [
+      0,
+      2
+    ]
   },
   {
     "id": "glowstone_ore",
-    "kind": "cube",
+    "kind": "ore",
     "hardness": 3.0,
     "resistance": 5.0,
     "light": 11,
     "sound": "stone",
     "requiresTool": true,
-    "solid": true
+    "solid": true,
+    "xp": [
+      2,
+      4
+    ]
   },
   {
     "id": "gulduril_ore",
-    "kind": "cube",
+    "kind": "ore",
     "hardness": 3.0,
     "resistance": 5.0,
     "light": 11,
     "sound": "stone",
     "requiresTool": true,
-    "solid": true
+    "solid": true,
+    "xp": [
+      2,
+      5
+    ]
   },
   {
     "id": "gulduril_ore_block",
-    "kind": "cube",
+    "kind": "ore",
     "hardness": 3.0,
     "resistance": 5.0,
     "light": 11,
     "sound": "stone",
     "requiresTool": true,
-    "solid": true
+    "solid": true,
+    "xp": [
+      2,
+      5
+    ]
   },
   {
     "id": "mithril_ore",
@@ -7090,23 +7174,31 @@
   },
   {
     "id": "durnor_ore",
-    "kind": "cube",
+    "kind": "ore",
     "hardness": 3.0,
     "resistance": 5.0,
     "light": 7,
     "sound": "stone",
     "requiresTool": true,
-    "solid": true
+    "solid": true,
+    "xp": [
+      0,
+      2
+    ]
   },
   {
     "id": "edhelvir_ore",
-    "kind": "cube",
+    "kind": "ore",
     "hardness": 3.0,
     "resistance": 5.0,
     "light": 11,
     "sound": "stone",
     "requiresTool": true,
-    "solid": true
+    "solid": true,
+    "xp": [
+      2,
+      5
+    ]
   },
   {
     "id": "rock_salt",
@@ -7120,13 +7212,17 @@
   },
   {
     "id": "niter_ore",
-    "kind": "cube",
+    "kind": "ore",
     "hardness": 3.0,
     "resistance": 5.0,
     "light": 0,
     "sound": "stone",
     "requiresTool": true,
-    "solid": true
+    "solid": true,
+    "xp": [
+      0,
+      2
+    ]
   },
   {
     "id": "silver_ore",
@@ -7340,13 +7436,17 @@
   },
   {
     "id": "sulfur_ore",
-    "kind": "cube",
+    "kind": "ore",
     "hardness": 3.0,
     "resistance": 5.0,
     "light": 0,
     "sound": "stone",
     "requiresTool": true,
-    "solid": true
+    "solid": true,
+    "xp": [
+      0,
+      2
+    ]
   },
   {
     "id": "tin_ore",
@@ -7690,14 +7790,18 @@
   },
   {
     "id": "pipeweed",
-    "kind": "plant",
+    "kind": "crop",
     "hardness": 0,
     "resistance": 0.0,
     "light": 0,
     "sound": "grass",
     "requiresTool": false,
     "solid": false,
-    "item": "none"
+    "item": "none",
+    "crop": {
+      "seed": "lotr_port:pipe_weed_seeds",
+      "produce": "lotr_port:pipe_weed_leaf"
+    }
   },
   {
     "id": "pipe_weed_plant",
@@ -8117,7 +8221,9 @@
       14.0
     ],
     "collision": false,
-    "item": "none"
+    "item": "none",
+    "machine": "plate",
+    "facing": true
   },
   {
     "id": "pressure_plate",
@@ -8269,22 +8375,13 @@
   },
   {
     "id": "reeds",
-    "kind": "shaped",
+    "kind": "reed",
     "hardness": 0,
     "resistance": 0.0,
     "light": 0,
     "sound": "grass",
     "requiresTool": false,
-    "solid": false,
-    "shape": [
-      2.0,
-      0.0,
-      2.0,
-      14.0,
-      16.0,
-      14.0
-    ],
-    "collision": false
+    "solid": false
   },
   {
     "id": "remains",
@@ -13422,14 +13519,18 @@
   },
   {
     "id": "turnip_block",
-    "kind": "plant",
+    "kind": "crop",
     "hardness": 0,
     "resistance": 0.0,
     "light": 0,
     "sound": "grass",
     "requiresTool": false,
     "solid": false,
-    "item": "none"
+    "item": "none",
+    "crop": {
+      "seed": "lotr_port:turnip",
+      "produce": "lotr_port:turnip"
+    }
   },
   {
     "id": "umbaric_crafting_table",
@@ -13458,7 +13559,9 @@
       16.0,
       16.0
     ],
-    "facing": true
+    "facing": true,
+    "machine": "unsmeltery",
+    "render": "entity"
   },
   {
     "id": "uruk_steel_bars",
@@ -14757,7 +14860,10 @@
       16.0,
       16.0
     ],
-    "collision": false
+    "collision": false,
+    "machine": "weapon_rack",
+    "render": "entity",
+    "facing": true
   },
   {
     "id": "web_of_ungoliant",
@@ -15698,7 +15804,9 @@
       14.0
     ],
     "collision": false,
-    "item": "none"
+    "item": "none",
+    "machine": "plate",
+    "facing": true
   },
   {
     "id": "shire_pine_wood_slab",
@@ -16082,13 +16190,17 @@
   },
   {
     "id": "yam_block",
-    "kind": "plant",
+    "kind": "crop",
     "hardness": 0,
     "resistance": 0.0,
     "light": 0,
     "sound": "grass",
     "requiresTool": false,
     "solid": false,
-    "item": "none"
+    "item": "none",
+    "crop": {
+      "seed": "lotr_port:yam",
+      "produce": "lotr_port:yam"
+    }
   }
 ]

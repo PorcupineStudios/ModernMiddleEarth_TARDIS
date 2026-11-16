@@ -33,6 +33,15 @@
     "lotr_port:textures/entity/bree/bree_male/9.png"
   ],
   "skin_height": 64,
+  "behaviours": [
+    "man_flesh",
+    "burning_panic"
+  ],
+  "behaviour_data": {
+    "flesh_chance": 5,
+    "burn_panic_speed": 1.5,
+    "drink_chance": 8000
+  },
   "health": 20.0,
   "speed": 0.2,
   "attack": 2.0,
@@ -40,9 +49,9 @@
     "mainhand": "minecraft:iron_hoe",
     "head": "lotr_port:leather_hat"
   },
-  "names": "lotr_port:bree_male",
   "buy": "lotr_port:bree_farmer_buy",
   "sell": "lotr_port:bree_farmer_sell",
   "units": "lotr_port:bree_farmer",
-  "speech": "lotr_port:bree/farmer"
+  "speech": "lotr_port:bree/farmer",
+  "quests": "lotr_port:bree"
 }

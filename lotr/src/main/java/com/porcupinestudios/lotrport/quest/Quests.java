@@ -82,7 +82,7 @@ public final class Quests {
         if (!npc.isOfferingQuest()) {
             return false;
         }
-        Offer offer = roll(player, npc);
+        Offer offer = standingOffer(player, npc);
         if (offer.quest().isEmpty()) {
             npc.say(offer.problem(), player);
             return true;
@@ -123,7 +123,9 @@ public final class Quests {
                     "The quest giver is no longer here"), true);
             return false;
         }
-        giveQuest(player, npc, quest);
+        giveQuest(player, npc, new ActiveQuest(quest.giver(), quest.giverName(), quest.faction(), quest.kind(),
+                quest.target(), quest.count(), 0, quest.coins(), quest.alignment(),
+                player.server.overworld().getGameTime(), quest.speech()));
         npc.clearQuestOffer();
         return true;
     }
@@ -160,6 +162,24 @@ public final class Quests {
                     pool.get().maxActive());
         }
         return new Offer(Optional.empty(), null);
+    }
+
+    /**
+     * The quest this NPC's current offer is for: rolled once and kept until the offer ends or is taken, so asking
+     * again shows the same quest (as in LOTR) instead of a new one each right-click.
+     */
+    public static Offer standingOffer(ServerPlayer player, LotrNpc npc) {
+        Offer problem = check(player, npc);
+        if (problem.problem() != null) {
+            return problem;
+        }
+        Optional<ActiveQuest> kept = npc.offeredQuest();
+        if (kept.isPresent()) {
+            return new Offer(kept, Component.empty());
+        }
+        Offer rolled = roll(player, npc);
+        rolled.quest().ifPresent(npc::setOfferedQuest);
+        return rolled;
     }
 
     /** Picks a quest from this NPC's pool for the player without giving it. */
