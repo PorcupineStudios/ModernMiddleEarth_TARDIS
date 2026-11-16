@@ -78,6 +78,7 @@ public final class LotrPort {
         com.porcupinestudios.lotrport.mount.Mounts.register(modBus);
         LotrWorldgen.register(modBus);
         LotrEntities.register(modBus);
+        com.porcupinestudios.lotrport.npc.SpawnEggs.register(modBus);
         SharedApiHooks.register(modBus);
         FactionConditions.register(modBus);
         com.porcupinestudios.lotrport.journey.CaravanConditions.register(modBus);

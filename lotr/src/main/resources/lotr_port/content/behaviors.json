@@ -415,7 +415,7 @@
   }
  },
  "figures": {
-  "_comment": "Items that set down a still figure on LOTR's creature model (LOTRItemTrollStatue, the rugs). texture under textures/entity/",
+  "_comment": "Items that set down a still figure on LOTR's creature model (LOTRItemTrollStatue, the rugs). texture under textures/entity/. Rugs: `rug` is LOTR's LOTRModel*Rug layout: model `y` offset, model `scale`, then groups of parts drawn with their own translate `t` and scale `s` (legs splayed: 30/-20 deg pitch, +-90 deg roll).",
   "troll_statue_1": {
    "model": "lotr_port:troll",
    "texture": "troll/stone.png",
@@ -438,19 +438,227 @@
    "model": "lotr_port:warg",
    "texture": "warg/black.png",
    "flat": true,
-   "scale": 1.0
+   "scale": 1.0,
+   "rug": {
+    "y": -0.3,
+    "groups": [
+     {
+      "parts": [
+       "body"
+      ],
+      "s": [
+       1.5,
+       0.4,
+       1
+      ]
+     },
+     {
+      "parts": [
+       "tail"
+      ]
+     },
+     {
+      "parts": [
+       "head"
+      ],
+      "t": [
+       0,
+       -0.5,
+       0.1
+      ]
+     },
+     {
+      "parts": [
+       "leg1",
+       "leg3"
+      ],
+      "t": [
+       -0.3,
+       0,
+       0
+      ]
+     },
+     {
+      "parts": [
+       "leg2",
+       "leg4"
+      ],
+      "t": [
+       0.3,
+       0,
+       0
+      ]
+     }
+    ]
+   }
   },
   "lionskin_rug": {
    "model": "lotr_port:lion",
    "texture": "lion/lion.png",
    "flat": true,
-   "scale": 1.0
+   "scale": 1.0,
+   "rug": {
+    "y": -0.4,
+    "groups": [
+     {
+      "parts": [
+       "body"
+      ],
+      "s": [
+       1.5,
+       0.4,
+       1
+      ]
+     },
+     {
+      "parts": [
+       "tail"
+      ]
+     },
+     {
+      "parts": [
+       "head",
+       "mane"
+      ],
+      "t": [
+       0,
+       -0.1,
+       0.1
+      ]
+     },
+     {
+      "parts": [
+       "leg1",
+       "leg3"
+      ],
+      "t": [
+       -0.4,
+       0.15,
+       0
+      ]
+     },
+     {
+      "parts": [
+       "leg2",
+       "leg4"
+      ],
+      "t": [
+       0.4,
+       0.15,
+       0
+      ]
+     }
+    ]
+   }
   },
   "giraffeskin_rug": {
    "model": "lotr_port:giraffe",
    "texture": "giraffe/giraffe.png",
    "flat": true,
-   "scale": 1.0
+   "scale": 1.0,
+   "rug": {
+    "y": 0.1,
+    "groups": [
+     {
+      "parts": [
+       "body",
+       "tail"
+      ],
+      "s": [
+       1.5,
+       0.4,
+       1
+      ]
+     },
+     {
+      "parts": [
+       "head",
+       "neck"
+      ],
+      "t": [
+       0,
+       0.6,
+       -0.2
+      ]
+     },
+     {
+      "parts": [
+       "leg1",
+       "leg3"
+      ],
+      "t": [
+       -0.25,
+       0,
+       0
+      ]
+     },
+     {
+      "parts": [
+       "leg2",
+       "leg4"
+      ],
+      "t": [
+       0.25,
+       0,
+       0
+      ]
+     }
+    ]
+   }
+  },
+  "bearskin_rug": {
+   "model": "lotr_port:bear",
+   "texture": "bear/light.png",
+   "flat": true,
+   "scale": 1.0,
+   "rug": {
+    "y": -0.35,
+    "scale": 1.2,
+    "groups": [
+     {
+      "parts": [
+       "body"
+      ],
+      "s": [
+       1.5,
+       0.4,
+       1
+      ]
+     },
+     {
+      "parts": [
+       "head"
+      ],
+      "t": [
+       0,
+       -0.4,
+       0.1
+      ]
+     },
+     {
+      "parts": [
+       "leg1",
+       "leg3"
+      ],
+      "t": [
+       -0.3,
+       0,
+       0
+      ]
+     },
+     {
+      "parts": [
+       "leg2",
+       "leg4"
+      ],
+      "t": [
+       0.3,
+       0,
+       0
+      ]
+     }
+    ]
+   }
   }
  }
 }
