@@ -469,12 +469,17 @@ public record Tuning(CrashSite crashSite, Hop hop, Winder winder, Interior inter
      * Aeronautics ships (compat/sable, Sable loaded): {@code ship_align} turns a ship's up toward the focus away from its
      * centre, as a spring ({@code ship_align_strength}, rad/s² per radian) with damping ({@code ship_align_damping}, per
      * second); the defaults (9, 6) are critically damped and settle in about 1.5 seconds. Yaw stays free.
+     * Outer Wilds style (Aaron 2026-11-15): a body pulls only inside its gravity radius, fading over the outer
+     * {@code gravity_edge} share; floating, a player turns freely in all three axes (mouse, roll keys) and {@code air_thrust}
+     * (blocks a tick per tick) pushes along their own forward, right and up; their frame only eases upright on the
+     * ground or a deck, while holding the align key, or within {@code auto_align_altitude} blocks over a surface. The roll keys turn {@code roll_speed} degrees a tick.
      */
     public record Motion(double orbitSpeed, double thrust, double maxSpeed, boolean dragFree, boolean freeTilt,
             double tiltSpeed, double boost, double chunkSkipSpeed, double focusRange, boolean shipAlign,
-            double shipAlignStrength, double shipAlignDamping) {
+            double shipAlignStrength, double shipAlignDamping, double gravityEdge, double airThrust,
+            double autoAlignAltitude, double rollSpeed) {
         public static final Motion DEFAULT =
-                new Motion(2.5, 0.02, 40.0, true, true, 0.12, 0.25, 4.0, 6.0, true, 9.0, 6.0);
+                new Motion(2.5, 0.02, 40.0, true, true, 0.12, 0.25, 4.0, 6.0, true, 9.0, 6.0, 0.1, 0.01, 24.0, 3.0);
         public static final Codec<Motion> CODEC = RecordCodecBuilder.create(i -> i.group(
                 Codec.doubleRange(0, 64).optionalFieldOf("orbit_speed", DEFAULT.orbitSpeed)
                         .forGetter(Motion::orbitSpeed),
@@ -493,7 +498,14 @@ public record Tuning(CrashSite crashSite, Hop hop, Winder winder, Interior inter
                 Codec.doubleRange(0, 100).optionalFieldOf("ship_align_strength", DEFAULT.shipAlignStrength)
                         .forGetter(Motion::shipAlignStrength),
                 Codec.doubleRange(0, 100).optionalFieldOf("ship_align_damping", DEFAULT.shipAlignDamping)
-                        .forGetter(Motion::shipAlignDamping))
+                        .forGetter(Motion::shipAlignDamping),
+                Codec.doubleRange(0, 1).optionalFieldOf("gravity_edge", DEFAULT.gravityEdge)
+                        .forGetter(Motion::gravityEdge),
+                Codec.doubleRange(0, 1).optionalFieldOf("air_thrust", DEFAULT.airThrust).forGetter(Motion::airThrust),
+                Codec.doubleRange(0, 1000).optionalFieldOf("auto_align_altitude", DEFAULT.autoAlignAltitude)
+                        .forGetter(Motion::autoAlignAltitude),
+                Codec.doubleRange(0, 45).optionalFieldOf("roll_speed", DEFAULT.rollSpeed)
+                        .forGetter(Motion::rollSpeed))
                 .apply(i, Motion::new));
     }
 

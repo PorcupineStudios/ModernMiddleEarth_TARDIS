@@ -78,6 +78,7 @@ public final class ShipOrbits {
             if (body == null || !body.isValid()) {
                 continue;
             }
+            // outside every gravity radius nothing pulls or turns it: it drifts (centre null)
             step(body, ship, st.get().focusCenter(pos, t), st.get().gravity(pos, t), t.motion(), dt);
         }
     }
@@ -94,7 +95,7 @@ public final class ShipOrbits {
         Vector3d world = DimensionPhysicsData.getGravity(ship.getLevel(), new Vector3d(pos.x, pos.y, pos.z));
         Vec3 g = pull.scale(TICKS_PER_SECOND * TICKS_PER_SECOND).subtract(world.x, world.y, world.z).scale(dt);
         Vector3d dOmega = new Vector3d();
-        Vec3 away = pos.subtract(centre);
+        Vec3 away = centre == null ? Vec3.ZERO : pos.subtract(centre);
         if (m.shipAlign() && away.lengthSqr() > 1e-6) {
             away = away.normalize();
             Pose3dc pose = ship.logicalPose();
@@ -162,7 +163,8 @@ public final class ShipOrbits {
     public static double startOrbit(ServerLevel level, ServerSubLevel ship, StarSystem st, Vec3 look) {
         Tuning.SpaceTuning t = TardisContent.tuning().space();
         Vec3 pos = position(ship);
-        Vec3[] v = circular(pos, st.focusCenter(pos, t), st.gravity(pos, t), look);
+        Vec3 centre = st.focusCenter(pos, t);
+        Vec3[] v = centre == null ? null : circular(pos, centre, st.gravity(pos, t), look);
         if (v == null) {
             return -1;
         }

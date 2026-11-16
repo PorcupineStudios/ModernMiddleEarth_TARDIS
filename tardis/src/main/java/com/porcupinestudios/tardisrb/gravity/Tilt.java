@@ -4,6 +4,9 @@ import com.porcupinestudios.tardisrb.gravity.gc.GravityHolder;
 import com.porcupinestudios.tardisrb.gravity.gc.util.RotationUtil;
 import com.porcupinestudios.tardisrb.progression.TardisContent;
 import com.porcupinestudios.tardisrb.progression.Tuning;
+import com.porcupinestudios.tardisrb.space.Orbits;
+import com.porcupinestudios.tardisrb.space.Planet;
+import com.porcupinestudios.tardisrb.space.Planets;
 import com.porcupinestudios.tardisrb.space.StarSystem;
 import com.porcupinestudios.tardisrb.space.Systems;
 import net.minecraft.core.Direction;
@@ -11,6 +14,7 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.common.NeoForge;
@@ -19,12 +23,12 @@ import org.joml.Quaternionf;
 import org.joml.Vector3f;
 
 /**
- * Free tilt (Aaron's "slice 3"): floating in a solar system, a player leans to the true pull, at any angle, instead of
+ * Free tilt (Aaron's "slice 3"; free frame 2026-11-15): in space (a solar system or an orbit layer) a player's frame turns at any angle, instead of
  * the nearest of six directions. The hitbox stays six-way (its gravity direction); only the view, the look direction
  * (aiming, shooting, block picking) and the drawn body lean, turning round the eyes so they all agree. Standing on
  * blocks the lean goes back to the six-way frame. Kept as the world orientation of the player's own frame, so a
  * change of gravity direction underneath doesn't move the view: the yaw and pitch take up the difference.
- * Both sides tick it the same way (server for aiming, client for the view and for other players' bodies).
+ * The client owns its own floating frame and sends it (SkyNet.FrameUp); otherwise both sides tick it the same way.
  */
 public final class Tilt {
     private final Quaternionf now;
@@ -60,16 +64,52 @@ public final class Tilt {
             return;
         }
         Tuning.SpaceTuning t = TardisContent.tuning().space();
-        StarSystem st = Systems.isSystem(server, p.level().dimension())
-                ? Systems.near(Systems.all(server), p.level().dimension(), p.position()).orElse(null)
-                : null;
-        tick(p, st, t);
+        if (Systems.isSystem(server, p.level().dimension())) {
+            tick(p, Systems.near(Systems.all(server), p.level().dimension(), p.position()).orElse(null), t);
+            return;
+        }
+        Planet layer = Planets.isSpace(server, p.level().dimension())
+                ? Planets.under(server, p.level().dimension(), p.getX(), p.getZ()).orElse(null) : null;
+        tickLayer(p, layer, t, false);
     }
 
-    /** One tick: lean towards the system's pull while floating, back to six-way on blocks, none outside a system. */
+    /** One tick in a solar system (null: not in one), not holding the align key. */
     public static void tick(Entity e, StarSystem st, Tuning.SpaceTuning t) {
+        tick(e, st, t, false);
+    }
+
+    /** One tick in a solar system (null: not in one); the surface is the focus ball's. */
+    public static void tick(Entity e, StarSystem st, Tuning.SpaceTuning t, boolean align) {
+        if (st == null) {
+            tick(e, false, null, 0, false, t);
+            return;
+        }
+        StarSystem.Body b = st.focus(e.position(), t);
+        double altitude = b == null ? Double.MAX_VALUE : e.position().distanceTo(b.center()) - b.radius();
+        tick(e, true, st.gravity(e.position(), t), altitude, align, t);
+    }
+
+    /** One tick in a planet's orbit layer (null: not in one): the pull is world down, the surface the blocks below. */
+    public static void tickLayer(Entity e, Planet p, Tuning.SpaceTuning t, boolean align) {
+        if (p == null) {
+            tick(e, false, null, 0, false, t);
+            return;
+        }
+        int top = e.level().getHeight(Heightmap.Types.MOTION_BLOCKING, e.getBlockX(), e.getBlockZ());
+        double altitude = top <= e.level().getMinBuildHeight() ? Double.MAX_VALUE : e.getY() - top;
+        tick(e, true, new Vec3(0, -Orbits.gravity(p, e.getY(), t), 0), altitude, align, t);
+    }
+
+    /**
+     * One tick (Aaron 2026-11-15, Outer Wilds style): in space the frame is free. On blocks it eases back to the
+     * six-way frame, on a ship's deck to the deck; floating it stays where the player turned it ({@link #spin}) unless
+     * {@code align} (the align key) is held or the surface is within {@code auto_align_altitude}: then its up eases
+     * away from the pull. Outside space there is no tilt.
+     */
+    public static void tick(Entity e, boolean space, Vec3 pull, double altitude, boolean align,
+            Tuning.SpaceTuning t) {
         GravityHolder h = (GravityHolder) e;
-        if (st == null || !t.motion().freeTilt() || !(e instanceof Player) || !e.isAlive()) {
+        if (!space || !t.motion().freeTilt() || !(e instanceof Player) || !e.isAlive()) {
             if (h.tardis_rb$tilt() != null) {
                 h.tardis_rb$setTilt(null);
             }
@@ -82,11 +122,60 @@ public final class Tilt {
             h.tardis_rb$setTilt(tilt);
         }
         tilt.prev.set(tilt.now);
-        // on a ship (a station's deck) lean to its floor even standing; otherwise to the pull while floating
         Vec3 deck = Decks.down.apply(e);
-        Vec3 pull = deck != null ? deck : e.onGround() ? null : st.gravity(e.position(), t);
-        tilt.now.slerp(target(f, pull), (float) t.motion().tiltSpeed())
-                .normalize();
+        Quaternionf want;
+        if (deck != null) {
+            want = target(f, deck);
+        } else if (e.onGround()) {
+            want = f;
+        } else if ((align || altitude < t.motion().autoAlignAltitude()) && pull != null && pull.lengthSqr() > 1e-14) {
+            want = target(tilt.now, pull);
+        } else {
+            return; // floating free: the frame is the player's own
+        }
+        tilt.now.slerp(want, (float) t.motion().tiltSpeed()).normalize();
+    }
+
+    /** Whether this entity floats free (its frame is its own): tilted, in the air and not on a deck. */
+    public static boolean floating(Entity e) {
+        return of(e) != null && !e.onGround() && Decks.down.apply(e) == null;
+    }
+
+    /**
+     * Folds the entity's pitch, and {@code rollDeg} about its look, into its frame and sets pitch to 0: the mouse then
+     * turns the frame itself, with no clamp at straight up or down, and the view doesn't move.
+     */
+    public void spin(Entity e, float rollDeg) {
+        Quaternionf d = spinDelta(e.getViewYRot(1), e.getXRot(), rollDeg); // the look uses the head's yaw
+        now.mul(d).normalize();
+        prev.mul(d).normalize();
+        e.setXRot(0);
+        e.xRotO = 0;
+    }
+
+    /** Own-axes turn: pitch, then roll about the look, at this yaw (the look is rotY(-yaw) rotX(pitch) of +Z). */
+    public static Quaternionf spinDelta(float yawDeg, float pitchDeg, float rollDeg) {
+        float yaw = (float) Math.toRadians(yawDeg);
+        return new Quaternionf().rotateY(-yaw).rotateX((float) Math.toRadians(pitchDeg))
+                .rotateZ((float) Math.toRadians(rollDeg)).rotateY(yaw);
+    }
+
+    /** Sets the frame outright (a client's own turning, or one carried through a layer <-> system switch). */
+    public static void set(Entity e, Quaternionf q, boolean snap) {
+        GravityHolder h = (GravityHolder) e;
+        Tilt tilt = h.tardis_rb$tilt();
+        if (tilt == null) {
+            h.tardis_rb$setTilt(new Tilt(q));
+            return;
+        }
+        tilt.prev.set(snap ? q : tilt.now);
+        tilt.now.set(q);
+    }
+
+    /** This entity's frame in world axes: its tilt, else its six-way frame. */
+    public static Quaternionf worldFrame(Entity e) {
+        Tilt tilt = of(e);
+        return tilt != null ? tilt.now() : frame(((GravityHolder) e).tardis_rb$gravity());
     }
 
     /** The frame leaned so its up points against the pull (null pull: the six-way frame itself). */
