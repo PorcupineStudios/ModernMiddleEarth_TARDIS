@@ -381,6 +381,14 @@ public class LotrNpc extends PathfinderMob implements Merchant {
                 armour.isEmpty() ? null : armour.get(random.nextInt(armour.size())));
     }
 
+    /** LOTR's kill drops for this NPC type: {@code loot_table/entities/npc/<type>.json} (converter/npcs.py). */
+    @Override
+    protected net.minecraft.resources.ResourceKey<net.minecraft.world.level.storage.loot.LootTable> getDefaultLootTable() {
+        ResourceLocation t = typeId();
+        return net.minecraft.resources.ResourceKey.create(net.minecraft.core.registries.Registries.LOOT_TABLE,
+                t.withPath("entities/npc/" + t.getPath()));
+    }
+
     public ResourceLocation typeId() {
         ResourceLocation id = ResourceLocation.tryParse(entityData.get(TYPE));
         return id == null ? LotrEntities.NPC.getId() : id;
