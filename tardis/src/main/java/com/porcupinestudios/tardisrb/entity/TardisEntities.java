@@ -25,6 +25,11 @@ public final class TardisEntities {
             () -> EntityType.Builder.<VortexArc>of(VortexArc::new, MobCategory.MISC).sized(0.5F, 0.5F)
                     .clientTrackingRange(10).updateInterval(20).fireImmune().build("vortex_arc"));
 
+    public static final DeferredHolder<EntityType<?>, EntityType<Dematerialising>> DEMATERIALISING = ENTITIES.register(
+            "dematerialising", () -> EntityType.Builder.<Dematerialising>of(Dematerialising::new, MobCategory.MISC)
+                    .sized(1.0F, 2.0F).clientTrackingRange(10).updateInterval(20).fireImmune().noSave()
+                    .build("dematerialising"));
+
     private TardisEntities() {}
 
     public static void register(IEventBus modBus) {

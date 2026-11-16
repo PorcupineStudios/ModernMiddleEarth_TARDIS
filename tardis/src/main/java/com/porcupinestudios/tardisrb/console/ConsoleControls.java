@@ -504,19 +504,33 @@ public final class ConsoleControls {
             target = new BlockPos(target.getX(), level.getHeight(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
                     target.getX(), target.getZ()), target.getZ());
         }
-        Flight.Outcome out;
-        if (player.isPresent() && TardisContent.tuning().vortex().enabled()
-                && server.getLevel(Vortex.DIMENSION) != null) {
-            // a crew member at the lever flies it through the time vortex to get there (Aaron 2026-11-09)
-            out = Vortex.depart(server, tardis, sameWorld ? Optional.empty() : to, target, facing, player);
-        } else {
-            out = sameWorld ? Flight.hop(server, tardis, target, facing, player)
-                    : Flight.jump(server, tardis, to.get(), Optional.of(target), facing, player);
+        BlockPos aim = target;
+        java.util.function.Supplier<Flight.Outcome> fly = () -> {
+            Flight.Outcome out;
+            if (player.isPresent() && TardisContent.tuning().vortex().enabled()
+                    && server.getLevel(Vortex.DIMENSION) != null) {
+                // a crew member at the lever flies it through the time vortex to get there (Aaron 2026-11-09)
+                out = Vortex.depart(server, tardis, sameWorld ? Optional.empty() : to, aim, facing, player);
+            } else {
+                out = sameWorld ? Flight.hop(server, tardis, aim, facing, player)
+                        : Flight.jump(server, tardis, to.get(), Optional.of(aim), facing, player);
+            }
+            if (out.done()) {
+                remember(tardis, from);
+            }
+            return out;
+        };
+        if (!com.porcupinestudios.tardisrb.door.Doors.isOpen(tardis)) {
+            return fly.get();
         }
-        if (out.done()) {
-            remember(tardis, from);
-        }
-        return out;
+        // doors open: they swing shut over the portal first, then it dematerialises (Aaron 2026-11-16)
+        com.porcupinestudios.tardisrb.flight.Materialise.afterDoorsShut(server, tardis, () -> {
+            Flight.Outcome out = fly.get();
+            if (!out.done()) {
+                player.ifPresent(p -> p.displayClientMessage(out.problem().get(), true));
+            }
+        });
+        return new Flight.Outcome(Optional.empty(), Optional.empty());
     }
 
     /** Flies back to {@code spot}: a hop in the same dimension, else a jump through an open destination there. */

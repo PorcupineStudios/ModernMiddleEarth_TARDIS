@@ -54,14 +54,29 @@ public final class ExteriorRenderer implements BlockEntityRenderer<ExteriorBlock
         pose.pushPose();
         pose.translate(0.5, 0, 0.5);
         pose.mulPose(Axis.YP.rotationDegrees(180 - facing.toYRot()));
-        drawAll(model, angle, pose, buffers.getBuffer(RenderType.entityCutoutNoCull(LOOKS[look])), light);
+        float time = (be.getLevel() == null ? 0 : be.getLevel().getGameTime()) + partialTick;
+        float t = be.materialised(time);
+        drawBox(model, look, angle, t >= 1 ? 1 : com.porcupinestudios.tardisrb.flight.Materialise.alpha(t, false), pose,
+                buffers, light);
+        pose.popPose();
+    }
+
+    /** The box with its glow layer, solid or (while it (de)materialises) see-through at {@code alpha}. */
+    static void drawBox(PoliceBoxModel model, int look, float angle, float alpha, PoseStack pose,
+            MultiBufferSource buffers, int light) {
+        if (alpha <= 0.003f) {
+            return;
+        }
+        boolean solid = alpha >= 1;
+        int a = Math.round(alpha * 255);
+        drawAll(model, angle, pose, buffers.getBuffer(solid ? RenderType.entityCutoutNoCull(LOOKS[look])
+                : RenderType.entityTranslucent(LOOKS[look])), light, a);
         if (look >= model.glowFromLook) {
             // a full-bright cutout layer, not RenderType.eyes: Immersive Portals doesn't clip the eyes shader, so the
             // glowing lantern showed as a white box in the view through the doorway (Aaron 2026-11-04)
-            drawAll(model, angle, pose, buffers.getBuffer(RenderType.entityCutoutNoCull(GLOW)),
-                    LightTexture.FULL_BRIGHT);
+            drawAll(model, angle, pose, buffers.getBuffer(solid ? RenderType.entityCutoutNoCull(GLOW)
+                    : RenderType.entityTranslucent(GLOW)), LightTexture.FULL_BRIGHT, a);
         }
-        pose.popPose();
     }
 
     /**
@@ -80,24 +95,28 @@ public final class ExteriorRenderer implements BlockEntityRenderer<ExteriorBlock
     }
 
     static void drawAll(PoliceBoxModel model, float angle, PoseStack pose, VertexConsumer vc, int light) {
-        draw(model.body, pose, vc, light);
+        drawAll(model, angle, pose, vc, light, 255);
+    }
+
+    static void drawAll(PoliceBoxModel model, float angle, PoseStack pose, VertexConsumer vc, int light, int alpha) {
+        draw(model.body, pose, vc, light, alpha);
         for (PoliceBoxModel.Part door : model.doors.values()) {
             pose.pushPose();
             pose.translate(door.hinge()[0], 0, door.hinge()[2]);
             pose.mulPose(Axis.YP.rotationDegrees(angle * door.openSign()));
             pose.translate(-door.hinge()[0], 0, -door.hinge()[2]);
-            draw(door, pose, vc, light);
+            draw(door, pose, vc, light, alpha);
             pose.popPose();
         }
     }
 
-    private static void draw(PoliceBoxModel.Part part, PoseStack pose, VertexConsumer vc, int light) {
+    private static void draw(PoliceBoxModel.Part part, PoseStack pose, VertexConsumer vc, int light, int alpha) {
         PoseStack.Pose p = pose.last();
         for (PoliceBoxModel.Tri t : part.tris()) {
             // the render types take quads: the third corner twice makes a triangle
             for (int i = 0; i < 4; i++) {
                 float[] v = t.v()[Math.min(i, 2)];
-                vc.addVertex(p, v[0], v[1], v[2]).setColor(255, 255, 255, 255).setUv(v[3], v[4])
+                vc.addVertex(p, v[0], v[1], v[2]).setColor(255, 255, 255, alpha).setUv(v[3], v[4])
                         .setOverlay(OverlayTexture.NO_OVERLAY).setLight(light)
                         .setNormal(p, t.n()[0], t.n()[1], t.n()[2]);
             }
