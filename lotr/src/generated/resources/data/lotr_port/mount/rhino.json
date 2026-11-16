@@ -34,5 +34,11 @@
     "hurt": "rhino.hurt",
     "death": "rhino.death",
     "angry": "rhino.say"
+  },
+  "charge": {
+    "sprint_speed": 0.2,
+    "min_speed": 0.32,
+    "damage_per_speed": 15.0,
+    "knockback": 0.05
   }
 }

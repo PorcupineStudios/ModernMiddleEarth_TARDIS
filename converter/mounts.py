@@ -99,7 +99,10 @@ BREEDS = {
         "id": "rhino", "name": "Rhino", "lotr": "lotr.Rhino", "width": 1.7, "height": 1.9, "model": "rhino",
         "model_class": "LOTRModelRhino", "render_class": "LOTRRenderRhino", "textures": ["rhino/rhino"],
         "saddle": "rhino/saddle", "food": ["minecraft:wheat"], "armour": "rhino", "attack": 4.0,
-        "fights_back": 1.0, "spawn": {"health": {"mul": 1.5, "min": 40}, "speed": {"mul": 1.2},
+        "fights_back": 1.0,
+        # LOTREntityRhino.onLivingUpdate: ridden faster than 0.32 it gores what it runs into (speed x 15)
+        "charge": {"sprint_speed": 0.2, "min_speed": 0.32, "damage_per_speed": 15.0, "knockback": 0.05},
+        "spawn": {"health": {"mul": 1.5, "min": 40}, "speed": {"mul": 1.2},
                                       "jump": {"mul": 0.5}},
         "clamp_health": [20, 50], "clamp_jump": [0.2, 0.8], "clamp_speed": [0.12, 0.42],
         "sounds": {"ambient": "rhino.say", "hurt": "rhino.hurt", "death": "rhino.death", "angry": "rhino.say"}},

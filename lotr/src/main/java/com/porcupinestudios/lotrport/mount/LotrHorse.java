@@ -355,6 +355,58 @@ public class LotrHorse extends AbstractChestedHorse {
         if (!level().isClientSide && getTarget() != null && !fightsBack()) {
             setTarget(null);
         }
+        if (!level().isClientSide && stats().has("charge")) {
+            charge(stats().getAsJsonObject("charge"));
+        }
+    }
+
+    /**
+     * LOTR's rhino charge (LOTREntityRhino): ridden fast it sprints, and faster than {@code min_speed} blocks a tick
+     * it gores every living thing just ahead of it for speed x {@code damage_per_speed}, as its rider's attack, and
+     * throws it forward. Speed is read from the move this tick (a player's mount moves on the client).
+     */
+    private double chargeX;
+    private double chargeZ;
+
+    private void charge(JsonObject c) {
+        if (!(getControllingPassenger() instanceof LivingEntity rider)) {
+            return;
+        }
+        double dx = getX() - chargeX;
+        double dz = getZ() - chargeZ;
+        chargeX = getX();
+        chargeZ = getZ();
+        float speed = (float) Math.sqrt(dx * dx + dz * dz);
+        if (speed > 4) {
+            return; // teleported or first tick
+        }
+        setSprinting(speed > ContentNum.of(c, "sprint_speed", 0.2f));
+        if (speed < ContentNum.of(c, "min_speed", 0.32f)) {
+            return;
+        }
+        float damage = speed * ContentNum.of(c, "damage_per_speed", 15f);
+        net.minecraft.world.phys.Vec3 look = getLookAngle();
+        var box = getBoundingBox().move(look.x * 0.5, 0, look.z * 0.5).inflate(0.5);
+        for (LivingEntity e : level().getEntitiesOfClass(LivingEntity.class, box)) {
+            if (e == this || e == rider || e.isPassengerOfSameVehicle(rider) || rider.isAlliedTo(e)
+                    || e instanceof net.minecraft.world.entity.TamableAnimal t && t.isOwnedBy(rider)) {
+                continue;
+            }
+            DamageSource src = rider instanceof net.minecraft.world.entity.player.Player p
+                    ? damageSources().playerAttack(p) : damageSources().mobAttack(rider);
+            if (e.hurt(src, damage)) {
+                float push = damage * ContentNum.of(c, "knockback", 0.05f);
+                float yaw = getYRot() * (float) Math.PI / 180f;
+                e.push(-Math.sin(yaw) * push, 0.1, Math.cos(yaw) * push);
+            }
+        }
+    }
+
+    /** Numbers from a mount's data object. */
+    private static final class ContentNum {
+        static float of(JsonObject o, String key, float fallback) {
+            return o.has(key) ? o.get(key).getAsFloat() : fallback;
+        }
     }
 
     @Override
