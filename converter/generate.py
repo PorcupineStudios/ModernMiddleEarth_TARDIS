@@ -18,6 +18,7 @@ import io
 import json
 import os
 import shutil
+import struct
 import sys
 
 from PIL import Image
@@ -103,8 +104,48 @@ ITEM_ARMOR = {"dalish_gambeson": "gambeson_dale", "dol_amroth_gambeson": "gambes
               "gondorian_gambeson": "gambeson_gondor", "lamedon_jacket": "jacket_lamedon",
               "lebennin_gambeson": "gambeson_lebennin", "dol_amroth_chaps": "gambeson_dolAmrothLegs",
               "leather_hat": "hat", "party_hat": "partyhat"}
+# Armor items with a texture that doesn't follow the item's material (LOTRItemHaradTurban.getArmorTexture).
+FIXED_ARMOR = {"helmetHaradRobes": "harad_turban"}
 # LOTR dyes its hats; these are the undyed colours (leather brown, a festive red).
 HAT_TINTS = {"leather_hat": (0x68, 0x4A, 0x36), "party_hat": (0xC8, 0x3A, 0x3A)}
+
+
+def armor_extras(jar):
+    """LOTRMod item field -> (LOTRMaterial constant, extra) for every `new LOTRItemArmor(material, slot, "extra")` in
+    LOTRMod's bytecode (getstatic LOTRMaterial.X ... ldc "extra" ... invokespecial <init> ... putstatic LOTRMod.f)."""
+    cf = ClassFile(jar.read("lotr/common/LOTRMod.class"))
+    lengths = {0x10: 2, 0x12: 2, 0x15: 2, 0x16: 2, 0x17: 2, 0x18: 2, 0x19: 2, 0x36: 2, 0x37: 2, 0x38: 2, 0x39: 2,
+               0x3A: 2, 0xA9: 2, 0xBC: 2, 0xB9: 5, 0xBA: 5, 0xC5: 4}
+    out = {}
+    for code in cf.methods.values():
+        if not code:
+            continue
+        i, last, mat, pending = 0, None, None, None
+        while i < len(code):
+            op = code[i]
+            ref = struct.unpack(">H", code[i + 1:i + 3])[0] if i + 3 <= len(code) else 0
+            if op == 0x12:
+                last = cf.constant(code[i + 1])
+            elif op == 0x13:
+                last = cf.constant(ref)
+            elif op == 0xB2:
+                owner, name, _ = cf.ref_full(ref)
+                if owner == "lotr/common/item/LOTRMaterial":
+                    mat = name
+            elif op == 0xB7:
+                owner, name, desc = cf.ref_full(ref)
+                if name == "<init>" and desc == "(Llotr/common/item/LOTRMaterial;ILjava/lang/String;)V":
+                    pending = (mat, last) if isinstance(last, str) and mat else None
+            elif op == 0xB3:
+                owner, name, _ = cf.ref_full(ref)
+                if owner == "lotr/common/LOTRMod" and pending:
+                    out[name] = pending
+                pending = None
+            elif op in (0xAA, 0xAB):
+                break  # no switches among the item constructions; stop rather than misread the padding
+            i += lengths.get(op, 3 if op in (0x11, 0x13, 0x14, 0x84, 0xB2, 0xB3, 0xB4, 0xB5, 0xB6, 0xB7, 0xB8, 0xBB,
+                                             0xBD, 0xC0, 0xC1, 0xC6, 0xC7) or 0x99 <= op <= 0xA8 else 1)
+    return out
 
 
 def tint(img, rgb):
@@ -128,6 +169,7 @@ class Gen:
         self.idtable = {}  # "lotr:tile.rock#1" -> "lotr_port:gondor_rock"
         self.old_to_new = collections.defaultdict(list)  # "lotr:tile.rock" -> [new ids]
         self.blocks = []  # content entries
+        self.armor_extras = None  # LOTRMod field -> (LOTRMaterial name, texture extra), see armor_extra_texture
         self.items = []
         self.lang = collections.defaultdict(dict)  # code -> key -> text
         self.unloc = {}  # new id -> old unlocalized key (for other languages)
@@ -266,7 +308,7 @@ class Gen:
             a = it["armor"]
             mat = snake(a["material"].replace("LOTR_", "")) or "armor"
             slot = ["head", "chest", "legs", "feet"][a["slot"]]
-            texture = self.item_armor_texture(new, slot) or self.armor_texture(mat)
+            texture = self.item_armor_texture(new, slot, old_base) or self.armor_texture(mat)
             e["armor"] = {"slot": slot, "defense": a["defense"], "material": mat, "texture": texture}
             if mat in ARMOR_TOUGHNESS:
                 e["armor"]["toughness"] = ARMOR_TOUGHNESS[mat]
@@ -401,13 +443,13 @@ class Gen:
         self.report["armor_without_texture"].append(mat)
         return mat
 
-    def item_armor_texture(self, item, slot):
+    def item_armor_texture(self, item, slot, old_field=None):
         """
         Armor whose LOTR texture is per item, not per material: the gambesons and jacket (one armor/<name>.png already
         in the vanilla layer layout) and the hats (LOTR's own hat models, ported by armor_models.py, so the texture
         keeps LOTR's layout, tinted the colour LOTR dyes it). Returns the texture name (the item id), or None.
         """
-        src = ITEM_ARMOR.get(item)
+        src = ITEM_ARMOR.get(item) or self.armor_extra_texture(old_field)
         if src is None or not self.jar.has(f"assets/lotr/armor/{src}.png"):
             return None
         img = Image.open(io.BytesIO(self.jar.read(f"assets/lotr/armor/{src}.png"))).convert("RGBA")
@@ -419,6 +461,24 @@ class Gen:
         os.makedirs(os.path.dirname(dst), exist_ok=True)
         img.save(dst)
         return item
+
+    def armor_extra_texture(self, field):
+        """
+        LOTR's helmets with their own models (winged, crested, warlord...), the Dol Amroth winged body, the Harnedor and
+        Gulf bodies and the dwarven silver/gold/mithril sets are built as new LOTRItemArmor(material, slot, extra), and
+        LOTRItemArmor.getArmorTexture then draws them from armor/<material>_<extra>.png instead of the material's
+        layers. Their models' extra boxes only have UVs in that file, so the material texture shows them broken.
+        """
+        if field is None:
+            return None
+        if self.armor_extras is None:
+            self.armor_extras = armor_extras(self.jar)
+        if field in FIXED_ARMOR:
+            return FIXED_ARMOR[field]
+        if field not in self.armor_extras:
+            return None
+        mat, extra = self.armor_extras[field]
+        return f"{mat.lower()}_{extra}"
 
     def armor_sources(self, cand):
         want = cand.replace("_", "").lower()
