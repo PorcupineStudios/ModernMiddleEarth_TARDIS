@@ -119,9 +119,22 @@ public final class GlobeRenderer {
         Planet below = planetBelow(level, cam.x, cam.z);
         if (below != null && below.link().cloudBand() > 0) {
             int band = below.link().cloudBand();
-            return smooth(1 - (cam.y - below.link().orbit().floor()) / band);
+            // also under the top of the layer, so the switch to the solar system happens in cloud
+            return smooth(Math.max(1 - (cam.y - below.link().orbit().floor()) / band,
+                    (cam.y - (below.link().orbit().top() - band)) / band));
         }
-        return 0;
+        StarSystem system = systemNear(level, cam);
+        double c = 0;
+        if (system != null) {
+            // the same cloud just outside a ball's entry sphere: the other side of that switch
+            for (StarSystem.Body b : system.bodies()) {
+                int band = b.planet().link().cloudBand();
+                if (band > 0) {
+                    c = Math.max(c, smooth(1 - (cam.distanceTo(b.center()) - b.entry()) / band));
+                }
+            }
+        }
+        return c;
     }
 
     private static double smooth(double t) {

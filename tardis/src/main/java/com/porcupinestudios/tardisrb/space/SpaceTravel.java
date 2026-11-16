@@ -205,11 +205,13 @@ public final class SpaceTravel {
                 planet.surfaceZ(e.getZ())));
         Vec3 to = body.fromLayer(sx, sz);
         Vec3 velocity = body.velocityFromLayer(sx, sz, GravityChangerAPI.getWorldVelocity(e));
+        org.joml.Quaternionf frame = body.layerToSystem(sx, sz)
+                .mul(com.porcupinestudios.tardisrb.gravity.Tilt.worldFrame(e));
         system.getChunk(BlockPos.containing(to));
         Entity moved = move(e, system, to, 0);
         StarSystem st = Systems.ofPlanet(system.getServer(), planet.id()).orElse(null);
         net.minecraft.core.Direction down = st == null ? net.minecraft.core.Direction.DOWN : st.down(to, tuning);
-        return arrive(moved, down, velocity);
+        return arrive(moved, down, velocity, frame);
     }
 
     /** Into a ball: back at the top of its planet's layer over the spot below you, down being down again. */
@@ -217,15 +219,27 @@ public final class SpaceTravel {
         Planet planet = body.planet();
         double[] spot = body.surfaceUnder(e.position());
         Vec3 velocity = body.velocityToLayer(spot[0], spot[1], GravityChangerAPI.getWorldVelocity(e));
+        org.joml.Quaternionf frame = body.layerToSystem(spot[0], spot[1]).conjugate()
+                .mul(com.porcupinestudios.tardisrb.gravity.Tilt.worldFrame(e));
         Vec3 to = new Vec3(planet.spaceX(spot[0]), planet.link().orbit().top() - ARRIVE_INSIDE,
                 planet.spaceZ(spot[1]));
         space.getChunk(BlockPos.containing(to));
-        return arrive(move(e, space, to, 0), net.minecraft.core.Direction.DOWN, velocity);
+        return arrive(move(e, space, to, 0), net.minecraft.core.Direction.DOWN, velocity, frame);
     }
 
-    /** Sets gravity at once (no view turn) and the world velocity, and tells a player's client the speed. */
-    private static Entity arrive(Entity e, net.minecraft.core.Direction down, Vec3 worldVelocity) {
-        com.porcupinestudios.tardisrb.gravity.Tilt.clear(e);
+    /**
+     * Sets gravity at once and the world velocity, and tells a player's client the speed. With free tilt on, a player
+     * keeps its exact frame ({@code frame}, already in the new dimension's axes): set first, so the gravity change
+     * after it keeps the view (Tilt#regravitate) and nothing on screen turns or jumps.
+     */
+    private static Entity arrive(Entity e, net.minecraft.core.Direction down, Vec3 worldVelocity,
+            org.joml.Quaternionf frame) {
+        if (e instanceof net.minecraft.server.level.ServerPlayer
+                && TardisContent.tuning().space().motion().freeTilt()) {
+            com.porcupinestudios.tardisrb.net.SkyNet.sendFrame(e, frame);
+        } else {
+            com.porcupinestudios.tardisrb.gravity.Tilt.clear(e);
+        }
         com.porcupinestudios.tardisrb.gravity.GravityDirection.set(e, down, 0);
         GravityChangerAPI.setWorldVelocity(e, worldVelocity);
         e.hurtMarked = true;

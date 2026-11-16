@@ -43,6 +43,9 @@ public final class TardisClient {
     public static void keys(RegisterKeyMappingsEvent event) {
         event.register(PilotClient.UP);
         event.register(PilotClient.DOWN);
+        event.register(ClientSpacePhysics.ROLL_LEFT);
+        event.register(ClientSpacePhysics.ROLL_RIGHT);
+        event.register(ClientSpacePhysics.ALIGN);
     }
 
     @SubscribeEvent

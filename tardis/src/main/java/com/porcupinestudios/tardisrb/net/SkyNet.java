@@ -33,11 +33,13 @@ public final class SkyNet {
     }
 
     private static void payloads(RegisterPayloadHandlersEvent event) {
-        var r = event.registrar("6");
+        var r = event.registrar("7");
         r.playToClient(Planets.TYPE, Planets.CODEC, (p, ctx) -> ctx.enqueueWork(() -> clientHandler.accept(p)));
         r.playToClient(PlanetMap.TYPE, PlanetMap.CODEC, (p, ctx) -> ctx.enqueueWork(() -> clientMapHandler.accept(p)));
         r.playToClient(GravityDir.TYPE, GravityDir.CODEC, (p, ctx) -> ctx.enqueueWork(
                 () -> com.porcupinestudios.tardisrb.gravity.GravityDirection.receive(ctx.player().level(), p)));
+        r.playToServer(FrameUp.TYPE, FrameUp.CODEC, (p, ctx) -> ctx.enqueueWork(() -> frameUp(ctx.player(), p)));
+        r.playToClient(FrameOf.TYPE, FrameOf.CODEC, (p, ctx) -> ctx.enqueueWork(() -> frameOf(ctx.player(), p)));
     }
 
     /** Every planet, then every finished globe map. */
@@ -102,6 +104,55 @@ public final class SkyNet {
         static final StreamCodec<ByteBuf, GravityDir> CODEC = StreamCodec.composite(ByteBufCodecs.VAR_INT,
                 GravityDir::entity, ByteBufCodecs.VAR_INT, GravityDir::direction, ByteBufCodecs.VAR_INT,
                 GravityDir::turnMs, GravityDir::new);
+
+        @Override
+        public Type<? extends CustomPacketPayload> type() {
+            return TYPE;
+        }
+    }
+
+    /** A client's own frame while it turns freely in space (it owns its view); the server keeps it and passes it on. */
+    private static void frameUp(net.minecraft.world.entity.player.Player player, FrameUp p) {
+        org.joml.Quaternionf q = p.frame();
+        if (com.porcupinestudios.tardisrb.gravity.Tilt.of(player) == null || !Float.isFinite(q.lengthSquared())
+                || q.lengthSquared() < 0.5f || q.lengthSquared() > 2f) {
+            return;
+        }
+        q.normalize();
+        com.porcupinestudios.tardisrb.gravity.Tilt.set(player, q, false);
+        PacketDistributor.sendToPlayersTrackingEntity(player, new FrameOf(player.getId(), q, false));
+    }
+
+    /** A frame from the server: another player's turning, or ours carried through a layer <-> system switch. */
+    private static void frameOf(net.minecraft.world.entity.player.Player self, FrameOf p) {
+        net.minecraft.world.entity.Entity e = self.level().getEntity(p.entity());
+        if (e != null) {
+            com.porcupinestudios.tardisrb.gravity.Tilt.set(e, p.frame(), p.snap());
+        }
+    }
+
+    /** Sets an entity's frame on the server and on every client that sees it (its own included), at once. */
+    public static void sendFrame(net.minecraft.world.entity.Entity e, org.joml.Quaternionf q) {
+        com.porcupinestudios.tardisrb.gravity.Tilt.set(e, q, true);
+        PacketDistributor.sendToPlayersTrackingEntityAndSelf(e, new FrameOf(e.getId(), q, true));
+    }
+
+    public record FrameUp(org.joml.Quaternionf frame) implements CustomPacketPayload {
+        public static final Type<FrameUp> TYPE = new Type<>(TardisRB.id("frame_up"));
+        static final StreamCodec<ByteBuf, FrameUp> CODEC = StreamCodec.composite(ByteBufCodecs.QUATERNIONF,
+                FrameUp::frame, FrameUp::new);
+
+        @Override
+        public Type<? extends CustomPacketPayload> type() {
+            return TYPE;
+        }
+    }
+
+    public record FrameOf(int entity, org.joml.Quaternionf frame, boolean snap) implements CustomPacketPayload {
+        public static final Type<FrameOf> TYPE = new Type<>(TardisRB.id("frame_of"));
+        static final StreamCodec<ByteBuf, FrameOf> CODEC = StreamCodec.composite(ByteBufCodecs.VAR_INT,
+                FrameOf::entity, ByteBufCodecs.QUATERNIONF, FrameOf::frame, ByteBufCodecs.BOOL, FrameOf::snap,
+                FrameOf::new);
 
         @Override
         public Type<? extends CustomPacketPayload> type() {
