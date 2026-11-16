@@ -43,6 +43,11 @@ public class BerryBushBlock extends Block implements BonemealableBlock {
         return hasBerries;
     }
 
+    /** Eaten by an animal: bare, no berries dropped. */
+    public void strip(Level level, BlockPos pos) {
+        level.setBlock(pos, Farming.block("lotr_port:" + bare).defaultBlockState(), 3);
+    }
+
     @Override
     protected boolean isRandomlyTicking(BlockState state) {
         return !hasBerries;

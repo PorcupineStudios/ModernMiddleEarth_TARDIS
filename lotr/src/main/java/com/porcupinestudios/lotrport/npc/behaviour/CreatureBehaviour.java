@@ -27,6 +27,9 @@ public interface CreatureBehaviour {
         return amount;
     }
 
+    /** It died (server). */
+    default void died(LotrNpc npc, DamageSource source) {}
+
     /** After a melee hit landed. */
     default void hit(LotrNpc npc, Entity target) {}
 

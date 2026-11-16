@@ -27,6 +27,7 @@ public final class CreatureTests {
     private CreatureTests() {}
 
     private static LotrNpc spawn(GameTestHelper helper, String type, double x, double z) {
+        helper.getLevel().getServer().setDifficulty(Difficulty.NORMAL, true); // peaceful removes NPCs at once
         Vec3 pos = helper.absoluteVec(new Vec3(x, 2, z));
         return LotrNpc.spawn(helper.getLevel(), LotrPort.id(type), pos.x, pos.y, pos.z)
                 .orElseThrow(() -> new IllegalStateException("could not spawn " + type));
@@ -79,13 +80,67 @@ public final class CreatureTests {
         helper.succeed();
     }
 
-    @GameTest(template = EMPTY, batch = "creatures", timeoutTicks = 200)
+    /** Its own batch: the blast would kill the other tests' animals. */
+    @GameTest(template = EMPTY, batch = "creature_bomb", timeoutTicks = 300)
     public static void wargBombardierBlowsUp(GameTestHelper helper) {
         helper.getLevel().getGameRules().getRule(net.minecraft.world.level.GameRules.RULE_MOBGRIEFING)
                 .set(false, helper.getLevel().getServer());
-        LotrNpc warg = spawn(helper, "mordor_warg_bombardier", 1.5, 1.5);
+        ThrownTests.inLoadedArea(helper, 8, 4, () -> {
+            LotrNpc warg = spawn(helper, "mordor_warg_bombardier", 1.5, 1.5);
+            warg.setPersistenceRequired();
+            Pig pig = pig(helper, 3.5, 1.5);
+            warg.setTarget(pig);
+            helper.succeedWhen(() -> helper.assertTrue(warg.isRemoved(), "the bombardier hasn't gone off"));
+        });
+    }
+
+    @GameTest(template = EMPTY, batch = "creatures")
+    public static void aurochsKnocksBack(GameTestHelper helper) {
+        LotrNpc aurochs = spawn(helper, "aurochs", 1.5, 1.5);
         Pig pig = pig(helper, 3.5, 1.5);
-        warg.setTarget(pig);
-        helper.succeedWhen(() -> helper.assertTrue(warg.isRemoved(), "the bombardier hasn't gone off"));
+        helper.assertTrue(aurochs.doHurtTarget(pig), "the aurochs' blow didn't land");
+        helper.assertTrue(pig.getDeltaMovement().horizontalDistance() > 0.1, "the aurochs didn't knock the pig back");
+        helper.succeed();
+    }
+
+    /** LOTR's rabbits try 32 random spots within 16 for a crop, 1 in 20 a tick: a field of 24 is found in ~1000 ticks. */
+    @GameTest(template = EMPTY, batch = "creatures", timeoutTicks = 3000)
+    public static void rabbitEatsCrop(GameTestHelper helper) {
+        helper.getLevel().getGameRules().getRule(net.minecraft.world.level.GameRules.RULE_MOBGRIEFING)
+                .set(true, helper.getLevel().getServer());
+        java.util.List<net.minecraft.core.BlockPos> field = new java.util.ArrayList<>();
+        ThrownTests.inLoadedArea(helper, 8, 4, () -> {
+            for (int x = 3; x <= 8; x++) {
+                for (int z = 0; z <= 3; z++) {
+                    var crop = new net.minecraft.core.BlockPos(x, 1, z);
+                    helper.setBlock(crop.below(), net.minecraft.world.level.block.Blocks.FARMLAND);
+                    helper.setBlock(crop, net.minecraft.world.level.block.Blocks.WHEAT);
+                    field.add(crop);
+                }
+            }
+            LotrNpc rabbit = spawn(helper, "rabbit", 1.5, 1.5);
+            rabbit.setPersistenceRequired();
+            Vec3 floor = helper.absoluteVec(new Vec3(1.5, 0, 1.5));
+            rabbit.moveTo(floor.x, floor.y, floor.z);
+            helper.succeedWhen(() -> helper.assertTrue(field.stream().anyMatch(
+                    p -> !helper.getBlockState(p).is(net.minecraft.world.level.block.Blocks.WHEAT)), "the rabbit ate no wheat"));
+        });
+    }
+
+    @GameTest(template = EMPTY, batch = "creatures", timeoutTicks = 1200)
+    public static void birdStealsSeeds(GameTestHelper helper) {
+        ThrownTests.inLoadedArea(helper, 8, 4, () -> {
+            LotrNpc bird = spawn(helper, "bird", 1.5, 1.5);
+            bird.setPersistenceRequired();
+            Vec3 floor = helper.absoluteVec(new Vec3(1.5, 0, 1.5)); // the test floor is at y 0
+            bird.moveTo(floor.x, floor.y, floor.z);
+            Vec3 at = helper.absoluteVec(new Vec3(4.5, 0, 1.5));
+            var seeds = new net.minecraft.world.entity.item.ItemEntity(helper.getLevel(), at.x, at.y, at.z,
+                    new ItemStack(Items.WHEAT_SEEDS, 8));
+            seeds.setNeverPickUp();
+            helper.getLevel().addFreshEntity(seeds);
+            helper.succeedWhen(() -> helper.assertTrue(!seeds.isAlive() || seeds.getItem().getCount() < 8,
+                    "the bird hasn't stolen any seeds"));
+        });
     }
 }

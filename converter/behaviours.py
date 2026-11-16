@@ -27,7 +27,15 @@ BEHAVIOURS = (
     ("LOTREntityWargBombardier", "warg_bomb"),
     ("LOTREntityScorpion", "scorpion"),
     ("LOTREntityUtumnoFireWarg", "trail"),
+    ("LOTREntityCrocodile", "crocodile"),
+    ("LOTREntityLionBase", "prey_chase"),
+    ("LOTREntityRabbit", "crop_eater"),
+    ("LOTREntityBird", "bird_thief"),
 )
+# LOTR's animals whose grown ones defend their young (a hurt cub angers adults within 12: Bear, LionBase, Aurochs)
+DEFEND_YOUNG = ("LOTREntityBear", "LOTREntityLionBase", "LOTREntityAurochs")
+# LOTREntityBird.BirdType: what a bird steals (0 seeds, 1 food and bones: crows, 2 valuables: magpies)
+STEAL_KIND = {"LOTREntityGorcrow": 1}
 # What a blow does besides damage (each class's attackEntityAsMob), for the on_hit behaviour: effect seconds are
 # <effect>_d2 x d^2 + <effect>_d x d + <effect>_c (d = difficulty). The most specific class listed wins.
 DD5 = {"_d2": 0.5, "_d": 2.5}  # d(d + 5) / 2
@@ -39,6 +47,7 @@ ON_HIT = {
     "LOTREntityUtumnoIceWarg": {"frost": 1, **{"slow" + k: v for k, v in DD5.items()}},
     "LOTREntityUtumnoIceSpider": {"frost": 1},
     "LOTREntityScorpion": {"poison" + k: v for k, v in DD5.items()},
+    "LOTREntityAurochs": {"knockback": 0.75},  # attackEntityAsMob kb 0.75
 }
 # LOTR animals that turn on what hurts them (LOTREntityBear, lions, rhinos, aurochs); every other animal panics
 FIGHTS_BACK = ("LOTREntityBear", "LOTREntityLionBase", "LOTREntityRhino", "LOTREntityAurochs", "LOTREntityCrocodile",
@@ -66,7 +75,13 @@ CONSTANTS = {
     "warg_bomb": {"fuse": 35, "bomb_strength": 1, "bomb_range": 4, "power_per_strength": 4},
     # LOTREntityScorpion: scale nextInt(3), health 12 + 6s, damage 2 + s
     "scorpion": {"size_max": 2, "health_base": 12, "health_per_size": 6, "attack_base": 2, "attack_per_size": 1},
-    "trail": {"trail_flame": 2 / 3},  # LOTREntityUtumnoFireWarg: nextInt(3) > 0 flame, else smoke
+    "trail": {"trail_flame": 2 / 3},
+    # LOTREntityCrocodile: targets players while getBrightness < 0.5 (about light 8), nextInt(1000) for animals
+    "crocodile": {"hunt_light": 8, "prey_chance": 1000},
+    "prey_chase": {"chase_chance": 800, "chase_speed": 1.5},  # LOTREntityAILionChase(1.5), nextInt(800)
+    "crop_eater": {"eat_ticks": 60, "eat_speed": 1.2},  # LOTREntityAIRabbitEatCrops(1.2), maxEatingTick 60
+    "bird_thief": {"steal_slots": 9},  # LOTREntityBird birdInv 9
+    "farmhand": {"farmhand": 1},  # LOTRFarmhand: keeps rabbits off crops  # LOTREntityUtumnoFireWarg: nextInt(3) > 0 flame, else smoke
 }
 
 
@@ -81,6 +96,8 @@ def behaviours_of(e):
     out = [b for cls, b in BEHAVIOURS if cls in chain]
     if any(c in ON_HIT for c in chain):
         out.append("on_hit")
+    if any(i.endswith(".LOTRFarmhand") for i in e.get("interfaces") or []):
+        out.append("farmhand")
     if is_animal(e) and "animal" not in out:
         out.append("animal")
     return out
@@ -129,6 +146,10 @@ def behaviour_data(e, jar):
     chain = [c.split(".")[-1] for c in classes]
     for c in reversed(chain):
         data.update(ON_HIT.get(c, {}))
+    if any(c in chain for c in DEFEND_YOUNG):
+        data["defend_young"] = 12
+    if "LOTREntityBird" in chain:
+        data["steal_kind"] = next((STEAL_KIND[c] for c in chain if c in STEAL_KIND), 0)
     if "LOTREntityTroll" in chain:
         for c in classes:
             scale = _float_return(jar, c, "getTrollScale")

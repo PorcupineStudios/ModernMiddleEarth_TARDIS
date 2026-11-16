@@ -436,6 +436,10 @@ public class LotrNpc extends PathfinderMob implements Merchant {
         return goalSelector;
     }
 
+    public GoalSelector targets() {
+        return targetSelector;
+    }
+
     public List<CreatureBehaviour> behaviours() {
         return behaviours;
     }
@@ -752,6 +756,7 @@ public class LotrNpc extends PathfinderMob implements Merchant {
     public void die(DamageSource source) {
         super.die(source);
         if (level() instanceof ServerLevel level) {
+            behaviours.forEach(b -> b.died(this, source));
             Persons.get(level.getServer()).died(level.getServer(), getUUID(), Optional.of(Society.where(this)));
         }
     }

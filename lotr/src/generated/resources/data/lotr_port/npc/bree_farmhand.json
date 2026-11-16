@@ -33,6 +33,12 @@
     "lotr_port:textures/entity/bree/bree_male/9.png"
   ],
   "skin_height": 64,
+  "behaviours": [
+    "farmhand"
+  ],
+  "behaviour_data": {
+    "farmhand": 1
+  },
   "health": 20.0,
   "speed": 0.2,
   "attack": 2.0,

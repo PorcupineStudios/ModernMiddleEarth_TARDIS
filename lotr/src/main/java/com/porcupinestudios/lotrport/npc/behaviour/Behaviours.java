@@ -31,7 +31,12 @@ public final class Behaviours {
             Map.entry("on_hit", OnHitBehaviour::new),
             Map.entry("trail", TrailBehaviour::new),
             Map.entry("warg_bomb", WargBombBehaviour::new),
-            Map.entry("scorpion", ScorpionBehaviour::new));
+            Map.entry("scorpion", ScorpionBehaviour::new),
+            Map.entry("crocodile", CrocodileBehaviour::new),
+            Map.entry("prey_chase", PreyChaseBehaviour::new),
+            Map.entry("crop_eater", CropEaterBehaviour::new),
+            Map.entry("bird_thief", BirdThiefBehaviour::new),
+            Map.entry("farmhand", () -> new CreatureBehaviour() {}));
 
     private Behaviours() {}
 
