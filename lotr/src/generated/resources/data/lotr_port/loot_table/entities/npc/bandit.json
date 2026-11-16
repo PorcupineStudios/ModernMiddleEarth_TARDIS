@@ -13,7 +13,7 @@
               "count": {
                 "type": "minecraft:uniform",
                 "min": 10,
-                "max": 30
+                "max": 40
               }
             }
           ]
@@ -46,7 +46,7 @@
       "conditions": [
         {
           "condition": "minecraft:random_chance",
-          "chance": 0.0125
+          "chance": 0.02
         }
       ]
     },
@@ -61,8 +61,8 @@
               "function": "minecraft:set_count",
               "count": {
                 "type": "minecraft:uniform",
-                "min": 1,
-                "max": 6
+                "min": 5,
+                "max": 5
               }
             }
           ]
@@ -71,7 +71,7 @@
       "conditions": [
         {
           "condition": "minecraft:random_chance",
-          "chance": 0.015
+          "chance": 0.005
         }
       ]
     },
@@ -86,7 +86,7 @@
       "conditions": [
         {
           "condition": "minecraft:random_chance",
-          "chance": 0.195
+          "chance": 0.2175
         }
       ]
     },
@@ -101,7 +101,32 @@
       "conditions": [
         {
           "condition": "minecraft:random_chance",
-          "chance": 0.485
+          "chance": 0.52
+        }
+      ]
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:gold_nugget",
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 1,
+                "max": 4
+              }
+            }
+          ]
+        }
+      ],
+      "conditions": [
+        {
+          "condition": "minecraft:random_chance",
+          "chance": 0.0125
         }
       ]
     }

@@ -29,6 +29,9 @@ public final class TardisBodyRenderer extends EntityRenderer<TardisBody> {
     @Override
     public void render(TardisBody body, float yaw, float partialTick, PoseStack pose, MultiBufferSource buffers,
             int light) {
+        if (ExteriorRenderer.viewedFromInside(body.getBoundingBox().inflate(0.5))) {
+            return;
+        }
         PoliceBoxModel model = PoliceBoxModel.get();
         int look = Math.max(0, Math.min(ExteriorRenderer.LOOKS.length - 1, body.look()));
         pose.pushPose();

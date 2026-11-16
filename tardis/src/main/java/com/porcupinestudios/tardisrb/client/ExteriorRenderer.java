@@ -41,6 +41,9 @@ public final class ExteriorRenderer implements BlockEntityRenderer<ExteriorBlock
         if (!(state.getBlock() instanceof ExteriorBlock)) {
             return;
         }
+        if (viewedFromInside(new net.minecraft.world.phys.AABB(be.getBlockPos()).expandTowards(0, 1, 0))) {
+            return;
+        }
         PoliceBoxModel model = PoliceBoxModel.get();
         int look = Math.max(0, Math.min(LOOKS.length - 1, state.getValue(ExteriorBlock.LOOK)));
         float open = doorProgress(be,
@@ -51,35 +54,69 @@ public final class ExteriorRenderer implements BlockEntityRenderer<ExteriorBlock
         pose.pushPose();
         pose.translate(0.5, 0, 0.5);
         pose.mulPose(Axis.YP.rotationDegrees(180 - facing.toYRot()));
-        drawAll(model, angle, pose, buffers.getBuffer(RenderType.entityCutoutNoCull(LOOKS[look])), light);
-        if (look >= model.glowFromLook) {
-            // a full-bright cutout layer, not RenderType.eyes: Immersive Portals doesn't clip the eyes shader, so the
-            // glowing lantern showed as a white box in the view through the doorway (Aaron 2026-11-04)
-            drawAll(model, angle, pose, buffers.getBuffer(RenderType.entityCutoutNoCull(GLOW)),
-                    LightTexture.FULL_BRIGHT);
-        }
+        float time = (be.getLevel() == null ? 0 : be.getLevel().getGameTime()) + partialTick;
+        float t = be.materialised(time);
+        drawBox(model, look, angle, t >= 1 ? 1 : com.porcupinestudios.tardisrb.flight.Materialise.alpha(t, false), pose,
+                buffers, light);
         pose.popPose();
     }
 
+    /** The box with its glow layer, solid or (while it (de)materialises) see-through at {@code alpha}. */
+    static void drawBox(PoliceBoxModel model, int look, float angle, float alpha, PoseStack pose,
+            MultiBufferSource buffers, int light) {
+        if (alpha <= 0.003f) {
+            return;
+        }
+        boolean solid = alpha >= 1;
+        int a = Math.round(alpha * 255);
+        drawAll(model, angle, pose, buffers.getBuffer(solid ? RenderType.entityCutoutNoCull(LOOKS[look])
+                : RenderType.entityTranslucent(LOOKS[look])), light, a);
+        if (look >= model.glowFromLook) {
+            // a full-bright cutout layer, not RenderType.eyes: Immersive Portals doesn't clip the eyes shader, so the
+            // glowing lantern showed as a white box in the view through the doorway (Aaron 2026-11-04)
+            drawAll(model, angle, pose, buffers.getBuffer(solid ? RenderType.entityCutoutNoCull(GLOW)
+                    : RenderType.entityTranslucent(GLOW)), LightTexture.FULL_BRIGHT, a);
+        }
+    }
+
+    /**
+     * True while Immersive Portals draws the view out of a TARDIS doorway that comes out at this box. That view's camera
+     * stands behind the outside doorway, inside or just behind the box, and IP clips away what lies between camera
+     * and doorway. Iris shaders lose that clip, so the box's own back wall filled the view out (Aaron 2026-11-16; seen
+     * in a dev client: camera 0.4 blocks behind the box). So the box isn't drawn in a view through a portal that
+     * leads into it.
+     */
+    static boolean viewedFromInside(net.minecraft.world.phys.AABB box) {
+        if (!qouteall.imm_ptl.core.render.context_management.PortalRendering.isRendering()) {
+            return false;
+        }
+        var portal = qouteall.imm_ptl.core.render.context_management.PortalRendering.getRenderingPortal();
+        return box.inflate(1.0).contains(portal.getDestPos());
+    }
+
     static void drawAll(PoliceBoxModel model, float angle, PoseStack pose, VertexConsumer vc, int light) {
-        draw(model.body, pose, vc, light);
+        drawAll(model, angle, pose, vc, light, 255);
+    }
+
+    static void drawAll(PoliceBoxModel model, float angle, PoseStack pose, VertexConsumer vc, int light, int alpha) {
+        draw(model.body, pose, vc, light, alpha);
         for (PoliceBoxModel.Part door : model.doors.values()) {
             pose.pushPose();
             pose.translate(door.hinge()[0], 0, door.hinge()[2]);
             pose.mulPose(Axis.YP.rotationDegrees(angle * door.openSign()));
             pose.translate(-door.hinge()[0], 0, -door.hinge()[2]);
-            draw(door, pose, vc, light);
+            draw(door, pose, vc, light, alpha);
             pose.popPose();
         }
     }
 
-    private static void draw(PoliceBoxModel.Part part, PoseStack pose, VertexConsumer vc, int light) {
+    private static void draw(PoliceBoxModel.Part part, PoseStack pose, VertexConsumer vc, int light, int alpha) {
         PoseStack.Pose p = pose.last();
         for (PoliceBoxModel.Tri t : part.tris()) {
             // the render types take quads: the third corner twice makes a triangle
             for (int i = 0; i < 4; i++) {
                 float[] v = t.v()[Math.min(i, 2)];
-                vc.addVertex(p, v[0], v[1], v[2]).setColor(255, 255, 255, 255).setUv(v[3], v[4])
+                vc.addVertex(p, v[0], v[1], v[2]).setColor(255, 255, 255, alpha).setUv(v[3], v[4])
                         .setOverlay(OverlayTexture.NO_OVERLAY).setLight(light)
                         .setNormal(p, t.n()[0], t.n()[1], t.n()[2]);
             }

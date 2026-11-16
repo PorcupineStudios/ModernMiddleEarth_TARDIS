@@ -38,5 +38,6 @@
     "mount_armor": "lotr_port:dol_amroth_horse_armor"
   },
   "names": "lotr_port:gondor_male",
-  "speech": "lotr_port:gondor/swan_knight"
+  "speech": "lotr_port:gondor/swan_knight",
+  "quests": "lotr_port:gondor"
 }

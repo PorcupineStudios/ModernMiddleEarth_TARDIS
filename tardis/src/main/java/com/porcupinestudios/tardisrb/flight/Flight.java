@@ -147,6 +147,31 @@ public final class Flight {
         return land(server, tardis, from, fromLevel, planned, to.pos(), cost.charge(), JUMP_HISTORY, facing);
     }
 
+    /** Admin {@code /tardis summon}: lands the box near {@code target} in any dimension, free and unchecked. */
+    public static Outcome summon(MinecraftServer server, TardisRecord tardis, ServerLevel toLevel, BlockPos target) {
+        if (tardis.location().isEmpty()) {
+            // never placed (e.g. /tardis create): just set it down
+            Tuning.Hop t = TardisContent.tuning().hop();
+            Optional<BlockPos> spot = Landing.find(toLevel, target, t.landingRadius(), t.landingHeight());
+            if (spot.isEmpty()) {
+                return Outcome.fail("tardis_rb.hop.no_space", "There is nowhere to land near there");
+            }
+            Exteriors.place(toLevel, spot.get(), Direction.NORTH, tardis.id());
+            GlobalPos at = GlobalPos.of(toLevel.dimension(), spot.get());
+            tardis.setLocation(Optional.of(at));
+            return new Outcome(Optional.empty(), Optional.of(at));
+        }
+        if (Vortex.inVortex(tardis)) {
+            return Outcome.fail("tardis_rb.vortex.busy", "The TARDIS is in the time vortex");
+        }
+        GlobalPos from = tardis.location().get();
+        ServerLevel fromLevel = server.getLevel(from.dimension());
+        if (fromLevel == null) {
+            return Outcome.fail("tardis_rb.jump.missing", "That dimension isn't in this world");
+        }
+        return land(server, tardis, from, fromLevel, toLevel, target, 0, JUMP_HISTORY, Optional.empty());
+    }
+
     /** Lifts the box, finds a spot near {@code target} in {@code toLevel}, pays and lands; puts it back on failure. */
     private static Outcome land(MinecraftServer server, TardisRecord tardis, GlobalPos from, ServerLevel level,
             ServerLevel toLevel, BlockPos target, long charge, ResourceLocation history, Optional<Direction> turn) {
@@ -162,6 +187,9 @@ public final class Flight {
             }
             return Outcome.fail("tardis_rb.hop.no_space", "There is nowhere to land near there");
         }
+        if (!loose && !from.dimension().equals(Vortex.DIMENSION)) {
+            Materialise.fadeOut(level, from.pos(), facing, tardis);
+        }
         FreeFlight.dock(server, tardis); // a loose box dematerialises and lands as a block
         JumpEvent.Land land = NeoForge.EVENT_BUS.post(new JumpEvent.Land(tardis, from,
                 GlobalPos.of(toLevel.dimension(), spot.get())));
@@ -174,6 +202,8 @@ public final class Flight {
         tardis.useCharge(charge);
         Exteriors.place(landLevel, landed.pos(), turn.orElse(facing), tardis.id());
         tardis.setLocation(Optional.of(landed));
+        TardisSounds.play(server, tardis, landed, TardisSounds.MATERIALISE);
+        Materialise.fadeIn(landLevel, landed.pos());
         NeoForge.EVENT_BUS.post(new JumpEvent.Arrived(tardis, from, landed));
         CompoundTag tag = new CompoundTag();
         tag.putUUID("tardis", tardis.id());

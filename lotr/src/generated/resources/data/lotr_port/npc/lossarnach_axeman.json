@@ -42,5 +42,6 @@
     "ranged": "lotr_port:lossarnach_throwing_axe"
   },
   "names": "lotr_port:gondor_male",
-  "speech": "lotr_port:gondor/soldier"
+  "speech": "lotr_port:gondor/soldier",
+  "quests": "lotr_port:gondor"
 }

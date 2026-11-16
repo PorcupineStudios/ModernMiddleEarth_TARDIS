@@ -37,7 +37,7 @@
     "mainhand": "lotr_port:rivendell_dagger",
     "ranged": "lotr_port:rivendell_bow"
   },
-  "names": "lotr_port:quenya_male",
+  "names": "lotr_port:sindarin_male",
   "buy": "lotr_port:rivendell_trader_buy",
   "sell": "lotr_port:rivendell_trader_sell",
   "speech": "lotr_port:rivendell/trader",

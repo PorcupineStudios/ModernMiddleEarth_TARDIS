@@ -678,7 +678,95 @@
   "hidden": [],
   "renderers": [
     {
-      "name": "LOTRRenderUtumnoTroll",
+      "name": "LOTRRenderMountainTrollChieftain",
+      "pre": {
+        "ops": [
+          [
+            "ref",
+            62
+          ],
+          [
+            "translate",
+            0.0,
+            [
+              "neg",
+              [
+                "in",
+                "entity.getSpawningOffset"
+              ]
+            ],
+            0.0
+          ]
+        ],
+        "color": [
+          [
+            "ref",
+            66
+          ],
+          [
+            "ref",
+            67
+          ],
+          [
+            "ref",
+            68
+          ],
+          1.0
+        ],
+        "blend": false
+      },
+      "layers": [
+        {
+          "rock_when": "isThrowingRocks",
+          "attach": "right_arm",
+          "translate": [
+            0.375,
+            1.5,
+            0.0
+          ],
+          "rotate": [
+            45.0,
+            0.0,
+            1.0,
+            0.0
+          ]
+        },
+        {
+          "draws": [
+            {
+              "part": "wooden_club",
+              "ops": [],
+              "color": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "blend": false,
+              "cond": true
+            },
+            {
+              "part": "wooden_club_spikes",
+              "ops": [],
+              "color": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "blend": false,
+              "cond": true
+            }
+          ],
+          "textures": [
+            "lotr_port:textures/entity/troll/weapons.png"
+          ],
+          "hide_when": "isThrowingRocks"
+        }
+      ]
+    },
+    {
+      "name": "LOTRRenderMirkTroll",
       "pre": {
         "ops": [
           [
@@ -705,21 +793,23 @@
       },
       "layers": [
         {
+          "model": "troll_shirt",
+          "textures": [
+            "lotr_port:textures/entity/troll/mirk_troll_armor/0.png"
+          ],
+          "pick": "outfitSkin"
+        },
+        {
+          "model": "troll_trousers",
+          "textures": [
+            "lotr_port:textures/entity/troll/mirk_troll_armor/0.png"
+          ],
+          "pick": "outfitSkin"
+        },
+        {
           "draws": [
             {
-              "part": "wooden_club",
-              "ops": [],
-              "color": [
-                1.0,
-                1.0,
-                1.0,
-                1.0
-              ],
-              "blend": false,
-              "cond": true
-            },
-            {
-              "part": "wooden_club_spikes",
+              "part": "battleaxe",
               "ops": [],
               "color": [
                 1.0,
@@ -814,6 +904,66 @@
       ]
     },
     {
+      "name": "LOTRRenderUtumnoTroll",
+      "pre": {
+        "ops": [
+          [
+            "ref",
+            62
+          ]
+        ],
+        "color": [
+          [
+            "ref",
+            66
+          ],
+          [
+            "ref",
+            67
+          ],
+          [
+            "ref",
+            68
+          ],
+          1.0
+        ],
+        "blend": false
+      },
+      "layers": [
+        {
+          "draws": [
+            {
+              "part": "wooden_club",
+              "ops": [],
+              "color": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "blend": false,
+              "cond": true
+            },
+            {
+              "part": "wooden_club_spikes",
+              "ops": [],
+              "color": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "blend": false,
+              "cond": true
+            }
+          ],
+          "textures": [
+            "lotr_port:textures/entity/troll/weapons.png"
+          ]
+        }
+      ]
+    },
+    {
       "name": "LOTRRenderSnowTroll",
       "pre": {
         "ops": [
@@ -870,160 +1020,6 @@
           "textures": [
             "lotr_port:textures/entity/troll/weapons.png"
           ]
-        }
-      ]
-    },
-    {
-      "name": "LOTRRenderTroll",
-      "pre": {
-        "ops": [
-          [
-            "ref",
-            62
-          ]
-        ],
-        "color": [
-          [
-            "ref",
-            66
-          ],
-          [
-            "ref",
-            67
-          ],
-          [
-            "ref",
-            68
-          ],
-          1.0
-        ],
-        "blend": false
-      },
-      "layers": [
-        {
-          "model": "troll_shirt",
-          "textures": [
-            "lotr_port:textures/entity/troll/outfit_0.png",
-            "lotr_port:textures/entity/troll/outfit_1.png",
-            "lotr_port:textures/entity/troll/outfit_2.png"
-          ],
-          "pick": "outfitSkin"
-        },
-        {
-          "model": "troll_trousers",
-          "textures": [
-            "lotr_port:textures/entity/troll/outfit_0.png",
-            "lotr_port:textures/entity/troll/outfit_1.png",
-            "lotr_port:textures/entity/troll/outfit_2.png"
-          ],
-          "pick": "outfitSkin"
-        },
-        {
-          "draws": [
-            {
-              "part": "wooden_club",
-              "ops": [],
-              "color": [
-                1.0,
-                1.0,
-                1.0,
-                1.0
-              ],
-              "blend": false,
-              "cond": true
-            }
-          ],
-          "textures": [
-            "lotr_port:textures/entity/troll/weapons.png"
-          ]
-        }
-      ]
-    },
-    {
-      "name": "LOTRRenderMountainTrollChieftain",
-      "pre": {
-        "ops": [
-          [
-            "ref",
-            62
-          ],
-          [
-            "translate",
-            0.0,
-            [
-              "neg",
-              [
-                "in",
-                "entity.getSpawningOffset"
-              ]
-            ],
-            0.0
-          ]
-        ],
-        "color": [
-          [
-            "ref",
-            66
-          ],
-          [
-            "ref",
-            67
-          ],
-          [
-            "ref",
-            68
-          ],
-          1.0
-        ],
-        "blend": false
-      },
-      "layers": [
-        {
-          "rock_when": "isThrowingRocks",
-          "attach": "right_arm",
-          "translate": [
-            0.375,
-            1.5,
-            0.0
-          ],
-          "rotate": [
-            45.0,
-            0.0,
-            1.0,
-            0.0
-          ]
-        },
-        {
-          "draws": [
-            {
-              "part": "wooden_club",
-              "ops": [],
-              "color": [
-                1.0,
-                1.0,
-                1.0,
-                1.0
-              ],
-              "blend": false,
-              "cond": true
-            },
-            {
-              "part": "wooden_club_spikes",
-              "ops": [],
-              "color": [
-                1.0,
-                1.0,
-                1.0,
-                1.0
-              ],
-              "blend": false,
-              "cond": true
-            }
-          ],
-          "textures": [
-            "lotr_port:textures/entity/troll/weapons.png"
-          ],
-          "hide_when": "isThrowingRocks"
         }
       ]
     },
@@ -1092,7 +1088,7 @@
       ]
     },
     {
-      "name": "LOTRRenderMirkTroll",
+      "name": "LOTRRenderTroll",
       "pre": {
         "ops": [
           [
@@ -1121,21 +1117,25 @@
         {
           "model": "troll_shirt",
           "textures": [
-            "lotr_port:textures/entity/troll/mirk_troll_armor/0.png"
+            "lotr_port:textures/entity/troll/outfit_0.png",
+            "lotr_port:textures/entity/troll/outfit_1.png",
+            "lotr_port:textures/entity/troll/outfit_2.png"
           ],
           "pick": "outfitSkin"
         },
         {
           "model": "troll_trousers",
           "textures": [
-            "lotr_port:textures/entity/troll/mirk_troll_armor/0.png"
+            "lotr_port:textures/entity/troll/outfit_0.png",
+            "lotr_port:textures/entity/troll/outfit_1.png",
+            "lotr_port:textures/entity/troll/outfit_2.png"
           ],
           "pick": "outfitSkin"
         },
         {
           "draws": [
             {
-              "part": "battleaxe",
+              "part": "wooden_club",
               "ops": [],
               "color": [
                 1.0,

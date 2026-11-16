@@ -53,6 +53,7 @@
     "ranged": "lotr_port:sling",
     "mount": "lotr_port:shire_pony"
   },
+  "names": "lotr_port:hobbit_male",
   "speech": "lotr_port:hobbit/bounder",
   "quests": "lotr_port:hobbit"
 }

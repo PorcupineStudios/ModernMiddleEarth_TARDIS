@@ -29,7 +29,6 @@
   "gear": {
     "mainhand": "lotr_port:gondorian_bow",
     "head": [
-      "lotr_port:dol_amroth_helmet",
       "minecraft:iron_helmet",
       "minecraft:leather_helmet"
     ],

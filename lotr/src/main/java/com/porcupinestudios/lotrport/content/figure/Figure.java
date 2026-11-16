@@ -45,6 +45,10 @@ public class Figure extends Entity {
         return entityData.get(TEXTURE);
     }
 
+    public ItemStack item() {
+        return entityData.get(ITEM);
+    }
+
     public boolean flat() {
         return entityData.get(FLAT);
     }

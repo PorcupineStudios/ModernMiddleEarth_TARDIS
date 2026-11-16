@@ -19,5 +19,5 @@
   "min_y": -64,
   "height": 704,
   "infiniburn": "#minecraft:infiniburn_overworld",
-  "effects": "minecraft:overworld"
+  "effects": "lotr_port:middle_earth"
 }

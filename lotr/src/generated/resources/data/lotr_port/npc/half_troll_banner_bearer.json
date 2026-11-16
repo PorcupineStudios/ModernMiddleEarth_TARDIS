@@ -26,7 +26,7 @@
     "burn_panic_speed": 1.5,
     "eat_chance": 6000,
     "drink_chance": 6000,
-    "state.renderer": 0,
+    "state.renderer": 1,
     "ride_chance": 12
   },
   "sounds": {
@@ -42,8 +42,6 @@
       "lotr_port:half_troll_dagger",
       "lotr_port:half_troll_mace",
       "lotr_port:half_troll_pike",
-      "lotr_port:half_troll_scimitar",
-      "lotr_port:half_troll_warhammer",
       "lotr_port:poisoned_half_troll_dagger"
     ],
     "head": "lotr_port:half_troll_helmet",
@@ -54,5 +52,6 @@
     "mount_armor": "lotr_port:half_troll_rhino_armor"
   },
   "names": "lotr_port:orc",
-  "speech": "lotr_port:half_troll/half_troll"
+  "speech": "lotr_port:half_troll/half_troll",
+  "quests": "lotr_port:half_troll"
 }

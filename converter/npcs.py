@@ -167,7 +167,8 @@ class Npcs:
                   ("HaradSlave", ["nearHarad/slave/gondor_male/0", "nearHarad/slave/gondor_male/1",
                                   "nearHarad/slave/morwaith_male/0", "nearHarad/slave/nearHarad_male/0",
                                   "nearHarad/slave/nearHarad_male/1", "nearHarad/slave/taurethrim_male/0"]),
-                  ("Wraith", ["minecraft:textures/entity/skeleton/skeleton.png"]))
+                  ("Wraith", ["minecraft:textures/entity/skeleton/skeleton.png"]),
+                  ("Bear", ["bear/light", "bear/dark", "bear/black"]))
     WARG_COLOURS = ("black", "brown", "grey", "white")
 
     def code_skins(self, e):

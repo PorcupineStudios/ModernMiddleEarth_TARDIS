@@ -33,17 +33,21 @@ import net.neoforged.neoforge.common.NeoForge;
  * Region looks: fog distance, fog colour and a screen filter per biome, from resource-pack files
  * {@code assets/<ns>/atmosphere/<name>.json} (F3+T reloads them). Fields, all optional:
  * {@code biomes} (ids, {@code #tags}, or {@code prefix*}), {@code priority}, {@code fog_start} / {@code fog_end}
- * (share of the view distance), {@code fog_color} ("#rrggbb") + {@code fog_color_strength} (0..1),
+ * (share of the view distance), {@code grade} (offsets from neutral, see {@link ColorGrade}), {@code fog_color} ("#rrggbb") + {@code fog_color_strength} (0..1),
  * {@code filter} ("#rrggbb") + {@code filter_alpha} (0..1). The look eases in over about two seconds.
  * Client config {@code atmosphere.*} turns fog or filters off and scales them.
  */
 public final class Atmosphere {
     record Look(List<String> biomes, int priority, float fogStart, float fogEnd, int fogColor, float fogColorStrength,
-            int filter, float filterAlpha) {}
+            int filter, float filterAlpha, float[] grade) {}
+
+    /** Colour grade offsets from neutral, eased like the rest: saturation, contrast, warmth, brightness, vignette, bloom. */
+    static final String[] GRADE = {"saturation", "contrast", "warmth", "brightness", "vignette", "bloom"};
+    private static final int G0 = 9;
 
     /** The eased state: everything blends between "none" (vanilla) and the current look. */
-    private static final float[] cur = new float[9];
-    private static final float[] prev = new float[9];
+    private static final float[] cur = new float[15];
+    private static final float[] prev = new float[15];
     private static List<Look> looks = List.of();
     private static Holder<Biome> lastBiome;
     private static Look lastLook;
@@ -109,7 +113,7 @@ public final class Atmosphere {
             }
             look = lastLook;
         }
-        float[] target = new float[9];
+        float[] target = new float[15];
         if (look != null) {
             target[0] = 1;
             target[1] = look.fogStart();
@@ -121,6 +125,10 @@ public final class Atmosphere {
             target[6] = s;
             target[7] = look.filterAlpha();
             target[8] = look.filter();
+            System.arraycopy(look.grade(), 0, target, G0, GRADE.length);
+        }
+        for (int i = G0; i < cur.length; i++) {
+            cur[i] += Math.max(-0.01f, Math.min(0.01f, target[i] - cur[i]));
         }
         // filter colour jumps (index 8) only while the filter is faded out, so colours never blend through grey
         for (int i = 0; i < 8; i++) {
@@ -132,6 +140,11 @@ public final class Atmosphere {
         } else {
             cur[7] = Math.max(0, cur[7] - 0.05f);
         }
+    }
+
+    /** The eased grade at this frame: index into {@link #GRADE}, offset from neutral. */
+    static float grade(int i, double pt) {
+        return lerp(G0 + i, pt);
     }
 
     private static float lerp(int i, double pt) {
@@ -211,7 +224,7 @@ public final class Atmosphere {
                     out.add(new Look(biomes, GsonHelper.getAsInt(o, "priority", 0),
                             GsonHelper.getAsFloat(o, "fog_start", 0), GsonHelper.getAsFloat(o, "fog_end", 0),
                             color(o, "fog_color"), GsonHelper.getAsFloat(o, "fog_color_strength", 0),
-                            color(o, "filter"), GsonHelper.getAsFloat(o, "filter_alpha", 0)));
+                            color(o, "filter"), GsonHelper.getAsFloat(o, "filter_alpha", 0), grade(o)));
                 } catch (RuntimeException ex) {
                     com.mojang.logging.LogUtils.getLogger().warn("Bad atmosphere file {}: {}", id, ex.getMessage());
                 }
@@ -219,6 +232,15 @@ public final class Atmosphere {
             out.sort(Comparator.comparingInt(Look::priority).reversed());
             looks = List.copyOf(out);
             lastBiome = null;
+        }
+
+        private static float[] grade(JsonObject o) {
+            float[] g = new float[GRADE.length];
+            JsonObject j = GsonHelper.getAsJsonObject(o, "grade", new JsonObject());
+            for (int i = 0; i < g.length; i++) {
+                g[i] = GsonHelper.getAsFloat(j, GRADE[i], 0);
+            }
+            return g;
         }
 
         private static int color(JsonObject o, String key) {

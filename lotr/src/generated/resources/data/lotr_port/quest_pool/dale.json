@@ -1,6 +1,51 @@
 {
   "quests": [
     {
+      "kind": "kill_faction",
+      "target": "lotr_port:dol_guldur",
+      "min": 10,
+      "max": 40,
+      "reward": 1.0,
+      "speech": "lotr_port:miniquest/dale/kill_dol_guldur",
+      "weight": 160
+    },
+    {
+      "kind": "kill_faction",
+      "target": "lotr_port:mordor",
+      "min": 10,
+      "max": 40,
+      "reward": 1.0,
+      "speech": "lotr_port:miniquest/dale/kill_mordor",
+      "weight": 160
+    },
+    {
+      "kind": "kill_npc",
+      "target": "lotr_port:gundabad_orc",
+      "min": 10,
+      "max": 30,
+      "reward": 1.0,
+      "speech": "lotr_port:miniquest/dale/kill_orc",
+      "weight": 160
+    },
+    {
+      "kind": "kill_npc",
+      "target": "lotr_port:dol_guldur_orc",
+      "min": 10,
+      "max": 30,
+      "reward": 1.0,
+      "speech": "lotr_port:miniquest/dale/kill_orc",
+      "weight": 160
+    },
+    {
+      "kind": "kill_npc",
+      "target": "lotr_port:gundabad_warg",
+      "min": 10,
+      "max": 30,
+      "reward": 1.0,
+      "speech": "lotr_port:miniquest/dale/kill_warg",
+      "weight": 160
+    },
+    {
       "kind": "collect",
       "target": "lotr_port:dalish_pastry",
       "min": 3,
@@ -359,51 +404,6 @@
       "reward": 3.0,
       "speech": "lotr_port:miniquest/dale/collect_food",
       "weight": 25
-    },
-    {
-      "kind": "kill_faction",
-      "target": "lotr_port:dol_guldur",
-      "min": 10,
-      "max": 40,
-      "reward": 1.0,
-      "speech": "lotr_port:miniquest/dale/kill_dol_guldur",
-      "weight": 160
-    },
-    {
-      "kind": "kill_faction",
-      "target": "lotr_port:mordor",
-      "min": 10,
-      "max": 40,
-      "reward": 1.0,
-      "speech": "lotr_port:miniquest/dale/kill_mordor",
-      "weight": 160
-    },
-    {
-      "kind": "kill_npc",
-      "target": "lotr_port:gundabad_orc",
-      "min": 10,
-      "max": 30,
-      "reward": 1.0,
-      "speech": "lotr_port:miniquest/dale/kill_orc",
-      "weight": 160
-    },
-    {
-      "kind": "kill_npc",
-      "target": "lotr_port:dol_guldur_orc",
-      "min": 10,
-      "max": 30,
-      "reward": 1.0,
-      "speech": "lotr_port:miniquest/dale/kill_orc",
-      "weight": 160
-    },
-    {
-      "kind": "kill_npc",
-      "target": "lotr_port:gundabad_warg",
-      "min": 10,
-      "max": 30,
-      "reward": 1.0,
-      "speech": "lotr_port:miniquest/dale/kill_warg",
-      "weight": 160
     }
   ]
 }

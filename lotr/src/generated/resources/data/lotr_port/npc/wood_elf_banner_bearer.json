@@ -48,7 +48,6 @@
     "mount": "lotr_port:elk",
     "mount_armor": "lotr_port:wood_elven_elk_armor"
   },
-  "names": "lotr_port:sindarin_male",
   "speech": "lotr_port:wood_elf/elf",
   "quests": "lotr_port:wood_elf"
 }

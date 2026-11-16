@@ -16,5 +16,13 @@
   "fog_color": "#f0d090",
   "fog_color_strength": 0.4,
   "filter": "#ffa040",
-  "filter_alpha": 0.06
+  "filter_alpha": 0.06,
+  "grade": {
+    "saturation": 0.05,
+    "contrast": 0.05,
+    "warmth": 0.45,
+    "brightness": 0.04,
+    "vignette": 0.12,
+    "bloom": 0.2
+  }
 }

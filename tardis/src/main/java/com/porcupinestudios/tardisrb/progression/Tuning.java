@@ -198,13 +198,17 @@ public record Tuning(CrashSite crashSite, Hop hop, Winder winder, Interior inter
      * Short hops in one dimension. Cost = max({@code min_charge}, distance x {@code charge_per_block}). The landing
      * search looks {@code landing_radius} blocks sideways and {@code landing_height} up and down for a dry, safe spot.
      */
-    public record Hop(double chargePerBlock, long minCharge, int landingRadius, int landingHeight) {
-        static final Hop DEFAULT = new Hop(0.5, 5, 8, 24);
+    public record Hop(double chargePerBlock, long minCharge, int landingRadius, int landingHeight,
+            int materialiseTicks) {
+        static final Hop DEFAULT = new Hop(0.5, 5, 8, 24, 200);
         static final Codec<Hop> CODEC = RecordCodecBuilder.create(i -> i.group(
                 Codec.DOUBLE.optionalFieldOf("charge_per_block", DEFAULT.chargePerBlock).forGetter(Hop::chargePerBlock),
                 Codec.LONG.optionalFieldOf("min_charge", DEFAULT.minCharge).forGetter(Hop::minCharge),
                 Codec.INT.optionalFieldOf("landing_radius", DEFAULT.landingRadius).forGetter(Hop::landingRadius),
-                Codec.INT.optionalFieldOf("landing_height", DEFAULT.landingHeight).forGetter(Hop::landingHeight))
+                Codec.INT.optionalFieldOf("landing_height", DEFAULT.landingHeight).forGetter(Hop::landingHeight),
+                // the (de)materialise fade, in ticks (Aaron 2026-11-16)
+                Codec.INT.optionalFieldOf("materialise_ticks", DEFAULT.materialiseTicks)
+                        .forGetter(Hop::materialiseTicks))
                 .apply(i, Hop::new));
     }
 

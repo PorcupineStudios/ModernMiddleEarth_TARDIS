@@ -21,17 +21,13 @@
   "attack": 2.0,
   "gear": {
     "mainhand": [
+      "lotr_port:bronze_axe",
       "lotr_port:bronze_battleaxe",
-      "lotr_port:bronze_sword",
       "lotr_port:dalish_battleaxe",
-      "lotr_port:dalish_sword",
-      "lotr_port:iron_pike",
+      "lotr_port:dalish_pitchfork",
       "minecraft:iron_sword"
     ],
-    "head": [
-      "lotr_port:dalish_helmet",
-      "minecraft:leather_helmet"
-    ],
+    "head": "minecraft:iron_helmet",
     "chest": "lotr_port:dalish_gambeson",
     "legs": "minecraft:leather_leggings",
     "feet": "minecraft:leather_boots"

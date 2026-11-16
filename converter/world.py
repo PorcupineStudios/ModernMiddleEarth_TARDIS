@@ -679,7 +679,7 @@ class World:
             "monster_spawn_light_level": {"type": "minecraft:uniform", "min_inclusive": 0, "max_inclusive": 7},
             "monster_spawn_block_light_limit": 0, "piglin_safe": False, "bed_works": True,
             "respawn_anchor_works": False, "has_raids": True, "logical_height": TOP_Y + 64, "min_y": -64, "height": TOP_Y + 64,
-            "infiniburn": "#minecraft:infiniburn_overworld", "effects": "minecraft:overworld",
+            "infiniburn": "#minecraft:infiniburn_overworld", "effects": f"{NS}:middle_earth",
         })
         write_json(os.path.join(d, "dimension", "middle_earth.json"),
                    {"type": f"{NS}:middle_earth", "generator": generator})

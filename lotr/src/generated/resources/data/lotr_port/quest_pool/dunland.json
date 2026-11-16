@@ -1,6 +1,33 @@
 {
   "quests": [
     {
+      "kind": "kill_faction",
+      "target": "lotr_port:rohan",
+      "min": 10,
+      "max": 40,
+      "reward": 1.0,
+      "speech": "lotr_port:miniquest/dunland/kill_rohirrim",
+      "weight": 267
+    },
+    {
+      "kind": "kill_faction",
+      "target": "lotr_port:rohan",
+      "min": 30,
+      "max": 60,
+      "reward": 1.0,
+      "speech": "lotr_port:miniquest/dunland/avenge_kin",
+      "weight": 267
+    },
+    {
+      "kind": "kill_npc",
+      "target": "minecraft:horse",
+      "min": 10,
+      "max": 20,
+      "reward": 1.0,
+      "speech": "lotr_port:miniquest/dunland/kill_horse",
+      "weight": 267
+    },
+    {
       "kind": "collect",
       "target": "minecraft:oak_log",
       "min": 30,
@@ -179,33 +206,6 @@
       "reward": 1.0,
       "speech": "lotr_port:miniquest/dunland/collect_food",
       "weight": 50
-    },
-    {
-      "kind": "kill_faction",
-      "target": "lotr_port:rohan",
-      "min": 10,
-      "max": 40,
-      "reward": 1.0,
-      "speech": "lotr_port:miniquest/dunland/kill_rohirrim",
-      "weight": 267
-    },
-    {
-      "kind": "kill_faction",
-      "target": "lotr_port:rohan",
-      "min": 30,
-      "max": 60,
-      "reward": 1.0,
-      "speech": "lotr_port:miniquest/dunland/avenge_kin",
-      "weight": 267
-    },
-    {
-      "kind": "kill_npc",
-      "target": "minecraft:horse",
-      "min": 10,
-      "max": 20,
-      "reward": 1.0,
-      "speech": "lotr_port:miniquest/dunland/kill_horse",
-      "weight": 267
     }
   ]
 }
