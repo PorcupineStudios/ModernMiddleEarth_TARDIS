@@ -1311,7 +1311,7 @@
       "slot": "chest",
       "defense": 6,
       "material": "dol_amroth",
-      "texture": "dol_amroth"
+      "texture": "dol_amroth_chestplate"
     }
   },
   {
@@ -1410,7 +1410,7 @@
       "slot": "chest",
       "defense": 7,
       "material": "dwarven",
-      "texture": "dwarven",
+      "texture": "gold_trimmed_dwarven_chestplate",
       "toughness": 2.0
     }
   },
@@ -1425,7 +1425,7 @@
       "slot": "chest",
       "defense": 7,
       "material": "dwarven",
-      "texture": "dwarven",
+      "texture": "mithril_trimmed_dwarven_chestplate",
       "toughness": 2.0
     }
   },
@@ -1440,7 +1440,7 @@
       "slot": "chest",
       "defense": 7,
       "material": "dwarven",
-      "texture": "dwarven",
+      "texture": "silver_trimmed_dwarven_chestplate",
       "toughness": 2.0
     }
   },
@@ -1539,7 +1539,7 @@
       "slot": "chest",
       "defense": 5,
       "material": "gulf_harad",
-      "texture": "gulf_harad"
+      "texture": "gulfen_chestplate"
     }
   },
   {
@@ -1596,7 +1596,7 @@
       "slot": "chest",
       "defense": 5,
       "material": "harnedor",
-      "texture": "harnedor"
+      "texture": "harnennor_chestplate"
     }
   },
   {
@@ -2270,7 +2270,7 @@
       "slot": "feet",
       "defense": 2,
       "material": "dwarven",
-      "texture": "dwarven",
+      "texture": "gold_trimmed_dwarven_boots",
       "toughness": 2.0
     }
   },
@@ -2285,7 +2285,7 @@
       "slot": "feet",
       "defense": 2,
       "material": "dwarven",
-      "texture": "dwarven",
+      "texture": "mithril_trimmed_dwarven_boots",
       "toughness": 2.0
     }
   },
@@ -2300,7 +2300,7 @@
       "slot": "feet",
       "defense": 2,
       "material": "dwarven",
-      "texture": "dwarven",
+      "texture": "silver_trimmed_dwarven_boots",
       "toughness": 2.0
     }
   },
@@ -5352,7 +5352,7 @@
       "slot": "head",
       "defense": 2,
       "material": "arnor",
-      "texture": "arnor"
+      "texture": "arnorian_helmet"
     }
   },
   {
@@ -5366,7 +5366,7 @@
       "slot": "head",
       "defense": 2,
       "material": "black_numenorean",
-      "texture": "black_numenorean"
+      "texture": "black_n_men_rean_helmet"
     }
   },
   {
@@ -5479,7 +5479,7 @@
       "slot": "head",
       "defense": 2,
       "material": "dol_amroth",
-      "texture": "dol_amroth"
+      "texture": "dol_amroth_helmet"
     }
   },
   {
@@ -5521,7 +5521,7 @@
       "slot": "head",
       "defense": 2,
       "material": "dorwinion_elf",
-      "texture": "dorwinion_elf"
+      "texture": "dorwinion_elven_helmet"
     }
   },
   {
@@ -5564,7 +5564,7 @@
       "slot": "head",
       "defense": 2,
       "material": "dwarven",
-      "texture": "dwarven",
+      "texture": "gold_trimmed_dwarven_helmet",
       "toughness": 2.0
     }
   },
@@ -5579,7 +5579,7 @@
       "slot": "head",
       "defense": 2,
       "material": "dwarven",
-      "texture": "dwarven",
+      "texture": "mithril_trimmed_dwarven_helmet",
       "toughness": 2.0
     }
   },
@@ -5594,7 +5594,7 @@
       "slot": "head",
       "defense": 2,
       "material": "dwarven",
-      "texture": "dwarven",
+      "texture": "silver_trimmed_dwarven_helmet",
       "toughness": 2.0
     }
   },
@@ -5609,7 +5609,7 @@
       "slot": "head",
       "defense": 2,
       "material": "galadhrim",
-      "texture": "galadhrim"
+      "texture": "galadhrim_helmet"
     }
   },
   {
@@ -5651,7 +5651,7 @@
       "slot": "head",
       "defense": 2,
       "material": "gondolin",
-      "texture": "gondolin"
+      "texture": "gondolinian_helmet"
     }
   },
   {
@@ -5665,7 +5665,7 @@
       "slot": "head",
       "defense": 2,
       "material": "gondor",
-      "texture": "gondor"
+      "texture": "gondorian_helmet"
     }
   },
   {
@@ -5679,7 +5679,7 @@
       "slot": "head",
       "defense": 2,
       "material": "gondor",
-      "texture": "gondor"
+      "texture": "winged_gondorian_helmet"
     }
   },
   {
@@ -5707,7 +5707,7 @@
       "slot": "head",
       "defense": 2,
       "material": "gundabad_uruk",
-      "texture": "gundabad_uruk"
+      "texture": "gundabad_uruk_helmet"
     }
   },
   {
@@ -5734,7 +5734,7 @@
       "slot": "head",
       "defense": 0,
       "material": "harad_robes",
-      "texture": "harad_robes",
+      "texture": "harad_turban",
       "dyeable": true
     },
     "dyeable": true
@@ -5750,7 +5750,7 @@
       "slot": "head",
       "defense": 2,
       "material": "harnedor",
-      "texture": "harnedor"
+      "texture": "harnennor_helmet"
     }
   },
   {
@@ -5849,7 +5849,7 @@
       "slot": "head",
       "defense": 1,
       "material": "moredain_lion_armor",
-      "texture": "moredain_lion_armor"
+      "texture": "morwaith_chieftain_helmet"
     }
   },
   {
@@ -5863,7 +5863,7 @@
       "slot": "head",
       "defense": 2,
       "material": "morgul",
-      "texture": "morgul"
+      "texture": "morgul_helmet"
     }
   },
   {
@@ -5891,7 +5891,7 @@
       "slot": "head",
       "defense": 2,
       "material": "near_harad",
-      "texture": "near_harad"
+      "texture": "southron_champion_helmet"
     }
   },
   {
@@ -6003,7 +6003,7 @@
       "slot": "head",
       "defense": 2,
       "material": "rhun_gold",
-      "texture": "rhun_gold"
+      "texture": "golden_rh_nic_helmet"
     }
   },
   {
@@ -6017,7 +6017,7 @@
       "slot": "head",
       "defense": 2,
       "material": "rhun_gold",
-      "texture": "rhun_gold"
+      "texture": "rh_nic_warlord_helmet"
     }
   },
   {
@@ -6059,7 +6059,7 @@
       "slot": "head",
       "defense": 2,
       "material": "rohan_marshal",
-      "texture": "rohan_marshal"
+      "texture": "rohirric_marshal_helmet"
     }
   },
   {
@@ -6087,7 +6087,7 @@
       "slot": "head",
       "defense": 2,
       "material": "tauredain",
-      "texture": "tauredain"
+      "texture": "taurethrim_chieftain_helmet"
     }
   },
   {
@@ -6101,7 +6101,7 @@
       "slot": "head",
       "defense": 2,
       "material": "tauredain_gold",
-      "texture": "tauredain_gold"
+      "texture": "golden_taurethrim_helmet"
     }
   },
   {
@@ -6115,7 +6115,7 @@
       "slot": "head",
       "defense": 2,
       "material": "umbar",
-      "texture": "umbar"
+      "texture": "umbaric_helmet"
     }
   },
   {
@@ -6129,7 +6129,7 @@
       "slot": "head",
       "defense": 2,
       "material": "uruk",
-      "texture": "uruk"
+      "texture": "uruk_helmet"
     }
   },
   {
@@ -6143,7 +6143,7 @@
       "slot": "head",
       "defense": 2,
       "material": "uruk",
-      "texture": "uruk"
+      "texture": "uruk_berserker_helmet"
     }
   },
   {
@@ -6923,7 +6923,7 @@
       "slot": "legs",
       "defense": 6,
       "material": "dwarven",
-      "texture": "dwarven",
+      "texture": "gold_trimmed_dwarven_leggings",
       "toughness": 2.0
     }
   },
@@ -6938,7 +6938,7 @@
       "slot": "legs",
       "defense": 6,
       "material": "dwarven",
-      "texture": "dwarven",
+      "texture": "mithril_trimmed_dwarven_leggings",
       "toughness": 2.0
     }
   },
@@ -6953,7 +6953,7 @@
       "slot": "legs",
       "defense": 6,
       "material": "dwarven",
-      "texture": "dwarven",
+      "texture": "silver_trimmed_dwarven_leggings",
       "toughness": 2.0
     }
   },
