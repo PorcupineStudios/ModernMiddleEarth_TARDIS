@@ -9,7 +9,8 @@
   "height": 1.7,
   "behaviours": [
     "warg",
-    "on_hit"
+    "on_hit",
+    "burning_panic"
   ],
   "lotr_classes": [
     "LOTREntityUtumnoIceWarg",
@@ -22,6 +23,7 @@
     "EntityLivingBase"
   ],
   "behaviour_data": {
+    "burn_panic_speed": 1.5,
     "frost": 1,
     "slow_d2": 0.5,
     "slow_d": 2.5,

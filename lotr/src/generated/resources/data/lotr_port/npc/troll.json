@@ -8,7 +8,8 @@
   "width": 1.6,
   "height": 3.2,
   "behaviours": [
-    "troll"
+    "troll",
+    "burning_panic"
   ],
   "lotr_classes": [
     "LOTREntityTroll",
@@ -21,6 +22,7 @@
     "burn_ticks": 300,
     "shade_range": 12,
     "tickle_alignment": 100,
+    "burn_panic_speed": 1.5,
     "scale": 1.0,
     "sun_immune": 0,
     "state.renderer": 3

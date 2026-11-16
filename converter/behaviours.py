@@ -31,7 +31,21 @@ BEHAVIOURS = (
     ("LOTREntityLionBase", "prey_chase"),
     ("LOTREntityRabbit", "crop_eater"),
     ("LOTREntityBird", "bird_thief"),
+    ("LOTREntityBandit", "bandit"),
+    ("LOTREntityRuffianSpy", "bandit"),
+    ("LOTREntityBreeRuffian", "ruffian"),
+    ("LOTREntityOrc", "orc"),
+    ("LOTREntityHobbit", "avoid_evil"),
 )
+# IBandit thieves: getMaxThefts, LOTREntityAIBanditSteal / BanditFlee speeds; the ruffian spy only robs players it is
+# fighting or who are drunk (canRuffianTarget), and its theft message is the ruffian's
+BANDITS = {
+    "LOTREntityBandit": {"max_thefts": 3, "steal_speed": 1.8, "flee_speed": 1.5, "loot_achievement": 1},
+    "LOTREntityRuffianSpy": {"max_thefts": 1, "steal_speed": 1.6, "flee_speed": 1.4, "steal_needs_nausea": 1,
+                             "steal_msg": 1},
+}
+EAT_AI = "lotr/common/entity/ai/LOTREntityAIEat"
+DRINK_AI = "lotr/common/entity/ai/LOTREntityAIDrink"
 # LOTR's animals whose grown ones defend their young (a hurt cub angers adults within 12: Bear, LionBase, Aurochs)
 DEFEND_YOUNG = ("LOTREntityBear", "LOTREntityLionBase", "LOTREntityAurochs")
 # LOTREntityBird.BirdType: what a bird steals (0 seeds, 1 food and bones: crows, 2 valuables: magpies)
@@ -81,7 +95,16 @@ CONSTANTS = {
     "prey_chase": {"chase_chance": 800, "chase_speed": 1.5},  # LOTREntityAILionChase(1.5), nextInt(800)
     "crop_eater": {"eat_ticks": 60, "eat_speed": 1.2},  # LOTREntityAIRabbitEatCrops(1.2), maxEatingTick 60
     "bird_thief": {"steal_slots": 9},  # LOTREntityBird birdInv 9
-    "farmhand": {"farmhand": 1},  # LOTRFarmhand: keeps rabbits off crops  # LOTREntityUtumnoFireWarg: nextInt(3) > 0 flame, else smoke
+    "farmhand": {"farmhand": 1},
+    # LOTREntityAIBanditSteal: players within 32, chase 600 ticks, steals within 2 (squared), 1-8 of a stack
+    "bandit": {"steal_range": 32, "chase_ticks": 600, "steal_reach": 2, "steal_amount": 8},
+    # LOTREntityBreeRuffian.attackEntityFrom: anger +100 a hit, calls ruffians within anger / 25 (at most 24)
+    "ruffian": {"anger_per_hit": 100, "anger_per_block": 25, "anger_range": 24},
+    # LOTREntityOrc: daylight effects 200 ticks every 20; AIOrcAvoidGoodPlayer(8, 1.5) from alignment -500
+    "orc": {"daylight_ticks": 200, "avoid_range": 8, "avoid_speed": 1.5, "avoid_alignment": -500},
+    # LOTREntityAINPCAvoidEvilPlayer(8, 1.5, 1.8): hobbits flee players at -100 or worse
+    "avoid_evil": {"avoid_range": 8, "avoid_speed": 1.5, "avoid_near_speed": 1.8, "avoid_alignment": -100},
+    "burning_panic": {"burn_panic_speed": 1.5},  # LOTREntityNPC: LOTREntityAIBurningPanic(1.5)  # LOTRFarmhand: keeps rabbits off crops  # LOTREntityUtumnoFireWarg: nextInt(3) > 0 flame, else smoke
 }
 
 
@@ -98,6 +121,8 @@ def behaviours_of(e):
         out.append("on_hit")
     if any(i.endswith(".LOTRFarmhand") for i in e.get("interfaces") or []):
         out.append("farmhand")
+    if "LOTREntityNPC" in chain and "LOTREntityMallornEnt" not in chain:  # shouldBurningPanic
+        out.append("burning_panic")
     if is_animal(e) and "animal" not in out:
         out.append("animal")
     return out
@@ -138,12 +163,46 @@ def _sets_true(jar, cls, field):
     return False
 
 
+def _consume_chance(jar, classes, target):
+    """LOTREntityAIEat/Drink(npc, foods, chance) in the most specific class that adds one: the chance (a sipush just
+    before the constructor call), or None."""
+    for c in classes:
+        path = c.replace(".", "/") + ".class"
+        if not jar.has(path):
+            continue
+        cf = ClassFile(jar.read(path))
+        for code in cf.methods.values():
+            for j in range(3, len(code or b"") - 2):
+                if code[j] == 0xB7 and code[j - 3] == 0x11:
+                    try:
+                        owner, name = cf.ref_name(int.from_bytes(code[j + 1:j + 3], "big"))
+                    except (KeyError, TypeError, IndexError):
+                        continue
+                    if owner == target and name == "<init>":
+                        return int.from_bytes(code[j - 2:j], "big", signed=True)
+    return None
+
+
 def behaviour_data(e, jar):
     classes = e.get("classes") or []
     data = {}
     for b in behaviours_of(e):
         data.update(CONSTANTS.get(b, {}))
     chain = [c.split(".")[-1] for c in classes]
+    for c in reversed(chain):
+        data.update(BANDITS.get(c, {}))
+    if "bandit" in behaviours_of(e):
+        data["flee_range"] = (e.get("attributes") or {}).get("generic.followRange", 16.0)
+    if "LOTREntityOrc" in chain:
+        weak = (e.get("fields") or {}).get("isWeakOrc", True)
+        data["weak_orc"] = 1 if weak else 0
+        data["avoid_good"] = 1 if weak and (e.get("faction") or "") != "MORDOR" else 0  # Mordor's orcs stand
+    eat = _consume_chance(jar, classes, EAT_AI)
+    drink = _consume_chance(jar, classes, DRINK_AI)
+    if eat:
+        data["eat_chance"] = eat
+    if drink:
+        data["drink_chance"] = drink
     for c in reversed(chain):
         data.update(ON_HIT.get(c, {}))
     if any(c in chain for c in DEFEND_YOUNG):

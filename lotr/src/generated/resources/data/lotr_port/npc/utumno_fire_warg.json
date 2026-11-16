@@ -10,7 +10,8 @@
   "behaviours": [
     "warg",
     "trail",
-    "on_hit"
+    "on_hit",
+    "burning_panic"
   ],
   "lotr_classes": [
     "LOTREntityUtumnoFireWarg",
@@ -24,6 +25,7 @@
   ],
   "behaviour_data": {
     "trail_flame": 0.6666666666666666,
+    "burn_panic_speed": 1.5,
     "fire": 4,
     "state.renderer": 0
   },

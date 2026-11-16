@@ -8,13 +8,14 @@
     "lotr_port:textures/entity/rhun/easterling_male/4.png"
   ],
   "skin_height": 64,
-  "health": 20.0,
-  "speed": 0.2,
-  "attack": 2.0,
   "behaviours": [
+    "burning_panic",
     "archer"
   ],
   "behaviour_data": {
+    "burn_panic_speed": 1.5,
+    "eat_chance": 8000,
+    "drink_chance": 8000,
     "ranged_speed": 1.25,
     "ranged_min": 30,
     "ranged_max": 50,
@@ -23,6 +24,9 @@
     "ranged_swap": 0,
     "ride_chance": 6
   },
+  "health": 20.0,
+  "speed": 0.2,
+  "attack": 2.0,
   "gear": {
     "mainhand": "lotr_port:rh_nic_bow",
     "head": "lotr_port:rh_nic_helmet",

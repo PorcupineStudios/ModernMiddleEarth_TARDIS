@@ -527,6 +527,11 @@ public class LotrNpc extends PathfinderMob implements Merchant {
         } else {
             moods = List.of("friendly", "neutral");
         }
+        return speak(player, bank, moods);
+    }
+
+    /** Says a line from speech bank {@code bank}, the first of {@code moods} that has lines (LOTR's sendSpeechBank). */
+    public boolean speak(ServerPlayer player, ResourceLocation bank, List<String> moods) {
         List<String> lines = List.of();
         for (String mood : moods) {
             lines = NpcData.speech(bank, mood);

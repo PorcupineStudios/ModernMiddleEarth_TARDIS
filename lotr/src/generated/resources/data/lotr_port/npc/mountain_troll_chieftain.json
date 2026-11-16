@@ -10,7 +10,8 @@
   "behaviours": [
     "troll",
     "rock_thrower",
-    "boss_jump"
+    "boss_jump",
+    "burning_panic"
   ],
   "lotr_classes": [
     "LOTREntityMountainTrollChieftain",
@@ -32,6 +33,7 @@
     "throw_damage": 5,
     "jump_chance": 0.03,
     "jump_speed": 1.5,
+    "burn_panic_speed": 1.5,
     "scale": 2.0,
     "sun_immune": 0,
     "two_heads": 1,

@@ -9,7 +9,8 @@
   "height": 1.7,
   "behaviours": [
     "warg",
-    "warg_bomb"
+    "warg_bomb",
+    "burning_panic"
   ],
   "lotr_classes": [
     "LOTREntityUrukWargBombardier",
@@ -26,6 +27,7 @@
     "bomb_strength": 1,
     "bomb_range": 4,
     "power_per_strength": 4,
+    "burn_panic_speed": 1.5,
     "state.renderer": 0
   },
   "sounds": {
