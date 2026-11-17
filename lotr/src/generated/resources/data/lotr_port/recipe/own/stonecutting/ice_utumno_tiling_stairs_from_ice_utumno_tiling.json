@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "lotr_port:ice_utumno_tiling"
+  },
+  "result": {
+    "id": "lotr_port:ice_utumno_tiling_stairs",
+    "count": 1
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "lotr_port:mordor_rock"
+  },
+  "result": {
+    "id": "lotr_port:mordor_brick_wall",
+    "count": 1
+  }
+}

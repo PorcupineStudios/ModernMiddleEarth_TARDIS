@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "lotr_port:bone_block"
+  },
+  "result": {
+    "id": "lotr_port:bone_wall",
+    "count": 1
+  }
+}

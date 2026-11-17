@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "lotr_port:arnor_brick"
+  },
+  "result": {
+    "id": "lotr_port:carved_arnor_brick",
+    "count": 1
+  }
+}

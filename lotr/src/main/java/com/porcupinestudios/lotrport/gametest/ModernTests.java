@@ -143,4 +143,22 @@ public final class ModernTests {
                 + family.subList(0, Math.min(10, family.size())));
         helper.succeed();
     }
+
+    /** stonecutting.py: Gondor rock cuts into its bricks and their slabs (2 each), as vanilla stone does. */
+    @GameTest(template = "empty")
+    public static void stonecutterCutsLotrStone(GameTestHelper helper) {
+        var input = new net.minecraft.world.item.crafting.SingleRecipeInput(new ItemStack(item("gondor_rock")));
+        var results = helper.getLevel().getRecipeManager()
+                .getRecipesFor(net.minecraft.world.item.crafting.RecipeType.STONECUTTING, input, helper.getLevel());
+        boolean bricks = false;
+        boolean slabs = false;
+        for (var r : results) {
+            ItemStack out = r.value().getResultItem(helper.getLevel().registryAccess());
+            bricks |= out.is(item("gondor_brick"));
+            slabs |= out.is(item("gondor_brick_slab")) && out.getCount() == 2;
+        }
+        helper.assertTrue(bricks && slabs, "gondor rock cuts into " + results.size() + " things, bricks " + bricks
+                + ", 2 slabs " + slabs);
+        helper.succeed();
+    }
 }

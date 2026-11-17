@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "lotr_port:rohan_rock"
+  },
+  "result": {
+    "id": "lotr_port:rohan_rock_stairs",
+    "count": 1
+  }
+}

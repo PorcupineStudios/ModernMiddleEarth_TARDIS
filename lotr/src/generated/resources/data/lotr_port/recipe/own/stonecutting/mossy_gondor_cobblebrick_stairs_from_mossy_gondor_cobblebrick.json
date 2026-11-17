@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "lotr_port:mossy_gondor_cobblebrick"
+  },
+  "result": {
+    "id": "lotr_port:mossy_gondor_cobblebrick_stairs",
+    "count": 1
+  }
+}

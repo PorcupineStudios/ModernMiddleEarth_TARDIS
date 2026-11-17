@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "lotr_port:angmar_brick"
+  },
+  "result": {
+    "id": "lotr_port:angmar_brick_slab",
+    "count": 2
+  }
+}

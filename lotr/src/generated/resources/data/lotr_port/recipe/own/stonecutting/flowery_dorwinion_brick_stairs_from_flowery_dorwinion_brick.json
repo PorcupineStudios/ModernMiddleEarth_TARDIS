@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "lotr_port:flowery_dorwinion_brick"
+  },
+  "result": {
+    "id": "lotr_port:flowery_dorwinion_brick_stairs",
+    "count": 1
+  }
+}
