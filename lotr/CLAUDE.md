@@ -467,7 +467,27 @@ https://claude.ai/artifact/KqhSSTCuKXGuwKHBoYJdcu. Rebuild features in modern co
 - Create: no dependency. The keg exposes `Capabilities.FluidHandler.BLOCK` (tank 0 the drink, tank 1 water) and
   `ItemHandler.BLOCK`; drinks and vessels expose `FluidHandler.ITEM` (one serving). Each drink is a fluid
   (`Drinks.DrinkFluid`, tinted water) carrying its strength. GameTests `KegGateTests`.
-- Not yet: alcohol tolerance, drunken speech, placeable mugs, NPCs drinking.
+- Set-down vessels (2026-11-17, `drink/Vessels`, `VesselBlock`): sneak + use a vessel or drink on a block top sets it
+  down. Use a full one: you drink it where it stands (`LotrDrinkItem.drink`), it stays, empty. Use an empty one with a
+  drink in that kind of vessel: pours it in; otherwise nothing (it used to pick the block up, and structure vessels,
+  holding nothing, vanished). Break it to take it. Models: `converter/vessels.py` (no two boxes overlap: overlapping
+  floor and walls z-fought; a real glass bottle). Water drawn into a vessel stays in that vessel.
+- Drink-in-vessel item models are `item/drink/<drink>/<vessel>` (2026-11-17): `<drink>_<vessel>` clashed with real
+  items (the empty ale horn drew full ale; ale in a golden horn drew the set-down block).
+- Not yet: alcohol tolerance, drunken speech, NPCs drinking, poisoning drinks with the bottle of poison.
+
+## Modifiers (2026-11-17, `modifier/`)
+- LOTR's modifiers are data enchantments (extra.py); `Modifiers` hooks them in: crafted gear rolls random ones
+  (`mixin/CraftedModifierMixin` on `Item.onCraftedBy`, so shift-click too), traders' goods roll skilful ones and cost
+  more by their `value` (`NpcTrading`), Smith's Scrolls (`SmithScrollItem`, component `lotr_port:modifier`; NPCs drop
+  blank ones that get a random modifier on landing) apply on a vanilla anvil, two alike make the `upgrade`
+  ("combineSmithScrolls"), undamaged gear + its repair material reforges (keeps `persists_reforge` and vanilla
+  enchantments; "reforge"), looting/silk touch count as vanilla's (`acts_as`, `GetEnchantmentLevelEvent`),
+  headhunting drops heads, tooltips green/red (`#lotr_port:modifier/negative`). Ancient items (`AncientItem`, data
+  `ancient_item/<item>.json`) turn into an old weapon or armour piece with skilful modifiers when used.
+- Data: `modifier/<enchantment>.json` (generated, `extra.py write_modifier_data`), `modifier_settings/settings.json`
+  (roll chances, anvil XP costs, heads). The roll chances and the ancient lists are stand-ins, not LOTR's numbers.
+  GameTests `ModifierVesselTests`.
 
 ## Combat and armor models (2026-11-04)
 - 1.7.10 had no attack cooldown. LOTR's melee timing (`LOTRWeaponStats`: 15 ticks for a player's sword ÷ the

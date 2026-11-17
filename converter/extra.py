@@ -207,8 +207,33 @@ class Extra:
         # LOTR's modifiers came from its anvil and forge, not the enchanting table: weight > 0 ones may be rolled
         write_json(os.path.join(self.data, NS, "tags", "enchantment", "modifier", "random.json"),
                    {"values": [m["id"] for m in modifiers if m["weight"] > 0]})
-        write_json(os.path.join(self.content, "modifiers.json"), modifiers)
+        self.write_modifier_data(self.data, modifiers)
         return len(modifiers)
+
+    # LOTR's looting and silk touch: vanilla's loot tables only know vanilla's ids, so they count as those too
+    ACTS_AS = {"looting1": {"minecraft:looting": 1}, "looting2": {"minecraft:looting": 2},
+               "looting3": {"minecraft:looting": 3}, "tool_silk": {"minecraft:silk_touch": 1}}
+
+    @staticmethod
+    def write_modifier_data(data, modifiers):
+        """Each modifier's rules as reloadable data (modifier/<id>.json, read by the port's Modifiers): weight,
+        skilful, persists_reforge, value (trade price factor), upgrade (two scrolls combine into it: the same name
+        one number up, for good modifiers) and acts_as; and #lotr_port:modifier/negative (red in tooltips)."""
+        names = {m["id"].split(":")[1] for m in modifiers}
+        negative = []
+        for m in modifiers:
+            eid = m["id"].split(":")[1]
+            out = {"weight": m["weight"], "skilful": m["skilful"], "persists_reforge": m["persists_reforge"],
+                   "value": m["value_modifier"]}
+            stem = eid.rstrip("0123456789")
+            if stem != eid and m["value_modifier"] >= 1 and f"{stem}{int(eid[len(stem):]) + 1}" in names:
+                out["upgrade"] = f"{NS}:{stem}{int(eid[len(stem):]) + 1}"
+            if eid in Extra.ACTS_AS:
+                out["acts_as"] = Extra.ACTS_AS[eid]
+            if m["value_modifier"] < 1:
+                negative.append(m["id"])
+            write_json(os.path.join(data, NS, "modifier", eid + ".json"), out)
+        write_json(os.path.join(data, NS, "tags", "enchantment", "modifier", "negative.json"), {"values": negative})
 
     @staticmethod
     def _projectile(expected=True):

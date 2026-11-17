@@ -41,7 +41,7 @@ import net.neoforged.neoforge.common.Tags;
  */
 public class ThrownMissile extends ThrowableItemProjectile {
     public enum Kind {
-        PEBBLE, SLING_PEBBLE, CONKER, FIRE_POT, MYSTERY_WEB, PLATE;
+        PEBBLE, SLING_PEBBLE, CONKER, FIRE_POT, MYSTERY_WEB, PLATE, TERMITE;
 
         String key() {
             return switch (this) {
@@ -154,6 +154,9 @@ public class ThrownMissile extends ThrowableItemProjectile {
             case FIRE_POT -> firePot(level, direct);
             case MYSTERY_WEB -> web(level);
             case PLATE -> plate(level, hit);
+            case TERMITE -> // LOTR's exploding termite: a small blast where it lands (power in thrown/settings.json)
+                    level.explode(this, getX(), getY(), getZ(), Thrown.num("termite_power", 2f),
+                            Level.ExplosionInteraction.TNT);
         }
         discard();
     }

@@ -31,6 +31,11 @@ public final class LotrComponents {
                     net.minecraft.resources.ResourceLocation.CODEC).networkSynchronized(
                     net.minecraft.resources.ResourceLocation.STREAM_CODEC));
 
+    /** The modifier (an enchantment id) a Smith's Scroll holds. */
+    public static final Supplier<DataComponentType<net.minecraft.resources.ResourceLocation>> MODIFIER =
+            COMPONENTS.registerComponentType("modifier", b -> b.persistent(net.minecraft.resources.ResourceLocation.CODEC)
+                    .networkSynchronized(net.minecraft.resources.ResourceLocation.STREAM_CODEC));
+
     private LotrComponents() {}
 
     public static void register(IEventBus modBus) {

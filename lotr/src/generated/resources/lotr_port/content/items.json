@@ -11502,10 +11502,11 @@
   },
   {
     "id": "exploding_termite",
-    "kind": "item",
+    "kind": "throwable",
     "stack": 16,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "throwable": "termite"
   },
   {
     "id": "blue_dwarven_throwing_axe",

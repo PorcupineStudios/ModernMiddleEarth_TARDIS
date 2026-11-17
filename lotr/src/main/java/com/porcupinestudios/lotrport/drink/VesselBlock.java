@@ -6,7 +6,13 @@ import com.mojang.serialization.MapCodec;
 import com.porcupinestudios.lotrport.content.ShapedBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import com.porcupinestudios.lotrport.content.LotrDrinkItem;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.ItemInteractionResult;
+import net.minecraft.world.item.ItemUtils;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -22,8 +28,11 @@ import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.phys.BlockHitResult;
 
 /**
- * A mug, goblet, cup, horn or glass set down on a table (LOTRBlockMug): holds the drink (or empty vessel) it was set
- * down as, gives it back on use or when broken, and needs a floor under it. Placed by {@link Vessels}.
+ * A mug, goblet, cup, horn, glass or bottle set down on a table (LOTRBlockMug): holds the drink (or empty vessel) it
+ * was set down as and needs a floor under it. Placed by {@link Vessels}. As LOTR's: using a full one drinks it where it
+ * stands (it stays, empty); using an empty one with a drink in that kind of vessel pours the drink in; using an empty
+ * one otherwise does nothing. Breaking it gives back what it holds (structure vessels hold nothing: their loot table's
+ * empty vessel).
  */
 public class VesselBlock extends ShapedBlock implements EntityBlock {
     public VesselBlock(Properties properties, float[] box) {
@@ -41,16 +50,38 @@ public class VesselBlock extends ShapedBlock implements EntityBlock {
     }
 
     @Override
+    protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos,
+            Player player, InteractionHand hand, BlockHitResult hit) {
+        if (!(level.getBlockEntity(pos) instanceof VesselBlockEntity be) || full(be)
+                || !(stack.getItem() instanceof LotrDrinkItem) || Drinks.vessel(stack) != Vessels.itemFor(this)) {
+            return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+        }
+        if (!level.isClientSide) {
+            be.set(stack);
+            player.setItemInHand(hand, ItemUtils.createFilledResult(stack, player, new ItemStack(Drinks.vessel(stack))));
+            level.playSound(null, pos, SoundEvents.BOTTLE_EMPTY, SoundSource.BLOCKS, 1f, 1f);
+        }
+        return ItemInteractionResult.sidedSuccess(level.isClientSide);
+    }
+
+    @Override
     protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player,
             BlockHitResult hit) {
-        if (!level.isClientSide && level.getBlockEntity(pos) instanceof VesselBlockEntity be) {
-            ItemStack held = be.take();
-            level.removeBlock(pos, false);
-            if (!held.isEmpty() && !player.getInventory().add(held)) {
-                player.drop(held, false);
-            }
+        if (!(level.getBlockEntity(pos) instanceof VesselBlockEntity be) || !full(be)) {
+            return InteractionResult.PASS; // an empty vessel: nothing to drink
+        }
+        if (!level.isClientSide) {
+            ItemStack drink = be.held();
+            ((LotrDrinkItem) drink.getItem()).drink(drink, level, player);
+            be.set(new ItemStack(Drinks.vessel(drink)));
+            level.playSound(null, pos, SoundEvents.GENERIC_DRINK, SoundSource.PLAYERS, 1f, 1f);
         }
         return InteractionResult.sidedSuccess(level.isClientSide);
+    }
+
+    /** Holds a drink (not just its empty vessel). */
+    private static boolean full(VesselBlockEntity be) {
+        return be.held().getItem() instanceof LotrDrinkItem;
     }
 
     @Override

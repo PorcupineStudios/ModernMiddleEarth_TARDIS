@@ -30,6 +30,9 @@ RACES = [
 ]
 
 UI_EN = {
+    "item.lotr_port.s_smiths_scroll.blank": "Blank",
+    "item.lotr_port.s_smiths_scroll.desc": "On an anvil: puts its modifier on gear; two alike make a better scroll",
+    "item.lotr_port.ancient.desc": "Use it to see what it was",
     "key.lotr_port.map": "Middle-earth Map",
     "key.lotr_port.jukebox": "Jukebox (music here)",
     "key.lotr_port.map_teleport": "Map Teleport",

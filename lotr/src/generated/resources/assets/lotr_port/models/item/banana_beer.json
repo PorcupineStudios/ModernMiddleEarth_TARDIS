@@ -8,67 +8,67 @@
       "predicate": {
         "lotr_port:vessel": 1
       },
-      "model": "lotr_port:item/banana_beer_clay"
+      "model": "lotr_port:item/drink/banana_beer/clay"
     },
     {
       "predicate": {
         "lotr_port:vessel": 2
       },
-      "model": "lotr_port:item/banana_beer_goblet_gold"
+      "model": "lotr_port:item/drink/banana_beer/goblet_gold"
     },
     {
       "predicate": {
         "lotr_port:vessel": 3
       },
-      "model": "lotr_port:item/banana_beer_goblet_silver"
+      "model": "lotr_port:item/drink/banana_beer/goblet_silver"
     },
     {
       "predicate": {
         "lotr_port:vessel": 4
       },
-      "model": "lotr_port:item/banana_beer_goblet_copper"
+      "model": "lotr_port:item/drink/banana_beer/goblet_copper"
     },
     {
       "predicate": {
         "lotr_port:vessel": 5
       },
-      "model": "lotr_port:item/banana_beer_goblet_wood"
+      "model": "lotr_port:item/drink/banana_beer/goblet_wood"
     },
     {
       "predicate": {
         "lotr_port:vessel": 6
       },
-      "model": "lotr_port:item/banana_beer_skull"
+      "model": "lotr_port:item/drink/banana_beer/skull"
     },
     {
       "predicate": {
         "lotr_port:vessel": 7
       },
-      "model": "lotr_port:item/banana_beer_glass"
+      "model": "lotr_port:item/drink/banana_beer/glass"
     },
     {
       "predicate": {
         "lotr_port:vessel": 8
       },
-      "model": "lotr_port:item/banana_beer_bottle"
+      "model": "lotr_port:item/drink/banana_beer/bottle"
     },
     {
       "predicate": {
         "lotr_port:vessel": 9
       },
-      "model": "lotr_port:item/banana_beer_skin"
+      "model": "lotr_port:item/drink/banana_beer/skin"
     },
     {
       "predicate": {
         "lotr_port:vessel": 10
       },
-      "model": "lotr_port:item/banana_beer_horn"
+      "model": "lotr_port:item/drink/banana_beer/horn"
     },
     {
       "predicate": {
         "lotr_port:vessel": 11
       },
-      "model": "lotr_port:item/banana_beer_horn_gold"
+      "model": "lotr_port:item/drink/banana_beer/horn_gold"
     }
   ]
 }

@@ -8,67 +8,67 @@
       "predicate": {
         "lotr_port:vessel": 1
       },
-      "model": "lotr_port:item/chocolate_clay"
+      "model": "lotr_port:item/drink/chocolate/clay"
     },
     {
       "predicate": {
         "lotr_port:vessel": 2
       },
-      "model": "lotr_port:item/chocolate_goblet_gold"
+      "model": "lotr_port:item/drink/chocolate/goblet_gold"
     },
     {
       "predicate": {
         "lotr_port:vessel": 3
       },
-      "model": "lotr_port:item/chocolate_goblet_silver"
+      "model": "lotr_port:item/drink/chocolate/goblet_silver"
     },
     {
       "predicate": {
         "lotr_port:vessel": 4
       },
-      "model": "lotr_port:item/chocolate_goblet_copper"
+      "model": "lotr_port:item/drink/chocolate/goblet_copper"
     },
     {
       "predicate": {
         "lotr_port:vessel": 5
       },
-      "model": "lotr_port:item/chocolate_goblet_wood"
+      "model": "lotr_port:item/drink/chocolate/goblet_wood"
     },
     {
       "predicate": {
         "lotr_port:vessel": 6
       },
-      "model": "lotr_port:item/chocolate_skull"
+      "model": "lotr_port:item/drink/chocolate/skull"
     },
     {
       "predicate": {
         "lotr_port:vessel": 7
       },
-      "model": "lotr_port:item/chocolate_glass"
+      "model": "lotr_port:item/drink/chocolate/glass"
     },
     {
       "predicate": {
         "lotr_port:vessel": 8
       },
-      "model": "lotr_port:item/chocolate_bottle"
+      "model": "lotr_port:item/drink/chocolate/bottle"
     },
     {
       "predicate": {
         "lotr_port:vessel": 9
       },
-      "model": "lotr_port:item/chocolate_skin"
+      "model": "lotr_port:item/drink/chocolate/skin"
     },
     {
       "predicate": {
         "lotr_port:vessel": 10
       },
-      "model": "lotr_port:item/chocolate_horn"
+      "model": "lotr_port:item/drink/chocolate/horn"
     },
     {
       "predicate": {
         "lotr_port:vessel": 11
       },
-      "model": "lotr_port:item/chocolate_horn_gold"
+      "model": "lotr_port:item/drink/chocolate/horn_gold"
     }
   ]
 }

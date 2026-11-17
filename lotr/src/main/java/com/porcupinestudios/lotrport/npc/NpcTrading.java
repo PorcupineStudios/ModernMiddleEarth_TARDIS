@@ -86,13 +86,15 @@ public final class NpcTrading {
         Random random = new Random(npc.getUUID().getLeastSignificantBits());
         List<Deal> buy = new ArrayList<>();
         List<Deal> sell = new ArrayList<>();
-        type.buy().flatMap(NpcData::trades).ifPresent(pool -> add(pool, random, buy, sell));
-        type.sell().flatMap(NpcData::trades).ifPresent(pool -> add(pool, random, buy, sell));
+        var registries = npc.level().registryAccess();
+        type.buy().flatMap(NpcData::trades).ifPresent(pool -> add(pool, random, buy, sell, registries));
+        type.sell().flatMap(NpcData::trades).ifPresent(pool -> add(pool, random, buy, sell, registries));
         return new Deals(buy.size() > ROW ? new ArrayList<>(buy.subList(0, ROW)) : buy,
                 sell.size() > ROW ? new ArrayList<>(sell.subList(0, ROW)) : sell);
     }
 
-    private static void add(TradePool pool, Random random, List<Deal> buy, List<Deal> sell) {
+    private static void add(TradePool pool, Random random, List<Deal> buy, List<Deal> sell,
+            net.minecraft.core.HolderLookup.Provider registries) {
         List<TradePool.Entry> entries = new ArrayList<>(pool.entries());
         int max = pool.offers() > 0 ? Math.min(pool.offers(), ROW) : ROW;
         if (max < entries.size()) {
@@ -105,7 +107,14 @@ public final class NpcTrading {
                 continue;
             }
             int count = Math.max(1, Math.min(e.count(), item.getDefaultMaxStackSize()));
-            Deal d = new Deal(new ItemStack(item, count), e.cost(), pool.uses());
+            ItemStack goods = new ItemStack(item, count);
+            int cost = e.cost();
+            if (pool.kind() == TradePool.Kind.BUY) {
+                // LOTR's traders sold gear with skilful modifiers, priced by their value (same per trader each time)
+                cost = com.porcupinestudios.lotrport.modifier.Modifiers.rollTrade(goods, cost,
+                        net.minecraft.util.RandomSource.create(random.nextLong()), registries);
+            }
+            Deal d = new Deal(goods, cost, pool.uses());
             (pool.kind() == TradePool.Kind.BUY ? buy : sell).add(d);
         }
     }

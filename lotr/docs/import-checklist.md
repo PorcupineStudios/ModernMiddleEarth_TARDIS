@@ -69,7 +69,9 @@ and `[x]`) as they land, with the commit. Details and the 1.7.10 → 1.21.1 mism
   enchantments applied)~~
 - **Skipped:** silk touch, looting and headhunting (vanilla ties silk touch and looting to its own enchantment ids
   inside loot tables; headhunting needs a loot modifier). LOTR's random modifiers on crafted and forged items and the
-  anvil's reforge/engrave costs need the anvil screen; `modifiers.json` has the numbers for it. Fire uses vanilla
+  anvil's reforge/engrave costs need the anvil screen; `modifiers.json` has the numbers for it. **Since 2026-11-17
+  all hooked in (`modifier/Modifiers`, see lotr/CLAUDE.md "Modifiers"), on the vanilla anvil; engraving is vanilla
+  renaming.** Fire uses vanilla
   Fire Aspect I's burn (LOTR's is set in code, not exported).
 
 ## ~~5. Achievements and titles~~ (done)
