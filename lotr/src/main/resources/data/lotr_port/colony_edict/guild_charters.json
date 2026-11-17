@@ -1,0 +1,8 @@
+{
+  "name": "Guild Charters",
+  "description": "Trades organise into guilds",
+  "work": 1.1,
+  "upkeep": 8,
+  "min_population": 30,
+  "requires": "lotr_port:guilds"
+}

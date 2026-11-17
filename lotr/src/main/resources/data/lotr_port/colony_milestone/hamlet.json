@@ -1,0 +1,15 @@
+{
+  "name": "Hamlet",
+  "order": 1,
+  "description": "5 citizens",
+  "condition": {
+    "type": "lotr_port:colony_population",
+    "colony": "home",
+    "compare": ">=",
+    "value": 5
+  },
+  "coins": 50,
+  "research": {
+    "lotr_port:basic": 10
+  }
+}

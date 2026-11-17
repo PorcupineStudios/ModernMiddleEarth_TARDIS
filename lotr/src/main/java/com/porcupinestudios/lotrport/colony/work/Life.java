@@ -51,6 +51,7 @@ public final class Life {
 
     public static void register() {
         WorkComponents.init();
+        Production.init();
         Races.register();
         JobDef.register();
         LifeSettings.register();
@@ -81,6 +82,8 @@ public final class Life {
         stores.flush();
         // gatherers first, then couriers carry, then the trades that use what was gathered
         List<Person> citizens = Society.citizens(ctx.server(), ctx.colony());
+        Production.Day day = new Production.Day(ctx.server(), ctx.colony(), citizens);
+        double colonyFactor = Modifiers.work(ctx.server(), ctx.colony());
         for (int phase = 0; phase < 3; phase++) {
             for (Person p : citizens) {
                 Optional<WorkComponents.Job> job = p.get(WorkComponents.JOB);
@@ -88,19 +91,21 @@ public final class Life {
                 if (def.isEmpty() || phase(def.get()) != phase) {
                     continue;
                 }
-                worker(ctx, s, persons, buildings, stores, p, job.get(), def.get());
+                worker(ctx, s, persons, buildings, stores, day, colonyFactor, p, job.get(), def.get());
             }
         }
         stores.save();
+        day.save(ctx.server());
+        ctx.count(Production.TOOLS_WORN, day.toolsWorn);
     }
 
     /** 0 gathers from the land, 1 carries, 2 turns goods into others. */
     static int phase(JobDef def) {
-        return def.carries() > 0 ? 1 : def.consumes().isEmpty() ? 0 : 2;
+        return def.carries() > 0 ? 1 : def.crafts() ? 2 : 0;
     }
 
     private static void worker(SystemContext ctx, LifeSettings s, Persons persons, Buildings buildings, Stores stores,
-            Person p, WorkComponents.Job job, JobDef def) {
+            Production.Day day, double colonyFactor, Person p, WorkComponents.Job job, JobDef def) {
         WorkComponents.Needs needs = p.get(WorkComponents.NEEDS).orElse(WorkComponents.Needs.NEW);
         Optional<Building> place = buildings.get(job.building());
         if (needs.unpaid() > 0 || needs.food() <= 0 || place.isEmpty()) {
@@ -109,7 +114,9 @@ public final class Life {
         // skill (colonist.Skills): each level a little faster; the day's work trains it
         double hours = com.porcupinestudios.lotrport.colonist.Colonists.workHours(p);
         com.porcupinestudios.lotrport.colonist.Skills.worked(persons, p, job.job(), hours * ctx.days());
-        double factor = def.proficiency(Races.of(p.type())) * com.porcupinestudios.lotrport.colonist.Skills
+        double factor = colonyFactor
+                * com.porcupinestudios.lotrport.colony.tech.Techs.jobFactor(ctx.colony(), job.job())
+                * def.proficiency(Races.of(p.type())) * com.porcupinestudios.lotrport.colonist.Skills
                 .workFactor(p, job.job()) * 0.5 * ctx.days()
                 * com.porcupinestudios.lotrport.colonist.Colonists.workSpeed(p)
                 // the hours their schedule gives work, less when exhausted (colonist.ScheduleRules)
@@ -118,33 +125,64 @@ public final class Life {
         int made = 0;
         if (def.carries() > 0) {
             ctx.count(CARRIED, stores.carry((int) Math.round(def.carries() * factor), buildings));
-        } else if (def.consumes().isEmpty()) {
-            for (Map.Entry<ResourceLocation, Double> e : def.produces().entrySet()) {
-                double amount = e.getValue() * factor + carry.getOrDefault(e.getKey(), 0.0);
-                int whole = (int) Math.floor(amount);
-                carry.put(e.getKey(), amount - whole);
-                if (whole > 0) {
-                    stores.put(e.getKey(), whole, place.get());
-                    made += whole;
+        } else if (!def.crafts()) {
+            factor *= day.tool(job.job(), def, ctx.days(), stores, place.get());
+            // the day is shared between the things still wanted
+            List<JobDef.Recipe> wanted = new java.util.ArrayList<>();
+            boolean planned = false;
+            for (JobDef.Recipe r : def.recipes()) {
+                if (r.requires().isPresent() && !Production.unlocked.test(ctx.colony(), r.requires().get())) {
+                    continue;
+                }
+                double need = -1;
+                for (ResourceLocation i : r.produces().keySet()) {
+                    need = Math.max(need, day.need(i, stores, place.get()));
+                }
+                planned |= need >= 0;
+                if (need > 0) {
+                    wanted.add(r);
+                }
+            }
+            // nothing planned for this trade: its main crop or wood, as before plans existed
+            if (!planned && !def.recipes().isEmpty()) {
+                wanted.add(def.recipes().get(0));
+            }
+            double share = factor / Math.max(1, wanted.size());
+            for (JobDef.Recipe r : wanted) {
+                for (Map.Entry<ResourceLocation, Double> e : r.produces().entrySet()) {
+                    double amount = e.getValue() * share + carry.getOrDefault(e.getKey(), 0.0);
+                    int whole = (int) Math.floor(amount);
+                    carry.put(e.getKey(), amount - whole);
+                    if (whole > 0) {
+                        stores.put(e.getKey(), whole, place.get());
+                        day.made(e.getKey(), whole);
+                        made += whole;
+                    }
                 }
             }
         } else {
+            factor *= day.tool(job.job(), def, ctx.days(), stores, place.get());
             double want = def.batches() * factor + carry.getOrDefault(WORK, 0.0);
             int batches = (int) Math.floor(want);
-            for (Map.Entry<ResourceLocation, Integer> in : def.consumes().entrySet()) {
-                batches = Math.min(batches, stores.count(in.getKey(), place.get()) / Math.max(1, in.getValue()));
-            }
-            carry.put(WORK, batches == (int) Math.floor(want) ? want - batches : 0.0);
-            if (batches > 0) {
-                for (Map.Entry<ResourceLocation, Integer> in : def.consumes().entrySet()) {
-                    stores.take(in.getKey(), in.getValue() * batches, place.get());
+            int done = 0;
+            // each batch makes what is needed most right now (orders, then targets)
+            while (done < batches) {
+                Optional<JobDef.Recipe> pick = day.choose(def, stores, place.get());
+                if (pick.isEmpty()) {
+                    break;
                 }
-                for (Map.Entry<ResourceLocation, Double> out : def.produces().entrySet()) {
-                    int n = (int) Math.round(out.getValue() * batches);
+                for (Map.Entry<ResourceLocation, Integer> in : pick.get().consumes().entrySet()) {
+                    stores.take(in.getKey(), in.getValue(), place.get());
+                }
+                for (Map.Entry<ResourceLocation, Double> out : pick.get().produces().entrySet()) {
+                    int n = (int) Math.round(out.getValue());
                     stores.put(out.getKey(), n, place.get());
+                    day.made(out.getKey(), n);
                     made += n;
                 }
+                done++;
             }
+            carry.put(WORK, done == batches ? want - batches : 0.0);
         }
         persons.setQuiet(p, WorkComponents.JOB, job.worked(Math.min(100, job.skill() + s.skillPerDay() * ctx.days()),
                 carry));
@@ -231,6 +269,7 @@ public final class Life {
         com.porcupinestudios.lotrport.colonist.Schedules schedules =
                 com.porcupinestudios.lotrport.colonist.Colonists.schedules(ctx.colony());
         Map<Object, com.porcupinestudios.lotrport.colonist.Rest> restMemo = new HashMap<>();
+        double colonyMood = Modifiers.happiness(ctx.server(), ctx.colony());
         for (Person p : citizens) {
             if (p.has(CoreComponents.UNIT)) {
                 continue;
@@ -253,7 +292,7 @@ public final class Life {
             // their day(s) by their schedule: energy, and the hours of work and leisure (sleep and schedules)
             com.porcupinestudios.lotrport.colonist.Colonists.restDays(persons, p, schedules, home.isPresent(),
                     ctx.days(), restMemo);
-            double target = happinessParts(s, home, food, TAVERN.contains(p.id()), n.unpaid(), eco, null)
+            double target = colonyMood + happinessParts(s, home, food, TAVERN.contains(p.id()), n.unpaid(), eco, null)
                     // traits, the home thought, the ration and remembered events (colonist/)
                     + com.porcupinestudios.lotrport.colonist.Colonists.moodToday(persons, p,
                             Optional.ofNullable(homeThoughts.get(p.id())), ctx.now());

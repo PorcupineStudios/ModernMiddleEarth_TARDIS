@@ -1,0 +1,10 @@
+{
+  "name": "First Forge",
+  "order": 5,
+  "description": "A smeltery and a smithy",
+  "buildings": [
+    "lotr_port:smeltery",
+    "lotr_port:smithy"
+  ],
+  "coins": 60
+}

@@ -16,5 +16,102 @@
     "elf": 1.5,
     "orc": 0.6,
     "goblin": 0.6
-  }
+  },
+  "tool": "minecraft:iron_pickaxe",
+  "tool_days": 30,
+  "recipes": [
+    {
+      "consumes": {
+        "minecraft:iron_ingot": 3,
+        "minecraft:stick": 2
+      },
+      "produces": {
+        "minecraft:iron_pickaxe": 1
+      },
+      "requires": "lotr_port:toolmaking"
+    },
+    {
+      "consumes": {
+        "minecraft:iron_ingot": 3,
+        "minecraft:stick": 2
+      },
+      "produces": {
+        "minecraft:iron_axe": 1
+      },
+      "requires": "lotr_port:toolmaking"
+    },
+    {
+      "consumes": {
+        "minecraft:iron_ingot": 1,
+        "minecraft:stick": 2
+      },
+      "produces": {
+        "minecraft:iron_shovel": 1
+      },
+      "requires": "lotr_port:toolmaking"
+    },
+    {
+      "consumes": {
+        "minecraft:iron_ingot": 2,
+        "minecraft:stick": 2
+      },
+      "produces": {
+        "minecraft:iron_hoe": 1
+      },
+      "requires": "lotr_port:toolmaking"
+    },
+    {
+      "consumes": {
+        "minecraft:iron_ingot": 2
+      },
+      "produces": {
+        "minecraft:shears": 1
+      },
+      "requires": "lotr_port:toolmaking"
+    },
+    {
+      "consumes": {
+        "minecraft:iron_ingot": 5
+      },
+      "produces": {
+        "minecraft:iron_helmet": 1
+      },
+      "requires": "lotr_port:armoury"
+    },
+    {
+      "consumes": {
+        "minecraft:iron_ingot": 8
+      },
+      "produces": {
+        "minecraft:iron_chestplate": 1
+      },
+      "requires": "lotr_port:armoury"
+    },
+    {
+      "consumes": {
+        "minecraft:iron_ingot": 7
+      },
+      "produces": {
+        "minecraft:iron_leggings": 1
+      },
+      "requires": "lotr_port:armoury"
+    },
+    {
+      "consumes": {
+        "minecraft:iron_ingot": 4
+      },
+      "produces": {
+        "minecraft:iron_boots": 1
+      },
+      "requires": "lotr_port:armoury"
+    },
+    {
+      "consumes": {
+        "minecraft:iron_ingot": 1
+      },
+      "produces": {
+        "minecraft:iron_nugget": 9
+      }
+    }
+  ]
 }

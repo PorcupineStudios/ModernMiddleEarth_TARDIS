@@ -145,7 +145,7 @@ public final class LifeTests {
         }
     }
 
-    private static Person citizen(Persons persons, Colony colony, ResourceLocation type) {
+    static Person citizen(Persons persons, Colony colony, ResourceLocation type) {
         Person p = persons.migrated(UUID.randomUUID(), type, type.getPath(), 0, colony.asOwner());
         persons.setQuiet(p, CoreComponents.CITIZEN, new CoreComponents.Citizen(0, false));
         // the base rules: no traits and a man's appetite, so the counts below are exact (colonist/ is tested apart)
@@ -156,12 +156,12 @@ public final class LifeTests {
         return p;
     }
 
-    private static Optional<ResourceLocation> job(Persons persons, Person p) {
+    static Optional<ResourceLocation> job(Persons persons, Person p) {
         return persons.get(p.id()).flatMap(x -> x.get(WorkComponents.JOB)).map(WorkComponents.Job::job);
     }
 
     /** A 5x5 room (3 high) at x0 with its door on the west side and a block in its north-east corner. */
-    private static BlockPos room(ServerLevel level, int x0, int y0, int z0, net.minecraft.world.level.block.Block b) {
+    static BlockPos room(ServerLevel level, int x0, int y0, int z0, net.minecraft.world.level.block.Block b) {
         BuildingTests.shell(level, x0, y0, z0, x0 + 6, z0 + 6, 3);
         BuildingTests.door(level, new BlockPos(x0, y0 + 1, z0 + 3), Direction.EAST);
         BlockPos at = new BlockPos(x0 + 4, y0 + 1, z0 + 1);
@@ -169,7 +169,7 @@ public final class LifeTests {
         return at;
     }
 
-    private static Building add(GameTestHelper helper, ServerPlayer player, ServerLevel level, int x0, int y0, int z0,
+    static Building add(GameTestHelper helper, ServerPlayer player, ServerLevel level, int x0, int y0, int z0,
             Optional<ResourceLocation> type) {
         var r = ColonyBuildings.add(player, level, new BlockPos(x0, y0 + 1, z0 + 3), type, Optional.empty());
         helper.assertTrue(r.building().isPresent(), "building at " + x0 + ": " + r.message().getString());
@@ -182,7 +182,7 @@ public final class LifeTests {
         level.setBlock(foot.south(), bed.setValue(BedBlock.PART, BedPart.HEAD), 2);
     }
 
-    private static int count(ServerLevel level, BlockPos chest, net.minecraft.world.item.Item item) {
+    static int count(ServerLevel level, BlockPos chest, net.minecraft.world.item.Item item) {
         return ((ChestBlockEntity) level.getBlockEntity(chest)).countItem(item);
     }
 

@@ -11,5 +11,31 @@
   "batches": 8,
   "races": {
     "hobbit": 1.5
-  }
+  },
+  "recipes": [
+    {
+      "consumes": {
+        "minecraft:sugar_cane": 1
+      },
+      "produces": {
+        "minecraft:sugar": 1
+      }
+    },
+    {
+      "consumes": {
+        "minecraft:bone": 1
+      },
+      "produces": {
+        "minecraft:bone_meal": 3
+      }
+    },
+    {
+      "consumes": {
+        "minecraft:cobblestone": 1
+      },
+      "produces": {
+        "minecraft:gravel": 1
+      }
+    }
+  ]
 }

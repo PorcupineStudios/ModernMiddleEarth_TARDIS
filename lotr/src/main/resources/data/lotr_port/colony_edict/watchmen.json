@@ -1,0 +1,7 @@
+{
+  "name": "Watchmen",
+  "description": "Watchmen break up quarrels before they come to blows",
+  "quarrels": 0.5,
+  "upkeep": 4,
+  "min_population": 15
+}

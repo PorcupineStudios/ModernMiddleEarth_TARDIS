@@ -10,5 +10,7 @@
     "elf": 0.6,
     "orc": 1.5,
     "goblin": 1.2
-  }
+  },
+  "tool": "minecraft:iron_axe",
+  "tool_days": 30
 }

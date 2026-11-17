@@ -11,5 +11,30 @@
     "dwarf": 0.6,
     "elf": 1.5,
     "goblin": 0.6
-  }
+  },
+  "tool": "minecraft:iron_hoe",
+  "tool_days": 40,
+  "recipes": [
+    {
+      "consumes": {},
+      "produces": {
+        "minecraft:potato": 3
+      },
+      "requires": "lotr_port:new_crops"
+    },
+    {
+      "consumes": {},
+      "produces": {
+        "minecraft:carrot": 3
+      },
+      "requires": "lotr_port:new_crops"
+    },
+    {
+      "consumes": {},
+      "produces": {
+        "minecraft:sugar_cane": 2
+      },
+      "requires": "lotr_port:new_crops"
+    }
+  ]
 }

@@ -1,0 +1,17 @@
+{
+  "name": "Free Markets",
+  "lane": "civics",
+  "stage": 3,
+  "after": [
+    "lotr_port:civics"
+  ],
+  "fork": "trade",
+  "description": "Anyone may trade: all work a little faster",
+  "cost": {
+    "research": {
+      "lotr_port:scholarly": 30
+    },
+    "coins": 200
+  },
+  "work": 1.05
+}

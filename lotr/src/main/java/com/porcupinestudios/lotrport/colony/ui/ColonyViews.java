@@ -81,6 +81,7 @@ public final class ColonyViews {
         MarketViews.register();
         CaravanViews.register();
         CandidateViews.register();
+        BuildingViews.register();
     }
 
     /** Opens a colony's view for a player (the Hall's Manage button, the command). */
@@ -142,6 +143,9 @@ public final class ColonyViews {
                     new View.Tab(PEOPLE, tr("tab.people", "People")),
                     new View.Tab(SCHEDULES, tr("tab.schedules", "Schedules")),
                     new View.Tab(STOCK, tr("tab.stock", "Stock")),
+                    new View.Tab(ProductionViews.TAB, tr("tab.production", "Production")),
+                    new View.Tab(CouncilViews.TAB, tr("tab.council", "Council")),
+                    new View.Tab(TechViews.TAB, tr("tab.tech", "Research")),
                     new View.Tab(ImmigrationViews.TAB, tr("tab.immigration", "Immigration")),
                     new View.Tab(CaravanViews.TAB, tr("tab.caravans", "Caravans")),
                     new View.Tab(EventViews.TAB, tr("tab.events", "Events")),
@@ -153,6 +157,9 @@ public final class ColonyViews {
                 case STOCK -> stock(c);
                 case SCHEDULES -> ScheduleViews.page(player, c);
                 case CaravanViews.TAB -> CaravanViews.tab(player, c);
+                case ProductionViews.TAB -> ProductionViews.tab(player, c);
+                case CouncilViews.TAB -> CouncilViews.tab(player, c);
+                case TechViews.TAB -> TechViews.tab(player, c);
                 case ImmigrationViews.TAB -> ImmigrationViews.tab(player, c);
                 case EventViews.TAB -> EventViews.tab(player, c);
                 case MEMBERS -> members(player, c);
@@ -193,12 +200,38 @@ public final class ColonyViews {
                     return caravan.get();
                 }
             }
+            if (tab.equals(TechViews.TAB)) {
+                Optional<Result> tech = TechViews.act(player, c, action, value);
+                if (tech.isPresent()) {
+                    return tech.get();
+                }
+            }
+            if (tab.equals(CouncilViews.TAB)) {
+                Optional<Result> council = CouncilViews.act(player, c, action, value);
+                if (council.isPresent()) {
+                    return council.get();
+                }
+            }
+            if (tab.equals(ProductionViews.TAB)) {
+                Optional<Result> prod = ProductionViews.act(player, c, action, value);
+                if (prod.isPresent()) {
+                    return prod.get();
+                }
+            }
             Optional<Result> schedule = ScheduleViews.act(player, c, action, row, value);
             if (schedule.isPresent()) {
                 return schedule.get();
             }
             if (action.equals("market")) {
                 return Result.go(new View.Target(MarketViews.ID, c.id().toString(), "buy"));
+            }
+            if (action.equals("building")) {
+                try {
+                    return Buildings.of(c).get(UUID.fromString(row)).map(b -> Result.go(BuildingViews.target(c, b)))
+                            .orElse(Result.NONE);
+                } catch (IllegalArgumentException e) {
+                    return Result.NONE;
+                }
             }
             if (action.equals("citizen")) {
                 try {
@@ -335,6 +368,8 @@ public final class ColonyViews {
                     return u[1] <= 0 ? List.of(k) : List.of(k, u[0] >= u[1] ? "full" : "free");
                 })
                 .filters(kind, space)
+                .open("building")
+                .rowAction(Action.of("building", tr("open_building", "Building page")))
                 .sortBy("name", false)
                 .empty(tr("no_buildings", "No buildings yet: use a Building Writ on a door"))
                 .build();

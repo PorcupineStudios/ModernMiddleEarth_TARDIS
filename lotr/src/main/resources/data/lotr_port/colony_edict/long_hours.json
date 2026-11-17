@@ -1,0 +1,10 @@
+{
+  "name": "Long Hours",
+  "description": "Work from dawn to dusk: more goods, less cheer",
+  "work": 1.15,
+  "happiness": -8,
+  "upkeep": 0,
+  "excludes": [
+    "lotr_port:day_of_rest"
+  ]
+}
