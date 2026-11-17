@@ -104,6 +104,15 @@ https://claude.ai/artifact/KqhSSTCuKXGuwKHBoYJdcu. Rebuild features in modern co
   columns with the cuts match the full formula exactly. Benchmark (one runner, 512x512 squares, seed 12345):
   Shire 44 s before -> 31 s, the same as the world at y 320; Misty Mountains 84 s (y 320 flattens them: 57 s).
   The world check's leaf failure on seed 7866868388345729068 (Gondor woodlands, 64928 74 59930) predates the cuts.
+- Mountain ores, caves, Heart of the Mountain (2026-11-17, Aaron: mountains had lost ores and caves): LOTR's ores sit
+  under y 48 and vanilla caves under 180, so the 640-high ranges were bare stone. Biome modifiers
+  (`data/lotr_port/neoforge/biome_modifier/`, biome tag `lotr_port:middle_earth`) add `world/feature/MountainOresFeature`
+  (the biome's own `ore/*` features re-run once per 112 blocks of ground over y 48, lifted into the rock keeping depth
+  rank) and carvers `mountain_cave` (y 100-560) / `mountain_canyon`. `HeartOfTheMountainFeature`: one
+  `heart_of_the_mountain` block (`content/HeartOfTheMountain`, hand-registered; its tags/lang are patched into the
+  generated files by `generate.py write_tags` and `colonies.py UI_EN`) per mountain = per 640-block seeded cell whose
+  highest sampled ground reaches 200, plus one per LOTR single peak (not volcanoes); jittered, 25-60% up from y 62.
+  Numbers in the configured feature JSONs. Not checked in game (new chunks only).
 - `Roads` registers each segment in every 256-block cell within `Roads.FLATTEN` (32): the terrain flattens hills by
   road distance, and a segment missing from a cell made it jump at the cell edge (straight 10+ block cliffs).
 - Terrain preview (dev tool): `-Dlotr_port.terrainpreview=<x>,<z>,<size>` on a Middle-earth server writes

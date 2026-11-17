@@ -45,6 +45,7 @@ UI_EN = {
     "item.lotr_port.colony_charter": "Colony Charter",
     "itemGroup.lotr_port.colonies": "Colonies",
     "item.lotr_port.building_writ": "Building Writ",
+    "block.lotr_port.heart_of_the_mountain": "Heart of the Mountain",
 }
 
 BUILDINGS_EN = {
