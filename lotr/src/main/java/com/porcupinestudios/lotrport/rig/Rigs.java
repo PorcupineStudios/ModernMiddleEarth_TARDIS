@@ -106,10 +106,8 @@ public final class Rigs {
         LOADER.entries().forEach((id, def) -> RigDef.CODEC.encodeStart(JsonOps.INSTANCE, def)
                 .ifSuccess(j -> json.put(id.toString(), j.toString())));
         Sync payload = new Sync(json);
-        if (event.getPlayer() != null) {
-            PacketDistributor.sendToPlayer(event.getPlayer(), payload);
-        } else {
-            for (ServerPlayer p : event.getPlayerList().getPlayers()) {
+        for (ServerPlayer p : event.getPlayer() != null ? List.of(event.getPlayer()) : event.getPlayerList().getPlayers()) {
+            if (p.connection != null && p.connection.hasChannel(payload)) { // test players have no channel
                 PacketDistributor.sendToPlayer(p, payload);
             }
         }
