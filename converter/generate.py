@@ -1499,6 +1499,8 @@ class Gen:
         print(json.dumps({"stonecutting": stonecutting.run(OUT)}))
         from waters import Waters
         print(json.dumps({"waters": Waters(OUT).run()}))
+        from mountains import Mountains
+        print(json.dumps({"mountains": Mountains(OUT).run()}))
 
 
 if __name__ == "__main__":

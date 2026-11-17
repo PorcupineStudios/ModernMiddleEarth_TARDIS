@@ -47,7 +47,8 @@
       "lotr_port:crater_lava"
     ],
     [
-      "lotr_port:roads"
+      "lotr_port:roads",
+      "minecraft:amethyst_geode"
     ],
     [],
     [],

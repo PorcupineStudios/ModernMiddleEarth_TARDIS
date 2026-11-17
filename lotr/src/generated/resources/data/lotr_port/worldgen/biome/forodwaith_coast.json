@@ -30,6 +30,26 @@
         "minCount": 4,
         "weight": 10
       }
+    ],
+    "creature": [
+      {
+        "type": "minecraft:rabbit",
+        "weight": 4,
+        "minCount": 2,
+        "maxCount": 3
+      },
+      {
+        "type": "minecraft:fox",
+        "weight": 8,
+        "minCount": 2,
+        "maxCount": 4
+      },
+      {
+        "type": "minecraft:polar_bear",
+        "weight": 1,
+        "minCount": 1,
+        "maxCount": 2
+      }
     ]
   },
   "spawn_costs": {},
@@ -46,10 +66,14 @@
       "lotr_port:crater_lava"
     ],
     [
-      "lotr_port:roads"
+      "lotr_port:roads",
+      "minecraft:amethyst_geode"
     ],
     [],
-    [],
+    [
+      "minecraft:ice_spike",
+      "minecraft:ice_patch"
+    ],
     [],
     [
       "lotr_port:ore/amber_vein_0",

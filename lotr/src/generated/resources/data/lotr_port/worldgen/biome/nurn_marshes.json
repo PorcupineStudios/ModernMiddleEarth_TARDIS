@@ -50,7 +50,8 @@
     [
       "lotr_port:quagmire_1",
       "lotr_port:mud_patch",
-      "lotr_port:roads"
+      "lotr_port:roads",
+      "minecraft:amethyst_geode"
     ],
     [],
     [],
