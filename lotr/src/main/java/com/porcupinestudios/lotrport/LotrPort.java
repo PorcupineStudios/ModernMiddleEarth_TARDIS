@@ -106,6 +106,7 @@ public final class LotrPort {
         com.porcupinestudios.lotrport.colony.members.Permissions.register();
         com.porcupinestudios.lotrport.colony.members.HallNet.register(modBus);
         com.porcupinestudios.lotrport.colony.work.LedgerNet.register(modBus);
+        com.porcupinestudios.lotrport.colony.book.Books.register(modBus);
         com.porcupinestudios.lotrport.social.SocialNet.register(modBus);
         com.porcupinestudios.lotrport.ui.UiNet.register(modBus);
         com.porcupinestudios.lotrport.colonist.Colonists.register();

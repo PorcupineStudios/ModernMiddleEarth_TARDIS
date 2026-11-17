@@ -50,6 +50,23 @@ public final class Production {
         }
     }
 
+    /** What each building made on the colony's last day (building id to item to count), for its plaque. */
+    public record Output(long day, Map<java.util.UUID, Map<ResourceLocation, Integer>> made) {
+        public static final Output EMPTY = new Output(0, Map.of());
+        public static final Codec<Output> CODEC = RecordCodecBuilder.create(i -> i.group(
+                Codec.LONG.optionalFieldOf("day", 0L).forGetter(Output::day),
+                Codec.unboundedMap(net.minecraft.core.UUIDUtil.STRING_CODEC,
+                        Codec.unboundedMap(ResourceLocation.CODEC, Codec.INT)).optionalFieldOf("made", Map.of())
+                        .forGetter(Output::made))
+                .apply(i, Output::new));
+    }
+
+    public static final ComponentType<Output> OUTPUT = ComponentType.register(LotrPort.id("output"), Output.CODEC);
+
+    public static Output output(MinecraftServer server, Colony c) {
+        return Colonies.get(server).get(c.id()).orElse(c).get(OUTPUT).orElse(Output.EMPTY);
+    }
+
     public static final ComponentType<Plan> PLAN = ComponentType.register(LotrPort.id("production"), Plan.CODEC);
     public static final ResourceLocation TOOLS_WORN = LotrPort.id("tools_worn");
 
@@ -120,6 +137,7 @@ public final class Production {
         final List<Order> orders;
         final Map<ResourceLocation, Double> wear;
         int toolsWorn;
+        final Map<java.util.UUID, Map<ResourceLocation, Integer>> output = new HashMap<>();
 
         Day(MinecraftServer server, Colony colony, List<Person> citizens) {
             this.colony = colony;
@@ -135,7 +153,11 @@ public final class Production {
             spares.forEach((t, n) -> targets.merge(t, n, Math::max));
         }
 
-        void save(MinecraftServer server) {
+        void save(MinecraftServer server, long now) {
+            Colony fresh = Colonies.get(server).get(colony.id()).orElse(colony);
+            Map<java.util.UUID, Map<ResourceLocation, Integer>> made = new HashMap<>();
+            output.forEach((k, v) -> made.put(k, Map.copyOf(v)));
+            Colonies.get(server).set(fresh, OUTPUT, new Output(now, Map.copyOf(made)));
             Plan before = plan(server, colony);
             Map<ResourceLocation, Integer> manual = before.targets();
             save(server, colony, new Plan(manual, List.copyOf(orders), Map.copyOf(wear)));
@@ -210,7 +232,12 @@ public final class Production {
             return need(item, stores, place) != 0;
         }
 
-        /** Counts made items against orders. */
+        /** Counts made items against orders, and for the building's plaque. */
+        void made(java.util.UUID building, ResourceLocation item, int n) {
+            output.computeIfAbsent(building, k -> new HashMap<>()).merge(item, n, Integer::sum);
+            made(item, n);
+        }
+
         void made(ResourceLocation item, int n) {
             for (int i = 0; i < orders.size() && n > 0; i++) {
                 Order o = orders.get(i);

@@ -65,7 +65,13 @@ public final class HallNet {
         BlockPos pos = event.getPos();
         for (Colony c : Colonies.get(sp.server).all()) {
             if (c.dimension().equals(sp.level().dimension()) && (c.hall().equals(pos) || c.hall().below().equals(pos))) {
-                send(sp, c, true);
+                if (Permissions.isMember(sp.getUUID(), c)) {
+                    com.porcupinestudios.lotrport.colony.book.Books.open(sp,
+                            com.porcupinestudios.lotrport.colony.book.HallLedgerBook.KIND, c.id().toString(), "", "");
+                } else {
+                    sp.displayClientMessage(Component.translatableWithFallback("colony.lotr_port.not_member",
+                            "This is the Town Hall of %s", c.name()), true);
+                }
                 event.setCanceled(true);
                 event.setCancellationResult(InteractionResult.SUCCESS);
                 return;
