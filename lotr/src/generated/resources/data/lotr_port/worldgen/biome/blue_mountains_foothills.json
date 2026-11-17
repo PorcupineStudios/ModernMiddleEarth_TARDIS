@@ -66,7 +66,8 @@
       "lotr_port:crater_lava"
     ],
     [
-      "lotr_port:roads"
+      "lotr_port:roads",
+      "minecraft:amethyst_geode"
     ],
     [],
     [],
@@ -114,7 +115,9 @@
       "lotr_port:plant/dried_reeds_0_1",
       "minecraft:flower_default",
       "minecraft:patch_grass_plain",
-      "minecraft:patch_tall_grass"
+      "minecraft:patch_tall_grass",
+      "minecraft:patch_tall_grass_2",
+      "minecraft:flower_meadow"
     ],
     [
       "minecraft:freeze_top_layer"

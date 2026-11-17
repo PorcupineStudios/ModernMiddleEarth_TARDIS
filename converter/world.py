@@ -944,7 +944,9 @@ def mountain_rules(mtn):
     snow, stone_y, stone, sand = mtn
     stone_rules = _above_less_rock_depth(stone_y, block_rule(stone))
     sand_rules = _above_less_rock_depth(stone_y - 6, block_rule(sand)) if sand else []
-    top = (_above_less_rock_depth(snow, block_rule("minecraft:snow_block")) if snow else []) + stone_rules + sand_rules
+    # the snow line: vanilla frozen peaks' powder snow, packed ice and ice patches, else snow (mountains.py)
+    from mountains import snow_top
+    top = (_above_less_rock_depth(snow, snow_top()) if snow else []) + stone_rules + sand_rules
     return top, stone_rules + sand_rules
 # around quagmires, near the water line: mud (1.19)
 MUD_RULE = {"type": "minecraft:condition", "if_true": {"type": "minecraft:not", "invert": {

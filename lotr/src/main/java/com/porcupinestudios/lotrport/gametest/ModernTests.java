@@ -182,4 +182,21 @@ public final class ModernTests {
                 .anyMatch(d -> d.type == EntityType.SALMON), "no salmon in rivers");
         helper.succeed();
     }
+
+    /** mountains.py: goats on the Misty Mountains, polar bears in Forodwaith, snow foxes there. */
+    @GameTest(template = "empty")
+    public static void mountainsAndTheNorthHaveTheirAnimals(GameTestHelper helper) {
+        var biomes = helper.getLevel().registryAccess().registryOrThrow(net.minecraft.core.registries.Registries.BIOME);
+        var misty = biomes.getHolderOrThrow(net.minecraft.resources.ResourceKey.create(
+                net.minecraft.core.registries.Registries.BIOME, LotrPort.id("misty_mountains")));
+        var north = biomes.getHolderOrThrow(net.minecraft.resources.ResourceKey.create(
+                net.minecraft.core.registries.Registries.BIOME, LotrPort.id("forodwaith")));
+        helper.assertTrue(misty.value().getMobSettings().getMobs(net.minecraft.world.entity.MobCategory.CREATURE)
+                .unwrap().stream().anyMatch(d -> d.type == EntityType.GOAT), "no goats on the Misty Mountains");
+        helper.assertTrue(north.value().getMobSettings().getMobs(net.minecraft.world.entity.MobCategory.CREATURE)
+                .unwrap().stream().anyMatch(d -> d.type == EntityType.POLAR_BEAR), "no polar bears in Forodwaith");
+        helper.assertTrue(north.is(net.minecraft.tags.BiomeTags.SPAWNS_SNOW_FOXES), "Forodwaith foxes aren't white");
+        helper.assertTrue(misty.is(net.minecraft.tags.BiomeTags.IS_MOUNTAIN), "Misty Mountains not a mountain");
+        helper.succeed();
+    }
 }

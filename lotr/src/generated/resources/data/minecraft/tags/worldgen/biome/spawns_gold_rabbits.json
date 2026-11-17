@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "values": [
+    "lotr_port:far_harad_arid",
+    "lotr_port:far_harad_arid_hills",
+    "lotr_port:far_harad_volcano",
+    "lotr_port:near_harad",
+    "lotr_port:near_harad_red_desert",
+    "lotr_port:near_harad_semi_desert"
+  ]
+}

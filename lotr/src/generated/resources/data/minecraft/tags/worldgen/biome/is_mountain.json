@@ -1,0 +1,21 @@
+{
+  "replace": false,
+  "values": [
+    "lotr_port:angmar_mountains",
+    "lotr_port:blue_mountains",
+    "lotr_port:blue_mountains_foothills",
+    "lotr_port:forodwaith_mountains",
+    "lotr_port:grey_mountains",
+    "lotr_port:grey_mountains_foothills",
+    "lotr_port:harad_mountains",
+    "lotr_port:mirkwood_mountains",
+    "lotr_port:misty_mountains",
+    "lotr_port:misty_mountains_foothills",
+    "lotr_port:red_mountains",
+    "lotr_port:red_mountains_foothills",
+    "lotr_port:white_mountains",
+    "lotr_port:white_mountains_foothills",
+    "lotr_port:wind_mountains",
+    "lotr_port:wind_mountains_foothills"
+  ]
+}

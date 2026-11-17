@@ -31,6 +31,14 @@
         "minCount": 4,
         "weight": 10
       }
+    ],
+    "creature": [
+      {
+        "type": "minecraft:goat",
+        "weight": 5,
+        "minCount": 1,
+        "maxCount": 3
+      }
     ]
   },
   "spawn_costs": {},
@@ -47,7 +55,8 @@
       "lotr_port:crater_lava"
     ],
     [
-      "lotr_port:roads"
+      "lotr_port:roads",
+      "minecraft:amethyst_geode"
     ],
     [],
     [],

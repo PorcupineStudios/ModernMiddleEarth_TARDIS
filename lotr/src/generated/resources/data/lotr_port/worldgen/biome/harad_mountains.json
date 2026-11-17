@@ -33,6 +33,12 @@
         "weight": 8,
         "minCount": 4,
         "maxCount": 4
+      },
+      {
+        "type": "minecraft:goat",
+        "weight": 5,
+        "minCount": 1,
+        "maxCount": 3
       }
     ],
     "ambient": [
@@ -66,7 +72,8 @@
       "lotr_port:crater_lava"
     ],
     [
-      "lotr_port:roads"
+      "lotr_port:roads",
+      "minecraft:amethyst_geode"
     ],
     [],
     [],
