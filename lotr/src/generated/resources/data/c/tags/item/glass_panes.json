@@ -1,0 +1,22 @@
+{
+  "replace": false,
+  "values": [
+    "lotr_port:black_fine_glass_pane",
+    "lotr_port:blue_fine_glass_pane",
+    "lotr_port:brown_fine_glass_pane",
+    "lotr_port:cyan_fine_glass_pane",
+    "lotr_port:fine_glass_pane",
+    "lotr_port:gray_fine_glass_pane",
+    "lotr_port:green_fine_glass_pane",
+    "lotr_port:light_blue_fine_glass_pane",
+    "lotr_port:light_gray_fine_glass_pane",
+    "lotr_port:lime_fine_glass_pane",
+    "lotr_port:magenta_fine_glass_pane",
+    "lotr_port:orange_fine_glass_pane",
+    "lotr_port:pink_fine_glass_pane",
+    "lotr_port:purple_fine_glass_pane",
+    "lotr_port:red_fine_glass_pane",
+    "lotr_port:white_fine_glass_pane",
+    "lotr_port:yellow_fine_glass_pane"
+  ]
+}

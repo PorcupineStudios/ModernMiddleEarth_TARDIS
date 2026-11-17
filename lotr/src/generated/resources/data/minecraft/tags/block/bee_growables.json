@@ -1,0 +1,24 @@
+{
+  "replace": false,
+  "values": [
+    "lotr_port:bare_blackberry_bush",
+    "lotr_port:bare_blueberry_bush",
+    "lotr_port:bare_cranberry_bush",
+    "lotr_port:bare_elderberry_bush",
+    "lotr_port:bare_raspberry_bush",
+    "lotr_port:bare_wildberry_bush",
+    "lotr_port:blackberry_bush",
+    "lotr_port:blueberry_bush",
+    "lotr_port:corn_stalks",
+    "lotr_port:cranberry_bush",
+    "lotr_port:elderberry_bush",
+    "lotr_port:flax_block",
+    "lotr_port:leek_block",
+    "lotr_port:lettuce_block",
+    "lotr_port:pipeweed",
+    "lotr_port:raspberry_bush",
+    "lotr_port:turnip_block",
+    "lotr_port:wildberry_bush",
+    "lotr_port:yam_block"
+  ]
+}

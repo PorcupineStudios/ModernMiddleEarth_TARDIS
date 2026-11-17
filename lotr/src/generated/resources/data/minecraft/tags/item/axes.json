@@ -1,0 +1,19 @@
+{
+  "replace": false,
+  "values": [
+    "lotr_port:angmar_axe",
+    "lotr_port:blue_dwarven_axe",
+    "lotr_port:bronze_axe",
+    "lotr_port:dol_guldur_axe",
+    "lotr_port:dwarven_axe",
+    "lotr_port:galadhrim_axe",
+    "lotr_port:lindon_axe",
+    "lotr_port:mallorn_axe",
+    "lotr_port:mithril_axe",
+    "lotr_port:mordor_axe",
+    "lotr_port:rivendell_axe",
+    "lotr_port:taurethrim_axe",
+    "lotr_port:uruk_axe",
+    "lotr_port:wood_elven_axe"
+  ]
+}

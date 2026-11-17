@@ -1,0 +1,12 @@
+{
+  "replace": false,
+  "values": [
+    "lotr_port:apple_crumble_block",
+    "lotr_port:banana_cake_block",
+    "lotr_port:berry_pie_block",
+    "lotr_port:cherry_pie_block",
+    "lotr_port:dalish_pastry_block",
+    "lotr_port:lemon_cake_block",
+    "lotr_port:marchpane_block"
+  ]
+}

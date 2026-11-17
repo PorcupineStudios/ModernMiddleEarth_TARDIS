@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "lotr_port:laireloss_wood",
+    "lotr_port:laireloss_wood_beam",
+    "lotr_port:stripped_laireloss_wood",
+    "lotr_port:stripped_laireloss_wood_beam"
+  ]
+}

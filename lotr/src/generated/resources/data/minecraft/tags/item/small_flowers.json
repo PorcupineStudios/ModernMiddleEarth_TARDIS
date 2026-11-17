@@ -1,0 +1,26 @@
+{
+  "replace": false,
+  "values": [
+    "lotr_port:asphodel",
+    "lotr_port:athelas",
+    "lotr_port:blue_chrysanthemum",
+    "lotr_port:bluebell",
+    "lotr_port:dwarfwort",
+    "lotr_port:elanor",
+    "lotr_port:flax_plant",
+    "lotr_port:harad_daisy",
+    "lotr_port:lavender",
+    "lotr_port:marigold",
+    "lotr_port:morgul_flowers",
+    "lotr_port:niphredil",
+    "lotr_port:orange_chrysanthemum",
+    "lotr_port:pink_chrysanthemum",
+    "lotr_port:red_sand_gem",
+    "lotr_port:shire_heather",
+    "lotr_port:simbelmyn",
+    "lotr_port:southbells",
+    "lotr_port:white_chrysanthemum",
+    "lotr_port:yellow_chrysanthemum",
+    "lotr_port:yellow_sand_gem"
+  ]
+}

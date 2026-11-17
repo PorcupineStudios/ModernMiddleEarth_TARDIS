@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "lotr_port:green_oak_wood",
+    "lotr_port:green_oak_wood_beam",
+    "lotr_port:stripped_green_oak_wood",
+    "lotr_port:stripped_green_oak_wood_beam"
+  ]
+}
