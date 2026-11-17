@@ -38,6 +38,14 @@ versionRange = "[19.0,)"
 ordering = "NONE"
 side = "CLIENT"
 
+# Jade is optional: with it installed, compat/jade/LotrJadePlugin shows what a set-down drink holds.
+[[dependencies.${mod_id}]]
+modId = "jade"
+type = "optional"
+versionRange = "[15.0,)"
+ordering = "NONE"
+side = "CLIENT"
+
 # Middle-earth's chunks are filled only up to where its terrain can reach (world/map/NoiseTop).
 [[mixins]]
 config = "lotr_port.mixins.json"
