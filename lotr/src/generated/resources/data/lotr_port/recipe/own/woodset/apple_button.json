@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "group": "wooden_button",
+  "ingredients": [
+    {
+      "item": "lotr_port:apple_wood_planks"
+    }
+  ],
+  "result": {
+    "id": "lotr_port:apple_button",
+    "count": 1
+  }
+}

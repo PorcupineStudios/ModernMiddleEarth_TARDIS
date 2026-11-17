@@ -125,6 +125,13 @@ public final class LotrItems {
                 yield new ArmorItem(MATERIALS.get(key(a)), slot(a), p);
             }
             case "red_book" -> new RedBookItem(p);
+            // woodsets.py: a LOTR wood's sign items place the standing or wall block, boats their boat
+            case "sign" -> new net.minecraft.world.item.SignItem(p, block(e, "_sign", "_sign"),
+                    block(e, "_sign", "_wall_sign"));
+            case "hanging_sign" -> new net.minecraft.world.item.HangingSignItem(block(e, "_hanging_sign",
+                    "_hanging_sign"), block(e, "_hanging_sign", "_wall_hanging_sign"), p);
+            case "boat", "chest_boat" -> new com.porcupinestudios.lotrport.content.woodset.LotrBoatItem(p,
+                    ContentData.str(e, "woodset", "oak"), kind.equals("chest_boat"));
             case "banner" -> new com.porcupinestudios.lotrport.land.ClaimBannerItem(p);
             case "pouch" -> new com.porcupinestudios.lotrport.content.pouch.PouchItem(p,
                     ContentData.integer(e, "slots", 9));
@@ -195,6 +202,12 @@ public final class LotrItems {
             }
         }
         return null;
+    }
+
+    /** The block named like item {@code e} with {@code from} replaced by {@code to} at its end. */
+    private static Block block(JsonObject e, String from, String to) {
+        String id = e.get("id").getAsString();
+        return LotrBlocks.BY_ID.get(id.substring(0, id.length() - from.length()) + to).get();
     }
 
     private static JsonObject ranged(JsonObject e) {
