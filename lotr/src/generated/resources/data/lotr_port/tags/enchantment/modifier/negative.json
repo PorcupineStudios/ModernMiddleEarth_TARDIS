@@ -1,0 +1,14 @@
+{
+  "values": [
+    "lotr_port:weak1",
+    "lotr_port:weak2",
+    "lotr_port:weak3",
+    "lotr_port:melee_slow1",
+    "lotr_port:melee_unreach1",
+    "lotr_port:tool_slow1",
+    "lotr_port:protect_weak1",
+    "lotr_port:protect_weak2",
+    "lotr_port:ranged_weak1",
+    "lotr_port:ranged_weak2"
+  ]
+}

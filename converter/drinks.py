@@ -84,9 +84,10 @@ class Drinks:
             if v["id"] == 0:
                 base = model
             else:
-                name = f"{new}_{snake(v['name'])}"
-                write_json(os.path.join(self.assets, "models", "item", name + ".json"), model)
-                overrides.append({"predicate": {f"{NS}:vessel": v["id"]}, "model": f"{NS}:item/{name}"})
+                # under item/drink/<drink>/: "<drink>_<vessel>" clashed with real items (ale + horn = the empty
+                # ale_horn, whose model then showed it full)
+                write_json(os.path.join(self.assets, "models", rel + ".json"), model)
+                overrides.append({"predicate": {f"{NS}:vessel": v["id"]}, "model": f"{NS}:{rel}"})
         if base is None:
             return False  # no mug picture: the plain icon path draws it
         write_json(os.path.join(self.assets, "models", "item", new + ".json"), {**base, "overrides": overrides})

@@ -1,0 +1,10 @@
+{
+  "weight": 2,
+  "skilful": true,
+  "persists_reforge": false,
+  "value": 3.0,
+  "upgrade": "lotr_port:looting3",
+  "acts_as": {
+    "minecraft:looting": 2
+  }
+}

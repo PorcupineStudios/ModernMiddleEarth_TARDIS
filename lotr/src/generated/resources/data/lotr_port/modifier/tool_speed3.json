@@ -1,0 +1,7 @@
+{
+  "weight": 5,
+  "skilful": true,
+  "persists_reforge": false,
+  "value": 3.0,
+  "upgrade": "lotr_port:tool_speed4"
+}

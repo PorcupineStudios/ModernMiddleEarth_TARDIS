@@ -178,6 +178,17 @@ public final class LotrItems {
             return new com.porcupinestudios.lotrport.content.figure.FigureItem(p.stacksTo(16),
                     b.getAsJsonObject("figures").getAsJsonObject(id));
         }
+        for (String key : new String[] {"smith_scroll", "ancient"}) {
+            if (b.has(key)) {
+                for (var m : b.getAsJsonArray(key)) {
+                    if (m.getAsString().equals(id)) {
+                        return key.equals("ancient")
+                                ? new com.porcupinestudios.lotrport.modifier.AncientItem(p.stacksTo(1))
+                                : new com.porcupinestudios.lotrport.modifier.SmithScrollItem(p.stacksTo(1));
+                    }
+                }
+            }
+        }
         for (var m : b.getAsJsonArray("match")) {
             if (m.getAsString().equals(id)) {
                 return new MatchItem(p);

@@ -39,6 +39,7 @@ public final class VesselRenderer implements BlockEntityRenderer<VesselBlockEnti
         FILL.put("wine_glass_block", new float[] {7, 9, 7});
         FILL.put("ale_horn_block", new float[] {7, 9, 9});
         FILL.put("ale_horn_gold", new float[] {7, 9, 9});
+        FILL.put("glass_bottle", new float[] {6, 10, 5});
     }
 
     @Override

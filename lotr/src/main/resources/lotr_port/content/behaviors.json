@@ -660,5 +660,16 @@
     ]
    }
   }
- }
+ },
+ "smith_scroll": [
+  "s_smiths_scroll"
+ ],
+ "ancient": [
+  "ancient_sword",
+  "ancient_dagger",
+  "ancient_helmet",
+  "ancient_chestplate",
+  "ancient_leggings",
+  "ancient_boots"
+ ]
 }

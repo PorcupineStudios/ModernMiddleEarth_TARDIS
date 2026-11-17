@@ -89,6 +89,26 @@ public class LotrDrinkItem extends Item {
 
     @Override
     public ItemStack finishUsingItem(ItemStack stack, Level level, LivingEntity entity) {
+        drink(stack, level, entity);
+        if (entity instanceof Player p && p.getAbilities().instabuild) {
+            return stack;
+        }
+        ItemStack empty = new ItemStack(vesselItem(stack));
+        stack.shrink(1);
+        if (stack.isEmpty()) {
+            return empty;
+        }
+        if (entity instanceof Player p && !p.getInventory().add(empty)) {
+            p.drop(empty, false);
+        }
+        return stack;
+    }
+
+    /**
+     * What drinking one of {@code stack} does to {@code entity} (food, effects, drunkenness, harm), without touching
+     * the stack: used when drinking from the hand and from a set-down vessel. Server side only does anything.
+     */
+    public void drink(ItemStack stack, Level level, LivingEntity entity) {
         JsonObject s = strength(stack);
         float factor = ContentData.num(s, "factor", 1f);
         float foodFactor = ContentData.num(s, "food_factor", 1f);
@@ -149,18 +169,6 @@ public class LotrDrinkItem extends Item {
                 sp.awardStat(Stats.ITEM_USED.get(this));
             }
         }
-        if (entity instanceof Player p && p.getAbilities().instabuild) {
-            return stack;
-        }
-        ItemStack empty = new ItemStack(vesselItem(stack));
-        stack.shrink(1);
-        if (stack.isEmpty()) {
-            return empty;
-        }
-        if (entity instanceof Player p && !p.getInventory().add(empty)) {
-            p.drop(empty, false);
-        }
-        return stack;
     }
 
     @Override

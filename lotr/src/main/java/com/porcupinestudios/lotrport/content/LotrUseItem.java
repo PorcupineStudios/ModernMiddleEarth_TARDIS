@@ -140,7 +140,9 @@ public class LotrUseItem extends Item {
         if (player instanceof ServerPlayer sp) {
             sp.awardStat(net.minecraft.stats.Stats.ITEM_USED.get(this));
         }
-        return InteractionResultHolder.sidedSuccess(ItemUtils.createFilledResult(stack, player, new ItemStack(water)),
+        // the water stays in the vessel it was drawn in (a glass of water drinks back to a glass, not a mug)
+        ItemStack filled = com.porcupinestudios.lotrport.drink.Drinks.inVessel(new ItemStack(water), this);
+        return InteractionResultHolder.sidedSuccess(ItemUtils.createFilledResult(stack, player, filled),
                 level.isClientSide());
     }
 }

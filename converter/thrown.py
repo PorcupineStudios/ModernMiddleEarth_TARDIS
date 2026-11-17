@@ -46,7 +46,7 @@ SETTINGS = {
 
 THROWABLES = {  # LOTR item class -> missile
     "LOTRItemPebble": "pebble", "LOTRItemConker": "conker", "LOTRItemFirePot": "fire_pot",
-    "LOTRItemMysteryWeb": "mystery_web", "LOTRItemPlate": "plate",
+    "LOTRItemMysteryWeb": "mystery_web", "LOTRItemPlate": "plate", "LOTRItemTermite": "termite",
 }
 
 

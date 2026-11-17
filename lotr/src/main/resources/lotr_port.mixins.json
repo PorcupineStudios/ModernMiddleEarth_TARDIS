@@ -6,7 +6,8 @@
   "mixins": [
     "NoiseGeneratorMixin",
     "RaceHungerMixin",
-    "RaceCrouchMixin"
+    "RaceCrouchMixin",
+    "CraftedModifierMixin"
   ],
   "client": [
     "PlayerSkinMixin"
