@@ -4,7 +4,6 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.BlockPos;
-import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.placement.PlacementContext;
@@ -86,7 +85,9 @@ public final class CavePocket extends PlacementFilter {
 
     private static long mix(long seed, int a, int b, int c) {
         long h = seed ^ (a * 0x632BE59BD9B4E019L) ^ (b * 0x8CB92BA72F3D8DD7L) ^ (c * 0x9E3779B97F4A7C15L);
-        return Mth.murmurHash3Mixer(h);
+        h = (h ^ (h >>> 30)) * 0xBF58476D1CE4E5B9L; // SplitMix64's finalizer
+        h = (h ^ (h >>> 27)) * 0x94D049BB133111EBL;
+        return h ^ (h >>> 31);
     }
 
     private static double unit(long h) {
