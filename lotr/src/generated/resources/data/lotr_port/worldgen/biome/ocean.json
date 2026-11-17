@@ -5,7 +5,7 @@
   "effects": {
     "fog_color": 12638463,
     "sky_color": 7907327,
-    "water_color": 7186907,
+    "water_color": 4159204,
     "water_fog_color": 329011,
     "mood_sound": {
       "sound": "minecraft:ambient.cave",
@@ -33,6 +33,44 @@
         "weight": 8,
         "minCount": 4,
         "maxCount": 4
+      }
+    ],
+    "water_creature": [
+      {
+        "type": "minecraft:squid",
+        "maxCount": 4,
+        "minCount": 1,
+        "weight": 1
+      },
+      {
+        "type": "minecraft:dolphin",
+        "maxCount": 2,
+        "minCount": 1,
+        "weight": 1
+      }
+    ],
+    "water_ambient": [
+      {
+        "type": "minecraft:cod",
+        "maxCount": 6,
+        "minCount": 3,
+        "weight": 10
+      }
+    ],
+    "ambient": [
+      {
+        "type": "minecraft:bat",
+        "maxCount": 8,
+        "minCount": 8,
+        "weight": 10
+      }
+    ],
+    "underground_water_creature": [
+      {
+        "type": "minecraft:glow_squid",
+        "maxCount": 6,
+        "minCount": 4,
+        "weight": 10
       }
     ]
   },
@@ -84,7 +122,10 @@
       "minecraft:ore_diorite_lower",
       "minecraft:ore_andesite_upper",
       "minecraft:ore_andesite_lower",
-      "minecraft:ore_tuff"
+      "minecraft:ore_tuff",
+      "minecraft:disk_sand",
+      "minecraft:disk_clay",
+      "minecraft:disk_gravel"
     ],
     [
       "lotr_port:dripstone"
@@ -97,7 +138,10 @@
       "lotr_port:plant/dried_reeds_0_1",
       "minecraft:flower_default",
       "minecraft:patch_grass_plain",
-      "minecraft:patch_tall_grass"
+      "minecraft:patch_tall_grass",
+      "minecraft:seagrass_normal",
+      "minecraft:seagrass_simple",
+      "minecraft:kelp_cold"
     ],
     [
       "minecraft:freeze_top_layer"

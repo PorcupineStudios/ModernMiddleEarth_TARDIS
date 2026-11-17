@@ -23424,6 +23424,10 @@
                   "lotr_port:island",
                   "lotr_port:lone_lands_hills",
                   "lotr_port:ocean",
+                  "lotr_port:frozen_ocean",
+                  "lotr_port:cold_ocean",
+                  "lotr_port:lukewarm_ocean",
+                  "lotr_port:warm_ocean",
                   "lotr_port:red_mountains_foothills",
                   "lotr_port:trollshaws",
                   "lotr_port:white_mountains_foothills"

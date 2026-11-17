@@ -21,7 +21,8 @@ public record TerrainData(double fallback, Map<String, Double> biomes, List<Patt
     /** Speed of a biome by id, before roughness. */
     public double speedOf(String id) {
         String path = id.contains(":") ? id.substring(id.indexOf(':') + 1) : id;
-        if (water.contains(path) || water.contains(id)) {
+        // the seas by latitude (frozen_ocean ... warm_ocean, converter/waters.py) are water as the ocean is
+        if (water.contains(path) || water.contains(id) || path.endsWith("_ocean") && water.contains("ocean")) {
             return 0;
         }
         Double own = biomes.containsKey(id) ? biomes.get(id) : biomes.get(path);

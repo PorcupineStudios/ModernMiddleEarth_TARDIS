@@ -160,4 +160,26 @@ public final class ModernTests {
                 + ", 2 slabs " + slabs);
         helper.succeed();
     }
+
+    /** waters.py: the sea is split by latitude, and each sea has its own fish (cod north, tropical fish south). */
+    @GameTest(template = "empty")
+    public static void seasByLatitudeHaveTheirOwnLife(GameTestHelper helper) {
+        var map = com.porcupinestudios.lotrport.world.map.MiddleEarthMap.get();
+        helper.assertTrue(map.seaZones().size() == 5, "seas: " + map.seaZones());
+        String north = map.seaZones().get(map.seaAt(0, -80000)).biome();
+        String home = map.seaZones().get(map.seaAt(0, 20000)).biome();
+        String south = map.seaZones().get(map.seaAt(0, 160000)).biome();
+        helper.assertTrue(north.endsWith("frozen_ocean") && home.equals("lotr_port:ocean")
+                && south.endsWith("warm_ocean"), north + " / " + home + " / " + south);
+        var biomes = helper.getLevel().registryAccess().registryOrThrow(net.minecraft.core.registries.Registries.BIOME);
+        var warm = biomes.get(net.minecraft.resources.ResourceLocation.parse(south));
+        helper.assertTrue(warm != null && warm.getMobSettings()
+                .getMobs(net.minecraft.world.entity.MobCategory.WATER_AMBIENT).unwrap().stream()
+                .anyMatch(d -> d.type == EntityType.TROPICAL_FISH), "no tropical fish in the warm sea");
+        var river = biomes.get(LotrPort.id("river"));
+        helper.assertTrue(river != null && river.getMobSettings()
+                .getMobs(net.minecraft.world.entity.MobCategory.WATER_AMBIENT).unwrap().stream()
+                .anyMatch(d -> d.type == EntityType.SALMON), "no salmon in rivers");
+        helper.succeed();
+    }
 }
