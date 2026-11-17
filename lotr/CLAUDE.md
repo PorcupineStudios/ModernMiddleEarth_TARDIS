@@ -495,6 +495,46 @@ https://claude.ai/artifact/KqhSSTCuKXGuwKHBoYJdcu. Rebuild features in modern co
   (roll chances, anvil XP costs, heads). The roll chances and the ancient lists are stand-ins, not LOTR's numbers.
   GameTests `ModifierVesselTests`.
 
+## Modern Middle-earth (2026-11-17, Aaron: "modernize" 1.7.10 -> 1.21.1; list in lotr/docs/modernize.md)
+- Converter post-steps that run on the generated content (each also alone, `python <step>.py`; generate.py runs them
+  in this order after everything else; each is idempotent): `woodsets.py` (stripped logs and beams, signs, hanging
+  signs, buttons, pressure plates, boats and chest boats for all 39 LOTR woods; textures are vanilla 1.21.1's oak
+  ones recoloured to the LOTR planks' colours, the client jar is downloaded once to converter/cache/), `tags.py`,
+  `stonecutting.py`, `waters.py`, `mountains.py`, `land.py`, `caves.py`.
+- Wood sets (`content/woodset/`): one `WoodType` + `BlockSetType` per wood (`lotr_port:<wood>`, made when
+  `WoodSets` loads, so vanilla builds their sign models and sheets), own sign/hanging-sign block entity types
+  (`LotrSignBlocks`, the hanging one reports our type from vanilla's hanging-sign class so its edit screen opens),
+  stripping by `BlockToolModificationEvent`, boats `LotrBoat`/`LotrChestBoat` (synced `Wood`, drawn on vanilla's oak
+  model with the wood's picture: `client/WoodSetRenderers`). GameTests `ModernTests`.
+- Tags (`tags.py`): each block and item gets a vanilla analogue (rules on port kind, LOTR class, LOTR material and id)
+  and copies its functional vanilla tags (ALLOWED_* lists; never identity tags) from vanilla's own tag files, plus
+  c: tags (metals, gems, foods, drinks, tools...). "<vanilla>|<tool>" = the analogue's tags with its mining tool
+  swapped. Blocks no tool helps (glass, beds, cakes) go in `lotr_port:no_mining_tool`; GameTest
+  `everyBlockHasAMiningTool` fails on any other block without a mining tag, hand-registered ones included (their
+  tags: `tags.py HAND`). What it added is remembered in `content/tag_sources.json`; report `converter/tags_report.json`.
+- Stonecutter (`stonecutting.py`, `recipe/own/stonecutting/`): from LOTR's own single-ingredient block recipes
+  (4 rock -> 4 bricks...): a full block cuts into every block below it and their slabs (2), stairs and walls; no
+  mossy or cracked forms. These skip faction tables (LOTR's building recipes need one). LOTR's chisel is something
+  else: it carves text into a stone block (`signCarved`, glowing ithildin with the moon-chisel); not ported yet.
+- No vanilla monsters in Middle-earth (`world/NoMonsters`: natural, chunk, structure, patrol, reinforcement spawns of
+  non-LOTR MONSTER mobs are cancelled; exceptions: entity tag `lotr_port:allowed_in_middle_earth`).
+- Seas (`waters.py`): the map's ocean becomes five sea biomes by latitude (map.json `seas`, `MiddleEarthMap.seaAt`,
+  `MapBiomeSource`): frozen_ocean (z < -45000), cold_ocean, ocean (to 60000), lukewarm_ocean (to 110000),
+  warm_ocean; each takes fish, dolphins, seagrass, kelp, coral, icebergs and water colours from vanilla's matching
+  ocean. Rivers and lakes: salmon, squid, river seagrass; marshes: lily pads; warm beaches: turtles; everywhere: bats
+  and glow squid. Seas are listed wherever `lotr_port:ocean` is.
+- Mountains (`mountains.py`): LOTR's mountain snow line gets vanilla frozen-peaks patches (powder snow, packed ice,
+  ice; `snow_top`, also used by world.py); goats on the ranges, foxes/rabbits/polar bears in the north, ice spikes
+  in Forodwaith, meadow flowers on foothills, amethyst geodes everywhere; biome tags for snow foxes, white and gold
+  rabbits, is_mountain.
+- Land (`land.py`): wild bee nests on LOTR trees (feature `lotr_port:bee_nest`), frogs and lily pads in the wetlands,
+  foxes, rabbits, parrots, ocelots, armadillos, bamboo, melons, mushrooms, pumpkins. `MODERN_ORDER` +
+  `normalize_order`: every added feature in one global order after LOTR's own (Minecraft rejects order cycles).
+- Caves (`caves.py`): vanilla's lush and dripstone decorations only inside scattered pockets (placement filter
+  `lotr_port:cave_pocket`, `world/feature/CavePocket`: per 112 x 64 x 112 cell, chance 0.25 per kind, radius 14-30,
+  10+ blocks under the ground): lush under green wet lands (axolotls there), dripstone under dry, rocky and mountain
+  lands, both where both; glow lichen everywhere. Not looked at in game yet (new chunks only).
+
 ## Combat and armor models (2026-11-04)
 - 1.7.10 had no attack cooldown. LOTR's melee timing (`LOTRWeaponStats`: 15 ticks for a player's sword ÷ the
   class's speed factor, reach 3 × factor, extra knockback) is generated onto each melee weapon's `weapon` block in

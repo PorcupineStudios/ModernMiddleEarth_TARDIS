@@ -103,7 +103,8 @@
       "lotr_port:forest_floor/1_0",
       "lotr_port:plant/reeds_0_9",
       "lotr_port:plant/dried_reeds_0_1",
-      "minecraft:patch_dead_bush"
+      "minecraft:patch_dead_bush",
+      "minecraft:glow_lichen"
     ],
     [
       "minecraft:freeze_top_layer"

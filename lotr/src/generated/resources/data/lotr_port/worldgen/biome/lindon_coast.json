@@ -62,6 +62,14 @@
         "minCount": 4,
         "weight": 10
       }
+    ],
+    "axolotls": [
+      {
+        "type": "minecraft:axolotl",
+        "weight": 10,
+        "minCount": 4,
+        "maxCount": 6
+      }
     ]
   },
   "spawn_costs": {},
@@ -124,6 +132,13 @@
       "lotr_port:trees/lindon_coast",
       "lotr_port:plant/reeds_0_9",
       "lotr_port:plant/dried_reeds_0_1",
+      "minecraft:glow_lichen",
+      "lotr_port:lush_cave_ceiling",
+      "lotr_port:lush_cave_vines",
+      "lotr_port:lush_cave_clay",
+      "lotr_port:lush_cave_vegetation",
+      "lotr_port:lush_cave_azalea",
+      "lotr_port:lush_cave_spore_blossom",
       "lotr_port:bee_nests_rare",
       "minecraft:brown_mushroom_normal",
       "minecraft:red_mushroom_normal",

@@ -51,8 +51,9 @@ def spawner(t, weight, lo, hi):
 MODERN_ORDER = [
     "minecraft:amethyst_geode", "minecraft:iceberg_packed", "minecraft:iceberg_blue", "minecraft:blue_ice",
     "minecraft:ice_spike", "minecraft:ice_patch", "minecraft:disk_sand", "minecraft:disk_clay", "minecraft:disk_gravel",
-    f"{NS}:lush_cave_clay", f"{NS}:lush_cave_vegetation", f"{NS}:lush_cave_ceiling", f"{NS}:cave_spore_blossom",
-    f"{NS}:cave_lichen", f"{NS}:cave_lichen_rare",
+    f"{NS}:dripstone_pocket_large", f"{NS}:dripstone_pocket_cluster", f"{NS}:dripstone_pocket_pointed",
+    "minecraft:glow_lichen", f"{NS}:lush_cave_ceiling", f"{NS}:lush_cave_vines", f"{NS}:lush_cave_clay",
+    f"{NS}:lush_cave_vegetation", f"{NS}:lush_cave_azalea", f"{NS}:lush_cave_spore_blossom",
     "minecraft:warm_ocean_vegetation", "minecraft:seagrass_cold", "minecraft:seagrass_normal", "minecraft:seagrass_warm",
     "minecraft:seagrass_deep_warm", "minecraft:seagrass_simple", "minecraft:seagrass_river", "minecraft:seagrass_swamp",
     "minecraft:kelp_cold", "minecraft:kelp_warm", "minecraft:sea_pickle", "minecraft:patch_waterlily",

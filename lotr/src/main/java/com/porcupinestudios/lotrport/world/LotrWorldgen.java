@@ -44,6 +44,9 @@ public final class LotrWorldgen {
             net.minecraft.world.level.levelgen.placement.PlacementModifierType<
                     com.porcupinestudios.lotrport.world.feature.OrchardGrid>> ORCHARD_GRID = PLACEMENT_MODIFIERS.register(
                             "orchard_grid", () -> () -> com.porcupinestudios.lotrport.world.feature.OrchardGrid.CODEC);
+    public static final java.util.function.Supplier<net.minecraft.world.level.levelgen.placement.PlacementModifierType<
+                    com.porcupinestudios.lotrport.world.feature.CavePocket>> CAVE_POCKET = PLACEMENT_MODIFIERS.register(
+                            "cave_pocket", () -> () -> com.porcupinestudios.lotrport.world.feature.CavePocket.CODEC);
 
     static {
         FEATURES.register("roads", RoadFeature::new);

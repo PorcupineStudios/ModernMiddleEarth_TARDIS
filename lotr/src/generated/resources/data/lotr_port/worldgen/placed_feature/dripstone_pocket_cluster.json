@@ -1,0 +1,38 @@
+{
+  "feature": "minecraft:dripstone_cluster",
+  "placement": [
+    {
+      "type": "minecraft:count",
+      "count": {
+        "type": "minecraft:uniform",
+        "max_inclusive": 384,
+        "min_inclusive": 192
+      }
+    },
+    {
+      "type": "minecraft:in_square"
+    },
+    {
+      "type": "minecraft:height_range",
+      "height": {
+        "type": "minecraft:uniform",
+        "min_inclusive": {
+          "above_bottom": 16
+        },
+        "max_inclusive": {
+          "absolute": 320
+        }
+      }
+    },
+    {
+      "type": "lotr_port:cave_pocket",
+      "kind": "dripstone",
+      "chance": 0.25,
+      "min_radius": 14,
+      "max_radius": 30
+    },
+    {
+      "type": "minecraft:biome"
+    }
+  ]
+}

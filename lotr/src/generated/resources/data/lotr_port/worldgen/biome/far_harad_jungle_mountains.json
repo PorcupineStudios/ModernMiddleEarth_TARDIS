@@ -32,6 +32,14 @@
         "minCount": 4,
         "weight": 10
       }
+    ],
+    "axolotls": [
+      {
+        "type": "minecraft:axolotl",
+        "weight": 10,
+        "minCount": 4,
+        "maxCount": 6
+      }
     ]
   },
   "spawn_costs": {},
@@ -49,7 +57,8 @@
     ],
     [
       "lotr_port:roads",
-      "minecraft:amethyst_geode"
+      "minecraft:amethyst_geode",
+      "lotr_port:dripstone_pocket_large"
     ],
     [],
     [],
@@ -87,7 +96,9 @@
       "minecraft:ore_tuff"
     ],
     [
-      "lotr_port:dripstone"
+      "lotr_port:dripstone",
+      "lotr_port:dripstone_pocket_cluster",
+      "lotr_port:dripstone_pocket_pointed"
     ],
     [],
     [
@@ -98,7 +109,14 @@
       "minecraft:patch_grass_plain",
       "minecraft:patch_sugar_cane",
       "minecraft:patch_tall_grass",
-      "minecraft:patch_large_fern"
+      "minecraft:patch_large_fern",
+      "minecraft:glow_lichen",
+      "lotr_port:lush_cave_ceiling",
+      "lotr_port:lush_cave_vines",
+      "lotr_port:lush_cave_clay",
+      "lotr_port:lush_cave_vegetation",
+      "lotr_port:lush_cave_azalea",
+      "lotr_port:lush_cave_spore_blossom"
     ],
     [
       "minecraft:freeze_top_layer"
