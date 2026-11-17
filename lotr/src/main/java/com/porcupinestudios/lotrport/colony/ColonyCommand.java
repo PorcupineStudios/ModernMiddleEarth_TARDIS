@@ -87,7 +87,9 @@ public final class ColonyCommand {
                         ctx.getSource().sendFailure(Component.literal("You belong to no colony"));
                         return 0;
                     }
-                    com.porcupinestudios.lotrport.colony.work.LedgerNet.send(player, c.get(), true);
+                    com.porcupinestudios.lotrport.colony.book.Books.open(player,
+                            com.porcupinestudios.lotrport.colony.book.HallLedgerBook.KIND, c.get().id().toString(), "",
+                            "");
                     return 1;
                 }))
                 .executes(ctx -> {

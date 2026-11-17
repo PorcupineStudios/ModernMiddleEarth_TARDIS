@@ -95,7 +95,7 @@ public final class Life {
             }
         }
         stores.save();
-        day.save(ctx.server());
+        day.save(ctx.server(), ctx.now());
         ctx.count(Production.TOOLS_WORN, day.toolsWorn);
     }
 
@@ -155,7 +155,7 @@ public final class Life {
                     carry.put(e.getKey(), amount - whole);
                     if (whole > 0) {
                         stores.put(e.getKey(), whole, place.get());
-                        day.made(e.getKey(), whole);
+                        day.made(place.get().id(), e.getKey(), whole);
                         made += whole;
                     }
                 }
@@ -177,7 +177,7 @@ public final class Life {
                 for (Map.Entry<ResourceLocation, Double> out : pick.get().produces().entrySet()) {
                     int n = (int) Math.round(out.getValue());
                     stores.put(out.getKey(), n, place.get());
-                    day.made(out.getKey(), n);
+                    day.made(place.get().id(), out.getKey(), n);
                     made += n;
                 }
                 done++;

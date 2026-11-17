@@ -744,8 +744,7 @@ public final class Wars extends SavedData {
         war.proposal = Optional.of(new War.Proposal(side.get(), Math.max(0, tribute)));
         setDirty();
         report(server, war, name(server, side.get() ? war.attacker : war.defender) + " offers peace"
-                + (tribute > 0 ? " for " + tribute + " coins" : "") + " (accept with /lotr_war accept "
-                + war.shortId() + ")");
+                + (tribute > 0 ? " for " + tribute + " coins" : "") + " (accept in the Town Hall ledger, War tab)");
         return Result.done(war, "war.lotr_port.proposed", "Peace offered");
     }
 
