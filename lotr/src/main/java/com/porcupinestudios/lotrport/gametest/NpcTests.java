@@ -5,6 +5,7 @@ import com.porcupinestudios.lotrport.LotrPort;
 import com.porcupinestudios.lotrport.content.ContentData;
 import com.porcupinestudios.lotrport.faction.Alignment;
 import com.porcupinestudios.lotrport.npc.Coins;
+import com.porcupinestudios.lotrport.npc.TraderMenu;
 import com.porcupinestudios.lotrport.npc.Hiring;
 import com.porcupinestudios.lotrport.npc.LotrEntities;
 import com.porcupinestudios.lotrport.npc.LotrNpc;
@@ -22,7 +23,6 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.trading.MerchantOffer;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.gametest.GameTestHolder;
 import net.neoforged.neoforge.gametest.PrefixGameTestTemplate;
@@ -136,27 +136,28 @@ public final class NpcTests {
         Alignment.set(player, faction, 100);
         helper.assertTrue(trader.willDealWith(player), traderType + " won't trade at 100 alignment");
 
-        MerchantOffer buy = null;
-        MerchantOffer sell = null;
-        for (MerchantOffer offer : trader.getOffers()) {
-            if (Coins.value(offer.getCostA()) > 0 && buy == null) {
-                buy = offer;
-            } else if (Coins.value(offer.getResult()) > 0 && sell == null) {
-                sell = offer;
-            }
-        }
-        helper.assertTrue(buy != null, traderType + " sells nothing for coins");
-        helper.assertTrue(sell != null, traderType + " buys nothing for coins");
+        var deals = trader.deals();
+        helper.assertFalse(deals.buy().isEmpty(), traderType + " sells nothing for coins");
+        helper.assertFalse(deals.sell().isEmpty(), traderType + " buys nothing for coins");
 
-        // pay what the trading screen would ask and take the goods, as the result slot does
-        ItemStack a = buy.getCostA().copy();
-        ItemStack b = buy.getCostB().copy();
-        helper.assertTrue(buy.satisfiedBy(a, b), traderType + ": its price does not satisfy its own offer");
-        helper.assertTrue(buy.take(a, b), traderType + ": could not take the price");
-        helper.assertTrue(a.isEmpty() && b.isEmpty(), traderType + ": price left over after paying");
-        trader.notifyTrade(buy);
-        helper.assertTrue(buy.getUses() == 1, traderType + ": the trade was not counted");
-        helper.assertFalse(buy.getResult().isEmpty(), traderType + ": the goods are empty");
+        // shift-click the first Buy slot of LOTR's trade screen: pays and puts the goods in the inventory
+        var buy = deals.buy().get(0);
+        int uses = buy.uses;
+        player.getInventory().clearContent();
+        Coins.give(player, buy.cost);
+        var menu = new TraderMenu(0, player.getInventory(), trader);
+        menu.clicked(TraderMenu.BUY, 0, net.minecraft.world.inventory.ClickType.QUICK_MOVE, player);
+        helper.assertTrue(Coins.count(player) == 0, traderType + ": the price was not taken");
+        helper.assertTrue(player.getInventory().countItem(buy.item.getItem()) >= buy.item.getCount(),
+                traderType + ": the goods did not arrive");
+        helper.assertTrue(buy.uses == uses - 1, traderType + ": the trade was not counted");
+
+        // put what it buys in the Sell offers and press the coin button
+        var sell = deals.sell().get(0);
+        menu.getSlot(TraderMenu.OFFERS).set(sell.item.copy());
+        helper.assertTrue(menu.sellPrice() == sell.cost, traderType + ": wrong sell price");
+        menu.clickMenuButton(player, TraderMenu.SELL_BUTTON);
+        helper.assertTrue(Coins.count(player) == sell.cost, traderType + ": selling paid nothing");
     }
 
     @GameTest(template = EMPTY)

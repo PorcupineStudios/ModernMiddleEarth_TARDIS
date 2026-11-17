@@ -98,6 +98,7 @@ public final class LotrPort {
         FastTravel.register();
         MapNet.register(modBus);
         QuestNet.register(modBus);
+        com.porcupinestudios.lotrport.npc.Traders.register(modBus);
         HudNet.register(modBus);
         com.porcupinestudios.lotrport.rig.Rigs.register(modBus);
         com.porcupinestudios.lotrport.unit.UnitNet.register(modBus);

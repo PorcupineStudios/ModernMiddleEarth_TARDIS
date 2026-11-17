@@ -63,9 +63,6 @@ import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.monster.Enemy;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.trading.Merchant;
-import net.minecraft.world.item.trading.MerchantOffer;
-import net.minecraft.world.item.trading.MerchantOffers;
 import net.minecraft.world.level.Level;
 
 /**
@@ -74,7 +71,7 @@ import net.minecraft.world.level.Level;
  * captains hire out units through {@link Hiring}; hired units follow or guard for their owner and get a
  * {@link com.porcupinestudios.lotrport.society.Person} record.
  */
-public class LotrNpc extends PathfinderMob implements Merchant {
+public class LotrNpc extends PathfinderMob {
     private static final EntityDataAccessor<String> TYPE =
             SynchedEntityData.defineId(LotrNpc.class, EntityDataSerializers.STRING);
     private static final EntityDataAccessor<String> SKIN =
@@ -123,7 +120,7 @@ public class LotrNpc extends PathfinderMob implements Merchant {
     @Nullable
     private Player tradingPlayer;
     @Nullable
-    private MerchantOffers offers;
+    private NpcTrading.Deals deals;
 
     public LotrNpc(EntityType<? extends LotrNpc> type, Level level) {
         super(type, level);
@@ -847,7 +844,7 @@ public class LotrNpc extends PathfinderMob implements Merchant {
             Hiring.offer(sp, this);
         } else {
             setTradingPlayer(sp);
-            openTradingScreen(sp, getDisplayName(), 1);
+            Traders.interact(sp, this);
         }
         return InteractionResult.SUCCESS;
     }
@@ -879,7 +876,9 @@ public class LotrNpc extends PathfinderMob implements Merchant {
         }
         if (!level().isClientSide && tradingPlayer != null) {
             if (!tradingPlayer.isAlive() || tradingPlayer.distanceTo(this) > DEAL_DISTANCE
-                    || !(tradingPlayer.containerMenu instanceof net.minecraft.world.inventory.MerchantMenu)) {
+                    || !(tradingPlayer.containerMenu instanceof TraderMenu
+                            || tradingPlayer.containerMenu instanceof CoinExchangeMenu
+                            || tradingPlayer.containerMenu == tradingPlayer.inventoryMenu && tradeGrace-- > 0)) {
                 setTradingPlayer(null);
             } else {
                 getNavigation().stop();
@@ -888,64 +887,40 @@ public class LotrNpc extends PathfinderMob implements Merchant {
         }
     }
 
-    // ---------------------------------------------------------------- Merchant (vanilla trading screen)
+    // ---------------------------------------------------------------- trading (LOTR's trade screens, Traders)
 
-    @Override
+    /** Ticks it keeps facing a player who has the Talk/Trade/Exchange screen open (no menu on the server yet). */
+    private int tradeGrace;
+
     public void setTradingPlayer(@Nullable Player player) {
         tradingPlayer = player;
+        tradeGrace = 200;
     }
 
     @Nullable
-    @Override
     public Player getTradingPlayer() {
         return tradingPlayer;
     }
 
-    @Override
-    public MerchantOffers getOffers() {
-        if (offers == null) {
-            offers = level().isClientSide ? new MerchantOffers() : NpcTrading.offers(this);
+    /** What it sells and buys (made once per trader; uses are counted while it stays loaded). */
+    public NpcTrading.Deals deals() {
+        if (deals == null) {
+            deals = NpcTrading.deals(this);
         }
-        return offers;
+        return deals;
     }
 
-    @Override
-    public void overrideOffers(MerchantOffers offers) {
-        this.offers = offers;
+    /** "Tod Hornblower, the Bree-hobbit Innkeeper", as LOTR's trade screens title it. */
+    public Component tradeTitle() {
+        return personName.isEmpty() ? typeName()
+                : Component.literal(personName + ", ").append(Component.translatableWithFallback(
+                        "npc.lotr_port.the", "the")).append(" ").append(typeName());
     }
 
-    @Override
-    public void notifyTrade(MerchantOffer offer) {
-        offer.increaseUses();
+    /** A trade went through: LOTR's coin jingle (LOTREntityNPC.playTradeSound). */
+    public void traded() {
         ambientSoundTime = -getAmbientSoundInterval();
-        // LOTR's coin jingle on every trade (LOTREntityNPC)
         LotrSounds.playAt(level(), getX(), getY(), getZ(), "event.trade", SoundSource.NEUTRAL, 1f, 1f);
-    }
-
-    @Override
-    public void notifyTradeUpdated(ItemStack stack) {}
-
-    @Override
-    public int getVillagerXp() {
-        return 0;
-    }
-
-    @Override
-    public void overrideXp(int xp) {}
-
-    @Override
-    public boolean showProgressBar() {
-        return false;
-    }
-
-    @Override
-    public SoundEvent getNotifyTradeSound() {
-        return SoundEvents.VILLAGER_YES;
-    }
-
-    @Override
-    public boolean isClientSide() {
-        return level().isClientSide;
     }
 
     /** A bare {@code /summon lotr_port:npc} (no NpcType) becomes a random type instead of a blank figure. */
