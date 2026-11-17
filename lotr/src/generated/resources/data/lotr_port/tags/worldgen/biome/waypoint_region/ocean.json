@@ -4,6 +4,10 @@
     "lotr_port:beach_gravel",
     "lotr_port:beach_white",
     "lotr_port:island",
-    "lotr_port:ocean"
+    "lotr_port:ocean",
+    "lotr_port:frozen_ocean",
+    "lotr_port:cold_ocean",
+    "lotr_port:lukewarm_ocean",
+    "lotr_port:warm_ocean"
   ]
 }

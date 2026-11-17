@@ -6406,5 +6406,9 @@
   "item.lotr_port.rotten_hanging_sign": "Rotten Hanging Sign",
   "block.lotr_port.rotten_wall_hanging_sign": "Rotten Wall Hanging Sign",
   "item.lotr_port.rotten_boat": "Rotten Boat",
-  "item.lotr_port.rotten_chest_boat": "Rotten Boat with Chest"
+  "item.lotr_port.rotten_chest_boat": "Rotten Boat with Chest",
+  "biome.lotr_port.frozen_ocean": "Frozen Sea",
+  "biome.lotr_port.cold_ocean": "Cold Sea",
+  "biome.lotr_port.lukewarm_ocean": "Lukewarm Sea",
+  "biome.lotr_port.warm_ocean": "Warm Sea"
 }

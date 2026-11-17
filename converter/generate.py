@@ -1497,6 +1497,8 @@ class Gen:
         print(json.dumps({"tags": Tagger(OUT).run()}))
         import stonecutting
         print(json.dumps({"stonecutting": stonecutting.run(OUT)}))
+        from waters import Waters
+        print(json.dumps({"waters": Waters(OUT).run()}))
 
 
 if __name__ == "__main__":
