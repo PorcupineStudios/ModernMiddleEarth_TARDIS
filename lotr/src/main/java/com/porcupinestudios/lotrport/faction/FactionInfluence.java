@@ -23,9 +23,9 @@ import net.neoforged.neoforge.event.AddReloadListenerEvent;
  */
 public final class FactionInfluence {
     public record Settings(int npcRadius, boolean zoneKillsCount, boolean npcKillsCount, boolean showBarNearNpcs) {
-        public static final Settings DEFAULT = new Settings(32, true, true, true);
+        public static final Settings DEFAULT = new Settings(24, true, true, true);
         public static final Codec<Settings> CODEC = RecordCodecBuilder.create(i -> i.group(
-                Codec.INT.optionalFieldOf("npc_radius", 32).forGetter(Settings::npcRadius),
+                Codec.INT.optionalFieldOf("npc_radius", 24).forGetter(Settings::npcRadius),
                 Codec.BOOL.optionalFieldOf("zone_kills_count", true).forGetter(Settings::zoneKillsCount),
                 Codec.BOOL.optionalFieldOf("npc_kills_count", true).forGetter(Settings::npcKillsCount),
                 Codec.BOOL.optionalFieldOf("show_bar_near_npcs", true).forGetter(Settings::showBarNearNpcs))
@@ -87,6 +87,32 @@ public final class FactionInfluence {
             }
         }
         return false;
+    }
+
+    /**
+     * LOTR's control-zone fade (LOTRFaction.getControlZoneAlignmentMultiplier) for a player outside the faction's zones:
+     * 1 at a zone's edge down to 0 at 50 map pixels from it (LOTR's getControlZoneReducedRange; 0 for isolationist
+     * factions, so no fade), in Middle-earth only.
+     */
+    public static float zoneFade(ServerPlayer player, ResourceLocation faction) {
+        ServerLevel me = LotrDimensions.middleEarth(player.server);
+        if (me == null || player.level() != me) {
+            return 0f;
+        }
+        FactionDef def = Factions.definitions().get(faction);
+        if (def == null || def.controlZones().isEmpty() || def.isolationist()) {
+            return 0f;
+        }
+        int range = 50;
+        MiddleEarthMap map = MiddleEarthMap.get();
+        double px = map.pixelX(player.getX());
+        double pz = map.pixelZ(player.getZ());
+        double nearest = Double.MAX_VALUE;
+        for (FactionDef.MapArea z : def.controlZones()) {
+            double d = Math.sqrt((px - z.x()) * (px - z.x()) + (pz - z.z()) * (pz - z.z())) - z.radius();
+            nearest = Math.min(nearest, Math.max(0, d));
+        }
+        return nearest > range ? 0f : (float) Math.max(0, Math.min(1, 1 - nearest / range));
     }
 
     /** The nearest living NPC of the faction within npc_radius, in the player's own level. */

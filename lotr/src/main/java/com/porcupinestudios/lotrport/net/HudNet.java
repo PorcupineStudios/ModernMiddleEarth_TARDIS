@@ -77,8 +77,17 @@ public final class HudNet {
         /** Near a faction NPC: the bar shows even outside Middle-earth. */
         public static final int NEAR_NPC = 8;
 
-        public static int flags(boolean pledged, int reach, boolean nearNpc) {
-            return (pledged ? PLEDGED : 0) | (reach & 3) << REACH_SHIFT | (nearNpc ? NEAR_NPC : 0);
+        /** Outside the faction's reach, how strongly its control zone's arrows fade in (0-255) sits in bits 4-11. */
+        public static final int FADE_SHIFT = 4;
+
+        public static int flags(boolean pledged, int reach, boolean nearNpc, float fade) {
+            int f = Math.round(Math.max(0f, Math.min(1f, fade)) * 255);
+            return (pledged ? PLEDGED : 0) | (reach & 3) << REACH_SHIFT | (nearNpc ? NEAR_NPC : 0) | f << FADE_SHIFT;
+        }
+
+        /** LOTR's zone arrows' strength when out of reach: near a control zone's edge they fade in (0..1). */
+        public float zoneFade() {
+            return (flags >> FADE_SHIFT & 255) / 255f;
         }
 
         public boolean pledged() {

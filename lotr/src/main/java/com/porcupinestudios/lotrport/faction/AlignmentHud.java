@@ -81,11 +81,13 @@ public final class AlignmentHud {
         float alignment = f.fixedAlignment().orElse(data.alignment(f.id()));
         List<HudNet.Rank> ranks = f.ranks().stream()
                 .map(r -> new HudNet.Rank(r.alignment(), f.rankName(r))).toList();
+        FactionInfluence.Reach reach = f.realm() ? FactionInfluence.Reach.NONE : FactionInfluence.reach(player, f.id());
         boolean nearNpc = FactionInfluence.settings().showBarNearNpcs()
                 && FactionInfluence.nearestFaction(player).isPresent();
         return new HudNet.AlignmentBar(f.id().toString(), f.name(), f.color(), alignment,
                 HudNet.AlignmentBar.flags(data.pledge().filter(f.id()::equals).isPresent(),
-                        FactionInfluence.reach(player, f.id()).ordinal(), nearNpc), ranks);
+                        reach.ordinal(), nearNpc,
+                        reach == FactionInfluence.Reach.NONE ? FactionInfluence.zoneFade(player, f.id()) : 0f), ranks);
     }
 
     /** The faction the player watches: their choice, else the pledge, else the strongest standing, else Hobbits. */
