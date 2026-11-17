@@ -153,3 +153,15 @@ https://claude.ai/artifact/VLwZ5N7pkVMJW4PCYXh41G).
   research), the type's requirements. From the Buildings tab or sneak + right-click its door with an empty hand.
 - Not built from the old RingRealms list: districts (Surveyor's Rod), thralls, handcarts as entities, a drawn tech tree.
   GameTests `DepthTests`. The colony view has 12 tabs now: check they fit.
+
+## Furniture screens (2026-11-17, Aaron: "make the guis ... absolutely NO CHAT HYPERLINKS")
+- Blocks `colony/ColonyBlocks` (tab Colonies): Building Plaque (hangs on a wall; the room it is in, the room behind
+  its wall, or a door within 3 blocks), Treasury Ledger, Town Hall Ledger, Customs Counter (the nearest colony whose
+  Hall is within the building reach). Right-click opens the view; vanilla textures in the models.
+- Plaque = `BuildingViews` tabs Plaque (type picker for other types that fit, Measure again, what it does per kind:
+  beds, workers, wage, chests, research), People/Household, Work (recipes, its orders and stock targets, tool).
+- `LedgerViews.TREASURY`: Books (balance, expected day, runway, tax/wage steppers), Accounts (colony component
+  `books`, last 30 pay days, written by `Life.pay` and soldier pay), Payroll. `/lotr_colony ledger` opens it; the old
+  `LedgerScreen` is gone. Town Hall Ledger = `ColonyViews.HALL_LEDGER` (Register + Overview, Buildings, People,
+  Members); Customs Counter = `ColonyViews.CUSTOMS_COUNTER` (Immigration + Customs). GameTest `GuiTests`.
+- No ClickEvent anywhere: writ "could also be" points to the plaque; `/lotr_war` prints commands as plain text.

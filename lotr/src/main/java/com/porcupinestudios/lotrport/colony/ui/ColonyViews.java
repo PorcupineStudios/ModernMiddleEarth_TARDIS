@@ -64,6 +64,9 @@ public final class ColonyViews {
     static final String STOCK = "stock";
     static final String SCHEDULES = "schedules";
     static final String MEMBERS = "members";
+    static final String CUSTOMS = "customs";
+    public static final ResourceLocation HALL_LEDGER = LotrPort.id("hall_ledger");
+    public static final ResourceLocation CUSTOMS_COUNTER = LotrPort.id("customs");
 
     // people tags (the filters' ticks)
     static final String HOMELESS = "homeless";
@@ -77,6 +80,11 @@ public final class ColonyViews {
     public static void register() {
         Views.register(COLONY, new ColonyProvider());
         Views.register(COLONIES, new ColoniesProvider());
+        Views.register(HALL_LEDGER, new ColonyProvider(HALL_LEDGER, List.of(LedgerViews.REGISTER, OVERVIEW, BUILDINGS,
+                PEOPLE, MEMBERS), "Town Hall Ledger"));
+        Views.register(CUSTOMS_COUNTER, new ColonyProvider(CUSTOMS_COUNTER, List.of(ImmigrationViews.TAB, CUSTOMS),
+                "Customs Counter"));
+        LedgerViews.register();
         CitizenViews.register();
         MarketViews.register();
         CaravanViews.register();
@@ -130,6 +138,21 @@ public final class ColonyViews {
     // ================================================================ one colony
 
     static final class ColonyProvider implements ViewProvider {
+        private final ResourceLocation id;
+        private final List<String> only;
+        private final String suffix;
+
+        ColonyProvider() {
+            this(COLONY, List.of(), "");
+        }
+
+        /** A view on a few of the colony's tabs (the Town Hall Ledger, the Customs Counter), titled "<colony>: <suffix>". */
+        ColonyProvider(ResourceLocation id, List<String> only, String suffix) {
+            this.id = id;
+            this.only = only;
+            this.suffix = suffix;
+        }
+
         @Override
         public Optional<View> build(ServerPlayer player, String context, String tab) {
             Optional<Colony> found = colony(player.server, context);
@@ -149,8 +172,13 @@ public final class ColonyViews {
                     new View.Tab(ImmigrationViews.TAB, tr("tab.immigration", "Immigration")),
                     new View.Tab(CaravanViews.TAB, tr("tab.caravans", "Caravans")),
                     new View.Tab(EventViews.TAB, tr("tab.events", "Events")),
-                    new View.Tab(MEMBERS, tr("tab.members", "Members")));
-            String open = tabs.stream().anyMatch(t -> t.id().equals(tab)) ? tab : OVERVIEW;
+                    new View.Tab(MEMBERS, tr("tab.members", "Members")),
+                    new View.Tab(CUSTOMS, tr("tab.customs", "Customs")),
+                    new View.Tab(LedgerViews.REGISTER, tr("tab.register", "Register")));
+            tabs = tabs.stream().filter(t -> only.isEmpty() ? !t.id().equals(CUSTOMS) && !t.id().equals(LedgerViews.REGISTER)
+                    : only.contains(t.id())).sorted(java.util.Comparator.comparingInt(t -> only.indexOf(t.id()))).toList();
+            String first = tabs.get(0).id();
+            String open = tabs.stream().anyMatch(t -> t.id().equals(tab)) ? tab : first;
             Page page = switch (open) {
                 case BUILDINGS -> buildings(player.server, c);
                 case PEOPLE -> people(player.server, c);
@@ -163,12 +191,15 @@ public final class ColonyViews {
                 case ImmigrationViews.TAB -> ImmigrationViews.tab(player, c);
                 case EventViews.TAB -> EventViews.tab(player, c);
                 case MEMBERS -> members(player, c);
+                case CUSTOMS -> customs(player, c);
+                case LedgerViews.REGISTER -> LedgerViews.register(player, c);
                 default -> overview(player, c);
             };
-            Optional<View.Target> back = Colonies.get(player.server).all().stream()
+            Optional<View.Target> back = !only.isEmpty() ? Optional.empty() : Colonies.get(player.server).all().stream()
                     .filter(x -> Permissions.isMember(player.getUUID(), x)).count() > 1
                     ? Optional.of(new View.Target(COLONIES, "", "")) : Optional.empty();
-            return Optional.of(new View(COLONY, context, Component.literal(c.name()), tabs, open, page, back));
+            return Optional.of(new View(id, context, suffix.isEmpty() ? Component.literal(c.name())
+                    : Component.literal(c.name() + " 2014 ").append(tr("title." + id.getPath(), suffix)), tabs, open, page, back));
         }
 
         @Override
@@ -333,6 +364,57 @@ public final class ColonyViews {
                 new Page.Section(tr("section.colony", "Colony"), colony),
                 new Page.Section(tr("section.wellbeing", "Wellbeing"), wellbeing),
                 new Page.Section(tr("section.treasury", "Treasury"), money)), List.of());
+    }
+
+    // ---------------------------------------------------------------- Customs (the Customs Counter)
+
+    static Page customs(ServerPlayer player, Colony c) {
+        MinecraftServer server = player.server;
+        com.porcupinestudios.lotrport.colony.Immigration.Board b =
+                com.porcupinestudios.lotrport.colony.Immigration.board(server, c);
+        com.porcupinestudios.lotrport.colony.Immigration.Perks perks =
+                com.porcupinestudios.lotrport.colony.Immigration.perks(server, c);
+        long now = server.overworld().getGameTime();
+        int minutes = (int) Math.max(0, Math.ceil((b.next() - now) / 1200.0));
+        String level = perks.levels().isEmpty() ? "Hamlet" : perks.levels().get(perks.levels().size() - 1);
+        int beds = 0;
+        for (Building h : Buildings.of(c).homes()) {
+            beds += h.count("beds");
+        }
+        int housed = 0;
+        int citizens = 0;
+        for (Person p : Society.citizens(server, c)) {
+            if (p.has(CoreComponents.UNIT)) {
+                continue;
+            }
+            citizens++;
+            housed += p.has(WorkComponents.HOME) ? 1 : 0;
+        }
+        int free = Math.max(0, beds - housed);
+        List<Stat> gate = List.of(
+                Stat.of(tr("customs.standing", "Standing"), level),
+                Stat.of(tr("customs.waiting", "Groups waiting"), Integer.toString(b.offers().size()),
+                        b.offers().isEmpty() ? Tone.MUTED : Tone.GOOD),
+                Stat.of(tr("customs.next", "Next arrivals"), minutes <= 0 ? "any moment" : "in " + minutes + " min"),
+                Stat.of(tr("customs.slots", "Groups at once"), Integer.toString(perks.slots())),
+                Stat.of(tr("customs.group", "Largest group"), Integer.toString(perks.maxGroup())),
+                Stat.of(tr("customs.quality", "Quality of newcomers"), Integer.toString(perks.quality())));
+        List<Stat> room = List.of(
+                Stat.of(tr("customs.citizens", "Citizens"), Integer.toString(citizens)),
+                Stat.of(tr("customs.beds", "Beds in homes"), Integer.toString(beds)),
+                Stat.of(tr("customs.free", "Free beds"), Integer.toString(free), free > 0 ? Tone.GOOD : Tone.BAD)
+                        .withBar(beds == 0 ? 0 : housed / (double) beds));
+        List<Stat> levels = new ArrayList<>();
+        for (String l : perks.levels()) {
+            levels.add(Stat.of(Component.literal(l), "reached", Tone.GOOD));
+        }
+        if (levels.isEmpty()) {
+            levels.add(Stat.of(tr("customs.no_levels", "No standing yet"), "grow the colony", Tone.MUTED));
+        }
+        return new Page.Stats(List.of(
+                new Page.Section(tr("section.gate", "At the gate"), gate),
+                new Page.Section(tr("section.room", "Room for newcomers"), room),
+                new Page.Section(tr("section.levels", "Standing reached"), levels)), List.of());
     }
 
     // ---------------------------------------------------------------- Buildings

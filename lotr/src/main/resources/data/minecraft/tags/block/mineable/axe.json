@@ -1,0 +1,4 @@
+{
+  "replace": false,
+  "values": ["lotr_port:building_plaque", "lotr_port:treasury_ledger", "lotr_port:town_hall_ledger", "lotr_port:customs_counter"]
+}

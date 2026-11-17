@@ -110,10 +110,12 @@ public final class LotrPort {
         com.porcupinestudios.lotrport.ui.UiNet.register(modBus);
         com.porcupinestudios.lotrport.colonist.Colonists.register();
         com.porcupinestudios.lotrport.colony.ui.ColonyViews.register();
+        com.porcupinestudios.lotrport.npc.Hiring.registerView();
         AlignmentHud.register();
         com.porcupinestudios.lotrport.player.Races.register(modBus);
         AttackTiming.register();
         ColonyItems.register(modBus);
+        com.porcupinestudios.lotrport.colony.ColonyBlocks.register(modBus);
         com.porcupinestudios.lotrport.content.HeartOfTheMountain.register(modBus);
         ColonyData.register();
         CoreComponents.init();
