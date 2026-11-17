@@ -60,6 +60,11 @@ public final class Drinks {
     private static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES =
             DeferredRegister.create(Registries.BLOCK_ENTITY_TYPE, LotrPort.MOD_ID);
     private static final DeferredRegister<MenuType<?>> MENUS = DeferredRegister.create(Registries.MENU, LotrPort.MOD_ID);
+    private static final DeferredRegister<net.minecraft.world.item.crafting.RecipeSerializer<?>> SERIALIZERS =
+            DeferredRegister.create(Registries.RECIPE_SERIALIZER, LotrPort.MOD_ID);
+    public static final Supplier<net.minecraft.world.item.crafting.RecipeSerializer<PoisonDrinkRecipe>>
+            POISON_SERIALIZER = SERIALIZERS.register("poison_drink",
+                    () -> new net.minecraft.world.item.crafting.SimpleCraftingRecipeSerializer<>(PoisonDrinkRecipe::new));
 
     public static final Supplier<BlockEntityType<KegBlockEntity>> KEG = BLOCK_ENTITIES.register("keg",
             () -> BlockEntityType.Builder.of(KegBlockEntity::new, LotrBlocks.BY_ID.values().stream()
@@ -113,7 +118,9 @@ public final class Drinks {
         FLUIDS.register(modBus);
         BLOCK_ENTITIES.register(modBus);
         MENUS.register(modBus);
+        SERIALIZERS.register(modBus);
         modBus.addListener(Drinks::capabilities);
+        net.neoforged.neoforge.common.NeoForge.EVENT_BUS.addListener(Drinks::poisonTooltip);
         DrinkData.register();
     }
 
@@ -123,6 +130,15 @@ public final class Drinks {
         Item[] items = LotrItems.BY_ID.values().stream().map(Supplier::get)
                 .filter(i -> i instanceof LotrDrinkItem || isVessel(i)).toArray(Item[]::new);
         event.registerItem(Capabilities.FluidHandler.ITEM, (stack, ctx) -> new DrinkFluidHandler(stack), items);
+    }
+
+    /** "Poisoned!" on a poisoned drink, for its poisoner's eyes only (LOTR). Fires on the client only. */
+    private static void poisonTooltip(net.neoforged.neoforge.event.entity.player.ItemTooltipEvent event) {
+        java.util.UUID by = event.getItemStack().get(LotrComponents.POISONED.get());
+        if (by != null && event.getEntity() != null && by.equals(event.getEntity().getUUID())) {
+            event.getToolTip().add(net.minecraft.network.chat.Component.translatable("item.lotr.drink.poison")
+                    .withStyle(net.minecraft.ChatFormatting.DARK_GREEN));
+        }
     }
 
     // ------------------------------------------------------------------ stacks

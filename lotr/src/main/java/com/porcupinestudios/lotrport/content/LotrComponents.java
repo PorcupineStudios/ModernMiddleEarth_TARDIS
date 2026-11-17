@@ -36,6 +36,11 @@ public final class LotrComponents {
             COMPONENTS.registerComponentType("modifier", b -> b.persistent(net.minecraft.resources.ResourceLocation.CODEC)
                     .networkSynchronized(net.minecraft.resources.ResourceLocation.STREAM_CODEC));
 
+    /** A poisoned drink: who poisoned it (only they see it is poisoned). */
+    public static final Supplier<DataComponentType<java.util.UUID>> POISONED =
+            COMPONENTS.registerComponentType("poisoned", b -> b.persistent(net.minecraft.core.UUIDUtil.CODEC)
+                    .networkSynchronized(net.minecraft.core.UUIDUtil.STREAM_CODEC));
+
     private LotrComponents() {}
 
     public static void register(IEventBus modBus) {
