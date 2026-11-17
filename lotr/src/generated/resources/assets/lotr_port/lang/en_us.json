@@ -3128,6 +3128,8 @@
   "key.categories.lotr_port": "The Lord of the Rings",
   "key.lotr_port.alignment_next": "Alignment bar: next faction",
   "key.lotr_port.alignment_prev": "Alignment bar: previous faction",
+  "key.lotr_port.alignment_region_next": "Alignment bar: next region",
+  "key.lotr_port.alignment_region_prev": "Alignment bar: previous region",
   "key.lotr_port.fast_travel": "Fast Travel",
   "key.lotr_port.jukebox": "Jukebox (music here)",
   "key.lotr_port.map": "Middle-earth Map",

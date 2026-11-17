@@ -38,8 +38,12 @@ public final class HudNet {
         }));
     }
 
-    /** The alignment bar's arrow keys (as LOTR's): show the next ({@code step} 1) or previous (-1) faction. */
+    /**
+     * The alignment bar's arrow keys (as LOTR's): left/right show the previous (-1) or next (1) faction in the region,
+     * up/down the previous ({@code -REGION}) or next ({@code REGION}) region.
+     */
     public record CycleView(int step) implements CustomPacketPayload {
+        public static final int REGION = 2;
         public static final Type<CycleView> TYPE = new Type<>(LotrPort.id("cycle_view"));
         public static final StreamCodec<RegistryFriendlyByteBuf, CycleView> CODEC =
                 ByteBufCodecs.VAR_INT.map(CycleView::new, CycleView::step).cast();

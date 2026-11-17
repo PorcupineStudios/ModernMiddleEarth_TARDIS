@@ -50,5 +50,17 @@ public final class LotrClientGame {
                 PacketDistributor.sendToServer(new com.porcupinestudios.lotrport.net.HudNet.CycleView(1));
             }
         }
+        while (LotrClient.ALIGNMENT_REGION_PREV_KEY.consumeClick()) {
+            if (mc.player != null && mc.screen == null) {
+                PacketDistributor.sendToServer(new com.porcupinestudios.lotrport.net.HudNet.CycleView(
+                        -com.porcupinestudios.lotrport.net.HudNet.CycleView.REGION));
+            }
+        }
+        while (LotrClient.ALIGNMENT_REGION_NEXT_KEY.consumeClick()) {
+            if (mc.player != null && mc.screen == null) {
+                PacketDistributor.sendToServer(new com.porcupinestudios.lotrport.net.HudNet.CycleView(
+                        com.porcupinestudios.lotrport.net.HudNet.CycleView.REGION));
+            }
+        }
     }
 }
