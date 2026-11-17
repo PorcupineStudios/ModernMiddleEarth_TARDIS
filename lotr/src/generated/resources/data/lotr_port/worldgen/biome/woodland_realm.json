@@ -39,6 +39,12 @@
         "weight": 30,
         "minCount": 4,
         "maxCount": 6
+      },
+      {
+        "type": "minecraft:fox",
+        "weight": 8,
+        "minCount": 2,
+        "maxCount": 4
       }
     ],
     "ambient": [
@@ -118,7 +124,11 @@
       "minecraft:flower_default",
       "minecraft:patch_grass_plain",
       "minecraft:patch_tall_grass",
-      "minecraft:patch_large_fern"
+      "minecraft:patch_large_fern",
+      "lotr_port:bee_nests_rare",
+      "minecraft:brown_mushroom_normal",
+      "minecraft:red_mushroom_normal",
+      "minecraft:patch_pumpkin"
     ],
     [
       "minecraft:freeze_top_layer"

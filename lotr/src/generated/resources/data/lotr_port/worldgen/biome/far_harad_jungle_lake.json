@@ -48,6 +48,20 @@
         "minCount": 4,
         "weight": 10
       }
+    ],
+    "creature": [
+      {
+        "type": "minecraft:parrot",
+        "weight": 40,
+        "minCount": 1,
+        "maxCount": 2
+      },
+      {
+        "type": "minecraft:ocelot",
+        "weight": 2,
+        "minCount": 1,
+        "maxCount": 3
+      }
     ]
   },
   "spawn_costs": {},
@@ -119,7 +133,10 @@
       "minecraft:patch_sugar_cane",
       "minecraft:patch_tall_grass",
       "minecraft:patch_large_fern",
-      "minecraft:seagrass_river"
+      "minecraft:seagrass_river",
+      "minecraft:bamboo_light",
+      "minecraft:patch_melon",
+      "minecraft:vines"
     ],
     [
       "minecraft:freeze_top_layer"

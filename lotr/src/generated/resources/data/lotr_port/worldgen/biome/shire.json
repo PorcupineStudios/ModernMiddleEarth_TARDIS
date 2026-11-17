@@ -46,6 +46,12 @@
         "weight": 12,
         "minCount": 2,
         "maxCount": 6
+      },
+      {
+        "type": "minecraft:rabbit",
+        "weight": 4,
+        "minCount": 2,
+        "maxCount": 3
       }
     ],
     "ambient": [
@@ -133,7 +139,11 @@
       "lotr_port:plant/reeds_0_9",
       "lotr_port:plant/dried_reeds_0_1",
       "minecraft:flower_default",
-      "minecraft:patch_grass_plain"
+      "minecraft:patch_grass_plain",
+      "lotr_port:bee_nests_common",
+      "minecraft:brown_mushroom_normal",
+      "minecraft:red_mushroom_normal",
+      "minecraft:patch_pumpkin"
     ],
     [
       "minecraft:freeze_top_layer"

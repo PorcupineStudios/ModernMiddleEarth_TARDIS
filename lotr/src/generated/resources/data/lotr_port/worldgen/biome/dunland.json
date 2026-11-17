@@ -39,6 +39,12 @@
         "weight": 8,
         "minCount": 4,
         "maxCount": 8
+      },
+      {
+        "type": "minecraft:fox",
+        "weight": 8,
+        "minCount": 2,
+        "maxCount": 4
       }
     ],
     "ambient": [

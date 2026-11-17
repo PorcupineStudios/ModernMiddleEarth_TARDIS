@@ -35,6 +35,12 @@
         "weight": 8,
         "minCount": 4,
         "maxCount": 4
+      },
+      {
+        "type": "minecraft:frog",
+        "weight": 10,
+        "minCount": 2,
+        "maxCount": 5
       }
     ],
     "ambient": [
@@ -116,7 +122,10 @@
       "minecraft:patch_grass_plain",
       "minecraft:patch_sugar_cane",
       "minecraft:patch_tall_grass",
-      "minecraft:patch_large_fern"
+      "minecraft:patch_large_fern",
+      "minecraft:patch_waterlily",
+      "minecraft:brown_mushroom_normal",
+      "minecraft:red_mushroom_normal"
     ],
     [
       "minecraft:freeze_top_layer"

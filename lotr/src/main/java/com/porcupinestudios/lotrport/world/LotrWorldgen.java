@@ -50,6 +50,7 @@ public final class LotrWorldgen {
         FEATURES.register("forest_floor", com.porcupinestudios.lotrport.world.feature.ForestFloorFeature::new);
         FEATURES.register("crater_lava", com.porcupinestudios.lotrport.world.feature.CraterLavaFeature::new);
         FEATURES.register("reeds", com.porcupinestudios.lotrport.world.feature.ReedsFeature::new);
+        FEATURES.register("bee_nest", com.porcupinestudios.lotrport.world.feature.BeeNestFeature::new);
         FEATURES.register("template_tree", com.porcupinestudios.lotrport.world.feature.TemplateTreeFeature::new);
         FEATURES.register("mountain_ores", com.porcupinestudios.lotrport.world.feature.MountainOresFeature::new);
         FEATURES.register("heart_of_the_mountain",

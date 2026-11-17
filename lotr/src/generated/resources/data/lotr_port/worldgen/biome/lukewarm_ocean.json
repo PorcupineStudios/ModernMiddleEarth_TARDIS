@@ -153,7 +153,11 @@
       "minecraft:patch_grass_plain",
       "minecraft:patch_tall_grass",
       "minecraft:seagrass_warm",
-      "minecraft:kelp_warm"
+      "minecraft:kelp_warm",
+      "lotr_port:bee_nests_rare",
+      "minecraft:brown_mushroom_normal",
+      "minecraft:red_mushroom_normal",
+      "minecraft:patch_pumpkin"
     ],
     [
       "minecraft:freeze_top_layer"

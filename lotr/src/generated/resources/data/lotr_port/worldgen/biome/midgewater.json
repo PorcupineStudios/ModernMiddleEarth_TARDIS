@@ -32,6 +32,14 @@
         "minCount": 4,
         "weight": 10
       }
+    ],
+    "creature": [
+      {
+        "type": "minecraft:frog",
+        "weight": 10,
+        "minCount": 2,
+        "maxCount": 5
+      }
     ]
   },
   "spawn_costs": {},
@@ -96,7 +104,8 @@
       "minecraft:patch_grass_plain",
       "minecraft:patch_sugar_cane",
       "minecraft:patch_tall_grass",
-      "minecraft:patch_large_fern"
+      "minecraft:patch_large_fern",
+      "minecraft:patch_waterlily"
     ],
     [
       "minecraft:freeze_top_layer"

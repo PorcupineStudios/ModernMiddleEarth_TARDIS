@@ -199,4 +199,20 @@ public final class ModernTests {
         helper.assertTrue(misty.is(net.minecraft.tags.BiomeTags.IS_MOUNTAIN), "Misty Mountains not a mountain");
         helper.succeed();
     }
+
+    /** land.py: bees nest in the Shire, frogs croak in its marshes, parrots fly in the Far Harad jungle. */
+    @GameTest(template = "empty")
+    public static void landsHaveTheirNewAnimals(GameTestHelper helper) {
+        var biomes = helper.getLevel().registryAccess().registryOrThrow(net.minecraft.core.registries.Registries.BIOME);
+        java.util.function.Function<String, net.minecraft.world.level.biome.Biome> b = id -> biomes.get(LotrPort.id(id));
+        java.util.function.BiPredicate<String, EntityType<?>> spawns = (id, type) -> b.apply(id).getMobSettings()
+                .getMobs(net.minecraft.world.entity.MobCategory.CREATURE).unwrap().stream().anyMatch(d -> d.type == type);
+        helper.assertTrue(spawns.test("shire_marshes", EntityType.FROG), "no frogs in the Shire marshes");
+        helper.assertTrue(spawns.test("far_harad_jungle", EntityType.PARROT), "no parrots in the jungle");
+        helper.assertTrue(spawns.test("old_forest", EntityType.FOX), "no foxes in the Old Forest");
+        boolean nests = b.apply("shire").getGenerationSettings().features().stream().flatMap(h -> h.stream())
+                .anyMatch(h -> h.unwrapKey().map(k -> k.location().equals(LotrPort.id("bee_nests_common"))).orElse(false));
+        helper.assertTrue(nests, "no bee nests in the Shire");
+        helper.succeed();
+    }
 }

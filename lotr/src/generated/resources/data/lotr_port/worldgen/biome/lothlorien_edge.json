@@ -119,7 +119,11 @@
       "lotr_port:plant/dried_reeds_0_1",
       "minecraft:flower_default",
       "minecraft:patch_grass_forest",
-      "minecraft:patch_tall_grass"
+      "minecraft:patch_tall_grass",
+      "lotr_port:bee_nests_rare",
+      "minecraft:brown_mushroom_normal",
+      "minecraft:red_mushroom_normal",
+      "minecraft:patch_pumpkin"
     ],
     [
       "minecraft:freeze_top_layer"

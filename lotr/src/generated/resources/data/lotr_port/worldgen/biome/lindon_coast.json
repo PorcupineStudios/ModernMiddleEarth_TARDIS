@@ -123,7 +123,11 @@
     [
       "lotr_port:trees/lindon_coast",
       "lotr_port:plant/reeds_0_9",
-      "lotr_port:plant/dried_reeds_0_1"
+      "lotr_port:plant/dried_reeds_0_1",
+      "lotr_port:bee_nests_rare",
+      "minecraft:brown_mushroom_normal",
+      "minecraft:red_mushroom_normal",
+      "minecraft:patch_pumpkin"
     ],
     [
       "minecraft:freeze_top_layer"
