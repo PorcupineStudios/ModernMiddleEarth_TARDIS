@@ -242,7 +242,8 @@ public final class LotrHud {
                 alpha *= numberTick / 15f;
             }
         } else {
-            value = rankName(align);
+            // Aaron 2026-11-17: the standing always shows, after the rank (LOTR showed the number only after a change)
+            value = Component.translatableWithFallback(LIMITS_KEY, "%s (%s)", rankName(align), format(align));
             alpha = 1f;
         }
         borderedText(g, font, value, textX - font.width(value) / 2, textY + font.lineHeight + 3, alpha);
