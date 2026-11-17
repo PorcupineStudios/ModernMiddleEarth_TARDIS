@@ -44,16 +44,6 @@ LIFELESS = {"mirkwood_corrupted", "dol_guldur", "fangorn_wasteland", "ithilien_w
 AXOLOTLS = {"type": "minecraft:axolotl", "weight": 10, "minCount": 4, "maxCount": 6}
 
 
-def scale(count, k):
-    if isinstance(count, int):
-        return count * k
-    c = dict(count)
-    for key in ("min_inclusive", "max_inclusive"):
-        if key in c:
-            c[key] = c[key] * k
-    return c
-
-
 class Caves:
     def __init__(self, out=OUT):
         self.out = out
@@ -70,10 +60,10 @@ class Caves:
                       "max_radius": rmax}
             for ours, (vanilla, _, k) in feats.items():
                 p = copy.deepcopy(self.vanilla_placed(vanilla))
-                out = []
+                # k times vanilla's tries: a count first (counts are capped at 256 each), each copy then spread by
+                # vanilla's own in_square and height_range
+                out = [{"type": "minecraft:count", "count": k}]
                 for mod in p["placement"]:
-                    if mod["type"] == "minecraft:count":
-                        mod = dict(mod, count=scale(mod["count"], k))
                     if mod["type"] == "minecraft:height_range":
                         out += [dict(mod, height=HEIGHT), pocket]  # the pocket test before any scan
                         continue

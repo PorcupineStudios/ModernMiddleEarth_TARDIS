@@ -3,10 +3,14 @@
   "placement": [
     {
       "type": "minecraft:count",
+      "count": 4
+    },
+    {
+      "type": "minecraft:count",
       "count": {
         "type": "minecraft:uniform",
-        "max_inclusive": 1024,
-        "min_inclusive": 768
+        "max_inclusive": 256,
+        "min_inclusive": 192
       }
     },
     {
@@ -35,8 +39,8 @@
       "type": "minecraft:count",
       "count": {
         "type": "minecraft:uniform",
-        "max_inclusive": 20,
-        "min_inclusive": 4
+        "max_inclusive": 5,
+        "min_inclusive": 1
       }
     },
     {
