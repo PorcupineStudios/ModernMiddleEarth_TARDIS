@@ -95,7 +95,8 @@
       "lotr_port:plant/dried_reeds_0_1",
       "minecraft:patch_grass_plain",
       "minecraft:patch_tall_grass",
-      "minecraft:patch_large_fern"
+      "minecraft:patch_large_fern",
+      "minecraft:glow_lichen"
     ],
     [
       "minecraft:freeze_top_layer"

@@ -81,7 +81,8 @@
     ],
     [
       "lotr_port:roads",
-      "minecraft:amethyst_geode"
+      "minecraft:amethyst_geode",
+      "lotr_port:dripstone_pocket_large"
     ],
     [],
     [],
@@ -115,7 +116,9 @@
       "minecraft:ore_tuff"
     ],
     [
-      "lotr_port:dripstone"
+      "lotr_port:dripstone",
+      "lotr_port:dripstone_pocket_cluster",
+      "lotr_port:dripstone_pocket_pointed"
     ],
     [],
     [
@@ -126,6 +129,7 @@
       "minecraft:patch_grass_forest",
       "minecraft:patch_tall_grass",
       "minecraft:patch_large_fern",
+      "minecraft:glow_lichen",
       "minecraft:brown_mushroom_normal",
       "minecraft:red_mushroom_normal"
     ],

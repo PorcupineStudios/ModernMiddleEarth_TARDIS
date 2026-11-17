@@ -215,4 +215,32 @@ public final class ModernTests {
         helper.assertTrue(nests, "no bee nests in the Shire");
         helper.succeed();
     }
+
+    /**
+     * caves.py: lush caves come as scattered pockets, not one cave under a whole country. Over 2048 x 2048 blocks at
+     * two depths: pockets fill a few percent of the rock, in many separate cells.
+     */
+    @GameTest(template = "empty")
+    public static void lushCavesArePockets(GameTestHelper helper) {
+        var lush = new com.porcupinestudios.lotrport.world.feature.CavePocket("lush", 0.25f, 112, 64, 14, 30, 10);
+        long seed = 12345L;
+        int inside = 0;
+        int samples = 0;
+        java.util.Set<Long> cells = new java.util.HashSet<>();
+        for (int y : new int[] {-20, 30}) {
+            for (int x = 0; x < 2048; x += 4) {
+                for (int z = 0; z < 2048; z += 4) {
+                    samples++;
+                    if (lush.inside(seed, x, y, z)) {
+                        inside++;
+                        cells.add((long) Math.floorDiv(x, 112) << 32 | Math.floorDiv(z, 112) & 0xFFFFFFFFL);
+                    }
+                }
+            }
+        }
+        double share = inside / (double) samples;
+        helper.assertTrue(share > 0.002 && share < 0.08, "lush share " + share);
+        helper.assertTrue(cells.size() >= 8, "only " + cells.size() + " separate lush pockets");
+        helper.succeed();
+    }
 }

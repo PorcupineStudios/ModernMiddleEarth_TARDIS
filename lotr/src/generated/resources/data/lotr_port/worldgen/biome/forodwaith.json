@@ -67,7 +67,8 @@
     ],
     [
       "lotr_port:roads",
-      "minecraft:amethyst_geode"
+      "minecraft:amethyst_geode",
+      "lotr_port:dripstone_pocket_large"
     ],
     [],
     [
@@ -105,12 +106,15 @@
       "minecraft:ore_tuff"
     ],
     [
-      "lotr_port:dripstone"
+      "lotr_port:dripstone",
+      "lotr_port:dripstone_pocket_cluster",
+      "lotr_port:dripstone_pocket_pointed"
     ],
     [],
     [
       "lotr_port:plant/reeds_0_9",
-      "lotr_port:plant/dried_reeds_0_1"
+      "lotr_port:plant/dried_reeds_0_1",
+      "minecraft:glow_lichen"
     ],
     [
       "minecraft:freeze_top_layer"

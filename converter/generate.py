@@ -1503,6 +1503,8 @@ class Gen:
         print(json.dumps({"mountains": Mountains(OUT).run()}))
         from land import Land
         print(json.dumps({"land": Land(OUT).run()}))
+        from caves import Caves
+        print(json.dumps({"caves": Caves(OUT).run()}))
 
 
 if __name__ == "__main__":
