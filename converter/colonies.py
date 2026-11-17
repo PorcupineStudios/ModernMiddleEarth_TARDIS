@@ -45,6 +45,10 @@ UI_EN = {
     "item.lotr_port.colony_charter": "Colony Charter",
     "itemGroup.lotr_port.colonies": "Colonies",
     "item.lotr_port.building_writ": "Building Writ",
+    "block.lotr_port.building_plaque": "Building Plaque",
+    "block.lotr_port.treasury_ledger": "Treasury Ledger",
+    "block.lotr_port.town_hall_ledger": "Town Hall Ledger",
+    "block.lotr_port.customs_counter": "Customs Counter",
     "block.lotr_port.heart_of_the_mountain": "Heart of the Mountain",
 }
 

@@ -1,0 +1,7 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": ["PBP", "LLL"],
+  "key": {"P": {"item": "minecraft:paper"}, "B": {"item": "minecraft:book"}, "L": {"tag": "minecraft:logs"}},
+  "result": {"id": "lotr_port:customs_counter", "count": 1}
+}

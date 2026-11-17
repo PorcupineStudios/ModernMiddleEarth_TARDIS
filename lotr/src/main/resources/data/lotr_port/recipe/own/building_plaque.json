@@ -1,0 +1,7 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": ["GGG", "PPP"],
+  "key": {"G": {"item": "minecraft:gold_nugget"}, "P": {"tag": "minecraft:planks"}},
+  "result": {"id": "lotr_port:building_plaque", "count": 2}
+}

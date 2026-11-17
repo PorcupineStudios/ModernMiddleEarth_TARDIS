@@ -97,6 +97,51 @@ public final class WorkComponents {
                 .apply(i, Economy::new));
     }
 
+    /** The Treasury Ledger's books: one line per colony day, newest last, at most {@link #BOOK_DAYS}. */
+    public record Books(java.util.List<Entry> days) {
+        public static final Books EMPTY = new Books(java.util.List.of());
+        public static final Codec<Books> CODEC = Entry.CODEC.listOf().xmap(Books::new, Books::days);
+
+        public Books {
+            days = java.util.List.copyOf(days);
+        }
+
+        /** Adds to the day's line (making it if new) and records the balance after. */
+        public Books note(long day, int taxes, int wages, int soldiers, long balance) {
+            java.util.List<Entry> out = new java.util.ArrayList<>(days);
+            Entry last = out.isEmpty() ? null : out.get(out.size() - 1);
+            if (last != null && last.day() == day) {
+                out.set(out.size() - 1, new Entry(day, last.taxes() + taxes, last.wages() + wages,
+                        last.soldiers() + soldiers, balance));
+            } else {
+                out.add(new Entry(day, taxes, wages, soldiers, balance));
+            }
+            return new Books(out.subList(Math.max(0, out.size() - BOOK_DAYS), out.size()));
+        }
+    }
+
+    /** One day of the books: coins in from the head tax, out in wages and soldiers' pay, and the balance after. */
+    public record Entry(long day, int taxes, int wages, int soldiers, long balance) {
+        public static final Codec<Entry> CODEC = RecordCodecBuilder.create(i -> i.group(
+                Codec.LONG.fieldOf("day").forGetter(Entry::day),
+                Codec.INT.optionalFieldOf("taxes", 0).forGetter(Entry::taxes),
+                Codec.INT.optionalFieldOf("wages", 0).forGetter(Entry::wages),
+                Codec.INT.optionalFieldOf("soldiers", 0).forGetter(Entry::soldiers),
+                Codec.LONG.optionalFieldOf("balance", 0L).forGetter(Entry::balance))
+                .apply(i, Entry::new));
+    }
+
+    public static final int BOOK_DAYS = 30;
+
+    /** Notes a pay pass in the colony's books (the day is the colony day of {@code now}). */
+    public static void book(com.porcupinestudios.lotrport.colony.Colonies colonies,
+            com.porcupinestudios.lotrport.colony.Colony c, long now, int taxes, int wages, int soldiers, long balance) {
+        long day = now / Math.max(1, com.porcupinestudios.lotrport.colony.ColonyData.settings().dayTicks());
+        colonies.set(c, BOOKS, c.get(BOOKS).orElse(Books.EMPTY).note(day, taxes, wages, soldiers, balance));
+    }
+
+    public static final ComponentType<Books> BOOKS = ComponentType.register(LotrPort.id("books"), Books.CODEC);
+
     public static final ComponentType<Home> HOME = ComponentType.register(LotrPort.id("home"), Home.CODEC);
     public static final ComponentType<Job> JOB = ComponentType.register(LotrPort.id("job"), Job.CODEC);
     public static final ComponentType<Needs> NEEDS = ComponentType.register(LotrPort.id("needs"), Needs.CODEC);
