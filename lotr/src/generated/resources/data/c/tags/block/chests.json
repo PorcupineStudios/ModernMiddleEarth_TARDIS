@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    "lotr_port:ancient_haradric_chest",
+    "lotr_port:lebethron_casket",
+    "lotr_port:mallorn_box",
+    "lotr_port:reed_basket",
+    "lotr_port:spawner_chest",
+    "lotr_port:spawner_chest_ancient_harad",
+    "lotr_port:spawner_chest_stone",
+    "lotr_port:stone_chest"
+  ]
+}

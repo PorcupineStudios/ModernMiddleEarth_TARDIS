@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "lotr_port:mahogany_wood",
+    "lotr_port:mahogany_wood_beam",
+    "lotr_port:stripped_mahogany_wood",
+    "lotr_port:stripped_mahogany_wood_beam"
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "lotr_port:olive_wood",
+    "lotr_port:olive_wood_beam",
+    "lotr_port:stripped_olive_wood",
+    "lotr_port:stripped_olive_wood_beam"
+  ]
+}

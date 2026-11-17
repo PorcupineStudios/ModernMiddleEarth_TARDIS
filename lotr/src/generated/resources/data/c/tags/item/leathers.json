@@ -1,0 +1,12 @@
+{
+  "replace": false,
+  "values": [
+    "lotr_port:fur",
+    "lotr_port:fur_bed",
+    "lotr_port:gemsbok_hide",
+    "lotr_port:lion_fur",
+    "lotr_port:lion_fur_bed",
+    "lotr_port:sulfur",
+    "lotr_port:sulfur_match"
+  ]
+}

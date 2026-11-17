@@ -1493,6 +1493,8 @@ class Gen:
         # post-steps that work on the written content (each can also be rerun alone)
         from woodsets import WoodSets
         print(json.dumps({"woodsets": WoodSets(OUT).run()}))
+        from tags import Tagger
+        print(json.dumps({"tags": Tagger(OUT).run()}))
 
 
 if __name__ == "__main__":

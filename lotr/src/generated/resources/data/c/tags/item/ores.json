@@ -1,0 +1,27 @@
+{
+  "replace": false,
+  "values": [
+    "lotr_port:amber_vein",
+    "lotr_port:amethyst_vein",
+    "lotr_port:copper_ore",
+    "lotr_port:diamond_vein",
+    "lotr_port:durnor_ore",
+    "lotr_port:edhelvir_ore",
+    "lotr_port:emerald_vein",
+    "lotr_port:glowstone_ore",
+    "lotr_port:gulduril_ore",
+    "lotr_port:gulduril_ore_block",
+    "lotr_port:mithril_ore",
+    "lotr_port:morgul_iron_ore",
+    "lotr_port:morgul_iron_ore_block",
+    "lotr_port:niter_ore",
+    "lotr_port:opal_vein",
+    "lotr_port:rock_salt",
+    "lotr_port:ruby_vein",
+    "lotr_port:sapphire_vein",
+    "lotr_port:silver_ore",
+    "lotr_port:sulfur_ore",
+    "lotr_port:tin_ore",
+    "lotr_port:topaz_vein"
+  ]
+}

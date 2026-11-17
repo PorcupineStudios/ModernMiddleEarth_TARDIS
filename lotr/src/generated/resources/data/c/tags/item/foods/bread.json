@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "lotr_port:cram",
+    "lotr_port:hobbit_pancake",
+    "lotr_port:hobbit_pancake_with_maple_syrup",
+    "lotr_port:lembas",
+    "lotr_port:maggoty_bread"
+  ]
+}

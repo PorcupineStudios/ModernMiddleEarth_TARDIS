@@ -1,0 +1,23 @@
+{
+  "replace": false,
+  "values": [
+    "lotr_port:angmar_pickaxe",
+    "lotr_port:blue_dwarven_mattock",
+    "lotr_port:blue_dwarven_pickaxe",
+    "lotr_port:bronze_pickaxe",
+    "lotr_port:dol_guldur_pickaxe",
+    "lotr_port:dwarven_mattock",
+    "lotr_port:dwarven_pickaxe",
+    "lotr_port:galadhrim_pickaxe",
+    "lotr_port:lindon_pickaxe",
+    "lotr_port:mallorn_pickaxe",
+    "lotr_port:mithril_mattock",
+    "lotr_port:mithril_pickaxe",
+    "lotr_port:mordor_pickaxe",
+    "lotr_port:pickaxe_of_the_underworld",
+    "lotr_port:rivendell_pickaxe",
+    "lotr_port:taurethrim_pickaxe",
+    "lotr_port:uruk_pickaxe",
+    "lotr_port:wood_elven_pickaxe"
+  ]
+}

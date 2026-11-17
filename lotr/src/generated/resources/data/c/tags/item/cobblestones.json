@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [
+    "lotr_port:cracked_gondor_cobblebrick",
+    "lotr_port:gondor_cobblebrick",
+    "lotr_port:mossy_gondor_cobblebrick"
+  ]
+}

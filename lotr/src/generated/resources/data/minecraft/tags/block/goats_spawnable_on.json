@@ -1,0 +1,15 @@
+{
+  "replace": false,
+  "values": [
+    "lotr_port:cargon",
+    "lotr_port:chalk",
+    "lotr_port:elvengrass",
+    "lotr_port:gondor_rock",
+    "lotr_port:jungle_grass",
+    "lotr_port:luigon",
+    "lotr_port:mordor_gravel",
+    "lotr_port:mordor_rock",
+    "lotr_port:obsidian_gravel",
+    "lotr_port:rohan_rock"
+  ]
+}

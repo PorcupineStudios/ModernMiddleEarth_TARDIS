@@ -84,13 +84,63 @@ public final class ModernTests {
 
     @GameTest(template = "empty")
     public static void vanillaMonstersDontSpawnNaturally(GameTestHelper helper) {
-        var level = helper.getLevel();
-        helper.assertTrue(com.porcupinestudios.lotrport.world.LotrDimensions.isMiddleEarth(level),
-                "the test world isn't Middle-earth");
+        // the test world is a normal one: Middle-earth is its own dimension there
+        var level = com.porcupinestudios.lotrport.world.LotrDimensions.middleEarth(helper.getLevel().getServer());
+        helper.assertTrue(level != null, "no Middle-earth level");
+        helper.assertTrue(!NoMonsters.blocked(helper.getLevel(), EntityType.ZOMBIE, MobSpawnType.NATURAL)
+                || com.porcupinestudios.lotrport.world.LotrDimensions.isMiddleEarth(helper.getLevel()),
+                "zombies blocked outside Middle-earth");
         helper.assertTrue(NoMonsters.blocked(level, EntityType.ZOMBIE, MobSpawnType.NATURAL), "zombies spawn");
         helper.assertTrue(NoMonsters.blocked(level, EntityType.PHANTOM, MobSpawnType.NATURAL), "phantoms spawn");
         helper.assertTrue(!NoMonsters.blocked(level, EntityType.ZOMBIE, MobSpawnType.SPAWN_EGG), "eggs blocked");
         helper.assertTrue(!NoMonsters.blocked(level, EntityType.COW, MobSpawnType.NATURAL), "cows blocked");
+        helper.succeed();
+    }
+
+    /**
+     * Nothing missed by converter/tags.py: every block that takes time to break is in a mineable tag or, like glass
+     * and beds, in lotr_port:no_mining_tool; every LOTR log, plank, leaf, slab, stair, wall, fence, door and sign is
+     * in its vanilla family tag.
+     */
+    @GameTest(template = "empty")
+    public static void everyBlockHasAMiningTool(GameTestHelper helper) {
+        var noTool = net.minecraft.tags.TagKey.create(net.minecraft.core.registries.Registries.BLOCK,
+                LotrPort.id("no_mining_tool"));
+        java.util.List<String> missing = new java.util.ArrayList<>();
+        java.util.List<String> family = new java.util.ArrayList<>();
+        for (Block b : BuiltInRegistries.BLOCK) {
+            var key = BuiltInRegistries.BLOCK.getKey(b);
+            if (!key.getNamespace().equals(LotrPort.MOD_ID)) {
+                continue;
+            }
+            BlockState s = b.defaultBlockState();
+            float speed = s.getDestroySpeed(net.minecraft.world.level.EmptyBlockGetter.INSTANCE, BlockPos.ZERO);
+            boolean mined = s.is(net.minecraft.tags.BlockTags.MINEABLE_WITH_AXE)
+                    || s.is(net.minecraft.tags.BlockTags.MINEABLE_WITH_PICKAXE)
+                    || s.is(net.minecraft.tags.BlockTags.MINEABLE_WITH_SHOVEL)
+                    || s.is(net.minecraft.tags.BlockTags.MINEABLE_WITH_HOE);
+            if (speed > 0 && !mined && !s.is(noTool)) {
+                missing.add(key.getPath());
+            }
+            String p = key.getPath();
+            var expect = b instanceof net.minecraft.world.level.block.LeavesBlock ? net.minecraft.tags.BlockTags.LEAVES
+                    : b instanceof net.minecraft.world.level.block.SlabBlock ? net.minecraft.tags.BlockTags.SLABS
+                    : b instanceof net.minecraft.world.level.block.StairBlock ? net.minecraft.tags.BlockTags.STAIRS
+                    : b instanceof net.minecraft.world.level.block.WallBlock ? net.minecraft.tags.BlockTags.WALLS
+                    : b instanceof net.minecraft.world.level.block.FenceBlock ? net.minecraft.tags.BlockTags.FENCES
+                    : b instanceof net.minecraft.world.level.block.DoorBlock ? net.minecraft.tags.BlockTags.DOORS
+                    : b instanceof net.minecraft.world.level.block.SignBlock ? net.minecraft.tags.BlockTags.ALL_SIGNS
+                    : p.endsWith("_planks") ? net.minecraft.tags.BlockTags.PLANKS
+                    : WoodSets.strippedOf(p) != null || p.startsWith("stripped_") ? net.minecraft.tags.BlockTags.LOGS
+                    : null;
+            if (expect != null && !s.is(expect)) {
+                family.add(p + " not in " + expect.location());
+            }
+        }
+        helper.assertTrue(missing.isEmpty(), missing.size() + " blocks without a mining tool: "
+                + missing.subList(0, Math.min(10, missing.size())));
+        helper.assertTrue(family.isEmpty(), family.size() + " blocks outside their family tag: "
+                + family.subList(0, Math.min(10, family.size())));
         helper.succeed();
     }
 }

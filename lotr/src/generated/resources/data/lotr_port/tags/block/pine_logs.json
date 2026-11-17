@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "lotr_port:pine_wood",
+    "lotr_port:pine_wood_beam",
+    "lotr_port:stripped_pine_wood",
+    "lotr_port:stripped_pine_wood_beam"
+  ]
+}

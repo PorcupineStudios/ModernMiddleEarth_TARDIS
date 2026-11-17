@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "values": [
+    "lotr_port:raw_camel",
+    "lotr_port:raw_lion",
+    "lotr_port:raw_rabbit",
+    "lotr_port:raw_rhino",
+    "lotr_port:raw_venison",
+    "lotr_port:raw_zebra"
+  ]
+}

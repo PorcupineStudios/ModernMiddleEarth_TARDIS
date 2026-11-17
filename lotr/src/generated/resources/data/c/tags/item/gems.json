@@ -1,0 +1,16 @@
+{
+  "replace": false,
+  "values": [
+    "lotr_port:amber",
+    "lotr_port:amethyst",
+    "lotr_port:diamond",
+    "lotr_port:edhelvir",
+    "lotr_port:emerald",
+    "lotr_port:gulduril",
+    "lotr_port:opal",
+    "lotr_port:pearl",
+    "lotr_port:ruby",
+    "lotr_port:sapphire",
+    "lotr_port:topaz"
+  ]
+}

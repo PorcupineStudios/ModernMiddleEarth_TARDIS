@@ -1,0 +1,30 @@
+{
+  "replace": false,
+  "values": [
+    "lotr_port:amber_block",
+    "lotr_port:amethyst_block",
+    "lotr_port:block_of_black_uruk_steel",
+    "lotr_port:block_of_blue_dwarven_steel",
+    "lotr_port:block_of_bronze",
+    "lotr_port:block_of_copper",
+    "lotr_port:block_of_durnor",
+    "lotr_port:block_of_dwarven_steel",
+    "lotr_port:block_of_edhelvir",
+    "lotr_port:block_of_elven_steel",
+    "lotr_port:block_of_galvorn",
+    "lotr_port:block_of_gilded_iron",
+    "lotr_port:block_of_gulduril",
+    "lotr_port:block_of_mithril",
+    "lotr_port:block_of_orc_steel",
+    "lotr_port:block_of_silver",
+    "lotr_port:block_of_tin",
+    "lotr_port:block_of_uruk_steel",
+    "lotr_port:diamond_block",
+    "lotr_port:emerald_block",
+    "lotr_port:opal_block",
+    "lotr_port:pearl_block",
+    "lotr_port:ruby_block",
+    "lotr_port:sapphire_block",
+    "lotr_port:topaz_block"
+  ]
+}
