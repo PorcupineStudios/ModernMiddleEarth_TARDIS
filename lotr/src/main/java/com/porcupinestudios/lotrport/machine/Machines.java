@@ -52,6 +52,13 @@ public final class Machines {
                     .map(java.util.function.Supplier::get).filter(b -> b instanceof LotrChestBlock)
                     .toArray(Block[]::new)).build(null));
 
+    public static final Supplier<BlockEntityType<LotrBedBlockEntity>> BED =
+            BLOCK_ENTITIES.register("bed",
+            () -> BlockEntityType.Builder.of(LotrBedBlockEntity::new, LotrBlocks.BY_ID.values().stream()
+                    .map(java.util.function.Supplier::get)
+                    .filter(b -> b instanceof com.porcupinestudios.lotrport.content.LotrBedBlock)
+                    .toArray(Block[]::new)).build(null));
+
     public static final Supplier<MenuType<MachineMenu>> FORGE_MENU = menu(MachineMenu.Layout.FORGE);
     public static final Supplier<MenuType<MachineMenu>> OVEN_MENU = menu(MachineMenu.Layout.OVEN);
     public static final Supplier<MenuType<MachineMenu>> MILLSTONE_MENU = menu(MachineMenu.Layout.MILLSTONE);
