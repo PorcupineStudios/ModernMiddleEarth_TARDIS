@@ -12,5 +12,44 @@
   "races": {
     "dwarf": 1.5,
     "hobbit": 0.8
-  }
+  },
+  "tool": "minecraft:iron_pickaxe",
+  "tool_days": 30,
+  "recipes": [
+    {
+      "consumes": {
+        "minecraft:stone": 4
+      },
+      "produces": {
+        "minecraft:stone_bricks": 4
+      },
+      "requires": "lotr_port:masonry"
+    },
+    {
+      "consumes": {
+        "minecraft:cobblestone": 6
+      },
+      "produces": {
+        "minecraft:cobblestone_wall": 6
+      },
+      "requires": "lotr_port:masonry"
+    },
+    {
+      "consumes": {
+        "minecraft:stone_bricks": 6
+      },
+      "produces": {
+        "minecraft:stone_brick_stairs": 4
+      },
+      "requires": "lotr_port:masonry"
+    },
+    {
+      "consumes": {
+        "minecraft:cobblestone": 8
+      },
+      "produces": {
+        "minecraft:furnace": 1
+      }
+    }
+  ]
 }

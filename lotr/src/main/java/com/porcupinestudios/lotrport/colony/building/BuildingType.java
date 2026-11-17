@@ -26,16 +26,18 @@ import net.neoforged.neoforge.event.AddReloadListenerEvent;
  * @param home people live here: its beds are homes
  * @param job the job its workers do (none: nobody works here)
  * @param requires all must hold
+ * @param research a colony tech ({@code colony_tech/<id>}) the colony must have researched to build it, if any
  */
 public record BuildingType(String name, String description, int priority, boolean home, Optional<ResourceLocation> job,
-        List<Requirement> requires) {
+        List<Requirement> requires, Optional<ResourceLocation> research) {
     public static final Codec<BuildingType> CODEC = RecordCodecBuilder.create(i -> i.group(
             Codec.STRING.optionalFieldOf("name", "").forGetter(BuildingType::name),
             Codec.STRING.optionalFieldOf("description", "").forGetter(BuildingType::description),
             Codec.INT.optionalFieldOf("priority", 0).forGetter(BuildingType::priority),
             Codec.BOOL.optionalFieldOf("home", false).forGetter(BuildingType::home),
             ResourceLocation.CODEC.optionalFieldOf("job").forGetter(BuildingType::job),
-            Requirement.CODEC.listOf().optionalFieldOf("requires", List.of()).forGetter(BuildingType::requires))
+            Requirement.CODEC.listOf().optionalFieldOf("requires", List.of()).forGetter(BuildingType::requires),
+            ResourceLocation.CODEC.optionalFieldOf("research").forGetter(BuildingType::research))
             .apply(i, BuildingType::new));
 
     private static final CodecJsonLoader<BuildingType> LOADER = new CodecJsonLoader<>("colony_building", CODEC);
@@ -109,6 +111,12 @@ public record BuildingType(String name, String description, int priority, boolea
                 .sorted(Comparator.comparingInt((Map.Entry<ResourceLocation, BuildingType> e) -> -e.getValue().priority())
                         .thenComparing(e -> e.getKey().toString()))
                 .map(Map.Entry::getKey).toList();
+    }
+
+    /** Whether the colony has the research this type needs. */
+    public boolean researched(com.porcupinestudios.lotrport.colony.Colony c) {
+        return research.isEmpty()
+                || com.porcupinestudios.lotrport.colony.work.Production.unlocked.test(c, research.get());
     }
 
     public Component title(ResourceLocation id) {

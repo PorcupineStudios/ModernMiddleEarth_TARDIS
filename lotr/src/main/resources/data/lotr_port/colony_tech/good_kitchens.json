@@ -1,0 +1,19 @@
+{
+  "name": "Good Kitchens",
+  "lane": "farming",
+  "stage": 2,
+  "after": [
+    "lotr_port:crop_rotation"
+  ],
+  "description": "Cooks bake cakes and work faster; everyone is a little happier",
+  "cost": {
+    "research": {
+      "lotr_port:basic": 30,
+      "lotr_port:scholarly": 5
+    }
+  },
+  "jobs": {
+    "lotr_port:cook": 1.25
+  },
+  "happiness": 2
+}

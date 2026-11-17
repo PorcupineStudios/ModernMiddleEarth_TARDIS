@@ -1,0 +1,11 @@
+{
+  "name": "Day of Rest",
+  "description": "One day in seven kept free",
+  "work": 0.92,
+  "happiness": 8,
+  "unity": 4,
+  "upkeep": 0,
+  "excludes": [
+    "lotr_port:long_hours"
+  ]
+}

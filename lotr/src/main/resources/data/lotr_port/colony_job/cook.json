@@ -13,5 +13,60 @@
     "hobbit": 1.5,
     "orc": 0.6,
     "goblin": 0.6
-  }
+  },
+  "recipes": [
+    {
+      "consumes": {
+        "minecraft:beef": 1
+      },
+      "produces": {
+        "minecraft:cooked_beef": 1
+      }
+    },
+    {
+      "consumes": {
+        "minecraft:porkchop": 1
+      },
+      "produces": {
+        "minecraft:cooked_porkchop": 1
+      }
+    },
+    {
+      "consumes": {
+        "minecraft:mutton": 1
+      },
+      "produces": {
+        "minecraft:cooked_mutton": 1
+      }
+    },
+    {
+      "consumes": {
+        "minecraft:chicken": 1
+      },
+      "produces": {
+        "minecraft:cooked_chicken": 1
+      }
+    },
+    {
+      "consumes": {
+        "minecraft:potato": 1
+      },
+      "produces": {
+        "minecraft:baked_potato": 1
+      }
+    },
+    {
+      "consumes": {
+        "minecraft:wheat": 3,
+        "minecraft:sugar": 2,
+        "minecraft:egg": 1,
+        "minecraft:milk_bucket": 3
+      },
+      "produces": {
+        "minecraft:cake": 1,
+        "minecraft:bucket": 3
+      },
+      "requires": "lotr_port:good_kitchens"
+    }
+  ]
 }

@@ -1,0 +1,14 @@
+{
+  "name": "Crop Rotation",
+  "lane": "farming",
+  "stage": 1,
+  "description": "Farmers grow a fifth more",
+  "cost": {
+    "research": {
+      "lotr_port:basic": 15
+    }
+  },
+  "jobs": {
+    "lotr_port:farmer": 1.2
+  }
+}

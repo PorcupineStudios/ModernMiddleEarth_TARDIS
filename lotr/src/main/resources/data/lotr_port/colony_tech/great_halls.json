@@ -1,0 +1,19 @@
+{
+  "name": "Great Halls",
+  "lane": "building",
+  "stage": 2,
+  "after": [
+    "lotr_port:masonry"
+  ],
+  "description": "Better buildings lift spirits",
+  "cost": {
+    "research": {
+      "lotr_port:basic": 30,
+      "lotr_port:scholarly": 20
+    },
+    "items": {
+      "minecraft:stone_bricks": 64
+    }
+  },
+  "happiness": 3
+}

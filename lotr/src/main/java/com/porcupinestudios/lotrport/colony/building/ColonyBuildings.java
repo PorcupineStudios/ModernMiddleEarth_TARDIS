@@ -202,12 +202,17 @@ public final class ColonyBuildings {
                 }
             }
         }
-        List<ResourceLocation> fits = BuildingType.fitting(room.counts());
+        List<ResourceLocation> fits = BuildingType.fitting(room.counts()).stream()
+                .filter(id -> BuildingType.get(id).map(t -> t.researched(c)).orElse(false)).toList();
         ResourceLocation type;
         if (wanted.isPresent()) {
             Optional<BuildingType> t = BuildingType.get(wanted.get());
             if (t.isEmpty()) {
                 return Result.fail("colony.lotr_port.building.unknown_type", "Unknown building type %s", wanted.get());
+            }
+            if (!t.get().researched(c)) {
+                return Result.fail("colony.lotr_port.building.unresearched", "The colony must research %s first",
+                        t.get().research().get().getPath().replace('_', ' '));
             }
             Optional<BuildingType.Requirement> miss = t.get().missing(room.counts());
             if (miss.isPresent()) {
@@ -274,6 +279,10 @@ public final class ColonyBuildings {
             if (t.isEmpty()) {
                 return Result.fail("colony.lotr_port.building.unknown_type", "Unknown building type %s", type);
             }
+            if (!t.get().researched(c)) {
+                return Result.fail("colony.lotr_port.building.unresearched", "The colony must research %s first",
+                        t.get().research().get().getPath().replace('_', ' '));
+            }
             Optional<BuildingType.Requirement> miss = t.get().missing(b.get().counts());
             if (miss.isPresent()) {
                 return new Result(Optional.empty(), Component.translatableWithFallback(
@@ -303,7 +312,8 @@ public final class ColonyBuildings {
         } else {
             RoomScan.Room room = measure(level, door.get(), null);
             if (room.ok()) {
-                List<ResourceLocation> fits = BuildingType.fitting(room.counts());
+                List<ResourceLocation> fits = BuildingType.fitting(room.counts()).stream()
+                .filter(id -> BuildingType.get(id).map(t -> t.researched(c)).orElse(false)).toList();
                 Building.Packed packed = Building.pack(room.cells());
                 if (!fits.isEmpty() && packed != null) {
                     ResourceLocation type = fits.contains(b.type()) ? b.type() : fits.get(0);

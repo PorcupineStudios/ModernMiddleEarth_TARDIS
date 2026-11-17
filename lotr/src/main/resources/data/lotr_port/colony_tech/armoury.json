@@ -1,0 +1,18 @@
+{
+  "name": "Armoury",
+  "lane": "crafts",
+  "stage": 2,
+  "after": [
+    "lotr_port:toolmaking"
+  ],
+  "description": "Smiths forge armour",
+  "cost": {
+    "research": {
+      "lotr_port:basic": 40,
+      "lotr_port:scholarly": 10
+    },
+    "items": {
+      "minecraft:iron_ingot": 16
+    }
+  }
+}

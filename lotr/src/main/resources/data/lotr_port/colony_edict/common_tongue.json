@@ -1,0 +1,9 @@
+{
+  "name": "The Common Tongue",
+  "description": "All business in Westron: the races mix more easily",
+  "unity": 8,
+  "quarrels": 0.8,
+  "upkeep": 2,
+  "min_population": 20,
+  "requires": "lotr_port:civics"
+}
