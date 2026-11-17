@@ -31,9 +31,13 @@ public final class NoMonsters {
 
     /** Whether a natural spawn of {@code type} by {@code how} is turned away in {@code level}. */
     public static boolean blocked(ServerLevel level, EntityType<?> type, MobSpawnType how) {
+        return blocks(type, how) && LotrDimensions.isMiddleEarth(level);
+    }
+
+    /** Whether a spawn of {@code type} by {@code how} is turned away in Middle-earth. */
+    public static boolean blocks(EntityType<?> type, MobSpawnType how) {
         return type.getCategory() == MobCategory.MONSTER && BLOCKED.contains(how)
-                && !EntityType.getKey(type).getNamespace().equals(LotrPort.MOD_ID) && !type.is(ALLOWED)
-                && LotrDimensions.isMiddleEarth(level);
+                && !EntityType.getKey(type).getNamespace().equals(LotrPort.MOD_ID) && !type.is(ALLOWED);
     }
 
     private static void onSpawn(FinalizeSpawnEvent event) {

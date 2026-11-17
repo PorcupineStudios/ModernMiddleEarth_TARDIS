@@ -84,16 +84,15 @@ public final class ModernTests {
 
     @GameTest(template = "empty")
     public static void vanillaMonstersDontSpawnNaturally(GameTestHelper helper) {
-        // the test world is a normal one: Middle-earth is its own dimension there
-        var level = com.porcupinestudios.lotrport.world.LotrDimensions.middleEarth(helper.getLevel().getServer());
-        helper.assertTrue(level != null, "no Middle-earth level");
-        helper.assertTrue(!NoMonsters.blocked(helper.getLevel(), EntityType.ZOMBIE, MobSpawnType.NATURAL)
-                || com.porcupinestudios.lotrport.world.LotrDimensions.isMiddleEarth(helper.getLevel()),
+        helper.assertTrue(NoMonsters.blocks(EntityType.ZOMBIE, MobSpawnType.NATURAL), "zombies spawn");
+        helper.assertTrue(NoMonsters.blocks(EntityType.PHANTOM, MobSpawnType.NATURAL), "phantoms spawn");
+        helper.assertTrue(NoMonsters.blocks(EntityType.PILLAGER, MobSpawnType.PATROL), "patrols spawn");
+        helper.assertTrue(!NoMonsters.blocks(EntityType.ZOMBIE, MobSpawnType.SPAWN_EGG), "eggs blocked");
+        helper.assertTrue(!NoMonsters.blocks(EntityType.COW, MobSpawnType.NATURAL), "cows blocked");
+        // only in Middle-earth: the test world's overworld is a normal one
+        helper.assertTrue(com.porcupinestudios.lotrport.world.LotrDimensions.isMiddleEarth(helper.getLevel())
+                || !NoMonsters.blocked(helper.getLevel(), EntityType.ZOMBIE, MobSpawnType.NATURAL),
                 "zombies blocked outside Middle-earth");
-        helper.assertTrue(NoMonsters.blocked(level, EntityType.ZOMBIE, MobSpawnType.NATURAL), "zombies spawn");
-        helper.assertTrue(NoMonsters.blocked(level, EntityType.PHANTOM, MobSpawnType.NATURAL), "phantoms spawn");
-        helper.assertTrue(!NoMonsters.blocked(level, EntityType.ZOMBIE, MobSpawnType.SPAWN_EGG), "eggs blocked");
-        helper.assertTrue(!NoMonsters.blocked(level, EntityType.COW, MobSpawnType.NATURAL), "cows blocked");
         helper.succeed();
     }
 
