@@ -154,14 +154,24 @@ https://claude.ai/artifact/VLwZ5N7pkVMJW4PCYXh41G).
 - Not built from the old RingRealms list: districts (Surveyor's Rod), thralls, handcarts as entities, a drawn tech tree.
   GameTests `DepthTests`. The colony view has 12 tabs now: check they fit.
 
-## Furniture screens (2026-11-17, Aaron: "make the guis ... absolutely NO CHAT HYPERLINKS")
+## Furniture screens (2026-11-17, Aaron: "make the guis ... clean and polished ... absolutely NO CHAT HYPERLINKS")
 - Blocks `colony/ColonyBlocks` (tab Colonies): Building Plaque (hangs on a wall; the room it is in, the room behind
   its wall, or a door within 3 blocks), Treasury Ledger, Town Hall Ledger, Customs Counter (the nearest colony whose
-  Hall is within the building reach). Right-click opens the view; vanilla textures in the models.
-- Plaque = `BuildingViews` tabs Plaque (type picker for other types that fit, Measure again, what it does per kind:
-  beds, workers, wage, chests, research), People/Household, Work (recipes, its orders and stock targets, tool).
-- `LedgerViews.TREASURY`: Books (balance, expected day, runway, tax/wage steppers), Accounts (colony component
-  `books`, last 30 pay days, written by `Life.pay` and soldier pay), Payroll. `/lotr_colony ledger` opens it; the old
-  `LedgerScreen` is gone. Town Hall Ledger = `ColonyViews.HALL_LEDGER` (Register + Overview, Buildings, People,
-  Members); Customs Counter = `ColonyViews.CUSTOMS_COUNTER` (Immigration + Customs). GameTest `GuiTests`.
+  Hall is within the building reach). Right-click opens a **book** (members only); vanilla textures in the models.
+- Books (`colony/book/`): the server builds a `Book` (title, chips, tabs, left overview page, right tab page) from
+  `El` elements (head, pair, meter, card with skin face + meters + buttons, stepper, item grid, tag, one text field),
+  sends it as NBT (`Books.Show`), and the one client screen `client/book/BookScreen` draws it on the Kenney parchment
+  sprites; clicks go back as `Books.Click` and the server answers with the book afresh. Names travel as tokens
+  (`{item:id}`, `{lang:key|fallback}`) resolved on the client. Accent per book (brown plaque, green Hall, gold
+  Treasury, blue Customs). A new screen = a `BookProvider` registered in `Books.register`, no client code.
+- `PlaqueBook` (context `colony/building`): tabs by type (Household, Work + last day's output + tool wear, Goods with
+  Order/Keep steppers, Research, Prices, Soldiers, Stores, Room: requirements, measurements, retype buttons).
+  `HallLedgerBook`: People (filters, person page), Buildings (cards open plaques), Council, Research, Members, War
+  (`WarPage`: wars with Siege/Raid/peace/accept buttons, declare with a written reason). `TreasuryBook`: Accounts,
+  Pay days (colony component `books`, last 30), Taxes, Production, Stores. `CustomsBook`: Arrivals (Welcome / Turn
+  away), Levels. The Hall block and `/lotr_colony ledger` (Treasury) open books too.
+- The older `UiScreen` views (`BuildingViews`, `LedgerViews`, `ColonyViews.HALL_LEDGER/CUSTOMS_COUNTER`) still build
+  and are covered by `GuiTests` with the books, but the furniture opens the books.
+- Headless look check: `-Dlotr_port.bookpreview=true` on `runClient` (xvfb) opens sample books over the title
+  screen, saves `run/screenshots/book_<n>.png` and quits (`client/book/BookPreview`).
 - No ClickEvent anywhere: writ "could also be" points to the plaque; `/lotr_war` prints commands as plain text.

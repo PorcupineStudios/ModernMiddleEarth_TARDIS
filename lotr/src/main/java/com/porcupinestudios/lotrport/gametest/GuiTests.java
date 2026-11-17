@@ -82,11 +82,32 @@ public final class GuiTests {
                     "members");
             screens(helper, player, ColonyViews.CUSTOMS_COUNTER, id, "immigration", "customs");
             screens(helper, player, BuildingViews.ID, id + "/" + kitchen.id(), "page", "people", "work");
+            books(helper, player, com.porcupinestudios.lotrport.colony.book.TreasuryBook.KIND, id, "accounts",
+                    "history", "taxes", "production", "stores");
+            books(helper, player, com.porcupinestudios.lotrport.colony.book.HallLedgerBook.KIND, id, "people",
+                    "people:idle", "buildings", "council", "research", "members", "war");
+            books(helper, player, com.porcupinestudios.lotrport.colony.book.CustomsBook.KIND, id, "", "levels");
+            books(helper, player, com.porcupinestudios.lotrport.colony.book.PlaqueBook.KIND,
+                    com.porcupinestudios.lotrport.colony.book.PlaqueBook.context(now,
+                            Buildings.of(now).get(kitchen.id()).orElseThrow()), "", "work", "goods", "stores", "room");
             helper.succeed();
         } finally {
             Society.citizens(server, colony).forEach(p -> Persons.get(server).remove(server, p.id()));
             colonies.disband(server, colony, "test");
             BuildingTests.fill(level, x0 - 1, y0, z0 - 1, x0 + 8, y0 + 6, z0 + 8, Blocks.AIR);
+        }
+    }
+
+    /** Every book tab builds and survives the trip to the client (NBT out and back). */
+    private static void books(GameTestHelper helper, ServerPlayer player, String kind, String context,
+            String... tabs) {
+        for (String tab : tabs) {
+            var book = com.porcupinestudios.lotrport.colony.book.Books.provider(kind).orElseThrow()
+                    .build(player, context, tab);
+            helper.assertTrue(book.isPresent(), kind + " " + tab + " builds");
+            var back = com.porcupinestudios.lotrport.colony.book.Book.load(book.get().save());
+            helper.assertTrue(back.right().size() == book.get().right().size() && back.title().equals(
+                    book.get().title()), kind + " " + tab + " survives the network");
         }
     }
 

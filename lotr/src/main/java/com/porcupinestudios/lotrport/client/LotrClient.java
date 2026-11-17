@@ -98,6 +98,8 @@ public final class LotrClient {
         com.porcupinestudios.lotrport.social.SocialNet.iconsHandler = MapScreen::icons;
         com.porcupinestudios.lotrport.social.SocialNet.viewHandler = VisibilityScreen::show;
         com.porcupinestudios.lotrport.ui.UiNet.showHandler = com.porcupinestudios.lotrport.client.ui.UiScreen::show;
+        com.porcupinestudios.lotrport.colony.book.Books.showHandler = com.porcupinestudios.lotrport.client.book.BookScreen::show;
+        com.porcupinestudios.lotrport.client.book.BookPreview.init();
         com.porcupinestudios.lotrport.ui.UiNet.closeHandler = com.porcupinestudios.lotrport.client.ui.UiScreen::close;
         event.enqueueWork(LotrClient::rangedProperties);
     }

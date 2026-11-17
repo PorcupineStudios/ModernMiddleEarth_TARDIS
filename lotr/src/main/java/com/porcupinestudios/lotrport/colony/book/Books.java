@@ -37,7 +37,6 @@ public final class Books {
         HallLedgerBook.register();
         TreasuryBook.register();
         CustomsBook.register();
-        ColonyBlocks.register(modBus);
     }
 
     private static void payloads(RegisterPayloadHandlersEvent event) {
@@ -53,6 +52,10 @@ public final class Books {
                 click(sp, p);
             }
         }));
+    }
+
+    public static Optional<BookProvider> provider(String kind) {
+        return Optional.ofNullable(PROVIDERS.get(kind));
     }
 
     /** Builds and sends a book; false when the player may not see it. */

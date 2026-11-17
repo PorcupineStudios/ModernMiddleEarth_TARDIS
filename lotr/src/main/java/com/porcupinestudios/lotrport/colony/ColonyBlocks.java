@@ -6,11 +6,11 @@ import com.porcupinestudios.lotrport.colony.building.Building;
 import com.porcupinestudios.lotrport.colony.building.BuildingSettings;
 import com.porcupinestudios.lotrport.colony.building.Buildings;
 import com.porcupinestudios.lotrport.colony.members.Permissions;
-import com.porcupinestudios.lotrport.colony.ui.BuildingViews;
-import com.porcupinestudios.lotrport.colony.ui.ColonyViews;
-import com.porcupinestudios.lotrport.colony.ui.LedgerViews;
-import com.porcupinestudios.lotrport.ui.View;
-import com.porcupinestudios.lotrport.ui.Views;
+import com.porcupinestudios.lotrport.colony.book.Books;
+import com.porcupinestudios.lotrport.colony.book.CustomsBook;
+import com.porcupinestudios.lotrport.colony.book.HallLedgerBook;
+import com.porcupinestudios.lotrport.colony.book.PlaqueBook;
+import com.porcupinestudios.lotrport.colony.book.TreasuryBook;
 import java.util.Comparator;
 import java.util.Optional;
 import net.minecraft.core.BlockPos;
@@ -43,9 +43,9 @@ import net.neoforged.neoforge.registries.DeferredRegister;
  * The colony's furniture (RingRealms' plaques and Ledger Stand): right-click opens its screen.
  * <ul>
  *   <li>Plaque: hung on a building's wall (inside, or outside by the door), its building page.</li>
- *   <li>Treasury Ledger: the colony's books ({@link LedgerViews#TREASURY}).</li>
- *   <li>Town Hall Ledger: the register, buildings, people and members ({@link ColonyViews#HALL_LEDGER}).</li>
- *   <li>Customs Counter: groups wanting to settle ({@link ColonyViews#CUSTOMS_COUNTER}).</li>
+ *   <li>Treasury Ledger: the colony's books ({@link TreasuryBook}).</li>
+ *   <li>Town Hall Ledger: the register, buildings, people and members ({@link HallLedgerBook}).</li>
+ *   <li>Customs Counter: groups wanting to settle ({@link CustomsBook}).</li>
  * </ul>
  * The ledgers and the counter belong to the nearest colony whose Hall is within the building reach.
  */
@@ -166,7 +166,7 @@ public final class ColonyBlocks {
                                 "colony.lotr_port.plaque.foreign", "This is %s's %s", c.name(), b.get().label()), true);
                         return;
                     }
-                    Views.open(player, new View.Target(BuildingViews.ID, c.id() + "/" + b.get().id(), ""), true);
+                    Books.open(player, PlaqueBook.KIND, PlaqueBook.context(c, b.get()), "", "");
                     return;
                 }
             }
@@ -185,12 +185,12 @@ public final class ColonyBlocks {
             return;
         }
         Colony c = colony.get();
-        ResourceLocation view = switch (kind) {
-            case TREASURY -> LedgerViews.TREASURY;
-            case HALL -> ColonyViews.HALL_LEDGER;
-            default -> ColonyViews.CUSTOMS_COUNTER;
+        String book = switch (kind) {
+            case TREASURY -> TreasuryBook.KIND;
+            case HALL -> HallLedgerBook.KIND;
+            default -> CustomsBook.KIND;
         };
-        Views.open(player, new View.Target(view, c.id().toString(), ""), true);
+        Books.open(player, book, c.id().toString(), "", "");
     }
 
     /** The building a plaque names: the room it hangs in, the one behind its wall, or one whose door is by it. */
