@@ -5,6 +5,13 @@ since 1.7.10 that Middle-earth should have. Checked against the generated data o
 `data/lotr_port/worldgen/biome`, noise settings, `content/blocks.json`, recipes). "Checked: none" means the data was
 searched; the rest are ideas to decide on.
 
+**Done 2026-11-17** (lotr/CLAUDE.md "Modern Middle-earth"): sections 1 (seas by latitude, sea and river life, sea
+floor; no coast structures or fishing loot yet), 2 (powder snow, ice, goats, foxes, rabbits, polar bears, ice spikes,
+meadows, geodes), 3 (lush and dripstone cave pockets, glow lichen; noise caves and aquifers still off), 4 (bees, frogs,
+foxes, rabbits, parrots, ocelots, armadillos, jungle and forest plants), 5 (full wood sets, every tag, stonecutter;
+waterlogging, lanterns and archaeology not done), and no vanilla monsters in Middle-earth (Aaron). Still open: 6, 7,
+the DESIGN items, noise caves and aquifers, carved signs (LOTR's chisel).
+
 Most of this is worldgen data: biome `features` and `spawners` come from `converter/world.py`, so the change goes
 there (a table per region), not into the generated JSON.
 
