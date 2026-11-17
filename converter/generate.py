@@ -1501,6 +1501,8 @@ class Gen:
         print(json.dumps({"waters": Waters(OUT).run()}))
         from mountains import Mountains
         print(json.dumps({"mountains": Mountains(OUT).run()}))
+        from land import Land
+        print(json.dumps({"land": Land(OUT).run()}))
 
 
 if __name__ == "__main__":

@@ -116,8 +116,12 @@
       "minecraft:flower_default",
       "minecraft:patch_grass_plain",
       "minecraft:patch_tall_grass",
+      "lotr_port:bee_nests_rare",
       "minecraft:patch_tall_grass_2",
-      "minecraft:flower_meadow"
+      "minecraft:flower_meadow",
+      "minecraft:brown_mushroom_normal",
+      "minecraft:red_mushroom_normal",
+      "minecraft:patch_pumpkin"
     ],
     [
       "minecraft:freeze_top_layer"
