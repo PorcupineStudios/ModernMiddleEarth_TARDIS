@@ -602,6 +602,8 @@ class Gen:
         self.lang["en_us"][f"block.{NS}.{new}"] = name
 
         tool = v.get("harvestTool")
+        if tool is None and b.get("material") in REQUIRES_TOOL and (hardness or 0) > 0:
+            tool = "pickaxe"  # 1.7.10's ForgeHooks made rock/iron blocks pickaxe-mined without a set harvest tool
         if tool in ("pickaxe", "axe", "shovel", "hoe"):
             self.tags[f"minecraft:block/mineable/{tool}"].add(new)
         lvl = v.get("harvestLevel", -1)
