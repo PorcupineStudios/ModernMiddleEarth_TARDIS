@@ -1,0 +1,7 @@
+{
+  "_comment": "Title screen music. The first track whose sound event exists plays (they come from the optional lotr_port_music mod or a resource pack); with none, vanilla's menu music plays.",
+  "tracks": [
+    "lotr_port:music.track.concerning_hobbits",
+    "lotr_port:music.track.the_shire"
+  ]
+}
