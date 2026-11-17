@@ -568,9 +568,12 @@ From the repo root: `./gradlew :lotr:build`, `:lotr:runClient`, `:lotr:runServer
 - What was skipped and why: `lotr/docs/import-checklist.md`.
 - Faction influence (2026-11-07, `faction/FactionInfluence`): a kill changes alignment only with factions whose
   influence reaches the player: inside one of its control zones (LOTR's, map pixels, Middle-earth only) or within
-  `npc_radius` of one of its NPCs in any dimension (`data/lotr_port/alignment/settings.json`). The bar shows LOTR's
-  arrows either side (gold: zone, pale: near its people, none: kills don't count), and shows outside Middle-earth
-  while a faction NPC is near (auto-watching that NPC's faction there). Payload `HudNet.AlignmentBar.flags`.
+  `npc_radius` (24, LOTR's) of one of its NPCs in any dimension (`data/lotr_port/alignment/settings.json`). The bar
+  draws LOTR's icons either side (`gui/alignment.png`, 14x14, faction-tinted layer then gold frame): arrows (v 74/60)
+  in a zone, circles (v 102/88) near its people, else arrows faded by distance to a zone edge (1 at the edge, 0 at 50
+  map px; none for isolationists). Shows outside Middle-earth while a faction NPC is near. Payload
+  `HudNet.AlignmentBar.flags` (bits 4-11 the fade). Up/down cycles regions (west, east, south, realms), left/right
+  factions in it; factions with fixed alignment, not playable or region `none` (Utumno, Hostile...) are hidden.
 
 ## Server pregeneration (2026-11-16, `world/Pregen`)
 - `/lotr_pregen start <all|roads|waypoints|spawn|players> [radius]`, `pause|resume|cancel|status`, `speed <n>`,
