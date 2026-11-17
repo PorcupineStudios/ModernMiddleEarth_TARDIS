@@ -94,7 +94,6 @@ public final class LotrClient {
         RigRenderer.init();
         com.porcupinestudios.lotrport.unit.UnitNet.listHandler = UnitScreen::show;
         com.porcupinestudios.lotrport.colony.members.HallNet.hallHandler = HallScreen::show;
-        com.porcupinestudios.lotrport.colony.work.LedgerNet.ledgerHandler = LedgerScreen::show;
         com.porcupinestudios.lotrport.colony.work.LedgerNet.citizenHandler = CitizenScreen::show;
         com.porcupinestudios.lotrport.social.SocialNet.iconsHandler = MapScreen::icons;
         com.porcupinestudios.lotrport.social.SocialNet.viewHandler = VisibilityScreen::show;

@@ -16,9 +16,7 @@ import java.util.UUID;
 import net.minecraft.ChatFormatting;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
-import net.minecraft.network.chat.ClickEvent;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.HoverEvent;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
@@ -149,11 +147,10 @@ public final class WarCommand {
                 tribute));
     }
 
+    /** A label with the command to type next to it (no clickable chat links). */
     private static MutableComponent link(String label, String command, boolean run) {
-        return Component.literal("[" + label + "]").withStyle(s -> s.withColor(ChatFormatting.AQUA)
-                .withClickEvent(new ClickEvent(run ? ClickEvent.Action.RUN_COMMAND : ClickEvent.Action.SUGGEST_COMMAND,
-                        command))
-                .withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, Component.literal(command))));
+        return Component.literal(label).withStyle(ChatFormatting.AQUA)
+                .append(Component.literal(" (" + command.trim() + ")").withStyle(ChatFormatting.DARK_GRAY));
     }
 
     private static int targets(CommandSourceStack source) throws

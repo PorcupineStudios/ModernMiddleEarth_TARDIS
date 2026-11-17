@@ -1,0 +1,44 @@
+{
+  "parent": "minecraft:block/block",
+  "textures": {
+    "particle": "minecraft:block/dark_oak_planks",
+    "board": "minecraft:block/dark_oak_planks",
+    "brass": "minecraft:block/gold_block",
+    "text": "minecraft:block/stripped_spruce_log"
+  },
+  "display": {
+    "gui": {"rotation": [0, 180, 0], "scale": [0.9, 0.9, 0.9]},
+    "fixed": {"rotation": [0, 180, 0]},
+    "firstperson_righthand": {"rotation": [0, 135, 0], "translation": [0, 2, 0], "scale": [0.6, 0.6, 0.6]},
+    "thirdperson_righthand": {"rotation": [75, 180, 0], "translation": [0, 2, 1], "scale": [0.5, 0.5, 0.5]}
+  },
+  "elements": [
+    {
+      "from": [2, 4, 15], "to": [14, 12, 16],
+      "faces": {
+        "north": {"uv": [2, 4, 14, 12], "texture": "#board"},
+        "south": {"uv": [2, 4, 14, 12], "texture": "#board"},
+        "east": {"uv": [0, 4, 1, 12], "texture": "#board"},
+        "west": {"uv": [15, 4, 16, 12], "texture": "#board"},
+        "up": {"uv": [2, 15, 14, 16], "texture": "#board"},
+        "down": {"uv": [2, 0, 14, 1], "texture": "#board"}
+      }
+    },
+    {
+      "from": [3, 5, 14.5], "to": [13, 11, 15],
+      "faces": {
+        "north": {"uv": [3, 5, 13, 11], "texture": "#brass"},
+        "east": {"uv": [0, 5, 0.5, 11], "texture": "#brass"},
+        "west": {"uv": [0, 5, 0.5, 11], "texture": "#brass"},
+        "up": {"uv": [3, 0, 13, 0.5], "texture": "#brass"},
+        "down": {"uv": [3, 0, 13, 0.5], "texture": "#brass"}
+      }
+    },
+    {
+      "from": [4, 6, 14.4], "to": [12, 10, 14.5],
+      "faces": {
+        "north": {"uv": [4, 6, 12, 10], "texture": "#text"}
+      }
+    }
+  ]
+}

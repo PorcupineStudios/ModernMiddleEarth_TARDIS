@@ -246,6 +246,7 @@ public final class Life {
         if (treasury != start) {
             colonies.set(ctx.colony(), CoreComponents.TREASURY, new CoreComponents.Treasury(treasury));
         }
+        WorkComponents.book(colonies, ctx.colony(), ctx.now(), ctx.counted(TAXES), ctx.counted(WAGES), 0, treasury);
     }
 
     /** Who drank at a tavern this pass (read by {@link #needs} right after, then cleared). */

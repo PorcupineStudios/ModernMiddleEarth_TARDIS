@@ -61,5 +61,9 @@ public final class ColonySystemsCore {
             colonies.set(ctx.colony(), CoreComponents.TREASURY, new CoreComponents.Treasury(coins));
             ctx.count(WAGES_PAID, (int) Math.min(Integer.MAX_VALUE, start - coins));
         }
+        if (!ctx.colony().ai() && start != coins) {
+            com.porcupinestudios.lotrport.colony.work.WorkComponents.book(colonies, ctx.colony(), ctx.now(), 0, 0,
+                    (int) Math.min(Integer.MAX_VALUE, start - coins), coins);
+        }
     }
 }

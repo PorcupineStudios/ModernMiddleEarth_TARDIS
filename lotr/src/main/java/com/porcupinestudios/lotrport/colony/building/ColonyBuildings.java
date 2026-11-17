@@ -249,23 +249,13 @@ public final class ColonyBuildings {
                 "%s: %s floor, quality %s", b.label(), b.floor(), b.quality()).withStyle(ChatFormatting.GREEN);
         if (wanted.isEmpty() && fits.size() > 1) {
             msg.append(Component.literal(" ").append(Component.translatableWithFallback(
-                    "colony.lotr_port.building.could_be", "Could also be:").withStyle(ChatFormatting.GRAY)));
-            boolean first = true;
-            for (ResourceLocation f : fits) {
-                if (f.equals(type)) {
-                    continue;
-                }
-                msg.append(Component.literal(first ? " " : ", ").append(BuildingType.titleOf(f))
-                        .withStyle(ChatFormatting.GRAY));
-                first = false;
-            }
-            msg.append(Component.translatableWithFallback("colony.lotr_port.building.retype_on_plaque",
-                    " (choose on its plaque)").withStyle(ChatFormatting.GRAY));
+                    "colony.lotr_port.building.could_be", "(%s other types fit: change it on a Building Plaque)",
+                    fits.size() - 1).withStyle(ChatFormatting.GRAY)));
         }
         return new Result(Optional.of(b), msg);
     }
 
-    /** Changes a building's type to another that fits (the plaque's Room tab). */
+    /** Changes a building's type to another that fits (the type picker on its plaque). */
     public static Result retype(ServerPlayer player, BlockPos door, ResourceLocation type) {
         for (Colony c : Colonies.get(player.server).all()) {
             Optional<Building> b = Buildings.of(c).atDoor(door);

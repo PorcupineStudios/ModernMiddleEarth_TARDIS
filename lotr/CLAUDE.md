@@ -206,7 +206,8 @@ https://claude.ai/artifact/KqhSSTCuKXGuwKHBoYJdcu. Rebuild features in modern co
   (`client/TraderInteractScreen`); `TraderMenu` (`client/TradeScreen`, LOTR's trade.png: Buy row = click to pay and take,
   Sell row prices, Sell offers + coin button) and `CoinExchangeMenu` (`client/CoinExchangeScreen`). Deals from
   `NpcTrading` (max 9 per row, uses in memory only, not saved). Hiring:
-  right-click a captain (sneak if it also trades) lists units in chat with [Hire] links running `/lotr_hire`;
+  right-click a captain (sneak if it also trades) opens its hire screen (view `lotr_port:hire`, `Hiring.HireView`; no
+  chat links anywhere, Aaron 2026-11-17);
   `Hiring.hire` checks alignment, pledge and coins. Hired units: sneak + right-click switches follow/guard; they defend
   the owner. `People` (SavedData) keeps a record only for hired units (history: `npc_hired`, `npc_died`).
 - Speech: `speech/<bank>/<mood>.json` (`{"lines": [...]}`, `#` = player name, `@` = place, avoided), from LOTR's speech
