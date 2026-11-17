@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "lotr_port:chalk_brick"
+  },
+  "result": {
+    "id": "lotr_port:chalk_brick_stairs",
+    "count": 1
+  }
+}

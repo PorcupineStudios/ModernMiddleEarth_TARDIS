@@ -99,12 +99,20 @@ BLOCK_RULES = [
     ({"trapdoor"}, WOODEN, "oak_trapdoor"), ({"trapdoor"}, ANY, "iron_trapdoor"),
     ({"fence"}, WOODEN, "oak_fence"), ({"fence"}, ANY, "nether_brick_fence"),
     ({"fence_gate"}, ANY, "oak_fence_gate"),
-    ({"slab"}, WOODEN, "oak_slab"), ({"slab"}, _all(_mat("ground", "grass"), _has("dirt", "mud")), "dirt"),
-    ({"slab"}, _mat("sand"), "sandstone_slab"), ({"slab"}, _has("cobble"), "cobblestone_slab"),
-    ({"slab"}, _mat("glass"), "glass"), ({"slab"}, ANY, "stone_brick_slab"),
-    ({"stairs"}, WOODEN, "oak_stairs"), ({"stairs"}, _mat("sand"), "sandstone_stairs"),
-    ({"stairs"}, _has("cobble"), "cobblestone_stairs"), ({"stairs"}, _mat("ground", "grass"), "dirt"),
-    ({"stairs"}, ANY, "stone_brick_stairs"),
+    # "<vanilla>|<tool>": the vanilla block's tags with its mining tool swapped (a gravel slab is a slab dug by shovel)
+    ({"slab"}, WOODEN, "oak_slab"),
+    ({"slab"}, _all(_has("gravel", "sand_slab", "dirt", "mud", "path"), lambda e: "brick" not in e["id"]),
+     "stone_brick_slab|shovel"),
+    ({"slab"}, _has("thatch", "reed"), "stone_brick_slab|hoe"),
+    ({"slab"}, _has("sandstone"), "sandstone_slab"), ({"slab"}, _mat("sand"), "stone_brick_slab|shovel"),
+    ({"slab"}, _has("cobble"), "cobblestone_slab"), ({"slab"}, _mat("glass"), "glass"),
+    ({"slab"}, ANY, "stone_brick_slab"),
+    ({"stairs"}, WOODEN, "oak_stairs"),
+    ({"stairs"}, _all(_has("gravel", "dirt", "mud", "path"), lambda e: "brick" not in e["id"]),
+     "stone_brick_stairs|shovel"),
+    ({"stairs"}, _has("thatch", "reed"), "stone_brick_stairs|hoe"),
+    ({"stairs"}, _has("sandstone"), "sandstone_stairs"), ({"stairs"}, _mat("sand"), "stone_brick_stairs|shovel"),
+    ({"stairs"}, _has("cobble"), "cobblestone_stairs"), ({"stairs"}, ANY, "stone_brick_stairs"),
     ({"wall"}, _has("cobble"), "cobblestone_wall"), ({"wall"}, ANY, "stone_brick_wall"),
     ({"pane"}, _mat("glass"), "glass_pane"), ({"pane"}, ANY, "iron_bars"),
     ({"ladder"}, ANY, "ladder"), ({"bed"}, ANY, "red_bed"), ({"carpet"}, ANY, "white_carpet"),
@@ -340,6 +348,10 @@ class Tagger:
                 tags = []  # portals, fire, marsh lights: nothing to mine
             elif ana.startswith("@"):
                 tags = [f"mineable/{ana[1:]}"]
+            elif "|" in ana:
+                base, tool = ana.split("|")
+                tags = sorted({t for t in self.vt.of("block", base) & ALLOWED_BLOCK if not t.startswith("mineable/")}
+                              | {f"mineable/{tool}"})
             else:
                 tags = sorted(self.vt.of("block", ana) & ALLOWED_BLOCK)
                 for c in C_BY_ANALOGUE.get(ana, ([], []))[0]:
@@ -355,6 +367,7 @@ class Tagger:
                 block_items[b["id"]] = ana
         # block items: the analogue's item tags
         for i, ana in block_items.items():
+            ana = ana.split("|")[0] if ana else ana
             if ana and not ana.startswith("@"):  # (@tool analogues have no item tags)
                 for t in sorted(self.vt.of("item", ana) & ALLOWED_ITEM):
                     self.add("item", t, i)

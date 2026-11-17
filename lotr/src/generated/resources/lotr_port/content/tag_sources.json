@@ -763,5 +763,11 @@
     "lotr_port:wooden_gate",
     "lotr_port:wooden_portcullis",
     "lotr_port:yellow_hobbit_gate"
+  ],
+  "minecraft:block/mineable/hoe": [
+    "lotr_port:reed_slab",
+    "lotr_port:reed_stairs",
+    "lotr_port:thatch_slab",
+    "lotr_port:thatch_stairs"
   ]
 }

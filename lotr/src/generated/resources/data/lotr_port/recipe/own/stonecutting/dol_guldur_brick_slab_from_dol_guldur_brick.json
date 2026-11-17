@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "lotr_port:dol_guldur_brick"
+  },
+  "result": {
+    "id": "lotr_port:dol_guldur_brick_slab",
+    "count": 2
+  }
+}

@@ -5750,7 +5750,7 @@
       ]
     },
     "white_sandstone_slab": {
-      "analogue": "stone_brick_slab",
+      "analogue": "sandstone_slab",
       "tags": [
         "mineable/pickaxe",
         "slabs"
@@ -6282,7 +6282,7 @@
       ]
     },
     "red_sandstone_slab": {
-      "analogue": "stone_brick_slab",
+      "analogue": "sandstone_slab",
       "tags": [
         "mineable/pickaxe",
         "slabs"
@@ -6415,153 +6415,93 @@
       ]
     },
     "dirt_slab": {
-      "analogue": "dirt",
+      "analogue": "stone_brick_slab|shovel",
       "tags": [
-        "azalea_grows_on",
-        "azalea_root_replaceable",
-        "bamboo_plantable_on",
-        "big_dripleaf_placeable",
-        "convertable_to_mud",
-        "dead_bush_may_place_on",
-        "dirt",
-        "enderman_holdable",
-        "lush_ground_replaceable",
         "mineable/shovel",
-        "moss_replaceable",
-        "overworld_carver_replaceables",
-        "sculk_replaceable",
-        "sniffer_diggable_block"
+        "slabs"
       ]
     },
     "dirt_path_slab": {
-      "analogue": "dirt",
+      "analogue": "stone_brick_slab|shovel",
       "tags": [
-        "azalea_grows_on",
-        "azalea_root_replaceable",
-        "bamboo_plantable_on",
-        "big_dripleaf_placeable",
-        "convertable_to_mud",
-        "dead_bush_may_place_on",
-        "dirt",
-        "enderman_holdable",
-        "lush_ground_replaceable",
         "mineable/shovel",
-        "moss_replaceable",
-        "overworld_carver_replaceables",
-        "sculk_replaceable",
-        "sniffer_diggable_block"
+        "slabs"
       ]
     },
     "jungle_mud_slab": {
-      "analogue": "dirt",
+      "analogue": "stone_brick_slab|shovel",
       "tags": [
-        "azalea_grows_on",
-        "azalea_root_replaceable",
-        "bamboo_plantable_on",
-        "big_dripleaf_placeable",
-        "convertable_to_mud",
-        "dead_bush_may_place_on",
-        "dirt",
-        "enderman_holdable",
-        "lush_ground_replaceable",
         "mineable/shovel",
-        "moss_replaceable",
-        "overworld_carver_replaceables",
-        "sculk_replaceable",
-        "sniffer_diggable_block"
+        "slabs"
       ]
     },
     "mordor_dirt_slab": {
-      "analogue": "dirt",
+      "analogue": "stone_brick_slab|shovel",
       "tags": [
-        "azalea_grows_on",
-        "azalea_root_replaceable",
-        "bamboo_plantable_on",
-        "big_dripleaf_placeable",
-        "convertable_to_mud",
-        "dead_bush_may_place_on",
-        "dirt",
-        "enderman_holdable",
-        "lush_ground_replaceable",
         "mineable/shovel",
-        "moss_replaceable",
-        "overworld_carver_replaceables",
-        "sculk_replaceable",
-        "sniffer_diggable_block"
+        "slabs"
       ]
     },
     "jungle_mud_path_slab": {
-      "analogue": "dirt",
+      "analogue": "stone_brick_slab|shovel",
       "tags": [
-        "azalea_grows_on",
-        "azalea_root_replaceable",
-        "bamboo_plantable_on",
-        "big_dripleaf_placeable",
-        "convertable_to_mud",
-        "dead_bush_may_place_on",
-        "dirt",
-        "enderman_holdable",
-        "lush_ground_replaceable",
         "mineable/shovel",
-        "moss_replaceable",
-        "overworld_carver_replaceables",
-        "sculk_replaceable",
-        "sniffer_diggable_block"
+        "slabs"
       ]
     },
     "gravel_slab": {
-      "analogue": "sandstone_slab",
+      "analogue": "stone_brick_slab|shovel",
       "tags": [
-        "mineable/pickaxe",
+        "mineable/shovel",
         "slabs"
       ]
     },
     "mordor_gravel_slab": {
-      "analogue": "sandstone_slab",
+      "analogue": "stone_brick_slab|shovel",
       "tags": [
-        "mineable/pickaxe",
+        "mineable/shovel",
         "slabs"
       ]
     },
     "obsidian_gravel_slab": {
-      "analogue": "sandstone_slab",
+      "analogue": "stone_brick_slab|shovel",
       "tags": [
-        "mineable/pickaxe",
+        "mineable/shovel",
         "slabs"
       ]
     },
     "sand_slab": {
-      "analogue": "sandstone_slab",
+      "analogue": "stone_brick_slab|shovel",
       "tags": [
-        "mineable/pickaxe",
+        "mineable/shovel",
         "slabs"
       ]
     },
     "red_sand_slab": {
-      "analogue": "sandstone_slab",
+      "analogue": "stone_brick_slab|shovel",
       "tags": [
-        "mineable/pickaxe",
+        "mineable/shovel",
         "slabs"
       ]
     },
     "white_sand_slab": {
-      "analogue": "sandstone_slab",
+      "analogue": "stone_brick_slab|shovel",
       "tags": [
-        "mineable/pickaxe",
+        "mineable/shovel",
         "slabs"
       ]
     },
     "thatch_slab": {
-      "analogue": "stone_brick_slab",
+      "analogue": "stone_brick_slab|hoe",
       "tags": [
-        "mineable/pickaxe",
+        "mineable/hoe",
         "slabs"
       ]
     },
     "reed_slab": {
-      "analogue": "stone_brick_slab",
+      "analogue": "stone_brick_slab|hoe",
       "tags": [
-        "mineable/pickaxe",
+        "mineable/hoe",
         "slabs"
       ]
     },
@@ -7676,7 +7616,7 @@
       ]
     },
     "red_sandstone_stairs": {
-      "analogue": "stone_brick_stairs",
+      "analogue": "sandstone_stairs",
       "tags": [
         "mineable/pickaxe",
         "stairs"
@@ -7691,22 +7631,10 @@
       ]
     },
     "reed_stairs": {
-      "analogue": "dirt",
+      "analogue": "stone_brick_stairs|hoe",
       "tags": [
-        "azalea_grows_on",
-        "azalea_root_replaceable",
-        "bamboo_plantable_on",
-        "big_dripleaf_placeable",
-        "convertable_to_mud",
-        "dead_bush_may_place_on",
-        "dirt",
-        "enderman_holdable",
-        "lush_ground_replaceable",
-        "mineable/shovel",
-        "moss_replaceable",
-        "overworld_carver_replaceables",
-        "sculk_replaceable",
-        "sniffer_diggable_block"
+        "mineable/hoe",
+        "stairs"
       ]
     },
     "rh_nic_brick_stairs": {
@@ -7830,22 +7758,10 @@
       ]
     },
     "thatch_stairs": {
-      "analogue": "dirt",
+      "analogue": "stone_brick_stairs|hoe",
       "tags": [
-        "azalea_grows_on",
-        "azalea_root_replaceable",
-        "bamboo_plantable_on",
-        "big_dripleaf_placeable",
-        "convertable_to_mud",
-        "dead_bush_may_place_on",
-        "dirt",
-        "enderman_holdable",
-        "lush_ground_replaceable",
-        "mineable/shovel",
-        "moss_replaceable",
-        "overworld_carver_replaceables",
-        "sculk_replaceable",
-        "sniffer_diggable_block"
+        "mineable/hoe",
+        "stairs"
       ]
     },
     "umbar_brick_stairs": {
@@ -7912,7 +7828,7 @@
       ]
     },
     "white_sandstone_stairs": {
-      "analogue": "stone_brick_stairs",
+      "analogue": "sandstone_stairs",
       "tags": [
         "mineable/pickaxe",
         "stairs"

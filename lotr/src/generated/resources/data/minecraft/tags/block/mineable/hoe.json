@@ -86,6 +86,10 @@
     "lotr_port:thatch_block",
     "lotr_port:thatch_flooring",
     "lotr_port:willow_leaves",
-    "lotr_port:withered_moss"
+    "lotr_port:withered_moss",
+    "lotr_port:reed_slab",
+    "lotr_port:reed_stairs",
+    "lotr_port:thatch_slab",
+    "lotr_port:thatch_stairs"
   ]
 }

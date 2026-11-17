@@ -1495,6 +1495,8 @@ class Gen:
         print(json.dumps({"woodsets": WoodSets(OUT).run()}))
         from tags import Tagger
         print(json.dumps({"tags": Tagger(OUT).run()}))
+        import stonecutting
+        print(json.dumps({"stonecutting": stonecutting.run(OUT)}))
 
 
 if __name__ == "__main__":
