@@ -86,6 +86,13 @@ DRINK_SPECIAL = {
     "lotr:item.mugTermiteTequila": {"explode": {"chance": 6, "power": 3.0}},
 }
 
+VANILLA_GEAR = {"melee": ["#minecraft:swords"],
+               "tool": ["#minecraft:pickaxes", "#minecraft:axes", "#minecraft:shovels", "#minecraft:hoes"],
+               "armor": ["#minecraft:enchantable/armor"], "foot_armor": ["#minecraft:enchantable/foot_armor"],
+               "ranged": ["#minecraft:enchantable/bow", "#minecraft:enchantable/crossbow"],
+               "breakable": ["#minecraft:enchantable/durability"]}
+
+
 class Extra:
     def __init__(self, gen, export_dir, data_dir, assets_dir, content_dir, jar):
         self.gen = gen
@@ -160,6 +167,9 @@ class Extra:
                     tags[f"minecraft:item/enchantable/{ARMOR_SLOT[slot]}"].add(it["id"])
                 if slot == "feet":
                     tags[f"{NS}:item/enchantable/foot_armor"].add(it["id"])
+        # LOTR's modifiers went on vanilla gear too (its enchantment types tested the item class)
+        for kind, vanilla in VANILLA_GEAR.items():
+            tags[f"{NS}:item/enchantable/{kind}"].update(vanilla)
         groups = {}
         modifiers = []
         for name, e in table.items():

@@ -356,11 +356,14 @@ public final class Modifiers {
 
     // ------------------------------------------------------------------ effects
 
-    /** LOTR's looting and silk touch count as vanilla's, whose ids vanilla's loot tables check. */
+    /**
+     * LOTR's looting and silk touch count as vanilla's, whose ids vanilla's loot tables check. The stack's own
+     * enchantments are read: asked for one enchantment, the event's list holds only that one.
+     */
     private static void onEnchantmentLevel(GetEnchantmentLevelEvent event) {
         ItemEnchantments.Mutable enchants = event.getEnchantments();
         Registry<Enchantment> registry = null;
-        for (Holder<Enchantment> h : List.copyOf(enchants.keySet())) {
+        for (Holder<Enchantment> h : event.getStack().getEnchantments().keySet()) {
             Optional<ModifierDef> d = def(h);
             if (d.isEmpty() || d.get().actsAs().isEmpty()) {
                 continue;

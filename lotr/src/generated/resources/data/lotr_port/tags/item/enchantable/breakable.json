@@ -534,6 +534,7 @@
     "lotr_port:wood_elven_scout_tunic",
     "lotr_port:wood_elven_shovel",
     "lotr_port:wood_elven_spear",
-    "lotr_port:wood_elven_sword"
+    "lotr_port:wood_elven_sword",
+    "#minecraft:enchantable/durability"
   ]
 }
