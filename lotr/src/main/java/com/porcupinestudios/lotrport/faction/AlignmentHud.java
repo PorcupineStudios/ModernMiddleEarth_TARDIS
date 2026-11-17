@@ -127,8 +127,8 @@ public final class AlignmentHud {
     }
 
     /** LOTR's bar regions in up/down order (LOTRDimension.DimensionRegion), then founded realms. */
-    public static final List<String> REGIONS = List.of("west", "east", "south", REALMS);
     private static final String REALMS = "realms";
+    public static final List<String> REGIONS = List.of("west", "east", "south", REALMS);
 
     /**
      * Whether the bar can show a faction: LOTR hid Utumno, Hostile, Unaligned and the like (fixed alignment, not
