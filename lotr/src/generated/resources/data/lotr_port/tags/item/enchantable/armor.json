@@ -243,6 +243,7 @@
     "lotr_port:wood_elven_scout_boots",
     "lotr_port:wood_elven_scout_hood",
     "lotr_port:wood_elven_scout_leggings",
-    "lotr_port:wood_elven_scout_tunic"
+    "lotr_port:wood_elven_scout_tunic",
+    "#minecraft:enchantable/armor"
   ]
 }

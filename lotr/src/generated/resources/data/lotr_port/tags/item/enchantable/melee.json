@@ -224,6 +224,7 @@
     "lotr_port:wood_elven_dagger",
     "lotr_port:wood_elven_longspear",
     "lotr_port:wood_elven_spear",
-    "lotr_port:wood_elven_sword"
+    "lotr_port:wood_elven_sword",
+    "#minecraft:swords"
   ]
 }
