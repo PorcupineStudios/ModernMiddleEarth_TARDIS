@@ -86,6 +86,7 @@ public final class LotrClient {
     public static void setup(FMLClientSetupEvent event) {
         Atmosphere.init();
         ColorGrade.init();
+        event.enqueueWork(WoodSetRenderers::setup);
         MapNet.clientHandler = (data, ctx) -> MapScreen.open(data);
         QuestNet.offerHandler = QuestOfferScreen::open;
         com.porcupinestudios.lotrport.npc.Traders.interactHandler = TraderInteractScreen::open;
@@ -272,5 +273,6 @@ public final class LotrClient {
         event.registerEntityRenderer(com.porcupinestudios.lotrport.content.figure.Figures.TYPE.get(), FigureRenderer::new);
         MachineRenderers.register(event);
         ThrownRenderers.register(event);
+        WoodSetRenderers.register(event);
     }
 }

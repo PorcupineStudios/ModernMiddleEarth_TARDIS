@@ -1490,6 +1490,9 @@ class Gen:
         print(json.dumps(summary))
         for k, v in sorted(self.report.items()):
             print(f"  {k}: {len(v)}")
+        # post-steps that work on the written content (each can also be rerun alone)
+        from woodsets import WoodSets
+        print(json.dumps({"woodsets": WoodSets(OUT).run()}))
 
 
 if __name__ == "__main__":

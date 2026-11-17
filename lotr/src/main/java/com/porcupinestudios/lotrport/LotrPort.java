@@ -87,6 +87,8 @@ public final class LotrPort {
         FactionKills.register();
         com.porcupinestudios.lotrport.content.FeastMode.register();
         com.porcupinestudios.lotrport.modifier.Modifiers.register(modBus);
+        com.porcupinestudios.lotrport.world.NoMonsters.register();
+        com.porcupinestudios.lotrport.content.woodset.WoodSets.register(modBus);
         com.porcupinestudios.lotrport.faction.FactionInfluence.register();
         NpcData.register();
         NpcSpawns.register();

@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "group": "wooden_pressure_plate",
+  "pattern": [
+    "##"
+  ],
+  "key": {
+    "#": {
+      "item": "lotr_port:pine_wood_planks"
+    }
+  },
+  "result": {
+    "id": "lotr_port:pine_pressure_plate",
+    "count": 1
+  }
+}
