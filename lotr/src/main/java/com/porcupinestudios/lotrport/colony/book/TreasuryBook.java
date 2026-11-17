@@ -88,6 +88,7 @@ public final class TreasuryBook implements BookProvider {
         Accounts a = accounts(server, c);
         List<Book.Tab> tabs = List.of(
                 new Book.Tab("accounts", "Accounts", "minecraft:writable_book"),
+                new Book.Tab("history", "Pay days", "minecraft:clock"),
                 new Book.Tab("taxes", "Taxes", "minecraft:gold_nugget"),
                 new Book.Tab("production", "Production", "minecraft:crafting_table"),
                 new Book.Tab("stores", "Stores", "minecraft:chest"));
@@ -113,6 +114,7 @@ public final class TreasuryBook implements BookProvider {
         List<El> right = switch (open) {
             case "taxes" -> taxes(player, c, a);
             case "production" -> production(player, c);
+            case "history" -> history(c);
             case "stores" -> stores(server, c);
             default -> accounts(a);
         };
@@ -245,5 +247,26 @@ public final class TreasuryBook implements BookProvider {
                 return Result.NONE;
             }
         }
+    }
+
+    /** The last pay days, newest first: in, out and the balance after, with a bar for the balance. */
+    static List<El> history(Colony c) {
+        List<WorkComponents.Entry> days = c.get(WorkComponents.BOOKS).orElse(WorkComponents.Books.EMPTY).days();
+        List<El> out = new ArrayList<>();
+        out.add(El.head("The last " + WorkComponents.BOOK_DAYS + " pay days"));
+        if (days.isEmpty()) {
+            out.add(El.text("Nothing written yet: the first line goes in on the next pay day.", El.MUTED));
+            return out;
+        }
+        long top = Math.max(1, days.stream().mapToLong(WorkComponents.Entry::balance).max().orElse(1));
+        for (int i = days.size() - 1; i >= 0; i--) {
+            WorkComponents.Entry d = days.get(i);
+            long net = d.taxes() - d.wages() - d.soldiers();
+            out.add(El.meter("Day " + d.day() + "   +" + d.taxes() + " / -" + (d.wages() + d.soldiers()),
+                    Pages.coins(d.balance()) + " (" + (net >= 0 ? "+" : "") + net + ")",
+                    Math.max(0, d.balance()) / (double) top).withTone(net >= 0 ? El.GOOD : El.BAD)
+                    .withTip("Taxes " + d.taxes() + ", wages " + d.wages() + ", soldiers " + d.soldiers()));
+        }
+        return out;
     }
 }

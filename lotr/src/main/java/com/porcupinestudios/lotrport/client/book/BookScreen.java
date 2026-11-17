@@ -163,7 +163,8 @@ public class BookScreen extends Screen {
 
     @Override
     public void render(GuiGraphics g, int mx, int my, float partial) {
-        renderBackground(g, mx, my, partial);
+        // dim the world once, under the book (Screen.render would dim again over it)
+        renderTransparentBackground(g);
         ui.begin(g, mx, my, 0);
         fieldShown = false;
         fieldEl = null;
@@ -340,26 +341,31 @@ public class BookScreen extends Screen {
             }
             case "pair" -> {
                 boolean icon = !e.item().isEmpty();
-                int h = icon ? 18 : 12;
+                int indent = icon ? 18 : 0;
+                String value = resolve(e.value());
+                String labelText = resolve(e.text());
+                // too long for one line: the label on its own line, the value right-aligned under it
+                boolean two = !value.isEmpty() && font.width(labelText) + font.width(value) + 8 > w - indent;
+                int h = two ? 22 : icon ? 18 : 12;
                 if (draw) {
-                    int tx = x;
+                    int tx = x + indent;
                     if (icon) {
                         g.pose().pushPose();
                         g.pose().translate(x, y + 1, 0);
                         g.pose().scale(0.875f, 0.875f, 1);
                         g.renderItem(new ItemStack(item(e.item())), 0, 0);
                         g.pose().popPose();
-                        tx += 18;
                     }
-                    String value = resolve(e.value());
-                    int vw = Math.min(font.width(value), (int) ((w - (tx - x)) * 0.6));
-                    String label = ui.fit(resolve(e.text()), w - (tx - x) - vw - 6);
+                    int vw = two ? Math.min(font.width(value), w - indent)
+                            : Math.min(font.width(value), (int) ((w - indent) * 0.6));
+                    String label = ui.fit(labelText, two ? w - indent : w - indent - vw - 6);
                     boolean click = !e.action().isEmpty() && live(y, h, clipTop, clipBottom);
                     boolean hover = ui.over(x, y, w, h) && click;
-                    int ty = y + (h - 8) / 2;
+                    int ty = two ? y + 2 : y + (h - 8) / 2;
                     ui.text(label, tx, ty, hover ? 0xFF8A4A1A : e.tone() == El.MUTED ? toneColor(El.MUTED)
                             : UiTheme.DARK_TEXT);
-                    ui.text(ui.fit(value, vw), x + w - vw, ty, toneColor(e.tone() == El.NORMAL ? El.MUTED : e.tone()));
+                    ui.text(ui.fit(value, vw), x + w - vw, two ? ty + 11 : ty,
+                            toneColor(e.tone() == El.NORMAL ? El.MUTED : e.tone()));
                     if (hover) {
                         g.fill(tx, ty + 9, tx + font.width(label), ty + 10, 0xFF8A4A1A);
                         ui.hit(x, y, w, h, () -> click(e.action(), e.arg(), 0));
@@ -774,7 +780,6 @@ public class BookScreen extends Screen {
 
     @Override
     public void renderBackground(GuiGraphics g, int mx, int my, float partial) {
-        renderTransparentBackground(g);
     }
 
     Optional<Book> book() {
