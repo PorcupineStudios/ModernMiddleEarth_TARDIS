@@ -9,5 +9,17 @@
   "serving_mb": 250,
   "keg_servings": 16,
   "keg_water_mb": 3000,
-  "brew_ticks": 12000
+  "brew_ticks": 12000,
+  "poison": [
+    {
+      "id": "minecraft:wither",
+      "duration": 600,
+      "amplifier": 1
+    },
+    {
+      "id": "minecraft:nausea",
+      "duration": 200,
+      "amplifier": 0
+    }
+  ]
 }

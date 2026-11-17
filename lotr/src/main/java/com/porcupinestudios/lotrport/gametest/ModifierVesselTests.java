@@ -140,4 +140,28 @@ public final class ModifierVesselTests {
         helper.assertTrue(level == 2, "LOTR looting2 reads as looting " + level);
         helper.succeed();
     }
+
+    @GameTest(template = "empty")
+    public static void poisonedDrinkKnowsItsPoisonerAndPoisons(GameTestHelper helper) {
+        @SuppressWarnings("removal")
+        ServerPlayer p = (ServerPlayer) helper.makeMockServerPlayerInLevel();
+        p.setGameMode(GameType.SURVIVAL);
+        var recipe = new com.porcupinestudios.lotrport.drink.PoisonDrinkRecipe(
+                net.minecraft.world.item.crafting.CraftingBookCategory.MISC);
+        var input = net.minecraft.world.item.crafting.CraftingInput.of(2, 1,
+                java.util.List.of(new ItemStack(item("ale")), new ItemStack(item("bottle_of_poison"))));
+        helper.assertTrue(recipe.matches(input, helper.getLevel()), "ale + poison doesn't match");
+        ItemStack out = recipe.assemble(input, helper.getLevel().registryAccess());
+        helper.assertTrue(out.is(item("ale")), "made " + out);
+        helper.assertTrue(recipe.getRemainingItems(input).get(1).is(Items.GLASS_BOTTLE), "no empty bottle back");
+        out.onCraftedBy(helper.getLevel(), p, 1);
+        helper.assertTrue(p.getUUID().equals(out.get(com.porcupinestudios.lotrport.content.LotrComponents.POISONED.get())),
+                "poisoner not stored");
+        out.getItem().finishUsingItem(out, helper.getLevel(), p);
+        helper.assertTrue(p.hasEffect(net.minecraft.world.effect.MobEffects.WITHER), "poisoned ale didn't poison");
+        var twice = net.minecraft.world.item.crafting.CraftingInput.of(2, 1,
+                java.util.List.of(new ItemStack(item("ale")), new ItemStack(Items.STICK)));
+        helper.assertTrue(!recipe.matches(twice, helper.getLevel()), "ale + stick matched");
+        helper.succeed();
+    }
 }

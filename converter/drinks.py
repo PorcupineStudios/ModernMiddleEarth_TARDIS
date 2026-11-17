@@ -27,6 +27,9 @@ WATER_MB = 3000
 SERVING_MB = 250  # a mug, in Create's fluid units (a bucket 1000)
 # Drinks that are a fluid of another mod: a mug of water is water, a mug of milk is NeoForge's milk.
 SHARED_FLUIDS = {"lotr:item.mugWater": "minecraft:water", "lotr:item.mugMilk": "minecraft:milk"}  # NeoForge's milk
+# A poisoned drink's effects: LOTR's killing poison as vanilla effects (wither can kill), a stand-in to tune
+POISON = [{"id": "minecraft:wither", "duration": 600, "amplifier": 1},
+          {"id": "minecraft:nausea", "duration": 200, "amplifier": 0}]
 MASK = (0xFF, 0x00, 0xFF)  # LOTRDrinkIcons: vessel pixels of this colour show the drink
 
 
@@ -160,7 +163,8 @@ class Drinks:
         write_json(os.path.join(self.content, "drink_fluids.json"), fluids)
         write_json(os.path.join(self.out_data, NS, "drinking", "settings.json"),
                    {"alcohol_strength": self.data["strengths"], "serving_mb": SERVING_MB,
-                    "keg_servings": self.data["barrelCapacity"], "keg_water_mb": WATER_MB, "brew_ticks": BREW_TICKS})
+                    "keg_servings": self.data["barrelCapacity"], "keg_water_mb": WATER_MB, "brew_ticks": BREW_TICKS,
+                    "poison": POISON})
         for src, name in (("barrel", "keg"), ("brewing", "keg_brewing")):
             path = f"assets/lotr/gui/barrel/{src}.png"
             if self.gen.jar.has(path):

@@ -474,7 +474,11 @@ https://claude.ai/artifact/KqhSSTCuKXGuwKHBoYJdcu. Rebuild features in modern co
   floor and walls z-fought; a real glass bottle). Water drawn into a vessel stays in that vessel.
 - Drink-in-vessel item models are `item/drink/<drink>/<vessel>` (2026-11-17): `<drink>_<vessel>` clashed with real
   items (the empty ale horn drew full ale; ale in a golden horn drew the set-down block).
-- Not yet: alcohol tolerance, drunken speech, NPCs drinking, poisoning drinks with the bottle of poison.
+- Poisoned drinks (2026-11-17, `drink/PoisonDrinkRecipe`, recipe `lotr_port:poison_drink`): any drink + the bottle of
+  poison in a crafting grid = the drink with component `lotr_port:poisoned` (the crafter's UUID, set in
+  `LotrDrinkItem.onCraftedBy`; only they see "Poisoned!"); the bottle comes back empty. Drinking it (hand or set-down
+  vessel) gives `drinking/settings.json` `poison` (stand-in for LOTR's killing poison: Wither II 30 s + nausea).
+- Not yet: alcohol tolerance, drunken speech, NPCs drinking (LOTR's poisoned drinks also killed NPCs given them).
 
 ## Modifiers (2026-11-17, `modifier/`)
 - LOTR's modifiers are data enchantments (extra.py); `Modifiers` hooks them in: crafted gear rolls random ones

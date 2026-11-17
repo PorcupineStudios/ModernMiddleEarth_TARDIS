@@ -154,6 +154,13 @@ public class LotrDrinkItem extends Item {
                 int ticks = Math.round(alcohol * ContentData.num(TABLE, "nausea_seconds_per_alcohol", 30f) * 20);
                 entity.addEffect(new MobEffectInstance(MobEffects.CONFUSION, ticks));
             }
+            if (stack.has(LotrComponents.POISONED.get())) {
+                // a poisoned drink (bottle of poison in the crafting grid): LOTR's killing poison
+                for (var p : com.porcupinestudios.lotrport.drink.DrinkData.settings().poison()) {
+                    BuiltInRegistries.MOB_EFFECT.getHolder(p.id()).ifPresent(h ->
+                            entity.addEffect(new MobEffectInstance(h, p.duration(), p.amplifier())));
+                }
+            }
             float damage = ContentData.num(drink, "damage", 0) * factor;
             if (damage > 0) {
                 entity.hurt(level.damageSources().magic(), damage);
@@ -168,6 +175,16 @@ public class LotrDrinkItem extends Item {
             if (entity instanceof ServerPlayer sp) {
                 sp.awardStat(Stats.ITEM_USED.get(this));
             }
+        }
+    }
+
+    /** A drink just poisoned in the crafting grid remembers who did it. */
+    @Override
+    public void onCraftedBy(ItemStack stack, Level level, Player player) {
+        super.onCraftedBy(stack, level, player);
+        if (!level.isClientSide && com.porcupinestudios.lotrport.drink.PoisonDrinkRecipe.UNKNOWN
+                .equals(stack.get(LotrComponents.POISONED.get()))) {
+            stack.set(LotrComponents.POISONED.get(), player.getUUID());
         }
     }
 
