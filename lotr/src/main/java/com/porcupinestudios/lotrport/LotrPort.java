@@ -113,6 +113,7 @@ public final class LotrPort {
         com.porcupinestudios.lotrport.player.Races.register(modBus);
         AttackTiming.register();
         ColonyItems.register(modBus);
+        com.porcupinestudios.lotrport.content.HeartOfTheMountain.register(modBus);
         ColonyData.register();
         CoreComponents.init();
         SimSettings.register();

@@ -5928,5 +5928,6 @@
   "waypoint_region.lotr_port.vales_of_anduin": "Vales Of Anduin",
   "waypoint_region.lotr_port.white_mountains": "White Mountains",
   "waypoint_region.lotr_port.wilderland": "Wilderland",
-  "waypoint_region.lotr_port.woodland_realm": "Woodland Realm"
+  "waypoint_region.lotr_port.woodland_realm": "Woodland Realm",
+  "block.lotr_port.heart_of_the_mountain": "Heart of the Mountain"
 }

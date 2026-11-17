@@ -1409,6 +1409,9 @@ class Gen:
                     dst[key] = src[old]
 
     def write_tags(self):
+        # hand-registered blocks (content/HeartOfTheMountain): one tag file per path, so they go in here
+        self.tags["minecraft:block/mineable/pickaxe"].add("heart_of_the_mountain")
+        self.tags["minecraft:block/needs_diamond_tool"].add("heart_of_the_mountain")
         for tag, ids in self.tags.items():
             ns, path = tag.split(":", 1)
             write_json(os.path.join(DATA, ns, "tags", path + ".json"),

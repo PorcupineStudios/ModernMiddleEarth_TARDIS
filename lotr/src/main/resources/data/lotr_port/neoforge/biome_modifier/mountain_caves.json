@@ -1,0 +1,9 @@
+{
+  "type": "neoforge:add_carvers",
+  "biomes": "#lotr_port:middle_earth",
+  "carvers": [
+    "lotr_port:mountain_cave",
+    "lotr_port:mountain_canyon"
+  ],
+  "step": "air"
+}

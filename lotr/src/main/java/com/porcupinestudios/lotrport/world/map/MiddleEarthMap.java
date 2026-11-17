@@ -305,6 +305,11 @@ public final class MiddleEarthMap {
         return noiseBand == null ? null : noiseBand.clone();
     }
 
+    /** LOTR's single peaks (Erebor, the Lonely Mountain, Mount Doom...), from map.json {@code mountains}. */
+    public List<Mountain> mountains() {
+        return java.util.Collections.unmodifiableList(mountains);
+    }
+
     public static void setSeed(long worldSeed) {
         seed = worldSeed;
         MiddleEarthMap map = instance;
