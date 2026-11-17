@@ -8,6 +8,7 @@ import com.porcupinestudios.lotrport.event.AlignmentChangeEvent;
 import com.porcupinestudios.lotrport.net.HudNet;
 import com.porcupinestudios.lotrport.player.PlayerLotrData;
 import com.porcupinestudios.lotrport.registry.LotrRegistries;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
@@ -52,7 +53,10 @@ public final class AlignmentHud {
                 update(p);
             }
         });
-        NeoForge.EVENT_BUS.addListener((PlayerEvent.PlayerLoggedOutEvent e) -> SENT.remove(e.getEntity().getUUID()));
+        NeoForge.EVENT_BUS.addListener((PlayerEvent.PlayerLoggedOutEvent e) -> {
+            SENT.remove(e.getEntity().getUUID());
+            LAST_IN_REGION.remove(e.getEntity().getUUID());
+        });
         NeoForge.EVENT_BUS.addListener((PlayerEvent.PlayerLoggedInEvent e) -> SENT.remove(e.getEntity().getUUID()));
     }
 
@@ -89,7 +93,7 @@ public final class AlignmentHud {
         MinecraftServer server = player.server;
         ResourceLocation chosen = ResourceLocation.tryParse(player.getData(LotrRegistries.VIEW_FACTION));
         if (chosen != null) {
-            Optional<Faction> f = Factions.get(server, chosen);
+            Optional<Faction> f = Factions.get(server, chosen).filter(AlignmentHud::shown);
             if (f.isPresent()) {
                 return f;
             }
@@ -98,7 +102,7 @@ public final class AlignmentHud {
         var me = com.porcupinestudios.lotrport.world.LotrDimensions.middleEarth(server);
         if (player.level() != me) {
             Optional<Faction> near = FactionInfluence.nearestFaction(player).flatMap(id -> Factions.get(server, id))
-                    .filter(Faction::playable);
+                    .filter(AlignmentHud::shown);
             if (near.isPresent()) {
                 return near;
             }
@@ -113,29 +117,80 @@ public final class AlignmentHud {
                         .thenComparing(e -> e.getKey().toString()))
                 .map(e -> Factions.get(server, e.getKey()))
                 .flatMap(Optional::stream)
-                .filter(f -> f.playable() && f.fixedAlignment().isEmpty())
+                .filter(AlignmentHud::shown)
                 .findFirst();
         if (strongest.isPresent()) {
             return strongest;
         }
         return Factions.get(server, DEFAULT)
-                .or(() -> Factions.all(server).stream().filter(Faction::playable).findFirst());
+                .or(() -> Factions.all(server).stream().filter(AlignmentHud::shown).findFirst());
+    }
+
+    /** LOTR's bar regions in up/down order (LOTRDimension.DimensionRegion), then founded realms. */
+    public static final List<String> REGIONS = List.of("west", "east", "south", REALMS);
+    private static final String REALMS = "realms";
+
+    /**
+     * Whether the bar can show a faction: LOTR hid Utumno, Hostile, Unaligned and the like (fixed alignment, not
+     * playable, or outside the map's regions).
+     */
+    public static boolean shown(Faction f) {
+        return f.playable() && f.fixedAlignment().isEmpty() && REGIONS.contains(region(f));
+    }
+
+    /** The bar region of a faction: its data's region, or "realms" for a realm. */
+    public static String region(Faction f) {
+        if (f.realm()) {
+            return REALMS;
+        }
+        FactionDef def = Factions.definitions().get(f.id());
+        return def == null ? "none" : def.region();
+    }
+
+    /** Every faction the bar can show, region by region in LOTR's order. */
+    public static List<Faction> shown(MinecraftServer server) {
+        List<Faction> all = Factions.all(server).stream().filter(AlignmentHud::shown).toList();
+        List<Faction> out = new ArrayList<>();
+        for (String r : REGIONS) {
+            all.stream().filter(f -> region(f).equals(r)).forEach(out::add);
+        }
+        return out;
     }
 
     /**
-     * The arrow keys (Aaron 2026-11-16: LOTR switched the bar's faction with them): the next or previous playable
-     * faction after the one shown, in the factions' own order, wrapping round; the choice sticks as with /lotr_view.
+     * The arrow keys (as LOTR's): left/right ({@code step} -1/1) the previous or next faction within the shown one's
+     * region, up/down ({@code step} -2/2) the previous or next region that has any, landing on the faction last
+     * shown there. Wraps round; the choice sticks as with /lotr_view.
      */
     public static void cycle(ServerPlayer player, int step) {
-        List<Faction> all = Factions.all(player.server).stream().filter(Faction::playable).toList();
+        List<Faction> all = shown(player.server);
         if (all.isEmpty()) {
             return;
         }
-        int at = watched(player).map(all::indexOf).orElse(-1);
-        int next = Math.floorMod((at < 0 ? 0 : at) + Integer.signum(step == 0 ? 1 : step), all.size());
-        player.setData(LotrRegistries.VIEW_FACTION, all.get(next).id().toString());
+        Faction current = watched(player).filter(all::contains).orElse(all.get(0));
+        String region = region(current);
+        Faction next;
+        if (Math.abs(step) >= HudNet.CycleView.REGION) {
+            List<String> regions = REGIONS.stream().filter(r -> all.stream().anyMatch(f -> region(f).equals(r)))
+                    .toList();
+            String to = regions.get(Math.floorMod(regions.indexOf(region) + Integer.signum(step), regions.size()));
+            Map<String, ResourceLocation> last = LAST_IN_REGION.computeIfAbsent(player.getUUID(),
+                    k -> new ConcurrentHashMap<>());
+            last.put(region, current.id());
+            ResourceLocation remembered = last.get(to);
+            next = all.stream().filter(f -> region(f).equals(to) && f.id().equals(remembered)).findFirst()
+                    .orElseGet(() -> all.stream().filter(f -> region(f).equals(to)).findFirst().orElseThrow());
+        } else {
+            List<Faction> inRegion = all.stream().filter(f -> region(f).equals(region)).toList();
+            int at = inRegion.indexOf(current);
+            next = inRegion.get(Math.floorMod(at + (step < 0 ? -1 : 1), inRegion.size()));
+        }
+        player.setData(LotrRegistries.VIEW_FACTION, next.id().toString());
         update(player);
     }
+
+    /** Per player, the faction last shown in each region, so up/down returns to it (as LOTR's regionLastViewed). */
+    private static final Map<UUID, Map<String, ResourceLocation>> LAST_IN_REGION = new ConcurrentHashMap<>();
 
     // ------------------------------------------------------------------ /lotr_view
 
@@ -146,7 +201,7 @@ public final class AlignmentHud {
                 .then(Commands.argument("faction", ResourceLocationArgument.id())
                         .suggests((ctx, b) -> SharedSuggestionProvider.suggestResource(
                                 Factions.all(ctx.getSource().getServer()).stream()
-                                        .filter(Faction::playable).map(Faction::id), b))
+                                        .filter(AlignmentHud::shown).map(Faction::id), b))
                         .executes(ctx -> choose(ctx, ResourceLocationArgument.getId(ctx, "faction")))));
     }
 

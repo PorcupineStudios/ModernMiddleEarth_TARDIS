@@ -37,6 +37,8 @@ UI_EN = {
     "key.lotr_port.units": "Units (hired and colony soldiers)",
     "key.lotr_port.race_admin": "Race admin (server admins)",
     "key.lotr_port.alignment_prev": "Alignment bar: previous faction",
+    "key.lotr_port.alignment_region_prev": "Alignment bar: previous region",
+    "key.lotr_port.alignment_region_next": "Alignment bar: next region",
     "key.lotr_port.alignment_next": "Alignment bar: next faction",
     "key.categories.lotr_port": "The Lord of the Rings",
     "screen.lotr_port.map": "Middle-earth",

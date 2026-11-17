@@ -74,6 +74,11 @@ public final class LotrClient {
             KeyConflictContext.IN_GAME, InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_LEFT, "key.categories.lotr_port");
     public static final KeyMapping ALIGNMENT_NEXT_KEY = new KeyMapping("key.lotr_port.alignment_next",
             KeyConflictContext.IN_GAME, InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_RIGHT, "key.categories.lotr_port");
+    /** The alignment bar's region (LOTR's up/down): West, East, South, then realms. */
+    public static final KeyMapping ALIGNMENT_REGION_PREV_KEY = new KeyMapping("key.lotr_port.alignment_region_prev",
+            KeyConflictContext.IN_GAME, InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_UP, "key.categories.lotr_port");
+    public static final KeyMapping ALIGNMENT_REGION_NEXT_KEY = new KeyMapping("key.lotr_port.alignment_region_next",
+            KeyConflictContext.IN_GAME, InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_DOWN, "key.categories.lotr_port");
 
     private LotrClient() {}
 
@@ -234,6 +239,8 @@ public final class LotrClient {
         event.register(FAST_TRAVEL_KEY);
         event.register(ALIGNMENT_PREV_KEY);
         event.register(ALIGNMENT_NEXT_KEY);
+        event.register(ALIGNMENT_REGION_PREV_KEY);
+        event.register(ALIGNMENT_REGION_NEXT_KEY);
     }
 
     @SubscribeEvent
