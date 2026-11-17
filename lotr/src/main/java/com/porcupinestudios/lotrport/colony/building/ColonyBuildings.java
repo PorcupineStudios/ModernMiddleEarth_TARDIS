@@ -313,7 +313,7 @@ public final class ColonyBuildings {
             RoomScan.Room room = measure(level, door.get(), null);
             if (room.ok()) {
                 List<ResourceLocation> fits = BuildingType.fitting(room.counts()).stream()
-                .filter(id -> BuildingType.get(id).map(t -> t.researched(c)).orElse(false)).toList();
+                .filter(id -> BuildingType.get(id).map(t -> t.researched(colony)).orElse(false)).toList();
                 Building.Packed packed = Building.pack(room.cells());
                 if (!fits.isEmpty() && packed != null) {
                     ResourceLocation type = fits.contains(b.type()) ? b.type() : fits.get(0);
