@@ -478,6 +478,8 @@ https://claude.ai/artifact/KqhSSTCuKXGuwKHBoYJdcu. Rebuild features in modern co
   poison in a crafting grid = the drink with component `lotr_port:poisoned` (the crafter's UUID, set in
   `LotrDrinkItem.onCraftedBy`; only they see "Poisoned!"); the bottle comes back empty. Drinking it (hand or set-down
   vessel) gives `drinking/settings.json` `poison` (stand-in for LOTR's killing poison: Wither II 30 s + nausea).
+- Jade (optional, `compat/jade`, compile only like JEI): a set-down drink shows as the drink with its own tooltip lines
+  (strength, "Poisoned!" for the poisoner, or for everyone with COMMON config `drinks.poisonShownToAll`), or "Empty".
 - Not yet: alcohol tolerance, drunken speech, NPCs drinking (LOTR's poisoned drinks also killed NPCs given them).
 
 ## Modifiers (2026-11-17, `modifier/`)

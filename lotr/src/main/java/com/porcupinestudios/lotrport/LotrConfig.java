@@ -43,6 +43,11 @@ public final class LotrConfig {
             .comment("Players may choose again with /lotr_race after they have a race (operators always may).")
             .define("race.allowChange", false);
 
+    public static final ModConfigSpec.BooleanValue POISON_SHOWN_TO_ALL = BUILDER
+            .comment("A poisoned drink says \"Poisoned!\" (in the hand and on Jade) to everyone, not only to whoever",
+                    "poisoned it (LOTR: only the poisoner)")
+            .define("drinks.poisonShownToAll", false);
+
     public static final ModConfigSpec SPEC = BUILDER.build();
 
     private LotrConfig() {}

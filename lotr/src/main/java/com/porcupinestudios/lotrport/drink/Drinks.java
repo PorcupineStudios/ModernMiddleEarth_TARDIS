@@ -132,10 +132,15 @@ public final class Drinks {
         event.registerItem(Capabilities.FluidHandler.ITEM, (stack, ctx) -> new DrinkFluidHandler(stack), items);
     }
 
-    /** "Poisoned!" on a poisoned drink, for its poisoner's eyes only (LOTR). Fires on the client only. */
+    /**
+     * "Poisoned!" on a poisoned drink, for its poisoner's eyes only (LOTR), or everyone's with config
+     * {@code drinks.poisonShownToAll}. Fires on the client only; Jade's view of a set-down drink uses these lines too.
+     */
     private static void poisonTooltip(net.neoforged.neoforge.event.entity.player.ItemTooltipEvent event) {
         java.util.UUID by = event.getItemStack().get(LotrComponents.POISONED.get());
-        if (by != null && event.getEntity() != null && by.equals(event.getEntity().getUUID())) {
+        boolean toAll = com.porcupinestudios.lotrport.LotrConfig.SPEC.isLoaded()
+                && com.porcupinestudios.lotrport.LotrConfig.POISON_SHOWN_TO_ALL.get();
+        if (by != null && (toAll || event.getEntity() != null && by.equals(event.getEntity().getUUID()))) {
             event.getToolTip().add(net.minecraft.network.chat.Component.translatable("item.lotr.drink.poison")
                     .withStyle(net.minecraft.ChatFormatting.DARK_GREEN));
         }
