@@ -50,7 +50,8 @@ SETTINGS = {
     "ent_jar_rain_chance": 2500,  # 1 in n ticks fills a rained-on jar with a serving of water
 }
 GUIS = {"forge": "forge", "oven": "oven", "millstone": "millstone", "unsmelter": "unsmeltery",
-        "armor_stand": "armor_stand", "pouch": "pouch", "coin_exchange": "coin_exchange"}
+        "armor_stand": "armor_stand", "pouch": "pouch", "coin_exchange": "coin_exchange",
+        "npc/trade": "trade"}
 # LOTR item classes that place a block (the block they're the drop of)
 PLACING_ITEM_CLASSES = {"ItemReed", "ItemSeeds", "ItemSeedFood", "LOTRItemArmorStand", "LOTRItemGrapeSeeds",
                         "LOTRItemPlate"}

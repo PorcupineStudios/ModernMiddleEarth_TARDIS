@@ -88,6 +88,7 @@ public final class LotrClient {
         ColorGrade.init();
         MapNet.clientHandler = (data, ctx) -> MapScreen.open(data);
         QuestNet.offerHandler = QuestOfferScreen::open;
+        com.porcupinestudios.lotrport.npc.Traders.interactHandler = TraderInteractScreen::open;
         QuestNet.bookHandler = RedBookScreen::show;
         HudNet.barHandler = LotrHud::receive;
         RigRenderer.init();
@@ -138,6 +139,8 @@ public final class LotrClient {
     @SubscribeEvent
     public static void screens(RegisterMenuScreensEvent event) {
         event.register(Drinks.KEG_MENU.get(), KegScreen::new);
+        event.register(com.porcupinestudios.lotrport.npc.Traders.TRADE_MENU.get(), TradeScreen::new);
+        event.register(com.porcupinestudios.lotrport.npc.Traders.EXCHANGE_MENU.get(), CoinExchangeScreen::new);
         event.register(Machines.FORGE_MENU.get(), MachineScreen::new);
         event.register(Machines.OVEN_MENU.get(), MachineScreen::new);
         event.register(Machines.MILLSTONE_MENU.get(), MachineScreen::new);
