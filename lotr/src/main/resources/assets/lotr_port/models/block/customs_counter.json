@@ -1,0 +1,41 @@
+{
+  "parent": "minecraft:block/block",
+  "textures": {
+    "particle": "minecraft:block/dark_oak_planks",
+    "body": "minecraft:block/dark_oak_planks",
+    "trim": "minecraft:block/stripped_dark_oak_log",
+    "top": "minecraft:block/spruce_planks",
+    "paper": "minecraft:block/birch_planks",
+    "stamp": "minecraft:block/red_wool",
+    "ink": "minecraft:block/black_wool"
+  },
+  "elements": [
+    {"from": [0, 0, 0], "to": [16, 1, 16], "faces": {
+      "north": {"uv": [0, 15, 16, 16], "texture": "#trim"}, "south": {"uv": [0, 15, 16, 16], "texture": "#trim"},
+      "east": {"uv": [0, 15, 16, 16], "texture": "#trim"}, "west": {"uv": [0, 15, 16, 16], "texture": "#trim"},
+      "down": {"uv": [0, 0, 16, 16], "texture": "#trim", "cullface": "down"}}},
+    {"from": [1, 1, 1], "to": [15, 13, 15], "faces": {
+      "north": {"uv": [1, 3, 15, 15], "texture": "#body"}, "south": {"uv": [1, 3, 15, 15], "texture": "#body"},
+      "east": {"uv": [1, 3, 15, 15], "texture": "#body"}, "west": {"uv": [1, 3, 15, 15], "texture": "#body"}}},
+    {"from": [2, 3, 0.8], "to": [14, 11, 1], "faces": {
+      "north": {"uv": [2, 5, 14, 13], "texture": "#trim"}}},
+    {"from": [0, 13, 0], "to": [16, 15, 16], "faces": {
+      "north": {"uv": [0, 1, 16, 3], "texture": "#trim"}, "south": {"uv": [0, 1, 16, 3], "texture": "#trim"},
+      "east": {"uv": [0, 1, 16, 3], "texture": "#trim"}, "west": {"uv": [0, 1, 16, 3], "texture": "#trim"},
+      "up": {"uv": [0, 0, 16, 16], "texture": "#top"}, "down": {"uv": [0, 0, 16, 16], "texture": "#trim"}}},
+    {"from": [2, 15, 3], "to": [9, 15.2, 12], "rotation": {"angle": 22.5, "axis": "y", "origin": [5.5, 15, 7.5]},
+      "faces": {"up": {"uv": [2, 3, 9, 12], "texture": "#paper"}}},
+    {"from": [11, 15, 5], "to": [13, 16.5, 7], "faces": {
+      "north": {"uv": [0, 0, 2, 1.5], "texture": "#stamp"}, "south": {"uv": [0, 0, 2, 1.5], "texture": "#stamp"},
+      "east": {"uv": [0, 0, 2, 1.5], "texture": "#stamp"}, "west": {"uv": [0, 0, 2, 1.5], "texture": "#stamp"},
+      "up": {"uv": [0, 0, 2, 2], "texture": "#stamp"}}},
+    {"from": [11.5, 16.5, 5.5], "to": [12.5, 18, 6.5], "faces": {
+      "north": {"uv": [0, 0, 1, 1.5], "texture": "#trim"}, "south": {"uv": [0, 0, 1, 1.5], "texture": "#trim"},
+      "east": {"uv": [0, 0, 1, 1.5], "texture": "#trim"}, "west": {"uv": [0, 0, 1, 1.5], "texture": "#trim"},
+      "up": {"uv": [0, 0, 1, 1], "texture": "#trim"}}},
+    {"from": [10, 15, 9], "to": [14, 15.4, 13], "faces": {
+      "north": {"uv": [0, 0, 4, 0.4], "texture": "#ink"}, "south": {"uv": [0, 0, 4, 0.4], "texture": "#ink"},
+      "east": {"uv": [0, 0, 4, 0.4], "texture": "#ink"}, "west": {"uv": [0, 0, 4, 0.4], "texture": "#ink"},
+      "up": {"uv": [0, 0, 4, 4], "texture": "#ink"}}}
+  ]
+}

@@ -6,9 +6,7 @@ import com.porcupinestudios.lotrport.faction.Pledges;
 import java.util.List;
 import java.util.Optional;
 import net.minecraft.ChatFormatting;
-import net.minecraft.network.chat.ClickEvent;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.HoverEvent;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
@@ -37,22 +35,105 @@ public final class Hiring {
         return type == null ? List.of() : type.units().flatMap(NpcData::units).map(UnitPool::units).orElse(List.of());
     }
 
-    /** Lists the captain's units to the player, each with its price and a [Hire] link. */
+    public static final ResourceLocation VIEW = com.porcupinestudios.lotrport.LotrPort.id("hire");
+
+    /** Opens the captain's hire screen: each unit with its price and what it needs. */
     public static void offer(ServerPlayer player, LotrNpc captain) {
-        List<UnitPool.Unit> units = units(captain);
-        player.sendSystemMessage(Component.translatableWithFallback("npc.lotr_port.hire.title",
-                "%s hires out (you have %s coins):", captain.getDisplayName(), Coins.count(player))
-                .withStyle(ChatFormatting.GOLD));
-        for (int i = 0; i < units.size(); i++) {
-            UnitPool.Unit u = units.get(i);
-            String command = "/lotr_hire " + captain.getUUID() + " " + i;
-            MutableComponent link = Component.translatableWithFallback("npc.lotr_port.hire.link", "[Hire]")
-                    .withStyle(s -> s.withColor(ChatFormatting.GREEN)
-                            .withClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, command))
-                            .withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, Component.literal(command))));
-            player.sendSystemMessage(Component.literal(" ").append(link).append(" ").append(name(u.npc()))
-                    .append(Component.translatableWithFallback("npc.lotr_port.hire.price",
-                            ": %s coins, %s alignment%s", u.cost(), u.alignment(), u.pledge() ? ", pledged" : "")));
+        com.porcupinestudios.lotrport.ui.Views.open(player, new com.porcupinestudios.lotrport.ui.View.Target(VIEW,
+                captain.getUUID().toString(), ""), true);
+    }
+
+    public static void registerView() {
+        com.porcupinestudios.lotrport.ui.Views.register(VIEW, new HireView());
+    }
+
+    /** The hire screen (context: the captain's UUID); only while the captain is alive and near. */
+    static final class HireView implements com.porcupinestudios.lotrport.ui.ViewProvider {
+        static Optional<LotrNpc> captain(ServerPlayer player, String context) {
+            try {
+                return Optional.ofNullable(player.serverLevel().getEntity(java.util.UUID.fromString(context)))
+                        .filter(e -> e instanceof LotrNpc n && n.isAlive() && e.distanceToSqr(player) < 16 * 16)
+                        .map(e -> (LotrNpc) e);
+            } catch (IllegalArgumentException e) {
+                return Optional.empty();
+            }
+        }
+
+        @Override
+        public Optional<com.porcupinestudios.lotrport.ui.View> build(ServerPlayer player, String context, String tab) {
+            Optional<LotrNpc> c = captain(player, context);
+            if (c.isEmpty()) {
+                return Optional.empty();
+            }
+            LotrNpc captain = c.get();
+            List<UnitPool.Unit> units = units(captain);
+            Optional<ResourceLocation> faction = captain.faction();
+            float have = faction.map(f -> Alignment.get(player, f)).orElse(0f);
+            boolean pledged = faction.isPresent() && Pledges.pledge(player).equals(faction);
+            int coins = Coins.count(player);
+            List<Integer> rows = new java.util.ArrayList<>();
+            for (int i = 0; i < units.size(); i++) {
+                rows.add(i);
+            }
+            var page = com.porcupinestudios.lotrport.ui.TableBuilder.of(rows, i -> Integer.toString(i))
+                    .column(com.porcupinestudios.lotrport.ui.Column.text("unit", tr("col.unit", "Unit"), 4),
+                            i -> com.porcupinestudios.lotrport.ui.Cell.text(name(units.get(i).npc()).getString()))
+                    .column(com.porcupinestudios.lotrport.ui.Column.number("cost", tr("col.cost", "Cost"), 2), i -> {
+                        int cost = units.get(i).cost();
+                        return com.porcupinestudios.lotrport.ui.Cell.number(cost, cost + "c", coins >= cost
+                                ? com.porcupinestudios.lotrport.ui.Tone.NORMAL : com.porcupinestudios.lotrport.ui.Tone.BAD);
+                    })
+                    .column(com.porcupinestudios.lotrport.ui.Column.number("alignment", tr("col.alignment",
+                            "Alignment"), 2), i -> {
+                        float a = units.get(i).alignment();
+                        return com.porcupinestudios.lotrport.ui.Cell.number(a, Integer.toString(Math.round(a)), have >= a
+                                ? com.porcupinestudios.lotrport.ui.Tone.GOOD : com.porcupinestudios.lotrport.ui.Tone.BAD);
+                    })
+                    .column(com.porcupinestudios.lotrport.ui.Column.text("pledge", tr("col.pledge", "Pledge"), 2), i ->
+                            !units.get(i).pledge() ? com.porcupinestudios.lotrport.ui.Cell.text("-",
+                                    com.porcupinestudios.lotrport.ui.Tone.MUTED)
+                            : com.porcupinestudios.lotrport.ui.Cell.text("needed", pledged
+                                    ? com.porcupinestudios.lotrport.ui.Tone.GOOD : com.porcupinestudios.lotrport.ui.Tone.BAD))
+                    .column(com.porcupinestudios.lotrport.ui.Column.text("mount", tr("col.mount", "Rides"), 2), i ->
+                            com.porcupinestudios.lotrport.ui.Cell.text(units.get(i).mount().map(m -> m.getPath()
+                                    .replace('_', ' ')).orElse("-"), com.porcupinestudios.lotrport.ui.Tone.MUTED))
+                    .open("hire")
+                    .rowAction(com.porcupinestudios.lotrport.ui.Action.of("hire", tr("hire", "Hire")))
+                    .button(com.porcupinestudios.lotrport.ui.Action.disabled("purse", Component.literal("You have "
+                            + coins + " coins, " + Math.round(have) + " alignment"), tr("purse",
+                            "Your coins and alignment with this captain's faction")))
+                    .empty(tr("none", "This captain has nobody to hire out"))
+                    .build();
+            return Optional.of(new com.porcupinestudios.lotrport.ui.View(VIEW, context, Component.translatableWithFallback(
+                    "ui.lotr_port.hire.title", "%s hires out", captain.getDisplayName()), List.of(), "", page,
+                    Optional.empty()));
+        }
+
+        @Override
+        public Component denied() {
+            return tr("gone", "The captain is gone");
+        }
+
+        @Override
+        public Result act(ServerPlayer player, String context, String tab, String action, String row, int value) {
+            Optional<LotrNpc> c = captain(player, context);
+            if (c.isEmpty() || !action.equals("hire")) {
+                return Result.NONE;
+            }
+            int index;
+            try {
+                index = Integer.parseInt(row);
+            } catch (NumberFormatException e) {
+                return Result.NONE;
+            }
+            Hiring.Result r = hire(player, c.get(), index);
+            return Result.say(r.unit().isPresent() ? Component.translatableWithFallback("ui.lotr_port.hire.done",
+                    "Hired %s", r.unit().get().getDisplayName()).withStyle(ChatFormatting.GREEN)
+                    : r.problem().copy().withStyle(ChatFormatting.RED));
+        }
+
+        static Component tr(String key, String fallback) {
+            return Component.translatableWithFallback("ui.lotr_port.hire." + key, fallback);
         }
     }
 

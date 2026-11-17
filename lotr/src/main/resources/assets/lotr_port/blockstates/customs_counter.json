@@ -1,0 +1,8 @@
+{
+  "variants": {
+    "facing=north": {"model": "lotr_port:block/customs_counter"},
+    "facing=east": {"model": "lotr_port:block/customs_counter", "y": 90},
+    "facing=south": {"model": "lotr_port:block/customs_counter", "y": 180},
+    "facing=west": {"model": "lotr_port:block/customs_counter", "y": 270}
+  }
+}

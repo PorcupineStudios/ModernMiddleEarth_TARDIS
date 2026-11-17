@@ -76,7 +76,7 @@ public final class ColonyCommand {
                                 .executes(ctx -> citizen(ctx.getSource(),
                                         net.minecraft.commands.arguments.EntityArgument.getEntity(ctx, "npc"),
                                         com.mojang.brigadier.arguments.StringArgumentType.getString(ctx, "tab"))))))
-                // the Ledger of the colony you belong to (the nearest)
+                // the Treasury Ledger of the colony you belong to (the nearest)
                 .then(Commands.literal("ledger").executes(ctx -> {
                     ServerPlayer player = ctx.getSource().getPlayerOrException();
                     Optional<Colony> c = Colonies.get(player.server).all().stream()
@@ -88,7 +88,7 @@ public final class ColonyCommand {
                         return 0;
                     }
                     com.porcupinestudios.lotrport.colony.book.Books.open(player,
-                            com.porcupinestudios.lotrport.colony.book.HallLedgerBook.KIND, c.get().id().toString(), "",
+                            com.porcupinestudios.lotrport.colony.book.TreasuryBook.KIND, c.get().id().toString(), "",
                             "");
                     return 1;
                 }))

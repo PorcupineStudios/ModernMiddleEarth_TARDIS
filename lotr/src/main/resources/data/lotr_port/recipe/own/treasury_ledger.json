@@ -1,0 +1,7 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [" B ", "GLG"],
+  "key": {"B": {"item": "minecraft:book"}, "G": {"item": "minecraft:gold_ingot"}, "L": {"item": "minecraft:lectern"}},
+  "result": {"id": "lotr_port:treasury_ledger", "count": 1}
+}

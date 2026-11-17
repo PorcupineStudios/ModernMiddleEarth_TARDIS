@@ -1,0 +1,7 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [" B ", "ILI"],
+  "key": {"B": {"item": "minecraft:writable_book"}, "I": {"item": "minecraft:ink_sac"}, "L": {"item": "minecraft:lectern"}},
+  "result": {"id": "lotr_port:town_hall_ledger", "count": 1}
+}
