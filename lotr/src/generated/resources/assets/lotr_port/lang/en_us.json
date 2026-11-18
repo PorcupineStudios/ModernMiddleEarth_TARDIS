@@ -5933,6 +5933,7 @@
   "waypoint_region.lotr_port.white_mountains": "White Mountains",
   "waypoint_region.lotr_port.wilderland": "Wilderland",
   "waypoint_region.lotr_port.woodland_realm": "Woodland Realm",
+  "block.lotr_port.diplomacy_table": "Diplomacy Table",
   "block.lotr_port.heart_of_the_mountain": "Heart of the Mountain",
   "item.lotr_port.s_smiths_scroll.blank": "Blank",
   "item.lotr_port.s_smiths_scroll.desc": "On an anvil: puts its modifier on gear; two alike make a better scroll",

@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": ["PGP", "BCB"],
+  "key": {
+    "P": {"item": "minecraft:paper"},
+    "G": {"item": "minecraft:gold_ingot"},
+    "B": {"item": "minecraft:book"},
+    "C": {"item": "minecraft:cartography_table"}
+  },
+  "result": {"id": "lotr_port:diplomacy_table", "count": 1}
+}

@@ -100,6 +100,10 @@ public final class Kingdoms {
                                         .executes(ctx -> found(ctx, Optional.of(
                                                 StringArgumentType.getString(ctx, "color")))))))
                 .then(Commands.literal("info").executes(Kingdoms::info))
+                .then(Commands.literal("diplomacy").executes(ctx -> {
+                    com.porcupinestudios.lotrport.diplomacy.DiplomacyTable.open(ctx.getSource().getPlayerOrException());
+                    return 1;
+                }))
                 .then(Commands.literal("land").executes(Kingdoms::land))
                 .then(Commands.literal("assault")
                         .then(Commands.argument("soldiers", com.mojang.brigadier.arguments.IntegerArgumentType

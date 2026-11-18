@@ -189,7 +189,8 @@ public final class Wars extends SavedData {
         return switch (party) {
             case Owner.OfColony c -> Colonies.get(server).get(c.id()).map(Colony::name).orElse("a lost colony");
             case Owner.OfRealm r -> com.porcupinestudios.lotrport.faction.Realms.get(server).get(r.id())
-                    .map(x -> x.name()).orElse(r.id().toString());
+                    .map(x -> x.name()).orElseGet(() -> com.porcupinestudios.lotrport.faction.Factions.get(server,
+                            r.id()).map(f -> f.name().getString()).orElse(r.id().toString()));
             default -> "nobody";
         };
     }

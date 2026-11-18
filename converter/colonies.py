@@ -53,6 +53,7 @@ UI_EN = {
     "block.lotr_port.town_hall_ledger": "Town Hall Ledger",
     "block.lotr_port.customs_counter": "Customs Counter",
     "block.lotr_port.heart_of_the_mountain": "Heart of the Mountain",
+    "block.lotr_port.diplomacy_table": "Diplomacy Table",
 }
 
 BUILDINGS_EN = {

@@ -251,7 +251,8 @@ def c_by_name(e, is_block):
 
 # Blocks registered by hand in Java (not in blocks.json): their tags live here so all mining tags come from one place
 HAND = {
-    "minecraft:block/mineable/axe": ["building_plaque", "treasury_ledger", "town_hall_ledger", "customs_counter"],
+    "minecraft:block/mineable/axe": ["building_plaque", "treasury_ledger", "town_hall_ledger", "customs_counter",
+                                     "diplomacy_table"],
 }
 
 

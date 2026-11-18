@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
+    "lotr_port:diplomacy_table",
     "lotr_port:acacia_door",
     "lotr_port:acacia_fence_gate",
     "lotr_port:acacia_trapdoor",

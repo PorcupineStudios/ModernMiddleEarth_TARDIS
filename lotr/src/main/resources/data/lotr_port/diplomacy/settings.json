@@ -1,0 +1,16 @@
+{
+  "day_ticks": 24000,
+  "offer_days": 3,
+  "max_land": 20,
+  "land_search": 48,
+  "coin_value": 0.02,
+  "land_value": 4,
+  "colony_value": 40,
+  "keep_factor": 1.5,
+  "trade_value": 5,
+  "peace_value": 10,
+  "war_day_value": 1,
+  "alliance_value": 10,
+  "vassal_value": 30,
+  "relation_bias": {"ally": 10, "friend": 5, "neutral": 0, "enemy": -10, "mortal_enemy": -30}
+}
