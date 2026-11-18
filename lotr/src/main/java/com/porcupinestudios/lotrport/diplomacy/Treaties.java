@@ -44,7 +44,9 @@ import net.neoforged.neoforge.event.tick.ServerTickEvent;
 /**
  * Diplomacy between sides (player kingdoms, AI realms, great powers): standing treaties (truce, trade, alliance) and
  * offers waiting for an answer. A player kingdom's ruler proposes and answers on the diplomacy table
- * ({@link DiplomacyViews}); great powers and AI realms answer at once ({@link #aiAnswer}). Accepting carries out every
+ * ({@link DiplomacyViews}, Incoming tab; never in chat, Aaron 2026-11-18); great powers and AI realms answer at
+ * once ({@link #aiAnswer}). Answered offers are kept ({@link Answer}, the last {@link #KEEP_ANSWERS} per side) so the
+ * Sent and Incoming tabs show what became of them. Accepting carries out every
  * term or none ({@link #check} first). Wars between sides are {@code war/} wars between their realms
  * ({@link #declareWar}). SavedData {@code lotr_port_treaties}, {@code dataVersion} 1; history {@code diplomacy_*}.
  */
@@ -100,6 +102,17 @@ public final class Treaties extends SavedData {
                 .apply(i, Offer::new));
     }
 
+    /** What became of an offer: accepted, refused (an AI's no), declined, withdrawn or expired. */
+    public record Answer(Offer offer, String result, long at) {
+        public static final Codec<Answer> CODEC = RecordCodecBuilder.create(i -> i.group(
+                Offer.CODEC.fieldOf("offer").forGetter(Answer::offer),
+                Codec.STRING.fieldOf("result").forGetter(Answer::result),
+                Codec.LONG.fieldOf("at").forGetter(Answer::at))
+                .apply(i, Answer::new));
+    }
+
+    public static final int KEEP_ANSWERS = 20;
+    private static final Codec<List<Answer>> ANSWERS = Answer.CODEC.listOf();
     private static final Codec<List<Treaty>> TREATIES = Treaty.CODEC.listOf();
     private static final Codec<List<Offer>> OFFERS = Offer.CODEC.listOf();
     private static final SavedData.Factory<Treaties> FACTORY = new SavedData.Factory<>(Treaties::new, Treaties::load,
@@ -107,6 +120,7 @@ public final class Treaties extends SavedData {
 
     private final Map<UUID, Treaty> treaties = new LinkedHashMap<>();
     private final Map<UUID, Offer> offers = new LinkedHashMap<>();
+    private final List<Answer> answers = new ArrayList<>();
 
     public static Treaties get(MinecraftServer server) {
         return server.overworld().getDataStorage().computeIfAbsent(FACTORY, FILE);
@@ -182,6 +196,31 @@ public final class Treaties extends SavedData {
         return Optional.ofNullable(offers.get(id));
     }
 
+    /** Answered offers a side made or got, newest first. */
+    public List<Answer> answers(ResourceLocation side) {
+        List<Answer> out = new ArrayList<>();
+        for (int i = answers.size() - 1; i >= 0; i--) {
+            Answer a = answers.get(i);
+            if (a.offer().from().equals(side) || a.offer().to().equals(side)) {
+                out.add(a);
+            }
+        }
+        return out;
+    }
+
+    private void answered(MinecraftServer server, Offer offer, String result) {
+        answers.add(new Answer(offer, result, server.overworld().getGameTime()));
+        // keep the newest KEEP_ANSWERS per side
+        for (ResourceLocation side : List.of(offer.from(), offer.to())) {
+            List<Answer> theirs = answers.stream().filter(a -> a.offer().from().equals(side)
+                    || a.offer().to().equals(side)).toList();
+            for (int i = 0; i < theirs.size() - KEEP_ANSWERS; i++) {
+                answers.remove(theirs.get(i));
+            }
+        }
+        setDirty();
+    }
+
     /** Wars (any state but ended) between two sides: their realms' wars and their colonies' wars. */
     public static List<War> wars(MinecraftServer server, ResourceLocation a, ResourceLocation b) {
         List<War> out = new ArrayList<>();
@@ -233,17 +272,17 @@ public final class Treaties extends SavedData {
             double value = aiAnswer(server, offer);
             if (value < 0) {
                 log(server, OFFER_HISTORY, offer, "declined");
+                answered(server, offer, "refused");
                 return Component.literal(name(server, to) + " refuses" + (value < -50 ? " outright" : "")
                         + ". Offer more, or ask less.");
             }
             carryOut(server, offer);
+            answered(server, offer, "accepted");
             return Component.literal(name(server, to) + " accepts: " + summary(server, offer));
         }
         offers.put(offer.id(), offer);
         setDirty();
-        tell(server, theirRuler.get(), name(server, from) + " sends an offer: " + summary(server, offer)
-                + " (answer at a diplomacy table)");
-        return Component.literal("Offer sent to " + name(server, to));
+        return Component.literal("Offer sent to " + name(server, to) + "; it waits in their Incoming tab");
     }
 
     /** The ruler of the side an offer went to accepts it: every term is carried out, or none. */
@@ -258,7 +297,7 @@ public final class Treaties extends SavedData {
         }
         offers.remove(offerId);
         carryOut(server, offer);
-        ruler(server, offer.from()).ifPresent(r -> tell(server, r, name(server, offer.to()) + " accepted your offer"));
+        answered(server, offer, "accepted");
         return Component.literal("Agreed: " + summary(server, offer));
     }
 
@@ -275,16 +314,18 @@ public final class Treaties extends SavedData {
         offers.remove(offerId);
         setDirty();
         log(server, OFFER_HISTORY, offer, theirs ? "declined" : "withdrawn");
-        if (theirs) {
-            ruler(server, offer.from()).ifPresent(r -> tell(server, r, name(server, offer.to())
-                    + " declined your offer"));
-        }
+        answered(server, offer, theirs ? "declined" : "withdrawn");
         return Component.literal(theirs ? "Declined" : "Withdrawn");
     }
 
     private void expire(MinecraftServer server) {
         long now = server.overworld().getGameTime();
-        boolean changed = offers.values().removeIf(o -> o.expires() <= now);
+        List<Offer> old = offers.values().stream().filter(o -> o.expires() <= now).toList();
+        old.forEach(o -> {
+            offers.remove(o.id());
+            answered(server, o, "expired");
+        });
+        boolean changed = !old.isEmpty();
         changed |= treaties.values().removeIf(t -> t.until() > 0 && t.until() <= now);
         if (changed) {
             setDirty();
@@ -484,8 +525,6 @@ public final class Treaties extends SavedData {
         tag.putString("kind", t.kind().getSerializedName());
         tag.putString("by", by.toString());
         history(server, BROKEN_HISTORY, tag);
-        ruler(server, t.other(by)).ifPresent(r -> tell(server, r, name(server, by) + " broke the "
-                + t.kind().getSerializedName() + " with you"));
     }
 
     // ---- war
@@ -576,13 +615,6 @@ public final class Treaties extends SavedData {
                 id -> Colonies.get(server).get(id).map(Colony::name).orElse("a lost colony")));
     }
 
-    private static void tell(MinecraftServer server, UUID player, String text) {
-        ServerPlayer p = server.getPlayerList().getPlayer(player);
-        if (p != null) {
-            p.sendSystemMessage(Component.literal(text));
-        }
-    }
-
     private void log(MinecraftServer server, ResourceLocation type, Offer offer, String what) {
         CompoundTag tag = new CompoundTag();
         tag.putString("from", offer.from().toString());
@@ -603,6 +635,7 @@ public final class Treaties extends SavedData {
         TREATIES.encodeStart(NbtOps.INSTANCE, List.copyOf(treaties.values())).result()
                 .ifPresent(n -> tag.put("treaties", n));
         OFFERS.encodeStart(NbtOps.INSTANCE, List.copyOf(offers.values())).result().ifPresent(n -> tag.put("offers", n));
+        ANSWERS.encodeStart(NbtOps.INSTANCE, List.copyOf(answers)).result().ifPresent(n -> tag.put("answers", n));
         return tag;
     }
 
@@ -616,6 +649,10 @@ public final class Treaties extends SavedData {
         Tag of = tag.get("offers");
         if (of != null) {
             OFFERS.parse(NbtOps.INSTANCE, of).result().ifPresent(l -> l.forEach(x -> t.offers.put(x.id(), x)));
+        }
+        Tag an = tag.get("answers");
+        if (an != null) {
+            ANSWERS.parse(NbtOps.INSTANCE, an).result().ifPresent(t.answers::addAll);
         }
         return t;
     }

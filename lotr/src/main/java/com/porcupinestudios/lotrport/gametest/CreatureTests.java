@@ -110,7 +110,11 @@ public final class CreatureTests {
     /**
      * LOTR's rabbits try 32 random spots within 16 for a crop, 1 in 20 a tick: random, so up to 3 tries. Its own
      * batch (the empty template is 1 block, so a shared batch packs other tests and their animals into the field),
-     * and a field of 80 crops so a search hits one about once every 7 seconds.
+     * and a field of 80 crops so a search hits one about once every 7 seconds. The field lies level with the ground
+     * the rabbit stands on (farmland in place of the ground block, wheat at y 0): planted one block up, on farmland
+     * set on top of the ground, the rabbit stood a block below it, which is the likeliest reason it failed now and
+     * then ("running []", the rabbit never ate; not reproduced locally). Only wheat gone from farmland that is still
+     * farmland counts: a trampled crop (farmland turned to dirt) isn't an eaten one.
      */
     @GameTest(template = EMPTY, batch = "creature_rabbit", timeoutTicks = 3000, attempts = 3, requiredSuccesses = 1)
     public static void rabbitEatsCrop(GameTestHelper helper) {
@@ -120,7 +124,7 @@ public final class CreatureTests {
         ThrownTests.inLoadedArea(helper, 12, 8, () -> {
             for (int x = 3; x <= 12; x++) {
                 for (int z = -1; z <= 6; z++) {
-                    var crop = new net.minecraft.core.BlockPos(x, 1, z);
+                    var crop = new net.minecraft.core.BlockPos(x, 0, z);
                     helper.setBlock(crop.below(), net.minecraft.world.level.block.Blocks.FARMLAND);
                     helper.setBlock(crop, net.minecraft.world.level.block.Blocks.WHEAT);
                     field.add(crop);
@@ -138,7 +142,9 @@ public final class CreatureTests {
                 helper.getLevel().getGameRules().getRule(net.minecraft.world.level.GameRules.RULE_MOBGRIEFING)
                         .set(true, helper.getLevel().getServer());
                 helper.assertTrue(field.stream().anyMatch(
-                    p -> !helper.getBlockState(p).is(net.minecraft.world.level.block.Blocks.WHEAT)), "the rabbit ate no wheat; running " + rabbit.goals().getAvailableGoals().stream()
+                    p -> !helper.getBlockState(p).is(net.minecraft.world.level.block.Blocks.WHEAT)
+                            && helper.getBlockState(p.below()).is(net.minecraft.world.level.block.Blocks.FARMLAND)),
+                        "the rabbit ate no wheat; running " + rabbit.goals().getAvailableGoals().stream()
                     .filter(g -> g.isRunning()).map(g -> g.getGoal().getClass().getSimpleName()).toList()
                     + " alive " + rabbit.isAlive() + " at " + rabbit.position());
             });

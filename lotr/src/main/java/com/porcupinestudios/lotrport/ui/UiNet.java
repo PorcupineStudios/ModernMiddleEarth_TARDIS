@@ -18,11 +18,13 @@ import net.neoforged.neoforge.network.registration.PayloadRegistrar;
  */
 public final class UiNet {
     /** Protocol version of these payloads and {@link UiCodecs}. */
-    public static final String VERSION = "7";
+    public static final String VERSION = "8";
 
     /** Set by the client at setup (common code never names the screen). */
     public static Consumer<Show> showHandler = s -> { };
     public static Consumer<Close> closeHandler = c -> { };
+    /** Shows an action's answer in the open screen; set by the client. */
+    public static Consumer<Notice> noticeHandler = n -> { };
 
     private UiNet() {}
 
@@ -34,6 +36,7 @@ public final class UiNet {
         PayloadRegistrar r = event.registrar(VERSION);
         r.playToClient(Show.TYPE, Show.CODEC, (p, ctx) -> ctx.enqueueWork(() -> showHandler.accept(p)));
         r.playToClient(Close.TYPE, Close.CODEC, (p, ctx) -> ctx.enqueueWork(() -> closeHandler.accept(p)));
+        r.playToClient(Notice.TYPE, Notice.CODEC, (p, ctx) -> ctx.enqueueWork(() -> noticeHandler.accept(p)));
         r.playToServer(Open.TYPE, Open.CODEC, (p, ctx) -> ctx.enqueueWork(() -> {
             if (ctx.player() instanceof ServerPlayer sp) {
                 Views.open(sp, p.target(), p.open());
@@ -91,6 +94,21 @@ public final class UiNet {
 
         @Override
         public Type<Close> type() {
+            return TYPE;
+        }
+    }
+
+    /**
+     * Server → client: what an action did, shown in the open screen under its frame for a few seconds (never in chat;
+     * Aaron 2026-11-18). Without a screen open the client shows it over the hotbar.
+     */
+    public record Notice(net.minecraft.network.chat.Component text) implements CustomPacketPayload {
+        public static final Type<Notice> TYPE = new Type<>(LotrPort.id("ui_notice"));
+        public static final StreamCodec<RegistryFriendlyByteBuf, Notice> CODEC = StreamCodec.composite(
+                net.minecraft.network.chat.ComponentSerialization.TRUSTED_STREAM_CODEC, Notice::text, Notice::new);
+
+        @Override
+        public Type<Notice> type() {
             return TYPE;
         }
     }

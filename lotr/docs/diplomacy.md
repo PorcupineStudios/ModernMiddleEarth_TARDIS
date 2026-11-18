@@ -11,13 +11,17 @@ for land, etc").
   `/lotr_kingdom diplomacy` does too. Hand-registered: its axe tag is in `converter/tags.py HAND`, its name in
   `colonies.py UI_EN` (both also patched into the generated files).
 - **Screen** `lotr_port:diplomacy` (`DiplomacyViews`, a server-built view: no client code). Only a kingdom's ruler
-  acts (`Treaties.sideOf`); others see the tables with the actions greyed and why.
+  acts (`Treaties.sideOf`); others see the tables with the actions greyed and why. Nothing about diplomacy goes to
+  chat (Aaron 2026-11-18): offers are answered on the Incoming tab, answers show on Sent, and what an action did shows
+  in the screen under the frame (`UiNet.Notice`, for every UI-core screen; over the hotbar if no screen is open).
+  Sending an offer goes to the Sent tab.
 
 | Tab | Shows | Does |
 |---|---|---|
 | Realms | every kingdom, AI realm and playable great power: kind, relation, treaties (incl. vassal/overlord), war, land won | Make an offer (or double-click), Declare war (confirm) |
-| Offer | context = the other side. Relation, war, how it answers; **You give** / **You ask**: coins (steppers, up to each treasury), land squares (up to `max_land`), a colony (picker); **Agreements**: end the war (when at war), trade agreement, truce days, alliance, vassalage (they swear to you / you swear to them); the offer in words and why it can't be sent | Send offer, Clear. Drafts are kept per player and side for the session |
-| Offers | offers to you and yours: terms, days left | Accept (confirm), Decline / withdraw |
+| New offer | context = the other side. Relation, war, how it answers; **You give** / **You ask**: coins (steppers, up to each treasury), land squares (up to `max_land`), a colony (picker); **Agreements**: end the war (when at war), trade agreement, truce days, alliance, vassalage (they swear to you / you swear to them); the offer in words and why it can't be sent | Send offer, Clear. Drafts are kept per player and side for the session |
+| Incoming (n) | offers to you: from, terms from your side, whether they can be carried out now, days left. Double-click or Look closer opens one in full (context = its id): relation, every term, why it can't be done | Accept (confirm), Decline; All offers |
+| Sent | your offers still waiting, and what became of recent offers to and from you (`Treaties.Answer`, the last 20 per side): accepted, refused (an AI's no), declined, withdrawn, expired | Withdraw |
 | Treaties | truces, trade agreements, alliances: days held, end | Break (confirm; a truce holds until it ends) |
 | Wars | sides you're at war with (realm wars and colony wars), state, days | Offer peace (opens Offer with end the war and a 10-day truce) |
 
@@ -28,7 +32,7 @@ for land, etc").
 - **Offers** (`Terms`): coins, land and a colony each way, trade, truce, alliance, vassalage, end the war. Checked when
   drafted, sent and accepted (`check`): treasuries, enough land, colonies still theirs, colonies only to a kingdom with
   a ruler, no truce/trade/alliance while at war unless the war ends, no second overlord. **Accepting carries out every
-  term or none.** A kingdom's offer waits `offer_days` for its ruler (told in chat); a great power or AI realm answers
+  term or none.** A kingdom's offer waits `offer_days` in the other ruler's Incoming tab; a great power or AI realm answers
   at once (`aiAnswer`).
 - **Land** in a treaty: the giver's held squares nearest the receiver's capital (else the giver's), within
   `land_search` map pixels, moved by `Borders.take` (the original map stays; see `borders.md`).

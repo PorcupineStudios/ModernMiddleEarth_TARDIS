@@ -61,6 +61,8 @@ public final class DiplomacyTests {
             helper.assertTrue(treaties.accept(server, ra.getUUID(), waiting.get(0).id()).getString().contains("no such"),
                     "the proposer accepted their own offer");
             treaties.accept(server, rb.getUUID(), waiting.get(0).id());
+            helper.assertTrue(treaties.answers(a).stream().anyMatch(x -> x.result().equals("accepted")),
+                    "the Sent tab wouldn't show the acceptance");
             helper.assertTrue(Treaties.treasury(server, a) == 300 && Treaties.treasury(server, b) == 300,
                     "coins didn't move: " + Treaties.treasury(server, a) + " / " + Treaties.treasury(server, b));
             helper.assertTrue(Treaties.trading(server, a, b), "no trade agreement");
@@ -90,6 +92,8 @@ public final class DiplomacyTests {
             helper.assertTrue(server.overworld() != null && !Factions.get(server, GONDOR).isEmpty()
                     && com.porcupinestudios.lotrport.faction.Diplomacy.get(server).overlord(GONDOR).isEmpty(),
                     "Gondor swore to a kingdom");
+            helper.assertTrue(treaties.answers(me).stream().anyMatch(x -> x.result().equals("refused")),
+                    "Gondor's refusal isn't recorded for the Sent tab");
             treaties.propose(server, ruler.getUUID(), me, GONDOR, Terms.NONE.withTrade(true));
             helper.assertTrue(Treaties.trading(server, me, GONDOR), "Gondor refused trade at neutral standing");
 

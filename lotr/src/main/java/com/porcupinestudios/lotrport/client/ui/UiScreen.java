@@ -66,6 +66,20 @@ public class UiScreen extends Screen {
         }
     }
 
+    private static Component notice;
+    private static long noticeUntil;
+
+    /** An action's answer: shown under the frame for a few seconds, or over the hotbar without a screen. */
+    public static void notice(UiNet.Notice n) {
+        Minecraft mc = Minecraft.getInstance();
+        if (mc.screen instanceof UiScreen) {
+            notice = n.text();
+            noticeUntil = System.currentTimeMillis() + 6000;
+        } else if (mc.player != null) {
+            mc.player.displayClientMessage(n.text(), true);
+        }
+    }
+
     /** The server says a view may no longer be seen: close it if it is open. */
     public static void close(UiNet.Close close) {
         Minecraft mc = Minecraft.getInstance();
@@ -235,6 +249,12 @@ public class UiScreen extends Screen {
             popup.draw(ui, this);
             ui.layer = 0;
             g.pose().popPose();
+        }
+        if (notice != null && System.currentTimeMillis() < noticeUntil) {
+            int w = Math.min(width - 8, font.width(notice) + 12);
+            int y = Math.min(height - font.lineHeight - 6, fy + fh + UiTheme.BUTTON_HEIGHT / 2 + 4);
+            g.fill(width / 2 - w / 2, y - 3, width / 2 + w / 2, y + font.lineHeight + 2, 0xC0000000);
+            g.drawCenteredString(font, notice, width / 2, y, 0xFFFFE8A0);
         }
         ui.tooltip().ifPresent(t -> g.renderTooltip(font, t, mouseX, mouseY));
     }
