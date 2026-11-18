@@ -1505,6 +1505,8 @@ class Gen:
         print(json.dumps({"mountains": Mountains(OUT).run()}))
         from land import Land
         print(json.dumps({"land": Land(OUT).run()}))
+        import noisecaves
+        print(json.dumps({"noisecaves": noisecaves.run(OUT)}))
         from caves import Caves
         print(json.dumps({"caves": Caves(OUT).run()}))
 

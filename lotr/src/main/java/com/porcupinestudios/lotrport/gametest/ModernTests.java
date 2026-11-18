@@ -260,4 +260,35 @@ public final class ModernTests {
                 net.minecraft.world.level.material.Fluids.WATER), "the wet chain has no water in it");
         helper.succeed();
     }
+
+    /**
+     * noisecaves.py: Middle-earth's density has 1.18's noise caves. Sampled under the Shire (y -40 to 40, well below
+     * its ground): some of the rock is cave, most is still rock; aquifers are on so the caves aren't flooded.
+     */
+    @GameTest(template = "empty")
+    public static void noiseCavesUnderTheShire(GameTestHelper helper) {
+        var access = helper.getLevel().registryAccess();
+        var settings = access.registryOrThrow(net.minecraft.core.registries.Registries.NOISE_SETTINGS)
+                .getOrThrow(com.porcupinestudios.lotrport.world.map.NoiseTop.SETTINGS);
+        helper.assertTrue(settings.isAquifersEnabled(), "aquifers are off: caves under sea level would flood");
+        var state = net.minecraft.world.level.levelgen.RandomState.create(settings,
+                access.lookupOrThrow(net.minecraft.core.registries.Registries.NOISE), 12345L);
+        var density = state.router().finalDensity();
+        int air = 0;
+        int all = 0;
+        for (int x = 0; x < 256; x += 8) {
+            for (int z = 0; z < 256; z += 8) {
+                for (int y = -40; y <= 40; y += 4) {
+                    all++;
+                    if (density.compute(new net.minecraft.world.level.levelgen.DensityFunction.SinglePointContext(
+                            x, y, z)) < 0) {
+                        air++;
+                    }
+                }
+            }
+        }
+        double share = air / (double) all;
+        helper.assertTrue(share > 0.01 && share < 0.5, "cave share under the Shire " + share);
+        helper.succeed();
+    }
 }
