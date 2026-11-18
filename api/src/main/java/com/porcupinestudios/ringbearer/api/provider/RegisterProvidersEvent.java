@@ -22,4 +22,9 @@ public final class RegisterProvidersEvent extends Event implements IModBusEvent 
     public void planet(PlanetProvider provider) {
         builder.planets.add(provider);
     }
+
+    /** Time travel: which tick each player is visiting. */
+    public void time(TimeProvider provider) {
+        builder.times.add(provider);
+    }
 }

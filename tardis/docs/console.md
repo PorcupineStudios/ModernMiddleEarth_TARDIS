@@ -44,7 +44,9 @@ Read when: the console block/renderer, console controls (data `tardis/control/`)
   - **Target time** (side 2, tuning `console.time`): time drums `time0..time2` (digits 0-9, first highest), time
     unit dial `time_unit` (minutes 1200 ticks, hours, days 24000, years; the model has 4 notches), time lever
     `time_from` (off: "12 minutes ago", on: "12 minutes from the beginning of time"). `ConsoleControls.targetTick`
-    gives the tick (clamped 0..now). Stored, shown and saved in memory slots only: time travel isn't built yet.
+    gives the tick (clamped 0..now). Stored, shown and saved in memory slots only: time travel isn't built yet. When it is: register a
+    `TimeProvider` and post `TimeShiftEvent` / `HistoryRewindEvent` (shared API, root CLAUDE.md "history"): the LOTR map
+    then shows a visitor the borders of that tick and a rewind rolls them back.
   - **Jade** (`compat/jade`, compile only `maven.modrinth:jade`, CI puts its jar in the test-build release): a ray
     trace callback hands Jade the console block when `ConsoleAim` finds a control nearer than any block; the tooltip
     names the control (and part), its setting (with the axis total), what a click does and its side.

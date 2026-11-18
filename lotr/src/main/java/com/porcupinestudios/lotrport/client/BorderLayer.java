@@ -132,6 +132,11 @@ public final class BorderLayer {
                 : Component.translatableWithFallback("screen.lotr_port.map.nobody", "nobody");
     }
 
+    /** The tick the borders are from when the player is in the past (time travel), else -1. */
+    static long pastTime() {
+        return snapshot == null ? -1 : snapshot.time();
+    }
+
     /** Kingdom names at their capitals. */
     static List<BorderNet.Label> labels() {
         return snapshot == null ? List.of() : snapshot.labels();

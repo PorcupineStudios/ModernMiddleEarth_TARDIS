@@ -64,6 +64,25 @@ of injuries and deaths, with mood penalties for families, the race, and the whol
   citizen `heavy_losses`. History `assault`.
 - Numbers: `conquest/settings.json`. `/lotr_kingdom land` shows the defence, terrain factor and your pressure.
 
+## Through time (time travel)
+
+- Every change to a saved layer is also a delta in the history log: `border_layer` (`BorderHistory.logDelta`: layer,
+  the pixels set per holder, the pixels cleared; a `baseline` holds a whole layer). The first tick of a world without
+  one writes a baseline (worlds from before 2026-11-18); ticks before it show the original map. `border_changed` stays
+  the readable summary.
+- `BorderHistory.at(server, tick)` replays the deltas into both layers at that tick (cached per tick and log size);
+  `coloniesAt` rebuilds the colonies standing then from `colony_founded` / `colony_transferred` / `colony_disbanded`.
+- **Visiting the past**: the shared API's `TimeProvider` says which tick a player is in (time travel registers it,
+  `Providers.timeOf`). `BorderNet` sends each player the borders of their tick (on login, after changes, and on
+  `TimeShiftEvent`): the changed pixels and kingdom names at that tick's capitals, with the tick (`Snapshot.time`, -1 =
+  now). The map opens anywhere (no dimension check), says "The map as it stood on day N", and its colony icons
+  (`SocialNet.icons`) are the colonies standing then; players shown are only those in the same moment.
+- **Rewinding the world**: on `HistoryRewindEvent` the borders are put back as replayed at that tick
+  (`Borders.restore`, which writes a new baseline). Conquest pressure, diplomacy and colonies keep their own state:
+  each rolls back only if it listens too (not yet).
+- GameTests `BorderHistoryTests` (batch `border_history`): replay before and after a conquest, the past and present
+  payloads, a rewind; colonies standing at a tick.
+
 ## Kingdoms
 
 - A kingdom is a realm (`faction/Realms`): its own faction with alignment, colour and relations (its culture's until

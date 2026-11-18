@@ -19,6 +19,7 @@ public final class Providers {
     private static List<CrashSiteProvider> crashSites = List.of();
     private static List<ResearcherProvider> researchers = List.of();
     private static List<PlanetProvider> planets = List.of();
+    private static List<TimeProvider> times = List.of();
 
     private Providers() {}
 
@@ -29,6 +30,7 @@ public final class Providers {
             crashSites = List.copyOf(builder.crashSites);
             researchers = List.copyOf(builder.researchers);
             planets = List.copyOf(builder.planets);
+            times = List.copyOf(builder.times);
         }));
     }
 
@@ -65,9 +67,21 @@ public final class Providers {
         return Optional.empty();
     }
 
+    /** The tick a player is visiting (time travel): the first provider with an answer; empty = the present. */
+    public static java.util.OptionalLong timeOf(net.minecraft.server.level.ServerPlayer player) {
+        for (TimeProvider provider : times) {
+            java.util.OptionalLong t = provider.timeOf(player);
+            if (t.isPresent()) {
+                return t;
+            }
+        }
+        return java.util.OptionalLong.empty();
+    }
+
     static final class Builder {
         final List<CrashSiteProvider> crashSites = new ArrayList<>();
         final List<ResearcherProvider> researchers = new ArrayList<>();
         final List<PlanetProvider> planets = new ArrayList<>();
+        final List<TimeProvider> times = new ArrayList<>();
     }
 }
