@@ -497,7 +497,8 @@ https://claude.ai/artifact/KqhSSTCuKXGuwKHBoYJdcu. Rebuild features in modern co
 
 ## Modern Middle-earth (2026-11-17, Aaron: "modernize" 1.7.10 -> 1.21.1; list in lotr/docs/modernize.md)
 - Converter post-steps that run on the generated content (each also alone, `python <step>.py`; generate.py runs them
-  in this order after everything else; each is idempotent): `woodsets.py` (stripped logs and beams, signs, hanging
+  in this order after everything else; each is idempotent; `waterlog.py` after `tags.py`, `noisecaves.py` before
+  `caves.py`): `woodsets.py` (stripped logs and beams, signs, hanging
   signs, buttons, pressure plates, boats and chest boats for all 39 LOTR woods; textures are vanilla 1.21.1's oak
   ones recoloured to the LOTR planks' colours, the client jar is downloaded once to converter/cache/), `tags.py`,
   `stonecutting.py`, `waters.py`, `mountains.py`, `land.py`, `caves.py`.
@@ -530,6 +531,20 @@ https://claude.ai/artifact/KqhSSTCuKXGuwKHBoYJdcu. Rebuild features in modern co
 - Land (`land.py`): wild bee nests on LOTR trees (feature `lotr_port:bee_nest`), frogs and lily pads in the wetlands,
   foxes, rabbits, parrots, ocelots, armadillos, bamboo, melons, mushrooms, pumpkins. `MODERN_ORDER` +
   `normalize_order`: every added feature in one global order after LOTR's own (Minecraft rejects order cycles).
+- Waterlogging (`waterlog.py`, `content/Waterlog`): blocks.json `waterlog` on LOTR blocks whose vanilla kin holds water
+  (chests, gates and portcullises, chandeliers, bird cages, orc chains, stalactites, vessels, plates; not the
+  full dwarven doors). `LotrBlocks` builds them inside `Waterlog.building`, so `ShapedBlock`, `FacingBlock` and
+  `GateBlock` add `waterlogged` only to them (SimpleWaterloggedBlock, guarded for blocks without it). Vanilla-class
+  blocks (slabs, stairs, walls, fences, panes, trapdoors, ladders, leaves, signs) already waterlog.
+- Noise caves and aquifers (`noisecaves.py`, 2026-11-18): the terrain density becomes the named, once-cached
+  function `lotr_port:middle_earth/terrain`, and the final density wraps it in vanilla's overworld cave formula
+  (cheese caves with pillars, spaghetti, entrances, noodles; vanilla's `minecraft:overworld/caves/*`) below
+  `CAVE_TOP` 200 and only where the terrain is rock; aquifers on with vanilla's noises (off, the game flooded every
+  air pocket under sea level). Ground scans (`iterateNoiseColumn`: structures, spawning, getBaseHeight) skip both:
+  `lotr_port:caves_on` (`world/map/CavesOn`) reads 0 during a scan, and the scan's noise chunk is made without
+  aquifers (mixin `NoiseGeneratorMixin`). Cost (CI, 2026-11-18): a ground scan 0.56 ms against 0.25 ms before, the
+  Shire structure plan 5.0 s against 3.7 s (19 s with caves and aquifers in scans); full chunk generation pays
+  vanilla-like cave and aquifer costs underground and hasn't been benchmarked. GameTest `noiseCavesUnderTheShire`.
 - Caves (`caves.py`): vanilla's lush and dripstone decorations only inside scattered pockets (placement filter
   `lotr_port:cave_pocket`, `world/feature/CavePocket`: per 112 x 64 x 112 cell, chance 0.25 per kind, radius 14-30,
   10+ blocks under the ground): lush under green wet lands (axolotls there), dripstone under dry, rocky and mountain
