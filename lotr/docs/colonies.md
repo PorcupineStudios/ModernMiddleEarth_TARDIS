@@ -42,7 +42,11 @@ https://claude.ai/artifact/VLwZ5N7pkVMJW4PCYXh41G).
 - `social/`: who sees your map icon (`MapPresence`, `SocialNet`).
 
 ## Colony life (`colony/building`, `colony/work`)
-- Buildings: the Building Writ on a door measures the room with a 3D fill (`RoomScan`, RingRealms' rules: L-shape
+- Buildings: a Building Plaque (Aaron 2026-11-18; the Building Writ is retired: no recipe, not in the tab, old
+  stacks only say so) hung in a room or by its door measures the room at the nearest door within `plaque_door_reach`
+  (5, `colony_rooms/settings.json`) when placed, or when used while it names no building (`ColonyBuildings.plaque`;
+  messages over the hotbar). A room nothing fits says the three nearest types' first lack ("a house needs a bed; a
+  storehouse needs a chest"). The fill (`RoomScan`, RingRealms' rules: L-shape
   floor 56, two storeys 49) and picks the best fitting type (`colony_building/*.json` requirements by counter tags
   `lotr_port:colony/<counter>`); `building_recheck` re-measures, retypes or loses buildings.
 - Jobs (`colony_job/*.json`), races (`colony_race/*.json`), `Assign` (homes by bed, jobs by priority and race

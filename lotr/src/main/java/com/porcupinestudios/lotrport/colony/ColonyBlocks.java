@@ -107,6 +107,18 @@ public final class ColonyBlocks {
             return defaultBlockState().setValue(FACING, ctx.getHorizontalDirection().getOpposite());
         }
 
+        /** A plaque hung where no building is registered yet registers the room (it replaced the writ). */
+        @Override
+        public void setPlacedBy(Level level, BlockPos pos, BlockState state,
+                @org.jetbrains.annotations.Nullable net.minecraft.world.entity.LivingEntity placer,
+                net.minecraft.world.item.ItemStack stack) {
+            super.setPlacedBy(level, pos, state, placer, stack);
+            if (kind == Kind.PLAQUE && placer instanceof ServerPlayer sp
+                    && level instanceof net.minecraft.server.level.ServerLevel sl) {
+                registerAt(sp, sl, pos, state);
+            }
+        }
+
         @Override
         protected boolean canSurvive(BlockState state, net.minecraft.world.level.LevelReader level, BlockPos pos) {
             if (kind != Kind.PLAQUE) {
@@ -170,8 +182,10 @@ public final class ColonyBlocks {
                     return;
                 }
             }
-            player.displayClientMessage(Component.translatableWithFallback("colony.lotr_port.plaque.none",
-                    "This plaque names no building: hang it inside one, or by its door"), true);
+            // no building yet: measure the room now (the plaque replaced the writ), then open its page
+            if (player.level() instanceof net.minecraft.server.level.ServerLevel sl && registerAt(player, sl, pos, state)) {
+                open(player, pos, state, kind);
+            }
             return;
         }
         int reach = BuildingSettings.get().reach();
@@ -191,6 +205,23 @@ public final class ColonyBlocks {
             default -> CustomsBook.KIND;
         };
         Books.open(player, book, c.id().toString(), "", "");
+    }
+
+    /**
+     * Registers the room by a plaque (ColonyBuildings.plaque) unless it already names a building; says what happened
+     * over the hotbar (never in chat). True when the plaque names a building afterwards.
+     */
+    static boolean registerAt(ServerPlayer player, net.minecraft.server.level.ServerLevel level, BlockPos pos,
+            BlockState state) {
+        Direction facing = state.getValue(HorizontalDirectionalBlock.FACING);
+        for (Colony c : Colonies.get(player.server).all()) {
+            if (c.dimension().equals(level.dimension()) && plaqueBuilding(Buildings.of(c), pos, facing).isPresent()) {
+                return true;
+            }
+        }
+        var r = com.porcupinestudios.lotrport.colony.building.ColonyBuildings.plaque(player, level, pos);
+        player.displayClientMessage(r.message(), true);
+        return r.building().isPresent();
     }
 
     /** The building a plaque names: the room it hangs in, the one behind its wall, or one whose door is by it. */

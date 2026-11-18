@@ -406,7 +406,8 @@ https://claude.ai/artifact/KqhSSTCuKXGuwKHBoYJdcu. Rebuild features in modern co
   citizen plus one per `citizens_per_researcher` others; the TARDIS runs its research faster for each.
 - `/lotr_colony` (info, citizens, open recruitments); admin `/lotr colony list|day [n]`.
 - The rest (2026-11-11 rework): society core (Persons + components, `Society` facade), colony systems scheduler,
-  hired units, Town Hall roles and land protection, map visibility, buildings and the Building Writ, homes, jobs,
+  hired units, Town Hall roles and land protection, map visibility, buildings (registered by hanging a Building
+  Plaque; the writ is retired), homes, jobs,
   work, wages, needs, the Ledger, and colony wars: **read `lotr/docs/colonies.md`** before touching `society/`,
   `colony/`, `unit/`, `land/`, `social/`, `war/` or `ai/`.
 - Not yet: envoy spawning (rare NPCs come from normal spawning or commands for now).
