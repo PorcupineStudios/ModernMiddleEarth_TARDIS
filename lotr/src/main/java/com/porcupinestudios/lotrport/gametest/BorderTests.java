@@ -16,7 +16,6 @@ import com.porcupinestudios.lotrport.faction.Realms;
 import com.porcupinestudios.lotrport.npc.NpcData;
 import com.porcupinestudios.lotrport.npc.NpcSpawns;
 import com.porcupinestudios.lotrport.npc.NpcType;
-import com.porcupinestudios.lotrport.world.LotrDimensions;
 import com.porcupinestudios.lotrport.world.map.MiddleEarthMap;
 import java.util.List;
 import java.util.Optional;
@@ -26,7 +25,6 @@ import net.minecraft.gametest.framework.GameTest;
 import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.RandomSource;
 import net.neoforged.neoforge.gametest.GameTestHolder;
@@ -99,8 +97,7 @@ public final class BorderTests {
     @GameTest(template = "empty", batch = "borders")
     public static void settlingTakesOnlyUnclaimedLand(GameTestHelper helper) {
         MinecraftServer server = helper.getLevel().getServer();
-        ServerLevel me = LotrDimensions.middleEarth(server);
-        helper.assertTrue(me != null, "no Middle-earth");
+        var me = Borders.dimension(server); // the key: the GameTest server skips datapack dimensions
         helper.assertTrue(BorderData.base().size() > 50, "border_base missing: " + BorderData.base().size());
         Optional<BlockPos> wild = wildBlock();
         helper.assertTrue(wild.isPresent(), "no low wilderness on the map");
@@ -112,9 +109,9 @@ public final class BorderTests {
                 Optional.of(MORDOR), 0x663300);
         Colonies colonies = Colonies.get(server);
         Optional<Colony> inWild = colonies.foundAi(server, UUID.randomUUID(), UUID.randomUUID(), "Wild Test Hold",
-                me.dimension(), wild.get(), realm.id(), 0);
+                me, wild.get(), realm.id(), 0);
         Optional<Colony> inShire = colonies.foundAi(server, UUID.randomUUID(), UUID.randomUUID(), "Shire Test Hold",
-                me.dimension(), shire, realm.id(), 0);
+                me, shire, realm.id(), 0);
         helper.assertTrue(inWild.isPresent() && inShire.isPresent(), "colonies not founded (too close to others?)");
         try {
             borders.recompute(server);
@@ -135,8 +132,7 @@ public final class BorderTests {
     @GameTest(template = "empty", batch = "borders")
     public static void conquestIsForwardedOntoTheOriginalMap(GameTestHelper helper) {
         MinecraftServer server = helper.getLevel().getServer();
-        ServerLevel me = LotrDimensions.middleEarth(server);
-        helper.assertTrue(me != null, "no Middle-earth");
+        var me = Borders.dimension(server); // the key: the GameTest server skips datapack dimensions
         BlockPos hall = shireBlock(helper.getLevel().getRandom());
         int pixel = Borders.pixelOf(hall.getX(), hall.getZ());
         helper.assertTrue(Borders.baseOwner(pixel).equals(Optional.of(HOBBIT)),
@@ -157,8 +153,9 @@ public final class BorderTests {
             helper.assertTrue(borders.owner(pixel).equals(Optional.of(realm.id())), "pressure past defence didn't "
                     + "take it: " + borders.owner(pixel));
             helper.assertTrue(Borders.baseOwner(pixel).equals(Optional.of(HOBBIT)), "the original map changed");
-            helper.assertTrue(me.getBiome(hall).is(net.minecraft.resources.ResourceKey.create(
-                    net.minecraft.core.registries.Registries.BIOME, SHIRE)), "the terrain's biome changed");
+            helper.assertTrue(MiddleEarthMap.get().biomes().get(MiddleEarthMap.get().pixelIndex(pixel
+                    % MiddleEarthMap.get().width(), pixel / MiddleEarthMap.get().width())).id().equals(SHIRE.toString()),
+                    "the map's biome changed");
             helper.assertTrue(borders.changes().containsKey(pixel), "the change isn't in the overlay");
 
             // spawning in taken land: the holder's (its culture's) people with conquered_share 1
@@ -166,7 +163,7 @@ public final class BorderTests {
             BorderData.override(new BorderData.Settings(s.claimRadius(), s.peoplePerPixel(), s.maxRadius(),
                     s.recomputeTicks(), 1f, s.enemyFactor(), s.kingdomPledgeAlignment(), s.rulerAlignment(),
                     s.kingdomNeedsColony()));
-            NpcSpawns.Table table = TerritorySpawns.adjust(me, hall, NpcSpawns.forBiome(SHIRE).orElseThrow(),
+            NpcSpawns.Table table = TerritorySpawns.rules(server, pixel, NpcSpawns.forBiome(SHIRE).orElseThrow(),
                     RandomSource.create(1));
             helper.assertTrue(!table.entries().isEmpty(), "no spawns in taken land");
             for (NpcSpawns.Entry e : table.entries()) {
@@ -179,7 +176,7 @@ public final class BorderTests {
         }
         helper.assertTrue(borders.owner(pixel).equals(Optional.of(HOBBIT)), "land isn't back to the original holder");
         helper.assertTrue(!borders.changes().containsKey(pixel), "the overlay still holds the pixel");
-        NpcSpawns.Table back = TerritorySpawns.adjust(me, hall, NpcSpawns.forBiome(SHIRE).orElseThrow(),
+        NpcSpawns.Table back = TerritorySpawns.rules(server, pixel, NpcSpawns.forBiome(SHIRE).orElseThrow(),
                 RandomSource.create(1));
         helper.assertTrue(back.equals(NpcSpawns.forBiome(SHIRE).orElseThrow()), "original land's spawns changed");
         helper.succeed();
@@ -188,15 +185,14 @@ public final class BorderTests {
     @GameTest(template = "empty", batch = "borders")
     public static void assaultsCostSoldiersAndWearDefenceDown(GameTestHelper helper) {
         MinecraftServer server = helper.getLevel().getServer();
-        ServerLevel me = LotrDimensions.middleEarth(server);
-        helper.assertTrue(me != null, "no Middle-earth");
+        var me = Borders.dimension(server); // the key: the GameTest server skips datapack dimensions
         BlockPos hall = shireBlock(helper.getLevel().getRandom());
         int pixel = Borders.pixelOf(hall.getX(), hall.getZ());
         Realms.Realm realm = Realms.get(server).found(server, "Assault Test Realm", Optional.of(UUID.randomUUID()),
                 Optional.of(MORDOR), 0x660000);
         Colonies colonies = Colonies.get(server);
         Colony colony = colonies.foundAi(server, UUID.randomUUID(), UUID.randomUUID(), "Assault Test Hold",
-                me.dimension(), hall, realm.id(), 0).orElseThrow();
+                me, hall, realm.id(), 0).orElseThrow();
         com.porcupinestudios.lotrport.society.Persons persons =
                 com.porcupinestudios.lotrport.society.Persons.get(server);
         long now = server.overworld().getGameTime();

@@ -85,20 +85,25 @@ public final class TerritorySpawns {
         }
     }
 
-    /** The table to spawn from at {@code pos}, given the biome's. */
+    /** The table to spawn from at {@code pos}, given the biome's (Middle-earth only; elsewhere the biome's). */
     public static NpcSpawns.Table adjust(ServerLevel level, BlockPos pos, NpcSpawns.Table biome, RandomSource random) {
-        Optional<ResourceLocation> holder = Borders.ownerAt(level, pos);
-        Optional<ResourceLocation> original = Borders.baseOwnerAt(level, pos);
-        NpcSpawns.Table table = biome;
-        if (holder.isPresent() && !holder.equals(original)) {
-            table = taken(level.getServer(), holder.get(), biome, random);
-        }
         if (!com.porcupinestudios.lotrport.world.LotrDimensions.isMiddleEarth(level)) {
-            return table;
+            return biome;
         }
+        int pixel = Borders.pixelOf(pos.getX(), pos.getZ());
+        Optional<ResourceLocation> holder = Borders.get(level.getServer()).owner(pixel);
+        Optional<ResourceLocation> original = Borders.baseOwner(pixel);
+        NpcSpawns.Table table = rules(level.getServer(), pixel, biome, random);
         SpawnEvent event = new SpawnEvent(level, pos, holder, original, biome, table);
         NeoForge.EVENT_BUS.post(event);
         return event.table();
+    }
+
+    /** The default rules at a map pixel (no event): the biome's table unless the land changed hands. */
+    public static NpcSpawns.Table rules(MinecraftServer server, int pixel, NpcSpawns.Table biome, RandomSource random) {
+        Optional<ResourceLocation> holder = Borders.get(server).owner(pixel);
+        Optional<ResourceLocation> original = Borders.baseOwner(pixel);
+        return holder.isPresent() && !holder.equals(original) ? taken(server, holder.get(), biome, random) : biome;
     }
 
     /** The default rule for land the holder took. */
