@@ -231,6 +231,13 @@ https://claude.ai/artifact/KqhSSTCuKXGuwKHBoYJdcu. Rebuild features in modern co
 - Animals are creature NPCs (above); `converter/world.py GRAZERS` adds vanilla spawners on grass biomes. NPCs with
   `spawnsInDarkness` spawn only in the dark unless the biome has `hostiles_in_day` (`npc_spawns`, `NpcSpawner`).
   LOTR mutton and the three vanilla horse armours are vanilla items (`VANILLA_ITEMS`).
+- LOTR's animal NPCs (deer, aurochs, bears, kine araw...: `npc_animals/<biome>`, from LOTR's creature lists by
+  `extra.py ANIMAL_SPAWNING`) spawn as 1.7.10's creatures did (2026-11-18, Aaron: aurochs were rare and vanished):
+  with the land (`generation_chance` 0.1 per new chunk, mixin `AnimalGenerationMixin` after vanilla's creatures,
+  `NpcSpawner.populate`), then every 400 ticks up to `cap` 10 within `radius` 128 counting only animals
+  (`count_only_animals`: villages don't keep them away), and they don't despawn (`LotrNpc.removeWhenFarAway`,
+  `NpcSpawns.isAnimal`). LOTR's horse family (boars...) is on the biomes' vanilla spawn lists. GameTest
+  `lotrAnimalsSpawnAndStayLikeAnimals`.
 - Mounts (2026-11-10, `mount/`, `converter/mounts.py`): LOTR's horse family is one entity class, `LotrHorse` (a
   vanilla `AbstractChestedHorse`, so taming, saddle, inventory screen, jumping and breeding are vanilla's), with one
   entity type per breed: `horse`, `shire_pony`, `zebra`, `wild_boar`, `camel`, `elk`, `rhino`, `giraffe`. Looks and

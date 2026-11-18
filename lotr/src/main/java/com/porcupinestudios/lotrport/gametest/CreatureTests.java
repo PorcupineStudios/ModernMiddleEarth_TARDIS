@@ -161,4 +161,28 @@ public final class CreatureTests {
                     "the bird hasn't stolen any seeds"));
         });
     }
+
+    /**
+     * LOTR's animals spawn and stay like 1.7.10's creatures (Aaron 2026-11-18: aurochs were rare and vanished): their
+     * tables spawn with the land and count only animals against the cap, and an aurochs doesn't despawn when no player
+     * is near, while an orc still does.
+     */
+    @GameTest(template = EMPTY, batch = "creatures")
+    public static void lotrAnimalsSpawnAndStayLikeAnimals(GameTestHelper helper) {
+        var table = com.porcupinestudios.lotrport.npc.NpcSpawns.animalsForBiome(LotrPort.id("rohan"));
+        helper.assertTrue(table.isPresent() && table.get().entries().stream()
+                .anyMatch(e -> e.npc().equals(LotrPort.id("aurochs"))), "Rohan has no aurochs");
+        helper.assertTrue(table.get().generationChance() > 0, "Rohan's animals don't come with the land");
+        helper.assertTrue(table.get().countOnlyAnimals(), "Rohan's animal cap counts people too");
+        helper.assertTrue(com.porcupinestudios.lotrport.npc.NpcSpawns.isAnimal(LotrPort.id("aurochs"))
+                && !com.porcupinestudios.lotrport.npc.NpcSpawns.isAnimal(LotrPort.id("mordor_orc")),
+                "aurochs and orcs sorted wrong");
+        LotrNpc aurochs = spawn(helper, "aurochs", 1.5, 1.5);
+        LotrNpc orc = spawn(helper, "mordor_orc", 3.5, 1.5);
+        helper.assertTrue(!aurochs.removeWhenFarAway(1000), "an aurochs despawns when no player is near");
+        helper.assertTrue(orc.removeWhenFarAway(1000), "an orc no longer despawns");
+        aurochs.discard();
+        orc.discard();
+        helper.succeed();
+    }
 }
