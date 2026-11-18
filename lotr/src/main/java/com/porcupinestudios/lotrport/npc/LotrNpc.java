@@ -163,6 +163,14 @@ public class LotrNpc extends PathfinderMob {
 
     /** Makes an NPC of the given type and adds it to the world; empty if the type is unknown. */
     public static Optional<LotrNpc> spawn(ServerLevel level, ResourceLocation typeId, double x, double y, double z) {
+        Optional<LotrNpc> npc = create(level, typeId, x, y, z, level.random);
+        npc.ifPresent(level::addFreshEntity);
+        return npc;
+    }
+
+    /** An NPC of a type, placed but not yet added to a level (world generation adds it to its region). */
+    public static Optional<LotrNpc> create(ServerLevel level, ResourceLocation typeId, double x, double y, double z,
+            net.minecraft.util.RandomSource random) {
         Optional<NpcType> type = NpcData.type(typeId);
         if (type.isEmpty()) {
             return Optional.empty();
@@ -171,10 +179,15 @@ public class LotrNpc extends PathfinderMob {
         if (npc == null) {
             return Optional.empty();
         }
-        npc.moveTo(x, y, z, level.random.nextFloat() * 360f, 0f);
+        npc.moveTo(x, y, z, random.nextFloat() * 360f, 0f);
         npc.setNpcType(typeId, type.get());
-        level.addFreshEntity(npc);
         return Optional.of(npc);
+    }
+
+    /** LOTR's animals (deer, aurochs, bears...) stay when no player is near, like vanilla's animals. */
+    @Override
+    public boolean removeWhenFarAway(double distanceToClosestPlayer) {
+        return !NpcSpawns.isAnimal(typeId()) && super.removeWhenFarAway(distanceToClosestPlayer);
     }
 
     @Override

@@ -65,6 +65,11 @@ VANILLA_ANIMALS = {"EntitySheep": "minecraft:sheep", "EntityPig": "minecraft:pig
                    "EntityBat": "minecraft:bat", "EntitySquid": "minecraft:squid"}
 # LOTR's horse family (horses, boars, camels, elk...): the port's mount entities (mounts.py)
 STAND_INS = dict(__import__("mounts").BY_CLASS)
+# How LOTR's animal NPCs spawn, as 1.7.10's creatures did: with the land at world generation (its biomes' spawning
+# chance 0.1 per chunk) and every 400 ticks after, up to vanilla's creature cap of 10, counting only animals (people
+# don't keep them away) within 128 blocks of the player. They don't despawn (LotrNpc.removeWhenFarAway).
+ANIMAL_SPAWNING = {"cap": 10, "chance": 1.0, "interval": 400, "radius": 128, "count_only_animals": True,
+                   "generation_chance": 0.1}
 LANG_PREFIXES = ("lotr.invasion.", "lotr.enchant.", "lotr.achievement.", "lotr.title.", "lotr.titles.", "lotr.shields.",
                  "lotr.date.", "item.lotr.drink.", "lotr.capes.")
 
@@ -558,7 +563,7 @@ class Extra:
                 write_json(path, biome)
             if lotr:
                 write_json(os.path.join(self.data, NS, "npc_animals", NS, bid + ".json"),
-                           {"entries": lotr, "cap": 4, "chance": 0.1, "interval": 400})
+                           dict(entries=lotr, **ANIMAL_SPAWNING))
                 animals += 1
         for name, inv in _named(self.d["lotr.common.world.spawning.LOTRInvasions"]).items():
             if "invasionMobs" not in inv:
