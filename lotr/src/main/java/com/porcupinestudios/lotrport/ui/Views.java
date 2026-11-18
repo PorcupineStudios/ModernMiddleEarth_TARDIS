@@ -72,7 +72,8 @@ public final class Views {
                     e);
             return;
         }
-        result.message().ifPresent(m -> player.displayClientMessage(m, false));
+        // the answer goes into the screen, not chat
+        result.message().ifPresent(m -> PacketDistributor.sendToPlayer(player, new UiNet.Notice(m)));
         open(player, result.next().orElse(target), result.next().isPresent());
     }
 }

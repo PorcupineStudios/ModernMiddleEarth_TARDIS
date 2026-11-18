@@ -33,9 +33,10 @@ import net.minecraft.server.level.ServerPlayer;
 
 /**
  * The diplomacy table's screen ({@code lotr_port:diplomacy}): every realm and power with your relation, treaties and
- * wars (declare war, or open an offer); the offer builder (context = the other side): coins, land and colonies each
- * way, trade agreement, truce, alliance, vassalage, ending wars; offers waiting (accept, decline, withdraw);
- * treaties (break); wars (offer peace). Only a kingdom's ruler acts; everyone else sees why not. Drafts are kept per
+ * wars (declare war, or open an offer); Incoming (offers to you: the list, or one in full when the context is its id;
+ * accept or decline here, never in chat); New offer (context = the other side): coins, land and colonies each way,
+ * trade agreement, truce, alliance, vassalage, ending wars; Sent (your offers waiting, withdraw; what became of recent
+ * offers); treaties (break); wars (offer peace). Answers to actions show in the screen (UiNet.Notice). Only a kingdom's ruler acts; everyone else sees why not. Drafts are kept per
  * player and other side for the session.
  */
 public final class DiplomacyViews implements ViewProvider {
@@ -75,15 +76,22 @@ public final class DiplomacyViews implements ViewProvider {
     public Optional<View> build(ServerPlayer player, String context, String tab) {
         MinecraftServer server = player.server;
         Optional<ResourceLocation> side = Treaties.sideOf(player);
+        long incoming = side.map(s -> Treaties.get(server).offers().stream().filter(o -> o.to().equals(s)).count())
+                .orElse(0L);
         List<View.Tab> tabs = List.of(new View.Tab("realms", t("tab.realms", "Realms")),
-                new View.Tab("offer", t("tab.offer", "Offer")), new View.Tab("offers", t("tab.offers", "Offers")),
+                new View.Tab("incoming", incoming > 0
+                        ? Component.translatableWithFallback("ui.lotr_port.diplomacy.tab.incoming_n", "Incoming (%s)",
+                                incoming)
+                        : t("tab.incoming", "Incoming")),
+                new View.Tab("offer", t("tab.offer", "New offer")), new View.Tab("sent", t("tab.sent", "Sent")),
                 new View.Tab("treaties", t("tab.treaties", "Treaties")), new View.Tab("wars", t("tab.wars", "Wars")));
         String which = tabs.stream().anyMatch(x -> x.id().equals(tab)) ? tab : "realms";
         Component title = side.map(s -> (Component) Component.literal("Diplomacy of " + Treaties.name(server, s)))
                 .orElse(t("title", "Diplomacy"));
         Page page = switch (which) {
             case "offer" -> offerPage(server, player, side, context);
-            case "offers" -> offersPage(server, player, side);
+            case "incoming" -> incomingPage(server, side, context);
+            case "sent" -> sentPage(server, side);
             case "treaties" -> treatiesPage(server, side);
             case "wars" -> warsPage(server, side);
             default -> realmsPage(server, side);
@@ -238,26 +246,103 @@ public final class DiplomacyViews implements ViewProvider {
         return new Stat.Picker(action, current.map(UUID::toString).orElse("none"), choices);
     }
 
-    private Page offersPage(MinecraftServer server, ServerPlayer player, Optional<ResourceLocation> side) {
+    private static String days(MinecraftServer server, long until) {
+        long left = Math.max(0, until - server.overworld().getGameTime());
+        return left / Math.max(1, DiplomacyData.get().dayTicks()) + " days";
+    }
+
+    /**
+     * Offers to you: the list (double-click or Look closer for the whole offer), or one offer in full when the context
+     * is its id, with what you would give and get and whether it can be carried out now.
+     */
+    private Page incomingPage(MinecraftServer server, Optional<ResourceLocation> side, String context) {
         Treaties treaties = Treaties.get(server);
-        List<Treaties.Offer> mine = treaties.offers().stream().filter(o -> side.isPresent()
-                && (o.from().equals(side.get()) || o.to().equals(side.get()))).toList();
-        long now = server.overworld().getGameTime();
-        int day = Math.max(1, DiplomacyData.get().dayTicks());
+        Optional<Treaties.Offer> one = Optional.empty();
+        try {
+            one = treaties.offer(UUID.fromString(context)).filter(o -> side.equals(Optional.of(o.to())));
+        } catch (IllegalArgumentException e) {
+            // the list
+        }
+        if (one.isPresent()) {
+            Treaties.Offer o = one.get();
+            String from = Treaties.name(server, o.from());
+            List<Stat> head = new ArrayList<>();
+            head.add(Stat.of(t("in.from", "From"), from));
+            head.add(Stat.of(t("in.relation", "Relation"), Factions.relation(server, o.to(), o.from())
+                    .getSerializedName().replace('_', ' ')));
+            head.add(Stat.of(t("in.expires", "Stands for"), days(server, o.expires()), Tone.MUTED));
+            List<Stat> terms = new ArrayList<>();
+            for (String line : o.terms().flipped().describe("You", from,
+                    id -> colonyName(server, Optional.of(id)))) {
+                terms.add(Stat.of(Component.literal(line), ""));
+            }
+            Optional<Component> problem = treaties.check(server, o.from(), o.to(), o.terms());
+            problem.ifPresent(p -> terms.add(Stat.of(t("in.cannot", "Can't be carried out now: ").copy().append(p), "",
+                    Tone.WARN)));
+            Action accept = problem.isEmpty() ? Action.of("accept", t("act.accept", "Accept")).confirmed()
+                    : Action.disabled("accept", t("act.accept", "Accept"), problem.get());
+            return new Page.Stats(List.of(new Page.Section(Component.literal("Offer from " + from), head),
+                    new Page.Section(t("in.terms", "Its terms"), terms)),
+                    List.of(accept, Action.of("decline", t("act.decline", "Decline")),
+                            Action.of("list", t("act.list", "All offers"))));
+        }
+        List<Treaties.Offer> mine = side.map(s -> treaties.offers().stream().filter(o -> o.to().equals(s)).toList())
+                .orElse(List.of());
         TableBuilder<Treaties.Offer> b = TableBuilder.of(mine, o -> o.id().toString())
-                .column(Column.text("way", t("col.way", "Way"), 1), o -> o.to().equals(side.orElse(null))
-                        ? Cell.text("to you", Tone.GOOD) : Cell.text("yours", Tone.MUTED))
-                .column(Column.text("from", t("col.from", "From"), 2), o -> Cell.text(Treaties.name(server, o.from())))
-                .column(Column.text("to", t("col.to", "To"), 2), o -> Cell.text(Treaties.name(server, o.to())))
-                .column(Column.text("terms", t("col.terms", "Terms"), 7), o -> Cell.text(treaties.summary(server, o)))
-                .column(Column.number("days", t("col.expires", "Days left"), 1), o -> Cell.number(
-                        Math.max(0, (o.expires() - now) / day)))
-                .filterBy("way", t("filter.way", "Way"), "way:", o -> o.to().equals(side.orElse(null)) ? "to you"
-                        : "yours", Component::literal)
-                .empty(t("offers.none", "No offers waiting"));
+                .column(Column.text("from", t("col.from", "From"), 3), o -> Cell.text(Treaties.name(server, o.from())))
+                .column(Column.text("terms", t("col.terms", "Terms"), 8), o -> Cell.text(String.join("; ", o.terms()
+                        .flipped().describe("You", Treaties.name(server, o.from()),
+                                id -> colonyName(server, Optional.of(id))))))
+                .column(Column.text("ok", t("col.ok", "Can do"), 2), o -> treaties.check(server, o.from(), o.to(),
+                        o.terms()).isEmpty() ? Cell.text("yes", Tone.GOOD) : Cell.text("not now", Tone.WARN))
+                .column(Column.text("left", t("col.expires", "Stands for"), 2), o -> Cell.text(days(server,
+                        o.expires()), Tone.MUTED))
+                .open("look")
+                .empty(side.isEmpty() ? notRuler() : t("in.none", "No offers waiting for you"));
         if (side.isPresent()) {
+            b.rowAction(Action.of("look", t("act.look", "Look closer")));
             b.rowAction(Action.of("accept", t("act.accept", "Accept")).confirmed());
-            b.rowAction(Action.of("decline", t("act.decline", "Decline / withdraw")));
+            b.rowAction(Action.of("decline", t("act.decline", "Decline")));
+        }
+        return b.build();
+    }
+
+    /** A row of the Sent tab: an offer still waiting, or what became of one (either way). */
+    private record SentRow(String id, Treaties.Offer offer, String status, boolean waiting) {}
+
+    /** Your offers still waiting, and what became of recent offers to and from you. */
+    private Page sentPage(MinecraftServer server, Optional<ResourceLocation> side) {
+        Treaties treaties = Treaties.get(server);
+        List<SentRow> rows = new ArrayList<>();
+        if (side.isPresent()) {
+            for (Treaties.Offer o : treaties.offers()) {
+                if (o.from().equals(side.get())) {
+                    rows.add(new SentRow(o.id().toString(), o, "waiting", true));
+                }
+            }
+            int n = 0;
+            for (Treaties.Answer a : treaties.answers(side.get())) {
+                rows.add(new SentRow("answer/" + n++, a.offer(), a.result(), false));
+            }
+        }
+        TableBuilder<SentRow> b = TableBuilder.of(rows, SentRow::id)
+                .column(Column.text("way", t("col.way", "Way"), 1), r -> r.offer().from().equals(side.orElse(null))
+                        ? Cell.text("yours", Tone.MUTED) : Cell.text("to you", Tone.NORMAL))
+                .column(Column.text("with", t("col.with", "With"), 3), r -> Cell.text(Treaties.name(server,
+                        r.offer().from().equals(side.orElse(null)) ? r.offer().to() : r.offer().from())))
+                .column(Column.text("terms", t("col.terms", "Terms"), 7), r -> Cell.text(treaties.summary(server,
+                        r.offer())))
+                .column(Column.text("status", t("col.status", "Answer"), 2), r -> Cell.text(r.status(),
+                        switch (r.status()) {
+                            case "accepted" -> Tone.GOOD;
+                            case "refused", "declined" -> Tone.BAD;
+                            case "waiting" -> Tone.NORMAL;
+                            default -> Tone.MUTED;
+                        }))
+                .filterBy("status", t("filter.status", "Answer"), "status:", SentRow::status, Component::literal)
+                .empty(side.isEmpty() ? notRuler() : t("sent.none", "No offers yet: make one on New offer"));
+        if (side.isPresent()) {
+            b.rowAction(Action.of("withdraw", t("act.withdraw", "Withdraw")));
         }
         return b.build();
     }
@@ -340,18 +425,29 @@ public final class DiplomacyViews implements ViewProvider {
                         .withTruceDays(Math.max(10, draft(player, other).truceDays())));
                 return Result.go(new View.Target(ID, other.toString(), "offer"));
             }
-            case "accept", "decline", "break" -> {
+            case "look" -> {
+                return Result.go(new View.Target(ID, row, "incoming"));
+            }
+            case "list" -> {
+                return Result.go(new View.Target(ID, "", "incoming"));
+            }
+            case "accept", "decline", "withdraw", "break" -> {
                 UUID id;
                 try {
-                    id = UUID.fromString(row);
+                    // a row's id in a list, or the offer open in full (its id is the context)
+                    id = UUID.fromString(row.isEmpty() ? context : row);
                 } catch (IllegalArgumentException e) {
                     return Result.NONE;
                 }
-                return Result.say(switch (action) {
+                Component said = switch (action) {
                     case "accept" -> treaties.accept(server, player.getUUID(), id);
-                    case "decline" -> treaties.decline(server, player.getUUID(), id);
+                    case "decline", "withdraw" -> treaties.decline(server, player.getUUID(), id);
                     default -> treaties.breakTreaty(server, player.getUUID(), id);
-                });
+                };
+                // from an offer open in full, back to the list (the offer is gone)
+                return "incoming".equals(tab) && row.isEmpty()
+                        ? new Result(Optional.of(said), Optional.of(new View.Target(ID, "", "incoming")))
+                        : Result.say(said);
             }
             default -> { }
         }
@@ -382,7 +478,8 @@ public final class DiplomacyViews implements ViewProvider {
             case "send" -> {
                 Component said = treaties.propose(server, player.getUUID(), me, other, d);
                 setDraft(player, other, Terms.NONE);
-                return Result.say(said);
+                // the answer (an AI's at once, a ruler's later) shows on the Sent tab
+                return new Result(Optional.of(said), Optional.of(new View.Target(ID, "", "sent")));
             }
             default -> {
                 return Result.NONE;

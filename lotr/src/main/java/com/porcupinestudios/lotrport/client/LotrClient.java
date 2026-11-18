@@ -103,6 +103,7 @@ public final class LotrClient {
         com.porcupinestudios.lotrport.colony.book.Books.showHandler = com.porcupinestudios.lotrport.client.book.BookScreen::show;
         com.porcupinestudios.lotrport.client.book.BookPreview.init();
         com.porcupinestudios.lotrport.ui.UiNet.closeHandler = com.porcupinestudios.lotrport.client.ui.UiScreen::close;
+        com.porcupinestudios.lotrport.ui.UiNet.noticeHandler = com.porcupinestudios.lotrport.client.ui.UiScreen::notice;
         event.enqueueWork(LotrClient::rangedProperties);
     }
 

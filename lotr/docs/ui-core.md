@@ -26,7 +26,9 @@ button / row / stepper   ── Act ───────▶ Views.act → build
 every 5 s while open     ── Open ──────▶ refresh (open = false: never pops a screen up)
 ```
 
-Search, filters, sorting and scrolling happen on the client (`TableQuery`), so typing sends nothing.
+Search, filters, sorting and scrolling happen on the client (`TableQuery`), so typing sends nothing. An action's
+`Result.message` goes back as `UiNet.Notice` and shows under the frame for 6 s (never in chat; over the hotbar if the
+screen was closed meanwhile).
 
 ## Packages
 

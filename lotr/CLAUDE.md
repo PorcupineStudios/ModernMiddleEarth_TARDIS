@@ -426,8 +426,8 @@ https://claude.ai/artifact/KqhSSTCuKXGuwKHBoYJdcu. Rebuild features in modern co
 
 ## Diplomacy (2026-11-18, `diplomacy/`)
 - Diplomacy Table block (`DiplomacyTable`) and `/lotr_kingdom diplomacy` open `lotr_port:diplomacy` (`DiplomacyViews`):
-  realms, the offer builder (coins, land squares and colonies each way, trade, truce, alliance, vassalage, ending the
-  war), offers, treaties, wars. `Treaties` (SavedData): offers wait for a kingdom's ruler, great powers and AI realms
+  realms, Incoming (answer offers here, never in chat), New offer (coins, land squares and colonies each way, trade,
+  truce, alliance, vassalage, ending the war), Sent (waiting and answered), treaties, wars. `Treaties` (SavedData): offers wait for a kingdom's ruler, great powers and AI realms
   answer at once by worth (`diplomacy/settings.json`); acceptance carries out all terms or none; trade agreements let
   caravans trade; war between kingdoms is a realm `war/` war. **Read `lotr/docs/diplomacy.md`.**
 
@@ -692,8 +692,8 @@ From the repo root: `./gradlew :lotr:build`, `:lotr:runClient`, `:lotr:runServer
   biomes) runs only when all pass. Most use template `lotr_port:empty`, which is 16x4x16 so the runner spaces tests
   apart (at 1x1x1 neighbouring creature tests' animals ran into each other). Tests that need entities to tick wrap
   their body in `ThrownTests.inLoadedArea` (forced chunks). Timing tests (`fiftyColoniesRunTenDaysWithinTheBudget`)
-  can miss by a hair on a slow runner; re-run the failed job rather than loosening them. `rabbitEatsCrop` has failed
-  alone in its own batch: cause not found yet.
+  can miss by a hair on a slow runner; re-run the failed job rather than loosening them. `rabbitEatsCrop` failed now
+  and then with its field a block above the rabbit; since 2026-11-18 the field is level with the ground (watch it).
 
 ## LOTR tables from the reflection dump (2026-11-06)
 - The exporter's `ReflectionDump` writes `export/extra.json.gz` (static fields of LOTR's tables, every drink item,
