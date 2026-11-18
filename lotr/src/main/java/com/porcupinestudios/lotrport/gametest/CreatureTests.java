@@ -98,6 +98,10 @@ public final class CreatureTests {
     public static void aurochsKnocksBack(GameTestHelper helper) {
         LotrNpc aurochs = spawn(helper, "aurochs", 1.5, 1.5);
         Pig pig = pig(helper, 3.5, 1.5);
+        // facing the pig, as when it charges: LOTR's push goes the way the attacker faces, and spawned facing away it
+        // cancels vanilla's hit knockback (the old flake)
+        aurochs.lookAt(net.minecraft.commands.arguments.EntityAnchorArgument.Anchor.EYES, pig.position());
+        aurochs.setYBodyRot(aurochs.getYRot());
         helper.assertTrue(aurochs.doHurtTarget(pig), "the aurochs' blow didn't land");
         helper.assertTrue(pig.getDeltaMovement().horizontalDistance() > 0.1, "the aurochs didn't knock the pig back");
         helper.succeed();
