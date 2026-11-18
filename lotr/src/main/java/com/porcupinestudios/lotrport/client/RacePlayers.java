@@ -26,7 +26,9 @@ import net.neoforged.neoforge.common.NeoForge;
 
 /**
  * Draws a player who has a race with a {@code model} on LOTR's body for that race (the NPC models: hair layer, ears,
- * feet), in the race's skin, in place of the vanilla player model. First person keeps vanilla's arm.
+ * feet) in place of the vanilla player model: in the player's own skin converted to that body ({@link RaceSkins})
+ * when the race has {@code own_skin}, else in the race's skin. Feet hide under boots and ears under helmets
+ * ({@link NpcModels#fitArmor}). First person keeps vanilla's arm.
  */
 @EventBusSubscriber(modid = LotrPort.MOD_ID, bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public final class RacePlayers {
@@ -40,6 +42,7 @@ public final class RacePlayers {
             NeoForge.EVENT_BUS.addListener(RacePlayers::render);
         }
         renderer = new Renderer(event.getContext());
+        RaceSkins.clear(); // resources reloaded: rebuild converted skins with the new rules
     }
 
     private static void render(RenderPlayerEvent.Pre event) {
@@ -51,6 +54,10 @@ public final class RacePlayers {
         ResourceLocation skin = Races.CLIENT_SKINS.get(player.getUUID());
         if (model == null || skin == null) {
             return;
+        }
+        if (Races.CLIENT_OWN_SKIN.contains(player.getUUID()) && LotrClientConfig.RACE_OWN_SKINS.get()) {
+            // getSkin() is the player's own here (PlayerSkinMixin leaves own-skin races alone)
+            skin = RaceSkins.get(player.getSkin().texture(), model).orElse(skin);
         }
         event.setCanceled(true);
         renderer.draw(player, model, skin, event);
@@ -78,6 +85,9 @@ public final class RacePlayers {
             this.skin = skin;
             model = models.getOrDefault(kind, models.get("human"));
             model.crouching = player.isCrouching();
+            if (!"classic".equals(kind)) {
+                NpcModels.fitArmor(model, player);
+            }
             HumanoidModel.ArmPose main = pose(player, InteractionHand.MAIN_HAND);
             HumanoidModel.ArmPose off = pose(player, InteractionHand.OFF_HAND);
             boolean right = player.getMainArm() == HumanoidArm.RIGHT;

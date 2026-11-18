@@ -15,7 +15,11 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public abstract class PlayerSkinMixin {
     @Inject(method = "getSkin", at = @At("RETURN"), cancellable = true)
     private void lotr_port$raceSkin(CallbackInfoReturnable<PlayerSkin> cir) {
-        ResourceLocation race = Races.CLIENT_SKINS.get(((AbstractClientPlayer) (Object) this).getUUID());
+        java.util.UUID id = ((AbstractClientPlayer) (Object) this).getUUID();
+        ResourceLocation race = Races.CLIENT_SKINS.get(id);
+        if (Races.CLIENT_OWN_SKIN.contains(id) && LotrClientConfig.RACE_OWN_SKINS.get()) {
+            return; // their own skin, converted by client.RacePlayers; first person keeps it as is
+        }
         if (race != null && LotrClientConfig.RACE_SKINS.get()) {
             PlayerSkin s = cir.getReturnValue();
             cir.setReturnValue(new PlayerSkin(race, null, s.capeTexture(), s.elytraTexture(), s.model(), s.secure()));
