@@ -4,6 +4,8 @@
     "lotr_port:pomegranate_wood",
     "lotr_port:pomegranate_wood_beam",
     "lotr_port:stripped_pomegranate_wood",
-    "lotr_port:stripped_pomegranate_wood_beam"
+    "lotr_port:stripped_pomegranate_wood_beam",
+    "lotr_port:pomegranate_bark",
+    "lotr_port:stripped_pomegranate_bark"
   ]
 }

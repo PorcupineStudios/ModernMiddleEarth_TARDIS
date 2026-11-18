@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "axis=y": {
+      "model": "lotr_port:block/willow_bark"
+    },
+    "axis=z": {
+      "model": "lotr_port:block/willow_bark_horizontal",
+      "x": 90
+    },
+    "axis=x": {
+      "model": "lotr_port:block/willow_bark_horizontal",
+      "x": 90,
+      "y": 90
+    }
+  }
+}

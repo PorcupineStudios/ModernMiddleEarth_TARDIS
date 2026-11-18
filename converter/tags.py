@@ -89,7 +89,7 @@ BLOCK_RULES = [
     # woodsets.py
     ({"sign"}, ANY, "oak_sign"), ({"wall_sign"}, ANY, "oak_wall_sign"),
     ({"hanging_sign"}, ANY, "oak_hanging_sign"), ({"wall_hanging_sign"}, ANY, "oak_wall_hanging_sign"),
-    ({"pillar"}, _all(_has("stripped_"), _has("_beam")), "stripped_oak_wood"),
+    ({"pillar"}, _all(_has("stripped_"), _has("_beam", "_bark")), "stripped_oak_wood"),
     ({"pillar"}, _has("stripped_"), "stripped_oak_log"),
     ({"button"}, WOODEN, "oak_button"), ({"button"}, ANY, "stone_button"),
     ({"pressure_plate"}, WOODEN, "oak_pressure_plate"), ({"pressure_plate"}, ANY, "stone_pressure_plate"),
@@ -127,7 +127,7 @@ BLOCK_RULES = [
     ({"plant"}, _cls("DeadPlant", "Dead"), "dead_bush"), ({"plant"}, _cls("Chandelier"), "@pickaxe"),
     ({"plant"}, ANY, "short_grass"),
     # pillars
-    ({"pillar"}, _all(WOODEN, _has("beam")), "oak_wood"), ({"pillar"}, WOODEN, "oak_log"),
+    ({"pillar"}, _all(WOODEN, _has("beam", "_bark")), "oak_wood"), ({"pillar"}, WOODEN, "oak_log"),
     ({"pillar"}, _mat("plants", "grass", "leaves"), "hay_block"), ({"pillar"}, ANY, "quartz_pillar"),
     # set-down vessels, plates, pots and the like (instant to break), chains, rails, remains, ice spikes
     ({"shaped"}, _cls("AleHorn", "ClayMug", "Goblet", "SkullCup", "Plate", "FlowerPot", "Mug"), "flower_pot"),
@@ -394,12 +394,13 @@ class Tagger:
                 "blocks_without_analogue": sum(1 for x in self.report["no_analogue"] if x.startswith("block"))}
 
     def wood_tags(self):
-        """Per wood: lotr_port:<wood>_logs (log, beam, stripped) like vanilla's oak_logs, which burn and make planks."""
+        """Per wood: lotr_port:<wood>_logs (log, beam, bark, stripped) like vanilla's oak_logs, which burn and make planks."""
         for b in self.blocks:
             base = b.get("woodset")
             if not base or b.get("kind") != "pillar":
                 continue
-            for i in (f"{base}_wood", f"{base}_wood_beam", f"stripped_{base}_wood", f"stripped_{base}_wood_beam"):
+            for i in (f"{base}_wood", f"{base}_wood_beam", f"{base}_bark", f"stripped_{base}_wood",
+                      f"stripped_{base}_wood_beam", f"stripped_{base}_bark"):
                 for reg in ("block", "item"):
                     self.tags[f"{NS}:{reg}/{base}_logs"].add(f"{NS}:{i}")
 

@@ -4,6 +4,8 @@
     "lotr_port:mirk_oak_wood",
     "lotr_port:mirk_oak_wood_beam",
     "lotr_port:stripped_mirk_oak_wood",
-    "lotr_port:stripped_mirk_oak_wood_beam"
+    "lotr_port:stripped_mirk_oak_wood_beam",
+    "lotr_port:mirk_oak_bark",
+    "lotr_port:stripped_mirk_oak_bark"
   ]
 }

@@ -4,6 +4,8 @@
     "lotr_port:dragonblood_wood",
     "lotr_port:dragonblood_wood_beam",
     "lotr_port:stripped_dragonblood_wood",
-    "lotr_port:stripped_dragonblood_wood_beam"
+    "lotr_port:stripped_dragonblood_wood_beam",
+    "lotr_port:dragonblood_bark",
+    "lotr_port:stripped_dragonblood_bark"
   ]
 }

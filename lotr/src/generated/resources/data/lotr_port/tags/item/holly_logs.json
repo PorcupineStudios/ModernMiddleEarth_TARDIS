@@ -4,6 +4,8 @@
     "lotr_port:holly_wood",
     "lotr_port:holly_wood_beam",
     "lotr_port:stripped_holly_wood",
-    "lotr_port:stripped_holly_wood_beam"
+    "lotr_port:stripped_holly_wood_beam",
+    "lotr_port:holly_bark",
+    "lotr_port:stripped_holly_bark"
   ]
 }

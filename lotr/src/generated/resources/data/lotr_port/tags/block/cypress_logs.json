@@ -4,6 +4,8 @@
     "lotr_port:cypress_wood",
     "lotr_port:cypress_wood_beam",
     "lotr_port:stripped_cypress_wood",
-    "lotr_port:stripped_cypress_wood_beam"
+    "lotr_port:stripped_cypress_wood_beam",
+    "lotr_port:cypress_bark",
+    "lotr_port:stripped_cypress_bark"
   ]
 }

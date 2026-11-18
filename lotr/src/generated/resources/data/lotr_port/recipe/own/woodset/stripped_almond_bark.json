@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "group": "bark",
+  "pattern": [
+    "##",
+    "##"
+  ],
+  "key": {
+    "#": {
+      "item": "lotr_port:stripped_almond_wood"
+    }
+  },
+  "result": {
+    "id": "lotr_port:stripped_almond_bark",
+    "count": 3
+  }
+}

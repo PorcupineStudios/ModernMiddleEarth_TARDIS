@@ -16275,6 +16275,16 @@
     }
   },
   {
+    "id": "shire_pine_bark",
+    "kind": "pillar",
+    "woodset": "shire_pine",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true
+  },
+  {
     "id": "stripped_shire_pine_wood",
     "kind": "pillar",
     "woodset": "shire_pine",
@@ -16287,6 +16297,17 @@
   },
   {
     "id": "stripped_shire_pine_wood_beam",
+    "kind": "pillar",
+    "woodset": "shire_pine",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true,
+    "stripped": true
+  },
+  {
+    "id": "stripped_shire_pine_bark",
     "kind": "pillar",
     "woodset": "shire_pine",
     "sound": "wood",
@@ -16363,6 +16384,16 @@
     "item": "none"
   },
   {
+    "id": "mallorn_bark",
+    "kind": "pillar",
+    "woodset": "mallorn",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true
+  },
+  {
     "id": "stripped_mallorn_wood",
     "kind": "pillar",
     "woodset": "mallorn",
@@ -16375,6 +16406,17 @@
   },
   {
     "id": "stripped_mallorn_wood_beam",
+    "kind": "pillar",
+    "woodset": "mallorn",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true,
+    "stripped": true
+  },
+  {
+    "id": "stripped_mallorn_bark",
     "kind": "pillar",
     "woodset": "mallorn",
     "sound": "wood",
@@ -16451,6 +16493,16 @@
     "item": "none"
   },
   {
+    "id": "mirk_oak_bark",
+    "kind": "pillar",
+    "woodset": "mirk_oak",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true
+  },
+  {
     "id": "stripped_mirk_oak_wood",
     "kind": "pillar",
     "woodset": "mirk_oak",
@@ -16463,6 +16515,17 @@
   },
   {
     "id": "stripped_mirk_oak_wood_beam",
+    "kind": "pillar",
+    "woodset": "mirk_oak",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true,
+    "stripped": true
+  },
+  {
+    "id": "stripped_mirk_oak_bark",
     "kind": "pillar",
     "woodset": "mirk_oak",
     "sound": "wood",
@@ -16539,6 +16602,16 @@
     "item": "none"
   },
   {
+    "id": "charred_bark",
+    "kind": "pillar",
+    "woodset": "charred",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true
+  },
+  {
     "id": "stripped_charred_wood",
     "kind": "pillar",
     "woodset": "charred",
@@ -16551,6 +16624,17 @@
   },
   {
     "id": "stripped_charred_wood_beam",
+    "kind": "pillar",
+    "woodset": "charred",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true,
+    "stripped": true
+  },
+  {
+    "id": "stripped_charred_bark",
     "kind": "pillar",
     "woodset": "charred",
     "sound": "wood",
@@ -16627,6 +16711,16 @@
     "item": "none"
   },
   {
+    "id": "apple_bark",
+    "kind": "pillar",
+    "woodset": "apple",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true
+  },
+  {
     "id": "stripped_apple_wood",
     "kind": "pillar",
     "woodset": "apple",
@@ -16639,6 +16733,17 @@
   },
   {
     "id": "stripped_apple_wood_beam",
+    "kind": "pillar",
+    "woodset": "apple",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true,
+    "stripped": true
+  },
+  {
+    "id": "stripped_apple_bark",
     "kind": "pillar",
     "woodset": "apple",
     "sound": "wood",
@@ -16715,6 +16820,16 @@
     "item": "none"
   },
   {
+    "id": "pear_bark",
+    "kind": "pillar",
+    "woodset": "pear",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true
+  },
+  {
     "id": "stripped_pear_wood",
     "kind": "pillar",
     "woodset": "pear",
@@ -16727,6 +16842,17 @@
   },
   {
     "id": "stripped_pear_wood_beam",
+    "kind": "pillar",
+    "woodset": "pear",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true,
+    "stripped": true
+  },
+  {
+    "id": "stripped_pear_bark",
     "kind": "pillar",
     "woodset": "pear",
     "sound": "wood",
@@ -16803,6 +16929,16 @@
     "item": "none"
   },
   {
+    "id": "cherry_bark",
+    "kind": "pillar",
+    "woodset": "cherry",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true
+  },
+  {
     "id": "stripped_cherry_wood",
     "kind": "pillar",
     "woodset": "cherry",
@@ -16815,6 +16951,17 @@
   },
   {
     "id": "stripped_cherry_wood_beam",
+    "kind": "pillar",
+    "woodset": "cherry",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true,
+    "stripped": true
+  },
+  {
+    "id": "stripped_cherry_bark",
     "kind": "pillar",
     "woodset": "cherry",
     "sound": "wood",
@@ -16891,6 +17038,16 @@
     "item": "none"
   },
   {
+    "id": "mango_bark",
+    "kind": "pillar",
+    "woodset": "mango",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true
+  },
+  {
     "id": "stripped_mango_wood",
     "kind": "pillar",
     "woodset": "mango",
@@ -16903,6 +17060,17 @@
   },
   {
     "id": "stripped_mango_wood_beam",
+    "kind": "pillar",
+    "woodset": "mango",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true,
+    "stripped": true
+  },
+  {
+    "id": "stripped_mango_bark",
     "kind": "pillar",
     "woodset": "mango",
     "sound": "wood",
@@ -16979,6 +17147,16 @@
     "item": "none"
   },
   {
+    "id": "lebethron_bark",
+    "kind": "pillar",
+    "woodset": "lebethron",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true
+  },
+  {
     "id": "stripped_lebethron_wood",
     "kind": "pillar",
     "woodset": "lebethron",
@@ -16991,6 +17169,17 @@
   },
   {
     "id": "stripped_lebethron_wood_beam",
+    "kind": "pillar",
+    "woodset": "lebethron",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true,
+    "stripped": true
+  },
+  {
+    "id": "stripped_lebethron_bark",
     "kind": "pillar",
     "woodset": "lebethron",
     "sound": "wood",
@@ -17067,6 +17256,16 @@
     "item": "none"
   },
   {
+    "id": "beech_bark",
+    "kind": "pillar",
+    "woodset": "beech",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true
+  },
+  {
     "id": "stripped_beech_wood",
     "kind": "pillar",
     "woodset": "beech",
@@ -17079,6 +17278,17 @@
   },
   {
     "id": "stripped_beech_wood_beam",
+    "kind": "pillar",
+    "woodset": "beech",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true,
+    "stripped": true
+  },
+  {
+    "id": "stripped_beech_bark",
     "kind": "pillar",
     "woodset": "beech",
     "sound": "wood",
@@ -17155,6 +17365,16 @@
     "item": "none"
   },
   {
+    "id": "holly_bark",
+    "kind": "pillar",
+    "woodset": "holly",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true
+  },
+  {
     "id": "stripped_holly_wood",
     "kind": "pillar",
     "woodset": "holly",
@@ -17167,6 +17387,17 @@
   },
   {
     "id": "stripped_holly_wood_beam",
+    "kind": "pillar",
+    "woodset": "holly",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true,
+    "stripped": true
+  },
+  {
+    "id": "stripped_holly_bark",
     "kind": "pillar",
     "woodset": "holly",
     "sound": "wood",
@@ -17243,6 +17474,16 @@
     "item": "none"
   },
   {
+    "id": "banana_bark",
+    "kind": "pillar",
+    "woodset": "banana",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true
+  },
+  {
     "id": "stripped_banana_wood",
     "kind": "pillar",
     "woodset": "banana",
@@ -17255,6 +17496,17 @@
   },
   {
     "id": "stripped_banana_wood_beam",
+    "kind": "pillar",
+    "woodset": "banana",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true,
+    "stripped": true
+  },
+  {
+    "id": "stripped_banana_bark",
     "kind": "pillar",
     "woodset": "banana",
     "sound": "wood",
@@ -17331,6 +17583,16 @@
     "item": "none"
   },
   {
+    "id": "maple_bark",
+    "kind": "pillar",
+    "woodset": "maple",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true
+  },
+  {
     "id": "stripped_maple_wood",
     "kind": "pillar",
     "woodset": "maple",
@@ -17343,6 +17605,17 @@
   },
   {
     "id": "stripped_maple_wood_beam",
+    "kind": "pillar",
+    "woodset": "maple",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true,
+    "stripped": true
+  },
+  {
+    "id": "stripped_maple_bark",
     "kind": "pillar",
     "woodset": "maple",
     "sound": "wood",
@@ -17419,6 +17692,16 @@
     "item": "none"
   },
   {
+    "id": "larch_bark",
+    "kind": "pillar",
+    "woodset": "larch",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true
+  },
+  {
     "id": "stripped_larch_wood",
     "kind": "pillar",
     "woodset": "larch",
@@ -17431,6 +17714,17 @@
   },
   {
     "id": "stripped_larch_wood_beam",
+    "kind": "pillar",
+    "woodset": "larch",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true,
+    "stripped": true
+  },
+  {
+    "id": "stripped_larch_bark",
     "kind": "pillar",
     "woodset": "larch",
     "sound": "wood",
@@ -17507,6 +17801,16 @@
     "item": "none"
   },
   {
+    "id": "date_palm_bark",
+    "kind": "pillar",
+    "woodset": "date_palm",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true
+  },
+  {
     "id": "stripped_date_palm_wood",
     "kind": "pillar",
     "woodset": "date_palm",
@@ -17519,6 +17823,17 @@
   },
   {
     "id": "stripped_date_palm_wood_beam",
+    "kind": "pillar",
+    "woodset": "date_palm",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true,
+    "stripped": true
+  },
+  {
+    "id": "stripped_date_palm_bark",
     "kind": "pillar",
     "woodset": "date_palm",
     "sound": "wood",
@@ -17595,6 +17910,16 @@
     "item": "none"
   },
   {
+    "id": "mangrove_bark",
+    "kind": "pillar",
+    "woodset": "mangrove",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true
+  },
+  {
     "id": "stripped_mangrove_wood",
     "kind": "pillar",
     "woodset": "mangrove",
@@ -17607,6 +17932,17 @@
   },
   {
     "id": "stripped_mangrove_wood_beam",
+    "kind": "pillar",
+    "woodset": "mangrove",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true,
+    "stripped": true
+  },
+  {
+    "id": "stripped_mangrove_bark",
     "kind": "pillar",
     "woodset": "mangrove",
     "sound": "wood",
@@ -17683,6 +18019,16 @@
     "item": "none"
   },
   {
+    "id": "chestnut_bark",
+    "kind": "pillar",
+    "woodset": "chestnut",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true
+  },
+  {
     "id": "stripped_chestnut_wood",
     "kind": "pillar",
     "woodset": "chestnut",
@@ -17695,6 +18041,17 @@
   },
   {
     "id": "stripped_chestnut_wood_beam",
+    "kind": "pillar",
+    "woodset": "chestnut",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true,
+    "stripped": true
+  },
+  {
+    "id": "stripped_chestnut_bark",
     "kind": "pillar",
     "woodset": "chestnut",
     "sound": "wood",
@@ -17771,6 +18128,16 @@
     "item": "none"
   },
   {
+    "id": "baobab_bark",
+    "kind": "pillar",
+    "woodset": "baobab",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true
+  },
+  {
     "id": "stripped_baobab_wood",
     "kind": "pillar",
     "woodset": "baobab",
@@ -17783,6 +18150,17 @@
   },
   {
     "id": "stripped_baobab_wood_beam",
+    "kind": "pillar",
+    "woodset": "baobab",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true,
+    "stripped": true
+  },
+  {
+    "id": "stripped_baobab_bark",
     "kind": "pillar",
     "woodset": "baobab",
     "sound": "wood",
@@ -17859,6 +18237,16 @@
     "item": "none"
   },
   {
+    "id": "cedar_bark",
+    "kind": "pillar",
+    "woodset": "cedar",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true
+  },
+  {
     "id": "stripped_cedar_wood",
     "kind": "pillar",
     "woodset": "cedar",
@@ -17871,6 +18259,17 @@
   },
   {
     "id": "stripped_cedar_wood_beam",
+    "kind": "pillar",
+    "woodset": "cedar",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true,
+    "stripped": true
+  },
+  {
+    "id": "stripped_cedar_bark",
     "kind": "pillar",
     "woodset": "cedar",
     "sound": "wood",
@@ -17947,6 +18346,16 @@
     "item": "none"
   },
   {
+    "id": "fir_bark",
+    "kind": "pillar",
+    "woodset": "fir",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true
+  },
+  {
     "id": "stripped_fir_wood",
     "kind": "pillar",
     "woodset": "fir",
@@ -17959,6 +18368,17 @@
   },
   {
     "id": "stripped_fir_wood_beam",
+    "kind": "pillar",
+    "woodset": "fir",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true,
+    "stripped": true
+  },
+  {
+    "id": "stripped_fir_bark",
     "kind": "pillar",
     "woodset": "fir",
     "sound": "wood",
@@ -18035,6 +18455,16 @@
     "item": "none"
   },
   {
+    "id": "pine_bark",
+    "kind": "pillar",
+    "woodset": "pine",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true
+  },
+  {
     "id": "stripped_pine_wood",
     "kind": "pillar",
     "woodset": "pine",
@@ -18047,6 +18477,17 @@
   },
   {
     "id": "stripped_pine_wood_beam",
+    "kind": "pillar",
+    "woodset": "pine",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true,
+    "stripped": true
+  },
+  {
+    "id": "stripped_pine_bark",
     "kind": "pillar",
     "woodset": "pine",
     "sound": "wood",
@@ -18123,6 +18564,16 @@
     "item": "none"
   },
   {
+    "id": "lemon_bark",
+    "kind": "pillar",
+    "woodset": "lemon",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true
+  },
+  {
     "id": "stripped_lemon_wood",
     "kind": "pillar",
     "woodset": "lemon",
@@ -18135,6 +18586,17 @@
   },
   {
     "id": "stripped_lemon_wood_beam",
+    "kind": "pillar",
+    "woodset": "lemon",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true,
+    "stripped": true
+  },
+  {
+    "id": "stripped_lemon_bark",
     "kind": "pillar",
     "woodset": "lemon",
     "sound": "wood",
@@ -18211,6 +18673,16 @@
     "item": "none"
   },
   {
+    "id": "orange_bark",
+    "kind": "pillar",
+    "woodset": "orange",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true
+  },
+  {
     "id": "stripped_orange_wood",
     "kind": "pillar",
     "woodset": "orange",
@@ -18223,6 +18695,17 @@
   },
   {
     "id": "stripped_orange_wood_beam",
+    "kind": "pillar",
+    "woodset": "orange",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true,
+    "stripped": true
+  },
+  {
+    "id": "stripped_orange_bark",
     "kind": "pillar",
     "woodset": "orange",
     "sound": "wood",
@@ -18299,6 +18782,16 @@
     "item": "none"
   },
   {
+    "id": "lime_bark",
+    "kind": "pillar",
+    "woodset": "lime",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true
+  },
+  {
     "id": "stripped_lime_wood",
     "kind": "pillar",
     "woodset": "lime",
@@ -18311,6 +18804,17 @@
   },
   {
     "id": "stripped_lime_wood_beam",
+    "kind": "pillar",
+    "woodset": "lime",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true,
+    "stripped": true
+  },
+  {
+    "id": "stripped_lime_bark",
     "kind": "pillar",
     "woodset": "lime",
     "sound": "wood",
@@ -18387,6 +18891,16 @@
     "item": "none"
   },
   {
+    "id": "mahogany_bark",
+    "kind": "pillar",
+    "woodset": "mahogany",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true
+  },
+  {
     "id": "stripped_mahogany_wood",
     "kind": "pillar",
     "woodset": "mahogany",
@@ -18399,6 +18913,17 @@
   },
   {
     "id": "stripped_mahogany_wood_beam",
+    "kind": "pillar",
+    "woodset": "mahogany",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true,
+    "stripped": true
+  },
+  {
+    "id": "stripped_mahogany_bark",
     "kind": "pillar",
     "woodset": "mahogany",
     "sound": "wood",
@@ -18475,6 +19000,16 @@
     "item": "none"
   },
   {
+    "id": "willow_bark",
+    "kind": "pillar",
+    "woodset": "willow",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true
+  },
+  {
     "id": "stripped_willow_wood",
     "kind": "pillar",
     "woodset": "willow",
@@ -18487,6 +19022,17 @@
   },
   {
     "id": "stripped_willow_wood_beam",
+    "kind": "pillar",
+    "woodset": "willow",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true,
+    "stripped": true
+  },
+  {
+    "id": "stripped_willow_bark",
     "kind": "pillar",
     "woodset": "willow",
     "sound": "wood",
@@ -18563,6 +19109,16 @@
     "item": "none"
   },
   {
+    "id": "cypress_bark",
+    "kind": "pillar",
+    "woodset": "cypress",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true
+  },
+  {
     "id": "stripped_cypress_wood",
     "kind": "pillar",
     "woodset": "cypress",
@@ -18575,6 +19131,17 @@
   },
   {
     "id": "stripped_cypress_wood_beam",
+    "kind": "pillar",
+    "woodset": "cypress",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true,
+    "stripped": true
+  },
+  {
+    "id": "stripped_cypress_bark",
     "kind": "pillar",
     "woodset": "cypress",
     "sound": "wood",
@@ -18651,6 +19218,16 @@
     "item": "none"
   },
   {
+    "id": "olive_bark",
+    "kind": "pillar",
+    "woodset": "olive",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true
+  },
+  {
     "id": "stripped_olive_wood",
     "kind": "pillar",
     "woodset": "olive",
@@ -18663,6 +19240,17 @@
   },
   {
     "id": "stripped_olive_wood_beam",
+    "kind": "pillar",
+    "woodset": "olive",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true,
+    "stripped": true
+  },
+  {
+    "id": "stripped_olive_bark",
     "kind": "pillar",
     "woodset": "olive",
     "sound": "wood",
@@ -18739,6 +19327,16 @@
     "item": "none"
   },
   {
+    "id": "aspen_bark",
+    "kind": "pillar",
+    "woodset": "aspen",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true
+  },
+  {
     "id": "stripped_aspen_wood",
     "kind": "pillar",
     "woodset": "aspen",
@@ -18751,6 +19349,17 @@
   },
   {
     "id": "stripped_aspen_wood_beam",
+    "kind": "pillar",
+    "woodset": "aspen",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true,
+    "stripped": true
+  },
+  {
+    "id": "stripped_aspen_bark",
     "kind": "pillar",
     "woodset": "aspen",
     "sound": "wood",
@@ -18827,6 +19436,16 @@
     "item": "none"
   },
   {
+    "id": "green_oak_bark",
+    "kind": "pillar",
+    "woodset": "green_oak",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true
+  },
+  {
     "id": "stripped_green_oak_wood",
     "kind": "pillar",
     "woodset": "green_oak",
@@ -18839,6 +19458,17 @@
   },
   {
     "id": "stripped_green_oak_wood_beam",
+    "kind": "pillar",
+    "woodset": "green_oak",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true,
+    "stripped": true
+  },
+  {
+    "id": "stripped_green_oak_bark",
     "kind": "pillar",
     "woodset": "green_oak",
     "sound": "wood",
@@ -18915,6 +19545,16 @@
     "item": "none"
   },
   {
+    "id": "laireloss_bark",
+    "kind": "pillar",
+    "woodset": "laireloss",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true
+  },
+  {
     "id": "stripped_laireloss_wood",
     "kind": "pillar",
     "woodset": "laireloss",
@@ -18927,6 +19567,17 @@
   },
   {
     "id": "stripped_laireloss_wood_beam",
+    "kind": "pillar",
+    "woodset": "laireloss",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true,
+    "stripped": true
+  },
+  {
+    "id": "stripped_laireloss_bark",
     "kind": "pillar",
     "woodset": "laireloss",
     "sound": "wood",
@@ -19003,6 +19654,16 @@
     "item": "none"
   },
   {
+    "id": "almond_bark",
+    "kind": "pillar",
+    "woodset": "almond",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true
+  },
+  {
     "id": "stripped_almond_wood",
     "kind": "pillar",
     "woodset": "almond",
@@ -19015,6 +19676,17 @@
   },
   {
     "id": "stripped_almond_wood_beam",
+    "kind": "pillar",
+    "woodset": "almond",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true,
+    "stripped": true
+  },
+  {
+    "id": "stripped_almond_bark",
     "kind": "pillar",
     "woodset": "almond",
     "sound": "wood",
@@ -19091,6 +19763,16 @@
     "item": "none"
   },
   {
+    "id": "plum_bark",
+    "kind": "pillar",
+    "woodset": "plum",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true
+  },
+  {
     "id": "stripped_plum_wood",
     "kind": "pillar",
     "woodset": "plum",
@@ -19103,6 +19785,17 @@
   },
   {
     "id": "stripped_plum_wood_beam",
+    "kind": "pillar",
+    "woodset": "plum",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true,
+    "stripped": true
+  },
+  {
+    "id": "stripped_plum_bark",
     "kind": "pillar",
     "woodset": "plum",
     "sound": "wood",
@@ -19179,6 +19872,16 @@
     "item": "none"
   },
   {
+    "id": "redwood_bark",
+    "kind": "pillar",
+    "woodset": "redwood",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true
+  },
+  {
     "id": "stripped_redwood_wood",
     "kind": "pillar",
     "woodset": "redwood",
@@ -19191,6 +19894,17 @@
   },
   {
     "id": "stripped_redwood_wood_beam",
+    "kind": "pillar",
+    "woodset": "redwood",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true,
+    "stripped": true
+  },
+  {
+    "id": "stripped_redwood_bark",
     "kind": "pillar",
     "woodset": "redwood",
     "sound": "wood",
@@ -19267,6 +19981,16 @@
     "item": "none"
   },
   {
+    "id": "pomegranate_bark",
+    "kind": "pillar",
+    "woodset": "pomegranate",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true
+  },
+  {
     "id": "stripped_pomegranate_wood",
     "kind": "pillar",
     "woodset": "pomegranate",
@@ -19279,6 +20003,17 @@
   },
   {
     "id": "stripped_pomegranate_wood_beam",
+    "kind": "pillar",
+    "woodset": "pomegranate",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true,
+    "stripped": true
+  },
+  {
+    "id": "stripped_pomegranate_bark",
     "kind": "pillar",
     "woodset": "pomegranate",
     "sound": "wood",
@@ -19355,6 +20090,16 @@
     "item": "none"
   },
   {
+    "id": "palm_bark",
+    "kind": "pillar",
+    "woodset": "palm",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true
+  },
+  {
     "id": "stripped_palm_wood",
     "kind": "pillar",
     "woodset": "palm",
@@ -19367,6 +20112,17 @@
   },
   {
     "id": "stripped_palm_wood_beam",
+    "kind": "pillar",
+    "woodset": "palm",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true,
+    "stripped": true
+  },
+  {
+    "id": "stripped_palm_bark",
     "kind": "pillar",
     "woodset": "palm",
     "sound": "wood",
@@ -19443,6 +20199,16 @@
     "item": "none"
   },
   {
+    "id": "dragonblood_bark",
+    "kind": "pillar",
+    "woodset": "dragonblood",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true
+  },
+  {
     "id": "stripped_dragonblood_wood",
     "kind": "pillar",
     "woodset": "dragonblood",
@@ -19455,6 +20221,17 @@
   },
   {
     "id": "stripped_dragonblood_wood_beam",
+    "kind": "pillar",
+    "woodset": "dragonblood",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true,
+    "stripped": true
+  },
+  {
+    "id": "stripped_dragonblood_bark",
     "kind": "pillar",
     "woodset": "dragonblood",
     "sound": "wood",
@@ -19531,6 +20308,16 @@
     "item": "none"
   },
   {
+    "id": "kanuka_bark",
+    "kind": "pillar",
+    "woodset": "kanuka",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true
+  },
+  {
     "id": "stripped_kanuka_wood",
     "kind": "pillar",
     "woodset": "kanuka",
@@ -19543,6 +20330,17 @@
   },
   {
     "id": "stripped_kanuka_wood_beam",
+    "kind": "pillar",
+    "woodset": "kanuka",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true,
+    "stripped": true
+  },
+  {
+    "id": "stripped_kanuka_bark",
     "kind": "pillar",
     "woodset": "kanuka",
     "sound": "wood",
@@ -19619,6 +20417,16 @@
     "item": "none"
   },
   {
+    "id": "rotten_bark",
+    "kind": "pillar",
+    "woodset": "rotten",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true
+  },
+  {
     "id": "stripped_rotten_wood",
     "kind": "pillar",
     "woodset": "rotten",
@@ -19631,6 +20439,17 @@
   },
   {
     "id": "stripped_rotten_wood_beam",
+    "kind": "pillar",
+    "woodset": "rotten",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true,
+    "stripped": true
+  },
+  {
+    "id": "stripped_rotten_bark",
     "kind": "pillar",
     "woodset": "rotten",
     "sound": "wood",

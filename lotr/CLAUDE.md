@@ -498,7 +498,9 @@ https://claude.ai/artifact/KqhSSTCuKXGuwKHBoYJdcu. Rebuild features in modern co
 ## Modern Middle-earth (2026-11-17, Aaron: "modernize" 1.7.10 -> 1.21.1; list in lotr/docs/modernize.md)
 - Converter post-steps that run on the generated content (each also alone, `python <step>.py`; generate.py runs them
   in this order after everything else; each is idempotent; `waterlog.py` after `tags.py`, `noisecaves.py` before
-  `caves.py`): `woodsets.py` (stripped logs and beams, signs, hanging
+  `caves.py`): `woodsets.py` (bark blocks `<wood>_bark` "<Wood> Bark" with bark
+  on all six sides = vanilla's oak wood, named so because LOTR's log is already "<Wood> Wood"; stripped logs, beams
+  and bark, signs, hanging
   signs, buttons, pressure plates, boats and chest boats for all 39 LOTR woods; textures are vanilla 1.21.1's oak
   ones recoloured to the LOTR planks' colours, the client jar is downloaded once to converter/cache/), `tags.py`,
   `stonecutting.py`, `waters.py`, `mountains.py`, `land.py`, `caves.py`.

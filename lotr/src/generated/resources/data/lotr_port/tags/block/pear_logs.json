@@ -4,6 +4,8 @@
     "lotr_port:pear_wood",
     "lotr_port:pear_wood_beam",
     "lotr_port:stripped_pear_wood",
-    "lotr_port:stripped_pear_wood_beam"
+    "lotr_port:stripped_pear_wood_beam",
+    "lotr_port:pear_bark",
+    "lotr_port:stripped_pear_bark"
   ]
 }

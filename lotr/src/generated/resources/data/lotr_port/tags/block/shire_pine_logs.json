@@ -4,6 +4,8 @@
     "lotr_port:shire_pine_wood",
     "lotr_port:shire_pine_wood_beam",
     "lotr_port:stripped_shire_pine_wood",
-    "lotr_port:stripped_shire_pine_wood_beam"
+    "lotr_port:stripped_shire_pine_wood_beam",
+    "lotr_port:shire_pine_bark",
+    "lotr_port:stripped_shire_pine_bark"
   ]
 }

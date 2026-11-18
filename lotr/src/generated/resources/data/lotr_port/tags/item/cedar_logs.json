@@ -4,6 +4,8 @@
     "lotr_port:cedar_wood",
     "lotr_port:cedar_wood_beam",
     "lotr_port:stripped_cedar_wood",
-    "lotr_port:stripped_cedar_wood_beam"
+    "lotr_port:stripped_cedar_wood_beam",
+    "lotr_port:cedar_bark",
+    "lotr_port:stripped_cedar_bark"
   ]
 }

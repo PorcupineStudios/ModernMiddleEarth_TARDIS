@@ -4,6 +4,8 @@
     "lotr_port:lemon_wood",
     "lotr_port:lemon_wood_beam",
     "lotr_port:stripped_lemon_wood",
-    "lotr_port:stripped_lemon_wood_beam"
+    "lotr_port:stripped_lemon_wood_beam",
+    "lotr_port:lemon_bark",
+    "lotr_port:stripped_lemon_bark"
   ]
 }

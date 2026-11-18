@@ -1,7 +1,8 @@
 """
 Full modern wood sets for every LOTR wood (1.7.10 had only logs, planks, stairs, slabs, fences, gates, doors and
-trapdoors): stripped logs and stripped beams (an axe strips them), signs, hanging signs, buttons, pressure plates,
-boats and chest boats.
+trapdoors): bark blocks (bark on all six sides, vanilla's "oak wood"; named "<wood> Bark" because LOTR's log is
+already "<wood> Wood"), stripped logs, beams and bark (an axe strips them), signs, hanging signs, buttons, pressure
+plates, boats and chest boats.
 
 Runs on top of the generated content (no LOTR jar needed), so it can be rerun alone:
 
@@ -33,14 +34,16 @@ RECIPES = f"data/{NS}/recipe/own/woodset"
 
 # What each wood gets (id pattern -> kind); {b} is the wood's base name ("mallorn")
 BLOCKS = {
-    "stripped_{b}_wood": "pillar", "stripped_{b}_wood_beam": "pillar",
+    "{b}_bark": "pillar", "stripped_{b}_wood": "pillar", "stripped_{b}_wood_beam": "pillar",
+    "stripped_{b}_bark": "pillar",
     "{b}_button": "button", "{b}_pressure_plate": "pressure_plate",
     "{b}_sign": "sign", "{b}_wall_sign": "wall_sign",
     "{b}_hanging_sign": "hanging_sign", "{b}_wall_hanging_sign": "wall_hanging_sign",
 }
 ITEMS = {"{b}_sign": "sign", "{b}_hanging_sign": "hanging_sign", "{b}_boat": "boat", "{b}_chest_boat": "chest_boat"}
 NAMES = {
-    "stripped_{b}_wood": "Stripped {n} Wood", "stripped_{b}_wood_beam": "Stripped {n} Wood Beam",
+    "{b}_bark": "{n} Bark", "stripped_{b}_wood": "Stripped {n} Wood", "stripped_{b}_wood_beam": "Stripped {n} Wood Beam",
+    "stripped_{b}_bark": "Stripped {n} Bark",
     "{b}_button": "{n} Button", "{b}_pressure_plate": "{n} Pressure Plate", "{b}_sign": "{n} Sign",
     "{b}_wall_sign": "{n} Wall Sign", "{b}_hanging_sign": "{n} Hanging Sign",
     "{b}_wall_hanging_sign": "{n} Wall Hanging Sign", "{b}_boat": "{n} Boat", "{b}_chest_boat": "{n} Boat with Chest",
@@ -182,7 +185,7 @@ class WoodSets:
             self.block_entries(base, log_entry, planks, counts)
             self.item_entries(base, counts)
             self.models(base, log, beam, planks)
-            self.recipes(base, planks, counts)
+            self.recipes(base, log, planks, counts)
             self.lang_and_tabs(base, planks)
             counts["woods"] += 1
         self.save()
@@ -218,8 +221,9 @@ class WoodSets:
             e = {"id": pattern.format(b=base), "kind": kind, "woodset": base, "sound": "wood",
                  "requiresTool": False}
             if kind == "pillar":
-                e.update(hardness=log_entry["hardness"], resistance=log_entry["resistance"], solid=True,
-                         stripped=True)
+                e.update(hardness=log_entry["hardness"], resistance=log_entry["resistance"], solid=True)
+                if pattern.startswith("stripped_"):
+                    e["stripped"] = True  # an axe makes it from the id without "stripped_" (WoodSets)
             elif kind in ("button", "pressure_plate"):
                 e.update(hardness=0.5, resistance=0.5, solid=False, set="wood")
             else:  # signs: their item is the sign item, which places both
@@ -238,11 +242,13 @@ class WoodSets:
         a = self.assets
         planks_tex = self.model_texture(planks, "all")
         side, top = f"{NS}:block/woodset/stripped_{base}_log", f"{NS}:block/woodset/stripped_{base}_log_top"
-        for block in (f"stripped_{base}_wood", f"stripped_{base}_wood_beam"):
+        bark = self.model_texture(log, "side")
+        for block, end, sides in ((f"stripped_{base}_wood", top, side), (f"stripped_{base}_wood_beam", top, side),
+                                  (f"{base}_bark", bark, bark), (f"stripped_{base}_bark", side, side)):
             write_json(os.path.join(a, "models", "block", block + ".json"),
-                       {"parent": "minecraft:block/cube_column", "textures": {"end": top, "side": side}})
+                       {"parent": "minecraft:block/cube_column", "textures": {"end": end, "side": sides}})
             write_json(os.path.join(a, "models", "block", block + "_horizontal.json"),
-                       {"parent": "minecraft:block/cube_column_horizontal", "textures": {"end": top, "side": side}})
+                       {"parent": "minecraft:block/cube_column_horizontal", "textures": {"end": end, "side": sides}})
             m = f"{NS}:block/{block}"
             write_json(os.path.join(a, "blockstates", block + ".json"), {"variants": {
                 "axis=y": {"model": m}, "axis=z": {"model": m + "_horizontal", "x": 90},
@@ -287,7 +293,8 @@ class WoodSets:
             write_json(os.path.join(a, "models", "item", item + ".json"),
                        {"parent": "minecraft:item/generated", "textures": {"layer0": f"{NS}:item/woodset/{item}"}})
         # loot: each block drops itself; signs drop the sign item
-        drops = {f"stripped_{base}_wood": None, f"stripped_{base}_wood_beam": None, f"{base}_button": None,
+        drops = {f"stripped_{base}_wood": None, f"stripped_{base}_wood_beam": None, f"{base}_bark": None,
+                 f"stripped_{base}_bark": None, f"{base}_button": None,
                  f"{base}_pressure_plate": None, f"{base}_sign": None, f"{base}_wall_sign": f"{base}_sign",
                  f"{base}_hanging_sign": None, f"{base}_wall_hanging_sign": f"{base}_hanging_sign"}
         for block, drop in drops.items():
@@ -296,7 +303,7 @@ class WoodSets:
                     {"type": "minecraft:item", "name": f"{NS}:{drop or block}"}],
                     "conditions": [{"condition": "minecraft:survives_explosion"}]}]})
 
-    def recipes(self, base, planks, counts):
+    def recipes(self, base, log, planks, counts):
         d = os.path.join(self.out, RECIPES)
         pl = {"item": f"{NS}:{planks}"}
 
@@ -323,7 +330,11 @@ class WoodSets:
         shaped(f"{base}_boat", ["# #", "###"], {"#": pl}, f"{base}_boat", 1, "boat")
         shapeless(f"{base}_chest_boat", [{"tag": "c:chests/wooden"}, {"item": f"{NS}:{base}_boat"}],
                   f"{base}_chest_boat", 1, "chest_boat")
-        for stripped in (f"stripped_{base}_wood", f"stripped_{base}_wood_beam"):
+        # bark as vanilla's wood: 4 logs in a square make 3
+        shaped(f"{base}_bark", ["##", "##"], {"#": {"item": f"{NS}:{log}"}}, f"{base}_bark", 3, "bark")
+        shaped(f"stripped_{base}_bark", ["##", "##"], {"#": {"item": f"{NS}:stripped_{base}_wood"}},
+               f"stripped_{base}_bark", 3, "bark")
+        for stripped in (f"stripped_{base}_wood", f"stripped_{base}_wood_beam", f"{base}_bark", f"stripped_{base}_bark"):
             shapeless(f"{planks}_from_{stripped}", [{"item": f"{NS}:{stripped}"}], planks, 4, "planks")
 
     def lang_and_tabs(self, base, planks):
@@ -334,7 +345,8 @@ class WoodSets:
             self.lang[f"{key}.{NS}.{i}"] = label.format(n=n)
             if pattern in ("{b}_sign", "{b}_hanging_sign"):
                 self.lang[f"item.{NS}.{i}"] = label.format(n=n)  # SignItem names by the standing block anyway
-        new = [f"stripped_{base}_wood", f"stripped_{base}_wood_beam", f"{base}_button", f"{base}_pressure_plate",
+        new = [f"{base}_bark", f"stripped_{base}_wood", f"stripped_{base}_wood_beam", f"stripped_{base}_bark",
+               f"{base}_button", f"{base}_pressure_plate",
                f"{base}_sign", f"{base}_hanging_sign", f"{base}_boat", f"{base}_chest_boat"]
         for t in self.tabs:
             if planks in t["items"]:
