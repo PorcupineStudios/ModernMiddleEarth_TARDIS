@@ -1,0 +1,21 @@
+{
+  "entries": [
+    {
+      "npc": "lotr_port:ruffian_brute",
+      "weight": 50,
+      "min": 1,
+      "max": 4,
+      "dark": false
+    },
+    {
+      "npc": "lotr_port:ruffian_spy",
+      "weight": 100,
+      "min": 1,
+      "max": 4,
+      "dark": false
+    }
+  ],
+  "cap": 8,
+  "chance": 0.25,
+  "interval": 100
+}

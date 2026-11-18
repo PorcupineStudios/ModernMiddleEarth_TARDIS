@@ -88,6 +88,7 @@ public final class LotrClient {
         ColorGrade.init();
         event.enqueueWork(WoodSetRenderers::setup);
         MapNet.clientHandler = (data, ctx) -> MapScreen.open(data);
+        com.porcupinestudios.lotrport.border.BorderNet.clientHandler = BorderLayer::accept;
         QuestNet.offerHandler = QuestOfferScreen::open;
         com.porcupinestudios.lotrport.npc.Traders.interactHandler = TraderInteractScreen::open;
         QuestNet.bookHandler = RedBookScreen::show;

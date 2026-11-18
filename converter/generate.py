@@ -1511,6 +1511,8 @@ class Gen:
         print(json.dumps({"caves": Caves(OUT).run()}))
         import biomeconfig
         print(json.dumps({"biomeconfig": biomeconfig.run(OUT)}))
+        import borders
+        print(json.dumps({"borders": borders.run(OUT)}))
 
 
 if __name__ == "__main__":

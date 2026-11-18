@@ -1,0 +1,28 @@
+{
+  "entries": [
+    {
+      "npc": "lotr_port:galadhrim_elf",
+      "weight": 62,
+      "min": 4,
+      "max": 6,
+      "dark": false
+    },
+    {
+      "npc": "lotr_port:galadhrim_warden",
+      "weight": 55,
+      "min": 4,
+      "max": 4,
+      "dark": false
+    },
+    {
+      "npc": "lotr_port:galadhrim_warrior",
+      "weight": 12,
+      "min": 4,
+      "max": 4,
+      "dark": false
+    }
+  ],
+  "cap": 8,
+  "chance": 0.25,
+  "interval": 100
+}

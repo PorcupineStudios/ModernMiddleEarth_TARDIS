@@ -30,6 +30,10 @@ public final class LotrClientConfig {
             .comment("LOTR's attack meter (bottom right) while your melee wait runs.")
             .define("hud.attackMeter", true);
 
+    public static final ModConfigSpec.BooleanValue MAP_BORDERS = BUILDER
+            .comment("Show borders (who holds the land, kingdoms) on the map at first; B toggles them on the map.")
+            .define("map.borders", true);
+
     public static final ModConfigSpec.BooleanValue RACE_SKINS = BUILDER
             .comment("Draw players with their race's skin (player_race files) instead of their own.")
             .define("race.skins", true);

@@ -1,0 +1,119 @@
+{
+  "entries": [
+    {
+      "npc": "lotr_port:blackroot_archer",
+      "weight": 2,
+      "min": 15,
+      "max": 15,
+      "dark": false
+    },
+    {
+      "npc": "lotr_port:blackroot_soldier",
+      "weight": 2,
+      "min": 2,
+      "max": 8,
+      "dark": false
+    },
+    {
+      "npc": "lotr_port:dol_amroth_archer",
+      "weight": 7,
+      "min": 2,
+      "max": 6,
+      "dark": false
+    },
+    {
+      "npc": "lotr_port:dol_amroth_soldier",
+      "weight": 14,
+      "min": 2,
+      "max": 6,
+      "dark": false
+    },
+    {
+      "npc": "lotr_port:gondor_archer",
+      "weight": 6,
+      "min": 2,
+      "max": 8,
+      "dark": false
+    },
+    {
+      "npc": "lotr_port:gondor_levyman",
+      "weight": 54,
+      "min": 2,
+      "max": 4,
+      "dark": false
+    },
+    {
+      "npc": "lotr_port:gondor_soldier",
+      "weight": 13,
+      "min": 2,
+      "max": 8,
+      "dark": false
+    },
+    {
+      "npc": "lotr_port:lamedon_archer",
+      "weight": 2,
+      "min": 2,
+      "max": 6,
+      "dark": false
+    },
+    {
+      "npc": "lotr_port:lamedon_hillman",
+      "weight": 14,
+      "min": 4,
+      "max": 6,
+      "dark": false
+    },
+    {
+      "npc": "lotr_port:lamedon_soldier",
+      "weight": 4,
+      "min": 2,
+      "max": 6,
+      "dark": false
+    },
+    {
+      "npc": "lotr_port:lebennin_levyman",
+      "weight": 14,
+      "min": 2,
+      "max": 4,
+      "dark": false
+    },
+    {
+      "npc": "lotr_port:lossarnach_axeman",
+      "weight": 14,
+      "min": 2,
+      "max": 6,
+      "dark": false
+    },
+    {
+      "npc": "lotr_port:pelargir_marine",
+      "weight": 5,
+      "min": 2,
+      "max": 8,
+      "dark": false
+    },
+    {
+      "npc": "lotr_port:pinnath_gelin_soldier",
+      "weight": 5,
+      "min": 2,
+      "max": 6,
+      "dark": false
+    },
+    {
+      "npc": "lotr_port:ranger_ithilien",
+      "weight": 7,
+      "min": 1,
+      "max": 4,
+      "dark": false
+    },
+    {
+      "npc": "lotr_port:swan_knight",
+      "weight": 4,
+      "min": 2,
+      "max": 4,
+      "dark": false
+    }
+  ],
+  "cap": 8,
+  "chance": 0.25,
+  "interval": 100
+}

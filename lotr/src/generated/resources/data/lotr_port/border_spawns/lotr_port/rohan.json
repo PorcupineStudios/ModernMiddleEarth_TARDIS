@@ -1,0 +1,21 @@
+{
+  "entries": [
+    {
+      "npc": "lotr_port:rohirrim",
+      "weight": 100,
+      "min": 3,
+      "max": 8,
+      "dark": false
+    },
+    {
+      "npc": "lotr_port:rohirrim_archer",
+      "weight": 50,
+      "min": 3,
+      "max": 8,
+      "dark": false
+    }
+  ],
+  "cap": 8,
+  "chance": 0.25,
+  "interval": 100
+}

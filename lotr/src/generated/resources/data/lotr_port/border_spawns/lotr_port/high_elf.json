@@ -1,0 +1,35 @@
+{
+  "entries": [
+    {
+      "npc": "lotr_port:high_elf",
+      "weight": 64,
+      "min": 4,
+      "max": 6,
+      "dark": false
+    },
+    {
+      "npc": "lotr_port:high_elf_warrior",
+      "weight": 13,
+      "min": 4,
+      "max": 4,
+      "dark": false
+    },
+    {
+      "npc": "lotr_port:rivendell_elf",
+      "weight": 17,
+      "min": 4,
+      "max": 6,
+      "dark": false
+    },
+    {
+      "npc": "lotr_port:rivendell_warrior",
+      "weight": 20,
+      "min": 4,
+      "max": 4,
+      "dark": false
+    }
+  ],
+  "cap": 8,
+  "chance": 0.25,
+  "interval": 100
+}
