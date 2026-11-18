@@ -1,20 +1,15 @@
 name: Convert LOTR
 
 # Runs the 1.7.10 exporter (converter/) in a real LOTR 36.15 client under a virtual screen and commits what it reads
-# to converter/export/. Runs when the exporter changes, or by hand from the Actions tab ("rates" measures how often
-# LOTR's structures stand in its real Middle-earth instead: structure_rates.json).
+# to converter/export/. Only by hand from the Actions tab (Aaron 2026-11-18): the export is committed and the mods build
+# from it, so pushes never need it ("rates" measures how often LOTR's structures stand in its real Middle-earth
+# instead: structure_rates.json).
 on:
   workflow_dispatch:
     inputs:
       rates:
         type: boolean
         default: false
-  push:
-    paths:
-      - 'converter/src/**'
-      - 'converter/*.gradle*'
-      - 'converter/gradle.properties'
-      - '.github/workflows/convert.yml'
 
 permissions:
   contents: write
@@ -34,6 +29,15 @@ jobs:
       - uses: gradle/actions/setup-gradle@v4
       # The LOTR mod's jar is not in this public repo: take it from the private RingRealms repo. Needs the secret
       # RINGREALMS_TOKEN (a fine-grained token with read access to PorcupineStudios/RingRealms contents).
+      - name: Check the token for the LOTR jar
+        env:
+          TOKEN: ${{ secrets.RINGREALMS_TOKEN }}
+        run: |
+          if [ -z "$TOKEN" ] || ! curl -sf -H "Authorization: Bearer $TOKEN" \
+              https://api.github.com/repos/PorcupineStudios/RingRealms > /dev/null; then
+            echo "::error::RINGREALMS_TOKEN is missing or expired. Save a fine-grained token with read access to PorcupineStudios/RingRealms contents as the repository secret RINGREALMS_TOKEN, then run this again."
+            exit 1
+          fi
       - name: LOTR jar from RingRealms
         uses: actions/checkout@v4
         with:
