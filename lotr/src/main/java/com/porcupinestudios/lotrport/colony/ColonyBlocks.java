@@ -115,7 +115,7 @@ public final class ColonyBlocks {
             super.setPlacedBy(level, pos, state, placer, stack);
             if (kind == Kind.PLAQUE && placer instanceof ServerPlayer sp
                     && level instanceof net.minecraft.server.level.ServerLevel sl) {
-                registerAt(sp, sl, pos, state);
+                registerAt(sp, sl, pos, state); // quietly: the plaque's book shows what happened
             }
         }
 
@@ -182,10 +182,8 @@ public final class ColonyBlocks {
                     return;
                 }
             }
-            // no building yet: measure the room now (the plaque replaced the writ), then open its page
-            if (player.level() instanceof net.minecraft.server.level.ServerLevel sl && registerAt(player, sl, pos, state)) {
-                open(player, pos, state, kind);
-            }
+            // no building yet: the unmarked plaque's book (the room, and every type with what it needs; RingRealms)
+            Books.open(player, PlaqueBook.KIND, PlaqueBook.unmarked(pos), "", "");
             return;
         }
         int reach = BuildingSettings.get().reach();
@@ -208,8 +206,8 @@ public final class ColonyBlocks {
     }
 
     /**
-     * Registers the room by a plaque (ColonyBuildings.plaque) unless it already names a building; says what happened
-     * over the hotbar (never in chat). True when the plaque names a building afterwards.
+     * Registers the room by a plaque (ColonyBuildings.plaque) unless it already names a building, silently (what
+     * happened shows in its book). True when the plaque names a building afterwards.
      */
     static boolean registerAt(ServerPlayer player, net.minecraft.server.level.ServerLevel level, BlockPos pos,
             BlockState state) {
@@ -219,9 +217,9 @@ public final class ColonyBlocks {
                 return true;
             }
         }
-        var r = com.porcupinestudios.lotrport.colony.building.ColonyBuildings.plaque(player, level, pos);
-        player.displayClientMessage(r.message(), true);
-        return r.building().isPresent();
+        // never text on screen: a room that fits nothing shows in the plaque's book when it is opened
+        return com.porcupinestudios.lotrport.colony.building.ColonyBuildings.plaque(player, level, pos).building()
+                .isPresent();
     }
 
     /** The building a plaque names: the room it hangs in, the one behind its wall, or one whose door is by it. */

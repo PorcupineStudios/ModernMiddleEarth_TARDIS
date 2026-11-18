@@ -29,10 +29,7 @@ public class WritItem extends Item {
         if (ctx.getLevel().isClientSide) {
             return InteractionResult.SUCCESS;
         }
-        if (ctx.getPlayer() != null) {
-            ctx.getPlayer().displayClientMessage(RETIRED, true);
-        }
-        return InteractionResult.FAIL;
+        return InteractionResult.PASS; // the tooltip says what replaced it; nothing on screen
     }
 
     private static final Component RETIRED = Component.translatableWithFallback("item.lotr_port.building_writ.retired",
