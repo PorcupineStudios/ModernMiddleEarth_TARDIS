@@ -42,7 +42,9 @@ import net.neoforged.neoforge.event.tick.ServerTickEvent;
  * Both saved layers hold only pixels that differ from the one below, so the original map stays as it was and the
  * changes are forwarded onto it. World generation never reads any of this: a conquered Shire still generates as the
  * Shire. What changes is the player map ({@link BorderNet}), spawning ({@link TerritorySpawns}) and conditions.
- * Changes are written to history as {@code border_changed}.
+ * Changes are written to history twice: {@code border_changed} (who took how much, readable) and
+ * {@code border_layer} (the exact layer deltas, {@link BorderHistory}), so the map of any past tick can be rebuilt
+ * and a rewound world puts its borders back ({@code HistoryRewindEvent}, {@link #restore}).
  */
 public final class Borders extends SavedData {
     public static final String FILE = "lotr_port_borders";
@@ -58,6 +60,11 @@ public final class Borders extends SavedData {
     /** Bumped on every change, for the client sync and caches. */
     private int version;
     private boolean pending = true;
+    /** The layers as last written to history as deltas; each change logs only what differs from these. */
+    private final Map<Integer, ResourceLocation> loggedClaims = new HashMap<>();
+    private final Map<Integer, ResourceLocation> loggedMarks = new HashMap<>();
+    /** Whether this world's layers have a baseline in the history (worlds from before layer deltas get one once). */
+    private boolean baselined;
 
     private static Object baseKey;
     private static ResourceLocation[] baseByBiome = new ResourceLocation[0];
@@ -70,14 +77,51 @@ public final class Borders extends SavedData {
         NeoForge.EVENT_BUS.addListener((SocietyEvent.ColonyFounded e) -> get(e.server()).pending = true);
         NeoForge.EVENT_BUS.addListener((SocietyEvent.ColonyDisbanded e) -> get(e.server()).pending = true);
         NeoForge.EVENT_BUS.addListener((SocietyEvent.ColonyTransferred e) -> get(e.server()).pending = true);
+        NeoForge.EVENT_BUS.addListener((com.porcupinestudios.ringbearer.api.history.HistoryRewindEvent e) ->
+                get(e.server()).restore(e.server(), BorderHistory.at(e.server(), e.toTime())));
         NeoForge.EVENT_BUS.addListener((ServerTickEvent.Post e) -> {
             MinecraftServer server = e.getServer();
             Borders b = get(server);
+            if (!b.baselined) {
+                b.baseline(server);
+            }
             int every = Math.max(20, BorderData.settings().recomputeTicks());
             if (b.pending || server.overworld().getGameTime() % every == 0) {
                 b.recompute(server);
             }
         });
+    }
+
+    /** Writes both layers whole to history (a world's first, and after a rewind), so replays start from them. */
+    private void baseline(MinecraftServer server) {
+        BorderHistory.logDelta(server, BorderHistory.CLAIMS, Map.of(), claims, true);
+        BorderHistory.logDelta(server, BorderHistory.MARKS, Map.of(), marks, true);
+        loggedClaims.clear();
+        loggedClaims.putAll(claims);
+        loggedMarks.clear();
+        loggedMarks.putAll(marks);
+        baselined = true;
+        setDirty();
+    }
+
+    /** The saved layers now (copies). */
+    public BorderHistory.Layers layers() {
+        return new BorderHistory.Layers(Map.copyOf(claims), Map.copyOf(marks));
+    }
+
+    /**
+     * Puts the borders back as they were (a rewound world: {@code HistoryRewindEvent}): both layers replaced, a new
+     * baseline written so later replays start from them, clients told. The colonies' own rewind decides the next
+     * recompute of claims.
+     */
+    public void restore(MinecraftServer server, BorderHistory.Layers layers) {
+        claims.clear();
+        claims.putAll(layers.claims());
+        marks.clear();
+        marks.putAll(layers.marks());
+        version++;
+        baseline(server);
+        BorderNet.sendToAll(server);
     }
 
     /** Asks for a recompute on the next tick (a realm was founded, data reloaded...). */
@@ -287,6 +331,17 @@ public final class Borders extends SavedData {
     private void changed(MinecraftServer server, Map<Integer, Optional<ResourceLocation>> before, String reason) {
         version++;
         setDirty();
+        // the exact deltas, for rebuilding any past tick (BorderHistory)
+        if (!baselined) {
+            baseline(server);
+        } else {
+            BorderHistory.logDelta(server, BorderHistory.CLAIMS, loggedClaims, claims, false);
+            BorderHistory.logDelta(server, BorderHistory.MARKS, loggedMarks, marks, false);
+            loggedClaims.clear();
+            loggedClaims.putAll(claims);
+            loggedMarks.clear();
+            loggedMarks.putAll(marks);
+        }
         Map<Integer, Optional<ResourceLocation>> after = changes();
         // one history line per (from, to): how many pixels moved, and one of them
         Map<String, int[]> moves = new LinkedHashMap<>();
@@ -342,6 +397,7 @@ public final class Borders extends SavedData {
         tag.putInt("dataVersion", DATA_VERSION);
         tag.put("claims", write(claims));
         tag.put("marks", write(marks));
+        tag.putBoolean("baselined", baselined);
         return tag;
     }
 
@@ -377,6 +433,9 @@ public final class Borders extends SavedData {
         // dataVersion 1 is the first format; later versions migrate here
         read(tag.getList("claims", Tag.TAG_COMPOUND), b.claims);
         read(tag.getList("marks", Tag.TAG_COMPOUND), b.marks);
+        b.baselined = tag.getBoolean("baselined");
+        b.loggedClaims.putAll(b.claims);
+        b.loggedMarks.putAll(b.marks);
         return b;
     }
 }

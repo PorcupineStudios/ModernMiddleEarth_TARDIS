@@ -422,6 +422,8 @@ https://claude.ai/artifact/KqhSSTCuKXGuwKHBoYJdcu. Rebuild features in modern co
   `TerritorySpawns` + `SpawnEvent`, condition `lotr_port:territory`. Conquest (`Conquest`): pressure (kills of the
   holder's people, assaults; x colony research perks `conquest` near your colonies) against defence (holder x terrain
   from `conquest_terrain`, minus assault damage); assaults cost injuries and deaths (family, race and colony mood).
+  Through time: layer deltas `border_layer` in the history log (`BorderHistory`); the map shows a time traveller the
+  borders, kingdoms and colonies of their tick and a world rewind restores them (shared API time hooks).
   **Read `lotr/docs/borders.md`.**
 
 ## Diplomacy (2026-11-18, `diplomacy/`)

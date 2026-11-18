@@ -16,7 +16,10 @@ Plans (read with the Claude Docs tools, not a web fetch):
 ## Dependency rule
 `tardis` and `lotr` both depend on `api`, and never on each other. Anything they share goes in `api`:
 - **history**: the world history log, recording from day one; the TARDIS recorder, colonies, AI rulers and time travel
-  all use it.
+  all use it. Systems keep their changes there as deltas so any past tick can be rebuilt (the LOTR borders:
+  `border_layer`). Time travel (not built yet) must: register a `TimeProvider` (which tick each player is in), post
+  `TimeShiftEvent` when a player arrives in another moment or comes back, and post `HistoryRewindEvent` when the world
+  itself is rolled back; systems that show or keep state listen (the LOTR map shows a visitor the map of that tick).
 - **condition**: one registry of condition types used by TARDIS unlocks, quests, the story engine and colony research.
 - **provider**: crash sites and start dimension, researchers, destinations, power sources; registered on the mod bus.
 `api` depends on nothing in either mod.
