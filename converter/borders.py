@@ -1,9 +1,10 @@
 """Borders: the original territory map and each faction's people for land it takes.
 
 Writes, from the generated NPC spawn tables (run after npcs/world):
-- data/lotr_port/border_base/biomes.json: {"biomes": {biome: faction}}, the faction whose people spawn most in
+- data/lotr_port/border_base/biomes.json: {"biomes": {biome: faction}, "fill": [water biomes]}, the faction whose people spawn most in
   each biome (summed entry weight); a biome whose leading people only come out at night (and whose table doesn't
-  allow hostiles by day) is wilderness and isn't listed. This is the original map's territory; play never changes it (the server keeps
+  allow hostiles by day) is wilderness and isn't listed. "fill" lists the rivers and lakes, which take the holder of
+  the land around them so borders run across rivers, not round them. This is the original map's territory; play never changes it (the server keeps
   conquests as an overlay, lotr/docs/borders.md).
 - data/lotr_port/border_spawns/<faction ns>/<faction path>.json: npc_spawns-format tables of a faction's own people,
   merged over the biomes it holds, for spawning in land it takes from someone else (LOTR's conquest spawn lists).
@@ -31,6 +32,9 @@ RANGE_FACTOR = 1.5     # extra for the mountain ranges (map.json ranges.biomes)
 KEYWORDS = {"forest": 0.5, "wood": 0.4, "fangorn": 0.6, "mirkwood": 0.6, "marsh": 0.6, "swamp": 0.6,
             "fen": 0.5, "mountain": 0.5, "hills": 0.3, "highlands": 0.3}
 MIN_FACTOR = 0.5
+# map biomes that are water inside the land (take the holder around them), not the sea
+WATER = ("river", "lake")
+NOT_WATER = ("riverbank", "ocean")
 MAX_FACTOR = 6.0
 
 
@@ -93,7 +97,12 @@ def run(out=OUT):
                 p["min"].append(e.get("min", 1))
                 p["max"].append(e.get("max", 1))
                 p["dark"] = p["dark"] or e.get("dark", False)
-    write_json(os.path.join(DATA, "border_base", "biomes.json"), {"biomes": dict(sorted(base.items()))})
+    # rivers and lakes lie within borders: they take the holder of the land around them (lotr border/WaterFill)
+    with open(os.path.join(out, NS, "map", "map.json"), encoding="utf-8") as f:
+        map_biomes = [b["id"] for b in json.load(f)["biomes"]]
+    fill = sorted(b for b in map_biomes if b not in base and any(k in b.split(":", 1)[1] for k in WATER)
+                  and not any(k in b for k in NOT_WATER))
+    write_json(os.path.join(DATA, "border_base", "biomes.json"), {"biomes": dict(sorted(base.items())), "fill": fill})
     for fac, entries in sorted(people.items()):
         ts = tables[fac]
         n = len(ts)

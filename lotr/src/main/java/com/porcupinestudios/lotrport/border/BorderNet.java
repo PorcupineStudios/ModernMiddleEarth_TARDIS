@@ -87,7 +87,7 @@ public final class BorderNet {
 
     /**
      * @param holders palette; the lists below hold indices into it, -1 = nobody
-     * @param base per biome index of the map, its original holder
+     * @param base per biome index of the map, its original holder; -2 = water taking the holder around it
      * @param pixels changed pixels ({@code pz * width + px})
      * @param owners the holder of each changed pixel
      * @param time the tick these borders are from when the player is in the past (time travel), else -1
@@ -123,7 +123,8 @@ public final class BorderNet {
         List<ResourceLocation> ids = new ArrayList<>();
         List<Integer> base = new ArrayList<>();
         for (int b = 0; b < map.biomes().size(); b++) {
-            base.add(index(ids, Borders.baseOfBiome(b)));
+            // water that takes its surroundings' holder: the client floods it the same way (WaterFill)
+            base.add(Borders.fillsBiome(b) ? WaterFill.FILL : index(ids, Borders.baseOfBiome(b)));
         }
         List<Integer> pixels = new ArrayList<>();
         List<Integer> owners = new ArrayList<>();

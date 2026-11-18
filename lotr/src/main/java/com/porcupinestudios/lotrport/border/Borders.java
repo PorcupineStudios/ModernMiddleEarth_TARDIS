@@ -68,6 +68,9 @@ public final class Borders extends SavedData {
 
     private static Object baseKey;
     private static ResourceLocation[] baseByBiome = new ResourceLocation[0];
+    private static boolean[] fillByBiome = new boolean[0];
+    private static java.util.List<ResourceLocation> fillOwners = java.util.List.of();
+    private static WaterFill water;
 
     public static Borders get(MinecraftServer server) {
         return server.overworld().getDataStorage().computeIfAbsent(FACTORY, FILE);
@@ -145,21 +148,46 @@ public final class Borders extends SavedData {
 
     // ---- reading
 
-    /** The original holder of a biome by its map index (cached per data reload). */
+    /** The original holder of a biome by its map index (cached per data reload); water biomes have none here. */
     static Optional<ResourceLocation> baseOfBiome(int biomeIndex) {
-        Object key = BorderData.baseVersion();
-        if (key != baseKey) {
-            MiddleEarthMap map = MiddleEarthMap.get();
-            Map<ResourceLocation, ResourceLocation> base = BorderData.base();
-            ResourceLocation[] arr = new ResourceLocation[map.biomes().size()];
-            for (int i = 0; i < arr.length; i++) {
-                arr[i] = base.get(ResourceLocation.parse(map.biomes().get(i).id()));
-            }
-            baseByBiome = arr;
-            baseKey = key;
-        }
+        ensureBase();
         return biomeIndex >= 0 && biomeIndex < baseByBiome.length ? Optional.ofNullable(baseByBiome[biomeIndex])
                 : Optional.empty();
+    }
+
+    /** Whether a biome is water that takes the holder of the land around it (rivers, lakes). */
+    static boolean fillsBiome(int biomeIndex) {
+        ensureBase();
+        return biomeIndex >= 0 && biomeIndex < fillByBiome.length && fillByBiome[biomeIndex];
+    }
+
+    private static synchronized void ensureBase() {
+        Object key = BorderData.baseVersion();
+        if (key == baseKey) {
+            return;
+        }
+        MiddleEarthMap map = MiddleEarthMap.get();
+        Map<ResourceLocation, ResourceLocation> base = BorderData.base();
+        java.util.Set<ResourceLocation> fill = BorderData.fill();
+        ResourceLocation[] arr = new ResourceLocation[map.biomes().size()];
+        boolean[] fills = new boolean[arr.length];
+        for (int i = 0; i < arr.length; i++) {
+            ResourceLocation id = ResourceLocation.parse(map.biomes().get(i).id());
+            arr[i] = base.get(id);
+            fills[i] = arr[i] == null && fill.contains(id);
+        }
+        List<ResourceLocation> owners = new ArrayList<>();
+        for (ResourceLocation o : arr) {
+            if (o != null && !owners.contains(o)) {
+                owners.add(o);
+            }
+        }
+        water = WaterFill.of(map, b -> fills[b] ? WaterFill.FILL : arr[b] == null ? WaterFill.NONE
+                : owners.indexOf(arr[b]));
+        baseByBiome = arr;
+        fillByBiome = fills;
+        fillOwners = List.copyOf(owners);
+        baseKey = key;
     }
 
     /** The pixel index of a block, or -1 off the map. */
@@ -179,7 +207,12 @@ public final class Borders extends SavedData {
             return Optional.empty();
         }
         MiddleEarthMap map = MiddleEarthMap.get();
-        return baseOfBiome(map.pixelIndex(pixel % map.width(), pixel / map.width()));
+        int biome = map.pixelIndex(pixel % map.width(), pixel / map.width());
+        if (fillsBiome(biome)) {
+            int o = water.ownerOf(pixel); // a river or lake: the holder of the land around it
+            return o >= 0 ? Optional.of(fillOwners.get(o)) : Optional.empty();
+        }
+        return baseOfBiome(biome);
     }
 
     /** Who holds a pixel now: a mark, else a colony's claim, else the original map. */

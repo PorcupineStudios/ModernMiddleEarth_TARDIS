@@ -24,6 +24,7 @@ public final class BorderLayer {
 
     private static BorderNet.Snapshot snapshot;
     private static int[] base = new int[0];
+    private static com.porcupinestudios.lotrport.border.WaterFill water;
     private static final Map<Integer, Integer> overlay = new HashMap<>();
     private static DynamicTexture texture;
     private static boolean dirty;
@@ -32,7 +33,13 @@ public final class BorderLayer {
 
     public static void accept(BorderNet.Snapshot s) {
         snapshot = s;
-        base = s.base().stream().mapToInt(Integer::intValue).toArray();
+        int[] next = s.base().stream().mapToInt(Integer::intValue).toArray();
+        if (water == null || !java.util.Arrays.equals(next, base)) {
+            int[] b = next; // rivers and lakes take the holder around them, as on the server
+            water = com.porcupinestudios.lotrport.border.WaterFill.of(MiddleEarthMap.get(),
+                    i -> i >= 0 && i < b.length ? b[i] : -1);
+        }
+        base = next;
         overlay.clear();
         for (int i = 0; i < s.pixels().size(); i++) {
             overlay.put(s.pixels().get(i), s.owners().get(i));
@@ -48,7 +55,9 @@ public final class BorderLayer {
 
     private static int original(MiddleEarthMap map, int px, int pz) {
         int b = map.pixelIndex(px, pz);
-        return b >= 0 && b < base.length ? base[b] : -1;
+        int o = b >= 0 && b < base.length ? base[b] : -1;
+        return o == com.porcupinestudios.lotrport.border.WaterFill.FILL && water != null
+                ? water.ownerOf(pz * map.width() + px) : Math.max(-1, o);
     }
 
     /** The layer's texture (made or remade when a snapshot came), or null before the first. */
