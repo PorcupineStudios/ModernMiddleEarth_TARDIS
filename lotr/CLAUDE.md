@@ -386,7 +386,8 @@ https://claude.ai/artifact/KqhSSTCuKXGuwKHBoYJdcu. Rebuild features in modern co
 
 ## Colonies (phase 9, RingRealms built in: `colony/`)
 - Founding: a Colony Charter (`colony_charter`, tab "Colonies") used on a block makes the Hall there, for the
-  founder's pledged faction; renamed on an anvil = colony name. One colony per player; Halls `hall_gap` apart.
+  founder's pledged faction; renamed on an anvil = colony name. One colony per player, except kingdom rulers (any
+  number, Aaron 2026-11-18; commands act on the owned colony nearest the player); Halls `hall_gap` apart.
   Saved in `Colonies` (SavedData `lotr_port_colonies`, codecs); history `colony_founded`, `citizen_arrive`,
   `citizen_die`, `recruit_started`. Citizens carry the `lotr_port:colony` attachment and never despawn.
 - Growth is immigration by approval, all in the GUI (Aaron 2026-11-12, `colony/Immigration`, colony view tab

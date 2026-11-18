@@ -132,15 +132,27 @@ public final class Colonies extends SavedData {
         return colonies.values().stream().filter(c -> c.founder.equals(player)).findFirst();
     }
 
-    /** The colony an entity lives in, if it is a citizen. */
+    /**
+     * The player's colony to act on: of the ones they founded, the one whose Hall is nearest them in their dimension,
+     * else their oldest. Kingdom rulers can found several (Aaron 2026-11-18); everyone else has at most one.
+     */
+    public Optional<Colony> nearestOwned(ServerPlayer player) {
+        List<Colony> owned = ownedBy(player.getUUID());
+        return owned.stream().filter(c -> c.dimension.equals(player.level().dimension()))
+                .min(Comparator.comparingDouble((Colony c) -> c.hall.distSqr(player.blockPosition())))
+                .or(() -> owned.stream().findFirst());
+    }
+
     /** Researchers in the player's colony: every rare citizen, plus one per {@code citizens_per_researcher} others. */
     public int researchers(MinecraftServer server, UUID player) {
-        return ofFounder(player).map(c -> {
+        int total = 0;
+        for (Colony c : ownedBy(player)) {
             int rare = (int) Society.rareCitizens(server, c);
             int per = ColonyData.settings().citizensPerResearcher();
             int common = Society.citizenCount(server, c) - rare;
-            return rare + (per > 0 ? common / per : 0);
-        }).orElse(0);
+            total += rare + (per > 0 ? common / per : 0);
+        }
+        return total;
     }
 
     public static Optional<UUID> colonyOf(Entity entity) {
@@ -155,11 +167,12 @@ public final class Colonies extends SavedData {
     /** The result of founding: the colony, or why not. */
     public record Founding(Optional<Colony> colony, Component problem) {}
 
-    /** Founds a colony with its Hall at {@code hall} for {@code faction}. One colony per player. */
+    /** Founds a colony with its Hall at {@code hall} for {@code faction}. One per player, unless they rule a kingdom. */
     public Founding found(ServerPlayer player, String name, BlockPos hall, ResourceLocation faction) {
-        if (ofFounder(player.getUUID()).isPresent()) {
+        if (ofFounder(player.getUUID()).isPresent()
+                && com.porcupinestudios.lotrport.border.Kingdoms.ruled(player.server, player).isEmpty()) {
             return new Founding(Optional.empty(), Component.translatableWithFallback("colony.lotr_port.one_only",
-                    "You have already founded a colony"));
+                    "You have already founded a colony (a kingdom's ruler can found more)"));
         }
         int gap = ColonyData.settings().hallGap();
         for (Colony c : colonies.values()) {
