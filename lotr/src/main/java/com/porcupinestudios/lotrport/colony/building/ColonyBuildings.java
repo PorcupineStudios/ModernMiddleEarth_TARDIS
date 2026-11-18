@@ -287,6 +287,23 @@ public final class ColonyBuildings {
      * RingRealms' writ (Aaron 2026-11-18). Fails, saying why, without a door near or when the room fits nothing.
      */
     public static Result plaque(ServerPlayer player, ServerLevel level, BlockPos plaque) {
+        return plaque(player, level, plaque, Optional.empty());
+    }
+
+    /** As {@link #plaque(ServerPlayer, ServerLevel, BlockPos)}, as the type the plaque's book picked if any. */
+    public static Result plaque(ServerPlayer player, ServerLevel level, BlockPos plaque,
+            Optional<ResourceLocation> wanted) {
+        Optional<BlockPos> door = plaqueDoor(level, plaque);
+        if (door.isEmpty()) {
+            return Result.fail("colony.lotr_port.plaque.no_door",
+                    "Hang the plaque in a room with a door within %s blocks, or by the door outside",
+                    BuildingSettings.get().plaqueDoorReach());
+        }
+        return add(player, level, door.get(), wanted, Optional.empty());
+    }
+
+    /** The nearest door (or gate) to a plaque within {@code plaque_door_reach}, the room's way in. */
+    public static Optional<BlockPos> plaqueDoor(Level level, BlockPos plaque) {
         int r = BuildingSettings.get().plaqueDoorReach();
         BlockPos best = null;
         double bestDist = Double.MAX_VALUE;
@@ -299,11 +316,7 @@ public final class ColonyBuildings {
                 }
             }
         }
-        if (best == null) {
-            return Result.fail("colony.lotr_port.plaque.no_door",
-                    "Hang the plaque in a room with a door within %s blocks, or by the door outside", r);
-        }
-        return add(player, level, best, Optional.empty(), Optional.empty());
+        return Optional.ofNullable(best);
     }
 
     public static Result retype(ServerPlayer player, BlockPos door, ResourceLocation type) {

@@ -44,9 +44,12 @@ https://claude.ai/artifact/VLwZ5N7pkVMJW4PCYXh41G).
 ## Colony life (`colony/building`, `colony/work`)
 - Buildings: a Building Plaque (Aaron 2026-11-18; the Building Writ is retired: no recipe, not in the tab, old
   stacks only say so) hung in a room or by its door measures the room at the nearest door within `plaque_door_reach`
-  (5, `colony_rooms/settings.json`) when placed, or when used while it names no building (`ColonyBuildings.plaque`;
-  messages over the hotbar). A room nothing fits says the three nearest types' first lack ("a house needs a bed; a
-  storehouse needs a chest"). The fill (`RoomScan`, RingRealms' rules: L-shape
+  (5, `colony_rooms/settings.json`) when placed (silently, `ColonyBuildings.plaque`). Right-clicking a plaque that
+  names no building opens its book unmarked (RingRealms' plaque screen, `PlaqueBook.unmarkedBook`, context
+  `unmarked:x,y,z`): the room as measured at that door (or why not: no colony in reach, no door, the room's problem
+  as a tooltip), and every building type with each requirement ticked or crossed for this room; "Make it" buttons
+  for the types that fit and are researched, and Measure again. Never text over the hotbar or in chat (Aaron
+  2026-11-18). A built plaque's Room tab has Measure again too. The fill (`RoomScan`, RingRealms' rules: L-shape
   floor 56, two storeys 49) and picks the best fitting type (`colony_building/*.json` requirements by counter tags
   `lotr_port:colony/<counter>`); `building_recheck` re-measures, retypes or loses buildings.
 - Jobs (`colony_job/*.json`), races (`colony_race/*.json`), `Assign` (homes by bed, jobs by priority and race

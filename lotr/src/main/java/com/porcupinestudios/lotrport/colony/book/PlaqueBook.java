@@ -19,6 +19,7 @@ import com.porcupinestudios.lotrport.society.CoreComponents;
 import com.porcupinestudios.lotrport.society.Person;
 import com.porcupinestudios.lotrport.society.Society;
 import java.util.ArrayList;
+import net.minecraft.core.BlockPos;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -99,8 +100,119 @@ public final class PlaqueBook implements BookProvider {
                 .orElse("minecraft:oak_door");
     }
 
+    /** The context of an unmarked plaque (no building yet) at a block. */
+    public static String unmarked(BlockPos pos) {
+        return UNMARKED + pos.getX() + "," + pos.getY() + "," + pos.getZ();
+    }
+
+    static final String UNMARKED = "unmarked:";
+
+    static Optional<BlockPos> unmarkedPos(String context) {
+        if (!context.startsWith(UNMARKED)) {
+            return Optional.empty();
+        }
+        String[] p = context.substring(UNMARKED.length()).split(",");
+        try {
+            return p.length == 3 ? Optional.of(new BlockPos(Integer.parseInt(p[0]), Integer.parseInt(p[1]),
+                    Integer.parseInt(p[2]))) : Optional.empty();
+        } catch (NumberFormatException e) {
+            return Optional.empty();
+        }
+    }
+
+    /**
+     * An unmarked plaque's book (RingRealms' plaque screen before a type is picked): the left page is the room as
+     * measured at the nearest door, or why it can't be; the Type page lists every building type with each of its
+     * requirements ticked or crossed for this room, and makes it any type that fits.
+     */
+    static Optional<Book> unmarkedBook(ServerPlayer player, BlockPos pos) {
+        if (player.distanceToSqr(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5) > 64 * 64) {
+            return Optional.empty();
+        }
+        var level = player.serverLevel();
+        String context = unmarked(pos);
+        Optional<Colony> colony = com.porcupinestudios.lotrport.colony.building.ColonyBuildings.colonyFor(player,
+                level, pos);
+        Optional<BlockPos> door = com.porcupinestudios.lotrport.colony.building.ColonyBuildings.plaqueDoor(level, pos);
+        List<El> left = new ArrayList<>();
+        left.add(El.pair("Plaque", "Unmarked", El.MUTED).withItem("lotr_port:building_plaque"));
+        Map<String, Integer> counts = Map.of();
+        boolean measured = false;
+        if (colony.isEmpty()) {
+            left.add(El.pair("Colony", "none", El.BAD).withTip("Hang it within "
+                    + com.porcupinestudios.lotrport.colony.building.BuildingSettings.get().reach()
+                    + " blocks of the Hall of a colony you may build for"));
+        } else {
+            left.add(El.pair("Colony", colony.get().name()));
+        }
+        if (door.isEmpty()) {
+            left.add(El.pair("Door", "none near", El.BAD).withTip("Hang the plaque in a room with a door within "
+                    + com.porcupinestudios.lotrport.colony.building.BuildingSettings.get().plaqueDoorReach()
+                    + " blocks, or by the door outside"));
+        } else {
+            left.add(El.pair("Door", door.get().toShortString(), El.MUTED));
+            var dw = com.porcupinestudios.lotrport.colony.building.ColonyBuildings.doorway(level, door.get());
+            if (dw.isPresent()) {
+                var room = com.porcupinestudios.lotrport.colony.building.ColonyBuildings.measure(level, dw.get(),
+                        player.blockPosition());
+                if (!room.ok()) {
+                    left.add(El.pair("Room", "can't be used", El.BAD).withTip(room.problem().getString()));
+                } else {
+                    measured = true;
+                    counts = room.counts();
+                    left.add(El.pair("Floor", room.count("floor") + " blocks"));
+                    left.add(El.pair("Storeys", Integer.toString(Math.max(1, room.count("storeys")))));
+                    for (Map.Entry<String, Integer> m : new TreeMap<>(counts).entrySet()) {
+                        if (m.getValue() > 0 && !m.getKey().equals("floor") && !m.getKey().equals("storeys")) {
+                            left.add(El.pair(Pages.title(m.getKey()), Integer.toString(m.getValue()), El.MUTED));
+                        }
+                    }
+                }
+            }
+        }
+        boolean may = colony.isPresent();
+        List<El> right = new ArrayList<>();
+        right.add(El.head("What this room can be"));
+        List<El> make = new ArrayList<>();
+        Map<String, Integer> have = counts;
+        List<Map.Entry<ResourceLocation, BuildingType>> types = new ArrayList<>(BuildingType.all().entrySet());
+        types.sort(java.util.Comparator.comparingInt((Map.Entry<ResourceLocation, BuildingType> e)
+                -> -e.getValue().priority()).thenComparing(e -> e.getKey().toString()));
+        for (Map.Entry<ResourceLocation, BuildingType> e : types) {
+            BuildingType t = e.getValue();
+            boolean known = colony.map(t::researched).orElse(false);
+            StringBuilder tip = new StringBuilder();
+            for (BuildingType.Requirement r : t.requires()) {
+                tip.append(measured && r.holds(have) ? "\u2714 " : "\u2718 ").append(r.why().getString()).append('\n');
+            }
+            if (!known) {
+                tip.append("Needs research first");
+            }
+            Optional<BuildingType.Requirement> miss = t.missing(have);
+            boolean fits = measured && miss.isEmpty();
+            String value = !known ? "research" : !measured ? "-" : fits ? "fits" : miss.get().why().getString();
+            int tone = !known ? El.MUTED : fits ? El.GOOD : El.BAD;
+            right.add(El.pair(Pages.building(e.getKey()), value, tone).withTip(tip.toString().trim()));
+            if (fits && known && may) {
+                make.add(El.button(Pages.building(e.getKey()), "assign", e.getKey().toString()));
+            }
+        }
+        if (!make.isEmpty()) {
+            right.add(El.head("Make it"));
+            right.add(El.buttons(make));
+        }
+        right.add(El.buttons(List.of(El.button("Measure again", "measure", ""))));
+        List<Book.Tab> tabs = List.of(new Book.Tab("type", "Type", "minecraft:oak_door"));
+        return Optional.of(new Book(KIND, context, "Unmarked plaque", colony.map(Colony::name).orElse(""), List.of(),
+                tabs, "type", left, right, "", 0));
+    }
+
     @Override
     public Optional<Book> build(ServerPlayer player, String context, String tab) {
+        Optional<BlockPos> plaque = unmarkedPos(context);
+        if (plaque.isPresent()) {
+            return unmarkedBook(player, plaque.get());
+        }
         Optional<At> at = find(player.server, context);
         if (at.isEmpty() || !Permissions.isMember(player.getUUID(), at.get().colony())) {
             return Optional.empty();
@@ -404,12 +516,31 @@ public final class PlaqueBook implements BookProvider {
             }
             out.add(El.buttons(row));
         }
-        out.add(El.text("Use a Building Writ on the door again to re-measure."));
+        out.add(El.buttons(List.of(El.button("Measure again", "measure", ""))));
         return out;
     }
 
     @Override
     public Result act(ServerPlayer player, String context, String tab, String action, String arg, int num) {
+        Optional<BlockPos> plaque = unmarkedPos(context);
+        if (plaque.isPresent()) {
+            if (!action.equals("assign")) {
+                return Result.NONE; // "measure": the book is built again
+            }
+            ResourceLocation type = ResourceLocation.tryParse(arg);
+            if (type == null) {
+                return Result.NONE;
+            }
+            var r = com.porcupinestudios.lotrport.colony.building.ColonyBuildings.plaque(player,
+                    player.serverLevel(), plaque.get(), Optional.of(type));
+            if (r.building().isEmpty()) {
+                return Result.say(r.message());
+            }
+            Optional<Colony> c = com.porcupinestudios.lotrport.colony.building.ColonyBuildings.colonyFor(player,
+                    player.serverLevel(), r.building().get().door());
+            return c.map(x -> Result.go(KIND, context(x, r.building().get()), ""))
+                    .orElse(Result.say(r.message()));
+        }
         Optional<At> at = find(player.server, context);
         if (at.isEmpty()) {
             return Result.NONE;
@@ -418,6 +549,12 @@ public final class PlaqueBook implements BookProvider {
         switch (action) {
             case "citizen" -> {
                 return Result.go(HallLedgerBook.KIND, c.id().toString(), "person:" + arg);
+            }
+            case "measure" -> {
+                var r = com.porcupinestudios.lotrport.colony.building.ColonyBuildings.add(player,
+                        player.serverLevel(), at.get().building().door(), Optional.of(at.get().building().type()),
+                        Optional.empty());
+                return Result.say(r.message());
             }
             case "retype" -> {
                 ResourceLocation type = ResourceLocation.tryParse(arg);
