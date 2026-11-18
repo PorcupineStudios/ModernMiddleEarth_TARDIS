@@ -147,11 +147,14 @@ public class UiScreen extends Screen {
     @Override
     protected void init() {
         fw = Math.min(width - 16, MAX_WIDTH);
-        fh = Math.min(height - 44, MAX_HEIGHT);
         fx = (width - fw) / 2;
-        titleY = Math.max(4, (height - fh - 30) / 2);
+        // tabs wrap onto rows with their whole names (squeezing them cut every name to "Ov...")
+        int rows = view.tabs().isEmpty() ? 0 : tabRows().size();
+        int tabsH = rows == 0 ? 0 : rows * (UiTheme.TAB_HEIGHT + 1) - 3;
+        fh = Math.min(height - 30 - tabsH, MAX_HEIGHT);
+        titleY = Math.max(4, (height - fh - tabsH - 16) / 2);
         tabsY = titleY + 12;
-        fy = tabsY + (view.tabs().isEmpty() ? 0 : UiTheme.TAB_HEIGHT - 2);
+        fy = tabsY + tabsH;
         table = null;
         stats = null;
         profile = null;
@@ -263,16 +266,16 @@ public class UiScreen extends Screen {
     public void renderBackground(GuiGraphics g, int mouseX, int mouseY, float partialTick) {
         super.renderBackground(g, mouseX, mouseY, partialTick);
         g.drawCenteredString(font, view.title(), width / 2, titleY, UiTheme.TITLE);
-        int[] tabX = tabStarts();
+        int[][] tabRects = tabRects();
         int selected = selectedTab();
         for (int i = 0; i < view.tabs().size(); i++) {
             if (i != selected) {
-                drawTab(i, tabX, false);
+                drawTab(i, tabRects, false);
             }
         }
         ui.sprite(UiTheme.PANEL, fx, fy, fw, fh);
         if (selected >= 0) {
-            drawTab(selected, tabX, true);
+            drawTab(selected, tabRects, true);
         }
         if (table != null) {
             table.draw(ui, contentX(), contentY(), contentW(), contentH());
@@ -306,34 +309,65 @@ public class UiScreen extends Screen {
         return tabs.isEmpty() ? -1 : 0;
     }
 
-    /** Tab left edges, centred over the frame; one more entry for the right end. */
-    private int[] tabStarts() {
+    /** The tabs packed into rows that fit over the frame, each tab as wide as its name. */
+    private List<List<Integer>> tabRows() {
         List<View.Tab> tabs = view.tabs();
-        int[] widths = new int[tabs.size()];
-        int total = 0;
+        List<List<Integer>> rows = new java.util.ArrayList<>();
+        List<Integer> row = new java.util.ArrayList<>();
+        int used = 0;
+        int avail = fw - 12;
         for (int i = 0; i < tabs.size(); i++) {
-            widths[i] = Math.max(58, font.width(tabs.get(i).label()) + 22);
-            total += widths[i] + 4;
+            int w = tabWidth(tabs.get(i));
+            if (!row.isEmpty() && used + w > avail) {
+                rows.add(row);
+                row = new java.util.ArrayList<>();
+                used = 0;
+            }
+            row.add(i);
+            used += w + 3;
         }
-        total -= 4;
-        // squeeze if they don't fit
-        double scale = total > fw - 16 ? (fw - 16) / (double) total : 1;
-        int[] out = new int[tabs.size() + 1];
-        int x = fx + (fw - (int) (total * scale)) / 2;
-        for (int i = 0; i < tabs.size(); i++) {
-            out[i] = x;
-            x += (int) ((widths[i] + 4) * scale);
+        if (!row.isEmpty()) {
+            rows.add(row);
         }
-        out[tabs.size()] = x;
+        return rows;
+    }
+
+    private int tabWidth(View.Tab tab) {
+        return Math.max(40, font.width(tab.label()) + 14);
+    }
+
+    /** Each tab's x, y and width: rows stretched to the frame's width, the last row lying on the frame. */
+    private int[][] tabRects() {
+        List<List<Integer>> rows = tabRows();
+        int[][] out = new int[view.tabs().size()][];
+        for (int r = 0; r < rows.size(); r++) {
+            List<Integer> row = rows.get(r);
+            int natural = 0;
+            for (int i : row) {
+                natural += tabWidth(view.tabs().get(i));
+            }
+            int avail = fw - 12 - (row.size() - 1) * 3;
+            // full rows stretch to the frame's width; a short last row keeps its tabs' own widths
+            double stretch = rows.size() > 1 && natural < avail ? avail / (double) natural : 1;
+            int x = fx + 6;
+            int y = tabsY + r * (UiTheme.TAB_HEIGHT + 1);
+            for (int k = 0; k < row.size(); k++) {
+                int i = row.get(k);
+                int w = k == row.size() - 1 && stretch > 1 ? fx + fw - 6 - x
+                        : (int) Math.round(tabWidth(view.tabs().get(i)) * stretch);
+                out[i] = new int[] {x, y, w};
+                x += w + 3;
+            }
+        }
         return out;
     }
 
-    private void drawTab(int i, int[] tabX, boolean selected) {
+    private void drawTab(int i, int[][] rects, boolean selected) {
         View.Tab tab = view.tabs().get(i);
-        int x = tabX[i];
-        int w = tabX[i + 1] - x - 4;
-        int y = selected ? tabsY - 2 : tabsY;
-        int h = selected ? UiTheme.TAB_HEIGHT + 4 : UiTheme.TAB_HEIGHT;
+        int x = rects[i][0];
+        int w = rects[i][2];
+        int y = selected ? rects[i][1] - 1 : rects[i][1];
+        int h = UiTheme.TAB_HEIGHT + (selected ? 1 : 0);
         boolean hover = !selected && ui.over(x, y, w, h);
         ui.sprite(selected ? UiTheme.TAB_SELECTED : hover ? UiTheme.TAB_HOVER : UiTheme.TAB, x, y, w, h);
         ui.text(tab.label().getString(), x + 4, y + 1, w - 8, UiTheme.TAB_HEIGHT - 2, 0,

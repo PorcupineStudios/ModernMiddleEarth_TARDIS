@@ -70,6 +70,7 @@ public class BookScreen extends Screen {
     private EditBox field;
     private El fieldEl;
     private boolean fieldShown;
+    private String fieldOwner = "";
 
     // the book's place on screen and the right page, measured in init
     private float scale = 1;
@@ -104,6 +105,13 @@ public class BookScreen extends Screen {
         }
     }
 
+    /** Turns the open book to a tab, as clicking its ribbon does (dev scripts). */
+    public static void turnTo(String tab) {
+        if (Minecraft.getInstance().screen instanceof BookScreen open) {
+            PacketDistributor.sendToServer(new Books.Open(open.book.kind(), open.book.context(), tab));
+        }
+    }
+
     private void note(String m) {
         if (!m.isEmpty()) {
             toast = resolve(m);
@@ -119,8 +127,9 @@ public class BookScreen extends Screen {
     @Override
     protected void init() {
         // fit the book (and the ribbons sticking out) into small windows by scaling it down
-        scale = Math.min(1f, Math.min((height - 4) / (float) BH, (width - 4) / (float) (BW + 26)));
-        ox = Math.round((width / scale - BW) / 2f) - 6;
+        int out = ribbonOut();
+        scale = Math.min(1f, Math.min((height - 4) / (float) BH, (width - 4) / (float) (BW + out + 4)));
+        ox = Math.round((width / scale - BW - out) / 2f);
         oy = Math.round((height / scale - BH) / 2f);
         rx = RX;
         ry = TOP;
@@ -177,6 +186,15 @@ public class BookScreen extends Screen {
         return (int) Math.floor(my / scale) - oy;
     }
 
+    /**
+     * Clips to a box in book units. GuiGraphics' scissor is in screen units and ignores the pose (the book is moved and
+     * scaled by it), so the box is turned into screen units here; clipping in book units cut away whole pages.
+     */
+    private void clip(int x, int y, int w, int h) {
+        ui.g.enableScissor((int) Math.floor((ox + x) * scale), (int) Math.floor((oy + y) * scale),
+                (int) Math.ceil((ox + x + w) * scale), (int) Math.ceil((oy + y + h) * scale));
+    }
+
     /** RingRealms' dotted rule under titles. */
     private void dots(int x, int y, int w) {
         for (int i = 0; i < w; i += 2) {
@@ -222,16 +240,16 @@ public class BookScreen extends Screen {
         int lh = BOTTOM - INFO_H - 4 - ly;
         leftHeight = layout(book.left(), LX, 0, PAGE_W, false);
         leftScroll = Math.max(0, Math.min(leftScroll, leftHeight - lh));
-        ui.clip(LX - 2, ly, PAGE_W + 4, lh);
+        clip(LX - 2, ly, PAGE_W + 4, lh);
         layoutClipped(book.left(), LX, ly - leftScroll, PAGE_W, ly, ly + lh);
-        ui.unclip();
+        g.disableScissor();
 
         // right page: the open tab
         contentHeight = layout(book.right(), rx, 0, rw, false);
         scroll = Math.max(0, Math.min(scroll, Math.max(0, contentHeight - rh)));
-        ui.clip(rx - 2, ry, rw + 4, rh);
+        clip(rx - 2, ry, rw + 4, rh);
         layoutClipped(book.right(), rx, ry - scroll, rw, ry, ry + rh);
-        ui.unclip();
+        g.disableScissor();
         drawScrollBar(g);
         drawInfo(g, bx);
         g.pose().popPose();
@@ -294,37 +312,54 @@ public class BookScreen extends Screen {
         }
     }
 
-    /** Ribbon tabs down the right edge, longer when there are few (labels fit), closer when there are many. */
+    private static final int RIBBON_H = 18;
+
+    /** How far the ribbons stick out past the book: room for the longest tab name, so no name is ever cut. */
+    private int ribbonOut() {
+        int w = 0;
+        for (Book.Tab t : book.tabs()) {
+            w = Math.max(w, font.width(resolve(t.label())));
+        }
+        return book.tabs().isEmpty() ? 0 : w + 30;
+    }
+
+    /**
+     * Ribbon tabs down the right edge (RingRealms' bookmarks), each in its own colour with its icon and whole name
+     * written level; the open one sticks out further and joins the page.
+     */
     private void drawRibbons(GuiGraphics g) {
         List<Book.Tab> tabs = book.tabs();
         if (tabs.isEmpty()) {
             return;
         }
-        int step = Math.min(70, (BH - 20) / tabs.size());
-        int rh = step - 4;
+        int out = ribbonOut();
+        int step = Math.min(RIBBON_H + 4, (BH - 24) / tabs.size());
         for (int i = 0; i < tabs.size(); i++) {
             Book.Tab t = tabs.get(i);
             boolean on = t.id().equals(book.tab());
-            int x = BW - 6;
-            int y = 16 + i * step;
-            boolean hover = ui.over(x, y, 22, rh);
-            int w = on ? 20 : hover ? 17 : 15;
-            g.fill(x, y, x + w, y + rh, RIBBONS[i % RIBBONS.length]);
-            g.fill(x + w, y + 2, x + w + 1, y + rh - 2, 0x50000000);
-            String label = resolve(t.label());
-            String s = ui.fit(label, rh - 4);
-            g.pose().pushPose();
-            g.pose().translate(x + (on ? 14 : 12), y + rh / 2f - font.width(s) / 2f, 0);
-            g.pose().mulPose(com.mojang.math.Axis.ZP.rotationDegrees(90));
-            g.drawString(font, s, 0, 0, PALE, false);
-            g.pose().popPose();
-            if (hover) {
-                ui.tooltip(Component.literal(label));
+            int x = BW - 8;
+            int y = 18 + i * step;
+            int h = Math.min(RIBBON_H, step - 2);
+            boolean hover = !on && ui.over(x, y, out + 8, h);
+            int w = out + (on ? 8 : hover ? 5 : 2);
+            int colour = RIBBONS[i % RIBBONS.length];
+            g.fill(x, y, x + w, y + h, colour);
+            // a darker edge and a swallowtail notch, like a ribbon
+            g.fill(x, y + h - 1, x + w, y + h, 0x60000000);
+            g.fill(x + w - 3, y + h / 2 - 1, x + w, y + h / 2 + 1, 0xFF000000 | (colour & 0x00FFFFFF) >> 1 & 0x7F7F7F);
+            if (on) {
+                g.fill(x, y - 1, x + w, y, 0xFFE8C66A);
             }
+            g.pose().pushPose();
+            g.pose().translate(x + 10, y + (h - 12) / 2f, 0);
+            g.pose().scale(0.75f, 0.75f, 1);
+            g.renderItem(new ItemStack(item(t.icon())), 0, 0);
+            g.pose().popPose();
+            g.drawString(font, resolve(t.label()), x + 24, y + (h - 8) / 2, PALE, false);
             if (!on) {
                 String id = t.id();
-                ui.hit(x, y, 22, rh, () -> PacketDistributor.sendToServer(new Books.Open(book.kind(), book.context(),
-                        id)));
+                ui.hit(x, y, out + 8, h, () -> PacketDistributor.sendToServer(new Books.Open(book.kind(),
+                        book.context(), id)));
             }
         }
     }
@@ -343,13 +378,66 @@ public class BookScreen extends Screen {
 
     // ================================================================ layout
 
+    /**
+     * Splits a page into its parts: everything before the first heading, then each heading with what follows it up to
+     * the next heading. Each headed part is drawn in its own outlined box, so separate things read as separate.
+     */
+    private static List<List<El>> groups(List<El> els) {
+        List<List<El>> out = new ArrayList<>();
+        List<El> cur = new ArrayList<>();
+        for (El e : els) {
+            if (e.kind().equals("head") && !cur.isEmpty()) {
+                out.add(cur);
+                cur = new ArrayList<>();
+            }
+            cur.add(e);
+        }
+        if (!cur.isEmpty()) {
+            out.add(cur);
+        }
+        return out;
+    }
+
+    private static final int BOX_PAD = 4;
+    private static final int CAPTION = 14;
+
+    /** One part of a page: a headed part in an outlined box with its heading as the caption, else plain. */
+    private int group(List<El> part, int x, int y, int w, boolean draw, int clipTop, int clipBottom) {
+        if (!part.get(0).kind().equals("head")) {
+            int h = 0;
+            for (El e : part) {
+                h += element(e, x, y + h, w, draw, clipTop, clipBottom);
+            }
+            return h + (h > 0 ? 3 : 0);
+        }
+        int ix = x + BOX_PAD;
+        int iw = w - 2 * BOX_PAD;
+        int inner = 0;
+        for (El e : part.subList(1, part.size())) {
+            inner += element(e, ix, y + CAPTION + 2 + inner, iw, false, clipTop, clipBottom);
+        }
+        int h = CAPTION + 2 + inner + BOX_PAD;
+        if (draw) {
+            GuiGraphics g = ui.g;
+            g.fill(x, y, x + w, y + h, 0x16806040);
+            g.fill(x, y, x + w, y + CAPTION, 0x24806040);
+            g.renderOutline(x, y, w, h, 0x90806040);
+            g.fill(x + 1, y + CAPTION, x + w - 1, y + CAPTION + 1, 0x60806040);
+            ui.text(ui.fit(resolve(part.get(0).text()), iw), ix, y + 3, RED);
+            int cy = y + CAPTION + 2;
+            for (El e : part.subList(1, part.size())) {
+                cy += element(e, ix, cy, iw, true, clipTop, clipBottom);
+            }
+        }
+        return h + 5;
+    }
+
     private int layoutClipped(List<El> els, int x, int y, int w, int clipTop, int clipBottom) {
         int top = y;
-        for (El e : els) {
-            int h = element(e, x, y, w, false, clipTop, clipBottom);
-            boolean visible = y + h >= clipTop && y <= clipBottom;
-            if (visible) {
-                element(e, x, y, w, true, clipTop, clipBottom);
+        for (List<El> part : groups(els)) {
+            int h = group(part, x, y, w, false, clipTop, clipBottom);
+            if (y + h >= clipTop && y <= clipBottom) {
+                group(part, x, y, w, true, clipTop, clipBottom);
             }
             y += h;
         }
@@ -359,8 +447,8 @@ public class BookScreen extends Screen {
     /** Measures (draw false) or draws the elements; returns their height. */
     private int layout(List<El> els, int x, int y, int w, boolean draw) {
         int top = y;
-        for (El e : els) {
-            y += element(e, x, y, w, draw, Integer.MIN_VALUE, Integer.MAX_VALUE);
+        for (List<El> part : groups(els)) {
+            y += group(part, x, y, w, draw, Integer.MIN_VALUE, Integer.MAX_VALUE);
         }
         return y - top;
     }
@@ -459,6 +547,12 @@ public class BookScreen extends Screen {
                     int fx = x + font.width(resolve(e.text())) + 6;
                     int fw = Math.max(60, w - (fx - x) - 50);
                     if (y >= clipTop && y + 16 <= clipBottom && fieldEl == null) {
+                        // a field shows what it holds (a building's name) until the player types
+                        String owner = book.kind() + "|" + book.context() + "|" + e.action();
+                        if (!owner.equals(fieldOwner)) {
+                            fieldOwner = owner;
+                            field.setValue(e.value());
+                        }
                         fieldEl = e;
                         fieldShown = e.enabled();
                         field.setX(Math.round((ox + fx) * scale));
@@ -466,10 +560,13 @@ public class BookScreen extends Screen {
                         field.setWidth(Math.round(fw * scale));
                         field.setHeight(Math.max(10, Math.round(16 * scale)));
                     }
-                    El send = El.button("Send", e.action(), "", e.enabled(), e.why());
+                    El send = El.button(e.action().equals("rename") ? "Save" : "Send", e.action(), "", e.enabled(),
+                            e.why());
                     button(send, fx + fw + 4, y, 44, 16, live(y, 16, clipTop, clipBottom), () -> {
                         click(e.action(), field.getValue(), 0);
-                        field.setValue("");
+                        if (!e.action().equals("rename")) {
+                            field.setValue("");
+                        }
                     });
                 }
                 return 20;
@@ -870,7 +967,9 @@ public class BookScreen extends Screen {
             if (key == GLFW.GLFW_KEY_ENTER || key == GLFW.GLFW_KEY_KP_ENTER) {
                 if (fieldEl != null) {
                     click(fieldEl.action(), field.getValue(), 0);
-                    field.setValue("");
+                    if (!fieldEl.action().equals("rename")) {
+                        field.setValue("");
+                    }
                 }
                 return true;
             }

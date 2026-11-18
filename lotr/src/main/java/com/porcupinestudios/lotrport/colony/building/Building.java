@@ -55,6 +55,11 @@ public record Building(UUID id, ResourceLocation type, BlockPos door, Optional<S
         return new Building(id, newType, door, name, newOrigin, newCells, Map.copyOf(newCounts), newQuality, built, now);
     }
 
+    /** The same building with a name the players gave it (empty: back to its type's name). */
+    public Building withName(Optional<String> newName) {
+        return new Building(id, type, door, newName, origin, cells, counts, quality, built, checked);
+    }
+
     public Building withType(ResourceLocation newType) {
         return new Building(id, newType, door, name, origin, cells, counts, quality, built, checked);
     }

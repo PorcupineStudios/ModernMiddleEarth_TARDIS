@@ -93,8 +93,8 @@ final class ProfilePane {
         // the right column starts higher, under the subtitle beside the portrait
         int rightTop = nb[1] + 36;
         int lift = bodyTop - rightTop;
-        int leftH = columnHeight(profile.left());
-        int rightH = tree != null ? 0 : columnHeight(profile.right()) - lift;
+        int leftH = columnHeight(ui, profile.left(), colW);
+        int rightH = tree != null ? 0 : columnHeight(ui, profile.right(), colW) - lift;
         bodyHeight = Math.max(leftH, rightH);
         int room = bodyBottom - bodyTop;
         bar.measure(bodyHeight, room);
@@ -135,10 +135,10 @@ final class ProfilePane {
         }
     }
 
-    private static int columnHeight(List<Page.Section> sections) {
+    private static int columnHeight(Imm ui, List<Page.Section> sections, int w) {
         int h = 0;
         for (Page.Section s : sections) {
-            h += Sections.height(s) + 8;
+            h += Sections.height(ui, s, w) + 8;
         }
         return h;
     }

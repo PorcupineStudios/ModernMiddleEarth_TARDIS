@@ -319,6 +319,28 @@ public final class ColonyBuildings {
         return Optional.ofNullable(best);
     }
 
+    /** Names a building (its plaque's name box); a blank name gives it back its type's name. */
+    public static Result rename(ServerPlayer player, BlockPos door, String name) {
+        String n = name.strip();
+        if (n.length() > 32) {
+            n = n.substring(0, 32);
+        }
+        for (Colony c : Colonies.get(player.server).all()) {
+            Optional<Building> b = Buildings.of(c).atDoor(door);
+            if (b.isEmpty()) {
+                continue;
+            }
+            if (!Permissions.can(player.getUUID(), c, Perm.BUILD)) {
+                return Result.fail("colony.lotr_port.no_permission", "You may not do that in %s", c.name());
+            }
+            Building nb = b.get().withName(n.isEmpty() ? Optional.empty() : Optional.of(n));
+            Colonies.get(player.server).set(c, Buildings.TYPE, Buildings.of(c).with(nb));
+            return new Result(Optional.of(nb), Component.translatableWithFallback("colony.lotr_port.building.renamed",
+                    "Named %s", nb.label()).withStyle(ChatFormatting.GREEN));
+        }
+        return Result.fail("colony.lotr_port.building.none_here", "No building has its door there");
+    }
+
     public static Result retype(ServerPlayer player, BlockPos door, ResourceLocation type) {
         for (Colony c : Colonies.get(player.server).all()) {
             Optional<Building> b = Buildings.of(c).atDoor(door);
