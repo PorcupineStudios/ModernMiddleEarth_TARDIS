@@ -76,4 +76,17 @@ public abstract class NoiseGeneratorMixin {
         NoiseSettings clamped = original.call(noise, level);
         return NoiseTop.isMiddleEarth(settings) ? NoiseTop.forColumn(clamped, x, z) : clamped;
     }
+
+    /** Ground scans run with Middle-earth's noise caves off (world/map/CavesOn): caves are under the ground. */
+    @com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod(method = "iterateNoiseColumn")
+    private java.util.OptionalInt lotr_port$scanWithoutCaves(LevelHeightAccessor level, RandomState random, int x,
+            int z, org.apache.commons.lang3.mutable.MutableObject<net.minecraft.world.level.NoiseColumn> column,
+            java.util.function.Predicate<net.minecraft.world.level.block.state.BlockState> stop,
+            Operation<java.util.OptionalInt> original) {
+        if (!NoiseTop.isMiddleEarth(settings)) {
+            return original.call(level, random, x, z, column, stop);
+        }
+        return com.porcupinestudios.lotrport.world.map.CavesOn.scanning(
+                () -> original.call(level, random, x, z, column, stop));
+    }
 }
