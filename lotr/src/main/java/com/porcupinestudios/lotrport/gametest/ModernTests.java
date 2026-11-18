@@ -44,7 +44,7 @@ public final class ModernTests {
         helper.assertTrue(woods >= 39, "only " + woods + " wood types");
         for (String base : WoodSets.types().keySet()) {
             for (String id : new String[] {"stripped_" + base + "_wood", "stripped_" + base + "_wood_beam",
-                    base + "_button", base + "_pressure_plate", base + "_sign", base + "_hanging_sign", base + "_boat",
+                    base + "_bark", "stripped_" + base + "_bark", base + "_button", base + "_pressure_plate", base + "_sign", base + "_hanging_sign", base + "_boat",
                     base + "_chest_boat"}) {
                 helper.assertTrue(item(id) != Items.AIR, "missing " + id);
             }
@@ -70,6 +70,12 @@ public final class ModernTests {
         helper.assertTrue(stripped != null && stripped.is(LotrBlocks.BY_ID.get("stripped_mallorn_wood").get()),
                 "axe made " + stripped);
         helper.assertTrue(stripped.getValue(RotatedPillarBlock.AXIS) == Direction.Axis.X, "axis lost");
+        // the six-sided bark block strips too
+        helper.setBlock(at, LotrBlocks.BY_ID.get("mallorn_bark").get().defaultBlockState());
+        BlockState strippedBark = helper.getLevel().getBlockState(abs)
+                .getToolModifiedState(ctx, ItemAbilities.AXE_STRIP, false);
+        helper.assertTrue(strippedBark != null && strippedBark.is(LotrBlocks.BY_ID.get("stripped_mallorn_bark").get()),
+                "axe made " + strippedBark + " of mallorn bark");
 
         helper.setBlock(at, LotrBlocks.BY_ID.get("mallorn_sign").get());
         helper.assertTrue(helper.getLevel().getBlockEntity(abs) != null

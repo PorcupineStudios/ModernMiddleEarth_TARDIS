@@ -4,6 +4,8 @@
     "lotr_port:fir_wood",
     "lotr_port:fir_wood_beam",
     "lotr_port:stripped_fir_wood",
-    "lotr_port:stripped_fir_wood_beam"
+    "lotr_port:stripped_fir_wood_beam",
+    "lotr_port:fir_bark",
+    "lotr_port:stripped_fir_bark"
   ]
 }

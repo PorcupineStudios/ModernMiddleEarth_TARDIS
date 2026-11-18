@@ -10399,6 +10399,15 @@
         "sword_efficient"
       ]
     },
+    "shire_pine_bark": {
+      "analogue": "oak_wood",
+      "tags": [
+        "logs",
+        "logs_that_burn",
+        "mineable/axe",
+        "parrots_spawnable_on"
+      ]
+    },
     "stripped_shire_pine_wood": {
       "analogue": "stripped_oak_log",
       "tags": [
@@ -10409,6 +10418,15 @@
       ]
     },
     "stripped_shire_pine_wood_beam": {
+      "analogue": "stripped_oak_wood",
+      "tags": [
+        "logs",
+        "logs_that_burn",
+        "mineable/axe",
+        "parrots_spawnable_on"
+      ]
+    },
+    "stripped_shire_pine_bark": {
       "analogue": "stripped_oak_wood",
       "tags": [
         "logs",
@@ -10469,6 +10487,15 @@
         "wall_hanging_signs"
       ]
     },
+    "mallorn_bark": {
+      "analogue": "oak_wood",
+      "tags": [
+        "logs",
+        "logs_that_burn",
+        "mineable/axe",
+        "parrots_spawnable_on"
+      ]
+    },
     "stripped_mallorn_wood": {
       "analogue": "stripped_oak_log",
       "tags": [
@@ -10479,6 +10506,15 @@
       ]
     },
     "stripped_mallorn_wood_beam": {
+      "analogue": "stripped_oak_wood",
+      "tags": [
+        "logs",
+        "logs_that_burn",
+        "mineable/axe",
+        "parrots_spawnable_on"
+      ]
+    },
+    "stripped_mallorn_bark": {
       "analogue": "stripped_oak_wood",
       "tags": [
         "logs",
@@ -10539,6 +10575,15 @@
         "wall_hanging_signs"
       ]
     },
+    "mirk_oak_bark": {
+      "analogue": "oak_wood",
+      "tags": [
+        "logs",
+        "logs_that_burn",
+        "mineable/axe",
+        "parrots_spawnable_on"
+      ]
+    },
     "stripped_mirk_oak_wood": {
       "analogue": "stripped_oak_log",
       "tags": [
@@ -10549,6 +10594,15 @@
       ]
     },
     "stripped_mirk_oak_wood_beam": {
+      "analogue": "stripped_oak_wood",
+      "tags": [
+        "logs",
+        "logs_that_burn",
+        "mineable/axe",
+        "parrots_spawnable_on"
+      ]
+    },
+    "stripped_mirk_oak_bark": {
       "analogue": "stripped_oak_wood",
       "tags": [
         "logs",
@@ -10609,6 +10663,15 @@
         "wall_hanging_signs"
       ]
     },
+    "charred_bark": {
+      "analogue": "oak_wood",
+      "tags": [
+        "logs",
+        "logs_that_burn",
+        "mineable/axe",
+        "parrots_spawnable_on"
+      ]
+    },
     "stripped_charred_wood": {
       "analogue": "stripped_oak_log",
       "tags": [
@@ -10619,6 +10682,15 @@
       ]
     },
     "stripped_charred_wood_beam": {
+      "analogue": "stripped_oak_wood",
+      "tags": [
+        "logs",
+        "logs_that_burn",
+        "mineable/axe",
+        "parrots_spawnable_on"
+      ]
+    },
+    "stripped_charred_bark": {
       "analogue": "stripped_oak_wood",
       "tags": [
         "logs",
@@ -10679,6 +10751,15 @@
         "wall_hanging_signs"
       ]
     },
+    "apple_bark": {
+      "analogue": "oak_wood",
+      "tags": [
+        "logs",
+        "logs_that_burn",
+        "mineable/axe",
+        "parrots_spawnable_on"
+      ]
+    },
     "stripped_apple_wood": {
       "analogue": "stripped_oak_log",
       "tags": [
@@ -10689,6 +10770,15 @@
       ]
     },
     "stripped_apple_wood_beam": {
+      "analogue": "stripped_oak_wood",
+      "tags": [
+        "logs",
+        "logs_that_burn",
+        "mineable/axe",
+        "parrots_spawnable_on"
+      ]
+    },
+    "stripped_apple_bark": {
       "analogue": "stripped_oak_wood",
       "tags": [
         "logs",
@@ -10749,6 +10839,15 @@
         "wall_hanging_signs"
       ]
     },
+    "pear_bark": {
+      "analogue": "oak_wood",
+      "tags": [
+        "logs",
+        "logs_that_burn",
+        "mineable/axe",
+        "parrots_spawnable_on"
+      ]
+    },
     "stripped_pear_wood": {
       "analogue": "stripped_oak_log",
       "tags": [
@@ -10759,6 +10858,15 @@
       ]
     },
     "stripped_pear_wood_beam": {
+      "analogue": "stripped_oak_wood",
+      "tags": [
+        "logs",
+        "logs_that_burn",
+        "mineable/axe",
+        "parrots_spawnable_on"
+      ]
+    },
+    "stripped_pear_bark": {
       "analogue": "stripped_oak_wood",
       "tags": [
         "logs",
@@ -10819,6 +10927,15 @@
         "wall_hanging_signs"
       ]
     },
+    "cherry_bark": {
+      "analogue": "oak_wood",
+      "tags": [
+        "logs",
+        "logs_that_burn",
+        "mineable/axe",
+        "parrots_spawnable_on"
+      ]
+    },
     "stripped_cherry_wood": {
       "analogue": "stripped_oak_log",
       "tags": [
@@ -10829,6 +10946,15 @@
       ]
     },
     "stripped_cherry_wood_beam": {
+      "analogue": "stripped_oak_wood",
+      "tags": [
+        "logs",
+        "logs_that_burn",
+        "mineable/axe",
+        "parrots_spawnable_on"
+      ]
+    },
+    "stripped_cherry_bark": {
       "analogue": "stripped_oak_wood",
       "tags": [
         "logs",
@@ -10889,6 +11015,15 @@
         "wall_hanging_signs"
       ]
     },
+    "mango_bark": {
+      "analogue": "oak_wood",
+      "tags": [
+        "logs",
+        "logs_that_burn",
+        "mineable/axe",
+        "parrots_spawnable_on"
+      ]
+    },
     "stripped_mango_wood": {
       "analogue": "stripped_oak_log",
       "tags": [
@@ -10899,6 +11034,15 @@
       ]
     },
     "stripped_mango_wood_beam": {
+      "analogue": "stripped_oak_wood",
+      "tags": [
+        "logs",
+        "logs_that_burn",
+        "mineable/axe",
+        "parrots_spawnable_on"
+      ]
+    },
+    "stripped_mango_bark": {
       "analogue": "stripped_oak_wood",
       "tags": [
         "logs",
@@ -10959,6 +11103,15 @@
         "wall_hanging_signs"
       ]
     },
+    "lebethron_bark": {
+      "analogue": "oak_wood",
+      "tags": [
+        "logs",
+        "logs_that_burn",
+        "mineable/axe",
+        "parrots_spawnable_on"
+      ]
+    },
     "stripped_lebethron_wood": {
       "analogue": "stripped_oak_log",
       "tags": [
@@ -10969,6 +11122,15 @@
       ]
     },
     "stripped_lebethron_wood_beam": {
+      "analogue": "stripped_oak_wood",
+      "tags": [
+        "logs",
+        "logs_that_burn",
+        "mineable/axe",
+        "parrots_spawnable_on"
+      ]
+    },
+    "stripped_lebethron_bark": {
       "analogue": "stripped_oak_wood",
       "tags": [
         "logs",
@@ -11029,6 +11191,15 @@
         "wall_hanging_signs"
       ]
     },
+    "beech_bark": {
+      "analogue": "oak_wood",
+      "tags": [
+        "logs",
+        "logs_that_burn",
+        "mineable/axe",
+        "parrots_spawnable_on"
+      ]
+    },
     "stripped_beech_wood": {
       "analogue": "stripped_oak_log",
       "tags": [
@@ -11039,6 +11210,15 @@
       ]
     },
     "stripped_beech_wood_beam": {
+      "analogue": "stripped_oak_wood",
+      "tags": [
+        "logs",
+        "logs_that_burn",
+        "mineable/axe",
+        "parrots_spawnable_on"
+      ]
+    },
+    "stripped_beech_bark": {
       "analogue": "stripped_oak_wood",
       "tags": [
         "logs",
@@ -11099,6 +11279,15 @@
         "wall_hanging_signs"
       ]
     },
+    "holly_bark": {
+      "analogue": "oak_wood",
+      "tags": [
+        "logs",
+        "logs_that_burn",
+        "mineable/axe",
+        "parrots_spawnable_on"
+      ]
+    },
     "stripped_holly_wood": {
       "analogue": "stripped_oak_log",
       "tags": [
@@ -11109,6 +11298,15 @@
       ]
     },
     "stripped_holly_wood_beam": {
+      "analogue": "stripped_oak_wood",
+      "tags": [
+        "logs",
+        "logs_that_burn",
+        "mineable/axe",
+        "parrots_spawnable_on"
+      ]
+    },
+    "stripped_holly_bark": {
       "analogue": "stripped_oak_wood",
       "tags": [
         "logs",
@@ -11169,6 +11367,15 @@
         "wall_hanging_signs"
       ]
     },
+    "banana_bark": {
+      "analogue": "oak_wood",
+      "tags": [
+        "logs",
+        "logs_that_burn",
+        "mineable/axe",
+        "parrots_spawnable_on"
+      ]
+    },
     "stripped_banana_wood": {
       "analogue": "stripped_oak_log",
       "tags": [
@@ -11179,6 +11386,15 @@
       ]
     },
     "stripped_banana_wood_beam": {
+      "analogue": "stripped_oak_wood",
+      "tags": [
+        "logs",
+        "logs_that_burn",
+        "mineable/axe",
+        "parrots_spawnable_on"
+      ]
+    },
+    "stripped_banana_bark": {
       "analogue": "stripped_oak_wood",
       "tags": [
         "logs",
@@ -11239,6 +11455,15 @@
         "wall_hanging_signs"
       ]
     },
+    "maple_bark": {
+      "analogue": "oak_wood",
+      "tags": [
+        "logs",
+        "logs_that_burn",
+        "mineable/axe",
+        "parrots_spawnable_on"
+      ]
+    },
     "stripped_maple_wood": {
       "analogue": "stripped_oak_log",
       "tags": [
@@ -11249,6 +11474,15 @@
       ]
     },
     "stripped_maple_wood_beam": {
+      "analogue": "stripped_oak_wood",
+      "tags": [
+        "logs",
+        "logs_that_burn",
+        "mineable/axe",
+        "parrots_spawnable_on"
+      ]
+    },
+    "stripped_maple_bark": {
       "analogue": "stripped_oak_wood",
       "tags": [
         "logs",
@@ -11309,6 +11543,15 @@
         "wall_hanging_signs"
       ]
     },
+    "larch_bark": {
+      "analogue": "oak_wood",
+      "tags": [
+        "logs",
+        "logs_that_burn",
+        "mineable/axe",
+        "parrots_spawnable_on"
+      ]
+    },
     "stripped_larch_wood": {
       "analogue": "stripped_oak_log",
       "tags": [
@@ -11319,6 +11562,15 @@
       ]
     },
     "stripped_larch_wood_beam": {
+      "analogue": "stripped_oak_wood",
+      "tags": [
+        "logs",
+        "logs_that_burn",
+        "mineable/axe",
+        "parrots_spawnable_on"
+      ]
+    },
+    "stripped_larch_bark": {
       "analogue": "stripped_oak_wood",
       "tags": [
         "logs",
@@ -11379,6 +11631,15 @@
         "wall_hanging_signs"
       ]
     },
+    "date_palm_bark": {
+      "analogue": "oak_wood",
+      "tags": [
+        "logs",
+        "logs_that_burn",
+        "mineable/axe",
+        "parrots_spawnable_on"
+      ]
+    },
     "stripped_date_palm_wood": {
       "analogue": "stripped_oak_log",
       "tags": [
@@ -11389,6 +11650,15 @@
       ]
     },
     "stripped_date_palm_wood_beam": {
+      "analogue": "stripped_oak_wood",
+      "tags": [
+        "logs",
+        "logs_that_burn",
+        "mineable/axe",
+        "parrots_spawnable_on"
+      ]
+    },
+    "stripped_date_palm_bark": {
       "analogue": "stripped_oak_wood",
       "tags": [
         "logs",
@@ -11449,6 +11719,15 @@
         "wall_hanging_signs"
       ]
     },
+    "mangrove_bark": {
+      "analogue": "oak_wood",
+      "tags": [
+        "logs",
+        "logs_that_burn",
+        "mineable/axe",
+        "parrots_spawnable_on"
+      ]
+    },
     "stripped_mangrove_wood": {
       "analogue": "stripped_oak_log",
       "tags": [
@@ -11459,6 +11738,15 @@
       ]
     },
     "stripped_mangrove_wood_beam": {
+      "analogue": "stripped_oak_wood",
+      "tags": [
+        "logs",
+        "logs_that_burn",
+        "mineable/axe",
+        "parrots_spawnable_on"
+      ]
+    },
+    "stripped_mangrove_bark": {
       "analogue": "stripped_oak_wood",
       "tags": [
         "logs",
@@ -11519,6 +11807,15 @@
         "wall_hanging_signs"
       ]
     },
+    "chestnut_bark": {
+      "analogue": "oak_wood",
+      "tags": [
+        "logs",
+        "logs_that_burn",
+        "mineable/axe",
+        "parrots_spawnable_on"
+      ]
+    },
     "stripped_chestnut_wood": {
       "analogue": "stripped_oak_log",
       "tags": [
@@ -11529,6 +11826,15 @@
       ]
     },
     "stripped_chestnut_wood_beam": {
+      "analogue": "stripped_oak_wood",
+      "tags": [
+        "logs",
+        "logs_that_burn",
+        "mineable/axe",
+        "parrots_spawnable_on"
+      ]
+    },
+    "stripped_chestnut_bark": {
       "analogue": "stripped_oak_wood",
       "tags": [
         "logs",
@@ -11589,6 +11895,15 @@
         "wall_hanging_signs"
       ]
     },
+    "baobab_bark": {
+      "analogue": "oak_wood",
+      "tags": [
+        "logs",
+        "logs_that_burn",
+        "mineable/axe",
+        "parrots_spawnable_on"
+      ]
+    },
     "stripped_baobab_wood": {
       "analogue": "stripped_oak_log",
       "tags": [
@@ -11599,6 +11914,15 @@
       ]
     },
     "stripped_baobab_wood_beam": {
+      "analogue": "stripped_oak_wood",
+      "tags": [
+        "logs",
+        "logs_that_burn",
+        "mineable/axe",
+        "parrots_spawnable_on"
+      ]
+    },
+    "stripped_baobab_bark": {
       "analogue": "stripped_oak_wood",
       "tags": [
         "logs",
@@ -11659,6 +11983,15 @@
         "wall_hanging_signs"
       ]
     },
+    "cedar_bark": {
+      "analogue": "oak_wood",
+      "tags": [
+        "logs",
+        "logs_that_burn",
+        "mineable/axe",
+        "parrots_spawnable_on"
+      ]
+    },
     "stripped_cedar_wood": {
       "analogue": "stripped_oak_log",
       "tags": [
@@ -11669,6 +12002,15 @@
       ]
     },
     "stripped_cedar_wood_beam": {
+      "analogue": "stripped_oak_wood",
+      "tags": [
+        "logs",
+        "logs_that_burn",
+        "mineable/axe",
+        "parrots_spawnable_on"
+      ]
+    },
+    "stripped_cedar_bark": {
       "analogue": "stripped_oak_wood",
       "tags": [
         "logs",
@@ -11729,6 +12071,15 @@
         "wall_hanging_signs"
       ]
     },
+    "fir_bark": {
+      "analogue": "oak_wood",
+      "tags": [
+        "logs",
+        "logs_that_burn",
+        "mineable/axe",
+        "parrots_spawnable_on"
+      ]
+    },
     "stripped_fir_wood": {
       "analogue": "stripped_oak_log",
       "tags": [
@@ -11739,6 +12090,15 @@
       ]
     },
     "stripped_fir_wood_beam": {
+      "analogue": "stripped_oak_wood",
+      "tags": [
+        "logs",
+        "logs_that_burn",
+        "mineable/axe",
+        "parrots_spawnable_on"
+      ]
+    },
+    "stripped_fir_bark": {
       "analogue": "stripped_oak_wood",
       "tags": [
         "logs",
@@ -11799,6 +12159,15 @@
         "wall_hanging_signs"
       ]
     },
+    "pine_bark": {
+      "analogue": "oak_wood",
+      "tags": [
+        "logs",
+        "logs_that_burn",
+        "mineable/axe",
+        "parrots_spawnable_on"
+      ]
+    },
     "stripped_pine_wood": {
       "analogue": "stripped_oak_log",
       "tags": [
@@ -11809,6 +12178,15 @@
       ]
     },
     "stripped_pine_wood_beam": {
+      "analogue": "stripped_oak_wood",
+      "tags": [
+        "logs",
+        "logs_that_burn",
+        "mineable/axe",
+        "parrots_spawnable_on"
+      ]
+    },
+    "stripped_pine_bark": {
       "analogue": "stripped_oak_wood",
       "tags": [
         "logs",
@@ -11869,6 +12247,15 @@
         "wall_hanging_signs"
       ]
     },
+    "lemon_bark": {
+      "analogue": "oak_wood",
+      "tags": [
+        "logs",
+        "logs_that_burn",
+        "mineable/axe",
+        "parrots_spawnable_on"
+      ]
+    },
     "stripped_lemon_wood": {
       "analogue": "stripped_oak_log",
       "tags": [
@@ -11879,6 +12266,15 @@
       ]
     },
     "stripped_lemon_wood_beam": {
+      "analogue": "stripped_oak_wood",
+      "tags": [
+        "logs",
+        "logs_that_burn",
+        "mineable/axe",
+        "parrots_spawnable_on"
+      ]
+    },
+    "stripped_lemon_bark": {
       "analogue": "stripped_oak_wood",
       "tags": [
         "logs",
@@ -11939,6 +12335,15 @@
         "wall_hanging_signs"
       ]
     },
+    "orange_bark": {
+      "analogue": "oak_wood",
+      "tags": [
+        "logs",
+        "logs_that_burn",
+        "mineable/axe",
+        "parrots_spawnable_on"
+      ]
+    },
     "stripped_orange_wood": {
       "analogue": "stripped_oak_log",
       "tags": [
@@ -11949,6 +12354,15 @@
       ]
     },
     "stripped_orange_wood_beam": {
+      "analogue": "stripped_oak_wood",
+      "tags": [
+        "logs",
+        "logs_that_burn",
+        "mineable/axe",
+        "parrots_spawnable_on"
+      ]
+    },
+    "stripped_orange_bark": {
       "analogue": "stripped_oak_wood",
       "tags": [
         "logs",
@@ -12009,6 +12423,15 @@
         "wall_hanging_signs"
       ]
     },
+    "lime_bark": {
+      "analogue": "oak_wood",
+      "tags": [
+        "logs",
+        "logs_that_burn",
+        "mineable/axe",
+        "parrots_spawnable_on"
+      ]
+    },
     "stripped_lime_wood": {
       "analogue": "stripped_oak_log",
       "tags": [
@@ -12019,6 +12442,15 @@
       ]
     },
     "stripped_lime_wood_beam": {
+      "analogue": "stripped_oak_wood",
+      "tags": [
+        "logs",
+        "logs_that_burn",
+        "mineable/axe",
+        "parrots_spawnable_on"
+      ]
+    },
+    "stripped_lime_bark": {
       "analogue": "stripped_oak_wood",
       "tags": [
         "logs",
@@ -12079,6 +12511,15 @@
         "wall_hanging_signs"
       ]
     },
+    "mahogany_bark": {
+      "analogue": "oak_wood",
+      "tags": [
+        "logs",
+        "logs_that_burn",
+        "mineable/axe",
+        "parrots_spawnable_on"
+      ]
+    },
     "stripped_mahogany_wood": {
       "analogue": "stripped_oak_log",
       "tags": [
@@ -12089,6 +12530,15 @@
       ]
     },
     "stripped_mahogany_wood_beam": {
+      "analogue": "stripped_oak_wood",
+      "tags": [
+        "logs",
+        "logs_that_burn",
+        "mineable/axe",
+        "parrots_spawnable_on"
+      ]
+    },
+    "stripped_mahogany_bark": {
       "analogue": "stripped_oak_wood",
       "tags": [
         "logs",
@@ -12149,6 +12599,15 @@
         "wall_hanging_signs"
       ]
     },
+    "willow_bark": {
+      "analogue": "oak_wood",
+      "tags": [
+        "logs",
+        "logs_that_burn",
+        "mineable/axe",
+        "parrots_spawnable_on"
+      ]
+    },
     "stripped_willow_wood": {
       "analogue": "stripped_oak_log",
       "tags": [
@@ -12159,6 +12618,15 @@
       ]
     },
     "stripped_willow_wood_beam": {
+      "analogue": "stripped_oak_wood",
+      "tags": [
+        "logs",
+        "logs_that_burn",
+        "mineable/axe",
+        "parrots_spawnable_on"
+      ]
+    },
+    "stripped_willow_bark": {
       "analogue": "stripped_oak_wood",
       "tags": [
         "logs",
@@ -12219,6 +12687,15 @@
         "wall_hanging_signs"
       ]
     },
+    "cypress_bark": {
+      "analogue": "oak_wood",
+      "tags": [
+        "logs",
+        "logs_that_burn",
+        "mineable/axe",
+        "parrots_spawnable_on"
+      ]
+    },
     "stripped_cypress_wood": {
       "analogue": "stripped_oak_log",
       "tags": [
@@ -12229,6 +12706,15 @@
       ]
     },
     "stripped_cypress_wood_beam": {
+      "analogue": "stripped_oak_wood",
+      "tags": [
+        "logs",
+        "logs_that_burn",
+        "mineable/axe",
+        "parrots_spawnable_on"
+      ]
+    },
+    "stripped_cypress_bark": {
       "analogue": "stripped_oak_wood",
       "tags": [
         "logs",
@@ -12289,6 +12775,15 @@
         "wall_hanging_signs"
       ]
     },
+    "olive_bark": {
+      "analogue": "oak_wood",
+      "tags": [
+        "logs",
+        "logs_that_burn",
+        "mineable/axe",
+        "parrots_spawnable_on"
+      ]
+    },
     "stripped_olive_wood": {
       "analogue": "stripped_oak_log",
       "tags": [
@@ -12299,6 +12794,15 @@
       ]
     },
     "stripped_olive_wood_beam": {
+      "analogue": "stripped_oak_wood",
+      "tags": [
+        "logs",
+        "logs_that_burn",
+        "mineable/axe",
+        "parrots_spawnable_on"
+      ]
+    },
+    "stripped_olive_bark": {
       "analogue": "stripped_oak_wood",
       "tags": [
         "logs",
@@ -12359,6 +12863,15 @@
         "wall_hanging_signs"
       ]
     },
+    "aspen_bark": {
+      "analogue": "oak_wood",
+      "tags": [
+        "logs",
+        "logs_that_burn",
+        "mineable/axe",
+        "parrots_spawnable_on"
+      ]
+    },
     "stripped_aspen_wood": {
       "analogue": "stripped_oak_log",
       "tags": [
@@ -12369,6 +12882,15 @@
       ]
     },
     "stripped_aspen_wood_beam": {
+      "analogue": "stripped_oak_wood",
+      "tags": [
+        "logs",
+        "logs_that_burn",
+        "mineable/axe",
+        "parrots_spawnable_on"
+      ]
+    },
+    "stripped_aspen_bark": {
       "analogue": "stripped_oak_wood",
       "tags": [
         "logs",
@@ -12429,6 +12951,15 @@
         "wall_hanging_signs"
       ]
     },
+    "green_oak_bark": {
+      "analogue": "oak_wood",
+      "tags": [
+        "logs",
+        "logs_that_burn",
+        "mineable/axe",
+        "parrots_spawnable_on"
+      ]
+    },
     "stripped_green_oak_wood": {
       "analogue": "stripped_oak_log",
       "tags": [
@@ -12439,6 +12970,15 @@
       ]
     },
     "stripped_green_oak_wood_beam": {
+      "analogue": "stripped_oak_wood",
+      "tags": [
+        "logs",
+        "logs_that_burn",
+        "mineable/axe",
+        "parrots_spawnable_on"
+      ]
+    },
+    "stripped_green_oak_bark": {
       "analogue": "stripped_oak_wood",
       "tags": [
         "logs",
@@ -12499,6 +13039,15 @@
         "wall_hanging_signs"
       ]
     },
+    "laireloss_bark": {
+      "analogue": "oak_wood",
+      "tags": [
+        "logs",
+        "logs_that_burn",
+        "mineable/axe",
+        "parrots_spawnable_on"
+      ]
+    },
     "stripped_laireloss_wood": {
       "analogue": "stripped_oak_log",
       "tags": [
@@ -12509,6 +13058,15 @@
       ]
     },
     "stripped_laireloss_wood_beam": {
+      "analogue": "stripped_oak_wood",
+      "tags": [
+        "logs",
+        "logs_that_burn",
+        "mineable/axe",
+        "parrots_spawnable_on"
+      ]
+    },
+    "stripped_laireloss_bark": {
       "analogue": "stripped_oak_wood",
       "tags": [
         "logs",
@@ -12569,6 +13127,15 @@
         "wall_hanging_signs"
       ]
     },
+    "almond_bark": {
+      "analogue": "oak_wood",
+      "tags": [
+        "logs",
+        "logs_that_burn",
+        "mineable/axe",
+        "parrots_spawnable_on"
+      ]
+    },
     "stripped_almond_wood": {
       "analogue": "stripped_oak_log",
       "tags": [
@@ -12579,6 +13146,15 @@
       ]
     },
     "stripped_almond_wood_beam": {
+      "analogue": "stripped_oak_wood",
+      "tags": [
+        "logs",
+        "logs_that_burn",
+        "mineable/axe",
+        "parrots_spawnable_on"
+      ]
+    },
+    "stripped_almond_bark": {
       "analogue": "stripped_oak_wood",
       "tags": [
         "logs",
@@ -12639,6 +13215,15 @@
         "wall_hanging_signs"
       ]
     },
+    "plum_bark": {
+      "analogue": "oak_wood",
+      "tags": [
+        "logs",
+        "logs_that_burn",
+        "mineable/axe",
+        "parrots_spawnable_on"
+      ]
+    },
     "stripped_plum_wood": {
       "analogue": "stripped_oak_log",
       "tags": [
@@ -12649,6 +13234,15 @@
       ]
     },
     "stripped_plum_wood_beam": {
+      "analogue": "stripped_oak_wood",
+      "tags": [
+        "logs",
+        "logs_that_burn",
+        "mineable/axe",
+        "parrots_spawnable_on"
+      ]
+    },
+    "stripped_plum_bark": {
       "analogue": "stripped_oak_wood",
       "tags": [
         "logs",
@@ -12709,6 +13303,15 @@
         "wall_hanging_signs"
       ]
     },
+    "redwood_bark": {
+      "analogue": "oak_wood",
+      "tags": [
+        "logs",
+        "logs_that_burn",
+        "mineable/axe",
+        "parrots_spawnable_on"
+      ]
+    },
     "stripped_redwood_wood": {
       "analogue": "stripped_oak_log",
       "tags": [
@@ -12719,6 +13322,15 @@
       ]
     },
     "stripped_redwood_wood_beam": {
+      "analogue": "stripped_oak_wood",
+      "tags": [
+        "logs",
+        "logs_that_burn",
+        "mineable/axe",
+        "parrots_spawnable_on"
+      ]
+    },
+    "stripped_redwood_bark": {
       "analogue": "stripped_oak_wood",
       "tags": [
         "logs",
@@ -12779,6 +13391,15 @@
         "wall_hanging_signs"
       ]
     },
+    "pomegranate_bark": {
+      "analogue": "oak_wood",
+      "tags": [
+        "logs",
+        "logs_that_burn",
+        "mineable/axe",
+        "parrots_spawnable_on"
+      ]
+    },
     "stripped_pomegranate_wood": {
       "analogue": "stripped_oak_log",
       "tags": [
@@ -12789,6 +13410,15 @@
       ]
     },
     "stripped_pomegranate_wood_beam": {
+      "analogue": "stripped_oak_wood",
+      "tags": [
+        "logs",
+        "logs_that_burn",
+        "mineable/axe",
+        "parrots_spawnable_on"
+      ]
+    },
+    "stripped_pomegranate_bark": {
       "analogue": "stripped_oak_wood",
       "tags": [
         "logs",
@@ -12849,6 +13479,15 @@
         "wall_hanging_signs"
       ]
     },
+    "palm_bark": {
+      "analogue": "oak_wood",
+      "tags": [
+        "logs",
+        "logs_that_burn",
+        "mineable/axe",
+        "parrots_spawnable_on"
+      ]
+    },
     "stripped_palm_wood": {
       "analogue": "stripped_oak_log",
       "tags": [
@@ -12859,6 +13498,15 @@
       ]
     },
     "stripped_palm_wood_beam": {
+      "analogue": "stripped_oak_wood",
+      "tags": [
+        "logs",
+        "logs_that_burn",
+        "mineable/axe",
+        "parrots_spawnable_on"
+      ]
+    },
+    "stripped_palm_bark": {
       "analogue": "stripped_oak_wood",
       "tags": [
         "logs",
@@ -12919,6 +13567,15 @@
         "wall_hanging_signs"
       ]
     },
+    "dragonblood_bark": {
+      "analogue": "oak_wood",
+      "tags": [
+        "logs",
+        "logs_that_burn",
+        "mineable/axe",
+        "parrots_spawnable_on"
+      ]
+    },
     "stripped_dragonblood_wood": {
       "analogue": "stripped_oak_log",
       "tags": [
@@ -12929,6 +13586,15 @@
       ]
     },
     "stripped_dragonblood_wood_beam": {
+      "analogue": "stripped_oak_wood",
+      "tags": [
+        "logs",
+        "logs_that_burn",
+        "mineable/axe",
+        "parrots_spawnable_on"
+      ]
+    },
+    "stripped_dragonblood_bark": {
       "analogue": "stripped_oak_wood",
       "tags": [
         "logs",
@@ -12989,6 +13655,15 @@
         "wall_hanging_signs"
       ]
     },
+    "kanuka_bark": {
+      "analogue": "oak_wood",
+      "tags": [
+        "logs",
+        "logs_that_burn",
+        "mineable/axe",
+        "parrots_spawnable_on"
+      ]
+    },
     "stripped_kanuka_wood": {
       "analogue": "stripped_oak_log",
       "tags": [
@@ -12999,6 +13674,15 @@
       ]
     },
     "stripped_kanuka_wood_beam": {
+      "analogue": "stripped_oak_wood",
+      "tags": [
+        "logs",
+        "logs_that_burn",
+        "mineable/axe",
+        "parrots_spawnable_on"
+      ]
+    },
+    "stripped_kanuka_bark": {
       "analogue": "stripped_oak_wood",
       "tags": [
         "logs",
@@ -13059,6 +13743,15 @@
         "wall_hanging_signs"
       ]
     },
+    "rotten_bark": {
+      "analogue": "oak_wood",
+      "tags": [
+        "logs",
+        "logs_that_burn",
+        "mineable/axe",
+        "parrots_spawnable_on"
+      ]
+    },
     "stripped_rotten_wood": {
       "analogue": "stripped_oak_log",
       "tags": [
@@ -13069,6 +13762,15 @@
       ]
     },
     "stripped_rotten_wood_beam": {
+      "analogue": "stripped_oak_wood",
+      "tags": [
+        "logs",
+        "logs_that_burn",
+        "mineable/axe",
+        "parrots_spawnable_on"
+      ]
+    },
+    "stripped_rotten_bark": {
       "analogue": "stripped_oak_wood",
       "tags": [
         "logs",

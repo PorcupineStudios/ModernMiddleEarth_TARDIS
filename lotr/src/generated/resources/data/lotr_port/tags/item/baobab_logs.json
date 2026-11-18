@@ -4,6 +4,8 @@
     "lotr_port:baobab_wood",
     "lotr_port:baobab_wood_beam",
     "lotr_port:stripped_baobab_wood",
-    "lotr_port:stripped_baobab_wood_beam"
+    "lotr_port:stripped_baobab_wood_beam",
+    "lotr_port:baobab_bark",
+    "lotr_port:stripped_baobab_bark"
   ]
 }
