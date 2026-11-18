@@ -225,7 +225,7 @@ public final class PlaqueBook implements BookProvider {
             Building fb = at.get().building();
             List<El> left = List.of(El.pair("Colony", fc.name()), El.pair("Type", Pages.building(fb.type()))
                     .withItem(icon(fb)), El.gap(), El.text("You are not one of this colony's members.", El.MUTED));
-            return Optional.of(new Book(KIND, context, fb.label(), fc.name(), List.of(), List.of(), "",
+            return Optional.of(new Book(KIND, context, fb.label().getString(), fc.name(), List.of(), List.of(), "",
                     left, List.of(), "", 0));
         }
         MinecraftServer server = player.server;
