@@ -4,8 +4,8 @@ Turns LOTR 36.15 (1.7.10) content into the 1.21.1 port's generated resources. Tw
 
 1. **Export** (`converter/src`, a small 1.7.10 mod built with the GTNH toolchain). CI's "Convert LOTR" workflow
    starts a real LOTR client under a virtual screen, the exporter reads every LOTR block, item, recipe, creative tab
-   and ore dictionary entry from the running game, writes `converter/export/*.json` and CI commits them. It runs when
-   `converter/src` or the Gradle files change, or by hand from the Actions tab. Reflection on public game state only;
+   and ore dictionary entry from the running game, writes `converter/export/*.json` and CI commits them. It runs only by
+   hand from the Actions tab (needs the secret `RINGREALMS_TOKEN` for the LOTR jar; it says so if that is missing). Reflection on public game state only;
    no LOTR code is copied.
    **Running it locally** (how it's normally run; the GitHub workflow is only a fallback):
 
