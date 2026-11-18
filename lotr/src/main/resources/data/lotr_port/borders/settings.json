@@ -1,0 +1,11 @@
+{
+  "claim_radius": 2,
+  "people_per_pixel": 10,
+  "max_radius": 6,
+  "recompute_ticks": 1200,
+  "conquered_share": 0.75,
+  "enemy_factor": 0.25,
+  "kingdom_pledge_alignment": 50,
+  "ruler_alignment": 100,
+  "kingdom_needs_colony": false
+}

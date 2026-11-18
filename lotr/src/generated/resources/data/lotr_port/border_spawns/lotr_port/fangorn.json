@@ -1,0 +1,21 @@
+{
+  "entries": [
+    {
+      "npc": "lotr_port:ent",
+      "weight": 75,
+      "min": 4,
+      "max": 4,
+      "dark": false
+    },
+    {
+      "npc": "lotr_port:huorn",
+      "weight": 50,
+      "min": 4,
+      "max": 4,
+      "dark": false
+    }
+  ],
+  "cap": 8,
+  "chance": 0.25,
+  "interval": 100
+}

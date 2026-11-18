@@ -2,6 +2,7 @@ package com.porcupinestudios.lotrport.society;
 
 import java.util.Optional;
 import net.minecraft.core.GlobalPos;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
 import net.neoforged.bus.api.Event;
 
@@ -129,6 +130,21 @@ public abstract class SocietyEvent extends Event {
     public static final class ColonyDisbanded extends OfColony {
         public ColonyDisbanded(MinecraftServer server, com.porcupinestudios.lotrport.colony.Colony colony) {
             super(server, colony);
+        }
+    }
+
+    /** A colony changed hands or faction (conquest, sale, gift, its ruler founding a kingdom). */
+    public static final class ColonyTransferred extends OfColony {
+        private final ResourceLocation fromFaction;
+
+        public ColonyTransferred(MinecraftServer server, com.porcupinestudios.lotrport.colony.Colony colony,
+                ResourceLocation fromFaction) {
+            super(server, colony);
+            this.fromFaction = fromFaction;
+        }
+
+        public ResourceLocation fromFaction() {
+            return fromFaction;
         }
     }
 }

@@ -1,7 +1,6 @@
 package com.porcupinestudios.lotrport.colony;
 
 import com.porcupinestudios.lotrport.LotrPort;
-import com.porcupinestudios.lotrport.faction.Pledges;
 import java.util.Optional;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponents;
@@ -57,7 +56,7 @@ public final class ColonyItems {
         TABS.register(modBus);
     }
 
-    /** The colony's faction is the founder's pledge, as in RingRealms. */
+    /** The colony's faction is the founder's kingdom, else their pledge (as in RingRealms). */
     static final class Charter extends Item {
         Charter(Properties properties) {
             super(properties);
@@ -71,10 +70,11 @@ public final class ColonyItems {
             if (!(ctx.getPlayer() instanceof ServerPlayer player)) {
                 return InteractionResult.PASS;
             }
-            Optional<ResourceLocation> pledge = Pledges.pledge(player);
+            // for the founder's kingdom if they rule one, else for their pledge (com.porcupinestudios.lotrport.border)
+            Optional<ResourceLocation> pledge = com.porcupinestudios.lotrport.border.Kingdoms.colonyFaction(player);
             if (pledge.isEmpty()) {
                 player.sendSystemMessage(Component.translatableWithFallback("colony.lotr_port.pledge_first",
-                        "Pledge yourself to a faction before founding a colony"));
+                        "Pledge yourself to a faction, or found a kingdom, before founding a colony"));
                 return InteractionResult.FAIL;
             }
             ItemStack stack = ctx.getItemInHand();

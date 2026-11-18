@@ -1,0 +1,35 @@
+{
+  "entries": [
+    {
+      "npc": "lotr_port:dale_archer",
+      "weight": 14,
+      "min": 2,
+      "max": 8,
+      "dark": false
+    },
+    {
+      "npc": "lotr_port:dale_levyman",
+      "weight": 58,
+      "min": 2,
+      "max": 4,
+      "dark": false
+    },
+    {
+      "npc": "lotr_port:dale_man",
+      "weight": 100,
+      "min": 2,
+      "max": 4,
+      "dark": false
+    },
+    {
+      "npc": "lotr_port:dale_soldier",
+      "weight": 29,
+      "min": 2,
+      "max": 8,
+      "dark": false
+    }
+  ],
+  "cap": 8,
+  "chance": 0.25,
+  "interval": 100
+}

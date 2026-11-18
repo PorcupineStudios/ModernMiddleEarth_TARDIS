@@ -245,6 +245,7 @@ public final class Colonies extends SavedData {
     public void transfer(MinecraftServer server, Colony colony, UUID owner, ResourceLocation faction, boolean ai,
             String reason) {
         UUID from = colony.founder;
+        ResourceLocation fromFaction = colony.faction;
         colony.founder = owner;
         colony.faction = faction;
         colony.ai = ai;
@@ -257,6 +258,7 @@ public final class Colonies extends SavedData {
         tag.putBoolean("ai", ai);
         tag.putString("reason", reason);
         log(server, TRANSFER_HISTORY, colony, colony.hall, tag);
+        NeoForge.EVENT_BUS.post(new SocietyEvent.ColonyTransferred(server, colony, fromFaction));
     }
 
     /**

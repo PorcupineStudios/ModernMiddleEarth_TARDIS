@@ -69,6 +69,8 @@ public final class MapScreen extends Screen {
     private static boolean sepia;
     private static boolean showLabels = true;
     private static boolean showWaypoints = true;
+    /** The border layer (key B; client config map.borders is the first value). */
+    private static Boolean showBorders;
     private static List<Label> labels;
 
     private final MapNet.MapData data;
@@ -231,6 +233,9 @@ public final class MapScreen extends Screen {
         }
         g.enableScissor(x0, y0, x1, y1);
         drawMap(g, vx, vz);
+        if (borders()) {
+            drawBorders(g, vx, vz);
+        }
         // LOTR's order: compass, roads, player, waypoints, labels (labels go over the dots)
         RenderSystem.enableBlend();
         g.blit(ICONS, x0 + 12, y1 - 44, 224, 200, 32, 32, 256, 256);
@@ -244,6 +249,9 @@ public final class MapScreen extends Screen {
         }
         if (showLabels) {
             drawLabels(g, vx, vz);
+        }
+        if (borders()) {
+            drawKingdoms(g, vx, vz);
         }
         drawColonies(g, vx, vz);
         drawOthers(g, vx, vz);
@@ -315,6 +323,53 @@ public final class MapScreen extends Screen {
         RenderSystem.defaultBlendFunc();
         quad(g, OVERLAY, x0, y0, x1, y1, 0, 0, 1, 1, 0.2f);
         RenderSystem.disableBlend();
+    }
+
+    private static boolean borders() {
+        if (showBorders == null) {
+            showBorders = com.porcupinestudios.lotrport.LotrClientConfig.MAP_BORDERS.get();
+        }
+        return showBorders;
+    }
+
+    /** Borders over the map image: the same quad as the map, from the border layer's texture. */
+    private void drawBorders(GuiGraphics g, float vx, float vz) {
+        ResourceLocation tex = BorderLayer.texture();
+        if (tex == null) {
+            return;
+        }
+        int w = MapTextures.width();
+        int h = MapTextures.height();
+        float halfW = (x1 - x0) / 2f / zoomScale;
+        float halfH = (y1 - y0) / 2f / zoomScale;
+        float u0 = Math.max(0, vx - halfW);
+        float v0 = Math.max(0, vz - halfH);
+        float u1 = Math.min(w, vx + halfW);
+        float v1 = Math.min(h, vz + halfH);
+        if (u1 <= u0 || v1 <= v0) {
+            return;
+        }
+        Minecraft.getInstance().getTextureManager().getTexture(tex).setFilter(false, false);
+        RenderSystem.enableBlend();
+        RenderSystem.defaultBlendFunc();
+        quad(g, tex, cx() + (u0 - vx) * zoomScale, cy() + (v0 - vz) * zoomScale, cx() + (u1 - vx) * zoomScale,
+                cy() + (v1 - vz) * zoomScale, u0 / w, v0 / h, u1 / w, v1 / h, 1f);
+        RenderSystem.disableBlend();
+    }
+
+    /** Player kingdoms' names over their capitals, in the kingdom's colour. */
+    private void drawKingdoms(GuiGraphics g, float vx, float vz) {
+        for (var l : BorderLayer.labels()) {
+            int x = Math.round(cx() + (l.x() - vx) * zoomScale);
+            int y = Math.round(cy() + (l.z() - vz) * zoomScale);
+            Component name = Component.literal(l.name());
+            float scale = Mth.clamp(0.75f + zoomExp * 0.25f, 0.5f, 1.5f);
+            g.pose().pushPose();
+            g.pose().translate(x, y - 14, 0);
+            g.pose().scale(scale, scale, 1);
+            g.drawString(font, name, -font.width(name) / 2, 0, 0xFF000000 | l.color(), true);
+            g.pose().popPose();
+        }
     }
 
     private static void quad(GuiGraphics g, ResourceLocation tex, float qx0, float qy0, float qx1, float qy1,
@@ -573,6 +628,10 @@ public final class MapScreen extends Screen {
         int pz = (int) Math.floor(mapZ);
         ResourceLocation id = ResourceLocation.parse(map.biomes().get(map.pixelIndex(px, pz)).id());
         lines.add(Component.translatable("biome." + id.getNamespace() + "." + id.getPath()));
+        Component held = borders() ? BorderLayer.hoverLine(px, pz) : null;
+        if (held != null) {
+            lines.add(held);
+        }
         lines.add(Component.translatableWithFallback("screen.lotr_port.map.coords", "x: %s, z: %s", bx, bz));
         return data.canTeleport() ? Component.translatableWithFallback("screen.lotr_port.map.tp", "Press '%s' to /tp",
                 LotrClient.MAP_TELEPORT_KEY.getTranslatedKeyMessage()) : null;
@@ -810,6 +869,10 @@ public final class MapScreen extends Screen {
         }
         if (LotrClient.MAP_KEY.matches(keyCode, scanCode)) {
             onClose();
+            return true;
+        }
+        if (keyCode == GLFW.GLFW_KEY_B) {
+            showBorders = !borders();
             return true;
         }
         return super.keyPressed(keyCode, scanCode, modifiers);

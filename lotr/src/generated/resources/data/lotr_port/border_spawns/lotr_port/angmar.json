@@ -1,0 +1,77 @@
+{
+  "entries": [
+    {
+      "npc": "lotr_port:angmar_hillman",
+      "weight": 18,
+      "min": 4,
+      "max": 6,
+      "dark": false
+    },
+    {
+      "npc": "lotr_port:angmar_hillman_axe_thrower",
+      "weight": 9,
+      "min": 4,
+      "max": 6,
+      "dark": false
+    },
+    {
+      "npc": "lotr_port:angmar_hillman_warrior",
+      "weight": 9,
+      "min": 4,
+      "max": 6,
+      "dark": false
+    },
+    {
+      "npc": "lotr_port:angmar_orc",
+      "weight": 30,
+      "min": 4,
+      "max": 6,
+      "dark": true
+    },
+    {
+      "npc": "lotr_port:angmar_orc_archer",
+      "weight": 15,
+      "min": 4,
+      "max": 6,
+      "dark": true
+    },
+    {
+      "npc": "lotr_port:angmar_orc_bombardier",
+      "weight": 6,
+      "min": 1,
+      "max": 2,
+      "dark": true
+    },
+    {
+      "npc": "lotr_port:angmar_warg",
+      "weight": 38,
+      "min": 4,
+      "max": 4,
+      "dark": true
+    },
+    {
+      "npc": "lotr_port:mountain_troll",
+      "weight": 36,
+      "min": 1,
+      "max": 3,
+      "dark": true
+    },
+    {
+      "npc": "lotr_port:snow_troll",
+      "weight": 29,
+      "min": 1,
+      "max": 3,
+      "dark": true
+    },
+    {
+      "npc": "lotr_port:troll",
+      "weight": 60,
+      "min": 1,
+      "max": 3,
+      "dark": true
+    }
+  ],
+  "cap": 8,
+  "chance": 0.25,
+  "interval": 100
+}

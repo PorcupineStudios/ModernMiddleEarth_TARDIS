@@ -1,0 +1,49 @@
+{
+  "entries": [
+    {
+      "npc": "lotr_port:easterling",
+      "weight": 33,
+      "min": 2,
+      "max": 4,
+      "dark": false
+    },
+    {
+      "npc": "lotr_port:easterling_archer",
+      "weight": 23,
+      "min": 3,
+      "max": 6,
+      "dark": false
+    },
+    {
+      "npc": "lotr_port:easterling_fire_thrower",
+      "weight": 9,
+      "min": 1,
+      "max": 3,
+      "dark": false
+    },
+    {
+      "npc": "lotr_port:easterling_gold_warrior",
+      "weight": 18,
+      "min": 2,
+      "max": 4,
+      "dark": false
+    },
+    {
+      "npc": "lotr_port:easterling_levyman",
+      "weight": 94,
+      "min": 2,
+      "max": 4,
+      "dark": false
+    },
+    {
+      "npc": "lotr_port:easterling_warrior",
+      "weight": 47,
+      "min": 3,
+      "max": 6,
+      "dark": false
+    }
+  ],
+  "cap": 8,
+  "chance": 0.25,
+  "interval": 100
+}

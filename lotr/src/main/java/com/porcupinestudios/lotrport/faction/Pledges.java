@@ -26,6 +26,10 @@ public final class Pledges {
         if (faction.isEmpty()) {
             return Result.UNKNOWN_FACTION;
         }
+        if (Realms.get(server).get(factionId).flatMap(Realms.Realm::owner).filter(player.getUUID()::equals)
+                .isPresent()) {
+            return Result.CANNOT_PLEDGE; // a ruler doesn't swear to their own kingdom
+        }
         Optional<Float> needed = faction.get().pledgeAlignment();
         if (needed.isEmpty() || !faction.get().playable()) {
             return Result.CANNOT_PLEDGE;

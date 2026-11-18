@@ -85,8 +85,16 @@ public final class NpcSpawner {
         if (here.isEmpty() || here.get().entries().isEmpty()) {
             return 0;
         }
-        NpcSpawns.Entry entry = pick(here.get(), random);
-        if (entry.dark() && !here.get().hostilesInDay() && !Monster.isDarkEnoughToSpawn(level, ground, random)) {
+        NpcSpawns.Table spot = here.get();
+        if (!spot.countOnlyAnimals()) { // people, not LOTR's animal tables
+            // borders: land that changed hands brings its holder's people (border/TerritorySpawns)
+            spot = com.porcupinestudios.lotrport.border.TerritorySpawns.adjust(level, ground, spot, random);
+            if (spot.entries().isEmpty()) {
+                return 0;
+            }
+        }
+        NpcSpawns.Entry entry = pick(spot, random);
+        if (entry.dark() && !spot.hostilesInDay() && !Monster.isDarkEnoughToSpawn(level, ground, random)) {
             return 0; // LOTR: orcs, wargs and spiders only in the dark, unless the biome allows hostiles by day
         }
         int count = entry.min() + (entry.max() > entry.min() ? random.nextInt(entry.max() - entry.min() + 1) : 0);

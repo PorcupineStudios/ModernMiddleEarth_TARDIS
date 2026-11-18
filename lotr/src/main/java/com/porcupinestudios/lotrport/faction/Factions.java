@@ -72,8 +72,11 @@ public final class Factions {
     }
 
     private static Faction realmFaction(Realms.Realm realm) {
+        // one rank, "subject": other players pledge to a player kingdom with border settings' alignment
+        float subject = com.porcupinestudios.lotrport.border.BorderData.settings().kingdomPledgeAlignment();
+        List<FactionDef.Rank> ranks = realm.ai() ? List.of() : List.of(new FactionDef.Rank("subject", subject, false));
         return new Faction(realm.id(), Component.literal(realm.name()), realm.color(), true, Optional.empty(),
-                List.of(), Optional.empty(), 1f, true);
+                ranks, realm.ai() ? Optional.empty() : Optional.of("subject"), 1f, true);
     }
 
     /** The relation between two factions now: a faction is its own ally. */

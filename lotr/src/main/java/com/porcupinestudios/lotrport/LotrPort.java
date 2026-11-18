@@ -84,6 +84,10 @@ public final class LotrPort {
         com.porcupinestudios.lotrport.npc.SpawnEggs.register(modBus);
         SharedApiHooks.register(modBus);
         FactionConditions.register(modBus);
+        com.porcupinestudios.lotrport.border.BorderConditions.register(modBus);
+        com.porcupinestudios.lotrport.border.BorderData.register();
+        com.porcupinestudios.lotrport.border.Borders.register();
+        com.porcupinestudios.lotrport.border.BorderNet.register(modBus);
         com.porcupinestudios.lotrport.journey.CaravanConditions.register(modBus);
         WorldConditions.register(modBus);
         Factions.register();
@@ -171,6 +175,7 @@ public final class LotrPort {
             AlignmentHud.registerCommands(event.getDispatcher());
             com.porcupinestudios.lotrport.world.Pregen.registerCommands(event.getDispatcher());
             com.porcupinestudios.lotrport.player.Races.registerCommands(event.getDispatcher());
+            com.porcupinestudios.lotrport.border.Kingdoms.registerCommands(event.getDispatcher());
         });
     }
 
