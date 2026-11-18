@@ -129,3 +129,49 @@ https://claude.ai/artifact/VLwZ5N7pkVMJW4PCYXh41G).
   `requires_text`), checked whole and paid whole.
 - `Hatches`: barrels in a market building are delivery hatches; every 200 ticks their goods are sold within the caps
   and treasury, the rest waits; coins go to the placer's account (else the founder), collected on the Sell tab.
+
+## Production, society, tech tree, plaques (2026-11-17, Aaron: "do 1-3")
+- Trades have several recipes (`colony_job` `recipes`, each `consumes`/`produces`/`requires` tech). Each crafting
+  batch picks via `work/Production.Day.choose`: open work orders first (oldest), then the output furthest below its
+  stock target; with targets set and all met the trade rests; nothing planned = the first recipe with inputs (old
+  behaviour). Gatherers share the day between wanted recipes, or only their main one when nothing is planned.
+  Colony component `production` (targets, orders, tool `wear` per job). Tools: job `tool`, `tool_days`,
+  `no_tool_factor`; wear starts at 0 (a new colony has tools in hand), one tool from the stores per `tool_days`
+  worker-days; each tool gets an automatic target of one spare per worker using it. Tab Production, perm `production`.
+- `work/Modifiers`: named colony-wide work factors and happiness additions (unity, edicts, research) that `Life`
+  applies without knowing them; the Council tab lists them.
+- `people/Council` (system `society` after `needs`): unhappy citizens (below `calm_at`) quarrel, grudges both ways x
+  race `clash`, a grudge at `brawl_at` becomes a brawl (happiness and unity lost, history `brawl`); grudges fade.
+  Unity moves to avg happiness - `mix_penalty` per extra race + edicts; scales work 0.85-1.15 and happiness +-8.
+  Edicts `colony_edict/*.json` (work, happiness, unity, quarrels, upkeep, min_population, requires, excludes), slots
+  1 + citizens/25, lapse when the treasury can't pay. Numbers `colony_people/settings.json`. Tab Council, perm `events`.
+- `tech/Techs`: tree `colony_tech/*.json` (lane, stage, after, `fork` = only one per fork ever, Cost, work, jobs,
+  happiness). Sets `Production.unlocked` (recipes, edicts, building type `research`). Milestones
+  `colony_milestone/*.json` (condition, techs, buildings; coins + research points), system `milestones`. Tab Research
+  (a list by lane, not a drawn tree yet), perm `research`.
+- `ui/BuildingViews`: a building's page (plaque): measures, residents/workers, what it makes (locked recipes say which
+  research), the type's requirements. From the Buildings tab or sneak + right-click its door with an empty hand.
+- Not built from the old RingRealms list: districts (Surveyor's Rod), thralls, handcarts as entities, a drawn tech tree.
+  GameTests `DepthTests`. The colony view has 12 tabs now: check they fit.
+
+## Furniture screens (2026-11-17, Aaron: "make the guis ... clean and polished ... absolutely NO CHAT HYPERLINKS")
+- Blocks `colony/ColonyBlocks` (tab Colonies): Building Plaque (hangs on a wall; the room it is in, the room behind
+  its wall, or a door within 3 blocks), Treasury Ledger, Town Hall Ledger, Customs Counter (the nearest colony whose
+  Hall is within the building reach). Right-click opens a **book** (members only); vanilla textures in the models.
+- Books (`colony/book/`): the server builds a `Book` (title, chips, tabs, left overview page, right tab page) from
+  `El` elements (head, pair, meter, card with skin face + meters + buttons, stepper, item grid, tag, one text field),
+  sends it as NBT (`Books.Show`), and the one client screen `client/book/BookScreen` draws it on the Kenney parchment
+  sprites; clicks go back as `Books.Click` and the server answers with the book afresh. Names travel as tokens
+  (`{item:id}`, `{lang:key|fallback}`) resolved on the client. Accent per book (brown plaque, green Hall, gold
+  Treasury, blue Customs). A new screen = a `BookProvider` registered in `Books.register`, no client code.
+- `PlaqueBook` (context `colony/building`): tabs by type (Household, Work + last day's output + tool wear, Goods with
+  Order/Keep steppers, Research, Prices, Soldiers, Stores, Room: requirements, measurements, retype buttons).
+  `HallLedgerBook`: People (filters, person page), Buildings (cards open plaques), Council, Research, Members, War
+  (`WarPage`: wars with Siege/Raid/peace/accept buttons, declare with a written reason). `TreasuryBook`: Accounts,
+  Pay days (colony component `books`, last 30), Taxes, Production, Stores. `CustomsBook`: Arrivals (Welcome / Turn
+  away), Levels. The Hall block and `/lotr_colony ledger` (Treasury) open books too.
+- The older `UiScreen` views (`BuildingViews`, `LedgerViews`, `ColonyViews.HALL_LEDGER/CUSTOMS_COUNTER`) still build
+  and are covered by `GuiTests` with the books, but the furniture opens the books.
+- Headless look check: `-Dlotr_port.bookpreview=true` on `runClient` (xvfb) opens sample books over the title
+  screen, saves `run/screenshots/book_<n>.png` and quits (`client/book/BookPreview`).
+- No ClickEvent anywhere: writ "could also be" points to the plaque; `/lotr_war` prints commands as plain text.

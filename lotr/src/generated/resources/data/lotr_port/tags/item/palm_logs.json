@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "values": [
+    "lotr_port:palm_wood",
+    "lotr_port:palm_wood_beam",
+    "lotr_port:stripped_palm_wood",
+    "lotr_port:stripped_palm_wood_beam",
+    "lotr_port:palm_bark",
+    "lotr_port:stripped_palm_bark"
+  ]
+}

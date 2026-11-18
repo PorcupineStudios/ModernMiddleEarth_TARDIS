@@ -42,6 +42,10 @@ public final class ColonyItems {
                 .displayItems((params, output) -> {
                     output.accept(CHARTER.get());
                     output.accept(WRIT.get());
+                    output.accept(ColonyBlocks.PLAQUE.get());
+                    output.accept(ColonyBlocks.HALL_LEDGER.get());
+                    output.accept(ColonyBlocks.TREASURY_LEDGER.get());
+                    output.accept(ColonyBlocks.CUSTOMS_COUNTER.get());
                 })
                 .build());
     }

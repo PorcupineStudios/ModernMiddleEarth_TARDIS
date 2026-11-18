@@ -1,0 +1,8 @@
+{
+  "name": "Free Ale",
+  "description": "The Hall pours ale on market days",
+  "happiness": 6,
+  "unity": 3,
+  "upkeep": 6,
+  "min_population": 10
+}

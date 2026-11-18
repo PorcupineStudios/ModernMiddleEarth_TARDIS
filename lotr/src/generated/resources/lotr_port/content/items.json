@@ -11502,10 +11502,11 @@
   },
   {
     "id": "exploding_termite",
-    "kind": "item",
+    "kind": "throwable",
     "stack": 16,
     "level": 2,
-    "speed": 6.0
+    "speed": 6.0,
+    "throwable": "termite"
   },
   {
     "id": "blue_dwarven_throwing_axe",
@@ -11961,5 +11962,941 @@
       "protection": 11,
       "texture": "lotr_port:textures/entity/mount_armor/camel_diamond.png"
     }
+  },
+  {
+    "id": "shire_pine_sign",
+    "kind": "sign",
+    "woodset": "shire_pine",
+    "stack": 16
+  },
+  {
+    "id": "shire_pine_hanging_sign",
+    "kind": "hanging_sign",
+    "woodset": "shire_pine",
+    "stack": 16
+  },
+  {
+    "id": "shire_pine_boat",
+    "kind": "boat",
+    "woodset": "shire_pine",
+    "stack": 1
+  },
+  {
+    "id": "shire_pine_chest_boat",
+    "kind": "chest_boat",
+    "woodset": "shire_pine",
+    "stack": 1
+  },
+  {
+    "id": "mallorn_sign",
+    "kind": "sign",
+    "woodset": "mallorn",
+    "stack": 16
+  },
+  {
+    "id": "mallorn_hanging_sign",
+    "kind": "hanging_sign",
+    "woodset": "mallorn",
+    "stack": 16
+  },
+  {
+    "id": "mallorn_boat",
+    "kind": "boat",
+    "woodset": "mallorn",
+    "stack": 1
+  },
+  {
+    "id": "mallorn_chest_boat",
+    "kind": "chest_boat",
+    "woodset": "mallorn",
+    "stack": 1
+  },
+  {
+    "id": "mirk_oak_sign",
+    "kind": "sign",
+    "woodset": "mirk_oak",
+    "stack": 16
+  },
+  {
+    "id": "mirk_oak_hanging_sign",
+    "kind": "hanging_sign",
+    "woodset": "mirk_oak",
+    "stack": 16
+  },
+  {
+    "id": "mirk_oak_boat",
+    "kind": "boat",
+    "woodset": "mirk_oak",
+    "stack": 1
+  },
+  {
+    "id": "mirk_oak_chest_boat",
+    "kind": "chest_boat",
+    "woodset": "mirk_oak",
+    "stack": 1
+  },
+  {
+    "id": "charred_sign",
+    "kind": "sign",
+    "woodset": "charred",
+    "stack": 16
+  },
+  {
+    "id": "charred_hanging_sign",
+    "kind": "hanging_sign",
+    "woodset": "charred",
+    "stack": 16
+  },
+  {
+    "id": "charred_boat",
+    "kind": "boat",
+    "woodset": "charred",
+    "stack": 1
+  },
+  {
+    "id": "charred_chest_boat",
+    "kind": "chest_boat",
+    "woodset": "charred",
+    "stack": 1
+  },
+  {
+    "id": "apple_sign",
+    "kind": "sign",
+    "woodset": "apple",
+    "stack": 16
+  },
+  {
+    "id": "apple_hanging_sign",
+    "kind": "hanging_sign",
+    "woodset": "apple",
+    "stack": 16
+  },
+  {
+    "id": "apple_boat",
+    "kind": "boat",
+    "woodset": "apple",
+    "stack": 1
+  },
+  {
+    "id": "apple_chest_boat",
+    "kind": "chest_boat",
+    "woodset": "apple",
+    "stack": 1
+  },
+  {
+    "id": "pear_sign",
+    "kind": "sign",
+    "woodset": "pear",
+    "stack": 16
+  },
+  {
+    "id": "pear_hanging_sign",
+    "kind": "hanging_sign",
+    "woodset": "pear",
+    "stack": 16
+  },
+  {
+    "id": "pear_boat",
+    "kind": "boat",
+    "woodset": "pear",
+    "stack": 1
+  },
+  {
+    "id": "pear_chest_boat",
+    "kind": "chest_boat",
+    "woodset": "pear",
+    "stack": 1
+  },
+  {
+    "id": "cherry_sign",
+    "kind": "sign",
+    "woodset": "cherry",
+    "stack": 16
+  },
+  {
+    "id": "cherry_hanging_sign",
+    "kind": "hanging_sign",
+    "woodset": "cherry",
+    "stack": 16
+  },
+  {
+    "id": "cherry_boat",
+    "kind": "boat",
+    "woodset": "cherry",
+    "stack": 1
+  },
+  {
+    "id": "cherry_chest_boat",
+    "kind": "chest_boat",
+    "woodset": "cherry",
+    "stack": 1
+  },
+  {
+    "id": "mango_sign",
+    "kind": "sign",
+    "woodset": "mango",
+    "stack": 16
+  },
+  {
+    "id": "mango_hanging_sign",
+    "kind": "hanging_sign",
+    "woodset": "mango",
+    "stack": 16
+  },
+  {
+    "id": "mango_boat",
+    "kind": "boat",
+    "woodset": "mango",
+    "stack": 1
+  },
+  {
+    "id": "mango_chest_boat",
+    "kind": "chest_boat",
+    "woodset": "mango",
+    "stack": 1
+  },
+  {
+    "id": "lebethron_sign",
+    "kind": "sign",
+    "woodset": "lebethron",
+    "stack": 16
+  },
+  {
+    "id": "lebethron_hanging_sign",
+    "kind": "hanging_sign",
+    "woodset": "lebethron",
+    "stack": 16
+  },
+  {
+    "id": "lebethron_boat",
+    "kind": "boat",
+    "woodset": "lebethron",
+    "stack": 1
+  },
+  {
+    "id": "lebethron_chest_boat",
+    "kind": "chest_boat",
+    "woodset": "lebethron",
+    "stack": 1
+  },
+  {
+    "id": "beech_sign",
+    "kind": "sign",
+    "woodset": "beech",
+    "stack": 16
+  },
+  {
+    "id": "beech_hanging_sign",
+    "kind": "hanging_sign",
+    "woodset": "beech",
+    "stack": 16
+  },
+  {
+    "id": "beech_boat",
+    "kind": "boat",
+    "woodset": "beech",
+    "stack": 1
+  },
+  {
+    "id": "beech_chest_boat",
+    "kind": "chest_boat",
+    "woodset": "beech",
+    "stack": 1
+  },
+  {
+    "id": "holly_sign",
+    "kind": "sign",
+    "woodset": "holly",
+    "stack": 16
+  },
+  {
+    "id": "holly_hanging_sign",
+    "kind": "hanging_sign",
+    "woodset": "holly",
+    "stack": 16
+  },
+  {
+    "id": "holly_boat",
+    "kind": "boat",
+    "woodset": "holly",
+    "stack": 1
+  },
+  {
+    "id": "holly_chest_boat",
+    "kind": "chest_boat",
+    "woodset": "holly",
+    "stack": 1
+  },
+  {
+    "id": "banana_sign",
+    "kind": "sign",
+    "woodset": "banana",
+    "stack": 16
+  },
+  {
+    "id": "banana_hanging_sign",
+    "kind": "hanging_sign",
+    "woodset": "banana",
+    "stack": 16
+  },
+  {
+    "id": "banana_boat",
+    "kind": "boat",
+    "woodset": "banana",
+    "stack": 1
+  },
+  {
+    "id": "banana_chest_boat",
+    "kind": "chest_boat",
+    "woodset": "banana",
+    "stack": 1
+  },
+  {
+    "id": "maple_sign",
+    "kind": "sign",
+    "woodset": "maple",
+    "stack": 16
+  },
+  {
+    "id": "maple_hanging_sign",
+    "kind": "hanging_sign",
+    "woodset": "maple",
+    "stack": 16
+  },
+  {
+    "id": "maple_boat",
+    "kind": "boat",
+    "woodset": "maple",
+    "stack": 1
+  },
+  {
+    "id": "maple_chest_boat",
+    "kind": "chest_boat",
+    "woodset": "maple",
+    "stack": 1
+  },
+  {
+    "id": "larch_sign",
+    "kind": "sign",
+    "woodset": "larch",
+    "stack": 16
+  },
+  {
+    "id": "larch_hanging_sign",
+    "kind": "hanging_sign",
+    "woodset": "larch",
+    "stack": 16
+  },
+  {
+    "id": "larch_boat",
+    "kind": "boat",
+    "woodset": "larch",
+    "stack": 1
+  },
+  {
+    "id": "larch_chest_boat",
+    "kind": "chest_boat",
+    "woodset": "larch",
+    "stack": 1
+  },
+  {
+    "id": "date_palm_sign",
+    "kind": "sign",
+    "woodset": "date_palm",
+    "stack": 16
+  },
+  {
+    "id": "date_palm_hanging_sign",
+    "kind": "hanging_sign",
+    "woodset": "date_palm",
+    "stack": 16
+  },
+  {
+    "id": "date_palm_boat",
+    "kind": "boat",
+    "woodset": "date_palm",
+    "stack": 1
+  },
+  {
+    "id": "date_palm_chest_boat",
+    "kind": "chest_boat",
+    "woodset": "date_palm",
+    "stack": 1
+  },
+  {
+    "id": "mangrove_sign",
+    "kind": "sign",
+    "woodset": "mangrove",
+    "stack": 16
+  },
+  {
+    "id": "mangrove_hanging_sign",
+    "kind": "hanging_sign",
+    "woodset": "mangrove",
+    "stack": 16
+  },
+  {
+    "id": "mangrove_boat",
+    "kind": "boat",
+    "woodset": "mangrove",
+    "stack": 1
+  },
+  {
+    "id": "mangrove_chest_boat",
+    "kind": "chest_boat",
+    "woodset": "mangrove",
+    "stack": 1
+  },
+  {
+    "id": "chestnut_sign",
+    "kind": "sign",
+    "woodset": "chestnut",
+    "stack": 16
+  },
+  {
+    "id": "chestnut_hanging_sign",
+    "kind": "hanging_sign",
+    "woodset": "chestnut",
+    "stack": 16
+  },
+  {
+    "id": "chestnut_boat",
+    "kind": "boat",
+    "woodset": "chestnut",
+    "stack": 1
+  },
+  {
+    "id": "chestnut_chest_boat",
+    "kind": "chest_boat",
+    "woodset": "chestnut",
+    "stack": 1
+  },
+  {
+    "id": "baobab_sign",
+    "kind": "sign",
+    "woodset": "baobab",
+    "stack": 16
+  },
+  {
+    "id": "baobab_hanging_sign",
+    "kind": "hanging_sign",
+    "woodset": "baobab",
+    "stack": 16
+  },
+  {
+    "id": "baobab_boat",
+    "kind": "boat",
+    "woodset": "baobab",
+    "stack": 1
+  },
+  {
+    "id": "baobab_chest_boat",
+    "kind": "chest_boat",
+    "woodset": "baobab",
+    "stack": 1
+  },
+  {
+    "id": "cedar_sign",
+    "kind": "sign",
+    "woodset": "cedar",
+    "stack": 16
+  },
+  {
+    "id": "cedar_hanging_sign",
+    "kind": "hanging_sign",
+    "woodset": "cedar",
+    "stack": 16
+  },
+  {
+    "id": "cedar_boat",
+    "kind": "boat",
+    "woodset": "cedar",
+    "stack": 1
+  },
+  {
+    "id": "cedar_chest_boat",
+    "kind": "chest_boat",
+    "woodset": "cedar",
+    "stack": 1
+  },
+  {
+    "id": "fir_sign",
+    "kind": "sign",
+    "woodset": "fir",
+    "stack": 16
+  },
+  {
+    "id": "fir_hanging_sign",
+    "kind": "hanging_sign",
+    "woodset": "fir",
+    "stack": 16
+  },
+  {
+    "id": "fir_boat",
+    "kind": "boat",
+    "woodset": "fir",
+    "stack": 1
+  },
+  {
+    "id": "fir_chest_boat",
+    "kind": "chest_boat",
+    "woodset": "fir",
+    "stack": 1
+  },
+  {
+    "id": "pine_sign",
+    "kind": "sign",
+    "woodset": "pine",
+    "stack": 16
+  },
+  {
+    "id": "pine_hanging_sign",
+    "kind": "hanging_sign",
+    "woodset": "pine",
+    "stack": 16
+  },
+  {
+    "id": "pine_boat",
+    "kind": "boat",
+    "woodset": "pine",
+    "stack": 1
+  },
+  {
+    "id": "pine_chest_boat",
+    "kind": "chest_boat",
+    "woodset": "pine",
+    "stack": 1
+  },
+  {
+    "id": "lemon_sign",
+    "kind": "sign",
+    "woodset": "lemon",
+    "stack": 16
+  },
+  {
+    "id": "lemon_hanging_sign",
+    "kind": "hanging_sign",
+    "woodset": "lemon",
+    "stack": 16
+  },
+  {
+    "id": "lemon_boat",
+    "kind": "boat",
+    "woodset": "lemon",
+    "stack": 1
+  },
+  {
+    "id": "lemon_chest_boat",
+    "kind": "chest_boat",
+    "woodset": "lemon",
+    "stack": 1
+  },
+  {
+    "id": "orange_sign",
+    "kind": "sign",
+    "woodset": "orange",
+    "stack": 16
+  },
+  {
+    "id": "orange_hanging_sign",
+    "kind": "hanging_sign",
+    "woodset": "orange",
+    "stack": 16
+  },
+  {
+    "id": "orange_boat",
+    "kind": "boat",
+    "woodset": "orange",
+    "stack": 1
+  },
+  {
+    "id": "orange_chest_boat",
+    "kind": "chest_boat",
+    "woodset": "orange",
+    "stack": 1
+  },
+  {
+    "id": "lime_sign",
+    "kind": "sign",
+    "woodset": "lime",
+    "stack": 16
+  },
+  {
+    "id": "lime_hanging_sign",
+    "kind": "hanging_sign",
+    "woodset": "lime",
+    "stack": 16
+  },
+  {
+    "id": "lime_boat",
+    "kind": "boat",
+    "woodset": "lime",
+    "stack": 1
+  },
+  {
+    "id": "lime_chest_boat",
+    "kind": "chest_boat",
+    "woodset": "lime",
+    "stack": 1
+  },
+  {
+    "id": "mahogany_sign",
+    "kind": "sign",
+    "woodset": "mahogany",
+    "stack": 16
+  },
+  {
+    "id": "mahogany_hanging_sign",
+    "kind": "hanging_sign",
+    "woodset": "mahogany",
+    "stack": 16
+  },
+  {
+    "id": "mahogany_boat",
+    "kind": "boat",
+    "woodset": "mahogany",
+    "stack": 1
+  },
+  {
+    "id": "mahogany_chest_boat",
+    "kind": "chest_boat",
+    "woodset": "mahogany",
+    "stack": 1
+  },
+  {
+    "id": "willow_sign",
+    "kind": "sign",
+    "woodset": "willow",
+    "stack": 16
+  },
+  {
+    "id": "willow_hanging_sign",
+    "kind": "hanging_sign",
+    "woodset": "willow",
+    "stack": 16
+  },
+  {
+    "id": "willow_boat",
+    "kind": "boat",
+    "woodset": "willow",
+    "stack": 1
+  },
+  {
+    "id": "willow_chest_boat",
+    "kind": "chest_boat",
+    "woodset": "willow",
+    "stack": 1
+  },
+  {
+    "id": "cypress_sign",
+    "kind": "sign",
+    "woodset": "cypress",
+    "stack": 16
+  },
+  {
+    "id": "cypress_hanging_sign",
+    "kind": "hanging_sign",
+    "woodset": "cypress",
+    "stack": 16
+  },
+  {
+    "id": "cypress_boat",
+    "kind": "boat",
+    "woodset": "cypress",
+    "stack": 1
+  },
+  {
+    "id": "cypress_chest_boat",
+    "kind": "chest_boat",
+    "woodset": "cypress",
+    "stack": 1
+  },
+  {
+    "id": "olive_sign",
+    "kind": "sign",
+    "woodset": "olive",
+    "stack": 16
+  },
+  {
+    "id": "olive_hanging_sign",
+    "kind": "hanging_sign",
+    "woodset": "olive",
+    "stack": 16
+  },
+  {
+    "id": "olive_boat",
+    "kind": "boat",
+    "woodset": "olive",
+    "stack": 1
+  },
+  {
+    "id": "olive_chest_boat",
+    "kind": "chest_boat",
+    "woodset": "olive",
+    "stack": 1
+  },
+  {
+    "id": "aspen_sign",
+    "kind": "sign",
+    "woodset": "aspen",
+    "stack": 16
+  },
+  {
+    "id": "aspen_hanging_sign",
+    "kind": "hanging_sign",
+    "woodset": "aspen",
+    "stack": 16
+  },
+  {
+    "id": "aspen_boat",
+    "kind": "boat",
+    "woodset": "aspen",
+    "stack": 1
+  },
+  {
+    "id": "aspen_chest_boat",
+    "kind": "chest_boat",
+    "woodset": "aspen",
+    "stack": 1
+  },
+  {
+    "id": "green_oak_sign",
+    "kind": "sign",
+    "woodset": "green_oak",
+    "stack": 16
+  },
+  {
+    "id": "green_oak_hanging_sign",
+    "kind": "hanging_sign",
+    "woodset": "green_oak",
+    "stack": 16
+  },
+  {
+    "id": "green_oak_boat",
+    "kind": "boat",
+    "woodset": "green_oak",
+    "stack": 1
+  },
+  {
+    "id": "green_oak_chest_boat",
+    "kind": "chest_boat",
+    "woodset": "green_oak",
+    "stack": 1
+  },
+  {
+    "id": "laireloss_sign",
+    "kind": "sign",
+    "woodset": "laireloss",
+    "stack": 16
+  },
+  {
+    "id": "laireloss_hanging_sign",
+    "kind": "hanging_sign",
+    "woodset": "laireloss",
+    "stack": 16
+  },
+  {
+    "id": "laireloss_boat",
+    "kind": "boat",
+    "woodset": "laireloss",
+    "stack": 1
+  },
+  {
+    "id": "laireloss_chest_boat",
+    "kind": "chest_boat",
+    "woodset": "laireloss",
+    "stack": 1
+  },
+  {
+    "id": "almond_sign",
+    "kind": "sign",
+    "woodset": "almond",
+    "stack": 16
+  },
+  {
+    "id": "almond_hanging_sign",
+    "kind": "hanging_sign",
+    "woodset": "almond",
+    "stack": 16
+  },
+  {
+    "id": "almond_boat",
+    "kind": "boat",
+    "woodset": "almond",
+    "stack": 1
+  },
+  {
+    "id": "almond_chest_boat",
+    "kind": "chest_boat",
+    "woodset": "almond",
+    "stack": 1
+  },
+  {
+    "id": "plum_sign",
+    "kind": "sign",
+    "woodset": "plum",
+    "stack": 16
+  },
+  {
+    "id": "plum_hanging_sign",
+    "kind": "hanging_sign",
+    "woodset": "plum",
+    "stack": 16
+  },
+  {
+    "id": "plum_boat",
+    "kind": "boat",
+    "woodset": "plum",
+    "stack": 1
+  },
+  {
+    "id": "plum_chest_boat",
+    "kind": "chest_boat",
+    "woodset": "plum",
+    "stack": 1
+  },
+  {
+    "id": "redwood_sign",
+    "kind": "sign",
+    "woodset": "redwood",
+    "stack": 16
+  },
+  {
+    "id": "redwood_hanging_sign",
+    "kind": "hanging_sign",
+    "woodset": "redwood",
+    "stack": 16
+  },
+  {
+    "id": "redwood_boat",
+    "kind": "boat",
+    "woodset": "redwood",
+    "stack": 1
+  },
+  {
+    "id": "redwood_chest_boat",
+    "kind": "chest_boat",
+    "woodset": "redwood",
+    "stack": 1
+  },
+  {
+    "id": "pomegranate_sign",
+    "kind": "sign",
+    "woodset": "pomegranate",
+    "stack": 16
+  },
+  {
+    "id": "pomegranate_hanging_sign",
+    "kind": "hanging_sign",
+    "woodset": "pomegranate",
+    "stack": 16
+  },
+  {
+    "id": "pomegranate_boat",
+    "kind": "boat",
+    "woodset": "pomegranate",
+    "stack": 1
+  },
+  {
+    "id": "pomegranate_chest_boat",
+    "kind": "chest_boat",
+    "woodset": "pomegranate",
+    "stack": 1
+  },
+  {
+    "id": "palm_sign",
+    "kind": "sign",
+    "woodset": "palm",
+    "stack": 16
+  },
+  {
+    "id": "palm_hanging_sign",
+    "kind": "hanging_sign",
+    "woodset": "palm",
+    "stack": 16
+  },
+  {
+    "id": "palm_boat",
+    "kind": "boat",
+    "woodset": "palm",
+    "stack": 1
+  },
+  {
+    "id": "palm_chest_boat",
+    "kind": "chest_boat",
+    "woodset": "palm",
+    "stack": 1
+  },
+  {
+    "id": "dragonblood_sign",
+    "kind": "sign",
+    "woodset": "dragonblood",
+    "stack": 16
+  },
+  {
+    "id": "dragonblood_hanging_sign",
+    "kind": "hanging_sign",
+    "woodset": "dragonblood",
+    "stack": 16
+  },
+  {
+    "id": "dragonblood_boat",
+    "kind": "boat",
+    "woodset": "dragonblood",
+    "stack": 1
+  },
+  {
+    "id": "dragonblood_chest_boat",
+    "kind": "chest_boat",
+    "woodset": "dragonblood",
+    "stack": 1
+  },
+  {
+    "id": "kanuka_sign",
+    "kind": "sign",
+    "woodset": "kanuka",
+    "stack": 16
+  },
+  {
+    "id": "kanuka_hanging_sign",
+    "kind": "hanging_sign",
+    "woodset": "kanuka",
+    "stack": 16
+  },
+  {
+    "id": "kanuka_boat",
+    "kind": "boat",
+    "woodset": "kanuka",
+    "stack": 1
+  },
+  {
+    "id": "kanuka_chest_boat",
+    "kind": "chest_boat",
+    "woodset": "kanuka",
+    "stack": 1
+  },
+  {
+    "id": "rotten_sign",
+    "kind": "sign",
+    "woodset": "rotten",
+    "stack": 16
+  },
+  {
+    "id": "rotten_hanging_sign",
+    "kind": "hanging_sign",
+    "woodset": "rotten",
+    "stack": 16
+  },
+  {
+    "id": "rotten_boat",
+    "kind": "boat",
+    "woodset": "rotten",
+    "stack": 1
+  },
+  {
+    "id": "rotten_chest_boat",
+    "kind": "chest_boat",
+    "woodset": "rotten",
+    "stack": 1
   }
 ]

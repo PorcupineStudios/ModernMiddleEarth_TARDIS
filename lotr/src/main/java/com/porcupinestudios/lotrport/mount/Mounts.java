@@ -26,7 +26,7 @@ import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
 /**
- * LOTR's mounts (missing-features task 27): horses, Shire ponies, zebras, wild boars, camels, elk, rhinos and
+ * LOTR's mounts: horses, Shire ponies, zebras, wild boars, camels, elk, rhinos and
  * giraffes, all {@link LotrHorse}s of one breed each. A breed's entity type, size and looks are
  * {@code content/mounts.json} (read at startup); its numbers are {@code data/<ns>/mount/<breed>.json} and reload.
  * Both come from {@code converter/mounts.py}.

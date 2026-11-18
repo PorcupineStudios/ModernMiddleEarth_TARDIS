@@ -1,0 +1,31 @@
+{
+  "replace": false,
+  "values": [
+    "lotr_port:arid_grass",
+    "lotr_port:blackroot",
+    "lotr_port:clover",
+    "lotr_port:corrupt_mallorn_sapling",
+    "lotr_port:dead_marsh_plant",
+    "lotr_port:elfsong",
+    "lotr_port:fangorns_beard",
+    "lotr_port:flowery_grass",
+    "lotr_port:four_leaf_clover",
+    "lotr_port:huorn_leaf",
+    "lotr_port:jungle_sprout",
+    "lotr_port:mirkwood_vines",
+    "lotr_port:moonflower",
+    "lotr_port:mordor_scrub",
+    "lotr_port:morgul_shroom",
+    "lotr_port:nettles",
+    "lotr_port:pipe_weed_plant",
+    "lotr_port:riverweed",
+    "lotr_port:short_grass",
+    "lotr_port:stabbing_thorn",
+    "lotr_port:sunfruit",
+    "lotr_port:tears_of_yavanna",
+    "lotr_port:thistle",
+    "lotr_port:web_of_ungoliant",
+    "lotr_port:wheatgrass",
+    "lotr_port:willow_vines"
+  ]
+}

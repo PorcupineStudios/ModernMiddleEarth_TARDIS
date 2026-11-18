@@ -1,7 +1,7 @@
 {
   "sea_level": 62,
   "disable_mob_generation": false,
-  "aquifers_enabled": false,
+  "aquifers_enabled": true,
   "ore_veins_enabled": false,
   "legacy_random_source": false,
   "default_block": {
@@ -20,10 +20,30 @@
     "size_vertical": 2
   },
   "noise_router": {
-    "barrier": 0.0,
-    "fluid_level_floodedness": 0.0,
-    "fluid_level_spread": 0.0,
-    "lava": 0.0,
+    "barrier": {
+      "type": "minecraft:noise",
+      "noise": "minecraft:aquifer_barrier",
+      "xz_scale": 1.0,
+      "y_scale": 0.5
+    },
+    "fluid_level_floodedness": {
+      "type": "minecraft:noise",
+      "noise": "minecraft:aquifer_fluid_level_floodedness",
+      "xz_scale": 1.0,
+      "y_scale": 0.67
+    },
+    "fluid_level_spread": {
+      "type": "minecraft:noise",
+      "noise": "minecraft:aquifer_fluid_level_spread",
+      "xz_scale": 1.0,
+      "y_scale": 0.7142857142857143
+    },
+    "lava": {
+      "type": "minecraft:noise",
+      "noise": "minecraft:aquifer_lava",
+      "xz_scale": 1.0,
+      "y_scale": 1.0
+    },
     "temperature": 0.0,
     "vegetation": 0.0,
     "continents": 0.0,
@@ -66,334 +86,272 @@
       }
     },
     "final_density": {
-      "type": "minecraft:interpolated",
-      "argument": {
-        "type": "minecraft:mul",
-        "argument1": 0.041666666666666664,
-        "argument2": {
+      "type": "minecraft:min",
+      "argument1": {
+        "type": "minecraft:interpolated",
+        "argument": {
           "type": "minecraft:range_choice",
           "input": {
-            "type": "minecraft:mul",
-            "argument1": {
-              "type": "minecraft:add",
-              "argument1": {
-                "type": "minecraft:add",
-                "argument1": {
-                  "type": "minecraft:flat_cache",
-                  "argument": {
-                    "type": "lotr_port:map_terrain",
-                    "value": "height"
-                  }
-                },
-                "argument2": {
-                  "type": "minecraft:mul",
-                  "argument1": -0.4,
-                  "argument2": {
-                    "type": "minecraft:flat_cache",
-                    "argument": {
-                      "type": "lotr_port:map_terrain",
-                      "value": "variation"
-                    }
-                  }
-                }
-              },
-              "argument2": {
-                "type": "minecraft:y_clamped_gradient",
-                "from_y": -64,
-                "to_y": 640,
-                "from_value": 64,
-                "to_value": -640
-              }
-            },
-            "argument2": {
-              "type": "minecraft:flat_cache",
-              "argument": {
-                "type": "lotr_port:map_terrain",
-                "value": "band"
-              }
-            }
+            "type": "lotr_port:caves_on"
           },
-          "min_inclusive": -9.0,
-          "max_exclusive": 4.0,
+          "min_inclusive": 0.5,
+          "max_exclusive": 2.0,
           "when_in_range": {
-            "type": "minecraft:add",
-            "argument1": {
-              "type": "minecraft:add",
-              "argument1": {
-                "type": "minecraft:min",
-                "argument1": {
-                  "type": "minecraft:add",
-                  "argument1": {
-                    "type": "minecraft:add",
-                    "argument1": {
-                      "type": "minecraft:flat_cache",
-                      "argument": {
-                        "type": "lotr_port:map_terrain",
-                        "value": "height"
-                      }
-                    },
-                    "argument2": {
-                      "type": "minecraft:mul",
-                      "argument1": -0.4,
-                      "argument2": {
-                        "type": "minecraft:flat_cache",
-                        "argument": {
-                          "type": "lotr_port:map_terrain",
-                          "value": "variation"
-                        }
-                      }
-                    }
-                  },
+            "type": "minecraft:range_choice",
+            "input": {
+              "type": "minecraft:y_clamped_gradient",
+              "from_y": -64,
+              "to_y": 640,
+              "from_value": -64.0,
+              "to_value": 640.0
+            },
+            "min_inclusive": -1000.0,
+            "max_exclusive": 200.0,
+            "when_in_range": {
+              "type": "minecraft:range_choice",
+              "input": "lotr_port:middle_earth/terrain",
+              "min_inclusive": -1000000.0,
+              "max_exclusive": 0.0,
+              "when_in_range": "lotr_port:middle_earth/terrain",
+              "when_out_of_range": {
+                "type": "minecraft:range_choice",
+                "input": "lotr_port:middle_earth/terrain",
+                "min_inclusive": -1000000.0,
+                "max_exclusive": 1.5625,
+                "when_in_range": {
+                  "type": "minecraft:min",
+                  "argument1": "lotr_port:middle_earth/terrain",
                   "argument2": {
-                    "type": "minecraft:y_clamped_gradient",
-                    "from_y": -64,
-                    "to_y": 640,
-                    "from_value": 64,
-                    "to_value": -640
-                  }
-                },
-                "argument2": 0.0
-              },
-              "argument2": {
-                "type": "minecraft:mul",
-                "argument1": 4.0,
-                "argument2": {
-                  "type": "minecraft:max",
-                  "argument1": {
-                    "type": "minecraft:add",
-                    "argument1": {
-                      "type": "minecraft:add",
+                    "type": "minecraft:mul",
+                    "argument1": 5.0,
+                    "argument2": {
+                      "type": "minecraft:min",
                       "argument1": {
-                        "type": "minecraft:flat_cache",
-                        "argument": {
-                          "type": "lotr_port:map_terrain",
-                          "value": "height"
+                        "type": "minecraft:add",
+                        "argument1": {
+                          "type": "minecraft:add",
+                          "argument1": {
+                            "type": "minecraft:add",
+                            "argument1": 0.37,
+                            "argument2": {
+                              "type": "minecraft:noise",
+                              "noise": "minecraft:cave_entrance",
+                              "xz_scale": 0.75,
+                              "y_scale": 0.5
+                            }
+                          },
+                          "argument2": {
+                            "type": "minecraft:y_clamped_gradient",
+                            "from_value": 0.3,
+                            "from_y": -10,
+                            "to_value": 0.0,
+                            "to_y": 30
+                          }
+                        },
+                        "argument2": {
+                          "type": "minecraft:cache_2d",
+                          "argument": {
+                            "type": "lotr_port:cave_setting",
+                            "setting": "entrance_pits"
+                          }
                         }
                       },
                       "argument2": {
-                        "type": "minecraft:mul",
-                        "argument1": -0.4,
+                        "type": "minecraft:add",
+                        "argument1": {
+                          "type": "minecraft:add",
+                          "argument1": "minecraft:overworld/caves/spaghetti_roughness_function",
+                          "argument2": {
+                            "type": "minecraft:clamp",
+                            "input": {
+                              "type": "minecraft:add",
+                              "argument1": {
+                                "type": "minecraft:max",
+                                "argument1": {
+                                  "type": "minecraft:weird_scaled_sampler",
+                                  "input": {
+                                    "type": "minecraft:cache_once",
+                                    "argument": {
+                                      "type": "minecraft:noise",
+                                      "noise": "minecraft:spaghetti_3d_rarity",
+                                      "xz_scale": 2.0,
+                                      "y_scale": 1.0
+                                    }
+                                  },
+                                  "noise": "minecraft:spaghetti_3d_1",
+                                  "rarity_value_mapper": "type_1"
+                                },
+                                "argument2": {
+                                  "type": "minecraft:weird_scaled_sampler",
+                                  "input": {
+                                    "type": "minecraft:cache_once",
+                                    "argument": {
+                                      "type": "minecraft:noise",
+                                      "noise": "minecraft:spaghetti_3d_rarity",
+                                      "xz_scale": 2.0,
+                                      "y_scale": 1.0
+                                    }
+                                  },
+                                  "noise": "minecraft:spaghetti_3d_2",
+                                  "rarity_value_mapper": "type_1"
+                                }
+                              },
+                              "argument2": {
+                                "type": "minecraft:add",
+                                "argument1": -0.0765,
+                                "argument2": {
+                                  "type": "minecraft:mul",
+                                  "argument1": -0.011499999999999996,
+                                  "argument2": {
+                                    "type": "minecraft:noise",
+                                    "noise": "minecraft:spaghetti_3d_thickness",
+                                    "xz_scale": 1.0,
+                                    "y_scale": 1.0
+                                  }
+                                }
+                              }
+                            },
+                            "max": 1.0,
+                            "min": -1.0
+                          }
+                        },
                         "argument2": {
-                          "type": "minecraft:flat_cache",
+                          "type": "minecraft:cache_2d",
                           "argument": {
-                            "type": "lotr_port:map_terrain",
-                            "value": "variation"
+                            "type": "lotr_port:cave_setting",
+                            "setting": "entrance_tunnels"
                           }
                         }
                       }
-                    },
-                    "argument2": {
-                      "type": "minecraft:y_clamped_gradient",
-                      "from_y": -64,
-                      "to_y": 640,
-                      "from_value": 64,
-                      "to_value": -640
                     }
-                  },
-                  "argument2": 0.0
-                }
-              }
-            },
-            "argument2": {
-              "type": "minecraft:add",
-              "argument1": {
-                "type": "minecraft:add",
-                "argument1": {
-                  "type": "minecraft:mul",
+                  }
+                },
+                "when_out_of_range": {
+                  "type": "minecraft:max",
                   "argument1": {
                     "type": "minecraft:min",
                     "argument1": {
-                      "type": "minecraft:flat_cache",
-                      "argument": {
-                        "type": "lotr_port:map_terrain",
-                        "value": "variation"
-                      }
-                    },
-                    "argument2": 20.0
-                  },
-                  "argument2": {
-                    "type": "minecraft:mul",
-                    "argument1": 2.0,
-                    "argument2": {
-                      "type": "minecraft:old_blended_noise",
-                      "xz_scale": 1.0,
-                      "y_scale": 1.0,
-                      "xz_factor": 400.0,
-                      "y_factor": 160.0,
-                      "smear_scale_multiplier": 8.0
-                    }
-                  }
-                },
-                "argument2": {
-                  "type": "minecraft:mul",
-                  "argument1": {
-                    "type": "minecraft:flat_cache",
-                    "argument": {
-                      "type": "lotr_port:map_terrain",
-                      "value": "variation"
-                    }
-                  },
-                  "argument2": {
-                    "type": "minecraft:mul",
-                    "argument1": 2.5,
-                    "argument2": {
-                      "type": "minecraft:add",
-                      "argument1": -0.1,
-                      "argument2": {
-                        "type": "minecraft:quarter_negative",
-                        "argument": {
-                          "type": "minecraft:noise",
-                          "noise": "lotr_port:terrain",
-                          "xz_scale": 1.0,
-                          "y_scale": 0.0
-                        }
-                      }
-                    }
-                  }
-                }
-              },
-              "argument2": {
-                "type": "minecraft:add",
-                "argument1": {
-                  "type": "minecraft:mul",
-                  "argument1": {
-                    "type": "minecraft:max",
-                    "argument1": {
-                      "type": "minecraft:add",
+                      "type": "minecraft:min",
                       "argument1": {
-                        "type": "minecraft:flat_cache",
+                        "type": "minecraft:range_choice",
+                        "input": {
+                          "type": "minecraft:cache_2d",
+                          "argument": {
+                            "type": "lotr_port:cave_setting",
+                            "setting": "cheese"
+                          }
+                        },
+                        "min_inclusive": 0.5,
+                        "max_exclusive": 2.0,
+                        "when_in_range": {
+                          "type": "minecraft:add",
+                          "argument1": {
+                            "type": "minecraft:mul",
+                            "argument1": 4.0,
+                            "argument2": {
+                              "type": "minecraft:square",
+                              "argument": {
+                                "type": "minecraft:noise",
+                                "noise": "minecraft:cave_layer",
+                                "xz_scale": 1.0,
+                                "y_scale": 8.0
+                              }
+                            }
+                          },
+                          "argument2": {
+                            "type": "minecraft:add",
+                            "argument1": {
+                              "type": "minecraft:clamp",
+                              "input": {
+                                "type": "minecraft:add",
+                                "argument1": 0.27,
+                                "argument2": {
+                                  "type": "minecraft:noise",
+                                  "noise": "minecraft:cave_cheese",
+                                  "xz_scale": 1.0,
+                                  "y_scale": 0.6666666666666666
+                                }
+                              },
+                              "min": -1.0,
+                              "max": 1.0
+                            },
+                            "argument2": {
+                              "type": "minecraft:clamp",
+                              "input": {
+                                "type": "minecraft:add",
+                                "argument1": 1.5,
+                                "argument2": {
+                                  "type": "minecraft:mul",
+                                  "argument1": -0.64,
+                                  "argument2": "lotr_port:middle_earth/terrain"
+                                }
+                              },
+                              "min": 0.0,
+                              "max": 0.5
+                            }
+                          }
+                        },
+                        "when_out_of_range": 64.0
+                      },
+                      "argument2": "minecraft:overworld/caves/entrances"
+                    },
+                    "argument2": {
+                      "type": "minecraft:range_choice",
+                      "input": {
+                        "type": "minecraft:cache_2d",
                         "argument": {
-                          "type": "lotr_port:map_terrain",
-                          "value": "variation"
+                          "type": "lotr_port:cave_setting",
+                          "setting": "spaghetti"
                         }
                       },
-                      "argument2": -10.0
-                    },
-                    "argument2": 0.0
-                  },
-                  "argument2": {
-                    "type": "minecraft:mul",
-                    "argument1": 3.0,
-                    "argument2": {
-                      "type": "minecraft:half_negative",
-                      "argument": {
-                        "type": "minecraft:noise",
-                        "noise": "minecraft:jagged",
-                        "xz_scale": 1500.0,
-                        "y_scale": 0.0
-                      }
-                    }
-                  }
-                },
-                "argument2": {
-                  "type": "minecraft:mul",
-                  "argument1": {
-                    "type": "minecraft:max",
-                    "argument1": {
-                      "type": "minecraft:add",
-                      "argument1": {
-                        "type": "minecraft:flat_cache",
-                        "argument": {
-                          "type": "lotr_port:map_terrain",
-                          "value": "variation"
-                        }
+                      "min_inclusive": 0.5,
+                      "max_exclusive": 2.0,
+                      "when_in_range": {
+                        "type": "minecraft:add",
+                        "argument1": "minecraft:overworld/caves/spaghetti_2d",
+                        "argument2": "minecraft:overworld/caves/spaghetti_roughness_function"
                       },
-                      "argument2": -10.0
-                    },
-                    "argument2": 0.0
+                      "when_out_of_range": 64.0
+                    }
                   },
                   "argument2": {
-                    "type": "minecraft:mul",
-                    "argument1": 2.0,
-                    "argument2": {
-                      "type": "minecraft:noise",
-                      "noise": "lotr_port:terrain",
-                      "xz_scale": 0.5,
-                      "y_scale": 0.0
-                    }
+                    "type": "minecraft:range_choice",
+                    "input": "minecraft:overworld/caves/pillars",
+                    "min_inclusive": -1000000.0,
+                    "max_exclusive": 0.03,
+                    "when_in_range": -1000000.0,
+                    "when_out_of_range": "minecraft:overworld/caves/pillars"
                   }
                 }
               }
+            },
+            "when_out_of_range": "lotr_port:middle_earth/terrain"
+          },
+          "when_out_of_range": "lotr_port:middle_earth/terrain"
+        }
+      },
+      "argument2": {
+        "type": "minecraft:range_choice",
+        "input": {
+          "type": "lotr_port:caves_on"
+        },
+        "min_inclusive": 0.5,
+        "max_exclusive": 2.0,
+        "when_in_range": {
+          "type": "minecraft:range_choice",
+          "input": {
+            "type": "minecraft:cache_2d",
+            "argument": {
+              "type": "lotr_port:cave_setting",
+              "setting": "noodle"
             }
           },
-          "when_out_of_range": {
-            "type": "minecraft:add",
-            "argument1": {
-              "type": "minecraft:min",
-              "argument1": {
-                "type": "minecraft:add",
-                "argument1": {
-                  "type": "minecraft:add",
-                  "argument1": {
-                    "type": "minecraft:flat_cache",
-                    "argument": {
-                      "type": "lotr_port:map_terrain",
-                      "value": "height"
-                    }
-                  },
-                  "argument2": {
-                    "type": "minecraft:mul",
-                    "argument1": -0.4,
-                    "argument2": {
-                      "type": "minecraft:flat_cache",
-                      "argument": {
-                        "type": "lotr_port:map_terrain",
-                        "value": "variation"
-                      }
-                    }
-                  }
-                },
-                "argument2": {
-                  "type": "minecraft:y_clamped_gradient",
-                  "from_y": -64,
-                  "to_y": 640,
-                  "from_value": 64,
-                  "to_value": -640
-                }
-              },
-              "argument2": 0.0
-            },
-            "argument2": {
-              "type": "minecraft:mul",
-              "argument1": 4.0,
-              "argument2": {
-                "type": "minecraft:max",
-                "argument1": {
-                  "type": "minecraft:add",
-                  "argument1": {
-                    "type": "minecraft:add",
-                    "argument1": {
-                      "type": "minecraft:flat_cache",
-                      "argument": {
-                        "type": "lotr_port:map_terrain",
-                        "value": "height"
-                      }
-                    },
-                    "argument2": {
-                      "type": "minecraft:mul",
-                      "argument1": -0.4,
-                      "argument2": {
-                        "type": "minecraft:flat_cache",
-                        "argument": {
-                          "type": "lotr_port:map_terrain",
-                          "value": "variation"
-                        }
-                      }
-                    }
-                  },
-                  "argument2": {
-                    "type": "minecraft:y_clamped_gradient",
-                    "from_y": -64,
-                    "to_y": 640,
-                    "from_value": 64,
-                    "to_value": -640
-                  }
-                },
-                "argument2": 0.0
-              }
-            }
-          }
-        }
+          "min_inclusive": 0.5,
+          "max_exclusive": 2.0,
+          "when_in_range": "minecraft:overworld/caves/noodle",
+          "when_out_of_range": 64.0
+        },
+        "when_out_of_range": 64.0
       }
     },
     "vein_toggle": 0.0,
@@ -14118,10 +14076,60 @@
                                     "max_threshold": 44.550000000000004
                                   },
                                   "then_run": {
-                                    "type": "minecraft:block",
-                                    "result_state": {
-                                      "Name": "minecraft:snow_block"
-                                    }
+                                    "type": "minecraft:sequence",
+                                    "sequence": [
+                                      {
+                                        "type": "minecraft:condition",
+                                        "if_true": {
+                                          "type": "minecraft:noise_threshold",
+                                          "noise": "minecraft:powder_snow",
+                                          "min_threshold": 0.45,
+                                          "max_threshold": 0.58
+                                        },
+                                        "then_run": {
+                                          "type": "minecraft:block",
+                                          "result_state": {
+                                            "Name": "minecraft:powder_snow"
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "type": "minecraft:condition",
+                                        "if_true": {
+                                          "type": "minecraft:noise_threshold",
+                                          "noise": "minecraft:packed_ice",
+                                          "min_threshold": 0.0,
+                                          "max_threshold": 0.2
+                                        },
+                                        "then_run": {
+                                          "type": "minecraft:block",
+                                          "result_state": {
+                                            "Name": "minecraft:packed_ice"
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "type": "minecraft:condition",
+                                        "if_true": {
+                                          "type": "minecraft:noise_threshold",
+                                          "noise": "minecraft:ice",
+                                          "min_threshold": 0.0,
+                                          "max_threshold": 0.025
+                                        },
+                                        "then_run": {
+                                          "type": "minecraft:block",
+                                          "result_state": {
+                                            "Name": "minecraft:ice"
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "type": "minecraft:block",
+                                        "result_state": {
+                                          "Name": "minecraft:snow_block"
+                                        }
+                                      }
+                                    ]
                                   }
                                 }
                               },
@@ -14144,10 +14152,60 @@
                                     "max_threshold": 44.550000000000004
                                   },
                                   "then_run": {
-                                    "type": "minecraft:block",
-                                    "result_state": {
-                                      "Name": "minecraft:snow_block"
-                                    }
+                                    "type": "minecraft:sequence",
+                                    "sequence": [
+                                      {
+                                        "type": "minecraft:condition",
+                                        "if_true": {
+                                          "type": "minecraft:noise_threshold",
+                                          "noise": "minecraft:powder_snow",
+                                          "min_threshold": 0.45,
+                                          "max_threshold": 0.58
+                                        },
+                                        "then_run": {
+                                          "type": "minecraft:block",
+                                          "result_state": {
+                                            "Name": "minecraft:powder_snow"
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "type": "minecraft:condition",
+                                        "if_true": {
+                                          "type": "minecraft:noise_threshold",
+                                          "noise": "minecraft:packed_ice",
+                                          "min_threshold": 0.0,
+                                          "max_threshold": 0.2
+                                        },
+                                        "then_run": {
+                                          "type": "minecraft:block",
+                                          "result_state": {
+                                            "Name": "minecraft:packed_ice"
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "type": "minecraft:condition",
+                                        "if_true": {
+                                          "type": "minecraft:noise_threshold",
+                                          "noise": "minecraft:ice",
+                                          "min_threshold": 0.0,
+                                          "max_threshold": 0.025
+                                        },
+                                        "then_run": {
+                                          "type": "minecraft:block",
+                                          "result_state": {
+                                            "Name": "minecraft:ice"
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "type": "minecraft:block",
+                                        "result_state": {
+                                          "Name": "minecraft:snow_block"
+                                        }
+                                      }
+                                    ]
                                   }
                                 }
                               },
@@ -14170,10 +14228,60 @@
                                     "max_threshold": 44.550000000000004
                                   },
                                   "then_run": {
-                                    "type": "minecraft:block",
-                                    "result_state": {
-                                      "Name": "minecraft:snow_block"
-                                    }
+                                    "type": "minecraft:sequence",
+                                    "sequence": [
+                                      {
+                                        "type": "minecraft:condition",
+                                        "if_true": {
+                                          "type": "minecraft:noise_threshold",
+                                          "noise": "minecraft:powder_snow",
+                                          "min_threshold": 0.45,
+                                          "max_threshold": 0.58
+                                        },
+                                        "then_run": {
+                                          "type": "minecraft:block",
+                                          "result_state": {
+                                            "Name": "minecraft:powder_snow"
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "type": "minecraft:condition",
+                                        "if_true": {
+                                          "type": "minecraft:noise_threshold",
+                                          "noise": "minecraft:packed_ice",
+                                          "min_threshold": 0.0,
+                                          "max_threshold": 0.2
+                                        },
+                                        "then_run": {
+                                          "type": "minecraft:block",
+                                          "result_state": {
+                                            "Name": "minecraft:packed_ice"
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "type": "minecraft:condition",
+                                        "if_true": {
+                                          "type": "minecraft:noise_threshold",
+                                          "noise": "minecraft:ice",
+                                          "min_threshold": 0.0,
+                                          "max_threshold": 0.025
+                                        },
+                                        "then_run": {
+                                          "type": "minecraft:block",
+                                          "result_state": {
+                                            "Name": "minecraft:ice"
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "type": "minecraft:block",
+                                        "result_state": {
+                                          "Name": "minecraft:snow_block"
+                                        }
+                                      }
+                                    ]
                                   }
                                 }
                               },
@@ -14196,10 +14304,60 @@
                                     "max_threshold": 44.550000000000004
                                   },
                                   "then_run": {
-                                    "type": "minecraft:block",
-                                    "result_state": {
-                                      "Name": "minecraft:snow_block"
-                                    }
+                                    "type": "minecraft:sequence",
+                                    "sequence": [
+                                      {
+                                        "type": "minecraft:condition",
+                                        "if_true": {
+                                          "type": "minecraft:noise_threshold",
+                                          "noise": "minecraft:powder_snow",
+                                          "min_threshold": 0.45,
+                                          "max_threshold": 0.58
+                                        },
+                                        "then_run": {
+                                          "type": "minecraft:block",
+                                          "result_state": {
+                                            "Name": "minecraft:powder_snow"
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "type": "minecraft:condition",
+                                        "if_true": {
+                                          "type": "minecraft:noise_threshold",
+                                          "noise": "minecraft:packed_ice",
+                                          "min_threshold": 0.0,
+                                          "max_threshold": 0.2
+                                        },
+                                        "then_run": {
+                                          "type": "minecraft:block",
+                                          "result_state": {
+                                            "Name": "minecraft:packed_ice"
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "type": "minecraft:condition",
+                                        "if_true": {
+                                          "type": "minecraft:noise_threshold",
+                                          "noise": "minecraft:ice",
+                                          "min_threshold": 0.0,
+                                          "max_threshold": 0.025
+                                        },
+                                        "then_run": {
+                                          "type": "minecraft:block",
+                                          "result_state": {
+                                            "Name": "minecraft:ice"
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "type": "minecraft:block",
+                                        "result_state": {
+                                          "Name": "minecraft:snow_block"
+                                        }
+                                      }
+                                    ]
                                   }
                                 }
                               },
@@ -18465,10 +18623,60 @@
                                     "max_threshold": 44.550000000000004
                                   },
                                   "then_run": {
-                                    "type": "minecraft:block",
-                                    "result_state": {
-                                      "Name": "minecraft:snow_block"
-                                    }
+                                    "type": "minecraft:sequence",
+                                    "sequence": [
+                                      {
+                                        "type": "minecraft:condition",
+                                        "if_true": {
+                                          "type": "minecraft:noise_threshold",
+                                          "noise": "minecraft:powder_snow",
+                                          "min_threshold": 0.45,
+                                          "max_threshold": 0.58
+                                        },
+                                        "then_run": {
+                                          "type": "minecraft:block",
+                                          "result_state": {
+                                            "Name": "minecraft:powder_snow"
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "type": "minecraft:condition",
+                                        "if_true": {
+                                          "type": "minecraft:noise_threshold",
+                                          "noise": "minecraft:packed_ice",
+                                          "min_threshold": 0.0,
+                                          "max_threshold": 0.2
+                                        },
+                                        "then_run": {
+                                          "type": "minecraft:block",
+                                          "result_state": {
+                                            "Name": "minecraft:packed_ice"
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "type": "minecraft:condition",
+                                        "if_true": {
+                                          "type": "minecraft:noise_threshold",
+                                          "noise": "minecraft:ice",
+                                          "min_threshold": 0.0,
+                                          "max_threshold": 0.025
+                                        },
+                                        "then_run": {
+                                          "type": "minecraft:block",
+                                          "result_state": {
+                                            "Name": "minecraft:ice"
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "type": "minecraft:block",
+                                        "result_state": {
+                                          "Name": "minecraft:snow_block"
+                                        }
+                                      }
+                                    ]
                                   }
                                 }
                               },
@@ -18491,10 +18699,60 @@
                                     "max_threshold": 44.550000000000004
                                   },
                                   "then_run": {
-                                    "type": "minecraft:block",
-                                    "result_state": {
-                                      "Name": "minecraft:snow_block"
-                                    }
+                                    "type": "minecraft:sequence",
+                                    "sequence": [
+                                      {
+                                        "type": "minecraft:condition",
+                                        "if_true": {
+                                          "type": "minecraft:noise_threshold",
+                                          "noise": "minecraft:powder_snow",
+                                          "min_threshold": 0.45,
+                                          "max_threshold": 0.58
+                                        },
+                                        "then_run": {
+                                          "type": "minecraft:block",
+                                          "result_state": {
+                                            "Name": "minecraft:powder_snow"
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "type": "minecraft:condition",
+                                        "if_true": {
+                                          "type": "minecraft:noise_threshold",
+                                          "noise": "minecraft:packed_ice",
+                                          "min_threshold": 0.0,
+                                          "max_threshold": 0.2
+                                        },
+                                        "then_run": {
+                                          "type": "minecraft:block",
+                                          "result_state": {
+                                            "Name": "minecraft:packed_ice"
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "type": "minecraft:condition",
+                                        "if_true": {
+                                          "type": "minecraft:noise_threshold",
+                                          "noise": "minecraft:ice",
+                                          "min_threshold": 0.0,
+                                          "max_threshold": 0.025
+                                        },
+                                        "then_run": {
+                                          "type": "minecraft:block",
+                                          "result_state": {
+                                            "Name": "minecraft:ice"
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "type": "minecraft:block",
+                                        "result_state": {
+                                          "Name": "minecraft:snow_block"
+                                        }
+                                      }
+                                    ]
                                   }
                                 }
                               },
@@ -18517,10 +18775,60 @@
                                     "max_threshold": 44.550000000000004
                                   },
                                   "then_run": {
-                                    "type": "minecraft:block",
-                                    "result_state": {
-                                      "Name": "minecraft:snow_block"
-                                    }
+                                    "type": "minecraft:sequence",
+                                    "sequence": [
+                                      {
+                                        "type": "minecraft:condition",
+                                        "if_true": {
+                                          "type": "minecraft:noise_threshold",
+                                          "noise": "minecraft:powder_snow",
+                                          "min_threshold": 0.45,
+                                          "max_threshold": 0.58
+                                        },
+                                        "then_run": {
+                                          "type": "minecraft:block",
+                                          "result_state": {
+                                            "Name": "minecraft:powder_snow"
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "type": "minecraft:condition",
+                                        "if_true": {
+                                          "type": "minecraft:noise_threshold",
+                                          "noise": "minecraft:packed_ice",
+                                          "min_threshold": 0.0,
+                                          "max_threshold": 0.2
+                                        },
+                                        "then_run": {
+                                          "type": "minecraft:block",
+                                          "result_state": {
+                                            "Name": "minecraft:packed_ice"
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "type": "minecraft:condition",
+                                        "if_true": {
+                                          "type": "minecraft:noise_threshold",
+                                          "noise": "minecraft:ice",
+                                          "min_threshold": 0.0,
+                                          "max_threshold": 0.025
+                                        },
+                                        "then_run": {
+                                          "type": "minecraft:block",
+                                          "result_state": {
+                                            "Name": "minecraft:ice"
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "type": "minecraft:block",
+                                        "result_state": {
+                                          "Name": "minecraft:snow_block"
+                                        }
+                                      }
+                                    ]
                                   }
                                 }
                               },
@@ -18543,10 +18851,60 @@
                                     "max_threshold": 44.550000000000004
                                   },
                                   "then_run": {
-                                    "type": "minecraft:block",
-                                    "result_state": {
-                                      "Name": "minecraft:snow_block"
-                                    }
+                                    "type": "minecraft:sequence",
+                                    "sequence": [
+                                      {
+                                        "type": "minecraft:condition",
+                                        "if_true": {
+                                          "type": "minecraft:noise_threshold",
+                                          "noise": "minecraft:powder_snow",
+                                          "min_threshold": 0.45,
+                                          "max_threshold": 0.58
+                                        },
+                                        "then_run": {
+                                          "type": "minecraft:block",
+                                          "result_state": {
+                                            "Name": "minecraft:powder_snow"
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "type": "minecraft:condition",
+                                        "if_true": {
+                                          "type": "minecraft:noise_threshold",
+                                          "noise": "minecraft:packed_ice",
+                                          "min_threshold": 0.0,
+                                          "max_threshold": 0.2
+                                        },
+                                        "then_run": {
+                                          "type": "minecraft:block",
+                                          "result_state": {
+                                            "Name": "minecraft:packed_ice"
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "type": "minecraft:condition",
+                                        "if_true": {
+                                          "type": "minecraft:noise_threshold",
+                                          "noise": "minecraft:ice",
+                                          "min_threshold": 0.0,
+                                          "max_threshold": 0.025
+                                        },
+                                        "then_run": {
+                                          "type": "minecraft:block",
+                                          "result_state": {
+                                            "Name": "minecraft:ice"
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "type": "minecraft:block",
+                                        "result_state": {
+                                          "Name": "minecraft:snow_block"
+                                        }
+                                      }
+                                    ]
                                   }
                                 }
                               },
@@ -19551,10 +19909,60 @@
                                     "max_threshold": 44.550000000000004
                                   },
                                   "then_run": {
-                                    "type": "minecraft:block",
-                                    "result_state": {
-                                      "Name": "minecraft:snow_block"
-                                    }
+                                    "type": "minecraft:sequence",
+                                    "sequence": [
+                                      {
+                                        "type": "minecraft:condition",
+                                        "if_true": {
+                                          "type": "minecraft:noise_threshold",
+                                          "noise": "minecraft:powder_snow",
+                                          "min_threshold": 0.45,
+                                          "max_threshold": 0.58
+                                        },
+                                        "then_run": {
+                                          "type": "minecraft:block",
+                                          "result_state": {
+                                            "Name": "minecraft:powder_snow"
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "type": "minecraft:condition",
+                                        "if_true": {
+                                          "type": "minecraft:noise_threshold",
+                                          "noise": "minecraft:packed_ice",
+                                          "min_threshold": 0.0,
+                                          "max_threshold": 0.2
+                                        },
+                                        "then_run": {
+                                          "type": "minecraft:block",
+                                          "result_state": {
+                                            "Name": "minecraft:packed_ice"
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "type": "minecraft:condition",
+                                        "if_true": {
+                                          "type": "minecraft:noise_threshold",
+                                          "noise": "minecraft:ice",
+                                          "min_threshold": 0.0,
+                                          "max_threshold": 0.025
+                                        },
+                                        "then_run": {
+                                          "type": "minecraft:block",
+                                          "result_state": {
+                                            "Name": "minecraft:ice"
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "type": "minecraft:block",
+                                        "result_state": {
+                                          "Name": "minecraft:snow_block"
+                                        }
+                                      }
+                                    ]
                                   }
                                 }
                               },
@@ -19577,10 +19985,60 @@
                                     "max_threshold": 44.550000000000004
                                   },
                                   "then_run": {
-                                    "type": "minecraft:block",
-                                    "result_state": {
-                                      "Name": "minecraft:snow_block"
-                                    }
+                                    "type": "minecraft:sequence",
+                                    "sequence": [
+                                      {
+                                        "type": "minecraft:condition",
+                                        "if_true": {
+                                          "type": "minecraft:noise_threshold",
+                                          "noise": "minecraft:powder_snow",
+                                          "min_threshold": 0.45,
+                                          "max_threshold": 0.58
+                                        },
+                                        "then_run": {
+                                          "type": "minecraft:block",
+                                          "result_state": {
+                                            "Name": "minecraft:powder_snow"
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "type": "minecraft:condition",
+                                        "if_true": {
+                                          "type": "minecraft:noise_threshold",
+                                          "noise": "minecraft:packed_ice",
+                                          "min_threshold": 0.0,
+                                          "max_threshold": 0.2
+                                        },
+                                        "then_run": {
+                                          "type": "minecraft:block",
+                                          "result_state": {
+                                            "Name": "minecraft:packed_ice"
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "type": "minecraft:condition",
+                                        "if_true": {
+                                          "type": "minecraft:noise_threshold",
+                                          "noise": "minecraft:ice",
+                                          "min_threshold": 0.0,
+                                          "max_threshold": 0.025
+                                        },
+                                        "then_run": {
+                                          "type": "minecraft:block",
+                                          "result_state": {
+                                            "Name": "minecraft:ice"
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "type": "minecraft:block",
+                                        "result_state": {
+                                          "Name": "minecraft:snow_block"
+                                        }
+                                      }
+                                    ]
                                   }
                                 }
                               },
@@ -19603,10 +20061,60 @@
                                     "max_threshold": 44.550000000000004
                                   },
                                   "then_run": {
-                                    "type": "minecraft:block",
-                                    "result_state": {
-                                      "Name": "minecraft:snow_block"
-                                    }
+                                    "type": "minecraft:sequence",
+                                    "sequence": [
+                                      {
+                                        "type": "minecraft:condition",
+                                        "if_true": {
+                                          "type": "minecraft:noise_threshold",
+                                          "noise": "minecraft:powder_snow",
+                                          "min_threshold": 0.45,
+                                          "max_threshold": 0.58
+                                        },
+                                        "then_run": {
+                                          "type": "minecraft:block",
+                                          "result_state": {
+                                            "Name": "minecraft:powder_snow"
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "type": "minecraft:condition",
+                                        "if_true": {
+                                          "type": "minecraft:noise_threshold",
+                                          "noise": "minecraft:packed_ice",
+                                          "min_threshold": 0.0,
+                                          "max_threshold": 0.2
+                                        },
+                                        "then_run": {
+                                          "type": "minecraft:block",
+                                          "result_state": {
+                                            "Name": "minecraft:packed_ice"
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "type": "minecraft:condition",
+                                        "if_true": {
+                                          "type": "minecraft:noise_threshold",
+                                          "noise": "minecraft:ice",
+                                          "min_threshold": 0.0,
+                                          "max_threshold": 0.025
+                                        },
+                                        "then_run": {
+                                          "type": "minecraft:block",
+                                          "result_state": {
+                                            "Name": "minecraft:ice"
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "type": "minecraft:block",
+                                        "result_state": {
+                                          "Name": "minecraft:snow_block"
+                                        }
+                                      }
+                                    ]
                                   }
                                 }
                               },
@@ -19629,10 +20137,60 @@
                                     "max_threshold": 44.550000000000004
                                   },
                                   "then_run": {
-                                    "type": "minecraft:block",
-                                    "result_state": {
-                                      "Name": "minecraft:snow_block"
-                                    }
+                                    "type": "minecraft:sequence",
+                                    "sequence": [
+                                      {
+                                        "type": "minecraft:condition",
+                                        "if_true": {
+                                          "type": "minecraft:noise_threshold",
+                                          "noise": "minecraft:powder_snow",
+                                          "min_threshold": 0.45,
+                                          "max_threshold": 0.58
+                                        },
+                                        "then_run": {
+                                          "type": "minecraft:block",
+                                          "result_state": {
+                                            "Name": "minecraft:powder_snow"
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "type": "minecraft:condition",
+                                        "if_true": {
+                                          "type": "minecraft:noise_threshold",
+                                          "noise": "minecraft:packed_ice",
+                                          "min_threshold": 0.0,
+                                          "max_threshold": 0.2
+                                        },
+                                        "then_run": {
+                                          "type": "minecraft:block",
+                                          "result_state": {
+                                            "Name": "minecraft:packed_ice"
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "type": "minecraft:condition",
+                                        "if_true": {
+                                          "type": "minecraft:noise_threshold",
+                                          "noise": "minecraft:ice",
+                                          "min_threshold": 0.0,
+                                          "max_threshold": 0.025
+                                        },
+                                        "then_run": {
+                                          "type": "minecraft:block",
+                                          "result_state": {
+                                            "Name": "minecraft:ice"
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "type": "minecraft:block",
+                                        "result_state": {
+                                          "Name": "minecraft:snow_block"
+                                        }
+                                      }
+                                    ]
                                   }
                                 }
                               },
@@ -23424,6 +23982,10 @@
                   "lotr_port:island",
                   "lotr_port:lone_lands_hills",
                   "lotr_port:ocean",
+                  "lotr_port:frozen_ocean",
+                  "lotr_port:cold_ocean",
+                  "lotr_port:lukewarm_ocean",
+                  "lotr_port:warm_ocean",
                   "lotr_port:red_mountains_foothills",
                   "lotr_port:trollshaws",
                   "lotr_port:white_mountains_foothills"
@@ -27136,10 +27698,60 @@
                                     "max_threshold": 44.550000000000004
                                   },
                                   "then_run": {
-                                    "type": "minecraft:block",
-                                    "result_state": {
-                                      "Name": "minecraft:snow_block"
-                                    }
+                                    "type": "minecraft:sequence",
+                                    "sequence": [
+                                      {
+                                        "type": "minecraft:condition",
+                                        "if_true": {
+                                          "type": "minecraft:noise_threshold",
+                                          "noise": "minecraft:powder_snow",
+                                          "min_threshold": 0.45,
+                                          "max_threshold": 0.58
+                                        },
+                                        "then_run": {
+                                          "type": "minecraft:block",
+                                          "result_state": {
+                                            "Name": "minecraft:powder_snow"
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "type": "minecraft:condition",
+                                        "if_true": {
+                                          "type": "minecraft:noise_threshold",
+                                          "noise": "minecraft:packed_ice",
+                                          "min_threshold": 0.0,
+                                          "max_threshold": 0.2
+                                        },
+                                        "then_run": {
+                                          "type": "minecraft:block",
+                                          "result_state": {
+                                            "Name": "minecraft:packed_ice"
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "type": "minecraft:condition",
+                                        "if_true": {
+                                          "type": "minecraft:noise_threshold",
+                                          "noise": "minecraft:ice",
+                                          "min_threshold": 0.0,
+                                          "max_threshold": 0.025
+                                        },
+                                        "then_run": {
+                                          "type": "minecraft:block",
+                                          "result_state": {
+                                            "Name": "minecraft:ice"
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "type": "minecraft:block",
+                                        "result_state": {
+                                          "Name": "minecraft:snow_block"
+                                        }
+                                      }
+                                    ]
                                   }
                                 }
                               },
@@ -27162,10 +27774,60 @@
                                     "max_threshold": 44.550000000000004
                                   },
                                   "then_run": {
-                                    "type": "minecraft:block",
-                                    "result_state": {
-                                      "Name": "minecraft:snow_block"
-                                    }
+                                    "type": "minecraft:sequence",
+                                    "sequence": [
+                                      {
+                                        "type": "minecraft:condition",
+                                        "if_true": {
+                                          "type": "minecraft:noise_threshold",
+                                          "noise": "minecraft:powder_snow",
+                                          "min_threshold": 0.45,
+                                          "max_threshold": 0.58
+                                        },
+                                        "then_run": {
+                                          "type": "minecraft:block",
+                                          "result_state": {
+                                            "Name": "minecraft:powder_snow"
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "type": "minecraft:condition",
+                                        "if_true": {
+                                          "type": "minecraft:noise_threshold",
+                                          "noise": "minecraft:packed_ice",
+                                          "min_threshold": 0.0,
+                                          "max_threshold": 0.2
+                                        },
+                                        "then_run": {
+                                          "type": "minecraft:block",
+                                          "result_state": {
+                                            "Name": "minecraft:packed_ice"
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "type": "minecraft:condition",
+                                        "if_true": {
+                                          "type": "minecraft:noise_threshold",
+                                          "noise": "minecraft:ice",
+                                          "min_threshold": 0.0,
+                                          "max_threshold": 0.025
+                                        },
+                                        "then_run": {
+                                          "type": "minecraft:block",
+                                          "result_state": {
+                                            "Name": "minecraft:ice"
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "type": "minecraft:block",
+                                        "result_state": {
+                                          "Name": "minecraft:snow_block"
+                                        }
+                                      }
+                                    ]
                                   }
                                 }
                               },
@@ -27188,10 +27850,60 @@
                                     "max_threshold": 44.550000000000004
                                   },
                                   "then_run": {
-                                    "type": "minecraft:block",
-                                    "result_state": {
-                                      "Name": "minecraft:snow_block"
-                                    }
+                                    "type": "minecraft:sequence",
+                                    "sequence": [
+                                      {
+                                        "type": "minecraft:condition",
+                                        "if_true": {
+                                          "type": "minecraft:noise_threshold",
+                                          "noise": "minecraft:powder_snow",
+                                          "min_threshold": 0.45,
+                                          "max_threshold": 0.58
+                                        },
+                                        "then_run": {
+                                          "type": "minecraft:block",
+                                          "result_state": {
+                                            "Name": "minecraft:powder_snow"
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "type": "minecraft:condition",
+                                        "if_true": {
+                                          "type": "minecraft:noise_threshold",
+                                          "noise": "minecraft:packed_ice",
+                                          "min_threshold": 0.0,
+                                          "max_threshold": 0.2
+                                        },
+                                        "then_run": {
+                                          "type": "minecraft:block",
+                                          "result_state": {
+                                            "Name": "minecraft:packed_ice"
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "type": "minecraft:condition",
+                                        "if_true": {
+                                          "type": "minecraft:noise_threshold",
+                                          "noise": "minecraft:ice",
+                                          "min_threshold": 0.0,
+                                          "max_threshold": 0.025
+                                        },
+                                        "then_run": {
+                                          "type": "minecraft:block",
+                                          "result_state": {
+                                            "Name": "minecraft:ice"
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "type": "minecraft:block",
+                                        "result_state": {
+                                          "Name": "minecraft:snow_block"
+                                        }
+                                      }
+                                    ]
                                   }
                                 }
                               },
@@ -27214,10 +27926,60 @@
                                     "max_threshold": 44.550000000000004
                                   },
                                   "then_run": {
-                                    "type": "minecraft:block",
-                                    "result_state": {
-                                      "Name": "minecraft:snow_block"
-                                    }
+                                    "type": "minecraft:sequence",
+                                    "sequence": [
+                                      {
+                                        "type": "minecraft:condition",
+                                        "if_true": {
+                                          "type": "minecraft:noise_threshold",
+                                          "noise": "minecraft:powder_snow",
+                                          "min_threshold": 0.45,
+                                          "max_threshold": 0.58
+                                        },
+                                        "then_run": {
+                                          "type": "minecraft:block",
+                                          "result_state": {
+                                            "Name": "minecraft:powder_snow"
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "type": "minecraft:condition",
+                                        "if_true": {
+                                          "type": "minecraft:noise_threshold",
+                                          "noise": "minecraft:packed_ice",
+                                          "min_threshold": 0.0,
+                                          "max_threshold": 0.2
+                                        },
+                                        "then_run": {
+                                          "type": "minecraft:block",
+                                          "result_state": {
+                                            "Name": "minecraft:packed_ice"
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "type": "minecraft:condition",
+                                        "if_true": {
+                                          "type": "minecraft:noise_threshold",
+                                          "noise": "minecraft:ice",
+                                          "min_threshold": 0.0,
+                                          "max_threshold": 0.025
+                                        },
+                                        "then_run": {
+                                          "type": "minecraft:block",
+                                          "result_state": {
+                                            "Name": "minecraft:ice"
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "type": "minecraft:block",
+                                        "result_state": {
+                                          "Name": "minecraft:snow_block"
+                                        }
+                                      }
+                                    ]
                                   }
                                 }
                               },
@@ -43101,10 +43863,60 @@
                                     "max_threshold": 44.550000000000004
                                   },
                                   "then_run": {
-                                    "type": "minecraft:block",
-                                    "result_state": {
-                                      "Name": "minecraft:snow_block"
-                                    }
+                                    "type": "minecraft:sequence",
+                                    "sequence": [
+                                      {
+                                        "type": "minecraft:condition",
+                                        "if_true": {
+                                          "type": "minecraft:noise_threshold",
+                                          "noise": "minecraft:powder_snow",
+                                          "min_threshold": 0.45,
+                                          "max_threshold": 0.58
+                                        },
+                                        "then_run": {
+                                          "type": "minecraft:block",
+                                          "result_state": {
+                                            "Name": "minecraft:powder_snow"
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "type": "minecraft:condition",
+                                        "if_true": {
+                                          "type": "minecraft:noise_threshold",
+                                          "noise": "minecraft:packed_ice",
+                                          "min_threshold": 0.0,
+                                          "max_threshold": 0.2
+                                        },
+                                        "then_run": {
+                                          "type": "minecraft:block",
+                                          "result_state": {
+                                            "Name": "minecraft:packed_ice"
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "type": "minecraft:condition",
+                                        "if_true": {
+                                          "type": "minecraft:noise_threshold",
+                                          "noise": "minecraft:ice",
+                                          "min_threshold": 0.0,
+                                          "max_threshold": 0.025
+                                        },
+                                        "then_run": {
+                                          "type": "minecraft:block",
+                                          "result_state": {
+                                            "Name": "minecraft:ice"
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "type": "minecraft:block",
+                                        "result_state": {
+                                          "Name": "minecraft:snow_block"
+                                        }
+                                      }
+                                    ]
                                   }
                                 }
                               },
@@ -43127,10 +43939,60 @@
                                     "max_threshold": 44.550000000000004
                                   },
                                   "then_run": {
-                                    "type": "minecraft:block",
-                                    "result_state": {
-                                      "Name": "minecraft:snow_block"
-                                    }
+                                    "type": "minecraft:sequence",
+                                    "sequence": [
+                                      {
+                                        "type": "minecraft:condition",
+                                        "if_true": {
+                                          "type": "minecraft:noise_threshold",
+                                          "noise": "minecraft:powder_snow",
+                                          "min_threshold": 0.45,
+                                          "max_threshold": 0.58
+                                        },
+                                        "then_run": {
+                                          "type": "minecraft:block",
+                                          "result_state": {
+                                            "Name": "minecraft:powder_snow"
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "type": "minecraft:condition",
+                                        "if_true": {
+                                          "type": "minecraft:noise_threshold",
+                                          "noise": "minecraft:packed_ice",
+                                          "min_threshold": 0.0,
+                                          "max_threshold": 0.2
+                                        },
+                                        "then_run": {
+                                          "type": "minecraft:block",
+                                          "result_state": {
+                                            "Name": "minecraft:packed_ice"
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "type": "minecraft:condition",
+                                        "if_true": {
+                                          "type": "minecraft:noise_threshold",
+                                          "noise": "minecraft:ice",
+                                          "min_threshold": 0.0,
+                                          "max_threshold": 0.025
+                                        },
+                                        "then_run": {
+                                          "type": "minecraft:block",
+                                          "result_state": {
+                                            "Name": "minecraft:ice"
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "type": "minecraft:block",
+                                        "result_state": {
+                                          "Name": "minecraft:snow_block"
+                                        }
+                                      }
+                                    ]
                                   }
                                 }
                               },
@@ -43153,10 +44015,60 @@
                                     "max_threshold": 44.550000000000004
                                   },
                                   "then_run": {
-                                    "type": "minecraft:block",
-                                    "result_state": {
-                                      "Name": "minecraft:snow_block"
-                                    }
+                                    "type": "minecraft:sequence",
+                                    "sequence": [
+                                      {
+                                        "type": "minecraft:condition",
+                                        "if_true": {
+                                          "type": "minecraft:noise_threshold",
+                                          "noise": "minecraft:powder_snow",
+                                          "min_threshold": 0.45,
+                                          "max_threshold": 0.58
+                                        },
+                                        "then_run": {
+                                          "type": "minecraft:block",
+                                          "result_state": {
+                                            "Name": "minecraft:powder_snow"
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "type": "minecraft:condition",
+                                        "if_true": {
+                                          "type": "minecraft:noise_threshold",
+                                          "noise": "minecraft:packed_ice",
+                                          "min_threshold": 0.0,
+                                          "max_threshold": 0.2
+                                        },
+                                        "then_run": {
+                                          "type": "minecraft:block",
+                                          "result_state": {
+                                            "Name": "minecraft:packed_ice"
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "type": "minecraft:condition",
+                                        "if_true": {
+                                          "type": "minecraft:noise_threshold",
+                                          "noise": "minecraft:ice",
+                                          "min_threshold": 0.0,
+                                          "max_threshold": 0.025
+                                        },
+                                        "then_run": {
+                                          "type": "minecraft:block",
+                                          "result_state": {
+                                            "Name": "minecraft:ice"
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "type": "minecraft:block",
+                                        "result_state": {
+                                          "Name": "minecraft:snow_block"
+                                        }
+                                      }
+                                    ]
                                   }
                                 }
                               },
@@ -43179,10 +44091,60 @@
                                     "max_threshold": 44.550000000000004
                                   },
                                   "then_run": {
-                                    "type": "minecraft:block",
-                                    "result_state": {
-                                      "Name": "minecraft:snow_block"
-                                    }
+                                    "type": "minecraft:sequence",
+                                    "sequence": [
+                                      {
+                                        "type": "minecraft:condition",
+                                        "if_true": {
+                                          "type": "minecraft:noise_threshold",
+                                          "noise": "minecraft:powder_snow",
+                                          "min_threshold": 0.45,
+                                          "max_threshold": 0.58
+                                        },
+                                        "then_run": {
+                                          "type": "minecraft:block",
+                                          "result_state": {
+                                            "Name": "minecraft:powder_snow"
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "type": "minecraft:condition",
+                                        "if_true": {
+                                          "type": "minecraft:noise_threshold",
+                                          "noise": "minecraft:packed_ice",
+                                          "min_threshold": 0.0,
+                                          "max_threshold": 0.2
+                                        },
+                                        "then_run": {
+                                          "type": "minecraft:block",
+                                          "result_state": {
+                                            "Name": "minecraft:packed_ice"
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "type": "minecraft:condition",
+                                        "if_true": {
+                                          "type": "minecraft:noise_threshold",
+                                          "noise": "minecraft:ice",
+                                          "min_threshold": 0.0,
+                                          "max_threshold": 0.025
+                                        },
+                                        "then_run": {
+                                          "type": "minecraft:block",
+                                          "result_state": {
+                                            "Name": "minecraft:ice"
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "type": "minecraft:block",
+                                        "result_state": {
+                                          "Name": "minecraft:snow_block"
+                                        }
+                                      }
+                                    ]
                                   }
                                 }
                               },
@@ -44144,10 +45106,60 @@
                                     "max_threshold": 44.550000000000004
                                   },
                                   "then_run": {
-                                    "type": "minecraft:block",
-                                    "result_state": {
-                                      "Name": "minecraft:snow_block"
-                                    }
+                                    "type": "minecraft:sequence",
+                                    "sequence": [
+                                      {
+                                        "type": "minecraft:condition",
+                                        "if_true": {
+                                          "type": "minecraft:noise_threshold",
+                                          "noise": "minecraft:powder_snow",
+                                          "min_threshold": 0.45,
+                                          "max_threshold": 0.58
+                                        },
+                                        "then_run": {
+                                          "type": "minecraft:block",
+                                          "result_state": {
+                                            "Name": "minecraft:powder_snow"
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "type": "minecraft:condition",
+                                        "if_true": {
+                                          "type": "minecraft:noise_threshold",
+                                          "noise": "minecraft:packed_ice",
+                                          "min_threshold": 0.0,
+                                          "max_threshold": 0.2
+                                        },
+                                        "then_run": {
+                                          "type": "minecraft:block",
+                                          "result_state": {
+                                            "Name": "minecraft:packed_ice"
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "type": "minecraft:condition",
+                                        "if_true": {
+                                          "type": "minecraft:noise_threshold",
+                                          "noise": "minecraft:ice",
+                                          "min_threshold": 0.0,
+                                          "max_threshold": 0.025
+                                        },
+                                        "then_run": {
+                                          "type": "minecraft:block",
+                                          "result_state": {
+                                            "Name": "minecraft:ice"
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "type": "minecraft:block",
+                                        "result_state": {
+                                          "Name": "minecraft:snow_block"
+                                        }
+                                      }
+                                    ]
                                   }
                                 }
                               },
@@ -44170,10 +45182,60 @@
                                     "max_threshold": 44.550000000000004
                                   },
                                   "then_run": {
-                                    "type": "minecraft:block",
-                                    "result_state": {
-                                      "Name": "minecraft:snow_block"
-                                    }
+                                    "type": "minecraft:sequence",
+                                    "sequence": [
+                                      {
+                                        "type": "minecraft:condition",
+                                        "if_true": {
+                                          "type": "minecraft:noise_threshold",
+                                          "noise": "minecraft:powder_snow",
+                                          "min_threshold": 0.45,
+                                          "max_threshold": 0.58
+                                        },
+                                        "then_run": {
+                                          "type": "minecraft:block",
+                                          "result_state": {
+                                            "Name": "minecraft:powder_snow"
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "type": "minecraft:condition",
+                                        "if_true": {
+                                          "type": "minecraft:noise_threshold",
+                                          "noise": "minecraft:packed_ice",
+                                          "min_threshold": 0.0,
+                                          "max_threshold": 0.2
+                                        },
+                                        "then_run": {
+                                          "type": "minecraft:block",
+                                          "result_state": {
+                                            "Name": "minecraft:packed_ice"
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "type": "minecraft:condition",
+                                        "if_true": {
+                                          "type": "minecraft:noise_threshold",
+                                          "noise": "minecraft:ice",
+                                          "min_threshold": 0.0,
+                                          "max_threshold": 0.025
+                                        },
+                                        "then_run": {
+                                          "type": "minecraft:block",
+                                          "result_state": {
+                                            "Name": "minecraft:ice"
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "type": "minecraft:block",
+                                        "result_state": {
+                                          "Name": "minecraft:snow_block"
+                                        }
+                                      }
+                                    ]
                                   }
                                 }
                               },
@@ -44196,10 +45258,60 @@
                                     "max_threshold": 44.550000000000004
                                   },
                                   "then_run": {
-                                    "type": "minecraft:block",
-                                    "result_state": {
-                                      "Name": "minecraft:snow_block"
-                                    }
+                                    "type": "minecraft:sequence",
+                                    "sequence": [
+                                      {
+                                        "type": "minecraft:condition",
+                                        "if_true": {
+                                          "type": "minecraft:noise_threshold",
+                                          "noise": "minecraft:powder_snow",
+                                          "min_threshold": 0.45,
+                                          "max_threshold": 0.58
+                                        },
+                                        "then_run": {
+                                          "type": "minecraft:block",
+                                          "result_state": {
+                                            "Name": "minecraft:powder_snow"
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "type": "minecraft:condition",
+                                        "if_true": {
+                                          "type": "minecraft:noise_threshold",
+                                          "noise": "minecraft:packed_ice",
+                                          "min_threshold": 0.0,
+                                          "max_threshold": 0.2
+                                        },
+                                        "then_run": {
+                                          "type": "minecraft:block",
+                                          "result_state": {
+                                            "Name": "minecraft:packed_ice"
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "type": "minecraft:condition",
+                                        "if_true": {
+                                          "type": "minecraft:noise_threshold",
+                                          "noise": "minecraft:ice",
+                                          "min_threshold": 0.0,
+                                          "max_threshold": 0.025
+                                        },
+                                        "then_run": {
+                                          "type": "minecraft:block",
+                                          "result_state": {
+                                            "Name": "minecraft:ice"
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "type": "minecraft:block",
+                                        "result_state": {
+                                          "Name": "minecraft:snow_block"
+                                        }
+                                      }
+                                    ]
                                   }
                                 }
                               },
@@ -44222,10 +45334,60 @@
                                     "max_threshold": 44.550000000000004
                                   },
                                   "then_run": {
-                                    "type": "minecraft:block",
-                                    "result_state": {
-                                      "Name": "minecraft:snow_block"
-                                    }
+                                    "type": "minecraft:sequence",
+                                    "sequence": [
+                                      {
+                                        "type": "minecraft:condition",
+                                        "if_true": {
+                                          "type": "minecraft:noise_threshold",
+                                          "noise": "minecraft:powder_snow",
+                                          "min_threshold": 0.45,
+                                          "max_threshold": 0.58
+                                        },
+                                        "then_run": {
+                                          "type": "minecraft:block",
+                                          "result_state": {
+                                            "Name": "minecraft:powder_snow"
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "type": "minecraft:condition",
+                                        "if_true": {
+                                          "type": "minecraft:noise_threshold",
+                                          "noise": "minecraft:packed_ice",
+                                          "min_threshold": 0.0,
+                                          "max_threshold": 0.2
+                                        },
+                                        "then_run": {
+                                          "type": "minecraft:block",
+                                          "result_state": {
+                                            "Name": "minecraft:packed_ice"
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "type": "minecraft:condition",
+                                        "if_true": {
+                                          "type": "minecraft:noise_threshold",
+                                          "noise": "minecraft:ice",
+                                          "min_threshold": 0.0,
+                                          "max_threshold": 0.025
+                                        },
+                                        "then_run": {
+                                          "type": "minecraft:block",
+                                          "result_state": {
+                                            "Name": "minecraft:ice"
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "type": "minecraft:block",
+                                        "result_state": {
+                                          "Name": "minecraft:snow_block"
+                                        }
+                                      }
+                                    ]
                                   }
                                 }
                               },
@@ -49241,10 +50403,60 @@
                                     "max_threshold": 44.550000000000004
                                   },
                                   "then_run": {
-                                    "type": "minecraft:block",
-                                    "result_state": {
-                                      "Name": "minecraft:snow_block"
-                                    }
+                                    "type": "minecraft:sequence",
+                                    "sequence": [
+                                      {
+                                        "type": "minecraft:condition",
+                                        "if_true": {
+                                          "type": "minecraft:noise_threshold",
+                                          "noise": "minecraft:powder_snow",
+                                          "min_threshold": 0.45,
+                                          "max_threshold": 0.58
+                                        },
+                                        "then_run": {
+                                          "type": "minecraft:block",
+                                          "result_state": {
+                                            "Name": "minecraft:powder_snow"
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "type": "minecraft:condition",
+                                        "if_true": {
+                                          "type": "minecraft:noise_threshold",
+                                          "noise": "minecraft:packed_ice",
+                                          "min_threshold": 0.0,
+                                          "max_threshold": 0.2
+                                        },
+                                        "then_run": {
+                                          "type": "minecraft:block",
+                                          "result_state": {
+                                            "Name": "minecraft:packed_ice"
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "type": "minecraft:condition",
+                                        "if_true": {
+                                          "type": "minecraft:noise_threshold",
+                                          "noise": "minecraft:ice",
+                                          "min_threshold": 0.0,
+                                          "max_threshold": 0.025
+                                        },
+                                        "then_run": {
+                                          "type": "minecraft:block",
+                                          "result_state": {
+                                            "Name": "minecraft:ice"
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "type": "minecraft:block",
+                                        "result_state": {
+                                          "Name": "minecraft:snow_block"
+                                        }
+                                      }
+                                    ]
                                   }
                                 }
                               },
@@ -49267,10 +50479,60 @@
                                     "max_threshold": 44.550000000000004
                                   },
                                   "then_run": {
-                                    "type": "minecraft:block",
-                                    "result_state": {
-                                      "Name": "minecraft:snow_block"
-                                    }
+                                    "type": "minecraft:sequence",
+                                    "sequence": [
+                                      {
+                                        "type": "minecraft:condition",
+                                        "if_true": {
+                                          "type": "minecraft:noise_threshold",
+                                          "noise": "minecraft:powder_snow",
+                                          "min_threshold": 0.45,
+                                          "max_threshold": 0.58
+                                        },
+                                        "then_run": {
+                                          "type": "minecraft:block",
+                                          "result_state": {
+                                            "Name": "minecraft:powder_snow"
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "type": "minecraft:condition",
+                                        "if_true": {
+                                          "type": "minecraft:noise_threshold",
+                                          "noise": "minecraft:packed_ice",
+                                          "min_threshold": 0.0,
+                                          "max_threshold": 0.2
+                                        },
+                                        "then_run": {
+                                          "type": "minecraft:block",
+                                          "result_state": {
+                                            "Name": "minecraft:packed_ice"
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "type": "minecraft:condition",
+                                        "if_true": {
+                                          "type": "minecraft:noise_threshold",
+                                          "noise": "minecraft:ice",
+                                          "min_threshold": 0.0,
+                                          "max_threshold": 0.025
+                                        },
+                                        "then_run": {
+                                          "type": "minecraft:block",
+                                          "result_state": {
+                                            "Name": "minecraft:ice"
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "type": "minecraft:block",
+                                        "result_state": {
+                                          "Name": "minecraft:snow_block"
+                                        }
+                                      }
+                                    ]
                                   }
                                 }
                               },
@@ -49293,10 +50555,60 @@
                                     "max_threshold": 44.550000000000004
                                   },
                                   "then_run": {
-                                    "type": "minecraft:block",
-                                    "result_state": {
-                                      "Name": "minecraft:snow_block"
-                                    }
+                                    "type": "minecraft:sequence",
+                                    "sequence": [
+                                      {
+                                        "type": "minecraft:condition",
+                                        "if_true": {
+                                          "type": "minecraft:noise_threshold",
+                                          "noise": "minecraft:powder_snow",
+                                          "min_threshold": 0.45,
+                                          "max_threshold": 0.58
+                                        },
+                                        "then_run": {
+                                          "type": "minecraft:block",
+                                          "result_state": {
+                                            "Name": "minecraft:powder_snow"
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "type": "minecraft:condition",
+                                        "if_true": {
+                                          "type": "minecraft:noise_threshold",
+                                          "noise": "minecraft:packed_ice",
+                                          "min_threshold": 0.0,
+                                          "max_threshold": 0.2
+                                        },
+                                        "then_run": {
+                                          "type": "minecraft:block",
+                                          "result_state": {
+                                            "Name": "minecraft:packed_ice"
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "type": "minecraft:condition",
+                                        "if_true": {
+                                          "type": "minecraft:noise_threshold",
+                                          "noise": "minecraft:ice",
+                                          "min_threshold": 0.0,
+                                          "max_threshold": 0.025
+                                        },
+                                        "then_run": {
+                                          "type": "minecraft:block",
+                                          "result_state": {
+                                            "Name": "minecraft:ice"
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "type": "minecraft:block",
+                                        "result_state": {
+                                          "Name": "minecraft:snow_block"
+                                        }
+                                      }
+                                    ]
                                   }
                                 }
                               },
@@ -49319,10 +50631,60 @@
                                     "max_threshold": 44.550000000000004
                                   },
                                   "then_run": {
-                                    "type": "minecraft:block",
-                                    "result_state": {
-                                      "Name": "minecraft:snow_block"
-                                    }
+                                    "type": "minecraft:sequence",
+                                    "sequence": [
+                                      {
+                                        "type": "minecraft:condition",
+                                        "if_true": {
+                                          "type": "minecraft:noise_threshold",
+                                          "noise": "minecraft:powder_snow",
+                                          "min_threshold": 0.45,
+                                          "max_threshold": 0.58
+                                        },
+                                        "then_run": {
+                                          "type": "minecraft:block",
+                                          "result_state": {
+                                            "Name": "minecraft:powder_snow"
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "type": "minecraft:condition",
+                                        "if_true": {
+                                          "type": "minecraft:noise_threshold",
+                                          "noise": "minecraft:packed_ice",
+                                          "min_threshold": 0.0,
+                                          "max_threshold": 0.2
+                                        },
+                                        "then_run": {
+                                          "type": "minecraft:block",
+                                          "result_state": {
+                                            "Name": "minecraft:packed_ice"
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "type": "minecraft:condition",
+                                        "if_true": {
+                                          "type": "minecraft:noise_threshold",
+                                          "noise": "minecraft:ice",
+                                          "min_threshold": 0.0,
+                                          "max_threshold": 0.025
+                                        },
+                                        "then_run": {
+                                          "type": "minecraft:block",
+                                          "result_state": {
+                                            "Name": "minecraft:ice"
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "type": "minecraft:block",
+                                        "result_state": {
+                                          "Name": "minecraft:snow_block"
+                                        }
+                                      }
+                                    ]
                                   }
                                 }
                               },
@@ -54939,10 +56301,60 @@
                                     "max_threshold": 44.550000000000004
                                   },
                                   "then_run": {
-                                    "type": "minecraft:block",
-                                    "result_state": {
-                                      "Name": "minecraft:snow_block"
-                                    }
+                                    "type": "minecraft:sequence",
+                                    "sequence": [
+                                      {
+                                        "type": "minecraft:condition",
+                                        "if_true": {
+                                          "type": "minecraft:noise_threshold",
+                                          "noise": "minecraft:powder_snow",
+                                          "min_threshold": 0.45,
+                                          "max_threshold": 0.58
+                                        },
+                                        "then_run": {
+                                          "type": "minecraft:block",
+                                          "result_state": {
+                                            "Name": "minecraft:powder_snow"
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "type": "minecraft:condition",
+                                        "if_true": {
+                                          "type": "minecraft:noise_threshold",
+                                          "noise": "minecraft:packed_ice",
+                                          "min_threshold": 0.0,
+                                          "max_threshold": 0.2
+                                        },
+                                        "then_run": {
+                                          "type": "minecraft:block",
+                                          "result_state": {
+                                            "Name": "minecraft:packed_ice"
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "type": "minecraft:condition",
+                                        "if_true": {
+                                          "type": "minecraft:noise_threshold",
+                                          "noise": "minecraft:ice",
+                                          "min_threshold": 0.0,
+                                          "max_threshold": 0.025
+                                        },
+                                        "then_run": {
+                                          "type": "minecraft:block",
+                                          "result_state": {
+                                            "Name": "minecraft:ice"
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "type": "minecraft:block",
+                                        "result_state": {
+                                          "Name": "minecraft:snow_block"
+                                        }
+                                      }
+                                    ]
                                   }
                                 }
                               },
@@ -54965,10 +56377,60 @@
                                     "max_threshold": 44.550000000000004
                                   },
                                   "then_run": {
-                                    "type": "minecraft:block",
-                                    "result_state": {
-                                      "Name": "minecraft:snow_block"
-                                    }
+                                    "type": "minecraft:sequence",
+                                    "sequence": [
+                                      {
+                                        "type": "minecraft:condition",
+                                        "if_true": {
+                                          "type": "minecraft:noise_threshold",
+                                          "noise": "minecraft:powder_snow",
+                                          "min_threshold": 0.45,
+                                          "max_threshold": 0.58
+                                        },
+                                        "then_run": {
+                                          "type": "minecraft:block",
+                                          "result_state": {
+                                            "Name": "minecraft:powder_snow"
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "type": "minecraft:condition",
+                                        "if_true": {
+                                          "type": "minecraft:noise_threshold",
+                                          "noise": "minecraft:packed_ice",
+                                          "min_threshold": 0.0,
+                                          "max_threshold": 0.2
+                                        },
+                                        "then_run": {
+                                          "type": "minecraft:block",
+                                          "result_state": {
+                                            "Name": "minecraft:packed_ice"
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "type": "minecraft:condition",
+                                        "if_true": {
+                                          "type": "minecraft:noise_threshold",
+                                          "noise": "minecraft:ice",
+                                          "min_threshold": 0.0,
+                                          "max_threshold": 0.025
+                                        },
+                                        "then_run": {
+                                          "type": "minecraft:block",
+                                          "result_state": {
+                                            "Name": "minecraft:ice"
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "type": "minecraft:block",
+                                        "result_state": {
+                                          "Name": "minecraft:snow_block"
+                                        }
+                                      }
+                                    ]
                                   }
                                 }
                               },
@@ -54991,10 +56453,60 @@
                                     "max_threshold": 44.550000000000004
                                   },
                                   "then_run": {
-                                    "type": "minecraft:block",
-                                    "result_state": {
-                                      "Name": "minecraft:snow_block"
-                                    }
+                                    "type": "minecraft:sequence",
+                                    "sequence": [
+                                      {
+                                        "type": "minecraft:condition",
+                                        "if_true": {
+                                          "type": "minecraft:noise_threshold",
+                                          "noise": "minecraft:powder_snow",
+                                          "min_threshold": 0.45,
+                                          "max_threshold": 0.58
+                                        },
+                                        "then_run": {
+                                          "type": "minecraft:block",
+                                          "result_state": {
+                                            "Name": "minecraft:powder_snow"
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "type": "minecraft:condition",
+                                        "if_true": {
+                                          "type": "minecraft:noise_threshold",
+                                          "noise": "minecraft:packed_ice",
+                                          "min_threshold": 0.0,
+                                          "max_threshold": 0.2
+                                        },
+                                        "then_run": {
+                                          "type": "minecraft:block",
+                                          "result_state": {
+                                            "Name": "minecraft:packed_ice"
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "type": "minecraft:condition",
+                                        "if_true": {
+                                          "type": "minecraft:noise_threshold",
+                                          "noise": "minecraft:ice",
+                                          "min_threshold": 0.0,
+                                          "max_threshold": 0.025
+                                        },
+                                        "then_run": {
+                                          "type": "minecraft:block",
+                                          "result_state": {
+                                            "Name": "minecraft:ice"
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "type": "minecraft:block",
+                                        "result_state": {
+                                          "Name": "minecraft:snow_block"
+                                        }
+                                      }
+                                    ]
                                   }
                                 }
                               },
@@ -55017,10 +56529,60 @@
                                     "max_threshold": 44.550000000000004
                                   },
                                   "then_run": {
-                                    "type": "minecraft:block",
-                                    "result_state": {
-                                      "Name": "minecraft:snow_block"
-                                    }
+                                    "type": "minecraft:sequence",
+                                    "sequence": [
+                                      {
+                                        "type": "minecraft:condition",
+                                        "if_true": {
+                                          "type": "minecraft:noise_threshold",
+                                          "noise": "minecraft:powder_snow",
+                                          "min_threshold": 0.45,
+                                          "max_threshold": 0.58
+                                        },
+                                        "then_run": {
+                                          "type": "minecraft:block",
+                                          "result_state": {
+                                            "Name": "minecraft:powder_snow"
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "type": "minecraft:condition",
+                                        "if_true": {
+                                          "type": "minecraft:noise_threshold",
+                                          "noise": "minecraft:packed_ice",
+                                          "min_threshold": 0.0,
+                                          "max_threshold": 0.2
+                                        },
+                                        "then_run": {
+                                          "type": "minecraft:block",
+                                          "result_state": {
+                                            "Name": "minecraft:packed_ice"
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "type": "minecraft:condition",
+                                        "if_true": {
+                                          "type": "minecraft:noise_threshold",
+                                          "noise": "minecraft:ice",
+                                          "min_threshold": 0.0,
+                                          "max_threshold": 0.025
+                                        },
+                                        "then_run": {
+                                          "type": "minecraft:block",
+                                          "result_state": {
+                                            "Name": "minecraft:ice"
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "type": "minecraft:block",
+                                        "result_state": {
+                                          "Name": "minecraft:snow_block"
+                                        }
+                                      }
+                                    ]
                                   }
                                 }
                               },

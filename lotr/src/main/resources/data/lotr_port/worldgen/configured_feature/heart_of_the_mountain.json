@@ -1,0 +1,19 @@
+{
+  "type": "lotr_port:heart_of_the_mountain",
+  "config": {
+    "block": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "lotr_port:heart_of_the_mountain"
+      }
+    },
+    "cell": 640,
+    "samples": 6,
+    "min_ground": 200,
+    "jitter": 0.15,
+    "base": 62,
+    "depth_min": 0.25,
+    "depth_max": 0.6,
+    "cover": 24
+  }
+}

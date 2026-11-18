@@ -14,6 +14,10 @@ public class AnimalBehaviour implements CreatureBehaviour {
     public void addGoals(LotrNpc npc) {
         if (CreatureBehaviour.data(npc, "fights_back", 0) <= 0) {
             npc.goals().addGoal(1, new PanicGoal(npc, CreatureBehaviour.data(npc, "panic_speed", 1.25f)));
+            // no NPC targeting at all (LOTR's deer, rabbits, birds were plain EntityAnimals): with the NPC's
+            // hurt-by-target goal a hit deer took its attacker as target and the melee goal swung before tick()
+            // could clear it, so deer "fought back" once per hit
+            npc.targets().removeAllGoals(g -> true);
         }
     }
 

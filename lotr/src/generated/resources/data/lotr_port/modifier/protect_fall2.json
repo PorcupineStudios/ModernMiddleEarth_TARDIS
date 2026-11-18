@@ -1,0 +1,7 @@
+{
+  "weight": 2,
+  "skilful": true,
+  "persists_reforge": false,
+  "value": 2.0,
+  "upgrade": "lotr_port:protect_fall3"
+}

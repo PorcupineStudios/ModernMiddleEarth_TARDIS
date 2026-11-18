@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "lotr_port:scorched_stone"
+  },
+  "result": {
+    "id": "lotr_port:scorched_stone_wall",
+    "count": 1
+  }
+}

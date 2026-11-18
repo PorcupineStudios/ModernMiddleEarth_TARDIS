@@ -1,0 +1,14 @@
+{
+  "name": "Seat of Learning",
+  "order": 6,
+  "description": "A library and Civics researched",
+  "buildings": [
+    "lotr_port:library"
+  ],
+  "techs": [
+    "lotr_port:civics"
+  ],
+  "research": {
+    "lotr_port:scholarly": 15
+  }
+}

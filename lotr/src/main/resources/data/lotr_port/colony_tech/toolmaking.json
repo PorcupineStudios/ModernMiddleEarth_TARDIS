@@ -1,0 +1,15 @@
+{
+  "name": "Toolmaking",
+  "lane": "crafts",
+  "stage": 1,
+  "description": "Smiths learn to forge tools; trades waste less",
+  "cost": {
+    "research": {
+      "lotr_port:basic": 20
+    }
+  },
+  "jobs": {
+    "lotr_port:smith": 1.1,
+    "lotr_port:carpenter": 1.1
+  }
+}

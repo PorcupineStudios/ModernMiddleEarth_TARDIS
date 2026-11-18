@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "lotr_port:block/heart_of_the_mountain"
+    }
+  }
+}

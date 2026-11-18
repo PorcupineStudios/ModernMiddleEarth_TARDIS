@@ -1,0 +1,24 @@
+{
+  "replace": false,
+  "values": [
+    "lotr_port:black_clay_tiling",
+    "lotr_port:blue_clay_tiling",
+    "lotr_port:brown_clay_tiling",
+    "lotr_port:clay_tiling",
+    "lotr_port:cyan_clay_tiling",
+    "lotr_port:elvengrass",
+    "lotr_port:gray_clay_tiling",
+    "lotr_port:green_clay_tiling",
+    "lotr_port:jungle_grass",
+    "lotr_port:light_blue_clay_tiling",
+    "lotr_port:light_gray_clay_tiling",
+    "lotr_port:lime_clay_tiling",
+    "lotr_port:magenta_clay_tiling",
+    "lotr_port:orange_clay_tiling",
+    "lotr_port:pink_clay_tiling",
+    "lotr_port:purple_clay_tiling",
+    "lotr_port:red_clay_tiling",
+    "lotr_port:white_clay_tiling",
+    "lotr_port:yellow_clay_tiling"
+  ]
+}

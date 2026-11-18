@@ -74,6 +74,11 @@ public final class LotrClient {
             KeyConflictContext.IN_GAME, InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_LEFT, "key.categories.lotr_port");
     public static final KeyMapping ALIGNMENT_NEXT_KEY = new KeyMapping("key.lotr_port.alignment_next",
             KeyConflictContext.IN_GAME, InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_RIGHT, "key.categories.lotr_port");
+    /** The alignment bar's region (LOTR's up/down): West, East, South, then realms. */
+    public static final KeyMapping ALIGNMENT_REGION_PREV_KEY = new KeyMapping("key.lotr_port.alignment_region_prev",
+            KeyConflictContext.IN_GAME, InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_UP, "key.categories.lotr_port");
+    public static final KeyMapping ALIGNMENT_REGION_NEXT_KEY = new KeyMapping("key.lotr_port.alignment_region_next",
+            KeyConflictContext.IN_GAME, InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_DOWN, "key.categories.lotr_port");
 
     private LotrClient() {}
 
@@ -81,17 +86,21 @@ public final class LotrClient {
     public static void setup(FMLClientSetupEvent event) {
         Atmosphere.init();
         ColorGrade.init();
+        event.enqueueWork(WoodSetRenderers::setup);
         MapNet.clientHandler = (data, ctx) -> MapScreen.open(data);
         QuestNet.offerHandler = QuestOfferScreen::open;
+        com.porcupinestudios.lotrport.npc.Traders.interactHandler = TraderInteractScreen::open;
         QuestNet.bookHandler = RedBookScreen::show;
         HudNet.barHandler = LotrHud::receive;
+        RigRenderer.init();
         com.porcupinestudios.lotrport.unit.UnitNet.listHandler = UnitScreen::show;
         com.porcupinestudios.lotrport.colony.members.HallNet.hallHandler = HallScreen::show;
-        com.porcupinestudios.lotrport.colony.work.LedgerNet.ledgerHandler = LedgerScreen::show;
         com.porcupinestudios.lotrport.colony.work.LedgerNet.citizenHandler = CitizenScreen::show;
         com.porcupinestudios.lotrport.social.SocialNet.iconsHandler = MapScreen::icons;
         com.porcupinestudios.lotrport.social.SocialNet.viewHandler = VisibilityScreen::show;
         com.porcupinestudios.lotrport.ui.UiNet.showHandler = com.porcupinestudios.lotrport.client.ui.UiScreen::show;
+        com.porcupinestudios.lotrport.colony.book.Books.showHandler = com.porcupinestudios.lotrport.client.book.BookScreen::show;
+        com.porcupinestudios.lotrport.client.book.BookPreview.init();
         com.porcupinestudios.lotrport.ui.UiNet.closeHandler = com.porcupinestudios.lotrport.client.ui.UiScreen::close;
         event.enqueueWork(LotrClient::rangedProperties);
     }
@@ -132,6 +141,8 @@ public final class LotrClient {
     @SubscribeEvent
     public static void screens(RegisterMenuScreensEvent event) {
         event.register(Drinks.KEG_MENU.get(), KegScreen::new);
+        event.register(com.porcupinestudios.lotrport.npc.Traders.TRADE_MENU.get(), TradeScreen::new);
+        event.register(com.porcupinestudios.lotrport.npc.Traders.EXCHANGE_MENU.get(), CoinExchangeScreen::new);
         event.register(Machines.FORGE_MENU.get(), MachineScreen::new);
         event.register(Machines.OVEN_MENU.get(), MachineScreen::new);
         event.register(Machines.MILLSTONE_MENU.get(), MachineScreen::new);
@@ -233,6 +244,8 @@ public final class LotrClient {
         event.register(FAST_TRAVEL_KEY);
         event.register(ALIGNMENT_PREV_KEY);
         event.register(ALIGNMENT_NEXT_KEY);
+        event.register(ALIGNMENT_REGION_PREV_KEY);
+        event.register(ALIGNMENT_REGION_NEXT_KEY);
     }
 
     @SubscribeEvent
@@ -249,6 +262,7 @@ public final class LotrClient {
     @SubscribeEvent
     public static void renderers(EntityRenderersEvent.RegisterRenderers event) {
         event.registerEntityRenderer(LotrEntities.NPC.get(), NpcRenderer::new);
+        event.registerEntityRenderer(LotrEntities.RIGGED.get(), NpcRenderer::new);
         event.registerEntityRenderer(com.porcupinestudios.lotrport.land.LandEntities.BANNER.get(),
                 ClaimBannerRenderer::new);
         com.porcupinestudios.lotrport.mount.Mounts.TYPE_BY_BREED.values()
@@ -259,5 +273,6 @@ public final class LotrClient {
         event.registerEntityRenderer(com.porcupinestudios.lotrport.content.figure.Figures.TYPE.get(), FigureRenderer::new);
         MachineRenderers.register(event);
         ThrownRenderers.register(event);
+        WoodSetRenderers.register(event);
     }
 }

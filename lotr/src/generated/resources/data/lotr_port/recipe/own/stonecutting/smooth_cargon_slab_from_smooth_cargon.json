@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "lotr_port:smooth_cargon"
+  },
+  "result": {
+    "id": "lotr_port:smooth_cargon_slab",
+    "count": 2
+  }
+}

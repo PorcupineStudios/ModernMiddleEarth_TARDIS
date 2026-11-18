@@ -1,5 +1,5 @@
 """
-LOTR's farming blocks (missing-features task 32), turned into block kinds the port runs (`content/farm/`):
+LOTR's farming blocks, turned into block kinds the port runs (`content/farm/`):
 
 - `crop`: LOTR's leek, lettuce, turnip, yam, flax and pipe-weed crops (vanilla BlockCrops, ages 0-7). LOTR's
   getIcon: ages 0-6 show icon age/2 (6 counts as 5), age 7 the last icon (flax: the block's own, the flax plant).

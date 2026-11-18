@@ -5,8 +5,10 @@
   "compatibilityLevel": "JAVA_21",
   "mixins": [
     "NoiseGeneratorMixin",
+    "AnimalGenerationMixin",
     "RaceHungerMixin",
-    "RaceCrouchMixin"
+    "RaceCrouchMixin",
+    "CraftedModifierMixin"
   ],
   "client": [
     "PlayerSkinMixin"

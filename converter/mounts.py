@@ -1,5 +1,5 @@
 """
-LOTR's mounts (missing-features task 27): horses, Shire ponies, zebras, wild boars, camels, elk, rhinos and giraffes
+LOTR's mounts: horses, Shire ponies, zebras, wild boars, camels, elk, rhinos and giraffes
 (LOTREntityHorse and its subclasses, all horses to Minecraft), mount armour, and NPCs that spawn riding.
 
 Numbers are LOTR's, read from these classes (values only):

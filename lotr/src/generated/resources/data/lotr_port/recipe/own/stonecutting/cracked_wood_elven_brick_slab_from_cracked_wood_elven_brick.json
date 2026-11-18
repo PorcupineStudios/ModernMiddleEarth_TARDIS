@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "lotr_port:cracked_wood_elven_brick"
+  },
+  "result": {
+    "id": "lotr_port:cracked_wood_elven_brick_slab",
+    "count": 2
+  }
+}

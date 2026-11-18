@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "values": [
+    "lotr_port:button",
+    "lotr_port:button_2",
+    "lotr_port:button_3",
+    "lotr_port:button_4",
+    "lotr_port:button_5",
+    "lotr_port:button_block"
+  ]
+}

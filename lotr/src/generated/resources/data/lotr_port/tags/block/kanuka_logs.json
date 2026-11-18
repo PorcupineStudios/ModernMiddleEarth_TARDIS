@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "values": [
+    "lotr_port:kanuka_wood",
+    "lotr_port:kanuka_wood_beam",
+    "lotr_port:stripped_kanuka_wood",
+    "lotr_port:stripped_kanuka_wood_beam",
+    "lotr_port:kanuka_bark",
+    "lotr_port:stripped_kanuka_bark"
+  ]
+}

@@ -21,6 +21,8 @@
     "lotr_port:rivendell_bow",
     "lotr_port:rohirric_bow",
     "lotr_port:uruk_crossbow",
-    "lotr_port:utumno_bow"
+    "lotr_port:utumno_bow",
+    "#minecraft:enchantable/bow",
+    "#minecraft:enchantable/crossbow"
   ]
 }

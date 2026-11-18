@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
+    "lotr_port:heart_of_the_mountain",
     "lotr_port:obsidian_stalactite",
     "lotr_port:obsidian_stalagmite"
   ]

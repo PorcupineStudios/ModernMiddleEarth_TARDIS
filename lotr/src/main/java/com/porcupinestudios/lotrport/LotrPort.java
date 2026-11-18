@@ -58,6 +58,9 @@ public final class LotrPort {
     public LotrPort(IEventBus modBus, ModContainer container) {
         container.registerConfig(ModConfig.Type.COMMON, LotrConfig.SPEC);
         container.registerConfig(ModConfig.Type.CLIENT, LotrClientConfig.SPEC);
+        // every Middle-earth biome's cave settings, by land and region (data/lotr_port/biome_config.json)
+        container.registerConfig(ModConfig.Type.COMMON, com.porcupinestudios.lotrport.world.BiomeCaveConfig.SPEC,
+                "lotr_port-biomes.toml");
         LotrRegistries.register(modBus);
         LotrSounds.register(modBus);
         LotrBlocks.register(modBus);
@@ -86,6 +89,9 @@ public final class LotrPort {
         Factions.register();
         FactionKills.register();
         com.porcupinestudios.lotrport.content.FeastMode.register();
+        com.porcupinestudios.lotrport.modifier.Modifiers.register(modBus);
+        com.porcupinestudios.lotrport.world.NoMonsters.register();
+        com.porcupinestudios.lotrport.content.woodset.WoodSets.register(modBus);
         com.porcupinestudios.lotrport.faction.FactionInfluence.register();
         NpcData.register();
         NpcSpawns.register();
@@ -98,20 +104,26 @@ public final class LotrPort {
         FastTravel.register();
         MapNet.register(modBus);
         QuestNet.register(modBus);
+        com.porcupinestudios.lotrport.npc.Traders.register(modBus);
         HudNet.register(modBus);
+        com.porcupinestudios.lotrport.rig.Rigs.register(modBus);
         com.porcupinestudios.lotrport.unit.UnitNet.register(modBus);
         com.porcupinestudios.lotrport.land.LandEntities.register(modBus);
         com.porcupinestudios.lotrport.colony.members.Permissions.register();
         com.porcupinestudios.lotrport.colony.members.HallNet.register(modBus);
         com.porcupinestudios.lotrport.colony.work.LedgerNet.register(modBus);
+        com.porcupinestudios.lotrport.colony.book.Books.register(modBus);
         com.porcupinestudios.lotrport.social.SocialNet.register(modBus);
         com.porcupinestudios.lotrport.ui.UiNet.register(modBus);
         com.porcupinestudios.lotrport.colonist.Colonists.register();
         com.porcupinestudios.lotrport.colony.ui.ColonyViews.register();
+        com.porcupinestudios.lotrport.npc.Hiring.registerView();
         AlignmentHud.register();
         com.porcupinestudios.lotrport.player.Races.register(modBus);
         AttackTiming.register();
         ColonyItems.register(modBus);
+        com.porcupinestudios.lotrport.colony.ColonyBlocks.register(modBus);
+        com.porcupinestudios.lotrport.content.HeartOfTheMountain.register(modBus);
         ColonyData.register();
         CoreComponents.init();
         SimSettings.register();
@@ -128,6 +140,8 @@ public final class LotrPort {
         com.porcupinestudios.lotrport.colony.market.Market.register();
         com.porcupinestudios.lotrport.colony.building.BuildingSystems.register();
         com.porcupinestudios.lotrport.colony.work.Life.register();
+        com.porcupinestudios.lotrport.colony.people.Council.register();
+        com.porcupinestudios.lotrport.colony.tech.Techs.register();
         com.porcupinestudios.lotrport.unit.Units.register();
         ColonyScheduler.register();
         Colonies.register();
@@ -138,6 +152,7 @@ public final class LotrPort {
         com.porcupinestudios.lotrport.journey.Journeys.register();
         com.porcupinestudios.lotrport.journey.Caravans.register();
         Recruiting.register();
+        com.porcupinestudios.lotrport.world.Pregen.register();
         com.porcupinestudios.lotrport.npc.InvasionSpawner.register();
         com.porcupinestudios.lotrport.progress.Achievements.register();
         com.porcupinestudios.lotrport.progress.Titles.register();
@@ -154,6 +169,7 @@ public final class LotrPort {
             com.porcupinestudios.lotrport.progress.Cosmetics.registerCommands(event.getDispatcher());
             com.porcupinestudios.lotrport.progress.Calendar.registerCommands(event.getDispatcher());
             AlignmentHud.registerCommands(event.getDispatcher());
+            com.porcupinestudios.lotrport.world.Pregen.registerCommands(event.getDispatcher());
             com.porcupinestudios.lotrport.player.Races.registerCommands(event.getDispatcher());
         });
     }

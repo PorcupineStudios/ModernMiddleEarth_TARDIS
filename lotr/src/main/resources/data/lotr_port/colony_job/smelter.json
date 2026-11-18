@@ -12,5 +12,39 @@
   "races": {
     "dwarf": 1.5,
     "orc": 1.5
-  }
+  },
+  "recipes": [
+    {
+      "consumes": {
+        "minecraft:raw_gold": 1
+      },
+      "produces": {
+        "minecraft:gold_ingot": 1
+      }
+    },
+    {
+      "consumes": {
+        "minecraft:raw_copper": 1
+      },
+      "produces": {
+        "minecraft:copper_ingot": 1
+      }
+    },
+    {
+      "consumes": {
+        "minecraft:sand": 1
+      },
+      "produces": {
+        "minecraft:glass": 1
+      }
+    },
+    {
+      "consumes": {
+        "minecraft:oak_log": 1
+      },
+      "produces": {
+        "minecraft:charcoal": 1
+      }
+    }
+  ]
 }

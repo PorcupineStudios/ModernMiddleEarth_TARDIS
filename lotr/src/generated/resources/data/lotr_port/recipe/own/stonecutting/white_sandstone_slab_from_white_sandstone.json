@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "lotr_port:white_sandstone"
+  },
+  "result": {
+    "id": "lotr_port:white_sandstone_slab",
+    "count": 2
+  }
+}

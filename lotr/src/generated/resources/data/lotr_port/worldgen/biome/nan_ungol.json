@@ -16,13 +16,30 @@
     "grass_color": 5980459,
     "foliage_color": 6508333
   },
-  "spawners": {},
+  "spawners": {
+    "ambient": [
+      {
+        "type": "minecraft:bat",
+        "maxCount": 8,
+        "minCount": 8,
+        "weight": 10
+      }
+    ],
+    "underground_water_creature": [
+      {
+        "type": "minecraft:glow_squid",
+        "maxCount": 6,
+        "minCount": 4,
+        "weight": 10
+      }
+    ]
+  },
   "spawn_costs": {},
   "carvers": {
     "air": [
-      "minecraft:cave",
-      "minecraft:cave_extra_underground",
-      "minecraft:canyon"
+      "lotr_port:cave",
+      "lotr_port:cave_extra_underground",
+      "lotr_port:canyon"
     ]
   },
   "features": [
@@ -31,7 +48,9 @@
       "lotr_port:crater_lava"
     ],
     [
-      "lotr_port:roads"
+      "lotr_port:roads",
+      "minecraft:amethyst_geode",
+      "lotr_port:dripstone_pocket_large"
     ],
     [],
     [],
@@ -51,12 +70,15 @@
       "minecraft:ore_tuff"
     ],
     [
-      "lotr_port:dripstone"
+      "lotr_port:dripstone",
+      "lotr_port:dripstone_pocket_cluster",
+      "lotr_port:dripstone_pocket_pointed"
     ],
     [],
     [
       "lotr_port:trees/nan_ungol",
-      "lotr_port:plant/dried_reeds_1_0"
+      "lotr_port:plant/dried_reeds_1_0",
+      "minecraft:glow_lichen"
     ],
     [
       "minecraft:freeze_top_layer"

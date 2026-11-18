@@ -45,15 +45,43 @@
         "weight": 4,
         "minCount": 4,
         "maxCount": 6
+      },
+      {
+        "type": "minecraft:rabbit",
+        "weight": 4,
+        "minCount": 2,
+        "maxCount": 3
+      },
+      {
+        "type": "minecraft:fox",
+        "weight": 8,
+        "minCount": 2,
+        "maxCount": 4
+      }
+    ],
+    "ambient": [
+      {
+        "type": "minecraft:bat",
+        "maxCount": 8,
+        "minCount": 8,
+        "weight": 10
+      }
+    ],
+    "underground_water_creature": [
+      {
+        "type": "minecraft:glow_squid",
+        "maxCount": 6,
+        "minCount": 4,
+        "weight": 10
       }
     ]
   },
   "spawn_costs": {},
   "carvers": {
     "air": [
-      "minecraft:cave",
-      "minecraft:cave_extra_underground",
-      "minecraft:canyon"
+      "lotr_port:cave",
+      "lotr_port:cave_extra_underground",
+      "lotr_port:canyon"
     ]
   },
   "features": [
@@ -62,7 +90,9 @@
       "lotr_port:crater_lava"
     ],
     [
-      "lotr_port:roads"
+      "lotr_port:roads",
+      "minecraft:amethyst_geode",
+      "lotr_port:dripstone_pocket_large"
     ],
     [],
     [],
@@ -96,7 +126,9 @@
       "minecraft:ore_tuff"
     ],
     [
-      "lotr_port:dripstone"
+      "lotr_port:dripstone",
+      "lotr_port:dripstone_pocket_cluster",
+      "lotr_port:dripstone_pocket_pointed"
     ],
     [],
     [
@@ -106,7 +138,11 @@
       "lotr_port:plant/dried_reeds_0_1",
       "minecraft:flower_default",
       "minecraft:patch_grass_plain",
-      "minecraft:patch_tall_grass"
+      "minecraft:patch_tall_grass",
+      "minecraft:glow_lichen",
+      "minecraft:brown_mushroom_normal",
+      "minecraft:red_mushroom_normal",
+      "minecraft:patch_berry_common"
     ],
     [
       "minecraft:freeze_top_layer"

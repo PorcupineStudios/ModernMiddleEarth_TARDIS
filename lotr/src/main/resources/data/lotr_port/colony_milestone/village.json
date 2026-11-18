@@ -1,0 +1,15 @@
+{
+  "name": "Village",
+  "order": 2,
+  "description": "15 citizens",
+  "condition": {
+    "type": "lotr_port:colony_population",
+    "colony": "home",
+    "compare": ">=",
+    "value": 15
+  },
+  "coins": 150,
+  "research": {
+    "lotr_port:basic": 25
+  }
+}

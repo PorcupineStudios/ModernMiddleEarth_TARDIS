@@ -1,0 +1,8 @@
+{
+  "type": "lotr_port:bee_nest",
+  "config": {
+    "depth": 24,
+    "min_bees": 2,
+    "max_bees": 3
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "lotr_port:dorwinion_brick"
+  },
+  "result": {
+    "id": "lotr_port:carved_dorwinion_brick",
+    "count": 1
+  }
+}

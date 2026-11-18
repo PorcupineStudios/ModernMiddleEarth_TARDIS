@@ -1,0 +1,7 @@
+{
+  "replace": false,
+  "values": [
+    "lotr_port:flax_seeds",
+    "lotr_port:pipe_weed_seeds"
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "lotr_port:cargon"
+  },
+  "result": {
+    "id": "lotr_port:carved_cargon_brick",
+    "count": 1
+  }
+}

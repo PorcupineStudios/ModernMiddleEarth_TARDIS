@@ -73,9 +73,18 @@ Turns LOTR 36.15 (1.7.10) content into the 1.21.1 port's generated resources. Tw
    into dyes, and LOTR sands and gravels wash like vanilla's. `converter/create/crossref.json` lists every match and
    why.
 
+   **Post-steps** (2026-11-17/18, "Modern Middle-earth"): small scripts that work on the generated content itself (no
+   LOTR jar needed; vanilla 1.21.1's client jar is downloaded once to `converter/cache/`). `generate.py` runs them
+   last, in this order; each is idempotent and can be rerun alone (`python3 converter/<name>.py`):
+   `woodsets.py` (bark and stripped blocks, signs, hanging signs, buttons, pressure plates, boats for all 39 woods),
+   `tags.py` (every block and item gets its vanilla analogue's tags plus `c:` tags; `tags_report.json`),
+   `waterlog.py` (71 thin blocks), `stonecutting.py` (464 recipes), `waters.py` (5 seas by latitude, sea and river
+   life), `mountains.py` (powder snow, ice, goats...), `land.py` (bees, frogs, foxes, plants), `noisecaves.py` (1.18
+   noise caves and aquifers), `caves.py` (lush and dripstone pockets), `biomeconfig.py` (the per-biome cave config
+   `lotr_port-biomes.toml` and its biome-aware carvers). Details: `lotr/CLAUDE.md` "Modern Middle-earth".
+
 Never edit generated files by hand: change the generator and run it again.
 
-Known gaps (report.json): spawn eggs and structure spawners wait for the NPC and structure phases; LOTR's special
-recipes (poisoning weapons, dyeing) are code, not data; drinks keep one item per drink (vessel and strength become
-data later); a few armor sets use one texture per item; connected textures are baked to the single-block look;
-leaves and grass are untinted; blocks only placed by an item (crops, beds, plates, portals) drop nothing yet.
+Known gaps (report.json): LOTR's dyeing recipes need dyed-colour support on those items; a few armor sets use one
+texture per item; connected textures are baked to the single-block look. What the port still lacks overall:
+`lotr/docs/missing-features.md`.

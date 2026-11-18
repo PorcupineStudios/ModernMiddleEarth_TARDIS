@@ -1,0 +1,18 @@
+{
+  "replace": false,
+  "values": [
+    "lotr_port:cooked_camel",
+    "lotr_port:cooked_corn",
+    "lotr_port:cooked_lion",
+    "lotr_port:cooked_rabbit",
+    "lotr_port:cooked_rhino",
+    "lotr_port:cooked_venison",
+    "lotr_port:cooked_zebra",
+    "lotr_port:kebab",
+    "lotr_port:roast_chestnut",
+    "lotr_port:roast_turnip",
+    "lotr_port:roast_yam",
+    "lotr_port:shish_kebab",
+    "lotr_port:suspicious_meat"
+  ]
+}

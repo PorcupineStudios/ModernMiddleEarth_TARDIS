@@ -1291,5 +1291,29 @@
       "height": 82.8,
       "variation": 13.9
     }
-  ]
+  ],
+  "seas": {
+    "wobble": 3000,
+    "zones": [
+      {
+        "biome": "lotr_port:frozen_ocean",
+        "below_z": -45000
+      },
+      {
+        "biome": "lotr_port:cold_ocean",
+        "below_z": -12000
+      },
+      {
+        "biome": "lotr_port:ocean",
+        "below_z": 60000
+      },
+      {
+        "biome": "lotr_port:lukewarm_ocean",
+        "below_z": 110000
+      },
+      {
+        "biome": "lotr_port:warm_ocean"
+      }
+    ]
+  }
 }

@@ -1,0 +1,9 @@
+{
+  "weight": 10,
+  "skilful": true,
+  "persists_reforge": false,
+  "value": 3.0,
+  "acts_as": {
+    "minecraft:silk_touch": 1
+  }
+}

@@ -1,5 +1,5 @@
 """
-LOTR's ores that drop an item (missing-features task 37): sulfur, saltpeter, naurite, quendite, gulduril,
+LOTR's ores that drop an item: sulfur, saltpeter, naurite, quendite, gulduril,
 glowstone ore and the eight gems. Read from LOTRBlockOre / OreGem / OreMordorVariant:
 the item and its count (`drops`, exported), fortune as vanilla ores (quantityDroppedWithBonus), and the experience
 LOTR's dropBlockAsItemWithChance gave (MathHelper.getRandomIntegerInRange). Silk touch gives the ore block.

@@ -170,7 +170,8 @@ VEGETATION = ["minecraft:trees_taiga", "minecraft:trees_jungle", "minecraft:tree
               "minecraft:patch_grass_forest", "minecraft:patch_grass_plain", "minecraft:patch_dead_bush",
               "minecraft:patch_cactus_desert", "minecraft:patch_sugar_cane", "minecraft:patch_tall_grass",
               "minecraft:patch_large_fern"]
-CARVERS = ["minecraft:cave", "minecraft:cave_extra_underground", "minecraft:canyon"]
+# vanilla's carvers as the port's biome-aware copies (biomeconfig.py writes them; BiomeCarvers.java)
+CARVERS = ["lotr_port:cave", "lotr_port:cave_extra_underground", "lotr_port:canyon"]
 
 GRAZERS = [("minecraft:sheep", 12, 2, 4), ("minecraft:pig", 10, 2, 4), ("minecraft:chicken", 10, 2, 4),
            ("minecraft:cow", 8, 2, 4)]
@@ -944,7 +945,9 @@ def mountain_rules(mtn):
     snow, stone_y, stone, sand = mtn
     stone_rules = _above_less_rock_depth(stone_y, block_rule(stone))
     sand_rules = _above_less_rock_depth(stone_y - 6, block_rule(sand)) if sand else []
-    top = (_above_less_rock_depth(snow, block_rule("minecraft:snow_block")) if snow else []) + stone_rules + sand_rules
+    # the snow line: vanilla frozen peaks' powder snow, packed ice and ice patches, else snow (mountains.py)
+    from mountains import snow_top
+    top = (_above_less_rock_depth(snow, snow_top()) if snow else []) + stone_rules + sand_rules
     return top, stone_rules + sand_rules
 # around quagmires, near the water line: mud (1.19)
 MUD_RULE = {"type": "minecraft:condition", "if_true": {"type": "minecraft:not", "invert": {

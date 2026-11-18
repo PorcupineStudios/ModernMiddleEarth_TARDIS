@@ -1,0 +1,9 @@
+{
+  "type": "neoforge:add_features",
+  "biomes": "#lotr_port:middle_earth",
+  "features": [
+    "lotr_port:mountain_ores",
+    "lotr_port:heart_of_the_mountain"
+  ],
+  "step": "underground_ores"
+}

@@ -98,20 +98,28 @@ public final class CreatureTests {
     public static void aurochsKnocksBack(GameTestHelper helper) {
         LotrNpc aurochs = spawn(helper, "aurochs", 1.5, 1.5);
         Pig pig = pig(helper, 3.5, 1.5);
+        // facing the pig, as when it charges: LOTR's push goes the way the attacker faces, and spawned facing away it
+        // cancels vanilla's hit knockback (the old flake)
+        aurochs.lookAt(net.minecraft.commands.arguments.EntityAnchorArgument.Anchor.EYES, pig.position());
+        aurochs.setYBodyRot(aurochs.getYRot());
         helper.assertTrue(aurochs.doHurtTarget(pig), "the aurochs' blow didn't land");
         helper.assertTrue(pig.getDeltaMovement().horizontalDistance() > 0.1, "the aurochs didn't knock the pig back");
         helper.succeed();
     }
 
-    /** LOTR's rabbits try 32 random spots within 16 for a crop, 1 in 20 a tick: random, so up to 3 tries. */
-    @GameTest(template = EMPTY, batch = "creatures", timeoutTicks = 3000, attempts = 3, requiredSuccesses = 1)
+    /**
+     * LOTR's rabbits try 32 random spots within 16 for a crop, 1 in 20 a tick: random, so up to 3 tries. Its own
+     * batch (the empty template is 1 block, so a shared batch packs other tests and their animals into the field),
+     * and a field of 80 crops so a search hits one about once every 7 seconds.
+     */
+    @GameTest(template = EMPTY, batch = "creature_rabbit", timeoutTicks = 3000, attempts = 3, requiredSuccesses = 1)
     public static void rabbitEatsCrop(GameTestHelper helper) {
         helper.getLevel().getGameRules().getRule(net.minecraft.world.level.GameRules.RULE_MOBGRIEFING)
                 .set(true, helper.getLevel().getServer());
         java.util.List<net.minecraft.core.BlockPos> field = new java.util.ArrayList<>();
-        ThrownTests.inLoadedArea(helper, 8, 4, () -> {
-            for (int x = 3; x <= 8; x++) {
-                for (int z = 0; z <= 3; z++) {
+        ThrownTests.inLoadedArea(helper, 12, 8, () -> {
+            for (int x = 3; x <= 12; x++) {
+                for (int z = -1; z <= 6; z++) {
                     var crop = new net.minecraft.core.BlockPos(x, 1, z);
                     helper.setBlock(crop.below(), net.minecraft.world.level.block.Blocks.FARMLAND);
                     helper.setBlock(crop, net.minecraft.world.level.block.Blocks.WHEAT);
@@ -151,6 +159,46 @@ public final class CreatureTests {
             helper.getLevel().addFreshEntity(seeds);
             helper.succeedWhen(() -> helper.assertTrue(!seeds.isAlive() || seeds.getItem().getCount() < 8,
                     "the bird hasn't stolen any seeds"));
+        });
+    }
+
+    /**
+     * LOTR's animals spawn and stay like 1.7.10's creatures (Aaron 2026-11-18: aurochs were rare and vanished): their
+     * tables spawn with the land and count only animals against the cap, and an aurochs doesn't despawn when no player
+     * is near, while an orc still does.
+     */
+    @GameTest(template = EMPTY, batch = "creatures")
+    public static void lotrAnimalsSpawnAndStayLikeAnimals(GameTestHelper helper) {
+        var table = com.porcupinestudios.lotrport.npc.NpcSpawns.animalsForBiome(LotrPort.id("rohan"));
+        helper.assertTrue(table.isPresent() && table.get().entries().stream()
+                .anyMatch(e -> e.npc().equals(LotrPort.id("aurochs"))), "Rohan has no aurochs");
+        helper.assertTrue(table.get().generationChance() > 0, "Rohan's animals don't come with the land");
+        helper.assertTrue(table.get().countOnlyAnimals(), "Rohan's animal cap counts people too");
+        helper.assertTrue(com.porcupinestudios.lotrport.npc.NpcSpawns.isAnimal(LotrPort.id("aurochs"))
+                && !com.porcupinestudios.lotrport.npc.NpcSpawns.isAnimal(LotrPort.id("mordor_orc")),
+                "aurochs and orcs sorted wrong");
+        LotrNpc aurochs = spawn(helper, "aurochs", 1.5, 1.5);
+        LotrNpc orc = spawn(helper, "mordor_orc", 3.5, 1.5);
+        helper.assertTrue(!aurochs.removeWhenFarAway(1000), "an aurochs despawns when no player is near");
+        helper.assertTrue(orc.removeWhenFarAway(1000), "an orc no longer despawns");
+        aurochs.discard();
+        orc.discard();
+        helper.succeed();
+    }
+
+    /** A hit deer runs (LOTR's deer were plain animals): it takes no target and never strikes back. */
+    @GameTest(template = EMPTY, batch = "creatures", timeoutTicks = 200)
+    public static void deerRunsAndNeverFightsBack(GameTestHelper helper) {
+        ThrownTests.inLoadedArea(helper, 4, 4, () -> {
+            LotrNpc deer = spawn(helper, "deer", 1.5, 1.5);
+            Pig pig = pig(helper, 2.5, 1.5);
+            float before = pig.getHealth();
+            deer.hurt(helper.getLevel().damageSources().mobAttack(pig), 1f);
+            helper.runAfterDelay(60, () -> {
+                helper.assertTrue(deer.getTarget() == null, "the deer targets " + deer.getTarget());
+                helper.assertTrue(pig.getHealth() >= before, "the deer hit back: pig at " + pig.getHealth());
+                helper.succeed();
+            });
         });
     }
 }

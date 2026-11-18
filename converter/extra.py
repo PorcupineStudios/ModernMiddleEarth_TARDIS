@@ -65,6 +65,11 @@ VANILLA_ANIMALS = {"EntitySheep": "minecraft:sheep", "EntityPig": "minecraft:pig
                    "EntityBat": "minecraft:bat", "EntitySquid": "minecraft:squid"}
 # LOTR's horse family (horses, boars, camels, elk...): the port's mount entities (mounts.py)
 STAND_INS = dict(__import__("mounts").BY_CLASS)
+# How LOTR's animal NPCs spawn, as 1.7.10's creatures did: with the land at world generation (its biomes' spawning
+# chance 0.1 per chunk) and every 400 ticks after, up to vanilla's creature cap of 10, counting only animals (people
+# don't keep them away) within 128 blocks of the player. They don't despawn (LotrNpc.removeWhenFarAway).
+ANIMAL_SPAWNING = {"cap": 10, "chance": 1.0, "interval": 400, "radius": 128, "count_only_animals": True,
+                   "generation_chance": 0.1}
 LANG_PREFIXES = ("lotr.invasion.", "lotr.enchant.", "lotr.achievement.", "lotr.title.", "lotr.titles.", "lotr.shields.",
                  "lotr.date.", "item.lotr.drink.", "lotr.capes.")
 
@@ -85,6 +90,13 @@ DRINK_SPECIAL = {
     # LOTRItemMugTermite: 1 in 6 drinks explode with power 3 at the drinker
     "lotr:item.mugTermiteTequila": {"explode": {"chance": 6, "power": 3.0}},
 }
+
+VANILLA_GEAR = {"melee": ["#minecraft:swords"],
+               "tool": ["#minecraft:pickaxes", "#minecraft:axes", "#minecraft:shovels", "#minecraft:hoes"],
+               "armor": ["#minecraft:enchantable/armor"], "foot_armor": ["#minecraft:enchantable/foot_armor"],
+               "ranged": ["#minecraft:enchantable/bow", "#minecraft:enchantable/crossbow"],
+               "breakable": ["#minecraft:enchantable/durability"]}
+
 
 class Extra:
     def __init__(self, gen, export_dir, data_dir, assets_dir, content_dir, jar):
@@ -160,6 +172,9 @@ class Extra:
                     tags[f"minecraft:item/enchantable/{ARMOR_SLOT[slot]}"].add(it["id"])
                 if slot == "feet":
                     tags[f"{NS}:item/enchantable/foot_armor"].add(it["id"])
+        # LOTR's modifiers went on vanilla gear too (its enchantment types tested the item class)
+        for kind, vanilla in VANILLA_GEAR.items():
+            tags[f"{NS}:item/enchantable/{kind}"].update(vanilla)
         groups = {}
         modifiers = []
         for name, e in table.items():
@@ -207,8 +222,33 @@ class Extra:
         # LOTR's modifiers came from its anvil and forge, not the enchanting table: weight > 0 ones may be rolled
         write_json(os.path.join(self.data, NS, "tags", "enchantment", "modifier", "random.json"),
                    {"values": [m["id"] for m in modifiers if m["weight"] > 0]})
-        write_json(os.path.join(self.content, "modifiers.json"), modifiers)
+        self.write_modifier_data(self.data, modifiers)
         return len(modifiers)
+
+    # LOTR's looting and silk touch: vanilla's loot tables only know vanilla's ids, so they count as those too
+    ACTS_AS = {"looting1": {"minecraft:looting": 1}, "looting2": {"minecraft:looting": 2},
+               "looting3": {"minecraft:looting": 3}, "tool_silk": {"minecraft:silk_touch": 1}}
+
+    @staticmethod
+    def write_modifier_data(data, modifiers):
+        """Each modifier's rules as reloadable data (modifier/<id>.json, read by the port's Modifiers): weight,
+        skilful, persists_reforge, value (trade price factor), upgrade (two scrolls combine into it: the same name
+        one number up, for good modifiers) and acts_as; and #lotr_port:modifier/negative (red in tooltips)."""
+        names = {m["id"].split(":")[1] for m in modifiers}
+        negative = []
+        for m in modifiers:
+            eid = m["id"].split(":")[1]
+            out = {"weight": m["weight"], "skilful": m["skilful"], "persists_reforge": m["persists_reforge"],
+                   "value": m["value_modifier"]}
+            stem = eid.rstrip("0123456789")
+            if stem != eid and m["value_modifier"] >= 1 and f"{stem}{int(eid[len(stem):]) + 1}" in names:
+                out["upgrade"] = f"{NS}:{stem}{int(eid[len(stem):]) + 1}"
+            if eid in Extra.ACTS_AS:
+                out["acts_as"] = Extra.ACTS_AS[eid]
+            if m["value_modifier"] < 1:
+                negative.append(m["id"])
+            write_json(os.path.join(data, NS, "modifier", eid + ".json"), out)
+        write_json(os.path.join(data, NS, "tags", "enchantment", "modifier", "negative.json"), {"values": negative})
 
     @staticmethod
     def _projectile(expected=True):
@@ -523,7 +563,7 @@ class Extra:
                 write_json(path, biome)
             if lotr:
                 write_json(os.path.join(self.data, NS, "npc_animals", NS, bid + ".json"),
-                           {"entries": lotr, "cap": 4, "chance": 0.1, "interval": 400})
+                           dict(entries=lotr, **ANIMAL_SPAWNING))
                 animals += 1
         for name, inv in _named(self.d["lotr.common.world.spawning.LOTRInvasions"]).items():
             if "invasionMobs" not in inv:

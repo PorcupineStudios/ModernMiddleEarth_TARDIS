@@ -117,8 +117,11 @@ final class WorldCheck {
             generated++;
             BlockPos pos = LotrDimensions.surface(level, x, z);
             // the chunk's stored biome, not level.getBiome, which blurs biome borders by a few blocks
-            boolean found = chunk.getNoiseBiome(x >> 2, pos.getY() >> 2, z >> 2).unwrapKey().map(k -> k.location().toString().equals(id))
-                    .orElse(false);
+            // sea pixels are a sea biome by latitude (converter/waters.py): expect the one the biome source gives there
+            String want = source.biomeAtBlock(x, z).unwrapKey().map(k -> k.location().toString())
+                    .filter(b -> id.equals("lotr_port:ocean") && b.endsWith("_ocean")).orElse(id);
+            boolean found = chunk.getNoiseBiome(x >> 2, pos.getY() >> 2, z >> 2).unwrapKey()
+                    .map(k -> k.location().toString().equals(want)).orElse(false);
             if (!found) {
                 missing.add(id + " at " + x + "," + z);
             }

@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "values": [
+    "lotr_port:date_palm_wood",
+    "lotr_port:date_palm_wood_beam",
+    "lotr_port:stripped_date_palm_wood",
+    "lotr_port:stripped_date_palm_wood_beam",
+    "lotr_port:date_palm_bark",
+    "lotr_port:stripped_date_palm_bark"
+  ]
+}

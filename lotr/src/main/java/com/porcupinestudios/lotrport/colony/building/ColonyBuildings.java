@@ -21,7 +21,6 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.chat.ClickEvent;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
@@ -202,12 +201,17 @@ public final class ColonyBuildings {
                 }
             }
         }
-        List<ResourceLocation> fits = BuildingType.fitting(room.counts());
+        List<ResourceLocation> fits = BuildingType.fitting(room.counts()).stream()
+                .filter(id -> BuildingType.get(id).map(t -> t.researched(c)).orElse(false)).toList();
         ResourceLocation type;
         if (wanted.isPresent()) {
             Optional<BuildingType> t = BuildingType.get(wanted.get());
             if (t.isEmpty()) {
                 return Result.fail("colony.lotr_port.building.unknown_type", "Unknown building type %s", wanted.get());
+            }
+            if (!t.get().researched(c)) {
+                return Result.fail("colony.lotr_port.building.unresearched", "The colony must research %s first",
+                        t.get().research().get().getPath().replace('_', ' '));
             }
             Optional<BuildingType.Requirement> miss = t.get().missing(room.counts());
             if (miss.isPresent()) {
@@ -245,22 +249,13 @@ public final class ColonyBuildings {
                 "%s: %s floor, quality %s", b.label(), b.floor(), b.quality()).withStyle(ChatFormatting.GREEN);
         if (wanted.isEmpty() && fits.size() > 1) {
             msg.append(Component.literal(" ").append(Component.translatableWithFallback(
-                    "colony.lotr_port.building.could_be", "Could also be:").withStyle(ChatFormatting.GRAY)));
-            for (ResourceLocation f : fits) {
-                if (f.equals(type)) {
-                    continue;
-                }
-                BlockPos d = b.door();
-                msg.append(Component.literal(" [").append(BuildingType.titleOf(f)).append("]")
-                        .withStyle(s -> s.withColor(ChatFormatting.AQUA).withClickEvent(new ClickEvent(
-                                ClickEvent.Action.RUN_COMMAND, "/lotr_colony building " + d.getX() + " " + d.getY()
-                                        + " " + d.getZ() + " " + f))));
-            }
+                    "colony.lotr_port.building.could_be", "(%s other types fit: change it on a Building Plaque)",
+                    fits.size() - 1).withStyle(ChatFormatting.GRAY)));
         }
         return new Result(Optional.of(b), msg);
     }
 
-    /** Changes a building's type to another that fits (the [type] links). */
+    /** Changes a building's type to another that fits (the type picker on its plaque). */
     public static Result retype(ServerPlayer player, BlockPos door, ResourceLocation type) {
         for (Colony c : Colonies.get(player.server).all()) {
             Optional<Building> b = Buildings.of(c).atDoor(door);
@@ -273,6 +268,10 @@ public final class ColonyBuildings {
             Optional<BuildingType> t = BuildingType.get(type);
             if (t.isEmpty()) {
                 return Result.fail("colony.lotr_port.building.unknown_type", "Unknown building type %s", type);
+            }
+            if (!t.get().researched(c)) {
+                return Result.fail("colony.lotr_port.building.unresearched", "The colony must research %s first",
+                        t.get().research().get().getPath().replace('_', ' '));
             }
             Optional<BuildingType.Requirement> miss = t.get().missing(b.get().counts());
             if (miss.isPresent()) {
@@ -303,7 +302,8 @@ public final class ColonyBuildings {
         } else {
             RoomScan.Room room = measure(level, door.get(), null);
             if (room.ok()) {
-                List<ResourceLocation> fits = BuildingType.fitting(room.counts());
+                List<ResourceLocation> fits = BuildingType.fitting(room.counts()).stream()
+                .filter(id -> BuildingType.get(id).map(t -> t.researched(colony)).orElse(false)).toList();
                 Building.Packed packed = Building.pack(room.cells());
                 if (!fits.isEmpty() && packed != null) {
                     ResourceLocation type = fits.contains(b.type()) ? b.type() : fits.get(0);

@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [
+    "lotr_port:iron_nugget",
+    "lotr_port:mithril_nugget",
+    "lotr_port:silver_nugget"
+  ]
+}

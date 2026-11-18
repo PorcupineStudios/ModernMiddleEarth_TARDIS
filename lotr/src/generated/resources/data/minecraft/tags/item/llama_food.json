@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "lotr_port:corn_stalks",
+    "lotr_port:reed_block",
+    "lotr_port:thatch_block",
+    "lotr_port:thatch_flooring"
+  ]
+}

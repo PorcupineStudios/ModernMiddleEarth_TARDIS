@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "values": [
+    "lotr_port:charred_wood",
+    "lotr_port:charred_wood_beam",
+    "lotr_port:stripped_charred_wood",
+    "lotr_port:stripped_charred_wood_beam",
+    "lotr_port:charred_bark",
+    "lotr_port:stripped_charred_bark"
+  ]
+}

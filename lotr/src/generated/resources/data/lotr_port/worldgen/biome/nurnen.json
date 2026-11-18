@@ -16,13 +16,30 @@
     "grass_color": 10066237,
     "foliage_color": 7042874
   },
-  "spawners": {},
+  "spawners": {
+    "ambient": [
+      {
+        "type": "minecraft:bat",
+        "maxCount": 8,
+        "minCount": 8,
+        "weight": 10
+      }
+    ],
+    "underground_water_creature": [
+      {
+        "type": "minecraft:glow_squid",
+        "maxCount": 6,
+        "minCount": 4,
+        "weight": 10
+      }
+    ]
+  },
   "spawn_costs": {},
   "carvers": {
     "air": [
-      "minecraft:cave",
-      "minecraft:cave_extra_underground",
-      "minecraft:canyon"
+      "lotr_port:cave",
+      "lotr_port:cave_extra_underground",
+      "lotr_port:canyon"
     ]
   },
   "features": [
@@ -31,7 +48,9 @@
       "lotr_port:crater_lava"
     ],
     [
-      "lotr_port:roads"
+      "lotr_port:roads",
+      "minecraft:amethyst_geode",
+      "lotr_port:dripstone_pocket_large"
     ],
     [],
     [],
@@ -51,14 +70,17 @@
       "minecraft:ore_tuff"
     ],
     [
-      "lotr_port:dripstone"
+      "lotr_port:dripstone",
+      "lotr_port:dripstone_pocket_cluster",
+      "lotr_port:dripstone_pocket_pointed"
     ],
     [],
     [
       "lotr_port:trees/nurnen",
       "lotr_port:plant/reeds_0_4",
       "lotr_port:plant/dried_reeds_0_6",
-      "minecraft:patch_grass_plain"
+      "minecraft:patch_grass_plain",
+      "minecraft:glow_lichen"
     ],
     [
       "minecraft:freeze_top_layer"

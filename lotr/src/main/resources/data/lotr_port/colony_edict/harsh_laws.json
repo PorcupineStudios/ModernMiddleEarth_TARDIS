@@ -1,0 +1,11 @@
+{
+  "name": "Harsh Laws",
+  "description": "Brawlers are flogged: fewer quarrels, a grimmer town",
+  "quarrels": 0.35,
+  "happiness": -6,
+  "unity": -4,
+  "upkeep": 0,
+  "excludes": [
+    "lotr_port:watchmen"
+  ]
+}

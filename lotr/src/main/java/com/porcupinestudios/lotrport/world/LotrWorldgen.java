@@ -29,6 +29,9 @@ public final class LotrWorldgen {
     private static final DeferredRegister<MapCodec<? extends DensityFunction>> DENSITY_FUNCTIONS =
             DeferredRegister.create(Registries.DENSITY_FUNCTION_TYPE, LotrPort.MOD_ID);
 
+    private static final DeferredRegister<net.minecraft.world.level.levelgen.carver.WorldCarver<?>> CARVERS =
+            DeferredRegister.create(Registries.CARVER, LotrPort.MOD_ID);
+
     private static final DeferredRegister<Feature<?>> FEATURES =
             DeferredRegister.create(Registries.FEATURE, LotrPort.MOD_ID);
 
@@ -44,15 +47,26 @@ public final class LotrWorldgen {
             net.minecraft.world.level.levelgen.placement.PlacementModifierType<
                     com.porcupinestudios.lotrport.world.feature.OrchardGrid>> ORCHARD_GRID = PLACEMENT_MODIFIERS.register(
                             "orchard_grid", () -> () -> com.porcupinestudios.lotrport.world.feature.OrchardGrid.CODEC);
+    public static final java.util.function.Supplier<net.minecraft.world.level.levelgen.placement.PlacementModifierType<
+                    com.porcupinestudios.lotrport.world.feature.CavePocket>> CAVE_POCKET = PLACEMENT_MODIFIERS.register(
+                            "cave_pocket", () -> () -> com.porcupinestudios.lotrport.world.feature.CavePocket.CODEC);
 
     static {
         FEATURES.register("roads", RoadFeature::new);
         FEATURES.register("forest_floor", com.porcupinestudios.lotrport.world.feature.ForestFloorFeature::new);
         FEATURES.register("crater_lava", com.porcupinestudios.lotrport.world.feature.CraterLavaFeature::new);
         FEATURES.register("reeds", com.porcupinestudios.lotrport.world.feature.ReedsFeature::new);
+        FEATURES.register("bee_nest", com.porcupinestudios.lotrport.world.feature.BeeNestFeature::new);
         FEATURES.register("template_tree", com.porcupinestudios.lotrport.world.feature.TemplateTreeFeature::new);
+        FEATURES.register("mountain_ores", com.porcupinestudios.lotrport.world.feature.MountainOresFeature::new);
+        FEATURES.register("heart_of_the_mountain",
+                com.porcupinestudios.lotrport.world.feature.HeartOfTheMountainFeature::new);
         BIOME_SOURCES.register("middle_earth", () -> MapBiomeSource.CODEC);
         DENSITY_FUNCTIONS.register("map_terrain", () -> MapTerrain.MAP_CODEC);
+        DENSITY_FUNCTIONS.register("cave_setting", () -> CaveSetting.MAP_CODEC);
+        CARVERS.register("cave", com.porcupinestudios.lotrport.world.feature.BiomeCarvers.Cave::new);
+        CARVERS.register("canyon", com.porcupinestudios.lotrport.world.feature.BiomeCarvers.Canyon::new);
+        DENSITY_FUNCTIONS.register("caves_on", () -> com.porcupinestudios.lotrport.world.map.CavesOn.MAP_CODEC);
     }
 
     private LotrWorldgen() {}
@@ -61,6 +75,9 @@ public final class LotrWorldgen {
         BIOME_SOURCES.register(modBus);
         DENSITY_FUNCTIONS.register(modBus);
         FEATURES.register(modBus);
+        CARVERS.register(modBus);
+        modBus.addListener(net.neoforged.fml.event.config.ModConfigEvent.Loading.class, BiomeCaveConfig::onConfig);
+        modBus.addListener(net.neoforged.fml.event.config.ModConfigEvent.Reloading.class, BiomeCaveConfig::onConfig);
         PLACEMENT_MODIFIERS.register(modBus);
         com.porcupinestudios.lotrport.world.structure.LotrStructures.register(modBus);
         NeoForge.EVENT_BUS.addListener(LotrWorldgen::onServerStarted);

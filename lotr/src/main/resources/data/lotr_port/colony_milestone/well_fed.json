@@ -1,0 +1,11 @@
+{
+  "name": "Well Fed",
+  "order": 7,
+  "description": "A farmstead, a kitchen and a mill",
+  "buildings": [
+    "lotr_port:farmstead",
+    "lotr_port:kitchen",
+    "lotr_port:mill"
+  ],
+  "coins": 80
+}

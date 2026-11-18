@@ -8,67 +8,67 @@
       "predicate": {
         "lotr_port:vessel": 1
       },
-      "model": "lotr_port:item/plum_kvass_clay"
+      "model": "lotr_port:item/drink/plum_kvass/clay"
     },
     {
       "predicate": {
         "lotr_port:vessel": 2
       },
-      "model": "lotr_port:item/plum_kvass_goblet_gold"
+      "model": "lotr_port:item/drink/plum_kvass/goblet_gold"
     },
     {
       "predicate": {
         "lotr_port:vessel": 3
       },
-      "model": "lotr_port:item/plum_kvass_goblet_silver"
+      "model": "lotr_port:item/drink/plum_kvass/goblet_silver"
     },
     {
       "predicate": {
         "lotr_port:vessel": 4
       },
-      "model": "lotr_port:item/plum_kvass_goblet_copper"
+      "model": "lotr_port:item/drink/plum_kvass/goblet_copper"
     },
     {
       "predicate": {
         "lotr_port:vessel": 5
       },
-      "model": "lotr_port:item/plum_kvass_goblet_wood"
+      "model": "lotr_port:item/drink/plum_kvass/goblet_wood"
     },
     {
       "predicate": {
         "lotr_port:vessel": 6
       },
-      "model": "lotr_port:item/plum_kvass_skull"
+      "model": "lotr_port:item/drink/plum_kvass/skull"
     },
     {
       "predicate": {
         "lotr_port:vessel": 7
       },
-      "model": "lotr_port:item/plum_kvass_glass"
+      "model": "lotr_port:item/drink/plum_kvass/glass"
     },
     {
       "predicate": {
         "lotr_port:vessel": 8
       },
-      "model": "lotr_port:item/plum_kvass_bottle"
+      "model": "lotr_port:item/drink/plum_kvass/bottle"
     },
     {
       "predicate": {
         "lotr_port:vessel": 9
       },
-      "model": "lotr_port:item/plum_kvass_skin"
+      "model": "lotr_port:item/drink/plum_kvass/skin"
     },
     {
       "predicate": {
         "lotr_port:vessel": 10
       },
-      "model": "lotr_port:item/plum_kvass_horn"
+      "model": "lotr_port:item/drink/plum_kvass/horn"
     },
     {
       "predicate": {
         "lotr_port:vessel": 11
       },
-      "model": "lotr_port:item/plum_kvass_horn_gold"
+      "model": "lotr_port:item/drink/plum_kvass/horn_gold"
     }
   ]
 }
