@@ -25,12 +25,13 @@ import net.neoforged.neoforge.event.AddReloadListenerEvent;
  * @param qualityPerLight quality per light, up to qualityCap
  * @param qualityPerFurnishing quality per chest or table, up to qualityCap
  * @param qualityCap most quality one of the three parts above gives
+ * @param plaqueDoorReach a Building Plaque registers the room at the nearest door within this many blocks
  */
 public record BuildingSettings(int maxRoof, int maxFloor, int volumePerFloor, int storeyFloor, int reach,
         int recheckTicks, int recheckPerPulse, int qualityBase, double qualityPerFloor, int qualityPerLight,
-        int qualityPerFurnishing, int qualityCap) {
+        int qualityPerFurnishing, int qualityCap, int plaqueDoorReach) {
     public static final BuildingSettings DEFAULT = new BuildingSettings(30, 500, 12, 4, 160, 6000, 2, 20, 0.5, 5, 4,
-            20);
+            20, 5);
     public static final Codec<BuildingSettings> CODEC = RecordCodecBuilder.create(i -> i.group(
             Codec.INT.optionalFieldOf("max_roof", DEFAULT.maxRoof()).forGetter(BuildingSettings::maxRoof),
             Codec.INT.optionalFieldOf("max_floor", DEFAULT.maxFloor()).forGetter(BuildingSettings::maxFloor),
@@ -48,7 +49,9 @@ public record BuildingSettings(int maxRoof, int maxFloor, int volumePerFloor, in
                     .forGetter(BuildingSettings::qualityPerLight),
             Codec.INT.optionalFieldOf("quality_per_furnishing", DEFAULT.qualityPerFurnishing())
                     .forGetter(BuildingSettings::qualityPerFurnishing),
-            Codec.INT.optionalFieldOf("quality_cap", DEFAULT.qualityCap()).forGetter(BuildingSettings::qualityCap))
+            Codec.INT.optionalFieldOf("quality_cap", DEFAULT.qualityCap()).forGetter(BuildingSettings::qualityCap),
+            Codec.INT.optionalFieldOf("plaque_door_reach", DEFAULT.plaqueDoorReach())
+                    .forGetter(BuildingSettings::plaqueDoorReach))
             .apply(i, BuildingSettings::new));
 
     private static final ResourceLocation FILE = LotrPort.id("settings");

@@ -26,7 +26,6 @@ public final class BuildingSystems {
         Buildings.init();
         BuildingSettings.register();
         BuildingType.register();
-        NeoForge.EVENT_BUS.addListener(WritItem::onRightClick);
         ColonySystems.register(ColonySystem.of(RECHECK, ColonySystem.Cadence.PULSE, Tier.IN_WORLD, Set.of(),
                 BuildingSystems::recheck));
     }

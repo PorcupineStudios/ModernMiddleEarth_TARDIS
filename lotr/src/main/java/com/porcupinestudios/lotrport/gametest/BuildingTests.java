@@ -124,6 +124,19 @@ public final class BuildingTests {
                     .getOrThrow();
             helper.assertTrue(back.equals(hb), "a building isn't saved and loaded back the same");
 
+            // a plaque registers the room by its door (it replaced the writ); an empty room says what it lacks
+            int x3 = x0 + 38;
+            shell(level, x3, y0, z0, x3 + 4, z0 + 4, 3);
+            door(level, new BlockPos(x3, y0 + 1, z0 + 2), Direction.EAST);
+            BlockPos plaque = new BlockPos(x3 + 1, y0 + 2, z0 + 1);
+            var empty = ColonyBuildings.plaque(player, level, plaque);
+            helper.assertTrue(empty.building().isEmpty() && empty.message().getString().contains("needs"),
+                    "an empty room didn't say what it lacks: " + empty.message().getString());
+            level.setBlock(new BlockPos(x3 + 3, y0 + 1, z0 + 3), Blocks.CHEST.defaultBlockState(), 2);
+            var byPlaque = ColonyBuildings.plaque(player, level, plaque);
+            helper.assertTrue(byPlaque.building().isPresent(), "a plaque didn't register a room with a chest: "
+                    + byPlaque.message().getString());
+
             // open to the sky: refused
             int x2 = x0 + 32;
             shell(level, x2, y0, z0, x2 + 4, z0 + 4, 2);

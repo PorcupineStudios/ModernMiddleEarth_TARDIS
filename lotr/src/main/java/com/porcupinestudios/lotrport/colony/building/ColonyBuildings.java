@@ -222,8 +222,8 @@ public final class ColonyBuildings {
             type = wanted.get();
         } else if (fits.isEmpty()) {
             return new Result(Optional.empty(), Component.translatableWithFallback(
-                    "colony.lotr_port.building.nothing_fits", "No building fits this room (%s)",
-                    describe(room.counts())).withStyle(ChatFormatting.RED));
+                    "colony.lotr_port.building.nothing_fits", "No building fits this room (%s): %s",
+                    describe(room.counts()), closest(c, room.counts())).withStyle(ChatFormatting.RED));
         } else {
             type = existing.map(Building::type).filter(fits::contains).orElse(fits.get(0));
         }
@@ -256,6 +256,56 @@ public final class ColonyBuildings {
     }
 
     /** Changes a building's type to another that fits (the type picker on its plaque). */
+    /**
+     * The nearest building types and what each still lacks, for a room nothing fits: the three researched types
+     * failing the fewest requirements, as "a house needs a bed; a storehouse needs a chest".
+     */
+    static Component closest(Colony c, java.util.Map<String, Integer> counts) {
+        record Near(ResourceLocation id, BuildingType type, long failing) {}
+        List<Near> near = BuildingType.all().entrySet().stream()
+                .filter(e -> e.getValue().researched(c))
+                .map(e -> new Near(e.getKey(), e.getValue(),
+                        e.getValue().requires().stream().filter(r -> !r.holds(counts)).count()))
+                .sorted(java.util.Comparator.comparingLong(Near::failing)
+                        .thenComparing(n -> -n.type().priority()).thenComparing(n -> n.id().toString()))
+                .limit(3).toList();
+        net.minecraft.network.chat.MutableComponent out = Component.empty();
+        for (int i = 0; i < near.size(); i++) {
+            Near n = near.get(i);
+            if (i > 0) {
+                out.append("; ");
+            }
+            out.append(n.type().missing(counts).map(BuildingType.Requirement::why)
+                    .orElse(n.type().title(n.id())));
+        }
+        return out;
+    }
+
+    /**
+     * A Building Plaque hung at {@code plaque} (facing out of its wall) registers the room at the nearest door within
+     * {@code plaque_door_reach}: the room it hangs in, or the one behind the wall it hangs on by the door. Replaces
+     * RingRealms' writ (Aaron 2026-11-18). Fails, saying why, without a door near or when the room fits nothing.
+     */
+    public static Result plaque(ServerPlayer player, ServerLevel level, BlockPos plaque) {
+        int r = BuildingSettings.get().plaqueDoorReach();
+        BlockPos best = null;
+        double bestDist = Double.MAX_VALUE;
+        for (BlockPos p : BlockPos.betweenClosed(plaque.offset(-r, -2, -r), plaque.offset(r, 2, r))) {
+            if (doorway(level, p).isPresent()) {
+                double d = p.distSqr(plaque);
+                if (d < bestDist) {
+                    bestDist = d;
+                    best = p.immutable();
+                }
+            }
+        }
+        if (best == null) {
+            return Result.fail("colony.lotr_port.plaque.no_door",
+                    "Hang the plaque in a room with a door within %s blocks, or by the door outside", r);
+        }
+        return add(player, level, best, Optional.empty(), Optional.empty());
+    }
+
     public static Result retype(ServerPlayer player, BlockPos door, ResourceLocation type) {
         for (Colony c : Colonies.get(player.server).all()) {
             Optional<Building> b = Buildings.of(c).atDoor(door);
