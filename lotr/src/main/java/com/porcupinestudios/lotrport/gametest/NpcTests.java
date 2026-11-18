@@ -49,10 +49,17 @@ public final class NpcTests {
         return npc.get();
     }
 
+    /** NPC types written by hand (the rig creatures), not by converter/npcs.py: add new ones here. */
+    private static final java.util.List<String> HAND_MADE = java.util.List.of("dragon", "mumak", "stone_giant");
+
     @GameTest(template = EMPTY)
     public static void everyNpcTypeLoadsFromData(GameTestHelper helper) {
-        int expected = ContentData.read("summary.json").get(0).get("npcs").getAsInt();
+        // the converter's types (summary.json) plus the hand-made ones in src/main/resources/data/lotr_port/npc
+        int expected = ContentData.read("summary.json").get(0).get("npcs").getAsInt() + HAND_MADE.size();
         helper.assertTrue(NpcData.loadProblems().isEmpty(), "NPC data problems: " + NpcData.loadProblems());
+        for (String id : HAND_MADE) {
+            helper.assertTrue(NpcData.type(LotrPort.id(id)).isPresent(), "hand-made NPC type " + id + " didn't load");
+        }
         helper.assertTrue(NpcData.types().size() == expected,
                 "loaded " + NpcData.types().size() + " of " + expected + " NPC types");
         helper.succeed();
@@ -215,7 +222,11 @@ public final class NpcTests {
         LotrNpc spider = spawn(helper, "mordor_spider");
         float scale = spider.state("getSpiderScaleAmount");
         helper.assertTrue(scale >= 1f && scale <= 2f, "Mordor spider scale " + scale);
-        helper.assertTrue(Math.abs(spider.getBbWidth() - 1.4f * scale) < 0.01f, "spider width " + spider.getBbWidth());
+        // the hitbox is the type's width x the size roll, grown by the rig's own scale (spiders are rigged, rig/)
+        float rig = spider instanceof com.porcupinestudios.lotrport.npc.RiggedNpc r && r.skeleton() != null
+                ? r.skeleton().def.scale() : 1f;
+        helper.assertTrue(Math.abs(spider.getBbWidth() - 1.4f * scale * rig) < 0.01f,
+                "spider width " + spider.getBbWidth() + ", expected " + 1.4f * scale * rig);
         helper.assertTrue(spider.state("getSpiderType") == 2f, "Mordor spiders poison");
         helper.succeed();
     }
