@@ -185,4 +185,20 @@ public final class CreatureTests {
         orc.discard();
         helper.succeed();
     }
+
+    /** A hit deer runs (LOTR's deer were plain animals): it takes no target and never strikes back. */
+    @GameTest(template = EMPTY, batch = "creatures", timeoutTicks = 200)
+    public static void deerRunsAndNeverFightsBack(GameTestHelper helper) {
+        ThrownTests.inLoadedArea(helper, 4, 4, () -> {
+            LotrNpc deer = spawn(helper, "deer", 1.5, 1.5);
+            Pig pig = pig(helper, 2.5, 1.5);
+            float before = pig.getHealth();
+            deer.hurt(helper.getLevel().damageSources().mobAttack(pig), 1f);
+            helper.runAfterDelay(60, () -> {
+                helper.assertTrue(deer.getTarget() == null, "the deer targets " + deer.getTarget());
+                helper.assertTrue(pig.getHealth() >= before, "the deer hit back: pig at " + pig.getHealth());
+                helper.succeed();
+            });
+        });
+    }
 }
