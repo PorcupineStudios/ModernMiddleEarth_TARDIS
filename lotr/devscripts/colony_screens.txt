@@ -1,0 +1,205 @@
+# Every colony screen, for the "UI screenshots" workflow: a colony with people, a house and a storehouse with
+# plaques (one unmarked first), each plaque book's tabs, the Town Hall Ledger, Treasury Ledger and Customs Counter
+# books, the Town Hall screen and every tab of the colony management screen. 1280x720 at GUI scale 3.
+wait 200
+/time set 6000
+/weather clear
+/gamerule doMobSpawning false
+/gamerule doDaylightCycle false
+# a stone floor high up at 100 200 100 (go there first so its chunks load)
+/tp @p 100 200 100 180 10
+wait 80
+/fill 88 199 88 126 199 126 minecraft:stone
+/fill 88 200 88 126 210 126 minecraft:air
+/tp @p 100 200 100 180 10
+wait 20
+/lotr colony found "Minas Test"
+/lotr npc spawn lotr_port:blue_dwarf
+/lotr npc spawn lotr_port:blue_dwarf
+/lotr npc spawn lotr_port:hobbit
+/lotr npc spawn lotr_port:hobbit_farmer
+/lotr npc spawn lotr_port:gondor_man
+wait 20
+/lotr colony settle @e[type=lotr_port:npc,distance=..40]
+/lotr colony coins 250
+# room A, a house: 7x7 planks box (floor y 200, ceiling 203), a door in the north wall, a bed, a torch
+/fill 104 200 104 110 203 110 minecraft:oak_planks hollow
+/setblock 107 201 104 minecraft:oak_door[facing=north,half=lower]
+/setblock 107 202 104 minecraft:oak_door[facing=north,half=upper]
+/setblock 107 201 107 minecraft:red_bed[facing=south,part=foot]
+/setblock 107 201 108 minecraft:red_bed[facing=south,part=head]
+/setblock 105 201 109 minecraft:torch
+# room B, a storehouse: the same box with a chest
+/fill 112 200 104 118 203 110 minecraft:oak_planks hollow
+/setblock 115 201 104 minecraft:oak_door[facing=north,half=lower]
+/setblock 115 202 104 minecraft:oak_door[facing=north,half=upper]
+/setblock 117 201 109 minecraft:chest
+/setblock 113 201 109 minecraft:torch
+wait 20
+# an unmarked plaque: set by command, so nothing registered it
+/tp @p 107 201 106 180 0
+wait 10
+/setblock 106 202 105 lotr_port:building_plaque[facing=south]
+wait 5
+use 106 202 105
+wait 40
+shot book_plaque_unmarked
+# hover the first type in the grid: the info strip says what it needs
+mouse 643 128
+wait 5
+shot book_plaque_unmarked_hover
+close
+wait 5
+# hang real plaques: placing one registers its room
+/setblock 106 202 105 minecraft:air
+/item replace entity @p weapon.mainhand with lotr_port:building_plaque
+use 106 202 104 south
+wait 10
+/tp @p 115 201 106 180 0
+wait 10
+use 114 202 104 south
+wait 10
+/item replace entity @p weapon.mainhand with minecraft:air
+/lotr colony day 1
+wait 40
+# the house's plaque
+/tp @p 107 201 106 180 0
+wait 10
+use 106 202 105
+wait 40
+shot book_house
+tab room
+wait 30
+shot book_house_room
+tab type
+wait 30
+shot book_house_type
+close
+wait 5
+# the storehouse's plaque
+/tp @p 115 201 106 180 0
+wait 10
+use 114 202 105
+wait 40
+shot book_store
+tab stores
+wait 30
+shot book_store_stores
+tab room
+wait 30
+shot book_store_room
+close
+wait 5
+# the ledgers by the Hall
+/tp @p 100 200 100 180 10
+wait 10
+/setblock 101 200 98 lotr_port:town_hall_ledger
+/setblock 99 200 98 lotr_port:treasury_ledger
+/setblock 97 200 98 lotr_port:customs_counter
+wait 5
+use 101 200 98
+wait 40
+shot book_hall
+tab buildings
+wait 30
+shot book_hall_buildings
+tab council
+wait 30
+shot book_hall_council
+tab research
+wait 30
+shot book_hall_research
+tab members
+wait 30
+shot book_hall_members
+tab war
+wait 30
+shot book_hall_war
+close
+wait 5
+use 99 200 98
+wait 40
+shot book_treasury
+close
+wait 5
+use 97 200 98
+wait 40
+shot book_customs
+close
+wait 5
+/lotr_colony hall
+wait 40
+shot hall_screen
+close
+wait 5
+/lotr_colony manage overview
+wait 50
+shot manage_overview
+close
+wait 5
+/lotr_colony manage buildings
+wait 50
+shot manage_buildings
+close
+wait 5
+/lotr_colony manage people
+wait 50
+shot manage_people
+close
+wait 5
+/lotr_colony manage schedules
+wait 50
+shot manage_schedules
+close
+wait 5
+/lotr_colony manage stock
+wait 50
+shot manage_stock
+close
+wait 5
+/lotr_colony manage production
+wait 50
+shot manage_production
+close
+wait 5
+/lotr_colony manage council
+wait 50
+shot manage_council
+close
+wait 5
+/lotr_colony manage tech
+wait 50
+shot manage_tech
+close
+wait 5
+/lotr_colony manage immigration
+wait 50
+shot manage_immigration
+close
+wait 5
+/lotr_colony manage caravans
+wait 50
+shot manage_caravans
+close
+wait 5
+/lotr_colony manage events
+wait 50
+shot manage_events
+close
+wait 5
+/lotr_colony manage members
+wait 50
+shot manage_members
+close
+wait 5
+/lotr_colony manage customs
+wait 50
+shot manage_customs
+close
+wait 5
+/lotr_colony manage register
+wait 50
+shot manage_register
+close
+wait 5
+quit

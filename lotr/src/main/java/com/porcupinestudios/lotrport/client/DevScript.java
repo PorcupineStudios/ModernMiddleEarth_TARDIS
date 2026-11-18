@@ -19,9 +19,10 @@ import net.neoforged.neoforge.client.event.ClientTickEvent;
  * Dev only: drives the client from a script, to check rendering with no mouse or keyboard (a Claude session, the cloud
  * sandbox). Off unless the JVM has {@code -Dlotr_port.devscript=<file in the run folder>}; with
  * {@code -PquickPlay=<save>} the client opens the save and runs it once the player is in. One step per line:
- * {@code wait <ticks>}, {@code /<command>} (sent as the player), {@code use <x> <y> <z>} (right-click that block with
- * the main hand), {@code mouse <x> <y>} (move the pointer, window pixels), {@code click <x> <y>} (left-click the open screen at
- * GUI-scaled x, y), {@code close} (the open screen), {@code hud on|off}, {@code shot <name>}
+ * {@code wait <ticks>}, {@code /<command>} (sent as the player), {@code use <x> <y> <z> [face]} (right-click that block's
+ * face, up by default, with the main hand), {@code mouse <x> <y>} (move the pointer, window pixels), {@code click <x> <y>} (left-click the open screen at
+ * GUI-scaled x, y), {@code close} (the open screen), {@code tab <id>} (turn the open colony book to that
+ * ribbon), {@code hud on|off}, {@code shot <name>}
  * ({@code screenshots/<name>.png}), {@code quit}; {@code #} starts a comment.
  */
 @EventBusSubscriber(modid = LotrPort.MOD_ID, value = Dist.CLIENT)
@@ -72,8 +73,10 @@ public final class DevScript {
                 }
                 case "use" -> {
                     BlockPos p = new BlockPos(Integer.parseInt(w[1]), Integer.parseInt(w[2]), Integer.parseInt(w[3]));
+                    // an optional face (north, south, ...): which side is clicked, so held blocks go on walls
+                    Direction face = w.length > 4 ? Direction.byName(w[4]) : Direction.UP;
                     mc.gameMode.useItemOn(mc.player, InteractionHand.MAIN_HAND,
-                            new BlockHitResult(Vec3.atCenterOf(p), Direction.UP, p, false));
+                            new BlockHitResult(Vec3.atCenterOf(p), face == null ? Direction.UP : face, p, false));
                 }
                 case "mouse" -> mouse(mc, Double.parseDouble(w[1]), Double.parseDouble(w[2]));
                 case "click" -> {
@@ -133,6 +136,8 @@ public final class DevScript {
                     }
                 }
                 case "close" -> mc.player.closeContainer();
+                // turn the open colony book to a tab (its ribbon), by id
+                case "tab" -> com.porcupinestudios.lotrport.client.book.BookScreen.turnTo(w[1]);
                 case "hud" -> mc.options.hideGui = w[1].equals("off");
                 case "quit" -> {
                     mc.stop();

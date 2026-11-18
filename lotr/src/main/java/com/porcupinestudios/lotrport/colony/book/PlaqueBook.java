@@ -271,16 +271,24 @@ public final class PlaqueBook implements BookProvider {
             tabs.add(new Book.Tab("stores", "Stores", "minecraft:chest"));
         }
         tabs.add(new Book.Tab("room", "Room", "minecraft:oak_door"));
+        tabs.add(new Book.Tab("type", "Type", "lotr_port:building_plaque"));
         String open = tabs.stream().anyMatch(t -> t.id().equals(tab)) ? tab : tabs.get(0).id();
 
-        // left page: the building at a glance
+        // left page: the building at a glance (RingRealms' plaque overview), in boxes by subject
         List<El> left = new ArrayList<>();
+        boolean mayBuild = Permissions.can(player.getUUID(), c, Perm.BUILD);
+        left.add(El.field("Name", b.name().orElse(""), "rename", mayBuild, mayBuild ? "Name it (empty: its type's name)"
+                : "Only those who may build can name it"));
+        left.add(El.head("The building"));
         left.add(El.pair("Type", Pages.building(b.type())).withItem(icon(b)));
         int q = b.quality();
-        left.add(El.meter("Quality", q + " / 100", q / 100.0).withTip("Better rooms (light, size, furnishing) make "
-                + "happier homes and more worker places"));
+        left.add(El.meter("Quality", q + " / 100", q / 100.0).withTip("More floor, lights, chests and tables raise it."
+                + " Better rooms make happier homes and more worker places."));
         left.add(El.pair("Floor", b.floor() + " blocks"));
         left.add(El.pair("Storeys", Integer.toString(Math.max(1, b.count("storeys")))));
+        if (home || job.isPresent()) {
+            left.add(El.head(home ? "Household" : "Work"));
+        }
         if (home) {
             int beds = b.count("beds");
             left.add(El.meter("Beds", residents.size() + " of " + beds, beds == 0 ? 0 : residents.size() / (double) beds));
@@ -294,6 +302,7 @@ public final class PlaqueBook implements BookProvider {
                     slots == 0 ? 0 : workers.size() / (double) slots));
             left.add(El.pair("Wage", Pages.coins(job.get().wage()) + " a day"));
         }
+        left.add(El.head("Where"));
         left.add(El.pair("Door", b.door().toShortString(), El.MUTED));
         left.add(El.pair("Built", "day " + b.built() / 24000, El.MUTED));
 
@@ -305,7 +314,8 @@ public final class PlaqueBook implements BookProvider {
             case "prices" -> prices(server, c, player.serverLevel(), b);
             case "soldiers" -> soldiers(server, c);
             case "stores" -> stores(server, c, b);
-            default -> room(player, c, b, type);
+            case "type" -> types(player, c, b);
+            default -> room(player, c, b, type, job);
         };
         String sub = c.name() + (b.name().isPresent() ? " - " + Pages.building(b.type()) : "");
         List<El> chips = new ArrayList<>();
@@ -493,7 +503,52 @@ public final class PlaqueBook implements BookProvider {
         return out;
     }
 
-    static List<El> room(ServerPlayer player, Colony c, Building b, Optional<BuildingType> type) {
+    /**
+     * The Type page of a built plaque (RingRealms' "What is this building?"): every type as its icon, the current one
+     * marked, faded where this room can't be one; hover lists what it needs ticked or crossed, click changes it.
+     */
+    static List<El> types(ServerPlayer player, Colony c, Building b) {
+        List<El> out = new ArrayList<>();
+        out.add(El.head("What is this building?"));
+        boolean may = Permissions.can(player.getUUID(), c, Perm.BUILD);
+        List<Map.Entry<ResourceLocation, BuildingType>> all = new ArrayList<>(BuildingType.all().entrySet());
+        all.sort(java.util.Comparator.comparingInt((Map.Entry<ResourceLocation, BuildingType> e)
+                -> -e.getValue().priority()).thenComparing(e -> e.getKey().toString()));
+        List<El> cells = new ArrayList<>();
+        for (Map.Entry<ResourceLocation, BuildingType> e : all) {
+            BuildingType t = e.getValue();
+            boolean now = e.getKey().equals(b.type());
+            boolean known = t.researched(c);
+            boolean fits = t.missing(b.counts()).isEmpty();
+            StringBuilder tip = new StringBuilder();
+            for (BuildingType.Requirement r : t.requires()) {
+                tip.append(r.holds(b.counts()) ? "\u2714 " : "\u2718 ").append(r.why().getString()).append('\n');
+            }
+            if (t.requires().isEmpty()) {
+                tip.append("Any closed room will do.\n");
+            }
+            if (!known) {
+                tip.append("\u2718 Needs research first\n");
+            }
+            if (now) {
+                tip.append("What it is now");
+            } else if (fits && known && may) {
+                tip.append("Click to make it one (frees the people working here)");
+            } else if (!may) {
+                tip.append("Only those who may build can change it");
+            }
+            boolean can = !now && fits && known && may;
+            cells.add(El.cell(typeIcon(e.getKey()), Pages.building(e.getKey()),
+                    now ? El.GOOD : fits && known ? El.NORMAL : El.MUTED, tip.toString().trim(),
+                    can ? "retype" : "", e.getKey().toString()));
+        }
+        out.add(El.grid(cells));
+        out.add(El.text("Hover a type to see what it needs. Faded: this room can't be one yet.", El.MUTED));
+        return out;
+    }
+
+    static List<El> room(ServerPlayer player, Colony c, Building b, Optional<BuildingType> type,
+            Optional<JobDef> job) {
         List<El> out = new ArrayList<>();
         out.add(El.head("What a " + Pages.building(b.type())
                 + " needs"));
@@ -513,20 +568,11 @@ public final class PlaqueBook implements BookProvider {
                 out.add(El.pair(Pages.title(m.getKey()), Integer.toString(m.getValue()), El.MUTED));
             }
         }
-        List<ResourceLocation> fits = BuildingType.fitting(b.counts()).stream().filter(f -> !f.equals(b.type()))
-                .toList();
-        if (!fits.isEmpty()) {
-            boolean may = Permissions.can(player.getUUID(), c, Perm.BUILD);
-            out.add(El.head("This room could also be"));
-            List<El> row = new ArrayList<>();
-            for (ResourceLocation f : fits) {
-                Optional<BuildingType> t = BuildingType.get(f);
-                boolean known = t.map(x -> x.researched(c)).orElse(false);
-                row.add(El.button(Pages.building(f), "retype", f.toString(), may && known,
-                        !may ? "Only those who may build can" : known ? "" : "Needs research first"));
-            }
-            out.add(El.buttons(row));
-        }
+        out.add(El.head("Quality"));
+        int q = b.quality();
+        out.add(El.meter("Quality", q + " / 100", q / 100.0).withTip("More floor, lights, chests and tables raise it"));
+        job.ifPresent(j -> out.add(El.text("Workers here: up to " + j.slots(q) + " at this quality.", El.MUTED)));
+        out.add(El.text("Another type? See the Type ribbon.", El.MUTED));
         out.add(El.buttons(List.of(El.button("Measure again", "measure", ""))));
         return out;
     }
@@ -560,6 +606,10 @@ public final class PlaqueBook implements BookProvider {
         switch (action) {
             case "citizen" -> {
                 return Result.go(HallLedgerBook.KIND, c.id().toString(), "person:" + arg);
+            }
+            case "rename" -> {
+                return Result.say(com.porcupinestudios.lotrport.colony.building.ColonyBuildings.rename(player,
+                        at.get().building().door(), arg).message());
             }
             case "measure" -> {
                 var r = com.porcupinestudios.lotrport.colony.building.ColonyBuildings.add(player,
