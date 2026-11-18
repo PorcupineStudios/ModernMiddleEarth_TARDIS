@@ -46,7 +46,12 @@ public final class RaceSkins {
             return done;
         }
         TextureManager textures = Minecraft.getInstance().getTextureManager();
-        AbstractTexture texture = textures.getTexture(skin);
+        // never getTexture(skin): for a skin still downloading it registers a missing-texture stand-in under the
+        // skin's id, which was then cached as "can't convert" (the player stayed on the fallback skin for good)
+        AbstractTexture texture = textures.getTexture(skin, null);
+        if (texture == null) {
+            return Optional.empty(); // not downloaded yet: try again next frame
+        }
         NativeImage image = download(texture);
         if (image == null) {
             return Optional.empty(); // not uploaded yet: try again next frame
@@ -64,6 +69,8 @@ public final class RaceSkins {
                 ResourceLocation id = LotrPort.id("race_skin/" + kind + "/" + next++);
                 textures.register(id, new DynamicTexture(converted));
                 made = Optional.of(id);
+            } else if (image.getWidth() < RaceSkinRemap.SIZE) {
+                return Optional.empty(); // a stand-in, not the skin yet: don't remember it
             } else {
                 LOG.debug("Skin {} is {}x{}, not converted to a race body", skin, image.getWidth(), image.getHeight());
             }
