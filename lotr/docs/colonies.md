@@ -171,13 +171,17 @@ https://claude.ai/artifact/VLwZ5N7pkVMJW4PCYXh41G).
   RingRealms' 1.7.10 book screens (ported 2026-11-18, Aaron: "port the 1.7.10 ringrealms gui"): LOTR's Red Book
   (`textures/gui/quest/red_book.png`, 420x256 of a 512 sheet, its button bar slices at v 256+), title in red with a
   dotted rule and chips on the left page over the overview, the tab on the right page, ribbon tabs down the right
-  edge, and an info strip at each page's foot saying what the mouse is over (or the last click's answer, in red):
+  edge (sticking out with their icon and whole name written level: RingRealms' sideways labels fit only three tabs),
+  each heading's part of a page in its own outlined box (`BookScreen.groups`), and an info strip at each page's foot saying what the mouse is over (or the last click's answer, in red):
   no tooltips and never text over the world. Scaled down to fit small windows. Building types show RingRealms' icons
   (`textures/buildings/<type>.png`, `unassigned.png` if none; El `grid` of `cell`s with `tex:` icons). Clicks go back
   as `Books.Click` and the server answers with the book afresh. Names travel as tokens (`{item:id}`,
   `{lang:key|fallback}`) resolved on the client. A new screen = a `BookProvider` registered in `Books.register`, no
   client code. An unmarked plaque's Type page is the icon grid (hover: needs ticked/crossed; click one that fits);
-  someone else's plaque opens a read-only page (whose, what).
+  someone else's plaque opens a read-only page (whose, what). Built plaques: a name box (Save, `ColonyBuildings.
+  rename`), boxes The building / Household or Work / Where, Room (needs have/need, measured counts, quality and how
+  many may work here) and Type (the icon grid; click retypes). Scissor note: `GuiGraphics.enableScissor` is in screen
+  units and ignores the pose, so `BookScreen.clip` converts book units (clipping in book units blanked the pages).
 - `PlaqueBook` (context `colony/building`): tabs by type (Household, Work + last day's output + tool wear, Goods with
   Order/Keep steppers, Research, Prices, Soldiers, Stores, Room: requirements, measurements, retype buttons).
   `HallLedgerBook`: People (filters, person page), Buildings (cards open plaques), Council, Research, Members, War
