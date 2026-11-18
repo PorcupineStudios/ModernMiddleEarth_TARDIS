@@ -77,6 +77,11 @@ public final class PlaqueBook implements BookProvider {
         }
     }
 
+    /** A building type's picture (RingRealms' icons, {@code textures/buildings/<type>.png}), drawn in icon grids. */
+    static String typeIcon(ResourceLocation type) {
+        return "tex:" + type.getNamespace() + ":textures/buildings/" + type.getPath() + ".png";
+    }
+
     /** The building's icon: what it is about (its trade's first output, or by type). */
     static String icon(Building b) {
         Optional<BuildingType> t = BuildingType.get(b.type());
@@ -173,7 +178,7 @@ public final class PlaqueBook implements BookProvider {
         boolean may = colony.isPresent();
         List<El> right = new ArrayList<>();
         right.add(El.head("What this room can be"));
-        List<El> make = new ArrayList<>();
+        List<El> cells = new ArrayList<>();
         Map<String, Integer> have = counts;
         List<Map.Entry<ResourceLocation, BuildingType>> types = new ArrayList<>(BuildingType.all().entrySet());
         types.sort(java.util.Comparator.comparingInt((Map.Entry<ResourceLocation, BuildingType> e)
@@ -188,19 +193,16 @@ public final class PlaqueBook implements BookProvider {
             if (!known) {
                 tip.append("Needs research first");
             }
-            Optional<BuildingType.Requirement> miss = t.missing(have);
-            boolean fits = measured && miss.isEmpty();
-            String value = !known ? "research" : !measured ? "-" : fits ? "fits" : miss.get().why().getString();
-            int tone = !known ? El.MUTED : fits ? El.GOOD : El.BAD;
-            right.add(El.pair(Pages.building(e.getKey()), value, tone).withTip(tip.toString().trim()));
-            if (fits && known && may) {
-                make.add(El.button(Pages.building(e.getKey()), "assign", e.getKey().toString()));
+            boolean fits = measured && t.missing(have).isEmpty();
+            boolean can = fits && known && may;
+            if (can) {
+                tip.append("Click to make it a ").append(Pages.building(e.getKey()));
             }
+            cells.add(El.cell(typeIcon(e.getKey()), Pages.building(e.getKey()), fits && known ? El.NORMAL : El.MUTED,
+                    tip.toString().trim(), can ? "assign" : "", e.getKey().toString()));
         }
-        if (!make.isEmpty()) {
-            right.add(El.head("Make it"));
-            right.add(El.buttons(make));
-        }
+        right.add(El.grid(cells));
+        right.add(El.text("Hover a type for what it needs; click one that fits to make the room it.", El.MUTED));
         right.add(El.buttons(List.of(El.button("Measure again", "measure", ""))));
         List<Book.Tab> tabs = List.of(new Book.Tab("type", "Type", "minecraft:oak_door"));
         return Optional.of(new Book(KIND, context, "Unmarked plaque", colony.map(Colony::name).orElse(""), List.of(),
@@ -214,8 +216,17 @@ public final class PlaqueBook implements BookProvider {
             return unmarkedBook(player, plaque.get());
         }
         Optional<At> at = find(player.server, context);
-        if (at.isEmpty() || !Permissions.isMember(player.getUUID(), at.get().colony())) {
+        if (at.isEmpty()) {
             return Optional.empty();
+        }
+        if (!Permissions.isMember(player.getUUID(), at.get().colony())) {
+            // someone else's building: what it is and whose, nothing more (was a line on the action bar)
+            Colony fc = at.get().colony();
+            Building fb = at.get().building();
+            List<El> left = List.of(El.pair("Colony", fc.name()), El.pair("Type", Pages.building(fb.type()))
+                    .withItem(icon(fb)), El.gap(), El.text("You are not one of this colony's members.", El.MUTED));
+            return Optional.of(new Book(KIND, context, fb.label(), fc.name(), List.of(), List.of(), "",
+                    left, List.of(), "", 0));
         }
         MinecraftServer server = player.server;
         Colony c = at.get().colony();
