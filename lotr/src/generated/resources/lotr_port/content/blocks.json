@@ -17,7 +17,8 @@
       11.75
     ],
     "collision": false,
-    "item": "none"
+    "item": "none",
+    "waterlog": true
   },
   {
     "id": "ale_horn_gold",
@@ -37,7 +38,8 @@
       11.75
     ],
     "collision": false,
-    "item": "none"
+    "item": "none",
+    "waterlog": true
   },
   {
     "id": "alloy_forge",
@@ -449,7 +451,8 @@
       16.0,
       16.0,
       16.0
-    ]
+    ],
+    "waterlog": true
   },
   {
     "id": "iron_bird_cage",
@@ -467,7 +470,8 @@
       16.0,
       16.0,
       16.0
-    ]
+    ],
+    "waterlog": true
   },
   {
     "id": "silver_bird_cage",
@@ -485,7 +489,8 @@
       16.0,
       16.0,
       16.0
-    ]
+    ],
+    "waterlog": true
   },
   {
     "id": "golden_bird_cage",
@@ -503,7 +508,8 @@
       16.0,
       16.0,
       16.0
-    ]
+    ],
+    "waterlog": true
   },
   {
     "id": "wooden_bird_cage",
@@ -521,7 +527,8 @@
       16.0,
       16.0,
       16.0
-    ]
+    ],
+    "waterlog": true
   },
   {
     "id": "blackroot",
@@ -1740,7 +1747,8 @@
       10.25
     ],
     "collision": false,
-    "item": "none"
+    "item": "none",
+    "waterlog": true
   },
   {
     "id": "ceramic_plate",
@@ -1762,7 +1770,8 @@
     "collision": false,
     "item": "none",
     "machine": "plate",
-    "facing": true
+    "facing": true,
+    "waterlog": true
   },
   {
     "id": "bronze_chandelier",
@@ -1772,7 +1781,8 @@
     "light": 14,
     "sound": "stone",
     "requiresTool": false,
-    "solid": false
+    "solid": false,
+    "waterlog": true
   },
   {
     "id": "iron_chandelier",
@@ -1782,7 +1792,8 @@
     "light": 14,
     "sound": "stone",
     "requiresTool": false,
-    "solid": false
+    "solid": false,
+    "waterlog": true
   },
   {
     "id": "silver_chandelier",
@@ -1792,7 +1803,8 @@
     "light": 14,
     "sound": "stone",
     "requiresTool": false,
-    "solid": false
+    "solid": false,
+    "waterlog": true
   },
   {
     "id": "gold_chandelier",
@@ -1802,7 +1814,8 @@
     "light": 14,
     "sound": "stone",
     "requiresTool": false,
-    "solid": false
+    "solid": false,
+    "waterlog": true
   },
   {
     "id": "mithril_chandelier",
@@ -1812,7 +1825,8 @@
     "light": 14,
     "sound": "stone",
     "requiresTool": false,
-    "solid": false
+    "solid": false,
+    "waterlog": true
   },
   {
     "id": "silver_mallorn_chandelier",
@@ -1822,7 +1836,8 @@
     "light": 14,
     "sound": "stone",
     "requiresTool": false,
-    "solid": false
+    "solid": false,
+    "waterlog": true
   },
   {
     "id": "wood_elven_chandelier",
@@ -1832,7 +1847,8 @@
     "light": 14,
     "sound": "stone",
     "requiresTool": false,
-    "solid": false
+    "solid": false,
+    "waterlog": true
   },
   {
     "id": "orc_chandelier",
@@ -1842,7 +1858,8 @@
     "light": 14,
     "sound": "stone",
     "requiresTool": false,
-    "solid": false
+    "solid": false,
+    "waterlog": true
   },
   {
     "id": "dwarven_chandelier",
@@ -1852,7 +1869,8 @@
     "light": 14,
     "sound": "stone",
     "requiresTool": false,
-    "solid": false
+    "solid": false,
+    "waterlog": true
   },
   {
     "id": "uruk_chandelier",
@@ -1862,7 +1880,8 @@
     "light": 14,
     "sound": "stone",
     "requiresTool": false,
-    "solid": false
+    "solid": false,
+    "waterlog": true
   },
   {
     "id": "high_elven_chandelier",
@@ -1872,7 +1891,8 @@
     "light": 14,
     "sound": "stone",
     "requiresTool": false,
-    "solid": false
+    "solid": false,
+    "waterlog": true
   },
   {
     "id": "blue_dwarven_chandelier",
@@ -1882,7 +1902,8 @@
     "light": 14,
     "sound": "stone",
     "requiresTool": false,
-    "solid": false
+    "solid": false,
+    "waterlog": true
   },
   {
     "id": "morgul_chandelier",
@@ -1892,7 +1913,8 @@
     "light": 14,
     "sound": "stone",
     "requiresTool": false,
-    "solid": false
+    "solid": false,
+    "waterlog": true
   },
   {
     "id": "blue_mallorn_chandelier",
@@ -1902,7 +1924,8 @@
     "light": 14,
     "sound": "stone",
     "requiresTool": false,
-    "solid": false
+    "solid": false,
+    "waterlog": true
   },
   {
     "id": "golden_mallorn_chandelier",
@@ -1912,7 +1935,8 @@
     "light": 14,
     "sound": "stone",
     "requiresTool": false,
-    "solid": false
+    "solid": false,
+    "waterlog": true
   },
   {
     "id": "green_mallorn_chandelier",
@@ -1922,7 +1946,8 @@
     "light": 14,
     "sound": "stone",
     "requiresTool": false,
-    "solid": false
+    "solid": false,
+    "waterlog": true
   },
   {
     "id": "cherry_pie_block",
@@ -1963,7 +1988,8 @@
     "facing": true,
     "machine": "chest",
     "render": "entity",
-    "texture": "ancient_harad"
+    "texture": "ancient_harad",
+    "waterlog": true
   },
   {
     "id": "reed_basket",
@@ -1985,7 +2011,8 @@
     "facing": true,
     "machine": "chest",
     "render": "entity",
-    "texture": "basket"
+    "texture": "basket",
+    "waterlog": true
   },
   {
     "id": "lebethron_casket",
@@ -2007,7 +2034,8 @@
     "facing": true,
     "machine": "chest",
     "render": "entity",
-    "texture": "lebethron"
+    "texture": "lebethron",
+    "waterlog": true
   },
   {
     "id": "mallorn_box",
@@ -2029,7 +2057,8 @@
     "facing": true,
     "machine": "chest",
     "render": "entity",
-    "texture": "mallorn"
+    "texture": "mallorn",
+    "waterlog": true
   },
   {
     "id": "stone_chest",
@@ -2051,7 +2080,8 @@
     "facing": true,
     "machine": "chest",
     "render": "entity",
-    "texture": "stone"
+    "texture": "stone",
+    "waterlog": true
   },
   {
     "id": "clay_tiling",
@@ -5064,7 +5094,8 @@
     "light": 0,
     "sound": "stone",
     "requiresTool": true,
-    "solid": false
+    "solid": false,
+    "waterlog": true
   },
   {
     "id": "dol_amroth_gate",
@@ -5074,7 +5105,8 @@
     "light": 0,
     "sound": "wood",
     "requiresTool": false,
-    "solid": false
+    "solid": false,
+    "waterlog": true
   },
   {
     "id": "dwarven_gate",
@@ -5084,7 +5116,8 @@
     "light": 0,
     "sound": "stone",
     "requiresTool": true,
-    "solid": false
+    "solid": false,
+    "waterlog": true
   },
   {
     "id": "galadhrim_gate",
@@ -5094,7 +5127,8 @@
     "light": 0,
     "sound": "wood",
     "requiresTool": false,
-    "solid": false
+    "solid": false,
+    "waterlog": true
   },
   {
     "id": "golden_gate",
@@ -5104,7 +5138,8 @@
     "light": 0,
     "sound": "stone",
     "requiresTool": true,
-    "solid": false
+    "solid": false,
+    "waterlog": true
   },
   {
     "id": "gondorian_gate",
@@ -5114,7 +5149,8 @@
     "light": 0,
     "sound": "wood",
     "requiresTool": false,
-    "solid": false
+    "solid": false,
+    "waterlog": true
   },
   {
     "id": "high_elven_gate",
@@ -5124,7 +5160,8 @@
     "light": 0,
     "sound": "wood",
     "requiresTool": false,
-    "solid": false
+    "solid": false,
+    "waterlog": true
   },
   {
     "id": "blue_hobbit_gate",
@@ -5134,7 +5171,8 @@
     "light": 0,
     "sound": "wood",
     "requiresTool": false,
-    "solid": false
+    "solid": false,
+    "waterlog": true
   },
   {
     "id": "green_hobbit_gate",
@@ -5144,7 +5182,8 @@
     "light": 0,
     "sound": "wood",
     "requiresTool": false,
-    "solid": false
+    "solid": false,
+    "waterlog": true
   },
   {
     "id": "red_hobbit_gate",
@@ -5154,7 +5193,8 @@
     "light": 0,
     "sound": "wood",
     "requiresTool": false,
-    "solid": false
+    "solid": false,
+    "waterlog": true
   },
   {
     "id": "yellow_hobbit_gate",
@@ -5164,7 +5204,8 @@
     "light": 0,
     "sound": "wood",
     "requiresTool": false,
-    "solid": false
+    "solid": false,
+    "waterlog": true
   },
   {
     "id": "iron_portcullis",
@@ -5174,7 +5215,8 @@
     "light": 0,
     "sound": "stone",
     "requiresTool": true,
-    "solid": false
+    "solid": false,
+    "waterlog": true
   },
   {
     "id": "mithril_gate",
@@ -5184,7 +5226,8 @@
     "light": 0,
     "sound": "stone",
     "requiresTool": true,
-    "solid": false
+    "solid": false,
+    "waterlog": true
   },
   {
     "id": "haradric_gate",
@@ -5194,7 +5237,8 @@
     "light": 0,
     "sound": "wood",
     "requiresTool": false,
-    "solid": false
+    "solid": false,
+    "waterlog": true
   },
   {
     "id": "orc_gate",
@@ -5204,7 +5248,8 @@
     "light": 0,
     "sound": "stone",
     "requiresTool": true,
-    "solid": false
+    "solid": false,
+    "waterlog": true
   },
   {
     "id": "rh_nic_gate",
@@ -5214,7 +5259,8 @@
     "light": 0,
     "sound": "wood",
     "requiresTool": false,
-    "solid": false
+    "solid": false,
+    "waterlog": true
   },
   {
     "id": "rohirric_gate",
@@ -5224,7 +5270,8 @@
     "light": 0,
     "sound": "wood",
     "requiresTool": false,
-    "solid": false
+    "solid": false,
+    "waterlog": true
   },
   {
     "id": "silver_gate",
@@ -5234,7 +5281,8 @@
     "light": 0,
     "sound": "stone",
     "requiresTool": true,
-    "solid": false
+    "solid": false,
+    "waterlog": true
   },
   {
     "id": "taurethrim_gate",
@@ -5244,7 +5292,8 @@
     "light": 0,
     "sound": "wood",
     "requiresTool": false,
-    "solid": false
+    "solid": false,
+    "waterlog": true
   },
   {
     "id": "uruk_gate",
@@ -5254,7 +5303,8 @@
     "light": 0,
     "sound": "stone",
     "requiresTool": true,
-    "solid": false
+    "solid": false,
+    "waterlog": true
   },
   {
     "id": "wood_elven_gate",
@@ -5264,7 +5314,8 @@
     "light": 0,
     "sound": "wood",
     "requiresTool": false,
-    "solid": false
+    "solid": false,
+    "waterlog": true
   },
   {
     "id": "wooden_gate",
@@ -5274,7 +5325,8 @@
     "light": 0,
     "sound": "wood",
     "requiresTool": false,
-    "solid": false
+    "solid": false,
+    "waterlog": true
   },
   {
     "id": "wooden_portcullis",
@@ -5284,7 +5336,8 @@
     "light": 0,
     "sound": "wood",
     "requiresTool": false,
-    "solid": false
+    "solid": false,
+    "waterlog": true
   },
   {
     "id": "fine_glass",
@@ -5352,7 +5405,8 @@
       9.875
     ],
     "collision": false,
-    "item": "none"
+    "item": "none",
+    "waterlog": true
   },
   {
     "id": "goblet_gold",
@@ -5372,7 +5426,8 @@
       9.875
     ],
     "collision": false,
-    "item": "none"
+    "item": "none",
+    "waterlog": true
   },
   {
     "id": "goblet_silver",
@@ -5392,7 +5447,8 @@
       9.875
     ],
     "collision": false,
-    "item": "none"
+    "item": "none",
+    "waterlog": true
   },
   {
     "id": "goblet_wood",
@@ -5412,7 +5468,8 @@
       9.875
     ],
     "collision": false,
-    "item": "none"
+    "item": "none",
+    "waterlog": true
   },
   {
     "id": "gold_bars",
@@ -6705,7 +6762,8 @@
       10.25
     ],
     "collision": false,
-    "item": "none"
+    "item": "none",
+    "waterlog": true
   },
   {
     "id": "haradric_crafting_table",
@@ -6897,7 +6955,8 @@
       16.0,
       11.2
     ],
-    "collision": false
+    "collision": false,
+    "waterlog": true
   },
   {
     "id": "orc_forge",
@@ -8223,7 +8282,8 @@
     "collision": false,
     "item": "none",
     "machine": "plate",
-    "facing": true
+    "facing": true,
+    "waterlog": true
   },
   {
     "id": "pressure_plate",
@@ -9058,7 +9118,8 @@
       11.0
     ],
     "collision": false,
-    "item": "none"
+    "item": "none",
+    "waterlog": true
   },
   {
     "id": "bone_slab",
@@ -10698,7 +10759,8 @@
       15.0
     ],
     "facing": true,
-    "item": "none"
+    "item": "none",
+    "waterlog": true
   },
   {
     "id": "spawner_chest_ancient_harad",
@@ -10718,7 +10780,8 @@
       15.0
     ],
     "facing": true,
-    "item": "none"
+    "item": "none",
+    "waterlog": true
   },
   {
     "id": "spawner_chest_stone",
@@ -10738,7 +10801,8 @@
       15.0
     ],
     "facing": true,
-    "item": "none"
+    "item": "none",
+    "waterlog": true
   },
   {
     "id": "white_fine_glass",
@@ -12624,7 +12688,8 @@
       12.0,
       16.0,
       12.0
-    ]
+    ],
+    "waterlog": true
   },
   {
     "id": "stalagmite",
@@ -12642,7 +12707,8 @@
       12.0,
       16.0,
       12.0
-    ]
+    ],
+    "waterlog": true
   },
   {
     "id": "ice_stalactite",
@@ -12660,7 +12726,8 @@
       12.0,
       16.0,
       12.0
-    ]
+    ],
+    "waterlog": true
   },
   {
     "id": "ice_stalagmite",
@@ -12678,7 +12745,8 @@
       12.0,
       16.0,
       12.0
-    ]
+    ],
+    "waterlog": true
   },
   {
     "id": "obsidian_stalactite",
@@ -12696,7 +12764,8 @@
       12.0,
       16.0,
       12.0
-    ]
+    ],
+    "waterlog": true
   },
   {
     "id": "obsidian_stalagmite",
@@ -12714,7 +12783,8 @@
       12.0,
       16.0,
       12.0
-    ]
+    ],
+    "waterlog": true
   },
   {
     "id": "straw_bed_block",
@@ -15806,7 +15876,8 @@
     "collision": false,
     "item": "none",
     "machine": "plate",
-    "facing": true
+    "facing": true,
+    "waterlog": true
   },
   {
     "id": "shire_pine_wood_slab",
@@ -16202,5 +16273,4256 @@
       "seed": "lotr_port:yam",
       "produce": "lotr_port:yam"
     }
+  },
+  {
+    "id": "shire_pine_bark",
+    "kind": "pillar",
+    "woodset": "shire_pine",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true
+  },
+  {
+    "id": "stripped_shire_pine_wood",
+    "kind": "pillar",
+    "woodset": "shire_pine",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true,
+    "stripped": true
+  },
+  {
+    "id": "stripped_shire_pine_wood_beam",
+    "kind": "pillar",
+    "woodset": "shire_pine",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true,
+    "stripped": true
+  },
+  {
+    "id": "stripped_shire_pine_bark",
+    "kind": "pillar",
+    "woodset": "shire_pine",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true,
+    "stripped": true
+  },
+  {
+    "id": "shire_pine_button",
+    "kind": "button",
+    "woodset": "shire_pine",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 0.5,
+    "resistance": 0.5,
+    "solid": false,
+    "set": "wood"
+  },
+  {
+    "id": "shire_pine_pressure_plate",
+    "kind": "pressure_plate",
+    "woodset": "shire_pine",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 0.5,
+    "resistance": 0.5,
+    "solid": false,
+    "set": "wood"
+  },
+  {
+    "id": "shire_pine_sign",
+    "kind": "sign",
+    "woodset": "shire_pine",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 1.0,
+    "resistance": 1.0,
+    "solid": false,
+    "item": "none"
+  },
+  {
+    "id": "shire_pine_wall_sign",
+    "kind": "wall_sign",
+    "woodset": "shire_pine",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 1.0,
+    "resistance": 1.0,
+    "solid": false,
+    "item": "none"
+  },
+  {
+    "id": "shire_pine_hanging_sign",
+    "kind": "hanging_sign",
+    "woodset": "shire_pine",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 1.0,
+    "resistance": 1.0,
+    "solid": false,
+    "item": "none"
+  },
+  {
+    "id": "shire_pine_wall_hanging_sign",
+    "kind": "wall_hanging_sign",
+    "woodset": "shire_pine",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 1.0,
+    "resistance": 1.0,
+    "solid": false,
+    "item": "none"
+  },
+  {
+    "id": "mallorn_bark",
+    "kind": "pillar",
+    "woodset": "mallorn",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true
+  },
+  {
+    "id": "stripped_mallorn_wood",
+    "kind": "pillar",
+    "woodset": "mallorn",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true,
+    "stripped": true
+  },
+  {
+    "id": "stripped_mallorn_wood_beam",
+    "kind": "pillar",
+    "woodset": "mallorn",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true,
+    "stripped": true
+  },
+  {
+    "id": "stripped_mallorn_bark",
+    "kind": "pillar",
+    "woodset": "mallorn",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true,
+    "stripped": true
+  },
+  {
+    "id": "mallorn_button",
+    "kind": "button",
+    "woodset": "mallorn",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 0.5,
+    "resistance": 0.5,
+    "solid": false,
+    "set": "wood"
+  },
+  {
+    "id": "mallorn_pressure_plate",
+    "kind": "pressure_plate",
+    "woodset": "mallorn",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 0.5,
+    "resistance": 0.5,
+    "solid": false,
+    "set": "wood"
+  },
+  {
+    "id": "mallorn_sign",
+    "kind": "sign",
+    "woodset": "mallorn",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 1.0,
+    "resistance": 1.0,
+    "solid": false,
+    "item": "none"
+  },
+  {
+    "id": "mallorn_wall_sign",
+    "kind": "wall_sign",
+    "woodset": "mallorn",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 1.0,
+    "resistance": 1.0,
+    "solid": false,
+    "item": "none"
+  },
+  {
+    "id": "mallorn_hanging_sign",
+    "kind": "hanging_sign",
+    "woodset": "mallorn",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 1.0,
+    "resistance": 1.0,
+    "solid": false,
+    "item": "none"
+  },
+  {
+    "id": "mallorn_wall_hanging_sign",
+    "kind": "wall_hanging_sign",
+    "woodset": "mallorn",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 1.0,
+    "resistance": 1.0,
+    "solid": false,
+    "item": "none"
+  },
+  {
+    "id": "mirk_oak_bark",
+    "kind": "pillar",
+    "woodset": "mirk_oak",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true
+  },
+  {
+    "id": "stripped_mirk_oak_wood",
+    "kind": "pillar",
+    "woodset": "mirk_oak",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true,
+    "stripped": true
+  },
+  {
+    "id": "stripped_mirk_oak_wood_beam",
+    "kind": "pillar",
+    "woodset": "mirk_oak",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true,
+    "stripped": true
+  },
+  {
+    "id": "stripped_mirk_oak_bark",
+    "kind": "pillar",
+    "woodset": "mirk_oak",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true,
+    "stripped": true
+  },
+  {
+    "id": "mirk_oak_button",
+    "kind": "button",
+    "woodset": "mirk_oak",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 0.5,
+    "resistance": 0.5,
+    "solid": false,
+    "set": "wood"
+  },
+  {
+    "id": "mirk_oak_pressure_plate",
+    "kind": "pressure_plate",
+    "woodset": "mirk_oak",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 0.5,
+    "resistance": 0.5,
+    "solid": false,
+    "set": "wood"
+  },
+  {
+    "id": "mirk_oak_sign",
+    "kind": "sign",
+    "woodset": "mirk_oak",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 1.0,
+    "resistance": 1.0,
+    "solid": false,
+    "item": "none"
+  },
+  {
+    "id": "mirk_oak_wall_sign",
+    "kind": "wall_sign",
+    "woodset": "mirk_oak",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 1.0,
+    "resistance": 1.0,
+    "solid": false,
+    "item": "none"
+  },
+  {
+    "id": "mirk_oak_hanging_sign",
+    "kind": "hanging_sign",
+    "woodset": "mirk_oak",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 1.0,
+    "resistance": 1.0,
+    "solid": false,
+    "item": "none"
+  },
+  {
+    "id": "mirk_oak_wall_hanging_sign",
+    "kind": "wall_hanging_sign",
+    "woodset": "mirk_oak",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 1.0,
+    "resistance": 1.0,
+    "solid": false,
+    "item": "none"
+  },
+  {
+    "id": "charred_bark",
+    "kind": "pillar",
+    "woodset": "charred",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true
+  },
+  {
+    "id": "stripped_charred_wood",
+    "kind": "pillar",
+    "woodset": "charred",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true,
+    "stripped": true
+  },
+  {
+    "id": "stripped_charred_wood_beam",
+    "kind": "pillar",
+    "woodset": "charred",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true,
+    "stripped": true
+  },
+  {
+    "id": "stripped_charred_bark",
+    "kind": "pillar",
+    "woodset": "charred",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true,
+    "stripped": true
+  },
+  {
+    "id": "charred_button",
+    "kind": "button",
+    "woodset": "charred",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 0.5,
+    "resistance": 0.5,
+    "solid": false,
+    "set": "wood"
+  },
+  {
+    "id": "charred_pressure_plate",
+    "kind": "pressure_plate",
+    "woodset": "charred",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 0.5,
+    "resistance": 0.5,
+    "solid": false,
+    "set": "wood"
+  },
+  {
+    "id": "charred_sign",
+    "kind": "sign",
+    "woodset": "charred",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 1.0,
+    "resistance": 1.0,
+    "solid": false,
+    "item": "none"
+  },
+  {
+    "id": "charred_wall_sign",
+    "kind": "wall_sign",
+    "woodset": "charred",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 1.0,
+    "resistance": 1.0,
+    "solid": false,
+    "item": "none"
+  },
+  {
+    "id": "charred_hanging_sign",
+    "kind": "hanging_sign",
+    "woodset": "charred",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 1.0,
+    "resistance": 1.0,
+    "solid": false,
+    "item": "none"
+  },
+  {
+    "id": "charred_wall_hanging_sign",
+    "kind": "wall_hanging_sign",
+    "woodset": "charred",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 1.0,
+    "resistance": 1.0,
+    "solid": false,
+    "item": "none"
+  },
+  {
+    "id": "apple_bark",
+    "kind": "pillar",
+    "woodset": "apple",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true
+  },
+  {
+    "id": "stripped_apple_wood",
+    "kind": "pillar",
+    "woodset": "apple",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true,
+    "stripped": true
+  },
+  {
+    "id": "stripped_apple_wood_beam",
+    "kind": "pillar",
+    "woodset": "apple",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true,
+    "stripped": true
+  },
+  {
+    "id": "stripped_apple_bark",
+    "kind": "pillar",
+    "woodset": "apple",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true,
+    "stripped": true
+  },
+  {
+    "id": "apple_button",
+    "kind": "button",
+    "woodset": "apple",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 0.5,
+    "resistance": 0.5,
+    "solid": false,
+    "set": "wood"
+  },
+  {
+    "id": "apple_pressure_plate",
+    "kind": "pressure_plate",
+    "woodset": "apple",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 0.5,
+    "resistance": 0.5,
+    "solid": false,
+    "set": "wood"
+  },
+  {
+    "id": "apple_sign",
+    "kind": "sign",
+    "woodset": "apple",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 1.0,
+    "resistance": 1.0,
+    "solid": false,
+    "item": "none"
+  },
+  {
+    "id": "apple_wall_sign",
+    "kind": "wall_sign",
+    "woodset": "apple",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 1.0,
+    "resistance": 1.0,
+    "solid": false,
+    "item": "none"
+  },
+  {
+    "id": "apple_hanging_sign",
+    "kind": "hanging_sign",
+    "woodset": "apple",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 1.0,
+    "resistance": 1.0,
+    "solid": false,
+    "item": "none"
+  },
+  {
+    "id": "apple_wall_hanging_sign",
+    "kind": "wall_hanging_sign",
+    "woodset": "apple",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 1.0,
+    "resistance": 1.0,
+    "solid": false,
+    "item": "none"
+  },
+  {
+    "id": "pear_bark",
+    "kind": "pillar",
+    "woodset": "pear",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true
+  },
+  {
+    "id": "stripped_pear_wood",
+    "kind": "pillar",
+    "woodset": "pear",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true,
+    "stripped": true
+  },
+  {
+    "id": "stripped_pear_wood_beam",
+    "kind": "pillar",
+    "woodset": "pear",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true,
+    "stripped": true
+  },
+  {
+    "id": "stripped_pear_bark",
+    "kind": "pillar",
+    "woodset": "pear",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true,
+    "stripped": true
+  },
+  {
+    "id": "pear_button",
+    "kind": "button",
+    "woodset": "pear",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 0.5,
+    "resistance": 0.5,
+    "solid": false,
+    "set": "wood"
+  },
+  {
+    "id": "pear_pressure_plate",
+    "kind": "pressure_plate",
+    "woodset": "pear",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 0.5,
+    "resistance": 0.5,
+    "solid": false,
+    "set": "wood"
+  },
+  {
+    "id": "pear_sign",
+    "kind": "sign",
+    "woodset": "pear",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 1.0,
+    "resistance": 1.0,
+    "solid": false,
+    "item": "none"
+  },
+  {
+    "id": "pear_wall_sign",
+    "kind": "wall_sign",
+    "woodset": "pear",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 1.0,
+    "resistance": 1.0,
+    "solid": false,
+    "item": "none"
+  },
+  {
+    "id": "pear_hanging_sign",
+    "kind": "hanging_sign",
+    "woodset": "pear",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 1.0,
+    "resistance": 1.0,
+    "solid": false,
+    "item": "none"
+  },
+  {
+    "id": "pear_wall_hanging_sign",
+    "kind": "wall_hanging_sign",
+    "woodset": "pear",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 1.0,
+    "resistance": 1.0,
+    "solid": false,
+    "item": "none"
+  },
+  {
+    "id": "cherry_bark",
+    "kind": "pillar",
+    "woodset": "cherry",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true
+  },
+  {
+    "id": "stripped_cherry_wood",
+    "kind": "pillar",
+    "woodset": "cherry",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true,
+    "stripped": true
+  },
+  {
+    "id": "stripped_cherry_wood_beam",
+    "kind": "pillar",
+    "woodset": "cherry",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true,
+    "stripped": true
+  },
+  {
+    "id": "stripped_cherry_bark",
+    "kind": "pillar",
+    "woodset": "cherry",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true,
+    "stripped": true
+  },
+  {
+    "id": "cherry_button",
+    "kind": "button",
+    "woodset": "cherry",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 0.5,
+    "resistance": 0.5,
+    "solid": false,
+    "set": "wood"
+  },
+  {
+    "id": "cherry_pressure_plate",
+    "kind": "pressure_plate",
+    "woodset": "cherry",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 0.5,
+    "resistance": 0.5,
+    "solid": false,
+    "set": "wood"
+  },
+  {
+    "id": "cherry_sign",
+    "kind": "sign",
+    "woodset": "cherry",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 1.0,
+    "resistance": 1.0,
+    "solid": false,
+    "item": "none"
+  },
+  {
+    "id": "cherry_wall_sign",
+    "kind": "wall_sign",
+    "woodset": "cherry",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 1.0,
+    "resistance": 1.0,
+    "solid": false,
+    "item": "none"
+  },
+  {
+    "id": "cherry_hanging_sign",
+    "kind": "hanging_sign",
+    "woodset": "cherry",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 1.0,
+    "resistance": 1.0,
+    "solid": false,
+    "item": "none"
+  },
+  {
+    "id": "cherry_wall_hanging_sign",
+    "kind": "wall_hanging_sign",
+    "woodset": "cherry",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 1.0,
+    "resistance": 1.0,
+    "solid": false,
+    "item": "none"
+  },
+  {
+    "id": "mango_bark",
+    "kind": "pillar",
+    "woodset": "mango",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true
+  },
+  {
+    "id": "stripped_mango_wood",
+    "kind": "pillar",
+    "woodset": "mango",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true,
+    "stripped": true
+  },
+  {
+    "id": "stripped_mango_wood_beam",
+    "kind": "pillar",
+    "woodset": "mango",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true,
+    "stripped": true
+  },
+  {
+    "id": "stripped_mango_bark",
+    "kind": "pillar",
+    "woodset": "mango",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true,
+    "stripped": true
+  },
+  {
+    "id": "mango_button",
+    "kind": "button",
+    "woodset": "mango",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 0.5,
+    "resistance": 0.5,
+    "solid": false,
+    "set": "wood"
+  },
+  {
+    "id": "mango_pressure_plate",
+    "kind": "pressure_plate",
+    "woodset": "mango",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 0.5,
+    "resistance": 0.5,
+    "solid": false,
+    "set": "wood"
+  },
+  {
+    "id": "mango_sign",
+    "kind": "sign",
+    "woodset": "mango",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 1.0,
+    "resistance": 1.0,
+    "solid": false,
+    "item": "none"
+  },
+  {
+    "id": "mango_wall_sign",
+    "kind": "wall_sign",
+    "woodset": "mango",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 1.0,
+    "resistance": 1.0,
+    "solid": false,
+    "item": "none"
+  },
+  {
+    "id": "mango_hanging_sign",
+    "kind": "hanging_sign",
+    "woodset": "mango",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 1.0,
+    "resistance": 1.0,
+    "solid": false,
+    "item": "none"
+  },
+  {
+    "id": "mango_wall_hanging_sign",
+    "kind": "wall_hanging_sign",
+    "woodset": "mango",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 1.0,
+    "resistance": 1.0,
+    "solid": false,
+    "item": "none"
+  },
+  {
+    "id": "lebethron_bark",
+    "kind": "pillar",
+    "woodset": "lebethron",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true
+  },
+  {
+    "id": "stripped_lebethron_wood",
+    "kind": "pillar",
+    "woodset": "lebethron",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true,
+    "stripped": true
+  },
+  {
+    "id": "stripped_lebethron_wood_beam",
+    "kind": "pillar",
+    "woodset": "lebethron",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true,
+    "stripped": true
+  },
+  {
+    "id": "stripped_lebethron_bark",
+    "kind": "pillar",
+    "woodset": "lebethron",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true,
+    "stripped": true
+  },
+  {
+    "id": "lebethron_button",
+    "kind": "button",
+    "woodset": "lebethron",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 0.5,
+    "resistance": 0.5,
+    "solid": false,
+    "set": "wood"
+  },
+  {
+    "id": "lebethron_pressure_plate",
+    "kind": "pressure_plate",
+    "woodset": "lebethron",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 0.5,
+    "resistance": 0.5,
+    "solid": false,
+    "set": "wood"
+  },
+  {
+    "id": "lebethron_sign",
+    "kind": "sign",
+    "woodset": "lebethron",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 1.0,
+    "resistance": 1.0,
+    "solid": false,
+    "item": "none"
+  },
+  {
+    "id": "lebethron_wall_sign",
+    "kind": "wall_sign",
+    "woodset": "lebethron",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 1.0,
+    "resistance": 1.0,
+    "solid": false,
+    "item": "none"
+  },
+  {
+    "id": "lebethron_hanging_sign",
+    "kind": "hanging_sign",
+    "woodset": "lebethron",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 1.0,
+    "resistance": 1.0,
+    "solid": false,
+    "item": "none"
+  },
+  {
+    "id": "lebethron_wall_hanging_sign",
+    "kind": "wall_hanging_sign",
+    "woodset": "lebethron",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 1.0,
+    "resistance": 1.0,
+    "solid": false,
+    "item": "none"
+  },
+  {
+    "id": "beech_bark",
+    "kind": "pillar",
+    "woodset": "beech",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true
+  },
+  {
+    "id": "stripped_beech_wood",
+    "kind": "pillar",
+    "woodset": "beech",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true,
+    "stripped": true
+  },
+  {
+    "id": "stripped_beech_wood_beam",
+    "kind": "pillar",
+    "woodset": "beech",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true,
+    "stripped": true
+  },
+  {
+    "id": "stripped_beech_bark",
+    "kind": "pillar",
+    "woodset": "beech",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true,
+    "stripped": true
+  },
+  {
+    "id": "beech_button",
+    "kind": "button",
+    "woodset": "beech",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 0.5,
+    "resistance": 0.5,
+    "solid": false,
+    "set": "wood"
+  },
+  {
+    "id": "beech_pressure_plate",
+    "kind": "pressure_plate",
+    "woodset": "beech",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 0.5,
+    "resistance": 0.5,
+    "solid": false,
+    "set": "wood"
+  },
+  {
+    "id": "beech_sign",
+    "kind": "sign",
+    "woodset": "beech",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 1.0,
+    "resistance": 1.0,
+    "solid": false,
+    "item": "none"
+  },
+  {
+    "id": "beech_wall_sign",
+    "kind": "wall_sign",
+    "woodset": "beech",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 1.0,
+    "resistance": 1.0,
+    "solid": false,
+    "item": "none"
+  },
+  {
+    "id": "beech_hanging_sign",
+    "kind": "hanging_sign",
+    "woodset": "beech",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 1.0,
+    "resistance": 1.0,
+    "solid": false,
+    "item": "none"
+  },
+  {
+    "id": "beech_wall_hanging_sign",
+    "kind": "wall_hanging_sign",
+    "woodset": "beech",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 1.0,
+    "resistance": 1.0,
+    "solid": false,
+    "item": "none"
+  },
+  {
+    "id": "holly_bark",
+    "kind": "pillar",
+    "woodset": "holly",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true
+  },
+  {
+    "id": "stripped_holly_wood",
+    "kind": "pillar",
+    "woodset": "holly",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true,
+    "stripped": true
+  },
+  {
+    "id": "stripped_holly_wood_beam",
+    "kind": "pillar",
+    "woodset": "holly",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true,
+    "stripped": true
+  },
+  {
+    "id": "stripped_holly_bark",
+    "kind": "pillar",
+    "woodset": "holly",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true,
+    "stripped": true
+  },
+  {
+    "id": "holly_button",
+    "kind": "button",
+    "woodset": "holly",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 0.5,
+    "resistance": 0.5,
+    "solid": false,
+    "set": "wood"
+  },
+  {
+    "id": "holly_pressure_plate",
+    "kind": "pressure_plate",
+    "woodset": "holly",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 0.5,
+    "resistance": 0.5,
+    "solid": false,
+    "set": "wood"
+  },
+  {
+    "id": "holly_sign",
+    "kind": "sign",
+    "woodset": "holly",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 1.0,
+    "resistance": 1.0,
+    "solid": false,
+    "item": "none"
+  },
+  {
+    "id": "holly_wall_sign",
+    "kind": "wall_sign",
+    "woodset": "holly",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 1.0,
+    "resistance": 1.0,
+    "solid": false,
+    "item": "none"
+  },
+  {
+    "id": "holly_hanging_sign",
+    "kind": "hanging_sign",
+    "woodset": "holly",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 1.0,
+    "resistance": 1.0,
+    "solid": false,
+    "item": "none"
+  },
+  {
+    "id": "holly_wall_hanging_sign",
+    "kind": "wall_hanging_sign",
+    "woodset": "holly",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 1.0,
+    "resistance": 1.0,
+    "solid": false,
+    "item": "none"
+  },
+  {
+    "id": "banana_bark",
+    "kind": "pillar",
+    "woodset": "banana",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true
+  },
+  {
+    "id": "stripped_banana_wood",
+    "kind": "pillar",
+    "woodset": "banana",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true,
+    "stripped": true
+  },
+  {
+    "id": "stripped_banana_wood_beam",
+    "kind": "pillar",
+    "woodset": "banana",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true,
+    "stripped": true
+  },
+  {
+    "id": "stripped_banana_bark",
+    "kind": "pillar",
+    "woodset": "banana",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true,
+    "stripped": true
+  },
+  {
+    "id": "banana_button",
+    "kind": "button",
+    "woodset": "banana",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 0.5,
+    "resistance": 0.5,
+    "solid": false,
+    "set": "wood"
+  },
+  {
+    "id": "banana_pressure_plate",
+    "kind": "pressure_plate",
+    "woodset": "banana",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 0.5,
+    "resistance": 0.5,
+    "solid": false,
+    "set": "wood"
+  },
+  {
+    "id": "banana_sign",
+    "kind": "sign",
+    "woodset": "banana",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 1.0,
+    "resistance": 1.0,
+    "solid": false,
+    "item": "none"
+  },
+  {
+    "id": "banana_wall_sign",
+    "kind": "wall_sign",
+    "woodset": "banana",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 1.0,
+    "resistance": 1.0,
+    "solid": false,
+    "item": "none"
+  },
+  {
+    "id": "banana_hanging_sign",
+    "kind": "hanging_sign",
+    "woodset": "banana",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 1.0,
+    "resistance": 1.0,
+    "solid": false,
+    "item": "none"
+  },
+  {
+    "id": "banana_wall_hanging_sign",
+    "kind": "wall_hanging_sign",
+    "woodset": "banana",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 1.0,
+    "resistance": 1.0,
+    "solid": false,
+    "item": "none"
+  },
+  {
+    "id": "maple_bark",
+    "kind": "pillar",
+    "woodset": "maple",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true
+  },
+  {
+    "id": "stripped_maple_wood",
+    "kind": "pillar",
+    "woodset": "maple",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true,
+    "stripped": true
+  },
+  {
+    "id": "stripped_maple_wood_beam",
+    "kind": "pillar",
+    "woodset": "maple",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true,
+    "stripped": true
+  },
+  {
+    "id": "stripped_maple_bark",
+    "kind": "pillar",
+    "woodset": "maple",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true,
+    "stripped": true
+  },
+  {
+    "id": "maple_button",
+    "kind": "button",
+    "woodset": "maple",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 0.5,
+    "resistance": 0.5,
+    "solid": false,
+    "set": "wood"
+  },
+  {
+    "id": "maple_pressure_plate",
+    "kind": "pressure_plate",
+    "woodset": "maple",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 0.5,
+    "resistance": 0.5,
+    "solid": false,
+    "set": "wood"
+  },
+  {
+    "id": "maple_sign",
+    "kind": "sign",
+    "woodset": "maple",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 1.0,
+    "resistance": 1.0,
+    "solid": false,
+    "item": "none"
+  },
+  {
+    "id": "maple_wall_sign",
+    "kind": "wall_sign",
+    "woodset": "maple",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 1.0,
+    "resistance": 1.0,
+    "solid": false,
+    "item": "none"
+  },
+  {
+    "id": "maple_hanging_sign",
+    "kind": "hanging_sign",
+    "woodset": "maple",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 1.0,
+    "resistance": 1.0,
+    "solid": false,
+    "item": "none"
+  },
+  {
+    "id": "maple_wall_hanging_sign",
+    "kind": "wall_hanging_sign",
+    "woodset": "maple",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 1.0,
+    "resistance": 1.0,
+    "solid": false,
+    "item": "none"
+  },
+  {
+    "id": "larch_bark",
+    "kind": "pillar",
+    "woodset": "larch",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true
+  },
+  {
+    "id": "stripped_larch_wood",
+    "kind": "pillar",
+    "woodset": "larch",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true,
+    "stripped": true
+  },
+  {
+    "id": "stripped_larch_wood_beam",
+    "kind": "pillar",
+    "woodset": "larch",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true,
+    "stripped": true
+  },
+  {
+    "id": "stripped_larch_bark",
+    "kind": "pillar",
+    "woodset": "larch",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true,
+    "stripped": true
+  },
+  {
+    "id": "larch_button",
+    "kind": "button",
+    "woodset": "larch",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 0.5,
+    "resistance": 0.5,
+    "solid": false,
+    "set": "wood"
+  },
+  {
+    "id": "larch_pressure_plate",
+    "kind": "pressure_plate",
+    "woodset": "larch",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 0.5,
+    "resistance": 0.5,
+    "solid": false,
+    "set": "wood"
+  },
+  {
+    "id": "larch_sign",
+    "kind": "sign",
+    "woodset": "larch",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 1.0,
+    "resistance": 1.0,
+    "solid": false,
+    "item": "none"
+  },
+  {
+    "id": "larch_wall_sign",
+    "kind": "wall_sign",
+    "woodset": "larch",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 1.0,
+    "resistance": 1.0,
+    "solid": false,
+    "item": "none"
+  },
+  {
+    "id": "larch_hanging_sign",
+    "kind": "hanging_sign",
+    "woodset": "larch",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 1.0,
+    "resistance": 1.0,
+    "solid": false,
+    "item": "none"
+  },
+  {
+    "id": "larch_wall_hanging_sign",
+    "kind": "wall_hanging_sign",
+    "woodset": "larch",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 1.0,
+    "resistance": 1.0,
+    "solid": false,
+    "item": "none"
+  },
+  {
+    "id": "date_palm_bark",
+    "kind": "pillar",
+    "woodset": "date_palm",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true
+  },
+  {
+    "id": "stripped_date_palm_wood",
+    "kind": "pillar",
+    "woodset": "date_palm",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true,
+    "stripped": true
+  },
+  {
+    "id": "stripped_date_palm_wood_beam",
+    "kind": "pillar",
+    "woodset": "date_palm",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true,
+    "stripped": true
+  },
+  {
+    "id": "stripped_date_palm_bark",
+    "kind": "pillar",
+    "woodset": "date_palm",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true,
+    "stripped": true
+  },
+  {
+    "id": "date_palm_button",
+    "kind": "button",
+    "woodset": "date_palm",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 0.5,
+    "resistance": 0.5,
+    "solid": false,
+    "set": "wood"
+  },
+  {
+    "id": "date_palm_pressure_plate",
+    "kind": "pressure_plate",
+    "woodset": "date_palm",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 0.5,
+    "resistance": 0.5,
+    "solid": false,
+    "set": "wood"
+  },
+  {
+    "id": "date_palm_sign",
+    "kind": "sign",
+    "woodset": "date_palm",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 1.0,
+    "resistance": 1.0,
+    "solid": false,
+    "item": "none"
+  },
+  {
+    "id": "date_palm_wall_sign",
+    "kind": "wall_sign",
+    "woodset": "date_palm",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 1.0,
+    "resistance": 1.0,
+    "solid": false,
+    "item": "none"
+  },
+  {
+    "id": "date_palm_hanging_sign",
+    "kind": "hanging_sign",
+    "woodset": "date_palm",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 1.0,
+    "resistance": 1.0,
+    "solid": false,
+    "item": "none"
+  },
+  {
+    "id": "date_palm_wall_hanging_sign",
+    "kind": "wall_hanging_sign",
+    "woodset": "date_palm",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 1.0,
+    "resistance": 1.0,
+    "solid": false,
+    "item": "none"
+  },
+  {
+    "id": "mangrove_bark",
+    "kind": "pillar",
+    "woodset": "mangrove",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true
+  },
+  {
+    "id": "stripped_mangrove_wood",
+    "kind": "pillar",
+    "woodset": "mangrove",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true,
+    "stripped": true
+  },
+  {
+    "id": "stripped_mangrove_wood_beam",
+    "kind": "pillar",
+    "woodset": "mangrove",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true,
+    "stripped": true
+  },
+  {
+    "id": "stripped_mangrove_bark",
+    "kind": "pillar",
+    "woodset": "mangrove",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true,
+    "stripped": true
+  },
+  {
+    "id": "mangrove_button",
+    "kind": "button",
+    "woodset": "mangrove",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 0.5,
+    "resistance": 0.5,
+    "solid": false,
+    "set": "wood"
+  },
+  {
+    "id": "mangrove_pressure_plate",
+    "kind": "pressure_plate",
+    "woodset": "mangrove",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 0.5,
+    "resistance": 0.5,
+    "solid": false,
+    "set": "wood"
+  },
+  {
+    "id": "mangrove_sign",
+    "kind": "sign",
+    "woodset": "mangrove",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 1.0,
+    "resistance": 1.0,
+    "solid": false,
+    "item": "none"
+  },
+  {
+    "id": "mangrove_wall_sign",
+    "kind": "wall_sign",
+    "woodset": "mangrove",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 1.0,
+    "resistance": 1.0,
+    "solid": false,
+    "item": "none"
+  },
+  {
+    "id": "mangrove_hanging_sign",
+    "kind": "hanging_sign",
+    "woodset": "mangrove",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 1.0,
+    "resistance": 1.0,
+    "solid": false,
+    "item": "none"
+  },
+  {
+    "id": "mangrove_wall_hanging_sign",
+    "kind": "wall_hanging_sign",
+    "woodset": "mangrove",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 1.0,
+    "resistance": 1.0,
+    "solid": false,
+    "item": "none"
+  },
+  {
+    "id": "chestnut_bark",
+    "kind": "pillar",
+    "woodset": "chestnut",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true
+  },
+  {
+    "id": "stripped_chestnut_wood",
+    "kind": "pillar",
+    "woodset": "chestnut",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true,
+    "stripped": true
+  },
+  {
+    "id": "stripped_chestnut_wood_beam",
+    "kind": "pillar",
+    "woodset": "chestnut",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true,
+    "stripped": true
+  },
+  {
+    "id": "stripped_chestnut_bark",
+    "kind": "pillar",
+    "woodset": "chestnut",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true,
+    "stripped": true
+  },
+  {
+    "id": "chestnut_button",
+    "kind": "button",
+    "woodset": "chestnut",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 0.5,
+    "resistance": 0.5,
+    "solid": false,
+    "set": "wood"
+  },
+  {
+    "id": "chestnut_pressure_plate",
+    "kind": "pressure_plate",
+    "woodset": "chestnut",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 0.5,
+    "resistance": 0.5,
+    "solid": false,
+    "set": "wood"
+  },
+  {
+    "id": "chestnut_sign",
+    "kind": "sign",
+    "woodset": "chestnut",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 1.0,
+    "resistance": 1.0,
+    "solid": false,
+    "item": "none"
+  },
+  {
+    "id": "chestnut_wall_sign",
+    "kind": "wall_sign",
+    "woodset": "chestnut",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 1.0,
+    "resistance": 1.0,
+    "solid": false,
+    "item": "none"
+  },
+  {
+    "id": "chestnut_hanging_sign",
+    "kind": "hanging_sign",
+    "woodset": "chestnut",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 1.0,
+    "resistance": 1.0,
+    "solid": false,
+    "item": "none"
+  },
+  {
+    "id": "chestnut_wall_hanging_sign",
+    "kind": "wall_hanging_sign",
+    "woodset": "chestnut",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 1.0,
+    "resistance": 1.0,
+    "solid": false,
+    "item": "none"
+  },
+  {
+    "id": "baobab_bark",
+    "kind": "pillar",
+    "woodset": "baobab",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true
+  },
+  {
+    "id": "stripped_baobab_wood",
+    "kind": "pillar",
+    "woodset": "baobab",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true,
+    "stripped": true
+  },
+  {
+    "id": "stripped_baobab_wood_beam",
+    "kind": "pillar",
+    "woodset": "baobab",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true,
+    "stripped": true
+  },
+  {
+    "id": "stripped_baobab_bark",
+    "kind": "pillar",
+    "woodset": "baobab",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true,
+    "stripped": true
+  },
+  {
+    "id": "baobab_button",
+    "kind": "button",
+    "woodset": "baobab",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 0.5,
+    "resistance": 0.5,
+    "solid": false,
+    "set": "wood"
+  },
+  {
+    "id": "baobab_pressure_plate",
+    "kind": "pressure_plate",
+    "woodset": "baobab",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 0.5,
+    "resistance": 0.5,
+    "solid": false,
+    "set": "wood"
+  },
+  {
+    "id": "baobab_sign",
+    "kind": "sign",
+    "woodset": "baobab",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 1.0,
+    "resistance": 1.0,
+    "solid": false,
+    "item": "none"
+  },
+  {
+    "id": "baobab_wall_sign",
+    "kind": "wall_sign",
+    "woodset": "baobab",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 1.0,
+    "resistance": 1.0,
+    "solid": false,
+    "item": "none"
+  },
+  {
+    "id": "baobab_hanging_sign",
+    "kind": "hanging_sign",
+    "woodset": "baobab",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 1.0,
+    "resistance": 1.0,
+    "solid": false,
+    "item": "none"
+  },
+  {
+    "id": "baobab_wall_hanging_sign",
+    "kind": "wall_hanging_sign",
+    "woodset": "baobab",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 1.0,
+    "resistance": 1.0,
+    "solid": false,
+    "item": "none"
+  },
+  {
+    "id": "cedar_bark",
+    "kind": "pillar",
+    "woodset": "cedar",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true
+  },
+  {
+    "id": "stripped_cedar_wood",
+    "kind": "pillar",
+    "woodset": "cedar",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true,
+    "stripped": true
+  },
+  {
+    "id": "stripped_cedar_wood_beam",
+    "kind": "pillar",
+    "woodset": "cedar",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true,
+    "stripped": true
+  },
+  {
+    "id": "stripped_cedar_bark",
+    "kind": "pillar",
+    "woodset": "cedar",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true,
+    "stripped": true
+  },
+  {
+    "id": "cedar_button",
+    "kind": "button",
+    "woodset": "cedar",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 0.5,
+    "resistance": 0.5,
+    "solid": false,
+    "set": "wood"
+  },
+  {
+    "id": "cedar_pressure_plate",
+    "kind": "pressure_plate",
+    "woodset": "cedar",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 0.5,
+    "resistance": 0.5,
+    "solid": false,
+    "set": "wood"
+  },
+  {
+    "id": "cedar_sign",
+    "kind": "sign",
+    "woodset": "cedar",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 1.0,
+    "resistance": 1.0,
+    "solid": false,
+    "item": "none"
+  },
+  {
+    "id": "cedar_wall_sign",
+    "kind": "wall_sign",
+    "woodset": "cedar",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 1.0,
+    "resistance": 1.0,
+    "solid": false,
+    "item": "none"
+  },
+  {
+    "id": "cedar_hanging_sign",
+    "kind": "hanging_sign",
+    "woodset": "cedar",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 1.0,
+    "resistance": 1.0,
+    "solid": false,
+    "item": "none"
+  },
+  {
+    "id": "cedar_wall_hanging_sign",
+    "kind": "wall_hanging_sign",
+    "woodset": "cedar",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 1.0,
+    "resistance": 1.0,
+    "solid": false,
+    "item": "none"
+  },
+  {
+    "id": "fir_bark",
+    "kind": "pillar",
+    "woodset": "fir",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true
+  },
+  {
+    "id": "stripped_fir_wood",
+    "kind": "pillar",
+    "woodset": "fir",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true,
+    "stripped": true
+  },
+  {
+    "id": "stripped_fir_wood_beam",
+    "kind": "pillar",
+    "woodset": "fir",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true,
+    "stripped": true
+  },
+  {
+    "id": "stripped_fir_bark",
+    "kind": "pillar",
+    "woodset": "fir",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true,
+    "stripped": true
+  },
+  {
+    "id": "fir_button",
+    "kind": "button",
+    "woodset": "fir",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 0.5,
+    "resistance": 0.5,
+    "solid": false,
+    "set": "wood"
+  },
+  {
+    "id": "fir_pressure_plate",
+    "kind": "pressure_plate",
+    "woodset": "fir",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 0.5,
+    "resistance": 0.5,
+    "solid": false,
+    "set": "wood"
+  },
+  {
+    "id": "fir_sign",
+    "kind": "sign",
+    "woodset": "fir",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 1.0,
+    "resistance": 1.0,
+    "solid": false,
+    "item": "none"
+  },
+  {
+    "id": "fir_wall_sign",
+    "kind": "wall_sign",
+    "woodset": "fir",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 1.0,
+    "resistance": 1.0,
+    "solid": false,
+    "item": "none"
+  },
+  {
+    "id": "fir_hanging_sign",
+    "kind": "hanging_sign",
+    "woodset": "fir",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 1.0,
+    "resistance": 1.0,
+    "solid": false,
+    "item": "none"
+  },
+  {
+    "id": "fir_wall_hanging_sign",
+    "kind": "wall_hanging_sign",
+    "woodset": "fir",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 1.0,
+    "resistance": 1.0,
+    "solid": false,
+    "item": "none"
+  },
+  {
+    "id": "pine_bark",
+    "kind": "pillar",
+    "woodset": "pine",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true
+  },
+  {
+    "id": "stripped_pine_wood",
+    "kind": "pillar",
+    "woodset": "pine",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true,
+    "stripped": true
+  },
+  {
+    "id": "stripped_pine_wood_beam",
+    "kind": "pillar",
+    "woodset": "pine",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true,
+    "stripped": true
+  },
+  {
+    "id": "stripped_pine_bark",
+    "kind": "pillar",
+    "woodset": "pine",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true,
+    "stripped": true
+  },
+  {
+    "id": "pine_button",
+    "kind": "button",
+    "woodset": "pine",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 0.5,
+    "resistance": 0.5,
+    "solid": false,
+    "set": "wood"
+  },
+  {
+    "id": "pine_pressure_plate",
+    "kind": "pressure_plate",
+    "woodset": "pine",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 0.5,
+    "resistance": 0.5,
+    "solid": false,
+    "set": "wood"
+  },
+  {
+    "id": "pine_sign",
+    "kind": "sign",
+    "woodset": "pine",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 1.0,
+    "resistance": 1.0,
+    "solid": false,
+    "item": "none"
+  },
+  {
+    "id": "pine_wall_sign",
+    "kind": "wall_sign",
+    "woodset": "pine",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 1.0,
+    "resistance": 1.0,
+    "solid": false,
+    "item": "none"
+  },
+  {
+    "id": "pine_hanging_sign",
+    "kind": "hanging_sign",
+    "woodset": "pine",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 1.0,
+    "resistance": 1.0,
+    "solid": false,
+    "item": "none"
+  },
+  {
+    "id": "pine_wall_hanging_sign",
+    "kind": "wall_hanging_sign",
+    "woodset": "pine",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 1.0,
+    "resistance": 1.0,
+    "solid": false,
+    "item": "none"
+  },
+  {
+    "id": "lemon_bark",
+    "kind": "pillar",
+    "woodset": "lemon",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true
+  },
+  {
+    "id": "stripped_lemon_wood",
+    "kind": "pillar",
+    "woodset": "lemon",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true,
+    "stripped": true
+  },
+  {
+    "id": "stripped_lemon_wood_beam",
+    "kind": "pillar",
+    "woodset": "lemon",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true,
+    "stripped": true
+  },
+  {
+    "id": "stripped_lemon_bark",
+    "kind": "pillar",
+    "woodset": "lemon",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true,
+    "stripped": true
+  },
+  {
+    "id": "lemon_button",
+    "kind": "button",
+    "woodset": "lemon",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 0.5,
+    "resistance": 0.5,
+    "solid": false,
+    "set": "wood"
+  },
+  {
+    "id": "lemon_pressure_plate",
+    "kind": "pressure_plate",
+    "woodset": "lemon",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 0.5,
+    "resistance": 0.5,
+    "solid": false,
+    "set": "wood"
+  },
+  {
+    "id": "lemon_sign",
+    "kind": "sign",
+    "woodset": "lemon",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 1.0,
+    "resistance": 1.0,
+    "solid": false,
+    "item": "none"
+  },
+  {
+    "id": "lemon_wall_sign",
+    "kind": "wall_sign",
+    "woodset": "lemon",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 1.0,
+    "resistance": 1.0,
+    "solid": false,
+    "item": "none"
+  },
+  {
+    "id": "lemon_hanging_sign",
+    "kind": "hanging_sign",
+    "woodset": "lemon",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 1.0,
+    "resistance": 1.0,
+    "solid": false,
+    "item": "none"
+  },
+  {
+    "id": "lemon_wall_hanging_sign",
+    "kind": "wall_hanging_sign",
+    "woodset": "lemon",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 1.0,
+    "resistance": 1.0,
+    "solid": false,
+    "item": "none"
+  },
+  {
+    "id": "orange_bark",
+    "kind": "pillar",
+    "woodset": "orange",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true
+  },
+  {
+    "id": "stripped_orange_wood",
+    "kind": "pillar",
+    "woodset": "orange",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true,
+    "stripped": true
+  },
+  {
+    "id": "stripped_orange_wood_beam",
+    "kind": "pillar",
+    "woodset": "orange",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true,
+    "stripped": true
+  },
+  {
+    "id": "stripped_orange_bark",
+    "kind": "pillar",
+    "woodset": "orange",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true,
+    "stripped": true
+  },
+  {
+    "id": "orange_button",
+    "kind": "button",
+    "woodset": "orange",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 0.5,
+    "resistance": 0.5,
+    "solid": false,
+    "set": "wood"
+  },
+  {
+    "id": "orange_pressure_plate",
+    "kind": "pressure_plate",
+    "woodset": "orange",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 0.5,
+    "resistance": 0.5,
+    "solid": false,
+    "set": "wood"
+  },
+  {
+    "id": "orange_sign",
+    "kind": "sign",
+    "woodset": "orange",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 1.0,
+    "resistance": 1.0,
+    "solid": false,
+    "item": "none"
+  },
+  {
+    "id": "orange_wall_sign",
+    "kind": "wall_sign",
+    "woodset": "orange",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 1.0,
+    "resistance": 1.0,
+    "solid": false,
+    "item": "none"
+  },
+  {
+    "id": "orange_hanging_sign",
+    "kind": "hanging_sign",
+    "woodset": "orange",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 1.0,
+    "resistance": 1.0,
+    "solid": false,
+    "item": "none"
+  },
+  {
+    "id": "orange_wall_hanging_sign",
+    "kind": "wall_hanging_sign",
+    "woodset": "orange",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 1.0,
+    "resistance": 1.0,
+    "solid": false,
+    "item": "none"
+  },
+  {
+    "id": "lime_bark",
+    "kind": "pillar",
+    "woodset": "lime",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true
+  },
+  {
+    "id": "stripped_lime_wood",
+    "kind": "pillar",
+    "woodset": "lime",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true,
+    "stripped": true
+  },
+  {
+    "id": "stripped_lime_wood_beam",
+    "kind": "pillar",
+    "woodset": "lime",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true,
+    "stripped": true
+  },
+  {
+    "id": "stripped_lime_bark",
+    "kind": "pillar",
+    "woodset": "lime",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true,
+    "stripped": true
+  },
+  {
+    "id": "lime_button",
+    "kind": "button",
+    "woodset": "lime",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 0.5,
+    "resistance": 0.5,
+    "solid": false,
+    "set": "wood"
+  },
+  {
+    "id": "lime_pressure_plate",
+    "kind": "pressure_plate",
+    "woodset": "lime",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 0.5,
+    "resistance": 0.5,
+    "solid": false,
+    "set": "wood"
+  },
+  {
+    "id": "lime_sign",
+    "kind": "sign",
+    "woodset": "lime",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 1.0,
+    "resistance": 1.0,
+    "solid": false,
+    "item": "none"
+  },
+  {
+    "id": "lime_wall_sign",
+    "kind": "wall_sign",
+    "woodset": "lime",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 1.0,
+    "resistance": 1.0,
+    "solid": false,
+    "item": "none"
+  },
+  {
+    "id": "lime_hanging_sign",
+    "kind": "hanging_sign",
+    "woodset": "lime",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 1.0,
+    "resistance": 1.0,
+    "solid": false,
+    "item": "none"
+  },
+  {
+    "id": "lime_wall_hanging_sign",
+    "kind": "wall_hanging_sign",
+    "woodset": "lime",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 1.0,
+    "resistance": 1.0,
+    "solid": false,
+    "item": "none"
+  },
+  {
+    "id": "mahogany_bark",
+    "kind": "pillar",
+    "woodset": "mahogany",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true
+  },
+  {
+    "id": "stripped_mahogany_wood",
+    "kind": "pillar",
+    "woodset": "mahogany",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true,
+    "stripped": true
+  },
+  {
+    "id": "stripped_mahogany_wood_beam",
+    "kind": "pillar",
+    "woodset": "mahogany",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true,
+    "stripped": true
+  },
+  {
+    "id": "stripped_mahogany_bark",
+    "kind": "pillar",
+    "woodset": "mahogany",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true,
+    "stripped": true
+  },
+  {
+    "id": "mahogany_button",
+    "kind": "button",
+    "woodset": "mahogany",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 0.5,
+    "resistance": 0.5,
+    "solid": false,
+    "set": "wood"
+  },
+  {
+    "id": "mahogany_pressure_plate",
+    "kind": "pressure_plate",
+    "woodset": "mahogany",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 0.5,
+    "resistance": 0.5,
+    "solid": false,
+    "set": "wood"
+  },
+  {
+    "id": "mahogany_sign",
+    "kind": "sign",
+    "woodset": "mahogany",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 1.0,
+    "resistance": 1.0,
+    "solid": false,
+    "item": "none"
+  },
+  {
+    "id": "mahogany_wall_sign",
+    "kind": "wall_sign",
+    "woodset": "mahogany",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 1.0,
+    "resistance": 1.0,
+    "solid": false,
+    "item": "none"
+  },
+  {
+    "id": "mahogany_hanging_sign",
+    "kind": "hanging_sign",
+    "woodset": "mahogany",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 1.0,
+    "resistance": 1.0,
+    "solid": false,
+    "item": "none"
+  },
+  {
+    "id": "mahogany_wall_hanging_sign",
+    "kind": "wall_hanging_sign",
+    "woodset": "mahogany",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 1.0,
+    "resistance": 1.0,
+    "solid": false,
+    "item": "none"
+  },
+  {
+    "id": "willow_bark",
+    "kind": "pillar",
+    "woodset": "willow",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true
+  },
+  {
+    "id": "stripped_willow_wood",
+    "kind": "pillar",
+    "woodset": "willow",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true,
+    "stripped": true
+  },
+  {
+    "id": "stripped_willow_wood_beam",
+    "kind": "pillar",
+    "woodset": "willow",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true,
+    "stripped": true
+  },
+  {
+    "id": "stripped_willow_bark",
+    "kind": "pillar",
+    "woodset": "willow",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true,
+    "stripped": true
+  },
+  {
+    "id": "willow_button",
+    "kind": "button",
+    "woodset": "willow",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 0.5,
+    "resistance": 0.5,
+    "solid": false,
+    "set": "wood"
+  },
+  {
+    "id": "willow_pressure_plate",
+    "kind": "pressure_plate",
+    "woodset": "willow",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 0.5,
+    "resistance": 0.5,
+    "solid": false,
+    "set": "wood"
+  },
+  {
+    "id": "willow_sign",
+    "kind": "sign",
+    "woodset": "willow",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 1.0,
+    "resistance": 1.0,
+    "solid": false,
+    "item": "none"
+  },
+  {
+    "id": "willow_wall_sign",
+    "kind": "wall_sign",
+    "woodset": "willow",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 1.0,
+    "resistance": 1.0,
+    "solid": false,
+    "item": "none"
+  },
+  {
+    "id": "willow_hanging_sign",
+    "kind": "hanging_sign",
+    "woodset": "willow",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 1.0,
+    "resistance": 1.0,
+    "solid": false,
+    "item": "none"
+  },
+  {
+    "id": "willow_wall_hanging_sign",
+    "kind": "wall_hanging_sign",
+    "woodset": "willow",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 1.0,
+    "resistance": 1.0,
+    "solid": false,
+    "item": "none"
+  },
+  {
+    "id": "cypress_bark",
+    "kind": "pillar",
+    "woodset": "cypress",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true
+  },
+  {
+    "id": "stripped_cypress_wood",
+    "kind": "pillar",
+    "woodset": "cypress",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true,
+    "stripped": true
+  },
+  {
+    "id": "stripped_cypress_wood_beam",
+    "kind": "pillar",
+    "woodset": "cypress",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true,
+    "stripped": true
+  },
+  {
+    "id": "stripped_cypress_bark",
+    "kind": "pillar",
+    "woodset": "cypress",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true,
+    "stripped": true
+  },
+  {
+    "id": "cypress_button",
+    "kind": "button",
+    "woodset": "cypress",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 0.5,
+    "resistance": 0.5,
+    "solid": false,
+    "set": "wood"
+  },
+  {
+    "id": "cypress_pressure_plate",
+    "kind": "pressure_plate",
+    "woodset": "cypress",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 0.5,
+    "resistance": 0.5,
+    "solid": false,
+    "set": "wood"
+  },
+  {
+    "id": "cypress_sign",
+    "kind": "sign",
+    "woodset": "cypress",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 1.0,
+    "resistance": 1.0,
+    "solid": false,
+    "item": "none"
+  },
+  {
+    "id": "cypress_wall_sign",
+    "kind": "wall_sign",
+    "woodset": "cypress",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 1.0,
+    "resistance": 1.0,
+    "solid": false,
+    "item": "none"
+  },
+  {
+    "id": "cypress_hanging_sign",
+    "kind": "hanging_sign",
+    "woodset": "cypress",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 1.0,
+    "resistance": 1.0,
+    "solid": false,
+    "item": "none"
+  },
+  {
+    "id": "cypress_wall_hanging_sign",
+    "kind": "wall_hanging_sign",
+    "woodset": "cypress",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 1.0,
+    "resistance": 1.0,
+    "solid": false,
+    "item": "none"
+  },
+  {
+    "id": "olive_bark",
+    "kind": "pillar",
+    "woodset": "olive",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true
+  },
+  {
+    "id": "stripped_olive_wood",
+    "kind": "pillar",
+    "woodset": "olive",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true,
+    "stripped": true
+  },
+  {
+    "id": "stripped_olive_wood_beam",
+    "kind": "pillar",
+    "woodset": "olive",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true,
+    "stripped": true
+  },
+  {
+    "id": "stripped_olive_bark",
+    "kind": "pillar",
+    "woodset": "olive",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true,
+    "stripped": true
+  },
+  {
+    "id": "olive_button",
+    "kind": "button",
+    "woodset": "olive",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 0.5,
+    "resistance": 0.5,
+    "solid": false,
+    "set": "wood"
+  },
+  {
+    "id": "olive_pressure_plate",
+    "kind": "pressure_plate",
+    "woodset": "olive",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 0.5,
+    "resistance": 0.5,
+    "solid": false,
+    "set": "wood"
+  },
+  {
+    "id": "olive_sign",
+    "kind": "sign",
+    "woodset": "olive",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 1.0,
+    "resistance": 1.0,
+    "solid": false,
+    "item": "none"
+  },
+  {
+    "id": "olive_wall_sign",
+    "kind": "wall_sign",
+    "woodset": "olive",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 1.0,
+    "resistance": 1.0,
+    "solid": false,
+    "item": "none"
+  },
+  {
+    "id": "olive_hanging_sign",
+    "kind": "hanging_sign",
+    "woodset": "olive",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 1.0,
+    "resistance": 1.0,
+    "solid": false,
+    "item": "none"
+  },
+  {
+    "id": "olive_wall_hanging_sign",
+    "kind": "wall_hanging_sign",
+    "woodset": "olive",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 1.0,
+    "resistance": 1.0,
+    "solid": false,
+    "item": "none"
+  },
+  {
+    "id": "aspen_bark",
+    "kind": "pillar",
+    "woodset": "aspen",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true
+  },
+  {
+    "id": "stripped_aspen_wood",
+    "kind": "pillar",
+    "woodset": "aspen",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true,
+    "stripped": true
+  },
+  {
+    "id": "stripped_aspen_wood_beam",
+    "kind": "pillar",
+    "woodset": "aspen",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true,
+    "stripped": true
+  },
+  {
+    "id": "stripped_aspen_bark",
+    "kind": "pillar",
+    "woodset": "aspen",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true,
+    "stripped": true
+  },
+  {
+    "id": "aspen_button",
+    "kind": "button",
+    "woodset": "aspen",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 0.5,
+    "resistance": 0.5,
+    "solid": false,
+    "set": "wood"
+  },
+  {
+    "id": "aspen_pressure_plate",
+    "kind": "pressure_plate",
+    "woodset": "aspen",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 0.5,
+    "resistance": 0.5,
+    "solid": false,
+    "set": "wood"
+  },
+  {
+    "id": "aspen_sign",
+    "kind": "sign",
+    "woodset": "aspen",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 1.0,
+    "resistance": 1.0,
+    "solid": false,
+    "item": "none"
+  },
+  {
+    "id": "aspen_wall_sign",
+    "kind": "wall_sign",
+    "woodset": "aspen",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 1.0,
+    "resistance": 1.0,
+    "solid": false,
+    "item": "none"
+  },
+  {
+    "id": "aspen_hanging_sign",
+    "kind": "hanging_sign",
+    "woodset": "aspen",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 1.0,
+    "resistance": 1.0,
+    "solid": false,
+    "item": "none"
+  },
+  {
+    "id": "aspen_wall_hanging_sign",
+    "kind": "wall_hanging_sign",
+    "woodset": "aspen",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 1.0,
+    "resistance": 1.0,
+    "solid": false,
+    "item": "none"
+  },
+  {
+    "id": "green_oak_bark",
+    "kind": "pillar",
+    "woodset": "green_oak",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true
+  },
+  {
+    "id": "stripped_green_oak_wood",
+    "kind": "pillar",
+    "woodset": "green_oak",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true,
+    "stripped": true
+  },
+  {
+    "id": "stripped_green_oak_wood_beam",
+    "kind": "pillar",
+    "woodset": "green_oak",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true,
+    "stripped": true
+  },
+  {
+    "id": "stripped_green_oak_bark",
+    "kind": "pillar",
+    "woodset": "green_oak",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true,
+    "stripped": true
+  },
+  {
+    "id": "green_oak_button",
+    "kind": "button",
+    "woodset": "green_oak",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 0.5,
+    "resistance": 0.5,
+    "solid": false,
+    "set": "wood"
+  },
+  {
+    "id": "green_oak_pressure_plate",
+    "kind": "pressure_plate",
+    "woodset": "green_oak",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 0.5,
+    "resistance": 0.5,
+    "solid": false,
+    "set": "wood"
+  },
+  {
+    "id": "green_oak_sign",
+    "kind": "sign",
+    "woodset": "green_oak",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 1.0,
+    "resistance": 1.0,
+    "solid": false,
+    "item": "none"
+  },
+  {
+    "id": "green_oak_wall_sign",
+    "kind": "wall_sign",
+    "woodset": "green_oak",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 1.0,
+    "resistance": 1.0,
+    "solid": false,
+    "item": "none"
+  },
+  {
+    "id": "green_oak_hanging_sign",
+    "kind": "hanging_sign",
+    "woodset": "green_oak",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 1.0,
+    "resistance": 1.0,
+    "solid": false,
+    "item": "none"
+  },
+  {
+    "id": "green_oak_wall_hanging_sign",
+    "kind": "wall_hanging_sign",
+    "woodset": "green_oak",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 1.0,
+    "resistance": 1.0,
+    "solid": false,
+    "item": "none"
+  },
+  {
+    "id": "laireloss_bark",
+    "kind": "pillar",
+    "woodset": "laireloss",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true
+  },
+  {
+    "id": "stripped_laireloss_wood",
+    "kind": "pillar",
+    "woodset": "laireloss",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true,
+    "stripped": true
+  },
+  {
+    "id": "stripped_laireloss_wood_beam",
+    "kind": "pillar",
+    "woodset": "laireloss",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true,
+    "stripped": true
+  },
+  {
+    "id": "stripped_laireloss_bark",
+    "kind": "pillar",
+    "woodset": "laireloss",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true,
+    "stripped": true
+  },
+  {
+    "id": "laireloss_button",
+    "kind": "button",
+    "woodset": "laireloss",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 0.5,
+    "resistance": 0.5,
+    "solid": false,
+    "set": "wood"
+  },
+  {
+    "id": "laireloss_pressure_plate",
+    "kind": "pressure_plate",
+    "woodset": "laireloss",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 0.5,
+    "resistance": 0.5,
+    "solid": false,
+    "set": "wood"
+  },
+  {
+    "id": "laireloss_sign",
+    "kind": "sign",
+    "woodset": "laireloss",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 1.0,
+    "resistance": 1.0,
+    "solid": false,
+    "item": "none"
+  },
+  {
+    "id": "laireloss_wall_sign",
+    "kind": "wall_sign",
+    "woodset": "laireloss",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 1.0,
+    "resistance": 1.0,
+    "solid": false,
+    "item": "none"
+  },
+  {
+    "id": "laireloss_hanging_sign",
+    "kind": "hanging_sign",
+    "woodset": "laireloss",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 1.0,
+    "resistance": 1.0,
+    "solid": false,
+    "item": "none"
+  },
+  {
+    "id": "laireloss_wall_hanging_sign",
+    "kind": "wall_hanging_sign",
+    "woodset": "laireloss",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 1.0,
+    "resistance": 1.0,
+    "solid": false,
+    "item": "none"
+  },
+  {
+    "id": "almond_bark",
+    "kind": "pillar",
+    "woodset": "almond",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true
+  },
+  {
+    "id": "stripped_almond_wood",
+    "kind": "pillar",
+    "woodset": "almond",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true,
+    "stripped": true
+  },
+  {
+    "id": "stripped_almond_wood_beam",
+    "kind": "pillar",
+    "woodset": "almond",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true,
+    "stripped": true
+  },
+  {
+    "id": "stripped_almond_bark",
+    "kind": "pillar",
+    "woodset": "almond",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true,
+    "stripped": true
+  },
+  {
+    "id": "almond_button",
+    "kind": "button",
+    "woodset": "almond",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 0.5,
+    "resistance": 0.5,
+    "solid": false,
+    "set": "wood"
+  },
+  {
+    "id": "almond_pressure_plate",
+    "kind": "pressure_plate",
+    "woodset": "almond",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 0.5,
+    "resistance": 0.5,
+    "solid": false,
+    "set": "wood"
+  },
+  {
+    "id": "almond_sign",
+    "kind": "sign",
+    "woodset": "almond",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 1.0,
+    "resistance": 1.0,
+    "solid": false,
+    "item": "none"
+  },
+  {
+    "id": "almond_wall_sign",
+    "kind": "wall_sign",
+    "woodset": "almond",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 1.0,
+    "resistance": 1.0,
+    "solid": false,
+    "item": "none"
+  },
+  {
+    "id": "almond_hanging_sign",
+    "kind": "hanging_sign",
+    "woodset": "almond",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 1.0,
+    "resistance": 1.0,
+    "solid": false,
+    "item": "none"
+  },
+  {
+    "id": "almond_wall_hanging_sign",
+    "kind": "wall_hanging_sign",
+    "woodset": "almond",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 1.0,
+    "resistance": 1.0,
+    "solid": false,
+    "item": "none"
+  },
+  {
+    "id": "plum_bark",
+    "kind": "pillar",
+    "woodset": "plum",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true
+  },
+  {
+    "id": "stripped_plum_wood",
+    "kind": "pillar",
+    "woodset": "plum",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true,
+    "stripped": true
+  },
+  {
+    "id": "stripped_plum_wood_beam",
+    "kind": "pillar",
+    "woodset": "plum",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true,
+    "stripped": true
+  },
+  {
+    "id": "stripped_plum_bark",
+    "kind": "pillar",
+    "woodset": "plum",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true,
+    "stripped": true
+  },
+  {
+    "id": "plum_button",
+    "kind": "button",
+    "woodset": "plum",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 0.5,
+    "resistance": 0.5,
+    "solid": false,
+    "set": "wood"
+  },
+  {
+    "id": "plum_pressure_plate",
+    "kind": "pressure_plate",
+    "woodset": "plum",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 0.5,
+    "resistance": 0.5,
+    "solid": false,
+    "set": "wood"
+  },
+  {
+    "id": "plum_sign",
+    "kind": "sign",
+    "woodset": "plum",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 1.0,
+    "resistance": 1.0,
+    "solid": false,
+    "item": "none"
+  },
+  {
+    "id": "plum_wall_sign",
+    "kind": "wall_sign",
+    "woodset": "plum",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 1.0,
+    "resistance": 1.0,
+    "solid": false,
+    "item": "none"
+  },
+  {
+    "id": "plum_hanging_sign",
+    "kind": "hanging_sign",
+    "woodset": "plum",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 1.0,
+    "resistance": 1.0,
+    "solid": false,
+    "item": "none"
+  },
+  {
+    "id": "plum_wall_hanging_sign",
+    "kind": "wall_hanging_sign",
+    "woodset": "plum",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 1.0,
+    "resistance": 1.0,
+    "solid": false,
+    "item": "none"
+  },
+  {
+    "id": "redwood_bark",
+    "kind": "pillar",
+    "woodset": "redwood",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true
+  },
+  {
+    "id": "stripped_redwood_wood",
+    "kind": "pillar",
+    "woodset": "redwood",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true,
+    "stripped": true
+  },
+  {
+    "id": "stripped_redwood_wood_beam",
+    "kind": "pillar",
+    "woodset": "redwood",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true,
+    "stripped": true
+  },
+  {
+    "id": "stripped_redwood_bark",
+    "kind": "pillar",
+    "woodset": "redwood",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true,
+    "stripped": true
+  },
+  {
+    "id": "redwood_button",
+    "kind": "button",
+    "woodset": "redwood",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 0.5,
+    "resistance": 0.5,
+    "solid": false,
+    "set": "wood"
+  },
+  {
+    "id": "redwood_pressure_plate",
+    "kind": "pressure_plate",
+    "woodset": "redwood",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 0.5,
+    "resistance": 0.5,
+    "solid": false,
+    "set": "wood"
+  },
+  {
+    "id": "redwood_sign",
+    "kind": "sign",
+    "woodset": "redwood",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 1.0,
+    "resistance": 1.0,
+    "solid": false,
+    "item": "none"
+  },
+  {
+    "id": "redwood_wall_sign",
+    "kind": "wall_sign",
+    "woodset": "redwood",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 1.0,
+    "resistance": 1.0,
+    "solid": false,
+    "item": "none"
+  },
+  {
+    "id": "redwood_hanging_sign",
+    "kind": "hanging_sign",
+    "woodset": "redwood",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 1.0,
+    "resistance": 1.0,
+    "solid": false,
+    "item": "none"
+  },
+  {
+    "id": "redwood_wall_hanging_sign",
+    "kind": "wall_hanging_sign",
+    "woodset": "redwood",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 1.0,
+    "resistance": 1.0,
+    "solid": false,
+    "item": "none"
+  },
+  {
+    "id": "pomegranate_bark",
+    "kind": "pillar",
+    "woodset": "pomegranate",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true
+  },
+  {
+    "id": "stripped_pomegranate_wood",
+    "kind": "pillar",
+    "woodset": "pomegranate",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true,
+    "stripped": true
+  },
+  {
+    "id": "stripped_pomegranate_wood_beam",
+    "kind": "pillar",
+    "woodset": "pomegranate",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true,
+    "stripped": true
+  },
+  {
+    "id": "stripped_pomegranate_bark",
+    "kind": "pillar",
+    "woodset": "pomegranate",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true,
+    "stripped": true
+  },
+  {
+    "id": "pomegranate_button",
+    "kind": "button",
+    "woodset": "pomegranate",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 0.5,
+    "resistance": 0.5,
+    "solid": false,
+    "set": "wood"
+  },
+  {
+    "id": "pomegranate_pressure_plate",
+    "kind": "pressure_plate",
+    "woodset": "pomegranate",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 0.5,
+    "resistance": 0.5,
+    "solid": false,
+    "set": "wood"
+  },
+  {
+    "id": "pomegranate_sign",
+    "kind": "sign",
+    "woodset": "pomegranate",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 1.0,
+    "resistance": 1.0,
+    "solid": false,
+    "item": "none"
+  },
+  {
+    "id": "pomegranate_wall_sign",
+    "kind": "wall_sign",
+    "woodset": "pomegranate",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 1.0,
+    "resistance": 1.0,
+    "solid": false,
+    "item": "none"
+  },
+  {
+    "id": "pomegranate_hanging_sign",
+    "kind": "hanging_sign",
+    "woodset": "pomegranate",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 1.0,
+    "resistance": 1.0,
+    "solid": false,
+    "item": "none"
+  },
+  {
+    "id": "pomegranate_wall_hanging_sign",
+    "kind": "wall_hanging_sign",
+    "woodset": "pomegranate",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 1.0,
+    "resistance": 1.0,
+    "solid": false,
+    "item": "none"
+  },
+  {
+    "id": "palm_bark",
+    "kind": "pillar",
+    "woodset": "palm",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true
+  },
+  {
+    "id": "stripped_palm_wood",
+    "kind": "pillar",
+    "woodset": "palm",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true,
+    "stripped": true
+  },
+  {
+    "id": "stripped_palm_wood_beam",
+    "kind": "pillar",
+    "woodset": "palm",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true,
+    "stripped": true
+  },
+  {
+    "id": "stripped_palm_bark",
+    "kind": "pillar",
+    "woodset": "palm",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true,
+    "stripped": true
+  },
+  {
+    "id": "palm_button",
+    "kind": "button",
+    "woodset": "palm",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 0.5,
+    "resistance": 0.5,
+    "solid": false,
+    "set": "wood"
+  },
+  {
+    "id": "palm_pressure_plate",
+    "kind": "pressure_plate",
+    "woodset": "palm",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 0.5,
+    "resistance": 0.5,
+    "solid": false,
+    "set": "wood"
+  },
+  {
+    "id": "palm_sign",
+    "kind": "sign",
+    "woodset": "palm",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 1.0,
+    "resistance": 1.0,
+    "solid": false,
+    "item": "none"
+  },
+  {
+    "id": "palm_wall_sign",
+    "kind": "wall_sign",
+    "woodset": "palm",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 1.0,
+    "resistance": 1.0,
+    "solid": false,
+    "item": "none"
+  },
+  {
+    "id": "palm_hanging_sign",
+    "kind": "hanging_sign",
+    "woodset": "palm",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 1.0,
+    "resistance": 1.0,
+    "solid": false,
+    "item": "none"
+  },
+  {
+    "id": "palm_wall_hanging_sign",
+    "kind": "wall_hanging_sign",
+    "woodset": "palm",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 1.0,
+    "resistance": 1.0,
+    "solid": false,
+    "item": "none"
+  },
+  {
+    "id": "dragonblood_bark",
+    "kind": "pillar",
+    "woodset": "dragonblood",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true
+  },
+  {
+    "id": "stripped_dragonblood_wood",
+    "kind": "pillar",
+    "woodset": "dragonblood",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true,
+    "stripped": true
+  },
+  {
+    "id": "stripped_dragonblood_wood_beam",
+    "kind": "pillar",
+    "woodset": "dragonblood",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true,
+    "stripped": true
+  },
+  {
+    "id": "stripped_dragonblood_bark",
+    "kind": "pillar",
+    "woodset": "dragonblood",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true,
+    "stripped": true
+  },
+  {
+    "id": "dragonblood_button",
+    "kind": "button",
+    "woodset": "dragonblood",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 0.5,
+    "resistance": 0.5,
+    "solid": false,
+    "set": "wood"
+  },
+  {
+    "id": "dragonblood_pressure_plate",
+    "kind": "pressure_plate",
+    "woodset": "dragonblood",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 0.5,
+    "resistance": 0.5,
+    "solid": false,
+    "set": "wood"
+  },
+  {
+    "id": "dragonblood_sign",
+    "kind": "sign",
+    "woodset": "dragonblood",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 1.0,
+    "resistance": 1.0,
+    "solid": false,
+    "item": "none"
+  },
+  {
+    "id": "dragonblood_wall_sign",
+    "kind": "wall_sign",
+    "woodset": "dragonblood",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 1.0,
+    "resistance": 1.0,
+    "solid": false,
+    "item": "none"
+  },
+  {
+    "id": "dragonblood_hanging_sign",
+    "kind": "hanging_sign",
+    "woodset": "dragonblood",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 1.0,
+    "resistance": 1.0,
+    "solid": false,
+    "item": "none"
+  },
+  {
+    "id": "dragonblood_wall_hanging_sign",
+    "kind": "wall_hanging_sign",
+    "woodset": "dragonblood",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 1.0,
+    "resistance": 1.0,
+    "solid": false,
+    "item": "none"
+  },
+  {
+    "id": "kanuka_bark",
+    "kind": "pillar",
+    "woodset": "kanuka",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true
+  },
+  {
+    "id": "stripped_kanuka_wood",
+    "kind": "pillar",
+    "woodset": "kanuka",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true,
+    "stripped": true
+  },
+  {
+    "id": "stripped_kanuka_wood_beam",
+    "kind": "pillar",
+    "woodset": "kanuka",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true,
+    "stripped": true
+  },
+  {
+    "id": "stripped_kanuka_bark",
+    "kind": "pillar",
+    "woodset": "kanuka",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true,
+    "stripped": true
+  },
+  {
+    "id": "kanuka_button",
+    "kind": "button",
+    "woodset": "kanuka",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 0.5,
+    "resistance": 0.5,
+    "solid": false,
+    "set": "wood"
+  },
+  {
+    "id": "kanuka_pressure_plate",
+    "kind": "pressure_plate",
+    "woodset": "kanuka",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 0.5,
+    "resistance": 0.5,
+    "solid": false,
+    "set": "wood"
+  },
+  {
+    "id": "kanuka_sign",
+    "kind": "sign",
+    "woodset": "kanuka",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 1.0,
+    "resistance": 1.0,
+    "solid": false,
+    "item": "none"
+  },
+  {
+    "id": "kanuka_wall_sign",
+    "kind": "wall_sign",
+    "woodset": "kanuka",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 1.0,
+    "resistance": 1.0,
+    "solid": false,
+    "item": "none"
+  },
+  {
+    "id": "kanuka_hanging_sign",
+    "kind": "hanging_sign",
+    "woodset": "kanuka",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 1.0,
+    "resistance": 1.0,
+    "solid": false,
+    "item": "none"
+  },
+  {
+    "id": "kanuka_wall_hanging_sign",
+    "kind": "wall_hanging_sign",
+    "woodset": "kanuka",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 1.0,
+    "resistance": 1.0,
+    "solid": false,
+    "item": "none"
+  },
+  {
+    "id": "rotten_bark",
+    "kind": "pillar",
+    "woodset": "rotten",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true
+  },
+  {
+    "id": "stripped_rotten_wood",
+    "kind": "pillar",
+    "woodset": "rotten",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true,
+    "stripped": true
+  },
+  {
+    "id": "stripped_rotten_wood_beam",
+    "kind": "pillar",
+    "woodset": "rotten",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true,
+    "stripped": true
+  },
+  {
+    "id": "stripped_rotten_bark",
+    "kind": "pillar",
+    "woodset": "rotten",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 2.0,
+    "resistance": 3.333,
+    "solid": true,
+    "stripped": true
+  },
+  {
+    "id": "rotten_button",
+    "kind": "button",
+    "woodset": "rotten",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 0.5,
+    "resistance": 0.5,
+    "solid": false,
+    "set": "wood"
+  },
+  {
+    "id": "rotten_pressure_plate",
+    "kind": "pressure_plate",
+    "woodset": "rotten",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 0.5,
+    "resistance": 0.5,
+    "solid": false,
+    "set": "wood"
+  },
+  {
+    "id": "rotten_sign",
+    "kind": "sign",
+    "woodset": "rotten",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 1.0,
+    "resistance": 1.0,
+    "solid": false,
+    "item": "none"
+  },
+  {
+    "id": "rotten_wall_sign",
+    "kind": "wall_sign",
+    "woodset": "rotten",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 1.0,
+    "resistance": 1.0,
+    "solid": false,
+    "item": "none"
+  },
+  {
+    "id": "rotten_hanging_sign",
+    "kind": "hanging_sign",
+    "woodset": "rotten",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 1.0,
+    "resistance": 1.0,
+    "solid": false,
+    "item": "none"
+  },
+  {
+    "id": "rotten_wall_hanging_sign",
+    "kind": "wall_hanging_sign",
+    "woodset": "rotten",
+    "sound": "wood",
+    "requiresTool": false,
+    "hardness": 1.0,
+    "resistance": 1.0,
+    "solid": false,
+    "item": "none"
   }
 ]

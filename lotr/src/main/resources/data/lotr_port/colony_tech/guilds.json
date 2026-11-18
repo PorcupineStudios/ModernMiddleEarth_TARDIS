@@ -1,0 +1,16 @@
+{
+  "name": "Guilds",
+  "lane": "civics",
+  "stage": 3,
+  "after": [
+    "lotr_port:civics"
+  ],
+  "fork": "trade",
+  "description": "Trades organise (edict: Guild Charters)",
+  "cost": {
+    "research": {
+      "lotr_port:scholarly": 30
+    },
+    "coins": 200
+  }
+}

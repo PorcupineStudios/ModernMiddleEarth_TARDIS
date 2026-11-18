@@ -242,25 +242,40 @@ public final class LotrHud {
                 alpha *= numberTick / 15f;
             }
         } else {
-            value = rankName(align);
+            // Aaron 2026-11-17: the standing always shows, after the rank (LOTR showed the number only after a change)
+            value = Component.translatableWithFallback(LIMITS_KEY, "%s (%s)", rankName(align), format(align));
             alpha = 1f;
         }
         borderedText(g, font, value, textX - font.width(value) / 2, textY + font.lineHeight + 3, alpha);
     }
 
     /**
-     * LOTR's control-zone arrows either side of the bar: gold inside one of the faction's control zones, pale near one
-     * of its people outside them (kills count in both), none when out of its reach (kills don't change alignment).
+     * LOTR's influence icons either side of the bar (renderAlignmentBar): arrows inside one of the faction's control
+     * zones, circles near one of its people outside them (kills count in both), and outside both the arrows fading in
+     * over the 50 map pixels round a zone. Each is a 14x14 layer tinted the faction's colour (row 74 arrows, 102
+     * circles) under its gold frame (row 60, row 88); left icon at u 0, right at u 14, level with the bar.
      */
     private static void renderReach(GuiGraphics g, float x, float y) {
         int reach = bar.reach();
-        if (reach == 0) {
+        float alpha = reach == 0 ? bar.zoneFade() : 1f;
+        if (alpha <= 0f) {
             return;
         }
-        int v = reach == 2 ? 60 : 76;
-        float ay = y + BAR_HEIGHT / 2f - 6;
-        blitAt(g, ALIGNMENT, x - BAR_WIDTH / 2f - 14, ay, 0, v, 14, 12);
-        blitAt(g, ALIGNMENT, x + BAR_WIDTH / 2f, ay, 14, v, 14, 12);
+        boolean arrows = reach != 1;
+        int frameV = arrows ? 60 : 88;
+        int tintV = arrows ? 74 : 102;
+        int size = 14;
+        float left = x - BAR_WIDTH / 2f - size;
+        float right = x + BAR_WIDTH / 2f;
+        int rgb = bar.color();
+        RenderSystem.enableBlend();
+        g.setColor((rgb >> 16 & 255) / 255f, (rgb >> 8 & 255) / 255f, (rgb & 255) / 255f, alpha);
+        blitAt(g, ALIGNMENT, left, y, 0, tintV, size, size);
+        blitAt(g, ALIGNMENT, right, y, size, tintV, size, size);
+        g.setColor(1f, 1f, 1f, alpha);
+        blitAt(g, ALIGNMENT, left, y, 0, frameV, size, size);
+        blitAt(g, ALIGNMENT, right, y, size, frameV, size, size);
+        g.setColor(1f, 1f, 1f, 1f);
     }
 
     /** The span the bar shows (LOTR's renderAlignmentBar): between this rank and the next, or tenfold bands. */

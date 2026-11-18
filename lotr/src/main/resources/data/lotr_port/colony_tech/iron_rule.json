@@ -1,0 +1,18 @@
+{
+  "name": "Iron Rule",
+  "lane": "civics",
+  "stage": 2,
+  "after": [
+    "lotr_port:civics"
+  ],
+  "fork": "rule",
+  "description": "Rule by decree: more work, less cheer",
+  "cost": {
+    "research": {
+      "lotr_port:basic": 20,
+      "lotr_port:scholarly": 20
+    }
+  },
+  "happiness": -4,
+  "work": 1.08
+}

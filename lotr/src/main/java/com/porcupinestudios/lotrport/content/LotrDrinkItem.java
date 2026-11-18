@@ -89,6 +89,26 @@ public class LotrDrinkItem extends Item {
 
     @Override
     public ItemStack finishUsingItem(ItemStack stack, Level level, LivingEntity entity) {
+        drink(stack, level, entity);
+        if (entity instanceof Player p && p.getAbilities().instabuild) {
+            return stack;
+        }
+        ItemStack empty = new ItemStack(vesselItem(stack));
+        stack.shrink(1);
+        if (stack.isEmpty()) {
+            return empty;
+        }
+        if (entity instanceof Player p && !p.getInventory().add(empty)) {
+            p.drop(empty, false);
+        }
+        return stack;
+    }
+
+    /**
+     * What drinking one of {@code stack} does to {@code entity} (food, effects, drunkenness, harm), without touching
+     * the stack: used when drinking from the hand and from a set-down vessel. Server side only does anything.
+     */
+    public void drink(ItemStack stack, Level level, LivingEntity entity) {
         JsonObject s = strength(stack);
         float factor = ContentData.num(s, "factor", 1f);
         float foodFactor = ContentData.num(s, "food_factor", 1f);
@@ -134,6 +154,13 @@ public class LotrDrinkItem extends Item {
                 int ticks = Math.round(alcohol * ContentData.num(TABLE, "nausea_seconds_per_alcohol", 30f) * 20);
                 entity.addEffect(new MobEffectInstance(MobEffects.CONFUSION, ticks));
             }
+            if (stack.has(LotrComponents.POISONED.get())) {
+                // a poisoned drink (bottle of poison in the crafting grid): LOTR's killing poison
+                for (var p : com.porcupinestudios.lotrport.drink.DrinkData.settings().poison()) {
+                    BuiltInRegistries.MOB_EFFECT.getHolder(p.id()).ifPresent(h ->
+                            entity.addEffect(new MobEffectInstance(h, p.duration(), p.amplifier())));
+                }
+            }
             float damage = ContentData.num(drink, "damage", 0) * factor;
             if (damage > 0) {
                 entity.hurt(level.damageSources().magic(), damage);
@@ -149,18 +176,16 @@ public class LotrDrinkItem extends Item {
                 sp.awardStat(Stats.ITEM_USED.get(this));
             }
         }
-        if (entity instanceof Player p && p.getAbilities().instabuild) {
-            return stack;
+    }
+
+    /** A drink just poisoned in the crafting grid remembers who did it. */
+    @Override
+    public void onCraftedBy(ItemStack stack, Level level, Player player) {
+        super.onCraftedBy(stack, level, player);
+        if (!level.isClientSide && com.porcupinestudios.lotrport.drink.PoisonDrinkRecipe.UNKNOWN
+                .equals(stack.get(LotrComponents.POISONED.get()))) {
+            stack.set(LotrComponents.POISONED.get(), player.getUUID());
         }
-        ItemStack empty = new ItemStack(vesselItem(stack));
-        stack.shrink(1);
-        if (stack.isEmpty()) {
-            return empty;
-        }
-        if (entity instanceof Player p && !p.getInventory().add(empty)) {
-            p.drop(empty, false);
-        }
-        return stack;
     }
 
     @Override

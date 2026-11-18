@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "values": [
+    "lotr_port:cargon",
+    "lotr_port:chalk",
+    "lotr_port:gondor_rock",
+    "lotr_port:luigon",
+    "lotr_port:mordor_rock",
+    "lotr_port:rohan_rock"
+  ]
+}

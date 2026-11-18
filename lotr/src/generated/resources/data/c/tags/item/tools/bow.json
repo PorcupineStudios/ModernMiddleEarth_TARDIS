@@ -1,0 +1,22 @@
+{
+  "replace": false,
+  "values": [
+    "lotr_port:black_uruk_bow",
+    "lotr_port:blackroot_bow",
+    "lotr_port:bow_of_harad",
+    "lotr_port:bow_of_mirkwood",
+    "lotr_port:dalish_longbow",
+    "lotr_port:dorwinion_elven_bow",
+    "lotr_port:galadhrim_bow",
+    "lotr_port:gondorian_bow",
+    "lotr_port:gundabad_uruk_bow",
+    "lotr_port:lindon_bow",
+    "lotr_port:mallorn_bow",
+    "lotr_port:orc_bow",
+    "lotr_port:ranger_bow",
+    "lotr_port:rh_nic_bow",
+    "lotr_port:rivendell_bow",
+    "lotr_port:rohirric_bow",
+    "lotr_port:utumno_bow"
+  ]
+}

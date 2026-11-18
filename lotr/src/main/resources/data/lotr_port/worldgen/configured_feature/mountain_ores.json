@@ -1,0 +1,10 @@
+{
+  "type": "lotr_port:mountain_ores",
+  "config": {
+    "base": 48,
+    "band": 112,
+    "skin": 3,
+    "bottom": -64,
+    "max_runs": 6
+  }
+}

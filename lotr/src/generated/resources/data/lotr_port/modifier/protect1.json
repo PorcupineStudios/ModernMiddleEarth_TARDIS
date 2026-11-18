@@ -1,0 +1,7 @@
+{
+  "weight": 10,
+  "skilful": false,
+  "persists_reforge": false,
+  "value": 1.5,
+  "upgrade": "lotr_port:protect2"
+}

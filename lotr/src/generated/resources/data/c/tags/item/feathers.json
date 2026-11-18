@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "lotr_port:swan_feather"
+    "lotr_port:swan_feather",
+    "lotr_port:dyed_feather"
   ]
 }

@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "values": [
+    "lotr_port:mango_wood",
+    "lotr_port:mango_wood_beam",
+    "lotr_port:stripped_mango_wood",
+    "lotr_port:stripped_mango_wood_beam",
+    "lotr_port:mango_bark",
+    "lotr_port:stripped_mango_bark"
+  ]
+}

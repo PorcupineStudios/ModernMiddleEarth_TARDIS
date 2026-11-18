@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "values": [
+    "lotr_port:blackberries",
+    "lotr_port:blueberries",
+    "lotr_port:cranberries",
+    "lotr_port:elderberries",
+    "lotr_port:raspberries",
+    "lotr_port:wildberries"
+  ]
+}

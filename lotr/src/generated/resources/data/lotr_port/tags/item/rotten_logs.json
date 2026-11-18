@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "values": [
+    "lotr_port:rotten_wood",
+    "lotr_port:rotten_wood_beam",
+    "lotr_port:stripped_rotten_wood",
+    "lotr_port:stripped_rotten_wood_beam",
+    "lotr_port:rotten_bark",
+    "lotr_port:stripped_rotten_bark"
+  ]
+}

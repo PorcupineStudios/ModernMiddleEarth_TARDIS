@@ -1,0 +1,9 @@
+{
+  "weight": 1,
+  "skilful": true,
+  "persists_reforge": false,
+  "value": 4.0,
+  "acts_as": {
+    "minecraft:looting": 3
+  }
+}

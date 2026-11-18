@@ -6,12 +6,13 @@ stairs, wall, torch, or plain item without food/placing) was traced back to its 
 methods. Tags: rclick = right-click, touch = entity inside/touching, tick = scheduled/random tick, particles = display
 particles, canstay/placement/neighbour = placement rules and popping off, collision = custom collision box,
 harvest = custom drops/xp, useon = use on a block, useentity = use on a mob, eaten = drink/eat effect.
-Caveat: some of these may already be handled by an event elsewhere in the port; I check each when implementing.
+Caveat: a snapshot from 2026-11-04, pruned as rows land (2026-11-18: vessels, bottle of poison, ancient items are
+done and removed). Many rows are now handled by block kinds or events elsewhere (machines, farming, drinks); the
+short list of what is really still open is `missing-features.md` "Still open". Check the code before starting one.
 
 Format: count, LOTR class [missing hooks]: port ids.
 
 == blocks.json
-  2 LOTRBlockAleHorn [canstay,neighbour,placement,rclick]: ale_horn_block, ale_horn_gold
   1 LOTRBlockBanana [canstay,collision,neighbour,tick]: banana_block
   1 LOTRBlockBeacon [canstay,neighbour,particles,placement,rclick,touch]: beacon_of_gondor
   4 LOTRBlockBirdCage [canstay,neighbour,placement]: bronze_bird_cage, iron_bird_cage, silver_bird_cage, golden_bird_cage
@@ -19,7 +20,6 @@ Format: count, LOTR class [missing hooks]: port ids.
   1 LOTRBlockBookshelfStorage [rclick]: bookshelf_storage
   1 LOTRBlockButterflyJar [canstay,neighbour,placement]: butterfly_jar
  16 LOTRBlockChandelier [canstay,collision,neighbour,particles,placement]: bronze_chandelier, iron_chandelier, silver_chandelier, gold_chandelier, mithril_chandelier
-  1 LOTRBlockClayMug [canstay,neighbour,placement,rclick]: ceramic_mug_block
   1 LOTRBlockCommandTable [rclick]: table_of_command
   1 LOTRBlockCoralReef [walkon]: coral_reef
   1 LOTRBlockCorruptMallorn [particles,tick]: corrupt_mallorn_sapling
@@ -31,11 +31,6 @@ Format: count, LOTR class [missing hooks]: port ids.
   1 LOTRBlockElvenTorch [particles]: high_elven_torch
  44 LOTRBlockFallenLeaves [canstay,neighbour,placement]: fallen_oak_leaves, fallen_spruce_leaves, fallen_birch_leaves, fallen_jungle_leaves, fallen_acacia_leaves
   1 LOTRBlockFlowerPot [particles,rclick]: flower_pot
-  1 LOTRBlockGlassBottle [canstay,neighbour,placement,rclick]: glass_bottle
-  1 LOTRBlockGoblet$Copper [canstay,neighbour,placement,rclick]: goblet_copper
-  1 LOTRBlockGoblet$Gold [canstay,neighbour,placement,rclick]: goblet_gold
-  1 LOTRBlockGoblet$Silver [canstay,neighbour,placement,rclick]: goblet_silver
-  1 LOTRBlockGoblet$Wood [canstay,neighbour,placement,rclick]: goblet_wood
   2 LOTRBlockGoran [rclick]: goran, cargoran
   1 LOTRBlockGrapevine [canstay,collision,neighbour,placement,rclick,tick]: grapevine_post
   1 LOTRBlockGrass [canstay]: arid_grass
@@ -56,7 +51,6 @@ Format: count, LOTR class [missing hooks]: port ids.
   1 LOTRBlockMorgulTorch [particles]: morgul_torch
   1 LOTRBlockMudFarmland [fallon,neighbour,tick]: jungle_mud_farmland
   1 LOTRBlockMudGrass [tick]: jungle_grass
-  1 LOTRBlockMug [canstay,neighbour,placement,rclick]: mug_block
   1 LOTRBlockOrcChain [canstay,collision,neighbour,placement,rclick]: orc_chain
   5 LOTRBlockOre [harvest]: copper_ore, mithril_ore, rock_salt, silver_ore, tin_ore
   2 LOTRBlockOreMordorVariant [harvest]: morgul_iron_ore, morgul_iron_ore_block
@@ -68,7 +62,6 @@ Format: count, LOTR class [missing hooks]: port ids.
   1 LOTRBlockRhunFire [tick]: rhun_fire
   1 LOTRBlockRhunFireJar [neighbour,onadd,rclick,tick,touch]: kham_ls_fire
   6 LOTRBlockRock [particles]: mordor_rock, gondor_rock, rohan_rock, luigon, cargon
-  1 LOTRBlockSkullCup [canstay,neighbour,placement,rclick]: skull_cup_block
   3 LOTRBlockSlabGravel [neighbour,onadd,tick]: gravel_slab, mordor_gravel_slab, obsidian_gravel_slab
   3 LOTRBlockSlabSand [neighbour,onadd,tick]: sand_slab, red_sand_slab, white_sand_slab
   3 LOTRBlockSpawnerChest [rclick]: spawner_chest, spawner_chest_ancient_harad, spawner_chest_stone
@@ -83,13 +76,10 @@ Format: count, LOTR class [missing hooks]: port ids.
   1 LOTRBlockUtumnoReturnPortal [onadd]: utumno_return_portal
   1 LOTRBlockUtumnoReturnPortalBase [collision]: utumno_return_portal_base
   1 LOTRBlockWaste [collision,touch]: waste_block
-  1 LOTRBlockWineGlass [canstay,neighbour,placement,rclick]: wine_glass_block
   1 LOTRBlockWoodElvenTorch [particles]: wood_elven_torch
 == items.json
-  6 LOTRItemAncientItem [rclick]: ancient_sword, ancient_dagger, ancient_helmet, ancient_chestplate, ancient_leggings
   1 LOTRItemBearRug [useon]: bearskin_rug
   2 LOTRItemBossTrophy [useon]: hill_troll_chieftain_skull, mallorn_ent_trunk
-  1 LOTRItemBottlePoison [eaten,rclick]: bottle_of_poison
   1 LOTRItemBrandingIron [rclick,useentity,useon]: branding_iron
   2 LOTRItemChisel [useon]: chisel, moon_chisel
   1 LOTRItemDaleCracker [eaten,rclick]: dalish_cracker

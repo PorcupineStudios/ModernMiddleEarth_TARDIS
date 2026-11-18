@@ -25,6 +25,14 @@
     "lotr_port:remains",
     "lotr_port:sand_slab",
     "lotr_port:white_sand",
-    "lotr_port:white_sand_slab"
+    "lotr_port:white_sand_slab",
+    "lotr_port:block_of_kebab",
+    "lotr_port:ent_jar",
+    "lotr_port:infested_termite_mound",
+    "lotr_port:reed_stairs",
+    "lotr_port:termite_mound",
+    "lotr_port:thatch_stairs",
+    "lotr_port:waste_block",
+    "lotr_port:wattle_and_daub"
   ]
 }

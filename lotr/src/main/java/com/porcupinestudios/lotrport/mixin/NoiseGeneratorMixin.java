@@ -76,4 +76,37 @@ public abstract class NoiseGeneratorMixin {
         NoiseSettings clamped = original.call(noise, level);
         return NoiseTop.isMiddleEarth(settings) ? NoiseTop.forColumn(clamped, x, z) : clamped;
     }
+
+    /** Ground scans run with Middle-earth's noise caves off (world/map/CavesOn): caves are under the ground. */
+    @com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod(method = "iterateNoiseColumn")
+    private java.util.OptionalInt lotr_port$scanWithoutCaves(LevelHeightAccessor level, RandomState random, int x,
+            int z, org.apache.commons.lang3.mutable.MutableObject<net.minecraft.world.level.NoiseColumn> column,
+            java.util.function.Predicate<net.minecraft.world.level.block.state.BlockState> stop,
+            Operation<java.util.OptionalInt> original) {
+        if (!NoiseTop.isMiddleEarth(settings)) {
+            return original.call(level, random, x, z, column, stop);
+        }
+        return com.porcupinestudios.lotrport.world.map.CavesOn.scanning(
+                () -> original.call(level, random, x, z, column, stop));
+    }
+
+    /**
+     * A ground scan's noise chunk without aquifers: the scan looks for the ground and the sea's surface, which the
+     * plain sea-level fluid gives as before noise caves; aquifers cost most of a scan (2026-11-18: 2.1 ms a column with
+     * them, 0.25 ms before).
+     */
+    @org.spongepowered.asm.mixin.injection.ModifyArg(method = "iterateNoiseColumn", at = @At(value = "INVOKE",
+            target = "Lnet/minecraft/world/level/levelgen/NoiseChunk;<init>(ILnet/minecraft/world/level/levelgen/"
+                    + "RandomState;IILnet/minecraft/world/level/levelgen/NoiseSettings;Lnet/minecraft/world/level/"
+                    + "levelgen/DensityFunctions$BeardifierOrMarker;Lnet/minecraft/world/level/levelgen/"
+                    + "NoiseGeneratorSettings;Lnet/minecraft/world/level/levelgen/Aquifer$FluidPicker;"
+                    + "Lnet/minecraft/world/level/levelgen/blending/Blender;)V"), index = 6)
+    private NoiseGeneratorSettings lotr_port$scanWithoutAquifers(NoiseGeneratorSettings s) {
+        if (!NoiseTop.isMiddleEarth(settings) || !s.aquifersEnabled()) {
+            return s;
+        }
+        return new NoiseGeneratorSettings(s.noiseSettings(), s.defaultBlock(), s.defaultFluid(), s.noiseRouter(),
+                s.surfaceRule(), s.spawnTarget(), s.seaLevel(), s.disableMobGeneration(), false, s.oreVeinsEnabled(),
+                s.useLegacyRandomSource());
+    }
 }

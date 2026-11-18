@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "values": [
+    "lotr_port:pressure_plate",
+    "lotr_port:pressure_plate_2",
+    "lotr_port:pressure_plate_3",
+    "lotr_port:pressure_plate_4",
+    "lotr_port:pressure_plate_5",
+    "lotr_port:pressure_plate_block"
+  ]
+}

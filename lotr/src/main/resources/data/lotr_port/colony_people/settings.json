@@ -1,0 +1,26 @@
+{
+  "incident_chance": 0.3,
+  "calm_at": 55,
+  "grudge_per_incident": 20,
+  "grudge_decay": 4,
+  "brawl_at": 60,
+  "brawl_happiness": 15,
+  "brawl_unity": 4,
+  "clash": {
+    "dwarf|elf": 2.0,
+    "orc|elf": 3.0,
+    "orc|dwarf": 2.5,
+    "orc|hobbit": 2.0,
+    "goblin|elf": 3.0,
+    "goblin|dwarf": 2.5,
+    "orc|man": 1.5
+  },
+  "unity_per_day": 10,
+  "unity_work_low": 0.85,
+  "unity_work_high": 1.15,
+  "unity_happiness": 8,
+  "mix_penalty": 4,
+  "edict_slots_base": 1,
+  "citizens_per_edict_slot": 25,
+  "reports_kept": 20
+}

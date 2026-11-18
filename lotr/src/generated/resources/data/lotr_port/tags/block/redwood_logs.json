@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "values": [
+    "lotr_port:redwood_wood",
+    "lotr_port:redwood_wood_beam",
+    "lotr_port:stripped_redwood_wood",
+    "lotr_port:stripped_redwood_wood_beam",
+    "lotr_port:redwood_bark",
+    "lotr_port:stripped_redwood_bark"
+  ]
+}

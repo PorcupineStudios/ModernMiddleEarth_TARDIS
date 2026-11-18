@@ -51,6 +51,17 @@ public final class Vessels {
         return byItem().containsValue(id);
     }
 
+    /** The empty vessel item a set-down vessel block is (the mug for {@code mug_block}...), or AIR. */
+    public static Item itemFor(Block block) {
+        String id = BuiltInRegistries.BLOCK.getKey(block).getPath();
+        for (Map.Entry<ResourceLocation, String> e : byItem().entrySet()) {
+            if (e.getValue().equals(id)) {
+                return BuiltInRegistries.ITEM.get(e.getKey());
+            }
+        }
+        return net.minecraft.world.item.Items.AIR;
+    }
+
     private static Map<ResourceLocation, String> byItem() {
         if (blocks == null) {
             blocks = new HashMap<>();

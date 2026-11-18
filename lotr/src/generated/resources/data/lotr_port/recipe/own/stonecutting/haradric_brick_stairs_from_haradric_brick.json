@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "lotr_port:haradric_brick"
+  },
+  "result": {
+    "id": "lotr_port:haradric_brick_stairs",
+    "count": 1
+  }
+}

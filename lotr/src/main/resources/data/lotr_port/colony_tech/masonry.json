@@ -1,0 +1,11 @@
+{
+  "name": "Masonry",
+  "lane": "building",
+  "stage": 1,
+  "description": "Masons cut stone bricks, walls and stairs",
+  "cost": {
+    "research": {
+      "lotr_port:basic": 20
+    }
+  }
+}

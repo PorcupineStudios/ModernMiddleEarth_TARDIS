@@ -8,5 +8,71 @@
   "produces": {
     "minecraft:oak_planks": 4
   },
-  "batches": 8
+  "batches": 8,
+  "tool": "minecraft:iron_axe",
+  "tool_days": 40,
+  "recipes": [
+    {
+      "consumes": {
+        "minecraft:oak_planks": 2
+      },
+      "produces": {
+        "minecraft:stick": 4
+      }
+    },
+    {
+      "consumes": {
+        "minecraft:oak_planks": 8
+      },
+      "produces": {
+        "minecraft:chest": 1
+      }
+    },
+    {
+      "consumes": {
+        "minecraft:oak_planks": 3,
+        "minecraft:stick": 2
+      },
+      "produces": {
+        "minecraft:oak_fence": 3
+      }
+    },
+    {
+      "consumes": {
+        "minecraft:oak_planks": 6
+      },
+      "produces": {
+        "minecraft:oak_door": 3
+      }
+    },
+    {
+      "consumes": {
+        "minecraft:oak_planks": 3,
+        "minecraft:white_wool": 3
+      },
+      "produces": {
+        "minecraft:white_bed": 1
+      }
+    },
+    {
+      "consumes": {
+        "minecraft:oak_planks": 3,
+        "minecraft:string": 3,
+        "minecraft:stick": 3
+      },
+      "produces": {
+        "minecraft:bow": 1
+      }
+    },
+    {
+      "consumes": {
+        "minecraft:flint": 1,
+        "minecraft:stick": 1,
+        "minecraft:feather": 1
+      },
+      "produces": {
+        "minecraft:arrow": 4
+      }
+    }
+  ]
 }

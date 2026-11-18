@@ -1,0 +1,21 @@
+{
+  "faction": "lotr_port:hostile",
+  "skins": [
+    "lotr_port:textures/entity/rig/dragon.png"
+  ],
+  "skin_height": 256,
+  "model": "lotr_port:crocodile",
+  "width": 1.2,
+  "height": 1.0,
+  "behaviours": [
+    "burning_panic"
+  ],
+  "sounds": {
+    "ambient": "minecraft:entity.ender_dragon.growl",
+    "hurt": "minecraft:entity.ender_dragon.hurt",
+    "death": "minecraft:entity.ender_dragon.death"
+  },
+  "health": 300,
+  "speed": 0.28,
+  "attack": 18
+}

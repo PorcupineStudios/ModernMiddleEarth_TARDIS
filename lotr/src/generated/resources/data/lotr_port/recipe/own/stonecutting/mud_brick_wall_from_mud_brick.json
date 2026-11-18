@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "lotr_port:mud_brick"
+  },
+  "result": {
+    "id": "lotr_port:mud_brick_wall",
+    "count": 1
+  }
+}

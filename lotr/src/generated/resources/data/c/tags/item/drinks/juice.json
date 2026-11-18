@@ -1,0 +1,16 @@
+{
+  "replace": false,
+  "values": [
+    "lotr_port:apple_juice",
+    "lotr_port:blackberry_juice",
+    "lotr_port:blueberry_juice",
+    "lotr_port:cranberry_juice",
+    "lotr_port:elderberry_juice",
+    "lotr_port:green_grape_juice",
+    "lotr_port:mango_juice",
+    "lotr_port:orange_juice",
+    "lotr_port:pomegranate_juice",
+    "lotr_port:raspberry_juice",
+    "lotr_port:red_grape_juice"
+  ]
+}

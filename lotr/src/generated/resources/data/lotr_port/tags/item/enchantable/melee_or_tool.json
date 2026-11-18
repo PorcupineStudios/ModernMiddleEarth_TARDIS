@@ -270,6 +270,11 @@
     "lotr_port:wood_elven_pickaxe",
     "lotr_port:wood_elven_shovel",
     "lotr_port:wood_elven_spear",
-    "lotr_port:wood_elven_sword"
+    "lotr_port:wood_elven_sword",
+    "#minecraft:swords",
+    "#minecraft:pickaxes",
+    "#minecraft:axes",
+    "#minecraft:shovels",
+    "#minecraft:hoes"
   ]
 }

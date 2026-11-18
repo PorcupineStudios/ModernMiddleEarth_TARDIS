@@ -1,0 +1,12 @@
+{
+  "replace": false,
+  "values": [
+    "lotr_port:corn_stalks",
+    "lotr_port:flax_block",
+    "lotr_port:leek_block",
+    "lotr_port:lettuce_block",
+    "lotr_port:pipeweed",
+    "lotr_port:turnip_block",
+    "lotr_port:yam_block"
+  ]
+}

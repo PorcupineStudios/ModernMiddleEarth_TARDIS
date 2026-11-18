@@ -44,9 +44,12 @@ public final class Perm {
     /** Put researchers on research tiers. */
     public static final String RESEARCH = "research";
 
+    /** Set stock targets and place work orders for the colony's trades. */
+    public static final String PRODUCTION = "production";
+
     public static final List<String> ALL = List.of(BUILD, CONTAINERS, DOORS, COMMAND, STATION, MIGRANTS, MEMBERS,
             BANNERS, TREASURY, WAR, MAP, CITIZENS, CARAVANS,
-            EVENTS, MARKET, RESEARCH);
+            EVENTS, MARKET, RESEARCH, PRODUCTION);
 
     private Perm() {}
 }

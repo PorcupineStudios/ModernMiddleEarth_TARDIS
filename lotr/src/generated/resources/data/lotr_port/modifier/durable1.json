@@ -1,0 +1,7 @@
+{
+  "weight": 15,
+  "skilful": false,
+  "persists_reforge": false,
+  "value": 1.25,
+  "upgrade": "lotr_port:durable2"
+}

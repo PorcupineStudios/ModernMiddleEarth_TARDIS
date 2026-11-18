@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "lotr_port:block/woodset/stripped_mango_log_top",
+    "side": "lotr_port:block/woodset/stripped_mango_log"
+  }
+}

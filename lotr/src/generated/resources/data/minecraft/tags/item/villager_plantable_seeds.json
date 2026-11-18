@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    "lotr_port:corn",
+    "lotr_port:corn_bread",
+    "lotr_port:flax_seeds",
+    "lotr_port:leek",
+    "lotr_port:leek_soup",
+    "lotr_port:lettuce",
+    "lotr_port:pipe_weed_seeds",
+    "lotr_port:turnip"
+  ]
+}

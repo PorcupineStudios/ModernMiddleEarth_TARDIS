@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "values": [
+    "lotr_port:banana_wood",
+    "lotr_port:banana_wood_beam",
+    "lotr_port:stripped_banana_wood",
+    "lotr_port:stripped_banana_wood_beam",
+    "lotr_port:banana_bark",
+    "lotr_port:stripped_banana_bark"
+  ]
+}

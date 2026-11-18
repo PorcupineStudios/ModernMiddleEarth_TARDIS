@@ -37,7 +37,10 @@
       "max": 4
     }
   ],
-  "cap": 4,
-  "chance": 0.1,
-  "interval": 400
+  "cap": 10,
+  "chance": 1.0,
+  "interval": 400,
+  "radius": 128,
+  "count_only_animals": true,
+  "generation_chance": 0.1
 }

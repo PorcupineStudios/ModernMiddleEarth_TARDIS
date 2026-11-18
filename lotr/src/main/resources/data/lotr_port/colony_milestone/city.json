@@ -1,0 +1,15 @@
+{
+  "name": "City",
+  "order": 4,
+  "description": "100 citizens",
+  "condition": {
+    "type": "lotr_port:colony_population",
+    "colony": "home",
+    "compare": ">=",
+    "value": 100
+  },
+  "coins": 1000,
+  "research": {
+    "lotr_port:advanced": 25
+  }
+}

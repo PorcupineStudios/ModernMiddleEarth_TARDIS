@@ -57,6 +57,7 @@
     "lotr_port:uruk_boots",
     "lotr_port:utumno_boots",
     "lotr_port:wood_elven_boots",
-    "lotr_port:wood_elven_scout_boots"
+    "lotr_port:wood_elven_scout_boots",
+    "#minecraft:enchantable/foot_armor"
   ]
 }

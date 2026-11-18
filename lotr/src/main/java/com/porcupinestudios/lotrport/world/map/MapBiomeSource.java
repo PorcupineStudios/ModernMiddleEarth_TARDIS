@@ -26,6 +26,8 @@ public final class MapBiomeSource extends BiomeSource {
 
     private final MiddleEarthMap map;
     private final List<Holder<Biome>> biomes;
+    /** The sea biomes by latitude (converter/waters.py), standing in for the map's ocean; empty: one ocean. */
+    private final List<Holder<Biome>> seas;
 
     public MapBiomeSource(HolderGetter<Biome> lookup) {
         this.map = MiddleEarthMap.get();
@@ -34,6 +36,11 @@ public final class MapBiomeSource extends BiomeSource {
             list.add(lookup.getOrThrow(ResourceKey.create(Registries.BIOME, ResourceLocation.parse(entry.id()))));
         }
         this.biomes = List.copyOf(list);
+        List<Holder<Biome>> seaList = new ArrayList<>();
+        for (MiddleEarthMap.SeaZone zone : map.seaZones()) {
+            seaList.add(lookup.getOrThrow(ResourceKey.create(Registries.BIOME, ResourceLocation.parse(zone.biome()))));
+        }
+        this.seas = List.copyOf(seaList);
     }
 
     public MiddleEarthMap map() {
@@ -47,7 +54,7 @@ public final class MapBiomeSource extends BiomeSource {
 
     @Override
     protected Stream<Holder<Biome>> collectPossibleBiomes() {
-        return biomes.stream().distinct();
+        return Stream.concat(biomes.stream(), seas.stream()).distinct();
     }
 
     /** Coordinates are quarts (4 blocks); the biome is the same at every height. */
@@ -76,6 +83,10 @@ public final class MapBiomeSource extends BiomeSource {
     }
 
     public Holder<Biome> biomeAtBlock(int blockX, int blockZ) {
-        return biomes.get(map.biomeIndexAt(blockX, blockZ));
+        int index = map.biomeIndexAt(blockX, blockZ);
+        if (index == map.oceanIndex() && !seas.isEmpty()) {
+            return seas.get(map.seaAt(blockX, blockZ)); // the sea of this latitude (Forochel's ice ... Harad's reefs)
+        }
+        return biomes.get(index);
     }
 }

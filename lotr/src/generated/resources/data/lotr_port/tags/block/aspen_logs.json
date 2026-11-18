@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "values": [
+    "lotr_port:aspen_wood",
+    "lotr_port:aspen_wood_beam",
+    "lotr_port:stripped_aspen_wood",
+    "lotr_port:stripped_aspen_wood_beam",
+    "lotr_port:aspen_bark",
+    "lotr_port:stripped_aspen_bark"
+  ]
+}

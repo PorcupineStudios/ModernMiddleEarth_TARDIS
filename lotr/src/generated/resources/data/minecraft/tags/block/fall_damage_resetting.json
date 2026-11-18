@@ -1,0 +1,20 @@
+{
+  "replace": false,
+  "values": [
+    "lotr_port:bare_blackberry_bush",
+    "lotr_port:bare_blueberry_bush",
+    "lotr_port:bare_cranberry_bush",
+    "lotr_port:bare_elderberry_bush",
+    "lotr_port:bare_raspberry_bush",
+    "lotr_port:bare_wildberry_bush",
+    "lotr_port:blackberry_bush",
+    "lotr_port:blueberry_bush",
+    "lotr_port:cranberry_bush",
+    "lotr_port:elderberry_bush",
+    "lotr_port:elven_rope",
+    "lotr_port:mallorn_ladder",
+    "lotr_port:raspberry_bush",
+    "lotr_port:rope",
+    "lotr_port:wildberry_bush"
+  ]
+}

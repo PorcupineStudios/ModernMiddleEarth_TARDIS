@@ -602,6 +602,8 @@ class Gen:
         self.lang["en_us"][f"block.{NS}.{new}"] = name
 
         tool = v.get("harvestTool")
+        if tool is None and b.get("material") in REQUIRES_TOOL and (hardness or 0) > 0:
+            tool = "pickaxe"  # 1.7.10's ForgeHooks made rock/iron blocks pickaxe-mined without a set harvest tool
         if tool in ("pickaxe", "axe", "shovel", "hoe"):
             self.tags[f"minecraft:block/mineable/{tool}"].add(new)
         lvl = v.get("harvestLevel", -1)
@@ -1164,7 +1166,7 @@ class Gen:
         """
         LOTR's code-only crafting recipes. Poisoning a weapon (LOTRRecipePoisonWeapon: weapon + catalyst, usually a
         bottle of poison) is a plain shapeless recipe once its fields are known. Dyeing (armor, hats, feathers, robes,
-        pouches) needs dyed-colour support on those items first (missing-features task 36), so it stays reported.
+        pouches) needs dyed-colour support on those items first (listed under Items in lotr/docs/missing-features.md), so it stays reported.
         """
         f = r.get("fields") or {}
         if r["class"].endswith("LOTRRecipePoisonWeapon") and f.get("inputItem") and f.get("resultItem"):
@@ -1409,6 +1411,9 @@ class Gen:
                     dst[key] = src[old]
 
     def write_tags(self):
+        # hand-registered blocks (content/HeartOfTheMountain): one tag file per path, so they go in here
+        self.tags["minecraft:block/mineable/pickaxe"].add("heart_of_the_mountain")
+        self.tags["minecraft:block/needs_diamond_tool"].add("heart_of_the_mountain")
         for tag, ids in self.tags.items():
             ns, path = tag.split(":", 1)
             write_json(os.path.join(DATA, ns, "tags", path + ".json"),
@@ -1485,6 +1490,27 @@ class Gen:
         print(json.dumps(summary))
         for k, v in sorted(self.report.items()):
             print(f"  {k}: {len(v)}")
+        # post-steps that work on the written content (each can also be rerun alone)
+        from woodsets import WoodSets
+        print(json.dumps({"woodsets": WoodSets(OUT).run()}))
+        from tags import Tagger
+        print(json.dumps({"tags": Tagger(OUT).run()}))
+        import waterlog
+        print(json.dumps({"waterlog": waterlog.run(OUT)}))
+        import stonecutting
+        print(json.dumps({"stonecutting": stonecutting.run(OUT)}))
+        from waters import Waters
+        print(json.dumps({"waters": Waters(OUT).run()}))
+        from mountains import Mountains
+        print(json.dumps({"mountains": Mountains(OUT).run()}))
+        from land import Land
+        print(json.dumps({"land": Land(OUT).run()}))
+        import noisecaves
+        print(json.dumps({"noisecaves": noisecaves.run(OUT)}))
+        from caves import Caves
+        print(json.dumps({"caves": Caves(OUT).run()}))
+        import biomeconfig
+        print(json.dumps({"biomeconfig": biomeconfig.run(OUT)}))
 
 
 if __name__ == "__main__":

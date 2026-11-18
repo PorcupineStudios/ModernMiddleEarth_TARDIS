@@ -1,0 +1,25 @@
+{
+  "replace": false,
+  "values": [
+    "lotr_port:almond",
+    "lotr_port:apple",
+    "lotr_port:banana",
+    "lotr_port:banana_bread",
+    "lotr_port:corn_stalks",
+    "lotr_port:date",
+    "lotr_port:green_grapes",
+    "lotr_port:lemon",
+    "lotr_port:lime",
+    "lotr_port:mango",
+    "lotr_port:olive_bread",
+    "lotr_port:olives",
+    "lotr_port:orange",
+    "lotr_port:pear",
+    "lotr_port:plum",
+    "lotr_port:pomegranate",
+    "lotr_port:red_grapes",
+    "lotr_port:reed_block",
+    "lotr_port:thatch_block",
+    "lotr_port:thatch_flooring"
+  ]
+}

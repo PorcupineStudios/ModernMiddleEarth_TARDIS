@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "boat",
+  "pattern": [
+    "# #",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "lotr_port:orange_wood_planks"
+    }
+  },
+  "result": {
+    "id": "lotr_port:orange_boat",
+    "count": 1
+  }
+}

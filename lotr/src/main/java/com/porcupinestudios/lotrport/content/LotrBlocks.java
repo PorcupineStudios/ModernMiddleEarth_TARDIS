@@ -3,6 +3,8 @@ package com.porcupinestudios.lotrport.content;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.porcupinestudios.lotrport.LotrPort;
+import com.porcupinestudios.lotrport.content.woodset.LotrSignBlocks;
+import com.porcupinestudios.lotrport.content.woodset.WoodSets;
 import com.porcupinestudios.lotrport.crafting.FactionTableBlock;
 import com.porcupinestudios.lotrport.content.farm.BerryBushBlock;
 import com.porcupinestudios.lotrport.content.farm.CornBlock;
@@ -67,7 +69,9 @@ public final class LotrBlocks {
         for (JsonObject e : ContentData.read("blocks.json")) {
             String id = e.get("id").getAsString();
             String kind = ContentData.str(e, "kind", "cube");
-            Function<BlockBehaviour.Properties, Block> factory = factory(kind, e);
+            Function<BlockBehaviour.Properties, Block> made = factory(kind, e);
+            boolean water = ContentData.bool(e, "waterlog", false); // converter/waterlog.py
+            Function<BlockBehaviour.Properties, Block> factory = p -> Waterlog.building(water, () -> made.apply(p));
             BY_ID.put(id, BLOCKS.registerBlock(id, factory, properties(kind, e)));
             ENTRIES.put(id, e);
         }
@@ -172,8 +176,18 @@ public final class LotrBlocks {
             case "carpet" -> CarpetBlock::new;
             case "shaped" -> p -> new ShapedBlock(p, box(e));
             case "faction_table" -> FactionTableBlock::new;
-            case "button" -> p -> new ButtonBlock(BlockSetType.STONE, 20, p);
-            case "pressure_plate" -> p -> new PressurePlateBlock(BlockSetType.STONE, p);
+            case "button" -> "wood".equals(ContentData.str(e, "set", ""))
+                    ? p -> new ButtonBlock(WoodSets.type(ContentData.str(e, "woodset", "")).setType(), 30, p)
+                    : p -> new ButtonBlock(BlockSetType.STONE, 20, p);
+            case "pressure_plate" -> "wood".equals(ContentData.str(e, "set", ""))
+                    ? p -> new PressurePlateBlock(WoodSets.type(ContentData.str(e, "woodset", "")).setType(), p)
+                    : p -> new PressurePlateBlock(BlockSetType.STONE, p);
+            // woodsets.py: a LOTR wood's signs
+            case "sign" -> p -> new LotrSignBlocks.Standing(WoodSets.type(ContentData.str(e, "woodset", "")), p);
+            case "wall_sign" -> p -> new LotrSignBlocks.Wall(WoodSets.type(ContentData.str(e, "woodset", "")), p);
+            case "hanging_sign" -> p -> new LotrSignBlocks.Ceiling(WoodSets.type(ContentData.str(e, "woodset", "")), p);
+            case "wall_hanging_sign" ->
+                    p -> new LotrSignBlocks.WallHanging(WoodSets.type(ContentData.str(e, "woodset", "")), p);
             default -> Block::new;
         };
     }
@@ -232,6 +246,8 @@ public final class LotrBlocks {
         switch (kind) {
             case "leaves" -> p.randomTicks().isValidSpawn((s, l, pos, type) -> false)
                     .pushReaction(PushReaction.DESTROY);
+            case "sign", "wall_sign", "hanging_sign", "wall_hanging_sign" -> p.noCollission().forceSolidOn()
+                    .ignitedByLava();
             case "plant", "sapling", "torch", "button", "pressure_plate", "reed" ->
                     p.noCollission().pushReaction(PushReaction.DESTROY);
             case "door", "trapdoor", "bed" -> p.pushReaction(PushReaction.DESTROY);

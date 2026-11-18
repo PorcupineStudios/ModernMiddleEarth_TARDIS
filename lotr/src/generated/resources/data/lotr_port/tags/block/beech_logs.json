@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "values": [
+    "lotr_port:beech_wood",
+    "lotr_port:beech_wood_beam",
+    "lotr_port:stripped_beech_wood",
+    "lotr_port:stripped_beech_wood_beam",
+    "lotr_port:beech_bark",
+    "lotr_port:stripped_beech_bark"
+  ]
+}

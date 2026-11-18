@@ -1,0 +1,19 @@
+{
+  "replace": false,
+  "values": [
+    "lotr_port:angmar_shovel",
+    "lotr_port:blue_dwarven_shovel",
+    "lotr_port:bronze_shovel",
+    "lotr_port:dol_guldur_shovel",
+    "lotr_port:dwarven_shovel",
+    "lotr_port:galadhrim_shovel",
+    "lotr_port:lindon_shovel",
+    "lotr_port:mallorn_shovel",
+    "lotr_port:mithril_shovel",
+    "lotr_port:mordor_shovel",
+    "lotr_port:rivendell_shovel",
+    "lotr_port:taurethrim_shovel",
+    "lotr_port:uruk_shovel",
+    "lotr_port:wood_elven_shovel"
+  ]
+}

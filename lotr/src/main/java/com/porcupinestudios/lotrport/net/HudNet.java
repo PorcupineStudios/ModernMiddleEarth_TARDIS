@@ -38,8 +38,12 @@ public final class HudNet {
         }));
     }
 
-    /** The alignment bar's arrow keys (as LOTR's): show the next ({@code step} 1) or previous (-1) faction. */
+    /**
+     * The alignment bar's arrow keys (as LOTR's): left/right show the previous (-1) or next (1) faction in the region,
+     * up/down the previous ({@code -REGION}) or next ({@code REGION}) region.
+     */
     public record CycleView(int step) implements CustomPacketPayload {
+        public static final int REGION = 2;
         public static final Type<CycleView> TYPE = new Type<>(LotrPort.id("cycle_view"));
         public static final StreamCodec<RegistryFriendlyByteBuf, CycleView> CODEC =
                 ByteBufCodecs.VAR_INT.map(CycleView::new, CycleView::step).cast();
@@ -73,8 +77,17 @@ public final class HudNet {
         /** Near a faction NPC: the bar shows even outside Middle-earth. */
         public static final int NEAR_NPC = 8;
 
-        public static int flags(boolean pledged, int reach, boolean nearNpc) {
-            return (pledged ? PLEDGED : 0) | (reach & 3) << REACH_SHIFT | (nearNpc ? NEAR_NPC : 0);
+        /** Outside the faction's reach, how strongly its control zone's arrows fade in (0-255) sits in bits 4-11. */
+        public static final int FADE_SHIFT = 4;
+
+        public static int flags(boolean pledged, int reach, boolean nearNpc, float fade) {
+            int f = Math.round(Math.max(0f, Math.min(1f, fade)) * 255);
+            return (pledged ? PLEDGED : 0) | (reach & 3) << REACH_SHIFT | (nearNpc ? NEAR_NPC : 0) | f << FADE_SHIFT;
+        }
+
+        /** LOTR's zone arrows' strength when out of reach: near a control zone's edge they fade in (0..1). */
+        public float zoneFade() {
+            return (flags >> FADE_SHIFT & 255) / 255f;
         }
 
         public boolean pledged() {

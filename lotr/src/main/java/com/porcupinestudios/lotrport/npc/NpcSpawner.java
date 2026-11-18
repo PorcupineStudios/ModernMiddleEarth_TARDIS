@@ -21,7 +21,6 @@ import net.neoforged.neoforge.event.tick.LevelTickEvent;
 public final class NpcSpawner {
     private static final int MIN_DISTANCE = 24;
     private static final int MAX_DISTANCE = 48;
-    private static final double COUNT_RADIUS = 64;
 
     private NpcSpawner() {}
 
@@ -65,8 +64,9 @@ public final class NpcSpawner {
         if (random.nextFloat() >= table.chance()) {
             return 0;
         }
-        AABB near = player.getBoundingBox().inflate(COUNT_RADIUS);
-        if (level.getEntitiesOfClass(LotrNpc.class, near).size() >= table.cap()) {
+        AABB near = player.getBoundingBox().inflate(table.radius());
+        if (level.getEntitiesOfClass(LotrNpc.class, near,
+                n -> !table.countOnlyAnimals() || NpcSpawns.isAnimal(n.typeId())).size() >= table.cap()) {
             return 0;
         }
         double angle = random.nextDouble() * Math.PI * 2;
@@ -101,6 +101,38 @@ public final class NpcSpawner {
             }
         }
         return spawned;
+    }
+
+    /**
+     * World generation (mixin AnimalGenerationMixin, after vanilla's own creatures): a newly generated chunk gets a
+     * group from its biome's animal table with the table's generation_chance, as LOTR's animals came with the land
+     * (1.7.10 spawned a biome's creature list at chunk generation).
+     */
+    public static void populate(net.minecraft.server.level.WorldGenRegion region) {
+        net.minecraft.world.level.ChunkPos chunk = region.getCenter();
+        BlockPos middle = new BlockPos(chunk.getMiddleBlockX(), 0, chunk.getMiddleBlockZ());
+        Optional<NpcSpawns.Table> table = region.getBiome(middle).unwrapKey()
+                .flatMap(k -> NpcSpawns.animalsForBiome(k.location()));
+        if (table.isEmpty() || table.get().entries().isEmpty()) {
+            return;
+        }
+        RandomSource random = region.getRandom();
+        if (random.nextFloat() >= table.get().generationChance()) {
+            return;
+        }
+        NpcSpawns.Entry entry = pick(table.get(), random);
+        int count = entry.min() + (entry.max() > entry.min() ? random.nextInt(entry.max() - entry.min() + 1) : 0);
+        for (int i = 0; i < count; i++) {
+            int x = chunk.getMinBlockX() + random.nextInt(16);
+            int z = chunk.getMinBlockZ() + random.nextInt(16);
+            int y = region.getHeight(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, x, z);
+            BlockPos at = new BlockPos(x, y, z);
+            if (!region.getFluidState(at.below()).isEmpty() || !region.getFluidState(at).isEmpty()) {
+                continue;
+            }
+            LotrNpc.create(region.getLevel(), entry.npc(), x + 0.5, y, z + 0.5, random)
+                    .ifPresent(region::addFreshEntity);
+        }
     }
 
     private static NpcSpawns.Entry pick(NpcSpawns.Table table, RandomSource random) {

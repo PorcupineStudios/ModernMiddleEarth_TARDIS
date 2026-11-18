@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "lotr_port:dwarven_brick"
+  },
+  "result": {
+    "id": "lotr_port:carved_dwarven_brick",
+    "count": 1
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "replace": false,
+  "values": [
+    "lotr_port:angmar_hoe",
+    "lotr_port:blue_dwarven_hoe",
+    "lotr_port:bronze_hoe",
+    "lotr_port:dol_guldur_hoe",
+    "lotr_port:dwarven_hoe",
+    "lotr_port:galadhrim_hoe",
+    "lotr_port:lindon_hoe",
+    "lotr_port:mallorn_hoe",
+    "lotr_port:mithril_hoe",
+    "lotr_port:mordor_hoe",
+    "lotr_port:rivendell_hoe",
+    "lotr_port:taurethrim_hoe",
+    "lotr_port:uruk_hoe",
+    "lotr_port:wood_elven_hoe"
+  ]
+}

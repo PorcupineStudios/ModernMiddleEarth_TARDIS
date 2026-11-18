@@ -94,15 +94,18 @@ public final class PeopleTests {
         helper.succeed();
     }
 
-    @GameTest(template = EMPTY, batch = "people_day", timeoutTicks = 100)
+    /** The orc checks the daylight once a second, so its chunk must tick: forced loaded, as the creature tests do. */
+    @GameTest(template = EMPTY, batch = "people_day", timeoutTicks = 200)
     public static void weakOrcSlowInDaylight(GameTestHelper helper) {
         helper.getLevel().setDayTime(6000);
-        LotrNpc orc = spawn(helper, "mordor_orc", 1.5, 1.5);
-        helper.assertTrue(helper.getLevel().canSeeSky(orc.blockPosition()), "the test spot has no sky");
-        helper.succeedWhen(() -> {
-            helper.getLevel().setDayTime(6000); // other tests change the time
-            helper.assertTrue(orc.hasEffect(MobEffects.MOVEMENT_SLOWDOWN)
-                && orc.hasEffect(MobEffects.WEAKNESS), "a weak orc in sunlight isn't weakened: day " + helper.getLevel().isDay() + " alive " + orc.isAlive() + " sky " + helper.getLevel().canSeeSky(orc.blockPosition()) + " biome " + helper.getLevel().getBiome(orc.blockPosition()).unwrapKey());
+        ThrownTests.inLoadedArea(helper, 2, 2, () -> {
+            LotrNpc orc = spawn(helper, "mordor_orc", 1.5, 1.5);
+            helper.assertTrue(helper.getLevel().canSeeSky(orc.blockPosition()), "the test spot has no sky");
+            helper.succeedWhen(() -> {
+                helper.getLevel().setDayTime(6000); // other tests change the time
+                helper.assertTrue(orc.hasEffect(MobEffects.MOVEMENT_SLOWDOWN)
+                    && orc.hasEffect(MobEffects.WEAKNESS), "a weak orc in sunlight isn't weakened: day " + helper.getLevel().isDay() + " alive " + orc.isAlive() + " ticks " + orc.tickCount + " sky " + helper.getLevel().canSeeSky(orc.blockPosition()) + " biome " + helper.getLevel().getBiome(orc.blockPosition()).unwrapKey());
+            });
         });
     }
 

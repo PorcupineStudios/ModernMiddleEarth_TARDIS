@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "values": [
+    "lotr_port:lebethron_wood",
+    "lotr_port:lebethron_wood_beam",
+    "lotr_port:stripped_lebethron_wood",
+    "lotr_port:stripped_lebethron_wood_beam",
+    "lotr_port:lebethron_bark",
+    "lotr_port:stripped_lebethron_bark"
+  ]
+}

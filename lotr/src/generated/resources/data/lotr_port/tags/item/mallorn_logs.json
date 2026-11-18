@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "values": [
+    "lotr_port:mallorn_wood",
+    "lotr_port:mallorn_wood_beam",
+    "lotr_port:stripped_mallorn_wood",
+    "lotr_port:stripped_mallorn_wood_beam",
+    "lotr_port:mallorn_bark",
+    "lotr_port:stripped_mallorn_bark"
+  ]
+}

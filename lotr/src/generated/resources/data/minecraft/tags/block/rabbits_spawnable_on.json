@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "lotr_port:block_of_kebab",
+    "lotr_port:elvengrass",
+    "lotr_port:jungle_grass",
+    "lotr_port:white_sand"
+  ]
+}

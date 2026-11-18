@@ -1,0 +1,11 @@
+{
+  "name": "Civics",
+  "lane": "civics",
+  "stage": 1,
+  "description": "The Council learns to govern many peoples (edict: The Common Tongue)",
+  "cost": {
+    "research": {
+      "lotr_port:basic": 25
+    }
+  }
+}

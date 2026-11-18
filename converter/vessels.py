@@ -20,19 +20,24 @@ VESSELS = {
     "wine_glass_block": ("minecraft:block/glass", [0, 0, 16, 16], "glass"),
     "ale_horn_block": ("item/ale_horn", [9, 4, 14, 8], "horn"),
     "ale_horn_gold": ("item/ale_horn_gold", [9, 4, 14, 8], "horn"),
+    "glass_bottle": ("minecraft:block/glass", [0, 0, 16, 16], "bottle"),
 }
+CORK = "minecraft:block/stripped_spruce_log"  # the bottle's stopper
 
 
-def box(f, t, uv):
-    faces = {d: {"uv": uv, "texture": "#wall"} for d in ("down", "up", "north", "south", "west", "east")}
+def box(f, t, uv, tex="#wall"):
+    faces = {d: {"uv": uv, "texture": tex} for d in ("down", "up", "north", "south", "west", "east")}
     return {"from": f, "to": t, "faces": faces}
 
 
-def cup(x0, x1, y0, y1, uv):
-    """An open cup: a floor and four 1-pixel walls."""
-    return [box([x0, y0, x0], [x1, y0 + 1, x1], uv),
-            box([x0, y0, x0], [x1, y1, x0 + 1], uv), box([x0, y0, x1 - 1], [x1, y1, x1], uv),
-            box([x0, y0, x0 + 1], [x0 + 1, y1, x1 - 1], uv), box([x1 - 1, y0, x0 + 1], [x1, y1, x1 - 1], uv)]
+def cup(x0, x1, y0, y1, uv, floor=True, w=1):
+    """An open cup: four walls w thick and a floor between them. No two boxes overlap: overlapping boxes put two
+    faces in one plane, which flicker (z-fighting)."""
+    out = [box([x0, y0, x0], [x1, y1, x0 + w], uv), box([x0, y0, x1 - w], [x1, y1, x1], uv),
+           box([x0, y0, x0 + w], [x0 + w, y1, x1 - w], uv), box([x1 - w, y0, x0 + w], [x1, y1, x1 - w], uv)]
+    if floor:
+        out.insert(0, box([x0 + w, y0, x0 + w], [x1 - w, y0 + 1, x1 - w], uv))
+    return out
 
 
 def elements(shape, uv):
@@ -47,13 +52,20 @@ def elements(shape, uv):
         return cup(5, 11, 0, 6, uv)
     if shape == "horn":  # standing on its narrow end, as LOTR set it down: a tip, then the open mouth
         return [box([7, 0, 7], [9, 2, 9], uv), box([6.5, 2, 6.5], [9.5, 4, 9.5], uv)] + cup(6, 10, 4, 10, uv)
+    if shape == "bottle":  # a round-bellied bottle: open body (the drink shows through the glass), shoulder, neck, cork
+        return (cup(5, 11, 0, 6, uv) + [box([5, 6, 5], [11, 7, 7], uv), box([5, 6, 9], [11, 7, 11], uv),
+                                        box([5, 6, 7], [7, 7, 9], uv), box([9, 6, 7], [11, 7, 9], uv)]
+                + cup(7, 9, 7, 9, uv, floor=False, w=0.5) + [box([7.25, 9, 7.25], [8.75, 10, 8.75], [0, 0, 4, 4], "#cork")])
     raise ValueError(shape)
 
 
 def model(block):
     tex, uv, shape = VESSELS[block]
     tex = tex if ":" in tex else f"{NS}:{tex}"
-    return {"parent": "minecraft:block/block", "textures": {"wall": tex, "particle": tex}, "render_type": CUTOUT,
+    textures = {"wall": tex, "particle": tex}
+    if shape == "bottle":
+        textures["cork"] = CORK
+    return {"parent": "minecraft:block/block", "textures": textures, "render_type": CUTOUT,
             "elements": elements(shape, uv)}
 
 

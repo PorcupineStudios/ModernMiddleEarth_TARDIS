@@ -30,6 +30,9 @@ RACES = [
 ]
 
 UI_EN = {
+    "item.lotr_port.s_smiths_scroll.blank": "Blank",
+    "item.lotr_port.s_smiths_scroll.desc": "On an anvil: puts its modifier on gear; two alike make a better scroll",
+    "item.lotr_port.ancient.desc": "Use it to see what it was",
     "key.lotr_port.map": "Middle-earth Map",
     "key.lotr_port.jukebox": "Jukebox (music here)",
     "key.lotr_port.map_teleport": "Map Teleport",
@@ -37,12 +40,19 @@ UI_EN = {
     "key.lotr_port.units": "Units (hired and colony soldiers)",
     "key.lotr_port.race_admin": "Race admin (server admins)",
     "key.lotr_port.alignment_prev": "Alignment bar: previous faction",
+    "key.lotr_port.alignment_region_prev": "Alignment bar: previous region",
+    "key.lotr_port.alignment_region_next": "Alignment bar: next region",
     "key.lotr_port.alignment_next": "Alignment bar: next faction",
     "key.categories.lotr_port": "The Lord of the Rings",
     "screen.lotr_port.map": "Middle-earth",
     "item.lotr_port.colony_charter": "Colony Charter",
     "itemGroup.lotr_port.colonies": "Colonies",
     "item.lotr_port.building_writ": "Building Writ",
+    "block.lotr_port.building_plaque": "Building Plaque",
+    "block.lotr_port.treasury_ledger": "Treasury Ledger",
+    "block.lotr_port.town_hall_ledger": "Town Hall Ledger",
+    "block.lotr_port.customs_counter": "Customs Counter",
+    "block.lotr_port.heart_of_the_mountain": "Heart of the Mountain",
 }
 
 BUILDINGS_EN = {

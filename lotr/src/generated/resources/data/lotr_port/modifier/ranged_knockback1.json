@@ -1,0 +1,7 @@
+{
+  "weight": 6,
+  "skilful": false,
+  "persists_reforge": false,
+  "value": 1.5,
+  "upgrade": "lotr_port:ranged_knockback2"
+}

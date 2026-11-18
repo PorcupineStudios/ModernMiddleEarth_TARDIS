@@ -287,6 +287,15 @@ public final class MiddleEarthMap {
                 settings.has("mountain_shape") ? settings.getAsJsonObject("mountain_shape") : null);
         this.rivers = Rivers.read(settings.has("rivers") ? settings.getAsJsonObject("rivers") : null, list);
         this.variants = new Variants(settings.has("variants") ? settings.getAsJsonObject("variants") : null, list);
+        if (settings.has("seas")) {
+            JsonObject seas = settings.getAsJsonObject("seas");
+            this.seaWobble = seas.get("wobble").getAsInt();
+            for (JsonElement e : seas.getAsJsonArray("zones")) {
+                JsonObject z = e.getAsJsonObject();
+                seaZones.add(new SeaZone(z.get("biome").getAsString(),
+                        z.has("below_z") ? z.get("below_z").getAsInt() : Integer.MAX_VALUE));
+            }
+        }
         for (int i = 0; i < list.size(); i++) {
             if (variants.has(i)) {
                 float[] mask = new float[256];
@@ -303,6 +312,11 @@ public final class MiddleEarthMap {
     /** The noise band: above, below, hill bias, sea level, top of the world (map.json noise_band); null if none. */
     public double[] noiseBand() {
         return noiseBand == null ? null : noiseBand.clone();
+    }
+
+    /** LOTR's single peaks (Erebor, the Lonely Mountain, Mount Doom...), from map.json {@code mountains}. */
+    public List<Mountain> mountains() {
+        return java.util.Collections.unmodifiableList(mountains);
     }
 
     public static void setSeed(long worldSeed) {
@@ -398,6 +412,39 @@ public final class MiddleEarthMap {
     /** The biome index of rivers (the river layer and painted rivers), or -1 without one. */
     public int riverBiome() {
         return rivers == null ? -1 : rivers.biome();
+    }
+
+    /** A sea biome north of {@code belowZ} (block z), south of the zone before it (map.json "seas"). */
+    public record SeaZone(String biome, int belowZ) {}
+
+    /** The sea biomes by latitude, north to south (converter/waters.py); empty: one ocean everywhere. */
+    private final List<SeaZone> seaZones = new ArrayList<>();
+    private int seaWobble;
+
+    public List<SeaZone> seaZones() {
+        return Collections.unmodifiableList(seaZones);
+    }
+
+    /** The map's ocean biome index (its sea columns become a sea biome by latitude: {@link #seaAt}). */
+    public int oceanIndex() {
+        return oceanIndex;
+    }
+
+    /**
+     * Which sea (index into {@link #seaZones}) a sea column at this block position is in: by latitude, with the
+     * borders meandering a few thousand blocks north and south along the coast. -1 without zones.
+     */
+    public int seaAt(int blockX, int blockZ) {
+        if (seaZones.isEmpty()) {
+            return -1;
+        }
+        double z = blockZ + seaWobble * (0.6 * Math.sin(blockX * 0.00031 + 1.3) + 0.4 * Math.sin(blockX * 0.00087 + 4.1));
+        for (int i = 0; i < seaZones.size(); i++) {
+            if (z < seaZones.get(i).belowZ()) {
+                return i;
+            }
+        }
+        return seaZones.size() - 1;
     }
 
     /** The biome index at a block position: the map pixel under it, with borders wobbled. */

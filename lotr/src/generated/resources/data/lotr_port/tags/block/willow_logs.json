@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "values": [
+    "lotr_port:stripped_willow_wood",
+    "lotr_port:stripped_willow_wood_beam",
+    "lotr_port:willow_wood",
+    "lotr_port:willow_wood_beam",
+    "lotr_port:stripped_willow_bark",
+    "lotr_port:willow_bark"
+  ]
+}

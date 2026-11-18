@@ -43,7 +43,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
  * through and draws only its frame ({@code client/ConnectedModel}). NPCs path through shut upright gates as through
  * wooden doors and open them ({@code npc/OpenGateGoal}); LOTR's NPCs couldn't, Aaron wants them to (colonists).
  */
-public class GateBlock extends DirectionalBlock {
+public class GateBlock extends DirectionalBlock implements net.minecraft.world.level.block.SimpleWaterloggedBlock {
     public static final BooleanProperty OPEN = BlockStateProperties.OPEN;
     static final int MAX_GATE = 64;
     private static final VoxelShape ACROSS_Z = Block.box(0, 0, 6, 16, 16, 10);
@@ -54,7 +54,7 @@ public class GateBlock extends DirectionalBlock {
     public GateBlock(Properties properties, boolean full) {
         super(properties);
         this.full = full;
-        registerDefaultState(stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(OPEN, false));
+        registerDefaultState(Waterlog.dry(stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(OPEN, false)));
     }
 
     @Override
@@ -65,11 +65,13 @@ public class GateBlock extends DirectionalBlock {
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(FACING, OPEN);
+        Waterlog.define(builder);
     }
 
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext context) {
-        return defaultBlockState().setValue(FACING, context.getNearestLookingDirection().getOpposite());
+        return Waterlog.placed(defaultBlockState().setValue(FACING, context.getNearestLookingDirection().getOpposite()),
+                context);
     }
 
     /** Structures are placed turned and mirrored; without these a gate kept its old facing and stood across the
@@ -217,5 +219,41 @@ public class GateBlock extends DirectionalBlock {
             }
         }
         return seen;
+    }
+
+    // ---- waterlogging (content/Waterlog): only blocks converter/waterlog.py marks have the property
+
+    @Override
+    public net.minecraft.world.level.material.FluidState getFluidState(BlockState state) {
+        return Waterlog.fluid(state, super.getFluidState(state));
+    }
+
+    @Override
+    public boolean canPlaceLiquid(net.minecraft.world.entity.player.Player player,
+            net.minecraft.world.level.BlockGetter level, BlockPos pos, BlockState state,
+            net.minecraft.world.level.material.Fluid fluid) {
+        return Waterlog.has(state) && net.minecraft.world.level.block.SimpleWaterloggedBlock.super.canPlaceLiquid(
+                player, level, pos, state, fluid);
+    }
+
+    @Override
+    public boolean placeLiquid(net.minecraft.world.level.LevelAccessor level, BlockPos pos, BlockState state,
+            net.minecraft.world.level.material.FluidState fluid) {
+        return Waterlog.has(state)
+                && net.minecraft.world.level.block.SimpleWaterloggedBlock.super.placeLiquid(level, pos, state, fluid);
+    }
+
+    @Override
+    public net.minecraft.world.item.ItemStack pickupBlock(net.minecraft.world.entity.player.Player player,
+            net.minecraft.world.level.LevelAccessor level, BlockPos pos, BlockState state) {
+        return Waterlog.has(state) ? net.minecraft.world.level.block.SimpleWaterloggedBlock.super.pickupBlock(
+                player, level, pos, state) : net.minecraft.world.item.ItemStack.EMPTY;
+    }
+
+    @Override
+    protected BlockState updateShape(BlockState state, net.minecraft.core.Direction dir, BlockState neighbor,
+            net.minecraft.world.level.LevelAccessor level, BlockPos pos, BlockPos neighborPos) {
+        Waterlog.tick(state, level, pos);
+        return super.updateShape(state, dir, neighbor, level, pos, neighborPos);
     }
 }

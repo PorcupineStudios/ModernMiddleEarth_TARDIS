@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "values": [
+    "lotr_port:lime_wood",
+    "lotr_port:lime_wood_beam",
+    "lotr_port:stripped_lime_wood",
+    "lotr_port:stripped_lime_wood_beam",
+    "lotr_port:lime_bark",
+    "lotr_port:stripped_lime_bark"
+  ]
+}
