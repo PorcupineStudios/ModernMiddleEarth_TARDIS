@@ -103,15 +103,19 @@ public final class CreatureTests {
         helper.succeed();
     }
 
-    /** LOTR's rabbits try 32 random spots within 16 for a crop, 1 in 20 a tick: random, so up to 3 tries. */
-    @GameTest(template = EMPTY, batch = "creatures", timeoutTicks = 3000, attempts = 3, requiredSuccesses = 1)
+    /**
+     * LOTR's rabbits try 32 random spots within 16 for a crop, 1 in 20 a tick: random, so up to 3 tries. Its own
+     * batch (the empty template is 1 block, so a shared batch packs other tests and their animals into the field),
+     * and a field of 80 crops so a search hits one about once every 7 seconds.
+     */
+    @GameTest(template = EMPTY, batch = "creature_rabbit", timeoutTicks = 3000, attempts = 3, requiredSuccesses = 1)
     public static void rabbitEatsCrop(GameTestHelper helper) {
         helper.getLevel().getGameRules().getRule(net.minecraft.world.level.GameRules.RULE_MOBGRIEFING)
                 .set(true, helper.getLevel().getServer());
         java.util.List<net.minecraft.core.BlockPos> field = new java.util.ArrayList<>();
-        ThrownTests.inLoadedArea(helper, 8, 4, () -> {
-            for (int x = 3; x <= 8; x++) {
-                for (int z = 0; z <= 3; z++) {
+        ThrownTests.inLoadedArea(helper, 12, 8, () -> {
+            for (int x = 3; x <= 12; x++) {
+                for (int z = -1; z <= 6; z++) {
                     var crop = new net.minecraft.core.BlockPos(x, 1, z);
                     helper.setBlock(crop.below(), net.minecraft.world.level.block.Blocks.FARMLAND);
                     helper.setBlock(crop, net.minecraft.world.level.block.Blocks.WHEAT);
