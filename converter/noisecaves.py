@@ -29,6 +29,26 @@ TERRAIN = f"{NS}:middle_earth/terrain"
 MARK = "minecraft:overworld/caves/entrances"
 
 
+def setting(name):
+    """A biome's cave setting at a column (BiomeCaveConfig through lotr_port:cave_setting), cached per column."""
+    return {"type": "minecraft:cache_2d", "argument": {"type": f"{NS}:cave_setting", "setting": name}}
+
+
+def gate(name, on, off=64.0):
+    """on where the biome has this cave type switched on, else off (solid)."""
+    return {"type": "minecraft:range_choice", "input": setting(name), "min_inclusive": 0.5, "max_exclusive": 2.0,
+            "when_in_range": on, "when_out_of_range": off}
+
+
+def entrances_held(vanilla_entrances):
+    """Vanilla's entrances with the biome's caveEntrances holding back its two parts: the big pits (cave_entrance
+    noise) and the tunnel mouths (spaghetti); BiomeCaveConfig.value gives how far."""
+    pits, tunnels = vanilla_entrances["argument"]["argument1"], vanilla_entrances["argument"]["argument2"]
+    return {"type": "minecraft:min",
+            "argument1": {"type": "minecraft:add", "argument1": pits, "argument2": setting("entrance_pits")},
+            "argument2": {"type": "minecraft:add", "argument1": tunnels, "argument2": setting("entrance_tunnels")}}
+
+
 def underground(s):
     """Vanilla's NoiseRouterData.underground on terrain density s (cheese, entrances, spaghetti, pillars)."""
     cheese = {"type": "minecraft:add",
@@ -44,22 +64,26 @@ def underground(s):
                                 "type": "minecraft:add", "argument1": 1.5,
                                 "argument2": {"type": "minecraft:mul", "argument1": -0.64, "argument2": s}},
                                 "min": 0.0, "max": 0.5}}}
+    # cheese and spaghetti switched per biome (cheeseCaves, spaghettiCaves); the entrances deep down stay vanilla's
     caves = {"type": "minecraft:min",
-             "argument1": {"type": "minecraft:min", "argument1": cheese, "argument2": "minecraft:overworld/caves/entrances"},
-             "argument2": {"type": "minecraft:add", "argument1": "minecraft:overworld/caves/spaghetti_2d",
-                           "argument2": "minecraft:overworld/caves/spaghetti_roughness_function"}}
+             "argument1": {"type": "minecraft:min", "argument1": gate("cheese", cheese),
+                           "argument2": "minecraft:overworld/caves/entrances"},
+             "argument2": gate("spaghetti", {"type": "minecraft:add", "argument1": "minecraft:overworld/caves/spaghetti_2d",
+                               "argument2": "minecraft:overworld/caves/spaghetti_roughness_function"})}
     pillars = {"type": "minecraft:range_choice", "input": "minecraft:overworld/caves/pillars",
                "min_inclusive": -1000000.0, "max_exclusive": 0.03, "when_in_range": -1000000.0,
                "when_out_of_range": "minecraft:overworld/caves/pillars"}
     return {"type": "minecraft:max", "argument1": caves, "argument2": pillars}
 
 
-def wrap(terrain_ref):
-    """The final density: the terrain with vanilla's caves cut into it under CAVE_TOP, then noodles."""
+def wrap(terrain_ref, vanilla_entrances):
+    """The final density: the terrain with vanilla's caves cut into it under CAVE_TOP, then noodles. Near the ground
+    (the top ~9 blocks of rock) only the entrances cut it, held back by the biome's caveEntrances (Aaron
+    2026-11-18: fewer huge openings); below, vanilla's caves, each type switched by the biome config."""
     s = terrain_ref
     caved = {"type": "minecraft:range_choice", "input": s, "min_inclusive": -1000000.0, "max_exclusive": 1.5625,
              "when_in_range": {"type": "minecraft:min", "argument1": s, "argument2": {
-                 "type": "minecraft:mul", "argument1": 5.0, "argument2": "minecraft:overworld/caves/entrances"}},
+                 "type": "minecraft:mul", "argument1": 5.0, "argument2": entrances_held(vanilla_entrances)}},
              "when_out_of_range": underground(s)}
     y = {"type": "minecraft:y_clamped_gradient", "from_y": -64, "to_y": TOP_Y, "from_value": -64.0,
          "to_value": float(TOP_Y)}
@@ -73,7 +97,8 @@ def wrap(terrain_ref):
     below = {"type": "minecraft:range_choice", "input": {"type": f"{NS}:caves_on"}, "min_inclusive": 0.5,
              "max_exclusive": 2.0, "when_in_range": below, "when_out_of_range": s}
     noodle = {"type": "minecraft:range_choice", "input": {"type": f"{NS}:caves_on"}, "min_inclusive": 0.5,
-              "max_exclusive": 2.0, "when_in_range": "minecraft:overworld/caves/noodle", "when_out_of_range": 64.0}
+              "max_exclusive": 2.0, "when_in_range": gate("noodle", "minecraft:overworld/caves/noodle"),
+              "when_out_of_range": 64.0}
     return {"type": "minecraft:min", "argument1": {"type": "minecraft:interpolated", "argument": below},
             "argument2": noodle}
 
@@ -83,8 +108,10 @@ def run(out=OUT):
     ns = json.load(open(path, encoding="utf-8"))
     router = ns["noise_router"]
     final = router["final_density"]
+    jar = zipfile.ZipFile(os.path.join(HERE, "cache", MC_1211[1]))
+    entrances = json.loads(jar.read("data/minecraft/worldgen/density_function/overworld/caves/entrances.json"))
     if MARK in json.dumps(final):
-        router["final_density"] = wrap(TERRAIN)  # rewrap the same terrain (keeps the formula current)
+        router["final_density"] = wrap(TERRAIN, entrances)  # rewrap the same terrain (keeps the formula current)
         write_json(path, ns)
         return {"wrapped": False}
     if final.get("type") != "minecraft:interpolated":
@@ -92,9 +119,9 @@ def run(out=OUT):
     # the terrain itself becomes a named, once-cached function the cave branches share
     write_json(os.path.join(out, "data", NS, "worldgen", "density_function", "middle_earth", "terrain.json"),
                {"type": "minecraft:cache_once", "argument": final["argument"]})
-    router["final_density"] = wrap(TERRAIN)
+    router["final_density"] = wrap(TERRAIN, entrances)
     # aquifers: vanilla's noises (with them off, the game floods every air pocket under sea level)
-    vanilla = json.loads(zipfile.ZipFile(os.path.join(HERE, "cache", MC_1211[1])).read(
+    vanilla = json.loads(jar.read(
         "data/minecraft/worldgen/noise_settings/overworld.json"))["noise_router"]
     for k in ("barrier", "fluid_level_floodedness", "fluid_level_spread", "lava"):
         router[k] = vanilla[k]

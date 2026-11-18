@@ -170,7 +170,8 @@ VEGETATION = ["minecraft:trees_taiga", "minecraft:trees_jungle", "minecraft:tree
               "minecraft:patch_grass_forest", "minecraft:patch_grass_plain", "minecraft:patch_dead_bush",
               "minecraft:patch_cactus_desert", "minecraft:patch_sugar_cane", "minecraft:patch_tall_grass",
               "minecraft:patch_large_fern"]
-CARVERS = ["minecraft:cave", "minecraft:cave_extra_underground", "minecraft:canyon"]
+# vanilla's carvers as the port's biome-aware copies (biomeconfig.py writes them; BiomeCarvers.java)
+CARVERS = ["lotr_port:cave", "lotr_port:cave_extra_underground", "lotr_port:canyon"]
 
 GRAZERS = [("minecraft:sheep", 12, 2, 4), ("minecraft:pig", 10, 2, 4), ("minecraft:chicken", 10, 2, 4),
            ("minecraft:cow", 8, 2, 4)]
