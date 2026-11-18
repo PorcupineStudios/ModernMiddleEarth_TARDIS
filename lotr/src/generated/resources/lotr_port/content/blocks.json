@@ -17,7 +17,8 @@
       11.75
     ],
     "collision": false,
-    "item": "none"
+    "item": "none",
+    "waterlog": true
   },
   {
     "id": "ale_horn_gold",
@@ -37,7 +38,8 @@
       11.75
     ],
     "collision": false,
-    "item": "none"
+    "item": "none",
+    "waterlog": true
   },
   {
     "id": "alloy_forge",
@@ -449,7 +451,8 @@
       16.0,
       16.0,
       16.0
-    ]
+    ],
+    "waterlog": true
   },
   {
     "id": "iron_bird_cage",
@@ -467,7 +470,8 @@
       16.0,
       16.0,
       16.0
-    ]
+    ],
+    "waterlog": true
   },
   {
     "id": "silver_bird_cage",
@@ -485,7 +489,8 @@
       16.0,
       16.0,
       16.0
-    ]
+    ],
+    "waterlog": true
   },
   {
     "id": "golden_bird_cage",
@@ -503,7 +508,8 @@
       16.0,
       16.0,
       16.0
-    ]
+    ],
+    "waterlog": true
   },
   {
     "id": "wooden_bird_cage",
@@ -521,7 +527,8 @@
       16.0,
       16.0,
       16.0
-    ]
+    ],
+    "waterlog": true
   },
   {
     "id": "blackroot",
@@ -1740,7 +1747,8 @@
       10.25
     ],
     "collision": false,
-    "item": "none"
+    "item": "none",
+    "waterlog": true
   },
   {
     "id": "ceramic_plate",
@@ -1762,7 +1770,8 @@
     "collision": false,
     "item": "none",
     "machine": "plate",
-    "facing": true
+    "facing": true,
+    "waterlog": true
   },
   {
     "id": "bronze_chandelier",
@@ -1772,7 +1781,8 @@
     "light": 14,
     "sound": "stone",
     "requiresTool": false,
-    "solid": false
+    "solid": false,
+    "waterlog": true
   },
   {
     "id": "iron_chandelier",
@@ -1782,7 +1792,8 @@
     "light": 14,
     "sound": "stone",
     "requiresTool": false,
-    "solid": false
+    "solid": false,
+    "waterlog": true
   },
   {
     "id": "silver_chandelier",
@@ -1792,7 +1803,8 @@
     "light": 14,
     "sound": "stone",
     "requiresTool": false,
-    "solid": false
+    "solid": false,
+    "waterlog": true
   },
   {
     "id": "gold_chandelier",
@@ -1802,7 +1814,8 @@
     "light": 14,
     "sound": "stone",
     "requiresTool": false,
-    "solid": false
+    "solid": false,
+    "waterlog": true
   },
   {
     "id": "mithril_chandelier",
@@ -1812,7 +1825,8 @@
     "light": 14,
     "sound": "stone",
     "requiresTool": false,
-    "solid": false
+    "solid": false,
+    "waterlog": true
   },
   {
     "id": "silver_mallorn_chandelier",
@@ -1822,7 +1836,8 @@
     "light": 14,
     "sound": "stone",
     "requiresTool": false,
-    "solid": false
+    "solid": false,
+    "waterlog": true
   },
   {
     "id": "wood_elven_chandelier",
@@ -1832,7 +1847,8 @@
     "light": 14,
     "sound": "stone",
     "requiresTool": false,
-    "solid": false
+    "solid": false,
+    "waterlog": true
   },
   {
     "id": "orc_chandelier",
@@ -1842,7 +1858,8 @@
     "light": 14,
     "sound": "stone",
     "requiresTool": false,
-    "solid": false
+    "solid": false,
+    "waterlog": true
   },
   {
     "id": "dwarven_chandelier",
@@ -1852,7 +1869,8 @@
     "light": 14,
     "sound": "stone",
     "requiresTool": false,
-    "solid": false
+    "solid": false,
+    "waterlog": true
   },
   {
     "id": "uruk_chandelier",
@@ -1862,7 +1880,8 @@
     "light": 14,
     "sound": "stone",
     "requiresTool": false,
-    "solid": false
+    "solid": false,
+    "waterlog": true
   },
   {
     "id": "high_elven_chandelier",
@@ -1872,7 +1891,8 @@
     "light": 14,
     "sound": "stone",
     "requiresTool": false,
-    "solid": false
+    "solid": false,
+    "waterlog": true
   },
   {
     "id": "blue_dwarven_chandelier",
@@ -1882,7 +1902,8 @@
     "light": 14,
     "sound": "stone",
     "requiresTool": false,
-    "solid": false
+    "solid": false,
+    "waterlog": true
   },
   {
     "id": "morgul_chandelier",
@@ -1892,7 +1913,8 @@
     "light": 14,
     "sound": "stone",
     "requiresTool": false,
-    "solid": false
+    "solid": false,
+    "waterlog": true
   },
   {
     "id": "blue_mallorn_chandelier",
@@ -1902,7 +1924,8 @@
     "light": 14,
     "sound": "stone",
     "requiresTool": false,
-    "solid": false
+    "solid": false,
+    "waterlog": true
   },
   {
     "id": "golden_mallorn_chandelier",
@@ -1912,7 +1935,8 @@
     "light": 14,
     "sound": "stone",
     "requiresTool": false,
-    "solid": false
+    "solid": false,
+    "waterlog": true
   },
   {
     "id": "green_mallorn_chandelier",
@@ -1922,7 +1946,8 @@
     "light": 14,
     "sound": "stone",
     "requiresTool": false,
-    "solid": false
+    "solid": false,
+    "waterlog": true
   },
   {
     "id": "cherry_pie_block",
@@ -1963,7 +1988,8 @@
     "facing": true,
     "machine": "chest",
     "render": "entity",
-    "texture": "ancient_harad"
+    "texture": "ancient_harad",
+    "waterlog": true
   },
   {
     "id": "reed_basket",
@@ -1985,7 +2011,8 @@
     "facing": true,
     "machine": "chest",
     "render": "entity",
-    "texture": "basket"
+    "texture": "basket",
+    "waterlog": true
   },
   {
     "id": "lebethron_casket",
@@ -2007,7 +2034,8 @@
     "facing": true,
     "machine": "chest",
     "render": "entity",
-    "texture": "lebethron"
+    "texture": "lebethron",
+    "waterlog": true
   },
   {
     "id": "mallorn_box",
@@ -2029,7 +2057,8 @@
     "facing": true,
     "machine": "chest",
     "render": "entity",
-    "texture": "mallorn"
+    "texture": "mallorn",
+    "waterlog": true
   },
   {
     "id": "stone_chest",
@@ -2051,7 +2080,8 @@
     "facing": true,
     "machine": "chest",
     "render": "entity",
-    "texture": "stone"
+    "texture": "stone",
+    "waterlog": true
   },
   {
     "id": "clay_tiling",
@@ -5064,7 +5094,8 @@
     "light": 0,
     "sound": "stone",
     "requiresTool": true,
-    "solid": false
+    "solid": false,
+    "waterlog": true
   },
   {
     "id": "dol_amroth_gate",
@@ -5074,7 +5105,8 @@
     "light": 0,
     "sound": "wood",
     "requiresTool": false,
-    "solid": false
+    "solid": false,
+    "waterlog": true
   },
   {
     "id": "dwarven_gate",
@@ -5084,7 +5116,8 @@
     "light": 0,
     "sound": "stone",
     "requiresTool": true,
-    "solid": false
+    "solid": false,
+    "waterlog": true
   },
   {
     "id": "galadhrim_gate",
@@ -5094,7 +5127,8 @@
     "light": 0,
     "sound": "wood",
     "requiresTool": false,
-    "solid": false
+    "solid": false,
+    "waterlog": true
   },
   {
     "id": "golden_gate",
@@ -5104,7 +5138,8 @@
     "light": 0,
     "sound": "stone",
     "requiresTool": true,
-    "solid": false
+    "solid": false,
+    "waterlog": true
   },
   {
     "id": "gondorian_gate",
@@ -5114,7 +5149,8 @@
     "light": 0,
     "sound": "wood",
     "requiresTool": false,
-    "solid": false
+    "solid": false,
+    "waterlog": true
   },
   {
     "id": "high_elven_gate",
@@ -5124,7 +5160,8 @@
     "light": 0,
     "sound": "wood",
     "requiresTool": false,
-    "solid": false
+    "solid": false,
+    "waterlog": true
   },
   {
     "id": "blue_hobbit_gate",
@@ -5134,7 +5171,8 @@
     "light": 0,
     "sound": "wood",
     "requiresTool": false,
-    "solid": false
+    "solid": false,
+    "waterlog": true
   },
   {
     "id": "green_hobbit_gate",
@@ -5144,7 +5182,8 @@
     "light": 0,
     "sound": "wood",
     "requiresTool": false,
-    "solid": false
+    "solid": false,
+    "waterlog": true
   },
   {
     "id": "red_hobbit_gate",
@@ -5154,7 +5193,8 @@
     "light": 0,
     "sound": "wood",
     "requiresTool": false,
-    "solid": false
+    "solid": false,
+    "waterlog": true
   },
   {
     "id": "yellow_hobbit_gate",
@@ -5164,7 +5204,8 @@
     "light": 0,
     "sound": "wood",
     "requiresTool": false,
-    "solid": false
+    "solid": false,
+    "waterlog": true
   },
   {
     "id": "iron_portcullis",
@@ -5174,7 +5215,8 @@
     "light": 0,
     "sound": "stone",
     "requiresTool": true,
-    "solid": false
+    "solid": false,
+    "waterlog": true
   },
   {
     "id": "mithril_gate",
@@ -5184,7 +5226,8 @@
     "light": 0,
     "sound": "stone",
     "requiresTool": true,
-    "solid": false
+    "solid": false,
+    "waterlog": true
   },
   {
     "id": "haradric_gate",
@@ -5194,7 +5237,8 @@
     "light": 0,
     "sound": "wood",
     "requiresTool": false,
-    "solid": false
+    "solid": false,
+    "waterlog": true
   },
   {
     "id": "orc_gate",
@@ -5204,7 +5248,8 @@
     "light": 0,
     "sound": "stone",
     "requiresTool": true,
-    "solid": false
+    "solid": false,
+    "waterlog": true
   },
   {
     "id": "rh_nic_gate",
@@ -5214,7 +5259,8 @@
     "light": 0,
     "sound": "wood",
     "requiresTool": false,
-    "solid": false
+    "solid": false,
+    "waterlog": true
   },
   {
     "id": "rohirric_gate",
@@ -5224,7 +5270,8 @@
     "light": 0,
     "sound": "wood",
     "requiresTool": false,
-    "solid": false
+    "solid": false,
+    "waterlog": true
   },
   {
     "id": "silver_gate",
@@ -5234,7 +5281,8 @@
     "light": 0,
     "sound": "stone",
     "requiresTool": true,
-    "solid": false
+    "solid": false,
+    "waterlog": true
   },
   {
     "id": "taurethrim_gate",
@@ -5244,7 +5292,8 @@
     "light": 0,
     "sound": "wood",
     "requiresTool": false,
-    "solid": false
+    "solid": false,
+    "waterlog": true
   },
   {
     "id": "uruk_gate",
@@ -5254,7 +5303,8 @@
     "light": 0,
     "sound": "stone",
     "requiresTool": true,
-    "solid": false
+    "solid": false,
+    "waterlog": true
   },
   {
     "id": "wood_elven_gate",
@@ -5264,7 +5314,8 @@
     "light": 0,
     "sound": "wood",
     "requiresTool": false,
-    "solid": false
+    "solid": false,
+    "waterlog": true
   },
   {
     "id": "wooden_gate",
@@ -5274,7 +5325,8 @@
     "light": 0,
     "sound": "wood",
     "requiresTool": false,
-    "solid": false
+    "solid": false,
+    "waterlog": true
   },
   {
     "id": "wooden_portcullis",
@@ -5284,7 +5336,8 @@
     "light": 0,
     "sound": "wood",
     "requiresTool": false,
-    "solid": false
+    "solid": false,
+    "waterlog": true
   },
   {
     "id": "fine_glass",
@@ -5352,7 +5405,8 @@
       9.875
     ],
     "collision": false,
-    "item": "none"
+    "item": "none",
+    "waterlog": true
   },
   {
     "id": "goblet_gold",
@@ -5372,7 +5426,8 @@
       9.875
     ],
     "collision": false,
-    "item": "none"
+    "item": "none",
+    "waterlog": true
   },
   {
     "id": "goblet_silver",
@@ -5392,7 +5447,8 @@
       9.875
     ],
     "collision": false,
-    "item": "none"
+    "item": "none",
+    "waterlog": true
   },
   {
     "id": "goblet_wood",
@@ -5412,7 +5468,8 @@
       9.875
     ],
     "collision": false,
-    "item": "none"
+    "item": "none",
+    "waterlog": true
   },
   {
     "id": "gold_bars",
@@ -6705,7 +6762,8 @@
       10.25
     ],
     "collision": false,
-    "item": "none"
+    "item": "none",
+    "waterlog": true
   },
   {
     "id": "haradric_crafting_table",
@@ -6897,7 +6955,8 @@
       16.0,
       11.2
     ],
-    "collision": false
+    "collision": false,
+    "waterlog": true
   },
   {
     "id": "orc_forge",
@@ -8223,7 +8282,8 @@
     "collision": false,
     "item": "none",
     "machine": "plate",
-    "facing": true
+    "facing": true,
+    "waterlog": true
   },
   {
     "id": "pressure_plate",
@@ -9058,7 +9118,8 @@
       11.0
     ],
     "collision": false,
-    "item": "none"
+    "item": "none",
+    "waterlog": true
   },
   {
     "id": "bone_slab",
@@ -10698,7 +10759,8 @@
       15.0
     ],
     "facing": true,
-    "item": "none"
+    "item": "none",
+    "waterlog": true
   },
   {
     "id": "spawner_chest_ancient_harad",
@@ -10718,7 +10780,8 @@
       15.0
     ],
     "facing": true,
-    "item": "none"
+    "item": "none",
+    "waterlog": true
   },
   {
     "id": "spawner_chest_stone",
@@ -10738,7 +10801,8 @@
       15.0
     ],
     "facing": true,
-    "item": "none"
+    "item": "none",
+    "waterlog": true
   },
   {
     "id": "white_fine_glass",
@@ -12624,7 +12688,8 @@
       12.0,
       16.0,
       12.0
-    ]
+    ],
+    "waterlog": true
   },
   {
     "id": "stalagmite",
@@ -12642,7 +12707,8 @@
       12.0,
       16.0,
       12.0
-    ]
+    ],
+    "waterlog": true
   },
   {
     "id": "ice_stalactite",
@@ -12660,7 +12726,8 @@
       12.0,
       16.0,
       12.0
-    ]
+    ],
+    "waterlog": true
   },
   {
     "id": "ice_stalagmite",
@@ -12678,7 +12745,8 @@
       12.0,
       16.0,
       12.0
-    ]
+    ],
+    "waterlog": true
   },
   {
     "id": "obsidian_stalactite",
@@ -12696,7 +12764,8 @@
       12.0,
       16.0,
       12.0
-    ]
+    ],
+    "waterlog": true
   },
   {
     "id": "obsidian_stalagmite",
@@ -12714,7 +12783,8 @@
       12.0,
       16.0,
       12.0
-    ]
+    ],
+    "waterlog": true
   },
   {
     "id": "straw_bed_block",
@@ -15806,7 +15876,8 @@
     "collision": false,
     "item": "none",
     "machine": "plate",
-    "facing": true
+    "facing": true,
+    "waterlog": true
   },
   {
     "id": "shire_pine_wood_slab",

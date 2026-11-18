@@ -69,7 +69,9 @@ public final class LotrBlocks {
         for (JsonObject e : ContentData.read("blocks.json")) {
             String id = e.get("id").getAsString();
             String kind = ContentData.str(e, "kind", "cube");
-            Function<BlockBehaviour.Properties, Block> factory = factory(kind, e);
+            Function<BlockBehaviour.Properties, Block> made = factory(kind, e);
+            boolean water = ContentData.bool(e, "waterlog", false); // converter/waterlog.py
+            Function<BlockBehaviour.Properties, Block> factory = p -> Waterlog.building(water, () -> made.apply(p));
             BY_ID.put(id, BLOCKS.registerBlock(id, factory, properties(kind, e)));
             ENTRIES.put(id, e);
         }

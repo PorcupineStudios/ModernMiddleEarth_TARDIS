@@ -18,12 +18,12 @@ import net.minecraft.world.phys.shapes.VoxelShape;
  * the front faces, set from the old metadata in structures and towards the player when placed. An optional box shape
  * turns with it.
  */
-public class FacingBlock extends HorizontalDirectionalBlock {
+public class FacingBlock extends HorizontalDirectionalBlock implements net.minecraft.world.level.block.SimpleWaterloggedBlock {
     private final VoxelShape[] shapes = new VoxelShape[4];
 
     public FacingBlock(Properties properties, float[] box) {
         super(properties);
-        registerDefaultState(stateDefinition.any().setValue(FACING, Direction.NORTH));
+        registerDefaultState(Waterlog.dry(stateDefinition.any().setValue(FACING, Direction.NORTH)));
         for (Direction d : Direction.Plane.HORIZONTAL) {
             shapes[d.get2DDataValue()] = box == null ? Shapes.block() : turned(box, d);
         }
@@ -47,15 +47,53 @@ public class FacingBlock extends HorizontalDirectionalBlock {
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(FACING);
+        Waterlog.define(builder);
     }
 
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext context) {
-        return defaultBlockState().setValue(FACING, context.getHorizontalDirection().getOpposite());
+        return Waterlog.placed(defaultBlockState().setValue(FACING, context.getHorizontalDirection().getOpposite()),
+                context);
     }
 
     @Override
     protected VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
         return shapes[state.getValue(FACING).get2DDataValue()];
+    }
+
+    // ---- waterlogging (content/Waterlog): only blocks converter/waterlog.py marks have the property
+
+    @Override
+    public net.minecraft.world.level.material.FluidState getFluidState(BlockState state) {
+        return Waterlog.fluid(state, super.getFluidState(state));
+    }
+
+    @Override
+    public boolean canPlaceLiquid(net.minecraft.world.entity.player.Player player,
+            net.minecraft.world.level.BlockGetter level, BlockPos pos, BlockState state,
+            net.minecraft.world.level.material.Fluid fluid) {
+        return Waterlog.has(state) && net.minecraft.world.level.block.SimpleWaterloggedBlock.super.canPlaceLiquid(
+                player, level, pos, state, fluid);
+    }
+
+    @Override
+    public boolean placeLiquid(net.minecraft.world.level.LevelAccessor level, BlockPos pos, BlockState state,
+            net.minecraft.world.level.material.FluidState fluid) {
+        return Waterlog.has(state)
+                && net.minecraft.world.level.block.SimpleWaterloggedBlock.super.placeLiquid(level, pos, state, fluid);
+    }
+
+    @Override
+    public net.minecraft.world.item.ItemStack pickupBlock(net.minecraft.world.entity.player.Player player,
+            net.minecraft.world.level.LevelAccessor level, BlockPos pos, BlockState state) {
+        return Waterlog.has(state) ? net.minecraft.world.level.block.SimpleWaterloggedBlock.super.pickupBlock(
+                player, level, pos, state) : net.minecraft.world.item.ItemStack.EMPTY;
+    }
+
+    @Override
+    protected BlockState updateShape(BlockState state, net.minecraft.core.Direction dir, BlockState neighbor,
+            net.minecraft.world.level.LevelAccessor level, BlockPos pos, BlockPos neighborPos) {
+        Waterlog.tick(state, level, pos);
+        return super.updateShape(state, dir, neighbor, level, pos, neighborPos);
     }
 }

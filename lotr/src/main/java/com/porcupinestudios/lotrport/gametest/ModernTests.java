@@ -243,4 +243,21 @@ public final class ModernTests {
         helper.assertTrue(cells.size() >= 8, "only " + cells.size() + " separate lush pockets");
         helper.succeed();
     }
+
+    /** waterlog.py: an orc chain or a portcullis holds water like vanilla's chain and bars; a brick doesn't. */
+    @GameTest(template = "empty")
+    public static void lotrBlocksWaterlogLikeTheirKin(GameTestHelper helper) {
+        var wet = net.minecraft.world.level.block.state.properties.BlockStateProperties.WATERLOGGED;
+        BlockState chain = LotrBlocks.BY_ID.get("orc_chain").get().defaultBlockState();
+        helper.assertTrue(chain.hasProperty(wet) && !chain.getValue(wet), "orc chain can't hold water");
+        helper.assertTrue(LotrBlocks.BY_ID.get("iron_portcullis").get().defaultBlockState().hasProperty(wet),
+                "portcullis can't hold water");
+        helper.assertTrue(!LotrBlocks.BY_ID.get("gondor_brick").get().defaultBlockState().hasProperty(wet),
+                "a brick holds water");
+        BlockPos at = new BlockPos(0, 2, 0);
+        helper.setBlock(at, chain.setValue(wet, true));
+        helper.assertTrue(helper.getLevel().getFluidState(helper.absolutePos(at)).is(
+                net.minecraft.world.level.material.Fluids.WATER), "the wet chain has no water in it");
+        helper.succeed();
+    }
 }
