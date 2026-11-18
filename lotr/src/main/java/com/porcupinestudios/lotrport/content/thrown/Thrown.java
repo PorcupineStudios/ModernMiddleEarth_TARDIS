@@ -25,7 +25,7 @@ import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
 /**
- * LOTR's thrown weapons and missiles (missing-features task 28): spears, throwing axes and darts fly as
+ * LOTR's thrown weapons and missiles: spears, throwing axes and darts fly as
  * {@link ThrownWeapon}s carrying their item; pebbles, conkers, fire pots, mystery webs and plates as
  * {@link ThrownMissile}s; orc bombs burn down as {@link OrcBomb}s. Which item does what is {@code converter/thrown.py};
  * LOTR's numbers are {@code thrown/settings.json}.

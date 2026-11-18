@@ -42,7 +42,7 @@ NPC_SOUNDS = {
     "LOTREntityCrocodile": {"ambient": "crocodile.say", "death": "crocodile.death", "attack": "crocodile.snap"},
     "LOTREntityWarg": {"ambient": "warg.say", "hurt": "warg.hurt", "death": "warg.death", "attack": "warg.attack"},
 }
-# Creatures not ported yet (missing-features task 9/26): their LOTR sounds, for the creature types when they land.
+# Creatures' LOTR sounds, by creature type.
 CREATURE_SOUNDS = {
     "aurochs": {"ambient": "aurochs.say", "hurt": "aurochs.hurt", "death": "aurochs.death"},
     "bear": {"ambient": "bear.say", "hurt": "bear.hurt", "death": "bear.death"},

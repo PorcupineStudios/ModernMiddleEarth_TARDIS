@@ -27,7 +27,7 @@ import net.minecraft.world.level.Level;
  *  "result": {"id": ..., "count": n}, "chance": 1.0, "time": 200}</pre>
  * {@code station} limits a recipe to one block (each faction's forge smelts differently); {@code chance} is LOTR's
  * millstone chance; {@code time} the brewing or cooking time in ticks where LOTR had one. The machines' block
- * entities use these; until each machine's block lands (missing-features task 31) they load and are listed only.
+ * entities use these.
  */
 public record MachineRecipe(Machine machine, Optional<ResourceLocation> station, List<Ingredient> ingredients,
         ItemStack result, float chance, int time, int servings) implements Recipe<RecipeInput> {

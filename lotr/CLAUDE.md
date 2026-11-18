@@ -657,6 +657,12 @@ https://claude.ai/artifact/KqhSSTCuKXGuwKHBoYJdcu. Rebuild features in modern co
 ## Build
 From the repo root: `./gradlew :lotr:build`, `:lotr:runClient`, `:lotr:runServer`, `:lotr:runGameTestServer`,
 `:lotr:runData`. Shared rules are in the root `CLAUDE.md`.
+- GameTests (2026-11-18): ~136 in `gametest/`; CI's "Middle-earth world" step (`WorldCheck`, real chunks across the
+  biomes) runs only when all pass. Most use template `lotr_port:empty`, which is 16x4x16 so the runner spaces tests
+  apart (at 1x1x1 neighbouring creature tests' animals ran into each other). Tests that need entities to tick wrap
+  their body in `ThrownTests.inLoadedArea` (forced chunks). Timing tests (`fiftyColoniesRunTenDaysWithinTheBudget`)
+  can miss by a hair on a slow runner; re-run the failed job rather than loosening them. `rabbitEatsCrop` has failed
+  alone in its own batch: cause not found yet.
 
 ## LOTR tables from the reflection dump (2026-11-06)
 - The exporter's `ReflectionDump` writes `export/extra.json.gz` (static fields of LOTR's tables, every drink item,
@@ -669,7 +675,7 @@ From the repo root: `./gradlew :lotr:build`, `:lotr:runClient`, `:lotr:runServer
 - Recipes: unsmeltery computed from crafting recipes, hobbit oven and kebab stand from furnace foods. Lore books
   (`converter/lore.py`) go into structure chests. Quests: pickpocket kind, LOTR's per-quest lines
   (`speech/miniquest/...`). Mounted units ride (`Hiring.mount`).
-- What was skipped and why: `lotr/docs/import-checklist.md`.
+- What is still missing: `lotr/docs/missing-features.md` ("Still open").
 - Faction influence (2026-11-07, `faction/FactionInfluence`): a kill changes alignment only with factions whose
   influence reaches the player: inside one of its control zones (LOTR's, map pixels, Middle-earth only) or within
   `npc_radius` (24, LOTR's) of one of its NPCs in any dimension (`data/lotr_port/alignment/settings.json`). The bar

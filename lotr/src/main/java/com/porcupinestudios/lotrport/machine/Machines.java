@@ -23,7 +23,7 @@ import net.neoforged.neoforge.items.wrapper.SidedInvWrapper;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
 /**
- * LOTR's machines and display blocks (missing-features task 31): the faction forges, hobbit oven, millstone and
+ * LOTR's machines and display blocks: the faction forges, hobbit oven, millstone and
  * unsmeltery run their {@code MachineRecipe}s; the kebab stand, plates, armour stand, weapon rack, Ent jar and chests
  * hold things. Which block is which comes from {@code machine} in the generated {@code blocks.json}
  * ({@code converter/machines.py}); LOTR's numbers are {@code data/<ns>/machine/settings.json}.
