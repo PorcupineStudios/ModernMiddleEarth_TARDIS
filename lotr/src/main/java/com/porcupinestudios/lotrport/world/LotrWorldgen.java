@@ -60,6 +60,7 @@ public final class LotrWorldgen {
                 com.porcupinestudios.lotrport.world.feature.HeartOfTheMountainFeature::new);
         BIOME_SOURCES.register("middle_earth", () -> MapBiomeSource.CODEC);
         DENSITY_FUNCTIONS.register("map_terrain", () -> MapTerrain.MAP_CODEC);
+        DENSITY_FUNCTIONS.register("caves_on", () -> com.porcupinestudios.lotrport.world.map.CavesOn.MAP_CODEC);
     }
 
     private LotrWorldgen() {}

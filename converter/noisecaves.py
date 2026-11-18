@@ -69,8 +69,13 @@ def wrap(terrain_ref):
                "when_in_range": s, "when_out_of_range": caved}
     below = {"type": "minecraft:range_choice", "input": y, "min_inclusive": -1000.0, "max_exclusive": float(CAVE_TOP),
              "when_in_range": in_rock, "when_out_of_range": s}
+    # lotr_port:caves_on is 0 while the game scans a column for its ground (CavesOn): no cave noise then
+    below = {"type": "minecraft:range_choice", "input": {"type": f"{NS}:caves_on"}, "min_inclusive": 0.5,
+             "max_exclusive": 2.0, "when_in_range": below, "when_out_of_range": s}
+    noodle = {"type": "minecraft:range_choice", "input": {"type": f"{NS}:caves_on"}, "min_inclusive": 0.5,
+              "max_exclusive": 2.0, "when_in_range": "minecraft:overworld/caves/noodle", "when_out_of_range": 64.0}
     return {"type": "minecraft:min", "argument1": {"type": "minecraft:interpolated", "argument": below},
-            "argument2": "minecraft:overworld/caves/noodle"}
+            "argument2": noodle}
 
 
 def run(out=OUT):
