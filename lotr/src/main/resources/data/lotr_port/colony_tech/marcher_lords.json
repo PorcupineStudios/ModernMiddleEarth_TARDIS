@@ -1,0 +1,20 @@
+{
+  "name": "Marcher Lords",
+  "lane": "warfare",
+  "stage": 3,
+  "after": [
+    "lotr_port:siegecraft"
+  ],
+  "description": "Border lords hold the march: the colony is a seat of conquest",
+  "cost": {
+    "research": {
+      "lotr_port:scholarly": 40,
+      "lotr_port:advanced": 20
+    },
+    "coins": 500
+  },
+  "conquest": {
+    "pressure": 1.0,
+    "reach": 8
+  }
+}

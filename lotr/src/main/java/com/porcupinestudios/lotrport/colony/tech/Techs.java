@@ -92,6 +92,24 @@ public final class Techs {
         return of(c).techs().containsKey(tech);
     }
 
+    /** The colony's conquest multiplier: 1 + its researched perks' pressure (1 for a new colony). */
+    public static double conquestPressure(Colony c) {
+        double f = 1;
+        for (ResourceLocation id : of(c).techs().keySet()) {
+            f += TechDef.get(id).flatMap(TechDef::conquest).map(TechDef.Conquest::pressure).orElse(0.0);
+        }
+        return f;
+    }
+
+    /** How far (map pixels) the colony's conquest perks reach: the largest; 0 without any. */
+    public static double conquestReach(Colony c) {
+        double r = 0;
+        for (ResourceLocation id : of(c).techs().keySet()) {
+            r = Math.max(r, TechDef.get(id).flatMap(TechDef::conquest).map(TechDef.Conquest::reach).orElse(0.0));
+        }
+        return r;
+    }
+
     /** One trade's factor from researched nodes ({@code jobs}). */
     public static double jobFactor(Colony c, ResourceLocation job) {
         double f = 1;

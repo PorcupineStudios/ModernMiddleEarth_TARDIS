@@ -8,6 +8,10 @@ Writes, from the generated NPC spawn tables (run after npcs/world):
 - data/lotr_port/border_spawns/<faction ns>/<faction path>.json: npc_spawns-format tables of a faction's own people,
   merged over the biomes it holds, for spawning in land it takes from someone else (LOTR's conquest spawn lists).
 
+- data/lotr_port/conquest_terrain/biomes.json: {"biomes": {biome: factor}}, how much a biome multiplies the
+  defence of land in it: 1 + hilliness / HILL_PER_STEP, times RANGE_FACTOR in the mountain ranges, plus KEYWORD
+  bonuses (forests, marshes); at most MAX_FACTOR. Misty Mountains ~6, the Shire ~1.3.
+
 Run alone: python borders.py
 """
 import glob
@@ -20,6 +24,33 @@ from woodsets import OUT, NS, write_json
 DATA = os.path.join(OUT, "data", NS)
 # factions that never own land on the map (LOTR's hostile and unaligned lists)
 NO_LAND = {f"{NS}:hostile", f"{NS}:unaligned", f"{NS}:utumno"}
+
+
+HILL_PER_STEP = 10.0   # hilliness (map.json variation) per +1 defence factor
+RANGE_FACTOR = 1.5     # extra for the mountain ranges (map.json ranges.biomes)
+KEYWORDS = {"forest": 0.5, "wood": 0.4, "fangorn": 0.6, "mirkwood": 0.6, "marsh": 0.6, "swamp": 0.6,
+            "fen": 0.5, "mountain": 0.5, "hills": 0.3, "highlands": 0.3}
+MIN_FACTOR = 0.5
+MAX_FACTOR = 6.0
+
+
+def terrain(out):
+    with open(os.path.join(out, NS, "map", "map.json"), encoding="utf-8") as f:
+        m = json.load(f)
+    ranges = set(m.get("ranges", {}).get("biomes", {}))
+    factors = {}
+    for b in m["biomes"]:
+        bid = b["id"]
+        if bid == f"{NS}:river" or "ocean" in bid or "lake" in bid:
+            factors[bid] = 1.0
+            continue
+        f_ = 1 + b.get("variation", 0) / HILL_PER_STEP
+        if bid in ranges:
+            f_ *= RANGE_FACTOR
+        f_ += sum(v for k, v in KEYWORDS.items() if k in bid.split(":", 1)[1])
+        factors[bid] = round(max(MIN_FACTOR, min(MAX_FACTOR, f_)), 2)
+    write_json(os.path.join(out, "data", NS, "conquest_terrain", "biomes.json"), {"biomes": dict(sorted(factors.items()))})
+    return len(factors)
 
 
 def npc_factions():
@@ -77,7 +108,7 @@ def run(out=OUT):
                  "interval": round(sum(t.get("interval", 100) for t in ts) / n)}
         fns, fpath = fac.split(":", 1)
         write_json(os.path.join(DATA, "border_spawns", fns, fpath + ".json"), table)
-    return {"biomes_with_owner": len(base), "factions_with_land": len(people)}
+    return {"biomes_with_owner": len(base), "factions_with_land": len(people), "terrain_factors": terrain(out)}
 
 
 if __name__ == "__main__":

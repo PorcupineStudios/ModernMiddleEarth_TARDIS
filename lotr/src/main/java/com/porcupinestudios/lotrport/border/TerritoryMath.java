@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.IntPredicate;
+import java.util.function.IntToDoubleFunction;
 import java.util.function.IntUnaryOperator;
 
 /**
@@ -11,14 +12,27 @@ import java.util.function.IntUnaryOperator;
  * tested): owners are small numbers the caller maps to factions, -1 = nobody.
  *
  * <p>Each claim (a colony) reaches {@code radius} map pixels from its Hall; its strength at a pixel is radius minus
- * distance. The strongest claim takes the pixel (ties: the older claim, lower {@code order}). The result holds only
- * pixels whose holder differs from the original map's: that is the overlay forwarded onto the player map.
+ * distance. A claim only takes pixels it {@link Claimable may} (unclaimed land, or its own people's) and only where its
+ * strength is at least the pixel's terrain {@code cost} (mountains need a big, near colony). The strongest claim takes
+ * the pixel (ties: the older claim, lower {@code order}). The result holds only pixels whose holder differs from the
+ * original map's: that is the overlay forwarded onto the player map. Others' land is taken by conquest, not claims.
  */
 public final class TerritoryMath {
     /** A colony's reach: Hall pixel, radius in map pixels, holder, and age order (older first). */
     public record Claim(int px, int pz, double radius, int owner, long order) {}
 
+    /** Whether a holder may claim a pixel by settling. */
+    public interface Claimable {
+        boolean test(int pixel, int owner);
+    }
+
     private TerritoryMath() {}
+
+    /** Every pixel claimable, no terrain cost. */
+    public static Map<Integer, Integer> overlay(int width, int height, List<Claim> claims, IntUnaryOperator base,
+            IntPredicate land) {
+        return overlay(width, height, claims, base, land, i -> 0, (i, o) -> true);
+    }
 
     /**
      * @param base the original map's holder of a pixel index ({@code pz * width + px}), -1 for nobody
@@ -26,7 +40,7 @@ public final class TerritoryMath {
      * @return pixel index -> holder, only where it differs from {@code base}
      */
     public static Map<Integer, Integer> overlay(int width, int height, List<Claim> claims, IntUnaryOperator base,
-            IntPredicate land) {
+            IntPredicate land, IntToDoubleFunction cost, Claimable claimable) {
         Map<Integer, Double> best = new HashMap<>();
         Map<Integer, Claim> winner = new HashMap<>();
         for (Claim c : claims) {
@@ -38,10 +52,10 @@ public final class TerritoryMath {
                         continue;
                     }
                     int i = z * width + x;
-                    if (!land.test(i)) {
+                    double s = c.radius() - d;
+                    if (!land.test(i) || s < cost.applyAsDouble(i) || !claimable.test(i, c.owner())) {
                         continue;
                     }
-                    double s = c.radius() - d;
                     Double old = best.get(i);
                     Claim held = winner.get(i);
                     if (old == null || s > old || (s == old && c.order() < held.order())) {

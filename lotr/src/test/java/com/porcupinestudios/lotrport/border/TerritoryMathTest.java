@@ -65,4 +65,17 @@ class TerritoryMathTest {
         assertEquals(6, TerritoryMath.radius(1000, 2, 10, 6));
         assertEquals(2, TerritoryMath.radius(1000, 2, 0, 6));
     }
+
+    @Test
+    void othersLandAndSteepTerrainAreNotSettled() {
+        // claimable only where the base is nobody (row 0 marked nobody) or the claimer's own: holder 2 claims nothing
+        // of holder 0's or 1's land; a terrain cost of 2 on (3, 0) keeps a radius-3 claim from 2 away off it
+        TerritoryMath.Claimable onlyNobodys = (i, o) -> i / W == 0;
+        Map<Integer, Integer> o = TerritoryMath.overlay(W, H, List.of(new TerritoryMath.Claim(5, 0, 3, 2, 0)),
+                TerritoryMathTest::base, TerritoryMathTest::land, i -> i == 3 ? 2 : 0, onlyNobodys);
+        assertEquals(2, o.get(5));
+        assertEquals(2, o.get(4), "strength 2 >= no cost");
+        assertFalse(o.containsKey(3), "strength 1 < cost 2: the steep square isn't settled");
+        assertFalse(o.containsKey(W + 5), "row 1 is someone's land: taken by conquest, not settling");
+    }
 }

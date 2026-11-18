@@ -1,0 +1,6 @@
+{
+  "name": "The colony lost many in battle",
+  "mood": -6,
+  "duration_ticks": 120000,
+  "stack_limit": 1
+}

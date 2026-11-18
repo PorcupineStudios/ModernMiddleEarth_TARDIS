@@ -1,0 +1,24 @@
+{
+  "name": "Siegecraft",
+  "lane": "warfare",
+  "stage": 2,
+  "after": [
+    "lotr_port:muster_grounds",
+    "lotr_port:armoury"
+  ],
+  "description": "Engineers and siege works: more pressure, further from the walls",
+  "cost": {
+    "research": {
+      "lotr_port:basic": 40,
+      "lotr_port:scholarly": 20
+    },
+    "items": {
+      "minecraft:iron_ingot": 16,
+      "minecraft:oak_log": 32
+    }
+  },
+  "conquest": {
+    "pressure": 0.75,
+    "reach": 6
+  }
+}

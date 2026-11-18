@@ -100,7 +100,10 @@ public final class Kingdoms {
                                         .executes(ctx -> found(ctx, Optional.of(
                                                 StringArgumentType.getString(ctx, "color")))))))
                 .then(Commands.literal("info").executes(Kingdoms::info))
-                .then(Commands.literal("land").executes(Kingdoms::land)));
+                .then(Commands.literal("land").executes(Kingdoms::land))
+                .then(Commands.literal("assault")
+                        .then(Commands.argument("soldiers", com.mojang.brigadier.arguments.IntegerArgumentType
+                                .integer(1, 500)).executes(Kingdoms::assault))));
         dispatcher.register(Commands.literal("lotr")
                 .then(Commands.literal("border")
                         .requires(src -> src.hasPermission(2))
@@ -185,9 +188,53 @@ public final class Kingdoms {
             msg = msg.copy().append(Component.literal(", once ")).append(was.flatMap(id -> Factions.get(server, id))
                     .map(Faction::name).orElse(Component.literal("nobody's")));
         }
+        int pixel = Borders.pixelOf(player.getX(), player.getZ());
+        Conquest conquest = Conquest.get(server);
+        msg = msg.copy().append(Component.literal(String.format(". Defence %.1f (terrain x%.2f)",
+                conquest.defence(server, pixel), Conquest.terrain(pixel))));
+        Optional<ResourceLocation> mine = colonyFaction(player);
+        if (mine.isPresent() && now.isPresent() && !now.equals(mine)) {
+            msg = msg.copy().append(Component.literal(Conquest.hostile(server, mine.get(), now.get())
+                    ? String.format(", your pressure %.1f (x%.2f from your colonies here)",
+                            conquest.pressure(pixel, mine.get()), Conquest.multiplier(server, mine.get(), pixel))
+                    : ", which your side can't take (not at war or on bad terms)"));
+        }
         Component m = msg;
         ctx.getSource().sendSuccess(() -> m, false);
         return 1;
+    }
+
+    /** Sends soldiers of the player's colony (where they hold the war permission) at the land they stand in. */
+    private static int assault(CommandContext<CommandSourceStack> ctx) throws CommandSyntaxException {
+        ServerPlayer player = ctx.getSource().getPlayerOrException();
+        MinecraftServer server = player.server;
+        int count = com.mojang.brigadier.arguments.IntegerArgumentType.getInteger(ctx, "soldiers");
+        Optional<ResourceLocation> side = colonyFaction(player);
+        int pixel = Borders.pixelOf(player.getX(), player.getZ());
+        Optional<Colony> from = Colonies.get(server).all().stream()
+                .filter(c -> side.isPresent() && c.faction().equals(side.get()))
+                .filter(c -> com.porcupinestudios.lotrport.colony.members.Permissions.can(player.getUUID(), c,
+                        com.porcupinestudios.lotrport.colony.members.Perm.WAR))
+                .filter(c -> !Conquest.fit(server, c).isEmpty())
+                .min((a, b) -> Double.compare(Conquest.distance(server, a, pixel), Conquest.distance(server, b, pixel)));
+        if (from.isEmpty()) {
+            ctx.getSource().sendFailure(Component.translatableWithFallback("kingdom.lotr_port.no_army",
+                    "You command no colony with soldiers fit to fight"));
+            return 0;
+        }
+        Optional<Conquest.AssaultResult> r = Conquest.get(server).assault(server, from.get(), pixel, count,
+                player.getRandom());
+        if (r.isEmpty()) {
+            ctx.getSource().sendFailure(Component.translatableWithFallback("kingdom.lotr_port.cannot_assault",
+                    "This land is nobody's (settle it) or not your enemy's (be at war or on bad terms)"));
+            return 0;
+        }
+        Conquest.AssaultResult a = r.get();
+        String text = String.format("%s sent %d soldiers: %d fell, %d wounded. Defence %.1f -> %.1f%s",
+                from.get().name(), a.sent(), a.died(), a.injured(), a.defenceBefore(), a.defenceAfter(),
+                a.taken() ? ". The land is yours" : "");
+        ctx.getSource().sendSuccess(() -> Component.literal(text), false);
+        return a.sent();
     }
 
     private static int gains(CommandContext<CommandSourceStack> ctx) {
