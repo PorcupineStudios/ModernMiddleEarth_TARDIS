@@ -1,0 +1,17 @@
+{
+  "default": 20,
+  "kingdom": 10,
+  "per_soldier": 2,
+  "per_citizen": 0.25,
+  "factions": {
+    "lotr_port:mordor": 40,
+    "lotr_port:gondor": 35,
+    "lotr_port:durins_folk": 35,
+    "lotr_port:lothlorien": 40,
+    "lotr_port:high_elf": 35,
+    "lotr_port:isengard": 30,
+    "lotr_port:rohan": 25,
+    "lotr_port:hobbit": 10,
+    "lotr_port:bree": 10
+  }
+}

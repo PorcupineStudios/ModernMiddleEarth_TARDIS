@@ -412,14 +412,17 @@ https://claude.ai/artifact/KqhSSTCuKXGuwKHBoYJdcu. Rebuild features in modern co
 - Not yet: envoy spawning (rare NPCs come from normal spawning or commands for now).
 
 ## Borders and kingdoms (2026-11-18, `border/`)
-- Who holds Middle-earth's land per map pixel, read top down: marks (operators, later war goals), colonies' claims
-  (radius by population, strongest wins; `TerritoryMath`), the original map (`border_base`: biome -> faction, from
+- Who holds Middle-earth's land per map pixel, read top down: marks (conquest, operators), colonies' claims
+  (settling: unclaimed or own people's land only, radius by population, terrain cost; `TerritoryMath`), the original map (`border_base`: biome -> faction, from
   `converter/borders.py`). Saved layers hold only changes from the layer below (`Borders`, history `border_changed`),
   so the original map is kept and changes forwarded onto it. World generation never reads borders.
 - Kingdoms are realms: `/lotr_kingdom found` (own faction, alignment, colour; the ruler's colony is the capital), or
   pledge (player kingdoms are pledgeable, rank `subject`). Colonies are founded for the ruler's kingdom else the pledge;
   wars move land with the colonies they take. Map layer `client/BorderLayer` (key B), spawning hook
-  `TerritorySpawns` + `SpawnEvent`, condition `lotr_port:territory`. **Read `lotr/docs/borders.md`.**
+  `TerritorySpawns` + `SpawnEvent`, condition `lotr_port:territory`. Conquest (`Conquest`): pressure (kills of the
+  holder's people, assaults; x colony research perks `conquest` near your colonies) against defence (holder x terrain
+  from `conquest_terrain`, minus assault damage); assaults cost injuries and deaths (family, race and colony mood).
+  **Read `lotr/docs/borders.md`.**
 
 ## UI core (2026-11-11, `ui/`, `client/ui/`, `colony/ui/`)
 - Management screens are views the server builds (tabs + a table or stats page + actions) and one client screen

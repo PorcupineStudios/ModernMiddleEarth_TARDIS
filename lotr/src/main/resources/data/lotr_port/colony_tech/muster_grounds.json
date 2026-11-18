@@ -1,0 +1,18 @@
+{
+  "name": "Muster Grounds",
+  "lane": "warfare",
+  "stage": 1,
+  "description": "A drilled levy: kills and assaults near this colony press its kingdom's borders harder",
+  "cost": {
+    "research": {
+      "lotr_port:basic": 30
+    },
+    "items": {
+      "minecraft:iron_ingot": 8
+    }
+  },
+  "conquest": {
+    "pressure": 0.5,
+    "reach": 4
+  }
+}

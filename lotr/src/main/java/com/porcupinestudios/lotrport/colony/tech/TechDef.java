@@ -19,13 +19,27 @@ import net.neoforged.neoforge.event.AddReloadListenerEvent;
  * ever take one node: choosing one closes the others for good (the tree's branches).
  *
  * <p>What a node does: {@code work} multiplies every worker's output, {@code jobs} multiplies one trade's,
- * {@code happiness} adds to every citizen's target. Building types ({@code research}), trade recipes and edicts
+ * {@code happiness} adds to every citizen's target, {@code conquest} ({@link Conquest}) makes a colony a base for
+ * taking land: kills and assaults within its reach push harder. Building types ({@code research}), trade recipes and edicts
  * ({@code requires}) name the node that unlocks them.
  *
  * @param after nodes that must be researched first (all of them)
  */
 public record TechDef(String name, String description, String lane, int stage, List<ResourceLocation> after,
-        Optional<String> fork, Cost cost, double work, Map<ResourceLocation, Double> jobs, double happiness) {
+        Optional<String> fork, Cost cost, double work, Map<ResourceLocation, Double> jobs, double happiness,
+        Optional<Conquest> conquest) {
+    /**
+     * A conquest perk: {@code pressure} adds to the multiplier on pressure (kills, assaults) within {@code reach} map
+     * pixels of the colony; a colony's multiplier is 1 + its perks' pressure, its reach the largest. A new colony has
+     * none, a built-up one stacks them.
+     */
+    public record Conquest(double pressure, double reach) {
+        public static final Codec<Conquest> CODEC = RecordCodecBuilder.create(i -> i.group(
+                Codec.DOUBLE.optionalFieldOf("pressure", 0.0).forGetter(Conquest::pressure),
+                Codec.DOUBLE.optionalFieldOf("reach", 0.0).forGetter(Conquest::reach))
+                .apply(i, Conquest::new));
+    }
+
     public static final Codec<TechDef> CODEC = RecordCodecBuilder.create(i -> i.group(
             Codec.STRING.optionalFieldOf("name", "").forGetter(TechDef::name),
             Codec.STRING.optionalFieldOf("description", "").forGetter(TechDef::description),
@@ -37,7 +51,8 @@ public record TechDef(String name, String description, String lane, int stage, L
             Codec.DOUBLE.optionalFieldOf("work", 1.0).forGetter(TechDef::work),
             Codec.unboundedMap(ResourceLocation.CODEC, Codec.DOUBLE).optionalFieldOf("jobs", Map.of())
                     .forGetter(TechDef::jobs),
-            Codec.DOUBLE.optionalFieldOf("happiness", 0.0).forGetter(TechDef::happiness))
+            Codec.DOUBLE.optionalFieldOf("happiness", 0.0).forGetter(TechDef::happiness),
+            Conquest.CODEC.optionalFieldOf("conquest").forGetter(TechDef::conquest))
             .apply(i, TechDef::new));
 
     private static final CodecJsonLoader<TechDef> LOADER = new CodecJsonLoader<>("colony_tech", CODEC);

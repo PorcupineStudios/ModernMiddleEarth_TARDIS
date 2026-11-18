@@ -1,0 +1,18 @@
+{
+  "kill_pressure": 1.0,
+  "day_ticks": 24000,
+  "pressure_decay": 0.1,
+  "damage_recovery": 0.25,
+  "flip_margin": 1.0,
+  "claim_terrain_cost": 1.0,
+  "soldier_attack": 2.0,
+  "assault_pressure": 1.0,
+  "death_base": 0.05,
+  "death_per_defence": 0.02,
+  "death_max": 0.6,
+  "injury_chance": 0.3,
+  "injury_days": 3,
+  "race_loss_count": 3,
+  "heavy_loss_share": 0.4,
+  "heavy_loss_min": 5
+}

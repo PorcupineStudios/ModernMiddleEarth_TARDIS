@@ -32,9 +32,11 @@ import net.neoforged.neoforge.event.tick.ServerTickEvent;
 /**
  * Borders in Middle-earth: who holds each map pixel (128 blocks). Three layers, read top down:
  * <ol>
- * <li>{@link #marks}: land set by hand or by a war goal ({@link #mark}), kept until cleared;</li>
- * <li>{@link #claims}: what colonies hold, worked out from them ({@link TerritoryMath}) on every founding, transfer
- *     and disbanding and every {@code recompute_ticks};</li>
+ * <li>{@link #marks}: land taken by conquest ({@link Conquest}) or set by hand ({@link #mark}), kept until taken
+ *     back or cleared;</li>
+ * <li>{@link #claims}: what colonies settle, worked out from them ({@link TerritoryMath}) on every founding, transfer
+ *     and disbanding and every {@code recompute_ticks}: unclaimed land and their own people's only, mountains only
+ *     for big, near colonies;</li>
  * <li>the original map ({@link BorderData#base}: biome -> faction), which play never changes.</li>
  * </ol>
  * Both saved layers hold only pixels that differ from the one below, so the original map stays as it was and the
@@ -209,6 +211,24 @@ public final class Borders extends SavedData {
         return n;
     }
 
+    /**
+     * Conquest takes one pixel for {@code faction}. A mark that would equal what lies below (the faction retaking its
+     * own original land) is removed instead, so the overlay keeps only real changes.
+     */
+    public void take(MinecraftServer server, int pixel, ResourceLocation faction, String reason) {
+        Map<Integer, Optional<ResourceLocation>> before = changes();
+        ResourceLocation below = claims.get(pixel);
+        Optional<ResourceLocation> under = below != null ? Optional.of(below) : baseOwner(pixel);
+        if (under.equals(Optional.of(faction))) {
+            if (marks.remove(pixel) == null) {
+                return;
+            }
+        } else if (faction.equals(marks.put(pixel, faction))) {
+            return;
+        }
+        changed(server, before, reason);
+    }
+
     /** Works the colonies' claims out again; logs and syncs what changed. */
     public void recompute(MinecraftServer server) {
         pending = false;
@@ -236,9 +256,13 @@ public final class Borders extends SavedData {
                 list.add(new TerritoryMath.Claim(p % map.width(), p / map.width(), radius, owner, colony.founded()));
             }
         }
+        double terrainCost = ConquestData.settings().claimTerrainCost();
+        // settling takes only unclaimed land or the colony's own people's; others' land is taken by conquest
         Map<Integer, Integer> overlay = TerritoryMath.overlay(map.width(), map.height(), list,
                 i -> baseOwner(i).map(owners::indexOf).orElse(-1),
-                i -> map.pixelIndex(i % map.width(), i / map.width()) != map.oceanIndex());
+                i -> map.pixelIndex(i % map.width(), i / map.width()) != map.oceanIndex(),
+                i -> (Conquest.terrain(i) - 1) * terrainCost,
+                (i, o) -> baseOwner(i).map(b -> b.equals(owners.get(o))).orElse(true));
         Map<Integer, ResourceLocation> next = new HashMap<>();
         overlay.forEach((i, o) -> next.put(i, owners.get(o)));
         if (next.equals(claims)) {
