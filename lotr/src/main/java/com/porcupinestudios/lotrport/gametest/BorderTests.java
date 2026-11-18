@@ -263,4 +263,42 @@ public final class BorderTests {
                 "a subject's colony wouldn't be the kingdom's");
         helper.succeed();
     }
+
+    /** Rivers lie within borders (WaterFill): a river square whose land neighbours are all Shire is the hobbits'. */
+    @GameTest(template = "empty", batch = "borders")
+    public static void riversLieWithinBorders(GameTestHelper helper) {
+        MiddleEarthMap map = MiddleEarthMap.get();
+        int river = -1;
+        int shire = -1;
+        for (int i = 0; i < map.biomes().size(); i++) {
+            String id = map.biomes().get(i).id();
+            river = id.equals("lotr_port:river") ? i : river;
+            shire = id.equals(SHIRE.toString()) ? i : shire;
+        }
+        helper.assertTrue(river >= 0 && shire >= 0, "no river or Shire biome on the map");
+        int found = -1;
+        int[][] dirs = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
+        search:
+        for (int[] c : map.pixelCentres(river, 200_000)) {
+            int p = Borders.pixelOf(c[0], c[1]);
+            int x = p % map.width();
+            int z = p / map.width();
+            boolean shireBank = false;
+            for (int[] d : dirs) {
+                int b = map.pixelIndex(x + d[0], z + d[1]);
+                if (b != river && b != shire) {
+                    continue search; // another land touches it: not a clean case
+                }
+                shireBank |= b == shire;
+            }
+            if (shireBank) {
+                found = p;
+                break;
+            }
+        }
+        helper.assertTrue(found >= 0, "no river square inside the Shire on the map");
+        helper.assertTrue(Borders.baseOwner(found).equals(Optional.of(HOBBIT)),
+                "a Shire river square isn't the hobbits': " + Borders.baseOwner(found));
+        helper.succeed();
+    }
 }

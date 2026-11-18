@@ -637,11 +637,11 @@ public final class MapScreen extends Screen {
         int px = (int) Math.floor(mapX);
         int pz = (int) Math.floor(mapZ);
         ResourceLocation id = ResourceLocation.parse(map.biomes().get(map.pixelIndex(px, pz)).id());
-        lines.add(Component.translatable("biome." + id.getNamespace() + "." + id.getPath()));
+        // the holder shares the biome's line: the framed map has room under it for two lines, and a third pushed the
+        // coordinates out of sight
+        Component biome = Component.translatable("biome." + id.getNamespace() + "." + id.getPath());
         Component held = borders() ? BorderLayer.hoverLine(px, pz) : null;
-        if (held != null) {
-            lines.add(held);
-        }
+        lines.add(held == null ? biome : Component.empty().append(biome).append(" \u00b7 ").append(held));
         lines.add(Component.translatableWithFallback("screen.lotr_port.map.coords", "x: %s, z: %s", bx, bz));
         return data.canTeleport() ? Component.translatableWithFallback("screen.lotr_port.map.tp", "Press '%s' to /tp",
                 LotrClient.MAP_TELEPORT_KEY.getTranslatedKeyMessage()) : null;
