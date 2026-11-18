@@ -5,7 +5,6 @@ import com.porcupinestudios.lotrport.LotrPort;
 import com.porcupinestudios.lotrport.colony.building.Building;
 import com.porcupinestudios.lotrport.colony.building.BuildingSettings;
 import com.porcupinestudios.lotrport.colony.building.Buildings;
-import com.porcupinestudios.lotrport.colony.members.Permissions;
 import com.porcupinestudios.lotrport.colony.book.Books;
 import com.porcupinestudios.lotrport.colony.book.CustomsBook;
 import com.porcupinestudios.lotrport.colony.book.HallLedgerBook;
@@ -15,7 +14,6 @@ import java.util.Comparator;
 import java.util.Optional;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionResult;
@@ -163,7 +161,7 @@ public final class ColonyBlocks {
         }
     }
 
-    /** Opens the block's screen, or tells the player why not (on the action bar, never a chat link). */
+    /** Opens the block's screen; a reason it can't do more shows in that book, never as text over the world. */
     static void open(ServerPlayer player, BlockPos pos, BlockState state, Kind kind) {
         if (kind == Kind.PLAQUE) {
             Direction facing = state.getValue(HorizontalDirectionalBlock.FACING);
@@ -173,11 +171,6 @@ public final class ColonyBlocks {
                 }
                 Optional<Building> b = plaqueBuilding(Buildings.of(c), pos, facing);
                 if (b.isPresent()) {
-                    if (!Permissions.isMember(player.getUUID(), c)) {
-                        player.displayClientMessage(Component.translatableWithFallback(
-                                "colony.lotr_port.plaque.foreign", "This is %s's %s", c.name(), b.get().label()), true);
-                        return;
-                    }
                     Books.open(player, PlaqueBook.KIND, PlaqueBook.context(c, b.get()), "", "");
                     return;
                 }
@@ -192,9 +185,7 @@ public final class ColonyBlocks {
                         && c.hall().distSqr(pos) <= (double) reach * reach)
                 .min(Comparator.comparingDouble(c -> c.hall().distSqr(pos)));
         if (colony.isEmpty()) {
-            player.displayClientMessage(Component.translatableWithFallback("colony.lotr_port.furniture.no_colony",
-                    "This belongs to no colony: place it near a Town Hall"), true);
-            return;
+            return; // no colony near: nothing to open
         }
         Colony c = colony.get();
         String book = switch (kind) {

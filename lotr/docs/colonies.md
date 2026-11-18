@@ -166,11 +166,18 @@ https://claude.ai/artifact/VLwZ5N7pkVMJW4PCYXh41G).
   its wall, or a door within 3 blocks), Treasury Ledger, Town Hall Ledger, Customs Counter (the nearest colony whose
   Hall is within the building reach). Right-click opens a **book** (members only); vanilla textures in the models.
 - Books (`colony/book/`): the server builds a `Book` (title, chips, tabs, left overview page, right tab page) from
-  `El` elements (head, pair, meter, card with skin face + meters + buttons, stepper, item grid, tag, one text field),
-  sends it as NBT (`Books.Show`), and the one client screen `client/book/BookScreen` draws it on the Kenney parchment
-  sprites; clicks go back as `Books.Click` and the server answers with the book afresh. Names travel as tokens
-  (`{item:id}`, `{lang:key|fallback}`) resolved on the client. Accent per book (brown plaque, green Hall, gold
-  Treasury, blue Customs). A new screen = a `BookProvider` registered in `Books.register`, no client code.
+  `El` elements (head, pair, meter, card with skin face + meters + buttons, stepper, item grid, icon grid, tag, one
+  text field), sends it as NBT (`Books.Show`), and the one client screen `client/book/BookScreen` draws it as
+  RingRealms' 1.7.10 book screens (ported 2026-11-18, Aaron: "port the 1.7.10 ringrealms gui"): LOTR's Red Book
+  (`textures/gui/quest/red_book.png`, 420x256 of a 512 sheet, its button bar slices at v 256+), title in red with a
+  dotted rule and chips on the left page over the overview, the tab on the right page, ribbon tabs down the right
+  edge, and an info strip at each page's foot saying what the mouse is over (or the last click's answer, in red):
+  no tooltips and never text over the world. Scaled down to fit small windows. Building types show RingRealms' icons
+  (`textures/buildings/<type>.png`, `unassigned.png` if none; El `grid` of `cell`s with `tex:` icons). Clicks go back
+  as `Books.Click` and the server answers with the book afresh. Names travel as tokens (`{item:id}`,
+  `{lang:key|fallback}`) resolved on the client. A new screen = a `BookProvider` registered in `Books.register`, no
+  client code. An unmarked plaque's Type page is the icon grid (hover: needs ticked/crossed; click one that fits);
+  someone else's plaque opens a read-only page (whose, what).
 - `PlaqueBook` (context `colony/building`): tabs by type (Household, Work + last day's output + tool wear, Goods with
   Order/Keep steppers, Research, Prices, Soldiers, Stores, Room: requirements, measurements, retype buttons).
   `HallLedgerBook`: People (filters, person page), Buildings (cards open plaques), Council, Research, Members, War
