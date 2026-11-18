@@ -19,7 +19,8 @@ import net.minecraft.world.level.levelgen.placement.PlacementModifierType;
  * of this {@code kind} with chance {@code chance} (a hash of the world seed, the cell and the kind, so kinds are
  * independent and a cell may hold none); the pocket is a flattened ball of radius {@code min_radius}..{@code
  * max_radius} (half as tall) placed wholly inside its cell, and only at least {@code below_surface} blocks under
- * the ground. Which countries have which kinds is the placed feature's biome list (converter/caves.py).
+ * the ground. Which countries have which kinds is the placed feature's biome list (converter/caves.py); the biome
+ * config's lushCaves and dripstoneCaves scale the chance per biome.
  * {@code {"type": "lotr_port:cave_pocket", "kind": "lush", "chance": 0.3, ...}}.
  */
 public final class CavePocket extends PlacementFilter {
@@ -59,11 +60,17 @@ public final class CavePocket extends PlacementFilter {
         if (pos.getY() > context.getHeight(Heightmap.Types.OCEAN_FLOOR_WG, pos.getX(), pos.getZ()) - belowSurface) {
             return false;
         }
-        return inside(context.getLevel().getSeed(), pos.getX(), pos.getY(), pos.getZ());
+        // the biome config's lushCaves / dripstoneCaves scale the chance (BiomeCaveConfig)
+        double share = com.porcupinestudios.lotrport.world.BiomeCaveConfig.pockets(kind, pos.getX(), pos.getZ());
+        return share > 0 && inside(context.getLevel().getSeed(), pos.getX(), pos.getY(), pos.getZ(), chance * share);
     }
 
     /** Whether a block is inside a pocket of this kind (for tests and previews too). */
     public boolean inside(long seed, int x, int y, int z) {
+        return inside(seed, x, y, z, chance);
+    }
+
+    private boolean inside(long seed, int x, int y, int z, double chance) {
         int cx = Math.floorDiv(x, cell);
         int cy = Math.floorDiv(y, cellHeight);
         int cz = Math.floorDiv(z, cell);

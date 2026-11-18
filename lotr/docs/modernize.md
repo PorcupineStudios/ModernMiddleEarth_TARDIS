@@ -7,7 +7,7 @@ searched; the rest are ideas to decide on.
 
 **Done 2026-11-17** (lotr/CLAUDE.md "Modern Middle-earth"): sections 1 (seas by latitude, sea and river life, sea
 floor; no coast structures or fishing loot yet), 2 (powder snow, ice, goats, foxes, rabbits, polar bears, ice spikes,
-meadows, geodes), 3 (lush and dripstone cave pockets, glow lichen; noise caves and aquifers since 2026-11-18), 4 (bees, frogs,
+meadows, geodes), 3 (lush and dripstone cave pockets, glow lichen; noise caves and aquifers since 2026-11-18; per-biome cave config `lotr_port-biomes.toml` with fewer entrances and ravines), 4 (bees, frogs,
 foxes, rabbits, parrots, ocelots, armadillos, jungle and forest plants), 5 (full wood sets, every tag, stonecutter,
 waterlogging (2026-11-18); lanterns and archaeology not done), and no vanilla monsters in Middle-earth (Aaron). Still open: 6, 7,
 the DESIGN items, ore veins, carved signs (LOTR's chisel).

@@ -549,6 +549,20 @@ https://claude.ai/artifact/KqhSSTCuKXGuwKHBoYJdcu. Rebuild features in modern co
   `lotr_port:cave_pocket`, `world/feature/CavePocket`: per 112 x 64 x 112 cell, chance 0.25 per kind, radius 14-30,
   10+ blocks under the ground): lush under green wet lands (axolotls there), dripstone under dry, rocky and mountain
   lands, both where both; glow lichen everywhere. Not looked at in game yet (new chunks only).
+- Biome cave config (`biomeconfig.py`, `world/BiomeCaveConfig`, 2026-11-18, Aaron: "tone down the cave entrances and
+  ESPECIALLY the ravines", same caves below, "a biome config that has every biome split up into its country's
+  regions"): `config/lotr_port-biomes.toml` (COMMON, Mods > Config), one section per biome
+  `[land.region.biome]` (regions = LOTR's waypoint regions, lands = `LANDS` in biomeconfig.py), built at mod load
+  from `data/lotr_port/biome_config.json` (the biome list, settings with their ranges, defaults). Settings:
+  `caveEntrances` 0-1 (holds back vanilla's entrance pits and tunnel mouths in the top ~9 blocks of rock, through
+  density function `lotr_port:cave_setting`; 0 shuts them), `ravines` and `carverCaves` 0-1 (share kept of the
+  canyon / cave carvers that start in the biome), `surfaceCover` 0-32 (carvers stop that far under the ground),
+  `cheeseCaves` / `spaghettiCaves` / `noodleCaves` switches, `lushCaves` / `dripstoneCaves` 0-4 (pocket chance, only
+  in biomes with those pockets). Carvers: biomes use `lotr_port:cave`, `cave_extra_underground`, `canyon` (vanilla's
+  configs, types `lotr_port:cave` / `lotr_port:canyon`, `world/feature/BiomeCarvers`), the mountain caves and
+  canyons too. Defaults: lowlands entrances 0.15, ravines 0.2, cover 8; hills 0.3 / 0.3 / 4; `#is_mountain` 0.5 /
+  0.6 / 0; waters entrances 0. Changes apply to new chunks. GameTests `biomeConfigHasEveryBiome`,
+  `caveSettingsFollowTheBiomeConfig`.
 
 ## Combat and armor models (2026-11-04)
 - 1.7.10 had no attack cooldown. LOTR's melee timing (`LOTRWeaponStats`: 15 ticks for a player's sword ÷ the

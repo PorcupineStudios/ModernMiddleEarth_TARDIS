@@ -1,5 +1,5 @@
 {
-  "type": "minecraft:canyon",
+  "type": "lotr_port:canyon",
   "config": {
     "probability": 0.02,
     "y": {

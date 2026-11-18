@@ -291,4 +291,76 @@ public final class ModernTests {
         helper.assertTrue(share > 0.01 && share < 0.5, "cave share under the Shire " + share);
         helper.succeed();
     }
+
+    /**
+     * biomeconfig.py / BiomeCaveConfig: the biome config has every Middle-earth biome (the map's and the seas), each
+     * under a land and region (the Shire under eriador.shire).
+     */
+    @GameTest(template = "empty")
+    public static void biomeConfigHasEveryBiome(GameTestHelper helper) {
+        var map = com.porcupinestudios.lotrport.world.map.MiddleEarthMap.get();
+        var places = com.porcupinestudios.lotrport.world.BiomeCaveConfig.places();
+        java.util.List<String> ids = new java.util.ArrayList<>();
+        map.biomes().forEach(e -> ids.add(e.id()));
+        map.seaZones().forEach(z -> ids.add(z.biome()));
+        for (String id : ids) {
+            helper.assertTrue(places.containsKey(id.substring(id.indexOf(':') + 1)), "the biome config lacks " + id);
+        }
+        helper.assertTrue("eriador.shire".equals(places.get("shire")), "the Shire is under " + places.get("shire"));
+        helper.succeed();
+    }
+
+    /**
+     * The biome config steers the caves: the Shire's caveEntrances 0 shuts its entrances (lotr_port:cave_setting 64),
+     * and ravines 0.5 keeps about half of the ravines that start in it.
+     */
+    @GameTest(template = "empty")
+    public static void caveSettingsFollowTheBiomeConfig(GameTestHelper helper) {
+        var values = com.porcupinestudios.lotrport.world.BiomeCaveConfig.values("shire");
+        @SuppressWarnings("unchecked")
+        var entrances = (net.neoforged.neoforge.common.ModConfigSpec.ConfigValue<Double>) values.get("caveEntrances");
+        @SuppressWarnings("unchecked")
+        var ravines = (net.neoforged.neoforge.common.ModConfigSpec.ConfigValue<Double>) values.get("ravines");
+        double oldEntrances = entrances.get();
+        double oldRavines = ravines.get();
+        var map = com.porcupinestudios.lotrport.world.map.MiddleEarthMap.get();
+        int shire = -1;
+        for (int i = 0; i < map.biomes().size(); i++) {
+            if (map.biomes().get(i).id().equals("lotr_port:shire")) {
+                shire = i;
+            }
+        }
+        helper.assertTrue(shire >= 0, "no Shire on the map");
+        int[] at = map.samplePositions()[shire];
+        try {
+            entrances.set(0.0);
+            ravines.set(0.5);
+            com.porcupinestudios.lotrport.world.BiomeCaveConfig.reload();
+            int starts = 0;
+            int kept = 0;
+            for (int cx = -40; cx < 40; cx++) {
+                for (int cz = -40; cz < 40; cz++) {
+                    var start = new net.minecraft.world.level.ChunkPos((at[0] >> 4) + cx, (at[1] >> 4) + cz);
+                    if (map.biomeIndexAt(start.getMinBlockX(), start.getMinBlockZ()) == shire) {
+                        if (starts++ == 0) {
+                            helper.assertTrue(com.porcupinestudios.lotrport.world.BiomeCaveConfig.value(
+                                    "entrance_pits", start.getMinBlockX(), start.getMinBlockZ()) == 64,
+                                    "the Shire's entrances are open with caveEntrances 0");
+                        }
+                        if (com.porcupinestudios.lotrport.world.BiomeCaveConfig.carves(true, start)) {
+                            kept++;
+                        }
+                    }
+                }
+            }
+            double share = kept / (double) Math.max(1, starts);
+            helper.assertTrue(starts > 200 && share > 0.4 && share < 0.6,
+                    "ravines kept in the Shire " + kept + " of " + starts + " with ravines 0.5");
+        } finally {
+            entrances.set(oldEntrances);
+            ravines.set(oldRavines);
+            com.porcupinestudios.lotrport.world.BiomeCaveConfig.reload();
+        }
+        helper.succeed();
+    }
 }

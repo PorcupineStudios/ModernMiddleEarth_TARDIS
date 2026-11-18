@@ -29,6 +29,9 @@ public final class LotrWorldgen {
     private static final DeferredRegister<MapCodec<? extends DensityFunction>> DENSITY_FUNCTIONS =
             DeferredRegister.create(Registries.DENSITY_FUNCTION_TYPE, LotrPort.MOD_ID);
 
+    private static final DeferredRegister<net.minecraft.world.level.levelgen.carver.WorldCarver<?>> CARVERS =
+            DeferredRegister.create(Registries.CARVER, LotrPort.MOD_ID);
+
     private static final DeferredRegister<Feature<?>> FEATURES =
             DeferredRegister.create(Registries.FEATURE, LotrPort.MOD_ID);
 
@@ -60,6 +63,9 @@ public final class LotrWorldgen {
                 com.porcupinestudios.lotrport.world.feature.HeartOfTheMountainFeature::new);
         BIOME_SOURCES.register("middle_earth", () -> MapBiomeSource.CODEC);
         DENSITY_FUNCTIONS.register("map_terrain", () -> MapTerrain.MAP_CODEC);
+        DENSITY_FUNCTIONS.register("cave_setting", () -> CaveSetting.MAP_CODEC);
+        CARVERS.register("cave", com.porcupinestudios.lotrport.world.feature.BiomeCarvers.Cave::new);
+        CARVERS.register("canyon", com.porcupinestudios.lotrport.world.feature.BiomeCarvers.Canyon::new);
         DENSITY_FUNCTIONS.register("caves_on", () -> com.porcupinestudios.lotrport.world.map.CavesOn.MAP_CODEC);
     }
 
@@ -69,6 +75,9 @@ public final class LotrWorldgen {
         BIOME_SOURCES.register(modBus);
         DENSITY_FUNCTIONS.register(modBus);
         FEATURES.register(modBus);
+        CARVERS.register(modBus);
+        modBus.addListener(net.neoforged.fml.event.config.ModConfigEvent.Loading.class, BiomeCaveConfig::onConfig);
+        modBus.addListener(net.neoforged.fml.event.config.ModConfigEvent.Reloading.class, BiomeCaveConfig::onConfig);
         PLACEMENT_MODIFIERS.register(modBus);
         com.porcupinestudios.lotrport.world.structure.LotrStructures.register(modBus);
         NeoForge.EVENT_BUS.addListener(LotrWorldgen::onServerStarted);

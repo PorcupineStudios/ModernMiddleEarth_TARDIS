@@ -58,6 +58,9 @@ public final class LotrPort {
     public LotrPort(IEventBus modBus, ModContainer container) {
         container.registerConfig(ModConfig.Type.COMMON, LotrConfig.SPEC);
         container.registerConfig(ModConfig.Type.CLIENT, LotrClientConfig.SPEC);
+        // every Middle-earth biome's cave settings, by land and region (data/lotr_port/biome_config.json)
+        container.registerConfig(ModConfig.Type.COMMON, com.porcupinestudios.lotrport.world.BiomeCaveConfig.SPEC,
+                "lotr_port-biomes.toml");
         LotrRegistries.register(modBus);
         LotrSounds.register(modBus);
         LotrBlocks.register(modBus);

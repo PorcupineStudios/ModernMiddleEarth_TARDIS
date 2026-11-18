@@ -1,5 +1,5 @@
 {
-  "type": "minecraft:cave",
+  "type": "lotr_port:cave",
   "config": {
     "probability": 0.2,
     "y": {

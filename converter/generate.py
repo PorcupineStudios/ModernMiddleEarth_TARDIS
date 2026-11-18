@@ -1509,6 +1509,8 @@ class Gen:
         print(json.dumps({"noisecaves": noisecaves.run(OUT)}))
         from caves import Caves
         print(json.dumps({"caves": Caves(OUT).run()}))
+        import biomeconfig
+        print(json.dumps({"biomeconfig": biomeconfig.run(OUT)}))
 
 
 if __name__ == "__main__":
