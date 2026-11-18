@@ -424,6 +424,13 @@ https://claude.ai/artifact/KqhSSTCuKXGuwKHBoYJdcu. Rebuild features in modern co
   from `conquest_terrain`, minus assault damage); assaults cost injuries and deaths (family, race and colony mood).
   **Read `lotr/docs/borders.md`.**
 
+## Diplomacy (2026-11-18, `diplomacy/`)
+- Diplomacy Table block (`DiplomacyTable`) and `/lotr_kingdom diplomacy` open `lotr_port:diplomacy` (`DiplomacyViews`):
+  realms, the offer builder (coins, land squares and colonies each way, trade, truce, alliance, vassalage, ending the
+  war), offers, treaties, wars. `Treaties` (SavedData): offers wait for a kingdom's ruler, great powers and AI realms
+  answer at once by worth (`diplomacy/settings.json`); acceptance carries out all terms or none; trade agreements let
+  caravans trade; war between kingdoms is a realm `war/` war. **Read `lotr/docs/diplomacy.md`.**
+
 ## UI core (2026-11-11, `ui/`, `client/ui/`, `colony/ui/`)
 - Management screens are views the server builds (tabs + a table or stats page + actions) and one client screen
   (`client/ui/UiScreen`) draws with the Kenney sprites; a new screen is a `ViewProvider` registered in `ui/Views`, no

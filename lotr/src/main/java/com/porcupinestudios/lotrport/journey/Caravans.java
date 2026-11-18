@@ -79,7 +79,10 @@ public final class Caravans {
         }
         Relation r = from.faction().equals(to.faction()) ? Relation.ALLY
                 : Factions.relation(server, from.faction(), to.faction());
-        return r == Relation.ALLY || r == Relation.FRIEND ? Standing.FRIENDLY : Standing.NONE;
+        // a trade agreement (diplomacy table) lets caravans trade as between friends
+        return r == Relation.ALLY || r == Relation.FRIEND
+                || com.porcupinestudios.lotrport.diplomacy.Treaties.trading(server, from.faction(), to.faction())
+                ? Standing.FRIENDLY : Standing.NONE;
     }
 
     /** What happened when a caravan was sent. */

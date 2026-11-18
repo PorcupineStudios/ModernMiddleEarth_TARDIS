@@ -89,6 +89,10 @@ public final class LotrPort {
         com.porcupinestudios.lotrport.border.Borders.register();
         com.porcupinestudios.lotrport.border.ConquestData.register();
         com.porcupinestudios.lotrport.border.Conquest.register();
+        com.porcupinestudios.lotrport.diplomacy.DiplomacyData.register();
+        com.porcupinestudios.lotrport.diplomacy.Treaties.register();
+        com.porcupinestudios.lotrport.diplomacy.DiplomacyViews.register();
+        com.porcupinestudios.lotrport.diplomacy.DiplomacyTable.register(modBus);
         com.porcupinestudios.lotrport.border.BorderNet.register(modBus);
         com.porcupinestudios.lotrport.journey.CaravanConditions.register(modBus);
         WorldConditions.register(modBus);
