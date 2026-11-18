@@ -20,7 +20,7 @@ import net.neoforged.neoforge.attachment.AttachmentType;
  * LOTR's shields (LOTRShields) and capes (LOTRCapes) as a player's chosen cosmetic ({@code /lotr_shield},
  * {@code /lotr_cape}), kept in attachments. Alignment shields unlock at their {@code alignment} with the faction;
  * achievable and exclusive shields, and capes, only for operators (LOTR handed those out by player). Drawing them on
- * the player is not done yet (see lotr/docs/import-checklist.md, section 8).
+ * the player is not done yet (lotr/docs/missing-features.md, still open).
  */
 public final class Cosmetics {
     static final Map<String, JsonObject> SHIELDS = load("shields.json");

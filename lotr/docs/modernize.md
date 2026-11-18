@@ -3,19 +3,21 @@
 `missing-features.md` lists what LOTR 1.7.10 had that the port lacks. This is the other direction: what vanilla gained
 since 1.7.10 that Middle-earth should have. Checked against the generated data on 2026-11-17 (169 biomes in
 `data/lotr_port/worldgen/biome`, noise settings, `content/blocks.json`, recipes). "Checked: none" means the data was
-searched; the rest are ideas to decide on.
+searched; the rest are ideas to decide on. In sections marked done, "Checked" describes the state before the work.
 
 **Done 2026-11-17** (lotr/CLAUDE.md "Modern Middle-earth"): sections 1 (seas by latitude, sea and river life, sea
 floor; no coast structures or fishing loot yet), 2 (powder snow, ice, goats, foxes, rabbits, polar bears, ice spikes,
 meadows, geodes), 3 (lush and dripstone cave pockets, glow lichen; noise caves and aquifers since 2026-11-18; per-biome cave config `lotr_port-biomes.toml` with fewer entrances and ravines), 4 (bees, frogs,
 foxes, rabbits, parrots, ocelots, armadillos, jungle and forest plants), 5 (full wood sets, every tag, stonecutter,
-waterlogging (2026-11-18); lanterns and archaeology not done), and no vanilla monsters in Middle-earth (Aaron). Still open: 6, 7,
+waterlogging (2026-11-18); bark blocks and stripped bark for every wood (2026-11-18); lanterns and archaeology not
+done), 8 in part (LOTR's animals spawn with the land, don't despawn, have their own cap: 2026-11-18), and no vanilla
+monsters in Middle-earth (Aaron). Still open: 6, 7,
 the DESIGN items, ore veins, carved signs (LOTR's chisel).
 
 Most of this is worldgen data: biome `features` and `spawners` come from `converter/world.py`, so the change goes
 there (a table per region), not into the generated JSON.
 
-## 1. Oceans, rivers, lakes — empty today
+## 1. Oceans, rivers, lakes (done; open: coast structures, fishing loot)
 Checked: no water mobs in any biome (the only spawners are land animals), no underwater plants, no coral, one `ocean`
 biome for every sea. The ocean even spawns sheep, chickens and boars and grows grass and "ocean trees" (LOTR's
 filler for islands).
@@ -34,7 +36,7 @@ filler for islands).
   ruins, buried treasure from a map.
 - **Fishing**: regional loot (tropical fish in the south, salmon in the north).
 
-## 2. Mountains and the cold north
+## 2. Mountains and the cold north (done; open: strays, ore veins)
 - **Powdered snow** pockets and snow slopes on high peaks (Misty, Grey, Ered Mithrin, Forodwaith); deeper snow
   layers by height; ice and packed ice faces; ice spikes and frozen lakes in Forodwaith. Checked: today only
   `freeze_top_layer` and Forodwaith's packed-ice "ore".
@@ -43,7 +45,7 @@ filler for islands).
 - **Amethyst geodes** (LOTR's amethyst is only a gem ore here), calcite bands, bigger ore veins.
 - **Alpine meadows** on the foothills: flowers, bees.
 
-## 3. Caves — still 1.7.10 style
+## 3. Caves (done; open: copper and iron ore veins, deep dark)
 Checked: aquifers off, ore veins off, no noise caves (cheese, spaghetti, noodle); only the vanilla carvers plus the
 port's mountain caves. Deepslate and dripstone are in.
 - Modern noise caves and aquifers (watch the noise band cuts in `NoiseTop` and chunk speed).
@@ -53,7 +55,7 @@ port's mountain caves. Deepslate and dripstone are in.
 - **Deep dark** (DESIGN): skip, or keep it for Moria or Utumno.
 - **Copper and iron ore veins** (the big 1.18 veins).
 
-## 4. Forests, fields, marshes, deserts
+## 4. Forests, fields, marshes, deserts (done; open: archaeology)
 Checked: vanilla plants used are grass, tall grass, ferns, flowers, sugar cane, cactus and dead bushes; the vanilla
 animals are sheep, chickens, pigs, cows and wolves (18 biomes).
 - **Bees and bee nests** in the Shire, its orchards and meadows (honey for mead and food); `#flowers` tags on
@@ -66,7 +68,7 @@ animals are sheep, chickens, pigs, cows and wolves (18 biomes).
 - **Marshes**: lily pads, mangrove roots or mud next to LOTR's own mangroves and mud.
 - **Desert**: suspicious sand and pottery sherds at Harad ruins (archaeology: see 5).
 
-## 5. Blocks and building
+## 5. Blocks and building (done; open: lanterns/chains, archaeology, smoker and blast furnace recipes)
 Checked on the 39 LOTR woods: logs (LOTR's `*_wood`), planks, stairs, slabs, fences, gates, doors and trapdoors
 exist; there are no stripped logs, no signs or hanging signs, no boats, and buttons and pressure plates for only 6.
 No stonecutter recipes at all.

@@ -1166,7 +1166,7 @@ class Gen:
         """
         LOTR's code-only crafting recipes. Poisoning a weapon (LOTRRecipePoisonWeapon: weapon + catalyst, usually a
         bottle of poison) is a plain shapeless recipe once its fields are known. Dyeing (armor, hats, feathers, robes,
-        pouches) needs dyed-colour support on those items first (missing-features task 36), so it stays reported.
+        pouches) needs dyed-colour support on those items first (listed under Items in lotr/docs/missing-features.md), so it stays reported.
         """
         f = r.get("fields") or {}
         if r["class"].endswith("LOTRRecipePoisonWeapon") and f.get("inputItem") and f.get("resultItem"):

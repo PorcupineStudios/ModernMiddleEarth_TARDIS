@@ -1,5 +1,5 @@
 """
-LOTR's thrown weapons and missiles (missing-features task 28): spears thrown after a draw, throwing axes, darts
+LOTR's thrown weapons and missiles: spears thrown after a draw, throwing axes, darts
 from the Taurethrim blowgun, the sling and its pebbles, conkers, fire pots, mystery webs, plates, and orc bombs.
 
 Numbers are LOTR's, read from these classes (values only):

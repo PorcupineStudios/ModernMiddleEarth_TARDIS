@@ -18,7 +18,7 @@ import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.AddReloadListenerEvent;
 
 /**
- * LOTR's farming (missing-features task 32): crops ({@link LotrCropBlock}), berry bushes, corn and grapevines. Which
+ * LOTR's farming: crops ({@link LotrCropBlock}), berry bushes, corn and grapevines. Which
  * block is which comes from {@code converter/farming.py}; LOTR's numbers are {@code farming/settings.json}.
  */
 public final class Farming {
