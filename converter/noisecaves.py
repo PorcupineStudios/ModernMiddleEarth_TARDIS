@@ -63,8 +63,12 @@ def wrap(terrain_ref):
              "when_out_of_range": underground(s)}
     y = {"type": "minecraft:y_clamped_gradient", "from_y": -64, "to_y": TOP_Y, "from_value": -64.0,
          "to_value": float(TOP_Y)}
+    # caves only cut rock: where the terrain is already air (above the ground) the cave noises aren't worked out at
+    # all, which keeps sky-down ground scans (heightmaps, structure and spawn checks) as cheap as before
+    in_rock = {"type": "minecraft:range_choice", "input": s, "min_inclusive": -1000000.0, "max_exclusive": 0.0,
+               "when_in_range": s, "when_out_of_range": caved}
     below = {"type": "minecraft:range_choice", "input": y, "min_inclusive": -1000.0, "max_exclusive": float(CAVE_TOP),
-             "when_in_range": caved, "when_out_of_range": s}
+             "when_in_range": in_rock, "when_out_of_range": s}
     return {"type": "minecraft:min", "argument1": {"type": "minecraft:interpolated", "argument": below},
             "argument2": "minecraft:overworld/caves/noodle"}
 
@@ -75,6 +79,8 @@ def run(out=OUT):
     router = ns["noise_router"]
     final = router["final_density"]
     if MARK in json.dumps(final):
+        router["final_density"] = wrap(TERRAIN)  # rewrap the same terrain (keeps the formula current)
+        write_json(path, ns)
         return {"wrapped": False}
     if final.get("type") != "minecraft:interpolated":
         raise SystemExit("noisecaves: final density isn't world.py's interpolated terrain")
