@@ -212,6 +212,17 @@ https://claude.ai/artifact/KqhSSTCuKXGuwKHBoYJdcu. Rebuild features in modern co
   spiders, char/) come from `npcs.py CODE_SKINS` and `warg_type`.
 - Not yet: female NPCs, LOTR's trader outfits. `/lotr npc spawn|types|people` for testing.
 
+## Player races
+- Races are `data/<ns>/player_race/<id>.json` (`player/Races.Def`: scale, attributes, `model` = an `NpcModels` body,
+  `skin`, `own_skin`...), picked on first entering Middle-earth; admins tune them (`RaceTunes`). `client/RacePlayers`
+  draws race players on the LOTR body. With `own_skin` (default true; orcs and Uruks false) the player's own skin is
+  converted to that body by `client/RaceSkins` (read back from the GPU, cached per skin and body) using
+  `client/RaceSkinRemap` (pure Java, unit tested): trouser/jacket/sleeve layers flattened, hair from the hat (hangs
+  down the sides and back), hobbit feet from the leg bottom, elf ears from the head side. Per-body rules:
+  `assets/<ns>/race_skin/<kind>.json` (`hang`, `ear_y`). The race `skin` is the fallback (skin not loaded, not 64x64).
+  Armour: feet hide under boots and ears under helmets (`NpcModels.fitArmor`, NPCs too). Client config
+  `race.ownSkins` turns the conversion off.
+
 ## Animals and mounts
 - Animals are creature NPCs (above); `converter/world.py GRAZERS` adds vanilla spawners on grass biomes. NPCs with
   `spawnsInDarkness` spawn only in the dark unless the biome has `hostiles_in_day` (`npc_spawns`, `NpcSpawner`).

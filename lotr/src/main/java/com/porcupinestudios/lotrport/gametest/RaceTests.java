@@ -53,4 +53,20 @@ public final class RaceTests {
         helper.assertTrue(player.getAttributeValue(Attributes.BLOCK_INTERACTION_RANGE) == reach, "reach not restored");
         helper.succeed();
     }
+
+    /** Hobbits, Men, Dwarves and Elves wear the player's own skin converted to their body; Orcs keep orc skins. */
+    @GameTest(template = "empty")
+    public static void ownSkinIsSyncedPerRace(GameTestHelper helper) {
+        ServerPlayer player = helper.makeMockServerPlayerInLevel();
+        for (String race : java.util.List.of("hobbit", "man", "dwarf", "elf")) {
+            player.setData(LotrRegistries.RACE, "lotr_port:" + race);
+            Races.Skin skin = Races.skinOf(player);
+            helper.assertTrue(skin.ownSkin(), race + " doesn't draw the player's own skin");
+            helper.assertTrue(skin.skin().isPresent(), race + " has no fallback skin");
+            helper.assertTrue(!skin.model().isEmpty(), race + " has no body");
+        }
+        player.setData(LotrRegistries.RACE, "lotr_port:orc");
+        helper.assertTrue(!Races.skinOf(player).ownSkin(), "orcs draw the player's own skin");
+        helper.succeed();
+    }
 }

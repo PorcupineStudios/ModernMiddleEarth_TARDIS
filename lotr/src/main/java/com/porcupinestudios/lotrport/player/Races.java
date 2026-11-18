@@ -78,6 +78,8 @@ public final class Races {
      * @param settlerBias settler weight multiplier for that colonist race in colonies the player founded
      * @param crouchHeight extra factor on the crouching hitbox and eyes (hobbit 0.99: fits a 1-block gap)
      * @param hunger how fast hunger drains (multiplies the player's exhaustion), 1 = vanilla
+     * @param ownSkin draw the player's own skin, converted to the race body's layout (client.RaceSkins), in place of
+     *     {@code skin}; {@code skin} is then only the fallback while their skin loads or can't be converted
      * @param model LOTR body the player is drawn on (an NPC model kind: human, hobbit, dwarf, elf, orc; "classic" for
      *     64x32 skins); empty: the vanilla player model
      */
@@ -85,7 +87,7 @@ public final class Races {
             Optional<ResourceLocation> skin, List<ResourceLocation> factions, int order,
             Map<ResourceLocation, Float> alignment, Optional<ResourceLocation> spawn, Optional<String> colonyRace,
             double settlerBias, Optional<String> model, double crouchHeight,
-            double hunger) {
+            double hunger, boolean ownSkin) {
         public static final Codec<Def> CODEC = RecordCodecBuilder.create(i -> i.group(
                 Codec.STRING.fieldOf("name").forGetter(Def::name),
                 Codec.STRING.optionalFieldOf("description", "").forGetter(Def::description),
@@ -102,7 +104,8 @@ public final class Races {
                 Codec.doubleRange(0, 100).optionalFieldOf("settler_bias", 1.15).forGetter(Def::settlerBias),
                 Codec.STRING.optionalFieldOf("model").forGetter(Def::model),
                 Codec.doubleRange(0.1, 2).optionalFieldOf("crouch_height", 1.0).forGetter(Def::crouchHeight),
-                Codec.doubleRange(0, 10).optionalFieldOf("hunger", 1.0).forGetter(Def::hunger))
+                Codec.doubleRange(0, 10).optionalFieldOf("hunger", 1.0).forGetter(Def::hunger),
+                Codec.BOOL.optionalFieldOf("own_skin", true).forGetter(Def::ownSkin))
                 .apply(i, Def::new));
     }
 
@@ -114,6 +117,8 @@ public final class Races {
     public static final Map<UUID, String> CLIENT_MODELS = new ConcurrentHashMap<>();
     /** Each known player's Def.crouchHeight, on the client (hitboxes are worked out on both sides). */
     public static final Map<UUID, Float> CLIENT_CROUCH = new ConcurrentHashMap<>();
+    /** Players whose race draws their own skin converted to the race body (Def.ownSkin), on the client. */
+    public static final java.util.Set<UUID> CLIENT_OWN_SKIN = ConcurrentHashMap.newKeySet();
 
     private Races() {}
 
@@ -122,9 +127,14 @@ public final class Races {
         NeoForge.EVENT_BUS.addListener((PlayerEvent.PlayerLoggedInEvent e) -> joined(e.getEntity()));
         NeoForge.EVENT_BUS.addListener((PlayerEvent.PlayerRespawnEvent e) -> joined(e.getEntity()));
         NeoForge.EVENT_BUS.addListener((PlayerEvent.PlayerChangedDimensionEvent e) -> joined(e.getEntity()));
-        modBus.addListener((RegisterPayloadHandlersEvent e) -> e.registrar("1").playToClient(Skin.TYPE, Skin.CODEC,
+        modBus.addListener((RegisterPayloadHandlersEvent e) -> e.registrar("2").playToClient(Skin.TYPE, Skin.CODEC,
                 (p, ctx) -> ctx.enqueueWork(() -> {
                     CLIENT_CROUCH.put(p.player(), p.crouch());
+                    if (p.ownSkin()) {
+                        CLIENT_OWN_SKIN.add(p.player());
+                    } else {
+                        CLIENT_OWN_SKIN.remove(p.player());
+                    }
                     p.skin().ifPresentOrElse(s -> CLIENT_SKINS.put(p.player(), s), () -> CLIENT_SKINS.remove(p.player()));
                     if (p.model().isEmpty() || p.skin().isEmpty()) {
                         CLIENT_MODELS.remove(p.player());
@@ -255,10 +265,10 @@ public final class Races {
         }
     }
 
-    private static Skin skinOf(ServerPlayer player) {
+    public static Skin skinOf(ServerPlayer player) {
         Optional<Def> def = of(player).map(all()::get);
         return new Skin(player.getUUID(), def.flatMap(Def::skin), def.flatMap(Def::model).orElse(""),
-                def.map(d -> (float) d.crouchHeight()).orElse(1f));
+                def.map(d -> (float) d.crouchHeight()).orElse(1f), def.map(Def::ownSkin).orElse(false));
     }
 
     private static boolean mayPick(ServerPlayer player) {
@@ -566,18 +576,24 @@ public final class Races {
             attrs.put(MAX_HEALTH, t.health());
             attrs.put(SPEED, t.speed());
             return new Def(d.name(), d.description(), t.scale(), Map.copyOf(attrs), d.skin(), d.factions(), d.order(),
-                    d.alignment(), d.spawn(), d.colonyRace(), d.settlerBias(), d.model(), d.crouchHeight(), t.hunger());
+                    d.alignment(), d.spawn(), d.colonyRace(), d.settlerBias(), d.model(), d.crouchHeight(), t.hunger(),
+                    d.ownSkin());
         }).orElse(d);
     }
 
-    /** Server -> client: this player's race skin (empty: their own skin). */
-    public record Skin(UUID player, Optional<ResourceLocation> skin, String model, float crouch) implements CustomPacketPayload {
+    /**
+     * Server -> client: this player's race skin (empty: their own skin), body, crouch factor, and whether their own
+     * skin is converted to the body (the race skin is then the fallback).
+     */
+    public record Skin(UUID player, Optional<ResourceLocation> skin, String model, float crouch, boolean ownSkin)
+            implements CustomPacketPayload {
         public static final Type<Skin> TYPE = new Type<>(LotrPort.id("race_skin"));
         public static final StreamCodec<RegistryFriendlyByteBuf, Skin> CODEC = StreamCodec.composite(
                 UUIDUtil.STREAM_CODEC, Skin::player,
                 ByteBufCodecs.optional(ResourceLocation.STREAM_CODEC), Skin::skin,
                 ByteBufCodecs.STRING_UTF8, Skin::model,
                 ByteBufCodecs.FLOAT, Skin::crouch,
+                ByteBufCodecs.BOOL, Skin::ownSkin,
                 Skin::new);
 
         @Override

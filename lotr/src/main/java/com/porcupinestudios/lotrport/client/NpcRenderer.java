@@ -60,6 +60,9 @@ public class NpcRenderer extends HumanoidMobRenderer<LotrNpc, HumanoidModel<Lotr
         } else if (!npc.model().contains(":") || !creatures.draw(npc, yaw, partialTick, pose, buffers, light)) {
             // 64x64 skins use LOTR's body for the race (hair layer, feet, ears); 64x32 ones the classic humanoid
             model = npc.tallSkin() ? tall.getOrDefault(npc.model(), tall.get("human")) : classic;
+            if (model != classic) {
+                NpcModels.fitArmor(model, npc);
+            }
             super.render(npc, yaw, partialTick, pose, buffers, light);
         }
         renderSpeech(npc, pose, buffers, light);

@@ -34,6 +34,11 @@ public final class LotrClientConfig {
             .comment("Draw players with their race's skin (player_race files) instead of their own.")
             .define("race.skins", true);
 
+    public static final ModConfigSpec.BooleanValue RACE_OWN_SKINS = BUILDER
+            .comment("Races with own_skin draw each player's own skin, converted to the race body (hair, hobbit feet,",
+                    "elf ears), instead of the race's skin.")
+            .define("race.ownSkins", true);
+
     public static final ModConfigSpec.BooleanValue ATMOSPHERE = BUILDER
             .comment("Region looks (fog and colour filters per biome, assets/<ns>/atmosphere/*.json).")
             .define("atmosphere.enabled", true);
