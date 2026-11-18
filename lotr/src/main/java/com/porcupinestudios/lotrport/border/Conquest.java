@@ -122,9 +122,8 @@ public final class Conquest extends SavedData {
 
     /** Distance in map pixels from a colony's Hall to a pixel (large if not in Middle-earth). */
     static double distance(MinecraftServer server, Colony c, int pixel) {
-        ServerLevel me = LotrDimensions.middleEarth(server);
         int h = Borders.pixelOf(c.hall().getX(), c.hall().getZ());
-        if (me == null || !c.dimension().equals(me.dimension()) || h < 0 || pixel < 0) {
+        if (!c.dimension().equals(Borders.dimension(server)) || h < 0 || pixel < 0) {
             return Double.MAX_VALUE;
         }
         int w = MiddleEarthMap.get().width();
@@ -315,9 +314,8 @@ public final class Conquest extends SavedData {
         tag.putBoolean("taken", taken);
         MiddleEarthMap map = MiddleEarthMap.get();
         BlockPos at = map.blockOfPixel(pixel % map.width() + 0.5, pixel / map.width() + 0.5);
-        ServerLevel me = LotrDimensions.middleEarth(server);
-        HistoryLog.get(server).append(new HistoryEntry(now, ASSAULT_HISTORY,
-                me != null ? me.dimension() : LotrDimensions.MIDDLE_EARTH, Optional.of(at), tag));
+        HistoryLog.get(server).append(new HistoryEntry(now, ASSAULT_HISTORY, Borders.dimension(server),
+                Optional.of(at), tag));
         return Optional.of(new AssaultResult(n, died, injured, before, after, added, taken));
     }
 

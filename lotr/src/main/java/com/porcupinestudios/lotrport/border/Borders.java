@@ -89,6 +89,16 @@ public final class Borders extends SavedData {
         return version;
     }
 
+    /**
+     * The dimension borders are about: Middle-earth's level (the overworld in a Middle-earth world), or its dimension
+     * key when the level isn't loaded (the GameTest server skips datapack dimensions; colonies only store the key).
+     */
+    public static net.minecraft.resources.ResourceKey<net.minecraft.world.level.Level> dimension(
+            MinecraftServer server) {
+        ServerLevel me = LotrDimensions.middleEarth(server);
+        return me != null ? me.dimension() : LotrDimensions.MIDDLE_EARTH;
+    }
+
     // ---- reading
 
     /** The original holder of a biome by its map index (cached per data reload). */
@@ -232,14 +242,14 @@ public final class Borders extends SavedData {
     /** Works the colonies' claims out again; logs and syncs what changed. */
     public void recompute(MinecraftServer server) {
         pending = false;
-        ServerLevel me = LotrDimensions.middleEarth(server);
+        var dim = dimension(server);
         MiddleEarthMap map = MiddleEarthMap.get();
         BorderData.Settings s = BorderData.settings();
         List<ResourceLocation> owners = new ArrayList<>();
         List<TerritoryMath.Claim> list = new ArrayList<>();
-        if (me != null) {
+        {
             for (Colony colony : Colonies.get(server).all()) {
-                if (!colony.dimension().equals(me.dimension())) {
+                if (!colony.dimension().equals(dim)) {
                     continue;
                 }
                 int p = pixelOf(colony.hall().getX(), colony.hall().getZ());
@@ -294,8 +304,7 @@ public final class Borders extends SavedData {
         }
         MiddleEarthMap map = MiddleEarthMap.get();
         long now = server.overworld().getGameTime();
-        ServerLevel me = LotrDimensions.middleEarth(server); // the overworld in a Middle-earth world
-        var dimension = me != null ? me.dimension() : LotrDimensions.MIDDLE_EARTH;
+        var dimension = dimension(server); // the overworld in a Middle-earth world
         moves.forEach((key, m) -> {
             String[] ft = key.split(">", -1);
             CompoundTag tag = new CompoundTag();
@@ -315,14 +324,11 @@ public final class Borders extends SavedData {
     /** The realms' capitals: each realm's oldest colony in Middle-earth (for map names). */
     public static Map<ResourceLocation, Colony> capitals(MinecraftServer server) {
         Map<ResourceLocation, Colony> out = new LinkedHashMap<>();
-        ServerLevel me = LotrDimensions.middleEarth(server);
-        if (me == null) {
-            return out;
-        }
+        var dim = dimension(server);
         List<Colony> all = new ArrayList<>(Colonies.get(server).all());
         all.sort((a, b) -> Long.compare(a.founded(), b.founded()));
         for (Colony c : all) {
-            if (c.dimension().equals(me.dimension()) && Realms.get(server).get(c.faction()).isPresent()) {
+            if (c.dimension().equals(dim) && Realms.get(server).get(c.faction()).isPresent()) {
                 out.putIfAbsent(c.faction(), c);
             }
         }
