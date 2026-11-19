@@ -429,21 +429,11 @@ public final class VortexTests {
         }).thenExecute(() -> {
             helper.assertTrue(t.location().get().dimension().equals(dim), "it came out in "
                     + t.location().get().dimension().location() + ", not " + dim.location() + trace);
-        }).thenWaitUntil(() -> {
-            trace.see(state(server, t));
-            // the spot it was thrown out over loads a tick later
-            TardisBody out = FreeFlight.body(server, t).orElse(null);
-            helper.assertTrue(out != null && out.level().dimension().equals(dim) && !out.thrusters(),
-                    "no loose box thrown out in " + dim.location() + trace);
-            // it comes out falling and still going forward, then hits the ground
-            helper.assertTrue(out.crashing() && out.getDeltaMovement().z > 0.05, "it didn't come out moving: "
-                    + out.getDeltaMovement() + trace);
+        }).thenExecute(() -> {
+            // no crash landing out of a wormhole (Aaron 2026-11-19): it materialises as the block, not a falling box
+            helper.assertTrue(!FreeFlight.isLoose(t), "it came out of the wormhole loose (a crash landing)" + trace);
             helper.assertTrue(vortex.getEntitiesOfClass(Wormhole.class, new AABB(laneX - 64, 0, -10, laneX + 64, 256, 600),
                     w -> w.owner().equals(Optional.of(t.id()))).isEmpty(), "a wormhole was left behind in the vortex" + trace);
-        }).thenWaitUntil(() -> {
-            trace.see(state(server, t));
-            helper.assertTrue(FreeFlight.body(server, t).filter(b -> b.impactAt != null).isPresent(),
-                    "it hasn't fallen to the ground" + trace);
         }).thenExecute(() -> {
             helper.succeed();
         });
@@ -530,6 +520,28 @@ public final class VortexTests {
             helper.assertTrue(portal.isRemoved() && hole[0].isRemoved(), "the wormhole or its portal outlived the trip");
             helper.succeed();
         });
+    }
+
+    /** 2026-11-19: a trip opens a big see-through portal at the far end of the tunnel; it goes when the trip ends. */
+    @GameTest(template = "platform", timeoutTicks = 200)
+    public static void theTunnelEndsInAPortalOverTheLanding(GameTestHelper helper) {
+        MinecraftServer server = helper.getLevel().getServer();
+        ServerLevel vortex = server.getLevel(Vortex.DIMENSION);
+        TardisRecord t = WreckTests.onPlatform(helper, Optional.empty());
+        BlockPos base = t.location().get().pos();
+        helper.assertTrue(FlightReady.navigation(server, t), "navigation repair");
+        t.addCharge(1000);
+        helper.assertTrue(Vortex.depart(server, t, Optional.empty(), base.east(20), Optional.empty(), Optional.empty())
+                .done(), "it didn't set off");
+        var trip = t.moduleData(Vortex.MODULE);
+        helper.assertTrue(trip.hasUUID("end_portal"), "no portal at the end of the tunnel");
+        var portal = vortex.getEntity(trip.getUUID("end_portal"));
+        helper.assertTrue(portal instanceof qouteall.imm_ptl.core.portal.Portal p
+                && Math.abs(p.getZ() - trip.getInt("length")) < 1 && p.getDestDim().equals(helper.getLevel().dimension()),
+                "the end portal isn't at the tunnel's end looking at the landing: " + portal);
+        Vortex.arrive(server, t);
+        helper.assertTrue(vortex.getEntity(trip.getUUID("end_portal")) == null, "the end portal was left behind");
+        helper.succeed();
     }
 
     /**

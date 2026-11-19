@@ -30,6 +30,11 @@ dimension, dodging obstacles, "to" the destination.
 - **Arrive** at `length` (`min_length + length_per_block x distance` for hops, `jump_length` for jumps, capped by
   `max_length`): the body docks (the pilot goes back to the console), placed arcs and wormholes are cleared, then the normal
   `Flight.hop`/`jump` lands it and pays. If that fails, the block goes back where it left.
+- **End of the tunnel** (2026-11-19, Aaron: "at the end of the vortex you can see the large immersive portal"):
+  `Vortex.depart` puts a big round see-through portal (`Wormholes.endPortal`, 1.9 x the tunnel radius across, not
+  teleporting) on the tunnel's axis at `length`, facing back at the box, looking out 8 blocks over the landing spot in
+  the destination dimension; its chunk is force-loaded for the trip so it shows from far off. `clearTrip` removes it.
+  Test `theTunnelEndsInAPortalOverTheLanding`.
 - **Health, inaccuracy, crash landing** (Aaron 2026-11-09, instead of 1.7.10's "land part way along the plotted line
   when it breaks down"): the TARDIS's health lasts between trips (`progression/Health`, module `tardis_rb:health`;
   none saved = full). The most it can have is `vortex.damage.health` (50) plus the `health` stat: the hull's levels in
@@ -89,9 +94,10 @@ dimension, dodging obstacles, "to" the destination.
     The pull (`Wormhole.pullOn`) draws the box across toward that line, so a turned one pulls it in front of its face. The
     thrusters die and the controls go dead (crashing); it falls and keeps its forward speed while the wormhole drags
     it across toward a point 1.5 blocks behind its face's middle and spins it. Once it is 0.5 through the face (or after `suck_ticks`, 40) the trip ends and
-    it comes out of a rift over the exit spot with the same forward speed, still falling (`Vortex.dropInto`, shared
-    with the crash landing). The pilot rides it all the way (third person) and goes back to the console on landing. It loses `exit_damage` (5) health (never
-    below 1) and lands with a crater of `exit_crater` (0 = none). No charge is paid.
+    the trip ends like an arrival and the TARDIS materialises near the exit spot (`Flight.summon`; Aaron 2026-11-19: no
+    crash landing through a wormhole, that is only for falling out of the vortex), or goes back where it left if it
+    can't land. The pilot goes back to the console. It loses `exit_damage` (5) health (never below 1); `exit_crater`
+    is no longer used. No charge is paid.
   - **Scanner** (`subsystem/scanner.json`, stat `wormhole_sight` 0/1/2; repairs `scanner_1..2`, cost `scanner_lens`):
     at `name_level` (1) the exterior monitor side shows "Wormhole in N: dimension" for the next one ahead; at
     `see_through_level` (2) each new wormhole gets a round Immersive Portals portal (not teleporting, tag
