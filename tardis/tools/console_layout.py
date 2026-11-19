@@ -54,8 +54,6 @@ def slot_text(axis, k, slot):
 ACTIONS = {
     "screen": "Says where the TARDIS is",
     "relative": "Relative coordinates on/off (on: X and Z count from where the TARDIS stands)",
-    "coordinated": "Coordinated flight on/off (on: the TARDIS flies itself through the vortex to the coordinates; "
-                   "off: you pilot it)",
     "land": "Land on the ground on/off (on: Y is ignored, it lands on the surface)",
     "save": "Save mode on/off (on: a memory button saves the coordinates instead of loading them)",
     "memory": "Loads (or in save mode saves) the coordinate controls",
@@ -125,9 +123,7 @@ SIDES = [
                      ("handbrake", "handbrake", {"arm": "handbrake"}, NAV1)]),
               (0.53, [("phase_key", "phase_key", {"key": "phase_key"}, NAV1),
                       ("phase_lever", "phase_lever", {"arm": "phase"}, NAV1),
-                      ("thrusters", "thrusters", {"rocker": "thrusters"}, NAV1)])],
-     # 1.7.10's little pull-switches (Aaron 2026-11-19): coordinated vs uncoordinated flight
-     "ladder": [("coordinated_switch", "pull_switch", {"rod": "coordinated"}, NAV1)]},
+                      ("thrusters", "thrusters", {"rocker": "thrusters"}, NAV1)])])]},
     {"theme": "Y & memory", "monitor":
      "e.g. \"Target Y 70\" (or \"Target Y: the ground\"), land on ground, save mode, saved slots",
      "ladder": [("land_switch", "pull_switch", {"rod": "land"}, NAV1)],  # 1.7.10's switch 34 beside the Y levers
@@ -149,7 +145,7 @@ SIDES = [
 # Controls that stand bigger or smaller than SCALE.
 SCALES = {"x_lever_5": 1.0, "z_lever_5": 1.0, "flight_yoke": 0.65,
           # 1.7.10 drew its pull-switches at half size
-          "relative_switch": 0.5, "land_switch": 0.5, "coordinated_switch": 0.5}
+          "relative_switch": 0.5, "land_switch": 0.5}
 # Gauges show these values (0..1 of full), one per needle in the model's order.
 SHOWS = {"gauge": ["charge"], "twin_gauge": ["charge", "rooms"]}
 SCALE = 0.8       # the controls stand a little smaller on the console than modelled
@@ -183,7 +179,6 @@ def display_name(cid, models):
         axis, kind = head.split("_")
         return f"{axis.upper()} {'Power Wheel' if kind == 'wheel' else 'Lever'} {n}"
     named = {"relative_switch": "Relative Coordinates Switch", "land_switch": "Land on Ground Switch",
-             "coordinated_switch": "Coordinated Flight Switch",
              "save_switch": "Memory Save Switch"}
     if cid in named:
         return named[cid]
