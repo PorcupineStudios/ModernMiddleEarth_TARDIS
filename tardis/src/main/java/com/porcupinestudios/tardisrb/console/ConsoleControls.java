@@ -73,7 +73,7 @@ import net.minecraft.world.phys.Vec3;
  */
 public final class ConsoleControls {
     /** Actions with no slot number. */
-    public static final List<String> ACTIONS = List.of("screen", "relative", "land", "save", "memory", "facing",
+    public static final List<String> ACTIONS = List.of("screen", "relative", "land", "coordinated", "save", "memory", "facing",
             "destination", "random", "jump", "handbrake", "door", "none", "time_from", "time_unit", "fast_return",
             "schema_prev", "schema_next", "add_room", "schema_info", "phase_key", "phase", "thrusters", "pilot", "x", "y", "z", "x_up", "x_down", "y_up", "y_down",
             "z_up", "z_down", "step", "reset", "hop");
@@ -387,7 +387,7 @@ public final class ConsoleControls {
                 console.setState("time_from", console.state("time_from") == 0 ? 1 : 0);
                 return timeSet(console);
             }
-            case "relative", "land", "save" -> {
+            case "relative", "land", "save", "coordinated" -> {
                 console.setState(action, console.state(action) == 0 ? 1 : 0);
                 return Component.translatableWithFallback("tardis_rb.console." + action + "_"
                         + (console.state(action) != 0 ? "on" : "off"), action + (console.state(action) != 0
@@ -511,6 +511,13 @@ public final class ConsoleControls {
                     && server.getLevel(Vortex.DIMENSION) != null) {
                 // a crew member at the lever flies it through the time vortex to get there (Aaron 2026-11-09)
                 out = Vortex.depart(server, tardis, sameWorld ? Optional.empty() : to, aim, facing, player);
+                if (out.done() && console.state("coordinated") != 0) {
+                    // coordinated flight (1.7.10's pull-switch, Aaron 2026-11-19): nobody is seated, the autopilot
+                    // flies the tunnel to the coordinates
+                    net.minecraft.nbt.CompoundTag trip = tardis.moduleData(Vortex.MODULE);
+                    trip.remove("pilot");
+                    tardis.setModuleData(Vortex.MODULE, trip);
+                }
             } else {
                 out = sameWorld ? Flight.hop(server, tardis, aim, facing, player)
                         : Flight.jump(server, tardis, to.get(), Optional.of(aim), facing, player);
@@ -688,6 +695,7 @@ public final class ConsoleControls {
                 out.add("Facing\t" + (console.hasState("facing")
                         ? Direction.from2DDataValue(console.state("facing")).getName() : "as before"));
                 out.add("Handbrake\t" + (console.handbrake() ? "ON" : "off"));
+                out.add("Coordinated\t" + (console.state("coordinated") != 0 ? "ON" : "off"));
                 if (Vortex.inVortex(tardis)
                         && Unlocks.stat(tardis, "wormhole_sight") >= TardisContent.tuning().vortex().wormholes().nameLevel()) {
                     // the scanner picks out the next wormhole and where it goes (Aaron 2026-11-09)

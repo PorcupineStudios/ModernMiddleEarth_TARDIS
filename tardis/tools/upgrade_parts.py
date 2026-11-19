@@ -85,7 +85,7 @@ RESEARCH = {
         for n in (2, 3, 5)]},
 }
 MATERIALISED = {"thrusters", "flight_yoke", "phase_lever", "phase_key", "door_control", "facing_compass"}
-DEMATERIALISED = {"demat_lever", "handbrake", "land_switch", "dimension_dial", "relative_switch", "randomiser",
+DEMATERIALISED = {"coordinated_switch", "demat_lever", "handbrake", "land_switch", "dimension_dial", "relative_switch", "randomiser",
                   "fast_return", "save_switch", "memory_bank", "scanner_screen"}
 LATER = {"time_lever", "time_drums", "time_unit_dial", "room_deleter", "schema_chooser", "screwdriver_holder",
          "telepathic_circuits"}

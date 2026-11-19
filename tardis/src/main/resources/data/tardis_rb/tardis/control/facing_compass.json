@@ -1,9 +1,9 @@
 {
   "model": "facing_compass",
   "panel": 4,
-  "u": 0.2263,
-  "v": 0.4733,
-  "scale": 0.612,
+  "u": 0.1561,
+  "v": 0.4536,
+  "scale": 0.578,
   "actions": {
     "arrow": "facing"
   },
