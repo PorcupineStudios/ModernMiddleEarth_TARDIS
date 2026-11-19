@@ -130,8 +130,13 @@ Rules for providers:
 
 ## The client (`client/ui/`)
 
-- `UiScreen` draws: title (gold, centred), tabs over the frame (selected tab drawn after the frame so it joins it),
-  the beige frame, the page, then Done across the frame's bottom edge and Back at its left. Max 420 x 250 GUI units.
+- Layout rules (2026-11-18, Aaron: "ALL information should be displayed and if things are separate they should be in
+  their own outlines"): never cut text that can wrap, never draw text over text; each section sits in its own outlined
+  box with its title in a caption band; tabs show whole names. Check every change with the screenshot workflow
+  (`lotr/devscripts/colony_screens.txt` shoots every colony screen; the pictures land on branch `ci-screenshots`).
+- `UiScreen` draws: title (gold, centred), tabs over the frame (packed into rows with their whole names, rows
+  stretched to the frame's width; the selected tab drawn after the frame so it joins it), the beige frame, the
+  page, then Done across the frame's bottom edge and Back at its left. Max 420 x 250 GUI units.
 - **Immediate mode** (`Imm`): each frame, panes draw through `Imm` and every clickable thing leaves a `Hit`. A click
   runs the topmost hit under the mouse (popups are layer 1, the page layer 0). Nothing to keep in step with the view:
   a refresh just draws the new data. The search box is the one real widget (an `EditBox` without its border, over an
@@ -139,10 +144,14 @@ Rules for providers:
   `checkbox`, `bar`).
 - `TablePane`: tool bar (search, "Sort: X" drop-down, "Filters (n)" drop-down when there are filters), headings
   (click to sort, again to reverse; numbers start high to low), rows (only those in view are drawn, so long lists
-  cost nothing), scroll bar (drag or wheel), the "3 of 140 shown" line and buttons at the bottom right. One click
+  cost nothing; a row is as tall as its most-wrapped cell, up to 3 lines, longer text ends in "..." and shows whole
+  on hover; heights are measured once per filter and width), scroll bar (drag or wheel), the "3 of 140 shown" line and buttons at the bottom right. One click
   selects a row, a double click sends `open`.
 - `StatsPane`: sections in one column, or two when the page is 300+ wide (each section goes to the shorter column).
-  `Sections` draws the lines for it and for `ProfilePane` (labels cut with a tooltip, short values right-aligned).
+  `Sections` draws the lines for it and for `ProfilePane`: each section in an outlined box with a caption band; label
+  left, value right, and when both don't fit on one line the label wraps on its own lines and the value follows
+  right-aligned under it (stepper values wrap between their arrows). One `lay` function measures and draws, so
+  heights always match. Long stepper values used to be drawn leftwards over their labels.
 - `ScrollBar`: track + handle sprites, drag (through `UiScreen.Draggable`) and wheel; used by stats, profile,
   timetable and long choice lists, so nothing overflows its box. Tables keep their own (`TablePane`).
 - `TimetablePane`: palette (or a legend for those who may not paint), hour ruler with the current hour marked, rows,

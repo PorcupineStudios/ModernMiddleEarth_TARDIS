@@ -36,22 +36,17 @@ final class StatsPane {
         int buttonsH = stats.buttons().isEmpty() ? 0 : UiTheme.BUTTON_HEIGHT + 6;
         ui.sprite(UiTheme.INSET_LIGHT, x, y, w, h - buttonsH);
         int columns = w >= TWO_COLUMNS_FROM && stats.sections().size() > 1 ? 2 : 1;
-        int colW = (w - 16 - (columns - 1) * 14) / columns;
+        // room for the scroll bar always, so measuring and drawing use one width
+        int colW = (w - 16 - (columns - 1) * 10 - ScrollBar.WIDTH - 2) / columns;
         int[] colY = new int[columns];
-        for (int i = 0; i < columns; i++) {
-            colY[i] = y + 7;
-        }
         // measure first, so a page taller than its well scrolls
         int[] colH = new int[columns];
         for (Page.Section section : stats.sections()) {
             int c = columns == 2 && colH[1] < colH[0] ? 1 : 0;
-            colH[c] += Sections.height(section) + 8;
+            colH[c] += Sections.height(ui, section, colW) + 6;
         }
         int viewH = h - buttonsH - 8;
-        boolean scrolls = bar.measure(Math.max(colH[0], columns == 2 ? colH[1] : 0), viewH);
-        if (scrolls) {
-            colW = (w - 16 - (columns - 1) * 14 - ScrollBar.WIDTH - 2) / columns;
-        }
+        bar.measure(Math.max(colH[0], columns == 2 ? colH[1] : 0), viewH);
         for (int i = 0; i < columns; i++) {
             colY[i] = y + 7 - bar.offset;
         }
@@ -59,8 +54,8 @@ final class StatsPane {
         for (Page.Section section : stats.sections()) {
             // the shorter column takes the next section
             int c = columns == 2 && colY[1] < colY[0] ? 1 : 0;
-            int cx = x + 8 + c * (colW + 14);
-            colY[c] = Sections.draw(ui, screen, section, cx, colY[c], colW) + 8;
+            int cx = x + 8 + c * (colW + 10);
+            colY[c] = Sections.draw(ui, screen, section, cx, colY[c], colW) + 6;
         }
         ui.unclip();
         top = y;

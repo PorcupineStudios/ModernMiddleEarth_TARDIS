@@ -23,6 +23,9 @@ import net.minecraft.nbt.Tag;
  *   <li>{@code chip}: a header chip: an item icon and a short value (coins, people...).</li>
  *   <li>{@code field}: a text box; Enter sends its text as the arg of {@code action}.</li>
  *   <li>{@code tag}: a small label chip.</li>
+ *   <li>{@code grid}: a grid of icons (RingRealms' building type grid): children {@code cell}s, each an icon
+ *   ({@code item}: an item id, or {@code tex:<texture>} drawn 16x16), {@code tone} GOOD = selected, MUTED = faded,
+ *   {@code text} + {@code why} its info lines, {@code action}/{@code arg} its click.</li>
  *   <li>{@code gap}: a little space.</li>
  * </ul>
  * Tone: 0 normal, 1 muted, 2 good, 3 warning, 4 bad (as {@code ui.Tone}).
@@ -115,6 +118,15 @@ public record El(String kind, String text, String value, int tone, float fill, f
 
     public static El items(List<El> stacks) {
         return new El("items", "", "", NORMAL, 0, -1, "", "", "", "", 0, 0, 0, 1, true, "", List.copyOf(stacks));
+    }
+
+    public static El grid(List<El> cells) {
+        return new El("grid", "", "", NORMAL, 0, -1, "", "", "", "", 0, 0, 0, 1, true, "", List.copyOf(cells));
+    }
+
+    /** One cell of a {@link #grid}. */
+    public static El cell(String icon, String name, int tone, String info, String action, String arg) {
+        return new El("cell", name, "", tone, 0, -1, icon, "", action, arg, 0, 0, 0, 1, true, info, List.of());
     }
 
     /** One stack of an {@link #items} grid. */

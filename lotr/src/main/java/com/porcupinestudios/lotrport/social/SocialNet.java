@@ -69,22 +69,44 @@ public final class SocialNet {
         }));
     }
 
-    /** The icons {@code viewer} may see: other players in Middle-earth and colonies there. */
+    /**
+     * The icons {@code viewer} may see: other players in Middle-earth and colonies there. A viewer visiting the past
+     * (time travel, shared API {@code TimeProvider}) sees only players in that same moment and the colonies standing
+     * then, from the history log (border/BorderHistory), so the map shows that time.
+     */
     public static Icons icons(ServerPlayer viewer) {
         MinecraftServer server = viewer.server;
+        java.util.OptionalLong when = com.porcupinestudios.ringbearer.api.provider.Providers.timeOf(viewer);
+        boolean past = when.isPresent() && when.getAsLong() < server.overworld().getGameTime();
         Social social = Social.get(server);
         MiddleEarthMap map = MiddleEarthMap.get();
         ServerLevel me = LotrDimensions.middleEarth(server);
         List<PlayerIcon> players = new ArrayList<>();
         if (me != null) {
             for (ServerPlayer p : me.players()) {
-                if (p != viewer && !p.isSpectator() && social.canSee(server, viewer.getUUID(), p.getUUID())) {
+                if (p != viewer && !p.isSpectator() && social.canSee(server, viewer.getUUID(), p.getUUID())
+                        && com.porcupinestudios.ringbearer.api.provider.Providers.timeOf(p).equals(when)) {
                     players.add(new PlayerIcon(p.getUUID(), p.getGameProfile().getName(),
                             (float) map.pixelX(p.getX()), (float) map.pixelZ(p.getZ())));
                 }
             }
         }
         List<ColonyIcon> colonies = new ArrayList<>();
+        if (past) {
+            var dim = com.porcupinestudios.lotrport.border.Borders.dimension(server);
+            for (var c : com.porcupinestudios.lotrport.border.BorderHistory.coloniesAt(server, when.getAsLong())) {
+                java.util.Optional<Colony> now = Colonies.get(server).get(c.id());
+                if (!c.dimension().equals(dim) || now.map(x -> !MapPresence.visible(x, viewer.getUUID())).orElse(false)) {
+                    continue;
+                }
+                boolean member = now.map(x -> Permissions.isMember(viewer.getUUID(), x)).orElse(false);
+                colonies.add(new ColonyIcon(c.name(), (float) map.pixelX(c.hall().getX()),
+                        (float) map.pixelZ(c.hall().getZ()), member,
+                        now.map(x -> MapPresence.of(x) != MapPresence.PUBLIC).orElse(false),
+                        now.map(Colony::ai).orElse(false)));
+            }
+            return new Icons(players, colonies);
+        }
         for (Colony c : Colonies.get(server).all()) {
             if (me == null || !c.dimension().equals(me.dimension()) || !MapPresence.visible(c, viewer.getUUID())) {
                 continue;

@@ -42,9 +42,25 @@ https://claude.ai/artifact/VLwZ5N7pkVMJW4PCYXh41G).
 - `social/`: who sees your map icon (`MapPresence`, `SocialNet`).
 
 ## Colony life (`colony/building`, `colony/work`)
-- Buildings: the Building Writ on a door measures the room with a 3D fill (`RoomScan`, RingRealms' rules: L-shape
-  floor 56, two storeys 49) and picks the best fitting type (`colony_building/*.json` requirements by counter tags
-  `lotr_port:colony/<counter>`); `building_recheck` re-measures, retypes or loses buildings.
+- Buildings: a Building Plaque (Aaron 2026-11-18; the Building Writ is retired: no recipe, not in the tab, old
+  stacks only say so) registers a room when hung (silently, `ColonyBuildings.plaque`). Which room
+  (`ColonyBuildings.plaqueRoom`, Aaron 2026-11-18): first a door or gate in the wall the plaque hangs on, at most
+  `plaque_door_reach` (2, `colony_rooms/settings.json`) beside it: the room behind that wall (a plaque outside by the
+  door names the inside); if there is none, or nothing usable is behind it, the room the plaque hangs in, filled
+  from in front of it, with the nearest of its own doors as the building's door (no door: no building). Doors, fence
+  gates and LOTR gates are walls to the fill even when open (`RoomScan.isDoor`; an open gate let the fill out), and
+  the fill lists them as the room's doors. The building remembers its plaque (`Building.plaque`). Taking it down:
+  breaking the plaque (or its wall), the door, a wall or anything in the room (by hand or explosion) measures the
+  touched buildings again the next tick (`BuildingSystems.changed`, from `BlockEvent.BreakEvent`,
+  `ExplosionEvent.Detonate` and the plaque's `onRemove`): plaque gone, door gone or room broken = building gone; the
+  Room tab's "Unmark this building" does it by hand. Re-measuring keeps the same room (the side of the door holding
+  its old blocks). Right-clicking a plaque that names no building opens its book unmarked (`PlaqueBook.unmarkedBook`,
+  context `unmarked:x,y,z`): the room it would name (or why none), and every building type as an icon with each
+  requirement ticked or crossed. Never text over the hotbar or in chat (Aaron 2026-11-18). The fill (`RoomScan`,
+  RingRealms' rules: L-shape floor 56, two storeys 49) picks the best fitting type (`colony_building/*.json`
+  requirements by counter tags `lotr_port:colony/<counter>`; `max_per_colony` caps a type: the Town Hall, 12+ floor
+  and a table, one a colony, its plaque shows the colony and opens the Town Hall Ledger); `building_recheck`
+  re-measures, retypes or loses buildings. GameTest `plaquesFindTheirRoom`.
 - Jobs (`colony_job/*.json`), races (`colony_race/*.json`), `Assign` (homes by bed, jobs by priority and race
   proficiency), `Life` systems `homes_jobs` -> `work` -> `wages_taxes` -> `needs` (food, happiness, leaving),
   `Stores` (building chests, then the abstract `Stock`). Numbers in `colony_life/settings.json`.
@@ -159,11 +175,22 @@ https://claude.ai/artifact/VLwZ5N7pkVMJW4PCYXh41G).
   its wall, or a door within 3 blocks), Treasury Ledger, Town Hall Ledger, Customs Counter (the nearest colony whose
   Hall is within the building reach). Right-click opens a **book** (members only); vanilla textures in the models.
 - Books (`colony/book/`): the server builds a `Book` (title, chips, tabs, left overview page, right tab page) from
-  `El` elements (head, pair, meter, card with skin face + meters + buttons, stepper, item grid, tag, one text field),
-  sends it as NBT (`Books.Show`), and the one client screen `client/book/BookScreen` draws it on the Kenney parchment
-  sprites; clicks go back as `Books.Click` and the server answers with the book afresh. Names travel as tokens
-  (`{item:id}`, `{lang:key|fallback}`) resolved on the client. Accent per book (brown plaque, green Hall, gold
-  Treasury, blue Customs). A new screen = a `BookProvider` registered in `Books.register`, no client code.
+  `El` elements (head, pair, meter, card with skin face + meters + buttons, stepper, item grid, icon grid, tag, one
+  text field), sends it as NBT (`Books.Show`), and the one client screen `client/book/BookScreen` draws it as
+  RingRealms' 1.7.10 book screens (ported 2026-11-18, Aaron: "port the 1.7.10 ringrealms gui"): LOTR's Red Book
+  (`textures/gui/quest/red_book.png`, 420x256 of a 512 sheet, its button bar slices at v 256+), title in red with a
+  dotted rule and chips on the left page over the overview, the tab on the right page, ribbon tabs down the right
+  edge (sticking out with their icon and whole name written level: RingRealms' sideways labels fit only three tabs),
+  each heading's part of a page in its own outlined box (`BookScreen.groups`), and an info strip at each page's foot saying what the mouse is over (or the last click's answer, in red):
+  no tooltips and never text over the world. Scaled down to fit small windows. Building types show RingRealms' icons
+  (`textures/buildings/<type>.png`, `unassigned.png` if none; El `grid` of `cell`s with `tex:` icons). Clicks go back
+  as `Books.Click` and the server answers with the book afresh. Names travel as tokens (`{item:id}`,
+  `{lang:key|fallback}`) resolved on the client. A new screen = a `BookProvider` registered in `Books.register`, no
+  client code. An unmarked plaque's Type page is the icon grid (hover: needs ticked/crossed; click one that fits);
+  someone else's plaque opens a read-only page (whose, what). Built plaques: a name box (Save, `ColonyBuildings.
+  rename`), boxes The building / Household or Work / Where, Room (needs have/need, measured counts, quality and how
+  many may work here) and Type (the icon grid; click retypes). Scissor note: `GuiGraphics.enableScissor` is in screen
+  units and ignores the pose, so `BookScreen.clip` converts book units (clipping in book units blanked the pages).
 - `PlaqueBook` (context `colony/building`): tabs by type (Household, Work + last day's output + tool wear, Goods with
   Order/Keep steppers, Research, Prices, Soldiers, Stores, Room: requirements, measurements, retype buttons).
   `HallLedgerBook`: People (filters, person page), Buildings (cards open plaques), Council, Research, Members, War

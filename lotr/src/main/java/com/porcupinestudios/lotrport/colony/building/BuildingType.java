@@ -27,9 +27,10 @@ import net.neoforged.neoforge.event.AddReloadListenerEvent;
  * @param job the job its workers do (none: nobody works here)
  * @param requires all must hold
  * @param research a colony tech ({@code colony_tech/<id>}) the colony must have researched to build it, if any
+ * @param maxPerColony how many a colony may have (0: any; the Town Hall: 1)
  */
 public record BuildingType(String name, String description, int priority, boolean home, Optional<ResourceLocation> job,
-        List<Requirement> requires, Optional<ResourceLocation> research) {
+        List<Requirement> requires, Optional<ResourceLocation> research, int maxPerColony) {
     public static final Codec<BuildingType> CODEC = RecordCodecBuilder.create(i -> i.group(
             Codec.STRING.optionalFieldOf("name", "").forGetter(BuildingType::name),
             Codec.STRING.optionalFieldOf("description", "").forGetter(BuildingType::description),
@@ -37,7 +38,8 @@ public record BuildingType(String name, String description, int priority, boolea
             Codec.BOOL.optionalFieldOf("home", false).forGetter(BuildingType::home),
             ResourceLocation.CODEC.optionalFieldOf("job").forGetter(BuildingType::job),
             Requirement.CODEC.listOf().optionalFieldOf("requires", List.of()).forGetter(BuildingType::requires),
-            ResourceLocation.CODEC.optionalFieldOf("research").forGetter(BuildingType::research))
+            ResourceLocation.CODEC.optionalFieldOf("research").forGetter(BuildingType::research),
+            Codec.INT.optionalFieldOf("max_per_colony", 0).forGetter(BuildingType::maxPerColony))
             .apply(i, BuildingType::new));
 
     private static final CodecJsonLoader<BuildingType> LOADER = new CodecJsonLoader<>("colony_building", CODEC);

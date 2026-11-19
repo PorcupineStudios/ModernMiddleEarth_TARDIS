@@ -40,7 +40,6 @@ public final class ColonyItems {
                 .icon(() -> new ItemStack(CHARTER.get()))
                 .displayItems((params, output) -> {
                     output.accept(CHARTER.get());
-                    output.accept(WRIT.get());
                     output.accept(ColonyBlocks.PLAQUE.get());
                     output.accept(ColonyBlocks.HALL_LEDGER.get());
                     output.accept(ColonyBlocks.TREASURY_LEDGER.get());

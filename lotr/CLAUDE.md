@@ -386,7 +386,8 @@ https://claude.ai/artifact/KqhSSTCuKXGuwKHBoYJdcu. Rebuild features in modern co
 
 ## Colonies (phase 9, RingRealms built in: `colony/`)
 - Founding: a Colony Charter (`colony_charter`, tab "Colonies") used on a block makes the Hall there, for the
-  founder's pledged faction; renamed on an anvil = colony name. One colony per player; Halls `hall_gap` apart.
+  founder's pledged faction; renamed on an anvil = colony name. One colony per player, except kingdom rulers (any
+  number, Aaron 2026-11-18; commands act on the owned colony nearest the player); Halls `hall_gap` apart.
   Saved in `Colonies` (SavedData `lotr_port_colonies`, codecs); history `colony_founded`, `citizen_arrive`,
   `citizen_die`, `recruit_started`. Citizens carry the `lotr_port:colony` attachment and never despawn.
 - Growth is immigration by approval, all in the GUI (Aaron 2026-11-12, `colony/Immigration`, colony view tab
@@ -406,7 +407,8 @@ https://claude.ai/artifact/KqhSSTCuKXGuwKHBoYJdcu. Rebuild features in modern co
   citizen plus one per `citizens_per_researcher` others; the TARDIS runs its research faster for each.
 - `/lotr_colony` (info, citizens, open recruitments); admin `/lotr colony list|day [n]`.
 - The rest (2026-11-11 rework): society core (Persons + components, `Society` facade), colony systems scheduler,
-  hired units, Town Hall roles and land protection, map visibility, buildings and the Building Writ, homes, jobs,
+  hired units, Town Hall roles and land protection, map visibility, buildings (registered by hanging a Building
+  Plaque; the writ is retired), homes, jobs,
   work, wages, needs, the Ledger, and colony wars: **read `lotr/docs/colonies.md`** before touching `society/`,
   `colony/`, `unit/`, `land/`, `social/`, `war/` or `ai/`.
 - Not yet: envoy spawning (rare NPCs come from normal spawning or commands for now).
@@ -422,6 +424,8 @@ https://claude.ai/artifact/KqhSSTCuKXGuwKHBoYJdcu. Rebuild features in modern co
   `TerritorySpawns` + `SpawnEvent`, condition `lotr_port:territory`. Conquest (`Conquest`): pressure (kills of the
   holder's people, assaults; x colony research perks `conquest` near your colonies) against defence (holder x terrain
   from `conquest_terrain`, minus assault damage); assaults cost injuries and deaths (family, race and colony mood).
+  Through time: layer deltas `border_layer` in the history log (`BorderHistory`); the map shows a time traveller the
+  borders, kingdoms and colonies of their tick and a world rewind restores them (shared API time hooks).
   **Read `lotr/docs/borders.md`.**
 
 ## Diplomacy (2026-11-18, `diplomacy/`)
