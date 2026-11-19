@@ -8,8 +8,9 @@
     "sonic": "none"
   },
   "requirements": {
-    "type": "tardis_rb:subsystem_level",
-    "subsystem": "tardis_rb:navigation",
-    "min": 1
+    "type": "ringbearer_api:not",
+    "condition": {
+      "type": "ringbearer_api:always"
+    }
   }
 }

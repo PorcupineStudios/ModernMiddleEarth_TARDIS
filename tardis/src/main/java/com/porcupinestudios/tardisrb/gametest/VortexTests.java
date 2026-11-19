@@ -54,7 +54,7 @@ public final class VortexTests {
         helper.assertTrue(vortex != null, "the time vortex dimension isn't loaded");
         TardisRecord t = WreckTests.onPlatform(helper, Optional.empty());
         BlockPos base = t.location().get().pos();
-        helper.assertTrue(Repairs.attempt(server, t, TardisRB.id("navigation_1"), Optional.empty()).done(),
+        helper.assertTrue(FlightReady.navigation(server, t),
                 "navigation repair");
         t.addCharge(1000);
         BlockPos target = new BlockPos(base.getX() + 10, helper.getLevel().getHeight(
@@ -143,7 +143,7 @@ public final class VortexTests {
         ServerLevel vortex = server.getLevel(Vortex.DIMENSION);
         TardisRecord t = WreckTests.onPlatform(helper, Optional.empty());
         BlockPos base = t.location().get().pos();
-        helper.assertTrue(Repairs.attempt(server, t, TardisRB.id("navigation_1"), Optional.empty()).done(),
+        helper.assertTrue(FlightReady.navigation(server, t),
                 "navigation repair");
         t.addCharge(1000);
         BlockPos target = new BlockPos(base.getX() + 4, base.getY(), base.getZ());
@@ -404,7 +404,7 @@ public final class VortexTests {
         var dim = server.getLevel(Level.END) != null ? Level.END : Level.OVERWORLD;
         TardisRecord t = WreckTests.onPlatform(helper, Optional.empty());
         BlockPos base = t.location().get().pos();
-        helper.assertTrue(Repairs.attempt(server, t, TardisRB.id("navigation_1"), Optional.empty()).done(),
+        helper.assertTrue(FlightReady.navigation(server, t),
                 "navigation repair");
         t.addCharge(1000);
         helper.assertTrue(Vortex.depart(server, t, Optional.empty(), base.east(20), Optional.empty(), Optional.empty())
@@ -489,7 +489,7 @@ public final class VortexTests {
         ServerLevel vortex = server.getLevel(Vortex.DIMENSION);
         TardisRecord t = WreckTests.onPlatform(helper, Optional.empty());
         BlockPos base = t.location().get().pos();
-        helper.assertTrue(Repairs.attempt(server, t, TardisRB.id("navigation_1"), Optional.empty()).done(),
+        helper.assertTrue(FlightReady.navigation(server, t),
                 "navigation repair");
         t.addCharge(1000);
         upgrade(t, "scanner", 2);

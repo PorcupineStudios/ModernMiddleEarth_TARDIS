@@ -8,7 +8,7 @@
     "knob": "destination"
   },
   "requirements": {
-    "type": "tardis_rb:milestone",
-    "milestone": "tardis_rb:restored_core"
+    "type": "tardis_rb:research",
+    "research": "tardis_rb:dematerialised_flight"
   }
 }

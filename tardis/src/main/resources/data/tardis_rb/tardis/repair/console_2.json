@@ -5,15 +5,9 @@
     "items": [
       {
         "ingredient": {
-          "item": "minecraft:comparator"
+          "item": "tardis_rb:temporal_circuit"
         },
         "count": 2
-      },
-      {
-        "ingredient": {
-          "item": "minecraft:repeater"
-        },
-        "count": 4
       }
     ],
     "charge": 50

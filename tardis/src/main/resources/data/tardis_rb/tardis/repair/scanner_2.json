@@ -1,5 +1,14 @@
 {
   "subsystem": "tardis_rb:scanner",
   "level": 2,
-  "cost": "tardis_rb:scanner_lens"
+  "cost": {
+    "items": [
+      {
+        "ingredient": {
+          "item": "tardis_rb:chronon_lens"
+        },
+        "count": 2
+      }
+    ]
+  }
 }

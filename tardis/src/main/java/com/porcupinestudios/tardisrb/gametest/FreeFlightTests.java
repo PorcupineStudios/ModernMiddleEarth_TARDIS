@@ -44,7 +44,7 @@ public final class FreeFlightTests {
     public static void aHitShocksTheBoxAndKnocksItAway(GameTestHelper helper) {
         MinecraftServer server = helper.getLevel().getServer();
         TardisRecord t = WreckTests.onPlatform(helper, Optional.empty());
-        helper.assertTrue(Repairs.attempt(server, t, TardisRB.id("navigation_1"), Optional.empty()).done(),
+        helper.assertTrue(FlightReady.navigation(server, t),
                 "navigation repair");
         FreeFlight.phase(server, t, Optional.empty());
         TardisBody body = FreeFlight.body(server, t).orElseThrow();
@@ -66,7 +66,7 @@ public final class FreeFlightTests {
         MinecraftServer server = helper.getLevel().getServer();
         TardisRecord t = WreckTests.onPlatform(helper, Optional.empty());
         BlockPos base = t.location().get().pos();
-        helper.assertTrue(Repairs.attempt(server, t, TardisRB.id("navigation_1"), Optional.empty()).done(),
+        helper.assertTrue(FlightReady.navigation(server, t),
                 "navigation repair");
 
         String said = FreeFlight.phase(server, t, Optional.empty()).getString();
@@ -110,7 +110,7 @@ public final class FreeFlightTests {
     public static void theFlightYokeSeatsThePilotAndShiftPutsThemBack(GameTestHelper helper) {
         MinecraftServer server = helper.getLevel().getServer();
         TardisRecord t = WreckTests.onPlatform(helper, Optional.empty());
-        helper.assertTrue(Repairs.attempt(server, t, TardisRB.id("navigation_1"), Optional.empty()).done(),
+        helper.assertTrue(FlightReady.navigation(server, t),
                 "navigation repair");
         ServerPlayer pilot = mockPlayer(helper);
         BlockPos stand = helper.absolutePos(new BlockPos(5, 2, 4));

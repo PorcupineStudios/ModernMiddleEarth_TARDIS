@@ -46,15 +46,17 @@ public final class ConsoleTests {
         helper.assertTrue(find(wreck, "demat_lever").isEmpty(),
                 "the dematerialisation lever is there before navigation is repaired");
 
-        helper.assertTrue(Repairs.attempt(server, t, TardisRB.id("navigation_1"), Optional.empty()).done(),
+        helper.assertTrue(FlightReady.navigation(server, t),
                 "navigation repair");
         List<ConsoleBlockEntity.Shown> shown = ConsoleControls.shown(server, t);
         for (String id : List.of("x_lever_1", "x_wheel_1", "z_lever_5", "y_lever_4", "demat_lever", "handbrake",
-                "memory_bank", "time_drums", "time_lever", "time_unit_dial")) {
-            helper.assertTrue(find(shown, id).isPresent(), id + " did not appear after the navigation repair");
+                "memory_bank", "dimension_dial", "thrusters", "flight_yoke")) {
+            helper.assertTrue(find(shown, id).isPresent(), id + " did not appear after the flight upgrades");
         }
-        helper.assertTrue(find(shown, "dimension_dial").isEmpty(),
-                "the dimension dial is there before the core milestone");
+        // only flight controls unlock for now (Aaron 2026-11-19): time and rooms come later
+        for (String id : List.of("time_drums", "time_lever", "time_unit_dial", "room_deleter", "schema_chooser")) {
+            helper.assertTrue(find(shown, id).isEmpty(), id + " is on the console");
+        }
         for (ConsoleBlockEntity.Shown c : shown) {
             helper.assertTrue(!c.model().isEmpty(), c.id() + " names no control model");
         }
@@ -81,23 +83,7 @@ public final class ConsoleTests {
         List<String> xSide = ConsoleControls.readout(server, t, console);
         helper.assertTrue(xSide.contains("Target X " + (from.getX() + 10)), "the monitor over side 0 shows " + xSide);
 
-        // target time: the drums read 012 (minutes), ago; the time lever counts from the beginning instead
-        ConsoleBlockEntity.Shown drums = find(shown, "time_drums").get();
-        ConsoleControls.use(server, t, console, drums, "drum_2", Optional.empty());
-        ConsoleControls.use(server, t, console, drums, "drum_3", Optional.empty());
-        ConsoleControls.use(server, t, console, drums, "drum_3", Optional.empty());
-        console.setMonitorAngle(-30);
-        List<String> timeSide = ConsoleControls.readout(server, t, console);
-        helper.assertTrue(timeSide.contains("Target time: 12 minutes ago"),
-                "the monitor over side 2 shows " + timeSide);
-        helper.assertTrue(ConsoleControls.targetTick(console, 100_000) == 100_000 - 12 * 1200,
-                "12 minutes ago aims at tick " + ConsoleControls.targetTick(console, 100_000));
-        ConsoleControls.use(server, t, console, find(shown, "time_lever").get(), "lever", Optional.empty());
-        timeSide = ConsoleControls.readout(server, t, console);
-        helper.assertTrue(timeSide.contains("Target time: 12 minutes from the beginning of time"),
-                "the time lever didn't switch to from the beginning: " + timeSide);
-        helper.assertTrue(ConsoleControls.targetTick(console, 100_000) == 12 * 1200,
-                "12 minutes from the beginning aims at tick " + ConsoleControls.targetTick(console, 100_000));
+        // (the time controls aren't on the console for now: Aaron 2026-11-19, time comes later)
         console.setMonitorAngle(Float.NaN);
 
         // memory: save, change, load

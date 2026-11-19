@@ -1,0 +1,23 @@
+{
+  "requirements": {
+    "type": "tardis_rb:subsystem_level",
+    "subsystem": "tardis_rb:navigation",
+    "min": 1
+  },
+  "cost": {
+    "items": [
+      {
+        "ingredient": {
+          "item": "tardis_rb:temporal_circuit"
+        },
+        "count": 2
+      },
+      {
+        "ingredient": {
+          "item": "tardis_rb:stabilizer_coil"
+        },
+        "count": 1
+      }
+    ]
+  }
+}

@@ -75,7 +75,7 @@ public final class Unlocks {
         for (ResourceLocation node : tardis.research()) {
             Research r = data.research().get(node);
             if (r != null) {
-                total += r.stats().getOrDefault(key, 0.0);
+                total += r.statsUpTo(tardis.researchLevel(node)).getOrDefault(key, 0.0);
             }
         }
         return total;
