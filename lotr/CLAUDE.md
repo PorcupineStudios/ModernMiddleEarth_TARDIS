@@ -682,7 +682,9 @@ https://claude.ai/artifact/KqhSSTCuKXGuwKHBoYJdcu. Rebuild features in modern co
 - Leaves (`converter/leaf_drops.py`, 2026-11-19): vanilla oak leaves' loot (shears/silk touch: the leaves; else
   sapling, sticks), and the 14 fruit trees (`FRUIT`) drop their fruit (`FRUIT_CHANCES`, 4x vanilla's apple rate).
 - Saddles: also 3 leather + 2 iron (`src/main/resources/.../recipe/own/crafting/`); pouches: leather + string
-  (small `LSL / L`, medium `LSL/L L/LLL`, large `LSL/LSL/LLL`), there being no silk item.
+  (small only, `LSL / L`; no silk item); bigger pouches only by combining (`content/pouch/PouchCombineRecipe`,
+  `own/pouch_combine`: pouches whose slots add up to a bigger one, contents kept; 2 small = medium, small + medium
+  or 3 small = large).
 - `PouchItem` keeps items in `DataComponents.CONTAINER`; `PouchMenu`/`client/PouchScreen` on LOTR's layout with the
   name field (`Pouches.Rename` payload). Pick-ups go into pouches when the inventory is full.
 - GameTests `FarmTests`. `GameTestHelper.destroyBlock` drops nothing: use `level.destroyBlock(pos, true)` to test loot.
