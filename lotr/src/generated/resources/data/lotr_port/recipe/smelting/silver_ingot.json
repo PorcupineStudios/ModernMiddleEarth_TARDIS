@@ -1,8 +1,13 @@
 {
   "type": "minecraft:smelting",
-  "ingredient": {
-    "item": "lotr_port:silver_ore"
-  },
+  "ingredient": [
+    {
+      "item": "lotr_port:silver_ore"
+    },
+    {
+      "item": "lotr_port:raw_silver"
+    }
+  ],
   "result": {
     "id": "lotr_port:silver_ingot"
   },

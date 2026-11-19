@@ -653,6 +653,17 @@ https://claude.ai/artifact/KqhSSTCuKXGuwKHBoYJdcu. Rebuild features in modern co
   grapevines (`grapevine` on a post; seeds plant on a post with farmland within 3 blocks below; picking leaves the
   post). Numbers in `farming/settings.json` (`Farming.Settings`).
 - `converter/ores.py`: 15 item-dropping ores (`ore` = DropExperienceBlock, LOTR's xp), loot with silk touch, fortune.
+- Raw ores (2026-11-19, as vanilla's cave update): post-step `converter/raw_ores.py`. The metal ores that
+  dropped themselves (copper, tin, silver, mithril, Morgul iron + its Mordor ore) drop `raw_<metal>` (silk touch: the
+  ore; fortune: vanilla `ore_drops`; counts in the loot tables, `DROPS`); `raw_<metal>_block` packs 9. Every recipe
+  that took the ore takes the raw ore too (smelting + a blasting twin, alloy forges, Create mixing). Create: tags
+  `c:raw_materials/<metal>` / `c:storage_blocks/raw_<metal>` (tags.py) let Create's own recipes crush raw tin,
+  silver and copper into its crushed ores (create_compat.py smelts and washes those into LOTR's ingots/nuggets;
+  copper stays Create's, i.e. vanilla copper); raw mithril and Morgul iron are crushed like Create's raw iron into
+  what their ore crushes into. Mithril and Morgul iron still smelt only in LOTR's forges. GameTests `RawOreTests`.
+- LOTR's amethyst is **tanzanite** (2026-11-19: 1.21 has its own amethyst): post-step `converter/renames.py`
+  (`RENAMES`, names per language in `LANG`) renames ids, files, lang, tags, templates after generation. Keep LOTR's
+  old ids out of new code: always `tanzanite`, `tanzanite_vein`, `tanzanite_block`.
 - `PouchItem` keeps items in `DataComponents.CONTAINER`; `PouchMenu`/`client/PouchScreen` on LOTR's layout with the
   name field (`Pouches.Rename` payload). Pick-ups go into pouches when the inventory is full.
 - GameTests `FarmTests`. `GameTestHelper.destroyBlock` drops nothing: use `level.destroyBlock(pos, true)` to test loot.

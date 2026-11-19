@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "lotr_port:raw_tin_block"
+    }
+  ],
+  "result": {
+    "id": "lotr_port:raw_tin",
+    "count": 9
+  }
+}

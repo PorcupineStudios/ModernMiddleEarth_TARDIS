@@ -551,7 +551,7 @@
     "solid": true
   },
   {
-    "id": "amethyst_block",
+    "id": "tanzanite_block",
     "kind": "cube",
     "hardness": 5.0,
     "resistance": 10.0,
@@ -7062,7 +7062,7 @@
     ]
   },
   {
-    "id": "amethyst_vein",
+    "id": "tanzanite_vein",
     "kind": "ore",
     "hardness": 3.0,
     "resistance": 5.0,
@@ -20524,5 +20524,60 @@
     "resistance": 1.0,
     "solid": false,
     "item": "none"
+  },
+  {
+    "id": "raw_copper_block",
+    "kind": "cube",
+    "hardness": 5.0,
+    "resistance": 6.0,
+    "light": 0,
+    "sound": "stone",
+    "requiresTool": true,
+    "solid": true,
+    "raw_ore": "copper"
+  },
+  {
+    "id": "raw_mithril_block",
+    "kind": "cube",
+    "hardness": 5.0,
+    "resistance": 6.0,
+    "light": 0,
+    "sound": "stone",
+    "requiresTool": true,
+    "solid": true,
+    "raw_ore": "mithril"
+  },
+  {
+    "id": "raw_morgul_iron_block",
+    "kind": "cube",
+    "hardness": 5.0,
+    "resistance": 6.0,
+    "light": 0,
+    "sound": "stone",
+    "requiresTool": true,
+    "solid": true,
+    "raw_ore": "morgul_iron"
+  },
+  {
+    "id": "raw_silver_block",
+    "kind": "cube",
+    "hardness": 5.0,
+    "resistance": 6.0,
+    "light": 0,
+    "sound": "stone",
+    "requiresTool": true,
+    "solid": true,
+    "raw_ore": "silver"
+  },
+  {
+    "id": "raw_tin_block",
+    "kind": "cube",
+    "hardness": 5.0,
+    "resistance": 6.0,
+    "light": 0,
+    "sound": "stone",
+    "requiresTool": true,
+    "solid": true,
+    "raw_ore": "tin"
   }
 ]
