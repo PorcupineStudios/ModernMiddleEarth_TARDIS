@@ -113,5 +113,5 @@ Read when: the console block/renderer, console controls (data `tardis/control/`)
   edge (`SIDES[k]["ladder"]` in `tools/console_layout.py`), the rows shifted left clear of it.
 - Pull switches (`pull_switch`, `tools/flight_controls.py`): 1.7.10's little pull-switches (its renderPushSwitch: a
   cream socket, a thin light-grey rod, a green 2 x 2 knob pulled out 0.3 block when on), at half size. Relative
-  coordinates (X side), land on ground (Y side, where 1.7.10 had switch 34) and coordinated flight (Exterior side,
-  action `coordinated`: on, the autopilot flies the vortex trip and nobody is seated; off, the lever puller pilots).
+  coordinates (X side) and land on ground (Y side, where 1.7.10 had switch 34). Coordinated / uncoordinated flight
+  is left out for now (Aaron 2026-11-19).

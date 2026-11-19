@@ -50,7 +50,7 @@ public final class ConsoleTests {
                 "navigation repair");
         List<ConsoleBlockEntity.Shown> shown = ConsoleControls.shown(server, t);
         for (String id : List.of("x_lever_1", "x_wheel_1", "z_lever_5", "y_lever_4", "demat_lever", "handbrake",
-                "memory_bank", "dimension_dial", "thrusters", "flight_yoke", "coordinated_switch", "land_switch",
+                "memory_bank", "dimension_dial", "thrusters", "flight_yoke", "land_switch",
                 "relative_switch")) {
             helper.assertTrue(find(shown, id).isPresent(), id + " did not appear after the flight upgrades");
         }
