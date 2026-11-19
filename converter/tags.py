@@ -86,6 +86,8 @@ ANY = lambda e: True  # noqa: E731
 WOODEN = lambda e: e["mat"] == "wood" or e["sound"] == "wood" or bool(e.get("woodset"))  # noqa: E731
 
 BLOCK_RULES = [
+    # raw_ores.py: blocks of raw ore
+    ({"cube"}, lambda e: bool(e.get("raw_ore")), "raw_iron_block"),
     # woodsets.py
     ({"sign"}, ANY, "oak_sign"), ({"wall_sign"}, ANY, "oak_wall_sign"),
     ({"hanging_sign"}, ANY, "oak_hanging_sign"), ({"wall_hanging_sign"}, ANY, "oak_wall_hanging_sign"),
@@ -159,6 +161,7 @@ BLOCK_RULES = [
 
 # item analogue by port kind / LOTR class / id
 ITEM_RULES = [
+    ({"item"}, lambda e: bool(e.get("raw_ore")), "raw_iron"),  # raw_ores.py
     ({"sword"}, ANY, "iron_sword"), ({"axe"}, ANY, "iron_axe"), ({"pickaxe"}, ANY, "iron_pickaxe"),
     ({"shovel"}, ANY, "iron_shovel"), ({"hoe"}, ANY, "iron_hoe"), ({"bow"}, ANY, "bow"),
     ({"crossbow"}, ANY, "crossbow"), ({"arrow"}, ANY, "arrow"), ({"boat"}, ANY, "oak_boat"),
@@ -212,7 +215,7 @@ C_BY_ANALOGUE = {
 METALS = ("copper", "tin", "bronze", "silver", "gold", "iron", "mithril", "galvorn", "durnor", "morgul_iron",
           "orc_steel", "uruk_steel", "black_uruk_steel", "dwarven_steel", "blue_dwarven_steel", "elven_steel",
           "gilded_iron")
-GEMS = ("amber", "amethyst", "diamond", "emerald", "opal", "pearl", "ruby", "sapphire", "topaz", "gulduril",
+GEMS = ("amber", "tanzanite", "diamond", "emerald", "opal", "pearl", "ruby", "sapphire", "topaz", "gulduril",
         "edhelvir", "glowstone")
 
 
@@ -229,6 +232,11 @@ def c_by_name(e, is_block):
             out += [f"c:ores/{m}", "c:ores"]
         if i in (f"{m}_block", f"block_of_{m}"):
             out += [f"c:storage_blocks/{m}", "c:storage_blocks"]
+        # raw_ores.py: Create crushes c:raw_materials/<m> and c:storage_blocks/raw_<m> (its tin, silver, copper)
+        if i == f"raw_{m}" and e.get("raw_ore"):
+            out += [f"c:raw_materials/{m}", "c:raw_materials"]
+        if i == f"raw_{m}_block" and e.get("raw_ore"):
+            out += [f"c:storage_blocks/raw_{m}", "c:storage_blocks"]
     for g in GEMS:
         if not is_block and i == g:
             out += [f"c:gems/{g}", "c:gems"]

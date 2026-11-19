@@ -8,7 +8,15 @@
   "heat_requirement": "heated",
   "ingredients": [
     {
-      "item": "lotr_port:silver_ore"
+      "type": "neoforge:compound",
+      "ingredients": [
+        {
+          "item": "lotr_port:silver_ore"
+        },
+        {
+          "item": "lotr_port:raw_silver"
+        }
+      ]
     },
     {
       "item": "lotr_port:mithril_nugget"

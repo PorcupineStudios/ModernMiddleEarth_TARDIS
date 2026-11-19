@@ -3,8 +3,8 @@
   "values": [
     "lotr_port:amber_block",
     "lotr_port:amber_vein",
-    "lotr_port:amethyst_block",
-    "lotr_port:amethyst_vein",
+    "lotr_port:tanzanite_block",
+    "lotr_port:tanzanite_vein",
     "lotr_port:block_of_edhelvir",
     "lotr_port:block_of_galvorn",
     "lotr_port:block_of_gulduril",
@@ -28,6 +28,8 @@
     "lotr_port:sapphire_vein",
     "lotr_port:silver_ore",
     "lotr_port:topaz_block",
-    "lotr_port:topaz_vein"
+    "lotr_port:topaz_vein",
+    "lotr_port:raw_mithril_block",
+    "lotr_port:raw_silver_block"
   ]
 }

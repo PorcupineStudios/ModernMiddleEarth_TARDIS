@@ -42,7 +42,7 @@ filler for islands).
   `freeze_top_layer` and Forodwaith's packed-ice "ore".
 - **Goats** on the high slopes (their horns could tie in with LOTR's horns), foxes (snow foxes in the north),
   rabbits (white in snow), polar bears in Forochel, strays in Forodwaith or Angmar (DESIGN).
-- **Amethyst geodes** (LOTR's amethyst is only a gem ore here), calcite bands, bigger ore veins.
+- **Amethyst geodes** (LOTR's amethyst is renamed tanzanite, so this is vanilla's), calcite bands, bigger ore veins.
 - **Alpine meadows** on the foothills: flowers, bees.
 
 ## 3. Caves (done; open: copper and iron ore veins, deep dark)
