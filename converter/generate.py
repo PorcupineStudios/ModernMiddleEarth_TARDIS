@@ -1521,6 +1521,8 @@ class Gen:
         print(json.dumps({"borders": borders.run(OUT)}))
         import create_extra
         print(json.dumps({"create_extra": create_extra.run(OUT)}))
+        import create_crafters
+        print(json.dumps({"create_crafters": create_crafters.run(OUT)}))
 
 
 if __name__ == "__main__":

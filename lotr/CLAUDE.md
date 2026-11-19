@@ -691,6 +691,21 @@ https://claude.ai/artifact/KqhSSTCuKXGuwKHBoYJdcu. Rebuild features in modern co
   `neoforge:mod_loaded` create) and `c:ores/*` / `c:nuggets/*` tags; every match and why is in
   `converter/create/crossref.json`. Re-extract Create's recipes when the pack's Create version changes. The recipe
   count GameTest skips `create/`, because the test server runs without Create.
+- Faction mechanical crafters (2026-11-19, Aaron: "literally duplicate the autocrafters, one for each faction ...
+  tinted that faction's color"): `compat/create` (registered only when Create is loaded; lotr compiles against Create,
+  `create_version` in lotr/gradle.properties, dev/GameTest runs load it with `-PwithCreate`). One
+  `<table>_mechanical_crafter` per faction table (27, `converter/create_crafters.py` `TABLES` table -> faction ->
+  `content/create_crafters.json` with the tint = faction colour lightened `LIGHTEN`). `FactionCrafterBlock` extends
+  Create's `MechanicalCrafterBlock` with our block entity type (`FactionCrafterBlockEntity`); Create's renderer,
+  cogwheel visual, stress impact 2, item handler and unpacking handler are registered for it. Mixins
+  (`lotr_port.create.mixins.json`, applied only with Create via `CreateMixinPlugin`): `BlockEntryMixin` makes
+  `AllBlocks.MECHANICAL_CRAFTER.has(state)` true for them (every Create crafter check: grids, connected inputs, arms);
+  `CrafterRecipeMixin` wraps `RecipeGridHandler.tryToApplyRecipe` in the crafter's tick: when Create finds nothing, a
+  grid with faction crafters (any in the chain) makes their tables' recipes (`FactionCrafting`; never ones with an
+  `alignment` need). Models: Create's crafter models, every quad given tint index 0 (`FactionCraftersClient`,
+  ModifyBakingResult); no connected textures. Made at their own table with Create's recipe (3 per craft) and
+  `FactionRecipe.alignment` (faction, `above` 0), checked by `FactionCraftingMenu`. GameTests `FactionCrafterTests`.
+  Read Create's code by decompiling the jar locally (allowed by Aaron 2026-11-19); never commit decompiled code.
 
 ## Sounds (2026-11-06)
 - `converter/sounds.py` copies LOTR's 190 sound files and 101 events. Ids are LOTR's, snake_cased per part:
