@@ -1,4 +1,26 @@
 {
+  "c:block/storage_blocks": [
+    "lotr_port:raw_copper_block",
+    "lotr_port:raw_mithril_block",
+    "lotr_port:raw_morgul_iron_block",
+    "lotr_port:raw_silver_block",
+    "lotr_port:raw_tin_block"
+  ],
+  "c:block/storage_blocks/raw_copper": [
+    "lotr_port:raw_copper_block"
+  ],
+  "c:block/storage_blocks/raw_mithril": [
+    "lotr_port:raw_mithril_block"
+  ],
+  "c:block/storage_blocks/raw_morgul_iron": [
+    "lotr_port:raw_morgul_iron_block"
+  ],
+  "c:block/storage_blocks/raw_silver": [
+    "lotr_port:raw_silver_block"
+  ],
+  "c:block/storage_blocks/raw_tin": [
+    "lotr_port:raw_tin_block"
+  ],
   "c:block/stripped_woods": [
     "lotr_port:stripped_almond_bark",
     "lotr_port:stripped_apple_bark",
@@ -39,6 +61,50 @@
     "lotr_port:stripped_rotten_bark",
     "lotr_port:stripped_shire_pine_bark",
     "lotr_port:stripped_willow_bark"
+  ],
+  "c:item/raw_materials": [
+    "lotr_port:raw_copper",
+    "lotr_port:raw_mithril",
+    "lotr_port:raw_morgul_iron",
+    "lotr_port:raw_silver",
+    "lotr_port:raw_tin"
+  ],
+  "c:item/raw_materials/copper": [
+    "lotr_port:raw_copper"
+  ],
+  "c:item/raw_materials/mithril": [
+    "lotr_port:raw_mithril"
+  ],
+  "c:item/raw_materials/morgul_iron": [
+    "lotr_port:raw_morgul_iron"
+  ],
+  "c:item/raw_materials/silver": [
+    "lotr_port:raw_silver"
+  ],
+  "c:item/raw_materials/tin": [
+    "lotr_port:raw_tin"
+  ],
+  "c:item/storage_blocks": [
+    "lotr_port:raw_copper_block",
+    "lotr_port:raw_mithril_block",
+    "lotr_port:raw_morgul_iron_block",
+    "lotr_port:raw_silver_block",
+    "lotr_port:raw_tin_block"
+  ],
+  "c:item/storage_blocks/raw_copper": [
+    "lotr_port:raw_copper_block"
+  ],
+  "c:item/storage_blocks/raw_mithril": [
+    "lotr_port:raw_mithril_block"
+  ],
+  "c:item/storage_blocks/raw_morgul_iron": [
+    "lotr_port:raw_morgul_iron_block"
+  ],
+  "c:item/storage_blocks/raw_silver": [
+    "lotr_port:raw_silver_block"
+  ],
+  "c:item/storage_blocks/raw_tin": [
+    "lotr_port:raw_tin_block"
   ],
   "c:item/stripped_woods": [
     "lotr_port:stripped_almond_bark",
@@ -1401,6 +1467,13 @@
     "lotr_port:reed_stairs",
     "lotr_port:thatch_slab",
     "lotr_port:thatch_stairs"
+  ],
+  "minecraft:block/overworld_carver_replaceables": [
+    "lotr_port:raw_copper_block",
+    "lotr_port:raw_mithril_block",
+    "lotr_port:raw_morgul_iron_block",
+    "lotr_port:raw_silver_block",
+    "lotr_port:raw_tin_block"
   ],
   "minecraft:block/parrots_spawnable_on": [
     "lotr_port:almond_bark",

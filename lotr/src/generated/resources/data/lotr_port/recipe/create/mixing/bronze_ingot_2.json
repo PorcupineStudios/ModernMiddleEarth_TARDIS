@@ -8,10 +8,26 @@
   "heat_requirement": "heated",
   "ingredients": [
     {
-      "item": "lotr_port:copper_ore"
+      "type": "neoforge:compound",
+      "ingredients": [
+        {
+          "item": "lotr_port:copper_ore"
+        },
+        {
+          "item": "lotr_port:raw_copper"
+        }
+      ]
     },
     {
-      "item": "lotr_port:tin_ore"
+      "type": "neoforge:compound",
+      "ingredients": [
+        {
+          "item": "lotr_port:tin_ore"
+        },
+        {
+          "item": "lotr_port:raw_tin"
+        }
+      ]
     }
   ],
   "results": [

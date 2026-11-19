@@ -1491,6 +1491,10 @@ class Gen:
         for k, v in sorted(self.report.items()):
             print(f"  {k}: {len(v)}")
         # post-steps that work on the written content (each can also be rerun alone)
+        import renames
+        print(json.dumps({"renames": renames.run(OUT)}))
+        import raw_ores
+        print(json.dumps({"raw_ores": raw_ores.run(OUT)}))
         from woodsets import WoodSets
         print(json.dumps({"woodsets": WoodSets(OUT).run()}))
         from tags import Tagger

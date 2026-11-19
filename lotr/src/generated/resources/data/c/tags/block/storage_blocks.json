@@ -2,7 +2,7 @@
   "replace": false,
   "values": [
     "lotr_port:amber_block",
-    "lotr_port:amethyst_block",
+    "lotr_port:tanzanite_block",
     "lotr_port:block_of_black_uruk_steel",
     "lotr_port:block_of_blue_dwarven_steel",
     "lotr_port:block_of_bronze",
@@ -25,6 +25,11 @@
     "lotr_port:pearl_block",
     "lotr_port:ruby_block",
     "lotr_port:sapphire_block",
-    "lotr_port:topaz_block"
+    "lotr_port:topaz_block",
+    "lotr_port:raw_copper_block",
+    "lotr_port:raw_mithril_block",
+    "lotr_port:raw_morgul_iron_block",
+    "lotr_port:raw_silver_block",
+    "lotr_port:raw_tin_block"
   ]
 }

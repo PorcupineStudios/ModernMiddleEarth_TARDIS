@@ -19,6 +19,8 @@ time) come from Create's own recipe, never made up:
              crushed like Create's diamond ore.
 - metal ores without a crushed form (mithril, Morgul iron) are crushed like Create's iron ore, giving the smelted
              ingot instead of a crushed ore.
+- raw ores:  raw_ores.py (a post-step) crushes raw mithril and raw Morgul iron like Create's raw iron; raw tin,
+             silver and copper go through Create's own c:raw_materials recipes.
 - millstone: LOTR's millstone recipes become create:milling (timing from Create's cobblestone milling), unless
              Create already mills that input.
 - dyes:      LOTR's one-item flower -> dye crafting recipes are milled like Create's poppy (two dyes).

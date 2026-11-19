@@ -13,6 +13,9 @@
     "lotr_port:glowstone_ore",
     "lotr_port:morgul_iron_ore",
     "lotr_port:morgul_iron_ore_block",
-    "lotr_port:tin_ore"
+    "lotr_port:tin_ore",
+    "lotr_port:raw_copper_block",
+    "lotr_port:raw_morgul_iron_block",
+    "lotr_port:raw_tin_block"
   ]
 }

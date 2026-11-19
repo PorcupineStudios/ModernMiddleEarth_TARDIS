@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "lotr_port:raw_copper",
+    "lotr_port:raw_mithril",
+    "lotr_port:raw_morgul_iron",
+    "lotr_port:raw_silver",
+    "lotr_port:raw_tin"
+  ]
+}
