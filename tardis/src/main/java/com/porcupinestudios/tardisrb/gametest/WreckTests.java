@@ -119,7 +119,7 @@ public final class WreckTests {
         BlockPos from = t.location().get().pos();
         BlockPos target = helper.absolutePos(new BlockPos(11, 2, 2));
         helper.assertFalse(Flight.hop(server, t, target, Optional.empty()).done(), "the wreck hopped unrepaired");
-        helper.assertTrue(Repairs.attempt(server, t, TardisRB.id("navigation_1"), Optional.empty()).done(),
+        helper.assertTrue(FlightReady.navigation(server, t),
                 "navigation repair");
         helper.assertFalse(Flight.hop(server, t, target, Optional.empty()).done(), "hopped with no charge");
         t.addCharge(100);
@@ -148,7 +148,7 @@ public final class WreckTests {
     public static void windingWithCreateLetsTheWreckHop(GameTestHelper helper) {
         MinecraftServer server = helper.getLevel().getServer();
         TardisRecord t = onPlatform(helper, Optional.empty());
-        helper.assertTrue(Repairs.attempt(server, t, TardisRB.id("navigation_1"), Optional.empty()).done(),
+        helper.assertTrue(FlightReady.navigation(server, t),
                 "navigation repair");
         helper.setBlock(new BlockPos(2, 2, 4), TardisBlocks.WINDER.get().defaultBlockState()
                 .setValue(WinderBlock.AXIS, Direction.Axis.X));

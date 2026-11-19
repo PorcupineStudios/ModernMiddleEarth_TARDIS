@@ -5,15 +5,9 @@
     "items": [
       {
         "ingredient": {
-          "item": "minecraft:lever"
+          "item": "tardis_rb:temporal_circuit"
         },
-        "count": 4
-      },
-      {
-        "ingredient": {
-          "item": "minecraft:redstone"
-        },
-        "count": 4
+        "count": 1
       }
     ]
   }

@@ -5,15 +5,9 @@
     "items": [
       {
         "ingredient": {
-          "item": "minecraft:compass"
+          "item": "tardis_rb:temporal_circuit"
         },
-        "count": 1
-      },
-      {
-        "ingredient": {
-          "tag": "c:ingots/gold"
-        },
-        "count": 4
+        "count": 2
       }
     ],
     "charge": 50

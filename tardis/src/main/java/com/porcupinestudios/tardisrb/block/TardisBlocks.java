@@ -4,6 +4,7 @@ import com.porcupinestudios.tardisrb.TardisRB;
 import com.porcupinestudios.tardisrb.compat.create.WinderBlock;
 import com.porcupinestudios.tardisrb.compat.create.WinderBlockEntity;
 import java.util.List;
+import net.minecraft.world.item.Item;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.BlockItem;
@@ -124,6 +125,14 @@ public final class TardisBlocks {
     public static final DeferredItem<BlockItem> INTERIOR_DOOR_ITEM = ITEMS.registerSimpleBlockItem(INTERIOR_DOOR);
     public static final DeferredItem<BlockItem> SALVAGE_WRECK_ITEM = ITEMS.registerSimpleBlockItem(SALVAGE_WRECK);
     public static final DeferredItem<BlockItem> REPAIR_STATION_ITEM = ITEMS.registerSimpleBlockItem(REPAIR_STATION);
+
+    /**
+     * Crafted parts that repairs and upgrades cost (Aaron 2026-11-19: "upgrades cost special items you have to craft").
+     * Recipes, names, pictures and which costs use them: {@code tools/upgrade_parts.py}. Placeholder pictures.
+     */
+    public static final List<DeferredItem<Item>> PARTS = java.util.stream.Stream.of(
+            "artron_battery", "hull_plate", "temporal_circuit", "chronon_lens", "stabilizer_coil")
+            .map(ITEMS::registerSimpleItem).toList();
     public static final DeferredItem<BlockItem> WINDER_ITEM = ITEMS.registerSimpleBlockItem(WINDER);
 
     static {
