@@ -72,7 +72,8 @@ public class FactionCraftingMenu extends CraftingMenu {
         CraftingInput input = grid.asCraftInput();
         ItemStack stack = ItemStack.EMPTY;
         var found = find(level, table, input);
-        if (found.isPresent()) {
+        if (found.isPresent() && !(found.get().value() instanceof FactionRecipe fr
+                && fr.alignment().isPresent() && !fr.alignment().get().met(sp))) {
             if (result.setRecipeUsed(level, sp, found.get())) {
                 ItemStack made = found.get().value().assemble(input, level.registryAccess());
                 if (made.isItemEnabled(level.enabledFeatures())) {

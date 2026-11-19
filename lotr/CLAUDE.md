@@ -668,6 +668,12 @@ https://claude.ai/artifact/KqhSSTCuKXGuwKHBoYJdcu. Rebuild features in modern co
 - LOTR's amethyst is **tanzanite** (2026-11-19: 1.21 has its own amethyst): post-step `converter/renames.py`
   (`RENAMES`, names per language in `LANG`) renames ids, files, lang, tags, templates after generation. Keep LOTR's
   old ids out of new code: always `tanzanite`, `tanzanite_vein`, `tanzanite_block`.
+- LOTR's copper is vanilla's (2026-11-19, post-step `converter/vanilla_swaps.py`, `SWAPS`): copper ingot, ore
+  (deepslate form in deepslate) and block are removed and every reference uses vanilla's; recipes that only repeated
+  vanilla's are dropped. Copper goblets and treasure piles stay.
+- `converter/create_extra.py` (last post-step): Create saw cutting for every LOTR wood (log/beam/bark -> stripped ->
+  6 planks), smoker + campfire recipes for every LOTR furnace food (Create fan smoking), keg drinks as Create mixing
+  into the drink fluid (6 ingredients + 1000 mB water -> 1000 mB; spouts fill vessels, pipes fill/drain kegs).
 - `PouchItem` keeps items in `DataComponents.CONTAINER`; `PouchMenu`/`client/PouchScreen` on LOTR's layout with the
   name field (`Pouches.Rename` payload). Pick-ups go into pouches when the inventory is full.
 - GameTests `FarmTests`. `GameTestHelper.destroyBlock` drops nothing: use `level.destroyBlock(pos, true)` to test loot.
@@ -689,6 +695,21 @@ https://claude.ai/artifact/KqhSSTCuKXGuwKHBoYJdcu. Rebuild features in modern co
   `neoforge:mod_loaded` create) and `c:ores/*` / `c:nuggets/*` tags; every match and why is in
   `converter/create/crossref.json`. Re-extract Create's recipes when the pack's Create version changes. The recipe
   count GameTest skips `create/`, because the test server runs without Create.
+- Faction mechanical crafters (2026-11-19, Aaron: "literally duplicate the autocrafters, one for each faction ...
+  tinted that faction's color"): `compat/create` (registered only when Create is loaded; lotr compiles against Create,
+  `create_version` in lotr/gradle.properties, dev/GameTest runs load it with `-PwithCreate`). One
+  `<table>_mechanical_crafter` per faction table (27, `converter/create_crafters.py` `TABLES` table -> faction ->
+  `content/create_crafters.json` with the tint = faction colour lightened `LIGHTEN`). `FactionCrafterBlock` extends
+  Create's `MechanicalCrafterBlock` with our block entity type (`FactionCrafterBlockEntity`); Create's renderer,
+  cogwheel visual, stress impact 2, item handler and unpacking handler are registered for it. Mixins
+  (`lotr_port.create.mixins.json`, applied only with Create via `CreateMixinPlugin`): `BlockEntryMixin` makes
+  `AllBlocks.MECHANICAL_CRAFTER.has(state)` true for them (every Create crafter check: grids, connected inputs, arms);
+  `CrafterRecipeMixin` wraps `RecipeGridHandler.tryToApplyRecipe` in the crafter's tick: when Create finds nothing, a
+  grid with faction crafters (any in the chain) makes their tables' recipes (`FactionCrafting`; never ones with an
+  `alignment` need). Models: Create's crafter models, every quad given tint index 0 (`FactionCraftersClient`,
+  ModifyBakingResult); no connected textures. Made at their own table with Create's recipe (3 per craft) and
+  `FactionRecipe.alignment` (faction, `above` 0), checked by `FactionCraftingMenu`. GameTests `FactionCrafterTests`.
+  Read Create's code by decompiling the jar locally (allowed by Aaron 2026-11-19); never commit decompiled code.
 
 ## Sounds (2026-11-06)
 - `converter/sounds.py` copies LOTR's 190 sound files and 101 events. Ids are LOTR's, snake_cased per part:

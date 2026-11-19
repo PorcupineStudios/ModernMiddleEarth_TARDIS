@@ -200,7 +200,7 @@
     },
     {
       "kind": "collect",
-      "target": "lotr_port:copper_ingot",
+      "target": "minecraft:copper_ingot",
       "min": 3,
       "max": 10,
       "reward": 2.0,

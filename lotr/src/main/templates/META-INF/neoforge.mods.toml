@@ -30,6 +30,13 @@ versionRange = "[0.1.0,)"
 ordering = "AFTER"
 side = "BOTH"
 
+[[dependencies.${mod_id}]]
+modId = "create"
+type = "optional"
+versionRange = "[6.0,)"
+ordering = "NONE"
+side = "BOTH"
+
 # JEI is optional: with it installed, compat/jei/LotrJeiPlugin shows faction tables and LOTR's machines.
 [[dependencies.${mod_id}]]
 modId = "jei"
@@ -49,6 +56,10 @@ side = "CLIENT"
 # Middle-earth's chunks are filled only up to where its terrain can reach (world/map/NoiseTop).
 [[mixins]]
 config = "lotr_port.mixins.json"
+
+# Create is optional: with it installed, compat/create adds a mechanical crafter per faction (its mixins apply only then).
+[[mixins]]
+config = "lotr_port.create.mixins.json"
 
 # The film music is its own resource-only mod, lotr_port_music (built from the private repo PorcupineStudios/LOTR_music,
 # lotr/docs/music.md). Its assets/lotr_port/ sounds, playlists and track titles merge into LotrMusic like any pack's,

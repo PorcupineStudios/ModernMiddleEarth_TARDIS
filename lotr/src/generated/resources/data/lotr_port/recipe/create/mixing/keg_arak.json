@@ -1,0 +1,40 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "create"
+    }
+  ],
+  "type": "create:mixing",
+  "ingredients": [
+    {
+      "item": "lotr_port:date"
+    },
+    {
+      "item": "lotr_port:date"
+    },
+    {
+      "item": "lotr_port:date"
+    },
+    {
+      "item": "lotr_port:date"
+    },
+    {
+      "item": "lotr_port:date"
+    },
+    {
+      "item": "lotr_port:date"
+    },
+    {
+      "type": "neoforge:single",
+      "fluid": "minecraft:water",
+      "amount": 1000
+    }
+  ],
+  "results": [
+    {
+      "id": "lotr_port:arak",
+      "amount": 1000
+    }
+  ]
+}
