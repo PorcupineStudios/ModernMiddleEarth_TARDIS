@@ -249,6 +249,10 @@ https://claude.ai/artifact/KqhSSTCuKXGuwKHBoYJdcu. Rebuild features in modern co
   (`count_only_animals`: villages don't keep them away), and they don't despawn (`LotrNpc.removeWhenFarAway`,
   `NpcSpawns.isAnimal`). LOTR's horse family (boars...) is on the biomes' vanilla spawn lists. GameTest
   `lotrAnimalsSpawnAndStayLikeAnimals`.
+- Animal density (2026-11-19, Aaron: "a LOT of animals"): 1.7.10 had one 10% roll per new chunk over one creature
+  list (vanilla's and LOTR's animals together). Post-step `converter/animal_balance.py` splits that roll by weight
+  between vanilla's pass (biome `creature_spawn_probability`) and LOTR's (`generation_chance`); before, each rolled
+  10%. The ongoing animal cap counts vanilla animals (and LOTR's horses) too, not only LOTR's animal NPCs.
 - Mounts (2026-11-10, `mount/`, `converter/mounts.py`): LOTR's horse family is one entity class, `LotrHorse` (a
   vanilla `AbstractChestedHorse`, so taming, saddle, inventory screen, jumping and breeding are vanilla's), with one
   entity type per breed: `horse`, `shire_pony`, `zebra`, `wild_boar`, `camel`, `elk`, `rhino`, `giraffe`. Looks and
@@ -325,7 +329,8 @@ https://claude.ai/artifact/KqhSSTCuKXGuwKHBoYJdcu. Rebuild features in modern co
     column's open space under its highest block, i.e. rooms and under roofs). Everywhere else is structure void, so
     natural terrain stays. `terrain_adaptation` is `none` (beard_box carved the air ditches round every building);
     the piece fills under the ground layer down to solid ground instead (dirt under dirt/grass, else the same block,
-    up to `max_foundation` 24).
+    up to `max_foundation` 96, dirt for 4 blocks then stone). Ground scans don't see caves, so a cave mouth under
+    the footprint can be deep; 24 left a floating building in Eriador (2026-11-19).
   - Doors: the lower half takes the upper half's hinge (1.7.10 kept it only on top; split doors). Gates
     (`content/GateBlock`, LOTR's multi-block gates) rotate and mirror with the structure and open as one gate: the
     touching blocks of the same kind in the same plane.
@@ -381,6 +386,8 @@ https://claude.ai/artifact/KqhSSTCuKXGuwKHBoYJdcu. Rebuild features in modern co
   quest_offer.png`) above the head within 16 blocks (`NpcRenderer.renderQuestMark`). Right-clicking an unmarked giver
   just talks; taking the quest ends the offer (`Quests.accept`). `/lotr npc offer [radius]` starts offers for testing.
   Not yet: hiding the mark from players below the alignment (clients don't have faction data yet).
+- Companions (2026-11-19, `travel/Companions`): fast travel and the map's teleport take the mount you ride (you stay
+  on), animals on your lead, tamed pets not sitting and your hired units on follow (within 24 blocks).
 - Not yet: bounty, retrieve and pickpocket quests, fellowships, titles, custom waypoints, LOTR's quest
   speech.
 
@@ -613,7 +620,9 @@ https://claude.ai/artifact/KqhSSTCuKXGuwKHBoYJdcu. Rebuild features in modern co
 - Bows (`LotrBowItem`: draw time, arrow damage factor), crossbows (`LotrCrossbowItem`: vanilla crossbow, bolts only,
   `#lotr_port:crossbow_bolts`), and bolts and poisoned arrows (`ArrowItem` + a fixed Poison effect). Pull and charged
   predicates are in `LotrClient.rangedProperties`.
-- LOTR's large in-hand icons: `separate_transforms` item models on `item/large_2x` / `large_3x`.
+- LOTR's large in-hand icons: `separate_transforms` item models on `item/large_2x` / `large_3x`, with
+  `"gui_light": "front"` (a model without a parent defaults to block lighting: spears and pikes drew dark).
+- Modifiers don't glint (`mixin/ModifierGlintMixin` on `Item.isFoil`): only lotr_port enchantments = no glint.
 - Special armor models: `converter/armor_models.py` → `lotr_port/content/armor_models.json` → `client/ArmorModels`
   (`RegisterClientExtensionsEvent`). Animated parts keep their resting pose.
 - Per-item armor textures (2026-11-16): LOTR's `new LOTRItemArmor(mat, slot, "extra")` pieces (special helmets,
@@ -670,6 +679,10 @@ https://claude.ai/artifact/KqhSSTCuKXGuwKHBoYJdcu. Rebuild features in modern co
 - `converter/create_extra.py` (last post-step): Create saw cutting for every LOTR wood (log/beam/bark -> stripped ->
   6 planks), smoker + campfire recipes for every LOTR furnace food (Create fan smoking), keg drinks as Create mixing
   into the drink fluid (6 ingredients + 1000 mB water -> 1000 mB; spouts fill vessels, pipes fill/drain kegs).
+- Leaves (`converter/leaf_drops.py`, 2026-11-19): vanilla oak leaves' loot (shears/silk touch: the leaves; else
+  sapling, sticks), and the 14 fruit trees (`FRUIT`) drop their fruit (`FRUIT_CHANCES`, 4x vanilla's apple rate).
+- Saddles: also 3 leather + 2 iron (`src/main/resources/.../recipe/own/crafting/`); pouches: leather + string
+  (small `LSL / L`, medium `LSL/L L/LLL`, large `LSL/LSL/LLL`), there being no silk item.
 - `PouchItem` keeps items in `DataComponents.CONTAINER`; `PouchMenu`/`client/PouchScreen` on LOTR's layout with the
   name field (`Pouches.Rename` payload). Pick-ups go into pouches when the inventory is full.
 - GameTests `FarmTests`. `GameTestHelper.destroyBlock` drops nothing: use `level.destroyBlock(pos, true)` to test loot.
