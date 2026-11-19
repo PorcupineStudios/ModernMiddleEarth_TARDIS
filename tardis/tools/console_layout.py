@@ -123,7 +123,7 @@ SIDES = [
                      ("handbrake", "handbrake", {"arm": "handbrake"}, NAV1)]),
               (0.53, [("phase_key", "phase_key", {"key": "phase_key"}, NAV1),
                       ("phase_lever", "phase_lever", {"arm": "phase"}, NAV1),
-                      ("thrusters", "thrusters", {"rocker": "thrusters"}, NAV1)])])]},
+                      ("thrusters", "thrusters", {"rocker": "thrusters"}, NAV1)])]},
     {"theme": "Y & memory", "monitor":
      "e.g. \"Target Y 70\" (or \"Target Y: the ground\"), land on ground, save mode, saved slots",
      "ladder": [("land_switch", "pull_switch", {"rod": "land"}, NAV1)],  # 1.7.10's switch 34 beside the Y levers

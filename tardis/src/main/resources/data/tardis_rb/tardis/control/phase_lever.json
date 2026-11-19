@@ -1,9 +1,9 @@
 {
   "model": "phase_lever",
   "panel": 3,
-  "u": -0.0652,
-  "v": 0.5029,
-  "scale": 0.68,
+  "u": -0.0056,
+  "v": 0.5255,
+  "scale": 0.72,
   "actions": {
     "arm": "phase"
   },
