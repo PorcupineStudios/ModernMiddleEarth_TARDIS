@@ -105,3 +105,13 @@ Read when: the console block/renderer, console controls (data `tardis/control/`)
   line, then "label<TAB>value" lines; `client/ConsoleRenderer.readout` draws the title centred and underlined (gold),
   then two aligned columns: labels dim blue, values bright, ON green, off grey, values ending in "!" red. Sized to the
   glass as before. Tests match the tab form (`Target X\t1210`).
+
+- Layout after the 1.7.10 console (2026-11-19, Aaron: "review its entire console ... well organized and its hit
+  boxes never felt like they interfered"; read from DarkholmeTenk/TardisMod's ConsoleRenderer, nothing copied):
+  one kind of control per row at an even spread, big controls at the row ends (X/Z power wheels flank the row
+  behind the levers), and the small switches in their own lane: a "ladder" of pull-switches up each panel's right
+  edge (`SIDES[k]["ladder"]` in `tools/console_layout.py`), the rows shifted left clear of it.
+- Pull switches (`pull_switch`, `tools/flight_controls.py`): 1.7.10's little pull-switches (its renderPushSwitch: a
+  cream socket, a thin light-grey rod, a green 2 x 2 knob pulled out 0.3 block when on), at half size. Relative
+  coordinates (X side), land on ground (Y side, where 1.7.10 had switch 34) and coordinated flight (Exterior side,
+  action `coordinated`: on, the autopilot flies the vortex trip and nobody is seated; off, the lever puller pilots).

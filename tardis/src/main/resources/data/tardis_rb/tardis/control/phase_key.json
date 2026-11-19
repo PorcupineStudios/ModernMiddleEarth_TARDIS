@@ -1,9 +1,9 @@
 {
   "model": "phase_key",
   "panel": 3,
-  "u": -0.2256,
-  "v": 0.5255,
-  "scale": 0.72,
+  "u": -0.2752,
+  "v": 0.5029,
+  "scale": 0.68,
   "actions": {
     "key": "phase_key"
   },

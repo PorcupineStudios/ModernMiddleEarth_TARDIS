@@ -1,9 +1,9 @@
 {
   "model": "push_switch",
   "panel": 4,
-  "u": 0.0153,
-  "v": 0.4733,
-  "scale": 0.72,
+  "u": -0.0454,
+  "v": 0.4536,
+  "scale": 0.68,
   "actions": {
     "rod": "save"
   },

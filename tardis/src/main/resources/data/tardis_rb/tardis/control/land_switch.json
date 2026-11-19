@@ -1,11 +1,11 @@
 {
-  "model": "toggle_switch",
+  "model": "pull_switch",
   "panel": 4,
-  "u": 0.3975,
-  "v": 0.1493,
-  "scale": 0.72,
+  "u": 0.5715,
+  "v": 0.0998,
+  "scale": 0.425,
   "actions": {
-    "bat": "land"
+    "rod": "land"
   },
   "requirements": {
     "type": "tardis_rb:research",

@@ -1,9 +1,9 @@
 {
   "model": "flight_yoke",
   "panel": 3,
-  "u": -0.2974,
-  "v": 0.1754,
-  "scale": 0.585,
+  "u": -0.3295,
+  "v": 0.1673,
+  "scale": 0.552,
   "actions": {
     "stick": "pilot"
   },

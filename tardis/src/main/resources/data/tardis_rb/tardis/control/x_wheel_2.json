@@ -1,9 +1,9 @@
 {
   "model": "valve_wheel",
   "panel": 0,
-  "u": 0.0428,
-  "v": 0.4035,
-  "scale": 0.612,
+  "u": 0.0963,
+  "v": 0.3877,
+  "scale": 0.578,
   "actions": {
     "wheel": "x5"
   },
