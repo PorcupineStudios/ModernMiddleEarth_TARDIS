@@ -62,7 +62,7 @@ RESEARCH = {
         {"cost": {"items": [{"ingredient": item(f"{NS}:artron_battery"), "count": 4}]}, "stats": {"charge_cap": 400}},
     ]},
     "hop_calibration": {"levels": [
-        {"cost": {"items": [{"ingredient": item(f"{NS}:temporal_circuit"), "count": n}]}, "stats": {"range": 16}}
+        {"cost": {"items": [{"ingredient": item(f"{NS}:temporal_circuit"), "count": n}]}, "stats": {"range": 1000}}
         for n in (1, 2, 3)]},
     "spatial_mapping": {"parents": [f"{NS}:artron_theory"],
                         "cost": {"items": [{"ingredient": item(f"{NS}:chronon_lens"), "count": 2}], "charge": 50}},
@@ -74,6 +74,15 @@ RESEARCH = {
         "parents": [f"{NS}:materialised_flight"],
         "cost": {"items": [{"ingredient": item(f"{NS}:temporal_circuit"), "count": 4},
                            {"ingredient": item(f"{NS}:artron_battery"), "count": 1}], "charge": 50}},
+    # flight speed (Aaron 2026-11-19): x(1 + stat) on the box's speed in the world / in the vortex
+    "flight_speed": {"parents": [f"{NS}:materialised_flight"], "levels": [
+        {"cost": {"items": [{"ingredient": item(f"{NS}:stabilizer_coil"), "count": n},
+                            {"ingredient": item(f"{NS}:artron_battery"), "count": 1}]}, "stats": {"flight_speed": 0.25}}
+        for n in (1, 2, 4)]},
+    "vortex_speed": {"parents": [f"{NS}:dematerialised_flight"], "levels": [
+        {"cost": {"items": [{"ingredient": item(f"{NS}:temporal_circuit"), "count": n},
+                            {"ingredient": item(f"{NS}:artron_battery"), "count": 1}]}, "stats": {"vortex_speed": 0.25}}
+        for n in (2, 3, 5)]},
 }
 MATERIALISED = {"thrusters", "flight_yoke", "phase_lever", "phase_key", "door_control", "facing_compass"}
 DEMATERIALISED = {"demat_lever", "handbrake", "land_switch", "dimension_dial", "relative_switch", "randomiser",
@@ -83,9 +92,11 @@ LATER = {"time_lever", "time_drums", "time_unit_dial", "room_deleter", "schema_c
 NEVER = {"type": "ringbearer_api:not", "condition": {"type": "ringbearer_api:always"}}
 STATS = {"range": "Hop range", "charge_cap": "Charge capacity", "room_cap": "Room capacity",
          "controls": "Console controls", "health": "Hull health", "wormhole_sight": "Wormhole sight",
-         "pull_resist": "Pull resistance"}
+         "pull_resist": "Pull resistance", "flight_speed": "Flight speed bonus",
+         "vortex_speed": "Vortex speed bonus"}
 NODES = {"artron_theory": "Artron Theory", "hop_calibration": "Hop Calibration", "spatial_mapping": "Spatial Mapping",
-         "materialised_flight": "Materialised Flight", "dematerialised_flight": "Dematerialised Flight"}
+         "materialised_flight": "Materialised Flight", "dematerialised_flight": "Dematerialised Flight",
+         "flight_speed": "Flight Speed", "vortex_speed": "Vortex Speed"}
 
 
 def write(path, data):

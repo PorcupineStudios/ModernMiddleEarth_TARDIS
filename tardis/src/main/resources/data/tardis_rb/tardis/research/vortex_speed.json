@@ -1,0 +1,70 @@
+{
+  "parents": [
+    "tardis_rb:dematerialised_flight"
+  ],
+  "levels": [
+    {
+      "cost": {
+        "items": [
+          {
+            "ingredient": {
+              "item": "tardis_rb:temporal_circuit"
+            },
+            "count": 2
+          },
+          {
+            "ingredient": {
+              "item": "tardis_rb:artron_battery"
+            },
+            "count": 1
+          }
+        ]
+      },
+      "stats": {
+        "vortex_speed": 0.25
+      }
+    },
+    {
+      "cost": {
+        "items": [
+          {
+            "ingredient": {
+              "item": "tardis_rb:temporal_circuit"
+            },
+            "count": 3
+          },
+          {
+            "ingredient": {
+              "item": "tardis_rb:artron_battery"
+            },
+            "count": 1
+          }
+        ]
+      },
+      "stats": {
+        "vortex_speed": 0.25
+      }
+    },
+    {
+      "cost": {
+        "items": [
+          {
+            "ingredient": {
+              "item": "tardis_rb:temporal_circuit"
+            },
+            "count": 5
+          },
+          {
+            "ingredient": {
+              "item": "tardis_rb:artron_battery"
+            },
+            "count": 1
+          }
+        ]
+      },
+      "stats": {
+        "vortex_speed": 0.25
+      }
+    }
+  ]
+}

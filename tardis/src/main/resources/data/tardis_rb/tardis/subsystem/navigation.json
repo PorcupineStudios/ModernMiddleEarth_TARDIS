@@ -5,19 +5,16 @@
       "range": 0
     },
     {
-      "range": 32
+      "range": 1000
     },
     {
-      "range": 128
+      "range": 10000
     },
     {
-      "range": 512
+      "range": 50000
     },
     {
-      "range": 2048
-    },
-    {
-      "range": 8192
+      "range": 100000
     }
   ]
 }

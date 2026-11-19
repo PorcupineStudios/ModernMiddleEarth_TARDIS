@@ -142,8 +142,9 @@ public record Tuning(CrashSite crashSite, Hop hop, Winder winder, Interior inter
      * {@code boost} (sprint multiplies the top speed), {@code spin} (degrees per tick the model turns while flown).
      */
     public record FreeFlight(double gravity, double drag, double groundFriction, double hoverDamping, int landingRadius,
-            int landingHeight, Piloting piloting, Shock shock) {
-        static final FreeFlight DEFAULT = new FreeFlight(0.08, 0.98, 0.6, 0.8, 2, 4, Piloting.DEFAULT, Shock.DEFAULT);
+            int landingHeight, Piloting piloting, Shock shock, Energy energy) {
+        static final FreeFlight DEFAULT = new FreeFlight(0.08, 0.98, 0.6, 0.8, 2, 4, Piloting.DEFAULT, Shock.DEFAULT,
+                Energy.DEFAULT);
         static final Codec<FreeFlight> CODEC = RecordCodecBuilder.create(i -> i.group(
                 Codec.DOUBLE.optionalFieldOf("gravity", DEFAULT.gravity).forGetter(FreeFlight::gravity),
                 Codec.DOUBLE.optionalFieldOf("drag", DEFAULT.drag).forGetter(FreeFlight::drag),
@@ -153,8 +154,30 @@ public record Tuning(CrashSite crashSite, Hop hop, Winder winder, Interior inter
                 Codec.INT.optionalFieldOf("landing_radius", DEFAULT.landingRadius).forGetter(FreeFlight::landingRadius),
                 Codec.INT.optionalFieldOf("landing_height", DEFAULT.landingHeight).forGetter(FreeFlight::landingHeight),
                 Piloting.CODEC.optionalFieldOf("piloting", Piloting.DEFAULT).forGetter(FreeFlight::piloting),
-                Shock.CODEC.optionalFieldOf("shock", Shock.DEFAULT).forGetter(FreeFlight::shock))
+                Shock.CODEC.optionalFieldOf("shock", Shock.DEFAULT).forGetter(FreeFlight::shock),
+                Energy.CODEC.optionalFieldOf("energy", Energy.DEFAULT).forGetter(FreeFlight::energy))
                 .apply(i, FreeFlight::new));
+    }
+
+    /**
+     * Flying the box costs charge (Aaron 2026-11-19): {@code per_second} while piloted on the thrusters, plus
+     * {@code boost_per_second} while boosting (going faster than {@code boost_over} x the top speed). Out of charge it
+     * still flies, at {@code empty_speed} x the speed and without boost, and each tick with {@code drift_chance} a
+     * {@code drift_push} (blocks per tick) shoves it a random way. {@code camera_height}: where the pilot's camera sits
+     * over the block when the box is set down while piloting.
+     */
+    public record Energy(long perSecond, long boostPerSecond, double boostOver, double emptySpeed, double driftChance,
+            double driftPush, double cameraHeight) {
+        static final Energy DEFAULT = new Energy(1, 4, 1.1, 0.35, 0.02, 0.25, 2.6);
+        static final Codec<Energy> CODEC = RecordCodecBuilder.create(i -> i.group(
+                Codec.LONG.optionalFieldOf("per_second", DEFAULT.perSecond).forGetter(Energy::perSecond),
+                Codec.LONG.optionalFieldOf("boost_per_second", DEFAULT.boostPerSecond).forGetter(Energy::boostPerSecond),
+                Codec.DOUBLE.optionalFieldOf("boost_over", DEFAULT.boostOver).forGetter(Energy::boostOver),
+                Codec.DOUBLE.optionalFieldOf("empty_speed", DEFAULT.emptySpeed).forGetter(Energy::emptySpeed),
+                Codec.DOUBLE.optionalFieldOf("drift_chance", DEFAULT.driftChance).forGetter(Energy::driftChance),
+                Codec.DOUBLE.optionalFieldOf("drift_push", DEFAULT.driftPush).forGetter(Energy::driftPush),
+                Codec.DOUBLE.optionalFieldOf("camera_height", DEFAULT.cameraHeight).forGetter(Energy::cameraHeight))
+                .apply(i, Energy::new));
     }
 
     /**

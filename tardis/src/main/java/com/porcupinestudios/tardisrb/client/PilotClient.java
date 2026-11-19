@@ -29,6 +29,9 @@ public final class PilotClient {
             GLFW.GLFW_KEY_Q, CATEGORY);
     public static final KeyMapping DOWN = new KeyMapping("key.tardis_rb.fly_down", InputConstants.Type.KEYSYM,
             GLFW.GLFW_KEY_E, CATEGORY);
+    /** Set the box down as a block and watch from it, or take off again (Aaron 2026-11-19). */
+    public static final KeyMapping SETTLE = new KeyMapping("key.tardis_rb.fly_settle", InputConstants.Type.KEYSYM,
+            GLFW.GLFW_KEY_G, CATEGORY);
 
     /** The camera before flying, put back after. */
     private static CameraType before;
@@ -41,7 +44,8 @@ public final class PilotClient {
      */
     @SubscribeEvent
     public static void onRenderPlayer(RenderPlayerEvent.Pre event) {
-        if (event.getEntity().getVehicle() instanceof TardisBody) {
+        if (event.getEntity().getVehicle() instanceof TardisBody
+                || event.getEntity().getVehicle() instanceof com.porcupinestudios.tardisrb.entity.PilotCamera) {
             event.setCanceled(true);
         }
     }
@@ -50,7 +54,9 @@ public final class PilotClient {
     public static void onTick(ClientTickEvent.Pre event) {
         Minecraft mc = Minecraft.getInstance();
         LocalPlayer player = mc.player;
-        boolean flying = player != null && player.getVehicle() instanceof TardisBody;
+        boolean camera = player != null
+                && player.getVehicle() instanceof com.porcupinestudios.tardisrb.entity.PilotCamera;
+        boolean flying = player != null && (player.getVehicle() instanceof TardisBody || camera);
         if (!flying) {
             PilotInput.clear();
             if (before != null) {
@@ -70,8 +76,12 @@ public final class PilotClient {
         while (mc.options.keyInventory.consumeClick()) {
             // E flies down instead
         }
-        if (mc.screen != null) {
-            PilotInput.clear();
+        while (SETTLE.consumeClick()) {
+            net.neoforged.neoforge.network.PacketDistributor.sendToServer(
+                    new com.porcupinestudios.tardisrb.net.PilotNet.Settle());
+        }
+        if (mc.screen != null || camera) {
+            PilotInput.clear(); // the camera only looks
             return;
         }
         PilotInput.set(player.input.forwardImpulse, player.input.leftImpulse,

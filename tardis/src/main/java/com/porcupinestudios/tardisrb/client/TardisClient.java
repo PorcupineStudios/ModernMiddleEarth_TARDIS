@@ -31,6 +31,8 @@ public final class TardisClient {
         event.registerEntityRenderer(TardisEntities.WORMHOLE.get(), WormholeRenderer::new);
         event.registerEntityRenderer(TardisEntities.ARC.get(), ArcRenderer::new);
         event.registerEntityRenderer(TardisEntities.DEMATERIALISING.get(), DematerialisingRenderer::new);
+        event.registerEntityRenderer(TardisEntities.PILOT_CAMERA.get(),
+                net.minecraft.client.renderer.entity.NoopRenderer::new);
     }
 
     /** The time vortex's sky settings (its tunnel is drawn by {@link VortexRenderer}); space's (no clouds). */
@@ -43,6 +45,7 @@ public final class TardisClient {
     @SubscribeEvent
     public static void keys(RegisterKeyMappingsEvent event) {
         event.register(PilotClient.UP);
+        event.register(PilotClient.SETTLE);
         event.register(PilotClient.DOWN);
         event.register(ClientSpacePhysics.ROLL_LEFT);
         event.register(ClientSpacePhysics.ROLL_RIGHT);

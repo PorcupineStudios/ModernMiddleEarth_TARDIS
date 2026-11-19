@@ -2,7 +2,14 @@ package com.porcupinestudios.tardisrb.flight;
 
 import com.porcupinestudios.tardisrb.TardisRB;
 import com.porcupinestudios.tardisrb.core.TardisRecord;
+import com.porcupinestudios.tardisrb.core.TardisManager;
+import com.porcupinestudios.tardisrb.entity.PilotCamera;
 import com.porcupinestudios.tardisrb.entity.TardisBody;
+import com.porcupinestudios.tardisrb.entity.TardisEntities;
+import com.porcupinestudios.tardisrb.net.PilotNet;
+import com.porcupinestudios.tardisrb.progression.Health;
+import com.porcupinestudios.tardisrb.progression.TardisContent;
+import com.porcupinestudios.tardisrb.progression.Tuning;
 import com.porcupinestudios.tardisrb.progression.Unlocks;
 import com.porcupinestudios.tardisrb.vortex.Vortex;
 import java.util.HashMap;
@@ -23,6 +30,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.neoforge.network.PacketDistributor;
 import net.neoforged.neoforge.event.entity.EntityMountEvent;
 import net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
@@ -46,6 +54,10 @@ public final class Piloting {
     private static final Map<UUID, UUID> PENDING = new HashMap<>();
     private static final Map<UUID, Integer> WAIT = new HashMap<>();
     private static final Set<UUID> RETURNING = new HashSet<>();
+    /** Pilots changing seats (box <-> camera): getting off doesn't end their piloting. */
+    private static final Set<UUID> HOLD = new HashSet<>();
+    /** Where each pilot's box was a second ago (to tell boosting from the speed it flew). */
+    private static final Map<UUID, Vec3> LAST = new HashMap<>();
 
     private Piloting() {}
 
@@ -103,7 +115,7 @@ public final class Piloting {
         PENDING.put(player.getUUID(), body.get().getUUID());
         WAIT.put(player.getUUID(), MOUNT_WAIT);
         return Component.translatableWithFallback("tardis_rb.pilot.start",
-                "Flying: W A S D to move, Q / E up and down, sprint to boost, jump to brake, Shift to stop");
+                "Flying: W A S D to move, Q / E up and down, sprint to boost, jump to brake, G to set down, Shift to stop");
     }
 
     /** Puts the pilot back where they stood at the console. */
@@ -115,8 +127,14 @@ public final class Piloting {
         player.getPersistentData().remove(TAG);
         PENDING.remove(player.getUUID());
         player.setInvisible(false);
+        HOLD.remove(player.getUUID());
+        LAST.remove(player.getUUID());
+        Entity seat = player.getVehicle();
         if (player.isPassenger()) {
             player.stopRiding();
+        }
+        if (seat instanceof PilotCamera) {
+            seat.discard();
         }
         ResourceLocation dim = ResourceLocation.tryParse(back.getString("dimension"));
         ServerLevel level = dim == null ? null
@@ -157,6 +175,9 @@ public final class Piloting {
             if (player.getVehicle() instanceof TardisBody) {
                 player.setAirSupply(player.getMaxAirSupply()); // inside the box: no drowning, no air bubbles
             }
+            if (isPilot(player) && player.tickCount % 10 == 0) {
+                flying(server, player);
+            }
         }
         for (Iterator<Map.Entry<UUID, UUID>> it = PENDING.entrySet().iterator(); it.hasNext();) {
             Map.Entry<UUID, UUID> e = it.next();
@@ -166,8 +187,10 @@ public final class Piloting {
                 continue;
             }
             Entity body = ((ServerLevel) player.level()).getEntity(e.getValue());
-            if (body instanceof TardisBody b && !b.isVehicle() && player.startRiding(b, true)) {
+            if ((body instanceof TardisBody || body instanceof PilotCamera) && body != null && !body.isVehicle()
+                    && player.startRiding(body, true)) {
                 it.remove();
+                HOLD.remove(e.getKey());
                 continue;
             }
             int left = WAIT.merge(e.getKey(), -1, Integer::sum);
@@ -191,8 +214,10 @@ public final class Piloting {
     /** Getting off the box (Shift, or the box going) ends piloting: the pilot goes back inside next tick. */
     private static void onMount(EntityMountEvent event) {
         if (!event.getLevel().isClientSide() && event.isDismounting()
-                && event.getEntityBeingMounted() instanceof TardisBody
-                && event.getEntityMounting() instanceof ServerPlayer player && isPilot(player)) {
+                && (event.getEntityBeingMounted() instanceof TardisBody
+                        || event.getEntityBeingMounted() instanceof PilotCamera)
+                && event.getEntityMounting() instanceof ServerPlayer player && isPilot(player)
+                && !HOLD.contains(player.getUUID())) {
             RETURNING.add(player.getUUID());
         }
     }
@@ -206,6 +231,96 @@ public final class Piloting {
     private static void onLogin(PlayerEvent.PlayerLoggedInEvent event) {
         if (event.getEntity() instanceof ServerPlayer player && isPilot(player) && !player.isPassenger()) {
             RETURNING.add(player.getUUID());
+        }
+    }
+
+    private static Optional<TardisRecord> tardisOf(ServerPlayer player) {
+        CompoundTag back = player.getPersistentData().getCompound(TAG);
+        return back.hasUUID("tardis") ? TardisManager.get(player.server).get(back.getUUID("tardis")) : Optional.empty();
+    }
+
+    /**
+     * Every half second for each pilot: flying on the thrusters costs charge each second (more while boosting, told
+     * from how fast the box went), and the pilot is sent the box's health, charge and speed bonuses (Aaron 2026-11-19).
+     */
+    private static void flying(MinecraftServer server, ServerPlayer player) {
+        Optional<TardisRecord> found = tardisOf(player);
+        if (found.isEmpty()) {
+            return;
+        }
+        TardisRecord t = found.get();
+        Tuning.FreeFlight ft = TardisContent.tuning().flight();
+        double flightSpeed = 1 + Unlocks.stat(t, "flight_speed");
+        if (player.tickCount % 20 == 0 && player.getVehicle() instanceof TardisBody body && body.thrusters()
+                && !Vortex.inVortex(t)) {
+            Vec3 now = body.position();
+            Vec3 was = LAST.put(player.getUUID(), now);
+            double perTick = was == null ? 0 : Math.hypot(now.x - was.x, now.z - was.z) / 20;
+            boolean boosting = perTick > ft.piloting().maxSpeed() * flightSpeed * ft.energy().boostOver();
+            long cost = ft.energy().perSecond() + (boosting ? ft.energy().boostPerSecond() : 0);
+            if (!t.useCharge(cost)) {
+                t.useCharge(t.charge()); // runs dry: it flies on, slowly (PilotStatus.empty on the pilot's client)
+            }
+        }
+        PacketDistributor.sendToPlayer(player, new PilotNet.Status(Health.get(t), Health.max(t), t.charge(),
+                Unlocks.chargeCap(t), flightSpeed, 1 + Unlocks.stat(t, "vortex_speed"),
+                player.getVehicle() instanceof PilotCamera));
+    }
+
+    /**
+     * The pilot's set-down key (Aaron 2026-11-19): flying, the box turns into a block where it is and the pilot stays
+     * on as a camera over it (they can look, not move); as the camera, it comes loose again and they fly on.
+     */
+    public static void settle(ServerPlayer player) {
+        if (!isPilot(player)) {
+            return;
+        }
+        Optional<TardisRecord> found = tardisOf(player);
+        if (found.isEmpty()) {
+            return;
+        }
+        TardisRecord t = found.get();
+        MinecraftServer server = player.server;
+        Entity seat = player.getVehicle();
+        if (seat instanceof TardisBody) {
+            HOLD.add(player.getUUID());
+            Component said = FreeFlight.phase(server, t, Optional.of(player));
+            if (FreeFlight.isLoose(t) || t.location().isEmpty()) {
+                HOLD.remove(player.getUUID());
+                player.displayClientMessage(said, true);
+                return;
+            }
+            ServerLevel level = server.getLevel(t.location().get().dimension());
+            PilotCamera camera = level == null ? null : TardisEntities.PILOT_CAMERA.get().create(level);
+            if (camera == null) {
+                HOLD.remove(player.getUUID());
+                RETURNING.add(player.getUUID());
+                return;
+            }
+            Vec3 at = Vec3.atBottomCenterOf(t.location().get().pos())
+                    .add(0, TardisContent.tuning().flight().energy().cameraHeight(), 0);
+            camera.moveTo(at.x, at.y, at.z, player.getYRot(), 0);
+            level.addFreshEntity(camera);
+            move(player, level, at);
+            PENDING.put(player.getUUID(), camera.getUUID());
+            WAIT.put(player.getUUID(), MOUNT_WAIT);
+            player.displayClientMessage(Component.translatableWithFallback("tardis_rb.pilot.camera",
+                    "Set down: watching from the box (set-down key to fly again, Shift to stop)"), true);
+        } else if (seat instanceof PilotCamera camera) {
+            HOLD.add(player.getUUID());
+            Component said = FreeFlight.phase(server, t, Optional.of(player));
+            Optional<TardisBody> body = FreeFlight.body(server, t);
+            if (body.isEmpty()) {
+                HOLD.remove(player.getUUID());
+                player.displayClientMessage(said, true);
+                return;
+            }
+            player.stopRiding();
+            camera.discard();
+            move(player, (ServerLevel) body.get().level(), body.get().position().add(0, 2.2, 0));
+            PENDING.put(player.getUUID(), body.get().getUUID());
+            WAIT.put(player.getUUID(), MOUNT_WAIT);
+            player.displayClientMessage(said, true);
         }
     }
 }

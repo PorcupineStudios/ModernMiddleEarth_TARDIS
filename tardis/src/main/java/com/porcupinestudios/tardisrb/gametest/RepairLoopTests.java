@@ -144,4 +144,25 @@ public final class RepairLoopTests {
                 "finish at " + t.researching().get().finishAt());
         helper.succeed();
     }
+
+    /** 2026-11-19: hop range 0 / 1k / 10k / 50k / 100k by navigation level; the flight speed upgrade adds up per level. */
+    @GameTest(template = PLATFORM)
+    public static void hopRangesAndSpeedUpgrades(GameTestHelper helper) {
+        TardisRecord t = WreckTests.onPlatform(helper, Optional.empty());
+        double[] ranges = {1000, 10000, 50000, 100000};
+        for (int n = 1; n <= 3; n++) { // level 4 waits for a milestone (start_cap 3)
+            t.applyRepair(TardisRB.id("navigation_" + n), TardisContent.repair(TardisRB.id("navigation_" + n)).orElseThrow());
+            helper.assertTrue(Unlocks.stat(t, "range") == ranges[n - 1], "navigation " + n + " gives range "
+                    + Unlocks.stat(t, "range"));
+        }
+        helper.assertTrue(TardisContent.get().subsystems().get(NAVIGATION).value(4, "range") == 100000,
+                "navigation 4 isn't 100k");
+        ResourceLocation speed = TardisRB.id("flight_speed");
+        t.advanceResearch(speed);
+        t.advanceResearch(speed);
+        helper.assertTrue(t.researchLevel(speed) == 2, "flight speed is at level " + t.researchLevel(speed));
+        helper.assertTrue(Math.abs(Unlocks.stat(t, "flight_speed") - 0.5) < 1e-9,
+                "two flight speed levels give " + Unlocks.stat(t, "flight_speed"));
+        helper.succeed();
+    }
 }
