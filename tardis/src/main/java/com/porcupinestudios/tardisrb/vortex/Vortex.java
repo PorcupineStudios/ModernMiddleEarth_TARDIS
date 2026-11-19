@@ -257,6 +257,15 @@ public final class Vortex {
         trip.putDouble("inaccuracy", 0);
         trip.putInt("next_obstacle", 24);
         trip.put("obstacles", new ListTag());
+        // the far end of the tunnel looks out over where it will land (Aaron 2026-11-19)
+        ServerLevel endLevel = destination.flatMap(TardisContent::destination)
+                .map(d -> server.getLevel(d.dimension())).orElse(server.getLevel(from.dimension()));
+        Vec3 endBend = bend(length);
+        java.util.UUID endPortal = Wormholes.endPortal(vortex, new Vec3(laneX + endBend.x, LANE_Y + endBend.y, length),
+                TardisContent.tuning().vortex().radius() * 1.9, endLevel, target);
+        if (endPortal != null) {
+            trip.putUUID("end_portal", endPortal);
+        }
         tardis.setModuleData(MODULE, trip);
         CompoundTag flight = tardis.moduleData(FreeFlight.MODULE);
         flight.putUUID("body", body.getUUID());
@@ -618,6 +627,13 @@ public final class Vortex {
         ServerLevel vortex = server.getLevel(DIMENSION);
         if (vortex != null) {
             Wormholes.removeAll(vortex, trip);
+            if (trip.hasUUID("end_portal")) {
+                net.minecraft.world.entity.Entity end = vortex.getEntity(trip.getUUID("end_portal"));
+                if (end != null) {
+                    vortex.setChunkForced(end.blockPosition().getX() >> 4, end.blockPosition().getZ() >> 4, false);
+                    end.discard();
+                }
+            }
             for (Tag tag : trip.getList("obstacles", Tag.TAG_COMPOUND)) {
                 removeArc(vortex, (CompoundTag) tag);
             }
