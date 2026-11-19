@@ -72,6 +72,9 @@ public final class RoomScan {
         if (isDoor(state)) {
             return false; // a door or gate is the room's wall even while open (an open gate let the fill out)
         }
+        if (state.is(com.porcupinestudios.lotrport.colony.ColonyBlocks.PLAQUE.get())) {
+            return true; // a plaque hangs flat on the wall: the space it hangs in is the room's (its floor counted)
+        }
         return state.getCollisionShape(level, pos).isEmpty() || state.is(BlockTags.CLIMBABLE);
     }
 
