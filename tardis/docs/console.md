@@ -100,3 +100,8 @@ Read when: the console block/renderer, console controls (data `tardis/control/`)
   control is shown, and reach, then `ConsoleControls.use`.
 - Test: `gametest/ConsoleTests` (controls appear with the navigation repair; dial + button set a course; lever hops).
   Rendering and clicking are untried in a client.
+
+- Monitor readout (2026-11-19, Aaron: "same information, neater display"): `ConsoleControls.readout` gives a title
+  line, then "label<TAB>value" lines; `client/ConsoleRenderer.readout` draws the title centred and underlined (gold),
+  then two aligned columns: labels dim blue, values bright, ON green, off grey, values ending in "!" red. Sized to the
+  glass as before. Tests match the tab form (`Target X\t1210`).
