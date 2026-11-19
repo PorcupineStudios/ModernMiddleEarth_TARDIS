@@ -97,10 +97,10 @@
       "ore": "lotr_port:topaz_vein"
     },
     {
-      "recipe": "lotr_port:create/crushing/amethyst_vein",
+      "recipe": "lotr_port:create/crushing/tanzanite_vein",
       "type": "create:crushing",
-      "because": "gem ore: crushed like diamond ore into lotr_port:amethyst",
-      "ore": "lotr_port:amethyst_vein"
+      "because": "gem ore: crushed like diamond ore into lotr_port:tanzanite",
+      "ore": "lotr_port:tanzanite_vein"
     },
     {
       "recipe": "lotr_port:create/crushing/sapphire_vein",

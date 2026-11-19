@@ -1,8 +1,13 @@
 {
   "type": "minecraft:smelting",
-  "ingredient": {
-    "item": "lotr_port:tin_ore"
-  },
+  "ingredient": [
+    {
+      "item": "lotr_port:tin_ore"
+    },
+    {
+      "item": "lotr_port:raw_tin"
+    }
+  ],
   "result": {
     "id": "lotr_port:tin_ingot"
   },

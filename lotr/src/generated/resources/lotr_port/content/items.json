@@ -34,7 +34,7 @@
     "speed": 6.0
   },
   {
-    "id": "amethyst",
+    "id": "tanzanite",
     "kind": "item",
     "stack": 64,
     "level": 2,
@@ -12898,5 +12898,35 @@
     "kind": "chest_boat",
     "woodset": "rotten",
     "stack": 1
+  },
+  {
+    "id": "raw_copper",
+    "kind": "item",
+    "stack": 64,
+    "raw_ore": "copper"
+  },
+  {
+    "id": "raw_mithril",
+    "kind": "item",
+    "stack": 64,
+    "raw_ore": "mithril"
+  },
+  {
+    "id": "raw_morgul_iron",
+    "kind": "item",
+    "stack": 64,
+    "raw_ore": "morgul_iron"
+  },
+  {
+    "id": "raw_silver",
+    "kind": "item",
+    "stack": 64,
+    "raw_ore": "silver"
+  },
+  {
+    "id": "raw_tin",
+    "kind": "item",
+    "stack": 64,
+    "raw_ore": "tin"
   }
 ]

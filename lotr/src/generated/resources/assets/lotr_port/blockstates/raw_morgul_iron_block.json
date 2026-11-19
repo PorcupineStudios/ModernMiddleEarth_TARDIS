@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "lotr_port:block/raw_morgul_iron_block"
+    }
+  }
+}

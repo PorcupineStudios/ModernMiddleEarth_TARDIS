@@ -1,8 +1,13 @@
 {
   "type": "minecraft:smelting",
-  "ingredient": {
-    "item": "lotr_port:copper_ore"
-  },
+  "ingredient": [
+    {
+      "item": "lotr_port:copper_ore"
+    },
+    {
+      "item": "lotr_port:raw_copper"
+    }
+  ],
   "result": {
     "id": "lotr_port:copper_ingot"
   },

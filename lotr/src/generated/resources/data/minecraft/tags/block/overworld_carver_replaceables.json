@@ -2,7 +2,7 @@
   "replace": false,
   "values": [
     "lotr_port:amber_vein",
-    "lotr_port:amethyst_vein",
+    "lotr_port:tanzanite_vein",
     "lotr_port:barren_jungle_mud",
     "lotr_port:black_clay_tiling",
     "lotr_port:block_of_kebab",
@@ -65,6 +65,11 @@
     "lotr_port:topaz_vein",
     "lotr_port:white_clay_tiling",
     "lotr_port:white_sand",
-    "lotr_port:yellow_clay_tiling"
+    "lotr_port:yellow_clay_tiling",
+    "lotr_port:raw_copper_block",
+    "lotr_port:raw_mithril_block",
+    "lotr_port:raw_morgul_iron_block",
+    "lotr_port:raw_silver_block",
+    "lotr_port:raw_tin_block"
   ]
 }

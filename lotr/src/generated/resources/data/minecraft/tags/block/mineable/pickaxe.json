@@ -4,8 +4,8 @@
     "lotr_port:alloy_forge",
     "lotr_port:amber_block",
     "lotr_port:amber_vein",
-    "lotr_port:amethyst_block",
-    "lotr_port:amethyst_vein",
+    "lotr_port:tanzanite_block",
+    "lotr_port:tanzanite_vein",
     "lotr_port:ancient_haradric_chest",
     "lotr_port:angmar_brick",
     "lotr_port:angmar_brick_slab",
@@ -687,6 +687,11 @@
     "lotr_port:thatch_slab",
     "lotr_port:utumno_entrance_brick",
     "lotr_port:white_sand_slab",
-    "lotr_port:wood_elven_wood_bars"
+    "lotr_port:wood_elven_wood_bars",
+    "lotr_port:raw_copper_block",
+    "lotr_port:raw_mithril_block",
+    "lotr_port:raw_morgul_iron_block",
+    "lotr_port:raw_silver_block",
+    "lotr_port:raw_tin_block"
   ]
 }

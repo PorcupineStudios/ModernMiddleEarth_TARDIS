@@ -76,6 +76,8 @@ Turns LOTR 36.15 (1.7.10) content into the 1.21.1 port's generated resources. Tw
    **Post-steps** (2026-11-17/18, "Modern Middle-earth"): small scripts that work on the generated content itself (no
    LOTR jar needed; vanilla 1.21.1's client jar is downloaded once to `converter/cache/`). `generate.py` runs them
    last, in this order; each is idempotent and can be rerun alone (`python3 converter/<name>.py`):
+   `renames.py` (LOTR names 1.21 already uses: amethyst -> tanzanite), `raw_ores.py` (raw ores for the ores that
+   dropped themselves, their blocks, recipes, Create crushing),
    `woodsets.py` (bark and stripped blocks, signs, hanging signs, buttons, pressure plates, boats for all 39 woods),
    `tags.py` (every block and item gets its vanilla analogue's tags plus `c:` tags; `tags_report.json`),
    `waterlog.py` (71 thin blocks), `stonecutting.py` (464 recipes), `waters.py` (5 seas by latitude, sea and river

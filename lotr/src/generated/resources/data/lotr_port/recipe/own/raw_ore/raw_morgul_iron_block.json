@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    "###",
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "lotr_port:raw_morgul_iron"
+    }
+  },
+  "result": {
+    "id": "lotr_port:raw_morgul_iron_block"
+  }
+}

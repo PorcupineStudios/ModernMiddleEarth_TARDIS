@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:blasting",
+  "ingredient": [
+    {
+      "item": "lotr_port:silver_ore"
+    },
+    {
+      "item": "lotr_port:raw_silver"
+    }
+  ],
+  "result": {
+    "id": "lotr_port:silver_ingot"
+  },
+  "experience": 0.8,
+  "cookingtime": 100
+}
