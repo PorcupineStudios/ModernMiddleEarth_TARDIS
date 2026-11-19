@@ -1,0 +1,21 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "create"
+    }
+  ],
+  "type": "create:cutting",
+  "ingredients": [
+    {
+      "item": "lotr_port:stripped_banana_wood_beam"
+    }
+  ],
+  "processing_time": 50,
+  "results": [
+    {
+      "id": "lotr_port:banana_wood_planks",
+      "count": 6
+    }
+  ]
+}

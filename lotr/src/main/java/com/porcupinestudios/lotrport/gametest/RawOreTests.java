@@ -24,7 +24,7 @@ import net.neoforged.neoforge.gametest.PrefixGameTestTemplate;
 /**
  * raw_ores.py and renames.py: LOTR's metal ores drop raw ore (silk touch: the ore, fortune: more, as vanilla iron
  * ore), raw ore smelts or forges into the ingot and carries the common tags Create's crushing reads, and LOTR's
- * amethyst is tanzanite (not in vanilla's c:gems/amethyst). Create's own recipes can't run here (no Create on the
+ * amethyst is tanzanite (not in vanilla's c:gems/amethyst), and LOTR's copper is vanilla's (vanilla_swaps.py). Create's own recipes can't run here (no Create on the
  * test server); its tag recipes are checked through the tags.
  */
 @GameTestHolder(LotrPort.MOD_ID)
@@ -34,7 +34,7 @@ public final class RawOreTests {
 
     /** ore -> raw ore, metal (c:raw_materials/<metal>). */
     private static final List<String[]> ORES = List.of(
-            new String[] {"copper_ore", "raw_copper", "copper"}, new String[] {"tin_ore", "raw_tin", "tin"},
+            new String[] {"tin_ore", "raw_tin", "tin"},
             new String[] {"silver_ore", "raw_silver", "silver"}, new String[] {"mithril_ore", "raw_mithril", "mithril"},
             new String[] {"morgul_iron_ore", "raw_morgul_iron", "morgul_iron"},
             new String[] {"morgul_iron_ore_block", "raw_morgul_iron", "morgul_iron"});
@@ -106,7 +106,7 @@ public final class RawOreTests {
     @GameTest(template = "empty", batch = "raw_ores")
     public static void rawOreSmeltsLikeTheOre(GameTestHelper helper) {
         var level = helper.getLevel();
-        for (String metal : List.of("copper", "tin", "silver")) {
+        for (String metal : List.of("tin", "silver")) {
             for (var type : List.of(RecipeType.SMELTING, RecipeType.BLASTING)) {
                 var r = level.getRecipeManager().getRecipeFor(type,
                         new SingleRecipeInput(new ItemStack(item("raw_" + metal))), level);
@@ -114,6 +114,34 @@ public final class RawOreTests {
                         .is(item(metal + "_ingot")), "raw " + metal + " doesn't " + type + " into its ingot");
             }
         }
+        helper.succeed();
+    }
+
+    /** create_extra.py: LOTR furnace foods cook in a smoker and on a campfire (and so in Create's fan smoking). */
+    @GameTest(template = "empty", batch = "raw_ores")
+    public static void lotrFoodSmokesAndCampfireCooks(GameTestHelper helper) {
+        var level = helper.getLevel();
+        for (var type : List.of(RecipeType.SMOKING, RecipeType.CAMPFIRE_COOKING)) {
+            var r = level.getRecipeManager().getRecipeFor(type,
+                    new SingleRecipeInput(new ItemStack(item("raw_venison"))), level);
+            helper.assertTrue(r.isPresent() && r.get().value().getResultItem(level.registryAccess())
+                    .is(item("cooked_venison")), "raw venison doesn't cook by " + type);
+        }
+        helper.succeed();
+    }
+
+    @GameTest(template = "empty", batch = "raw_ores")
+    public static void copperIsVanillaCopper(GameTestHelper helper) {
+        for (String id : List.of("copper_ingot", "copper_ore", "block_of_copper", "raw_copper", "raw_copper_block")) {
+            helper.assertFalse(BuiltInRegistries.ITEM.containsKey(LotrPort.id(id)), "lotr_port:" + id + " still exists");
+        }
+        // LOTR's bronze takes vanilla copper: copper ore + tin ore in the alloy forge
+        var level = helper.getLevel();
+        boolean bronze = level.getRecipeManager().getRecipes().stream().anyMatch(r ->
+                r.value().getResultItem(level.registryAccess()).is(item("bronze_ingot"))
+                        && r.value().getIngredients().stream().anyMatch(i -> i.test(new ItemStack(Items.COPPER_ORE)))
+                        && r.value().getIngredients().stream().anyMatch(i -> i.test(new ItemStack(Items.RAW_COPPER))));
+        helper.assertTrue(bronze, "no bronze recipe takes vanilla copper ore and raw copper");
         helper.succeed();
     }
 

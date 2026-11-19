@@ -664,6 +664,12 @@ https://claude.ai/artifact/KqhSSTCuKXGuwKHBoYJdcu. Rebuild features in modern co
 - LOTR's amethyst is **tanzanite** (2026-11-19: 1.21 has its own amethyst): post-step `converter/renames.py`
   (`RENAMES`, names per language in `LANG`) renames ids, files, lang, tags, templates after generation. Keep LOTR's
   old ids out of new code: always `tanzanite`, `tanzanite_vein`, `tanzanite_block`.
+- LOTR's copper is vanilla's (2026-11-19, post-step `converter/vanilla_swaps.py`, `SWAPS`): copper ingot, ore
+  (deepslate form in deepslate) and block are removed and every reference uses vanilla's; recipes that only repeated
+  vanilla's are dropped. Copper goblets and treasure piles stay.
+- `converter/create_extra.py` (last post-step): Create saw cutting for every LOTR wood (log/beam/bark -> stripped ->
+  6 planks), smoker + campfire recipes for every LOTR furnace food (Create fan smoking), keg drinks as Create mixing
+  into the drink fluid (6 ingredients + 1000 mB water -> 1000 mB; spouts fill vessels, pipes fill/drain kegs).
 - `PouchItem` keeps items in `DataComponents.CONTAINER`; `PouchMenu`/`client/PouchScreen` on LOTR's layout with the
   name field (`Pouches.Rename` payload). Pick-ups go into pouches when the inventory is full.
 - GameTests `FarmTests`. `GameTestHelper.destroyBlock` drops nothing: use `level.destroyBlock(pos, true)` to test loot.
