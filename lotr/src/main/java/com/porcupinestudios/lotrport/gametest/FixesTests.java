@@ -25,7 +25,7 @@ import net.neoforged.neoforge.gametest.PrefixGameTestTemplate;
 
 /**
  * 2026-11-19 fixes: fruit trees drop fruit and saplings (converter/leaf_drops.py), LOTR modifiers don't glint
- * (ModifierGlintMixin), saddles from leather and pouches from leather and string, companions teleport with the player
+ * (ModifierGlintMixin), saddles from leather, small pouches from leather and string, bigger ones by combining, companions teleport with the player
  * (travel/Companions).
  */
 @GameTestHolder(LotrPort.MOD_ID)
@@ -86,8 +86,19 @@ public final class FixesTests {
         ItemStack e = ItemStack.EMPTY;
         helper.assertTrue(craft(helper, 3, 2, l, l, l, i, e, i).is(Items.SADDLE), "3 leather + 2 iron isn't a saddle");
         helper.assertTrue(craft(helper, 3, 2, l, s, l, e, l, e).is(item("small_pouch")), "no small pouch");
-        helper.assertTrue(craft(helper, 3, 3, l, s, l, l, e, l, l, l, l).is(item("medium_pouch")), "no medium pouch");
-        helper.assertTrue(craft(helper, 3, 3, l, s, l, l, s, l, l, l, l).is(item("large_pouch")), "no large pouch");
+        helper.assertTrue(craft(helper, 3, 3, l, s, l, l, e, l, l, l, l).isEmpty(), "medium pouches are craftable");
+        // bigger pouches come from combining, contents kept
+        ItemStack a = new ItemStack(item("small_pouch"));
+        com.porcupinestudios.lotrport.content.pouch.PouchItem.store(a, List.of(new ItemStack(Items.DIAMOND, 3)));
+        ItemStack b = new ItemStack(item("small_pouch"));
+        com.porcupinestudios.lotrport.content.pouch.PouchItem.store(b, List.of(new ItemStack(Items.EMERALD, 5)));
+        ItemStack medium = craft(helper, 2, 1, a, b);
+        helper.assertTrue(medium.is(item("medium_pouch")), "two small pouches don't make a medium one");
+        var held = com.porcupinestudios.lotrport.content.pouch.PouchItem.contents(medium);
+        helper.assertTrue(held.stream().anyMatch(x -> x.is(Items.DIAMOND) && x.getCount() == 3)
+                && held.stream().anyMatch(x -> x.is(Items.EMERALD) && x.getCount() == 5), "the pouches' items were lost");
+        helper.assertTrue(craft(helper, 2, 1, new ItemStack(item("small_pouch")), medium).is(item("large_pouch")),
+                "small + medium isn't a large pouch");
         helper.succeed();
     }
 

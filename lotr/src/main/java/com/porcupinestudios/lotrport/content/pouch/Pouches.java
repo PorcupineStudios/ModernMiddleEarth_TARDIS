@@ -23,6 +23,11 @@ public final class Pouches {
     /** {@link PouchMenu#pouchSlot} for a pouch in the off hand. */
     public static final int OFFHAND = 40;
     private static final DeferredRegister<MenuType<?>> MENUS = DeferredRegister.create(Registries.MENU, LotrPort.MOD_ID);
+    private static final DeferredRegister<net.minecraft.world.item.crafting.RecipeSerializer<?>> SERIALIZERS =
+            DeferredRegister.create(Registries.RECIPE_SERIALIZER, LotrPort.MOD_ID);
+    public static final Supplier<net.minecraft.world.item.crafting.RecipeSerializer<PouchCombineRecipe>>
+            COMBINE_SERIALIZER = SERIALIZERS.register("pouch_combine",
+                    () -> new net.minecraft.world.item.crafting.SimpleCraftingRecipeSerializer<>(PouchCombineRecipe::new));
     public static final Supplier<MenuType<PouchMenu>> MENU = MENUS.register("pouch",
             () -> IMenuTypeExtension.create((id, inv, buf) -> new PouchMenu(id, inv, buf.readVarInt())));
 
@@ -30,6 +35,7 @@ public final class Pouches {
 
     public static void register(IEventBus modBus) {
         MENUS.register(modBus);
+        SERIALIZERS.register(modBus);
         modBus.addListener(Pouches::payloads);
         NeoForge.EVENT_BUS.addListener(Pouches::pickup);
     }
