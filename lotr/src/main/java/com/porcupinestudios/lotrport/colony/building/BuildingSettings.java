@@ -25,13 +25,14 @@ import net.neoforged.neoforge.event.AddReloadListenerEvent;
  * @param qualityPerLight quality per light, up to qualityCap
  * @param qualityPerFurnishing quality per chest or table, up to qualityCap
  * @param qualityCap most quality one of the three parts above gives
- * @param plaqueDoorReach a Building Plaque registers the room at the nearest door within this many blocks
+ * @param plaqueDoorReach a door in the wall a Building Plaque hangs on, at most this many blocks beside it, names the
+ *     room behind that wall; without one the plaque names the room it hangs in
  */
 public record BuildingSettings(int maxRoof, int maxFloor, int volumePerFloor, int storeyFloor, int reach,
         int recheckTicks, int recheckPerPulse, int qualityBase, double qualityPerFloor, int qualityPerLight,
         int qualityPerFurnishing, int qualityCap, int plaqueDoorReach) {
     public static final BuildingSettings DEFAULT = new BuildingSettings(30, 500, 12, 4, 160, 6000, 2, 20, 0.5, 5, 4,
-            20, 5);
+            20, 2);
     public static final Codec<BuildingSettings> CODEC = RecordCodecBuilder.create(i -> i.group(
             Codec.INT.optionalFieldOf("max_roof", DEFAULT.maxRoof()).forGetter(BuildingSettings::maxRoof),
             Codec.INT.optionalFieldOf("max_floor", DEFAULT.maxFloor()).forGetter(BuildingSettings::maxFloor),

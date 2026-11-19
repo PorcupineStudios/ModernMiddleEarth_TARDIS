@@ -117,6 +117,16 @@ public final class ColonyBlocks {
             }
         }
 
+        /** A plaque taken down (broken, or fallen with its wall) takes its building down: checked next tick. */
+        @Override
+        protected void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean moved) {
+            super.onRemove(state, level, pos, newState, moved);
+            if (kind == Kind.PLAQUE && !newState.is(state.getBlock())
+                    && level instanceof net.minecraft.server.level.ServerLevel sl) {
+                com.porcupinestudios.lotrport.colony.building.BuildingSystems.changed(sl, pos);
+            }
+        }
+
         @Override
         protected boolean canSurvive(BlockState state, net.minecraft.world.level.LevelReader level, BlockPos pos) {
             if (kind != Kind.PLAQUE) {
@@ -213,17 +223,23 @@ public final class ColonyBlocks {
                 .isPresent();
     }
 
-    /** The building a plaque names: the room it hangs in, the one behind its wall, or one whose door is by it. */
+    /** The building a plaque names: the one it registered, else (older saves) the room it hangs in or by. */
     public static Optional<Building> plaqueBuilding(Buildings all, BlockPos pos, Direction facing) {
+        Optional<Building> own = all.list().stream().filter(b -> b.plaque().map(pos::equals).orElse(false)).findFirst();
+        if (own.isPresent()) {
+            return own;
+        }
+        // older buildings remember no plaque: the room it hangs in or by, or a door beside it (never one that has
+        // a plaque of its own elsewhere, or a second plaque by its door would name it instead of its own room)
         BlockPos[] spots = {pos, pos.relative(facing), pos.relative(facing.getOpposite(), 2), pos.below(),
                 pos.relative(facing).below()};
         for (BlockPos p : spots) {
-            Optional<Building> b = all.at(p);
+            Optional<Building> b = all.at(p).filter(x -> x.plaque().isEmpty());
             if (b.isPresent()) {
                 return b;
             }
         }
-        return all.list().stream().filter(b -> b.door().distManhattan(pos) <= 3)
+        return all.list().stream().filter(b -> b.plaque().isEmpty() && b.door().distManhattan(pos) <= 3)
                 .min(Comparator.comparingInt(b -> b.door().distManhattan(pos)));
     }
 }

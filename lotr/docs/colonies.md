@@ -43,15 +43,24 @@ https://claude.ai/artifact/VLwZ5N7pkVMJW4PCYXh41G).
 
 ## Colony life (`colony/building`, `colony/work`)
 - Buildings: a Building Plaque (Aaron 2026-11-18; the Building Writ is retired: no recipe, not in the tab, old
-  stacks only say so) hung in a room or by its door measures the room at the nearest door within `plaque_door_reach`
-  (5, `colony_rooms/settings.json`) when placed (silently, `ColonyBuildings.plaque`). Right-clicking a plaque that
-  names no building opens its book unmarked (RingRealms' plaque screen, `PlaqueBook.unmarkedBook`, context
-  `unmarked:x,y,z`): the room as measured at that door (or why not: no colony in reach, no door, the room's problem
-  as a tooltip), and every building type with each requirement ticked or crossed for this room; "Make it" buttons
-  for the types that fit and are researched, and Measure again. Never text over the hotbar or in chat (Aaron
-  2026-11-18). A built plaque's Room tab has Measure again too. The fill (`RoomScan`, RingRealms' rules: L-shape
-  floor 56, two storeys 49) and picks the best fitting type (`colony_building/*.json` requirements by counter tags
-  `lotr_port:colony/<counter>`); `building_recheck` re-measures, retypes or loses buildings.
+  stacks only say so) registers a room when hung (silently, `ColonyBuildings.plaque`). Which room
+  (`ColonyBuildings.plaqueRoom`, Aaron 2026-11-18): first a door or gate in the wall the plaque hangs on, at most
+  `plaque_door_reach` (2, `colony_rooms/settings.json`) beside it: the room behind that wall (a plaque outside by the
+  door names the inside); if there is none, or nothing usable is behind it, the room the plaque hangs in, filled
+  from in front of it, with the nearest of its own doors as the building's door (no door: no building). Doors, fence
+  gates and LOTR gates are walls to the fill even when open (`RoomScan.isDoor`; an open gate let the fill out), and
+  the fill lists them as the room's doors. The building remembers its plaque (`Building.plaque`). Taking it down:
+  breaking the plaque (or its wall), the door, a wall or anything in the room (by hand or explosion) measures the
+  touched buildings again the next tick (`BuildingSystems.changed`, from `BlockEvent.BreakEvent`,
+  `ExplosionEvent.Detonate` and the plaque's `onRemove`): plaque gone, door gone or room broken = building gone; the
+  Room tab's "Unmark this building" does it by hand. Re-measuring keeps the same room (the side of the door holding
+  its old blocks). Right-clicking a plaque that names no building opens its book unmarked (`PlaqueBook.unmarkedBook`,
+  context `unmarked:x,y,z`): the room it would name (or why none), and every building type as an icon with each
+  requirement ticked or crossed. Never text over the hotbar or in chat (Aaron 2026-11-18). The fill (`RoomScan`,
+  RingRealms' rules: L-shape floor 56, two storeys 49) picks the best fitting type (`colony_building/*.json`
+  requirements by counter tags `lotr_port:colony/<counter>`; `max_per_colony` caps a type: the Town Hall, 12+ floor
+  and a table, one a colony, its plaque shows the colony and opens the Town Hall Ledger); `building_recheck`
+  re-measures, retypes or loses buildings. GameTest `plaquesFindTheirRoom`.
 - Jobs (`colony_job/*.json`), races (`colony_race/*.json`), `Assign` (homes by bed, jobs by priority and race
   proficiency), `Life` systems `homes_jobs` -> `work` -> `wages_taxes` -> `needs` (food, happiness, leaving),
   `Stores` (building chests, then the abstract `Stock`). Numbers in `colony_life/settings.json`.

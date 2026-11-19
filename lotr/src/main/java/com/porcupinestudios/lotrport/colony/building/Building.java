@@ -24,7 +24,13 @@ import net.minecraft.resources.ResourceLocation;
  * @param checked game time of the last measure
  */
 public record Building(UUID id, ResourceLocation type, BlockPos door, Optional<String> name, BlockPos origin,
-        int[] cells, Map<String, Integer> counts, int quality, long built, long checked) {
+        int[] cells, Map<String, Integer> counts, int quality, long built, long checked, Optional<BlockPos> plaque) {
+    /** Without a plaque (made before plaques were remembered, or by command). */
+    public Building(UUID id, ResourceLocation type, BlockPos door, Optional<String> name, BlockPos origin, int[] cells,
+            Map<String, Integer> counts, int quality, long built, long checked) {
+        this(id, type, door, name, origin, cells, counts, quality, built, checked, Optional.empty());
+    }
+
     public static final Codec<Building> CODEC = RecordCodecBuilder.create(i -> i.group(
             UUIDUtil.CODEC.fieldOf("id").forGetter(Building::id),
             ResourceLocation.CODEC.fieldOf("type").forGetter(Building::type),
@@ -36,7 +42,9 @@ public record Building(UUID id, ResourceLocation type, BlockPos door, Optional<S
                     .forGetter(Building::counts),
             Codec.INT.optionalFieldOf("quality", 0).forGetter(Building::quality),
             Codec.LONG.optionalFieldOf("built", 0L).forGetter(Building::built),
-            Codec.LONG.optionalFieldOf("checked", 0L).forGetter(Building::checked))
+            Codec.LONG.optionalFieldOf("checked", 0L).forGetter(Building::checked),
+            // the Building Plaque that registered it: taking it down takes the building down
+            BlockPos.CODEC.optionalFieldOf("plaque").forGetter(Building::plaque))
             .apply(i, Building::new));
 
     /** Largest room side a building can hold (10 bits per axis). */
@@ -52,16 +60,22 @@ public record Building(UUID id, ResourceLocation type, BlockPos door, Optional<S
 
     public Building measured(ResourceLocation newType, BlockPos newOrigin, int[] newCells, Map<String, Integer> newCounts,
             int newQuality, long now) {
-        return new Building(id, newType, door, name, newOrigin, newCells, Map.copyOf(newCounts), newQuality, built, now);
+        return new Building(id, newType, door, name, newOrigin, newCells, Map.copyOf(newCounts), newQuality, built, now,
+                plaque);
     }
 
     /** The same building with a name the players gave it (empty: back to its type's name). */
     public Building withName(Optional<String> newName) {
-        return new Building(id, type, door, newName, origin, cells, counts, quality, built, checked);
+        return new Building(id, type, door, newName, origin, cells, counts, quality, built, checked, plaque);
+    }
+
+    /** The same building named by the plaque at {@code at}. */
+    public Building withPlaque(Optional<BlockPos> at) {
+        return new Building(id, type, door, name, origin, cells, counts, quality, built, checked, at);
     }
 
     public Building withType(ResourceLocation newType) {
-        return new Building(id, newType, door, name, origin, cells, counts, quality, built, checked);
+        return new Building(id, newType, door, name, origin, cells, counts, quality, built, checked, plaque);
     }
 
     /** Its blocks as {@link BlockPos#asLong}. */
@@ -111,7 +125,8 @@ public record Building(UUID id, ResourceLocation type, BlockPos door, Optional<S
     public boolean equals(Object o) {
         return o instanceof Building b && b.id.equals(id) && b.type.equals(type) && b.door.equals(door)
                 && b.name.equals(name) && b.origin.equals(origin) && java.util.Arrays.equals(b.cells, cells)
-                && b.counts.equals(counts) && b.quality == quality && b.built == built && b.checked == checked;
+                && b.counts.equals(counts) && b.quality == quality && b.built == built && b.checked == checked
+                && b.plaque.equals(plaque);
     }
 
     @Override
