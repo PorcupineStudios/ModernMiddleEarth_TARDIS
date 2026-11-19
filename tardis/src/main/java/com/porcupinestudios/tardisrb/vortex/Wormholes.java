@@ -52,7 +52,13 @@ import qouteall.q_misc_util.my_util.Mesh2D;
  * aim in that dimension ({@link #exit}), ending the trip. Numbers: tuning {@code vortex.wormholes}.
  */
 public final class Wormholes {
-    public static final String PORTAL_TAG = "tardis_rb:wormhole";
+    /**
+     * The tag on portals a flying TARDIS may go through (Aaron 2026-11-19): the tunnel's end and see-through
+     * wormholes. Only the box's own crossing check ({@code Vortex.crossed}) moves it through them (Immersive Portals
+     * itself teleports nothing through them), so other portals, like the box's own door portals, never catch it.
+     */
+    public static final String PASSABLE_TAG = "tardis_rb:tardis_passable";
+    public static final String PORTAL_TAG = PASSABLE_TAG;
 
     private Wormholes() {}
 

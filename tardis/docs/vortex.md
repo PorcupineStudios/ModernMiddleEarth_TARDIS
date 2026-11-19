@@ -35,6 +35,15 @@ dimension, dodging obstacles, "to" the destination.
   teleporting) on the tunnel's axis at `length`, facing back at the box, looking out 8 blocks over the landing spot in
   the destination dimension; its chunk is force-loaded for the trip so it shows from far off. `clearTrip` removes it.
   Test `theTunnelEndsInAPortalOverTheLanding`.
+- **Flying through** (2026-11-19, Aaron: "actually seamlessly go through ... a tag that labels which portals a tardis
+  can go through"): portals the box may pass carry `Wormholes.PASSABLE_TAG` (`tardis_rb:tardis_passable`: the end
+  portal and see-through wormholes). They stay non-teleporting for Immersive Portals; `Vortex.crossed` (each trip
+  tick, a piloted box only) sees the box go from in front of a passable portal's face to behind it, inside its round
+  face, and `Vortex.passThrough` ends the trip without setting the box down, makes a new box at the mapped spot on the
+  far side (`portal.transformPoint`, velocity `transformLocalVec`), thrusters on, and carries the pilot over
+  (`Piloting.carry`, seamless). The end pays the trip's landing charge (`tripCharge`); a wormhole pays nothing and
+  costs `exit_damage`. Unpiloted trips still land as a block at the end (the arrival waits 4 blocks past the end
+  for a flown box so the crossing comes first). Other portals (the box's own door portals) never move it.
 - **Health, inaccuracy, crash landing** (Aaron 2026-11-09, instead of 1.7.10's "land part way along the plotted line
   when it breaks down"): the TARDIS's health lasts between trips (`progression/Health`, module `tardis_rb:health`;
   none saved = full). The most it can have is `vortex.damage.health` (50) plus the `health` stat: the hull's levels in
