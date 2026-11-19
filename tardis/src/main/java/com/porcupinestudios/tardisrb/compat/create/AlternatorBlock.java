@@ -2,6 +2,7 @@ package com.porcupinestudios.tardisrb.compat.create;
 
 import com.porcupinestudios.tardisrb.block.TardisBlocks;
 import com.simibubi.create.content.kinetics.base.KineticBlock;
+import com.simibubi.create.content.kinetics.simpleRelays.ICogWheel;
 import com.simibubi.create.foundation.block.IBE;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -15,11 +16,12 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 /**
  * The Artron Alternator (Aaron 2026-11-19, his drawing: a gear on top, arms reaching down round the police box, lightning
- * crackling over it): set it over the box (at most {@code alternator.reach} blocks above its top) and turn its gear
- * with a Create shaft from above. While it turns it fills the TARDIS's artron (its charge, up to the cap), faster than
- * the plain winder. The gear turns on the vertical axis.
+ * crackling over it): set it over the box (at most {@code alternator.reach} blocks above its top). Its gear is a
+ * Create small cogwheel on the vertical axis ({@link ICogWheel}, Aaron 2026-11-19: "turned by adjacent gears
+ * integrating with its gear body"): cogwheels beside it mesh with it and turn it, as large cogwheels do diagonally;
+ * a shaft from above also drives it. While it turns it fills the TARDIS's artron (its charge, up to the cap).
  */
-public final class AlternatorBlock extends KineticBlock implements IBE<AlternatorBlockEntity> {
+public final class AlternatorBlock extends KineticBlock implements IBE<AlternatorBlockEntity>, ICogWheel {
     private static final VoxelShape SHAPE = Block.box(0, 0, 0, 16, 11, 16);
 
     public AlternatorBlock(Properties properties) {

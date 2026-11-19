@@ -34,4 +34,24 @@ public final class AlternatorTests {
             helper.succeed();
         });
     }
+
+    /** A cogwheel beside it, turned by a creative motor, meshes with its gear: it turns and fills the TARDIS. */
+    @GameTest(template = "platform", timeoutTicks = 200)
+    public static void anAdjacentCogwheelTurnsItAndItCharges(GameTestHelper helper) {
+        TardisRecord t = WreckTests.onPlatform(helper, Optional.empty());
+        t.useCharge(t.charge()); // empty, so there is room to fill
+        BlockPos at = t.location().get().pos().above(3);
+        BlockPos cog = at.east();
+        var level = helper.getLevel();
+        level.setBlockAndUpdate(at, TardisBlocks.ALTERNATOR.get().defaultBlockState());
+        level.setBlockAndUpdate(cog, com.simibubi.create.AllBlocks.COGWHEEL.getDefaultState());
+        level.setBlockAndUpdate(cog.below(), com.simibubi.create.AllBlocks.CREATIVE_MOTOR.getDefaultState()
+                .setValue(com.simibubi.create.content.kinetics.base.DirectionalKineticBlock.FACING,
+                        net.minecraft.core.Direction.UP));
+        helper.succeedWhen(() -> {
+            helper.assertTrue(level.getBlockEntity(at) instanceof AlternatorBlockEntity be && be.getSpeed() != 0,
+                    "the alternator's gear isn't turning");
+            helper.assertTrue(t.charge() > 0, "it turns but doesn't charge the TARDIS");
+        });
+    }
 }
