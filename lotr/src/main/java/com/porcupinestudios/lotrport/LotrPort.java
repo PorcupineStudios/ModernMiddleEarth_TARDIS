@@ -75,6 +75,9 @@ public final class LotrPort {
         com.porcupinestudios.lotrport.content.figure.Figures.register(modBus);
         com.porcupinestudios.lotrport.npc.behaviour.GrapeGuardBehaviour.register();
         com.porcupinestudios.lotrport.machine.Machines.register(modBus);
+        if (net.neoforged.fml.ModList.get().isLoaded("create")) {
+            com.porcupinestudios.lotrport.compat.create.FactionCrafters.register(modBus); // a crafter per faction
+        }
         com.porcupinestudios.lotrport.content.farm.Farming.register();
         com.porcupinestudios.lotrport.content.pouch.Pouches.register(modBus);
         com.porcupinestudios.lotrport.content.thrown.Thrown.register(modBus);

@@ -174,6 +174,7 @@ class Swapper:
     def remove_duplicate_recipes(self):
         targets = set(SWAPS.values())
         root = os.path.join(self.data, NS, "recipe")
+        counted = 0
         for dirpath, _, files in os.walk(root):
             for f in files:
                 p = os.path.join(dirpath, f)
@@ -186,6 +187,14 @@ class Swapper:
                 if ids and all(i.startswith("minecraft:") for i in ids) and r.get("type", "").startswith("minecraft:"):
                     self.remove(p)
                     self.counts["recipes_removed"] += 1
+                    rel = os.path.relpath(p, root).replace(os.sep, "/")
+                    if not rel.startswith(("own/", "create/")):
+                        counted += 1
+        if counted:  # summary.json counts the converted recipes (GameTest everyRecipeLoaded)
+            path = os.path.join(self.content, "summary.json")
+            summary = self.load(path)
+            summary[0]["recipes"] -= counted
+            self.save(path, summary)
 
     def clean_tags(self):
         """Vanilla and NeoForge's own tags already hold vanilla copper: LOTR's copies drop it."""
