@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:campfire_cooking",
+  "ingredient": {
+    "item": "lotr_port:red_grapes"
+  },
+  "result": {
+    "id": "lotr_port:raisins"
+  },
+  "experience": 0.3,
+  "category": "food",
+  "cookingtime": 600
+}
