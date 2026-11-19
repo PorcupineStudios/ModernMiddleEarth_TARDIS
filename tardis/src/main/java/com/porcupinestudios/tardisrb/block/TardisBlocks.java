@@ -56,6 +56,12 @@ public final class TardisBlocks {
     public static final DeferredBlock<RepairStationBlock> REPAIR_STATION = BLOCKS.register("repair_station",
             () -> new RepairStationBlock(fixed().mapColor(MapColor.METAL).sound(SoundType.METAL)));
 
+    /** Create: the Artron Alternator, the gear rig over the police box (Aaron 2026-11-19). */
+    public static final DeferredBlock<com.porcupinestudios.tardisrb.compat.create.AlternatorBlock> ALTERNATOR =
+            BLOCKS.register("artron_alternator", () -> new com.porcupinestudios.tardisrb.compat.create.AlternatorBlock(
+                    BlockBehaviour.Properties.of().mapColor(MapColor.METAL).strength(3.0F).sound(SoundType.METAL)
+                            .noOcclusion().requiresCorrectToolForDrops()));
+
     /** Create: turns rotation into charge. */
     public static final DeferredBlock<WinderBlock> WINDER = BLOCKS.register("winder",
             () -> new WinderBlock(BlockBehaviour.Properties.of().mapColor(MapColor.METAL).strength(2.0F)
@@ -104,6 +110,11 @@ public final class TardisBlocks {
         }
     }
 
+    public static final DeferredHolder<BlockEntityType<?>,
+            BlockEntityType<com.porcupinestudios.tardisrb.compat.create.AlternatorBlockEntity>> ALTERNATOR_BE =
+            BLOCK_ENTITIES.register("artron_alternator", () -> BlockEntityType.Builder.of(
+                    (pos, state) -> new com.porcupinestudios.tardisrb.compat.create.AlternatorBlockEntity(
+                            TardisBlocks.ALTERNATOR_BE.get(), pos, state), ALTERNATOR.get()).build(null));
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<WinderBlockEntity>> WINDER_BE =
             BLOCK_ENTITIES.register("winder", () -> BlockEntityType.Builder.of(
                     (pos, state) -> new WinderBlockEntity(TardisBlocks.WINDER_BE.get(), pos, state), WINDER.get())
@@ -134,6 +145,7 @@ public final class TardisBlocks {
             "artron_battery", "hull_plate", "temporal_circuit", "chronon_lens", "stabilizer_coil")
             .map(ITEMS::registerSimpleItem).toList();
     public static final DeferredItem<BlockItem> WINDER_ITEM = ITEMS.registerSimpleBlockItem(WINDER);
+    public static final DeferredItem<BlockItem> ALTERNATOR_ITEM = ITEMS.registerSimpleBlockItem(ALTERNATOR);
 
     static {
         TABS.register("tardis", () -> CreativeModeTab.builder()

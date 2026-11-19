@@ -24,6 +24,7 @@ public final class TardisClient {
     @SubscribeEvent
     public static void renderers(EntityRenderersEvent.RegisterRenderers event) {
         event.registerBlockEntityRenderer(TardisBlocks.WINDER_BE.get(), ShaftRenderer::new);
+        event.registerBlockEntityRenderer(TardisBlocks.ALTERNATOR_BE.get(), AlternatorRenderer::new);
         event.registerBlockEntityRenderer(TardisBlocks.CONSOLE_BE.get(), ConsoleRenderer::new);
         event.registerBlockEntityRenderer(TardisBlocks.EXTERIOR_BE.get(), ExteriorRenderer::new);
         event.registerBlockEntityRenderer(TardisBlocks.REPAIR_CORE_BE.get(), RepairCoreRenderer::new);
@@ -67,5 +68,12 @@ public final class TardisClient {
         WorkshopNet.clientHandler = (view, ctx) -> WorkshopScreen.show(view);
         SkyNet.clientHandler = GlobeRenderer::set;
         SkyNet.clientMapHandler = GlobeRenderer::setMap;
+        // the Artron Alternator's gear turns as a Flywheel visual (Create's cogwheel); its renderer adds the arms
+        event.enqueueWork(() -> dev.engine_room.flywheel.lib.visualization.SimpleBlockEntityVisualizer
+                .builder(TardisBlocks.ALTERNATOR_BE.get())
+                .factory(com.simibubi.create.content.kinetics.base.SingleAxisRotatingVisual.of(
+                        com.simibubi.create.AllPartialModels.SHAFTLESS_COGWHEEL))
+                .skipVanillaRender(be -> false)
+                .apply());
     }
 }

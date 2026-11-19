@@ -14,7 +14,7 @@ import net.minecraft.resources.ResourceLocation;
  */
 public record Tuning(CrashSite crashSite, Hop hop, Winder winder, Interior interior, Damage damage,
         ResearchSpeed research, ConsoleTuning console, DoorTuning door, SpaceTuning space, FreeFlight flight,
-        VortexTuning vortex) {
+        VortexTuning vortex, Alternator alternator) {
     /**
      * Flying through the time vortex (Aaron 2026-11-09: dematerialising flies the box through the vortex dimension,
      * dodging obstacles, instead of the 1.7.10 button minigame). {@code enabled}: off = trips land at once.
@@ -538,7 +538,7 @@ public record Tuning(CrashSite crashSite, Hop hop, Winder winder, Interior inter
 
     public static final Tuning DEFAULT = new Tuning(CrashSite.DEFAULT, Hop.DEFAULT, Winder.DEFAULT, Interior.DEFAULT,
             Damage.DEFAULT, ResearchSpeed.DEFAULT, ConsoleTuning.DEFAULT, DoorTuning.DEFAULT, SpaceTuning.DEFAULT,
-            FreeFlight.DEFAULT, VortexTuning.DEFAULT);
+            FreeFlight.DEFAULT, VortexTuning.DEFAULT, Alternator.DEFAULT);
 
     public static final Codec<Tuning> CODEC = RecordCodecBuilder.create(i -> i.group(
             CrashSite.CODEC.optionalFieldOf("crash_site", CrashSite.DEFAULT).forGetter(Tuning::crashSite),
@@ -551,6 +551,22 @@ public record Tuning(CrashSite crashSite, Hop hop, Winder winder, Interior inter
             DoorTuning.CODEC.optionalFieldOf("door", DoorTuning.DEFAULT).forGetter(Tuning::door),
             SpaceTuning.CODEC.optionalFieldOf("space", SpaceTuning.DEFAULT).forGetter(Tuning::space),
             FreeFlight.CODEC.optionalFieldOf("flight", FreeFlight.DEFAULT).forGetter(Tuning::flight),
-            VortexTuning.CODEC.optionalFieldOf("vortex", VortexTuning.DEFAULT).forGetter(Tuning::vortex))
+            VortexTuning.CODEC.optionalFieldOf("vortex", VortexTuning.DEFAULT).forGetter(Tuning::vortex),
+            Alternator.CODEC.optionalFieldOf("alternator", Alternator.DEFAULT).forGetter(Tuning::alternator))
             .apply(i, Tuning::new));
+
+    /**
+     * The Artron Alternator (Aaron 2026-11-19: the Create wind-up gear rig over the police box): charge per second =
+     * |RPM| x {@code charge_per_rpm_second} into the TARDIS whose box stands at most {@code reach} blocks under it;
+     * {@code stress} is its stress impact per RPM.
+     */
+    public record Alternator(double chargePerRpmSecond, double stress, int reach) {
+        static final Alternator DEFAULT = new Alternator(0.2, 8.0, 3);
+        static final Codec<Alternator> CODEC = RecordCodecBuilder.create(i -> i.group(
+                Codec.DOUBLE.optionalFieldOf("charge_per_rpm_second", DEFAULT.chargePerRpmSecond)
+                        .forGetter(Alternator::chargePerRpmSecond),
+                Codec.DOUBLE.optionalFieldOf("stress", DEFAULT.stress).forGetter(Alternator::stress),
+                Codec.intRange(1, 8).optionalFieldOf("reach", DEFAULT.reach).forGetter(Alternator::reach))
+                .apply(i, Alternator::new));
+    }
 }

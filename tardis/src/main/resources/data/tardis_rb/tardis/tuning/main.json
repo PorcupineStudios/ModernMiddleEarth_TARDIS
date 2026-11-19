@@ -283,5 +283,11 @@
         "max_pitch": 90
       }
     }
+  },
+  "alternator": {
+    "_comment": "The Artron Alternator, the Create gear rig set over the police box: charge per second = |RPM| x charge_per_rpm_second into the TARDIS whose box stands at most reach blocks under it; stress impact per RPM.",
+    "charge_per_rpm_second": 0.2,
+    "stress": 8.0,
+    "reach": 3
   }
 }
