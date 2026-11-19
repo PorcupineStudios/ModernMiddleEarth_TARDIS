@@ -138,8 +138,10 @@ public final class PlaqueBook implements BookProvider {
         String context = unmarked(pos);
         Optional<Colony> colony = com.porcupinestudios.lotrport.colony.building.ColonyBuildings.colonyFor(player,
                 level, pos);
-        Optional<BlockPos> door = com.porcupinestudios.lotrport.colony.building.ColonyBuildings.plaqueDoor(level, pos);
+        var found = com.porcupinestudios.lotrport.colony.building.ColonyBuildings.plaqueRoom(level, pos);
+        Optional<BlockPos> door = found.door();
         List<El> left = new ArrayList<>();
+        left.add(El.head("The plaque"));
         left.add(El.pair("Plaque", "Unmarked", El.MUTED).withItem("lotr_port:building_plaque"));
         Map<String, Integer> counts = Map.of();
         boolean measured = false;
@@ -150,28 +152,21 @@ public final class PlaqueBook implements BookProvider {
         } else {
             left.add(El.pair("Colony", colony.get().name()));
         }
+        left.add(El.head("The room"));
         if (door.isEmpty()) {
-            left.add(El.pair("Door", "none near", El.BAD).withTip("Hang the plaque in a room with a door within "
-                    + com.porcupinestudios.lotrport.colony.building.BuildingSettings.get().plaqueDoorReach()
-                    + " blocks, or by the door outside"));
+            left.add(El.text("No room found: " + found.room().problem().getString() + ".", El.BAD));
+            left.add(El.text("Hang the plaque beside a door, on the wall of the room it names, or anywhere inside a "
+                    + "closed room with a door.", El.MUTED));
         } else {
+            measured = true;
+            counts = found.room().counts();
             left.add(El.pair("Door", door.get().toShortString(), El.MUTED));
-            var dw = com.porcupinestudios.lotrport.colony.building.ColonyBuildings.doorway(level, door.get());
-            if (dw.isPresent()) {
-                var room = com.porcupinestudios.lotrport.colony.building.ColonyBuildings.measure(level, dw.get(),
-                        player.blockPosition());
-                if (!room.ok()) {
-                    left.add(El.pair("Room", "can't be used", El.BAD).withTip(room.problem().getString()));
-                } else {
-                    measured = true;
-                    counts = room.counts();
-                    left.add(El.pair("Floor", room.count("floor") + " blocks"));
-                    left.add(El.pair("Storeys", Integer.toString(Math.max(1, room.count("storeys")))));
-                    for (Map.Entry<String, Integer> m : new TreeMap<>(counts).entrySet()) {
-                        if (m.getValue() > 0 && !m.getKey().equals("floor") && !m.getKey().equals("storeys")) {
-                            left.add(El.pair(Pages.title(m.getKey()), Integer.toString(m.getValue()), El.MUTED));
-                        }
-                    }
+            left.add(El.pair("Floor", found.room().count("floor") + " blocks"));
+            left.add(El.pair("Storeys", Integer.toString(Math.max(1, found.room().count("storeys")))));
+            for (Map.Entry<String, Integer> m : new TreeMap<>(counts).entrySet()) {
+                if (m.getValue() > 0 && !m.getKey().equals("floor") && !m.getKey().equals("storeys")
+                        && !m.getKey().equals("volume")) {
+                    left.add(El.pair(Pages.title(m.getKey()), Integer.toString(m.getValue()), El.MUTED));
                 }
             }
         }
@@ -194,11 +189,16 @@ public final class PlaqueBook implements BookProvider {
                 tip.append("Needs research first");
             }
             boolean fits = measured && t.missing(have).isEmpty();
-            boolean can = fits && known && may;
+            boolean taken = colony.map(c -> com.porcupinestudios.lotrport.colony.building.ColonyBuildings.full(c,
+                    e.getKey(), Optional.empty())).orElse(false);
+            if (taken) {
+                tip.append("\u2718 The colony already has its ").append(Pages.building(e.getKey())).append('\n');
+            }
+            boolean can = fits && known && may && !taken;
             if (can) {
                 tip.append("Click to make it a ").append(Pages.building(e.getKey()));
             }
-            cells.add(El.cell(typeIcon(e.getKey()), Pages.building(e.getKey()), fits && known ? El.NORMAL : El.MUTED,
+            cells.add(El.cell(typeIcon(e.getKey()), Pages.building(e.getKey()), can ? El.NORMAL : El.MUTED,
                     tip.toString().trim(), can ? "assign" : "", e.getKey().toString()));
         }
         right.add(El.grid(cells));
@@ -249,6 +249,10 @@ public final class PlaqueBook implements BookProvider {
 
         // tabs by what the building is
         List<Book.Tab> tabs = new ArrayList<>();
+        boolean townHall = b.type().equals(TOWN_HALL);
+        if (townHall) {
+            tabs.add(new Book.Tab("colony", "Colony", "minecraft:bell"));
+        }
         if (home) {
             tabs.add(new Book.Tab("household", "Household", "minecraft:red_bed"));
         }
@@ -315,6 +319,7 @@ public final class PlaqueBook implements BookProvider {
             case "soldiers" -> soldiers(server, c);
             case "stores" -> stores(server, c, b);
             case "type" -> types(player, c, b);
+            case "colony" -> townHall(server, c);
             default -> room(player, c, b, type, job);
         };
         String sub = c.name() + (b.name().isPresent() ? " - " + Pages.building(b.type()) : "");
@@ -327,6 +332,15 @@ public final class PlaqueBook implements BookProvider {
         }
         chips.add(El.chip("minecraft:nether_star", Integer.toString(q), "Quality"));
         return Optional.of(new Book(KIND, context, b.name().orElse(Pages.building(b.type())), sub, chips, tabs, open, left, right, "", 0));
+    }
+
+    public static final ResourceLocation TOWN_HALL = com.porcupinestudios.lotrport.LotrPort.id("town_hall");
+
+    /** The Town Hall's own page (RingRealms' Hall plaque): the colony at a glance and the way to its Ledger. */
+    static List<El> townHall(MinecraftServer server, Colony c) {
+        List<El> out = new ArrayList<>(HallLedgerBook.overview(server, c, Society.citizens(server, c)));
+        out.add(El.buttons(List.of(El.button("Open the Town Hall Ledger", "ledger", ""))));
+        return out;
     }
 
     static List<El> household(List<Person> residents) {
@@ -520,6 +534,8 @@ public final class PlaqueBook implements BookProvider {
             boolean now = e.getKey().equals(b.type());
             boolean known = t.researched(c);
             boolean fits = t.missing(b.counts()).isEmpty();
+            boolean taken = !now && com.porcupinestudios.lotrport.colony.building.ColonyBuildings.full(c, e.getKey(),
+                    Optional.of(b.id()));
             StringBuilder tip = new StringBuilder();
             for (BuildingType.Requirement r : t.requires()) {
                 tip.append(r.holds(b.counts()) ? "\u2714 " : "\u2718 ").append(r.why().getString()).append('\n');
@@ -530,6 +546,9 @@ public final class PlaqueBook implements BookProvider {
             if (!known) {
                 tip.append("\u2718 Needs research first\n");
             }
+            if (taken) {
+                tip.append("\u2718 The colony already has its ").append(Pages.building(e.getKey())).append('\n');
+            }
             if (now) {
                 tip.append("What it is now");
             } else if (fits && known && may) {
@@ -537,9 +556,9 @@ public final class PlaqueBook implements BookProvider {
             } else if (!may) {
                 tip.append("Only those who may build can change it");
             }
-            boolean can = !now && fits && known && may;
+            boolean can = !now && fits && known && may && !taken;
             cells.add(El.cell(typeIcon(e.getKey()), Pages.building(e.getKey()),
-                    now ? El.GOOD : fits && known ? El.NORMAL : El.MUTED, tip.toString().trim(),
+                    now ? El.GOOD : can ? El.NORMAL : El.MUTED, tip.toString().trim(),
                     can ? "retype" : "", e.getKey().toString()));
         }
         out.add(El.grid(cells));
@@ -573,6 +592,12 @@ public final class PlaqueBook implements BookProvider {
         out.add(El.meter("Quality", q + " / 100", q / 100.0).withTip("More floor, lights, chests and tables raise it"));
         job.ifPresent(j -> out.add(El.text("Workers here: up to " + j.slots(q) + " at this quality.", El.MUTED)));
         out.add(El.text("Another type? See the Type ribbon.", El.MUTED));
+        boolean mayUnmark = Permissions.can(player.getUUID(), c, Perm.BUILD);
+        out.add(El.head("Take it down"));
+        out.add(El.text("Breaking its plaque or its door does this too.", El.MUTED));
+        out.add(El.buttons(List.of(El.button("Unmark this building", "unmark", "", mayUnmark,
+                mayUnmark ? "It stops being a building; its people lose their home or work here"
+                        : "Only those who may build can"))));
         out.add(El.buttons(List.of(El.button("Measure again", "measure", ""))));
         return out;
     }
@@ -606,6 +631,18 @@ public final class PlaqueBook implements BookProvider {
         switch (action) {
             case "citizen" -> {
                 return Result.go(HallLedgerBook.KIND, c.id().toString(), "person:" + arg);
+            }
+            case "ledger" -> {
+                return Result.go(HallLedgerBook.KIND, c.id().toString(), "");
+            }
+            case "unmark" -> {
+                if (!Permissions.can(player.getUUID(), c, Perm.BUILD)) {
+                    return Result.say("Only those who may build can");
+                }
+                Building ub = at.get().building();
+                com.porcupinestudios.lotrport.colony.building.ColonyBuildings.remove(player.server, c, ub,
+                        "unmarked by " + player.getGameProfile().getName());
+                return ub.plaque().map(p -> Result.go(KIND, unmarked(p), "")).orElse(Result.NONE);
             }
             case "rename" -> {
                 return Result.say(com.porcupinestudios.lotrport.colony.building.ColonyBuildings.rename(player,

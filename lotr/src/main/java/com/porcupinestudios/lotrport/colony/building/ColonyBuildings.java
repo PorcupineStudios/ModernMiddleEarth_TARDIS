@@ -119,6 +119,15 @@ public final class ColonyBuildings {
      * standing in wins (so a writ used from outside measures the inside), else the largest.
      */
     public static RoomScan.Room measure(Level level, Doorway door, BlockPos viewer) {
+        return measure(level, door, viewer, null);
+    }
+
+    /**
+     * As {@link #measure(Level, Doorway, BlockPos)}; with {@code previous} (a building's own blocks) the side whose room
+     * holds any of them wins, so measuring again never swaps a building for the room on the other side of its door.
+     */
+    public static RoomScan.Room measure(Level level, Doorway door, BlockPos viewer,
+            it.unimi.dsi.fastutil.longs.LongSet previous) {
         BuildingSettings s = BuildingSettings.get();
         Set<String> counters = BuildingType.counters();
         RoomScan.Room best = null;
@@ -128,6 +137,9 @@ public final class ColonyBuildings {
             if (!r.ok()) {
                 failed = failed == null ? r : failed;
                 continue;
+            }
+            if (previous != null && overlaps(r.cells(), previous)) {
+                return r;
             }
             boolean viewerIn = viewer != null && (r.cells().contains(viewer.asLong())
                     || r.cells().contains(viewer.above().asLong()));
@@ -171,7 +183,22 @@ public final class ColonyBuildings {
             Optional<String> name) {
         Optional<Doorway> door = doorway(level, clicked);
         if (door.isEmpty()) {
-            return Result.fail("colony.lotr_port.building.not_door", "Use the writ on the building's door or gate");
+            return Result.fail("colony.lotr_port.building.not_door", "There is no door or gate there");
+        }
+        return registerRoom(player, level, door.get().foot(), measure(level, door.get(), player.blockPosition()),
+                wanted, name, Optional.empty());
+    }
+
+    /**
+     * Registers (or measures again) a measured room as a building with its door at {@code doorFoot}: in the nearest
+     * colony the player may build for, on land that isn't someone else's, not overlapping another building, as
+     * {@code wanted} or the best type that fits. {@code plaque}: the plaque that names it.
+     */
+    static Result registerRoom(ServerPlayer player, ServerLevel level, BlockPos doorFoot, RoomScan.Room room,
+            Optional<ResourceLocation> wanted, Optional<String> name, Optional<BlockPos> plaque) {
+        Optional<Doorway> door = doorway(level, doorFoot);
+        if (door.isEmpty()) {
+            return Result.fail("colony.lotr_port.building.not_door", "There is no door or gate there");
         }
         Optional<Colony> colony = colonyFor(player, level, door.get().foot());
         if (colony.isEmpty()) {
@@ -184,12 +211,14 @@ public final class ColonyBuildings {
                 && !claim.get().owner().equals(com.porcupinestudios.lotrport.society.Owner.player(player.getUUID()))) {
             return Result.fail("colony.lotr_port.building.foreign_land", "This land belongs to someone else");
         }
-        RoomScan.Room room = measure(level, door.get(), player.blockPosition());
         if (!room.ok()) {
             return new Result(Optional.empty(), room.problem().copy().withStyle(ChatFormatting.RED));
         }
         Buildings all = Buildings.of(c);
         Optional<Building> existing = all.atDoor(door.get().foot());
+        if (existing.isEmpty() && plaque.isPresent()) {
+            existing = all.list().stream().filter(x -> x.plaque().equals(plaque)).findFirst();
+        }
         for (Building other : all.list()) {
             if (existing.isPresent() && other.id().equals(existing.get().id())) {
                 continue;
@@ -201,8 +230,10 @@ public final class ColonyBuildings {
                 }
             }
         }
+        Optional<UUID> selfId = existing.map(Building::id);
         List<ResourceLocation> fits = BuildingType.fitting(room.counts()).stream()
-                .filter(id -> BuildingType.get(id).map(t -> t.researched(c)).orElse(false)).toList();
+                .filter(id -> BuildingType.get(id).map(t -> t.researched(c)).orElse(false))
+                .filter(id -> !full(c, id, selfId)).toList();
         ResourceLocation type;
         if (wanted.isPresent()) {
             Optional<BuildingType> t = BuildingType.get(wanted.get());
@@ -218,6 +249,11 @@ public final class ColonyBuildings {
                 return new Result(Optional.empty(), Component.translatableWithFallback(
                         "colony.lotr_port.building.missing", "Not a %s: %s", t.get().title(wanted.get()),
                         miss.get().why()).withStyle(ChatFormatting.RED));
+            }
+            Optional<UUID> self = existing.map(Building::id);
+            if (full(c, wanted.get(), self)) {
+                return Result.fail("colony.lotr_port.building.one_only", "The colony already has its %s",
+                        t.get().title(wanted.get()));
             }
             type = wanted.get();
         } else if (fits.isEmpty()) {
@@ -235,10 +271,9 @@ public final class ColonyBuildings {
         int quality = quality(room.counts());
         Building b = existing.map(e -> e.measured(type, packed.origin(), packed.cells(), room.counts(), quality, now))
                 .orElseGet(() -> new Building(UUID.randomUUID(), type, door.get().foot(), name, packed.origin(),
-                        packed.cells(), java.util.Map.copyOf(room.counts()), quality, now, now));
-        if (existing.isEmpty() && name.isPresent()) {
-            b = new Building(b.id(), b.type(), b.door(), name, b.origin(), b.cells(), b.counts(), b.quality(),
-                    b.built(), b.checked());
+                        packed.cells(), java.util.Map.copyOf(room.counts()), quality, now, now, plaque));
+        if (existing.isPresent() && plaque.isPresent()) {
+            b = b.withPlaque(plaque);
         }
         Colonies.get(player.server).set(c, Buildings.TYPE, all.with(b));
         if (existing.isEmpty()) {
@@ -249,7 +284,7 @@ public final class ColonyBuildings {
                 "%s: %s floor, quality %s", b.label(), b.floor(), b.quality()).withStyle(ChatFormatting.GREEN);
         if (wanted.isEmpty() && fits.size() > 1) {
             msg.append(Component.literal(" ").append(Component.translatableWithFallback(
-                    "colony.lotr_port.building.could_be", "(%s other types fit: change it on a Building Plaque)",
+                    "colony.lotr_port.building.could_be", "(%s other types fit: change it on its plaque's Type page)",
                     fits.size() - 1).withStyle(ChatFormatting.GRAY)));
         }
         return new Result(Optional.of(b), msg);
@@ -293,30 +328,115 @@ public final class ColonyBuildings {
     /** As {@link #plaque(ServerPlayer, ServerLevel, BlockPos)}, as the type the plaque's book picked if any. */
     public static Result plaque(ServerPlayer player, ServerLevel level, BlockPos plaque,
             Optional<ResourceLocation> wanted) {
-        Optional<BlockPos> door = plaqueDoor(level, plaque);
-        if (door.isEmpty()) {
-            return Result.fail("colony.lotr_port.plaque.no_door",
-                    "Hang the plaque in a room with a door within %s blocks, or by the door outside",
-                    BuildingSettings.get().plaqueDoorReach());
+        PlaqueRoom pr = plaqueRoom(level, plaque);
+        if (pr.door().isEmpty()) {
+            return new Result(Optional.empty(), pr.room().problem().copy().withStyle(ChatFormatting.RED));
         }
-        return add(player, level, door.get(), wanted, Optional.empty());
+        return registerRoom(player, level, pr.door().get(), pr.room(), wanted, Optional.empty(), Optional.of(plaque));
     }
 
-    /** The nearest door (or gate) to a plaque within {@code plaque_door_reach}, the room's way in. */
-    public static Optional<BlockPos> plaqueDoor(Level level, BlockPos plaque) {
-        int r = BuildingSettings.get().plaqueDoorReach();
-        BlockPos best = null;
+    /** The room a plaque names and its door (empty, with the room's problem, when there is none). */
+    public record PlaqueRoom(Optional<BlockPos> door, RoomScan.Room room) {}
+
+    /**
+     * Finds the room a Building Plaque names (Aaron 2026-11-18): first the room behind a door in the wall the plaque
+     * hangs on, beside it (a plaque hung outside by the door names the room inside); if there is no such door, or
+     * nothing usable lies behind it, the room the plaque hangs in, filled from in front of it, with the nearest of its
+     * own doors as its door. Doors and gates are walls to the fill even when open, so it never leaks out through one.
+     */
+    public static PlaqueRoom plaqueRoom(Level level, BlockPos plaque) {
+        BlockState st = level.getBlockState(plaque);
+        Direction facing = st.hasProperty(net.minecraft.world.level.block.HorizontalDirectionalBlock.FACING)
+                ? st.getValue(net.minecraft.world.level.block.HorizontalDirectionalBlock.FACING) : Direction.NORTH;
+        BuildingSettings s = BuildingSettings.get();
+        Set<String> counters = BuildingType.counters();
+        RoomScan.Room behindProblem = null;
+        Optional<Doorway> beside = besideDoor(level, plaque, facing);
+        if (beside.isPresent()) {
+            Doorway d = beside.get();
+            for (int up = 0; up < 2; up++) {
+                BlockPos in = d.foot().relative(facing.getOpposite()).above(up);
+                if (!d.blocks().contains(in) && RoomScan.open(level, in, level.getBlockState(in))) {
+                    RoomScan.Room r = RoomScan.scan(level, in, d.blocks(), s, counters);
+                    if (r.ok()) {
+                        return new PlaqueRoom(Optional.of(d.foot()), r);
+                    }
+                    behindProblem = r;
+                    break;
+                }
+            }
+        }
+        BlockPos front = plaque.relative(facing);
+        for (BlockPos start : new BlockPos[] {front, front.below(), plaque.below()}) {
+            if (!RoomScan.open(level, start, level.getBlockState(start))) {
+                continue;
+            }
+            RoomScan.Room own = RoomScan.scan(level, start, Set.of(), s, counters);
+            if (!own.ok()) {
+                return new PlaqueRoom(Optional.empty(), behindProblem != null && isUnloaded(own) ? behindProblem : own);
+            }
+            Optional<BlockPos> door = own.doors().stream()
+                    .sorted(Comparator.comparingDouble(p -> p.distSqr(plaque)))
+                    .map(p -> doorway(level, p)).flatMap(Optional::stream).map(Doorway::foot).findFirst();
+            if (door.isEmpty()) {
+                return new PlaqueRoom(Optional.empty(), RoomScan.Room.fail("colony.lotr_port.room.no_door",
+                        "This room has no door or gate"));
+            }
+            return new PlaqueRoom(door, own);
+        }
+        return new PlaqueRoom(Optional.empty(), behindProblem != null ? behindProblem
+                : RoomScan.Room.fail("colony.lotr_port.room.blocked", "There is no room in front of the plaque"));
+    }
+
+    static boolean overlaps(it.unimi.dsi.fastutil.longs.LongSet a, it.unimi.dsi.fastutil.longs.LongSet b) {
+        it.unimi.dsi.fastutil.longs.LongIterator it = a.iterator();
+        while (it.hasNext()) {
+            if (b.contains(it.nextLong())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private static boolean isUnloaded(RoomScan.Room r) {
+        return r.problem() != null && r.problem().getContents()
+                instanceof net.minecraft.network.chat.contents.TranslatableContents tc
+                && tc.getKey().equals("colony.lotr_port.room.unloaded");
+    }
+
+    /**
+     * A door or gate in the wall a plaque hangs on, within {@code plaque_door_reach} blocks beside it (2 below to 1
+     * above), the nearest.
+     */
+    static Optional<Doorway> besideDoor(Level level, BlockPos plaque, Direction facing) {
+        BlockPos wall = plaque.relative(facing.getOpposite());
+        Direction along = facing.getClockWise();
+        Doorway best = null;
         double bestDist = Double.MAX_VALUE;
-        for (BlockPos p : BlockPos.betweenClosed(plaque.offset(-r, -2, -r), plaque.offset(r, 2, r))) {
-            if (doorway(level, p).isPresent()) {
-                double d = p.distSqr(plaque);
-                if (d < bestDist) {
-                    bestDist = d;
-                    best = p.immutable();
+        int reach = BuildingSettings.get().plaqueDoorReach();
+        for (int a = -reach; a <= reach; a++) {
+            for (int y = -2; y <= 1; y++) {
+                BlockPos q = wall.relative(along, a).above(y);
+                Optional<Doorway> d = doorway(level, q);
+                if (d.isPresent() && q.distSqr(wall) < bestDist) {
+                    bestDist = q.distSqr(wall);
+                    best = d.get();
                 }
             }
         }
         return Optional.ofNullable(best);
+    }
+
+    /** The nearest door (or gate) to a plaque: the door of the room it names, if any. */
+    public static Optional<BlockPos> plaqueDoor(Level level, BlockPos plaque) {
+        return plaqueRoom(level, plaque).door();
+    }
+
+    /** Whether the colony already has as many of this type as it may (a Town Hall: one), not counting {@code self}. */
+    public static boolean full(Colony c, ResourceLocation type, Optional<UUID> self) {
+        int max = BuildingType.get(type).map(BuildingType::maxPerColony).orElse(0);
+        return max > 0 && Buildings.of(c).ofType(type).stream().filter(b -> self.map(id -> !id.equals(b.id()))
+                .orElse(true)).count() >= max;
     }
 
     /** Names a building (its plaque's name box); a blank name gives it back its type's name. */
@@ -364,6 +484,10 @@ public final class ColonyBuildings {
                         "colony.lotr_port.building.missing", "Not a %s: %s", t.get().title(type), miss.get().why())
                         .withStyle(ChatFormatting.RED));
             }
+            if (full(c, type, Optional.of(b.get().id()))) {
+                return Result.fail("colony.lotr_port.building.one_only", "The colony already has its %s",
+                        t.get().title(type));
+            }
             Building nb = b.get().withType(type);
             Colonies.get(player.server).set(c, Buildings.TYPE, Buildings.of(c).with(nb));
             log(player.server, RETYPED_HISTORY, c, nb, null);
@@ -382,13 +506,23 @@ public final class ColonyBuildings {
         Colonies colonies = Colonies.get(server);
         Optional<Doorway> door = doorway(level, b.door());
         Component why;
-        if (door.isEmpty()) {
+        if (b.plaque().isPresent() && level.isLoaded(b.plaque().get())
+                && !(level.getBlockState(b.plaque().get()).getBlock() instanceof com.porcupinestudios.lotrport.colony
+                        .ColonyBlocks.FurnitureBlock)) {
+            why = Component.translatableWithFallback("colony.lotr_port.building.plaque_gone",
+                    "its plaque was taken down");
+        } else if (door.isEmpty()) {
             why = Component.translatableWithFallback("colony.lotr_port.building.door_gone", "its door is gone");
         } else {
-            RoomScan.Room room = measure(level, door.get(), null);
+            // the same room as before: the side of its door that holds its old blocks
+            RoomScan.Room room = measure(level, door.get(), null, b.blocks());
+            if (room.ok() && !overlaps(room.cells(), b.blocks())) {
+                room = RoomScan.Room.fail("colony.lotr_port.building.moved", "its room is gone");
+            }
             if (room.ok()) {
                 List<ResourceLocation> fits = BuildingType.fitting(room.counts()).stream()
-                .filter(id -> BuildingType.get(id).map(t -> t.researched(colony)).orElse(false)).toList();
+                        .filter(id -> BuildingType.get(id).map(t -> t.researched(colony)).orElse(false))
+                        .filter(id -> id.equals(b.type()) || !full(colony, id, Optional.of(b.id()))).toList();
                 Building.Packed packed = Building.pack(room.cells());
                 if (!fits.isEmpty() && packed != null) {
                     ResourceLocation type = fits.contains(b.type()) ? b.type() : fits.get(0);
@@ -402,8 +536,7 @@ public final class ColonyBuildings {
                 }
                 why = Component.translatableWithFallback("colony.lotr_port.building.no_type",
                         "it no longer fits any building");
-            } else if (room.problem().getContents() instanceof net.minecraft.network.chat.contents.TranslatableContents tc
-                    && tc.getKey().equals("colony.lotr_port.room.unloaded")) {
+            } else if (isUnloaded(room)) {
                 return true; // can't tell; try again later
             } else {
                 why = room.problem();

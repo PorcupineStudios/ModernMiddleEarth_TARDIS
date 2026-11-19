@@ -1,0 +1,18 @@
+{
+  "name": "colony_building.lotr_port.town_hall",
+  "priority": 60,
+  "max_per_colony": 1,
+  "description": "The heart of the colony: a roofed room of 12+ floor with a table (a crafting or faction table)",
+  "requires": [
+    {
+      "count": "floor",
+      "min": 12,
+      "message": "a town hall needs 12 floor blocks"
+    },
+    {
+      "count": "tables",
+      "min": 1,
+      "message": "a town hall needs a crafting or faction table"
+    }
+  ]
+}

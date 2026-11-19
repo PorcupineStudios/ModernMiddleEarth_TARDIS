@@ -164,6 +164,102 @@ public final class BuildingTests {
         }
     }
 
+    /**
+     * How a plaque finds its room (Aaron 2026-11-18): hung outside beside a door it names the room behind that door;
+     * hung inside away from any door it names the room it hangs in (an open gate in its wall is a door, never a way
+     * out); taking the plaque down or breaking the door takes the building down the next tick; a colony has one Town
+     * Hall.
+     */
+    @GameTest(template = "empty", batch = "buildings", timeoutTicks = 100)
+    public static void plaquesFindTheirRoom(GameTestHelper helper) {
+        ServerLevel level = helper.getLevel();
+        var server = level.getServer();
+        ServerPlayer player = helper.makeMockServerPlayerInLevel();
+        int x0 = 7_000_000 + level.random.nextInt(10_000) * 512;
+        int z0 = 6_000_000;
+        int y0 = 150;
+        for (int cx = (x0 - 16) >> 4; cx <= (x0 + 48) >> 4; cx++) {
+            for (int cz = (z0 - 16) >> 4; cz <= (z0 + 32) >> 4; cz++) {
+                level.getChunk(cx, cz);
+            }
+        }
+        Colonies colonies = Colonies.get(server);
+        Colony colony = colonies.found(player, "Plaque Test", new BlockPos(x0 + 15, y0, z0 - 8), LotrPort.id("gondor"))
+                .colony().orElseThrow();
+        Runnable cleanup = () -> {
+            colonies.disband(server, colony, "test");
+            fill(level, x0 - 2, y0, z0 - 2, x0 + 40, y0 + 9, z0 + 12, Blocks.AIR);
+        };
+        var plaqueBlock = com.porcupinestudios.lotrport.colony.ColonyBlocks.PLAQUE.get().defaultBlockState();
+        var facingProp = net.minecraft.world.level.block.HorizontalDirectionalBlock.FACING;
+        try {
+            // 1: a plaque outside, on the wall beside the door: the room behind the door
+            shell(level, x0, y0, z0, x0 + 4, z0 + 4, 3);
+            door(level, new BlockPos(x0 + 2, y0 + 1, z0), Direction.SOUTH);
+            level.setBlock(new BlockPos(x0 + 3, y0 + 1, z0 + 3), Blocks.CHEST.defaultBlockState(), 2);
+            BlockPos outside = new BlockPos(x0 + 1, y0 + 2, z0 - 1);
+            level.setBlock(outside, plaqueBlock.setValue(facingProp, Direction.NORTH), 2);
+            var a = ColonyBuildings.plaque(player, level, outside);
+            helper.assertTrue(a.building().isPresent() && a.building().get().door().equals(new BlockPos(x0 + 2,
+                    y0 + 1, z0)) && a.building().get().plaque().equals(Optional.of(outside))
+                    && a.building().get().blocks().contains(new BlockPos(x0 + 2, y0 + 1, z0 + 2).asLong()),
+                    "a plaque beside the door didn't name the room behind it: " + a.message().getString());
+
+            // 2: a plaque inside, away from the door; an open fence gate in another wall is a door, not a way out
+            int x1 = x0 + 8;
+            shell(level, x1, y0, z0, x1 + 4, z0 + 4, 3);
+            door(level, new BlockPos(x1, y0 + 1, z0 + 2), Direction.EAST);
+            level.setBlock(new BlockPos(x1 + 2, y0 + 1, z0 + 4), Blocks.OAK_FENCE_GATE.defaultBlockState()
+                    .setValue(net.minecraft.world.level.block.FenceGateBlock.OPEN, true), 2);
+            BlockState bed = Blocks.RED_BED.defaultBlockState().setValue(BedBlock.FACING, Direction.SOUTH);
+            level.setBlock(new BlockPos(x1 + 1, y0 + 1, z0 + 1), bed.setValue(BedBlock.PART, BedPart.FOOT), 2);
+            level.setBlock(new BlockPos(x1 + 1, y0 + 1, z0 + 2), bed.setValue(BedBlock.PART, BedPart.HEAD), 2);
+            BlockPos inside = new BlockPos(x1 + 3, y0 + 2, z0 + 2);
+            level.setBlock(inside, plaqueBlock.setValue(facingProp, Direction.WEST), 2);
+            var b = ColonyBuildings.plaque(player, level, inside);
+            helper.assertTrue(b.building().isPresent() && b.building().get().type().equals(LotrPort.id("house"))
+                    && b.building().get().floor() == 9,
+                    "a plaque inside didn't name its own room (or the open gate let it out): "
+                    + b.message().getString() + " " + b.building().map(Building::counts).orElse(null));
+
+            // 3: one Town Hall a colony
+            int x2 = x0 + 16;
+            shell(level, x2, y0, z0, x2 + 5, z0 + 5, 3);
+            door(level, new BlockPos(x2, y0 + 1, z0 + 2), Direction.EAST);
+            level.setBlock(new BlockPos(x2 + 3, y0 + 1, z0 + 3), Blocks.CRAFTING_TABLE.defaultBlockState(), 2);
+            int x3 = x0 + 24;
+            shell(level, x3, y0, z0, x3 + 5, z0 + 5, 3);
+            door(level, new BlockPos(x3, y0 + 1, z0 + 2), Direction.EAST);
+            level.setBlock(new BlockPos(x3 + 3, y0 + 1, z0 + 3), Blocks.CRAFTING_TABLE.defaultBlockState(), 2);
+            var hall = ColonyBuildings.add(player, level, new BlockPos(x2, y0 + 1, z0 + 2),
+                    Optional.of(LotrPort.id("town_hall")), Optional.empty());
+            helper.assertTrue(hall.building().isPresent(), "no Town Hall: " + hall.message().getString());
+            var second = ColonyBuildings.add(player, level, new BlockPos(x3, y0 + 1, z0 + 2),
+                    Optional.of(LotrPort.id("town_hall")), Optional.empty());
+            helper.assertTrue(second.building().isEmpty(), "a second Town Hall was accepted");
+        } catch (RuntimeException e) {
+            cleanup.run();
+            throw e;
+        }
+
+        // 4: take the first plaque down and break the second room's door: both buildings go the next tick
+        java.util.UUID first = Buildings.of(colonies.get(colony.id()).orElseThrow()).list().stream()
+                .filter(x -> x.plaque().isPresent() && x.plaque().get().getZ() == z0 - 1).findFirst().orElseThrow()
+                .id();
+        Building house = Buildings.of(colonies.get(colony.id()).orElseThrow()).list().stream()
+                .filter(x -> x.type().equals(LotrPort.id("house"))).findFirst().orElseThrow();
+        level.setBlock(new BlockPos(x0 + 1, y0 + 2, z0 - 1), Blocks.AIR.defaultBlockState(), 3);
+        level.setBlock(house.door(), Blocks.AIR.defaultBlockState(), 2 | 16);
+        level.setBlock(house.door().above(), Blocks.AIR.defaultBlockState(), 2 | 16);
+        com.porcupinestudios.lotrport.colony.building.BuildingSystems.changed(level, house.door());
+        helper.succeedWhen(() -> {
+            Buildings now = Buildings.of(colonies.get(colony.id()).orElseThrow());
+            helper.assertTrue(now.get(first).isEmpty(), "the building stayed after its plaque was taken down");
+            helper.assertTrue(now.get(house.id()).isEmpty(), "the house stayed after its door was broken");
+            cleanup.run();
+        });
+    }
+
     /** Floor at y0, walls y0+1..y0+h, roof at y0+h+1, hollow inside (RingRealms' test shell). */
     static void shell(ServerLevel level, int x0, int y0, int z0, int x1, int z1, int h) {
         fill(level, x0, y0, z0, x1, y0 + h + 1, z1, Blocks.STONE);
