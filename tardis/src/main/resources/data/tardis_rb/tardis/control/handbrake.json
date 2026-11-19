@@ -1,9 +1,9 @@
 {
   "model": "handbrake",
   "panel": 3,
-  "u": 0.26,
-  "v": 0.182,
-  "scale": 0.64,
+  "u": 0.3124,
+  "v": 0.1754,
+  "scale": 0.612,
   "actions": {
     "arm": "handbrake"
   },

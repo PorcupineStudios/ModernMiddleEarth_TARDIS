@@ -1,9 +1,9 @@
 {
   "model": "memory_bank",
   "panel": 4,
-  "u": -0.0825,
-  "v": 0.475,
-  "scale": 0.8,
+  "u": -0.211,
+  "v": 0.4733,
+  "scale": 0.612,
   "actions": {
     "slot_0": "memory",
     "slot_1": "memory",

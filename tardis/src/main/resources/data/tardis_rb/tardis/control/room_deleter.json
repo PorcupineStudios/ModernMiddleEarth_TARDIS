@@ -1,9 +1,9 @@
 {
   "model": "room_deleter",
   "panel": 5,
-  "u": -0.2775,
-  "v": 0.45,
-  "scale": 0.76,
+  "u": -0.2638,
+  "v": 0.475,
+  "scale": 0.8,
   "actions": {
     "button": "none"
   },
