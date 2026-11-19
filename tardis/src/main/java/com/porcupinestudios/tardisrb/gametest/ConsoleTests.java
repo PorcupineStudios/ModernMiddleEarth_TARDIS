@@ -63,7 +63,7 @@ public final class ConsoleTests {
 
         // no screen: the monitor's readout (over the Z side until turned) says where the TARDIS is
         BlockPos from = t.location().get().pos();
-        helper.assertTrue(ConsoleControls.readout(server, t, console).contains("Now Z " + from.getZ()),
+        helper.assertTrue(ConsoleControls.readout(server, t, console).contains("Now Z\t" + from.getZ()),
                 "the monitor doesn't show where the TARDIS is: " + ConsoleControls.readout(server, t, console));
 
         // X: the x6 lever once and the x1 lever four times = +10, relative to where the TARDIS stands
@@ -81,7 +81,7 @@ public final class ConsoleTests {
         // each side has its own readout: turned to the door side (+z), the monitor shows the X coordinates
         console.setMonitorAngle(90);
         List<String> xSide = ConsoleControls.readout(server, t, console);
-        helper.assertTrue(xSide.contains("Target X " + (from.getX() + 10)), "the monitor over side 0 shows " + xSide);
+        helper.assertTrue(xSide.contains("Target X\t" + (from.getX() + 10)), "the monitor over side 0 shows " + xSide);
 
         // (the time controls aren't on the console for now: Aaron 2026-11-19, time comes later)
         console.setMonitorAngle(Float.NaN);
@@ -125,7 +125,7 @@ public final class ConsoleTests {
                 "the next-plan button didn't move to " + plans.get(1));
         console.setMonitorAngle(-210);
         List<String> rooms = ConsoleControls.readout(server, t, console);
-        helper.assertTrue(rooms.stream().anyMatch(l -> l.startsWith("Plan: " + plans.get(1).getPath())),
+        helper.assertTrue(rooms.stream().anyMatch(l -> l.startsWith("Plan\t" + plans.get(1).getPath())),
                 "the monitor over the rooms side shows " + rooms);
         console.setMonitorAngle(Float.NaN);
         helper.succeed();
