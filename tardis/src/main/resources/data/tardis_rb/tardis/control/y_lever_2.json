@@ -1,9 +1,9 @@
 {
   "model": "y_lever",
   "panel": 4,
-  "u": -0.19,
-  "v": 0.1625,
-  "scale": 0.8,
+  "u": -0.2077,
+  "v": 0.1493,
+  "scale": 0.72,
   "actions": {
     "lever": "y1"
   },

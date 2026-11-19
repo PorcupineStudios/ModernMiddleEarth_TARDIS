@@ -114,19 +114,21 @@ SIDES = [
                      ("telepathic_circuits", "telepathic_circuits", {}, NAV1)])]},
     {"theme": "Exterior",
      "monitor": "landed / loose / hovering N up, phase key and thrusters, facing, handbrake, charge, doors",
-     "rows": [(0.2, [("facing_compass", "facing_compass", {"arrow": "facing"}, NAV1),
+     # Aaron 2026-11-19 (screenshot): the flight yoke comes down to the front left, the facing compass moves to the
+     # Y & memory side, and the rest spread out
+     "rows": [(0.2, [("flight_yoke", "flight_yoke", {"stick": "pilot"}, NAV1),
                      ("demat_lever", "demat_lever", {"arm": "jump"}, NAV1),
                      ("handbrake", "handbrake", {"arm": "handbrake"}, NAV1)]),
               (0.53, [("phase_key", "phase_key", {"key": "phase_key"}, NAV1),
                       ("phase_lever", "phase_lever", {"arm": "phase"}, NAV1),
-                      ("thrusters", "thrusters", {"rocker": "thrusters"}, NAV1)]),
-              (0.75, [("flight_yoke", "flight_yoke", {"stick": "pilot"}, NAV1)])]},
+                      ("thrusters", "thrusters", {"rocker": "thrusters"}, NAV1)])]},
     {"theme": "Y & memory", "monitor":
      "e.g. \"Target Y 70\" (or \"Target Y: the ground\"), land on ground, save mode, saved slots",
      "rows": [(0.2, [(f"y_lever_{n + 1}", "y_lever", {"lever": f"y{n}"}, NAV1) for n in range(4)]
                + [("land_switch", "toggle_switch", {"bat": "land"}, NAV1)]),
               (0.58, [("memory_bank", "memory_bank", {f"slot_{n}": "memory" for n in range(20)}, NAV1),
-                      ("save_switch", "push_switch", {"rod": "save"}, NAV1)])]},
+                      ("save_switch", "push_switch", {"rod": "save"}, NAV1),
+                      ("facing_compass", "facing_compass", {"arrow": "facing"}, NAV1)])]},
     {"theme": "Rooms",
      "monitor": "rooms used of the cap, the room plan picked (\"Plan: library (can add)\"), crew, doors",
      "rows": [(0.22, [("door_control", "door_control", {"wheel": "door"}, NAV1),
@@ -143,7 +145,11 @@ SCALES = {"x_lever_5": 1.0, "z_lever_5": 1.0, "flight_yoke": 0.65}
 # Gauges show these values (0..1 of full), one per needle in the model's order.
 SHOWS = {"gauge": ["charge"], "twin_gauge": ["charge", "rooms"]}
 SCALE = 0.8       # the controls stand a little smaller on the console than modelled
-GAP = 0.04
+GAP = 0.04       # the least room between two controls
+ROW_GAP = 0.09    # between rows (Aaron 2026-11-19: spread out, easy to click without overlap)
+MAX_GAP = 0.22    # a row's controls spread over the panel's width, at most this far apart
+BIG = 0.28        # controls bigger than this across stand BIG_SCALE smaller (the bulky levers)
+BIG_SCALE = 0.85
 MARGIN = 0.07     # kept clear of the panel's side ridges
 V_MAX = 0.84      # the panel's top ends where the rotor's collar starts
 
@@ -202,16 +208,25 @@ def fit_side(k, side, models, f):
     """Places one side's rows, each just above the last, at scale factor f; returns (placed, problems)."""
     placed, problems, rects = [], [], []
     start = 0.03
+
+    def scale_of(cid, m):
+        base = SCALES.get(cid, SCALE)
+        return base * (BIG_SCALE if max(footprint(models[m], base)) > BIG else 1)
+
     for _, row in side["rows"]:
-        sizes = [footprint(models[m], SCALES.get(cid, SCALE) * f) for cid, m, _, _ in row]
+        sizes = [footprint(models[m], scale_of(cid, m) * f) for cid, m, _, _ in row]
         depth = max(d for _, d in sizes)
         v = start + depth / 2
-        start += depth + GAP
-        total = sum(w for w, _ in sizes) + GAP * (len(row) - 1)
+        start += depth + ROW_GAP
+        width = sum(w for w, _ in sizes)
+        # spread over the panel's width at this row (its narrowest, at the row's top edge)
+        room = 2 * half_width(v + depth / 2) - width
+        gap = max(GAP, min(MAX_GAP, room / (len(row) + 1)))
+        total = width + gap * (len(row) - 1)
         u = -total / 2
         for (cid, m, acts, req), (w, d) in zip(row, sizes):
             cu = u + w / 2
-            u += w + GAP
+            u += w + gap
             if abs(cu) + w / 2 > half_width(v + d / 2) + 1e-6:
                 problems.append(f"side {k} {cid}: off the panel's side")
             if v + d / 2 > V_MAX:
@@ -221,7 +236,7 @@ def fit_side(k, side, models, f):
                 if r[0] < o[2] - 0.005 and o[0] < r[2] - 0.005 and r[1] < o[3] - 0.005 and o[1] < r[3] - 0.005:
                     problems.append(f"side {k}: {cid} overlaps {om}")
             rects.append((r, cid))
-            placed.append((k, cid, m, acts, req, round(cu, 4), round(v, 4), round(SCALES.get(cid, SCALE) * f, 3)))
+            placed.append((k, cid, m, acts, req, round(cu, 4), round(v, 4), round(scale_of(cid, m) * f, 3)))
     return placed, problems
 
 

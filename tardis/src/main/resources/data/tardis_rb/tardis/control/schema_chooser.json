@@ -1,9 +1,9 @@
 {
   "model": "schema_chooser",
   "panel": 5,
-  "u": -0.038,
-  "v": 0.1725,
-  "scale": 0.76,
+  "u": -0.0175,
+  "v": 0.1575,
+  "scale": 0.68,
   "actions": {
     "btn_1": "schema_prev",
     "btn_2": "schema_next",

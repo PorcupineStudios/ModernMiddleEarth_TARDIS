@@ -1,8 +1,8 @@
 {
   "model": "toggle_switch",
   "panel": 0,
-  "u": 0.31,
-  "v": 0.3738,
+  "u": 0.2828,
+  "v": 0.4035,
   "scale": 0.72,
   "actions": {
     "bat": "relative"

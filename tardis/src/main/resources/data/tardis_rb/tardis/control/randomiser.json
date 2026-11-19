@@ -1,8 +1,8 @@
 {
   "model": "randomiser",
   "panel": 1,
-  "u": 0.31,
-  "v": 0.3738,
+  "u": 0.2738,
+  "v": 0.4035,
   "scale": 0.72,
   "actions": {
     "die": "random"

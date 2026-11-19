@@ -1,9 +1,9 @@
 {
   "model": "demat_lever",
   "panel": 3,
-  "u": 0.04,
-  "v": 0.182,
-  "scale": 0.64,
+  "u": 0.0149,
+  "v": 0.1754,
+  "scale": 0.612,
   "actions": {
     "arm": "jump"
   },
