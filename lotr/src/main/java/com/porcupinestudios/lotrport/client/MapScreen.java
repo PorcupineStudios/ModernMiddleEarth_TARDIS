@@ -255,6 +255,16 @@ public final class MapScreen extends Screen {
         }
         drawColonies(g, vx, vz);
         drawOthers(g, vx, vz);
+        long past = BorderLayer.pastTime();
+        if (past >= 0) {
+            // time travel: the map shows the world as it stood then (borders, kingdoms, colonies)
+            Component when = Component.translatableWithFallback("screen.lotr_port.map.past",
+                    "The map as it stood on day %s", past / 24000 + 1);
+            int w = font.width(when) + 10;
+            int mid = (x0 + x1) / 2;
+            g.fill(mid - w / 2, y0 + 4, mid + w / 2, y0 + 6 + font.lineHeight, 0xB0301808);
+            g.drawCenteredString(font, when, mid, y0 + 6, 0xFFF0D890);
+        }
         int[] vb = visibilityBox();
         boolean overVb = mouseX >= vb[0] && mouseX < vb[0] + vb[2] && mouseY >= vb[1] && mouseY < vb[1] + vb[3];
         g.drawString(font, visibilityText(), vb[0], vb[1], overVb ? 0xFFFFA0 : 0xFFFFFF, true);
@@ -627,11 +637,11 @@ public final class MapScreen extends Screen {
         int px = (int) Math.floor(mapX);
         int pz = (int) Math.floor(mapZ);
         ResourceLocation id = ResourceLocation.parse(map.biomes().get(map.pixelIndex(px, pz)).id());
-        lines.add(Component.translatable("biome." + id.getNamespace() + "." + id.getPath()));
+        // the holder shares the biome's line: the framed map has room under it for two lines, and a third pushed the
+        // coordinates out of sight
+        Component biome = Component.translatable("biome." + id.getNamespace() + "." + id.getPath());
         Component held = borders() ? BorderLayer.hoverLine(px, pz) : null;
-        if (held != null) {
-            lines.add(held);
-        }
+        lines.add(held == null ? biome : Component.empty().append(biome).append(" \u00b7 ").append(held));
         lines.add(Component.translatableWithFallback("screen.lotr_port.map.coords", "x: %s, z: %s", bx, bz));
         return data.canTeleport() ? Component.translatableWithFallback("screen.lotr_port.map.tp", "Press '%s' to /tp",
                 LotrClient.MAP_TELEPORT_KEY.getTranslatedKeyMessage()) : null;

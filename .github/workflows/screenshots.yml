@@ -1,10 +1,15 @@
 name: UI screenshots
 
 # Runs the real game client on a virtual screen and takes screenshots with a dev script (client/DevScript): a
-# Middle-earth world from the world check, then lotr/devscripts/ui_shots.txt. The pictures go to the workflow's
+# Middle-earth world from the world check, then a script from lotr/devscripts/ (the one a push changed, or
+# the one asked for; ui_shots.txt by default). The pictures go to the workflow's
 # artifacts and to the orphan branch ci-screenshots (one commit per run), so anyone can look without signing in.
 on:
   workflow_dispatch:
+    inputs:
+      script:
+        description: 'Dev script in lotr/devscripts/ to run'
+        default: ui_shots.txt
   push:
     paths:
       - 'lotr/devscripts/**'
@@ -20,9 +25,20 @@ concurrency:
 jobs:
   shots:
     runs-on: ubuntu-latest
-    timeout-minutes: 45
+    timeout-minutes: 80
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+      - name: Pick the script
+        # the one asked for, else the dev script this push changed, else ui_shots.txt
+        run: |
+          s="${{ inputs.script }}"
+          if [ -z "$s" ]; then
+            s=$(git diff --name-only HEAD~1 HEAD -- lotr/devscripts | head -1 | xargs -r basename)
+          fi
+          echo "SCRIPT=${s:-ui_shots.txt}" >> "$GITHUB_ENV"
+          echo "script: ${s:-ui_shots.txt}"
       - uses: actions/setup-java@v4
         with:
           distribution: temurin
@@ -34,7 +50,7 @@ jobs:
           pip install -q nbtlib
       - name: A Middle-earth world
         # the CI world check's server: it makes the world, checks it and stops
-        timeout-minutes: 15
+        timeout-minutes: 45
         run: |
           mkdir -p lotr/run
           echo "eula=true" > lotr/run/eula.txt
@@ -62,8 +78,8 @@ jobs:
         timeout-minutes: 20
         env:
           LIBGL_ALWAYS_SOFTWARE: '1'
-          JAVA_TOOL_OPTIONS: -Dlotr_port.devscript=ui_shots.txt
         run: |
+          export JAVA_TOOL_OPTIONS="-Dlotr_port.devscript=$SCRIPT"
           xvfb-run -a -s "-screen 0 1280x720x24 +extension GLX +extension RANDR" \
             ./gradlew :lotr:runClient -PquickPlay=ui -PwindowSize=1280x720 --stacktrace > client.log 2>&1 || true
           grep -i -E 'devscript|screenshot|exception|error' client.log | grep -v -i 'Invalid path in pack' | tail -60

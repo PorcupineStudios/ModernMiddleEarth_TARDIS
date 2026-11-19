@@ -96,5 +96,9 @@
     "lotr_port:wold": "lotr_port:rohan",
     "lotr_port:woodland_realm": "lotr_port:wood_elf",
     "lotr_port:woodland_realm_hills": "lotr_port:wood_elf"
-  }
+  },
+  "fill": [
+    "lotr_port:lake",
+    "lotr_port:river"
+  ]
 }

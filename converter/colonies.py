@@ -58,7 +58,7 @@ UI_EN = {
 
 BUILDINGS_EN = {
     "house": "House", "storehouse": "Storehouse", "lumber_camp": "Lumber Camp", "farmstead": "Farmstead",
-    "kitchen": "Kitchen", "market": "Market", "tavern": "Tavern", "smeltery": "Smeltery", "workshop": "Workshop",
+    "kitchen": "Kitchen", "market": "Market", "tavern": "Tavern", "town_hall": "Town Hall", "smeltery": "Smeltery", "workshop": "Workshop",
     "smithy": "Smithy", "masonry": "Masonry", "brewery": "Brewery", "mill": "Mill", "library": "Library",
     "barracks": "Barracks",
 }

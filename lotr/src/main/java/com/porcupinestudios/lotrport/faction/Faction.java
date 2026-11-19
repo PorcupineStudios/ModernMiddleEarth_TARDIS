@@ -39,7 +39,14 @@ public record Faction(ResourceLocation id, Component name, int color, boolean pl
                 .map(FactionDef.Rank::alignment);
     }
 
+    /**
+     * The rank's name: its lang key, else the rank id in words (player kingdoms' ranks, such as "subject", have no
+     * lang entry: their ids are realm/N).
+     */
     public Component rankName(FactionDef.Rank rank) {
-        return Component.translatable("faction." + id.getNamespace() + "." + id.getPath() + ".rank." + rank.id());
+        String words = rank.id().replace('_', ' ');
+        String fallback = words.isEmpty() ? words : Character.toUpperCase(words.charAt(0)) + words.substring(1);
+        return Component.translatableWithFallback("faction." + id.getNamespace() + "." + id.getPath() + ".rank."
+                + rank.id(), fallback);
     }
 }

@@ -37,6 +37,13 @@ final class TablePane implements UiScreen.Draggable {
     private int contentHeight;
     private int trackY;
     private int trackH;
+    /** Each shown row's top (from 0) and the end, for the rows and width they were measured for. */
+    private int[] tops = new int[] {0};
+    private List<Row> measuredRows;
+    private int measuredW = -1;
+    /** Most lines a cell wraps onto; longer text ends in "..." and shows whole on hover. */
+    private static final int MAX_LINES = 3;
+    private static final int LINE_H = 10;
 
     TablePane(UiScreen screen, TableState state, Page.Table table) {
         this.screen = screen;
@@ -128,17 +135,18 @@ final class TablePane implements UiScreen.Draggable {
         int footer = 16;
         int rowsY = y + UiTheme.HEADER_HEIGHT + 2;
         int rowsH = h - UiTheme.HEADER_HEIGHT - 2 - footer;
-        int pitch = UiTheme.ROW_HEIGHT + UiTheme.ROW_GAP;
-        contentHeight = shown.size() * pitch - UiTheme.ROW_GAP;
+        // measured with room for the scroll bar, so a row's height doesn't depend on whether the list scrolls
+        int rowW = w - SCROLL_WIDTH - 4;
+        int[] colX = columnStarts(cols, x + 8, rowW - 16);
+        measure(ui, cols, colX, rowW);
+        contentHeight = Math.max(0, tops[shown.size()] - UiTheme.ROW_GAP);
         boolean scrolls = contentHeight > rowsH;
-        int rowW = scrolls ? w - SCROLL_WIDTH - 4 : w;
         state.scroll = Math.max(0, Math.min(state.scroll, Math.max(0, contentHeight - rowsH)));
         listX = x;
         listY = rowsY;
         listW = w;
         listH = rowsH;
 
-        int[] colX = columnStarts(cols, x + 8, rowW - 16);
         // headings
         int sorted = sortIndex();
         for (int c = 0; c < cols.size(); c++) {
@@ -159,13 +167,15 @@ final class TablePane implements UiScreen.Draggable {
             ui.text(msg.getString(), x, rowsY, w, Math.min(rowsH, 40), 0, UiTheme.ON_DARK[1]);
         } else {
             ui.clip(x, rowsY, w, rowsH);
-            int first = (int) (state.scroll / pitch);
-            for (int i = first; i < shown.size(); i++) {
-                int ry = rowsY + i * pitch - (int) state.scroll;
+            for (int i = 0; i < shown.size(); i++) {
+                int ry = rowsY + tops[i] - (int) state.scroll;
+                int rh = tops[i + 1] - tops[i] - UiTheme.ROW_GAP;
                 if (ry >= rowsY + rowsH) {
                     break;
                 }
-                drawRow(ui, shown.get(i), cols, colX, x, ry, rowW, rowsY, rowsH);
+                if (ry + rh > rowsY) {
+                    drawRow(ui, shown.get(i), cols, colX, x, ry, rh, rowW, rowsY, rowsH);
+                }
             }
             ui.unclip();
         }
@@ -202,24 +212,82 @@ final class TablePane implements UiScreen.Draggable {
         }
     }
 
-    private void drawRow(Imm ui, Row row, List<Column> cols, int[] colX, int x, int ry, int rowW, int clipY,
+    /** Measures every shown row: as tall as its most-wrapped cell (up to {@link #MAX_LINES} lines). */
+    private void measure(Imm ui, List<Column> cols, int[] colX, int rowW) {
+        if (measuredRows == shown && measuredW == rowW && tops.length == shown.size() + 1) {
+            return;
+        }
+        tops = new int[shown.size() + 1];
+        for (int i = 0; i < shown.size(); i++) {
+            int lines = 1;
+            for (int c = 0; c < cols.size(); c++) {
+                int cw = colX[c + 1] - colX[c] - 6;
+                lines = Math.max(lines, Math.min(MAX_LINES, ui.font.split(Component.literal(shown.get(i).cell(c)
+                        .text()), Math.max(10, cw)).size()));
+            }
+            int h = Math.max(UiTheme.ROW_HEIGHT, lines * LINE_H + 8);
+            tops[i + 1] = tops[i] + h + UiTheme.ROW_GAP;
+        }
+        measuredRows = shown;
+        measuredW = rowW;
+    }
+
+    private void drawRow(Imm ui, Row row, List<Column> cols, int[] colX, int x, int ry, int rh, int rowW, int clipY,
             int clipH) {
-        boolean visible = ry + UiTheme.ROW_HEIGHT > clipY && ry < clipY + clipH;
+        boolean visible = ry + rh > clipY && ry < clipY + clipH;
         boolean hover = visible && ui.over(x, Math.max(ry, clipY), rowW,
-                Math.min(ry + UiTheme.ROW_HEIGHT, clipY + clipH) - Math.max(ry, clipY));
+                Math.min(ry + rh, clipY + clipH) - Math.max(ry, clipY));
         boolean selected = row.id().equals(state.selected);
-        ui.sprite(hover || selected ? UiTheme.ROW_HOVER : UiTheme.ROW, x, ry, rowW, UiTheme.ROW_HEIGHT);
+        ui.sprite(hover || selected ? UiTheme.ROW_HOVER : UiTheme.ROW, x, ry, rowW, rh);
         for (int c = 0; c < cols.size(); c++) {
             Cell cell = row.cell(c);
             int cx = colX[c];
-            int cw = colX[c + 1] - cx - 6;
-            ui.text(cell.text(), cx, ry, cw, UiTheme.ROW_HEIGHT - 2, align(cols.get(c)),
-                    UiTheme.tone(cell.tone(), true));
+            int cw = Math.max(10, colX[c + 1] - cx - 6);
+            int color = UiTheme.tone(cell.tone(), true);
+            List<net.minecraft.util.FormattedCharSequence> lines = ui.font.split(Component.literal(cell.text()), cw);
+            boolean cut = lines.size() > MAX_LINES;
+            int n = Math.min(MAX_LINES, Math.max(1, lines.size()));
+            int ty = ry + (rh - n * LINE_H) / 2 + 1;
+            for (int k = 0; k < n && k < lines.size(); k++) {
+                if (cut && k == n - 1) {
+                    // the last line that fits, ending in "..."
+                    StringBuilder rest = new StringBuilder();
+                    for (int j = k; j < lines.size(); j++) {
+                        rest.append(j > k ? " " : "").append(lineText(lines.get(j)));
+                    }
+                    String tail = rest.toString();
+                    ui.text(ui.fit(tail, cw), alignX(cols.get(c), cx, cw, ui.font.width(ui.fit(tail, cw))), ty, color);
+                } else {
+                    var l = lines.get(k);
+                    ui.g.drawString(ui.font, l, alignX(cols.get(c), cx, cw, ui.font.width(l)), ty, color, false);
+                }
+                ty += LINE_H;
+            }
+            if (cut && visible && ui.over(cx, Math.max(ry, clipY), cw, rh)) {
+                ui.tooltip(Component.literal(cell.text()));
+            }
         }
         if (visible) {
             int top = Math.max(ry, clipY);
-            ui.hit(x, top, rowW, Math.min(ry + UiTheme.ROW_HEIGHT, clipY + clipH) - top, () -> clickRow(row));
+            ui.hit(x, top, rowW, Math.min(ry + rh, clipY + clipH) - top, () -> clickRow(row));
         }
+    }
+
+    private static int alignX(Column c, int x, int w, int textW) {
+        return switch (c.align()) {
+            case LEFT -> x;
+            case CENTER -> x + (w - textW) / 2;
+            case RIGHT -> x + w - textW;
+        };
+    }
+
+    private static String lineText(net.minecraft.util.FormattedCharSequence l) {
+        StringBuilder b = new StringBuilder();
+        l.accept((i, style, cp) -> {
+            b.appendCodePoint(cp);
+            return true;
+        });
+        return b.toString();
     }
 
     private void clickRow(Row row) {
@@ -257,6 +325,7 @@ final class TablePane implements UiScreen.Draggable {
             return false;
         }
         state.scroll -= amount * (UiTheme.ROW_HEIGHT + UiTheme.ROW_GAP) * 2;
+        state.scroll = Math.max(0, Math.min(state.scroll, Math.max(0, contentHeight - listH)));
         return true;
     }
 

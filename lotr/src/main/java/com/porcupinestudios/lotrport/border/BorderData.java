@@ -47,11 +47,15 @@ public final class BorderData {
                 .apply(i, Settings::new));
     }
 
-    /** The original map: biome -> the faction holding it. Biomes not listed are nobody's (wilds, seas). */
-    public record Base(Map<ResourceLocation, ResourceLocation> biomes) {
+    /**
+     * The original map: biome -> the faction holding it. Biomes not listed are nobody's (wilds, seas). {@code fill}:
+     * water biomes (rivers, lakes) that take the holder of the land around them ({@link WaterFill}).
+     */
+    public record Base(Map<ResourceLocation, ResourceLocation> biomes, java.util.List<ResourceLocation> fill) {
         public static final Codec<Base> CODEC = RecordCodecBuilder.create(i -> i.group(
                 Codec.unboundedMap(ResourceLocation.CODEC, ResourceLocation.CODEC).fieldOf("biomes")
-                        .forGetter(Base::biomes))
+                        .forGetter(Base::biomes),
+                ResourceLocation.CODEC.listOf().optionalFieldOf("fill", java.util.List.of()).forGetter(Base::fill))
                 .apply(i, Base::new));
     }
 
@@ -84,6 +88,13 @@ public final class BorderData {
     public static Map<ResourceLocation, ResourceLocation> base() {
         Map<ResourceLocation, ResourceLocation> all = new java.util.HashMap<>();
         BASE.entries().values().forEach(b -> all.putAll(b.biomes()));
+        return all;
+    }
+
+    /** Water biomes that take the holder of the land around them, over every {@code border_base} file. */
+    public static java.util.Set<ResourceLocation> fill() {
+        java.util.Set<ResourceLocation> all = new java.util.HashSet<>();
+        BASE.entries().values().forEach(b -> all.addAll(b.fill()));
         return all;
     }
 

@@ -5,7 +5,6 @@ import com.porcupinestudios.lotrport.LotrPort;
 import com.porcupinestudios.lotrport.colony.building.Building;
 import com.porcupinestudios.lotrport.colony.building.BuildingSettings;
 import com.porcupinestudios.lotrport.colony.building.Buildings;
-import com.porcupinestudios.lotrport.colony.members.Permissions;
 import com.porcupinestudios.lotrport.colony.book.Books;
 import com.porcupinestudios.lotrport.colony.book.CustomsBook;
 import com.porcupinestudios.lotrport.colony.book.HallLedgerBook;
@@ -15,7 +14,6 @@ import java.util.Comparator;
 import java.util.Optional;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionResult;
@@ -107,6 +105,28 @@ public final class ColonyBlocks {
             return defaultBlockState().setValue(FACING, ctx.getHorizontalDirection().getOpposite());
         }
 
+        /** A plaque hung where no building is registered yet registers the room (it replaced the writ). */
+        @Override
+        public void setPlacedBy(Level level, BlockPos pos, BlockState state,
+                @org.jetbrains.annotations.Nullable net.minecraft.world.entity.LivingEntity placer,
+                net.minecraft.world.item.ItemStack stack) {
+            super.setPlacedBy(level, pos, state, placer, stack);
+            if (kind == Kind.PLAQUE && placer instanceof ServerPlayer sp
+                    && level instanceof net.minecraft.server.level.ServerLevel sl) {
+                registerAt(sp, sl, pos, state); // quietly: the plaque's book shows what happened
+            }
+        }
+
+        /** A plaque taken down (broken, or fallen with its wall) takes its building down: checked next tick. */
+        @Override
+        protected void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean moved) {
+            super.onRemove(state, level, pos, newState, moved);
+            if (kind == Kind.PLAQUE && !newState.is(state.getBlock())
+                    && level instanceof net.minecraft.server.level.ServerLevel sl) {
+                com.porcupinestudios.lotrport.colony.building.BuildingSystems.changed(sl, pos);
+            }
+        }
+
         @Override
         protected boolean canSurvive(BlockState state, net.minecraft.world.level.LevelReader level, BlockPos pos) {
             if (kind != Kind.PLAQUE) {
@@ -151,7 +171,7 @@ public final class ColonyBlocks {
         }
     }
 
-    /** Opens the block's screen, or tells the player why not (on the action bar, never a chat link). */
+    /** Opens the block's screen; a reason it can't do more shows in that book, never as text over the world. */
     static void open(ServerPlayer player, BlockPos pos, BlockState state, Kind kind) {
         if (kind == Kind.PLAQUE) {
             Direction facing = state.getValue(HorizontalDirectionalBlock.FACING);
@@ -161,17 +181,12 @@ public final class ColonyBlocks {
                 }
                 Optional<Building> b = plaqueBuilding(Buildings.of(c), pos, facing);
                 if (b.isPresent()) {
-                    if (!Permissions.isMember(player.getUUID(), c)) {
-                        player.displayClientMessage(Component.translatableWithFallback(
-                                "colony.lotr_port.plaque.foreign", "This is %s's %s", c.name(), b.get().label()), true);
-                        return;
-                    }
                     Books.open(player, PlaqueBook.KIND, PlaqueBook.context(c, b.get()), "", "");
                     return;
                 }
             }
-            player.displayClientMessage(Component.translatableWithFallback("colony.lotr_port.plaque.none",
-                    "This plaque names no building: hang it inside one, or by its door"), true);
+            // no building yet: the unmarked plaque's book (the room, and every type with what it needs; RingRealms)
+            Books.open(player, PlaqueBook.KIND, PlaqueBook.unmarked(pos), "", "");
             return;
         }
         int reach = BuildingSettings.get().reach();
@@ -180,9 +195,7 @@ public final class ColonyBlocks {
                         && c.hall().distSqr(pos) <= (double) reach * reach)
                 .min(Comparator.comparingDouble(c -> c.hall().distSqr(pos)));
         if (colony.isEmpty()) {
-            player.displayClientMessage(Component.translatableWithFallback("colony.lotr_port.furniture.no_colony",
-                    "This belongs to no colony: place it near a Town Hall"), true);
-            return;
+            return; // no colony near: nothing to open
         }
         Colony c = colony.get();
         String book = switch (kind) {
@@ -193,17 +206,40 @@ public final class ColonyBlocks {
         Books.open(player, book, c.id().toString(), "", "");
     }
 
-    /** The building a plaque names: the room it hangs in, the one behind its wall, or one whose door is by it. */
+    /**
+     * Registers the room by a plaque (ColonyBuildings.plaque) unless it already names a building, silently (what
+     * happened shows in its book). True when the plaque names a building afterwards.
+     */
+    static boolean registerAt(ServerPlayer player, net.minecraft.server.level.ServerLevel level, BlockPos pos,
+            BlockState state) {
+        Direction facing = state.getValue(HorizontalDirectionalBlock.FACING);
+        for (Colony c : Colonies.get(player.server).all()) {
+            if (c.dimension().equals(level.dimension()) && plaqueBuilding(Buildings.of(c), pos, facing).isPresent()) {
+                return true;
+            }
+        }
+        // never text on screen: a room that fits nothing shows in the plaque's book when it is opened
+        return com.porcupinestudios.lotrport.colony.building.ColonyBuildings.plaque(player, level, pos).building()
+                .isPresent();
+    }
+
+    /** The building a plaque names: the one it registered, else (older saves) the room it hangs in or by. */
     public static Optional<Building> plaqueBuilding(Buildings all, BlockPos pos, Direction facing) {
+        Optional<Building> own = all.list().stream().filter(b -> b.plaque().map(pos::equals).orElse(false)).findFirst();
+        if (own.isPresent()) {
+            return own;
+        }
+        // older buildings remember no plaque: the room it hangs in or by, or a door beside it (never one that has
+        // a plaque of its own elsewhere, or a second plaque by its door would name it instead of its own room)
         BlockPos[] spots = {pos, pos.relative(facing), pos.relative(facing.getOpposite(), 2), pos.below(),
                 pos.relative(facing).below()};
         for (BlockPos p : spots) {
-            Optional<Building> b = all.at(p);
+            Optional<Building> b = all.at(p).filter(x -> x.plaque().isEmpty());
             if (b.isPresent()) {
                 return b;
             }
         }
-        return all.list().stream().filter(b -> b.door().distManhattan(pos) <= 3)
+        return all.list().stream().filter(b -> b.plaque().isEmpty() && b.door().distManhattan(pos) <= 3)
                 .min(Comparator.comparingInt(b -> b.door().distManhattan(pos)));
     }
 }

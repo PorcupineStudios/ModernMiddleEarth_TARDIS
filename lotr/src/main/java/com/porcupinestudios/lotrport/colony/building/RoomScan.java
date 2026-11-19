@@ -26,7 +26,8 @@ import net.minecraft.world.level.block.state.properties.BedPart;
  * open block in six directions, so stairs, ladders and holes in a floor reach the other storeys. Blocks that stop
  * movement are walls, floors and ceilings, unless they are furnishings (a block entity, a bed, anything a counter tag
  * names, anything that gives light): those belong to the room and are counted, but the fill doesn't pass them. The
- * doorway is never a way out. Every open block needs a roof within {@code max_roof}.
+ * doorway is never a way out, nor is any door or gate (open or shut): they are walls, and the fill notes them as the
+ * room's doors. Every open block needs a roof within {@code max_roof}.
  */
 public final class RoomScan {
     /** Counter for blocks that give light (any block, no tag). */
@@ -42,8 +43,13 @@ public final class RoomScan {
      *
      * @param problem why it isn't a room (null when it is)
      * @param cells the room's own blocks: open space and furnishings ({@link BlockPos#asLong})
+     * @param doors the doors and gates in its walls (each block of them that touches the room)
      */
-    public record Room(Component problem, LongSet cells, Map<String, Integer> counts) {
+    public record Room(Component problem, LongSet cells, Map<String, Integer> counts, java.util.List<BlockPos> doors) {
+        public Room(Component problem, LongSet cells, Map<String, Integer> counts) {
+            this(problem, cells, counts, java.util.List.of());
+        }
+
         public boolean ok() {
             return problem == null;
         }
@@ -61,9 +67,23 @@ public final class RoomScan {
         return TagKey.create(Registries.BLOCK, LotrPort.id("colony/" + counter));
     }
 
-    /** Open = something a person walks through (air, plants, torches, carpets, open gates) or climbs. */
+    /** Open = something a person walks through (air, plants, torches, carpets) or climbs; never a door or gate. */
     public static boolean open(Level level, BlockPos pos, BlockState state) {
+        if (isDoor(state)) {
+            return false; // a door or gate is the room's wall even while open (an open gate let the fill out)
+        }
+        if (state.is(com.porcupinestudios.lotrport.colony.ColonyBlocks.PLAQUE.get())) {
+            return true; // a plaque hangs flat on the wall: the space it hangs in is the room's (its floor counted)
+        }
         return state.getCollisionShape(level, pos).isEmpty() || state.is(BlockTags.CLIMBABLE);
+    }
+
+    /** Doors, fence gates and LOTR's gates, open or shut: a room's ways in. */
+    public static boolean isDoor(BlockState state) {
+        Block b = state.getBlock();
+        return b instanceof net.minecraft.world.level.block.DoorBlock
+                || b instanceof net.minecraft.world.level.block.FenceGateBlock
+                || b instanceof com.porcupinestudios.lotrport.content.GateBlock;
     }
 
     static boolean furnishing(BlockState state, Map<String, TagKey<Block>> tags) {
@@ -104,6 +124,7 @@ public final class RoomScan {
         queue.enqueue(start.asLong());
         Map<String, Integer> counts = new HashMap<>();
         Map<Integer, Integer> floorByY = new TreeMap<>();
+        java.util.List<BlockPos> doors = new java.util.ArrayList<>();
         int open = 0;
         while (!queue.isEmpty()) {
             long p = queue.dequeueLong();
@@ -132,6 +153,10 @@ public final class RoomScan {
                     return Room.fail("colony.lotr_port.room.leaks", "The room is open to the outside, or too big");
                 }
                 BlockState ns = level.getBlockState(np);
+                if (isDoor(ns)) {
+                    doors.add(np);
+                    continue;
+                }
                 if (open(level, np, ns)) {
                     queue.enqueue(n);
                 } else if (furnishing(ns, tags)) {
@@ -156,7 +181,7 @@ public final class RoomScan {
         counts.put(FLOOR, floor);
         counts.put(STOREYS, (int) floorByY.values().stream().filter(n -> n >= s.storeyFloor()).count());
         counts.put(VOLUME, open);
-        return new Room(null, cells, counts);
+        return new Room(null, cells, counts, java.util.List.copyOf(doors));
     }
 
     private static void count(BlockState state, Map<String, TagKey<Block>> tags, Map<String, Integer> counts) {

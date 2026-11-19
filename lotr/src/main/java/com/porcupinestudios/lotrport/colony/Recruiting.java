@@ -61,7 +61,7 @@ public final class Recruiting {
             return false;
         }
         Colonies all = Colonies.get(player.server);
-        Optional<Colony> colony = all.ofFounder(player.getUUID());
+        Optional<Colony> colony = all.nearestOwned(player);
         if (colony.isEmpty()) {
             player.sendSystemMessage(Component.translatableWithFallback("recruit.lotr_port.no_colony",
                     "%s would only join a colony you have founded", npc.getDisplayName()));
@@ -283,7 +283,7 @@ public final class Recruiting {
 
     /** Counts a kill toward the player's colony's recruitment kill objectives. */
     public static void killed(ServerPlayer player, LivingEntity victim) {
-        Optional<Colony> colony = Colonies.get(player.server).ofFounder(player.getUUID());
+        Optional<Colony> colony = Colonies.get(player.server).nearestOwned(player);
         if (colony.isEmpty() || colony.get().recruits.isEmpty()) {
             return;
         }
@@ -320,7 +320,7 @@ public final class Recruiting {
 
     /** Marks visit objectives the player is standing at. */
     public static void visited(ServerPlayer player) {
-        Optional<Colony> colony = Colonies.get(player.server).ofFounder(player.getUUID());
+        Optional<Colony> colony = Colonies.get(player.server).nearestOwned(player);
         if (colony.isEmpty() || colony.get().recruits.isEmpty()) {
             return;
         }
