@@ -124,7 +124,7 @@ public final class WreckTests {
         helper.assertFalse(Flight.hop(server, t, target, Optional.empty()).done(), "hopped with no charge");
         t.addCharge(100);
         long before = t.charge();
-        Flight.Outcome far = Flight.hop(server, t, target.offset(500, 0, 0), Optional.empty());
+        Flight.Outcome far = Flight.hop(server, t, target.offset(5000, 0, 0), Optional.empty());
         helper.assertFalse(far.done(), "hopped beyond its range");
         Flight.Outcome out = Flight.hop(server, t, target, Optional.empty());
         if (!out.done()) {

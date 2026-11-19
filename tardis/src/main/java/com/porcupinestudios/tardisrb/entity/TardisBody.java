@@ -4,6 +4,7 @@ import com.porcupinestudios.tardisrb.flight.FreeFlight;
 import com.porcupinestudios.tardisrb.flight.PilotInput;
 import com.porcupinestudios.tardisrb.flight.Piloting;
 import com.porcupinestudios.tardisrb.progression.TardisContent;
+import com.porcupinestudios.tardisrb.flight.PilotStatus;
 import com.porcupinestudios.tardisrb.progression.Tuning;
 import com.porcupinestudios.tardisrb.vortex.Vortex;
 import java.util.List;
@@ -226,16 +227,23 @@ public class TardisBody extends Entity implements qouteall.imm_ptl.core.api.ImmP
             Vec3 left = new Vec3(Math.cos(yaw), 0, Math.sin(yaw));
             Vec3 push = forward.scale(PilotInput.forward).add(left.scale(PilotInput.left));
             Vec3 across = new Vec3(v.x, 0, v.z);
+            // speed upgrades; out of charge (Aaron 2026-11-19): much slower, no boost, and now and then a shove
+            boolean empty = PilotStatus.empty();
+            double speed = Math.max(0.1, PilotStatus.flightSpeed) * (empty ? t.energy().emptySpeed() : 1);
             if (push.lengthSqr() > 1.0E-4) {
-                across = across.add(push.normalize().scale(p.acceleration()));
+                across = across.add(push.normalize().scale(p.acceleration() * speed));
             } else {
                 across = across.scale(t.hoverDamping());
             }
-            double top = p.maxSpeed() * (PilotInput.boost ? p.boost() : 1);
+            double top = p.maxSpeed() * speed * (PilotInput.boost && !empty ? p.boost() : 1);
             if (across.length() > top) {
                 across = across.normalize().scale(top);
             }
-            double vy = v.y + (PilotInput.up * p.verticalSpeed() - v.y) * 0.5;
+            if (empty && random.nextDouble() < t.energy().driftChance()) {
+                double a = random.nextDouble() * Math.PI * 2;
+                across = across.add(Math.cos(a) * t.energy().driftPush(), 0, Math.sin(a) * t.energy().driftPush());
+            }
+            double vy = v.y + (PilotInput.up * p.verticalSpeed() * (empty ? t.energy().emptySpeed() : 1) - v.y) * 0.5;
             v = new Vec3(across.x, vy, across.z);
             if (PilotInput.brake) {
                 v = v.scale(0.5);
@@ -284,8 +292,8 @@ public class TardisBody extends Entity implements qouteall.imm_ptl.core.api.ImmP
                 vx *= top / across;
                 vy *= top / across;
             }
-            vz = vt.speed() * (1 + 0.5 * PilotInput.forward) * (PilotInput.boost ? p.boost() : 1)
-                    * (PilotInput.brake ? 0.5 : 1);
+            vz = vt.speed() * Math.max(0.1, PilotStatus.vortexSpeed) * (1 + 0.5 * PilotInput.forward)
+                    * (PilotInput.boost ? p.boost() : 1) * (PilotInput.brake ? 0.5 : 1);
         } else {
             // the autopilot follows the tunnel's bends, steering for its middle a little ahead
             Vec3 ahead = Vortex.bend(getZ() + 3);
