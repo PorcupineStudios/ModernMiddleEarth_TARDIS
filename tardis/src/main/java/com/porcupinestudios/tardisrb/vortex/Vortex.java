@@ -355,7 +355,22 @@ public final class Vortex {
                 pilot.sendSystemMessage(Piloting.seat(server, tardis, pilot));
             }
         }
+        // flown through a passable portal (the tunnel's end, a see-through wormhole): out the other side, still flying
+        if (body.isPresent() && body.get().getControllingPassenger() instanceof ServerPlayer
+                && !trip.contains("crash")) {
+            Optional<Portal> through = crossed(vortex, body.get(), trip);
+            if (through.isPresent()) {
+                passThrough(server, tardis, body.get(), through.get(), trip);
+                return;
+            }
+        }
+        body.ifPresent(b -> {
+            trip.putDouble("last_x", b.getX());
+            trip.putDouble("last_y", b.getY());
+            trip.putDouble("last_z", b.getZ());
+        });
         if (Wormholes.sucking(trip)) {
+            tardis.setModuleData(MODULE, trip); // (the last position, before the wormhole may end the trip)
             Wormholes.suck(server, tardis, trip, body);
             return;
         }
@@ -411,9 +426,95 @@ public final class Vortex {
             }
         }
         tardis.setModuleData(MODULE, trip);
-        if (progress >= length) {
+        // a piloted box flies on through the end portal (next tick); nobody flying it, it lands as before
+        boolean flown = body.isPresent() && body.get().getControllingPassenger() instanceof ServerPlayer
+                && trip.hasUUID("end_portal");
+        if (progress >= length + (flown ? 4 : 0)) {
             arrive(server, tardis);
         }
+    }
+
+    /**
+     * The passable portal ({@link Wormholes#PASSABLE_TAG}) the box went through since the last tick: it was in front
+     * of the portal's face then and is at or behind it now, inside its round face.
+     */
+    static Optional<Portal> crossed(ServerLevel vortex, TardisBody body, CompoundTag trip) {
+        if (!trip.contains("last_z")) {
+            return Optional.empty();
+        }
+        Vec3 last = new Vec3(trip.getDouble("last_x"), trip.getDouble("last_y"), trip.getDouble("last_z"));
+        Vec3 now = body.position().add(0, body.getBbHeight() / 2, 0);
+        last = last.add(0, body.getBbHeight() / 2, 0);
+        for (Portal p : vortex.getEntitiesOfClass(Portal.class, body.getBoundingBox().inflate(24),
+                p -> Wormholes.PASSABLE_TAG.equals(p.portalTag))) {
+            Vec3 o = p.getOriginPos();
+            Vec3 n = p.getNormal();
+            double before = last.subtract(o).dot(n);
+            double after = now.subtract(o).dot(n);
+            Vec3 inPlane = now.subtract(o).subtract(n.scale(after));
+            if (before > 0 && after <= 0 && inPlane.length() <= p.getWidth() / 2) {
+                return Optional.of(p);
+            }
+        }
+        return Optional.empty();
+    }
+
+    /**
+     * Out through a passable portal, seamlessly (Aaron 2026-11-19): the trip ends without setting the box down, a box
+     * comes out at the matching spot on the far side going the same way as fast, thrusters on, and the pilot rides on
+     * (carried over by Immersive Portals, no loading screen). Through the tunnel's end it pays the trip's charge as a
+     * landing would; through a wormhole it pays nothing and loses {@code exit_damage} health.
+     */
+    static void passThrough(MinecraftServer server, TardisRecord tardis, TardisBody old, Portal portal,
+            CompoundTag trip) {
+        ServerLevel level = server.getLevel(portal.getDestDim());
+        if (level == null) {
+            return;
+        }
+        boolean wormhole = !trip.hasUUID("end_portal") || !portal.getUUID().equals(trip.getUUID("end_portal"));
+        Vec3 at = portal.transformPoint(old.position());
+        Vec3 v = portal.transformLocalVec(old.getDeltaMovement());
+        ServerPlayer pilot = old.getControllingPassenger() instanceof ServerPlayer p ? p : null;
+        if (wormhole) {
+            Health.set(tardis, Math.max(Math.min(1, Health.get(tardis)),
+                    Health.get(tardis) - TardisContent.tuning().vortex().wormholes().exitDamage()));
+        } else {
+            tardis.useCharge(Math.min(tardis.charge(), tripCharge(server, tardis, trip)));
+        }
+        old.ejectPassengers();
+        clearTrip(server, tardis, trip, false);
+        old.discard();
+        TardisBody body = TardisEntities.BODY.get().create(level);
+        if (body == null) {
+            if (pilot != null) {
+                Piloting.stop(pilot);
+            }
+            return;
+        }
+        level.getChunk(BlockPos.containing(at)); // the far side, ready to fly in
+        body.moveTo(at.x, at.y, at.z, (float) Math.toDegrees(Math.atan2(-v.x, v.z)), 0);
+        body.setTardis(tardis.id());
+        body.setThrusters(true);
+        body.setLook(Looks.exterior(server, tardis));
+        body.setDeltaMovement(v);
+        level.addFreshEntity(body);
+        CompoundTag flight = tardis.moduleData(FreeFlight.MODULE);
+        flight.putUUID("body", body.getUUID());
+        flight.putBoolean("thrusters", true);
+        tardis.setModuleData(FreeFlight.MODULE, flight);
+        tardis.setLocation(Optional.of(GlobalPos.of(level.dimension(), body.blockPosition())));
+        if (pilot != null) {
+            Piloting.carry(pilot, body);
+        }
+    }
+
+    /** What the trip costs to land, as {@code Flight.hop} / {@code jump} would charge for it. */
+    private static long tripCharge(MinecraftServer server, TardisRecord tardis, CompoundTag trip) {
+        if (trip.contains("destination")) {
+            return TardisContent.destination(ResourceLocation.parse(trip.getString("destination")))
+                    .map(d -> d.charge()).orElse(0L);
+        }
+        return Flight.baseCost(Math.sqrt(from(trip).pos().distSqr(BlockPos.of(trip.getLong("target")))));
     }
 
     /** Takes {@code amount} off the trip's health and adds to its inaccuracy; at 0 health it starts to crash. */
@@ -623,7 +724,14 @@ public final class Vortex {
 
     /** Ends the trip: the pilot gets off and goes back to the console, the body and the obstacles go. */
     static void clearTrip(MinecraftServer server, TardisRecord tardis, CompoundTag trip) {
-        FreeFlight.dock(server, tardis);
+        clearTrip(server, tardis, trip, true);
+    }
+
+    /** As above; {@code dock} false leaves the box alone (it has just flown out through a portal). */
+    static void clearTrip(MinecraftServer server, TardisRecord tardis, CompoundTag trip, boolean dock) {
+        if (dock) {
+            FreeFlight.dock(server, tardis);
+        }
         ServerLevel vortex = server.getLevel(DIMENSION);
         if (vortex != null) {
             Wormholes.removeAll(vortex, trip);
