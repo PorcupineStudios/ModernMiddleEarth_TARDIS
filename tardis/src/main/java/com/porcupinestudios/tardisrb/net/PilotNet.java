@@ -38,11 +38,17 @@ public final class PilotNet {
     public record Status(double health, double maxHealth, long charge, long chargeCap, double flightSpeed,
             double vortexSpeed, boolean camera) implements CustomPacketPayload {
         public static final Type<Status> TYPE = new Type<>(TardisRB.id("pilot_status"));
-        public static final StreamCodec<ByteBuf, Status> CODEC = StreamCodec.composite(
-                ByteBufCodecs.DOUBLE, Status::health, ByteBufCodecs.DOUBLE, Status::maxHealth,
-                ByteBufCodecs.VAR_LONG, Status::charge, ByteBufCodecs.VAR_LONG, Status::chargeCap,
-                ByteBufCodecs.DOUBLE, Status::flightSpeed, ByteBufCodecs.DOUBLE, Status::vortexSpeed,
-                ByteBufCodecs.BOOL, Status::camera, Status::new);
+        // composite() stops at six fields in 1.21.1
+        public static final StreamCodec<ByteBuf, Status> CODEC = StreamCodec.of((b, p) -> {
+            b.writeDouble(p.health());
+            b.writeDouble(p.maxHealth());
+            ByteBufCodecs.VAR_LONG.encode(b, p.charge());
+            ByteBufCodecs.VAR_LONG.encode(b, p.chargeCap());
+            b.writeDouble(p.flightSpeed());
+            b.writeDouble(p.vortexSpeed());
+            b.writeBoolean(p.camera());
+        }, b -> new Status(b.readDouble(), b.readDouble(), ByteBufCodecs.VAR_LONG.decode(b),
+                ByteBufCodecs.VAR_LONG.decode(b), b.readDouble(), b.readDouble(), b.readBoolean()));
 
         @Override
         public Type<Status> type() {
