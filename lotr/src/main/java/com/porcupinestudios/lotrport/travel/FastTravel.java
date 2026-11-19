@@ -10,7 +10,6 @@ import com.porcupinestudios.ringbearer.api.history.HistoryLog;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.Set;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -139,8 +138,7 @@ public final class FastTravel {
         int y = level.getHeight(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, wp.x(), wp.z());
         BlockPos from = player.blockPosition();
         double distance = Math.sqrt(from.distToLowCornerSqr(wp.x(), from.getY(), wp.z()));
-        player.stopRiding();
-        player.teleportTo(level, wp.x() + 0.5, y, wp.z() + 0.5, Set.of(), player.getYRot(), player.getXRot());
+        Companions.teleport(player, wp.x() + 0.5, y, wp.z() + 0.5); // with their mount, pets and followers
         LotrSounds.playTo(player, "event.fast_travel");
         long now = player.server.overworld().getGameTime();
         player.setData(LotrRegistries.TRAVEL, data(player).travelled(now + settings().cooldownTicks(distance)));
