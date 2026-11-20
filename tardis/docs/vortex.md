@@ -168,3 +168,15 @@ dimension, dodging obstacles, "to" the destination.
   and place from the trip's `progress`. A box thrown out into another dimension can take a few seconds to become
   visible there. Sequence waits report only their last attempt: `TestTrace` keeps what the test saw, for the message.
 - Not done yet: the pilot's own view of progress (a HUD bar), sounds, other obstacle kinds; the autopilot doesn't dodge arcs.
+
+- **Fixes (2026-11-20, Aaron's bug list)**:
+  - A copy of the crashed box beside the console: the pilot was put back in the same tick as getting off, so their
+    client still thought it rode and carried a copy along. `Piloting.stop` now moves them two ticks later
+    (`Piloting.LATER`), and a `TardisBody` in the interior dimension discards itself.
+  - Wormholes no longer crash: capture sets `TardisBody.pulled` (controls held, drawn through, no tumble, crackle or
+    fall) instead of crashing; through the face a piloted box `Vortex.emerge`s 8 blocks over the exit spot still
+    flying (thrusters on, the pilot carried); unpiloted, `Wormholes.exit` materialises it as before.
+  - Inside blocks: `Piloting.move` lifts a player out of blocks (up to 16); `Vortex.emerge` lifts the new box clear;
+    a buried loose box works its way up 0.25 a tick (`TardisBody.physics`) until it can fly.
+  - "No exterior" at the door: `FreeFlight.recover` (called by `Doors.open`) sets a lost loose box down as the block
+    at its last spot, and puts the police box back where a landed record has none.

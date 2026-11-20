@@ -366,8 +366,7 @@ public final class Wormholes {
             p.sendSystemMessage(Component.translatableWithFallback("tardis_rb.vortex.wormhole",
                     "The TARDIS is dragged into a wormhole!"));
         }
-        body.setThrusters(false);
-        body.setCrashing(true); // controls dead: it falls and keeps going, tumbling and crackling
+        body.setPulled(true); // controls held while it is drawn through; not a crash (Aaron 2026-11-20)
         body.shock(body.position().subtract(h.getDouble("x"), h.getDouble("y"), h.getDouble("z")), 1);
         body.level().playSound(null, body.blockPosition(), SoundEvents.PORTAL_TRIGGER, SoundSource.NEUTRAL, 2, 0.6F);
     }
@@ -403,12 +402,21 @@ public final class Wormholes {
             Vec3 n = facing(h);
             Vec3 middle = new Vec3(h.getDouble("x"), h.getDouble("y"), h.getDouble("z"));
             Vec3 into = middle.subtract(n.scale(1.5)); // just behind the face, so a turned one draws it through
-            b.setDeltaMovement(v.x * 0.85 + (into.x - c.x) * 0.08, v.y * 0.85 + (into.y - c.y) * 0.08, v.z);
+            b.setDeltaMovement(v.x * 0.85 + (into.x - c.x) * 0.08, v.y * 0.85 + (into.y - c.y) * 0.08,
+                    Math.max(0.25, v.z));
             b.setYRot(b.getYRot() + 6);
             return c.subtract(middle).dot(n) <= -0.5; // its back is through the face
         }).orElse(true);
         if (through || ticks >= tuning().suckTicks()) {
-            exit(server, tardis);
+            Optional<ServerPlayer> pilot = body.map(b -> b.getFirstPassenger() instanceof ServerPlayer p ? p : null);
+            ServerLevel level = exitLevel(server, trip, h);
+            if (pilot.isPresent() && body.isPresent() && level != null) {
+                // flown in: out the far side still flying, seamlessly (Aaron 2026-11-19/20)
+                Vec3 at = Vec3.atBottomCenterOf(Vortex.ground(level, BlockPos.of(h.getLong("aim")))).add(0, 8, 0);
+                Vortex.emerge(server, tardis, body.get(), level, at, new Vec3(0, 0, 0.4), trip, true);
+            } else {
+                exit(server, tardis);
+            }
         }
     }
 
@@ -424,11 +432,7 @@ public final class Wormholes {
             return Flight.Outcome.fail("tardis_rb.vortex.not_in", "The TARDIS isn't in a wormhole");
         }
         CompoundTag h = trip.getCompound("suck");
-        ResourceLocation id = ResourceLocation.tryParse(h.getString("dimension"));
-        ServerLevel level = id == null ? null : server.getLevel(ResourceKey.create(Registries.DIMENSION, id));
-        if (level == null) {
-            level = Optional.ofNullable(server.getLevel(Vortex.from(trip).dimension())).orElse(server.overworld());
-        }
+        ServerLevel level = exitLevel(server, trip, h);
         Vortex.clearTrip(server, tardis, trip);
         Health.set(tardis, Math.max(Math.min(1, Health.get(tardis)), Health.get(tardis) - tuning().exitDamage()));
         net.minecraft.core.GlobalPos from = Vortex.from(trip);
@@ -443,6 +447,14 @@ public final class Wormholes {
             }
         }
         return out;
+    }
+
+    /** The dimension a wormhole lets out in (the one the trip left, if that one isn't loaded). */
+    private static ServerLevel exitLevel(MinecraftServer server, CompoundTag trip, CompoundTag h) {
+        ResourceLocation id = ResourceLocation.tryParse(h.getString("dimension"));
+        ServerLevel level = id == null ? null : server.getLevel(ResourceKey.create(Registries.DIMENSION, id));
+        return level != null ? level
+                : Optional.ofNullable(server.getLevel(Vortex.from(trip).dimension())).orElse(server.overworld());
     }
 
     /** Removes a wormhole and its portal. */
