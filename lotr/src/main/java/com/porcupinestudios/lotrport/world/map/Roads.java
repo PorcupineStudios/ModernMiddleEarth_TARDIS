@@ -90,6 +90,15 @@ public final class Roads {
         return out;
     }
 
+    /** Every block LOTR's roads lay on top, in any biome (road works may lay over them). */
+    public java.util.Set<String> topBlocks() {
+        java.util.Set<String> out = new java.util.HashSet<>();
+        for (Style s : styles.values()) {
+            s.top().forEach(p -> out.add(p.block()));
+        }
+        return out;
+    }
+
     /** The road style of a biome ({@code lotr_port:shire}), or null for a biome LOTR has none for. */
     public Style style(String biome) {
         return styles.get(biome);

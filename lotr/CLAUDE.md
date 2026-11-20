@@ -417,6 +417,10 @@ https://claude.ai/artifact/KqhSSTCuKXGuwKHBoYJdcu. Rebuild features in modern co
   work, wages, needs, the Ledger, and colony wars: **read `lotr/docs/colonies.md`** before touching `society/`,
   `colony/`, `unit/`, `land/`, `social/`, `war/` or `ai/`.
 - Not yet: envoy spawning (rare NPCs come from normal spawning or commands for now).
+- Road works (2026-11-20, `road/`): roads that change after world generation, a tier ladder in data (`road_tier/`:
+  trails and dirt paths worn in by traffic; gravel, cobble and paved roads only built by waymakers), laid on natural
+  ground of loaded chunks, seen by routes. **Read `lotr/docs/roads.md`**; plan (caravans, Waymaker station, tunnels):
+  `docs/plans/roads.md`.
 
 ## Borders and kingdoms (2026-11-18, `border/`)
 - Who holds Middle-earth's land per map pixel, read top down: marks (conquest, operators), colonies' claims

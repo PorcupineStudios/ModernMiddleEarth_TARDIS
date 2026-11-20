@@ -9,7 +9,9 @@ One public repo for the TARDIS: Ring Bearer modpack's own mods (public since 202
 | `tardis/` | `tardis_rb` | `com.porcupinestudios.tardisrb` | `tardis/CLAUDE.md` |
 | `lotr/` | `lotr_port` | `com.porcupinestudios.lotrport` | `lotr/CLAUDE.md` |
 
-Plans (read with the Claude Docs tools, not a web fetch):
+Plans and roadmaps live in the repo, in `docs/plans/` (index: `docs/plans/README.md`; Aaron 2026-11-20: "all roadmaps
+and plans should be put in the repo"). Write new plans there, never only in a claude.ai doc. Not copied in yet (this
+session couldn't open them; the index says how to bring them in):
 - Shared roadmap, both mods in one order: https://claude.ai/artifact/H9foA8JKxCZEc4ArAyaXjZ
 - Plan review that shaped it: https://claude.ai/artifact/1BciPgPdz8FbnnamU9E2Rs
 

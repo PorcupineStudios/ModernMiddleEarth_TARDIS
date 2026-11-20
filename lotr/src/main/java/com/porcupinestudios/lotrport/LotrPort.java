@@ -99,6 +99,8 @@ public final class LotrPort {
         com.porcupinestudios.lotrport.border.BorderNet.register(modBus);
         com.porcupinestudios.lotrport.journey.CaravanConditions.register(modBus);
         WorldConditions.register(modBus);
+        com.porcupinestudios.lotrport.road.RoadData.register(); // road works: tiers that wear in or are built
+        com.porcupinestudios.lotrport.road.RoadPaving.register();
         Factions.register();
         FactionKills.register();
         com.porcupinestudios.lotrport.content.FeastMode.register();

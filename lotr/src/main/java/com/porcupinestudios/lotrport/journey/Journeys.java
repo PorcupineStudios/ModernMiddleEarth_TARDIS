@@ -210,7 +210,8 @@ public final class Journeys extends SavedData {
     /** The land as routes see it now (bridges copied, so the planner thread never touches saved data). */
     public static MapTerrain terrain(MinecraftServer server) {
         return new MapTerrain(MiddleEarthMap.get(), Roads.get(), JourneyData.terrain(),
-                Bridges.get(server).in(server.overworld().dimension()));
+                Bridges.get(server).in(server.overworld().dimension()),
+                com.porcupinestudios.lotrport.road.RoadWorks.get(server).snapshot(), server.overworld().dimension());
     }
 
     @Override
