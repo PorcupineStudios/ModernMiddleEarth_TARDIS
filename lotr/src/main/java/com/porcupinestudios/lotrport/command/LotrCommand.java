@@ -54,6 +54,7 @@ public final class LotrCommand {
                                                                             + value), true);
                                                             return 1;
                                                         }))))))
+                .then(RoadCommand.node())
                 .then(Commands.literal("travel")
                         .executes(ctx -> travel(ctx.getSource().getPlayerOrException())))
                 .then(Commands.literal("history")
