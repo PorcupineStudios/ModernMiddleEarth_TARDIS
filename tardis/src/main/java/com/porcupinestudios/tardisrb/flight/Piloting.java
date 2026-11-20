@@ -12,7 +12,9 @@ import com.porcupinestudios.tardisrb.progression.TardisContent;
 import com.porcupinestudios.tardisrb.progression.Tuning;
 import com.porcupinestudios.tardisrb.progression.Unlocks;
 import com.porcupinestudios.tardisrb.vortex.Vortex;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
@@ -142,10 +144,23 @@ public final class Piloting {
         if (level == null) {
             level = player.server.overworld();
         }
-        move(player, level, new Vec3(back.getDouble("x"), back.getDouble("y"), back.getDouble("z")));
-        player.setYRot(back.getFloat("yaw"));
-        player.setXRot(back.getFloat("pitch"));
+        // a tick later: moved in the same tick as getting off, the client could still think it rode the box and drew a
+        // copy of it beside the console (2026-11-20)
+        ServerLevel to = level;
+        Vec3 pos = new Vec3(back.getDouble("x"), back.getDouble("y"), back.getDouble("z"));
+        float yaw = back.getFloat("yaw");
+        float pitch = back.getFloat("pitch");
+        LATER.put(player.getUUID(), new Later(player.server.getTickCount() + 2, () -> {
+            move(player, to, pos);
+            player.setYRot(yaw);
+            player.setXRot(pitch);
+        }));
     }
+
+    /** Moves to run next tick (putting pilots back once their getting off has reached their client). */
+    private static final Map<UUID, Later> LATER = new HashMap<>();
+
+    private record Later(int at, Runnable run) {}
 
     /**
      * The box went on as a new body somewhere else (out of the vortex through a rift): its pilot goes with it and gets
@@ -156,12 +171,26 @@ public final class Piloting {
             return;
         }
         RETURNING.remove(player.getUUID()); // getting off the old body doesn't end it
+        LATER.remove(player.getUUID());
         move(player, (ServerLevel) body.level(), body.position().add(0, 2.2, 0));
         PENDING.put(player.getUUID(), body.getUUID());
         WAIT.put(player.getUUID(), MOUNT_WAIT);
     }
 
+    /** {@code pos}, or the first spot up to 16 blocks over it where the player isn't inside blocks (2026-11-20). */
+    private static Vec3 free(ServerPlayer player, ServerLevel to, Vec3 pos) {
+        to.getChunk(net.minecraft.core.BlockPos.containing(pos));
+        for (int up = 0; up <= 16; up++) {
+            Vec3 p = pos.add(0, up, 0);
+            if (to.noCollision(player.getDimensions(player.getPose()).makeBoundingBox(p))) {
+                return p;
+            }
+        }
+        return pos;
+    }
+
     private static void move(ServerPlayer player, ServerLevel to, Vec3 pos) {
+        pos = free(player, to, pos);
         if (player.level() == to) {
             player.teleportTo(pos.x, pos.y, pos.z);
         } else {
@@ -171,6 +200,17 @@ public final class Piloting {
 
     private static void onTick(ServerTickEvent.Post event) {
         MinecraftServer server = event.getServer();
+        if (!LATER.isEmpty()) {
+            List<Runnable> now = new ArrayList<>();
+            LATER.values().removeIf(l -> {
+                if (server.getTickCount() >= l.at()) {
+                    now.add(l.run());
+                    return true;
+                }
+                return false;
+            });
+            now.forEach(Runnable::run);
+        }
         for (ServerPlayer player : server.getPlayerList().getPlayers()) {
             if (player.getVehicle() instanceof TardisBody) {
                 player.setAirSupply(player.getMaxAirSupply()); // inside the box: no drowning, no air bubbles

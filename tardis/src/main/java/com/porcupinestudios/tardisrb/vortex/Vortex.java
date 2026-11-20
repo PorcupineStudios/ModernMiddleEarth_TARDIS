@@ -356,7 +356,7 @@ public final class Vortex {
             }
         }
         // flown through a passable portal (the tunnel's end, a see-through wormhole): out the other side, still flying
-        if (body.isPresent() && body.get().getControllingPassenger() instanceof ServerPlayer
+        if (body.isPresent() && body.get().getFirstPassenger() instanceof ServerPlayer
                 && !trip.contains("crash")) {
             Optional<Portal> through = crossed(vortex, body.get(), trip);
             if (through.isPresent()) {
@@ -472,9 +472,19 @@ public final class Vortex {
             return;
         }
         boolean wormhole = !trip.hasUUID("end_portal") || !portal.getUUID().equals(trip.getUUID("end_portal"));
-        Vec3 at = portal.transformPoint(old.position());
-        Vec3 v = portal.transformLocalVec(old.getDeltaMovement());
-        ServerPlayer pilot = old.getControllingPassenger() instanceof ServerPlayer p ? p : null;
+        emerge(server, tardis, old, level, portal.transformPoint(old.position()),
+                portal.transformLocalVec(old.getDeltaMovement()), trip, wormhole);
+    }
+
+    /**
+     * The trip ends without setting the box down: a box comes out at {@code at} in {@code level} going at {@code v},
+     * thrusters on, and the pilot rides on (carried over seamlessly). Out of a wormhole it pays nothing and loses
+     * {@code exit_damage} health; out of the tunnel's end it pays the trip's landing charge. The spot is moved up out of
+     * any blocks (2026-11-20: a box could come out inside the ground).
+     */
+    static void emerge(MinecraftServer server, TardisRecord tardis, TardisBody old, ServerLevel level, Vec3 at, Vec3 v,
+            CompoundTag trip, boolean wormhole) {
+        ServerPlayer pilot = old.getFirstPassenger() instanceof ServerPlayer p ? p : null;
         if (wormhole) {
             Health.set(tardis, Math.max(Math.min(1, Health.get(tardis)),
                     Health.get(tardis) - TardisContent.tuning().vortex().wormholes().exitDamage()));
@@ -492,6 +502,9 @@ public final class Vortex {
             return;
         }
         level.getChunk(BlockPos.containing(at)); // the far side, ready to fly in
+        for (int up = 0; up < 64 && !level.noCollision(body.getType().getDimensions().makeBoundingBox(at)); up++) {
+            at = at.add(0, 1, 0);
+        }
         body.moveTo(at.x, at.y, at.z, (float) Math.toDegrees(Math.atan2(-v.x, v.z)), 0);
         body.setTardis(tardis.id());
         body.setThrusters(true);

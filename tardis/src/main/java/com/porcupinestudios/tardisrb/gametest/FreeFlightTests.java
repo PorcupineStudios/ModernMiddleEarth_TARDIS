@@ -130,7 +130,7 @@ public final class FreeFlightTests {
             helper.assertTrue(pilot.getVehicle() == body, "the pilot isn't in the box");
             helper.assertTrue(pilot.isInvisible(), "the pilot can be seen");
             pilot.stopRiding(); // Shift
-            helper.runAfterDelay(3, () -> {
+            helper.runAfterDelay(8, () -> { // put back two ticks after getting off (Piloting.LATER)
                 helper.assertTrue(!Piloting.isPilot(pilot) && !pilot.isPassenger() && !pilot.isInvisible(),
                         "getting off didn't end piloting");
                 helper.assertTrue(pilot.position().distanceTo(start) < 0.5,

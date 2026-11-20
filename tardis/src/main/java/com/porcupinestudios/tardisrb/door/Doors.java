@@ -211,6 +211,7 @@ public final class Doors {
         if (isOpen(tardis)) {
             return true;
         }
+        FreeFlight.recover(server, tardis); // a lost box or a missing police box: put back first (2026-11-20)
         Optional<GlobalPos> where = tardis.location();
         if (where.isEmpty() || !Interiors.ensure(server, tardis)) {
             return false;
