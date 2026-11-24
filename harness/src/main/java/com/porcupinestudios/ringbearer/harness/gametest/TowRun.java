@@ -96,7 +96,7 @@ public final class TowRun {
     private static final double SETTLE = 1.5, ACCEL = 2, CRUISE = 2, DECEL = 1.5, STAND = 3, RAMP = 0.5;
     private static final int X0 = 24, Z_WAGON = 3, LENGTH = 5;
 
-    private final GameTestHelper helper;
+    private final Host helper;
     private final Scenario sc;
     private final ServerLevel level;
     private final List<TowMetrics.Sample> samples = new ArrayList<>();
@@ -126,12 +126,55 @@ public final class TowRun {
             listening = true;
             net.neoforged.neoforge.common.NeoForge.EVENT_BUS.addListener(
                     (net.neoforged.neoforge.event.tick.EntityTickEvent.Pre e) -> {
+                        // server side only: in singleplayer the client's copy of the horse has the same id, and
+                        // Entity.equals compares ids, so it found this run too and drove the horse twice a tick
+                        if (e.getEntity().level().isClientSide) {
+                            return;
+                        }
                         TowRun run = DRIVEN.get(e.getEntity());
                         if (run != null) {
                             run.tick();
                         }
                     });
         }
+    }
+
+    /**
+     * What a run needs from whatever plays it: the GameTest framework ({@link #start(GameTestHelper, Scenario)}) or
+     * the dev movie recorder ({@code dev/Movies}). Ticks count from the host's start.
+     */
+    public interface Host {
+        ServerLevel level();
+
+        long tick();
+
+        /** Runs {@code r} at host tick {@code tick} (schedule everything up front: GameTest can't add while ticking). */
+        void at(long tick, Runnable r);
+
+        /** Where course number {@code index} goes (its corner at ground level y 0 of the course). */
+        BlockPos course(int index);
+
+        /** The ground's top block (GameTests: grass). */
+        default BlockState groundTop() {
+            return Blocks.GRASS_BLOCK.defaultBlockState();
+        }
+
+        /** The horse is hitched and the run begins. */
+        default void started(Horse horse) {}
+
+        void fail(String message);
+
+        void succeed();
+    }
+
+    /** GameTests: courses near the world origin (see the constructor). */
+    private record TestHost(GameTestHelper helper) implements Host {
+        @Override public ServerLevel level() { return helper.getLevel(); }
+        @Override public long tick() { return helper.getTick(); }
+        @Override public void at(long tick, Runnable r) { helper.runAtTickTime(tick, r); }
+        @Override public BlockPos course(int index) { return new BlockPos(512 + index * 64, 0, 512); }
+        @Override public void fail(String message) { helper.fail(message); }
+        @Override public void succeed() { helper.succeed(); }
     }
 
     /** Courses already laid out this run (each gets its own strip of ground). */
@@ -141,15 +184,15 @@ public final class TowRun {
     private final int index;
     private long startTick;
 
-    private TowRun(GameTestHelper helper, Scenario sc) {
+    private TowRun(Host helper, Scenario sc) {
         this.helper = helper;
         this.sc = sc;
-        this.level = helper.getLevel();
+        this.level = helper.level();
         // The GameTest server puts tests millions of blocks out, where Sable's physics positions round to a quarter
         // or half block and a wagon can't move in smaller steps (it froze, 2026-11-24). Each course is laid out near
         // the world origin instead, in force-loaded chunks; the test's own (empty) arena only times it.
         this.index = COURSES.getAndIncrement();
-        this.origin = new BlockPos(512 + index * 64, 0, 512);
+        this.origin = helper.course(index);
         for (int cx = (origin.getX() - 16) >> 4; cx <= (origin.getX() + 64) >> 4; cx++) {
             for (int cz = (origin.getZ() - 16) >> 4; cz <= (origin.getZ() + 88) >> 4; cz++) {
                 level.setChunkForced(cx, cz, true);
@@ -168,11 +211,15 @@ public final class TowRun {
      * when many were built and assembled in the same tick (2026-11-24), which players never do.
      */
     public static void start(GameTestHelper helper, Scenario sc) {
-        TowRun run = new TowRun(helper, sc);
-        long begin = 1 + run.index * 4L;
-        helper.runAtTickTime(begin, run::begin);
+        start(new TestHost(helper), sc);
+    }
+
+    public static void start(Host host, Scenario sc) {
+        TowRun run = new TowRun(host, sc);
+        long begin = host.tick() + 1 + run.index * 4L;
+        host.at(begin, run::begin);
         listen();
-        helper.runAtTickTime(begin + Math.round(run.total() * 20) + 1, run::finish);
+        host.at(begin + Math.round(run.total() * 20) + 1, run::finish);
     }
 
     private double total() {
@@ -204,7 +251,7 @@ public final class TowRun {
     private void begin() {
         // ground
         BlockState dirt = Blocks.DIRT.defaultBlockState();
-        BlockState grass = Blocks.GRASS_BLOCK.defaultBlockState();
+        BlockState grass = helper.groundTop();
         BlockState slab = Blocks.SMOOTH_STONE_SLAB.defaultBlockState();
         for (int x = 0; x < 48; x++) {
             for (int z = 0; z < 72; z++) {
@@ -265,8 +312,9 @@ public final class TowRun {
             harness.setTuning(d.withTraces(sc.traces()[0], sc.traces()[1], sc.traces()[2]));
         }
         harness.setProbe(this::record);
-        startTick = helper.getTick();
+        startTick = helper.tick();
         DRIVEN.put(horse, this);
+        helper.started(horse);
     }
 
     private final List<double[]> positions = new ArrayList<>();
@@ -320,11 +368,11 @@ public final class TowRun {
         if (horse == null || wagon == null) {
             return;
         }
-        if (helper.getTick() <= startTick) {
+        if (helper.tick() <= startTick) {
             return;
         }
 
-        double t = (helper.getTick() - startTick) / 20.0;
+        double t = (helper.tick() - startTick) / 20.0;
         double[] p = plan(t);
         phase = (int) p[2];
         heading += p[1] * 0.05;
