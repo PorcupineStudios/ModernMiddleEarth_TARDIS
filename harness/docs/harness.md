@@ -103,7 +103,13 @@ the hind legs. Not yet calibrated one by one beyond the horse's runs (they pass 
   `./gradlew :harness:runGameTestServer -PwithLotr` (runs also load lotr and api; JEI left out). 2026-11-24: all pass;
   the rabbit's sled climb measured the same as the horse's (jolt 13, stretch 0.27 with pull 230).
 - Screenshots: `-Dringbearer_harness.showcase=lotr` (with `-PwithLotr`) puts the animals in a row, harnessed, and
-  `ShowcaseCamera` takes `screenshots/harness_lotr_<n>.png` of each.
+  `ShowcaseCamera` takes `screenshots/harness_lotr_<n>.png` of each. The save needs `confirmedExperimentalSettings`
+  in level.dat once the port is loaded, or a confirmation screen blocks quick play. Fits after three rounds:
+  ![LOTR animals in harness](images/lotr_harnesses.png)
+  (row by row: horse, Shire pony, zebra, boar; camel, elk, rhino, giraffe; Rhosgobel rabbit, Mordor warg, Utumno ice
+  warg, Mirkwood spider). LOTR's rabbit model sits up, so the rabbit's harness wraps a sitting body.
+- The port's rigged NPCs (spiders) are drawn without `LivingEntityRenderer.render`, so `NpcRenderer` posts
+  `RenderLivingEvent.Post` for them: the harness and ropes draw on them as on any animal.
 
 ## Tests and metrics
 GameTests `HarnessTests` (`./gradlew :harness:runGameTestServer`; the run task deletes `run/world` first, see
@@ -216,7 +222,9 @@ substep it finds the ground under it by sweeping an ellipse (reach 3, height 1.5
 analytically) along three lines across the tyre, so a 1-block step is met as a gentle ramp instead of a 45-degree wall;
 then a soft spring along the vehicle's up through the contact point, grip across the tyre, rolling drag (capped by the
 load) and steering from the hitch (`HarnessSteering.degreesFor`, front wheels only). The client draws the hub at the
-suspension height, rolling with distance and turned with the steering. All numbers are in `data/<ns>/wheel/*.json`.
+suspension height, rolling with distance and turned with the steering (negated in `WagonWheelRenderer`: a positive
+angle turns the physics' rolling direction +x toward +z, a positive `Axis.YP` turn +x toward -z; drawn the wrong
+way round until 2026-11-24). All numbers are in `data/<ns>/wheel/*.json`.
 
 Results (horse at a trot, wagon 12.5, same course; `harness-metrics/`):
 

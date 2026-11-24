@@ -32,7 +32,9 @@ public class WagonWheelRenderer implements BlockEntityRenderer<WagonWheelBlockEn
         pose.translate(0.5, 0.5 + Mth.lerp(partialTick, be.hubO, be.hub), 0.5);
         // the model's axle is along x: turn it to the block's axle, then steer about up, then roll about the axle
         pose.mulPose(Axis.YP.rotationDegrees(-out.toYRot() - 90));
-        pose.mulPose(Axis.YP.rotationDegrees((float) Mth.lerp(partialTick, be.clientSteerO, be.clientSteer)));
+        // negated: the physics turns the rolling direction from +x toward +z for a positive angle
+        // (WagonWheelBlockEntity.rollLocal), a positive YP rotation turns +x toward -z
+        pose.mulPose(Axis.YP.rotationDegrees((float) -Mth.lerp(partialTick, be.clientSteerO, be.clientSteer)));
         pose.mulPose(Axis.XP.rotation((float) Mth.lerp(partialTick, be.rollO, be.roll)));
         wheel.render(pose, buffers.getBuffer(RenderType.entityCutout(TEXTURE)), light, overlay);
         pose.popPose();
