@@ -1,0 +1,15 @@
+{
+  "parent": "minecraft:block/block",
+  "textures": {"wood": "minecraft:block/spruce_planks", "leather": "minecraft:block/brown_wool", "particle": "minecraft:block/spruce_planks"},
+  "elements": [
+    {"from": [0, 0, 6], "to": [16, 4, 16], "faces": {
+      "north": {"texture": "#wood"}, "south": {"texture": "#wood"}, "east": {"texture": "#wood"},
+      "west": {"texture": "#wood"}, "up": {"texture": "#wood"}, "down": {"texture": "#wood"}}},
+    {"from": [6, 4, 0], "to": [10, 8, 16], "faces": {
+      "north": {"texture": "#wood"}, "south": {"texture": "#wood"}, "east": {"texture": "#wood"},
+      "west": {"texture": "#wood"}, "up": {"texture": "#wood"}, "down": {"texture": "#wood"}}},
+    {"from": [1, 8, 1], "to": [15, 10, 4], "faces": {
+      "north": {"texture": "#leather"}, "south": {"texture": "#leather"}, "east": {"texture": "#leather"},
+      "west": {"texture": "#leather"}, "up": {"texture": "#leather"}, "down": {"texture": "#leather"}}}
+  ]
+}

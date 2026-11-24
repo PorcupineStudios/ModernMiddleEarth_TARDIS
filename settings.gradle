@@ -12,4 +12,5 @@ plugins {
 rootProject.name = 'RingBearer'
 
 // api: the shared API both mods depend on. tardis and lotr never depend on each other.
-include 'api', 'tardis', 'lotr'
+// harness: hitching animals to Create: Aeronautics vehicles (needs Aeronautics); depends on neither mod.
+include 'api', 'tardis', 'lotr', 'harness'

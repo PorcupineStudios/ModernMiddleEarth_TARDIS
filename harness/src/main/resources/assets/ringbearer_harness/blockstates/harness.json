@@ -1,0 +1,8 @@
+{
+  "variants": {
+    "facing=north": {"model": "ringbearer_harness:block/harness"},
+    "facing=east": {"model": "ringbearer_harness:block/harness", "y": 90},
+    "facing=south": {"model": "ringbearer_harness:block/harness", "y": 180},
+    "facing=west": {"model": "ringbearer_harness:block/harness", "y": 270}
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "block.ringbearer_harness.harness": "Harness",
+  "message.ringbearer_harness.hitched": "Hitched %s",
+  "message.ringbearer_harness.unhitched": "Unhitched %s",
+  "message.ringbearer_harness.none": "Lead an animal that can pull here to hitch it",
+  "ringbearer_harness.configuration.title": "Harness",
+  "ringbearer_harness.configuration.section.ringbearer.harness.common.toml": "Harness",
+  "ringbearer_harness.configuration.section.ringbearer.harness.common.toml.title": "Harness",
+  "ringbearer_harness.configuration.pulling": "Animals pull"
+}
