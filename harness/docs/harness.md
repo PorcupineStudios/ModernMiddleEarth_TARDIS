@@ -150,6 +150,20 @@ JAVA_TOOL_OPTIONS=-Dringbearer_harness.showcase=true LIBGL_ALWAYS_SOFTWARE=1 xvf
 ![wagon](images/wagon.png) ![ropes from above](images/ropes_from_above.png)
 ![harness from the side](images/harness_side.png) ![ropes from the side](images/ropes_side.png)
 
+## Movies of the tow runs (dev)
+`-Dringbearer_harness.movies=true` (or `=run,run`): when a player joins, `dev/Movies` plays the GameTest runs
+(`HarnessTests.SCENARIOS`) one by one on courses beside them (`TowRun.Host`; ground in smooth stone, which compresses
+far better than grass), with the server's tick rate at 5 (`ringbearer_harness.movieTickRate`; physics steps per tick,
+so it's unchanged). `client/MovieRecorder` follows each rig from the side through a critically damped (~1 s) camera,
+so the camera can't add or hide jitter, and saves every rendered frame with its game time (`run/movie/<run>/`, ~140
+frames per game second at 854x480 under software GL). `harness/tools/movies.py [fps] [width]` picks the frames nearest
+to even game-time steps and writes `run/movies/<run>.gif` (default 40 fps, 480 wide, ~16-24 MB each) and a 60 fps
+MP4 (~4-7 MB). Same save and command as the screenshots, with `-PquickPlay=<save> -PwindowSize=854x480`
+(2026-11-24: all 13 runs, about 15 minutes).
+
+Found while making them: in singleplayer the test driver also ran for the client's copy of the horse (same entity
+id, and `Entity.equals` compares ids), moving the horse twice a tick; the driver now runs server side only.
+
 ## Status
 - 2026-11-24: proof of concept, horses calibrated; numbers above.
 - 2026-11-24: wearable harness, hitch block, two ropes; GameTests `WearingTests` (harness replaces the saddle and

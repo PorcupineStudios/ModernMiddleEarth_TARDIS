@@ -28,6 +28,7 @@ public final class HarnessClient {
         modBus.addListener(HarnessClient::addLayers);
         modBus.addListener((RegisterClientReloadListenersEvent e) -> e.registerReloadListener(new HarnessFits()));
         ShowcaseCamera.register();
+        MovieRecorder.register();
         NeoForge.EVENT_BUS.addListener((RenderLivingEvent.Post<?, ?> e) -> RopeRenderer.render(e.getEntity(),
                 e.getPartialTick(), e.getPoseStack(), e.getMultiBufferSource(), e.getPackedLight()));
     }

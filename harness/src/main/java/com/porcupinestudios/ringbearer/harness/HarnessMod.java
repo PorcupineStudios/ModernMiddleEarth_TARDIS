@@ -91,6 +91,7 @@ public final class HarnessMod {
         });
         Harnessing.register();
         com.porcupinestudios.ringbearer.harness.dev.Showcase.register();
+        com.porcupinestudios.ringbearer.harness.dev.Movies.register();
         NeoForge.EVENT_BUS.addListener((AddReloadListenerEvent e) -> e.addListener(new DraughtAnimals()));
         NeoForge.EVENT_BUS.addListener(HarnessMod::afterEntityTick);
     }
