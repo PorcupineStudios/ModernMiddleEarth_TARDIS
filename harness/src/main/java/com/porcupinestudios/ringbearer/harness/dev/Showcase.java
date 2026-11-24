@@ -25,6 +25,8 @@ public final class Showcase {
     public static final boolean LOTR = "lotr".equals(System.getProperty("ringbearer_harness.showcase"));
     /** The row: animal i stands at x = LOTR_X0 + i * LOTR_STEP, z = LOTR_Z, facing +z (south). */
     public static final double LOTR_X0 = 2.5, LOTR_STEP = 5, LOTR_Z = 4.5;
+    /** The row's heads ({@code -Dringbearer_harness.showcaseHead=<yaw>,<pitch>}, degrees; default straight ahead). */
+    private static final float HEAD_YAW = head(0), HEAD_PITCH = head(1);
     /** Scene layout, blocks from the join position: the wagon's back-left deck corner, and the free horse. */
     public static final int WAGON_X = 3, WAGON_Z = 3;
     public static final double FREE_X = 12.5, FREE_Z = 3.5;
@@ -88,11 +90,18 @@ public final class Showcase {
             }
             mob.moveTo(origin.getX() + LOTR_X0 + i * LOTR_STEP, origin.getY(), origin.getZ() + LOTR_Z, 0, 0);
             mob.setYBodyRot(0);
-            mob.setYHeadRot(0);
+            // heads turned toward the camera and lowered: the collar must follow the neck
+            mob.setYHeadRot(HEAD_YAW);
+            mob.setXRot(HEAD_PITCH);
             mob.setNoAi(true);
             level.addFreshEntity(mob);
             Harnessing.putOn(mob, null);
         }
+    }
+
+    private static float head(int i) {
+        String[] v = System.getProperty("ringbearer_harness.showcaseHead", "0,0").split(",");
+        return i < v.length ? Float.parseFloat(v[i]) : 0f;
     }
 
     private static Horse horse(ServerLevel level, double x, double y, double z, float yaw) {

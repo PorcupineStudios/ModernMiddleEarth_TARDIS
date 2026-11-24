@@ -51,7 +51,6 @@ public final class WearingTests {
         h.assertFalse(horse.isSaddled(), "the saddle stayed on under the harness");
         h.assertTrue(p.getInventory().countItem(Items.SADDLE) == 1, "the saddle didn't come back to the player");
         h.assertTrue(p.getMainHandItem().isEmpty(), "the harness wasn't used up");
-        h.assertFalse(horse.isSaddleable(), "a harnessed horse still takes a saddle (its inventory's saddle slot)");
 
         // a saddle won't go on now
         Player q = playerHolding(h, new ItemStack(Items.SADDLE));
@@ -94,21 +93,39 @@ public final class WearingTests {
     }
 
     @GameTest(template = "arena")
-    public static void shearsTakeItOffAndUnhitch(GameTestHelper h) {
+    public static void takingItOutOfTheSlotUnhitches(GameTestHelper h) {
         BlockPos at = new BlockPos(1, 1, 0);
         h.setBlock(at, HarnessMod.HITCH.get().defaultBlockState().setValue(HitchBlock.FACING, Direction.SOUTH));
         HitchBlockEntity hitch = (HitchBlockEntity) h.getBlockEntity(at);
         Horse horse = tameHorse(h, 1);
         Harnessing.putOn(horse, null);
+        h.assertTrue(horse.getSlot(400).get().is(HarnessMod.HARNESS.get()), "the harness isn't in the saddle slot");
+        h.assertFalse(horse.isSaddled(), "a harness in the saddle slot counts as a saddle");
         h.assertTrue(hitch.hitch(horse), "couldn't hitch a harnessed horse");
-        Player p = playerHolding(h, new ItemStack(Items.SHEARS));
-        p.interactOn(horse, InteractionHand.MAIN_HAND);
-        h.assertFalse(Harnessing.wears(horse), "shears didn't take the harness off");
+        horse.getSlot(400).set(ItemStack.EMPTY);
+        h.assertFalse(Harnessing.wears(horse), "taking the harness out of the slot didn't take it off");
         h.assertTrue(HitchLink.of(horse).isEmpty(), "taking the harness off didn't unhitch it");
         h.assertFalse(hitch.hasHitches(), "the hitch still holds the horse");
-        AABB around = horse.getBoundingBox().inflate(3);
-        h.assertTrue(h.getLevel().getEntitiesOfClass(ItemEntity.class, around,
-                i -> i.getItem().is(HarnessMod.HARNESS.get())).size() == 1, "the harness wasn't dropped");
+        h.succeed();
+    }
+
+    @GameTest(template = "arena")
+    public static void inventorySaddleSlotTakesAHarness(GameTestHelper h) {
+        Horse horse = tameHorse(h, 1);
+        Player p = h.makeMockPlayer(GameType.SURVIVAL);
+        // the menu the horse's inventory screen opens (opening it for real sends packets a mock player can't take)
+        var menu = new net.minecraft.world.inventory.HorseInventoryMenu(1, p.getInventory(),
+                ((com.porcupinestudios.ringbearer.harness.mixin.HorseInventoryAccess) horse)
+                        .ringbearer_harness$inventory(), horse, 0);
+        net.minecraft.world.inventory.Slot slot = menu.getSlot(0);
+        h.assertTrue(slot.isActive(), "the saddle slot isn't shown");
+        h.assertTrue(slot.mayPlace(new ItemStack(HarnessMod.HARNESS.get())), "the saddle slot won't take a harness");
+        h.assertTrue(slot.mayPlace(new ItemStack(Items.SADDLE)), "the saddle slot won't take a saddle any more");
+        slot.set(new ItemStack(HarnessMod.HARNESS.get()));
+        h.assertTrue(Harnessing.wears(horse), "a harness put in the slot isn't worn");
+        h.assertFalse(slot.mayPlace(new ItemStack(Items.SADDLE)), "a saddle goes in over the harness");
+        slot.set(ItemStack.EMPTY);
+        h.assertFalse(Harnessing.wears(horse), "taking it out of the slot left it worn");
         h.succeed();
     }
 

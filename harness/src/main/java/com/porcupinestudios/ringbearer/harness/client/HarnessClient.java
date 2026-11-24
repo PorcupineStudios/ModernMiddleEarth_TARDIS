@@ -30,7 +30,9 @@ public final class HarnessClient {
         modBus.addListener((EntityRenderersEvent.RegisterRenderers e) ->
                 e.registerBlockEntityRenderer(HarnessMod.WAGON_WHEEL_BE.get(), WagonWheelRenderer::new));
         modBus.addListener(HarnessClient::addLayers);
+        modBus.addListener(PartPoses::onProcess);
         modBus.addListener((RegisterClientReloadListenersEvent e) -> e.registerReloadListener(new HarnessFits()));
+        com.porcupinestudios.ringbearer.harness.content.Harnessing.clientFits = HarnessFits::has;
         ShowcaseCamera.register();
         MovieRecorder.register();
         NeoForge.EVENT_BUS.addListener((RenderLivingEvent.Post<?, ?> e) -> {

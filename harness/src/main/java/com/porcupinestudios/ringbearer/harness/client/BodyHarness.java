@@ -32,6 +32,9 @@ public final class BodyHarness {
             return;
         }
         HarnessFits.Fit fit = HarnessFits.of(animal);
+        if (!fit.pieces().isEmpty() && onParts(animal, fit, buffers, light)) {
+            return;
+        }
         if (fit.body().isEmpty()) {
             return;
         }
@@ -77,6 +80,39 @@ public final class BodyHarness {
         }
     }
 
+    /**
+     * The fit's pieces on the animal's model parts, where its mod says they were drawn. False (nothing drawn) if no
+     * part's pose is known: then the body-box harness is drawn instead.
+     */
+    private static boolean onParts(LivingEntity animal, HarnessFits.Fit fit, MultiBufferSource buffers, int light) {
+        java.util.Map<String, Matrix4f> frames = new java.util.HashMap<>();
+        VertexConsumer vc = buffers.getBuffer(RenderType.entityCutoutNoCull(HarnessLayer.TEXTURE));
+        int overlay = LivingEntityRenderer.getOverlayCoords(animal, 0);
+        boolean any = false;
+        for (HarnessFits.Piece p : fit.pieces()) {
+            Matrix4f m = frames.computeIfAbsent(p.part(), part -> {
+                Matrix4f f = PartPoses.of(animal, part);
+                return f == null ? NONE : f;
+            });
+            if (m == NONE) {
+                continue;
+            }
+            any = true;
+            float[] mat = switch (p.material()) {
+                case "brass" -> BRASS;
+                case "pad" -> PAD;
+                default -> LEATHER;
+            };
+            List<Double> b = p.box();
+            new Box(m, vc, new Vec3(1, 0, 0), new Vec3(0, 0, 1), light, overlay).box(
+                    (float) (b.get(0) / 16), (float) (b.get(1) / 16), (float) (b.get(2) / 16),
+                    (float) (b.get(3) / 16), (float) (b.get(4) / 16), (float) (b.get(5) / 16), mat);
+        }
+        return any;
+    }
+
+    private static final Matrix4f NONE = new Matrix4f();
+
     /** A band round a box section: four slabs (top, bottom, both sides) of depth {@code d} at {@code z}. */
     private static void ring(Box b, float half, float bottom, float top, float z, float d, float[] mat) {
         float z0 = z - d / 2, z1 = z + d / 2, t = STRAP;
@@ -111,8 +147,10 @@ public final class BodyHarness {
 
         private void vertex(float x, float y, float z, float u, float v, Vec3 n) {
             Vec3 w = right.scale(x).add(0, y, 0).add(fwd.scale(z));
+            org.joml.Vector3f nw = pose.transformDirection(new org.joml.Vector3f((float) n.x, (float) n.y,
+                    (float) n.z)).normalize();
             vc.addVertex(pose, (float) w.x, (float) w.y, (float) w.z).setColor(-1).setUv(u, v).setOverlay(overlay)
-                    .setLight(light).setNormal((float) n.x, (float) n.y, (float) n.z);
+                    .setLight(light).setNormal(nw.x, nw.y, nw.z);
         }
     }
 }

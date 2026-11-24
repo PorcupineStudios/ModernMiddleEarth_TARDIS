@@ -281,7 +281,9 @@ https://claude.ai/artifact/KqhSSTCuKXGuwKHBoYJdcu. Rebuild features in modern co
   from `OWN_BREEDS` without a full converter run (the LOTR jar isn't in the sandbox); a full run writes the same.
 - For the harness mod (optional, no dependency either way): `LotrNpc` is an `OwnableEntity` (its hirer), and
   `LotrPort` sends IMC `draught_key` naming NPCs by NPC type, so harness data can list `lotr_port:mordor_warg` etc.
-  `NpcRenderer` posts `RenderLivingEvent.Post` for rigged NPCs too (their rig skips `LivingEntityRenderer.render`),
+  `client/PartPoses` records where each creature model's parts were drawn (the first `renderToBuffer` per entity
+  after `RenderLivingEvent.Pre`; old horses too) and `LotrClient` offers it as IMC `part_pose`, so the harness sits on
+  the neck and body and follows the animation. `NpcRenderer` posts `RenderLivingEvent.Post` for rigged NPCs too (their rig skips `LivingEntityRenderer.render`),
   so other mods' overlays draw on them.
 - GameTests `MountTests`. Earlier batches leave blocks outside the 1-block `empty` template: clear the space first.
   Screenshot script: `lotr/run/mount_shots.txt`.

@@ -16,11 +16,18 @@ calibrated later from the same data.
 - Animals stay ordinary entities on their own legs (their AI, a rider, or a test script moves them). A hitched animal
   carries attachment `hitch_link` (the hitch block's position in the plot; saved and synced to clients); after its
   tick, `restrain` holds it back if it got further than its rest length + `slack` from the hitch.
-- **Harness (item, worn)**: use it on a tamed, grown animal with draught data; it goes on in place of a saddle (a
-  saddled horse's saddle comes back to you). Attachment `harness_worn` (saved, synced). A harnessed horse can't be
-  saddled (`AbstractHorseSaddleMixin` makes `isSaddleable` false, which shuts both the saddle item and the inventory's
-  saddle slot); using a saddle on it says so. Shears take it off (unhitching first); it drops when the animal dies.
-  `content/Harnessing`, `HarnessItem`.
+- **Harness (item, worn)**: use it on a tamed, grown animal with draught data. A horse-family animal (vanilla's, the
+  LOTR port's mounts) wears it in its saddle slot (Aaron 2026-11-24): using it on the animal puts it there (a saddle
+  there comes back to you), or put it in the slot in the animal's inventory; take it out of the slot to take it off
+  (no shears). `HorseInventoryMenuMixin` swaps the saddle slot for `content/HarnessSlot` (a saddle where the animal
+  takes one, a harness where it can wear one; shown for either, or while holding one, so Rhosgobel rabbits with no
+  saddle get the slot). Vanilla counts anything in that slot as a saddle; `AbstractHorseHarnessMixin` (on
+  `syncSaddleToClients`) makes a harness there not count (no saddle drawn, no steering) and sets the synced
+  attachment `harness_worn` from the slot, unhitching when it's taken out. A saddle used on a harnessed animal says
+  to take the harness out first. Animals without a saddle slot (hired wargs, spiders) wear it as the attachment alone;
+  sneak and use them with an empty hand to take it off. Worlds from before the slot (harness worn, slot empty) get it
+  put in the slot as the animal loads (only while its save is read). It drops when the animal dies (a horse's with
+  its inventory). `content/Harnessing`, `HarnessItem`.
 - **Hitch (block)**: the block on the vehicle (called "harness" in the first build; registry aliases keep those).
   Lead harnessed animals to it and use it: it hitches every harnessed animal you lead within 10 blocks and takes their
   leads (an unharnessed one stays on its lead, with a message). Sneak-use with an empty hand unhitches them back onto
@@ -93,10 +100,21 @@ the hind legs. Not yet calibrated one by one beyond the horse's runs (they pass 
 - Who can wear one: grown, with draught data; horse-family animals tamed; other animals that can have an owner
   (`OwnableEntity`: wolves, the port's hired NPCs, which now report their hirer) must have one. Putting a harness on
   goes ahead of the animal's own right-click (a hired NPC's menu took the click).
-- Drawing: vanilla's horse renderer gets `HarnessLayer` (posed with the horse); every other animal with a fit's `body`
-  (`[width, bottom, top, rear, front]` in blocks) and `collar` gets `client/BodyHarness`: bands, back strap, side
-  straps, tug rings and collar as boxes turned with the body yaw. It doesn't bend with the model (a hopping rabbit's
-  body pitches inside it), so bands sit a little proud. Fits are first guesses checked on screenshots below.
+- Drawing: vanilla's horse renderer gets `HarnessLayer` (posed with the horse). The LOTR port's animals wear the
+  harness on their own model parts: a fit's `pieces` (part, material, box in that part's model pixels) are drawn in
+  each part's frame as the animal was just drawn, which the port offers through IMC `part_pose`
+  (`client/PartPoses` here, `lotr_port` `client/PartPoses` there: it records each creature model's pose stack as it
+  renders and replays LOTR's draw transforms and part poses down to the part asked for). So the collar sits on the
+  neck and turns and nods with it, and girth and straps move with the body (2026-11-24, Aaron: the collar was fixed
+  to the body and the head went through it; legs went through straps).
+  `harness/tools/fits.py` writes the pieces from each LOTR model file: girth in the gap between front and hind legs,
+  breeching behind the hind legs over the upper hindquarters, side straps from girth to breeching above the thighs
+  where the legs sit beside the body (rhino, elk, wargs), spine strap and backpad, brass tug rings just behind the
+  girth (and `rope_anchor` there, from the model at rest), and a padded collar with brass hames round the neck cube
+  near the body (the neck part, or the head part's neck cube; padding scaled to the neck). The rabbit has no neck and
+  its forelegs lie against its chest: a breast collar across the chest above them, a girth over back and sides only,
+  no breeching (`OPTIONS`). Animals with no part poses (the rigged spiders) get the older fallback: `body`
+  (`[width, bottom, top, rear, front]` in blocks) and `collar` boxes turned with the body yaw (`client/BodyHarness`).
 - GameTests: `lotr_wears_<kind>` (a harness goes on, a saddle comes off, it has draught data) and `lotr_<kind>_flat`
   (pulls a wagon on wagon wheels at a trot) for one of each kind; the rabbit also pulls a sled up a block on a gentle
   nose (`lotr_rhosgobel_rabbit_sled`) and a wagon up 1-block steps. Generated only when the port is loaded: run with
@@ -104,10 +122,13 @@ the hind legs. Not yet calibrated one by one beyond the horse's runs (they pass 
   the rabbit's sled climb measured the same as the horse's (jolt 13, stretch 0.27 with pull 230).
 - Screenshots: `-Dringbearer_harness.showcase=lotr` (with `-PwithLotr`) puts the animals in a row, harnessed, and
   `ShowcaseCamera` takes `screenshots/harness_lotr_<n>.png` of each. The save needs `confirmedExperimentalSettings`
-  in level.dat once the port is loaded, or a confirmation screen blocks quick play. Fits after three rounds:
+  in level.dat once the port is loaded, or a confirmation screen blocks quick play.
+  `-Dringbearer_harness.showcaseHead=<yaw>,<pitch>` turns and lowers their heads (bodies follow a turned head a
+  little, as vanilla's do). The fits (2026-11-24):
   ![LOTR animals in harness](images/lotr_harnesses.png)
   (row by row: horse, Shire pony, zebra, boar; camel, elk, rhino, giraffe; Rhosgobel rabbit, Mordor warg, Utumno ice
-  warg, Mirkwood spider). LOTR's rabbit model sits up, so the rabbit's harness wraps a sitting body.
+  warg, Mirkwood spider), and with heads lowered (collars stay on the necks):
+  ![heads down](images/lotr_harnesses_heads_down.png)
 - The port's rigged NPCs (spiders) are drawn without `LivingEntityRenderer.render`, so `NpcRenderer` posts
   `RenderLivingEvent.Post` for them: the harness and ropes draw on them as on any animal.
 
@@ -251,8 +272,9 @@ class-load pause once decided a run's mean).
 ## Status
 - 2026-11-24: proof of concept, horses calibrated; numbers above.
 - 2026-11-24: wearable harness, hitch block, two ropes; GameTests `WearingTests` (harness replaces the saddle and
-  keeps saddles off, only tame grown horses, hitching needs a harness, shears take it off and unhitch, drops on
+  keeps saddles off, only tame grown horses, hitching needs a harness, taking it off unhitches, drops on
   death); looks checked in a headless client (screenshots above).
+- 2026-11-24: harness in the saddle slot (no shears); harness drawn on the LOTR models' own parts.
 - 2026-11-24: sled cushion; LOTR port animals (all ridden kinds and the Rhosgobel rabbit) harnessed, pulling.
 - 2026-11-24: slopes (45-degree and gentle pairs, placed like stairs) with their own contact solver, wagon wheels,
   sleds; 37 required GameTests passed twice in a row in the sandbox, movies checked (above).
