@@ -1,7 +1,7 @@
 {
   "type": "neoforge:add_spawns",
-  "biomes": ["lotr_port:anduin_vale", "lotr_port:anduin_hills", "lotr_port:mirkwood_corrupted"],
+  "biomes": ["lotr_port:mirkwood_corrupted", "lotr_port:anduin_vale"],
   "spawners": [
-    {"type": "lotr_port:rhosgobel_rabbit", "weight": 2, "minCount": 1, "maxCount": 3}
+    {"type": "lotr_port:rhosgobel_rabbit", "weight": 8, "minCount": 2, "maxCount": 4}
   ]
 }

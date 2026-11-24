@@ -49,7 +49,9 @@ public final class Movies {
                 player = p;
                 p.setGameMode(GameType.SPECTATOR);
                 List<String> names = WANTED.equals("true") ? List.of() : Arrays.asList(WANTED.split(","));
-                java.util.stream.Stream.concat(HarnessTests.SCENARIOS.stream(), HarnessTests.HARD.stream())
+                java.util.stream.Stream.of(HarnessTests.SCENARIOS, HarnessTests.HARD,
+                                com.porcupinestudios.ringbearer.harness.gametest.LotrAnimalTests.scenarios())
+                        .flatMap(java.util.List::stream)
                         .filter(s -> names.isEmpty() || names.contains(s.name())).forEach(QUEUE::add);
                 wait = 60;
             }
