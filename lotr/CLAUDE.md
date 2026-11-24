@@ -273,12 +273,18 @@ https://claude.ai/artifact/KqhSSTCuKXGuwKHBoYJdcu. Rebuild features in modern co
   through `Hiring.mount`. An NPC's mount is tame, saddled and `NpcOwned` (despawns like its rider; players can't use
   it while the NPC rides). The NPC entity has a riding offset so riders sit in the saddle. The rider's feet are at
   half the mount's height (LOTR), which is `seat`.
-- Rhosgobel rabbits (2026-11-24, Aaron: Radagast's sleigh rabbits): the port's own breed `rhosgobel_rabbit`
-  (`converter/mounts.py OWN_BREEDS`: LOTR's rabbit model at scale 2.8, 1.2 x 1.3, rabbit skins 0/1/4, carrots), rare
-  in Anduin vale/hills and southern Mirkwood (biome modifier `rhosgobel_rabbits.json`). No saddle: breeds with no
-  saddle texture that aren't the old horse model aren't saddleable (`LotrHorse.isSaddleable`); they pull in the
-  harness mod's harness. Its generated entries (mounts.json, `mount/rhosgobel_rabbit.json`, en_us name) were written
-  from `OWN_BREEDS` without a full converter run (the LOTR jar isn't in the sandbox); a full run writes the same.
+- Rhosgobel rabbits (2026-11-24, Aaron: Radagast's sleigh rabbits, from a film still): the port's own breed
+  `rhosgobel_rabbit` (`converter/mounts.py OWN_BREEDS`), pony-sized shaggy hares, 1.2 x 1.3, carrots. Own model, hop
+  and three coats from `converter/rhosgobel_rabbit.py` (writes `src/main/resources/.../npc_model/rhosgobel_rabbit.json`
+  and `textures/entity/rhosgobel_rabbit/`): crouched long body and big rump, thick neck, block-long ears swept back,
+  long hind feet; the hop is a bound driven by limb swing (body lifts and pitches, hind legs push together, forelegs
+  reach together, ears flatten in flight; idle ear twitch and nose wiggle). They live round Rhosgobel (waypoint
+  68288, 4160, in southern Mirkwood at its western eaves): biome modifier `rhosgobel_rabbits.json` puts them on
+  `mirkwood_corrupted` and `anduin_vale` (weight 8, 2-4), and the breed's `spawn_near` (`Mounts.nearHome`, in the
+  spawn placement rule) keeps them within 2048 blocks of the waypoint. GameTest `rhosgobelRabbitsLiveRoundRhosgobel`.
+  No saddle: breeds with no saddle texture that aren't the old horse model aren't saddleable (`LotrHorse.isSaddleable`);
+  they pull in the harness mod's harness. The generated entries (mounts.json, `mount/rhosgobel_rabbit.json`, en_us
+  name) were written from `OWN_BREEDS` without a full converter run (the LOTR jar isn't in the sandbox).
 - For the harness mod (optional, no dependency either way): `LotrNpc` is an `OwnableEntity` (its hirer), and
   `LotrPort` sends IMC `draught_key` naming NPCs by NPC type, so harness data can list `lotr_port:mordor_warg` etc.
   `client/PartPoses` records where each creature model's parts were drawn (the first `renderToBuffer` per entity

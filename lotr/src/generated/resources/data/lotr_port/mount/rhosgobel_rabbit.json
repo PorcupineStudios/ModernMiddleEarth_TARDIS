@@ -1,4 +1,8 @@
 {
+  "spawn_near": {
+    "waypoint": "lotr_port:rhosgobel",
+    "radius": 2048
+  },
   "food": [
     "minecraft:carrot",
     "minecraft:golden_carrot"

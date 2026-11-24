@@ -111,9 +111,10 @@ the hind legs. Not yet calibrated one by one beyond the horse's runs (they pass 
   breeching behind the hind legs over the upper hindquarters, side straps from girth to breeching above the thighs
   where the legs sit beside the body (rhino, elk, wargs), spine strap and backpad, brass tug rings just behind the
   girth (and `rope_anchor` there, from the model at rest), and a padded collar with brass hames round the neck cube
-  near the body (the neck part, or the head part's neck cube; padding scaled to the neck). The rabbit has no neck and
-  its forelegs lie against its chest: a breast collar across the chest above them, a girth over back and sides only,
-  no breeching (`OPTIONS`). Animals with no part poses (the rigged spiders) get the older fallback: `body`
+  near the body (the neck part, or the head part's neck cube; padding scaled to the neck). `OPTIONS` (breast collar,
+  no belly strap, no breeching, girth position) is for bodies the general layout doesn't suit; none needs it now (LOTR's
+  sitting rabbit did, before the Rhosgobel rabbit got its own model). The Rhosgobel rabbit in harness:
+  ![Rhosgobel rabbit](images/rhosgobel_rabbit.png) Animals with no part poses (the rigged spiders) get the older fallback: `body`
   (`[width, bottom, top, rear, front]` in blocks) and `collar` boxes turned with the body yaw (`client/BodyHarness`).
 - GameTests: `lotr_wears_<kind>` (a harness goes on, a saddle comes off, it has draught data) and `lotr_<kind>_flat`
   (pulls a wagon on wagon wheels at a trot) for one of each kind; the rabbit also pulls a sled up a block on a gentle

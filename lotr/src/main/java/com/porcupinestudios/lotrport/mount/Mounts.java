@@ -85,7 +85,9 @@ public final class Mounts {
                 .forEach(t -> event.put(t.get(), LotrHorse.createAttributes().build())));
         modBus.addListener((RegisterSpawnPlacementsEvent event) -> TYPE_BY_BREED.values()
                 .forEach(t -> event.register(t.get(), SpawnPlacementTypes.ON_GROUND,
-                        Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Animal::checkAnimalSpawnRules,
+                        Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+                        (type, level, reason, pos, random) -> Animal.checkAnimalSpawnRules(type, level, reason, pos,
+                                random) && nearHome(type, pos),
                         RegisterSpawnPlacementsEvent.Operation.REPLACE)));
         NeoForge.EVENT_BUS.addListener((AddReloadListenerEvent event) -> event.addListener(STATS));
     }
@@ -102,6 +104,25 @@ public final class Mounts {
         ResourceLocation id = EntityType.getKey(type);
         Breed b = BREEDS.get(id.getPath());
         return b != null ? b : BREEDS.values().iterator().next();
+    }
+
+    /**
+     * Whether a breed may spawn here: its {@code spawn_near} ({@code waypoint}, {@code radius} in blocks), if it has
+     * one, keeps it that close to the waypoint (Rhosgobel rabbits round Rhosgobel). An unknown waypoint: nowhere.
+     */
+    public static boolean nearHome(EntityType<?> type, net.minecraft.core.BlockPos pos) {
+        JsonObject stats = stats(breed(type).id());
+        if (!stats.has("spawn_near")) {
+            return true;
+        }
+        JsonObject near = stats.getAsJsonObject("spawn_near");
+        double r = near.has("radius") ? near.get("radius").getAsDouble() : 1024;
+        return com.porcupinestudios.lotrport.travel.FastTravel
+                .waypoint(ResourceLocation.parse(near.get("waypoint").getAsString()))
+                .map(w -> {
+                    double dx = pos.getX() - w.x(), dz = pos.getZ() - w.z();
+                    return dx * dx + dz * dz <= r * r;
+                }).orElse(false);
     }
 
     /** The breed's numbers ({@code mount/<breed>.json}); empty until data loads. */

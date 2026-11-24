@@ -114,12 +114,17 @@ BREEDS = {
         "clamp_health": [12, 34], "clamp_jump": [0.2, 1.0], "clamp_speed": [0.08, 0.35]},
 }
 # The port's own breeds (no LOTR class): drawn on a model the converter already builds, textures already copied.
-# Rhosgobel rabbits (Aaron 2026-11-24): Radagast's sleigh rabbits, LOTR's rabbit model at pony size. They pull (the
-# harness mod) rather than carry: no saddle model or texture, so no saddle (LotrHorse.isSaddleable).
+# Rhosgobel rabbits (Aaron 2026-11-24): Radagast's sleigh rabbits, pony-sized shaggy hares with long ears; their own
+# model, hop and coats (converter/rhosgobel_rabbit.py). They pull (the harness mod) rather than carry: no saddle model
+# or texture, so no saddle (LotrHorse.isSaddleable). They live round Rhosgobel, on the western eaves of southern
+# Mirkwood: spawn_near (Mounts' spawn rule) keeps them within 2048 blocks of its waypoint, in the biomes of
+# biome_modifier/rhosgobel_rabbits.json (southern Mirkwood and the Vale of Anduin beside it).
 OWN_BREEDS = {
     "rhosgobel_rabbit": {
-        "id": "rhosgobel_rabbit", "name": "Rhosgobel Rabbit", "width": 1.2, "height": 1.3, "model": f"{NS}:rabbit",
-        "scale": 2.8, "textures": [f"{NS}:textures/entity/rabbit/{i}.png" for i in (0, 1, 4)],
+        "id": "rhosgobel_rabbit", "name": "Rhosgobel Rabbit", "width": 1.2, "height": 1.3,
+        "model": f"{NS}:rhosgobel_rabbit", "scale": 1.0,
+        "textures": [f"{NS}:textures/entity/rhosgobel_rabbit/{i}.png" for i in range(3)],
+        "spawn_near": {"waypoint": f"{NS}:rhosgobel", "radius": 2048},
         "food": ["minecraft:carrot", "minecraft:golden_carrot"], "spawn": {"speed": {"mul": 1.25},
                                                                          "jump": {"mul": 1.3}},
         "clamp_health": [12, 30], "clamp_jump": [0.4, 1.0], "clamp_speed": [0.12, 0.38],

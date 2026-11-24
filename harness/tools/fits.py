@@ -21,7 +21,9 @@ import re
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent.parent
-MODELS = HERE.parent / "lotr/src/generated/resources/assets/lotr_port/npc_model"
+# LOTR's converted models, and the port's own (the Rhosgobel rabbit's)
+MODELS = [HERE.parent / "lotr/src/generated/resources/assets/lotr_port/npc_model",
+          HERE.parent / "lotr/src/main/resources/assets/lotr_port/npc_model"]
 OUT = HERE / "src/main/resources/assets/ringbearer_harness/harness_fit"
 
 WARGS = ["angmar_warg", "angmar_warg_bombardier", "gundabad_warg", "mordor_warg", "mordor_warg_bombardier",
@@ -40,15 +42,13 @@ ANIMALS = {
     "lotr_rhino": ("rhino", ["rhino"], "body", "neck", ["leg3", "leg4"], ["leg1", "leg2"], 1.0),
     "lotr_giraffe": ("giraffe", ["giraffe"], "body", "neck", ["leg3", "leg4"], ["leg1", "leg2"], 1.0),
     "lotr_warg": ("warg", WARGS, "body", "head", ["leg3", "leg4"], ["leg1", "leg2"], 1.0),
-    "lotr_rhosgobel_rabbit": ("rabbit", ["rhosgobel_rabbit"], "body", None, ["right_arm", "left_arm"],
-                              ["right_leg", "left_leg"], 2.8 * 0.75),
+    "lotr_rhosgobel_rabbit": ("rhosgobel_rabbit", ["rhosgobel_rabbit"], "body", "neck",
+                              ["front_left_leg", "front_right_leg"], ["hind_left_leg", "hind_right_leg"], 1.0),
 }
-# Per animal: a rabbit has no neck to hang a collar on and its forelegs sit against its chest, so it wears a breast
-# collar (a strap across the chest above the forelegs, as small draught animals do), a girth over the back and sides
-# only (no belly strap through the forelegs) at mid-back, and no breeching (its haunches are its hind legs).
-OPTIONS = {
-    "lotr_rhosgobel_rabbit": {"breast": True, "belly": False, "breeching": False, "girth_at": 0.55},
-}
+# Per animal, for bodies the general layout doesn't suit: "breast" (a breast collar across the chest instead of a
+# neck collar, for an animal with no neck), "belly": False (no strap under the belly), "breeching": False,
+# "girth_at" (share of the body from its rear). None needed now (LOTR's sitting rabbit needed them all).
+OPTIONS = {}
 PROUD, BAND, STRAP = 0.4, 0.9, 0.6  # pixels: gap over the hide, band thickness, side strap thickness
 
 
@@ -98,7 +98,7 @@ class Part:
 
 
 def load(model):
-    d = json.loads((MODELS / f"{model}.json").read_text())
+    d = json.loads(next(p for p in (m / f"{model}.json" for m in MODELS) if p.exists()).read_text())
     parts = {}
 
     def walk(items, parent):
