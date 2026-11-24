@@ -4,6 +4,7 @@ import com.mojang.logging.LogUtils;
 import com.porcupinestudios.ringbearer.harness.HarnessMod;
 import com.porcupinestudios.ringbearer.harness.content.HitchBlock;
 import com.porcupinestudios.ringbearer.harness.content.HitchBlockEntity;
+import com.porcupinestudios.ringbearer.harness.dev.TestWagon;
 import com.porcupinestudios.ringbearer.harness.physics.TowMetrics;
 import dev.ryanhcode.sable.api.sublevel.SubLevelContainer;
 import dev.ryanhcode.sable.physics.config.dimension_physics.DimensionPhysicsData;
@@ -51,7 +52,25 @@ public final class TowRun {
         /** the slope rising to the side: roll */
         SIDEHILL,
         /** the uphill slope built as a road of half-block slab steps (what players build): how much is the steps */
-        UPHILL_SLABS
+        UPHILL_SLABS,
+        /** the 1-block steps uphill with a stone slope block at every rise: a ramp road */
+        UPHILL_SLOPES,
+        /** the same steps with a 2-block gentle ramp (low and high halves) before every rise */
+        UPHILL_GENTLE,
+        /** flat with one 1-block step up 18 blocks in (a sled climbing a block) */
+        STEP,
+        /** the one step with a 45-degree slope before it */
+        STEP_SLOPE,
+        /** the one step with a gentle 2-block ramp before it */
+        STEP_GENTLE;
+
+        boolean fullRamps() {
+            return this == UPHILL_SLOPES || this == STEP_SLOPE;
+        }
+
+        boolean gentleRamps() {
+            return this == UPHILL_GENTLE || this == STEP_GENTLE;
+        }
     }
 
     /**
@@ -61,7 +80,8 @@ public final class TowRun {
      *               which only report), or null
      */
     public record Scenario(String name, Surface surface, double speed, double yawRate, double turnSeconds,
-                           double @org.jetbrains.annotations.Nullable [] traces, int cargo) {
+                           double @org.jetbrains.annotations.Nullable [] traces, int cargo,
+                           com.porcupinestudios.ringbearer.harness.dev.TestWagon.Kind kind) {
         public Scenario(String name, Surface surface, double speed, double yawRate, double turnSeconds) {
             this(name, surface, speed, yawRate, turnSeconds, null, 0);
         }
@@ -69,6 +89,16 @@ public final class TowRun {
         public Scenario(String name, Surface surface, double speed, double yawRate, double turnSeconds,
                         double @org.jetbrains.annotations.Nullable [] traces) {
             this(name, surface, speed, yawRate, turnSeconds, traces, 0);
+        }
+
+        public Scenario(String name, Surface surface, double speed, double yawRate, double turnSeconds,
+                        double @org.jetbrains.annotations.Nullable [] traces, int cargo) {
+            this(name, surface, speed, yawRate, turnSeconds, traces, cargo,
+                    com.porcupinestudios.ringbearer.harness.dev.TestWagon.Kind.OFFROAD);
+        }
+
+        public Scenario on(com.porcupinestudios.ringbearer.harness.dev.TestWagon.Kind k) {
+            return new Scenario(name, surface, speed, yawRate, turnSeconds, traces, cargo, k);
         }
     }
 
@@ -82,6 +112,11 @@ public final class TowRun {
                          double accelOverAnimal, double jerkRms, double settleS, int rings, double traceAngleMax,
                          double microsMean, double minDistance) {
         static Limits of(Scenario sc) {
+            if (sc.kind().sled()) {
+                // a sled slides: its stretch is the horse hauling it (up to the slack is right), and meeting a step or
+                // a ramp is an impact, even through a slope nose
+                return new Limits(1.0, 0.5, 4, 3, 35, 12, 120, 1.5, 1, 70, 60, 8);
+            }
             if (sc.cargo() > 0) {
                 // overloaded: pulling at its limit the horse leans into taut traces (stretch up to its slack is
                 // right), and the heavy wagon on block steps settles slowly
@@ -242,10 +277,19 @@ public final class TowRun {
     private int groundBlocks(int x, int z) {
         return switch (sc.surface()) {
             case FLAT, UPHILL_SLABS -> 2;
-            case UPHILL -> 2 + Math.floorDiv(z, 4);
+            // sleds get a flat run-up first (one built where the first step rose had its nose inside the step);
+            // wheeled runs keep the course they were measured on
+            case STEP, STEP_SLOPE, STEP_GENTLE -> z >= 18 ? 3 : 2;
+            case UPHILL, UPHILL_SLOPES, UPHILL_GENTLE ->
+                    2 + Math.floorDiv(Math.max(0, z - (sc.kind().sled() ? 12 : 0)), 4);
             case DOWNHILL -> 2 + Math.floorDiv(71 - z, 4);
             case SIDEHILL -> 2 + Math.floorDiv(x, 4);
         };
+    }
+
+    private void ramp(int x, int z, net.minecraft.world.level.block.Block slope) {
+        level.setBlock(abs(new BlockPos(x, ground(x, z) + 1, z)), slope.defaultBlockState()
+                .setValue(com.porcupinestudios.ringbearer.harness.content.SlopeBlock.FACING, Direction.SOUTH), 2);
     }
 
     private void begin() {
@@ -263,6 +307,15 @@ public final class TowRun {
                 if (h % 2 == 1) {
                     level.setBlock(abs(new BlockPos(x, full, z)), slab, 2);
                 }
+                if (z + 1 < 72 && ground(x, z + 1) > ground(x, z)) {
+                    // a ramp up to the next step, climbing toward +z: one 45-degree slope, or the gentle pair
+                    if (sc.surface().fullRamps()) {
+                        ramp(x, z, com.porcupinestudios.ringbearer.harness.HarnessMod.STONE_SLOPE.get());
+                    } else if (sc.surface().gentleRamps()) {
+                        ramp(x, z, com.porcupinestudios.ringbearer.harness.HarnessMod.STONE_SLOPE_HIGH.get());
+                        ramp(x, z - 1, com.porcupinestudios.ringbearer.harness.HarnessMod.STONE_SLOPE_LOW.get());
+                    }
+                }
             }
         }
         // the wagon: deck x 23..25, z 3..7, wheel mounts at the corners facing out, harness in front facing +z
@@ -272,9 +325,9 @@ public final class TowRun {
                 deckY = Math.max(deckY, ground(x, z));
             }
         }
-        deckY += 2;
+        deckY += sc.kind().deckHeight();
         var built = com.porcupinestudios.ringbearer.harness.dev.TestWagon.build(level,
-                abs(new BlockPos(X0 - 1, deckY, Z_WAGON)), sc.cargo());
+                abs(new BlockPos(X0 - 1, deckY, Z_WAGON)), sc.cargo(), sc.kind());
         if (built == null) {
             helper.fail("no hitch on the assembled wagon");
             return;
@@ -297,7 +350,10 @@ public final class TowRun {
         horse.setNoGravity(true);
         horse.setTamed(true);
         int groundY = ground(X0, (int) Math.floor(pz) - origin.getZ());
-        horse.moveTo(px, abs(new BlockPos(0, groundY + 1, 0)).getY(), pz, 0, 0);
+        // (above a ramp's slope block if one is there; it settles onto it)
+        boolean ramps = sc.surface().fullRamps() || sc.surface().gentleRamps();
+        horse.moveTo(px, abs(new BlockPos(0, groundY + (ramps ? 2 : 1), 0)).getY(),
+                pz, 0, 0);
         horse.setYBodyRot(0);
         horse.setYHeadRot(0);
         level.addFreshEntity(horse);

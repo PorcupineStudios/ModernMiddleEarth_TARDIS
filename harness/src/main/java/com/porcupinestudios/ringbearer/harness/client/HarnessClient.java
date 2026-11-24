@@ -23,8 +23,12 @@ import net.neoforged.neoforge.common.NeoForge;
 public final class HarnessClient {
     public HarnessClient(IEventBus modBus, ModContainer container) {
         container.registerExtensionPoint(IConfigScreenFactory.class, ConfigurationScreen::new);
-        modBus.addListener((EntityRenderersEvent.RegisterLayerDefinitions e) ->
-                e.registerLayerDefinition(HarnessModel.LAYER, HarnessModel::create));
+        modBus.addListener((EntityRenderersEvent.RegisterLayerDefinitions e) -> {
+            e.registerLayerDefinition(HarnessModel.LAYER, HarnessModel::create);
+            e.registerLayerDefinition(WagonWheelModel.LAYER, WagonWheelModel::create);
+        });
+        modBus.addListener((EntityRenderersEvent.RegisterRenderers e) ->
+                e.registerBlockEntityRenderer(HarnessMod.WAGON_WHEEL_BE.get(), WagonWheelRenderer::new));
         modBus.addListener(HarnessClient::addLayers);
         modBus.addListener((RegisterClientReloadListenersEvent e) -> e.registerReloadListener(new HarnessFits()));
         ShowcaseCamera.register();

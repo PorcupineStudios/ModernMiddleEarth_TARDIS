@@ -159,16 +159,61 @@ so the camera can't add or hide jitter, and saves every rendered frame with its 
 frames per game second at 854x480 under software GL). `harness/tools/movies.py [fps] [width]` picks the frames nearest
 to even game-time steps and writes `run/movies/<run>.gif` (default 40 fps, 480 wide, ~16-24 MB each) and a 60 fps
 MP4 (~4-7 MB). Same save and command as the screenshots, with `-PquickPlay=<save> -PwindowSize=854x480`
-(2026-11-24: all 13 runs, about 15 minutes).
+(2026-11-24: all 13 runs, about 15 minutes; 7 slope/wheel/sled runs in 8 minutes).
 
 Found while making them: in singleplayer the test driver also ran for the client's copy of the horse (same entity
 id, and `Entity.equals` compares ids), moving the horse twice a tick; the driver now runs server side only.
+
+## Slopes (`content/SlopeBlock`, `SlopeContacts`, `physics/Convex`, `Sat`)
+Right-triangle blocks placed like stairs: the low edge faces the player, and clicking the top half of a face (or the
+underside of a block) places one upside down. `oak_slope`/`stone_slope` rise 1 block over 1 (45 degrees); the gentle
+pairs `*_slope_low` (0 to 0.5) and `*_slope_high` (0.5 to 1) make a 2-block ramp at 27 degrees. Models are OBJ files made
+by `tools/slopes.py` (with blockstates, item models, loot tables and recipes).
+- Entities (and the vanilla collision shape) see 4 stair slices per block: vanilla step-up tries the first height that
+  helps, so 16 fine slices slowed walking animals.
+- Sable gets no collider from slopes (`BlockSubLevelCollisionShape` returns empty; its colliders come only from
+  boxes). Instead `SlopeContacts`, before each physics substep, tests each vehicle's slope wedges against the world's
+  blocks, and the world's slope wedges against each vehicle's blocks, with a separating-axis test. A push only goes
+  along a face normal that isn't blocked by the neighbouring geometry (so a wedge never catches on the internal edge
+  where it meets a block), and all contacts of a vehicle share one sequential-impulse accumulator (several corners
+  touching at once don't add up into a launch). The push is the same soft spring-damper as the traces, with friction;
+  stiffness, damping and friction are per block in `data/<ns>/slope_contact/*.json` (now 3 Hz, critical, 0.1).
+- On a vehicle, upside-down slopes in front of a sled's deck are a nose that rides it up over a block edge.
+
+## Wagon wheels (`content/WagonWheelBlock`, `WagonWheelBlockEntity`, `WheelTerrain`)
+A spoked wheel block (radius 0.9, model `client/WagonWheelModel`) whose axle points out of the vehicle. Each physics
+substep it finds the ground under it by sweeping an ellipse (reach 3, height 1.5) over the true block tops (slopes
+analytically) along three lines across the tyre, so a 1-block step is met as a gentle ramp instead of a 45-degree wall;
+then a soft spring along the vehicle's up through the contact point, grip across the tyre, rolling drag (capped by the
+load) and steering from the hitch (`HarnessSteering.degreesFor`, front wheels only). The client draws the hub at the
+suspension height, rolling with distance and turned with the steering. All numbers are in `data/<ns>/wheel/*.json`.
+
+Results (horse at a trot, wagon 12.5, same course; `harness-metrics/`):
+
+| run | accel peak | jerk rms | wobble rms | vibration |
+|---|---|---|---|---|
+| Offroad wheels, 1-block steps (`uphill_straight`) | 16.8 | 62 | 13.8 | 0.31 |
+| Offroad wheels, steps with 45-degree slopes | 10.9 | 51 | 12.0 | 0.27 |
+| wagon wheels, 1-block steps (`wagon_uphill`) | 4.7 | 9.5 | 1.9 | 0.08 |
+| wagon wheels, 45-degree slopes | 4.8 | 10.7 | 2.5 | 0.09 |
+| wagon wheels, gentle slopes | 4.5 | 8.2 | 2.2 | 0.07 |
+| sled on flat | 4.4 | 5.0 | 0 | 0.03 |
+| sled up one block on a 45-degree ground slope (`sled_ramp`) | 23 | 95 | 5.2 | 0.19 |
+| sled up one bare block on a gentle nose (`sled_gentle_step`, report-only) | 57 | 180 | 5.4 | 0.27 |
+
+Sleds: a 45-degree nose can't get a 15-block sled up a bare block with one horse (`sled_step`); the gentle 2-block
+nose can, but only at the limit of the horse's pull (the traces reach their slack plus a bit in some runs), so those
+runs are report-only (`HarnessTests.HARD`), with `overloaded_uphill` (whether its heavy stop swings once or 3 times
+varies by run). Sleds over repeated steps are rough. The cost mark leaves out the single worst step (a 48 ms GC or
+class-load pause once decided a run's mean).
 
 ## Status
 - 2026-11-24: proof of concept, horses calibrated; numbers above.
 - 2026-11-24: wearable harness, hitch block, two ropes; GameTests `WearingTests` (harness replaces the saddle and
   keeps saddles off, only tame grown horses, hitching needs a harness, shears take it off and unhitch, drops on
   death); looks checked in a headless client (screenshots above).
+- 2026-11-24: slopes (45-degree and gentle pairs, placed like stairs) with their own contact solver, wagon wheels,
+  sleds; 37 required GameTests passed twice in a row in the sandbox, movies checked (above).
 - Not yet: teams in formation (several animals on one hitch all pull at the same
   point), ridden horses tried in a client (the slowing syncs; the hold-back is server-side and may rubber-band a rider
   who pushes past it), sleigh runners (anisotropic friction), other animals, the howdah (carry mode).

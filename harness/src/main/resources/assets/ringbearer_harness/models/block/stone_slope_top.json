@@ -1,0 +1,9 @@
+{
+  "loader": "neoforge:obj",
+  "model": "ringbearer_harness:models/block/slope_top.obj",
+  "flip_v": true,
+  "textures": {
+    "texture": "minecraft:block/smooth_stone",
+    "particle": "minecraft:block/smooth_stone"
+  }
+}
