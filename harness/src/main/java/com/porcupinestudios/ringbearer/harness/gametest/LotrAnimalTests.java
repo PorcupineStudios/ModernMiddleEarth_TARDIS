@@ -102,7 +102,19 @@ public final class LotrAnimalTests {
             h.assertTrue(p.getInventory().countItem(Items.SADDLE) == 1, "the saddle didn't come back from " + spec);
         }
         if (animal instanceof AbstractHorse horse) {
-            h.assertFalse(horse.isSaddleable(), "a harnessed " + spec + " still takes a saddle");
+            h.assertTrue(horse.getSlot(400).get().is(HarnessMod.HARNESS.get()),
+                    "the harness isn't in " + spec + "'s saddle slot");
+            h.assertFalse(horse.isSaddled(), "a harnessed " + spec + " counts as saddled");
+            horse.getSlot(400).set(ItemStack.EMPTY);
+            h.assertFalse(Harnessing.wears(animal), "taking it out of " + spec + "'s saddle slot left it worn");
+        } else {
+            // no saddle slot: sneak and use it with an empty hand
+            Player q = h.makeMockPlayer(GameType.SURVIVAL);
+            q.setShiftKeyDown(true);
+            q.interactOn(animal, InteractionHand.MAIN_HAND);
+            h.assertFalse(Harnessing.wears(animal), "sneaking with an empty hand didn't take it off " + spec);
+            h.assertTrue(q.getInventory().countItem(HarnessMod.HARNESS.get()) == 1,
+                    "the harness didn't come back from " + spec);
         }
         animal.discard();
         com.mojang.logging.LogUtils.getLogger().info("[lotr-wears] {} wears a harness", spec);
