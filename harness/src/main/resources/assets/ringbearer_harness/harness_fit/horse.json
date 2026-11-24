@@ -1,0 +1,6 @@
+{
+  "entities": ["minecraft:horse", "minecraft:donkey", "minecraft:mule", "minecraft:skeleton_horse",
+    "minecraft:zombie_horse", "lotr_port:horse", "lotr_port:shire_pony"],
+  "rope_anchor": [0.39, 1.2, 0.28],
+  "rope_color": "#5b3f26"
+}

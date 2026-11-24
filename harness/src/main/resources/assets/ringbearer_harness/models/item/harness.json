@@ -1,1 +1,1 @@
-{"parent": "ringbearer_harness:block/harness"}
+{"parent": "minecraft:item/generated", "textures": {"layer0": "ringbearer_harness:item/harness"}}

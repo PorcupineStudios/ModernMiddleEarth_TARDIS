@@ -46,7 +46,7 @@ import org.joml.Vector3dc;
  * pull is level, so an animal stepping up a block, jumping or bobbing doesn't lift, slam or jerk the vehicle. Sideways it
  * swings freely, so the vehicle follows the animal round a turn like a trailer.
  */
-public class HarnessBlockEntity extends BlockEntity implements BlockEntitySubLevelActor {
+public class HitchBlockEntity extends BlockEntity implements BlockEntitySubLevelActor {
     private static final int DATA_VERSION = 1;
     private static final double TICK = 0.05;
     /**
@@ -112,8 +112,8 @@ public class HarnessBlockEntity extends BlockEntity implements BlockEntitySubLev
     @Nullable private Probe probe;
     @Nullable private DraughtAnimal tuning;
 
-    public HarnessBlockEntity(BlockPos pos, BlockState state) {
-        super(HarnessMod.HARNESS_BE.get(), pos, state);
+    public HitchBlockEntity(BlockPos pos, BlockState state) {
+        super(HarnessMod.HITCH_BE.get(), pos, state);
     }
 
     public void setProbe(@Nullable Probe probe) {
@@ -138,7 +138,7 @@ public class HarnessBlockEntity extends BlockEntity implements BlockEntitySubLev
     // --- geometry, in the vehicle's own (plot) frame ------------------------------------------------------------
 
     private Direction facing() {
-        return getBlockState().getValue(HarnessBlock.FACING);
+        return getBlockState().getValue(HitchBlock.FACING);
     }
 
     /** The hitch point: the middle of the block's front face. */
@@ -188,12 +188,12 @@ public class HarnessBlockEntity extends BlockEntity implements BlockEntitySubLev
     // --- hitching ---------------------------------------------------------------------------------------------------
 
     /**
-     * Hitches {@code animal}: its rest length is how far its tow point is from the hitch now (horizontally),
+     * Hitches {@code animal} (it must wear a harness): its rest length is how far its tow point is from the hitch now (horizontally),
      * kept within its kind's gaps. False if it can't pull or is already hitched here.
      */
     public boolean hitch(Entity animal) {
         DraughtAnimal d = DraughtAnimals.of(animal);
-        if (d == null || hitches.stream().anyMatch(h -> h.animal.equals(animal.getUUID()))) {
+        if (d == null || !Harnessing.wears(animal) || hitches.stream().anyMatch(h -> h.animal.equals(animal.getUUID()))) {
             return false;
         }
         ServerSubLevel s = vehicle();
@@ -208,6 +208,15 @@ public class HarnessBlockEntity extends BlockEntity implements BlockEntitySubLev
         HitchLink.set(animal, worldPosition);
         setChanged();
         return true;
+    }
+
+    /** Unhitches one animal (its harness stays on). */
+    public void unhitch(Entity animal) {
+        if (hitches.removeIf(h -> h.animal.equals(animal.getUUID()))) {
+            setChanged();
+        }
+        HitchLink.clear(animal);
+        Straining.clear(animal);
     }
 
     /** Unhitches everything; returns the animals that were here (and loaded). */
