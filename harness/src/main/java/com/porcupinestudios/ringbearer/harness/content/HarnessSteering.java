@@ -19,7 +19,7 @@ public final class HarnessSteering {
     /** Offroad: a signal of 15 turns a wheel 30 degrees. */
     public static final double DEGREES_PER_SIGNAL = 2;
 
-    private record Steer(Direction forward, int signal) {}
+    private record Steer(Direction forward, int signal, double degrees) {}
 
     private static final Map<SubLevel, Steer> STEER = new WeakHashMap<>();
 
@@ -28,7 +28,7 @@ public final class HarnessSteering {
     /** Steer this vehicle's front wheels toward traces at {@code degrees} from its forward (the trace angle's sign). */
     static void set(SubLevel vehicle, Direction forward, double degrees) {
         int signal = (int) Math.round(Math.max(-15, Math.min(15, degrees / DEGREES_PER_SIGNAL)));
-        STEER.put(vehicle, new Steer(forward, signal));
+        STEER.put(vehicle, new Steer(forward, signal, degrees));
     }
 
     static void clear(SubLevel vehicle) {
@@ -38,6 +38,21 @@ public final class HarnessSteering {
     /** The steering signal for this wheel mount, or null to leave it to redstone. */
     @Nullable
     public static Integer signalFor(BlockEntity wheelMount) {
+        Steer steer = frontSteer(wheelMount);
+        return steer == null ? null : steer.signal();
+    }
+
+    /**
+     * How far a front wheel should turn toward the traces (degrees, the trace angle's sense), continuous (wagon
+     * wheels), or NaN if no hitch steers it.
+     */
+    public static double degreesFor(BlockEntity wheel) {
+        Steer steer = frontSteer(wheel);
+        return steer == null ? Double.NaN : steer.degrees();
+    }
+
+    @Nullable
+    private static Steer frontSteer(BlockEntity wheelMount) {
         if (STEER.isEmpty() || wheelMount.getLevel() == null || wheelMount.getLevel().isClientSide) {
             return null;
         }
@@ -50,6 +65,6 @@ public final class HarnessSteering {
         BlockPos p = wheelMount.getBlockPos();
         double ahead = (p.getX() + 0.5 - com.x()) * steer.forward().getStepX()
                 + (p.getZ() + 0.5 - com.z()) * steer.forward().getStepZ();
-        return ahead > 0 ? steer.signal() : null;
+        return ahead > 0 ? steer : null;
     }
 }

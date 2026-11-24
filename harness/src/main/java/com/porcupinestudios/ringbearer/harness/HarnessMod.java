@@ -1,11 +1,20 @@
 package com.porcupinestudios.ringbearer.harness;
 
 import com.porcupinestudios.ringbearer.harness.content.HarnessItem;
+import com.porcupinestudios.ringbearer.harness.content.SlopeBlock;
+import com.porcupinestudios.ringbearer.harness.content.SlopeContacts;
+import com.porcupinestudios.ringbearer.harness.content.WagonWheelBlock;
+import com.porcupinestudios.ringbearer.harness.content.WagonWheelBlockEntity;
+import com.porcupinestudios.ringbearer.harness.draught.BlockData;
+import com.porcupinestudios.ringbearer.harness.draught.SlopeContact;
+import com.porcupinestudios.ringbearer.harness.draught.WheelType;
+import net.minecraft.world.level.block.Blocks;
 import com.porcupinestudios.ringbearer.harness.content.Harnessing;
 import com.porcupinestudios.ringbearer.harness.content.HitchBlock;
 import com.porcupinestudios.ringbearer.harness.content.HitchBlockEntity;
 import com.porcupinestudios.ringbearer.harness.content.HitchLink;
 import com.porcupinestudios.ringbearer.harness.draught.DraughtAnimals;
+import java.util.List;
 import java.util.Optional;
 import java.util.function.Supplier;
 import com.mojang.serialization.Codec;
@@ -56,6 +65,38 @@ public final class HarnessMod {
     @SuppressWarnings("DataFlowIssue")
     public static final Supplier<BlockEntityType<HitchBlockEntity>> HITCH_BE = BLOCK_ENTITIES.register("hitch",
             () -> BlockEntityType.Builder.of(HitchBlockEntity::new, HITCH.get()).build(null));
+    /** 45-degree slopes: smooth ramps on the ground, and noses that let sleds ride up over block edges. */
+    public static final DeferredBlock<SlopeBlock> OAK_SLOPE = slope("oak_slope", Blocks.OAK_PLANKS,
+            SlopeBlock.Profile.FULL);
+    public static final DeferredBlock<SlopeBlock> STONE_SLOPE = slope("stone_slope", Blocks.SMOOTH_STONE,
+            SlopeBlock.Profile.FULL);
+    /** The gentle slope's halves (a 2-block ramp at 27 degrees: low then high; upside down, a 2-block sled nose). */
+    public static final DeferredBlock<SlopeBlock> OAK_SLOPE_LOW = slope("oak_slope_low", Blocks.OAK_PLANKS,
+            SlopeBlock.Profile.LOW);
+    public static final DeferredBlock<SlopeBlock> OAK_SLOPE_HIGH = slope("oak_slope_high", Blocks.OAK_PLANKS,
+            SlopeBlock.Profile.HIGH);
+    public static final DeferredBlock<SlopeBlock> STONE_SLOPE_LOW = slope("stone_slope_low", Blocks.SMOOTH_STONE,
+            SlopeBlock.Profile.LOW);
+    public static final DeferredBlock<SlopeBlock> STONE_SLOPE_HIGH = slope("stone_slope_high", Blocks.SMOOTH_STONE,
+            SlopeBlock.Profile.HIGH);
+    public static final Supplier<BlockItem> OAK_SLOPE_ITEM = ITEMS.registerSimpleBlockItem(OAK_SLOPE);
+    public static final Supplier<BlockItem> STONE_SLOPE_ITEM = ITEMS.registerSimpleBlockItem(STONE_SLOPE);
+    public static final List<Supplier<BlockItem>> GENTLE_SLOPE_ITEMS = List.of(
+            ITEMS.registerSimpleBlockItem(OAK_SLOPE_LOW), ITEMS.registerSimpleBlockItem(OAK_SLOPE_HIGH),
+            ITEMS.registerSimpleBlockItem(STONE_SLOPE_LOW), ITEMS.registerSimpleBlockItem(STONE_SLOPE_HIGH));
+    /** A wagon wheel: rolls smoothly over block edges and slopes, steers from the hitch. */
+    public static final DeferredBlock<WagonWheelBlock> WAGON_WHEEL = BLOCKS.register("wagon_wheel",
+            () -> new WagonWheelBlock(BlockBehaviour.Properties.of().strength(1.5f).sound(SoundType.WOOD)
+                    .noOcclusion()));
+    public static final Supplier<BlockItem> WAGON_WHEEL_ITEM = ITEMS.registerSimpleBlockItem(WAGON_WHEEL);
+    @SuppressWarnings("DataFlowIssue")
+    public static final Supplier<BlockEntityType<WagonWheelBlockEntity>> WAGON_WHEEL_BE = BLOCK_ENTITIES.register(
+            "wagon_wheel", () -> BlockEntityType.Builder.of(WagonWheelBlockEntity::new, WAGON_WHEEL.get()).build(null));
+    /** Wheel behaviour by block ({@code data/<ns>/wheel/}) and slope contact by block ({@code slope_contact/}). */
+    public static final BlockData<WheelType> WHEELS = new BlockData<>("wheel", WheelType.CODEC, WheelType::blocks);
+    public static final BlockData<SlopeContact> SLOPE_CONTACTS = new BlockData<>("slope_contact", SlopeContact.CODEC,
+            SlopeContact::blocks);
+
     /** The harness, worn by an animal instead of a saddle. */
     public static final Supplier<HarnessItem> HARNESS = ITEMS.registerItem("harness", HarnessItem::new,
             new Item.Properties().stacksTo(1));
@@ -77,6 +118,10 @@ public final class HarnessMod {
         modBus.addListener((BuildCreativeModeTabContentsEvent e) -> {
             if (e.getTabKey() == CreativeModeTabs.FUNCTIONAL_BLOCKS) {
                 e.accept(HITCH_ITEM.get());
+                e.accept(WAGON_WHEEL_ITEM.get());
+                e.accept(OAK_SLOPE_ITEM.get());
+                e.accept(STONE_SLOPE_ITEM.get());
+                GENTLE_SLOPE_ITEMS.forEach(i -> e.accept(i.get()));
             } else if (e.getTabKey() == CreativeModeTabs.TOOLS_AND_UTILITIES) {
                 e.accept(HARNESS.get());
             }
@@ -92,8 +137,18 @@ public final class HarnessMod {
         Harnessing.register();
         com.porcupinestudios.ringbearer.harness.dev.Showcase.register();
         com.porcupinestudios.ringbearer.harness.dev.Movies.register();
-        NeoForge.EVENT_BUS.addListener((AddReloadListenerEvent e) -> e.addListener(new DraughtAnimals()));
+        NeoForge.EVENT_BUS.addListener((AddReloadListenerEvent e) -> {
+            e.addListener(new DraughtAnimals());
+            e.addListener(WHEELS);
+            e.addListener(SLOPE_CONTACTS);
+        });
+        SlopeContacts.register();
         NeoForge.EVENT_BUS.addListener(HarnessMod::afterEntityTick);
+    }
+
+    private static DeferredBlock<SlopeBlock> slope(String name, Block like, SlopeBlock.Profile profile) {
+        return BLOCKS.register(name, () -> new SlopeBlock(BlockBehaviour.Properties.ofFullCopy(like).noOcclusion(),
+                profile));
     }
 
     public static ResourceLocation id(String path) {

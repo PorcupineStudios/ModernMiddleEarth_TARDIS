@@ -1,0 +1,13 @@
+{
+  "blocks": [
+    "ringbearer_harness:oak_slope",
+    "ringbearer_harness:oak_slope_low",
+    "ringbearer_harness:oak_slope_high",
+    "ringbearer_harness:stone_slope",
+    "ringbearer_harness:stone_slope_low",
+    "ringbearer_harness:stone_slope_high"
+  ],
+  "stiffness_hz": 3.0,
+  "damping_ratio": 1.0,
+  "friction": 0.1
+}

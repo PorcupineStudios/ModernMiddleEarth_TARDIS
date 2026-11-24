@@ -50,8 +50,8 @@ public final class Movies {
                 player = p;
                 p.setGameMode(GameType.SPECTATOR);
                 List<String> names = WANTED.equals("true") ? List.of() : Arrays.asList(WANTED.split(","));
-                HarnessTests.SCENARIOS.stream().filter(s -> names.isEmpty() || names.contains(s.name()))
-                        .forEach(QUEUE::add);
+                java.util.stream.Stream.concat(HarnessTests.SCENARIOS.stream(), HarnessTests.HARD.stream())
+                        .filter(s -> names.isEmpty() || names.contains(s.name())).forEach(QUEUE::add);
                 wait = 60;
             }
         });

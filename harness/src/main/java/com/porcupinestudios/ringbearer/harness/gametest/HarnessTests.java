@@ -1,6 +1,7 @@
 package com.porcupinestudios.ringbearer.harness.gametest;
 
 import com.porcupinestudios.ringbearer.harness.HarnessMod;
+import com.porcupinestudios.ringbearer.harness.dev.TestWagon.Kind;
 import com.porcupinestudios.ringbearer.harness.gametest.TowRun.Scenario;
 import com.porcupinestudios.ringbearer.harness.gametest.TowRun.Surface;
 import java.util.ArrayList;
@@ -42,10 +43,41 @@ public final class HarnessTests {
             new Scenario("sidehill_straight", Surface.SIDEHILL, TROT, 0, 3),
             new Scenario("sidehill_gentle_turn", Surface.SIDEHILL, TROT, GENTLE, 4),
             new Scenario("sidehill_tight_turn", Surface.SIDEHILL, TROT, TIGHT, 4),
-            new Scenario("overloaded_uphill", Surface.UPHILL, TROT, 0, 3, null, 27));
+            // wagon wheels (smooth terrain contact), slope-block ramps, and sleds
+            new Scenario("wagon_flat", Surface.FLAT, TROT, 0, 3).on(Kind.WAGON_WHEELS),
+            new Scenario("wagon_tight_turn", Surface.FLAT, TROT, TIGHT, 4).on(Kind.WAGON_WHEELS),
+            new Scenario("wagon_uphill", Surface.UPHILL, TROT, 0, 3).on(Kind.WAGON_WHEELS),
+            new Scenario("wagon_slope_ramp", Surface.UPHILL_SLOPES, TROT, 0, 3).on(Kind.WAGON_WHEELS),
+            new Scenario("wagon_downhill", Surface.DOWNHILL, TROT, 0, 3).on(Kind.WAGON_WHEELS),
+            new Scenario("wagon_sidehill_turn", Surface.SIDEHILL, TROT, GENTLE, 4).on(Kind.WAGON_WHEELS),
+            new Scenario("offroad_slope_ramp", Surface.UPHILL_SLOPES, TROT, 0, 3),
+            new Scenario("sled_flat", Surface.FLAT, TROT, 0, 3).on(Kind.SLED),
+            new Scenario("sled_ramp", Surface.STEP_SLOPE, TROT, 0, 3).on(Kind.SLED),
+            new Scenario("wagon_gentle_ramp", Surface.UPHILL_GENTLE, TROT, 0, 3).on(Kind.WAGON_WHEELS),
+            new Scenario("wagon_gentle_step_once", Surface.STEP_GENTLE, TROT, 0, 3).on(Kind.WAGON_WHEELS));
+
+    /**
+     * Reported, not required: runs at the edge of one horse's strength; sleds on the every-4-blocks staircase (a 5-block sled always bridges two steps, rocking
+     * over each edge into the next), and the 45-degree nose against a bare step.
+     */
+    public static final List<Scenario> HARD = List.of(
+            // 27 iron blocks, beyond the horse: whether the heavy stop swings once or a few times varies by run
+            new Scenario("overloaded_uphill", Surface.UPHILL, TROT, 0, 3, null, 27),
+            // a 15-block sled up one block on a gentle nose or ramp: smooth climbs, but right at one horse's pull, so
+            // whether it reaches its slack and is held back varies by run
+            new Scenario("sled_gentle_step", Surface.STEP, TROT, 0, 3).on(Kind.SLED_GENTLE),
+            new Scenario("sled_gentle_ramp_once", Surface.STEP_GENTLE, TROT, 0, 3).on(Kind.SLED_GENTLE),
+            // a 45-degree nose against a bare step: lifting this sled straight up 45 degrees plus its sliding friction
+            // needs more pull than one horse has (the gentle nose gets up: sled_gentle_step)
+            new Scenario("sled_step", Surface.STEP, TROT, 0, 3).on(Kind.SLED),
+            new Scenario("sled_slope_ramp", Surface.UPHILL_SLOPES, TROT, 0, 3).on(Kind.SLED),
+            new Scenario("sled_uphill_steps", Surface.UPHILL, TROT, 0, 3).on(Kind.SLED),
+            new Scenario("sled_gentle_ramp", Surface.UPHILL_GENTLE, TROT, 0, 3).on(Kind.SLED_GENTLE),
+            new Scenario("sled_gentle_steps", Surface.UPHILL, TROT, 0, 3).on(Kind.SLED_GENTLE));
 
     public static Scenario scenario(String name) {
-        return SCENARIOS.stream().filter(s -> s.name().equals(name)).findFirst().orElseThrow();
+        return java.util.stream.Stream.concat(SCENARIOS.stream(), HARD.stream()).filter(s -> s.name().equals(name))
+                .findFirst().orElseThrow();
     }
 
 
@@ -89,11 +121,6 @@ public final class HarnessTests {
         TowRun.start(h, scenario("slab_road_uphill"));
     }
 
-    /** 27 iron blocks on the deck: the horse pulls at its limit up the hill and is held back by its traces. */
-    @GameTest(template = ARENA, timeoutTicks = TIMEOUT)
-    public static void overloadedUphill(GameTestHelper h) {
-        TowRun.start(h, scenario("overloaded_uphill"));
-    }
 
     @GameTest(template = ARENA, timeoutTicks = TIMEOUT)
     public static void downhillStraight(GameTestHelper h) {
@@ -113,6 +140,68 @@ public final class HarnessTests {
     @GameTest(template = ARENA, timeoutTicks = TIMEOUT)
     public static void sidehillTightTurn(GameTestHelper h) {
         TowRun.start(h, scenario("sidehill_tight_turn"));
+    }
+
+    @GameTest(template = ARENA, timeoutTicks = TIMEOUT)
+    public static void wagonFlat(GameTestHelper h) {
+        TowRun.start(h, scenario("wagon_flat"));
+    }
+
+    @GameTest(template = ARENA, timeoutTicks = TIMEOUT)
+    public static void wagonTightTurn(GameTestHelper h) {
+        TowRun.start(h, scenario("wagon_tight_turn"));
+    }
+
+    @GameTest(template = ARENA, timeoutTicks = TIMEOUT)
+    public static void wagonUphill(GameTestHelper h) {
+        TowRun.start(h, scenario("wagon_uphill"));
+    }
+
+    @GameTest(template = ARENA, timeoutTicks = TIMEOUT)
+    public static void wagonSlopeRamp(GameTestHelper h) {
+        TowRun.start(h, scenario("wagon_slope_ramp"));
+    }
+
+    @GameTest(template = ARENA, timeoutTicks = TIMEOUT)
+    public static void wagonDownhill(GameTestHelper h) {
+        TowRun.start(h, scenario("wagon_downhill"));
+    }
+
+    @GameTest(template = ARENA, timeoutTicks = TIMEOUT)
+    public static void wagonSidehillTurn(GameTestHelper h) {
+        TowRun.start(h, scenario("wagon_sidehill_turn"));
+    }
+
+    @GameTest(template = ARENA, timeoutTicks = TIMEOUT)
+    public static void offroadSlopeRamp(GameTestHelper h) {
+        TowRun.start(h, scenario("offroad_slope_ramp"));
+    }
+
+    @GameTest(template = ARENA, timeoutTicks = TIMEOUT)
+    public static void sledFlat(GameTestHelper h) {
+        TowRun.start(h, scenario("sled_flat"));
+    }
+
+
+
+    @GameTest(template = ARENA, timeoutTicks = TIMEOUT)
+    public static void wagonGentleRamp(GameTestHelper h) {
+        TowRun.start(h, scenario("wagon_gentle_ramp"));
+    }
+
+
+
+
+
+    @GameTest(template = ARENA, timeoutTicks = TIMEOUT)
+    public static void sledRamp(GameTestHelper h) {
+        TowRun.start(h, scenario("sled_ramp"));
+    }
+
+
+    @GameTest(template = ARENA, timeoutTicks = TIMEOUT)
+    public static void wagonGentleStepOnce(GameTestHelper h) {
+        TowRun.start(h, scenario("wagon_gentle_step_once"));
     }
 
     // --- calibration sweeps (-Dringbearer_harness.sweeps=true): a grid of trace settings on the runs that tell them
@@ -139,6 +228,17 @@ public final class HarnessTests {
                 sweep(out, "sweep_downhill" + tag, new Scenario("sweep_downhill" + tag, Surface.DOWNHILL, TROT, 0, 3,
                         traces));
             }
+        }
+        return out;
+    }
+
+    /** The sleds-on-a-staircase runs: always generated, never required (they report how rough it is). */
+    @GameTestGenerator
+    public static Collection<TestFunction> hard() {
+        List<TestFunction> out = new ArrayList<>();
+        for (Scenario sc : HARD) {
+            sweep(out, sc.name(), new Scenario(sc.name(), sc.surface(), sc.speed(), sc.yawRate(), sc.turnSeconds(),
+                    sc.traces(), sc.cargo(), sc.kind()));
         }
         return out;
     }

@@ -26,7 +26,8 @@ import org.jetbrains.annotations.Nullable;
  * leads; two ropes run from its ends to each harness); sneak-use with an empty hand to unhitch them (they come back on
  * your leads, harnesses still on).
  */
-public class HitchBlock extends HorizontalDirectionalBlock implements EntityBlock {
+public class HitchBlock extends HorizontalDirectionalBlock implements EntityBlock,
+        dev.ryanhcode.sable.api.block.BlockSubLevelCollisionShape {
     public static final MapCodec<HitchBlock> CODEC = simpleCodec(HitchBlock::new);
 
     public HitchBlock(Properties properties) {
@@ -47,6 +48,53 @@ public class HitchBlock extends HorizontalDirectionalBlock implements EntityBloc
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext context) {
         return defaultBlockState().setValue(FACING, context.getHorizontalDirection());
+    }
+
+    /** The bar, the pole and the base, as drawn (people bump into those, not a whole block). */
+    private static final java.util.Map<net.minecraft.core.Direction, net.minecraft.world.phys.shapes.VoxelShape> SHAPES =
+            new java.util.EnumMap<>(net.minecraft.core.Direction.class);
+
+    static {
+        net.minecraft.world.phys.shapes.VoxelShape north = net.minecraft.world.phys.shapes.Shapes.or(
+                Block.box(3, 0, 8, 13, 6, 16), Block.box(6, 4, 2, 10, 8, 8), Block.box(0, 7, 0, 16, 9, 2.5));
+        for (net.minecraft.core.Direction d : net.minecraft.core.Direction.Plane.HORIZONTAL) {
+            SHAPES.put(d, rotate(north, d));
+        }
+    }
+
+    private static net.minecraft.world.phys.shapes.VoxelShape rotate(net.minecraft.world.phys.shapes.VoxelShape s,
+                                                                    net.minecraft.core.Direction d) {
+        net.minecraft.world.phys.shapes.VoxelShape out = net.minecraft.world.phys.shapes.Shapes.empty();
+        for (var b : s.toAabbs()) {
+            double[] c = switch (d) {
+                case SOUTH -> new double[] {1 - b.maxX, 1 - b.maxZ, 1 - b.minX, 1 - b.minZ};
+                case EAST -> new double[] {1 - b.maxZ, b.minX, 1 - b.minZ, b.maxX};
+                case WEST -> new double[] {b.minZ, 1 - b.maxX, b.maxZ, 1 - b.minX};
+                default -> new double[] {b.minX, b.minZ, b.maxX, b.maxZ};
+            };
+            out = net.minecraft.world.phys.shapes.Shapes.or(out, net.minecraft.world.phys.shapes.Shapes.box(c[0],
+                    b.minY, c[1], c[2], b.maxY, c[3]));
+        }
+        return out.optimize();
+    }
+
+    @Override
+    protected net.minecraft.world.phys.shapes.VoxelShape getShape(BlockState state,
+                                                                 net.minecraft.world.level.BlockGetter level,
+                                                                 BlockPos pos,
+                                                                 net.minecraft.world.phys.shapes.CollisionContext ctx) {
+        return SHAPES.get(state.getValue(FACING));
+    }
+
+    /**
+     * No collider on a vehicle: the hitch is a light bar the traces hang from, so it can sit low at a sled's front
+     * (where a pull doesn't tip it nose-down) and pass over step edges. (A block-high hitch on top of a sled's nose
+     * tipped the sled over when pulled, 2026-11-24.)
+     */
+    @Override
+    public net.minecraft.world.phys.shapes.VoxelShape getSubLevelCollisionShape(
+            net.minecraft.world.level.BlockGetter level, BlockState state) {
+        return net.minecraft.world.phys.shapes.Shapes.empty();
     }
 
     @Nullable

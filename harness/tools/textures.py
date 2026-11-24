@@ -58,6 +58,34 @@ def item():
     img.save(OUT / "item/harness.png")
 
 
+def wheel():
+    """textures/entity/wagon_wheel.png (32x16): wood (0,0)-(15,15), iron tyre (16,0)-(31,15); and the item icon."""
+    img = Image.new("RGBA", (32, 16))
+    fill(img, 0, 0, 16, 16, (122, 86, 52), 0.12)   # oak-ish wood
+    for y in range(0, 16, 3):                          # grain
+        for x in range(16):
+            if rng.random() < 0.5:
+                img.putpixel((x, y), shade((122, 86, 52), 0.8))
+    fill(img, 16, 0, 32, 16, (78, 78, 84), 0.10)    # iron
+    img.save(OUT / "entity/wagon_wheel.png")
+    icon = Image.new("RGBA", (16, 16))
+    wood, iron = (122, 86, 52), (90, 90, 96)
+    for y in range(16):
+        for x in range(16):
+            dx, dy = x - 7.5, y - 7.5
+            r = (dx * dx + dy * dy) ** 0.5
+            if 6.2 <= r <= 7.6:
+                icon.putpixel((x, y), shade(iron, 1 + rng.uniform(-0.1, 0.1)))
+            elif 5.0 <= r < 6.2:
+                icon.putpixel((x, y), shade(wood, 0.85))
+            elif r < 1.8:
+                icon.putpixel((x, y), shade(iron, 1.2))
+            elif r < 5.0 and (abs(dx) < 0.8 or abs(dy) < 0.8 or abs(abs(dx) - abs(dy)) < 0.8):
+                icon.putpixel((x, y), shade(wood, 1 + rng.uniform(-0.1, 0.1)))
+    icon.save(OUT / "item/wagon_wheel.png")
+
+
 entity()
 item()
+wheel()
 print("wrote", OUT / "entity/harness.png", "and", OUT / "item/harness.png")

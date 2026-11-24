@@ -1,0 +1,9 @@
+{
+  "loader": "neoforge:obj",
+  "model": "ringbearer_harness:models/block/slope_high_top.obj",
+  "flip_v": true,
+  "textures": {
+    "texture": "minecraft:block/oak_planks",
+    "particle": "minecraft:block/oak_planks"
+  }
+}

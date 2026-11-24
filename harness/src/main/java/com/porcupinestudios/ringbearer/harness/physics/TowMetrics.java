@@ -234,7 +234,9 @@ public final class TowMetrics {
         return new Result(stretchMax, Math.sqrt(stretchSq / count), forcePeak, forceRms, vibration, shakeHz, chatter,
                 accelPeak, animalPeak, jerkCount == 0 ? 0 : Math.sqrt(jerkSq / jerkCount),
                 Math.sqrt(wobbleSq / count), wobblePeak, Math.sqrt(yawSq / count), traceMax, settle, rings, pitchMax,
-                rollMax, (double) saturated / count, micros / n, microsMax, distance);
+                rollMax, (double) saturated / count,
+                // the mean leaves out the single worst step: one GC or class-loading pause would otherwise decide it
+                n > 1 ? (micros - microsMax) / (n - 1) : micros, microsMax, distance);
     }
 
     /** The signal minus its centred moving average over 2 half + 1 samples. */

@@ -1,0 +1,9 @@
+{
+  "textures": {"axle": "minecraft:block/dark_oak_log", "hub": "minecraft:block/iron_block",
+    "particle": "minecraft:block/oak_planks"},
+  "elements": [
+    {"from": [0, 7, 7], "to": [6, 9, 9], "faces": {
+      "north": {"texture": "#axle"}, "south": {"texture": "#axle"}, "up": {"texture": "#axle"},
+      "down": {"texture": "#axle"}, "west": {"texture": "#axle"}, "east": {"texture": "#axle"}}}
+  ]
+}
