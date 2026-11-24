@@ -1,0 +1,7 @@
+{
+  "entities": ["lotr_port:angmar_warg", "lotr_port:angmar_warg_bombardier", "lotr_port:gundabad_warg", "lotr_port:mordor_warg", "lotr_port:mordor_warg_bombardier", "lotr_port:uruk_warg", "lotr_port:uruk_warg_bombardier", "lotr_port:utumno_warg", "lotr_port:utumno_fire_warg", "lotr_port:utumno_ice_warg", "lotr_port:utumno_obsidian_warg"],
+  "rope_anchor": [0.45, 1.1, 0.25],
+  "rope_color": "#5b3f26",
+  "body": [0.8, 0.8, 1.45, -0.8, 0.75],
+  "collar": [1.4, 0.85, 0.45, 0.45, 0.2]
+}

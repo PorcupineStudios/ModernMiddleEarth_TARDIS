@@ -54,7 +54,12 @@ public final class HarnessTests {
             new Scenario("sled_flat", Surface.FLAT, TROT, 0, 3).on(Kind.SLED),
             new Scenario("sled_ramp", Surface.STEP_SLOPE, TROT, 0, 3).on(Kind.SLED),
             new Scenario("wagon_gentle_ramp", Surface.UPHILL_GENTLE, TROT, 0, 3).on(Kind.WAGON_WHEELS),
-            new Scenario("wagon_gentle_step_once", Surface.STEP_GENTLE, TROT, 0, 3).on(Kind.WAGON_WHEELS));
+            new Scenario("wagon_gentle_step_once", Surface.STEP_GENTLE, TROT, 0, 3).on(Kind.WAGON_WHEELS),
+            // sleds up one block, on the deck's cushion: a gentle or 45-degree nose, a gentle ramp once or all the way
+            new Scenario("sled_gentle_step", Surface.STEP, TROT, 0, 3).on(Kind.SLED_GENTLE),
+            new Scenario("sled_gentle_ramp_once", Surface.STEP_GENTLE, TROT, 0, 3).on(Kind.SLED_GENTLE),
+            new Scenario("sled_step", Surface.STEP, TROT, 0, 3).on(Kind.SLED),
+            new Scenario("sled_gentle_ramp", Surface.UPHILL_GENTLE, TROT, 0, 3).on(Kind.SLED_GENTLE));
 
     /**
      * Reported, not required: runs at the edge of one horse's strength; sleds on the every-4-blocks staircase (a 5-block sled always bridges two steps, rocking
@@ -63,16 +68,9 @@ public final class HarnessTests {
     public static final List<Scenario> HARD = List.of(
             // 27 iron blocks, beyond the horse: whether the heavy stop swings once or a few times varies by run
             new Scenario("overloaded_uphill", Surface.UPHILL, TROT, 0, 3, null, 27),
-            // a 15-block sled up one block on a gentle nose or ramp: smooth climbs, but right at one horse's pull, so
-            // whether it reaches its slack and is held back varies by run
-            new Scenario("sled_gentle_step", Surface.STEP, TROT, 0, 3).on(Kind.SLED_GENTLE),
-            new Scenario("sled_gentle_ramp_once", Surface.STEP_GENTLE, TROT, 0, 3).on(Kind.SLED_GENTLE),
-            // a 45-degree nose against a bare step: lifting this sled straight up 45 degrees plus its sliding friction
-            // needs more pull than one horse has (the gentle nose gets up: sled_gentle_step)
-            new Scenario("sled_step", Surface.STEP, TROT, 0, 3).on(Kind.SLED),
             new Scenario("sled_slope_ramp", Surface.UPHILL_SLOPES, TROT, 0, 3).on(Kind.SLED),
             new Scenario("sled_uphill_steps", Surface.UPHILL, TROT, 0, 3).on(Kind.SLED),
-            new Scenario("sled_gentle_ramp", Surface.UPHILL_GENTLE, TROT, 0, 3).on(Kind.SLED_GENTLE),
+            // a sled longer than the steps are apart spans two of them, pitched, and its nose meets the next edge steep
             new Scenario("sled_gentle_steps", Surface.UPHILL, TROT, 0, 3).on(Kind.SLED_GENTLE));
 
     public static Scenario scenario(String name) {
@@ -204,6 +202,26 @@ public final class HarnessTests {
         TowRun.start(h, scenario("wagon_gentle_step_once"));
     }
 
+    @GameTest(template = ARENA, timeoutTicks = TIMEOUT)
+    public static void sledGentleStep(GameTestHelper h) {
+        TowRun.start(h, scenario("sled_gentle_step"));
+    }
+
+    @GameTest(template = ARENA, timeoutTicks = TIMEOUT)
+    public static void sledGentleRampOnce(GameTestHelper h) {
+        TowRun.start(h, scenario("sled_gentle_ramp_once"));
+    }
+
+    @GameTest(template = ARENA, timeoutTicks = TIMEOUT)
+    public static void sledStep(GameTestHelper h) {
+        TowRun.start(h, scenario("sled_step"));
+    }
+
+    @GameTest(template = ARENA, timeoutTicks = TIMEOUT)
+    public static void sledGentleRamp(GameTestHelper h) {
+        TowRun.start(h, scenario("sled_gentle_ramp"));
+    }
+
     // --- calibration sweeps (-Dringbearer_harness.sweeps=true): a grid of trace settings on the runs that tell them
     // apart; they only report, in summary.txt -------------------------------------------------------------------------
 
@@ -237,8 +255,7 @@ public final class HarnessTests {
     public static Collection<TestFunction> hard() {
         List<TestFunction> out = new ArrayList<>();
         for (Scenario sc : HARD) {
-            sweep(out, sc.name(), new Scenario(sc.name(), sc.surface(), sc.speed(), sc.yawRate(), sc.turnSeconds(),
-                    sc.traces(), sc.cargo(), sc.kind()));
+            sweep(out, sc.name(), sc);
         }
         return out;
     }

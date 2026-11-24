@@ -20,7 +20,11 @@ import net.neoforged.neoforge.event.tick.ServerTickEvent;
  * a second harnessed horse standing free. Positions are relative to the join position, which the client reads too.
  */
 public final class Showcase {
-    public static final boolean ON = Boolean.getBoolean("ringbearer_harness.showcase");
+    public static final boolean ON = System.getProperty("ringbearer_harness.showcase", "false").matches("true|lotr");
+    /** {@code =lotr}: instead, the LOTR port's animals in a row, each in a harness (fit screenshots). */
+    public static final boolean LOTR = "lotr".equals(System.getProperty("ringbearer_harness.showcase"));
+    /** The row: animal i stands at x = LOTR_X0 + i * LOTR_STEP, z = LOTR_Z, facing +z (south). */
+    public static final double LOTR_X0 = 2.5, LOTR_STEP = 5, LOTR_Z = 4.5;
     /** Scene layout, blocks from the join position: the wagon's back-left deck corner, and the free horse. */
     public static final int WAGON_X = 3, WAGON_Z = 3;
     public static final double FREE_X = 12.5, FREE_Z = 3.5;
@@ -58,6 +62,10 @@ public final class Showcase {
         level.setDayTime(6000);
         level.getGameRules().getRule(GameRules.RULE_DAYLIGHT).set(false, level.getServer());
         level.getGameRules().getRule(GameRules.RULE_WEATHER_CYCLE).set(false, level.getServer());
+        if (LOTR) {
+            lotrRow(level);
+            return;
+        }
         TestWagon.Built wagon = TestWagon.build(level, origin.offset(WAGON_X, 1, WAGON_Z), 0);
         if (wagon == null) {
             return;
@@ -68,6 +76,23 @@ public final class Showcase {
         wagon.hitch().hitch(hitched);
         Horse free = horse(level, origin.getX() + FREE_X, origin.getY(), origin.getZ() + FREE_Z, 90);
         Harnessing.putOn(free, null);
+    }
+
+    /** Each LOTR animal that's loaded, harnessed and standing still (no AI), in a row (ShowcaseCamera's stops). */
+    private static void lotrRow(ServerLevel level) {
+        var animals = com.porcupinestudios.ringbearer.harness.gametest.LotrAnimalTests.ANIMALS;
+        for (int i = 0; i < animals.size(); i++) {
+            var mob = com.porcupinestudios.ringbearer.harness.gametest.Animals.create(level, animals.get(i));
+            if (mob == null) {
+                continue;
+            }
+            mob.moveTo(origin.getX() + LOTR_X0 + i * LOTR_STEP, origin.getY(), origin.getZ() + LOTR_Z, 0, 0);
+            mob.setYBodyRot(0);
+            mob.setYHeadRot(0);
+            mob.setNoAi(true);
+            level.addFreshEntity(mob);
+            Harnessing.putOn(mob, null);
+        }
     }
 
     private static Horse horse(ServerLevel level, double x, double y, double z, float yaw) {

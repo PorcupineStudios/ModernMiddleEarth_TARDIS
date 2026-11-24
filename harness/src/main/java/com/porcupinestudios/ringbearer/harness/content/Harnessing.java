@@ -9,6 +9,7 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.SlotAccess;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.OwnableEntity;
 import net.minecraft.world.entity.animal.horse.AbstractHorse;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -37,12 +38,18 @@ public final class Harnessing {
         return e.hasData(HarnessMod.HARNESS_WORN) && e.getData(HarnessMod.HARNESS_WORN);
     }
 
-    /** Whether this animal can wear a harness: it can pull (draught data), and a horse must be tame and grown. */
+    /**
+     * Whether this animal can wear a harness: it can pull (draught data) and is grown; a horse-family animal must be
+     * tame, and any other animal that can have an owner (wolves, hired wargs in the LOTR port) must have one.
+     */
     public static boolean canWear(Entity e) {
         if (!(e instanceof LivingEntity living) || living.isBaby() || DraughtAnimals.of(e) == null) {
             return false;
         }
-        return !(e instanceof AbstractHorse horse) || horse.isTamed();
+        if (e instanceof AbstractHorse horse) {
+            return horse.isTamed();
+        }
+        return !(e instanceof OwnableEntity owned) || owned.getOwnerUUID() != null;
     }
 
     /**
@@ -84,13 +91,24 @@ public final class Harnessing {
         return true;
     }
 
-    /** Shears take a harness off; a saddle won't go on a harnessed horse (the mixin also keeps the slot shut). */
+    /**
+     * A harness goes on an animal that can wear one; shears take it off; a saddle won't go on a harnessed horse (the
+     * mixin also keeps the slot shut).
+     */
     private static void onInteract(PlayerInteractEvent.EntityInteract event) {
         Entity target = event.getTarget();
+        ItemStack held = event.getItemStack();
         if (!wears(target)) {
+            // a harness goes on before the animal's own right-click (a hired NPC's menu would take the click)
+            if (held.is(HarnessMod.HARNESS.get()) && canWear(target)) {
+                if (!event.getLevel().isClientSide && putOn(target, event.getEntity())) {
+                    held.consume(1, event.getEntity());
+                }
+                event.setCancellationResult(InteractionResult.sidedSuccess(event.getLevel().isClientSide));
+                event.setCanceled(true);
+            }
             return;
         }
-        ItemStack held = event.getItemStack();
         if (held.is(Items.SHEARS)) {
             if (!event.getLevel().isClientSide && takeOff(target)) {
                 held.hurtAndBreak(1, event.getEntity(), LivingEntity.getSlotForHand(event.getHand()));

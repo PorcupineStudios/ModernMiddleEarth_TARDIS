@@ -49,7 +49,7 @@ public final class RopeRenderer {
         Direction facing = state.getValue(HitchBlock.FACING);
         ClientSubLevel vehicle = Sable.HELPER.getContainingClient(pos.getX() >> 4, pos.getZ() >> 4);
 
-        HarnessFits.Fit fit = HarnessFits.of(animal.getType());
+        HarnessFits.Fit fit = HarnessFits.of(animal);
         Vec3 origin = animal.getPosition(partialTick);
         double yaw = Math.toRadians(Mth.rotLerp(partialTick, animal.yBodyRotO, animal.yBodyRot));
         double fx = -Math.sin(yaw), fz = Math.cos(yaw);

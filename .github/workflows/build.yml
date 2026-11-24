@@ -32,9 +32,9 @@ jobs:
           grep -E "All [0-9]+ required tests passed" tardis-gametest.log
       - name: Harness GameTests
         # A horse pulling a real Aeronautics wagon on flat, uphill, downhill and side slopes, turning; the measurements
-        # are in the log ([harness-metrics]) and in harness/run/harness-metrics/
+        # are in the log ([harness-metrics]) and in harness/run/harness-metrics/; -PwithLotr adds the LOTR animals
         run: |
-          ./gradlew :harness:runGameTestServer --stacktrace 2>&1 | tee harness-gametest.log
+          ./gradlew :harness:runGameTestServer -PwithLotr --stacktrace 2>&1 | tee harness-gametest.log
           grep "harness-metrics" harness-gametest.log || true
           grep -E "All [0-9]+ required tests passed" harness-gametest.log
       - name: Middle-earth world

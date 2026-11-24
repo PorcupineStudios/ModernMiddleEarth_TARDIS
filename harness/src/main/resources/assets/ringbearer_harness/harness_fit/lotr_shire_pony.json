@@ -1,0 +1,7 @@
+{
+  "entities": ["lotr_port:shire_pony"],
+  "rope_anchor": [0.31, 0.88, 0.22],
+  "rope_color": "#5b3f26",
+  "body": [0.52, 0.62, 1.12, -0.52, 0.6],
+  "collar": [1.16, 0.64, 0.34, 0.36, 0.18]
+}

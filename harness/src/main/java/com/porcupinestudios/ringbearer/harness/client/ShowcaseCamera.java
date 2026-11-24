@@ -26,6 +26,17 @@ public final class ShowcaseCamera {
             {240, -2.5, 1.6, 9.2, 4.5, 1.0, 9.6},  // the ropes from the side: hitch hooks to tug rings
     };
     private static BlockPos join, origin;
+
+    /** For the LOTR row: each animal three-quarters from its front left, then a few from straight above the row. */
+    private static double[][] lotrStops() {
+        int n = com.porcupinestudios.ringbearer.harness.gametest.LotrAnimalTests.ANIMALS.size();
+        double[][] out = new double[n][];
+        for (int i = 0; i < n; i++) {
+            double x = Showcase.LOTR_X0 + i * Showcase.LOTR_STEP, z = Showcase.LOTR_Z;
+            out[i] = new double[] {120 + 30 * i, x + 3.2, 2.4, z + 2.6, x, 1.0, z - 0.2};
+        }
+        return out;
+    }
     private static int ticks;
 
     private ShowcaseCamera() {}
@@ -55,8 +66,9 @@ public final class ShowcaseCamera {
         if (origin == null) {
             return;
         }
-        for (int i = 0; i < STOPS.length; i++) {
-            double[] s = STOPS[i];
+        double[][] stops = Showcase.LOTR ? lotrStops() : STOPS;
+        for (int i = 0; i < stops.length; i++) {
+            double[] s = stops[i];
             if (ticks == (int) s[0] - 20) {
                 Vec3 eye = new Vec3(origin.getX() + s[1], origin.getY() + s[2], origin.getZ() + s[3]);
                 Vec3 at = new Vec3(origin.getX() + s[4], origin.getY() + s[5], origin.getZ() + s[6]);
@@ -66,12 +78,12 @@ public final class ShowcaseCamera {
                 mc.player.moveTo(eye.x, eye.y - mc.player.getEyeHeight(), eye.z, yaw, pitch);
                 mc.player.setDeltaMovement(Vec3.ZERO);
             } else if (ticks == (int) s[0]) {
-                String name = "harness_" + (i + 1) + ".png";
+                String name = (Showcase.LOTR ? "harness_lotr_" : "harness_") + (i + 1) + ".png";
                 Screenshot.grab(mc.gameDirectory, name, mc.getMainRenderTarget(),
                         msg -> LOG.info("[showcase] {}", msg.getString()));
             }
         }
-        if (ticks == (int) STOPS[STOPS.length - 1][0] + 20) {
+        if (ticks == (int) stops[stops.length - 1][0] + 20) {
             LOG.info("[showcase] done");
             mc.stop();
         }

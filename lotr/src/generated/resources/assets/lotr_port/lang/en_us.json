@@ -6500,5 +6500,6 @@
   "item.lotr_port.raw_silver": "Raw Silver",
   "block.lotr_port.raw_silver_block": "Block of Raw Silver",
   "item.lotr_port.raw_tin": "Raw Tin",
-  "block.lotr_port.raw_tin_block": "Block of Raw Tin"
+  "block.lotr_port.raw_tin_block": "Block of Raw Tin",
+  "entity.lotr_port.rhosgobel_rabbit": "Rhosgobel Rabbit"
 }

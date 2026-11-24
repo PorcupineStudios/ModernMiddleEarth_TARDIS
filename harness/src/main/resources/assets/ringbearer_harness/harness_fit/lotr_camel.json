@@ -1,0 +1,7 @@
+{
+  "entities": ["lotr_port:camel"],
+  "rope_anchor": [0.45, 1.25, 0.2],
+  "rope_color": "#5b3f26",
+  "body": [0.8, 1.0, 1.6, -0.8, 0.6],
+  "collar": [1.5, 0.75, 0.35, 0.4, 0.2]
+}

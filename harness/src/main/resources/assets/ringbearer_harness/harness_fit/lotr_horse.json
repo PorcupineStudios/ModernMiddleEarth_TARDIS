@@ -1,0 +1,7 @@
+{
+  "entities": ["lotr_port:horse", "lotr_port:zebra"],
+  "rope_anchor": [0.39, 1.1, 0.28],
+  "rope_color": "#5b3f26",
+  "body": [0.65, 0.78, 1.4, -0.65, 0.75],
+  "collar": [1.45, 0.8, 0.42, 0.45, 0.22]
+}

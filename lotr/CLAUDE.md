@@ -273,6 +273,14 @@ https://claude.ai/artifact/KqhSSTCuKXGuwKHBoYJdcu. Rebuild features in modern co
   through `Hiring.mount`. An NPC's mount is tame, saddled and `NpcOwned` (despawns like its rider; players can't use
   it while the NPC rides). The NPC entity has a riding offset so riders sit in the saddle. The rider's feet are at
   half the mount's height (LOTR), which is `seat`.
+- Rhosgobel rabbits (2026-11-24, Aaron: Radagast's sleigh rabbits): the port's own breed `rhosgobel_rabbit`
+  (`converter/mounts.py OWN_BREEDS`: LOTR's rabbit model at scale 2.8, 1.2 x 1.3, rabbit skins 0/1/4, carrots), rare
+  in Anduin vale/hills and southern Mirkwood (biome modifier `rhosgobel_rabbits.json`). No saddle: breeds with no
+  saddle texture that aren't the old horse model aren't saddleable (`LotrHorse.isSaddleable`); they pull in the
+  harness mod's harness. Its generated entries (mounts.json, `mount/rhosgobel_rabbit.json`, en_us name) were written
+  from `OWN_BREEDS` without a full converter run (the LOTR jar isn't in the sandbox); a full run writes the same.
+- For the harness mod (optional, no dependency either way): `LotrNpc` is an `OwnableEntity` (its hirer), and
+  `LotrPort` sends IMC `draught_key` naming NPCs by NPC type, so harness data can list `lotr_port:mordor_warg` etc.
 - GameTests `MountTests`. Earlier batches leave blocks outside the 1-block `empty` template: clear the space first.
   Screenshot script: `lotr/run/mount_shots.txt`.
 

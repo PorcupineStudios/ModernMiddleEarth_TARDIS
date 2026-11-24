@@ -45,3 +45,23 @@ dependencies {
 tasks.matching { it.name == 'runGameTestServer' }.configureEach {
     doFirst { delete file('run/world') }
 }
+
+// -PwithLotr: dev runs (GameTests, client) also load the LOTR port and the shared API, for the LOTR animals' harness
+// tests (gametest/LotrAnimalTests) and screenshots. Only at run time: the harness still compiles against neither.
+if (project.hasProperty('withLotr')) {
+    evaluationDependsOn(':lotr')
+    dependencies {
+        // (without JEI, which lotr runs with from a maven the harness doesn't search)
+        runtimeOnly(project(':lotr')) { exclude group: 'mezz.jei' }
+    }
+    neoForge {
+        mods {
+            lotr_port {
+                sourceSet(project(':lotr').sourceSets.main)
+            }
+            ringbearer_api {
+                sourceSet(project(':api').sourceSets.main)
+            }
+        }
+    }
+}
