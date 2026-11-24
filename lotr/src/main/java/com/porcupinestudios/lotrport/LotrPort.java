@@ -56,6 +56,13 @@ public final class LotrPort {
     public static final Logger LOG = LogUtils.getLogger();
 
     public LotrPort(IEventBus modBus, ModContainer container) {
+        // the harness mod (ringbearer_harness, optional) keys its draught and fit files by creature: name NPCs by type
+        // (wargs, spiders...) since they share one entity type. Plain NeoForge messages: neither mod needs the other.
+        modBus.addListener((net.neoforged.fml.event.lifecycle.InterModEnqueueEvent e) ->
+                net.neoforged.fml.InterModComms.sendTo("ringbearer_harness", "draught_key",
+                        () -> (java.util.function.Function<net.minecraft.world.entity.Entity,
+                                net.minecraft.resources.ResourceLocation>) entity ->
+                                entity instanceof com.porcupinestudios.lotrport.npc.LotrNpc npc ? npc.typeId() : null));
         container.registerConfig(ModConfig.Type.COMMON, LotrConfig.SPEC);
         container.registerConfig(ModConfig.Type.CLIENT, LotrClientConfig.SPEC);
         // every Middle-earth biome's cave settings, by land and region (data/lotr_port/biome_config.json)

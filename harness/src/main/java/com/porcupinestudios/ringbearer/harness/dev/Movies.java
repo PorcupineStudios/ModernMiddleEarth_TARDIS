@@ -11,7 +11,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.entity.animal.horse.Horse;
 import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.GameType;
 import net.minecraft.world.level.levelgen.Heightmap;
@@ -138,7 +137,7 @@ public final class Movies {
         }
 
         @Override
-        public void started(Horse horse) {
+        public void started(net.minecraft.world.entity.Mob horse) {
             say("start " + sc.name() + " " + horse.getId());
         }
 

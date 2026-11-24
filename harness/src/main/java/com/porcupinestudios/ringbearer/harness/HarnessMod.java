@@ -143,6 +143,7 @@ public final class HarnessMod {
             e.addListener(SLOPE_CONTACTS);
         });
         SlopeContacts.register();
+        modBus.addListener(com.porcupinestudios.ringbearer.harness.draught.DraughtKeys::onProcess);
         NeoForge.EVENT_BUS.addListener(HarnessMod::afterEntityTick);
     }
 

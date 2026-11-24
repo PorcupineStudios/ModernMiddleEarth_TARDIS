@@ -78,7 +78,32 @@ calibrated later from the same data.
 `steer`, `max_angle`, `load_slowing`. Forces are Sable units (its block masses x blocks/s^2): the 3x5 plank test wagon
 has mass 14.5 and weighs 160; with 27 iron blocks, 122.5 and 1348. Horse (`horse.json`, minecraft and lotr_port
 horses): 1.2 Hz, damping 0.5, pull 400, push 200; chosen from the calibration grid below. Other animals: copy and
-calibrate (pull for their size, stiffness for how tight their traces should feel).
+calibrate (pull for their size, stiffness for how tight their traces should feel); the LOTR port's are below.
+
+## LOTR port animals (`draught/lotr_*.json`, `harness_fit/lotr_*.json`, GameTests `LotrAnimalTests`)
+Every animal ridden in LOTR 36.15, as the port has them, and the port's Rhosgobel rabbit (2026-11-24): its mount breeds
+(horse, Shire pony, zebra, wild boar, camel, elk, rhino, giraffe, Rhosgobel rabbit) and the creatures its NPCs ride
+(the eleven warg types, the three giant spiders). Same traces as the horse; pull and push scaled by size from the horse
+(pony 260, boar 150, camel 450, elk 380, rhino 650, giraffe 320, warg 320, spider 260, rabbit 230); tow points behind
+the hind legs. Not yet calibrated one by one beyond the horse's runs (they pass the horse's marks on flat ground).
+- Wargs and spiders share one entity type (`lotr_port:npc`, `rigged_npc`), so files can name a creature kind:
+  `draught/DraughtKeys` asks the mods that sent an IMC message `draught_key` (a `Function<Entity, ResourceLocation>`)
+  first, then uses the entity type id. The LOTR port sends one naming NPCs by their NPC type. Neither mod depends on
+  the other.
+- Who can wear one: grown, with draught data; horse-family animals tamed; other animals that can have an owner
+  (`OwnableEntity`: wolves, the port's hired NPCs, which now report their hirer) must have one. Putting a harness on
+  goes ahead of the animal's own right-click (a hired NPC's menu took the click).
+- Drawing: vanilla's horse renderer gets `HarnessLayer` (posed with the horse); every other animal with a fit's `body`
+  (`[width, bottom, top, rear, front]` in blocks) and `collar` gets `client/BodyHarness`: bands, back strap, side
+  straps, tug rings and collar as boxes turned with the body yaw. It doesn't bend with the model (a hopping rabbit's
+  body pitches inside it), so bands sit a little proud. Fits are first guesses checked on screenshots below.
+- GameTests: `lotr_wears_<kind>` (a harness goes on, a saddle comes off, it has draught data) and `lotr_<kind>_flat`
+  (pulls a wagon on wagon wheels at a trot) for one of each kind; the rabbit also pulls a sled up a block on a gentle
+  nose (`lotr_rhosgobel_rabbit_sled`) and a wagon up 1-block steps. Generated only when the port is loaded: run with
+  `./gradlew :harness:runGameTestServer -PwithLotr` (runs also load lotr and api; JEI left out). 2026-11-24: all pass;
+  the rabbit's sled climb measured the same as the horse's (jolt 13, stretch 0.27 with pull 230).
+- Screenshots: `-Dringbearer_harness.showcase=lotr` (with `-PwithLotr`) puts the animals in a row, harnessed, and
+  `ShowcaseCamera` takes `screenshots/harness_lotr_<n>.png` of each.
 
 ## Tests and metrics
 GameTests `HarnessTests` (`./gradlew :harness:runGameTestServer`; the run task deletes `run/world` first, see
@@ -179,6 +204,11 @@ by `tools/slopes.py` (with blockstates, item models, loot tables and recipes).
   touching at once don't add up into a launch). The push is the same soft spring-damper as the traces, with friction;
   stiffness, damping and friction are per block in `data/<ns>/slope_contact/*.json` (now 3 Hz, critical, 0.1).
 - On a vehicle, upside-down slopes in front of a sled's deck are a nose that rides it up over a block edge.
+- A vehicle carrying slopes (a sled) rides on a cushion (`cushion` in its slopes' `slope_contact` file: 0.1 block):
+  the bottom corners of its deck (blocks with nothing solid under them, rescanned every second) are held that far over
+  the block tops under them by the same spring-damper, with the same friction. Without it a sled's deck sat on
+  Sable's rigid contact, so tipping over a crest slammed its front down (2026-11-24: a 54 blocks/s^2 knock). Corners
+  against a step's face (ground above them) are left to Sable; world slopes have their own contacts.
 
 ## Wagon wheels (`content/WagonWheelBlock`, `WagonWheelBlockEntity`, `WheelTerrain`)
 A spoked wheel block (radius 0.9, model `client/WagonWheelModel`) whose axle points out of the vehicle. Each physics
@@ -197,14 +227,17 @@ Results (horse at a trot, wagon 12.5, same course; `harness-metrics/`):
 | wagon wheels, 1-block steps (`wagon_uphill`) | 4.7 | 9.5 | 1.9 | 0.08 |
 | wagon wheels, 45-degree slopes | 4.8 | 10.7 | 2.5 | 0.09 |
 | wagon wheels, gentle slopes | 4.5 | 8.2 | 2.2 | 0.07 |
-| sled on flat | 4.4 | 5.0 | 0 | 0.03 |
-| sled up one block on a 45-degree ground slope (`sled_ramp`) | 23 | 95 | 5.2 | 0.19 |
-| sled up one bare block on a gentle nose (`sled_gentle_step`, report-only) | 57 | 180 | 5.4 | 0.27 |
+| sled on flat | 4.4 | 4.1 | 0.1 | 0.05 |
+| sled up one block on a 45-degree ground slope (`sled_ramp`) | 15 (23 before the cushion) | 37 (95) | 3.9 | 0.21 |
+| sled up one bare block on a gentle nose (`sled_gentle_step`) | 13 (57) | 31 (180) | 4.8 | 0.18 |
+| sled up one bare block on a 45-degree nose (`sled_step`) | 23 (couldn't) | 57 | 4.2 | 0.24 |
+| sled up a gentle ramp onto one block (`sled_gentle_ramp_once`) | 18 (40) | 53 (117) | 4.0 | 0.25 |
 
-Sleds: a 45-degree nose can't get a 15-block sled up a bare block with one horse (`sled_step`); the gentle 2-block
-nose can, but only at the limit of the horse's pull (the traces reach their slack plus a bit in some runs), so those
-runs are report-only (`HarnessTests.HARD`), with `overloaded_uphill` (whether its heavy stop swings once or 3 times
-varies by run). Sleds over repeated steps are rough. The cost mark leaves out the single worst step (a 48 ms GC or
+Sleds: with the cushion, single climbs are required runs. What's left of their jolt is the nose meeting the step (the
+path's kink: gentler noses and ramps give less). A sled longer than the steps are apart (a staircase every 4 blocks
+under a 6-block sled) spans two steps pitched, and its nose meets the next edge steep: `sled_uphill_steps`,
+`sled_gentle_steps`, `sled_slope_ramp` stay report-only (`HarnessTests.HARD`), with `overloaded_uphill` (whether its
+heavy stop swings once or 3 times varies by run). The cost mark leaves out the single worst step (a 48 ms GC or
 class-load pause once decided a run's mean).
 
 ## Status
@@ -212,6 +245,7 @@ class-load pause once decided a run's mean).
 - 2026-11-24: wearable harness, hitch block, two ropes; GameTests `WearingTests` (harness replaces the saddle and
   keeps saddles off, only tame grown horses, hitching needs a harness, shears take it off and unhitch, drops on
   death); looks checked in a headless client (screenshots above).
+- 2026-11-24: sled cushion; LOTR port animals (all ridden kinds and the Rhosgobel rabbit) harnessed, pulling.
 - 2026-11-24: slopes (45-degree and gentle pairs, placed like stairs) with their own contact solver, wagon wheels,
   sleds; 37 required GameTests passed twice in a row in the sandbox, movies checked (above).
 - Not yet: teams in formation (several animals on one hitch all pull at the same

@@ -73,6 +73,16 @@ public class LotrHorse extends AbstractChestedHorse {
         return AbstractHorse.createBaseHorseAttributes().add(Attributes.ATTACK_DAMAGE, 2.0);
     }
 
+    /**
+     * Breeds with nothing to draw a saddle with (no saddle texture, not the old horse model, which has its own) can't
+     * take one: Rhosgobel rabbits pull a sleigh in a harness (the harness mod) instead of carrying a rider.
+     */
+    @Override
+    public boolean isSaddleable() {
+        Mounts.Breed b = breed();
+        return super.isSaddleable() && (b.oldHorse() || b.saddle() != null);
+    }
+
     public Mounts.Breed breed() {
         return Mounts.breed(getType());
     }

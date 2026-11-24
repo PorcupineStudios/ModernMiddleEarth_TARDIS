@@ -24,7 +24,7 @@ import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MoverType;
-import net.minecraft.world.entity.animal.horse.Horse;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
@@ -81,7 +81,7 @@ public final class TowRun {
      */
     public record Scenario(String name, Surface surface, double speed, double yawRate, double turnSeconds,
                            double @org.jetbrains.annotations.Nullable [] traces, int cargo,
-                           com.porcupinestudios.ringbearer.harness.dev.TestWagon.Kind kind) {
+                           com.porcupinestudios.ringbearer.harness.dev.TestWagon.Kind kind, String animal) {
         public Scenario(String name, Surface surface, double speed, double yawRate, double turnSeconds) {
             this(name, surface, speed, yawRate, turnSeconds, null, 0);
         }
@@ -94,11 +94,16 @@ public final class TowRun {
         public Scenario(String name, Surface surface, double speed, double yawRate, double turnSeconds,
                         double @org.jetbrains.annotations.Nullable [] traces, int cargo) {
             this(name, surface, speed, yawRate, turnSeconds, traces, cargo,
-                    com.porcupinestudios.ringbearer.harness.dev.TestWagon.Kind.OFFROAD);
+                    com.porcupinestudios.ringbearer.harness.dev.TestWagon.Kind.OFFROAD, Animals.HORSE);
         }
 
         public Scenario on(com.porcupinestudios.ringbearer.harness.dev.TestWagon.Kind k) {
-            return new Scenario(name, surface, speed, yawRate, turnSeconds, traces, cargo, k);
+            return new Scenario(name, surface, speed, yawRate, turnSeconds, traces, cargo, k, animal);
+        }
+
+        /** Pulled by another animal ({@link Animals} names it). */
+        public Scenario by(String animal) {
+            return new Scenario(name, surface, speed, yawRate, turnSeconds, traces, cargo, kind, animal);
         }
     }
 
@@ -139,7 +144,7 @@ public final class TowRun {
     private double heading; // radians, Minecraft yaw: 0 = +z
     private double px, pz; // where the horse was put (absolute)
     private double vy;
-    private Horse horse;
+    private Mob horse;
     private HitchBlockEntity harness;
     private ServerSubLevel wagon;
     private double mass;
@@ -195,7 +200,7 @@ public final class TowRun {
         }
 
         /** The horse is hitched and the run begins. */
-        default void started(Horse horse) {}
+        default void started(Mob animal) {}
 
         void fail(String message);
 
@@ -337,18 +342,23 @@ public final class TowRun {
         mass = wagon.getMassTracker().getMass();
         substeps = SubLevelPhysicsSystem.require(level).getConfig().substepsPerTick;
 
-        // the horse, its tow point 1 block in front of the hitch
+        // the animal, its tow point 1 block in front of the hitch
         Vec3 hitch = built.hitchFront();
-        px = hitch.x;
-        pz = hitch.z + 1.0 + 0.95;
-        horse = EntityType.HORSE.create(level);
+        horse = Animals.create(level, sc.animal());
         if (horse == null) {
-            helper.fail("no horse");
+            helper.fail("no " + sc.animal());
             return;
         }
+        com.porcupinestudios.ringbearer.harness.draught.DraughtAnimal draught =
+                com.porcupinestudios.ringbearer.harness.draught.DraughtAnimals.of(horse);
+        if (draught == null) {
+            helper.fail("no draught data for " + sc.animal());
+            return;
+        }
+        px = hitch.x;
+        pz = hitch.z + 1.0 - draught.towPoint().get(2);
         horse.setNoAi(true);
         horse.setNoGravity(true);
-        horse.setTamed(true);
         int groundY = ground(X0, (int) Math.floor(pz) - origin.getZ());
         // (above a ramp's slope block if one is there; it settles onto it)
         boolean ramps = sc.surface().fullRamps() || sc.surface().gentleRamps();
@@ -359,7 +369,7 @@ public final class TowRun {
         level.addFreshEntity(horse);
         com.porcupinestudios.ringbearer.harness.content.Harnessing.putOn(horse, null);
         if (!harness.hitch(horse)) {
-            helper.fail("the horse wouldn't hitch (is draught/horse.json loaded?)");
+            helper.fail("the " + sc.animal() + " wouldn't hitch");
             return;
         }
         if (sc.traces() != null) {

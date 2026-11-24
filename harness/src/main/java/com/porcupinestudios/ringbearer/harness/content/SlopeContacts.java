@@ -36,8 +36,13 @@ import org.joml.Vector3d;
  * (mass-scaled, stable at any step), with sliding friction along the face.
  */
 public final class SlopeContacts {
-    /** Each vehicle's own slope blocks (plot positions), found again every second. */
-    private record OwnSlopes(long scannedAt, List<BlockPos> positions) {}
+    /**
+     * Each vehicle's own slope blocks (plot positions), found again every second, and if it has any, the corners
+     * under its deck (bottom corners of its blocks with nothing solid under them, plot coordinates) that ride on the
+     * cushion, with the first slope's tuning.
+     */
+    private record OwnSlopes(long scannedAt, List<BlockPos> positions, List<Vector3d> skids, SlopeContact tune) {}
+    private static final Vector3d UP = new Vector3d(0, 1, 0);
 
     private static final Map<SubLevel, OwnSlopes> OWN = new WeakHashMap<>();
     private static final int RESCAN_TICKS = 20;
@@ -62,7 +67,8 @@ public final class SlopeContacts {
             Pose3dc pose = s.logicalPose();
             ForceTotal force = new ForceTotal();
             Solve solve = new Solve();
-            int contacts = worldSlopes(level, s, pose, force, solve, h) + ownSlopes(level, s, pose, force, solve, h);
+            int contacts = worldSlopes(level, s, pose, force, solve, h) + ownSlopes(level, s, pose, force, solve, h)
+                    + skids(level, s, pose, force, solve, h);
             if (contacts > 0) {
                 handle.applyForcesAndReset(force);
             }
@@ -102,7 +108,7 @@ public final class SlopeContacts {
     private static int ownSlopes(ServerLevel level, ServerSubLevel s, Pose3dc pose, ForceTotal force, Solve solve,
                                  double h) {
         int n = 0;
-        for (BlockPos q : own(level, s)) {
+        for (BlockPos q : own(level, s).positions()) {
             BlockState vs = level.getBlockState(q);
             if (!(vs.getBlock() instanceof SlopeBlock)) {
                 continue;
@@ -218,11 +224,61 @@ public final class SlopeContacts {
         return c.map(pose::transformPosition, pose::transformNormal);
     }
 
-    private static List<BlockPos> own(ServerLevel level, ServerSubLevel s) {
+    /**
+     * A sled's deck on its cushion: each skid corner over ground within the cushion is pushed up (world up) by the
+     * same spring-damper, so the deck floats {@code cushion} over the ground and a drop (tipping over a crest) lands
+     * on a spring. Corners deeper in than that (against a step's face) are left to Sable; world slopes have their own
+     * contacts above.
+     */
+    private static int skids(ServerLevel level, ServerSubLevel s, Pose3dc pose, ForceTotal force, Solve solve,
+                             double h) {
+        OwnSlopes own = own(level, s);
+        if (own.tune() == null || own.tune().cushion() <= 0) {
+            return 0;
+        }
+        double cushion = own.tune().cushion();
+        int n = 0;
+        for (Vector3d corner : own.skids()) {
+            Vector3d w = pose.transformPosition(new Vector3d(corner));
+            double top = groundTop(level, w, cushion);
+            if (Double.isNaN(top)) {
+                continue;
+            }
+            double depth = top + cushion - w.y;
+            if (depth > 0) {
+                push(level, s, pose, force, solve, UP, depth, w, own.tune(), h);
+                n++;
+            }
+        }
+        return n;
+    }
+
+    /** The highest solid top under {@code w} from a little over it down to the cushion below it (NaN: none). */
+    private static double groundTop(ServerLevel level, Vector3d w, double cushion) {
+        int x = Mth.floor(w.x), z = Mth.floor(w.z);
+        double fx = w.x - x, fz = w.z - z, best = Double.NaN;
+        BlockPos.MutableBlockPos p = new BlockPos.MutableBlockPos();
+        for (int y = Mth.floor(w.y + 0.05); y >= Mth.floor(w.y - cushion - 0.05); y--) {
+            BlockState state = level.getBlockState(p.set(x, y, z));
+            if (state.isAir() || state.getBlock() instanceof SlopeBlock) {
+                continue;
+            }
+            for (AABB box : state.getCollisionShape(level, p).toAabbs()) {
+                double top = y + box.maxY;
+                if (fx >= box.minX && fx <= box.maxX && fz >= box.minZ && fz <= box.maxZ && top <= w.y + 0.05
+                        && !(top <= best)) {
+                    best = top;
+                }
+            }
+        }
+        return best;
+    }
+
+    private static OwnSlopes own(ServerLevel level, ServerSubLevel s) {
         long now = level.getGameTime();
         OwnSlopes cached = OWN.get(s);
         if (cached != null && now - cached.scannedAt() < RESCAN_TICKS) {
-            return cached.positions();
+            return cached;
         }
         List<BlockPos> found = new ArrayList<>();
         BoundingBox3ic b = s.getPlot().getBoundingBox();
@@ -231,8 +287,30 @@ public final class SlopeContacts {
                 found.add(p.immutable());
             }
         }
-        OWN.put(s, new OwnSlopes(now, found));
-        return found;
+        List<Vector3d> skids = new ArrayList<>();
+        SlopeContact tune = found.isEmpty() ? null : tuning(level.getBlockState(found.get(0)));
+        if (tune != null && tune.cushion() > 0) {
+            java.util.Set<Long> seen = new java.util.HashSet<>();
+            for (BlockPos p : BlockPos.betweenClosed(b.minX(), b.minY(), b.minZ(), b.maxX(), b.maxY(), b.maxZ())) {
+                BlockState state = level.getBlockState(p);
+                if (state.isAir() || state.getBlock() instanceof SlopeBlock
+                        || state.getCollisionShape(level, p).isEmpty()
+                        || !level.getBlockState(p.below()).getCollisionShape(level, p.below()).isEmpty()) {
+                    continue;
+                }
+                for (int c = 0; c < 4; c++) {
+                    int cx = p.getX() + (c & 1), cz = p.getZ() + (c >> 1);
+                    if (seen.add(BlockPos.asLong(cx, p.getY(), cz))) {
+                        // a little in from the corner, toward the block, so the ground under it is the deck's own
+                        skids.add(new Vector3d(cx + ((c & 1) == 0 ? 0.05 : -0.05), p.getY(),
+                                cz + ((c >> 1) == 0 ? 0.05 : -0.05)));
+                    }
+                }
+            }
+        }
+        OwnSlopes fresh = new OwnSlopes(now, found, skids, tune);
+        OWN.put(s, fresh);
+        return fresh;
     }
 
     private static SlopeContact tuning(BlockState state) {

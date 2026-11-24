@@ -17,7 +17,7 @@ import net.neoforged.neoforge.common.NeoForge;
 
 /**
  * Client entry: the Config button in the Mods list opens NeoForge's config screen; the worn harness is drawn on
- * horse-family animals ({@link HarnessLayer}); hitched animals get their two ropes ({@link RopeRenderer}).
+ * horse-family animals ({@link HarnessLayer}) and fitted on others ({@link BodyHarness}); hitched animals get their two ropes ({@link RopeRenderer}).
  */
 @Mod(value = HarnessMod.MOD_ID, dist = Dist.CLIENT)
 public final class HarnessClient {
@@ -33,8 +33,12 @@ public final class HarnessClient {
         modBus.addListener((RegisterClientReloadListenersEvent e) -> e.registerReloadListener(new HarnessFits()));
         ShowcaseCamera.register();
         MovieRecorder.register();
-        NeoForge.EVENT_BUS.addListener((RenderLivingEvent.Post<?, ?> e) -> RopeRenderer.render(e.getEntity(),
-                e.getPartialTick(), e.getPoseStack(), e.getMultiBufferSource(), e.getPackedLight()));
+        NeoForge.EVENT_BUS.addListener((RenderLivingEvent.Post<?, ?> e) -> {
+            RopeRenderer.render(e.getEntity(), e.getPartialTick(), e.getPoseStack(), e.getMultiBufferSource(),
+                    e.getPackedLight());
+            BodyHarness.render(e.getEntity(), e.getRenderer(), e.getPartialTick(), e.getPoseStack(),
+                    e.getMultiBufferSource(), e.getPackedLight());
+        });
     }
 
     /** Every horse-family renderer (horses, donkeys, mules, skeleton and zombie horses) gets the harness layer. */

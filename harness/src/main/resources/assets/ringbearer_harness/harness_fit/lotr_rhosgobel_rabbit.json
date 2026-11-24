@@ -1,0 +1,7 @@
+{
+  "entities": ["lotr_port:rhosgobel_rabbit"],
+  "rope_anchor": [0.42, 0.6, 0.0],
+  "rope_color": "#5b3f26",
+  "body": [0.75, 0.35, 1.0, -0.55, 0.45],
+  "collar": [1.05, 0.45, 0.4, 0.35, 0.15]
+}

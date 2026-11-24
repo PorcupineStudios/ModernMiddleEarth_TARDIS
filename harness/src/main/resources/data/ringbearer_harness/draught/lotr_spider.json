@@ -1,0 +1,13 @@
+{
+  "entities": ["lotr_port:mirkwood_spider", "lotr_port:mordor_spider", "lotr_port:utumno_ice_spider"],
+  "tow_point": [0.0, 0.45, -0.9],
+  "min_gap": 0.4,
+  "max_gap": 2.6,
+  "max_pull": 260.0,
+  "max_push": 130.0,
+  "stiffness_hz": 1.2,
+  "damping_ratio": 0.5,
+  "smoothing_hz": 4.0,
+  "slack": 1.0,
+  "break_distance": 10.0
+}

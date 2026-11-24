@@ -9,5 +9,6 @@
   ],
   "stiffness_hz": 3.0,
   "damping_ratio": 1.0,
-  "friction": 0.1
+  "friction": 0.1,
+  "cushion": 0.1
 }
