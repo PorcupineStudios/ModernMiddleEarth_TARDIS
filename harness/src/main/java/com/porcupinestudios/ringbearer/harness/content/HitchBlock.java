@@ -21,14 +21,15 @@ import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.Nullable;
 
 /**
- * The harness: build it into the front of a Create: Aeronautics vehicle, facing where the animals will walk. Lead
- * animals to it and use it to hitch every one you're leading that can pull (it takes their leads); sneak-use with an
- * empty hand to unhitch them (they come back on your leads).
+ * The hitch: build it into the front of a Create: Aeronautics vehicle, facing where the animals will walk. Put
+ * harnesses on them ({@link HarnessItem}), lead them here and use it to hitch every one you're leading (it takes their
+ * leads; two ropes run from its ends to each harness); sneak-use with an empty hand to unhitch them (they come back on
+ * your leads, harnesses still on).
  */
-public class HarnessBlock extends HorizontalDirectionalBlock implements EntityBlock {
-    public static final MapCodec<HarnessBlock> CODEC = simpleCodec(HarnessBlock::new);
+public class HitchBlock extends HorizontalDirectionalBlock implements EntityBlock {
+    public static final MapCodec<HitchBlock> CODEC = simpleCodec(HitchBlock::new);
 
-    public HarnessBlock(Properties properties) {
+    public HitchBlock(Properties properties) {
         super(properties);
         registerDefaultState(stateDefinition.any().setValue(FACING, net.minecraft.core.Direction.NORTH));
     }
@@ -51,13 +52,13 @@ public class HarnessBlock extends HorizontalDirectionalBlock implements EntityBl
     @Nullable
     @Override
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-        return new HarnessBlockEntity(pos, state);
+        return new HitchBlockEntity(pos, state);
     }
 
     @Override
     protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player,
                                                BlockHitResult hit) {
-        if (level.isClientSide || !(level.getBlockEntity(pos) instanceof HarnessBlockEntity harness)) {
+        if (level.isClientSide || !(level.getBlockEntity(pos) instanceof HitchBlockEntity harness)) {
             return InteractionResult.SUCCESS;
         }
         if (player.isShiftKeyDown()) {
@@ -71,17 +72,29 @@ public class HarnessBlock extends HorizontalDirectionalBlock implements EntityBl
                     true);
             return InteractionResult.CONSUME;
         }
-        int hitched = 0;
+        int[] result = hitchLed(harness, player);
+        player.displayClientMessage(result[0] > 0
+                ? Component.translatable("message.ringbearer_harness.hitched", result[0])
+                : result[1] > 0 ? Component.translatable("message.ringbearer_harness.needs_harness")
+                : Component.translatable("message.ringbearer_harness.none"), true);
+        return InteractionResult.CONSUME;
+    }
+
+    /**
+     * Hitches every animal {@code player} leads on a lead within 10 blocks that wears a harness (taking its lead).
+     * Returns {hitched, led but not harnessed}.
+     */
+    public static int[] hitchLed(HitchBlockEntity hitch, Player player) {
+        int hitched = 0, bare = 0;
         AABB around = player.getBoundingBox().inflate(10);
-        for (Mob mob : level.getEntitiesOfClass(Mob.class, around, m -> m.getLeashHolder() == player)) {
-            if (harness.hitch(mob)) {
+        for (Mob mob : player.level().getEntitiesOfClass(Mob.class, around, m -> m.getLeashHolder() == player)) {
+            if (!Harnessing.wears(mob)) {
+                bare++;
+            } else if (hitch.hitch(mob)) {
                 mob.dropLeash(true, false);
                 hitched++;
             }
         }
-        player.displayClientMessage(hitched > 0
-                ? Component.translatable("message.ringbearer_harness.hitched", hitched)
-                : Component.translatable("message.ringbearer_harness.none"), true);
-        return InteractionResult.CONSUME;
+        return new int[] {hitched, bare};
     }
 }

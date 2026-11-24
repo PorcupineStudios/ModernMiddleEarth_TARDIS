@@ -5,11 +5,15 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.porcupinestudios.ringbearer.harness.HarnessMod;
 import java.util.Optional;
 import net.minecraft.core.BlockPos;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.entity.Entity;
 
 /**
- * On a hitched animal: where its harness is (the block's position in its vehicle's plot, which is a real position in
- * the level). Lets the animal's tick find the harness that holds it back. Saved with the animal.
+ * On a hitched animal: where its hitch is (the block's position in its vehicle's plot, which is a real position in
+ * the level). Lets the animal's tick find the hitch that holds it back, and clients draw the two ropes to it. Saved
+ * with the animal and synced to the players who see it.
  */
 public record HitchLink(int dataVersion, BlockPos harness) {
     public static final int DATA_VERSION = 1;
@@ -17,6 +21,8 @@ public record HitchLink(int dataVersion, BlockPos harness) {
             Codec.INT.optionalFieldOf("data_version", DATA_VERSION).forGetter(HitchLink::dataVersion),
             BlockPos.CODEC.fieldOf("harness").forGetter(HitchLink::harness)
     ).apply(i, HitchLink::new));
+    public static final StreamCodec<RegistryFriendlyByteBuf, HitchLink> STREAM_CODEC = StreamCodec.composite(
+            ByteBufCodecs.VAR_INT, HitchLink::dataVersion, BlockPos.STREAM_CODEC, HitchLink::harness, HitchLink::new);
 
     public static void set(Entity e, BlockPos harness) {
         e.setData(HarnessMod.HITCH_LINK, Optional.of(new HitchLink(DATA_VERSION, harness)));

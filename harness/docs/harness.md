@@ -8,16 +8,34 @@ calibrated later from the same data.
   Create: Aeronautics 1.3.2+ (with Simulated and Offroad inside) and Sable 2.0.6+, and depends on neither `lotr` nor
   `tardis`: which animals pull is data, by entity type id (`lotr_port:horse` is just a name in a file).
 - The vehicle is an ordinary Aeronautics contraption: blocks assembled into a Sable sub-level (Simulated's assembler in
-  game, `SubLevelAssemblyHelper.assembleBlocks` in tests), rolling on Offroad wheel mounts with tires. The harness is
+  game, `SubLevelAssemblyHelper.assembleBlocks` in tests), rolling on Offroad wheel mounts with tires. The hitch is
   one more block on it.
-- `HarnessBlockEntity` is a Sable `BlockEntitySubLevelActor`, like Offroad's `WheelMountBlockEntity`: Sable calls
+- `HitchBlockEntity` is a Sable `BlockEntitySubLevelActor`, like Offroad's `WheelMountBlockEntity`: Sable calls
   `sable$physicsTick` every physics substep (2 a tick by default) and `sable$tick` every tick. The pull goes in through
   a `ForceTotal` (local frame, impulse at the hitch point) and `RigidBodyHandle.applyForcesAndReset`, as the wheels do.
 - Animals stay ordinary entities on their own legs (their AI, a rider, or a test script moves them). A hitched animal
-  carries attachment `hitch_link` (the harness block's position in the plot); after its tick, `restrain` holds it back
-  if it got further than its rest length + `slack` from the hitch.
-- Hitching in game: lead animals with leads, use the harness (it takes the leads). Sneak-use with an empty hand
-  unhitches them back onto your leads.
+  carries attachment `hitch_link` (the hitch block's position in the plot; saved and synced to clients); after its
+  tick, `restrain` holds it back if it got further than its rest length + `slack` from the hitch.
+- **Harness (item, worn)**: use it on a tamed, grown animal with draught data; it goes on in place of a saddle (a
+  saddled horse's saddle comes back to you). Attachment `harness_worn` (saved, synced). A harnessed horse can't be
+  saddled (`AbstractHorseSaddleMixin` makes `isSaddleable` false, which shuts both the saddle item and the inventory's
+  saddle slot); using a saddle on it says so. Shears take it off (unhitching first); it drops when the animal dies.
+  `content/Harnessing`, `HarnessItem`.
+- **Hitch (block)**: the block on the vehicle (called "harness" in the first build; registry aliases keep those).
+  Lead harnessed animals to it and use it: it hitches every harnessed animal you lead within 10 blocks and takes their
+  leads (an unharnessed one stays on its lead, with a message). Sneak-use with an empty hand unhitches them back onto
+  your leads, harnesses on.
+- **Two ropes**: from the hooks at the ends of the hitch's bar (`models/block/hitch.json`, `RopeRenderer` HOOK_*) to the
+  harness's tug rings on the animal's sides (`assets/<ns>/harness_fit/*.json`: `rope_anchor` [side, up, forward],
+  `rope_color`), drawn like leads after the animal (`RenderLivingEvent.Post`) through the vehicle's interpolated render
+  pose (`ClientSubLevel.renderPose(partialTick)`). The physics still pulls at one point between them (two parallel
+  traces pull the same as one at their middle).
+- **Looks**: `client/HarnessModel` is the vanilla horse's part tree (same pivots, so it follows body, neck and head)
+  holding only harness boxes: padded collar with brass hames, bridle (noseband, crownpiece, cheek straps, bit rings,
+  blinkers), backpad, girth, hip strap, breeching, side straps and brass tug rings. `HarnessLayer` draws it like horse
+  armour on every horse-family renderer (horse, donkey, mule, skeleton and zombie horse). Textures from
+  `harness/tools/textures.py`. LOTR's own horse renderers aren't covered (lotr can't be referenced): they get the
+  ropes but no harness drawn.
 
 ## The pull (`physics/`, pure maths, JUnit `CouplingTest`)
 1. **Where the traces start** (`tow_point`, turned with the animal's body). Sable steps physics at the start of the
@@ -119,8 +137,24 @@ Findings:
 - `GameTestHelper.runAtTickTime` from inside a scheduled callback crashes (the timer map is iterated); schedule up
   front.
 
+## Screenshots (dev showcase)
+`-Dringbearer_harness.showcase=true`: when a player joins, `dev/Showcase` builds the test wagon (`dev/TestWagon`, the
+same as the GameTests') with a harnessed horse hitched, and a second harnessed horse, on the ground under them;
+`client/ShowcaseCamera` puts the player in spectator, flies to five viewpoints, saves `screenshots/harness_*.png` and
+quits. Headless, from a save made from the GameTest server's flat world (2026-11-24):
+```
+cp -r harness/run/world harness/run/saves/showcase   # then allowCommands 1 in level.dat (nbtlib), options.txt
+JAVA_TOOL_OPTIONS=-Dringbearer_harness.showcase=true LIBGL_ALWAYS_SOFTWARE=1 xvfb-run -a \
+  -s "-screen 0 1280x800x24 +extension GLX" ./gradlew :harness:runClient -PquickPlay=showcase -PwindowSize=1280x720
+```
+![wagon](images/wagon.png) ![ropes from above](images/ropes_from_above.png)
+![harness from the side](images/harness_side.png) ![ropes from the side](images/ropes_side.png)
+
 ## Status
 - 2026-11-24: proof of concept, horses calibrated; numbers above.
-- Not yet: a trace renderer (no ropes drawn), teams in formation (several animals on one harness all pull at the same
+- 2026-11-24: wearable harness, hitch block, two ropes; GameTests `WearingTests` (harness replaces the saddle and
+  keeps saddles off, only tame grown horses, hitching needs a harness, shears take it off and unhitch, drops on
+  death); looks checked in a headless client (screenshots above).
+- Not yet: teams in formation (several animals on one hitch all pull at the same
   point), ridden horses tried in a client (the slowing syncs; the hold-back is server-side and may rubber-band a rider
   who pushes past it), sleigh runners (anisotropic friction), other animals, the howdah (carry mode).

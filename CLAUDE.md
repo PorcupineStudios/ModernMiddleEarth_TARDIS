@@ -23,7 +23,7 @@ Plans (read with the Claude Docs tools, not a web fetch):
   itself is rolled back; systems that show or keep state listen (the LOTR map shows a visitor the map of that tick).
 - **condition**: one registry of condition types used by TARDIS unlocks, quests, the story engine and colony research.
 - **provider**: crash sites and start dimension, researchers, destinations, power sources; registered on the mod bus.
-`api` depends on nothing in either mod. `harness` (animals pulling Create: Aeronautics vehicles) requires Aeronautics
+`api` depends on nothing in either mod. `harness` (animals in harness pulling Create: Aeronautics vehicles) requires Aeronautics
 and Sable and depends on none of the others; which animals pull is data (`draught/*.json` by entity type id).
 
 ## Build

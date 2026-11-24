@@ -2,16 +2,10 @@ package com.porcupinestudios.ringbearer.harness.gametest;
 
 import com.mojang.logging.LogUtils;
 import com.porcupinestudios.ringbearer.harness.HarnessMod;
-import com.porcupinestudios.ringbearer.harness.content.HarnessBlock;
-import com.porcupinestudios.ringbearer.harness.content.HarnessBlockEntity;
+import com.porcupinestudios.ringbearer.harness.content.HitchBlock;
+import com.porcupinestudios.ringbearer.harness.content.HitchBlockEntity;
 import com.porcupinestudios.ringbearer.harness.physics.TowMetrics;
-import dev.ryanhcode.offroad.content.blocks.wheel_mount.WheelMountBlock;
-import dev.ryanhcode.offroad.content.blocks.wheel_mount.WheelMountBlockEntity;
-import dev.ryanhcode.offroad.index.OffroadBlocks;
-import dev.ryanhcode.offroad.index.OffroadItems;
-import dev.ryanhcode.sable.api.SubLevelAssemblyHelper;
 import dev.ryanhcode.sable.api.sublevel.SubLevelContainer;
-import dev.ryanhcode.sable.companion.math.BoundingBox3i;
 import dev.ryanhcode.sable.physics.config.dimension_physics.DimensionPhysicsData;
 import dev.ryanhcode.sable.sublevel.ServerSubLevel;
 import dev.ryanhcode.sable.sublevel.storage.SubLevelRemovalReason;
@@ -111,7 +105,7 @@ public final class TowRun {
     private double px, pz; // where the horse was put (absolute)
     private double vy;
     private Horse horse;
-    private HarnessBlockEntity harness;
+    private HitchBlockEntity harness;
     private ServerSubLevel wagon;
     private double mass;
     private int substeps;
@@ -232,50 +226,19 @@ public final class TowRun {
             }
         }
         deckY += 2;
-        List<BlockPos> blocks = new ArrayList<>();
-        for (int x = X0 - 1; x <= X0 + 1; x++) {
-            for (int z = Z_WAGON; z < Z_WAGON + LENGTH; z++) {
-                BlockPos p = abs(new BlockPos(x, deckY, z));
-                boolean corner = x != X0 && (z == Z_WAGON || z == Z_WAGON + LENGTH - 1);
-                if (corner) {
-                    Direction out = x < X0 ? Direction.WEST : Direction.EAST;
-                    level.setBlockAndUpdate(p, OffroadBlocks.WHEEL_MOUNT.getDefaultState()
-                            .setValue(WheelMountBlock.HORIZONTAL_FACING, out));
-                    if (level.getBlockEntity(p) instanceof WheelMountBlockEntity mount) {
-                        mount.getInventory().slot.setStack(new ItemStack(OffroadItems.TIRE.get()));
-                        mount.setChanged();
-                    }
-                } else {
-                    level.setBlockAndUpdate(p, Blocks.OAK_PLANKS.defaultBlockState());
-                }
-                blocks.add(p);
-            }
-        }
-        // cargo: iron blocks on the deck's middle row (an overloaded wagon)
-        for (int i = 0; i < sc.cargo(); i++) {
-            BlockPos p = abs(new BlockPos(X0 + (i % 3) - 1, deckY + 1 + i / 9, Z_WAGON + 1 + (i / 3) % 3));
-            level.setBlockAndUpdate(p, Blocks.IRON_BLOCK.defaultBlockState());
-            blocks.add(p);
-        }
-        BlockPos harnessAt = abs(new BlockPos(X0, deckY, Z_WAGON + LENGTH));
-        level.setBlockAndUpdate(harnessAt, HarnessMod.HARNESS.get().defaultBlockState()
-                .setValue(HarnessBlock.FACING, Direction.SOUTH));
-        blocks.add(harnessAt);
-        BlockPos min = abs(new BlockPos(X0 - 1, deckY, Z_WAGON));
-        BlockPos max = harnessAt.offset(1, 3, 0);
-        wagon = SubLevelAssemblyHelper.assembleBlocks(level, harnessAt, blocks,
-                new BoundingBox3i(min.getX(), min.getY(), min.getZ(), max.getX(), max.getY(), max.getZ()));
-        Vec3 local = wagon.logicalPose().transformPositionInverse(Vec3.atCenterOf(harnessAt));
-        if (!(level.getBlockEntity(BlockPos.containing(local)) instanceof HarnessBlockEntity be)) {
-            helper.fail("no harness on the assembled wagon at " + BlockPos.containing(local));
+        var built = com.porcupinestudios.ringbearer.harness.dev.TestWagon.build(level,
+                abs(new BlockPos(X0 - 1, deckY, Z_WAGON)), sc.cargo());
+        if (built == null) {
+            helper.fail("no hitch on the assembled wagon");
             return;
         }
-        harness = be;
+        wagon = built.vehicle();
+        harness = built.hitch();
         mass = wagon.getMassTracker().getMass();
         substeps = SubLevelPhysicsSystem.require(level).getConfig().substepsPerTick;
 
         // the horse, its tow point 1 block in front of the hitch
-        Vec3 hitch = Vec3.atCenterOf(harnessAt).add(0, 0, 0.5);
+        Vec3 hitch = built.hitchFront();
         px = hitch.x;
         pz = hitch.z + 1.0 + 0.95;
         horse = EntityType.HORSE.create(level);
@@ -291,6 +254,7 @@ public final class TowRun {
         horse.setYBodyRot(0);
         horse.setYHeadRot(0);
         level.addFreshEntity(horse);
+        com.porcupinestudios.ringbearer.harness.content.Harnessing.putOn(horse, null);
         if (!harness.hitch(horse)) {
             helper.fail("the horse wouldn't hitch (is draught/horse.json loaded?)");
             return;
@@ -307,7 +271,7 @@ public final class TowRun {
 
     private final List<double[]> positions = new ArrayList<>();
 
-    private void record(HarnessBlockEntity.Step s) {
+    private void record(HitchBlockEntity.Step s) {
         double t = samples.size() * 0.05 / substeps;
         positions.add(new double[] {s.wagonPos().x(), s.wagonPos().y(), s.wagonPos().z(), s.towPos().x(),
                 s.towPos().y(), s.towPos().z(), horse.getX(), horse.getZ(), px, pz});

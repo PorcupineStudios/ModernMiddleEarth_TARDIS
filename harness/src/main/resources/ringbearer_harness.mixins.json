@@ -4,6 +4,7 @@
   "package": "com.porcupinestudios.ringbearer.harness.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
+    "AbstractHorseSaddleMixin",
     "WheelMountSteeringMixin"
   ],
   "injectors": {
