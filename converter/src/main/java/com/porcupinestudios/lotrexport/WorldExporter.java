@@ -339,6 +339,10 @@ final class WorldExporter {
                 }
                 o.add("villages", villages);
             }
+            JsonObject grass = grassMix(b);
+            if (grass != null) {
+                o.add("grass", grass);
+            }
             o.add("spawns", spawns(field(b, "npcSpawnList")));
             // NPCs that spawn in darkness (orcs, wargs, spiders) spawn by day too where this is true (Mordor)
             Object day = NpcExporter.call(b, "canSpawnHostilesInDay");
@@ -358,6 +362,57 @@ final class WorldExporter {
             errors.add(new JsonPrimitive("biome " + b + ": " + t));
         }
         return o;
+    }
+
+    private static final int GRASS_SAMPLES = 20000;
+
+    /**
+     * LOTR's grass pick (LOTRBiome.getRandomGrass(Random), found by its shape: one Random in, a GrassBlockAndMeta out):
+     * the share of each block#meta over {@link #GRASS_SAMPLES} calls with a fixed seed. Null if the biome has none.
+     */
+    private JsonObject grassMix(Object b) {
+        java.lang.reflect.Method pick = null;
+        for (Class<?> c = b.getClass(); c != null && pick == null; c = c.getSuperclass()) {
+            for (java.lang.reflect.Method m : c.getDeclaredMethods()) {
+                if (m.getParameterTypes().length == 1 && m.getParameterTypes()[0] == java.util.Random.class
+                        && m.getReturnType().getSimpleName().contains("GrassBlockAndMeta")) {
+                    pick = m;
+                    break;
+                }
+            }
+        }
+        if (pick == null) {
+            return null;
+        }
+        try {
+            pick.setAccessible(true);
+            java.util.Random random = new java.util.Random(0x6A55L);
+            Map<String, Integer> counts = new java.util.TreeMap<>();
+            for (int i = 0; i < GRASS_SAMPLES; i++) {
+                Object g = pick.invoke(b, random);
+                Block block = null;
+                Integer meta = null;
+                for (Field f : g.getClass().getDeclaredFields()) {
+                    f.setAccessible(true);
+                    if (block == null && Block.class.isAssignableFrom(f.getType())) {
+                        block = (Block) f.get(g);
+                    } else if (meta == null && f.getType() == int.class) {
+                        meta = f.getInt(g);
+                    }
+                }
+                String key = (block == null ? "?" : String.valueOf(Block.blockRegistry.getNameForObject(block))) + "#"
+                        + (meta == null ? 0 : meta);
+                counts.merge(key, 1, Integer::sum);
+            }
+            JsonObject out = new JsonObject();
+            for (Map.Entry<String, Integer> e : counts.entrySet()) {
+                out.addProperty(e.getKey(), Math.round(e.getValue() * 100000.0 / GRASS_SAMPLES) / 100000.0);
+            }
+            return out;
+        } catch (Throwable t) {
+            errors.add(new JsonPrimitive("grass of biome " + b + ": " + t));
+            return null;
+        }
     }
 
     /** Numbers, booleans, strings, enums and blocks (as registry names) declared on the object's classes. */

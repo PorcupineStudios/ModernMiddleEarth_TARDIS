@@ -53,6 +53,7 @@ public final class LotrWorldgen {
 
     static {
         FEATURES.register("roads", RoadFeature::new);
+        FEATURES.register("road_verge", com.porcupinestudios.lotrport.world.feature.RoadVergeFeature::new);
         FEATURES.register("forest_floor", com.porcupinestudios.lotrport.world.feature.ForestFloorFeature::new);
         FEATURES.register("crater_lava", com.porcupinestudios.lotrport.world.feature.CraterLavaFeature::new);
         FEATURES.register("reeds", com.porcupinestudios.lotrport.world.feature.ReedsFeature::new);

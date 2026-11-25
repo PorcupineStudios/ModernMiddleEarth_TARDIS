@@ -81,9 +81,15 @@
       "lotr_port:plant/dried_reeds_1_0",
       "minecraft:flower_default",
       "minecraft:patch_grass_plain",
+      "lotr_port:grass/short_grass_0_3",
+      "lotr_port:grass/flowery_grass_0_12",
+      "lotr_port:grass/wheatgrass_0_18",
+      "lotr_port:grass/thistle_0_06",
+      "lotr_port:grass/nettles_0_03",
       "minecraft:glow_lichen"
     ],
     [
+      "lotr_port:road_verge",
       "minecraft:freeze_top_layer"
     ]
   ]

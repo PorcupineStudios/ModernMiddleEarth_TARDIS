@@ -119,8 +119,18 @@ https://claude.ai/artifact/KqhSSTCuKXGuwKHBoYJdcu. Rebuild features in modern co
   `run/terrain_preview/` (relief.png, variants.png, overhangs.png, stats.txt: water share, slopes, overhangs) and stops
   (`.save=true`: saves the world for a client, e.g. DevScript aerial shots; don't set `chatVisibility` hidden in
   options.txt, it blocks the script's commands).
-  Roads are 4-5 wide (`ROAD_HALF_WIDTH` 2.1, LOTR's were narrower); bridges `RoadFeature.BRIDGE_EXTRA` 1 wider each
-  side so 4-5 blocks of deck lie between the fences.
+  Roads are 6-7 wide (`ROAD_HALF_WIDTH` 3.1, Aaron 2026-11-25; was 2.1, LOTR's were narrower); bridges
+  `RoadFeature.BRIDGE_EXTRA` 1 wider each side so 6-7 blocks of deck lie between the fences.
+- No plants on roads (2026-11-25, Aaron: no grass or flowers on roads, sparse overgrowth on run-down ones): feature
+  `lotr_port:road_verge` (`world/feature/RoadVergeFeature`, first in the top-layer step) clears plants off road
+  columns in the chunk and 8 blocks round it after all vegetation. Roads with LOTR repair 1 stay bare; worn roads keep
+  or sow a few plants (chance (1 - repair) x a smooth per-24-block stretch factor x edge bias, more on gaps than on
+  laid blocks; numbers and plant list in `world.py ROAD_VERGE` -> its configured feature JSON). Hash-based per column,
+  so neighbouring chunks' passes agree. GameTest `RoadPlantTests`; the world check's `keptRoadsAreBare`.
+- LOTR's special grasses (2026-11-25: thistles were blocks but never grew): `world.py special_grass` adds patches of
+  short grass, flowery grass, wheatgrass, thistle and nettles (`grass/<kind>_<per chunk>`, grassPerChunk x share).
+  Shares come from the exporter's sample of LOTR's getRandomGrass (`world.json` biome `grass`, added 2026-11-25, not
+  yet run); until the export is rerun they are `SPECIAL_GRASS_GUESS` (a guess) in biomes with enableSpecialGrasses.
 - Plants: LOTR's reed patches (`reedPerChunk`, dried with `dryReedChance`) and the Dead Marshes' dead plants
   (`world.py marsh_plants`). Marsh lights left out: the block draws as a white cube, not LOTR's particles.
 - Big trees (Fangorn oaks reach 25+ blocks from the trunk) overflow what a feature may write: `tree/TreeOverflow`

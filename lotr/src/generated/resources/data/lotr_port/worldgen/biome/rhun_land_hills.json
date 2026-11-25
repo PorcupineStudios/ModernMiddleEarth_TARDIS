@@ -121,11 +121,17 @@
       "minecraft:flower_default",
       "minecraft:patch_grass_plain",
       "minecraft:patch_tall_grass",
+      "lotr_port:grass/short_grass_0_5",
+      "lotr_port:grass/flowery_grass_0_2",
+      "lotr_port:grass/wheatgrass_0_3",
+      "lotr_port:grass/thistle_0_1",
+      "lotr_port:grass/nettles_0_05",
       "minecraft:glow_lichen",
       "lotr_port:bee_nests_rare",
       "minecraft:patch_pumpkin"
     ],
     [
+      "lotr_port:road_verge",
       "minecraft:freeze_top_layer"
     ]
   ]

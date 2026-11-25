@@ -144,6 +144,11 @@
       "minecraft:patch_sugar_cane",
       "minecraft:patch_tall_grass",
       "minecraft:patch_large_fern",
+      "lotr_port:grass/short_grass_0_8",
+      "lotr_port:grass/flowery_grass_0_32",
+      "lotr_port:grass/wheatgrass_0_48",
+      "lotr_port:grass/thistle_0_16",
+      "lotr_port:grass/nettles_0_08",
       "minecraft:glow_lichen",
       "lotr_port:lush_cave_ceiling",
       "lotr_port:lush_cave_vines",
@@ -159,6 +164,7 @@
       "minecraft:patch_pumpkin"
     ],
     [
+      "lotr_port:road_verge",
       "minecraft:freeze_top_layer"
     ]
   ]
