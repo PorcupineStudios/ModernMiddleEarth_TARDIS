@@ -1,0 +1,32 @@
+{
+  "type": "lotr_port:old_walls",
+  "config": {
+    "blocks": [
+      {
+        "data": {
+          "Name": "lotr_port:drystone"
+        },
+        "weight": 5
+      },
+      {
+        "data": {
+          "Name": "minecraft:cobblestone"
+        },
+        "weight": 2
+      },
+      {
+        "data": {
+          "Name": "minecraft:mossy_cobblestone"
+        },
+        "weight": 3
+      }
+    ],
+    "field": 44,
+    "keep": 0.6,
+    "ruin": 0.45,
+    "tall": 0.35,
+    "variants": [
+      "old_fields"
+    ]
+  }
+}

@@ -339,6 +339,10 @@ final class WorldExporter {
                 }
                 o.add("villages", villages);
             }
+            JsonObject plants = plants(b);
+            if (plants != null) {
+                o.add("plants", plants);
+            }
             o.add("spawns", spawns(field(b, "npcSpawnList")));
             // NPCs that spawn in darkness (orcs, wargs, spiders) spawn by day too where this is true (Mordor)
             Object day = NpcExporter.call(b, "canSpawnHostilesInDay");
@@ -358,6 +362,93 @@ final class WorldExporter {
             errors.add(new JsonPrimitive("biome " + b + ": " + t));
         }
         return o;
+    }
+
+    private static final int SAMPLES = 20000;
+
+    /**
+     * LOTR's plant rules per biome (what the decorator's grassPerChunk, doubleGrassPerChunk, flowersPerChunk and
+     * doubleFlowersPerChunk patches are made of): {@code grass} (LOTRBiome.getRandomGrass), {@code double_grass}
+     * (getRandomWorldGenForDoubleGrass) and {@code double_flowers} (getRandomWorldGenForDoubleFlower) as the share of each
+     * block#meta over {@link #SAMPLES} calls with a fixed seed, and {@code flowers}: the biome's weighted flower list
+     * (Forge's BiomeGenBase.flowers, which LOTR's getRandomFlower picks from). Plants a biome's own decorate adds are in
+     * the plant census ({@link PlantCensus}).
+     */
+    private JsonObject plants(Object b) {
+        JsonObject out = new JsonObject();
+        sample(out, "grass", b, "getRandomGrass");
+        sample(out, "double_grass", b, "getRandomWorldGenForDoubleGrass");
+        sample(out, "double_flowers", b, "getRandomWorldGenForDoubleFlower");
+        Object list = field(b, "flowers");
+        if (list instanceof Iterable<?> it) {
+            JsonArray flowers = new JsonArray();
+            for (Object e : it) {
+                JsonObject f = new JsonObject();
+                Object block = field(e, "block");
+                Object meta = field(e, "metadata");
+                Object weight = field(e, "itemWeight");
+                f.addProperty("block", block instanceof Block bl ? String.valueOf(Block.blockRegistry.getNameForObject(bl))
+                        : null);
+                f.addProperty("meta", meta instanceof Number n ? n.intValue() : 0);
+                f.addProperty("weight", weight instanceof Number n ? n.intValue() : 1);
+                flowers.add(f);
+            }
+            out.add("flowers", flowers);
+        }
+        return out.entrySet().isEmpty() ? null : out;
+    }
+
+    /** Calls the biome's {@code method(Random)} SAMPLES times and writes the share of each plant it gives. */
+    private void sample(JsonObject out, String key, Object b, String method) {
+        java.lang.reflect.Method m;
+        try {
+            m = b.getClass().getMethod(method, java.util.Random.class);
+        } catch (NoSuchMethodException e) {
+            return; // not a LOTR biome
+        }
+        try {
+            java.util.Random random = new java.util.Random(0x6A55L);
+            Map<String, Integer> counts = new java.util.TreeMap<>();
+            for (int i = 0; i < SAMPLES; i++) {
+                counts.merge(plantOf(m.invoke(b, random)), 1, Integer::sum);
+            }
+            JsonObject shares = new JsonObject();
+            for (Map.Entry<String, Integer> e : counts.entrySet()) {
+                shares.addProperty(e.getKey(), Math.round(e.getValue() * 100000.0 / SAMPLES) / 100000.0);
+            }
+            out.add(key, shares);
+        } catch (Throwable t) {
+            errors.add(new JsonPrimitive(key + " of biome " + b + ": " + t));
+        }
+    }
+
+    /**
+     * block#meta of a GrassBlockAndMeta or a plant generator: its first Block field and first int field, searched up
+     * its classes. Vanilla's WorldGenDoublePlant holds only the meta: minecraft:double_plant#meta.
+     */
+    private static String plantOf(Object g) throws IllegalAccessException {
+        if (g == null) {
+            return "none";
+        }
+        Block block = null;
+        Integer meta = null;
+        for (Class<?> c = g.getClass(); c != null && c != Object.class; c = c.getSuperclass()) {
+            for (Field f : c.getDeclaredFields()) {
+                if (Modifier.isStatic(f.getModifiers())) {
+                    continue;
+                }
+                f.setAccessible(true);
+                if (block == null && Block.class.isAssignableFrom(f.getType())) {
+                    block = (Block) f.get(g);
+                } else if (meta == null && f.getType() == int.class) {
+                    meta = f.getInt(g);
+                }
+            }
+        }
+        String name = block != null ? String.valueOf(Block.blockRegistry.getNameForObject(block))
+                : g instanceof net.minecraft.world.gen.feature.WorldGenDoublePlant ? "minecraft:double_plant"
+                : g.getClass().getName();
+        return name + "#" + (meta == null ? 0 : meta);
     }
 
     /** Numbers, booleans, strings, enums and blocks (as registry names) declared on the object's classes. */

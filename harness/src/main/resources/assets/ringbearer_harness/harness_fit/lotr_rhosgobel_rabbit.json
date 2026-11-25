@@ -1,0 +1,28 @@
+{
+  "entities": ["lotr_port:rhosgobel_rabbit"],
+  "rope_anchor": [0.466, 1.125, -0.159],
+  "rope_color": "#5b3f26",
+  "body": [0.85, 0.2, 1.0, -0.1, 0.6],
+  "collar": [1.05, 0.65, 0.42, 0.35, 0.15],
+  "pieces": [
+    {"part": "body", "material": "leather", "box": [-7.3, -7.3, -2.75, 7.3, -6.4, -0.75]},
+    {"part": "body", "material": "leather", "box": [-7.3, 6.4, -2.75, 7.3, 7.3, -0.75]},
+    {"part": "body", "material": "leather", "box": [-7.3, -6.4, -2.75, -6.4, 6.4, -0.75]},
+    {"part": "body", "material": "leather", "box": [6.4, -6.4, -2.75, 7.3, 6.4, -0.75]},
+    {"part": "body", "material": "leather", "box": [-8.3, -8.3, 11.0, 8.3, -7.4, 12.5]},
+    {"part": "body", "material": "leather", "box": [-8.3, -7.4, 11.0, -7.4, -0.5, 12.5]},
+    {"part": "body", "material": "leather", "box": [7.4, -7.4, 11.0, 8.3, -0.5, 12.5]},
+    {"part": "body", "material": "leather", "box": [-7.0, -3.6, -0.75, -6.4, -2.4, 11.0]},
+    {"part": "body", "material": "brass", "box": [-7.9, -3.9, -0.35, -7.0, -2.1, 1.45]},
+    {"part": "body", "material": "leather", "box": [6.4, -3.6, -0.75, 7.0, -2.4, 11.0]},
+    {"part": "body", "material": "brass", "box": [7.0, -3.9, -0.35, 7.9, -2.1, 1.45]},
+    {"part": "body", "material": "leather", "box": [-1.0, -7.0, -1.75, 1.0, -6.4, 11.75]},
+    {"part": "body", "material": "leather", "box": [-3.3, -7.4, -6.25, 3.3, -6.4, -2.75]},
+    {"part": "neck", "material": "pad", "box": [-5.8, -2.5, -5.8, -4.4, 0.0, 4.8]},
+    {"part": "neck", "material": "pad", "box": [4.4, -2.5, -5.8, 5.8, 0.0, 4.8]},
+    {"part": "neck", "material": "pad", "box": [-5.8, -2.5, -5.8, 5.8, 0.0, -4.4]},
+    {"part": "neck", "material": "pad", "box": [-5.8, -2.5, 3.4, 5.8, 0.0, 4.8]},
+    {"part": "neck", "material": "brass", "box": [-6.3, -1.9, -2.84, -5.8, -0.6, 1.84]},
+    {"part": "neck", "material": "brass", "box": [5.8, -1.9, -2.84, 6.3, -0.6, 1.84]}
+  ]
+}

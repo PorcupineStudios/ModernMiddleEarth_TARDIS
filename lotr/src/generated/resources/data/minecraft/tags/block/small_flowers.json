@@ -21,6 +21,10 @@
     "lotr_port:southbells",
     "lotr_port:white_chrysanthemum",
     "lotr_port:yellow_chrysanthemum",
-    "lotr_port:yellow_sand_gem"
+    "lotr_port:yellow_sand_gem",
+    "lotr_port:black_iris",
+    "lotr_port:yellow_iris",
+    "lotr_port:hibiscus",
+    "lotr_port:flame_of_harad"
   ]
 }

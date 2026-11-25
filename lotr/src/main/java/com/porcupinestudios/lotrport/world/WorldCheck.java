@@ -57,6 +57,15 @@ final class WorldCheck {
                 problem = roadsAreLaid(overworld);
             }
             if (problem == null) {
+                problem = keptRoadsAreBare(overworld);
+            }
+            if (problem == null) {
+                problem = enclosuresAreBuilt(overworld);
+            }
+            if (problem == null) {
+                problem = spiderNestIsBuilt(overworld);
+            }
+            if (problem == null) {
                 problem = TreeCheck.start(overworld);
             }
             if (problem == null) {
@@ -151,6 +160,145 @@ final class WorldCheck {
         return null;
     }
 
+    /**
+     * Builds the nearest enclosure of each kind to the spawn (the Shire's fenced orchards and corn fields) and checks
+     * them: a fence, hedge, gate or post on 80% of the fence's dry columns, trees in orchards, corn on half the plot.
+     */
+    private static String enclosuresAreBuilt(ServerLevel level) {
+        MiddleEarthMap map = ((MapBiomeSource) level.getChunkSource().getGenerator().getBiomeSource()).map();
+        java.util.Map<String, com.porcupinestudios.lotrport.world.map.Enclosures.Enclosure> nearest =
+                new java.util.LinkedHashMap<>();
+        for (int r = 0; r <= 24 && nearest.size() < 3; r++) {
+            for (int i = -r; i <= r; i++) {
+                for (int k = -r; k <= r; k++) {
+                    if (Math.max(Math.abs(i), Math.abs(k)) != r) {
+                        continue;
+                    }
+                    var e = map.enclosureInCellOf(i * 128, k * 128);
+                    if (e != null) {
+                        nearest.putIfAbsent(e.kind().name(), e);
+                    }
+                }
+            }
+        }
+        if (nearest.isEmpty()) {
+            return "no enclosure within 3000 blocks of the Shire's middle";
+        }
+        for (var e : nearest.values()) {
+            for (int cx = e.minX() >> 4; cx <= e.maxX() >> 4; cx++) {
+                for (int cz = e.minZ() >> 4; cz <= e.maxZ() >> 4; cz++) {
+                    level.getChunk(cx, cz);
+                }
+            }
+            int fenceColumns = 0;
+            int fenced = 0;
+            int inside = 0;
+            int corn = 0;
+            int logs = 0;
+            for (int x = e.minX(); x <= e.maxX(); x++) {
+                for (int z = e.minZ(); z <= e.maxZ(); z++) {
+                    BlockPos top = LotrDimensions.surface(level, x, z);
+                    if (e.onFence(x, z)) {
+                        BlockPos ground = top.below();
+                        if (!level.getBlockState(ground).getFluidState().isEmpty()) {
+                            continue;
+                        }
+                        fenceColumns++;
+                        for (int dy = -3; dy <= 3; dy++) {
+                            BlockState b = level.getBlockState(top.above(dy));
+                            if (b.getBlock() instanceof net.minecraft.world.level.block.FenceBlock
+                                    || b.getBlock() instanceof net.minecraft.world.level.block.FenceGateBlock
+                                    || b.is(net.minecraft.tags.BlockTags.LEAVES) || b.is(Blocks.OAK_LOG)) {
+                                fenced++;
+                                break;
+                            }
+                        }
+                        continue;
+                    }
+                    inside++;
+                    for (int dy = -12; dy <= 2; dy++) {
+                        BlockState b = level.getBlockState(top.above(dy));
+                        String id = net.minecraft.core.registries.BuiltInRegistries.BLOCK.getKey(b.getBlock()).getPath();
+                        if (id.equals("corn_stalks")) {
+                            corn++;
+                            break;
+                        }
+                        if (b.is(net.minecraft.tags.BlockTags.LOGS)) {
+                            logs++;
+                            break;
+                        }
+                    }
+                }
+            }
+            LotrPort.LOG.info("[worldcheck] enclosure {} at {},{} ({}x{}, level {}): fence {}/{}, corn {}/{}, "
+                    + "columns with logs {}", e.kind().name(), e.minX(), e.minZ(), e.sizeX(), e.sizeZ(), e.level(),
+                    fenced, fenceColumns, corn, inside, logs);
+            if (fenceColumns > 0 && fenced < fenceColumns * 0.8) {
+                return "enclosure " + e.kind().name() + " at " + e.minX() + "," + e.minZ() + " is fenced on only "
+                        + fenced + " of " + fenceColumns + " columns";
+            }
+            if (e.kind().name().contains("corn") && corn < inside / 2) {
+                return "corn field at " + e.minX() + "," + e.minZ() + " has corn on " + corn + " of " + inside;
+            }
+            if (e.kind().name().contains("orchard") && logs == 0) {
+                return "orchard at " + e.minX() + "," + e.minZ() + " has no trees";
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Builds the spider nest nearest the Forest Gate (lairs are seeded: it is somewhere else in every world) and checks
+     * its core: webs, at least as many egg sacs as kill it, and the nest biome round it.
+     */
+    private static String spiderNestIsBuilt(ServerLevel level) {
+        MiddleEarthMap map = ((MapBiomeSource) level.getChunkSource().getGenerator().getBiomeSource()).map();
+        BlockPos gate = map.blockOfPixel(1310, 655);
+        com.porcupinestudios.lotrport.world.map.Lairs.Lair best = null;
+        for (int dx = -6000; dx <= 6000; dx += 256) {
+            for (int dz = -6000; dz <= 6000; dz += 256) {
+                for (var l : map.lairsInCellsOf(gate.getX() + dx, gate.getZ() + dz)) {
+                    if (best == null || l.distance(gate.getX(), gate.getZ()) < best.distance(gate.getX(), gate.getZ())) {
+                        best = l;
+                    }
+                }
+            }
+        }
+        if (best == null) {
+            return "no spider nest within 6000 blocks of the Forest Gate";
+        }
+        int core = best.kind().core();
+        for (int cx = (best.x() - core) >> 4; cx <= (best.x() + core) >> 4; cx++) {
+            for (int cz = (best.z() - core) >> 4; cz <= (best.z() + core) >> 4; cz++) {
+                level.getChunk(cx, cz);
+            }
+        }
+        int webs = 0;
+        int sacs = 0;
+        for (int x = best.x() - core; x <= best.x() + core; x++) {
+            for (int z = best.z() - core; z <= best.z() + core; z++) {
+                BlockPos top = LotrDimensions.surface(level, x, z);
+                for (int dy = -24; dy <= 12; dy++) {
+                    BlockState b = level.getBlockState(top.above(dy));
+                    webs += b.is(Blocks.COBWEB) ? 1 : 0;
+                    sacs += b.is(com.porcupinestudios.lotrport.lair.EggSacBlock.BLOCK.get()) ? 1 : 0;
+                }
+            }
+        }
+        String biome = level.getBiome(LotrDimensions.surface(level, best.x(), best.z())).unwrapKey()
+                .map(k -> k.location().toString()).orElse("?");
+        LotrPort.LOG.info("[worldcheck] spider nest at {},{}: {} webs, {} egg sacs, biome {}", best.x(), best.z(), webs,
+                sacs, biome);
+        int deadAt = com.porcupinestudios.lotrport.lair.LairLife.settings(best.kind()).deadAt();
+        if (webs < 30 || sacs < deadAt) {
+            return "spider nest at " + best.x() + "," + best.z() + " has " + webs + " webs and " + sacs + " egg sacs";
+        }
+        if (!biome.equals("lotr_port:mirkwood_spider_nests")) {
+            return "spider nest at " + best.x() + "," + best.z() + " stands in " + biome;
+        }
+        return null;
+    }
+
     /** Generates chunks on the first few roads and checks road blocks were laid. */
     private static String roadsAreLaid(ServerLevel level) {
         Roads roads = Roads.get();
@@ -180,5 +328,48 @@ final class WorldCheck {
             }
         }
         return "no road blocks found on " + tried + " road segments";
+    }
+
+    /**
+     * Roads LOTR kept in repair (repair 1) hold no plants: the vegetation's grass and flowers are cleared off them by
+     * {@code lotr_port:road_verge}. Checks the road columns round the middle of the first 40 segments.
+     */
+    private static String keptRoadsAreBare(ServerLevel level) {
+        Roads roads = Roads.get();
+        int tried = 0;
+        int columns = 0;
+        for (Roads.Segment s : roads.segments()) {
+            if (tried++ >= 40) {
+                break;
+            }
+            int x = (int) Math.floor((s.x1() + s.x2()) / 2);
+            int z = (int) Math.floor((s.z1() + s.z2()) / 2);
+            level.getChunk(x >> 4, z >> 4);
+            for (int dx = -4; dx <= 4; dx++) {
+                for (int dz = -4; dz <= 4; dz++) {
+                    int cx = x + dx;
+                    int cz = z + dz;
+                    if (!com.porcupinestudios.lotrport.world.feature.RoadFeature.onRoad(roads, cx, cz)) {
+                        continue;
+                    }
+                    BlockPos at = new BlockPos(cx, level.getHeight(
+                            net.minecraft.world.level.levelgen.Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, cx, cz), cz);
+                    BlockState ground = level.getBlockState(at.below());
+                    Roads.Style style = roads.style(level.getBiome(at.below()).unwrapKey()
+                            .map(k -> k.location().toString()).orElse(""));
+                    if (style == null || style.repair() < 1 || !ground.getFluidState().isEmpty()) {
+                        continue;
+                    }
+                    columns++;
+                    BlockState above = level.getBlockState(at);
+                    if (above.getBlock() instanceof net.minecraft.world.level.block.BushBlock
+                            || above.is(net.minecraft.tags.BlockTags.FLOWERS)) {
+                        return "a plant (" + above + ") stands on a kept road at " + at.toShortString();
+                    }
+                }
+            }
+        }
+        LotrPort.LOG.info("[worldcheck] {} kept road columns are bare", columns);
+        return null;
     }
 }

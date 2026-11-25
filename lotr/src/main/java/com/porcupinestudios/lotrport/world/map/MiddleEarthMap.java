@@ -48,6 +48,12 @@ public final class MiddleEarthMap {
     private final float[] biomeDowns;
     private final Rivers rivers;
     private final Variants variants;
+    /** Fenced plots with flattened ground (Shire orchards and fields): {@link Enclosures}. */
+    private final Enclosures enclosures;
+    /** Named areas over the map ({@link Regions}): where sub-biomes may appear, and later underground realms. */
+    private final Regions regions;
+    /** Seeded lairs (Mirkwood's spider nests): small cores with a biome of infested ground round them. */
+    private final Lairs lairs;
     /** Per biome with variants: a table that is 1 for it, smoothed like heights to fade its variants' terrain out. */
     private final java.util.Map<Integer, float[]> variantMasks = new java.util.LinkedHashMap<>();
 
@@ -224,18 +230,19 @@ public final class MiddleEarthMap {
 
     private final MountainShape mountainShape;
 
-    MiddleEarthMap(JsonObject settings, byte[] pixels) {
+    MiddleEarthMap(JsonObject settings, byte[] pixels, JsonObject regionsJson) {
         this.width = settings.get("width").getAsInt();
         this.height = settings.get("height").getAsInt();
+        this.regions = Regions.read(regionsJson);
         this.blocksPerPixel = settings.get("blocks_per_pixel").getAsInt();
         this.originX = settings.get("origin_x").getAsInt();
         this.originZ = settings.get("origin_z").getAsInt();
         this.blur = settings.get("blur").getAsInt();
         this.borderWobble = settings.get("border_wobble").getAsInt();
-        this.pixels = pixels;
         if (pixels.length != width * height) {
             throw new IllegalArgumentException("map has " + pixels.length + " pixels, expected " + width * height);
         }
+        this.pixels = paint(settings, pixels, regions, width, height);
         List<Entry> list = new ArrayList<>();
         for (JsonElement e : settings.getAsJsonArray("biomes")) {
             JsonObject o = e.getAsJsonObject();
@@ -287,6 +294,9 @@ public final class MiddleEarthMap {
                 settings.has("mountain_shape") ? settings.getAsJsonObject("mountain_shape") : null);
         this.rivers = Rivers.read(settings.has("rivers") ? settings.getAsJsonObject("rivers") : null, list);
         this.variants = new Variants(settings.has("variants") ? settings.getAsJsonObject("variants") : null, list);
+        this.enclosures = new Enclosures(settings.has("enclosures") ? settings.getAsJsonObject("enclosures") : null,
+                list);
+        this.lairs = new Lairs(settings.has("lairs") ? settings.getAsJsonObject("lairs") : null, list);
         if (settings.has("seas")) {
             JsonObject seas = settings.getAsJsonObject("seas");
             this.seaWobble = seas.get("wobble").getAsInt();
@@ -317,6 +327,14 @@ public final class MiddleEarthMap {
     /** LOTR's single peaks (Erebor, the Lonely Mountain, Mount Doom...), from map.json {@code mountains}. */
     public List<Mountain> mountains() {
         return java.util.Collections.unmodifiableList(mountains);
+    }
+
+    /**
+     * The world seed the seeded parts use (ranges, variant patches, enclosures, lairs, old walls), so every new world
+     * differs (Aaron 2026-11-25); 0 until a server starts (a client never knows it).
+     */
+    public static long seed() {
+        return seed;
     }
 
     public static void setSeed(long worldSeed) {
@@ -351,10 +369,61 @@ public final class MiddleEarthMap {
                     .getAsJsonObject();
             byte[] pixels = new byte[settings.get("width").getAsInt() * settings.get("height").getAsInt()];
             bin.readFully(pixels);
-            return new MiddleEarthMap(settings, pixels);
+            JsonObject regions = null;
+            InputStream regionsIn = MiddleEarthMap.class.getResourceAsStream("/lotr_port/map/regions.json");
+            if (regionsIn != null) {
+                try (InputStream in = regionsIn) {
+                    regions = JsonParser.parseReader(new InputStreamReader(in, StandardCharsets.UTF_8))
+                            .getAsJsonObject();
+                }
+            }
+            return new MiddleEarthMap(settings, pixels, regions);
         } catch (IOException e) {
             throw new UncheckedIOException("could not read the Middle-earth map", e);
         }
+    }
+
+    /**
+     * The map's pixels with map.json's {@code overlays} painted on, in order: each paints {@code biome} over the
+     * pixels of region {@code region} whose biome is one of {@code on} (Enchanted Mirkwood over northern Mirkwood, its
+     * spider nests over it, the Enchanted River over the painted river there). The pixels given are not changed.
+     */
+    private static byte[] paint(JsonObject settings, byte[] pixels, Regions regions, int width, int height) {
+        if (!settings.has("overlays") || settings.getAsJsonArray("overlays").isEmpty()) {
+            return pixels;
+        }
+        List<String> ids = new ArrayList<>();
+        for (JsonElement e : settings.getAsJsonArray("biomes")) {
+            ids.add(e.getAsJsonObject().get("id").getAsString());
+        }
+        byte[] out = pixels.clone();
+        for (JsonElement e : settings.getAsJsonArray("overlays")) {
+            JsonObject o = e.getAsJsonObject();
+            Regions.Region region = regions.region(o.get("region").getAsString());
+            int to = ids.indexOf(o.get("biome").getAsString());
+            if (to < 0) {
+                throw new IllegalArgumentException("overlay biome " + o.get("biome") + " is not in the biome table");
+            }
+            if (region == null) {
+                continue; // a region not drawn (yet): nothing to paint
+            }
+            boolean[] on = new boolean[256];
+            for (JsonElement b : o.getAsJsonArray("on")) {
+                int i = ids.indexOf(b.getAsString());
+                if (i >= 0) {
+                    on[i] = true;
+                }
+            }
+            for (int pz = Math.max(0, region.z()); pz < Math.min(height, region.z() + region.height()); pz++) {
+                for (int px = Math.max(0, region.x()); px < Math.min(width, region.x() + region.width()); px++) {
+                    int i = pz * width + px;
+                    if (on[out[i] & 0xFF] && region.contains(px, pz)) {
+                        out[i] = (byte) to;
+                    }
+                }
+            }
+        }
+        return out;
     }
 
     private static InputStream open(String name) throws IOException {
@@ -447,8 +516,23 @@ public final class MiddleEarthMap {
         return seaZones.size() - 1;
     }
 
-    /** The biome index at a block position: the map pixel under it, with borders wobbled. */
+    /**
+     * The biome index at a block position: the map pixel under it, with borders wobbled, a river's where one runs, or
+     * a lair's where its infested ground lies ({@link Lairs}).
+     */
     public int biomeIndexAt(int blockX, int blockZ) {
+        int land = landIndexAt(blockX, blockZ);
+        if (lairs.on(land)) {
+            Lairs.Lair lair = lairs.at(this, blockX, blockZ, land);
+            if (lair != null) {
+                return lair.kind().biome();
+            }
+        }
+        return land;
+    }
+
+    /** The biome index at a block position without lairs: the map pixel (wobbled) or a river. */
+    public int landIndexAt(int blockX, int blockZ) {
         double wx = wobbledX(blockX, blockZ);
         double wz = wobbledZ(blockX, blockZ);
         int land = pixelIndex((int) Math.floor(wx / blocksPerPixel + originX),
@@ -475,6 +559,104 @@ public final class MiddleEarthMap {
     public String variantAt(int blockX, int blockZ) {
         Variants.Variant v = variants.at(biomeIndexAt(blockX, blockZ), blockX, blockZ);
         return v == null ? null : v.name();
+    }
+
+    /** Blocks over which the variant patches of the biome at a column feather their plants out. */
+    public int variantFeather(int blockX, int blockZ) {
+        return variants.feather(biomeIndexAt(blockX, blockZ));
+    }
+
+    /** The region layer ({@link Regions}). */
+    public Regions regions() {
+        return regions;
+    }
+
+    /** The map pixel a column's biome is read from (borders wobbled), as {x, z}. */
+    public int[] pixelAt(int blockX, int blockZ) {
+        return new int[] { (int) Math.floor(wobbledX(blockX, blockZ) / blocksPerPixel + originX),
+                (int) Math.floor(wobbledZ(blockX, blockZ) / blocksPerPixel + originZ) };
+    }
+
+    /** Whether a column is in a region of the region layer, with the same wobbled borders as its biome. */
+    public boolean inRegion(String region, int blockX, int blockZ) {
+        int[] p = pixelAt(blockX, blockZ);
+        return regions.contains(region, p[0], p[1]);
+    }
+
+    /** The regions a column is in (wobbled borders, as its biome). */
+    public List<String> regionsAt(int blockX, int blockZ) {
+        int[] p = pixelAt(blockX, blockZ);
+        return regions.at(p[0], p[1]);
+    }
+
+    /** The enclosure (fenced orchard or field) whose fence holds a column, fence included, or null. */
+    public Enclosures.Enclosure enclosureAt(int blockX, int blockZ) {
+        return enclosures.near(this, blockX, blockZ, 0);
+    }
+
+    /** The enclosure within {@code margin} blocks of a column (margin up to fade + gap: 28 in the Shire), or null. */
+    public Enclosures.Enclosure enclosureNear(int blockX, int blockZ, int margin) {
+        return enclosures.near(this, blockX, blockZ, margin);
+    }
+
+    /** The enclosure planned in the grid cell holding a column (a chunk lies in one cell), or null. */
+    public Enclosures.Enclosure enclosureInCellOf(int blockX, int blockZ) {
+        return enclosures.inCellOf(this, blockX, blockZ);
+    }
+
+    /** Whether any enclosure, grown by {@code margin}, overlaps a box of columns (for buildings' footprints). */
+    public boolean enclosureWithin(int minX, int minZ, int maxX, int maxZ, int margin) {
+        if (!enclosures.any()) {
+            return false;
+        }
+        int c = enclosures.cell();
+        for (int cx = Math.floorDiv(minX - margin, c); cx <= Math.floorDiv(maxX + margin, c); cx++) {
+            for (int cz = Math.floorDiv(minZ - margin, c); cz <= Math.floorDiv(maxZ + margin, c); cz++) {
+                Enclosures.Enclosure e = enclosures.inCellOf(this, cx * c, cz * c);
+                if (e != null && e.maxX() + margin >= minX && e.minX() - margin <= maxX
+                        && e.maxZ() + margin >= minZ && e.minZ() - margin <= maxZ) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    /** The lair (spider nest...) whose infested ground holds a column, or null. */
+    public Lairs.Lair lairAt(int blockX, int blockZ) {
+        int land = landIndexAt(blockX, blockZ);
+        return lairs.on(land) ? lairs.at(this, blockX, blockZ, land) : null;
+    }
+
+    /** The lairs planned in the grid cells holding a column (a chunk lies in one cell of each kind). */
+    public List<Lairs.Lair> lairsInCellsOf(int blockX, int blockZ) {
+        return lairs.inCellsOf(this, blockX, blockZ);
+    }
+
+    /** The kinds of lair. */
+    public List<Lairs.Kind> lairKinds() {
+        return lairs.kinds();
+    }
+
+    /** Test hook: the lair a kind would have in a cell for a given world seed (null: none). */
+    public Lairs.Lair planLair(Lairs.Kind kind, int cellX, int cellZ, long worldSeed) {
+        return lairs.plan(this, kind, cellX, cellZ, worldSeed);
+    }
+
+    /** Test hook: the enclosure a cell would have for a given world seed (null: none). */
+    public Enclosures.Enclosure planEnclosure(int cellX, int cellZ, long worldSeed) {
+        Enclosures.Enclosure e = enclosures.plan(this, cellX, cellZ, worldSeed);
+        return e.kind() == null ? null : e;
+    }
+
+    /** The kinds of enclosure a biome (by index) has; empty for none. */
+    public List<Enclosures.Kind> enclosureKinds(int biome) {
+        return enclosures.kinds(biome);
+    }
+
+    /** Sea level of the map's terrain (map.json noise_band; 62 without one). */
+    public double seaLevel() {
+        return noiseBand == null ? 62 : noiseBand[3];
     }
 
     /** How the variant patches scale downs or hilliness here, faded in over their biome's smoothed pixels. */
@@ -545,8 +727,21 @@ public final class MiddleEarthMap {
         return v == 255 ? oceanIndex : v;
     }
 
-    /** Ground height (surface y) at a block position, smoothed across biome borders. */
+    /**
+     * Ground height (surface y) at a block position, smoothed across biome borders; inside an enclosure and its fade
+     * pulled to the enclosure's level ({@link Enclosures}).
+     */
     public double heightAt(int blockX, int blockZ) {
+        double ground = plainHeightAt(blockX, blockZ);
+        Enclosures.Enclosure e = enclosures.near(this, blockX, blockZ, enclosures.fade());
+        if (e != null) {
+            ground += enclosures.mask(e, blockX, blockZ) * (e.level() - ground);
+        }
+        return ground;
+    }
+
+    /** Ground height without enclosures (what an enclosure is planned on). */
+    public double plainHeightAt(int blockX, int blockZ) {
         double wx = wobbledX(blockX, blockZ);
         double wz = wobbledZ(blockX, blockZ);
         double ground = smoothed(wx, wz, biomeHeights);
@@ -607,7 +802,12 @@ public final class MiddleEarthMap {
         }
         // a range's own massif replaces its noise hilliness: noise's 3D part overhung and floated rock (2026-11-15)
         double share = ranges == null ? 0 : smoothed(wx, wz, rangeShare);
-        return variation * (1 - share) * (1 - cut) * (0.25 + 0.75 * road) / (1 + boost);
+        double flat = 1; // an enclosure keeps only its kind's roughness of the hills' noise
+        Enclosures.Enclosure e = enclosures.near(this, blockX, blockZ, enclosures.fade());
+        if (e != null) {
+            flat = 1 - enclosures.mask(e, blockX, blockZ) * (1 - e.kind().roughness());
+        }
+        return variation * (1 - share) * (1 - cut) * (0.25 + 0.75 * road) / (1 + boost) * flat;
     }
 
     /** Grid spacing of the downs (blocks): about one hill per cell. */
@@ -662,6 +862,11 @@ public final class MiddleEarthMap {
         h ^= h >>> 33;
         h *= 0xC4CEB9FE1A85EC53L;
         return h ^ (h >>> 33);
+    }
+
+    /** The map's 64-bit mixer, for the planners in this package. */
+    static long mixHash(long h) {
+        return mix(h);
     }
 
     /** The {@code n}th number in [0, 1) drawn from hash {@code h}. */
@@ -754,6 +959,11 @@ public final class MiddleEarthMap {
 
     /** Test hook: a map built from a JSON settings object and pixels, without the bundled files. */
     public static MiddleEarthMap of(JsonObject settings, byte[] pixels) {
-        return new MiddleEarthMap(settings, pixels);
+        return new MiddleEarthMap(settings, pixels, null);
+    }
+
+    /** Test hook: as {@link #of(JsonObject, byte[])}, with a region layer (regions.json's object). */
+    public static MiddleEarthMap of(JsonObject settings, byte[] pixels, JsonObject regions) {
+        return new MiddleEarthMap(settings, pixels, regions);
     }
 }

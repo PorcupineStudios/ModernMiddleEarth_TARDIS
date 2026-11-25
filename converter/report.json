@@ -28,7 +28,7 @@
     "saplings": 38,
     "factions": 29,
     "npcs": 412,
-    "npc_skins": 279,
+    "npc_skins": 282,
     "structures": 93,
     "structures_with_npcs": 77,
     "npc_spawn_tables": 135,
@@ -56,7 +56,7 @@
     "farm_berry_bushes": 6,
     "item_ores": 15,
     "pouches": 3,
-    "thrown_items": 45,
+    "thrown_items": 46,
     "orc_bombs": 6,
     "mount_breeds": 8,
     "mount_armour": 20,
@@ -668,9 +668,8 @@
     ]
   },
   "npcs_without_skins": {
-    "count": 7,
+    "count": 6,
     "entries": [
-      "lotr.Bear",
       "lotr.Bird",
       "lotr.Butterfly",
       "lotr.Crebain",

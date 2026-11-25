@@ -167,7 +167,10 @@
     "wind_mountains_foothills": "rhun",
     "wold": "rohan",
     "woodland_realm": "woodland_realm",
-    "woodland_realm_hills": "woodland_realm"
+    "woodland_realm_hills": "woodland_realm",
+    "mirkwood_enchanted": "mirkwood",
+    "mirkwood_spider_nests": "mirkwood",
+    "enchanted_river": "mirkwood"
   },
   "playlists": {
     "angmar": [],

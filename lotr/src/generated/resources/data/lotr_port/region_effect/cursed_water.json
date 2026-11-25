@@ -1,0 +1,59 @@
+{
+  "biome_tag": "lotr_port:cursed_water",
+  "rules": [
+    {
+      "when": "in_water",
+      "interval": 10,
+      "cooldown": 1200,
+      "unless": "lotr_port:enchanted_sleep",
+      "effects": [
+        {
+          "id": "lotr_port:enchanted_sleep",
+          "duration": 300
+        },
+        {
+          "id": "minecraft:blindness",
+          "duration": 300,
+          "show_icon": false
+        },
+        {
+          "id": "minecraft:water_breathing",
+          "duration": 340,
+          "show_particles": false,
+          "show_icon": false
+        }
+      ],
+      "message": "region_effect.lotr_port.enchanted_sleep",
+      "wake": {
+        "after": "lotr_port:enchanted_sleep",
+        "turn": true,
+        "message": "region_effect.lotr_port.wake",
+        "effects": [
+          {
+            "id": "minecraft:nausea",
+            "duration": 120,
+            "show_icon": false
+          },
+          {
+            "id": "lotr_port:drowsy",
+            "duration": 1200
+          }
+        ]
+      }
+    }
+  ],
+  "bottle": {
+    "name": "item.lotr_port.black_water",
+    "color": 1448207,
+    "effects": [
+      {
+        "id": "lotr_port:enchanted_sleep",
+        "duration": 400
+      },
+      {
+        "id": "minecraft:blindness",
+        "duration": 400
+      }
+    ]
+  }
+}

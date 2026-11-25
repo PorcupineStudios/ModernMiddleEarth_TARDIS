@@ -1,0 +1,70 @@
+{
+  "parents": [
+    "tardis_rb:materialised_flight"
+  ],
+  "levels": [
+    {
+      "cost": {
+        "items": [
+          {
+            "ingredient": {
+              "item": "tardis_rb:stabilizer_coil"
+            },
+            "count": 1
+          },
+          {
+            "ingredient": {
+              "item": "tardis_rb:artron_battery"
+            },
+            "count": 1
+          }
+        ]
+      },
+      "stats": {
+        "flight_speed": 0.25
+      }
+    },
+    {
+      "cost": {
+        "items": [
+          {
+            "ingredient": {
+              "item": "tardis_rb:stabilizer_coil"
+            },
+            "count": 2
+          },
+          {
+            "ingredient": {
+              "item": "tardis_rb:artron_battery"
+            },
+            "count": 1
+          }
+        ]
+      },
+      "stats": {
+        "flight_speed": 0.25
+      }
+    },
+    {
+      "cost": {
+        "items": [
+          {
+            "ingredient": {
+              "item": "tardis_rb:stabilizer_coil"
+            },
+            "count": 4
+          },
+          {
+            "ingredient": {
+              "item": "tardis_rb:artron_battery"
+            },
+            "count": 1
+          }
+        ]
+      },
+      "stats": {
+        "flight_speed": 0.25
+      }
+    }
+  ]
+}

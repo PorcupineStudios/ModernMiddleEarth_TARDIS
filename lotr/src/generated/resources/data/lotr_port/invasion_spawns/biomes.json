@@ -1341,5 +1341,29 @@
         "lotr_port:half_troll"
       ]
     }
+  ],
+  "mirkwood_enchanted": [
+    {
+      "chance_per_second": 9.907147014454054e-05,
+      "invasions": [
+        "lotr_port:wood_elf"
+      ]
+    }
+  ],
+  "mirkwood_spider_nests": [
+    {
+      "chance_per_second": 9.907147014454054e-05,
+      "invasions": [
+        "lotr_port:wood_elf"
+      ]
+    }
+  ],
+  "enchanted_river": [
+    {
+      "chance_per_second": 9.907147014454054e-05,
+      "invasions": [
+        "lotr_port:wood_elf"
+      ]
+    }
   ]
 }

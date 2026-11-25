@@ -82,8 +82,10 @@ Turns LOTR 36.15 (1.7.10) content into the 1.21.1 port's generated resources. Tw
    `tags.py` (every block and item gets its vanilla analogue's tags plus `c:` tags; `tags_report.json`),
    `waterlog.py` (71 thin blocks), `stonecutting.py` (464 recipes), `waters.py` (5 seas by latitude, sea and river
    life), `mountains.py` (powder snow, ice, goats...), `land.py` (bees, frogs, foxes, plants), `noisecaves.py` (1.18
-   noise caves and aquifers), `caves.py` (lush and dripstone pockets), `biomeconfig.py` (the per-biome cave config
-   `lotr_port-biomes.toml` and its biome-aware carvers). Details: `lotr/CLAUDE.md` "Modern Middle-earth".
+   noise caves and aquifers), `caves.py` (lush and dripstone pockets), `regions.py` (the region layer over the map and
+   the sub-biomes painted with it: Enchanted Mirkwood, its spider nests, the Enchanted River; `--preview <png>` draws
+   the regions), `biomeconfig.py` (the per-biome cave config `lotr_port-biomes.toml` and its biome-aware carvers),
+   `borders.py` (who holds each biome at the start). Details: `lotr/CLAUDE.md` "Modern Middle-earth".
 
 Never edit generated files by hand: change the generator and run it again.
 

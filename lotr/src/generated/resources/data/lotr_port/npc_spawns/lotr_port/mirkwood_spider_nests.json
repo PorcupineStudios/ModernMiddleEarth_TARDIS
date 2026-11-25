@@ -1,0 +1,14 @@
+{
+  "entries": [
+    {
+      "npc": "lotr_port:mirkwood_spider",
+      "weight": 100,
+      "min": 2,
+      "max": 4
+    }
+  ],
+  "cap": 10,
+  "chance": 0.4,
+  "hostiles_in_day": true,
+  "wilderness": true
+}

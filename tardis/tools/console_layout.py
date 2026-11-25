@@ -91,7 +91,9 @@ def axis_side(a, theme, monitor, extra):
     lev = [(f"{a}_lever_{n + 1}", "coordinate_lever", {"lever": f"{a}{n}"}, NAV1) for n in range(4)]
     wheels = [(f"{a}_wheel_{n + 1}", "valve_wheel", {"wheel": f"{a}{n + 4}"}, NAV1) for n in range(2)]
     big = (f"{a}_lever_5", "coordinate_lever", {"lever": f"{a}6"}, NAV1)
-    return {"theme": theme, "monitor": monitor, "rows": [(0.18, lev + [big]), (0.46, wheels + extra)]}
+    # 1.7.10 (renderXControls): the big levers in the front row, the power wheels at the ends of the row behind
+    return {"theme": theme, "monitor": monitor,
+            "rows": [(0.18, lev + [big]), (0.46, [wheels[0]] + extra + [wheels[1]])]}
 
 
 # The six sides (Aaron 2026-11-08: "1. X coords (see tardis mod 1.7.10 for the XYZ coord controls) 2. Z coords
@@ -100,8 +102,8 @@ def axis_side(a, theme, monitor, extra):
 # from the operator's edge up toward the rotor: (v, [(id, model, {click part: action}, requirements)]), spaced
 # evenly along the row.
 SIDES = [
-    axis_side("x", "X coordinates", "e.g. \"Target X 1210\", \"(here +10)\", \"Now X 1200\"",
-              [("relative_switch", "toggle_switch", {"bat": "relative"}, NAV1)]),
+    dict(axis_side("x", "X coordinates", "e.g. \"Target X 1210\", \"(here +10)\", \"Now X 1200\"", []),
+         ladder=[("relative_switch", "pull_switch", {"rod": "relative"}, NAV1)]),
     axis_side("z", "Z coordinates", "e.g. \"Target Z -340\", \"(absolute)\", \"Now Z -52\"",
               [("randomiser", "randomiser", {"die": "random"}, NAV1)]),
     {"theme": "Dimension & time", "monitor":
@@ -114,19 +116,21 @@ SIDES = [
                      ("telepathic_circuits", "telepathic_circuits", {}, NAV1)])]},
     {"theme": "Exterior",
      "monitor": "landed / loose / hovering N up, phase key and thrusters, facing, handbrake, charge, doors",
-     "rows": [(0.2, [("facing_compass", "facing_compass", {"arrow": "facing"}, NAV1),
+     # Aaron 2026-11-19 (screenshot): the flight yoke comes down to the front left, the facing compass moves to the
+     # Y & memory side, and the rest spread out
+     "rows": [(0.2, [("flight_yoke", "flight_yoke", {"stick": "pilot"}, NAV1),
                      ("demat_lever", "demat_lever", {"arm": "jump"}, NAV1),
                      ("handbrake", "handbrake", {"arm": "handbrake"}, NAV1)]),
               (0.53, [("phase_key", "phase_key", {"key": "phase_key"}, NAV1),
                       ("phase_lever", "phase_lever", {"arm": "phase"}, NAV1),
-                      ("thrusters", "thrusters", {"rocker": "thrusters"}, NAV1)]),
-              (0.75, [("flight_yoke", "flight_yoke", {"stick": "pilot"}, NAV1)])]},
+                      ("thrusters", "thrusters", {"rocker": "thrusters"}, NAV1)])]},
     {"theme": "Y & memory", "monitor":
      "e.g. \"Target Y 70\" (or \"Target Y: the ground\"), land on ground, save mode, saved slots",
-     "rows": [(0.2, [(f"y_lever_{n + 1}", "y_lever", {"lever": f"y{n}"}, NAV1) for n in range(4)]
-               + [("land_switch", "toggle_switch", {"bat": "land"}, NAV1)]),
+     "ladder": [("land_switch", "pull_switch", {"rod": "land"}, NAV1)],  # 1.7.10's switch 34 beside the Y levers
+     "rows": [(0.2, [(f"y_lever_{n + 1}", "y_lever", {"lever": f"y{n}"}, NAV1) for n in range(4)]),
               (0.58, [("memory_bank", "memory_bank", {f"slot_{n}": "memory" for n in range(20)}, NAV1),
-                      ("save_switch", "push_switch", {"rod": "save"}, NAV1)])]},
+                      ("save_switch", "push_switch", {"rod": "save"}, NAV1),
+                      ("facing_compass", "facing_compass", {"arrow": "facing"}, NAV1)])]},
     {"theme": "Rooms",
      "monitor": "rooms used of the cap, the room plan picked (\"Plan: library (can add)\"), crew, doors",
      "rows": [(0.22, [("door_control", "door_control", {"wheel": "door"}, NAV1),
@@ -139,11 +143,18 @@ SIDES = [
                       ("twin_gauge", "twin_gauge", {}, None)])]},
 ]
 # Controls that stand bigger or smaller than SCALE.
-SCALES = {"x_lever_5": 1.0, "z_lever_5": 1.0, "flight_yoke": 0.65}
+SCALES = {"x_lever_5": 1.0, "z_lever_5": 1.0, "flight_yoke": 0.65,
+          # 1.7.10 drew its pull-switches at half size
+          "relative_switch": 0.5, "land_switch": 0.5}
 # Gauges show these values (0..1 of full), one per needle in the model's order.
 SHOWS = {"gauge": ["charge"], "twin_gauge": ["charge", "rooms"]}
 SCALE = 0.8       # the controls stand a little smaller on the console than modelled
-GAP = 0.04
+GAP = 0.04       # the least room between two controls
+ROW_GAP = 0.09    # between rows (Aaron 2026-11-19: spread out, easy to click without overlap)
+MAX_GAP = 0.22    # a row's controls spread over the panel's width, at most this far apart
+BIG = 0.28        # controls bigger than this across stand BIG_SCALE smaller (the bulky levers)
+BIG_SCALE = 0.85
+LADDER_GAP = 0.06  # between the pull-switches of a ladder
 MARGIN = 0.07     # kept clear of the panel's side ridges
 V_MAX = 0.84      # the panel's top ends where the rotor's collar starts
 
@@ -202,16 +213,38 @@ def fit_side(k, side, models, f):
     """Places one side's rows, each just above the last, at scale factor f; returns (placed, problems)."""
     placed, problems, rects = [], [], []
     start = 0.03
+
+    def scale_of(cid, m):
+        base = SCALES.get(cid, SCALE)
+        return base * (BIG_SCALE if max(footprint(models[m], base)) > BIG else 1)
+
+    # the ladder: 1.7.10's small pull-switches one above another up the panel's right edge (its switches 1030-1032),
+    # clear of the rows, which shift left to make room
+    ladder = side.get("ladder", [])
+    lsizes = [footprint(models[m], scale_of(cid, m) * f) for cid, m, _, _ in ladder]
+    lw = max((w for w, _ in lsizes), default=0)
+    lv = 0.06
+    for (cid, m, acts, req), (w, d) in zip(ladder, lsizes):
+        v = lv + d / 2
+        lv += d + LADDER_GAP
+        cu = half_width(v + d / 2) - w / 2
+        rects.append(((cu - w / 2, v - d / 2, cu + w / 2, v + d / 2), cid))
+        placed.append((k, cid, m, acts, req, round(cu, 4), round(v, 4), round(scale_of(cid, m) * f, 3)))
+    shift = (lw + GAP) / 2 if ladder else 0
     for _, row in side["rows"]:
-        sizes = [footprint(models[m], SCALES.get(cid, SCALE) * f) for cid, m, _, _ in row]
+        sizes = [footprint(models[m], scale_of(cid, m) * f) for cid, m, _, _ in row]
         depth = max(d for _, d in sizes)
         v = start + depth / 2
-        start += depth + GAP
-        total = sum(w for w, _ in sizes) + GAP * (len(row) - 1)
-        u = -total / 2
+        start += depth + ROW_GAP
+        width = sum(w for w, _ in sizes)
+        # spread over the panel's width at this row (its narrowest, at the row's top edge)
+        room = 2 * half_width(v + depth / 2) - width - 2 * shift
+        gap = max(GAP, min(MAX_GAP, room / (len(row) + 1)))
+        total = width + gap * (len(row) - 1)
+        u = -total / 2 - shift
         for (cid, m, acts, req), (w, d) in zip(row, sizes):
             cu = u + w / 2
-            u += w + GAP
+            u += w + gap
             if abs(cu) + w / 2 > half_width(v + d / 2) + 1e-6:
                 problems.append(f"side {k} {cid}: off the panel's side")
             if v + d / 2 > V_MAX:
@@ -221,7 +254,7 @@ def fit_side(k, side, models, f):
                 if r[0] < o[2] - 0.005 and o[0] < r[2] - 0.005 and r[1] < o[3] - 0.005 and o[1] < r[3] - 0.005:
                     problems.append(f"side {k}: {cid} overlaps {om}")
             rects.append((r, cid))
-            placed.append((k, cid, m, acts, req, round(cu, 4), round(v, 4), round(SCALES.get(cid, SCALE) * f, 3)))
+            placed.append((k, cid, m, acts, req, round(cu, 4), round(v, 4), round(scale_of(cid, m) * f, 3)))
     return placed, problems
 
 

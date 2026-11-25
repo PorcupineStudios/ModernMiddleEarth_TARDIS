@@ -1,0 +1,21 @@
+{
+  "comment": "The spiders' nests of Mirkwood: grey, webbed gloom",
+  "biomes": [
+    "mirkwood_spider_nests"
+  ],
+  "priority": 13,
+  "fog_start": 0.0,
+  "fog_end": 0.22,
+  "fog_color": "#262822",
+  "fog_color_strength": 0.8,
+  "filter": "#1C1C16",
+  "filter_alpha": 0.22,
+  "grade": {
+    "saturation": -0.45,
+    "contrast": 0.12,
+    "warmth": -0.08,
+    "brightness": -0.2,
+    "vignette": 0.6,
+    "bloom": 0
+  }
+}

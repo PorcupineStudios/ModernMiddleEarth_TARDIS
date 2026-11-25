@@ -1,0 +1,67 @@
+plugins {
+    id 'java-library'
+    id 'idea'
+    id 'net.neoforged.moddev'
+}
+
+apply from: rootProject.file('gradle/mod.gradle')
+
+// The harness needs Create: Aeronautics (Aaron 2026-11-24): the vehicles are its contraptions (Sable sub-levels,
+// Offroad wheels). Create, Aeronautics and Sable come from Modrinth's maven; their real code is jar-in-jar, which the
+// game loads from inside the jars and the compiler gets unpacked (as in tardis/build.gradle). Depends on neither
+// lotr nor tardis: which animals pull is data (draught files name entity types).
+repositories {
+    maven {
+        url = 'https://api.modrinth.com/maven'
+        content { includeGroup 'maven.modrinth' }
+    }
+}
+
+def bundled = configurations.detachedConfiguration(
+        dependencies.create("maven.modrinth:create:${create_version}"),
+        dependencies.create("maven.modrinth:create-aeronautics:${aeronautics_version}"),
+        dependencies.create("maven.modrinth:sable:${sable_version}"))
+bundled.transitive = false
+
+def unpackBundledLibs = tasks.register('unpackBundledLibs', Copy) {
+    from({ bundled.files.collect { zipTree(it).matching { include 'META-INF/jarjar/*.jar' } } })
+    into layout.buildDirectory.dir('bundled-libs')
+    eachFile { path = name }
+    includeEmptyDirs = false
+}
+
+dependencies {
+    implementation "maven.modrinth:create:${create_version}"
+    implementation "maven.modrinth:create-aeronautics:${aeronautics_version}"
+    implementation "maven.modrinth:sable:${sable_version}"
+    compileOnly fileTree(layout.buildDirectory.dir('bundled-libs')) {
+        include '*.jar'
+        builtBy unpackBundledLibs
+    }
+}
+
+// Sable saves vehicles with the world and the GameTest server reuses run/world: wagons from an earlier run loaded on top
+// of the new test courses and jammed them in place (2026-11-24). Every GameTest run starts from a fresh world.
+tasks.matching { it.name == 'runGameTestServer' }.configureEach {
+    doFirst { delete file('run/world') }
+}
+
+// -PwithLotr: dev runs (GameTests, client) also load the LOTR port and the shared API, for the LOTR animals' harness
+// tests (gametest/LotrAnimalTests) and screenshots. Only at run time: the harness still compiles against neither.
+if (project.hasProperty('withLotr')) {
+    evaluationDependsOn(':lotr')
+    dependencies {
+        // (without JEI, which lotr runs with from a maven the harness doesn't search)
+        runtimeOnly(project(':lotr')) { exclude group: 'mezz.jei' }
+    }
+    neoForge {
+        mods {
+            lotr_port {
+                sourceSet(project(':lotr').sourceSets.main)
+            }
+            ringbearer_api {
+                sourceSet(project(':api').sourceSets.main)
+            }
+        }
+    }
+}
