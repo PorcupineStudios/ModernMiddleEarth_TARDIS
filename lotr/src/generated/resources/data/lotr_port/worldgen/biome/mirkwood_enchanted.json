@@ -134,6 +134,7 @@
       "lotr_port:mirkwood_enchanted/webs"
     ],
     [
+      "lotr_port:road_verge",
       "minecraft:freeze_top_layer"
     ]
   ]
