@@ -52,6 +52,8 @@ public final class WildBlocks {
                     .sound(SoundType.ROOTED_DIRT));
     public static final DeferredBlock<Block> STONY_EARTH = BLOCKS.registerSimpleBlock("stony_earth",
             BlockBehaviour.Properties.of().mapColor(MapColor.DIRT).strength(0.5f).sound(SoundType.GRAVEL));
+    public static final DeferredBlock<Block> ROCKY_DIRT = BLOCKS.registerSimpleBlock("rocky_dirt",
+            BlockBehaviour.Properties.of().mapColor(MapColor.DIRT).strength(0.6f).sound(SoundType.ROOTED_DIRT));
     public static final DeferredBlock<Block> HEATH_MOSS = BLOCKS.registerSimpleBlock("heath_moss",
             BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_GREEN).strength(0.1f).sound(SoundType.MOSS));
     public static final DeferredBlock<WildPlant> TUSSOCK = BLOCKS.registerBlock("tussock", WildPlant::new,
@@ -62,7 +64,7 @@ public final class WildBlocks {
     public static final List<DeferredItem<BlockItem>> ITEMS_IN_ORDER = List.of(
             ITEMS.registerSimpleBlockItem(WEATHERED_STONE), ITEMS.registerSimpleBlockItem(LICHEN_STONE),
             ITEMS.registerSimpleBlockItem(SCREE), ITEMS.registerSimpleBlockItem(MOORLAND_SOIL),
-            ITEMS.registerSimpleBlockItem(STONY_EARTH), ITEMS.registerSimpleBlockItem(HEATH_MOSS),
+            ITEMS.registerSimpleBlockItem(STONY_EARTH), ITEMS.registerSimpleBlockItem(ROCKY_DIRT), ITEMS.registerSimpleBlockItem(HEATH_MOSS),
             ITEMS.registerSimpleBlockItem(TUSSOCK), ITEMS.registerSimpleBlockItem(BRACKEN));
 
     private static final ResourceKey<CreativeModeTab> TAB = ResourceKey.create(Registries.CREATIVE_MODE_TAB,
