@@ -335,49 +335,50 @@ PLANT_TRIES = 32  # tries per patch (vanilla 1.18's grass patch)
 # Plants per try in the port (2026-11-25: measured 0.17 with 32-try patches by plant_compare.py against the port's own
 # census, -Dlotr_port.plantcensus; the port then had 0.34 of LOTR's plants at the guessed 0.5).
 PLANT_YIELD = 0.153  # 2026-11-25 CI census (all plants: port/LOTR 0.903 at 0.17, so 0.17 x 0.903)
-# Each plant's own yield, measured the same way (2026-11-25, CI "[plant-census]" run, 5168 chunks: 0.17 x its port/LOTR
-# ratio, for plants LOTR has 2+ per chunk of summed over the biomes). Dandelions and bluets came out high (the variants'
+# Each plant's own yield, measured the same way (2026-11-25, two CI "[plant-census]" runs of 5168 chunks: first 0.17 x
+# its port/LOTR ratio, then that x the second run's ratio ^ (n / (n + 10)), n = LOTR's plants per chunk summed over the
+# biomes, so a rare flower's ratio, mostly sampling noise, moves its yield little; plants LOTR has 2+ of). Dandelions and bluets came out high (the variants'
 # vanilla meadow flowers add to LOTR's), small flowers low (patches of a few tries yield less per try). Re-measure with
-# a commit message holding [plant-census]: multiply each yield here by its new port/LOTR ratio in plant_compare.txt
+# a commit message holding [plant-census]: multiply each yield here by its new port/LOTR ratio ^ (n / (n + 10)) in plant_compare.txt
 # (plants not listed: PLANT_YIELD by the "all plants" ratio), then python3 converter/plant_rates.py
 # rewrites the plant features and biome lists (no jar needed).
 PLANT_YIELDS = {
-    "lotr_port:short_grass": 0.1535,
-    "minecraft:short_grass": 0.1265,
-    "lotr_port:clover": 0.189,
-    "minecraft:fern": 0.1204,
-    "lotr_port:wheatgrass": 0.154,
-    "lotr_port:flowery_grass": 0.1607,
-    "lotr_port:arid_grass": 0.1714,
-    "minecraft:tall_grass": 0.205,
-    "lotr_port:mordor_scrub": 0.1945,
-    "minecraft:dandelion": 0.2679,
-    "lotr_port:nettles": 0.1715,
-    "minecraft:poppy": 0.2025,
-    "lotr_port:thistle": 0.1749,
-    "lotr_port:marigold": 0.1149,
-    "minecraft:oxeye_daisy": 0.1336,
-    "lotr_port:jungle_sprout": 0.1295,
-    "minecraft:azure_bluet": 0.2769,
-    "minecraft:rose_bush": 0.1843,
-    "lotr_port:flax_plant": 0.1632,
-    "lotr_port:hibiscus": 0.1166,
-    "minecraft:lilac": 0.1566,
-    "minecraft:large_fern": 0.1384,
-    "minecraft:peony": 0.1431,
-    "lotr_port:bluebell": 0.1688,
-    "lotr_port:yellow_sand_gem": 0.1124,
-    "lotr_port:red_sand_gem": 0.1363,
-    "lotr_port:lavender": 0.1865,
-    "lotr_port:withered_moss": 0.4366,
-    "lotr_port:harad_daisy": 0.1246,
-    "lotr_port:southbells": 0.1386,
-    "lotr_port:shire_heather": 0.1438,
-    "minecraft:red_tulip": 0.1331,
-    "minecraft:pink_tulip": 0.1343,
-    "minecraft:white_tulip": 0.1396,
-    "lotr_port:flame_of_harad": 0.0826,
-    "minecraft:orange_tulip": 0.2135,
+    "lotr_port:short_grass": 0.1526,  # 0.1535 x 0.994^1.00
+    "minecraft:short_grass": 0.1365,  # 0.1265 x 1.08^0.99
+    "lotr_port:clover": 0.1693,  # 0.189 x 0.894^0.98
+    "minecraft:fern": 0.1134,  # 0.1204 x 0.941^0.98
+    "lotr_port:wheatgrass": 0.1493,  # 0.154 x 0.969^0.98
+    "lotr_port:flowery_grass": 0.1688,  # 0.1607 x 1.052^0.96
+    "lotr_port:arid_grass": 0.1773,  # 0.1714 x 1.037^0.93
+    "minecraft:tall_grass": 0.2395,  # 0.205 x 1.183^0.92
+    "lotr_port:mordor_scrub": 0.177,  # 0.1945 x 0.893^0.83
+    "minecraft:dandelion": 0.3554,  # 0.2679 x 1.418^0.81
+    "lotr_port:nettles": 0.1687,  # 0.1715 x 0.98^0.80
+    "minecraft:poppy": 0.2603,  # 0.2025 x 1.415^0.72
+    "lotr_port:thistle": 0.1633,  # 0.1749 x 0.904^0.68
+    "lotr_port:marigold": 0.1186,  # 0.1149 x 1.053^0.62
+    "minecraft:oxeye_daisy": 0.1401,  # 0.1336 x 1.081^0.61
+    "lotr_port:jungle_sprout": 0.1042,  # 0.1295 x 0.694^0.60
+    "minecraft:azure_bluet": 0.1702,  # 0.2769 x 0.433^0.58
+    "minecraft:rose_bush": 0.158,  # 0.1843 x 0.754^0.55
+    "lotr_port:flax_plant": 0.1823,  # 0.1632 x 1.231^0.53
+    "lotr_port:hibiscus": 0.1125,  # 0.1166 x 0.93^0.49
+    "minecraft:lilac": 0.1496,  # 0.1566 x 0.905^0.46
+    "minecraft:large_fern": 0.128,  # 0.1384 x 0.843^0.46
+    "minecraft:peony": 0.1434,  # 0.1431 x 1.004^0.45
+    "lotr_port:bluebell": 0.1589,  # 0.1688 x 0.863^0.41
+    "lotr_port:yellow_sand_gem": 0.113,  # 0.1124 x 1.013^0.39
+    "lotr_port:red_sand_gem": 0.1389,  # 0.1363 x 1.054^0.36
+    "lotr_port:lavender": 0.1749,  # 0.1865 x 0.836^0.36
+    "lotr_port:withered_moss": 0.4251,  # 0.4366 x 0.921^0.32
+    "lotr_port:harad_daisy": 0.1137,  # 0.1246 x 0.747^0.32
+    "lotr_port:southbells": 0.1296,  # 0.1386 x 0.809^0.32
+    "lotr_port:shire_heather": 0.1276,  # 0.1438 x 0.637^0.26
+    "minecraft:red_tulip": 0.1445,  # 0.1331 x 1.402^0.24
+    "minecraft:pink_tulip": 0.1505,  # 0.1343 x 1.737^0.21
+    "minecraft:white_tulip": 0.1862,  # 0.1396 x 4.222^0.20
+    "lotr_port:flame_of_harad": 0.0838,  # 0.0826 x 1.077^0.19
+    "minecraft:orange_tulip": 0.2487,  # 0.2135 x 2.264^0.19
 }
 PLANT_MIN_TRIES = 4  # a patch of LOTR's rare flowers is one to three plants
 PLANT_MAX_TRIES = 64  # dense grass: several patches a chunk rather than one huge one

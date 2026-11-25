@@ -91,13 +91,14 @@
     [
       "lotr_port:plant/reeds_0_9",
       "lotr_port:plant/dried_reeds_0_1",
-      "lotr_port:plant_grass/clover_16_r20",
-      "lotr_port:plant_grass/flowery_grass_12_r25",
+      "lotr_port:plant_grass/clover_16_r16",
+      "lotr_port:plant_grass/flowery_grass_8_r16",
       "lotr_port:plant_grass/nettles_12_r100",
       "lotr_port:plant_grass/short_grass_12_r3",
+      "lotr_port:plant_grass/thistle_32_r1000",
       "lotr_port:plant_grass/wheatgrass_12_r16",
       "lotr_port:plant_grass/minecraft_short_grass_16_r8",
-      "lotr_port:plant_double_grass/minecraft_tall_grass_8_r16",
+      "lotr_port:plant_double_grass/minecraft_tall_grass_6_r12",
       "minecraft:glow_lichen"
     ],
     [

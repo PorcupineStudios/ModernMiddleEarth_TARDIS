@@ -53,7 +53,7 @@ jobs:
       - name: Plant census against LOTR (opt-in)
         # Only when the commit message has [plant-census] (2026-11-25, Aaron: check every plant's where and how many
         # against 1.7.10): world/PortPlantCensus counts the port's plants per biome on a fresh Middle-earth world
-        # (2 spots per biome, 4x4 chunks each), converter/plant_compare.py sets that against LOTR's census
+        # (4 spots per biome, 4x4 chunks each), converter/plant_compare.py sets that against LOTR's census
         # (converter/export/plants_census.json). Report only: never fails the build.
         if: ${{ !cancelled() && contains(github.event.head_commit.message, '[plant-census]') }}
         continue-on-error: true
@@ -62,7 +62,7 @@ jobs:
           mkdir -p lotr/run
           echo "eula=true" > lotr/run/eula.txt
           printf 'level-type=lotr_port\\:middle_earth\nonline-mode=false\nlevel-name=plant-census\nmax-tick-time=-1\n' > lotr/run/server.properties
-          JAVA_TOOL_OPTIONS="-Dlotr_port.plantcensus=2 -Xmx10g" ./gradlew :lotr:runServer --stacktrace 2>&1 | tee plantcensus.log | grep -E "plantcensus|ERROR" || true
+          JAVA_TOOL_OPTIONS="-Dlotr_port.plantcensus=4 -Xmx10g" ./gradlew :lotr:runServer --stacktrace 2>&1 | tee plantcensus.log | grep -E "plantcensus|ERROR" || true
           pip install --quiet pillow
           python3 converter/plant_compare.py lotr/run/plant_census_port.json --json plant_compare.json | tee plant_compare.txt
       - uses: actions/upload-artifact@v4
