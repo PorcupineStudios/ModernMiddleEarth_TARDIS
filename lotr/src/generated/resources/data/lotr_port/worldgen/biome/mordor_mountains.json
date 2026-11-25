@@ -78,11 +78,9 @@
     [
       "lotr_port:trees/mordor_mountains",
       "lotr_port:plant/dried_reeds_1_0",
-      "lotr_port:grass/short_grass_0_1",
-      "lotr_port:grass/flowery_grass_0_04",
-      "lotr_port:grass/wheatgrass_0_06",
-      "lotr_port:grass/thistle_0_02",
-      "lotr_port:grass/nettles_0_01",
+      "lotr_port:plant_grass/mordor_scrub_r6",
+      "lotr_port:plant_extra/stabbing_thorn_r20",
+      "lotr_port:plant_extra/withered_moss_r32",
       "minecraft:glow_lichen"
     ],
     [

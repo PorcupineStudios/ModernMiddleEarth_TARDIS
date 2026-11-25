@@ -92,12 +92,8 @@
       "lotr_port:trees/brown_lands",
       "lotr_port:plant/reeds_0_9",
       "lotr_port:plant/dried_reeds_0_1",
-      "minecraft:patch_grass_plain",
-      "lotr_port:grass/short_grass_0_2",
-      "lotr_port:grass/flowery_grass_0_08",
-      "lotr_port:grass/wheatgrass_0_12",
-      "lotr_port:grass/thistle_0_04",
-      "lotr_port:grass/nettles_0_02",
+      "lotr_port:plant_grass/short_grass_r2",
+      "lotr_port:plant_grass/minecraft_short_grass_r3",
       "minecraft:glow_lichen"
     ],
     [

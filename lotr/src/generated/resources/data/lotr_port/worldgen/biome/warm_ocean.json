@@ -143,9 +143,6 @@
       "lotr_port:forest_floor/1_0",
       "lotr_port:plant/reeds_0_9",
       "lotr_port:plant/dried_reeds_0_1",
-      "minecraft:flower_default",
-      "minecraft:patch_grass_plain",
-      "minecraft:patch_tall_grass",
       "minecraft:glow_lichen",
       "minecraft:warm_ocean_vegetation",
       "minecraft:seagrass_warm",
@@ -156,6 +153,7 @@
       "minecraft:patch_pumpkin"
     ],
     [
+      "lotr_port:road_verge",
       "minecraft:freeze_top_layer"
     ]
   ]

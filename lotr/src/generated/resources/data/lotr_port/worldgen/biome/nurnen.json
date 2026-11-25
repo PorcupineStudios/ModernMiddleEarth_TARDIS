@@ -79,12 +79,6 @@
       "lotr_port:trees/nurnen",
       "lotr_port:plant/reeds_0_4",
       "lotr_port:plant/dried_reeds_0_6",
-      "minecraft:patch_grass_plain",
-      "lotr_port:grass/short_grass_0_8",
-      "lotr_port:grass/flowery_grass_0_32",
-      "lotr_port:grass/wheatgrass_0_48",
-      "lotr_port:grass/thistle_0_16",
-      "lotr_port:grass/nettles_0_08",
       "minecraft:glow_lichen"
     ],
     [
