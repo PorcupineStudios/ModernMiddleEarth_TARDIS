@@ -710,9 +710,11 @@ class Gen:
     def bs(self, new, data):
         write_json(os.path.join(ASSETS, "blockstates", new + ".json"), data)
 
-    def item_model(self, new, parent=None, layer=None):
+    def item_model(self, new, parent=None, layer=None, overlay=None):
         if layer:
             data = {"parent": "minecraft:item/generated", "textures": {"layer0": layer}}
+            if overlay:
+                data["textures"]["layer1"] = overlay  # untinted over the tinted icon (LotrClient tints layer 0)
         else:
             data = {"parent": parent}
         write_json(os.path.join(ASSETS, "models", "item", new + ".json"), data)
@@ -847,7 +849,7 @@ class Gen:
                 m = self.bm(new, "minecraft:block/tinted_cross" if tinted else "minecraft:block/cross",
                             {"cross": side}, {"render_type": CUTOUT})
             self.bs(new, {"variants": {"": {"model": m}}})
-            self.item_model(new, layer=item_icon)
+            self.item_model(new, layer=item_icon, overlay=overlay)
         elif kind == "torch":
             # LOTR's torches stand or hang on walls (metadata 1-4, as vanilla's 1.7.10 torch): one block with a
             # facing, up for standing (content/LotrTorchBlock)
