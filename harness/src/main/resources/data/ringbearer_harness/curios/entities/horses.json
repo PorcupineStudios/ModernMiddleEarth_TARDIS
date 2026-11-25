@@ -1,0 +1,5 @@
+{
+  "entities": ["minecraft:horse", "minecraft:donkey", "minecraft:mule", "minecraft:skeleton_horse",
+    "minecraft:zombie_horse"],
+  "slots": ["harness"]
+}

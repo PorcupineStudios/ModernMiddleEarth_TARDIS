@@ -115,8 +115,8 @@ BREEDS = {
 }
 # The port's own breeds (no LOTR class): drawn on a model the converter already builds, textures already copied.
 # Rhosgobel rabbits (Aaron 2026-11-24): Radagast's sleigh rabbits, pony-sized shaggy hares with long ears; their own
-# model, hop and coats (converter/rhosgobel_rabbit.py). They pull (the harness mod) rather than carry: no saddle model
-# or texture, so no saddle (LotrHorse.isSaddleable). They live round Rhosgobel, on the western eaves of southern
+# model, hop, coats and saddle (converter/rhosgobel_rabbit.py): they pull a sleigh in the harness mod's harness and,
+# saddled, carry a rider (Aaron 2026-11-25). They live round Rhosgobel, on the western eaves of southern
 # Mirkwood: spawn_near (Mounts' spawn rule) keeps them within 2048 blocks of its waypoint, in the biomes of
 # biome_modifier/rhosgobel_rabbits.json (southern Mirkwood and the Vale of Anduin beside it).
 OWN_BREEDS = {
@@ -125,6 +125,8 @@ OWN_BREEDS = {
         "model": f"{NS}:rhosgobel_rabbit", "scale": 1.0,
         "textures": [f"{NS}:textures/entity/rhosgobel_rabbit/{i}.png" for i in range(3)],
         "spawn_near": {"waypoint": f"{NS}:rhosgobel", "radius": 2048},
+        "saddle": f"{NS}:textures/entity/rhosgobel_rabbit/saddle.png", "saddle_model": f"{NS}:rhosgobel_rabbit_saddle",
+        "seat": 1.4,
         "food": ["minecraft:carrot", "minecraft:golden_carrot"], "spawn": {"speed": {"mul": 1.25},
                                                                          "jump": {"mul": 1.3}},
         "clamp_health": [12, 30], "clamp_jump": [0.4, 1.0], "clamp_speed": [0.12, 0.38],
@@ -282,7 +284,7 @@ class Mounts:
         for b in breeds:
             # LOTREntityHorse.getMountedYOffset: the rider's feet at half the mount's height (0.6 = a sitting rider's
             # attachment above its feet in 1.21)
-            b["seat"] = round(b["height"] * 0.5 + 0.6, 3)
+            b["seat"] = b.get("seat") or round(b["height"] * 0.5 + 0.6, 3)
         write_json(os.path.join(self.content, "mounts.json"),
                    {"breeds": [{k: v for k, v in b.items() if k in looks} for b in breeds],
                     "vanilla_armour": {k: f"{NS}:textures/entity/mount_armor/{v}.png"

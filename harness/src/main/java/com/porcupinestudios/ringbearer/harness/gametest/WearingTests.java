@@ -21,7 +21,7 @@ import net.minecraft.world.phys.AABB;
 import net.neoforged.neoforge.gametest.GameTestHolder;
 import net.neoforged.neoforge.gametest.PrefixGameTestTemplate;
 
-/** Wearing a harness: it replaces the saddle, keeps saddles off, is needed to hitch, and comes off with shears. */
+/** Wearing a harness: its own slot beside the saddle, needed to hitch, taken out of the slot to take it off. */
 @GameTestHolder(HarnessMod.MOD_ID)
 @PrefixGameTestTemplate(false)
 public final class WearingTests {
@@ -41,21 +41,16 @@ public final class WearingTests {
     }
 
     @GameTest(template = "arena")
-    public static void harnessReplacesTheSaddle(GameTestHelper h) {
+    public static void harnessAndSaddleTogether(GameTestHelper h) {
         Horse horse = tameHorse(h, 1);
         horse.equipSaddle(new ItemStack(Items.SADDLE), null);
-        h.assertTrue(horse.isSaddled(), "the horse wasn't saddled to start with");
         Player p = playerHolding(h, new ItemStack(HarnessMod.HARNESS.get()));
         p.interactOn(horse, InteractionHand.MAIN_HAND);
-        h.assertTrue(Harnessing.wears(horse), "using a harness on a tamed horse didn't put it on");
-        h.assertFalse(horse.isSaddled(), "the saddle stayed on under the harness");
-        h.assertTrue(p.getInventory().countItem(Items.SADDLE) == 1, "the saddle didn't come back to the player");
+        h.assertTrue(Harnessing.wears(horse), "using a harness on a saddled horse didn't put it on");
+        h.assertTrue(horse.isSaddled(), "the saddle came off for the harness");
+        h.assertTrue(Harnessing.slot(horse).map(s -> s.getStackInSlot(0).is(HarnessMod.HARNESS.get())).orElse(false),
+                "the harness isn't in the horse's Curios harness slot");
         h.assertTrue(p.getMainHandItem().isEmpty(), "the harness wasn't used up");
-
-        // a saddle won't go on now
-        Player q = playerHolding(h, new ItemStack(Items.SADDLE));
-        q.interactOn(horse, InteractionHand.MAIN_HAND);
-        h.assertFalse(horse.isSaddled(), "a saddle went on over the harness");
         h.succeed();
     }
 
@@ -99,33 +94,41 @@ public final class WearingTests {
         HitchBlockEntity hitch = (HitchBlockEntity) h.getBlockEntity(at);
         Horse horse = tameHorse(h, 1);
         Harnessing.putOn(horse, null);
-        h.assertTrue(horse.getSlot(400).get().is(HarnessMod.HARNESS.get()), "the harness isn't in the saddle slot");
-        h.assertFalse(horse.isSaddled(), "a harness in the saddle slot counts as a saddle");
         h.assertTrue(hitch.hitch(horse), "couldn't hitch a harnessed horse");
-        horse.getSlot(400).set(ItemStack.EMPTY);
-        h.assertFalse(Harnessing.wears(horse), "taking the harness out of the slot didn't take it off");
-        h.assertTrue(HitchLink.of(horse).isEmpty(), "taking the harness off didn't unhitch it");
-        h.assertFalse(hitch.hasHitches(), "the hitch still holds the horse");
-        h.succeed();
+        Harnessing.slot(horse).orElseThrow().setStackInSlot(0, ItemStack.EMPTY);
+        // noticed within half a second (Curios' change event doesn't come for every animal)
+        h.runAfterDelay(12, () -> {
+            h.assertFalse(Harnessing.wears(horse), "taking the harness out of its slot didn't take it off");
+            h.assertTrue(HitchLink.of(horse).isEmpty(), "taking the harness off didn't unhitch it");
+            h.assertFalse(hitch.hasHitches(), "the hitch still holds the horse");
+            h.succeed();
+        });
     }
 
     @GameTest(template = "arena")
-    public static void inventorySaddleSlotTakesAHarness(GameTestHelper h) {
+    public static void inventoryHasAHarnessSlot(GameTestHelper h) {
         Horse horse = tameHorse(h, 1);
         Player p = h.makeMockPlayer(GameType.SURVIVAL);
         // the menu the horse's inventory screen opens (opening it for real sends packets a mock player can't take)
         var menu = new net.minecraft.world.inventory.HorseInventoryMenu(1, p.getInventory(),
                 ((com.porcupinestudios.ringbearer.harness.mixin.HorseInventoryAccess) horse)
                         .ringbearer_harness$inventory(), horse, 0);
-        net.minecraft.world.inventory.Slot slot = menu.getSlot(0);
-        h.assertTrue(slot.isActive(), "the saddle slot isn't shown");
-        h.assertTrue(slot.mayPlace(new ItemStack(HarnessMod.HARNESS.get())), "the saddle slot won't take a harness");
-        h.assertTrue(slot.mayPlace(new ItemStack(Items.SADDLE)), "the saddle slot won't take a saddle any more");
-        slot.set(new ItemStack(HarnessMod.HARNESS.get()));
-        h.assertTrue(Harnessing.wears(horse), "a harness put in the slot isn't worn");
-        h.assertFalse(slot.mayPlace(new ItemStack(Items.SADDLE)), "a saddle goes in over the harness");
-        slot.set(ItemStack.EMPTY);
+        net.minecraft.world.inventory.Slot saddle = menu.getSlot(0);
+        h.assertTrue(saddle.mayPlace(new ItemStack(Items.SADDLE)), "the saddle slot won't take a saddle");
+        h.assertFalse(saddle.mayPlace(new ItemStack(HarnessMod.HARNESS.get())), "the saddle slot takes a harness");
+        net.minecraft.world.inventory.Slot harness = menu.slots.get(menu.slots.size() - 1);
+        h.assertTrue(harness instanceof com.porcupinestudios.ringbearer.harness.content.HarnessSlot,
+                "no harness slot in the horse's inventory");
+        h.assertTrue(harness.isActive(), "the harness slot isn't shown");
+        h.assertTrue(harness.mayPlace(new ItemStack(HarnessMod.HARNESS.get())), "the harness slot won't take a harness");
+        h.assertFalse(harness.mayPlace(new ItemStack(Items.SADDLE)), "the harness slot takes a saddle");
+        saddle.set(new ItemStack(Items.SADDLE));
+        harness.set(new ItemStack(HarnessMod.HARNESS.get()));
+        h.assertTrue(Harnessing.wears(horse) && horse.isSaddled(), "saddle and harness aren't both on");
+        harness.set(ItemStack.EMPTY);
         h.assertFalse(Harnessing.wears(horse), "taking it out of the slot left it worn");
+        h.assertTrue(Harnessing.slot(horse).map(s -> s.getStackInSlot(0).isEmpty()).orElse(false),
+                "the Curios slot still holds the harness");
         h.succeed();
     }
 

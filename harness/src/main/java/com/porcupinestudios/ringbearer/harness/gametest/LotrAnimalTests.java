@@ -93,20 +93,19 @@ public final class LotrAnimalTests {
             horse.equipSaddle(new ItemStack(Items.SADDLE), null);
             saddled = horse.isSaddled();
         }
+        final boolean wasSaddled = saddled;
         Player p = h.makeMockPlayer(GameType.SURVIVAL);
         p.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(HarnessMod.HARNESS.get()));
         p.interactOn(animal, InteractionHand.MAIN_HAND);
         h.assertTrue(Harnessing.wears(animal), "using a harness on " + spec + " didn't put it on");
-        if (saddled) {
-            h.assertFalse(((AbstractHorse) animal).isSaddled(), "the saddle stayed on " + spec + " under the harness");
-            h.assertTrue(p.getInventory().countItem(Items.SADDLE) == 1, "the saddle didn't come back from " + spec);
+        h.assertTrue(Harnessing.slot(animal).map(s -> s.getStackInSlot(0).is(HarnessMod.HARNESS.get())).orElse(false),
+                spec + " has no harness in a Curios harness slot");
+        if (wasSaddled) {
+            h.assertTrue(((AbstractHorse) animal).isSaddled(), "the saddle came off " + spec + " for the harness");
         }
-        if (animal instanceof AbstractHorse horse) {
-            h.assertTrue(horse.getSlot(400).get().is(HarnessMod.HARNESS.get()),
-                    "the harness isn't in " + spec + "'s saddle slot");
-            h.assertFalse(horse.isSaddled(), "a harnessed " + spec + " counts as saddled");
-            horse.getSlot(400).set(ItemStack.EMPTY);
-            h.assertFalse(Harnessing.wears(animal), "taking it out of " + spec + "'s saddle slot left it worn");
+        if (animal instanceof AbstractHorse) {
+            Harnessing.takeOff(animal, p);
+            h.assertFalse(Harnessing.wears(animal), "taking it off " + spec + " left it worn");
         } else {
             // no saddle slot: sneak and use it with an empty hand
             Player q = h.makeMockPlayer(GameType.SURVIVAL);

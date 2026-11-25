@@ -10,12 +10,16 @@
   "item.ringbearer_harness.harness": "Harness",
   "message.ringbearer_harness.needs_harness": "Put a harness on it first (use a harness on the animal)",
   "message.ringbearer_harness.cannot_wear": "Only a tamed, grown animal that can pull wears a harness",
-  "message.ringbearer_harness.harnessed_no_saddle": "It's wearing a harness: take it out of the saddle slot first",
   "block.ringbearer_harness.oak_slope": "Oak Slope",
   "block.ringbearer_harness.stone_slope": "Stone Slope",
   "block.ringbearer_harness.wagon_wheel": "Wagon Wheel",
   "block.ringbearer_harness.oak_slope_low": "Oak Gentle Slope (Low Half)",
   "block.ringbearer_harness.oak_slope_high": "Oak Gentle Slope (High Half)",
   "block.ringbearer_harness.stone_slope_low": "Stone Gentle Slope (Low Half)",
-  "block.ringbearer_harness.stone_slope_high": "Stone Gentle Slope (High Half)"
+  "block.ringbearer_harness.stone_slope_high": "Stone Gentle Slope (High Half)",
+  "item.ringbearer_harness.reins": "Reins",
+  "curios.identifier.harness": "Harness",
+  "message.ringbearer_harness.reins_taken": "You take up the reins: W to go (sprint to canter), S to stop and back, A/D to turn",
+  "message.ringbearer_harness.reins_dropped": "You let go of the reins",
+  "message.ringbearer_harness.reins_nothing": "Nothing is hitched here to drive"
 }

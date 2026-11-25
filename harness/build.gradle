@@ -34,6 +34,7 @@ dependencies {
     implementation "maven.modrinth:create:${create_version}"
     implementation "maven.modrinth:create-aeronautics:${aeronautics_version}"
     implementation "maven.modrinth:sable:${sable_version}"
+    implementation "maven.modrinth:curios:${curios_version}"
     compileOnly fileTree(layout.buildDirectory.dir('bundled-libs')) {
         include '*.jar'
         builtBy unpackBundledLibs

@@ -16,18 +16,19 @@ calibrated later from the same data.
 - Animals stay ordinary entities on their own legs (their AI, a rider, or a test script moves them). A hitched animal
   carries attachment `hitch_link` (the hitch block's position in the plot; saved and synced to clients); after its
   tick, `restrain` holds it back if it got further than its rest length + `slack` from the hitch.
-- **Harness (item, worn)**: use it on a tamed, grown animal with draught data. A horse-family animal (vanilla's, the
-  LOTR port's mounts) wears it in its saddle slot (Aaron 2026-11-24): using it on the animal puts it there (a saddle
-  there comes back to you), or put it in the slot in the animal's inventory; take it out of the slot to take it off
-  (no shears). `HorseInventoryMenuMixin` swaps the saddle slot for `content/HarnessSlot` (a saddle where the animal
-  takes one, a harness where it can wear one; shown for either, or while holding one, so Rhosgobel rabbits with no
-  saddle get the slot). Vanilla counts anything in that slot as a saddle; `AbstractHorseHarnessMixin` (on
-  `syncSaddleToClients`) makes a harness there not count (no saddle drawn, no steering) and sets the synced
-  attachment `harness_worn` from the slot, unhitching when it's taken out. A saddle used on a harnessed animal says
-  to take the harness out first. Animals without a saddle slot (hired wargs, spiders) wear it as the attachment alone;
-  sneak and use them with an empty hand to take it off. Worlds from before the slot (harness worn, slot empty) get it
-  put in the slot as the animal loads (only while its save is read). It drops when the animal dies (a horse's with
-  its inventory). `content/Harnessing`, `HarnessItem`.
+- **Harness (item, worn)**: use it on a tamed, grown animal with draught data. It has a slot of its own (Aaron
+  2026-11-25), so an animal wears a saddle and a harness together: Curios slot `harness`
+  (`data/ringbearer_harness/curios/slots/harness.json`, item tag `curios:harness`), given to every animal that can pull
+  by `curios/entities/` (vanilla horses, donkeys, mules; the LOTR port's mounts and NPCs, when it's loaded). Curios is a
+  required dependency (9.5.1: 9.6 needs NeoForge 21.1.265). Use the harness on the animal to put it on; a horse-family
+  animal shows the slot in its inventory screen under the armour (`HorseInventoryMenuMixin` adds `content/HarnessSlot`
+  after vanilla's slots, which writes through to the Curios slot; shift-click moves a harness in and out; the client
+  draws the slot's frame); animals with no inventory (hired wargs, spiders) take it off when you sneak and use them
+  with an empty hand. Worn is the synced attachment `harness_worn` (renderers, the hitch), kept to the slot by
+  `CurioChangeEvent`, on joining a level, by `putOn`/`takeOff`, and every half second for harnessed animals (Curios'
+  change event didn't come for a horse in tests). Taking it off unhitches; Curios drops it on death. Harnesses from
+  before the slot (2026-11-24 builds: in the saddle slot; the first build: the attachment alone) are moved into it when
+  the animal loads. `content/Harnessing`, `HarnessItem`.
 - **Hitch (block)**: the block on the vehicle (called "harness" in the first build; registry aliases keep those).
   Lead harnessed animals to it and use it: it hitches every harnessed animal you lead within 10 blocks and takes their
   leads (an unharnessed one stays on its lead, with a message). Sneak-use with an empty hand unhitches them back onto
@@ -86,6 +87,32 @@ calibrated later from the same data.
 has mass 14.5 and weighs 160; with 27 iron blocks, 122.5 and 1348. Horse (`horse.json`, minecraft and lotr_port
 horses): 1.2 Hz, damping 0.5, pull 400, push 200; chosen from the calibration grid below. Other animals: copy and
 calibrate (pull for their size, stiffness for how tight their traces should feel); the LOTR port's are below.
+
+## Teams, riding and the reins (2026-11-25)
+- **Teams** (`content/Teams`): a hitch's animals go as one. Each keeps its place in the team, where it stood when
+  hitched (blocks right of and ahead of the hitch, saved with the hitch, data version 2); the one furthest ahead leads,
+  and each other animal moves to the leader's position plus their difference in places, turned with the leader's
+  heading (closing a share of the gap each tick, at most a little faster than the leader). It runs before the
+  animal's own tick, setting its velocity; the animal's own movement does collisions, steps, gravity and walk
+  animation, and the hold-back still applies after. While driven its AI may not move, look or jump (goal flags held
+  off, given back the first tick it isn't; nothing saved). A follower with a rider is left to its rider. The pole
+  steers the front wheels toward the leader. GameTest `teamFollowsItsLeaderOnTheReins` (2026-11-25: the mate stayed
+  within 1.5 blocks of its place through a go, a turn and a stop).
+- **Riding while hitched**: a saddled, harnessed animal can be ridden and hitched at once; its rider steers it (the
+  leader, or a follower left to its rider). A ridden animal is moved by its rider's client, which the server can't
+  correct, so the hold-back runs there: `client/DriverClient` applies the same rule (`physics/Restraint`, shared with
+  the server, JUnit `RestraintTest`) from the limits the animal's synced `HitchLink` now carries (version 2: rest,
+  tow point, slack, push slack, max angle; version-1 links are renewed by their hitch), and the server skips it for
+  player-controlled animals. Not yet tried by hand in a client.
+- **Reins** (item, `content/Reins`, `ReinsItem`): use them on a hitch to take up its team's reins (again, or with them
+  on nothing, to let go). While you hold them within 24 blocks of the hitch, your movement keys drive the leader instead
+  of you (`client/DriverClient` sends `DriveInput` every tick and zeroes your own movement; sneak and jump stay yours):
+  W goes at a trot (sprint: a canter), S stops and backs, A/D turn; let go of the keys and it slows to a stop. Keys
+  older than half a second count as none. Speeds, acceleration and turn rate are data: `data/<ns>/driving/*.json`
+  (a file with no `entities` is the default; Rhosgobel rabbits are quicker). Two reins are drawn from the driver's hand
+  to the leader's head. The player's `driving` attachment (synced, not saved) is the hitch held; the server lets go
+  when the reins are put away, the driver is too far, or the hitch is gone or empty. The GameTest drives through the
+  same entry point the network uses (`Reins.set`); the key capture and the drawn reins haven't been tried by hand.
 
 ## LOTR port animals (`draught/lotr_*.json`, `harness_fit/lotr_*.json`, GameTests `LotrAnimalTests`)
 Every animal ridden in LOTR 36.15, as the port has them, and the port's Rhosgobel rabbit (2026-11-24): its mount breeds

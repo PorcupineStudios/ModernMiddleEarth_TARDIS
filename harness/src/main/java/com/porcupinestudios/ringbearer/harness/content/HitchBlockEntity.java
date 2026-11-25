@@ -19,6 +19,7 @@ import dev.ryanhcode.sable.sublevel.SubLevel;
 import dev.ryanhcode.sable.sublevel.system.SubLevelPhysicsSystem;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -47,17 +48,14 @@ import org.joml.Vector3dc;
  * swings freely, so the vehicle follows the animal round a turn like a trailer.
  */
 public class HitchBlockEntity extends BlockEntity implements BlockEntitySubLevelActor {
-    private static final int DATA_VERSION = 1;
+    /** 2 (2026-11-25): each hitch keeps its place in the team (side, ahead). */
+    private static final int DATA_VERSION = 2;
     private static final double TICK = 0.05;
     /**
      * Per tick: strain follows the load over about a second. Faster, it fed a loop: the straining horse slowed, the pull
      * dropped, it sped up, the pull hit its limit... a 3 Hz pull/push shudder on an overloaded climb (2026-11-24).
      */
     private static final double STRAIN_RATE = 0.05;
-    /** Share of an animal's overshoot past its limits taken back each tick, and the overshoot taken back at once. */
-    private static final double RESTRAIN_GAIN = 0.5, HARD_OVERSHOOT = 0.5;
-    /** blocks per tick per tick: at most 8 blocks/s² of shove or hold from the hold-back */
-    private static final double MAX_CORRECTION_CHANGE = 0.02;
 
     /** One hitched animal. The tracker and the last step's numbers are runtime only. */
     static final class Hitch {
@@ -78,16 +76,27 @@ public class HitchBlockEntity extends BlockEntity implements BlockEntitySubLevel
         double forceSum;
         int forceSteps;
 
-        Hitch(UUID animal, double rest) {
+        /** its place in the team: blocks to the hitch's right and ahead of it, where it stood when hitched */
+        double side, ahead;
+        /** driving (the leader, on the reins): its speed (blocks/tick) and heading (degrees) */
+        double driveSpeed;
+        float driveYaw = Float.NaN;
+
+        Hitch(UUID animal, double rest, double side, double ahead) {
             this.animal = animal;
             this.rest = rest;
+            this.side = side;
+            this.ahead = ahead;
         }
     }
 
-    private record SavedHitch(UUID animal, double rest) {
+    /** side and ahead: data version 2; hitches saved before have their team place as straight ahead at rest length */
+    private record SavedHitch(UUID animal, double rest, Optional<Double> side, Optional<Double> ahead) {
         static final Codec<SavedHitch> CODEC = RecordCodecBuilder.create(i -> i.group(
                 UUIDUtil.CODEC.fieldOf("animal").forGetter(SavedHitch::animal),
-                Codec.DOUBLE.fieldOf("rest").forGetter(SavedHitch::rest)
+                Codec.DOUBLE.fieldOf("rest").forGetter(SavedHitch::rest),
+                Codec.DOUBLE.optionalFieldOf("side").forGetter(SavedHitch::side),
+                Codec.DOUBLE.optionalFieldOf("ahead").forGetter(SavedHitch::ahead)
         ).apply(i, SavedHitch::new));
     }
 
@@ -174,6 +183,31 @@ public class HitchBlockEntity extends BlockEntity implements BlockEntitySubLevel
         return s instanceof ServerSubLevel ss && !ss.isRemoved() ? ss : null;
     }
 
+    /** The hitch's forward in the world, horizontal (on no vehicle, its block's facing). */
+    Vector3d forwardWorld() {
+        ServerSubLevel s = vehicle();
+        Vector3d f = s == null ? forwardLocal() : s.logicalPose().transformNormal(forwardLocal(), new Vector3d());
+        f.y = 0;
+        return f.lengthSquared() < 1e-9 ? forwardLocal() : f.normalize();
+    }
+
+    /** The team's leader: the animal hitched furthest ahead (its place when hitched), or null. */
+    @Nullable
+    Hitch leader() {
+        Hitch best = null;
+        for (Hitch h : hitches) {
+            if (best == null || h.ahead > best.ahead) {
+                best = h;
+            }
+        }
+        return best;
+    }
+
+    @Nullable
+    Entity animal(Hitch h) {
+        return find(h);
+    }
+
     /** The hitch point in world space, or null off a vehicle. */
     @Nullable
     public Vec3 hitchWorld() {
@@ -204,8 +238,11 @@ public class HitchBlockEntity extends BlockEntity implements BlockEntitySubLevel
         Vector3d gap = towPoint(animal, d, 1).sub(hitch);
         gap.y = 0;
         double rest = Mth.clamp(gap.length(), d.minGap(), d.maxGap());
-        hitches.add(new Hitch(animal.getUUID(), rest));
-        HitchLink.set(animal, worldPosition);
+        // its place in the team, in the hitch's frame (where the animal itself stands)
+        Vector3d fw = forwardWorld();
+        Vector3d at = new Vector3d(animal.getX(), 0, animal.getZ()).sub(hitch.x, 0, hitch.z);
+        hitches.add(new Hitch(animal.getUUID(), rest, at.x * -fw.z + at.z * fw.x, at.x * fw.x + at.z * fw.z));
+        HitchLink.set(animal, worldPosition, rest, d);
         setChanged();
         return true;
     }
@@ -279,8 +316,16 @@ public class HitchBlockEntity extends BlockEntity implements BlockEntitySubLevel
                 Straining.apply(animal, da, hz.strain);
             }
         }
-        // the pole turns the front axle toward the first animal
-        Hitch lead = hitches.isEmpty() ? null : hitches.get(0);
+        // links from before the hold-back's limits were synced (version 1): renew them
+        for (Hitch hz : hitches) {
+            Entity a = find(hz);
+            DraughtAnimal da = a == null ? null : draught(a);
+            if (da != null && HitchLink.of(a).map(l -> l.dataVersion() < HitchLink.DATA_VERSION).orElse(true)) {
+                HitchLink.set(a, worldPosition, hz.rest, da);
+            }
+        }
+        // the pole turns the front axle toward the team's leader
+        Hitch lead = leader();
         Entity e = lead == null ? null : find(lead);
         DraughtAnimal d = e == null ? null : draught(e);
         if (d == null || Double.isNaN(lead.traceAngle) || d.steer() == 0) {
@@ -398,54 +443,35 @@ public class HitchBlockEntity extends BlockEntity implements BlockEntitySubLevel
     public void restrain(Entity e) {
         ServerSubLevel s = vehicle();
         DraughtAnimal d = draught(e);
-        Hitch hz = hitches.stream().filter(x -> x.animal.equals(e.getUUID())).findFirst().orElse(null);
+        Hitch hz = hitchOf(e);
         if (s == null || d == null || hz == null) {
             return;
         }
-        Pose3dc pose = s.logicalPose();
-        Vector3d hitchWorld = pose.transformPosition(hitchLocal(), new Vector3d());
-        Vector3d tow = towPoint(e, d, 1);
-        Vector3d dw = tow.sub(hitchWorld, new Vector3d());
-        dw.y = 0;
-        double dist = dw.length();
-        if (dist < 1e-6) {
-            return;
-        }
-        // the pole: no further round than max_angle from straight ahead of the hitch, no further out than rest + slack
-        Vector3d fw = pose.transformNormal(forwardLocal());
-        double ahead = Math.atan2(fw.z, fw.x);
-        double angle = Mth.wrapDegrees(Math.toDegrees(Math.atan2(dw.z, dw.x) - ahead));
-        double maxAngle = Mth.clamp(d.maxAngle(), 0, 180);
-        double keep = Mth.clamp(dist, Math.max(0.05, hz.rest - d.pushSlack()), hz.rest + d.slack());
-        if (keep == dist && Math.abs(angle) <= maxAngle) {
+        // a rider moves its animal on its own client, which holds it back there (HitchLink carries the limits);
+        // moving it here as well would only fight the rider
+        if (e.getControllingPassenger() instanceof net.minecraft.world.entity.player.Player) {
             hz.correction.zero();
             return;
         }
-        double a = ahead + Math.toRadians(Mth.clamp(angle, -maxAngle, maxAngle));
-        Vector3d back = dw.sub(new Vector3d(Math.cos(a) * keep, 0, Math.sin(a) * keep), new Vector3d());
-        // soft: half the overshoot a tick, and that correction changes by at most MAX_CORRECTION_CHANGE a tick, so a
-        // shove or a hold builds up over a few ticks (a one-tick snap read as a yank); past half a block, all at once
-        double over = back.length();
-        if (over > HARD_OVERSHOOT) {
-            back.mul((over - HARD_OVERSHOOT * RESTRAIN_GAIN) / over);
-        } else {
-            back.mul(RESTRAIN_GAIN);
-            Vector3d change = back.sub(hz.correction, new Vector3d());
-            if (change.length() > MAX_CORRECTION_CHANGE) {
-                change.mul(MAX_CORRECTION_CHANGE / change.length());
-            }
-            back.set(hz.correction).add(change);
+        Pose3dc pose = s.logicalPose();
+        Vector3d back = com.porcupinestudios.ringbearer.harness.physics.Restraint.correction(
+                pose.transformPosition(hitchLocal(), new Vector3d()), pose.transformNormal(forwardLocal(), new Vector3d()),
+                towPoint(e, d, 1), hz.rest, d.slack(), d.pushSlack(), d.maxAngle(), hz.correction);
+        if (back.lengthSquared() < 1e-12) {
+            return;
         }
-        hz.correction.set(back);
         e.setPos(e.getX() - back.x, e.getY(), e.getZ() - back.z);
         Vec3 v = e.getDeltaMovement();
-        if (back.lengthSquared() > 1e-12) {
-            Vector3d out = back.normalize(new Vector3d());
-            double along = v.x * out.x + v.z * out.z;
-            if (along > 0) {
-                e.setDeltaMovement(v.x - out.x * along, v.y, v.z - out.z * along);
-            }
+        Vector3d out = back.normalize(new Vector3d());
+        double along = v.x * out.x + v.z * out.z;
+        if (along > 0) {
+            e.setDeltaMovement(v.x - out.x * along, v.y, v.z - out.z * along);
         }
+    }
+
+    @Nullable
+    Hitch hitchOf(Entity e) {
+        return hitches.stream().filter(x -> x.animal.equals(e.getUUID())).findFirst().orElse(null);
     }
 
     // --- saving -------------------------------------------------------------------------------------------------------
@@ -453,7 +479,8 @@ public class HitchBlockEntity extends BlockEntity implements BlockEntitySubLevel
     @Override
     protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
         super.saveAdditional(tag, registries);
-        List<SavedHitch> list = hitches.stream().map(h -> new SavedHitch(h.animal, h.rest)).toList();
+        List<SavedHitch> list = hitches.stream().map(h -> new SavedHitch(h.animal, h.rest, Optional.of(h.side),
+                Optional.of(h.ahead))).toList();
         Saved.CODEC.encodeStart(NbtOps.INSTANCE, new Saved(DATA_VERSION, list))
                 .ifSuccess(t -> tag.put("harness", t));
     }
@@ -464,7 +491,8 @@ public class HitchBlockEntity extends BlockEntity implements BlockEntitySubLevel
         hitches.clear();
         if (tag.contains("harness")) {
             Saved.CODEC.parse(NbtOps.INSTANCE, tag.get("harness")).ifSuccess(saved ->
-                    saved.hitches().forEach(h -> hitches.add(new Hitch(h.animal(), h.rest()))));
+                    saved.hitches().forEach(h -> hitches.add(new Hitch(h.animal(), h.rest(), h.side().orElse(0.0),
+                            h.ahead().orElse(h.rest())))));
         }
     }
 }

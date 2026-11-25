@@ -132,7 +132,9 @@
         "lotr_port:textures/entity/rhosgobel_rabbit/1.png",
         "lotr_port:textures/entity/rhosgobel_rabbit/2.png"
       ],
-      "seat": 1.25
+      "saddle": "lotr_port:textures/entity/rhosgobel_rabbit/saddle.png",
+      "saddle_model": "lotr_port:rhosgobel_rabbit_saddle",
+      "seat": 1.4
     }
   ],
   "vanilla_armour": {

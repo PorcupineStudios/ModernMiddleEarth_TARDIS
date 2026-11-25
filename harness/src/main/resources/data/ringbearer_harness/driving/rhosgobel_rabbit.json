@@ -1,0 +1,8 @@
+{
+  "entities": ["lotr_port:rhosgobel_rabbit"],
+  "trot": 5.0,
+  "canter": 10.0,
+  "reverse": 1.0,
+  "accel": 6.0,
+  "turn": 70.0
+}
