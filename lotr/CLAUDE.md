@@ -114,8 +114,8 @@ https://claude.ai/artifact/KqhSSTCuKXGuwKHBoYJdcu. Rebuild features in modern co
 - Lairs (2026-11-25, Aaron: nests "relatively small only about a 200 sq/blocks of actual spider nests, and with
   spiders spawning within a larger radius around it (with spawning being affected by destroying nests)"): `map/Lairs`,
   set in `converter/regions.py LAIRS` -> map.json `lairs`. Seeded points on a per-kind grid (spider nests: a 512-block
-  cell in three of the enchanted forest's, ~100 a world), each a core (radius 8, ~200 blocks square; feature
-  `lotr_port:spider_nest`: webs, 4 egg sacs, silk bundles) and infested ground (radius 56, ragged) that
+  cell in three of the enchanted forest's, ~100 a world), each a core (radius 100, Aaron: "200 by 200"; feature
+  `lotr_port:spider_nest`: webs, 4 egg sacs, silk bundles) and infested ground (radius 160, ragged) that
   `biomeIndexAt` answers as the lair's biome (`landIndexAt` is the map without lairs). `lair/LairLife`: an egg sac
   (`lair/EggSacBlock`, `spider_egg_sac`) gone hatches spiders and counts against its lair (SavedData
   `lotr_port_lairs`); a spawn on its ground keeps its own table with chance = strength (1 - broken / `dead_at`), else

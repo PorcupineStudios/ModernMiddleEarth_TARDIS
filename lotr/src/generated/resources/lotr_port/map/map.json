@@ -1577,10 +1577,10 @@
       ],
       "cell": 512,
       "chance": 0.33,
-      "core": 8,
-      "radius": 56,
+      "core": 100,
+      "radius": 160,
       "ragged": 0.2,
-      "sacs": 4
+      "sacs": 12
     }
   }
 }
