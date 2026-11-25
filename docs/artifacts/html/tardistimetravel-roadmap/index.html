@@ -1,0 +1,570 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>TardisTimeTravel Roadmap</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: one reading column (~960px) with a full-width lane diagram that scrolls sideways on its own. Console-blueprint feel: police-box blue ink, brass accent. */
+:root {
+  --bg: #F1F3F7; --panel: #FFFFFF; --ink: #142033; --muted: #5A6678; --line: #D3DAE4;
+  --blue: #1E4A8C; --amber: #A86C12; --green: #2B7A4B; --violet: #6A4C9F; --red: #A93D2C;
+  --display: "Chakra Petch", "Segoe UI", system-ui, sans-serif;
+  --body: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #0C1320; --panel: #142034; --ink: #E5EBF4; --muted: #9AA7BA; --line: #2A3852;
+  --blue: #84AAEB; --amber: #E3A94E; --green: #6CC492; --violet: #B49DE8; --red: #E8907E; color-scheme: dark } }
+:root[data-theme="dark"] {
+  --bg: #0C1320; --panel: #142034; --ink: #E5EBF4; --muted: #9AA7BA; --line: #2A3852;
+  --blue: #84AAEB; --amber: #E3A94E; --green: #6CC492; --violet: #B49DE8; --red: #E8907E; color-scheme: dark }
+
+body { background: var(--bg); color: var(--ink); font: 15px/1.6 var(--body); }
+.wrap { max-width: 1000px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 40px 80px; }
+h1, h2, h3 { font-family: var(--display); text-wrap: balance; line-height: 1.2; margin: 0; }
+h1 { font-size: clamp(30px, 5vw, 44px); color: var(--blue); letter-spacing: .01em; }
+h2 { font-size: 26px; margin-top: 56px; padding-top: 18px; border-top: 2px solid var(--blue); }
+h3 { font-size: 18px; }
+p { margin: 0; max-width: 68ch; }
+a { color: var(--blue); }
+code { font: 13px var(--mono); background: color-mix(in srgb, var(--blue) 10%, transparent); padding: 1px 5px; border-radius: 4px; }
+.eyebrow { font: 500 12px var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--amber); }
+.lede { font-size: 17px; color: var(--muted); margin-top: 12px; }
+.stack { display: flex; flex-direction: column; gap: 14px; }
+.sec-intro { margin-top: 12px; color: var(--muted); }
+
+/* Legend + chips */
+.legend { display: flex; flex-wrap: wrap; gap: 8px 16px; margin-top: 16px; font-size: 13px; color: var(--muted); }
+.legend span { display: inline-flex; align-items: center; gap: 6px; }
+.sw { width: 22px; height: 12px; border-radius: 3px; display: inline-block; }
+.st-done   { background: color-mix(in srgb, var(--green) 22%, var(--panel)); border: 1.5px solid var(--green); }
+.st-pr     { background: var(--panel); border: 2px solid var(--blue); }
+.st-wip    { background: color-mix(in srgb, var(--amber) 20%, var(--panel)); border: 2px solid var(--amber); }
+.st-design { background: var(--panel); border: 1.5px dashed var(--violet); }
+.st-planned{ background: var(--panel); border: 1px solid var(--ink); }
+.st-idea   { background: transparent; border: 1.5px dotted var(--muted); }
+.chip { font: 500 11px var(--mono); letter-spacing: .04em; padding: 1px 7px; border-radius: 99px; white-space: nowrap; }
+.chip.done { color: var(--green); border: 1px solid var(--green); }
+.chip.pr { color: var(--blue); border: 1px solid var(--blue); }
+.chip.wip { color: var(--amber); border: 1px solid var(--amber); }
+.chip.design { color: var(--violet); border: 1px dashed var(--violet); }
+.chip.planned { color: var(--ink); border: 1px solid var(--line); }
+.chip.idea { color: var(--muted); border: 1px dotted var(--muted); }
+.chip.size { color: var(--muted); border: 1px solid var(--line); }
+
+/* Diagram */
+.diagram { margin-top: 20px; overflow-x: auto; background: var(--panel); border: 1px solid var(--line); border-radius: 10px; -webkit-overflow-scrolling: touch; }
+.diagram svg { display: block; }
+svg .colhead { font: 600 12px var(--display); fill: var(--blue); letter-spacing: .06em; }
+svg .colsub { font: 11px var(--mono); fill: var(--muted); }
+svg .lanelabel { font: 600 13px var(--display); fill: var(--ink); }
+svg .laneband { fill: color-mix(in srgb, var(--blue) 4%, var(--panel)); }
+svg .grid { stroke: var(--line); stroke-width: 1; }
+svg .node rect { stroke-width: 1.5; }
+svg .node text { font: 500 11.5px var(--body); fill: var(--ink); }
+svg .node { cursor: pointer; }
+svg .node.done rect { fill: color-mix(in srgb, var(--green) 20%, var(--panel)); stroke: var(--green); }
+svg .node.pr rect { fill: var(--panel); stroke: var(--blue); stroke-width: 2.2; }
+svg .node.wip rect { fill: color-mix(in srgb, var(--amber) 20%, var(--panel)); stroke: var(--amber); stroke-width: 2.2; }
+svg .node.design rect { fill: var(--panel); stroke: var(--violet); stroke-dasharray: 5 3; }
+svg .node.planned rect { fill: var(--panel); stroke: var(--ink); stroke-width: 1; }
+svg .node.idea rect { fill: var(--bg); stroke: var(--muted); stroke-dasharray: 2 3; }
+svg .edge { fill: none; stroke: var(--muted); stroke-width: 1.3; opacity: .55; }
+svg .arrow { fill: var(--muted); }
+svg.focus .node { opacity: .25; } svg.focus .edge { opacity: .08; }
+svg.focus .node.hot { opacity: 1; } svg.focus .edge.hot { opacity: 1; stroke: var(--amber); stroke-width: 2; }
+svg .node:focus-visible rect { stroke: var(--red); stroke-width: 3; outline: none; }
+.diag-help { font-size: 13px; color: var(--muted); margin-top: 8px; }
+.picked { margin-top: 12px; padding: 12px 14px; border-left: 3px solid var(--amber); background: var(--panel); border-radius: 0 8px 8px 0; font-size: 14px; }
+.picked b { font-family: var(--display); }
+
+/* PR stack */
+.prs { display: grid; gap: 8px; margin-top: 16px; }
+.pr { display: grid; grid-template-columns: 44px 1fr auto; gap: 12px; align-items: baseline; padding: 10px 14px; background: var(--panel); border: 1px solid var(--line); border-radius: 8px; }
+.pr .num { font: 600 15px var(--mono); color: var(--blue); }
+.pr .t { min-width: 0; }
+.pr .t small { display: block; color: var(--muted); font-size: 13px; }
+.pr.indent1 { margin-left: 20px; } .pr.indent2 { margin-left: 40px; } .pr.indent3 { margin-left: 60px; }
+
+/* Phases */
+.phase { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 20px 22px; display: grid; gap: 12px; }
+.phase-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px 14px; }
+.phase-num { font: 700 14px var(--mono); color: var(--panel); background: var(--blue); padding: 2px 9px; border-radius: 5px; }
+.phase-goal { color: var(--muted); }
+.phase ul { margin: 0; padding-left: 20px; display: grid; gap: 6px; }
+.phase li { max-width: 80ch; }
+.done-when { font-size: 14px; border-top: 1px dashed var(--line); padding-top: 10px; }
+.done-when b { color: var(--green); font-family: var(--display); }
+.deps { font: 12.5px var(--mono); color: var(--muted); }
+
+/* Branches */
+.branch { margin-top: 28px; }
+.branch-head { display: flex; flex-wrap: wrap; gap: 8px 12px; align-items: baseline; }
+.branch-head h3 { color: var(--blue); }
+.branch .status-line { color: var(--muted); font-size: 14px; margin-top: 6px; max-width: 80ch; }
+.ideas { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 10px; margin-top: 12px; }
+.idea { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 12px 14px; display: grid; gap: 6px; align-content: start; min-width: 0; }
+.idea h4 { margin: 0; font: 600 15px var(--display); }
+.idea p { font-size: 14px; color: var(--muted); }
+.idea .tags { display: flex; flex-wrap: wrap; gap: 5px; }
+.idea.star { border-color: var(--amber); }
+.idea.star h4::before { content: "★ "; color: var(--amber); }
+
+/* Wild */
+.wild { columns: 2 300px; column-gap: 28px; margin-top: 14px; }
+.wild div { break-inside: avoid; margin-bottom: 14px; padding-left: 12px; border-left: 2px solid var(--violet); }
+.wild b { font-family: var(--display); }
+.wild p { font-size: 14px; color: var(--muted); }
+
+/* Tables */
+.tbl { overflow-x: auto; margin-top: 14px; }
+table { border-collapse: collapse; width: 100%; font-size: 14px; background: var(--panel); }
+th, td { text-align: left; padding: 9px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font: 600 12px var(--mono); letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+
+.next { counter-reset: n; display: grid; gap: 10px; margin-top: 14px; }
+.next div { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 14px 16px 14px 56px; position: relative; }
+.next div::before { counter-increment: n; content: counter(n); position: absolute; left: 16px; top: 12px; font: 700 22px var(--display); color: var(--amber); }
+footer { margin-top: 60px; font-size: 13px; color: var(--muted); }
+@media (max-width: 560px) { .pr { grid-template-columns: 36px 1fr; } .pr .chip { grid-column: 2; justify-self: start; } .pr.indent1,.pr.indent2,.pr.indent3 { margin-left: 0; } }
+</style>
+
+<div class="wrap">
+  <div class="eyebrow">Minecraft 1.7.10 · Forge · LOTR + TARDIS + AE2 + RFTools pack</div>
+  <h1>TardisTimeTravel Roadmap</h1>
+  <p class="lede">Where the mod stands on 26 Oct 2026, the main line from here to a public release, and every side branch we could grow off it. Planning only: nothing on this page is built unless it is marked done or in a PR.</p>
+
+  <div class="legend" aria-label="Status legend">
+    <span><i class="sw st-done"></i>On main</span>
+    <span><i class="sw st-pr"></i>Open PR</span>
+    <span><i class="sw st-wip"></i>In progress now</span>
+    <span><i class="sw st-design"></i>Designed, not built</span>
+    <span><i class="sw st-planned"></i>In the plan</span>
+    <span><i class="sw st-idea"></i>Brainstorm</span>
+  </div>
+
+  <h2>The map</h2>
+  <p class="sec-intro">Columns are phases of the main line. Rows are the mod's areas. Lines show what has to exist first. Tap or click a box to light up what it needs and what it unlocks.</p>
+</div>
+
+<div class="wrap" style="max-width:1260px;padding-block:0">
+  <div class="diagram"><svg id="map" role="img" aria-label="Roadmap diagram: areas by phase with dependencies"></svg></div>
+  <div class="diag-help">Scroll sideways on a phone. Click empty space to clear.</div>
+  <div class="picked" id="picked">Nothing selected. The amber path appears when you pick a box.</div>
+</div>
+
+<div class="wrap" style="padding-top:0">
+
+  <h2>Where it stands today</h2>
+  <p class="sec-intro">Main holds everything built before time travel, still under the old MyMod names. Everything since sits in a stack of seven open PRs, each built on the one before. Nothing in the stack is merged yet, so merging it is the first job.</p>
+  <div class="prs">
+    <div class="pr"><span class="num">#1</span><span class="t">Rename MyMod to TardisTimeTravelAddon<small>New mod id, package and jar, plus remapping so old worlds keep their blocks</small></span><span class="chip pr">base: main</span></div>
+    <div class="pr indent1"><span class="num">#2</span><span class="t">History recorder<small>Time travel Phase 1. Ran on the real server for 4 minutes, then restored. Still a draft.</small></span><span class="chip pr">draft</span></div>
+    <div class="pr indent2"><span class="num">#3</span><span class="t">History recording and timeline<small>Viewing (rewind, timeline, solid ghosts, Chrono-Glasses, cockpit timeline desk) and trips (past dims, editable past, ripples forward)</small></span><span class="chip pr">base: main*</span></div>
+    <div class="pr indent3"><span class="num">#4</span><span class="t">Shorter CLAUDE.md, notes moved to docs/<small>Housekeeping, on top of the timeline branch</small></span><span class="chip pr">base: timeline</span></div>
+    <div class="pr indent3"><span class="num">#5</span><span class="t">Living kinetics, Faction Mechanism whisk, paradox system<small>Paradox levels 30 to 100 (commands only). The paradox thread is extending this right now.</small></span><span class="chip pr">extended in #8</span></div>
+    <div class="pr indent3" style="margin-left:80px"><span class="num">#6</span><span class="t">Cockpit Upgrade Rack<small>Extra TARDIS upgrade slots bought with level points. The home for the 12 time upgrades later.</small></span><span class="chip pr">base: #5</span></div>
+    <div class="pr indent3" style="margin-left:80px"><span class="num">#7</span><span class="t">Create x LOTR automation<small>Sheets, embers, saw, fan modes, brewing, superheat. Needs a client check.</small></span><span class="chip pr">base: #5</span></div>
+  </div>
+  <div class="prs" style="margin-top:8px"><div class="pr indent3" style="margin-left:100px"><span class="num">#8</span><span class="t">Configurable paradox system<small>Duplicate and contradiction detection, item-value pricing, grace, escalation and healing, backlash, warn-first, safe-travel and event hooks. Just opened.</small></span><span class="chip pr">base: #6</span></div></div>
+  <p class="sec-intro" style="font-size:13px">* #3 targets main but contains #1 and #2. CI fails on every branch only because the optional mod jars in ../Dependencies are not in the repo.</p>
+
+  <h2>The main line</h2>
+  <p class="sec-intro">Six phases. Each one ends with something you can play on the server, so if a later phase stalls, the earlier ones are still finished features. Phases 2 to 4 finish the existing time-travel implementation plan; 5 and 6 go past it.</p>
+
+  <div class="stack" style="margin-top:18px">
+
+    <article class="phase">
+      <div class="phase-head"><span class="phase-num">P1</span><h3>Land and stabilise</h3><span class="chip size">S–M · about 1–2 weeks</span></div>
+      <p class="phase-goal">Everything already built is merged, the server runs one jar, and the paradox work in progress is finished.</p>
+      <ul>
+        <li><b>Merge the stack in order:</b> #1 → #2 → #3 → #4 → #5 → #6 → #8, and #7. Rebase each on the one before as it lands so main never holds half a feature.</li>
+        <li><b>Review and playtest the paradox system</b> (PR #8): duplicate and contradiction detection, scaling penalties, config for everything, and the safe-travel hooks Observer Mode will use.</li>
+        <li><b>Fix the known bug:</b> chunks shifted by paradox come back unshifted after a reload.</li>
+        <li><b>Client check backlog.</b> Several features were only tested on a dev server: roundel cable ends and terminal GUI, soul labels and NEI page, RFTools matrix flight, Create x LOTR textures and saw blade, Upgrade Rack GUI. One sitting in a real client clears all of them.</li>
+        <li><b>Green CI.</b> Compile against small API stub jars, or keep the Dependencies jars as a private release asset the workflow downloads.</li>
+        <li><b>A playtest week</b> on the real server with <code>trips.freeTimeTravel</code> on, measuring real recorder disk use per hour.</li>
+      </ul>
+      <div class="done-when"><b>Done when</b> main has every feature, CI is green, and the server has run a week of normal play with the recorder on and no crash.</div>
+    </article>
+
+    <article class="phase">
+      <div class="phase-head"><span class="phase-num">P2</span><h3>Close the time loop</h3><span class="chip size">L · about 3–4 weeks</span></div>
+      <p class="phase-goal">Time travel works for a group: crews, several crews at once, and a safe way to visit.</p>
+      <ul>
+        <li><b>Crews:</b> one TARDIS's travellers share a paradox meter and a past dimension. An offline member keeps the trip open; the others go home when they catch up.</li>
+        <li><b>Multiple crews:</b> separate out-of-sync past dims, changes applied in order of past moment, and one crew seeing another's TARDIS arrive.</li>
+        <li><b>Observer Mode</b> (your safe-travel idea): a console switch that blocks every paradoxical action (break, place, containers, attacking, picking up), costs less fuel and adds no paradox. Built on the paradox hooks from P1.</li>
+        <li><b>Paradox on the console:</b> a needle gauge on a cockpit desk and a HUD meter, with the Strained, Unstable and Fracturing stages live.</li>
+        <li><b>Dupe gauntlet:</b> a written list of every dupe route we can think of (ores, chests, ME drives, soul nexus, remote trading, waystones, ender chests, kinetic contraptions carrying blocks across time) run before each release.</li>
+      </ul>
+      <div class="deps">Needs: P1 merged, paradox hooks</div>
+      <div class="done-when"><b>Done when</b> two crews visit the same day, one in Observer Mode, and every item on the dupe gauntlet leaves the duper with nothing.</div>
+    </article>
+
+    <article class="phase">
+      <div class="phase-head"><span class="phase-num">P3</span><h3>Fuel economy</h3><span class="chip size">L · about 3 weeks</span></div>
+      <p class="phase-goal">Time travel costs something you make, and the half-life ores give a reason to go exploring.</p>
+      <ul>
+        <li><b>Artron rework:</b> slower natural regeneration, faster flight drain, both as config multipliers.</li>
+        <li><b>Artron Charger:</b> AE and RF in, artron out, with a big conversion loss.</li>
+        <li><b>Chronons:</b> Chronon Tank in the TARDIS, refining in the temporal basin (artron + kontron + chronosteel), rift harvesting in an unstable past, and the trip cost formula (base + depth, times crew size, times paradox).</li>
+        <li><b>Half-life ores, tiers 1 and 2</b> in the Overworld and Middle-earth. Yield per block decays with world age; ore is drained into a cell and never becomes an item. Crafted items per tier.</li>
+        <li><b>Fuel grades 1 and 2:</b> Chronon (24 hours back) and Isotope Rod (7 days back).</li>
+      </ul>
+      <div class="deps">Needs: P2 crews (cost scales by crew size)</div>
+      <div class="done-when"><b>Done when</b> a trip to yesterday costs Chronons refined from your own power setup, and a fresh ore vein reads a higher yield than an old one.</div>
+    </article>
+
+    <article class="phase">
+      <div class="phase-head"><span class="phase-num">P4</span><h3>Protection and consequence</h3><span class="chip size">L · about 3 weeks</span></div>
+      <p class="phase-goal">Bases are safe from travellers, mistakes can be undone, and high paradox really hurts.</p>
+      <ul>
+        <li><b>Temporal Anchor</b> (3×3 chunks, share list, protection back to your first build) and the <b>Deep Anchor</b> (back to world start), with visit alerts and the veil.</li>
+        <li><b>Paradox Machine</b> (5×5 chunks): Restore and Rewrite modes, an archive of the replaced version, Paradox Collapse to undo, and a rewrite cooldown.</li>
+        <li><b>Collapse in full:</b> escape cost on the console, crew death, item loss by config, exterior lost but resummonable.</li>
+        <li><b>The 12 time upgrades</b> in the Upgrade Rack (designed in the half-life ores doc), now that fuel and paradox exist for them to change.</li>
+      </ul>
+      <div class="deps">Needs: P3 fuel (anchors and machines run on Chronons), #6 Upgrade Rack</div>
+      <div class="done-when"><b>Done when</b> a deliberate dupe ends in collapse, an anchor stops a test intruder, and a Paradox Machine restores a blown-up build.</div>
+    </article>
+
+    <article class="phase">
+      <div class="phase-head"><span class="phase-num">P5</span><h3>Deep Time</h3><span class="chip size">XL · about 4–6 weeks</span></div>
+      <p class="phase-goal">Travel before the world was created, into land nobody has touched, for the richest fuel.</p>
+      <ul>
+        <li><b>Before-creation trips</b> built from the world seed, with the slower prehistory half-life and a cap for negative time.</li>
+        <li><b>Fuel grades 3 to 5:</b> Chronal Fuel Cell (to creation), Quantum Fuel (10 days before), Primordial Fuel (100 days before), efficiency 1× to 5×, cost growing with the log of depth.</li>
+        <li><b>Higher ore tiers</b> (quantum and beyond) that only show their full yield in deep time.</li>
+        <li><b>Deep-time flavour:</b> no player history, no structures yet, different sky and weather, optional ancient-only creatures.</li>
+      </ul>
+      <div class="deps">Needs: P3 ores and fuel, P4 upgrades (depth range)</div>
+      <div class="done-when"><b>Done when</b> you land 50 days before the world existed, drain a primordial vein, and fly home on what you mined.</div>
+    </article>
+
+    <article class="phase">
+      <div class="phase-head"><span class="phase-num">P6</span><h3>Release and beyond</h3><span class="chip size">M + ongoing</span></div>
+      <p class="phase-goal">The mod is finished enough to hand to other players.</p>
+      <ul>
+        <li>Mob ghosts, admin rollback commands, history compaction (20–40% less disk).</li>
+        <li>Sounds, rift and vortex effects, your own TARDIS map icon.</li>
+        <li>An in-game manual book covering every feature, plus a config guide page.</li>
+        <li>Versioned releases with a changelog and the server backup-and-swap routine written down.</li>
+      </ul>
+      <div class="deps">Needs: P4 at least; P5 can ship in a later version</div>
+      <div class="done-when"><b>Done when</b> someone who has never seen the mod can install it, read the manual and take a trip.</div>
+    </article>
+  </div>
+
+  <h2>Side branches</h2>
+  <p class="sec-intro">These can grow alongside the main line. Each card says what it needs first. Starred cards are the ones I'd pick first in that area: cheap, or tied tightly to time travel.</p>
+
+  <section class="branch">
+    <div class="branch-head"><h3>Time travel extras</h3><span class="chip planned">extends P2–P5</span></div>
+    <p class="status-line">The recorder already knows who changed every block and when. A lot of fun features fall out of that data cheaply.</p>
+    <div class="ideas">
+      <div class="idea star"><h4>Chrono-Cannon</h4><p>A kinetic machine that rebuilds a destroyed build from history, block by block, using real materials from an inventory. Schematicannon meets the recorder. No paradox, because it only places in the present.</p><div class="tags"><span class="chip size">M</span><span class="chip idea">needs P1 + kinetics</span></div></div>
+      <div class="idea star"><h4>Time Capsule</h4><p>Put items in, set a date, and they unlock that many real days later. Safe by design because it only goes forward.</p><div class="tags"><span class="chip size">S</span><span class="chip idea">anytime</span></div></div>
+      <div class="idea"><h4>Letters to the past</h4><p>A book written in the present appears on a lectern in your crew's past dimension. Information only, so no paradox. Good for puzzles and pranks.</p><div class="tags"><span class="chip size">S</span><span class="chip idea">needs P2 crews</span></div></div>
+      <div class="idea"><h4>Forensic Lens</h4><p>Look at a block and see who placed or broke it and when. Anti-grief tool, owner-only inside an anchor.</p><div class="tags"><span class="chip size">S</span><span class="chip idea">needs recorder</span></div></div>
+      <div class="idea"><h4>Chrono-Wrench</h4><p>Undo one block to how it was a few minutes ago, for Chronons. Only inside your own anchor, so it is a convenience, not a weapon.</p><div class="tags"><span class="chip size">S</span><span class="chip idea">needs P4 anchors</span></div></div>
+      <div class="idea"><h4>Time Museum room</h4><p>A TARDIS room that shows a chosen past moment of a 3×3 chunk area as a holographic diorama (HoloRender + rewind engine). Scrub through the day your base was built.</p><div class="tags"><span class="chip size">M</span><span class="chip idea">needs P1</span></div></div>
+      <div class="idea"><h4>Fixed points</h4><p>A config list of moments and areas that can never change (spawn, boss kills, server events). Forcing one sends paradox straight to Fracturing.</p><div class="tags"><span class="chip size">S</span><span class="chip idea">needs paradox hooks</span></div></div>
+      <div class="idea"><h4>Paradox storms</h4><p>At Fracturing, a weather event in the past dim: rifts open, blocks swap, ghosts stutter, the sky tears. Rifts are where you harvest emergency Chronons.</p><div class="tags"><span class="chip size">M</span><span class="chip idea">needs P3 rifts</span></div></div>
+      <div class="idea"><h4>Bootstrap items</h4><p>Carry an item back and leave it exactly where your past self found it, and it becomes a Bootstrap item: unique, tradeable, no gameplay power, a trophy.</p><div class="tags"><span class="chip size">S</span><span class="chip idea">needs P2</span></div></div>
+      <div class="idea"><h4>Server history stats</h4><p>A book or desk screen: most-changed chunks, your total build hours, first day you met each player, longest session.</p><div class="tags"><span class="chip size">S</span><span class="chip idea">needs recorder</span></div></div>
+    </div>
+  </section>
+
+  <section class="branch">
+    <div class="branch-head"><h3>TARDIS and cockpit</h3><span class="chip done">cockpit, camera, nav map on main</span><span class="chip pr">Upgrade Rack #6</span></div>
+    <p class="status-line">You like controls on small TARDIS-style desks, so every new control here is a desk.</p>
+    <div class="ideas">
+      <div class="idea star"><h4>Paradox and fuel gauges</h4><p>Desk controls with real needle gauges: paradox meter, Chronon tank, escape cost. Players read the danger off the console like a pilot.</p><div class="tags"><span class="chip size">S</span><span class="chip planned">P2–P3</span></div></div>
+      <div class="idea"><h4>The 12 time upgrades</h4><p>Engine upgrades through TARDIS's own upgrade factory: deeper range, Chronon efficiency, paradox damping, faster landing prep, bigger crews, Observer Mode, escape reserve and more.</p><div class="tags"><span class="chip size">M</span><span class="chip design">designed</span></div></div>
+      <div class="idea"><h4>Timeline desk bookmarks</h4><p>Save moments ("first night", "before the fire"), jump to your last death, share bookmarks with the crew.</p><div class="tags"><span class="chip size">S</span><span class="chip idea">needs #3</span></div></div>
+      <div class="idea"><h4>Camera on the past</h4><p>The exterior camera, but parked in a past moment: watch history from the police box roof without landing. Observer Mode at its cheapest.</p><div class="tags"><span class="chip size">M</span><span class="chip idea">needs P2</span></div></div>
+      <div class="idea"><h4>New rooms</h4><p>Chronon Refinery, Anchor Control (map of every anchor you own), Time Museum, and a Crew Quarters room that sets respawn for crew members.</p><div class="tags"><span class="chip size">M each</span><span class="chip idea">with P3–P4</span></div></div>
+      <div class="idea"><h4>Ghost TARDIS sightings</h4><p>Other crews' and your own past TARDIS landings show up as faint police boxes on the LOTR map and the nav map.</p><div class="tags"><span class="chip size">S</span><span class="chip idea">needs P2</span></div></div>
+    </div>
+  </section>
+
+  <section class="branch">
+    <div class="branch-head"><h3>Energy and half-life ores</h3><span class="chip design">design doc exists</span></div>
+    <p class="status-line">Benchmarks from the design: 1–5 energy per block today, 100–1,000 at world start, 1,000–10,000 in the far past. Everything configurable.</p>
+    <div class="ideas">
+      <div class="idea star"><h4>Geiger counter</h4><p>A handheld that clicks faster near decaying ore and reads the current yield of the block you look at. Makes prospecting a game.</p><div class="tags"><span class="chip size">S</span><span class="chip idea">with P3</span></div></div>
+      <div class="idea"><h4>Decay extraction rigs</h4><p>Kinetic drills that drain a vein into cells slowly, powered by rotation. Ties the Create side into the time-travel economy.</p><div class="tags"><span class="chip size">M</span><span class="chip idea">needs P3 + kinetics</span></div></div>
+      <div class="idea"><h4>Isotope generator</h4><p>A filled cell in, RF and AE out. A second way to power the base, which feeds the Artron Charger.</p><div class="tags"><span class="chip size">S</span><span class="chip idea">needs P3</span></div></div>
+      <div class="idea"><h4>Radiation</h4><p>High tiers give a sickness effect while carried unshielded. A lead-lined case or a Data Vault slot keeps you safe. Config off switch.</p><div class="tags"><span class="chip size">S</span><span class="chip idea">needs P3</span></div></div>
+      <div class="idea"><h4>Ore memory</h4><p>Veins you drained in the present are still full in the past. The temptation is the point; draining a vein your present self later drains is a paradox.</p><div class="tags"><span class="chip size">M</span><span class="chip idea">needs P3 + paradox</span></div></div>
+      <div class="idea"><h4>Middle-earth tiers</h4><p>A mithril-adjacent decaying ore only in dwarven mountains, a "morgul isotope" in Mordor with a nasty side effect.</p><div class="tags"><span class="chip size">M</span><span class="chip idea">needs P3 + LOTR</span></div></div>
+    </div>
+  </section>
+
+  <section class="branch">
+    <div class="branch-head"><h3>Kinetics (Create backport)</h3><span class="chip done">phases 1–4 on main</span><span class="chip pr">#5, #7</span></div>
+    <p class="status-line">Already listed as next in the docs: gantries, chutes, collision on moving structures, tile entity rendering inside them. Left out of #7 on purpose: fluids, coin minting, galvorn.</p>
+    <div class="ideas">
+      <div class="idea star"><h4>Contraption collision</h4><p>Players can stand on moving structures. Unlocks elevators, drawbridges, windmill platforms. The biggest missing Create feel.</p><div class="tags"><span class="chip size">L</span><span class="chip idea">anytime</span></div></div>
+      <div class="idea"><h4>Gantries and chutes</h4><p>Gantry carriages along a gantry shaft; chutes as vertical item transport with a smart chute filter.</p><div class="tags"><span class="chip size">M</span><span class="chip idea">anytime</span></div></div>
+      <div class="idea"><h4>Fluids and pipes</h4><p>Mechanical pump, pipes, spout, item drain. Opens LOTR drinks bottling and the brewing chain. Big job in 1.7.10 (Forge fluids are thin).</p><div class="tags"><span class="chip size">XL</span><span class="chip idea">anytime</span></div></div>
+      <div class="idea"><h4>Steam engine on a LOTR forge</h4><p>A boiler that burns on a lit Middle-earth forge or hearth and gives a lot of stress capacity. A Middle-earth answer to power.</p><div class="tags"><span class="chip size">M</span><span class="chip idea">needs LOTR</span></div></div>
+      <div class="idea"><h4>Trains between waystones</h4><p>Tracks, bogeys, stations named after waystones. Huge, but it would make Middle-earth travel feel alive.</p><div class="tags"><span class="chip size">XL</span><span class="chip idea">needs collision</span></div></div>
+      <div class="idea"><h4>Mechanical Arm</h4><p>Picks from one spot and drops to up to several targets in a radius. Most-asked Create block after belts.</p><div class="tags"><span class="chip size">M</span><span class="chip idea">anytime</span></div></div>
+      <div class="idea"><h4>Chronon centrifuge</h4><p>A fast-spinning kinetic machine that speeds Chronon refining, with a high stress cost. Links rotation to time travel.</p><div class="tags"><span class="chip size">S</span><span class="chip idea">needs P3</span></div></div>
+      <div class="idea"><h4>Coin minting</h4><p>Pressing LOTR coins from silver/gold sheets. Left out because it can break LOTR's economy; could come back with a heavy cost or a config off switch.</p><div class="tags"><span class="chip size">S</span><span class="chip idea">your call</span></div></div>
+    </div>
+  </section>
+
+  <section class="branch">
+    <div class="branch-head"><h3>Souls and Middle-earth</h3><span class="chip done">souls, Bestiary, remote trading on main</span></div>
+    <p class="status-line">Captured creatures keep their UUID and full NBT, which makes them a natural fit for time-travel rules.</p>
+    <div class="ideas">
+      <div class="idea star"><h4>Echo souls</h4><p>Capturing a creature in the past that history later killed gives a real soul (it's gone anyway). Capturing one that is still alive in the present gives an echo soul and paradox. Clean rule, good drama.</p><div class="tags"><span class="chip size">M</span><span class="chip idea">needs P2 + paradox</span></div></div>
+      <div class="idea"><h4>Lost traders</h4><p>Find a trader in the past who died since, capture them, and you have a trader nobody else on the server can visit.</p><div class="tags"><span class="chip size">S</span><span class="chip idea">follows echo souls</span></div></div>
+      <div class="idea"><h4>Company deploy</h4><p>Deploy a whole saved company of hired units from the Bestiary at a waypoint, in formation, as guards.</p><div class="tags"><span class="chip size">M</span><span class="chip idea">needs LOTR</span></div></div>
+      <div class="idea"><h4>Bestiary completion</h4><p>Collect one of every kind for rewards: a faction page fills, titles, cosmetic holograms.</p><div class="tags"><span class="chip size">S</span><span class="chip idea">anytime</span></div></div>
+      <div class="idea"><h4>History heatmap on the LOTR map</h4><p>A map layer that shades where the server has built and fought, with a time slider. Pairs with the TARDIS icons already on the map.</p><div class="tags"><span class="chip size">M</span><span class="chip idea">needs recorder + LOTR</span></div></div>
+      <div class="idea"><h4>Ancient creatures</h4><p>A config list of creatures that only spawn in deep time (older LOTR beasts, a giant boar, ancient wolves) and can be captured and brought home in a nexus.</p><div class="tags"><span class="chip size">M</span><span class="chip idea">needs P5</span></div></div>
+    </div>
+  </section>
+
+  <section class="branch">
+    <div class="branch-head"><h3>Storage and power</h3><span class="chip done">Data Vault, roundels, RF converters on main</span></div>
+    <p class="status-line">Two of the ideas offered earlier live here.</p>
+    <div class="ideas">
+      <div class="idea star"><h4>RFTools screen modules</h4><p>Modules for RFTools screens: TARDIS status (artron, level, location, flight), Data Vault fill and top items, soul vault counts, kinetic speed and stress. Later: Chronons and the paradox meter. Small, uses data we already have.</p><div class="tags"><span class="chip size">S–M</span><span class="chip idea">offered, not started</span></div></div>
+      <div class="idea"><h4>Storage Drawers in the Data Vault</h4><p>Drawers inside a TARDIS feed the vault count, or the vault shows up as a drawer controller. Storage Drawers is not in the pack yet, so this adds a mod for every player.</p><div class="tags"><span class="chip size">M</span><span class="chip idea">offered, needs new mod</span></div></div>
+      <div class="idea"><h4>Chronon Cells in ME</h4><p>AE2 rv2 has no fluids, so Chronons travel through ME as a cell item. The tank and refineries hook into the TARDIS network.</p><div class="tags"><span class="chip size">S</span><span class="chip idea">needs P3</span></div></div>
+      <div class="idea"><h4>Vault autocrafting gates</h4><p>Crafting CPUs that only unlock with TARDIS level, so the Data Vault grows with the TARDIS.</p><div class="tags"><span class="chip size">M</span><span class="chip idea">anytime</span></div></div>
+    </div>
+  </section>
+
+  <section class="branch">
+    <div class="branch-head"><h3>Crossovers</h3><span class="chip idea">offered, not started</span></div>
+    <p class="status-line">Every crossover must keep the rule: the mod works with none, some, or all of the optional mods.</p>
+    <div class="ideas">
+      <div class="idea star"><h4>Twilight Forest</h4><p>Not in the pack yet. Make the Twilight Forest a recorded dimension, let the TARDIS land there but respect its progression locks (config), and allow trips back to before a boss died for an echo rematch that drops only an echo trophy. Block the Uncrafting Table from accepting echo items.</p><div class="tags"><span class="chip size">L</span><span class="chip idea">needs new mod + P2</span></div></div>
+      <div class="idea"><h4>Waystones in the past</h4><p>Past dims are hidden from waystone lists today. A "Past Waystone" could let a crew mark a spot in a trip and return to the same moment later.</p><div class="tags"><span class="chip size">S</span><span class="chip idea">needs P2</span></div></div>
+      <div class="idea"><h4>GraveStone and time</h4><p>Death in the past respawns you in the present, but the grave lands in the past dim. Decide: move it to the present, or make recovering it a reason to go back.</p><div class="tags"><span class="chip size">S</span><span class="chip idea">open question</span></div></div>
+      <div class="idea"><h4>NEI pages for everything new</h4><p>Chronon refining, ore tiers and fuel grades, Chrono-Cannon costs. Keeps the recipe viewer the single place to look.</p><div class="tags"><span class="chip size">S each</span><span class="chip planned">with each phase</span></div></div>
+      <div class="idea"><h4>WAILA readouts</h4><p>Ore yield, anchor owner, paradox level of a past chunk, Chronon tank level, all in the WAILA tooltip.</p><div class="tags"><span class="chip size">S</span><span class="chip idea">with P3–P4</span></div></div>
+    </div>
+  </section>
+
+  <section class="branch">
+    <div class="branch-head"><h3>Groundwork</h3><span class="chip pr">docs split #4</span></div>
+    <p class="status-line">Not features, but they make every later phase cheaper and safer.</p>
+    <div class="ideas">
+      <div class="idea star"><h4>A test harness that stays</h4><p>Every feature so far was verified with a temporary harness that was then deleted. Keep one as a dev-only source set with named server tests, and the dupe gauntlet becomes a command.</p><div class="tags"><span class="chip size">M</span><span class="chip idea">anytime</span></div></div>
+      <div class="idea"><h4>Green CI</h4><p>API stub jars or a private release asset for ../Dependencies, so pull requests show real build results.</p><div class="tags"><span class="chip size">S</span><span class="chip planned">P1</span></div></div>
+      <div class="idea"><h4>Performance budget</h4><p>A /timetravel profile command and a TPS and disk target for the recorder, checked every release.</p><div class="tags"><span class="chip size">S</span><span class="chip idea">P1–P2</span></div></div>
+      <div class="idea"><h4>In-game manual</h4><p>One book with a chapter per area, pictures from the screenshots we already have.</p><div class="tags"><span class="chip size">M</span><span class="chip planned">P6</span></div></div>
+    </div>
+  </section>
+
+  <h2>The wild list</h2>
+  <p class="sec-intro">Huge or strange ideas. None of these is planned; they are here so they aren't forgotten.</p>
+  <div class="wild">
+    <div><b>Chronovore</b><p>A boss that spawns in collapsing past dims and feeds on paradox. Kill it before it eats the dimension and it drops a Chronal Heart, a big Chronon store.</p></div>
+    <div><b>Time-loop dungeon</b><p>A generated structure that resets every 10 minutes. You keep what you learn, not what you carry. Puzzle rooms that need ten loops of knowledge.</p></div>
+    <div><b>The server's first day</b><p>A one-time server event: everyone travels together to tick 0 and watches the world being born. A landmark marks it.</p></div>
+    <div><b>Ages of Arda</b><p>Deep time in Middle-earth shows older versions of LOTR structures (ruins whole again, forests wider), built from the seed with LOTR's own generators run at a different "age" setting.</p></div>
+    <div><b>Alignment echoes</b><p>Killing faction members in the past costs nothing in the present, unless a member you killed is one you later hired. Then your hired unit vanishes and alignment drops.</p></div>
+    <div><b>Grandfather clause</b><p>If you kill your own past ghost-self (impossible today, ghosts are untouchable) the crew collapses instantly. A hard rule spelled out in the manual for flavour.</p></div>
+    <div><b>Temporal weather forecast</b><p>A cockpit desk that forecasts paradox storms and rift openings in open past dims, so crews plan their harvesting runs.</p></div>
+    <div><b>Paradox insurance</b><p>Pay Chronons before a trip; if the crew collapses, the insured items come home. A real economy around risk.</p></div>
+    <div><b>Speed-run board</b><p>Fastest trip to a given past moment and back, lowest paradox for a full past day, longest trip without Observer Mode.</p></div>
+    <div><b>Second TARDIS interior in the past</b><p>Visit your own TARDIS interior as it was. Very hard (interiors are excluded from history on purpose) and probably a bad idea, which is why it is on this list.</p></div>
+  </div>
+
+  <h2>Risks and open questions</h2>
+  <div class="tbl"><table>
+    <thead><tr><th>Question</th><th>Why it matters</th><th>Suggested answer</th></tr></thead>
+    <tbody>
+      <tr><td>Where do graves from past deaths go?</td><td>GraveStone places them in the past dim, which can collapse.</td><td>Move the grave to the present respawn spot, config off.</td></tr>
+      <tr><td>Add Twilight Forest and Storage Drawers to the pack?</td><td>Every player has to update; both need 1.7.10 builds that load with LOTR.</td><td>Test both on a copy of the server first.</td></tr>
+      <tr><td>Is the TARDIS upgrade factory in our jar the same as the 2017 source?</td><td>The 12 time upgrades depend on it.</td><td>Check against the pack jar before P4.</td></tr>
+      <tr><td>Recorder disk growth on the real server</td><td>Estimate is 0.2–0.6 MB per play hour; real use is unknown.</td><td>Measure in the P1 playtest week; compaction in P6.</td></tr>
+      <tr><td>New dupe routes from new features</td><td>Kinetic contraptions, soul nexus, remote trading and ME all move items.</td><td>Every phase adds its routes to the dupe gauntlet.</td></tr>
+      <tr><td>LOTR internals change</td><td>Several integrations read private LOTR fields.</td><td>Stay on LOTR v36.15 for the pack; log and skip on mismatch, as the coremods already do.</td></tr>
+      <tr><td>Paradox balance</td><td>Too harsh and nobody travels; too soft and duping wins.</td><td>All numbers in config; tune during the P2 playtest.</td></tr>
+    </tbody>
+  </table></div>
+
+  <h2>Suggested next moves</h2>
+  <div class="next">
+    <div><b>Finish P1.</b> Let the paradox thread finish, merge the PR stack in order, and do one client check session for the backlog.</div>
+    <div><b>Start P2 with crews and Observer Mode.</b> They make time travel playable with friends and give the paradox system its first real test.</div>
+    <div><b>Pick one quick side win to run alongside:</b> RFTools screen modules (small, uses existing data) or the Time Capsule (small, safe, fun). The Chrono-Cannon is the bigger favourite if you want something flashy.</div>
+  </div>
+
+  <footer>Sources: the time travel implementation plan and gameplay guide, the half-life ores design, the Create x LOTR design, repo CLAUDE.md, and open PRs #1–#7 as of 26 Oct 2026. Sizes are rough guesses: S a day or two, M about a week, L a few weeks, XL longer.</footer>
+</div>
+
+<script>
+(function () {
+  var cols = [
+    ["NOW", "open PRs"], ["P1", "land + stabilise"], ["P2", "close the loop"], ["P3", "fuel economy"],
+    ["P4", "protection"], ["P5", "deep time"], ["P6", "release +"]
+  ];
+  var lanes = ["Time travel", "Energy + ores", "TARDIS + cockpit", "Kinetics", "Souls + LOTR", "Storage + power", "Crossovers", "Groundwork"];
+  // id, lane, col, label, status, note
+  var N = [
+    ["rec", 0, 0, "Recorder, rewind,\nghosts (#2 #3)", "pr", "History recorder, timeline viewing and Chrono-Glasses."],
+    ["trips", 0, 0, "Trips + editable\npast (#3)", "pr", "Past dims, editable past, ripples into later times."],
+    ["paradox", 0, 1, "Paradox system (#8)", "pr", "Detection, pricing, escalation and healing, config, safe-travel hooks."],
+    ["shift", 0, 1, "Fix shifted-chunk\nreload bug", "planned", "Shifted chunks come back unshifted after reload."],
+    ["crews", 0, 2, "Crews + multi-\ncrew dims", "planned", "Shared meter and past dim per TARDIS; out-of-sync dims per crew."],
+    ["observer", 0, 2, "Observer Mode\n(safe travel)", "planned", "Console switch that blocks every paradoxical action."],
+    ["anchor", 0, 4, "Temporal + Deep\nAnchor", "planned", "Base protection back to your first build or world start."],
+    ["machine", 0, 4, "Paradox Machine", "planned", "Restore and Rewrite modes with an archive."],
+    ["deep", 0, 5, "Before-creation\ntrips", "design", "Trips before world creation, built from the seed."],
+    ["extras", 0, 6, "Mob ghosts, admin\nrollback, compaction", "planned", "Phase 6 of the time travel plan."],
+
+    ["artron", 1, 3, "Artron rework +\nArtron Charger", "planned", "Slower regen, faster drain; AE/RF into artron."],
+    ["chronon", 1, 3, "Chronons, tank,\nrefining, rifts", "planned", "The time-travel fuel."],
+    ["ore12", 1, 3, "Half-life ores\ntiers 1-2", "design", "Decaying yield per block, drained into cells."],
+    ["fuel35", 1, 5, "Fuel grades 3-5", "design", "Chronal Fuel Cell, Quantum, Primordial."],
+    ["oreHigh", 1, 5, "Quantum +\nprimordial tiers", "design", "Full yield only in deep time."],
+
+    ["cockpit", 2, 0, "Cockpit, camera,\nnav map", "done", "On main."],
+    ["rack", 2, 0, "Upgrade Rack (#6)", "pr", "Extra upgrade slots bought with level points."],
+    ["gauges", 2, 2, "Paradox + fuel\ngauges on desks", "idea", "Needle gauges on cockpit desks."],
+    ["upg12", 2, 4, "12 time upgrades", "design", "Engine upgrades through TARDIS's upgrade factory."],
+    ["rooms", 2, 4, "New rooms: Refinery,\nAnchor Control", "idea", "Desk-style rooms for the new systems."],
+
+    ["kin", 3, 0, "Kinetics 1-4,\nliving (#5)", "pr", "Create backport; living kinetics in #5."],
+    ["clotr", 3, 0, "Create x LOTR (#7)", "pr", "Needs a client check."],
+    ["gantry", 3, 2, "Gantries, chutes,\nMechanical Arm", "idea", "Listed as next in the docs."],
+    ["collide", 3, 2, "Contraption\ncollision", "idea", "Stand on moving structures."],
+    ["cannon", 3, 3, "Chrono-Cannon", "idea", "Rebuild a destroyed build from history with real materials."],
+    ["rigs", 3, 3, "Decay extraction\nrigs", "idea", "Kinetic drills that drain veins into cells."],
+    ["trains", 3, 6, "Trains between\nwaystones", "idea", "Huge; needs collision."],
+
+    ["souls", 4, 0, "Souls, Bestiary,\nremote trading", "done", "On main."],
+    ["echo", 4, 2, "Echo souls +\nlost traders", "idea", "Capture rules that follow history."],
+    ["heat", 4, 3, "History heatmap\non LOTR map", "idea", "Where the server built and fought, with a time slider."],
+    ["arda", 4, 5, "Ages of Arda,\nancient creatures", "idea", "Deep-time Middle-earth."],
+
+    ["vault", 5, 0, "Data Vault, roundels,\nRF converters", "done", "On main."],
+    ["screens", 5, 1, "RFTools screen\nmodules", "idea", "Offered earlier, not started."],
+    ["drawers", 5, 2, "Storage Drawers\nin Data Vault", "idea", "Offered earlier; needs the mod in the pack."],
+    ["ccells", 5, 3, "Chronon Cells in ME", "idea", "Chronons through the TARDIS network."],
+
+    ["tf", 6, 4, "Twilight Forest", "idea", "Offered earlier; recorded dim, echo boss rematches."],
+    ["grave", 6, 2, "GraveStone +\npast deaths", "idea", "Open question: where past graves go."],
+    ["more", 6, 6, "More crossovers", "idea", "Whatever joins the pack next."],
+
+    ["docs", 7, 0, "Docs split (#4)", "pr", "CLAUDE.md index, docs/ per area."],
+    ["merge", 7, 1, "Merge the stack", "planned", "#1 to #7 in order."],
+    ["ci", 7, 1, "Green CI + client\ncheck backlog", "planned", "Stub jars; one real-client session."],
+    ["harness", 7, 2, "Permanent test\nharness + gauntlet", "idea", "Dev-only server tests and the dupe gauntlet."],
+    ["release", 7, 6, "Public release,\nmanual", "planned", "Versioned jar, changelog, in-game book."]
+  ];
+  var E = [
+    ["trips","paradox"],["paradox","crews"],["paradox","observer"],["merge","crews"],["paradox","gauges"],
+    ["crews","chronon"],["artron","chronon"],["chronon","anchor"],["chronon","machine"],["chronon","upg12"],["rack","upg12"],
+    ["ore12","oreHigh"],["chronon","fuel35"],["fuel35","deep"],["oreHigh","deep"],["upg12","deep"],
+    ["anchor","extras"],["machine","release"],["harness","release"],
+    ["docs","merge"],["merge","ci"],["ci","harness"],
+    ["rec","cannon"],["kin","cannon"],["kin","gantry"],["kin","collide"],["collide","trains"],["ore12","rigs"],["clotr","rigs"],
+    ["trips","echo"],["souls","echo"],["rec","heat"],["deep","arda"],
+    ["vault","screens"],["vault","drawers"],["chronon","ccells"],
+    ["crews","tf"],["trips","grave"],["anchor","rooms"]
+  ];
+  var LW = 150, CW = 172, NW = 150, NH = 40, HEAD = 52, SLOT = 48, PADY = 10;
+  // slots per lane
+  var maxSlots = lanes.map(function () { return 1; });
+  var cellCount = {};
+  N.forEach(function (n) {
+    var k = n[1] + ":" + n[2];
+    n.slot = cellCount[k] || 0; cellCount[k] = n.slot + 1;
+    maxSlots[n[1]] = Math.max(maxSlots[n[1]], cellCount[k]);
+  });
+  var laneY = [], y = HEAD;
+  lanes.forEach(function (l, i) { laneY[i] = y; y += maxSlots[i] * SLOT + PADY * 2; });
+  var W = LW + cols.length * CW + 10, H = y + 6;
+  var svg = document.getElementById("map");
+  svg.setAttribute("viewBox", "0 0 " + W + " " + H);
+  svg.setAttribute("width", W); svg.setAttribute("height", H);
+  var NS = "http://www.w3.org/2000/svg";
+  function el(tag, attrs, parent) { var e = document.createElementNS(NS, tag); for (var k in attrs) e.setAttribute(k, attrs[k]); (parent || svg).appendChild(e); return e; }
+  var defs = el("defs", {});
+  var m = el("marker", { id: "ar", viewBox: "0 0 8 8", refX: 7, refY: 4, markerWidth: 7, markerHeight: 7, orient: "auto" }, defs);
+  el("path", { d: "M0,0 L8,4 L0,8 z", "class": "arrow" }, m);
+  lanes.forEach(function (l, i) {
+    var h = maxSlots[i] * SLOT + PADY * 2;
+    if (i % 2 === 0) el("rect", { x: 0, y: laneY[i], width: W, height: h, "class": "laneband" });
+    var t = el("text", { x: 12, y: laneY[i] + h / 2 + 4, "class": "lanelabel" }); t.textContent = l;
+  });
+  cols.forEach(function (c, i) {
+    var x = LW + i * CW;
+    el("line", { x1: x, y1: 8, x2: x, y2: H, "class": "grid" });
+    var a = el("text", { x: x + 10, y: 24, "class": "colhead" }); a.textContent = c[0];
+    var b = el("text", { x: x + 10, y: 40, "class": "colsub" }); b.textContent = c[1];
+  });
+  var pos = {};
+  N.forEach(function (n) {
+    var x = LW + n[2] * CW + (CW - NW) / 2, yy = laneY[n[1]] + PADY + n.slot * SLOT + (SLOT - NH) / 2;
+    pos[n[0]] = { x: x, y: yy, n: n };
+  });
+  var edgeEls = [];
+  var edgeLayer = el("g", {});
+  E.forEach(function (e) {
+    var a = pos[e[0]], b = pos[e[1]]; if (!a || !b) return;
+    var d;
+    if (a.n[2] === b.n[2]) {
+      var down = b.y > a.y;
+      var x1 = a.x + NW / 2, y1 = down ? a.y + NH : a.y, y2 = down ? b.y - 1 : b.y + NH + 1;
+      d = "M" + x1 + "," + y1 + " L" + x1 + "," + y2;
+    } else {
+      var sx = a.x + NW, sy = a.y + NH / 2, tx = b.x, ty = b.y + NH / 2, mx = (sx + tx) / 2;
+      d = "M" + sx + "," + sy + " C" + mx + "," + sy + " " + mx + "," + ty + " " + (tx - 1) + "," + ty;
+    }
+    var p = el("path", { d: d, "class": "edge", "marker-end": "url(#ar)" }, edgeLayer);
+    p.dataset.a = e[0]; p.dataset.b = e[1]; edgeEls.push(p);
+  });
+  var nodeEls = {};
+  N.forEach(function (n) {
+    var p = pos[n[0]];
+    var g = el("g", { "class": "node " + n[4], tabindex: 0, role: "button", "aria-label": n[3].replace("\n", " ") });
+    el("rect", { x: p.x, y: p.y, width: NW, height: NH, rx: 6 }, g);
+    var lines = n[3].split("\n");
+    lines.forEach(function (ln, i) {
+      var t = el("text", { x: p.x + 9, y: p.y + (lines.length === 1 ? NH / 2 + 4 : 16 + i * 14) }, g); t.textContent = ln;
+    });
+    g.dataset.id = n[0]; nodeEls[n[0]] = g;
+    g.addEventListener("click", function (ev) { ev.stopPropagation(); pick(n[0]); });
+    g.addEventListener("keydown", function (ev) { if (ev.key === "Enter" || ev.key === " ") { ev.preventDefault(); pick(n[0]); } });
+  });
+  var label = { done: "On main", pr: "Open PR", wip: "In progress", design: "Designed", planned: "In the plan", idea: "Brainstorm" };
+  function walk(id, dir, seen) {
+    E.forEach(function (e) {
+      var from = dir > 0 ? e[0] : e[1], to = dir > 0 ? e[1] : e[0];
+      if (from === id && !seen[to]) { seen[to] = 1; walk(to, dir, seen); }
+    });
+    return seen;
+  }
+  var picked = document.getElementById("picked");
+  function pick(id) {
+    var up = walk(id, -1, {}), down = walk(id, 1, {});
+    var hot = Object.assign({}, up, down); hot[id] = 1;
+    svg.classList.add("focus");
+    Object.keys(nodeEls).forEach(function (k) { nodeEls[k].classList.toggle("hot", !!hot[k]); });
+    edgeEls.forEach(function (p) { p.classList.toggle("hot", !!(hot[p.dataset.a] && hot[p.dataset.b])); });
+    var n = pos[id].n;
+    function names(set) { var a = Object.keys(set).map(function (k) { return pos[k].n[3].replace("\n", " ").replace("- ", "-"); }); return a.length ? a.join(", ") : "nothing"; }
+    picked.innerHTML = "";
+    var b = document.createElement("b"); b.textContent = n[3].replace("\n", " ").replace("- ", "-");
+    picked.appendChild(b);
+    picked.appendChild(document.createTextNode(" · " + label[n[4]] + " · " + cols[n[2]][0] + ". " + n[5] + " Needs: " + names(up) + ". Unlocks: " + names(down) + "."));
+  }
+  svg.addEventListener("click", function () {
+    svg.classList.remove("focus");
+    picked.textContent = "Nothing selected. The amber path appears when you pick a box.";
+  });
+})();
+</script>
+
+</body></html>
