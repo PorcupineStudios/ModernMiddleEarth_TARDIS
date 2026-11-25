@@ -33,6 +33,8 @@ public final class HarnessClient {
         modBus.addListener(PartPoses::onProcess);
         modBus.addListener((RegisterClientReloadListenersEvent e) -> e.registerReloadListener(new HarnessFits()));
         com.porcupinestudios.ringbearer.harness.content.Harnessing.clientFits = HarnessFits::has;
+        NeoForge.EVENT_BUS.addListener(HarnessClient::harnessSlotFrame);
+        DriverClient.register();
         ShowcaseCamera.register();
         MovieRecorder.register();
         NeoForge.EVENT_BUS.addListener((RenderLivingEvent.Post<?, ?> e) -> {
@@ -41,6 +43,26 @@ public final class HarnessClient {
             BodyHarness.render(e.getEntity(), e.getRenderer(), e.getPartialTick(), e.getPoseStack(),
                     e.getMultiBufferSource(), e.getPackedLight());
         });
+    }
+
+    private static final net.minecraft.resources.ResourceLocation SLOT_FRAME =
+            net.minecraft.resources.ResourceLocation.withDefaultNamespace("container/slot");
+    private static final net.minecraft.resources.ResourceLocation SLOT_ICON = HarnessMod.id("textures/slot/harness.png");
+
+    /** The horse screen's background has no frame where the harness slot sits (under the armour): draw one. */
+    private static void harnessSlotFrame(net.neoforged.neoforge.client.event.ContainerScreenEvent.Render.Background e) {
+        if (!(e.getContainerScreen() instanceof net.minecraft.client.gui.screens.inventory.HorseInventoryScreen screen)) {
+            return;
+        }
+        for (net.minecraft.world.inventory.Slot slot : screen.getMenu().slots) {
+            if (slot instanceof com.porcupinestudios.ringbearer.harness.content.HarnessSlot && slot.isActive()) {
+                int x = screen.getGuiLeft() + slot.x, y = screen.getGuiTop() + slot.y;
+                e.getGuiGraphics().blitSprite(SLOT_FRAME, x - 1, y - 1, 18, 18);
+                if (!slot.hasItem()) {
+                    e.getGuiGraphics().blit(SLOT_ICON, x, y, 0, 0, 16, 16, 16, 16);
+                }
+            }
+        }
     }
 
     /** Every horse-family renderer (horses, donkeys, mules, skeleton and zombie horses) gets the harness layer. */

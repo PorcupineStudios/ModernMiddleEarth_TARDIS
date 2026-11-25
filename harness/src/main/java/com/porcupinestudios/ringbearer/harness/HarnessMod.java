@@ -97,9 +97,16 @@ public final class HarnessMod {
     public static final BlockData<SlopeContact> SLOPE_CONTACTS = new BlockData<>("slope_contact", SlopeContact.CODEC,
             SlopeContact::blocks);
 
-    /** The harness, worn by an animal instead of a saddle. */
+    /** The harness, worn by an animal in its own slot (Curios), beside a saddle. */
     public static final Supplier<HarnessItem> HARNESS = ITEMS.registerItem("harness", HarnessItem::new,
             new Item.Properties().stacksTo(1));
+    /** The reins: drive a hitch's team from the vehicle. */
+    public static final Supplier<com.porcupinestudios.ringbearer.harness.content.ReinsItem> REINS = ITEMS.registerItem(
+            "reins", com.porcupinestudios.ringbearer.harness.content.ReinsItem::new, new Item.Properties().stacksTo(1));
+    /** The hitch whose reins a player holds (synced so their client sends their keys and draws the reins; not saved). */
+    public static final Supplier<AttachmentType<Optional<net.minecraft.core.BlockPos>>> DRIVING = ATTACHMENTS.register(
+            "driving", () -> AttachmentType.<Optional<net.minecraft.core.BlockPos>>builder(Optional::empty)
+                    .sync(ByteBufCodecs.optional(net.minecraft.core.BlockPos.STREAM_CODEC)).build());
     public static final Supplier<AttachmentType<Optional<HitchLink>>> HITCH_LINK = ATTACHMENTS.register("hitch_link",
             () -> AttachmentType.<Optional<HitchLink>>builder(Optional::empty)
                     .serialize(HitchLink.CODEC.optionalFieldOf("link").codec(), Optional::isPresent)
@@ -124,6 +131,7 @@ public final class HarnessMod {
                 GENTLE_SLOPE_ITEMS.forEach(i -> e.accept(i.get()));
             } else if (e.getTabKey() == CreativeModeTabs.TOOLS_AND_UTILITIES) {
                 e.accept(HARNESS.get());
+                e.accept(REINS.get());
             }
         });
         // the hitch block was called "harness" in the first build (2026-11-24); worlds made then keep their hitches
@@ -141,7 +149,14 @@ public final class HarnessMod {
             e.addListener(new DraughtAnimals());
             e.addListener(WHEELS);
             e.addListener(SLOPE_CONTACTS);
+            e.addListener(new com.porcupinestudios.ringbearer.harness.draught.Driving.Data());
         });
+        modBus.addListener((net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent e) -> e.registrar("1")
+                .playToServer(com.porcupinestudios.ringbearer.harness.content.DriveInput.TYPE,
+                        com.porcupinestudios.ringbearer.harness.content.DriveInput.STREAM_CODEC,
+                        com.porcupinestudios.ringbearer.harness.content.Reins::receive));
+        com.porcupinestudios.ringbearer.harness.content.Teams.register();
+        com.porcupinestudios.ringbearer.harness.content.Reins.register();
         SlopeContacts.register();
         modBus.addListener(com.porcupinestudios.ringbearer.harness.draught.DraughtKeys::onProcess);
         NeoForge.EVENT_BUS.addListener(HarnessMod::afterEntityTick);
@@ -159,7 +174,18 @@ public final class HarnessMod {
     /** A hitched animal that walked past the end of its traces is held back, after it moves and before it's sent. */
     private static void afterEntityTick(EntityTickEvent.Post event) {
         Entity e = event.getEntity();
-        if (e.level().isClientSide || !e.hasData(HITCH_LINK)) {
+        if (e.level().isClientSide) {
+            return;
+        }
+        // the harness slot changed without telling us (another mod, a command): every half second, worn follows it
+        if (e.tickCount % 10 == 0 && Harnessing.wears(e)) {
+            Harnessing.slot(e).ifPresent(s -> {
+                if (!s.getStackInSlot(0).is(HARNESS.get())) {
+                    Harnessing.slotChanged(e, false);
+                }
+            });
+        }
+        if (!e.hasData(HITCH_LINK)) {
             return;
         }
         e.getData(HITCH_LINK).ifPresent(link -> {

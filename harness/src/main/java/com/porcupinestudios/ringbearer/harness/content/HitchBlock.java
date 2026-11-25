@@ -103,6 +103,20 @@ public class HitchBlock extends HorizontalDirectionalBlock implements EntityBloc
         return new HitchBlockEntity(pos, state);
     }
 
+    /** Reins used on a hitch take up (or let go) its team's reins ({@link Reins}). */
+    @Override
+    protected net.minecraft.world.ItemInteractionResult useItemOn(net.minecraft.world.item.ItemStack stack,
+            BlockState state, Level level, BlockPos pos, Player player, net.minecraft.world.InteractionHand hand,
+            BlockHitResult hit) {
+        if (!stack.is(com.porcupinestudios.ringbearer.harness.HarnessMod.REINS.get())) {
+            return super.useItemOn(stack, state, level, pos, player, hand, hit);
+        }
+        if (!level.isClientSide && level.getBlockEntity(pos) instanceof HitchBlockEntity hitch) {
+            Reins.toggle(player, hitch);
+        }
+        return net.minecraft.world.ItemInteractionResult.sidedSuccess(level.isClientSide);
+    }
+
     @Override
     protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player,
                                                BlockHitResult hit) {

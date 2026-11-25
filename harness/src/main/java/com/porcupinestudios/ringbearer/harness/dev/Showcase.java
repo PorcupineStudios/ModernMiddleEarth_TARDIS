@@ -96,6 +96,10 @@ public final class Showcase {
             mob.setNoAi(true);
             level.addFreshEntity(mob);
             Harnessing.putOn(mob, null);
+            // saddled too where it takes one: a saddle and a harness are worn together
+            if (mob instanceof net.minecraft.world.entity.animal.horse.AbstractHorse horse && horse.isSaddleable()) {
+                horse.equipSaddle(new net.minecraft.world.item.ItemStack(net.minecraft.world.item.Items.SADDLE), null);
+            }
         }
     }
 
