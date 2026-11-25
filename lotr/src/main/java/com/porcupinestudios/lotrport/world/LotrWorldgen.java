@@ -74,6 +74,7 @@ public final class LotrWorldgen {
         FEATURES.register("enclosure", com.porcupinestudios.lotrport.world.feature.EnclosureFeature::new);
         FEATURES.register("webs", com.porcupinestudios.lotrport.world.feature.WebsFeature::new);
         FEATURES.register("old_walls", com.porcupinestudios.lotrport.world.feature.OldWallsFeature::new);
+        FEATURES.register("spider_nest", com.porcupinestudios.lotrport.world.feature.SpiderNestFeature::new);
         BIOME_SOURCES.register("middle_earth", () -> MapBiomeSource.CODEC);
         DENSITY_FUNCTIONS.register("map_terrain", () -> MapTerrain.MAP_CODEC);
         DENSITY_FUNCTIONS.register("cave_setting", () -> CaveSetting.MAP_CODEC);

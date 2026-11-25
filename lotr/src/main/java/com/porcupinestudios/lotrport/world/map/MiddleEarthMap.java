@@ -52,6 +52,8 @@ public final class MiddleEarthMap {
     private final Enclosures enclosures;
     /** Named areas over the map ({@link Regions}): where sub-biomes may appear, and later underground realms. */
     private final Regions regions;
+    /** Seeded lairs (Mirkwood's spider nests): small cores with a biome of infested ground round them. */
+    private final Lairs lairs;
     /** Per biome with variants: a table that is 1 for it, smoothed like heights to fade its variants' terrain out. */
     private final java.util.Map<Integer, float[]> variantMasks = new java.util.LinkedHashMap<>();
 
@@ -294,6 +296,7 @@ public final class MiddleEarthMap {
         this.variants = new Variants(settings.has("variants") ? settings.getAsJsonObject("variants") : null, list);
         this.enclosures = new Enclosures(settings.has("enclosures") ? settings.getAsJsonObject("enclosures") : null,
                 list);
+        this.lairs = new Lairs(settings.has("lairs") ? settings.getAsJsonObject("lairs") : null, list);
         if (settings.has("seas")) {
             JsonObject seas = settings.getAsJsonObject("seas");
             this.seaWobble = seas.get("wobble").getAsInt();
@@ -324,6 +327,14 @@ public final class MiddleEarthMap {
     /** LOTR's single peaks (Erebor, the Lonely Mountain, Mount Doom...), from map.json {@code mountains}. */
     public List<Mountain> mountains() {
         return java.util.Collections.unmodifiableList(mountains);
+    }
+
+    /**
+     * The world seed the seeded parts use (ranges, variant patches, enclosures, lairs, old walls), so every new world
+     * differs (Aaron 2026-11-25); 0 until a server starts (a client never knows it).
+     */
+    public static long seed() {
+        return seed;
     }
 
     public static void setSeed(long worldSeed) {
@@ -505,8 +516,23 @@ public final class MiddleEarthMap {
         return seaZones.size() - 1;
     }
 
-    /** The biome index at a block position: the map pixel under it, with borders wobbled. */
+    /**
+     * The biome index at a block position: the map pixel under it, with borders wobbled, a river's where one runs, or
+     * a lair's where its infested ground lies ({@link Lairs}).
+     */
     public int biomeIndexAt(int blockX, int blockZ) {
+        int land = landIndexAt(blockX, blockZ);
+        if (lairs.on(land)) {
+            Lairs.Lair lair = lairs.at(this, blockX, blockZ, land);
+            if (lair != null) {
+                return lair.kind().biome();
+            }
+        }
+        return land;
+    }
+
+    /** The biome index at a block position without lairs: the map pixel (wobbled) or a river. */
+    public int landIndexAt(int blockX, int blockZ) {
         double wx = wobbledX(blockX, blockZ);
         double wz = wobbledZ(blockX, blockZ);
         int land = pixelIndex((int) Math.floor(wx / blocksPerPixel + originX),
@@ -594,6 +620,33 @@ public final class MiddleEarthMap {
             }
         }
         return false;
+    }
+
+    /** The lair (spider nest...) whose infested ground holds a column, or null. */
+    public Lairs.Lair lairAt(int blockX, int blockZ) {
+        int land = landIndexAt(blockX, blockZ);
+        return lairs.on(land) ? lairs.at(this, blockX, blockZ, land) : null;
+    }
+
+    /** The lairs planned in the grid cells holding a column (a chunk lies in one cell of each kind). */
+    public List<Lairs.Lair> lairsInCellsOf(int blockX, int blockZ) {
+        return lairs.inCellsOf(this, blockX, blockZ);
+    }
+
+    /** The kinds of lair. */
+    public List<Lairs.Kind> lairKinds() {
+        return lairs.kinds();
+    }
+
+    /** Test hook: the lair a kind would have in a cell for a given world seed (null: none). */
+    public Lairs.Lair planLair(Lairs.Kind kind, int cellX, int cellZ, long worldSeed) {
+        return lairs.plan(this, kind, cellX, cellZ, worldSeed);
+    }
+
+    /** Test hook: the enclosure a cell would have for a given world seed (null: none). */
+    public Enclosures.Enclosure planEnclosure(int cellX, int cellZ, long worldSeed) {
+        Enclosures.Enclosure e = enclosures.plan(this, cellX, cellZ, worldSeed);
+        return e.kind() == null ? null : e;
     }
 
     /** The kinds of enclosure a biome (by index) has; empty for none. */

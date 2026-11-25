@@ -4,9 +4,9 @@
     "web": {
       "Name": "minecraft:cobweb"
     },
-    "tries": 40,
-    "min_hang": 2,
-    "max_hang": 6,
+    "tries": 14,
+    "min_hang": 1,
+    "max_hang": 4,
     "cocoon": {
       "Name": "minecraft:mushroom_stem",
       "Properties": {
@@ -18,7 +18,7 @@
         "west": "true"
       }
     },
-    "cocoon_chance": 0.06,
-    "ground_chance": 0.5
+    "cocoon_chance": 0.03,
+    "ground_chance": 0.4
   }
 }

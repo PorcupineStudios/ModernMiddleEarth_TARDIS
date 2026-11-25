@@ -91,9 +91,9 @@ VARIANTS = {
         {"name": "birch_wood", "weight": 1,
          "trees": (7, [("birch", 5), ("birch_large", 2), ("birch_tall", 2)])},
         {"name": "aspen_wood", "weight": 1, "trees": (7, [("aspen", 5), ("aspen_large", 2)])},
-        # Aaron 2026-11-25: the 176-block orchard patches became small fenced orchards (ENCLOSURES); their patches,
-        # same weight and place in the list so every other patch stays where it was, are the Shire's open farmland,
-        # where most of the fenced orchards and fields lie
+        # Aaron 2026-11-25: the 176-block orchard patches became small fenced orchards (ENCLOSURES); their patches
+        # (same weight) are the Shire's open farmland, where most of the fenced orchards and fields lie. Patches are
+        # seeded by the world (map/Variants), so they lie differently in every world.
         {"name": "farmland", "weight": 3, "downs": 0.6, "variation": 0.6,
          "flowers": ["minecraft:patch_tall_grass"]},
     ]},

@@ -3,7 +3,9 @@ package com.porcupinestudios.lotrport.gametest;
 import com.porcupinestudios.lotrport.LotrPort;
 import com.porcupinestudios.lotrport.effect.LotrEffects;
 import com.porcupinestudios.lotrport.effect.RegionEffects;
+import com.porcupinestudios.lotrport.lair.LairLife;
 import com.porcupinestudios.lotrport.world.map.Enclosures;
+import com.porcupinestudios.lotrport.world.map.Lairs;
 import com.porcupinestudios.lotrport.world.map.MiddleEarthMap;
 import com.porcupinestudios.lotrport.world.map.Roads;
 import java.util.HashMap;
@@ -180,7 +182,7 @@ public final class LandscapeTests {
         helper.succeed();
     }
 
-    /** Each sub-biome lies only in its region and over the biomes it may paint; the reserved regions exist. */
+    /** Each painted sub-biome lies only in its region and over the biomes it may paint; reserved regions exist. */
     @GameTest(template = EMPTY, timeoutTicks = 600)
     public static void subBiomesOnlyWhereTheRegionsAllow(GameTestHelper helper) {
         MiddleEarthMap map = MiddleEarthMap.get();
@@ -199,9 +201,7 @@ public final class LandscapeTests {
                     count[0]++;
                     helper.assertTrue(inEnchanted, "Enchanted Mirkwood outside its region at pixel " + px + "," + pz);
                 } else if (b == nests) {
-                    count[1]++;
-                    helper.assertTrue(inEnchanted && map.regions().contains("mirkwood_spider_nests", px, pz),
-                            "spider nests outside the enchanted forest at pixel " + px + "," + pz);
+                    count[1]++; // nests are seeded lairs round points, never painted pixels
                 } else if (b == river) {
                     count[2]++;
                     helper.assertTrue(map.regions().contains("enchanted_river", px, pz),
@@ -214,8 +214,8 @@ public final class LandscapeTests {
         }
         LotrPort.LOG.info("[landscape] pixels: enchanted {}, spider nests {}, enchanted river {}; regions {}",
                 count[0], count[1], count[2], map.regions().names());
-        helper.assertTrue(count[0] > 1000 && count[1] > 50 && count[2] > 10, "too few sub-biome pixels");
-        helper.assertTrue(count[1] < count[0] / 5, "spider nests aren't rarer than the enchanted forest");
+        helper.assertTrue(count[0] > 1000 && count[2] > 10, "too few sub-biome pixels");
+        helper.assertTrue(count[1] == 0, count[1] + " map pixels painted as spider nests");
         for (String reserved : List.of("moria", "goblin_town")) {
             helper.assertTrue(map.regions().pixels(reserved) > 100, "no region " + reserved);
         }
@@ -225,6 +225,136 @@ public final class LandscapeTests {
         helper.assertTrue(at.equals("lotr_port:mirkwood_enchanted") || at.equals("lotr_port:mirkwood_spider_nests"),
                 "inside the Forest Gate is " + at);
         helper.succeed();
+    }
+
+    /** The lairs of a seed in the enchanted forest's cells. */
+    private static List<Lairs.Lair> nests(MiddleEarthMap map, long seed) {
+        Lairs.Kind kind = map.lairKinds().stream().filter(k -> k.name().equals("mirkwood_spider_nests")).findFirst()
+                .orElseThrow();
+        var west = map.blockOfPixel(1280, 590);
+        var east = map.blockOfPixel(1450, 700);
+        List<Lairs.Lair> out = new java.util.ArrayList<>();
+        for (int cx = Math.floorDiv(west.getX(), kind.cell()); cx <= Math.floorDiv(east.getX(), kind.cell()); cx++) {
+            for (int cz = Math.floorDiv(west.getZ(), kind.cell()); cz <= Math.floorDiv(east.getZ(), kind.cell());
+                    cz++) {
+                Lairs.Lair l = map.planLair(kind, cx, cz, seed);
+                if (l != null) {
+                    out.add(l);
+                }
+            }
+        }
+        return out;
+    }
+
+    /**
+     * Spider nests (Aaron 2026-11-25): small cores (~200 blocks square) only in the enchanted forest, their biome only
+     * on the infested ground round them, and somewhere else in every world.
+     */
+    @GameTest(template = EMPTY, timeoutTicks = 600)
+    public static void spiderNestsAreSmallSeededAndInTheEnchantedForest(GameTestHelper helper) {
+        MiddleEarthMap map = MiddleEarthMap.get();
+        int enchanted = biome(map, "lotr_port:mirkwood_enchanted");
+        int nests = biome(map, "lotr_port:mirkwood_spider_nests");
+        List<Lairs.Lair> here = nests(map, MiddleEarthMap.seed());
+        helper.assertTrue(here.size() >= 20, "only " + here.size() + " spider nests in the enchanted forest");
+        for (Lairs.Lair l : here) {
+            double area = Math.PI * l.kind().core() * l.kind().core();
+            helper.assertTrue(area >= 150 && area <= 260, "nest core of " + Math.round(area) + " blocks square");
+            helper.assertTrue(map.landIndexAt(l.x(), l.z()) == enchanted, "nest at " + l.x() + "," + l.z()
+                    + " outside the enchanted forest");
+            helper.assertTrue(map.biomeIndexAt(l.x(), l.z()) == nests, "no nest biome at the nest at " + l.x() + ","
+                    + l.z());
+            helper.assertTrue(l.sacs().stream().allMatch(s -> l.inCore(s[0], s[1])), "an egg sac outside its core");
+            // the infested ground: the nest biome inside the radius (ragged edge aside), the forest well past it
+            for (int a = 0; a < 8; a++) {
+                double ang = a * Math.PI / 4;
+                int nx = l.x() + (int) Math.round(Math.cos(ang) * l.kind().radius() * 0.7);
+                int nz = l.z() + (int) Math.round(Math.sin(ang) * l.kind().radius() * 0.7);
+                int fx = l.x() + (int) Math.round(Math.cos(ang) * l.kind().radius() * 1.25);
+                int fz = l.z() + (int) Math.round(Math.sin(ang) * l.kind().radius() * 1.25);
+                helper.assertTrue(map.landIndexAt(nx, nz) != enchanted || map.biomeIndexAt(nx, nz) == nests,
+                        "no nest ground at " + nx + "," + nz);
+                helper.assertTrue(map.biomeIndexAt(fx, fz) != nests || map.lairAt(fx, fz) != l,
+                        "nest ground far out at " + fx + "," + fz);
+            }
+        }
+        List<Lairs.Lair> other = nests(map, MiddleEarthMap.seed() + 1);
+        Set<Long> spots = new HashSet<>();
+        here.forEach(l -> spots.add((long) l.x() << 32 | (l.z() & 0xFFFFFFFFL)));
+        long same = other.stream().filter(l -> spots.contains((long) l.x() << 32 | (l.z() & 0xFFFFFFFFL))).count();
+        LotrPort.LOG.info("[landscape] spider nests: {} this world, {} with the next seed ({} in the same spot)",
+                here.size(), other.size(), same);
+        helper.assertTrue(same < here.size() / 4, same + " nests in the same spots in another world");
+        helper.succeed();
+    }
+
+    /** The Shire's plots are seeded too: another world, other plots. */
+    @GameTest(template = EMPTY, timeoutTicks = 600)
+    public static void enclosuresDifferBetweenWorlds(GameTestHelper helper) {
+        MiddleEarthMap map = MiddleEarthMap.get();
+        int same = 0;
+        int both = 0;
+        for (int cx = -CELLS; cx < CELLS; cx++) {
+            for (int cz = -CELLS; cz < CELLS; cz++) {
+                Enclosures.Enclosure a = map.planEnclosure(cx, cz, 1L);
+                Enclosures.Enclosure b = map.planEnclosure(cx, cz, 2L);
+                if (a != null && b != null) {
+                    both++;
+                    same += a.minX() == b.minX() && a.minZ() == b.minZ() && a.kind() == b.kind() ? 1 : 0;
+                }
+            }
+        }
+        LotrPort.LOG.info("[landscape] enclosures in both of two worlds' cells: {}, the same plot: {}", both, same);
+        helper.assertTrue(same <= both / 4, same + " of " + both + " plots alike in two worlds");
+        helper.succeed();
+    }
+
+    /** Breaking a nest's egg sacs weakens it, and a dead nest's ground spawns as the plain forest. */
+    @GameTest(template = EMPTY)
+    public static void destroyingANestStopsItsSpiders(GameTestHelper helper) {
+        MiddleEarthMap map = MiddleEarthMap.get();
+        Lairs.Lair lair = nests(map, MiddleEarthMap.seed()).get(0);
+        var server = helper.getLevel().getServer();
+        LairLife.Settings settings = LairLife.settings(lair.kind());
+        helper.assertTrue(settings.deadAt() > 1 && settings.deadAt() <= lair.kind().sacs(),
+                "dead_at " + settings.deadAt() + " for " + lair.kind().sacs() + " sacs");
+        LairLife.State state = LairLife.State.get(server);
+        state.heal(lair.id());
+        helper.assertTrue(LairLife.strength(server, lair) == 1, "an untouched nest is weak");
+        state.breakSac(lair.id());
+        double weakened = LairLife.strength(server, lair);
+        helper.assertTrue(weakened > 0 && weakened < 1, "one broken sac left strength " + weakened);
+        for (int i = 1; i < settings.deadAt(); i++) {
+            state.breakSac(lair.id());
+        }
+        helper.assertTrue(LairLife.strength(server, lair) == 0, "the nest lives on");
+        var table = com.porcupinestudios.lotrport.npc.NpcSpawns.forBiome(LotrPort.id("mirkwood_spider_nests"))
+                .orElseThrow();
+        var fallback = LairLife.adjust(table, 0, settings, 0.5);
+        helper.assertTrue(fallback != table && !fallback.hostilesInDay(), "a dead nest still spawns its spiders by day");
+        helper.assertTrue(LairLife.adjust(table, 1, settings, 0.99) == table, "a whole nest doesn't spawn its own");
+        state.heal(lair.id());
+        helper.succeed();
+    }
+
+    /** An egg sac broken anywhere hatches (8 sacs: the chance none hatches is ~1 in 65000). */
+    @GameTest(template = EMPTY, timeoutTicks = 100)
+    public static void eggSacsHatch(GameTestHelper helper) {
+        ThrownTests.inLoadedArea(helper, 12, 8, () -> {
+            for (int i = 0; i < 8; i++) {
+                net.minecraft.core.BlockPos p = new net.minecraft.core.BlockPos(1 + i, 1, 4);
+                helper.setBlock(p, com.porcupinestudios.lotrport.lair.EggSacBlock.BLOCK.get());
+                helper.getLevel().destroyBlock(helper.absolutePos(p), true);
+            }
+            var box = new net.minecraft.world.phys.AABB(helper.absolutePos(net.minecraft.core.BlockPos.ZERO))
+                    .inflate(24);
+            int hatched = helper.getLevel().getEntitiesOfClass(com.porcupinestudios.lotrport.npc.LotrNpc.class,
+                    box).size();
+            helper.assertTrue(hatched > 0, "no spider hatched from 8 broken egg sacs");
+            helper.getLevel().getEntitiesOfClass(com.porcupinestudios.lotrport.npc.LotrNpc.class, box)
+                    .forEach(e -> e.discard());
+            helper.succeed();
+        });
     }
 
     /** The region effects load; drowsiness and the enchanted sleep do what they say; black water sends to sleep. */

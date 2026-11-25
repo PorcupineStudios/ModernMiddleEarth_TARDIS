@@ -11,9 +11,11 @@ moria, goblin town").
    there yet).
 2. OVERLAYS (map.json "overlays", MiddleEarthMap.paint): a sub-biome is painted, as the map loads, over chosen biomes
    inside a region and nowhere else: Enchanted Mirkwood over northern Mirkwood between the Forest Gate, the Forest
-   River and the Mountains of Mirkwood (where the Elf-path of The Hobbit ran); its spider nests over it, in a few
-   places; the Enchanted River over the river LOTR's map already paints from the Mountains of Mirkwood north to the
-   Forest River, stopping short of the confluence (in Tolkien the enchantment ends where the waters join).
+   River and the Mountains of Mirkwood (where the Elf-path of The Hobbit ran); the Enchanted River over the river
+   LOTR's map already paints from the Mountains of Mirkwood north to the Forest River, stopping short of the
+   confluence (in Tolkien the enchantment ends where the waters join).
+2b. LAIRS (map.json "lairs", map/Lairs.java): seeded nests inside the enchanted forest, each a small core and a ring of
+   infested ground that is the spider nests' biome; LAIR_DATA what breaking their egg sacs does.
 3. SUBBIOMES: each sub-biome is its base biome (copied fresh each run) with its own colours, plants, NPC spawns and
    effects, and is listed in every tag and table its base is in (TABLES), so fast travel regions, music, borders,
    conquest, invasions, roads and surface rules treat it as its base. Its map.json entry takes the average ground of
@@ -49,11 +51,6 @@ REGIONS = [
     {"name": "mirkwood_enchanted", "polygon": [
         (1288, 598), (1340, 610), (1375, 622), (1398, 630), (1412, 636), (1410, 650), (1430, 656), (1442, 660),
         (1442, 666), (1376, 664), (1352, 668), (1345, 690), (1290, 694), (1284, 650)]},
-    # the spiders' colonies, only inside the enchanted forest: north of the path short of the Enchanted River (where
-    # Bilbo fought them after the dwarves left the path), by the Forest Gate, under the Forest River, and one at the
-    # foot of the Mountains of Mirkwood
-    {"name": "mirkwood_spider_nests", "inside": "mirkwood_enchanted", "circles": [
-        (1368, 641, 6.5), (1318, 664, 5.5), (1336, 624, 4.5), (1424, 659, 3.5)], "rough": 0.3, "seed": 2941},
     # the Enchanted River from its spring in the Mountains of Mirkwood to just above the Forest River
     {"name": "enchanted_river", "polygon": [(1388, 633), (1418, 633), (1418, 670), (1388, 670)]},
     # reserved for the underground phases: Moria under Caradhras, Celebdil and Fanuidhol between its West-gate and
@@ -68,9 +65,29 @@ REGIONS = [
 # region -> sub-biome painted over the listed biomes, in this order (later overlays paint over earlier ones)
 OVERLAYS = [
     {"region": "mirkwood_enchanted", "on": ["mirkwood_north", "mirkwood_corrupted"], "biome": "mirkwood_enchanted"},
-    {"region": "mirkwood_spider_nests", "on": ["mirkwood_enchanted"], "biome": "mirkwood_spider_nests"},
     {"region": "enchanted_river", "on": ["river"], "biome": "enchanted_river"},
 ]
+
+# Lairs (map.json "lairs", map/Lairs.java; Aaron 2026-11-25: the nests "relatively small only about a 200 sq/blocks of
+# actual spider nests, and with spiders spawning within a larger radius around it (with spawning being affected by
+# destroying nests)", seeded "so there's randomness on new worlds"). Per world seed, a nest in about one 512-block
+# cell in three of the enchanted forest (~100 in all, ~900 blocks apart): a core of radius 8 (~200 blocks square)
+# choked with webs, egg sacs and silk bundles, and infested ground 56 blocks round it (ragged edge) that is the
+# "Mirkwood Spider Nests" biome, where spiders come by day too. Breaking its sacs kills it (LAIR_DATA).
+LAIRS = {
+    "mirkwood_spider_nests": {"biome": "mirkwood_spider_nests", "on": ["mirkwood_enchanted"],
+                              "regions": ["mirkwood_enchanted"], "cell": 512, "chance": 0.33, "core": 8,
+                              "radius": 56, "ragged": 0.2, "sacs": 4},
+}
+# What happens to them (lair/LairLife.java, reloads): 3 of the 4 egg sacs gone and the nest is dead; each broken sac
+# may hatch a spider or two; the dead nest's ground spawns as the plain enchanted forest (spiders by night only).
+LAIR_DATA = {
+    "mirkwood_spider_nests": {"dead_at": 3,
+                              "hatch": {"npc": f"{NS}:mirkwood_spider", "min": 1, "max": 2, "chance": 0.75},
+                              "fallback_biome": f"{NS}:mirkwood_enchanted",
+                              "damaged": "lair.lotr_port.spider_nest.damaged",
+                              "destroyed": "lair.lotr_port.spider_nest.destroyed"},
+}
 
 BLACK_WATER = 0x16190F  # "the water was black" (The Hobbit); its fog darker still
 SUBBIOMES = {
@@ -94,19 +111,28 @@ SUBBIOMES = {
     "mirkwood_spider_nests": {
         "name": "Mirkwood Spider Nests",
         "base": "mirkwood_enchanted",
+        "lair": True,  # not painted on the map: the infested ground round each seeded nest (LAIRS)
         "effects": {"fog_color": 0x262822, "sky_color": 0x4A4E48, "grass_color": 0x3B4232, "foliage_color": 0x30362A,
                     "particle": {"options": {"type": "minecraft:white_ash"}, "probability": 0.01}},
         "features": {
-            # webs slung under the crowns and round the trunks, silk-wrapped bundles hanging from the boughs
-            "webs": ({"type": f"{NS}:webs", "config": {
-                "web": {"Name": "minecraft:cobweb"}, "tries": 40, "min_hang": 2, "max_hang": 6,
+            # the nest itself: its core thick with webs, the egg sacs, silk-wrapped bundles
+            "nest": ({"type": f"{NS}:spider_nest", "config": {
+                "lair": "mirkwood_spider_nests", "web": {"Name": "minecraft:cobweb"},
+                "sac": {"Name": f"{NS}:spider_egg_sac"}, "density": 0.5, "height": 7,
+                "floor": {"Name": "minecraft:podzol", "Properties": {"snowy": "false"}}, "floor_chance": 0.4,
                 "cocoon": {"Name": "minecraft:mushroom_stem", "Properties": {
                     "up": "true", "down": "true", "north": "true", "south": "true", "east": "true", "west": "true"}},
-                "cocoon_chance": 0.06, "ground_chance": 0.5}}, []),
+                "cocoons": 5}}, []),
+            # round it, webs slung under the crowns and round the trunks, the odd bundle hanging from a bough
+            "webs": ({"type": f"{NS}:webs", "config": {
+                "web": {"Name": "minecraft:cobweb"}, "tries": 14, "min_hang": 1, "max_hang": 4,
+                "cocoon": {"Name": "minecraft:mushroom_stem", "Properties": {
+                    "up": "true", "down": "true", "north": "true", "south": "true", "east": "true", "west": "true"}},
+                "cocoon_chance": 0.03, "ground_chance": 0.4}}, []),
             "dead_trees": ({"type": "minecraft:random_selector", "config": {
                 "features": [{"feature": f"{NS}:tree/mirk_oak_dead", "chance": 0.6}],
                 "default": f"{NS}:tree/oak_dead"}},
-                [{"type": "minecraft:count", "count": 2}, {"type": "minecraft:in_square"},
+                [{"type": "minecraft:rarity_filter", "chance": 2}, {"type": "minecraft:in_square"},
                  {"type": "minecraft:surface_water_depth_filter", "max_water_depth": 0},
                  {"type": "minecraft:heightmap", "heightmap": "OCEAN_FLOOR"}, {"type": "minecraft:biome"}]),
             "ground_webs": ({"type": "minecraft:random_patch", "config": {
@@ -123,8 +149,8 @@ SUBBIOMES = {
         },
         # the spiders' own ground: they hunt by day here too
         # (wilderness: borders.py leaves it nobody's land, as the rest of the enchanted forest)
-        "spawns": {"entries": [{"npc": f"{NS}:mirkwood_spider", "weight": 100, "min": 3, "max": 6}],
-                   "cap": 14, "chance": 0.4, "hostiles_in_day": True, "wilderness": True},
+        "spawns": {"entries": [{"npc": f"{NS}:mirkwood_spider", "weight": 100, "min": 2, "max": 4}],
+                   "cap": 10, "chance": 0.4, "hostiles_in_day": True, "wilderness": True},
         "tags": ["enchanted_forest", "cursed_water"],
     },
     "enchanted_river": {
@@ -186,6 +212,9 @@ LANG = {
     "region_effect.lotr_port.lost_way": "The trees seem to shift about you. Which way was the path?",
     "region_effect.lotr_port.enchanted_sleep": "The black water pulls you down into an enchanted sleep...",
     "region_effect.lotr_port.wake": "You wake from dreams of feasting, and cannot tell which way you were going.",
+    "block.lotr_port.spider_egg_sac": "Spider Egg Sac",
+    "lair.lotr_port.spider_nest.damaged": "Egg sac destroyed (%s of %s): the nest is weakened",
+    "lair.lotr_port.spider_nest.destroyed": "The nest is destroyed: its spiders will not come again",
 }
 
 # Tables keyed or listing biomes (bare name or lotr_port:name) that a sub-biome joins as its base (relative to the
@@ -319,6 +348,16 @@ def run(out=OUT):
                 pixel_biome[i] = o["biome"]
                 painted.setdefault(o["biome"], []).append(raw[i])
     for name, sub in SUBBIOMES.items():
+        if sub.get("lair"):  # round seeded lairs: the ground of what it lies on
+            base = dict(entry[f"{NS}:{sub['base']}"])
+            base["id"] = f"{NS}:{name}"
+            if base["id"] in entry:
+                entry[base["id"]].clear()
+                entry[base["id"]].update(base)
+            else:
+                meta["biomes"].append(base)
+                entry[base["id"]] = meta["biomes"][-1]
+            continue
         under = painted.get(name)
         if not under:
             raise SystemExit(f"overlay {name} paints nothing")
@@ -342,6 +381,8 @@ def run(out=OUT):
         raise SystemExit("too many biomes for the byte map")
     meta["overlays"] = [{"region": o["region"], "on": [f"{NS}:{b}" for b in o["on"]], "biome": f"{NS}:{o['biome']}"}
                         for o in OVERLAYS]
+    meta["lairs"] = {k: dict(v, biome=f"{NS}:{v['biome']}", on=[f"{NS}:{b}" for b in v["on"]])
+                     for k, v in LAIRS.items()}
     keep = meta["rivers"].setdefault("keep_biome", [])
     for name in SUBBIOMES:
         if f"{NS}:{name}" not in keep:
@@ -403,11 +444,13 @@ def run(out=OUT):
     # 5. effects and names
     for name, effect in REGION_EFFECTS.items():
         write_json(os.path.join(data, "region_effect", name + ".json"), effect)
+    for name, lair in LAIR_DATA.items():
+        write_json(os.path.join(data, "lair", name + ".json"), lair)
     lang_path = os.path.join(out, "assets", NS, "lang", "en_us.json")
     lang = load(lang_path)
     lang.update(LANG)  # new keys at the end, the rest in place
     write_json(lang_path, lang)
-    return {"regions": {r["name"]: len(done[r["name"]]) for r in REGIONS},
+    return {"lairs": list(LAIRS), "regions": {r["name"]: len(done[r["name"]]) for r in REGIONS},
             "painted": {k: len(v) for k, v in painted.items()}, "tables": changed}
 
 

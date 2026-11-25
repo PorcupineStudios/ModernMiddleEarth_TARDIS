@@ -24,7 +24,8 @@ import java.util.Map;
  * land over the rest of {@code fade} blocks outside it, and the hills' noise there is scaled by {@code roughness}
  * (0 = flat as a table).
  *
- * <p>Everything is a pure function of the map: no seed, no saved data. {@link MiddleEarthMap#heightAt} and
+ * <p>Everything is a pure function of the map and the world seed (Aaron 2026-11-25: seeded, so every new world's
+ * plots differ), no saved data. {@link MiddleEarthMap#heightAt} and
  * {@link MiddleEarthMap#variationAt} shape the ground; {@code lotr_port:enclosure} features build the fences, gates,
  * tree rows and crops; trees, patches and LOTR structures stay out (filters {@code lotr_port:outside_enclosures},
  * {@code lotr_port:in_variant}, {@code LotrStructure}).
@@ -205,21 +206,26 @@ public final class Enclosures {
     }
 
     private Enclosure cell(MiddleEarthMap map, int cx, int cz) {
+        long seed = MiddleEarthMap.seed();
         Cache c = cache.get();
+        if (c.seed != seed) { // a new world in the same game
+            java.util.Arrays.fill(c.values, null);
+            c.seed = seed;
+        }
         long key = (long) cx << 32 | (cz & 0xFFFFFFFFL);
         int slot = (int) (MiddleEarthMap.mixHash(key) & (Cache.SIZE - 1));
         if (c.values[slot] != null && c.keys[slot] == key) {
             return c.values[slot];
         }
-        Enclosure e = plan(map, cx, cz);
+        Enclosure e = plan(map, cx, cz, seed);
         c.keys[slot] = key;
         c.values[slot] = e;
         return e;
     }
 
-    /** Works out a cell's enclosure from scratch (see the class comment); NONE if it has none. */
-    Enclosure plan(MiddleEarthMap map, int cx, int cz) {
-        long h = hash(cx, cz);
+    /** Works out a cell's enclosure for a world seed from scratch (see the class comment); NONE if it has none. */
+    Enclosure plan(MiddleEarthMap map, int cx, int cz, long seed) {
+        long h = hash(cx, cz, seed);
         int x0 = cx * cell;
         int z0 = cz * cell;
         int biome = map.biomeIndexAt(x0 + cell / 2, z0 + cell / 2);
@@ -310,12 +316,14 @@ public final class Enclosures {
 
     private static final class Cache {
         static final int SIZE = 64;
+        long seed = Long.MIN_VALUE;
         final long[] keys = new long[SIZE];
         final Enclosure[] values = new Enclosure[SIZE];
     }
 
-    private static long hash(int cx, int cz) {
-        return MiddleEarthMap.mixHash(cx * 0x9E3779B97F4A7C15L ^ cz * 0xC2B2AE3D27D4EB4FL ^ 0x454E434C4FL);
+    private static long hash(int cx, int cz, long seed) {
+        return MiddleEarthMap.mixHash(cx * 0x9E3779B97F4A7C15L ^ cz * 0xC2B2AE3D27D4EB4FL ^ 0x454E434C4FL
+                ^ MiddleEarthMap.mixHash(seed ^ 0x454E43L));
     }
 
     private static double unit(long h, int n) {

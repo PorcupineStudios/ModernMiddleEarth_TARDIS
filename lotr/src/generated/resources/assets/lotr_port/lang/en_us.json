@@ -6510,5 +6510,8 @@
   "region_effect.lotr_port.drowsy": "The heavy air under the trees makes you drowsy...",
   "region_effect.lotr_port.lost_way": "The trees seem to shift about you. Which way was the path?",
   "region_effect.lotr_port.enchanted_sleep": "The black water pulls you down into an enchanted sleep...",
-  "region_effect.lotr_port.wake": "You wake from dreams of feasting, and cannot tell which way you were going."
+  "region_effect.lotr_port.wake": "You wake from dreams of feasting, and cannot tell which way you were going.",
+  "block.lotr_port.spider_egg_sac": "Spider Egg Sac",
+  "lair.lotr_port.spider_nest.damaged": "Egg sac destroyed (%s of %s): the nest is weakened",
+  "lair.lotr_port.spider_nest.destroyed": "The nest is destroyed: its spiders will not come again"
 }

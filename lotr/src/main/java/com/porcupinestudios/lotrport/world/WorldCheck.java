@@ -60,6 +60,9 @@ final class WorldCheck {
                 problem = enclosuresAreBuilt(overworld);
             }
             if (problem == null) {
+                problem = spiderNestIsBuilt(overworld);
+            }
+            if (problem == null) {
                 problem = TreeCheck.start(overworld);
             }
             if (problem == null) {
@@ -237,6 +240,58 @@ final class WorldCheck {
             if (e.kind().name().contains("orchard") && logs == 0) {
                 return "orchard at " + e.minX() + "," + e.minZ() + " has no trees";
             }
+        }
+        return null;
+    }
+
+    /**
+     * Builds the spider nest nearest the Forest Gate (lairs are seeded: it is somewhere else in every world) and checks
+     * its core: webs, at least as many egg sacs as kill it, and the nest biome round it.
+     */
+    private static String spiderNestIsBuilt(ServerLevel level) {
+        MiddleEarthMap map = ((MapBiomeSource) level.getChunkSource().getGenerator().getBiomeSource()).map();
+        BlockPos gate = map.blockOfPixel(1310, 655);
+        com.porcupinestudios.lotrport.world.map.Lairs.Lair best = null;
+        for (int dx = -6000; dx <= 6000; dx += 256) {
+            for (int dz = -6000; dz <= 6000; dz += 256) {
+                for (var l : map.lairsInCellsOf(gate.getX() + dx, gate.getZ() + dz)) {
+                    if (best == null || l.distance(gate.getX(), gate.getZ()) < best.distance(gate.getX(), gate.getZ())) {
+                        best = l;
+                    }
+                }
+            }
+        }
+        if (best == null) {
+            return "no spider nest within 6000 blocks of the Forest Gate";
+        }
+        int core = best.kind().core();
+        for (int cx = (best.x() - core) >> 4; cx <= (best.x() + core) >> 4; cx++) {
+            for (int cz = (best.z() - core) >> 4; cz <= (best.z() + core) >> 4; cz++) {
+                level.getChunk(cx, cz);
+            }
+        }
+        int webs = 0;
+        int sacs = 0;
+        for (int x = best.x() - core; x <= best.x() + core; x++) {
+            for (int z = best.z() - core; z <= best.z() + core; z++) {
+                BlockPos top = LotrDimensions.surface(level, x, z);
+                for (int dy = -24; dy <= 12; dy++) {
+                    BlockState b = level.getBlockState(top.above(dy));
+                    webs += b.is(Blocks.COBWEB) ? 1 : 0;
+                    sacs += b.is(com.porcupinestudios.lotrport.lair.EggSacBlock.BLOCK.get()) ? 1 : 0;
+                }
+            }
+        }
+        String biome = level.getBiome(LotrDimensions.surface(level, best.x(), best.z())).unwrapKey()
+                .map(k -> k.location().toString()).orElse("?");
+        LotrPort.LOG.info("[worldcheck] spider nest at {},{}: {} webs, {} egg sacs, biome {}", best.x(), best.z(), webs,
+                sacs, biome);
+        int deadAt = com.porcupinestudios.lotrport.lair.LairLife.settings(best.kind()).deadAt();
+        if (webs < 30 || sacs < deadAt) {
+            return "spider nest at " + best.x() + "," + best.z() + " has " + webs + " webs and " + sacs + " egg sacs";
+        }
+        if (!biome.equals("lotr_port:mirkwood_spider_nests")) {
+            return "spider nest at " + best.x() + "," + best.z() + " stands in " + biome;
         }
         return null;
     }
