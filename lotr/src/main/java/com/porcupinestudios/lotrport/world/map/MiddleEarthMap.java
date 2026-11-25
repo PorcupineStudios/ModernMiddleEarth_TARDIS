@@ -54,6 +54,8 @@ public final class MiddleEarthMap {
     private final Regions regions;
     /** Seeded lairs (Mirkwood's spider nests): small cores with a biome of infested ground round them. */
     private final Lairs lairs;
+    /** The wild lands' gorges ({@link Wilds}). */
+    private final Wilds wilds;
     /** Per biome with variants: a table that is 1 for it, smoothed like heights to fade its variants' terrain out. */
     private final java.util.Map<Integer, float[]> variantMasks = new java.util.LinkedHashMap<>();
 
@@ -297,6 +299,7 @@ public final class MiddleEarthMap {
         this.enclosures = new Enclosures(settings.has("enclosures") ? settings.getAsJsonObject("enclosures") : null,
                 list);
         this.lairs = new Lairs(settings.has("lairs") ? settings.getAsJsonObject("lairs") : null, list);
+        this.wilds = new Wilds(settings.has("wilds") ? settings.getAsJsonObject("wilds") : null, list);
         if (settings.has("seas")) {
             JsonObject seas = settings.getAsJsonObject("seas");
             this.seaWobble = seas.get("wobble").getAsInt();
@@ -778,6 +781,10 @@ public final class MiddleEarthMap {
                         + rise * mountainShape.ridges() * 4 * t * (1 - t) * mountainShape.ridged(blockX, blockZ);
             }
         }
+        double gorge = gorgeAt(blockX, blockZ, wx, wz);
+        if (gorge > 0) { // cut, but never under sea level + 3 (no flooded trenches)
+            ground = Math.max(ground - wilds.depth() * gorge, Math.min(ground, seaLevel() + 3));
+        }
         if (rivers == null) {
             return ground;
         }
@@ -807,7 +814,34 @@ public final class MiddleEarthMap {
         if (e != null) {
             flat = 1 - enclosures.mask(e, blockX, blockZ) * (1 - e.kind().roughness());
         }
-        return variation * (1 - share) * (1 - cut) * (0.25 + 0.75 * road) / (1 + boost) * flat;
+        // a gorge keeps its floor flat and its walls clean
+        double gorge = gorgeAt(blockX, blockZ, wx, wz);
+        return variation * (1 - share) * (1 - cut) * (0.25 + 0.75 * road) / (1 + boost) * flat * (1 - 0.85 * gorge);
+    }
+
+    /**
+     * How deep into a wild-land gorge a column is, 0..1 (1 = on its floor at full depth): {@link Wilds}, faded over
+     * the biome's border, near roads (within {@link Roads#FLATTEN}) and where rivers cut.
+     */
+    public double gorgeAt(int blockX, int blockZ) {
+        return gorgeAt(blockX, blockZ, wobbledX(blockX, blockZ), wobbledZ(blockX, blockZ));
+    }
+
+    private double gorgeAt(int blockX, int blockZ, double wx, double wz) {
+        if (!wilds.any()) {
+            return 0;
+        }
+        double k = smoothed(wx, wz, wilds.shareTable());
+        if (k <= 0.01) {
+            return 0;
+        }
+        double g = wilds.gorge(blockX, blockZ);
+        if (g <= 0) {
+            return 0;
+        }
+        double road = Math.min(1, Roads.get().distance(blockX, blockZ) / (Roads.FLATTEN * 1.5));
+        double river = riverCut(wx, wz, smoothed(wx, wz, biomeHeights));
+        return g * Wilds.smoothstep((k - 0.3) / 0.7) * road * (1 - river);
     }
 
     /** Grid spacing of the downs (blocks): about one hill per cell. */

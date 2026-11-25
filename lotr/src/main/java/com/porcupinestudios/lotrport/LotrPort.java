@@ -152,6 +152,7 @@ public final class LotrPort {
         ColonyItems.register(modBus);
         com.porcupinestudios.lotrport.colony.ColonyBlocks.register(modBus);
         com.porcupinestudios.lotrport.content.HeartOfTheMountain.register(modBus);
+        com.porcupinestudios.lotrport.content.WildBlocks.register(modBus);
         ColonyData.register();
         CoreComponents.init();
         SimSettings.register();

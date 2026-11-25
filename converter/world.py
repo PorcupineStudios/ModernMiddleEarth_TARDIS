@@ -147,16 +147,7 @@ VARIANTS.update({
         _v("tors", 2, _TORS),
         _v("old_fields", 2, _OLD_FIELDS),
     ]),
-    "lone_lands": dict(_WILD, cell=640, list=[
-        _v("heath", 3, _HEATH),
-        _v("stony_hills", 3, _TORS, variation=1.5,
-           extras=[("grey_boulder", 2, "land"), ("coarse_ground", 1, "land"), ("standing_stone", 1 / 60, "land")]),
-        _v("thickets", 2, _THICKETS),
-        _v("pines", 2, trees=(3, [("pine", 4), ("spruce", 2), ("larch", 1)])),
-        _v("dry_grass", 2, variation=0.8, flowers=["minecraft:patch_tall_grass"],
-           extras=[("wheatgrass", 3, "plants")]),
-        _v("old_fields", 1, _OLD_FIELDS),
-    ]),
+    # the Lone-lands (and Weather Hills) have their own wild-land rules instead: converter/wilds.py (2026-11-25)
     "minhiriath": dict(_WILD, list=[
         _v("stump_lands", 3, variation=0.7, flowers=["minecraft:patch_tall_grass"],
            trees=(0.5, [("birch", 2), ("aspen", 2), ("oak", 1)]), extras=[("stumps", 3, "land")]),

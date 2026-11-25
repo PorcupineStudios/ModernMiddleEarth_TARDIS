@@ -33,6 +33,9 @@
     "lotr_port:termite_mound",
     "lotr_port:thatch_stairs",
     "lotr_port:waste_block",
-    "lotr_port:wattle_and_daub"
+    "lotr_port:wattle_and_daub",
+    "lotr_port:scree",
+    "lotr_port:moorland_soil",
+    "lotr_port:stony_earth"
   ]
 }

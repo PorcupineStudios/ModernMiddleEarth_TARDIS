@@ -797,6 +797,8 @@
     {
       "id": "lotr_port:wood_elven_mechanical_crafter",
       "required": false
-    }
+    },
+    "lotr_port:weathered_stone",
+    "lotr_port:lichen_stone"
   ]
 }

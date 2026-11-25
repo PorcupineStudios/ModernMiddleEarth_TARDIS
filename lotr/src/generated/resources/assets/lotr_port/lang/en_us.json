@@ -6539,5 +6539,13 @@
   "block.lotr_port.taurethrim_mechanical_crafter": "Taurethrim Mechanical Crafter",
   "block.lotr_port.umbaric_mechanical_crafter": "Umbaric Mechanical Crafter",
   "block.lotr_port.uruk_mechanical_crafter": "Uruk Mechanical Crafter",
-  "block.lotr_port.wood_elven_mechanical_crafter": "Wood-elven Mechanical Crafter"
+  "block.lotr_port.wood_elven_mechanical_crafter": "Wood-elven Mechanical Crafter",
+  "block.lotr_port.weathered_stone": "Weathered Stone",
+  "block.lotr_port.lichen_stone": "Lichen Stone",
+  "block.lotr_port.scree": "Scree",
+  "block.lotr_port.moorland_soil": "Moorland Soil",
+  "block.lotr_port.tussock": "Tussock Grass",
+  "block.lotr_port.bracken": "Dry Bracken",
+  "block.lotr_port.stony_earth": "Stony Earth",
+  "block.lotr_port.heath_moss": "Heath Moss"
 }

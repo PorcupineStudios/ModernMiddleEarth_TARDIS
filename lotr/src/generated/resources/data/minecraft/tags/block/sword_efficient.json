@@ -148,6 +148,8 @@
     "lotr_port:yam_block",
     "lotr_port:yellow_chrysanthemum",
     "lotr_port:yellow_iris",
-    "lotr_port:yellow_sand_gem"
+    "lotr_port:yellow_sand_gem",
+    "lotr_port:tussock",
+    "lotr_port:bracken"
   ]
 }

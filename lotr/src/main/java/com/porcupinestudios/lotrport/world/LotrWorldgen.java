@@ -61,6 +61,10 @@ public final class LotrWorldgen {
                     com.porcupinestudios.lotrport.world.feature.CavePocket>> CAVE_POCKET = PLACEMENT_MODIFIERS.register(
                             "cave_pocket", () -> () -> com.porcupinestudios.lotrport.world.feature.CavePocket.CODEC);
 
+    public static final java.util.function.Supplier<net.minecraft.world.level.levelgen.placement.PlacementModifierType<
+                    com.porcupinestudios.lotrport.world.feature.Grove>> GROVE = PLACEMENT_MODIFIERS.register(
+                            "grove", () -> () -> com.porcupinestudios.lotrport.world.feature.Grove.CODEC);
+
     static {
         FEATURES.register("roads", RoadFeature::new);
         FEATURES.register("road_verge", com.porcupinestudios.lotrport.world.feature.RoadVergeFeature::new);
@@ -76,6 +80,8 @@ public final class LotrWorldgen {
         FEATURES.register("webs", com.porcupinestudios.lotrport.world.feature.WebsFeature::new);
         FEATURES.register("old_walls", com.porcupinestudios.lotrport.world.feature.OldWallsFeature::new);
         FEATURES.register("spider_nest", com.porcupinestudios.lotrport.world.feature.SpiderNestFeature::new);
+        FEATURES.register("ground_cover", com.porcupinestudios.lotrport.world.feature.GroundCoverFeature::new);
+        FEATURES.register("boulders", com.porcupinestudios.lotrport.world.feature.BoulderFeature::new);
         BIOME_SOURCES.register("middle_earth", () -> MapBiomeSource.CODEC);
         DENSITY_FUNCTIONS.register("map_terrain", () -> MapTerrain.MAP_CODEC);
         DENSITY_FUNCTIONS.register("cave_setting", () -> CaveSetting.MAP_CODEC);

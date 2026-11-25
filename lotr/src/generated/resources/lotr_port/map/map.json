@@ -193,42 +193,6 @@
         }
       ]
     },
-    "lotr_port:lone_lands": {
-      "cell": 640,
-      "chance": 0.9,
-      "warp": 0.35,
-      "feather": 56,
-      "list": [
-        {
-          "name": "heath",
-          "weight": 3,
-          "variation": 0.95
-        },
-        {
-          "name": "stony_hills",
-          "weight": 3,
-          "variation": 1.5
-        },
-        {
-          "name": "thickets",
-          "weight": 2
-        },
-        {
-          "name": "pines",
-          "weight": 2
-        },
-        {
-          "name": "dry_grass",
-          "weight": 2,
-          "variation": 0.8
-        },
-        {
-          "name": "old_fields",
-          "weight": 1,
-          "variation": 0.6
-        }
-      ]
-    },
     "lotr_port:minhiriath": {
       "cell": 768,
       "chance": 0.9,
@@ -1581,6 +1545,20 @@
       "radius": 160,
       "ragged": 0.2,
       "sacs": 12
+    }
+  },
+  "wilds": {
+    "gorges": {
+      "biomes": [
+        "lotr_port:lone_lands",
+        "lotr_port:lone_lands_hills"
+      ],
+      "scale": 1100,
+      "width": 22,
+      "depth": 16,
+      "floor": 0.3,
+      "mask_scale": 1600,
+      "mask": 0.25
     }
   }
 }
