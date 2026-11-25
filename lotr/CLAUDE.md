@@ -146,6 +146,14 @@ https://claude.ai/artifact/KqhSSTCuKXGuwKHBoYJdcu. Rebuild features in modern co
   and a Gradle init script pointing Maven Central at Google's mirror (Central answers 429 there).
   The full `generate.py` no longer reproduces every committed generated file byte for byte (Pillow re-encodes PNGs,
   hand additions to lang/tags/npc_animals): commit only the parts a change is about.
+- Shaders (2026-11-25, Aaron: shaders must know to wave LOTR's leaves and plants): most packs (Complementary, BSL,
+  Sildur's, Noble) wave only vanilla block names from their block.properties; Photon also reads tags (`%leaves`,
+  `%small_flowers`, `%saplings`, `%crops`). `converter/shaders.py` gives each LOTR leaf, sapling, flower, grass, vine,
+  bush, reed and crop a vanilla counterpart (`assets/lotr_port/shaders/block_aliases.json`; chandeliers excluded) and
+  adds the single-block irises/hibiscus to `minecraft:small_flowers`; optional mixin config `lotr_port.iris.mixins.json`
+  (`mixin/iris/IrisBlockIdMixin`, @Pseudo on Iris 1.8's `BlockMaterialMapping.createBlockStateIdMap`) fills ids the
+  pack left empty from the counterpart (`client/ShaderAliases`, matching shared properties such as crop age).
+  GameTest `everyLotrPlantHasAShaderAlias`. Not tried with Iris in game yet.
 - Plants: LOTR's reed patches (`reedPerChunk`, dried with `dryReedChance`) and the Dead Marshes' dead plants
   (`world.py marsh_plants`). Marsh lights left out: the block draws as a white cube, not LOTR's particles.
 - Big trees (Fangorn oaks reach 25+ blocks from the trunk) overflow what a feature may write: `tree/TreeOverflow`
