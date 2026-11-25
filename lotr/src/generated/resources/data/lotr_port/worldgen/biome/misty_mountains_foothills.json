@@ -122,7 +122,7 @@
       "lotr_port:plant_flowers/minecraft_poppy_r20",
       "minecraft:glow_lichen",
       "minecraft:patch_tall_grass_2",
-      "minecraft:flower_meadow"
+      "lotr_port:vanilla_flowers_sparse"
     ],
     [
       "lotr_port:road_verge",

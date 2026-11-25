@@ -19,6 +19,7 @@ from PIL import Image
 
 from assets import NS, snake, write_json
 from trees import Trees
+import flowers
 
 # Old biome numbers -> blocks. LOTR's heightBaseParameter is roughly vanilla's depth (0 = sea level, 1 = high hills,
 # 2 = mountains) and heightVariation its scale.
@@ -80,7 +81,8 @@ VARIANTS = {
     ]},
     "shire": {"cell": 176, "chance": 0.6, "list": [
         {"name": "meadows", "weight": 3, "downs": 0.55, "variation": 0.7,
-         "flowers": ["minecraft:flower_meadow", "minecraft:flower_flower_forest", "minecraft:patch_tall_grass"]},
+         # the flower forest (Aaron 2026-11-25: lots of flowers, LOTR's and vanilla's mixed): flowers.py mixes
+         "flowers": ["mix:SHIRE_FLOWER_FOREST", "mix:SHIRE_FLOWER_FOREST_TALL", "minecraft:patch_tall_grass"]},
         {"name": "light_forest", "weight": 3,
          "trees": (3, [("oak", 4), ("oak_large", 2), ("chestnut", 3), ("birch", 2), ("aspen", 1)])},
         {"name": "forest", "weight": 2,
@@ -389,9 +391,16 @@ class World:
                 write(v["name"] + "_rows", selector(v["name"] + "_rows", trees),
                       [{"type": f"{NS}:orchard_grid", "spacing": spacing, "fill": fill}, gate] + on_land)
             for i, flower in enumerate(v.get("flowers", [])):
+                patches = [{"type": "minecraft:count", "count": 2}]
+                if flower.startswith("mix:"):  # a flower mix of flowers.py, written for this variant
+                    mix = getattr(flowers, flower[4:])
+                    write_json(os.path.join(gen, "configured_feature", f"{biome}_variant", mix["name"] + ".json"),
+                               flowers.configured(mix))
+                    flower, patches = f"{NS}:{biome}_variant/{mix['name']}", flowers.count(mix)
                 write(f"{v['name']}_flowers_{i}", flower,
-                      [{"type": "minecraft:count", "count": 2}, {"type": "minecraft:in_square"}, gate,
-                       {"type": "minecraft:heightmap", "heightmap": "MOTION_BLOCKING"}, {"type": "minecraft:biome"}])
+                      patches + [{"type": "minecraft:in_square"}, gate,
+                                 {"type": "minecraft:heightmap", "heightmap": "MOTION_BLOCKING"},
+                                 {"type": "minecraft:biome"}])
         return out
 
     def plant_patch(self, name, block, per_chunk, tall=(1, 1), on="ground", tries=16, spread=7):
