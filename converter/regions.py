@@ -71,18 +71,18 @@ OVERLAYS = [
 # Lairs (map.json "lairs", map/Lairs.java; Aaron 2026-11-25: the nests "relatively small only about a 200 sq/blocks of
 # actual spider nests, and with spiders spawning within a larger radius around it (with spawning being affected by
 # destroying nests)", seeded "so there's randomness on new worlds"). Per world seed, a nest in about one 512-block
-# cell in three of the enchanted forest (~100 in all, ~900 blocks apart): a core of radius 8 (~200 blocks square)
+# cell in three of the enchanted forest (~100 in all, ~900 blocks apart): a core of radius 100 (Aaron: "200 by 200")
 # choked with webs, egg sacs and silk bundles, and infested ground 56 blocks round it (ragged edge) that is the
 # "Mirkwood Spider Nests" biome, where spiders come by day too. Breaking its sacs kills it (LAIR_DATA).
 LAIRS = {
     "mirkwood_spider_nests": {"biome": "mirkwood_spider_nests", "on": ["mirkwood_enchanted"],
-                              "regions": ["mirkwood_enchanted"], "cell": 512, "chance": 0.33, "core": 8,
-                              "radius": 56, "ragged": 0.2, "sacs": 4},
+                              "regions": ["mirkwood_enchanted"], "cell": 512, "chance": 0.33, "core": 100,
+                              "radius": 160, "ragged": 0.2, "sacs": 12},
 }
 # What happens to them (lair/LairLife.java, reloads): 3 of the 4 egg sacs gone and the nest is dead; each broken sac
 # may hatch a spider or two; the dead nest's ground spawns as the plain enchanted forest (spiders by night only).
 LAIR_DATA = {
-    "mirkwood_spider_nests": {"dead_at": 3,
+    "mirkwood_spider_nests": {"dead_at": 9,
                               "hatch": {"npc": f"{NS}:mirkwood_spider", "min": 1, "max": 2, "chance": 0.75},
                               "fallback_biome": f"{NS}:mirkwood_enchanted",
                               "damaged": "lair.lotr_port.spider_nest.damaged",
@@ -118,11 +118,11 @@ SUBBIOMES = {
             # the nest itself: its core thick with webs, the egg sacs, silk-wrapped bundles
             "nest": ({"type": f"{NS}:spider_nest", "config": {
                 "lair": "mirkwood_spider_nests", "web": {"Name": "minecraft:cobweb"},
-                "sac": {"Name": f"{NS}:spider_egg_sac"}, "density": 0.5, "height": 7,
+                "sac": {"Name": f"{NS}:spider_egg_sac"}, "density": 0.35, "height": 7,
                 "floor": {"Name": "minecraft:podzol", "Properties": {"snowy": "false"}}, "floor_chance": 0.4,
                 "cocoon": {"Name": "minecraft:mushroom_stem", "Properties": {
                     "up": "true", "down": "true", "north": "true", "south": "true", "east": "true", "west": "true"}},
-                "cocoons": 5}}, []),
+                "cocoons": 30}}, []),
             # round it, webs slung under the crowns and round the trunks, the odd bundle hanging from a bough
             "webs": ({"type": f"{NS}:webs", "config": {
                 "web": {"Name": "minecraft:cobweb"}, "tries": 14, "min_hang": 1, "max_hang": 4,

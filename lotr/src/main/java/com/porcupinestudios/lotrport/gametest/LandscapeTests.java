@@ -259,7 +259,7 @@ public final class LandscapeTests {
         helper.assertTrue(here.size() >= 20, "only " + here.size() + " spider nests in the enchanted forest");
         for (Lairs.Lair l : here) {
             double area = Math.PI * l.kind().core() * l.kind().core();
-            helper.assertTrue(area >= 150 && area <= 260, "nest core of " + Math.round(area) + " blocks square");
+            helper.assertTrue(area >= 25000 && area <= 40000, "nest core of " + Math.round(area) + " blocks square");
             helper.assertTrue(map.landIndexAt(l.x(), l.z()) == enchanted, "nest at " + l.x() + "," + l.z()
                     + " outside the enchanted forest");
             helper.assertTrue(map.biomeIndexAt(l.x(), l.z()) == nests, "no nest biome at the nest at " + l.x() + ","

@@ -8,7 +8,7 @@
     "sac": {
       "Name": "lotr_port:spider_egg_sac"
     },
-    "density": 0.5,
+    "density": 0.35,
     "height": 7,
     "floor": {
       "Name": "minecraft:podzol",
@@ -28,6 +28,6 @@
         "west": "true"
       }
     },
-    "cocoons": 5
+    "cocoons": 30
   }
 }
