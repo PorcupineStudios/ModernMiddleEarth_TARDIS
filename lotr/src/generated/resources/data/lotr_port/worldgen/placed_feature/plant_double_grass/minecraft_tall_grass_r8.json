@@ -1,5 +1,5 @@
 {
-  "feature": "lotr_port:plant_patch/minecraft_tall_grass_12",
+  "feature": "lotr_port:plant_patch/minecraft_tall_grass_16",
   "placement": [
     {
       "type": "minecraft:rarity_filter",

@@ -7,7 +7,10 @@ vanilla patches). Prints the ratio port / LOTR over all biomes and per kind, the
 the PLANT_YIELD that would make the totals match (yield is plants per try: the port places per_chunk / (tries x
 yield) patches, so a measured ratio r means the real yield is PLANT_YIELD x r).
 
-    python3 converter/plant_compare.py [port census] [--json out.json]
+    python3 converter/plant_compare.py [port census] [--json out.json] [--calibrate]
+
+--calibrate writes converter/plant_calibration.json: per plant, how many more of it the port grows than LOTR relative
+to the whole (world.py divides its rate by this), for plants off by over 25%.
 """
 import json
 import math
@@ -120,6 +123,16 @@ def main():
     if zero:
         print("biomes with LOTR plants but none in the port:", ", ".join(zero))
     print(f"PLANT_YIELD to match: {world.PLANT_YIELD * total[0]:.3f} (now {world.PLANT_YIELD})")
+    if "--calibrate" in sys.argv:  # per-plant factors for plants off by over 25% (relative to the whole)
+        path = os.path.join(HERE, "plant_calibration.json")
+        old = json.load(open(path)) if os.path.exists(path) else {}
+        new = dict(old)
+        for plant, pairs in per_plant.items():
+            r = ratio(pairs)
+            if r[1] >= 3 and r[2] > 0 and abs(math.log(r[0] / total[0])) > math.log(1.25):
+                new[plant] = round(max(0.4, min(2.5, old.get(plant, 1.0) * r[0] / total[0])), 3)
+        json.dump(dict(sorted(new.items())), open(path, "w"), indent=1)
+        print("calibration:", {k: v for k, v in new.items() if old.get(k) != v})
     if "--json" in sys.argv:
         path = sys.argv[sys.argv.index("--json") + 1]
         json.dump(out, open(path, "w"), indent=1)

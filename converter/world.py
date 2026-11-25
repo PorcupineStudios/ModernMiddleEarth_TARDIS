@@ -156,7 +156,10 @@ RARITY_STEPS = [1, 2, 3, 4, 5, 6, 8, 10, 12, 16, 20, 25, 32, 40, 50, 64, 80, 100
 PLANT_TRIES = 32  # tries per patch (vanilla 1.18's grass patch)
 # Plants per try in the port (2026-11-25: measured 0.17 with 32-try patches by plant_compare.py against the port's own
 # census, -Dlotr_port.plantcensus; the port then had 0.34 of LOTR's plants at the guessed 0.5).
-PLANT_YIELD = 0.17
+# Run 2 (rates and patch sizes per plant): 0.90 of LOTR's plants -> 0.153; outliers per plant in
+# converter/plant_calibration.json (plant_compare.py --calibrate: carpets like withered moss survive anywhere, vanilla's
+# own meadow flowers add dandelions...), dividing that plant's rate.
+PLANT_YIELD = 0.153
 PLANT_MIN_TRIES = 4  # a patch of LOTR's rare flowers is one to three plants
 PLANT_MAX_TRIES = 64  # dense grass: several patches a chunk rather than one huge one
 TRIES_STEPS = [4, 6, 8, 12, 16, 24, 32, 48, 64]  # PLANT_MIN_TRIES..PLANT_MAX_TRIES, shared by the biomes
@@ -424,6 +427,12 @@ class World:
             return VANILLA_PLANTS[old]
         return self.gen.idtable.get(old)
 
+    def calibration(self):
+        if not hasattr(self, "_calibration"):
+            path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "plant_calibration.json")
+            self._calibration = json.load(open(path, encoding="utf-8")) if os.path.exists(path) else {}
+        return self._calibration
+
     def census(self):
         if not hasattr(self, "_census"):
             path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "export", "plants_census.json")
@@ -482,7 +491,7 @@ class World:
             # LOTR's patch size: its plants per chunk that had any (dense grass: the whole chunk's, so capped)
             size = count / with_ if with_ else PLANT_TRIES * PLANT_YIELD
             tries = min(TRIES_STEPS, key=lambda t: abs(math.log(t * PLANT_YIELD / max(size, 0.1))))
-            patches = per_chunk / (tries * PLANT_YIELD)
+            patches = per_chunk / (tries * PLANT_YIELD) / self.calibration().get(new, 1.0)
             if patches < 1 / RARITY_STEPS[-1]:
                 continue
             out.append(self.plant_feature(kind, new, patches, tries))

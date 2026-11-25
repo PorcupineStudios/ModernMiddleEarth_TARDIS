@@ -78,9 +78,9 @@
     [
       "lotr_port:trees/mordor",
       "lotr_port:plant/dried_reeds_1_0",
-      "lotr_port:plant_grass/mordor_scrub_c1",
+      "lotr_port:plant_grass/mordor_scrub_r2",
       "lotr_port:plant_extra/stabbing_thorn_r16",
-      "lotr_port:plant_extra/withered_moss_r16",
+      "lotr_port:plant_extra/withered_moss_r32",
       "minecraft:glow_lichen"
     ],
     [
