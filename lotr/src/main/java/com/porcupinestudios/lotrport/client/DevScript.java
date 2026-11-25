@@ -22,7 +22,8 @@ import net.neoforged.neoforge.client.event.ClientTickEvent;
  * {@code wait <ticks>}, {@code /<command>} (sent as the player), {@code use <x> <y> <z> [face]} (right-click that block's
  * face, up by default, with the main hand), {@code mouse <x> <y>} (move the pointer, window pixels), {@code click <x> <y>} (left-click the open screen at
  * GUI-scaled x, y), {@code close} (the open screen), {@code tab <id>} (turn the open colony book to that
- * ribbon), {@code hud on|off}, {@code shot <name>}
+ * ribbon), {@code hud on|off}, {@code turn <yaw> <pitch>} (turn the camera that many degrees every tick until
+ * {@code turn 0 0}: camera-motion checks), {@code shot <name>}
  * ({@code screenshots/<name>.png}), {@code quit}; {@code #} starts a comment.
  */
 @EventBusSubscriber(modid = LotrPort.MOD_ID, value = Dist.CLIENT)
@@ -33,6 +34,8 @@ public final class DevScript {
     private static List<String> steps;
     private static int next;
     private static int waiting;
+    private static float turnYaw;
+    private static float turnPitch;
 
     private DevScript() {}
 
@@ -49,6 +52,10 @@ public final class DevScript {
                 LotrPort.LOG.error("[devscript] can't read {}", FILE, e);
                 steps = List.of();
             }
+        }
+        if (turnYaw != 0 || turnPitch != 0) {
+            mc.player.setYRot(mc.player.getYRot() + turnYaw);
+            mc.player.setXRot(net.minecraft.util.Mth.clamp(mc.player.getXRot() + turnPitch, -90, 90));
         }
         if (waiting > 0) {
             waiting--;
@@ -67,6 +74,7 @@ public final class DevScript {
                     return;
                 }
                 case "shot" -> {
+                    LotrPort.LOG.info("[devscript] {} fps", mc.getFps());
                     Screenshot.grab(mc.gameDirectory, w[1] + ".png", mc.getMainRenderTarget(),
                             msg -> LotrPort.LOG.info("[devscript] {}", msg.getString()));
                     return;
@@ -134,6 +142,10 @@ public final class DevScript {
                     if (mc.screen != null) {
                         mc.screen.mouseReleased(lastX, lastY, 0);
                     }
+                }
+                case "turn" -> {
+                    turnYaw = Float.parseFloat(w[1]);
+                    turnPitch = Float.parseFloat(w[2]);
                 }
                 case "close" -> mc.player.closeContainer();
                 // turn the open colony book to a tab (its ribbon), by id

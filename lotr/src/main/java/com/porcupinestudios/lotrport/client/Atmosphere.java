@@ -44,10 +44,11 @@ public final class Atmosphere {
     /**
      * Colour grade offsets from neutral, eased like the rest: saturation, contrast, warmth, brightness, vignette, bloom,
      * then the dark-land effects (0 = off): grain (film noise), aberration (colour fringes toward the edges), wobble
-     * (heat shimmer), blur (edges smeared).
+     * (heat shimmer), blur (edges smeared), smear (the screen smears along sharp camera turns; 1 = up to 4% of the
+     * screen, see {@link ColorGrade}).
      */
     static final String[] GRADE = {"saturation", "contrast", "warmth", "brightness", "vignette", "bloom", "grain",
-            "aberration", "wobble", "blur"};
+            "aberration", "wobble", "blur", "smear"};
     private static final int G0 = 9;
     private static final int SIZE = G0 + GRADE.length;
 
