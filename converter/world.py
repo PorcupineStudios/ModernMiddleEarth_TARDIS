@@ -138,13 +138,49 @@ ROAD_VERGE = {"margin": 8, "cell": 24, "stretch_min": 0.0, "stretch_max": 2.0, "
                   {"block": "minecraft:short_grass", "weight": 10}, {"block": f"{NS}:short_grass", "weight": 5},
                   {"block": f"{NS}:wheatgrass", "weight": 2}, {"block": "minecraft:fern", "weight": 1},
                   {"block": f"{NS}:thistle", "weight": 1}]}
-# LOTR's special grasses (LOTRBlockTallGrass: short grass, flowery grass, wheatgrass, thistle, nettles, jungle sprout):
-# LOTR's biomes pick one of them for some of their grass patches (getRandomGrass, decorator grassPerChunk). The
-# exporter samples that pick per biome (world.json biome "grass": share per old block#meta); without it these shares
-# of the grass patches stand in (a guess, not LOTR's numbers) in biomes with enableSpecialGrasses.
-SPECIAL_GRASS_GUESS = {"lotr:tile.tallGrass#0": 0.10, "lotr:tile.tallGrass#1": 0.04, "lotr:tile.tallGrass#2": 0.06,
-                       "lotr:tile.tallGrass#3": 0.02, "lotr:tile.tallGrass#4": 0.01}
-SPECIAL_GRASS_ORDER = ["short_grass", "flowery_grass", "wheatgrass", "thistle", "nettles", "jungle_sprout"]
+# LOTR's ground plants (2026-11-25, Aaron: thistles and ALL LOTR weeds and flowers, with LOTR's spawning rules).
+# Rules, from the exporter (world.json biome "plants"): which plant each of the decorator's patches is: "grass"
+# (getRandomGrass: LOTR's short grass, flowery grass, wheatgrass, thistle, nettles, clover, flax, arid grass...),
+# "double_grass", "flowers" (the biome's weighted flower list: elanor, niphredil, simbelmyne, bluebells...) and
+# "double_flowers". Amounts, from the plant census (export/plants_census.json, PlantCensus: every plant counted on
+# LOTR's own generated ground, per biome): plants per chunk. Each kind's total (all its plants per chunk in the
+# census) is shared out by the rules; plants the census finds that no rule names (a biome's own decorate: athelas,
+# berry bushes, corn...) become patches of their own at their measured rate and patch size. Without a census, the
+# decorator's per-chunk counts x LOTR_PLANTS_PER_PATCH stand in.
+SOIL_MIN_SHARE = 0.02  # a plant's ground counts for lotr_port:grows_on/<plant> above this share of its finds
+VANILLA_DIRT = {"minecraft:dirt", "minecraft:grass_block", "minecraft:podzol", "minecraft:coarse_dirt",
+                "minecraft:mycelium", "minecraft:rooted_dirt", "minecraft:moss_block", "minecraft:mud",
+                "minecraft:farmland"}
+PLANT_TRIES = 32  # tries per patch (vanilla 1.18's grass patch)
+PLANT_YIELD = 0.5  # share of a patch's tries that grow on ordinary ground (estimate; not measured in the port yet)
+LOTR_PLANTS_PER_PATCH = {"grass": 24, "double_grass": 8, "flowers": 12, "double_flowers": 6}  # no-census stand-in
+PER_CHUNK = {"grass": "grassPerChunk", "double_grass": "doubleGrassPerChunk", "flowers": "flowersPerChunk",
+             "double_flowers": "doubleFlowersPerChunk"}
+PLANT_KINDS = ["grass", "double_grass", "flowers", "double_flowers", "extra"]
+MIN_PER_CHUNK = 0.02  # plants per chunk below which a census-only plant is left out (one in 50 chunks)
+# 1.7.10 vanilla plants -> 1.21 ids
+VANILLA_PLANTS = {
+    "minecraft:tallgrass#0": "minecraft:dead_bush", "minecraft:tallgrass#1": "minecraft:short_grass",
+    "minecraft:tallgrass#2": "minecraft:fern", "minecraft:yellow_flower#0": "minecraft:dandelion",
+    "minecraft:deadbush#0": "minecraft:dead_bush", "minecraft:waterlily#0": "minecraft:lily_pad",
+    "minecraft:reeds#0": "minecraft:sugar_cane", "minecraft:cactus#0": "minecraft:cactus",
+    "minecraft:red_mushroom#0": "minecraft:red_mushroom", "minecraft:brown_mushroom#0": "minecraft:brown_mushroom",
+    "minecraft:pumpkin#0": "minecraft:pumpkin", "minecraft:melon_block#0": "minecraft:melon",
+    "minecraft:vine#0": "minecraft:vine", "minecraft:sapling#0": "minecraft:oak_sapling",
+    **{f"minecraft:red_flower#{i}": f"minecraft:{n}" for i, n in enumerate(
+        ["poppy", "blue_orchid", "allium", "azure_bluet", "red_tulip", "orange_tulip", "white_tulip", "pink_tulip",
+         "oxeye_daisy"])},
+    **{f"minecraft:double_plant#{i}": f"minecraft:{n}" for i, n in enumerate(
+        ["sunflower", "lilac", "tall_grass", "large_fern", "rose_bush", "peony"])},
+}
+# Census plants other features already place (vanilla patches, reeds, forest floor, crops of LOTR's decorator that
+# world.py places elsewhere), or that are not ground plants (vines hang from trunks, saplings, crops).
+CENSUS_SKIP_PREFIX = ("minecraft:vine", "minecraft:waterlily", "minecraft:reeds", "minecraft:cactus",
+                      "minecraft:deadbush", "minecraft:red_mushroom", "minecraft:brown_mushroom", "minecraft:pumpkin",
+                      "minecraft:melon_block", "minecraft:sapling", "minecraft:wheat", "minecraft:carrots",
+                      "minecraft:potatoes", "lotr:tile.reed", "lotr:tile.deadMarshPlant", "lotr:tile.fallenLeaves",
+                      "lotr:tile.sapling", "lotr:tile.leaves", "lotr:tile.vine", "lotr:tile.mirkVines",
+                      "lotr:tile.willowVines")
 # Small rivers (LOTR made these with a river layer, not on the map). Widths are in noise units: one is about 11 blocks.
 # Aaron 2026-11-14: fewer rivers (scale 1700; width in noise units scaled by 900/1700).
 # Aaron 2026-11-16: LOTR's small rivers are narrow (its NarrowRivers layer); 0.025/1.5 gave wide green-banked channels.
@@ -260,13 +296,14 @@ class World:
                     veg.add("minecraft:trees_savanna")
                 else:
                     veg.add("minecraft:trees_plains")
-            if dec.get("flowersPerChunk", 0) > 0:
-                veg.add("minecraft:flower_default")
-            veg.add("minecraft:patch_grass_forest" if trees >= 3 else "minecraft:patch_grass_plain")
-            if dec.get("doubleGrassPerChunk", 0) > 0:
-                veg.add("minecraft:patch_tall_grass")
-            if dec.get("enableFern"):
-                veg.add("minecraft:patch_large_fern")
+            if "plants" not in b:  # an export without LOTR's plant rules: vanilla's stand-ins
+                if dec.get("flowersPerChunk", 0) > 0:
+                    veg.add("minecraft:flower_default")
+                veg.add("minecraft:patch_grass_forest" if trees >= 3 else "minecraft:patch_grass_plain")
+                if dec.get("doubleGrassPerChunk", 0) > 0:
+                    veg.add("minecraft:patch_tall_grass")
+                if dec.get("enableFern"):
+                    veg.add("minecraft:patch_large_fern")
         if top in ("minecraft:sand", "minecraft:red_sand"):
             veg.add("minecraft:patch_dead_bush")
             if dec.get("cactiPerChunk", 0) > 0 or temp >= 1.5:
@@ -283,7 +320,7 @@ class World:
             features[2] = [f"{NS}:quagmire_{dec['quagmirePerChunk']}", f"{NS}:mud_patch"] + features[2]
         features[9] = ([lotr_trees] if lotr_trees else []) + self.variant_plants(self.biome_id(b)) + \
             self.forest_floor(dec) + self.marsh_plants(b) + [
-            v for v in VEGETATION if v in veg] + self.special_grass(b)
+            v for v in VEGETATION if v in veg] + self.lotr_plants(b)
         features[10] = [f"{NS}:road_verge", "minecraft:freeze_top_layer"]
         creatures = []
         if top == "minecraft:grass_block" and temp < 1.5:
@@ -369,29 +406,116 @@ class World:
                 {"type": "minecraft:biome"}]})
         return f"{NS}:plant/{name}"
 
-    def special_grass(self, b):
-        """LOTR's own grasses (thistles, nettles, wheatgrass...) as patches: grassPerChunk x the biome's share of each
-        (export "grass", else SPECIAL_GRASS_GUESS where enableSpecialGrasses). Vanilla grass stays vanilla's patches."""
-        dec = b.get("decorator", {})
-        per_chunk = dec.get("grassPerChunk", 0)
-        shares = b.get("grass")
-        if shares is None:
-            shares = SPECIAL_GRASS_GUESS if dec.get("enableSpecialGrasses") else {}
-        out = {}
-        for old, share in shares.items():
-            new = self.gen.idtable.get(old)
-            kind = new.split(":")[1] if new and new.startswith(f"{NS}:") else None
-            k = per_chunk * share
-            if kind in SPECIAL_GRASS_ORDER and k >= 0.01:
-                name = f"grass/{kind}_{round(k, 2)}".replace(".", "_")
-                out[kind] = self.grass_patch(name, new, k)
-        return [out[k] for k in SPECIAL_GRASS_ORDER if k in out]
+    def plant_id(self, old):
+        """1.21 id of a 1.7.10 plant block#meta (None if the port has none)."""
+        if old in VANILLA_PLANTS:
+            return VANILLA_PLANTS[old]
+        return self.gen.idtable.get(old)
 
-    def grass_patch(self, name, block, per_chunk):
-        """A grass patch like vanilla's patch_grass (32 tries, spread 7): the plant only where it can live."""
+    def census(self):
+        if not hasattr(self, "_census"):
+            path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "export", "plants_census.json")
+            self._census = json.load(open(path, encoding="utf-8"))["biomes"] if os.path.exists(path) else None
+        return self._census
+
+    def lotr_plants(self, b):
+        """LOTR's ground plants for a biome (see PLANT_TRIES): patches per plant, ordered by (kind, block) so every
+        biome lists them in the same order."""
+        rules = b.get("plants")
+        if not rules:
+            return []
+        dec = b.get("decorator", {})
+        counted = (self.census() or {}).get(b["fields"]["biomeName"])
+        seen = (counted or {}).get("plants", {})
+        want = {}  # (kind, new id) -> plants per chunk
+        source = {}  # (kind, new id) of a census-only plant -> its old id
+
+        def add(kind, old, per_chunk):
+            new = self.plant_id(old)
+            if new is None:
+                self.report.setdefault("unknown_plants", []).append(old)
+                return
+            want[(kind, new)] = want.get((kind, new), 0) + per_chunk
+            source.setdefault((kind, new), old)
+
+        explained = set()
+        for kind in ("grass", "double_grass", "flowers", "double_flowers"):
+            if kind == "flowers":
+                total_w = sum(f["weight"] for f in rules.get("flowers", []))
+                shares = {f"{f['block']}#{f['meta']}": f["weight"] / total_w for f in rules.get("flowers", [])
+                          if f["block"] and total_w > 0}
+            else:
+                shares = rules.get(kind, {})
+            shares = {k: v for k, v in shares.items() if v > 0 and not k.startswith("none")}
+            explained |= set(shares)
+            if dec.get(PER_CHUNK[kind], 0) <= 0 or not shares:
+                continue
+            if counted is not None:
+                total = sum(seen.get(k, {}).get("per_chunk", 0) for k in shares)
+            else:
+                total = dec[PER_CHUNK[kind]] * LOTR_PLANTS_PER_PATCH[kind]
+            for old, share in shares.items():
+                add(kind, old, total * share)
+        for old, got in sorted(seen.items()):  # plants of the biome's own decorate
+            if old in explained or old.startswith(CENSUS_SKIP_PREFIX) or got["per_chunk"] < MIN_PER_CHUNK:
+                continue
+            add("extra", old, got["per_chunk"])
+        out = []
+        for (kind, new), per_chunk in sorted(want.items(), key=lambda e: (PLANT_KINDS.index(e[0][0]), e[0][1])):
+            got = seen.get(source.get((kind, new)), {})
+            if kind == "extra" and got.get("chunks_with"):  # its own rate and patch size, as measured
+                chunks = max(1.0, counted["columns"] / 256.0)
+                patches = got["chunks_with"] / chunks
+                size = got["count"] / got["chunks_with"]
+                tries = max(4, min(96, round(size / PLANT_YIELD)))
+            else:
+                tries = PLANT_TRIES
+                patches = per_chunk / (tries * PLANT_YIELD)
+            if patches < 0.005:
+                continue
+            short = new.split(":")[1]
+            name = f"plant_{kind}/{short}_{round(patches, 3)}_{tries}".replace(".", "_")
+            out.append(self.grass_patch(name, new, patches, tries))
+        return out
+
+    def plant_soils(self):
+        """Tags lotr_port:grows_on/<plant>: the grounds LOTR's plant census found each LOTR plant on (content/PlantBlock
+        grows on dirt like vanilla's bushes, and on these: Harad flowers on sand...). A ground counts with at least
+        SOIL_MIN_SHARE of the plant's finds; dirt and grass are vanilla's already."""
+        census = self.census()
+        if not census:
+            return 0
+        found = {}
+        for biome in census.values():
+            for old, got in biome["plants"].items():
+                for ground, n in got.get("grounds", {}).items():
+                    found.setdefault(old, {}).setdefault(ground, 0)
+                    found[old][ground] += n
+        tags = {}
+        for old, grounds in found.items():
+            new = self.plant_id(old)
+            if not new or not new.startswith(f"{NS}:"):
+                continue
+            total = sum(grounds.values())
+            for ground, n in grounds.items():
+                if ground == "minecraft:water" or n < 3 or n < SOIL_MIN_SHARE * total:
+                    continue
+                block, _, meta = ground.partition("#")
+                soil = VANILLA_SURFACE.get(ground) or self.gen.idtable.get(ground) or (
+                    block if block.startswith("minecraft:") and meta == "0" else None)
+                if soil and soil not in VANILLA_DIRT:
+                    tags.setdefault(new, set()).add(soil)
+        for new, soils in tags.items():
+            write_json(os.path.join(self.data, NS, "tags", "block", "grows_on", new.split(":")[1] + ".json"),
+                       {"replace": False, "values": sorted(soils)})
+        return len(tags)
+
+    def grass_patch(self, name, block, per_chunk, tries=32):
+        """A plant patch like vanilla's patch_grass (spread 7): the plant only where it can live; per_chunk patches a
+        chunk (under 1: a 1-in-n chance)."""
         gen = os.path.join(self.data, NS, "worldgen")
         write_json(os.path.join(gen, "configured_feature", name + ".json"), {
-            "type": "minecraft:random_patch", "config": {"tries": 32, "xz_spread": 7, "y_spread": 3, "feature": {
+            "type": "minecraft:random_patch", "config": {"tries": tries, "xz_spread": 7, "y_spread": 3, "feature": {
                 "feature": {"type": "minecraft:simple_block", "config": {"to_place": {
                     "type": "minecraft:simple_state_provider", "state": {"Name": block}}}},
                 "placement": [{"type": "minecraft:block_predicate_filter", "predicate": {
@@ -937,6 +1061,7 @@ class World:
         self.peak_biomes = self.find_peak_biomes(biomes, world)
         w, h = self.write_map(biomes, world)
         self.ground_features(biomes)
+        self.plant_soils()
         write_json(os.path.join(self.data, NS, "worldgen", "noise_settings", "middle_earth.json"),
                    self.noise_settings(biomes))
         self.dimension_files()

@@ -16,8 +16,9 @@ import net.neoforged.neoforge.gametest.PrefixGameTestTemplate;
 
 /**
  * Roads keep plants off (2026-11-25): every biome that lays roads clears them after its vegetation with
- * {@code lotr_port:road_verge}, whose overgrowth plants are real blocks; and LOTR's thistles grow wild (the Shire's
- * grass patches include them). The world check ({@code WorldCheck}) checks real road columns in generated chunks.
+ * {@code lotr_port:road_verge}, whose overgrowth plants are real blocks. LOTR's ground plants grow wild by LOTR's rules
+ * (exported from 1.7.10): thistles in the Shire's grass, elanor and niphredil in Lothlorien, Harad's flowers on sand
+ * ({@code lotr_port:grows_on/*}). The world check ({@code WorldCheck}) checks real road columns in generated chunks.
  */
 @GameTestHolder(LotrPort.MOD_ID)
 @PrefixGameTestTemplate(false)
@@ -61,9 +62,24 @@ public final class RoadPlantTests {
         helper.assertTrue(shire != null, "no Shire biome");
         var placed = access.registryOrThrow(Registries.PLACED_FEATURE);
         boolean thistles = shire.getGenerationSettings().features().stream().flatMap(s -> s.stream())
-                .anyMatch(h -> h.unwrapKey().map(k -> k.location().getPath().startsWith("grass/thistle_"))
+                .anyMatch(h -> h.unwrapKey().map(k -> k.location().getPath().startsWith("plant_grass/thistle_"))
                         .orElse(false) && placed.getKey(h.value()) != null);
         helper.assertTrue(thistles, "the Shire grows no thistles");
+        // LOTR's own flowers (from the biome's flower list): Lothlorien grows elanor and niphredil
+        Biome lorien = biomes.get(ResourceLocation.fromNamespaceAndPath(LotrPort.MOD_ID, "lothlorien"));
+        helper.assertTrue(lorien != null, "no Lothlorien biome");
+        for (String flower : new String[] { "plant_flowers/elanor_", "plant_flowers/niphredil_" }) {
+            helper.assertTrue(lorien.getGenerationSettings().features().stream().flatMap(s -> s.stream())
+                    .anyMatch(h -> h.unwrapKey().map(k -> k.location().getPath().startsWith(flower)).orElse(false)),
+                    "Lothlorien grows no " + flower);
+        }
+        // LOTR's plants grow where the census found them: Harad's flowers on sand
+        var sand = net.minecraft.world.level.block.Blocks.SAND.defaultBlockState();
+        var daisy = BuiltInRegistries.BLOCK.get(ResourceLocation.fromNamespaceAndPath(LotrPort.MOD_ID, "harad_daisy"));
+        var at = helper.absolutePos(new net.minecraft.core.BlockPos(1, 1, 1));
+        helper.getLevel().setBlock(at.below(), sand, 3);
+        helper.assertTrue(daisy.defaultBlockState().canSurvive(helper.getLevel(), at),
+                "Harad daisies can't grow on sand");
         helper.succeed();
     }
 }
