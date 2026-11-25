@@ -203,7 +203,7 @@ PALETTE = {"rock": {"Name": f"{NS}:weathered_stone"}, "lichen": {"Name": f"{NS}:
 # Per biome: ground rules (GroundCoverFeature), boulders, groves. The Weather Hills: rockier, fewer groves.
 SETTINGS = {
     "lone_lands": {
-        "rules": dict(patch=34, coarse=0.22, rubble=0.42, rock=0.58, lichen=0.25, wet=0.62, moss=0.82, steep=3,
+        "rules": dict(patch=34, coarse=0.3, rubble=0.5, rock=0.64, lichen=0.25, wet=0.62, moss=0.82, steep=3,
                       east=0.35, **_EAST),
         "creeks": dict(scale=220, width=3, mask=0.05),
         "plants": [  # bracken and heather in their own patches, tussock everywhere else
