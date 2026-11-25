@@ -250,53 +250,11 @@ public class StructureRateExporter {
             wanted[id] = true;
         }
 
-        Class<?> layer = Class.forName("lotr.common.world.genlayer.LOTRGenLayerWorld");
-        if (!(Boolean) layer.getMethod("loadedBiomeImage").invoke(null)) {
-            throw new IllegalStateException("LOTR's map image isn't loaded");
-        }
-        Field data = layer.getDeclaredField("biomeImageData");
-        data.setAccessible(true);
-        byte[] image = (byte[]) data.get(null);
-        int w = layer.getField("imageWidth").getInt(null);
-        int h = layer.getField("imageHeight").getInt(null);
-        originX = layer.getField("originX").getInt(null);
-        originZ = layer.getField("originZ").getInt(null);
-        scale = layer.getField("scale").getInt(null);
-        // per biome, PATCHES random pixels; inside the biome (its four neighbours the same) where it has any
-        Random random = new Random(SEED);
-        int[][] picks = new int[list.length][PATCHES];
-        int[] seen = new int[list.length];
-        for (int pass = 0; pass < 2; pass++) {
-            boolean[] open = new boolean[list.length]; // pass 1: biomes with no pixel inside, any pixel
-            for (int id = 0; id < list.length; id++) {
-                open[id] = wanted[id] && seen[id] == 0;
-            }
-            for (int pz = 1; pz < h - 1; pz++) {
-                for (int px = 1; px < w - 1; px++) {
-                    int i = pz * w + px;
-                    int id = image[i] & 255;
-                    if (id >= list.length || !open[id] || pass == 0 && ((image[i - 1] & 255) != id
-                            || (image[i + 1] & 255) != id || (image[i - w] & 255) != id
-                            || (image[i + w] & 255) != id)) {
-                        continue;
-                    }
-                    int n = seen[id]++; // reservoir sampling
-                    int r = n < PATCHES ? n : random.nextInt(n + 1);
-                    if (r < PATCHES) {
-                        picks[id][r] = i;
-                    }
-                }
-            }
-        }
-        for (int p = 0; p < PATCHES; p++) {
-            for (int id = 0; id < list.length; id++) {
-                if (wanted[id] && p < seen[id]) {
-                    patches.add(new int[] { picks[id][p] % w, picks[id][p] / w });
-                } else if (wanted[id] && p == 0) {
-                    errors.add(new JsonPrimitive("biome " + ((BiomeGenBase) list[id]).biomeName + " not on the map"));
-                }
-            }
-        }
+        MapPatches map = new MapPatches(list, wanted, PATCHES, SEED, errors);
+        originX = map.originX;
+        originZ = map.originZ;
+        scale = map.scale;
+        patches.addAll(map.pixels);
     }
 
     /** Populates one patch around a map pixel's middle and counts its chunks. */
