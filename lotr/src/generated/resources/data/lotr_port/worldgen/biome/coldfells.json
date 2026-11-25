@@ -139,12 +139,18 @@
       "minecraft:flower_default",
       "minecraft:patch_grass_plain",
       "minecraft:patch_tall_grass",
+      "lotr_port:grass/short_grass_0_6",
+      "lotr_port:grass/flowery_grass_0_24",
+      "lotr_port:grass/wheatgrass_0_36",
+      "lotr_port:grass/thistle_0_12",
+      "lotr_port:grass/nettles_0_06",
       "minecraft:glow_lichen",
       "minecraft:brown_mushroom_normal",
       "minecraft:red_mushroom_normal",
       "minecraft:patch_berry_common"
     ],
     [
+      "lotr_port:road_verge",
       "minecraft:freeze_top_layer"
     ]
   ]

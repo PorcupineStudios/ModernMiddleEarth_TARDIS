@@ -1,0 +1,35 @@
+{
+  "type": "lotr_port:road_verge",
+  "config": {
+    "margin": 8,
+    "cell": 24,
+    "stretch_min": 0.0,
+    "stretch_max": 2.0,
+    "middle": 0.3,
+    "gap": 0.5,
+    "laid": 0.08,
+    "sow": 0.6,
+    "plants": [
+      {
+        "block": "minecraft:short_grass",
+        "weight": 10
+      },
+      {
+        "block": "lotr_port:short_grass",
+        "weight": 5
+      },
+      {
+        "block": "lotr_port:wheatgrass",
+        "weight": 2
+      },
+      {
+        "block": "minecraft:fern",
+        "weight": 1
+      },
+      {
+        "block": "lotr_port:thistle",
+        "weight": 1
+      }
+    ]
+  }
+}

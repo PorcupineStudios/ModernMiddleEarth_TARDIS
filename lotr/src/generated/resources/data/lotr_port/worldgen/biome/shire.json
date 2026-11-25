@@ -148,6 +148,11 @@
       "lotr_port:plant/dried_reeds_0_1",
       "minecraft:flower_default",
       "minecraft:patch_grass_plain",
+      "lotr_port:grass/short_grass_0_6",
+      "lotr_port:grass/flowery_grass_0_24",
+      "lotr_port:grass/wheatgrass_0_36",
+      "lotr_port:grass/thistle_0_12",
+      "lotr_port:grass/nettles_0_06",
       "minecraft:glow_lichen",
       "lotr_port:lush_cave_ceiling",
       "lotr_port:lush_cave_vines",
@@ -161,6 +166,7 @@
       "minecraft:patch_pumpkin"
     ],
     [
+      "lotr_port:road_verge",
       "minecraft:freeze_top_layer"
     ]
   ]

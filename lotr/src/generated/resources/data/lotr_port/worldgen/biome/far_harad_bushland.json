@@ -122,9 +122,15 @@
       "minecraft:flower_default",
       "minecraft:patch_grass_plain",
       "minecraft:patch_tall_grass",
+      "lotr_port:grass/short_grass_1_6",
+      "lotr_port:grass/flowery_grass_0_64",
+      "lotr_port:grass/wheatgrass_0_96",
+      "lotr_port:grass/thistle_0_32",
+      "lotr_port:grass/nettles_0_16",
       "minecraft:glow_lichen"
     ],
     [
+      "lotr_port:road_verge",
       "minecraft:freeze_top_layer"
     ]
   ]

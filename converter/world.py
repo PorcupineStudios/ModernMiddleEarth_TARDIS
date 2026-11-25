@@ -127,7 +127,24 @@ RANGES = {
     "ceiling": 610,  # summits eased under this y
 }
 
-ROAD_HALF_WIDTH = 2.1  # blocks either side of a road's middle (Aaron 2026-11-14: 4-5 wide; bridges 1 more each side)
+ROAD_HALF_WIDTH = 3.1  # blocks either side of a road's middle (Aaron 2026-11-25: 6-7 wide, was 2.1 = 4-5; bridges
+# 1 more each side)
+# Plants on roads (Aaron 2026-11-25: no grass or flowers on roads, sparse overgrowth on run-down ones): feature
+# lotr_port:road_verge (world/feature/RoadVergeFeature) runs after the vegetation and clears road columns. Roads
+# with LOTR's repair 1 stay bare; on worn roads (repair < 1) a column stays green with chance (1 - repair) x stretch
+# (smooth per-cell factor, so some stretches are clean and some overgrown) x edge (middle .. 1) x gap / laid.
+ROAD_VERGE = {"margin": 8, "cell": 24, "stretch_min": 0.0, "stretch_max": 2.0, "middle": 0.3, "gap": 0.5,
+              "laid": 0.08, "sow": 0.6, "plants": [
+                  {"block": "minecraft:short_grass", "weight": 10}, {"block": f"{NS}:short_grass", "weight": 5},
+                  {"block": f"{NS}:wheatgrass", "weight": 2}, {"block": "minecraft:fern", "weight": 1},
+                  {"block": f"{NS}:thistle", "weight": 1}]}
+# LOTR's special grasses (LOTRBlockTallGrass: short grass, flowery grass, wheatgrass, thistle, nettles, jungle sprout):
+# LOTR's biomes pick one of them for some of their grass patches (getRandomGrass, decorator grassPerChunk). The
+# exporter samples that pick per biome (world.json biome "grass": share per old block#meta); without it these shares
+# of the grass patches stand in (a guess, not LOTR's numbers) in biomes with enableSpecialGrasses.
+SPECIAL_GRASS_GUESS = {"lotr:tile.tallGrass#0": 0.10, "lotr:tile.tallGrass#1": 0.04, "lotr:tile.tallGrass#2": 0.06,
+                       "lotr:tile.tallGrass#3": 0.02, "lotr:tile.tallGrass#4": 0.01}
+SPECIAL_GRASS_ORDER = ["short_grass", "flowery_grass", "wheatgrass", "thistle", "nettles", "jungle_sprout"]
 # Small rivers (LOTR made these with a river layer, not on the map). Widths are in noise units: one is about 11 blocks.
 # Aaron 2026-11-14: fewer rivers (scale 1700; width in noise units scaled by 900/1700).
 # Aaron 2026-11-16: LOTR's small rivers are narrow (its NarrowRivers layer); 0.025/1.5 gave wide green-banked channels.
@@ -266,8 +283,8 @@ class World:
             features[2] = [f"{NS}:quagmire_{dec['quagmirePerChunk']}", f"{NS}:mud_patch"] + features[2]
         features[9] = ([lotr_trees] if lotr_trees else []) + self.variant_plants(self.biome_id(b)) + \
             self.forest_floor(dec) + self.marsh_plants(b) + [
-            v for v in VEGETATION if v in veg]
-        features[10] = ["minecraft:freeze_top_layer"]
+            v for v in VEGETATION if v in veg] + self.special_grass(b)
+        features[10] = [f"{NS}:road_verge", "minecraft:freeze_top_layer"]
         creatures = []
         if top == "minecraft:grass_block" and temp < 1.5:
             creatures = [{"type": t, "weight": w, "minCount": a, "maxCount": c} for t, w, a, c in GRAZERS]
@@ -351,6 +368,43 @@ class World:
                 {"type": "minecraft:in_square"}, {"type": "minecraft:heightmap", "heightmap": "WORLD_SURFACE_WG"},
                 {"type": "minecraft:biome"}]})
         return f"{NS}:plant/{name}"
+
+    def special_grass(self, b):
+        """LOTR's own grasses (thistles, nettles, wheatgrass...) as patches: grassPerChunk x the biome's share of each
+        (export "grass", else SPECIAL_GRASS_GUESS where enableSpecialGrasses). Vanilla grass stays vanilla's patches."""
+        dec = b.get("decorator", {})
+        per_chunk = dec.get("grassPerChunk", 0)
+        shares = b.get("grass")
+        if shares is None:
+            shares = SPECIAL_GRASS_GUESS if dec.get("enableSpecialGrasses") else {}
+        out = {}
+        for old, share in shares.items():
+            new = self.gen.idtable.get(old)
+            kind = new.split(":")[1] if new and new.startswith(f"{NS}:") else None
+            k = per_chunk * share
+            if kind in SPECIAL_GRASS_ORDER and k >= 0.01:
+                name = f"grass/{kind}_{round(k, 2)}".replace(".", "_")
+                out[kind] = self.grass_patch(name, new, k)
+        return [out[k] for k in SPECIAL_GRASS_ORDER if k in out]
+
+    def grass_patch(self, name, block, per_chunk):
+        """A grass patch like vanilla's patch_grass (32 tries, spread 7): the plant only where it can live."""
+        gen = os.path.join(self.data, NS, "worldgen")
+        write_json(os.path.join(gen, "configured_feature", name + ".json"), {
+            "type": "minecraft:random_patch", "config": {"tries": 32, "xz_spread": 7, "y_spread": 3, "feature": {
+                "feature": {"type": "minecraft:simple_block", "config": {"to_place": {
+                    "type": "minecraft:simple_state_provider", "state": {"Name": block}}}},
+                "placement": [{"type": "minecraft:block_predicate_filter", "predicate": {
+                    "type": "minecraft:all_of", "predicates": [
+                        {"type": "minecraft:matching_blocks", "blocks": "minecraft:air"},
+                        {"type": "minecraft:would_survive", "state": {"Name": block}}]}}]}}})
+        count = ([{"type": "minecraft:count", "count": round(per_chunk)}] if per_chunk >= 1
+                 else [{"type": "minecraft:rarity_filter", "chance": max(1, round(1 / per_chunk))}])
+        write_json(os.path.join(gen, "placed_feature", name + ".json"), {
+            "feature": f"{NS}:{name}", "placement": count + [
+                {"type": "minecraft:in_square"}, {"type": "minecraft:heightmap", "heightmap": "WORLD_SURFACE_WG"},
+                {"type": "minecraft:biome"}]})
+        return f"{NS}:{name}"
 
     def reed_patch(self, name, block, per_chunk):
         """LOTRWorldGenReeds as feature lotr_port:reeds (world/feature/ReedsFeature): only over still water at most 4
@@ -839,6 +893,10 @@ class World:
         gen = os.path.join(self.data, NS, "worldgen")
         write_json(os.path.join(gen, "configured_feature", "roads.json"), {"type": f"{NS}:roads", "config": {}})
         write_json(os.path.join(gen, "placed_feature", "roads.json"), {"feature": f"{NS}:roads", "placement": []})
+        write_json(os.path.join(gen, "configured_feature", "road_verge.json"), {"type": f"{NS}:road_verge",
+                                                                               "config": ROAD_VERGE})
+        write_json(os.path.join(gen, "placed_feature", "road_verge.json"), {"feature": f"{NS}:road_verge",
+                                                                          "placement": []})
         write_json(os.path.join(gen, "configured_feature", "crater_lava.json"), {"type": f"{NS}:crater_lava",
                                                                                 "config": {}})
         write_json(os.path.join(gen, "placed_feature", "crater_lava.json"), {"feature": f"{NS}:crater_lava",

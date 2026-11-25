@@ -121,6 +121,11 @@
       "minecraft:patch_grass_plain",
       "minecraft:patch_tall_grass",
       "minecraft:patch_large_fern",
+      "lotr_port:grass/short_grass_0_4",
+      "lotr_port:grass/flowery_grass_0_16",
+      "lotr_port:grass/wheatgrass_0_24",
+      "lotr_port:grass/thistle_0_08",
+      "lotr_port:grass/nettles_0_04",
       "minecraft:glow_lichen",
       "lotr_port:lush_cave_ceiling",
       "lotr_port:lush_cave_vines",
@@ -130,6 +135,7 @@
       "lotr_port:lush_cave_spore_blossom"
     ],
     [
+      "lotr_port:road_verge",
       "minecraft:freeze_top_layer"
     ]
   ]

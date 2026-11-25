@@ -120,6 +120,11 @@
       "minecraft:patch_grass_forest",
       "minecraft:patch_tall_grass",
       "minecraft:patch_large_fern",
+      "lotr_port:grass/short_grass_1_2",
+      "lotr_port:grass/flowery_grass_0_48",
+      "lotr_port:grass/wheatgrass_0_72",
+      "lotr_port:grass/thistle_0_24",
+      "lotr_port:grass/nettles_0_12",
       "minecraft:glow_lichen",
       "lotr_port:bee_nests_rare",
       "minecraft:brown_mushroom_normal",
@@ -127,6 +132,7 @@
       "minecraft:patch_pumpkin"
     ],
     [
+      "lotr_port:road_verge",
       "minecraft:freeze_top_layer"
     ]
   ]
