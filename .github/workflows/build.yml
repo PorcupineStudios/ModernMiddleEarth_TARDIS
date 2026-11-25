@@ -77,6 +77,18 @@ jobs:
               -printf "- %f (https://modrinth.com/mod/$m)\n" >> needed-mods.txt
           done
           cat needed-mods.txt
+      # Merge branch only (2026-11-25, Aaron approved): its own pre-release, even with a failing GameTest. Drop before main.
+      - name: Merge pre-release
+        if: ${{ !cancelled() && github.ref_name == 'claude/merged-2026-11-25' }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          mkdir -p merge-build
+          cp api/build/libs/*.jar tardis/build/libs/*.jar lotr/build/libs/*.jar harness/build/libs/*.jar merge-build/
+          rm -f merge-build/*-sources.jar
+          gh release delete merged-2026-11-25 -y --cleanup-tag || true
+          gh release create merged-2026-11-25 merge-build/*.jar --prerelease --target "${{ github.sha }}" \
+            --title "Merge build 2026-11-25" --notes "Play-test build of claude/merged-2026-11-25 at ${GITHUB_SHA}. Known failing GameTests: RoadWorksTests.stretchPavesNaturalGroundOnly (from eager-curie), and the colony perf budget is flaky."
       - name: Rolling test build (a pre-release with our jars; other mods are listed, not attached)
         if: github.event_name == 'push'
         env:
