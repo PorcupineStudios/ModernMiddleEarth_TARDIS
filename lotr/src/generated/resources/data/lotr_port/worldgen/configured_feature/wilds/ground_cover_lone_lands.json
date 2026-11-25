@@ -26,6 +26,9 @@
       },
       "gravel": {
         "Name": "minecraft:gravel"
+      },
+      "dirt": {
+        "Name": "lotr_port:rocky_dirt"
       }
     },
     "rules": {

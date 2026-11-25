@@ -50,6 +50,7 @@ LICHEN = [(122, 125, 100), (140, 141, 110), (158, 154, 114), (174, 164, 114)]
 TUSSOCK = [(96, 74, 44), (128, 101, 58), (158, 129, 74), (186, 156, 94), (208, 181, 118)]
 # Stony earth (worn ground between the grass): between peat and rock. Heath moss: olive, the conifers' own green.
 EARTH = [(70, 60, 50), (88, 76, 63), (106, 92, 76), (124, 108, 89), (140, 124, 104)]
+DIRT = [(62, 46, 34), (80, 60, 44), (98, 75, 55), (116, 90, 66), (132, 104, 78)]  # coarse dirt, not orange
 MOSS = [(56, 66, 38), (72, 82, 46), (90, 98, 56), (108, 114, 66), (126, 128, 78)]
 BRACKEN = [(78, 52, 38), (98, 66, 46), (118, 82, 56), (138, 100, 70), (156, 120, 88)]  # muted rust, not orange
 # biome colours: grass_block's grey top x this gives a tawny ground (~115,102,60), conifers dark olive
@@ -63,6 +64,7 @@ BLOCKS = {  # id -> (kind, English name)
     "moorland_soil": ("soil", "Moorland Soil"),
     "stony_earth": ("soil", "Stony Earth"),
     "heath_moss": ("soil", "Heath Moss"),
+    "rocky_dirt": ("soil", "Rocky Dirt"),
     "tussock": ("plant", "Tussock Grass"),
     "bracken": ("plant", "Dry Bracken"),
 }
@@ -115,6 +117,14 @@ def textures(jar):
     out["scree"] = gradient_map(van("gravel"), SCREE)
     out["moorland_soil"] = gradient_map(van("rooted_dirt"), PEAT)
     out["stony_earth"] = gradient_map(van("coarse_dirt"), EARTH)
+    # rocky dirt: coarse dirt's grain in a brown that sits with the peat, with gravel's light stones set in it
+    dirt = gradient_map(van("coarse_dirt"), DIRT)
+    grav = gradient_map(van("gravel"), SCREE)
+    for y in range(16):
+        for x in range(16):
+            if luminance(van("gravel").getpixel((x, y))) > 150:
+                dirt.putpixel((x, y), grav.getpixel((x, y)))
+    out["rocky_dirt"] = dirt
     out["heath_moss"] = gradient_map(van("moss_block"), MOSS)
     out["tussock"] = gradient_map(van("short_grass"), TUSSOCK)
     out["bracken"] = gradient_map(van("fern"), BRACKEN)
@@ -198,7 +208,7 @@ _EAST = {"east_from": EAST_FROM, "east_to": EAST_TO}
 PALETTE = {"rock": {"Name": f"{NS}:weathered_stone"}, "lichen": {"Name": f"{NS}:lichen_stone"},
            "rubble": {"Name": f"{NS}:scree"}, "peat": {"Name": f"{NS}:moorland_soil"},
            "moss": {"Name": f"{NS}:heath_moss"}, "coarse": {"Name": f"{NS}:stony_earth"},
-           "gravel": {"Name": "minecraft:gravel"}}
+           "gravel": {"Name": "minecraft:gravel"}, "dirt": {"Name": f"{NS}:rocky_dirt"}}
 
 # Per biome: ground rules (GroundCoverFeature), boulders, groves. The Weather Hills: rockier, fewer groves.
 SETTINGS = {
@@ -243,9 +253,9 @@ DROP_PREFIX = (f"{NS}:lone_lands_variant/", f"{NS}:trees/lone_lands", f"{NS}:var
                f"{NS}:plant_double_grass/minecraft_tall_grass_")
 TAGS = {  # block tag -> our blocks
     "minecraft:mineable/pickaxe": ["weathered_stone", "lichen_stone"],
-    "minecraft:mineable/shovel": ["scree", "moorland_soil", "stony_earth"],
+    "minecraft:mineable/shovel": ["scree", "moorland_soil", "stony_earth", "rocky_dirt"],
     "minecraft:mineable/hoe": ["heath_moss"],
-    "minecraft:dirt": ["moorland_soil", "stony_earth", "heath_moss"],
+    "minecraft:dirt": ["moorland_soil", "stony_earth", "heath_moss", "rocky_dirt"],
     "minecraft:overworld_carver_replaceables": ["weathered_stone", "lichen_stone", "scree", "moorland_soil",
                                                 "stony_earth", "heath_moss"],
     "minecraft:replaceable": ["tussock", "bracken"],

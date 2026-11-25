@@ -42,7 +42,7 @@ import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfigur
  */
 public final class GroundCoverFeature extends Feature<GroundCoverFeature.Config> {
     public record Palette(BlockState rock, BlockState lichen, BlockState rubble, BlockState peat, BlockState moss,
-            BlockState coarse, BlockState gravel) {
+            BlockState coarse, BlockState gravel, BlockState dirt) {
         static final Codec<Palette> CODEC = RecordCodecBuilder.create(i -> i.group(
                 BlockState.CODEC.fieldOf("rock").forGetter(Palette::rock),
                 BlockState.CODEC.fieldOf("lichen").forGetter(Palette::lichen),
@@ -50,7 +50,9 @@ public final class GroundCoverFeature extends Feature<GroundCoverFeature.Config>
                 BlockState.CODEC.fieldOf("peat").forGetter(Palette::peat),
                 BlockState.CODEC.fieldOf("moss").forGetter(Palette::moss),
                 BlockState.CODEC.fieldOf("coarse").forGetter(Palette::coarse),
-                BlockState.CODEC.fieldOf("gravel").forGetter(Palette::gravel)).apply(i, Palette::new));
+                BlockState.CODEC.fieldOf("gravel").forGetter(Palette::gravel),
+                BlockState.CODEC.optionalFieldOf("dirt", net.minecraft.world.level.block.Blocks.COARSE_DIRT
+                        .defaultBlockState()).forGetter(Palette::dirt)).apply(i, Palette::new));
     }
 
     /** Patch sizes (blocks) and thresholds of the ground rules. */
@@ -236,7 +238,8 @@ public final class GroundCoverFeature extends Feature<GroundCoverFeature.Config>
                 // 5. exposed ground, stonier eastwards
                 double stony = patch + r.east() * eastward + jitter;
                 BlockState cover = stony > r.rock() ? (Wilds.fbm(x, z, 7, 0x4C494348L) > r.lichen() ? b.lichen()
-                        : b.rock()) : stony > r.rubble() ? b.rubble() : stony > r.coarse() ? b.coarse() : null;
+                        : b.rock()) : stony > r.rubble() ? b.rubble() : stony > r.coarse() ? b.coarse()
+                        : stony > r.coarse() - 0.1 ? b.dirt() : null; // rocky dirt round the stony patches
                 if (cover != null) {
                     setTop(level, p, cover);
                     changed = true;
