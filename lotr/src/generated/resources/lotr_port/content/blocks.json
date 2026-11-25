@@ -2261,7 +2261,9 @@
     "light": 0,
     "sound": "grass",
     "requiresTool": false,
-    "solid": false
+    "solid": false,
+    "tint": "grass",
+    "offset": "xz"
   },
   {
     "id": "four_leaf_clover",
@@ -2271,7 +2273,9 @@
     "light": 0,
     "sound": "grass",
     "requiresTool": false,
-    "solid": false
+    "solid": false,
+    "tint": "grass",
+    "offset": "xz"
   },
   {
     "id": "drystone",
@@ -7038,16 +7042,6 @@
     "item": "none"
   },
   {
-    "id": "copper_ore",
-    "kind": "cube",
-    "hardness": 3.0,
-    "resistance": 5.0,
-    "light": 0,
-    "sound": "stone",
-    "requiresTool": true,
-    "solid": true
-  },
-  {
     "id": "topaz_vein",
     "kind": "ore",
     "hardness": 3.0,
@@ -7288,16 +7282,6 @@
     "kind": "cube",
     "hardness": 3.0,
     "resistance": 5.0,
-    "light": 0,
-    "sound": "stone",
-    "requiresTool": true,
-    "solid": true
-  },
-  {
-    "id": "block_of_copper",
-    "kind": "cube",
-    "hardness": 5.0,
-    "resistance": 10.0,
     "light": 0,
     "sound": "stone",
     "requiresTool": true,
@@ -12805,7 +12789,8 @@
     "light": 0,
     "sound": "grass",
     "requiresTool": false,
-    "solid": false
+    "solid": false,
+    "tint": "grass"
   },
   {
     "id": "flowery_grass",
@@ -12815,7 +12800,8 @@
     "light": 0,
     "sound": "grass",
     "requiresTool": false,
-    "solid": false
+    "solid": false,
+    "tint": "grass"
   },
   {
     "id": "wheatgrass",
@@ -12825,7 +12811,8 @@
     "light": 0,
     "sound": "grass",
     "requiresTool": false,
-    "solid": false
+    "solid": false,
+    "tint": "grass"
   },
   {
     "id": "thistle",
@@ -12835,7 +12822,8 @@
     "light": 0,
     "sound": "grass",
     "requiresTool": false,
-    "solid": false
+    "solid": false,
+    "tint": "grass"
   },
   {
     "id": "nettles",
@@ -12845,7 +12833,8 @@
     "light": 0,
     "sound": "grass",
     "requiresTool": false,
-    "solid": false
+    "solid": false,
+    "tint": "grass"
   },
   {
     "id": "jungle_sprout",
@@ -12855,7 +12844,8 @@
     "light": 0,
     "sound": "grass",
     "requiresTool": false,
-    "solid": false
+    "solid": false,
+    "tint": "grass"
   },
   {
     "id": "taurethrim_crafting_table",
@@ -20524,17 +20514,6 @@
     "resistance": 1.0,
     "solid": false,
     "item": "none"
-  },
-  {
-    "id": "raw_copper_block",
-    "kind": "cube",
-    "hardness": 5.0,
-    "resistance": 6.0,
-    "light": 0,
-    "sound": "stone",
-    "requiresTool": true,
-    "solid": true,
-    "raw_ore": "copper"
   },
   {
     "id": "raw_mithril_block",

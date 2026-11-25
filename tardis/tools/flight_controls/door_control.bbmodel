@@ -18,7 +18,7 @@
  "elements": [
   {
    "name": "base_0",
-   "uuid": "8e6f5ed9-cc6c-48b3-8544-f2a5f700f0a2",
+   "uuid": "251d7c64-14a6-462e-9dc8-b2789db85a03",
    "type": "cube",
    "from": [
     -2,
@@ -95,7 +95,7 @@
   },
   {
    "name": "base_1",
-   "uuid": "426d5aea-7021-4eb9-9b8d-f47e9f1b81d0",
+   "uuid": "5e70723d-0dcb-4f03-91dc-4a8b012e0c56",
    "type": "cube",
    "from": [
     -0.5,
@@ -172,7 +172,7 @@
   },
   {
    "name": "wheel_0",
-   "uuid": "840fb477-5521-4f33-a609-95a0598d84e1",
+   "uuid": "1c7fe88d-43dc-4210-bb8c-7f5346af5e66",
    "type": "cube",
    "from": [
     -2.2,
@@ -249,7 +249,7 @@
   },
   {
    "name": "wheel_1",
-   "uuid": "94a4d803-518d-4670-b9f0-1b795c87d900",
+   "uuid": "d095bbcc-ddae-4d5a-a214-1e9a2bf84968",
    "type": "cube",
    "from": [
     -2.2,
@@ -326,7 +326,7 @@
   },
   {
    "name": "wheel_2",
-   "uuid": "3c6be040-c349-4892-93ce-7147c38f9314",
+   "uuid": "fdc0d5ed-dfaa-4377-8bd1-b10d3ad3f914",
    "type": "cube",
    "from": [
     -2.2,
@@ -403,7 +403,7 @@
   },
   {
    "name": "wheel_3",
-   "uuid": "6b96033d-2f63-45c0-aa54-2982381fa261",
+   "uuid": "e7268e6d-cf93-4d42-a4ab-a909256c69e1",
    "type": "cube",
    "from": [
     1.7,
@@ -480,7 +480,7 @@
   },
   {
    "name": "wheel_4",
-   "uuid": "4a90d33f-c419-4168-80cf-acdc27f7c153",
+   "uuid": "c0c8e671-9201-4717-aa9e-a50d25a5d673",
    "type": "cube",
    "from": [
     -1.7,
@@ -557,7 +557,7 @@
   },
   {
    "name": "wheel_5",
-   "uuid": "f4f45421-8160-4a78-9f9f-def9197bdac8",
+   "uuid": "1ed3e8d6-2ef7-4307-bdab-574bfa26aecf",
    "type": "cube",
    "from": [
     -0.25,
@@ -634,7 +634,7 @@
   },
   {
    "name": "wheel_6",
-   "uuid": "248fd843-848c-4126-9af6-016d7051a5ad",
+   "uuid": "dd9b889b-537d-4f8f-9d7c-7f858d0288e1",
    "type": "cube",
    "from": [
     -0.6,
@@ -711,7 +711,7 @@
   },
   {
    "name": "wheel_7",
-   "uuid": "9d353cc2-45fa-457b-a801-a93430eb6ea1",
+   "uuid": "919933e8-4d78-4c76-960c-02971316d84c",
    "type": "cube",
    "from": [
     1.55,
@@ -788,7 +788,7 @@
   },
   {
    "name": "lamp_0",
-   "uuid": "536cfdf3-7f83-4b3c-8131-056c6d979923",
+   "uuid": "91ce62e6-ffe2-413c-8eee-8abaa3b4013d",
    "type": "cube",
    "from": [
     -1.75,
@@ -805,58 +805,58 @@
     0,
     0
    ],
-   "color": 5,
+   "color": 7,
    "faces": {
     "north": {
      "uv": [
-      20.5,
+      28.5,
       4.5,
-      23.5,
+      31.5,
       7.5
      ],
      "texture": 0
     },
     "south": {
      "uv": [
-      20.5,
+      28.5,
       4.5,
-      23.5,
+      31.5,
       7.5
      ],
      "texture": 0
     },
     "west": {
      "uv": [
-      20.5,
+      28.5,
       4.5,
-      23.5,
+      31.5,
       7.5
      ],
      "texture": 0
     },
     "east": {
      "uv": [
-      20.5,
+      28.5,
       4.5,
-      23.5,
+      31.5,
       7.5
      ],
      "texture": 0
     },
     "up": {
      "uv": [
-      20.5,
+      28.5,
       4.5,
-      23.5,
+      31.5,
       7.5
      ],
      "texture": 0
     },
     "down": {
      "uv": [
-      20.5,
+      28.5,
       4.5,
-      23.5,
+      31.5,
       7.5
      ],
      "texture": 0
@@ -867,7 +867,7 @@
  "outliner": [
   {
    "name": "base",
-   "uuid": "604c9be7-c010-4971-a0a4-9d33b39eee7e",
+   "uuid": "0b2934d5-fac7-41a1-8bfa-5595814c3dbf",
    "origin": [
     0,
     0,
@@ -879,15 +879,15 @@
     0
    ],
    "children": [
-    "8e6f5ed9-cc6c-48b3-8544-f2a5f700f0a2",
-    "426d5aea-7021-4eb9-9b8d-f47e9f1b81d0"
+    "251d7c64-14a6-462e-9dc8-b2789db85a03",
+    "5e70723d-0dcb-4f03-91dc-4a8b012e0c56"
    ],
    "export": true,
    "visibility": true
   },
   {
    "name": "wheel",
-   "uuid": "75afc680-70fe-4509-8989-42f5ffebdd5e",
+   "uuid": "9e1b5c30-69a5-4e98-8cc7-fc10cd543b20",
    "origin": [
     0,
     2.4,
@@ -899,21 +899,21 @@
     0
    ],
    "children": [
-    "840fb477-5521-4f33-a609-95a0598d84e1",
-    "94a4d803-518d-4670-b9f0-1b795c87d900",
-    "3c6be040-c349-4892-93ce-7147c38f9314",
-    "6b96033d-2f63-45c0-aa54-2982381fa261",
-    "4a90d33f-c419-4168-80cf-acdc27f7c153",
-    "f4f45421-8160-4a78-9f9f-def9197bdac8",
-    "248fd843-848c-4126-9af6-016d7051a5ad",
-    "9d353cc2-45fa-457b-a801-a93430eb6ea1"
+    "1c7fe88d-43dc-4210-bb8c-7f5346af5e66",
+    "d095bbcc-ddae-4d5a-a214-1e9a2bf84968",
+    "fdc0d5ed-dfaa-4377-8bd1-b10d3ad3f914",
+    "e7268e6d-cf93-4d42-a4ab-a909256c69e1",
+    "c0c8e671-9201-4717-aa9e-a50d25a5d673",
+    "1ed3e8d6-2ef7-4307-bdab-574bfa26aecf",
+    "dd9b889b-537d-4f8f-9d7c-7f858d0288e1",
+    "919933e8-4d78-4c76-960c-02971316d84c"
    ],
    "export": true,
    "visibility": true
   },
   {
    "name": "lamp",
-   "uuid": "3e204956-be5f-4aa2-b838-5db1ea9821b9",
+   "uuid": "5f24aa2c-83ce-40f2-b053-f19720047927",
    "origin": [
     0,
     0,
@@ -925,7 +925,7 @@
     0
    ],
    "children": [
-    "536cfdf3-7f83-4b3c-8131-056c6d979923"
+    "91ce62e6-ffe2-413c-8eee-8abaa3b4013d"
    ],
    "export": true,
    "visibility": true
@@ -943,20 +943,20 @@
    "visible": true,
    "mode": "bitmap",
    "saved": true,
-   "uuid": "95657174-40ef-4751-a690-3c571a490605",
+   "uuid": "0543f0f8-cc2c-478e-a707-0a9b9e0ac580",
    "relative_path": "../../src/main/resources/assets/tardis_rb/textures/entity/controls/controls.png",
-   "source": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAABW0lEQVR4nO3QMWtUQRTF8fOWtbFNJ4G0VgGtg6QLSZEmWKYwn8fCzj5+gRQSCMRAkk4LLQKW9japbO49c47FLuzcoEISsJo/PIaZgfld3nT9fttJg01IGp+//UST0QQ0GZsHb0EmSIIkzs8vIDVIgiTcfP0C27ABwHi29hSyl2fGu0bQRhpIG1ufjhFBRCYyE7MeZ1PBm1xwkgWXVHDbBZddcNoFjyBmPZ6s+GKAFd7Igkut4L6DWxVPu+Dx9z+w/JoLzsaCS/on7iXKfu3wTGJ+fXkLyWheoLsb66CWQ8nYP3yNiEBEIDNx9PIUSSHSyBR+vPiOjABzcX/y/AP6ds4+lv2bXzurzRNg3uNNLjilgkcEpg4PquCMwH2b93i7g7O54BGBqcdTBWc+ZIAOl1zwlAoeEZh1+GJd4fmAASbvvXI5OL2a7v3KI5r9T2wMMBqNRqPRaDQa/anfcENNcGO7wq8AAAAASUVORK5CYII="
+   "source": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAABe0lEQVR4nO3Qr4tVURTF8fUeL1k1iWI1CZoFh2kWixgF9Q/xLzDYjAP+EYNhVHSaChoGjBaTxWbYe+21DO8Onj0zGgbj+cLlXM798dn3rg5f7DhpsISk8eHLD5SMElAybtx/BjJBEiRxcPAGUkESJOHo80fYhg0AxuWLFyB72TOeF0EbaSBt3H79EhFEZCIzsR5xlhpecsNJNlxSw203XHbDaTc8gliPeLLj2wH+4EU2XKqG+wRudTzthsff/8BylBvOYsMl/RP3gnJcBzyT2By++wnJKG/Ru9eugFqGknHv4QNEBCICmYknt/aRFCKNTOHbza/ICDC316/++o5cvjIzsftpFygABFDAo+tHGNuMeMkNp9TwiMBqwINqOJf7jg+SDUfhVJsRrxM4yw2PCKxGPNXw4/NjPDM7fuYAAy654Sk1PCKwHvDtOuLR8Mzs+BkDrPxqx+PG40tv2w17T+/0B/bfr06/5vyt/+fL5gCz2Ww2m81ms9l5+g0yRos6+kQH/QAAAABJRU5ErkJggg=="
   }
  ],
  "animations": [
   {
-   "uuid": "728c07ab-97f3-434d-9e87-483ae7584ad7",
+   "uuid": "294515ec-019b-46ab-a74a-e882af4de398",
    "name": "on",
    "loop": "hold",
    "length": 0.6,
    "snapping": 20,
    "animators": {
-    "75afc680-70fe-4509-8989-42f5ffebdd5e": {
+    "9e1b5c30-69a5-4e98-8cc7-fc10cd543b20": {
      "name": "wheel",
      "type": "bone",
      "keyframes": [
@@ -969,7 +969,7 @@
          "z": 0
         }
        ],
-       "uuid": "f0edb05b-d8a6-4f8b-afde-5cec38a3f9eb",
+       "uuid": "413a93fd-c5f7-4a34-903b-1e7dbb7f80e1",
        "time": 0,
        "interpolation": "linear"
       },
@@ -982,7 +982,7 @@
          "z": 0
         }
        ],
-       "uuid": "e4200091-4f0c-47d8-95ab-4fc82e28d89e",
+       "uuid": "f354dfaa-cf9d-48ed-8841-674e05b3d533",
        "time": 0.6,
        "interpolation": "linear"
       }
@@ -991,13 +991,13 @@
    }
   },
   {
-   "uuid": "22142696-afe5-4877-8ef8-c4b70a752c97",
+   "uuid": "53658938-1b23-4297-8ec2-a16b7a6afbc1",
    "name": "off",
    "loop": "hold",
    "length": 0.6,
    "snapping": 20,
    "animators": {
-    "75afc680-70fe-4509-8989-42f5ffebdd5e": {
+    "9e1b5c30-69a5-4e98-8cc7-fc10cd543b20": {
      "name": "wheel",
      "type": "bone",
      "keyframes": [
@@ -1010,7 +1010,7 @@
          "z": 0
         }
        ],
-       "uuid": "d8c11e54-42f4-409e-8b93-62345003621b",
+       "uuid": "2dd0ae2c-96d6-49c8-b82d-5c20f5fa0019",
        "time": 0,
        "interpolation": "linear"
       },
@@ -1023,7 +1023,7 @@
          "z": 0
         }
        ],
-       "uuid": "15504899-f64b-4db0-a66e-c43fafb00e7a",
+       "uuid": "c0fcad5d-67d0-4eeb-8814-d2358a3aebf8",
        "time": 0.6,
        "interpolation": "linear"
       }

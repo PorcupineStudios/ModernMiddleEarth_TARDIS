@@ -1,0 +1,7 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": ["I I", "PPP", " S "],
+  "key": {"I": {"item": "minecraft:iron_nugget"}, "P": {"tag": "minecraft:planks"}, "S": {"item": "minecraft:stick"}},
+  "result": {"id": "ringbearer_harness:hitch", "count": 1}
+}

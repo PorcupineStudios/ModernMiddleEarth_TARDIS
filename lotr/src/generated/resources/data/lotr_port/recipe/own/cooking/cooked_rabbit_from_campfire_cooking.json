@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:campfire_cooking",
+  "ingredient": {
+    "item": "lotr_port:raw_rabbit"
+  },
+  "result": {
+    "id": "lotr_port:cooked_rabbit"
+  },
+  "experience": 0.35,
+  "category": "food",
+  "cookingtime": 600
+}

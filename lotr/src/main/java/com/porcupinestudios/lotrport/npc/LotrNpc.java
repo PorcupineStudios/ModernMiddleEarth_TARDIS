@@ -71,7 +71,7 @@ import net.minecraft.world.level.Level;
  * captains hire out units through {@link Hiring}; hired units follow or guard for their owner and get a
  * {@link com.porcupinestudios.lotrport.society.Person} record.
  */
-public class LotrNpc extends PathfinderMob {
+public class LotrNpc extends PathfinderMob implements net.minecraft.world.entity.OwnableEntity {
     private static final EntityDataAccessor<String> TYPE =
             SynchedEntityData.defineId(LotrNpc.class, EntityDataSerializers.STRING);
     private static final EntityDataAccessor<String> SKIN =
@@ -673,6 +673,13 @@ public class LotrNpc extends PathfinderMob {
     @Nullable
     private Player ownerPlayer() {
         return owner == null ? null : level().getPlayerByUUID(owner);
+    }
+
+    /** The hiring player's id (hired units, tamed Gollum), as other mods ask an owned animal (the harness mod). */
+    @Override
+    @Nullable
+    public UUID getOwnerUUID() {
+        return owner;
     }
 
     /** The owning player if online (hired units, tamed Gollum). */

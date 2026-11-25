@@ -18,7 +18,7 @@
  "elements": [
   {
    "name": "base_0",
-   "uuid": "94e4e280-31f2-4351-bf96-b1e5bc0d1724",
+   "uuid": "c227c419-0a06-47bb-99e3-23ebbb7c307f",
    "type": "cube",
    "from": [
     -1.6,
@@ -95,7 +95,7 @@
   },
   {
    "name": "base_1",
-   "uuid": "61c235f3-17ef-4da2-a591-92b3da25fb44",
+   "uuid": "85a0be20-0a15-4a89-b86a-9e75047bfcde",
    "type": "cube",
    "from": [
     -1.6,
@@ -172,7 +172,7 @@
   },
   {
    "name": "base_2",
-   "uuid": "96d8a36a-050d-4309-8948-4a46ef267ba5",
+   "uuid": "57bdf929-c023-4809-8ddb-11dac08936c0",
    "type": "cube",
    "from": [
     1.2,
@@ -249,7 +249,7 @@
   },
   {
    "name": "bat_0",
-   "uuid": "0f322f78-2762-484f-a9a8-d71f5bc65651",
+   "uuid": "7416e270-5138-472e-a331-b4320b8340fb",
    "type": "cube",
    "from": [
     -0.3,
@@ -326,7 +326,7 @@
   },
   {
    "name": "bat_1",
-   "uuid": "bbec6ed3-4063-4389-af60-26c5fcff0ef0",
+   "uuid": "1ea217a1-f4d5-4122-b316-fb3185dc88cb",
    "type": "cube",
    "from": [
     -0.45,
@@ -403,7 +403,7 @@
   },
   {
    "name": "lamp_0",
-   "uuid": "6afb3ab6-652a-4946-afb5-7c9fc30180ec",
+   "uuid": "9c2005a1-5338-43a0-b201-10f27d6482be",
    "type": "cube",
    "from": [
     -0.3,
@@ -420,59 +420,59 @@
     0,
     0
    ],
-   "color": 6,
+   "color": 0,
    "faces": {
     "north": {
      "uv": [
-      24.5,
-      4.5,
-      27.5,
-      7.5
+      0.5,
+      8.5,
+      3.5,
+      11.5
      ],
      "texture": 0
     },
     "south": {
      "uv": [
-      24.5,
-      4.5,
-      27.5,
-      7.5
+      0.5,
+      8.5,
+      3.5,
+      11.5
      ],
      "texture": 0
     },
     "west": {
      "uv": [
-      24.5,
-      4.5,
-      27.5,
-      7.5
+      0.5,
+      8.5,
+      3.5,
+      11.5
      ],
      "texture": 0
     },
     "east": {
      "uv": [
-      24.5,
-      4.5,
-      27.5,
-      7.5
+      0.5,
+      8.5,
+      3.5,
+      11.5
      ],
      "texture": 0
     },
     "up": {
      "uv": [
-      24.5,
-      4.5,
-      27.5,
-      7.5
+      0.5,
+      8.5,
+      3.5,
+      11.5
      ],
      "texture": 0
     },
     "down": {
      "uv": [
-      24.5,
-      4.5,
-      27.5,
-      7.5
+      0.5,
+      8.5,
+      3.5,
+      11.5
      ],
      "texture": 0
     }
@@ -482,7 +482,7 @@
  "outliner": [
   {
    "name": "base",
-   "uuid": "f20af704-5d26-4bcc-a222-728b1bf904cb",
+   "uuid": "200fdd6f-8449-4fe2-93fb-e15f7710500d",
    "origin": [
     0,
     0,
@@ -494,16 +494,16 @@
     0
    ],
    "children": [
-    "94e4e280-31f2-4351-bf96-b1e5bc0d1724",
-    "61c235f3-17ef-4da2-a591-92b3da25fb44",
-    "96d8a36a-050d-4309-8948-4a46ef267ba5"
+    "c227c419-0a06-47bb-99e3-23ebbb7c307f",
+    "85a0be20-0a15-4a89-b86a-9e75047bfcde",
+    "57bdf929-c023-4809-8ddb-11dac08936c0"
    ],
    "export": true,
    "visibility": true
   },
   {
    "name": "bat",
-   "uuid": "be6a4ea3-f197-438d-af88-1b463f2c25d0",
+   "uuid": "ebbfec44-421d-4c84-b8f4-e6ea80dffad6",
    "origin": [
     0,
     0.8,
@@ -515,15 +515,15 @@
     0
    ],
    "children": [
-    "0f322f78-2762-484f-a9a8-d71f5bc65651",
-    "bbec6ed3-4063-4389-af60-26c5fcff0ef0"
+    "7416e270-5138-472e-a331-b4320b8340fb",
+    "1ea217a1-f4d5-4122-b316-fb3185dc88cb"
    ],
    "export": true,
    "visibility": true
   },
   {
    "name": "lamp",
-   "uuid": "719829fb-08fc-4f75-9ab8-6fcaa4e3d426",
+   "uuid": "32a8dc42-3e9c-4b96-b2dc-a3349eb296bf",
    "origin": [
     0,
     0,
@@ -535,7 +535,7 @@
     0
    ],
    "children": [
-    "6afb3ab6-652a-4946-afb5-7c9fc30180ec"
+    "9c2005a1-5338-43a0-b201-10f27d6482be"
    ],
    "export": true,
    "visibility": true
@@ -553,20 +553,20 @@
    "visible": true,
    "mode": "bitmap",
    "saved": true,
-   "uuid": "fc879da1-ebcb-48ef-a888-1ed352f4520b",
+   "uuid": "ff2fa391-95e9-4fcf-8651-1dd0bbd9d776",
    "relative_path": "../../src/main/resources/assets/tardis_rb/textures/entity/controls/controls.png",
-   "source": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAABW0lEQVR4nO3QMWtUQRTF8fOWtbFNJ4G0VgGtg6QLSZEmWKYwn8fCzj5+gRQSCMRAkk4LLQKW9japbO49c47FLuzcoEISsJo/PIaZgfld3nT9fttJg01IGp+//UST0QQ0GZsHb0EmSIIkzs8vIDVIgiTcfP0C27ABwHi29hSyl2fGu0bQRhpIG1ufjhFBRCYyE7MeZ1PBm1xwkgWXVHDbBZddcNoFjyBmPZ6s+GKAFd7Igkut4L6DWxVPu+Dx9z+w/JoLzsaCS/on7iXKfu3wTGJ+fXkLyWheoLsb66CWQ8nYP3yNiEBEIDNx9PIUSSHSyBR+vPiOjABzcX/y/AP6ds4+lv2bXzurzRNg3uNNLjilgkcEpg4PquCMwH2b93i7g7O54BGBqcdTBWc+ZIAOl1zwlAoeEZh1+GJd4fmAASbvvXI5OL2a7v3KI5r9T2wMMBqNRqPRaDQa/anfcENNcGO7wq8AAAAASUVORK5CYII="
+   "source": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAABe0lEQVR4nO3Qr4tVURTF8fUeL1k1iWI1CZoFh2kWixgF9Q/xLzDYjAP+EYNhVHSaChoGjBaTxWbYe+21DO8Onj0zGgbj+cLlXM798dn3rg5f7DhpsISk8eHLD5SMElAybtx/BjJBEiRxcPAGUkESJOHo80fYhg0AxuWLFyB72TOeF0EbaSBt3H79EhFEZCIzsR5xlhpecsNJNlxSw203XHbDaTc8gliPeLLj2wH+4EU2XKqG+wRudTzthsff/8BylBvOYsMl/RP3gnJcBzyT2By++wnJKG/Ru9eugFqGknHv4QNEBCICmYknt/aRFCKNTOHbza/ICDC316/++o5cvjIzsftpFygABFDAo+tHGNuMeMkNp9TwiMBqwINqOJf7jg+SDUfhVJsRrxM4yw2PCKxGPNXw4/NjPDM7fuYAAy654Sk1PCKwHvDtOuLR8Mzs+BkDrPxqx+PG40tv2w17T+/0B/bfr06/5vyt/+fL5gCz2Ww2m81ms9l5+g0yRos6+kQH/QAAAABJRU5ErkJggg=="
   }
  ],
  "animations": [
   {
-   "uuid": "34ef0a95-5560-4838-b919-6c59e97127a2",
+   "uuid": "a962e8b6-8f44-43b5-bef1-2cb7b4da7045",
    "name": "on",
    "loop": "hold",
    "length": 0.15,
    "snapping": 20,
    "animators": {
-    "be6a4ea3-f197-438d-af88-1b463f2c25d0": {
+    "ebbfec44-421d-4c84-b8f4-e6ea80dffad6": {
      "name": "bat",
      "type": "bone",
      "keyframes": [
@@ -579,7 +579,7 @@
          "z": 0
         }
        ],
-       "uuid": "ad20056d-a96e-4379-b26b-5123de9dfa6f",
+       "uuid": "3472e50e-324e-4f2d-a248-7e061c96f812",
        "time": 0,
        "interpolation": "linear"
       },
@@ -592,7 +592,7 @@
          "z": 0
         }
        ],
-       "uuid": "c664d2dd-e18d-4f46-a6c5-28815c84be9d",
+       "uuid": "3f64e577-9038-46fb-993f-08ec8cdf6c84",
        "time": 0.15,
        "interpolation": "linear"
       }
@@ -601,13 +601,13 @@
    }
   },
   {
-   "uuid": "2512e98f-e2df-455b-a8ab-f7f86ba7700b",
+   "uuid": "1a0f2bed-ebb2-4e0d-babf-d653baefed44",
    "name": "off",
    "loop": "hold",
    "length": 0.15,
    "snapping": 20,
    "animators": {
-    "be6a4ea3-f197-438d-af88-1b463f2c25d0": {
+    "ebbfec44-421d-4c84-b8f4-e6ea80dffad6": {
      "name": "bat",
      "type": "bone",
      "keyframes": [
@@ -620,7 +620,7 @@
          "z": 0
         }
        ],
-       "uuid": "4721bf1b-9ef7-41da-9806-4f5e3c537bd0",
+       "uuid": "cd1ac9da-2b45-46ab-b25f-bde811e77238",
        "time": 0,
        "interpolation": "linear"
       },
@@ -633,7 +633,7 @@
          "z": 0
         }
        ],
-       "uuid": "b59d2d40-c93f-42ce-b2be-98ac41c3139e",
+       "uuid": "739ba1e7-3d04-486d-b9fb-6c19729484fa",
        "time": 0.15,
        "interpolation": "linear"
       }

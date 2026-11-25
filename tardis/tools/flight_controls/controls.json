@@ -272,6 +272,19 @@
     ]
   },
   {
+    "id": "pull_switch",
+    "group": "classic",
+    "name": "Pull Switch",
+    "real": "1.7.10: the small push/pull switches (ids 34, 53, 55, 56, 900, 904, 1030-1032): a thin rod with a knob, pulled out of its socket when on.",
+    "does": "On/off for a flight setting (coordinated flight, landing on the ground, relative coordinates).",
+    "actions": [
+      {
+        "click": "rod",
+        "type": "toggle"
+      }
+    ]
+  },
+  {
     "id": "flight_button",
     "group": "classic",
     "name": "Flight Control Button",

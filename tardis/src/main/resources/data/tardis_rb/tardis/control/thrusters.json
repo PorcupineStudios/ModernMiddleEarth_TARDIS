@@ -1,15 +1,14 @@
 {
   "model": "thrusters",
   "panel": 3,
-  "u": 0.2,
-  "v": 0.494,
-  "scale": 0.64,
+  "u": 0.22,
+  "v": 0.5255,
+  "scale": 0.612,
   "actions": {
     "rocker": "thrusters"
   },
   "requirements": {
-    "type": "tardis_rb:subsystem_level",
-    "subsystem": "tardis_rb:navigation",
-    "min": 1
+    "type": "tardis_rb:research",
+    "research": "tardis_rb:materialised_flight"
   }
 }

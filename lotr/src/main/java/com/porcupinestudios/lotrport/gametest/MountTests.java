@@ -41,6 +41,44 @@ public final class MountTests {
         return new ItemStack(BuiltInRegistries.ITEM.get(LotrPort.id(id)));
     }
 
+    /**
+     * Rhosgobel rabbits live round Rhosgobel, on the western eaves of southern Mirkwood: the waypoint sits in southern
+     * Mirkwood on the map, the rabbits are on its spawn list and the Vale of Anduin's beside it, and the spawn rule
+     * keeps them within its radius (2048 blocks); other mounts spawn anywhere their biomes have them.
+     */
+    @GameTest(template = "empty", batch = "mounts")
+    public static void rhosgobelRabbitsLiveRoundRhosgobel(GameTestHelper helper) {
+        var type = Mounts.TYPE_BY_BREED.get("rhosgobel_rabbit").get();
+        var home = com.porcupinestudios.lotrport.travel.FastTravel.waypoint(LotrPort.id("rhosgobel")).orElse(null);
+        helper.assertTrue(home != null, "no Rhosgobel waypoint");
+        var map = com.porcupinestudios.lotrport.world.map.MiddleEarthMap.get();
+        String biome = map.biomes().get(map.biomeIndexAt(home.x(), home.z())).id();
+        helper.assertTrue(biome.equals("lotr_port:mirkwood_corrupted"), "Rhosgobel lies in " + biome
+                + ", not southern Mirkwood");
+        helper.assertTrue(Mounts.nearHome(type, new BlockPos(home.x(), 70, home.z())), "not at Rhosgobel itself");
+        helper.assertTrue(Mounts.nearHome(type, new BlockPos(home.x() - 1500, 70, home.z() + 800)),
+                "not 1700 blocks out, at the Vale of Anduin");
+        helper.assertFalse(Mounts.nearHome(type, new BlockPos(home.x() + 2100, 70, home.z())),
+                "2100 blocks from Rhosgobel");
+        helper.assertFalse(Mounts.nearHome(type, BlockPos.ZERO), "far off in the Shire's direction");
+        helper.assertTrue(Mounts.nearHome(Mounts.TYPE_BY_BREED.get("horse").get(), BlockPos.ZERO),
+                "horses are kept to a home too");
+        var biomes = helper.getLevel().registryAccess().registryOrThrow(net.minecraft.core.registries.Registries.BIOME);
+        for (String b : new String[] {"mirkwood_corrupted", "anduin_vale"}) {
+            var mobs = biomes.getOrThrow(net.minecraft.resources.ResourceKey.create(
+                    net.minecraft.core.registries.Registries.BIOME, LotrPort.id(b))).getMobSettings()
+                    .getMobs(net.minecraft.world.entity.MobCategory.CREATURE).unwrap();
+            helper.assertTrue(mobs.stream().anyMatch(m -> m.type == type), "no Rhosgobel rabbits on " + b + "'s list");
+        }
+        var shire = biomes.getOrThrow(net.minecraft.resources.ResourceKey.create(
+                net.minecraft.core.registries.Registries.BIOME, LotrPort.id("shire"))).getMobSettings()
+                .getMobs(net.minecraft.world.entity.MobCategory.CREATURE).unwrap();
+        helper.assertFalse(shire.stream().anyMatch(m -> m.type == type), "Rhosgobel rabbits in the Shire");
+        LotrHorse rabbit = mount(helper, "rhosgobel_rabbit");
+        helper.assertFalse(rabbit.isSaddleable(), "a Rhosgobel rabbit takes a saddle");
+        helper.succeed();
+    }
+
     @GameTest(template = "empty", batch = "mounts")
     public static void breedsRollLotrStats(GameTestHelper helper) {
         for (String breed : new String[] {"horse", "shire_pony", "zebra", "wild_boar", "camel", "elk", "rhino",

@@ -1,0 +1,29 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "BGB",
+    "GJG",
+    "BGB"
+  ],
+  "key": {
+    "B": [
+      {
+        "tag": "c:ingots/bronze"
+      },
+      {
+        "tag": "c:ingots/brass"
+      }
+    ],
+    "G": {
+      "tag": "c:ingots/gold"
+    },
+    "J": {
+      "tag": "c:gems"
+    }
+  },
+  "result": {
+    "id": "tardis_rb:artron_battery",
+    "count": 1
+  }
+}

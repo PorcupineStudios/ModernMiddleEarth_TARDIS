@@ -18,7 +18,7 @@
  "elements": [
   {
    "name": "base_0",
-   "uuid": "13626610-ba30-4572-a9bb-1cce79891db0",
+   "uuid": "7d260b37-9732-412e-a1f0-06f77180a0e0",
    "type": "cube",
    "from": [
     -2,
@@ -95,7 +95,7 @@
   },
   {
    "name": "light_0",
-   "uuid": "d5e208dc-d2a2-43ee-bb6d-1f262ee33a1e",
+   "uuid": "c9fc3deb-9831-4d33-a8ef-f7ffbb4c80c4",
    "type": "cube",
    "from": [
     -1.6,
@@ -112,59 +112,59 @@
     0,
     0
    ],
-   "color": 6,
+   "color": 0,
    "faces": {
     "north": {
      "uv": [
-      24.5,
-      4.5,
-      27.5,
-      7.5
+      0.5,
+      8.5,
+      3.5,
+      11.5
      ],
      "texture": 0
     },
     "south": {
      "uv": [
-      24.5,
-      4.5,
-      27.5,
-      7.5
+      0.5,
+      8.5,
+      3.5,
+      11.5
      ],
      "texture": 0
     },
     "west": {
      "uv": [
-      24.5,
-      4.5,
-      27.5,
-      7.5
+      0.5,
+      8.5,
+      3.5,
+      11.5
      ],
      "texture": 0
     },
     "east": {
      "uv": [
-      24.5,
-      4.5,
-      27.5,
-      7.5
+      0.5,
+      8.5,
+      3.5,
+      11.5
      ],
      "texture": 0
     },
     "up": {
      "uv": [
-      24.5,
-      4.5,
-      27.5,
-      7.5
+      0.5,
+      8.5,
+      3.5,
+      11.5
      ],
      "texture": 0
     },
     "down": {
      "uv": [
-      24.5,
-      4.5,
-      27.5,
-      7.5
+      0.5,
+      8.5,
+      3.5,
+      11.5
      ],
      "texture": 0
     }
@@ -174,7 +174,7 @@
  "outliner": [
   {
    "name": "base",
-   "uuid": "811ddf9e-51bd-4287-bff4-898c62b38a39",
+   "uuid": "a5c77c2a-e2d2-4e87-8c05-971b97190094",
    "origin": [
     0,
     0,
@@ -186,14 +186,14 @@
     0
    ],
    "children": [
-    "13626610-ba30-4572-a9bb-1cce79891db0"
+    "7d260b37-9732-412e-a1f0-06f77180a0e0"
    ],
    "export": true,
    "visibility": true
   },
   {
    "name": "light",
-   "uuid": "c9c11ae1-7bbf-4aa1-bd7c-354522c294d0",
+   "uuid": "6f1756bc-2b23-4d3b-93b1-bde2f99a69e3",
    "origin": [
     0,
     0,
@@ -205,7 +205,7 @@
     0
    ],
    "children": [
-    "d5e208dc-d2a2-43ee-bb6d-1f262ee33a1e"
+    "c9fc3deb-9831-4d33-a8ef-f7ffbb4c80c4"
    ],
    "export": true,
    "visibility": true
@@ -223,9 +223,9 @@
    "visible": true,
    "mode": "bitmap",
    "saved": true,
-   "uuid": "70347055-ef38-4b4a-b74b-2e6c0e1c1d02",
+   "uuid": "bc969255-e192-4398-be15-07593d7b2788",
    "relative_path": "../../src/main/resources/assets/tardis_rb/textures/entity/controls/controls.png",
-   "source": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAABW0lEQVR4nO3QMWtUQRTF8fOWtbFNJ4G0VgGtg6QLSZEmWKYwn8fCzj5+gRQSCMRAkk4LLQKW9japbO49c47FLuzcoEISsJo/PIaZgfld3nT9fttJg01IGp+//UST0QQ0GZsHb0EmSIIkzs8vIDVIgiTcfP0C27ABwHi29hSyl2fGu0bQRhpIG1ufjhFBRCYyE7MeZ1PBm1xwkgWXVHDbBZddcNoFjyBmPZ6s+GKAFd7Igkut4L6DWxVPu+Dx9z+w/JoLzsaCS/on7iXKfu3wTGJ+fXkLyWheoLsb66CWQ8nYP3yNiEBEIDNx9PIUSSHSyBR+vPiOjABzcX/y/AP6ds4+lv2bXzurzRNg3uNNLjilgkcEpg4PquCMwH2b93i7g7O54BGBqcdTBWc+ZIAOl1zwlAoeEZh1+GJd4fmAASbvvXI5OL2a7v3KI5r9T2wMMBqNRqPRaDQa/anfcENNcGO7wq8AAAAASUVORK5CYII="
+   "source": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAABe0lEQVR4nO3Qr4tVURTF8fUeL1k1iWI1CZoFh2kWixgF9Q/xLzDYjAP+EYNhVHSaChoGjBaTxWbYe+21DO8Onj0zGgbj+cLlXM798dn3rg5f7DhpsISk8eHLD5SMElAybtx/BjJBEiRxcPAGUkESJOHo80fYhg0AxuWLFyB72TOeF0EbaSBt3H79EhFEZCIzsR5xlhpecsNJNlxSw203XHbDaTc8gliPeLLj2wH+4EU2XKqG+wRudTzthsff/8BylBvOYsMl/RP3gnJcBzyT2By++wnJKG/Ru9eugFqGknHv4QNEBCICmYknt/aRFCKNTOHbza/ICDC316/++o5cvjIzsftpFygABFDAo+tHGNuMeMkNp9TwiMBqwINqOJf7jg+SDUfhVJsRrxM4yw2PCKxGPNXw4/NjPDM7fuYAAy654Sk1PCKwHvDtOuLR8Mzs+BkDrPxqx+PG40tv2w17T+/0B/bfr06/5vyt/+fL5gCz2Ww2m81ms9l5+g0yRos6+kQH/QAAAABJRU5ErkJggg=="
   }
  ],
  "animations": []

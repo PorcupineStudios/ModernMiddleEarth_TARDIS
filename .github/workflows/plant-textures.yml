@@ -1,0 +1,45 @@
+name: Plant textures
+
+# converter/plant_textures.py with the LOTR jar (2026-11-25): re-copies every LOTR plant's textures (overlays included)
+# and rewrites its models, then commits the generated files to the branch. Runs when the step or this file changes.
+# The jar is taken from the private RingRealms repo (secret RINGREALMS_TOKEN, as "Convert LOTR") and deleted before
+# the commit; only textures and models are committed (LOTR's assets are allowed, 2026-11-11), the log lists names only.
+on:
+  push:
+    paths:
+      - converter/plant_textures.py
+      - .github/workflows/plant-textures.yml
+
+permissions:
+  contents: write
+
+jobs:
+  textures:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: LOTR jar from RingRealms
+        uses: actions/checkout@v4
+        with:
+          repository: PorcupineStudios/RingRealms
+          token: ${{ secrets.RINGREALMS_TOKEN }}
+          path: ringrealms
+          sparse-checkout: libs
+      - name: Plant textures and models
+        run: |
+          mkdir -p converter/libs
+          cp "ringrealms/libs/LOTRMod v36.15.jar" converter/libs/
+          rm -rf ringrealms
+          pip install --quiet pillow
+          python3 converter/plant_textures.py
+          rm -rf converter/libs
+      - name: Commit
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add lotr/src/generated/resources/assets
+          if git diff --cached --quiet; then echo "plants unchanged"; exit 0; fi
+          git commit -m "Plant textures and models from the LOTR jar (converter/plant_textures.py)"
+          git pull --rebase origin "$GITHUB_REF_NAME"
+          git push origin "HEAD:$GITHUB_REF_NAME"

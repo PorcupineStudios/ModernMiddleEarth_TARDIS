@@ -1,0 +1,21 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "create"
+    }
+  ],
+  "type": "create:cutting",
+  "ingredients": [
+    {
+      "item": "lotr_port:stripped_cypress_wood"
+    }
+  ],
+  "processing_time": 50,
+  "results": [
+    {
+      "id": "lotr_port:cypress_wood_planks",
+      "count": 6
+    }
+  ]
+}

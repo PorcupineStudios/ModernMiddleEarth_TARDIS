@@ -1,22 +1,49 @@
 {
-  "time": 200,
-  "stats": {
-    "range": 16
-  },
-  "cost": {
-    "items": [
-      {
-        "ingredient": {
-          "item": "minecraft:paper"
-        },
-        "count": 4
+  "levels": [
+    {
+      "cost": {
+        "items": [
+          {
+            "ingredient": {
+              "item": "tardis_rb:temporal_circuit"
+            },
+            "count": 1
+          }
+        ]
       },
-      {
-        "ingredient": {
-          "item": "minecraft:redstone"
-        },
-        "count": 2
+      "stats": {
+        "range": 1000
       }
-    ]
-  }
+    },
+    {
+      "cost": {
+        "items": [
+          {
+            "ingredient": {
+              "item": "tardis_rb:temporal_circuit"
+            },
+            "count": 2
+          }
+        ]
+      },
+      "stats": {
+        "range": 1000
+      }
+    },
+    {
+      "cost": {
+        "items": [
+          {
+            "ingredient": {
+              "item": "tardis_rb:temporal_circuit"
+            },
+            "count": 3
+          }
+        ]
+      },
+      "stats": {
+        "range": 1000
+      }
+    }
+  ]
 }

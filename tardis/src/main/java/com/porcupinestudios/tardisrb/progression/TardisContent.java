@@ -245,6 +245,9 @@ public final class TardisContent extends SimplePreparableReloadListener<Map<Stri
         });
         research.entrySet().removeIf(e -> {
             String bad = missingCost(e.getValue().cost(), costs);
+            for (Research.Level l : e.getValue().levels()) {
+                bad = bad != null ? bad : missingCost(l.cost(), costs);
+            }
             if (bad != null) {
                 problems.add("research " + e.getKey() + ": " + bad);
             }

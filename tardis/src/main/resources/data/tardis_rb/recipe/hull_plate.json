@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "III",
+    "IBI",
+    "III"
+  ],
+  "key": {
+    "I": {
+      "tag": "c:ingots/iron"
+    },
+    "B": [
+      {
+        "tag": "c:ingots/bronze"
+      },
+      {
+        "tag": "c:ingots/brass"
+      }
+    ]
+  },
+  "result": {
+    "id": "tardis_rb:hull_plate",
+    "count": 2
+  }
+}

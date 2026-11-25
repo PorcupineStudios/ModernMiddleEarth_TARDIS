@@ -40,14 +40,20 @@ import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfigur
  * plot), each spot with chance {@code fill}: orchard rows.</li>
  * <li>{@code crop}: {@code soil} (farmland) under a stack of {@code block} {@code min_height}-{@code max_height}
  * high; boolean property {@code flag} is set with {@code flag_chance} on the stalks above the first (corn cobs);
- * every {@code water_every}th row along the plot's length is a water channel (0: none).</li>
+ * every {@code water_every}th row along the plot's length is a water channel (0: none); only every
+ * {@code row_spacing}th row is planted, the rows between are {@code furrow} (a trodden path: Aaron 2026-11-25, the
+ * corn field was a solid block of corn).</li>
+ * <li>The fence line lies on the plot's own ground (the median ground 2-4 blocks inside): holes under it (cave
+ * mouths, dips) up to {@code fill_depth} deep are filled with dirt under grass, bumps up to {@code cut_height} high
+ * are cut off, so the fence neither drops into holes nor steps over hummocks. Holes inside the plot (more than a block
+ * under the ground 3 blocks round) are filled the same way. The ground is the top full block, so a flower or fallen leaves never lift a fence off the grass.</li>
  * </ul>
  * Fences and gates are joined at once and again when the chunk is finished (post-processing), so joins across chunk
  * edges are right too.
  */
 public final class EnclosureFeature extends Feature<EnclosureFeature.Config> {
     public record Crop(BlockState block, int minHeight, int maxHeight, Optional<String> flag, float flagChance,
-            BlockState soil, int waterEvery) {
+            BlockState soil, int waterEvery, int rowSpacing, Optional<BlockState> furrow) {
         public static final Codec<Crop> CODEC = RecordCodecBuilder.create(i -> i.group(
                 BlockState.CODEC.fieldOf("block").forGetter(Crop::block),
                 Codec.intRange(1, 8).fieldOf("min_height").forGetter(Crop::minHeight),
@@ -55,13 +61,16 @@ public final class EnclosureFeature extends Feature<EnclosureFeature.Config> {
                 Codec.STRING.optionalFieldOf("flag").forGetter(Crop::flag),
                 Codec.floatRange(0, 1).optionalFieldOf("flag_chance", 0f).forGetter(Crop::flagChance),
                 BlockState.CODEC.optionalFieldOf("soil", Blocks.FARMLAND.defaultBlockState()).forGetter(Crop::soil),
-                Codec.intRange(0, 64).optionalFieldOf("water_every", 0).forGetter(Crop::waterEvery))
+                Codec.intRange(0, 64).optionalFieldOf("water_every", 0).forGetter(Crop::waterEvery),
+                Codec.intRange(1, 16).optionalFieldOf("row_spacing", 1).forGetter(Crop::rowSpacing),
+                BlockState.CODEC.optionalFieldOf("furrow").forGetter(Crop::furrow))
                 .apply(i, Crop::new));
     }
 
     public record Config(String kind, BlockState fence, BlockState gate, Optional<BlockState> post,
             Optional<BlockState> hedge, float hedgeChance, int hedgeHeight, Optional<BlockState> path, int headland,
-            Optional<Holder<ConfiguredFeature<?, ?>>> trees, int spacing, float fill, Optional<Crop> crop)
+            Optional<Holder<ConfiguredFeature<?, ?>>> trees, int spacing, float fill, Optional<Crop> crop,
+            int fillDepth, int cutHeight)
             implements FeatureConfiguration {
         public static final Codec<Config> CODEC = RecordCodecBuilder.create(i -> i.group(
                 Codec.STRING.fieldOf("kind").forGetter(Config::kind),
@@ -76,7 +85,9 @@ public final class EnclosureFeature extends Feature<EnclosureFeature.Config> {
                 ConfiguredFeature.CODEC.optionalFieldOf("trees").forGetter(Config::trees),
                 Codec.intRange(2, 32).optionalFieldOf("spacing", 6).forGetter(Config::spacing),
                 Codec.floatRange(0, 1).optionalFieldOf("fill", 1f).forGetter(Config::fill),
-                Crop.CODEC.optionalFieldOf("crop").forGetter(Config::crop))
+                Crop.CODEC.optionalFieldOf("crop").forGetter(Config::crop),
+                Codec.intRange(0, 32).optionalFieldOf("fill_depth", 6).forGetter(Config::fillDepth),
+                Codec.intRange(0, 8).optionalFieldOf("cut_height", 2).forGetter(Config::cutHeight))
                 .apply(i, Config::new));
     }
 
@@ -102,12 +113,17 @@ public final class EnclosureFeature extends Feature<EnclosureFeature.Config> {
         for (int x = Math.max(x0, e.minX()); x <= Math.min(x0 + 15, e.maxX()); x++) {
             for (int z = Math.max(z0, e.minZ()); z <= Math.min(z0 + 15, e.maxZ()); z++) {
                 int y = ground(level, x, z);
+                boolean fenceLine = e.onFence(x, z);
+                int around = around(level, e, x, z, fenceLine);
+                if (fenceLine ? y != around : y < around - 1) {
+                    y = levelTo(level, config, x, y, z, around);
+                }
                 BlockPos at = new BlockPos(x, y, z);
                 BlockState top = level.getBlockState(at);
                 if (!top.getFluidState().isEmpty()) {
                     continue; // never fence or plant over water
                 }
-                if (e.onFence(x, z)) {
+                if (fenceLine) {
                     fence(level, config, e, at, hedged, joins);
                     continue;
                 }
@@ -186,14 +202,17 @@ public final class EnclosureFeature extends Feature<EnclosureFeature.Config> {
         if (!top.is(BlockTags.DIRT) && !top.is(Blocks.FARMLAND)) {
             return;
         }
-        if (crop.waterEvery() > 0) {
-            boolean alongX = e.sizeX() >= e.sizeZ();
-            int across = alongX ? ground.getZ() - e.minZ() : ground.getX() - e.minX();
-            if (across % crop.waterEvery() == crop.waterEvery() / 2) {
-                clear(level, ground.above());
-                level.setBlock(ground, Blocks.WATER.defaultBlockState(), Block.UPDATE_CLIENTS);
-                return;
-            }
+        boolean alongX = e.sizeX() >= e.sizeZ();
+        int across = alongX ? ground.getZ() - e.minZ() : ground.getX() - e.minX();
+        if (crop.waterEvery() > 0 && across % crop.waterEvery() == crop.waterEvery() / 2) {
+            clear(level, ground.above());
+            level.setBlock(ground, Blocks.WATER.defaultBlockState(), Block.UPDATE_CLIENTS);
+            return;
+        }
+        if (across % crop.rowSpacing() != 0) { // between the rows: the furrow, or the ground as it is
+            clear(level, ground.above());
+            crop.furrow().ifPresent(f -> level.setBlock(ground, f, Block.UPDATE_CLIENTS));
+            return;
         }
         clear(level, ground.above());
         level.setBlock(ground, crop.soil(), Block.UPDATE_CLIENTS);
@@ -236,7 +255,7 @@ public final class EnclosureFeature extends Feature<EnclosureFeature.Config> {
             if (!s.getFluidState().isEmpty()) {
                 return p.getY();
             }
-            if (!(s.isAir() || s.canBeReplaced() || s.is(BlockTags.LEAVES) || s.is(BlockTags.LOGS))) {
+            if (isGround(level, p, s)) {
                 return p.getY();
             }
             p.move(Direction.DOWN);
@@ -244,16 +263,105 @@ public final class EnclosureFeature extends Feature<EnclosureFeature.Config> {
         return p.getY();
     }
 
-    /** Takes plants (grass, flowers, snow) out of a block so something can stand there. */
+    /**
+     * The ground a column should have: on the fence line the median of the ground 2, 3 and 4 blocks in from it (the
+     * field it encloses); inside, the second highest of the ground 3 blocks away each way (a hole's rim).
+     */
+    private static int around(WorldGenLevel level, Enclosures.Enclosure e, int x, int z, boolean fenceLine) {
+        if (fenceLine) {
+            int dx = x == e.minX() ? 1 : x == e.maxX() ? -1 : 0;
+            int dz = z == e.minZ() ? 1 : z == e.maxZ() ? -1 : 0;
+            int[] g = new int[3];
+            for (int k = 2; k <= 4; k++) {
+                g[k - 2] = ground(level, x + dx * k, z + dz * k);
+            }
+            java.util.Arrays.sort(g);
+            return g[1];
+        }
+        int[] g = {ground(level, Math.min(x + 3, e.maxX() - 1), z), ground(level, Math.max(x - 3, e.minX() + 1), z),
+            ground(level, x, Math.min(z + 3, e.maxZ() - 1)), ground(level, x, Math.max(z - 3, e.minZ() + 1))};
+        java.util.Arrays.sort(g);
+        return g[2];
+    }
+
+    /**
+     * Whether a block is ground a fence or crop stands on: a full block (or farmland, a path), not a log or leaves.
+     * LOTR's flowers and fallen leaves aren't replaceable, and stopping on them lifted fences a block off the grass.
+     */
+    private static boolean isGround(WorldGenLevel level, BlockPos p, BlockState s) {
+        if (s.isAir() || s.is(BlockTags.LEAVES) || s.is(BlockTags.LOGS)) {
+            return false;
+        }
+        return s.is(Blocks.FARMLAND) || s.is(Blocks.DIRT_PATH) || s.isCollisionShapeFullBlock(level, p);
+    }
+
+    /** Whether a block is something lying on the ground (a plant, snow, fallen leaves) that can be taken away. */
+    private static boolean loose(WorldGenLevel level, BlockPos p, BlockState s) {
+        return !s.isAir() && s.getFluidState().isEmpty() && !s.hasBlockEntity() && !s.is(BlockTags.LOGS)
+                && (s.canBeReplaced() || s.getCollisionShape(level, p).isEmpty()
+                        || !s.isCollisionShapeFullBlock(level, p) && !s.is(BlockTags.FENCES)
+                                && !s.is(BlockTags.FENCE_GATES) && !s.is(BlockTags.WALLS));
+    }
+
+    /** Takes plants (grass, flowers, snow, fallen leaves) out of a block so something can stand there. */
     private static void clear(WorldGenLevel level, BlockPos p) {
-        BlockState s = level.getBlockState(p);
-        if (!s.isAir() && s.canBeReplaced() && s.getFluidState().isEmpty()) {
+        if (loose(level, p, level.getBlockState(p))) {
             level.setBlock(p, Blocks.AIR.defaultBlockState(), Block.UPDATE_CLIENTS);
-            BlockState up = level.getBlockState(p.above());
-            if (!up.isAir() && up.canBeReplaced() && up.getFluidState().isEmpty()) { // a tall plant's top half
-                level.setBlock(p.above(), Blocks.AIR.defaultBlockState(), Block.UPDATE_CLIENTS);
+            BlockPos up = p.above();
+            if (loose(level, up, level.getBlockState(up))) { // a tall plant's top half
+                level.setBlock(up, Blocks.AIR.defaultBlockState(), Block.UPDATE_CLIENTS);
             }
         }
+    }
+
+    /**
+     * Brings a column's ground at {@code y} to {@code target}: fills up with dirt under grass (at most
+     * {@code fill_depth}) or cuts natural ground down (at most {@code cut_height}). Returns the new ground's y, or
+     * {@code y} when the step is too big (left as it is).
+     */
+    private static int levelTo(WorldGenLevel level, Config config, int x, int y, int z, int target) {
+        BlockPos.MutableBlockPos p = new BlockPos.MutableBlockPos(x, y, z);
+        if (y < target) {
+            if (target - y > config.fillDepth()) {
+                return y;
+            }
+            for (int k = y + 1; k <= target; k++) {
+                BlockState s = level.getBlockState(p.setY(k));
+                if (!(s.isAir() || loose(level, p, s))) {
+                    return y; // something built or grown there: leave the column
+                }
+            }
+            clear(level, p.setY(target + 1));
+            for (int k = y + 1; k <= target; k++) {
+                level.setBlock(p.setY(k), (k == target ? Blocks.GRASS_BLOCK : Blocks.DIRT).defaultBlockState(),
+                        Block.UPDATE_CLIENTS);
+            }
+            BlockState was = level.getBlockState(p.setY(y));
+            if (was.is(Blocks.GRASS_BLOCK)) {
+                level.setBlock(p, Blocks.DIRT.defaultBlockState(), Block.UPDATE_CLIENTS);
+            }
+            return target;
+        }
+        if (y - target > config.cutHeight()) {
+            return y;
+        }
+        for (int k = target + 1; k <= y; k++) {
+            BlockState s = level.getBlockState(p.setY(k));
+            if (!(s.is(BlockTags.DIRT) || s.is(BlockTags.BASE_STONE_OVERWORLD) || s.is(Blocks.GRAVEL)
+                    || s.is(BlockTags.SAND))) {
+                return y; // only natural ground is cut
+            }
+        }
+        BlockState top = level.getBlockState(p.setY(y));
+        clear(level, p.setY(y + 1));
+        for (int k = target + 1; k <= y; k++) {
+            level.setBlock(p.setY(k), Blocks.AIR.defaultBlockState(), Block.UPDATE_CLIENTS);
+        }
+        if (level.getBlockState(p.setY(target)).is(BlockTags.DIRT)) {
+            level.setBlock(p, top.is(BlockTags.DIRT) ? top : Blocks.GRASS_BLOCK.defaultBlockState(),
+                    Block.UPDATE_CLIENTS);
+        }
+        return target;
     }
 
     private static void setIfOpen(WorldGenLevel level, BlockPos p, BlockState state) {

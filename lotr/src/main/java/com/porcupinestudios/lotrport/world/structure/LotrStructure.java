@@ -59,7 +59,7 @@ public final class LotrStructure extends Structure {
             Codec.INT.fieldOf("ground").forGetter(s -> s.ground),
             Codec.INT.optionalFieldOf("max_slope", 6).forGetter(s -> s.maxSlope),
             Codec.INT.optionalFieldOf("road_distance", 16).forGetter(s -> s.roadDistance),
-            Codec.INT.optionalFieldOf("max_foundation", 24).forGetter(s -> s.maxFoundation),
+            Codec.INT.optionalFieldOf("max_foundation", 96).forGetter(s -> s.maxFoundation),
             Codec.INT.optionalFieldOf("axis_margin", 32).forGetter(s -> s.axisMargin),
             Codec.INT.optionalFieldOf("chunk_road_distance", 16).forGetter(s -> s.chunkRoadDistance),
             Codec.INT.optionalFieldOf("gap", 2).forGetter(s -> s.gap),

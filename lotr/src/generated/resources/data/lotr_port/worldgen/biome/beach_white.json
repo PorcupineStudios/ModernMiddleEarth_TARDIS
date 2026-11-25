@@ -106,7 +106,9 @@
       "minecraft:glow_lichen"
     ],
     [
+      "lotr_port:road_verge",
       "minecraft:freeze_top_layer"
     ]
-  ]
+  ],
+  "creature_spawn_probability": 0.1
 }

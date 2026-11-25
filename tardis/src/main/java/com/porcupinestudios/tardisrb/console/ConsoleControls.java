@@ -651,66 +651,68 @@ public final class ConsoleControls {
         Optional<BlockPos> at = tardis.location().map(g -> g.pos());
         BlockPos aim = target(console, at.orElse(BlockPos.ZERO));
         boolean relative = console.state("relative") != 0;
+        // each line after the title is "label<TAB>value": the monitor draws them as two aligned columns
         switch (side) {
             case 0, 1 -> {
                 char axis = side == 0 ? 'x' : 'z';
                 String a = side == 0 ? "X" : "Z";
                 out.add(a + " COORDINATES");
-                out.add("Target " + a + " " + (side == 0 ? aim.getX() : aim.getZ()));
-                out.add(relative ? "(here " + signed(axisValue(console, axis)) + ")" : "(absolute)");
-                out.add(at.map(p -> "Now " + a + " " + (side == 0 ? p.getX() : p.getZ())).orElse("In flight"));
+                out.add("Target " + a + "\t" + (side == 0 ? aim.getX() : aim.getZ()));
+                out.add("Mode\t" + (relative ? "here " + signed(axisValue(console, axis)) : "absolute"));
+                out.add("Now " + a + "\t" + at.map(p -> String.valueOf(side == 0 ? p.getX() : p.getZ()))
+                        .orElse("in flight"));
             }
             case 2 -> {
                 out.add("DIMENSION & TIME");
-                out.add(pick.map(d -> "Target " + name(d).getString() + "[" + TardisContent.destination(d)
-                        .map(x -> x.dimension().location()).orElse(d) + "]").orElse("No other dimensions"));
-                out.add("Target time: " + timeText(console));
+                out.add("Target\t" + pick.map(d -> name(d).getString()).orElse("no other dimensions"));
+                pick.ifPresent(d -> out.add("\t" + TardisContent.destination(d).map(x -> x.dimension().location())
+                        .orElse(d)));
+                out.add("Time\t" + timeText(console));
                 if (console.state("fast_return") != 0) {
-                    out.add(lastSpot(tardis).map(g -> "Fast return to " + spotText(g)).orElse("Fast return: nowhere"));
+                    out.add("Fast return\t" + lastSpot(tardis).map(g -> spotText(g)).orElse("nowhere"));
                 }
-                out.add("Now in " + tardis.location().map(g -> g.dimension().location().toString()).orElse("-"));
+                out.add("Now in\t" + tardis.location().map(g -> g.dimension().location().toString()).orElse("-"));
             }
             case 3 -> {
                 out.add("EXTERIOR - " + tardis.name());
-                out.add(at.isEmpty() ? "In flight" : Vortex.inVortex(tardis)
-                        ? Vortex.crashing(tardis) ? "CRASHING!" : "In the vortex: " + Math.round(Vortex.progress(tardis) * 100)
-                                + "%, off course "
-                                + (int) Math.round(Vortex.inaccuracy(tardis))
-                        : !FreeFlight.isLoose(tardis) ? "Landed (a block)"
+                out.add("State\t" + (at.isEmpty() ? "in flight" : Vortex.inVortex(tardis)
+                        ? Vortex.crashing(tardis) ? "CRASHING!" : "vortex " + Math.round(Vortex.progress(tardis) * 100)
+                                + "%, off course " + (int) Math.round(Vortex.inaccuracy(tardis))
+                        : !FreeFlight.isLoose(tardis) ? "landed (a block)"
                         : FreeFlight.body(server, tardis).map(b -> b.isVehicle()).orElse(false)
-                                ? "Flown, " + FreeFlight.height(server, tardis) + " up"
-                        : FreeFlight.thrusters(tardis) ? "Hovering, " + FreeFlight.height(server, tardis) + " up"
-                        : "Loose: a physics object");
-                out.add("Phase key " + (console.state("phase_key") != 0 ? "ON" : "off") + ", thrusters "
-                        + (FreeFlight.thrusters(tardis) ? "ON" : "off"));
-                out.add("Facing " + (console.hasState("facing")
+                                ? "flown, " + FreeFlight.height(server, tardis) + " up"
+                        : FreeFlight.thrusters(tardis) ? "hovering, " + FreeFlight.height(server, tardis) + " up"
+                        : "loose (physics object)"));
+                out.add("Phase key\t" + (console.state("phase_key") != 0 ? "ON" : "off"));
+                out.add("Thrusters\t" + (FreeFlight.thrusters(tardis) ? "ON" : "off"));
+                out.add("Facing\t" + (console.hasState("facing")
                         ? Direction.from2DDataValue(console.state("facing")).getName() : "as before"));
-                out.add(console.handbrake() ? "Handbrake ON" : "Handbrake off");
+                out.add("Handbrake\t" + (console.handbrake() ? "ON" : "off"));
                 if (Vortex.inVortex(tardis)
                         && Unlocks.stat(tardis, "wormhole_sight") >= TardisContent.tuning().vortex().wormholes().nameLevel()) {
                     // the scanner picks out the next wormhole and where it goes (Aaron 2026-11-09)
-                    Wormholes.next(tardis).ifPresent(h -> out.add("Wormhole in " + (int) (h.getDouble("z")
+                    Wormholes.next(tardis).ifPresent(h -> out.add("Wormhole\tin " + (int) (h.getDouble("z")
                             - tardis.moduleData(Vortex.MODULE).getDouble("progress")) + ": " + h.getString("dimension")));
                 }
-                out.add("Health " + (int) Math.ceil(Health.get(tardis)) + "/" + (int) Math.ceil(Health.max(tardis)));
-                out.add("Charge " + tardis.charge() + "/" + Unlocks.chargeCap(tardis));
-                out.add("Doors " + (Doors.isOpen(tardis) ? "open" : "shut"));
+                out.add("Health\t" + (int) Math.ceil(Health.get(tardis)) + " / " + (int) Math.ceil(Health.max(tardis)));
+                out.add("Charge\t" + tardis.charge() + " / " + Unlocks.chargeCap(tardis));
+                out.add("Doors\t" + (Doors.isOpen(tardis) ? "open" : "shut"));
             }
             case 4 -> {
                 out.add("Y & MEMORY");
-                out.add(console.state("land") != 0 ? "Target Y: the ground" : "Target Y " + yValue(console));
-                out.add("Land on ground " + (console.state("land") != 0 ? "on" : "off"));
-                out.add("Save mode " + (console.state("save") != 0 ? "ON" : "off"));
-                out.add("Saved " + console.memoryUsed() + "/"
+                out.add("Target Y\t" + (console.state("land") != 0 ? "the ground" : String.valueOf(yValue(console))));
+                out.add("Land on ground\t" + (console.state("land") != 0 ? "ON" : "off"));
+                out.add("Save mode\t" + (console.state("save") != 0 ? "ON" : "off"));
+                out.add("Saved\t" + console.memoryUsed() + " / "
                         + TardisContent.tuning().console().coordinates().memorySlots());
             }
             default -> {
                 out.add("ROOMS");
-                out.add("Rooms " + tardis.roomCount() + "/" + Rooms.cap(tardis));
-                out.add(schemaText(server, tardis, console));
-                out.add("Crew " + (tardis.crew().size() + (tardis.owner().isPresent() ? 1 : 0)));
-                out.add("Doors " + (Doors.isOpen(tardis) ? "open" : "shut"));
-                out.add("Stage " + tardis.stage().map(ResourceLocation::getPath).orElse("-"));
+                out.add("Rooms\t" + tardis.roomCount() + " / " + Rooms.cap(tardis));
+                out.add("Plan\t" + schemaText(server, tardis, console).replaceFirst("^Plan: ", ""));
+                out.add("Crew\t" + (tardis.crew().size() + (tardis.owner().isPresent() ? 1 : 0)));
+                out.add("Doors\t" + (Doors.isOpen(tardis) ? "open" : "shut"));
+                out.add("Stage\t" + tardis.stage().map(ResourceLocation::getPath).orElse("-"));
             }
         }
         return out;

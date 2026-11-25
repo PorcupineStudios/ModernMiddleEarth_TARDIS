@@ -30,6 +30,11 @@ public final class TardisEntities {
                     .sized(1.0F, 2.0F).clientTrackingRange(10).updateInterval(20).fireImmune().noSave()
                     .build("dematerialising"));
 
+    public static final DeferredHolder<EntityType<?>, EntityType<PilotCamera>> PILOT_CAMERA = ENTITIES.register(
+            "pilot_camera", () -> EntityType.Builder.<PilotCamera>of(PilotCamera::new, MobCategory.MISC)
+                    .sized(0.5F, 0.5F).clientTrackingRange(10).updateInterval(20).fireImmune().noSave()
+                    .build("pilot_camera"));
+
     private TardisEntities() {}
 
     public static void register(IEventBus modBus) {

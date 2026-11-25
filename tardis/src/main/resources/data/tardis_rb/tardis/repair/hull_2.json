@@ -1,5 +1,14 @@
 {
   "subsystem": "tardis_rb:hull",
   "level": 2,
-  "cost": "tardis_rb:hull_plating"
+  "cost": {
+    "items": [
+      {
+        "ingredient": {
+          "item": "tardis_rb:hull_plate"
+        },
+        "count": 2
+      }
+    ]
+  }
 }

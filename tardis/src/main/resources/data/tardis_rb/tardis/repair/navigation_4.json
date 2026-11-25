@@ -5,7 +5,7 @@
     "items": [
       {
         "ingredient": {
-          "item": "minecraft:ender_eye"
+          "item": "tardis_rb:temporal_circuit"
         },
         "count": 4
       }

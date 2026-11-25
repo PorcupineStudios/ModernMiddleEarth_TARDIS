@@ -1,7 +1,26 @@
 {
-  "variants": {
-    "": {
-      "model": "lotr_port:block/clover"
+  "multipart": [
+    {
+      "apply": {
+        "model": "lotr_port:block/clover_stem"
+      }
+    },
+    {
+      "apply": {
+        "model": "lotr_port:block/clover_petal_0"
+      }
+    },
+    {
+      "apply": {
+        "model": "lotr_port:block/clover_petal_1",
+        "y": 90
+      }
+    },
+    {
+      "apply": {
+        "model": "lotr_port:block/clover_petal_2",
+        "y": 270
+      }
     }
-  }
+  ]
 }

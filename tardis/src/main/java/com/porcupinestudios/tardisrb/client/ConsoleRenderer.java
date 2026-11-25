@@ -36,7 +36,6 @@ public final class ConsoleRenderer implements BlockEntityRenderer<ConsoleBlockEn
     private static final ResourceLocation GLOW = TardisRB.id("textures/entity/capaldi/console_glow.png");
     private static final ResourceLocation PLAIN = TardisRB.id("textures/entity/capaldi/console_plain.png");
 
-    private static final int TEXT_COLOUR = 0xFF9FE8FF;
     private final Font font;
 
     public ConsoleRenderer(BlockEntityRendererProvider.Context context) {
@@ -135,18 +134,30 @@ public final class ConsoleRenderer implements BlockEntityRenderer<ConsoleBlockEn
         pose.popPose();
     }
 
-    /** What the console knows (for the side the monitor stands over), written on the monitor's glass, sized to fit. */
+    /**
+     * What the console knows (for the side the monitor stands over), written on the monitor's glass, sized to fit
+     * (2026-11-19, Aaron: neater): the first line is a title, centred and underlined; each other line is "label<TAB>
+     * value", drawn as two aligned columns (labels dim, values bright; ON green, off grey, warnings red).
+     */
     private void readout(ConsoleBlockEntity be, ConsoleModel model, PoseStack pose, MultiBufferSource buffers) {
         List<String> lines = be.readout();
         if (model.glass.isEmpty() || lines.isEmpty()) {
             return;
         }
         ConsoleModel.Glass g = model.glass.get();
-        int widest = 1;
-        for (String line : lines) {
-            widest = Math.max(widest, font.width(line));
+        net.minecraft.network.chat.Component title = net.minecraft.network.chat.Component.literal(lines.get(0))
+                .withStyle(net.minecraft.ChatFormatting.UNDERLINE);
+        int labelW = 0;
+        int valueW = 0;
+        for (int i = 1; i < lines.size(); i++) {
+            String[] cols = lines.get(i).split("\t", 2);
+            labelW = Math.max(labelW, font.width(cols[0]));
+            valueW = Math.max(valueW, cols.length > 1 ? font.width(cols[1]) : 0);
         }
-        float k = (float) Math.min(g.height() * 0.85 / (lines.size() * 10), g.width() * 0.85 / widest);
+        int gap = labelW > 0 && valueW > 0 ? 10 : 0;
+        int widest = Math.max(1, Math.max(font.width(title), labelW + gap + valueW));
+        int height = 14 + (lines.size() - 1) * 10;
+        float k = (float) Math.min(g.height() * 0.82 / height, g.width() * 0.86 / widest);
         pose.pushPose();
         Vec3 c = g.centre().add(g.normal().scale(0.004));
         pose.translate(c.x, c.y, c.z);
@@ -159,12 +170,36 @@ public final class ConsoleRenderer implements BlockEntityRenderer<ConsoleBlockEn
         pose.last().normal().mul(new Matrix3f(basis));
         pose.scale(k, -k, k);
         float left = -widest / 2F;
-        float top = -lines.size() * 10 / 2F;
-        for (int i = 0; i < lines.size(); i++) {
-            font.drawInBatch(lines.get(i), left, top + i * 10, TEXT_COLOUR, false, pose.last().pose(), buffers,
+        float top = -height / 2F;
+        font.drawInBatch(title, -font.width(title) / 2F, top, TITLE_COLOUR, false, pose.last().pose(), buffers,
+                Font.DisplayMode.POLYGON_OFFSET, 0, LightTexture.FULL_BRIGHT);
+        for (int i = 1; i < lines.size(); i++) {
+            String[] cols = lines.get(i).split("\t", 2);
+            float y = top + 14 + (i - 1) * 10;
+            font.drawInBatch(cols[0], left, y, LABEL_COLOUR, false, pose.last().pose(), buffers,
                     Font.DisplayMode.POLYGON_OFFSET, 0, LightTexture.FULL_BRIGHT);
+            if (cols.length > 1) {
+                font.drawInBatch(cols[1], left + labelW + gap, y, valueColour(cols[1]), false, pose.last().pose(),
+                        buffers, Font.DisplayMode.POLYGON_OFFSET, 0, LightTexture.FULL_BRIGHT);
+            }
         }
         pose.popPose();
+    }
+
+    private static final int TITLE_COLOUR = 0xFFE8D088;
+    private static final int LABEL_COLOUR = 0xFF9DB8D8;
+
+    private static int valueColour(String value) {
+        if (value.equals("ON")) {
+            return 0xFF8CF08C;
+        }
+        if (value.equals("off")) {
+            return 0xFF8A94A0;
+        }
+        if (value.endsWith("!")) {
+            return 0xFFFF6A6A;
+        }
+        return 0xFFF2F6FA;
     }
 
     private static void draw(List<ConsoleModel.Quad> quads, PoseStack pose, VertexConsumer vc, int light) {

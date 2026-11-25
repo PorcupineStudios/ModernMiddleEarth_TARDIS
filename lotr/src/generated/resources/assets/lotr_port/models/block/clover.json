@@ -1,7 +1,0 @@
-{
-  "parent": "minecraft:block/cross",
-  "textures": {
-    "cross": "lotr_port:block/clover_petal"
-  },
-  "render_type": "minecraft:cutout"
-}

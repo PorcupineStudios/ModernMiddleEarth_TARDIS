@@ -65,8 +65,14 @@ public final class NpcSpawner {
             return 0;
         }
         AABB near = player.getBoundingBox().inflate(table.radius());
-        if (level.getEntitiesOfClass(LotrNpc.class, near,
-                n -> !table.countOnlyAnimals() || NpcSpawns.isAnimal(n.typeId())).size() >= table.cap()) {
+        int present = level.getEntitiesOfClass(LotrNpc.class, near,
+                n -> !table.countOnlyAnimals() || NpcSpawns.isAnimal(n.typeId())).size();
+        if (table.countOnlyAnimals()) {
+            // an animal table's cap counts every animal around (vanilla's sheep, cows, LOTR's horses too), as LOTR's
+            // one creature cap did; counting only LOTR's own animals piled them on top of vanilla's
+            present += level.getEntitiesOfClass(net.minecraft.world.entity.animal.Animal.class, near).size();
+        }
+        if (present >= table.cap()) {
             return 0;
         }
         double angle = random.nextDouble() * Math.PI * 2;

@@ -1,15 +1,14 @@
 {
   "model": "facing_compass",
-  "panel": 3,
-  "u": -0.22,
-  "v": 0.182,
-  "scale": 0.64,
+  "panel": 4,
+  "u": 0.1561,
+  "v": 0.4536,
+  "scale": 0.578,
   "actions": {
     "arrow": "facing"
   },
   "requirements": {
-    "type": "tardis_rb:subsystem_level",
-    "subsystem": "tardis_rb:navigation",
-    "min": 1
+    "type": "tardis_rb:research",
+    "research": "tardis_rb:materialised_flight"
   }
 }
