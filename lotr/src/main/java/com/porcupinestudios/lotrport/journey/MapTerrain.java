@@ -2,13 +2,16 @@ package com.porcupinestudios.lotrport.journey;
 
 import com.porcupinestudios.lotrport.world.map.MiddleEarthMap;
 import com.porcupinestudios.lotrport.world.map.Roads;
+import com.porcupinestudios.lotrport.road.RoadWorks;
 import java.util.List;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.level.Level;
 
 /**
  * The land as Middle-earth's map has it, for routes: each biome's speed from {@code journey/terrain.json} (worked out
  * once per biome), slowed by the map's hilliness; roads from the road network; rivers where the map puts its river
- * biome; marked bridges from {@link Bridges}. Nothing here loads a chunk, so it can run off the server thread on a
- * snapshot of the bridges.
+ * biome; marked bridges from {@link Bridges}; road works ({@link RoadWorks}) whose tier is a route road. Nothing
+ * here loads a chunk, so it can run off the server thread on a snapshot of the bridges and road works.
  */
 public final class MapTerrain implements TerrainView {
     private final MiddleEarthMap map;
@@ -17,8 +20,18 @@ public final class MapTerrain implements TerrainView {
     private final int river;
     private final double roughness;
     private final List<Bridges.Bridge> bridges;
+    private final RoadWorks.Snapshot works;
+    private final ResourceKey<Level> dimension;
 
     public MapTerrain(MiddleEarthMap map, Roads roads, TerrainData data, List<Bridges.Bridge> bridges) {
+        this(map, roads, data, bridges, RoadWorks.Snapshot.EMPTY, Level.OVERWORLD);
+    }
+
+    /** With the road works (roads built or worn in after world generation) of {@code dimension}. */
+    public MapTerrain(MiddleEarthMap map, Roads roads, TerrainData data, List<Bridges.Bridge> bridges,
+            RoadWorks.Snapshot works, ResourceKey<Level> dimension) {
+        this.works = works;
+        this.dimension = dimension;
         this.map = map;
         this.roads = roads;
         this.river = map.riverBiome();
@@ -43,7 +56,7 @@ public final class MapTerrain implements TerrainView {
 
     @Override
     public boolean road(int x, int z) {
-        return roads != null && roads.distance(x, z) <= roads.width() + 1;
+        return roads != null && roads.distance(x, z) <= roads.width() + 1 || works.road(dimension, x, z);
     }
 
     @Override

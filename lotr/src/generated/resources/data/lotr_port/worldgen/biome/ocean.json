@@ -137,9 +137,8 @@
       "lotr_port:forest_floor/1_0",
       "lotr_port:plant/reeds_0_9",
       "lotr_port:plant/dried_reeds_0_1",
-      "minecraft:flower_default",
-      "minecraft:patch_grass_plain",
-      "minecraft:patch_tall_grass",
+      "lotr_port:plant_grass/short_grass_r400",
+      "lotr_port:plant_grass/minecraft_short_grass_r100",
       "minecraft:glow_lichen",
       "minecraft:seagrass_normal",
       "minecraft:seagrass_simple",
@@ -150,7 +149,9 @@
       "minecraft:patch_pumpkin"
     ],
     [
+      "lotr_port:road_verge",
       "minecraft:freeze_top_layer"
     ]
-  ]
+  ],
+  "creature_spawn_probability": 0.06522
 }

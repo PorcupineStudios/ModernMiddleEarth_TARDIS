@@ -1,0 +1,346 @@
+# Landscape pass (2026-11-25): first-person shots and effect GIF frames in a world of seed 2941 (coordinates from
+# -Dlotr_port.landmarks=true). Turn race.picker off in config first; "floor" stands on the ground under the canopy.
+wait 100
+noscreen
+/gamerule doDaylightCycle false
+/gamerule doWeatherCycle false
+/time set 6000
+/weather clear
+/gamemode creative
+hud off
+floor 66 -298 180 18 5
+wait 700
+floor 66 -298 180 18 5
+wait 60
+shot shire_corn_field
+floor -84 -666 180 18 4
+wait 700
+floor -84 -666 180 18 4
+wait 60
+shot shire_hedged_field
+floor -39 -33 180 18 4
+wait 700
+floor -39 -33 180 18 4
+wait 60
+shot shire_plum_orchard
+floor 80 -168 145 20 4
+wait 300
+floor 80 -168 145 20 4
+wait 60
+shot shire_orchard_corner
+floor 64400 -9664 0 0 0
+wait 900
+floor 64400 -9664 0 0 0
+wait 60
+shot mirkwood_enchanted_bright
+floor 64400 -9664 120 -5 0
+wait 200
+floor 64400 -9664 120 -5 0
+wait 60
+shot mirkwood_enchanted_bright_2
+floor 63919 -9511 90 0 0
+wait 900
+floor 63919 -9511 90 0 0
+wait 60
+shot spider_nest_ring_bright
+floor 63819 -9511 90 5 0
+wait 500
+floor 63819 -9511 90 5 0
+wait 60
+shot spider_nest_core_bright
+floor 63826 -9504 -90 40 0
+wait 300
+floor 63826 -9504 -90 40 0
+wait 60
+shot spider_nest_egg_sac_bright
+floor 74988 -9920 90 25 1
+wait 900
+floor 74988 -9920 90 25 1
+wait 60
+shot enchanted_river
+hud on
+/gamemode survival
+floor 64400 -9664 0 0
+wait 400
+/effect clear @s
+/effect give @s lotr_port:drowsy 45 0 true
+/title @s actionbar {"translate":"region_effect.lotr_port.drowsy"}
+/effect give @s minecraft:nausea 8 0 true
+shot gif_drowsy_00
+wait 4
+shot gif_drowsy_01
+wait 4
+shot gif_drowsy_02
+wait 4
+shot gif_drowsy_03
+wait 4
+shot gif_drowsy_04
+wait 4
+shot gif_drowsy_05
+wait 4
+shot gif_drowsy_06
+wait 4
+shot gif_drowsy_07
+wait 4
+shot gif_drowsy_08
+wait 4
+shot gif_drowsy_09
+wait 4
+shot gif_drowsy_10
+wait 4
+shot gif_drowsy_11
+wait 4
+shot gif_drowsy_12
+wait 4
+shot gif_drowsy_13
+wait 4
+shot gif_drowsy_14
+wait 4
+shot gif_drowsy_15
+wait 4
+shot gif_drowsy_16
+wait 4
+shot gif_drowsy_17
+wait 4
+shot gif_drowsy_18
+wait 4
+shot gif_drowsy_19
+wait 4
+shot gif_drowsy_20
+wait 4
+shot gif_drowsy_21
+wait 4
+shot gif_drowsy_22
+wait 4
+shot gif_drowsy_23
+wait 4
+shot gif_drowsy_24
+wait 4
+shot gif_drowsy_25
+wait 4
+shot gif_drowsy_26
+wait 4
+shot gif_drowsy_27
+wait 4
+shot gif_drowsy_28
+wait 4
+shot gif_drowsy_29
+wait 4
+shot gif_drowsy_30
+wait 4
+shot gif_drowsy_31
+wait 4
+shot gif_drowsy_32
+wait 4
+shot gif_drowsy_33
+wait 4
+shot gif_drowsy_34
+wait 4
+shot gif_drowsy_35
+wait 4
+shot gif_drowsy_36
+wait 4
+shot gif_drowsy_37
+wait 4
+shot gif_drowsy_38
+wait 4
+shot gif_drowsy_39
+wait 4
+/title @s actionbar {"translate":"region_effect.lotr_port.lost_way"}
+shot gif_drowsy_40
+wait 4
+shot gif_drowsy_41
+wait 4
+shot gif_drowsy_42
+wait 4
+shot gif_drowsy_43
+wait 4
+shot gif_drowsy_44
+wait 4
+shot gif_drowsy_45
+wait 4
+shot gif_drowsy_46
+wait 4
+shot gif_drowsy_47
+wait 4
+shot gif_drowsy_48
+wait 4
+shot gif_drowsy_49
+wait 4
+shot gif_drowsy_50
+wait 4
+shot gif_drowsy_51
+wait 4
+shot gif_drowsy_52
+wait 4
+shot gif_drowsy_53
+wait 4
+shot gif_drowsy_54
+wait 4
+shot gif_drowsy_55
+wait 4
+shot gif_drowsy_56
+wait 4
+shot gif_drowsy_57
+wait 4
+shot gif_drowsy_58
+wait 4
+shot gif_drowsy_59
+wait 4
+/effect clear @s
+/gamemode creative
+/tp @s 74988 66 -9920 90 30
+wait 500
+/gamemode survival
+wait 1
+shot gif_sleep_00
+wait 6
+shot gif_sleep_01
+wait 6
+shot gif_sleep_02
+wait 6
+shot gif_sleep_03
+wait 6
+shot gif_sleep_04
+wait 6
+shot gif_sleep_05
+wait 6
+shot gif_sleep_06
+wait 6
+shot gif_sleep_07
+wait 6
+shot gif_sleep_08
+wait 6
+shot gif_sleep_09
+wait 6
+shot gif_sleep_10
+wait 6
+shot gif_sleep_11
+wait 6
+shot gif_sleep_12
+wait 6
+shot gif_sleep_13
+wait 6
+shot gif_sleep_14
+wait 6
+shot gif_sleep_15
+wait 6
+shot gif_sleep_16
+wait 6
+shot gif_sleep_17
+wait 6
+shot gif_sleep_18
+wait 6
+shot gif_sleep_19
+wait 6
+shot gif_sleep_20
+wait 6
+shot gif_sleep_21
+wait 6
+shot gif_sleep_22
+wait 6
+shot gif_sleep_23
+wait 6
+shot gif_sleep_24
+wait 6
+shot gif_sleep_25
+wait 6
+shot gif_sleep_26
+wait 6
+shot gif_sleep_27
+wait 6
+shot gif_sleep_28
+wait 6
+shot gif_sleep_29
+wait 6
+shot gif_sleep_30
+wait 6
+shot gif_sleep_31
+wait 6
+shot gif_sleep_32
+wait 6
+shot gif_sleep_33
+wait 6
+shot gif_sleep_34
+wait 6
+shot gif_sleep_35
+wait 6
+shot gif_sleep_36
+wait 6
+shot gif_sleep_37
+wait 6
+shot gif_sleep_38
+wait 6
+shot gif_sleep_39
+wait 6
+shot gif_sleep_40
+wait 6
+shot gif_sleep_41
+wait 6
+shot gif_sleep_42
+wait 6
+shot gif_sleep_43
+wait 6
+shot gif_sleep_44
+wait 6
+shot gif_sleep_45
+wait 6
+shot gif_sleep_46
+wait 6
+shot gif_sleep_47
+wait 6
+shot gif_sleep_48
+wait 6
+shot gif_sleep_49
+wait 6
+shot gif_sleep_50
+wait 6
+shot gif_sleep_51
+wait 6
+shot gif_sleep_52
+wait 6
+shot gif_sleep_53
+wait 6
+shot gif_sleep_54
+wait 6
+shot gif_sleep_55
+wait 6
+shot gif_sleep_56
+wait 6
+shot gif_sleep_57
+wait 6
+shot gif_sleep_58
+wait 6
+shot gif_sleep_59
+wait 6
+shot gif_sleep_60
+wait 6
+shot gif_sleep_61
+wait 6
+shot gif_sleep_62
+wait 6
+shot gif_sleep_63
+wait 6
+shot gif_sleep_64
+wait 6
+shot gif_sleep_65
+wait 6
+shot gif_sleep_66
+wait 6
+shot gif_sleep_67
+wait 6
+shot gif_sleep_68
+wait 6
+shot gif_sleep_69
+wait 6
+shot gif_sleep_70
+wait 6
+shot gif_sleep_71
+wait 6
+shot gif_sleep_72
+wait 6
+shot gif_sleep_73
+wait 6
+shot gif_sleep_74
+wait 6
+quit

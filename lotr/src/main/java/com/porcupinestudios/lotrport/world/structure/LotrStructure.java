@@ -59,7 +59,7 @@ public final class LotrStructure extends Structure {
             Codec.INT.fieldOf("ground").forGetter(s -> s.ground),
             Codec.INT.optionalFieldOf("max_slope", 6).forGetter(s -> s.maxSlope),
             Codec.INT.optionalFieldOf("road_distance", 16).forGetter(s -> s.roadDistance),
-            Codec.INT.optionalFieldOf("max_foundation", 24).forGetter(s -> s.maxFoundation),
+            Codec.INT.optionalFieldOf("max_foundation", 96).forGetter(s -> s.maxFoundation),
             Codec.INT.optionalFieldOf("axis_margin", 32).forGetter(s -> s.axisMargin),
             Codec.INT.optionalFieldOf("chunk_road_distance", 16).forGetter(s -> s.chunkRoadDistance),
             Codec.INT.optionalFieldOf("gap", 2).forGetter(s -> s.gap),
@@ -71,6 +71,8 @@ public final class LotrStructure extends Structure {
     private static final int SAMPLE_STEP = 3;
     /** Spots tried in a chunk for ground that fits. */
     private static final int TRIES = 8;
+    /** Blocks kept between a building and an enclosure's fence. */
+    private static final int ENCLOSURE_GAP = 3;
     private static final int NO_FIT = Integer.MIN_VALUE;
 
     /** The biome of the chunk last asked about on this thread: every LOTR structure asks for the same chunk in turn. */
@@ -261,6 +263,11 @@ public final class LotrStructure extends Structure {
     private int fits(GenerationContext ctx, Plan plan) {
         Vec3i size = plan.size();
         if (roadDistance > 0 && nearRoad(plan.x(), plan.z(), roadDistance + Math.max(size.getX(), size.getZ()) / 2)) {
+            return NO_FIT;
+        }
+        // nor in the Shire's fenced orchards and fields (LOTR's orchard variants turned structures off too)
+        if (com.porcupinestudios.lotrport.world.map.MiddleEarthMap.get().enclosureWithin(plan.minX(), plan.minZ(),
+                plan.minX() + size.getX() - 1, plan.minZ() + size.getZ() - 1, ENCLOSURE_GAP)) {
             return NO_FIT;
         }
         int lo = Integer.MAX_VALUE;

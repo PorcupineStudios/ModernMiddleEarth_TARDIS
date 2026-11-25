@@ -4,6 +4,7 @@ import com.porcupinestudios.tardisrb.flight.FreeFlight;
 import com.porcupinestudios.tardisrb.flight.PilotInput;
 import com.porcupinestudios.tardisrb.flight.Piloting;
 import com.porcupinestudios.tardisrb.progression.TardisContent;
+import com.porcupinestudios.tardisrb.flight.PilotStatus;
 import com.porcupinestudios.tardisrb.progression.Tuning;
 import com.porcupinestudios.tardisrb.vortex.Vortex;
 import java.util.List;
@@ -60,6 +61,13 @@ public class TardisBody extends Entity implements qouteall.imm_ptl.core.api.ImmP
     private static final EntityDataAccessor<Boolean> CRASHING = SynchedEntityData.defineId(TardisBody.class,
             EntityDataSerializers.BOOLEAN);
 
+    /**
+     * Being pulled into a wormhole (2026-11-20, Aaron: not a crash): the controls are held while the wormhole draws it
+     * through ({@code Wormholes.suck} sets its motion), with no tumbling, crackling or falling.
+     */
+    private static final EntityDataAccessor<Boolean> PULLED = SynchedEntityData.defineId(TardisBody.class,
+            EntityDataSerializers.BOOLEAN);
+
     /** Client only: how far open the doors are drawn (0..1) and when that was worked out. */
     public float doorAnim;
     public float doorAnimTime = -1;
@@ -87,6 +95,7 @@ public class TardisBody extends Entity implements qouteall.imm_ptl.core.api.ImmP
         builder.define(SHOCK_DIR, new Vector3f(0, 1, 0));
         builder.define(SHOCK, 0);
         builder.define(CRASHING, false);
+        builder.define(PULLED, false);
     }
 
     public Optional<UUID> tardis() {
@@ -145,6 +154,14 @@ public class TardisBody extends Entity implements qouteall.imm_ptl.core.api.ImmP
         entityData.set(CRASHING, on);
     }
 
+    public boolean pulled() {
+        return entityData.get(PULLED);
+    }
+
+    public void setPulled(boolean on) {
+        entityData.set(PULLED, on);
+    }
+
     /** Puts it in a vortex tunnel round the axis ({@code x}, {@code y}) along +z ({@code vortex/Vortex}). */
     public void setLane(float x, float y) {
         entityData.set(LANE_X, x);
@@ -195,6 +212,11 @@ public class TardisBody extends Entity implements qouteall.imm_ptl.core.api.ImmP
     @Override
     public void tick() {
         super.tick();
+        if (level().dimension() == com.porcupinestudios.tardisrb.interior.Interiors.DIMENSION) {
+            // never inside its own interior dimension: a copy a pilot's client carried in going back (2026-11-20)
+            discard();
+            return;
+        }
         tickLerp();
         if (isControlledByLocalInstance()) {
             physics();
@@ -217,6 +239,12 @@ public class TardisBody extends Entity implements qouteall.imm_ptl.core.api.ImmP
             return;
         }
         Tuning.FreeFlight t = TardisContent.tuning().flight();
+        // buried (fell into blocks, a crater wall, a rift opened in rock): work it up and out so it can fly (2026-11-20)
+        if (!level().noCollision(this, getBoundingBox().deflate(0.05))) {
+            setPos(getX(), getY() + 0.25, getZ());
+            setDeltaMovement(Vec3.ZERO);
+            return;
+        }
         Vec3 v = getDeltaMovement();
         boolean flown = getControllingPassenger() != null && thrusters();
         if (flown) {
@@ -226,16 +254,23 @@ public class TardisBody extends Entity implements qouteall.imm_ptl.core.api.ImmP
             Vec3 left = new Vec3(Math.cos(yaw), 0, Math.sin(yaw));
             Vec3 push = forward.scale(PilotInput.forward).add(left.scale(PilotInput.left));
             Vec3 across = new Vec3(v.x, 0, v.z);
+            // speed upgrades; out of charge (Aaron 2026-11-19): much slower, no boost, and now and then a shove
+            boolean empty = PilotStatus.empty();
+            double speed = Math.max(0.1, PilotStatus.flightSpeed) * (empty ? t.energy().emptySpeed() : 1);
             if (push.lengthSqr() > 1.0E-4) {
-                across = across.add(push.normalize().scale(p.acceleration()));
+                across = across.add(push.normalize().scale(p.acceleration() * speed));
             } else {
                 across = across.scale(t.hoverDamping());
             }
-            double top = p.maxSpeed() * (PilotInput.boost ? p.boost() : 1);
+            double top = p.maxSpeed() * speed * (PilotInput.boost && !empty ? p.boost() : 1);
             if (across.length() > top) {
                 across = across.normalize().scale(top);
             }
-            double vy = v.y + (PilotInput.up * p.verticalSpeed() - v.y) * 0.5;
+            if (empty && random.nextDouble() < t.energy().driftChance()) {
+                double a = random.nextDouble() * Math.PI * 2;
+                across = across.add(Math.cos(a) * t.energy().driftPush(), 0, Math.sin(a) * t.energy().driftPush());
+            }
+            double vy = v.y + (PilotInput.up * p.verticalSpeed() * (empty ? t.energy().emptySpeed() : 1) - v.y) * 0.5;
             v = new Vec3(across.x, vy, across.z);
             if (PilotInput.brake) {
                 v = v.scale(0.5);
@@ -261,6 +296,10 @@ public class TardisBody extends Entity implements qouteall.imm_ptl.core.api.ImmP
      * pilot has to follow the bends. Unflown, the server's autopilot carries it on and steers it round them.
      */
     private void vortexPhysics() {
+        if (pulled()) {
+            setPos(position().add(getDeltaMovement())); // drawn through by the wormhole (Wormholes.suck)
+            return;
+        }
         if (crashing()) {
             // the thrusters are dead: it sinks out of the tunnel into the clouds, still carried along
             Vec3 v = getDeltaMovement();
@@ -284,8 +323,8 @@ public class TardisBody extends Entity implements qouteall.imm_ptl.core.api.ImmP
                 vx *= top / across;
                 vy *= top / across;
             }
-            vz = vt.speed() * (1 + 0.5 * PilotInput.forward) * (PilotInput.boost ? p.boost() : 1)
-                    * (PilotInput.brake ? 0.5 : 1);
+            vz = vt.speed() * Math.max(0.1, PilotStatus.vortexSpeed) * (1 + 0.5 * PilotInput.forward)
+                    * (PilotInput.boost ? p.boost() : 1) * (PilotInput.brake ? 0.5 : 1);
         } else {
             // the autopilot follows the tunnel's bends, steering for its middle a little ahead
             Vec3 ahead = Vortex.bend(getZ() + 3);
@@ -346,7 +385,7 @@ public class TardisBody extends Entity implements qouteall.imm_ptl.core.api.ImmP
     /** The pilot (the first passenger, if a player); nobody while it crashes or falls out of a wormhole: the controls are dead. */
     @Override
     public LivingEntity getControllingPassenger() {
-        return !crashing() && getFirstPassenger() instanceof Player p ? p : null;
+        return !crashing() && !pulled() && getFirstPassenger() instanceof Player p ? p : null;
     }
 
     // smooth movement on clients that don't steer it (as boats do)

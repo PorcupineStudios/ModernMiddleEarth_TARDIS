@@ -7042,16 +7042,6 @@
     "item": "none"
   },
   {
-    "id": "copper_ore",
-    "kind": "cube",
-    "hardness": 3.0,
-    "resistance": 5.0,
-    "light": 0,
-    "sound": "stone",
-    "requiresTool": true,
-    "solid": true
-  },
-  {
     "id": "topaz_vein",
     "kind": "ore",
     "hardness": 3.0,
@@ -7292,16 +7282,6 @@
     "kind": "cube",
     "hardness": 3.0,
     "resistance": 5.0,
-    "light": 0,
-    "sound": "stone",
-    "requiresTool": true,
-    "solid": true
-  },
-  {
-    "id": "block_of_copper",
-    "kind": "cube",
-    "hardness": 5.0,
-    "resistance": 10.0,
     "light": 0,
     "sound": "stone",
     "requiresTool": true,
@@ -20534,17 +20514,6 @@
     "resistance": 1.0,
     "solid": false,
     "item": "none"
-  },
-  {
-    "id": "raw_copper_block",
-    "kind": "cube",
-    "hardness": 5.0,
-    "resistance": 6.0,
-    "light": 0,
-    "sound": "stone",
-    "requiresTool": true,
-    "solid": true,
-    "raw_ore": "copper"
   },
   {
     "id": "raw_mithril_block",

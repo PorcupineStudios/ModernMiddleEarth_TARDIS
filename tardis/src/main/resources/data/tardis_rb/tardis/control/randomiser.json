@@ -1,15 +1,14 @@
 {
   "model": "randomiser",
   "panel": 1,
-  "u": 0.31,
-  "v": 0.3738,
+  "u": -0.0,
+  "v": 0.4035,
   "scale": 0.72,
   "actions": {
     "die": "random"
   },
   "requirements": {
-    "type": "tardis_rb:subsystem_level",
-    "subsystem": "tardis_rb:navigation",
-    "min": 1
+    "type": "tardis_rb:research",
+    "research": "tardis_rb:dematerialised_flight"
   }
 }

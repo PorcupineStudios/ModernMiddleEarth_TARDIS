@@ -57,7 +57,11 @@ public class NpcRenderer extends HumanoidMobRenderer<LotrNpc, HumanoidModel<Lotr
             int light) {
         if (npc instanceof com.porcupinestudios.lotrport.npc.RiggedNpc rigged
                 && RigRenderer.draw(rigged, getTextureLocation(npc), partialTick, pose, buffers, light)) {
-            // drawn on its procedural rig
+            // drawn on its procedural rig; other mods draw on it after (the harness mod's harness and ropes), as they
+            // do after any living entity
+            net.neoforged.neoforge.common.NeoForge.EVENT_BUS.post(
+                    new net.neoforged.neoforge.client.event.RenderLivingEvent.Post<>(npc, this, partialTick, pose,
+                            buffers, light));
         } else if (npc.model().equals("lotr_port:huorn")) {
             HuornRenderer.render(npc, yaw, partialTick, pose, buffers, light, getTextureLocation(npc));
         } else if (!npc.model().contains(":") || !creatures.draw(npc, yaw, partialTick, pose, buffers, light)) {

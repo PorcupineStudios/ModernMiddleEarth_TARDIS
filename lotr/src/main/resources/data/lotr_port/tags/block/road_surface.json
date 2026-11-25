@@ -1,0 +1,53 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:grass_block",
+    "minecraft:dirt",
+    "minecraft:coarse_dirt",
+    "minecraft:rooted_dirt",
+    "minecraft:podzol",
+    "minecraft:mycelium",
+    "minecraft:dirt_path",
+    "minecraft:sand",
+    "minecraft:red_sand",
+    "minecraft:gravel",
+    "minecraft:mud",
+    "minecraft:snow_block",
+    {
+      "id": "lotr_port:mordor_dirt",
+      "required": false
+    },
+    {
+      "id": "lotr_port:mordor_gravel",
+      "required": false
+    },
+    {
+      "id": "lotr_port:jungle_mud",
+      "required": false
+    },
+    {
+      "id": "lotr_port:barren_jungle_mud",
+      "required": false
+    },
+    {
+      "id": "lotr_port:jungle_grass",
+      "required": false
+    },
+    {
+      "id": "lotr_port:elvengrass",
+      "required": false
+    },
+    {
+      "id": "lotr_port:white_sand",
+      "required": false
+    },
+    {
+      "id": "lotr_port:dirt_path",
+      "required": false
+    },
+    {
+      "id": "lotr_port:jungle_mud_path",
+      "required": false
+    }
+  ]
+}

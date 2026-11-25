@@ -1,0 +1,141 @@
+{
+  "has_precipitation": true,
+  "temperature": 0.6,
+  "downfall": 0.8,
+  "effects": {
+    "fog_color": 2831144,
+    "sky_color": 5661274,
+    "water_color": 1448207,
+    "water_fog_color": 329475,
+    "mood_sound": {
+      "sound": "minecraft:ambient.cave",
+      "tick_delay": 6000,
+      "block_search_extent": 8,
+      "offset": 2.0
+    },
+    "grass_color": 3032098,
+    "foliage_color": 2505758,
+    "particle": {
+      "options": {
+        "type": "minecraft:spore_blossom_air"
+      },
+      "probability": 0.006
+    }
+  },
+  "spawners": {
+    "creature": [
+      {
+        "type": "minecraft:sheep",
+        "weight": 12,
+        "minCount": 4,
+        "maxCount": 4
+      },
+      {
+        "type": "lotr_port:wild_boar",
+        "weight": 10,
+        "minCount": 4,
+        "maxCount": 4
+      },
+      {
+        "type": "minecraft:chicken",
+        "weight": 8,
+        "minCount": 4,
+        "maxCount": 4
+      },
+      {
+        "type": "lotr_port:elk",
+        "weight": 30,
+        "minCount": 4,
+        "maxCount": 6
+      }
+    ],
+    "ambient": [
+      {
+        "type": "minecraft:bat",
+        "maxCount": 8,
+        "minCount": 8,
+        "weight": 10
+      }
+    ],
+    "underground_water_creature": [
+      {
+        "type": "minecraft:glow_squid",
+        "maxCount": 6,
+        "minCount": 4,
+        "weight": 10
+      }
+    ]
+  },
+  "spawn_costs": {},
+  "carvers": {
+    "air": [
+      "lotr_port:cave",
+      "lotr_port:cave_extra_underground",
+      "lotr_port:canyon"
+    ]
+  },
+  "features": [
+    [],
+    [
+      "lotr_port:crater_lava"
+    ],
+    [
+      "lotr_port:roads",
+      "minecraft:amethyst_geode"
+    ],
+    [],
+    [],
+    [],
+    [
+      "lotr_port:ore/amber_vein_0",
+      "lotr_port:ore/tanzanite_vein_2",
+      "lotr_port:ore/copper_ore_4",
+      "lotr_port:ore/diamond_vein_5",
+      "lotr_port:ore/emerald_vein_8",
+      "lotr_port:ore/niter_ore_23",
+      "lotr_port:ore/opal_vein_24",
+      "lotr_port:ore/rock_salt_30",
+      "lotr_port:ore/ruby_vein_32",
+      "lotr_port:ore/sapphire_vein_33",
+      "lotr_port:ore/silver_ore_35",
+      "lotr_port:ore/sulfur_ore_36",
+      "lotr_port:ore/tin_ore_37",
+      "lotr_port:ore/topaz_vein_38",
+      "lotr_port:ore/coal_ore_40",
+      "lotr_port:ore/dirt_42",
+      "lotr_port:ore/gold_ore_45",
+      "lotr_port:ore/gravel_46",
+      "lotr_port:ore/iron_ore_49",
+      "minecraft:ore_granite_upper",
+      "minecraft:ore_granite_lower",
+      "minecraft:ore_diorite_upper",
+      "minecraft:ore_diorite_lower",
+      "minecraft:ore_andesite_upper",
+      "minecraft:ore_andesite_lower",
+      "minecraft:ore_tuff"
+    ],
+    [
+      "lotr_port:dripstone"
+    ],
+    [],
+    [
+      "lotr_port:trees/mirkwood_corrupted",
+      "lotr_port:forest_floor/8_3",
+      "lotr_port:plant/reeds_0_9",
+      "lotr_port:plant/dried_reeds_0_1",
+      "minecraft:patch_grass_forest",
+      "minecraft:patch_tall_grass",
+      "minecraft:patch_large_fern",
+      "minecraft:glow_lichen",
+      "lotr_port:bee_nests_rare",
+      "minecraft:brown_mushroom_normal",
+      "minecraft:red_mushroom_normal",
+      "minecraft:patch_pumpkin",
+      "lotr_port:mirkwood_enchanted/webs"
+    ],
+    [
+      "lotr_port:road_verge",
+      "minecraft:freeze_top_layer"
+    ]
+  ]
+}

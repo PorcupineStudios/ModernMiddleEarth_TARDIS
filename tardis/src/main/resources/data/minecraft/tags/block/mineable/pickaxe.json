@@ -1,1 +1,6 @@
-{"values": ["tardis_rb:winder"]}
+{
+  "values": [
+    "tardis_rb:winder",
+    "tardis_rb:artron_alternator"
+  ]
+}

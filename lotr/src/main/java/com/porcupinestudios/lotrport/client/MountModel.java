@@ -57,6 +57,7 @@ public class MountModel extends EntityModel<LotrHorse> {
     @Override
     public void renderToBuffer(PoseStack pose, VertexConsumer buffer, int light, int overlay, int color) {
         if (oldHorse) {
+            PartPoses.record(body.ctx.npc, pose, body, false); // drawn part by part, no LOTR draw calls
             renderHorse(pose, buffer, light, overlay, color, true);
         } else {
             body.renderToBuffer(pose, buffer, light, overlay, color);

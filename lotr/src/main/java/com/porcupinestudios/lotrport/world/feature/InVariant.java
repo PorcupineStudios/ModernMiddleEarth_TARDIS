@@ -14,12 +14,13 @@ import net.minecraft.world.level.levelgen.placement.PlacementModifierType;
  * Placement filter {@code lotr_port:in_variant}: keeps a position only inside one of the named biome variants
  * ({@link com.porcupinestudios.lotrport.world.map.Variants}; {@code "plain"} = the biome without a variant). So a
  * biome's flower meadows, woods and orchards get their own plants, as LOTR's variants did.
- * {@code {"type": "lotr_port:in_variant", "variants": ["forest", "hills_forest"]}}.
+ * {@code {"type": "lotr_port:in_variant", "variants": ["forest", "hills_forest"]}}. Nothing is placed inside an
+ * enclosure (a fenced orchard or field, {@link com.porcupinestudios.lotrport.world.map.Enclosures}) or within
+ * {@link OutsideEnclosures#MARGIN} of its fence.
  */
 public final class InVariant extends PlacementFilter {
     public static final MapCodec<InVariant> CODEC = Codec.STRING.listOf().fieldOf("variants")
             .xmap(InVariant::new, f -> f.variants);
-    private static final int FEATHER = 20;
     private final List<String> variants;
 
     public InVariant(List<String> variants) {
@@ -28,10 +29,15 @@ public final class InVariant extends PlacementFilter {
 
     @Override
     protected boolean shouldPlace(PlacementContext context, RandomSource random, BlockPos pos) {
-        // looked up up to FEATHER blocks away, so a wood or orchard thins out over its edge instead of stopping on the
-        // straight line between two patches (2026-11-14 preview: square-edged forests)
-        String v = MiddleEarthMap.get().variantAt(pos.getX() + random.nextInt(2 * FEATHER + 1) - FEATHER,
-                pos.getZ() + random.nextInt(2 * FEATHER + 1) - FEATHER);
+        MiddleEarthMap map = MiddleEarthMap.get();
+        if (map.enclosureNear(pos.getX(), pos.getZ(), OutsideEnclosures.MARGIN) != null) {
+            return false;
+        }
+        // looked up up to the biome's feather (20 blocks; Eriador's big patches more) away, so a wood thins out over
+        // its edge instead of stopping on the line between two patches (2026-11-14 preview: square-edged forests)
+        int feather = map.variantFeather(pos.getX(), pos.getZ());
+        String v = map.variantAt(pos.getX() + random.nextInt(2 * feather + 1) - feather,
+                pos.getZ() + random.nextInt(2 * feather + 1) - feather);
         return variants.contains(v == null ? "plain" : v);
     }
 

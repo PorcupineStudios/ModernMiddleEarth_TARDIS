@@ -1,15 +1,14 @@
 {
   "model": "y_lever",
   "panel": 4,
-  "u": -0.37,
-  "v": 0.1625,
-  "scale": 0.8,
+  "u": -0.3892,
+  "v": 0.1426,
+  "scale": 0.68,
   "actions": {
     "lever": "y0"
   },
   "requirements": {
-    "type": "tardis_rb:subsystem_level",
-    "subsystem": "tardis_rb:navigation",
-    "min": 1
+    "type": "tardis_rb:research",
+    "research": "tardis_rb:dematerialised_flight"
   }
 }

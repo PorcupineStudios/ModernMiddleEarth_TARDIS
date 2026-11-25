@@ -332,7 +332,34 @@ public class CreatureModel extends EntityModel<LotrNpc> {
 
     @Override
     public void renderToBuffer(PoseStack pose, VertexConsumer buffer, int light, int overlay, int color) {
+        PartPoses.record(ctx.npc, pose, this, true);
         renderDraws(draws, pose, buffer, light, overlay, color);
+    }
+
+    /**
+     * Moves {@code pose} into the named part's frame as this model last drew it: the transforms of the LOTR draw call
+     * holding its top part (with {@code viaDraws}), then each part's own pose down to it. False if there's no such part.
+     */
+    boolean intoPart(String name, PoseStack pose, boolean viaDraws) {
+        List<String> path = paths.get(name);
+        if (path == null) {
+            return false;
+        }
+        ModelPart top = root.getChild(path.get(0));
+        if (viaDraws) {
+            for (Draw d : draws) {
+                if (d.part == top && d.cond.eval(ctx) != 0) {
+                    apply(d.ops, pose);
+                    break;
+                }
+            }
+        }
+        ModelPart p = root;
+        for (String step : path) {
+            p = p.getChild(step);
+            p.translateAndRotate(pose);
+        }
+        return true;
     }
 
     /** Draws a list of LOTR draw calls (or the whole model when LOTR's render() wasn't converted). */

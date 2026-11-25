@@ -50,7 +50,10 @@
       "lotr_port:forodwaith_glacier",
       "lotr_port:tundra",
       "lotr_port:far_harad_volcano",
-      "lotr_port:half_troll_forest"
+      "lotr_port:half_troll_forest",
+      "lotr_port:mirkwood_enchanted",
+      "lotr_port:mirkwood_spider_nests",
+      "lotr_port:enchanted_river"
     ]
   },
   "ranges": {
@@ -142,16 +145,231 @@
           "weight": 1
         },
         {
-          "name": "orchard",
-          "weight": 2,
+          "name": "farmland",
+          "weight": 3,
           "downs": 0.6,
+          "variation": 0.6
+        }
+      ]
+    },
+    "lotr_port:eriador": {
+      "cell": 768,
+      "chance": 0.9,
+      "warp": 0.35,
+      "feather": 56,
+      "list": [
+        {
+          "name": "wild_meadows",
+          "weight": 3,
+          "variation": 0.75
+        },
+        {
+          "name": "heath",
+          "weight": 3,
+          "variation": 0.95
+        },
+        {
+          "name": "copses",
+          "weight": 3
+        },
+        {
+          "name": "old_woods",
+          "weight": 2,
+          "variation": 1.1
+        },
+        {
+          "name": "pinewood",
+          "weight": 1
+        },
+        {
+          "name": "tors",
+          "weight": 2,
+          "variation": 1.55
+        },
+        {
+          "name": "old_fields",
+          "weight": 2,
+          "variation": 0.6
+        }
+      ]
+    },
+    "lotr_port:lone_lands": {
+      "cell": 640,
+      "chance": 0.9,
+      "warp": 0.35,
+      "feather": 56,
+      "list": [
+        {
+          "name": "heath",
+          "weight": 3,
+          "variation": 0.95
+        },
+        {
+          "name": "stony_hills",
+          "weight": 3,
+          "variation": 1.5
+        },
+        {
+          "name": "thickets",
+          "weight": 2
+        },
+        {
+          "name": "pines",
+          "weight": 2
+        },
+        {
+          "name": "dry_grass",
+          "weight": 2,
+          "variation": 0.8
+        },
+        {
+          "name": "old_fields",
+          "weight": 1,
+          "variation": 0.6
+        }
+      ]
+    },
+    "lotr_port:minhiriath": {
+      "cell": 768,
+      "chance": 0.9,
+      "warp": 0.35,
+      "feather": 56,
+      "list": [
+        {
+          "name": "stump_lands",
+          "weight": 3,
+          "variation": 0.7
+        },
+        {
+          "name": "regrowth",
+          "weight": 3
+        },
+        {
+          "name": "old_fields",
+          "weight": 2,
           "variation": 0.6
         },
         {
-          "name": "plum_orchard",
+          "name": "wild_meadows",
+          "weight": 2,
+          "variation": 0.75
+        },
+        {
+          "name": "wetland",
           "weight": 1,
-          "downs": 0.6,
-          "variation": 0.6
+          "variation": 0.45
+        }
+      ]
+    },
+    "lotr_port:enedwaith": {
+      "cell": 768,
+      "chance": 0.9,
+      "warp": 0.35,
+      "feather": 56,
+      "list": [
+        {
+          "name": "grassland",
+          "weight": 3,
+          "variation": 0.8
+        },
+        {
+          "name": "scrub",
+          "weight": 2
+        },
+        {
+          "name": "copses",
+          "weight": 2
+        },
+        {
+          "name": "tors",
+          "weight": 2,
+          "variation": 1.55
+        },
+        {
+          "name": "heath",
+          "weight": 1,
+          "variation": 0.95
+        }
+      ]
+    }
+  },
+  "enclosures": {
+    "cell": 128,
+    "fade": 24,
+    "gap": 4,
+    "road_gap": 10,
+    "biomes": {
+      "lotr_port:shire": [
+        {
+          "name": "orchard",
+          "chance": 0.07,
+          "length": [
+            18,
+            34
+          ],
+          "width": [
+            14,
+            26
+          ],
+          "max_relief": 6,
+          "roughness": 0.1,
+          "gates": 1,
+          "variants": [
+            "plain",
+            "meadows",
+            "farmland",
+            "light_forest"
+          ],
+          "boost": {
+            "farmland": 3
+          }
+        },
+        {
+          "name": "plum_orchard",
+          "chance": 0.035,
+          "length": [
+            18,
+            30
+          ],
+          "width": [
+            14,
+            24
+          ],
+          "max_relief": 6,
+          "roughness": 0.1,
+          "gates": 1,
+          "variants": [
+            "plain",
+            "meadows",
+            "farmland",
+            "light_forest"
+          ],
+          "boost": {
+            "farmland": 3
+          }
+        },
+        {
+          "name": "corn_field",
+          "chance": 0.2,
+          "length": [
+            40,
+            72
+          ],
+          "width": [
+            28,
+            48
+          ],
+          "max_relief": 10,
+          "roughness": 0,
+          "gates": 2,
+          "variants": [
+            "plain",
+            "meadows",
+            "farmland"
+          ],
+          "boost": {
+            "farmland": 3
+          }
         }
       ]
     }
@@ -1290,6 +1508,21 @@
       "id": "lotr_port:far_harad_kanuka",
       "height": 82.8,
       "variation": 13.9
+    },
+    {
+      "id": "lotr_port:mirkwood_enchanted",
+      "height": 78.07,
+      "variation": 12.49
+    },
+    {
+      "id": "lotr_port:mirkwood_spider_nests",
+      "height": 78.07,
+      "variation": 12.49
+    },
+    {
+      "id": "lotr_port:enchanted_river",
+      "height": 47.0,
+      "variation": 0.0
     }
   ],
   "seas": {
@@ -1315,5 +1548,39 @@
         "biome": "lotr_port:warm_ocean"
       }
     ]
+  },
+  "overlays": [
+    {
+      "region": "mirkwood_enchanted",
+      "on": [
+        "lotr_port:mirkwood_north",
+        "lotr_port:mirkwood_corrupted"
+      ],
+      "biome": "lotr_port:mirkwood_enchanted"
+    },
+    {
+      "region": "enchanted_river",
+      "on": [
+        "lotr_port:river"
+      ],
+      "biome": "lotr_port:enchanted_river"
+    }
+  ],
+  "lairs": {
+    "mirkwood_spider_nests": {
+      "biome": "lotr_port:mirkwood_spider_nests",
+      "on": [
+        "lotr_port:mirkwood_enchanted"
+      ],
+      "regions": [
+        "mirkwood_enchanted"
+      ],
+      "cell": 512,
+      "chance": 0.33,
+      "core": 100,
+      "radius": 160,
+      "ragged": 0.2,
+      "sacs": 12
+    }
   }
 }

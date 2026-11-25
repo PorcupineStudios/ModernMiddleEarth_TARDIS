@@ -18,7 +18,7 @@
  "elements": [
   {
    "name": "base_0",
-   "uuid": "e5ad3393-3358-447b-a551-ad46da98b440",
+   "uuid": "716b6e66-ddc5-4552-8b7c-cc8c0c9d5a9c",
    "type": "cube",
    "from": [
     -3.4,
@@ -95,7 +95,7 @@
   },
   {
    "name": "slot_0_0",
-   "uuid": "a7b011d5-d694-49fc-922b-3c65c713f851",
+   "uuid": "efa7dc58-d073-4a35-a52f-7a8a9aeaaa1e",
    "type": "cube",
    "from": [
     -3.0500000000000003,
@@ -172,7 +172,7 @@
   },
   {
    "name": "slot_1_0",
-   "uuid": "5b04c556-cb1d-4ce8-b508-71c744892be4",
+   "uuid": "7c72b4bc-575e-4a58-8edb-c1b079e022ee",
    "type": "cube",
    "from": [
     -1.75,
@@ -249,7 +249,7 @@
   },
   {
    "name": "slot_2_0",
-   "uuid": "dc670d9e-0064-4e46-b74f-2889776ab819",
+   "uuid": "94fb2fa2-b6ba-4f7b-a4eb-5a7b5fcc24e8",
    "type": "cube",
    "from": [
     -0.45,
@@ -326,7 +326,7 @@
   },
   {
    "name": "slot_3_0",
-   "uuid": "cfc2f8d8-db49-4a80-92a6-8fed5d32f2fe",
+   "uuid": "4da90ee0-99e7-4166-854f-7e45ee4d7024",
    "type": "cube",
    "from": [
     0.8500000000000003,
@@ -403,7 +403,7 @@
   },
   {
    "name": "slot_4_0",
-   "uuid": "ae115a76-d7d1-4835-9183-bf85cc6d90b1",
+   "uuid": "d7f3e1c9-5a7c-4200-ae38-fb1aa5a0d7c7",
    "type": "cube",
    "from": [
     2.15,
@@ -480,7 +480,7 @@
   },
   {
    "name": "slot_5_0",
-   "uuid": "b7d33764-e8e7-4c0f-9c5c-109c793b50d1",
+   "uuid": "7ce25a76-bd29-4666-87da-fd5beb2beb39",
    "type": "cube",
    "from": [
     -3.0500000000000003,
@@ -557,7 +557,7 @@
   },
   {
    "name": "slot_6_0",
-   "uuid": "e3baac94-bbe6-4675-b21c-273139e71482",
+   "uuid": "299e6e7d-46a0-4bb4-9762-a3a9849245de",
    "type": "cube",
    "from": [
     -1.75,
@@ -634,7 +634,7 @@
   },
   {
    "name": "slot_7_0",
-   "uuid": "142e6775-40eb-4025-ad1a-ce2d5556a572",
+   "uuid": "2090a008-8e0f-4535-85c0-2291ee0d92ce",
    "type": "cube",
    "from": [
     -0.45,
@@ -711,7 +711,7 @@
   },
   {
    "name": "slot_8_0",
-   "uuid": "67a98e5a-6eb9-4e7a-9877-a0ec2458f621",
+   "uuid": "dd8ba4c9-dbd8-4d57-926f-8b58562ec48d",
    "type": "cube",
    "from": [
     0.8500000000000003,
@@ -788,7 +788,7 @@
   },
   {
    "name": "slot_9_0",
-   "uuid": "e82015f2-8cc7-4345-a14f-37e1f46d63d1",
+   "uuid": "a453d700-ca87-4da1-bc9f-b73071466536",
    "type": "cube",
    "from": [
     2.15,
@@ -865,7 +865,7 @@
   },
   {
    "name": "slot_10_0",
-   "uuid": "15183550-1298-411b-9379-de1743dc81e4",
+   "uuid": "bf5fa169-2dfb-4c75-97d7-a80567a29c62",
    "type": "cube",
    "from": [
     -3.0500000000000003,
@@ -942,7 +942,7 @@
   },
   {
    "name": "slot_11_0",
-   "uuid": "6b37e7c9-ab1c-4cdb-bd47-dcef020a5f92",
+   "uuid": "eb4522a4-4dc3-4795-b5e1-bd2b902f8cdd",
    "type": "cube",
    "from": [
     -1.75,
@@ -1019,7 +1019,7 @@
   },
   {
    "name": "slot_12_0",
-   "uuid": "1ae974a4-6935-4f80-a123-4ee34a7c36de",
+   "uuid": "bc90c289-d819-463c-9656-4747d990b57c",
    "type": "cube",
    "from": [
     -0.45,
@@ -1096,7 +1096,7 @@
   },
   {
    "name": "slot_13_0",
-   "uuid": "07c4640f-5b0c-4ab7-a730-ccb0fe272c86",
+   "uuid": "248aec44-2823-435b-82a0-ec843768722d",
    "type": "cube",
    "from": [
     0.8500000000000003,
@@ -1173,7 +1173,7 @@
   },
   {
    "name": "slot_14_0",
-   "uuid": "3aca2065-cffa-4d20-bbb1-89ab0322b752",
+   "uuid": "34bc0a4b-a208-4763-a5aa-6e825ec7af5c",
    "type": "cube",
    "from": [
     2.15,
@@ -1250,7 +1250,7 @@
   },
   {
    "name": "slot_15_0",
-   "uuid": "d7207a6b-7576-488b-94ec-200a837faba8",
+   "uuid": "002afd0f-e245-4461-9243-7c092b4e6f34",
    "type": "cube",
    "from": [
     -3.0500000000000003,
@@ -1327,7 +1327,7 @@
   },
   {
    "name": "slot_16_0",
-   "uuid": "b046766e-34d3-42ae-baca-476acabfa977",
+   "uuid": "9167b3b5-c11f-47da-9d13-5042e24bf459",
    "type": "cube",
    "from": [
     -1.75,
@@ -1404,7 +1404,7 @@
   },
   {
    "name": "slot_17_0",
-   "uuid": "87152567-6fe9-45cd-b8f7-3586956f772e",
+   "uuid": "7739a520-cc70-44c5-bf9a-db92124105ed",
    "type": "cube",
    "from": [
     -0.45,
@@ -1481,7 +1481,7 @@
   },
   {
    "name": "slot_18_0",
-   "uuid": "88f7c95f-87fa-4d96-ad51-bc9c0d4b2b34",
+   "uuid": "3f8fbbd1-b34d-4061-b65d-7a2736f581b9",
    "type": "cube",
    "from": [
     0.8500000000000003,
@@ -1558,7 +1558,7 @@
   },
   {
    "name": "slot_19_0",
-   "uuid": "31eb8ac5-2a33-43d7-bb4f-fc3fa8b7b61a",
+   "uuid": "b636b483-bfd6-437b-b57d-545662b39fa8",
    "type": "cube",
    "from": [
     2.15,
@@ -1637,7 +1637,7 @@
  "outliner": [
   {
    "name": "base",
-   "uuid": "166827d4-524d-46d9-a37c-1a1c308ec514",
+   "uuid": "90fb2fb2-9ee0-4f64-b1a8-f7cb6dcfcd53",
    "origin": [
     0,
     0,
@@ -1649,14 +1649,14 @@
     0
    ],
    "children": [
-    "e5ad3393-3358-447b-a551-ad46da98b440"
+    "716b6e66-ddc5-4552-8b7c-cc8c0c9d5a9c"
    ],
    "export": true,
    "visibility": true
   },
   {
    "name": "slot_0",
-   "uuid": "15491d19-2d21-4324-8f70-ad36750cc38e",
+   "uuid": "50a3b748-db65-4cef-b286-dc14c29a85b7",
    "origin": [
     -2.6,
     0.8,
@@ -1668,14 +1668,14 @@
     0
    ],
    "children": [
-    "a7b011d5-d694-49fc-922b-3c65c713f851"
+    "efa7dc58-d073-4a35-a52f-7a8a9aeaaa1e"
    ],
    "export": true,
    "visibility": true
   },
   {
    "name": "slot_1",
-   "uuid": "fb1a0cd1-a713-4a07-92bc-9e89d5576480",
+   "uuid": "3bfda932-834e-4e69-a937-ab50ebe8b75f",
    "origin": [
     -1.3,
     0.8,
@@ -1687,14 +1687,14 @@
     0
    ],
    "children": [
-    "5b04c556-cb1d-4ce8-b508-71c744892be4"
+    "7c72b4bc-575e-4a58-8edb-c1b079e022ee"
    ],
    "export": true,
    "visibility": true
   },
   {
    "name": "slot_2",
-   "uuid": "413c8e61-cb9c-4f17-9ec3-69ba24ad78b4",
+   "uuid": "44a0e492-afcc-470c-9e32-e9c2b07aae07",
    "origin": [
     0.0,
     0.8,
@@ -1706,14 +1706,14 @@
     0
    ],
    "children": [
-    "dc670d9e-0064-4e46-b74f-2889776ab819"
+    "94fb2fa2-b6ba-4f7b-a4eb-5a7b5fcc24e8"
    ],
    "export": true,
    "visibility": true
   },
   {
    "name": "slot_3",
-   "uuid": "c360e1e5-b2b6-432c-b056-b82a5d4cc1c0",
+   "uuid": "685e8415-5b1d-4a9c-b81d-4fcf3adbe2c6",
    "origin": [
     1.3000000000000003,
     0.8,
@@ -1725,14 +1725,14 @@
     0
    ],
    "children": [
-    "cfc2f8d8-db49-4a80-92a6-8fed5d32f2fe"
+    "4da90ee0-99e7-4166-854f-7e45ee4d7024"
    ],
    "export": true,
    "visibility": true
   },
   {
    "name": "slot_4",
-   "uuid": "ea2cf165-0cfe-458a-8c63-1f6246b1d403",
+   "uuid": "b88a349c-7512-44b6-8609-f58d81f98b3d",
    "origin": [
     2.6,
     0.8,
@@ -1744,14 +1744,14 @@
     0
    ],
    "children": [
-    "ae115a76-d7d1-4835-9183-bf85cc6d90b1"
+    "d7f3e1c9-5a7c-4200-ae38-fb1aa5a0d7c7"
    ],
    "export": true,
    "visibility": true
   },
   {
    "name": "slot_5",
-   "uuid": "b0bf3553-85d2-443a-ac7a-bf6b790b7b20",
+   "uuid": "6c7518a8-7647-4466-92e7-4c2a42090bca",
    "origin": [
     -2.6,
     0.8,
@@ -1763,14 +1763,14 @@
     0
    ],
    "children": [
-    "b7d33764-e8e7-4c0f-9c5c-109c793b50d1"
+    "7ce25a76-bd29-4666-87da-fd5beb2beb39"
    ],
    "export": true,
    "visibility": true
   },
   {
    "name": "slot_6",
-   "uuid": "3e58c707-9c84-4bfa-882e-2e24de68b6d8",
+   "uuid": "1df1341d-f496-4d31-b789-cae19252f7a5",
    "origin": [
     -1.3,
     0.8,
@@ -1782,14 +1782,14 @@
     0
    ],
    "children": [
-    "e3baac94-bbe6-4675-b21c-273139e71482"
+    "299e6e7d-46a0-4bb4-9762-a3a9849245de"
    ],
    "export": true,
    "visibility": true
   },
   {
    "name": "slot_7",
-   "uuid": "96b0fa7d-4e79-4eb4-b060-e8696478f5e0",
+   "uuid": "debd5f7e-3bff-45c0-a2ae-b490f9919b2e",
    "origin": [
     0.0,
     0.8,
@@ -1801,14 +1801,14 @@
     0
    ],
    "children": [
-    "142e6775-40eb-4025-ad1a-ce2d5556a572"
+    "2090a008-8e0f-4535-85c0-2291ee0d92ce"
    ],
    "export": true,
    "visibility": true
   },
   {
    "name": "slot_8",
-   "uuid": "98421bf1-d2fb-4993-b417-28fdfe8e32b6",
+   "uuid": "5796f748-e7ec-4d66-bd99-d559b2771d67",
    "origin": [
     1.3000000000000003,
     0.8,
@@ -1820,14 +1820,14 @@
     0
    ],
    "children": [
-    "67a98e5a-6eb9-4e7a-9877-a0ec2458f621"
+    "dd8ba4c9-dbd8-4d57-926f-8b58562ec48d"
    ],
    "export": true,
    "visibility": true
   },
   {
    "name": "slot_9",
-   "uuid": "6298e9aa-51c3-4cdb-ab44-aa99c921f4f3",
+   "uuid": "79b2bbf5-09c5-45f2-aaa1-7c72c9decdd7",
    "origin": [
     2.6,
     0.8,
@@ -1839,14 +1839,14 @@
     0
    ],
    "children": [
-    "e82015f2-8cc7-4345-a14f-37e1f46d63d1"
+    "a453d700-ca87-4da1-bc9f-b73071466536"
    ],
    "export": true,
    "visibility": true
   },
   {
    "name": "slot_10",
-   "uuid": "fe408194-df21-4f7b-8e9a-416ca96411fe",
+   "uuid": "80187c42-d563-4be7-a698-a154df2c000b",
    "origin": [
     -2.6,
     0.8,
@@ -1858,14 +1858,14 @@
     0
    ],
    "children": [
-    "15183550-1298-411b-9379-de1743dc81e4"
+    "bf5fa169-2dfb-4c75-97d7-a80567a29c62"
    ],
    "export": true,
    "visibility": true
   },
   {
    "name": "slot_11",
-   "uuid": "3736120c-7c49-4b38-af73-f8143bd1cbc0",
+   "uuid": "b44a660a-4f21-42c7-a513-e2bbbb5ecc51",
    "origin": [
     -1.3,
     0.8,
@@ -1877,14 +1877,14 @@
     0
    ],
    "children": [
-    "6b37e7c9-ab1c-4cdb-bd47-dcef020a5f92"
+    "eb4522a4-4dc3-4795-b5e1-bd2b902f8cdd"
    ],
    "export": true,
    "visibility": true
   },
   {
    "name": "slot_12",
-   "uuid": "5e2c4ab0-9dcf-4ca1-9f7b-93125a8f4c61",
+   "uuid": "13aba8b9-3303-43ef-b1bb-401c32eaad45",
    "origin": [
     0.0,
     0.8,
@@ -1896,14 +1896,14 @@
     0
    ],
    "children": [
-    "1ae974a4-6935-4f80-a123-4ee34a7c36de"
+    "bc90c289-d819-463c-9656-4747d990b57c"
    ],
    "export": true,
    "visibility": true
   },
   {
    "name": "slot_13",
-   "uuid": "5a1e6ef4-a8eb-4403-87ba-ad01769d4eb8",
+   "uuid": "f344650a-4724-4e00-aa35-8402dbb6de38",
    "origin": [
     1.3000000000000003,
     0.8,
@@ -1915,14 +1915,14 @@
     0
    ],
    "children": [
-    "07c4640f-5b0c-4ab7-a730-ccb0fe272c86"
+    "248aec44-2823-435b-82a0-ec843768722d"
    ],
    "export": true,
    "visibility": true
   },
   {
    "name": "slot_14",
-   "uuid": "122cb1ec-38cb-47de-b65a-6dc0d8650a0d",
+   "uuid": "f63677a9-e441-48a0-878b-c3ae4d337a50",
    "origin": [
     2.6,
     0.8,
@@ -1934,14 +1934,14 @@
     0
    ],
    "children": [
-    "3aca2065-cffa-4d20-bbb1-89ab0322b752"
+    "34bc0a4b-a208-4763-a5aa-6e825ec7af5c"
    ],
    "export": true,
    "visibility": true
   },
   {
    "name": "slot_15",
-   "uuid": "ed99f37f-e74f-4805-9271-68d94638181d",
+   "uuid": "95613e00-319c-4eb9-9e31-0b966c4d167b",
    "origin": [
     -2.6,
     0.8,
@@ -1953,14 +1953,14 @@
     0
    ],
    "children": [
-    "d7207a6b-7576-488b-94ec-200a837faba8"
+    "002afd0f-e245-4461-9243-7c092b4e6f34"
    ],
    "export": true,
    "visibility": true
   },
   {
    "name": "slot_16",
-   "uuid": "1ef12999-5492-404d-adad-3399702a758a",
+   "uuid": "f09b8eb7-1ac1-4ff8-a43e-da70389eda33",
    "origin": [
     -1.3,
     0.8,
@@ -1972,14 +1972,14 @@
     0
    ],
    "children": [
-    "b046766e-34d3-42ae-baca-476acabfa977"
+    "9167b3b5-c11f-47da-9d13-5042e24bf459"
    ],
    "export": true,
    "visibility": true
   },
   {
    "name": "slot_17",
-   "uuid": "a72152ed-94d0-4775-a185-8fa8b2dd14c0",
+   "uuid": "2483bc37-00f6-49d6-bd38-a2a2eb62b59a",
    "origin": [
     0.0,
     0.8,
@@ -1991,14 +1991,14 @@
     0
    ],
    "children": [
-    "87152567-6fe9-45cd-b8f7-3586956f772e"
+    "7739a520-cc70-44c5-bf9a-db92124105ed"
    ],
    "export": true,
    "visibility": true
   },
   {
    "name": "slot_18",
-   "uuid": "a19cd677-06f8-4c73-b1df-fb1dc2d58248",
+   "uuid": "46e37aa1-9d19-4bca-818d-995a595dac2a",
    "origin": [
     1.3000000000000003,
     0.8,
@@ -2010,14 +2010,14 @@
     0
    ],
    "children": [
-    "88f7c95f-87fa-4d96-ad51-bc9c0d4b2b34"
+    "3f8fbbd1-b34d-4061-b65d-7a2736f581b9"
    ],
    "export": true,
    "visibility": true
   },
   {
    "name": "slot_19",
-   "uuid": "0a9ac905-f5c3-4d0f-8527-578e3dcad546",
+   "uuid": "cbf08fe2-49e4-4867-99a6-1ef640f5576e",
    "origin": [
     2.6,
     0.8,
@@ -2029,7 +2029,7 @@
     0
    ],
    "children": [
-    "31eb8ac5-2a33-43d7-bb4f-fc3fa8b7b61a"
+    "b636b483-bfd6-437b-b57d-545662b39fa8"
    ],
    "export": true,
    "visibility": true
@@ -2047,20 +2047,20 @@
    "visible": true,
    "mode": "bitmap",
    "saved": true,
-   "uuid": "2fb36936-6f2d-4afc-b0ef-0e05ca5748fb",
+   "uuid": "fff02c08-7dd3-4020-a24a-8a4c7c15846e",
    "relative_path": "../../src/main/resources/assets/tardis_rb/textures/entity/controls/controls.png",
-   "source": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAABW0lEQVR4nO3QMWtUQRTF8fOWtbFNJ4G0VgGtg6QLSZEmWKYwn8fCzj5+gRQSCMRAkk4LLQKW9japbO49c47FLuzcoEISsJo/PIaZgfld3nT9fttJg01IGp+//UST0QQ0GZsHb0EmSIIkzs8vIDVIgiTcfP0C27ABwHi29hSyl2fGu0bQRhpIG1ufjhFBRCYyE7MeZ1PBm1xwkgWXVHDbBZddcNoFjyBmPZ6s+GKAFd7Igkut4L6DWxVPu+Dx9z+w/JoLzsaCS/on7iXKfu3wTGJ+fXkLyWheoLsb66CWQ8nYP3yNiEBEIDNx9PIUSSHSyBR+vPiOjABzcX/y/AP6ds4+lv2bXzurzRNg3uNNLjilgkcEpg4PquCMwH2b93i7g7O54BGBqcdTBWc+ZIAOl1zwlAoeEZh1+GJd4fmAASbvvXI5OL2a7v3KI5r9T2wMMBqNRqPRaDQa/anfcENNcGO7wq8AAAAASUVORK5CYII="
+   "source": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAABe0lEQVR4nO3Qr4tVURTF8fUeL1k1iWI1CZoFh2kWixgF9Q/xLzDYjAP+EYNhVHSaChoGjBaTxWbYe+21DO8Onj0zGgbj+cLlXM798dn3rg5f7DhpsISk8eHLD5SMElAybtx/BjJBEiRxcPAGUkESJOHo80fYhg0AxuWLFyB72TOeF0EbaSBt3H79EhFEZCIzsR5xlhpecsNJNlxSw203XHbDaTc8gliPeLLj2wH+4EU2XKqG+wRudTzthsff/8BylBvOYsMl/RP3gnJcBzyT2By++wnJKG/Ru9eugFqGknHv4QNEBCICmYknt/aRFCKNTOHbza/ICDC316/++o5cvjIzsftpFygABFDAo+tHGNuMeMkNp9TwiMBqwINqOJf7jg+SDUfhVJsRrxM4yw2PCKxGPNXw4/NjPDM7fuYAAy654Sk1PCKwHvDtOuLR8Mzs+BkDrPxqx+PG40tv2w17T+/0B/bfr06/5vyt/+fL5gCz2Ww2m81ms9l5+g0yRos6+kQH/QAAAABJRU5ErkJggg=="
   }
  ],
  "animations": [
   {
-   "uuid": "33d46e0e-b3f1-4044-bef2-9a424ea0d714",
+   "uuid": "ef95c676-848f-4c83-806c-1b91fedb76b9",
    "name": "slot_0_press",
    "loop": "once",
    "length": 0.2,
    "snapping": 20,
    "animators": {
-    "15491d19-2d21-4324-8f70-ad36750cc38e": {
+    "50a3b748-db65-4cef-b286-dc14c29a85b7": {
      "name": "slot_0",
      "type": "bone",
      "keyframes": [
@@ -2073,7 +2073,7 @@
          "z": 0
         }
        ],
-       "uuid": "466dc65d-f446-4ba7-815b-b2cf6603f069",
+       "uuid": "a2be843d-1c37-4d4c-b453-b760e4593a7a",
        "time": 0,
        "interpolation": "linear"
       },
@@ -2086,7 +2086,7 @@
          "z": 0
         }
        ],
-       "uuid": "cc4c619e-d651-44eb-97b5-093870ed29b6",
+       "uuid": "91509b84-1953-4fb4-a5c6-863c5a26a475",
        "time": 0.1,
        "interpolation": "linear"
       },
@@ -2099,7 +2099,7 @@
          "z": 0
         }
        ],
-       "uuid": "6e46f7d4-6b52-4572-942d-8ed2e1471641",
+       "uuid": "a756534e-4816-44be-810c-1aa950ac7f49",
        "time": 0.2,
        "interpolation": "linear"
       }
@@ -2108,13 +2108,13 @@
    }
   },
   {
-   "uuid": "4b7f9f58-11a5-4a8f-b6c4-9e6318040e22",
+   "uuid": "3ca0e9be-094a-4e2c-88fb-d6dc0e55f129",
    "name": "slot_1_press",
    "loop": "once",
    "length": 0.2,
    "snapping": 20,
    "animators": {
-    "fb1a0cd1-a713-4a07-92bc-9e89d5576480": {
+    "3bfda932-834e-4e69-a937-ab50ebe8b75f": {
      "name": "slot_1",
      "type": "bone",
      "keyframes": [
@@ -2127,7 +2127,7 @@
          "z": 0
         }
        ],
-       "uuid": "45d77b6b-17d6-4955-a3a3-85221a9fa3f2",
+       "uuid": "18139ab6-30e2-4ec5-b9c8-02fb1a2bb8b5",
        "time": 0,
        "interpolation": "linear"
       },
@@ -2140,7 +2140,7 @@
          "z": 0
         }
        ],
-       "uuid": "77361b91-c5cb-4dc5-a3aa-79599156b77a",
+       "uuid": "dfd6b2b5-6c1a-40e3-9060-15fe39ef6ba5",
        "time": 0.1,
        "interpolation": "linear"
       },
@@ -2153,7 +2153,7 @@
          "z": 0
         }
        ],
-       "uuid": "9e970510-d0fe-4135-9c61-3d0b54cc2af5",
+       "uuid": "04828491-6421-4ed7-b2ba-c40d0e8613f2",
        "time": 0.2,
        "interpolation": "linear"
       }
@@ -2162,13 +2162,13 @@
    }
   },
   {
-   "uuid": "c2fbec88-5cf9-49ba-a002-ebac232854ea",
+   "uuid": "f072c4e4-061d-41f1-92be-d3de858ff807",
    "name": "slot_2_press",
    "loop": "once",
    "length": 0.2,
    "snapping": 20,
    "animators": {
-    "413c8e61-cb9c-4f17-9ec3-69ba24ad78b4": {
+    "44a0e492-afcc-470c-9e32-e9c2b07aae07": {
      "name": "slot_2",
      "type": "bone",
      "keyframes": [
@@ -2181,7 +2181,7 @@
          "z": 0
         }
        ],
-       "uuid": "be9dddbf-a384-4ae9-b48b-a77fcfe0700f",
+       "uuid": "dbfcca63-5509-4d7e-b784-3b565aaa7d5f",
        "time": 0,
        "interpolation": "linear"
       },
@@ -2194,7 +2194,7 @@
          "z": 0
         }
        ],
-       "uuid": "e4924d15-4521-4d65-af9d-fe324092b0c9",
+       "uuid": "b1f0c93f-3231-4dc7-93ea-7b8a5fd45d84",
        "time": 0.1,
        "interpolation": "linear"
       },
@@ -2207,7 +2207,7 @@
          "z": 0
         }
        ],
-       "uuid": "a52f7e58-8af6-4520-9ba6-654f59219875",
+       "uuid": "c3eb65c0-d8d7-4229-a62e-4f2df97951ba",
        "time": 0.2,
        "interpolation": "linear"
       }
@@ -2216,13 +2216,13 @@
    }
   },
   {
-   "uuid": "5381860e-351f-4e3f-ad12-43e0527930e2",
+   "uuid": "2f3d0ca3-9a91-488f-b443-51e139b6672c",
    "name": "slot_3_press",
    "loop": "once",
    "length": 0.2,
    "snapping": 20,
    "animators": {
-    "c360e1e5-b2b6-432c-b056-b82a5d4cc1c0": {
+    "685e8415-5b1d-4a9c-b81d-4fcf3adbe2c6": {
      "name": "slot_3",
      "type": "bone",
      "keyframes": [
@@ -2235,7 +2235,7 @@
          "z": 0
         }
        ],
-       "uuid": "31ab7f05-b55b-44fe-ad87-3cf70bee7bfd",
+       "uuid": "a6415fb0-8c1e-4a7f-ba30-2c2963b7aadf",
        "time": 0,
        "interpolation": "linear"
       },
@@ -2248,7 +2248,7 @@
          "z": 0
         }
        ],
-       "uuid": "2ceb4108-f3ba-448b-8a86-921a9cbd66ab",
+       "uuid": "342ef904-97ff-43b7-b4f7-062f67c4689c",
        "time": 0.1,
        "interpolation": "linear"
       },
@@ -2261,7 +2261,7 @@
          "z": 0
         }
        ],
-       "uuid": "f619eed9-d82f-431f-954d-65a5ba3ad0d8",
+       "uuid": "bf6034ea-7f01-453e-9098-0104221e0e47",
        "time": 0.2,
        "interpolation": "linear"
       }
@@ -2270,13 +2270,13 @@
    }
   },
   {
-   "uuid": "3b9eaf10-42e6-480b-bc85-094ac91551fe",
+   "uuid": "d4b8cf78-0b49-4702-a8bf-f6687bc7055e",
    "name": "slot_4_press",
    "loop": "once",
    "length": 0.2,
    "snapping": 20,
    "animators": {
-    "ea2cf165-0cfe-458a-8c63-1f6246b1d403": {
+    "b88a349c-7512-44b6-8609-f58d81f98b3d": {
      "name": "slot_4",
      "type": "bone",
      "keyframes": [
@@ -2289,7 +2289,7 @@
          "z": 0
         }
        ],
-       "uuid": "ea6848ea-8671-42ff-bc7a-a429e2c00ad0",
+       "uuid": "f82ee2d3-09a7-492d-9d0a-d0cf32cff0cd",
        "time": 0,
        "interpolation": "linear"
       },
@@ -2302,7 +2302,7 @@
          "z": 0
         }
        ],
-       "uuid": "e5992b1b-d844-4f14-90d1-e4e81e53e693",
+       "uuid": "9ad3d21e-2952-481f-80f3-bf4a8761fcec",
        "time": 0.1,
        "interpolation": "linear"
       },
@@ -2315,7 +2315,7 @@
          "z": 0
         }
        ],
-       "uuid": "e1e8722b-4782-4efc-a6f0-a542b0c4e57a",
+       "uuid": "e0020de1-9de6-4713-b0d1-ca948e9b616e",
        "time": 0.2,
        "interpolation": "linear"
       }
@@ -2324,13 +2324,13 @@
    }
   },
   {
-   "uuid": "a1eda3c4-350b-4d3f-b164-ae41de02b953",
+   "uuid": "ce8fc50f-59b4-482b-b84e-38930f618789",
    "name": "slot_5_press",
    "loop": "once",
    "length": 0.2,
    "snapping": 20,
    "animators": {
-    "b0bf3553-85d2-443a-ac7a-bf6b790b7b20": {
+    "6c7518a8-7647-4466-92e7-4c2a42090bca": {
      "name": "slot_5",
      "type": "bone",
      "keyframes": [
@@ -2343,7 +2343,7 @@
          "z": 0
         }
        ],
-       "uuid": "6c29b964-95be-473b-8d5d-29285da86d88",
+       "uuid": "fc2f8e69-4314-4624-8ae4-0472d12022ce",
        "time": 0,
        "interpolation": "linear"
       },
@@ -2356,7 +2356,7 @@
          "z": 0
         }
        ],
-       "uuid": "6342e548-ffe5-4aff-97dc-9c2774bcaef0",
+       "uuid": "35156f4e-e449-402d-a5b8-df63ca3dc559",
        "time": 0.1,
        "interpolation": "linear"
       },
@@ -2369,7 +2369,7 @@
          "z": 0
         }
        ],
-       "uuid": "2abe5d6e-c922-4aac-96c7-783f6e6bfde3",
+       "uuid": "183a0c94-206f-4507-95d8-2a6461a27be2",
        "time": 0.2,
        "interpolation": "linear"
       }
@@ -2378,13 +2378,13 @@
    }
   },
   {
-   "uuid": "6d18e87d-47e1-4a7f-af82-a90670ec82e3",
+   "uuid": "fb198b0d-9655-4984-8b5d-c2c77ce8f996",
    "name": "slot_6_press",
    "loop": "once",
    "length": 0.2,
    "snapping": 20,
    "animators": {
-    "3e58c707-9c84-4bfa-882e-2e24de68b6d8": {
+    "1df1341d-f496-4d31-b789-cae19252f7a5": {
      "name": "slot_6",
      "type": "bone",
      "keyframes": [
@@ -2397,7 +2397,7 @@
          "z": 0
         }
        ],
-       "uuid": "9cb72a01-9083-42cc-b54b-9713730df1a3",
+       "uuid": "673879c5-ccdc-44ae-857a-5357fdcbd793",
        "time": 0,
        "interpolation": "linear"
       },
@@ -2410,7 +2410,7 @@
          "z": 0
         }
        ],
-       "uuid": "21dbea41-a72e-4c2e-b3d7-461e21b7122f",
+       "uuid": "eeae88ef-1f73-4dab-94a6-529df95153cf",
        "time": 0.1,
        "interpolation": "linear"
       },
@@ -2423,7 +2423,7 @@
          "z": 0
         }
        ],
-       "uuid": "a61f4bda-15b4-4b95-8a4e-c8f29ab6b8d9",
+       "uuid": "5ad45929-0ee6-4841-88b2-86216337e70e",
        "time": 0.2,
        "interpolation": "linear"
       }
@@ -2432,13 +2432,13 @@
    }
   },
   {
-   "uuid": "0ac08db6-45f0-45e6-9a92-5749a1e4acf4",
+   "uuid": "55fc50da-de6e-4cc9-b044-f7fe2976d265",
    "name": "slot_7_press",
    "loop": "once",
    "length": 0.2,
    "snapping": 20,
    "animators": {
-    "96b0fa7d-4e79-4eb4-b060-e8696478f5e0": {
+    "debd5f7e-3bff-45c0-a2ae-b490f9919b2e": {
      "name": "slot_7",
      "type": "bone",
      "keyframes": [
@@ -2451,7 +2451,7 @@
          "z": 0
         }
        ],
-       "uuid": "ac2f8d68-166b-4015-ba45-923d03584608",
+       "uuid": "ae22966e-6ceb-440d-85f8-9b118dec92ad",
        "time": 0,
        "interpolation": "linear"
       },
@@ -2464,7 +2464,7 @@
          "z": 0
         }
        ],
-       "uuid": "e2650460-b290-4312-9ea1-ae0e4fceeba8",
+       "uuid": "f57d34c9-61a4-41d1-a39c-958954d39666",
        "time": 0.1,
        "interpolation": "linear"
       },
@@ -2477,7 +2477,7 @@
          "z": 0
         }
        ],
-       "uuid": "2b6ffabe-e277-4d10-9acb-8e72b8957402",
+       "uuid": "baad4559-1e34-4279-b659-d62309c6748e",
        "time": 0.2,
        "interpolation": "linear"
       }
@@ -2486,13 +2486,13 @@
    }
   },
   {
-   "uuid": "15fdee2c-0771-46a1-b5b8-06bd52917cd1",
+   "uuid": "ab777a88-ebdd-48a3-9bca-7cf32658cd68",
    "name": "slot_8_press",
    "loop": "once",
    "length": 0.2,
    "snapping": 20,
    "animators": {
-    "98421bf1-d2fb-4993-b417-28fdfe8e32b6": {
+    "5796f748-e7ec-4d66-bd99-d559b2771d67": {
      "name": "slot_8",
      "type": "bone",
      "keyframes": [
@@ -2505,7 +2505,7 @@
          "z": 0
         }
        ],
-       "uuid": "2732f7d0-7e3b-42dc-a48a-3fad278e384b",
+       "uuid": "0cc24c48-8499-469f-b51e-e82c3498e1d0",
        "time": 0,
        "interpolation": "linear"
       },
@@ -2518,7 +2518,7 @@
          "z": 0
         }
        ],
-       "uuid": "bceba201-c428-4e44-9275-48c9272aab70",
+       "uuid": "ce76c548-b1ad-48b1-b169-1f157e10e2c6",
        "time": 0.1,
        "interpolation": "linear"
       },
@@ -2531,7 +2531,7 @@
          "z": 0
         }
        ],
-       "uuid": "5d322ae8-f00c-4a82-8303-a09a3fa42b7f",
+       "uuid": "f1b47343-ca84-4ad8-8b37-e961cc9813a5",
        "time": 0.2,
        "interpolation": "linear"
       }
@@ -2540,13 +2540,13 @@
    }
   },
   {
-   "uuid": "057c355d-f5c2-4627-bbea-2141e150d376",
+   "uuid": "1fbc0044-9f72-4320-b393-f11586f12535",
    "name": "slot_9_press",
    "loop": "once",
    "length": 0.2,
    "snapping": 20,
    "animators": {
-    "6298e9aa-51c3-4cdb-ab44-aa99c921f4f3": {
+    "79b2bbf5-09c5-45f2-aaa1-7c72c9decdd7": {
      "name": "slot_9",
      "type": "bone",
      "keyframes": [
@@ -2559,7 +2559,7 @@
          "z": 0
         }
        ],
-       "uuid": "f1d96b31-1a83-478c-9618-976e11e865a2",
+       "uuid": "86d48177-4dd2-462b-8017-32321a428c9e",
        "time": 0,
        "interpolation": "linear"
       },
@@ -2572,7 +2572,7 @@
          "z": 0
         }
        ],
-       "uuid": "5de28746-31ec-4035-88b6-90866c18099a",
+       "uuid": "7ae785e0-7161-4184-a21a-d62fd9045b31",
        "time": 0.1,
        "interpolation": "linear"
       },
@@ -2585,7 +2585,7 @@
          "z": 0
         }
        ],
-       "uuid": "abbe0603-39ba-444d-b0c7-8291e61a862f",
+       "uuid": "acde7b84-2110-4955-9627-705f271c40a4",
        "time": 0.2,
        "interpolation": "linear"
       }
@@ -2594,13 +2594,13 @@
    }
   },
   {
-   "uuid": "d5e6c6c7-1355-4c14-9fbd-a67b42e7d120",
+   "uuid": "03c91a69-1f00-4013-9874-bfaffd49633d",
    "name": "slot_10_press",
    "loop": "once",
    "length": 0.2,
    "snapping": 20,
    "animators": {
-    "fe408194-df21-4f7b-8e9a-416ca96411fe": {
+    "80187c42-d563-4be7-a698-a154df2c000b": {
      "name": "slot_10",
      "type": "bone",
      "keyframes": [
@@ -2613,7 +2613,7 @@
          "z": 0
         }
        ],
-       "uuid": "7420e9c2-2001-4048-9f3e-b28c8e32e446",
+       "uuid": "9ccddb15-e90a-4980-954b-3a081339b5ac",
        "time": 0,
        "interpolation": "linear"
       },
@@ -2626,7 +2626,7 @@
          "z": 0
         }
        ],
-       "uuid": "8a57ed85-f70d-43c4-a565-3c740421b22e",
+       "uuid": "7a315a76-3130-4a5a-88fe-ca4db410be9c",
        "time": 0.1,
        "interpolation": "linear"
       },
@@ -2639,7 +2639,7 @@
          "z": 0
         }
        ],
-       "uuid": "fda82cf8-9779-4237-97a1-5a3733a02cc1",
+       "uuid": "881e52e8-f6c4-4a1f-8c7a-6b0ec4254d35",
        "time": 0.2,
        "interpolation": "linear"
       }
@@ -2648,13 +2648,13 @@
    }
   },
   {
-   "uuid": "47ba8c2a-e910-471b-8778-c630033c1992",
+   "uuid": "b1761259-9f15-4e63-bd5d-cf733143d15e",
    "name": "slot_11_press",
    "loop": "once",
    "length": 0.2,
    "snapping": 20,
    "animators": {
-    "3736120c-7c49-4b38-af73-f8143bd1cbc0": {
+    "b44a660a-4f21-42c7-a513-e2bbbb5ecc51": {
      "name": "slot_11",
      "type": "bone",
      "keyframes": [
@@ -2667,7 +2667,7 @@
          "z": 0
         }
        ],
-       "uuid": "91bd933b-91cc-424a-98bf-3b6ecaed9b7a",
+       "uuid": "648fafb8-9772-461d-b878-1c4dc5c4fa6f",
        "time": 0,
        "interpolation": "linear"
       },
@@ -2680,7 +2680,7 @@
          "z": 0
         }
        ],
-       "uuid": "d6be4812-8c11-4453-a0e4-4a9ee40d6a7a",
+       "uuid": "bce78fc7-361c-48ed-970d-1c10ac6695e2",
        "time": 0.1,
        "interpolation": "linear"
       },
@@ -2693,7 +2693,7 @@
          "z": 0
         }
        ],
-       "uuid": "9c1c0560-03c6-4fc0-9606-ecefedeffc36",
+       "uuid": "17e561b9-31b2-495d-8945-007869e078db",
        "time": 0.2,
        "interpolation": "linear"
       }
@@ -2702,13 +2702,13 @@
    }
   },
   {
-   "uuid": "c8d3aaa0-d83b-4254-a91d-dfa771a1cba1",
+   "uuid": "da57f2fe-f3c8-4007-bbb8-d5191df4dcbe",
    "name": "slot_12_press",
    "loop": "once",
    "length": 0.2,
    "snapping": 20,
    "animators": {
-    "5e2c4ab0-9dcf-4ca1-9f7b-93125a8f4c61": {
+    "13aba8b9-3303-43ef-b1bb-401c32eaad45": {
      "name": "slot_12",
      "type": "bone",
      "keyframes": [
@@ -2721,7 +2721,7 @@
          "z": 0
         }
        ],
-       "uuid": "a6aa73e1-d4e3-4fc4-bcdb-a9bf9e615c5c",
+       "uuid": "fb015a1e-3bc4-4283-8b86-f2659691b010",
        "time": 0,
        "interpolation": "linear"
       },
@@ -2734,7 +2734,7 @@
          "z": 0
         }
        ],
-       "uuid": "f223ec45-7f7c-4425-b6ca-36d2e80ecb43",
+       "uuid": "4adc5adc-1979-442f-b265-6bd279ef9141",
        "time": 0.1,
        "interpolation": "linear"
       },
@@ -2747,7 +2747,7 @@
          "z": 0
         }
        ],
-       "uuid": "a9e936e8-2b5f-4379-8f7d-48cbad706738",
+       "uuid": "8ccff0fc-8298-4c15-bfef-fac79ae91253",
        "time": 0.2,
        "interpolation": "linear"
       }
@@ -2756,13 +2756,13 @@
    }
   },
   {
-   "uuid": "41d63967-6229-4101-bc5e-b926ea861127",
+   "uuid": "8a1c0e64-918a-43f6-bee1-653b54b37c9c",
    "name": "slot_13_press",
    "loop": "once",
    "length": 0.2,
    "snapping": 20,
    "animators": {
-    "5a1e6ef4-a8eb-4403-87ba-ad01769d4eb8": {
+    "f344650a-4724-4e00-aa35-8402dbb6de38": {
      "name": "slot_13",
      "type": "bone",
      "keyframes": [
@@ -2775,7 +2775,7 @@
          "z": 0
         }
        ],
-       "uuid": "dd456dac-4322-46d9-af59-d3c0adb92949",
+       "uuid": "13cd778d-beb5-4a71-a24a-8a497bdc5c51",
        "time": 0,
        "interpolation": "linear"
       },
@@ -2788,7 +2788,7 @@
          "z": 0
         }
        ],
-       "uuid": "0e64a796-5dc7-439f-a997-c879ad7dcd41",
+       "uuid": "12f1f9ec-4209-4e35-98bd-5af87e6d4008",
        "time": 0.1,
        "interpolation": "linear"
       },
@@ -2801,7 +2801,7 @@
          "z": 0
         }
        ],
-       "uuid": "7a888515-d346-4920-8767-bd45f0740ac2",
+       "uuid": "b1034dee-49dc-49a6-a95f-bca15c4d8d6d",
        "time": 0.2,
        "interpolation": "linear"
       }
@@ -2810,13 +2810,13 @@
    }
   },
   {
-   "uuid": "343261dc-6405-4f22-a3e5-74d6b7f75169",
+   "uuid": "a16c9c50-d73e-491b-90f6-9dd16e32e40b",
    "name": "slot_14_press",
    "loop": "once",
    "length": 0.2,
    "snapping": 20,
    "animators": {
-    "122cb1ec-38cb-47de-b65a-6dc0d8650a0d": {
+    "f63677a9-e441-48a0-878b-c3ae4d337a50": {
      "name": "slot_14",
      "type": "bone",
      "keyframes": [
@@ -2829,7 +2829,7 @@
          "z": 0
         }
        ],
-       "uuid": "6296eefb-d72b-4c2f-a180-5a052af55056",
+       "uuid": "79f74efc-57d9-42d2-886a-2e5ec7ff51c6",
        "time": 0,
        "interpolation": "linear"
       },
@@ -2842,7 +2842,7 @@
          "z": 0
         }
        ],
-       "uuid": "5b51f4b8-2f31-4533-b84b-6e5f06b0b6bd",
+       "uuid": "7858ca5c-47cf-4a1c-a132-8eee08585d8c",
        "time": 0.1,
        "interpolation": "linear"
       },
@@ -2855,7 +2855,7 @@
          "z": 0
         }
        ],
-       "uuid": "5b622742-9b70-4a63-930f-59253eb73b9f",
+       "uuid": "b7f25a24-bda3-4706-afd5-7e27139307e0",
        "time": 0.2,
        "interpolation": "linear"
       }
@@ -2864,13 +2864,13 @@
    }
   },
   {
-   "uuid": "d924c886-6078-4eb4-abb6-cab2a1c3b101",
+   "uuid": "d11da43b-f6d2-4629-98ec-69defcd65c6d",
    "name": "slot_15_press",
    "loop": "once",
    "length": 0.2,
    "snapping": 20,
    "animators": {
-    "ed99f37f-e74f-4805-9271-68d94638181d": {
+    "95613e00-319c-4eb9-9e31-0b966c4d167b": {
      "name": "slot_15",
      "type": "bone",
      "keyframes": [
@@ -2883,7 +2883,7 @@
          "z": 0
         }
        ],
-       "uuid": "c9aaccca-98d0-4d74-bf30-9fd1a13b7fb3",
+       "uuid": "13399b86-cf62-4bcf-911b-0737c67c3580",
        "time": 0,
        "interpolation": "linear"
       },
@@ -2896,7 +2896,7 @@
          "z": 0
         }
        ],
-       "uuid": "81af374d-55c3-479f-b673-764f54614843",
+       "uuid": "fb759a9a-771a-451d-9a1e-a030172b21bd",
        "time": 0.1,
        "interpolation": "linear"
       },
@@ -2909,7 +2909,7 @@
          "z": 0
         }
        ],
-       "uuid": "1b19653e-0768-49bb-8c13-78648c7bc268",
+       "uuid": "b4202ea3-689e-4300-9fb1-4aaed1078655",
        "time": 0.2,
        "interpolation": "linear"
       }
@@ -2918,13 +2918,13 @@
    }
   },
   {
-   "uuid": "206cdfbd-6dd2-426f-9c86-c8dac874d84a",
+   "uuid": "c33c7f76-056a-40ff-af1d-a53d9f74cbe4",
    "name": "slot_16_press",
    "loop": "once",
    "length": 0.2,
    "snapping": 20,
    "animators": {
-    "1ef12999-5492-404d-adad-3399702a758a": {
+    "f09b8eb7-1ac1-4ff8-a43e-da70389eda33": {
      "name": "slot_16",
      "type": "bone",
      "keyframes": [
@@ -2937,7 +2937,7 @@
          "z": 0
         }
        ],
-       "uuid": "37054e48-8915-4373-96fe-12e62a5ce745",
+       "uuid": "bb3ea5f5-55a5-465c-9a7a-c6f66fb1831b",
        "time": 0,
        "interpolation": "linear"
       },
@@ -2950,7 +2950,7 @@
          "z": 0
         }
        ],
-       "uuid": "c1a0e548-022b-4895-b353-520e66c40f2f",
+       "uuid": "dcf996ff-1518-4bcd-a9ce-cbcd9dfe0ee9",
        "time": 0.1,
        "interpolation": "linear"
       },
@@ -2963,7 +2963,7 @@
          "z": 0
         }
        ],
-       "uuid": "98e393b6-addb-4ff1-b518-895a6ab4fe7e",
+       "uuid": "d9de9258-1aeb-4e17-b72a-6147a292f1f8",
        "time": 0.2,
        "interpolation": "linear"
       }
@@ -2972,13 +2972,13 @@
    }
   },
   {
-   "uuid": "c76cffaa-21dd-4012-ae85-ac6ec5b95a67",
+   "uuid": "18ab77bd-4bed-42f4-818a-3fe95d0c3090",
    "name": "slot_17_press",
    "loop": "once",
    "length": 0.2,
    "snapping": 20,
    "animators": {
-    "a72152ed-94d0-4775-a185-8fa8b2dd14c0": {
+    "2483bc37-00f6-49d6-bd38-a2a2eb62b59a": {
      "name": "slot_17",
      "type": "bone",
      "keyframes": [
@@ -2991,7 +2991,7 @@
          "z": 0
         }
        ],
-       "uuid": "ca24f22a-e0ac-4d80-a0e1-aac06b10b3d8",
+       "uuid": "c4c754e2-d142-4442-a4d7-35530ca23d04",
        "time": 0,
        "interpolation": "linear"
       },
@@ -3004,7 +3004,7 @@
          "z": 0
         }
        ],
-       "uuid": "f0b03458-7f12-4206-9d92-6c3a35bcb8fd",
+       "uuid": "3fe439bf-1782-491f-8f08-f00c92896dd2",
        "time": 0.1,
        "interpolation": "linear"
       },
@@ -3017,7 +3017,7 @@
          "z": 0
         }
        ],
-       "uuid": "d67d59c1-5c48-4991-8da5-a89b5a70846b",
+       "uuid": "91ac7449-48b3-461d-914e-8133ba8c7aaa",
        "time": 0.2,
        "interpolation": "linear"
       }
@@ -3026,13 +3026,13 @@
    }
   },
   {
-   "uuid": "ead4e485-b4ad-41f4-929d-ccdd461d7c52",
+   "uuid": "bdae53db-3225-4b10-ad6a-6b88e6bbbc6b",
    "name": "slot_18_press",
    "loop": "once",
    "length": 0.2,
    "snapping": 20,
    "animators": {
-    "a19cd677-06f8-4c73-b1df-fb1dc2d58248": {
+    "46e37aa1-9d19-4bca-818d-995a595dac2a": {
      "name": "slot_18",
      "type": "bone",
      "keyframes": [
@@ -3045,7 +3045,7 @@
          "z": 0
         }
        ],
-       "uuid": "8ac6dc58-cd5a-49d4-addd-d481c3c12b17",
+       "uuid": "8c9362bb-aa5e-483f-99d4-e2df3ac614d5",
        "time": 0,
        "interpolation": "linear"
       },
@@ -3058,7 +3058,7 @@
          "z": 0
         }
        ],
-       "uuid": "ffd1d30f-4eac-4b3f-919e-65a56e282502",
+       "uuid": "42eca387-1b49-47e1-8cac-d6415f0f2dc8",
        "time": 0.1,
        "interpolation": "linear"
       },
@@ -3071,7 +3071,7 @@
          "z": 0
         }
        ],
-       "uuid": "39d6fbd8-e197-4336-a11b-74deac9d4db9",
+       "uuid": "88d0984d-57fb-4c94-9b58-022237cca0c6",
        "time": 0.2,
        "interpolation": "linear"
       }
@@ -3080,13 +3080,13 @@
    }
   },
   {
-   "uuid": "c00fb60c-c890-40c2-a6be-cabf724a6328",
+   "uuid": "ddba355f-82d8-4ff5-99d8-de0bf77a9405",
    "name": "slot_19_press",
    "loop": "once",
    "length": 0.2,
    "snapping": 20,
    "animators": {
-    "0a9ac905-f5c3-4d0f-8527-578e3dcad546": {
+    "cbf08fe2-49e4-4867-99a6-1ef640f5576e": {
      "name": "slot_19",
      "type": "bone",
      "keyframes": [
@@ -3099,7 +3099,7 @@
          "z": 0
         }
        ],
-       "uuid": "b249aff5-e922-4d5e-8267-90b9c40f3c29",
+       "uuid": "d405f711-5461-450f-ae45-990e91a9aa5f",
        "time": 0,
        "interpolation": "linear"
       },
@@ -3112,7 +3112,7 @@
          "z": 0
         }
        ],
-       "uuid": "9536726c-e454-40bd-ab66-81414a78e1e2",
+       "uuid": "28a536bd-65e6-4bc1-8cb0-7bc63f1bdc2d",
        "time": 0.1,
        "interpolation": "linear"
       },
@@ -3125,7 +3125,7 @@
          "z": 0
         }
        ],
-       "uuid": "76d1d008-cf7c-4979-b1be-23344f2a06e3",
+       "uuid": "c561c595-2223-4611-bdc0-f3e78491627d",
        "time": 0.2,
        "interpolation": "linear"
       }

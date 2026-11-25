@@ -24,7 +24,7 @@ import net.minecraft.world.level.levelgen.Heightmap;
  * Dev tool (Aaron 2026-11-14, tuning the Shire): {@code -Dlotr_port.terrainpreview=<x>,<z>,<size>} on a server of the
  * Middle-earth world type generates the square of {@code size} blocks round x, z, writes {@code terrain_preview/}
  * in the run folder ({@code relief.png}: shaded ground, water blue, tree crowns dark; {@code variants.png}: the biome
- * variant patches over the relief; {@code stats.txt}) and stops the JVM without saving ({@code
+ * variant patches over the relief; {@code blocks.png}: each column's top block in its map colour; {@code stats.txt}) and stops the JVM without saving ({@code
  * -Dlotr_port.terrainpreview.save=true}: stops normally and saves the world, to look round it with a client). Stats: water share, slope
  * percentiles, and overhangs (columns with air within 6 blocks under the ground's top, above sea level; trees are
  * looked through), with the first few spots.
@@ -33,6 +33,9 @@ public final class TerrainPreview {
     private TerrainPreview() {}
 
     static void runIfAsked(MinecraftServer server) {
+        if (Boolean.getBoolean("lotr_port.landmarks")) {
+            landmarks();
+        }
         String arg = System.getProperty("lotr_port.terrainpreview");
         if (arg == null) {
             return;
@@ -58,6 +61,9 @@ public final class TerrainPreview {
         int z0 = cz - size / 2;
         int[] ground = new int[size * size];
         int[] kind = new int[size * size]; // 0 ground, 1 water, 2 tree crown
+        int[] seen = new int[size * size]; // map colour of the top block seen from above (blocks.png)
+        Map<String, Integer> grounds = new HashMap<>(); // what the ground is made of
+        int webColumns = 0;
         boolean[] overhang = new boolean[size * size];
         int sea = level.getSeaLevel();
         int overhangs = 0;
@@ -76,14 +82,24 @@ public final class TerrainPreview {
                         int top = chunk.getHeight(Heightmap.Types.MOTION_BLOCKING, i, k);
                         int y = top;
                         boolean crown = false;
+                        int above = chunk.getHeight(Heightmap.Types.WORLD_SURFACE, i, k) - 1;
+                        BlockState first = level.getBlockState(m.set(x, above, z));
+                        seen[(z - z0) * size + (x - x0)] = first.getMapColor(level, m).col;
                         BlockState s = level.getBlockState(m.set(x, y, z));
-                        // look through trees, plants and air down to the ground
+                        boolean web = false;
+                        // look through trees, plants, webs and air down to the ground
                         while (y > level.getMinBuildHeight() && (s.isAir() || s.is(BlockTags.LEAVES)
-                                || s.is(BlockTags.LOGS) || s.canBeReplaced() && s.getFluidState().isEmpty())) {
+                                || s.is(BlockTags.LOGS) || s.is(net.minecraft.world.level.block.Blocks.COBWEB)
+                                || s.is(net.minecraft.world.level.block.Blocks.MUSHROOM_STEM)
+                                || s.canBeReplaced() && s.getFluidState().isEmpty())) {
                             crown |= s.is(BlockTags.LEAVES);
+                            web |= s.is(net.minecraft.world.level.block.Blocks.COBWEB);
                             y--;
                             s = level.getBlockState(m.set(x, y, z));
                         }
+                        webColumns += web ? 1 : 0;
+                        grounds.merge(net.minecraft.core.registries.BuiltInRegistries.BLOCK.getKey(s.getBlock())
+                                .getPath(), 1, Integer::sum);
                         int idx = (z - z0) * size + (x - x0);
                         boolean water = !s.getFluidState().isEmpty();
                         if (water) {
@@ -160,6 +176,22 @@ public final class TerrainPreview {
         }
         ImageIO.write(relief, "png", out.resolve("overhangs.png").toFile()); // the relief with overhangs in red
         ImageIO.write(variants, "png", out.resolve("variants.png").toFile());
+        // blocks.png (2026-11-25): what a bird sees, each column the map colour of its top block, shaded by the
+        // ground's slope; enclosures' fences, crops, walls and webs show up here
+        BufferedImage blocks = new BufferedImage(size, size, BufferedImage.TYPE_INT_RGB);
+        for (int z = 0; z < size; z++) {
+            for (int x = 0; x < size; x++) {
+                int idx = z * size + x;
+                int g = ground[idx];
+                double dx = x + 1 < size ? ground[idx + 1] - g : g - ground[idx - 1];
+                double dz = z + 1 < size ? ground[idx + size] - g : g - ground[idx - size];
+                double shade = Math.max(0.5, Math.min(1.2, 0.9 - 0.12 * (dx + dz)));
+                int c = seen[idx];
+                blocks.setRGB(x, z, rgb(((c >> 16) & 255) * shade, ((c >> 8) & 255) * shade, (c & 255) * shade));
+            }
+        }
+        ImageIO.write(blocks, "png", out.resolve("blocks.png").toFile());
+        Files.writeString(out.resolve("enclosures.txt"), enclosures(level, map, x0, z0, size));
         double[] s = Arrays.copyOf(slopes, n);
         Arrays.sort(s);
         StringBuilder stats = new StringBuilder();
@@ -171,9 +203,174 @@ public final class TerrainPreview {
                 100.0 * overhangs / (size * size), spots));
         counts.forEach((k, c) -> stats.append(String.format("variant %s %.1f%% colour %06X%n", k,
                 100.0 * c / (size * size), k.equals("plain") ? 0x808080 : colours.getOrDefault(k, 0))));
+        stats.append(String.format("columns with webs %.2f%%%n", 100.0 * webColumns / (size * size)));
+        grounds.entrySet().stream().sorted((a, b) -> b.getValue() - a.getValue()).limit(12).forEach(g ->
+                stats.append(String.format("ground %s %.1f%%%n", g.getKey(), 100.0 * g.getValue() / (size * size))));
         stats.append(String.format("took %d s%n", (System.nanoTime() - start) / 1_000_000_000L));
         Files.writeString(out.resolve("stats.txt"), stats.toString());
         LotrPort.LOG.info("[preview]\n{}", stats);
+    }
+
+    /**
+     * Each enclosure inside the square drawn as its top blocks, a character a block: F fence, G gate, P post (log), H
+     * hedge (leaves), C corn, f farmland, p path, T tree log, L leaves, w water, . grass or dirt, ? anything else.
+     */
+    private static String enclosures(ServerLevel level, MiddleEarthMap map, int x0, int z0, int size) {
+        StringBuilder sb = new StringBuilder();
+        java.util.Set<String> seen = new java.util.HashSet<>();
+        for (int cx = Math.floorDiv(x0, 128); cx <= Math.floorDiv(x0 + size - 1, 128); cx++) {
+            for (int cz = Math.floorDiv(z0, 128); cz <= Math.floorDiv(z0 + size - 1, 128); cz++) {
+                var e = map.enclosureInCellOf(cx * 128, cz * 128);
+                if (e == null || e.minX() < x0 || e.minZ() < z0 || e.maxX() >= x0 + size || e.maxZ() >= z0 + size
+                        || !seen.add(e.minX() + "," + e.minZ())) {
+                    continue;
+                }
+                sb.append(e.kind().name()).append(" at ").append(e.minX()).append(',').append(e.minZ()).append(' ')
+                        .append(e.sizeX()).append('x').append(e.sizeZ()).append(" level ").append(e.level())
+                        .append('\n');
+                BlockPos.MutableBlockPos m = new BlockPos.MutableBlockPos();
+                for (int z = e.minZ() - 1; z <= e.maxZ() + 1; z++) {
+                    for (int x = e.minX() - 1; x <= e.maxX() + 1; x++) {
+                        int y = level.getHeight(Heightmap.Types.WORLD_SURFACE, x, z) - 1;
+                        BlockState b = level.getBlockState(m.set(x, y, z));
+                        String id = net.minecraft.core.registries.BuiltInRegistries.BLOCK.getKey(b.getBlock()).getPath();
+                        char c = b.getBlock() instanceof net.minecraft.world.level.block.FenceGateBlock ? 'G'
+                                : b.getBlock() instanceof net.minecraft.world.level.block.FenceBlock ? 'F'
+                                : id.equals("corn_stalks") ? 'C' : id.equals("farmland") ? 'f'
+                                : id.equals("dirt_path") ? 'p' : !b.getFluidState().isEmpty() ? 'w'
+                                : b.is(BlockTags.LEAVES) ? (e.onFence(x, z) ? 'H' : 'L')
+                                : b.is(BlockTags.LOGS) ? (e.onFence(x, z) ? 'P' : 'T')
+                                : id.contains("grass") || id.contains("dirt") || b.canBeReplaced() ? '.' : '?';
+                        sb.append(c);
+                    }
+                    sb.append('\n');
+                }
+                sb.append('\n');
+            }
+        }
+        // lairs (spider nests): their core and a ring round it, W web, S egg sac, c cocoon, L leaves, T log
+        java.util.Set<Long> lairs = new java.util.HashSet<>();
+        for (int x = x0; x < x0 + size; x += 64) {
+            for (int z = z0; z < z0 + size; z += 64) {
+                for (var l : map.lairsInCellsOf(x, z)) {
+                    int r = l.kind().core() + 3;
+                    if (l.x() - r < x0 || l.z() - r < z0 || l.x() + r >= x0 + size || l.z() + r >= z0 + size
+                            || !lairs.add(l.id())) {
+                        continue;
+                    }
+                    sb.append(l.kind().name()).append(" at ").append(l.x()).append(',').append(l.z()).append('\n');
+                    BlockPos.MutableBlockPos m = new BlockPos.MutableBlockPos();
+                    for (int zz = l.z() - r; zz <= l.z() + r; zz++) {
+                        for (int xx = l.x() - r; xx <= l.x() + r; xx++) {
+                            // the most telling block in the lowest 8 above the ground: sac, cocoon, web
+                            int g = level.getHeight(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, xx, zz);
+                            char c = '.';
+                            for (int dy = -1; dy < 8; dy++) {
+                                BlockState b = level.getBlockState(m.set(xx, g + dy, zz));
+                                char here = b.is(com.porcupinestudios.lotrport.lair.EggSacBlock.BLOCK.get()) ? 'S'
+                                        : b.is(net.minecraft.world.level.block.Blocks.MUSHROOM_STEM) ? 'c'
+                                        : b.is(net.minecraft.world.level.block.Blocks.COBWEB) ? 'W'
+                                        : b.is(BlockTags.LOGS) ? 'T' : b.is(BlockTags.LEAVES) ? 'L' : '.';
+                                if ("ScWTL.".indexOf(here) < "ScWTL.".indexOf(c)) {
+                                    c = here;
+                                }
+                            }
+                            sb.append(c);
+                        }
+                        sb.append('\n');
+                    }
+                    sb.append('\n');
+                }
+            }
+        }
+        return sb.toString();
+    }
+
+    /**
+     * Dev ({@code -Dlotr_port.landmarks=true}): logs "[landmark] name x z" for places worth a look in this world's seed
+     * (the nearest plots of each kind and a hedged field, Eriador's old fields and tors, the spider nest nearest the
+     * Forest Gate, a spot of Enchanted Mirkwood away from nests, the Enchanted River), for screenshot scripts.
+     */
+    static void landmarks() {
+        MiddleEarthMap map = MiddleEarthMap.get();
+        java.util.Map<String, int[]> out = new java.util.LinkedHashMap<>();
+        for (int r = 0; r <= 30; r++) {
+            for (int i = -r; i <= r; i++) {
+                for (int k = -r; k <= r; k++) {
+                    if (Math.max(Math.abs(i), Math.abs(k)) != r) {
+                        continue;
+                    }
+                    var e = map.enclosureInCellOf(i * 128, k * 128);
+                    if (e != null) {
+                        int[] at = { (e.minX() + e.maxX()) / 2, (e.minZ() + e.maxZ()) / 2, e.minX(), e.minZ(),
+                                e.maxX(), e.maxZ() };
+                        out.putIfAbsent(e.kind().name(), at);
+                        if (e.kind().name().equals("corn_field") && e.roll(0) < 0.35) {
+                            out.putIfAbsent("hedged_corn_field", at);
+                        }
+                    }
+                }
+            }
+        }
+        BlockPos eriador = map.blockOfPixel(880, 640);
+        for (int d = 0; d < 20000 && (!out.containsKey("old_fields") || !out.containsKey("tors")); d += 64) {
+            for (int a = 0; a < 16; a++) {
+                int x = eriador.getX() + (int) (Math.cos(a * Math.PI / 8) * d);
+                int z = eriador.getZ() + (int) (Math.sin(a * Math.PI / 8) * d);
+                String v = map.variantAt(x, z);
+                if (v != null && (v.equals("old_fields") || v.equals("tors"))
+                        && map.variantAt(x + 96, z) != null && v.equals(map.variantAt(x + 96, z))
+                        && v.equals(map.variantAt(x - 96, z)) && v.equals(map.variantAt(x, z + 96))) {
+                    out.putIfAbsent(v, new int[] { x, z });
+                }
+            }
+        }
+        BlockPos gate = map.blockOfPixel(1310, 655);
+        com.porcupinestudios.lotrport.world.map.Lairs.Lair best = null;
+        for (int dx = -6000; dx <= 6000; dx += 256) {
+            for (int dz = -6000; dz <= 6000; dz += 256) {
+                for (var l : map.lairsInCellsOf(gate.getX() + dx, gate.getZ() + dz)) {
+                    if (best == null || l.distance(gate.getX(), gate.getZ()) < best.distance(gate.getX(), gate.getZ())) {
+                        best = l;
+                    }
+                }
+            }
+        }
+        if (best != null) {
+            out.put("spider_nest", new int[] { best.x(), best.z(), best.kind().core(), best.kind().radius() });
+            int[] sac = best.sacs().get(0);
+            out.put("egg_sac", sac);
+        }
+        int enchanted = -1;
+        int river = -1;
+        for (int i = 0; i < map.biomes().size(); i++) {
+            enchanted = map.biomes().get(i).id().equals("lotr_port:mirkwood_enchanted") ? i : enchanted;
+            river = map.biomes().get(i).id().equals("lotr_port:enchanted_river") ? i : river;
+        }
+        for (int d = 0; d < 6000 && !out.containsKey("enchanted_forest"); d += 32) {
+            for (int a = 0; a < 16; a++) {
+                int x = gate.getX() + 400 + (int) (Math.cos(a * Math.PI / 8) * d);
+                int z = gate.getZ() + (int) (Math.sin(a * Math.PI / 8) * d);
+                if (map.biomeIndexAt(x, z) == enchanted && map.biomeIndexAt(x + 200, z) == enchanted
+                        && map.biomeIndexAt(x - 200, z) == enchanted) {
+                    out.put("enchanted_forest", new int[] { x, z });
+                    break;
+                }
+            }
+        }
+        BlockPos crossing = map.blockOfPixel(1395.5, 652.5);
+        for (int d = 0; d < 3000 && !out.containsKey("enchanted_river"); d += 4) {
+            for (int a = 0; a < 32; a++) {
+                int x = crossing.getX() + (int) (Math.cos(a * Math.PI / 16) * d);
+                int z = crossing.getZ() + (int) (Math.sin(a * Math.PI / 16) * d);
+                if (map.biomeIndexAt(x, z) == river && map.heightAt(x, z) < 60) {
+                    out.put("enchanted_river", new int[] { x, z });
+                    break;
+                }
+            }
+        }
+        out.forEach((k, v) -> LotrPort.LOG.info("[landmark] {} {}", k,
+                java.util.Arrays.stream(v).mapToObj(Integer::toString).collect(java.util.stream.Collectors.joining(" "))));
     }
 
     private static int rgb(double r, double g, double b) {

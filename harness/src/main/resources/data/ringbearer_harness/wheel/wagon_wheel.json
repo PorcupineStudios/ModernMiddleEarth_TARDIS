@@ -1,0 +1,14 @@
+{
+  "blocks": ["ringbearer_harness:wagon_wheel"],
+  "radius": 0.9,
+  "contact_reach": 3.0,
+  "contact_height": 1.5,
+  "travel": 0.35,
+  "max_compression": 0.6,
+  "suspension_hz": 1.5,
+  "damping_ratio": 0.8,
+  "lateral_grip": 0.5,
+  "friction": 0.9,
+  "rolling_resistance": 0.03,
+  "max_steer": 45.0
+}

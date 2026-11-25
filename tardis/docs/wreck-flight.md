@@ -21,5 +21,14 @@ Read when: touching `block/`, `interior/`, `flight/`, `net/ConsoleNet`, `client/
   |RPM| x `charge_per_rpm_second`, fed to the interior it stands in or a box within `link_range`. Stress impact is
   registered in `BlockStressValues.IMPACTS` with a supplier reading the tuning file. Client uses Create's
   `ShaftRenderer`. Create comes from Modrinth (`maven.modrinth:create`, see `tardis/build.gradle`); its jar-in-jar libraries are unpacked for compiling.
+- **Artron Alternator** (2026-11-19, Aaron's drawing: a gear on top, arms down round the police box, lightning;
+  `compat/create/AlternatorBlock` + `AlternatorBlockEntity`, `client/AlternatorRenderer`): set it over the box (at
+  most `alternator.reach` blocks above its top half, only air between) its gear is a Create small cogwheel on the vertical
+  axis (`ICogWheel`): cogwheels beside it at the same height mesh with it and turn it (large ones diagonally), and a
+  shaft from above also works (Aaron 2026-11-19). Charge per second = |RPM| x `alternator.charge_per_rpm_second` (4x the winder's), into that TARDIS,
+  up to its cap. Clients get `drop` (how far down the box is) and `charging`; the renderer draws Create's cogwheel
+  (a Flywheel visual when it can), four iron arms out and down to the box, and flickering lightning onto it while it
+  charges. Stress impact `alternator.stress`. Recipe: iron, a large cogwheel, lightning rods, brass casing. Test
+  `AlternatorTests`. Not seen in a client yet.
 - **GameTest coordinates**: a template's floor is at relative y 1 (the structure block sits below), so things stand at y 2.
 - All numbers: `data/tardis_rb/tardis/tuning/main.json` (`progression/Tuning`).
