@@ -8,9 +8,11 @@ import java.util.function.IntUnaryOperator;
 
 /**
  * Rivers and lakes lie within borders: their map pixels (biomes listed as {@code fill} in {@code border_base}) take the
- * holder of the land around them instead of having none. A flood from the banks inwards: each water pixel touching held
- * land takes the commonest holder of its land neighbours, then the rest of the water, ring by ring, takes the holder of
- * the water pixel it was reached from. Water with no held land around it (a lake in the wilds) stays nobody's.
+ * holder of the land around them instead of cutting a realm in two. Borders lie above the rivers; they never follow
+ * them. A flood from every bank at once: each water pixel touching land takes the commonest holder of its land
+ * neighbours (nobody's when unheld land is as common), then the rest of the water, ring by ring, takes the value of
+ * the nearest bank. So a river leaving a realm becomes nobody's where its banks do, instead of carrying the realm's
+ * colour along its whole length. Water with no held land around it (a lake in the wilds) stays nobody's.
  * Deterministic (pixels in map order), common code: the server's borders and the client's map layer use the same fill.
  */
 public final class WaterFill {
@@ -19,6 +21,8 @@ public final class WaterFill {
     /** Biome holder code: water that takes the holder around it. */
     public static final int FILL = -2;
 
+    /** Internal: water reached from nobody's banks (stops a holder flooding along the river beyond its land). */
+    private static final int WILD = -3;
     private static final int[][] DIRS = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
     private final Int2IntOpenHashMap owners;
 
@@ -28,7 +32,8 @@ public final class WaterFill {
 
     /** The holder (an index the caller gave) of a water pixel; {@link #NONE} for nobody's or a pixel that isn't water. */
     public int ownerOf(int pixel) {
-        return owners.get(pixel);
+        int o = owners.get(pixel);
+        return o == WILD ? NONE : o;
     }
 
     /** A grid of biome indices, {@code width} x {@code height} (the map, or a test's). */
@@ -69,6 +74,7 @@ public final class WaterFill {
             int x = p % w;
             int z = p / w;
             int n = 0;
+            int wild = 0;
             for (int[] d : DIRS) {
                 int nx = x + d[0];
                 int nz = z + d[1];
@@ -79,9 +85,14 @@ public final class WaterFill {
                 int o = b >= 0 && b < biomes ? byBiome[b] : NONE;
                 if (o >= 0) {
                     seen[n++] = o;
+                } else if (o != FILL) {
+                    wild++; // nobody's land (or sea): the river doesn't carry a holder past it
                 }
             }
-            if (n > 0) {
+            if (n == 0 && wild > 0) {
+                owners.put(p, WILD);
+                queue.enqueue(p);
+            } else if (n > 0) {
                 // the commonest land holder among the neighbours (first seen wins a tie)
                 int best = seen[0];
                 int bestCount = 0;
@@ -95,7 +106,7 @@ public final class WaterFill {
                         bestCount = c;
                     }
                 }
-                owners.put(p, best);
+                owners.put(p, bestCount >= wild ? best : WILD);
                 queue.enqueue(p);
             }
         }
