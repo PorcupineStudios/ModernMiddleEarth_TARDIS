@@ -1,5 +1,5 @@
 {
-  "feature": "lotr_port:plant_patch/marigold_32",
+  "feature": "lotr_port:plant_patch/marigold_8",
   "placement": [
     {
       "type": "minecraft:rarity_filter",

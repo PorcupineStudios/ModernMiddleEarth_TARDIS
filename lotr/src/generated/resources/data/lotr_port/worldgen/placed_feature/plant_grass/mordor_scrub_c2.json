@@ -1,5 +1,5 @@
 {
-  "feature": "lotr_port:plant_patch/mordor_scrub_32",
+  "feature": "lotr_port:plant_patch/mordor_scrub_64",
   "placement": [
     {
       "type": "minecraft:count",

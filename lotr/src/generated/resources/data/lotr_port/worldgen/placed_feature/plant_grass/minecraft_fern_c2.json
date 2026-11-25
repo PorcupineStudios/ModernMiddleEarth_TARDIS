@@ -1,5 +1,5 @@
 {
-  "feature": "lotr_port:plant_patch/minecraft_fern_32",
+  "feature": "lotr_port:plant_patch/minecraft_fern_64",
   "placement": [
     {
       "type": "minecraft:count",

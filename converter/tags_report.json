@@ -10399,6 +10399,41 @@
         "sword_efficient"
       ]
     },
+    "raw_copper_block": {
+      "analogue": "raw_iron_block",
+      "tags": [
+        "mineable/pickaxe",
+        "overworld_carver_replaceables"
+      ]
+    },
+    "raw_mithril_block": {
+      "analogue": "raw_iron_block",
+      "tags": [
+        "mineable/pickaxe",
+        "overworld_carver_replaceables"
+      ]
+    },
+    "raw_morgul_iron_block": {
+      "analogue": "raw_iron_block",
+      "tags": [
+        "mineable/pickaxe",
+        "overworld_carver_replaceables"
+      ]
+    },
+    "raw_silver_block": {
+      "analogue": "raw_iron_block",
+      "tags": [
+        "mineable/pickaxe",
+        "overworld_carver_replaceables"
+      ]
+    },
+    "raw_tin_block": {
+      "analogue": "raw_iron_block",
+      "tags": [
+        "mineable/pickaxe",
+        "overworld_carver_replaceables"
+      ]
+    },
     "shire_pine_bark": {
       "analogue": "oak_wood",
       "tags": [
@@ -13829,41 +13864,6 @@
         "all_signs",
         "mineable/axe",
         "wall_hanging_signs"
-      ]
-    },
-    "raw_copper_block": {
-      "analogue": "raw_iron_block",
-      "tags": [
-        "mineable/pickaxe",
-        "overworld_carver_replaceables"
-      ]
-    },
-    "raw_mithril_block": {
-      "analogue": "raw_iron_block",
-      "tags": [
-        "mineable/pickaxe",
-        "overworld_carver_replaceables"
-      ]
-    },
-    "raw_morgul_iron_block": {
-      "analogue": "raw_iron_block",
-      "tags": [
-        "mineable/pickaxe",
-        "overworld_carver_replaceables"
-      ]
-    },
-    "raw_silver_block": {
-      "analogue": "raw_iron_block",
-      "tags": [
-        "mineable/pickaxe",
-        "overworld_carver_replaceables"
-      ]
-    },
-    "raw_tin_block": {
-      "analogue": "raw_iron_block",
-      "tags": [
-        "mineable/pickaxe",
-        "overworld_carver_replaceables"
       ]
     }
   },
@@ -19811,6 +19811,26 @@
       "analogue": null,
       "tags": []
     },
+    "raw_copper": {
+      "analogue": "raw_iron",
+      "tags": []
+    },
+    "raw_mithril": {
+      "analogue": "raw_iron",
+      "tags": []
+    },
+    "raw_morgul_iron": {
+      "analogue": "raw_iron",
+      "tags": []
+    },
+    "raw_silver": {
+      "analogue": "raw_iron",
+      "tags": []
+    },
+    "raw_tin": {
+      "analogue": "raw_iron",
+      "tags": []
+    },
     "shire_pine_sign": {
       "analogue": "oak_sign",
       "tags": [
@@ -20785,26 +20805,6 @@
         "boats",
         "chest_boats"
       ]
-    },
-    "raw_copper": {
-      "analogue": "raw_iron",
-      "tags": []
-    },
-    "raw_mithril": {
-      "analogue": "raw_iron",
-      "tags": []
-    },
-    "raw_morgul_iron": {
-      "analogue": "raw_iron",
-      "tags": []
-    },
-    "raw_silver": {
-      "analogue": "raw_iron",
-      "tags": []
-    },
-    "raw_tin": {
-      "analogue": "raw_iron",
-      "tags": []
     }
   },
   "no_analogue": [],

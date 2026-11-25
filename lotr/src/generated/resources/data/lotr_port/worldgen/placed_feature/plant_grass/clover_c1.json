@@ -1,5 +1,5 @@
 {
-  "feature": "lotr_port:plant_patch/clover_32",
+  "feature": "lotr_port:plant_patch/clover_64",
   "placement": [
     {
       "type": "minecraft:count",

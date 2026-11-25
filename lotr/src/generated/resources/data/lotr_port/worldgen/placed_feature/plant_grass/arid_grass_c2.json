@@ -1,5 +1,5 @@
 {
-  "feature": "lotr_port:plant_patch/arid_grass_32",
+  "feature": "lotr_port:plant_patch/arid_grass_64",
   "placement": [
     {
       "type": "minecraft:count",
