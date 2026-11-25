@@ -1,6 +1,7 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "lotr_port:block/tall_grass_wheat"
+    "layer0": "lotr_port:block/tall_grass_wheat",
+    "layer1": "lotr_port:block/tall_grass_wheat_overlay"
   }
 }
