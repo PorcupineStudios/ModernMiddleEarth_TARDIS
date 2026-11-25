@@ -1,0 +1,8 @@
+{
+  "feature": "lotr_port:wilds/eriador/rocky_dells_ground",
+  "placement": [
+    {
+      "type": "minecraft:biome"
+    }
+  ]
+}

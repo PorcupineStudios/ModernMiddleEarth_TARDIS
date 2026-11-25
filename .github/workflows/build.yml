@@ -50,6 +50,30 @@ jobs:
           JAVA_TOOL_OPTIONS="-Dlotr_port.worldcheck=true -Xmx10g" ./gradlew :lotr:runServer --stacktrace 2>&1 | tee worldcheck.log
           grep -E "\\[worldcheck\\]|WORLDCHECK" worldcheck.log
           grep "WORLDCHECK PASSED" worldcheck.log
+      - name: Plant census against LOTR (opt-in)
+        # Only when the commit message has [plant-census] (2026-11-25, Aaron: check every plant's where and how many
+        # against 1.7.10): world/PortPlantCensus counts the port's plants per biome on a fresh Middle-earth world
+        # (2 spots per biome, 4x4 chunks each), converter/plant_compare.py sets that against LOTR's census
+        # (converter/export/plants_census.json). Report only: never fails the build.
+        if: ${{ !cancelled() && contains(github.event.head_commit.message, '[plant-census]') }}
+        continue-on-error: true
+        timeout-minutes: 90
+        run: |
+          mkdir -p lotr/run
+          echo "eula=true" > lotr/run/eula.txt
+          printf 'level-type=lotr_port\\:middle_earth\nonline-mode=false\nlevel-name=plant-census\nmax-tick-time=-1\n' > lotr/run/server.properties
+          JAVA_TOOL_OPTIONS="-Dlotr_port.plantcensus=2 -Xmx10g" ./gradlew :lotr:runServer --stacktrace 2>&1 | tee plantcensus.log | grep -E "plantcensus|ERROR" || true
+          pip install --quiet pillow
+          python3 converter/plant_compare.py lotr/run/plant_census_port.json --json plant_compare.json | tee plant_compare.txt
+      - uses: actions/upload-artifact@v4
+        if: ${{ !cancelled() && contains(github.event.head_commit.message, '[plant-census]') }}
+        with:
+          name: plant-census
+          path: |
+            lotr/run/plant_census_port.json
+            plant_compare.json
+            plant_compare.txt
+            plantcensus.log
       - name: TARDIS world
         # A dedicated server: the crash site, its police box, and its interior in the interior dimension.
         timeout-minutes: 10
@@ -60,7 +84,10 @@ jobs:
           JAVA_TOOL_OPTIONS="-Dtardis_rb.worldcheck=true" ./gradlew :tardis:runServer --stacktrace 2>&1 | tee tardis-world.log
           grep -E "\\[worldcheck\\]|WORLDCHECK|crash site" tardis-world.log
           grep "TARDIS WORLDCHECK PASSED" tardis-world.log
+      # Merge branch only (2026-11-25): upload the jars for play-testing even when a GameTest fails
+      # (RoadWorksTests.stretchPavesNaturalGroundOnly already failed on claude/eager-curie-9d4c86). Drop before main.
       - uses: actions/upload-artifact@v4
+        if: ${{ !cancelled() }}
         with:
           name: jars
           path: "*/build/libs/*.jar"
@@ -74,6 +101,18 @@ jobs:
               -printf "- %f (https://modrinth.com/mod/$m)\n" >> needed-mods.txt
           done
           cat needed-mods.txt
+      # Merge branch only (2026-11-25, Aaron approved): its own pre-release, even with a failing GameTest. Drop before main.
+      - name: Merge pre-release
+        if: ${{ !cancelled() && github.ref_name == 'claude/merged-2026-11-25' }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          mkdir -p merge-build
+          cp api/build/libs/*.jar tardis/build/libs/*.jar lotr/build/libs/*.jar harness/build/libs/*.jar merge-build/
+          rm -f merge-build/*-sources.jar
+          gh release delete merged-2026-11-25 -y --cleanup-tag || true
+          gh release create merged-2026-11-25 merge-build/*.jar --prerelease --target "${{ github.sha }}" \
+            --title "Merge build 2026-11-25" --notes "Play-test build of claude/merged-2026-11-25 at ${GITHUB_SHA}. Known failing GameTests: RoadWorksTests.stretchPavesNaturalGroundOnly (from eager-curie), and the colony perf budget is flaky."
       - name: Rolling test build (a pre-release with our jars; other mods are listed, not attached)
         if: github.event_name == 'push'
         env:

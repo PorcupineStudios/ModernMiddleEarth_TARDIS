@@ -1,0 +1,145 @@
+{
+  "parent": "minecraft:block/block",
+  "textures": {
+    "sac": "lotr_port:block/spider_egg_sac",
+    "particle": "lotr_port:block/spider_egg_sac"
+  },
+  "elements": [
+    {
+      "from": [
+        2,
+        0,
+        2
+      ],
+      "to": [
+        14,
+        13,
+        14
+      ],
+      "faces": {
+        "north": {
+          "texture": "#sac",
+          "uv": [
+            2,
+            3,
+            14,
+            16
+          ]
+        },
+        "south": {
+          "texture": "#sac",
+          "uv": [
+            2,
+            3,
+            14,
+            16
+          ]
+        },
+        "east": {
+          "texture": "#sac",
+          "uv": [
+            2,
+            3,
+            14,
+            16
+          ]
+        },
+        "west": {
+          "texture": "#sac",
+          "uv": [
+            2,
+            3,
+            14,
+            16
+          ]
+        },
+        "up": {
+          "texture": "#sac",
+          "uv": [
+            2,
+            2,
+            14,
+            14
+          ]
+        },
+        "down": {
+          "texture": "#sac",
+          "uv": [
+            2,
+            2,
+            14,
+            14
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        5,
+        13,
+        5
+      ],
+      "to": [
+        11,
+        16,
+        11
+      ],
+      "faces": {
+        "north": {
+          "texture": "#sac",
+          "uv": [
+            5,
+            0,
+            11,
+            3
+          ]
+        },
+        "south": {
+          "texture": "#sac",
+          "uv": [
+            5,
+            0,
+            11,
+            3
+          ]
+        },
+        "east": {
+          "texture": "#sac",
+          "uv": [
+            5,
+            0,
+            11,
+            3
+          ]
+        },
+        "west": {
+          "texture": "#sac",
+          "uv": [
+            5,
+            0,
+            11,
+            3
+          ]
+        },
+        "up": {
+          "texture": "#sac",
+          "uv": [
+            5,
+            5,
+            11,
+            11
+          ]
+        },
+        "down": {
+          "texture": "#sac",
+          "uv": [
+            5,
+            5,
+            11,
+            11
+          ]
+        }
+      }
+    }
+  ]
+}

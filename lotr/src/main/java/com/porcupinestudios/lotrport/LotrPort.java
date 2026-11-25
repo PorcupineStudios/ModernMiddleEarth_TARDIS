@@ -82,11 +82,20 @@ public final class LotrPort {
         com.porcupinestudios.lotrport.content.figure.Figures.register(modBus);
         com.porcupinestudios.lotrport.npc.behaviour.GrapeGuardBehaviour.register();
         com.porcupinestudios.lotrport.machine.Machines.register(modBus);
+        if (net.neoforged.fml.ModList.get().isLoaded("create")) {
+            com.porcupinestudios.lotrport.compat.create.FactionCrafters.register(modBus); // a crafter per faction
+        }
         com.porcupinestudios.lotrport.content.farm.Farming.register();
         com.porcupinestudios.lotrport.content.pouch.Pouches.register(modBus);
         com.porcupinestudios.lotrport.content.thrown.Thrown.register(modBus);
         com.porcupinestudios.lotrport.mount.Mounts.register(modBus);
+        com.porcupinestudios.lotrport.ring.RingPowers.register(modBus);
+        com.porcupinestudios.lotrport.gametest.MockPlayerChannels.register();
         LotrWorldgen.register(modBus);
+        com.porcupinestudios.lotrport.effect.LotrEffects.register(modBus);
+        com.porcupinestudios.lotrport.effect.RegionEffects.register();
+        com.porcupinestudios.lotrport.lair.EggSacBlock.register(modBus);
+        com.porcupinestudios.lotrport.lair.LairLife.register();
         LotrEntities.register(modBus);
         com.porcupinestudios.lotrport.npc.SpawnEggs.register(modBus);
         SharedApiHooks.register(modBus);
@@ -103,6 +112,8 @@ public final class LotrPort {
         com.porcupinestudios.lotrport.border.BorderNet.register(modBus);
         com.porcupinestudios.lotrport.journey.CaravanConditions.register(modBus);
         WorldConditions.register(modBus);
+        com.porcupinestudios.lotrport.road.RoadData.register(); // road works: tiers that wear in or are built
+        com.porcupinestudios.lotrport.road.RoadPaving.register();
         Factions.register();
         FactionKills.register();
         com.porcupinestudios.lotrport.content.FeastMode.register();
@@ -141,6 +152,7 @@ public final class LotrPort {
         ColonyItems.register(modBus);
         com.porcupinestudios.lotrport.colony.ColonyBlocks.register(modBus);
         com.porcupinestudios.lotrport.content.HeartOfTheMountain.register(modBus);
+        com.porcupinestudios.lotrport.content.WildBlocks.register(modBus);
         ColonyData.register();
         CoreComponents.init();
         SimSettings.register();

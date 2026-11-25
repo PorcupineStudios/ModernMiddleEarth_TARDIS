@@ -392,7 +392,8 @@ class Gen:
         def model(layer0_large, small_model):
             if not large:
                 return small_model
-            return {"loader": "neoforge:separate_transforms",
+            # gui_light: a model with no parent defaults to "side" (block) lighting, which drew these icons dark
+            return {"loader": "neoforge:separate_transforms", "gui_light": "front",
                     "base": {"parent": f"{NS}:item/large_{large[1]}x", "textures": {"layer0": layer0_large}},
                     "perspectives": {p: small_model for p in ("gui", "ground", "fixed")}}
 
@@ -577,6 +578,12 @@ class Gen:
             e["shape"] = [round(x * 16, 3) for x in bb]
             if b["material"] in ("plants", "vine", "circuits", "carpet", "portal", "web"):
                 e["collision"] = False
+        if kind == "plant" and (b.get("blockColor", 0xFFFFFF) & 0xFFFFFF) != 0xFFFFFF:
+            # LOTR's grey grasses and clovers (LOTRBlockTallGrass, LOTRBlockClover): colorMultiplier is the biome's
+            # grass colour; getBlockColor (exported) is the item's default. The client tints these (LotrClient).
+            e["tint"] = "grass"
+        if "LOTRBlockClover" in " ".join(b["classes"]):
+            e["offset"] = "xz"  # LOTRRenderBlocks.renderClover's random translation
         if kind == "reed" and "LOTRBlockReedDry" in " ".join(b["classes"]):
             e["grows"] = False  # LOTRBlockReedDry.canReedGrow
         if kind == "door":
@@ -643,12 +650,71 @@ class Gen:
         write_json(os.path.join(ASSETS, "models", "block", name + ".json"), data)
         return f"{NS}:block/{name}"
 
+    def grass_overlay(self, icon):
+        """LOTRBlockTallGrass's untinted overlay (flowers, wheat ears, thistle heads): <icon>_overlay, if the jar has it."""
+        path = (icon or "").split(":", 1)[-1]
+        if self.jar.has(f"assets/lotr/textures/blocks/{path}_overlay.png"):
+            return self.tex.block(f"lotr:{path}_overlay")
+        return None
+
+    def tinted_overlay(self, new, base, overlay):
+        """LOTR's render type 55: the grass-tinted cross, then its overlay drawn on it untinted."""
+        def plane(rot_from, rot_to, faces, tex, tint):
+            f = {d: {"uv": [0, 0, 16, 16], "texture": tex, **({"tintindex": 0} if tint else {})} for d in faces}
+            return {"from": rot_from, "to": rot_to, "shade": False,
+                    "rotation": {"origin": [8, 8, 8], "axis": "y", "angle": 45, "rescale": True}, "faces": f}
+        elements = []
+        for tex, tint in (("#cross", True), ("#overlay", False)):
+            elements.append(plane([0.8, 0, 8], [15.2, 16, 8], ("north", "south"), tex, tint))
+            elements.append(plane([8, 0, 0.8], [8, 16, 15.2], ("west", "east"), tex, tint))
+        write_json(os.path.join(ASSETS, "models", "block", new + ".json"),
+                   {"ambientocclusion": False, "render_type": CUTOUT,
+                    "textures": {"particle": base, "cross": base, "overlay": overlay}, "elements": elements})
+        return f"{NS}:block/{new}"
+
+    # LOTR's clover (LOTRBlockClover, render type 51): round petals lying flat round a short stem, three or four (the
+    # four-leaf clover), all tinted by the biome's grass. A block model can only turn an element by 22.5 or 45
+    # degrees, so each petal is its own model placed by a quarter turn of a multipart blockstate: three petals at
+    # 0, 112.5 and 247.5 degrees, four at the quarters. Each petal sits a little higher than the last so where they
+    # meet at the stem they don't flicker. The petal texture's leaf points up from its centre, its stem below it.
+    CLOVER_HEIGHT = 5.0  # pixels: the stem's top (LOTR's bounds are 0.4 high)
+    CLOVER_SIZE = 10.0  # pixels: each petal quad (the leaf is 7/16 of it long)
+    CLOVER_PETALS = {3: ((0, 0), (90, 22.5), (270, -22.5)), 4: ((0, 0), (90, 0), (180, 0), (270, 0))}
+
+    def clover(self, new, petal, leaves):
+        h, lo, hi = self.CLOVER_HEIGHT, 8 - self.CLOVER_SIZE / 2, 8 + self.CLOVER_SIZE / 2
+        tint = {"texture": "#petal", "tintindex": 0}
+        base = {"ambientocclusion": False, "render_type": CUTOUT, "textures": {"particle": petal, "petal": petal}}
+        stem = dict(base, elements=[
+            {"from": [7.5, 0, 8], "to": [8.5, h, 8], "shade": False,
+             "rotation": {"origin": [8, 0, 8], "axis": "y", "angle": 45},
+             "faces": {d: dict(tint, uv=[7, 7, 9, 8]) for d in ("north", "south")}},
+            {"from": [8, 0, 7.5], "to": [8, h, 8.5], "shade": False,
+             "rotation": {"origin": [8, 0, 8], "axis": "y", "angle": 45},
+             "faces": {d: dict(tint, uv=[7, 7, 9, 8]) for d in ("west", "east")}}])
+        write_json(os.path.join(ASSETS, "models", "block", new + "_stem.json"), stem)
+        parts = [{"apply": {"model": f"{NS}:block/{new}_stem"}}]
+        for i, (turn, angle) in enumerate(self.CLOVER_PETALS[leaves]):
+            y = round(h + 0.15 * i, 2)
+            el = {"from": [lo, y, lo], "to": [hi, y, hi], "shade": False,
+                  "faces": {"up": dict(tint, uv=[0, 0, 16, 16]), "down": dict(tint, uv=[0, 16, 16, 0])}}
+            if angle:
+                el["rotation"] = {"origin": [8, y, 8], "axis": "y", "angle": angle}
+            write_json(os.path.join(ASSETS, "models", "block", f"{new}_petal_{i}.json"), dict(base, elements=[el]))
+            apply = {"model": f"{NS}:block/{new}_petal_{i}"}
+            if turn:
+                apply["y"] = turn
+            parts.append({"apply": apply})
+        self.bs(new, {"multipart": parts})
+
     def bs(self, new, data):
         write_json(os.path.join(ASSETS, "blockstates", new + ".json"), data)
 
-    def item_model(self, new, parent=None, layer=None):
+    def item_model(self, new, parent=None, layer=None, overlay=None):
         if layer:
             data = {"parent": "minecraft:item/generated", "textures": {"layer0": layer}}
+            if overlay:
+                data["textures"]["layer1"] = overlay  # untinted over the tinted icon (LotrClient tints layer 0)
         else:
             data = {"parent": parent}
         write_json(os.path.join(ASSETS, "models", "item", new + ".json"), data)
@@ -771,10 +837,19 @@ class Gen:
                                                         {"render_type": CUTOUT})}
             self.bs(new, {"variants": var})
             self.item_model(new, layer=item_icon)
-        elif kind in ("plant", "sapling"):
-            m = self.bm(new, "minecraft:block/cross", {"cross": side}, {"render_type": CUTOUT})
-            self.bs(new, {"variants": {"": {"model": m}}})
+        elif kind == "plant" and "LOTRBlockClover" in " ".join(b["classes"]):
+            self.clover(new, side, 4 if v["meta"] == 1 else 3)
             self.item_model(new, layer=item_icon)
+        elif kind in ("plant", "sapling"):
+            tinted = kind == "plant" and (b.get("blockColor", 0xFFFFFF) & 0xFFFFFF) != 0xFFFFFF
+            overlay = self.grass_overlay(v["icons"][2]) if tinted else None
+            if overlay:
+                m = self.tinted_overlay(new, side, overlay)
+            else:
+                m = self.bm(new, "minecraft:block/tinted_cross" if tinted else "minecraft:block/cross",
+                            {"cross": side}, {"render_type": CUTOUT})
+            self.bs(new, {"variants": {"": {"model": m}}})
+            self.item_model(new, layer=item_icon, overlay=overlay)
         elif kind == "torch":
             # LOTR's torches stand or hang on walls (metadata 1-4, as vanilla's 1.7.10 torch): one block with a
             # facing, up for standing (content/LotrTorchBlock)
@@ -1493,6 +1568,8 @@ class Gen:
         # post-steps that work on the written content (each can also be rerun alone)
         import renames
         print(json.dumps({"renames": renames.run(OUT)}))
+        import vanilla_swaps
+        print(json.dumps({"vanilla_swaps": vanilla_swaps.run(OUT)}))
         import raw_ores
         print(json.dumps({"raw_ores": raw_ores.run(OUT)}))
         from woodsets import WoodSets
@@ -1501,6 +1578,8 @@ class Gen:
         print(json.dumps({"tags": Tagger(OUT).run()}))
         import waterlog
         print(json.dumps({"waterlog": waterlog.run(OUT)}))
+        import shaders
+        print(json.dumps({"shaders": shaders.run(OUT)}))
         import stonecutting
         print(json.dumps({"stonecutting": stonecutting.run(OUT)}))
         from waters import Waters
@@ -1509,14 +1588,26 @@ class Gen:
         print(json.dumps({"mountains": Mountains(OUT).run()}))
         from land import Land
         print(json.dumps({"land": Land(OUT).run()}))
+        import leaf_drops
+        print(json.dumps({"leaf_drops": leaf_drops.run(OUT)}))
+        import animal_balance
+        print(json.dumps({"animal_balance": animal_balance.run(OUT)}))
         import noisecaves
         print(json.dumps({"noisecaves": noisecaves.run(OUT)}))
         from caves import Caves
         print(json.dumps({"caves": Caves(OUT).run()}))
+        import regions
+        print(json.dumps({"regions": regions.run(OUT)}))
+        import wilds
+        print(json.dumps({"wilds": wilds.run(OUT)}))
         import biomeconfig
         print(json.dumps({"biomeconfig": biomeconfig.run(OUT)}))
         import borders
         print(json.dumps({"borders": borders.run(OUT)}))
+        import create_extra
+        print(json.dumps({"create_extra": create_extra.run(OUT)}))
+        import create_crafters
+        print(json.dumps({"create_crafters": create_crafters.run(OUT)}))
 
 
 if __name__ == "__main__":

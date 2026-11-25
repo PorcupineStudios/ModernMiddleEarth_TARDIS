@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:random_selector",
+  "config": {
+    "features": [
+      {
+        "feature": "lotr_port:tree/spruce",
+        "chance": 0.2727
+      },
+      {
+        "feature": "lotr_port:tree/pine",
+        "chance": 0.375
+      },
+      {
+        "feature": "lotr_port:tree/fir",
+        "chance": 0.2
+      },
+      {
+        "feature": "lotr_port:tree/larch",
+        "chance": 0.25
+      },
+      {
+        "feature": "lotr_port:tree/oak",
+        "chance": 0.6667
+      }
+    ],
+    "default": "lotr_port:tree/birch"
+  }
+}

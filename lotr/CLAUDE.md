@@ -69,12 +69,97 @@ https://claude.ai/artifact/KqhSSTCuKXGuwKHBoYJdcu. Rebuild features in modern co
   (`MiddleEarthMap.downs`, `DOWNS` in converter/world.py): round seedless hills that only rise,
   with LOTR's noise kept only as roughness.
 - Biome variants (2026-11-14, LOTR's LOTRBiomeVariant; Aaron: "many biomes within the Shire"): `map/Variants`, set in
-  `converter/world.py VARIANTS` -> map.json `variants`. Patches of a jittered 176-block grid inside a biome (Shire:
-  meadows, light forest, forest, hills, wooded hills, birch wood, aspen wood, orchard, plum orchard; 60% of cells) that
+  `converter/world.py VARIANTS` -> map.json `variants`. Patches of a jittered 176-block grid (seeded by the world
+  since 2026-11-25, so each world's patches lie differently) inside a biome (Shire:
+  meadows, light forest, forest, hills, wooded hills, birch wood, aspen wood, farmland; 60% of cells) that
   scale its downs and hilliness (blended smoothly between patches) and get their own plants: placed features
-  `<biome>_variant/*` gated by placement filter `lotr_port:in_variant` (looked up up to 20 blocks away, so edges
-  feather) and orchard rows by `lotr_port:orchard_grid`. Not separate biomes, as in LOTR: NPCs, structures, roads,
+  `<biome>_variant/*` gated by placement filter `lotr_port:in_variant` (looked up up to the biome's `feather`, 20 by
+  default, away, so edges feather). `lotr_port:orchard_grid` is unused since orchards became enclosures.
+  Not separate biomes, as in LOTR: NPCs, structures, roads,
   music and waypoint regions keyed to the biome are unchanged. `MiddleEarthMap.variantAt` names a column's patch.
+- Enclosures (2026-11-25, Aaron: Shire orchards "flatter and a lot smaller ... enclosed in fences", and Farmer
+  Maggot's fields with 2-block crops sized so farmland makes sense): `map/Enclosures`, set in `converter/world.py
+  ENCLOSURES` -> map.json `enclosures`. A 128-block grid (a chunk is always inside one cell); each cell holds at most one
+  plot (seeded by the world: Aaron 2026-11-25, "randomness on new worlds") of a kind rolled by `chance` (x `boost`
+  in a variant patch), sized in the kind's ranges, kept only if the biome is
+  the same over it and its fade, its patch is in `variants`, no road within `road_gap` and the map's ground varies by at
+  most `max_relief`. `heightAt` flattens it to one level (fading over `fade` blocks), `variationAt` keeps `roughness` of
+  the noise. Feature `lotr_port:enclosure` (`world/feature/EnclosureFeature`, configured `shire_enclosure/<kind>`): fence
+  or (by chance) hedge, gates with dirt paths, orchard tree rows, corn 2 high on farmland. Trees stay out (placement
+  filter `lotr_port:outside_enclosures` on `trees/<biome>`, and `in_variant`), LOTR structures too (`LotrStructure`).
+  Shire: orchards 18-34 x 14-26 (apple/pear, plum; trees 7 apart: at 6 their branches met and chunk order decided
+  which grew), corn fields 40-72 x 28-48 (a third hedged, the Marish's hedgerows); flat to 4 blocks past the fence
+  (`PLATEAU`: terrain samples the map's height every 4 blocks, so a slope at the fence leaned the plot's edge), then
+  20 blocks of fade; the old 176-block orchard patches are the `farmland` variant, where most plots gather. Sizes
+  reasoned in world.py (real fields ~200 m, Middle-earth ~11x shorter
+  than Tolkien's). GameTests `LandscapeTests`; world check builds the nearest plot of each kind.
+- Large variants (2026-11-25, Aaron: Eriador is "primarily just travelled through ... large scale ... but there still
+  being variation"): Eriador (1100 km2 as one biome on LOTR's map), Minhiriath and Enedwaith (the Lone-lands had them
+  until the wild-land rules below replaced them) have variant
+  patches of 640-768 blocks with `warp` (edges meander by noise, share of a cell) and `feather` (plants thin out over ~56
+  blocks at an edge). Kinds: meadows, heath, copses, old woods, pinewood, tors (boulders, standing stones), old fields
+  (Arnor's tumbled dry-stone walls, `lotr_port:old_walls`, and feral fruit trees), thickets, stump-lands and regrowth
+  (Minhiriath's felled forests), wetland. Extras are `configured_feature/variant/*` (world.py `VARIANT_FEATURES`).
+- Wild lands (2026-11-25, Aaron, with four reference photos of the Lone-lands: "gritty wilderness ... not overly
+  foresty (patches of forests, seeded and following rules that make it feel life like) ... a rocky feel ... custom
+  blocks that match the pallet ... Variation without it being jarring ... boulder formations, moss growth, dried up
+  creek beds, ravines"): post-step `converter/wilds.py` (after regions.py) for `lone_lands` and `lone_lands_hills`
+  (Weather Hills). Blocks (`content/WildBlocks`): weathered_stone, lichen_stone, scree (doesn't fall), moorland_soil,
+  stony_earth, heath_moss (the last three in `minecraft:dirt`), tussock and bracken (dry, untinted). Textures are
+  vanilla 1.21.1's (andesite, gravel, rooted dirt, coarse dirt, moss, short grass, fern) gradient-mapped onto 5-6 tone
+  ramps from the references (cool shadows, warm lights, neighbouring values close); vanilla's moss and coarse dirt
+  were too green and too orange beside the tawny grass (grass 0xC2AC66, foliage 0x6B7342). `wilds.py --preview
+  <png>` tiles the set. Feature `lotr_port:ground_cover` (`world/feature/GroundCoverFeature`, first in the vegetal
+  step, per column on the real ground): dry creek beds cut 1-2 deep (seeded noise zero lines in a sparse mask, never
+  by water or on slopes), rock down steep faces and rubble a step less steep, gorge floors rubble, wet hollows moorland
+  soil and moss, exposed ground stony earth / scree / flush rock by a patch noise plus eastward stoniness (block x
+  17024 -> 48512, Tolkien's barer east towards the Hoarwell); then bracken and heather in patches, tussock elsewhere.
+  `lotr_port:boulders` (`BoulderFeature`): clusters of 2-6 half-sunk boulders and tors, lichen tops, moss on the north
+  side, more eastwards. Trees only through placement filter `lotr_port:grove` (`Grove`): dense clumps where a seeded
+  patch noise (+ hollows 40 blocks round, - east) passes `above`, scrub in a band just under it, a few lone stunted
+  trees; the old `trees/lone_lands`, variant patches, old walls and green grass patches are dropped from these biomes.
+  Gorges are terrain (`map/Wilds`, map.json `wilds.gorges`, `MiddleEarthMap.gorgeAt`): winding seeded cuts, flat
+  floor, steep walls, up to 16 deep, never under sea + 3, faded at roads, rivers and the biome border; terrain is
+  sampled every 4 blocks, so narrow creeks are the feature's job. Numbers in wilds.py `SETTINGS`/`GORGES` -> the
+  configured feature JSONs. GameTests `WildLandTests`.
+  Eriador (Aaron 2026-11-25: "slightly tune the 7 and then add milder versions on top"): its seven variant kinds keep
+  their plants and get a light ground-cover pass each (`ground_cover` and `boulders` take `variants`; wilds.py
+  `ERIADOR`): stony earth spots in meadows, stony patches and bracken on the heath, mossy hollows in the woods, rock,
+  scree and boulders round the tors, a few dry creeks; four milder Lone-lands kinds join map.json's list (`ERIADOR_NEW`,
+  a third of the weight): stony_heath, moorland (wet, creeks, pine clumps), rocky_dells (boulders, groves in hollows),
+  brushland (scrub patches, lone trees). No gorges, and Eriador keeps its green grass, so it turns tawnier past Bree.
+- Seeding (2026-11-25, Aaron: "ensure that this stays seeded so there's randomness on new worlds"): variant patches
+  (and their edges), enclosures, lairs and old walls all mix `MiddleEarthMap.seed()` (the world seed, set as the server
+  starts; 0 on a client, which never knows it) into their hashes; the planners' per-thread caches reset when it changes.
+  The Shire's downs and the region layer's areas stay fixed: they follow LOTR's map, like the biomes.
+- Region layer (2026-11-25, Aaron: an "allowed biomes" map over the geographical one, "backend only", for the enchanted
+  forest and later Moria and Goblin-town): post-step `converter/regions.py` draws named regions in map pixels into
+  `map/regions.json` (`map/Regions`: polygons, rough circles, cut to another region); map.json `overlays` paint a
+  sub-biome over chosen biomes inside a region as the map loads (`MiddleEarthMap.paint`), so everything reading the map
+  sees it. Sub-biomes are their base biome copied fresh each run plus their own looks, plants and spawns, and join every
+  tag and table the base is in. `MiddleEarthMap.inRegion`/`regionsAt`, placement filter `lotr_port:in_region`. Moria
+  and Goblin-town are drawn (reserved) but nothing generates there yet: an underground phase would answer
+  `MapBiomeSource.getNoiseBiome` by y inside those regions.
+- Lairs (2026-11-25, Aaron: nests "relatively small only about a 200 sq/blocks of actual spider nests, and with
+  spiders spawning within a larger radius around it (with spawning being affected by destroying nests)"): `map/Lairs`,
+  set in `converter/regions.py LAIRS` -> map.json `lairs`. Seeded points on a per-kind grid (spider nests: a 512-block
+  cell in three of the enchanted forest's, ~100 a world), each a core (radius 100, Aaron: "200 by 200"; feature
+  `lotr_port:spider_nest`: webs, 4 egg sacs, silk bundles) and infested ground (radius 160, ragged) that
+  `biomeIndexAt` answers as the lair's biome (`landIndexAt` is the map without lairs). `lair/LairLife`: an egg sac
+  (`lair/EggSacBlock`, `spider_egg_sac`) gone hatches spiders and counts against its lair (SavedData
+  `lotr_port_lairs`); a spawn on its ground keeps its own table with chance = strength (1 - broken / `dead_at`), else
+  the `fallback_biome`'s (data `lair/<kind>.json`, reloads). World check builds the nest nearest the Forest Gate.
+- Enchanted Mirkwood (2026-11-25, The Hobbit films): northern Mirkwood from the Forest Gate along the Elf-path to the
+  Enchanted River, between the Forest River and the Mountains of Mirkwood, is `mirkwood_enchanted` (dark fog, black
+  water, drifting spores, light webs, spiders at night and Wood-elves); its spider nests are lairs (above), their
+  ground `mirkwood_spider_nests` (webs, dead trees, spiders by day; `wilderness` so borders.py leaves it nobody's
+  land); the map's painted river from the Mountains of Mirkwood to above the Forest River is `enchanted_river`.
+  Effects are data
+  (`region_effect/*.json`, `effect/RegionEffects`, effects `lotr_port:drowsy` and `enchanted_sleep` in
+  `effect/LotrEffects`): drowsiness and now and then nausea in `#lotr_port:enchanted_forest`; in water of
+  `#lotr_port:cursed_water` an enchanted sleep (no moving, blind, can't drown) and on waking a turn about; bottles filled
+  there are Black Water. Atmosphere files `mirkwood_enchanted.json`, `mirkwood_spider_nests.json`. Not looked at in game
+  yet.
 - Rivers (2026-11-14): `RIVERS` scale 1700 (about half as dense as LOTR-like 900), width 0.01324 (noise units: same
   width in blocks), banks 5 widths. `Rivers.carve`: only the channel (half a width) is cut to the bed; the banks come
   down to a block over sea level at a width, then up to the land (cutting the whole valley towards the bed flooded low
@@ -115,12 +200,54 @@ https://claude.ai/artifact/KqhSSTCuKXGuwKHBoYJdcu. Rebuild features in modern co
   Numbers in the configured feature JSONs. Not checked in game (new chunks only).
 - `Roads` registers each segment in every 256-block cell within `Roads.FLATTEN` (32): the terrain flattens hills by
   road distance, and a segment missing from a cell made it jump at the cell edge (straight 10+ block cliffs).
+- Features placed in the decoration steps must read the final heightmaps (`WORLD_SURFACE`, `MOTION_BLOCKING`,
+  `OCEAN_FLOOR`): from the carvers step on, 1.21 keeps only those up to date, and the `_WG` ones stay at the bare
+  ground under every tree (2026-11-25: the spider nests' canopy webs found no crowns and 9 in 10 tries failed).
 - Terrain preview (dev tool): `-Dlotr_port.terrainpreview=<x>,<z>,<size>` on a Middle-earth server writes
-  `run/terrain_preview/` (relief.png, variants.png, overhangs.png, stats.txt: water share, slopes, overhangs) and stops
-  (`.save=true`: saves the world for a client, e.g. DevScript aerial shots; don't set `chatVisibility` hidden in
+  `run/terrain_preview/` (relief.png, variants.png, overhangs.png, blocks.png: each column's top block in its map
+  colour; enclosures.txt: each enclosure's top blocks and each lair's core as letters; stats.txt: water share,
+  slopes, overhangs, columns
+  with webs, what the ground is made of) and stops
+  (`.save=true`: saves the world for a client, e.g. DevScript aerial shots; `-Dlotr_port.landmarks=true` logs
+  `[landmark]` spots of the seed: plots, Eriador patches, a spider nest, the Enchanted River; DevScript `floor x z yaw
+  pitch [up]` stands on the ground under any canopy, `noscreen` closes the race picker; first-person script
+  `lotr/devscripts/biome_shots.txt`; don't set `chatVisibility` hidden in
   options.txt, it blocks the script's commands).
-  Roads are 4-5 wide (`ROAD_HALF_WIDTH` 2.1, LOTR's were narrower); bridges `RoadFeature.BRIDGE_EXTRA` 1 wider each
-  side so 4-5 blocks of deck lie between the fences.
+  Roads are 6-7 wide (`ROAD_HALF_WIDTH` 3.1, Aaron 2026-11-25; was 2.1, LOTR's were narrower); bridges
+  `RoadFeature.BRIDGE_EXTRA` 1 wider each side so 6-7 blocks of deck lie between the fences.
+- No plants on roads (2026-11-25, Aaron: no grass or flowers on roads, sparse overgrowth on run-down ones): feature
+  `lotr_port:road_verge` (`world/feature/RoadVergeFeature`, first in the top-layer step) clears plants off road
+  columns in the chunk and 8 blocks round it after all vegetation. Roads with LOTR repair 1 stay bare; worn roads keep
+  or sow a few plants (chance (1 - repair) x a smooth per-24-block stretch factor x edge bias, more on gaps than on
+  laid blocks; numbers and plant list in `world.py ROAD_VERGE` -> its configured feature JSON). Hash-based per column,
+  so neighbouring chunks' passes agree. GameTest `RoadPlantTests`; the world check's `keptRoadsAreBare`.
+- LOTR's ground plants (2026-11-25, Aaron: thistles "and ALL LOTR weeds and flowers" with LOTR's spawning rules;
+  run on LOTR 36.15 in the sandbox with the jar from RingRealms): the exporter writes each biome's rules to
+  `world.json` `plants` (sampled getRandomGrass, getRandomWorldGenForDoubleGrass/DoubleFlower, the weighted `flowers`
+  list) and `-Dlotrexport.plants=true` runs `PlantCensus`: every plant on 15264 populated LOTR chunks (6 patches of
+  4x4 chunks per biome, seed 1, ~8 min) counted per biome with its grounds -> `export/plants_census.json`.
+  `world.py lotr_plants`: per kind (grass, double grass, flowers, double flowers) the census's plants per chunk shared
+  out by the rules, plus census-only plants of each biome's own decorate (Mordor scrub, thorns and moss, Morgul
+  shrooms, athelas, berry bushes, Fangorn plants, Rhun flowers...) at their measured rate and patch size; crops,
+  fruit, vines, reeds, fallen leaves and the vanilla patches world.py already places are skipped (`CENSUS_SKIP_PREFIX`).
+  Features `plant_<kind>/<plant>_c<n>|r<n>` (rarities on ~25% `RARITY_STEPS`) on shared `plant_patch/<plant>_<tries>`;
+  `PLANT_YIELD` 0.5 (plants per try) is an estimate, not measured in the port. The vanilla grass/flower stand-ins stay
+  only for an export without rules. LOTR's flowers are sparse because its decorator drops each flower patch at a
+  random y 0-127 (`nextInt(128)`); the census measures that, so the port keeps it. Soils: `content/PlantBlock` also
+  grows on its tag `lotr_port:grows_on/<plant>`, the grounds the census found (arid grass on sand, Mordor plants on
+  Mordor dirt/gravel/rock...; `SOIL_MIN_SHARE`). GameTest `RoadPlantTests`. Running the 1.7.10 exporter in the cloud
+  sandbox: JDK 8 + 25 from Adoptium, xvfb, keep the sandbox's `JAVA_TOOL_OPTIONS` (proxy truststore) and append to it,
+  and a Gradle init script pointing Maven Central at Google's mirror (Central answers 429 there).
+  The full `generate.py` no longer reproduces every committed generated file byte for byte (Pillow re-encodes PNGs,
+  hand additions to lang/tags/npc_animals): commit only the parts a change is about.
+- Shaders (2026-11-25, Aaron: shaders must know to wave LOTR's leaves and plants): most packs (Complementary, BSL,
+  Sildur's, Noble) wave only vanilla block names from their block.properties; Photon also reads tags (`%leaves`,
+  `%small_flowers`, `%saplings`, `%crops`). `converter/shaders.py` gives each LOTR leaf, sapling, flower, grass, vine,
+  bush, reed and crop a vanilla counterpart (`assets/lotr_port/shaders/block_aliases.json`; chandeliers excluded) and
+  adds the single-block irises/hibiscus to `minecraft:small_flowers`; optional mixin config `lotr_port.iris.mixins.json`
+  (`mixin/iris/IrisBlockIdMixin`, @Pseudo on Iris 1.8's `BlockMaterialMapping.createBlockStateIdMap`) fills ids the
+  pack left empty from the counterpart (`client/ShaderAliases`, matching shared properties such as crop age).
+  GameTest `everyLotrPlantHasAShaderAlias`. Not tried with Iris in game yet.
 - Plants: LOTR's reed patches (`reedPerChunk`, dried with `dryReedChance`) and the Dead Marshes' dead plants
   (`world.py marsh_plants`). Marsh lights left out: the block draws as a white cube, not LOTR's particles.
 - Big trees (Fangorn oaks reach 25+ blocks from the trunk) overflow what a feature may write: `tree/TreeOverflow`
@@ -139,7 +266,8 @@ https://claude.ai/artifact/KqhSSTCuKXGuwKHBoYJdcu. Rebuild features in modern co
 - Colour grading (2026-11-16, `client/ColorGrade`, shader `shaders/core/grade.*`): each atmosphere file's `grade`
   (offsets: saturation, contrast, warmth, brightness, vignette, bloom) runs as a post pass after the world, eased with
   the region look; `atmosphere/middle_earth.json` (priority -100) is the base look for every lotr_port biome. Config
-  `atmosphere.grading`. Not checked in game.
+  `atmosphere.grading`. Dark-land effects (grain, colour fringes, heat shimmer, edge blur), the One Ring's
+  wraith-world and drawing over Iris shader packs (2026-11-25): **read `lotr/docs/ring-and-looks.md`**.
 - Sky (2026-11-16, `client/MiddleEarthSky`, dimension type effects `lotr_port:middle_earth`): LOTR's sun (half-size 10),
   8-phase moon, painted night sky (3x2 cube maps `textures/environment/middle_earth/night_<n>`, one per night) and
   Earendil near the sun at dusk and dawn; vanilla sky colour, sunrise glow and clouds. Config `sky.enabled`.
@@ -249,6 +377,10 @@ https://claude.ai/artifact/KqhSSTCuKXGuwKHBoYJdcu. Rebuild features in modern co
   (`count_only_animals`: villages don't keep them away), and they don't despawn (`LotrNpc.removeWhenFarAway`,
   `NpcSpawns.isAnimal`). LOTR's horse family (boars...) is on the biomes' vanilla spawn lists. GameTest
   `lotrAnimalsSpawnAndStayLikeAnimals`.
+- Animal density (2026-11-19, Aaron: "a LOT of animals"): 1.7.10 had one 10% roll per new chunk over one creature
+  list (vanilla's and LOTR's animals together). Post-step `converter/animal_balance.py` splits that roll by weight
+  between vanilla's pass (biome `creature_spawn_probability`) and LOTR's (`generation_chance`); before, each rolled
+  10%. The ongoing animal cap counts vanilla animals (and LOTR's horses) too, not only LOTR's animal NPCs.
 - Mounts (2026-11-10, `mount/`, `converter/mounts.py`): LOTR's horse family is one entity class, `LotrHorse` (a
   vanilla `AbstractChestedHorse`, so taming, saddle, inventory screen, jumping and breeding are vanilla's), with one
   entity type per breed: `horse`, `shire_pony`, `zebra`, `wild_boar`, `camel`, `elk`, `rhino`, `giraffe`. Looks and
@@ -344,7 +476,8 @@ https://claude.ai/artifact/KqhSSTCuKXGuwKHBoYJdcu. Rebuild features in modern co
     column's open space under its highest block, i.e. rooms and under roofs). Everywhere else is structure void, so
     natural terrain stays. `terrain_adaptation` is `none` (beard_box carved the air ditches round every building);
     the piece fills under the ground layer down to solid ground instead (dirt under dirt/grass, else the same block,
-    up to `max_foundation` 24).
+    up to `max_foundation` 96, dirt for 4 blocks then stone). Ground scans don't see caves, so a cave mouth under
+    the footprint can be deep; 24 left a floating building in Eriador (2026-11-19).
   - Doors: the lower half takes the upper half's hinge (1.7.10 kept it only on top; split doors). Gates
     (`content/GateBlock`, LOTR's multi-block gates) rotate and mirror with the structure and open as one gate: the
     touching blocks of the same kind in the same plane.
@@ -400,6 +533,8 @@ https://claude.ai/artifact/KqhSSTCuKXGuwKHBoYJdcu. Rebuild features in modern co
   quest_offer.png`) above the head within 16 blocks (`NpcRenderer.renderQuestMark`). Right-clicking an unmarked giver
   just talks; taking the quest ends the offer (`Quests.accept`). `/lotr npc offer [radius]` starts offers for testing.
   Not yet: hiding the mark from players below the alignment (clients don't have faction data yet).
+- Companions (2026-11-19, `travel/Companions`): fast travel and the map's teleport take the mount you ride (you stay
+  on), animals on your lead, tamed pets not sitting and your hired units on follow (within 24 blocks).
 - Not yet: bounty, retrieve and pickpocket quests, fellowships, titles, custom waypoints, LOTR's quest
   speech.
 
@@ -431,6 +566,10 @@ https://claude.ai/artifact/KqhSSTCuKXGuwKHBoYJdcu. Rebuild features in modern co
   work, wages, needs, the Ledger, and colony wars: **read `lotr/docs/colonies.md`** before touching `society/`,
   `colony/`, `unit/`, `land/`, `social/`, `war/` or `ai/`.
 - Not yet: envoy spawning (rare NPCs come from normal spawning or commands for now).
+- Road works (2026-11-20, `road/`): roads that change after world generation, a tier ladder in data (`road_tier/`:
+  trails and dirt paths worn in by traffic; gravel, cobble and paved roads only built by waymakers), laid on natural
+  ground of loaded chunks, seen by routes. **Read `lotr/docs/roads.md`**; plan (caravans, Waymaker station, tunnels):
+  `docs/plans/roads.md`.
 
 ## Borders and kingdoms (2026-11-18, `border/`)
 - Who holds Middle-earth's land per map pixel, read top down: marks (conquest, operators), colonies' claims
@@ -564,7 +703,8 @@ https://claude.ai/artifact/KqhSSTCuKXGuwKHBoYJdcu. Rebuild features in modern co
   and bark, signs, hanging
   signs, buttons, pressure plates, boats and chest boats for all 39 LOTR woods; textures are vanilla 1.21.1's oak
   ones recoloured to the LOTR planks' colours, the client jar is downloaded once to converter/cache/), `tags.py`,
-  `stonecutting.py`, `waters.py`, `mountains.py`, `land.py`, `caves.py`.
+  `stonecutting.py`, `waters.py`, `mountains.py`, `land.py`, `caves.py`, `regions.py` (before `biomeconfig.py` and
+  `borders.py`, which then see its sub-biomes).
 - Wood sets (`content/woodset/`): one `WoodType` + `BlockSetType` per wood (`lotr_port:<wood>`, made when
   `WoodSets` loads, so vanilla builds their sign models and sheets), own sign/hanging-sign block entity types
   (`LotrSignBlocks`, the hanging one reports our type from vanilla's hanging-sign class so its edit screen opens),
@@ -627,6 +767,12 @@ https://claude.ai/artifact/KqhSSTCuKXGuwKHBoYJdcu. Rebuild features in modern co
   0.6 / 0; waters entrances 0. Changes apply to new chunks. GameTests `biomeConfigHasEveryBiome`,
   `caveSettingsFollowTheBiomeConfig`.
 
+## Rings of power and Curios (2026-11-25, `ring/`)
+- Curios is required (worn-item slots: ring now, cloak and backpack later, all as data). The One Ring
+  (`one_ring`, `ring_power/one_ring.json`) worn in a ring slot hides its wearer without the potion's particles, and
+  mobs lose them, except the Unseen. GameTest mock players need `gametest/MockPlayerChannels` for Curios' sync.
+  **Read `lotr/docs/ring-and-looks.md`.**
+
 ## Combat and armor models (2026-11-04)
 - 1.7.10 had no attack cooldown. LOTR's melee timing (`LOTRWeaponStats`: 15 ticks for a player's sword ÷ the
   class's speed factor, reach 3 × factor, extra knockback) is generated onto each melee weapon's `weapon` block in
@@ -636,7 +782,9 @@ https://claude.ai/artifact/KqhSSTCuKXGuwKHBoYJdcu. Rebuild features in modern co
 - Bows (`LotrBowItem`: draw time, arrow damage factor), crossbows (`LotrCrossbowItem`: vanilla crossbow, bolts only,
   `#lotr_port:crossbow_bolts`), and bolts and poisoned arrows (`ArrowItem` + a fixed Poison effect). Pull and charged
   predicates are in `LotrClient.rangedProperties`.
-- LOTR's large in-hand icons: `separate_transforms` item models on `item/large_2x` / `large_3x`.
+- LOTR's large in-hand icons: `separate_transforms` item models on `item/large_2x` / `large_3x`, with
+  `"gui_light": "front"` (a model without a parent defaults to block lighting: spears and pikes drew dark).
+- Modifiers don't glint (`mixin/ModifierGlintMixin` on `Item.isFoil`): only lotr_port enchantments = no glint.
 - Special armor models: `converter/armor_models.py` → `lotr_port/content/armor_models.json` → `client/ArmorModels`
   (`RegisterClientExtensionsEvent`). Animated parts keep their resting pose.
 - Per-item armor textures (2026-11-16): LOTR's `new LOTRItemArmor(mat, slot, "extra")` pieces (special helmets,
@@ -687,6 +835,18 @@ https://claude.ai/artifact/KqhSSTCuKXGuwKHBoYJdcu. Rebuild features in modern co
 - LOTR's amethyst is **tanzanite** (2026-11-19: 1.21 has its own amethyst): post-step `converter/renames.py`
   (`RENAMES`, names per language in `LANG`) renames ids, files, lang, tags, templates after generation. Keep LOTR's
   old ids out of new code: always `tanzanite`, `tanzanite_vein`, `tanzanite_block`.
+- LOTR's copper is vanilla's (2026-11-19, post-step `converter/vanilla_swaps.py`, `SWAPS`): copper ingot, ore
+  (deepslate form in deepslate) and block are removed and every reference uses vanilla's; recipes that only repeated
+  vanilla's are dropped. Copper goblets and treasure piles stay.
+- `converter/create_extra.py` (last post-step): Create saw cutting for every LOTR wood (log/beam/bark -> stripped ->
+  6 planks), smoker + campfire recipes for every LOTR furnace food (Create fan smoking), keg drinks as Create mixing
+  into the drink fluid (6 ingredients + 1000 mB water -> 1000 mB; spouts fill vessels, pipes fill/drain kegs).
+- Leaves (`converter/leaf_drops.py`, 2026-11-19): vanilla oak leaves' loot (shears/silk touch: the leaves; else
+  sapling, sticks), and the 14 fruit trees (`FRUIT`) drop their fruit (`FRUIT_CHANCES`, 4x vanilla's apple rate).
+- Saddles: also 3 leather + 2 iron (`src/main/resources/.../recipe/own/crafting/`); pouches: leather + string
+  (small only, `LSL / L`; no silk item); bigger pouches only by combining (`content/pouch/PouchCombineRecipe`,
+  `own/pouch_combine`: pouches whose slots add up to a bigger one, contents kept; 2 small = medium, small + medium
+  or 3 small = large).
 - `PouchItem` keeps items in `DataComponents.CONTAINER`; `PouchMenu`/`client/PouchScreen` on LOTR's layout with the
   name field (`Pouches.Rename` payload). Pick-ups go into pouches when the inventory is full.
 - GameTests `FarmTests`. `GameTestHelper.destroyBlock` drops nothing: use `level.destroyBlock(pos, true)` to test loot.
@@ -708,6 +868,21 @@ https://claude.ai/artifact/KqhSSTCuKXGuwKHBoYJdcu. Rebuild features in modern co
   `neoforge:mod_loaded` create) and `c:ores/*` / `c:nuggets/*` tags; every match and why is in
   `converter/create/crossref.json`. Re-extract Create's recipes when the pack's Create version changes. The recipe
   count GameTest skips `create/`, because the test server runs without Create.
+- Faction mechanical crafters (2026-11-19, Aaron: "literally duplicate the autocrafters, one for each faction ...
+  tinted that faction's color"): `compat/create` (registered only when Create is loaded; lotr compiles against Create,
+  `create_version` in lotr/gradle.properties, dev/GameTest runs load it with `-PwithCreate`). One
+  `<table>_mechanical_crafter` per faction table (27, `converter/create_crafters.py` `TABLES` table -> faction ->
+  `content/create_crafters.json` with the tint = faction colour lightened `LIGHTEN`). `FactionCrafterBlock` extends
+  Create's `MechanicalCrafterBlock` with our block entity type (`FactionCrafterBlockEntity`); Create's renderer,
+  cogwheel visual, stress impact 2, item handler and unpacking handler are registered for it. Mixins
+  (`lotr_port.create.mixins.json`, applied only with Create via `CreateMixinPlugin`): `BlockEntryMixin` makes
+  `AllBlocks.MECHANICAL_CRAFTER.has(state)` true for them (every Create crafter check: grids, connected inputs, arms);
+  `CrafterRecipeMixin` wraps `RecipeGridHandler.tryToApplyRecipe` in the crafter's tick: when Create finds nothing, a
+  grid with faction crafters (any in the chain) makes their tables' recipes (`FactionCrafting`; never ones with an
+  `alignment` need). Models: Create's crafter models, every quad given tint index 0 (`FactionCraftersClient`,
+  ModifyBakingResult); no connected textures. Made at their own table with Create's recipe (3 per craft) and
+  `FactionRecipe.alignment` (faction, `above` 0), checked by `FactionCraftingMenu`. GameTests `FactionCrafterTests`.
+  Read Create's code by decompiling the jar locally (allowed by Aaron 2026-11-19); never commit decompiled code.
 
 ## Sounds (2026-11-06)
 - `converter/sounds.py` copies LOTR's 190 sound files and 101 events. Ids are LOTR's, snake_cased per part:

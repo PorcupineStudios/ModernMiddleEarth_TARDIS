@@ -1,0 +1,164 @@
+[
+  {
+    "id": "angmar_mechanical_crafter",
+    "table": "lotr_port:angmar_crafting_table",
+    "faction": "lotr_port:angmar",
+    "tint": 10531488
+  },
+  {
+    "id": "blue_mountains_mechanical_crafter",
+    "table": "lotr_port:blue_mountains_crafting_table",
+    "faction": "lotr_port:blue_mountains",
+    "tint": 9351899
+  },
+  {
+    "id": "bree_land_mechanical_crafter",
+    "table": "lotr_port:bree_land_crafting_table",
+    "faction": "lotr_port:bree",
+    "tint": 13020828
+  },
+  {
+    "id": "dalish_mechanical_crafter",
+    "table": "lotr_port:dalish_crafting_table",
+    "faction": "lotr_port:dale",
+    "tint": 14527375
+  },
+  {
+    "id": "dol_amroth_mechanical_crafter",
+    "table": "lotr_port:dol_amroth_crafting_table",
+    "faction": "lotr_port:gondor",
+    "tint": 16514043
+  },
+  {
+    "id": "dol_guldur_mechanical_crafter",
+    "table": "lotr_port:dol_guldur_crafting_table",
+    "faction": "lotr_port:dol_guldur",
+    "tint": 7501436
+  },
+  {
+    "id": "dorwinion_mechanical_crafter",
+    "table": "lotr_port:dorwinion_crafting_table",
+    "faction": "lotr_port:dorwinion",
+    "tint": 10055317
+  },
+  {
+    "id": "dunlending_mechanical_crafter",
+    "table": "lotr_port:dunlending_crafting_table",
+    "faction": "lotr_port:dunland",
+    "tint": 12760241
+  },
+  {
+    "id": "dwarven_mechanical_crafter",
+    "table": "lotr_port:dwarven_crafting_table",
+    "faction": "lotr_port:durins_folk",
+    "tint": 8491176
+  },
+  {
+    "id": "galadhrim_mechanical_crafter",
+    "table": "lotr_port:galadhrim_crafting_table",
+    "faction": "lotr_port:lothlorien",
+    "tint": 16048010
+  },
+  {
+    "id": "gondorian_mechanical_crafter",
+    "table": "lotr_port:gondorian_crafting_table",
+    "faction": "lotr_port:gondor",
+    "tint": 16514043
+  },
+  {
+    "id": "gulfen_mechanical_crafter",
+    "table": "lotr_port:gulfen_crafting_table",
+    "faction": "lotr_port:near_harad",
+    "tint": 13328223
+  },
+  {
+    "id": "gundabad_mechanical_crafter",
+    "table": "lotr_port:gundabad_crafting_table",
+    "faction": "lotr_port:gundabad",
+    "tint": 11966599
+  },
+  {
+    "id": "half_troll_mechanical_crafter",
+    "table": "lotr_port:half_troll_crafting_table",
+    "faction": "lotr_port:half_troll",
+    "tint": 12298397
+  },
+  {
+    "id": "haradric_mechanical_crafter",
+    "table": "lotr_port:haradric_crafting_table",
+    "faction": "lotr_port:near_harad",
+    "tint": 13328223
+  },
+  {
+    "id": "hobbit_mechanical_crafter",
+    "table": "lotr_port:hobbit_crafting_table",
+    "faction": "lotr_port:hobbit",
+    "tint": 9166211
+  },
+  {
+    "id": "lindon_mechanical_crafter",
+    "table": "lotr_port:lindon_crafting_table",
+    "faction": "lotr_port:high_elf",
+    "tint": 14151167
+  },
+  {
+    "id": "morgul_mechanical_crafter",
+    "table": "lotr_port:morgul_crafting_table",
+    "faction": "lotr_port:mordor",
+    "tint": 7496290
+  },
+  {
+    "id": "morwaith_mechanical_crafter",
+    "table": "lotr_port:morwaith_crafting_table",
+    "faction": "lotr_port:morwaith",
+    "tint": 14993548
+  },
+  {
+    "id": "ranger_mechanical_crafter",
+    "table": "lotr_port:ranger_crafting_table",
+    "faction": "lotr_port:ranger_north",
+    "tint": 7702907
+  },
+  {
+    "id": "rh_nic_mechanical_crafter",
+    "table": "lotr_port:rh_nic_crafting_table",
+    "faction": "lotr_port:rhudel",
+    "tint": 14070632
+  },
+  {
+    "id": "rivendell_mechanical_crafter",
+    "table": "lotr_port:rivendell_crafting_table",
+    "faction": "lotr_port:high_elf",
+    "tint": 14151167
+  },
+  {
+    "id": "rohirric_mechanical_crafter",
+    "table": "lotr_port:rohirric_crafting_table",
+    "faction": "lotr_port:rohan",
+    "tint": 7514984
+  },
+  {
+    "id": "taurethrim_mechanical_crafter",
+    "table": "lotr_port:taurethrim_crafting_table",
+    "faction": "lotr_port:taurethrim",
+    "tint": 7180923
+  },
+  {
+    "id": "umbaric_mechanical_crafter",
+    "table": "lotr_port:umbaric_crafting_table",
+    "faction": "lotr_port:near_harad",
+    "tint": 13328223
+  },
+  {
+    "id": "uruk_mechanical_crafter",
+    "table": "lotr_port:uruk_crafting_table",
+    "faction": "lotr_port:isengard",
+    "tint": 7369840
+  },
+  {
+    "id": "wood_elven_mechanical_crafter",
+    "table": "lotr_port:wood_elven_crafting_table",
+    "faction": "lotr_port:wood_elf",
+    "tint": 7648899
+  }
+]

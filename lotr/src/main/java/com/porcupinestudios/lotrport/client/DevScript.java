@@ -21,8 +21,10 @@ import net.neoforged.neoforge.client.event.ClientTickEvent;
  * {@code -PquickPlay=<save>} the client opens the save and runs it once the player is in. One step per line:
  * {@code wait <ticks>}, {@code /<command>} (sent as the player), {@code use <x> <y> <z> [face]} (right-click that block's
  * face, up by default, with the main hand), {@code mouse <x> <y>} (move the pointer, window pixels), {@code click <x> <y>} (left-click the open screen at
- * GUI-scaled x, y), {@code close} (the open screen), {@code tab <id>} (turn the open colony book to that
- * ribbon), {@code hud on|off}, {@code shot <name>}
+ * GUI-scaled x, y), {@code close} (the open screen), {@code noscreen} (any screen, e.g. the race picker), {@code tab <id>} (turn the open colony book to that
+ * ribbon), {@code hud on|off}, {@code floor <x> <z> <yaw> <pitch> [up]} (stand on the real ground there, under any
+ * canopy: leaves, trunks, webs and plants are looked through; single player only), {@code turn <yaw> <pitch>} (turn
+ * the camera that many degrees every tick until {@code turn 0 0}: camera-motion checks), {@code shot <name>}
  * ({@code screenshots/<name>.png}), {@code quit}; {@code #} starts a comment.
  */
 @EventBusSubscriber(modid = LotrPort.MOD_ID, value = Dist.CLIENT)
@@ -33,6 +35,8 @@ public final class DevScript {
     private static List<String> steps;
     private static int next;
     private static int waiting;
+    private static float turnYaw;
+    private static float turnPitch;
 
     private DevScript() {}
 
@@ -49,6 +53,10 @@ public final class DevScript {
                 LotrPort.LOG.error("[devscript] can't read {}", FILE, e);
                 steps = List.of();
             }
+        }
+        if (turnYaw != 0 || turnPitch != 0) {
+            mc.player.setYRot(mc.player.getYRot() + turnYaw);
+            mc.player.setXRot(net.minecraft.util.Mth.clamp(mc.player.getXRot() + turnPitch, -90, 90));
         }
         if (waiting > 0) {
             waiting--;
@@ -67,6 +75,7 @@ public final class DevScript {
                     return;
                 }
                 case "shot" -> {
+                    LotrPort.LOG.info("[devscript] {} fps", mc.getFps());
                     Screenshot.grab(mc.gameDirectory, w[1] + ".png", mc.getMainRenderTarget(),
                             msg -> LotrPort.LOG.info("[devscript] {}", msg.getString()));
                     return;
@@ -135,10 +144,17 @@ public final class DevScript {
                         mc.screen.mouseReleased(lastX, lastY, 0);
                     }
                 }
+                case "turn" -> {
+                    turnYaw = Float.parseFloat(w[1]);
+                    turnPitch = Float.parseFloat(w[2]);
+                }
                 case "close" -> mc.player.closeContainer();
+                case "noscreen" -> mc.setScreen(null); // any screen (the race picker on joining)
                 // turn the open colony book to a tab (its ribbon), by id
                 case "tab" -> com.porcupinestudios.lotrport.client.book.BookScreen.turnTo(w[1]);
                 case "hud" -> mc.options.hideGui = w[1].equals("off");
+                case "floor" -> floor(mc, Integer.parseInt(w[1]), Integer.parseInt(w[2]), w[3], w[4],
+                        w.length > 5 ? Double.parseDouble(w[5]) : 0);
                 case "quit" -> {
                     mc.stop();
                     return;
@@ -152,6 +168,35 @@ public final class DevScript {
                 }
             }
         }
+    }
+
+    /** Stands the player on the ground at x, z (the integrated server finds it, generating the chunk if need be). */
+    private static void floor(Minecraft mc, int x, int z, String yaw, String pitch, double up) {
+        var server = mc.getSingleplayerServer();
+        if (server == null) {
+            return;
+        }
+        var dim = mc.level.dimension();
+        server.execute(() -> {
+            var level = server.getLevel(dim);
+            level.getChunk(x >> 4, z >> 4);
+            BlockPos.MutableBlockPos p = new BlockPos.MutableBlockPos(x, level.getHeight(
+                    net.minecraft.world.level.levelgen.Heightmap.Types.WORLD_SURFACE, x, z), z);
+            while (p.getY() > level.getMinBuildHeight()) {
+                var s = level.getBlockState(p);
+                if (!s.getFluidState().isEmpty()) {
+                    break; // stand on water, not on the river bed
+                }
+                if (!(s.isAir() || s.is(net.minecraft.tags.BlockTags.LEAVES) || s.is(net.minecraft.tags.BlockTags.LOGS)
+                        || s.is(net.minecraft.world.level.block.Blocks.COBWEB) || s.canBeReplaced())) {
+                    break;
+                }
+                p.move(Direction.DOWN);
+            }
+            var player = server.getPlayerList().getPlayers().get(0);
+            server.getCommands().performPrefixedCommand(player.createCommandSourceStack(),
+                    "tp @s " + (x + 0.5) + " " + (p.getY() + 1 + up) + " " + (z + 0.5) + " " + yaw + " " + pitch);
+        });
     }
 
     /** Moves the pointer. GLFW drops the event of its own cursor warp on X11, so set the handler's fields too. */

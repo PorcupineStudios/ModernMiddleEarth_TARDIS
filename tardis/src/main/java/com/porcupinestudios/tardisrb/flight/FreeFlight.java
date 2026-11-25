@@ -180,6 +180,41 @@ public final class FreeFlight {
     }
 
     /** Takes the loose body away (a jump or hop is about to land the TARDIS as a block somewhere). */
+    /**
+     * Makes sure the TARDIS stands somewhere its doors can open onto (2026-11-20: after some landings the door said
+     * there was no exterior until it dematerialised again): a loose record whose box can't be found even with its spot
+     * loaded is set down as the block there; a landed record with no police box at its spot gets the block back.
+     * Nothing happens in the vortex. Gives whether anything was put right.
+     */
+    public static boolean recover(MinecraftServer server, TardisRecord tardis) {
+        if (Vortex.inVortex(tardis) || tardis.location().isEmpty()) {
+            return false;
+        }
+        GlobalPos at = tardis.location().get();
+        ServerLevel level = server.getLevel(at.dimension());
+        if (level == null) {
+            return false;
+        }
+        level.getChunk(at.pos());
+        if (isLoose(tardis)) {
+            if (body(server, tardis).isPresent()) {
+                return false;
+            }
+            CompoundTag tag = tardis.moduleData(MODULE);
+            tag.remove("body");
+            tardis.setModuleData(MODULE, tag);
+        } else if (level.getBlockState(at.pos()).getBlock() instanceof ExteriorBlock) {
+            return false;
+        }
+        Tuning.FreeFlight t = TardisContent.tuning().flight();
+        BlockPos spot = Landing.find(level, at.pos(), Math.max(4, t.landingRadius() * 4), Math.max(16,
+                t.landingHeight() * 8)).orElse(at.pos());
+        Exteriors.place(level, spot, Direction.NORTH, tardis.id());
+        tardis.setLocation(Optional.of(GlobalPos.of(at.dimension(), spot)));
+        TardisRB.LOG.info("[tardis] {}: set down at {} (its box was missing)", tardis.name(), spot);
+        return true;
+    }
+
     public static void dock(MinecraftServer server, TardisRecord tardis) {
         if (!isLoose(tardis)) {
             return;

@@ -77,7 +77,7 @@ public final class MapNet {
         }
         ServerLevel level = player.serverLevel();
         BlockPos at = LotrDimensions.surface(level, x, z);
-        player.teleportTo(level, x + 0.5, at.getY(), z + 0.5, player.getYRot(), player.getXRot());
+        com.porcupinestudios.lotrport.travel.Companions.teleport(player, x + 0.5, at.getY(), z + 0.5);
     }
 
     /** What the map screen shows this player. */

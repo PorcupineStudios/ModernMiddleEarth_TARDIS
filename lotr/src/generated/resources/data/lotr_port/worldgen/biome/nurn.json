@@ -79,10 +79,18 @@
       "lotr_port:trees/nurn",
       "lotr_port:plant/reeds_0_4",
       "lotr_port:plant/dried_reeds_0_6",
-      "minecraft:patch_grass_plain",
+      "lotr_port:plant_grass/clover_r2",
+      "lotr_port:plant_grass/flax_plant_r50",
+      "lotr_port:plant_grass/flowery_grass_r3",
+      "lotr_port:plant_grass/nettles_r64",
+      "lotr_port:plant_grass/short_grass_c3",
+      "lotr_port:plant_grass/thistle_r12",
+      "lotr_port:plant_grass/wheatgrass_r3",
+      "lotr_port:plant_grass/minecraft_short_grass_c1",
       "minecraft:glow_lichen"
     ],
     [
+      "lotr_port:road_verge",
       "minecraft:freeze_top_layer"
     ]
   ]

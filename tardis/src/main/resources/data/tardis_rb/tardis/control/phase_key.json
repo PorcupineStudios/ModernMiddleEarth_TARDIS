@@ -1,15 +1,14 @@
 {
   "model": "phase_key",
   "panel": 3,
-  "u": -0.22,
-  "v": 0.494,
-  "scale": 0.64,
+  "u": -0.2256,
+  "v": 0.5255,
+  "scale": 0.72,
   "actions": {
     "key": "phase_key"
   },
   "requirements": {
-    "type": "tardis_rb:subsystem_level",
-    "subsystem": "tardis_rb:navigation",
-    "min": 1
+    "type": "tardis_rb:research",
+    "research": "tardis_rb:materialised_flight"
   }
 }

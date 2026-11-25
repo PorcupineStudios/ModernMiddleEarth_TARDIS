@@ -1,0 +1,14 @@
+{
+  "required": false,
+  "minVersion": "0.8",
+  "package": "com.porcupinestudios.lotrport.mixin.create",
+  "plugin": "com.porcupinestudios.lotrport.mixin.create.CreateMixinPlugin",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": [
+    "BlockEntryMixin",
+    "CrafterRecipeMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

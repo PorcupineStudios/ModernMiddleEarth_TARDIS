@@ -1,0 +1,65 @@
+{
+  "type": "lotr_port:ground_cover",
+  "config": {
+    "biomes": [
+      "lotr_port:eriador"
+    ],
+    "variants": [
+      "old_woods"
+    ],
+    "blocks": {
+      "rock": {
+        "Name": "lotr_port:weathered_stone"
+      },
+      "lichen": {
+        "Name": "lotr_port:lichen_stone"
+      },
+      "rubble": {
+        "Name": "lotr_port:scree"
+      },
+      "peat": {
+        "Name": "lotr_port:moorland_soil"
+      },
+      "moss": {
+        "Name": "lotr_port:heath_moss"
+      },
+      "coarse": {
+        "Name": "lotr_port:stony_earth"
+      },
+      "gravel": {
+        "Name": "minecraft:gravel"
+      },
+      "dirt": {
+        "Name": "lotr_port:rocky_dirt"
+      }
+    },
+    "rules": {
+      "patch": 34,
+      "coarse": 9,
+      "rubble": 9,
+      "rock": 9,
+      "lichen": 0.3,
+      "wet": 0.5,
+      "moss": 0.68,
+      "steep": 4,
+      "east": 0,
+      "east_from": 0,
+      "east_to": 0
+    },
+    "creeks": {
+      "scale": 260,
+      "width": 2.5,
+      "mask": 0.35
+    },
+    "plants": [
+      {
+        "block": {
+          "Name": "lotr_port:bracken"
+        },
+        "chance": 0.3,
+        "patch": 26,
+        "above": 0.5
+      }
+    ]
+  }
+}

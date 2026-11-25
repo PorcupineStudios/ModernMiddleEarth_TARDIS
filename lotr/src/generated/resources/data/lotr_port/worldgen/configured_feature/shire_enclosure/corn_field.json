@@ -1,0 +1,56 @@
+{
+  "type": "lotr_port:enclosure",
+  "config": {
+    "kind": "corn_field",
+    "fence": {
+      "Name": "minecraft:oak_fence"
+    },
+    "gate": {
+      "Name": "minecraft:oak_fence_gate"
+    },
+    "post": {
+      "Name": "minecraft:oak_log",
+      "Properties": {
+        "axis": "y"
+      }
+    },
+    "hedge": {
+      "Name": "minecraft:oak_leaves",
+      "Properties": {
+        "persistent": "true",
+        "distance": "7",
+        "waterlogged": "false"
+      }
+    },
+    "hedge_chance": 0.35,
+    "hedge_height": 2,
+    "path": {
+      "Name": "minecraft:dirt_path"
+    },
+    "headland": 1,
+    "crop": {
+      "block": {
+        "Name": "lotr_port:corn_stalks",
+        "Properties": {
+          "age": "7",
+          "corn": "false"
+        }
+      },
+      "min_height": 2,
+      "max_height": 2,
+      "flag": "corn",
+      "flag_chance": 0.35,
+      "soil": {
+        "Name": "minecraft:farmland",
+        "Properties": {
+          "moisture": "7"
+        }
+      },
+      "water_every": 0,
+      "row_spacing": 2,
+      "furrow": {
+        "Name": "minecraft:dirt_path"
+      }
+    }
+  }
+}
