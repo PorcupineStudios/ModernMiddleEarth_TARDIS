@@ -240,6 +240,20 @@ https://claude.ai/artifact/KqhSSTCuKXGuwKHBoYJdcu. Rebuild features in modern co
   and a Gradle init script pointing Maven Central at Google's mirror (Central answers 429 there).
   The full `generate.py` no longer reproduces every committed generated file byte for byte (Pillow re-encodes PNGs,
   hand additions to lang/tags/npc_animals): commit only the parts a change is about.
+- Vanilla flowers (2026-11-25, Aaron: "tone down the vanilla flowers but keep them in sparse patches", the Shire's
+  flower forest keeps lots of flowers, LOTR's and vanilla's mixed): `converter/flowers.py` mixes (one random_patch,
+  weighted plant per try). Foothills get `vanilla_flowers_sparse` (1 in 6 chunks, 12 tries) instead of vanilla's
+  flower_meadow; the Shire's meadows variant (LOTR's FLOWERS, the flower forest) gets `shire_flower_forest` (5 a chunk,
+  48 tries: marigold, bluebell, lavender, Shire heather, flax + vanilla's meadow and flower-forest flowers) and
+  `shire_flower_forest_tall` (lilac, rose bush, peony). No biome uses vanilla's flower_default/meadow/flower_forest.
+- Plant tuning (2026-11-25): dev tool `-Dlotr_port.plantcensus=<patches>` (`world/PortPlantCensus`, ~1 h for 3 patches
+  a biome here) counts the port's plants as the exporter's census counts LOTR's; `converter/plant_compare.py` sets them
+  side by side (`--calibrate` updates `converter/plant_calibration.json`). Run 1 (guessed yield 0.5): 0.34 of LOTR's
+  plants; run 2 (per-plant rates and LOTR's patch sizes, yield 0.17): 0.90, median biome 0.92; then yield 0.153 and
+  per-plant factors; run 3 (final flower mixes): 0.97, median biome 0.98, then recalibrated. Shire by variant (`.biomes=shire`, `.variants=true`, 40 patches, 5 min): meadows ~40 flowers a chunk (16 LOTR, 24 vanilla), the rest ~3 (LOTR's ~2.5). Mountain biomes stay ~0.1: the port's ranges are bare rock where LOTR's had grass (terrain).
+  Why a literal port of LOTR's rules would grow ~8x LOTR's flowers: 1.7.10's WorldGenFlowers starts at the decorator's
+  random y (`nextInt(128)`, tries only +-3) and never looks for the ground, while WorldGenTallGrass walks down to it;
+  in LOTR's census a flower patch leaves 0.35 flowers, a grass patch 5.8. Modern patches start at the heightmap.
 - Shaders (2026-11-25, Aaron: shaders must know to wave LOTR's leaves and plants): most packs (Complementary, BSL,
   Sildur's, Noble) wave only vanilla block names from their block.properties; Photon also reads tags (`%leaves`,
   `%small_flowers`, `%saplings`, `%crops`). `converter/shaders.py` gives each LOTR leaf, sapling, flower, grass, vine,
