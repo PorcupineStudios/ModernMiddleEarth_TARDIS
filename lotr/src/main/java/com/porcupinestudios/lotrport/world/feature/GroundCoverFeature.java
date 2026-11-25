@@ -213,7 +213,7 @@ public final class GroundCoverFeature extends Feature<GroundCoverFeature.Config>
                     changed = true;
                     continue;
                 }
-                if (slope == r.steep() - 1 && patch + jitter > -0.2) {
+                if (slope == r.steep() - 1 && patch + jitter > r.rubble() - 0.25) { // scree on the stonier slopes only
                     setTop(level, p, Wilds.unit(x, z, 0x52554242L) < 0.7 ? b.rubble() : b.coarse());
                     changed = true;
                     continue;

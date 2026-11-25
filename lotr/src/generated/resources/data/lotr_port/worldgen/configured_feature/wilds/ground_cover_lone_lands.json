@@ -30,9 +30,9 @@
     },
     "rules": {
       "patch": 34,
-      "coarse": 0.22,
-      "rubble": 0.42,
-      "rock": 0.58,
+      "coarse": 0.3,
+      "rubble": 0.5,
+      "rock": 0.64,
       "lichen": 0.25,
       "wet": 0.62,
       "moss": 0.82,
