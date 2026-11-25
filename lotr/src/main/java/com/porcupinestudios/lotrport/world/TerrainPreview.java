@@ -33,6 +33,9 @@ public final class TerrainPreview {
     private TerrainPreview() {}
 
     static void runIfAsked(MinecraftServer server) {
+        if (Boolean.getBoolean("lotr_port.landmarks")) {
+            landmarks();
+        }
         String arg = System.getProperty("lotr_port.terrainpreview");
         if (arg == null) {
             return;
@@ -281,6 +284,93 @@ public final class TerrainPreview {
             }
         }
         return sb.toString();
+    }
+
+    /**
+     * Dev ({@code -Dlotr_port.landmarks=true}): logs "[landmark] name x z" for places worth a look in this world's seed
+     * (the nearest plots of each kind and a hedged field, Eriador's old fields and tors, the spider nest nearest the
+     * Forest Gate, a spot of Enchanted Mirkwood away from nests, the Enchanted River), for screenshot scripts.
+     */
+    static void landmarks() {
+        MiddleEarthMap map = MiddleEarthMap.get();
+        java.util.Map<String, int[]> out = new java.util.LinkedHashMap<>();
+        for (int r = 0; r <= 30; r++) {
+            for (int i = -r; i <= r; i++) {
+                for (int k = -r; k <= r; k++) {
+                    if (Math.max(Math.abs(i), Math.abs(k)) != r) {
+                        continue;
+                    }
+                    var e = map.enclosureInCellOf(i * 128, k * 128);
+                    if (e != null) {
+                        int[] at = { (e.minX() + e.maxX()) / 2, (e.minZ() + e.maxZ()) / 2, e.minX(), e.minZ(),
+                                e.maxX(), e.maxZ() };
+                        out.putIfAbsent(e.kind().name(), at);
+                        if (e.kind().name().equals("corn_field") && e.roll(0) < 0.35) {
+                            out.putIfAbsent("hedged_corn_field", at);
+                        }
+                    }
+                }
+            }
+        }
+        BlockPos eriador = map.blockOfPixel(880, 640);
+        for (int d = 0; d < 20000 && (!out.containsKey("old_fields") || !out.containsKey("tors")); d += 64) {
+            for (int a = 0; a < 16; a++) {
+                int x = eriador.getX() + (int) (Math.cos(a * Math.PI / 8) * d);
+                int z = eriador.getZ() + (int) (Math.sin(a * Math.PI / 8) * d);
+                String v = map.variantAt(x, z);
+                if (v != null && (v.equals("old_fields") || v.equals("tors"))
+                        && map.variantAt(x + 96, z) != null && v.equals(map.variantAt(x + 96, z))
+                        && v.equals(map.variantAt(x - 96, z)) && v.equals(map.variantAt(x, z + 96))) {
+                    out.putIfAbsent(v, new int[] { x, z });
+                }
+            }
+        }
+        BlockPos gate = map.blockOfPixel(1310, 655);
+        com.porcupinestudios.lotrport.world.map.Lairs.Lair best = null;
+        for (int dx = -6000; dx <= 6000; dx += 256) {
+            for (int dz = -6000; dz <= 6000; dz += 256) {
+                for (var l : map.lairsInCellsOf(gate.getX() + dx, gate.getZ() + dz)) {
+                    if (best == null || l.distance(gate.getX(), gate.getZ()) < best.distance(gate.getX(), gate.getZ())) {
+                        best = l;
+                    }
+                }
+            }
+        }
+        if (best != null) {
+            out.put("spider_nest", new int[] { best.x(), best.z(), best.kind().core(), best.kind().radius() });
+            int[] sac = best.sacs().get(0);
+            out.put("egg_sac", sac);
+        }
+        int enchanted = -1;
+        int river = -1;
+        for (int i = 0; i < map.biomes().size(); i++) {
+            enchanted = map.biomes().get(i).id().equals("lotr_port:mirkwood_enchanted") ? i : enchanted;
+            river = map.biomes().get(i).id().equals("lotr_port:enchanted_river") ? i : river;
+        }
+        for (int d = 0; d < 6000 && !out.containsKey("enchanted_forest"); d += 32) {
+            for (int a = 0; a < 16; a++) {
+                int x = gate.getX() + 400 + (int) (Math.cos(a * Math.PI / 8) * d);
+                int z = gate.getZ() + (int) (Math.sin(a * Math.PI / 8) * d);
+                if (map.biomeIndexAt(x, z) == enchanted && map.biomeIndexAt(x + 200, z) == enchanted
+                        && map.biomeIndexAt(x - 200, z) == enchanted) {
+                    out.put("enchanted_forest", new int[] { x, z });
+                    break;
+                }
+            }
+        }
+        BlockPos crossing = map.blockOfPixel(1395.5, 652.5);
+        for (int d = 0; d < 3000 && !out.containsKey("enchanted_river"); d += 4) {
+            for (int a = 0; a < 32; a++) {
+                int x = crossing.getX() + (int) (Math.cos(a * Math.PI / 16) * d);
+                int z = crossing.getZ() + (int) (Math.sin(a * Math.PI / 16) * d);
+                if (map.biomeIndexAt(x, z) == river && map.heightAt(x, z) < 60) {
+                    out.put("enchanted_river", new int[] { x, z });
+                    break;
+                }
+            }
+        }
+        out.forEach((k, v) -> LotrPort.LOG.info("[landmark] {} {}", k,
+                java.util.Arrays.stream(v).mapToObj(Integer::toString).collect(java.util.stream.Collectors.joining(" "))));
     }
 
     private static int rgb(double r, double g, double b) {
