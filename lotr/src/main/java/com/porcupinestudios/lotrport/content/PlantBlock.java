@@ -25,6 +25,7 @@ public class PlantBlock extends BushBlock {
 
     @Override
     protected VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
-        return SHAPE;
+        net.minecraft.world.phys.Vec3 offset = state.getOffset(level, pos); // zero unless the entry has an offset
+        return SHAPE.move(offset.x, offset.y, offset.z);
     }
 }

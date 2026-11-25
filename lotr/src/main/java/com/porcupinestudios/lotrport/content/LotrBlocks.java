@@ -198,6 +198,12 @@ public final class LotrBlocks {
         return e == null ? "" : ContentData.str(e, "machine", "");
     }
 
+    /** Blocks whose entry has {@code "tint": tint} ({@code grass}: LOTR's grey grasses and clovers). */
+    public static Block[] tinted(String tint) {
+        return ENTRIES.entrySet().stream().filter(x -> tint.equals(ContentData.str(x.getValue(), "tint", "")))
+                .map(x -> BY_ID.get(x.getKey()).get()).toArray(Block[]::new);
+    }
+
     /** A block's {@code texture} (chest and kebab stand textures under {@code textures/entity/block/}), or null. */
     public static String texture(String id) {
         JsonObject e = ENTRIES.get(id);
@@ -242,6 +248,9 @@ public final class LotrBlocks {
         }
         if (!ContentData.bool(e, "collision", true)) {
             p.noCollission();
+        }
+        if ("xz".equals(ContentData.str(e, "offset", ""))) {
+            p.offsetType(BlockBehaviour.OffsetType.XZ); // LOTR's randomly shifted clovers
         }
         switch (kind) {
             case "leaves" -> p.randomTicks().isValidSpawn((s, l, pos, type) -> false)

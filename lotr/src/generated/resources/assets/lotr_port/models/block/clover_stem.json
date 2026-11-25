@@ -1,0 +1,98 @@
+{
+  "ambientocclusion": false,
+  "render_type": "minecraft:cutout",
+  "textures": {
+    "particle": "lotr_port:block/clover_petal",
+    "petal": "lotr_port:block/clover_petal"
+  },
+  "elements": [
+    {
+      "from": [
+        7.5,
+        0,
+        8
+      ],
+      "to": [
+        8.5,
+        5.0,
+        8
+      ],
+      "shade": false,
+      "rotation": {
+        "origin": [
+          8,
+          0,
+          8
+        ],
+        "axis": "y",
+        "angle": 45
+      },
+      "faces": {
+        "north": {
+          "texture": "#petal",
+          "tintindex": 0,
+          "uv": [
+            7,
+            7,
+            9,
+            8
+          ]
+        },
+        "south": {
+          "texture": "#petal",
+          "tintindex": 0,
+          "uv": [
+            7,
+            7,
+            9,
+            8
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        8,
+        0,
+        7.5
+      ],
+      "to": [
+        8,
+        5.0,
+        8.5
+      ],
+      "shade": false,
+      "rotation": {
+        "origin": [
+          8,
+          0,
+          8
+        ],
+        "axis": "y",
+        "angle": 45
+      },
+      "faces": {
+        "west": {
+          "texture": "#petal",
+          "tintindex": 0,
+          "uv": [
+            7,
+            7,
+            9,
+            8
+          ]
+        },
+        "east": {
+          "texture": "#petal",
+          "tintindex": 0,
+          "uv": [
+            7,
+            7,
+            9,
+            8
+          ]
+        }
+      }
+    }
+  ]
+}

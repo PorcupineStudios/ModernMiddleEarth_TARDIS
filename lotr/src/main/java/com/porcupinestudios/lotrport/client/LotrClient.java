@@ -200,12 +200,22 @@ public final class LotrClient {
         event.register((state, level, pos, tint) -> level != null && pos != null
                 ? net.minecraft.client.renderer.BiomeColors.getAverageFoliageColor(level, pos)
                 : net.minecraft.world.level.FoliageColor.getDefaultColor(), tintedFallen());
+        // LOTR's grey tall grasses and clovers take the biome's grass colour (their colorMultiplier)
+        event.register((state, level, pos, tint) -> level != null && pos != null
+                ? net.minecraft.client.renderer.BiomeColors.getAverageGrassColor(level, pos)
+                : net.minecraft.world.level.GrassColor.getDefaultColor(),
+                com.porcupinestudios.lotrport.content.LotrBlocks.tinted("grass"));
     }
 
     @SubscribeEvent
     public static void itemColors(net.neoforged.neoforge.client.event.RegisterColorHandlersEvent.Item event) {
         event.register((stack, layer) -> net.minecraft.world.level.FoliageColor.getDefaultColor(),
                 java.util.Arrays.stream(tintedFallen()).map(net.minecraft.world.level.block.Block::asItem)
+                        .toArray(net.minecraft.world.level.ItemLike[]::new));
+        event.register((stack, layer) -> net.minecraft.world.level.GrassColor.getDefaultColor(),
+                java.util.Arrays.stream(com.porcupinestudios.lotrport.content.LotrBlocks.tinted("grass"))
+                        .map(net.minecraft.world.level.block.Block::asItem)
+                        .filter(i -> i != net.minecraft.world.item.Items.AIR)
                         .toArray(net.minecraft.world.level.ItemLike[]::new));
         event.register((stack, layer) -> layer == 0
                 ? net.minecraft.world.item.component.DyedItemColor.getOrDefault(stack, -1) : -1,
