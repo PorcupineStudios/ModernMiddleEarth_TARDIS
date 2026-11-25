@@ -97,7 +97,7 @@ public final class RoadFeature extends Feature<NoneFeatureConfiguration> {
     }
 
     /** The road's ragged edge: a fixed per-column jitter of up to half a block on its width. */
-    private static boolean onRoad(Roads roads, int x, int z) {
+    public static boolean onRoad(Roads roads, int x, int z) {
         double jitter = (((x * 73428767L) ^ (z * 912931L)) & 15) / 32.0;
         return roads.distance(x, z) <= roads.width() + jitter;
     }

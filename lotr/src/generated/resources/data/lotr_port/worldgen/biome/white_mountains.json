@@ -109,9 +109,19 @@
       "lotr_port:forest_floor/1_0",
       "lotr_port:plant/reeds_0_9",
       "lotr_port:plant/dried_reeds_0_1",
-      "minecraft:flower_default",
-      "minecraft:patch_grass_plain",
-      "minecraft:patch_tall_grass",
+      "lotr_port:plant_grass/clover_r8",
+      "lotr_port:plant_grass/flax_plant_r100",
+      "lotr_port:plant_grass/flowery_grass_r8",
+      "lotr_port:plant_grass/nettles_r50",
+      "lotr_port:plant_grass/short_grass_r2",
+      "lotr_port:plant_grass/thistle_r25",
+      "lotr_port:plant_grass/wheatgrass_r8",
+      "lotr_port:plant_grass/minecraft_short_grass_r3",
+      "lotr_port:plant_double_grass/minecraft_tall_grass_r25",
+      "lotr_port:plant_flowers/bluebell_r80",
+      "lotr_port:plant_flowers/minecraft_blue_orchid_r40",
+      "lotr_port:plant_flowers/minecraft_dandelion_r40",
+      "lotr_port:plant_flowers/minecraft_poppy_r160",
       "minecraft:glow_lichen",
       "lotr_port:lush_cave_ceiling",
       "lotr_port:lush_cave_vines",
@@ -121,6 +131,7 @@
       "lotr_port:lush_cave_spore_blossom"
     ],
     [
+      "lotr_port:road_verge",
       "minecraft:freeze_top_layer"
     ]
   ],

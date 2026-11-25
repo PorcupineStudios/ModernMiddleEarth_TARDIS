@@ -126,14 +126,23 @@
       "lotr_port:forest_floor/3_3",
       "lotr_port:plant/reeds_0_9",
       "lotr_port:plant/dried_reeds_0_1",
-      "minecraft:patch_grass_forest",
-      "minecraft:patch_tall_grass",
-      "minecraft:patch_large_fern",
+      "lotr_port:plant_grass/clover_r20",
+      "lotr_port:plant_grass/flax_plant_r400",
+      "lotr_port:plant_grass/flowery_grass_r12",
+      "lotr_port:plant_grass/nettles_r128",
+      "lotr_port:plant_grass/short_grass_r3",
+      "lotr_port:plant_grass/thistle_r320",
+      "lotr_port:plant_grass/wheatgrass_r16",
+      "lotr_port:plant_grass/minecraft_fern_r3",
+      "lotr_port:plant_grass/minecraft_short_grass_r5",
+      "lotr_port:plant_double_grass/minecraft_large_fern_r8",
+      "lotr_port:plant_double_grass/minecraft_tall_grass_r5",
       "minecraft:glow_lichen",
       "minecraft:brown_mushroom_normal",
       "minecraft:red_mushroom_normal"
     ],
     [
+      "lotr_port:road_verge",
       "minecraft:freeze_top_layer"
     ]
   ],

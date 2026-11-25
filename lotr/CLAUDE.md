@@ -184,8 +184,41 @@ https://claude.ai/artifact/KqhSSTCuKXGuwKHBoYJdcu. Rebuild features in modern co
   pitch [up]` stands on the ground under any canopy, `noscreen` closes the race picker; first-person script
   `lotr/devscripts/biome_shots.txt`; don't set `chatVisibility` hidden in
   options.txt, it blocks the script's commands).
-  Roads are 4-5 wide (`ROAD_HALF_WIDTH` 2.1, LOTR's were narrower); bridges `RoadFeature.BRIDGE_EXTRA` 1 wider each
-  side so 4-5 blocks of deck lie between the fences.
+  Roads are 6-7 wide (`ROAD_HALF_WIDTH` 3.1, Aaron 2026-11-25; was 2.1, LOTR's were narrower); bridges
+  `RoadFeature.BRIDGE_EXTRA` 1 wider each side so 6-7 blocks of deck lie between the fences.
+- No plants on roads (2026-11-25, Aaron: no grass or flowers on roads, sparse overgrowth on run-down ones): feature
+  `lotr_port:road_verge` (`world/feature/RoadVergeFeature`, first in the top-layer step) clears plants off road
+  columns in the chunk and 8 blocks round it after all vegetation. Roads with LOTR repair 1 stay bare; worn roads keep
+  or sow a few plants (chance (1 - repair) x a smooth per-24-block stretch factor x edge bias, more on gaps than on
+  laid blocks; numbers and plant list in `world.py ROAD_VERGE` -> its configured feature JSON). Hash-based per column,
+  so neighbouring chunks' passes agree. GameTest `RoadPlantTests`; the world check's `keptRoadsAreBare`.
+- LOTR's ground plants (2026-11-25, Aaron: thistles "and ALL LOTR weeds and flowers" with LOTR's spawning rules;
+  run on LOTR 36.15 in the sandbox with the jar from RingRealms): the exporter writes each biome's rules to
+  `world.json` `plants` (sampled getRandomGrass, getRandomWorldGenForDoubleGrass/DoubleFlower, the weighted `flowers`
+  list) and `-Dlotrexport.plants=true` runs `PlantCensus`: every plant on 15264 populated LOTR chunks (6 patches of
+  4x4 chunks per biome, seed 1, ~8 min) counted per biome with its grounds -> `export/plants_census.json`.
+  `world.py lotr_plants`: per kind (grass, double grass, flowers, double flowers) the census's plants per chunk shared
+  out by the rules, plus census-only plants of each biome's own decorate (Mordor scrub, thorns and moss, Morgul
+  shrooms, athelas, berry bushes, Fangorn plants, Rhun flowers...) at their measured rate and patch size; crops,
+  fruit, vines, reeds, fallen leaves and the vanilla patches world.py already places are skipped (`CENSUS_SKIP_PREFIX`).
+  Features `plant_<kind>/<plant>_c<n>|r<n>` (rarities on ~25% `RARITY_STEPS`) on shared `plant_patch/<plant>_<tries>`;
+  `PLANT_YIELD` 0.5 (plants per try) is an estimate, not measured in the port. The vanilla grass/flower stand-ins stay
+  only for an export without rules. LOTR's flowers are sparse because its decorator drops each flower patch at a
+  random y 0-127 (`nextInt(128)`); the census measures that, so the port keeps it. Soils: `content/PlantBlock` also
+  grows on its tag `lotr_port:grows_on/<plant>`, the grounds the census found (arid grass on sand, Mordor plants on
+  Mordor dirt/gravel/rock...; `SOIL_MIN_SHARE`). GameTest `RoadPlantTests`. Running the 1.7.10 exporter in the cloud
+  sandbox: JDK 8 + 25 from Adoptium, xvfb, keep the sandbox's `JAVA_TOOL_OPTIONS` (proxy truststore) and append to it,
+  and a Gradle init script pointing Maven Central at Google's mirror (Central answers 429 there).
+  The full `generate.py` no longer reproduces every committed generated file byte for byte (Pillow re-encodes PNGs,
+  hand additions to lang/tags/npc_animals): commit only the parts a change is about.
+- Shaders (2026-11-25, Aaron: shaders must know to wave LOTR's leaves and plants): most packs (Complementary, BSL,
+  Sildur's, Noble) wave only vanilla block names from their block.properties; Photon also reads tags (`%leaves`,
+  `%small_flowers`, `%saplings`, `%crops`). `converter/shaders.py` gives each LOTR leaf, sapling, flower, grass, vine,
+  bush, reed and crop a vanilla counterpart (`assets/lotr_port/shaders/block_aliases.json`; chandeliers excluded) and
+  adds the single-block irises/hibiscus to `minecraft:small_flowers`; optional mixin config `lotr_port.iris.mixins.json`
+  (`mixin/iris/IrisBlockIdMixin`, @Pseudo on Iris 1.8's `BlockMaterialMapping.createBlockStateIdMap`) fills ids the
+  pack left empty from the counterpart (`client/ShaderAliases`, matching shared properties such as crop age).
+  GameTest `everyLotrPlantHasAShaderAlias`. Not tried with Iris in game yet.
 - Plants: LOTR's reed patches (`reedPerChunk`, dried with `dryReedChance`) and the Dead Marshes' dead plants
   (`world.py marsh_plants`). Marsh lights left out: the block draws as a white cube, not LOTR's particles.
 - Big trees (Fangorn oaks reach 25+ blocks from the trunk) overflow what a feature may write: `tree/TreeOverflow`

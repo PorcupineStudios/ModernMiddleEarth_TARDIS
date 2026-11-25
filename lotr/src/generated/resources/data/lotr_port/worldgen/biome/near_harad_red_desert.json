@@ -102,9 +102,11 @@
       "lotr_port:plant/dried_reeds_0_1",
       "minecraft:patch_dead_bush",
       "minecraft:patch_cactus_desert",
+      "lotr_port:plant_extra/arid_grass_r3",
       "minecraft:glow_lichen"
     ],
     [
+      "lotr_port:road_verge",
       "minecraft:freeze_top_layer"
     ]
   ],

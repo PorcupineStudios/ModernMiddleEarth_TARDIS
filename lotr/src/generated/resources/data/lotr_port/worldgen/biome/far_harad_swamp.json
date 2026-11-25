@@ -108,10 +108,20 @@
       "lotr_port:forest_floor/0_3",
       "lotr_port:plant/reeds_2_7",
       "lotr_port:plant/dried_reeds_0_3",
-      "minecraft:patch_grass_plain",
       "minecraft:patch_sugar_cane",
-      "minecraft:patch_tall_grass",
-      "minecraft:patch_large_fern",
+      "lotr_port:plant_grass/clover_c1",
+      "lotr_port:plant_grass/flax_plant_r25",
+      "lotr_port:plant_grass/flowery_grass_r2",
+      "lotr_port:plant_grass/nettles_r5",
+      "lotr_port:plant_grass/short_grass_c4",
+      "lotr_port:plant_grass/thistle_r16",
+      "lotr_port:plant_grass/wheatgrass_c1",
+      "lotr_port:plant_grass/minecraft_fern_c4",
+      "lotr_port:plant_grass/minecraft_short_grass_c1",
+      "lotr_port:plant_double_grass/minecraft_large_fern_r4",
+      "lotr_port:plant_double_grass/minecraft_tall_grass_r2",
+      "lotr_port:plant_double_flowers/flame_of_harad_r40",
+      "lotr_port:plant_double_flowers/hibiscus_r200",
       "minecraft:glow_lichen",
       "lotr_port:lush_cave_ceiling",
       "lotr_port:lush_cave_vines",
@@ -123,6 +133,7 @@
       "minecraft:patch_waterlily"
     ],
     [
+      "lotr_port:road_verge",
       "minecraft:freeze_top_layer"
     ]
   ],

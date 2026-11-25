@@ -13845,6 +13845,26 @@
         "mineable/pickaxe",
         "overworld_carver_replaceables"
       ]
+    },
+    "copper_ore": {
+      "analogue": "iron_ore",
+      "tags": [
+        "mineable/pickaxe",
+        "overworld_carver_replaceables"
+      ]
+    },
+    "block_of_copper": {
+      "analogue": "iron_block",
+      "tags": [
+        "mineable/pickaxe"
+      ]
+    },
+    "raw_copper_block": {
+      "analogue": "raw_iron_block",
+      "tags": [
+        "mineable/pickaxe",
+        "overworld_carver_replaceables"
+      ]
     }
   },
   "items": {
@@ -20775,6 +20795,14 @@
       "tags": []
     },
     "raw_tin": {
+      "analogue": "raw_iron",
+      "tags": []
+    },
+    "copper_ingot": {
+      "analogue": null,
+      "tags": []
+    },
+    "raw_copper": {
       "analogue": "raw_iron",
       "tags": []
     }
