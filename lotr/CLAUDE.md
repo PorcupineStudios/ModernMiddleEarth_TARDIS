@@ -179,7 +179,10 @@ https://claude.ai/artifact/KqhSSTCuKXGuwKHBoYJdcu. Rebuild features in modern co
   colour; enclosures.txt: each enclosure's top blocks and each lair's core as letters; stats.txt: water share,
   slopes, overhangs, columns
   with webs, what the ground is made of) and stops
-  (`.save=true`: saves the world for a client, e.g. DevScript aerial shots; don't set `chatVisibility` hidden in
+  (`.save=true`: saves the world for a client, e.g. DevScript aerial shots; `-Dlotr_port.landmarks=true` logs
+  `[landmark]` spots of the seed: plots, Eriador patches, a spider nest, the Enchanted River; DevScript `floor x z yaw
+  pitch [up]` stands on the ground under any canopy, `noscreen` closes the race picker; first-person script
+  `lotr/devscripts/biome_shots.txt`; don't set `chatVisibility` hidden in
   options.txt, it blocks the script's commands).
   Roads are 4-5 wide (`ROAD_HALF_WIDTH` 2.1, LOTR's were narrower); bridges `RoadFeature.BRIDGE_EXTRA` 1 wider each
   side so 4-5 blocks of deck lie between the fences.
