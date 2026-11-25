@@ -1,0 +1,8 @@
+{
+  "feature": "lotr_port:wilds/eriador/tors_boulders",
+  "placement": [
+    {
+      "type": "minecraft:biome"
+    }
+  ]
+}

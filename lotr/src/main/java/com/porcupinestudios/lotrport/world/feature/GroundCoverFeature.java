@@ -20,7 +20,8 @@ import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfigur
 /**
  * Feature {@code lotr_port:ground_cover} (Aaron 2026-11-25, the Lone-lands: "variation in the ground so its not
  * mundane grass through and through ... moss growth, dried up creek beds"), once per chunk, before trees and plants.
- * Every grass, dirt, coarse dirt or podzol top in the listed biomes (dithered over 12 blocks at their border) is
+ * Every grass, dirt, coarse dirt or podzol top in the listed biomes (dithered over 12 blocks at their border; with
+ * {@code variants}, only in those biome variants, feathered over the patch edge) is
  * re-dressed by rules on the real ground round it, in order:
  * <ol>
  * <li>dry creek beds: where a seeded noise crosses zero inside its sparse mask, a bed {@code creek.width} wide is cut a
@@ -86,10 +87,11 @@ public final class GroundCoverFeature extends Feature<GroundCoverFeature.Config>
                 Codec.FLOAT.fieldOf("above").forGetter(Plant::above)).apply(i, Plant::new));
     }
 
-    public record Config(List<ResourceLocation> biomes, Palette blocks, Rules rules, Creeks creeks,
-            List<Plant> plants) implements FeatureConfiguration {
+    public record Config(List<ResourceLocation> biomes, List<String> variants, Palette blocks, Rules rules,
+            Creeks creeks, List<Plant> plants) implements FeatureConfiguration {
         public static final Codec<Config> CODEC = RecordCodecBuilder.create(i -> i.group(
                 ResourceLocation.CODEC.listOf().fieldOf("biomes").forGetter(Config::biomes),
+                Codec.STRING.listOf().optionalFieldOf("variants", List.of()).forGetter(Config::variants),
                 Palette.CODEC.fieldOf("blocks").forGetter(Config::blocks),
                 Rules.CODEC.fieldOf("rules").forGetter(Config::rules),
                 Creeks.CODEC.fieldOf("creeks").forGetter(Config::creeks),
@@ -148,7 +150,7 @@ public final class GroundCoverFeature extends Feature<GroundCoverFeature.Config>
                 int x = x0 + dx;
                 int z = z0 + dz;
                 double s = share[(dz >> 2) * 4 + (dx >> 2)];
-                if (s <= 0 || s < 1 && Wilds.unit(x, z, 0x45444745L) >= s) {
+                if (s <= 0 || s < 1 && Wilds.unit(x, z, 0x45444745L) >= s || !inVariant(map, c, x, z)) {
                     continue;
                 }
                 int i = (dz + M) * n + dx + M;
@@ -247,7 +249,7 @@ public final class GroundCoverFeature extends Feature<GroundCoverFeature.Config>
                 int x = x0 + dx;
                 int z = z0 + dz;
                 double s = share[(dz >> 2) * 4 + (dx >> 2)];
-                if (s <= 0 || s < 1 && Wilds.unit(x, z, 0x45444745L) >= s) {
+                if (s <= 0 || s < 1 && Wilds.unit(x, z, 0x45444745L) >= s || !inVariant(map, c, x, z)) {
                     continue;
                 }
                 int y = EnclosureFeature.ground(level, x, z);
@@ -280,6 +282,21 @@ public final class GroundCoverFeature extends Feature<GroundCoverFeature.Config>
             }
         }
         return changed;
+    }
+
+    /**
+     * Whether a column is in one of the config's biome variants (all, if none are listed), looked up a hashed few
+     * blocks off up to the biome's feather, so the ground changes raggedly over a patch's edge, as its plants do.
+     */
+    static boolean inVariant(MiddleEarthMap map, Config c, int x, int z) {
+        if (c.variants().isEmpty()) {
+            return true;
+        }
+        int f = map.variantFeather(x, z);
+        int ox = (int) ((Wilds.unit(x, z, 0x46455841L) * 2 - 1) * f);
+        int oz = (int) ((Wilds.unit(x, z, 0x4645415AL) * 2 - 1) * f);
+        String v = map.variantAt(x + ox, z + oz);
+        return c.variants().contains(v == null ? "plain" : v);
     }
 
     /** How far into a dry creek bed a column is: 1 at its middle, 0..0.15 its bank, 0 outside. */

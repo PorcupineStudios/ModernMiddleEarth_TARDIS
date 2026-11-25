@@ -122,6 +122,12 @@ https://claude.ai/artifact/KqhSSTCuKXGuwKHBoYJdcu. Rebuild features in modern co
   floor, steep walls, up to 16 deep, never under sea + 3, faded at roads, rivers and the biome border; terrain is
   sampled every 4 blocks, so narrow creeks are the feature's job. Numbers in wilds.py `SETTINGS`/`GORGES` -> the
   configured feature JSONs. GameTests `WildLandTests`.
+  Eriador (Aaron 2026-11-25: "slightly tune the 7 and then add milder versions on top"): its seven variant kinds keep
+  their plants and get a light ground-cover pass each (`ground_cover` and `boulders` take `variants`; wilds.py
+  `ERIADOR`): stony earth spots in meadows, stony patches and bracken on the heath, mossy hollows in the woods, rock,
+  scree and boulders round the tors, a few dry creeks; four milder Lone-lands kinds join map.json's list (`ERIADOR_NEW`,
+  a third of the weight): stony_heath, moorland (wet, creeks, pine clumps), rocky_dells (boulders, groves in hollows),
+  brushland (scrub patches, lone trees). No gorges, and Eriador keeps its green grass, so it turns tawnier past Bree.
 - Seeding (2026-11-25, Aaron: "ensure that this stays seeded so there's randomness on new worlds"): variant patches
   (and their edges), enclosures, lairs and old walls all mix `MiddleEarthMap.seed()` (the world seed, set as the server
   starts; 0 on a client, which never knows it) into their hashes; the planners' per-thread caches reset when it changes.
