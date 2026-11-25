@@ -137,5 +137,6 @@ public final class LotrWorldgen {
         }
         WorldCheck.runIfAsked(event.getServer());
         TerrainPreview.runIfAsked(event.getServer());
+        PortPlantCensus.runIfAsked(event.getServer());
     }
 }
