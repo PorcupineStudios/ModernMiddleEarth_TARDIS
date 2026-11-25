@@ -261,6 +261,7 @@ def c_by_name(e, is_block):
 HAND = {
     "minecraft:block/mineable/axe": ["building_plaque", "treasury_ledger", "town_hall_ledger", "customs_counter",
                                      "diplomacy_table"],
+    "minecraft:block/mineable/hoe": ["spider_egg_sac"],  # lair/EggSacBlock: soft silk, a hoe is quickest
 }
 
 

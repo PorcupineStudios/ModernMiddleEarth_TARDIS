@@ -1,0 +1,12 @@
+{
+  "dead_at": 3,
+  "hatch": {
+    "npc": "lotr_port:mirkwood_spider",
+    "min": 1,
+    "max": 2,
+    "chance": 0.75
+  },
+  "fallback_biome": "lotr_port:mirkwood_enchanted",
+  "damaged": "lair.lotr_port.spider_nest.damaged",
+  "destroyed": "lair.lotr_port.spider_nest.destroyed"
+}

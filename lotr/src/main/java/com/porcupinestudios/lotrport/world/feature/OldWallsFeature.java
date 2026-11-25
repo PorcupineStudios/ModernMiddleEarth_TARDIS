@@ -14,7 +14,7 @@ import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
 
 /**
- * Feature {@code lotr_port:old_walls}: the tumbled dry-stone field walls of Arnor's lost farms (Eriador "was once
+ * Feature {@code lotr_port:old_walls} (seeded by the world): the tumbled dry-stone field walls of Arnor's lost farms (Eriador "was once
  * well-peopled"; after Arnor fell its fields went back to the wild). Walls run along a grid of fields roughly
  * {@code field} blocks across (each line shifted by its own offset), and only inside the biome variants listed in
  * {@code variants}. Each stretch between two crossings stands with chance {@code keep}; along a standing stretch, a
@@ -135,7 +135,9 @@ public final class OldWallsFeature extends Feature<OldWallsFeature.Config> {
     }
 
     private static long hash(int a, int b, long salt) {
-        long h = a * 0x9E3779B97F4A7C15L ^ b * 0xC2B2AE3D27D4EB4FL ^ salt * 0x165667B19E3779F9L;
+        // seeded: each world's old fields lie differently (Aaron 2026-11-25)
+        long h = a * 0x9E3779B97F4A7C15L ^ b * 0xC2B2AE3D27D4EB4FL ^ salt * 0x165667B19E3779F9L
+                ^ MiddleEarthMap.seed() * 0x27D4EB2F165667C5L;
         h ^= h >>> 33;
         h *= 0xFF51AFD7ED558CCDL;
         h ^= h >>> 33;

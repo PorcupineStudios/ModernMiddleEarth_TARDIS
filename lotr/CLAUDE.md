@@ -69,7 +69,8 @@ https://claude.ai/artifact/KqhSSTCuKXGuwKHBoYJdcu. Rebuild features in modern co
   (`MiddleEarthMap.downs`, `DOWNS` in converter/world.py): round seedless hills that only rise,
   with LOTR's noise kept only as roughness.
 - Biome variants (2026-11-14, LOTR's LOTRBiomeVariant; Aaron: "many biomes within the Shire"): `map/Variants`, set in
-  `converter/world.py VARIANTS` -> map.json `variants`. Patches of a jittered 176-block grid inside a biome (Shire:
+  `converter/world.py VARIANTS` -> map.json `variants`. Patches of a jittered 176-block grid (seeded by the world
+  since 2026-11-25, so each world's patches lie differently) inside a biome (Shire:
   meadows, light forest, forest, hills, wooded hills, birch wood, aspen wood, farmland; 60% of cells) that
   scale its downs and hilliness (blended smoothly between patches) and get their own plants: placed features
   `<biome>_variant/*` gated by placement filter `lotr_port:in_variant` (looked up up to the biome's `feather`, 20 by
@@ -79,7 +80,8 @@ https://claude.ai/artifact/KqhSSTCuKXGuwKHBoYJdcu. Rebuild features in modern co
 - Enclosures (2026-11-25, Aaron: Shire orchards "flatter and a lot smaller ... enclosed in fences", and Farmer
   Maggot's fields with 2-block crops sized so farmland makes sense): `map/Enclosures`, set in `converter/world.py
   ENCLOSURES` -> map.json `enclosures`. A 128-block grid (a chunk is always inside one cell); each cell holds at most one
-  plot of a kind rolled by `chance` (x `boost` in a variant patch), sized in the kind's ranges, kept only if the biome is
+  plot (seeded by the world: Aaron 2026-11-25, "randomness on new worlds") of a kind rolled by `chance` (x `boost`
+  in a variant patch), sized in the kind's ranges, kept only if the biome is
   the same over it and its fade, its patch is in `variants`, no road within `road_gap` and the map's ground varies by at
   most `max_relief`. `heightAt` flattens it to one level (fading over `fade` blocks), `variationAt` keeps `roughness` of
   the noise. Feature `lotr_port:enclosure` (`world/feature/EnclosureFeature`, configured `shire_enclosure/<kind>`): fence
@@ -88,8 +90,8 @@ https://claude.ai/artifact/KqhSSTCuKXGuwKHBoYJdcu. Rebuild features in modern co
   Shire: orchards 18-34 x 14-26 (apple/pear, plum; trees 7 apart: at 6 their branches met and chunk order decided
   which grew), corn fields 40-72 x 28-48 (a third hedged, the Marish's hedgerows); flat to 4 blocks past the fence
   (`PLATEAU`: terrain samples the map's height every 4 blocks, so a slope at the fence leaned the plot's edge), then
-  20 blocks of fade; the old 176-block orchard patches are the `farmland` variant (same weight and list place, so every other
-  patch stayed put) where most plots gather. Sizes reasoned in world.py (real fields ~200 m, Middle-earth ~11x shorter
+  20 blocks of fade; the old 176-block orchard patches are the `farmland` variant, where most plots gather. Sizes
+  reasoned in world.py (real fields ~200 m, Middle-earth ~11x shorter
   than Tolkien's). GameTests `LandscapeTests`; world check builds the nearest plot of each kind.
 - Large variants (2026-11-25, Aaron: Eriador is "primarily just travelled through ... large scale ... but there still
   being variation"): Eriador (1100 km2 as one biome on LOTR's map), Lone-lands, Minhiriath and Enedwaith have variant
@@ -97,6 +99,10 @@ https://claude.ai/artifact/KqhSSTCuKXGuwKHBoYJdcu. Rebuild features in modern co
   blocks at an edge). Kinds: meadows, heath, copses, old woods, pinewood, tors (boulders, standing stones), old fields
   (Arnor's tumbled dry-stone walls, `lotr_port:old_walls`, and feral fruit trees), thickets, stump-lands and regrowth
   (Minhiriath's felled forests), wetland. Extras are `configured_feature/variant/*` (world.py `VARIANT_FEATURES`).
+- Seeding (2026-11-25, Aaron: "ensure that this stays seeded so there's randomness on new worlds"): variant patches
+  (and their edges), enclosures, lairs and old walls all mix `MiddleEarthMap.seed()` (the world seed, set as the server
+  starts; 0 on a client, which never knows it) into their hashes; the planners' per-thread caches reset when it changes.
+  The Shire's downs and the region layer's areas stay fixed: they follow LOTR's map, like the biomes.
 - Region layer (2026-11-25, Aaron: an "allowed biomes" map over the geographical one, "backend only", for the enchanted
   forest and later Moria and Goblin-town): post-step `converter/regions.py` draws named regions in map pixels into
   `map/regions.json` (`map/Regions`: polygons, rough circles, cut to another region); map.json `overlays` paint a
@@ -105,11 +111,21 @@ https://claude.ai/artifact/KqhSSTCuKXGuwKHBoYJdcu. Rebuild features in modern co
   tag and table the base is in. `MiddleEarthMap.inRegion`/`regionsAt`, placement filter `lotr_port:in_region`. Moria
   and Goblin-town are drawn (reserved) but nothing generates there yet: an underground phase would answer
   `MapBiomeSource.getNoiseBiome` by y inside those regions.
+- Lairs (2026-11-25, Aaron: nests "relatively small only about a 200 sq/blocks of actual spider nests, and with
+  spiders spawning within a larger radius around it (with spawning being affected by destroying nests)"): `map/Lairs`,
+  set in `converter/regions.py LAIRS` -> map.json `lairs`. Seeded points on a per-kind grid (spider nests: a 512-block
+  cell in three of the enchanted forest's, ~100 a world), each a core (radius 8, ~200 blocks square; feature
+  `lotr_port:spider_nest`: webs, 4 egg sacs, silk bundles) and infested ground (radius 56, ragged) that
+  `biomeIndexAt` answers as the lair's biome (`landIndexAt` is the map without lairs). `lair/LairLife`: an egg sac
+  (`lair/EggSacBlock`, `spider_egg_sac`) gone hatches spiders and counts against its lair (SavedData
+  `lotr_port_lairs`); a spawn on its ground keeps its own table with chance = strength (1 - broken / `dead_at`), else
+  the `fallback_biome`'s (data `lair/<kind>.json`, reloads). World check builds the nest nearest the Forest Gate.
 - Enchanted Mirkwood (2026-11-25, The Hobbit films): northern Mirkwood from the Forest Gate along the Elf-path to the
   Enchanted River, between the Forest River and the Mountains of Mirkwood, is `mirkwood_enchanted` (dark fog, black
-  water, drifting spores, light webs, spiders at night and Wood-elves); four rarer `mirkwood_spider_nests` inside it
-  (webs, cocoons, dead trees, spiders by day; `wilderness` so borders.py leaves them nobody's land); the map's painted
-  river from the Mountains of Mirkwood to above the Forest River is `enchanted_river`. Effects are data
+  water, drifting spores, light webs, spiders at night and Wood-elves); its spider nests are lairs (above), their
+  ground `mirkwood_spider_nests` (webs, dead trees, spiders by day; `wilderness` so borders.py leaves it nobody's
+  land); the map's painted river from the Mountains of Mirkwood to above the Forest River is `enchanted_river`.
+  Effects are data
   (`region_effect/*.json`, `effect/RegionEffects`, effects `lotr_port:drowsy` and `enchanted_sleep` in
   `effect/LotrEffects`): drowsiness and now and then nausea in `#lotr_port:enchanted_forest`; in water of
   `#lotr_port:cursed_water` an enchanted sleep (no moving, blind, can't drown) and on waking a turn about; bottles filled
@@ -160,7 +176,8 @@ https://claude.ai/artifact/KqhSSTCuKXGuwKHBoYJdcu. Rebuild features in modern co
   ground under every tree (2026-11-25: the spider nests' canopy webs found no crowns and 9 in 10 tries failed).
 - Terrain preview (dev tool): `-Dlotr_port.terrainpreview=<x>,<z>,<size>` on a Middle-earth server writes
   `run/terrain_preview/` (relief.png, variants.png, overhangs.png, blocks.png: each column's top block in its map
-  colour; enclosures.txt: each enclosure's top blocks as letters; stats.txt: water share, slopes, overhangs, columns
+  colour; enclosures.txt: each enclosure's top blocks and each lair's core as letters; stats.txt: water share,
+  slopes, overhangs, columns
   with webs, what the ground is made of) and stops
   (`.save=true`: saves the world for a client, e.g. DevScript aerial shots; don't set `chatVisibility` hidden in
   options.txt, it blocks the script's commands).

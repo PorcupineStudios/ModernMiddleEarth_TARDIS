@@ -1516,7 +1516,7 @@
     },
     {
       "id": "lotr_port:mirkwood_spider_nests",
-      "height": 78.09,
+      "height": 78.07,
       "variation": 12.49
     },
     {
@@ -1559,18 +1559,28 @@
       "biome": "lotr_port:mirkwood_enchanted"
     },
     {
-      "region": "mirkwood_spider_nests",
-      "on": [
-        "lotr_port:mirkwood_enchanted"
-      ],
-      "biome": "lotr_port:mirkwood_spider_nests"
-    },
-    {
       "region": "enchanted_river",
       "on": [
         "lotr_port:river"
       ],
       "biome": "lotr_port:enchanted_river"
     }
-  ]
+  ],
+  "lairs": {
+    "mirkwood_spider_nests": {
+      "biome": "lotr_port:mirkwood_spider_nests",
+      "on": [
+        "lotr_port:mirkwood_enchanted"
+      ],
+      "regions": [
+        "mirkwood_enchanted"
+      ],
+      "cell": 512,
+      "chance": 0.33,
+      "core": 8,
+      "radius": 56,
+      "ragged": 0.2,
+      "sacs": 4
+    }
+  }
 }

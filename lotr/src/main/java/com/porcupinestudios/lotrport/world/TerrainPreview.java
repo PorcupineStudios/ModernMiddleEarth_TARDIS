@@ -245,6 +245,41 @@ public final class TerrainPreview {
                 sb.append('\n');
             }
         }
+        // lairs (spider nests): their core and a ring round it, W web, S egg sac, c cocoon, L leaves, T log
+        java.util.Set<Long> lairs = new java.util.HashSet<>();
+        for (int x = x0; x < x0 + size; x += 64) {
+            for (int z = z0; z < z0 + size; z += 64) {
+                for (var l : map.lairsInCellsOf(x, z)) {
+                    int r = l.kind().core() + 3;
+                    if (l.x() - r < x0 || l.z() - r < z0 || l.x() + r >= x0 + size || l.z() + r >= z0 + size
+                            || !lairs.add(l.id())) {
+                        continue;
+                    }
+                    sb.append(l.kind().name()).append(" at ").append(l.x()).append(',').append(l.z()).append('\n');
+                    BlockPos.MutableBlockPos m = new BlockPos.MutableBlockPos();
+                    for (int zz = l.z() - r; zz <= l.z() + r; zz++) {
+                        for (int xx = l.x() - r; xx <= l.x() + r; xx++) {
+                            // the most telling block in the lowest 8 above the ground: sac, cocoon, web
+                            int g = level.getHeight(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, xx, zz);
+                            char c = '.';
+                            for (int dy = -1; dy < 8; dy++) {
+                                BlockState b = level.getBlockState(m.set(xx, g + dy, zz));
+                                char here = b.is(com.porcupinestudios.lotrport.lair.EggSacBlock.BLOCK.get()) ? 'S'
+                                        : b.is(net.minecraft.world.level.block.Blocks.MUSHROOM_STEM) ? 'c'
+                                        : b.is(net.minecraft.world.level.block.Blocks.COBWEB) ? 'W'
+                                        : b.is(BlockTags.LOGS) ? 'T' : b.is(BlockTags.LEAVES) ? 'L' : '.';
+                                if ("ScWTL.".indexOf(here) < "ScWTL.".indexOf(c)) {
+                                    c = here;
+                                }
+                            }
+                            sb.append(c);
+                        }
+                        sb.append('\n');
+                    }
+                    sb.append('\n');
+                }
+            }
+        }
         return sb.toString();
     }
 

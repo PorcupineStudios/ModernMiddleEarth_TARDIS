@@ -18,7 +18,8 @@ import java.util.Map;
  * <p>The patches are cells of a jittered grid ({@code cell} blocks): each cell is a variant (picked by weight) with
  * chance {@code chance}, else the plain biome. A column's variant is its nearest cell's (sharp edges for plants, like
  * LOTR's); terrain factors are blended over nearby cells with Gaussian weights, so the ground changes smoothly from a
- * patch of hills into a meadow. Seedless: the same everywhere.
+ * patch of hills into a meadow. Seeded by the world seed since 2026-11-25 (Aaron: "randomness on new worlds"):
+ * which cell is which patch, and the edges' meander, differ per world.
  *
  * <p>Large patches (Eriador's, Aaron 2026-11-25: travellers shouldn't change landscape every few hundred blocks, "but
  * there still being variation") take two more settings: {@code warp} (share of a cell the patch edges meander, by a
@@ -184,11 +185,16 @@ public final class Variants {
     }
 
     private static double lattice(int x, int z, long salt) {
-        return unit(mix(x * 0x9E3779B97F4A7C15L ^ z * 0xC2B2AE3D27D4EB4FL ^ salt), 0) * 2 - 1;
+        return unit(mix(x * 0x9E3779B97F4A7C15L ^ z * 0xC2B2AE3D27D4EB4FL ^ salt ^ worldSalt()), 0) * 2 - 1;
     }
 
     private static long hash(int cx, int cz) {
-        return mix(cx * 0x9E3779B97F4A7C15L ^ cz * 0xC2B2AE3D27D4EB4FL ^ 0x5641524E54L);
+        return mix(cx * 0x9E3779B97F4A7C15L ^ cz * 0xC2B2AE3D27D4EB4FL ^ 0x5641524E54L ^ worldSalt());
+    }
+
+    /** The world seed, mixed (0's mix for a client, which never knows the seed). */
+    private static long worldSalt() {
+        return mix(MiddleEarthMap.seed() ^ 0x5641525345L);
     }
 
     private static long mix(long h) {

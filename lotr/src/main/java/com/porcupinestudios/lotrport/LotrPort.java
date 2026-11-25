@@ -82,6 +82,8 @@ public final class LotrPort {
         LotrWorldgen.register(modBus);
         com.porcupinestudios.lotrport.effect.LotrEffects.register(modBus);
         com.porcupinestudios.lotrport.effect.RegionEffects.register();
+        com.porcupinestudios.lotrport.lair.EggSacBlock.register(modBus);
+        com.porcupinestudios.lotrport.lair.LairLife.register();
         LotrEntities.register(modBus);
         com.porcupinestudios.lotrport.npc.SpawnEggs.register(modBus);
         SharedApiHooks.register(modBus);
