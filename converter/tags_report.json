@@ -4143,13 +4143,6 @@
       "analogue": "@axe",
       "tags": []
     },
-    "copper_ore": {
-      "analogue": "iron_ore",
-      "tags": [
-        "mineable/pickaxe",
-        "overworld_carver_replaceables"
-      ]
-    },
     "topaz_vein": {
       "analogue": "iron_ore",
       "tags": [
@@ -4281,12 +4274,6 @@
       "tags": [
         "mineable/pickaxe",
         "overworld_carver_replaceables"
-      ]
-    },
-    "block_of_copper": {
-      "analogue": "iron_block",
-      "tags": [
-        "mineable/pickaxe"
       ]
     },
     "block_of_tin": {
@@ -13831,13 +13818,6 @@
         "wall_hanging_signs"
       ]
     },
-    "raw_copper_block": {
-      "analogue": "raw_iron_block",
-      "tags": [
-        "mineable/pickaxe",
-        "overworld_carver_replaceables"
-      ]
-    },
     "raw_mithril_block": {
       "analogue": "raw_iron_block",
       "tags": [
@@ -15610,10 +15590,6 @@
       ]
     },
     "warhorn": {
-      "analogue": null,
-      "tags": []
-    },
-    "copper_ingot": {
       "analogue": null,
       "tags": []
     },
@@ -20785,10 +20761,6 @@
         "boats",
         "chest_boats"
       ]
-    },
-    "raw_copper": {
-      "analogue": "raw_iron",
-      "tags": []
     },
     "raw_mithril": {
       "analogue": "raw_iron",

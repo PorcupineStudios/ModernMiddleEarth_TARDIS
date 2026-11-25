@@ -4,7 +4,7 @@
   "group": "crafting",
   "ingredients": [
     {
-      "item": "lotr_port:copper_ingot"
+      "item": "minecraft:copper_ingot"
     },
     {
       "item": "lotr_port:tin_ingot"

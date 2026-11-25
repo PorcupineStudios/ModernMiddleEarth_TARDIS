@@ -1,15 +1,14 @@
 {
   "model": "coordinate_lever",
   "panel": 0,
-  "u": -0.4625,
-  "v": 0.1144,
-  "scale": 0.72,
+  "u": -0.5011,
+  "v": 0.1097,
+  "scale": 0.68,
   "actions": {
     "lever": "x0"
   },
   "requirements": {
-    "type": "tardis_rb:subsystem_level",
-    "subsystem": "tardis_rb:navigation",
-    "min": 1
+    "type": "tardis_rb:research",
+    "research": "tardis_rb:dematerialised_flight"
   }
 }

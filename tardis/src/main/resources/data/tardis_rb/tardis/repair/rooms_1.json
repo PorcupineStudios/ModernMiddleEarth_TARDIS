@@ -5,9 +5,9 @@
     "items": [
       {
         "ingredient": {
-          "tag": "minecraft:logs"
+          "item": "tardis_rb:hull_plate"
         },
-        "count": 32
+        "count": 1
       }
     ],
     "charge": 100

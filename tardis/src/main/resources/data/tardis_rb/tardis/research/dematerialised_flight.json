@@ -1,0 +1,22 @@
+{
+  "parents": [
+    "tardis_rb:materialised_flight"
+  ],
+  "cost": {
+    "items": [
+      {
+        "ingredient": {
+          "item": "tardis_rb:temporal_circuit"
+        },
+        "count": 4
+      },
+      {
+        "ingredient": {
+          "item": "tardis_rb:artron_battery"
+        },
+        "count": 1
+      }
+    ],
+    "charge": 50
+  }
+}

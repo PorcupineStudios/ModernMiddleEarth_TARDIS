@@ -108,5 +108,6 @@
     [
       "minecraft:freeze_top_layer"
     ]
-  ]
+  ],
+  "creature_spawn_probability": 0.06667
 }

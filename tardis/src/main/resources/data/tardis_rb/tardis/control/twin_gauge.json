@@ -1,9 +1,9 @@
 {
   "model": "twin_gauge",
   "panel": 5,
-  "u": 0.2063,
-  "v": 0.45,
-  "scale": 0.76,
+  "u": 0.215,
+  "v": 0.475,
+  "scale": 0.68,
   "actions": {},
   "shows": [
     "charge",

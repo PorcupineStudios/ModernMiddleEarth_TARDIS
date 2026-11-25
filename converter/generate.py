@@ -392,7 +392,8 @@ class Gen:
         def model(layer0_large, small_model):
             if not large:
                 return small_model
-            return {"loader": "neoforge:separate_transforms",
+            # gui_light: a model with no parent defaults to "side" (block) lighting, which drew these icons dark
+            return {"loader": "neoforge:separate_transforms", "gui_light": "front",
                     "base": {"parent": f"{NS}:item/large_{large[1]}x", "textures": {"layer0": layer0_large}},
                     "perspectives": {p: small_model for p in ("gui", "ground", "fixed")}}
 
@@ -1493,6 +1494,8 @@ class Gen:
         # post-steps that work on the written content (each can also be rerun alone)
         import renames
         print(json.dumps({"renames": renames.run(OUT)}))
+        import vanilla_swaps
+        print(json.dumps({"vanilla_swaps": vanilla_swaps.run(OUT)}))
         import raw_ores
         print(json.dumps({"raw_ores": raw_ores.run(OUT)}))
         from woodsets import WoodSets
@@ -1509,6 +1512,10 @@ class Gen:
         print(json.dumps({"mountains": Mountains(OUT).run()}))
         from land import Land
         print(json.dumps({"land": Land(OUT).run()}))
+        import leaf_drops
+        print(json.dumps({"leaf_drops": leaf_drops.run(OUT)}))
+        import animal_balance
+        print(json.dumps({"animal_balance": animal_balance.run(OUT)}))
         import noisecaves
         print(json.dumps({"noisecaves": noisecaves.run(OUT)}))
         from caves import Caves
@@ -1519,6 +1526,10 @@ class Gen:
         print(json.dumps({"biomeconfig": biomeconfig.run(OUT)}))
         import borders
         print(json.dumps({"borders": borders.run(OUT)}))
+        import create_extra
+        print(json.dumps({"create_extra": create_extra.run(OUT)}))
+        import create_crafters
+        print(json.dumps({"create_crafters": create_crafters.run(OUT)}))
 
 
 if __name__ == "__main__":

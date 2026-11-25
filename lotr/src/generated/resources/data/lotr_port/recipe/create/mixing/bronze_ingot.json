@@ -22,10 +22,10 @@
       "type": "neoforge:compound",
       "ingredients": [
         {
-          "item": "lotr_port:copper_ore"
+          "item": "minecraft:copper_ore"
         },
         {
-          "item": "lotr_port:raw_copper"
+          "item": "minecraft:raw_copper"
         }
       ]
     }
