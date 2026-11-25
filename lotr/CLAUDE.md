@@ -201,8 +201,13 @@ https://claude.ai/artifact/KqhSSTCuKXGuwKHBoYJdcu. Rebuild features in modern co
   out by the rules, plus census-only plants of each biome's own decorate (Mordor scrub, thorns and moss, Morgul
   shrooms, athelas, berry bushes, Fangorn plants, Rhun flowers...) at their measured rate and patch size; crops,
   fruit, vines, reeds, fallen leaves and the vanilla patches world.py already places are skipped (`CENSUS_SKIP_PREFIX`).
-  Features `plant_<kind>/<plant>_c<n>|r<n>` (rarities on ~25% `RARITY_STEPS`) on shared `plant_patch/<plant>_<tries>`;
-  `PLANT_YIELD` 0.5 (plants per try) is an estimate, not measured in the port. The vanilla grass/flower stand-ins stay
+  Features `plant_<kind>/<plant>_<tries>_c<n>|r<n>` (rarities on ~25% `RARITY_STEPS`) on shared
+  `plant_patch/<plant>_<tries>`. Yields (plants per try) are measured, not guessed (2026-11-25): a commit message with
+  `[plant-census]` makes CI run `world/PortPlantCensus` + `converter/plant_compare.py` against LOTR's census (artifact
+  `plant-census`); `PLANT_YIELD` 0.153 and per-plant `PLANT_YIELDS` (0.17 x each plant's port/LOTR ratio) come from
+  that run, and `python3 converter/plant_rates.py` rewrites the plant features and biome lists without the jar. That
+  run: all plants 0.90 of LOTR's; the five mountain biomes 0.04-0.13 (the port's ranges are bare rock, a terrain
+  difference, not plant rates). The vanilla grass/flower stand-ins stay
   only for an export without rules. LOTR's flowers are sparse because its decorator drops each flower patch at a
   random y 0-127 (`nextInt(128)`); the census measures that, so the port keeps it. Soils: `content/PlantBlock` also
   grows on its tag `lotr_port:grows_on/<plant>`, the grounds the census found (arid grass on sand, Mordor plants on

@@ -334,7 +334,51 @@ RARITY_STEPS = [1, 2, 3, 4, 5, 6, 8, 10, 12, 16, 20, 25, 32, 40, 50, 64, 80, 100
 PLANT_TRIES = 32  # tries per patch (vanilla 1.18's grass patch)
 # Plants per try in the port (2026-11-25: measured 0.17 with 32-try patches by plant_compare.py against the port's own
 # census, -Dlotr_port.plantcensus; the port then had 0.34 of LOTR's plants at the guessed 0.5).
-PLANT_YIELD = 0.17
+PLANT_YIELD = 0.153  # 2026-11-25 CI census (all plants: port/LOTR 0.903 at 0.17, so 0.17 x 0.903)
+# Each plant's own yield, measured the same way (2026-11-25, CI "[plant-census]" run, 5168 chunks: 0.17 x its port/LOTR
+# ratio, for plants LOTR has 2+ per chunk of summed over the biomes). Dandelions and bluets came out high (the variants'
+# vanilla meadow flowers add to LOTR's), small flowers low (patches of a few tries yield less per try). Re-measure with
+# a commit message holding [plant-census]: multiply each yield here by its new port/LOTR ratio in plant_compare.txt
+# (plants not listed: PLANT_YIELD by the "all plants" ratio), then python3 converter/plant_rates.py
+# rewrites the plant features and biome lists (no jar needed).
+PLANT_YIELDS = {
+    "lotr_port:short_grass": 0.1535,
+    "minecraft:short_grass": 0.1265,
+    "lotr_port:clover": 0.189,
+    "minecraft:fern": 0.1204,
+    "lotr_port:wheatgrass": 0.154,
+    "lotr_port:flowery_grass": 0.1607,
+    "lotr_port:arid_grass": 0.1714,
+    "minecraft:tall_grass": 0.205,
+    "lotr_port:mordor_scrub": 0.1945,
+    "minecraft:dandelion": 0.2679,
+    "lotr_port:nettles": 0.1715,
+    "minecraft:poppy": 0.2025,
+    "lotr_port:thistle": 0.1749,
+    "lotr_port:marigold": 0.1149,
+    "minecraft:oxeye_daisy": 0.1336,
+    "lotr_port:jungle_sprout": 0.1295,
+    "minecraft:azure_bluet": 0.2769,
+    "minecraft:rose_bush": 0.1843,
+    "lotr_port:flax_plant": 0.1632,
+    "lotr_port:hibiscus": 0.1166,
+    "minecraft:lilac": 0.1566,
+    "minecraft:large_fern": 0.1384,
+    "minecraft:peony": 0.1431,
+    "lotr_port:bluebell": 0.1688,
+    "lotr_port:yellow_sand_gem": 0.1124,
+    "lotr_port:red_sand_gem": 0.1363,
+    "lotr_port:lavender": 0.1865,
+    "lotr_port:withered_moss": 0.4366,
+    "lotr_port:harad_daisy": 0.1246,
+    "lotr_port:southbells": 0.1386,
+    "lotr_port:shire_heather": 0.1438,
+    "minecraft:red_tulip": 0.1331,
+    "minecraft:pink_tulip": 0.1343,
+    "minecraft:white_tulip": 0.1396,
+    "lotr_port:flame_of_harad": 0.0826,
+    "minecraft:orange_tulip": 0.2135,
+}
 PLANT_MIN_TRIES = 4  # a patch of LOTR's rare flowers is one to three plants
 PLANT_MAX_TRIES = 64  # dense grass: several patches a chunk rather than one huge one
 TRIES_STEPS = [4, 6, 8, 12, 16, 24, 32, 48, 64]  # PLANT_MIN_TRIES..PLANT_MAX_TRIES, shared by the biomes
@@ -711,9 +755,10 @@ class World:
         for (kind, new), (per_chunk, count, with_) in sorted(
                 want.items(), key=lambda e: (PLANT_KINDS.index(e[0][0]), e[0][1])):
             # LOTR's patch size: its plants per chunk that had any (dense grass: the whole chunk's, so capped)
-            size = count / with_ if with_ else PLANT_TRIES * PLANT_YIELD
-            tries = min(TRIES_STEPS, key=lambda t: abs(math.log(t * PLANT_YIELD / max(size, 0.1))))
-            patches = per_chunk / (tries * PLANT_YIELD)
+            plant_yield = PLANT_YIELDS.get(new, PLANT_YIELD)
+            size = count / with_ if with_ else PLANT_TRIES * plant_yield
+            tries = min(TRIES_STEPS, key=lambda t: abs(math.log(t * plant_yield / max(size, 0.1))))
+            patches = per_chunk / (tries * plant_yield)
             if patches < 1 / RARITY_STEPS[-1]:
                 continue
             out.append(self.plant_feature(kind, new, patches, tries))
@@ -753,15 +798,17 @@ class World:
 
     def plant_feature(self, kind, block, per_chunk, tries):
         """A plant patch shared by every biome that places it alike: configured plant_patch/<plant>_<tries>, placed
-        plant_<kind>/<plant>_c<n> (n patches a chunk) or _r<n> (one patch in n chunks)."""
+        plant_<kind>/<plant>_<tries>_c<n> (n patches a chunk) or _<tries>_r<n> (one patch in n chunks). The tries are
+        in the placed name too: without them two biomes with one rate and different patch sizes wrote the same file
+        and one got the other's patches (2026-11-25)."""
         short = block.split(":")[1] if block.startswith(f"{NS}:") else block.replace(":", "_")
         if per_chunk < 1:  # rarities on steps of about 25% (the census's own noise is larger), so biomes share them
             per_chunk = 1 / RARITY_STEPS[min(range(len(RARITY_STEPS)),
                                              key=lambda i: abs(math.log(RARITY_STEPS[i] * per_chunk)))]
         rate = f"c{round(per_chunk)}" if per_chunk >= 1 else f"r{round(1 / per_chunk)}"
         configured = f"plant_patch/{short}_{tries}"
-        self.grass_patch(configured, block, per_chunk, tries, placed=f"plant_{kind}/{short}_{rate}")
-        return f"{NS}:plant_{kind}/{short}_{rate}"
+        self.grass_patch(configured, block, per_chunk, tries, placed=f"plant_{kind}/{short}_{tries}_{rate}")
+        return f"{NS}:plant_{kind}/{short}_{tries}_{rate}"
 
     def grass_patch(self, name, block, per_chunk, tries=32, placed=None):
         """A plant patch like vanilla's patch_grass (spread 7): the plant only where it can live; per_chunk patches a
