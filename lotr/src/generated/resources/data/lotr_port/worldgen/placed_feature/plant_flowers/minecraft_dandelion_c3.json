@@ -1,9 +1,9 @@
 {
-  "feature": "lotr_port:plant_patch/hibiscus_32",
+  "feature": "lotr_port:plant_patch/minecraft_dandelion_32",
   "placement": [
     {
       "type": "minecraft:count",
-      "count": 2
+      "count": 3
     },
     {
       "type": "minecraft:in_square"

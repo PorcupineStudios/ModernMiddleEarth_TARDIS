@@ -1,9 +1,9 @@
 {
-  "feature": "lotr_port:plant_patch/shire_heather_16",
+  "feature": "lotr_port:plant_patch/hibiscus_32",
   "placement": [
     {
       "type": "minecraft:rarity_filter",
-      "chance": 5
+      "chance": 128
     },
     {
       "type": "minecraft:in_square"

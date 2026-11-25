@@ -114,7 +114,7 @@
       "lotr_port:trees/ettenmoors",
       "lotr_port:plant/reeds_0_9",
       "lotr_port:plant/dried_reeds_0_1",
-      "lotr_port:plant_grass/clover_r5",
+      "lotr_port:plant_grass/clover_r4",
       "lotr_port:plant_grass/flax_plant_r32",
       "lotr_port:plant_grass/flowery_grass_r3",
       "lotr_port:plant_grass/nettles_r50",
@@ -125,7 +125,7 @@
       "lotr_port:plant_double_grass/minecraft_tall_grass_r3",
       "lotr_port:plant_flowers/bluebell_r80",
       "lotr_port:plant_flowers/minecraft_blue_orchid_r50",
-      "lotr_port:plant_flowers/minecraft_dandelion_r25",
+      "lotr_port:plant_flowers/minecraft_dandelion_r16",
       "lotr_port:plant_flowers/minecraft_poppy_r20",
       "minecraft:glow_lichen"
     ],

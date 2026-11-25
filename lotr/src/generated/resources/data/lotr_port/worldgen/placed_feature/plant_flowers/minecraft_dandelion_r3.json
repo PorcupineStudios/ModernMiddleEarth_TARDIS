@@ -1,9 +1,9 @@
 {
-  "feature": "lotr_port:plant_patch/hibiscus_6",
+  "feature": "lotr_port:plant_patch/minecraft_dandelion_16",
   "placement": [
     {
       "type": "minecraft:rarity_filter",
-      "chance": 80
+      "chance": 3
     },
     {
       "type": "minecraft:in_square"

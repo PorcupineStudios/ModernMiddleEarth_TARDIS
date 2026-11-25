@@ -1,9 +1,9 @@
 {
-  "feature": "lotr_port:plant_patch/minecraft_dandelion_32",
+  "feature": "lotr_port:plant_patch/jungle_sprout_32",
   "placement": [
     {
       "type": "minecraft:rarity_filter",
-      "chance": 320
+      "chance": 3
     },
     {
       "type": "minecraft:in_square"
