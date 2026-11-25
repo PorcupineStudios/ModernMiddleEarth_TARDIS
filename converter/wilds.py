@@ -51,7 +51,7 @@ TUSSOCK = [(96, 74, 44), (128, 101, 58), (158, 129, 74), (186, 156, 94), (208, 1
 # Stony earth (worn ground between the grass): between peat and rock. Heath moss: olive, the conifers' own green.
 EARTH = [(70, 60, 50), (88, 76, 63), (106, 92, 76), (124, 108, 89), (140, 124, 104)]
 MOSS = [(56, 66, 38), (72, 82, 46), (90, 98, 56), (108, 114, 66), (126, 128, 78)]
-BRACKEN = [(84, 46, 28), (112, 62, 34), (141, 82, 42), (168, 106, 56), (189, 132, 74)]
+BRACKEN = [(78, 52, 38), (98, 66, 46), (118, 82, 56), (138, 100, 70), (156, 120, 88)]  # muted rust, not orange
 # biome colours: grass_block's grey top x this gives a tawny ground (~115,102,60), conifers dark olive
 GRASS_COLOR = 0xC2AC66
 FOLIAGE_COLOR = 0x6B7342
@@ -203,7 +203,7 @@ PALETTE = {"rock": {"Name": f"{NS}:weathered_stone"}, "lichen": {"Name": f"{NS}:
 # Per biome: ground rules (GroundCoverFeature), boulders, groves. The Weather Hills: rockier, fewer groves.
 SETTINGS = {
     "lone_lands": {
-        "rules": dict(patch=34, coarse=0.3, rubble=0.5, rock=0.64, lichen=0.25, wet=0.62, moss=0.82, steep=3,
+        "rules": dict(patch=14, coarse=0.44, rubble=0.58, rock=0.68, lichen=0.25, wet=0.62, moss=0.82, steep=2,
                       east=0.35, **_EAST),
         "creeks": dict(scale=220, width=3, mask=0.05),
         "plants": [  # bracken and heather in their own patches, tussock everywhere else
@@ -211,12 +211,12 @@ SETTINGS = {
             {"block": {"Name": f"{NS}:shire_heather"}, "chance": 0.35, "patch": 20, "above": 0.42},
             {"block": {"Name": f"{NS}:tussock"}, "chance": 0.2, "patch": 0, "above": 0},
         ],
-        "boulders": dict(per_chunk=0.35, east=1.5, tor=0.07, size=1.0, **_EAST),
+        "boulders": dict(per_chunk=0.6, east=1.5, tor=0.1, size=1.35, **_EAST),
         "grove": dict(size=80, above=0.32, hollow=0.35, east=0.45, **_EAST),
         "grove_count": 14, "scrub_count": 5, "lone_rarity": 3,
     },
     "lone_lands_hills": {
-        "rules": dict(patch=30, coarse=0.12, rubble=0.32, rock=0.5, lichen=0.2, wet=0.7, moss=0.88, steep=3,
+        "rules": dict(patch=14, coarse=0.28, rubble=0.44, rock=0.54, lichen=0.2, wet=0.7, moss=0.88, steep=2,
                       east=0.0, east_from=0, east_to=0),
         "creeks": dict(scale=200, width=2.5, mask=0.25),
         "plants": [
@@ -224,7 +224,7 @@ SETTINGS = {
             {"block": {"Name": f"{NS}:bracken"}, "chance": 0.4, "patch": 26, "above": 0.45},
             {"block": {"Name": f"{NS}:tussock"}, "chance": 0.24, "patch": 0, "above": 0},
         ],
-        "boulders": dict(per_chunk=0.7, east=0, east_from=0, east_to=0, tor=0.15, size=1.1),
+        "boulders": dict(per_chunk=0.9, east=0, east_from=0, east_to=0, tor=0.18, size=1.4),
         "grove": dict(size=70, above=0.45, hollow=0.45, east=0),
         "grove_count": 10, "scrub_count": 4, "lone_rarity": 4,
     },
