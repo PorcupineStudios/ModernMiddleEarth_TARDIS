@@ -60,7 +60,10 @@ jobs:
           JAVA_TOOL_OPTIONS="-Dtardis_rb.worldcheck=true" ./gradlew :tardis:runServer --stacktrace 2>&1 | tee tardis-world.log
           grep -E "\\[worldcheck\\]|WORLDCHECK|crash site" tardis-world.log
           grep "TARDIS WORLDCHECK PASSED" tardis-world.log
+      # Merge branch only (2026-11-25): upload the jars for play-testing even when a GameTest fails
+      # (RoadWorksTests.stretchPavesNaturalGroundOnly already failed on claude/eager-curie-9d4c86). Drop before main.
       - uses: actions/upload-artifact@v4
+        if: ${{ !cancelled() }}
         with:
           name: jars
           path: "*/build/libs/*.jar"
