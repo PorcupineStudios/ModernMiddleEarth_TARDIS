@@ -222,7 +222,7 @@ public final class LotrClient {
         event.register((stack, layer) -> net.minecraft.world.level.FoliageColor.getDefaultColor(),
                 java.util.Arrays.stream(tintedFallen()).map(net.minecraft.world.level.block.Block::asItem)
                         .toArray(net.minecraft.world.level.ItemLike[]::new));
-        event.register((stack, layer) -> net.minecraft.world.level.GrassColor.getDefaultColor(),
+        event.register((stack, layer) -> layer == 0 ? net.minecraft.world.level.GrassColor.getDefaultColor() : -1,
                 java.util.Arrays.stream(com.porcupinestudios.lotrport.content.LotrBlocks.tinted("grass"))
                         .map(net.minecraft.world.level.block.Block::asItem)
                         .filter(i -> i != net.minecraft.world.item.Items.AIR)
