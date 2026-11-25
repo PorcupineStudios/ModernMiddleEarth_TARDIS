@@ -1600,6 +1600,8 @@ class Gen:
         print(json.dumps({"regions": regions.run(OUT)}))
         import wilds
         print(json.dumps({"wilds": wilds.run(OUT)}))
+        import fallen_tint
+        print(json.dumps({"fallen_tint": fallen_tint.run(OUT)}))
         import biomeconfig
         print(json.dumps({"biomeconfig": biomeconfig.run(OUT)}))
         import borders
