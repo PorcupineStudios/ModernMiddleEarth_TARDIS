@@ -58,7 +58,7 @@ MODERN_ORDER = [
     "minecraft:seagrass_deep_warm", "minecraft:seagrass_simple", "minecraft:seagrass_river", "minecraft:seagrass_swamp",
     "minecraft:kelp_cold", "minecraft:kelp_warm", "minecraft:sea_pickle", "minecraft:patch_waterlily",
     "minecraft:bamboo_light", f"{NS}:bee_nests_common", f"{NS}:bee_nests_rare", "minecraft:patch_tall_grass_2",
-    "minecraft:flower_meadow", "minecraft:brown_mushroom_normal", "minecraft:red_mushroom_normal",
+    f"{NS}:vanilla_flowers_sparse", "minecraft:brown_mushroom_normal", "minecraft:red_mushroom_normal",
     "minecraft:patch_pumpkin", "minecraft:patch_melon", "minecraft:vines", "minecraft:patch_berry_common",
 ]
 

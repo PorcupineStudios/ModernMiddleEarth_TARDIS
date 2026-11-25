@@ -1,5 +1,5 @@
 {
-  "feature": "lotr_port:plant_patch/red_sand_gem_16",
+  "feature": "lotr_port:plant_patch/red_sand_gem_32",
   "placement": [
     {
       "type": "minecraft:rarity_filter",

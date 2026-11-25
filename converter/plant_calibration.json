@@ -1,0 +1,16 @@
+{
+ "lotr_port:arid_grass": 1.278,
+ "lotr_port:clover": 1.012,
+ "lotr_port:hibiscus": 0.672,
+ "lotr_port:jungle_sprout": 0.713,
+ "lotr_port:lavender": 0.777,
+ "lotr_port:mordor_scrub": 1.348,
+ "lotr_port:red_sand_gem": 0.701,
+ "lotr_port:shire_heather": 0.733,
+ "lotr_port:southbells": 0.737,
+ "lotr_port:withered_moss": 2.5,
+ "lotr_port:yellow_sand_gem": 0.78,
+ "minecraft:dandelion": 0.97,
+ "minecraft:fern": 0.792,
+ "minecraft:lilac": 0.793
+}

@@ -19,6 +19,7 @@ from PIL import Image
 
 from assets import NS, snake, write_json
 from trees import Trees
+import flowers
 
 # Old biome numbers -> blocks. LOTR's heightBaseParameter is roughly vanilla's depth (0 = sea level, 1 = high hills,
 # 2 = mountains) and heightVariation its scale.
@@ -80,7 +81,8 @@ VARIANTS = {
     ]},
     "shire": {"cell": 176, "chance": 0.6, "list": [
         {"name": "meadows", "weight": 3, "downs": 0.55, "variation": 0.7,
-         "flowers": ["minecraft:flower_meadow", "minecraft:flower_flower_forest", "minecraft:patch_tall_grass"]},
+         # the flower forest (Aaron 2026-11-25: lots of flowers, LOTR's and vanilla's mixed): flowers.py mixes
+         "flowers": ["mix:SHIRE_FLOWER_FOREST", "mix:SHIRE_FLOWER_FOREST_TALL", "minecraft:patch_tall_grass"]},
         {"name": "light_forest", "weight": 3,
          "trees": (3, [("oak", 4), ("oak_large", 2), ("chestnut", 3), ("birch", 2), ("aspen", 1)])},
         {"name": "forest", "weight": 2,
@@ -325,7 +327,10 @@ RARITY_STEPS = [1, 2, 3, 4, 5, 6, 8, 10, 12, 16, 20, 25, 32, 40, 50, 64, 80, 100
 PLANT_TRIES = 32  # tries per patch (vanilla 1.18's grass patch)
 # Plants per try in the port (2026-11-25: measured 0.17 with 32-try patches by plant_compare.py against the port's own
 # census, -Dlotr_port.plantcensus; the port then had 0.34 of LOTR's plants at the guessed 0.5).
-PLANT_YIELD = 0.17
+# Run 2 (rates and patch sizes per plant): 0.90 of LOTR's plants -> 0.153; outliers per plant in
+# converter/plant_calibration.json (plant_compare.py --calibrate: carpets like withered moss survive anywhere, vanilla's
+# own meadow flowers add dandelions...), dividing that plant's rate.
+PLANT_YIELD = 0.153
 PLANT_MIN_TRIES = 4  # a patch of LOTR's rare flowers is one to three plants
 PLANT_MAX_TRIES = 64  # dense grass: several patches a chunk rather than one huge one
 TRIES_STEPS = [4, 6, 8, 12, 16, 24, 32, 48, 64]  # PLANT_MIN_TRIES..PLANT_MAX_TRIES, shared by the biomes
@@ -559,9 +564,16 @@ class World:
                 write(v["name"] + "_rows", selector(v["name"] + "_rows", trees),
                       [{"type": f"{NS}:orchard_grid", "spacing": spacing, "fill": fill}, gate] + on_land)
             for i, flower in enumerate(v.get("flowers", [])):
+                patches = [{"type": "minecraft:count", "count": 2}]
+                if flower.startswith("mix:"):  # a flower mix of flowers.py, written for this variant
+                    mix = getattr(flowers, flower[4:])
+                    write_json(os.path.join(gen, "configured_feature", f"{biome}_variant", mix["name"] + ".json"),
+                               flowers.configured(mix))
+                    flower, patches = f"{NS}:{biome}_variant/{mix['name']}", flowers.count(mix)
                 write(f"{v['name']}_flowers_{i}", flower,
-                      [{"type": "minecraft:count", "count": 2}, {"type": "minecraft:in_square"}, gate,
-                       {"type": "minecraft:heightmap", "heightmap": "MOTION_BLOCKING"}, {"type": "minecraft:biome"}])
+                      patches + [{"type": "minecraft:in_square"}, gate,
+                                 {"type": "minecraft:heightmap", "heightmap": "MOTION_BLOCKING"},
+                                 {"type": "minecraft:biome"}])
             for name, n, how in v.get("extras", []):
                 feature = self.variant_feature(name)
                 if how == "chunk":  # gates itself column by column; one shared placed feature runs once a chunk
@@ -646,6 +658,12 @@ class World:
             return VANILLA_PLANTS[old]
         return self.gen.idtable.get(old)
 
+    def calibration(self):
+        if not hasattr(self, "_calibration"):
+            path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "plant_calibration.json")
+            self._calibration = json.load(open(path, encoding="utf-8")) if os.path.exists(path) else {}
+        return self._calibration
+
     def census(self):
         if not hasattr(self, "_census"):
             path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "export", "plants_census.json")
@@ -704,7 +722,7 @@ class World:
             # LOTR's patch size: its plants per chunk that had any (dense grass: the whole chunk's, so capped)
             size = count / with_ if with_ else PLANT_TRIES * PLANT_YIELD
             tries = min(TRIES_STEPS, key=lambda t: abs(math.log(t * PLANT_YIELD / max(size, 0.1))))
-            patches = per_chunk / (tries * PLANT_YIELD)
+            patches = per_chunk / (tries * PLANT_YIELD) / self.calibration().get(new, 1.0)
             if patches < 1 / RARITY_STEPS[-1]:
                 continue
             out.append(self.plant_feature(kind, new, patches, tries))

@@ -1,0 +1,71 @@
+{
+  "type": "minecraft:random_patch",
+  "config": {
+    "tries": 12,
+    "xz_spread": 7,
+    "y_spread": 3,
+    "feature": {
+      "feature": {
+        "type": "minecraft:simple_block",
+        "config": {
+          "to_place": {
+            "type": "minecraft:weighted_state_provider",
+            "entries": [
+              {
+                "weight": 3,
+                "data": {
+                  "Name": "minecraft:dandelion"
+                }
+              },
+              {
+                "weight": 3,
+                "data": {
+                  "Name": "minecraft:poppy"
+                }
+              },
+              {
+                "weight": 2,
+                "data": {
+                  "Name": "minecraft:cornflower"
+                }
+              },
+              {
+                "weight": 2,
+                "data": {
+                  "Name": "minecraft:oxeye_daisy"
+                }
+              },
+              {
+                "weight": 2,
+                "data": {
+                  "Name": "minecraft:azure_bluet"
+                }
+              },
+              {
+                "weight": 1,
+                "data": {
+                  "Name": "minecraft:allium"
+                }
+              },
+              {
+                "weight": 1,
+                "data": {
+                  "Name": "minecraft:lily_of_the_valley"
+                }
+              }
+            ]
+          }
+        }
+      },
+      "placement": [
+        {
+          "type": "minecraft:block_predicate_filter",
+          "predicate": {
+            "type": "minecraft:matching_blocks",
+            "blocks": "minecraft:air"
+          }
+        }
+      ]
+    }
+  }
+}

@@ -1,9 +1,9 @@
 {
-  "feature": "minecraft:flower_flower_forest",
+  "feature": "lotr_port:shire_variant/shire_flower_forest_tall",
   "placement": [
     {
       "type": "minecraft:count",
-      "count": 2
+      "count": 1
     },
     {
       "type": "minecraft:in_square"
