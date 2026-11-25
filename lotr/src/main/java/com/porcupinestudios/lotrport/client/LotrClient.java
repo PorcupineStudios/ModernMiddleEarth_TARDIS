@@ -96,6 +96,7 @@ public final class LotrClient {
     public static void setup(FMLClientSetupEvent event) {
         Atmosphere.init();
         ColorGrade.init();
+        RingSight.init();
         event.enqueueWork(WoodSetRenderers::setup);
         MapNet.clientHandler = (data, ctx) -> MapScreen.open(data);
         com.porcupinestudios.lotrport.border.BorderNet.clientHandler = BorderLayer::accept;
@@ -210,12 +211,22 @@ public final class LotrClient {
         event.register((state, level, pos, tint) -> level != null && pos != null
                 ? net.minecraft.client.renderer.BiomeColors.getAverageFoliageColor(level, pos)
                 : net.minecraft.world.level.FoliageColor.getDefaultColor(), tintedFallen());
+        // LOTR's grey tall grasses and clovers take the biome's grass colour (their colorMultiplier)
+        event.register((state, level, pos, tint) -> level != null && pos != null
+                ? net.minecraft.client.renderer.BiomeColors.getAverageGrassColor(level, pos)
+                : net.minecraft.world.level.GrassColor.getDefaultColor(),
+                com.porcupinestudios.lotrport.content.LotrBlocks.tinted("grass"));
     }
 
     @SubscribeEvent
     public static void itemColors(net.neoforged.neoforge.client.event.RegisterColorHandlersEvent.Item event) {
         event.register((stack, layer) -> net.minecraft.world.level.FoliageColor.getDefaultColor(),
                 java.util.Arrays.stream(tintedFallen()).map(net.minecraft.world.level.block.Block::asItem)
+                        .toArray(net.minecraft.world.level.ItemLike[]::new));
+        event.register((stack, layer) -> layer == 0 ? net.minecraft.world.level.GrassColor.getDefaultColor() : -1,
+                java.util.Arrays.stream(com.porcupinestudios.lotrport.content.LotrBlocks.tinted("grass"))
+                        .map(net.minecraft.world.level.block.Block::asItem)
+                        .filter(i -> i != net.minecraft.world.item.Items.AIR)
                         .toArray(net.minecraft.world.level.ItemLike[]::new));
         event.register((stack, layer) -> layer == 0
                 ? net.minecraft.world.item.component.DyedItemColor.getOrDefault(stack, -1) : -1,
@@ -227,6 +238,7 @@ public final class LotrClient {
     public static void guiLayers(net.neoforged.neoforge.client.event.RegisterGuiLayersEvent event) {
         LotrHud.registerLayers(event);
         Atmosphere.layers(event);
+        ColorGrade.layers(event); // below the filter: registerBelowAll puts each under the last
     }
 
     /** Middle-earth's sky (dimension type effects {@code lotr_port:middle_earth}). */
@@ -244,6 +256,7 @@ public final class LotrClient {
     @SubscribeEvent
     public static void reloadListeners(net.neoforged.neoforge.client.event.RegisterClientReloadListenersEvent event) {
         Atmosphere.reload(event);
+        RingSight.reload(event);
     }
 
     @SubscribeEvent

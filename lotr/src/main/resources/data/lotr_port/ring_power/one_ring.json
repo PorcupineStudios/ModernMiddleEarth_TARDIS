@@ -1,0 +1,9 @@
+{
+  "comment": "The One Ring: its wearer passes unseen, but the Unseen see them. Entries in sees_through are entity type ids, #entity tags, or LOTR NPC type ids.",
+  "items": ["lotr_port:one_ring"],
+  "invisible": true,
+  "mob_visibility": 0.0,
+  "sees_through": ["lotr_port:barrow_wight", "lotr_port:marsh_wraith", "#lotr_port:sees_ring_bearers"],
+  "lose_targets": true,
+  "lose_targets_range": 32
+}

@@ -1,0 +1,8 @@
+{
+  "feature": "lotr_port:wilds/boulders_lone_lands_hills",
+  "placement": [
+    {
+      "type": "minecraft:biome"
+    }
+  ]
+}

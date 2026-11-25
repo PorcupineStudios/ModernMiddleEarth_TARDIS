@@ -27,7 +27,6 @@
     "lotr_port:block_of_black_uruk_steel",
     "lotr_port:block_of_blue_dwarven_steel",
     "lotr_port:block_of_bronze",
-    "lotr_port:block_of_copper",
     "lotr_port:block_of_durnor",
     "lotr_port:block_of_dwarven_steel",
     "lotr_port:block_of_edhelvir",
@@ -108,7 +107,6 @@
     "lotr_port:clay_tiling_slab",
     "lotr_port:clay_tiling_stairs",
     "lotr_port:clay_tiling_wall",
-    "lotr_port:copper_ore",
     "lotr_port:coral_block",
     "lotr_port:coral_reef",
     "lotr_port:cracked_angmar_brick",
@@ -688,10 +686,119 @@
     "lotr_port:utumno_entrance_brick",
     "lotr_port:white_sand_slab",
     "lotr_port:wood_elven_wood_bars",
-    "lotr_port:raw_copper_block",
     "lotr_port:raw_mithril_block",
     "lotr_port:raw_morgul_iron_block",
     "lotr_port:raw_silver_block",
-    "lotr_port:raw_tin_block"
+    "lotr_port:raw_tin_block",
+    {
+      "id": "lotr_port:angmar_mechanical_crafter",
+      "required": false
+    },
+    {
+      "id": "lotr_port:blue_mountains_mechanical_crafter",
+      "required": false
+    },
+    {
+      "id": "lotr_port:bree_land_mechanical_crafter",
+      "required": false
+    },
+    {
+      "id": "lotr_port:dalish_mechanical_crafter",
+      "required": false
+    },
+    {
+      "id": "lotr_port:dol_amroth_mechanical_crafter",
+      "required": false
+    },
+    {
+      "id": "lotr_port:dol_guldur_mechanical_crafter",
+      "required": false
+    },
+    {
+      "id": "lotr_port:dorwinion_mechanical_crafter",
+      "required": false
+    },
+    {
+      "id": "lotr_port:dunlending_mechanical_crafter",
+      "required": false
+    },
+    {
+      "id": "lotr_port:dwarven_mechanical_crafter",
+      "required": false
+    },
+    {
+      "id": "lotr_port:galadhrim_mechanical_crafter",
+      "required": false
+    },
+    {
+      "id": "lotr_port:gondorian_mechanical_crafter",
+      "required": false
+    },
+    {
+      "id": "lotr_port:gulfen_mechanical_crafter",
+      "required": false
+    },
+    {
+      "id": "lotr_port:gundabad_mechanical_crafter",
+      "required": false
+    },
+    {
+      "id": "lotr_port:half_troll_mechanical_crafter",
+      "required": false
+    },
+    {
+      "id": "lotr_port:haradric_mechanical_crafter",
+      "required": false
+    },
+    {
+      "id": "lotr_port:hobbit_mechanical_crafter",
+      "required": false
+    },
+    {
+      "id": "lotr_port:lindon_mechanical_crafter",
+      "required": false
+    },
+    {
+      "id": "lotr_port:morgul_mechanical_crafter",
+      "required": false
+    },
+    {
+      "id": "lotr_port:morwaith_mechanical_crafter",
+      "required": false
+    },
+    {
+      "id": "lotr_port:ranger_mechanical_crafter",
+      "required": false
+    },
+    {
+      "id": "lotr_port:rh_nic_mechanical_crafter",
+      "required": false
+    },
+    {
+      "id": "lotr_port:rivendell_mechanical_crafter",
+      "required": false
+    },
+    {
+      "id": "lotr_port:rohirric_mechanical_crafter",
+      "required": false
+    },
+    {
+      "id": "lotr_port:taurethrim_mechanical_crafter",
+      "required": false
+    },
+    {
+      "id": "lotr_port:umbaric_mechanical_crafter",
+      "required": false
+    },
+    {
+      "id": "lotr_port:uruk_mechanical_crafter",
+      "required": false
+    },
+    {
+      "id": "lotr_port:wood_elven_mechanical_crafter",
+      "required": false
+    },
+    "lotr_port:weathered_stone",
+    "lotr_port:lichen_stone"
   ]
 }

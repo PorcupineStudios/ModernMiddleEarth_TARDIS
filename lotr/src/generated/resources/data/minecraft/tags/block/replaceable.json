@@ -26,6 +26,8 @@
     "lotr_port:thistle",
     "lotr_port:web_of_ungoliant",
     "lotr_port:wheatgrass",
-    "lotr_port:willow_vines"
+    "lotr_port:willow_vines",
+    "lotr_port:tussock",
+    "lotr_port:bracken"
   ]
 }

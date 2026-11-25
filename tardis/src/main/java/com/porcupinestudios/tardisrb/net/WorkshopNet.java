@@ -3,12 +3,10 @@ package com.porcupinestudios.tardisrb.net;
 import com.porcupinestudios.tardisrb.TardisRB;
 import com.porcupinestudios.tardisrb.core.TardisRecord;
 import com.porcupinestudios.tardisrb.interior.Interiors;
-import com.porcupinestudios.tardisrb.interior.Rooms;
 import com.porcupinestudios.tardisrb.progression.Cost;
-import com.porcupinestudios.tardisrb.progression.Repair;
 import com.porcupinestudios.tardisrb.progression.Research;
-import com.porcupinestudios.tardisrb.progression.Room;
 import com.porcupinestudios.tardisrb.progression.Stage;
+import com.porcupinestudios.tardisrb.progression.Subsystem;
 import com.porcupinestudios.tardisrb.progression.TardisContent;
 import com.porcupinestudios.tardisrb.progression.Unlocks;
 import com.porcupinestudios.tardisrb.repair.Repairs;
@@ -21,6 +19,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import java.util.TreeMap;
+import java.util.TreeSet;
 import java.util.function.BiConsumer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.codec.ByteBufCodecs;
@@ -36,14 +35,13 @@ import net.neoforged.neoforge.network.handling.IPayloadContext;
 import net.neoforged.neoforge.network.registration.PayloadRegistrar;
 
 /**
- * The repair and upgrade tree (Aaron, 2026-11-03): every repair by subsystem and level, the research tree and the rooms
- * that can be added, with what each costs and whether it can be done now. Opened at the Repair Station in the
+ * The repair and upgrade tree (Aaron, 2026-11-03; reworked 2026-11-19): a node per subsystem and per upgrade, with its
+ * level / max, what the next level costs and exactly what it changes. Opened at the Repair Station in the
  * Repair Station; works only for crew standing in the TARDIS.
  */
 public final class WorkshopNet {
     public static final int REPAIR = 0;
     public static final int RESEARCH = 1;
-    public static final int ROOM = 2;
     public static final int DONE = 0;
     public static final int RUNNING = 1;
     public static final int AVAILABLE = 2;
@@ -78,57 +76,79 @@ public final class WorkshopNet {
         PacketDistributor.sendToPlayer(player, view(player, tardis, ""));
     }
 
-    /** Does what a click on a node asks: a repair, a research node or a room, paid from the player. */
+    /** Does what a click on a node asks: the subsystem's next repair or the node's next upgrade level. */
     public static Repairs.Outcome act(ServerPlayer player, TardisRecord t, int kind, ResourceLocation id) {
-        return switch (kind) {
-            case REPAIR -> Repairs.attempt(player.server, t, id, Optional.of(player));
-            case ROOM -> Rooms.add(player.server, t, id, Optional.of(player));
-            default -> Researching.start(player.server, t, id, Optional.of(player));
-        };
+        return kind == REPAIR ? Repairs.attempt(player.server, t, id, Optional.of(player))
+                : Researching.start(player.server, t, id, Optional.of(player));
     }
 
     private static Optional<TardisRecord> mine(ServerPlayer player) {
         return Interiors.at(player.serverLevel(), player.blockPosition()).filter(t -> t.isCrew(player.getUUID()));
     }
 
-    /** Every repair (by subsystem and level), then every research node (with its parents), then every room. */
+    /**
+     * One node per subsystem (its next repair; level / max) and one per research node (its next level), each with
+     * what it costs and exactly what buying it changes. Rooms aren't shown (Aaron 2026-11-19: later).
+     */
     public static WorkshopView view(ServerPlayer player, TardisRecord t, String message) {
         TardisContent.Snapshot data = TardisContent.get();
         List<Entry> entries = new ArrayList<>();
         Set<ResourceLocation> stageRepairs = new LinkedHashSet<>();
         t.stage().map(data.stages()::get).map(Stage::repairs).ifPresent(stageRepairs::addAll);
-        for (Map.Entry<ResourceLocation, Repair> e : new TreeMap<>(data.repairs()).entrySet()) {
-            Repair r = e.getValue();
-            int state = Unlocks.level(t, r.subsystem()) >= r.level() ? DONE
-                    : Repairs.blocked(player.server, t, e.getKey(), Optional.of(player)).isPresent() ? LOCKED
-                    : AVAILABLE;
-            entries.add(new Entry(REPAIR, e.getKey(), r.subsystem().getPath() + " " + r.level(), state,
-                    new Text(describe(data.cost(r.cost())), stageRepairs.contains(e.getKey()) ? "this stage" : ""),
-                    new Node(r.subsystem().getPath(), r.level(), List.of())));
+        Map<ResourceLocation, Map<Integer, ResourceLocation>> bySub = new TreeMap<>();
+        data.repairs().forEach((id, r) -> bySub.computeIfAbsent(r.subsystem(), k -> new TreeMap<>()).put(r.level(), id));
+        for (Map.Entry<ResourceLocation, Map<Integer, ResourceLocation>> e : bySub.entrySet()) {
+            ResourceLocation sub = e.getKey();
+            Subsystem subsystem = data.subsystems().get(sub);
+            int max = e.getValue().keySet().stream().max(Integer::compare).orElse(0);
+            int cur = Unlocks.level(t, sub);
+            ResourceLocation next = e.getValue().get(cur + 1);
+            int state;
+            List<Change> outcome = new ArrayList<>();
+            String cost = "";
+            if (cur >= max || next == null) {
+                state = DONE;
+            } else {
+                state = Repairs.blocked(player.server, t, next, Optional.of(player)).isPresent() ? LOCKED : AVAILABLE;
+                cost = describe(data.cost(data.repairs().get(next).cost()));
+                if (subsystem != null) {
+                    Set<String> keys = new TreeSet<>();
+                    keys.addAll(subsystem.levels().get(Math.min(cur, subsystem.maxLevel())).keySet());
+                    keys.addAll(subsystem.levels().get(Math.min(cur + 1, subsystem.maxLevel())).keySet());
+                    for (String key : keys) {
+                        double before = Unlocks.stat(t, key);
+                        double delta = subsystem.value(cur + 1, key) - subsystem.value(cur, key);
+                        if (delta != 0) {
+                            outcome.add(new Change(key, before, before + delta));
+                        }
+                    }
+                }
+            }
+            ResourceLocation id = next != null ? next : e.getValue().get(max);
+            entries.add(new Entry(REPAIR, id, sub.getPath(), state, cost, outcome, Math.min(cur, max), max,
+                    next != null && stageRepairs.contains(next), List.of()));
         }
-        long now = player.server.overworld().getGameTime();
         for (Map.Entry<ResourceLocation, Research> e : new TreeMap<>(data.research()).entrySet()) {
-            Researching.State s = Researching.state(player.server, t, e.getKey());
-            int state = switch (s) {
+            Research r = e.getValue();
+            int level = t.researchLevel(e.getKey());
+            int state = switch (Researching.state(player.server, t, e.getKey())) {
                 case DONE -> DONE;
                 case RUNNING -> RUNNING;
                 case AVAILABLE -> AVAILABLE;
                 case LOCKED -> LOCKED;
             };
-            String extra = s == Researching.State.RUNNING
-                    ? t.researching().map(j -> Math.max(0, (j.finishAt() - now) / 20) + "s left").orElse("")
-                    : (e.getValue().time() / 20) + "s";
-            entries.add(new Entry(RESEARCH, e.getKey(), e.getKey().getPath(), state,
-                    new Text(describe(data.cost(e.getValue().cost())), extra),
-                    new Node("", 0, e.getValue().parents())));
-        }
-        for (Map.Entry<ResourceLocation, Room> e : new TreeMap<>(data.rooms()).entrySet()) {
-            long count = t.rooms().stream().filter(r -> r.room().equals(e.getKey())).count();
-            int state = Rooms.blocked(player.server, t, e.getKey(), Optional.of(player)).isPresent() ? LOCKED
-                    : AVAILABLE;
-            entries.add(new Entry(ROOM, e.getKey(), e.getKey().getPath(), state,
-                    new Text(describe(data.cost(e.getValue().cost())), count > 0 ? count + " built" : ""),
-                    new Node("", 0, List.of())));
+            List<Change> outcome = new ArrayList<>();
+            String cost = "";
+            if (level < r.maxLevel()) {
+                Research.Level next = r.level(level + 1);
+                cost = describe(data.cost(next.cost()));
+                for (Map.Entry<String, Double> st : new TreeMap<>(next.stats()).entrySet()) {
+                    double before = Unlocks.stat(t, st.getKey());
+                    outcome.add(new Change(st.getKey(), before, before + st.getValue()));
+                }
+            }
+            entries.add(new Entry(RESEARCH, e.getKey(), e.getKey().getPath(), state, cost, outcome, level,
+                    r.maxLevel(), false, r.parents()));
         }
         String stage = t.stage().map(ResourceLocation::getPath).orElse("-");
         return new WorkshopView(t.name(), stage, (int) Unlocks.stat(t, "range"), t.charge(), entries, message);
@@ -146,31 +166,44 @@ public final class WorkshopNet {
         return parts.isEmpty() ? "free" : String.join(", ", parts);
     }
 
-    /** What a node costs, and a short note (time left, rooms built, part of this stage). */
-    public record Text(String cost, String extra) {
-        public static final StreamCodec<ByteBuf, Text> CODEC = StreamCodec.composite(
-                ByteBufCodecs.STRING_UTF8, Text::cost, ByteBufCodecs.STRING_UTF8, Text::extra, Text::new);
+    /** One thing buying a node changes: a named number (lang {@code tardis_rb.stat.<key>}) from {@code before}. */
+    public record Change(String key, double before, double after) {
+        public static final StreamCodec<ByteBuf, Change> CODEC = StreamCodec.composite(
+                ByteBufCodecs.STRING_UTF8, Change::key, ByteBufCodecs.DOUBLE, Change::before,
+                ByteBufCodecs.DOUBLE, Change::after, Change::new);
     }
 
-    /** Where a node sits in the tree: a repair's subsystem row and level column, a research node's parents. */
-    public record Node(String group, int level, List<ResourceLocation> parents) {
-        public static final StreamCodec<ByteBuf, Node> CODEC = StreamCodec.composite(
-                ByteBufCodecs.STRING_UTF8, Node::group,
-                ByteBufCodecs.VAR_INT, Node::level,
-                ResourceLocation.STREAM_CODEC.apply(ByteBufCodecs.list()), Node::parents,
-                Node::new);
-    }
+    /**
+     * One node: a subsystem (its next repair is {@code id}) or a research node. {@code level} of {@code max} are done;
+     * {@code cost} and {@code outcome} are for the next level (empty when done).
+     */
+    public record Entry(int kind, ResourceLocation id, String title, int state, String cost, List<Change> outcome,
+            int level, int max, boolean stage, List<ResourceLocation> parents) {
+        public static final StreamCodec<ByteBuf, Entry> CODEC = new StreamCodec<>() {
+            @Override
+            public Entry decode(ByteBuf buf) {
+                return new Entry(ByteBufCodecs.VAR_INT.decode(buf), ResourceLocation.STREAM_CODEC.decode(buf),
+                        ByteBufCodecs.STRING_UTF8.decode(buf), ByteBufCodecs.VAR_INT.decode(buf),
+                        ByteBufCodecs.STRING_UTF8.decode(buf), Change.CODEC.apply(ByteBufCodecs.list()).decode(buf),
+                        ByteBufCodecs.VAR_INT.decode(buf), ByteBufCodecs.VAR_INT.decode(buf),
+                        ByteBufCodecs.BOOL.decode(buf),
+                        ResourceLocation.STREAM_CODEC.apply(ByteBufCodecs.list()).decode(buf));
+            }
 
-    /** One node: a repair, a research node or a room. */
-    public record Entry(int kind, ResourceLocation id, String title, int state, Text text, Node node) {
-        public static final StreamCodec<ByteBuf, Entry> CODEC = StreamCodec.composite(
-                ByteBufCodecs.VAR_INT, Entry::kind,
-                ResourceLocation.STREAM_CODEC, Entry::id,
-                ByteBufCodecs.STRING_UTF8, Entry::title,
-                ByteBufCodecs.VAR_INT, Entry::state,
-                Text.CODEC, Entry::text,
-                Node.CODEC, Entry::node,
-                Entry::new);
+            @Override
+            public void encode(ByteBuf buf, Entry e) {
+                ByteBufCodecs.VAR_INT.encode(buf, e.kind());
+                ResourceLocation.STREAM_CODEC.encode(buf, e.id());
+                ByteBufCodecs.STRING_UTF8.encode(buf, e.title());
+                ByteBufCodecs.VAR_INT.encode(buf, e.state());
+                ByteBufCodecs.STRING_UTF8.encode(buf, e.cost());
+                Change.CODEC.apply(ByteBufCodecs.list()).encode(buf, e.outcome());
+                ByteBufCodecs.VAR_INT.encode(buf, e.level());
+                ByteBufCodecs.VAR_INT.encode(buf, e.max());
+                ByteBufCodecs.BOOL.encode(buf, e.stage());
+                ResourceLocation.STREAM_CODEC.apply(ByteBufCodecs.list()).encode(buf, e.parents());
+            }
+        };
     }
 
     public record WorkshopView(String name, String stage, int range, long charge, List<Entry> entries,

@@ -6,7 +6,6 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.TreeSet;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
@@ -16,16 +15,16 @@ import net.minecraft.resources.ResourceLocation;
 import net.neoforged.neoforge.network.PacketDistributor;
 
 /**
- * The repair and upgrade tree at the Repair Station (Aaron, 2026-11-03). Three tabs: Repairs (a row per
- * subsystem, a column per level), Research (columns by depth, lines from each node's parents) and Rooms. Click a
- * bright node to do it; drag or scroll to pan; hover for the cost. Placeholder look until Aaron's art.
+ * The repair and upgrade tree at the Repair Station (Aaron, 2026-11-03; reworked 2026-11-19). Two tabs: Repairs (a
+ * node per subsystem) and Upgrades (columns by depth, lines from each node's parents). Each node shows its level /
+ * max in the bottom right; hover for the next level's cost and exactly what it changes; click a bright node to buy
+ * it. Drag or scroll to pan. Placeholder look until Aaron's art.
  */
 public final class WorkshopScreen extends Screen {
-    private static final int NODE_W = 92;
-    private static final int NODE_H = 20;
+    private static final int NODE_W = 100;
+    private static final int NODE_H = 26;
     private static final int GAP_X = 116;
     private static final int GAP_Y = 30;
-    private static final int LABEL_W = 70;
     private static int tab = WorkshopNet.REPAIR;
 
     private WorkshopNet.WorkshopView view;
@@ -60,9 +59,8 @@ public final class WorkshopScreen extends Screen {
     @Override
     protected void init() {
         int cx = width / 2;
-        tabButton(WorkshopNet.REPAIR, "tardis_rb.workshop.tab.repairs", "Repairs", cx - 150);
-        tabButton(WorkshopNet.RESEARCH, "tardis_rb.workshop.tab.research", "Research", cx - 48);
-        tabButton(WorkshopNet.ROOM, "tardis_rb.workshop.tab.rooms", "Rooms", cx + 54);
+        tabButton(WorkshopNet.REPAIR, "tardis_rb.workshop.tab.repairs", "Repairs", cx - 100);
+        tabButton(WorkshopNet.RESEARCH, "tardis_rb.workshop.tab.upgrades", "Upgrades", cx + 4);
         layout();
     }
 
@@ -81,12 +79,10 @@ public final class WorkshopScreen extends Screen {
         placed.clear();
         List<WorkshopNet.Entry> shown = view.entries().stream().filter(e -> e.kind() == tab).toList();
         if (tab == WorkshopNet.REPAIR) {
-            List<String> rows = new ArrayList<>(new TreeSet<>(shown.stream().map(e -> e.node().group()).toList()));
-            for (WorkshopNet.Entry e : shown) {
-                placed.put(e, new int[] {LABEL_W + (e.node().level() - 1) * GAP_X, rows.indexOf(e.node().group())
-                        * GAP_Y});
+            for (int i = 0; i < shown.size(); i++) {
+                placed.put(shown.get(i), new int[] {(i % 3) * GAP_X, (i / 3) * GAP_Y});
             }
-        } else if (tab == WorkshopNet.RESEARCH) {
+        } else {
             Map<ResourceLocation, WorkshopNet.Entry> byId = new HashMap<>();
             shown.forEach(e -> byId.put(e.id(), e));
             Map<ResourceLocation, Integer> depth = new HashMap<>();
@@ -95,10 +91,6 @@ public final class WorkshopScreen extends Screen {
                 int d = depth(e.id(), byId, depth, 0);
                 int row = used.merge(d, 1, Integer::sum) - 1;
                 placed.put(e, new int[] {d * GAP_X, row * GAP_Y});
-            }
-        } else {
-            for (int i = 0; i < shown.size(); i++) {
-                placed.put(shown.get(i), new int[] {0, i * GAP_Y});
             }
         }
     }
@@ -112,7 +104,7 @@ public final class WorkshopScreen extends Screen {
         WorkshopNet.Entry e = byId.get(id);
         int d = 0;
         if (e != null && guard < 64) {
-            for (ResourceLocation p : e.node().parents()) {
+            for (ResourceLocation p : e.parents()) {
                 if (byId.containsKey(p)) {
                     d = Math.max(d, depth(p, byId, memo, guard + 1) + 1);
                 }
@@ -193,13 +185,6 @@ public final class WorkshopScreen extends Screen {
         g.fill(left, top(), right, bottom(), 0x80101018);
         g.enableScissor(left, top(), right, bottom());
         drawLinks(g);
-        if (tab == WorkshopNet.REPAIR) {
-            List<String> rows = new ArrayList<>(new TreeSet<>(placed.keySet().stream().map(e -> e.node().group())
-                    .toList()));
-            for (int i = 0; i < rows.size(); i++) {
-                g.drawString(font, rows.get(i), originX(), originY() + i * GAP_Y + 6, 0xB0B0B0);
-            }
-        }
         for (Map.Entry<WorkshopNet.Entry, int[]> p : placed.entrySet()) {
             drawNode(g, p.getKey(), originX() + p.getValue()[0], originY() + p.getValue()[1]);
         }
@@ -225,15 +210,9 @@ public final class WorkshopScreen extends Screen {
             WorkshopNet.Entry e = p.getKey();
             List<int[]> from = new ArrayList<>();
             if (tab == WorkshopNet.RESEARCH) {
-                e.node().parents().forEach(par -> {
+                e.parents().forEach(par -> {
                     int[] q = byKey.get(par.toString());
                     if (q != null) {
-                        from.add(q);
-                    }
-                });
-            } else if (tab == WorkshopNet.REPAIR) {
-                placed.forEach((o, q) -> {
-                    if (o.node().group().equals(e.node().group()) && o.node().level() == e.node().level() - 1) {
                         from.add(q);
                     }
                 });
@@ -261,28 +240,47 @@ public final class WorkshopScreen extends Screen {
         };
         g.fill(x, y, x + NODE_W, y + NODE_H, border);
         g.fill(x + 1, y + 1, x + NODE_W - 1, y + NODE_H - 1, e.state() == WorkshopNet.LOCKED ? 0xFF181818 : 0xFF202830);
-        String label = e.kind() == WorkshopNet.REPAIR ? "Level " + e.node().level() : e.title();
-        g.drawString(font, font.plainSubstrByWidth(label, NODE_W - 8), x + 4, y + 6,
-                e.state() == WorkshopNet.LOCKED ? 0x808080 : 0xFFFFFF);
+        int text = e.state() == WorkshopNet.LOCKED ? 0x808080 : 0xFFFFFF;
+        g.drawString(font, font.plainSubstrByWidth(name(e.title()), NODE_W - 8), x + 4, y + 4, text);
+        String level = e.level() + "/" + e.max();
+        g.drawString(font, level, x + NODE_W - 4 - font.width(level), y + NODE_H - 11,
+                e.level() >= e.max() ? 0x70D070 : 0xC0C0C0);
+    }
+
+    /** "hop_calibration" -> "Hop calibration" (lang {@code tardis_rb.node.<id>} first). */
+    private static String name(String id) {
+        String plain = id.isEmpty() ? id : Character.toUpperCase(id.charAt(0)) + id.substring(1).replace('_', ' ');
+        return Component.translatableWithFallback("tardis_rb.node." + id, plain).getString();
+    }
+
+    private static String number(double v) {
+        return v == Math.rint(v) ? String.valueOf((long) v) : String.format("%.2f", v);
     }
 
     private static List<Component> tooltip(WorkshopNet.Entry e) {
         List<Component> lines = new ArrayList<>();
-        lines.add(Component.literal(e.title()));
+        lines.add(Component.literal(name(e.title()) + "  (" + e.level() + "/" + e.max() + ")"));
         String state = switch (e.state()) {
-            case WorkshopNet.DONE -> "Done";
-            case WorkshopNet.RUNNING -> "Under way, " + e.text().extra();
-            case WorkshopNet.AVAILABLE -> switch (e.kind()) {
-                case WorkshopNet.REPAIR -> "Click to repair";
-                case WorkshopNet.ROOM -> "Click to build";
-                default -> "Click to research";
-            };
+            case WorkshopNet.DONE -> e.kind() == WorkshopNet.REPAIR ? "Fully repaired" : "Fully upgraded";
+            case WorkshopNet.RUNNING -> "Under way";
+            case WorkshopNet.AVAILABLE -> e.kind() == WorkshopNet.REPAIR ? "Click to repair" : "Click to upgrade";
             default -> "Locked";
         };
         lines.add(Component.literal(state).withColor(0xC0C0C0));
-        lines.add(Component.literal("Cost: " + e.text().cost()).withColor(0xA0A0A0));
-        if (!e.text().extra().isEmpty() && e.state() != WorkshopNet.RUNNING) {
-            lines.add(Component.literal(e.text().extra()).withColor(0xA0A0A0));
+        if (e.level() < e.max()) {
+            lines.add(Component.literal("Cost: " + e.cost()).withColor(0xA0A0A0));
+            if (e.outcome().isEmpty()) {
+                lines.add(Component.literal("Changes no numbers (it unlocks what needs it)").withColor(0xA0A0A0));
+            }
+            for (WorkshopNet.Change c : e.outcome()) {
+                String stat = Component.translatableWithFallback("tardis_rb.stat." + c.key(),
+                        name(c.key())).getString();
+                lines.add(Component.literal(stat + ": " + number(c.before()) + " \u2192 " + number(c.after()))
+                        .withColor(0x80E080));
+            }
+        }
+        if (e.stage()) {
+            lines.add(Component.literal("Needed for this stage").withColor(0xFFD080));
         }
         return lines;
     }

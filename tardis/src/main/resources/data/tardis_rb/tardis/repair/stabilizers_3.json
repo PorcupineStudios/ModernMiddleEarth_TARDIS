@@ -1,5 +1,14 @@
 {
   "subsystem": "tardis_rb:stabilizers",
   "level": 3,
-  "cost": "tardis_rb:stabilizer_coil"
+  "cost": {
+    "items": [
+      {
+        "ingredient": {
+          "item": "tardis_rb:stabilizer_coil"
+        },
+        "count": 3
+      }
+    ]
+  }
 }

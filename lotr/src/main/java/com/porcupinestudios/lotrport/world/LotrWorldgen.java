@@ -22,7 +22,10 @@ import net.neoforged.neoforge.event.level.LevelEvent;
 import net.neoforged.neoforge.event.server.ServerStartedEvent;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
-/** World generation types: the map biome source, the map terrain density function and the road feature. */
+/**
+ * World generation types: the map biome source, the map terrain density function, the features (roads, enclosures,
+ * webs, old walls...) and placement filters (variants, enclosures, regions).
+ */
 public final class LotrWorldgen {
     private static final DeferredRegister<MapCodec<? extends BiomeSource>> BIOME_SOURCES =
             DeferredRegister.create(Registries.BIOME_SOURCE, LotrPort.MOD_ID);
@@ -48,11 +51,23 @@ public final class LotrWorldgen {
                     com.porcupinestudios.lotrport.world.feature.OrchardGrid>> ORCHARD_GRID = PLACEMENT_MODIFIERS.register(
                             "orchard_grid", () -> () -> com.porcupinestudios.lotrport.world.feature.OrchardGrid.CODEC);
     public static final java.util.function.Supplier<net.minecraft.world.level.levelgen.placement.PlacementModifierType<
+                    com.porcupinestudios.lotrport.world.feature.OutsideEnclosures>> OUTSIDE_ENCLOSURES =
+            PLACEMENT_MODIFIERS.register("outside_enclosures",
+                    () -> () -> com.porcupinestudios.lotrport.world.feature.OutsideEnclosures.CODEC);
+    public static final java.util.function.Supplier<net.minecraft.world.level.levelgen.placement.PlacementModifierType<
+                    com.porcupinestudios.lotrport.world.feature.InRegion>> IN_REGION = PLACEMENT_MODIFIERS.register(
+                            "in_region", () -> () -> com.porcupinestudios.lotrport.world.feature.InRegion.CODEC);
+    public static final java.util.function.Supplier<net.minecraft.world.level.levelgen.placement.PlacementModifierType<
                     com.porcupinestudios.lotrport.world.feature.CavePocket>> CAVE_POCKET = PLACEMENT_MODIFIERS.register(
                             "cave_pocket", () -> () -> com.porcupinestudios.lotrport.world.feature.CavePocket.CODEC);
 
+    public static final java.util.function.Supplier<net.minecraft.world.level.levelgen.placement.PlacementModifierType<
+                    com.porcupinestudios.lotrport.world.feature.Grove>> GROVE = PLACEMENT_MODIFIERS.register(
+                            "grove", () -> () -> com.porcupinestudios.lotrport.world.feature.Grove.CODEC);
+
     static {
         FEATURES.register("roads", RoadFeature::new);
+        FEATURES.register("road_verge", com.porcupinestudios.lotrport.world.feature.RoadVergeFeature::new);
         FEATURES.register("forest_floor", com.porcupinestudios.lotrport.world.feature.ForestFloorFeature::new);
         FEATURES.register("crater_lava", com.porcupinestudios.lotrport.world.feature.CraterLavaFeature::new);
         FEATURES.register("reeds", com.porcupinestudios.lotrport.world.feature.ReedsFeature::new);
@@ -61,6 +76,12 @@ public final class LotrWorldgen {
         FEATURES.register("mountain_ores", com.porcupinestudios.lotrport.world.feature.MountainOresFeature::new);
         FEATURES.register("heart_of_the_mountain",
                 com.porcupinestudios.lotrport.world.feature.HeartOfTheMountainFeature::new);
+        FEATURES.register("enclosure", com.porcupinestudios.lotrport.world.feature.EnclosureFeature::new);
+        FEATURES.register("webs", com.porcupinestudios.lotrport.world.feature.WebsFeature::new);
+        FEATURES.register("old_walls", com.porcupinestudios.lotrport.world.feature.OldWallsFeature::new);
+        FEATURES.register("spider_nest", com.porcupinestudios.lotrport.world.feature.SpiderNestFeature::new);
+        FEATURES.register("ground_cover", com.porcupinestudios.lotrport.world.feature.GroundCoverFeature::new);
+        FEATURES.register("boulders", com.porcupinestudios.lotrport.world.feature.BoulderFeature::new);
         BIOME_SOURCES.register("middle_earth", () -> MapBiomeSource.CODEC);
         DENSITY_FUNCTIONS.register("map_terrain", () -> MapTerrain.MAP_CODEC);
         DENSITY_FUNCTIONS.register("cave_setting", () -> CaveSetting.MAP_CODEC);
@@ -136,5 +157,6 @@ public final class LotrWorldgen {
         }
         WorldCheck.runIfAsked(event.getServer());
         TerrainPreview.runIfAsked(event.getServer());
+        PortPlantCensus.runIfAsked(event.getServer());
     }
 }

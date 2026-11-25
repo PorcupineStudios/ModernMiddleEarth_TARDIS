@@ -32,7 +32,6 @@
       "luigon",
       "cargon",
       "chalk",
-      "copper_ore",
       "tin_ore",
       "silver_ore",
       "mithril_ore",
@@ -241,8 +240,6 @@
       "cracked_galadhrim_brick",
       "luigon_brick",
       "haradric_brick",
-      "block_of_copper",
-      "raw_copper_block",
       "block_of_tin",
       "raw_tin_block",
       "block_of_bronze",
@@ -1984,8 +1981,6 @@
   {
     "id": "materials",
     "items": [
-      "raw_copper",
-      "copper_ingot",
       "raw_tin",
       "tin_ingot",
       "bronze_ingot",

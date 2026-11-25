@@ -2,7 +2,7 @@
 
 Read when: you touch `colonist/`, home assignment (`colony/work/Assign`), happiness (`colony/work/Life.needs`) or the
 `colonist_*` data. Written 2026-11-11 (moved from the abandoned `claude/colony-core` branch onto the society core).
-Design: the "Colonists" section of https://claude.ai/artifact/LZs7i9p8w6MaN7pdLV2K5N.
+Design: the "Colonists" section of `docs/plans/colony-core.md`.
 
 ## Status
 

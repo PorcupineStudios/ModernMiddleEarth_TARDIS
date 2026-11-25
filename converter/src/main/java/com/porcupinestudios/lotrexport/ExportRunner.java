@@ -14,7 +14,8 @@ import net.minecraft.world.WorldType;
 /**
  * Waits for the main menu (all textures stitched), runs the export, then (unless {@code -Dlotrexport.structures=false})
  * the {@link StructureExporter} and {@link TreeExporter} in throwaway client worlds, and stops the game. With
- * {@code -Dlotrexport.rates=true} it runs only the {@link StructureRateExporter} instead.
+ * {@code -Dlotrexport.rates=true} it runs only the {@link StructureRateExporter} instead, with
+ * {@code -Dlotrexport.plants=true} only the {@link PlantCensus}.
  */
 public class ExportRunner {
     private boolean done;
@@ -37,6 +38,10 @@ public class ExportRunner {
                 t.printStackTrace();
                 mc.shutdown();
             }
+            return;
+        }
+        if (Boolean.getBoolean("lotrexport.plants")) {
+            new PlantCensus(out).start(mc); // on its own: it quits the game when done
             return;
         }
         if (Boolean.getBoolean("lotrexport.rates")) {

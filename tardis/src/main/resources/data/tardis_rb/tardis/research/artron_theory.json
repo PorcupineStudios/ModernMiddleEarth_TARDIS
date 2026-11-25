@@ -1,13 +1,49 @@
 {
-  "time": 1200,
-  "cost": {
-    "items": [
-      {
-        "ingredient": {
-          "item": "minecraft:book"
-        },
-        "count": 1
+  "levels": [
+    {
+      "cost": {
+        "items": [
+          {
+            "ingredient": {
+              "item": "tardis_rb:artron_battery"
+            },
+            "count": 1
+          }
+        ]
+      },
+      "stats": {
+        "charge_cap": 100
       }
-    ]
-  }
+    },
+    {
+      "cost": {
+        "items": [
+          {
+            "ingredient": {
+              "item": "tardis_rb:artron_battery"
+            },
+            "count": 2
+          }
+        ]
+      },
+      "stats": {
+        "charge_cap": 200
+      }
+    },
+    {
+      "cost": {
+        "items": [
+          {
+            "ingredient": {
+              "item": "tardis_rb:artron_battery"
+            },
+            "count": 4
+          }
+        ]
+      },
+      "stats": {
+        "charge_cap": 400
+      }
+    }
+  ]
 }

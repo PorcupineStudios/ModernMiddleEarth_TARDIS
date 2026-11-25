@@ -16,6 +16,10 @@
     "lotr_port:mordor_dirt_slab",
     "lotr_port:reed_stairs",
     "lotr_port:termite_mound",
-    "lotr_port:thatch_stairs"
+    "lotr_port:thatch_stairs",
+    "lotr_port:moorland_soil",
+    "lotr_port:stony_earth",
+    "lotr_port:heath_moss",
+    "lotr_port:rocky_dirt"
   ]
 }

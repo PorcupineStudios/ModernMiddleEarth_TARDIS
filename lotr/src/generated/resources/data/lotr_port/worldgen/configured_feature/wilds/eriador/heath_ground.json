@@ -1,0 +1,73 @@
+{
+  "type": "lotr_port:ground_cover",
+  "config": {
+    "biomes": [
+      "lotr_port:eriador"
+    ],
+    "variants": [
+      "heath"
+    ],
+    "blocks": {
+      "rock": {
+        "Name": "lotr_port:weathered_stone"
+      },
+      "lichen": {
+        "Name": "lotr_port:lichen_stone"
+      },
+      "rubble": {
+        "Name": "lotr_port:scree"
+      },
+      "peat": {
+        "Name": "lotr_port:moorland_soil"
+      },
+      "moss": {
+        "Name": "lotr_port:heath_moss"
+      },
+      "coarse": {
+        "Name": "lotr_port:stony_earth"
+      },
+      "gravel": {
+        "Name": "minecraft:gravel"
+      },
+      "dirt": {
+        "Name": "lotr_port:rocky_dirt"
+      }
+    },
+    "rules": {
+      "patch": 34,
+      "coarse": 0.38,
+      "rubble": 0.6,
+      "rock": 0.78,
+      "lichen": 0.3,
+      "wet": 0.7,
+      "moss": 0.9,
+      "steep": 4,
+      "east": 0,
+      "east_from": 0,
+      "east_to": 0
+    },
+    "creeks": {
+      "scale": 260,
+      "width": 2.5,
+      "mask": 0.3
+    },
+    "plants": [
+      {
+        "block": {
+          "Name": "lotr_port:bracken"
+        },
+        "chance": 0.4,
+        "patch": 26,
+        "above": 0.45
+      },
+      {
+        "block": {
+          "Name": "lotr_port:tussock"
+        },
+        "chance": 0.06,
+        "patch": 0,
+        "above": 0
+      }
+    ]
+  }
+}

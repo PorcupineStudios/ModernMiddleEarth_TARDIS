@@ -117,11 +117,28 @@
       "lotr_port:forest_floor/40_0",
       "lotr_port:plant/reeds_0_9",
       "lotr_port:plant/dried_reeds_0_1",
-      "minecraft:flower_default",
-      "minecraft:patch_grass_forest",
       "minecraft:patch_sugar_cane",
-      "minecraft:patch_tall_grass",
-      "minecraft:patch_large_fern",
+      "lotr_port:plant_grass/clover_r6",
+      "lotr_port:plant_grass/flax_plant_r512",
+      "lotr_port:plant_grass/flowery_grass_r6",
+      "lotr_port:plant_grass/jungle_sprout_c1",
+      "lotr_port:plant_grass/nettles_r25",
+      "lotr_port:plant_grass/short_grass_c1",
+      "lotr_port:plant_grass/thistle_r256",
+      "lotr_port:plant_grass/wheatgrass_r5",
+      "lotr_port:plant_grass/minecraft_fern_r2",
+      "lotr_port:plant_grass/minecraft_short_grass_r2",
+      "lotr_port:plant_double_grass/minecraft_large_fern_r12",
+      "lotr_port:plant_double_grass/minecraft_tall_grass_r5",
+      "lotr_port:plant_flowers/harad_daisy_r3",
+      "lotr_port:plant_flowers/southbells_r3",
+      "lotr_port:plant_flowers/minecraft_dandelion_r4",
+      "lotr_port:plant_flowers/minecraft_poppy_r3",
+      "lotr_port:plant_double_flowers/flame_of_harad_r10",
+      "lotr_port:plant_double_flowers/hibiscus_c1",
+      "lotr_port:plant_extra/black_iris_r5",
+      "lotr_port:plant_extra/cranberry_bush_r25",
+      "lotr_port:plant_extra/raspberry_bush_r25",
       "minecraft:glow_lichen",
       "lotr_port:lush_cave_ceiling",
       "lotr_port:lush_cave_vines",
@@ -134,7 +151,9 @@
       "minecraft:vines"
     ],
     [
+      "lotr_port:road_verge",
       "minecraft:freeze_top_layer"
     ]
-  ]
+  ],
+  "creature_spawn_probability": 0.08077
 }

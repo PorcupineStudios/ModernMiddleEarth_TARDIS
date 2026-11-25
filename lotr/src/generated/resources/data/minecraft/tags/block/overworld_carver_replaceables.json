@@ -11,7 +11,6 @@
     "lotr_port:cargon",
     "lotr_port:chalk",
     "lotr_port:clay_tiling",
-    "lotr_port:copper_ore",
     "lotr_port:cyan_clay_tiling",
     "lotr_port:diamond_vein",
     "lotr_port:dirt_path",
@@ -66,10 +65,15 @@
     "lotr_port:white_clay_tiling",
     "lotr_port:white_sand",
     "lotr_port:yellow_clay_tiling",
-    "lotr_port:raw_copper_block",
     "lotr_port:raw_mithril_block",
     "lotr_port:raw_morgul_iron_block",
     "lotr_port:raw_silver_block",
-    "lotr_port:raw_tin_block"
+    "lotr_port:raw_tin_block",
+    "lotr_port:weathered_stone",
+    "lotr_port:lichen_stone",
+    "lotr_port:scree",
+    "lotr_port:moorland_soil",
+    "lotr_port:stony_earth",
+    "lotr_port:heath_moss"
   ]
 }

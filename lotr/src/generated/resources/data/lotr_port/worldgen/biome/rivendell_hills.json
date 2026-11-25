@@ -127,9 +127,13 @@
       "lotr_port:forest_floor/3_0",
       "lotr_port:plant/reeds_0_9",
       "lotr_port:plant/dried_reeds_0_1",
-      "minecraft:flower_default",
-      "minecraft:patch_grass_forest",
-      "minecraft:patch_tall_grass",
+      "lotr_port:plant_grass/clover_r50",
+      "lotr_port:plant_grass/flowery_grass_r200",
+      "lotr_port:plant_grass/short_grass_r10",
+      "lotr_port:plant_grass/wheatgrass_r128",
+      "lotr_port:plant_grass/minecraft_short_grass_r40",
+      "lotr_port:plant_double_grass/minecraft_tall_grass_r32",
+      "lotr_port:plant_extra/elderberry_bush_r100",
       "minecraft:glow_lichen",
       "lotr_port:lush_cave_ceiling",
       "lotr_port:lush_cave_vines",
@@ -143,7 +147,9 @@
       "minecraft:patch_pumpkin"
     ],
     [
+      "lotr_port:road_verge",
       "minecraft:freeze_top_layer"
     ]
-  ]
+  ],
+  "creature_spawn_probability": 0.06863
 }

@@ -2,14 +2,13 @@
   "parents": [
     "tardis_rb:artron_theory"
   ],
-  "time": 2400,
   "cost": {
     "items": [
       {
         "ingredient": {
-          "item": "minecraft:map"
+          "item": "tardis_rb:chronon_lens"
         },
-        "count": 4
+        "count": 2
       }
     ],
     "charge": 50

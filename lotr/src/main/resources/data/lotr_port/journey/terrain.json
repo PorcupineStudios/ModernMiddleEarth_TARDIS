@@ -39,6 +39,8 @@
     "old_forest": 0.4,
     "mirkwood_corrupted": 0.4,
     "mirkwood_north": 0.45,
+    "mirkwood_enchanted": 0.35,
+    "mirkwood_spider_nests": 0.25,
     "woodland_realm": 0.55,
     "lothlorien": 0.7,
     "rivendell": 0.8,

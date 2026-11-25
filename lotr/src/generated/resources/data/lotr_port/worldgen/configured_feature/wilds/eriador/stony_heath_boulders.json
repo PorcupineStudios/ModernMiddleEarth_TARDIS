@@ -1,0 +1,23 @@
+{
+  "type": "lotr_port:boulders",
+  "config": {
+    "rock": {
+      "Name": "lotr_port:weathered_stone"
+    },
+    "lichen": {
+      "Name": "lotr_port:lichen_stone"
+    },
+    "moss": {
+      "Name": "lotr_port:heath_moss"
+    },
+    "east": 0,
+    "east_from": 0,
+    "east_to": 0,
+    "variants": [
+      "stony_heath"
+    ],
+    "per_chunk": 0.25,
+    "tor": 0.05,
+    "size": 1.0
+  }
+}

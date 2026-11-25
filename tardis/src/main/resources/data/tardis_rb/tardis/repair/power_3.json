@@ -5,9 +5,9 @@
     "items": [
       {
         "ingredient": {
-          "item": "minecraft:amethyst_block"
+          "item": "tardis_rb:artron_battery"
         },
-        "count": 4
+        "count": 3
       }
     ],
     "charge": 500

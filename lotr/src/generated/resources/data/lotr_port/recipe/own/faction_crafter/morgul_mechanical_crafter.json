@@ -1,0 +1,38 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "create"
+    }
+  ],
+  "type": "lotr_port:faction_crafting",
+  "table": "lotr_port:morgul_crafting_table",
+  "alignment": {
+    "faction": "lotr_port:mordor",
+    "above": 0.0
+  },
+  "recipe": {
+    "type": "minecraft:crafting_shaped",
+    "category": "misc",
+    "pattern": [
+      "B",
+      "C",
+      "R"
+    ],
+    "key": {
+      "B": {
+        "item": "create:electron_tube"
+      },
+      "C": {
+        "item": "create:brass_casing"
+      },
+      "R": {
+        "item": "minecraft:crafting_table"
+      }
+    },
+    "result": {
+      "id": "lotr_port:morgul_mechanical_crafter",
+      "count": 3
+    }
+  }
+}

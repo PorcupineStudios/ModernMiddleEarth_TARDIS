@@ -88,6 +88,8 @@ def run(out=OUT):
         own = [e for e in table.get("entries", []) if factions.get(e["npc"]) == owner]
         if all(e.get("dark", False) for e in own) and not table.get("hostiles_in_day", False):
             continue  # only night raiders (orcs roaming Eriador): wilderness, nobody's land
+        if table.get("wilderness", False):
+            continue  # marked wild by its maker (regions.py: Mirkwood's spider nests are nobody's land)
         base[biome] = owner
         tables[owner].append(table)
         for e in table.get("entries", []):

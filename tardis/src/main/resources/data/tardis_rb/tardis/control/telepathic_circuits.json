@@ -1,15 +1,16 @@
 {
   "model": "telepathic_circuits",
   "panel": 2,
-  "u": 0.173,
-  "v": 0.52,
-  "scale": 0.72,
+  "u": 0.1645,
+  "v": 0.545,
+  "scale": 0.68,
   "actions": {
     "plate": "none"
   },
   "requirements": {
-    "type": "tardis_rb:subsystem_level",
-    "subsystem": "tardis_rb:navigation",
-    "min": 1
+    "type": "ringbearer_api:not",
+    "condition": {
+      "type": "ringbearer_api:always"
+    }
   }
 }
