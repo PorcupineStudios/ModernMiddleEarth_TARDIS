@@ -282,8 +282,9 @@ https://claude.ai/artifact/KqhSSTCuKXGuwKHBoYJdcu. Rebuild features in modern co
   68288, 4160, in southern Mirkwood at its western eaves): biome modifier `rhosgobel_rabbits.json` puts them on
   `mirkwood_corrupted` and `anduin_vale` (weight 8, 2-4), and the breed's `spawn_near` (`Mounts.nearHome`, in the
   spawn placement rule) keeps them within 2048 blocks of the waypoint. GameTest `rhosgobelRabbitsLiveRoundRhosgobel`.
-  No saddle: breeds with no saddle texture that aren't the old horse model aren't saddleable (`LotrHorse.isSaddleable`);
-  they pull in the harness mod's harness. The generated entries (mounts.json, `mount/rhosgobel_rabbit.json`, en_us
+  Saddled, they carry a rider (2026-11-25): the same script writes `rhosgobel_rabbit_saddle.json` (the same parts, so
+  it moves with them, plus pommel, cantle and stirrups) and `textures/entity/rhosgobel_rabbit/saddle.png`; seat 1.4.
+  With the harness mod they also pull, saddle and harness worn together. The generated entries (mounts.json, `mount/rhosgobel_rabbit.json`, en_us
   name) were written from `OWN_BREEDS` without a full converter run (the LOTR jar isn't in the sandbox).
 - For the harness mod (optional, no dependency either way): `LotrNpc` is an `OwnableEntity` (its hirer), and
   `LotrPort` sends IMC `draught_key` naming NPCs by NPC type, so harness data can list `lotr_port:mordor_warg` etc.

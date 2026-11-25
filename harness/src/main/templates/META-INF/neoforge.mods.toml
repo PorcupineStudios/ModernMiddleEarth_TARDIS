@@ -55,3 +55,10 @@ side = "BOTH"
 # The harness steers the front Offroad wheel mounts of its vehicle (a wagon pole turning the front axle).
 [[mixins]]
 config = "ringbearer_harness.mixins.json"
+
+[[dependencies.${mod_id}]]
+modId = "curios"
+type = "required"
+versionRange = "[9.5.1,)"
+ordering = "AFTER"
+side = "BOTH"

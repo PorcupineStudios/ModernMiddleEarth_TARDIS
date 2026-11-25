@@ -1,0 +1,7 @@
+{
+  "neoforge:conditions": [{"type": "neoforge:mod_loaded", "modid": "lotr_port"}],
+  "entities": ["lotr_port:horse", "lotr_port:shire_pony", "lotr_port:zebra", "lotr_port:wild_boar",
+    "lotr_port:camel", "lotr_port:elk", "lotr_port:rhino", "lotr_port:giraffe", "lotr_port:rhosgobel_rabbit",
+    "lotr_port:npc", "lotr_port:rigged_npc"],
+  "slots": ["harness"]
+}

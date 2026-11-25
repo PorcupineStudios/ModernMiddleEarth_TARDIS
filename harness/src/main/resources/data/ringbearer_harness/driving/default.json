@@ -1,0 +1,7 @@
+{
+  "trot": 4.0,
+  "canter": 8.0,
+  "reverse": 1.0,
+  "accel": 4.0,
+  "turn": 50.0
+}
