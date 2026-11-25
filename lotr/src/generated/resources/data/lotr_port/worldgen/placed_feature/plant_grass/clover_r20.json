@@ -1,5 +1,5 @@
 {
-  "feature": "lotr_port:plant_patch/clover_8",
+  "feature": "lotr_port:plant_patch/clover_32",
   "placement": [
     {
       "type": "minecraft:rarity_filter",

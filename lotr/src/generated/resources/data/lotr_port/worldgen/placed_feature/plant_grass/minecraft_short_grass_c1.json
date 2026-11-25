@@ -1,5 +1,5 @@
 {
-  "feature": "lotr_port:plant_patch/minecraft_short_grass_48",
+  "feature": "lotr_port:plant_patch/minecraft_short_grass_64",
   "placement": [
     {
       "type": "minecraft:count",
