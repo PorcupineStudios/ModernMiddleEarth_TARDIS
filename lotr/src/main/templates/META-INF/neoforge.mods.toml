@@ -30,6 +30,14 @@ versionRange = "[0.1.0,)"
 ordering = "AFTER"
 side = "BOTH"
 
+# Curios is required: the ring slot (ring/RingPowers), later cloak and backpack slots.
+[[dependencies.${mod_id}]]
+modId = "curios"
+type = "required"
+versionRange = "[9.5,)"
+ordering = "NONE"
+side = "BOTH"
+
 # JEI is optional: with it installed, compat/jei/LotrJeiPlugin shows faction tables and LOTR's machines.
 [[dependencies.${mod_id}]]
 modId = "jei"

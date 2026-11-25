@@ -86,6 +86,7 @@ public final class LotrClient {
     public static void setup(FMLClientSetupEvent event) {
         Atmosphere.init();
         ColorGrade.init();
+        RingSight.init();
         event.enqueueWork(WoodSetRenderers::setup);
         MapNet.clientHandler = (data, ctx) -> MapScreen.open(data);
         com.porcupinestudios.lotrport.border.BorderNet.clientHandler = BorderLayer::accept;
@@ -217,6 +218,7 @@ public final class LotrClient {
     public static void guiLayers(net.neoforged.neoforge.client.event.RegisterGuiLayersEvent event) {
         LotrHud.registerLayers(event);
         Atmosphere.layers(event);
+        ColorGrade.layers(event); // below the filter: registerBelowAll puts each under the last
     }
 
     /** Middle-earth's sky (dimension type effects {@code lotr_port:middle_earth}). */
@@ -234,6 +236,7 @@ public final class LotrClient {
     @SubscribeEvent
     public static void reloadListeners(net.neoforged.neoforge.client.event.RegisterClientReloadListenersEvent event) {
         Atmosphere.reload(event);
+        RingSight.reload(event);
     }
 
     @SubscribeEvent

@@ -18,6 +18,26 @@ repositories {
         url = 'https://api.modrinth.com/maven'
         content { includeGroup 'maven.modrinth' }
     }
+    maven {
+        url = 'https://maven.theillusivec4.top/'
+        content { includeGroup 'top.theillusivec4.curios' }
+    }
+}
+
+// Curios (required): worn-item slots. The ring slot holds the One Ring and LOTR's rings (`ring/`, data
+// `curios/slots`, `curios/entities`, item tag `curios:ring`). Compiled against its API; dev runs load the full jar.
+dependencies {
+    compileOnly "top.theillusivec4.curios:curios-neoforge:${curios_version}:api"
+    runtimeOnly "top.theillusivec4.curios:curios-neoforge:${curios_version}"
+}
+
+// Iris + Sodium (optional, dev runs only with -Piris): checks compat/iris and the looks drawn over a shader pack.
+// Put a pack in run/shaderpacks and name it in run/config/iris.properties (shaderPack=..., enableShaders=true).
+if (project.hasProperty('iris')) {
+    dependencies {
+        runtimeOnly "maven.modrinth:iris:${iris_version}"
+        runtimeOnly "maven.modrinth:sodium:${sodium_version}"
+    }
 }
 
 // Jade (optional): compat/jade shows what a set-down drink holds. Compile only.

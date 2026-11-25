@@ -41,13 +41,19 @@ public final class Atmosphere {
     record Look(List<String> biomes, int priority, float fogStart, float fogEnd, int fogColor, float fogColorStrength,
             int filter, float filterAlpha, float[] grade) {}
 
-    /** Colour grade offsets from neutral, eased like the rest: saturation, contrast, warmth, brightness, vignette, bloom. */
-    static final String[] GRADE = {"saturation", "contrast", "warmth", "brightness", "vignette", "bloom"};
+    /**
+     * Colour grade offsets from neutral, eased like the rest: saturation, contrast, warmth, brightness, vignette, bloom,
+     * then the dark-land effects (0 = off): grain (film noise), aberration (colour fringes toward the edges), wobble
+     * (heat shimmer), blur (edges smeared).
+     */
+    static final String[] GRADE = {"saturation", "contrast", "warmth", "brightness", "vignette", "bloom", "grain",
+            "aberration", "wobble", "blur"};
     private static final int G0 = 9;
+    private static final int SIZE = G0 + GRADE.length;
 
     /** The eased state: everything blends between "none" (vanilla) and the current look. */
-    private static final float[] cur = new float[15];
-    private static final float[] prev = new float[15];
+    private static final float[] cur = new float[SIZE];
+    private static final float[] prev = new float[SIZE];
     private static List<Look> looks = List.of();
     private static Holder<Biome> lastBiome;
     private static Look lastLook;
@@ -113,7 +119,7 @@ public final class Atmosphere {
             }
             look = lastLook;
         }
-        float[] target = new float[15];
+        float[] target = new float[SIZE];
         if (look != null) {
             target[0] = 1;
             target[1] = look.fogStart();
