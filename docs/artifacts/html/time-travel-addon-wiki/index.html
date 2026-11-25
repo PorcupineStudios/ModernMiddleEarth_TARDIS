@@ -1,0 +1,1372 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Time Travel Addon Wiki</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=IBM+Plex+Sans:ital,wght@0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>/* Layout: police-box blue top bar, page list on the left, one reading column; amber "artron" lamp is the only warm accent. */
+:root {
+  --bg: #eef1f6;
+  --surface: #ffffff;
+  --ink: #17202d;
+  --muted: #586579;
+  --line: #d5dce7;
+  --blue: #1b4a8a;
+  --bar: #123566;
+  --bar-ink: #eef3fb;
+  --lamp: #e3a33b;
+  --code-bg: #e6ebf3;
+  --display: "Chakra Petch", "Trebuchet MS", sans-serif;
+  --body: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0c111b; --surface: #131a27; --ink: #e2e7ef; --muted: #97a2b4; --line: #263247;
+    --blue: #86b3ee; --bar: #0f2a52; --bar-ink: #e8eef8; --lamp: #f0b55c; --code-bg: #1b2434;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0c111b; --surface: #131a27; --ink: #e2e7ef; --muted: #97a2b4; --line: #263247;
+  --blue: #86b3ee; --bar: #0f2a52; --bar-ink: #e8eef8; --lamp: #f0b55c; --code-bg: #1b2434;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 16px/1.6 var(--body); }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--bar); }
+a { color: var(--blue); }
+a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid var(--lamp); outline-offset: 2px; }
+
+.top {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5;
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  background: var(--bar); color: var(--bar-ink);
+  padding-block: 10px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+.brand { display: flex; align-items: center; gap: 10px; color: inherit; text-decoration: none;
+  font: 600 1.05rem/1.2 var(--display); letter-spacing: .02em; }
+.brand small { font: 500 .7rem var(--mono); text-transform: uppercase; letter-spacing: .12em; opacity: .75;
+  border: 1px solid currentColor; border-radius: 3px; padding: 1px 6px; }
+.lamp { width: 12px; height: 16px; border-radius: 3px 3px 1px 1px; background: var(--lamp);
+  box-shadow: 0 0 10px var(--lamp); flex: none; }
+.menu { display: none; font: 600 .85rem var(--display); color: var(--bar-ink); background: transparent;
+  border: 1px solid currentColor; border-radius: 4px; padding: 6px 12px; cursor: pointer; }
+
+.wrap { display: grid; grid-template-columns: 250px minmax(0, 1fr); gap: 40px; max-width: 1180px; margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+.side { position: sticky; top: calc(56px + env(safe-area-inset-top, 0px)); align-self: start;
+  max-height: calc(100vh - 56px - env(safe-area-inset-top, 0px)); overflow-y: auto; padding-block: 24px; }
+.search span { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+.search input { width: 100%; font: inherit; font-size: .9rem; padding: 8px 10px; border: 1px solid var(--line);
+  border-radius: 4px; background: var(--surface); color: var(--ink); }
+.navgroup h2 { font: 600 .72rem var(--mono); text-transform: uppercase; letter-spacing: .12em; color: var(--muted);
+  margin: 22px 0 6px; }
+.navgroup ul { list-style: none; margin: 0; padding: 0; }
+.navgroup a { display: block; padding: 4px 10px; border-left: 2px solid transparent; color: var(--ink);
+  text-decoration: none; font-size: .93rem; }
+.navgroup a:hover { color: var(--blue); }
+.navgroup a[aria-current="page"] { border-left-color: var(--lamp); color: var(--blue); font-weight: 600; }
+.nohits { color: var(--muted); font-size: .9rem; }
+
+main { padding-block: 28px 56px; min-width: 0; }
+article { max-width: 46rem; }
+.crumb { font: 500 .75rem var(--mono); text-transform: uppercase; letter-spacing: .12em; color: var(--muted); margin: 0; }
+h1, h2, h3 { font-family: var(--display); line-height: 1.2; text-wrap: balance; }
+h1 { font-size: 2.3rem; font-weight: 700; margin: 4px 0 8px; }
+h2 { font-size: 1.45rem; font-weight: 600; margin: 2.2em 0 .5em; padding-top: .6em; border-top: 1px solid var(--line); }
+h3 { font-size: 1.12rem; font-weight: 600; margin: 1.6em 0 .4em; }
+.lede { font-size: 1.12rem; color: var(--muted); margin: 0 0 1.4em; }
+p, li { max-width: 68ch; }
+code, kbd { font-family: var(--mono); font-size: .88em; background: var(--code-bg); border-radius: 3px; padding: 1px 5px; }
+kbd { border: 1px solid var(--line); border-bottom-width: 2px; }
+pre { background: var(--code-bg); padding: 12px 14px; border-radius: 4px; overflow-x: auto; }
+pre code { padding: 0; background: none; }
+
+.infobox { margin: 0 0 1.4em; background: var(--surface); border: 1px solid var(--line);
+  border-top: 3px solid var(--blue); border-radius: 4px; padding: 12px 14px; font-size: .88rem; }
+.infobox dl { margin: 0; display: flex; flex-wrap: wrap; gap: 10px 32px; }
+.infobox dl > div { min-width: 0; }
+.infobox dt { font: 600 .7rem var(--mono); text-transform: uppercase; letter-spacing: .1em; color: var(--muted); }
+.infobox dd { margin: 0; }
+
+figure { margin: 1.6em 0; clear: both; }
+figure img { display: block; width: 100%; height: auto; border-radius: 4px; border: 1px solid var(--line); image-rendering: auto; }
+figcaption { font-size: .85rem; color: var(--muted); margin-top: 6px; }
+
+.table { overflow-x: auto; }
+table { border-collapse: collapse; font-size: .92rem; margin: 1.2em 0; font-variant-numeric: tabular-nums; display: block; overflow-x: auto; }
+th, td { text-align: left; padding: 7px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font-family: var(--display); font-weight: 600; background: var(--surface); }
+
+.tip { background: var(--surface); border: 1px solid var(--line); border-left: 3px solid var(--lamp); border-radius: 4px;
+  padding: 10px 14px; margin: 1.2em 0; }
+.tip p { margin: .3em 0; }
+.cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 12px; margin: 1.4em 0; }
+.cards a { display: block; background: var(--surface); border: 1px solid var(--line); border-radius: 4px; padding: 12px 14px;
+  text-decoration: none; color: var(--ink); }
+.cards a:hover { border-color: var(--blue); }
+.cards strong { display: block; font-family: var(--display); color: var(--blue); margin-bottom: 2px; }
+.cards span { font-size: .88rem; color: var(--muted); }
+
+.pager { display: flex; justify-content: space-between; gap: 12px; margin-top: 48px; padding-top: 16px; border-top: 1px solid var(--line); clear: both; }
+.pager a { text-decoration: none; font-family: var(--display); font-weight: 600; }
+.pager small { display: block; font: 500 .7rem var(--mono); text-transform: uppercase; letter-spacing: .1em; color: var(--muted); }
+.pager .next { margin-left: auto; text-align: right; }
+
+.foot { border-top: 1px solid var(--line); color: var(--muted); font-size: .82rem; padding-block: 18px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); text-align: center; }
+
+@media (max-width: 820px) {
+  .wrap { grid-template-columns: minmax(0, 1fr); gap: 0; }
+  .menu { display: inline-block; }
+  .side { display: none; position: static; max-height: none; padding-block: 8px 16px; border-bottom: 1px solid var(--line); }
+  .side.open { display: block; }
+  .brand small { display: none; }
+  h1 { font-size: 1.8rem; }
+}
+@media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto !important; } }
+</style>
+<header class="top"><a class="brand" href="#index"><span class="lamp"></span>TARDIS Time Travel Addon<small>Wiki</small></a>
+<button class="menu" id="menu-btn" aria-expanded="false" aria-controls="side">Pages</button></header>
+<div class="wrap"><aside class="side" id="side"><label class="search"><span>Search pages</span>
+<input id="q" type="search" placeholder="Search pages" autocomplete="off"></label><div class="navgroup"><h2>Start here</h2><ul><li><a href="#index" data-slug="index">Home</a></li><li><a href="#getting-started" data-slug="getting-started">Getting started</a></li><li><a href="#commands" data-slug="commands">Commands and config</a></li></ul></div><div class="navgroup"><h2>TARDIS</h2><ul><li><a href="#cockpit" data-slug="cockpit">Cockpit room</a></li><li><a href="#navigation" data-slug="navigation">Navigation console</a></li><li><a href="#data-vault" data-slug="data-vault">Data Vault and ME</a></li><li><a href="#vehicle-bay" data-slug="vehicle-bay">Vehicle Bay</a></li><li><a href="#waystones-graves" data-slug="waystones-graves">Waystones and graves</a></li></ul></div><div class="navgroup"><h2>Time travel</h2><ul><li><a href="#time-travel" data-slug="time-travel">How time travel works</a></li><li><a href="#viewing-the-past" data-slug="viewing-the-past">Viewing the past</a></li><li><a href="#trips" data-slug="trips">Trips to the past</a></li><li><a href="#deep-time" data-slug="deep-time">Deep time</a></li><li><a href="#paradox" data-slug="paradox">Paradox</a></li><li><a href="#ripples" data-slug="ripples">Item ripples</a></li><li><a href="#fuel" data-slug="fuel">Fuel</a></li><li><a href="#anchors" data-slug="anchors">Anchors and the Paradox Machine</a></li></ul></div><div class="navgroup"><h2>Half-life ores</h2><ul><li><a href="#half-life-ores" data-slug="half-life-ores">Half-life ores</a></li><li><a href="#time-upgrades" data-slug="time-upgrades">Time upgrades</a></li></ul></div><div class="navgroup"><h2>Souls</h2><ul><li><a href="#souls" data-slug="souls">Souls</a></li></ul></div><div class="navgroup"><h2>Kinetics</h2><ul><li><a href="#kinetics" data-slug="kinetics">Power and machines</a></li><li><a href="#moving-structures" data-slug="moving-structures">Moving structures</a></li><li><a href="#links-vehicles" data-slug="links-vehicles">Redstone Links and vehicles</a></li><li><a href="#create-lotr" data-slug="create-lotr">Create x LOTR</a></li></ul></div><div class="navgroup"><h2>Airships</h2><ul><li><a href="#airships" data-slug="airships">Building a ship</a></li><li><a href="#lift-thrust" data-slug="lift-thrust">Lift and thrust</a></li><li><a href="#instruments" data-slug="instruments">Instruments</a></li><li><a href="#joints-docking" data-slug="joints-docking">Joints and docking</a></li><li><a href="#ship-power" data-slug="ship-power">Engines and cannon</a></li><li><a href="#cars" data-slug="cars">Cars</a></li></ul></div><div class="navgroup"><h2>More</h2><ul><li><a href="#rftools" data-slug="rftools">RFTools</a></li><li><a href="#server-performance" data-slug="server-performance">Server performance</a></li></ul></div></aside>
+<main id="main"><article id="page-index" data-title="Home"><h1>Home</h1><p class="lede">A TARDIS Mod expansion for Minecraft 1.7.10 that lets you fly back into your own world&#x27;s recorded past, plus a cockpit, souls, Create-style machines and airships.</p><figure><img src="img/cockpit-overview.jpg" alt="The Cockpit room: all four TARDIS console sides on one desk" loading="lazy"><figcaption>The Cockpit room: all four TARDIS console sides on one desk</figcaption></figure>
+<p>The <strong>TARDIS Time Travel Addon</strong> grew out of one question: what if the TARDIS could really travel in time? The mod records everything that happens in your world. Later you can watch that history play back, then land your TARDIS in it, walk around among the players who were there and change things. Change too much and the past starts to tear itself apart.</p>
+<p>Around that core sit a lot of other systems: a proper TARDIS cockpit and navigation console, ME storage built into the TARDIS, soul capture, a full set of rotation-powered machines in the style of Create, and physics-based airships and cars.</p>
+<h2 id="where-to-start">Where to start</h2>
+<div class="cards" markdown="0">
+<a href="#getting-started"><strong>Getting started</strong><span>Install, optional mods, first steps</span></a>
+<a href="#time-travel"><strong>Time travel</strong><span>How the past is recorded and visited</span></a>
+<a href="#cockpit"><strong>Cockpit room</strong><span>Fly the TARDIS from one desk</span></a>
+<a href="#kinetics"><strong>Kinetics</strong><span>Shafts, cogs and machines</span></a>
+<a href="#airships"><strong>Airships</strong><span>Build a ship that really flies</span></a>
+<a href="#souls"><strong>Souls</strong><span>Capture creatures and keep them</span></a>
+</div>
+
+<h2 id="what-is-in-the-mod">What is in the mod</h2>
+<table>
+<thead>
+<tr>
+<th>Area</th>
+<th>What you get</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="#cockpit">TARDIS</a></td>
+<td>Cockpit room, navigation console with a live map, exterior camera, Data Vault, Vehicle Bay, Waystone and grave destinations</td>
+</tr>
+<tr>
+<td><a href="#time-travel">Time travel</a></td>
+<td>World recorder, timeline, Chrono-Glasses, trips into the past, paradox, item ripples, deep time before your world existed</td>
+</tr>
+<tr>
+<td><a href="#half-life-ores">Half-life ores</a></td>
+<td>Four ores that lose energy as the world ages, energy cells, and 16 TARDIS time upgrades</td>
+</tr>
+<tr>
+<td><a href="#souls">Souls</a></td>
+<td>Soul Nexus capture, Teleport Chamber, Bestiary with holograms, remote LOTR trading</td>
+</tr>
+<tr>
+<td><a href="#kinetics">Kinetics</a></td>
+<td>Rotation power, machines, moving structures, Redstone Links, drivable vehicles, Create x LOTR recipes</td>
+</tr>
+<tr>
+<td><a href="#airships">Airships</a></td>
+<td>Rigid-body ships with balloons, rotors and sails, instruments, joints, docking, cars</td>
+</tr>
+<tr>
+<td><a href="#rftools">RFTools</a></td>
+<td>Kinetic Dynamo, TARDIS Matrix Builder, power converters, screen modules</td>
+</tr>
+</tbody>
+</table>
+<p>Every optional mod is optional. With none of them installed you still get the recorder, kinetics, airships, souls and half-life ores; each mod you add switches on its own extras.</p><nav class="pager"><a class="next" href="#getting-started"><small>Next</small>Getting started</a></nav></article><article id="page-getting-started" data-title="Getting started"><p class="crumb">Start here</p><h1>Getting started</h1><p class="lede">What you need, which mods unlock which features, and a few habits that make the mod easier to use.</p><aside class="infobox"><dl><div><dt>Needs</dt><dd>Minecraft 1.7.10, Forge 10.13.4.1614</dd></div></dl></aside><h2 id="installing">Installing</h2>
+<ol>
+<li>Install Forge 10.13.4.1614 for Minecraft 1.7.10.</li>
+<li>Put the <code>tardistimetravel-*.jar</code> in your <code>mods</code> folder. Only keep one copy of this mod in the folder. Old builds were called <code>mymodid-*.jar</code>; delete those, your worlds carry over.</li>
+<li>Add any of the optional mods below. The server and every player need the same set.</li>
+</ol>
+<h2 id="optional-mods">Optional mods</h2>
+<table>
+<thead>
+<tr>
+<th>Mod</th>
+<th>What it adds here</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>TARDIS Mod (needs darkcore)</td>
+<td>Cockpit, navigation console, time-travel trips, fuel, Vehicle Bay, Teleport Chamber, Bestiary, time upgrades</td>
+</tr>
+<tr>
+<td>The Lord of the Rings Mod</td>
+<td>TARDIS icons on the Middle-earth map, map travel, remote trading, Create x LOTR recipes, Faction Mechanism, westerly winds for airships</td>
+</tr>
+<tr>
+<td>Applied Energistics 2</td>
+<td>Data Vault, ME terminal desk, storage buses through the police box, Kinetic Generator, AE-powered Artron Charger</td>
+</tr>
+<tr>
+<td>RFTools</td>
+<td>Kinetic Dynamo, TARDIS Matrix Builder, converters, screen modules</td>
+</tr>
+<tr>
+<td>Waystones</td>
+<td>Waystones as TARDIS destinations, TARDIS Waystone, Quantum Waystone Charm</td>
+</tr>
+<tr>
+<td>GraveStone</td>
+<td>Your latest grave as a TARDIS destination and LOTR map marker</td>
+</tr>
+<tr>
+<td>WAILA, NEI</td>
+<td>Control names on the cockpit desk; recipe pages for machines, cells and airship parts</td>
+</tr>
+</tbody>
+</table>
+<h2 id="habits-that-help">Habits that help</h2>
+<div class="tip">
+<p><strong>Sneak and right-click with an empty hand</strong> on almost any machine from this mod to print its status: speed and stress on kinetic parts, contents of a chute, fuel in the Chronon Tank, charge in a cell machine.</p>
+</div>
+<ul>
+<li>Look up recipes in <strong>NEI</strong>. This wiki names the main ingredients; NEI shows the exact grid.</li>
+<li>The creative tabs are <em>Time Travel Addon</em>, <em>Time Travel Addon Kinetics</em> and <em>Half-life</em>.</li>
+<li>TARDIS features unlock with <strong>TARDIS level</strong>. A feature that needs a level says so in its box at the top of the page.</li>
+<li>Most numbers in this wiki are defaults. Server owners can change them in the config (see <a href="#commands">Commands and config</a>).</li>
+</ul><nav class="pager"><a href="#index"><small>Previous</small>Home</a><a class="next" href="#commands"><small>Next</small>Commands and config</a></nav></article><article id="page-commands" data-title="Commands and config"><p class="crumb">Start here</p><h1>Commands and config</h1><p class="lede">Admin commands, player commands, and where every setting lives.</p><h2 id="settings">Settings</h2>
+<p>All settings show up in game under <strong>Mods &gt; TARDIS Time Travel Addon &gt; Config</strong>, and most apply at once without a restart.</p>
+<table>
+<thead>
+<tr>
+<th>File</th>
+<th>Covers</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>config/tardistimetravel.cfg</code></td>
+<td>TARDIS (cockpit, Data Vault, LOTR map, RFTools), souls, kinetics, energy converters, recipe viewer, server performance. It also mirrors every TARDIS Mod setting, so a server can be set up in one file.</td>
+</tr>
+<tr>
+<td><code>config/tardistimetravel_timetravel.cfg</code></td>
+<td>Recorder, trips, landing, replay, paradox, ripples, fuel, half-life ores, time upgrades, Chrono-Glasses, timeline.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="commands">Commands</h2>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Who</th>
+<th>What it does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/ripple list</code>, <code>info</code>, <code>preview</code>, <code>undo last</code></td>
+<td>Everyone (own ripples)</td>
+<td>See and undo the <a href="#ripples">item ripples</a> your trips caused</td>
+</tr>
+<tr>
+<td><code>/ripple rate &lt;x y z&gt; [hours]</code></td>
+<td>Everyone</td>
+<td>Items made, used and sent per hour at a container</td>
+</tr>
+<tr>
+<td><code>/timetravel view &lt;minutes&gt; [radius]</code>, <code>view off</code></td>
+<td>Operators</td>
+<td>Show the past around you without a TARDIS</td>
+</tr>
+<tr>
+<td><code>/timetravel at &lt;minutes&gt; &lt;x y z&gt;</code></td>
+<td>Operators</td>
+<td>What a block was at that moment</td>
+</tr>
+<tr>
+<td><code>/timetravel trip &lt;minutes&gt;</code>, <code>trip home</code></td>
+<td>Operators</td>
+<td>Open a trip into the past directly, and come back</td>
+</tr>
+<tr>
+<td><code>/timetravel paradox safe on/off</code></td>
+<td>Operators</td>
+<td>Refuse paradoxical actions instead of counting them</td>
+</tr>
+<tr>
+<td><code>/timetravel rollback &lt;minutes&gt; [radius]</code>, <code>rollback undo</code></td>
+<td>Operators</td>
+<td>Put the chunks around you back to an earlier moment (grief repair)</td>
+</tr>
+<tr>
+<td><code>/timetravel check</code>, <code>stats</code>, <code>pack</code>, <code>ledger</code></td>
+<td>Operators</td>
+<td>Recorder health and disk use</td>
+</tr>
+<tr>
+<td><code>/pregen status</code>, <code>pause</code>, <code>resume</code>, <code>reset</code></td>
+<td>Operators</td>
+<td>The idle chunk pregenerator (<a href="#server-performance">server performance</a>)</td>
+</tr>
+<tr>
+<td><code>/tttkinetics selftest</code></td>
+<td>Operators</td>
+<td>Checks the rotation solver without touching the world</td>
+</tr>
+</tbody>
+</table><nav class="pager"><a href="#getting-started"><small>Previous</small>Getting started</a><a class="next" href="#cockpit"><small>Next</small>Cockpit room</a></nav></article><article id="page-cockpit" data-title="Cockpit room"><p class="crumb">TARDIS</p><h1>Cockpit room</h1><p class="lede">A TARDIS room that puts all four sides of the console on one desk, with a flight monitor, wall chart, safe-travel switch and exterior camera.</p><aside class="infobox"><dl><div><dt>Needs</dt><dd>TARDIS Mod</dd></div><div><dt>Unlock</dt><dd>Add the &quot;Cockpit&quot; room from the TARDIS room list</dd></div></dl></aside><figure><img src="img/cockpit-desk.jpg" alt="The cockpit desk with the four console sides laid out in a row" loading="lazy"><figcaption>The cockpit desk with the four console sides laid out in a row</figcaption></figure>
+<p>The normal TARDIS console makes you walk round it. The <strong>Cockpit</strong> is an extra room with one desk that carries all four console sides, so you can fly from a single standing spot. Every lever and button on the desk works exactly like the one on the console.</p>
+<h2 id="flying-from-the-desk">Flying from the desk</h2>
+<ul>
+<li>Look at a control and click it, just like on the console. With WAILA installed, the control's name shows when you look at it.</li>
+<li>During the flight minigame the desk lights up and the control TARDIS wants you to press gets a <strong>pulsing blue outline</strong>, with a sound cue.</li>
+</ul>
+<p><img alt="The desk lit up during the flight minigame" src="img/cockpit-flight.jpg" />
+- The <strong>monitor</strong> at the top shows the status, a progress bar, destination time, position and target. In a time trip its header also shows fuel and the cost of the trip or the escape (red when you can't pay).
+- The <strong>wall chart</strong> against the back wall labels every control on the desk.</p>
+<figure><img src="img/cockpit-chart.jpg" alt="Wall chart naming every cockpit control" loading="lazy"><figcaption>Wall chart naming every cockpit control</figcaption></figure>
+<h2 id="desks-around-the-cockpit">Desks around the cockpit</h2>
+<table>
+<thead>
+<tr>
+<th>Desk</th>
+<th>What it does</th>
+<th>Needs</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Timeline desk</td>
+<td>Opens the timeline to set a destination time; sneak-click sets <a href="#deep-time">deep time</a></td>
+<td>Fly permission</td>
+</tr>
+<tr>
+<td>Map desk</td>
+<td>Opens the <a href="#navigation">navigation console</a></td>
+<td>TARDIS level 7, fly permission</td>
+</tr>
+<tr>
+<td>Safe travel switch</td>
+<td>ON: paradoxical actions in the past are refused instead of counted (<a href="#paradox">paradox</a>)</td>
+<td>Fly permission</td>
+</tr>
+<tr>
+<td>Exterior camera</td>
+<td>Look round the outside of the police box</td>
+<td>TARDIS level 10, landed</td>
+</tr>
+<tr>
+<td>Upgrade Rack</td>
+<td>Holds extra upgrades, including <a href="#time-upgrades">time upgrades</a></td>
+<td>Upgrade points</td>
+</tr>
+</tbody>
+</table>
+<p>Controls check your TARDIS permissions before they act. If you lack the right permission you hear a low note and get a chat message, and nothing happens.</p>
+<h2 id="exterior-camera">Exterior camera</h2>
+<p>Click the camera desk and your view moves onto a rail round the top of the police box. Move left and right to circle it; sneak to come back. Your body stays standing at the desk while you watch. The camera closes if the TARDIS takes off.</p>
+<h2 id="room-updates">Room updates</h2>
+<p>When a new version of the mod adds controls to a room, your existing room gets them automatically the next time it loads. Only the mod's own desk blocks are placed, and only into empty space, so your own builds are left alone.</p><nav class="pager"><a href="#commands"><small>Previous</small>Commands and config</a><a class="next" href="#navigation"><small>Next</small>Navigation console</a></nav></article><article id="page-navigation" data-title="Navigation console"><p class="crumb">TARDIS</p><h1>Navigation console</h1><p class="lede">One screen with tabs for destinations, a live world map, the timeline, an exterior scanner and a flight log.</p><aside class="infobox"><dl><div><dt>Needs</dt><dd>TARDIS Mod. LOTR, Waystones and GraveStone add destinations.</dd></div><div><dt>Unlock</dt><dd>TARDIS level 7, fly permission</dd></div></dl></aside><p>Open it from the map desk in the <a href="#cockpit">Cockpit</a>. It remembers the last tab you used.</p>
+<figure><img src="img/nav-map.jpg" alt="Map tab: click any spot to set a course there" loading="lazy"><figcaption>Map tab: click any spot to set a course there</figcaption></figure>
+<h2 id="tabs">Tabs</h2>
+<p><strong>Destinations.</strong> Your activated Waystones, global Waystones, your latest grave (GraveStone) and LOTR waypoints. With LOTR installed this is the Middle-earth map with markers; other worlds are listed beside it. Pick one and press <em>Set Course</em>.</p>
+<p><strong>Map.</strong> A built-in map of any dimension the TARDIS can reach. It only shows land that has already been explored, so it never generates new terrain. Click a spot to set a course; the TARDIS finds the ground there. In the Nether and other roofed worlds a <strong>height slider</strong> picks the layer to view, with solid rock drawn darkest so caves stand out.</p>
+<p><strong>Timeline.</strong> Pick a moment in your world's history as the destination time. See <a href="#viewing-the-past">viewing the past</a>.</p>
+<p><strong>Scanner.</strong> What is outside the doors: biome, time, weather, light, ground, creatures and players within 16 blocks, hazards, artron energy and rooms.</p>
+<p><strong>Flight Log.</strong> The last 40 places you landed, with visit counts. Set a course back, show it on the map, or forget it.</p>
+<figure><img src="img/nav-scanner.jpg" alt="The scanner tab" loading="lazy"><figcaption>The scanner tab</figcaption></figure>
+<h2 id="how-a-course-is-set">How a course is set</h2>
+<p>The TARDIS turns its own coordinate levers to get as close as it can, usually within about 15 blocks, and chat tells you how far off the landing will be. When landed it can set the course relative to where you are, which is often more exact. Height is always set exactly.</p>
+<h2 id="lotr-map-icons">LOTR map icons</h2>
+<p>With LOTR installed, TARDISes in Middle-earth appear as icons on the LOTR map, even while flying. You see your own, and any TARDIS whose owner gave you the <em>See on map</em> permission. Select one and press LOTR's fast travel key to transmat inside (door locks apply, and there is a cooldown).</p><nav class="pager"><a href="#cockpit"><small>Previous</small>Cockpit room</a><a class="next" href="#data-vault"><small>Next</small>Data Vault and ME</a></nav></article><article id="page-data-vault" data-title="Data Vault and ME"><p class="crumb">TARDIS</p><h1>Data Vault and ME</h1><p class="lede">Applied Energistics storage built into the TARDIS, with no drives or cells needed, and ME links through the police box.</p><aside class="infobox"><dl><div><dt>Needs</dt><dd>TARDIS Mod, Applied Energistics 2</dd></div><div><dt>Unlock</dt><dd>Data Vault room; terminal desk at TARDIS level 5</dd></div></dl></aside><figure><img src="img/data-vault.jpg" alt="The Data Vault room" loading="lazy"><figcaption>The Data Vault room</figcaption></figure>
+<h2 id="the-vault">The vault</h2>
+<p>Add the <strong>Data Vault</strong> room to your TARDIS. Its storage is part of the TARDIS itself: 25,000 items per TARDIS level, with no drives or cells. A gauge in the room shows how full it is, and the Vault Expander <a href="#time-upgrades">time upgrade</a> doubles it.</p>
+<p>The room has an ME controller on a console plinth, a status desk and a <strong>terminal desk</strong>. Click the terminal desk to open a normal ME terminal on the TARDIS network.</p>
+<figure><img src="img/vault-terminal.jpg" alt="Using the terminal desk" loading="lazy"><figcaption>Using the terminal desk</figcaption></figure>
+<h2 id="me-through-the-police-box">ME through the police box</h2>
+<ul>
+<li>A <strong>Storage Bus</strong> on the outside of the police box sees everything on the TARDIS network.</li>
+<li>An <strong>Exterior Port</strong> inside sees the network touching the police box outside.</li>
+<li>Both can be used at once without loops.</li>
+<li>Open roundels: AE2 blocks touching an open roundel join the TARDIS network.</li>
+<li>AE2 blocks placed on a console plinth become console versions that can't be broken or wrenched.</li>
+</ul>
+<h2 id="power">Power</h2>
+<ul>
+<li><strong>Kinetic Generator</strong>: turns rotation into AE power.</li>
+<li><strong>Artron Converter</strong>: turns TARDIS artron into AE power, 2,000 AE per artron.</li>
+</ul><nav class="pager"><a href="#navigation"><small>Previous</small>Navigation console</a><a class="next" href="#vehicle-bay"><small>Next</small>Vehicle Bay</a></nav></article><article id="page-vehicle-bay" data-title="Vehicle Bay"><p class="crumb">TARDIS</p><h1>Vehicle Bay</h1><p class="lede">Take a parked car or airship into the TARDIS and set it down again wherever you land.</p><aside class="infobox"><dl><div><dt>Needs</dt><dd>TARDIS Mod</dd></div><div><dt>Unlock</dt><dd>TARDIS level 3, transmat permission</dd></div></dl></aside><figure><img src="img/vehicle-bay.jpg" alt="A vehicle deployed next to the police box" loading="lazy"><figcaption>A vehicle deployed next to the police box</figcaption></figure>
+<h2 id="building-the-bay">Building the bay</h2>
+<p>Craft the three desk blocks and place them in a row anywhere inside the TARDIS, left to right:</p>
+<ol>
+<li><strong>Take In</strong> (kontron, Steering Wheel, ender pearl)</li>
+<li><strong>Bay screen</strong> (adds a glass pane). Click it to pick a stored vehicle.</li>
+<li><strong>Deploy</strong> (adds a piston)</li>
+</ol>
+<h2 id="using-it">Using it</h2>
+<ul>
+<li><strong>Take In</strong> grabs the parked vehicle whose Steering Wheel is nearest the police box, within 8 blocks. For <a href="#airships">airships</a> it takes a ship whose centre is near the box (up to 16 blocks above), as long as the ship is nearly still. Nobody can be driving it.</li>
+<li>The bay holds 8 vehicles. A vehicle carrying a sign is named after the sign's first line; a ship uses its Hull Plate name.</li>
+<li><strong>Deploy</strong> sets the selected vehicle down beside the police box wherever the TARDIS has landed, in any dimension and even in the past, facing the way it did when taken in. Ships come out as blocks; reassemble them by hand.</li>
+</ul><nav class="pager"><a href="#data-vault"><small>Previous</small>Data Vault and ME</a><a class="next" href="#waystones-graves"><small>Next</small>Waystones and graves</a></nav></article><article id="page-waystones-graves" data-title="Waystones and graves"><p class="crumb">TARDIS</p><h1>Waystones and graves</h1><p class="lede">Fly the TARDIS to your Waystones and your last grave, and warp into a TARDIS from any Waystone.</p><aside class="infobox"><dl><div><dt>Needs</dt><dd>TARDIS Mod with Waystones and/or GraveStone; LOTR for map markers</dd></div></dl></aside><h2 id="waystones">Waystones</h2>
+<ul>
+<li>Your activated Waystones and every global Waystone are destinations in the <a href="#navigation">navigation console</a>, in any dimension. The TARDIS lands in front of the stone.</li>
+<li><strong>TARDIS Waystone</strong> (Waystone + kontron): place it inside your TARDIS. Warping to it from outside takes you in through the owner's TARDIS door; from inside, you arrive next to the stone. Door locks apply.</li>
+<li><strong>Quantum Waystone Charm</strong> (see <a href="#half-life-ores">half-life ores</a>): a pocket warp to any of your Waystones.</li>
+</ul>
+<h2 id="graves">Graves</h2>
+<p>With GraveStone installed, your latest grave becomes a destination called "<em>your name</em>'s grave", and with LOTR it gets a headstone marker on the Middle-earth map. Only you see your own grave. The marker clears once the grave is broken.</p><nav class="pager"><a href="#vehicle-bay"><small>Previous</small>Vehicle Bay</a><a class="next" href="#time-travel"><small>Next</small>How time travel works</a></nav></article><article id="page-time-travel" data-title="How time travel works"><p class="crumb">Time travel</p><h1>How time travel works</h1><p class="lede">The mod records your world as you play. Later you can watch that history, or land the TARDIS in it and change it.</p><aside class="infobox"><dl><div><dt>Needs</dt><dd>Recording works on its own; trips need TARDIS Mod</dd></div><div><dt>Config</dt><dd>tardistimetravel_timetravel.cfg</dd></div></dl></aside><h2 id="the-recorder">The recorder</h2>
+<p>From the moment the mod is installed, the server writes down every block change in the Overworld and Middle-earth: who did it, when, and what it was before. It also records where players walked and what they held, the mobs near players, weather, and what was in chests when they were closed.</p>
+<p>You don't have to do anything for this. It costs a few megabytes of disk per hour of play and is checked against the world at every autosave. TARDIS interiors are never recorded.</p>
+<div class="tip">
+<p>History starts when a chunk is first generated. The world before you installed the mod can't be visited, except through <a href="#deep-time">deep time</a>, which goes back before the world existed.</p>
+</div>
+<h2 id="three-ways-to-use-history">Three ways to use history</h2>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>What it is</th>
+<th>Read</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Look</strong></td>
+<td>Watch the past play back around you, with ghosts of the players who were there. Nothing changes.</td>
+<td><a href="#viewing-the-past">Viewing the past</a></td>
+</tr>
+<tr>
+<td><strong>Visit</strong></td>
+<td>Land the TARDIS in a copy of your world at an earlier moment. Walk, build, take things. Changes ripple forward to the present.</td>
+<td><a href="#trips">Trips to the past</a></td>
+</tr>
+<tr>
+<td><strong>Go deeper</strong></td>
+<td>Land before your world was created, in freshly generated land that nothing can reach back from.</td>
+<td><a href="#deep-time">Deep time</a></td>
+</tr>
+</tbody>
+</table>
+<h2 id="the-rules-of-a-visit">The rules of a visit</h2>
+<ul>
+<li>What you change in the past carries into the present, unless history changes that block again later.</li>
+<li>Taking things the future needed creates <strong>paradox</strong>. Too much and the past collapses with you in it. See <a href="#paradox">Paradox</a>.</li>
+<li>Items you take are usually paid for by quietly removing what the future made from them. See <a href="#ripples">Item ripples</a>.</li>
+<li>Trips cost <strong>fuel</strong>, more the further back you go. See <a href="#fuel">Fuel</a>.</li>
+<li>Players can protect their bases from time travellers with a <a href="#anchors">Temporal Anchor</a>.</li>
+</ul><nav class="pager"><a href="#waystones-graves"><small>Previous</small>Waystones and graves</a><a class="next" href="#viewing-the-past"><small>Next</small>Viewing the past</a></nav></article><article id="page-viewing-the-past" data-title="Viewing the past"><p class="crumb">Time travel</p><h1>Viewing the past</h1><p class="lede">The timeline, the Chrono-Glasses and solid ghosts of the players who were there.</p><aside class="infobox"><dl><div><dt>Needs</dt><dd>No other mod</dd></div></dl></aside><figure><img src="img/nav-timeline.jpg" alt="The timeline: login bars for each player, with empty stretches squeezed out" loading="lazy"><figcaption>The timeline: login bars for each player, with empty stretches squeezed out</figcaption></figure>
+<h2 id="the-timeline">The timeline</h2>
+<p>The timeline shows a bar for each player's time online, with the server's runs underneath. Long stretches when nobody was online are squeezed down so you can see the busy parts.</p>
+<ul>
+<li><strong>Scroll</strong> to zoom (from 1 second up to 10 days per step), <strong>drag</strong> to pan, <strong>click</strong> a moment to pick it.</li>
+<li><em>View this moment</em> shows the past right where you stand.</li>
+<li>In the TARDIS, the timeline sets the <strong>destination time</strong> instead.</li>
+<li>Trips appear as purple hatched bands with a line back to where they left. You can add named markers (red dotted lines).</li>
+</ul>
+<h2 id="chrono-glasses">Chrono-Glasses</h2>
+<p>A helmet made from gold, glass panes and a clock. While wearing them:</p>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><kbd>K</kbd></td>
+<td>Open the timeline</td>
+</tr>
+<tr>
+<td><kbd>[</kbd></td>
+<td>Rewind (press again to go faster)</td>
+</tr>
+<tr>
+<td><kbd>]</kbd></td>
+<td>Fast-forward</td>
+</tr>
+<tr>
+<td><kbd>\</kbd></td>
+<td>Pause</td>
+</tr>
+</tbody>
+</table>
+<p>The past is drawn over the world around you for 4 chunks (7 with the Chrono-Glasses upgrade from <a href="#half-life-ores">half-life ores</a>). You still walk and click in the present. Playing forward into the present ends the view, and so does taking the glasses off.</p>
+<h2 id="ghosts">Ghosts</h2>
+<p>Players who were there in the past appear as <strong>solid ghosts</strong>, with their skin, armour and held items, walking where they walked. Punching one makes it glitch. Mobs near players are replayed too.</p><nav class="pager"><a href="#time-travel"><small>Previous</small>How time travel works</a><a class="next" href="#trips"><small>Next</small>Trips to the past</a></nav></article><article id="page-trips" data-title="Trips to the past"><p class="crumb">Time travel</p><h1>Trips to the past</h1><p class="lede">Land the TARDIS at an earlier moment, walk among the recorded players and change what happened.</p><aside class="infobox"><dl><div><dt>Needs</dt><dd>TARDIS Mod</dd></div><div><dt>Unlock</dt><dd>TARDIS level 3 and enough fuel</dd></div></dl></aside><h2 id="setting-off">Setting off</h2>
+<ol>
+<li>Pick a destination time on the Cockpit timeline desk or the <a href="#navigation">navigation console</a>.</li>
+<li>Set a place as normal and take off. The trip needs <a href="#fuel">fuel</a> in the Chronon Tank.</li>
+<li>The TARDIS stays in flight until the land around the landing spot is ready, then lands in the past.</li>
+</ol>
+<p>If the flight is cut short you land part way back in time too. The TARDIS always lands on a spot that hasn't changed since that moment, so it never appears inside something built later.</p>
+<h2 id="what-the-past-is-like">What the past is like</h2>
+<ul>
+<li>It's a copy of your world at that moment, and <strong>time runs forward</strong> from there. Recorded players walk their paths, doors open, redstone pulses and sounds play.</li>
+<li>When the past catches up with the moment you left, everyone is brought home.</li>
+<li>No new mobs spawn. Recorded mobs <strong>turn real</strong> when you come close or a hostile one spots you; leave them alone for a while and they walk back to their recorded path and fade back into the replay.</li>
+<li>If you build in a recorded player's way, they <strong>walk round it</strong>, or dig through blocks you placed, and then catch up with their recording.</li>
+<li>Chests let you take only what the chest still holds all the way to the present. With <a href="#ripples">item ripples</a> on you can take more.</li>
+<li>Ender chests, portable ME storage and LOTR pouches don't open in the past.</li>
+<li>Breaking blocks the future needed makes <a href="#paradox">paradox</a>. Drops of those blocks are <strong>echo items</strong>: they glow, can't be placed, and fade when you leave.</li>
+</ul>
+<h2 id="crews">Crews</h2>
+<p>Everyone who travels in one TARDIS is a crew. The crew shares one past and one paradox meter. Other TARDISes landing at the same time get their own separate past; changes from earlier pasts flow forward into later ones and into the present. The TARDIS won't take off while a crew member is still outside in the past and online.</p>
+<h2 id="coming-home">Coming home</h2>
+<p>Take off from the past to escape. Escaping costs fuel that grows with the paradox level. If you die in the past you respawn in the present.</p><nav class="pager"><a href="#viewing-the-past"><small>Previous</small>Viewing the past</a><a class="next" href="#deep-time"><small>Next</small>Deep time</a></nav></article><article id="page-deep-time" data-title="Deep time"><p class="crumb">Time travel</p><h1>Deep time</h1><p class="lede">Travel to before your world was created, into freshly generated land that is yours to strip.</p><aside class="infobox"><dl><div><dt>Needs</dt><dd>TARDIS Mod</dd></div><div><dt>Unlock</dt><dd>TARDIS level 15, Deep Time Hull upgrade, Quantum or Primordial fuel</dd></div></dl></aside><h2 id="setting-a-deep-time-destination">Setting a deep-time destination</h2>
+<p>Sneak and right-click the Cockpit timeline desk to cycle through <strong>1, 10, 50 and 100 Minecraft days before creation</strong>, then off. Setting a normal time clears it.</p>
+<h2 id="what-is-different-there">What is different there</h2>
+<ul>
+<li>The land is generated fresh from your world's own generator, with trees, ores and mod world generation.</li>
+<li><strong>Primordial Shards</strong>, the tier 4 <a href="#half-life-ores">half-life ore</a>, only exist here.</li>
+<li>Nothing you do there reaches the present and nothing becomes paradox. What you carry home is real.</li>
+<li>There is no history to replay, so no ghosts and no moving playhead.</li>
+</ul>
+<h2 id="limits">Limits</h2>
+<table>
+<thead>
+<tr>
+<th>Depth</th>
+<th>Fuel that reaches</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Up to 10 days</td>
+<td>Quantum Fuel (further with Reach Extenders)</td>
+</tr>
+<tr>
+<td>Up to 100 days</td>
+<td>Primordial Fuel</td>
+</tr>
+</tbody>
+</table>
+<p>The <strong>Deep Time Hull</strong> <a href="#time-upgrades">upgrade</a> wears down one point a minute. When it runs out, the TARDIS is pulled back to the present with everyone in that deep time.</p><nav class="pager"><a href="#trips"><small>Previous</small>Trips to the past</a><a class="next" href="#paradox"><small>Next</small>Paradox</a></nav></article><article id="page-paradox" data-title="Paradox"><p class="crumb">Time travel</p><h1>Paradox</h1><p class="lede">Every past has a paradox meter from 0 to 100. Duplicating what the future needed fills it, and at 100 the past collapses.</p><aside class="infobox"><dl><div><dt>Needs</dt><dd>Trips to the past</dd></div></dl></aside><h2 id="what-raises-paradox">What raises paradox</h2>
+<ul>
+<li><strong>Duplicating</strong>: breaking a block that a player later breaks or takes in the recorded future. You would end up with the item twice. The charge depends on what the drops are worth: dirt and stone are almost free, diamonds are not.</li>
+<li><strong>Contradicting</strong>: breaking a block that later changes on its own, or building where a player later builds.</li>
+<li><strong>Explosions</strong> count once for the whole blast.</li>
+</ul>
+<p>Free: anything history never touches again, and blocks your crew placed on this trip. Each trip also has a small allowance before charges start, so one diamond ore is usually free. After that each duplicate costs more than the last.</p>
+<div class="tip">
+<p><strong>You get a warning first.</strong> A costly action is refused once with its price in chat. Do it again within a few seconds to go ahead.</p>
+</div>
+<h2 id="what-paradox-does">What paradox does</h2>
+<table>
+<thead>
+<tr>
+<th>Level</th>
+<th>Effect</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>30</td>
+<td>Recordings glitch</td>
+</tr>
+<tr>
+<td>50</td>
+<td>Time stops. The meter no longer heals on its own.</td>
+</tr>
+<tr>
+<td>60</td>
+<td>Changes stop reaching the present; blocks start fading</td>
+</tr>
+<tr>
+<td>70, 80</td>
+<td>Chunks shift</td>
+</tr>
+<tr>
+<td>90</td>
+<td>Chunks are erased</td>
+</tr>
+<tr>
+<td>100</td>
+<td><strong>Collapse.</strong> Everyone in the past dies and the police box is lost (you can summon it again).</td>
+</tr>
+</tbody>
+</table>
+<p>Below 50 the meter slowly heals. Players who cause paradox also carry <strong>instability</strong> for a few hours, which keeps their next trip's meter from starting at zero. Large charges hit back with nausea, slowness and damage.</p>
+<h2 id="keeping-it-down">Keeping it down</h2>
+<ul>
+<li>Flip the <strong>Safe travel</strong> switch on the Cockpit desk: paradoxical actions are refused instead of counted.</li>
+<li>Put duplicated items back, or place the broken block again, to undo the charge (see <a href="#ripples">item ripples</a>).</li>
+<li><a href="#time-upgrades">Time upgrades</a>: Paradox Dampener (halves gains), Paradox Lattice (raises the collapse point), Escape Capacitor (one emergency rescue), Echo Containment Field (keeps one echo stack real).</li>
+<li>Rifts open in high-paradox pasts. Right-click one for 1 to 3 Chronons of emergency fuel, at the cost of a little more paradox.</li>
+</ul><nav class="pager"><a href="#deep-time"><small>Previous</small>Deep time</a><a class="next" href="#ripples"><small>Next</small>Item ripples</a></nav></article><article id="page-ripples" data-title="Item ripples"><p class="crumb">Time travel</p><h1>Item ripples</h1><p class="lede">Take an item from the past and the future loses what was made from it, as little as possible.</p><aside class="infobox"><dl><div><dt>Needs</dt><dd>Trips to the past</dd></div></dl></aside><p>If you take 10 iron from a chest in the past, the player who later took that iron never had it. <strong>Ripples</strong> work out what they did with it and quietly undo just that: the pickaxe they crafted from it, the rails they placed, the iron sitting in their chest now.</p>
+<h2 id="how-it-is-worked-out">How it is worked out</h2>
+<p>The mod keeps a ledger of what players craft, place, store, toss and eat, and watches items move between chests, hoppers, furnaces and machines. When you take something, it follows the items forward:</p>
+<ul>
+<li><strong>Crafted</strong> into something: the craft is unmade; the ingredients come back and the result is removed instead. A tool that used only part of it is worn down.</li>
+<li><strong>Placed</strong> as a block: the block is removed.</li>
+<li><strong>Stored</strong> in a container or passed through machines: taken from where it ended up, or from what the machine made with it.</li>
+<li>Otherwise it comes out of the player's inventory, then their TARDIS storage.</li>
+</ul>
+<p>Only the part that can't be traced costs <a href="#paradox">paradox</a>. Sometimes you can pay for it with other items you carry of the same value.</p>
+<p>The first time you take or break something, you get a summary of what will change. Do it again to go ahead. The changes apply when your trip ends; players who are offline get them when they log in.</p>
+<h2 id="undoing-a-ripple">Undoing a ripple</h2>
+<ul>
+<li>Put the same items back in the same container on a later trip to the same moment or earlier.</li>
+<li>Place a broken block back where it was.</li>
+<li><code>/ripple list</code> shows your ripples; <code>/ripple undo last</code> takes back your most recent one, if the server allows it.</li>
+</ul><nav class="pager"><a href="#paradox"><small>Previous</small>Paradox</a><a class="next" href="#fuel"><small>Next</small>Fuel</a></nav></article><article id="page-fuel" data-title="Fuel"><p class="crumb">Time travel</p><h1>Fuel</h1><p class="lede">Chronons and stronger fuels power trips into the past; the Artron Charger turns machine power into TARDIS energy.</p><aside class="infobox"><dl><div><dt>Needs</dt><dd>TARDIS Mod</dd></div></dl></aside><h2 id="artron-is-scarcer">Artron is scarcer</h2>
+<p>With this mod, the TARDIS regenerates artron energy at a quarter of the normal speed, and flights cost three times as much. You can top it up with an <strong>Artron Charger</strong> (redstone, kontron, shafts, a basic artron battery): drive it with rotation, RF (RFTools) or AE power (AE2). The conversion is lossy on purpose.</p>
+<h2 id="time-fuel">Time fuel</h2>
+<p>Trips into the past burn fuel from the <strong>Chronon Tank</strong>, placed inside the TARDIS. Hoppers can feed it, a comparator reads it, and an empty-hand right-click prints what is in it. The tank burns the cheapest fuel that reaches far enough.</p>
+<table>
+<thead>
+<tr>
+<th>Fuel</th>
+<th>Reaches</th>
+<th>Worth</th>
+<th>Made from</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Chronon</td>
+<td>24 hours back</td>
+<td>1</td>
+<td>Chronosteel and kontron mixed over an artron battery (4 per mix)</td>
+</tr>
+<tr>
+<td>Isotope Rod</td>
+<td>7 days</td>
+<td>1.5</td>
+<td>4 Chronons + Radiation energy</td>
+</tr>
+<tr>
+<td>Chronal Fuel Cell</td>
+<td>To world creation</td>
+<td>2</td>
+<td>Isotope Rod + Chronal energy</td>
+</tr>
+<tr>
+<td>Quantum Fuel</td>
+<td>10 days before creation</td>
+<td>3</td>
+<td>Chronal Fuel Cell + Quantum energy</td>
+</tr>
+<tr>
+<td>Primordial Fuel</td>
+<td>100 days before creation</td>
+<td>5</td>
+<td>Quantum Fuel + Primordial energy</td>
+</tr>
+</tbody>
+</table>
+<p>The energy comes from <a href="#half-life-ores">half-life ores</a>.</p>
+<h2 id="costs">Costs</h2>
+<ul>
+<li><strong>A trip</strong> costs more the further back you go: about 18 for one day back alone, 33 for a month. Each extra player in the interior adds half again.</li>
+<li><strong>Escaping</strong> (taking off from a past) costs more the higher the paradox: 2 at zero, 12 at paradox 50.</li>
+<li>The Cockpit monitor shows your fuel against the cost. The TARDIS won't take off if you can't pay.</li>
+</ul>
+<p>A <strong>Chronon Condenser</strong> <a href="#time-upgrades">time upgrade</a> slowly turns artron into Chronons while landed. Fuel Efficiency Couplings cut trip costs.</p><nav class="pager"><a href="#ripples"><small>Previous</small>Item ripples</a><a class="next" href="#anchors"><small>Next</small>Anchors and the Paradox Machine</a></nav></article><article id="page-anchors" data-title="Anchors and the Paradox Machine"><p class="crumb">Time travel</p><h1>Anchors and the Paradox Machine</h1><p class="lede">Protect your base from time travellers, and rewind or rewrite an area with stored energy.</p><aside class="infobox"><dl><div><dt>Needs</dt><dd>No other mod; energy from half-life ores</dd></div></dl></aside><h2 id="temporal-anchor">Temporal Anchor</h2>
+<p>Place a <strong>Temporal Anchor</strong> (obsidian, compass, irradiated steel, Chronal energy) to protect the 3x3 chunks around it in <strong>every past</strong> of that dimension. Time travellers there can't break, place, open machines, use buckets or blow anything up, and a TARDIS without one of your trusted players aboard can't land there.</p>
+<ul>
+<li>Share it with a friend by right-clicking it with a Name Tag named after them.</li>
+<li>You get an alert when someone visits your protected area in the past.</li>
+<li>Only you can break it.</li>
+<li>A <strong>Deep Anchor</strong> (adds a nether star and Quantum energy) also covers <a href="#deep-time">deep time</a>.</li>
+</ul>
+<h2 id="paradox-machine">Paradox Machine</h2>
+<p>Covers the 5x5 chunks around it and runs on a Chronal cell (clock, diamond block, eye of ender, irradiated steel).</p>
+<table>
+<thead>
+<tr>
+<th>Mode</th>
+<th>Does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Restore</td>
+<td>A redstone pulse puts the area's blocks back to how they were some minutes ago. Right-click with a clock to move that point by 5 minutes.</td>
+</tr>
+<tr>
+<td>Collapse</td>
+<td>A second pulse undoes the last restore.</td>
+</tr>
+<tr>
+<td>Rewrite</td>
+<td>While on, changes made in the past in this area win over what happened later.</td>
+</tr>
+</tbody>
+</table>
+<p>TARDIS blocks, anchors and machines are never touched.</p><nav class="pager"><a href="#fuel"><small>Previous</small>Fuel</a><a class="next" href="#half-life-ores"><small>Next</small>Half-life ores</a></nav></article><article id="page-half-life-ores" data-title="Half-life ores"><p class="crumb">Half-life ores</p><h1>Half-life ores</h1><p class="lede">Four ores whose stored energy drains away as the world ages, so the richest deposits lie in the past.</p><aside class="infobox"><dl><div><dt>Needs</dt><dd>No other mod</dd></div><div><dt>Config</dt><dd>halflife section of tardistimetravel_timetravel.cfg</dd></div></dl></aside><p>Half-life ores hold energy that <strong>halves over time</strong>, counted from world age. A fresh vein is rich; the same vein a few weeks later is nearly spent. Travel back to a time when it was fresh and you can drain it then. That is the reason to time travel for resources.</p>
+<figure><img src="img/geiger.jpg" alt="Geiger Counter reading the nearest ore" loading="lazy"><figcaption>Geiger Counter reading the nearest ore</figcaption></figure>
+<h2 id="the-four-tiers">The four tiers</h2>
+<table>
+<thead>
+<tr>
+<th>Tier</th>
+<th>Ore</th>
+<th>Energy</th>
+<th>Found</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Pitchblende</td>
+<td>Radiation</td>
+<td>Y 5 to 50, veins of 8</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Chronium</td>
+<td>Chronal</td>
+<td>Y 5 to 30, veins of 6</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Entangled Quartz</td>
+<td>Quantum</td>
+<td>Y 5 to 16, rare</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Primordial Shard</td>
+<td>Primordial</td>
+<td>Only in <a href="#deep-time">deep time</a></td>
+</tr>
+</tbody>
+</table>
+<p>They generate in the Overworld and Middle-earth, in new chunks only.</p>
+<h2 id="mining-with-cells">Mining with cells</h2>
+<p>You can't mine these ores with a pickaxe; that leaves depleted rock. Instead, <strong>right-click the ore with an energy cell</strong> to drain everything it holds right now.</p>
+<table>
+<thead>
+<tr>
+<th>Cell</th>
+<th>Holds</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Lead-lined</td>
+<td>5,000</td>
+</tr>
+<tr>
+<td>Shielded</td>
+<td>100,000</td>
+</tr>
+<tr>
+<td>Stasis</td>
+<td>5,000,000</td>
+</tr>
+<tr>
+<td>Quantum</td>
+<td>250,000,000 (needed for tiers 3 and 4)</td>
+</tr>
+</tbody>
+</table>
+<p>Upgrade a cell by crafting it into the next one; it keeps its charge. In the past, ore that is already gone in the present gives nothing.</p>
+<h2 id="crafting-with-energy">Crafting with energy</h2>
+<p>Recipes that use energy take a charged cell in the grid. The cell comes back drained by the cost. NEI shows these on a <em>Cell Crafting</em> page.</p>
+<p><strong>Tier 1 (Radiation)</strong>: Irradiated Steel, Geiger Counter (clicks near ore; right-click names the nearest within 16 blocks and its value), Rad Lamp, Radioisotope Heater (heat for mixers), <strong>Decay Generator</strong> (turns Radiation into RF, AE or artron).</p>
+<p><strong>Tier 2 (Chronal)</strong>: <strong>Time Accelerator</strong> (speeds up crops, furnaces and machines in a 5x5x3 area while it burns Chronal energy; redstone stops it), Stasis Crate (keeps 9 cells), Chrono-Glasses upgrade (wider past view).</p>
+<p><strong>Tier 3 (Quantum)</strong>: <strong>Entangled Chest</strong> (a linked pair that share 27 slots across any distance or dimension), Quantum Waystone Charm (pocket warp to your Waystones).</p>
+<p><strong>Tier 4 (Primordial)</strong>: Primordial Core (gives your TARDIS a level), Genesis Seed (regenerates the chunk you stand in; operators only by default).</p>
+<p>Plus the time fuels in <a href="#fuel">Fuel</a> and the <a href="#time-upgrades">time upgrades</a>.</p><nav class="pager"><a href="#anchors"><small>Previous</small>Anchors and the Paradox Machine</a><a class="next" href="#time-upgrades"><small>Next</small>Time upgrades</a></nav></article><article id="page-time-upgrades" data-title="Time upgrades"><p class="crumb">Half-life ores</p><h1>Time upgrades</h1><p class="lede">Sixteen TARDIS upgrades powered by half-life energy, for the engine slots or the Upgrade Rack.</p><aside class="infobox"><dl><div><dt>Needs</dt><dd>TARDIS Mod</dd></div></dl></aside><figure><img src="img/upgrade-rack.jpg" alt="Upgrade Rack in the Cockpit" loading="lazy"><figcaption>Upgrade Rack in the Cockpit</figcaption></figure>
+<p>Time upgrades go in the TARDIS engine's upgrade slots or in the Cockpit's <strong>Upgrade Rack</strong>. Each is made from an upgrade template, kontron, parts and half-life energy. Some wear out and crack; repair them with kontron and energy.</p>
+<table>
+<thead>
+<tr>
+<th>Upgrade</th>
+<th>Effect</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Chronon Condenser</td>
+<td>While landed, turns 500 artron into 1 Chronon a minute</td>
+</tr>
+<tr>
+<td>Landing Stabiliser</td>
+<td>Lands in the past twice as fast, finds a landing spot further out</td>
+</tr>
+<tr>
+<td>Temporal Sensor Array</td>
+<td>When you set a time, shows ore yields then, other crews there and the paradox you'd arrive to</td>
+</tr>
+<tr>
+<td>Fuel Efficiency Coupling</td>
+<td>-15% trip fuel each (up to 2)</td>
+</tr>
+<tr>
+<td>Reach Extender Mk I / Mk II</td>
+<td>Fuel reaches 1.5x / 2x further back</td>
+</tr>
+<tr>
+<td>Stasis Bay</td>
+<td>Stops energy in cells from decaying</td>
+</tr>
+<tr>
+<td>Escape Capacitor</td>
+<td>One-shot rescue: the crew is pulled aboard and the TARDIS returns home free</td>
+</tr>
+<tr>
+<td>Paradox Lattice</td>
+<td>Collapse happens 10 points later (up to 3)</td>
+</tr>
+<tr>
+<td>Echo Containment Field</td>
+<td>Your biggest echo stack stays real once per trip</td>
+</tr>
+<tr>
+<td>Time Dilation Field</td>
+<td>In flight, machines and crops in the TARDIS run faster</td>
+</tr>
+<tr>
+<td>Paradox Dampener</td>
+<td>Halves paradox gains</td>
+</tr>
+<tr>
+<td>Deep Time Hull</td>
+<td>Needed for <a href="#deep-time">deep time</a>; lasts 60 minutes there</td>
+</tr>
+<tr>
+<td>Quantum Room Expander</td>
+<td>+1 room</td>
+</tr>
+<tr>
+<td>Flight Booster</td>
+<td>+1 speed</td>
+</tr>
+<tr>
+<td>Vault Expander</td>
+<td>Doubles the <a href="#data-vault">Data Vault</a></td>
+</tr>
+</tbody>
+</table><nav class="pager"><a href="#half-life-ores"><small>Previous</small>Half-life ores</a><a class="next" href="#souls"><small>Next</small>Souls</a></nav></article><article id="page-souls" data-title="Souls"><p class="crumb">Souls</p><h1>Souls</h1><p class="lede">Capture creatures in a Soul Nexus, keep them in your TARDIS, show them as holograms and trade with LOTR traders from afar.</p><aside class="infobox"><dl><div><dt>Needs</dt><dd>No other mod; TARDIS Mod for the rooms, LOTR for remote trading</dd></div></dl></aside><h2 id="soul-nexus">Soul Nexus</h2>
+<p>Craft 4 from glass, soul sand and an ender pearl. Use an empty nexus on a creature to store it, name, health and all. A LOTR trader keeps its trades and a hired unit keeps its owner. You can't capture other players' pets or units someone else hired, and bosses only if the server allows it.</p>
+<h2 id="machines">Machines</h2>
+<ul>
+<li><strong>Soul Snatcher</strong> captures creatures standing on or just above it into the empty nexuses inside.</li>
+<li><strong>Soulcarnation</strong> releases the creature from a filled nexus on top of itself and hands back the empty one.</li>
+</ul>
+<p>Both take hoppers and stop with a redstone signal.</p>
+<h2 id="teleport-chamber">Teleport Chamber</h2>
+<figure><img src="img/chamber-holograms.jpg" alt="Teleport Chamber holograms" loading="lazy"><figcaption>Teleport Chamber holograms</figcaption></figure>
+<p>A TARDIS room with a quartz dais and a desk:</p>
+<table>
+<thead>
+<tr>
+<th>Desk control</th>
+<th>Does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Absorb outside</td>
+<td>Captures every creature in the 16-block cube around the police box (TARDIS level 10, landed)</td>
+</tr>
+<tr>
+<td>Absorb room</td>
+<td>Captures every creature in the room</td>
+</tr>
+<tr>
+<td>Storage</td>
+<td>16 filled nexuses and a stack of empties</td>
+</tr>
+<tr>
+<td>Release in room / outside</td>
+<td>Lets them all out</td>
+</tr>
+</tbody>
+</table>
+<p>The 16 pedestals along the walls show a blue hologram of each stored creature.</p>
+<h2 id="soul-bestiary">Soul Bestiary</h2>
+<figure><img src="img/bestiary.jpg" alt="Bestiary pedestals" loading="lazy"><figcaption>Bestiary pedestals</figcaption></figure>
+<p>A room with 12 hologram pedestals around a desk. The desk pages through your <strong>soul vault</strong> (4 pages of 54).</p>
+<p><img alt="The soul vault screen" src="img/soul-vault.jpg" />
+ Click a pedestal for details: health, LOTR faction, kills and trades. From there you can <strong>deploy</strong> the creature outside the TARDIS to stand guard.</p>
+<figure><img src="img/bestiary-details.jpg" alt="Bestiary details with a LOTR trader's offers" loading="lazy"><figcaption>Bestiary details with a LOTR trader's offers</figcaption></figure>
+<h2 id="remote-trading">Remote trading</h2>
+<p>With LOTR, a stored trader has a <strong>Trade</strong> button (TARDIS level 8). The normal LOTR trade screen opens, with LOTR's own prices, alignment rules and coins, even while the TARDIS is flying.</p><nav class="pager"><a href="#time-upgrades"><small>Previous</small>Time upgrades</a><a class="next" href="#kinetics"><small>Next</small>Power and machines</a></nav></article><article id="page-kinetics" data-title="Power and machines"><p class="crumb">Kinetics</p><h1>Power and machines</h1><p class="lede">Rotation power in the style of Create: sources, shafts and cogs, stress, and the machines that use it.</p><aside class="infobox"><dl><div><dt>Needs</dt><dd>No other mod</dd></div></dl></aside><figure><img src="img/kinetics-machines.jpg" alt="A row of kinetic machines" loading="lazy"><figcaption>A row of kinetic machines</figcaption></figure>
+<p>Kinetics is a backport of the ideas in the Create mod to 1.7.10, with our own textures and models. Machines run on <strong>rotation</strong>: a source turns, shafts and cogs carry it, and machines use it.</p>
+<h2 id="speed-and-stress">Speed and stress</h2>
+<ul>
+<li>Speed is measured in <strong>RPM</strong>, up to 256. Direction matters.</li>
+<li>Every source gives a <strong>stress capacity</strong> (SU). Every machine uses stress equal to its cost times its speed. Go over capacity and the whole network stops (overstressed) until you remove load or add sources.</li>
+<li>Two sources fighting each other, or gear ratios that don't add up, <strong>jam</strong> the network.</li>
+<li>Sneak and right-click any part with an empty hand to see its speed and stress.</li>
+</ul>
+<h2 id="sources">Sources</h2>
+<table>
+<thead>
+<tr>
+<th>Source</th>
+<th>Speed</th>
+<th>Capacity</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Hand Crank</td>
+<td>32 RPM while cranked (sneak reverses)</td>
+<td>256 SU</td>
+</tr>
+<tr>
+<td>Water Wheel</td>
+<td>8 RPM per side with flowing water</td>
+<td>512 SU</td>
+</tr>
+<tr>
+<td>Windmill Bearing</td>
+<td>0.25 RPM per wool block, up to 16</td>
+<td>64 SU per wool</td>
+</tr>
+<tr>
+<td>Furnace Engine</td>
+<td>32 RPM on furnace fuel</td>
+<td>1,024 SU</td>
+</tr>
+<tr>
+<td>Field Engine</td>
+<td>64 RPM on furnace fuel (Blaze Cake doubles capacity)</td>
+<td>2,048 SU</td>
+</tr>
+<tr>
+<td>Artron Motor (TARDIS)</td>
+<td>64 RPM, uses 1 artron a second</td>
+<td>4,096 SU</td>
+</tr>
+<tr>
+<td>Creative Motor</td>
+<td>Any</td>
+<td>Unlimited</td>
+</tr>
+</tbody>
+</table>
+<h2 id="moving-power-around">Moving power around</h2>
+<p>Shaft, Cogwheel and Large Cogwheel (small to large doubles or halves speed), Gearbox (sides reverse), Clutch and Gearshift (redstone), Twin Gearshift and Step Transmission (x0.3 to x4 by redstone level), Casing, and <strong>Belts</strong> that join two shafts up to 21 blocks apart and carry items and mobs.</p>
+<figure><img src="img/kinetics-belt.jpg" alt="Belt carrying items" loading="lazy"><figcaption>Belt carrying items</figcaption></figure>
+<h2 id="machines">Machines</h2>
+<table>
+<thead>
+<tr>
+<th>Machine</th>
+<th>Does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Millstone</td>
+<td>Grinds items</td>
+</tr>
+<tr>
+<td>Crushing Wheels</td>
+<td>Two wheels one block apart crush ore into 2 crushed ore</td>
+</tr>
+<tr>
+<td>Mechanical Press</td>
+<td>Presses ingots into sheets; compacts items in a basin</td>
+</tr>
+<tr>
+<td>Mechanical Mixer + Basin</td>
+<td>Any shapeless recipe with 2+ ingredients, plus mixing recipes; heat below for heated mixing</td>
+</tr>
+<tr>
+<td>Encased Fan</td>
+<td>Water in front washes items, lava or fire smelts them</td>
+</tr>
+<tr>
+<td>Mechanical Saw</td>
+<td>Cuts blocks into shapes; fells whole trees</td>
+</tr>
+<tr>
+<td>Mechanical Drill</td>
+<td>Breaks the block in front</td>
+</tr>
+<tr>
+<td>Deployer</td>
+<td>Uses its held item on blocks or items</td>
+</tr>
+<tr>
+<td>Funnels, Chute, Depot</td>
+<td>Move items in and out of inventories</td>
+</tr>
+<tr>
+<td>Screw Shaft / Screw Cog</td>
+<td>Carry items along their axis, uphill too</td>
+</tr>
+</tbody>
+</table>
+<figure><img src="img/kinetics-crusher.jpg" alt="Crushing wheels" loading="lazy"><figcaption>Crushing wheels</figcaption></figure>
+<h2 id="create-style-crafting">Create-style crafting</h2>
+<p>Andesite alloy, flour and dough, rose quartz, electron tubes, sandpaper, and <strong>sequenced assembly</strong> of Precision Mechanisms with a deployer over a depot. With other mods installed you also get crushing and mixing recipes for AE2 (certus, fluix), TARDIS lab recipes in a basin over an artron battery, and <a href="#create-lotr">LOTR</a>.</p><nav class="pager"><a href="#souls"><small>Previous</small>Souls</a><a class="next" href="#moving-structures"><small>Next</small>Moving structures</a></nav></article><article id="page-moving-structures" data-title="Moving structures"><p class="crumb">Kinetics</p><h1>Moving structures</h1><p class="lede">Bearings, pistons and gantries that pick up blocks and move them, with you riding on top.</p><aside class="infobox"><dl><div><dt>Needs</dt><dd>No other mod</dd></div></dl></aside><figure><img src="img/gantry.jpg" alt="Gantry carriage moving a load along its rail" loading="lazy"><figcaption>Gantry carriage moving a load along its rail</figcaption></figure>
+<h2 id="movers">Movers</h2>
+<ul>
+<li><strong>Mechanical Bearing</strong>: turns the structure attached to its face; stops at a quarter turn.</li>
+<li><strong>Mechanical Piston</strong>: pushes and pulls; piston poles behind it set the reach.</li>
+<li><strong>Gantry Shaft and Carriage</strong>: the carriage and its load slide along the rail while it turns, in a direction set by the spin, until the end or an obstacle.</li>
+</ul>
+<p>A mover takes the block on its face and everything joined to it, up to 512 blocks. It never takes air, liquids, unbreakable blocks, belts, or other mods' multiblocks (AE2, TARDIS). Natural ground like dirt and stone is only taken if it is the first block. Protected land stays protected.</p>
+<h2 id="riding">Riding</h2>
+<p>Stand on top of a moving structure and it carries you, even while it turns, with no fall damage. Chests, furnaces and other blocks keep their contents and drawing while they move.</p>
+<h2 id="chutes">Chutes</h2>
+<figure><img src="img/chutes.jpg" alt="Items falling through a chute into a chest" loading="lazy"><figcaption>Items falling through a chute into a chest</figcaption></figure>
+<p>A <strong>Chute</strong> moves one stack down into the chute or inventory below, or drops it out the bottom. An Encased Fan under the column blows items up instead. Drop items on top of a chute and it takes them in.</p><nav class="pager"><a href="#kinetics"><small>Previous</small>Power and machines</a><a class="next" href="#links-vehicles"><small>Next</small>Redstone Links and vehicles</a></nav></article><article id="page-links-vehicles" data-title="Redstone Links and vehicles"><p class="crumb">Kinetics</p><h1>Redstone Links and vehicles</h1><p class="lede">Wireless redstone, a handheld remote, and Steering Wheel vehicles that drive, mine and carry working machines.</p><aside class="infobox"><dl><div><dt>Needs</dt><dd>No other mod</dd></div></dl></aside><h2 id="redstone-link">Redstone Link</h2>
+<p>A plate that sends or receives redstone without wires, within 256 blocks. Its <strong>frequency</strong> is two items: click the upper and lower half with an item to set them. Sneak with an empty hand to switch between send and receive.</p>
+<h2 id="linked-controller">Linked Controller</h2>
+<figure><img src="img/linked-controller.jpg" alt="The Linked Controller lighting a receiver" loading="lazy"><figcaption>The Linked Controller lighting a receiver</figcaption></figure>
+<p>A handheld remote with six buttons mapped to your movement keys (forward, back, left, right, jump, sneak). Sneak-click to bind each button to a frequency, then right-click to take over your movement keys and press buttons instead of walking.</p>
+<h2 id="steering-wheel-vehicles">Steering Wheel vehicles</h2>
+<figure><img src="img/vehicle-driving.jpg" alt="Driving a vehicle" loading="lazy"><figcaption>Driving a vehicle</figcaption></figure>
+<p>Build something, put a <strong>Steering Wheel</strong> on it and right-click. Everything joined to the wheel, except the ground, lifts off and you take the seat.</p>
+<ul>
+<li><kbd>W</kbd>/<kbd>S</kbd> speed, <kbd>A</kbd>/<kbd>D</kbd> turn. Climbs one-block steps, stops at walls. Sneak to get out; it settles back into blocks.</li>
+<li>Vehicles carry working machines. A <strong>Furnace Engine</strong> on board, fed from the vehicle's chests, drives the wheel through shafts; levers and clutches on board still work. Click a carried lever, chest or engine to use it.</li>
+<li><strong>Drills</strong> facing forward mine through the blocks ahead as you push into them, and drops go into chests on board. Cover the whole front with drills.</li>
+</ul>
+<figure><img src="img/vehicle-drill.jpg" alt="A mining vehicle tunnelling into a hill" loading="lazy"><figcaption>A mining vehicle tunnelling into a hill</figcaption></figure>
+<p>A build with tires becomes a <a href="#cars">car</a> instead, with real suspension and steering.</p><nav class="pager"><a href="#moving-structures"><small>Previous</small>Moving structures</a><a class="next" href="#create-lotr"><small>Next</small>Create x LOTR</a></nav></article><article id="page-create-lotr" data-title="Create x LOTR"><p class="crumb">Kinetics</p><h1>Create x LOTR</h1><p class="lede">Machine recipes for Middle-earth: metal sheets, crystal powders, fan magic, barrel brewing and superheated alloys.</p><aside class="infobox"><dl><div><dt>Needs</dt><dd>The Lord of the Rings Mod</dd></div></dl></aside><h2 id="new-items-and-blocks">New items and blocks</h2>
+<ul>
+<li><strong>Sheets</strong> of every LOTR metal (bronze, copper, tin, silver, orc, Uruk, black Uruk, Morgul, dwarven, blue dwarven, elven, galvorn), pressed from ingots.</li>
+<li><strong>Naurite Ember</strong>, <strong>Starlight Dust</strong>, <strong>Shadow Essence</strong>, <strong>Morgul Extract</strong>, <strong>Mallorn Pulp</strong>, <strong>Spider Silk</strong> and <strong>rough gems</strong>.</li>
+<li>Decorative dwarven, elven, orc and Gondor <strong>casings</strong>, and the <strong>Ent Water Font</strong>.</li>
+<li><strong>Naurite Burner</strong>: burns embers to superheat a basin above it.</li>
+</ul>
+<h2 id="grinding-and-crushing">Grinding and crushing</h2>
+<p>Naurite, quendite and gulduril become ember, starlight and shadow. Gem ores crush to rough gems (50% bonus), which sandpaper on a deployer polishes into two. Coins, treasure, rings and goblets grind back to nuggets. Every LOTR flower that crafts into dye mills into double.</p>
+<h2 id="fan-modes">Fan modes</h2>
+<table>
+<thead>
+<tr>
+<th>Catalyst in front of the fan</th>
+<th>Mode</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Hearth</td>
+<td>Smoking</td>
+<td>Food, grapes to raisins, pipeweed</td>
+</tr>
+<tr>
+<td>Morgul torch</td>
+<td>Haunting</td>
+<td>Dirt to Mordor dirt, quendite to gulduril</td>
+</tr>
+<tr>
+<td>Elven torch</td>
+<td>Hallowing</td>
+<td>The reverse; rotten flesh to leather</td>
+</tr>
+<tr>
+<td>Ent jar or Ent Water Font</td>
+<td>Ent growth</td>
+<td>Saplings to logs, seeds to crops</td>
+</tr>
+</tbody>
+</table>
+<h2 id="mixing">Mixing</h2>
+<ul>
+<li><strong>Brewing</strong>: every LOTR barrel drink mixes in a basin from its 6 ingredients and 3 water buckets into 4 drinks. Cold makes light drinks, heat makes strong.</li>
+<li><strong>Superheated</strong> (basin over a lit Naurite Burner): Uruk steel, black Uruk steel, Morgul steel, elven steel, ithildin, blue dwarven steel and dwarven steel.</li>
+<li>Hithlain, gunpowder, hobbit pancakes and more. A lit LOTR forge under a basin does alloy recipes.</li>
+</ul>
+<h2 id="saw-and-faction-mechanism">Saw and Faction Mechanism</h2>
+<p>The <strong>Mechanical Saw</strong> makes every faction-table block (Gondor bricks, pillars, stairs) without the table. The <strong>Faction Mechanism</strong> crafts any faction table recipe from a basin; a filled Soul Nexus sets the faction.</p><nav class="pager"><a href="#links-vehicles"><small>Previous</small>Redstone Links and vehicles</a><a class="next" href="#airships"><small>Next</small>Building a ship</a></nav></article><article id="page-airships" data-title="Building a ship"><p class="crumb">Airships</p><h1>Building a ship</h1><p class="lede">Ships are real blocks that fly as one rigid body: machines, chests and redstone all keep working on board.</p><aside class="infobox"><dl><div><dt>Needs</dt><dd>No other mod</dd></div></dl></aside><figure><img src="img/ship-rising.jpg" alt="A balloon ship lifting off" loading="lazy"><figcaption>A balloon ship lifting off</figcaption></figure>
+<p>Airships are a backport of Create Aeronautics, with our own names and models. A ship is a real build: every block on it stays a working block, so furnaces burn, chests open and redstone runs while you fly.</p>
+<h2 id="assembling">Assembling</h2>
+<ol>
+<li>Build your ship, all blocks touching. Use <strong>Ship Resin</strong> on two blocks to glue a gap, or twice on one block to let it join diagonal neighbours.</li>
+<li>Place a <strong>Hull Assembler</strong> on it and right-click. Everything connected lifts off as one ship.</li>
+<li>Right-click the assembler again to turn it back into blocks. The ship has to be within 25 degrees of upright, and it snaps to the nearest quarter turn.</li>
+</ol>
+<p>You can walk on the deck, build on it and click its blocks while it moves.</p>
+<h2 id="weight-and-balance">Weight and balance</h2>
+<p>Every block has a weight: light for wool and canvas, heavy for metal. Slabs, stairs, fences and panes weigh less than full blocks. All 693 LOTR blocks have their own weights.</p>
+<p>The <strong>Hull Chart</strong> prints the ship's weight, lift and a top-down plan showing the centre of mass (red) and centre of lift (aqua). Keep them together or the ship tips. <strong>Flight Goggles</strong> show a readout of the nearest ship.</p>
+<h2 id="pages-in-this-section">Pages in this section</h2>
+<div class="cards" markdown="0">
+<a href="#lift-thrust"><strong>Lift and thrust</strong><span>Aerolite, balloons, rotors, sails, helm</span></a>
+<a href="#instruments"><strong>Instruments</strong><span>Altitude, speed, tilt and homing signals</span></a>
+<a href="#joints-docking"><strong>Joints and docking</strong><span>Tethers, springs, swivels, clamps</span></a>
+<a href="#ship-power"><strong>Engines and cannon</strong><span>Field Engine, screws, Deck Cannon</span></a>
+<a href="#cars"><strong>Cars</strong><span>Tires, steering, seats, bores</span></a>
+</div>
+
+<h2 id="good-to-know">Good to know</h2>
+<ul>
+<li>Liquids on a ship stay on the ship.</li>
+<li>Ships far from every player freeze until someone comes near.</li>
+<li>The <a href="#vehicle-bay">Vehicle Bay</a> can store a ship inside your TARDIS.</li>
+</ul><nav class="pager"><a href="#create-lotr"><small>Previous</small>Create x LOTR</a><a class="next" href="#lift-thrust"><small>Next</small>Lift and thrust</a></nav></article><article id="page-lift-thrust" data-title="Lift and thrust"><p class="crumb">Airships</p><h1>Lift and thrust</h1><p class="lede">Make a ship rise with Aerolite or hot air, and push it with rotors, sails and fans.</p><aside class="infobox"><dl><div><dt>Needs</dt><dd>No other mod</dd></div></dl></aside><h2 id="lift">Lift</h2>
+<p><strong>Aerolite</strong> is a light block that floats. Each block holds up 10 weight, and enough of it makes a ship hover, never rise past that. Smelt Aerolite Blend (clay, ender pearl, glowstone dust). Put Aerolite <em>above</em> the centre of mass, or the ship rolls over.</p>
+<figure><img src="img/ship-balloon.jpg" alt="A hot-air balloon made of canvas" loading="lazy"><figcaption>A hot-air balloon made of canvas</figcaption></figure>
+<p><strong>Balloons</strong> give real climb. Put a <strong>Balloon Burner</strong> (furnace fuel) or a <strong>Lift Vent</strong> (next to a burning Furnace Engine) under a closed envelope of blocks. <strong>Balloon Canvas</strong> is the light material for it. The air inside heats up with the redstone signal on the burner (0 off, 15 full), and lift grows with the envelope's volume and heat.</p>
+<p>Air gets thinner with height, so balloons, rotors and sails all weaken as you climb. In Middle-earth the air reaches higher, and Utumno has none.</p>
+<h2 id="thrust">Thrust</h2>
+<figure><img src="img/ship-rotor.jpg" alt="A rotor of sails on a Rotor Mount" loading="lazy"><figcaption>A rotor of sails on a Rotor Mount</figcaption></figure>
+<ul>
+<li><strong>Rotor Mount</strong>: drive it with rotation. Sails joined to its front become blades. More sails and more RPM, more thrust.</li>
+<li><strong>Trim Rotor</strong>: thrust set by a redstone signal. <strong>Gimbal Rotor</strong>: always pushes upward.</li>
+<li><strong>Encased Fan</strong> on a ship pushes too; a <strong>Thrust Nozzle</strong> in front doubles it.</li>
+<li><strong>Sails</strong> and <strong>Fins</strong> catch the air. In Middle-earth the west wind blows east, stronger with height and in storms.</li>
+</ul>
+<h2 id="controls">Controls</h2>
+<ul>
+<li><strong>Helm</strong>: right-click to take the controls. It outputs redstone: throttle ahead, rudder left and right, up on <kbd>Space</kbd>, down on sneak. Wire it to your engines, gearshifts and burners.</li>
+<li><strong>Throttle</strong>: right-click up, sneak-click down; powers all sides.</li>
+<li><strong>Mover's Rod</strong> (creative): drag a ship around by a point.</li>
+</ul><nav class="pager"><a href="#airships"><small>Previous</small>Building a ship</a><a class="next" href="#instruments"><small>Next</small>Instruments</a></nav></article><article id="page-instruments" data-title="Instruments"><p class="crumb">Airships</p><h1>Instruments</h1><p class="lede">Redstone sensors that know where the ship is, how fast it moves and which way to steer.</p><aside class="infobox"><dl><div><dt>Needs</dt><dd>No other mod</dd></div></dl></aside><p>Every instrument outputs a redstone signal from its front, so you can build an autopilot from them.</p>
+<table>
+<thead>
+<tr>
+<th>Instrument</th>
+<th>Signal</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Altitude</td>
+<td>Height above a set base</td>
+</tr>
+<tr>
+<td>Velocity</td>
+<td>Speed in the direction it faces</td>
+</tr>
+<tr>
+<td>Gimbal</td>
+<td>Tilt toward each side</td>
+</tr>
+<tr>
+<td>Range Eye</td>
+<td>How close the first block it sees is (15 = touching, 1 = 30 blocks)</td>
+</tr>
+<tr>
+<td>Beam Eye</td>
+<td>Lit when a <strong>Beam Lamp</strong> shines on it</td>
+</tr>
+<tr>
+<td>Range Receiver</td>
+<td>Distance to a Redstone Link on its frequency</td>
+</tr>
+<tr>
+<td>Bearing Receiver</td>
+<td>Which way to turn to reach that link: ahead, left, right, and distance at the back</td>
+</tr>
+<tr>
+<td>Chart Table</td>
+<td>Bearing to spawn (compass) or a map's centre</td>
+</tr>
+<tr>
+<td>Charge Cell</td>
+<td>Fades slowly after its input stops</td>
+</tr>
+<tr>
+<td>Signal Coil</td>
+<td>Holds a pulse and drains slowly</td>
+</tr>
+</tbody>
+</table>
+<h2 id="also-on-the-bridge">Also on the bridge</h2>
+<ul>
+<li><strong>Link Keyboard</strong>: a desk that holds a Linked Controller. Sit at it to press its six buttons with your movement keys.</li>
+<li><strong>Hull Plate</strong>: right-click with a renamed item to name the ship. Goggles and the Vehicle Bay show the name.</li>
+</ul><nav class="pager"><a href="#lift-thrust"><small>Previous</small>Lift and thrust</a><a class="next" href="#joints-docking"><small>Next</small>Joints and docking</a></nav></article><article id="page-joints-docking" data-title="Joints and docking"><p class="crumb">Airships</p><h1>Joints and docking</h1><p class="lede">Tie ships together or to the ground, build moving arms, and dock two ships.</p><aside class="infobox"><dl><div><dt>Needs</dt><dd>No other mod</dd></div></dl></aside><figure><img src="img/ship-swivel.jpg" alt="A swivel joint turning an arm" loading="lazy"><figcaption>A swivel joint turning an arm</figcaption></figure>
+<table>
+<thead>
+<tr>
+<th>Part</th>
+<th>How to use it</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Tether</strong></td>
+<td>Use on two blocks up to 48 apart (ship or ground). Pulls only when stretched. Sneak-use to remove.</td>
+</tr>
+<tr>
+<td><strong>Coil Spring</strong></td>
+<td>Like a tether, but springy.</td>
+</tr>
+<tr>
+<td><strong>Grapple Launcher</strong></td>
+<td>A redstone pulse fires a tether up to 48 blocks; the next pulse lets go. Hold power to reel in.</td>
+</tr>
+<tr>
+<td><strong>Swivel Joint</strong></td>
+<td>Right-click to turn the blocks on its face into their own hinged part. Its shaft speed sets the angle. Right-click again to put them back.</td>
+</tr>
+<tr>
+<td><strong>Twist Spring</strong></td>
+<td>Like a swivel, with a spring back to straight (stops at 45 degrees).</td>
+</tr>
+<tr>
+<td><strong>Grab Handle</strong></td>
+<td>Right-click to hang from it, wherever it goes.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="docking">Docking</h2>
+<figure><img src="img/ship-dock.jpg" alt="Two ships docked with Dock Clamps" loading="lazy"><figcaption>Two ships docked with Dock Clamps</figcaption></figure>
+<p>Power a <strong>Dock Clamp</strong> facing another clamp within 4 blocks on another ship. It steers them gently together and locks them at one block. Remove power to let go. Right-click for send mode: it passes items and liquids between the containers behind the two clamps.</p>
+<p>A <strong>Lodestone Coil</strong> pulls (or, after a right-click, pushes) other coils within 16 blocks on other ships.</p><nav class="pager"><a href="#instruments"><small>Previous</small>Instruments</a><a class="next" href="#ship-power"><small>Next</small>Engines and cannon</a></nav></article><article id="page-ship-power" data-title="Engines and cannon"><p class="crumb">Airships</p><h1>Engines and cannon</h1><p class="lede">The Field Engine, gear shifting, item screws and the Deck Cannon.</p><aside class="infobox"><dl><div><dt>Needs</dt><dd>No other mod</dd></div></dl></aside><ul>
+<li><strong>Field Engine</strong>: 64 RPM and 2,048 SU on any furnace fuel. A <strong>Blaze Cake</strong> doubles its capacity while it burns.</li>
+<li><strong>Twin Gearshift</strong>: forward when one side is powered, reverse for the other, stopped with neither.</li>
+<li><strong>Step Transmission</strong>: scales speed by redstone level, from x0.3 at 0 through x1 at 7 to x4 at 15.</li>
+<li><strong>Screw Shaft</strong> and <strong>Screw Cog</strong>: carry items along their axis, uphill too, from one inventory to another.</li>
+<li><strong>Deck Cannon</strong>: a redstone pulse fires one item from its face, plus the ship's own speed. Arrows, snowballs, eggs, fire charges and lit TNT act as themselves; anything else is a slug that hurts and drops. The recoil pushes the ship.</li>
+</ul>
+<p>All the <a href="#kinetics">kinetic</a> parts work on a ship too.</p><nav class="pager"><a href="#joints-docking"><small>Previous</small>Joints and docking</a><a class="next" href="#cars"><small>Next</small>Cars</a></nav></article><article id="page-cars" data-title="Cars"><p class="crumb">Airships</p><h1>Cars</h1><p class="lede">Put tires on a Steering Wheel build and it drives with suspension, steering and brakes.</p><aside class="infobox"><dl><div><dt>Needs</dt><dd>No other mod</dd></div></dl></aside><figure><img src="img/car.jpg" alt="A car with tires on Axle Mounts" loading="lazy"><figcaption>A car with tires on Axle Mounts</figcaption></figure>
+<h2 id="building-a-car">Building a car</h2>
+<ol>
+<li>Put <strong>Axle Mounts</strong> on your build, with a <strong>Tire</strong> on each (Small, Road, Large or Giant).</li>
+<li>Add an engine: a <strong>Field Engine</strong> or <strong>Furnace Engine</strong> facing down into the Steering Wheel, or shafts to each axle.</li>
+<li>Add a <strong>Steering Wheel</strong> and right-click it. The build becomes a car.</li>
+</ol>
+<h2 id="driving">Driving</h2>
+<ul>
+<li><kbd>W</kbd>/<kbd>S</kbd> drive and reverse, <kbd>A</kbd>/<kbd>D</kbd> steer. Front tires turn up to 30 degrees.</li>
+<li>Let go of the keys to brake. A car with nobody at the wheel stays put.</li>
+<li>Tires have springs, so the car rides over bumps and climbs steps.</li>
+<li>Speed comes from engine RPM and tire size.</li>
+<li><strong>Seats</strong> carry passengers and turn with the car.</li>
+</ul>
+<h2 id="bore-mount">Bore Mount</h2>
+<p>Fit a <strong>Rock Cutter</strong> to a Bore Mount on the front. It cuts the 3x3 of blocks in front of it, dropping them into a chest next to it. A cutter lasts 2,048 blocks.</p><nav class="pager"><a href="#ship-power"><small>Previous</small>Engines and cannon</a><a class="next" href="#rftools"><small>Next</small>RFTools</a></nav></article><article id="page-rftools" data-title="RFTools"><p class="crumb">More</p><h1>RFTools</h1><p class="lede">Turn rotation into RF, build TARDIS interiors from dimension tabs, and show TARDIS and machine status on RFTools screens.</p><aside class="infobox"><dl><div><dt>Needs</dt><dd>RFTools; some parts need TARDIS Mod or AE2</dd></div></dl></aside><h2 id="power">Power</h2>
+<table>
+<thead>
+<tr>
+<th>Block</th>
+<th>Converts</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Kinetic Dynamo</td>
+<td>Rotation to RF, 1 RF/t per RPM</td>
+</tr>
+<tr>
+<td>ME Energy Converter (AE2)</td>
+<td>1 AE to 2 RF</td>
+</tr>
+<tr>
+<td>Artron RF Converter (TARDIS)</td>
+<td>1 artron to 4,000 RF</td>
+</tr>
+<tr>
+<td>Artron Charger</td>
+<td>RF back into artron (<a href="#fuel">Fuel</a>)</td>
+</tr>
+<tr>
+<td>Decay Generator</td>
+<td>Radiation energy into RF (<a href="#half-life-ores">Half-life ores</a>)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="tardis-matrix-builder">TARDIS Matrix Builder</h2>
+<p>Feed it an RFTools dimension tab and RF to make a <strong>TARDIS Matrix</strong>. Use the matrix to summon a new TARDIS, or on an existing one to retune its interior. Potion effects, flight, Peaceful and No Animals carry over from the tab's dimlets; other dimlets are ignored.</p>
+<p>Also: a mithril ingot and 4 coal become 4 diamonds in a basin over an artron battery (LOTR + TARDIS).</p>
+<h2 id="screen-modules">Screen modules</h2>
+<figure><img src="img/rftools-screens.jpg" alt="RFTools screens showing module output" loading="lazy"><figcaption>RFTools screens showing module output</figcaption></figure>
+<table>
+<thead>
+<tr>
+<th>Module</th>
+<th>Shows</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Kinetic Monitor</td>
+<td>Speed, stress and capacity, jammed or overstressed</td>
+</tr>
+<tr>
+<td>TARDIS Status</td>
+<td>Level, artron, flying or landed, where and when</td>
+</tr>
+<tr>
+<td>Data Vault</td>
+<td>Items stored and % full (AE2)</td>
+</tr>
+<tr>
+<td>Soul Vault</td>
+<td>Souls stored</td>
+</tr>
+<tr>
+<td>Time Travel</td>
+<td>Destination time, fuel, paradox, escape cost</td>
+</tr>
+</tbody>
+</table>
+<p>Sneak and right-click a block with the module to link it. Unlinked TARDIS modules report on the TARDIS the screen stands in.</p><nav class="pager"><a href="#cars"><small>Previous</small>Cars</a><a class="next" href="#server-performance"><small>Next</small>Server performance</a></nav></article><article id="page-server-performance" data-title="Server performance"><p class="crumb">More</p><h1>Server performance</h1><p class="lede">Tools for server owners that make riding into new land smoother.</p><aside class="infobox"><dl><div><dt>Needs</dt><dd>No other mod; LOTR adds waypoints and roads to the plan</dd></div><div><dt>Config</dt><dd>server_performance section of tardistimetravel.cfg</dd></div></dl></aside><p>Generating new land is the slow part of exploring in 1.7.10, and it happens on the server's main thread. Three tools help:</p>
+<h2 id="idle-pregenerator">Idle pregenerator</h2>
+<p>While nobody is online, the server generates chunks in the background: areas you list in the config, then, with LOTR, the land around every waypoint and along every road. It stops the moment a player joins and picks up again later. <code>/pregen status</code>, <code>pause</code>, <code>resume</code> and <code>reset</code> control it.</p>
+<h2 id="generate-ahead">Generate ahead</h2>
+<p>When a player moves fast through new land, the server generates the chunks just ahead of them in a cone, using whatever time is left over in each tick.</p>
+<h2 id="mount-slowdown">Mount slowdown</h2>
+<p>If a player on a horse or other mount is about to outrun the land being generated, the mount slows down smoothly until the land catches up, with a short chat note.</p><nav class="pager"><a href="#rftools"><small>Previous</small>RFTools</a></nav></article></main></div>
+<footer class="foot"><p>TARDIS Time Travel Addon for Minecraft 1.7.10 Forge. Fan-made add-on; not affiliated with the TARDIS Mod, LOTR Mod or Create authors.</p></footer>
+<script>window.WIKI=[{"s": "index", "t": "Home", "d": "A TARDIS Mod expansion for Minecraft 1.7.10 that lets you fly back into your own world's recorded past, plus a cockpit, souls, Create-style machines and airships.", "k": "  the cockpit room  all four tardis console sides on one desk  img cockpit overview jpg   the   tardis time travel addon   grew out of one question  what if the tardis could really travel in time  the mod records everything that happens in your world  later you can watch that history play back  then land your tardis in it  walk around among the players who were there and change things  change too much and the past starts to tear itself apart   around that core sit a lot of other systems  a proper tardis cockpit and navigation console  me storage built into the tardis  soul capture  a full set of rotation powered machines in the style of create  and physics based airships and cars      where to start   div class  cards  markdown  0    a href  getting started html   strong getting started  strong  span install  optional mods  first steps  span   a   a href  time travel html   strong time travel  strong  span how the past is recorded and visited  span   a   a href  cockpit html   strong cockpit room  strong  span fly the tardis from one desk  span   a   a href  kinetics html   strong kinetics  strong  span shafts  cogs and machines  span   a   a href  airships html   strong airships  strong  span build a ship that really flies  span   a   a href  souls html   strong souls  strong  span capture creatures and keep them  span   a    div      what is in the mod    area   what you get                tardis  cockpit html    cockpit room  navigation console with a live map  exterior camera  data vault  vehicle bay  waystone and grave destinations      time travel  time travel html    world recorder  timeline  chrono glasses  trips into the past  paradox  item ripples  deep time before your world existed      half life ores  half life ores html    four ores that lose energy as the world ages  energy cells  and 16 tardis time upgrades      souls  souls html    soul nexus capture  teleport chamber  bestiary with holograms  remote lotr trading      kinetics  kinetics html    rotation power  machines  moving structures  redstone links  drivable vehicles  create x lotr recipes      airships  airships html    rigid body ships with balloons  rotors and sails  instruments  joints  docking  cars      rftools  rftools html    kinetic dynamo  tardis matrix builder  power converters  screen modules    every optional mod is optional  with none of them installed you still get the recorder  kinetics  airships  souls and half life ores  each mod you add switches on its own extras  "}, {"s": "getting-started", "t": "Getting started", "d": "What you need, which mods unlock which features, and a few habits that make the mod easier to use.", "k": "   installing  1  install forge 10 13 4 1614 for minecraft 1 7 10  2  put the  tardistimetravel   jar  in your  mods  folder  only keep one copy of this mod in the folder  old builds were called  mymodid   jar   delete those  your worlds carry over  3  add any of the optional mods below  the server and every player need the same set      optional mods    mod   what it adds here               tardis mod  needs darkcore    cockpit  navigation console  time travel trips  fuel  vehicle bay  teleport chamber  bestiary  time upgrades     the lord of the rings mod   tardis icons on the middle earth map  map travel  remote trading  create x lotr recipes  faction mechanism  westerly winds for airships     applied energistics 2   data vault  me terminal desk  storage buses through the police box  kinetic generator  ae powered artron charger     rftools   kinetic dynamo  tardis matrix builder  converters  screen modules     waystones   waystones as tardis destinations  tardis waystone  quantum waystone charm     gravestone   your latest grave as a tardis destination and lotr map marker     waila  nei   control names on the cockpit desk  recipe pages for machines  cells and airship parts       habits that help   div class  tip  markdown  1     sneak and right click with an empty hand   on almost any machine from this mod to print its status  speed and stress on kinetic parts  contents of a chute  fuel in the chronon tank  charge in a cell machine    div     look up recipes in   nei    this wiki names the main ingredients  nei shows the exact grid    the creative tabs are  time travel addon    time travel addon kinetics  and  half life     tardis features unlock with   tardis level    a feature that needs a level says so in its box at the top of the page    most numbers in this wiki are defaults  server owners can change them in the config  see  commands and config  commands html    "}, {"s": "commands", "t": "Commands and config", "d": "Admin commands, player commands, and where every setting lives.", "k": "   settings  all settings show up in game under   mods   tardis time travel addon   config    and most apply at once without a restart     file   covers                config tardistimetravel cfg    tardis  cockpit  data vault  lotr map  rftools   souls  kinetics  energy converters  recipe viewer  server performance  it also mirrors every tardis mod setting  so a server can be set up in one file       config tardistimetravel timetravel cfg    recorder  trips  landing  replay  paradox  ripples  fuel  half life ores  time upgrades  chrono glasses  timeline        commands    command   who   what it does                     ripple list    info    preview    undo last    everyone  own ripples    see and undo the  item ripples  ripples html  your trips caused       ripple rate  x y z   hours     everyone   items made  used and sent per hour at a container       timetravel view  minutes   radius     view off    operators   show the past around you without a tardis       timetravel at  minutes   x y z     operators   what a block was at that moment       timetravel trip  minutes     trip home    operators   open a trip into the past directly  and come back       timetravel paradox safe on off    operators   refuse paradoxical actions instead of counting them       timetravel rollback  minutes   radius     rollback undo    operators   put the chunks around you back to an earlier moment  grief repair        timetravel check    stats    pack    ledger    operators   recorder health and disk use       pregen status    pause    resume    reset    operators   the idle chunk pregenerator   server performance  server performance html         tttkinetics selftest    operators   checks the rotation solver without touching the world   "}, {"s": "cockpit", "t": "Cockpit room", "d": "A TARDIS room that puts all four sides of the console on one desk, with a flight monitor, wall chart, safe-travel switch and exterior camera.", "k": "  the cockpit desk with the four console sides laid out in a row  img cockpit desk jpg   the normal tardis console makes you walk round it  the   cockpit   is an extra room with one desk that carries all four console sides  so you can fly from a single standing spot  every lever and button on the desk works exactly like the one on the console      flying from the desk    look at a control and click it  just like on the console  with waila installed  the control s name shows when you look at it    during the flight minigame the desk lights up and the control tardis wants you to press gets a   pulsing blue outline    with a sound cue     the desk lit up during the flight minigame  img cockpit flight jpg    the   monitor   at the top shows the status  a progress bar  destination time  position and target  in a time trip its header also shows fuel and the cost of the trip or the escape  red when you can t pay     the   wall chart   against the back wall labels every control on the desk     wall chart naming every cockpit control  img cockpit chart jpg      desks around the cockpit    desk   what it does   needs                   timeline desk   opens the timeline to set a destination time  sneak click sets  deep time  deep time html    fly permission     map desk   opens the  navigation console  navigation html    tardis level 7  fly permission     safe travel switch   on  paradoxical actions in the past are refused instead of counted   paradox  paradox html     fly permission     exterior camera   look round the outside of the police box   tardis level 10  landed     upgrade rack   holds extra upgrades  including  time upgrades  time upgrades html    upgrade points    controls check your tardis permissions before they act  if you lack the right permission you hear a low note and get a chat message  and nothing happens      exterior camera  click the camera desk and your view moves onto a rail round the top of the police box  move left and right to circle it  sneak to come back  your body stays standing at the desk while you watch  the camera closes if the tardis takes off      room updates  when a new version of the mod adds controls to a room  your existing room gets them automatically the next time it loads  only the mod s own desk blocks are placed  and only into empty space  so your own builds are left alone  "}, {"s": "navigation", "t": "Navigation console", "d": "One screen with tabs for destinations, a live world map, the timeline, an exterior scanner and a flight log.", "k": "open it from the map desk in the  cockpit  cockpit html   it remembers the last tab you used     map tab  click any spot to set a course there  img nav map jpg      tabs    destinations    your activated waystones  global waystones  your latest grave  gravestone  and lotr waypoints  with lotr installed this is the middle earth map with markers  other worlds are listed beside it  pick one and press  set course      map    a built in map of any dimension the tardis can reach  it only shows land that has already been explored  so it never generates new terrain  click a spot to set a course  the tardis finds the ground there  in the nether and other roofed worlds a   height slider   picks the layer to view  with solid rock drawn darkest so caves stand out     timeline    pick a moment in your world s history as the destination time  see  viewing the past  viewing the past html      scanner    what is outside the doors  biome  time  weather  light  ground  creatures and players within 16 blocks  hazards  artron energy and rooms     flight log    the last 40 places you landed  with visit counts  set a course back  show it on the map  or forget it     the scanner tab  img nav scanner jpg      how a course is set  the tardis turns its own coordinate levers to get as close as it can  usually within about 15 blocks  and chat tells you how far off the landing will be  when landed it can set the course relative to where you are  which is often more exact  height is always set exactly      lotr map icons  with lotr installed  tardises in middle earth appear as icons on the lotr map  even while flying  you see your own  and any tardis whose owner gave you the  see on map  permission  select one and press lotr s fast travel key to transmat inside  door locks apply  and there is a cooldown   "}, {"s": "data-vault", "t": "Data Vault and ME", "d": "Applied Energistics storage built into the TARDIS, with no drives or cells needed, and ME links through the police box.", "k": "  the data vault room  img data vault jpg      the vault  add the   data vault   room to your tardis  its storage is part of the tardis itself  25 000 items per tardis level  with no drives or cells  a gauge in the room shows how full it is  and the vault expander  time upgrade  time upgrades html  doubles it   the room has an me controller on a console plinth  a status desk and a   terminal desk    click the terminal desk to open a normal me terminal on the tardis network     using the terminal desk  img vault terminal jpg      me through the police box    a   storage bus   on the outside of the police box sees everything on the tardis network    an   exterior port   inside sees the network touching the police box outside    both can be used at once without loops    open roundels  ae2 blocks touching an open roundel join the tardis network    ae2 blocks placed on a console plinth become console versions that can t be broken or wrenched      power      kinetic generator    turns rotation into ae power      artron converter    turns tardis artron into ae power  2 000 ae per artron  "}, {"s": "vehicle-bay", "t": "Vehicle Bay", "d": "Take a parked car or airship into the TARDIS and set it down again wherever you land.", "k": "  a vehicle deployed next to the police box  img vehicle bay jpg      building the bay  craft the three desk blocks and place them in a row anywhere inside the tardis  left to right   1    take in    kontron  steering wheel  ender pearl  2    bay screen    adds a glass pane   click it to pick a stored vehicle  3    deploy    adds a piston      using it      take in   grabs the parked vehicle whose steering wheel is nearest the police box  within 8 blocks  for  airships  airships html  it takes a ship whose centre is near the box  up to 16 blocks above   as long as the ship is nearly still  nobody can be driving it    the bay holds 8 vehicles  a vehicle carrying a sign is named after the sign s first line  a ship uses its hull plate name      deploy   sets the selected vehicle down beside the police box wherever the tardis has landed  in any dimension and even in the past  facing the way it did when taken in  ships come out as blocks  reassemble them by hand  "}, {"s": "waystones-graves", "t": "Waystones and graves", "d": "Fly the TARDIS to your Waystones and your last grave, and warp into a TARDIS from any Waystone.", "k": "   waystones    your activated waystones and every global waystone are destinations in the  navigation console  navigation html   in any dimension  the tardis lands in front of the stone      tardis waystone    waystone   kontron   place it inside your tardis  warping to it from outside takes you in through the owner s tardis door  from inside  you arrive next to the stone  door locks apply      quantum waystone charm    see  half life ores  half life ores html    a pocket warp to any of your waystones      graves  with gravestone installed  your latest grave becomes a destination called   your name  s grave   and with lotr it gets a headstone marker on the middle earth map  only you see your own grave  the marker clears once the grave is broken  "}, {"s": "time-travel", "t": "How time travel works", "d": "The mod records your world as you play. Later you can watch that history, or land the TARDIS in it and change it.", "k": "   the recorder  from the moment the mod is installed  the server writes down every block change in the overworld and middle earth  who did it  when  and what it was before  it also records where players walked and what they held  the mobs near players  weather  and what was in chests when they were closed   you don t have to do anything for this  it costs a few megabytes of disk per hour of play and is checked against the world at every autosave  tardis interiors are never recorded    div class  tip  markdown  1   history starts when a chunk is first generated  the world before you installed the mod can t be visited  except through  deep time  deep time html   which goes back before the world existed    div      three ways to use history      what it is   read                     look     watch the past play back around you  with ghosts of the players who were there  nothing changes     viewing the past  viewing the past html        visit     land the tardis in a copy of your world at an earlier moment  walk  build  take things  changes ripple forward to the present     trips to the past  trips html        go deeper     land before your world was created  in freshly generated land that nothing can reach back from     deep time  deep time html        the rules of a visit    what you change in the past carries into the present  unless history changes that block again later    taking things the future needed creates   paradox    too much and the past collapses with you in it  see  paradox  paradox html     items you take are usually paid for by quietly removing what the future made from them  see  item ripples  ripples html     trips cost   fuel    more the further back you go  see  fuel  fuel html     players can protect their bases from time travellers with a  temporal anchor  anchors html   "}, {"s": "viewing-the-past", "t": "Viewing the past", "d": "The timeline, the Chrono-Glasses and solid ghosts of the players who were there.", "k": "  the timeline  login bars for each player  with empty stretches squeezed out  img nav timeline jpg      the timeline  the timeline shows a bar for each player s time online  with the server s runs underneath  long stretches when nobody was online are squeezed down so you can see the busy parts       scroll   to zoom  from 1 second up to 10 days per step     drag   to pan    click   a moment to pick it     view this moment  shows the past right where you stand    in the tardis  the timeline sets the   destination time   instead    trips appear as purple hatched bands with a line back to where they left  you can add named markers  red dotted lines       chrono glasses  a helmet made from gold  glass panes and a clock  while wearing them     key   does                kbd k  kbd    open the timeline      kbd    kbd    rewind  press again to go faster       kbd    kbd    fast forward      kbd     kbd    pause    the past is drawn over the world around you for 4 chunks  7 with the chrono glasses upgrade from  half life ores  half life ores html    you still walk and click in the present  playing forward into the present ends the view  and so does taking the glasses off      ghosts  players who were there in the past appear as   solid ghosts    with their skin  armour and held items  walking where they walked  punching one makes it glitch  mobs near players are replayed too  "}, {"s": "trips", "t": "Trips to the past", "d": "Land the TARDIS at an earlier moment, walk among the recorded players and change what happened.", "k": "   setting off  1  pick a destination time on the cockpit timeline desk or the  navigation console  navigation html   2  set a place as normal and take off  the trip needs  fuel  fuel html  in the chronon tank  3  the tardis stays in flight until the land around the landing spot is ready  then lands in the past   if the flight is cut short you land part way back in time too  the tardis always lands on a spot that hasn t changed since that moment  so it never appears inside something built later      what the past is like    it s a copy of your world at that moment  and   time runs forward   from there  recorded players walk their paths  doors open  redstone pulses and sounds play    when the past catches up with the moment you left  everyone is brought home    no new mobs spawn  recorded mobs   turn real   when you come close or a hostile one spots you  leave them alone for a while and they walk back to their recorded path and fade back into the replay    if you build in a recorded player s way  they   walk round it    or dig through blocks you placed  and then catch up with their recording    chests let you take only what the chest still holds all the way to the present  with  item ripples  ripples html  on you can take more    ender chests  portable me storage and lotr pouches don t open in the past    breaking blocks the future needed makes  paradox  paradox html   drops of those blocks are   echo items    they glow  can t be placed  and fade when you leave      crews  everyone who travels in one tardis is a crew  the crew shares one past and one paradox meter  other tardises landing at the same time get their own separate past  changes from earlier pasts flow forward into later ones and into the present  the tardis won t take off while a crew member is still outside in the past and online      coming home  take off from the past to escape  escaping costs fuel that grows with the paradox level  if you die in the past you respawn in the present  "}, {"s": "deep-time", "t": "Deep time", "d": "Travel to before your world was created, into freshly generated land that is yours to strip.", "k": "   setting a deep time destination  sneak and right click the cockpit timeline desk to cycle through   1  10  50 and 100 minecraft days before creation    then off  setting a normal time clears it      what is different there    the land is generated fresh from your world s own generator  with trees  ores and mod world generation      primordial shards    the tier 4  half life ore  half life ores html   only exist here    nothing you do there reaches the present and nothing becomes paradox  what you carry home is real    there is no history to replay  so no ghosts and no moving playhead      limits    depth   fuel that reaches               up to 10 days   quantum fuel  further with reach extenders      up to 100 days   primordial fuel    the   deep time hull    upgrade  time upgrades html  wears down one point a minute  when it runs out  the tardis is pulled back to the present with everyone in that deep time  "}, {"s": "paradox", "t": "Paradox", "d": "Every past has a paradox meter from 0 to 100. Duplicating what the future needed fills it, and at 100 the past collapses.", "k": "   what raises paradox      duplicating    breaking a block that a player later breaks or takes in the recorded future  you would end up with the item twice  the charge depends on what the drops are worth  dirt and stone are almost free  diamonds are not      contradicting    breaking a block that later changes on its own  or building where a player later builds      explosions   count once for the whole blast   free  anything history never touches again  and blocks your crew placed on this trip  each trip also has a small allowance before charges start  so one diamond ore is usually free  after that each duplicate costs more than the last    div class  tip  markdown  1     you get a warning first    a costly action is refused once with its price in chat  do it again within a few seconds to go ahead    div      what paradox does    level   effect               30   recordings glitch     50   time stops  the meter no longer heals on its own      60   changes stop reaching the present  blocks start fading     70  80   chunks shift     90   chunks are erased     100     collapse    everyone in the past dies and the police box is lost  you can summon it again      below 50 the meter slowly heals  players who cause paradox also carry   instability   for a few hours  which keeps their next trip s meter from starting at zero  large charges hit back with nausea  slowness and damage      keeping it down    flip the   safe travel   switch on the cockpit desk  paradoxical actions are refused instead of counted    put duplicated items back  or place the broken block again  to undo the charge  see  item ripples  ripples html       time upgrades  time upgrades html   paradox dampener  halves gains   paradox lattice  raises the collapse point   escape capacitor  one emergency rescue   echo containment field  keeps one echo stack real     rifts open in high paradox pasts  right click one for 1 to 3 chronons of emergency fuel  at the cost of a little more paradox  "}, {"s": "ripples", "t": "Item ripples", "d": "Take an item from the past and the future loses what was made from it, as little as possible.", "k": "if you take 10 iron from a chest in the past  the player who later took that iron never had it    ripples   work out what they did with it and quietly undo just that  the pickaxe they crafted from it  the rails they placed  the iron sitting in their chest now      how it is worked out  the mod keeps a ledger of what players craft  place  store  toss and eat  and watches items move between chests  hoppers  furnaces and machines  when you take something  it follows the items forward       crafted   into something  the craft is unmade  the ingredients come back and the result is removed instead  a tool that used only part of it is worn down      placed   as a block  the block is removed      stored   in a container or passed through machines  taken from where it ended up  or from what the machine made with it    otherwise it comes out of the player s inventory  then their tardis storage   only the part that can t be traced costs  paradox  paradox html   sometimes you can pay for it with other items you carry of the same value   the first time you take or break something  you get a summary of what will change  do it again to go ahead  the changes apply when your trip ends  players who are offline get them when they log in      undoing a ripple    put the same items back in the same container on a later trip to the same moment or earlier    place a broken block back where it was      ripple list  shows your ripples    ripple undo last  takes back your most recent one  if the server allows it  "}, {"s": "fuel", "t": "Fuel", "d": "Chronons and stronger fuels power trips into the past; the Artron Charger turns machine power into TARDIS energy.", "k": "   artron is scarcer  with this mod  the tardis regenerates artron energy at a quarter of the normal speed  and flights cost three times as much  you can top it up with an   artron charger    redstone  kontron  shafts  a basic artron battery   drive it with rotation  rf  rftools  or ae power  ae2   the conversion is lossy on purpose      time fuel  trips into the past burn fuel from the   chronon tank    placed inside the tardis  hoppers can feed it  a comparator reads it  and an empty hand right click prints what is in it  the tank burns the cheapest fuel that reaches far enough     fuel   reaches   worth   made from                       chronon   24 hours back   1   chronosteel and kontron mixed over an artron battery  4 per mix      isotope rod   7 days   1 5   4 chronons   radiation energy     chronal fuel cell   to world creation   2   isotope rod   chronal energy     quantum fuel   10 days before creation   3   chronal fuel cell   quantum energy     primordial fuel   100 days before creation   5   quantum fuel   primordial energy    the energy comes from  half life ores  half life ores html       costs      a trip   costs more the further back you go  about 18 for one day back alone  33 for a month  each extra player in the interior adds half again      escaping    taking off from a past  costs more the higher the paradox  2 at zero  12 at paradox 50    the cockpit monitor shows your fuel against the cost  the tardis won t take off if you can t pay   a   chronon condenser    time upgrade  time upgrades html  slowly turns artron into chronons while landed  fuel efficiency couplings cut trip costs  "}, {"s": "anchors", "t": "Anchors and the Paradox Machine", "d": "Protect your base from time travellers, and rewind or rewrite an area with stored energy.", "k": "   temporal anchor  place a   temporal anchor    obsidian  compass  irradiated steel  chronal energy  to protect the 3x3 chunks around it in   every past   of that dimension  time travellers there can t break  place  open machines  use buckets or blow anything up  and a tardis without one of your trusted players aboard can t land there     share it with a friend by right clicking it with a name tag named after them    you get an alert when someone visits your protected area in the past    only you can break it    a   deep anchor    adds a nether star and quantum energy  also covers  deep time  deep time html       paradox machine  covers the 5x5 chunks around it and runs on a chronal cell  clock  diamond block  eye of ender  irradiated steel      mode   does               restore   a redstone pulse puts the area s blocks back to how they were some minutes ago  right click with a clock to move that point by 5 minutes      collapse   a second pulse undoes the last restore      rewrite   while on  changes made in the past in this area win over what happened later     tardis blocks  anchors and machines are never touched  "}, {"s": "half-life-ores", "t": "Half-life ores", "d": "Four ores whose stored energy drains away as the world ages, so the richest deposits lie in the past.", "k": "half life ores hold energy that   halves over time    counted from world age  a fresh vein is rich  the same vein a few weeks later is nearly spent  travel back to a time when it was fresh and you can drain it then  that is the reason to time travel for resources     geiger counter reading the nearest ore  img geiger jpg      the four tiers    tier   ore   energy   found                       1   pitchblende   radiation   y 5 to 50  veins of 8     2   chronium   chronal   y 5 to 30  veins of 6     3   entangled quartz   quantum   y 5 to 16  rare     4   primordial shard   primordial   only in  deep time  deep time html     they generate in the overworld and middle earth  in new chunks only      mining with cells  you can t mine these ores with a pickaxe  that leaves depleted rock  instead    right click the ore with an energy cell   to drain everything it holds right now     cell   holds               lead lined   5 000     shielded   100 000     stasis   5 000 000     quantum   250 000 000  needed for tiers 3 and 4     upgrade a cell by crafting it into the next one  it keeps its charge  in the past  ore that is already gone in the present gives nothing      crafting with energy  recipes that use energy take a charged cell in the grid  the cell comes back drained by the cost  nei shows these on a  cell crafting  page     tier 1  radiation     irradiated steel  geiger counter  clicks near ore  right click names the nearest within 16 blocks and its value   rad lamp  radioisotope heater  heat for mixers     decay generator    turns radiation into rf  ae or artron      tier 2  chronal       time accelerator    speeds up crops  furnaces and machines in a 5x5x3 area while it burns chronal energy  redstone stops it   stasis crate  keeps 9 cells   chrono glasses upgrade  wider past view      tier 3  quantum       entangled chest    a linked pair that share 27 slots across any distance or dimension   quantum waystone charm  pocket warp to your waystones      tier 4  primordial     primordial core  gives your tardis a level   genesis seed  regenerates the chunk you stand in  operators only by default    plus the time fuels in  fuel  fuel html  and the  time upgrades  time upgrades html   "}, {"s": "time-upgrades", "t": "Time upgrades", "d": "Sixteen TARDIS upgrades powered by half-life energy, for the engine slots or the Upgrade Rack.", "k": "  upgrade rack in the cockpit  img upgrade rack jpg   time upgrades go in the tardis engine s upgrade slots or in the cockpit s   upgrade rack    each is made from an upgrade template  kontron  parts and half life energy  some wear out and crack  repair them with kontron and energy     upgrade   effect               chronon condenser   while landed  turns 500 artron into 1 chronon a minute     landing stabiliser   lands in the past twice as fast  finds a landing spot further out     temporal sensor array   when you set a time  shows ore yields then  other crews there and the paradox you d arrive to     fuel efficiency coupling    15  trip fuel each  up to 2      reach extender mk i   mk ii   fuel reaches 1 5x   2x further back     stasis bay   stops energy in cells from decaying     escape capacitor   one shot rescue  the crew is pulled aboard and the tardis returns home free     paradox lattice   collapse happens 10 points later  up to 3      echo containment field   your biggest echo stack stays real once per trip     time dilation field   in flight  machines and crops in the tardis run faster     paradox dampener   halves paradox gains     deep time hull   needed for  deep time  deep time html   lasts 60 minutes there     quantum room expander    1 room     flight booster    1 speed     vault expander   doubles the  data vault  data vault html    "}, {"s": "souls", "t": "Souls", "d": "Capture creatures in a Soul Nexus, keep them in your TARDIS, show them as holograms and trade with LOTR traders from afar.", "k": "   soul nexus  craft 4 from glass  soul sand and an ender pearl  use an empty nexus on a creature to store it  name  health and all  a lotr trader keeps its trades and a hired unit keeps its owner  you can t capture other players  pets or units someone else hired  and bosses only if the server allows it      machines      soul snatcher   captures creatures standing on or just above it into the empty nexuses inside      soulcarnation   releases the creature from a filled nexus on top of itself and hands back the empty one   both take hoppers and stop with a redstone signal      teleport chamber    teleport chamber holograms  img chamber holograms jpg   a tardis room with a quartz dais and a desk     desk control   does               absorb outside   captures every creature in the 16 block cube around the police box  tardis level 10  landed      absorb room   captures every creature in the room     storage   16 filled nexuses and a stack of empties     release in room   outside   lets them all out    the 16 pedestals along the walls show a blue hologram of each stored creature      soul bestiary    bestiary pedestals  img bestiary jpg   a room with 12 hologram pedestals around a desk  the desk pages through your   soul vault    4 pages of 54      the soul vault screen  img soul vault jpg   click a pedestal for details  health  lotr faction  kills and trades  from there you can   deploy   the creature outside the tardis to stand guard     bestiary details with a lotr trader s offers  img bestiary details jpg      remote trading  with lotr  a stored trader has a   trade   button  tardis level 8   the normal lotr trade screen opens  with lotr s own prices  alignment rules and coins  even while the tardis is flying  "}, {"s": "kinetics", "t": "Power and machines", "d": "Rotation power in the style of Create: sources, shafts and cogs, stress, and the machines that use it.", "k": "  a row of kinetic machines  img kinetics machines jpg   kinetics is a backport of the ideas in the create mod to 1 7 10  with our own textures and models  machines run on   rotation    a source turns  shafts and cogs carry it  and machines use it      speed and stress    speed is measured in   rpm    up to 256  direction matters    every source gives a   stress capacity    su   every machine uses stress equal to its cost times its speed  go over capacity and the whole network stops  overstressed  until you remove load or add sources    two sources fighting each other  or gear ratios that don t add up    jam   the network    sneak and right click any part with an empty hand to see its speed and stress      sources    source   speed   capacity                   hand crank   32 rpm while cranked  sneak reverses    256 su     water wheel   8 rpm per side with flowing water   512 su     windmill bearing   0 25 rpm per wool block  up to 16   64 su per wool     furnace engine   32 rpm on furnace fuel   1 024 su     field engine   64 rpm on furnace fuel  blaze cake doubles capacity    2 048 su     artron motor  tardis    64 rpm  uses 1 artron a second   4 096 su     creative motor   any   unlimited       moving power around  shaft  cogwheel and large cogwheel  small to large doubles or halves speed   gearbox  sides reverse   clutch and gearshift  redstone   twin gearshift and step transmission  x0 3 to x4 by redstone level   casing  and   belts   that join two shafts up to 21 blocks apart and carry items and mobs     belt carrying items  img kinetics belt jpg      machines    machine   does               millstone   grinds items     crushing wheels   two wheels one block apart crush ore into 2 crushed ore     mechanical press   presses ingots into sheets  compacts items in a basin     mechanical mixer   basin   any shapeless recipe with 2  ingredients  plus mixing recipes  heat below for heated mixing     encased fan   water in front washes items  lava or fire smelts them     mechanical saw   cuts blocks into shapes  fells whole trees     mechanical drill   breaks the block in front     deployer   uses its held item on blocks or items     funnels  chute  depot   move items in and out of inventories     screw shaft   screw cog   carry items along their axis  uphill too      crushing wheels  img kinetics crusher jpg      create style crafting  andesite alloy  flour and dough  rose quartz  electron tubes  sandpaper  and   sequenced assembly   of precision mechanisms with a deployer over a depot  with other mods installed you also get crushing and mixing recipes for ae2  certus  fluix   tardis lab recipes in a basin over an artron battery  and  lotr  create lotr html   "}, {"s": "moving-structures", "t": "Moving structures", "d": "Bearings, pistons and gantries that pick up blocks and move them, with you riding on top.", "k": "  gantry carriage moving a load along its rail  img gantry jpg      movers      mechanical bearing    turns the structure attached to its face  stops at a quarter turn      mechanical piston    pushes and pulls  piston poles behind it set the reach      gantry shaft and carriage    the carriage and its load slide along the rail while it turns  in a direction set by the spin  until the end or an obstacle   a mover takes the block on its face and everything joined to it  up to 512 blocks  it never takes air  liquids  unbreakable blocks  belts  or other mods  multiblocks  ae2  tardis   natural ground like dirt and stone is only taken if it is the first block  protected land stays protected      riding  stand on top of a moving structure and it carries you  even while it turns  with no fall damage  chests  furnaces and other blocks keep their contents and drawing while they move      chutes    items falling through a chute into a chest  img chutes jpg   a   chute   moves one stack down into the chute or inventory below  or drops it out the bottom  an encased fan under the column blows items up instead  drop items on top of a chute and it takes them in  "}, {"s": "links-vehicles", "t": "Redstone Links and vehicles", "d": "Wireless redstone, a handheld remote, and Steering Wheel vehicles that drive, mine and carry working machines.", "k": "   redstone link  a plate that sends or receives redstone without wires  within 256 blocks  its   frequency   is two items  click the upper and lower half with an item to set them  sneak with an empty hand to switch between send and receive      linked controller    the linked controller lighting a receiver  img linked controller jpg   a handheld remote with six buttons mapped to your movement keys  forward  back  left  right  jump  sneak   sneak click to bind each button to a frequency  then right click to take over your movement keys and press buttons instead of walking      steering wheel vehicles    driving a vehicle  img vehicle driving jpg   build something  put a   steering wheel   on it and right click  everything joined to the wheel  except the ground  lifts off and you take the seat      kbd w  kbd   kbd s  kbd  speed   kbd a  kbd   kbd d  kbd  turn  climbs one block steps  stops at walls  sneak to get out  it settles back into blocks    vehicles carry working machines  a   furnace engine   on board  fed from the vehicle s chests  drives the wheel through shafts  levers and clutches on board still work  click a carried lever  chest or engine to use it      drills   facing forward mine through the blocks ahead as you push into them  and drops go into chests on board  cover the whole front with drills     a mining vehicle tunnelling into a hill  img vehicle drill jpg   a build with tires becomes a  car  cars html  instead  with real suspension and steering  "}, {"s": "create-lotr", "t": "Create x LOTR", "d": "Machine recipes for Middle-earth: metal sheets, crystal powders, fan magic, barrel brewing and superheated alloys.", "k": "   new items and blocks      sheets   of every lotr metal  bronze  copper  tin  silver  orc  uruk  black uruk  morgul  dwarven  blue dwarven  elven  galvorn   pressed from ingots      naurite ember      starlight dust      shadow essence      morgul extract      mallorn pulp      spider silk   and   rough gems      decorative dwarven  elven  orc and gondor   casings    and the   ent water font        naurite burner    burns embers to superheat a basin above it      grinding and crushing  naurite  quendite and gulduril become ember  starlight and shadow  gem ores crush to rough gems  50  bonus   which sandpaper on a deployer polishes into two  coins  treasure  rings and goblets grind back to nuggets  every lotr flower that crafts into dye mills into double      fan modes    catalyst in front of the fan   mode   example                   hearth   smoking   food  grapes to raisins  pipeweed     morgul torch   haunting   dirt to mordor dirt  quendite to gulduril     elven torch   hallowing   the reverse  rotten flesh to leather     ent jar or ent water font   ent growth   saplings to logs  seeds to crops       mixing      brewing    every lotr barrel drink mixes in a basin from its 6 ingredients and 3 water buckets into 4 drinks  cold makes light drinks  heat makes strong      superheated    basin over a lit naurite burner   uruk steel  black uruk steel  morgul steel  elven steel  ithildin  blue dwarven steel and dwarven steel    hithlain  gunpowder  hobbit pancakes and more  a lit lotr forge under a basin does alloy recipes      saw and faction mechanism  the   mechanical saw   makes every faction table block  gondor bricks  pillars  stairs  without the table  the   faction mechanism   crafts any faction table recipe from a basin  a filled soul nexus sets the faction  "}, {"s": "airships", "t": "Building a ship", "d": "Ships are real blocks that fly as one rigid body: machines, chests and redstone all keep working on board.", "k": "  a balloon ship lifting off  img ship rising jpg   airships are a backport of create aeronautics  with our own names and models  a ship is a real build  every block on it stays a working block  so furnaces burn  chests open and redstone runs while you fly      assembling  1  build your ship  all blocks touching  use   ship resin   on two blocks to glue a gap  or twice on one block to let it join diagonal neighbours  2  place a   hull assembler   on it and right click  everything connected lifts off as one ship  3  right click the assembler again to turn it back into blocks  the ship has to be within 25 degrees of upright  and it snaps to the nearest quarter turn   you can walk on the deck  build on it and click its blocks while it moves      weight and balance  every block has a weight  light for wool and canvas  heavy for metal  slabs  stairs  fences and panes weigh less than full blocks  all 693 lotr blocks have their own weights   the   hull chart   prints the ship s weight  lift and a top down plan showing the centre of mass  red  and centre of lift  aqua   keep them together or the ship tips    flight goggles   show a readout of the nearest ship      pages in this section   div class  cards  markdown  0    a href  lift thrust html   strong lift and thrust  strong  span aerolite  balloons  rotors  sails  helm  span   a   a href  instruments html   strong instruments  strong  span altitude  speed  tilt and homing signals  span   a   a href  joints docking html   strong joints and docking  strong  span tethers  springs  swivels  clamps  span   a   a href  ship power html   strong engines and cannon  strong  span field engine  screws  deck cannon  span   a   a href  cars html   strong cars  strong  span tires  steering  seats  bores  span   a    div      good to know    liquids on a ship stay on the ship    ships far from every player freeze until someone comes near    the  vehicle bay  vehicle bay html  can store a ship inside your tardis  "}, {"s": "lift-thrust", "t": "Lift and thrust", "d": "Make a ship rise with Aerolite or hot air, and push it with rotors, sails and fans.", "k": "   lift    aerolite   is a light block that floats  each block holds up 10 weight  and enough of it makes a ship hover  never rise past that  smelt aerolite blend  clay  ender pearl  glowstone dust   put aerolite  above  the centre of mass  or the ship rolls over     a hot air balloon made of canvas  img ship balloon jpg     balloons   give real climb  put a   balloon burner    furnace fuel  or a   lift vent    next to a burning furnace engine  under a closed envelope of blocks    balloon canvas   is the light material for it  the air inside heats up with the redstone signal on the burner  0 off  15 full   and lift grows with the envelope s volume and heat   air gets thinner with height  so balloons  rotors and sails all weaken as you climb  in middle earth the air reaches higher  and utumno has none      thrust    a rotor of sails on a rotor mount  img ship rotor jpg       rotor mount    drive it with rotation  sails joined to its front become blades  more sails and more rpm  more thrust      trim rotor    thrust set by a redstone signal    gimbal rotor    always pushes upward      encased fan   on a ship pushes too  a   thrust nozzle   in front doubles it      sails   and   fins   catch the air  in middle earth the west wind blows east  stronger with height and in storms      controls      helm    right click to take the controls  it outputs redstone  throttle ahead  rudder left and right  up on  kbd space  kbd   down on sneak  wire it to your engines  gearshifts and burners      throttle    right click up  sneak click down  powers all sides      mover s rod    creative   drag a ship around by a point  "}, {"s": "instruments", "t": "Instruments", "d": "Redstone sensors that know where the ship is, how fast it moves and which way to steer.", "k": "every instrument outputs a redstone signal from its front  so you can build an autopilot from them     instrument   signal               altitude   height above a set base     velocity   speed in the direction it faces     gimbal   tilt toward each side     range eye   how close the first block it sees is  15   touching  1   30 blocks      beam eye   lit when a   beam lamp   shines on it     range receiver   distance to a redstone link on its frequency     bearing receiver   which way to turn to reach that link  ahead  left  right  and distance at the back     chart table   bearing to spawn  compass  or a map s centre     charge cell   fades slowly after its input stops     signal coil   holds a pulse and drains slowly       also on the bridge      link keyboard    a desk that holds a linked controller  sit at it to press its six buttons with your movement keys      hull plate    right click with a renamed item to name the ship  goggles and the vehicle bay show the name  "}, {"s": "joints-docking", "t": "Joints and docking", "d": "Tie ships together or to the ground, build moving arms, and dock two ships.", "k": "  a swivel joint turning an arm  img ship swivel jpg     part   how to use it                 tether     use on two blocks up to 48 apart  ship or ground   pulls only when stretched  sneak use to remove        coil spring     like a tether  but springy        grapple launcher     a redstone pulse fires a tether up to 48 blocks  the next pulse lets go  hold power to reel in        swivel joint     right click to turn the blocks on its face into their own hinged part  its shaft speed sets the angle  right click again to put them back        twist spring     like a swivel  with a spring back to straight  stops at 45 degrees         grab handle     right click to hang from it  wherever it goes        docking    two ships docked with dock clamps  img ship dock jpg   power a   dock clamp   facing another clamp within 4 blocks on another ship  it steers them gently together and locks them at one block  remove power to let go  right click for send mode  it passes items and liquids between the containers behind the two clamps   a   lodestone coil   pulls  or  after a right click  pushes  other coils within 16 blocks on other ships  "}, {"s": "ship-power", "t": "Engines and cannon", "d": "The Field Engine, gear shifting, item screws and the Deck Cannon.", "k": "    field engine    64 rpm and 2 048 su on any furnace fuel  a   blaze cake   doubles its capacity while it burns      twin gearshift    forward when one side is powered  reverse for the other  stopped with neither      step transmission    scales speed by redstone level  from x0 3 at 0 through x1 at 7 to x4 at 15      screw shaft   and   screw cog    carry items along their axis  uphill too  from one inventory to another      deck cannon    a redstone pulse fires one item from its face  plus the ship s own speed  arrows  snowballs  eggs  fire charges and lit tnt act as themselves  anything else is a slug that hurts and drops  the recoil pushes the ship   all the  kinetic  kinetics html  parts work on a ship too  "}, {"s": "cars", "t": "Cars", "d": "Put tires on a Steering Wheel build and it drives with suspension, steering and brakes.", "k": "  a car with tires on axle mounts  img car jpg      building a car  1  put   axle mounts   on your build  with a   tire   on each  small  road  large or giant   2  add an engine  a   field engine   or   furnace engine   facing down into the steering wheel  or shafts to each axle  3  add a   steering wheel   and right click it  the build becomes a car      driving     kbd w  kbd   kbd s  kbd  drive and reverse   kbd a  kbd   kbd d  kbd  steer  front tires turn up to 30 degrees    let go of the keys to brake  a car with nobody at the wheel stays put    tires have springs  so the car rides over bumps and climbs steps    speed comes from engine rpm and tire size      seats   carry passengers and turn with the car      bore mount  fit a   rock cutter   to a bore mount on the front  it cuts the 3x3 of blocks in front of it  dropping them into a chest next to it  a cutter lasts 2 048 blocks  "}, {"s": "rftools", "t": "RFTools", "d": "Turn rotation into RF, build TARDIS interiors from dimension tabs, and show TARDIS and machine status on RFTools screens.", "k": "   power    block   converts               kinetic dynamo   rotation to rf  1 rf t per rpm     me energy converter  ae2    1 ae to 2 rf     artron rf converter  tardis    1 artron to 4 000 rf     artron charger   rf back into artron   fuel  fuel html       decay generator   radiation energy into rf   half life ores  half life ores html         tardis matrix builder  feed it an rftools dimension tab and rf to make a   tardis matrix    use the matrix to summon a new tardis  or on an existing one to retune its interior  potion effects  flight  peaceful and no animals carry over from the tab s dimlets  other dimlets are ignored   also  a mithril ingot and 4 coal become 4 diamonds in a basin over an artron battery  lotr   tardis       screen modules    rftools screens showing module output  img rftools screens jpg     module   shows               kinetic monitor   speed  stress and capacity  jammed or overstressed     tardis status   level  artron  flying or landed  where and when     data vault   items stored and   full  ae2      soul vault   souls stored     time travel   destination time  fuel  paradox  escape cost    sneak and right click a block with the module to link it  unlinked tardis modules report on the tardis the screen stands in  "}, {"s": "server-performance", "t": "Server performance", "d": "Tools for server owners that make riding into new land smoother.", "k": "generating new land is the slow part of exploring in 1 7 10  and it happens on the server s main thread  three tools help      idle pregenerator  while nobody is online  the server generates chunks in the background  areas you list in the config  then  with lotr  the land around every waypoint and along every road  it stops the moment a player joins and picks up again later    pregen status    pause    resume  and  reset  control it      generate ahead  when a player moves fast through new land  the server generates the chunks just ahead of them in a cone  using whatever time is left over in each tick      mount slowdown  if a player on a horse or other mount is about to outrun the land being generated  the mount slows down smoothly until the land catches up  with a short chat note  "}];(function () {
+  var arts = document.querySelectorAll("main article");
+  var links = document.querySelectorAll(".side a[data-slug]");
+  var side = document.getElementById("side");
+  var btn = document.getElementById("menu-btn");
+
+  // Preview build: every page is in this one file; show the one named in the address hash.
+  function show() {
+    if (arts.length < 2) return;
+    var slug = (location.hash || "#index").slice(1);
+    var hit = document.getElementById("page-" + slug) || document.getElementById("page-index");
+    arts.forEach(function (a) { a.hidden = a !== hit; });
+    links.forEach(function (a) {
+      if (a.getAttribute("data-slug") === hit.id.slice(5)) a.setAttribute("aria-current", "page");
+      else a.removeAttribute("aria-current");
+    });
+    document.title = hit.getAttribute("data-title") + " · Time Travel Addon Wiki";
+    window.scrollTo(0, 0);
+    closeMenu();
+  }
+
+  function closeMenu() {
+    side.classList.remove("open");
+    btn.setAttribute("aria-expanded", "false");
+  }
+  btn.addEventListener("click", function () {
+    var open = side.classList.toggle("open");
+    btn.setAttribute("aria-expanded", open ? "true" : "false");
+  });
+
+  // Search filters the page list by title, summary and page text.
+  var q = document.getElementById("q");
+  var bySlug = {};
+  (window.WIKI || []).forEach(function (p) { bySlug[p.s] = (p.t + " " + p.d + " " + p.k).toLowerCase(); });
+  var empty = document.createElement("p");
+  empty.className = "nohits";
+  empty.textContent = "No pages match.";
+  empty.hidden = true;
+  side.appendChild(empty);
+  q.addEventListener("input", function () {
+    var words = q.value.toLowerCase().split(/\s+/).filter(Boolean);
+    var any = false;
+    links.forEach(function (a) {
+      var text = bySlug[a.getAttribute("data-slug")] || "";
+      var ok = words.every(function (w) { return text.indexOf(w) >= 0; });
+      a.parentNode.hidden = !ok;
+      any = any || ok;
+    });
+    document.querySelectorAll(".navgroup").forEach(function (g) {
+      g.hidden = !g.querySelector("li:not([hidden])");
+    });
+    empty.hidden = any;
+  });
+
+  window.addEventListener("hashchange", show);
+  show();
+})();
+</script>
+</body></html>
