@@ -202,6 +202,9 @@ public final class PortPlantCensus {
         return b instanceof BushBlock || b instanceof VineBlock || b instanceof CactusBlock || b instanceof SugarCaneBlock
                 || b instanceof BambooStalkBlock || state.is(BlockTags.FLOWERS) || state.is(BlockTags.SAPLINGS)
                 || state.is(BlockTags.REPLACEABLE) && !state.isAir() && !(b instanceof SnowLayerBlock)
-                && state.getFluidState().isEmpty();
+                && state.getFluidState().isEmpty()
+                // flat plant carpets (withered moss, fallen leaves): LOTR's census counted them as plants
+                || state.getSoundType() == net.minecraft.world.level.block.SoundType.GRASS && !state.blocksMotion()
+                && !state.isAir();
     }
 }

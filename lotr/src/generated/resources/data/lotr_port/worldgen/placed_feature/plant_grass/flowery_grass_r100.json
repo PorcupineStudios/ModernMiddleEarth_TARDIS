@@ -1,5 +1,5 @@
 {
-  "feature": "lotr_port:plant_patch/flowery_grass_32",
+  "feature": "lotr_port:plant_patch/flowery_grass_64",
   "placement": [
     {
       "type": "minecraft:rarity_filter",

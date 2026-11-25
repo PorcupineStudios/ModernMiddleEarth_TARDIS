@@ -154,7 +154,12 @@ VANILLA_DIRT = {"minecraft:dirt", "minecraft:grass_block", "minecraft:podzol", "
 RARITY_STEPS = [1, 2, 3, 4, 5, 6, 8, 10, 12, 16, 20, 25, 32, 40, 50, 64, 80, 100, 128, 160, 200, 256, 320, 400,
                 512, 640, 800, 1000]
 PLANT_TRIES = 32  # tries per patch (vanilla 1.18's grass patch)
-PLANT_YIELD = 0.5  # share of a patch's tries that grow on ordinary ground (estimate; not measured in the port yet)
+# Plants per try in the port (2026-11-25: measured 0.17 with 32-try patches by plant_compare.py against the port's own
+# census, -Dlotr_port.plantcensus; the port then had 0.34 of LOTR's plants at the guessed 0.5).
+PLANT_YIELD = 0.17
+PLANT_MIN_TRIES = 4  # a patch of LOTR's rare flowers is one to three plants
+PLANT_MAX_TRIES = 64  # dense grass: several patches a chunk rather than one huge one
+TRIES_STEPS = [4, 6, 8, 12, 16, 24, 32, 48, 64]  # PLANT_MIN_TRIES..PLANT_MAX_TRIES, shared by the biomes
 LOTR_PLANTS_PER_PATCH = {"grass": 24, "double_grass": 8, "flowers": 12, "double_flowers": 6}  # no-census stand-in
 PER_CHUNK = {"grass": "grassPerChunk", "double_grass": "doubleGrassPerChunk", "flowers": "flowersPerChunk",
              "double_flowers": "doubleFlowersPerChunk"}
@@ -434,16 +439,19 @@ class World:
         dec = b.get("decorator", {})
         counted = (self.census() or {}).get(b["fields"]["biomeName"])
         seen = (counted or {}).get("plants", {})
-        want = {}  # (kind, new id) -> plants per chunk
-        source = {}  # (kind, new id) of a census-only plant -> its old id
+        want = {}  # (kind, new id) -> [plants per chunk, plants in chunks that had it, chunks that had it]
+        chunks = max(1.0, counted["columns"] / 256.0) if counted else 1.0
 
         def add(kind, old, per_chunk):
             new = self.plant_id(old)
             if new is None:
                 self.report.setdefault("unknown_plants", []).append(old)
                 return
-            want[(kind, new)] = want.get((kind, new), 0) + per_chunk
-            source.setdefault((kind, new), old)
+            got = seen.get(old, {})
+            w = want.setdefault((kind, new), [0.0, 0, 0])
+            w[0] += per_chunk
+            w[1] += got.get("count", 0)
+            w[2] = max(w[2], got.get("chunks_with", 0))
 
         explained = set()
         for kind in ("grass", "double_grass", "flowers", "double_flowers"):
@@ -462,24 +470,20 @@ class World:
                 total = sum(seen.get(k, {}).get("per_chunk", 0) for k in shares)
             else:
                 total = dec[PER_CHUNK[kind]] * LOTR_PLANTS_PER_PATCH[kind]
-            for old, share in shares.items():
-                add(kind, old, total * share)
+            for old, share in shares.items():  # its measured rate; by the rules' share where LOTR showed none
+                add(kind, old, seen[old]["per_chunk"] if old in seen else total * share)
         for old, got in sorted(seen.items()):  # plants of the biome's own decorate
             if old in explained or old.startswith(CENSUS_SKIP_PREFIX) or got["per_chunk"] < MIN_PER_CHUNK:
                 continue
             add("extra", old, got["per_chunk"])
         out = []
-        for (kind, new), per_chunk in sorted(want.items(), key=lambda e: (PLANT_KINDS.index(e[0][0]), e[0][1])):
-            got = seen.get(source.get((kind, new)), {})
-            if kind == "extra" and got.get("chunks_with"):  # its own rate and patch size, as measured
-                chunks = max(1.0, counted["columns"] / 256.0)
-                patches = got["chunks_with"] / chunks
-                size = got["count"] / got["chunks_with"]
-                tries = max(4, min(96, round(size / PLANT_YIELD)))
-            else:
-                tries = PLANT_TRIES
-                patches = per_chunk / (tries * PLANT_YIELD)
-            if patches < 0.005:
+        for (kind, new), (per_chunk, count, with_) in sorted(
+                want.items(), key=lambda e: (PLANT_KINDS.index(e[0][0]), e[0][1])):
+            # LOTR's patch size: its plants per chunk that had any (dense grass: the whole chunk's, so capped)
+            size = count / with_ if with_ else PLANT_TRIES * PLANT_YIELD
+            tries = min(TRIES_STEPS, key=lambda t: abs(math.log(t * PLANT_YIELD / max(size, 0.1))))
+            patches = per_chunk / (tries * PLANT_YIELD)
+            if patches < 1 / RARITY_STEPS[-1]:
                 continue
             out.append(self.plant_feature(kind, new, patches, tries))
         return out

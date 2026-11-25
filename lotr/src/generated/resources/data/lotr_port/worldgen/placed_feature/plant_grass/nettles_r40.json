@@ -1,5 +1,5 @@
 {
-  "feature": "lotr_port:plant_patch/nettles_32",
+  "feature": "lotr_port:plant_patch/nettles_24",
   "placement": [
     {
       "type": "minecraft:rarity_filter",
