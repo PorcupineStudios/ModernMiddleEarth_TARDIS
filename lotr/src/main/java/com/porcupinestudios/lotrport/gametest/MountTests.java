@@ -75,7 +75,10 @@ public final class MountTests {
                 .getMobs(net.minecraft.world.entity.MobCategory.CREATURE).unwrap();
         helper.assertFalse(shire.stream().anyMatch(m -> m.type == type), "Rhosgobel rabbits in the Shire");
         LotrHorse rabbit = mount(helper, "rhosgobel_rabbit");
-        helper.assertFalse(rabbit.isSaddleable(), "a Rhosgobel rabbit takes a saddle");
+        rabbit.setTamed(true);
+        helper.assertTrue(rabbit.isSaddleable(), "a Rhosgobel rabbit won't take a saddle");
+        rabbit.equipSaddle(new ItemStack(Items.SADDLE), null);
+        helper.assertTrue(rabbit.isSaddled(), "a saddle didn't go on a Rhosgobel rabbit");
         helper.succeed();
     }
 

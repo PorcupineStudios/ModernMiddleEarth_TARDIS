@@ -1,0 +1,7 @@
+{
+  "size": 1,
+  "order": 5,
+  "icon": "ringbearer_harness:slot/harness",
+  "validators": ["curios:tag"],
+  "use_native_gui": false
+}

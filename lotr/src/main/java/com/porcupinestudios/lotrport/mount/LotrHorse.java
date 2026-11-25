@@ -75,7 +75,7 @@ public class LotrHorse extends AbstractChestedHorse {
 
     /**
      * Breeds with nothing to draw a saddle with (no saddle texture, not the old horse model, which has its own) can't
-     * take one: Rhosgobel rabbits pull a sleigh in a harness (the harness mod) instead of carrying a rider.
+     * take one. (Every breed has one now; Rhosgobel rabbits got theirs 2026-11-25.)
      */
     @Override
     public boolean isSaddleable() {

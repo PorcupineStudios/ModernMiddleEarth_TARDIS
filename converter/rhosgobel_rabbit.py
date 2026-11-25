@@ -4,7 +4,9 @@ Run from the repo root: python3 converter/rhosgobel_rabbit.py (needs Pillow). Wr
 src/generated: generate.py doesn't touch it):
 - lotr/src/main/resources/assets/lotr_port/npc_model/rhosgobel_rabbit.json: the model in LOTR's model format (parts,
   pivots, cubes, box UVs; client/CreatureModel builds it) with its animation as expressions (client/CreatureAnim);
-- lotr/src/main/resources/assets/lotr_port/textures/entity/rhosgobel_rabbit/{0,1,2}.png: three coats.
+- lotr/src/main/resources/assets/lotr_port/textures/entity/rhosgobel_rabbit/{0,1,2}.png: three coats;
+- the saddle pass (Aaron 2026-11-25: rideable with a saddle): npc_model/rhosgobel_rabbit_saddle.json (the same parts,
+  so it moves with them, plus pommel, cantle and stirrups) and textures/entity/rhosgobel_rabbit/saddle.png.
 
 Radagast's sleigh rabbits (The Hobbit films): pony-sized shaggy hares, crouched long and low with a big rump, a thick
 neck, and long upright ears; grey-brown fur with rusty face and ears. Units: model pixels (16 a block), y down from
@@ -239,6 +241,60 @@ def paint(seed, coat):
     return img
 
 
+# --- the saddle: the same parts, the back a little bigger, with a seat, pommel, cantle and stirrups ---------------
+
+def saddle_model(main_parts):
+    """The saddle pass's model: the rabbit's own parts (so it moves with them), the back cube inflated over the fur
+    and painted only where the saddle sits, plus the saddle's own pieces on the body."""
+    import copy
+    parts = copy.deepcopy(main_parts)
+    body = parts["body"]
+    body["cubes"][0]["inflate"] = 0.5
+    body["cubes"] += [
+        cube((-2, -8.5, -8), (4, 2.5, 2), "saddle_pommel"),
+        cube((-3, -8.5, 2), (6, 2.5, 1.5), "saddle_cantle"),
+        cube((6.4, -5, -3.5), (0.6, 9, 1), "saddle_leather"),
+        cube((-7.0, -5, -3.5), (0.6, 9, 1), "saddle_leather"),
+        cube((6.2, 4, -4.5), (1, 1, 3), "saddle_iron"),
+        cube((-7.2, 4, -4.5), (1, 1, 3), "saddle_iron"),
+    ]
+    return parts
+
+
+def paint_saddle():
+    img = Image.new("RGBA", (TEX_W, TEX_H), (0, 0, 0, 0))
+    px = img.load()
+    rnd = random.Random(7)
+    seat, flap, edge, brass = (92, 56, 30), (120, 74, 40), (58, 34, 18), (204, 160, 64)
+    back = next(c for c in ATLAS.cubes if c[1] == (12, 12, 20))
+    (u, v), (w, h, d), _ = back
+
+    def put(x, y, c):
+        n = rnd.random() * 0.12
+        px[x, y] = (*(int(ch * (1 - n)) for ch in c), 255)
+
+    lo, hi = d // 2 - 5, d // 2 + 5          # the saddle's length, round the back's middle
+    for j in range(lo, hi):                 # the seat on top
+        for i in range(w):
+            put(u + d + i, v + j, edge if j in (lo, hi - 1) or i in (0, w - 1) else seat)
+    for x0 in (u, u + d + w):               # the flaps down each side, and the girth strap
+        for i in range(lo + 1, hi - 1):
+            for j in range(5):
+                put(x0 + i, v + d + j, edge if j == 4 else flap)
+        for j in range(h):
+            put(x0 + d // 2, v + d + j, edge)
+    for i in range(w):                      # the girth under the belly
+        put(u + d + w + i, v + d // 2, edge)
+    for (cu, cv), (cw, ch, cd), look in ATLAS.cubes:
+        if not look.startswith("saddle_"):
+            continue
+        colour = brass if look == "saddle_iron" else edge if look == "saddle_leather" else flap
+        for y in range(cv, cv + ch + cd):
+            for x in range(cu, cu + 2 * (cw + cd)):
+                put(x, y, colour)
+    return img
+
+
 def main():
     m = {"texture": [TEX_W, TEX_H], "render_scale": 1.0, "parts": model(), "hidden": [], "renderers": [],
          "anim": anim(), "defs": DEFS, "inputs": []}
@@ -249,6 +305,9 @@ def main():
     tex.mkdir(parents=True, exist_ok=True)
     for i, coat in enumerate(COATS):
         paint(100 + i, coat).save(tex / f"{i}.png")
+    sm = dict(m, parts=saddle_model(m["parts"]))
+    (RES / "npc_model/rhosgobel_rabbit_saddle.json").write_text(json.dumps(sm, indent=1) + "\n")
+    paint_saddle().save(tex / "saddle.png")
     print(f"{out.relative_to(ROOT)}: {len(ATLAS.cubes)} cubes; {len(COATS)} coats in {tex.relative_to(ROOT)}")
 
 
