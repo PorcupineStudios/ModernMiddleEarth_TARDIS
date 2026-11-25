@@ -48,7 +48,10 @@ ANIMALS = {
 # Per animal, for bodies the general layout doesn't suit: "breast" (a breast collar across the chest instead of a
 # neck collar, for an animal with no neck), "belly": False (no strap under the belly), "breeching": False,
 # "girth_at" (share of the body from its rear). None needed now (LOTR's sitting rabbit needed them all).
-OPTIONS = {}
+OPTIONS = {
+    # its neck cube is near cubic: ring it round its length (y), not toward the body
+    "lotr_rhosgobel_rabbit": {"collar_axis": 1},
+}
 PROUD, BAND, STRAP = 0.4, 0.9, 0.6  # pixels: gap over the hide, band thickness, side strap thickness
 
 
@@ -256,7 +259,9 @@ def fit(name, model, body_name, neck_name, front, hind, scale):
         toward = neck.dir_from_root([a - b for a, b in zip(neck.to_root(centre), body_centre)])
         # the neck's length: its cube's long side if it has one, else the way from the body to it
         longest = max(range(3), key=lambda i: size[i])
-        if all(size[longest] >= 1.3 * size[i] for i in range(3) if i != longest):
+        if "collar_axis" in opts:
+            along = opts["collar_axis"]
+        elif all(size[longest] >= 1.3 * size[i] for i in range(3) if i != longest):
             along = longest
         else:
             along = max(range(3), key=lambda i: abs(toward[i]))
