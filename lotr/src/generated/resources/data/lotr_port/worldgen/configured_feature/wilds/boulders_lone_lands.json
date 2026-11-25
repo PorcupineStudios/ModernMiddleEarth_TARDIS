@@ -10,10 +10,10 @@
     "moss": {
       "Name": "lotr_port:heath_moss"
     },
-    "per_chunk": 0.35,
+    "per_chunk": 0.6,
     "east": 1.5,
-    "tor": 0.07,
-    "size": 1.0,
+    "tor": 0.1,
+    "size": 1.35,
     "east_from": 17024,
     "east_to": 48512
   }

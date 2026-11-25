@@ -29,14 +29,14 @@
       }
     },
     "rules": {
-      "patch": 34,
-      "coarse": 0.3,
-      "rubble": 0.5,
-      "rock": 0.64,
+      "patch": 14,
+      "coarse": 0.44,
+      "rubble": 0.58,
+      "rock": 0.68,
       "lichen": 0.25,
       "wet": 0.62,
       "moss": 0.82,
-      "steep": 3,
+      "steep": 2,
       "east": 0.35,
       "east_from": 17024,
       "east_to": 48512
