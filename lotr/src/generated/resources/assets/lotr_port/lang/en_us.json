@@ -6513,5 +6513,6 @@
   "region_effect.lotr_port.wake": "You wake from dreams of feasting, and cannot tell which way you were going.",
   "block.lotr_port.spider_egg_sac": "Spider Egg Sac",
   "lair.lotr_port.spider_nest.damaged": "Egg sac destroyed (%s of %s): the nest is weakened",
-  "lair.lotr_port.spider_nest.destroyed": "The nest is destroyed: its spiders will not come again"
+  "lair.lotr_port.spider_nest.destroyed": "The nest is destroyed: its spiders will not come again",
+  "entity.lotr_port.rhosgobel_rabbit": "Rhosgobel Rabbit"
 }

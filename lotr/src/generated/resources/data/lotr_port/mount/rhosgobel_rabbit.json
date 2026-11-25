@@ -1,0 +1,36 @@
+{
+  "spawn_near": {
+    "waypoint": "lotr_port:rhosgobel",
+    "radius": 2048
+  },
+  "food": [
+    "minecraft:carrot",
+    "minecraft:golden_carrot"
+  ],
+  "spawn": {
+    "speed": {
+      "mul": 1.25
+    },
+    "jump": {
+      "mul": 1.3
+    }
+  },
+  "clamp_health": [
+    12,
+    30
+  ],
+  "clamp_jump": [
+    0.4,
+    1.0
+  ],
+  "clamp_speed": [
+    0.12,
+    0.38
+  ],
+  "sounds": {
+    "ambient": "minecraft:entity.rabbit.ambient",
+    "hurt": "minecraft:entity.rabbit.hurt",
+    "death": "minecraft:entity.rabbit.death",
+    "angry": "minecraft:entity.rabbit.attack"
+  }
+}

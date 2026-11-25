@@ -1,0 +1,5 @@
+{
+  "type": "minecraft:block",
+  "pools": [{"rolls": 1, "entries": [{"type": "minecraft:item", "name": "ringbearer_harness:hitch"}],
+    "conditions": [{"condition": "minecraft:survives_explosion"}]}]
+}

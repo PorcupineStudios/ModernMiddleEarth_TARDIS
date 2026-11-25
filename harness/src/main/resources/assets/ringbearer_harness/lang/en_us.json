@@ -1,0 +1,21 @@
+{
+  "message.ringbearer_harness.hitched": "Hitched %s",
+  "message.ringbearer_harness.unhitched": "Unhitched %s",
+  "message.ringbearer_harness.none": "Lead a harnessed animal here to hitch it",
+  "ringbearer_harness.configuration.title": "Harness",
+  "ringbearer_harness.configuration.section.ringbearer.harness.common.toml": "Harness",
+  "ringbearer_harness.configuration.section.ringbearer.harness.common.toml.title": "Harness",
+  "ringbearer_harness.configuration.pulling": "Animals pull",
+  "block.ringbearer_harness.hitch": "Hitch",
+  "item.ringbearer_harness.harness": "Harness",
+  "message.ringbearer_harness.needs_harness": "Put a harness on it first (use a harness on the animal)",
+  "message.ringbearer_harness.cannot_wear": "Only a tamed, grown animal that can pull wears a harness",
+  "message.ringbearer_harness.harnessed_no_saddle": "It's wearing a harness: take it out of the saddle slot first",
+  "block.ringbearer_harness.oak_slope": "Oak Slope",
+  "block.ringbearer_harness.stone_slope": "Stone Slope",
+  "block.ringbearer_harness.wagon_wheel": "Wagon Wheel",
+  "block.ringbearer_harness.oak_slope_low": "Oak Gentle Slope (Low Half)",
+  "block.ringbearer_harness.oak_slope_high": "Oak Gentle Slope (High Half)",
+  "block.ringbearer_harness.stone_slope_low": "Stone Gentle Slope (Low Half)",
+  "block.ringbearer_harness.stone_slope_high": "Stone Gentle Slope (High Half)"
+}

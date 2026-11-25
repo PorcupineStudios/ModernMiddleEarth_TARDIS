@@ -1,0 +1,15 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "com.porcupinestudios.ringbearer.harness.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": [
+    "AbstractHorseHarnessMixin",
+    "HorseInventoryAccess",
+    "HorseInventoryMenuMixin",
+    "WheelMountSteeringMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
