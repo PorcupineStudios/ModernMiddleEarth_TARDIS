@@ -1,0 +1,8 @@
+{
+  "feature": "lotr_port:wilds/eriador/stony_heath_ground",
+  "placement": [
+    {
+      "type": "minecraft:biome"
+    }
+  ]
+}

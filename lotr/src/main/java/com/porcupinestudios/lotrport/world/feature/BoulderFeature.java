@@ -19,11 +19,11 @@ import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfigur
  * granite tors of the reference photos). Per chunk {@code per_chunk} clusters on average, more where a seeded patch
  * noise is high and up to {@code 1 + east} times as many at the east end ({@code east_from} -> {@code east_to}).
  * Tops are lichened in patches, faces towards the north (the shaded side) mossy; the gap under a boulder on a slope is
- * filled down to the ground so nothing floats. Everything stays inside the chunk and the 8 blocks round it.
+ * filled down to the ground so nothing floats. With {@code variants}, clusters only in those biome variants. Everything stays inside the chunk and the 8 blocks round it.
  */
 public final class BoulderFeature extends Feature<BoulderFeature.Config> {
     public record Config(BlockState rock, BlockState lichen, BlockState moss, float perChunk, float east, int eastFrom,
-            int eastTo, float tor, float size) implements FeatureConfiguration {
+            int eastTo, float tor, float size, java.util.List<String> variants) implements FeatureConfiguration {
         public static final Codec<Config> CODEC = RecordCodecBuilder.create(i -> i.group(
                 BlockState.CODEC.fieldOf("rock").forGetter(Config::rock),
                 BlockState.CODEC.fieldOf("lichen").forGetter(Config::lichen),
@@ -33,7 +33,9 @@ public final class BoulderFeature extends Feature<BoulderFeature.Config> {
                 Codec.INT.fieldOf("east_from").forGetter(Config::eastFrom),
                 Codec.INT.fieldOf("east_to").forGetter(Config::eastTo),
                 Codec.FLOAT.fieldOf("tor").forGetter(Config::tor),
-                Codec.FLOAT.optionalFieldOf("size", 1f).forGetter(Config::size)).apply(i, Config::new));
+                Codec.FLOAT.optionalFieldOf("size", 1f).forGetter(Config::size),
+                Codec.STRING.listOf().optionalFieldOf("variants", java.util.List.of()).forGetter(Config::variants))
+                .apply(i, Config::new));
     }
 
     public BoulderFeature() {
@@ -58,6 +60,12 @@ public final class BoulderFeature extends Feature<BoulderFeature.Config> {
             int cz = z0 + 3 + random.nextInt(10);
             int gy = EnclosureFeature.ground(level, cx, cz);
             BlockState ground = level.getBlockState(new BlockPos(cx, gy, cz));
+            if (!c.variants().isEmpty()) {
+                String v = com.porcupinestudios.lotrport.world.map.MiddleEarthMap.get().variantAt(cx, cz);
+                if (!c.variants().contains(v == null ? "plain" : v)) {
+                    continue;
+                }
+            }
             if (!ground.getFluidState().isEmpty() || ground.is(BlockTags.LEAVES)) {
                 continue;
             }

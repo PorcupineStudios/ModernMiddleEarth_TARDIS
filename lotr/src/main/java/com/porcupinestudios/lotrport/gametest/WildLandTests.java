@@ -146,6 +146,32 @@ public final class WildLandTests {
         helper.succeed();
     }
 
+    /** Eriador keeps its seven kinds (each lightly re-grounded) and gets four milder Lone-lands kinds besides. */
+    @GameTest(template = EMPTY, timeoutTicks = 600)
+    public static void eriadorKeepsItsSevenAndGainsMilderWilds(GameTestHelper helper) {
+        MiddleEarthMap map = MiddleEarthMap.get();
+        int b = index(map, "lotr_port:eriador");
+        java.util.Map<String, Integer> seen = new java.util.TreeMap<>();
+        for (int[] c : map.pixelCentres(b, 100_000)) {
+            String v = map.variantAt(c[0], c[1]);
+            seen.merge(v == null ? "plain" : v, 1, Integer::sum);
+        }
+        LotrPort.LOG.info("[wilds] Eriador patch kinds by pixel: {}", seen);
+        for (String kind : List.of("wild_meadows", "heath", "copses", "old_woods", "pinewood", "tors", "old_fields",
+                "stony_heath", "moorland", "rocky_dells", "brushland")) {
+            helper.assertTrue(seen.getOrDefault(kind, 0) > 20, "Eriador has too little " + kind + ": " + seen);
+        }
+        Biome eriador = helper.getLevel().registryAccess().registryOrThrow(Registries.BIOME)
+                .get(ResourceLocation.parse("lotr_port:eriador"));
+        List<String> names = eriador.getGenerationSettings().features().get(9).stream()
+                .map(h -> h.unwrapKey().map(k -> k.location().toString()).orElse("")).toList();
+        helper.assertTrue(names.contains("lotr_port:wilds/eriador/tors_ground")
+                && names.contains("lotr_port:wilds/eriador/rocky_dells_groves")
+                && names.contains("lotr_port:eriador_variant/tors_grey_boulder"),
+                "Eriador's step lacks the tuned or new features: " + names);
+        helper.succeed();
+    }
+
     private static int index(MiddleEarthMap map, String id) {
         for (int i = 0; i < map.biomes().size(); i++) {
             if (map.biomes().get(i).id().equals(id)) {

@@ -1,0 +1,8 @@
+{
+  "feature": "lotr_port:wilds/eriador/pinewood_ground",
+  "placement": [
+    {
+      "type": "minecraft:biome"
+    }
+  ]
+}

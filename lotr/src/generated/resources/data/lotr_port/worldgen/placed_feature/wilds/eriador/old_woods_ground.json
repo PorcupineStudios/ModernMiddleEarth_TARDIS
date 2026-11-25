@@ -1,0 +1,8 @@
+{
+  "feature": "lotr_port:wilds/eriador/old_woods_ground",
+  "placement": [
+    {
+      "type": "minecraft:biome"
+    }
+  ]
+}

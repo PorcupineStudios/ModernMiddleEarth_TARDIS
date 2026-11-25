@@ -349,13 +349,134 @@ def tags(out):
         write_json(file, t)
 
 
+# Eriador (Aaron 2026-11-25: "instead of replacing the 7, can you just slightly tune the 7 and then add milder
+# versions on top as additional biomes to the mix"): its seven variant patches (world.py VARIANTS) keep their plants
+# and get a light touch of the wild-land ground; four milder Lone-lands-like kinds join them (map.json variants, with
+# their own ground, boulders and groves). Eriador keeps its greener grass: it was farmland once (Arnor), the
+# Lone-lands past Bree are where the land turns hard. Rules not listed are off (threshold 9).
+_OFF = dict(patch=34, coarse=9, rubble=9, rock=9, lichen=0.3, wet=9, moss=9, steep=4, east=0, east_from=0, east_to=0)
+
+
+def _rules(**kw):
+    return dict(_OFF, **kw)
+
+
+def _plant(block, chance, patch=0, above=0):
+    return {"block": {"Name": block if ":" in block else f"{NS}:{block}"}, "chance": chance, "patch": patch,
+            "above": above}
+
+
+_CREEKS = dict(scale=260, width=2.5, mask=0.35)
+ERIADOR_NEW = [  # (name, weight, variation): about a third of Eriador's patches with its seven (weights 16)
+    ("stony_heath", 2, 1.15), ("moorland", 2, 0.85), ("rocky_dells", 2, 1.35), ("brushland", 2, 0.9)]
+ERIADOR_GROVE = [("oak", 3), ("birch", 2), ("pine", 2), ("spruce", 1), ("beech", 1)]
+ERIADOR_PINES = [("pine", 3), ("spruce", 2), ("birch", 2)]
+ERIADOR = {  # name -> ground rules, creeks, plants, optional boulders and trees
+    # the seven, lightly: stony earth spots in the meadows, stony patches and bracken on the heath, mossy hollows in
+    # the woods, rock and scree round the tors, and a few dry creeks
+    "wild_meadows": dict(rules=_rules(coarse=0.62, wet=0.85, steep=5), creeks=dict(_CREEKS, mask=0.45),
+                         plants=[_plant("tussock", 0.03)]),
+    "heath": dict(rules=_rules(coarse=0.38, rubble=0.6, rock=0.78, wet=0.7, moss=0.9),
+                  creeks=dict(_CREEKS, mask=0.3),
+                  plants=[_plant("bracken", 0.4, 26, 0.45), _plant("tussock", 0.06)]),
+    "copses": dict(rules=_rules(wet=0.52, moss=0.72), creeks=_CREEKS, plants=[_plant("bracken", 0.3, 26, 0.5)]),
+    "old_woods": dict(rules=_rules(wet=0.5, moss=0.68), creeks=_CREEKS, plants=[_plant("bracken", 0.3, 26, 0.5)]),
+    "pinewood": dict(rules=_rules(coarse=0.6, wet=0.45, moss=0.65), creeks=_CREEKS,
+                     plants=[_plant("bracken", 0.4, 24, 0.35)]),
+    "tors": dict(rules=_rules(coarse=0.3, rubble=0.48, rock=0.66, lichen=0.2, wet=0.75, moss=0.9, steep=3),
+                 creeks=dict(_CREEKS, mask=0.3),
+                 plants=[_plant("shire_heather", 0.3, 20, 0.4), _plant("tussock", 0.08)],
+                 boulders=dict(per_chunk=0.5, tor=0.12, size=0.9)),
+    "old_fields": dict(rules=_rules(coarse=0.7), creeks=dict(_CREEKS, mask=0.4), plants=[]),
+    # the milder Lone-lands
+    "stony_heath": dict(rules=_rules(coarse=0.3, rubble=0.5, rock=0.66, lichen=0.25, wet=0.68, moss=0.85, steep=3),
+                        creeks=_CREEKS,
+                        plants=[_plant("bracken", 0.45, 26, 0.4), _plant("shire_heather", 0.35, 20, 0.4),
+                                _plant("tussock", 0.12)],
+                        boulders=dict(per_chunk=0.25, tor=0.05, size=1.0),
+                        scrub=(3, dict(size=70, above=0.4)), lone=5),
+    "moorland": dict(rules=_rules(coarse=0.5, rubble=0.7, wet=0.4, moss=0.62),
+                     creeks=dict(scale=220, width=3, mask=-0.1),
+                     plants=[_plant("bracken", 0.4, 24, 0.3), _plant("shire_heather", 0.3, 20, 0.45),
+                             _plant("tussock", 0.15)],
+                     groves=(8, dict(size=80, above=0.5, hollow=0.3), ERIADOR_PINES)),
+    "rocky_dells": dict(rules=_rules(coarse=0.36, rubble=0.52, rock=0.64, lichen=0.2, wet=0.55, moss=0.72, steep=3),
+                        creeks=_CREEKS,
+                        plants=[_plant("bracken", 0.35, 26, 0.4), _plant("tussock", 0.08)],
+                        boulders=dict(per_chunk=0.45, tor=0.1, size=1.0),
+                        groves=(12, dict(size=60, above=0.28, hollow=0.6), ERIADOR_GROVE),
+                        scrub=(4, dict(size=60, above=0.14, below=0.28, hollow=0.6))),
+    "brushland": dict(rules=_rules(coarse=0.42, rubble=0.65, wet=0.7, moss=0.9), creeks=_CREEKS,
+                      plants=[_plant("tussock", 0.15), _plant("bracken", 0.35, 26, 0.45)],
+                      scrub=(10, dict(size=50, above=0.25)), lone=3),
+}
+
+
+def eriador(out):
+    """Eriador's tuned and added variant patches: features wilds/eriador/<name>, map.json kinds, its step 9."""
+    data = os.path.join(out, "data", NS, "worldgen")
+    cf = lambda n, v: write_json(os.path.join(data, "configured_feature", "wilds", "eriador", n + ".json"), v)
+    pf = lambda n, v: write_json(os.path.join(data, "placed_feature", "wilds", "eriador", n + ".json"), v)
+    cf("grove_trees", _selector(ERIADOR_GROVE))
+    cf("pine_trees", _selector(ERIADOR_PINES))
+    ids = []
+    for name, st in ERIADOR.items():
+        inv = {"type": f"{NS}:in_variant", "variants": [name]}
+        cf(f"{name}_ground", {"type": f"{NS}:ground_cover", "config": {
+            "biomes": [f"{NS}:eriador"], "variants": [name], "blocks": PALETTE, "rules": st["rules"],
+            "creeks": st["creeks"], "plants": st["plants"]}})
+        pf(f"{name}_ground", {"feature": f"{NS}:wilds/eriador/{name}_ground", "placement": [{"type": "minecraft:biome"}]})
+        ids.append(f"{NS}:wilds/eriador/{name}_ground")
+        if "boulders" in st:
+            cf(f"{name}_boulders", {"type": f"{NS}:boulders", "config": dict(
+                rock=PALETTE["rock"], lichen=PALETTE["lichen"], moss=PALETTE["moss"], east=0, east_from=0,
+                east_to=0, variants=[name], **st["boulders"])})
+            pf(f"{name}_boulders", {"feature": f"{NS}:wilds/eriador/{name}_boulders",
+                                    "placement": [{"type": "minecraft:biome"}]})
+            ids.append(f"{NS}:wilds/eriador/{name}_boulders")
+        sq = {"type": "minecraft:in_square"}
+        if "groves" in st:
+            count, grove, trees = st["groves"]
+            feature = "grove_trees" if trees is ERIADOR_GROVE else "pine_trees"
+            pf(f"{name}_groves", _trees_placed(f"{NS}:wilds/eriador/{feature}",
+                                               [{"type": "minecraft:count", "count": count}, sq],
+                                               [inv, dict({"type": f"{NS}:grove"}, **grove)]))
+            ids.append(f"{NS}:wilds/eriador/{name}_groves")
+        if "scrub" in st:
+            count, grove = st["scrub"]
+            pf(f"{name}_scrub", _trees_placed(f"{NS}:wilds/scrub", [{"type": "minecraft:count", "count": count}, sq],
+                                              [inv, dict({"type": f"{NS}:grove"}, **grove)]))
+            ids.append(f"{NS}:wilds/eriador/{name}_scrub")
+        if "lone" in st:
+            pf(f"{name}_lone_trees", _trees_placed(f"{NS}:wilds/lone_trees",
+                                                   [{"type": "minecraft:rarity_filter", "chance": st["lone"]}, sq],
+                                                   [inv]))
+            ids.append(f"{NS}:wilds/eriador/{name}_lone_trees")
+    path = os.path.join(data, "biome", "eriador.json")
+    with open(path, encoding="utf-8") as f:
+        b = json.load(f)
+    step = [f for f in b["features"][9] if not f.startswith(f"{NS}:wilds/eriador/")]
+    b["features"][9] = ids + step
+    write_json(path, b)
+    path = os.path.join(out, NS, "map", "map.json")
+    with open(path, encoding="utf-8") as f:
+        m = json.load(f)
+    kinds = m["variants"][f"{NS}:eriador"]["list"]
+    have = {k["name"] for k in kinds}
+    for name, weight, variation in ERIADOR_NEW:
+        if name not in have:
+            kinds.append({"name": name, "weight": weight, "variation": variation})
+    write_json(path, m)
+    return {"features": len(ids), "kinds": [k["name"] for k in kinds]}
+
+
 def run(out=OUT):
     jar = zipfile.ZipFile(os.path.join(HERE, "cache", MC_1211[1]))
     write_assets(out, jar)
     ids = features(out)
     map_settings(out)
     tags(out)
-    return {"blocks": len(BLOCKS), "biomes": biomes(out, ids)}
+    return {"blocks": len(BLOCKS), "biomes": biomes(out, ids), "eriador": eriador(out)}
 
 
 if __name__ == "__main__":

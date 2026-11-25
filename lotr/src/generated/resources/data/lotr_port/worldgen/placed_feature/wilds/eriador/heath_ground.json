@@ -1,0 +1,8 @@
+{
+  "feature": "lotr_port:wilds/eriador/heath_ground",
+  "placement": [
+    {
+      "type": "minecraft:biome"
+    }
+  ]
+}

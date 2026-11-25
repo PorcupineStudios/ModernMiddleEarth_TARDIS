@@ -190,6 +190,26 @@
           "name": "old_fields",
           "weight": 2,
           "variation": 0.6
+        },
+        {
+          "name": "stony_heath",
+          "weight": 2,
+          "variation": 1.15
+        },
+        {
+          "name": "moorland",
+          "weight": 2,
+          "variation": 0.85
+        },
+        {
+          "name": "rocky_dells",
+          "weight": 2,
+          "variation": 1.35
+        },
+        {
+          "name": "brushland",
+          "weight": 2,
+          "variation": 0.9
         }
       ]
     },

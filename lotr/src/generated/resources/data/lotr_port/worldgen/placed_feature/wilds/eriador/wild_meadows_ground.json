@@ -1,0 +1,8 @@
+{
+  "feature": "lotr_port:wilds/eriador/wild_meadows_ground",
+  "placement": [
+    {
+      "type": "minecraft:biome"
+    }
+  ]
+}
