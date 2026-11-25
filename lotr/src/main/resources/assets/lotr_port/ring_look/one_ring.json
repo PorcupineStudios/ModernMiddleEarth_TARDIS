@@ -1,0 +1,30 @@
+{
+  "comment": "The wraith-world: the world goes grey, cold and smeared, the edges blur and fringe, and the dark leans toward the Eye in Barad-dur (its waypoint's block x/z). Grows over grow_minutes from start.",
+  "items": ["lotr_port:one_ring"],
+  "fade_in_seconds": 1.2,
+  "fade_out_seconds": 2.0,
+  "start": 0.65,
+  "grow_minutes": 10,
+  "grade": {
+    "saturation": -0.85,
+    "contrast": -0.15,
+    "warmth": -0.4,
+    "brightness": 0.05,
+    "vignette": 0.6,
+    "bloom": 0.35,
+    "grain": 0.5,
+    "aberration": 0.9,
+    "wobble": 0.6,
+    "blur": 0.8
+  },
+  "tint": "#9aa8b8",
+  "tint_strength": 0.3,
+  "eye": {
+    "x": 97728,
+    "z": 59712,
+    "strength": 0.8,
+    "glow": "#ff4a10"
+  },
+  "hide_wearer": true,
+  "wearers_see_wearers": true
+}

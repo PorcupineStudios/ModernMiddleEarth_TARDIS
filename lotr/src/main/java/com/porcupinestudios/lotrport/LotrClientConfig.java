@@ -63,6 +63,31 @@ public final class LotrClientConfig {
             .comment("Region colour grading (saturation, contrast, warmth, vignette, glow) as a post-process shader.")
             .define("atmosphere.grading", true);
 
+    public static final ModConfigSpec.BooleanValue ATMOSPHERE_REDUCE_MOTION = BUILDER
+            .comment("Reduce motion: no shimmer, film grain or pulsing in region looks and the Ring's look.")
+            .define("atmosphere.reduceMotion", false);
+
+    public static final ModConfigSpec.DoubleValue ATMOSPHERE_GRAIN = BUILDER
+            .comment("Scale for film grain in region looks and the Ring's look: 0 = none, 2 = twice.")
+            .defineInRange("atmosphere.grain", 1.0, 0.0, 2.0);
+
+    public static final ModConfigSpec.BooleanValue ATMOSPHERE_OVER_SHADER_PACKS = BUILDER
+            .comment("With an Iris shader pack on, still draw the region looks and the Ring's look on top of it.")
+            .define("atmosphere.overShaderPacks", true);
+
+    public static final ModConfigSpec.DoubleValue ATMOSPHERE_SHADER_PACK_GRADING = BUILDER
+            .comment("With an Iris shader pack on, scale for region colour grading (packs grade colour themselves).",
+                    "The Ring's look is not scaled by this.")
+            .defineInRange("atmosphere.shaderPackGrading", 0.5, 0.0, 1.0);
+
+    public static final ModConfigSpec.BooleanValue RING_LOOK = BUILDER
+            .comment("The wraith-world look while you wear a ring of power (assets/<ns>/ring_look/*.json).")
+            .define("ring.look", true);
+
+    public static final ModConfigSpec.DoubleValue RING_STRENGTH = BUILDER
+            .comment("Scale for the Ring's look: 0.5 = half as strong, 2 = twice.")
+            .defineInRange("ring.strength", 1.0, 0.0, 2.0);
+
     public static final ModConfigSpec.BooleanValue SKY = BUILDER
             .comment("Middle-earth's own sky: LOTR's sun, moon, night sky and Earendil.")
             .define("sky.enabled", true);

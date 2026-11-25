@@ -79,6 +79,8 @@ public final class LotrPort {
         com.porcupinestudios.lotrport.content.pouch.Pouches.register(modBus);
         com.porcupinestudios.lotrport.content.thrown.Thrown.register(modBus);
         com.porcupinestudios.lotrport.mount.Mounts.register(modBus);
+        com.porcupinestudios.lotrport.ring.RingPowers.register(modBus);
+        com.porcupinestudios.lotrport.gametest.MockPlayerChannels.register();
         LotrWorldgen.register(modBus);
         LotrEntities.register(modBus);
         com.porcupinestudios.lotrport.npc.SpawnEggs.register(modBus);
