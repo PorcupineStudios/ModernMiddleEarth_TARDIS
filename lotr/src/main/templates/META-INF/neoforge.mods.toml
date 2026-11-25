@@ -50,6 +50,11 @@ side = "CLIENT"
 [[mixins]]
 config = "lotr_port.mixins.json"
 
+# Shader packs (Iris): LOTR's plants, leaves and saplings take their vanilla counterpart's block id, so packs wave
+# them in the wind (mixin/iris/IrisBlockIdMixin). Not required: it applies only when Iris is installed.
+[[mixins]]
+config = "lotr_port.iris.mixins.json"
+
 # The film music is its own resource-only mod, lotr_port_music (built from the private repo PorcupineStudios/LOTR_music,
 # lotr/docs/music.md). Its assets/lotr_port/ sounds, playlists and track titles merge into LotrMusic like any pack's,
 # so it needs no rebuild when this mod changes. Without it the mod runs with no soundtrack. Any 1.x works.

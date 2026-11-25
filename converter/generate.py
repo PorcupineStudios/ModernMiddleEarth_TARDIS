@@ -1501,6 +1501,8 @@ class Gen:
         print(json.dumps({"tags": Tagger(OUT).run()}))
         import waterlog
         print(json.dumps({"waterlog": waterlog.run(OUT)}))
+        import shaders
+        print(json.dumps({"shaders": shaders.run(OUT)}))
         import stonecutting
         print(json.dumps({"stonecutting": stonecutting.run(OUT)}))
         from waters import Waters

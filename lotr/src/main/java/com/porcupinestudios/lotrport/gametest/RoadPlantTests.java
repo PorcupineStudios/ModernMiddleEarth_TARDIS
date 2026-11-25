@@ -82,4 +82,38 @@ public final class RoadPlantTests {
                 "arid grass can't grow on sand");
         helper.succeed();
     }
+
+    /**
+     * Shader packs wave LOTR's plants: every leaf, sapling and ground plant has a vanilla counterpart in
+     * {@code assets/lotr_port/shaders/block_aliases.json} (client/ShaderAliases, used by the Iris mixin), and every
+     * alias names real blocks.
+     */
+    @GameTest(template = EMPTY)
+    public static void everyLotrPlantHasAShaderAlias(GameTestHelper helper) {
+        com.google.gson.JsonObject aliases;
+        try (var in = RoadPlantTests.class.getResourceAsStream("/assets/lotr_port/shaders/block_aliases.json")) {
+            helper.assertTrue(in != null, "no shader block aliases");
+            aliases = com.google.gson.JsonParser.parseReader(new java.io.InputStreamReader(in,
+                    java.nio.charset.StandardCharsets.UTF_8)).getAsJsonObject().getAsJsonObject("aliases");
+        } catch (java.io.IOException e) {
+            throw new IllegalStateException(e);
+        }
+        for (var e : aliases.entrySet()) {
+            helper.assertTrue(BuiltInRegistries.BLOCK.containsKey(ResourceLocation.parse(e.getKey())),
+                    "shader alias for a block that doesn't exist: " + e.getKey());
+            helper.assertTrue(BuiltInRegistries.BLOCK.containsKey(ResourceLocation.parse(e.getValue().getAsString())),
+                    "shader alias " + e.getKey() + " -> missing block " + e.getValue());
+        }
+        for (var block : BuiltInRegistries.BLOCK) {
+            var id = BuiltInRegistries.BLOCK.getKey(block);
+            boolean foliage = block instanceof net.minecraft.world.level.block.LeavesBlock
+                    || block instanceof com.porcupinestudios.lotrport.content.LotrSaplingBlock
+                    || block instanceof com.porcupinestudios.lotrport.content.PlantBlock
+                    && !id.getPath().endsWith("_chandelier");
+            if (id.getNamespace().equals(LotrPort.MOD_ID) && foliage) {
+                helper.assertTrue(aliases.has(id.toString()), id + " has no shader alias (packs won't wave it)");
+            }
+        }
+        helper.succeed();
+    }
 }
