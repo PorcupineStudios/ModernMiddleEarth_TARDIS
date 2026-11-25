@@ -264,7 +264,10 @@ ENCLOSURES = {
                          "crop": {"block": {"Name": f"{NS}:corn_stalks", "Properties": {"age": "7", "corn": "false"}},
                                   "min_height": 2, "max_height": 2, "flag": "corn", "flag_chance": 0.35,
                                   "soil": {"Name": "minecraft:farmland", "Properties": {"moisture": "7"}},
-                                  "water_every": 0}}},
+                                  "water_every": 0,
+                                  # Aaron 2026-11-25: rows spaced apart, not a solid block of corn; a trodden
+                                  # furrow between rows (no grass grows on paths)
+                                  "row_spacing": 2, "furrow": {"Name": "minecraft:dirt_path"}}}},
         ],
     },
 }
