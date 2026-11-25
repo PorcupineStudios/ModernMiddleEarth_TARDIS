@@ -237,7 +237,8 @@ https://claude.ai/artifact/KqhSSTCuKXGuwKHBoYJdcu. Rebuild features in modern co
 - Colour grading (2026-11-16, `client/ColorGrade`, shader `shaders/core/grade.*`): each atmosphere file's `grade`
   (offsets: saturation, contrast, warmth, brightness, vignette, bloom) runs as a post pass after the world, eased with
   the region look; `atmosphere/middle_earth.json` (priority -100) is the base look for every lotr_port biome. Config
-  `atmosphere.grading`. Not checked in game.
+  `atmosphere.grading`. Dark-land effects (grain, colour fringes, heat shimmer, edge blur), the One Ring's
+  wraith-world and drawing over Iris shader packs (2026-11-25): **read `lotr/docs/ring-and-looks.md`**.
 - Sky (2026-11-16, `client/MiddleEarthSky`, dimension type effects `lotr_port:middle_earth`): LOTR's sun (half-size 10),
   8-phase moon, painted night sky (3x2 cube maps `textures/environment/middle_earth/night_<n>`, one per night) and
   Earendil near the sun at dusk and dawn; vanilla sky colour, sunrise glow and clouds. Config `sky.enabled`.
@@ -735,6 +736,12 @@ https://claude.ai/artifact/KqhSSTCuKXGuwKHBoYJdcu. Rebuild features in modern co
   canyons too. Defaults: lowlands entrances 0.15, ravines 0.2, cover 8; hills 0.3 / 0.3 / 4; `#is_mountain` 0.5 /
   0.6 / 0; waters entrances 0. Changes apply to new chunks. GameTests `biomeConfigHasEveryBiome`,
   `caveSettingsFollowTheBiomeConfig`.
+
+## Rings of power and Curios (2026-11-25, `ring/`)
+- Curios is required (worn-item slots: ring now, cloak and backpack later, all as data). The One Ring
+  (`one_ring`, `ring_power/one_ring.json`) worn in a ring slot hides its wearer without the potion's particles, and
+  mobs lose them, except the Unseen. GameTest mock players need `gametest/MockPlayerChannels` for Curios' sync.
+  **Read `lotr/docs/ring-and-looks.md`.**
 
 ## Combat and armor models (2026-11-04)
 - 1.7.10 had no attack cooldown. LOTR's melee timing (`LOTRWeaponStats`: 15 ticks for a player's sword ÷ the

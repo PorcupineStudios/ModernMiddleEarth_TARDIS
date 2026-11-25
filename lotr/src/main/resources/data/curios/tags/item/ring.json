@@ -1,0 +1,10 @@
+{
+  "values": [
+    "lotr_port:one_ring",
+    "lotr_port:gold_ring",
+    "lotr_port:silver_ring",
+    "lotr_port:mithril_ring",
+    "lotr_port:dwarven_marriage_ring",
+    "lotr_port:hobbit_marriage_ring"
+  ]
+}

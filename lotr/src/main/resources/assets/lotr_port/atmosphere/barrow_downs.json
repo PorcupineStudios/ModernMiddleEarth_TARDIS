@@ -16,6 +16,9 @@
     "warmth": -0.3,
     "brightness": 0,
     "vignette": 0.2,
-    "bloom": 0.1
+    "bloom": 0.1,
+    "grain": 0.35,
+    "blur": 0.2,
+    "aberration": 0.1
   }
 }

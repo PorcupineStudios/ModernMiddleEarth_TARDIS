@@ -1,0 +1,30 @@
+# The smear on sharp camera turns (client/ColorGrade.smear) while wearing the One Ring: still, a slow pan that must
+# not smear, two sharp turns that must, and just after stopping (it fades in ~0.15 s).
+wait 200
+close
+/time set 6000
+/weather clear
+/gamerule doDaylightCycle false
+hud off
+/spreadplayers 704 -320 0 1 false @s
+wait 400
+/tp @s ~ ~2 ~ 180 5
+/curios replace ring 0 @s with lotr_port:one_ring
+wait 80
+shot smear_0_still
+# 6 degrees a tick = 120 a second: looking around, under the 180 threshold
+turn 6 0
+wait 20
+shot smear_1_slow_pan
+# 20 degrees a tick = 400 a second: a sharp turn
+turn 20 0
+wait 6
+shot smear_2_sharp_turn
+# 35 a tick = 700 a second, diagonal: a flick
+turn 35 6
+wait 4
+shot smear_3_flick
+turn 0 0
+wait 20
+shot smear_4_after
+quit
