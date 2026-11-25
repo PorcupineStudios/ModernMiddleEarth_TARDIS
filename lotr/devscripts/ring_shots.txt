@@ -1,0 +1,52 @@
+# Region looks of the dark lands and the One Ring's wraith-world (client/ColorGrade, RingSight), for the screenshot
+# workflow or a local run: the Shire, the Dead Marshes, Morgul Vale and Gorgoroth facing Barad-dur, each without and
+# then with the One Ring worn (Curios ring slot). Spots are map-pixel centres of those biomes (block = (px - origin) x
+# 128 + 64). Each wait lets the look ease in (about 2 s) and the chunks load.
+wait 200
+# the race picker opens on first entering Middle-earth
+close
+/time set 6000
+/weather clear
+/gamerule doDaylightCycle false
+/gamerule doMobSpawning false
+hud off
+/spreadplayers 704 -320 0 1 false @s
+wait 400
+/tp @s ~ ~2 ~ 180 5
+wait 120
+shot ring_0_shire
+/curios replace ring 0 @s with lotr_port:one_ring
+wait 120
+shot ring_1_shire_ring
+/curios replace ring 0 @s with minecraft:air
+/spreadplayers 77376 50624 0 1 false @s
+wait 500
+/tp @s ~ ~2 ~ 90 5
+wait 120
+shot ring_2_dead_marshes
+/curios replace ring 0 @s with lotr_port:one_ring
+wait 120
+shot ring_3_dead_marshes_ring
+/curios replace ring 0 @s with minecraft:air
+/spreadplayers 84800 64576 0 1 false @s
+wait 500
+/tp @s ~ ~2 ~ 90 5
+wait 120
+shot ring_4_morgul_vale
+/spreadplayers 98112 62784 0 1 false @s
+wait 500
+# facing north-west, toward Barad-dur (97728 59712)
+/tp @s ~ ~2 ~ 173 0
+wait 120
+shot ring_5_gorgoroth
+/curios replace ring 0 @s with lotr_port:one_ring
+wait 160
+shot ring_6_gorgoroth_ring_facing_the_eye
+# facing east: the Eye is on the left
+/tp @s ~ ~ ~ 263 0
+wait 40
+shot ring_7_gorgoroth_ring_eye_to_the_left
+/tp @s ~ ~ ~ 353 0
+wait 40
+shot ring_8_gorgoroth_ring_eye_behind
+quit
