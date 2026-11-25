@@ -2261,7 +2261,9 @@
     "light": 0,
     "sound": "grass",
     "requiresTool": false,
-    "solid": false
+    "solid": false,
+    "tint": "grass",
+    "offset": "xz"
   },
   {
     "id": "four_leaf_clover",
@@ -2271,7 +2273,9 @@
     "light": 0,
     "sound": "grass",
     "requiresTool": false,
-    "solid": false
+    "solid": false,
+    "tint": "grass",
+    "offset": "xz"
   },
   {
     "id": "drystone",
@@ -12785,7 +12789,8 @@
     "light": 0,
     "sound": "grass",
     "requiresTool": false,
-    "solid": false
+    "solid": false,
+    "tint": "grass"
   },
   {
     "id": "flowery_grass",
@@ -12795,7 +12800,8 @@
     "light": 0,
     "sound": "grass",
     "requiresTool": false,
-    "solid": false
+    "solid": false,
+    "tint": "grass"
   },
   {
     "id": "wheatgrass",
@@ -12805,7 +12811,8 @@
     "light": 0,
     "sound": "grass",
     "requiresTool": false,
-    "solid": false
+    "solid": false,
+    "tint": "grass"
   },
   {
     "id": "thistle",
@@ -12815,7 +12822,8 @@
     "light": 0,
     "sound": "grass",
     "requiresTool": false,
-    "solid": false
+    "solid": false,
+    "tint": "grass"
   },
   {
     "id": "nettles",
@@ -12825,7 +12833,8 @@
     "light": 0,
     "sound": "grass",
     "requiresTool": false,
-    "solid": false
+    "solid": false,
+    "tint": "grass"
   },
   {
     "id": "jungle_sprout",
@@ -12835,7 +12844,8 @@
     "light": 0,
     "sound": "grass",
     "requiresTool": false,
-    "solid": false
+    "solid": false,
+    "tint": "grass"
   },
   {
     "id": "taurethrim_crafting_table",

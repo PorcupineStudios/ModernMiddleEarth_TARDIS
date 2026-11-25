@@ -1,0 +1,45 @@
+{
+  "ambientocclusion": false,
+  "render_type": "minecraft:cutout",
+  "textures": {
+    "particle": "lotr_port:block/clover_petal",
+    "petal": "lotr_port:block/clover_petal"
+  },
+  "elements": [
+    {
+      "from": [
+        3.0,
+        5.0,
+        3.0
+      ],
+      "to": [
+        13.0,
+        5.0,
+        13.0
+      ],
+      "shade": false,
+      "faces": {
+        "up": {
+          "texture": "#petal",
+          "tintindex": 0,
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "down": {
+          "texture": "#petal",
+          "tintindex": 0,
+          "uv": [
+            0,
+            16,
+            16,
+            0
+          ]
+        }
+      }
+    }
+  ]
+}
