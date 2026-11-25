@@ -14,6 +14,7 @@ uniform float Grain;      // film noise
 uniform float Aberration; // colour fringes toward the edges
 uniform float Wobble;     // heat shimmer
 uniform float Blur;       // edges smeared, as the world seen through the Ring
+uniform vec2 Smear;       // camera-turn smear: uv offset along the turn (0 = still)
 uniform vec4 Tint;        // rgb, amount
 uniform vec4 Eye;         // x: -1 left .. 1 right, y: facing it -1..1, z: 1 = may pulse, w: strength
 uniform vec3 EyeGlow;
@@ -62,6 +63,18 @@ void main() {
             sum += tap(uv + vec2(cos(a), sin(a)) * px * r, fringe);
         }
         c = mix(c, sum / 8.0, clamp(Blur * (0.35 + 0.65 * edge), 0.0, 1.0));
+    }
+    if (Smear.x != 0.0 || Smear.y != 0.0) {
+        // smear along a sharp turn: 9 taps across the turn's path, the middle weighted most so edges stay readable
+        vec3 sum = vec3(0.0);
+        float wsum = 0.0;
+        for (int i = 0; i < 9; i++) {
+            float t = float(i) / 8.0 - 0.5;
+            float wt = 1.0 - abs(t);
+            sum += tap(uv + Smear * t, fringe) * wt;
+            wsum += wt;
+        }
+        c = mix(c, sum / wsum, clamp(length(Smear * InSize) / 6.0, 0.0, 1.0));
     }
     if (Bloom > 0.0) {
         // soft glow from the bright parts: 12 taps on two rings

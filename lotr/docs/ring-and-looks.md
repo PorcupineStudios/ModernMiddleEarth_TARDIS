@@ -56,6 +56,14 @@ Read when: you touch `ring/`, `client/RingSight`, `client/ColorGrade`, `compat/i
 - Grain (2026-11-25, feedback: "almost pixelated, like grainy"): the first hash repeated as a striped pixel grid, worst in
   the darks. Now a pattern-free hash, two samples summed, strongest in the mid-tones, ~1/3 as strong. Client config
   `atmosphere.grain` scales it (0 = none).
+- Camera smear (2026-11-25, asked for: "the screen almost smears" on sharp turns, never on small mouse movements):
+  grade key `smear` (1 = up to 4% of the screen; the One Ring has 1, no region yet). `ColorGrade.smear` measures the
+  camera's turn speed each frame: under `atmosphere.smearFrom` (180 degrees a second) nothing, full at
+  `atmosphere.smearFull` (720), eased in over ~40 ms and out over ~150 ms; a jump of over 150 degrees in one frame is a
+  teleport, not a turn. The shader averages 9 taps along the turn (middle weighted). Client config `atmosphere.smear`
+  scales it; reduce motion turns it off. Checked headless (`devscripts/smear_shots.txt`, `turn` step in DevScript):
+  120 degrees a second no smear, 400 some, 700 a clear diagonal smear. The headless client runs at ~10 fps, so the
+  feel at 60+ fps (how quickly it comes and goes) is untested.
 - Shader packs (Iris, optional, `compat/iris/IrisCompat` by reflection on Iris's public API). With a pack on, Iris
   draws the world into its own targets and composites at the end of the frame, so the pass moves from
   `RenderLevelStageEvent.AFTER_LEVEL` to a GUI layer under everything (over the finished frame; the hand gets graded

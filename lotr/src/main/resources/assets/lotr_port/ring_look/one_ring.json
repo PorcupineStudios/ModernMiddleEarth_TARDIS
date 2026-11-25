@@ -1,6 +1,8 @@
 {
-  "comment": "The wraith-world: the world goes grey, cold and smeared, the edges blur and fringe, and the dark leans toward the Eye in Barad-dur (its waypoint's block x/z). Grows over grow_minutes from start.",
-  "items": ["lotr_port:one_ring"],
+  "comment": "The wraith-world: the world goes grey, cold and smeared, the edges blur and fringe, and the dark leans toward the Eye in Barad-dur (its waypoint's block x/z). Grows over grow_minutes from start. Sharp camera turns smear the screen (smear; thresholds in the client config).",
+  "items": [
+    "lotr_port:one_ring"
+  ],
   "fade_in_seconds": 1.2,
   "fade_out_seconds": 2.0,
   "start": 0.65,
@@ -15,7 +17,8 @@
     "grain": 0.5,
     "aberration": 0.9,
     "wobble": 0.6,
-    "blur": 0.8
+    "blur": 0.8,
+    "smear": 1.0
   },
   "tint": "#9aa8b8",
   "tint_strength": 0.3,

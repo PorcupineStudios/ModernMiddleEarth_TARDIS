@@ -71,6 +71,19 @@ public final class LotrClientConfig {
             .comment("Scale for film grain in region looks and the Ring's look: 0 = none, 2 = twice.")
             .defineInRange("atmosphere.grain", 1.0, 0.0, 2.0);
 
+    public static final ModConfigSpec.DoubleValue ATMOSPHERE_SMEAR = BUILDER
+            .comment("Scale for the smear on sharp camera turns (the Ring's look, and any region look with 'smear'):",
+                    "0 = none, 2 = twice as long. Reduce motion turns it off too.")
+            .defineInRange("atmosphere.smear", 1.0, 0.0, 2.0);
+
+    public static final ModConfigSpec.DoubleValue ATMOSPHERE_SMEAR_FROM = BUILDER
+            .comment("Camera turns slower than this (degrees a second) never smear, so small mouse movements stay steady.")
+            .defineInRange("atmosphere.smearFrom", 180.0, 0.0, 2000.0);
+
+    public static final ModConfigSpec.DoubleValue ATMOSPHERE_SMEAR_FULL = BUILDER
+            .comment("Camera turns this fast (degrees a second) or faster get the full smear.")
+            .defineInRange("atmosphere.smearFull", 720.0, 1.0, 4000.0);
+
     public static final ModConfigSpec.BooleanValue ATMOSPHERE_OVER_SHADER_PACKS = BUILDER
             .comment("With an Iris shader pack on, still draw the region looks and the Ring's look on top of it.")
             .define("atmosphere.overShaderPacks", true);

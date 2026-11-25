@@ -44,8 +44,15 @@ public final class ColorGrade {
     /** Effects that move (grain, shimmer): dropped by {@code atmosphere.reduceMotion}. */
     private static final int GRAIN = 6;
     private static final boolean[] MOVING = {false, false, false, false, false, false, true, false, true, false};
+    /** Index of {@code smear} in {@link Atmosphere#GRADE}: not a float uniform, it scales the camera smear. */
+    private static final int SMEAR = 10;
+    /** Longest smear at {@code smear} 1, as a share of the screen. */
+    private static final float SMEAR_LENGTH = 0.04f;
     private static ShaderInstance shader;
     private static RenderTarget copy;
+    // camera turn tracking for the smear: last rotation and time, the eased amount and screen direction
+    private static float lastYaw, lastPitch, smearAmount, smearX, smearY;
+    private static long lastNanos;
 
     private ColorGrade() {}
 
@@ -80,6 +87,60 @@ public final class ColorGrade {
         RenderSystem.defaultBlendFunc();
     }
 
+    /**
+     * The screen-space smear for this frame (uv offset along the turn, 0 = none). Only sharp turns count: below
+     * {@code atmosphere.smearFrom} degrees a second nothing happens, so small mouse tremors never smear, and the
+     * smear grows to its full length at {@code atmosphere.smearFull}. It comes in over ~40 ms and fades over ~150 ms,
+     * so a flick leaves a short trail. A jump of more than 150 degrees in one frame (teleport, respawn) is a cut, not a
+     * turn. Tracked every frame, even when no look smears, so it never sees a stale rotation.
+     */
+    private static float[] smear(Camera camera, float strength) {
+        long now = System.nanoTime();
+        float yaw = camera.getYRot(), pitch = camera.getXRot();
+        float dt = lastNanos == 0 ? 0 : Math.min(0.25f, (now - lastNanos) / 1e9f);
+        float dYaw = net.minecraft.util.Mth.wrapDegrees(yaw - lastYaw), dPitch = pitch - lastPitch;
+        lastNanos = now;
+        lastYaw = yaw;
+        lastPitch = pitch;
+        if (dt <= 0.0005f || Math.abs(dYaw) > 150 || Math.abs(dPitch) > 150) {
+            smearAmount = 0;
+            return new float[2];
+        }
+        double from = LotrClientConfig.ATMOSPHERE_SMEAR_FROM.get();
+        double full = Math.max(from + 1, LotrClientConfig.ATMOSPHERE_SMEAR_FULL.get());
+        float speed = (float) Math.sqrt(dYaw * dYaw + dPitch * dPitch) / dt;
+        float t = (float) net.minecraft.util.Mth.clamp((speed - from) / (full - from), 0, 1);
+        float target = t * t * (3 - 2 * t);
+        float rate = target > smearAmount ? dt / 0.04f : dt / 0.15f;
+        smearAmount += (target - smearAmount) * Math.min(1, rate);
+        if (target > 0.01f) {
+            // screen direction of the turn: yaw across the screen, pitch up and down, in shares of the field of view
+            Minecraft mc = Minecraft.getInstance();
+            float vFov = mc.options.fov().get();
+            float aspect = (float) mc.getWindow().getWidth() / Math.max(1, mc.getWindow().getHeight());
+            float hFov = (float) Math.toDegrees(2 * Math.atan(Math.tan(Math.toRadians(vFov / 2)) * aspect));
+            // in screen heights, so the direction is right on a wide screen
+            float sx = dYaw / hFov * aspect, sy = dPitch / vFov;
+            float len = (float) Math.sqrt(sx * sx + sy * sy);
+            if (len > 0) {
+                float k = Math.min(1, dt / 0.04f);
+                smearX += (sx / len - smearX) * k;
+                smearY += (sy / len - smearY) * k;
+            }
+        }
+        float l = smearAmount * strength * SMEAR_LENGTH; // in screen heights
+        if (l < 0.0005f) {
+            return new float[2];
+        }
+        float d = (float) Math.sqrt(smearX * smearX + smearY * smearY);
+        return d == 0 ? new float[2] : new float[] {smearX / d * l / aspect(), smearY / d * l};
+    }
+
+    private static float aspect() {
+        var win = Minecraft.getInstance().getWindow();
+        return (float) win.getWidth() / Math.max(1, win.getHeight());
+    }
+
     private static void draw(Camera camera, double pt, float regionScale) {
         if (shader == null) {
             return;
@@ -100,6 +161,9 @@ public final class ColorGrade {
             any |= Math.abs(off) > 0.002f;
             v[i] = i == 2 ? off : Math.max(0, NEUTRAL[i] + off); // warmth goes both ways
         }
+        float smearGrade = (region ? Atmosphere.grade(SMEAR, pt) * strength : 0) + RingSight.grade(SMEAR, pt);
+        float[] smear = smear(camera, still ? 0 : smearGrade * LotrClientConfig.ATMOSPHERE_SMEAR.get().floatValue());
+        any |= smear[0] != 0 || smear[1] != 0;
         float[] tint = RingSight.tint(pt);
         float[] glow = new float[3];
         float[] eye = RingSight.eye(camera, pt, glow);
@@ -124,6 +188,7 @@ public final class ColorGrade {
         for (int i = 0; i < v.length; i++) {
             shader.safeGetUniform(UNIFORMS[i]).set(v[i]);
         }
+        shader.safeGetUniform("Smear").set(smear[0], smear[1]);
         shader.safeGetUniform("Tint").set(tint[0], tint[1], tint[2], tint[3]);
         shader.safeGetUniform("Eye").set(eye[0], eye[1], still ? 0 : 1, eye[2]);
         shader.safeGetUniform("EyeGlow").set(glow[0], glow[1], glow[2]);
