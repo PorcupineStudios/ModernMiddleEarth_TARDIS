@@ -137,6 +137,7 @@
       "lotr_port:mirkwood_spider_nests/ground_webs"
     ],
     [
+      "lotr_port:road_verge",
       "minecraft:freeze_top_layer"
     ]
   ]
