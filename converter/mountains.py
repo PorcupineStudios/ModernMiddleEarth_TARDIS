@@ -16,6 +16,9 @@ import os
 import sys
 
 from woodsets import OUT, write_json
+import flowers
+
+SPARSE = f"lotr_port:{flowers.VANILLA_SPARSE['name']}"
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 NS = "lotr_port"
@@ -60,6 +63,7 @@ class Mountains:
         self.biomes = os.path.join(self.data, "worldgen", "biome")
 
     def run(self):
+        flowers.write_sparse(os.path.join(self.out, "data"), write_json)
         counts = {"snow_rules": self.snow(), "biomes": 0}
         tags = {"minecraft:spawns_snow_foxes": [], "minecraft:spawns_white_rabbits": [],
                 "minecraft:spawns_gold_rabbits": [], "minecraft:is_mountain": []}
@@ -78,7 +82,7 @@ class Mountains:
                 tags["minecraft:is_mountain"].append(name)
             if foothills:
                 tags["minecraft:is_mountain"].append(name)
-                self.features(b, 9, ["minecraft:patch_tall_grass_2", "minecraft:flower_meadow"])
+                self.features(b, 9, ["minecraft:patch_tall_grass_2", SPARSE])  # vanilla flowers, sparse
             if cold_land and not high:
                 add.append(RABBITS)
                 if name not in ("forodwaith_glacier",):

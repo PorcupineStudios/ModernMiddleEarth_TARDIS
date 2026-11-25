@@ -107,7 +107,7 @@
       "lotr_port:plant_extra/blackberry_bush_r80",
       "minecraft:glow_lichen",
       "minecraft:patch_tall_grass_2",
-      "minecraft:flower_meadow"
+      "lotr_port:vanilla_flowers_sparse"
     ],
     [
       "lotr_port:road_verge",

@@ -97,7 +97,7 @@
       "lotr_port:plant_extra/minecraft_short_grass_r32",
       "minecraft:glow_lichen",
       "minecraft:patch_tall_grass_2",
-      "minecraft:flower_meadow"
+      "lotr_port:vanilla_flowers_sparse"
     ],
     [
       "lotr_port:road_verge",
