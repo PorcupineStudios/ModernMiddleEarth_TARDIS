@@ -162,7 +162,7 @@ final class WorldCheck {
 
     /**
      * Builds the nearest enclosure of each kind to the spawn (the Shire's fenced orchards and corn fields) and checks
-     * them: a fence, hedge, gate or post on 80% of the fence's dry columns, trees in orchards, corn on half the plot.
+     * them: a fence, hedge, gate or post on 80% of the fence's dry columns, trees in orchards, corn on a third of the plot (rows).
      */
     private static String enclosuresAreBuilt(ServerLevel level) {
         MiddleEarthMap map = ((MapBiomeSource) level.getChunkSource().getGenerator().getBiomeSource()).map();
@@ -237,7 +237,8 @@ final class WorldCheck {
                 return "enclosure " + e.kind().name() + " at " + e.minX() + "," + e.minZ() + " is fenced on only "
                         + fenced + " of " + fenceColumns + " columns";
             }
-            if (e.kind().name().contains("corn") && corn < inside / 2) {
+            // rows every other column (row_spacing 2) and the headland: a little under half the columns hold corn
+            if (e.kind().name().contains("corn") && corn < inside / 3) {
                 return "corn field at " + e.minX() + "," + e.minZ() + " has corn on " + corn + " of " + inside;
             }
             if (e.kind().name().contains("orchard") && logs == 0) {

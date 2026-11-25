@@ -1,6 +1,7 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "lotr_port:block/tall_grass_flower"
+    "layer0": "lotr_port:block/tall_grass_flower",
+    "layer1": "lotr_port:block/tall_grass_flower_overlay"
   }
 }

@@ -15,9 +15,10 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 /**
- * Flowers, grass, saplings and crops from the converter. Like vanilla's bushes they grow on dirt and farmland, and
- * also on the blocks in their own tag {@code lotr_port:grows_on/<plant>} (data; the converter fills it with the ground
- * LOTR's plant census found them on: Harad flowers on sand, arid grass...).
+ * Flowers, grass, saplings and crops from the converter. Like vanilla's bushes they grow on dirt, and also on the
+ * blocks in their own tag {@code lotr_port:grows_on/<plant>} (data; the converter fills it with the ground LOTR's
+ * plant census found them on: Harad flowers on sand, arid grass...). Not on farmland unless that tag says so: world
+ * gen's plant patches only ask whether a plant would survive, and grass grew on the fields of farms and plots.
  */
 public class PlantBlock extends BushBlock {
     private static final VoxelShape SHAPE = Block.box(2, 0, 2, 14, 13, 14);
@@ -36,7 +37,7 @@ public class PlantBlock extends BushBlock {
 
     @Override
     protected boolean mayPlaceOn(BlockState state, BlockGetter level, BlockPos pos) {
-        if (super.mayPlaceOn(state, level, pos)) {
+        if (super.mayPlaceOn(state, level, pos) && !state.is(net.minecraft.world.level.block.Blocks.FARMLAND)) {
             return true;
         }
         if (growsOn == null) {
@@ -49,6 +50,7 @@ public class PlantBlock extends BushBlock {
 
     @Override
     protected VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
-        return SHAPE;
+        net.minecraft.world.phys.Vec3 offset = state.getOffset(level, pos); // zero unless the entry has an offset
+        return SHAPE.move(offset.x, offset.y, offset.z);
     }
 }

@@ -112,7 +112,10 @@ VARIANTS = {
 # per chunk or a fraction, "land" | "plants" | "chunk"); "chunk" features run once per chunk and gate themselves.
 _MEADOW = ["minecraft:flower_meadow", "minecraft:patch_tall_grass"]
 _HEATH = {"variation": 0.95, "trees": (0.3, [("birch", 3), ("pine", 2), ("oak_shrub", 3)]),
-          "extras": [("heather", 3, "plants"), ("coarse_ground", 2, "land"), ("ferns", 1, "plants")]}
+          # heather: one 24-try patch a chunk, ~2.7 plants at PLANT_YIELD = LOTR's Shire Moors (3.1 per chunk in the
+          # census, its most heathery biome; LOTR had no heather in Eriador at all). Three 48-try patches were ~16,
+          # five times that (Aaron 2026-11-25: "a LOT of shire heather").
+          "extras": [("heather", 1, "plants"), ("coarse_ground", 2, "land"), ("ferns", 1, "plants")]}
 _COPSES = {"trees": (2, [("oak", 4), ("beech", 3), ("chestnut", 2), ("birch", 2), ("oak_large", 1)]),
            "flowers": ["minecraft:flower_default"]}
 _TORS = {"variation": 1.55, "flowers": ["minecraft:patch_tall_grass"],
@@ -199,7 +202,7 @@ def _column(blocks, lo, hi):
 
 
 VARIANT_FEATURES = {
-    "heather": _patch([(f"{NS}:shire_heather", 6), ("minecraft:short_grass", 2), (f"{NS}:thistle", 1)]),
+    "heather": _patch([(f"{NS}:shire_heather", 6), ("minecraft:short_grass", 2), (f"{NS}:thistle", 1)], tries=24),
     "ferns": _patch([("minecraft:fern", 3), ("minecraft:large_fern", 1)], tries=32),
     "wheatgrass": _patch([(f"{NS}:wheatgrass", 4), ("minecraft:short_grass", 2), (f"{NS}:thistle", 1)]),
     "brambles": _patch([(f"{NS}:blackberry_bush", 2), (f"{NS}:wildberry_bush", 1), (f"{NS}:nettles", 2)], tries=24,
@@ -264,7 +267,10 @@ ENCLOSURES = {
                          "crop": {"block": {"Name": f"{NS}:corn_stalks", "Properties": {"age": "7", "corn": "false"}},
                                   "min_height": 2, "max_height": 2, "flag": "corn", "flag_chance": 0.35,
                                   "soil": {"Name": "minecraft:farmland", "Properties": {"moisture": "7"}},
-                                  "water_every": 0}}},
+                                  "water_every": 0,
+                                  # Aaron 2026-11-25: rows spaced apart, not a solid block of corn; a trodden
+                                  # furrow between rows (no grass grows on paths)
+                                  "row_spacing": 2, "furrow": {"Name": "minecraft:dirt_path"}}}},
         ],
     },
 }
