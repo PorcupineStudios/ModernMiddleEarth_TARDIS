@@ -38,7 +38,9 @@ import net.minecraft.world.level.levelgen.Heightmap;
  * round each (the ring round them generated too, so plants spilling in from neighbours are there), every column
  * followed from its top through plants, leaves, water and snow to the ground, each plant counted once by its bottom
  * block under the column's biome. Writes {@code plant_census_port.json} in the run folder ({@code converter/
- * plant_compare.py} sets it against LOTR's) and stops the JVM without saving.
+ * plant_compare.py} sets it against LOTR's) and stops the JVM without saving. {@code -Dlotr_port.plantcensus.biomes=
+ * shire,bree} samples only those biomes (map ids without namespace); {@code -Dlotr_port.plantcensus.variants=true}
+ * tallies a column in a variant patch under {@code <biome>#<variant>} (the Shire's meadows, orchards...).
  */
 public final class PortPlantCensus {
     private static final int SIDE = 4;
@@ -53,6 +55,7 @@ public final class PortPlantCensus {
     }
 
     private static Job job;
+    private static boolean variants;
 
     /** The census's state between server ticks: one patch a tick, so loaded chunks can unload in between. */
     private static final class Job {
@@ -80,7 +83,14 @@ public final class PortPlantCensus {
         Job j = new Job(server.overworld(), server.getServerDirectory().resolve("plant_census_port.json"));
         MiddleEarthMap map = MiddleEarthMap.get();
         Random random = new Random(1L);
+        String only = System.getProperty("lotr_port.plantcensus.biomes");
+        Set<String> wanted = only == null ? null : new HashSet<>(java.util.Arrays.asList(only.split(",")));
+        variants = Boolean.getBoolean("lotr_port.plantcensus.variants");
         for (int b = 0; b < map.biomes().size(); b++) {
+            String id = map.biomes().get(b).id();
+            if (wanted != null && !wanted.contains(id.substring(id.indexOf(':') + 1))) {
+                continue;
+            }
             List<int[]> pixels = map.pixelCentres(b, 1_000_000);
             for (int p = 0; p < patches && !pixels.isEmpty(); p++) {
                 j.spots.add(pixels.get(random.nextInt(pixels.size())));
@@ -170,6 +180,12 @@ public final class PortPlantCensus {
         int top = level.getHeight(Heightmap.Types.WORLD_SURFACE, x, z) - 1;
         pos.setY(top);
         String biome = level.getBiome(pos).unwrapKey().map(k -> k.location().toString()).orElse("?");
+        if (variants) {
+            String variant = MiddleEarthMap.get().variantAt(x, z);
+            if (variant != null) {
+                biome += "#" + variant;
+            }
+        }
         Tally tally = tallies.computeIfAbsent(biome, k -> new Tally());
         tally.columns++;
         for (int y = top; y >= Math.max(level.getMinBuildHeight(), top - DEPTH); y--) {
