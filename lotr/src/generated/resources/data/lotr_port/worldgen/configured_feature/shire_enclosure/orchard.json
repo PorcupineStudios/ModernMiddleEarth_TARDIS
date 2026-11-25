@@ -1,0 +1,19 @@
+{
+  "type": "lotr_port:enclosure",
+  "config": {
+    "kind": "orchard",
+    "fence": {
+      "Name": "lotr_port:apple_fence"
+    },
+    "gate": {
+      "Name": "lotr_port:apple_fence_gate"
+    },
+    "path": {
+      "Name": "minecraft:dirt_path"
+    },
+    "headland": 1,
+    "spacing": 7,
+    "fill": 0.9,
+    "trees": "lotr_port:shire_enclosure/orchard_trees"
+  }
+}

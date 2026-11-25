@@ -3,10 +3,10 @@
   "config": {
     "features": [
       {
-        "feature": "lotr_port:tree/apple",
+        "feature": "lotr_port:tree/willow",
         "chance": 0.5
       }
     ],
-    "default": "lotr_port:tree/pear"
+    "default": "lotr_port:tree/oak_swamp"
   }
 }

@@ -1,0 +1,22 @@
+{
+  "comment": "Enchanted Mirkwood (The Hobbit): close, sleepy murk; a dreamy glow in the dim green",
+  "biomes": [
+    "mirkwood_enchanted",
+    "enchanted_river"
+  ],
+  "priority": 12,
+  "fog_start": 0.0,
+  "fog_end": 0.28,
+  "fog_color": "#2B3328",
+  "fog_color_strength": 0.75,
+  "filter": "#1A2414",
+  "filter_alpha": 0.18,
+  "grade": {
+    "saturation": -0.28,
+    "contrast": 0.06,
+    "warmth": -0.06,
+    "brightness": -0.15,
+    "vignette": 0.55,
+    "bloom": 0.12
+  }
+}

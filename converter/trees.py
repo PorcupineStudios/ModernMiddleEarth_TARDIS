@@ -290,8 +290,9 @@ class Trees:
             self.written.add(name)
         return f"{NS}:tree/{name}"
 
-    def biome(self, biome_id, b):
-        """The biome's tree placed feature id, or None when it has no trees."""
+    def biome(self, biome_id, b, enclosed=False):
+        """The biome's tree placed feature id, or None when it has no trees. enclosed: the biome has enclosures
+        (fenced orchards and fields, world.py ENCLOSURES), which its own trees stay out of."""
         trees = [(t["type"], t.get("weight", 1)) for t in b.get("trees", []) if t.get("type") and t["type"] != "NULL"]
         per_chunk = b.get("decorator", {}).get("treesPerChunk", 0)
         if not trees:
@@ -312,7 +313,7 @@ class Trees:
         write_json(os.path.join(self.data, "placed_feature", "trees", biome_id + ".json"), {
             "feature": f"{NS}:trees/{biome_id}",
             "placement": count + [
-                {"type": "minecraft:in_square"},
+                {"type": "minecraft:in_square"}] + ([{"type": f"{NS}:outside_enclosures"}] if enclosed else []) + [
                 {"type": "minecraft:surface_water_depth_filter", "max_water_depth": 0},
                 {"type": "minecraft:heightmap", "heightmap": "OCEAN_FLOOR"},
                 {"type": "minecraft:biome"},

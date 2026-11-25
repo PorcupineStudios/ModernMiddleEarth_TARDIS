@@ -24,7 +24,7 @@ import net.minecraft.world.level.levelgen.Heightmap;
  * Dev tool (Aaron 2026-11-14, tuning the Shire): {@code -Dlotr_port.terrainpreview=<x>,<z>,<size>} on a server of the
  * Middle-earth world type generates the square of {@code size} blocks round x, z, writes {@code terrain_preview/}
  * in the run folder ({@code relief.png}: shaded ground, water blue, tree crowns dark; {@code variants.png}: the biome
- * variant patches over the relief; {@code stats.txt}) and stops the JVM without saving ({@code
+ * variant patches over the relief; {@code blocks.png}: each column's top block in its map colour; {@code stats.txt}) and stops the JVM without saving ({@code
  * -Dlotr_port.terrainpreview.save=true}: stops normally and saves the world, to look round it with a client). Stats: water share, slope
  * percentiles, and overhangs (columns with air within 6 blocks under the ground's top, above sea level; trees are
  * looked through), with the first few spots.
@@ -58,6 +58,9 @@ public final class TerrainPreview {
         int z0 = cz - size / 2;
         int[] ground = new int[size * size];
         int[] kind = new int[size * size]; // 0 ground, 1 water, 2 tree crown
+        int[] seen = new int[size * size]; // map colour of the top block seen from above (blocks.png)
+        Map<String, Integer> grounds = new HashMap<>(); // what the ground is made of
+        int webColumns = 0;
         boolean[] overhang = new boolean[size * size];
         int sea = level.getSeaLevel();
         int overhangs = 0;
@@ -76,14 +79,24 @@ public final class TerrainPreview {
                         int top = chunk.getHeight(Heightmap.Types.MOTION_BLOCKING, i, k);
                         int y = top;
                         boolean crown = false;
+                        int above = chunk.getHeight(Heightmap.Types.WORLD_SURFACE, i, k) - 1;
+                        BlockState first = level.getBlockState(m.set(x, above, z));
+                        seen[(z - z0) * size + (x - x0)] = first.getMapColor(level, m).col;
                         BlockState s = level.getBlockState(m.set(x, y, z));
-                        // look through trees, plants and air down to the ground
+                        boolean web = false;
+                        // look through trees, plants, webs and air down to the ground
                         while (y > level.getMinBuildHeight() && (s.isAir() || s.is(BlockTags.LEAVES)
-                                || s.is(BlockTags.LOGS) || s.canBeReplaced() && s.getFluidState().isEmpty())) {
+                                || s.is(BlockTags.LOGS) || s.is(net.minecraft.world.level.block.Blocks.COBWEB)
+                                || s.is(net.minecraft.world.level.block.Blocks.MUSHROOM_STEM)
+                                || s.canBeReplaced() && s.getFluidState().isEmpty())) {
                             crown |= s.is(BlockTags.LEAVES);
+                            web |= s.is(net.minecraft.world.level.block.Blocks.COBWEB);
                             y--;
                             s = level.getBlockState(m.set(x, y, z));
                         }
+                        webColumns += web ? 1 : 0;
+                        grounds.merge(net.minecraft.core.registries.BuiltInRegistries.BLOCK.getKey(s.getBlock())
+                                .getPath(), 1, Integer::sum);
                         int idx = (z - z0) * size + (x - x0);
                         boolean water = !s.getFluidState().isEmpty();
                         if (water) {
@@ -160,6 +173,22 @@ public final class TerrainPreview {
         }
         ImageIO.write(relief, "png", out.resolve("overhangs.png").toFile()); // the relief with overhangs in red
         ImageIO.write(variants, "png", out.resolve("variants.png").toFile());
+        // blocks.png (2026-11-25): what a bird sees, each column the map colour of its top block, shaded by the
+        // ground's slope; enclosures' fences, crops, walls and webs show up here
+        BufferedImage blocks = new BufferedImage(size, size, BufferedImage.TYPE_INT_RGB);
+        for (int z = 0; z < size; z++) {
+            for (int x = 0; x < size; x++) {
+                int idx = z * size + x;
+                int g = ground[idx];
+                double dx = x + 1 < size ? ground[idx + 1] - g : g - ground[idx - 1];
+                double dz = z + 1 < size ? ground[idx + size] - g : g - ground[idx - size];
+                double shade = Math.max(0.5, Math.min(1.2, 0.9 - 0.12 * (dx + dz)));
+                int c = seen[idx];
+                blocks.setRGB(x, z, rgb(((c >> 16) & 255) * shade, ((c >> 8) & 255) * shade, (c & 255) * shade));
+            }
+        }
+        ImageIO.write(blocks, "png", out.resolve("blocks.png").toFile());
+        Files.writeString(out.resolve("enclosures.txt"), enclosures(level, map, x0, z0, size));
         double[] s = Arrays.copyOf(slopes, n);
         Arrays.sort(s);
         StringBuilder stats = new StringBuilder();
@@ -171,9 +200,52 @@ public final class TerrainPreview {
                 100.0 * overhangs / (size * size), spots));
         counts.forEach((k, c) -> stats.append(String.format("variant %s %.1f%% colour %06X%n", k,
                 100.0 * c / (size * size), k.equals("plain") ? 0x808080 : colours.getOrDefault(k, 0))));
+        stats.append(String.format("columns with webs %.2f%%%n", 100.0 * webColumns / (size * size)));
+        grounds.entrySet().stream().sorted((a, b) -> b.getValue() - a.getValue()).limit(12).forEach(g ->
+                stats.append(String.format("ground %s %.1f%%%n", g.getKey(), 100.0 * g.getValue() / (size * size))));
         stats.append(String.format("took %d s%n", (System.nanoTime() - start) / 1_000_000_000L));
         Files.writeString(out.resolve("stats.txt"), stats.toString());
         LotrPort.LOG.info("[preview]\n{}", stats);
+    }
+
+    /**
+     * Each enclosure inside the square drawn as its top blocks, a character a block: F fence, G gate, P post (log), H
+     * hedge (leaves), C corn, f farmland, p path, T tree log, L leaves, w water, . grass or dirt, ? anything else.
+     */
+    private static String enclosures(ServerLevel level, MiddleEarthMap map, int x0, int z0, int size) {
+        StringBuilder sb = new StringBuilder();
+        java.util.Set<String> seen = new java.util.HashSet<>();
+        for (int cx = Math.floorDiv(x0, 128); cx <= Math.floorDiv(x0 + size - 1, 128); cx++) {
+            for (int cz = Math.floorDiv(z0, 128); cz <= Math.floorDiv(z0 + size - 1, 128); cz++) {
+                var e = map.enclosureInCellOf(cx * 128, cz * 128);
+                if (e == null || e.minX() < x0 || e.minZ() < z0 || e.maxX() >= x0 + size || e.maxZ() >= z0 + size
+                        || !seen.add(e.minX() + "," + e.minZ())) {
+                    continue;
+                }
+                sb.append(e.kind().name()).append(" at ").append(e.minX()).append(',').append(e.minZ()).append(' ')
+                        .append(e.sizeX()).append('x').append(e.sizeZ()).append(" level ").append(e.level())
+                        .append('\n');
+                BlockPos.MutableBlockPos m = new BlockPos.MutableBlockPos();
+                for (int z = e.minZ() - 1; z <= e.maxZ() + 1; z++) {
+                    for (int x = e.minX() - 1; x <= e.maxX() + 1; x++) {
+                        int y = level.getHeight(Heightmap.Types.WORLD_SURFACE, x, z) - 1;
+                        BlockState b = level.getBlockState(m.set(x, y, z));
+                        String id = net.minecraft.core.registries.BuiltInRegistries.BLOCK.getKey(b.getBlock()).getPath();
+                        char c = b.getBlock() instanceof net.minecraft.world.level.block.FenceGateBlock ? 'G'
+                                : b.getBlock() instanceof net.minecraft.world.level.block.FenceBlock ? 'F'
+                                : id.equals("corn_stalks") ? 'C' : id.equals("farmland") ? 'f'
+                                : id.equals("dirt_path") ? 'p' : !b.getFluidState().isEmpty() ? 'w'
+                                : b.is(BlockTags.LEAVES) ? (e.onFence(x, z) ? 'H' : 'L')
+                                : b.is(BlockTags.LOGS) ? (e.onFence(x, z) ? 'P' : 'T')
+                                : id.contains("grass") || id.contains("dirt") || b.canBeReplaced() ? '.' : '?';
+                        sb.append(c);
+                    }
+                    sb.append('\n');
+                }
+                sb.append('\n');
+            }
+        }
+        return sb.toString();
     }
 
     private static int rgb(double r, double g, double b) {

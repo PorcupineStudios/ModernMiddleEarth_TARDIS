@@ -91,10 +91,182 @@ VARIANTS = {
         {"name": "birch_wood", "weight": 1,
          "trees": (7, [("birch", 5), ("birch_large", 2), ("birch_tall", 2)])},
         {"name": "aspen_wood", "weight": 1, "trees": (7, [("aspen", 5), ("aspen_large", 2)])},
-        {"name": "orchard", "weight": 2, "downs": 0.6, "variation": 0.6,
-         "orchard": (7, 0.85, [("apple", 1), ("pear", 1)])},
-        {"name": "plum_orchard", "weight": 1, "downs": 0.6, "variation": 0.6, "orchard": (7, 0.85, [("plum", 1)])},
+        # Aaron 2026-11-25: the 176-block orchard patches became small fenced orchards (ENCLOSURES); their patches,
+        # same weight and place in the list so every other patch stays where it was, are the Shire's open farmland,
+        # where most of the fenced orchards and fields lie
+        {"name": "farmland", "weight": 3, "downs": 0.6, "variation": 0.6,
+         "flowers": ["minecraft:patch_tall_grass"]},
     ]},
+}
+
+# Eriador's wide lands (Aaron 2026-11-25: Eriador is "primarily just travelled through, the biomes should be large
+# scale to avoid players changing biomes too often during travels but there still being variation"). On LOTR's map
+# Eriador is one biome of ~1100 km2 (Lone-lands 650, Minhiriath 520, Enedwaith 750), so a traveller rode through the
+# same land for 20 km. Here each gets patches about as wide as a ride of a minute or two (cell 640-768 blocks; the
+# Shire's are 176), with meandering edges (warp) and plants thinning out over ~50 blocks (feather). The kinds follow
+# Tolkien's Eriador: the grass and heath of a land emptied when Arnor fell ("the Lone-lands"), the tors and standing
+# stones of the Downs, the remnants of the old forests that once covered Minhiriath and Enedwaith (felled by the
+# Numenoreans for their ships: stump-lands and young regrowth), pinewoods towards Evendim and the north, thickets in
+# the Lone-lands, and Arnor's lost farms: tumbled dry-stone field walls and fruit trees gone wild.
+# trees: (per chunk, a fraction = 1 in n chunks; [(tree, weight)]); extras: (configured feature under variant/,
+# per chunk or a fraction, "land" | "plants" | "chunk"); "chunk" features run once per chunk and gate themselves.
+_MEADOW = ["minecraft:flower_meadow", "minecraft:patch_tall_grass"]
+_HEATH = {"variation": 0.95, "trees": (0.3, [("birch", 3), ("pine", 2), ("oak_shrub", 3)]),
+          "extras": [("heather", 3, "plants"), ("coarse_ground", 2, "land"), ("ferns", 1, "plants")]}
+_COPSES = {"trees": (2, [("oak", 4), ("beech", 3), ("chestnut", 2), ("birch", 2), ("oak_large", 1)]),
+           "flowers": ["minecraft:flower_default"]}
+_TORS = {"variation": 1.55, "flowers": ["minecraft:patch_tall_grass"],
+         "extras": [("grey_boulder", 1, "land"), ("mossy_boulder", 0.5, "land"), ("standing_stone", 1 / 40, "land")]}
+_OLD_FIELDS = {"variation": 0.6, "flowers": _MEADOW, "trees": (0.25, [("oak", 3), ("apple", 1), ("pear", 1)]),
+               "extras": [("old_walls", 1, "chunk")]}
+_THICKETS = {"trees": (3, [("oak_shrub", 4), ("pine_shrub", 2), ("birch", 1)]),
+             "extras": [("brambles", 2, "plants")]}
+_WILD = {"cell": 768, "chance": 0.9, "warp": 0.35, "feather": 56}
+
+
+def _v(name, weight, base=None, **kw):
+    out = {"name": name, "weight": weight}
+    out.update(base or {})
+    out.update(kw)
+    return out
+
+
+VARIANTS.update({
+    "eriador": dict(_WILD, list=[
+        _v("wild_meadows", 3, variation=0.75, flowers=_MEADOW),
+        _v("heath", 3, _HEATH),
+        _v("copses", 3, _COPSES),
+        _v("old_woods", 2, variation=1.1, trees=(9, [("oak_large", 4), ("oak", 3), ("beech_large", 2),
+                                                     ("beech", 2), ("chestnut_large", 1), ("oak_tall", 1)]),
+           extras=[("ferns", 1, "plants")]),
+        _v("pinewood", 1, trees=(6, [("spruce", 4), ("pine", 3), ("larch", 2), ("fir", 2)]),
+           extras=[("ferns", 2, "plants")]),
+        _v("tors", 2, _TORS),
+        _v("old_fields", 2, _OLD_FIELDS),
+    ]),
+    "lone_lands": dict(_WILD, cell=640, list=[
+        _v("heath", 3, _HEATH),
+        _v("stony_hills", 3, _TORS, variation=1.5,
+           extras=[("grey_boulder", 2, "land"), ("coarse_ground", 1, "land"), ("standing_stone", 1 / 60, "land")]),
+        _v("thickets", 2, _THICKETS),
+        _v("pines", 2, trees=(3, [("pine", 4), ("spruce", 2), ("larch", 1)])),
+        _v("dry_grass", 2, variation=0.8, flowers=["minecraft:patch_tall_grass"],
+           extras=[("wheatgrass", 3, "plants")]),
+        _v("old_fields", 1, _OLD_FIELDS),
+    ]),
+    "minhiriath": dict(_WILD, list=[
+        _v("stump_lands", 3, variation=0.7, flowers=["minecraft:patch_tall_grass"],
+           trees=(0.5, [("birch", 2), ("aspen", 2), ("oak", 1)]), extras=[("stumps", 3, "land")]),
+        _v("regrowth", 3, trees=(5, [("birch", 3), ("aspen", 2), ("oak", 2), ("beech", 1), ("birch_tall", 1)])),
+        _v("old_fields", 2, _OLD_FIELDS),
+        _v("wild_meadows", 2, variation=0.75, flowers=_MEADOW),
+        _v("wetland", 1, variation=0.45, trees=(1, [("willow", 2), ("oak_swamp", 2)]),
+           extras=[("ferns", 2, "plants")]),
+    ]),
+    "enedwaith": dict(_WILD, list=[
+        _v("grassland", 3, variation=0.8, flowers=["minecraft:patch_tall_grass"],
+           extras=[("wheatgrass", 2, "plants")]),
+        _v("scrub", 2, _THICKETS),
+        _v("copses", 2, _COPSES),
+        _v("tors", 2, _TORS),
+        _v("heath", 1, _HEATH),
+    ]),
+})
+
+# Configured features the variants' extras use (configured_feature/variant/<name>.json).
+def _patch(blocks, tries=48, spread=6):
+    """A random patch of plants (weighted blocks) on grass."""
+    provider = ({"type": "minecraft:simple_state_provider", "state": {"Name": blocks[0][0]}} if len(blocks) == 1 else
+                {"type": "minecraft:weighted_state_provider",
+                 "entries": [{"data": {"Name": b}, "weight": w} for b, w in blocks]})
+    return {"type": "minecraft:random_patch", "config": {"tries": tries, "xz_spread": spread, "y_spread": 3, "feature": {
+        "feature": {"type": "minecraft:simple_block", "config": {"to_place": provider}},
+        "placement": [{"type": "minecraft:block_predicate_filter", "predicate": {"type": "minecraft:all_of", "predicates": [
+            {"type": "minecraft:matching_blocks", "blocks": "minecraft:air"},
+            {"type": "minecraft:matching_blocks", "offset": [0, -1, 0],
+             "blocks": ["minecraft:grass_block", "minecraft:podzol", "minecraft:coarse_dirt", "minecraft:dirt"]}]}}]}}}
+
+
+def _column(blocks, lo, hi):
+    """A column of blocks lo-hi high standing on the ground (standing stones, stumps)."""
+    provider = ({"type": "minecraft:simple_state_provider", "state": blocks[0][0]} if len(blocks) == 1 else
+                {"type": "minecraft:weighted_state_provider",
+                 "entries": [{"data": b, "weight": w} for b, w in blocks]})
+    return {"type": "minecraft:block_column", "config": {
+        "direction": "up", "allowed_placement": {"type": "minecraft:matching_blocks", "blocks": "minecraft:air"},
+        "prioritize_tip": False, "layers": [{"height": {"type": "minecraft:uniform", "min_inclusive": lo,
+                                                        "max_inclusive": hi}, "provider": provider}]}}
+
+
+VARIANT_FEATURES = {
+    "heather": _patch([(f"{NS}:shire_heather", 6), ("minecraft:short_grass", 2), (f"{NS}:thistle", 1)]),
+    "ferns": _patch([("minecraft:fern", 3), ("minecraft:large_fern", 1)], tries=32),
+    "wheatgrass": _patch([(f"{NS}:wheatgrass", 4), ("minecraft:short_grass", 2), (f"{NS}:thistle", 1)]),
+    "brambles": _patch([(f"{NS}:blackberry_bush", 2), (f"{NS}:wildberry_bush", 1), (f"{NS}:nettles", 2)], tries=24,
+                       spread=4),
+    "coarse_ground": {"type": "minecraft:disk", "config": {
+        "state_provider": {"fallback": {"type": "minecraft:weighted_state_provider", "entries": [
+            {"data": {"Name": "minecraft:coarse_dirt"}, "weight": 3}, {"data": {"Name": "minecraft:gravel"}, "weight": 1}]},
+            "rules": []},
+        "target": {"type": "minecraft:matching_blocks", "blocks": ["minecraft:grass_block"]},
+        "radius": {"type": "minecraft:uniform", "min_inclusive": 2, "max_inclusive": 4}, "half_height": 1}},
+    "grey_boulder": {"type": "minecraft:forest_rock", "config": {"state": {"Name": "minecraft:andesite"}}},
+    "mossy_boulder": {"type": "minecraft:forest_rock", "config": {"state": {"Name": "minecraft:mossy_cobblestone"}}},
+    "standing_stone": _column([({"Name": "minecraft:stone"}, 3), ({"Name": "minecraft:andesite"}, 1)], 2, 4),
+    "stumps": _column([({"Name": "minecraft:oak_log"}, 3), ({"Name": "minecraft:birch_log"}, 1)], 1, 2),
+    # Arnor's tumbled field walls: LOTR's dry-stone with cobble, fields ~44 blocks across
+    "old_walls": {"type": f"{NS}:old_walls", "config": {
+        "blocks": [{"data": {"Name": f"{NS}:drystone"}, "weight": 5}, {"data": {"Name": "minecraft:cobblestone"}, "weight": 2},
+                   {"data": {"Name": "minecraft:mossy_cobblestone"}, "weight": 3}],
+        "field": 44, "keep": 0.6, "ruin": 0.45, "tall": 0.35, "variants": ["old_fields"]}},
+}
+
+# Enclosures (Aaron 2026-11-25: the Shire's orchards "flatter and a lot smaller, also it should be enclosed in
+# fences", and "a farmer's field with 2 block high crops, research farmer maggot's fields ... think about how big it
+# makes sense for farmland to be and tie that into the min/max size"): map/Enclosures (terrain) and the
+# lotr_port:enclosure feature (fences, trees, crops). Sizes: a real English field of the Shire's model (enclosure-era
+# Warwickshire/Oxfordshire) is 4-8 ha, 200-280 m a side, and Bamfurlong ("bean-field", Maggot's farm in the Marish)
+# names a furlong, 220 yards. Middle-earth here is about 11x shorter than Tolkien's (the Shire is ~17 km across, his
+# ~190) while houses are full size, so fields are scaled between the two (about a quarter of real width): corn fields
+# 40-72 x 28-48 blocks (0.3 ha at most, a little hobbit field you can still get lost in, as Frodo and Sam did), orchards
+# 18-34 x 14-26 (a smial's orchard of 6-16 trees seven blocks apart, as standard orchards' 7-10 m: at six, the fruit
+# trees' branches met and chunk order decided which grew; the old patches were 176 blocks, ~50 times the
+# area). Fields gather in the farmland patches (boost), all keep 10 blocks off roads. Ground under a plot may vary by
+# max_relief before flattening, which keeps them out of the downs' steep sides. The Marish's fields have "hedges,
+# gates and dikes": a third of the corn fields are hedged instead of fenced.
+ENCLOSURES = {
+    # fade 24 (a 4-block plateau, then 20 blocks of slope): up to 10 blocks of relief eases back at under a block per
+    # block; 128 - 2 x (24 + 4) leaves exactly the 72 blocks of the longest field
+    "cell": 128, "fade": 24, "gap": 4, "road_gap": 10,
+    "biomes": {
+        "shire": [
+            {"name": "orchard", "chance": 0.07, "length": [18, 34], "width": [14, 26], "max_relief": 6,
+             "roughness": 0.1, "gates": 1, "variants": ["plain", "meadows", "farmland", "light_forest"],
+             "boost": {"farmland": 3},
+             "feature": {"fence": {"Name": f"{NS}:apple_fence"}, "gate": {"Name": f"{NS}:apple_fence_gate"},
+                         "path": {"Name": "minecraft:dirt_path"}, "headland": 1, "spacing": 7, "fill": 0.9,
+                         "trees": [("apple", 3), ("pear", 2)]}},
+            {"name": "plum_orchard", "chance": 0.035, "length": [18, 30], "width": [14, 24], "max_relief": 6,
+             "roughness": 0.1, "gates": 1, "variants": ["plain", "meadows", "farmland", "light_forest"],
+             "boost": {"farmland": 3},
+             "feature": {"fence": {"Name": f"{NS}:plum_fence"}, "gate": {"Name": f"{NS}:plum_fence_gate"},
+                         "path": {"Name": "minecraft:dirt_path"}, "headland": 1, "spacing": 7, "fill": 0.9,
+                         "trees": [("plum", 1)]}},
+            {"name": "corn_field", "chance": 0.2, "length": [40, 72], "width": [28, 48], "max_relief": 10,
+             "roughness": 0, "gates": 2, "variants": ["plain", "meadows", "farmland"], "boost": {"farmland": 3},
+             "feature": {"fence": {"Name": "minecraft:oak_fence"}, "gate": {"Name": "minecraft:oak_fence_gate"},
+                         "post": {"Name": "minecraft:oak_log", "Properties": {"axis": "y"}},
+                         "hedge": {"Name": "minecraft:oak_leaves", "Properties": {"persistent": "true",
+                                                                                  "distance": "7",
+                                                                                  "waterlogged": "false"}},
+                         "hedge_chance": 0.35, "hedge_height": 2, "path": {"Name": "minecraft:dirt_path"},
+                         "headland": 1,
+                         "crop": {"block": {"Name": f"{NS}:corn_stalks", "Properties": {"age": "7", "corn": "false"}},
+                                  "min_height": 2, "max_height": 2, "flag": "corn", "flag_chance": 0.35,
+                                  "soil": {"Name": "minecraft:farmland", "Properties": {"moisture": "7"}},
+                                  "water_every": 0}}},
+        ],
+    },
 }
 SURVEY_OFFSET = 1.0  # the survey's ground is the first air block; the port's map height lands about a block higher
 # LOTR's ground patches compare one-octave Perlin sums to thresholds; 1.18's normal noise spreads about half as wide
@@ -229,7 +401,7 @@ class World:
             if isinstance(colors.get(old), int):
                 effects[new] = colors[old] & 0xFFFFFF
         trees = dec.get("treesPerChunk", 0)
-        lotr_trees = self.trees.biome(self.biome_id(b), b)
+        lotr_trees = self.trees.biome(self.biome_id(b), b, enclosed=self.biome_id(b) in ENCLOSURES["biomes"])
         veg = set()
         if top == "minecraft:grass_block" or top.endswith("jungle_grass"):
             if trees > 0 and not lotr_trees:
@@ -265,7 +437,7 @@ class World:
         if dec.get("quagmirePerChunk", 0) > 0:  # LOTR's quagmire patches; mud round them (1.19's swamp ground)
             features[2] = [f"{NS}:quagmire_{dec['quagmirePerChunk']}", f"{NS}:mud_patch"] + features[2]
         features[9] = ([lotr_trees] if lotr_trees else []) + self.variant_plants(self.biome_id(b)) + \
-            self.forest_floor(dec) + self.marsh_plants(b) + [
+            self.enclosure_features(self.biome_id(b)) + self.forest_floor(dec) + self.marsh_plants(b) + [
             v for v in VEGETATION if v in veg]
         features[10] = ["minecraft:freeze_top_layer"]
         creatures = []
@@ -309,12 +481,16 @@ class World:
                 "config": {"features": feats, "default": f"{NS}:tree/{trees[-1][0]}"}})
             return f"{NS}:{biome}_variant/{name}"
 
+        def count(n):
+            return ([{"type": "minecraft:count", "count": round(n)}] if n >= 1
+                    else [{"type": "minecraft:rarity_filter", "chance": max(1, round(1 / n))}])
+
         for v in VARIANTS[biome]["list"]:
             gate = {"type": f"{NS}:in_variant", "variants": [v["name"]]}
             if "trees" in v:
                 n, trees = v["trees"]
                 write(v["name"] + "_trees", selector(v["name"] + "_trees", trees),
-                      [{"type": "minecraft:count", "count": n}, {"type": "minecraft:in_square"}, gate] + on_land)
+                      count(n) + [{"type": "minecraft:in_square"}, gate] + on_land)
             if "orchard" in v:
                 spacing, fill, trees = v["orchard"]
                 write(v["name"] + "_rows", selector(v["name"] + "_rows", trees),
@@ -323,6 +499,55 @@ class World:
                 write(f"{v['name']}_flowers_{i}", flower,
                       [{"type": "minecraft:count", "count": 2}, {"type": "minecraft:in_square"}, gate,
                        {"type": "minecraft:heightmap", "heightmap": "MOTION_BLOCKING"}, {"type": "minecraft:biome"}])
+            for name, n, how in v.get("extras", []):
+                feature = self.variant_feature(name)
+                if how == "chunk":  # gates itself column by column; one shared placed feature runs once a chunk
+                    shared = f"variant/{name}"
+                    write_json(os.path.join(gen, "placed_feature", shared + ".json"),
+                               {"feature": feature, "placement": []})
+                    if f"{NS}:{shared}" not in out:
+                        out.append(f"{NS}:{shared}")
+                    continue
+                where = on_land if how == "land" else [
+                    {"type": "minecraft:heightmap", "heightmap": "MOTION_BLOCKING"}, {"type": "minecraft:biome"}]
+                write(f"{v['name']}_{name}", feature, count(n) + [{"type": "minecraft:in_square"}, gate] + where)
+        return out
+
+    def variant_feature(self, name):
+        """A configured feature of VARIANT_FEATURES (written once), by id."""
+        write_json(os.path.join(self.data, NS, "worldgen", "configured_feature", "variant", name + ".json"),
+                   VARIANT_FEATURES[name])
+        return f"{NS}:variant/{name}"
+
+    def enclosure_features(self, biome):
+        """The biome's enclosure features (ENCLOSURES): one lotr_port:enclosure feature per kind, placed once a chunk
+        (the feature asks the map whether the chunk's cell has one of its kind). Written under
+        <biome>_enclosure/<kind>; orchard trees as <biome>_enclosure/<kind>_trees."""
+        kinds = ENCLOSURES["biomes"].get(biome)
+        if not kinds:
+            return []
+        gen = os.path.join(self.data, NS, "worldgen")
+        out = []
+        for k in kinds:
+            config = {"kind": k["name"]}
+            config.update({x: y for x, y in k["feature"].items() if x != "trees"})
+            if "trees" in k["feature"]:
+                trees = k["feature"]["trees"]
+                total = sum(w for _, w in trees)
+                feats, left = [], 1.0
+                for t, w in trees[:-1]:
+                    share = w / total
+                    feats.append({"feature": f"{NS}:tree/{t}", "chance": round(min(1.0, share / left), 4)})
+                    left -= share
+                write_json(os.path.join(gen, "configured_feature", f"{biome}_enclosure", k["name"] + "_trees.json"), {
+                    "type": "minecraft:random_selector",
+                    "config": {"features": feats, "default": f"{NS}:tree/{trees[-1][0]}"}})
+                config["trees"] = f"{NS}:{biome}_enclosure/{k['name']}_trees"
+            write_json(os.path.join(gen, "configured_feature", f"{biome}_enclosure", k["name"] + ".json"),
+                       {"type": f"{NS}:enclosure", "config": config})
+            write_json(os.path.join(gen, "placed_feature", f"{biome}_enclosure", k["name"] + ".json"),
+                       {"feature": f"{NS}:{biome}_enclosure/{k['name']}", "placement": []})
+            out.append(f"{NS}:{biome}_enclosure/{k['name']}")
         return out
 
     def plant_patch(self, name, block, per_chunk, tall=(1, 1), on="ground", tries=16, spread=7):
@@ -483,9 +708,8 @@ class World:
             # for MiddleEarthMap.noiseTop: the noise band's top, and where water fills to
             "noise_band": {"above": NOISE_BAND_ABOVE, "below": NOISE_BAND_BELOW, "hill_bias": HILL_BIAS,
                            "sea_level": SEA_LEVEL, "top": TOP_Y},
-            "variants": {f"{NS}:{k}": {"cell": v["cell"], "chance": v["chance"], "list": [
-                {x: e[x] for x in ("name", "weight", "downs", "variation") if x in e} for e in v["list"]]}
-                for k, v in VARIANTS.items()},
+            "variants": variants_json(),
+            "enclosures": enclosures_json(),
             "mountain_shape": MOUNTAIN_SHAPE,
             # LOTRMountains: a cone from the land up to the peak's surveyed ground over `range` blocks
             "mountains": [self.mountain(m) for m in self.survey.get("mountains", [])],
@@ -885,6 +1109,26 @@ class World:
         self.lang(biomes)
         return {"biomes": len(biomes), "map": f"{w}x{h}", "roads": road_count, "tree_types": len(self.trees.written),
                 "ore_features": ore_count}
+
+
+def variants_json():
+    """map.json "variants" (map/Variants): per biome its patch grid and kinds' terrain."""
+    out = {}
+    for k, v in VARIANTS.items():
+        entry = {"cell": v["cell"], "chance": v["chance"]}
+        entry.update({x: v[x] for x in ("warp", "feather") if x in v})
+        entry["list"] = [{x: e[x] for x in ("name", "weight", "downs", "variation") if x in e} for e in v["list"]]
+        out[f"{NS}:{k}"] = entry
+    return out
+
+
+def enclosures_json():
+    """map.json "enclosures" (map/Enclosures): the grid and each biome's kinds (sizes, chances, ground)."""
+    keys = ("name", "chance", "length", "width", "max_relief", "roughness", "gates", "variants", "boost")
+    return {"cell": ENCLOSURES["cell"], "fade": ENCLOSURES["fade"], "gap": ENCLOSURES["gap"],
+            "road_gap": ENCLOSURES["road_gap"],
+            "biomes": {f"{NS}:{b}": [{x: k[x] for x in keys if x in k} for k in kinds]
+                       for b, kinds in ENCLOSURES["biomes"].items()}}
 
 
 def noise_at(noise, lo, hi=99.0):

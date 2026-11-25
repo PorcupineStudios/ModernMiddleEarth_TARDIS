@@ -1,15 +1,17 @@
 {
-  "feature": "lotr_port:shire_variant/orchard_rows",
+  "feature": "lotr_port:enedwaith_variant/copses_trees",
   "placement": [
     {
-      "type": "lotr_port:orchard_grid",
-      "spacing": 7,
-      "fill": 0.85
+      "type": "minecraft:count",
+      "count": 2
+    },
+    {
+      "type": "minecraft:in_square"
     },
     {
       "type": "lotr_port:in_variant",
       "variants": [
-        "orchard"
+        "copses"
       ]
     },
     {

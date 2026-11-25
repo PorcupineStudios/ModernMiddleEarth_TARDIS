@@ -570,7 +570,25 @@
           "spaghettiCaves": true,
           "noodleCaves": true
         },
+        "enchanted_river": {
+          "caveEntrances": 0.0,
+          "ravines": 0.25,
+          "carverCaves": 1.0,
+          "surfaceCover": 8,
+          "cheeseCaves": true,
+          "spaghettiCaves": true,
+          "noodleCaves": true
+        },
         "mirkwood_corrupted": {
+          "caveEntrances": 0.15,
+          "ravines": 0.2,
+          "carverCaves": 1.0,
+          "surfaceCover": 8,
+          "cheeseCaves": true,
+          "spaghettiCaves": true,
+          "noodleCaves": true
+        },
+        "mirkwood_enchanted": {
           "caveEntrances": 0.15,
           "ravines": 0.2,
           "carverCaves": 1.0,
@@ -590,6 +608,15 @@
           "dripstoneCaves": 1.0
         },
         "mirkwood_north": {
+          "caveEntrances": 0.15,
+          "ravines": 0.2,
+          "carverCaves": 1.0,
+          "surfaceCover": 8,
+          "cheeseCaves": true,
+          "spaghettiCaves": true,
+          "noodleCaves": true
+        },
+        "mirkwood_spider_nests": {
           "caveEntrances": 0.15,
           "ravines": 0.2,
           "carverCaves": 1.0,

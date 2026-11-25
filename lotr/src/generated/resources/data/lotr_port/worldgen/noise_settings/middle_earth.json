@@ -6381,6 +6381,8 @@
                 "biome_is": [
                   "lotr_port:fangorn",
                   "lotr_port:mirkwood_corrupted",
+                  "lotr_port:mirkwood_enchanted",
+                  "lotr_port:mirkwood_spider_nests",
                   "lotr_port:mirkwood_north"
                 ]
               },
@@ -46957,6 +46959,7 @@
                   "lotr_port:rhun_land_steppe",
                   "lotr_port:rivendell",
                   "lotr_port:river",
+                  "lotr_port:enchanted_river",
                   "lotr_port:rohan",
                   "lotr_port:rohan_uruk_highlands",
                   "lotr_port:tower_hills",

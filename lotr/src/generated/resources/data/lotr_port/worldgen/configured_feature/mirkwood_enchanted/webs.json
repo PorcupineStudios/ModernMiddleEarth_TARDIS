@@ -1,0 +1,12 @@
+{
+  "type": "lotr_port:webs",
+  "config": {
+    "web": {
+      "Name": "minecraft:cobweb"
+    },
+    "tries": 2,
+    "min_hang": 1,
+    "max_hang": 3,
+    "ground_chance": 0.2
+  }
+}

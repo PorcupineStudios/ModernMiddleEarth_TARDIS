@@ -1,0 +1,93 @@
+{
+  "has_precipitation": true,
+  "temperature": 0.5,
+  "downfall": 0.5,
+  "effects": {
+    "fog_color": 2831144,
+    "sky_color": 5661274,
+    "water_color": 1448207,
+    "water_fog_color": 329475,
+    "mood_sound": {
+      "sound": "minecraft:ambient.cave",
+      "tick_delay": 6000,
+      "block_search_extent": 8,
+      "offset": 2.0
+    },
+    "grass_color": 3032098,
+    "foliage_color": 2505758,
+    "particle": {
+      "options": {
+        "type": "minecraft:spore_blossom_air"
+      },
+      "probability": 0.006
+    }
+  },
+  "spawners": {},
+  "spawn_costs": {},
+  "carvers": {
+    "air": [
+      "lotr_port:cave",
+      "lotr_port:cave_extra_underground",
+      "lotr_port:canyon"
+    ]
+  },
+  "features": [
+    [],
+    [
+      "lotr_port:crater_lava"
+    ],
+    [
+      "lotr_port:roads",
+      "minecraft:amethyst_geode"
+    ],
+    [],
+    [],
+    [],
+    [
+      "lotr_port:ore/amber_vein_0",
+      "lotr_port:ore/tanzanite_vein_2",
+      "lotr_port:ore/copper_ore_4",
+      "lotr_port:ore/diamond_vein_5",
+      "lotr_port:ore/emerald_vein_8",
+      "lotr_port:ore/niter_ore_23",
+      "lotr_port:ore/opal_vein_24",
+      "lotr_port:ore/rock_salt_30",
+      "lotr_port:ore/ruby_vein_32",
+      "lotr_port:ore/sapphire_vein_33",
+      "lotr_port:ore/silver_ore_35",
+      "lotr_port:ore/sulfur_ore_36",
+      "lotr_port:ore/tin_ore_37",
+      "lotr_port:ore/topaz_vein_38",
+      "lotr_port:ore/coal_ore_40",
+      "lotr_port:ore/dirt_42",
+      "lotr_port:ore/gold_ore_45",
+      "lotr_port:ore/gravel_46",
+      "lotr_port:ore/iron_ore_49",
+      "minecraft:ore_granite_upper",
+      "minecraft:ore_granite_lower",
+      "minecraft:ore_diorite_upper",
+      "minecraft:ore_diorite_lower",
+      "minecraft:ore_andesite_upper",
+      "minecraft:ore_andesite_lower",
+      "minecraft:ore_tuff",
+      "minecraft:disk_sand",
+      "minecraft:disk_clay",
+      "minecraft:disk_gravel"
+    ],
+    [
+      "lotr_port:dripstone"
+    ],
+    [],
+    [
+      "lotr_port:plant/reeds_0_9",
+      "lotr_port:plant/dried_reeds_0_1",
+      "minecraft:flower_default",
+      "minecraft:patch_grass_plain",
+      "minecraft:glow_lichen",
+      "minecraft:seagrass_river"
+    ],
+    [
+      "minecraft:freeze_top_layer"
+    ]
+  ]
+}

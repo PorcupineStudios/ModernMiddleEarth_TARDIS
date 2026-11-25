@@ -1,0 +1,36 @@
+{
+  "biome_tag": "lotr_port:enchanted_forest",
+  "rules": [
+    {
+      "when": "in_biome",
+      "interval": 200,
+      "chance": 0.35,
+      "cooldown": 600,
+      "unless": "lotr_port:enchanted_sleep",
+      "effects": [
+        {
+          "id": "lotr_port:drowsy",
+          "duration": 900,
+          "show_particles": false
+        }
+      ],
+      "message": "region_effect.lotr_port.drowsy"
+    },
+    {
+      "when": "in_biome",
+      "interval": 400,
+      "chance": 0.15,
+      "cooldown": 2400,
+      "unless": "lotr_port:enchanted_sleep",
+      "effects": [
+        {
+          "id": "minecraft:nausea",
+          "duration": 160,
+          "show_particles": false,
+          "show_icon": false
+        }
+      ],
+      "message": "region_effect.lotr_port.lost_way"
+    }
+  ]
+}
