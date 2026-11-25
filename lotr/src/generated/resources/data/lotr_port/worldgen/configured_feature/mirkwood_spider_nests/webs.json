@@ -1,0 +1,24 @@
+{
+  "type": "lotr_port:webs",
+  "config": {
+    "web": {
+      "Name": "minecraft:cobweb"
+    },
+    "tries": 40,
+    "min_hang": 2,
+    "max_hang": 6,
+    "cocoon": {
+      "Name": "minecraft:mushroom_stem",
+      "Properties": {
+        "up": "true",
+        "down": "true",
+        "north": "true",
+        "south": "true",
+        "east": "true",
+        "west": "true"
+      }
+    },
+    "cocoon_chance": 0.06,
+    "ground_chance": 0.5
+  }
+}

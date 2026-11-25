@@ -670,5 +670,17 @@
   "far_harad_kanuka": {
     "region": "far_harad",
     "sub": "kanuka"
+  },
+  "mirkwood_enchanted": {
+    "region": "mirkwood",
+    "sub": "mirkwood"
+  },
+  "mirkwood_spider_nests": {
+    "region": "mirkwood",
+    "sub": "mirkwood"
+  },
+  "enchanted_river": {
+    "region": "mirkwood",
+    "sub": "mirkwood"
   }
 }

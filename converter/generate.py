@@ -1513,6 +1513,8 @@ class Gen:
         print(json.dumps({"noisecaves": noisecaves.run(OUT)}))
         from caves import Caves
         print(json.dumps({"caves": Caves(OUT).run()}))
+        import regions
+        print(json.dumps({"regions": regions.run(OUT)}))
         import biomeconfig
         print(json.dumps({"biomeconfig": biomeconfig.run(OUT)}))
         import borders

@@ -57,6 +57,9 @@ final class WorldCheck {
                 problem = roadsAreLaid(overworld);
             }
             if (problem == null) {
+                problem = enclosuresAreBuilt(overworld);
+            }
+            if (problem == null) {
                 problem = TreeCheck.start(overworld);
             }
             if (problem == null) {
@@ -146,6 +149,93 @@ final class WorldCheck {
                         return new int[] { x, z };
                     }
                 }
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Builds the nearest enclosure of each kind to the spawn (the Shire's fenced orchards and corn fields) and checks
+     * them: a fence, hedge, gate or post on 80% of the fence's dry columns, trees in orchards, corn on half the plot.
+     */
+    private static String enclosuresAreBuilt(ServerLevel level) {
+        MiddleEarthMap map = ((MapBiomeSource) level.getChunkSource().getGenerator().getBiomeSource()).map();
+        java.util.Map<String, com.porcupinestudios.lotrport.world.map.Enclosures.Enclosure> nearest =
+                new java.util.LinkedHashMap<>();
+        for (int r = 0; r <= 24 && nearest.size() < 3; r++) {
+            for (int i = -r; i <= r; i++) {
+                for (int k = -r; k <= r; k++) {
+                    if (Math.max(Math.abs(i), Math.abs(k)) != r) {
+                        continue;
+                    }
+                    var e = map.enclosureInCellOf(i * 128, k * 128);
+                    if (e != null) {
+                        nearest.putIfAbsent(e.kind().name(), e);
+                    }
+                }
+            }
+        }
+        if (nearest.isEmpty()) {
+            return "no enclosure within 3000 blocks of the Shire's middle";
+        }
+        for (var e : nearest.values()) {
+            for (int cx = e.minX() >> 4; cx <= e.maxX() >> 4; cx++) {
+                for (int cz = e.minZ() >> 4; cz <= e.maxZ() >> 4; cz++) {
+                    level.getChunk(cx, cz);
+                }
+            }
+            int fenceColumns = 0;
+            int fenced = 0;
+            int inside = 0;
+            int corn = 0;
+            int logs = 0;
+            for (int x = e.minX(); x <= e.maxX(); x++) {
+                for (int z = e.minZ(); z <= e.maxZ(); z++) {
+                    BlockPos top = LotrDimensions.surface(level, x, z);
+                    if (e.onFence(x, z)) {
+                        BlockPos ground = top.below();
+                        if (!level.getBlockState(ground).getFluidState().isEmpty()) {
+                            continue;
+                        }
+                        fenceColumns++;
+                        for (int dy = -3; dy <= 3; dy++) {
+                            BlockState b = level.getBlockState(top.above(dy));
+                            if (b.getBlock() instanceof net.minecraft.world.level.block.FenceBlock
+                                    || b.getBlock() instanceof net.minecraft.world.level.block.FenceGateBlock
+                                    || b.is(net.minecraft.tags.BlockTags.LEAVES) || b.is(Blocks.OAK_LOG)) {
+                                fenced++;
+                                break;
+                            }
+                        }
+                        continue;
+                    }
+                    inside++;
+                    for (int dy = -12; dy <= 2; dy++) {
+                        BlockState b = level.getBlockState(top.above(dy));
+                        String id = net.minecraft.core.registries.BuiltInRegistries.BLOCK.getKey(b.getBlock()).getPath();
+                        if (id.equals("corn_stalks")) {
+                            corn++;
+                            break;
+                        }
+                        if (b.is(net.minecraft.tags.BlockTags.LOGS)) {
+                            logs++;
+                            break;
+                        }
+                    }
+                }
+            }
+            LotrPort.LOG.info("[worldcheck] enclosure {} at {},{} ({}x{}, level {}): fence {}/{}, corn {}/{}, "
+                    + "columns with logs {}", e.kind().name(), e.minX(), e.minZ(), e.sizeX(), e.sizeZ(), e.level(),
+                    fenced, fenceColumns, corn, inside, logs);
+            if (fenceColumns > 0 && fenced < fenceColumns * 0.8) {
+                return "enclosure " + e.kind().name() + " at " + e.minX() + "," + e.minZ() + " is fenced on only "
+                        + fenced + " of " + fenceColumns + " columns";
+            }
+            if (e.kind().name().contains("corn") && corn < inside / 2) {
+                return "corn field at " + e.minX() + "," + e.minZ() + " has corn on " + corn + " of " + inside;
+            }
+            if (e.kind().name().contains("orchard") && logs == 0) {
+                return "orchard at " + e.minX() + "," + e.minZ() + " has no trees";
             }
         }
         return null;

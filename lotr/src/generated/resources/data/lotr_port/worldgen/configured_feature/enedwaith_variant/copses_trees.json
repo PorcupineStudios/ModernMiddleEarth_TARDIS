@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:random_selector",
+  "config": {
+    "features": [
+      {
+        "feature": "lotr_port:tree/oak",
+        "chance": 0.3333
+      },
+      {
+        "feature": "lotr_port:tree/beech",
+        "chance": 0.375
+      },
+      {
+        "feature": "lotr_port:tree/chestnut",
+        "chance": 0.4
+      },
+      {
+        "feature": "lotr_port:tree/birch",
+        "chance": 0.6667
+      }
+    ],
+    "default": "lotr_port:tree/oak_large"
+  }
+}

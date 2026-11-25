@@ -20,15 +20,24 @@ import java.util.Map;
  * LOTR's); terrain factors are blended over nearby cells with Gaussian weights, so the ground changes smoothly from a
  * patch of hills into a meadow. Seedless: the same everywhere.
  *
+ * <p>Large patches (Eriador's, Aaron 2026-11-25: travellers shouldn't change landscape every few hundred blocks, "but
+ * there still being variation") take two more settings: {@code warp} (share of a cell the patch edges meander, by a
+ * smooth noise, so 700-block patches don't meet along straight lines) and {@code feather} (blocks over which
+ * {@link com.porcupinestudios.lotrport.world.feature.InVariant} thins plants out at an edge; 20 by default).
+ *
  * <p>map.json: {@code "variants": {"lotr_port:shire": {"cell": 176, "chance": 0.6, "list": [{"name": "hills",
- * "weight": 3, "downs": 1.6, "variation": 1.2}, ...]}}}.
+ * "weight": 3, "downs": 1.6, "variation": 1.2}, ...]}, "lotr_port:eriador": {"cell": 768, "chance": 0.9,
+ * "warp": 0.35, "feather": 56, "list": [...]}}}.
  */
 public final class Variants {
     /** One kind of patch: its name, weight among the biome's variants, and how it scales downs and hilliness. */
     public record Variant(String name, double weight, double downs, double variation) {}
 
     /** A biome's variants. */
-    record Set(int cell, double chance, List<Variant> list, double total) {}
+    record Set(int cell, double chance, List<Variant> list, double total, double warp, int feather) {}
+
+    /** How far plants of a patch reach over its edge when the biome has no feather of its own (blocks). */
+    public static final int FEATHER = 20;
 
     private final Map<Integer, Set> byBiome = new HashMap<>();
 
@@ -58,7 +67,8 @@ public final class Variants {
                 total += variant.weight();
             }
             byBiome.put(index, new Set(o.get("cell").getAsInt(), o.get("chance").getAsDouble(), List.copyOf(list),
-                    total));
+                    total, o.has("warp") ? o.get("warp").getAsDouble() : 0,
+                    o.has("feather") ? o.get("feather").getAsInt() : FEATHER));
         }
     }
 
@@ -66,11 +76,25 @@ public final class Variants {
         return byBiome.containsKey(biome);
     }
 
+    /** Blocks over which a biome's patches feather their plants out ({@link #FEATHER} without variants). */
+    int feather(int biome) {
+        Set set = byBiome.get(biome);
+        return set == null ? FEATHER : set.feather();
+    }
+
     /** The variant of the patch a column is in, for a biome with variants; null for the plain biome. */
     Variant at(int biome, int x, int z) {
         Set set = byBiome.get(biome);
         if (set == null) {
             return null;
+        }
+        if (set.warp() > 0) { // meandering edges: look the patch up at a smoothly shifted position
+            double w = set.warp() * set.cell();
+            double s = set.cell() * 0.45;
+            int wx = (int) Math.floor(x + w * warp(x / s, z / s, 0x5741525058L));
+            int wz = (int) Math.floor(z + w * warp(x / s, z / s, 0x574152505AL));
+            x = wx;
+            z = wz;
         }
         int cx = Math.floorDiv(x, set.cell());
         int cz = Math.floorDiv(z, set.cell());
@@ -137,6 +161,30 @@ public final class Variants {
             }
         }
         return set.list().get(set.list().size() - 1);
+    }
+
+    /** Smooth value noise in about [-1, 1]: an octave at the given scale and one at a third of it. */
+    private static double warp(double x, double z, long salt) {
+        return 0.75 * valueNoise(x, z, salt) + 0.25 * valueNoise(x * 3, z * 3, salt * 31 + 7);
+    }
+
+    private static double valueNoise(double x, double z, long salt) {
+        int x0 = (int) Math.floor(x);
+        int z0 = (int) Math.floor(z);
+        double tx = x - x0;
+        double tz = z - z0;
+        tx = tx * tx * (3 - 2 * tx);
+        tz = tz * tz * (3 - 2 * tz);
+        double a = lattice(x0, z0, salt);
+        double b = lattice(x0 + 1, z0, salt);
+        double c = lattice(x0, z0 + 1, salt);
+        double d = lattice(x0 + 1, z0 + 1, salt);
+        double top = a + (b - a) * tx;
+        return top + (c + (d - c) * tx - top) * tz;
+    }
+
+    private static double lattice(int x, int z, long salt) {
+        return unit(mix(x * 0x9E3779B97F4A7C15L ^ z * 0xC2B2AE3D27D4EB4FL ^ salt), 0) * 2 - 1;
     }
 
     private static long hash(int cx, int cz) {

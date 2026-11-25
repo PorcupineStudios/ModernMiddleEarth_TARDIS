@@ -70,11 +70,51 @@ https://claude.ai/artifact/KqhSSTCuKXGuwKHBoYJdcu. Rebuild features in modern co
   with LOTR's noise kept only as roughness.
 - Biome variants (2026-11-14, LOTR's LOTRBiomeVariant; Aaron: "many biomes within the Shire"): `map/Variants`, set in
   `converter/world.py VARIANTS` -> map.json `variants`. Patches of a jittered 176-block grid inside a biome (Shire:
-  meadows, light forest, forest, hills, wooded hills, birch wood, aspen wood, orchard, plum orchard; 60% of cells) that
+  meadows, light forest, forest, hills, wooded hills, birch wood, aspen wood, farmland; 60% of cells) that
   scale its downs and hilliness (blended smoothly between patches) and get their own plants: placed features
-  `<biome>_variant/*` gated by placement filter `lotr_port:in_variant` (looked up up to 20 blocks away, so edges
-  feather) and orchard rows by `lotr_port:orchard_grid`. Not separate biomes, as in LOTR: NPCs, structures, roads,
+  `<biome>_variant/*` gated by placement filter `lotr_port:in_variant` (looked up up to the biome's `feather`, 20 by
+  default, away, so edges feather). `lotr_port:orchard_grid` is unused since orchards became enclosures.
+  Not separate biomes, as in LOTR: NPCs, structures, roads,
   music and waypoint regions keyed to the biome are unchanged. `MiddleEarthMap.variantAt` names a column's patch.
+- Enclosures (2026-11-25, Aaron: Shire orchards "flatter and a lot smaller ... enclosed in fences", and Farmer
+  Maggot's fields with 2-block crops sized so farmland makes sense): `map/Enclosures`, set in `converter/world.py
+  ENCLOSURES` -> map.json `enclosures`. A 128-block grid (a chunk is always inside one cell); each cell holds at most one
+  plot of a kind rolled by `chance` (x `boost` in a variant patch), sized in the kind's ranges, kept only if the biome is
+  the same over it and its fade, its patch is in `variants`, no road within `road_gap` and the map's ground varies by at
+  most `max_relief`. `heightAt` flattens it to one level (fading over `fade` blocks), `variationAt` keeps `roughness` of
+  the noise. Feature `lotr_port:enclosure` (`world/feature/EnclosureFeature`, configured `shire_enclosure/<kind>`): fence
+  or (by chance) hedge, gates with dirt paths, orchard tree rows, corn 2 high on farmland. Trees stay out (placement
+  filter `lotr_port:outside_enclosures` on `trees/<biome>`, and `in_variant`), LOTR structures too (`LotrStructure`).
+  Shire: orchards 18-34 x 14-26 (apple/pear, plum; trees 7 apart: at 6 their branches met and chunk order decided
+  which grew), corn fields 40-72 x 28-48 (a third hedged, the Marish's hedgerows); flat to 4 blocks past the fence
+  (`PLATEAU`: terrain samples the map's height every 4 blocks, so a slope at the fence leaned the plot's edge), then
+  20 blocks of fade; the old 176-block orchard patches are the `farmland` variant (same weight and list place, so every other
+  patch stayed put) where most plots gather. Sizes reasoned in world.py (real fields ~200 m, Middle-earth ~11x shorter
+  than Tolkien's). GameTests `LandscapeTests`; world check builds the nearest plot of each kind.
+- Large variants (2026-11-25, Aaron: Eriador is "primarily just travelled through ... large scale ... but there still
+  being variation"): Eriador (1100 km2 as one biome on LOTR's map), Lone-lands, Minhiriath and Enedwaith have variant
+  patches of 640-768 blocks with `warp` (edges meander by noise, share of a cell) and `feather` (plants thin out over ~56
+  blocks at an edge). Kinds: meadows, heath, copses, old woods, pinewood, tors (boulders, standing stones), old fields
+  (Arnor's tumbled dry-stone walls, `lotr_port:old_walls`, and feral fruit trees), thickets, stump-lands and regrowth
+  (Minhiriath's felled forests), wetland. Extras are `configured_feature/variant/*` (world.py `VARIANT_FEATURES`).
+- Region layer (2026-11-25, Aaron: an "allowed biomes" map over the geographical one, "backend only", for the enchanted
+  forest and later Moria and Goblin-town): post-step `converter/regions.py` draws named regions in map pixels into
+  `map/regions.json` (`map/Regions`: polygons, rough circles, cut to another region); map.json `overlays` paint a
+  sub-biome over chosen biomes inside a region as the map loads (`MiddleEarthMap.paint`), so everything reading the map
+  sees it. Sub-biomes are their base biome copied fresh each run plus their own looks, plants and spawns, and join every
+  tag and table the base is in. `MiddleEarthMap.inRegion`/`regionsAt`, placement filter `lotr_port:in_region`. Moria
+  and Goblin-town are drawn (reserved) but nothing generates there yet: an underground phase would answer
+  `MapBiomeSource.getNoiseBiome` by y inside those regions.
+- Enchanted Mirkwood (2026-11-25, The Hobbit films): northern Mirkwood from the Forest Gate along the Elf-path to the
+  Enchanted River, between the Forest River and the Mountains of Mirkwood, is `mirkwood_enchanted` (dark fog, black
+  water, drifting spores, light webs, spiders at night and Wood-elves); four rarer `mirkwood_spider_nests` inside it
+  (webs, cocoons, dead trees, spiders by day; `wilderness` so borders.py leaves them nobody's land); the map's painted
+  river from the Mountains of Mirkwood to above the Forest River is `enchanted_river`. Effects are data
+  (`region_effect/*.json`, `effect/RegionEffects`, effects `lotr_port:drowsy` and `enchanted_sleep` in
+  `effect/LotrEffects`): drowsiness and now and then nausea in `#lotr_port:enchanted_forest`; in water of
+  `#lotr_port:cursed_water` an enchanted sleep (no moving, blind, can't drown) and on waking a turn about; bottles filled
+  there are Black Water. Atmosphere files `mirkwood_enchanted.json`, `mirkwood_spider_nests.json`. Not looked at in game
+  yet.
 - Rivers (2026-11-14): `RIVERS` scale 1700 (about half as dense as LOTR-like 900), width 0.01324 (noise units: same
   width in blocks), banks 5 widths. `Rivers.carve`: only the channel (half a width) is cut to the bed; the banks come
   down to a block over sea level at a width, then up to the land (cutting the whole valley towards the bed flooded low
@@ -115,8 +155,13 @@ https://claude.ai/artifact/KqhSSTCuKXGuwKHBoYJdcu. Rebuild features in modern co
   Numbers in the configured feature JSONs. Not checked in game (new chunks only).
 - `Roads` registers each segment in every 256-block cell within `Roads.FLATTEN` (32): the terrain flattens hills by
   road distance, and a segment missing from a cell made it jump at the cell edge (straight 10+ block cliffs).
+- Features placed in the decoration steps must read the final heightmaps (`WORLD_SURFACE`, `MOTION_BLOCKING`,
+  `OCEAN_FLOOR`): from the carvers step on, 1.21 keeps only those up to date, and the `_WG` ones stay at the bare
+  ground under every tree (2026-11-25: the spider nests' canopy webs found no crowns and 9 in 10 tries failed).
 - Terrain preview (dev tool): `-Dlotr_port.terrainpreview=<x>,<z>,<size>` on a Middle-earth server writes
-  `run/terrain_preview/` (relief.png, variants.png, overhangs.png, stats.txt: water share, slopes, overhangs) and stops
+  `run/terrain_preview/` (relief.png, variants.png, overhangs.png, blocks.png: each column's top block in its map
+  colour; enclosures.txt: each enclosure's top blocks as letters; stats.txt: water share, slopes, overhangs, columns
+  with webs, what the ground is made of) and stops
   (`.save=true`: saves the world for a client, e.g. DevScript aerial shots; don't set `chatVisibility` hidden in
   options.txt, it blocks the script's commands).
   Roads are 4-5 wide (`ROAD_HALF_WIDTH` 2.1, LOTR's were narrower); bridges `RoadFeature.BRIDGE_EXTRA` 1 wider each
@@ -545,7 +590,8 @@ https://claude.ai/artifact/KqhSSTCuKXGuwKHBoYJdcu. Rebuild features in modern co
   and bark, signs, hanging
   signs, buttons, pressure plates, boats and chest boats for all 39 LOTR woods; textures are vanilla 1.21.1's oak
   ones recoloured to the LOTR planks' colours, the client jar is downloaded once to converter/cache/), `tags.py`,
-  `stonecutting.py`, `waters.py`, `mountains.py`, `land.py`, `caves.py`.
+  `stonecutting.py`, `waters.py`, `mountains.py`, `land.py`, `caves.py`, `regions.py` (before `biomeconfig.py` and
+  `borders.py`, which then see its sub-biomes).
 - Wood sets (`content/woodset/`): one `WoodType` + `BlockSetType` per wood (`lotr_port:<wood>`, made when
   `WoodSets` loads, so vanilla builds their sign models and sheets), own sign/hanging-sign block entity types
   (`LotrSignBlocks`, the hanging one reports our type from vanilla's hanging-sign class so its edit screen opens),

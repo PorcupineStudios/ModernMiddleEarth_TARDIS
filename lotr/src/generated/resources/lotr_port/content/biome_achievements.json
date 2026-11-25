@@ -150,5 +150,8 @@
   "rivendell": "enterRivendell",
   "rivendell_hills": "enterLoneLands",
   "far_harad_jungle_mountains": "enterFarHaradJungle",
-  "half_troll_forest": "enterHalfTrollForest"
+  "half_troll_forest": "enterHalfTrollForest",
+  "mirkwood_enchanted": "enterMirkwood",
+  "mirkwood_spider_nests": "enterMirkwood",
+  "enchanted_river": "enterMirkwood"
 }

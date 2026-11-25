@@ -1,15 +1,17 @@
 {
-  "feature": "lotr_port:shire_variant/plum_orchard_rows",
+  "feature": "lotr_port:variant/standing_stone",
   "placement": [
     {
-      "type": "lotr_port:orchard_grid",
-      "spacing": 7,
-      "fill": 0.85
+      "type": "minecraft:rarity_filter",
+      "chance": 60
+    },
+    {
+      "type": "minecraft:in_square"
     },
     {
       "type": "lotr_port:in_variant",
       "variants": [
-        "plum_orchard"
+        "stony_hills"
       ]
     },
     {

@@ -1,0 +1,25 @@
+{
+  "feature": "lotr_port:variant/ferns",
+  "placement": [
+    {
+      "type": "minecraft:count",
+      "count": 2
+    },
+    {
+      "type": "minecraft:in_square"
+    },
+    {
+      "type": "lotr_port:in_variant",
+      "variants": [
+        "wetland"
+      ]
+    },
+    {
+      "type": "minecraft:heightmap",
+      "heightmap": "MOTION_BLOCKING"
+    },
+    {
+      "type": "minecraft:biome"
+    }
+  ]
+}

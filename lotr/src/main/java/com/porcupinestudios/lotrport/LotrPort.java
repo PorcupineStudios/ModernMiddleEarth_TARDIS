@@ -80,6 +80,8 @@ public final class LotrPort {
         com.porcupinestudios.lotrport.content.thrown.Thrown.register(modBus);
         com.porcupinestudios.lotrport.mount.Mounts.register(modBus);
         LotrWorldgen.register(modBus);
+        com.porcupinestudios.lotrport.effect.LotrEffects.register(modBus);
+        com.porcupinestudios.lotrport.effect.RegionEffects.register();
         LotrEntities.register(modBus);
         com.porcupinestudios.lotrport.npc.SpawnEggs.register(modBus);
         SharedApiHooks.register(modBus);

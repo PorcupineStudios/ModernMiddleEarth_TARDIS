@@ -21,6 +21,18 @@
       "lotr_port:old_forest": {
         "chance": 6000,
         "pitch": 1.0
+      },
+      "lotr_port:mirkwood_enchanted": {
+        "chance": 3000,
+        "pitch": 1.0
+      },
+      "lotr_port:mirkwood_spider_nests": {
+        "chance": 3000,
+        "pitch": 1.0
+      },
+      "lotr_port:enchanted_river": {
+        "chance": 3000,
+        "pitch": 1.0
       }
     },
     "cave_biomes": {}

@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [
+    "lotr_port:mirkwood_enchanted",
+    "lotr_port:mirkwood_spider_nests",
+    "lotr_port:enchanted_river"
+  ]
+}
