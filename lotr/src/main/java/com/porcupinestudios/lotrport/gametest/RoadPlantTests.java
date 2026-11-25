@@ -17,7 +17,7 @@ import net.neoforged.neoforge.gametest.PrefixGameTestTemplate;
 /**
  * Roads keep plants off (2026-11-25): every biome that lays roads clears them after its vegetation with
  * {@code lotr_port:road_verge}, whose overgrowth plants are real blocks. LOTR's ground plants grow wild by LOTR's rules
- * (exported from 1.7.10): thistles in the Shire's grass, elanor and niphredil in Lothlorien, Harad's flowers on sand
+ * (exported from 1.7.10): thistles in the Shire's grass, elanor and niphredil in Lothlorien, arid grass on sand
  * ({@code lotr_port:grows_on/*}). The world check ({@code WorldCheck}) checks real road columns in generated chunks.
  */
 @GameTestHolder(LotrPort.MOD_ID)
@@ -73,13 +73,13 @@ public final class RoadPlantTests {
                     .anyMatch(h -> h.unwrapKey().map(k -> k.location().getPath().startsWith(flower)).orElse(false)),
                     "Lothlorien grows no " + flower);
         }
-        // LOTR's plants grow where the census found them: Harad's flowers on sand
+        // LOTR's plants grow where the census found them: arid grass on sand
         var sand = net.minecraft.world.level.block.Blocks.SAND.defaultBlockState();
-        var daisy = BuiltInRegistries.BLOCK.get(ResourceLocation.fromNamespaceAndPath(LotrPort.MOD_ID, "harad_daisy"));
+        var grass = BuiltInRegistries.BLOCK.get(ResourceLocation.fromNamespaceAndPath(LotrPort.MOD_ID, "arid_grass"));
         var at = helper.absolutePos(new net.minecraft.core.BlockPos(1, 1, 1));
         helper.getLevel().setBlock(at.below(), sand, 3);
-        helper.assertTrue(daisy.defaultBlockState().canSurvive(helper.getLevel(), at),
-                "Harad daisies can't grow on sand");
+        helper.assertTrue(grass.defaultBlockState().canSurvive(helper.getLevel(), at),
+                "arid grass can't grow on sand");
         helper.succeed();
     }
 }

@@ -79,13 +79,15 @@
     [
       "lotr_port:trees/morgul_vale",
       "lotr_port:plant/dried_reeds_1_0",
-      "minecraft:flower_default",
-      "minecraft:patch_grass_plain",
-      "lotr_port:grass/short_grass_0_3",
-      "lotr_port:grass/flowery_grass_0_12",
-      "lotr_port:grass/wheatgrass_0_18",
-      "lotr_port:grass/thistle_0_06",
-      "lotr_port:grass/nettles_0_03",
+      "lotr_port:plant_grass/clover_r10",
+      "lotr_port:plant_grass/flowery_grass_r20",
+      "lotr_port:plant_grass/nettles_r100",
+      "lotr_port:plant_grass/short_grass_r2",
+      "lotr_port:plant_grass/wheatgrass_r12",
+      "lotr_port:plant_grass/minecraft_short_grass_r5",
+      "lotr_port:plant_flowers/morgul_flowers_r16",
+      "lotr_port:plant_extra/elderberry_bush_r100",
+      "lotr_port:plant_extra/morgul_shroom_r100",
       "minecraft:glow_lichen"
     ],
     [

@@ -101,14 +101,6 @@
       "lotr_port:trees/misty_mountains",
       "lotr_port:plant/reeds_0_9",
       "lotr_port:plant/dried_reeds_0_1",
-      "minecraft:flower_default",
-      "minecraft:patch_grass_plain",
-      "minecraft:patch_tall_grass",
-      "lotr_port:grass/short_grass_0_3",
-      "lotr_port:grass/flowery_grass_0_12",
-      "lotr_port:grass/wheatgrass_0_18",
-      "lotr_port:grass/thistle_0_06",
-      "lotr_port:grass/nettles_0_03",
       "minecraft:glow_lichen"
     ],
     [

@@ -106,13 +106,7 @@
     [
       "lotr_port:plant/reeds_0_9",
       "lotr_port:plant/dried_reeds_0_1",
-      "minecraft:flower_default",
-      "minecraft:patch_grass_plain",
-      "lotr_port:grass/short_grass_0_1",
-      "lotr_port:grass/flowery_grass_0_04",
-      "lotr_port:grass/wheatgrass_0_06",
-      "lotr_port:grass/thistle_0_02",
-      "lotr_port:grass/nettles_0_01",
+      "lotr_port:plant_grass/short_grass_r80",
       "minecraft:glow_lichen",
       "minecraft:seagrass_river"
     ],

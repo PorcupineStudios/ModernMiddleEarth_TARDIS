@@ -151,6 +151,8 @@ SOIL_MIN_SHARE = 0.02  # a plant's ground counts for lotr_port:grows_on/<plant> 
 VANILLA_DIRT = {"minecraft:dirt", "minecraft:grass_block", "minecraft:podzol", "minecraft:coarse_dirt",
                 "minecraft:mycelium", "minecraft:rooted_dirt", "minecraft:moss_block", "minecraft:mud",
                 "minecraft:farmland"}
+RARITY_STEPS = [1, 2, 3, 4, 5, 6, 8, 10, 12, 16, 20, 25, 32, 40, 50, 64, 80, 100, 128, 160, 200, 256, 320, 400,
+                512, 640, 800, 1000]
 PLANT_TRIES = 32  # tries per patch (vanilla 1.18's grass patch)
 PLANT_YIELD = 0.5  # share of a patch's tries that grow on ordinary ground (estimate; not measured in the port yet)
 LOTR_PLANTS_PER_PATCH = {"grass": 24, "double_grass": 8, "flowers": 12, "double_flowers": 6}  # no-census stand-in
@@ -173,6 +175,9 @@ VANILLA_PLANTS = {
     **{f"minecraft:double_plant#{i}": f"minecraft:{n}" for i, n in enumerate(
         ["sunflower", "lilac", "tall_grass", "large_fern", "rose_bush", "peony"])},
 }
+# Exported plant generators that hold no block of their own (LOTR's double flower generator places
+# LOTRMod.doubleFlower with its meta)
+PLANT_ALIASES = {"lotr.common.world.feature.LOTRWorldGenDoubleFlower": "lotr:tile.doubleFlower"}
 # Census plants other features already place (vanilla patches, reeds, forest floor, crops of LOTR's decorator that
 # world.py places elsewhere), or that are not ground plants (vines hang from trunks, saplings, crops).
 CENSUS_SKIP_PREFIX = ("minecraft:vine", "minecraft:waterlily", "minecraft:reeds", "minecraft:cactus",
@@ -180,7 +185,9 @@ CENSUS_SKIP_PREFIX = ("minecraft:vine", "minecraft:waterlily", "minecraft:reeds"
                       "minecraft:melon_block", "minecraft:sapling", "minecraft:wheat", "minecraft:carrots",
                       "minecraft:potatoes", "lotr:tile.reed", "lotr:tile.deadMarshPlant", "lotr:tile.fallenLeaves",
                       "lotr:tile.sapling", "lotr:tile.leaves", "lotr:tile.vine", "lotr:tile.mirkVines",
-                      "lotr:tile.willowVines")
+                      "lotr:tile.willowVines", "lotr:tile.driedReeds", "minecraft:cocoa", "lotr:tile.banana",
+                      "lotr:tile.date", "lotr:tile.yam", "lotr:tile.grapevine", "lotr:tile.lettuce", "lotr:tile.leek",
+                      "lotr:tile.turnip", "lotr:tile.pipeweed#", "lotr:tile.flax#")  # crops and fruit: farms, trees
 # Small rivers (LOTR made these with a river layer, not on the map). Widths are in noise units: one is about 11 blocks.
 # Aaron 2026-11-14: fewer rivers (scale 1700; width in noise units scaled by 900/1700).
 # Aaron 2026-11-16: LOTR's small rivers are narrow (its NarrowRivers layer); 0.025/1.5 gave wide green-banked channels.
@@ -446,10 +453,11 @@ class World:
                           if f["block"] and total_w > 0}
             else:
                 shares = rules.get(kind, {})
-            shares = {k: v for k, v in shares.items() if v > 0 and not k.startswith("none")}
-            explained |= set(shares)
+            shares = {PLANT_ALIASES.get(k.split("#")[0], k.split("#")[0]) + "#" + k.split("#")[1]: v
+                      for k, v in shares.items() if v > 0 and not k.startswith("none")}
             if dec.get(PER_CHUNK[kind], 0) <= 0 or not shares:
-                continue
+                continue  # the decorator places none: what the census finds of these is some other rule's
+            explained |= set(shares)
             if counted is not None:
                 total = sum(seen.get(k, {}).get("per_chunk", 0) for k in shares)
             else:
@@ -473,9 +481,7 @@ class World:
                 patches = per_chunk / (tries * PLANT_YIELD)
             if patches < 0.005:
                 continue
-            short = new.split(":")[1]
-            name = f"plant_{kind}/{short}_{round(patches, 3)}_{tries}".replace(".", "_")
-            out.append(self.grass_patch(name, new, patches, tries))
+            out.append(self.plant_feature(kind, new, patches, tries))
         return out
 
     def plant_soils(self):
@@ -494,7 +500,7 @@ class World:
         tags = {}
         for old, grounds in found.items():
             new = self.plant_id(old)
-            if not new or not new.startswith(f"{NS}:"):
+            if not new or not new.startswith(f"{NS}:") or old.startswith(CENSUS_SKIP_PREFIX):
                 continue
             total = sum(grounds.values())
             for ground, n in grounds.items():
@@ -510,7 +516,19 @@ class World:
                        {"replace": False, "values": sorted(soils)})
         return len(tags)
 
-    def grass_patch(self, name, block, per_chunk, tries=32):
+    def plant_feature(self, kind, block, per_chunk, tries):
+        """A plant patch shared by every biome that places it alike: configured plant_patch/<plant>_<tries>, placed
+        plant_<kind>/<plant>_c<n> (n patches a chunk) or _r<n> (one patch in n chunks)."""
+        short = block.split(":")[1] if block.startswith(f"{NS}:") else block.replace(":", "_")
+        if per_chunk < 1:  # rarities on steps of about 25% (the census's own noise is larger), so biomes share them
+            per_chunk = 1 / RARITY_STEPS[min(range(len(RARITY_STEPS)),
+                                             key=lambda i: abs(math.log(RARITY_STEPS[i] * per_chunk)))]
+        rate = f"c{round(per_chunk)}" if per_chunk >= 1 else f"r{round(1 / per_chunk)}"
+        configured = f"plant_patch/{short}_{tries}"
+        self.grass_patch(configured, block, per_chunk, tries, placed=f"plant_{kind}/{short}_{rate}")
+        return f"{NS}:plant_{kind}/{short}_{rate}"
+
+    def grass_patch(self, name, block, per_chunk, tries=32, placed=None):
         """A plant patch like vanilla's patch_grass (spread 7): the plant only where it can live; per_chunk patches a
         chunk (under 1: a 1-in-n chance)."""
         gen = os.path.join(self.data, NS, "worldgen")
@@ -524,7 +542,7 @@ class World:
                         {"type": "minecraft:would_survive", "state": {"Name": block}}]}}]}}})
         count = ([{"type": "minecraft:count", "count": round(per_chunk)}] if per_chunk >= 1
                  else [{"type": "minecraft:rarity_filter", "chance": max(1, round(1 / per_chunk))}])
-        write_json(os.path.join(gen, "placed_feature", name + ".json"), {
+        write_json(os.path.join(gen, "placed_feature", (placed or name) + ".json"), {
             "feature": f"{NS}:{name}", "placement": count + [
                 {"type": "minecraft:in_square"}, {"type": "minecraft:heightmap", "heightmap": "WORLD_SURFACE_WG"},
                 {"type": "minecraft:biome"}]})

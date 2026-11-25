@@ -102,11 +102,7 @@
       "lotr_port:plant/dried_reeds_0_1",
       "minecraft:patch_dead_bush",
       "minecraft:patch_cactus_desert",
-      "lotr_port:grass/short_grass_0_5",
-      "lotr_port:grass/flowery_grass_0_2",
-      "lotr_port:grass/wheatgrass_0_3",
-      "lotr_port:grass/thistle_0_1",
-      "lotr_port:grass/nettles_0_05",
+      "lotr_port:plant_grass/arid_grass_c2",
       "minecraft:glow_lichen"
     ],
     [

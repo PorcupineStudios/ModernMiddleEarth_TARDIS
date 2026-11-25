@@ -91,7 +91,10 @@
       "lotr_port:trees/grey_mountains_foothills",
       "lotr_port:plant/reeds_0_9",
       "lotr_port:plant/dried_reeds_0_1",
-      "minecraft:patch_grass_plain",
+      "lotr_port:plant_extra/clover_r25",
+      "lotr_port:plant_extra/short_grass_r3",
+      "lotr_port:plant_extra/wheatgrass_r25",
+      "lotr_port:plant_extra/minecraft_short_grass_r32",
       "minecraft:glow_lichen",
       "minecraft:patch_tall_grass_2",
       "minecraft:flower_meadow"
