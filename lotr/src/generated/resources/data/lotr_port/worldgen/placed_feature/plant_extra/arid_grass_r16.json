@@ -1,9 +1,9 @@
 {
-  "feature": "lotr_port:plant_patch/jungle_sprout_32",
+  "feature": "lotr_port:plant_patch/arid_grass_48",
   "placement": [
     {
       "type": "minecraft:rarity_filter",
-      "chance": 4
+      "chance": 16
     },
     {
       "type": "minecraft:in_square"

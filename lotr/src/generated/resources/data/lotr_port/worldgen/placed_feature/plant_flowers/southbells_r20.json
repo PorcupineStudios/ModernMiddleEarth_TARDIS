@@ -1,5 +1,5 @@
 {
-  "feature": "lotr_port:plant_patch/southbells_48",
+  "feature": "lotr_port:plant_patch/southbells_32",
   "placement": [
     {
       "type": "minecraft:rarity_filter",

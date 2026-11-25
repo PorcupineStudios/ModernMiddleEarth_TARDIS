@@ -1,9 +1,9 @@
 {
-  "feature": "lotr_port:plant_patch/clover_32",
+  "feature": "lotr_port:plant_patch/jungle_sprout_64",
   "placement": [
     {
-      "type": "minecraft:rarity_filter",
-      "chance": 64
+      "type": "minecraft:count",
+      "count": 3
     },
     {
       "type": "minecraft:in_square"

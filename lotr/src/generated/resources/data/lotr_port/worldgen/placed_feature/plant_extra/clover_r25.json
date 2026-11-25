@@ -1,9 +1,9 @@
 {
-  "feature": "lotr_port:plant_patch/southbells_32",
+  "feature": "lotr_port:plant_patch/clover_48",
   "placement": [
     {
       "type": "minecraft:rarity_filter",
-      "chance": 256
+      "chance": 25
     },
     {
       "type": "minecraft:in_square"

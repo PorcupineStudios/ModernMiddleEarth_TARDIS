@@ -102,10 +102,10 @@
       "lotr_port:plant/dried_reeds_0_1",
       "minecraft:patch_dead_bush",
       "minecraft:patch_cactus_desert",
-      "lotr_port:plant_grass/arid_grass_c4",
+      "lotr_port:plant_grass/arid_grass_c3",
       "lotr_port:plant_flowers/harad_daisy_r32",
       "lotr_port:plant_flowers/red_sand_gem_r40",
-      "lotr_port:plant_flowers/southbells_r32",
+      "lotr_port:plant_flowers/southbells_r25",
       "lotr_port:plant_flowers/yellow_sand_gem_r25",
       "minecraft:glow_lichen"
     ],
