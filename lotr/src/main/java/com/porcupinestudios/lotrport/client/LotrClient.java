@@ -41,6 +41,16 @@ import org.lwjgl.glfw.GLFW;
 /** Client setup: entity renderers, model layers, the map key. Never referenced from common code. */
 @EventBusSubscriber(modid = LotrPort.MOD_ID, bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public final class LotrClient {
+    /**
+     * For the harness mod (optional): where each part of a creature was drawn ({@link PartPoses}), so its harness
+     * follows the animation. A plain NeoForge message; neither mod depends on the other.
+     */
+    @net.neoforged.bus.api.SubscribeEvent
+    public static void offerPartPoses(net.neoforged.fml.event.lifecycle.InterModEnqueueEvent event) {
+        PartPoses.register();
+        net.neoforged.fml.InterModComms.sendTo("ringbearer_harness", "part_pose", () -> PartPoses.LOOKUP);
+    }
+
     /** LOTR people: the classic humanoid, for 64x32 skins and for 64x64 ones. */
     public static final ModelLayerLocation NPC_LAYER = new ModelLayerLocation(LotrPort.id("npc"), "main");
     public static final ModelLayerLocation NPC_TALL_LAYER = new ModelLayerLocation(LotrPort.id("npc"), "tall");

@@ -30,6 +30,13 @@ jobs:
         run: |
           ./gradlew :tardis:runGameTestServer --stacktrace 2>&1 | tee tardis-gametest.log
           grep -E "All [0-9]+ required tests passed" tardis-gametest.log
+      - name: Harness GameTests
+        # A horse pulling a real Aeronautics wagon on flat, uphill, downhill and side slopes, turning; the measurements
+        # are in the log ([harness-metrics]) and in harness/run/harness-metrics/; -PwithLotr adds the LOTR animals
+        run: |
+          ./gradlew :harness:runGameTestServer -PwithLotr --stacktrace 2>&1 | tee harness-gametest.log
+          grep "harness-metrics" harness-gametest.log || true
+          grep -E "All [0-9]+ required tests passed" harness-gametest.log
       - name: Middle-earth world
         # A new world of the Middle-earth world type on a dedicated server: WorldCheck logs the spawn and stops it.
         # It generates ~160 far-apart chunks plus two structures in one tick: watchdog off (max-tick-time=-1), 10 GB heap
@@ -62,7 +69,7 @@ jobs:
       - name: Mods the TARDIS needs (versions only)
         run: |
           : > needed-mods.txt
-          for m in create immersive-portals-neoforge cloth-config jade; do
+          for m in create immersive-portals-neoforge cloth-config jade create-aeronautics sable; do
             find ~/.gradle/caches/modules-2/files-2.1/maven.modrinth/$m -name "*.jar" ! -name "*-sources.jar" \
               -printf "- %f (https://modrinth.com/mod/$m)\n" >> needed-mods.txt
           done
@@ -73,7 +80,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           mkdir -p test-build
-          cp api/build/libs/*.jar tardis/build/libs/*.jar lotr/build/libs/*.jar test-build/
+          cp api/build/libs/*.jar tardis/build/libs/*.jar lotr/build/libs/*.jar harness/build/libs/*.jar test-build/
           rm -f test-build/*-sources.jar
           gh release delete test-build -y --cleanup-tag || true
           gh release create test-build test-build/*.jar --prerelease --target "${{ github.sha }}" \

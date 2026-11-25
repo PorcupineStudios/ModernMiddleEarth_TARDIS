@@ -1,0 +1,6 @@
+{
+  "entities": ["lotr_port:mirkwood_spider", "lotr_port:mordor_spider", "lotr_port:utumno_ice_spider"],
+  "rope_anchor": [0.55, 0.7, -0.1],
+  "rope_color": "#5b3f26",
+  "body": [1.0, 0.45, 1.0, -0.6, 0.45]
+}

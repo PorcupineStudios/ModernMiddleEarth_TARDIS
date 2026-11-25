@@ -113,6 +113,24 @@ BREEDS = {
         "spawn": {"jump": {"mul": 0.8}},
         "clamp_health": [12, 34], "clamp_jump": [0.2, 1.0], "clamp_speed": [0.08, 0.35]},
 }
+# The port's own breeds (no LOTR class): drawn on a model the converter already builds, textures already copied.
+# Rhosgobel rabbits (Aaron 2026-11-24): Radagast's sleigh rabbits, pony-sized shaggy hares with long ears; their own
+# model, hop and coats (converter/rhosgobel_rabbit.py). They pull (the harness mod) rather than carry: no saddle model
+# or texture, so no saddle (LotrHorse.isSaddleable). They live round Rhosgobel, on the western eaves of southern
+# Mirkwood: spawn_near (Mounts' spawn rule) keeps them within 2048 blocks of its waypoint, in the biomes of
+# biome_modifier/rhosgobel_rabbits.json (southern Mirkwood and the Vale of Anduin beside it).
+OWN_BREEDS = {
+    "rhosgobel_rabbit": {
+        "id": "rhosgobel_rabbit", "name": "Rhosgobel Rabbit", "width": 1.2, "height": 1.3,
+        "model": f"{NS}:rhosgobel_rabbit", "scale": 1.0,
+        "textures": [f"{NS}:textures/entity/rhosgobel_rabbit/{i}.png" for i in range(3)],
+        "spawn_near": {"waypoint": f"{NS}:rhosgobel", "radius": 2048},
+        "food": ["minecraft:carrot", "minecraft:golden_carrot"], "spawn": {"speed": {"mul": 1.25},
+                                                                         "jump": {"mul": 1.3}},
+        "clamp_health": [12, 30], "clamp_jump": [0.4, 1.0], "clamp_speed": [0.12, 0.38],
+        "sounds": {"ambient": "minecraft:entity.rabbit.ambient", "hurt": "minecraft:entity.rabbit.hurt",
+                   "death": "minecraft:entity.rabbit.death", "angry": "minecraft:entity.rabbit.attack"}},
+}
 BY_NAME = {b["lotr"]: f"{NS}:{b['id']}" for b in BREEDS.values()}
 BY_CLASS = {cls: f"{NS}:{b['id']}" for cls, b in BREEDS.items()}
 # LOTRBiomeGenRohan and LOTRBiomeGenDorEnErnil with their subclasses
@@ -244,6 +262,10 @@ class Mounts:
             if b.get("boosts"):
                 out["boosts"] = [dict(x, biomes=f"#{NS}:{x['biomes']}") for x in b["boosts"]]
             breeds.append(out)
+            self.gen.lang["en_us"][f"entity.{NS}.{b['id']}"] = b["name"]
+            counts["mount_breeds"] += 1
+        for b in OWN_BREEDS.values():
+            breeds.append({k: v for k, v in b.items() if k != "name"})
             self.gen.lang["en_us"][f"entity.{NS}.{b['id']}"] = b["name"]
             counts["mount_breeds"] += 1
         self.gen.lang["en_us"][f"entity.{NS}.figure"] = "Figure"  # statues and rugs (content/figure)

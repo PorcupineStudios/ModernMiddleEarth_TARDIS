@@ -1,0 +1,7 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": ["LIL", "L L", "LSL"],
+  "key": {"L": {"item": "minecraft:leather"}, "I": {"item": "minecraft:iron_ingot"}, "S": {"item": "minecraft:string"}},
+  "result": {"id": "ringbearer_harness:harness", "count": 1}
+}
