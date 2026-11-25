@@ -13,7 +13,8 @@
       "block_search_extent": 8,
       "offset": 2.0
     },
-    "grass_color": 12892772
+    "grass_color": 12758118,
+    "foliage_color": 7041858
   },
   "spawners": {
     "creature": [
@@ -127,7 +128,11 @@
     ],
     [],
     [
-      "lotr_port:trees/lone_lands_hills",
+      "lotr_port:wilds/ground_cover_lone_lands_hills",
+      "lotr_port:wilds/boulders_lone_lands_hills",
+      "lotr_port:wilds/groves_lone_lands_hills",
+      "lotr_port:wilds/scrub_lone_lands_hills",
+      "lotr_port:wilds/lone_trees_lone_lands_hills",
       "lotr_port:forest_floor/1_0",
       "lotr_port:plant/reeds_0_9",
       "lotr_port:plant/dried_reeds_0_1",
@@ -135,11 +140,8 @@
       "lotr_port:plant_grass/flax_plant_r25",
       "lotr_port:plant_grass/flowery_grass_r5",
       "lotr_port:plant_grass/nettles_r16",
-      "lotr_port:plant_grass/short_grass_c3",
       "lotr_port:plant_grass/thistle_r40",
       "lotr_port:plant_grass/wheatgrass_r2",
-      "lotr_port:plant_grass/minecraft_short_grass_c1",
-      "lotr_port:plant_double_grass/minecraft_tall_grass_c1",
       "lotr_port:plant_flowers/bluebell_r128",
       "lotr_port:plant_flowers/lavender_r128",
       "lotr_port:plant_flowers/marigold_r20",

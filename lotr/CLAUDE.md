@@ -94,11 +94,34 @@ https://claude.ai/artifact/KqhSSTCuKXGuwKHBoYJdcu. Rebuild features in modern co
   reasoned in world.py (real fields ~200 m, Middle-earth ~11x shorter
   than Tolkien's). GameTests `LandscapeTests`; world check builds the nearest plot of each kind.
 - Large variants (2026-11-25, Aaron: Eriador is "primarily just travelled through ... large scale ... but there still
-  being variation"): Eriador (1100 km2 as one biome on LOTR's map), Lone-lands, Minhiriath and Enedwaith have variant
+  being variation"): Eriador (1100 km2 as one biome on LOTR's map), Minhiriath and Enedwaith (the Lone-lands had them
+  until the wild-land rules below replaced them) have variant
   patches of 640-768 blocks with `warp` (edges meander by noise, share of a cell) and `feather` (plants thin out over ~56
   blocks at an edge). Kinds: meadows, heath, copses, old woods, pinewood, tors (boulders, standing stones), old fields
   (Arnor's tumbled dry-stone walls, `lotr_port:old_walls`, and feral fruit trees), thickets, stump-lands and regrowth
   (Minhiriath's felled forests), wetland. Extras are `configured_feature/variant/*` (world.py `VARIANT_FEATURES`).
+- Wild lands (2026-11-25, Aaron, with four reference photos of the Lone-lands: "gritty wilderness ... not overly
+  foresty (patches of forests, seeded and following rules that make it feel life like) ... a rocky feel ... custom
+  blocks that match the pallet ... Variation without it being jarring ... boulder formations, moss growth, dried up
+  creek beds, ravines"): post-step `converter/wilds.py` (after regions.py) for `lone_lands` and `lone_lands_hills`
+  (Weather Hills). Blocks (`content/WildBlocks`): weathered_stone, lichen_stone, scree (doesn't fall), moorland_soil,
+  stony_earth, heath_moss (the last three in `minecraft:dirt`), tussock and bracken (dry, untinted). Textures are
+  vanilla 1.21.1's (andesite, gravel, rooted dirt, coarse dirt, moss, short grass, fern) gradient-mapped onto 5-6 tone
+  ramps from the references (cool shadows, warm lights, neighbouring values close); vanilla's moss and coarse dirt
+  were too green and too orange beside the tawny grass (grass 0xC2AC66, foliage 0x6B7342). `wilds.py --preview
+  <png>` tiles the set. Feature `lotr_port:ground_cover` (`world/feature/GroundCoverFeature`, first in the vegetal
+  step, per column on the real ground): dry creek beds cut 1-2 deep (seeded noise zero lines in a sparse mask, never
+  by water or on slopes), rock down steep faces and rubble a step less steep, gorge floors rubble, wet hollows moorland
+  soil and moss, exposed ground stony earth / scree / flush rock by a patch noise plus eastward stoniness (block x
+  17024 -> 48512, Tolkien's barer east towards the Hoarwell); then bracken and heather in patches, tussock elsewhere.
+  `lotr_port:boulders` (`BoulderFeature`): clusters of 2-6 half-sunk boulders and tors, lichen tops, moss on the north
+  side, more eastwards. Trees only through placement filter `lotr_port:grove` (`Grove`): dense clumps where a seeded
+  patch noise (+ hollows 40 blocks round, - east) passes `above`, scrub in a band just under it, a few lone stunted
+  trees; the old `trees/lone_lands`, variant patches, old walls and green grass patches are dropped from these biomes.
+  Gorges are terrain (`map/Wilds`, map.json `wilds.gorges`, `MiddleEarthMap.gorgeAt`): winding seeded cuts, flat
+  floor, steep walls, up to 16 deep, never under sea + 3, faded at roads, rivers and the biome border; terrain is
+  sampled every 4 blocks, so narrow creeks are the feature's job. Numbers in wilds.py `SETTINGS`/`GORGES` -> the
+  configured feature JSONs. GameTests `WildLandTests`.
 - Seeding (2026-11-25, Aaron: "ensure that this stays seeded so there's randomness on new worlds"): variant patches
   (and their edges), enclosures, lairs and old walls all mix `MiddleEarthMap.seed()` (the world seed, set as the server
   starts; 0 on a client, which never knows it) into their hashes; the planners' per-thread caches reset when it changes.

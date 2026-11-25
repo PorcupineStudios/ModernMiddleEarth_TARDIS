@@ -68,6 +68,8 @@
     "lotr_port:wheatgrass",
     "lotr_port:willow_leaves",
     "lotr_port:willow_vines",
-    "lotr_port:yellow_iris"
+    "lotr_port:yellow_iris",
+    "lotr_port:tussock",
+    "lotr_port:bracken"
   ]
 }

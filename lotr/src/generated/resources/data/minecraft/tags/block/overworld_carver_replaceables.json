@@ -68,6 +68,12 @@
     "lotr_port:raw_mithril_block",
     "lotr_port:raw_morgul_iron_block",
     "lotr_port:raw_silver_block",
-    "lotr_port:raw_tin_block"
+    "lotr_port:raw_tin_block",
+    "lotr_port:weathered_stone",
+    "lotr_port:lichen_stone",
+    "lotr_port:scree",
+    "lotr_port:moorland_soil",
+    "lotr_port:stony_earth",
+    "lotr_port:heath_moss"
   ]
 }

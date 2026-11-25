@@ -1,0 +1,76 @@
+{
+  "type": "lotr_port:ground_cover",
+  "config": {
+    "biomes": [
+      "lotr_port:lone_lands",
+      "lotr_port:lone_lands_hills"
+    ],
+    "blocks": {
+      "rock": {
+        "Name": "lotr_port:weathered_stone"
+      },
+      "lichen": {
+        "Name": "lotr_port:lichen_stone"
+      },
+      "rubble": {
+        "Name": "lotr_port:scree"
+      },
+      "peat": {
+        "Name": "lotr_port:moorland_soil"
+      },
+      "moss": {
+        "Name": "lotr_port:heath_moss"
+      },
+      "coarse": {
+        "Name": "lotr_port:stony_earth"
+      },
+      "gravel": {
+        "Name": "minecraft:gravel"
+      }
+    },
+    "rules": {
+      "patch": 34,
+      "coarse": 0.22,
+      "rubble": 0.42,
+      "rock": 0.58,
+      "lichen": 0.25,
+      "wet": 0.62,
+      "moss": 0.82,
+      "steep": 3,
+      "east": 0.35,
+      "east_from": 17024,
+      "east_to": 48512
+    },
+    "creeks": {
+      "scale": 220,
+      "width": 3,
+      "mask": 0.05
+    },
+    "plants": [
+      {
+        "block": {
+          "Name": "lotr_port:bracken"
+        },
+        "chance": 0.5,
+        "patch": 26,
+        "above": 0.35
+      },
+      {
+        "block": {
+          "Name": "lotr_port:shire_heather"
+        },
+        "chance": 0.35,
+        "patch": 20,
+        "above": 0.42
+      },
+      {
+        "block": {
+          "Name": "lotr_port:tussock"
+        },
+        "chance": 0.2,
+        "patch": 0,
+        "above": 0
+      }
+    ]
+  }
+}

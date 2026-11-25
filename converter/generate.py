@@ -1598,6 +1598,8 @@ class Gen:
         print(json.dumps({"caves": Caves(OUT).run()}))
         import regions
         print(json.dumps({"regions": regions.run(OUT)}))
+        import wilds
+        print(json.dumps({"wilds": wilds.run(OUT)}))
         import biomeconfig
         print(json.dumps({"biomeconfig": biomeconfig.run(OUT)}))
         import borders

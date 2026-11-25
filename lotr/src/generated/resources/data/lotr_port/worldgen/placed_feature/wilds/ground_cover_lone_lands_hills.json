@@ -1,0 +1,8 @@
+{
+  "feature": "lotr_port:wilds/ground_cover_lone_lands_hills",
+  "placement": [
+    {
+      "type": "minecraft:biome"
+    }
+  ]
+}
