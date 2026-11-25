@@ -1,0 +1,18 @@
+{
+  "rank": 1,
+  "built_by": "traffic",
+  "wear": 250,
+  "coverage": 0.9,
+  "half_width": 1.5,
+  "surface": [
+    {
+      "block": "minecraft:dirt_path",
+      "weight": 6
+    },
+    {
+      "block": "minecraft:coarse_dirt",
+      "weight": 1
+    }
+  ],
+  "route_road": true
+}

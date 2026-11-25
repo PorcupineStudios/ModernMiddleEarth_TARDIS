@@ -32,14 +32,27 @@ Read when: the Repair Station and repair tree, timed research, exterior looks, w
   dotted grilles elsewhere (and on the lower deck's floor) are floor plate now. The platform didn't need widening.
 - **Old interiors** keep their old layout: `/tardis rebuild_interior` moves a TARDIS into a fresh plot built on the
   current one (`Interiors.rebuild`).
-- **Research** (`research/Researching`): one job at a time in `TardisRecord.researching` (node + finish game time).
-  `start` fires `ResearchEvent.Pre` (listeners may change cost/time or cancel), pays, then stores the job; time 0 finishes
-  at once. A server tick every 20 ticks finishes due jobs, also when the TARDIS's chunks are unloaded.
-  Research `stats` (e.g. `range: 16`) add to `Unlocks.stat`, so hop range = subsystem stat + research stats.
-- **Tree screen** (`net/WorkshopNet`, `client/WorkshopScreen`): opened at the Repair Station or the repair core. The server sends every
-  repair, research node and room (state DONE 0, RUNNING 1, AVAILABLE 2, LOCKED 3; `Node` = subsystem row + level
-  column, or research parents) and resends after each action. Tabs Repairs / Research / Rooms; research columns are
-  depth by parents with lines; click a bright node; drag/scroll to pan. Untried in a client.
+- **Upgrades (research)** (reworked 2026-11-19, Aaron: no research time, no rooms menu, show exactly what buying does,
+  multi-level nodes with level/max): `research/Researching.start` buys the next level at once (paid by the player:
+  items, and the TARDIS: charge). A node is one level (`cost`, `stats`) or several (`levels: [{cost, stats}]`, stats add
+  up; `Research.statsUpTo`). The record keeps `research` (level 1 done, read by `tardis_rb:research` conditions) plus
+  `research_levels` for levels above 1 (`TardisRecord.researchLevel` / `advanceResearch`; old saves read as level 1).
+  Jobs from older saves still finish on their old timer, and colonist researchers only hurry those. Research `stats`
+  (e.g. `range: 16`) add to `Unlocks.stat`.
+- **Tree screen** (`net/WorkshopNet`, `client/WorkshopScreen`): tabs Repairs (one node per subsystem; clicking does
+  its next repair) and Upgrades (columns by depth, lines from parents). Each node shows `level/max` in its bottom right;
+  the tooltip gives the next level's cost and each named number it changes, now -> after (`WorkshopNet.Change`, names
+  from lang `tardis_rb.stat.<key>`, node names `tardis_rb.node.<id>`). Untried in a client.
+- **Upgrade parts** (2026-11-19, `tools/upgrade_parts.py`, items `TardisBlocks.PARTS`): artron battery (bronze or
+  brass, gold, a gem), hull plate, temporal circuit, chronon lens, stabilizer coil; placeholder pictures until Aaron's
+  art. Every repair costs its subsystem's part x its level (+ its old charge); the upgrade nodes cost parts too. The
+  script also writes the upgrade tree and the console controls' requirements.
+- **Console controls** (Aaron 2026-11-19: only flight unlocks for now): the upgrades `materialised_flight` (needs
+  navigation 1: thrusters, flight yoke, phase lever and key, door control, facing compass; features piloting,
+  thrusters, exterior phase) and `dematerialised_flight` (after it: demat lever, handbrake, land switch, X/Y/Z
+  levers and wheels, dimension dial, relative switch, randomiser, fast return, save switch, memory bank, scanner
+  screen; feature short hop). Time controls, room controls, the sonic holder and telepathic circuits can't be
+  unlocked yet (`not always`). Tests unlock flight with `gametest/FlightReady`.
 - **Looks** (`look/Looks`, data `look/exterior.json`): the exterior's LOOK (0-3) is the highest rule whose requirements
   pass, after `LookEvent`. 32 blockstate variants (facing × half × look), now used only for break particles: the box is drawn by
   `client/ExteriorRenderer` from Aaron's Blockbench model (see `docs/door.md`). Look 3 is his original paint; looks 0-2

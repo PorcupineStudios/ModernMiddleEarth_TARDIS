@@ -1,0 +1,21 @@
+{
+  "rank": 3,
+  "built_by": "waymakers",
+  "coverage": 1.0,
+  "half_width": 2.0,
+  "surface": [
+    {
+      "block": "minecraft:cobblestone",
+      "weight": 4
+    },
+    {
+      "block": "minecraft:mossy_cobblestone",
+      "weight": 1
+    },
+    {
+      "block": "minecraft:gravel",
+      "weight": 1
+    }
+  ],
+  "route_road": true
+}

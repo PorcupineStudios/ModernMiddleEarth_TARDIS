@@ -58,11 +58,17 @@ public final class RepairLoopTests {
         return view.entries().stream().filter(e -> e.id().equals(id)).findFirst().orElseThrow();
     }
 
+    static WorkshopNet.Entry subsystem(WorkshopNet.WorkshopView view, String path) {
+        return view.entries().stream().filter(e -> e.kind() == WorkshopNet.REPAIR && e.title().equals(path))
+                .findFirst().orElseThrow();
+    }
+
     /**
-     * Phase 3 done-when (reworked 2026-11-03 for the repair tree): repairing navigation from the repair tree
-     * and researching one node (hop calibration, which takes time) raise the jump range, and the box's look changes.
+     * Phase 3 done-when (reworked 2026-11-19 for the upgrade tree): repairing navigation from the tree and buying
+     * one upgrade (hop calibration, at once: no research time) raise the jump range, the box's look changes, and the
+     * tree shows each node's level / max and exactly what the next level changes.
      */
-    @GameTest(template = PLATFORM, timeoutTicks = 700)
+    @GameTest(template = PLATFORM)
     public static void repairingFromTheTreeAndResearchingANodeRaiseRangeAndChangeTheLook(GameTestHelper helper) {
         MinecraftServer server = helper.getLevel().getServer();
         ServerPlayer player = crew(helper, "loop");
@@ -73,33 +79,33 @@ public final class RepairLoopTests {
         helper.assertTrue(look(helper, t) == 0, "the wreck doesn't look wrecked");
 
         WorkshopNet.WorkshopView before = WorkshopNet.view(player, t, "");
-        helper.assertTrue(node(before, repair).state() == WorkshopNet.AVAILABLE, "navigation 1 is not on the tree");
-        helper.assertTrue(node(before, repair).node().group().equals("navigation")
-                && node(before, repair).node().level() == 1, "navigation 1 is in the wrong place on the tree");
-        helper.assertTrue(node(before, node).node().parents().equals(TardisContent.research(node).orElseThrow()
+        WorkshopNet.Entry nav = subsystem(before, "navigation");
+        helper.assertTrue(nav.id().equals(repair) && nav.state() == WorkshopNet.AVAILABLE,
+                "navigation's next repair isn't navigation 1");
+        helper.assertTrue(nav.level() == 0 && nav.max() == 4, "navigation shows " + nav.level() + "/" + nav.max());
+        helper.assertTrue(nav.outcome().stream().anyMatch(c -> c.key().equals("range") && c.before() == 0
+                && c.after() > 0), "the tree doesn't say the repair gives range");
+        helper.assertTrue(node(before, node).parents().equals(TardisContent.research(node).orElseThrow()
                 .parents()), "the research node lost its parents");
+        helper.assertTrue(before.entries().stream().noneMatch(e -> e.kind() > WorkshopNet.RESEARCH), "rooms shown");
         helper.assertFalse(WorkshopNet.act(player, t, WorkshopNet.REPAIR, repair).done(), "repaired with empty hands");
         give(player, TardisContent.get().cost(TardisContent.repair(repair).orElseThrow().cost()));
         Repairs.Outcome fixed = WorkshopNet.act(player, t, WorkshopNet.REPAIR, repair);
         helper.assertTrue(fixed.done(), "repair failed: " + fixed.problem().map(c -> c.getString()).orElse(""));
-        helper.assertTrue(node(WorkshopNet.view(player, t, ""), repair).state() == WorkshopNet.DONE,
-                "the tree doesn't show the repair done");
+        helper.assertTrue(subsystem(WorkshopNet.view(player, t, ""), "navigation").level() == 1,
+                "the tree doesn't show navigation at level 1");
         double afterPart = Unlocks.stat(t, "range");
         helper.assertTrue(afterPart > 0, "the repair gave no range");
         helper.assertTrue(look(helper, t) > 0, "the box looks the same after the repair");
 
-        give(player, TardisContent.get().cost(TardisContent.research(node).orElseThrow().cost()));
-        Repairs.Outcome started = Researching.start(server, t, node, Optional.of(player));
-        if (!started.done()) {
-            helper.fail("research didn't start: " + started.problem().get().getString());
+        give(player, TardisContent.get().cost(TardisContent.research(node).orElseThrow().level(1).cost()));
+        Repairs.Outcome bought = Researching.start(server, t, node, Optional.of(player));
+        if (!bought.done()) {
+            helper.fail("upgrade not bought: " + bought.problem().get().getString());
         }
-        helper.assertTrue(Researching.state(server, t, node) == Researching.State.RUNNING, "research not running");
-        helper.assertTrue(Unlocks.stat(t, "range") == afterPart, "range rose before the research finished");
-        helper.startSequence()
-                .thenWaitUntil(() -> helper.assertTrue(t.research().contains(node), "research not finished"))
-                .thenExecute(() -> helper.assertTrue(Unlocks.stat(t, "range") > afterPart,
-                        "research gave no range: " + Unlocks.stat(t, "range")))
-                .thenSucceed();
+        helper.assertTrue(t.researchLevel(node) == 1, "the upgrade isn't done at once");
+        helper.assertTrue(Unlocks.stat(t, "range") > afterPart, "the upgrade gave no range");
+        helper.succeed();
     }
 
     @GameTest(template = PLATFORM)
@@ -136,6 +142,27 @@ public final class RepairLoopTests {
         t.hurryResearch(bonus);
         helper.assertTrue(t.researching().get().finishAt() == now + 200 - bonus,
                 "finish at " + t.researching().get().finishAt());
+        helper.succeed();
+    }
+
+    /** 2026-11-19: hop range 0 / 1k / 10k / 50k / 100k by navigation level; the flight speed upgrade adds up per level. */
+    @GameTest(template = PLATFORM)
+    public static void hopRangesAndSpeedUpgrades(GameTestHelper helper) {
+        TardisRecord t = WreckTests.onPlatform(helper, Optional.empty());
+        double[] ranges = {1000, 10000, 50000, 100000};
+        for (int n = 1; n <= 3; n++) { // level 4 waits for a milestone (start_cap 3)
+            t.applyRepair(TardisRB.id("navigation_" + n), TardisContent.repair(TardisRB.id("navigation_" + n)).orElseThrow());
+            helper.assertTrue(Unlocks.stat(t, "range") == ranges[n - 1], "navigation " + n + " gives range "
+                    + Unlocks.stat(t, "range"));
+        }
+        helper.assertTrue(TardisContent.get().subsystems().get(NAVIGATION).value(4, "range") == 100000,
+                "navigation 4 isn't 100k");
+        ResourceLocation speed = TardisRB.id("flight_speed");
+        t.advanceResearch(speed);
+        t.advanceResearch(speed);
+        helper.assertTrue(t.researchLevel(speed) == 2, "flight speed is at level " + t.researchLevel(speed));
+        helper.assertTrue(Math.abs(Unlocks.stat(t, "flight_speed") - 0.5) < 1e-9,
+                "two flight speed levels give " + Unlocks.stat(t, "flight_speed"));
         helper.succeed();
     }
 }

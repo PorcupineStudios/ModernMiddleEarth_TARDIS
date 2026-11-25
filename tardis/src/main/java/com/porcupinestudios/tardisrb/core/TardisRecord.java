@@ -85,12 +85,21 @@ public final class TardisRecord {
             Codec.INT.optionalFieldOf("plot", -1).forGetter(r -> r.plot))
             .apply(i, TardisRecord::new));
 
-    public static final Codec<TardisRecord> CODEC = Codec.mapPair(BASE,
-            PlacedRoom.CODEC.listOf().optionalFieldOf("rooms", List.of()))
+    /** Fields beyond the first 16: rooms, and the level of each multi-level research node (absent = 1 if done). */
+    private record Extra(List<PlacedRoom> rooms, Map<ResourceLocation, Integer> researchLevels) {
+        static final MapCodec<Extra> CODEC = RecordCodecBuilder.mapCodec(i -> i.group(
+                PlacedRoom.CODEC.listOf().optionalFieldOf("rooms", List.of()).forGetter(Extra::rooms),
+                Codec.unboundedMap(ResourceLocation.CODEC, Codec.INT).optionalFieldOf("research_levels", Map.of())
+                        .forGetter(Extra::researchLevels))
+                .apply(i, Extra::new));
+    }
+
+    public static final Codec<TardisRecord> CODEC = Codec.mapPair(BASE, Extra.CODEC)
             .xmap(p -> {
-                p.getFirst().rooms.addAll(p.getSecond());
+                p.getFirst().rooms.addAll(p.getSecond().rooms());
+                p.getFirst().researchLevels.putAll(p.getSecond().researchLevels());
                 return p.getFirst();
-            }, r -> Pair.of(r, List.copyOf(r.rooms)))
+            }, r -> Pair.of(r, new Extra(List.copyOf(r.rooms), Map.copyOf(r.researchLevels))))
             .codec();
 
     private final UUID id;
@@ -112,6 +121,8 @@ public final class TardisRecord {
     /** Its plot in the shared interior dimension; -1 until the interior is first built. */
     private int plot;
     private final List<PlacedRoom> rooms = new ArrayList<>();
+    /** Levels above 1 of multi-level research nodes (a node in {@link #research} without an entry is level 1). */
+    private final Map<ResourceLocation, Integer> researchLevels = new LinkedHashMap<>();
 
     /** Goes up on every change; caches compare it. Not saved. */
     private int revision;
@@ -360,7 +371,7 @@ public final class TardisRecord {
         }
     }
 
-    /** Finishes a node; clears the job if it was the one under way. */
+    /** Finishes a node's first level; clears the job if it was the one under way (old saves). */
     public void completeResearch(ResourceLocation node) {
         if (researching.map(j -> j.node().equals(node)).orElse(false)) {
             researching = Optional.empty();
@@ -370,6 +381,23 @@ public final class TardisRecord {
             changed();
             NeoForge.EVENT_BUS.post(new ResearchEvent.Post(this, node));
         }
+    }
+
+    /** How many levels of a research node are bought (0 = none). */
+    public int researchLevel(ResourceLocation node) {
+        return research.contains(node) ? researchLevels.getOrDefault(node, 1) : 0;
+    }
+
+    /** Buys the next level of a node (checked and paid by {@code Researching.start}). */
+    public void advanceResearch(ResourceLocation node) {
+        int level = researchLevel(node);
+        if (level == 0) {
+            completeResearch(node);
+            return;
+        }
+        researchLevels.put(node, level + 1);
+        changed();
+        NeoForge.EVENT_BUS.post(new ResearchEvent.Post(this, node));
     }
 
     public void setStage(ResourceLocation newStage) {

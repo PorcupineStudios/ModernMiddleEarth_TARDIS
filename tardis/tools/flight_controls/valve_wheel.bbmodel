@@ -18,7 +18,7 @@
  "elements": [
   {
    "name": "base_0",
-   "uuid": "fb13b4c3-8709-4f82-ab03-6107a0337ae1",
+   "uuid": "aca4bab9-cd29-422f-a240-09d3e912a9de",
    "type": "cube",
    "from": [
     -1,
@@ -95,7 +95,7 @@
   },
   {
    "name": "base_1",
-   "uuid": "d4eae703-9754-4da1-9545-6aa6a5afd89f",
+   "uuid": "c9bc8a4f-3aba-4411-a429-ba3fcd8a360f",
    "type": "cube",
    "from": [
     -0.4,
@@ -172,7 +172,7 @@
   },
   {
    "name": "wheel_0",
-   "uuid": "4f916be3-5031-45d4-ac2b-28d58bdec044",
+   "uuid": "cfe1f4a9-516d-499a-8b1c-2b18b5ad0fcc",
    "type": "cube",
    "from": [
     -3,
@@ -249,7 +249,7 @@
   },
   {
    "name": "wheel_1",
-   "uuid": "05da457a-24cb-47b2-9649-10bc84a3afb6",
+   "uuid": "1cdbeeed-9372-4f97-ad52-18e5c7675445",
    "type": "cube",
    "from": [
     -3,
@@ -326,7 +326,7 @@
   },
   {
    "name": "wheel_2",
-   "uuid": "c08f4fa4-fb71-4608-a4d8-665d3ae5fc3f",
+   "uuid": "f4f3e637-e32e-441a-ba95-c0640e8d9ccf",
    "type": "cube",
    "from": [
     -3,
@@ -403,7 +403,7 @@
   },
   {
    "name": "wheel_3",
-   "uuid": "b1e784dc-7091-464f-aea5-ed7491b5ae48",
+   "uuid": "0976d3db-eff1-44b6-b500-17a66e1559d3",
    "type": "cube",
    "from": [
     2.5,
@@ -480,7 +480,7 @@
   },
   {
    "name": "wheel_4",
-   "uuid": "70410443-c118-42cb-bb28-2422dd023005",
+   "uuid": "71e2af81-0141-4c12-ae10-8a1d7d28ca40",
    "type": "cube",
    "from": [
     -2.5,
@@ -557,7 +557,7 @@
   },
   {
    "name": "wheel_5",
-   "uuid": "fbbd7590-f103-476a-8256-8c83c3558d34",
+   "uuid": "b0aa33a9-a8bc-4c9e-8f6a-1a8f43ae64e9",
    "type": "cube",
    "from": [
     -0.25,
@@ -634,7 +634,7 @@
   },
   {
    "name": "wheel_6",
-   "uuid": "b78a53a9-8e16-4a25-b12c-d421d5f91ee7",
+   "uuid": "383a5ad0-a0ed-4563-935b-092f1fd5ffe1",
    "type": "cube",
    "from": [
     -0.7,
@@ -713,7 +713,7 @@
  "outliner": [
   {
    "name": "base",
-   "uuid": "0f76dd8f-ec16-4bf0-b9db-07ff457d6f15",
+   "uuid": "324c71e0-ed75-4819-aa9d-8fce648d58fd",
    "origin": [
     0,
     0,
@@ -725,15 +725,15 @@
     0
    ],
    "children": [
-    "fb13b4c3-8709-4f82-ab03-6107a0337ae1",
-    "d4eae703-9754-4da1-9545-6aa6a5afd89f"
+    "aca4bab9-cd29-422f-a240-09d3e912a9de",
+    "c9bc8a4f-3aba-4411-a429-ba3fcd8a360f"
    ],
    "export": true,
    "visibility": true
   },
   {
    "name": "wheel",
-   "uuid": "d7da0ad6-3c90-4d61-8e23-5994744ee627",
+   "uuid": "1c46cf8c-cc18-4d37-9c23-ccbbc6daa8ba",
    "origin": [
     0,
     2.4,
@@ -745,13 +745,13 @@
     0
    ],
    "children": [
-    "4f916be3-5031-45d4-ac2b-28d58bdec044",
-    "05da457a-24cb-47b2-9649-10bc84a3afb6",
-    "c08f4fa4-fb71-4608-a4d8-665d3ae5fc3f",
-    "b1e784dc-7091-464f-aea5-ed7491b5ae48",
-    "70410443-c118-42cb-bb28-2422dd023005",
-    "fbbd7590-f103-476a-8256-8c83c3558d34",
-    "b78a53a9-8e16-4a25-b12c-d421d5f91ee7"
+    "cfe1f4a9-516d-499a-8b1c-2b18b5ad0fcc",
+    "1cdbeeed-9372-4f97-ad52-18e5c7675445",
+    "f4f3e637-e32e-441a-ba95-c0640e8d9ccf",
+    "0976d3db-eff1-44b6-b500-17a66e1559d3",
+    "71e2af81-0141-4c12-ae10-8a1d7d28ca40",
+    "b0aa33a9-a8bc-4c9e-8f6a-1a8f43ae64e9",
+    "383a5ad0-a0ed-4563-935b-092f1fd5ffe1"
    ],
    "export": true,
    "visibility": true
@@ -769,20 +769,20 @@
    "visible": true,
    "mode": "bitmap",
    "saved": true,
-   "uuid": "ab4953b7-286e-47fc-b330-78480372dc0d",
+   "uuid": "2f398d9a-6db9-44bb-8513-5005a971b862",
    "relative_path": "../../src/main/resources/assets/tardis_rb/textures/entity/controls/controls.png",
-   "source": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAABW0lEQVR4nO3QMWtUQRTF8fOWtbFNJ4G0VgGtg6QLSZEmWKYwn8fCzj5+gRQSCMRAkk4LLQKW9japbO49c47FLuzcoEISsJo/PIaZgfld3nT9fttJg01IGp+//UST0QQ0GZsHb0EmSIIkzs8vIDVIgiTcfP0C27ABwHi29hSyl2fGu0bQRhpIG1ufjhFBRCYyE7MeZ1PBm1xwkgWXVHDbBZddcNoFjyBmPZ6s+GKAFd7Igkut4L6DWxVPu+Dx9z+w/JoLzsaCS/on7iXKfu3wTGJ+fXkLyWheoLsb66CWQ8nYP3yNiEBEIDNx9PIUSSHSyBR+vPiOjABzcX/y/AP6ds4+lv2bXzurzRNg3uNNLjilgkcEpg4PquCMwH2b93i7g7O54BGBqcdTBWc+ZIAOl1zwlAoeEZh1+GJd4fmAASbvvXI5OL2a7v3KI5r9T2wMMBqNRqPRaDQa/anfcENNcGO7wq8AAAAASUVORK5CYII="
+   "source": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAABe0lEQVR4nO3Qr4tVURTF8fUeL1k1iWI1CZoFh2kWixgF9Q/xLzDYjAP+EYNhVHSaChoGjBaTxWbYe+21DO8Onj0zGgbj+cLlXM798dn3rg5f7DhpsISk8eHLD5SMElAybtx/BjJBEiRxcPAGUkESJOHo80fYhg0AxuWLFyB72TOeF0EbaSBt3H79EhFEZCIzsR5xlhpecsNJNlxSw203XHbDaTc8gliPeLLj2wH+4EU2XKqG+wRudTzthsff/8BylBvOYsMl/RP3gnJcBzyT2By++wnJKG/Ru9eugFqGknHv4QNEBCICmYknt/aRFCKNTOHbza/ICDC316/++o5cvjIzsftpFygABFDAo+tHGNuMeMkNp9TwiMBqwINqOJf7jg+SDUfhVJsRrxM4yw2PCKxGPNXw4/NjPDM7fuYAAy654Sk1PCKwHvDtOuLR8Mzs+BkDrPxqx+PG40tv2w17T+/0B/bfr06/5vyt/+fL5gCz2Ww2m81ms9l5+g0yRos6+kQH/QAAAABJRU5ErkJggg=="
   }
  ],
  "animations": [
   {
-   "uuid": "fd9d1a70-1b85-4401-8e55-c5b4efe0d131",
+   "uuid": "bd6f755c-0057-4955-aef4-0209c01098d7",
    "name": "steps",
    "loop": "once",
    "length": 0.4,
    "snapping": 20,
    "animators": {
-    "d7da0ad6-3c90-4d61-8e23-5994744ee627": {
+    "1c46cf8c-cc18-4d37-9c23-ccbbc6daa8ba": {
      "name": "wheel",
      "type": "bone",
      "keyframes": [
@@ -795,7 +795,7 @@
          "z": 0
         }
        ],
-       "uuid": "1ef74ea6-1df3-434a-8feb-16fa2a77beab",
+       "uuid": "cd02ce27-5579-484e-b7b9-5b017d275f3a",
        "time": 0,
        "interpolation": "linear"
       },
@@ -808,7 +808,7 @@
          "z": 0
         }
        ],
-       "uuid": "a6d41715-cf20-4cf0-a353-23180bc30752",
+       "uuid": "7c1ab067-1779-45c2-beb5-46fd86a85206",
        "time": 0.4,
        "interpolation": "linear"
       }

@@ -103,6 +103,21 @@ class RawOres:
         if os.path.isdir(own):
             for f in os.listdir(own):
                 os.remove(os.path.join(own, f))
+        for i in old:  # its files, so a metal that is gone (vanilla_swaps.py) leaves nothing behind
+            for rel in (f"assets/{NS}/models/item/{i}.json", f"assets/{NS}/models/block/{i}.json",
+                        f"assets/{NS}/blockstates/{i}.json", f"assets/{NS}/textures/item/{i}.png",
+                        f"assets/{NS}/textures/block/{i}.png", f"data/{NS}/loot_table/blocks/{i}.json",
+                        f"data/{NS}/recipe/create/crushing/{i}.json"):
+                if os.path.exists(os.path.join(self.out, rel)):
+                    os.remove(os.path.join(self.out, rel))
+        folder = os.path.join(self.data, "minecraft", "tags", "block")
+        for tag in ("needs_stone_tool", "needs_iron_tool", "needs_diamond_tool", "mineable/pickaxe"):
+            path = os.path.join(folder, tag + ".json")
+            if os.path.exists(path):
+                t = self.load(path)
+                t["values"] = [v for v in t["values"] if (v["id"] if isinstance(v, dict) else v)
+                               not in {f"{NS}:{i}" for i in old}]
+                write_json(path, t)
 
     def run(self):
         self.clean()

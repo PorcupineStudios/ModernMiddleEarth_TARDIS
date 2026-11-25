@@ -56,6 +56,7 @@ public final class TardisRB {
         Health.register();
         Doors.register();
         WorkshopNet.register(modBus);
+        com.porcupinestudios.tardisrb.net.PilotNet.register(modBus);
         SkyNet.register(modBus);
         SpaceTravel.register();
         LOG.info("TARDIS: Ring Bearer loading");

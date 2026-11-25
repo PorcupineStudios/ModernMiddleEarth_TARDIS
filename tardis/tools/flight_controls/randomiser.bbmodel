@@ -18,7 +18,7 @@
  "elements": [
   {
    "name": "base_0",
-   "uuid": "015fdc42-fb1f-41f4-8db6-cdf7c7ee608b",
+   "uuid": "32eb6632-ab99-415b-840d-a75b529a163f",
    "type": "cube",
    "from": [
     -2,
@@ -95,7 +95,7 @@
   },
   {
    "name": "base_1",
-   "uuid": "23d12710-12c3-48df-b509-64c205529c5c",
+   "uuid": "fa4fb3c5-a8bb-4a86-8e51-871472aaa60b",
    "type": "cube",
    "from": [
     -0.4,
@@ -172,7 +172,7 @@
   },
   {
    "name": "die_0",
-   "uuid": "e4e9c73b-de16-4da4-b267-48aa861a018e",
+   "uuid": "ddb68911-4649-492c-9a10-515123c02b0c",
    "type": "cube",
    "from": [
     -1.25,
@@ -249,7 +249,7 @@
   },
   {
    "name": "die_1",
-   "uuid": "57146757-fbff-4397-ad24-4d8af3bbc07f",
+   "uuid": "049c28ab-9637-4db7-b9a1-e2bed9a33158",
    "type": "cube",
    "from": [
     -0.3,
@@ -266,58 +266,58 @@
     3.25,
     0
    ],
-   "color": 0,
+   "color": 2,
    "faces": {
     "north": {
      "uv": [
-      0.5,
       8.5,
-      3.5,
+      8.5,
+      11.5,
       11.5
      ],
      "texture": 0
     },
     "south": {
      "uv": [
-      0.5,
       8.5,
-      3.5,
+      8.5,
+      11.5,
       11.5
      ],
      "texture": 0
     },
     "west": {
      "uv": [
-      0.5,
       8.5,
-      3.5,
+      8.5,
+      11.5,
       11.5
      ],
      "texture": 0
     },
     "east": {
      "uv": [
-      0.5,
       8.5,
-      3.5,
+      8.5,
+      11.5,
       11.5
      ],
      "texture": 0
     },
     "up": {
      "uv": [
-      0.5,
       8.5,
-      3.5,
+      8.5,
+      11.5,
       11.5
      ],
      "texture": 0
     },
     "down": {
      "uv": [
-      0.5,
       8.5,
-      3.5,
+      8.5,
+      11.5,
       11.5
      ],
      "texture": 0
@@ -326,7 +326,7 @@
   },
   {
    "name": "die_2",
-   "uuid": "e579599b-21a5-44fe-9b03-a6fcc0e1678b",
+   "uuid": "75e149d3-0220-4a15-b739-4e987b4c6ab3",
    "type": "cube",
    "from": [
     -0.9,
@@ -403,7 +403,7 @@
   },
   {
    "name": "die_3",
-   "uuid": "2b134759-04dc-4ad6-9670-e6dd940f81b8",
+   "uuid": "158956d8-1c1a-497d-aa0f-5dc4e39a2fcd",
    "type": "cube",
    "from": [
     0.4,
@@ -480,7 +480,7 @@
   },
   {
    "name": "die_4",
-   "uuid": "f4a9d4ff-c621-43f1-b6d1-7410e3819795",
+   "uuid": "f4e974e2-15f8-4412-b060-cca66b32461a",
    "type": "cube",
    "from": [
     1.25,
@@ -557,7 +557,7 @@
   },
   {
    "name": "die_5",
-   "uuid": "9b349740-a47c-4186-9dca-151a93381a0b",
+   "uuid": "5af0b448-ed6a-4cfb-8498-e0983e4267d8",
    "type": "cube",
    "from": [
     1.25,
@@ -634,7 +634,7 @@
   },
   {
    "name": "die_6",
-   "uuid": "0d2e4265-a10f-46bd-9ce9-f4fb68164604",
+   "uuid": "8989919a-15d0-4452-ac07-4832612ee841",
    "type": "cube",
    "from": [
     1.25,
@@ -713,7 +713,7 @@
  "outliner": [
   {
    "name": "base",
-   "uuid": "ef682f93-b12d-492b-bd63-0a3d36836e0e",
+   "uuid": "59e4d955-33d8-4efa-b89a-47c8ce025537",
    "origin": [
     0,
     0,
@@ -725,15 +725,15 @@
     0
    ],
    "children": [
-    "015fdc42-fb1f-41f4-8db6-cdf7c7ee608b",
-    "23d12710-12c3-48df-b509-64c205529c5c"
+    "32eb6632-ab99-415b-840d-a75b529a163f",
+    "fa4fb3c5-a8bb-4a86-8e51-871472aaa60b"
    ],
    "export": true,
    "visibility": true
   },
   {
    "name": "die",
-   "uuid": "afe7e848-b80c-40f4-a976-51e1a03fb573",
+   "uuid": "ec640167-c758-410d-961c-484765bb9ad3",
    "origin": [
     0,
     3.25,
@@ -745,13 +745,13 @@
     0
    ],
    "children": [
-    "e4e9c73b-de16-4da4-b267-48aa861a018e",
-    "57146757-fbff-4397-ad24-4d8af3bbc07f",
-    "e579599b-21a5-44fe-9b03-a6fcc0e1678b",
-    "2b134759-04dc-4ad6-9670-e6dd940f81b8",
-    "f4a9d4ff-c621-43f1-b6d1-7410e3819795",
-    "9b349740-a47c-4186-9dca-151a93381a0b",
-    "0d2e4265-a10f-46bd-9ce9-f4fb68164604"
+    "ddb68911-4649-492c-9a10-515123c02b0c",
+    "049c28ab-9637-4db7-b9a1-e2bed9a33158",
+    "75e149d3-0220-4a15-b739-4e987b4c6ab3",
+    "158956d8-1c1a-497d-aa0f-5dc4e39a2fcd",
+    "f4e974e2-15f8-4412-b060-cca66b32461a",
+    "5af0b448-ed6a-4cfb-8498-e0983e4267d8",
+    "8989919a-15d0-4452-ac07-4832612ee841"
    ],
    "export": true,
    "visibility": true
@@ -769,20 +769,20 @@
    "visible": true,
    "mode": "bitmap",
    "saved": true,
-   "uuid": "8d9ca901-8552-4afa-918c-901e58ef88ce",
+   "uuid": "eb8f3631-c480-497b-bf36-1b01addb0bc1",
    "relative_path": "../../src/main/resources/assets/tardis_rb/textures/entity/controls/controls.png",
-   "source": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAABW0lEQVR4nO3QMWtUQRTF8fOWtbFNJ4G0VgGtg6QLSZEmWKYwn8fCzj5+gRQSCMRAkk4LLQKW9japbO49c47FLuzcoEISsJo/PIaZgfld3nT9fttJg01IGp+//UST0QQ0GZsHb0EmSIIkzs8vIDVIgiTcfP0C27ABwHi29hSyl2fGu0bQRhpIG1ufjhFBRCYyE7MeZ1PBm1xwkgWXVHDbBZddcNoFjyBmPZ6s+GKAFd7Igkut4L6DWxVPu+Dx9z+w/JoLzsaCS/on7iXKfu3wTGJ+fXkLyWheoLsb66CWQ8nYP3yNiEBEIDNx9PIUSSHSyBR+vPiOjABzcX/y/AP6ds4+lv2bXzurzRNg3uNNLjilgkcEpg4PquCMwH2b93i7g7O54BGBqcdTBWc+ZIAOl1zwlAoeEZh1+GJd4fmAASbvvXI5OL2a7v3KI5r9T2wMMBqNRqPRaDQa/anfcENNcGO7wq8AAAAASUVORK5CYII="
+   "source": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAABe0lEQVR4nO3Qr4tVURTF8fUeL1k1iWI1CZoFh2kWixgF9Q/xLzDYjAP+EYNhVHSaChoGjBaTxWbYe+21DO8Onj0zGgbj+cLlXM798dn3rg5f7DhpsISk8eHLD5SMElAybtx/BjJBEiRxcPAGUkESJOHo80fYhg0AxuWLFyB72TOeF0EbaSBt3H79EhFEZCIzsR5xlhpecsNJNlxSw203XHbDaTc8gliPeLLj2wH+4EU2XKqG+wRudTzthsff/8BylBvOYsMl/RP3gnJcBzyT2By++wnJKG/Ru9eugFqGknHv4QNEBCICmYknt/aRFCKNTOHbza/ICDC316/++o5cvjIzsftpFygABFDAo+tHGNuMeMkNp9TwiMBqwINqOJf7jg+SDUfhVJsRrxM4yw2PCKxGPNXw4/NjPDM7fuYAAy654Sk1PCKwHvDtOuLR8Mzs+BkDrPxqx+PG40tv2w17T+/0B/bfr06/5vyt/+fL5gCz2Ww2m81ms9l5+g0yRos6+kQH/QAAAABJRU5ErkJggg=="
   }
  ],
  "animations": [
   {
-   "uuid": "98ef2351-92fb-46d3-a2e4-bb7432b7df18",
+   "uuid": "a1a7483d-95d3-4b0b-b962-af61d73f0ece",
    "name": "spin",
    "loop": "once",
    "length": 0.7,
    "snapping": 20,
    "animators": {
-    "afe7e848-b80c-40f4-a976-51e1a03fb573": {
+    "ec640167-c758-410d-961c-484765bb9ad3": {
      "name": "die",
      "type": "bone",
      "keyframes": [
@@ -795,7 +795,7 @@
          "z": 0
         }
        ],
-       "uuid": "c69aee7b-fe7c-4cf5-ade2-422de50bf5d4",
+       "uuid": "bf32d953-5f4d-4ea3-a2ca-4b2e8688398a",
        "time": 0,
        "interpolation": "linear"
       },
@@ -808,7 +808,7 @@
          "z": 0.0
         }
        ],
-       "uuid": "bfd74349-4ea1-4ced-8902-82a4cacbbd7b",
+       "uuid": "cf5fca67-d9a2-4e35-b201-a30a37d311b5",
        "time": 0.7,
        "interpolation": "linear"
       }

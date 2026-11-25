@@ -2,6 +2,114 @@
   "replace": false,
   "values": [
     "lotr_port:diplomacy_table",
+    {
+      "id": "lotr_port:angmar_mechanical_crafter",
+      "required": false
+    },
+    {
+      "id": "lotr_port:blue_mountains_mechanical_crafter",
+      "required": false
+    },
+    {
+      "id": "lotr_port:bree_land_mechanical_crafter",
+      "required": false
+    },
+    {
+      "id": "lotr_port:dalish_mechanical_crafter",
+      "required": false
+    },
+    {
+      "id": "lotr_port:dol_amroth_mechanical_crafter",
+      "required": false
+    },
+    {
+      "id": "lotr_port:dol_guldur_mechanical_crafter",
+      "required": false
+    },
+    {
+      "id": "lotr_port:dorwinion_mechanical_crafter",
+      "required": false
+    },
+    {
+      "id": "lotr_port:dunlending_mechanical_crafter",
+      "required": false
+    },
+    {
+      "id": "lotr_port:dwarven_mechanical_crafter",
+      "required": false
+    },
+    {
+      "id": "lotr_port:galadhrim_mechanical_crafter",
+      "required": false
+    },
+    {
+      "id": "lotr_port:gondorian_mechanical_crafter",
+      "required": false
+    },
+    {
+      "id": "lotr_port:gulfen_mechanical_crafter",
+      "required": false
+    },
+    {
+      "id": "lotr_port:gundabad_mechanical_crafter",
+      "required": false
+    },
+    {
+      "id": "lotr_port:half_troll_mechanical_crafter",
+      "required": false
+    },
+    {
+      "id": "lotr_port:haradric_mechanical_crafter",
+      "required": false
+    },
+    {
+      "id": "lotr_port:hobbit_mechanical_crafter",
+      "required": false
+    },
+    {
+      "id": "lotr_port:lindon_mechanical_crafter",
+      "required": false
+    },
+    {
+      "id": "lotr_port:morgul_mechanical_crafter",
+      "required": false
+    },
+    {
+      "id": "lotr_port:morwaith_mechanical_crafter",
+      "required": false
+    },
+    {
+      "id": "lotr_port:ranger_mechanical_crafter",
+      "required": false
+    },
+    {
+      "id": "lotr_port:rh_nic_mechanical_crafter",
+      "required": false
+    },
+    {
+      "id": "lotr_port:rivendell_mechanical_crafter",
+      "required": false
+    },
+    {
+      "id": "lotr_port:rohirric_mechanical_crafter",
+      "required": false
+    },
+    {
+      "id": "lotr_port:taurethrim_mechanical_crafter",
+      "required": false
+    },
+    {
+      "id": "lotr_port:umbaric_mechanical_crafter",
+      "required": false
+    },
+    {
+      "id": "lotr_port:uruk_mechanical_crafter",
+      "required": false
+    },
+    {
+      "id": "lotr_port:wood_elven_mechanical_crafter",
+      "required": false
+    },
     "lotr_port:acacia_door",
     "lotr_port:acacia_fence_gate",
     "lotr_port:acacia_trapdoor",

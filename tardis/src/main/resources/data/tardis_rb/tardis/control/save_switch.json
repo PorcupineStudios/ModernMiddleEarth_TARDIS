@@ -1,15 +1,14 @@
 {
   "model": "push_switch",
   "panel": 4,
-  "u": 0.19,
-  "v": 0.475,
-  "scale": 0.8,
+  "u": -0.0454,
+  "v": 0.4536,
+  "scale": 0.68,
   "actions": {
     "rod": "save"
   },
   "requirements": {
-    "type": "tardis_rb:subsystem_level",
-    "subsystem": "tardis_rb:navigation",
-    "min": 1
+    "type": "tardis_rb:research",
+    "research": "tardis_rb:dematerialised_flight"
   }
 }

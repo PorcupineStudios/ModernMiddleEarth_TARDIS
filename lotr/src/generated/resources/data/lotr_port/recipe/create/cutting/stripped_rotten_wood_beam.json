@@ -1,0 +1,21 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "create"
+    }
+  ],
+  "type": "create:cutting",
+  "ingredients": [
+    {
+      "item": "lotr_port:stripped_rotten_wood_beam"
+    }
+  ],
+  "processing_time": 50,
+  "results": [
+    {
+      "id": "lotr_port:rotten_planks",
+      "count": 6
+    }
+  ]
+}

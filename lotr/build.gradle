@@ -20,6 +20,28 @@ repositories {
     }
 }
 
+// Create (optional): compat/create (a mechanical crafter per faction) compiles against it. Dev runs and the GameTest
+// server load it only with -PwithCreate (the CI test server runs without Create, as players without it would). Its
+// Registrate, Flywheel and Ponder are jar-in-jar, unpacked for the compiler as in tardis/build.gradle.
+def createJar = configurations.detachedConfiguration(dependencies.create("maven.modrinth:create:${create_version}"))
+createJar.transitive = false
+def unpackCreateLibs = tasks.register('unpackCreateLibs', Copy) {
+    from({ zipTree(createJar.singleFile).matching { include 'META-INF/jarjar/*.jar' } })
+    into layout.buildDirectory.dir('create-libs')
+    eachFile { path = name }
+    includeEmptyDirs = false
+}
+dependencies {
+    compileOnly "maven.modrinth:create:${create_version}"
+    if (project.hasProperty('withCreate')) {
+        runtimeOnly "maven.modrinth:create:${create_version}"
+    }
+    compileOnly fileTree(layout.buildDirectory.dir('create-libs')) {
+        include '*.jar'
+        builtBy unpackCreateLibs
+    }
+}
+
 // Jade (optional): compat/jade shows what a set-down drink holds. Compile only.
 dependencies {
     compileOnly "maven.modrinth:jade:${jade_version}"

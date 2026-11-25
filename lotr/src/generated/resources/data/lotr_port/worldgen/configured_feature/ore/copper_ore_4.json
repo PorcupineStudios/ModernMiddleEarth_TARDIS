@@ -8,7 +8,7 @@
           "tag": "minecraft:stone_ore_replaceables"
         },
         "state": {
-          "Name": "lotr_port:copper_ore"
+          "Name": "minecraft:copper_ore"
         }
       },
       {
@@ -17,7 +17,7 @@
           "tag": "minecraft:deepslate_ore_replaceables"
         },
         "state": {
-          "Name": "lotr_port:copper_ore"
+          "Name": "minecraft:deepslate_copper_ore"
         }
       }
     ],
