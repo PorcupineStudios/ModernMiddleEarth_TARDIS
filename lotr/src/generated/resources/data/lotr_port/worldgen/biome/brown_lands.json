@@ -92,10 +92,12 @@
       "lotr_port:trees/brown_lands",
       "lotr_port:plant/reeds_0_9",
       "lotr_port:plant/dried_reeds_0_1",
-      "minecraft:patch_grass_plain",
+      "lotr_port:plant_grass/short_grass_c1",
+      "lotr_port:plant_grass/minecraft_short_grass_r2",
       "minecraft:glow_lichen"
     ],
     [
+      "lotr_port:road_verge",
       "minecraft:freeze_top_layer"
     ]
   ]

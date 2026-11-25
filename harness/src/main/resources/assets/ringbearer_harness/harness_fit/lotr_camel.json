@@ -1,0 +1,28 @@
+{
+  "entities": ["lotr_port:camel"],
+  "rope_anchor": [0.465, 1.133, -0.297],
+  "rope_color": "#5b3f26",
+  "body": [0.8, 1.0, 1.6, -0.8, 0.6],
+  "collar": [1.5, 0.75, 0.35, 0.4, 0.2],
+  "pieces": [
+    {"part": "body", "material": "leather", "box": [-5.8, -6.3, 0.5, 5.8, -5.4, 2.5]},
+    {"part": "body", "material": "leather", "box": [-5.8, 5.4, 0.5, 5.8, 6.3, 2.5]},
+    {"part": "body", "material": "leather", "box": [-5.8, -5.4, 0.5, -4.9, 5.4, 2.5]},
+    {"part": "body", "material": "leather", "box": [4.9, -5.4, 0.5, 5.8, 5.4, 2.5]},
+    {"part": "body", "material": "leather", "box": [-5.8, -6.3, 10.0, 5.8, -5.4, 11.5]},
+    {"part": "body", "material": "leather", "box": [-5.8, -5.4, 10.0, -4.9, -4.5, 11.5]},
+    {"part": "body", "material": "leather", "box": [4.9, -5.4, 10.0, 5.8, -4.5, 11.5]},
+    {"part": "body", "material": "leather", "box": [-5.5, -1.1, 2.5, -4.9, 0.1, 10.0]},
+    {"part": "body", "material": "brass", "box": [-6.4, -1.4, 2.9, -5.5, 0.4, 4.7]},
+    {"part": "body", "material": "leather", "box": [4.9, -1.1, 2.5, 5.5, 0.1, 10.0]},
+    {"part": "body", "material": "brass", "box": [5.5, -1.4, 2.9, 6.4, 0.4, 4.7]},
+    {"part": "body", "material": "leather", "box": [-1.0, -6.0, 1.5, 1.0, -5.4, 10.75]},
+    {"part": "body", "material": "leather", "box": [-2.48, -6.4, -3.0, 2.48, -5.4, 0.5]},
+    {"part": "head", "material": "pad", "box": [-4.3, 1.5, -6.8, -2.9, 4.0, 1.8]},
+    {"part": "head", "material": "pad", "box": [2.9, 1.5, -6.8, 4.3, 4.0, 1.8]},
+    {"part": "head", "material": "pad", "box": [-4.3, 1.5, -6.8, 4.3, 4.0, -5.4]},
+    {"part": "head", "material": "pad", "box": [-4.3, 1.5, 0.4, 4.3, 4.0, 1.8]},
+    {"part": "head", "material": "brass", "box": [-4.8, 2.1, -4.24, -4.3, 3.4, -0.76]},
+    {"part": "head", "material": "brass", "box": [4.3, 2.1, -4.24, 4.8, 3.4, -0.76]}
+  ]
+}

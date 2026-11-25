@@ -39,6 +39,21 @@ GitHub billing); costs (slice 5) and space (slice 6) next.
 - Not yet: the stand-in at the console, camera distance, charge drain, carrying the pilot through the space ceiling.
 - Test: `FreeFlightTests.theFlightYokeSeatsThePilotAndShiftPutsThemBack` (refusals, seated and invisible, put back).
 
+## Energy, HUD, set-down camera, speed upgrades (2026-11-19, Aaron)
+- Flying costs charge: `Piloting.flying` (every 10 ticks per pilot) takes `flight.energy.per_second` each second
+  while the box flies on its thrusters (not in the vortex), plus `boost_per_second` when it went faster than
+  `boost_over` x its top speed (boosting, told from the distance flown). Out of charge it still flies:
+  `empty_speed` x speed, no boost, and with `drift_chance` per tick a `drift_push` shove a random way
+  (`TardisBody.physics`, on the pilot's client).
+- `net/PilotNet.Status` (every 10 ticks) sends the pilot health, charge, charge cap and speed bonuses into
+  `flight/PilotStatus`; `client/PilotHud` draws a health and an energy bar bottom left.
+- Set-down key (G, `key.tardis_rb.fly_settle`, `PilotNet.Settle` -> `Piloting.settle`): while flying, the box phases
+  into a block and the pilot sits on as a camera (`entity/PilotCamera`, an invisible seat `camera_height` over it: look,
+  no moving); G again phases it loose and puts them back in the box. Shift as the camera stops piloting.
+- Upgrades `flight_speed` (after materialised flight) and `vortex_speed` (after dematerialised flight), 3 levels of
+  +0.25 each: speed x (1 + stat).
+- Hop range by navigation level: 0, 1000, 10000, 50000, 100000.
+
 ## What Aaron asked for
 - 2026-11-03: besides jumps (dematerialise here, appear there), the TARDIS takes off and flies as a real object through
   the sky and through space. While flying, the pilot sees it from a third-person camera, spinning as it flies.

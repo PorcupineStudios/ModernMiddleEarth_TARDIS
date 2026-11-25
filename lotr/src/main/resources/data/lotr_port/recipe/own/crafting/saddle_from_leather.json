@@ -1,0 +1,7 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": ["LLL", "I I"],
+  "key": {"L": {"tag": "c:leathers"}, "I": {"tag": "c:ingots/iron"}},
+  "result": {"id": "minecraft:saddle"}
+}

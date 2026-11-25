@@ -1,0 +1,8 @@
+{
+  "variants": {
+    "facing=east": {"model": "ringbearer_harness:block/wagon_wheel_axle"},
+    "facing=south": {"model": "ringbearer_harness:block/wagon_wheel_axle", "y": 90},
+    "facing=west": {"model": "ringbearer_harness:block/wagon_wheel_axle", "y": 180},
+    "facing=north": {"model": "ringbearer_harness:block/wagon_wheel_axle", "y": 270}
+  }
+}

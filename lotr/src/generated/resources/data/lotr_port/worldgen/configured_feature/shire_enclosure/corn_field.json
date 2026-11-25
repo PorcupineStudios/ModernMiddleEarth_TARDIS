@@ -46,7 +46,11 @@
           "moisture": "7"
         }
       },
-      "water_every": 0
+      "water_every": 0,
+      "row_spacing": 2,
+      "furrow": {
+        "Name": "minecraft:dirt_path"
+      }
     }
   }
 }

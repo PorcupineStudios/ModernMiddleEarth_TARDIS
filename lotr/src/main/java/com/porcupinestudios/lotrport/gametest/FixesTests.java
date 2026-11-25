@@ -1,0 +1,123 @@
+package com.porcupinestudios.lotrport.gametest;
+
+import com.porcupinestudios.lotrport.LotrPort;
+import com.porcupinestudios.lotrport.travel.Companions;
+import java.util.List;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.gametest.framework.GameTest;
+import net.minecraft.gametest.framework.GameTestHelper;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.animal.Wolf;
+import net.minecraft.world.entity.animal.Pig;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.CraftingInput;
+import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.item.enchantment.Enchantments;
+import net.minecraft.world.level.block.Block;
+import net.neoforged.neoforge.gametest.GameTestHolder;
+import net.neoforged.neoforge.gametest.PrefixGameTestTemplate;
+
+/**
+ * 2026-11-19 fixes: fruit trees drop fruit and saplings (converter/leaf_drops.py), LOTR modifiers don't glint
+ * (ModifierGlintMixin), saddles from leather, small pouches from leather and string, bigger ones by combining, companions teleport with the player
+ * (travel/Companions).
+ */
+@GameTestHolder(LotrPort.MOD_ID)
+@PrefixGameTestTemplate(false)
+public final class FixesTests {
+    private FixesTests() {}
+
+    private static Item item(String id) {
+        return BuiltInRegistries.ITEM.get(LotrPort.id(id));
+    }
+
+    @GameTest(template = "empty")
+    public static void fruitLeavesDropFruitAndSaplings(GameTestHelper helper) {
+        Block leaves = BuiltInRegistries.BLOCK.get(LotrPort.id("pear_leaves"));
+        ItemStack tool = new ItemStack(Items.DIAMOND_SWORD);
+        tool.enchant(helper.getLevel().registryAccess().registryOrThrow(Registries.ENCHANTMENT)
+                .getHolderOrThrow(Enchantments.FORTUNE), 3);
+        BlockPos pos = helper.absolutePos(new BlockPos(1, 2, 1));
+        boolean pear = false;
+        boolean sapling = false;
+        for (int n = 0; n < 400 && !(pear && sapling); n++) {
+            for (ItemStack s : Block.getDrops(leaves.defaultBlockState(), helper.getLevel(), pos, null, null, tool)) {
+                pear |= s.is(item("pear"));
+                sapling |= s.is(item("pear_sapling"));
+            }
+        }
+        helper.assertTrue(pear, "pear leaves dropped no pears in 400 breaks with fortune III");
+        helper.assertTrue(sapling, "pear leaves dropped no saplings in 400 breaks");
+        List<ItemStack> sheared = Block.getDrops(leaves.defaultBlockState(), helper.getLevel(), pos, null, null,
+                new ItemStack(Items.SHEARS));
+        helper.assertTrue(sheared.size() == 1 && sheared.get(0).is(leaves.asItem()), "shears don't give the leaves");
+        helper.succeed();
+    }
+
+    @GameTest(template = "empty")
+    public static void modifiersDontGlint(GameTestHelper helper) {
+        var reg = helper.getLevel().registryAccess().registryOrThrow(Registries.ENCHANTMENT);
+        ItemStack sword = new ItemStack(Items.IRON_SWORD);
+        sword.enchant(reg.getHolderOrThrow(ResourceKey.create(Registries.ENCHANTMENT, LotrPort.id("bane_orc"))), 1);
+        helper.assertFalse(sword.hasFoil(), "a LOTR modifier makes the sword glint");
+        sword.enchant(reg.getHolderOrThrow(Enchantments.SHARPNESS), 1);
+        helper.assertTrue(sword.hasFoil(), "a vanilla enchantment no longer glints");
+        helper.succeed();
+    }
+
+    private static ItemStack craft(GameTestHelper helper, int w, int h, ItemStack... grid) {
+        var level = helper.getLevel();
+        CraftingInput input = CraftingInput.of(w, h, List.of(grid));
+        return level.getRecipeManager().getRecipeFor(RecipeType.CRAFTING, input, level)
+                .map(r -> r.value().assemble(input, level.registryAccess())).orElse(ItemStack.EMPTY);
+    }
+
+    @GameTest(template = "empty")
+    public static void saddleAndPouchRecipes(GameTestHelper helper) {
+        ItemStack l = new ItemStack(Items.LEATHER);
+        ItemStack i = new ItemStack(Items.IRON_INGOT);
+        ItemStack s = new ItemStack(Items.STRING);
+        ItemStack e = ItemStack.EMPTY;
+        helper.assertTrue(craft(helper, 3, 2, l, l, l, i, e, i).is(Items.SADDLE), "3 leather + 2 iron isn't a saddle");
+        helper.assertTrue(craft(helper, 3, 2, l, s, l, e, l, e).is(item("small_pouch")), "no small pouch");
+        helper.assertTrue(craft(helper, 3, 3, l, s, l, l, e, l, l, l, l).isEmpty(), "medium pouches are craftable");
+        // bigger pouches come from combining, contents kept
+        ItemStack a = new ItemStack(item("small_pouch"));
+        com.porcupinestudios.lotrport.content.pouch.PouchItem.store(a, List.of(new ItemStack(Items.DIAMOND, 3)));
+        ItemStack b = new ItemStack(item("small_pouch"));
+        com.porcupinestudios.lotrport.content.pouch.PouchItem.store(b, List.of(new ItemStack(Items.EMERALD, 5)));
+        ItemStack medium = craft(helper, 2, 1, a, b);
+        helper.assertTrue(medium.is(item("medium_pouch")), "two small pouches don't make a medium one");
+        var held = com.porcupinestudios.lotrport.content.pouch.PouchItem.contents(medium);
+        helper.assertTrue(held.stream().anyMatch(x -> x.is(Items.DIAMOND) && x.getCount() == 3)
+                && held.stream().anyMatch(x -> x.is(Items.EMERALD) && x.getCount() == 5), "the pouches' items were lost");
+        helper.assertTrue(craft(helper, 2, 1, new ItemStack(item("small_pouch")), medium).is(item("large_pouch")),
+                "small + medium isn't a large pouch");
+        helper.succeed();
+    }
+
+    @GameTest(template = "empty")
+    public static void companionsTeleportWithThePlayer(GameTestHelper helper) {
+        ThrownTests.inLoadedArea(helper, 10, 10, () -> {
+            ServerPlayer player = helper.makeMockServerPlayerInLevel();
+            player.setPos(helper.absoluteVec(new net.minecraft.world.phys.Vec3(2, 2, 2)));
+            Wolf wolf = helper.spawn(EntityType.WOLF, new BlockPos(3, 2, 3));
+            wolf.tame(player);
+            Pig pig = helper.spawn(EntityType.PIG, new BlockPos(4, 2, 4));
+            pig.setLeashedTo(player, true);
+            Pig stranger = helper.spawn(EntityType.PIG, new BlockPos(5, 2, 5));
+            var target = helper.absolutePos(new BlockPos(8, 2, 8));
+            Companions.teleport(player, target.getX() + 0.5, target.getY(), target.getZ() + 0.5);
+            helper.assertTrue(wolf.distanceToSqr(player) < 16, "the tamed wolf stayed behind");
+            helper.assertTrue(pig.distanceToSqr(player) < 16, "the leashed pig stayed behind");
+            helper.assertTrue(stranger.distanceToSqr(player) > 16, "a stranger's pig came along");
+            helper.succeed();
+        });
+    }
+}

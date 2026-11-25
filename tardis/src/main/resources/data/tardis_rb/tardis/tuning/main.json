@@ -224,6 +224,16 @@
       "bounce": 0.45,
       "wobble": 20,
       "arcs": 7
+    },
+    "energy": {
+      "_comment": "Flying costs charge: per second while piloted on the thrusters, plus boost_per_second while boosting (faster than boost_over x top speed). Out of charge: empty_speed x speed, no boost, and a drift_push (blocks per tick) a random way with drift_chance per tick. camera_height: the pilot's camera over the set-down block.",
+      "per_second": 1,
+      "boost_per_second": 4,
+      "boost_over": 1.1,
+      "empty_speed": 0.35,
+      "drift_chance": 0.02,
+      "drift_push": 0.25,
+      "camera_height": 2.6
     }
   },
   "vortex": {
@@ -273,5 +283,11 @@
         "max_pitch": 90
       }
     }
+  },
+  "alternator": {
+    "_comment": "The Artron Alternator, the Create gear rig set over the police box: charge per second = |RPM| x charge_per_rpm_second into the TARDIS whose box stands at most reach blocks under it; stress impact per RPM.",
+    "charge_per_rpm_second": 0.2,
+    "stress": 8.0,
+    "reach": 3
   }
 }

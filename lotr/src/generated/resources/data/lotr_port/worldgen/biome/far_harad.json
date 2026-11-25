@@ -118,13 +118,28 @@
       "lotr_port:trees/far_harad",
       "lotr_port:plant/reeds_0_9",
       "lotr_port:plant/dried_reeds_0_1",
-      "minecraft:flower_default",
-      "minecraft:patch_grass_plain",
-      "minecraft:patch_tall_grass",
+      "lotr_port:plant_grass/clover_c1",
+      "lotr_port:plant_grass/flax_plant_r12",
+      "lotr_port:plant_grass/flowery_grass_c1",
+      "lotr_port:plant_grass/nettles_r8",
+      "lotr_port:plant_grass/short_grass_c6",
+      "lotr_port:plant_grass/thistle_r80",
+      "lotr_port:plant_grass/wheatgrass_c1",
+      "lotr_port:plant_grass/minecraft_short_grass_c1",
+      "lotr_port:plant_double_grass/minecraft_tall_grass_c1",
+      "lotr_port:plant_flowers/harad_daisy_r40",
+      "lotr_port:plant_flowers/red_sand_gem_r16",
+      "lotr_port:plant_flowers/southbells_r10",
+      "lotr_port:plant_flowers/yellow_sand_gem_r6",
+      "lotr_port:plant_double_flowers/flame_of_harad_r32",
+      "lotr_port:plant_double_flowers/hibiscus_r16",
+      "lotr_port:plant_double_flowers/minecraft_sunflower_r80",
       "minecraft:glow_lichen"
     ],
     [
+      "lotr_port:road_verge",
       "minecraft:freeze_top_layer"
     ]
-  ]
+  ],
+  "creature_spawn_probability": 0.06522
 }

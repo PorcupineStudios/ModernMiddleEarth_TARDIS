@@ -52,7 +52,13 @@ import qouteall.q_misc_util.my_util.Mesh2D;
  * aim in that dimension ({@link #exit}), ending the trip. Numbers: tuning {@code vortex.wormholes}.
  */
 public final class Wormholes {
-    public static final String PORTAL_TAG = "tardis_rb:wormhole";
+    /**
+     * The tag on portals a flying TARDIS may go through (Aaron 2026-11-19): the tunnel's end and see-through
+     * wormholes. Only the box's own crossing check ({@code Vortex.crossed}) moves it through them (Immersive Portals
+     * itself teleports nothing through them), so other portals, like the box's own door portals, never catch it.
+     */
+    public static final String PASSABLE_TAG = "tardis_rb:tardis_passable";
+    public static final String PORTAL_TAG = PASSABLE_TAG;
 
     private Wormholes() {}
 
@@ -244,6 +250,35 @@ public final class Wormholes {
         return hole;
     }
 
+    /**
+     * The end of the tunnel (Aaron 2026-11-19: "at the end of the vortex you can see the large immersive portal"): a
+     * big round see-through portal across the tunnel at {@code centre}, facing back down it at the box, showing
+     * {@code level} from {@code view_height} over the ground at {@code aim}. Not teleporting (the trip ends by itself
+     * there). Returns its id, to remove with the trip, or null.
+     */
+    static java.util.UUID endPortal(ServerLevel vortex, Vec3 centre, double size, ServerLevel level, BlockPos aim) {
+        // kept loaded for the whole trip, so it is seen down the tunnel from as far as the view reaches
+        vortex.setChunkForced(BlockPos.containing(centre).getX() >> 4, BlockPos.containing(centre).getZ() >> 4, true);
+        Portal portal = Portal.ENTITY_TYPE.create(vortex);
+        if (portal == null || level == null) {
+            return null;
+        }
+        BlockPos ground = Vortex.ground(level, aim);
+        portal.setOriginPos(centre);
+        portal.setOrientationAndSize(new Vec3(-1, 0, 0), new Vec3(0, 1, 0), size, size);
+        portal.setPortalShape(new SpecialFlatPortalShape(circle(48)));
+        PortalAPI.setPortalTransformation(portal, level.dimension(),
+                Vec3.atBottomCenterOf(ground).add(0, END_VIEW_HEIGHT, 0), DQuaternion.identity, 1.0);
+        portal.setTeleportable(false);
+        portal.portalTag = PORTAL_TAG;
+        portal.disableDefaultAnimation();
+        PortalAPI.spawnServerEntity(portal);
+        return portal.getUUID();
+    }
+
+    /** How high over the landing spot the end of the tunnel looks out from (blocks). */
+    private static final double END_VIEW_HEIGHT = 8;
+
     /** A round portal: a fan of triangles in the portal's own -1..1 square. */
     private static Mesh2D circle(int n) {
         Mesh2D mesh = new Mesh2D();
@@ -331,8 +366,7 @@ public final class Wormholes {
             p.sendSystemMessage(Component.translatableWithFallback("tardis_rb.vortex.wormhole",
                     "The TARDIS is dragged into a wormhole!"));
         }
-        body.setThrusters(false);
-        body.setCrashing(true); // controls dead: it falls and keeps going, tumbling and crackling
+        body.setPulled(true); // controls held while it is drawn through; not a crash (Aaron 2026-11-20)
         body.shock(body.position().subtract(h.getDouble("x"), h.getDouble("y"), h.getDouble("z")), 1);
         body.level().playSound(null, body.blockPosition(), SoundEvents.PORTAL_TRIGGER, SoundSource.NEUTRAL, 2, 0.6F);
     }
@@ -368,20 +402,29 @@ public final class Wormholes {
             Vec3 n = facing(h);
             Vec3 middle = new Vec3(h.getDouble("x"), h.getDouble("y"), h.getDouble("z"));
             Vec3 into = middle.subtract(n.scale(1.5)); // just behind the face, so a turned one draws it through
-            b.setDeltaMovement(v.x * 0.85 + (into.x - c.x) * 0.08, v.y * 0.85 + (into.y - c.y) * 0.08, v.z);
+            b.setDeltaMovement(v.x * 0.85 + (into.x - c.x) * 0.08, v.y * 0.85 + (into.y - c.y) * 0.08,
+                    Math.max(0.25, v.z));
             b.setYRot(b.getYRot() + 6);
             return c.subtract(middle).dot(n) <= -0.5; // its back is through the face
         }).orElse(true);
         if (through || ticks >= tuning().suckTicks()) {
-            exit(server, tardis);
+            Optional<ServerPlayer> pilot = body.map(b -> b.getFirstPassenger() instanceof ServerPlayer p ? p : null);
+            ServerLevel level = exitLevel(server, trip, h);
+            if (pilot.isPresent() && body.isPresent() && level != null) {
+                // flown in: out the far side still flying, seamlessly (Aaron 2026-11-19/20)
+                Vec3 at = Vec3.atBottomCenterOf(Vortex.ground(level, BlockPos.of(h.getLong("aim")))).add(0, 8, 0);
+                Vortex.emerge(server, tardis, body.get(), level, at, new Vec3(0, 0, 0.4), trip, true);
+            } else {
+                exit(server, tardis);
+            }
         }
     }
 
     /**
-     * Out the far side: the trip ends and the box comes out of a rift over the wormhole's aim in its dimension, still
-     * falling and going forward as it went in, thrusters off, its pilot still riding ({@code Vortex.dropInto}); it
-     * loses {@code exit_damage} health (never below 1) and lands with a crater of {@code exit_crater}. Says what
-     * happened.
+     * Out the far side (Aaron 2026-11-19: no crash landing through a wormhole, that is only for falling out of the
+     * vortex): the trip ends like an arrival (the pilot goes back to the console) and the TARDIS materialises near the
+     * wormhole's aim in its dimension, losing {@code exit_damage} health (never below 1). If it can't land there it
+     * goes back where it left. Says what happened.
      */
     public static Flight.Outcome exit(MinecraftServer server, TardisRecord tardis) {
         CompoundTag trip = tardis.moduleData(Vortex.MODULE);
@@ -389,21 +432,29 @@ public final class Wormholes {
             return Flight.Outcome.fail("tardis_rb.vortex.not_in", "The TARDIS isn't in a wormhole");
         }
         CompoundTag h = trip.getCompound("suck");
-        ResourceLocation id = ResourceLocation.tryParse(h.getString("dimension"));
-        ServerLevel level = id == null ? null : server.getLevel(ResourceKey.create(Registries.DIMENSION, id));
-        if (level == null) {
-            level = Optional.ofNullable(server.getLevel(Vortex.from(trip).dimension())).orElse(server.overworld());
-        }
-        Direction facing = FreeFlight.facing(server, tardis);
-        Optional<TardisBody> was = FreeFlight.body(server, tardis);
-        Optional<ServerPlayer> pilot = was.map(b -> b.getFirstPassenger() instanceof ServerPlayer p ? p : null);
-        Vec3 v = was.map(TardisBody::getDeltaMovement).orElse(new Vec3(0, -0.1, 0.4));
+        ServerLevel level = exitLevel(server, trip, h);
         Vortex.clearTrip(server, tardis, trip);
         Health.set(tardis, Math.max(Math.min(1, Health.get(tardis)), Health.get(tardis) - tuning().exitDamage()));
-        // along the tunnel (+z) in, so out of the rift the same way, as fast and falling as fast
-        Vortex.dropInto(server, tardis, level, BlockPos.of(h.getLong("aim")),
-                new Vec3(0, Math.min(-0.05, v.y), Math.max(0.3, v.z)), tuning().exitCrater(), facing, pilot);
-        return new Flight.Outcome(Optional.empty(), Optional.empty());
+        net.minecraft.core.GlobalPos from = Vortex.from(trip);
+        tardis.setLocation(Optional.of(from));
+        Flight.Outcome out = Flight.summon(server, tardis, level, Vortex.ground(level, BlockPos.of(h.getLong("aim"))));
+        if (!out.done()) {
+            ServerLevel back = server.getLevel(from.dimension());
+            if (back != null && !(back.getBlockState(from.pos()).getBlock()
+                    instanceof com.porcupinestudios.tardisrb.block.ExteriorBlock)) {
+                com.porcupinestudios.tardisrb.block.Exteriors.place(back, from.pos(),
+                        Direction.from2DDataValue(trip.getInt("from_facing")), tardis.id());
+            }
+        }
+        return out;
+    }
+
+    /** The dimension a wormhole lets out in (the one the trip left, if that one isn't loaded). */
+    private static ServerLevel exitLevel(MinecraftServer server, CompoundTag trip, CompoundTag h) {
+        ResourceLocation id = ResourceLocation.tryParse(h.getString("dimension"));
+        ServerLevel level = id == null ? null : server.getLevel(ResourceKey.create(Registries.DIMENSION, id));
+        return level != null ? level
+                : Optional.ofNullable(server.getLevel(Vortex.from(trip).dimension())).orElse(server.overworld());
     }
 
     /** Removes a wormhole and its portal. */

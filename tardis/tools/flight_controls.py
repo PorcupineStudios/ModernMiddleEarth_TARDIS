@@ -37,7 +37,7 @@ COLOURS = {
     "brass": (181, 140, 60), "brass_dark": (118, 86, 36), "steel": (152, 157, 163), "steel_dark": (78, 83, 90),
     "black": (32, 32, 35), "rubber": (54, 48, 42), "red": (184, 42, 36), "cream": (226, 214, 184),
     "wood": (112, 72, 40), "copper": (172, 96, 60), "white": (232, 232, 230), "gold": (222, 182, 72),
-    "glass": (176, 214, 232),
+    "glass": (176, 214, 232), "silver": (190, 190, 190), "knob_green": (0, 128, 0),
     # glowing: drawn again at full brightness when lit
     "glow_green": (96, 255, 140), "glow_amber": (255, 184, 64), "glow_blue": (96, 204, 255),
     "glow_red": (255, 74, 62),
@@ -405,6 +405,20 @@ def classic(cid, name, real, does):
        box((-0.35, 1.8, -0.35), (0.35, 4.2, 0.35), "steel"), box((-0.9, 4.2, -0.9), (0.9, 4.9, 0.9), "copper"))
  .part("lamp", (0, 0, 0), lamp(0.9, 0.9, "glow_green", s=0.5))
  .action("rod", "toggle", 4, {"rod": {"move_on": [0, -1.6, 0]}}, lit={"lamp": "on"}))
+
+# 20b. Pull switch: the 1.7.10 console's little pull-switches (Aaron 2026-11-19: "cute ... used for stuff like
+# coordinated vs uncoordinated flight, and ... allow landing in air vs snapping to ground"). After its
+# renderPushSwitch: a small cream socket (its screwdriver-holder base) with a thin light-grey rod (1 x 7) and a green
+# 2 x 2 knob, pulled out 0.3 of a block when on; drawn at about half size on the console. Our own model and colours.
+(classic("pull_switch", "Pull Switch",
+         "1.7.10: the small push/pull switches (ids 34, 53, 55, 56, 900, 904, 1030-1032): a thin rod with a knob, "
+         "pulled out of its socket when on.",
+         "On/off for a flight setting (coordinated flight, landing on the ground, relative coordinates).")
+ .part("base", (0, 0, 0), box((-1.5, 0, -1.5), (1.5, 1.2, 1.5), "cream"),
+       box((-0.7, 1.2, -0.7), (0.7, 1.3, 0.7), "black"))
+ .part("rod", (0, 1, 0),
+       box((-0.5, -1.2, -0.5), (0.5, 2.0, 0.5), "silver"), box((-1, 2.0, -1), (1, 3.0, 1), "knob_green"))
+ .action("rod", "toggle", 4, {"rod": {"move_on": [0, 4.8, 0]}}))
 
 # 21. Flight button: rises and glows when it has to be pressed in flight
 (classic("flight_button", "Flight Control Button",

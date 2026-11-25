@@ -106,12 +106,16 @@
     [
       "lotr_port:plant/reeds_0_9",
       "lotr_port:plant/dried_reeds_0_1",
-      "minecraft:flower_default",
-      "minecraft:patch_grass_plain",
+      "lotr_port:plant_grass/clover_r200",
+      "lotr_port:plant_grass/flowery_grass_r100",
+      "lotr_port:plant_grass/short_grass_r50",
+      "lotr_port:plant_grass/wheatgrass_r256",
+      "lotr_port:plant_grass/minecraft_short_grass_r100",
       "minecraft:glow_lichen",
       "minecraft:seagrass_river"
     ],
     [
+      "lotr_port:road_verge",
       "minecraft:freeze_top_layer"
     ]
   ]

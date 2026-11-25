@@ -1,17 +1,18 @@
 {
   "model": "time_drums",
   "panel": 2,
-  "u": -0.155,
-  "v": 0.52,
-  "scale": 0.72,
+  "u": -0.1475,
+  "v": 0.545,
+  "scale": 0.68,
   "actions": {
     "drum_1": "time0",
     "drum_2": "time1",
     "drum_3": "time2"
   },
   "requirements": {
-    "type": "tardis_rb:subsystem_level",
-    "subsystem": "tardis_rb:navigation",
-    "min": 1
+    "type": "ringbearer_api:not",
+    "condition": {
+      "type": "ringbearer_api:always"
+    }
   }
 }

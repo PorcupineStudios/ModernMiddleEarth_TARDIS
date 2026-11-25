@@ -1,15 +1,14 @@
 {
   "model": "fast_return",
   "panel": 2,
-  "u": 0.4065,
-  "v": 0.1875,
-  "scale": 0.72,
+  "u": 0.4067,
+  "v": 0.1788,
+  "scale": 0.8,
   "actions": {
     "button": "fast_return"
   },
   "requirements": {
-    "type": "tardis_rb:subsystem_level",
-    "subsystem": "tardis_rb:navigation",
-    "min": 1
+    "type": "tardis_rb:research",
+    "research": "tardis_rb:dematerialised_flight"
   }
 }

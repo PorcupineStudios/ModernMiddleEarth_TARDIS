@@ -18,6 +18,8 @@
     "warmth": -0.1,
     "brightness": -0.12,
     "vignette": 0.4,
-    "bloom": 0
+    "bloom": 0,
+    "grain": 0.3,
+    "blur": 0.1
   }
 }

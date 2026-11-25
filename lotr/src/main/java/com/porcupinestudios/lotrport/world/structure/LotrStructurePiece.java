@@ -30,6 +30,8 @@ import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemp
  * of the block above otherwise (stone under stone, cobble under cobble), as LOTR's generators filled downwards.
  */
 public final class LotrStructurePiece extends TemplateStructurePiece {
+    /** Foundation blocks under the ground layer that are dirt; deeper ones are stone. */
+    private static final int SOIL_DEPTH = 4;
     private final int ground;
     private final int maxFoundation;
 
@@ -98,7 +100,9 @@ public final class LotrStructurePiece extends TemplateStructurePiece {
                     if (!open(below)) {
                         break;
                     }
-                    level.setBlock(at, fill, 2);
+                    // ground scans don't see caves, so a cave mouth under the footprint can be deep: dirt for the
+                    // top blocks, stone below, all the way down (a building never hangs over a pit)
+                    level.setBlock(at, d > SOIL_DEPTH && fill.is(Blocks.DIRT) ? Blocks.STONE.defaultBlockState() : fill, 2);
                 }
             }
         }
@@ -122,7 +126,8 @@ public final class LotrStructurePiece extends TemplateStructurePiece {
         }
         level.setBlock(at.set(x, y, z), Blocks.GRASS_BLOCK.defaultBlockState(), 2);
         for (int d = 1; d < depth; d++) {
-            level.setBlock(at.set(x, y - d, z), Blocks.DIRT.defaultBlockState(), 2);
+            level.setBlock(at.set(x, y - d, z),
+                    (d > SOIL_DEPTH ? Blocks.STONE : Blocks.DIRT).defaultBlockState(), 2);
         }
         return true;
     }
