@@ -329,8 +329,8 @@ public final class GoblinTraps {
         while (p.getY() > bottom && level.getBlockState(p).getCollisionShape(level, p).isEmpty()) {
             p.move(Direction.DOWN);
         }
-        if (p.getY() <= bottom) {
-            return;
+        if (level.getBlockState(p).getCollisionShape(level, p).isEmpty()) {
+            return; // no floor within reach
         }
         RandomSource r = level.random;
         for (Ambush a : s.ambush()) {
